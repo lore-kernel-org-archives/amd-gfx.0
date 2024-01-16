@@ -4,63 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CB82C47077
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 20:01:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEE3AC47258
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 20:12:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1918810E0DD;
-	Tue, 16 Jan 2024 20:01:29 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D299510E0DD
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 20:01:27 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-40e779f030aso14332695e9.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 12:01:27 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 686D010E54A;
+	Tue, 16 Jan 2024 20:12:29 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 576E410E54A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 20:12:28 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-40e86a9fc4bso7314905e9.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 12:12:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1705435226; x=1706040026; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=QbI30yIvA3hwPkYHCBulroLTEcWOdeCwVYNm9AYd4+8=;
- b=iB5peKdxpaFjC6T3xV5yTCLfJHXZGnpCaIXcACain95pee39MG7wa28fzwlR+nR1qx
- 7i3JHXcjIO0sJcQ/0O0+6sewdGPBTN/Tg0B6RTSjDZvv+HEgG3TcjNHP+KvBzAcAhQnO
- FxUx0PaZSRQLA91I0RpzgBRJV3gTKlOQfArHOxbBXU8JAXXa0nzNaDt4LHDhshyD34WU
- A/TSkB+sDGU8PVqGR/2l6yV2oajAdvaYBGr4dBeF+OwJrJfzZ1SQGAf3PWR909gWKPnL
- g/L6fzDB9efHGtiNntBi+0FymO3Pqgxm/dmQOy53edWkN4QB0wXCkAeoNfzvr5dWyjxM
- yNwg==
+ d=froggi.es; s=google; t=1705435887; x=1706040687; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=UImNBof7XTi5Qd4STuKGkwbZ+eeo+gQenDgC0NINrRo=;
+ b=RbBuTb6R8ekQGlh8Cp+pJTP0hs4uwWKrPa4mHT4UwDHHnAZzwz2iOI0J1KLk9FTvQe
+ O9ww4P8pjopDbzflFskH+jHIEUuvzsklmbP429FgSc9HyQOj+aZH9lErJd8mijwQxjxO
+ ZF5EAZppYvL1/fUDcDujQJ+MaCGlhlbrH7kVhU3X2vw+T68Kg5SAszmRMjW9YcPlgFk3
+ AMFAUER27yHcH/8mtQS18Oiu5Y8vtKq4sgrKuyzdx8nTzLs82GbDJ3exnkqPnxHXbH8T
+ p96mYZ3tLDH4t8MWSwUOIpA1z78D6ZGRLJA3ABjaVA7hdA99RcmeYJI2sMURDkGJrFLK
+ dWdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705435226; x=1706040026;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20230601; t=1705435887; x=1706040687;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=QbI30yIvA3hwPkYHCBulroLTEcWOdeCwVYNm9AYd4+8=;
- b=Qch3yX68lS62JfPMc9FWu3md2mM4XIyc51EcS1wuGd/x+ihEfJxhEWbu7MkLgY58AK
- SCS97QKT1GwIzZkLpqsm9bgYV4qRiNBVuh8wwLFVjo/33B4oeqbhgBBzoQJBH2W29ZJ0
- 3omWRW9HUSCxf/WaO7gQnT/GAZLjIgKjgpYGW59o0wwRRPJW4ZGM7Nx+vMNMc2y2qVo6
- PSDo6FSy0AtRsrEhuvcre1FLhI1+AXGNCbYW331CYcdmRWWLbsJSTwLBQKp8f4osMxOS
- nrqpUPjWG7gcDc0W5WSbYmoUCSjs0yfTPli033Ow26mRP57Ey3ul5WGAtuXo3z3MJYT9
- vi6Q==
-X-Gm-Message-State: AOJu0YwAcCmoC0u8YrXwO9DgVnR7qHUPbYru7hfVOYmzPg4oWslwSTtG
- SQXAVeBE/G+GmOdYOkzFlCO/z8rQ/rT/Hw==
-X-Google-Smtp-Source: AGHT+IE7Vp1/CZ61/a3OXsG8hh0n6zC5M5AydT2bfzm7b1tzJLkmXiibvG2NqFOi1AZjMUWv9sbEjQ==
-X-Received: by 2002:a05:600c:3644:b0:40e:474f:94d8 with SMTP id
- y4-20020a05600c364400b0040e474f94d8mr3934409wmq.177.1705435226104; 
- Tue, 16 Jan 2024 12:00:26 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ bh=UImNBof7XTi5Qd4STuKGkwbZ+eeo+gQenDgC0NINrRo=;
+ b=ZyE/MlVlHvwLwuvJPJX6g/2ja7T+hLW02rWs8LjAop7/Qbax07ejnbqfPoMHctq+//
+ nm3oSD9yfcUOTyN++7h4zpVCD93sDXNCcC7bR28vFcNu6sbSeZC3wp8W4qp+V4psvW3s
+ s91DrYraCApiC2d79oJdCjuOhE3+AZ92vKDSMToop9TMh+CSknotfKvMGufG0Z8TLYQa
+ JxdXH9UXOpsEIieBtoHPuOkzqAIqJ98uLy/G4Is5FaPrKDh+4LaJ5ETdHPjU/nPOKHjF
+ J8D9/9njq+w17ICKgDfrkS0y1Z0camy/8TBktNuzmBvM7fFNr5vCjpGnCeHImEbbVGn6
+ smHg==
+X-Gm-Message-State: AOJu0YxrQ+rqER59cM83VXFEpMtjZ+aJbgwnbKjd0sWBYBI/9ApFx/3Y
+ vzLq7BKII+m7tEMmWxLIYhUhQ/J5JxhkkJ5JeZllNAl/XW8=
+X-Google-Smtp-Source: AGHT+IF/2kT4v+xoJcMUkFkF66A29pQU5XQcPughObkIn5B0QYVWdPNMMoBHZLfNJd9PyTg6OFNtvQ==
+X-Received: by 2002:a05:600c:420c:b0:40e:4d77:dbfb with SMTP id
+ x12-20020a05600c420c00b0040e4d77dbfbmr3795125wmh.83.1705435886653; 
+ Tue, 16 Jan 2024 12:11:26 -0800 (PST)
+Received: from [192.168.0.89]
+ (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
  by smtp.gmail.com with ESMTPSA id
- bi15-20020a05600c3d8f00b0040e83eac47fsm3333679wmb.5.2024.01.16.12.00.25
+ x18-20020adfffd2000000b003377680c55bsm15319886wrs.16.2024.01.16.12.11.25
+ for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jan 2024 12:00:25 -0800 (PST)
-Message-ID: <3b257f67-9e7a-4df4-91e0-4c70276cd9b8@gmail.com>
-Date: Tue, 16 Jan 2024 21:00:23 +0100
+ Tue, 16 Jan 2024 12:11:25 -0800 (PST)
+Message-ID: <40005162-b086-40ca-9531-eb6aa84b5017@froggi.es>
+Date: Tue, 16 Jan 2024 20:11:23 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Remove unnecessary NULL check
+Subject: Re: [PATCH 0/2] drm/atomic: Allow drivers to write their own plane
+ check for async
+To: amd-gfx@lists.freedesktop.org
+References: <20240116045159.1015510-1-andrealmeid@igalia.com>
+ <20240116114522.5b83d8b6@eldfell>
+ <a6099681-1ae9-48ef-99bc-d3c919007413@igalia.com>
+ <20240116151414.10b831e6@eldfell>
+ <47c6866a-34d6-48b1-a977-d21c48d991dc@igalia.com>
 Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240115225727.1287832-1-felix.kuehling@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240115225727.1287832-1-felix.kuehling@amd.com>
+From: Joshua Ashton <joshua@froggi.es>
+In-Reply-To: <47c6866a-34d6-48b1-a977-d21c48d991dc@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -74,35 +81,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.01.24 um 23:57 schrieb Felix Kuehling:
-> A static checker pointed out, that bo_va->base.bo was already derefenced
-> earlier in the same scope. Therefore this check is unnecessary here.
->
-> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-> Fixes: 79e7fdec71f2 ("drm/amdgpu: Auto-validate DMABuf imports in compute VMs")
-> Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 77d015ebb201..b7f07cc52b1b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1477,7 +1477,7 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
->   		/* Remember evicted DMABuf imports in compute VMs for later
->   		 * validation
->   		 */
-> -		if (vm->is_compute_context && bo_va->base.bo &&
-> +		if (vm->is_compute_context &&
->   		    bo_va->base.bo->tbo.base.import_attach &&
->   		    (!bo_va->base.bo->tbo.resource ||
->   		     bo_va->base.bo->tbo.resource->mem_type == TTM_PL_SYSTEM))
+On 1/16/24 13:35, André Almeida wrote:
+> + Joshua
+> 
+> Em 16/01/2024 10:14, Pekka Paalanen escreveu:
+>> On Tue, 16 Jan 2024 08:50:59 -0300
+>> André Almeida <andrealmeid@igalia.com> wrote:
+>>
+>>> Hi Pekka,
+>>>
+>>> Em 16/01/2024 06:45, Pekka Paalanen escreveu:
+>>>> On Tue, 16 Jan 2024 01:51:57 -0300
+>>>> André Almeida <andrealmeid@igalia.com> wrote:
+>>>>> Hi,
+>>>>>
+>>>>> AMD hardware can do more on the async flip path than just the 
+>>>>> primary plane, so
+>>>>> to lift up the current restrictions, this patchset allows drivers 
+>>>>> to write their
+>>>>> own check for planes for async flips.
+>>>>
+>>>> Hi,
+>>>>
+>>>> what's the userspace story for this, how could userspace know it 
+>>>> could do more?
+>>>> What kind of userspace would take advantage of this and in what 
+>>>> situations?
+>>>>
+>>>> Or is this not meant for generic userspace?
+>>>
+>>> Sorry, I forgot to document this. So the idea is that userspace will
+>>> query what they can do here with DRM_MODE_ATOMIC_TEST_ONLY calls,
+>>> instead of having capabilities for each prop.
+>>
+>> That's the theory, but do you have a practical example?
+>>
+>> What other planes and props would one want change in some specific use
+>> case?
+>>
+>> Is it just "all or nothing", or would there be room to choose and pick
+>> which props you change and which you don't based on what the driver
+>> supports? If the latter, then relying on TEST_ONLY might be yet another
+>> combinatorial explosion to iterate through.
+>>
+> 
+> That's a good question, maybe Simon, Xaver or Joshua can share how they 
+> were planning to use this on Gamescope or Kwin.
 
+Gamescope would just like to do async updates for overlay planes eg. the 
+perf overlay etc.
+
+That way we can avoid having to do sync commits when we have the perf 
+overlay up.
+
+It'd also be nice to do always do some form of async updates for VRR for 
+the overlay planes.
+
+- Joshie 🐸✨
+
+> 
+>>
+>> Thanks,
+>> pq
+>>
+>>>>> I'm not sure if adding something new to drm_plane_funcs is the 
+>>>>> right way to do,
+>>>>> because if we want to expand the other object types (crtc, 
+>>>>> connector) we would
+>>>>> need to add their own drm_XXX_funcs, so feedbacks are welcome!
+>>>>>
+>>>>>     André
+>>>>>
+>>>>> André Almeida (2):
+>>>>>     drm/atomic: Allow drivers to write their own plane check for async
+>>>>>       flips
+>>>>>     drm/amdgpu: Implement check_async_props for planes
+>>>>>
+>>>>>    .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 30 +++++++++
+>>>>>    drivers/gpu/drm/drm_atomic_uapi.c             | 62 
+>>>>> ++++++++++++++-----
+>>>>>    include/drm/drm_atomic_uapi.h                 | 12 ++++
+>>>>>    include/drm/drm_plane.h                       |  5 ++
+>>>>>    4 files changed, 92 insertions(+), 17 deletions(-)
+>>
