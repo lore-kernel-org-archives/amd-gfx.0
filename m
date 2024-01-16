@@ -4,91 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72CACC4706C
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 08:21:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B600FC4706C
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jan 2024 09:46:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3310110E44B;
-	Tue, 16 Jan 2024 08:21:35 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E63A510E446
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 08:21:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jPwkjBw2mjnvkxGEb1+9XrvxsTMAM0fQzA8Ythg8S3a/ykfNt1zNF6iT7S4fFpvDeLk6GPZ3RGMl2mMxsPs772LbUqJqkvzHux0vuSdpEeMKHLQxOA8Er8MmCZZcIg9UmlegohDYJ5minA3X6DluwLhVlFRa9IrsZ5+irb5PYWQgOAms0UNIAXLJrrAnZNRcC+x8QJ06m8AAfkdscor+Rd8VVZY7pbW1j973SL3fvqtpeO5hiBjYKl5gGPUaZ93kPvrK/AnKn3ButJeS6o8yuLUb5Wo4HXNXsvSodQq7VvMLh/9dCGKoobodi5wYmRcr/ebgj9QADBogViJ2A0nBSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jEJMzpmw1nr69mwA3IUL25LXtmzJeRC7JGO8IA594/M=;
- b=nJWvmPJzopZyJNSlsDjaWZ7vrvf8L6iRxCIEp9LQLtrQdcrjzGrs+bGASNiRqDrB06FMG0iyWddVMEL60zLYUpe6Jweqfa1EwvCA8x1lN2Zz5W+7OaGI5omqSNbFsDwKTepPaXjEH1zFDeh54Wof6QpfRrVhJZQ5+lw02P1kIY9u9Mb5fpek2FOOSsTkSeVWqRgxNSNuFbED8TGCxamtwAM828AK/hf6okyaQvNmEktSx88BqE07kLtG/aenMP/1Sd44hiSvudru3P7Hd8Z7iNnTVMtcKZr0y9ZmTEZzLYo1FgfR+txmCJfeSzAFb+45ioItVoetKJsi9hVqYg9Ftg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jEJMzpmw1nr69mwA3IUL25LXtmzJeRC7JGO8IA594/M=;
- b=PZJ8sKvbZqwVle27Vdj+Y/puGR8fNU1V/uK8gyppLpvfw48vV6G615lWo12hVUZP2Qddgv1vsVY4N7R5AiFF8UfrOnJP/ikbztGFfd4KlRm0LCYGpIoxnFUPpcC6oLIem9CFS8rY8pNXBAET9PQK0qyGtZXv4yGVHExh6p2dots=
-Received: from MN2PR05CA0052.namprd05.prod.outlook.com (2603:10b6:208:236::21)
- by CH2PR12MB5515.namprd12.prod.outlook.com (2603:10b6:610:34::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.21; Tue, 16 Jan
- 2024 08:21:14 +0000
-Received: from MN1PEPF0000F0E2.namprd04.prod.outlook.com
- (2603:10b6:208:236:cafe::e0) by MN2PR05CA0052.outlook.office365.com
- (2603:10b6:208:236::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.22 via Frontend
- Transport; Tue, 16 Jan 2024 08:21:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000F0E2.mail.protection.outlook.com (10.167.242.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Tue, 16 Jan 2024 08:21:13 +0000
-Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 16 Jan
- 2024 02:21:11 -0600
-From: YiPeng Chai <YiPeng.Chai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/5] drm/amdgpu: Prepare for asynchronous processing of umc
- page retirement
-Date: Tue, 16 Jan 2024 16:20:31 +0800
-Message-ID: <20240116082034.1739848-2-YiPeng.Chai@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240116082034.1739848-1-YiPeng.Chai@amd.com>
-References: <20240116082034.1739848-1-YiPeng.Chai@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54DB710E010;
+	Tue, 16 Jan 2024 09:46:30 +0000 (UTC)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20E8110E010;
+ Tue, 16 Jan 2024 09:46:27 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-50e80d14404so9179806e87.1; 
+ Tue, 16 Jan 2024 01:46:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1705398326; x=1706003126; darn=lists.freedesktop.org;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=At3B4QtrmUgiNbmYWMG1cCFn3JGTUgYF5xXfwvD36po=;
+ b=gZAa4oP8hyvz4IJB1ZSpzo2JjJGd2/QXs2JBV86Dr3PnpvjIcA3TnwEIkBsJwMpxsj
+ 3ak2QgMVXFMC5HKoySGH2ls7xgRzrrvlX0E4qu0wYE4vKSGjEVtdtPgRIiDHTxHxd6QY
+ xNKT3ylk05W0jFCe9g5sF1JPioQNeG6igJYrpeJplhavPButjYagp72Tg4E/9t1gKXIi
+ HQFIEBdspYe0gJpN8nnXAm3UXJ6v9Ykl+HtQElj+8c7szGStQggpVZ8PcrG+SwRbH/I2
+ Z7EaOMEtVaxdQExNVt/3s68h0R5dbnAHS0GTGfRPg/LzleZ/iaoxpuFJt6Y6Myw+0xFX
+ ydMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705398326; x=1706003126;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=At3B4QtrmUgiNbmYWMG1cCFn3JGTUgYF5xXfwvD36po=;
+ b=H/Ar70sn8TNiHhvI30oLhsa/hzFODBn/6Rs2obIOdIBwUc/hX2vfMiBL53gevNavnh
+ Kp3LH410iWio84VsrRq6O1u4TznchsxnoeF5OS4FQTJI3LWonaAzRowq0hevOIYNCdLU
+ Vw6iBEyZiSuue4/+Ly7LrL34ZWxq9tXlEif7dnUVU2sNKKoZ/0m9Y8cAG+nZ5uRpMiiA
+ 2KPx8KDpGmK7SoYEP3730bWKZvox83KAMDkW9HPKFGECyqjXpg0SHx+ICf6Jz9rfce92
+ XlwORK8aKOZneOB4U6m4Gd/y8gITE03MsF3oXNUeqcLBBPBwo9nodZKwejeAm3F0r/9n
+ K8Ow==
+X-Gm-Message-State: AOJu0YzOenjjFFFUeizsYojJGxFWkZDiXk+3itn7pQ/CeUDqBl0MouFJ
+ TDWCCAgKF4jyYZAkAIE7cUY=
+X-Google-Smtp-Source: AGHT+IFyMG7eYvg8LSV5tNpbngAXDBcufgSyuhCwNWX2XrqZTzxCIqdYkVwV4ZdSUCFyqvwg2OriXg==
+X-Received: by 2002:a05:6512:2355:b0:50e:a431:de30 with SMTP id
+ p21-20020a056512235500b0050ea431de30mr4479968lfu.6.1705398325438; 
+ Tue, 16 Jan 2024 01:45:25 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ a6-20020ac25206000000b0050ee78fd23esm1404395lfl.262.2024.01.16.01.45.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Jan 2024 01:45:25 -0800 (PST)
+Date: Tue, 16 Jan 2024 11:45:22 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
+Subject: Re: [PATCH 0/2] drm/atomic: Allow drivers to write their own plane
+ check for async
+Message-ID: <20240116114522.5b83d8b6@eldfell>
+In-Reply-To: <20240116045159.1015510-1-andrealmeid@igalia.com>
+References: <20240116045159.1015510-1-andrealmeid@igalia.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E2:EE_|CH2PR12MB5515:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68bed0d2-1175-4b7f-fe4d-08dc166c1aae
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jks/K7ZPrzf9nYXsL1oFPaLWVDnXApaZFKOgovkng06bRIjgBvmUe8eGXFmAEtG1/AiePbeC+PcrF7AZowJTceqlXgjDOdbip7ESvvImHOAP/k3AzPCh7pSAhcwNtXbuIQJ1JE//ECDX5ZZe/WND+cK5VJ6wz1/j1Aql2Enph92hyQkeUTSF3uiavJi88FNNmumMEOX+O3OHLr6UbdvhSexyCl4bZvlMEh0FRaZw3AL31VzSlf0Fm3grf05zliKSIkqJr+NJ64H137mYI8OQ3nwe+s0ncCQAeEu+syF3InHW/P3tCHGhSEQ/g9KmH5GN5sZW61qt8qJFsfcuBupMYYRXkpWglYgKi7qRwfHcLf/idnJTJnAoA9CksawS9/RBO7IhgckVXitNA7FDwwY1wCQATfZNn8daej6XG+b2A+XuvPRHn6Wyb3Dnd7IOL+AJwopv2tF1DDE9Ekoy3i05ZWmIIjTp1qsnX8tsB/mDKkiiXqtgEVCoo7dJBIP9Pmfj4QLxP2EuRCsS9AtDw4sraEojfIsq8vqmF4S3aLu7EKkftJdg+tzHmxIQL5AmpmxI4qh0JW3FUCRkgaRrddCtqkSGtuJbCWLfYaOAD+XFwOOHCw3XYj6laX+5SFEeJvFL2U/kKGTix/y1wcuH5JXGXWLeekYui1WT1K2kDzxaWU/PNxOMRIjyRQM0gwhStoYbt9wi+jd5FJoNVkLPx7kwPTAnW7g+ZSa0Ci/yIfqDdxw6hjacAj9VZkxdk7/G5qWkDshGTwM7nSEz2cG1dQwKJQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(396003)(376002)(39860400002)(346002)(230922051799003)(186009)(451199024)(1800799012)(64100799003)(82310400011)(46966006)(40470700004)(36840700001)(7696005)(16526019)(2616005)(1076003)(26005)(336012)(426003)(6666004)(36860700001)(47076005)(5660300002)(83380400001)(4326008)(2906002)(41300700001)(8676002)(478600001)(70206006)(316002)(6916009)(54906003)(70586007)(8936002)(36756003)(86362001)(81166007)(356005)(82740400003)(40480700001)(40460700003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2024 08:21:13.9410 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68bed0d2-1175-4b7f-fe4d-08dc166c1aae
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E2.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5515
+Content-Type: multipart/signed; boundary="Sig_/Qpm4_L9s_xn4TQueKpnXLKx";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,95 +71,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: KevinYang.Wang@amd.com, Tao.Zhou1@amd.com,
- YiPeng Chai <YiPeng.Chai@amd.com>, Stanley.Yang@amd.com, yipechai@amd.com,
- Candice.Li@amd.com, Hawking.Zhang@amd.com
+Cc: daniel@ffwll.ch, 'Marek =?UTF-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
+ Simon Ser <contact@emersion.fr>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Xaver Hugl <xaver.hugl@gmail.com>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, Daniel Stone <daniel@fooishbar.org>,
+ Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com,
+ ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Preparing for asynchronous processing of umc page retirement.
+--Sig_/Qpm4_L9s_xn4TQueKpnXLKx
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 34 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  5 ++++
- 2 files changed, 39 insertions(+)
+On Tue, 16 Jan 2024 01:51:57 -0300
+Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index a988360ce3e2..856206e95842 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2656,6 +2656,25 @@ static void amdgpu_ras_validate_threshold(struct amdgpu_device *adev,
- 	}
- }
- 
-+static int amdgpu_ras_page_retirement_thread(void *param)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)param;
-+	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-+
-+	while (!kthread_should_stop()) {
-+
-+		wait_event_interruptible(con->page_retirement_wq,
-+				atomic_read(&con->page_retirement_req_cnt));
-+
-+		dev_info(adev->dev, "Start processing page retirement. request:%d\n",
-+			atomic_read(&con->page_retirement_req_cnt));
-+
-+		atomic_dec(&con->page_retirement_req_cnt);
-+	}
-+
-+	return 0;
-+}
-+
- int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-@@ -2719,6 +2738,16 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
- 		}
- 	}
- 
-+	mutex_init(&con->page_retirement_lock);
-+	init_waitqueue_head(&con->page_retirement_wq);
-+	atomic_set(&con->page_retirement_req_cnt, 0);
-+	con->page_retirement_thread =
-+		kthread_run(amdgpu_ras_page_retirement_thread, adev, "umc_page_retirement");
-+	if (IS_ERR(con->page_retirement_thread)) {
-+		con->page_retirement_thread = NULL;
-+		dev_warn(adev->dev, "Failed to create umc_page_retirement thread!!!\n");
-+	}
-+
- #ifdef CONFIG_X86_MCE_AMD
- #ifdef HAVE_SMCA_UMC_V2
- 	if ((adev->asic_type == CHIP_ALDEBARAN) &&
-@@ -2757,6 +2786,11 @@ static int amdgpu_ras_recovery_fini(struct amdgpu_device *adev)
- 	if (!data)
- 		return 0;
- 
-+	if (con->page_retirement_thread)
-+		kthread_stop(con->page_retirement_thread);
-+
-+	atomic_set(&con->page_retirement_req_cnt, 0);
-+
- 	cancel_work_sync(&con->recovery_work);
- 
- 	mutex_lock(&con->recovery_lock);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index 2cd89328dc73..9c3df9985fad 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -461,6 +461,11 @@ struct amdgpu_ras {
- 
- 	/* Record special requirements of gpu reset caller */
- 	uint32_t  gpu_reset_flags;
-+
-+	struct task_struct *page_retirement_thread;
-+	wait_queue_head_t page_retirement_wq;
-+	struct mutex page_retirement_lock;
-+	atomic_t page_retirement_req_cnt;
- };
- 
- struct ras_fs_data {
--- 
-2.34.1
+> Hi,
+>=20
+> AMD hardware can do more on the async flip path than just the primary pla=
+ne, so
+> to lift up the current restrictions, this patchset allows drivers to writ=
+e their
+> own check for planes for async flips.
 
+Hi,
+
+what's the userspace story for this, how could userspace know it could do m=
+ore?
+What kind of userspace would take advantage of this and in what situations?
+
+Or is this not meant for generic userspace?
+
+
+Thanks,
+pq
+
+> I'm not sure if adding something new to drm_plane_funcs is the right way =
+to do,
+> because if we want to expand the other object types (crtc, connector) we =
+would
+> need to add their own drm_XXX_funcs, so feedbacks are welcome!
+>=20
+> 	Andr=C3=A9
+>=20
+> Andr=C3=A9 Almeida (2):
+>   drm/atomic: Allow drivers to write their own plane check for async
+>     flips
+>   drm/amdgpu: Implement check_async_props for planes
+>=20
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 30 +++++++++
+>  drivers/gpu/drm/drm_atomic_uapi.c             | 62 ++++++++++++++-----
+>  include/drm/drm_atomic_uapi.h                 | 12 ++++
+>  include/drm/drm_plane.h                       |  5 ++
+>  4 files changed, 92 insertions(+), 17 deletions(-)
+>=20
+
+
+--Sig_/Qpm4_L9s_xn4TQueKpnXLKx
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmWmUDIACgkQI1/ltBGq
+qqeVeA//crRWJQuEXHaVAo60Oo43iWZpDJ9PFF6fFN4a0ez+KAFPjNRNo21jRuSw
+waL6xm/WyX46I37DXUSRZHiDD8pOrZ+/VBxoT47EWsNpCJE3muJFsLQq1Wt+htwE
+wL1rludAND0O63+sY4TGsyfR6EWNUg81teQoVZT+kEKDoxsJ+7eKDIgf1s7vKzT1
+lv5thV2FTEAHD8zcnWons4bKpARIdtq0ZFbnkC0ycV9RzctH2ZxTgARts16DU8e9
+5QmJEOYf1POkwHOCZoioBiejixLy9jPHuUw2i4ZIu07nuPncXnxMxXRPi5Y8zzJD
+t6X2rHBwo/ZFBlcNdXiIRCUiPoV0POeKm2Q3mjicpn+AsR6abbVoR6oNOis/SrTL
+jrQQ7BtP5lXCUSrsMrNErXiDwKnXkgg4ewI59HpJ7aWSrt6gXr19votpVACAeemM
+aTVBVdPHZxr3fdUlVOHhPqrq2+bHDU3sld6or2da8hZ1sMUNYNe1z31h55FiUpEH
+HL4IQ3EsqFeJbsq/3VrVY3V7PCYwSHYQb4ULl1MwqWai/oqQYgrFqTOjqcpGDq/P
+yXyyXWLJD7OVMkhSATZuvzow2zBYpMm0dPdYhOPSOQmKraIvvs/Sj4AkTga7Q9Jz
+cm3FWB4qP9H+6qBlk/coEue22ncdunJTApcIh/SI8AA0n58Dhz4=
+=GGuB
+-----END PGP SIGNATURE-----
+
+--Sig_/Qpm4_L9s_xn4TQueKpnXLKx--
