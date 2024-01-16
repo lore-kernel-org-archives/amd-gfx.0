@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA302C47DA7
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 09:31:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9F4CC47258
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 09:31:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9089B10E1AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE03E10E622;
 	Wed, 17 Jan 2024 09:31:07 +0000 (UTC)
-Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
- [209.85.219.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A463310E541
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 14:13:20 +0000 (UTC)
-Received: by mail-yb1-f182.google.com with SMTP id
- 3f1490d57ef6-dc21d7a7042so1139943276.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 06:13:20 -0800 (PST)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3409110E324;
+ Tue, 16 Jan 2024 16:11:32 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-50eaabc36bcso12386082e87.2; 
+ Tue, 16 Jan 2024 08:11:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=yngvason.is; s=google; t=1705414340; x=1706019140; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9gCKsoJIp890TMevRWkiJ5yhUQIvz900NU/IXPPBb5k=;
- b=YK51VzxMkCLspaYYG0vg0ThRHcW9FozC5/1XxiRakTlYeddN1cbqaPw8sT/XWf1Kla
- b5ttDr328QJOmH9sulXFgJEk9MA+iDnM8pFOoK/ydpayif2gJGEp+LENuwRzPnMShuql
- oPmtyA/XGs8v594YaMxsF1qtic8Y5uBkOUFyQ=
+ d=gmail.com; s=20230601; t=1705421430; x=1706026230; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=nTj+8ShIjW0CqDZ0eu0ySWN/Px6r1NE46iq3YQxGY50=;
+ b=XKizjOJY+HTr0JhGVSkV6AcDCtWCF8FF4iU0IbtcaqhuV7J0P4IseEEJLOdfieRycS
+ 9vh0Nser/bRyW5jIfWmJ8wUfwquoTgRGBuNI6YKDRHr/YbZ3AqqnQgsUl2r6PnyetKQK
+ Ckvl5gMGtJUr7m9QCQfIYWL0l6Pt7gPiAkrFN41rO3i6VEOI8xmoDwwPTlojy59HPCBB
+ MDs88WL6u4EMlxPjn9B5wQGca7LmH0IqFHVUl3jk8UTI2HmDiFvvWx+96eui7ZudwOmC
+ 0liOFg7sUtGUjw6Q50ubOjiXGVp12txe0mTnylyE67WvjOg8DwwztPlfeI4zosvkQNsX
+ /26Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705414340; x=1706019140;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9gCKsoJIp890TMevRWkiJ5yhUQIvz900NU/IXPPBb5k=;
- b=xJHA6k9OEf2aWDhUhFaIaSxRl2yKb48OEBhLO5vnwd2I8agp5Kq3W2H4Ee4dg4DMhE
- I0IOC+2jaYMKxmcSJQUqm1A8omtTrRg9wPYvbBhkXFaoZXfRTIIoPzNIVDIjVXpDCSH5
- KmOT3h0YAt67XgHiZ5Of2iwUrZSo9S+kXjNlmSaEKEZMJbUOCOLPhT9EtYql3B3GSC0m
- 0xW5Nka4XB7ZdviB850hbiN7WPVICV7RiMqEBaK8TQaWYKeqJUQaOavGJGO4WHkyQJ2m
- wnqO9AF7iCX/1zhL8FgVq5SvqqUHaTFTirSTDt6Xan2DRmuDisWhdlMbm/Ii6EIDdYmN
- AGYg==
-X-Gm-Message-State: AOJu0YyF8mzaOFhFc33+/fqUcciI39RcbmgsM3LRdngyH54Ni/wA3u9s
- 0r1FYUq5eMevwvCH2RnPOle570XU8orL9Mm42JFuZpY6RxIAAw==
-X-Google-Smtp-Source: AGHT+IE41A58zXOP4mN6YBTW2CozoInidfluxDAZAPGf3XWYIJx5iW5A7pw47X0/O2DADgCiiAJSZrcdEWBROikbKfY=
-X-Received: by 2002:a05:6902:511:b0:dbd:231:1d67 with SMTP id
- x17-20020a056902051100b00dbd02311d67mr3842729ybs.104.1705414339805; Tue, 16
- Jan 2024 06:12:19 -0800 (PST)
+ d=1e100.net; s=20230601; t=1705421430; x=1706026230;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=nTj+8ShIjW0CqDZ0eu0ySWN/Px6r1NE46iq3YQxGY50=;
+ b=ugxZ3fXTzwLJ2bVM5whvEkZ174wlWiNIQdzuuKHD+XyCMzuuXSAWg74s1JHAJqx3xd
+ xhff8u3Ohcho87fpoGiIBCNrjRRQ+IuCwzWwjRfKU5wcaWbx8dG2UkUfWhPhwHBIWV8S
+ IOZ7NNi19w+s6biNWaHy0A2puLsvPgSQbhrzw0QkmbEsskfgF8oKUUwZfdYU2M2nbYr+
+ pbYIDSxm59rX8biz5lHkSrtit4B5aHRQKYMuUhxYdBpPgFsDIcRpFQ3OKM7Bv+XllgjM
+ GMoZ93kZUDdWTTJI/ldbhIy6f6E33ruTYgvehfvc2wsr1kSiRsESqEor04A3JUyo8t2n
+ p3JA==
+X-Gm-Message-State: AOJu0YznVohPi0IZ4a9+5B8UWSp2mEejp/wDHqQVVgPx1er1MReHPtyc
+ GBU/x9POTWOZEc5eGcRe5aZLf1g2d+UMwhHXeLg=
+X-Google-Smtp-Source: AGHT+IHc1l+WDhQLVzoZGQLrcaHr/yF/ah+NpIaLLNahedAvfukeUhqkNvrKaJux849CVbxl1ffKJhsXv9IhYg5GDNg=
+X-Received: by 2002:ac2:4157:0:b0:50e:682a:3303 with SMTP id
+ c23-20020ac24157000000b0050e682a3303mr3147895lfi.54.1705421430132; Tue, 16
+ Jan 2024 08:10:30 -0800 (PST)
 MIME-Version: 1.0
-References: <20240115160554.720247-1-andri@yngvason.is>
- <20240115160554.720247-3-andri@yngvason.is>
- <20240116114235.GA311990@toolbox>
- <CAFNQBQz3TNj_7BSmFw4CFMNuR4B+1d+y3f058s+rzTuzdYogqA@mail.gmail.com>
- <20240116132918.GB311990@toolbox>
-In-Reply-To: <20240116132918.GB311990@toolbox>
-From: Andri Yngvason <andri@yngvason.is>
-Date: Tue, 16 Jan 2024 14:11:43 +0000
-Message-ID: <CAFNQBQyfWmfu5T7bgZDZFGfyhsxQi7YXmY_wPc9Y+mm5iSspXQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/4] drm/uAPI: Add "force color format" drm property as
- setting for userspace
-To: Sebastian Wick <sebastian.wick@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+References: <20240116045159.1015510-1-andrealmeid@igalia.com>
+ <20240116114522.5b83d8b6@eldfell>
+ <a6099681-1ae9-48ef-99bc-d3c919007413@igalia.com>
+ <20240116151414.10b831e6@eldfell>
+ <47c6866a-34d6-48b1-a977-d21c48d991dc@igalia.com>
+In-Reply-To: <47c6866a-34d6-48b1-a977-d21c48d991dc@igalia.com>
+From: Xaver Hugl <xaver.hugl@gmail.com>
+Date: Tue, 16 Jan 2024 17:10:18 +0100
+Message-ID: <CAFZQkGyOQ5Tfu++-cHqgZ9NOJxqxm8cAF5XT18LmisuPAUbXAg@mail.gmail.com>
+Subject: Re: [PATCH 0/2] drm/atomic: Allow drivers to write their own plane
+ check for async
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Content-Type: multipart/alternative; boundary="00000000000089121c060f125e90"
 X-Mailman-Approved-At: Wed, 17 Jan 2024 09:31:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,154 +71,233 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Werner Sembach <wse@tuxedocomputers.com>, Leo Li <sunpeng.li@amd.com>,
- David Airlie <airlied@gmail.com>, intel-gfx@lists.freedesktop.org, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: daniel@ffwll.ch, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ Simon Ser <contact@emersion.fr>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, Joshua Ashton <joshua@froggi.es>,
+ Daniel Stone <daniel@fooishbar.org>, Dave Airlie <airlied@gmail.com>,
+ christian.koenig@amd.com, ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-=C3=BEri., 16. jan. 2024 kl. 13:29 skrifa=C3=B0i Sebastian Wick
-<sebastian.wick@redhat.com>:
+--00000000000089121c060f125e90
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+My plan is to require support for IN_FENCE_FD at least. If the driver
+doesn't
+allow tearing with that, then tearing just doesn't happen.
+
+For overlay planes though, it depends on how the compositor prioritizes
+things.
+If the compositor prioritizes overlay planes and would like to do tearing
+if possible,
+then this patch works.
+If the compositor prioritizes tearing and would like to do overlay planes
+if possible,
+it would have to know that switching to synchronous commits for a single
+frame,
+setting up the overlay planes and then switching back to async commits
+works, and
+that can't be figured out with TEST_ONLY commits.
+So I think having a CAP or immutable plane property to signal that async
+commits
+with overlay and/or cursor planes is supported would be useful.
+
+Am Di., 16. Jan. 2024 um 14:35 Uhr schrieb Andr=C3=A9 Almeida <
+andrealmeid@igalia.com>:
+
+> + Joshua
 >
-> On Tue, Jan 16, 2024 at 01:13:13PM +0000, Andri Yngvason wrote:
-[...]
-> > =C5=9Fri., 16. jan. 2024 kl. 11:42 skrifa=C4=9Fi Sebastian Wick
-> > <sebastian.wick@redhat.com>:
-> > >
-> > > On Mon, Jan 15, 2024 at 04:05:52PM +0000, Andri Yngvason wrote:
-> > > > From: Werner Sembach <wse@tuxedocomputers.com>
-> > > >
-> > > > Add a new general drm property "force color format" which can be us=
-ed
-> > > > by userspace to tell the graphics driver which color format to use.
-> > >
-> > > I don't like the "force" in the name. This just selects the color
-> > > format, let's just call it "color format" then.
-> > >
+> Em 16/01/2024 10:14, Pekka Paalanen escreveu:
+> > On Tue, 16 Jan 2024 08:50:59 -0300
+> > Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
 > >
-> > In previous revisions, this was "preferred color format" and "actual
-> > color format", of which the latter has been dropped. I recommend
-> > reading the discussion for previous revisions.
->
-> Please don't imply that I didn't read the thread I'm answering to.
->
-> > There are arguments for adding "actual color format" later and if it
-> > is added later, we'd end up with "color format" and "actual color
-> > format", which might be confusing, and it is why I chose to call it
-> > "force color format" because it clearly communicates intent and
-> > disambiguates it from "actual color format".
->
-> There is no such thing as "actual color format" in upstream though.
-> Basing your naming on discarded ideas is not useful. The thing that sets
-> the color space for example is called "Colorspace", not "force
-> colorspace".
->
-
-Sure, I'm happy with calling it whatever people want. Maybe we can
-have a vote on it?
-
-> > [...]
-> > > > @@ -1396,6 +1404,15 @@ static const u32 dp_colorspaces =3D
-> > > >   *   drm_connector_attach_max_bpc_property() to create and attach =
-the
-> > > >   *   property to the connector during initialization.
-> > > >   *
-> > > > + * force color format:
-> > > > + *   This property is used by userspace to change the used color f=
-ormat. When
-> > > > + *   used the driver will use the selected format if valid for the=
- hardware,
-> > >
-> > > All properties are always "used", they just can have different values=
-.
-> > > You probably want to talk about the auto mode here.
-> >
-> > Maybe we can say something like: If userspace does not set the
-> > property or if it is explicitly set to zero, the driver will select
-> > the appropriate color format based on other constraints.
->
-> The property can be in any state without involvement from user space.
-> Don't talk about setting it, talk about the state it is in:
->
->   When the color format is auto, the driver will select a format.
->
-
-Ok.
-
-> > >
-> > > > + *   sink, and current resolution and refresh rate combination. Dr=
-ivers to
-> > >
-> > > If valid? So when a value is not actually supported user space can st=
-ill
-> > > set it? What happens then? How should user space figure out if the
-> > > driver and the sink support the format?
-> >
-> > The kernel does not expose this property unless it's implemented in the=
- driver.
->
-> If the driver simply doesn't support *one format*, the enum value for
-> that format should not be exposed, period. This isn't about the property
-> on its own.
-
-Right, understood. You mean that enum should only contain values that
-are supported by the driver.
-
->
-> > This was originally "preferred color format". Perhaps the
-> > documentation should better reflect that it is now a mandatory
-> > constraint which fails the modeset if not satisfied.
->
-> That would definitely help.
->
-> > >
-> > > For the Colorspace prop, the kernel just exposes all formats it suppo=
-rts
-> > > (independent of the sink) and then makes it the job of user space to
-> > > figure out if the sink supports it.
-> > >
-> > > The same could be done here. Property value is exposed if the driver
-> > > supports it in general, commits can fail if the driver can't support =
-it
-> > > for a specific commit because e.g. the resolution or refresh rate. Us=
-er
-> > > space must look at the EDID/DisplayID/mode to figure out the supporte=
+> >> Hi Pekka,
+> >>
+> >> Em 16/01/2024 06:45, Pekka Paalanen escreveu:
+> >>> On Tue, 16 Jan 2024 01:51:57 -0300
+> >>> Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
+> >>>
+> >>>> Hi,
+> >>>>
+> >>>> AMD hardware can do more on the async flip path than just the primar=
+y
+> plane, so
+> >>>> to lift up the current restrictions, this patchset allows drivers to
+> write their
+> >>>> own check for planes for async flips.
+> >>>
+> >>> Hi,
+> >>>
+> >>> what's the userspace story for this, how could userspace know it coul=
 d
-> > > format for the sink.
+> do more?
+> >>> What kind of userspace would take advantage of this and in what
+> situations?
+> >>>
+> >>> Or is this not meant for generic userspace?
+> >>
+> >> Sorry, I forgot to document this. So the idea is that userspace will
+> >> query what they can do here with DRM_MODE_ATOMIC_TEST_ONLY calls,
+> >> instead of having capabilities for each prop.
 > >
-> > Yes, we can make it possible for userspace to discover which modes are
-> > supported by the monitor, but there are other constraints that need to
-> > be satisfied. This was discussed in the previous revision.
+> > That's the theory, but do you have a practical example?
+> >
+> > What other planes and props would one want change in some specific use
+> > case?
+> >
+> > Is it just "all or nothing", or would there be room to choose and pick
+> > which props you change and which you don't based on what the driver
+> > supports? If the latter, then relying on TEST_ONLY might be yet another
+> > combinatorial explosion to iterate through.
+> >
 >
-> I mean, yes, that's what I said. User space would then only be
-> responsible for checking the sink capabilities and the atomic check
-> would take into account other (non-sink) constraints.
-
-Since we need to probe using TEST_ONLY anyway, we'll end up with two
-mechanisms to do the same thing where one of them depends on the other
-for completeness.
-
->
-> > In any case, these things can be added later and need not be a part of
-> > this change set.
->
-> No, this is the contract between the kernel and user space and has to be
-> figured out before we can merge new uAPI.
+> That's a good question, maybe Simon, Xaver or Joshua can share how they
+> were planning to use this on Gamescope or Kwin.
 >
 > >
-> > [...]
+> > Thanks,
+> > pq
 > >
+> >>>> I'm not sure if adding something new to drm_plane_funcs is the right
+> way to do,
+> >>>> because if we want to expand the other object types (crtc, connector=
+)
+> we would
+> >>>> need to add their own drm_XXX_funcs, so feedbacks are welcome!
+> >>>>
+> >>>>    Andr=C3=A9
+> >>>>
+> >>>> Andr=C3=A9 Almeida (2):
+> >>>>     drm/atomic: Allow drivers to write their own plane check for asy=
+nc
+> >>>>       flips
+> >>>>     drm/amdgpu: Implement check_async_props for planes
+> >>>>
+> >>>>    .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 30 +++++++++
+> >>>>    drivers/gpu/drm/drm_atomic_uapi.c             | 62
+> ++++++++++++++-----
+> >>>>    include/drm/drm_atomic_uapi.h                 | 12 ++++
+> >>>>    include/drm/drm_plane.h                       |  5 ++
+> >>>>    4 files changed, 92 insertions(+), 17 deletions(-)
+> >>>>
+> >>>
+> >
+>
 
-Thanks,
-Andri
+--00000000000089121c060f125e90
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div>My plan is to require support for IN=
+_FENCE_FD at least. If the driver doesn&#39;t</div><div>allow tearing with =
+that, then tearing just doesn&#39;t happen.</div><div><br></div>For overlay=
+ planes though, it depends on how the compositor prioritizes things.</div><=
+div>If the compositor prioritizes overlay planes and would like to do teari=
+ng if possible,</div><div>then this patch works.</div><div>If the composito=
+r prioritizes tearing and would like to do overlay planes if possible,</div=
+><div>it would have to know that switching to synchronous commits for a sin=
+gle frame,</div><div>setting up the overlay planes and then switching back =
+to async commits works, and</div><div>that can&#39;t be figured out with TE=
+ST_ONLY commits.</div><div>So I think having a CAP or immutable plane prope=
+rty to signal that async commits</div><div>with overlay and/or cursor plane=
+s is supported would be useful.<br></div><div><br></div><div class=3D"gmail=
+_quote"><div dir=3D"ltr" class=3D"gmail_attr">Am Di., 16. Jan. 2024 um 14:3=
+5=C2=A0Uhr schrieb Andr=C3=A9 Almeida &lt;<a href=3D"mailto:andrealmeid@iga=
+lia.com">andrealmeid@igalia.com</a>&gt;:<br></div><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
+4,204);padding-left:1ex">+ Joshua<br>
+<br>
+Em 16/01/2024 10:14, Pekka Paalanen escreveu:<br>
+&gt; On Tue, 16 Jan 2024 08:50:59 -0300<br>
+&gt; Andr=C3=A9 Almeida &lt;<a href=3D"mailto:andrealmeid@igalia.com" targe=
+t=3D"_blank">andrealmeid@igalia.com</a>&gt; wrote:<br>
+&gt; <br>
+&gt;&gt; Hi Pekka,<br>
+&gt;&gt;<br>
+&gt;&gt; Em 16/01/2024 06:45, Pekka Paalanen escreveu:<br>
+&gt;&gt;&gt; On Tue, 16 Jan 2024 01:51:57 -0300<br>
+&gt;&gt;&gt; Andr=C3=A9 Almeida &lt;<a href=3D"mailto:andrealmeid@igalia.co=
+m" target=3D"_blank">andrealmeid@igalia.com</a>&gt; wrote:<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 <br>
+&gt;&gt;&gt;&gt; Hi,<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; AMD hardware can do more on the async flip path than just =
+the primary plane, so<br>
+&gt;&gt;&gt;&gt; to lift up the current restrictions, this patchset allows =
+drivers to write their<br>
+&gt;&gt;&gt;&gt; own check for planes for async flips.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Hi,<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; what&#39;s the userspace story for this, how could userspace k=
+now it could do more?<br>
+&gt;&gt;&gt; What kind of userspace would take advantage of this and in wha=
+t situations?<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Or is this not meant for generic userspace?<br>
+&gt;&gt;<br>
+&gt;&gt; Sorry, I forgot to document this. So the idea is that userspace wi=
+ll<br>
+&gt;&gt; query what they can do here with DRM_MODE_ATOMIC_TEST_ONLY calls,<=
+br>
+&gt;&gt; instead of having capabilities for each prop.<br>
+&gt; <br>
+&gt; That&#39;s the theory, but do you have a practical example?<br>
+&gt; <br>
+&gt; What other planes and props would one want change in some specific use=
+<br>
+&gt; case?<br>
+&gt; <br>
+&gt; Is it just &quot;all or nothing&quot;, or would there be room to choos=
+e and pick<br>
+&gt; which props you change and which you don&#39;t based on what the drive=
+r<br>
+&gt; supports? If the latter, then relying on TEST_ONLY might be yet anothe=
+r<br>
+&gt; combinatorial explosion to iterate through.<br>
+&gt; <br>
+<br>
+That&#39;s a good question, maybe Simon, Xaver or Joshua can share how they=
+ <br>
+were planning to use this on Gamescope or Kwin.<br>
+<br>
+&gt; <br>
+&gt; Thanks,<br>
+&gt; pq<br>
+&gt; <br>
+&gt;&gt;&gt;&gt; I&#39;m not sure if adding something new to drm_plane_func=
+s is the right way to do,<br>
+&gt;&gt;&gt;&gt; because if we want to expand the other object types (crtc,=
+ connector) we would<br>
+&gt;&gt;&gt;&gt; need to add their own drm_XXX_funcs, so feedbacks are welc=
+ome!<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 Andr=C3=A9<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; Andr=C3=A9 Almeida (2):<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0drm/atomic: Allow drivers to write thei=
+r own plane check for async<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0flips<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0drm/amdgpu: Implement check_async_props=
+ for planes<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 .../amd/display/amdgpu_dm/amdgpu_dm_plane.c=
+=C2=A0 =C2=A0| 30 +++++++++<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 drivers/gpu/drm/drm_atomic_uapi.c=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 62 ++++++++++++++-----<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 include/drm/drm_atomic_uapi.h=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 12 ++++<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 include/drm/drm_plane.h=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 5 ++<=
+br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 4 files changed, 92 insertions(+), 17 deletio=
+ns(-)<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 <br>
+&gt; <br>
+</blockquote></div></div>
+
+--00000000000089121c060f125e90--
