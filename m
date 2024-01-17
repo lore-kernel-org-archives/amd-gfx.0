@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7171CC47422
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 17:56:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08EC5C47422
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 18:44:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F23AC10E7BF;
-	Wed, 17 Jan 2024 17:56:55 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2066.outbound.protection.outlook.com [40.107.101.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6488F10E78F
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jan 2024 17:56:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90F8010E7D1;
+	Wed, 17 Jan 2024 18:44:26 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2077.outbound.protection.outlook.com [40.107.212.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E30C10E7C4;
+ Wed, 17 Jan 2024 18:44:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MWovqECqUEiej6H8xZGtkvPoFYNSbZFsCeGoAx4ydDVH+h47+A/5s6VTE5vhEV2zoZZd7zk8jHViNd7w7g3Er+V1VQQp8GNILLZXOxxb87DKOwp+T5uB1ot9pJTzo5o1dgOJWzGAJ7eLb6eYGrgatuoSSY/MKHHQ0Qwn3M1CEPxCfYd3er7kE+XFcy4E8GfsOnL0Ze4FFshAtO2XbraZpfZdiazz0ehS73wti8UX6zUA72YVqFvHUk8S459nE9qOTuqCz8yeVmKiUKp2U9q5XUWak20fVYakkmVbU0MEkAUd5MgcbAiKJwmKyQiPNZ3RQcGZcgvccUtXIOsOaR3/6A==
+ b=OpDWUdroYDvM6qZRe3ztQdmU2kY5B87xKjSqFhWIflMJW9MitCMhYLMDhvkQWOwGN0expOkAtEUrgpRJ4W1AcwHqIBUwBHOkafFf8nay3Js6QTwcPKZAHII+kMZD151oMXLhZDzqKRlgm4T5qVmTPsh1DGHzBlHoutdfLYq9HxQnMZEmdRCdVyVpErqb3TW+V2HZlCMg9c1tYLnJv6uTlZkeHIe1jMeKw2Tcff7FCruXm8nBAL350+Jh8L1n0Fn71eTjBPNQoZQ1q4RiOCyJ7VMQX+UQ1b6VLfgZg2kqOaS7VHtqN0Me/xwA5rxuV5IwX4ITXjpv9XvChB5WYuQ2/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PwBLMSqxR8H9C6PNI/7JsfHKalCMWbUCJ5WGH8FtwHM=;
- b=OWANndHdBmTCbiB9X0pn8vXOIOUQPPlJ5ur7lmAjnHKRwd3Z3XIc0qQYuvi6yKUPr99PyGwWUbbFuMJ9pa5M+M4WAsZV3em/PN0aZoIuXmxmseLDVPUZVJURVdgwP/mBemsr5d0lynC4qF7DnUUMTi7AE5jUpGVcNSFbd4xHYncalTj1eZKIcrnovyEb288mqyjWeKPK1XK7YcmwHG7/vxtTxa5Fxv5wDPfHt1YH9hnPR6bxEZ1ak77hus9QRQ+Ql/MFU4BO8qPdvqrnoLXQjJzexa/uFda1kGwKEoH4+JRsbERCi9ljLeoc54EUZZnqRcoEAw2D/idqynSkQiZTAQ==
+ bh=SkHdrvI3DsMYDSedNs3o7WAG7SDc933OwvrnkgGc8CI=;
+ b=l6AslYK8i8zkZCx4K2QSBNGAi/uKdTNVHag1IKMzi+cc+jApn0b9tJFGIYFKK00ybAbDjIo2CfStQBgUqsrqjXlPwRLbtQSNXg0B90lvZgG4YuVmk7lX5lV/QfBJFktVSCivHhgzRukuOVAp5wcIJWwWx9NiqH2zLjfaMTKbOOR3AtwIbZnm4hZxgvT3j7DGbzn3yJTqzpDqDHfF2RmzV1LRIdnN6KoGYdzM2zpOfWYB+qdsQ/Bwxaq1FPTt4+E7Krmvea4trBbZ+wgWGvvffrWucwHAinSsYIszY+zKygk1HDX/0WpTYUTBH4wX2OrqUxxB1OBEoPkngs2okF4eew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=linaro.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PwBLMSqxR8H9C6PNI/7JsfHKalCMWbUCJ5WGH8FtwHM=;
- b=yzP4DVmdZS6C4TB1S4FijsxdzBKiRWs+kdjAgmox3aHNKwqCzYyTsfrbyzLQ2OZtn4XITFJ8vNNOFruNRkIPzWhDBcN4E4vZlbjE8Z67AUOWdc4jW07qPK0tvtDW4xnhZxnn5IHt1gfioa25Dc5B7HXFjE54YC2Nv5llBIa4haQ=
-Received: from DS7PR05CA0029.namprd05.prod.outlook.com (2603:10b6:5:3b9::34)
- by PH7PR12MB6761.namprd12.prod.outlook.com (2603:10b6:510:1ab::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.19; Wed, 17 Jan
- 2024 17:56:48 +0000
-Received: from CY4PEPF0000E9D8.namprd05.prod.outlook.com
- (2603:10b6:5:3b9:cafe::5f) by DS7PR05CA0029.outlook.office365.com
- (2603:10b6:5:3b9::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.8 via Frontend
- Transport; Wed, 17 Jan 2024 17:56:48 +0000
+ bh=SkHdrvI3DsMYDSedNs3o7WAG7SDc933OwvrnkgGc8CI=;
+ b=qQ56stlyN4ei8CB1JY3AV5zQ4TQWsfwPj4OkyK+m5gPlt3KhNFjIBbTeGohXXCOhVxcrYvqLuG7EmYDmxl479EC1lN7dcXx80ABXdkPo3Xuhl+zsh2ECW1D7cOMNf7azrkkORlKGg5PD5FvMNafIdWwAG9kUJYWg38eoopLh14o=
+Received: from BL1PR13CA0422.namprd13.prod.outlook.com (2603:10b6:208:2c3::7)
+ by CH3PR12MB8460.namprd12.prod.outlook.com (2603:10b6:610:156::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24; Wed, 17 Jan
+ 2024 18:44:19 +0000
+Received: from BL6PEPF0001AB71.namprd02.prod.outlook.com
+ (2603:10b6:208:2c3:cafe::af) by BL1PR13CA0422.outlook.office365.com
+ (2603:10b6:208:2c3::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.23 via Frontend
+ Transport; Wed, 17 Jan 2024 18:44:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9D8.mail.protection.outlook.com (10.167.241.83) with Microsoft
+ BL6PEPF0001AB71.mail.protection.outlook.com (10.167.242.164) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7181.14 via Frontend Transport; Wed, 17 Jan 2024 17:56:48 +0000
-Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.7202.16 via Frontend Transport; Wed, 17 Jan 2024 18:44:19 +0000
+Received: from patedamande.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 17 Jan
- 2024 11:56:47 -0600
-From: Tom St Denis <tom.stdenis@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/amdgpu: Assign GART pages to AMD device mapping
-Date: Wed, 17 Jan 2024 12:56:40 -0500
-Message-ID: <20240117175640.1386413-1-tom.stdenis@amd.com>
-X-Mailer: git-send-email 2.40.1
+ 2024 12:44:16 -0600
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
+ <gustavo@padovan.org>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>, Steven Rostedt <rostedt@goodmis.org>, "Masami
+ Hiramatsu" <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-media@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>, "Alex
+ Deucher" <alexander.deucher@amd.com>, <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] tracing, dma-buf: add a trace_dma_fence_sync_to event
+Date: Wed, 17 Jan 2024 19:41:40 +0100
+Message-ID: <20240117184329.479554-1-pierre-eric.pelloux-prayer@amd.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +72,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D8:EE_|PH7PR12MB6761:EE_
-X-MS-Office365-Filtering-Correlation-Id: bca53c46-2875-4e46-a334-08dc1785ad1b
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB71:EE_|CH3PR12MB8460:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ebcd6cd-fb6b-491a-632a-08dc178c50a0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: cFFlw9TUUWAYSpkjlKuW7L3CsJ4GDIQQm3JmuJbckf4Y65yDMeWaSRMTeQ85T9KvK9nv5l8rtPjCcMtpr4ThYRhitgRxAL+cdbj5m0i0SA2zkjJ7XzMqzDSFT2OxDgWwezDDEbi0ee/gz2SHDYkd3iXgynNwL/cV7D2XXEM+aSSlwlzVnoCJ+p+nmjmgZNS4KebaZ8Iro5PxiCxN85qCuGwYrZNbOX0uHtCXU3El18ys6vPvTmzydJnOfc1DZioePSNAE4s7pDd1wZhnNZ2dYYQLXio4NgKdqJHXEo9mtEkc7hctHQko+5SiY4gd7XvbKtmj7lzKqNfD1ZiHtiPWh8ZrmU3W43QZUiBZcMVAym5JyInLo4b34AT2K/j+KHAkPNU0PlnLiaGRXeRjq+wq/qOtKSL4xvJS6XQkJ/LBGBV+Uzst92DNUiZh3z6f5KRJ7OS92N5pH3ZbkE/cYeUOwap59IUn2AMRtps8vJ2Zc6OeMarVEt1x58VyD9PGY7gfGRkdmUkNjXSjceT83F6LT3HZDLqQvC6txyq4nt9B76kLkx/Dr/LXsgM7l5t007pSNOBl5e+IVm5FSljVtFhkxA3yA+e8Xl17rBsRyKeR3/5si3VD+mZjO7BwWqXPHWamj3CiBGyQZY9Qg/kOiujKM3k+Mvw0vGBSKyqRdhdgtCDbhnLIk2OrB2Om9KtRqyiiOJuMHcMBEzLQVFleixgo6OU+E0oEESvhIz+PX/RbYwoA0sTZ273BMa27+2MgZrVKJQzayzCJ0gkpVQHt5y3mmA==
+X-Microsoft-Antispam-Message-Info: xALERsWlm0aE4tSdG5ISOatK2cz5gmrdrG4l3czhRnv+uFElawgTb6L9XLWOLJYEKZxWaQg1FqXdZaERruB9hdsoa5OG78FGrjnmbeDGGsKsEEWX2NsQ0ZiFL8ev3w4UNLRIftdYJY2a+Ct6XTCIkl8HIV5UzkAkjp/Zb79q+zgm/JkMwMF6+FlY3o3EZn8VYZvZF3x5lpnd5coCvFR7goJir/h6mQQBMG76I9tXeFGlGaoHBqCZqBwMEjItfH2vNGMfLTnPAChDUq9lbmn4keyKWdEvbBoKzmrrv2UuvcmMEjBEgr8zJDNbUafoNeNdih52oentBT9W/QfzVRgm8OSvN/VeK4GfZNIi1BSvC93pVeDvDjfZyNG8rZ1AiF4lz8QlLIR0gOan8TGRuzvZW8BXzcZGUz1nvqupxkPpp+8YiF5yAkHQLe8z8a24+jUO1EmCqRK47Eqzt2nKyfyPS584QBPscocdeB/VRtn7p4T+n+5SOnJBr64SO95EUrk32LMam+BJiMaIOSuldi2LF0Uo9RpCrSTb4uNkQuybVu/B8MeNOasV4Z+gYEfxaGmSfJLcXTgyMtU9cyHklnDlzWsTHF/HeCDP2tGhJUt0ex4avAZCElwvO5fseYgC9XbJdTVnPcEtRbPK0hSswij3saj6nCmwchet+65408l/mQHvdAU1q4iUvqi/k/xIgDExZbDwNMe8Gw6OnyTjsgVzOg3Keb0RJRT/LIXhUuzdj3FYCCqC5J2ov9649b/4KkfWmwoap5A5XC5I0JNOwHZmJsonAFujKCJ+53UIoQW/3BiCMag0oZaLYDdzuMq0oD6YhoXp/wTny99/Ex2Qt2FQuA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(39860400002)(396003)(136003)(376002)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(82310400011)(36840700001)(40470700004)(46966006)(82740400003)(83380400001)(5660300002)(81166007)(4326008)(8676002)(8936002)(356005)(2906002)(336012)(86362001)(2616005)(26005)(47076005)(426003)(40480700001)(1076003)(36860700001)(40460700003)(16526019)(478600001)(6666004)(36756003)(316002)(70206006)(70586007)(6916009)(41300700001)(36900700001);
+ SFS:(13230031)(4636009)(396003)(39860400002)(376002)(346002)(136003)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(82310400011)(36840700001)(46966006)(40470700004)(16526019)(356005)(36756003)(26005)(86362001)(81166007)(478600001)(40460700003)(40480700001)(2616005)(316002)(41300700001)(2906002)(336012)(426003)(1076003)(6666004)(7696005)(70206006)(5660300002)(70586007)(83380400001)(110136005)(82740400003)(921011)(47076005)(8676002)(4326008)(8936002)(36860700001)(83996005)(2101003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2024 17:56:48.1189 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bca53c46-2875-4e46-a334-08dc1785ad1b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2024 18:44:19.5004 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ebcd6cd-fb6b-491a-632a-08dc178c50a0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB71.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6761
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8460
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,60 +103,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom St Denis <tom.stdenis@amd.com>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This allows kernel mapped pages like the PDB and PTB to be
-read via the iomem debugfs when there is no vram in the system.
+This new event can be used to trace where a given dma_fence is added
+as a dependency of some other work.
 
-Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+I plan to use it in amdgpu.
+
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/dma-buf/dma-fence.c      |  1 +
+ include/trace/events/dma_fence.h | 34 ++++++++++++++++++++++++++++++++
+ 2 files changed, 35 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-index 73b8cca35bab..f0bdbcc7b1ea 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-@@ -121,6 +121,7 @@ int amdgpu_gart_table_ram_alloc(struct amdgpu_device *adev)
- 	struct amdgpu_bo_param bp;
- 	dma_addr_t dma_addr;
- 	struct page *p;
-+	unsigned long x;
- 	int ret;
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index e0fd99e61a2d..671a499a5ccd 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -23,6 +23,7 @@
+ EXPORT_TRACEPOINT_SYMBOL(dma_fence_emit);
+ EXPORT_TRACEPOINT_SYMBOL(dma_fence_enable_signal);
+ EXPORT_TRACEPOINT_SYMBOL(dma_fence_signaled);
++EXPORT_TRACEPOINT_SYMBOL(dma_fence_sync_to);
  
- 	if (adev->gart.bo != NULL)
-@@ -130,6 +131,11 @@ int amdgpu_gart_table_ram_alloc(struct amdgpu_device *adev)
- 	if (!p)
- 		return -ENOMEM;
+ static DEFINE_SPINLOCK(dma_fence_stub_lock);
+ static struct dma_fence dma_fence_stub;
+diff --git a/include/trace/events/dma_fence.h b/include/trace/events/dma_fence.h
+index 3963e79ca7b4..9b3875f7aa79 100644
+--- a/include/trace/events/dma_fence.h
++++ b/include/trace/events/dma_fence.h
+@@ -83,6 +83,40 @@ DEFINE_EVENT(dma_fence, dma_fence_wait_end,
+ 	TP_ARGS(fence)
+ );
  
-+	/* assign pages to this device */
-+	for (x = 0; x < (1UL << order); x++) {
-+		p[x].mapping = adev->mman.bdev.dev_mapping;
-+	}
++DECLARE_EVENT_CLASS(dma_fence_from,
 +
- 	/* If the hardware does not support UTCL2 snooping of the CPU caches
- 	 * then set_memory_wc() could be used as a workaround to mark the pages
- 	 * as write combine memory.
-@@ -223,6 +229,7 @@ void amdgpu_gart_table_ram_free(struct amdgpu_device *adev)
- 	unsigned int order = get_order(adev->gart.table_size);
- 	struct sg_table *sg = adev->gart.bo->tbo.sg;
- 	struct page *p;
-+	unsigned long x;
- 	int ret;
++	TP_PROTO(struct dma_fence *fence, const char *reason),
++
++	TP_ARGS(fence, reason),
++
++	TP_STRUCT__entry(
++		__string(driver, fence->ops->get_driver_name(fence))
++		__string(timeline, fence->ops->get_timeline_name(fence))
++		__field(unsigned int, context)
++		__field(unsigned int, seqno)
++		__string(reason, reason)
++	),
++
++	TP_fast_assign(
++		__assign_str(driver, fence->ops->get_driver_name(fence));
++		__assign_str(timeline, fence->ops->get_timeline_name(fence));
++		__entry->context = fence->context;
++		__entry->seqno = fence->seqno;
++		__assign_str(reason, reason);
++	),
++
++	TP_printk("driver=%s timeline=%s context=%u seqno=%u reason=%s",
++		  __get_str(driver), __get_str(timeline), __entry->context,
++		  __entry->seqno, __get_str(reason))
++);
++
++DEFINE_EVENT(dma_fence_from, dma_fence_sync_to,
++
++	TP_PROTO(struct dma_fence *fence, const char *reason),
++
++	TP_ARGS(fence, reason)
++);
++
+ #endif /*  _TRACE_DMA_FENCE_H */
  
- 	ret = amdgpu_bo_reserve(adev->gart.bo, false);
-@@ -234,6 +241,9 @@ void amdgpu_gart_table_ram_free(struct amdgpu_device *adev)
- 	sg_free_table(sg);
- 	kfree(sg);
- 	p = virt_to_page(adev->gart.ptr);
-+	for (x = 0; x < (1UL << order); x++) {
-+		p[x].mapping = NULL;
-+	}
- 	__free_pages(p, order);
- 
- 	adev->gart.ptr = NULL;
+ /* This part must be outside protection */
 -- 
 2.40.1
 
