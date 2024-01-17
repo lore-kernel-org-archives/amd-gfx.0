@@ -4,66 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93474C47DA2
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 14:05:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEA8DC47DA2
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 14:15:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CEBE10E650;
-	Wed, 17 Jan 2024 14:05:26 +0000 (UTC)
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA0CC10E671;
- Wed, 17 Jan 2024 12:59:08 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-559b3ee02adso2046354a12.3; 
- Wed, 17 Jan 2024 04:59:08 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7871810E6AE;
+	Wed, 17 Jan 2024 14:15:14 +0000 (UTC)
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
+ [209.85.160.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E18D610E6AE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jan 2024 14:15:10 +0000 (UTC)
+Received: by mail-oa1-f48.google.com with SMTP id
+ 586e51a60fabf-210aaf2af35so193076fac.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jan 2024 06:15:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1705496287; x=1706101087; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1705500849; x=1706105649; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Nr6b38K/e8nUhb4OELnPFxstw2rjVez94AhNtOwXaI0=;
- b=EsCjGpa8+MrU2yHKHic6MXORWVA+02INh13iXBsLQGElHMheMKTLsqL7FYSeyGeRMg
- Y1DsLyOfCXosmeTtJLsN4HehzLEKS36MvnQez7OuXbZy6p6UQioz3Bk+ptxLqK1cucFK
- 3HQlHPiZGSGL7wPyraRGtePpXb+iFbR3ifoFLeDwRl1et/5MYDZV8pO50ErX1IbbEkZc
- fO/Dpt0PXp4iDfmI7BEEUzxv9+FI0x5GYQyEgtYm2NjDwMcTxxfqrtZtAtprgN1kXY50
- gNAjb9TRf1QLp+pFOBZYdwEYlPfhUxwqu0rRmGvSzHoO+aDaNf4RHykIJh4r+8464Cj6
- GIlQ==
+ bh=bQj2SR0tQ9b33YQSAypj8qp5bSuca1UhDyIbQ1YeOQY=;
+ b=PBVYvxBGqqvtgnkAtRqETHdoxzo8Uq+Ze3/4Q/s6FxjK9yDht741U5pDngTukJK2Iq
+ Arq0j8Xh+a6DdsrIacQ+OtRzeKvPutZDf4i2ej+bgbmBnEBaon1+p5SqG+Kw25jH4ZEf
+ JKIj0UGQSY0ZPxRg315QS01xMwfoPzWprVIqpt+SCOe5Zo+nwJ/GR/2xB3UK6jpoYcUU
+ xqWZMr8Gd784HiYeRyetsuS3akqyOdJhw6J3NpTZ4eLgfJpJy4TYiIyIs4l+tMJ99v/w
+ 9PWCMg6WeVjIdd7PXPYzUfmJnCtABDIUTtPYmpRHOjn487/e/XK6C53uHq4A9niG4SEs
+ 3FHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705496287; x=1706101087;
+ d=1e100.net; s=20230601; t=1705500849; x=1706105649;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Nr6b38K/e8nUhb4OELnPFxstw2rjVez94AhNtOwXaI0=;
- b=bI/tr3vRUjTQsD3OaKGQU5/CHKoMqlZimWdQGZE3rVZTIs9kZLI5NeF3PLUskYZv1V
- GgP6BYexveTbGHLBhRrWzOooyGS6NF4oDrVbqMuRsaubB9wXT5G+APAVoLWqs7G6njfl
- xs4sX6QTvMUTNUGEOZWwCuNeunPdcKV9ZpXrSE9az/7lO8U4u5c1ntBLOP+BIhpzwaY3
- r3/36co2Jp4sA7ivRA5MpcE3L8rk3oVH7X1VeDyECDGlRursPN79D+/YL3Hr7MBDlc/t
- r2maLXHouXpRvLfi7moN3VxVYJcRsv70mYdkpFqqX7B8i6fBJFWR6ynPuNvsWLLQnO4y
- QzDQ==
-X-Gm-Message-State: AOJu0YyP7mXyJTv3SVguafffrbQQ/2nI0BuLt2KfJzNont6Esx76nHT3
- wQB7Pmxk8du1FiK27hrGRs3ICKu6mLhw/EubAfI=
-X-Google-Smtp-Source: AGHT+IE1t1Pynz8dhhbawghsygV1PDRYd1YH80PNklfYhmvmA5G26IjcQ3zT0+tHjkGxUVuFhPhYRyu78S8j/DnsfP8=
-X-Received: by 2002:a17:907:76eb:b0:a2e:d3c6:b1f1 with SMTP id
- kg11-20020a17090776eb00b00a2ed3c6b1f1mr268098ejc.144.1705496286880; Wed, 17
- Jan 2024 04:58:06 -0800 (PST)
+ bh=bQj2SR0tQ9b33YQSAypj8qp5bSuca1UhDyIbQ1YeOQY=;
+ b=eVKg5dy1Azzbd5yLPfTnCiSBOzvdlQPoay3bPq6/iQrPXPfUWFEfyJ6UbS+K/MBzOv
+ EqxiWX25rDqVmFvpSzjNg0iH13xgVOhLDK5calf/gD19+KKfaElajXl94irFJaS/YIeh
+ n5lBgekGLb/uKjuQx1JTU0dQvMXConKuKf+KocQTAimE9REyKwwaTv0iIYItXhbnugLR
+ 4KCvUjlTx3Vaz/cr6JtJwAORUFZ2LldioD16peXNLJ6c+07ANTWyGSE0ltuUTP/nphkG
+ IXh+1oCz/3AOxcSbOdrhr4K/PDp6cpcULQPjPXx9M4JPBtdv3XO9/xNJ7KzKDEQ2Kxp9
+ XaqA==
+X-Gm-Message-State: AOJu0YwphzZUj3/5Hy8DPeXvfTCUDVVRGK2246XlfQQkPPH1Y5+v7F+F
+ nE7egikeyFzGKUW3ei3eUagmyhcQkvLJjm1X1hU=
+X-Google-Smtp-Source: AGHT+IE/SLbYO5ZDm8bL3G59nwauObwFxAPVe/Ci3RXxCuUiRVcY2R7PK8ly7Pcm5NUytrY+Yk7vdFsw8xFwi9lyCoI=
+X-Received: by 2002:a05:6871:878d:b0:210:a45b:5ec0 with SMTP id
+ td13-20020a056871878d00b00210a45b5ec0mr724212oab.37.1705500849555; Wed, 17
+ Jan 2024 06:14:09 -0800 (PST)
 MIME-Version: 1.0
-References: <20240116045159.1015510-1-andrealmeid@igalia.com>
- <20240116114522.5b83d8b6@eldfell>
- <a6099681-1ae9-48ef-99bc-d3c919007413@igalia.com>
- <20240116151414.10b831e6@eldfell>
- <47c6866a-34d6-48b1-a977-d21c48d991dc@igalia.com>
- <CAFZQkGyOQ5Tfu++-cHqgZ9NOJxqxm8cAF5XT18LmisuPAUbXAg@mail.gmail.com>
- <20240117105509.1984837f@eldfell>
-In-Reply-To: <20240117105509.1984837f@eldfell>
-From: Xaver Hugl <xaver.hugl@gmail.com>
-Date: Wed, 17 Jan 2024 13:57:55 +0100
-Message-ID: <CAFZQkGzite-CZoJcV80kNPe==OWFZa_cR1x3QRKuLd=HdOFw-A@mail.gmail.com>
-Subject: Re: [PATCH 0/2] drm/atomic: Allow drivers to write their own plane
- check for async
-To: Pekka Paalanen <ppaalanen@gmail.com>
+References: <20240117085229.981555-1-Jun.Ma2@amd.com>
+In-Reply-To: <20240117085229.981555-1-Jun.Ma2@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 17 Jan 2024 09:13:57 -0500
+Message-ID: <CADnq5_NUFJYOdNa2sm4y_KU108EUvwpR7MxTQySwdK+S=1G1hA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/pm: Fix the power source flag error
+To: Ma Jun <Jun.Ma2@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 17 Jan 2024 14:05:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,205 +67,125 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, daniel@ffwll.ch,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- Simon Ser <contact@emersion.fr>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, alexander.deucher@amd.com,
- Joshua Ashton <joshua@froggi.es>, Daniel Stone <daniel@fooishbar.org>,
- Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com,
- ville.syrjala@linux.intel.com
+Cc: Alexander.Deucher@amd.com, Kenneth.Feng@amd.com, kevinyang.wang@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Mi., 17. Jan. 2024 um 09:55 Uhr schrieb Pekka Paalanen <ppaalanen@gmail.=
-com>:
-> Is it important enough to be special-cased, e.g. to be always allowed
-> with async commits?
-
-I thought so, and sent a patch to dri-devel to make it happen, but
-there are some
-concerns about untested driver paths.
-https://lists.freedesktop.org/archives/dri-devel/2024-January/437511.html
-
-> Now that I think of it, if userspace needs to wait for the in-fence
-> itself before kicking KMS async, that would defeat much of the async's
-> point, right? And cases where in-fence is not necessary are so rare
-> they might not even exist?
+On Wed, Jan 17, 2024 at 4:01=E2=80=AFAM Ma Jun <Jun.Ma2@amd.com> wrote:
 >
-> So if driver/hardware cannot do IN_FENCE_FD with async, is there any
-> use of supporting async to begin with?
-
-KWin never commits a buffer where IN_FENCE_FD would actually delay the
-pageflip; it's really only used to disable implicit sync, as there's some e=
-dge
-cases where it can wrongly delay the pageflip. The waiting for buffers to b=
-ecome
-readable on the compositor side isn't really significant in terms of latenc=
-y.
-
-If hardware doesn't support IN_FENCE_FD with async commits, checking if the
-fence is already signaled at commit time would thus still make things work,=
- at
-least for KWin.
-
-> > If the compositor prioritizes tearing and would like to do overlay plan=
-es
-> > if possible,
-> > it would have to know that switching to synchronous commits for a singl=
-e
-> > frame,
-> > setting up the overlay planes and then switching back to async commits
-> > works, and
-> > that can't be figured out with TEST_ONLY commits.
+> The power source flag should be updated when
+> [1] System receives an interrupt indicating that the power source
+> has changed.
+> [2] System resumes from suspend or runtime suspend
 >
-> I had to ponder a bit why. So I guess the synchronous commit in between
-> is because driver/hardware may not be able to enable/disable extra
-> planes in async, so you need a synchronous commit to set them up, but
-> afterwards updates can tear.
-
-The hardware could be a factor, yes, but I've been thinking more about the =
-API.
-With this patchset, the compositor is still only allowed to change a
-limited set of
-plane properties - but it needs to set at least SRC_X, SRC_Y, CRTC_X etc on
-the overlay plane(s) to the correct values before it can only change the al=
-lowed
-properties again.
-
-> The comment about Intel needing one more synchronous commit when
-> switching from sync to async updates comes to mind as well, would that
-> be a problem?
-
-With only one synchronous update, the compositor could theoretically mask t=
-he
-issue by committing it right before vblank; with that one
-implicitly-sync "async"
-commit though, you'd definitely get one frame without async commits. Having=
- a
-flag for a sync-but-then-async-again commit could solve that issue.
-
-In practice I don't think anyone will notice one or two frames without
-async commits.
-It should be a pretty rare occurance, usually when the game or match
-starts or an
-overlay gets opened, so I doubt it's worth putting effort in to fix that.
-
-> > So I think having a CAP or immutable plane property to signal that asyn=
-c
-> > commits
-> > with overlay and/or cursor planes is supported would be useful.
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 24 +++++++++++--------
+>  .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  2 ++
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  2 ++
+>  3 files changed, 18 insertions(+), 10 deletions(-)
 >
-> Async cursor planes a good point, particularly moving them around. I'm
-> not too informed about the prior/on-going efforts to allow cursor
-> movement more often than refresh rate, I recall something about
-> amending atomic commits? How would these interact?
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
+amd/pm/swsmu/amdgpu_smu.c
+> index c16703868e5c..e16d22e30a8a 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -24,6 +24,7 @@
 >
-> I suppose the kernel still prevents any new async commit while a
-> previous commit is not finished, so amending commits would still be
-> necessary for cursor plane motion? Or would it, if you time "big
-> commits" to finish quickly and then spam async "cursor commits" in the
-> mean time?
-
-With async commits for cursor planes I'm really only talking about
-getting to use
-the cursor plane while doing async commits on the primary plane.
-
-FWIW I personally consider the amend stuff mostly solved - KWin does that
-internally since a few months ago now, with a separate thread to amend and
-even reorder commits in a queue, and only actually commit immediately
-before vblank.
-
+>  #include <linux/firmware.h>
+>  #include <linux/pci.h>
+> +#include <linux/power_supply.h>
+>  #include <linux/reboot.h>
 >
-> Thanks,
-> pq
+>  #include "amdgpu.h"
+> @@ -793,6 +794,17 @@ static int smu_apply_default_config_table_settings(s=
+truct smu_context *smu)
+>         return smu_set_config_table(smu, &adev->pm.config_table);
+>  }
 >
-> > Am Di., 16. Jan. 2024 um 14:35 Uhr schrieb Andr=C3=A9 Almeida <
-> > andrealmeid@igalia.com>:
-> >
-> > > + Joshua
-> > >
-> > > Em 16/01/2024 10:14, Pekka Paalanen escreveu:
-> > > > On Tue, 16 Jan 2024 08:50:59 -0300
-> > > > Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
-> > > >
-> > > >> Hi Pekka,
-> > > >>
-> > > >> Em 16/01/2024 06:45, Pekka Paalanen escreveu:
-> > > >>> On Tue, 16 Jan 2024 01:51:57 -0300
-> > > >>> Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
-> > > >>>
-> > > >>>> Hi,
-> > > >>>>
-> > > >>>> AMD hardware can do more on the async flip path than just the pr=
-imary
-> > > plane, so
-> > > >>>> to lift up the current restrictions, this patchset allows driver=
-s to
-> > > write their
-> > > >>>> own check for planes for async flips.
-> > > >>>
-> > > >>> Hi,
-> > > >>>
-> > > >>> what's the userspace story for this, how could userspace know it =
-could
-> > > do more?
-> > > >>> What kind of userspace would take advantage of this and in what
-> > > situations?
-> > > >>>
-> > > >>> Or is this not meant for generic userspace?
-> > > >>
-> > > >> Sorry, I forgot to document this. So the idea is that userspace wi=
-ll
-> > > >> query what they can do here with DRM_MODE_ATOMIC_TEST_ONLY calls,
-> > > >> instead of having capabilities for each prop.
-> > > >
-> > > > That's the theory, but do you have a practical example?
-> > > >
-> > > > What other planes and props would one want change in some specific =
-use
-> > > > case?
-> > > >
-> > > > Is it just "all or nothing", or would there be room to choose and p=
-ick
-> > > > which props you change and which you don't based on what the driver
-> > > > supports? If the latter, then relying on TEST_ONLY might be yet ano=
-ther
-> > > > combinatorial explosion to iterate through.
-> > > >
-> > >
-> > > That's a good question, maybe Simon, Xaver or Joshua can share how th=
-ey
-> > > were planning to use this on Gamescope or Kwin.
-> > >
-> > > >
-> > > > Thanks,
-> > > > pq
-> > > >
-> > > >>>> I'm not sure if adding something new to drm_plane_funcs is the r=
-ight
-> > > way to do,
-> > > >>>> because if we want to expand the other object types (crtc, conne=
-ctor)
-> > > we would
-> > > >>>> need to add their own drm_XXX_funcs, so feedbacks are welcome!
-> > > >>>>
-> > > >>>>    Andr=C3=A9
-> > > >>>>
-> > > >>>> Andr=C3=A9 Almeida (2):
-> > > >>>>     drm/atomic: Allow drivers to write their own plane check for=
- async
-> > > >>>>       flips
-> > > >>>>     drm/amdgpu: Implement check_async_props for planes
-> > > >>>>
-> > > >>>>    .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 30 +++++++++
-> > > >>>>    drivers/gpu/drm/drm_atomic_uapi.c             | 62
-> > > ++++++++++++++-----
-> > > >>>>    include/drm/drm_atomic_uapi.h                 | 12 ++++
-> > > >>>>    include/drm/drm_plane.h                       |  5 ++
-> > > >>>>    4 files changed, 92 insertions(+), 17 deletions(-)
-> > > >>>>
-> > > >>>
-> > > >
-> > >
+> +static void smu_update_power_source(struct amdgpu_device *adev)
+> +{
+> +       if (power_supply_is_system_supplied() > 0)
+> +               adev->pm.ac_power =3D true;
+> +       else
+> +               adev->pm.ac_power =3D false;
+> +
+> +       if (is_support_sw_smu(adev))
+
+Do we need this check here?  This is the sw_smu code.
+
+> +               smu_set_ac_dc(adev->powerplay.pp_handle);
+> +}
+> +
+>  static int smu_late_init(void *handle)
+>  {
+>         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> @@ -817,16 +829,8 @@ static int smu_late_init(void *handle)
+>          * handle the switch automatically. Driver involvement
+>          * is unnecessary.
+>          */
+> -       if (!smu->dc_controlled_by_gpio) {
+> -               ret =3D smu_set_power_source(smu,
+> -                                          adev->pm.ac_power ? SMU_POWER_=
+SOURCE_AC :
+> -                                          SMU_POWER_SOURCE_DC);
+> -               if (ret) {
+> -                       dev_err(adev->dev, "Failed to switch to %s mode!\=
+n",
+> -                               adev->pm.ac_power ? "AC" : "DC");
+> -                       return ret;
+> -               }
+> -       }
+> +       if (!smu->dc_controlled_by_gpio)
+> +               smu_update_power_source(adev);
+>
+>         if ((amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(13, 0=
+, 1)) ||
+>             (amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(13, 0=
+, 3)))
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> index 2e7f8d5cfc28..8047150fddd4 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> @@ -1442,10 +1442,12 @@ static int smu_v11_0_irq_process(struct amdgpu_de=
+vice *adev,
+>                         case 0x3:
+>                                 dev_dbg(adev->dev, "Switched to AC mode!\=
+n");
+>                                 schedule_work(&smu->interrupt_work);
+> +                               adev->pm.ac_power =3D true;
+>                                 break;
+>                         case 0x4:
+>                                 dev_dbg(adev->dev, "Switched to DC mode!\=
+n");
+>                                 schedule_work(&smu->interrupt_work);
+> +                               adev->pm.ac_power =3D false;
+>                                 break;
+>                         case 0x7:
+>                                 /*
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> index 771a3d457c33..c486182ff275 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> @@ -1379,10 +1379,12 @@ static int smu_v13_0_irq_process(struct amdgpu_de=
+vice *adev,
+>                         case 0x3:
+>                                 dev_dbg(adev->dev, "Switched to AC mode!\=
+n");
+>                                 smu_v13_0_ack_ac_dc_interrupt(smu);
+> +                               adev->pm.ac_power =3D true;
+>                                 break;
+>                         case 0x4:
+>                                 dev_dbg(adev->dev, "Switched to DC mode!\=
+n");
+>                                 smu_v13_0_ack_ac_dc_interrupt(smu);
+> +                               adev->pm.ac_power =3D false;
+>                                 break;
+>                         case 0x7:
+>                                 /*
+> --
+> 2.34.1
 >
