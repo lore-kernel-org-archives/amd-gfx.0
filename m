@@ -4,59 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60F6BC47DA9
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 09:31:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41E30C47258
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 09:41:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED2AF10E659;
-	Wed, 17 Jan 2024 09:31:08 +0000 (UTC)
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B91CA10E563
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 13:14:50 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-5f70c085d64so81511337b3.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jan 2024 05:14:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=yngvason.is; s=google; t=1705410829; x=1706015629; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UgTAJrFpfpXZ14LoeYBV9hYTfaqdy6WXEoOHL8FEBp0=;
- b=G6nMmd7pYlrTZn5UNGOpiLD7c77UTM05twoogdcyT4klGldzJ9hfu/lSKCr2RwOR8j
- znQAJ13uyHjFcNdl+GC9Hhx7v/NT1cwYRJcqbCudBSLAKUmcVIAx/1No9UWcuMqxbjCU
- YvKm3xMm0Tuo8sb2NyIEyWyBJq6A12sGIfZ00=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705410829; x=1706015629;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UgTAJrFpfpXZ14LoeYBV9hYTfaqdy6WXEoOHL8FEBp0=;
- b=l82qdTAeUq24GPoPSI+RKJINHJpCo4/RF3aTT4V28mD8eYfTt8wufj39knvT29Erub
- g0OtRboNrqCLjEwfWCRCawtF5AZmc14NAlsGf3XD1vkhCwcfiK3hTpes0eZUsZTQaXc/
- fjho4/yLFSQjtoKKbBNU7osU+lfTxcuOZgc3dbipG91IhXg7FC0yVcd/nEHt7eum/gUe
- ETtbGz/zhhPfCXyhE9GqHe0sUwjjqeEWSXTFyfPj2CZw5rKKbz7vXP/342KtsWiXX1fM
- ECQZOIEpSfHZS9DoEZj8LCNjweaaW9U8ds31fOMOYCknD8mnMY2Ymm2s+yH8pp9gWOKe
- gfDQ==
-X-Gm-Message-State: AOJu0YyKhwhKqzPACMVg5HZwjSx+zWTEKUZ1U8le/13/QhSSOIV6lwO2
- UmI+XUc2PEhPYJXFN+C+hwDG2SaPi4Ro3EzWqmolEbFQ9MS4Hg==
-X-Google-Smtp-Source: AGHT+IEvdpYZdLrjqLdLASniLaW/kxSkHhZUqkufoy5Z1zACRc4GGJ9S1JofmV/XOTAVZvZZlMpmt5VXIRxTmGkzFoQ=
-X-Received: by 2002:a81:400f:0:b0:5f7:d06c:7464 with SMTP id
- l15-20020a81400f000000b005f7d06c7464mr4994438ywn.61.1705410829635; Tue, 16
- Jan 2024 05:13:49 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB87310E0BE;
+	Wed, 17 Jan 2024 09:41:49 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2086.outbound.protection.outlook.com [40.107.223.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9431210E0BE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jan 2024 09:41:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d4v84T25OJYPNX0Bt2OZnM86c3kLeBggdQlzMvnoskyWTJ1tGZjwZ0SFAbBWLpRw96sJlKHNyoeovK8T8VKVNPtzYhIy/e1r2iqL5ShNXt9xtaEUT/oRuOfPjW+z6ognqDYwEJ+nus1/JJ7xsp8WQZOy7x2l6xf4SrjR1hBp+Gtxom+hk7GCCmUJptmtFQOHLuXjqLOv/A+SmZvIyRZRw4vnOWX2uu9u+sSBPOS2jpaTFSRtLrwZniRM/KIXmOkB8qfCHrc0jFms2MXgaruUtL6fj3fOyG0RZ/cbs/Ohm6J8LWzIbiVkOwy6YKEl7/gLYH14VBVATOcRws2KsMKWog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZGuktDbBchOkZtNeORt8rM4QGrf8vm1DDKXU6w+o0uM=;
+ b=J6O1SInn9U+Q6rcptNRQK54L5Omy24kcA9PacKgRlO+SIOr6608grtisUIC64+INbhHjSaBKpMJEX5zDlXc61TOSzPM9P5Y2xQVNdbKbLrRGrOEiq17qXs2P3wkGHaqiVmCxMb3ECK3fxs2IZwgyQoL9v6soOBJw2em7J/ohOzEyHK6pkYm4OlfYFPdtfUjc09czqYwfxu3bDbZ6Ywy3ZMZAmpfwbyVfA3YbWtJcEuqrb1JVnnNhTP5xdGII1fBSk2QTodOZl/Y1y3x0yJw3nTuJnywqGvVU2RTjsuwTCexZkxwHlb/bcUKNQAR/nbpqXZQg/FaLximt3zd/OsR4Sw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZGuktDbBchOkZtNeORt8rM4QGrf8vm1DDKXU6w+o0uM=;
+ b=uoDW7zchZoeZ76n6m6s39zrfA1gtJKdQy0mF3i90r1nroTn7NAKZwI6b/+mKcYo/v7+HhMJXWyOaamKyv3U2h236PntYcLgwpJOVKKur/+YLrLk9FW1QzQoA5Lgngr9hl2MkiAPgRsAcWK8Lm4YuMxx3U0sHiQZYvd9jpu0xi1U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8)
+ by DM4PR12MB6421.namprd12.prod.outlook.com (2603:10b6:8:b7::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.17; Wed, 17 Jan
+ 2024 09:41:45 +0000
+Received: from PH7PR12MB7820.namprd12.prod.outlook.com
+ ([fe80::5b3b:867e:c8bd:8bf8]) by PH7PR12MB7820.namprd12.prod.outlook.com
+ ([fe80::5b3b:867e:c8bd:8bf8%6]) with mapi id 15.20.7181.018; Wed, 17 Jan 2024
+ 09:41:45 +0000
+Message-ID: <f902f7a3-ea3a-46fa-9220-447e54954820@amd.com>
+Date: Wed, 17 Jan 2024 15:11:35 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu/pm: Fix the power source flag error
+Content-Language: en-US
+To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20240117085229.981555-1-Jun.Ma2@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20240117085229.981555-1-Jun.Ma2@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0066.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:99::15) To PH7PR12MB7820.namprd12.prod.outlook.com
+ (2603:10b6:510:268::8)
 MIME-Version: 1.0
-References: <20240115160554.720247-1-andri@yngvason.is>
- <20240115160554.720247-3-andri@yngvason.is>
- <20240116114235.GA311990@toolbox>
-In-Reply-To: <20240116114235.GA311990@toolbox>
-From: Andri Yngvason <andri@yngvason.is>
-Date: Tue, 16 Jan 2024 13:13:13 +0000
-Message-ID: <CAFNQBQz3TNj_7BSmFw4CFMNuR4B+1d+y3f058s+rzTuzdYogqA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/4] drm/uAPI: Add "force color format" drm property as
- setting for userspace
-To: Sebastian Wick <sebastian.wick@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 17 Jan 2024 09:31:07 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB7820:EE_|DM4PR12MB6421:EE_
+X-MS-Office365-Filtering-Correlation-Id: dd435d7c-7a66-473d-f2c0-08dc17408459
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uzlcjLVp3ByeGLiYqmUQvuVHx/XOVvJydA8YgGPDdRsWokYRPDz8NqLQypOaD2QZs4SfRdxbVSTR1JmaqNZ3vaegruQmdAGCuIzGGCrngwO7PDrRPeWkmoae1E4CPvUdGgOAwsoj5HUlmKA3EmAU5loHvfXqQGaGrAmsy+IsNaeRAIF2+KlJ9lLBA8IAmf9+6+bi0emrye3+JI+zNlB400m+IhpiwEFin5zxlNyiK6mwBGQQiFDfNwsAipe3HgldGSe9gbyt3V4XfXyaJpVjml9XxFF1UP1QduZZGCiBwANyoFbJ21QtjJ1hPvUGh6N9IeiFQ4OXoU91N+X3YeK8H3ejxMDU1KyKI4kcF4xySKf4szi7L8c8OgB2tiyY6+4TgSycji2YgNLGKwzKZVAZaStm3243cFj8BQPDXYLEWArT5uNE7qIhS/yQZu+7g+TowMYmFnJjgSw5YS3Prq+HKQfA2Jp/CK3axSzD4hYsqCfkeeDcLhV1rcUks6SXJboWPKMWeJ/ZcMap0Cn5S6KXneqQExdpcS03T5wzuGg0MA98esxqZn3eXRMf3LZP7S3IwpLEii9BKWWAXGWzA/Qjx7/0eT5e/HicUYI1mg/8qX2S3GoEnJYzKunX9BDOawfb4YpR90MsXNly/47brtJ30g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB7820.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(136003)(366004)(396003)(346002)(39860400002)(230922051799003)(451199024)(186009)(1800799012)(64100799003)(66946007)(83380400001)(2906002)(2616005)(66476007)(8676002)(53546011)(26005)(316002)(6512007)(4326008)(5660300002)(66556008)(6506007)(8936002)(478600001)(41300700001)(6666004)(36756003)(86362001)(6486002)(38100700002)(31696002)(31686004)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emNTQjQ3MW9yYzg0cW9GVmVrMlJoaGNaQnZWY0lPcFRjMnJjUGgxV2djY0JD?=
+ =?utf-8?B?aDF5bjNQdFIxbG9jcGxZRUVsWEFVV1hpMXl5VWpMMVRUcVpDK2w0bHh3MTF5?=
+ =?utf-8?B?Sndham5QcktkUkpwOHlrM1JrM0lBbWcvNHBqWkthV3dmdWQzUTEzalQ2alZj?=
+ =?utf-8?B?M1BBcXZSd0Y4NUVNdkU0RndFcjFEa1A1UzNrRTVJaUdhMnF1MXJoTVRTWTNP?=
+ =?utf-8?B?UE1rNE5yUmJkS0ExdW5SeXZkSnJPVHRENHhIV1ZIZ204WDVpSnVCYmp0RFUw?=
+ =?utf-8?B?ZUk5bEZ1UzRzb0haVHpRUjZycnhadDVZMjh4L1lVN0VTV3NnQngzNXk4a1JI?=
+ =?utf-8?B?L1lGRWZiM1V5dmlISW9jNXJUM0tmOUZUQmY2U1NrQXkzcjFMNytuVGU0b0hu?=
+ =?utf-8?B?dE5KZjdDUHBHR3prU0puT2xySnB0dFdxNXpYaExRZkhIZEVGeFcyM0hqYk5X?=
+ =?utf-8?B?eXBwK0ZwdCsxYTk1cHJ1U2lmeTRsWC84dTdUdUJNdi9zMEpweDFsMXl5Wkl0?=
+ =?utf-8?B?N2hQZyttbjRPb2F1RUN4YWVicUVQUFR2TnRCZXN5NmpSOG5rYkNnZ0pkMGkv?=
+ =?utf-8?B?QmJrWUNkdHBYa3dEZTBtREdnaE9SN3I0b3dvTkdqaHIxWEtWYnd3anYzaTZz?=
+ =?utf-8?B?K3E1L25SZTVYQWFoanpUUkJRWTMyemxVMzFueFJJbkVOTVlDNVR1MlNOTUdY?=
+ =?utf-8?B?bGtYV1VkcEErZitYV0lUc0Fid3BtM0JxelZaYTF5Sy9VQ3hwdzdSVnBRWjFn?=
+ =?utf-8?B?Smd4bWd3eFo0WkVMd2Nxc3l2cmVGVVFkV3l3M0pLRzJZeE5MMXZ1TW5JZXFM?=
+ =?utf-8?B?Ris1bXYvOHl1V1RLbGVBZUdydE9Ib3FZU21sQTJRRlRJSmd5YjhWTDlRWGhz?=
+ =?utf-8?B?ZFIrZjF0MzRIeDdEMjhvRW1BWFVJOGJ5emw0bGV5cWxGMml4T2hHRVNPQ2tO?=
+ =?utf-8?B?anpMcW5zM2VzdTRuaWpYYVN3VVZCNVpFelMxa0NQcDdBYzF6aFlIQUlMdndG?=
+ =?utf-8?B?aWdKVE81MVpkbURhRzVVOTEzTGw4YVpQZ1RnQXBBQ1F0c2FHa1J3YnlhTEJ6?=
+ =?utf-8?B?djZEQ1M0YUN5K0JCU2lDNzQvTC90UXNuOUVUcmNhc1lobThGdXhNWkNicUxO?=
+ =?utf-8?B?UXV4NmdmY2lscDQ3K0lldTdUdm1NMUdwanNhMTEybkY4SVpSVEMza3lxM2Qx?=
+ =?utf-8?B?UzNlTFVGUTcreFAxaFRlaURUMXMzTFY0UUMveTk2a0ZMdHpPWFoxSDZEVERa?=
+ =?utf-8?B?VVFiMmo5Sk5nKzhJZnZXTGhxWmgvdmlRNDNaQnVqbmhPM2JFOVAzMDY2RlMz?=
+ =?utf-8?B?em0rcWFtMzZsbWpUdXZ4bGJXREsxSGRGTTNVakFaeTZ6WGQ5ZHpTOGhXVUtj?=
+ =?utf-8?B?VG45WkNuVWJzSy9XQzdqUnF2bExoTnYyYlFRMWN2WG90OVpQSldCZXNoZVVW?=
+ =?utf-8?B?UmMwOWRxRGRDZjJqUFdLUFdvUjZOeVE0cTNKYll0eDJwYldUTUJmRmFXa1cy?=
+ =?utf-8?B?R0NwNEMvR0pZeWZvZFgvU2FpeU5QeHVwcXMzbkhuclBFd3l6L2tZL1A5UHRZ?=
+ =?utf-8?B?L1dOTlp5ZW85a3RvaXBqL2o0ZlF5ejhaUzdHV20zNHRIMHV5L1dEdkhwYVpH?=
+ =?utf-8?B?Y2ZxMDN0aUgrMTh1UDVGRDd0T1VpMjV0cUh2VjFoa1dVRHpLQUxhMFFnaWZO?=
+ =?utf-8?B?V2J5dTJBcTJYUnVQODZleTNpZS9KSDkyU3E3V0NEcHJYbFZGbUNjWlE2QlIr?=
+ =?utf-8?B?eWgydDNRRUN0b0VERVI1ZkUwclZWWm8vQ1grbzNBVVYvMFdjOTNnUUFuL0NN?=
+ =?utf-8?B?aEVwRER5ZThGMUIwTUp2L2VtSXdCVmZjcXFzb2lUektQTWlGTlBKL2cyVFht?=
+ =?utf-8?B?dTRHOTkrUjRraXc4cEZPdXdwV0tlZlc5YnhrN1JjeHVtTVZ4cWttVWZESG9t?=
+ =?utf-8?B?Wnd5Tk9meVJzV09VYnhVWW1mcmh4dkFEb0tXQ0NvMTV2dlRzNktTY05DN0hX?=
+ =?utf-8?B?c3NBOVhmcFFiTS82WFd3c1ZUUW0rTFdzRjIxNWQyZldsbkdMcStyQXgxV3Q1?=
+ =?utf-8?B?TjdzTUxaMVB6aE9Vd3haUFVUM0laaUdrTStMTGtucXkwdXhpV1hka25ESGxG?=
+ =?utf-8?Q?2GvZayhOToJUe5Nb1kuT4QT3I?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd435d7c-7a66-473d-f2c0-08dc17408459
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7820.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2024 09:41:44.9708 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ngxJ5qevFtibGBkvLwcciiG/mN8siSb26c9aePh3R6Mik+Giz1ap/k19JaiyT2tz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6421
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,100 +122,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Werner Sembach <wse@tuxedocomputers.com>, Leo Li <sunpeng.li@amd.com>,
- David Airlie <airlied@gmail.com>, intel-gfx@lists.freedesktop.org, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alexander.Deucher@amd.com, Kenneth.Feng@amd.com, kevinyang.wang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Sebastian,
+On 1/17/2024 2:22 PM, Ma Jun wrote:
+> The power source flag should be updated when
+> [1] System receives an interrupt indicating that the power source
+> has changed.
+> [2] System resumes from suspend or runtime suspend
+> 
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+> ---
+>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 24 +++++++++++--------
+>   .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  2 ++
+>   .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  2 ++
+>   3 files changed, 18 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index c16703868e5c..e16d22e30a8a 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -24,6 +24,7 @@
+>   
+>   #include <linux/firmware.h>
+>   #include <linux/pci.h>
+> +#include <linux/power_supply.h>
+>   #include <linux/reboot.h>
+>   
+>   #include "amdgpu.h"
+> @@ -793,6 +794,17 @@ static int smu_apply_default_config_table_settings(struct smu_context *smu)
+>   	return smu_set_config_table(smu, &adev->pm.config_table);
+>   }
+>   
+> +static void smu_update_power_source(struct amdgpu_device *adev)
+> +{
+> +	if (power_supply_is_system_supplied() > 0)
+> +		adev->pm.ac_power = true;
+> +	else
+> +		adev->pm.ac_power = false;
+> +
+> +	if (is_support_sw_smu(adev))
+> +		smu_set_ac_dc(adev->powerplay.pp_handle);
+> +}
+> +
+>   static int smu_late_init(void *handle)
+>   {
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> @@ -817,16 +829,8 @@ static int smu_late_init(void *handle)
+>   	 * handle the switch automatically. Driver involvement
+>   	 * is unnecessary.
+>   	 */
+> -	if (!smu->dc_controlled_by_gpio) {
+> -		ret = smu_set_power_source(smu,
+> -					   adev->pm.ac_power ? SMU_POWER_SOURCE_AC :
+> -					   SMU_POWER_SOURCE_DC);
+> -		if (ret) {
+> -			dev_err(adev->dev, "Failed to switch to %s mode!\n",
+> -				adev->pm.ac_power ? "AC" : "DC");
+> -			return ret;
+> -		}
+> -	}
 
-=C3=BEri., 16. jan. 2024 kl. 11:42 skrifa=C3=B0i Sebastian Wick
-<sebastian.wick@redhat.com>:
->
-> On Mon, Jan 15, 2024 at 04:05:52PM +0000, Andri Yngvason wrote:
-> > From: Werner Sembach <wse@tuxedocomputers.com>
-> >
-> > Add a new general drm property "force color format" which can be used
-> > by userspace to tell the graphics driver which color format to use.
->
-> I don't like the "force" in the name. This just selects the color
-> format, let's just call it "color format" then.
->
+For this part of the change - driver already updates FW with the initial 
+detected power state or the last detected power state before going for 
+suspend. Isn't that good enough?
 
-In previous revisions, this was "preferred color format" and "actual
-color format", of which the latter has been dropped. I recommend
-reading the discussion for previous revisions.
+Thanks,
+Lijo
 
-There are arguments for adding "actual color format" later and if it
-is added later, we'd end up with "color format" and "actual color
-format", which might be confusing, and it is why I chose to call it
-"force color format" because it clearly communicates intent and
-disambiguates it from "actual color format".
+> +	if (!smu->dc_controlled_by_gpio)
+> +		smu_update_power_source(adev);
+>   
+>   	if ((amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 1)) ||
+>   	    (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 3)))
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> index 2e7f8d5cfc28..8047150fddd4 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> @@ -1442,10 +1442,12 @@ static int smu_v11_0_irq_process(struct amdgpu_device *adev,
+>   			case 0x3:
+>   				dev_dbg(adev->dev, "Switched to AC mode!\n");
+>   				schedule_work(&smu->interrupt_work);
+> +				adev->pm.ac_power = true;
+>   				break;
+>   			case 0x4:
+>   				dev_dbg(adev->dev, "Switched to DC mode!\n");
+>   				schedule_work(&smu->interrupt_work);
+> +				adev->pm.ac_power = false;
+>   				break;
+>   			case 0x7:
+>   				/*
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> index 771a3d457c33..c486182ff275 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> @@ -1379,10 +1379,12 @@ static int smu_v13_0_irq_process(struct amdgpu_device *adev,
+>   			case 0x3:
+>   				dev_dbg(adev->dev, "Switched to AC mode!\n");
+>   				smu_v13_0_ack_ac_dc_interrupt(smu);
+> +				adev->pm.ac_power = true;
+>   				break;
+>   			case 0x4:
+>   				dev_dbg(adev->dev, "Switched to DC mode!\n");
+>   				smu_v13_0_ack_ac_dc_interrupt(smu);
+> +				adev->pm.ac_power = false;
+>   				break;
+>   			case 0x7:
+>   				/*
 
-[...]
-> > @@ -1396,6 +1404,15 @@ static const u32 dp_colorspaces =3D
-> >   *   drm_connector_attach_max_bpc_property() to create and attach the
-> >   *   property to the connector during initialization.
-> >   *
-> > + * force color format:
-> > + *   This property is used by userspace to change the used color forma=
-t. When
-> > + *   used the driver will use the selected format if valid for the har=
-dware,
->
-> All properties are always "used", they just can have different values.
-> You probably want to talk about the auto mode here.
-
-Maybe we can say something like: If userspace does not set the
-property or if it is explicitly set to zero, the driver will select
-the appropriate color format based on other constraints.
-
->
-> > + *   sink, and current resolution and refresh rate combination. Driver=
-s to
->
-> If valid? So when a value is not actually supported user space can still
-> set it? What happens then? How should user space figure out if the
-> driver and the sink support the format?
-
-The kernel does not expose this property unless it's implemented in the dri=
-ver.
-
-This was originally "preferred color format". Perhaps the
-documentation should better reflect that it is now a mandatory
-constraint which fails the modeset if not satisfied.
-
->
-> For the Colorspace prop, the kernel just exposes all formats it supports
-> (independent of the sink) and then makes it the job of user space to
-> figure out if the sink supports it.
->
-> The same could be done here. Property value is exposed if the driver
-> supports it in general, commits can fail if the driver can't support it
-> for a specific commit because e.g. the resolution or refresh rate. User
-> space must look at the EDID/DisplayID/mode to figure out the supported
-> format for the sink.
-
-Yes, we can make it possible for userspace to discover which modes are
-supported by the monitor, but there are other constraints that need to
-be satisfied. This was discussed in the previous revision.
-
-In any case, these things can be added later and need not be a part of
-this change set.
-
-[...]
-
-Regards,
-Andri
