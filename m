@@ -4,90 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDCEFC47422
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 09:15:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4E09C47258
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 09:22:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E70F110E641;
-	Wed, 17 Jan 2024 09:14:58 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2057.outbound.protection.outlook.com [40.107.243.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95A6A10E66A
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jan 2024 09:14:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bNu5osKJozdPQYn14W/FK2RYrS9O1gy+sxCDpturq2AARSuK0z73os+ZClcYKNpApZ/QmfL+GIoOtcFKaZd1oNp5QAgNPsth6O9k/um3ZFVwMKoq4uQp/PXSV6TreZy1gRD+yeiiX6irs7ewgGUiyQMyA4qV4DRC+sXyyUHAD5CZlXob0FaubRv0DkaJUGnvz2B0QMs2C4ZLWPgxy73jBnCjPJmuIMlx4L53eGQXw15UNeZFg5Apd1ckSjnn90ZqTnjOAUIOyDn1wvv4haR+AkfVvYPE4IU+atZjn268THiNRwXNV716AAV+dkrGbseauoFvHZeMMehpv5UWNNb6gQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1+GO7qDC54OGmZChJtUUv9bEvU1QK+LbULWlRtq7tPI=;
- b=eBiGnli3rLlNRrGQ6CwLw6rrD1BMOtRme02iJu7EjqU3LPDZb8yovbpM/nbLuAUmL+VA+64+W9DSVMM+ey6fnl2xzd9lie27uTBMHf751V+MuN33C7Oye1zHY9JNvF2tJYUDB9i4vCMq6t3PJZ2nrWwzoLg5j9ZwzynCAvchIr5SKfiMxMgEEtc+nZgLlerMB4ZepUUzzzvfqxu7eUAcqPZSQN2NF0uX6SHRJ9zJw/Ayqwr0P9dO/K4jhxPVamDtDeGtTq5gPUn+7XknGVum5/kgAFe9nBhdKoQivVCcQxzc/w3AS+wOr2GKYcleOBo1Li0t4zp33iWI+7vWcBcJ1Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1+GO7qDC54OGmZChJtUUv9bEvU1QK+LbULWlRtq7tPI=;
- b=pKDC9tzyi5dxbYX5reb2jhGWD8H+fEpluLSsWSdFc0jokZ0aNkSR80UAAQzLm0nRrllrHMyk9Crh1DPSRlU3K8jtM0ZpoqtoFwAdABWB6KHk49CJT5ncABzBv8QGGw3W9lrCLn7DMG42Z0+YMW5KMQAZ5FaaBZAwYk55WEUyzLk=
-Received: from CY8P220CA0021.NAMP220.PROD.OUTLOOK.COM (2603:10b6:930:46::6) by
- LV8PR12MB9082.namprd12.prod.outlook.com (2603:10b6:408:180::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.30; Wed, 17 Jan
- 2024 09:14:52 +0000
-Received: from CY4PEPF0000E9CE.namprd03.prod.outlook.com
- (2603:10b6:930:46:cafe::1b) by CY8P220CA0021.outlook.office365.com
- (2603:10b6:930:46::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.23 via Frontend
- Transport; Wed, 17 Jan 2024 09:14:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9CE.mail.protection.outlook.com (10.167.241.141) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7181.14 via Frontend Transport; Wed, 17 Jan 2024 09:14:52 +0000
-Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 17 Jan
- 2024 03:14:50 -0600
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] update check condition of query for ras page retire
-Date: Wed, 17 Jan 2024 17:14:30 +0800
-Message-ID: <20240117091430.29140-2-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20240117091430.29140-1-tao.zhou1@amd.com>
-References: <20240117091430.29140-1-tao.zhou1@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C6DB10E653;
+	Wed, 17 Jan 2024 09:22:57 +0000 (UTC)
+Received: from mail-lf1-f65.google.com (mail-lf1-f65.google.com
+ [209.85.167.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACFBF10E646;
+ Wed, 17 Jan 2024 09:22:55 +0000 (UTC)
+Received: by mail-lf1-f65.google.com with SMTP id
+ 2adb3069b0e04-50eabbc3dccso12622600e87.2; 
+ Wed, 17 Jan 2024 01:22:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1705483314; x=1706088114; darn=lists.freedesktop.org;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=zRavkJT8UB3W/PeIVELlFv5gmSCcs2Exh6iemXWqtts=;
+ b=aA/UPXzqyxQ5RrWQMhIjZSvVE+jY9+X+uWbkNNvoAyzpVVdNzxV5E3Aic5xDU9dUNt
+ 9zjYhF6PmQtAzlRXsFg0SmNVQy4tZcbcxVihUggm1U7BSooDLJXXwtA+zFdwA8/RPvUD
+ u8h0aY6Ak0Qdnrv1xOUiRQV+2yRwwy7bh0ZLTaeSIXA9eA+qLYNYkMkYhjKq83LMUBKL
+ 79e8ZOn5gFnNISiIcEVEy3E6zOg6Hk1Vm/PGh3nz4alL/pqwKQXCGyfrEYGet21dVx7g
+ pzDbGNhhGvuLlVm7VIgCYK49q74yjyREVwji0lj4BAYCq9vmaHk/qALwQT8hWsT/dKMR
+ IT6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705483314; x=1706088114;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=zRavkJT8UB3W/PeIVELlFv5gmSCcs2Exh6iemXWqtts=;
+ b=KYGU+4yfyQZ+QsYoI1sl2AhllsCbFGpL1YwLMKDEcpBIShNxqLY6wG8iSMC9csCEzR
+ w/CG+WiVD6XmotFMcgzZiTZwZQPNytVSgYgJB6zy05Y6UriP8nCS7OvUl3F7jHYXntbq
+ gQGZD2e0FNXrkML9R87hcTl2WIZmO7KUPb/eGIZSh3pkL7ru0WjHVxDRyGJ9UdCIjGWC
+ jJZ6BrbDn0CbB0A+zZgp0GlvY/WpsuF1kKcQfRG1Cxg99BsU6rxUMHWb8vuAPdjemAjw
+ Kr4/zu5Pt+/nRFXZPnOksrTolronxIdMGtoyEopcmAUH4WvWVS1jL6Wk0FKfi4zvF/TP
+ PMTQ==
+X-Gm-Message-State: AOJu0Ywg3vCUwSr9qOHSdLFRsRYXDvmAOu6WqM382Yh7C//skKzFYLfZ
+ 2b7xIMxq+p39csXFxPBijpQ=
+X-Google-Smtp-Source: AGHT+IHr54oi6PcTsg+Js8lZpQuf984VW0RHv/CKCTWOd8DS6raRNtGB2deJAgfr59VUqJ+wezvYRA==
+X-Received: by 2002:ac2:43ac:0:b0:50e:4725:eb5b with SMTP id
+ t12-20020ac243ac000000b0050e4725eb5bmr2035896lfl.23.1705483313574; 
+ Wed, 17 Jan 2024 01:21:53 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ dx5-20020a0565122c0500b0050e6451baf0sm186579lfb.53.2024.01.17.01.21.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Jan 2024 01:21:53 -0800 (PST)
+Date: Wed, 17 Jan 2024 11:21:50 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Andri Yngvason <andri@yngvason.is>
+Subject: Re: [PATCH v2 2/4] drm/uAPI: Add "force color format" drm property
+ as setting for userspace
+Message-ID: <20240117112150.4399d0bb@eldfell>
+In-Reply-To: <CAFNQBQyfWmfu5T7bgZDZFGfyhsxQi7YXmY_wPc9Y+mm5iSspXQ@mail.gmail.com>
+References: <20240115160554.720247-1-andri@yngvason.is>
+ <20240115160554.720247-3-andri@yngvason.is>
+ <20240116114235.GA311990@toolbox>
+ <CAFNQBQz3TNj_7BSmFw4CFMNuR4B+1d+y3f058s+rzTuzdYogqA@mail.gmail.com>
+ <20240116132918.GB311990@toolbox>
+ <CAFNQBQyfWmfu5T7bgZDZFGfyhsxQi7YXmY_wPc9Y+mm5iSspXQ@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9CE:EE_|LV8PR12MB9082:EE_
-X-MS-Office365-Filtering-Correlation-Id: b1aba421-87fc-4cf8-e5da-08dc173cc37e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qpNRRQqfYCp1NdPVeoQxPst1rvMLExkU8Llh/bl+IT889gxbGtqDOoiw9uSJmVNLslNWQ97W3XqnmaASrmz4jbWoH7gnKjbLTQNxea18c5feKqWpLU6nMkc+OuMy6HszOfjGZND7hpT1hJ3v8Az34Lz19H7K6PUMAc2/BZ+3J+h29bltEBcfGFA6FmAm35KoctQRlIm2BCtXTXyavQvBI5GUvXiKh5vQmc5G/Vq9g7x+SepdgCgBKxahTcW3oTZyNyNlPsz4zSNTY5FPMdDBV+UzmYfmDUyStRzhasIRcG/T4edrtrXrsT6L6TOpc6aYLgnisCRon1QuVHM/7UPOdz0CcUVBnTUT1/7DDEg/Qk8tqDCwSJMa8GR57V8xLW7g4YUNO6RO7OIxij1P53tJ+De7yFsFnBBmZdJO9auXapjZSRef4AH191/VGeP0wUbpg7rPjSFNV+GFjgfCdRTOyB0Qfgr+qbuwpU5pnSQ/4a4lMnot80lp9SIJIaEKS1g7AwzqLTNZI02VDvb/EiKuV0OZqvs2FI+Om/KSYOMJRjC1SZjrUMm2EGjgw+JPdW0SRAx0N6t0KXE/HDO6eQZ71SP2d2w0YpMin4TTplYBCzFih1HFNXEP5uXESNS/a5gqa6tYNQOoB9qjfmWIUb4zWB6K3itLg+SqqhxA1I8rydD6GkKA+fZFWOhLAgwak6iBFa+5RCBG4YLpF0cWBQRcrgupyxUvfVa3y4ZYBd/wYqK3y5mrpeQnFU0FObqTWTKbvyEyEbNO79g9OsmQQzwq8Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(136003)(396003)(376002)(39860400002)(230922051799003)(64100799003)(82310400011)(186009)(451199024)(1800799012)(46966006)(40470700004)(36840700001)(40480700001)(40460700003)(86362001)(70206006)(70586007)(81166007)(36756003)(82740400003)(2616005)(426003)(83380400001)(16526019)(356005)(336012)(41300700001)(47076005)(1076003)(7696005)(316002)(478600001)(4326008)(5660300002)(6666004)(2906002)(8936002)(6916009)(8676002)(26005)(36860700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2024 09:14:52.4180 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1aba421-87fc-4cf8-e5da-08dc173cc37e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9CE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9082
+Content-Type: multipart/signed; boundary="Sig_/ip8efVltUL2zqq.bM1A74uy";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,65 +76,228 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Leo Li <sunpeng.li@amd.com>,
+ intel-gfx@lists.freedesktop.org, "Pan, 
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ linux-kernel@vger.kernel.org, Werner Sembach <wse@tuxedocomputers.com>,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Support page retirement handling in debug mode.
+--Sig_/ip8efVltUL2zqq.bM1A74uy
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c              | 9 +++++++--
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 4 ++--
- 2 files changed, 9 insertions(+), 4 deletions(-)
+On Tue, 16 Jan 2024 14:11:43 +0000
+Andri Yngvason <andri@yngvason.is> wrote:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-index 41139bac7643..6df32f0afd89 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-@@ -90,12 +90,16 @@ static void amdgpu_umc_handle_bad_pages(struct amdgpu_device *adev,
- {
- 	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-+	unsigned int error_query_mode;
- 	int ret = 0;
- 
-+	amdgpu_ras_get_error_query_mode(adev, &error_query_mode);
-+
- 	mutex_lock(&con->page_retirement_lock);
- 
- 	ret = amdgpu_dpm_get_ecc_info(adev, (void *)&(con->umc_ecc));
--	if (ret == -EOPNOTSUPP) {
-+	if (ret == -EOPNOTSUPP &&
-+	    error_query_mode == AMDGPU_RAS_DIRECT_ERROR_QUERY) {
- 		if (adev->umc.ras && adev->umc.ras->ras_block.hw_ops &&
- 		    adev->umc.ras->ras_block.hw_ops->query_ras_error_count)
- 		    adev->umc.ras->ras_block.hw_ops->query_ras_error_count(adev, ras_error_status);
-@@ -119,7 +123,8 @@ static void amdgpu_umc_handle_bad_pages(struct amdgpu_device *adev,
- 			 */
- 			adev->umc.ras->ras_block.hw_ops->query_ras_error_address(adev, ras_error_status);
- 		}
--	} else if (!ret) {
-+	} else if (error_query_mode == AMDGPU_RAS_FIRMWARE_ERROR_QUERY ||
-+	    (!ret && error_query_mode == AMDGPU_RAS_DIRECT_ERROR_QUERY)) {
- 		if (adev->umc.ras &&
- 		    adev->umc.ras->ecc_info_query_ras_error_count)
- 		    adev->umc.ras->ecc_info_query_ras_error_count(adev, ras_error_status);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index c560f4af214d..d86c9e7fc64b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -2909,8 +2909,8 @@ static int smu_v13_0_6_select_xgmi_plpd_policy(struct smu_context *smu,
- static ssize_t smu_v13_0_6_get_ecc_info(struct smu_context *smu,
- 			void *table)
- {
--	/* Support ecc info by default */
--	return 0;
-+	/* we use debug mode flag instead of this interface */
-+	return -EOPNOTSUPP;
- }
- 
- static const struct pptable_funcs smu_v13_0_6_ppt_funcs = {
--- 
-2.35.1
+> =C3=BEri., 16. jan. 2024 kl. 13:29 skrifa=C3=B0i Sebastian Wick
+> <sebastian.wick@redhat.com>:
+> >
+> > On Tue, Jan 16, 2024 at 01:13:13PM +0000, Andri Yngvason wrote: =20
+> [...]
+> > > =C5=9Fri., 16. jan. 2024 kl. 11:42 skrifa=C4=9Fi Sebastian Wick
+> > > <sebastian.wick@redhat.com>: =20
+> > > >
+> > > > On Mon, Jan 15, 2024 at 04:05:52PM +0000, Andri Yngvason wrote: =20
+> > > > > From: Werner Sembach <wse@tuxedocomputers.com>
+> > > > >
+> > > > > Add a new general drm property "force color format" which can be =
+used
+> > > > > by userspace to tell the graphics driver which color format to us=
+e. =20
+> > > >
+> > > > I don't like the "force" in the name. This just selects the color
+> > > > format, let's just call it "color format" then.
+> > > > =20
+> > >
+> > > In previous revisions, this was "preferred color format" and "actual
+> > > color format", of which the latter has been dropped. I recommend
+> > > reading the discussion for previous revisions. =20
+> >
+> > Please don't imply that I didn't read the thread I'm answering to.
 
+FYI, I have not read this thread.
+
+> > =20
+> > > There are arguments for adding "actual color format" later and if it
+> > > is added later, we'd end up with "color format" and "actual color
+> > > format", which might be confusing, and it is why I chose to call it
+> > > "force color format" because it clearly communicates intent and
+> > > disambiguates it from "actual color format". =20
+> >
+> > There is no such thing as "actual color format" in upstream though.
+> > Basing your naming on discarded ideas is not useful. The thing that sets
+> > the color space for example is called "Colorspace", not "force
+> > colorspace".
+> > =20
+>=20
+> Sure, I'm happy with calling it whatever people want. Maybe we can
+> have a vote on it?
+
+It would sound strange to say "force color format" =3D "auto". Just drop
+the "force" of it.
+
+If and when we need the feedback counterpart, it could be an immutable
+prop called "active color format" where "auto" is not a valid value, or
+something in the new "output properties" design Sima has been thinking
+of.
+
+> > > [...] =20
+> > > > > @@ -1396,6 +1404,15 @@ static const u32 dp_colorspaces =3D
+> > > > >   *   drm_connector_attach_max_bpc_property() to create and attac=
+h the
+> > > > >   *   property to the connector during initialization.
+> > > > >   *
+> > > > > + * force color format:
+> > > > > + *   This property is used by userspace to change the used color=
+ format. When
+> > > > > + *   used the driver will use the selected format if valid for t=
+he hardware, =20
+> > > >
+> > > > All properties are always "used", they just can have different valu=
+es.
+> > > > You probably want to talk about the auto mode here. =20
+> > >
+> > > Maybe we can say something like: If userspace does not set the
+> > > property or if it is explicitly set to zero, the driver will select
+> > > the appropriate color format based on other constraints. =20
+> >
+> > The property can be in any state without involvement from user space.
+> > Don't talk about setting it, talk about the state it is in:
+> >
+> >   When the color format is auto, the driver will select a format.
+> > =20
+>=20
+> Ok.
+>=20
+> > > > =20
+> > > > > + *   sink, and current resolution and refresh rate combination. =
+Drivers to =20
+> > > >
+> > > > If valid? So when a value is not actually supported user space can =
+still
+> > > > set it? What happens then? How should user space figure out if the
+> > > > driver and the sink support the format? =20
+> > >
+> > > The kernel does not expose this property unless it's implemented in t=
+he driver. =20
+> >
+> > If the driver simply doesn't support *one format*, the enum value for
+> > that format should not be exposed, period. This isn't about the property
+> > on its own. =20
+>=20
+> Right, understood. You mean that enum should only contain values that
+> are supported by the driver.
+
+Yes. When a driver installs a property, it can choose which of the enum
+entries are exposed. That cannot be changed later though, so the list
+cannot live by the currently connected sink, only by what the driver
+and display controlled could ever do.
+
+> > > This was originally "preferred color format". Perhaps the
+> > > documentation should better reflect that it is now a mandatory
+> > > constraint which fails the modeset if not satisfied. =20
+> >
+> > That would definitely help.
+> > =20
+> > > >
+> > > > For the Colorspace prop, the kernel just exposes all formats it sup=
+ports
+> > > > (independent of the sink) and then makes it the job of user space to
+> > > > figure out if the sink supports it.
+> > > >
+> > > > The same could be done here. Property value is exposed if the driver
+> > > > supports it in general, commits can fail if the driver can't suppor=
+t it
+> > > > for a specific commit because e.g. the resolution or refresh rate. =
+User
+> > > > space must look at the EDID/DisplayID/mode to figure out the suppor=
+ted
+> > > > format for the sink. =20
+> > >
+> > > Yes, we can make it possible for userspace to discover which modes are
+> > > supported by the monitor, but there are other constraints that need to
+> > > be satisfied. This was discussed in the previous revision. =20
+> >
+> > I mean, yes, that's what I said. User space would then only be
+> > responsible for checking the sink capabilities and the atomic check
+> > would take into account other (non-sink) constraints. =20
+>=20
+> Since we need to probe using TEST_ONLY anyway, we'll end up with two
+> mechanisms to do the same thing where one of them depends on the other
+> for completeness.
+
+What do you mean by "same thing"?
+
+Neither HDMI nor DisplayPort have a feedback message saying your
+infoframe contents are unacceptable, that I know of. Even if there was,
+it would come too late for failing the atomic commit ioctl in
+non-blocking mode.
+
+In general, display signalling is that you send whatever to the sink,
+and hope for the best.
+
+EDID is used to describe what the sink can accept, so in theory the
+kernel could parse EDID for all of these details and reject atomic
+commits that attempt unsupported configurations. However, EDID are also
+notoriously buggy. They are good for a best guess, but I believe it is
+useful to be able to try "unsupported" things. IIRC, PS VR2
+intentionally lies for instance.
+
+Even if the kernel did reject everything based on EDID, the only way
+today for userspace to know what should work is to parse the EDID
+itself. TEST_ONLY trials lead to a combinatorial explosion too easily.
+So userspace is already expected to parse EDID, with the major
+exception being video mode lists that are explicitly provided by the
+kernel in UAPI.
+
+EDID and DisplayID standards also evolve. The kernel could be behind
+userspace in chasing them, which was the reason why the kernel does not
+validate HDR_OUTPUT_METADATA against EDID.
+
+The design of today with HDR_OUTPUT_METADATA and whatnot is
+that userspace is responsible for checking sink capabilities, and
+atomic check is responsible for driver and display controller
+capabilities.
+
+> > > In any case, these things can be added later and need not be a part of
+> > > this change set. =20
+> >
+> > No, this is the contract between the kernel and user space and has to be
+> > figured out before we can merge new uAPI.
+
+Indeed.
+
+
+Thanks,
+pq
+
+--Sig_/ip8efVltUL2zqq.bM1A74uy
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmWnnC4ACgkQI1/ltBGq
+qqdB5BAAh7LaxgteKSguZoNt+nqr7i6lhRLwQZDZmshd7HexrDNff0gzhdzgXMak
+Ca3dWNi66ButZluKmUiNtViO68DIxT1vZm3Eg1oLM/JumVUgEnd6Yd2mwBJnmdEi
+YsGz9FoJf6F72dqtFKoN9hgBeOR4xaN5RG0l6rpFEj2thYtNPgoFzz3AU6tNVCJ3
+s5FqG9i0nYrU/JihyeG33xCeTS9QyZLo7anpUVSyvwo3QSP1FRcuhzw0xH4qo68d
+NS0f21m8jCYtICx7h/4e3h9eBzlZYjuoUE/zG6ZSXM3NLdVsxtpAIsGNMABygCHw
+7Qlp8xV112YN+iSFlWm7Y09LALY/BQNHe3SKuG7dKGVj2nSlo/+JKbHNbpuUCWjb
+bowhelndO1DIlEsqpinzCYwvCbT04QU4/5sfjQixTRme6M/L7qtVIvussxprjCSg
+guk62+q8Nn2VNI7S7cNvAYWEqO4CzEKenkW3A65pQrFu+sWT4GfEUy1Sc07ejZ/6
+73ewFy0xDY/s30zSA4OuGqVaMhNrOig6BVk0iw6pgUfF00juH0iv8kscpzqvUIVO
+ezEMrgRYPQ5U+FfF/LORoQUg0Rdp7FYhs/6+hpURe3Kb55LD9y39z9FvIpCfX0FL
+Unvy0HzUHzUx6NmYGtbx9auDBrgXQw9H42z/fZneQIsHqX5xTjw=
+=Vvyc
+-----END PGP SIGNATURE-----
+
+--Sig_/ip8efVltUL2zqq.bM1A74uy--
