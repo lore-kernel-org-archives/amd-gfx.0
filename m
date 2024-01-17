@@ -4,53 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BC61C47258
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 14:19:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19778C47258
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 14:31:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DF3510E124;
-	Wed, 17 Jan 2024 14:18:57 +0000 (UTC)
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D6EF10E11A;
- Wed, 17 Jan 2024 14:18:55 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4TFSfX3cp8z9scX;
- Wed, 17 Jan 2024 15:18:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1705501124;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/04+AUA96JyRGSg7FmQ1Co1hzmApsEtK4+LDUq5qS9I=;
- b=iTM2+qGklqomZrkR34x42hazC6kJ+uog03ScY7x+OSQ+DV8q006tTFpvfLKKULMIBRiWqv
- 27EL7iDbCy3fj06IcW2/nA9snnoZ1mVGwxb0sjVItvJfcbcbrPRzmIIMsCtIUdJHx1utqX
- iPGZOTjyAMDlsbbhtmX4sji/Tq5cLiwpnleaR9feX9p53K5sKdyyjMYvrIxhWLdTr/XZMS
- f8kEpLtVb4oZWUy2ygT7u/DRkJRsvxCvHxSRknEkc41Hao6kXYMWU9+9+UEiHAcBWDYEJI
- etDj9lIp3kF4OjJdtUQlYD0Oy4YxpA22IM/DhB6dTh7upk9IVj0HCzWbAKpyHg==
-Message-ID: <48824a5d-223a-4ad2-b198-5fcb75a9cfde@mailbox.org>
-Date: Wed, 17 Jan 2024 15:18:41 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id AED9210E681;
+	Wed, 17 Jan 2024 14:31:39 +0000 (UTC)
+Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
+ [209.85.167.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F013410E6B4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jan 2024 14:31:37 +0000 (UTC)
+Received: by mail-oi1-f179.google.com with SMTP id
+ 5614622812f47-3bbd6ea06f5so4813658b6e.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jan 2024 06:31:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1705501837; x=1706106637; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UdWlULUSVmOqGo2Eus7UmJo1SDfF9+ujLChppEYFFDM=;
+ b=B4QA+3a8K+UlMvOxSWK7evR69lfMhK3mDHimH6NNcGCHW/5DJDrChng9l7VMsUJYtE
+ cenPlfJ97RhHNp9TZ79TGsu4EhsCzuEPGFY4/WqUn3AP0WKWC8QG/zWYmqM82uKm9eud
+ u8tUIN2dJQod7BosH6B5qFcClSDEvphGb0s1ukWEHUni+Je2Rjm/wS9WkeHOB+IEm8Ns
+ T+1mn7MsRE+YAFX0Fuf+AbQTmYy4pg5LHtsnMgDqMJYC2XWhVoeJz+Sq9fHSrwvKrr/h
+ PLvoGS+2MQD9scvLk6NYj5uRI+DBJbSK2GzJj0BWUtCJ78OrImO4a8wAMt78MRyejdaT
+ 2h3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705501837; x=1706106637;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=UdWlULUSVmOqGo2Eus7UmJo1SDfF9+ujLChppEYFFDM=;
+ b=eoZUBgoqNq4IiClvz8S1ABMTfe27FQKd33Y/QVk053w2lNrd89knY3nWSicU337R0r
+ mLfpSoXFta9edlbPoVAKkwqekWwvu1+6lFq2ITL7WKi8a/u9QuGam84Wma2psaTylw0u
+ WBczV6eOI9blIKvbQqcxvn5jdRaUgPe3nWY0lfkraGJoJ2mUs237cFU6gp+i/NIxNKM3
+ UZ240eJGoWHJujTNRGzTdVbbiNghnAly2IARJMRi+M9josWYfVLl4P0Yf9EjG1w9J3lt
+ 2Pbw1LWRHXOtpTBBDHmM3NbdZMF+RC8WkMXeoT75bXB5lyNETJrK5hxyifClFYT6FoZo
+ I/Xg==
+X-Gm-Message-State: AOJu0YxXxbKz58cHTQpAktVXWgQWbU+Kcw9WbZ9Nygg2HVyPlrCMWhjz
+ Vqr5e1n+6X3pDG6Zi9WU9cO+goiLnQZGoYL/q68Gn23SxW1rWs81hIpvwJIAXtf3+WUU2+H+CF0
+ Yb4ZaoY2wMjqs2y7VAwFVKLhyXMM=
+X-Google-Smtp-Source: AGHT+IHGiCWxsZ7262Zj5NJtj0zJg6gCpTQc8MktJL4HOaSgdO3BoXBrhm7+nERKOEv6gRG0V08Nv17r7E1DA67FMho=
+X-Received: by 2002:aca:1115:0:b0:3bd:21d6:778d with SMTP id
+ 21-20020aca1115000000b003bd21d6778dmr319594oir.27.1705501837122; Wed, 17 Jan
+ 2024 06:30:37 -0800 (PST)
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/2] drm/atomic: Allow drivers to write their own plane
- check for async
-Content-Language: de-CH-frami, en-CA
-To: Xaver Hugl <xaver.hugl@gmail.com>, Pekka Paalanen <ppaalanen@gmail.com>
-References: <20240116045159.1015510-1-andrealmeid@igalia.com>
- <20240116114522.5b83d8b6@eldfell>
- <a6099681-1ae9-48ef-99bc-d3c919007413@igalia.com>
- <20240116151414.10b831e6@eldfell>
- <47c6866a-34d6-48b1-a977-d21c48d991dc@igalia.com>
- <CAFZQkGyOQ5Tfu++-cHqgZ9NOJxqxm8cAF5XT18LmisuPAUbXAg@mail.gmail.com>
- <20240117105509.1984837f@eldfell>
- <CAFZQkGzite-CZoJcV80kNPe==OWFZa_cR1x3QRKuLd=HdOFw-A@mail.gmail.com>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <CAFZQkGzite-CZoJcV80kNPe==OWFZa_cR1x3QRKuLd=HdOFw-A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: pgtcyajtxp3yqt1pxr8ffrrr7u18ejhe
-X-MBO-RS-ID: f6b5e7383e43717d63d
+References: <20240116143914.2991405-1-alexander.deucher@amd.com>
+ <c67fa6a6-5608-42cd-8568-e8a8d080726b@gmail.com>
+In-Reply-To: <c67fa6a6-5608-42cd-8568-e8a8d080726b@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 17 Jan 2024 09:30:25 -0500
+Message-ID: <CADnq5_PfN_-4DPt=cOfjpSfE2MnvhsR4wBe=qJ__DpcxiSXuOg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: only remove existing FBs for devices with
+ displays
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,48 +70,113 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- kernel-dev@igalia.com, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
- Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com,
- Joshua Ashton <joshua@froggi.es>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2024-01-17 13:57, Xaver Hugl wrote:
-> Am Mi., 17. Jan. 2024 um 09:55 Uhr schrieb Pekka Paalanen <ppaalanen@gmail.com>:
->> Is it important enough to be special-cased, e.g. to be always allowed
->> with async commits?
-> 
-> I thought so, and sent a patch to dri-devel to make it happen, but
-> there are some
-> concerns about untested driver paths.
-> https://lists.freedesktop.org/archives/dri-devel/2024-January/437511.html
-> 
->> Now that I think of it, if userspace needs to wait for the in-fence
->> itself before kicking KMS async, that would defeat much of the async's
->> point, right? And cases where in-fence is not necessary are so rare
->> they might not even exist?
->>
->> So if driver/hardware cannot do IN_FENCE_FD with async, is there any
->> use of supporting async to begin with?
-> 
-> KWin never commits a buffer where IN_FENCE_FD would actually delay the
-> pageflip; it's really only used to disable implicit sync, as there's some edge
-> cases where it can wrongly delay the pageflip. The waiting for buffers to become
-> readable on the compositor side isn't really significant in terms of latency.
-> 
-> If hardware doesn't support IN_FENCE_FD with async commits, checking if the
-> fence is already signaled at commit time would thus still make things work, at
-> least for KWin.
+On Wed, Jan 17, 2024 at 2:42=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Am 16.01.24 um 15:39 schrieb Alex Deucher:
+> > Seems calling drm_aperture_remove_conflicting_pci_framebuffers()
+> > will take away the apertures for unrelated devices on some kernel
+> > versions.  E.g., calling this on a PCIe accelerator with no display
+> > IP may take the apertures away from the actual PCIe display adapter
+> > on the system, breaking efifb, depending on the kernel version.
+> >
+> > Just do this if there is display IP present.
+>
+> I would have checked the PCI device type instead, because a system BIOS
+> most likely has no idea that a VGA device doesn't has a connector.
 
-That's how IN_FENCE_FD (and implicit sync) is handled anyway, in common code: It waits for all fences to signal before calling into the driver to commit the atomic commit.
+True, but we have GPUs of PCI class PCI_CLASS_DISPLAY_OTHER that can
+have efifb bound to it.  Unfortunately, the combinations of PCI
+classes and displays is complicated:
 
-I can't see why this wouldn't work with async commits, the same as with synchronous ones, with any driver.
+PCI_CLASS_DISPLAY_VGA - boards both with and without display hardware
+PCI_CLASS_DISPLAY_OTHER - boards both with and without display hardware
+PCI_CLASS_ACCELERATOR_PROCESSING - no display hardware
+
+>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++----
+> >   1 file changed, 6 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> > index 62772b58ef3d..353c38f008e8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -4056,10 +4056,12 @@ int amdgpu_device_init(struct amdgpu_device *ad=
+ev,
+> >
+> >       amdgpu_device_set_mcbp(adev);
+> >
+> > -     /* Get rid of things like offb */
+> > -     r =3D drm_aperture_remove_conflicting_pci_framebuffers(adev->pdev=
+, &amdgpu_kms_driver);
+> > -     if (r)
+> > -             return r;
+> > +     if (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_DCE)) {
+>
+> This certainly worth a comment why we do this.
+>
+> Apart from that I'm not sure we should upstream this, the customer
+> kernel is most likely just missing this fix here:
+>
+> commit 5ae3716cfdcd286268133867f67d0803847acefc
+> Author: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Date:   Thu Apr 6 15:21:07 2023 +0200
+>
+>      video/aperture: Only remove sysfb on the default vga pci device
+>
+>      Instead of calling aperture_remove_conflicting_devices() to remove t=
+he
+>      conflicting devices, just call to aperture_detach_devices() to detac=
+h
+>      the device that matches the same PCI BAR / aperture range. Since the
+>      former is just a wrapper of the latter plus a sysfb_disable() call,
+>      and now that's done in this function but only for the primary device=
+s.
+>
+>      This fixes a regression introduced by commit ee7a69aa38d8 ("fbdev:
+>      Disable sysfb device registration when removing conflicting FBs"),
+>      where we remove the sysfb when loading a driver for an unrelated pci
+>      device, resulting in the user losing their efifb console or similar.
+>
+>      Note that in practice this only is a problem with the nvidia blob,
+>      because that's the only gpu driver people might install which does n=
+ot
+>      come with an fbdev driver of it's own. For everyone else the real gp=
+u
+>      driver will restore a working console.
+>
+>      Also note that in the referenced bug there's confusion that this sam=
+e
+>      bug also happens on amdgpu. But that was just another amdgpu specifi=
+c
+>      regression, which just happened to happen at roughly the same time a=
+nd
+>      with the same user-observable symptoms. That bug is fixed now, see
+>      https://bugzilla.kernel.org/show_bug.cgi?id=3D216331#c15
+>
+
+yeah, that looks like the right fix.
+
+Alex
 
 
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
-
+> Regards,
+> Christian.
+>
+> > +             /* Get rid of things like offb */
+> > +             r =3D drm_aperture_remove_conflicting_pci_framebuffers(ad=
+ev->pdev, &amdgpu_kms_driver);
+> > +             if (r)
+> > +                     return r;
+> > +     }
+> >
+> >       /* Enable TMZ based on IP_VERSION */
+> >       amdgpu_gmc_tmz_set(adev);
+>
