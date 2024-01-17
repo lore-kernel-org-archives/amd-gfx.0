@@ -4,88 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CCC5C47258
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 08:52:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D87DC47258
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jan 2024 08:56:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2ADEC10E60C;
-	Wed, 17 Jan 2024 08:52:53 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2079.outbound.protection.outlook.com [40.107.220.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03B1710E60C
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jan 2024 08:52:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K5FPLniIqUQ3GkOuICzN4Hps3uuHc/ps76U8hJASOod8cwrYftTQ8BOOTdUjgBn2EmsXlmLt3bvLKjhO78YlTrk3QixG4m1anEHvHOTnGSLoffx97KgUtwISH+n1L89AjTvCLUKnnSNy/dkoIXSvrat8k0ktWSDFilx197kiWjXP9Qso+NfyaTfWvnMjshMm8gaBtSQZitD8rbZbEYhWEIYPcyS6Ec9HHLGzxw3aiReQ/uF34/oeGc1uztO64ZNWUgoLRzSUv/EkNNs3swGdna8WGlve3qpQeO+RcOI2hNexazb//5uDdO0PmVeyLVZkRjh6kXd4+gNpSrBwfvCC/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gx5trY49QV7PJXr5REn/pyBHnsq3cZlUuNWp5rq32Ew=;
- b=Cg4kqajyPos9yha2FLFnFIw/aqE2yxECXVkO+WZRCvrDwvmGbnrjX31cnV6I51wht+QEiNBOmPnCuL6lR46aat0AijlaMLQHrwSCDhxSkE2VTX1mmOdFUhM+5Uog/SZ3NwPAbjFZR74OvudT7vl+C/fIhHp/EiU7CfQLk2oCByD3TZJD2J1qGeG03JtysDUiokkQKrVjEPTBTDQnnNiljLGhRT8snKF1opU+Rl9Rgzxu0HtozDugKAZRWxXhVQ1NvW8XSdGoEP2K30Hwt4r06B47dKDaJ/UQx6hFboRU7TiymrBIeJMxmJhEFd/QA7giVEnlMvoR0gCfJihhCLAx3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gx5trY49QV7PJXr5REn/pyBHnsq3cZlUuNWp5rq32Ew=;
- b=p4UFtjuca0l7c3BYXSBcMyoSXg9ntG1a7fQvofaTgP2Tt3RkxVakCbbuh9TC6p1rNQiRl6xnSsC6dCjVwcoqBXzI7mAOorE+Nq2n179GttO/RhA0T9MXljlwaK+A1DyQ9AdZGP0ZeAnJ0t7l5DE7bLxEq+GwqdgYKQJX1wwHWW4=
-Received: from MWH0EPF00056D04.namprd21.prod.outlook.com
- (2603:10b6:30f:fff2:0:1:0:c) by CH3PR12MB7618.namprd12.prod.outlook.com
- (2603:10b6:610:14c::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.31; Wed, 17 Jan
- 2024 08:52:45 +0000
-Received: from CO1PEPF000042AE.namprd03.prod.outlook.com
- (2a01:111:f403:c903::) by MWH0EPF00056D04.outlook.office365.com
- (2603:1036:d20::b) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.2 via Frontend
- Transport; Wed, 17 Jan 2024 08:52:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042AE.mail.protection.outlook.com (10.167.243.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Wed, 17 Jan 2024 08:52:45 +0000
-Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 17 Jan
- 2024 02:52:43 -0600
-From: Ma Jun <Jun.Ma2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu/pm: Fix the power source flag error
-Date: Wed, 17 Jan 2024 16:52:29 +0800
-Message-ID: <20240117085229.981555-1-Jun.Ma2@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A82410E639;
+	Wed, 17 Jan 2024 08:56:25 +0000 (UTC)
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
+ [209.85.208.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B688010E626;
+ Wed, 17 Jan 2024 08:56:23 +0000 (UTC)
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-2cdeb80fdfdso6784401fa.2; 
+ Wed, 17 Jan 2024 00:56:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1705481721; x=1706086521; darn=lists.freedesktop.org;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=dBhzqek/6fd7CREjB7gj0PgcE8vXqoFMHvhu7g1QD50=;
+ b=hApjHyTXyfd6djcZY0N8F+VJH+tvxWFIN6aZAB5sl40kzDtyngnfcgIVRrUFqK6lPc
+ DHbh/jWypi/hROmeiMidfwGSO18uGA37nWrBFSClJIyagV2+uf/4ycPLymRFIjxL1SOy
+ A7FTxPrLqEc+kvRXlDHACQcfsaTGJtQ2+n67tdiD6l3E3/96joN+A00jsJpx9CPO/sGU
+ b/VNVzD+Kn8+g8KJ4iWIn6PoeHIyjAGojWCjSz4FVVoJOahRh0WvPyHmdEfS38e8tQ5M
+ m3+8387PYfnAz8f3GGH4LfdxMQEdg997+fT7otikvme1YAG1IHVFAzZn9OMZWWq49p0Q
+ hSxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705481721; x=1706086521;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=dBhzqek/6fd7CREjB7gj0PgcE8vXqoFMHvhu7g1QD50=;
+ b=nMBVp4DD7intN715pfQCGTkuLXcjIuGAnljW4edMNQGiMFV6bhHWx86X+VQDO0eG2p
+ bKhhoB/rn8fideMVGPYkfnLOiPA2XA/hvCb+k2jCeTCMaUUHe6a1TS0ObSu3lKlyxyx6
+ 2P/6Dgcpv4iNxrmfWmqb+bDfW6s2Lwi5YoyzQZB9iszKgCntLHSAko4hSTcOlPicx7rN
+ elCDgPeClyFlmAFt9FQk30Qt+5ePXEVuq/65kkS+nznDCoZ9ww6BLFM7oi9SMzUrsqSG
+ 6pOOFUSBoUqjwF+2d06Kz8xjV9ZCbUI4vYHJ2Ev4eZWD5hV/Zyabf2AkvdXTSJZ+ih6K
+ FZbA==
+X-Gm-Message-State: AOJu0YyycWfntwrrNu4B73Fk4ALoOPk5tqxg8XUIXctC17Ip26pkmaEU
+ 8yaGHq5L3DVC8bNI1Ddh9Tc=
+X-Google-Smtp-Source: AGHT+IHhkXxluDe4N7YGLtu2N2AxQtwIH8y92VnGpUGxrLimI7QLF2GoeO0C1Wyx2JopwGlhJsASaQ==
+X-Received: by 2002:ac2:5d23:0:b0:50e:6332:8083 with SMTP id
+ i3-20020ac25d23000000b0050e63328083mr1775703lfb.183.1705481720786; 
+ Wed, 17 Jan 2024 00:55:20 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ dx5-20020a0565122c0500b0050e7741f582sm180895lfb.161.2024.01.17.00.55.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Jan 2024 00:55:20 -0800 (PST)
+Date: Wed, 17 Jan 2024 10:55:09 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Xaver Hugl <xaver.hugl@gmail.com>
+Subject: Re: [PATCH 0/2] drm/atomic: Allow drivers to write their own plane
+ check for async
+Message-ID: <20240117105509.1984837f@eldfell>
+In-Reply-To: <CAFZQkGyOQ5Tfu++-cHqgZ9NOJxqxm8cAF5XT18LmisuPAUbXAg@mail.gmail.com>
+References: <20240116045159.1015510-1-andrealmeid@igalia.com>
+ <20240116114522.5b83d8b6@eldfell>
+ <a6099681-1ae9-48ef-99bc-d3c919007413@igalia.com>
+ <20240116151414.10b831e6@eldfell>
+ <47c6866a-34d6-48b1-a977-d21c48d991dc@igalia.com>
+ <CAFZQkGyOQ5Tfu++-cHqgZ9NOJxqxm8cAF5XT18LmisuPAUbXAg@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AE:EE_|CH3PR12MB7618:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee8c5b16-cdad-4c12-c4e5-08dc1739ac9f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QtKG59StudcZnKGz6YTQCdGKFPp39jM6vpyjXW99cd4M4rOxHIBE6AvzKAS4/b5l8Uzp764IrTQ9hPAvbykiZDfrTdKkKqHgEukI/U6Z4TYNiWeidfcZHOk76AkjQG3MGyPwi8TtRVorhAgDiOKUkSq+lWupz/9Y1oZ6IY4poik8gEUxl/wdZsuUnViYYusa7EoFc1ueTmMVw1kw4x7afRNGN/V+SC6f5CzpxnCFmyMTvB9ylNQnzxH29Mm6wnlJDT8Wx6jHoLqu+t1TSYtNkpsO5X7cGKDicvQkKMEqUatCePGTJ6Salh20319yiEn6T3M1kjFCjiSMzr6GyPbHrEbV8Jd5PI6xqnUVFJCfGkRPXRzBS3bzc+8FKxwHJIrSoFgs28SVPc4Mp7OlLwoBvy/HI45vHtpWAkssuMZxsNo7L9tb+HaXW47MO6+9wXrdhaHXScVT0L793Gkoy1EKb6NywOQ/Ci6GFWZjMJn2TYSKOqmFQTt2siG7387BCMdgUmXAGN5RsWhQk4aoXNpJwQOcuz7wGqEADqDMn0OS9O54KiqglxoK4KAuVpAreh/D/iO9uBdzp1Rcut3dN4xWahjxSG36MogSF4mfJ1+RV5bsr7toydowRj7Vcn+hkh1TCeGQxDyva1Z6bycAo2mHgzC1X5G4hRt7Y4V91XNVjQspKMDUKFw36ebAUULIM0ZE3Y9nnoAeshZ68deL3KR5VlqOTll0+3IHp0J5r8/RWk/tRFmNZ6U43Rx9NiahOocSz5iU7bWAV/0nUQ+EsQCKtA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(136003)(396003)(346002)(376002)(230922051799003)(451199024)(1800799012)(186009)(82310400011)(64100799003)(46966006)(36840700001)(40470700004)(83380400001)(47076005)(16526019)(26005)(336012)(426003)(1076003)(2616005)(82740400003)(36860700001)(4326008)(8676002)(8936002)(5660300002)(41300700001)(2906002)(478600001)(6666004)(7696005)(54906003)(70206006)(70586007)(316002)(6916009)(356005)(81166007)(36756003)(86362001)(40480700001)(40460700003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2024 08:52:45.5088 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee8c5b16-cdad-4c12-c4e5-08dc1739ac9f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7618
+Content-Type: multipart/signed; boundary="Sig_/uaSCk2iCuPC2HhY2IGqSpLb";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,106 +76,191 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Ma Jun <Jun.Ma2@amd.com>, Kenneth.Feng@amd.com,
- kevinyang.wang@amd.com
+Cc: =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>, daniel@ffwll.ch,
+ Marek =?UTF-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
+ Simon Ser <contact@emersion.fr>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, alexander.deucher@amd.com,
+ Joshua Ashton <joshua@froggi.es>, Daniel Stone <daniel@fooishbar.org>,
+ Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com,
+ ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The power source flag should be updated when
-[1] System receives an interrupt indicating that the power source
-has changed.
-[2] System resumes from suspend or runtime suspend
+--Sig_/uaSCk2iCuPC2HhY2IGqSpLb
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 24 +++++++++++--------
- .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  2 ++
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  2 ++
- 3 files changed, 18 insertions(+), 10 deletions(-)
+On Tue, 16 Jan 2024 17:10:18 +0100
+Xaver Hugl <xaver.hugl@gmail.com> wrote:
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index c16703868e5c..e16d22e30a8a 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -24,6 +24,7 @@
- 
- #include <linux/firmware.h>
- #include <linux/pci.h>
-+#include <linux/power_supply.h>
- #include <linux/reboot.h>
- 
- #include "amdgpu.h"
-@@ -793,6 +794,17 @@ static int smu_apply_default_config_table_settings(struct smu_context *smu)
- 	return smu_set_config_table(smu, &adev->pm.config_table);
- }
- 
-+static void smu_update_power_source(struct amdgpu_device *adev)
-+{
-+	if (power_supply_is_system_supplied() > 0)
-+		adev->pm.ac_power = true;
-+	else
-+		adev->pm.ac_power = false;
-+
-+	if (is_support_sw_smu(adev))
-+		smu_set_ac_dc(adev->powerplay.pp_handle);
-+}
-+
- static int smu_late_init(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-@@ -817,16 +829,8 @@ static int smu_late_init(void *handle)
- 	 * handle the switch automatically. Driver involvement
- 	 * is unnecessary.
- 	 */
--	if (!smu->dc_controlled_by_gpio) {
--		ret = smu_set_power_source(smu,
--					   adev->pm.ac_power ? SMU_POWER_SOURCE_AC :
--					   SMU_POWER_SOURCE_DC);
--		if (ret) {
--			dev_err(adev->dev, "Failed to switch to %s mode!\n",
--				adev->pm.ac_power ? "AC" : "DC");
--			return ret;
--		}
--	}
-+	if (!smu->dc_controlled_by_gpio)
-+		smu_update_power_source(adev);
- 
- 	if ((amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 1)) ||
- 	    (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 3)))
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index 2e7f8d5cfc28..8047150fddd4 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -1442,10 +1442,12 @@ static int smu_v11_0_irq_process(struct amdgpu_device *adev,
- 			case 0x3:
- 				dev_dbg(adev->dev, "Switched to AC mode!\n");
- 				schedule_work(&smu->interrupt_work);
-+				adev->pm.ac_power = true;
- 				break;
- 			case 0x4:
- 				dev_dbg(adev->dev, "Switched to DC mode!\n");
- 				schedule_work(&smu->interrupt_work);
-+				adev->pm.ac_power = false;
- 				break;
- 			case 0x7:
- 				/*
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-index 771a3d457c33..c486182ff275 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -1379,10 +1379,12 @@ static int smu_v13_0_irq_process(struct amdgpu_device *adev,
- 			case 0x3:
- 				dev_dbg(adev->dev, "Switched to AC mode!\n");
- 				smu_v13_0_ack_ac_dc_interrupt(smu);
-+				adev->pm.ac_power = true;
- 				break;
- 			case 0x4:
- 				dev_dbg(adev->dev, "Switched to DC mode!\n");
- 				smu_v13_0_ack_ac_dc_interrupt(smu);
-+				adev->pm.ac_power = false;
- 				break;
- 			case 0x7:
- 				/*
--- 
-2.34.1
+> My plan is to require support for IN_FENCE_FD at least. If the driver
+> doesn't
+> allow tearing with that, then tearing just doesn't happen.
 
+That's an excellent point. I think this is important enough in its own
+right, that it should be called out in the patch series.
+
+Is it important enough to be special-cased, e.g. to be always allowed
+with async commits?
+
+Now that I think of it, if userspace needs to wait for the in-fence
+itself before kicking KMS async, that would defeat much of the async's
+point, right? And cases where in-fence is not necessary are so rare
+they might not even exist?
+
+So if driver/hardware cannot do IN_FENCE_FD with async, is there any
+use of supporting async to begin with?
+
+> For overlay planes though, it depends on how the compositor prioritizes
+> things.
+> If the compositor prioritizes overlay planes and would like to do tearing
+> if possible,
+> then this patch works.
+
+Ok, I can see that.
+
+> If the compositor prioritizes tearing and would like to do overlay planes
+> if possible,
+> it would have to know that switching to synchronous commits for a single
+> frame,
+> setting up the overlay planes and then switching back to async commits
+> works, and
+> that can't be figured out with TEST_ONLY commits.
+
+I had to ponder a bit why. So I guess the synchronous commit in between
+is because driver/hardware may not be able to enable/disable extra
+planes in async, so you need a synchronous commit to set them up, but
+afterwards updates can tear.
+
+The comment about Intel needing one more synchronous commit when
+switching from sync to async updates comes to mind as well, would that
+be a problem?
+
+> So I think having a CAP or immutable plane property to signal that async
+> commits
+> with overlay and/or cursor planes is supported would be useful.
+
+Async cursor planes a good point, particularly moving them around. I'm
+not too informed about the prior/on-going efforts to allow cursor
+movement more often than refresh rate, I recall something about
+amending atomic commits? How would these interact?
+
+I suppose the kernel still prevents any new async commit while a
+previous commit is not finished, so amending commits would still be
+necessary for cursor plane motion? Or would it, if you time "big
+commits" to finish quickly and then spam async "cursor commits" in the
+mean time?
+
+
+Thanks,
+pq
+
+> Am Di., 16. Jan. 2024 um 14:35 Uhr schrieb Andr=C3=A9 Almeida <
+> andrealmeid@igalia.com>: =20
+>=20
+> > + Joshua
+> >
+> > Em 16/01/2024 10:14, Pekka Paalanen escreveu: =20
+> > > On Tue, 16 Jan 2024 08:50:59 -0300
+> > > Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
+> > > =20
+> > >> Hi Pekka,
+> > >>
+> > >> Em 16/01/2024 06:45, Pekka Paalanen escreveu: =20
+> > >>> On Tue, 16 Jan 2024 01:51:57 -0300
+> > >>> Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
+> > >>> =20
+> > >>>> Hi,
+> > >>>>
+> > >>>> AMD hardware can do more on the async flip path than just the prim=
+ary =20
+> > plane, so =20
+> > >>>> to lift up the current restrictions, this patchset allows drivers =
+to =20
+> > write their =20
+> > >>>> own check for planes for async flips. =20
+> > >>>
+> > >>> Hi,
+> > >>>
+> > >>> what's the userspace story for this, how could userspace know it co=
+uld =20
+> > do more? =20
+> > >>> What kind of userspace would take advantage of this and in what =20
+> > situations? =20
+> > >>>
+> > >>> Or is this not meant for generic userspace? =20
+> > >>
+> > >> Sorry, I forgot to document this. So the idea is that userspace will
+> > >> query what they can do here with DRM_MODE_ATOMIC_TEST_ONLY calls,
+> > >> instead of having capabilities for each prop. =20
+> > >
+> > > That's the theory, but do you have a practical example?
+> > >
+> > > What other planes and props would one want change in some specific use
+> > > case?
+> > >
+> > > Is it just "all or nothing", or would there be room to choose and pick
+> > > which props you change and which you don't based on what the driver
+> > > supports? If the latter, then relying on TEST_ONLY might be yet anoth=
+er
+> > > combinatorial explosion to iterate through.
+> > > =20
+> >
+> > That's a good question, maybe Simon, Xaver or Joshua can share how they
+> > were planning to use this on Gamescope or Kwin.
+> > =20
+> > >
+> > > Thanks,
+> > > pq
+> > > =20
+> > >>>> I'm not sure if adding something new to drm_plane_funcs is the rig=
+ht =20
+> > way to do, =20
+> > >>>> because if we want to expand the other object types (crtc, connect=
+or) =20
+> > we would =20
+> > >>>> need to add their own drm_XXX_funcs, so feedbacks are welcome!
+> > >>>>
+> > >>>>    Andr=C3=A9
+> > >>>>
+> > >>>> Andr=C3=A9 Almeida (2):
+> > >>>>     drm/atomic: Allow drivers to write their own plane check for a=
+sync
+> > >>>>       flips
+> > >>>>     drm/amdgpu: Implement check_async_props for planes
+> > >>>>
+> > >>>>    .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 30 +++++++++
+> > >>>>    drivers/gpu/drm/drm_atomic_uapi.c             | 62 =20
+> > ++++++++++++++----- =20
+> > >>>>    include/drm/drm_atomic_uapi.h                 | 12 ++++
+> > >>>>    include/drm/drm_plane.h                       |  5 ++
+> > >>>>    4 files changed, 92 insertions(+), 17 deletions(-)
+> > >>>> =20
+> > >>> =20
+> > > =20
+> > =20
+
+
+--Sig_/uaSCk2iCuPC2HhY2IGqSpLb
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmWnle0ACgkQI1/ltBGq
+qqc0zRAAmsYLm9QbFAy7oGFE5ESCY1Ws0GyM7zBZ9ZbDTOGpyvJT5ShZzao3l/j2
+sDO1wxeC7xW9KhHQGEmJlWMlG+dWv1pXimYEKV0DY5+6e+6WfGA1sGODtn9xKJKd
+hFBnZqMnfvKLeowHBIt/00aJoyqwBXovoWyH59kAqSsh8TIKsyp7G5uwFtSHrJl7
+wiOysCWzlY8db9onusa9LMBgLG+2K/wDm1PDpjUqKDGidY23CMvz+L2afZf92Hl9
+zglYB4UrR9JAVBH88Bi6rhGVMKsidnLpNsPK07ZIvTU8dxlqU5Bxp6zKZmWIOSMF
+weCqzq1CatqKo1WvMKU92rS8wQSSEa+TN0/9JIN8TbOb0k6UJwv3yxJ8VjjRPiV3
+5L3TjjJOqLxzM4j5K4wS6UQvzY/lpecydBiTNesdniMdCpuNcX3TmAlF8zxJin/G
+olK37BM0+4qeEuqRTbYrhDVzmfaASSEzY4i0AgT7Zkk+wYCYReQ0Z6o6wSN570V9
+/H1dWPoQlD60lV/2ZPZTGRmLzo3KIgtrNMFqquuE2eIn02PkWSp78B/MORKAslol
+EYqBIHM3+DBy5LZiA3kZGO0V1Gj1j4/eShzSxx7WoF0X4FIP5OhMd01AQir0n1B1
+h1tk+5WRYgxVja8ZD3ZbySDboTrJw61iD5EFlLA537G9vBSwhRI=
+=JhIu
+-----END PGP SIGNATURE-----
+
+--Sig_/uaSCk2iCuPC2HhY2IGqSpLb--
