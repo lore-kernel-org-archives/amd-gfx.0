@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D2F6C4707B
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jan 2024 06:43:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D852C4707B
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jan 2024 06:44:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F67910E08B;
-	Thu, 18 Jan 2024 06:43:57 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2087.outbound.protection.outlook.com [40.107.93.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF4A210E08B
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jan 2024 06:43:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0787D10E140;
+	Thu, 18 Jan 2024 06:44:03 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2076.outbound.protection.outlook.com [40.107.244.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D4E910E140
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jan 2024 06:44:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=do4ZgKlwQkk44A9Lf8O9YBkfL6AVUcTddus1lLw5HMcaMn/A13kfKiXjFYbBExCLGzxK0Kv4liFWEhBnoGJBp3Pox8C4JLI7f8yc9+o6C4UvUZ6/NDscyk3IG97Lu29bL+YHrSk1JqKkiY7Io5GwUjD6WPwnQw1ixxnXSuRej1x0bkmN+iaZ3bgJ/6VsmI7Y4mHqBhZGf2r55tBxpvtrLCGtcV1c7hsXDTKcv+qTvybXG5cP/IlbChOlsyIzzH5hXpG+DvQ+xLLbrvTdLbnnzHw9lmHyw0M2XXxDzOFBmvBMAekkFWB7haO+rpwxCcBJkc/mToPKC22pw88pl5zUkw==
+ b=RyOOMCvI1XlRlI6QexADIewcr4iu6ozN0tke0+Pjq2kDaymS7NdkomBMK5yHTI7qqSeDH1Y7dpVy6KAO0mgnOzxW1qfOSvdRms6aOaWQESToUqrEjFVdQ/r/6lcSEcMFSegLjOmv85fKBl3Cn1AFq4+zpuspxFxZ7O/4IgWPwNARcbMFas6khiVgL0dhTxYuZDwdWsdJElLGvDoOzLUFEAP6mK1BGj5XeeIILlL3F5Dfw7dmXRCdA7ByI0MewWNeSz9pKS6qxnsIK6kGYkqxakOhoDgJZPFVj3oGSYzUDO7+VG417nYmYP8wDNzjbXJcIwEjIlAvNMh541W6tk7exg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gA1U7Y0y3Wx7C6r90tHDHlFUMDeGBzzvoNS8Bq26gD0=;
- b=HimidcfgxJUyn9vMU7Xo6Q0550B7z1gwYwQZzKA+obsF2SLZ6BfjMrBn+R1e3FjXHR1kWbY0+oTboWeK+9xWG0jMlfDiWGRu4Xz+Yarq5P1Xp5sGuAAHqdBjEdD4fcZTK8JhrufyhCqUUXnekcfKUM1ZiAc+21Vd82wHmrITR+SDJyvraFV8AQslVdboT1TQxqlDMEouuJOshBz1LaQy0ogZC75YlO7PIQcNGhABa1l1yiKQP/SV6+3HdMXvDDxcVVkg8OgDPujiHfjIFsoOKau22s4iyII325divN24vRfkyIkvRozKwypzm1Z7x+6vIOG9XXEfJbuIeN/HGYxjNQ==
+ bh=jEJMzpmw1nr69mwA3IUL25LXtmzJeRC7JGO8IA594/M=;
+ b=JwJdCH+XvkBBn3T+YATiZNmezu8o+oVRiLrqChUgbPJtEqLRxOJlXj5PRoebY2moZq1UzpMHnXz4LroIU+out7rMg//+FeoXewlmDBhGFHVI6MOX6VWi2A0qUJ/VoIoU2dR2hOZGMyJCO9TJgD0qI0Ex86kewSsyVg8eBOmczxYlZTaSMXGD0aldV8HFyylLdiEEoGN+IBNzYYHivB9V+NnszfISZxFI6KJbfac29Nf/gL9ZZ6WyxxXRpQ48YLRAuphJw6PCdyaGHq0X/QYyiMUr08L7EzuIS53yJOUnbtkSMxEvP2hteiDB3rrIumY0Y6JxhtbvM5rcUn2qSAytWA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gA1U7Y0y3Wx7C6r90tHDHlFUMDeGBzzvoNS8Bq26gD0=;
- b=Xtae606C4h0Z+25JneNZ5Jl7t9GN8uDry2lylzoqPRnm0zIAb5YYC8dYLb91K7aBAODWZUdg1d68cjqXj1Of7IhTm9XHe+3c5rSX44KSNQFv7P2zrPrPGFm0M7kzYtjMHavC7Un8g4dMNDrxJQznbxkcUQHfIPh9bCNagOb70iY=
-Received: from PA7P264CA0423.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:37d::6)
- by DS0PR12MB9273.namprd12.prod.outlook.com (2603:10b6:8:193::14) with
+ bh=jEJMzpmw1nr69mwA3IUL25LXtmzJeRC7JGO8IA594/M=;
+ b=3stGYxmgJxedCU9FktRFB1L1u5OxMJFgRhS98NkAQWHQ0WdC81H6lroSb3IlLdgiEkzFPItGetb4Y+tElZFJsmrSA5z6NEDIOutDwgg2NZ1CRIAIwYW0vyoLlA9JJQztJPzXiG7kLkL4xmcHUaBa4xG6GXmC7uT38+tPn/Frr5k=
+Received: from SN1PR12CA0044.namprd12.prod.outlook.com (2603:10b6:802:20::15)
+ by DM4PR12MB5344.namprd12.prod.outlook.com (2603:10b6:5:39a::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.23; Thu, 18 Jan
- 2024 06:43:36 +0000
-Received: from SA2PEPF00001505.namprd04.prod.outlook.com
- (2603:10a6:102:37d:cafe::7d) by PA7P264CA0423.outlook.office365.com
- (2603:10a6:102:37d::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24 via Frontend
- Transport; Thu, 18 Jan 2024 06:43:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24; Thu, 18 Jan
+ 2024 06:43:58 +0000
+Received: from SA2PEPF00001507.namprd04.prod.outlook.com
+ (2603:10b6:802:20:cafe::48) by SN1PR12CA0044.outlook.office365.com
+ (2603:10b6:802:20::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.30 via Frontend
+ Transport; Thu, 18 Jan 2024 06:43:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF00001505.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SA2PEPF00001507.mail.protection.outlook.com (10.167.242.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Thu, 18 Jan 2024 06:43:35 +0000
+ 15.20.7202.16 via Frontend Transport; Thu, 18 Jan 2024 06:43:58 +0000
 Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 18 Jan
- 2024 00:43:31 -0600
+ 2024 00:43:34 -0600
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V2 1/5] drm/amdgpu: Add log info for umc_v12_0 and smu_v13_0_6
-Date: Thu, 18 Jan 2024 14:42:53 +0800
-Message-ID: <20240118064257.1951585-1-YiPeng.Chai@amd.com>
+Subject: [PATCH V2 2/5] drm/amdgpu: Prepare for asynchronous processing of umc
+ page retirement
+Date: Thu, 18 Jan 2024 14:42:54 +0800
+Message-ID: <20240118064257.1951585-2-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240118064257.1951585-1-YiPeng.Chai@amd.com>
+References: <20240118064257.1951585-1-YiPeng.Chai@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00001505:EE_|DS0PR12MB9273:EE_
-X-MS-Office365-Filtering-Correlation-Id: dbf69329-c806-4bcd-9075-08dc17f0cbce
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001507:EE_|DM4PR12MB5344:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17b3bc93-e3eb-4902-b75a-08dc17f0d951
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +PaA9mXz5TiMtTa7DcSSuPelWuRgbWejsOEQaZhSb2XO02S/0Ka4ZsixTFogXEaZF9H/8Sluy+JqJLpJErK4l8dnb4pt26XcHiooMLVHHIzgUMPUwC2qXLv3RQqT+CRVEGSrwMN0tkwSfIznA+elS3wAz9sWvVLZiMy5G4VE9ss1RSDPMWO0ojX8igMqVRIpZxpAY2dA9kApHCtHMfrGmhs2rpkKlYsrdn5wuMFkg+TN+VR1csUzTar07613rMNFBWQCw6fajFU9sDj/qZ4MlAsv0Vf8FvNPqphXhUURevouQlphv8Mb7NmUExTcHUdXG4JwJwW1eDW76fzPqQRoIZsPUU0Odyz+5p7WtwxyC5WEAFSG697Kojw2cXzYXtd4vGqREB4yNo0wwg0Ry/DX5C3UEdM/XUIl9IGz1MVBjWGDqFPhkWDANRMrY3gUV/0v6HwDcBK7BKeBiDlGKHe89YUi16CuNOhEuJIe3H8WT4ZwSDY1qhxSbDdkJMomnlnTyRPnhMBWiGSgCOsbr7xexnvgRaExHiySN3IKZrIGGZl2a1p1pRN7Hty38+oqQlbEKMLKNt0VJGtC4J/Brmx7+t9cGkkXRJGzmL8Tl8Q+HgMMr8Ek+6dq+MqNKbfpxYf+tEEfmvf3pFB/e3mvVNVljPm6YDqlUt+DwLcbzaKHThgsyJ/eGviGPgoDIzp1fdyZmzu5sUzQePqaPFny2Ok/02y32KyDog/FS1J/KUvM9OCsjN1n1W4aDAmE8CawHsceJXzD0e6COTGUZcYi5rwZwA==
+X-Microsoft-Antispam-Message-Info: TDWz951DsYwz2wnNQYnowwRgEhaiu8QIHEHZ+a6mVWFM/Uttbd8KG/FmV091RdoxlF5NPYbmV9ITly53M5tWahPkbBRCWT92NmtzvZXqXFYE/pJzQdl2g8q9uJ3KddR+SR+lYk1/LauT14FpFLAjinDbQGvh8OCIKKdODcIslnZ9eBAAyUxIsUpiM2KBBUX7nb+V6nu7+VSt+bcqd5cAtRfXEm7HLeihnKODkJWgibceWK4eTdjFRyhuQeG47cW8Ov5n4Mm6P8KYP4RQ2usYlNTByDs0RXQ1BTk9cQvOiwmUBFuNGNMoKZcDl9Mp989tH7u7SX6pnOwkB7TJTWwLRXzL7rWsD68quVAi4YEXbAL5Dh89czYWm4gMcj+9uMKzDtRHyakj50N5NoKmcPcn3JfwF0uIiTf7xnqxo9Ca5vmqPF2sPSaQ161BoQd5ZDDHPaGCq0+z0AIiEMgeFL2XYozcyIWHDCa4kGXyPtmjN2uim7fEVSCH47/U3LHbaK0VuoDO1vsu2sb8UxX62jMMtmV2IkUwqgzBiS4rttGG1yzARrO2wmsguJ5oOmUrxfyego4vAks7uemTSognfkhAoD6eLl9zkSHKqDRd65frknFcFVKJn5bUqzQCw3CqyiahjPwHpgdpfvmcLBtuRhq288qYvzdtYEGVZymYGqnQll6NqrOC8MpliCxPo/9NyMsmbNkLZ8Ur5ml7dPVkoZZnE1mnbss4qiyO/CsEDd9ED0DjolLCRfju8KIX+LrOGMAPSHpUb9pB03tM9CO0XZWKwA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(346002)(396003)(136003)(39860400002)(230922051799003)(64100799003)(1800799012)(451199024)(82310400011)(186009)(36840700001)(46966006)(40470700004)(36860700001)(81166007)(356005)(41300700001)(47076005)(40460700003)(40480700001)(36756003)(6916009)(86362001)(8676002)(70206006)(8936002)(316002)(54906003)(70586007)(26005)(16526019)(4326008)(82740400003)(5660300002)(478600001)(336012)(2616005)(7696005)(426003)(83380400001)(1076003)(6666004)(2906002)(36900700001);
+ SFS:(13230031)(4636009)(346002)(376002)(39860400002)(396003)(136003)(230922051799003)(64100799003)(82310400011)(1800799012)(186009)(451199024)(36840700001)(46966006)(40470700004)(40460700003)(40480700001)(336012)(16526019)(26005)(1076003)(6666004)(83380400001)(426003)(86362001)(36756003)(7696005)(356005)(82740400003)(81166007)(8676002)(2616005)(4326008)(6916009)(47076005)(5660300002)(36860700001)(54906003)(41300700001)(70586007)(70206006)(316002)(8936002)(2906002)(478600001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2024 06:43:35.7733 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbf69329-c806-4bcd-9075-08dc17f0cbce
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2024 06:43:58.4900 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17b3bc93-e3eb-4902-b75a-08dc17f0d951
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001505.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001507.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9273
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5344
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,64 +106,89 @@ Cc: KevinYang.Wang@amd.com, Tao.Zhou1@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add log info for umc_v12_0 and smu_v13_0_6.
-
-v2:
- Delete redundant logs.
+Preparing for asynchronous processing of umc page retirement.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/umc_v12_0.c  | 11 +++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_events.c |  6 +++++-
- 2 files changed, 16 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 34 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  5 ++++
+ 2 files changed, 39 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-index 6423dca5b777..fa2168f1d3bf 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-@@ -91,6 +91,17 @@ static void umc_v12_0_reset_error_count(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index a988360ce3e2..856206e95842 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2656,6 +2656,25 @@ static void amdgpu_ras_validate_threshold(struct amdgpu_device *adev,
+ 	}
+ }
  
- bool umc_v12_0_is_deferred_error(struct amdgpu_device *adev, uint64_t mc_umc_status)
- {
-+	dev_info(adev->dev,
-+		"MCA_UMC_STATUS(0x%llx): Val:%llu, Poison:%llu, Deferred:%llu, PCC:%llu, UC:%llu, TCC:%llu\n",
-+		mc_umc_status,
-+		REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val),
-+		REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Poison),
-+		REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Deferred),
-+		REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, PCC),
-+		REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UC),
-+		REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, TCC)
-+	);
++static int amdgpu_ras_page_retirement_thread(void *param)
++{
++	struct amdgpu_device *adev = (struct amdgpu_device *)param;
++	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
 +
- 	return (amdgpu_ras_is_poison_mode_supported(adev) &&
- 		(REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1) &&
- 		(REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Deferred) == 1));
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index 11923964ce9a..51bb98db5d7a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -1297,8 +1297,10 @@ void kfd_signal_poison_consumed_event(struct kfd_node *dev, u32 pasid)
- 	uint32_t id = KFD_FIRST_NONSIGNAL_EVENT_ID;
- 	int user_gpu_id;
- 
--	if (!p)
-+	if (!p) {
-+		dev_warn(dev->adev->dev, "Not find process with pasid:%d\n", pasid);
- 		return; /* Presumably process exited. */
++	while (!kthread_should_stop()) {
++
++		wait_event_interruptible(con->page_retirement_wq,
++				atomic_read(&con->page_retirement_req_cnt));
++
++		dev_info(adev->dev, "Start processing page retirement. request:%d\n",
++			atomic_read(&con->page_retirement_req_cnt));
++
++		atomic_dec(&con->page_retirement_req_cnt);
 +	}
- 
- 	user_gpu_id = kfd_process_get_user_gpu_id(p, dev->id);
- 	if (unlikely(user_gpu_id == -EINVAL)) {
-@@ -1334,6 +1336,8 @@ void kfd_signal_poison_consumed_event(struct kfd_node *dev, u32 pasid)
++
++	return 0;
++}
++
+ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+@@ -2719,6 +2738,16 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
  		}
  	}
  
-+	dev_warn(dev->adev->dev, "Send SIGBUS to process %s(pasid:%d)\n",
-+		p->lead_thread->comm, pasid);
- 	rcu_read_unlock();
++	mutex_init(&con->page_retirement_lock);
++	init_waitqueue_head(&con->page_retirement_wq);
++	atomic_set(&con->page_retirement_req_cnt, 0);
++	con->page_retirement_thread =
++		kthread_run(amdgpu_ras_page_retirement_thread, adev, "umc_page_retirement");
++	if (IS_ERR(con->page_retirement_thread)) {
++		con->page_retirement_thread = NULL;
++		dev_warn(adev->dev, "Failed to create umc_page_retirement thread!!!\n");
++	}
++
+ #ifdef CONFIG_X86_MCE_AMD
+ #ifdef HAVE_SMCA_UMC_V2
+ 	if ((adev->asic_type == CHIP_ALDEBARAN) &&
+@@ -2757,6 +2786,11 @@ static int amdgpu_ras_recovery_fini(struct amdgpu_device *adev)
+ 	if (!data)
+ 		return 0;
  
- 	/* user application will handle SIGBUS signal */
++	if (con->page_retirement_thread)
++		kthread_stop(con->page_retirement_thread);
++
++	atomic_set(&con->page_retirement_req_cnt, 0);
++
+ 	cancel_work_sync(&con->recovery_work);
+ 
+ 	mutex_lock(&con->recovery_lock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index 2cd89328dc73..9c3df9985fad 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -461,6 +461,11 @@ struct amdgpu_ras {
+ 
+ 	/* Record special requirements of gpu reset caller */
+ 	uint32_t  gpu_reset_flags;
++
++	struct task_struct *page_retirement_thread;
++	wait_queue_head_t page_retirement_wq;
++	struct mutex page_retirement_lock;
++	atomic_t page_retirement_req_cnt;
+ };
+ 
+ struct ras_fs_data {
 -- 
 2.34.1
 
