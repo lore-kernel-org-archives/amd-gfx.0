@@ -4,81 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0660C47422
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jan 2024 21:40:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 035ABC47DB7
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jan 2024 22:31:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC3FB10E8E3;
-	Thu, 18 Jan 2024 21:40:22 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87F8010E8E3
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jan 2024 21:40:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1705614020;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=xa92SUx0tviopJhDIWZGFz30fwUB0DJ3p+sWP4FEk+s=;
- b=TwQ7+ZtUn3sshSFlrzdBXX1mQyFjsbrSxax5uMlMM38mM70NipYysB33UcEXa8Je6GLdbr
- 8euUUGacTGM6LpGgQI4Dd3edMmbfoQTTeIEBYc67p8qtfc9830SZpnnCvHw5PRVSy8cy/1
- irdeueRfouqGsacMfQCrgGMtI2yqTv8=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-689-hnqMrbt1Mim81MtEnyQL2Q-1; Thu, 18 Jan 2024 16:40:19 -0500
-X-MC-Unique: hnqMrbt1Mim81MtEnyQL2Q-1
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-337d05db5bbso28723f8f.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jan 2024 13:40:19 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705614018; x=1706218818;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=xa92SUx0tviopJhDIWZGFz30fwUB0DJ3p+sWP4FEk+s=;
- b=fYrrwUHjIf3N06MbfqakNkfn3gwP4d8eJDFDjOmuyJQD4rjbcbYGssM48bcn7Z6LLn
- MtzRYrSr0waAA5ZLQy9i1Sv7rQ6bNObf1Sil+nWBsoFb+/+3QujmSW4lzi11GkxxX39I
- j5P3+5Gn2HKwpogANNJXSKtcBfEDwVmPwFUs4S80Lv+u2ze00cGA8yzimraqYRHgTuYS
- PYvgQ7aTFYW1oMbt3/zs+hV3yFefZYX8ayNZtQ1qywQxYqeL/EU9ja1zw/Ybwd8puUuN
- H9RlSBa+yq1CvSZLoG4zSYEzbsurKK5CEy2tIwVS44Vaojhg86mEhrcizncM56dmm98T
- 6qHQ==
-X-Gm-Message-State: AOJu0YzasYenmUtkA9NsFfGecWuY0yXJH/MC2PYx3XwaJqRIWsdtf93e
- JoCu80uoiXdnPhScLuaWx3EgVfhLOVDYqkFNpQFa/5+R5o6U+8JUqfovR+L20caOVE2lQdxiSam
- zQOMJ22xt2wL9BW+7fMOj1Ad34XFM+b1wya+pZpE+Sy8yQT90CE2+KO9NPNyfogE=
-X-Received: by 2002:a05:600c:35d1:b0:40e:4806:7f9b with SMTP id
- r17-20020a05600c35d100b0040e48067f9bmr467120wmq.307.1705614018256; 
- Thu, 18 Jan 2024 13:40:18 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHzu7h6Fo6GUvyykTS9VMLpY/bskI4+iQUY/zF1+uYeQ+1qVX2Ke101UmWIgIMx9PhGr0XmLQ==
-X-Received: by 2002:a05:600c:35d1:b0:40e:4806:7f9b with SMTP id
- r17-20020a05600c35d100b0040e48067f9bmr467112wmq.307.1705614017890; 
- Thu, 18 Jan 2024 13:40:17 -0800 (PST)
-Received: from toolbox ([2001:9e8:89aa:f00:af88:d221:94de:a009])
- by smtp.gmail.com with ESMTPSA id
- o8-20020a05600c4fc800b0040e549c77a1sm30861698wmq.32.2024.01.18.13.40.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Jan 2024 13:40:17 -0800 (PST)
-Date: Thu, 18 Jan 2024 22:40:15 +0100
-From: Sebastian Wick <sebastian.wick@redhat.com>
-To: Andri Yngvason <andri@yngvason.is>
-Subject: Re: [PATCH v2 2/4] drm/uAPI: Add "force color format" drm property
- as setting for userspace
-Message-ID: <20240118214015.GB30589@toolbox>
-References: <20240115160554.720247-1-andri@yngvason.is>
- <20240115160554.720247-3-andri@yngvason.is>
- <20240116114235.GA311990@toolbox>
- <CAFNQBQz3TNj_7BSmFw4CFMNuR4B+1d+y3f058s+rzTuzdYogqA@mail.gmail.com>
- <20240116132918.GB311990@toolbox>
- <CAFNQBQyfWmfu5T7bgZDZFGfyhsxQi7YXmY_wPc9Y+mm5iSspXQ@mail.gmail.com>
- <20240117112150.4399d0bb@eldfell>
- <CAFNQBQwoGvSF1ryOPUUnedYUG64HqFQNXjMf6R7piufN64Vc=g@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABD1310E8FD;
+	Thu, 18 Jan 2024 22:31:48 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2056.outbound.protection.outlook.com [40.107.212.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6203A10E754;
+ Thu, 18 Jan 2024 22:31:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Gv3HyM/MtBDR/nysvHvvotE1zw/S5hTHj50OzFZZRKMWNuwtelcC6KllEv1hoEQfKXB2BIzcgzqU6+8rxhdwEbin8mzLbeu1C19o1OM+jaogCTGcYbA9ej0t90r4L4v20OlVRpHb551lgxvOBddtqw5iO8KQUCBR/OFg8bwbSeGQAVHtoR29DFMHOupdQAwGPC74wVz3tNVE3tAg2hkLuwZXvqhvWh3L4aASRSUjcFzZ59x8bGHLLlemgHmdY3E7dbFm52cDguq7OUKhi96Rn58cf9Kp7iTqlCZGgJFAhu2vVyMg5oEG7ZDKpL+iaPkNpkYR5YuN5FAkXAwBD2UzNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uPDg+3bp/WsviDoctHvXTVnzh6f8T5rB66AbEyW8LF0=;
+ b=YmL7HVdaNQJwssigJuhdUm2AugFCstT6r7mTwKw7X68tdlbHNdtS+sb6qnf8disgbNbnxvd8A1h4V4pjWk06kHVYByTualuUISmwd8SaM+2NPdXwrRrQQRi717eeV04RcVam/DFQ7qhjWpmSfJZi0Oi3S2E9uN2kV1J3zM5DNrl+UTOmIj5s3aV/2Nj9m69rIfM4KYWcDw4uAUcfIhOnbUmC1L8mjBfkiRXpcEBRwjUoHcC/GVsvSZQGUBk/MdPikezTZcXA+lupor4BjZ6eJn4ujX3XoczuxJNmyfZhfWM7OvA+DT5Y99qsbOfcxLTYVpi2yOCV2C5YqyAKAxQgXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uPDg+3bp/WsviDoctHvXTVnzh6f8T5rB66AbEyW8LF0=;
+ b=GsRhNjeCEcRCVddQ3Zckgc+MqSRvicL+8A2v5cVQxiRu84T4Mvm39Hd71sTgfOOCW2G6n4ay5GPtowyIgcxzkhK1tQAdqvXIKkz7LG5TlRCbYYLj6yqNRfJM1TdwsqR2EGfVfU7QKLZMNLogW3ZS9k8hqpXoSbkSfaS389PzjG4=
+Received: from DM6PR02CA0044.namprd02.prod.outlook.com (2603:10b6:5:177::21)
+ by CY8PR12MB7753.namprd12.prod.outlook.com (2603:10b6:930:93::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24; Thu, 18 Jan
+ 2024 22:31:45 +0000
+Received: from DS1PEPF0001708F.namprd03.prod.outlook.com
+ (2603:10b6:5:177:cafe::35) by DM6PR02CA0044.outlook.office365.com
+ (2603:10b6:5:177::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24 via Frontend
+ Transport; Thu, 18 Jan 2024 22:31:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0001708F.mail.protection.outlook.com (10.167.17.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7202.16 via Frontend Transport; Thu, 18 Jan 2024 22:31:43 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 18 Jan
+ 2024 16:31:42 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu, amdkfd drm-fixes-6.8
+Date: Thu, 18 Jan 2024 17:31:27 -0500
+Message-ID: <20240118223127.4904-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-In-Reply-To: <CAFNQBQwoGvSF1ryOPUUnedYUG64HqFQNXjMf6R7piufN64Vc=g@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001708F:EE_|CY8PR12MB7753:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6421945f-8972-4872-7f85-08dc18753fac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jiRIhYO4a/vlLwIBHIjnvZoFYrUbGlK7i6jXFCkFvXZhsWMAbc7W3WnFl41DcWvgY0hi3UhdufOTXy2tW3a86U9HxAesD4E4Bv9hJdZe+tZdlM9aX1xmy/0OESgTLpjNdZh0oZp9fBCMxaXmXCs9Fm3DzihFN8ggWgceuPTk5cueoB34E1nn/ATT6Wk3/vWQ6Nj3+5shxmlEcYG6yKWdHU+BbVlcjLiM0aUi+uoS44jjjlUPT+PDx0LdPSHjpagrChU8QBmn7uhNZ9UPTwFFqBSPWVuN6X6qDJTOfc9bbvE8Pcz28vp+6UPDV/Ya36jZbgjqO4fCSMT3s0mh52RNKVHFZZCEwTRT5yQg9/oIeYrIe9AZeyTyqgckqIwlLzFpwNUyIo8gy9jCI6cmbZLiMJEDB8NNIpIIKyAHQX8BslMrFDHmIPp07rx2+E7q6H4ffYFyZ1fRAnmoIKvqGj59MKgV0Z7f9vw44b0+QRqiROiGC/gDUF53Ews4lnlmnxVqGm577KTxqFO429y6bwmLppvvOLQfP30PU62kyrG4asVbhZs8H/8DYjhrf3AQocT3eo+iq1HEFzVWapX7o6zxLw+mhjNYQuZedKrtLaTjU+7DCOWs/05qf8ADmrDap6BW1bNBGJnaW5HkIHCErQz7dNZSffhTjLIkz31e5LJvs2jJUcUj+08gUEzyPAKlnFrDJ9uMr255rdIhtm2AXqgoRnGCwRBVab48ayJUTpJOa9yLRXWyaLS6CbQU56rBvURG71CdaAuiuA3ua++b/2c6rRBPIC/XK1djvGv6aVI4Ino=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(396003)(136003)(39860400002)(346002)(376002)(230922051799003)(230173577357003)(230273577357003)(64100799003)(451199024)(82310400011)(1800799012)(186009)(36840700001)(40470700004)(46966006)(70206006)(83380400001)(110136005)(70586007)(316002)(2906002)(36756003)(36860700001)(8936002)(8676002)(4326008)(86362001)(5660300002)(41300700001)(47076005)(82740400003)(40480700001)(966005)(40460700003)(356005)(81166007)(1076003)(26005)(16526019)(478600001)(426003)(336012)(66574015)(7696005)(2616005)(6666004)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2024 22:31:43.7339 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6421945f-8972-4872-7f85-08dc18753fac
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001708F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7753
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,270 +98,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Leo Li <sunpeng.li@amd.com>,
- intel-gfx@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- Werner Sembach <wse@tuxedocomputers.com>, Pekka Paalanen <ppaalanen@gmail.com>,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 17, 2024 at 12:58:15PM +0000, Andri Yngvason wrote:
-> mið., 17. jan. 2024 kl. 09:21 skrifaði Pekka Paalanen <ppaalanen@gmail.com>:
-> >
-> > On Tue, 16 Jan 2024 14:11:43 +0000
-> > Andri Yngvason <andri@yngvason.is> wrote:
-> >
-> > > þri., 16. jan. 2024 kl. 13:29 skrifaði Sebastian Wick
-> > > <sebastian.wick@redhat.com>:
-> > > >
-> > > > On Tue, Jan 16, 2024 at 01:13:13PM +0000, Andri Yngvason wrote:
-> > > [...]
-> > > > > şri., 16. jan. 2024 kl. 11:42 skrifaği Sebastian Wick
-> > > > > <sebastian.wick@redhat.com>:
-> > > > > >
-> > > > > > On Mon, Jan 15, 2024 at 04:05:52PM +0000, Andri Yngvason wrote:
-> > > > > > > From: Werner Sembach <wse@tuxedocomputers.com>
-> > > > > > >
-> > > > > > > Add a new general drm property "force color format" which can be used
-> > > > > > > by userspace to tell the graphics driver which color format to use.
-> > > > > >
-> > > > > > I don't like the "force" in the name. This just selects the color
-> > > > > > format, let's just call it "color format" then.
-> > > > > >
-> > > > >
-> > > > > In previous revisions, this was "preferred color format" and "actual
-> > > > > color format", of which the latter has been dropped. I recommend
-> > > > > reading the discussion for previous revisions.
-> > > >
-> > > > Please don't imply that I didn't read the thread I'm answering to.
-> >
-> > FYI, I have not read this thread.
-> >
-> 
-> pq, You did not read this summary?
-> https://lore.kernel.org/dri-devel/CAFNQBQwjeJaX6B4oewpgASMUd5_nxZYMxUfdOG294CTVGBTd1w@mail.gmail.com/
-> 
-> You partook in the discussion on IRC. Please read it and tell me if I
-> misunderstood anything.
-> 
-> Sebastian, I apologise. You clearly read it as you even replied to it!
+Hi Dave, Sima,
 
-Thank you :)
+New fixes for 6.8, on top of the fixes I sent last week and fixed up on Monday.
 
-> > > >
-> > > > > There are arguments for adding "actual color format" later and if it
-> > > > > is added later, we'd end up with "color format" and "actual color
-> > > > > format", which might be confusing, and it is why I chose to call it
-> > > > > "force color format" because it clearly communicates intent and
-> > > > > disambiguates it from "actual color format".
-> > > >
-> > > > There is no such thing as "actual color format" in upstream though.
-> > > > Basing your naming on discarded ideas is not useful. The thing that sets
-> > > > the color space for example is called "Colorspace", not "force
-> > > > colorspace".
-> > > >
-> > >
-> > > Sure, I'm happy with calling it whatever people want. Maybe we can
-> > > have a vote on it?
-> >
-> > It would sound strange to say "force color format" = "auto". Just drop
-> > the "force" of it.
-> >
-> > If and when we need the feedback counterpart, it could be an immutable
-> > prop called "active color format" where "auto" is not a valid value, or
-> > something in the new "output properties" design Sima has been thinking
-> > of.
-> 
-> There seems to be consensus for calling it "color format"
-> 
-> >
-> > > > > [...]
-> > > > > > > @@ -1396,6 +1404,15 @@ static const u32 dp_colorspaces =
-> > > > > > >   *   drm_connector_attach_max_bpc_property() to create and attach the
-> > > > > > >   *   property to the connector during initialization.
-> > > > > > >   *
-> > > > > > > + * force color format:
-> > > > > > > + *   This property is used by userspace to change the used color format. When
-> > > > > > > + *   used the driver will use the selected format if valid for the hardware,
-> > > > > >
-> > > > > > All properties are always "used", they just can have different values.
-> > > > > > You probably want to talk about the auto mode here.
-> > > > >
-> > > > > Maybe we can say something like: If userspace does not set the
-> > > > > property or if it is explicitly set to zero, the driver will select
-> > > > > the appropriate color format based on other constraints.
-> > > >
-> > > > The property can be in any state without involvement from user space.
-> > > > Don't talk about setting it, talk about the state it is in:
-> > > >
-> > > >   When the color format is auto, the driver will select a format.
-> > > >
-> > >
-> > > Ok.
-> > >
-> > > > > >
-> > > > > > > + *   sink, and current resolution and refresh rate combination. Drivers to
-> > > > > >
-> > > > > > If valid? So when a value is not actually supported user space can still
-> > > > > > set it? What happens then? How should user space figure out if the
-> > > > > > driver and the sink support the format?
-> > > > >
-> > > > > The kernel does not expose this property unless it's implemented in the driver.
-> > > >
-> > > > If the driver simply doesn't support *one format*, the enum value for
-> > > > that format should not be exposed, period. This isn't about the property
-> > > > on its own.
-> > >
-> > > Right, understood. You mean that enum should only contain values that
-> > > are supported by the driver.
-> >
-> > Yes. When a driver installs a property, it can choose which of the enum
-> > entries are exposed. That cannot be changed later though, so the list
-> > cannot live by the currently connected sink, only by what the driver
-> > and display controlled could ever do.
-> 
-> Yes, and I think that basing it also on the connected sink's
-> capabilities would just add complexity for very little gain. In fact,
-> I think that limiting it based on the driver's capabilities is also
-> over-engineering, but I don't mind adding it if that's what people
-> really want.
+The following changes since commit d7643fe6fb76edb1f2f1497bf5e8b8f4774b5129:
 
-Having a bunch of values that will always fail a mode set just makes
-life for user space much worse. Might be overengineering from the kernel
-pov but it's not for user space.
+  drm/amd/display: Avoid enum conversion warning (2024-01-15 18:35:07 -0500)
 
-> >
-> > > > > This was originally "preferred color format". Perhaps the
-> > > > > documentation should better reflect that it is now a mandatory
-> > > > > constraint which fails the modeset if not satisfied.
-> > > >
-> > > > That would definitely help.
-> > > >
-> > > > > >
-> > > > > > For the Colorspace prop, the kernel just exposes all formats it supports
-> > > > > > (independent of the sink) and then makes it the job of user space to
-> > > > > > figure out if the sink supports it.
-> > > > > >
-> > > > > > The same could be done here. Property value is exposed if the driver
-> > > > > > supports it in general, commits can fail if the driver can't support it
-> > > > > > for a specific commit because e.g. the resolution or refresh rate. User
-> > > > > > space must look at the EDID/DisplayID/mode to figure out the supported
-> > > > > > format for the sink.
-> > > > >
-> > > > > Yes, we can make it possible for userspace to discover which modes are
-> > > > > supported by the monitor, but there are other constraints that need to
-> > > > > be satisfied. This was discussed in the previous revision.
-> > > >
-> > > > I mean, yes, that's what I said. User space would then only be
-> > > > responsible for checking the sink capabilities and the atomic check
-> > > > would take into account other (non-sink) constraints.
-> > >
-> > > Since we need to probe using TEST_ONLY anyway, we'll end up with two
-> > > mechanisms to do the same thing where one of them depends on the other
-> > > for completeness.
-> >
-> > What do you mean by "same thing"?
-> 
-> I thought that it would be clear that I did not mean that they were
-> literally equal. This was discussed on IRC and summarised in the email
-> message that I linked to above. Excerpt:
-> "I asked if it made sense to add color format capabilities to the mode info
-> struct, but the conclusion was that it wouldn't really be useful because we
-> need TEST_ONLY anyway to see if the color format setting is compatible with
-> other settings."
+are available in the Git repository at:
 
-I feel like we're talking past each other.
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.8-2024-01-18
 
-There are two questions:
+for you to fetch changes up to aa0901a9008eeb2710292aff94e615adf7884d5f:
 
-1. Should the property expose enum values which will always result in a
-   failed commit (because e.g. the hardware doesn't support it)
-2. Should the commit fail if the sink doesn't claim to support the
-   format
+  drm/amdgpu: Enable GFXOFF for Compute on GFX11 (2024-01-18 16:45:19 -0500)
 
-The first issue I believe that we should try to minimize options that
-can't work to cut down on the combinatorial explosion problem.
+----------------------------------------------------------------
+amd-drm-fixes-6.8-2024-01-18:
 
-On the second issue, there are good reasons to just not fail commits in
-the kernel because:
-* user space already has to parse and understand EDIDs
-* this information is often wrong
-* support for new EDID/DisplayID can get to user space faster
+amdgpu:
+- DSC fixes
+- DC resource pool fixes
+- OTG fix
+- DML2 fixes
+- Aux fix
+- GFX10 RLC firmware handling fix
+- Revert a broken workaround for SMU 13.0.2
+- DC writeback fix
+- Enable gfxoff when ROCm apps are active on gfx11 with the proper FW version
 
-We have to decide on this and make them part of the API. We've seen how
-this gets a mess if that's not being done.
+amdkfd:
+- Fix dma-buf exports using GEM handles
 
-> >
-> > Neither HDMI nor DisplayPort have a feedback message saying your
-> > infoframe contents are unacceptable, that I know of. Even if there was,
-> > it would come too late for failing the atomic commit ioctl in
-> > non-blocking mode.
-> >
-> > In general, display signalling is that you send whatever to the sink,
-> > and hope for the best.
-> >
-> > EDID is used to describe what the sink can accept, so in theory the
-> > kernel could parse EDID for all of these details and reject atomic
-> > commits that attempt unsupported configurations. However, EDID are also
-> > notoriously buggy. They are good for a best guess, but I believe it is
-> > useful to be able to try "unsupported" things. IIRC, PS VR2
-> > intentionally lies for instance.
-> >
-> > Even if the kernel did reject everything based on EDID, the only way
-> > today for userspace to know what should work is to parse the EDID
-> > itself. TEST_ONLY trials lead to a combinatorial explosion too easily.
-> > So userspace is already expected to parse EDID, with the major
-> > exception being video mode lists that are explicitly provided by the
-> > kernel in UAPI.
-> 
-> I thought that everyone agreed that display settings GUIs don't suffer
-> from combinatorial explosion because settings are selected in a
-> predefined order so they don't need to test all permutations.
+----------------------------------------------------------------
+Charlene Liu (1):
+      drm/amd/display: Add logging resource checks
 
-Not all permutations doesn't mean no permutations. This is still really
-expensive to do right.
+Christian König (1):
+      drm/amdgpu: revert "Adjust removal control flow for smu v13_0_2"
 
-> >
-> > EDID and DisplayID standards also evolve. The kernel could be behind
-> > userspace in chasing them, which was the reason why the kernel does not
-> > validate HDR_OUTPUT_METADATA against EDID.
-> >
-> > The design of today with HDR_OUTPUT_METADATA and whatnot is
-> > that userspace is responsible for checking sink capabilities, and
-> > atomic check is responsible for driver and display controller
-> > capabilities.
-> 
-> I'm not really sure where you're going with this. Are you for or
-> against userspace parsing EDID instead of getting the information from
-> the kernel?
+Christophe JAILLET (1):
+      drm/amd/display: Fix a switch statement in populate_dml_output_cfg_from_stream_state()
 
-The opposite I hope.
+Dillon Varone (1):
+      drm/amd/display: Init link enc resources in dc_state only if res_pool presents
 
-Sink capabilities shouldn't influence commits, let user space do what it
-can do. We have a bunch of "auto" states but I do consider them a
-mistake.
+Flora Cui (1):
+      drm/amdkfd: init drm_client with funcs hook
 
-> >
-> > > > > In any case, these things can be added later and need not be a part of
-> > > > > this change set.
-> > > >
-> > > > No, this is the contract between the kernel and user space and has to be
-> > > > figured out before we can merge new uAPI.
-> >
-> > Indeed.
-> 
-> I don't see how adding something later to cut down on the
-> combinatorial explosion can possibly break any kind of contract in the
-> way things are currently implemented. Can anyone provide examples of
-> how things can go wrong in this particular instance?
-> 
-> Thanks,
-> Andri
-> 
+Ilya Bakoulin (1):
+      drm/amd/display: Clear OPTC mem select on disable
 
+Ma Jun (1):
+      drm/amdgpu: Fix the null pointer when load rlc firmware
+
+Nicholas Kazlauskas (1):
+      drm/amd/display: Port DENTIST hang and TDR fixes to OTG disable W/A
+
+Ori Messinger (1):
+      drm/amdgpu: Enable GFXOFF for Compute on GFX11
+
+Ovidiu Bunea (1):
+      drm/amd/display: Fix DML2 watermark calculation
+
+Srinivasan Shanmugam (2):
+      drm/amd/display: Fix late derefrence 'dsc' check in 'link_set_dsc_pps_packet()'
+      drm/amd/display: Drop 'acrtc' and add 'new_crtc_state' NULL check for writeback requests.
+
+Wayne Lin (1):
+      drm/amd/display: Align the returned error code with legacy DP
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         | 11 ++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 32 +---------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            | 32 ----------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h          |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h           |  1 -
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             | 15 ++++------
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  6 ++--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  5 ++++
+ .../amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c | 21 ++++++--------
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  4 ++-
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |  4 +++
+ drivers/gpu/drm/amd/display/dc/core/dc_state.c     |  8 ++++--
+ .../drm/amd/display/dc/dml2/display_mode_core.c    | 14 +++++-----
+ .../amd/display/dc/dml2/dml2_translation_helper.c  |  2 +-
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c    |  8 ++++--
+ .../gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c |  3 ++
+ .../gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c |  3 ++
+ 17 files changed, 62 insertions(+), 108 deletions(-)
