@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0B9CC47258
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jan 2024 03:26:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2954C47422
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jan 2024 03:26:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B38F8A01F;
-	Thu, 18 Jan 2024 03:26:06 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2086.outbound.protection.outlook.com [40.107.95.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64C3710E12B
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jan 2024 03:26:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E966A10E0ED;
+	Thu, 18 Jan 2024 03:26:08 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2086.outbound.protection.outlook.com [40.107.94.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC9A210E0ED
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jan 2024 03:26:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SuE3GYUYGFtqHKfys2ag+JgibCjdWVBCoOCkkmri/3PUNdOOuJ+LhXy4Jqj9WXLJ56nHaSjnOaH7xZEzHb7GfYNEqGPXFODzqBNs/aXqc9x9eUdJhDpqIs2ujE+Idw/VngKehtJcJdsq0rbSsdKLgpQx/4yJUYsZ3VMSmhsMIhf6Ik6+YpFmttCIDpdOqdmhVS8syUgf4asVmoAVTjMVVEx/EmZXuQsEjzYSmzsZmdvFw0I0DLPGN/U9Zv884lebE4rFP6L8OZiqi2dlzMI4xEi639v7qTMYDT59QHd3ZEqmkLqZuBgMxxKMDiswUxrJoKpyD0mYB5qCjhXQzAe+oA==
+ b=iZOwnYExuNqsIukuctejnkF2L7wAEFaO+tX7LjQkOh6nDYrQ71NzhmdYo3qiz/qChQRv3C7EW38e6Fg3++/hehipAkDMk2+NZDS2OpzIlFQVLU1pe1EnUVhnJNlnKPiVUOSCwajr4PY7++luC/aOusN7CUrqkOXwHEWBK4l0Quc8ACP6FcFM/uzACYfVAynhQ7BQT73ghWyjsx0PKtH12bdd020IHN1D4MRDBggHEiBkQWLsUQAaSdd7MYCwuWRGBzmXnoWBxHqEwhxJf3lsdl7/HV1DZa9vQGLdL4LayZMQwOqxBbONj30LdDRH6nrO4RyIcW7esbssEkZkKF2uvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/jiz5NNEQHmxu8ISSR6Y93kGMURtexANzd/B2+RYp4E=;
- b=LThfe9THHb04kK3Nxc3eQswPeE7PZwobiX6mtPT+yNvO2SfMeQe7qVWliwF8DNuzRfvTGZBctbLScdkoT/N+b5VxUyrCz/88797HyjHu2SEmjO2ovT08Ogk2vlG3P0MbaVdJlxnOe+RxmhmkJ3FPQBFmxHl7S6K1cPd4KLzXKqt9Ks6f3TnWd4cwtgx6HL+fkWvINKY5i3rUh3T1RQtdSYO+w12bMglF5sczn2SpOMzJ5AOEgbEeHJFtGQNOZ1IEiTrgdBqxrhLxDkF0XI/s9p84w98HomnEALPTUmNuTXYqmqqGF0l7fRrU9fTELHNU7NUtuRh3Efw/IW4w91AOpw==
+ bh=LQQ8KRjyMzd2X0lC5IiREW1eDj3Aqohci1oxKDoq4sI=;
+ b=GiaELVMYivIl8WP8ZIZuIwW2eg/SAqrWtVEZszj0iFdWcT5f8z//WTkPzYLNaSeRyVFztR1R92lAi7U0KthHimTDwVTV1bJn01SkzGqjipOhlseS/fdKt7wPcKcmRaOjwmg3H6wyBlnT9Gv1UVOfsjDNs+E/TrhW+zHjnutrJv/zJU1Wbe/YpsR+zrvyrFQbMySUxZ2D7wghss4NWrErvzyk05oKsui2itizN5nzoAFMIWg9TGJPzwIUUmNnbd/wCmT6hWcPPDBkkq5WDz74UnxsF1IcBUSRnao+sAMGaE4mPteatkB9EjCPOcc8xawu/umIEtdO3VWnqwdm8o81jQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/jiz5NNEQHmxu8ISSR6Y93kGMURtexANzd/B2+RYp4E=;
- b=es/rTmJzwsVaheGHkFWjag2x/mA3fra3HPUcuvkvVc1OzKweT6sJAqGjG5ix1RUKJg3tqAXUY3QxWkA480j0LlFwCKqhPfzvSfivP17GW84JbIZePb8UvhUTl96mhE6XvBUhR5A+D5oQ37m6OD+xkGCaKaLI/CwwWzXQoRG1JME=
-Received: from MW4PR04CA0061.namprd04.prod.outlook.com (2603:10b6:303:6b::6)
- by CY8PR12MB7413.namprd12.prod.outlook.com (2603:10b6:930:5f::5) with
+ bh=LQQ8KRjyMzd2X0lC5IiREW1eDj3Aqohci1oxKDoq4sI=;
+ b=fbR2T2gkz1PSnYo0oixbClWvjWYHoYcErL8tfz7uFCAHzLcPvMAy4tPHfW+7ZVQBU3aynU+fvwS74gEFlG5+1dd72+tSbps5DZchSXzlEH4gssTMKEeN9mbYYEvW4/0TIJ8lHtpk0ZBDCjxFJobQuJq5Cj+bVBwLFF3vfWmaGo0=
+Received: from MW4PR04CA0031.namprd04.prod.outlook.com (2603:10b6:303:6a::6)
+ by PH7PR12MB8123.namprd12.prod.outlook.com (2603:10b6:510:2bb::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.23; Thu, 18 Jan
- 2024 03:26:02 +0000
+ 2024 03:26:04 +0000
 Received: from CO1PEPF000042AB.namprd03.prod.outlook.com
- (2603:10b6:303:6b:cafe::a5) by MW4PR04CA0061.outlook.office365.com
- (2603:10b6:303:6b::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24 via Frontend
- Transport; Thu, 18 Jan 2024 03:26:02 +0000
+ (2603:10b6:303:6a:cafe::13) by MW4PR04CA0031.outlook.office365.com
+ (2603:10b6:303:6a::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.23 via Frontend
+ Transport; Thu, 18 Jan 2024 03:26:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1PEPF000042AB.mail.protection.outlook.com (10.167.243.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Thu, 18 Jan 2024 03:26:02 +0000
+ 15.20.7202.16 via Frontend Transport; Thu, 18 Jan 2024 03:26:04 +0000
 Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 17 Jan
- 2024 21:26:00 -0600
+ 2024 21:26:01 -0600
 From: Stanley.Yang <Stanley.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH Review 1/1] drm/amdgpu: Skip do PCI error slot reset during
- RAS recovery
-Date: Thu, 18 Jan 2024 11:25:31 +0800
-Message-ID: <20240118032532.821661-2-Stanley.Yang@amd.com>
+Subject: [PATCH Review 1/1] drm/amdgpu: Fix ras features value calltrace
+Date: Thu, 18 Jan 2024 11:25:32 +0800
+Message-ID: <20240118032532.821661-3-Stanley.Yang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240118032532.821661-1-Stanley.Yang@amd.com>
 References: <20240118032532.821661-1-Stanley.Yang@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AB:EE_|CY8PR12MB7413:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cf5ffb9-fc2d-4bdc-7c38-08dc17d53291
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AB:EE_|PH7PR12MB8123:EE_
+X-MS-Office365-Filtering-Correlation-Id: df6cefaa-987f-46bd-be30-08dc17d533b6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 11lEYFQSPxuhCkotuAMaKIuhdDAsy4eEAbz2Qcdii5SKqyMKVgvtjkoJCQHLcOIuXshfyYBOw8Z3MqhJKLJ+WKZdyCY9HO6uxAJaUDqyivopELfH+iT1Os3+elUAPSNm2dI+FcF5u/dNNVAM1dNwD9/MdU9LhxHJtAkTX/ijMSO4bjA3aIFX/whyZwVYuCh6Y1/W+IyLzhDoGZYapuh5lTrtQRywjWXTzcHKbYHyvnQv4exJ7kWCMClOMrxFl3J8/OPaIH5SXufHAYiozU1oTXltudsXFhAQH4brRp5VjDbWeHYttOhLKIpVvEyoauyLhHTzwYvr9y+SEWH0cdrZwMpmJ1zLvJHiucEFDZLC/IZ3DY0Mi7sw+JyV9ttH64Xd7yRacWciHocLVsO81bxTp43/QHwuErwyKueHVrDMnDpWLltcQGPCONY0RZ3uEAjcDkhQw3KMM8qsQaMQ04OXHgTPGZCDc22wOvNaOmdbFCZlhkAa9KAsEb/QvAMywZMSaNPBZ/IOUG5DzOZ0xTf/AMCs04wTaaldGlU6xbWTDXJ+AKWYdiKRqB1m6O51UnqtLpl4AQuLbaJQQ4LCnVjR/2cv0ubYoU4Z4G0qJeQseyviOdqJUoZJUxGF6xwfNdlTay0SsYmM/Zk3g709PXbe6NBKIDjuO4Xrby4dlugwsixDXwd89W6SLGgJTX9+SPPPHwA+HjWewYaxJK+Z6o2mNiv8QCD1LBShOPWh1DeptVZ1dm6LRUmac5SsEgDGeEyMvuAKMcVENMnL6vkwxsSM2A==
+X-Microsoft-Antispam-Message-Info: 0WFCBHjcM/kgKcS3FYFrOo+T7UcIc4Nk4b0iaYvwjHGRWFZ9wdbrGvWKdDGGY40Tv/7U74SuYZYZlCXRfd31e6JSYYLDcthrn7jqTeIjw+zT2t/00FYWQ1OEZ8RoSMRNasyKJHdLjcaz0vXWZqxXusz9frKxUpeNFaqAXsGH3e4T0DUSzx7zHkKWDzpvPB2JXtyES3Gd+nw/imfmzGasojihtZX5rOCIKzEsU71gnJciJWZHd+u0f/4ZrL4enQiyJOmJpCpXW+KG8+HV+m/QwL36e9xvSyr+tzMAPHOoJFIFa9+B2Ph66GKmdWN11z2r/6qyd3F1MtpNM1yEOHA+f/JN+vjECXEH9hBSr7fSBa6PkUs6TjHSdiIs+yXVz+Z7vQOb77qynnF5zlOGEfNB1/iSTrLatS/ZfVT7ROGG1KJqL7OYaM0ZhLSf9yJ5gGzAaPIPJ/fVd5uQNCwLLTCTQoInhMUxBngy5vTpx35dJ2uiKtzRrONYxDJj31gflhvmuLCZ8UxCIPQRe6ANGWUZ62+KcMEpaVA8UtzxGK/dSf3R3Wh+FBYEU50PGS0iCcKA6COj90837eGvNuN9A4iVC5K/oEW4VDukBBBj4pRfDafZM5aHtRsZvOly4odhLNEyDLjKBF3Lx/Dh9WIV8MDYdLT3E9khPgUBjh4NhTpFjoN87AU/2FJyl016Xtt4i8WW1BvpUeHnbn1/rWAADpjDkPVA7E26eVdxZkLo7TM29RPfb6PJPC1RdS3ZQnuiTxDmbOENNxMfFC1tIGora+hRMA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(346002)(396003)(136003)(39860400002)(230922051799003)(1800799012)(82310400011)(186009)(451199024)(64100799003)(40470700004)(36840700001)(46966006)(8936002)(8676002)(4326008)(5660300002)(6916009)(70586007)(2906002)(70206006)(316002)(54906003)(1076003)(426003)(26005)(16526019)(2616005)(336012)(81166007)(86362001)(36756003)(40480700001)(40460700003)(45080400002)(6666004)(7696005)(478600001)(41300700001)(82740400003)(47076005)(356005)(36860700001)(83380400001)(36900700001);
+ SFS:(13230031)(4636009)(396003)(136003)(376002)(346002)(39860400002)(230922051799003)(1800799012)(186009)(451199024)(64100799003)(82310400011)(46966006)(36840700001)(40470700004)(40480700001)(40460700003)(47076005)(83380400001)(316002)(70586007)(6916009)(54906003)(478600001)(6666004)(2616005)(70206006)(26005)(16526019)(7696005)(4326008)(426003)(8936002)(336012)(1076003)(8676002)(82740400003)(5660300002)(2906002)(356005)(81166007)(36756003)(36860700001)(86362001)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2024 03:26:02.2229 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cf5ffb9-fc2d-4bdc-7c38-08dc17d53291
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2024 03:26:04.1448 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: df6cefaa-987f-46bd-be30-08dc17d533b6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AB.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7413
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8123
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,90 +104,78 @@ Cc: "Stanley.Yang" <Stanley.Yang@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Why:
-    The PCI error slot reset maybe triggered after inject ue to UMC multi times, this
-    caused system hang.
-    [  557.371857] amdgpu 0000:af:00.0: amdgpu: GPU reset succeeded, trying to resume
-    [  557.373718] [drm] PCIE GART of 512M enabled.
-    [  557.373722] [drm] PTB located at 0x0000031FED700000
-    [  557.373788] [drm] VRAM is lost due to GPU reset!
-    [  557.373789] [drm] PSP is resuming...
-    [  557.547012] mlx5_core 0000:55:00.0: mlx5_pci_err_detected Device state = 1 pci_status: 0. Exit, result = 3, need reset
-    [  557.547067] [drm] PCI error: detected callback, state(1)!!
-    [  557.547069] [drm] No support for XGMI hive yet...
-    [  557.548125] mlx5_core 0000:55:00.0: mlx5_pci_slot_reset Device state = 1 pci_status: 0. Enter
-    [  557.607763] mlx5_core 0000:55:00.0: wait vital counter value 0x16b5b after 1 iterations
-    [  557.607777] mlx5_core 0000:55:00.0: mlx5_pci_slot_reset Device state = 1 pci_status: 1. Exit, err = 0, result = 5, recovered
-    [  557.610492] [drm] PCI error: slot reset callback!!
-    ...
-    [  560.689382] amdgpu 0000:3f:00.0: amdgpu: GPU reset(2) succeeded!
-    [  560.689546] amdgpu 0000:5a:00.0: amdgpu: GPU reset(2) succeeded!
-    [  560.689562] general protection fault, probably for non-canonical address 0x5f080b54534f611f: 0000 [#1] SMP NOPTI
-    [  560.701008] CPU: 16 PID: 2361 Comm: kworker/u448:9 Tainted: G           OE     5.15.0-91-generic #101-Ubuntu
-    [  560.712057] Hardware name: Microsoft C278A/C278A, BIOS C2789.5.BS.1C11.AG.1 11/08/2023
-    [  560.720959] Workqueue: amdgpu-reset-hive amdgpu_ras_do_recovery [amdgpu]
-    [  560.728887] RIP: 0010:amdgpu_device_gpu_recover.cold+0xbf1/0xcf5 [amdgpu]
-    [  560.736891] Code: ff 41 89 c6 e9 1b ff ff ff 44 0f b6 45 b0 e9 4f ff ff ff be 01 00 00 00 4c 89 e7 e8 76 c9 8b ff 44 0f b6 45 b0 e9 3c fd ff ff <48> 83 ba 18 02 00 00 00 0f 84 6a f8 ff ff 48 8d 7a 78 be 01 00 00
-    [  560.757967] RSP: 0018:ffa0000032e53d80 EFLAGS: 00010202
-    [  560.763848] RAX: ffa00000001dfd10 RBX: ffa0000000197090 RCX: ffa0000032e53db0
-    [  560.771856] RDX: 5f080b54534f5f07 RSI: 0000000000000000 RDI: ff11000128100010
-    [  560.779867] RBP: ffa0000032e53df0 R08: 0000000000000000 R09: ffffffffffe77f08
-    [  560.787879] R10: 0000000000ffff0a R11: 0000000000000001 R12: 0000000000000000
-    [  560.795889] R13: ffa0000032e53e00 R14: 0000000000000000 R15: 0000000000000000
-    [  560.803889] FS:  0000000000000000(0000) GS:ff11007e7e800000(0000) knlGS:0000000000000000
-    [  560.812973] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    [  560.819422] CR2: 000055a04c118e68 CR3: 0000000007410005 CR4: 0000000000771ee0
-    [  560.827433] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-    [  560.835433] DR3: 0000000000000000 DR6: 00000000fffe07f0 DR7: 0000000000000400
-    [  560.843444] PKRU: 55555554
-    [  560.846480] Call Trace:
-    [  560.849225]  <TASK>
-    [  560.851580]  ? show_trace_log_lvl+0x1d6/0x2ea
-    [  560.856488]  ? show_trace_log_lvl+0x1d6/0x2ea
-    [  560.861379]  ? amdgpu_ras_do_recovery+0x1b2/0x210 [amdgpu]
-    [  560.867778]  ? show_regs.part.0+0x23/0x29
-    [  560.872293]  ? __die_body.cold+0x8/0xd
-    [  560.876502]  ? die_addr+0x3e/0x60
-    [  560.880238]  ? exc_general_protection+0x1c5/0x410
-    [  560.885532]  ? asm_exc_general_protection+0x27/0x30
-    [  560.891025]  ? amdgpu_device_gpu_recover.cold+0xbf1/0xcf5 [amdgpu]
-    [  560.898323]  amdgpu_ras_do_recovery+0x1b2/0x210 [amdgpu]
-    [  560.904520]  process_one_work+0x228/0x3d0
-How:
-    In RAS recovery, mode-1 reset is issued from RAS fatal error handling and expected
-    all the nodes in a hive to be reset. no need to issue another mode-1 during this procedure.
+The high three bits of ras features mask indicate socket
+id, it should skip to check high three bits of ras features
+mask before disable all ras features.
 
 Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 11 ++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  6 ++++++
+ 2 files changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 6b9e0dcf9d7d..0bb02291a5a7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6175,6 +6175,20 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
- 	struct amdgpu_reset_context reset_context;
- 	u32 memsize;
- 	struct list_head device_list;
-+	struct amdgpu_hive_info *hive;
-+	int hive_ras_recovery = 0;
-+	struct amdgpu_ras *ras;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index f35a74bf5265..c91d7d89a1e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2987,7 +2987,8 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+ 	/* Packed socket_id to ras feature mask bits[31:29] */
+ 	if (adev->smuio.funcs &&
+ 	    adev->smuio.funcs->get_socket_id)
+-		con->features |= ((adev->smuio.funcs->get_socket_id(adev)) << 29);
++		con->features |= ((adev->smuio.funcs->get_socket_id(adev)) <<
++				           AMDGPU_RAS_FEATURES_SOCKETID_SHIFT);
+ 
+ 	/* Get RAS schema for particular SOC */
+ 	con->schema = amdgpu_get_ras_schema(adev);
+@@ -3193,7 +3194,7 @@ void amdgpu_ras_suspend(struct amdgpu_device *adev)
+ 
+ 	amdgpu_ras_disable_all_features(adev, 0);
+ 	/* Make sure all ras objects are disabled. */
+-	if (con->features)
++	if (AMDGPU_RAS_GET_FEATURES(con->features))
+ 		amdgpu_ras_disable_all_features(adev, 1);
+ }
+ 
+@@ -3240,7 +3241,7 @@ int amdgpu_ras_pre_fini(struct amdgpu_device *adev)
+ 
+ 
+ 	/* Need disable ras on all IPs here before ip [hw/sw]fini */
+-	if (con->features)
++	if (AMDGPU_RAS_GET_FEATURES(con->features))
+ 		amdgpu_ras_disable_all_features(adev, 0);
+ 	amdgpu_ras_recovery_fini(adev);
+ 	return 0;
+@@ -3273,9 +3274,9 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
+ 	amdgpu_ras_fs_fini(adev);
+ 	amdgpu_ras_interrupt_remove_all(adev);
+ 
+-	WARN(con->features, "Feature mask is not cleared");
++	WARN(AMDGPU_RAS_GET_FEATURES(con->features), "Feature mask is not cleared");
+ 
+-	if (con->features)
++	if (AMDGPU_RAS_GET_FEATURES(con->features))
+ 		amdgpu_ras_disable_all_features(adev, 1);
+ 
+ 	cancel_delayed_work_sync(&con->ras_counte_delay_work);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index 99d7da125c8a..33f7e5a972b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -52,6 +52,12 @@ struct amdgpu_iv_entry;
+ #define AMDGPU_RAS_INST_MASK 0xfffff000
+ #define AMDGPU_RAS_INST_SHIFT 0xc
+ 
++#define AMDGPU_RAS_FEATURES_SOCKETID_SHIFT 29
++#define AMDGPU_RAS_FEATURES_SOCKETID_MASK 0xe0000000
 +
-+	/* PCI error slot reset should be skipped During RAS recovery */
-+	hive = amdgpu_get_xgmi_hive(adev);
-+	if (hive) {
-+		hive_ras_recovery = atomic_read(&hive->ras_recovery);
-+		amdgpu_put_xgmi_hive(hive);
-+	}
-+	ras = amdgpu_ras_get_context(adev);
-+	if ((amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3)) &&
-+		 ras && (atomic_read(&ras->in_recovery) || hive_ras_recovery))
-+		return PCI_ERS_RESULT_RECOVERED;
- 
- 	DRM_INFO("PCI error: slot reset callback!!\n");
- 
++/* The high three bits indicates socketid */
++#define AMDGPU_RAS_GET_FEATURES(val)  (val) & ~AMDGPU_RAS_FEATURES_SOCKETID_MASK
++
+ enum amdgpu_ras_block {
+ 	AMDGPU_RAS_BLOCK__UMC = 0,
+ 	AMDGPU_RAS_BLOCK__SDMA,
 -- 
 2.25.1
 
