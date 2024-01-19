@@ -4,113 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76C62C4725D
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jan 2024 07:47:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0687AC4725D
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jan 2024 08:20:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A8E510E964;
-	Fri, 19 Jan 2024 07:47:42 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2073.outbound.protection.outlook.com [40.107.223.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D24B10E964
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jan 2024 07:47:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F70710E95B;
+	Fri, 19 Jan 2024 08:20:28 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2077.outbound.protection.outlook.com [40.107.220.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB0A410E95B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jan 2024 08:20:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GkSXBzVZkt2CrJj32IeCI5qSaBIHkMZtAQY/shURGphHb9r1xpjZEfxh3Qq11Au9PkRiBfu00wS2Y1OB/fUq7oygNS4qKYFcU0NbWWSZ2aZNcujLnJBxsqop3FQ6W5R9ltj+6czUUXJpMKyLI9jiNeNoV/DUZw1M/JUIBepSG6GnJDPhXyhH+N7lurjcbcCP0ocLxSwTUA2Zd2SuW3Vrd5z0Qak4zwaLxrQsqgjrCW8ocWZ2mFSJaQ8SmCUc1fFObdWRI1H4ZC/XE/zkbDSC1b+Oafm9QJjKSaLHol08LzvYE3Y+IbKQmj5kvAhixkIDYaPIeUDKyzLooJTOdNE1Wg==
+ b=OE48riYHnb0fwcLcNOp1MfLu7VGKJpr99U8XQTFxly+5GgOXTcmeZuF8/RZTwQHSSodSutdZy25E++3BFiEOCcHhyD912ji4E+s3p715x2ytcdDqPj/8AYjG9H80JHleUf4Qu8EJdUv/8nTWZ1Mq+dUBoBegGfGHBXG77JJpd8I6zGAp1PB0dzVE+9ZC4NIJZ9qRERlxx6uGC1xE3l9va/wEruPY9gwUTMAWG3n5T77nszK7QTT591cSyZm898K9YN72PpfMW/J8HOmByvzQjpRaFkmez+YyN1Y2CBXGFrBKisbZuNvjS4RusJQJ9kF2fVru/FOI/x7BRv+pbyQImQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vrJH5GxzshCDDdSmBDp2nZCmtSaSNSRIzZKMrkeSTOA=;
- b=cdpdZzV5mCz2A5oME3ari4Ja6C7K/314WGZnjgu008SdcvzW0aeM+NexMkJjK4mwKkTxcMTmGrfVariOMYu40OXV2UmSpbEbySNrQIzOQHsPE4Anb1f3jRypKewGDr5965WDAA7yad7mkBxopB35rpEfmbSjGbZQapWqcp73UbyWf1WiWL/9aYQZzLjeQJNJpoPDFk24luDvkmOdWHyPb77acVRZ7cXVDDZsWnwBIwQedS+a8ZmHvgAeLQSRrEYZJT2776d3Z1Jlp8zPJzgm4G3Y6ZwPbqGU94Xo/Tb5nhxiBwbHQ/HlqU5QNx4hAbt31jYKu6xsXq6IBdUxAxyaQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=wVk/Zi1MCdwCTHacF87VV6AGtX9hXFOJ6hFITnm3m9Y=;
+ b=JNr7PHhnuwZ7yws+IGDC5voQG6+WIQAD1SUpEuBuof2AzXz/AptQxlL/rcl++eAgkvdz6KHjR+svYmc26/gVVnnV6vLR7twxVzoCcd7E4zGxDbPuTuZRr1uMwtU+W0r+DQeHu0j5pPiezOpduRxH+W0URn3Y9iSxnf9Nvdl0MilAE5DS9Nggwo7tUMGYR2Sl4EG0EMgJ1WFMQ/X/eAkNRX1TvRh9qxxOvD+MZNyC3boPrej5RkS7ydwL+RQQyruwY8bYjOYHdBipUupZPjncyp0NGdkB9RFyvhWz/DuxhOhRgmeFlaFq5MTCKOsAjYzh4zFWW8kyE2Vm3a2zEXdibA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vrJH5GxzshCDDdSmBDp2nZCmtSaSNSRIzZKMrkeSTOA=;
- b=O0q/cIRor00oZLRhU98XK5YwHR6be7GyKbgV86KkcaDH31aw4pTPoBhI0bVTFl3Dab5Yle4n37YLTyB6kQwlaWhT1oooQnIrnuSRUMtorxVYAkYuBjEMzaoMi83hqLNF+nvBLEOtwBWBMqbTBM5MBtekfv8JLDNQcKVVdX8meQo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB6766.namprd12.prod.outlook.com (2603:10b6:806:26a::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.23; Fri, 19 Jan
- 2024 07:47:33 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7202.024; Fri, 19 Jan 2024
- 07:47:33 +0000
-Message-ID: <c3d81197-a2a6-4884-832c-d0b8459340aa@amd.com>
-Date: Fri, 19 Jan 2024 08:47:28 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/amdgpu: Reset IH OVERFLOW_CLEAR bit
-Content-Language: en-US
-To: Friedrich Vock <friedrich.vock@gmx.de>, amd-gfx@lists.freedesktop.org
-References: <20240118185402.919396-1-friedrich.vock@gmx.de>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20240118185402.919396-1-friedrich.vock@gmx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0053.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ bh=wVk/Zi1MCdwCTHacF87VV6AGtX9hXFOJ6hFITnm3m9Y=;
+ b=kcGQQA3pW6IUPJ0V7tovpinaA1n2SKFYjWCZSfrvmMKqqWBQoX0dP+vxyoO8cusIhSzi2+CH62e96bokvsfusJXqS4dd0RqZUD750SZvxqVJ0GNm+El6NOfYubGN5Kyh+M9rrA4uutfO7vayt6uR4aioKIgKVhDnY7ZkN2VcQTY=
+Received: from CH2PR15CA0030.namprd15.prod.outlook.com (2603:10b6:610:51::40)
+ by DS7PR12MB8417.namprd12.prod.outlook.com (2603:10b6:8:eb::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24; Fri, 19 Jan
+ 2024 08:20:22 +0000
+Received: from DS3PEPF000099D8.namprd04.prod.outlook.com
+ (2603:10b6:610:51:cafe::9f) by CH2PR15CA0030.outlook.office365.com
+ (2603:10b6:610:51::40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24 via Frontend
+ Transport; Fri, 19 Jan 2024 08:20:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS3PEPF000099D8.mail.protection.outlook.com (10.167.17.9) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7202.16 via Frontend Transport; Fri, 19 Jan 2024 08:20:22 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Fri, 19 Jan
+ 2024 02:20:21 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Fri, 19 Jan
+ 2024 00:20:21 -0800
+Received: from kenneth-mlse-vm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via
+ Frontend Transport; Fri, 19 Jan 2024 02:20:20 -0600
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: update the power cap setting
+Date: Fri, 19 Jan 2024 16:20:13 +0800
+Message-ID: <20240119082013.2953172-1-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6766:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d8f266e-03a4-42ca-c29b-08dc18c2e58f
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099D8:EE_|DS7PR12MB8417:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3de3f46b-9136-4fde-c669-08dc18c77b32
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9RBzTXSPQNen3wY7+OjoaG9EFcb64T1ySFbCB+dj0EyR1sgTP8Jwri4gjHczsbeyktu5HeaFdXieDOFujw9ImJHeG9WVs0//pEOH8ZubtzjKvVArtXGdXqoMGsPAE+ASywDF8Kvmh3fsJNaYYZMLEUvPfTIcD8JgOF7uJ05binuTuvbu8YgVbyTWqR1yO6sH0cT/xjvNqeJE8Xzke/ueHmbOnDO4A8be3Z42/gMtINSMX3GXu2pr8fRz/0qn6H1r7WExggmLdsKastXaoxBbx96hZjgKTvjwsZ6kYDL1xvtPq5xpgdVpQIII4dgTlWLrsUF93u8Ll/ZJLk20kr/ZQlt0xNOIFxzC/yXYnK4jpqjCspOIPH+XbndXdMUwSc779Rst8oHs7yEfT598ASXp95BlCOS/8aD06Zb4lou7dlsmDPI8rtRZWyUEhurSBvEzRNdV2L98GGUNsQ2Dq33rwoqlpJ1LYeadDqaNFh4bnKUCLHMIqOhA15iZwTc8ypOZI/uOklHV+WK/Dh01FNHAPtw1J2dJclmzzryqiAOb+KLiNoX/tGFbOW87VLcMimxU4LIHK6LcCUA8VLkTTAPVREF0+tzOYOq70kOgJQMylAy0XF9q6zXa7x3PA9z0OW4qKnvUvGOkweGGKDzJ0J1vUg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(396003)(366004)(136003)(346002)(376002)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(2906002)(5660300002)(41300700001)(6486002)(38100700002)(26005)(2616005)(31686004)(66574015)(83380400001)(6666004)(6506007)(478600001)(31696002)(6512007)(8676002)(86362001)(8936002)(4326008)(66946007)(66476007)(66556008)(54906003)(316002)(36756003)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: clsnp46eZw0s7Rane6oFRB3Mh8/6TV7sYRI3dvU6cp3fbhsICUYUh42+aOVQcMPNToa1KmuX048qksX9jMefQOubZlZL4AC8SdZaUnwwVhyRjhPfU9YNvIP7v4E2r8wn4PoJNqoiwdoBU1hnLoebQJF8vdDfQmZO1t7YeEpWke1ZNIRKjYvgW5K6bUIdfHeyT/1b2XkjaiBnQKSRGe3jk64s8AML94kxRoIUmPK5LNVNXgzELbAauUDhB2UAoB4+/sCL6BLcdf93kcCSC1RzX+uEf/2Kp2+JDFqLDVBgWQbzWPXCjCBWdu+iPjFPCihKj68eJ5Cc2BgG/1ztUPrLxI0/ODp+u2HJPs3cptFVRnVw3Ngn8bwAvLsMYAQI8EAKtc4PATeS4EaI4oh6r9wrgK+xee6B5VqmVD5k69mrjO409I815CMxWVBEorwRwK+ZZ9G93YhP7XFFTx8g4E4GDw/OeC0BqcRqsgTZBeRlpENL20wyXHEcc4S+DC0w2lJCQT6pqxgkd6jiK7UUwABFmY0034qmZJYgGe4eZJKUAewF/N+JdOpLuQm8H4hCTmZg0h0RXj3EPMVyUatdb5QlRpFk1NfRiHdYsC9ZTpVx+h5FdR/yS9kl5TbPM5UK0FJfAtVOabgtHz9llVXsN+UQ3goycdbDD7vEnoE21GWZ7jBRAWQTwH1emXXrHqWTF5Arah3geDPC3v0GrhroN2G7nGdo4fV5vVy33X3++5YfaNayhtYyFHw1w5zROoAe3Zc+DJzXCIBNqSK0iAB1Wrd8NFiLfZqrb5XZndsYnsbcjaFjdr8acuS6iNivQLRf3Cs1
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(136003)(39860400002)(396003)(376002)(346002)(230922051799003)(230273577357003)(230173577357003)(82310400011)(186009)(451199024)(1800799012)(64100799003)(36840700001)(46966006)(40470700004)(356005)(70586007)(81166007)(70206006)(8936002)(478600001)(44832011)(36860700001)(4326008)(82740400003)(2616005)(8676002)(83380400001)(26005)(1076003)(86362001)(316002)(6916009)(7696005)(426003)(336012)(6666004)(2906002)(5660300002)(40460700003)(40480700001)(36756003)(15650500001)(47076005)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cXVEQVcxcjVXVXRjK25GcS9nSkF0Y01Wb0syK05Ub2Q5dnZxTFRYNWp3Ukdu?=
- =?utf-8?B?elhPTkc0Smo3ZldLRExxYjhEVTVEcllSdloxNVRwVnBxaXE2clhwQmtNcEpu?=
- =?utf-8?B?SE5WWEFWdUNDczAwMVNjdk1ROFRRRWFubUkxUElTak16emlwM3cxdk5YWXdM?=
- =?utf-8?B?Zk9DQVpzWFpsQWZ4VzNFMWt2Vmphdy93T3ZIKzF0OTRheWw2b3FJN2RjMXZZ?=
- =?utf-8?B?Nm9yWERkKzFoMEhoNzE1R2lvaUdvczlTN1dxQVJ6QldKNFJIdXprNHNRUzdQ?=
- =?utf-8?B?UUhvbVh2NFlQV1NucTVlaE50clFxbUFWaXhLRkhTZ0theERIQ1FDQlRLV05Y?=
- =?utf-8?B?cnpDaWxSM3BSV1EwaGlTUDRabUZ2QVljNVgyb09SNk80cGk5aWxuTk9WWmRG?=
- =?utf-8?B?RkZab1R5OTQ0RnBSeVJYbFZWZE5NbXVDZFBOa1lMZ1dpQmg2cFVjbGExSjhW?=
- =?utf-8?B?TXM4YlpuZG42UU43UU5GSnJwbXQ3ZFhMcDA0RGNuU0poNS8yb29NQmFyYmlB?=
- =?utf-8?B?RXArNFljSEhKdm9CN1pNNUg0ajRNemY0VUp0MTVMNmxUdWtlbWZrSEh4SGN5?=
- =?utf-8?B?UVE1UEhFT1l0SkJrdldRTkR2QmNDTkVhZlRnZHNnL3pCRGZ5Wm9MZmFhMHBl?=
- =?utf-8?B?UkFVdHR6eVgrSDhyMEQzM012OTc5eHdsNDl5SkhYMFNSRkZFOTVJZW9qS0Nn?=
- =?utf-8?B?QndGUFNlODN5SFYxRWF5dWZoMzg5ekhEaXZ0TzFvbS93NkpIL1RMYlp0cnRV?=
- =?utf-8?B?MFNkdnVkTmNoUHVIbkFQWTBMcW1wdDRaMlE1NzdOVXJ4bXJnKzRGb0N0WVJq?=
- =?utf-8?B?UkpYMTJtWlI2R2hVUWRTL2xsYXE0bU0vUCtLM091MUp0VFcyK21GVlRYaHZm?=
- =?utf-8?B?WjBycVlMY0ovRkY5WDl0SlgzWGEzRDBsWVM5c3J0SERKaG9xQmFTdXdsenVU?=
- =?utf-8?B?RzQwOHhZajJCckNSVTQzZGsva1BLQUsxMkYza05iaUdDaDZvdGVPTkVEZi9Q?=
- =?utf-8?B?bjJQcTFzWVB1RXg2MGVua0lCT2lFYStzSGY1aGthczhZZ0pqQUs5b1E4YUQ2?=
- =?utf-8?B?ajRTZkF2SVc2UDkzZGlvM1V4bVJLVWdSN2xoQWpUdjJQcDNTMjU3Q1Z1amdw?=
- =?utf-8?B?UXpub2daRjZVTnlNVXVHTVNKZlFFN2dpbVhvZ2Y4TXltTHBudTZNQ3NTWk5G?=
- =?utf-8?B?dlk3b09HNWZSTm9SL2Zwc09sQjQzc3N3ODF4NURXdEJLWXdGSkgyMFhmV290?=
- =?utf-8?B?bUtQRTlGby9rM0N3VC9hMStUYk5hVEpEbElqc1RrdGdjZzFPQ3JKVHVDYWNn?=
- =?utf-8?B?REFIaUwyZDMwMzR3bzVSQjNXNWRJdCtZVUpRSnVMMDZBcFdMV3J6R1ZCZDRx?=
- =?utf-8?B?cGZmMmNnUllPM3FVQ1VmeVhrd3J5cVE0TFJpbXVwVWNPRWxBMVM3aWpmenlH?=
- =?utf-8?B?eEp6SUtsOEtWaHhiZzkyMjZ3dlBnQXJrZlBKZVpCYnBaYWk3WFVhQU5JWHdB?=
- =?utf-8?B?NWNwZXpQUk0xTFNnMUp5b2tKekdyRE9sMlBmaVdoRU8zbjdTR1htZS9NbUE5?=
- =?utf-8?B?cWxDcmpBVzkvSWtteUJicnRCMDlUYzNOeGdpU3BhdXZVenhXRmJ6QTdRaU5y?=
- =?utf-8?B?ZjdqL2I1Z3F5NjA3K0grRWFhZGNlc2pBQXZiUU5mYkdFSXZWbEFDN1FZTHdW?=
- =?utf-8?B?YUI2V2N2VEdWQndkVGs5M3pyQmYrRG1kN082YnJ1UGNUa0xvU1EwS1A1Q1ly?=
- =?utf-8?B?NGtQMFFyU0xVZjBQT21id0JjSlREeTlhRjU2NTdmSVV2ZVNncHBZRmVXYmhN?=
- =?utf-8?B?eHYxbkJYVkZHMVRtN1FLSC9yTWpjNlF1ZktLRVNadUdxY2NKdHRwT1Q1YUZu?=
- =?utf-8?B?ak5FWUdHb0NHa0R6MEFpVjg5elRsdGo1SWRrYW9kcmkwaHZIZzhza2RwMi85?=
- =?utf-8?B?WlJYVlBwdFk2TlJnbERxQTNPQUpMVlhRQXQvUXI3TVZqa2xpZTByY3g5SGcy?=
- =?utf-8?B?M3hSU2FhT0E3cjFZalRwNGpOOFVJZFRWbkVVUFp5MkVBemZMS3FQckZyRTFV?=
- =?utf-8?B?WGZpdXhXS2djbG5qczRhdEkxU0hlNUF4RnhwY3JGR3BKZDRHYjBTUmdxSE9V?=
- =?utf-8?Q?L+96f0M5yZ44QvmhfU1zI5BvQ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d8f266e-03a4-42ca-c29b-08dc18c2e58f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2024 07:47:33.5225 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2024 08:20:22.3470 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3de3f46b-9136-4fde-c669-08dc18c77b32
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: em8gP/gWqpFlZtDIut05FP0NR586TCSRBYvlrkYIn8G8WXza7SUrfX5lxeDZS/Qx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6766
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099D8.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8417
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,237 +101,190 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
- Joshua Ashton <joshua@froggi.es>
+Cc: Kenneth Feng <kenneth.feng@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+update the power cap setting for smu_v13.0.0/smu_v13.0.7
 
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+---
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 54 ++++++++++++++++++-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 54 ++++++++++++++++++-
+ 2 files changed, 104 insertions(+), 4 deletions(-)
 
-Am 18.01.24 um 19:54 schrieb Friedrich Vock:
-> Allows us to detect subsequent IH ring buffer overflows as well.
->
-> Cc: Joshua Ashton <joshua@froggi.es>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: stable@vger.kernel.org
->
-> Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
-> ---
-> v2: Reset CLEAR_OVERFLOW bit immediately after setting it
->
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  | 2 ++
->   drivers/gpu/drm/amd/amdgpu/cik_ih.c     | 7 +++++++
->   drivers/gpu/drm/amd/amdgpu/cz_ih.c      | 6 ++++++
->   drivers/gpu/drm/amd/amdgpu/iceland_ih.c | 6 ++++++
->   drivers/gpu/drm/amd/amdgpu/ih_v6_0.c    | 7 +++++++
->   drivers/gpu/drm/amd/amdgpu/ih_v6_1.c    | 8 ++++++++
->   drivers/gpu/drm/amd/amdgpu/navi10_ih.c  | 7 +++++++
->   drivers/gpu/drm/amd/amdgpu/si_ih.c      | 7 +++++++
->   drivers/gpu/drm/amd/amdgpu/tonga_ih.c   | 7 +++++++
->   drivers/gpu/drm/amd/amdgpu/vega10_ih.c  | 7 +++++++
->   drivers/gpu/drm/amd/amdgpu/vega20_ih.c  | 7 +++++++
->   11 files changed, 71 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-> index 508f02eb0cf8..6041ec727f06 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-> @@ -69,6 +69,8 @@ struct amdgpu_ih_ring {
->   	unsigned		rptr;
->   	struct amdgpu_ih_regs	ih_regs;
->
-> +	bool overflow;
-> +
-
-That flag isn't needed any more in this patch as far as I can see.
-
-Regards,
-Christian.
-
->   	/* For waiting on IH processing at checkpoint. */
->   	wait_queue_head_t wait_process;
->   	uint64_t		processed_timestamp;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_ih.c b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-> index 6f7c031dd197..bbadf2e530b8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-> @@ -204,6 +204,13 @@ static u32 cik_ih_get_wptr(struct amdgpu_device *adev,
->   		tmp = RREG32(mmIH_RB_CNTL);
->   		tmp |= IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
->   		WREG32(mmIH_RB_CNTL, tmp);
-> +
-> +		/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> +		 * can be detected.
-> +		 */
-> +		tmp &= ~IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
-> +		WREG32(mmIH_RB_CNTL, tmp);
-> +		ih->overflow = true;
->   	}
->   	return (wptr & ih->ptr_mask);
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cz_ih.c b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> index b8c47e0cf37a..e5c4ed44bad9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> @@ -216,6 +216,12 @@ static u32 cz_ih_get_wptr(struct amdgpu_device *adev,
->   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
->   	WREG32(mmIH_RB_CNTL, tmp);
->
-> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> +	 * can be detected.
-> +	 */
-> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> +	WREG32(mmIH_RB_CNTL, tmp);
-> +	ih->overflow = true;
->
->   out:
->   	return (wptr & ih->ptr_mask);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-> index aecad530b10a..075e5c1a5549 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-> @@ -215,6 +215,12 @@ static u32 iceland_ih_get_wptr(struct amdgpu_device *adev,
->   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
->   	WREG32(mmIH_RB_CNTL, tmp);
->
-> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> +	 * can be detected.
-> +	 */
-> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> +	WREG32(mmIH_RB_CNTL, tmp);
-> +	ih->overflow = true;
->
->   out:
->   	return (wptr & ih->ptr_mask);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-> index d9ed7332d805..d0a5a08edd55 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-> @@ -418,6 +418,13 @@ static u32 ih_v6_0_get_wptr(struct amdgpu_device *adev,
->   	tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
->   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
->   	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> +
-> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> +	 * can be detected.
-> +	 */
-> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> +	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> +	ih->overflow = true;
->   out:
->   	return (wptr & ih->ptr_mask);
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-> index 8fb05eae340a..6bf4f210ef74 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-> @@ -418,6 +418,14 @@ static u32 ih_v6_1_get_wptr(struct amdgpu_device *adev,
->   	tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
->   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
->   	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> +
-> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> +	 * can be detected.
-> +	 */
-> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> +	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> +	ih->overflow = true;
-> +
->   out:
->   	return (wptr & ih->ptr_mask);
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> index e64b33115848..cdbe7d01490e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> @@ -442,6 +442,13 @@ static u32 navi10_ih_get_wptr(struct amdgpu_device *adev,
->   	tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
->   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
->   	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> +
-> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> +	 * can be detected.
-> +	 */
-> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> +	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> +	ih->overflow = true;
->   out:
->   	return (wptr & ih->ptr_mask);
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> index 9a24f17a5750..398fbc296cac 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> @@ -119,6 +119,13 @@ static u32 si_ih_get_wptr(struct amdgpu_device *adev,
->   		tmp = RREG32(IH_RB_CNTL);
->   		tmp |= IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
->   		WREG32(IH_RB_CNTL, tmp);
-> +
-> +		/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> +		 * can be detected.
-> +		 */
-> +		tmp &= ~IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
-> +		WREG32(IH_RB_CNTL, tmp);
-> +		ih->overflow = true;
->   	}
->   	return (wptr & ih->ptr_mask);
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> index 917707bba7f3..1d1e064be7d8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> @@ -219,6 +219,13 @@ static u32 tonga_ih_get_wptr(struct amdgpu_device *adev,
->   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
->   	WREG32(mmIH_RB_CNTL, tmp);
->
-> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> +	 * can be detected.
-> +	 */
-> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> +	WREG32(mmIH_RB_CNTL, tmp);
-> +	ih->overflow = true;
-> +
->   out:
->   	return (wptr & ih->ptr_mask);
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> index d364c6dd152c..619087a4c4ae 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> @@ -373,6 +373,13 @@ static u32 vega10_ih_get_wptr(struct amdgpu_device *adev,
->   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
->   	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
->
-> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> +	 * can be detected.
-> +	 */
-> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> +	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> +	ih->overflow = true;
-> +
->   out:
->   	return (wptr & ih->ptr_mask);
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> index ddfc6941f9d5..f42f8e5dbe23 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> @@ -421,6 +421,13 @@ static u32 vega20_ih_get_wptr(struct amdgpu_device *adev,
->   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
->   	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
->
-> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> +	 * can be detected.
-> +	 */
-> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> +	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> +	ih->overflow = true;
-> +
->   out:
->   	return (wptr & ih->ptr_mask);
->   }
-> --
-> 2.43.0
->
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index 231122622a9c..e769adb8da2c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -2357,6 +2357,7 @@ static int smu_v13_0_0_get_power_limit(struct smu_context *smu,
+ 	PPTable_t *pptable = table_context->driver_pptable;
+ 	SkuTable_t *skutable = &pptable->SkuTable;
+ 	uint32_t power_limit, od_percent_upper, od_percent_lower;
++	uint32_t msg_limit = skutable->MsgLimits.Power[PPT_THROTTLER_PPT0][POWER_SOURCE_AC];
+ 
+ 	if (smu_v13_0_get_current_power_limit(smu, &power_limit))
+ 		power_limit = smu->adev->pm.ac_power ?
+@@ -2380,7 +2381,7 @@ static int smu_v13_0_0_get_power_limit(struct smu_context *smu,
+ 					od_percent_upper, od_percent_lower, power_limit);
+ 
+ 	if (max_power_limit) {
+-		*max_power_limit = power_limit * (100 + od_percent_upper);
++		*max_power_limit = msg_limit * (100 + od_percent_upper);
+ 		*max_power_limit /= 100;
+ 	}
+ 
+@@ -2960,6 +2961,55 @@ static bool smu_v13_0_0_wbrf_support_check(struct smu_context *smu)
+ 	}
+ }
+ 
++static int smu_v13_0_0_set_power_limit(struct smu_context *smu,
++				       enum smu_ppt_limit_type limit_type,
++				       uint32_t limit)
++{
++	PPTable_t *pptable = smu->smu_table.driver_pptable;
++	SkuTable_t *skutable = &pptable->SkuTable;
++	uint32_t msg_limit = skutable->MsgLimits.Power[PPT_THROTTLER_PPT0][POWER_SOURCE_AC];
++	struct smu_table_context *table_context = &smu->smu_table;
++	OverDriveTableExternal_t *od_table =
++		(OverDriveTableExternal_t *)table_context->overdrive_table;
++	int ret = 0;
++
++	if (limit_type != SMU_DEFAULT_PPT_LIMIT)
++		return -EINVAL;
++
++	if (limit <= msg_limit) {
++		if (smu->current_power_limit > msg_limit) {
++			od_table->OverDriveTable.Ppt = 0;
++			od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
++
++			ret = smu_v13_0_0_upload_overdrive_table(smu, od_table);
++			if (ret) {
++				dev_err(smu->adev->dev, "Failed to upload overdrive table!\n");
++				return ret;
++			}
++		}
++		return smu_v13_0_set_power_limit(smu, limit_type, limit);
++	} else if (smu->od_enabled) {
++		ret = smu_v13_0_set_power_limit(smu, limit_type, msg_limit);
++		if (ret)
++			return ret;
++
++		od_table->OverDriveTable.Ppt = (limit * 100) / msg_limit - 100;
++		od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
++
++		ret = smu_v13_0_0_upload_overdrive_table(smu, od_table);
++		if (ret) {
++		  dev_err(smu->adev->dev, "Failed to upload overdrive table!\n");
++		  return ret;
++		}
++
++		smu->current_power_limit = limit;
++	} else {
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ static const struct pptable_funcs smu_v13_0_0_ppt_funcs = {
+ 	.get_allowed_feature_mask = smu_v13_0_0_get_allowed_feature_mask,
+ 	.set_default_dpm_table = smu_v13_0_0_set_default_dpm_table,
+@@ -3014,7 +3064,7 @@ static const struct pptable_funcs smu_v13_0_0_ppt_funcs = {
+ 	.set_fan_control_mode = smu_v13_0_set_fan_control_mode,
+ 	.enable_mgpu_fan_boost = smu_v13_0_0_enable_mgpu_fan_boost,
+ 	.get_power_limit = smu_v13_0_0_get_power_limit,
+-	.set_power_limit = smu_v13_0_set_power_limit,
++	.set_power_limit = smu_v13_0_0_set_power_limit,
+ 	.set_power_source = smu_v13_0_set_power_source,
+ 	.get_power_profile_mode = smu_v13_0_0_get_power_profile_mode,
+ 	.set_power_profile_mode = smu_v13_0_0_set_power_profile_mode,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index 59606a19e3d2..7c3e162e2d81 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -2321,6 +2321,7 @@ static int smu_v13_0_7_get_power_limit(struct smu_context *smu,
+ 	PPTable_t *pptable = table_context->driver_pptable;
+ 	SkuTable_t *skutable = &pptable->SkuTable;
+ 	uint32_t power_limit, od_percent_upper, od_percent_lower;
++	uint32_t msg_limit = skutable->MsgLimits.Power[PPT_THROTTLER_PPT0][POWER_SOURCE_AC];
+ 
+ 	if (smu_v13_0_get_current_power_limit(smu, &power_limit))
+ 		power_limit = smu->adev->pm.ac_power ?
+@@ -2344,7 +2345,7 @@ static int smu_v13_0_7_get_power_limit(struct smu_context *smu,
+ 					od_percent_upper, od_percent_lower, power_limit);
+ 
+ 	if (max_power_limit) {
+-		*max_power_limit = power_limit * (100 + od_percent_upper);
++		*max_power_limit = msg_limit * (100 + od_percent_upper);
+ 		*max_power_limit /= 100;
+ 	}
+ 
+@@ -2545,6 +2546,55 @@ static bool smu_v13_0_7_wbrf_support_check(struct smu_context *smu)
+ 	return smu->smc_fw_version > 0x00524600;
+ }
+ 
++static int smu_v13_0_7_set_power_limit(struct smu_context *smu,
++				       enum smu_ppt_limit_type limit_type,
++				       uint32_t limit)
++{
++	PPTable_t *pptable = smu->smu_table.driver_pptable;
++	SkuTable_t *skutable = &pptable->SkuTable;
++	uint32_t msg_limit = skutable->MsgLimits.Power[PPT_THROTTLER_PPT0][POWER_SOURCE_AC];
++	struct smu_table_context *table_context = &smu->smu_table;
++	OverDriveTableExternal_t *od_table =
++		(OverDriveTableExternal_t *)table_context->overdrive_table;
++	int ret = 0;
++
++	if (limit_type != SMU_DEFAULT_PPT_LIMIT)
++		return -EINVAL;
++
++	if (limit <= msg_limit) {
++		if (smu->current_power_limit > msg_limit) {
++			od_table->OverDriveTable.Ppt = 0;
++			od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
++
++			ret = smu_v13_0_7_upload_overdrive_table(smu, od_table);
++			if (ret) {
++				dev_err(smu->adev->dev, "Failed to upload overdrive table!\n");
++				return ret;
++			}
++		}
++		return smu_v13_0_set_power_limit(smu, limit_type, limit);
++	} else if (smu->od_enabled) {
++		ret = smu_v13_0_set_power_limit(smu, limit_type, msg_limit);
++		if (ret)
++			return ret;
++
++		od_table->OverDriveTable.Ppt = (limit * 100) / msg_limit - 100;
++		od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
++
++		ret = smu_v13_0_7_upload_overdrive_table(smu, od_table);
++		if (ret) {
++		  dev_err(smu->adev->dev, "Failed to upload overdrive table!\n");
++		  return ret;
++		}
++
++		smu->current_power_limit = limit;
++	} else {
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
+ 	.get_allowed_feature_mask = smu_v13_0_7_get_allowed_feature_mask,
+ 	.set_default_dpm_table = smu_v13_0_7_set_default_dpm_table,
+@@ -2596,7 +2646,7 @@ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
+ 	.set_fan_control_mode = smu_v13_0_set_fan_control_mode,
+ 	.enable_mgpu_fan_boost = smu_v13_0_7_enable_mgpu_fan_boost,
+ 	.get_power_limit = smu_v13_0_7_get_power_limit,
+-	.set_power_limit = smu_v13_0_set_power_limit,
++	.set_power_limit = smu_v13_0_7_set_power_limit,
+ 	.set_power_source = smu_v13_0_set_power_source,
+ 	.get_power_profile_mode = smu_v13_0_7_get_power_profile_mode,
+ 	.set_power_profile_mode = smu_v13_0_7_set_power_profile_mode,
+-- 
+2.34.1
 
