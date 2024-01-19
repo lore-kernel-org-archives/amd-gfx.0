@@ -4,89 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 035ABC47DB7
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jan 2024 22:31:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFB35C47422
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jan 2024 01:04:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABD1310E8FD;
-	Thu, 18 Jan 2024 22:31:48 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2056.outbound.protection.outlook.com [40.107.212.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6203A10E754;
- Thu, 18 Jan 2024 22:31:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40AA910E869;
+	Fri, 19 Jan 2024 01:04:44 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2083.outbound.protection.outlook.com [40.107.237.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C46310E869
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jan 2024 01:04:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Gv3HyM/MtBDR/nysvHvvotE1zw/S5hTHj50OzFZZRKMWNuwtelcC6KllEv1hoEQfKXB2BIzcgzqU6+8rxhdwEbin8mzLbeu1C19o1OM+jaogCTGcYbA9ej0t90r4L4v20OlVRpHb551lgxvOBddtqw5iO8KQUCBR/OFg8bwbSeGQAVHtoR29DFMHOupdQAwGPC74wVz3tNVE3tAg2hkLuwZXvqhvWh3L4aASRSUjcFzZ59x8bGHLLlemgHmdY3E7dbFm52cDguq7OUKhi96Rn58cf9Kp7iTqlCZGgJFAhu2vVyMg5oEG7ZDKpL+iaPkNpkYR5YuN5FAkXAwBD2UzNA==
+ b=gWBiN1Rbc1cim+uTg9/VVH9cLurPFKZFoD0neypM7/r9O9ShH2KALJRJviYVSgXWe1zjr0ATiYnTHokjxgYzA3Y+ULODBiUAWMpCAIOy0RXcHKdNVDybz0lLgtxmvIMO36l8edP3k6/kyJ2oBakHS3FcU3tNbygd0Y0QbyBviVp7MUzg+7VRGt1vR0cdClEKBy9cyePRXFMNRtmYf82QJqDWHtvo2XYBsjlGpAfw+K5O0OFdGl7otUJg2DuvbV+oZrsWHKW/j76fRK9ztoz1VNxMxNfsycfAVpEVPQuo+cgnTwLmP4Mf/39Zkyck0HXbQopzJJ1pV8BI7E6V5bW+xQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uPDg+3bp/WsviDoctHvXTVnzh6f8T5rB66AbEyW8LF0=;
- b=YmL7HVdaNQJwssigJuhdUm2AugFCstT6r7mTwKw7X68tdlbHNdtS+sb6qnf8disgbNbnxvd8A1h4V4pjWk06kHVYByTualuUISmwd8SaM+2NPdXwrRrQQRi717eeV04RcVam/DFQ7qhjWpmSfJZi0Oi3S2E9uN2kV1J3zM5DNrl+UTOmIj5s3aV/2Nj9m69rIfM4KYWcDw4uAUcfIhOnbUmC1L8mjBfkiRXpcEBRwjUoHcC/GVsvSZQGUBk/MdPikezTZcXA+lupor4BjZ6eJn4ujX3XoczuxJNmyfZhfWM7OvA+DT5Y99qsbOfcxLTYVpi2yOCV2C5YqyAKAxQgXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=nky+isf2foiNZlSgUXkFcOD1hVy1ZeYdD+wmRIQnVes=;
+ b=fT3gK7wgLkFKHcCi+o2Z9l4O8/8Dq7bKJIOp9w53T9HwMiL0Jwc0j354Giyc5YlbYpRZSQh5c8XdZSjMJ3LJOwqyVawzsLWvNM5J1x/3GOVahasjjpRuK80nS7TLGk8YuX1JACE9g9JruAOek14B8a4jYYL3XpvnF6W3akQt1Mb65TcdzeOQ7v/hGi04+aBFui1AdG0LAkxLQKtgn5IGlneBtlKE47gucRDmarhKN+qctZHwE6YvfMcFr5j2dKpcqSeWDjlRExET1YcoIWqEQ1hwrc3fiVdpWR3isxMXINcyjBHYHROFmZ2viKuWGMTsRpe8SSYq8/lQWtadrENdPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uPDg+3bp/WsviDoctHvXTVnzh6f8T5rB66AbEyW8LF0=;
- b=GsRhNjeCEcRCVddQ3Zckgc+MqSRvicL+8A2v5cVQxiRu84T4Mvm39Hd71sTgfOOCW2G6n4ay5GPtowyIgcxzkhK1tQAdqvXIKkz7LG5TlRCbYYLj6yqNRfJM1TdwsqR2EGfVfU7QKLZMNLogW3ZS9k8hqpXoSbkSfaS389PzjG4=
-Received: from DM6PR02CA0044.namprd02.prod.outlook.com (2603:10b6:5:177::21)
- by CY8PR12MB7753.namprd12.prod.outlook.com (2603:10b6:930:93::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24; Thu, 18 Jan
- 2024 22:31:45 +0000
-Received: from DS1PEPF0001708F.namprd03.prod.outlook.com
- (2603:10b6:5:177:cafe::35) by DM6PR02CA0044.outlook.office365.com
- (2603:10b6:5:177::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24 via Frontend
- Transport; Thu, 18 Jan 2024 22:31:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0001708F.mail.protection.outlook.com (10.167.17.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Thu, 18 Jan 2024 22:31:43 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 18 Jan
- 2024 16:31:42 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu, amdkfd drm-fixes-6.8
-Date: Thu, 18 Jan 2024 17:31:27 -0500
-Message-ID: <20240118223127.4904-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.42.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001708F:EE_|CY8PR12MB7753:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6421945f-8972-4872-7f85-08dc18753fac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jiRIhYO4a/vlLwIBHIjnvZoFYrUbGlK7i6jXFCkFvXZhsWMAbc7W3WnFl41DcWvgY0hi3UhdufOTXy2tW3a86U9HxAesD4E4Bv9hJdZe+tZdlM9aX1xmy/0OESgTLpjNdZh0oZp9fBCMxaXmXCs9Fm3DzihFN8ggWgceuPTk5cueoB34E1nn/ATT6Wk3/vWQ6Nj3+5shxmlEcYG6yKWdHU+BbVlcjLiM0aUi+uoS44jjjlUPT+PDx0LdPSHjpagrChU8QBmn7uhNZ9UPTwFFqBSPWVuN6X6qDJTOfc9bbvE8Pcz28vp+6UPDV/Ya36jZbgjqO4fCSMT3s0mh52RNKVHFZZCEwTRT5yQg9/oIeYrIe9AZeyTyqgckqIwlLzFpwNUyIo8gy9jCI6cmbZLiMJEDB8NNIpIIKyAHQX8BslMrFDHmIPp07rx2+E7q6H4ffYFyZ1fRAnmoIKvqGj59MKgV0Z7f9vw44b0+QRqiROiGC/gDUF53Ews4lnlmnxVqGm577KTxqFO429y6bwmLppvvOLQfP30PU62kyrG4asVbhZs8H/8DYjhrf3AQocT3eo+iq1HEFzVWapX7o6zxLw+mhjNYQuZedKrtLaTjU+7DCOWs/05qf8ADmrDap6BW1bNBGJnaW5HkIHCErQz7dNZSffhTjLIkz31e5LJvs2jJUcUj+08gUEzyPAKlnFrDJ9uMr255rdIhtm2AXqgoRnGCwRBVab48ayJUTpJOa9yLRXWyaLS6CbQU56rBvURG71CdaAuiuA3ua++b/2c6rRBPIC/XK1djvGv6aVI4Ino=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(136003)(39860400002)(346002)(376002)(230922051799003)(230173577357003)(230273577357003)(64100799003)(451199024)(82310400011)(1800799012)(186009)(36840700001)(40470700004)(46966006)(70206006)(83380400001)(110136005)(70586007)(316002)(2906002)(36756003)(36860700001)(8936002)(8676002)(4326008)(86362001)(5660300002)(41300700001)(47076005)(82740400003)(40480700001)(966005)(40460700003)(356005)(81166007)(1076003)(26005)(16526019)(478600001)(426003)(336012)(66574015)(7696005)(2616005)(6666004)(36900700001);
+ bh=nky+isf2foiNZlSgUXkFcOD1hVy1ZeYdD+wmRIQnVes=;
+ b=tRQNbtCzkSZAvhcybz1XyNctxhHvgQJ6jxGUR5aLizyFwNIGrr9l5SQibah6jcaw4onVQmrPogeIQO1FhH9kCCrpOM+quPce5wjVL20nUolvZazjRGlnnpQ82wwylhyKsTCKXc4T86mnDHWrUgYlQQNermTo0d+U08nw75zrXik=
+Received: from CH2PR12MB4215.namprd12.prod.outlook.com (2603:10b6:610:ab::24)
+ by CH2PR12MB4134.namprd12.prod.outlook.com (2603:10b6:610:a7::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24; Fri, 19 Jan
+ 2024 01:04:38 +0000
+Received: from CH2PR12MB4215.namprd12.prod.outlook.com
+ ([fe80::2c41:8d9b:d594:6865]) by CH2PR12MB4215.namprd12.prod.outlook.com
+ ([fe80::2c41:8d9b:d594:6865%6]) with mapi id 15.20.7202.024; Fri, 19 Jan 2024
+ 01:04:38 +0000
+From: "Chai, Thomas" <YiPeng.Chai@amd.com>
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH V2 1/5] drm/amdgpu: Add log info for umc_v12_0 and
+ smu_v13_0_6
+Thread-Topic: [PATCH V2 1/5] drm/amdgpu: Add log info for umc_v12_0 and
+ smu_v13_0_6
+Thread-Index: AQHaSdmrt2k/LEXugESPpnLHLFLenrDfjQEAgADGJlA=
+Date: Fri, 19 Jan 2024 01:04:38 +0000
+Message-ID: <CH2PR12MB42151192D9A6BEE73591BF54FC702@CH2PR12MB4215.namprd12.prod.outlook.com>
+References: <20240118064257.1951585-1-YiPeng.Chai@amd.com>
+ <PH7PR12MB5997A1FFBF28D64279710E1582712@PH7PR12MB5997.namprd12.prod.outlook.com>
+In-Reply-To: <PH7PR12MB5997A1FFBF28D64279710E1582712@PH7PR12MB5997.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-01-18T13:12:31.1432102Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH2PR12MB4215:EE_|CH2PR12MB4134:EE_
+x-ms-office365-filtering-correlation-id: ba622b1c-b005-40e4-e38a-08dc188a9c23
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: qEu662ik+6OcNATCxxDJqPgXPd8buIAeLs+/fU/fMy+w/RQcqFEDWgApEOhQy5oiEJX6gGFsY5e3aGQmzLtJU7xii7ZBFDQgEsb15KwZ86EyFi3vcBWWrQNK6ZNUrrAMoy3LJxkkuTFybx19mU6Sur98EQt0mDrOht/8Ic3BeegZYM04sdO3vJnN4BW7DINK2uRFIANTulwIFWEH0iWR2z755MN+/N1NNdZ84qSR0ywStfcy6PLnLOZNLRmkgzl3mcZhacMimgOVwOY8K+sZeFuCCRlweab5OJXqfeOIepcDPVTC75V7tZiO0fGKlIZOgrO1QVkPfmzENkPXQiPe3jkRdokKWwxU9+q7gVtpIgdBbWauUbtfZikEKHktLT8OryL0mFW9HgWy0y1DG9eyOHshH3onVqdRHqUFxf8qsilpbE8Gie75b0PFIXQHx4UC7JHhRxowkkkHawGMskkp7hlb3aU8/W4dE8hnIAxRr+LV/iL8WzxxF0W3teOJbO2e55gXAJroQUxsBJO0jlWUmzPb3InQW8c0tHh1TuMxUjtS1TWyUL1JVGB9fntYjLN+XW+abLrvFHc9JDYCB2NWdPHou35+4DRmRdzj0n4IwYMiW8cY6ni+SAPzPxWRohuS
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB4215.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(376002)(396003)(136003)(366004)(346002)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(2906002)(38100700002)(122000001)(33656002)(41300700001)(86362001)(66476007)(66446008)(66556008)(71200400001)(316002)(64756008)(54906003)(6506007)(66946007)(76116006)(478600001)(53546011)(110136005)(9686003)(7696005)(8936002)(5660300002)(83380400001)(4326008)(8676002)(26005)(52536014)(38070700009)(55016003);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PtdThd0A4Gpx7XwlxqwNBBRgr3DS4/cpUYMnFMlJ0f9dGaWsOXDL+sK3CzoB?=
+ =?us-ascii?Q?o61Bh+b7R/viXmwcoIvdMZpONoRhrgy6GVpcUGqo9NHtZbfMuM1r27LWJLVA?=
+ =?us-ascii?Q?8g78qhFcDn0qoWnig256dIH9I/2S/BGgIE2yaNXBkMr92Gnq+QpsmcMK5KW5?=
+ =?us-ascii?Q?n7Q9NpVEOyuHMioO5je1CTk4Ywf7zS5zAPoEUvrJyoBNI65vyycqgtU3TJRY?=
+ =?us-ascii?Q?/eIf8du1F6WGK2nDGyo2jvO5whZ2fI53dVAa8AlhaD/ghd8pBufvgZxbJczK?=
+ =?us-ascii?Q?4CSQcV/8TXXRdiVFQSjH9Kbj4zgECaU2WeHTavdVrGu+VIlIDEU0L/YQilSr?=
+ =?us-ascii?Q?RdzvKwcEl9S2hktnl/WtNuXzmo+4PNw9iMxpRDGtj9a07ym9rKqaY2U2lMYL?=
+ =?us-ascii?Q?j1IEk0MMRtQLOYXvT+0E1SuhqdAVCQ/ltK4lNx3SJi69hrcU8gOkx2RewyvV?=
+ =?us-ascii?Q?+/cS9omhWrmJo6Q2p+kCMlIUjE2+goOaOkom8CX1RyU5Fh+ODQi4q1VcqBWm?=
+ =?us-ascii?Q?ZqZFcAvUTtghrj9yBe6rEjcyK4puAuhHhjevIHvRiUkkXVrKH6C6K4WBiDam?=
+ =?us-ascii?Q?jghXu9PguHOhmIbNUIlXl7VfrjSiyGAioPF+bU0UR/+g6dvhFgwCyg/7gHRA?=
+ =?us-ascii?Q?364l/nOi0mibNOxiS7F42XftQ1h7GOrtAzjmoU4CnwN6pXqt/l0vUPH3r3c3?=
+ =?us-ascii?Q?zrkBL7nzbs6b9Lf+5WSE84LjyW86KxpMXj8vIaHpLTA2vCSTKbn6AOjRKzMj?=
+ =?us-ascii?Q?HUQAkHbw6SX831/HPfHfbORGGpwokVjUdGBsA0YbecB/wTv+IC6xgE3fK3w4?=
+ =?us-ascii?Q?fNMMZsBm32COmgbW4xFr+brxtO8nOzQotJ5ghfk2JNC4GPYqjaBENE3fPIQ3?=
+ =?us-ascii?Q?ZRgJ27pQC8///odrXiMpMb015SvVz0zcyzbzHSgOVyCK7/rsgC4ZRss6Ahlk?=
+ =?us-ascii?Q?fJJY5cNQjaLlhePaQhYVCNUsm1cA6kiM4OarwU1jauXRx0zrJRFSCGmM+D4+?=
+ =?us-ascii?Q?q9HaG9aoMqMtXI0vcbqLJrh6+KAJKHuDxcBmC4YgXIS7+4aZXvh6OfBJ0eII?=
+ =?us-ascii?Q?LJot5bDFFyz1DCD9PRymBAbtql1VfCQ/4BRQIJluk+CBgMM4ky4t2CBuBP7F?=
+ =?us-ascii?Q?sIusysZ+pn46pSh95g91RZyKVvIpSHQ/pAoHKaKi58j+QwrhrsaIFz0YaisD?=
+ =?us-ascii?Q?7+935S3TnNlRJb5O+FZD8KZmdAIiGdrw0hXn3SP1+8uNwJZ7/7DebT1gBVUa?=
+ =?us-ascii?Q?Sc3vcAwvV7FiwCIZmgOdD3aq29MG+ct4F1vTPN6CDsEihXSZeg75o7qm8mPA?=
+ =?us-ascii?Q?nNDpPQcSb1dx93hUg+IAB80TI2Owoako34KNs+TQquplI/5uHp1SZM+F2x0O?=
+ =?us-ascii?Q?OHTzwBllTPetAhR//JcjItYCnnDqd5DJ5Puh6RONi6osYPIQduMphd+qr+aQ?=
+ =?us-ascii?Q?o522wJOGfNPmIwNW76J79lraw6B/gLnAKlGWda26Pe2EZxj6VV3uVzGibgX0?=
+ =?us-ascii?Q?8lAJS2wzBrqApw65ks7H0ds7Ay9P5pZgp9nP1Bx2uWCZIagYN8tOFdfVfRL+?=
+ =?us-ascii?Q?GmV2WrO61iTGgbA6Q7I=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_CH2PR12MB42151192D9A6BEE73591BF54FC702CH2PR12MB4215namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2024 22:31:43.7339 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6421945f-8972-4872-7f85-08dc18753fac
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001708F.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7753
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4215.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba622b1c-b005-40e4-e38a-08dc188a9c23
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jan 2024 01:04:38.3679 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ZZIY7v0DIbxva0HSwpuD3WzjowtfNh9wzTbbxukjWpUyh/hSLm7dz7G+Xy+bbDx5RswkC0A1qb5Sq/LDaWy9+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4134
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,96 +123,388 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>,
+ "Li, Candice" <Candice.Li@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima,
+--_000_CH2PR12MB42151192D9A6BEE73591BF54FC702CH2PR12MB4215namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-New fixes for 6.8, on top of the fixes I sent last week and fixed up on Monday.
+[AMD Official Use Only - General]
 
-The following changes since commit d7643fe6fb76edb1f2f1497bf5e8b8f4774b5129:
+OK, I will remove it.
 
-  drm/amd/display: Avoid enum conversion warning (2024-01-15 18:35:07 -0500)
 
-are available in the Git repository at:
+-----------------
+Best Regards,
+Thomas
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.8-2024-01-18
+From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+Sent: Thursday, January 18, 2024 9:15 PM
+To: Chai, Thomas <YiPeng.Chai@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.c=
+om>; Zhou1, Tao <Tao.Zhou1@amd.com>; Li, Candice <Candice.Li@amd.com>; Yang=
+, Stanley <Stanley.Yang@amd.com>
+Subject: Re: [PATCH V2 1/5] drm/amdgpu: Add log info for umc_v12_0 and smu_=
+v13_0_6
 
-for you to fetch changes up to aa0901a9008eeb2710292aff94e615adf7884d5f:
 
-  drm/amdgpu: Enable GFXOFF for Compute on GFX11 (2024-01-18 16:45:19 -0500)
+[AMD Official Use Only - General]
 
-----------------------------------------------------------------
-amd-drm-fixes-6.8-2024-01-18:
+The title and description don't seem right.
 
-amdgpu:
-- DSC fixes
-- DC resource pool fixes
-- OTG fix
-- DML2 fixes
-- Aux fix
-- GFX10 RLC firmware handling fix
-- Revert a broken workaround for SMU 13.0.2
-- DC writeback fix
-- Enable gfxoff when ROCm apps are active on gfx11 with the proper FW version
+Remove smu?
 
-amdkfd:
-- Fix dma-buf exports using GEM handles
+Best Regards,
+Kevin
+________________________________
+From: Chai, Thomas <YiPeng.Chai@amd.com<mailto:YiPeng.Chai@amd.com>>
+Sent: Thursday, January 18, 2024 14:43
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Chai, Thomas <YiPeng.Chai@amd.com<mailto:YiPeng.Chai@amd.com>>; Zhang, =
+Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; Zhou1, Tao <=
+Tao.Zhou1@amd.com<mailto:Tao.Zhou1@amd.com>>; Li, Candice <Candice.Li@amd.c=
+om<mailto:Candice.Li@amd.com>>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com<m=
+ailto:KevinYang.Wang@amd.com>>; Yang, Stanley <Stanley.Yang@amd.com<mailto:=
+Stanley.Yang@amd.com>>; Chai, Thomas <YiPeng.Chai@amd.com<mailto:YiPeng.Cha=
+i@amd.com>>
+Subject: [PATCH V2 1/5] drm/amdgpu: Add log info for umc_v12_0 and smu_v13_=
+0_6
 
-----------------------------------------------------------------
-Charlene Liu (1):
-      drm/amd/display: Add logging resource checks
+Add log info for umc_v12_0 and smu_v13_0_6.
 
-Christian König (1):
-      drm/amdgpu: revert "Adjust removal control flow for smu v13_0_2"
+v2:
+ Delete redundant logs.
 
-Christophe JAILLET (1):
-      drm/amd/display: Fix a switch statement in populate_dml_output_cfg_from_stream_state()
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com<mailto:YiPeng.Chai@amd.com>=
+>
+---
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c  | 11 +++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c |  6 +++++-
+ 2 files changed, 16 insertions(+), 1 deletion(-)
 
-Dillon Varone (1):
-      drm/amd/display: Init link enc resources in dc_state only if res_pool presents
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/umc_v12_0.c
+index 6423dca5b777..fa2168f1d3bf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+@@ -91,6 +91,17 @@ static void umc_v12_0_reset_error_count(struct amdgpu_de=
+vice *adev)
 
-Flora Cui (1):
-      drm/amdkfd: init drm_client with funcs hook
+ bool umc_v12_0_is_deferred_error(struct amdgpu_device *adev, uint64_t mc_u=
+mc_status)
+ {
++       dev_info(adev->dev,
++               "MCA_UMC_STATUS(0x%llx): Val:%llu, Poison:%llu, Deferred:%l=
+lu, PCC:%llu, UC:%llu, TCC:%llu\n",
++               mc_umc_status,
++               REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, V=
+al),
++               REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, P=
+oison),
++               REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, D=
+eferred),
++               REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, P=
+CC),
++               REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, U=
+C),
++               REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, T=
+CC)
++       );
++
+         return (amdgpu_ras_is_poison_mode_supported(adev) &&
+                 (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0,=
+ Val) =3D=3D 1) &&
+                 (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0,=
+ Deferred) =3D=3D 1));
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/=
+amdkfd/kfd_events.c
+index 11923964ce9a..51bb98db5d7a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+@@ -1297,8 +1297,10 @@ void kfd_signal_poison_consumed_event(struct kfd_nod=
+e *dev, u32 pasid)
+         uint32_t id =3D KFD_FIRST_NONSIGNAL_EVENT_ID;
+         int user_gpu_id;
 
-Ilya Bakoulin (1):
-      drm/amd/display: Clear OPTC mem select on disable
+-       if (!p)
++       if (!p) {
++               dev_warn(dev->adev->dev, "Not find process with pasid:%d\n"=
+, pasid);
+                 return; /* Presumably process exited. */
++       }
 
-Ma Jun (1):
-      drm/amdgpu: Fix the null pointer when load rlc firmware
+         user_gpu_id =3D kfd_process_get_user_gpu_id(p, dev->id);
+         if (unlikely(user_gpu_id =3D=3D -EINVAL)) {
+@@ -1334,6 +1336,8 @@ void kfd_signal_poison_consumed_event(struct kfd_node=
+ *dev, u32 pasid)
+                 }
+         }
 
-Nicholas Kazlauskas (1):
-      drm/amd/display: Port DENTIST hang and TDR fixes to OTG disable W/A
++       dev_warn(dev->adev->dev, "Send SIGBUS to process %s(pasid:%d)\n",
++               p->lead_thread->comm, pasid);
+         rcu_read_unlock();
 
-Ori Messinger (1):
-      drm/amdgpu: Enable GFXOFF for Compute on GFX11
+         /* user application will handle SIGBUS signal */
+--
+2.34.1
 
-Ovidiu Bunea (1):
-      drm/amd/display: Fix DML2 watermark calculation
+--_000_CH2PR12MB42151192D9A6BEE73591BF54FC702CH2PR12MB4215namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Srinivasan Shanmugam (2):
-      drm/amd/display: Fix late derefrence 'dsc' check in 'link_set_dsc_pps_packet()'
-      drm/amd/display: Drop 'acrtc' and add 'new_crtc_state' NULL check for writeback requests.
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	mso-ligatures:none;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
+style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">OK, I will remove it.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">-----------------<o:p></o:p></p>
+<p class=3D"MsoNormal">Best Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Thomas<o:p></o:p></p>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Wang, Yang(Kevin) &lt;KevinYang.Wang@am=
+d.com&gt; <br>
+<b>Sent:</b> Thursday, January 18, 2024 9:15 PM<br>
+<b>To:</b> Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;; amd-gfx@lists.freedesk=
+top.org<br>
+<b>Cc:</b> Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;; Zhang, Hawking &lt;Haw=
+king.Zhang@amd.com&gt;; Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Li, Candice &=
+lt;Candice.Li@amd.com&gt;; Yang, Stanley &lt;Stanley.Yang@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH V2 1/5] drm/amdgpu: Add log info for umc_v12_0 a=
+nd smu_v13_0_6<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
+;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only - General]<o:p><=
+/o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal">The title and description don't seem right.<o:p></o:=
+p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Remove smu?<o:p></o:p></p>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</div>
+<div id=3D"ms-outlook-mobile-signature">
+<p class=3D"MsoNormal">Best Regards,<o:p></o:p></p>
+</div>
+<div id=3D"ms-outlook-mobile-signature">
+<p class=3D"MsoNormal">Kevin<o:p></o:p></p>
+</div>
+<div id=3D"mail-editor-reference-message-container">
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b>From:</b> Chai, Thomas &lt;<a href=3D"mailto:YiPe=
+ng.Chai@amd.com">YiPeng.Chai@amd.com</a>&gt;<br>
+<b>Sent:</b> Thursday, January 18, 2024 14:43<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Chai, Thomas &lt;<a href=3D"mailto:YiPeng.Chai@amd.com">YiPeng.C=
+hai@amd.com</a>&gt;; Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd=
+.com">Hawking.Zhang@amd.com</a>&gt;; Zhou1, Tao &lt;<a href=3D"mailto:Tao.Z=
+hou1@amd.com">Tao.Zhou1@amd.com</a>&gt;; Li, Candice &lt;<a href=3D"mailto:=
+Candice.Li@amd.com">Candice.Li@amd.com</a>&gt;;
+ Wang, Yang(Kevin) &lt;<a href=3D"mailto:KevinYang.Wang@amd.com">KevinYang.=
+Wang@amd.com</a>&gt;; Yang, Stanley &lt;<a href=3D"mailto:Stanley.Yang@amd.=
+com">Stanley.Yang@amd.com</a>&gt;; Chai, Thomas &lt;<a href=3D"mailto:YiPen=
+g.Chai@amd.com">YiPeng.Chai@amd.com</a>&gt;<br>
+<b>Subject:</b> [PATCH V2 1/5] drm/amdgpu: Add log info for umc_v12_0 and s=
+mu_v13_0_6
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Add log info for umc_=
+v12_0 and smu_v13_0_6.<br>
+<br>
+v2:<br>
+&nbsp;Delete redundant logs.<br>
+<br>
+Signed-off-by: YiPeng Chai &lt;<a href=3D"mailto:YiPeng.Chai@amd.com">YiPen=
+g.Chai@amd.com</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/umc_v12_0.c&nbsp; | 11 +++++++++++<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_events.c |&nbsp; 6 +++++-<br>
+&nbsp;2 files changed, 16 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/umc_v12_0.c<br>
+index 6423dca5b777..fa2168f1d3bf 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c<br>
+@@ -91,6 +91,17 @@ static void umc_v12_0_reset_error_count(struct amdgpu_de=
+vice *adev)<br>
+&nbsp;<br>
+&nbsp;bool umc_v12_0_is_deferred_error(struct amdgpu_device *adev, uint64_t=
+ mc_umc_status)<br>
+&nbsp;{<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(adev-&gt;dev,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; &quot;MCA_UMC_STATUS(0x%llx): Val:%llu, Poison:%llu, Deferred:%l=
+lu, PCC:%llu, UC:%llu, TCC:%llu\n&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mc_umc_status,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val),<=
+br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Poison=
+),<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Deferr=
+ed),<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, PCC),<=
+br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UC),<b=
+r>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, TCC)<b=
+r>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; );<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (amdgpu_ras_is_pois=
+on_mode_supported(adev) &amp;&amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STAT=
+UST0, Val) =3D=3D 1) &amp;&amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STAT=
+UST0, Deferred) =3D=3D 1));<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/=
+amdkfd/kfd_events.c<br>
+index 11923964ce9a..51bb98db5d7a 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c<br>
+@@ -1297,8 +1297,10 @@ void kfd_signal_poison_consumed_event(struct kfd_nod=
+e *dev, u32 pasid)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t id =3D KFD_FIRST_=
+NONSIGNAL_EVENT_ID;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int user_gpu_id;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!p)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!p) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dev_warn(dev-&gt;adev-&gt;dev, &quot;Not find process with pasid=
+:%d\n&quot;, pasid);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return; /* Presumably process exited. */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; user_gpu_id =3D kfd_proces=
+s_get_user_gpu_id(p, dev-&gt;id);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unlikely(user_gpu_id =
+=3D=3D -EINVAL)) {<br>
+@@ -1334,6 +1336,8 @@ void kfd_signal_poison_consumed_event(struct kfd_node=
+ *dev, u32 pasid)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(dev-&gt;adev-&gt;dev, &quot;=
+Send SIGBUS to process %s(pasid:%d)\n&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; p-&gt;lead_thread-&gt;comm, pasid);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rcu_read_unlock();<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* user application will h=
+andle SIGBUS signal */<br>
+-- <br>
+2.34.1<o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
 
-Wayne Lin (1):
-      drm/amd/display: Align the returned error code with legacy DP
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         | 11 ++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 32 +---------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            | 32 ----------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h          |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h           |  1 -
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             | 15 ++++------
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  6 ++--
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  5 ++++
- .../amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c | 21 ++++++--------
- drivers/gpu/drm/amd/display/dc/core/dc.c           |  4 ++-
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |  4 +++
- drivers/gpu/drm/amd/display/dc/core/dc_state.c     |  8 ++++--
- .../drm/amd/display/dc/dml2/display_mode_core.c    | 14 +++++-----
- .../amd/display/dc/dml2/dml2_translation_helper.c  |  2 +-
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c    |  8 ++++--
- .../gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c |  3 ++
- .../gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c |  3 ++
- 17 files changed, 62 insertions(+), 108 deletions(-)
+--_000_CH2PR12MB42151192D9A6BEE73591BF54FC702CH2PR12MB4215namp_--
