@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAFD9C4725D
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jan 2024 14:39:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DE6CC47DAF
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jan 2024 14:45:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5818B10E195;
-	Fri, 19 Jan 2024 14:39:54 +0000 (UTC)
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
- [209.85.160.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1546710E195
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jan 2024 14:39:53 +0000 (UTC)
-Received: by mail-oa1-f44.google.com with SMTP id
- 586e51a60fabf-210dec2442eso252119fac.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jan 2024 06:39:53 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06BB710EA14;
+	Fri, 19 Jan 2024 14:45:01 +0000 (UTC)
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com
+ [209.85.160.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60F7410EA14
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jan 2024 14:44:59 +0000 (UTC)
+Received: by mail-oa1-f53.google.com with SMTP id
+ 586e51a60fabf-20503dc09adso500946fac.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jan 2024 06:44:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1705675132; x=1706279932; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1705675438; x=1706280238; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Mmm/nAqf1mxeb/ePw174BwMXvzBXD3KAiTlzBYxndrE=;
- b=Up9TqdalejVO4jGGwvejNU2ql/XyhM/Wg9wT4LBB7T362FKtMQktrxheyC6bWjh/C3
- D6Z82ZzflNqVQ1k2ZUmbPV7SnhMfW3kOhseiX5sGCd17QFXFEqWt43Z+wF2CE3TQDJ29
- T/Xv0PHklLTHPCMBgq4idonpxvTRUEpkJaUBodpBj/Y7KRKHJfAN+wyDlo9gc9Q7ltxj
- LulK9Fpy3mAcF+MgbtKpenT90Qi7YtMviDdzHl73yH+HVbJ9XRT09yS1kIN6tD2umpCs
- xUo0QlfI1VeNz5IJvjfNDMfonfGmD2OgOvA+EwPgUuKNDVHzPOWCkfoyylBHOqCbbo0G
- PdyA==
+ bh=6DHCeuz+kAepITfOqbplVWmxx9Im/69pJy6hyS+3Ok0=;
+ b=j8dJaShgsPeStIg+64l9SgXQeS31gfgtNj+Bbji+SskqsHq3h5VqDaZ3SkXaEfJH30
+ t3RTcixsjrer3JE1jtJ1fz1UIG408Ik2WjieVs1MAPdeRYSPXD8BFmZyOkOU4IPENSHJ
+ 6Mee3c6aewUzzuRQ0mQYgdWqBW5vclv2b90DKB5sdR5PxUZHbf/t6nWiFUUTIfYSQ9ah
+ ieJfk9kxm+rc6g8fvBG/AHMvtx6YUlVkDpGhPBjq70RncDQt1Jnzk2zYFAop6rAWKnY6
+ jy6UgKT3R9bttNDiajhGBXJfKZt9j47PtilH+X6tKsndLFhcxtY1bSGt396fpZ4oFXen
+ tXrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705675132; x=1706279932;
+ d=1e100.net; s=20230601; t=1705675438; x=1706280238;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Mmm/nAqf1mxeb/ePw174BwMXvzBXD3KAiTlzBYxndrE=;
- b=IXc7qkWMhC9qXbe1u+s6uYau4+y2gei0jfgaMtg9oeBl+FD9VQkrtwc3K6FZprmogC
- EgefP10/F5HXzHJ1Chxd0F+5NrLJVv5aFj+TArmgOG8X7j+T2vxB85SVi68PZiLuixa3
- lBRFrU5NZaxZ2OtcTAl1rbMUszF+nwCoMENSueW1BKC8mp3rhiV664jbIBwzIeYEieFK
- FrriYUx88E3IVRP4GcgM5JkeUeN4+DyCiidT/zWgSHUv9EqmWhuoLEiTebW8JgYfCtwK
- yubfM+tlPAQH1YnKa9R4rGoM4XhsdLS4MdT0I4msW0O45W9vrcmBUyH1eJmrwLFfRJid
- EJ1g==
-X-Gm-Message-State: AOJu0Yw/U03maEfUIrCIwF4HX9Zy6Um/qqjwdwCUd+4+MV8RaY6I++tp
- 6i6NcGQ/cN9w7B4ncAbznYAU/ChRJ+iPyR6bRrfP8BT+jSp9Wgh9O4trvue0pq2qufcQaGIKyaZ
- wRn5K5rVCL+9wZUm773jGodSu7L8=
-X-Google-Smtp-Source: AGHT+IHldIW2TxR1GeACuCnJQpPWtqtzyzyCYj/UP+1e5Fvo4ivyRbO0ndTFuhLE/yqB2PB4XS4obH8nfT2JSiEvc/M=
-X-Received: by 2002:a05:6870:5693:b0:210:7f14:e5c1 with SMTP id
- p19-20020a056870569300b002107f14e5c1mr2324345oao.35.1705675132370; Fri, 19
- Jan 2024 06:38:52 -0800 (PST)
+ bh=6DHCeuz+kAepITfOqbplVWmxx9Im/69pJy6hyS+3Ok0=;
+ b=u1lKTSVJqck9QCf3cqT5G5kDChkmqp8ARLS3Lsd0ADTbZTm+AoAAAzsAAqTqUG1MGH
+ boKWRAe3BSQluaLeCy7/Zz/HrGWrxSHkCAWMNknmY4FzxQf/c/igIsNlsTDoB6ta+2hV
+ v4gf7bxpwF0J5ffKZ0Des9SdS9Bqr/9uCOFIa8N4ZlLpWPweBtN89Q+4h4gTMAJPsxxz
+ MOEGGOMDdkI6h+SPpVMOlkxJWZp2HdTOdPqQAysuoaR6oLB20AQj1Wx8YN6l9MjO6EH6
+ SzzKT91SOlYzLJt57czQu3JP1t248xLtqv1anmW0q7k/xaJv8nZvP52AKvOSy2KZIYpQ
+ Re1A==
+X-Gm-Message-State: AOJu0YxhpAxPu/ePfT0y7YTgWFyuePYsz/likAzcG4+QqyMAXt0vSr/e
+ hg1ptDnddSHZf6nhPiE1Q4DDhRwHXjxS+Rw237cFIvqwjKrzLHqqkIuz5Akq4uWetejj/+c6wEk
+ lkeSOF9eX+8xlWJRGPS9K/AhNclc=
+X-Google-Smtp-Source: AGHT+IF3Lyu3Ks8AdhGzwJdV6lHBtR4a9raT+1raVhWEfc0sxnIfTvaL1V0jYV46Oh2MI+zePH2YsV6ZMk+TbeUrKXk=
+X-Received: by 2002:a05:6870:4799:b0:210:847f:540b with SMTP id
+ c25-20020a056870479900b00210847f540bmr2545222oaq.117.1705675438631; Fri, 19
+ Jan 2024 06:43:58 -0800 (PST)
 MIME-Version: 1.0
-References: <20240118185402.919396-1-friedrich.vock@gmx.de>
- <c3d81197-a2a6-4884-832c-d0b8459340aa@amd.com>
-In-Reply-To: <c3d81197-a2a6-4884-832c-d0b8459340aa@amd.com>
+References: <20240119082013.2953172-1-kenneth.feng@amd.com>
+In-Reply-To: <20240119082013.2953172-1-kenneth.feng@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 19 Jan 2024 09:38:40 -0500
-Message-ID: <CADnq5_O6U8DSGJOUk9_sfL2bEUGgLej-nLsVH_ep-2BKZL_Bng@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/amdgpu: Reset IH OVERFLOW_CLEAR bit
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Date: Fri, 19 Jan 2024 09:43:47 -0500
+Message-ID: <CADnq5_O8iCe0M59fykor5M26=P2djavZzvMcSyVFD1O+WqScUg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: update the power cap setting
+To: Kenneth Feng <kenneth.feng@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -69,269 +68,240 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Friedrich Vock <friedrich.vock@gmx.de>, Joshua Ashton <joshua@froggi.es>,
- stable@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 19, 2024 at 3:11=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+On Fri, Jan 19, 2024 at 3:47=E2=80=AFAM Kenneth Feng <kenneth.feng@amd.com>=
+ wrote:
 >
+> update the power cap setting for smu_v13.0.0/smu_v13.0.7
 >
->
-> Am 18.01.24 um 19:54 schrieb Friedrich Vock:
-> > Allows us to detect subsequent IH ring buffer overflows as well.
-> >
-> > Cc: Joshua Ashton <joshua@froggi.es>
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Cc: stable@vger.kernel.org
-> >
-> > Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
-> > ---
-> > v2: Reset CLEAR_OVERFLOW bit immediately after setting it
-> >
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  | 2 ++
-> >   drivers/gpu/drm/amd/amdgpu/cik_ih.c     | 7 +++++++
-> >   drivers/gpu/drm/amd/amdgpu/cz_ih.c      | 6 ++++++
-> >   drivers/gpu/drm/amd/amdgpu/iceland_ih.c | 6 ++++++
-> >   drivers/gpu/drm/amd/amdgpu/ih_v6_0.c    | 7 +++++++
-> >   drivers/gpu/drm/amd/amdgpu/ih_v6_1.c    | 8 ++++++++
-> >   drivers/gpu/drm/amd/amdgpu/navi10_ih.c  | 7 +++++++
-> >   drivers/gpu/drm/amd/amdgpu/si_ih.c      | 7 +++++++
-> >   drivers/gpu/drm/amd/amdgpu/tonga_ih.c   | 7 +++++++
-> >   drivers/gpu/drm/amd/amdgpu/vega10_ih.c  | 7 +++++++
-> >   drivers/gpu/drm/amd/amdgpu/vega20_ih.c  | 7 +++++++
-> >   11 files changed, 71 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_ih.h
-> > index 508f02eb0cf8..6041ec727f06 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-> > @@ -69,6 +69,8 @@ struct amdgpu_ih_ring {
-> >       unsigned                rptr;
-> >       struct amdgpu_ih_regs   ih_regs;
-> >
-> > +     bool overflow;
-> > +
->
-> That flag isn't needed any more in this patch as far as I can see.
 
-It's used in patch 2.
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2356
 
-Alex
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
+> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+> ---
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 54 ++++++++++++++++++-
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 54 ++++++++++++++++++-
+>  2 files changed, 104 insertions(+), 4 deletions(-)
 >
-> Regards,
-> Christian.
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> index 231122622a9c..e769adb8da2c 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> @@ -2357,6 +2357,7 @@ static int smu_v13_0_0_get_power_limit(struct smu_c=
+ontext *smu,
+>         PPTable_t *pptable =3D table_context->driver_pptable;
+>         SkuTable_t *skutable =3D &pptable->SkuTable;
+>         uint32_t power_limit, od_percent_upper, od_percent_lower;
+> +       uint32_t msg_limit =3D skutable->MsgLimits.Power[PPT_THROTTLER_PP=
+T0][POWER_SOURCE_AC];
 >
-> >       /* For waiting on IH processing at checkpoint. */
-> >       wait_queue_head_t wait_process;
-> >       uint64_t                processed_timestamp;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/cik_ih.c b/drivers/gpu/drm/amd/=
-amdgpu/cik_ih.c
-> > index 6f7c031dd197..bbadf2e530b8 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-> > @@ -204,6 +204,13 @@ static u32 cik_ih_get_wptr(struct amdgpu_device *a=
-dev,
-> >               tmp =3D RREG32(mmIH_RB_CNTL);
-> >               tmp |=3D IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
-> >               WREG32(mmIH_RB_CNTL, tmp);
-> > +
-> > +             /* Unset the CLEAR_OVERFLOW bit immediately so new overfl=
-ows
-> > +              * can be detected.
-> > +              */
-> > +             tmp &=3D ~IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
-> > +             WREG32(mmIH_RB_CNTL, tmp);
-> > +             ih->overflow =3D true;
-> >       }
-> >       return (wptr & ih->ptr_mask);
-> >   }
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/cz_ih.c b/drivers/gpu/drm/amd/a=
-mdgpu/cz_ih.c
-> > index b8c47e0cf37a..e5c4ed44bad9 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> > @@ -216,6 +216,12 @@ static u32 cz_ih_get_wptr(struct amdgpu_device *ad=
-ev,
-> >       tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
-> >       WREG32(mmIH_RB_CNTL, tmp);
-> >
-> > +     /* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> > +      * can be detected.
-> > +      */
-> > +     tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> > +     WREG32(mmIH_RB_CNTL, tmp);
-> > +     ih->overflow =3D true;
-> >
-> >   out:
-> >       return (wptr & ih->ptr_mask);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c b/drivers/gpu/drm/=
-amd/amdgpu/iceland_ih.c
-> > index aecad530b10a..075e5c1a5549 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-> > @@ -215,6 +215,12 @@ static u32 iceland_ih_get_wptr(struct amdgpu_devic=
-e *adev,
-> >       tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
-> >       WREG32(mmIH_RB_CNTL, tmp);
-> >
-> > +     /* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> > +      * can be detected.
-> > +      */
-> > +     tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> > +     WREG32(mmIH_RB_CNTL, tmp);
-> > +     ih->overflow =3D true;
-> >
-> >   out:
-> >       return (wptr & ih->ptr_mask);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd=
-/amdgpu/ih_v6_0.c
-> > index d9ed7332d805..d0a5a08edd55 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-> > @@ -418,6 +418,13 @@ static u32 ih_v6_0_get_wptr(struct amdgpu_device *=
-adev,
-> >       tmp =3D RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
-> >       tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
-> >       WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> > +
-> > +     /* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> > +      * can be detected.
-> > +      */
-> > +     tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> > +     WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> > +     ih->overflow =3D true;
-> >   out:
-> >       return (wptr & ih->ptr_mask);
-> >   }
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd=
-/amdgpu/ih_v6_1.c
-> > index 8fb05eae340a..6bf4f210ef74 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-> > @@ -418,6 +418,14 @@ static u32 ih_v6_1_get_wptr(struct amdgpu_device *=
-adev,
-> >       tmp =3D RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
-> >       tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
-> >       WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> > +
-> > +     /* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> > +      * can be detected.
-> > +      */
-> > +     tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> > +     WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> > +     ih->overflow =3D true;
-> > +
-> >   out:
-> >       return (wptr & ih->ptr_mask);
-> >   }
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/a=
-md/amdgpu/navi10_ih.c
-> > index e64b33115848..cdbe7d01490e 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> > @@ -442,6 +442,13 @@ static u32 navi10_ih_get_wptr(struct amdgpu_device=
- *adev,
-> >       tmp =3D RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
-> >       tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
-> >       WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> > +
-> > +     /* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> > +      * can be detected.
-> > +      */
-> > +     tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> > +     WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> > +     ih->overflow =3D true;
-> >   out:
-> >       return (wptr & ih->ptr_mask);
-> >   }
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/a=
-mdgpu/si_ih.c
-> > index 9a24f17a5750..398fbc296cac 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> > @@ -119,6 +119,13 @@ static u32 si_ih_get_wptr(struct amdgpu_device *ad=
-ev,
-> >               tmp =3D RREG32(IH_RB_CNTL);
-> >               tmp |=3D IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
-> >               WREG32(IH_RB_CNTL, tmp);
-> > +
-> > +             /* Unset the CLEAR_OVERFLOW bit immediately so new overfl=
-ows
-> > +              * can be detected.
-> > +              */
-> > +             tmp &=3D ~IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
-> > +             WREG32(IH_RB_CNTL, tmp);
-> > +             ih->overflow =3D true;
-> >       }
-> >       return (wptr & ih->ptr_mask);
-> >   }
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/am=
-d/amdgpu/tonga_ih.c
-> > index 917707bba7f3..1d1e064be7d8 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> > @@ -219,6 +219,13 @@ static u32 tonga_ih_get_wptr(struct amdgpu_device =
-*adev,
-> >       tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
-> >       WREG32(mmIH_RB_CNTL, tmp);
-> >
-> > +     /* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> > +      * can be detected.
-> > +      */
-> > +     tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> > +     WREG32(mmIH_RB_CNTL, tmp);
-> > +     ih->overflow =3D true;
-> > +
-> >   out:
-> >       return (wptr & ih->ptr_mask);
-> >   }
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/a=
-md/amdgpu/vega10_ih.c
-> > index d364c6dd152c..619087a4c4ae 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-> > @@ -373,6 +373,13 @@ static u32 vega10_ih_get_wptr(struct amdgpu_device=
- *adev,
-> >       tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
-> >       WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> >
-> > +     /* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> > +      * can be detected.
-> > +      */
-> > +     tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> > +     WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> > +     ih->overflow =3D true;
-> > +
-> >   out:
-> >       return (wptr & ih->ptr_mask);
-> >   }
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/a=
-md/amdgpu/vega20_ih.c
-> > index ddfc6941f9d5..f42f8e5dbe23 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-> > @@ -421,6 +421,13 @@ static u32 vega20_ih_get_wptr(struct amdgpu_device=
- *adev,
-> >       tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
-> >       WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> >
-> > +     /* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-> > +      * can be detected.
-> > +      */
-> > +     tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-> > +     WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> > +     ih->overflow =3D true;
-> > +
-> >   out:
-> >       return (wptr & ih->ptr_mask);
-> >   }
-> > --
-> > 2.43.0
-> >
+>         if (smu_v13_0_get_current_power_limit(smu, &power_limit))
+>                 power_limit =3D smu->adev->pm.ac_power ?
+> @@ -2380,7 +2381,7 @@ static int smu_v13_0_0_get_power_limit(struct smu_c=
+ontext *smu,
+>                                         od_percent_upper, od_percent_lowe=
+r, power_limit);
+>
+>         if (max_power_limit) {
+> -               *max_power_limit =3D power_limit * (100 + od_percent_uppe=
+r);
+> +               *max_power_limit =3D msg_limit * (100 + od_percent_upper)=
+;
+>                 *max_power_limit /=3D 100;
+>         }
+>
+> @@ -2960,6 +2961,55 @@ static bool smu_v13_0_0_wbrf_support_check(struct =
+smu_context *smu)
+>         }
+>  }
+>
+> +static int smu_v13_0_0_set_power_limit(struct smu_context *smu,
+> +                                      enum smu_ppt_limit_type limit_type=
+,
+> +                                      uint32_t limit)
+> +{
+> +       PPTable_t *pptable =3D smu->smu_table.driver_pptable;
+> +       SkuTable_t *skutable =3D &pptable->SkuTable;
+> +       uint32_t msg_limit =3D skutable->MsgLimits.Power[PPT_THROTTLER_PP=
+T0][POWER_SOURCE_AC];
+> +       struct smu_table_context *table_context =3D &smu->smu_table;
+> +       OverDriveTableExternal_t *od_table =3D
+> +               (OverDriveTableExternal_t *)table_context->overdrive_tabl=
+e;
+> +       int ret =3D 0;
+> +
+> +       if (limit_type !=3D SMU_DEFAULT_PPT_LIMIT)
+> +               return -EINVAL;
+> +
+> +       if (limit <=3D msg_limit) {
+> +               if (smu->current_power_limit > msg_limit) {
+> +                       od_table->OverDriveTable.Ppt =3D 0;
+> +                       od_table->OverDriveTable.FeatureCtrlMask |=3D 1U =
+<< PP_OD_FEATURE_PPT_BIT;
+> +
+> +                       ret =3D smu_v13_0_0_upload_overdrive_table(smu, o=
+d_table);
+> +                       if (ret) {
+> +                               dev_err(smu->adev->dev, "Failed to upload=
+ overdrive table!\n");
+> +                               return ret;
+> +                       }
+> +               }
+> +               return smu_v13_0_set_power_limit(smu, limit_type, limit);
+> +       } else if (smu->od_enabled) {
+> +               ret =3D smu_v13_0_set_power_limit(smu, limit_type, msg_li=
+mit);
+> +               if (ret)
+> +                       return ret;
+> +
+> +               od_table->OverDriveTable.Ppt =3D (limit * 100) / msg_limi=
+t - 100;
+> +               od_table->OverDriveTable.FeatureCtrlMask |=3D 1U << PP_OD=
+_FEATURE_PPT_BIT;
+> +
+> +               ret =3D smu_v13_0_0_upload_overdrive_table(smu, od_table)=
+;
+> +               if (ret) {
+> +                 dev_err(smu->adev->dev, "Failed to upload overdrive tab=
+le!\n");
+> +                 return ret;
+> +               }
+> +
+> +               smu->current_power_limit =3D limit;
+> +       } else {
+> +               return -EINVAL;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+>  static const struct pptable_funcs smu_v13_0_0_ppt_funcs =3D {
+>         .get_allowed_feature_mask =3D smu_v13_0_0_get_allowed_feature_mas=
+k,
+>         .set_default_dpm_table =3D smu_v13_0_0_set_default_dpm_table,
+> @@ -3014,7 +3064,7 @@ static const struct pptable_funcs smu_v13_0_0_ppt_f=
+uncs =3D {
+>         .set_fan_control_mode =3D smu_v13_0_set_fan_control_mode,
+>         .enable_mgpu_fan_boost =3D smu_v13_0_0_enable_mgpu_fan_boost,
+>         .get_power_limit =3D smu_v13_0_0_get_power_limit,
+> -       .set_power_limit =3D smu_v13_0_set_power_limit,
+> +       .set_power_limit =3D smu_v13_0_0_set_power_limit,
+>         .set_power_source =3D smu_v13_0_set_power_source,
+>         .get_power_profile_mode =3D smu_v13_0_0_get_power_profile_mode,
+>         .set_power_profile_mode =3D smu_v13_0_0_set_power_profile_mode,
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> index 59606a19e3d2..7c3e162e2d81 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> @@ -2321,6 +2321,7 @@ static int smu_v13_0_7_get_power_limit(struct smu_c=
+ontext *smu,
+>         PPTable_t *pptable =3D table_context->driver_pptable;
+>         SkuTable_t *skutable =3D &pptable->SkuTable;
+>         uint32_t power_limit, od_percent_upper, od_percent_lower;
+> +       uint32_t msg_limit =3D skutable->MsgLimits.Power[PPT_THROTTLER_PP=
+T0][POWER_SOURCE_AC];
+>
+>         if (smu_v13_0_get_current_power_limit(smu, &power_limit))
+>                 power_limit =3D smu->adev->pm.ac_power ?
+> @@ -2344,7 +2345,7 @@ static int smu_v13_0_7_get_power_limit(struct smu_c=
+ontext *smu,
+>                                         od_percent_upper, od_percent_lowe=
+r, power_limit);
+>
+>         if (max_power_limit) {
+> -               *max_power_limit =3D power_limit * (100 + od_percent_uppe=
+r);
+> +               *max_power_limit =3D msg_limit * (100 + od_percent_upper)=
+;
+>                 *max_power_limit /=3D 100;
+>         }
+>
+> @@ -2545,6 +2546,55 @@ static bool smu_v13_0_7_wbrf_support_check(struct =
+smu_context *smu)
+>         return smu->smc_fw_version > 0x00524600;
+>  }
+>
+> +static int smu_v13_0_7_set_power_limit(struct smu_context *smu,
+> +                                      enum smu_ppt_limit_type limit_type=
+,
+> +                                      uint32_t limit)
+> +{
+> +       PPTable_t *pptable =3D smu->smu_table.driver_pptable;
+> +       SkuTable_t *skutable =3D &pptable->SkuTable;
+> +       uint32_t msg_limit =3D skutable->MsgLimits.Power[PPT_THROTTLER_PP=
+T0][POWER_SOURCE_AC];
+> +       struct smu_table_context *table_context =3D &smu->smu_table;
+> +       OverDriveTableExternal_t *od_table =3D
+> +               (OverDriveTableExternal_t *)table_context->overdrive_tabl=
+e;
+> +       int ret =3D 0;
+> +
+> +       if (limit_type !=3D SMU_DEFAULT_PPT_LIMIT)
+> +               return -EINVAL;
+> +
+> +       if (limit <=3D msg_limit) {
+> +               if (smu->current_power_limit > msg_limit) {
+> +                       od_table->OverDriveTable.Ppt =3D 0;
+> +                       od_table->OverDriveTable.FeatureCtrlMask |=3D 1U =
+<< PP_OD_FEATURE_PPT_BIT;
+> +
+> +                       ret =3D smu_v13_0_7_upload_overdrive_table(smu, o=
+d_table);
+> +                       if (ret) {
+> +                               dev_err(smu->adev->dev, "Failed to upload=
+ overdrive table!\n");
+> +                               return ret;
+> +                       }
+> +               }
+> +               return smu_v13_0_set_power_limit(smu, limit_type, limit);
+> +       } else if (smu->od_enabled) {
+> +               ret =3D smu_v13_0_set_power_limit(smu, limit_type, msg_li=
+mit);
+> +               if (ret)
+> +                       return ret;
+> +
+> +               od_table->OverDriveTable.Ppt =3D (limit * 100) / msg_limi=
+t - 100;
+> +               od_table->OverDriveTable.FeatureCtrlMask |=3D 1U << PP_OD=
+_FEATURE_PPT_BIT;
+> +
+> +               ret =3D smu_v13_0_7_upload_overdrive_table(smu, od_table)=
+;
+> +               if (ret) {
+> +                 dev_err(smu->adev->dev, "Failed to upload overdrive tab=
+le!\n");
+> +                 return ret;
+> +               }
+> +
+> +               smu->current_power_limit =3D limit;
+> +       } else {
+> +               return -EINVAL;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+>  static const struct pptable_funcs smu_v13_0_7_ppt_funcs =3D {
+>         .get_allowed_feature_mask =3D smu_v13_0_7_get_allowed_feature_mas=
+k,
+>         .set_default_dpm_table =3D smu_v13_0_7_set_default_dpm_table,
+> @@ -2596,7 +2646,7 @@ static const struct pptable_funcs smu_v13_0_7_ppt_f=
+uncs =3D {
+>         .set_fan_control_mode =3D smu_v13_0_set_fan_control_mode,
+>         .enable_mgpu_fan_boost =3D smu_v13_0_7_enable_mgpu_fan_boost,
+>         .get_power_limit =3D smu_v13_0_7_get_power_limit,
+> -       .set_power_limit =3D smu_v13_0_set_power_limit,
+> +       .set_power_limit =3D smu_v13_0_7_set_power_limit,
+>         .set_power_source =3D smu_v13_0_set_power_source,
+>         .get_power_profile_mode =3D smu_v13_0_7_get_power_profile_mode,
+>         .set_power_profile_mode =3D smu_v13_0_7_set_power_profile_mode,
+> --
+> 2.34.1
 >
