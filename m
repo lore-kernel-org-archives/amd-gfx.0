@@ -4,118 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B18DBC4725D
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jan 2024 04:31:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76C62C4725D
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jan 2024 07:47:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 361D610E7E3;
-	Fri, 19 Jan 2024 04:31:34 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1DDC10E7E3
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jan 2024 04:31:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A8E510E964;
+	Fri, 19 Jan 2024 07:47:42 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2073.outbound.protection.outlook.com [40.107.223.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D24B10E964
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jan 2024 07:47:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GNzdjQp4Xhjd4m4F7CCWSbrpmbYLtuoVpJhQzHh6F/2WnOMLtC5TMi45TYLypK9Ln5QGLL16TnXeI41GAUwXgvVm20P3hfD1D3tuMcSOtRrcn4c8ra8lvMN8/hP8ai3oaV8IDQ4X/KJpUP3ipopCpkq3+PPPK6/jDe5NDjIUjg7rUcYCKE3YsDVVlKv2niLstaKeJW/fU8OoUqm0u6c0I65LshYcoMQxVx9pMRvyqalhGYWNHHLYV3AV/1QQiyXQpHe7uqJzAttQW0+CSpUznU48eLmT8RUk5ITHBU7T3Xspzkcc6FhsG+3fxT3jif65bWWOc+YujAJMteXLEg9Dpw==
+ b=GkSXBzVZkt2CrJj32IeCI5qSaBIHkMZtAQY/shURGphHb9r1xpjZEfxh3Qq11Au9PkRiBfu00wS2Y1OB/fUq7oygNS4qKYFcU0NbWWSZ2aZNcujLnJBxsqop3FQ6W5R9ltj+6czUUXJpMKyLI9jiNeNoV/DUZw1M/JUIBepSG6GnJDPhXyhH+N7lurjcbcCP0ocLxSwTUA2Zd2SuW3Vrd5z0Qak4zwaLxrQsqgjrCW8ocWZ2mFSJaQ8SmCUc1fFObdWRI1H4ZC/XE/zkbDSC1b+Oafm9QJjKSaLHol08LzvYE3Y+IbKQmj5kvAhixkIDYaPIeUDKyzLooJTOdNE1Wg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LS6gaJQUqVwPcnIxsSng2rfnFIyu8ZGTiLycM/aK+7M=;
- b=Xq9PtX7IIxaQmJn82Iuy2UqDIP0vD32COUmQ9TU0/dmYcTqSkIrhLpGEkt5vE0VwvADadZ7IVmQXOl/PNPhTjGRT75ZZdM0IrQVqKRV6KOfSAONvrflmR8x39a6L3FBglkLgYMvQWpt/QCwTLwzffyK8CHshepAKGE4azCUHjlzHr7sou0B/DJsLeTb9a6AkWFwevqMhQGIxr74FVMzjBB7XnfIIl+MzRaz9eBDNyuzyQtJb3g11q/3FlY8RV9EI9ewzqaMs8iBOntbynpUMxE/0aMQpQJYpl3LRoAw8HVV8nis4bC4Fe5ZsOrZQVHYJTcKQwjZ+2h3yPQ0bICG2sw==
+ bh=vrJH5GxzshCDDdSmBDp2nZCmtSaSNSRIzZKMrkeSTOA=;
+ b=cdpdZzV5mCz2A5oME3ari4Ja6C7K/314WGZnjgu008SdcvzW0aeM+NexMkJjK4mwKkTxcMTmGrfVariOMYu40OXV2UmSpbEbySNrQIzOQHsPE4Anb1f3jRypKewGDr5965WDAA7yad7mkBxopB35rpEfmbSjGbZQapWqcp73UbyWf1WiWL/9aYQZzLjeQJNJpoPDFk24luDvkmOdWHyPb77acVRZ7cXVDDZsWnwBIwQedS+a8ZmHvgAeLQSRrEYZJT2776d3Z1Jlp8zPJzgm4G3Y6ZwPbqGU94Xo/Tb5nhxiBwbHQ/HlqU5QNx4hAbt31jYKu6xsXq6IBdUxAxyaQw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LS6gaJQUqVwPcnIxsSng2rfnFIyu8ZGTiLycM/aK+7M=;
- b=lLHbWtg2Vn7LK4iyaIUpdMGjo3hw6tIbqD1vo++hbyqN3ItuoKW8FCajK8X25V47/WemcG7fcNOMRP5QBwEXEuAiL0Bq+kVhP47o8IQlv+9FvCl8M2GehJ5Xm6iNv5lnt0IuSN3VbtKvdVyjTtYYVbjhKDwmZA9kOKm7z+NgX0c=
+ bh=vrJH5GxzshCDDdSmBDp2nZCmtSaSNSRIzZKMrkeSTOA=;
+ b=O0q/cIRor00oZLRhU98XK5YwHR6be7GyKbgV86KkcaDH31aw4pTPoBhI0bVTFl3Dab5Yle4n37YLTyB6kQwlaWhT1oooQnIrnuSRUMtorxVYAkYuBjEMzaoMi83hqLNF+nvBLEOtwBWBMqbTBM5MBtekfv8JLDNQcKVVdX8meQo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8)
- by LV2PR12MB5920.namprd12.prod.outlook.com (2603:10b6:408:172::20)
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB6766.namprd12.prod.outlook.com (2603:10b6:806:26a::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.28; Fri, 19 Jan
- 2024 04:31:14 +0000
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::5b3b:867e:c8bd:8bf8]) by PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::5b3b:867e:c8bd:8bf8%6]) with mapi id 15.20.7181.018; Fri, 19 Jan 2024
- 04:31:14 +0000
-Message-ID: <8524def8-a97f-4b29-985e-a3261407006c@amd.com>
-Date: Fri, 19 Jan 2024 10:01:05 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.23; Fri, 19 Jan
+ 2024 07:47:33 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7202.024; Fri, 19 Jan 2024
+ 07:47:33 +0000
+Message-ID: <c3d81197-a2a6-4884-832c-d0b8459340aa@amd.com>
+Date: Fri, 19 Jan 2024 08:47:28 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu/pm: Fix the power source flag error
+Subject: Re: [PATCH v2 1/2] drm/amdgpu: Reset IH OVERFLOW_CLEAR bit
 Content-Language: en-US
-To: "Ma, Jun" <majun@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20240118072742.999070-1-Jun.Ma2@amd.com>
- <00f5700d-84e0-4baf-accb-624d73004466@amd.com>
- <234bcb1d-afa7-49ae-8524-2d81b283b2aa@amd.com>
- <27424290-d360-448e-9476-85c5eece6b4d@amd.com>
- <f051eb1a-feb3-494d-9380-362a751c0f1d@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <f051eb1a-feb3-494d-9380-362a751c0f1d@amd.com>
+To: Friedrich Vock <friedrich.vock@gmx.de>, amd-gfx@lists.freedesktop.org
+References: <20240118185402.919396-1-friedrich.vock@gmx.de>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240118185402.919396-1-friedrich.vock@gmx.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0072.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:99::19) To PH7PR12MB7820.namprd12.prod.outlook.com
- (2603:10b6:510:268::8)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0053.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:93::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB7820:EE_|LV2PR12MB5920:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a98f9a4-8c4b-4e6d-2d4a-08dc18a7783f
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6766:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d8f266e-03a4-42ca-c29b-08dc18c2e58f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wcmyMAK85xK3HixNDvXlEZpN7MMLvwGk5+d1H4wTSQ5K9+N05IgcuRJ8oshlPt8fb2Rn12W9y4mnl2qnAtu89DCLTpd94ulSI4ZOeMUefvdD1tLD1IWUyHS0WNZte1uPGaWdsZ9CW50HbcJ0AwCyaPU8P9aOux7KYIItj111ErHadHEHvlVDgKbHiAzlKiEIQo9ncn2tjam4uI+FWh1DIcGHaMHNdrJ5JXL+tyuRl2MVRp4TLTX7ZWeFcjMFWwwaoTeKXzJ+FOQqGrt3xr+rK7G0/HnkbKzSMP9JpVPdNJ+M3HACiFLB9pPIeJVe9GCWr+hz+1p2l1rJ/rKSlpA8We/+9M7fa7D+5KdJOUzpZ7BlnMZqRcOiRPMa2Fx72QP67RcZyvayOZ50XVaP++FNkQs6rtIqwG3oVzxjtWYgrcm5M13P1FDfLuHfkh5VplHfxoTRqS2fR9F1+ZAJZUdg0Xe+03BQNDht9iF5O5LuOyZG0XNndjnOS3mY8SopEpjwJ6pbdFcmq2uUf3MWXvookMw/zq9jFC7yxvtotQS86kok+HyhlSyaZto2GyAv0vXASgKNXq9t/sYfUaeJpHmyjlS89Phg+0nH+IFFXlp5gHosi6OYqO48ymBmTBN5YbcB69vthxhBFtvKsHMyPHhNuQ==
+X-Microsoft-Antispam-Message-Info: 9RBzTXSPQNen3wY7+OjoaG9EFcb64T1ySFbCB+dj0EyR1sgTP8Jwri4gjHczsbeyktu5HeaFdXieDOFujw9ImJHeG9WVs0//pEOH8ZubtzjKvVArtXGdXqoMGsPAE+ASywDF8Kvmh3fsJNaYYZMLEUvPfTIcD8JgOF7uJ05binuTuvbu8YgVbyTWqR1yO6sH0cT/xjvNqeJE8Xzke/ueHmbOnDO4A8be3Z42/gMtINSMX3GXu2pr8fRz/0qn6H1r7WExggmLdsKastXaoxBbx96hZjgKTvjwsZ6kYDL1xvtPq5xpgdVpQIII4dgTlWLrsUF93u8Ll/ZJLk20kr/ZQlt0xNOIFxzC/yXYnK4jpqjCspOIPH+XbndXdMUwSc779Rst8oHs7yEfT598ASXp95BlCOS/8aD06Zb4lou7dlsmDPI8rtRZWyUEhurSBvEzRNdV2L98GGUNsQ2Dq33rwoqlpJ1LYeadDqaNFh4bnKUCLHMIqOhA15iZwTc8ypOZI/uOklHV+WK/Dh01FNHAPtw1J2dJclmzzryqiAOb+KLiNoX/tGFbOW87VLcMimxU4LIHK6LcCUA8VLkTTAPVREF0+tzOYOq70kOgJQMylAy0XF9q6zXa7x3PA9z0OW4qKnvUvGOkweGGKDzJ0J1vUg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB7820.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(366004)(136003)(346002)(39860400002)(396003)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(6666004)(53546011)(2616005)(6506007)(26005)(478600001)(6512007)(83380400001)(8676002)(5660300002)(4326008)(41300700001)(8936002)(316002)(66556008)(66476007)(66946007)(6486002)(110136005)(2906002)(86362001)(31696002)(38100700002)(36756003)(31686004)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(396003)(366004)(136003)(346002)(376002)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(2906002)(5660300002)(41300700001)(6486002)(38100700002)(26005)(2616005)(31686004)(66574015)(83380400001)(6666004)(6506007)(478600001)(31696002)(6512007)(8676002)(86362001)(8936002)(4326008)(66946007)(66476007)(66556008)(54906003)(316002)(36756003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bjYxcndKSEQxT2pqSGIzMFZoQ0xXOVJyK0s2UXZXWGhZUjZDYy9RVEpRU01I?=
- =?utf-8?B?cWFycDhjeTdJSVJ4N3ZaNWNFYkp5M2pCcXJGQ2liczVsZW15c01XK0JDVEpB?=
- =?utf-8?B?T2srYklpanpzTnlxOVZONSt1ZkxlMXFJd0JCM1VPQU1jWjYrV1VwT05telYx?=
- =?utf-8?B?YzFYTFUyclhwdFVzNHNjZk1qaFBSTU84Rjk5a1V6T2FyOW5hd095dWVnTXpj?=
- =?utf-8?B?S3l1L2ZULzFOOVlHT3BXRGdBMWxiZTdIVy9UWHJ5MklDVXpmd0xWMnZabkNt?=
- =?utf-8?B?RnBWUTNoTXA0bjA1YVlJZGFTeEROa2hJM0JmQy9ZSmpyWlNqQXpaYnlRbWll?=
- =?utf-8?B?YURHdnlLTkZJRTM3WFlzSTR3MUk3REJ3MlJLVGN3aUVIZUJGd0w3VmRNcVEw?=
- =?utf-8?B?ZnovVFQwU1Z3Rmh1MXVDc1lvdStiVk1VWVl0eTNnRzlkbk9JVm5RMlNETjhS?=
- =?utf-8?B?bUdkU2QvM1VPazhlaUxrNGJNSk1XQm5BN2NoTlNMLzB5WTNQOUd0NXdjdHd3?=
- =?utf-8?B?SGZwanYvdlg1ckJZK2JyM25CUkVHRzlid2lXUVpPKysveVZQajNmVVhFalk3?=
- =?utf-8?B?Uy8yU2Zsdlhnd1JmVmkvS045UTVEU1dWZ2RYc0RFb1VRRVg2R0xFR2pQK2FM?=
- =?utf-8?B?aFAwenhtaEY2R3VPbU9rQmM5V3EwZmJGc09CZWNrL0lEUFdib1dQRXBzQTNt?=
- =?utf-8?B?YUxVKzY5NVBCZk1KTjVEdUxWYUZOMU0yZGhSVlloS2R3eng5Y3JHTm82cGhH?=
- =?utf-8?B?RmdTY2hkTVZCcjNWeko1elJ2eGNySUZOZk14M3lvN2NXVVFhK05TeDdVUjVi?=
- =?utf-8?B?dm00MDZRaUQyR3RVc1piQ0RXRHlvT09TdHlVc3ZBdHRZblRFbWw4bm5EZWph?=
- =?utf-8?B?V1JtOGNWNG9aRjNHKytzV3gxQnBXM0VUZWNRMTBqWFNpdGp3bnkyemxDWXdu?=
- =?utf-8?B?VDE5M2h1dm1SSEcrbG9QZlVWdzE1RTA2ZGR0ajN3OEtNTkd2c0twM3J6SmhR?=
- =?utf-8?B?SVN2QkVHZ1czbTJaSlllekMyamRoOVZVWmoySlJGSkw4WENnclM2VkE3a1M3?=
- =?utf-8?B?UjZSY0tYL2RuU0dvZ2twVFZkRDVvSzNZSFVnUk9rcXNEMWVNbWFSTjQzc0hr?=
- =?utf-8?B?SHdZZUZ6T0swRGJKeExBa3RhaEphSzdURG04eHlTZHV4VVhJSjZua2ZSQk0w?=
- =?utf-8?B?bXFWTE8xa3hoSVVHajk5QmtnRDkwYnJmZVdlakNFbllNeVdRMnRGeFFLSkpr?=
- =?utf-8?B?NHRtVVNVSE9OeGtYM1ZOZVhIVWpBSHFwTEQzK25IRWtCRTVRZms0TTcrS3NS?=
- =?utf-8?B?Kys0eDdOM1NRMm9meTJ6RlMyK0U0R3VNQ0szUE1DQUIwTDljN3l6ZVVDZHA4?=
- =?utf-8?B?Zkk4SzF2SG5uSkdCL1FJbit3VHdBTjVYbThTSGRjUjZKcVlaQVQxWUduYTlJ?=
- =?utf-8?B?MFBBazRrclBwRi9CYkE4OTZDVmNZdU93Ykl5QXNQTUlBdWxNZ2RkdjFLLzZl?=
- =?utf-8?B?WWE1ci9rUmlLcmxKaDFUaEFONmhpcDNHNHlSbnowUGxFbndyb29qL2llRSth?=
- =?utf-8?B?amdUOGRrbUJlQ2ZzZ051N0F4NDFGcTk3MTFmWGJVN3ZnODRFN0R3dnAyL0pH?=
- =?utf-8?B?RlFHc0Rlekp3eGhzSkZoMW9uYXNnSkRaZU83UkJjM04wOWpCL0drVVRSUTJ4?=
- =?utf-8?B?MGNaN1dyc2ZvWEJ5cHJhSmJoSDYxaEVuNDNzbnVtT3dNUTNNZTExb25RaldL?=
- =?utf-8?B?d21jeHBCb2FqRlZEVHhNdzNUcWtWQW5SUXE4NlFoQnNsTXpzWEx5aUhlaUIr?=
- =?utf-8?B?WVZWMWFCNk9OLzdKRWxhWm5mNklNODQvR25QNHJheWR4Q2pjeG5wbjZoSEIy?=
- =?utf-8?B?K0kxWitGcTZTMVJvN1RzS0kxT05pdnl5RTVZU3RiQVZERVZzb0ZCU29RcnF1?=
- =?utf-8?B?QWNHdHJlMUEyU295aDAzcTNJK0RKMXgybXhXalRFbXY2OEVmWVl6V1g4aCs3?=
- =?utf-8?B?SGVmUDF3R2FNaVkzUTFuOE01VjJwYitOK1ZaSWR6QUt4dUp3ZW1mcVR5bkVv?=
- =?utf-8?B?U3JackFtOGI2cUl3VWRuZVl0YkpiSU9BMVJDY012VVNCaEpTNXhXVEVkdkgr?=
- =?utf-8?Q?uRURHBZWu+NcjZcOjOwRenXw2?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cXVEQVcxcjVXVXRjK25GcS9nSkF0Y01Wb0syK05Ub2Q5dnZxTFRYNWp3Ukdu?=
+ =?utf-8?B?elhPTkc0Smo3ZldLRExxYjhEVTVEcllSdloxNVRwVnBxaXE2clhwQmtNcEpu?=
+ =?utf-8?B?SE5WWEFWdUNDczAwMVNjdk1ROFRRRWFubUkxUElTak16emlwM3cxdk5YWXdM?=
+ =?utf-8?B?Zk9DQVpzWFpsQWZ4VzNFMWt2Vmphdy93T3ZIKzF0OTRheWw2b3FJN2RjMXZZ?=
+ =?utf-8?B?Nm9yWERkKzFoMEhoNzE1R2lvaUdvczlTN1dxQVJ6QldKNFJIdXprNHNRUzdQ?=
+ =?utf-8?B?UUhvbVh2NFlQV1NucTVlaE50clFxbUFWaXhLRkhTZ0theERIQ1FDQlRLV05Y?=
+ =?utf-8?B?cnpDaWxSM3BSV1EwaGlTUDRabUZ2QVljNVgyb09SNk80cGk5aWxuTk9WWmRG?=
+ =?utf-8?B?RkZab1R5OTQ0RnBSeVJYbFZWZE5NbXVDZFBOa1lMZ1dpQmg2cFVjbGExSjhW?=
+ =?utf-8?B?TXM4YlpuZG42UU43UU5GSnJwbXQ3ZFhMcDA0RGNuU0poNS8yb29NQmFyYmlB?=
+ =?utf-8?B?RXArNFljSEhKdm9CN1pNNUg0ajRNemY0VUp0MTVMNmxUdWtlbWZrSEh4SGN5?=
+ =?utf-8?B?UVE1UEhFT1l0SkJrdldRTkR2QmNDTkVhZlRnZHNnL3pCRGZ5Wm9MZmFhMHBl?=
+ =?utf-8?B?UkFVdHR6eVgrSDhyMEQzM012OTc5eHdsNDl5SkhYMFNSRkZFOTVJZW9qS0Nn?=
+ =?utf-8?B?QndGUFNlODN5SFYxRWF5dWZoMzg5ekhEaXZ0TzFvbS93NkpIL1RMYlp0cnRV?=
+ =?utf-8?B?MFNkdnVkTmNoUHVIbkFQWTBMcW1wdDRaMlE1NzdOVXJ4bXJnKzRGb0N0WVJq?=
+ =?utf-8?B?UkpYMTJtWlI2R2hVUWRTL2xsYXE0bU0vUCtLM091MUp0VFcyK21GVlRYaHZm?=
+ =?utf-8?B?WjBycVlMY0ovRkY5WDl0SlgzWGEzRDBsWVM5c3J0SERKaG9xQmFTdXdsenVU?=
+ =?utf-8?B?RzQwOHhZajJCckNSVTQzZGsva1BLQUsxMkYza05iaUdDaDZvdGVPTkVEZi9Q?=
+ =?utf-8?B?bjJQcTFzWVB1RXg2MGVua0lCT2lFYStzSGY1aGthczhZZ0pqQUs5b1E4YUQ2?=
+ =?utf-8?B?ajRTZkF2SVc2UDkzZGlvM1V4bVJLVWdSN2xoQWpUdjJQcDNTMjU3Q1Z1amdw?=
+ =?utf-8?B?UXpub2daRjZVTnlNVXVHTVNKZlFFN2dpbVhvZ2Y4TXltTHBudTZNQ3NTWk5G?=
+ =?utf-8?B?dlk3b09HNWZSTm9SL2Zwc09sQjQzc3N3ODF4NURXdEJLWXdGSkgyMFhmV290?=
+ =?utf-8?B?bUtQRTlGby9rM0N3VC9hMStUYk5hVEpEbElqc1RrdGdjZzFPQ3JKVHVDYWNn?=
+ =?utf-8?B?REFIaUwyZDMwMzR3bzVSQjNXNWRJdCtZVUpRSnVMMDZBcFdMV3J6R1ZCZDRx?=
+ =?utf-8?B?cGZmMmNnUllPM3FVQ1VmeVhrd3J5cVE0TFJpbXVwVWNPRWxBMVM3aWpmenlH?=
+ =?utf-8?B?eEp6SUtsOEtWaHhiZzkyMjZ3dlBnQXJrZlBKZVpCYnBaYWk3WFVhQU5JWHdB?=
+ =?utf-8?B?NWNwZXpQUk0xTFNnMUp5b2tKekdyRE9sMlBmaVdoRU8zbjdTR1htZS9NbUE5?=
+ =?utf-8?B?cWxDcmpBVzkvSWtteUJicnRCMDlUYzNOeGdpU3BhdXZVenhXRmJ6QTdRaU5y?=
+ =?utf-8?B?ZjdqL2I1Z3F5NjA3K0grRWFhZGNlc2pBQXZiUU5mYkdFSXZWbEFDN1FZTHdW?=
+ =?utf-8?B?YUI2V2N2VEdWQndkVGs5M3pyQmYrRG1kN082YnJ1UGNUa0xvU1EwS1A1Q1ly?=
+ =?utf-8?B?NGtQMFFyU0xVZjBQT21id0JjSlREeTlhRjU2NTdmSVV2ZVNncHBZRmVXYmhN?=
+ =?utf-8?B?eHYxbkJYVkZHMVRtN1FLSC9yTWpjNlF1ZktLRVNadUdxY2NKdHRwT1Q1YUZu?=
+ =?utf-8?B?ak5FWUdHb0NHa0R6MEFpVjg5elRsdGo1SWRrYW9kcmkwaHZIZzhza2RwMi85?=
+ =?utf-8?B?WlJYVlBwdFk2TlJnbERxQTNPQUpMVlhRQXQvUXI3TVZqa2xpZTByY3g5SGcy?=
+ =?utf-8?B?M3hSU2FhT0E3cjFZalRwNGpOOFVJZFRWbkVVUFp5MkVBemZMS3FQckZyRTFV?=
+ =?utf-8?B?WGZpdXhXS2djbG5qczRhdEkxU0hlNUF4RnhwY3JGR3BKZDRHYjBTUmdxSE9V?=
+ =?utf-8?Q?L+96f0M5yZ44QvmhfU1zI5BvQ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a98f9a4-8c4b-4e6d-2d4a-08dc18a7783f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7820.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d8f266e-03a4-42ca-c29b-08dc18c2e58f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2024 04:31:13.9892 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2024 07:47:33.5225 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R4T4/6K05Smesna4a7n/HfBj3Y4RSL9lYeJ/6IMBeeiZxkWNS6nM7d4EYpbs6dVk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5920
+X-MS-Exchange-CrossTenant-UserPrincipalName: em8gP/gWqpFlZtDIut05FP0NR586TCSRBYvlrkYIn8G8WXza7SUrfX5lxeDZS/Qx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6766
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,135 +122,237 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Kenneth.Feng@amd.com, kevinyang.wang@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/19/2024 7:24 AM, Ma, Jun wrote:
-> Hi Lijo,
-> 
-> On 1/18/2024 5:24 PM, Lazar, Lijo wrote:
->> On 1/18/2024 2:31 PM, Ma, Jun wrote:
->>>
->>>
->>> On 1/18/2024 4:38 PM, Lazar, Lijo wrote:
->>>> On 1/18/2024 12:57 PM, Ma Jun wrote:
->>>>> The power source flag should be updated when
->>>>> [1] System receives an interrupt indicating that the power source
->>>>> has changed.
->>>>> [2] System resumes from suspend or runtime suspend
->>>>>
->>>>> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
->>>>> ---
->>>>>     drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c      | 13 +++----------
->>>>>     drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c |  2 ++
->>>>>     drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c |  2 ++
->>>>>     3 files changed, 7 insertions(+), 10 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>>>> index c16703868e5c..a54663f2e2ab 100644
->>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->>>>> @@ -24,6 +24,7 @@
->>>>>     
->>>>>     #include <linux/firmware.h>
->>>>>     #include <linux/pci.h>
->>>>> +#include <linux/power_supply.h>
->>>>>     #include <linux/reboot.h>
->>>>>     
->>>>>     #include "amdgpu.h"
->>>>> @@ -817,16 +818,8 @@ static int smu_late_init(void *handle)
->>>>>     	 * handle the switch automatically. Driver involvement
->>>>>     	 * is unnecessary.
->>>>>     	 */
->>>>> -	if (!smu->dc_controlled_by_gpio) {
->>>>> -		ret = smu_set_power_source(smu,
->>>>> -					   adev->pm.ac_power ? SMU_POWER_SOURCE_AC :
->>>>> -					   SMU_POWER_SOURCE_DC);
->>>>> -		if (ret) {
->>>>> -			dev_err(adev->dev, "Failed to switch to %s mode!\n",
->>>>> -				adev->pm.ac_power ? "AC" : "DC");
->>>>> -			return ret;
->>>>> -		}
->>>>> -	}
->>>>> +	adev->pm.ac_power = power_supply_is_system_supplied() > 0;
->>>>> +	smu_set_ac_dc(smu);
->>>>
->>>> In the older logic, driver initialization/resume fails if the message
->>>> fails. This one doesn't care about the return value. Is there a reason
->>>> to ignore and continue?
->>>
->>> I think printing an error message in smu_set_ac_dc() is enough,
->>> and stopping the driver initialization/resume seems a bit excessive.
->>>
->>
->> FW not responding to a message usually means FW is not in a good state
->> which could later affect the system anyway. Since there are other FW
->> interactions after this probably ignoring this is fine.
->>
->> BTW, what is the issue seen after resume when power source is not set
->> correctly? If that issue creates real problems, then it's worth
->> considering keeping the FW informed about the real power source, and
->> fail if it doesn't succeed.
->>
-> I didn't see any serious problems, the only problem is we may read incorrect
-> power related data values because of wrong ac_power value.
-> 
 
-Thanks for the clarification. Patch is
 
-	Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Am 18.01.24 um 19:54 schrieb Friedrich Vock:
+> Allows us to detect subsequent IH ring buffer overflows as well.
+>
+> Cc: Joshua Ashton <joshua@froggi.es>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: stable@vger.kernel.org
+>
+> Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
+> ---
+> v2: Reset CLEAR_OVERFLOW bit immediately after setting it
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  | 2 ++
+>   drivers/gpu/drm/amd/amdgpu/cik_ih.c     | 7 +++++++
+>   drivers/gpu/drm/amd/amdgpu/cz_ih.c      | 6 ++++++
+>   drivers/gpu/drm/amd/amdgpu/iceland_ih.c | 6 ++++++
+>   drivers/gpu/drm/amd/amdgpu/ih_v6_0.c    | 7 +++++++
+>   drivers/gpu/drm/amd/amdgpu/ih_v6_1.c    | 8 ++++++++
+>   drivers/gpu/drm/amd/amdgpu/navi10_ih.c  | 7 +++++++
+>   drivers/gpu/drm/amd/amdgpu/si_ih.c      | 7 +++++++
+>   drivers/gpu/drm/amd/amdgpu/tonga_ih.c   | 7 +++++++
+>   drivers/gpu/drm/amd/amdgpu/vega10_ih.c  | 7 +++++++
+>   drivers/gpu/drm/amd/amdgpu/vega20_ih.c  | 7 +++++++
+>   11 files changed, 71 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> index 508f02eb0cf8..6041ec727f06 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> @@ -69,6 +69,8 @@ struct amdgpu_ih_ring {
+>   	unsigned		rptr;
+>   	struct amdgpu_ih_regs	ih_regs;
+>
+> +	bool overflow;
+> +
 
-Thanks,
-Lijo
+That flag isn't needed any more in this patch as far as I can see.
 
-> Regards,
-> Ma Jun
->> Thanks,
->> Lijo
->>
->>> Regards,
->>> Ma Jun
->>>>
->>>> Thanks,
->>>> Lijo
->>>>>     
->>>>>     	if ((amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 1)) ||
->>>>>     	    (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 3)))
->>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
->>>>> index 2e7f8d5cfc28..8047150fddd4 100644
->>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
->>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
->>>>> @@ -1442,10 +1442,12 @@ static int smu_v11_0_irq_process(struct amdgpu_device *adev,
->>>>>     			case 0x3:
->>>>>     				dev_dbg(adev->dev, "Switched to AC mode!\n");
->>>>>     				schedule_work(&smu->interrupt_work);
->>>>> +				adev->pm.ac_power = true;
->>>>>     				break;
->>>>>     			case 0x4:
->>>>>     				dev_dbg(adev->dev, "Switched to DC mode!\n");
->>>>>     				schedule_work(&smu->interrupt_work);
->>>>> +				adev->pm.ac_power = false;
->>>>>     				break;
->>>>>     			case 0x7:
->>>>>     				/*
->>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
->>>>> index 771a3d457c33..c486182ff275 100644
->>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
->>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
->>>>> @@ -1379,10 +1379,12 @@ static int smu_v13_0_irq_process(struct amdgpu_device *adev,
->>>>>     			case 0x3:
->>>>>     				dev_dbg(adev->dev, "Switched to AC mode!\n");
->>>>>     				smu_v13_0_ack_ac_dc_interrupt(smu);
->>>>> +				adev->pm.ac_power = true;
->>>>>     				break;
->>>>>     			case 0x4:
->>>>>     				dev_dbg(adev->dev, "Switched to DC mode!\n");
->>>>>     				smu_v13_0_ack_ac_dc_interrupt(smu);
->>>>> +				adev->pm.ac_power = false;
->>>>>     				break;
->>>>>     			case 0x7:
->>>>>     				/*
->>>>
->>
+Regards,
+Christian.
+
+>   	/* For waiting on IH processing at checkpoint. */
+>   	wait_queue_head_t wait_process;
+>   	uint64_t		processed_timestamp;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_ih.c b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
+> index 6f7c031dd197..bbadf2e530b8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/cik_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
+> @@ -204,6 +204,13 @@ static u32 cik_ih_get_wptr(struct amdgpu_device *adev,
+>   		tmp = RREG32(mmIH_RB_CNTL);
+>   		tmp |= IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
+>   		WREG32(mmIH_RB_CNTL, tmp);
+> +
+> +		/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
+> +		 * can be detected.
+> +		 */
+> +		tmp &= ~IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
+> +		WREG32(mmIH_RB_CNTL, tmp);
+> +		ih->overflow = true;
+>   	}
+>   	return (wptr & ih->ptr_mask);
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/cz_ih.c b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
+> index b8c47e0cf37a..e5c4ed44bad9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
+> @@ -216,6 +216,12 @@ static u32 cz_ih_get_wptr(struct amdgpu_device *adev,
+>   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>   	WREG32(mmIH_RB_CNTL, tmp);
+>
+> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
+> +	 * can be detected.
+> +	 */
+> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+> +	WREG32(mmIH_RB_CNTL, tmp);
+> +	ih->overflow = true;
+>
+>   out:
+>   	return (wptr & ih->ptr_mask);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
+> index aecad530b10a..075e5c1a5549 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
+> @@ -215,6 +215,12 @@ static u32 iceland_ih_get_wptr(struct amdgpu_device *adev,
+>   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>   	WREG32(mmIH_RB_CNTL, tmp);
+>
+> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
+> +	 * can be detected.
+> +	 */
+> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+> +	WREG32(mmIH_RB_CNTL, tmp);
+> +	ih->overflow = true;
+>
+>   out:
+>   	return (wptr & ih->ptr_mask);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> index d9ed7332d805..d0a5a08edd55 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> @@ -418,6 +418,13 @@ static u32 ih_v6_0_get_wptr(struct amdgpu_device *adev,
+>   	tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+>   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>   	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+> +
+> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
+> +	 * can be detected.
+> +	 */
+> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+> +	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+> +	ih->overflow = true;
+>   out:
+>   	return (wptr & ih->ptr_mask);
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+> index 8fb05eae340a..6bf4f210ef74 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+> @@ -418,6 +418,14 @@ static u32 ih_v6_1_get_wptr(struct amdgpu_device *adev,
+>   	tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+>   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>   	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+> +
+> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
+> +	 * can be detected.
+> +	 */
+> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+> +	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+> +	ih->overflow = true;
+> +
+>   out:
+>   	return (wptr & ih->ptr_mask);
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> index e64b33115848..cdbe7d01490e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> @@ -442,6 +442,13 @@ static u32 navi10_ih_get_wptr(struct amdgpu_device *adev,
+>   	tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+>   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>   	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+> +
+> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
+> +	 * can be detected.
+> +	 */
+> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+> +	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+> +	ih->overflow = true;
+>   out:
+>   	return (wptr & ih->ptr_mask);
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amdgpu/si_ih.c
+> index 9a24f17a5750..398fbc296cac 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
+> @@ -119,6 +119,13 @@ static u32 si_ih_get_wptr(struct amdgpu_device *adev,
+>   		tmp = RREG32(IH_RB_CNTL);
+>   		tmp |= IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
+>   		WREG32(IH_RB_CNTL, tmp);
+> +
+> +		/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
+> +		 * can be detected.
+> +		 */
+> +		tmp &= ~IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
+> +		WREG32(IH_RB_CNTL, tmp);
+> +		ih->overflow = true;
+>   	}
+>   	return (wptr & ih->ptr_mask);
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
+> index 917707bba7f3..1d1e064be7d8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
+> @@ -219,6 +219,13 @@ static u32 tonga_ih_get_wptr(struct amdgpu_device *adev,
+>   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>   	WREG32(mmIH_RB_CNTL, tmp);
+>
+> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
+> +	 * can be detected.
+> +	 */
+> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+> +	WREG32(mmIH_RB_CNTL, tmp);
+> +	ih->overflow = true;
+> +
+>   out:
+>   	return (wptr & ih->ptr_mask);
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> index d364c6dd152c..619087a4c4ae 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> @@ -373,6 +373,13 @@ static u32 vega10_ih_get_wptr(struct amdgpu_device *adev,
+>   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>   	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+>
+> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
+> +	 * can be detected.
+> +	 */
+> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+> +	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+> +	ih->overflow = true;
+> +
+>   out:
+>   	return (wptr & ih->ptr_mask);
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> index ddfc6941f9d5..f42f8e5dbe23 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> @@ -421,6 +421,13 @@ static u32 vega20_ih_get_wptr(struct amdgpu_device *adev,
+>   	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+>   	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+>
+> +	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
+> +	 * can be detected.
+> +	 */
+> +	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
+> +	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+> +	ih->overflow = true;
+> +
+>   out:
+>   	return (wptr & ih->ptr_mask);
+>   }
+> --
+> 2.43.0
+>
 
