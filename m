@@ -4,44 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AB26C47DD9
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 14:59:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E3C4C47DD9
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:00:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A840910F2AC;
-	Mon, 22 Jan 2024 14:59:42 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DDD110F2AC;
- Mon, 22 Jan 2024 14:59:40 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 0A343CE2B0C;
- Mon, 22 Jan 2024 14:59:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 281A2C433C7;
- Mon, 22 Jan 2024 14:59:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705935543;
- bh=MSWeEE6FV7XfvdnRuVEZiZxowGTy6E0Grpm61VV6JOw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=N6bZK+0PpWHjWIT8qSHGaErRWbtcCaRb0hKyeEiWjJHYxmKtQhh6png0ud0zBq5bK
- VOyv2AlQbyxzI0nIqBFh3XiXj14NGOUdZA8k4wQZvCM7Dn/1bZalCRHgRAONOancis
- 8qyKAbIpG2BoDnJSZsW14865ukGeSjajbYUT3b+IpYUsFg9oxHbdN6qAN6GcfBStc3
- 08fww7Kp8pJW3+M7byZ7qeg9M/gInukjW/wyJtKTBXTQvdbYEpBGeQrzy/nb+mVlMk
- GQlIDFgl+domhwFwXw/ZI42BsKM0MO/upVz30Iz+R6ClbezBun955VMK6dOPFFJfOt
- p+3vu+f2Knw5Q==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.7 51/88] drm/amd/display: Force p-state disallow if
- leaving no plane config
-Date: Mon, 22 Jan 2024 09:51:24 -0500
-Message-ID: <20240122145608.990137-51-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240122145608.990137-1-sashal@kernel.org>
-References: <20240122145608.990137-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2771F10F2BF;
+	Mon, 22 Jan 2024 15:00:27 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2044.outbound.protection.outlook.com [40.107.244.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1927E10F2C0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jan 2024 15:00:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=a/VJGIZUVy7plNpwUKq6sECBs3/o9jM9X5UXGl/JRANLrEU1e0BqTTWQuoCLG3nz3jScjuHQzY5DXsHmgSF8dCE8/LUaQNWxn7u3F2QEiorLcTS77lVeZEO2kmlJx5S7r4yjghmD5ZAZf3D0qRxMg7TFO4KnWu8rSIvPO0HuIo0QzCclI+zuULBdPx/B2Dm/vd0lERtjsw1IX5UPYf6u5LYRKk/+TSFsWETwFavcc/Jtj2NR4AaRJXnWSyK5yI3KEsMUWboOklCFWcMKI+qvs4OFMQhNrMX80FqiJXtur3ra4PcUX2Fa+UimEAA/3OOMBkhf1MSlhfRsaU6A5o3vBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hmh1aJVGtQV0LQ/yqaCY5TUv7I2rS+3i1sInTPSI/mI=;
+ b=Wo4nXZ75hhhL3jKMlPiBwaodlNK16FqQBjbVDI5SRckYRGYrSFUfXr7i7youp1MIkinMxOATN9fmZCGkLj3kLN7aZGcEmEgNY/QVIokRLsqNxGl78/gT9OaXqucJ1JDr2osnYuWgT1yVrFunWQLJ9Nku/drWv34rc/mNJXe6O8x94JlMcDYVBJ1s/Gr2gJI3jm3QwGYdTxIbI0jX8s3jr2QkxzTvZ/ZvcLT3pyuZWVCLL48P2Gz3P4iLKIWpLDIOHokQVRBGb97NZM9T9b7pnrw6Vj+bDUN7LnMqf3Jlyk3X/3Nx3SFQa6upM819TZndAqlXGraYYfc99LFZuVCnxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hmh1aJVGtQV0LQ/yqaCY5TUv7I2rS+3i1sInTPSI/mI=;
+ b=4RsLQcumqvH6pPTI7GOIEix3n9srHVJ8SjvtVAB86qavD4zTe6C9nbYUFY5tWDg36PGest6VamJs/SiT/t9/7kMJbrD/s6a0oaQtYQrLwaW7tSMUXCDLyqjVJe6+/YDdK42xdX3a/GxiwsK8W2w1e6DKE+aXag27HMgn1cdc38o=
+Received: from SA9PR13CA0078.namprd13.prod.outlook.com (2603:10b6:806:23::23)
+ by CO6PR12MB5474.namprd12.prod.outlook.com (2603:10b6:303:139::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.34; Mon, 22 Jan
+ 2024 15:00:21 +0000
+Received: from SN1PEPF0002636D.namprd02.prod.outlook.com
+ (2603:10b6:806:23:cafe::aa) by SA9PR13CA0078.outlook.office365.com
+ (2603:10b6:806:23::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.16 via Frontend
+ Transport; Mon, 22 Jan 2024 15:00:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002636D.mail.protection.outlook.com (10.167.241.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7202.16 via Frontend Transport; Mon, 22 Jan 2024 15:00:20 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 22 Jan
+ 2024 09:00:19 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: covert some variable sized arrays to [] style
+Date: Mon, 22 Jan 2024 10:00:01 -0500
+Message-ID: <20240122150001.732948-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.7.1
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636D:EE_|CO6PR12MB5474:EE_
+X-MS-Office365-Filtering-Correlation-Id: d35a10ff-5fbf-4655-019e-08dc1b5ada98
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 9qVpaSow/7v0nZLKK+pnrKBDxKRzKxud4cP1z59X8lVliA3JSU8B594slDm2GFASjjzrJb8HJ1jYKdzHBxSLsth9Umrn3hPT+HoYRCKceDrTcBEQzUu8Zi5rCkt+V+zInFeDQKKTAeUTofdTMKB7ZtB7J1LOT1tneToyZbOq9T3ioU+SX7NX2kexY+T1rfMg9v7F0aI/O0nnd3TQSKrBdv3CEmbfiU+Dmf1AvYKiPNPTm2HGwprJ8EpoosyOCstTPhYUZO6AwFF44Y0oDywVZkcMLQmGRdCMcfLMPIgSqWiYEdzBBoz8sbZloPK8+i6fuMi1PNkyqQ7HVqD/MOgIeIwrTFGLDshf1DNsX+8yOYofHj3fcyin0tmoP57v81l2gDgIsZVu7gu1C2E0S84sPbTAT13QsJUxaFj0K+yv7d5FTJeMdMeWgagQDha3nPLIRo50I+igxoOZGTrOeLe1aXPvfm+NG+tFSmmJImZ3Yf9C9Jn5JwtNEd31Pfnycz5DjneMx4YsO3nP9eB+ye1tclImXbJcYLYe90+441Q7IsrflX7g4i7BEZqfW7cnXJzaowM7PjVvkJUiQlWx+vV56GesGizkJW3YY3lVM8+A29ZvwtRO8TMImI7kUJnPC0B2BCEctz0Oq+EbcMfwLLH3BmrO2WbQTZrndaVhw4YQPyP9LEgxfL8DJtcgapEGsatpZhvG4h0g2VvyiapUE/6ez9K7tNuveOx5WWUCOAAozxi931K/mlyi0gX9Mhbez6Izy4uL3XVluYN0nOnRZR1pRCtpGj3U0OqHWoZiMrCijOc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(136003)(376002)(346002)(39860400002)(396003)(230273577357003)(230922051799003)(230173577357003)(64100799003)(82310400011)(186009)(1800799012)(451199024)(46966006)(40470700004)(36840700001)(26005)(1076003)(2616005)(7696005)(426003)(6666004)(336012)(36860700001)(5660300002)(83380400001)(47076005)(4744005)(2906002)(41300700001)(966005)(478600001)(8936002)(4326008)(8676002)(70206006)(70586007)(316002)(6916009)(356005)(36756003)(86362001)(81166007)(82740400003)(16526019)(40460700003)(40480700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2024 15:00:20.7544 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d35a10ff-5fbf-4655-019e-08dc1b5ada98
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5474
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,84 +97,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
- Wesley.Chalmers@amd.com, sunpeng.li@amd.com, airlied@gmail.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
- Samson Tam <samson.tam@amd.com>, wenjing.liu@amd.com, mdaenzer@redhat.com,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, jun.lei@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com, hamza.mahfooz@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <alvin.lee2@amd.com>
+Replace [1] with [].  Silences UBSAN warnings.
 
-[ Upstream commit 9a902a9073c287353e25913c0761bfed49d75a88 ]
-
-[Description]
-- When we're in a no plane config, DCN is always asserting
-  P-State allow
-- This creates a scenario where the P-State blackout can start
-  just as VUPDATE takes place and transitions the DCN config to
-  a one where one or more HUBP's are active which can result in
-  underflow
-- To fix this issue, force p-state disallow and unforce after
-  the transition from no planes case -> one or more planes active
-
-Reviewed-by: Samson Tam <samson.tam@amd.com>
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3107
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ drivers/gpu/drm/amd/include/pptable.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index 608221b0dd5d..c3c83178eb1e 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -1877,6 +1877,8 @@ void dcn20_program_front_end_for_ctx(
- 	int i;
- 	struct dce_hwseq *hws = dc->hwseq;
- 	DC_LOGGER_INIT(dc->ctx->logger);
-+	unsigned int prev_hubp_count = 0;
-+	unsigned int hubp_count = 0;
+diff --git a/drivers/gpu/drm/amd/include/pptable.h b/drivers/gpu/drm/amd/include/pptable.h
+index 5aac8d545bdc..ef3feb0b6674 100644
+--- a/drivers/gpu/drm/amd/include/pptable.h
++++ b/drivers/gpu/drm/amd/include/pptable.h
+@@ -491,7 +491,7 @@ typedef struct _ClockInfoArray{
+     //sizeof(ATOM_PPLIB_CLOCK_INFO)
+     UCHAR ucEntrySize;
+     
+-    UCHAR clockInfo[1];
++    UCHAR clockInfo[];
+ }ClockInfoArray;
  
- 	if (resource_is_pipe_topology_changed(dc->current_state, context))
- 		resource_log_pipe_topology_update(dc, context);
-@@ -1894,6 +1896,20 @@ void dcn20_program_front_end_for_ctx(
- 		}
- 	}
+ typedef struct _NonClockInfoArray{
+@@ -501,7 +501,7 @@ typedef struct _NonClockInfoArray{
+     //sizeof(ATOM_PPLIB_NONCLOCK_INFO)
+     UCHAR ucEntrySize;
+     
+-    ATOM_PPLIB_NONCLOCK_INFO nonClockInfo[1];
++    ATOM_PPLIB_NONCLOCK_INFO nonClockInfo[];
+ }NonClockInfoArray;
  
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		if (dc->current_state->res_ctx.pipe_ctx[i].plane_state)
-+			prev_hubp_count++;
-+		if (context->res_ctx.pipe_ctx[i].plane_state)
-+			hubp_count++;
-+	}
-+
-+	if (prev_hubp_count == 0 && hubp_count > 0) {
-+		if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
-+			dc->res_pool->hubbub->funcs->force_pstate_change_control(
-+					dc->res_pool->hubbub, true, false);
-+		udelay(500);
-+	}
-+
- 	/* Set pipe update flags and lock pipes */
- 	for (i = 0; i < dc->res_pool->pipe_count; i++)
- 		dcn20_detect_pipe_changes(&dc->current_state->res_ctx.pipe_ctx[i],
-@@ -2039,6 +2055,10 @@ void dcn20_post_unlock_program_front_end(
- 		}
- 	}
- 
-+	if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
-+		dc->res_pool->hubbub->funcs->force_pstate_change_control(
-+				dc->res_pool->hubbub, false, false);
-+
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
- 		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
- 
+ typedef struct _ATOM_PPLIB_Clock_Voltage_Dependency_Record
 -- 
-2.43.0
+2.42.0
 
