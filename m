@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FA2BC47DD9
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:00:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC267C47DAF
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:01:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C56210F2CF;
-	Mon, 22 Jan 2024 15:00:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F10D10F2C7;
+	Mon, 22 Jan 2024 15:00:58 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70E2910F2CD;
- Mon, 22 Jan 2024 15:00:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F70A10F2BE;
+ Mon, 22 Jan 2024 15:00:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 966BCCE2B10;
- Mon, 22 Jan 2024 15:00:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11CF3C433F1;
- Mon, 22 Jan 2024 15:00:37 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 914A1CE2B11;
+ Mon, 22 Jan 2024 15:00:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 113D5C43390;
+ Mon, 22 Jan 2024 15:00:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705935640;
- bh=TUaHewwRDkOKCmO6wFsLmMkfHc9ooD1imeaxcYUU8qk=;
+ s=k20201202; t=1705935622;
+ bh=ziCgN18ZBJKgFtWmWXYcTNGfWO2DoZ1XDQaXC3PcFpE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BUFrCnGnpX4f9l6PiLAM5OheuDqT1sEBLqO68oqaq3nJgdIvqVS8iGzzMIcs0IWXO
- ff+fkFnzy8Exbc8R1uWb7liWT+wDCfaGvHgEOVQzuKD+jHV9FL2OExo+g4OAw8WOY3
- b8YUP3AsSJ7lkNUUcXh4FoPalPq/iSTpIjlXiTmjvcCCwj43yARMft9f4vucrlvELC
- jpwk1N3XyzPvO1CdQ2rfQc4TWs8wt9XFKxAqDq6Chh7D/0hW2krY4dNH05D3H1U4TR
- 77/ZV5Ed4x1tYB2CtsDAWRhjdBOlIWBl0YeSspuwo2imyrF4dm3jOvd6rf6PaUQ4J6
- zMC2XHnFh8CFQ==
+ b=OQK7aWnzjZzdFVGzDp+JNdBtFy5E8iIU+z4fMMRPepQ0bBmSkMOxZ4WaOiGrouQJm
+ 75pPS4Le4ZKUwSZEv+GubI3qgjC0c6c0tNDGlkmAsy2LyYc4Scw4NV4nGJhhriS3aE
+ Mg7aDpdXYnyMeqXQ1JWv2Dx6vO/AtFIDREpwVYzz+5DXhF2i2B5H0BWYrLijvn3thq
+ 5zBTUbT8PcicdUm5kOzXxRroJh++3wFUSQERhwAaaQiYe3VgZ1MDuQrDA08A8zaU9S
+ SMnXuP4fZ9u6nTc8Sasju/VrY8Q4xn81Orue0v6j2ik1SpzqVuJR1TxTl39FejJ1Fe
+ /Zc6IM/4BS+Vw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.7 68/88] drm/amd/display: Fix lightup regression
- with DP2 single display configs
-Date: Mon, 22 Jan 2024 09:51:41 -0500
-Message-ID: <20240122145608.990137-68-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.7 66/88] drm/amd/display: make flip_timestamp_in_us
+ a 64-bit variable
+Date: Mon, 22 Jan 2024 09:51:39 -0500
+Message-ID: <20240122145608.990137-66-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122145608.990137-1-sashal@kernel.org>
 References: <20240122145608.990137-1-sashal@kernel.org>
@@ -53,59 +53,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Charlene Liu <charlene.liu@amd.com>,
- dillon.varone@amd.com, sunpeng.li@amd.com, airlied@gmail.com,
- Qingqing.Zhuo@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
- syed.hassan@amd.com, amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Michael Strauss <michael.strauss@amd.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Wayne Lin <wayne.lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, gabe.teeger@amd.com,
- harry.wentland@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- sungkim@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Aric Cyr <aric.cyr@amd.com>,
+ dri-devel@lists.freedesktop.org, sunpeng.li@amd.com, harry.wentland@amd.com,
+ qingqing.zhuo@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, wenjing.liu@amd.com,
+ Daniel Wheeler <daniel.wheeler@amd.com>, aurabindo.pillai@amd.com,
+ hamza.mahfooz@amd.com, daniel@ffwll.ch, Wayne Lin <wayne.lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ Josip Pavic <josip.pavic@amd.com>, christian.koenig@amd.com,
+ mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michael Strauss <michael.strauss@amd.com>
+From: Josip Pavic <josip.pavic@amd.com>
 
-[ Upstream commit 5a82b8d6c05f9b30828ede1b103b9ee5cb5c912e ]
+[ Upstream commit 6fb12518ca58412dc51054e2a7400afb41328d85 ]
 
-[WHY]
-Previous fix for multiple displays downstream of DP2 MST hub caused regression
+[Why]
+This variable currently overflows after about 71 minutes. This doesn't
+cause any known functional issues but it does make debugging more
+difficult.
 
-[HOW]
-Match sink IDs instead of sink struct addresses
+[How]
+Make it a 64-bit variable.
 
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Reviewed-by: Aric Cyr <aric.cyr@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Michael Strauss <michael.strauss@amd.com>
+Signed-off-by: Josip Pavic <josip.pavic@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c
-index 2498b8341199..d6a68484153c 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c
-@@ -157,6 +157,14 @@ bool is_dp2p0_output_encoder(const struct pipe_ctx *pipe_ctx)
- {
- 	/* If this assert is hit then we have a link encoder dynamic management issue */
- 	ASSERT(pipe_ctx->stream_res.hpo_dp_stream_enc ? pipe_ctx->link_res.hpo_dp_link_enc != NULL : true);
-+	/* Count MST hubs once by treating only 1st remote sink in topology as an encoder */
-+	if (pipe_ctx->stream->link && pipe_ctx->stream->link->remote_sinks[0]) {
-+		return (pipe_ctx->stream_res.hpo_dp_stream_enc &&
-+			pipe_ctx->link_res.hpo_dp_link_enc &&
-+			dc_is_dp_signal(pipe_ctx->stream->signal) &&
-+			(pipe_ctx->stream->link->remote_sinks[0]->sink_id == pipe_ctx->stream->sink->sink_id));
-+	}
-+
- 	return (pipe_ctx->stream_res.hpo_dp_stream_enc &&
- 		pipe_ctx->link_res.hpo_dp_link_enc &&
- 		dc_is_dp_signal(pipe_ctx->stream->signal));
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+index e2a3aa8812df..811474f4419b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+@@ -244,7 +244,7 @@ enum pixel_format {
+ #define DC_MAX_DIRTY_RECTS 3
+ struct dc_flip_addrs {
+ 	struct dc_plane_address address;
+-	unsigned int flip_timestamp_in_us;
++	unsigned long long flip_timestamp_in_us;
+ 	bool flip_immediate;
+ 	/* TODO: add flip duration for FreeSync */
+ 	bool triplebuffer_flips;
 -- 
 2.43.0
 
