@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74515C47DAF
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 08:43:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85393C4725D
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 09:09:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A37F10EAF0;
-	Mon, 22 Jan 2024 08:43:28 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA99B10EAF0
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jan 2024 08:43:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1223910EBA1;
+	Mon, 22 Jan 2024 09:09:18 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2084.outbound.protection.outlook.com [40.107.92.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20E3C10EB94
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jan 2024 09:09:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ftML6IKK00msSye6cSrteKPEpk7Oa5c8j8H4dzUbbTUvUim6UA/v8TPY7gm/C2I5dTFDGyhtFyC66tDAIItpUTR+WxoQwIlSWqEYO5v7KWPAaaUMAuMFeGsLZ8q5lFTeoAfkS6VABdhdw7etiNMYPzbWEWTHJ+Nz6AccJ0QyRDHUb3WIDqdTzaOtDr7NE97pgHdzlfK3yDvU09A+7umAGIb9CondYqqLZDbRkJNO66Nf6czL3OiiX7gUi2aiD9/xEpyse1+53VUz55Ys0c7VDBeSRrMyD0jW7yhQM1GVQwtBLe9Qi5QHNSj18v0GD+CkgUrPHfgwakGOfHMuFK27Xw==
+ b=nVJU1CW2nI6h3Sj8Lt8Dtp0GRlqQueCp5MqGcg8GqwtdM3OF71JGwYR4HPOIq0wifZGIQYMJB1MDL57wsF9nod/aEcMFDwUIIOo0czll9oreg2crvu6gekWH/5/1VgRH4E08NIZGNSYPxjwhjM8hu57B0x2hydX2HkcmWSMSTb3lHoWXKMIH/p+KR0nSMGqfDtC+J1+92Qt2/m7nS0+qOE98pCJyzYWlXcgxXoIqDwlMFlzju8IVwghWCbgghE5Cv5JVd2q65zydoP+Z0UIS9m4pZo1R3G925RnD24M8O2ISdjTHnVGYkbNik/C4XF9vge7EpHjGNZdp7ADd/BKn2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8lTu/l3WuU3K+eE506COYTgx1S5aDgyIqEB8j1lHglg=;
- b=EuwuUipq/UzK3GZjYsrR6BMelhZibDuufdmpd0sDQc/jSumxKshzaCWfS8i1zbDBbzV6uJU+I7wWu3V0AOEf7+wt23WLdRlQ+J9V5jsg60p9neJH3Re476ZBbChOibIewA2V8nhsSp8Ga+sPnXhgfclpr/4+oStu7be7bnm6lykjnULwUiiLBwkm7TGGs9rNb0XjpTg1SOKIDpg0VvJ6tD/M8qH/OxqpHOqzGV3rx/W/ZmARepnaQx3O3dpXF/r+Wxp95ik7NoUFF6+tNdI6bIOvwcUa/fTyS6pJ23SFkxhZ2vTvEv4d5URhTmZbSkIP7iiqZTpXkSHLVtes9jXqvw==
+ bh=sZWgNORLMDWyzz04uEytpVSJ4Ji4toj5xmweQswDnEY=;
+ b=AtuB3HGTrclYRQudMDlMJQTfsdI2lc9Gd1oTGfmCeWzvs/AfhdKp5MC56DNRDKRzJ2yJJ0nS7eG+mfG/3CvgF+iJzdhkTIcmIiX7WweaFZPG8/qFCgb8UiEaiL5PKoOp9qlKbtgBoi85et1xFkywEjz9MXxrEvgzczNn/IsEfzhxgECAZvwa1QltWlSlCYkQlH2HfqSf8vC4YB/dykWKLe03Af7GNqY0mt9bpeHVS0rr3Xz2cDJnAlSiyPOTm/AK5pskcdsoxP8OdftHKmT+ycw42eAn821etLq65/lKrGIdUaODzgwno2c/tg0fdROyOVaHl543yYQmLgiB/4iUyw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8lTu/l3WuU3K+eE506COYTgx1S5aDgyIqEB8j1lHglg=;
- b=u7zyw97sO/fXmv0sXXQj1w9/lvn7z64MiuNNEmtNb2bh3oVVQjRp27TD7cwmr2SGlxuSAyXXplx1qq3gJgmBXKVBFBLxv9slsfSeSyAsp8OAGTJuvtRR/O1QxZSAuDMcRxuqc1SyKkr75tIiF4WHvlIcghN0/juvyKuJ64s4Ufs=
-Received: from BL1PR13CA0340.namprd13.prod.outlook.com (2603:10b6:208:2c6::15)
- by DM6PR12MB4513.namprd12.prod.outlook.com (2603:10b6:5:2ad::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.32; Mon, 22 Jan
- 2024 08:43:22 +0000
-Received: from MN1PEPF0000ECD4.namprd02.prod.outlook.com
- (2603:10b6:208:2c6:cafe::40) by BL1PR13CA0340.outlook.office365.com
- (2603:10b6:208:2c6::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.16 via Frontend
- Transport; Mon, 22 Jan 2024 08:43:22 +0000
+ bh=sZWgNORLMDWyzz04uEytpVSJ4Ji4toj5xmweQswDnEY=;
+ b=tHe+ce/E/Pl16cS3ch7mD9ejMRe2v4RLrzuLuek75BczGdLDuWPC4M+oNd/vl99E0kiiahcgZlsi+/Lv5B6RFmdIZKRVVFOiErHPIfc1UpIAT+FGnbHVktyRhls+FqpWbXOu8nd7e++JjcJTfwOZ7/2dJJxPtmMg23kXN4XA24g=
+Received: from SJ0PR03CA0273.namprd03.prod.outlook.com (2603:10b6:a03:39e::8)
+ by DS7PR12MB6288.namprd12.prod.outlook.com (2603:10b6:8:93::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7202.31; Mon, 22 Jan 2024 09:09:00 +0000
+Received: from CO1PEPF000044EF.namprd05.prod.outlook.com
+ (2603:10b6:a03:39e:cafe::2f) by SJ0PR03CA0273.outlook.office365.com
+ (2603:10b6:a03:39e::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.31 via Frontend
+ Transport; Mon, 22 Jan 2024 09:08:59 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,50 +45,47 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD4.mail.protection.outlook.com (10.167.242.132) with Microsoft
+ CO1PEPF000044EF.mail.protection.outlook.com (10.167.241.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Mon, 22 Jan 2024 08:43:22 +0000
-Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.7202.16 via Frontend Transport; Mon, 22 Jan 2024 09:08:59 +0000
+Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 22 Jan
- 2024 02:43:20 -0600
-From: Ma Jun <Jun.Ma2@amd.com>
+ 2024 03:08:56 -0600
+From: Lang Yu <Lang.Yu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdgpu/pm: Use macro definitions in the smu IH
- process function
-Date: Mon, 22 Jan 2024 16:42:40 +0800
-Message-ID: <20240122084240.1053190-2-Jun.Ma2@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240122084240.1053190-1-Jun.Ma2@amd.com>
-References: <20240122084240.1053190-1-Jun.Ma2@amd.com>
+Subject: [PATCH v2] drm/amdkfd: reserve the BO before validating it
+Date: Mon, 22 Jan 2024 17:08:43 +0800
+Message-ID: <20240122090843.1540732-1-Lang.Yu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD4:EE_|DM6PR12MB4513:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a46b14b-06e8-41c3-6138-08dc1b2630c3
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044EF:EE_|DS7PR12MB6288:EE_
+X-MS-Office365-Filtering-Correlation-Id: 362b91d7-3ba9-4c62-5fe1-08dc1b29c4f1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JUBWJup4ZQ5cQeILhQdC6qOJ8Ej+YQeRqg4yrqfFgIGHwQRg8MVNDnDScsxOLijxLd0dMw1MjpYq8S6VuDaaBC+TdVi3Kyu1+tFS8/o4k98BacBjlg8VWtZlo8izl53N3hG3jXVM0TlVmRk7OSjB0omlLP2u1qhlACd3KJfF0gU4gI0bbmQuouo5IVODPPvbh7G/AgZLbFYiSV5IauAIf5DjLVaUx/+GNPcqgh7XqqB2v0Shm3MVyLH03aPaOyDP3GAPiA70jvCd5CHkuOmEtPu4N+DYQ2c5nZM56IoHH4LP2YFUxda0fMSCrONqoKaDz0xcvXglMT7GvKQtp8IOqWu8AZNGQQtHQMisIojdn+POxf68VJ5Y0OIOI/2uFzO7VuyYraMcyx94y/hfkqgkIbBiFKQWLcYCKyFKdkZMlkhPt/YYN1MjktTdogL3N0iNeYPLJyQ2KbVp2/a8e83Fepo7WUW52/I1ekgDfpEoHHnGR0+o3BmIqpOW507WCqmnQlY3Yx46DjF/tJVGQjOKIrdny68OCMGvmzcmsxLjgj3Gbdn4C8jCo9U3Fbb+c+rVRp2KXsGxhO2687jYvUNQCQ19gzzkCEsECzwlmJ/ObhxbGzhIaBMEEeebHdQpPMBYgjSuzz9Sn5lQDqmfo1/jl/BGhavtc6yI1lE0Cg8P5BC++S6tJVjrQO5U0Y+hlQ9pWF5hUxkCeBflSo44L23f1KQ9hC668XXbh1oy1vWJZQCyF7SOSz6pUsP+mWULL8EE40oGmtV/nO3wg3MYV6SGxw==
+X-Microsoft-Antispam-Message-Info: D9jRB6P/lPTRm3vKtvLarDZWLndl0hWr0T6vNxCEQGyzohwk5CE8kY2lrbcQvOaQDAfKR8c2VeGKrP/jWoYH+QwIH8NYYmbLFkj3GhleFwcmg2tsWDcD6PzQZv4KJ6Hv40AGs88oNj7jhB82iQB8qC2wpUm6vjI0I+VfN/W5dxRB3U442q7TZG9ydHlmXZirRP/aAyCujrUaU1d9XD68/X7wFRiL0kbK5rhj6ScKjqBAqGeOKiw70nwETtfQN4R90vgCRy49tYPzg474twZkiWsRa5fZ98ixwIHgmpp408xjGBylC1EMovtg6I/wrW5BGlESNGguxFfh56lWL2Qckh9+53RbIi8JaYD9PUoUiHIxgJFFropdPu6IuFkZK5TnNDUPYAoAUM9MXODv9mDO3m5V9dqeeqF5iAhIcJ/sPGe+jg9CaVPRXkw5FUidrm2ZdLEjsNng7pZ6B/vqiXnmv/W1WSOv3AI0IjsLaE1mltWAcJSt0AzqbyHrRFZ0a7CdSfBy2KRa7PhdxVSofaBfUPiio/8KghlZbiQukC7aX2VT6HNbJcOPxf5h+xy0o6OJ+2Fkois74xFmwYPmymo/kPqdrEssLB+a3hBQw1Z9udZCgjSUlavMhMCUmkI2wKn94gv4OUYJgILRaN0v2CA3rsDFzIDnPIqfx68Vl60cCJRrQ6hq/Dq4LlZEMljYMQcW3wCQHqhqDdJrgthSwHk/n0tVZ0HtX1IhRHaJ26VXhS6ecn4MaBJf2ytJfUow9ZSqWDojremzpl/ZhfXEGZSXP84F7OJZ7MOXO4bxQo1MmGl1TWhcqpBwD19q9YZOJ5VL
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(346002)(396003)(376002)(136003)(230922051799003)(186009)(64100799003)(1800799012)(82310400011)(451199024)(40470700004)(36840700001)(46966006)(40480700001)(40460700003)(6666004)(336012)(36860700001)(7696005)(426003)(26005)(1076003)(2616005)(16526019)(36756003)(356005)(86362001)(81166007)(82740400003)(41300700001)(8936002)(8676002)(4326008)(2906002)(47076005)(83380400001)(5660300002)(478600001)(70586007)(316002)(70206006)(6916009)(54906003)(36900700001);
+ SFS:(13230031)(4636009)(396003)(346002)(136003)(39860400002)(376002)(230173577357003)(230922051799003)(230273577357003)(1800799012)(451199024)(186009)(82310400011)(64100799003)(36840700001)(40470700004)(46966006)(6666004)(478600001)(8936002)(6916009)(316002)(7696005)(54906003)(82740400003)(70586007)(70206006)(47076005)(8676002)(36860700001)(2616005)(336012)(426003)(1076003)(26005)(16526019)(83380400001)(41300700001)(2906002)(5660300002)(4326008)(40460700003)(86362001)(40480700001)(81166007)(356005)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2024 08:43:22.0117 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a46b14b-06e8-41c3-6138-08dc1b2630c3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2024 09:08:59.0123 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 362b91d7-3ba9-4c62-5fe1-08dc1b29c4f1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD4.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044EF.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4513
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6288
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,231 +97,128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Ma Jun <Jun.Ma2@amd.com>, lijo.lazar@amd.com,
- Kenneth.Feng@amd.com, kevinyang.wang@amd.com
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>, Lang Yu <Lang.Yu@amd.com>,
+ Francis David <David.Francis@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace the hard-coded numbers with macro definition
+Fixes: 410f08516e0f ("drm/amdkfd: Move dma unmapping after TLB flush")
 
-Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+v2:
+Avoid unmapping attachment twice when ERESTARTSYS.
+
+[   41.708711] WARNING: CPU: 0 PID: 1463 at drivers/gpu/drm/ttm/ttm_bo.c:846 ttm_bo_validate+0x146/0x1b0 [ttm]
+[   41.708989] Call Trace:
+[   41.708992]  <TASK>
+[   41.708996]  ? show_regs+0x6c/0x80
+[   41.709000]  ? ttm_bo_validate+0x146/0x1b0 [ttm]
+[   41.709008]  ? __warn+0x93/0x190
+[   41.709014]  ? ttm_bo_validate+0x146/0x1b0 [ttm]
+[   41.709024]  ? report_bug+0x1f9/0x210
+[   41.709035]  ? handle_bug+0x46/0x80
+[   41.709041]  ? exc_invalid_op+0x1d/0x80
+[   41.709048]  ? asm_exc_invalid_op+0x1f/0x30
+[   41.709057]  ? amdgpu_amdkfd_gpuvm_dmaunmap_mem+0x2c/0x80 [amdgpu]
+[   41.709185]  ? ttm_bo_validate+0x146/0x1b0 [ttm]
+[   41.709197]  ? amdgpu_amdkfd_gpuvm_dmaunmap_mem+0x2c/0x80 [amdgpu]
+[   41.709337]  ? srso_alias_return_thunk+0x5/0x7f
+[   41.709346]  kfd_mem_dmaunmap_attachment+0x9e/0x1e0 [amdgpu]
+[   41.709467]  amdgpu_amdkfd_gpuvm_dmaunmap_mem+0x56/0x80 [amdgpu]
+[   41.709586]  kfd_ioctl_unmap_memory_from_gpu+0x1b7/0x300 [amdgpu]
+[   41.709710]  kfd_ioctl+0x1ec/0x650 [amdgpu]
+[   41.709822]  ? __pfx_kfd_ioctl_unmap_memory_from_gpu+0x10/0x10 [amdgpu]
+[   41.709945]  ? srso_alias_return_thunk+0x5/0x7f
+[   41.709949]  ? tomoyo_file_ioctl+0x20/0x30
+[   41.709959]  __x64_sys_ioctl+0x9c/0xd0
+[   41.709967]  do_syscall_64+0x3f/0x90
+[   41.709973]  entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+
+Signed-off-by: Lang Yu <Lang.Yu@amd.com>
 ---
- .../pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h | 11 +----------
- .../pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7.h | 11 -----------
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h       |  5 +++++
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h       | 10 ++++++++++
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h       |  2 ++
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c     | 10 +++++-----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c     | 14 +++++++-------
- drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c     |  2 +-
- 8 files changed, 31 insertions(+), 34 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 28 +++++++++++++++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  4 ++-
+ 3 files changed, 29 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
-index b114d14fc053..c6b7f904e742 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
-@@ -1618,15 +1618,6 @@ typedef struct {
- #define TABLE_WIFIBAND                12
- #define TABLE_COUNT                   13
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 584a0cea5572..41854417e487 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -311,7 +311,7 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(struct amdgpu_device *adev,
+ 					  struct kgd_mem *mem, void *drm_priv);
+ int amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
+ 		struct amdgpu_device *adev, struct kgd_mem *mem, void *drm_priv);
+-void amdgpu_amdkfd_gpuvm_dmaunmap_mem(struct kgd_mem *mem, void *drm_priv);
++int amdgpu_amdkfd_gpuvm_dmaunmap_mem(struct kgd_mem *mem, void *drm_priv);
+ int amdgpu_amdkfd_gpuvm_sync_memory(
+ 		struct amdgpu_device *adev, struct kgd_mem *mem, bool intr);
+ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 6f3a4cb2a9ef..7a050d46fa4d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -2088,21 +2088,43 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
+ 	return ret;
+ }
  
--//IH Interupt ID
--#define IH_INTERRUPT_ID_TO_DRIVER                   0xFE
--#define IH_INTERRUPT_CONTEXT_ID_BACO                0x2
--#define IH_INTERRUPT_CONTEXT_ID_AC                  0x3
--#define IH_INTERRUPT_CONTEXT_ID_DC                  0x4
--#define IH_INTERRUPT_CONTEXT_ID_AUDIO_D0            0x5
--#define IH_INTERRUPT_CONTEXT_ID_AUDIO_D3            0x6
--#define IH_INTERRUPT_CONTEXT_ID_THERMAL_THROTTLING  0x7
--#define IH_INTERRUPT_CONTEXT_ID_FAN_ABNORMAL        0x8
--#define IH_INTERRUPT_CONTEXT_ID_FAN_RECOVERY        0x9
+-void amdgpu_amdkfd_gpuvm_dmaunmap_mem(struct kgd_mem *mem, void *drm_priv)
++int amdgpu_amdkfd_gpuvm_dmaunmap_mem(struct kgd_mem *mem, void *drm_priv)
+ {
+ 	struct kfd_mem_attachment *entry;
+ 	struct amdgpu_vm *vm;
++	bool reserved = false;
++	int ret = 0;
+ 
+ 	vm = drm_priv_to_vm(drm_priv);
+ 
+ 	mutex_lock(&mem->lock);
+ 
+ 	list_for_each_entry(entry, &mem->attachments, list) {
+-		if (entry->bo_va->base.vm == vm)
+-			kfd_mem_dmaunmap_attachment(mem, entry);
++		if (entry->bo_va->base.vm != vm)
++			continue;
++		if (entry->type == KFD_MEM_ATT_SHARED ||
++		    entry->type == KFD_MEM_ATT_DMABUF)
++			continue;
++		if (!entry->bo_va->base.bo->tbo.ttm->sg)
++			continue;
 +
- 
- #endif
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7.h
-index 8b1496f8ce58..33937c1d984f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7.h
-@@ -1608,15 +1608,4 @@ typedef struct {
- #define TABLE_WIFIBAND                12
- #define TABLE_COUNT                   13
- 
--//IH Interupt ID
--#define IH_INTERRUPT_ID_TO_DRIVER                   0xFE
--#define IH_INTERRUPT_CONTEXT_ID_BACO                0x2
--#define IH_INTERRUPT_CONTEXT_ID_AC                  0x3
--#define IH_INTERRUPT_CONTEXT_ID_DC                  0x4
--#define IH_INTERRUPT_CONTEXT_ID_AUDIO_D0            0x5
--#define IH_INTERRUPT_CONTEXT_ID_AUDIO_D3            0x6
--#define IH_INTERRUPT_CONTEXT_ID_THERMAL_THROTTLING  0x7
--#define IH_INTERRUPT_CONTEXT_ID_FAN_ABNORMAL        0x8
--#define IH_INTERRUPT_CONTEXT_ID_FAN_RECOVERY        0x9
--
- #endif
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-index a0e5ad0381d6..9fe26497e75e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-@@ -63,6 +63,11 @@
- #define LINK_WIDTH_MAX			6
- #define LINK_SPEED_MAX			3
- 
-+#define IH_INTERRUPT_ID_TO_DRIVER                   0xFE
-+#define IH_INTERRUPT_CONTEXT_ID_AC                  0x3
-+#define IH_INTERRUPT_CONTEXT_ID_DC                  0x4
-+#define IH_INTERRUPT_CONTEXT_ID_THERMAL_THROTTLING  0x7
++		if (!reserved) {
++			ret = amdgpu_bo_reserve(mem->bo, true);
++			if (ret)
++				goto out;
++			reserved = true;
++		}
 +
- static const __maybe_unused uint16_t link_width[] = {0, 1, 2, 4, 8, 12, 16};
++		kfd_mem_dmaunmap_attachment(mem, entry);
+ 	}
  
- static const
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-index 46b972f36666..436705a18e99 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-@@ -59,6 +59,16 @@ extern const int pmfw_decoded_link_width[7];
- #define DECODE_GEN_SPEED(gen_speed_idx)		(pmfw_decoded_link_speed[gen_speed_idx])
- #define DECODE_LANE_WIDTH(lane_width_idx)	(pmfw_decoded_link_width[lane_width_idx])
- 
-+#define IH_INTERRUPT_ID_TO_DRIVER                   0xFE
-+#define IH_INTERRUPT_CONTEXT_ID_BACO                0x2
-+#define IH_INTERRUPT_CONTEXT_ID_AC                  0x3
-+#define IH_INTERRUPT_CONTEXT_ID_DC                  0x4
-+#define IH_INTERRUPT_CONTEXT_ID_AUDIO_D0            0x5
-+#define IH_INTERRUPT_CONTEXT_ID_AUDIO_D3            0x6
-+#define IH_INTERRUPT_CONTEXT_ID_THERMAL_THROTTLING  0x7
-+#define IH_INTERRUPT_CONTEXT_ID_FAN_ABNORMAL        0x8
-+#define IH_INTERRUPT_CONTEXT_ID_FAN_RECOVERY        0x9
++	if (reserved)
++		amdgpu_bo_unreserve(mem->bo);
 +
- struct smu_13_0_max_sustainable_clocks {
- 	uint32_t display_clock;
- 	uint32_t phy_clock;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-index 3f7463c1c1a9..c92ad3f533c5 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-@@ -44,6 +44,8 @@
- #define MAX_DPM_LEVELS 16
- #define MAX_PCIE_CONF 3
- 
-+#define IH_INTERRUPT_ID_TO_DRIVER                   0xFE
++out:
+ 	mutex_unlock(&mem->lock);
 +
- struct smu_14_0_max_sustainable_clocks {
- 	uint32_t display_clock;
- 	uint32_t phy_clock;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index d74343adaa5f..232e9b1ea006 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -1432,24 +1432,24 @@ static int smu_v11_0_irq_process(struct amdgpu_device *adev,
- 		dev_emerg(adev->dev, "ERROR: System is going to shutdown due to GPU HW CTF!\n");
- 		orderly_poweroff(true);
- 	} else if (client_id == SOC15_IH_CLIENTID_MP1) {
--		if (src_id == 0xfe) {
-+		if (src_id == IH_INTERRUPT_ID_TO_DRIVER) {
- 			/* ACK SMUToHost interrupt */
- 			data = RREG32_SOC15(MP1, 0, mmMP1_SMN_IH_SW_INT_CTRL);
- 			data = REG_SET_FIELD(data, MP1_SMN_IH_SW_INT_CTRL, INT_ACK, 1);
- 			WREG32_SOC15(MP1, 0, mmMP1_SMN_IH_SW_INT_CTRL, data);
++	return ret;
+ }
  
- 			switch (ctxid) {
--			case 0x3:
-+			case IH_INTERRUPT_CONTEXT_ID_AC:
- 				dev_dbg(adev->dev, "Switched to AC mode!\n");
- 				schedule_work(&smu->interrupt_work);
- 				adev->pm.ac_power = true;
- 				break;
--			case 0x4:
-+			case IH_INTERRUPT_CONTEXT_ID_DC:
- 				dev_dbg(adev->dev, "Switched to DC mode!\n");
- 				schedule_work(&smu->interrupt_work);
- 				adev->pm.ac_power = false;
- 				break;
--			case 0x7:
-+			case IH_INTERRUPT_CONTEXT_ID_THERMAL_THROTTLING:
- 				/*
- 				 * Increment the throttle interrupt counter
- 				 */
-@@ -1508,7 +1508,7 @@ int smu_v11_0_register_irq_handler(struct smu_context *smu)
- 		return ret;
+ int amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index ce4c52ec34d8..80e90fdef291 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1442,7 +1442,9 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
+ 			kfd_flush_tlb(peer_pdd, TLB_FLUSH_HEAVYWEIGHT);
  
- 	ret = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP1,
--				0xfe,
-+				IH_INTERRUPT_ID_TO_DRIVER,
- 				irq_src);
- 	if (ret)
- 		return ret;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-index fc7c04e19b18..c8fc7eccab06 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -1368,24 +1368,24 @@ static int smu_v13_0_irq_process(struct amdgpu_device *adev,
- 		dev_emerg(adev->dev, "ERROR: System is going to shutdown due to GPU HW CTF!\n");
- 		orderly_poweroff(true);
- 	} else if (client_id == SOC15_IH_CLIENTID_MP1) {
--		if (src_id == 0xfe) {
-+		if (src_id == IH_INTERRUPT_ID_TO_DRIVER) {
- 			/* ACK SMUToHost interrupt */
- 			data = RREG32_SOC15(MP1, 0, regMP1_SMN_IH_SW_INT_CTRL);
- 			data = REG_SET_FIELD(data, MP1_SMN_IH_SW_INT_CTRL, INT_ACK, 1);
- 			WREG32_SOC15(MP1, 0, regMP1_SMN_IH_SW_INT_CTRL, data);
+ 		/* Remove dma mapping after tlb flush to avoid IO_PAGE_FAULT */
+-		amdgpu_amdkfd_gpuvm_dmaunmap_mem(mem, peer_pdd->drm_priv);
++		err = amdgpu_amdkfd_gpuvm_dmaunmap_mem(mem, peer_pdd->drm_priv);
++		if (err)
++			goto sync_memory_failed;
+ 	}
  
- 			switch (ctxid) {
--			case 0x3:
-+			case IH_INTERRUPT_CONTEXT_ID_AC:
- 				dev_dbg(adev->dev, "Switched to AC mode!\n");
- 				smu_v13_0_ack_ac_dc_interrupt(smu);
- 				adev->pm.ac_power = true;
- 				break;
--			case 0x4:
-+			case IH_INTERRUPT_CONTEXT_ID_DC:
- 				dev_dbg(adev->dev, "Switched to DC mode!\n");
- 				smu_v13_0_ack_ac_dc_interrupt(smu);
- 				adev->pm.ac_power = false;
- 				break;
--			case 0x7:
-+			case IH_INTERRUPT_CONTEXT_ID_THERMAL_THROTTLING:
- 				/*
- 				 * Increment the throttle interrupt counter
- 				 */
-@@ -1398,7 +1398,7 @@ static int smu_v13_0_irq_process(struct amdgpu_device *adev,
- 					schedule_work(&smu->throttling_logging_work);
- 
- 				break;
--			case 0x8:
-+			case IH_INTERRUPT_CONTEXT_ID_FAN_ABNORMAL:
- 				high = smu->thermal_range.software_shutdown_temp +
- 					smu->thermal_range.software_shutdown_temp_offset;
- 				high = min_t(typeof(high),
-@@ -1415,7 +1415,7 @@ static int smu_v13_0_irq_process(struct amdgpu_device *adev,
- 				data = data & (~THM_THERMAL_INT_CTRL__THERM_TRIGGER_MASK_MASK);
- 				WREG32_SOC15(THM, 0, regTHM_THERMAL_INT_CTRL, data);
- 				break;
--			case 0x9:
-+			case IH_INTERRUPT_CONTEXT_ID_FAN_RECOVERY:
- 				high = min_t(typeof(high),
- 					     SMU_THERMAL_MAXIMUM_ALERT_TEMP,
- 					     smu->thermal_range.software_shutdown_temp);
-@@ -1476,7 +1476,7 @@ int smu_v13_0_register_irq_handler(struct smu_context *smu)
- 		return ret;
- 
- 	ret = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP1,
--				0xfe,
-+				IH_INTERRUPT_ID_TO_DRIVER,
- 				irq_src);
- 	if (ret)
- 		return ret;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-index 4894f7ee737b..9a8b7fd6995d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-@@ -892,7 +892,7 @@ int smu_v14_0_register_irq_handler(struct smu_context *smu)
- 	// TODO: THM related
- 
- 	ret = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP1,
--				0xfe,
-+				IH_INTERRUPT_ID_TO_DRIVER,
- 				irq_src);
- 	if (ret)
- 		return ret;
+ 	mutex_unlock(&p->mutex);
 -- 
-2.34.1
+2.25.1
 
