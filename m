@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64241C47DDF
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 14:58:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E8E3C47DD9
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 14:59:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3E0810F1E7;
-	Mon, 22 Jan 2024 14:58:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1734C10F29E;
+	Mon, 22 Jan 2024 14:59:02 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF02010EF50;
- Mon, 22 Jan 2024 14:58:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CFA510F29A;
+ Mon, 22 Jan 2024 14:59:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id C5FCDCE2B0B;
- Mon, 22 Jan 2024 14:57:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A30CC43609;
- Mon, 22 Jan 2024 14:57:53 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 469C4CE0FFA;
+ Mon, 22 Jan 2024 14:58:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F789C433A6;
+ Mon, 22 Jan 2024 14:58:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705935475;
- bh=NABR2eoEe/Oiv+lPXCDO3bV4QQhTMcC72voA79i0h1E=;
+ s=k20201202; t=1705935535;
+ bh=J4gnxmlNZ29w29C4bJtmdBIP4o2ilD5vWDtLcyXP7Nc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=k0KllUKqiR8duAK5VWvR2IXMWqhz1bWyLHuDe7GrbdCgCmDZBn/9Co47a701rLdDw
- r4pzhOv1sGablPnFPAE1MdIUpvGDU9xlJD0NHl/OLnjpvKhJFg/fyT1Xh6KpryXyAU
- fPOPpDi/I4g0Z8msfq02HFcoQPm9+QGszf47ZaRvIy1JX14a4lLD106Ga505Gu+Jg/
- MNeuEIzkIHPydHgxIbckL9kKlh6njC+ad403+nFYvsRXKpjQ6Mxq48JsH/tr5dzF1N
- YLMoEgUOjzrMb62biKBpuT3Crt6hdzplJPk6ibMvEzjSvHrpEm2QqIi6hEz6MP6dWY
- AtU9C25JcXzxg==
+ b=KUBcj199z7irO5LlkILc5NHSK5LtXaz5zptpJKoAwArAPL1D/prmkdfBdXB0etPTo
+ 0vxWgQhBE2LuE8k8gxQ2DqM5UQlWQjbS7CgAS81nxdPdjdnRDDsNN2ErKjTgokh9if
+ P+aledEX+S3qCS35LAsGY2Y98YRbtKqRq3IWisKgQSb6mnu6FojLT7F0F1JTVWYeoX
+ dSOEdh0TRY/+zqna/ryZKmB1YLRv62/4l0lDBBVBaf/W+blm8ejnpJYXFdicX6DdtE
+ QLWzYG8MwghxrHnts1NI94OvO+0KfzLvjX8sm37sULhoOQYeQe+0zBOF8d5GBUPGdF
+ XvHRocipLvNBg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.7 23/88] drm/amd/display: Fix writeback_info is not
- removed
-Date: Mon, 22 Jan 2024 09:50:56 -0500
-Message-ID: <20240122145608.990137-23-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.7 50/88] drm/amd/display: For prefetch mode > 0,
+ extend prefetch if possible
+Date: Mon, 22 Jan 2024 09:51:23 -0500
+Message-ID: <20240122145608.990137-50-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122145608.990137-1-sashal@kernel.org>
 References: <20240122145608.990137-1-sashal@kernel.org>
@@ -53,57 +53,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, dillon.varone@amd.com,
- dri-devel@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>,
- airlied@gmail.com, qingqing.zhuo@amd.com, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
- Daniel Wheeler <daniel.wheeler@amd.com>, aurabindo.pillai@amd.com,
- alvin.lee2@amd.com, daniel@ffwll.ch, wayne.lin@amd.com,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, christian.koenig@amd.com
+Cc: wenjing.liu@amd.com, dri-devel@lists.freedesktop.org,
+ Jun Lei <jun.lei@amd.com>, airlied@gmail.com, Paul.Hsieh@amd.com,
+ Sasha Levin <sashal@kernel.org>, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ nevenko.stupar@amd.com, Alvin Lee <alvin.lee2@amd.com>, meera.patel@amd.com,
+ harry.wentland@amd.com, Ilya.Bakoulin@amd.com, srinivasan.shanmugam@amd.com,
+ sunpeng.li@amd.com, hanghong.ma@amd.com, Dillon.Varone@amd.com, drv@mailo.com,
+ qingqing.zhuo@amd.com, Xinhui.Pan@amd.com, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Alvin Lee <alvin.lee2@amd.com>
 
-[ Upstream commit ab37b88ed9de9de8d582683f7ea17059f1251a7f ]
+[ Upstream commit dd4e4bb28843393065eed279e869fac248d03f0f ]
 
-[WHY]
-Counter j was not updated to present the num of writeback_info when
-writeback pipes are removed.
+[Description]
+For mode programming we want to extend the prefetch as much as possible
+(up to oto, or as long as we can for equ) if we're not already applying
+the 60us prefetch requirement. This is to avoid intermittent underflow
+issues during prefetch.
 
-[HOW]
-update j (num of writeback info) under the correct condition.
+The prefetch extension is applied under the following scenarios:
+1. We're in prefetch mode 1 (i.e. we don't support MCLK switch in blank)
+2. We're using subvp or drr methods of p-state switch, in which case we
+   we don't care if prefetch takes up more of the blanking time
 
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Mode programming typically chooses the smallest prefetch time possible
+(i.e. highest bandwidth during prefetch) presumably to create margin between
+p-states / c-states that happen in vblank and prefetch. Therefore we only
+apply this prefetch extension when p-state in vblank is not required (UCLK
+p-states take up the most vblank time).
+
+Reviewed-by: Jun Lei <jun.lei@amd.com>
+Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ .../dc/dml/dcn32/display_mode_vba_32.c        |  3 ++
+ .../dc/dml/dcn32/display_mode_vba_util_32.c   | 33 +++++++++++++++----
+ .../dc/dml/dcn32/display_mode_vba_util_32.h   |  1 +
+ 3 files changed, 31 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index 5055af147c20..37dc280e5566 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -497,11 +497,12 @@ bool dc_stream_remove_writeback(struct dc *dc,
- 			if (stream->writeback_info[i].dwb_pipe_inst == dwb_pipe_inst)
- 				stream->writeback_info[i].wb_enabled = false;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+index cbdfb762c10c..6c84b0fa40f4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+@@ -813,6 +813,8 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 					(v->DRAMSpeedPerState[mode_lib->vba.VoltageLevel] <= MEM_STROBE_FREQ_MHZ ||
+ 						v->DCFCLKPerState[mode_lib->vba.VoltageLevel] <= DCFCLK_FREQ_EXTRA_PREFETCH_REQ_MHZ) ?
+ 							mode_lib->vba.ip.min_prefetch_in_strobe_us : 0,
++					mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb] > 0 || mode_lib->vba.DRAMClockChangeRequirementFinal == false,
++
+ 					/* Output */
+ 					&v->DSTXAfterScaler[k],
+ 					&v->DSTYAfterScaler[k],
+@@ -3317,6 +3319,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 							v->SwathHeightCThisState[k], v->TWait,
+ 							(v->DRAMSpeedPerState[i] <= MEM_STROBE_FREQ_MHZ || v->DCFCLKState[i][j] <= DCFCLK_FREQ_EXTRA_PREFETCH_REQ_MHZ) ?
+ 									mode_lib->vba.ip.min_prefetch_in_strobe_us : 0,
++							mode_lib->vba.PrefetchModePerState[i][j] > 0 || mode_lib->vba.DRAMClockChangeRequirementFinal == false,
  
--			if (j < i)
--				/* trim the array */
-+			/* trim the array */
-+			if (j < i) {
- 				memcpy(&stream->writeback_info[j], &stream->writeback_info[i],
- 						sizeof(struct dc_writeback_info));
--			j++;
-+				j++;
+ 							/* Output */
+ 							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.DSTXAfterScaler[k],
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+index d940dfa5ae43..80fccd4999a5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+@@ -3423,6 +3423,7 @@ bool dml32_CalculatePrefetchSchedule(
+ 		unsigned int SwathHeightC,
+ 		double TWait,
+ 		double TPreReq,
++		bool ExtendPrefetchIfPossible,
+ 		/* Output */
+ 		double   *DSTXAfterScaler,
+ 		double   *DSTYAfterScaler,
+@@ -3892,12 +3893,32 @@ bool dml32_CalculatePrefetchSchedule(
+ 			/* Clamp to oto for bandwidth calculation */
+ 			LinesForPrefetchBandwidth = dst_y_prefetch_oto;
+ 		} else {
+-			*DestinationLinesForPrefetch = dst_y_prefetch_equ;
+-			TimeForFetchingMetaPTE = Tvm_equ;
+-			TimeForFetchingRowInVBlank = Tr0_equ;
+-			*PrefetchBandwidth = prefetch_bw_equ;
+-			/* Clamp to equ for bandwidth calculation */
+-			LinesForPrefetchBandwidth = dst_y_prefetch_equ;
++			/* For mode programming we want to extend the prefetch as much as possible
++			 * (up to oto, or as long as we can for equ) if we're not already applying
++			 * the 60us prefetch requirement. This is to avoid intermittent underflow
++			 * issues during prefetch.
++			 *
++			 * The prefetch extension is applied under the following scenarios:
++			 * 1. We're in prefetch mode > 0 (i.e. we don't support MCLK switch in blank)
++			 * 2. We're using subvp or drr methods of p-state switch, in which case we
++			 *    we don't care if prefetch takes up more of the blanking time
++			 *
++			 * Mode programming typically chooses the smallest prefetch time possible
++			 * (i.e. highest bandwidth during prefetch) presumably to create margin between
++			 * p-states / c-states that happen in vblank and prefetch. Therefore we only
++			 * apply this prefetch extension when p-state in vblank is not required (UCLK
++			 * p-states take up the most vblank time).
++			 */
++			if (ExtendPrefetchIfPossible && TPreReq == 0 && VStartup < MaxVStartup) {
++				MyError = true;
++			} else {
++				*DestinationLinesForPrefetch = dst_y_prefetch_equ;
++				TimeForFetchingMetaPTE = Tvm_equ;
++				TimeForFetchingRowInVBlank = Tr0_equ;
++				*PrefetchBandwidth = prefetch_bw_equ;
++				/* Clamp to equ for bandwidth calculation */
++				LinesForPrefetchBandwidth = dst_y_prefetch_equ;
 +			}
  		}
- 	}
- 	stream->num_wb_info = j;
+ 
+ 		*DestinationLinesToRequestVMInVBlank = dml_ceil(4.0 * TimeForFetchingMetaPTE / LineTime, 1.0) / 4.0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
+index 592d174df6c6..5d34735df83d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
+@@ -747,6 +747,7 @@ bool dml32_CalculatePrefetchSchedule(
+ 		unsigned int SwathHeightC,
+ 		double TWait,
+ 		double TPreReq,
++		bool ExtendPrefetchIfPossible,
+ 		/* Output */
+ 		double   *DSTXAfterScaler,
+ 		double   *DSTYAfterScaler,
 -- 
 2.43.0
 
