@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BB61C47DD9
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 14:57:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0F82C47DDB
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 14:57:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C82F310EAB6;
-	Mon, 22 Jan 2024 14:57:18 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3D6010EA8B;
- Mon, 22 Jan 2024 14:57:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D99DE10EF3A;
+	Mon, 22 Jan 2024 14:57:19 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F3FB10EA8B;
+ Mon, 22 Jan 2024 14:57:17 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 1531E61532;
- Mon, 22 Jan 2024 14:56:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2486BC433C7;
- Mon, 22 Jan 2024 14:56:43 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id B2305CE2B03;
+ Mon, 22 Jan 2024 14:57:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5964AC433C7;
+ Mon, 22 Jan 2024 14:57:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705935405;
- bh=hE+07rdXTV9JCX+fPOGzqBtAVm5A/aZWznuYlnLdIQ0=;
+ s=k20201202; t=1705935431;
+ bh=nfxEFGF3+T5BIAC6cZV5dCtwBWqySTxUjhchMOcDXfg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gxmNuXHntukY1ZGrBtieHyDQc7MgorBCh/xs1SVTkJD0A6KhFKGYfo9c+/gsOlfY3
- EspRs7C+eSYNEhiOw3cIamgc1X+rergqbmGoIS12W769e2n9UGxuJwKGq8FFtUaiSm
- QZkasVHOzmLMBokn53CxVEd0ycRsKrcyegtlZi2WCn9skvF+GCEjKzn68kMzOEtxGN
- JLfVuBQ9p0Gu0bvz6zVHuQVGhyHiVq/MGmfAh0c2h9PuhECWFpUb+kSln9MjeJfvqM
- No3fhuXq2AF7LAPZsLfyaY+7m7CNt+bLN1arUgK/dYiOvuNpYAO7GEzvNRSC9W6zWp
- nh4yzPN+Y4G2w==
+ b=kCkhfHTRC2kH2pXYz7KUztLa9tYufgibbhgryJFkGfltf6MD+dJ/sXxCpMvwx+1gd
+ T3fIP32qlh9eL6BGF75S3kLvqTLjuuMtOY+2KbzRGETM8KRDABiuAXIPzqosZp2u/H
+ IVz4jKfxUFC174F9TzVM1kse/Q+jsaemjL+G5WLP3/4+Vw8FzBP3Ff2ifvw3wV2Ald
+ 3wIXeYncrQT+7HFzLD+3n6pY7JdYGL1WhbY8aRKrBvzyucU9HxH32sxgpU8NY/jvnl
+ Bib2Qi5K52LH7Kj201n4fGFPD9qi9uRDwBnQ0erTTMNapW2bzpro2yVgooI0WHnhc0
+ LMeIDZaOU6Nfg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.7 13/88] drm/amd/display: Fix tiled display
- misalignment
-Date: Mon, 22 Jan 2024 09:50:46 -0500
-Message-ID: <20240122145608.990137-13-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.7 18/88] drm/amd/display: Fix MST PBN/X.Y value
+ calculations
+Date: Mon, 22 Jan 2024 09:50:51 -0500
+Message-ID: <20240122145608.990137-18-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122145608.990137-1-sashal@kernel.org>
 References: <20240122145608.990137-1-sashal@kernel.org>
@@ -53,54 +53,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, aric.cyr@amd.com, dillon.varone@amd.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- sunpeng.li@amd.com, airlied@gmail.com, Qingqing.Zhuo@amd.com,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, samson.tam@amd.com,
- christian.koenig@amd.com,
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- wenjing.liu@amd.com, Hamza Mahfooz <hamza.mahfooz@amd.com>, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, jun.lei@amd.com,
- harry.wentland@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- alvin.lee2@amd.com
+Cc: Ilya Bakoulin <ilya.bakoulin@amd.com>, Sasha Levin <sashal@kernel.org>,
+ dri-devel@lists.freedesktop.org, jiapeng.chong@linux.alibaba.com,
+ sunpeng.li@amd.com, Wenjing Liu <wenjing.liu@amd.com>, Qingqing.Zhuo@amd.com,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
+ camille.cho@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
+ hamza.mahfooz@amd.com, daniel@ffwll.ch, wayne.lin@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com, jun.lei@amd.com,
+ harry.wentland@amd.com, christian.koenig@amd.com, peichen.huang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
+From: Ilya Bakoulin <ilya.bakoulin@amd.com>
 
-[ Upstream commit c4b8394e76adba4f50a3c2696c75b214a291e24a ]
+[ Upstream commit 94bbf802efd0a8f13147d6664af6e653637340a8 ]
 
-[Why]
-When otg workaround is applied during clock update, otgs of
-tiled display went out of sync.
+Changing PBN calculation to be more in line with spec. We don't need to
+inflate PBN_NATIVE value by the 1.006 margin, since that is already
+taken care of in the get_pbn_per_slot function.
 
-[How]
-To call dc_trigger_sync() after clock update to sync otgs again.
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Signed-off-by: Ilya Bakoulin <ilya.bakoulin@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 5c1185206645..220f05975c0d 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1964,6 +1964,10 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
- 		wait_for_no_pipes_pending(dc, context);
- 		/* pplib is notified if disp_num changed */
- 		dc->hwss.optimize_bandwidth(dc, context);
-+		/* Need to do otg sync again as otg could be out of sync due to otg
-+		 * workaround applied during clock update
-+		 */
-+		dc_trigger_sync(dc, context);
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+index f8e01ca09d96..a3b3aec05d6b 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+@@ -1057,18 +1057,21 @@ static struct fixed31_32 get_pbn_from_bw_in_kbps(uint64_t kbps)
+ 	uint32_t denominator = 1;
  
- 	if (dc->hwss.update_dsc_pg)
+ 	/*
+-	 * margin 5300ppm + 300ppm ~ 0.6% as per spec, factor is 1.006
++	 * The 1.006 factor (margin 5300ppm + 300ppm ~ 0.6% as per spec) is not
++	 * required when determining PBN/time slot utilization on the link between
++	 * us and the branch, since that overhead is already accounted for in
++	 * the get_pbn_per_slot function.
++	 *
+ 	 * The unit of 54/64Mbytes/sec is an arbitrary unit chosen based on
+ 	 * common multiplier to render an integer PBN for all link rate/lane
+ 	 * counts combinations
+ 	 * calculate
+-	 * peak_kbps *= (1006/1000)
+ 	 * peak_kbps *= (64/54)
+-	 * peak_kbps *= 8    convert to bytes
++	 * peak_kbps /= (8 * 1000) convert to bytes
+ 	 */
+ 
+-	numerator = 64 * PEAK_FACTOR_X1000;
+-	denominator = 54 * 8 * 1000 * 1000;
++	numerator = 64;
++	denominator = 54 * 8 * 1000;
+ 	kbps *= numerator;
+ 	peak_kbps = dc_fixpt_from_fraction(kbps, denominator);
+ 
 -- 
 2.43.0
 
