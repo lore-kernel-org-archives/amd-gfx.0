@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A27FDC47DAF
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:12:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75F52C47DD9
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:12:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2880F10F38B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5219C10F394;
 	Mon, 22 Jan 2024 15:12:19 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B948910F384;
- Mon, 22 Jan 2024 15:12:17 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 08E52B80C82;
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF76510F384;
  Mon, 22 Jan 2024 15:12:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2467AC43394;
- Mon, 22 Jan 2024 15:12:13 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id DD8B0CE2B15;
+ Mon, 22 Jan 2024 15:11:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE7AC433C7;
+ Mon, 22 Jan 2024 15:11:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705936335;
- bh=mNZZR+4a3jQ2iGjxMb44UQYeZb7y09/TDQQKYWJXy6A=;
+ s=k20201202; t=1705936301;
+ bh=K52h5TwE0bsIWGp3/sknhaN0bqzlEaz0kC2Y+TotkRo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DUhCZ8/aCLTZZPPsM6wEtbAslskZTjqyV1cz7QDwcRafleA9kceCz2Z5zcYaFNK4/
- FqT2Q53pTHeRE0BVzBtUdwH2KaGFCnhPjU/ngAFzJNmGiEZrXFmmJi1RAogJv9a0Bb
- LrYnY82WIgwchqfR57+R4/iJJ+bqmlZqrHJwO47yrRS2Jkr5f1esHpLjMbTyKSdnfx
- TZGACCOJelzsaHX89cvPJpbT7FXJPmEZDx5iQFTHaCdxkSz6lywWUzJXvMp/zxE6fl
- pL4TxnXx02TPzYO76PGDRtCSxORikLYu3HPdNcVTatpIaiHVjN8kbk8c6Jcd5OpQki
- 7z9e3VBaDxe9A==
+ b=gkmvyHtwn3X495Ox2fspuVAxipf4ZkJ4poP2W6+dDd+XjPr+wLJ1uKPOCNa3swYIn
+ Xq6lxAB58iy3Qsalkb49LfLn2rZzFvRN33ayZY8gp79w6B/tcf+66bS7RNQt1Z85g1
+ p64PPwQ+3sX+Ob4YAJ39uhqSQipig1EXRU28swl3FfuCoiKz0rg7r3GY69rXB1eb1u
+ eCYxRyC026CCBmKO5lkNf+5wGFv6h+ka0fbKVa0/PU8z3mkQDnIfotdJiYhDEfnb7v
+ q5uwrUyLYLFedZq80RfoxzXgqYkKWEweyU5yvjFMzAL1bh8k050Kj2LXcmAHqzLIPg
+ 5EfMNx9eRNcxQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 46/53] drm/amd/display: Fixing stream allocation
- regression
-Date: Mon, 22 Jan 2024 10:08:47 -0500
-Message-ID: <20240122150949.994249-46-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 38/53] drm/amdgpu: fix ftrace event amdgpu_bo_move
+ always move on same heap
+Date: Mon, 22 Jan 2024 10:08:39 -0500
+Message-ID: <20240122150949.994249-38-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122150949.994249-1-sashal@kernel.org>
 References: <20240122150949.994249-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.1.74
@@ -53,51 +54,124 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Relja Vojvodic <relja.vojvodic@amd.com>,
- Dillon Varone <dillon.varone@amd.com>, srinivasan.shanmugam@amd.com,
- amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com, airlied@gmail.com,
- dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
- samson.tam@amd.com, ethan.bitnun@amd.com,
- Daniel Wheeler <daniel.wheeler@amd.com>, alvin.lee2@amd.com, daniel@ffwll.ch,
- Martin Leung <martin.leung@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- jun.lei@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Hongkun.Zhang@amd.com, "Wang, Beyond" <Wang.Beyond@amd.com>,
+	Wang@freedesktop.org, mukul.joshi@amd.com, lijo.lazar@amd.com,
+	dri-devel@lists.freedesktop.org, Jun.Ma2@amd.com, airlied@gmail.com,
+	Sasha Levin <sashal@kernel.org>, guchun.chen@amd.com,
+	amd-gfx@lists.freedesktop.org, matthew.auld@intel.com,
+	pierre-eric.pelloux-prayer@amd.com, Philip.Yang@amd.com,
+	srinivasan.shanmugam@amd.com, Arunpravin.PaneerSelvam@amd.com,
+	marek.olsak@amd.com, maarten.lankhorst@linux.intel.com,
+	Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
+	rajneesh.bhardwaj@amd.com, daniel@ffwll.ch,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Relja Vojvodic <relja.vojvodic@amd.com>
+From: "Wang, Beyond" <Wang.Beyond@amd.com>
 
-[ Upstream commit 292c2116b2ae84c7e799ae340981e60551b18f5e ]
+[ Upstream commit 94aeb4117343d072e3a35b9595bcbfc0058ee724 ]
 
-For certain dual display configs that had one display using a 1080p
-mode, the DPM level used to drive the configs regressed from DPM 0 to
-DPM 3. This was caused by a missing check that should have only limited
-the pipe segments on non-phantom pipes. This caused issues with detile
-buffer allocation, which dissallow subvp from being used
+Issue: during evict or validate happened on amdgpu_bo, the 'from' and
+'to' is always same in ftrace event of amdgpu_bo_move
 
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Reviewed-by: Martin Leung <martin.leung@amd.com>
-Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Signed-off-by: Relja Vojvodic <relja.vojvodic@amd.com>
+where calling the 'trace_amdgpu_bo_move', the comment says move_notify
+is called before move happens, but actually it is called after move
+happens, here the new_mem is same as bo->resource
+
+Fix: move trace_amdgpu_bo_move from move_notify to amdgpu_bo_move
+
+Signed-off-by: Wang, Beyond <Wang.Beyond@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 13 +------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  4 +---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  5 +++--
+ 3 files changed, 5 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-index fa3778849db1..5e0fcb80bf36 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-@@ -216,7 +216,7 @@ bool dcn32_subvp_in_use(struct dc *dc,
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
- 		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 0ee7c935fba1..cde2fd2f7117 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1222,19 +1222,15 @@ int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, void *buffer,
+  * amdgpu_bo_move_notify - notification about a memory move
+  * @bo: pointer to a buffer object
+  * @evict: if this move is evicting the buffer from the graphics address space
+- * @new_mem: new information of the bufer object
+  *
+  * Marks the corresponding &amdgpu_bo buffer object as invalid, also performs
+  * bookkeeping.
+  * TTM driver callback which is called when ttm moves a buffer.
+  */
+-void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+-			   bool evict,
+-			   struct ttm_resource *new_mem)
++void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict)
+ {
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
+ 	struct amdgpu_bo *abo;
+-	struct ttm_resource *old_mem = bo->resource;
  
--		if (pipe->stream && pipe->stream->mall_stream_config.type != SUBVP_NONE)
-+		if (pipe->stream && pipe->stream->mall_stream_config.type != SUBVP_PHANTOM != SUBVP_NONE)
- 			return true;
+ 	if (!amdgpu_bo_is_amdgpu_bo(bo))
+ 		return;
+@@ -1251,13 +1247,6 @@ void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+ 	/* remember the eviction */
+ 	if (evict)
+ 		atomic64_inc(&adev->num_evictions);
+-
+-	/* update statistics */
+-	if (!new_mem)
+-		return;
+-
+-	/* move_notify is called before move happens */
+-	trace_amdgpu_bo_move(abo, new_mem->mem_type, old_mem->mem_type);
+ }
+ 
+ void amdgpu_bo_get_memory(struct amdgpu_bo *bo, uint64_t *vram_mem,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index 6dcd7bab42fb..2ada421e79e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -312,9 +312,7 @@ int amdgpu_bo_set_metadata (struct amdgpu_bo *bo, void *metadata,
+ int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, void *buffer,
+ 			   size_t buffer_size, uint32_t *metadata_size,
+ 			   uint64_t *flags);
+-void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+-			   bool evict,
+-			   struct ttm_resource *new_mem);
++void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict);
+ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo);
+ vm_fault_t amdgpu_bo_fault_reserve_notify(struct ttm_buffer_object *bo);
+ void amdgpu_bo_fence(struct amdgpu_bo *bo, struct dma_fence *fence,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 10469f20a10c..158b791883f0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -555,10 +555,11 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+ 			return r;
  	}
- 	return false;
+ 
++	trace_amdgpu_bo_move(abo, new_mem->mem_type, old_mem->mem_type);
+ out:
+ 	/* update statistics */
+ 	atomic64_add(bo->base.size, &adev->num_bytes_moved);
+-	amdgpu_bo_move_notify(bo, evict, new_mem);
++	amdgpu_bo_move_notify(bo, evict);
+ 	return 0;
+ }
+ 
+@@ -1503,7 +1504,7 @@ static int amdgpu_ttm_access_memory(struct ttm_buffer_object *bo,
+ static void
+ amdgpu_bo_delete_mem_notify(struct ttm_buffer_object *bo)
+ {
+-	amdgpu_bo_move_notify(bo, false, NULL);
++	amdgpu_bo_move_notify(bo, false);
+ }
+ 
+ static struct ttm_device_funcs amdgpu_bo_driver = {
 -- 
 2.43.0
 
