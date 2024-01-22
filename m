@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C40FC47DAF
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:09:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B8A0C47DAF
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:10:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDEAA10F364;
-	Mon, 22 Jan 2024 15:09:26 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 334FB10F31B;
- Mon, 22 Jan 2024 15:09:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E0C810F374;
+	Mon, 22 Jan 2024 15:10:20 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1E9210F357;
+ Mon, 22 Jan 2024 15:10:19 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id A8FBCCE2B12;
- Mon, 22 Jan 2024 15:08:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54354C433C7;
- Mon, 22 Jan 2024 15:08:44 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 1A8EBB80E77;
+ Mon, 22 Jan 2024 15:10:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 529BFC43394;
+ Mon, 22 Jan 2024 15:10:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705936127;
- bh=+CW9IM8BI24UbBbddwTRFs3HHOxKhMu6a/7dShSrAd8=;
+ s=k20201202; t=1705936217;
+ bh=migI/rxzHSyGRs01fHPRV5DyQH7q6mM3XZBWoWyQ7Mw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=tzmSmH5GLj4tvwuBb8wPNsYdRdL/mLjiErmbvkNpWSPaqP8Bzrs3/PH9hF35Pdd3Z
- upIOQnoi/V3owI3hbvaM9vkr9pWhbOE4gXTK5nfgiD41RVAOGg1kmw6kHeXchnmAwT
- OAd7+9CN0yxxl9SDZQHSmkNOp1upRC1NLxuhjTw4nTJ2RXGOg7mbye4nicmXNswF5N
- JhBvdONkrsqV5J3sPqWX8fWjxTXaDLxV52rrXH1q5uRaDl+x6ffNoSN8LlW7XOG/3X
- Rkd8fFk8TUPtUJQkIiLGppXf/+b5s+9+6HkYXcaFtPX2UFIEWrEikVIG36WFxuvAcX
- ElB/vYuzqs1dg==
+ b=jxNr8LHyN1Voi+1cOkQnEJQ2+rKwcTOs1IunhjJqP8pzl3p8g1viGivFy6YUc344d
+ yEdaUtersXSCGHLvZGYzG4OqEHw9mxTR2tpY3QggJHGgQkT7S/Jh+mOgaExDm1Uv4q
+ NQEtIQ3ZejQxiPdfM53uheqhB6XcZL/x1YeELSuZnuqWUvvkuRLYBxV6qcVmkW+kho
+ sDW/nWfktFzK09VoiRYp+LYTOpl5HYpoJbq09oTmTlAmyqmS3eOe3Q9pglfZgcCtE5
+ dIgLju0bwW9KZ6CBWVqsOyx5zqLL8M4cPG5l9lXGpqPRAzqxXYEcTzTbd6uNGz/t0I
+ FQiRylSW5DHRg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.6 69/73] drm/amdgpu: apply the RV2 system aperture
- fix to RN/CZN as well
-Date: Mon, 22 Jan 2024 10:02:23 -0500
-Message-ID: <20240122150432.992458-69-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 10/53] drm/amd/display: Fix tiled display
+ misalignment
+Date: Mon, 22 Jan 2024 10:08:11 -0500
+Message-ID: <20240122150949.994249-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240122150432.992458-1-sashal@kernel.org>
-References: <20240122150432.992458-1-sashal@kernel.org>
+In-Reply-To: <20240122150949.994249-1-sashal@kernel.org>
+References: <20240122150949.994249-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.13
+X-stable-base: Linux 6.1.74
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,107 +53,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lijo.lazar@amd.com, dri-devel@lists.freedesktop.org,
- victorchengchi.lu@amd.com, hamza.mahfooz@amd.com,
- Jiadong Zhu <Jiadong.Zhu@amd.com>, airlied@gmail.com,
- Sasha Levin <sashal@kernel.org>, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, alex.hung@amd.com, harry.wentland@amd.com,
- srinivasan.shanmugam@amd.com, sunpeng.li@amd.com, le.ma@amd.com,
- yifan1.zhang@amd.com, Qingqing.Zhuo@amd.com, Xinhui.Pan@amd.com,
- daniel@ffwll.ch, wayne.lin@amd.com, Alex Deucher <alexander.deucher@amd.com>,
- lang.yu@amd.com, christian.koenig@amd.com, Hawking.Zhang@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, aric.cyr@amd.com, dillon.varone@amd.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ sunpeng.li@amd.com, airlied@gmail.com, Qingqing.Zhuo@amd.com,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, samson.tam@amd.com,
+ christian.koenig@amd.com,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ wenjing.liu@amd.com, Hamza Mahfooz <hamza.mahfooz@amd.com>, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, jun.lei@amd.com,
+ harry.wentland@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ alvin.lee2@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
 
-[ Upstream commit 16783d8ef08448815e149e40c82fc1e1fc41ddbf ]
+[ Upstream commit c4b8394e76adba4f50a3c2696c75b214a291e24a ]
 
-These chips needs the same fix.  This was previously not seen
-on then since the AGP aperture expanded the system aperture,
-but this showed up again when AGP was disabled.
+[Why]
+When otg workaround is applied during clock update, otgs of
+tiled display went out of sync.
 
-Reviewed-and-tested-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
+[How]
+To call dc_trigger_sync() after clock update to sync otgs again.
+
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Signed-off-by: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c          | 4 +++-
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c          | 4 +++-
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c           | 4 +++-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++++--
- 4 files changed, 15 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-index cdc290a474a9..66c6bab75f8a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-@@ -102,7 +102,9 @@ static void gfxhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
- 		WREG32_SOC15_RLC(GC, 0, mmMC_VM_SYSTEM_APERTURE_LOW_ADDR,
- 			min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 7a309547c2b3..f415733f1a97 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -1903,6 +1903,10 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
+ 		wait_for_no_pipes_pending(dc, context);
+ 		/* pplib is notified if disp_num changed */
+ 		dc->hwss.optimize_bandwidth(dc, context);
++		/* Need to do otg sync again as otg could be out of sync due to otg
++		 * workaround applied during clock update
++		 */
++		dc_trigger_sync(dc, context);
+ 	}
  
--		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
-+		if (adev->apu_flags & (AMD_APU_IS_RAVEN2 |
-+				       AMD_APU_IS_RENOIR |
-+				       AMD_APU_IS_GREEN_SARDINE))
- 		       /*
- 			* Raven2 has a HW issue that it is unable to use the
- 			* vram which is out of MC_VM_SYSTEM_APERTURE_HIGH_ADDR.
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-index 0834af771549..b50f24f7ea5c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-@@ -139,7 +139,9 @@ gfxhub_v1_2_xcc_init_system_aperture_regs(struct amdgpu_device *adev,
- 			WREG32_SOC15_RLC(GC, GET_INST(GC, i), regMC_VM_SYSTEM_APERTURE_LOW_ADDR,
- 				min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
- 
--			if (adev->apu_flags & AMD_APU_IS_RAVEN2)
-+			if (adev->apu_flags & (AMD_APU_IS_RAVEN2 |
-+					       AMD_APU_IS_RENOIR |
-+					       AMD_APU_IS_GREEN_SARDINE))
- 			       /*
- 				* Raven2 has a HW issue that it is unable to use the
- 				* vram which is out of MC_VM_SYSTEM_APERTURE_HIGH_ADDR.
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-index fb91b31056ca..d25f87fb1971 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-@@ -96,7 +96,9 @@ static void mmhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
- 	WREG32_SOC15(MMHUB, 0, mmMC_VM_SYSTEM_APERTURE_LOW_ADDR,
- 		     min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
- 
--	if (adev->apu_flags & AMD_APU_IS_RAVEN2)
-+	if (adev->apu_flags & (AMD_APU_IS_RAVEN2 |
-+			       AMD_APU_IS_RENOIR |
-+			       AMD_APU_IS_GREEN_SARDINE))
- 		/*
- 		 * Raven2 has a HW issue that it is unable to use the vram which
- 		 * is out of MC_VM_SYSTEM_APERTURE_HIGH_ADDR. So here is the
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ca3aa9825eb8..56a410accf49 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1247,7 +1247,9 @@ static void mmhub_read_system_context(struct amdgpu_device *adev, struct dc_phy_
- 	/* AGP aperture is disabled */
- 	if (agp_bot == agp_top) {
- 		logical_addr_low = adev->gmc.fb_start >> 18;
--		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
-+		if (adev->apu_flags & (AMD_APU_IS_RAVEN2 |
-+				       AMD_APU_IS_RENOIR |
-+				       AMD_APU_IS_GREEN_SARDINE))
- 			/*
- 			 * Raven2 has a HW issue that it is unable to use the vram which
- 			 * is out of MC_VM_SYSTEM_APERTURE_HIGH_ADDR. So here is the
-@@ -1259,7 +1261,9 @@ static void mmhub_read_system_context(struct amdgpu_device *adev, struct dc_phy_
- 			logical_addr_high = adev->gmc.fb_end >> 18;
- 	} else {
- 		logical_addr_low = min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18;
--		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
-+		if (adev->apu_flags & (AMD_APU_IS_RAVEN2 |
-+				       AMD_APU_IS_RENOIR |
-+				       AMD_APU_IS_GREEN_SARDINE))
- 			/*
- 			 * Raven2 has a HW issue that it is unable to use the vram which
- 			 * is out of MC_VM_SYSTEM_APERTURE_HIGH_ADDR. So here is the
+ 	if (dc->hwss.update_dsc_pg)
 -- 
 2.43.0
 
