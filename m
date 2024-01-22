@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88A25C47DAF
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:11:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7016AC47DD9
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:12:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 544F410F30B;
-	Mon, 22 Jan 2024 15:11:26 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6129110F2BD;
- Mon, 22 Jan 2024 15:11:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1198D10F252;
+	Mon, 22 Jan 2024 15:12:10 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 394A510F37D;
+ Mon, 22 Jan 2024 15:12:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id BCB6F6115A;
- Mon, 22 Jan 2024 15:11:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE40C43390;
- Mon, 22 Jan 2024 15:11:20 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id A3DB3B80E87;
+ Mon, 22 Jan 2024 15:12:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B39C1C43394;
+ Mon, 22 Jan 2024 15:12:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705936283;
- bh=PP7MnsU8r66tscKqn/gDwHVvvt4DQEWEcE/k6anhdSg=;
+ s=k20201202; t=1705936327;
+ bh=oX8dXXdE9VcWMj7gSfRvoBKndwGsFgtPgn5jA9n5IbI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Bf6d/CG3c/XATGFHzSzw6KsO9IcGVB2svprsKe0tybztvYUg8qESdt/w/AyN8+Yrl
- Dve1cukW7MDSa4ORtCYav9mkV1htGZFiYb0xPr4dtUKVFleNwMLkynolxrwDWd5CTd
- RTBpUh5I873MHcTaRfaMxJA8PqauXATVmVruBaSxWsrmaBlddYX4f+XMBTgBymieMX
- fz4naPwlcJFi2BiHvUzZSfzHOu0rockmfu+kw/quuVYQ4k6dSIYg3pi3cMNlOxn835
- 7+5dFt7VWbFxGSUu14rvdolYtuCFMn5zhgBrm8xxD/NQEIBOcuTYtWIWOmheaSEEjB
- 9Qun6hSDKBejw==
+ b=iSlEDuVIDGA3BQyHCxL8F2EcWuKQbtSRpAIRkT8BkzBbZQK2EFIJt4qtzTlltPEC6
+ In9IO4xf7hHv7rC9BnquZRqUQwKFpLMumHjEKrel6SS07n9bQTe/g9A03gfPxOssYM
+ aVdN2BIGJ9QTFeFqmtz8uQfS2bC2lNWzk+q5ZDdIGQMsCfLKUFTU1JymFN+DXc97Gj
+ 8AvyE0vKQoj8/hrH6MXQpRfvSWn0GxNMuObitu1M91rV5zb1K3FRSP9eOcZab8mreR
+ uyH2W77s4k3MDmWpBJ8LkHNMjTo6zNvQ8SKkXwpfU5I6FofgyZAISwTewEBfow3IPK
+ rjQag1SpB9u+A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 35/53] drm/amd/display: For prefetch mode > 0,
- extend prefetch if possible
-Date: Mon, 22 Jan 2024 10:08:36 -0500
-Message-ID: <20240122150949.994249-35-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 44/53] drm/amdgpu: Fix ecc irq enable/disable
+ unpaired
+Date: Mon, 22 Jan 2024 10:08:45 -0500
+Message-ID: <20240122150949.994249-44-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122150949.994249-1-sashal@kernel.org>
 References: <20240122150949.994249-1-sashal@kernel.org>
@@ -53,134 +53,133 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: wenjing.liu@amd.com, dri-devel@lists.freedesktop.org,
- Jun Lei <jun.lei@amd.com>, airlied@gmail.com, Paul.Hsieh@amd.com,
- Sasha Levin <sashal@kernel.org>, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- nevenko.stupar@amd.com, Alvin Lee <alvin.lee2@amd.com>, harry.wentland@amd.com,
- Ilya.Bakoulin@amd.com, srinivasan.shanmugam@amd.com, sunpeng.li@amd.com,
- hanghong.ma@amd.com, Dillon.Varone@amd.com, drv@mailo.com,
- qingqing.zhuo@amd.com, Xinhui.Pan@amd.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, mukul.joshi@amd.com, Xinhui.Pan@amd.com,
+ srinivasan.shanmugam@amd.com, dri-devel@lists.freedesktop.org,
+ Philip.Yang@amd.com, Felix.Kuehling@amd.com, Tao Zhou <tao.zhou1@amd.com>,
+ rajneesh.bhardwaj@amd.com, asad.kamal@amd.com, lijo.lazar@amd.com,
+ le.ma@amd.com, "Stanley.Yang" <Stanley.Yang@amd.com>,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ christian.koenig@amd.com, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <alvin.lee2@amd.com>
+From: "Stanley.Yang" <Stanley.Yang@amd.com>
 
-[ Upstream commit dd4e4bb28843393065eed279e869fac248d03f0f ]
+[ Upstream commit a32c6f7f5737cc7e31cd7ad5133f0d96fca12ea6 ]
 
-[Description]
-For mode programming we want to extend the prefetch as much as possible
-(up to oto, or as long as we can for equ) if we're not already applying
-the 60us prefetch requirement. This is to avoid intermittent underflow
-issues during prefetch.
+The ecc_irq is disabled while GPU mode2 reset suspending process,
+but not be enabled during GPU mode2 reset resume process.
 
-The prefetch extension is applied under the following scenarios:
-1. We're in prefetch mode 1 (i.e. we don't support MCLK switch in blank)
-2. We're using subvp or drr methods of p-state switch, in which case we
-   we don't care if prefetch takes up more of the blanking time
+Changed from V1:
+	only do sdma/gfx ras_late_init in aldebaran_mode2_restore_ip
+	delete amdgpu_ras_late_resume function
 
-Mode programming typically chooses the smallest prefetch time possible
-(i.e. highest bandwidth during prefetch) presumably to create margin between
-p-states / c-states that happen in vblank and prefetch. Therefore we only
-apply this prefetch extension when p-state in vblank is not required (UCLK
-p-states take up the most vblank time).
+Changed from V2:
+	check umc ras supported before put ecc_irq
 
-Reviewed-by: Jun Lei <jun.lei@amd.com>
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../dc/dml/dcn32/display_mode_vba_32.c        |  3 ++
- .../dc/dml/dcn32/display_mode_vba_util_32.c   | 33 +++++++++++++++----
- .../dc/dml/dcn32/display_mode_vba_util_32.h   |  1 +
- 3 files changed, 31 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/aldebaran.c | 26 +++++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c |  5 +++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  |  4 ++++
+ 4 files changed, 38 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-index 19f55657272e..cc8c1a48c5c4 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-@@ -810,6 +810,8 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 					(v->DRAMSpeedPerState[mode_lib->vba.VoltageLevel] <= MEM_STROBE_FREQ_MHZ ||
- 						v->DCFCLKPerState[mode_lib->vba.VoltageLevel] <= DCFCLK_FREQ_EXTRA_PREFETCH_REQ_MHZ) ?
- 							mode_lib->vba.ip.min_prefetch_in_strobe_us : 0,
-+					mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb] > 0 || mode_lib->vba.DRAMClockChangeRequirementFinal == false,
-+
- 					/* Output */
- 					&v->DSTXAfterScaler[k],
- 					&v->DSTYAfterScaler[k],
-@@ -3291,6 +3293,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 							v->SwathHeightCThisState[k], v->TWait,
- 							(v->DRAMSpeedPerState[i] <= MEM_STROBE_FREQ_MHZ || v->DCFCLKState[i][j] <= DCFCLK_FREQ_EXTRA_PREFETCH_REQ_MHZ) ?
- 									mode_lib->vba.ip.min_prefetch_in_strobe_us : 0,
-+							mode_lib->vba.PrefetchModePerState[i][j] > 0 || mode_lib->vba.DRAMClockChangeRequirementFinal == false,
+diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+index 2b97b8a96fb4..fa6193535d48 100644
+--- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
++++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+@@ -333,6 +333,7 @@ aldebaran_mode2_restore_hwcontext(struct amdgpu_reset_control *reset_ctl,
+ {
+ 	struct list_head *reset_device_list = reset_context->reset_device_list;
+ 	struct amdgpu_device *tmp_adev = NULL;
++	struct amdgpu_ras *con;
+ 	int r;
  
- 							/* Output */
- 							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.DSTXAfterScaler[k],
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-index 23e4be2ad63f..7f4fc49be35c 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-@@ -3418,6 +3418,7 @@ bool dml32_CalculatePrefetchSchedule(
- 		unsigned int SwathHeightC,
- 		double TWait,
- 		double TPreReq,
-+		bool ExtendPrefetchIfPossible,
- 		/* Output */
- 		double   *DSTXAfterScaler,
- 		double   *DSTYAfterScaler,
-@@ -3887,12 +3888,32 @@ bool dml32_CalculatePrefetchSchedule(
- 			/* Clamp to oto for bandwidth calculation */
- 			LinesForPrefetchBandwidth = dst_y_prefetch_oto;
- 		} else {
--			*DestinationLinesForPrefetch = dst_y_prefetch_equ;
--			TimeForFetchingMetaPTE = Tvm_equ;
--			TimeForFetchingRowInVBlank = Tr0_equ;
--			*PrefetchBandwidth = prefetch_bw_equ;
--			/* Clamp to equ for bandwidth calculation */
--			LinesForPrefetchBandwidth = dst_y_prefetch_equ;
-+			/* For mode programming we want to extend the prefetch as much as possible
-+			 * (up to oto, or as long as we can for equ) if we're not already applying
-+			 * the 60us prefetch requirement. This is to avoid intermittent underflow
-+			 * issues during prefetch.
-+			 *
-+			 * The prefetch extension is applied under the following scenarios:
-+			 * 1. We're in prefetch mode > 0 (i.e. we don't support MCLK switch in blank)
-+			 * 2. We're using subvp or drr methods of p-state switch, in which case we
-+			 *    we don't care if prefetch takes up more of the blanking time
-+			 *
-+			 * Mode programming typically chooses the smallest prefetch time possible
-+			 * (i.e. highest bandwidth during prefetch) presumably to create margin between
-+			 * p-states / c-states that happen in vblank and prefetch. Therefore we only
-+			 * apply this prefetch extension when p-state in vblank is not required (UCLK
-+			 * p-states take up the most vblank time).
-+			 */
-+			if (ExtendPrefetchIfPossible && TPreReq == 0 && VStartup < MaxVStartup) {
-+				MyError = true;
-+			} else {
-+				*DestinationLinesForPrefetch = dst_y_prefetch_equ;
-+				TimeForFetchingMetaPTE = Tvm_equ;
-+				TimeForFetchingRowInVBlank = Tr0_equ;
-+				*PrefetchBandwidth = prefetch_bw_equ;
-+				/* Clamp to equ for bandwidth calculation */
-+				LinesForPrefetchBandwidth = dst_y_prefetch_equ;
+ 	if (reset_device_list == NULL)
+@@ -358,7 +359,30 @@ aldebaran_mode2_restore_hwcontext(struct amdgpu_reset_control *reset_ctl,
+ 		 */
+ 		amdgpu_register_gpu_instance(tmp_adev);
+ 
+-		/* Resume RAS */
++		/* Resume RAS, ecc_irq */
++		con = amdgpu_ras_get_context(tmp_adev);
++		if (!amdgpu_sriov_vf(tmp_adev) && con) {
++			if (tmp_adev->sdma.ras &&
++				tmp_adev->sdma.ras->ras_block.ras_late_init) {
++				r = tmp_adev->sdma.ras->ras_block.ras_late_init(tmp_adev,
++						&tmp_adev->sdma.ras->ras_block.ras_comm);
++				if (r) {
++					dev_err(tmp_adev->dev, "SDMA failed to execute ras_late_init! ret:%d\n", r);
++					goto end;
++				}
 +			}
- 		}
++
++			if (tmp_adev->gfx.ras &&
++				tmp_adev->gfx.ras->ras_block.ras_late_init) {
++				r = tmp_adev->gfx.ras->ras_block.ras_late_init(tmp_adev,
++						&tmp_adev->gfx.ras->ras_block.ras_comm);
++				if (r) {
++					dev_err(tmp_adev->dev, "GFX failed to execute ras_late_init! ret:%d\n", r);
++					goto end;
++				}
++			}
++		}
++
+ 		amdgpu_ras_resume(tmp_adev);
  
- 		*DestinationLinesToRequestVMInVBlank = dml_ceil(4.0 * TimeForFetchingMetaPTE / LineTime, 1.0) / 4.0;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
-index 779c6805f599..1823434d8ede 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
-@@ -744,6 +744,7 @@ bool dml32_CalculatePrefetchSchedule(
- 		unsigned int SwathHeightC,
- 		double TWait,
- 		double TPreReq,
-+		bool ExtendPrefetchIfPossible,
- 		/* Output */
- 		double   *DSTXAfterScaler,
- 		double   *DSTYAfterScaler,
+ 		/* Update PSP FW topology after reset */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index d96ee48e1706..35921b41fc27 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -1144,6 +1144,10 @@ static int gmc_v10_0_hw_fini(void *handle)
+ 
+ 	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
+ 
++	if (adev->gmc.ecc_irq.funcs &&
++		amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC))
++		amdgpu_irq_put(adev, &adev->gmc.ecc_irq, 0);
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index 7124347d2b6c..310a5607d83b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -951,6 +951,11 @@ static int gmc_v11_0_hw_fini(void *handle)
+ 	}
+ 
+ 	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
++
++	if (adev->gmc.ecc_irq.funcs &&
++		amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC))
++		amdgpu_irq_put(adev, &adev->gmc.ecc_irq, 0);
++
+ 	gmc_v11_0_gart_disable(adev);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 0d9e9d9dd4a1..409e3aa018f2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1900,6 +1900,10 @@ static int gmc_v9_0_hw_fini(void *handle)
+ 
+ 	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
+ 
++	if (adev->gmc.ecc_irq.funcs &&
++		amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC))
++		amdgpu_irq_put(adev, &adev->gmc.ecc_irq, 0);
++
+ 	return 0;
+ }
+ 
 -- 
 2.43.0
 
