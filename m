@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 978C0C47DD9
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 14:57:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B667BC47DDB
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 14:57:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2223310F27A;
-	Mon, 22 Jan 2024 14:57:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0013910F1F4;
+	Mon, 22 Jan 2024 14:57:37 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD2C910F27E;
- Mon, 22 Jan 2024 14:57:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 439EE10F27F;
+ Mon, 22 Jan 2024 14:57:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 4A1C9B80E70;
- Mon, 22 Jan 2024 14:57:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3613CC433F1;
- Mon, 22 Jan 2024 14:57:27 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 7FBB0B80E6D;
+ Mon, 22 Jan 2024 14:57:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C1EC433C7;
+ Mon, 22 Jan 2024 14:56:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705935449;
- bh=EnjL0ke689RMfd+PkpdMwleJrNruYu3f6vIsAHbu2XA=;
+ s=k20201202; t=1705935422;
+ bh=h2EMJEwn+xtLhnIs1AdEUWAodoqKiuzxMfQyLE/5Ax0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=tFpjpdxDcKtSM2GA2SVUy/XyfC6iKC4MBz+WAnGHPZz9+UGCSr+4AXzMUTm66FwJu
- ypJ+HrgoSBwSRNblZBpmhaMqGY41N6FtPN4myanSP3VpqSr9sKK+bqzf1PQIe1tjEI
- /HJTDuFV0xo0eZs2sArg/Ung+RKKM5yz0BMPpcJs6762LGfHrZ6HBLu+YqBiWClthz
- JVZbQjVjPv3OqYEdCs3zhV32w9pMAaTTf/caYz4Dn9exZftR0/qMnI5qSC81nI91HW
- 9rCyEHUm/9VQbo3Q8vIyB3Onp9QVkLc0U2EqDrmRkqaPij2nc/CSWmdmmaT8Ia4LcP
- UheYNPrxX7APQ==
+ b=N6MQ946GWyq4ysz102YRflODLX6OKT9QuX7VOrrkUqD68fZdnDLmkFpcbxU2d67NC
+ hIjIhn8Df/XGubxbRvfQpMfX9+EIodWek0B3TH18DSgHUVbXzCWpBzy3M4nXpfOPms
+ DHfiL2mrDEolUSxJ4kn4GNG2/atYahCjk++SjMMjL6xklIqPAkRfF868ehPBR4j4gs
+ GKABjCvq/JBoLw6NzIMpn6jZhC0iDgij74UL4nEy/RAvkXgXRfiy1N2VRf7/zpU+3I
+ /ckxm8ZrccB5XL6k5qN73fxJPyYxGWSLT8Jml1qQjUwjfWduos4376Pz3ItczI+lJd
+ VuqPBhDkHhYBg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.7 20/88] drm/amd/display: Fix Replay Desync Error
- IRQ handler
-Date: Mon, 22 Jan 2024 09:50:53 -0500
-Message-ID: <20240122145608.990137-20-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.7 17/88] drm/amd/display: initialize all the dpm
+ level's stutter latency
+Date: Mon, 22 Jan 2024 09:50:50 -0500
+Message-ID: <20240122145608.990137-17-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122145608.990137-1-sashal@kernel.org>
 References: <20240122145608.990137-1-sashal@kernel.org>
@@ -53,71 +53,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, ilya.bakoulin@amd.com,
- dri-devel@lists.freedesktop.org, sunpeng.li@amd.com, airlied@gmail.com,
- qingqing.zhuo@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
- chuntao.tso@amd.com, amd-gfx@lists.freedesktop.org, wenjing.liu@amd.com,
- Bhawanpreet.Lakha@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
- hersenxs.wu@amd.com, Dennis Chan <dennis.chan@amd.com>, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, Robin Chen <robin.chen@amd.com>,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, Allen Pan <allen.pan@amd.com>,
+ hamza.mahfooz@amd.com, airlied@gmail.com, Sasha Levin <sashal@kernel.org>,
+ Charlene Liu <charlene.liu@amd.com>, sungkim@amd.com, Rodrigo.Siqueira@amd.com,
+ Syed Hassan <syed.hassan@amd.com>, amd-gfx@lists.freedesktop.org,
+ jerry.zuo@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com,
+ Daniel Wheeler <daniel.wheeler@amd.com>, dillon.varone@amd.com,
+ Qingqing.Zhuo@amd.com, Xinhui.Pan@amd.com, roman.li@amd.com,
+ christian.koenig@amd.com, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, nicholas.kazlauskas@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dennis Chan <dennis.chan@amd.com>
+From: Charlene Liu <charlene.liu@amd.com>
 
-[ Upstream commit dd5c6362ddcd8bdb07704faff8648593885ecfa1 ]
+[ Upstream commit 885c71ad791c1709f668a37f701d33e6872a902f ]
 
-In previous case, Replay didn't identify the IRQ type, This commit fixes
-the issues for the interrupt.
+Fix issue when override level bigger than default. Levels 5, 6, and 7
+had zero stutter latency, this is because override level being
+initialized after stutter latency inits.
 
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Robin Chen <robin.chen@amd.com>
+Reviewed-by: Syed Hassan <syed.hassan@amd.com>
+Reviewed-by: Allen Pan <allen.pan@amd.com>
 Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Signed-off-by: Dennis Chan <dennis.chan@amd.com>
+Signed-off-by: Charlene Liu <charlene.liu@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../display/dc/link/protocols/link_dp_irq_handler.c  | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
-index 0c00e94e90b1..9eadc2c7f221 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
-@@ -190,9 +190,6 @@ static void handle_hpd_irq_replay_sink(struct dc_link *link)
- 	/*AMD Replay version reuse DP_PSR_ERROR_STATUS for REPLAY_ERROR status.*/
- 	union psr_error_status replay_error_status;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
+index db06a5b749b4..279e7605a0a2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
+@@ -341,6 +341,9 @@ void dml2_init_soc_states(struct dml2_context *dml2, const struct dc *in_dc,
+ 		break;
+ 	}
  
--	if (link->replay_settings.config.force_disable_desync_error_check)
--		return;
--
- 	if (!link->replay_settings.replay_feature_enabled)
- 		return;
- 
-@@ -210,9 +207,6 @@ static void handle_hpd_irq_replay_sink(struct dc_link *link)
- 		&replay_error_status.raw,
- 		sizeof(replay_error_status.raw));
- 
--	if (replay_configuration.bits.DESYNC_ERROR_STATUS)
--		link->replay_settings.config.received_desync_error_hpd = 1;
--
- 	link->replay_settings.config.replay_error_status.bits.LINK_CRC_ERROR =
- 		replay_error_status.bits.LINK_CRC_ERROR;
- 	link->replay_settings.config.replay_error_status.bits.DESYNC_ERROR =
-@@ -225,6 +219,12 @@ static void handle_hpd_irq_replay_sink(struct dc_link *link)
- 		link->replay_settings.config.replay_error_status.bits.STATE_TRANSITION_ERROR) {
- 		bool allow_active;
- 
-+		if (link->replay_settings.config.replay_error_status.bits.DESYNC_ERROR)
-+			link->replay_settings.config.received_desync_error_hpd = 1;
++	if (dml2->config.bbox_overrides.clks_table.num_states)
++			p->in_states->num_states = dml2->config.bbox_overrides.clks_table.num_states;
 +
-+		if (link->replay_settings.config.force_disable_desync_error_check)
-+			return;
-+
- 		/* Acknowledge and clear configuration bits */
- 		dm_helpers_dp_write_dpcd(
- 			link->ctx,
+ 	/* Override from passed values, if available */
+ 	for (i = 0; i < p->in_states->num_states; i++) {
+ 		if (dml2->config.bbox_overrides.sr_exit_latency_us) {
+@@ -397,7 +400,6 @@ void dml2_init_soc_states(struct dml2_context *dml2, const struct dc *in_dc,
+ 	}
+ 	/* Copy clocks tables entries, if available */
+ 	if (dml2->config.bbox_overrides.clks_table.num_states) {
+-		p->in_states->num_states = dml2->config.bbox_overrides.clks_table.num_states;
+ 
+ 		for (i = 0; i < dml2->config.bbox_overrides.clks_table.num_entries_per_clk.num_dcfclk_levels; i++) {
+ 			p->in_states->state_array[i].dcfclk_mhz = dml2->config.bbox_overrides.clks_table.clk_entries[i].dcfclk_mhz;
 -- 
 2.43.0
 
