@@ -4,88 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85393C4725D
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 09:09:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F245C47DAF
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 09:18:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1223910EBA1;
-	Mon, 22 Jan 2024 09:09:18 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2084.outbound.protection.outlook.com [40.107.92.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20E3C10EB94
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jan 2024 09:09:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 111BA10EBBD;
+	Mon, 22 Jan 2024 09:18:42 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2058.outbound.protection.outlook.com [40.107.237.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC99310EBBB;
+ Mon, 22 Jan 2024 09:18:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nVJU1CW2nI6h3Sj8Lt8Dtp0GRlqQueCp5MqGcg8GqwtdM3OF71JGwYR4HPOIq0wifZGIQYMJB1MDL57wsF9nod/aEcMFDwUIIOo0czll9oreg2crvu6gekWH/5/1VgRH4E08NIZGNSYPxjwhjM8hu57B0x2hydX2HkcmWSMSTb3lHoWXKMIH/p+KR0nSMGqfDtC+J1+92Qt2/m7nS0+qOE98pCJyzYWlXcgxXoIqDwlMFlzju8IVwghWCbgghE5Cv5JVd2q65zydoP+Z0UIS9m4pZo1R3G925RnD24M8O2ISdjTHnVGYkbNik/C4XF9vge7EpHjGNZdp7ADd/BKn2Q==
+ b=UsUFVqk+FBQvMy5qwMOpLGvTFDsD4Ybtz4XOeoOaJGpoMdajvpcCTdwYjUFLimrdmAIp1SO9oyW+AhryOcu/vA0INqcBj2577S9LPkd4X+RpNAZfnJcQt3emg/qvOVmTs4MCXVk1TdaSLMmEGml2z4JnnV6goNw1Y6wbEsIeXcYt7wa+Ak+bjxCWEGKOegerMJ8vLVqn0kuJerb4wibkAEEw1Vha85B52bmz/A+hX/mMtFNz8P1DHo9fXdSrgoJuEmTAOJEh/IxqVwfABnGpwOl6gpgCEHiOVi83nqB9MLFFs4xZXxwmpU9O+V0nTsagE6i3r/Vr8ZHXDoOrKvo9BA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sZWgNORLMDWyzz04uEytpVSJ4Ji4toj5xmweQswDnEY=;
- b=AtuB3HGTrclYRQudMDlMJQTfsdI2lc9Gd1oTGfmCeWzvs/AfhdKp5MC56DNRDKRzJ2yJJ0nS7eG+mfG/3CvgF+iJzdhkTIcmIiX7WweaFZPG8/qFCgb8UiEaiL5PKoOp9qlKbtgBoi85et1xFkywEjz9MXxrEvgzczNn/IsEfzhxgECAZvwa1QltWlSlCYkQlH2HfqSf8vC4YB/dykWKLe03Af7GNqY0mt9bpeHVS0rr3Xz2cDJnAlSiyPOTm/AK5pskcdsoxP8OdftHKmT+ycw42eAn821etLq65/lKrGIdUaODzgwno2c/tg0fdROyOVaHl543yYQmLgiB/4iUyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=x2gh3+apziccsLlRdZ6xWsvdw8dGUNSoWVXA8P4DZ2w=;
+ b=crr5hbvBrHQHdYIZjNsYqcaMLY/SeaVO2t1MoClYbOCOP6lTyLFcsK1AUUobc7HkoDUgvl+RSzlG91spn5J6nBgtwNE/nVpbo34x845L5u2EdZ77Gy+ttsLHVmXnhcFaScszFrD/Uoys9Ct8//1P5LACg6naY5BJF916kV8w6x+uNH7wXAZAvTzzDo0elWU+EtxMKScVx/QLKlQKP8CiCN66qd4cybj1kOPdWpOX/5/6SECg6kcBeqotKS35TG2jymT5NKjRPrxd/GFSgEPZHXXocQX61syqelOIy6wXlW/g/KmX6/duOhy0/f9yoTbYdDLzJWIuPGRbS7Sh+xMsJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sZWgNORLMDWyzz04uEytpVSJ4Ji4toj5xmweQswDnEY=;
- b=tHe+ce/E/Pl16cS3ch7mD9ejMRe2v4RLrzuLuek75BczGdLDuWPC4M+oNd/vl99E0kiiahcgZlsi+/Lv5B6RFmdIZKRVVFOiErHPIfc1UpIAT+FGnbHVktyRhls+FqpWbXOu8nd7e++JjcJTfwOZ7/2dJJxPtmMg23kXN4XA24g=
-Received: from SJ0PR03CA0273.namprd03.prod.outlook.com (2603:10b6:a03:39e::8)
- by DS7PR12MB6288.namprd12.prod.outlook.com (2603:10b6:8:93::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7202.31; Mon, 22 Jan 2024 09:09:00 +0000
-Received: from CO1PEPF000044EF.namprd05.prod.outlook.com
- (2603:10b6:a03:39e:cafe::2f) by SJ0PR03CA0273.outlook.office365.com
- (2603:10b6:a03:39e::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.31 via Frontend
- Transport; Mon, 22 Jan 2024 09:08:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044EF.mail.protection.outlook.com (10.167.241.69) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Mon, 22 Jan 2024 09:08:59 +0000
-Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 22 Jan
- 2024 03:08:56 -0600
-From: Lang Yu <Lang.Yu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amdkfd: reserve the BO before validating it
-Date: Mon, 22 Jan 2024 17:08:43 +0800
-Message-ID: <20240122090843.1540732-1-Lang.Yu@amd.com>
-X-Mailer: git-send-email 2.25.1
+ bh=x2gh3+apziccsLlRdZ6xWsvdw8dGUNSoWVXA8P4DZ2w=;
+ b=qcnTZXlUjG6SIN5pqDNrFch/nvUV2q2luL40ynrPdtmYRAfc6174W/CSj554Dv4ZoOIGnDXblp/dABHpL1Ugd//knxcK8ikEP246X4Nr9EWkevcoSf+wSzd6dxoINI5Ykh5tMEwByNfQVmBewAvM8A+DTwO1ov59WpNyOB2Cc+k=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by BL1PR12MB5064.namprd12.prod.outlook.com (2603:10b6:208:30a::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.34; Mon, 22 Jan
+ 2024 09:18:20 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7202.031; Mon, 22 Jan 2024
+ 09:18:20 +0000
+Message-ID: <5ed7d46b-ae26-43f2-81e0-91e3cfc0218a@amd.com>
+Date: Mon, 22 Jan 2024 10:18:01 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: Remove double faults once write a device pfn
+Content-Language: en-US
+To: Xianrong Zhou <Xianrong.Zhou@amd.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20240122033210.713530-1-Xianrong.Zhou@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240122033210.713530-1-Xianrong.Zhou@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0112.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a3::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044EF:EE_|DS7PR12MB6288:EE_
-X-MS-Office365-Filtering-Correlation-Id: 362b91d7-3ba9-4c62-5fe1-08dc1b29c4f1
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BL1PR12MB5064:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf46b7f7-a589-4a73-c3f1-08dc1b2b133e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: D9jRB6P/lPTRm3vKtvLarDZWLndl0hWr0T6vNxCEQGyzohwk5CE8kY2lrbcQvOaQDAfKR8c2VeGKrP/jWoYH+QwIH8NYYmbLFkj3GhleFwcmg2tsWDcD6PzQZv4KJ6Hv40AGs88oNj7jhB82iQB8qC2wpUm6vjI0I+VfN/W5dxRB3U442q7TZG9ydHlmXZirRP/aAyCujrUaU1d9XD68/X7wFRiL0kbK5rhj6ScKjqBAqGeOKiw70nwETtfQN4R90vgCRy49tYPzg474twZkiWsRa5fZ98ixwIHgmpp408xjGBylC1EMovtg6I/wrW5BGlESNGguxFfh56lWL2Qckh9+53RbIi8JaYD9PUoUiHIxgJFFropdPu6IuFkZK5TnNDUPYAoAUM9MXODv9mDO3m5V9dqeeqF5iAhIcJ/sPGe+jg9CaVPRXkw5FUidrm2ZdLEjsNng7pZ6B/vqiXnmv/W1WSOv3AI0IjsLaE1mltWAcJSt0AzqbyHrRFZ0a7CdSfBy2KRa7PhdxVSofaBfUPiio/8KghlZbiQukC7aX2VT6HNbJcOPxf5h+xy0o6OJ+2Fkois74xFmwYPmymo/kPqdrEssLB+a3hBQw1Z9udZCgjSUlavMhMCUmkI2wKn94gv4OUYJgILRaN0v2CA3rsDFzIDnPIqfx68Vl60cCJRrQ6hq/Dq4LlZEMljYMQcW3wCQHqhqDdJrgthSwHk/n0tVZ0HtX1IhRHaJ26VXhS6ecn4MaBJf2ytJfUow9ZSqWDojremzpl/ZhfXEGZSXP84F7OJZ7MOXO4bxQo1MmGl1TWhcqpBwD19q9YZOJ5VL
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(346002)(136003)(39860400002)(376002)(230173577357003)(230922051799003)(230273577357003)(1800799012)(451199024)(186009)(82310400011)(64100799003)(36840700001)(40470700004)(46966006)(6666004)(478600001)(8936002)(6916009)(316002)(7696005)(54906003)(82740400003)(70586007)(70206006)(47076005)(8676002)(36860700001)(2616005)(336012)(426003)(1076003)(26005)(16526019)(83380400001)(41300700001)(2906002)(5660300002)(4326008)(40460700003)(86362001)(40480700001)(81166007)(356005)(36756003)(36900700001);
+X-Microsoft-Antispam-Message-Info: HDbvOtgyAqOR07PZfrY9pDyLACUG1g6//Y6nht9/u9x5Yx4WVDIGOMKPk7irqeSuCAmMagaNpXbUmUHbicnBbC49aSyfl0dTTXlz+m20eXt/qzOCOnM8vfx7nhUZCAwL9v82BBt9NU7ZYPq8WQW2I5+p9p3s4wu+eLg+WuAyanjJw4tiemMbyj8Mrmzyuh1/S63gD0HA83+JBTSz5SwbrKmK6PwLCXdJm1Cq+Z6aecLj0kgOqGdrospiRx+drIk1jM7Z/atCIADwk4H4I4O0LCrQuX25DQVLRsywMdpQ25oELM43kJQ5zdcBrm+wvVFtSdWhydEGuMkXDnpyeZtbsASTBPH1/km6CQdDmiNeBIhtOzSKoGPnEUf2+p4e7W2wkAXCzEQD2GxCO/MP2f/FcoNNxj115AnxAf6jCn3vPXB4af8LNFScX1BCVtLxoaL5c0MA9TewMGA8Q5UhjlyKDBGZPo2zTsGZ26PUZUOAUfQGZAy1IbzcIVRhWUoc7v++ZZuoUCRKBohzrpCZ+j9gXY8OqdmT+HjI56p4jRYMLDsCsnpGNDqzWhnFjAR5dhoYSymeAdi97eoAwWgpdz9T9yZEW2C+kvxbZYi9TWHiwexutpYxY82hx/0RU0QOe5Mk7E1awYVus/2rR+czDDbjbA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(39860400002)(346002)(376002)(396003)(366004)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(31686004)(83380400001)(86362001)(31696002)(36756003)(8936002)(8676002)(4326008)(38100700002)(2616005)(26005)(5660300002)(6506007)(6666004)(6512007)(6486002)(66946007)(66556008)(316002)(66476007)(30864003)(478600001)(41300700001)(2906002)(7416002)(7406005)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aVVnSnNxOTNvcE9lMWE0KzErRjRGKzc0WlIzYjFtYmFCVnlwSi9hYmxvMGZ1?=
+ =?utf-8?B?cGs0UnBTWk93K2MwZTcxZE1uNHhBbFdRUXRnUnhjd2NMV2U3NmxFV0QwT0lY?=
+ =?utf-8?B?RzNjYThwTVNwWjc4VXFJWWVkL1Nub2d3b1o2WWVTeWhNTXNxRTd2OE13d2xj?=
+ =?utf-8?B?WEVZUEFIdFByNVMrckxkMVFOWjVLdXJ2VEh0QzNyeVphN1dlc1BTQmFadWtS?=
+ =?utf-8?B?OWJjTWttZHJzTlEzSndXWHdkbmFYMzR3ZmZ6MGVYRlBtbC9OVDJLckY1dHRi?=
+ =?utf-8?B?QXdZTDJrZjVBQU9IVGt2Q2lzNUZPOFJycjRtdS9RaVBCYzJWbGpCUE5wZWN3?=
+ =?utf-8?B?bGVNSld3M2lVRGpiSDVwdWFhLzlLYW1FMnpBaEZzcDVHU2pOQmxtUlRiQWcz?=
+ =?utf-8?B?YjU5U1AwbGxSZWppaHhBSnVHZTdDaEJXNVdYQ1ZIRlJsclg2NUVibUJSSXRa?=
+ =?utf-8?B?N2ZkeXJnUG5HUllRSG9vbXh0dGNNVVMrMmhONlNhbDFQUkJ2ZkxwNHlCS01h?=
+ =?utf-8?B?ekpGekRERVRrdTRIL1hEMDBJek9yL0ZKZTBlUk4xWWtuakRzRVF5U1ZBb0NH?=
+ =?utf-8?B?THUyT25adUtlelBnS096bTVtWCtsZ01uN2Q3clhKVW1PTGsrZU53UWdvN0pK?=
+ =?utf-8?B?dE5vS1QybWhaSkJyeW8vU2pjalJWNEp6VXpCN0pWWGRqSWxEQUNCRUJ4N2JQ?=
+ =?utf-8?B?Tnd0SHUzUW9qYnIvRExia1F3RmVCcmE5OGdGR3gwZmpHaGY5OVlORG5VMDh2?=
+ =?utf-8?B?WDFrcnl1emJNcVFpWlFhUDFsMEUxU3VJWElKNHI1VnV3K1N1UjNEQnN4RUE4?=
+ =?utf-8?B?SWVwalY3ZStoemhEaDMxZ2FEVnVzeFdqd2phUit3TE1BZ3J4U0ZZek9Tb09J?=
+ =?utf-8?B?QXdESUVxTzR3TmE2Z1R3SGErcExVekZ0dm9RMVZGWlFEOTEvbGhzZ3FKZjd1?=
+ =?utf-8?B?cHZ4MU8vWGNUSXlGZCtZREdob3pvcGd6THNad2FjdHBUWlZaMGsxSlExblo3?=
+ =?utf-8?B?QUJyQWU1dE8wZ2pYd3BCL2tCTER2Q3lqMVF3TGdIRE85ZGdmdXRNUi9sZlFG?=
+ =?utf-8?B?YkpNcWwwZ3N5WnoxQzNTallObWdUeG9tU3Q2OSs5T0dBaUtZTk9VaCtNVUNh?=
+ =?utf-8?B?SHo4dWREV3VLb3dCSmkwZjcvUG9LUzlMSzdIcnBKSUQ0RGpmZmJKVEp5YlBN?=
+ =?utf-8?B?azJYVHhRYTB1YUd1QStXNzZ0MnByRE9XS0YwUmlId3FQQVllTjFNMVN2Y21V?=
+ =?utf-8?B?cUt1M2RISVY3OWNqbTJETFdsRjluRGpnRjU5cDhEWlhueXltZUtVM24vS3pa?=
+ =?utf-8?B?Yk9LZWR0QmU0TEwwSUw3SGN3emtmeEtBOVNKVS9mcG5DNjVtRStwMUxRMmNp?=
+ =?utf-8?B?YUtSNnloUFFvV0RmOVlMcTBCY1UyZ1ZBZEJ5NjdQUjhUNDF4U0xibDJMQ0My?=
+ =?utf-8?B?TDR4eVpRNDdyNmxOR21icndoc0JMbmJuVHBsamFTd3hEbnpTNVplbk1MR3R0?=
+ =?utf-8?B?QTRqdFlQKzhPd2dnNm9JOXZUU0RmVjNYS2xmcnFQS0xXODlCeFZvbDU4Ly9r?=
+ =?utf-8?B?WFEyQUIyY3drMnZVQTE2eUcxdldFL2FEQ0k0ank3bFRZcGJzQ0RDWUt0Z2VY?=
+ =?utf-8?B?eGFFYzkra3lhVHVEaGVxcFZCd0dCL09PSzJ6NFhoL1Z4RnNOcDgzbFkrZDl1?=
+ =?utf-8?B?Q1AzRXFIV3lPaE9Zdkl2ZW52M29aNElEYjNpZ2lPSUpaVjUrbXFyVDNHb1ZL?=
+ =?utf-8?B?bHFwdE9la2xuZ0tLdndPdThxZkZ5Wi9Tb09jWVNoTTVqWXZXQlFpTGFWMElp?=
+ =?utf-8?B?QnBxaFV4T3J0S0ZUeVpHUit0U0pqWXVoL0dCOEZNNEU3dm91dlFoSnludk04?=
+ =?utf-8?B?WWJ1aGpoOWNXTlVNdWdDV25aNEpiTStOMzJRaktzWDVtSFdCNGFqemlmM0RU?=
+ =?utf-8?B?cGR5YlZmWWFlcjBNN01KdzhLWmtGS2M1cGMySVBlZVRYUlYzOGJTZTZpSFFt?=
+ =?utf-8?B?a0Y5MHRsZWdyUjJEK0JIcm11Y0w4cXdoVG5zNWsrT0hCa2lQdzhvS3hCem1w?=
+ =?utf-8?B?U0dlRlJQeUtkNWozbW5wanhIK1pHenBzZjA4MFBzZC9KWjdDSmMxYmhrYkZO?=
+ =?utf-8?Q?NNdkBU9bDCcTtEGY62EM4NoI2?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2024 09:08:59.0123 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 362b91d7-3ba9-4c62-5fe1-08dc1b29c4f1
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf46b7f7-a589-4a73-c3f1-08dc1b2b133e
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2024 09:18:20.2116 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044EF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6288
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: U9gRofOrsEy0lxHwdnMICGmtFsukia7ztckzwU2wOaYg/IueMPw0Hcrxlz/mrNM4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5064
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,128 +123,279 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>, Lang Yu <Lang.Yu@amd.com>,
- Francis David <David.Francis@amd.com>
+Cc: lee@kernel.org, kherbst@redhat.com, nouveau@lists.freedesktop.org,
+ dave.hansen@linux.intel.com, dri-devel@lists.freedesktop.org,
+ ray.huang@amd.com, hpa@zytor.com, zack.rusin@broadcom.com, airlied@gmail.com,
+ guoqing.zhang@amd.com, huazeng.li@amd.com, x86@kernel.org,
+ amd-gfx@lists.freedesktop.org, mingo@redhat.com, dakr@redhat.com,
+ matthew.auld@intel.com, bcm-kernel-feedback-list@broadcom.com,
+ Philip.Yang@amd.com, joonas.lahtinen@linux.intel.com, tzimmermann@suse.de,
+ intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
+ jani.nikula@linux.intel.com, bp@alien8.de, mripard@kernel.org, luto@kernel.org,
+ rodrigo.vivi@intel.com, tglx@linutronix.de, James.Zhu@amd.com,
+ surenb@google.com, tvrtko.ursulin@linux.intel.com, Felix.Kuehling@amd.com,
+ Xinhui.Pan@amd.com, daniel@ffwll.ch, alexander.deucher@amd.com,
+ akpm@linux-foundation.org, srinivasan.shanmugam@amd.com, nirmoy.das@intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes: 410f08516e0f ("drm/amdkfd: Move dma unmapping after TLB flush")
+Am 22.01.24 um 04:32 schrieb Xianrong Zhou:
+> The vmf_insert_pfn_prot could cause unnecessary double faults
+> on a device pfn. Because currently the vmf_insert_pfn_prot does
+> not make the pfn writable so the pte entry is normally read-only
+> or dirty catching.
 
-v2:
-Avoid unmapping attachment twice when ERESTARTSYS.
+What? How do you got to this conclusion?
 
-[   41.708711] WARNING: CPU: 0 PID: 1463 at drivers/gpu/drm/ttm/ttm_bo.c:846 ttm_bo_validate+0x146/0x1b0 [ttm]
-[   41.708989] Call Trace:
-[   41.708992]  <TASK>
-[   41.708996]  ? show_regs+0x6c/0x80
-[   41.709000]  ? ttm_bo_validate+0x146/0x1b0 [ttm]
-[   41.709008]  ? __warn+0x93/0x190
-[   41.709014]  ? ttm_bo_validate+0x146/0x1b0 [ttm]
-[   41.709024]  ? report_bug+0x1f9/0x210
-[   41.709035]  ? handle_bug+0x46/0x80
-[   41.709041]  ? exc_invalid_op+0x1d/0x80
-[   41.709048]  ? asm_exc_invalid_op+0x1f/0x30
-[   41.709057]  ? amdgpu_amdkfd_gpuvm_dmaunmap_mem+0x2c/0x80 [amdgpu]
-[   41.709185]  ? ttm_bo_validate+0x146/0x1b0 [ttm]
-[   41.709197]  ? amdgpu_amdkfd_gpuvm_dmaunmap_mem+0x2c/0x80 [amdgpu]
-[   41.709337]  ? srso_alias_return_thunk+0x5/0x7f
-[   41.709346]  kfd_mem_dmaunmap_attachment+0x9e/0x1e0 [amdgpu]
-[   41.709467]  amdgpu_amdkfd_gpuvm_dmaunmap_mem+0x56/0x80 [amdgpu]
-[   41.709586]  kfd_ioctl_unmap_memory_from_gpu+0x1b7/0x300 [amdgpu]
-[   41.709710]  kfd_ioctl+0x1ec/0x650 [amdgpu]
-[   41.709822]  ? __pfx_kfd_ioctl_unmap_memory_from_gpu+0x10/0x10 [amdgpu]
-[   41.709945]  ? srso_alias_return_thunk+0x5/0x7f
-[   41.709949]  ? tomoyo_file_ioctl+0x20/0x30
-[   41.709959]  __x64_sys_ioctl+0x9c/0xd0
-[   41.709967]  do_syscall_64+0x3f/0x90
-[   41.709973]  entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+> The first fault only sets up the pte entry which actually is
+> dirty catching. And the second immediate fault to the pfn due
+> to first dirty catching when the cpu re-execute the store
+> instruction.
 
-Signed-off-by: Lang Yu <Lang.Yu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 28 +++++++++++++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  4 ++-
- 3 files changed, 29 insertions(+), 5 deletions(-)
+It could be that this is done to work around some hw behavior, but not 
+because of dirty catching.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 584a0cea5572..41854417e487 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -311,7 +311,7 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(struct amdgpu_device *adev,
- 					  struct kgd_mem *mem, void *drm_priv);
- int amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
- 		struct amdgpu_device *adev, struct kgd_mem *mem, void *drm_priv);
--void amdgpu_amdkfd_gpuvm_dmaunmap_mem(struct kgd_mem *mem, void *drm_priv);
-+int amdgpu_amdkfd_gpuvm_dmaunmap_mem(struct kgd_mem *mem, void *drm_priv);
- int amdgpu_amdkfd_gpuvm_sync_memory(
- 		struct amdgpu_device *adev, struct kgd_mem *mem, bool intr);
- int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 6f3a4cb2a9ef..7a050d46fa4d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2088,21 +2088,43 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
- 	return ret;
- }
- 
--void amdgpu_amdkfd_gpuvm_dmaunmap_mem(struct kgd_mem *mem, void *drm_priv)
-+int amdgpu_amdkfd_gpuvm_dmaunmap_mem(struct kgd_mem *mem, void *drm_priv)
- {
- 	struct kfd_mem_attachment *entry;
- 	struct amdgpu_vm *vm;
-+	bool reserved = false;
-+	int ret = 0;
- 
- 	vm = drm_priv_to_vm(drm_priv);
- 
- 	mutex_lock(&mem->lock);
- 
- 	list_for_each_entry(entry, &mem->attachments, list) {
--		if (entry->bo_va->base.vm == vm)
--			kfd_mem_dmaunmap_attachment(mem, entry);
-+		if (entry->bo_va->base.vm != vm)
-+			continue;
-+		if (entry->type == KFD_MEM_ATT_SHARED ||
-+		    entry->type == KFD_MEM_ATT_DMABUF)
-+			continue;
-+		if (!entry->bo_va->base.bo->tbo.ttm->sg)
-+			continue;
-+
-+		if (!reserved) {
-+			ret = amdgpu_bo_reserve(mem->bo, true);
-+			if (ret)
-+				goto out;
-+			reserved = true;
-+		}
-+
-+		kfd_mem_dmaunmap_attachment(mem, entry);
- 	}
- 
-+	if (reserved)
-+		amdgpu_bo_unreserve(mem->bo);
-+
-+out:
- 	mutex_unlock(&mem->lock);
-+
-+	return ret;
- }
- 
- int amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index ce4c52ec34d8..80e90fdef291 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1442,7 +1442,9 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
- 			kfd_flush_tlb(peer_pdd, TLB_FLUSH_HEAVYWEIGHT);
- 
- 		/* Remove dma mapping after tlb flush to avoid IO_PAGE_FAULT */
--		amdgpu_amdkfd_gpuvm_dmaunmap_mem(mem, peer_pdd->drm_priv);
-+		err = amdgpu_amdkfd_gpuvm_dmaunmap_mem(mem, peer_pdd->drm_priv);
-+		if (err)
-+			goto sync_memory_failed;
- 	}
- 
- 	mutex_unlock(&p->mutex);
--- 
-2.25.1
+> Normally if the drivers call vmf_insert_pfn_prot and also supply
+> 'pfn_mkwrite' callback within vm_operations_struct which requires
+> the pte to be dirty catching then the vmf_insert_pfn_prot and the
+> double fault are reasonable. It is not a problem.
+
+Well, as far as I can see that behavior absolutely doesn't make sense.
+
+When pfn_mkwrite is requested then the driver should use PAGE_COPY, 
+which is exactly what VMWGFX (the only driver using dirty tracking) is 
+doing.
+
+Everybody else uses PAGE_SHARED which should make the pte writeable 
+immediately.
+
+Regards,
+Christian.
+
+>
+> However the most of drivers calling vmf_insert_pfn_prot do not
+> supply the 'pfn_mkwrite' callback so that the second fault is
+> unnecessary.
+>
+> So just like vmf_insert_mixed and vmf_insert_mixed_mkwrite pair,
+> we should also supply vmf_insert_pfn_mkwrite for drivers as well.
+>
+> Signed-off-by: Xianrong Zhou <Xianrong.Zhou@amd.com>
+> ---
+>   arch/x86/entry/vdso/vma.c                  |  3 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  2 +-
+>   drivers/gpu/drm/i915/gem/i915_gem_ttm.c    |  2 +-
+>   drivers/gpu/drm/nouveau/nouveau_gem.c      |  2 +-
+>   drivers/gpu/drm/radeon/radeon_gem.c        |  2 +-
+>   drivers/gpu/drm/ttm/ttm_bo_vm.c            |  8 +++++---
+>   drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c |  8 +++++---
+>   include/drm/ttm/ttm_bo.h                   |  3 ++-
+>   include/linux/mm.h                         |  2 +-
+>   mm/memory.c                                | 14 +++++++++++---
+>   10 files changed, 30 insertions(+), 16 deletions(-)
+>
+> diff --git a/arch/x86/entry/vdso/vma.c b/arch/x86/entry/vdso/vma.c
+> index 7645730dc228..dd2431c2975f 100644
+> --- a/arch/x86/entry/vdso/vma.c
+> +++ b/arch/x86/entry/vdso/vma.c
+> @@ -185,7 +185,8 @@ static vm_fault_t vvar_fault(const struct vm_special_mapping *sm,
+>   		if (pvti && vclock_was_used(VDSO_CLOCKMODE_PVCLOCK)) {
+>   			return vmf_insert_pfn_prot(vma, vmf->address,
+>   					__pa(pvti) >> PAGE_SHIFT,
+> -					pgprot_decrypted(vma->vm_page_prot));
+> +					pgprot_decrypted(vma->vm_page_prot),
+> +					true);
+>   		}
+>   	} else if (sym_offset == image->sym_hvclock_page) {
+>   		pfn = hv_get_tsc_pfn();
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> index 49a5f1c73b3e..adcb20d9e624 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -64,7 +64,7 @@ static vm_fault_t amdgpu_gem_fault(struct vm_fault *vmf)
+>   		}
+>   
+>   		ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm_page_prot,
+> -					       TTM_BO_VM_NUM_PREFAULT);
+> +					       TTM_BO_VM_NUM_PREFAULT, true);
+>   
+>   		drm_dev_exit(idx);
+>   	} else {
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> index 9227f8146a58..c6f13ae6c308 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> @@ -1114,7 +1114,7 @@ static vm_fault_t vm_fault_ttm(struct vm_fault *vmf)
+>   
+>   	if (drm_dev_enter(dev, &idx)) {
+>   		ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm_page_prot,
+> -					       TTM_BO_VM_NUM_PREFAULT);
+> +					       TTM_BO_VM_NUM_PREFAULT, true);
+>   		drm_dev_exit(idx);
+>   	} else {
+>   		ret = ttm_bo_vm_dummy_page(vmf, vmf->vma->vm_page_prot);
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
+> index 49c2bcbef129..7e1453762ec9 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_gem.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+> @@ -56,7 +56,7 @@ static vm_fault_t nouveau_ttm_fault(struct vm_fault *vmf)
+>   
+>   	nouveau_bo_del_io_reserve_lru(bo);
+>   	prot = vm_get_page_prot(vma->vm_flags);
+> -	ret = ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT);
+> +	ret = ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT, true);
+>   	nouveau_bo_add_io_reserve_lru(bo);
+>   	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
+>   		return ret;
+> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+> index 3fec3acdaf28..b21cf00ae162 100644
+> --- a/drivers/gpu/drm/radeon/radeon_gem.c
+> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
+> @@ -62,7 +62,7 @@ static vm_fault_t radeon_gem_fault(struct vm_fault *vmf)
+>   		goto unlock_resv;
+>   
+>   	ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm_page_prot,
+> -				       TTM_BO_VM_NUM_PREFAULT);
+> +				       TTM_BO_VM_NUM_PREFAULT, true);
+>   	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
+>   		goto unlock_mclk;
+>   
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> index 4212b8c91dd4..7d14a7d267aa 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> @@ -167,6 +167,7 @@ EXPORT_SYMBOL(ttm_bo_vm_reserve);
+>    * @num_prefault: Maximum number of prefault pages. The caller may want to
+>    * specify this based on madvice settings and the size of the GPU object
+>    * backed by the memory.
+> + * @mkwrite: make the pfn or page writable
+>    *
+>    * This function inserts one or more page table entries pointing to the
+>    * memory backing the buffer object, and then returns a return code
+> @@ -180,7 +181,8 @@ EXPORT_SYMBOL(ttm_bo_vm_reserve);
+>    */
+>   vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+>   				    pgprot_t prot,
+> -				    pgoff_t num_prefault)
+> +				    pgoff_t num_prefault,
+> +				    bool mkwrite)
+>   {
+>   	struct vm_area_struct *vma = vmf->vma;
+>   	struct ttm_buffer_object *bo = vma->vm_private_data;
+> @@ -263,7 +265,7 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+>   		 * at arbitrary times while the data is mmap'ed.
+>   		 * See vmf_insert_pfn_prot() for a discussion.
+>   		 */
+> -		ret = vmf_insert_pfn_prot(vma, address, pfn, prot);
+> +		ret = vmf_insert_pfn_prot(vma, address, pfn, prot, mkwrite);
+>   
+>   		/* Never error on prefaulted PTEs */
+>   		if (unlikely((ret & VM_FAULT_ERROR))) {
+> @@ -312,7 +314,7 @@ vm_fault_t ttm_bo_vm_dummy_page(struct vm_fault *vmf, pgprot_t prot)
+>   	/* Prefault the entire VMA range right away to avoid further faults */
+>   	for (address = vma->vm_start; address < vma->vm_end;
+>   	     address += PAGE_SIZE)
+> -		ret = vmf_insert_pfn_prot(vma, address, pfn, prot);
+> +		ret = vmf_insert_pfn_prot(vma, address, pfn, prot, true);
+>   
+>   	return ret;
+>   }
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c b/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
+> index 74ff2812d66a..bb8e4b641681 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
+> @@ -452,12 +452,14 @@ vm_fault_t vmw_bo_vm_fault(struct vm_fault *vmf)
+>   	 * sure the page protection is write-enabled so we don't get
+>   	 * a lot of unnecessary write faults.
+>   	 */
+> -	if (vbo->dirty && vbo->dirty->method == VMW_BO_DIRTY_MKWRITE)
+> +	if (vbo->dirty && vbo->dirty->method == VMW_BO_DIRTY_MKWRITE) {
+>   		prot = vm_get_page_prot(vma->vm_flags & ~VM_SHARED);
+> -	else
+> +		ret = ttm_bo_vm_fault_reserved(vmf, prot, num_prefault, false);
+> +	} else {
+>   		prot = vm_get_page_prot(vma->vm_flags);
+> +		ret = ttm_bo_vm_fault_reserved(vmf, prot, num_prefault, true);
+> +	}
+>   
+> -	ret = ttm_bo_vm_fault_reserved(vmf, prot, num_prefault);
+>   	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
+>   		return ret;
+>   
+> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+> index 0223a41a64b2..66e293db69ee 100644
+> --- a/include/drm/ttm/ttm_bo.h
+> +++ b/include/drm/ttm/ttm_bo.h
+> @@ -386,7 +386,8 @@ vm_fault_t ttm_bo_vm_reserve(struct ttm_buffer_object *bo,
+>   			     struct vm_fault *vmf);
+>   vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+>   				    pgprot_t prot,
+> -				    pgoff_t num_prefault);
+> +				    pgoff_t num_prefault,
+> +				    bool mkwrite);
+>   vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf);
+>   void ttm_bo_vm_open(struct vm_area_struct *vma);
+>   void ttm_bo_vm_close(struct vm_area_struct *vma);
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index f5a97dec5169..f8868e28ea04 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -3553,7 +3553,7 @@ int vm_map_pages_zero(struct vm_area_struct *vma, struct page **pages,
+>   vm_fault_t vmf_insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+>   			unsigned long pfn);
+>   vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
+> -			unsigned long pfn, pgprot_t pgprot);
+> +			unsigned long pfn, pgprot_t pgprot, bool mkwrite);
+>   vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
+>   			pfn_t pfn);
+>   vm_fault_t vmf_insert_mixed_mkwrite(struct vm_area_struct *vma,
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 7e1f4849463a..2c28f1a349ff 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -2195,6 +2195,7 @@ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+>    * @addr: target user address of this page
+>    * @pfn: source kernel pfn
+>    * @pgprot: pgprot flags for the inserted page
+> + * @mkwrite: make the pfn writable
+>    *
+>    * This is exactly like vmf_insert_pfn(), except that it allows drivers
+>    * to override pgprot on a per-page basis.
+> @@ -2223,7 +2224,7 @@ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+>    * Return: vm_fault_t value.
+>    */
+>   vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
+> -			unsigned long pfn, pgprot_t pgprot)
+> +			unsigned long pfn, pgprot_t pgprot, bool mkwrite)
+>   {
+>   	/*
+>   	 * Technically, architectures with pte_special can avoid all these
+> @@ -2246,7 +2247,7 @@ vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
+>   	track_pfn_insert(vma, &pgprot, __pfn_to_pfn_t(pfn, PFN_DEV));
+>   
+>   	return insert_pfn(vma, addr, __pfn_to_pfn_t(pfn, PFN_DEV), pgprot,
+> -			false);
+> +			mkwrite);
+>   }
+>   EXPORT_SYMBOL(vmf_insert_pfn_prot);
+>   
+> @@ -2273,10 +2274,17 @@ EXPORT_SYMBOL(vmf_insert_pfn_prot);
+>   vm_fault_t vmf_insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+>   			unsigned long pfn)
+>   {
+> -	return vmf_insert_pfn_prot(vma, addr, pfn, vma->vm_page_prot);
+> +	return vmf_insert_pfn_prot(vma, addr, pfn, vma->vm_page_prot, false);
+>   }
+>   EXPORT_SYMBOL(vmf_insert_pfn);
+>   
+> +vm_fault_t vmf_insert_pfn_mkwrite(struct vm_area_struct *vma, unsigned long addr,
+> +			unsigned long pfn)
+> +{
+> +	return vmf_insert_pfn_prot(vma, addr, pfn, vma->vm_page_prot, true);
+> +}
+> +EXPORT_SYMBOL(vmf_insert_pfn_mkwrite);
+> +
+>   static bool vm_mixed_ok(struct vm_area_struct *vma, pfn_t pfn)
+>   {
+>   	/* these checks mirror the abort conditions in vm_normal_page */
 
