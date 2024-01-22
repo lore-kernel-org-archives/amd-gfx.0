@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8614C47DAF
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:01:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54F56C47DD9
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:02:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E06210F2D0;
-	Mon, 22 Jan 2024 15:01:54 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9DFA10F2CC;
- Mon, 22 Jan 2024 15:01:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A74410F2D1;
+	Mon, 22 Jan 2024 15:01:56 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 588E410F2D3;
+ Mon, 22 Jan 2024 15:01:54 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 3E185B80E6C;
- Mon, 22 Jan 2024 15:01:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A31C433A6;
- Mon, 22 Jan 2024 15:01:48 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id C9C5D6115A;
+ Mon, 22 Jan 2024 15:01:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2402EC433C7;
+ Mon, 22 Jan 2024 15:01:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705935710;
- bh=ZsYhDRSMrBrkpdbxY5l+VFbJSu4rGbvydsbzY2yWMBk=;
+ s=k20201202; t=1705935683;
+ bh=bB14RhwtHCht10MRw+OWoJQOjFl0frT6lyEbD5z5Phk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dasyUWBShZhR7APwOFg8w8yqjG9yLSohFK/DEKbt5owa+ZbXkkZPuelAY5YNHJ1ts
- 4Bf98sQUdoPr/r3OzcBwcveNAFPVcPvYEvm2eOsy7g8F3RSkCMYwl1XpDLP3X767jZ
- wsaUkmfFKdzpGgZ88+bYdkLpoYwei/mLQQCNgkHGkaWCv38O3yxHHVlE9lnPM/qTaP
- zlHrCfmYD0aNRe+ew9SvKMaLBkAJvys3HtxEUdyQQE+zG2oniBecJ+CpaWju1KmVTx
- oeWNM3U12ZmJErYqukUTKSTUMwxAA/PxmgimrUl0/qHh+cvOtp0J6ryB6a2GevZkUl
- uBq+LM0/eFoAg==
+ b=gRklkEbGQgRD/oiH5PirFGtoy628UtNe0D0XItifHnKeLShsKmcIpmsRvS3CsG11z
+ I4YwFJRTCBOqeAc6ATk93QWnc/EUEl4Jyop45rbaub5AvSzIgixgUaJ3HXhQyBQ/nk
+ Ng2jZOeEETcYB0wHOylpmRAid1WiH1r7Vkj2s/+u6LMrb6wF+VIbxxs4eWwe1rj/9j
+ 2xt8OG30o2h+At0O09qQZCcYvETlogZGEBiDh2jDLMcqPnT5JZ0w230Gqb/OCGL/dx
+ tQcOWDnsxYj+8X/bfXdoWGb+uEvFmQ0gzq6MzYf/3Q/FlbHWwc2KV+zkHzf17KDPox
+ MLUE2LrS1SS5A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.7 78/88] drm/amdgpu: Fix possible NULL dereference
- in amdgpu_ras_query_error_status_helper()
-Date: Mon, 22 Jan 2024 09:51:51 -0500
-Message-ID: <20240122145608.990137-78-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.7 73/88] drm/amdgpu: Fix ecc irq enable/disable
+ unpaired
+Date: Mon, 22 Jan 2024 09:51:46 -0500
+Message-ID: <20240122145608.990137-73-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122145608.990137-1-sashal@kernel.org>
 References: <20240122145608.990137-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.7.1
@@ -54,53 +53,132 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, kevinyang.wang@amd.com,
- dri-devel@lists.freedesktop.org, Tao Zhou <tao.zhou1@amd.com>,
- asad.kamal@amd.com, lijo.lazar@amd.com, YiPeng.Chai@amd.com,
- Stanley.Yang@amd.com, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
+Cc: Sasha Levin <sashal@kernel.org>, mukul.joshi@amd.com, Xinhui.Pan@amd.com,
+ srinivasan.shanmugam@amd.com, dri-devel@lists.freedesktop.org,
+ Felix.Kuehling@amd.com, Tao Zhou <tao.zhou1@amd.com>,
+ rajneesh.bhardwaj@amd.com, asad.kamal@amd.com, lijo.lazar@amd.com,
+ le.ma@amd.com, "Stanley.Yang" <Stanley.Yang@amd.com>,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
  Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ christian.koenig@amd.com, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+From: "Stanley.Yang" <Stanley.Yang@amd.com>
 
-[ Upstream commit b8d55a90fd55b767c25687747e2b24abd1ef8680 ]
+[ Upstream commit a32c6f7f5737cc7e31cd7ad5133f0d96fca12ea6 ]
 
-Return invalid error code -EINVAL for invalid block id.
+The ecc_irq is disabled while GPU mode2 reset suspending process,
+but not be enabled during GPU mode2 reset resume process.
 
-Fixes the below:
+Changed from V1:
+	only do sdma/gfx ras_late_init in aldebaran_mode2_restore_ip
+	delete amdgpu_ras_late_resume function
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:1183 amdgpu_ras_query_error_status_helper() error: we previously assumed 'info' could be null (see line 1176)
+Changed from V2:
+	check umc ras supported before put ecc_irq
 
-Suggested-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: Tao Zhou <tao.zhou1@amd.com>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/aldebaran.c | 26 +++++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c |  5 +++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  |  4 ++++
+ 4 files changed, 38 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 63fb4cd85e53..4a3726bb6da1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1174,6 +1174,9 @@ static int amdgpu_ras_query_error_status_helper(struct amdgpu_device *adev,
- 	enum amdgpu_ras_block blk = info ? info->head.block : AMDGPU_RAS_BLOCK_COUNT;
- 	struct amdgpu_ras_block_object *block_obj = NULL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+index 02f4c6f9d4f6..576067d66bb9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
++++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+@@ -330,6 +330,7 @@ aldebaran_mode2_restore_hwcontext(struct amdgpu_reset_control *reset_ctl,
+ {
+ 	struct list_head *reset_device_list = reset_context->reset_device_list;
+ 	struct amdgpu_device *tmp_adev = NULL;
++	struct amdgpu_ras *con;
+ 	int r;
  
-+	if (blk == AMDGPU_RAS_BLOCK_COUNT)
-+		return -EINVAL;
+ 	if (reset_device_list == NULL)
+@@ -355,7 +356,30 @@ aldebaran_mode2_restore_hwcontext(struct amdgpu_reset_control *reset_ctl,
+ 		 */
+ 		amdgpu_register_gpu_instance(tmp_adev);
+ 
+-		/* Resume RAS */
++		/* Resume RAS, ecc_irq */
++		con = amdgpu_ras_get_context(tmp_adev);
++		if (!amdgpu_sriov_vf(tmp_adev) && con) {
++			if (tmp_adev->sdma.ras &&
++				tmp_adev->sdma.ras->ras_block.ras_late_init) {
++				r = tmp_adev->sdma.ras->ras_block.ras_late_init(tmp_adev,
++						&tmp_adev->sdma.ras->ras_block.ras_comm);
++				if (r) {
++					dev_err(tmp_adev->dev, "SDMA failed to execute ras_late_init! ret:%d\n", r);
++					goto end;
++				}
++			}
 +
- 	if (error_query_mode == AMDGPU_RAS_INVALID_ERROR_QUERY)
- 		return -EINVAL;
++			if (tmp_adev->gfx.ras &&
++				tmp_adev->gfx.ras->ras_block.ras_late_init) {
++				r = tmp_adev->gfx.ras->ras_block.ras_late_init(tmp_adev,
++						&tmp_adev->gfx.ras->ras_block.ras_comm);
++				if (r) {
++					dev_err(tmp_adev->dev, "GFX failed to execute ras_late_init! ret:%d\n", r);
++					goto end;
++				}
++			}
++		}
++
+ 		amdgpu_ras_resume(tmp_adev);
+ 
+ 		/* Update PSP FW topology after reset */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index a5a05c16c10d..6c5185608854 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -1041,6 +1041,10 @@ static int gmc_v10_0_hw_fini(void *handle)
+ 
+ 	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
+ 
++	if (adev->gmc.ecc_irq.funcs &&
++		amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC))
++		amdgpu_irq_put(adev, &adev->gmc.ecc_irq, 0);
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index 23d7b548d13f..c9c653cfc765 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -941,6 +941,11 @@ static int gmc_v11_0_hw_fini(void *handle)
+ 	}
+ 
+ 	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
++
++	if (adev->gmc.ecc_irq.funcs &&
++		amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC))
++		amdgpu_irq_put(adev, &adev->gmc.ecc_irq, 0);
++
+ 	gmc_v11_0_gart_disable(adev);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 2ac5820e9c92..507d695bcc6b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -2380,6 +2380,10 @@ static int gmc_v9_0_hw_fini(void *handle)
+ 
+ 	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
+ 
++	if (adev->gmc.ecc_irq.funcs &&
++		amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC))
++		amdgpu_irq_put(adev, &adev->gmc.ecc_irq, 0);
++
+ 	return 0;
+ }
  
 -- 
 2.43.0
