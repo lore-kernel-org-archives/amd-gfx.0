@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F34E1C47DD9
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:06:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BADFAC47DD9
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:06:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61C9D10F31F;
-	Mon, 22 Jan 2024 15:06:01 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FBD510F318;
- Mon, 22 Jan 2024 15:06:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF21510F31C;
+	Mon, 22 Jan 2024 15:06:33 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40E6410F320;
+ Mon, 22 Jan 2024 15:06:32 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 6B324B80E77;
- Mon, 22 Jan 2024 15:05:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7C17C43394;
- Mon, 22 Jan 2024 15:05:25 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id B8E9D61532;
+ Mon, 22 Jan 2024 15:06:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB734C43394;
+ Mon, 22 Jan 2024 15:06:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705935927;
- bh=z9yFUwVMGr6KTvDqeyh995QcZ2urdt0fl6Xd/4eXJmc=;
+ s=k20201202; t=1705935991;
+ bh=N/JYfq2P2B6n2iliMdJGT06WbHGJvbszbHCOVodukAg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pABwJY5hfXFkcFFicK9wF1JV5BzUAozzzpoy3KWO34N6b0zdwqfRujsiDTQnH5hCn
- q+vpFB4CmdA4ApjP+WvPef0cFvHXtccIWJLSivpF4rav36i47S/LNbBKZ6x4X7iusd
- FLN7yRQcudz5L7Oo3G7wa2SD2OHtBk0kc8osrqPpY99e3Dh0JBpQMJ0YRzcFW32OVK
- in11jGDXiUhRchhUYBW4tfV9+5tLrITD+WqTZ8l4bdkIoF4EsOFqT778Zoon17QKqT
- 8HDO3C8PRxDBT9nfDGTpm5CfCCoFhBMDiK0OFa+dSusgZ9rHmcflvwqhuB4aLaaXhA
- yzcrsIuS5ZK4A==
+ b=ZLFNuCbpzOPt6eLrHwml0rENpUetiqa7lecsNcYP1L0ASWIGgvHHEpdFoaxI3rSOa
+ QzvYA4WjFV/Udgq+09Qt8nLUjBlBYPePU/FUVne7aXUrRmVG6K8pe/fCzHIJGEJoFP
+ rk5m/5XFwnfJVBbihUEez5u31keD07mO3L82UaG4/oires0GwTDjv+vgoFwJnS+bnW
+ CSwdLV+Ygr6/INuOfavK13KOYTAJ/UhiFr91Ovwai+KJR9ZysWlfrFtMwUl2Jjygue
+ YZnD5pX4upFC0zLfY8SCbENPYrvtZ7bg06U2nPZQbxlB7bZUT4mrXGGN5DWspQr0TW
+ TYOLgJgPJC/CQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.6 17/73] drm/amd/display: Fix writeback_info is not
- removed
-Date: Mon, 22 Jan 2024 10:01:31 -0500
-Message-ID: <20240122150432.992458-17-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 44/73] drm/amd/display: Force p-state disallow if
+ leaving no plane config
+Date: Mon, 22 Jan 2024 10:01:58 -0500
+Message-ID: <20240122150432.992458-44-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122150432.992458-1-sashal@kernel.org>
 References: <20240122150432.992458-1-sashal@kernel.org>
@@ -53,55 +53,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, dillon.varone@amd.com,
- dri-devel@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>,
- airlied@gmail.com, qingqing.zhuo@amd.com, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
- aurabindo.pillai@amd.com, alvin.lee2@amd.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, jun.lei@amd.com,
- Harry Wentland <harry.wentland@amd.com>, christian.koenig@amd.com
+Cc: wenjing.liu@amd.com, Samson Tam <samson.tam@amd.com>, mdaenzer@redhat.com,
+ hamza.mahfooz@amd.com, moadhuri@amd.com, jun.lei@amd.com, airlied@gmail.com,
+ Sasha Levin <sashal@kernel.org>, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Alvin.Lee2@amd.com, harry.wentland@amd.com, ilya.bakoulin@amd.com,
+ sunpeng.li@amd.com, dri-devel@lists.freedesktop.org, Wesley.Chalmers@amd.com,
+ Qingqing.Zhuo@amd.com, Xinhui.Pan@amd.com, gabe.teeger@amd.com,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Alvin Lee <alvin.lee2@amd.com>
 
-[ Upstream commit 5b89d2ccc8466e0445a4994cb288fc009b565de5 ]
+[ Upstream commit 9a902a9073c287353e25913c0761bfed49d75a88 ]
 
-[WHY]
-Counter j was not updated to present the num of writeback_info when
-writeback pipes are removed.
+[Description]
+- When we're in a no plane config, DCN is always asserting
+  P-State allow
+- This creates a scenario where the P-State blackout can start
+  just as VUPDATE takes place and transitions the DCN config to
+  a one where one or more HUBP's are active which can result in
+  underflow
+- To fix this issue, force p-state disallow and unforce after
+  the transition from no planes case -> one or more planes active
 
-[HOW]
-update j (num of writeback info) under the correct condition.
-
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Samson Tam <samson.tam@amd.com>
+Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index c232d38e70ae..79f3d7648eb7 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -546,11 +546,12 @@ bool dc_stream_remove_writeback(struct dc *dc,
- 			if (stream->writeback_info[i].dwb_pipe_inst == dwb_pipe_inst)
- 				stream->writeback_info[i].wb_enabled = false;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index a2e1ca3b93e8..2c4bcbca8bb8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1792,6 +1792,8 @@ void dcn20_program_front_end_for_ctx(
+ 	int i;
+ 	struct dce_hwseq *hws = dc->hwseq;
+ 	DC_LOGGER_INIT(dc->ctx->logger);
++	unsigned int prev_hubp_count = 0;
++	unsigned int hubp_count = 0;
  
--			if (j < i)
--				/* trim the array */
-+			/* trim the array */
-+			if (j < i) {
- 				memcpy(&stream->writeback_info[j], &stream->writeback_info[i],
- 						sizeof(struct dc_writeback_info));
--			j++;
-+				j++;
-+			}
+ 	/* Carry over GSL groups in case the context is changing. */
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+@@ -1815,6 +1817,20 @@ void dcn20_program_front_end_for_ctx(
  		}
  	}
- 	stream->num_wb_info = j;
+ 
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++		if (dc->current_state->res_ctx.pipe_ctx[i].plane_state)
++			prev_hubp_count++;
++		if (context->res_ctx.pipe_ctx[i].plane_state)
++			hubp_count++;
++	}
++
++	if (prev_hubp_count == 0 && hubp_count > 0) {
++		if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
++			dc->res_pool->hubbub->funcs->force_pstate_change_control(
++					dc->res_pool->hubbub, true, false);
++		udelay(500);
++	}
++
+ 	/* Set pipe update flags and lock pipes */
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++)
+ 		dcn20_detect_pipe_changes(&dc->current_state->res_ctx.pipe_ctx[i],
+@@ -1962,6 +1978,10 @@ void dcn20_post_unlock_program_front_end(
+ 		}
+ 	}
+ 
++	if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
++		dc->res_pool->hubbub->funcs->force_pstate_change_control(
++				dc->res_pool->hubbub, false, false);
++
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+ 		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
+ 
 -- 
 2.43.0
 
