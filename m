@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D937AC47DDB
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:16:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D3EDC47DD9
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:16:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0361F10F2A5;
-	Mon, 22 Jan 2024 15:16:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D63010F351;
+	Mon, 22 Jan 2024 15:16:34 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C22E510F1F9;
- Mon, 22 Jan 2024 15:16:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 229D410F351;
+ Mon, 22 Jan 2024 15:16:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3E6996153A;
- Mon, 22 Jan 2024 15:15:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 904A1C433C7;
- Mon, 22 Jan 2024 15:15:43 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 6EC3D614F5;
+ Mon, 22 Jan 2024 15:16:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1FD5C43390;
+ Mon, 22 Jan 2024 15:16:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705936546;
- bh=UsQX3ShQguyvvPWhdrnfEISc4JhZVMhHQJKyFhICcao=;
+ s=k20201202; t=1705936592;
+ bh=vUodo6WyU9TKSHALWdJBer1gkM041uMGsj3HnwCnqiA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TGHrYeCKnpDD/ggP9rRr9R6Jwxh9Y4VyfonE8g6klZiXa6aKFmsSvxjCGjlKldm/H
- +M3orQxTGMI0KMATVv1nnwop3vOl4/Gj6Tcl2kgmgVGSwWJ7qJWVoRCVuvXZf1pVFG
- 2Mx1vWEBMAfPOmJx3UtCWrY3GlqLkjok5r9xCQ8QkmbauKQSHF52kUQRqtSB7aivxA
- xI9DERSgvpl+A6UlACWsiz1KRiLq+BD+EATmkuJuQrkIoJAWlpbVN85ZSD/0noeBOT
- K4YDOxYvKtBiDOgdmZ4oxatZV4OP3p3BzIG7Mh0lQl0mY76k3w6HJMzHt4S62zTZbM
- d1UI0Iui5wjfA==
+ b=CVEcdqN0VOq7Dfv6SPqvLNm2FngGI0DHHSbifKJ1trfrNS0lHdYW3/RbrQTlpoWqx
+ DrdTgA3dmLoB4DWtzmAL9HoCSPvRXnyG0o9KMVUW41NFUkQFnxhO8lAdwcJcIFT5et
+ 08MRL2d+IGtJlv7Q6fO4KPXya1uBxjWsS/syTRnqmX38XdttDvpEuULfbVMUuveIU+
+ rG1k2VDMTQMKOtojbZLzssb59mjFhXgM4YaNSTluXhBScEwURVEJ+6Ol4jbL/r9ciO
+ g41+mQ0T9jWGWGCz8RiMwrBqtX1lJUnfiHv3WSMJ/kcv+XWkcZY026RGEEKGBKHH41
+ HYhFQmEM0Q/nw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 09/28] drm/amd/display: Fix writeback_info never
- got updated
-Date: Mon, 22 Jan 2024 10:14:35 -0500
-Message-ID: <20240122151521.996443-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 26/28] drm/amd/display: make flip_timestamp_in_us
+ a 64-bit variable
+Date: Mon, 22 Jan 2024 10:14:52 -0500
+Message-ID: <20240122151521.996443-26-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122151521.996443-1-sashal@kernel.org>
 References: <20240122151521.996443-1-sashal@kernel.org>
@@ -53,62 +53,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, dillon.varone@amd.com,
- dri-devel@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>,
- airlied@gmail.com, qingqing.zhuo@amd.com, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
- aurabindo.pillai@amd.com, alvin.lee2@amd.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, jun.lei@amd.com,
- Harry Wentland <harry.wentland@amd.com>, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Aric Cyr <aric.cyr@amd.com>,
+ dri-devel@lists.freedesktop.org, sunpeng.li@amd.com, harry.wentland@amd.com,
+ qingqing.zhuo@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, wenjing.liu@amd.com,
+ Daniel Wheeler <daniel.wheeler@amd.com>, aurabindo.pillai@amd.com,
+ mario.limonciello@amd.com, daniel@ffwll.ch, Wayne Lin <wayne.lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ Josip Pavic <josip.pavic@amd.com>, christian.koenig@amd.com,
+ hamza.mahfooz@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Josip Pavic <josip.pavic@amd.com>
 
-[ Upstream commit 8a307777c36e15f38c9f23778babcd368144c7d8 ]
+[ Upstream commit 6fb12518ca58412dc51054e2a7400afb41328d85 ]
 
-[WHY]
-wb_enabled field is set to false before it is used, and the following
-code will never be executed.
+[Why]
+This variable currently overflows after about 71 minutes. This doesn't
+cause any known functional issues but it does make debugging more
+difficult.
 
-[HOW]
-Setting wb_enable to false after all removal work is completed.
+[How]
+Make it a 64-bit variable.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Aric Cyr <aric.cyr@amd.com>
+Acked-by: Wayne Lin <wayne.lin@amd.com>
+Signed-off-by: Josip Pavic <josip.pavic@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index 8206c6edba74..c54691166871 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -481,18 +481,13 @@ bool dc_stream_remove_writeback(struct dc *dc,
- 		return false;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+index 1a87bc3da826..b36d4c5d0eca 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+@@ -426,7 +426,7 @@ struct dc_cursor_position {
+ };
  
--//	stream->writeback_info[dwb_pipe_inst].wb_enabled = false;
--	for (i = 0; i < stream->num_wb_info; i++) {
--		/*dynamic update*/
--		if (stream->writeback_info[i].wb_enabled &&
--			stream->writeback_info[i].dwb_pipe_inst == dwb_pipe_inst) {
--			stream->writeback_info[i].wb_enabled = false;
--		}
--	}
--
- 	/* remove writeback info for disabled writeback pipes from stream */
- 	for (i = 0, j = 0; i < stream->num_wb_info; i++) {
- 		if (stream->writeback_info[i].wb_enabled) {
-+
-+			if (stream->writeback_info[i].dwb_pipe_inst == dwb_pipe_inst)
-+				stream->writeback_info[i].wb_enabled = false;
-+
- 			if (i != j)
- 				/* trim the array */
- 				stream->writeback_info[j] = stream->writeback_info[i];
+ struct dc_cursor_mi_param {
+-	unsigned int pixel_clk_khz;
++	unsigned long long pixel_clk_khz;
+ 	unsigned int ref_clk_khz;
+ 	struct rect viewport;
+ 	struct fixed31_32 h_scale_ratio;
 -- 
 2.43.0
 
