@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD5B6C47DDB
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:01:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82FBBC47DDB
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:01:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46F7E10F201;
-	Mon, 22 Jan 2024 15:01:44 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F0F110F201;
- Mon, 22 Jan 2024 15:01:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0697210F2CD;
+	Mon, 22 Jan 2024 15:01:50 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB11F10F262;
+ Mon, 22 Jan 2024 15:01:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 7E271CE2AA3;
- Mon, 22 Jan 2024 15:01:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A524CC433F1;
- Mon, 22 Jan 2024 15:01:02 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 0F361B80C82;
+ Mon, 22 Jan 2024 15:01:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60C8DC433A6;
+ Mon, 22 Jan 2024 15:01:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705935666;
- bh=vSXH9S5fPCcb5miNeZI3+Bfvyh+vxHE6G/x7Q/8vLL0=;
+ s=k20201202; t=1705935706;
+ bh=/8AO20DIpVDP6VzxYTnZffLbt3oHDKbZIwiAMnZot9A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KIOZHMIA5en9DO82eJNbIubKUoYr11WYWQ++7jt/BdwFJhhrVrIhBJI9jK4R0Ww/V
- SyspSHvpXULSR+FblN8+qdI9te+/L81+lnylNkjdKkMeut/RCTyqHmLITgjhJpF+Do
- 36zzq7QpSd6cdInsL5waY4G5wx1GRjSw9rd/PqtZHRAZiPt/uKx0atzlBqWyXeusPq
- +gbikKIKKN90OUzdKNvG150NJshaxLN73WtDeF2LwZ5/kD5XC4npSo2qbDrdqBNvEm
- 3gIh6AuU00jzuTLyeryrPGOyPgCcLkz+GzyctXys+A1IcKwhSkYYILeNfZbIe4Udyl
- XDGoCobpgBxtA==
+ b=YTJDfLjx6BE3WQpRqzw2Sy1pTPrwXztPgIdeeeVLeRiJlMMZqJ8pLFNLyI37lO4az
+ WXywU/M9HRZ+5yk+jpcq7kd+1fcKnEMm8AZ/3v5SKQQiAvCeC+6yq2RIC0VgeZIBUy
+ WAsnl7xGYqv9nbhscxlej5+RWQGHzboTr5KgO7MARJLuUVZSc1zPfpCnYG68G5Tl+o
+ DtfzCnbqBo3xSg0rzozRCNSj4X1q3XXb2TV/r/Dy7x7qjSwLqrYA+QsbAHaXzGB+E8
+ MY4Oj1o6kjaw3iKcjBQkAvKWv+A0o+Z1eIB/j+rZSr36vw4jiEeh7HTPt2tZbEqZ4W
+ C2mI7cfVCKk1g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.7 69/88] drm/amd/display: Only clear symclk otg flag
- for HDMI
-Date: Mon, 22 Jan 2024 09:51:42 -0500
-Message-ID: <20240122145608.990137-69-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.7 77/88] Re-revert "drm/amd/display: Enable Replay
+ for static screen use cases"
+Date: Mon, 22 Jan 2024 09:51:50 -0500
+Message-ID: <20240122145608.990137-77-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122145608.990137-1-sashal@kernel.org>
 References: <20240122145608.990137-1-sashal@kernel.org>
@@ -53,107 +53,151 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ian.chen@amd.com, wenjing.liu@amd.com, Samson Tam <samson.tam@amd.com>,
- mdaenzer@redhat.com, hamza.mahfooz@amd.com, jun.lei@amd.com, airlied@gmail.com,
- Sasha Levin <sashal@kernel.org>, charlene.liu@amd.com, Josip.Pavic@amd.com,
- sancchen@amd.com, Rodrigo.Siqueira@amd.com, syed.hassan@amd.com,
- amd-gfx@lists.freedesktop.org, alex.hung@amd.com,
- Alvin Lee <alvin.lee2@amd.com>, harry.wentland@amd.com, Jingwen.Zhu@amd.com,
- sunpeng.li@amd.com, mwen@igalia.com, Daniel Wheeler <daniel.wheeler@amd.com>,
- dri-devel@lists.freedesktop.org, sungjoon.kim@amd.com, dillon.varone@amd.com,
- Wesley.Chalmers@amd.com, swapnil.patel@amd.com, qingqing.zhuo@amd.com,
- Xinhui.Pan@amd.com, nicholas.kazlauskas@amd.com, daniel@ffwll.ch,
- Wayne Lin <wayne.lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com
+Cc: Ivan Lipski <ivlipski@amd.com>, dri-devel@lists.freedesktop.org,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, srinivasan.shanmugam@amd.com,
+ airlied@gmail.com, Sasha Levin <sashal@kernel.org>, bhawanpreet.lakha@amd.com,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, alex.hung@amd.com,
+ aurabindo.pillai@amd.com, harry.wentland@amd.com, haoping.liu@amd.com,
+ andrealmeid@igalia.com, Leo Li <sunpeng.li@amd.com>, shiwu.zhang@amd.com,
+ mwen@igalia.com, davidbtadokoro@usp.br, chiahsuan.chung@amd.com,
+ contact@emersion.fr, Qingqing.Zhuo@amd.com, Xinhui.Pan@amd.com,
+ daniel@ffwll.ch, wayne.lin@amd.com, Alex Deucher <alexander.deucher@amd.com>,
+ Lang.Yu@amd.com, christian.koenig@amd.com, mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <alvin.lee2@amd.com>
+From: Ivan Lipski <ivlipski@amd.com>
 
-[ Upstream commit dff45f03f508c92cd8eb2050e27b726726b8ae0b ]
+[ Upstream commit d6398866a6b47e92319ef6efdb0126a4fbb7796a ]
 
-[Description]
-There is a corner case where the symclk otg flag is cleared
-when disabling the phantom pipe for subvp (because the phantom
-and main pipe share the same link). This is undesired because
-we need the maintain the correct symclk otg flag state for
-the main pipe.
+This reverts commit 44e60b14d5a72f91fd0bdeae8da59ae37a3ca8e5.
 
-For now only clear the flag only for HDMI signal type, since
-it's only set for HDMI signal type (phantom is virtual). The
-ideal solution is to not clear it if the stream is phantom but
-currently there's a bug that doesn't allow us to do this. Once
-this issue is fixed the proper fix can be implemented.
+Since, it causes a regression in which eDP displays with PSR support,
+but no Replay support (Sink support <= 0x03), fail to enable PSR and
+consequently all IGT amd_psr tests fail. So, revert this until a more
+suitable fix can be found.
 
-Reviewed-by: Samson Tam <samson.tam@amd.com>
-Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+This got brought back accidently with the backmerge.
+
+Acked-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Ivan Lipski <ivlipski@amd.com>
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 3 ++-
- drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 3 ++-
- drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 3 ++-
- drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c   | 3 ++-
- 4 files changed, 8 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 22 -------------------
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  9 +-------
+ drivers/gpu/drm/amd/include/amd_shared.h      |  2 --
+ 3 files changed, 1 insertion(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index 960a55e06375..c0d2e8454efc 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -2124,7 +2124,8 @@ static void dce110_reset_hw_ctx_wrap(
- 				BREAK_TO_DEBUGGER();
- 			}
- 			pipe_ctx_old->stream_res.tg->funcs->disable_crtc(pipe_ctx_old->stream_res.tg);
--			pipe_ctx_old->stream->link->phy_state.symclk_ref_cnts.otg = 0;
-+			if (dc_is_hdmi_tmds_signal(pipe_ctx_old->stream->signal))
-+				pipe_ctx_old->stream->link->phy_state.symclk_ref_cnts.otg = 0;
- 			pipe_ctx_old->plane_res.mi->funcs->free_mem_input(
- 					pipe_ctx_old->plane_res.mi, dc->current_state->stream_count);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 4e82ee4d74ac..cf32502d669f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -65,7 +65,6 @@
+ #include "amdgpu_dm_debugfs.h"
+ #endif
+ #include "amdgpu_dm_psr.h"
+-#include "amdgpu_dm_replay.h"
  
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-index cdb903116eb7..1fc8436c8130 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-@@ -1057,7 +1057,8 @@ static void dcn10_reset_back_end_for_pipe(
- 		if (pipe_ctx->stream_res.tg->funcs->set_drr)
- 			pipe_ctx->stream_res.tg->funcs->set_drr(
- 					pipe_ctx->stream_res.tg, NULL);
--		pipe_ctx->stream->link->phy_state.symclk_ref_cnts.otg = 0;
-+		if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal))
-+			pipe_ctx->stream->link->phy_state.symclk_ref_cnts.otg = 0;
+ #include "ivsrcid/ivsrcid_vislands30.h"
+ 
+@@ -4345,7 +4344,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 	enum dc_connection_type new_connection_type = dc_connection_none;
+ 	const struct dc_plane_cap *plane;
+ 	bool psr_feature_enabled = false;
+-	bool replay_feature_enabled = false;
+ 	int max_overlay = dm->dc->caps.max_slave_planes;
+ 
+ 	dm->display_indexes_num = dm->dc->caps.max_streams;
+@@ -4457,20 +4455,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 		}
  	}
  
- 	for (i = 0; i < dc->res_pool->pipe_count; i++)
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index c3c83178eb1e..da0181fef411 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -2610,7 +2610,8 @@ static void dcn20_reset_back_end_for_pipe(
- 		 * the case where the same symclk is shared across multiple otg
- 		 * instances
- 		 */
--		link->phy_state.symclk_ref_cnts.otg = 0;
-+		if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal))
-+			link->phy_state.symclk_ref_cnts.otg = 0;
- 		if (link->phy_state.symclk_state == SYMCLK_ON_TX_OFF) {
- 			link_hwss->disable_link_output(link,
- 					&pipe_ctx->link_res, pipe_ctx->stream->signal);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-index 97798cee876e..3a40b7359a30 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-@@ -523,7 +523,8 @@ static void dcn31_reset_back_end_for_pipe(
- 	if (pipe_ctx->stream_res.tg->funcs->set_odm_bypass)
- 		pipe_ctx->stream_res.tg->funcs->set_odm_bypass(
- 				pipe_ctx->stream_res.tg, &pipe_ctx->stream->timing);
--	pipe_ctx->stream->link->phy_state.symclk_ref_cnts.otg = 0;
-+	if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal))
-+		pipe_ctx->stream->link->phy_state.symclk_ref_cnts.otg = 0;
+-	if (!(amdgpu_dc_debug_mask & DC_DISABLE_REPLAY)) {
+-		switch (adev->ip_versions[DCE_HWIP][0]) {
+-		case IP_VERSION(3, 1, 4):
+-		case IP_VERSION(3, 1, 5):
+-		case IP_VERSION(3, 1, 6):
+-		case IP_VERSION(3, 2, 0):
+-		case IP_VERSION(3, 2, 1):
+-			replay_feature_enabled = true;
+-			break;
+-		default:
+-			replay_feature_enabled = amdgpu_dc_feature_mask & DC_REPLAY_MASK;
+-			break;
+-		}
+-	}
+ 	/* loops over all connectors on the board */
+ 	for (i = 0; i < link_cnt; i++) {
+ 		struct dc_link *link = NULL;
+@@ -4519,12 +4503,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 				amdgpu_dm_update_connector_after_detect(aconnector);
+ 				setup_backlight_device(dm, aconnector);
  
- 	if (pipe_ctx->stream_res.tg->funcs->set_drr)
- 		pipe_ctx->stream_res.tg->funcs->set_drr(
+-				/*
+-				 * Disable psr if replay can be enabled
+-				 */
+-				if (replay_feature_enabled && amdgpu_dm_setup_replay(link, aconnector))
+-					psr_feature_enabled = false;
+-
+ 				if (psr_feature_enabled)
+ 					amdgpu_dm_set_psr_caps(link);
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index cb0b48bb2a7d..d2834ad85a54 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -29,7 +29,6 @@
+ #include "dc.h"
+ #include "amdgpu.h"
+ #include "amdgpu_dm_psr.h"
+-#include "amdgpu_dm_replay.h"
+ #include "amdgpu_dm_crtc.h"
+ #include "amdgpu_dm_plane.h"
+ #include "amdgpu_dm_trace.h"
+@@ -124,12 +123,7 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
+ 	 * fill_dc_dirty_rects().
+ 	 */
+ 	if (vblank_work->stream && vblank_work->stream->link) {
+-		/*
+-		 * Prioritize replay, instead of psr
+-		 */
+-		if (vblank_work->stream->link->replay_settings.replay_feature_enabled)
+-			amdgpu_dm_replay_enable(vblank_work->stream, false);
+-		else if (vblank_work->enable) {
++		if (vblank_work->enable) {
+ 			if (vblank_work->stream->link->psr_settings.psr_version < DC_PSR_VERSION_SU_1 &&
+ 			    vblank_work->stream->link->psr_settings.psr_allow_active)
+ 				amdgpu_dm_psr_disable(vblank_work->stream);
+@@ -138,7 +132,6 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
+ #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
+ 			   !amdgpu_dm_crc_window_is_activated(&vblank_work->acrtc->base) &&
+ #endif
+-			   vblank_work->stream->link->panel_config.psr.disallow_replay &&
+ 			   vblank_work->acrtc->dm_irq_params.allow_psr_entry) {
+ 			amdgpu_dm_psr_enable(vblank_work->stream);
+ 		}
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index 7f98394338c2..579977f6ad52 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -244,7 +244,6 @@ enum DC_FEATURE_MASK {
+ 	DC_DISABLE_LTTPR_DP2_0 = (1 << 6), //0x40, disabled by default
+ 	DC_PSR_ALLOW_SMU_OPT = (1 << 7), //0x80, disabled by default
+ 	DC_PSR_ALLOW_MULTI_DISP_OPT = (1 << 8), //0x100, disabled by default
+-	DC_REPLAY_MASK = (1 << 9), //0x200, disabled by default for dcn < 3.1.4
+ };
+ 
+ enum DC_DEBUG_MASK {
+@@ -255,7 +254,6 @@ enum DC_DEBUG_MASK {
+ 	DC_DISABLE_PSR = 0x10,
+ 	DC_FORCE_SUBVP_MCLK_SWITCH = 0x20,
+ 	DC_DISABLE_MPO = 0x40,
+-	DC_DISABLE_REPLAY = 0x50,
+ 	DC_ENABLE_DPIA_TRACE = 0x80,
+ };
+ 
 -- 
 2.43.0
 
