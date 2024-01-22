@@ -4,110 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AB0EC47DAF
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 10:45:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCBFDC4725D
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 11:42:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B04B410ECD4;
-	Mon, 22 Jan 2024 10:45:43 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28D6510ECD4
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jan 2024 10:45:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
- t=1705920335; x=1706525135; i=friedrich.vock@gmx.de;
- bh=K9Jnb+o9QnwLkqLPoYaCnSLFT6p+K3ld4vCnS0MgwQ8=;
- h=X-UI-Sender-Class:Date:Subject:From:To:Cc:References:
- In-Reply-To;
- b=l1ZLU2uZHrVexJ9FCojkiFH+pOC7fPN+0sWbmEjf0yLzKTTGTmcASmhx0FZ68NzD
- WCtoX1+CI/zMK2aJKt2fticAG58gGDvBQyut8CMFnWxC04yuTJL1xF4IrtWruH8eF
- 97TUxLO1Kt5oNZ035/4RfeycWXBxH1yY3465w0UH+2vQlAicLqu8tJhiEymWAlVtV
- i5dLrD+95sg106yM2X6Cw+TKJKVj7J/AKb+QrgWHtjTYP7ClYFUEL52HVOrjPYOk2
- fNdU4lcXy5nemXkDoK18W2mhiF/PTVhJL/QjgtrRAKFJ/EYLhB5KQL8ZPjDDiJg8o
- 75MyuavBq9gjaQ3eQw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.177.3] ([213.152.118.80]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MUowb-1rauDP2zEP-00QgqI; Mon, 22
- Jan 2024 11:45:34 +0100
-Message-ID: <098e975b-2271-4f11-9549-40bc2c444a28@gmx.de>
-Date: Mon, 22 Jan 2024 11:45:31 +0100
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A60310E633;
+	Mon, 22 Jan 2024 11:42:40 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2052.outbound.protection.outlook.com [40.107.96.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39FBF10E633
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jan 2024 11:42:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mdqpWder7Levajn/0oBkhb2Yziy1hB2bpeuRIsTpttL1dmlLKavCkeFON4jhZRN/4FUYFw9/0jAe184bytBziYZ6vhO7KMVCafGaSzDdR2NbJ4gdNnD42mVZtjXbytptWI3w4eF6GaLQg+ZVzyyxCyEBfHophqo2/5+dvKFyO5A5479a9bUdR+y4bsMltKi6qsNEIBdoLZRW1RBrdQYev4ZtyFBaMVVXvr8+8LOUxqKKhsZt0HHgdLVJcIi2YpIiZuqOQvXYubnciJEV71edib6XTuN4SkRv/v3XZwDfaP/uR6s8TZozrAW27i7JttwR8zEnDHoV0CN1Mzdepm5uTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RYeZlTpRyAtpfPuZ5oxn70Z6FWStzxvLSzjZ+TIEW1w=;
+ b=OKLrxmURGoRZ+LHolTzaUAbQwkjZ76e0AABb1lX9fMBU1aRT/aCRyrh6ZwPrfdVkZ6lwtk8JgOIXDoXS4aLY2kegvsYVIYEgVNTTPOAwbz6RrJNXNfmZCuxW35ZbBhjdGI3M2Ve/rBdKKxGz4//5kSobOUEWM61W1whKzE3bJrUfHWWajVP96bnrWSx8TNPadH9R8UXPbDvPakCDviy5FZKJA3hAW1VhVXW3FUy5oalQ5U9HHFMfS+Fsy2k9UuuM0F/lUggBSCFfU7rq0jJB0iRz4IRu5o6BUvmIKVoi4a1B63pUClKarZRRI5Loebrxri4RKhYDg1XTh4IWk/fEoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RYeZlTpRyAtpfPuZ5oxn70Z6FWStzxvLSzjZ+TIEW1w=;
+ b=Wu1Bion/zFJ4Tos5qqmVcMjdSMAaCUKM1qeQnhcqp4DSNUUibzXifsJ3UU/tZC9OW0xRyMGayvSQZnFq3I8sL/hirCgARf7MRx0fwBfui5VJ5D9+litNgKkK5zGJcN0T5z01rOyLZJVWYrGJQynToSy/HhjfyTM4Khn2IpJunqg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB6037.namprd12.prod.outlook.com (2603:10b6:8:b0::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.31; Mon, 22 Jan
+ 2024 11:42:32 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7202.031; Mon, 22 Jan 2024
+ 11:42:32 +0000
+Message-ID: <4f773891-8a38-41d8-bf35-d0feedc2e6b6@amd.com>
+Date: Mon, 22 Jan 2024 12:42:27 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: Reset IH OVERFLOW_CLEAR bit after writing
- rptr
+Subject: Re: [PATCH] drm/amdgpu: check flag ring->no_scheduler before usage
 Content-Language: en-US
-From: Friedrich Vock <friedrich.vock@gmx.de>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Alex Deucher <alexdeucher@gmail.com>,
- "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>
-References: <20240114130008.868941-1-friedrich.vock@gmx.de>
- <69cec077-4011-4738-bbb0-8fb1e6f52159@gmail.com>
- <abdfec21-2642-4c68-8c51-cdfba54928aa@gmx.de>
- <577a8451-0791-4bd1-8c6c-61a7cc293174@gmail.com>
- <d15ac325-e830-4e11-a239-56eaeddecae8@gmx.de>
- <e977939c-db01-4b14-8494-0bdad5be7a8a@gmail.com>
- <CADnq5_Nb=ruoA2j-mHrQbxHY=yzwGm2kKjDiQ+ajk3urKKLing@mail.gmail.com>
- <42af4788-10bb-4107-bd1a-05f15dc9c1fa@gmx.de>
- <4d3e3c70-3307-4068-9416-613a19f587d4@gmail.com>
- <6590bae2-406d-4f45-a3e9-5dc6653925cf@amd.com>
- <0db29a99-f434-4886-9204-54eafaefa31a@amd.com>
- <60efdecd-0957-4e06-9f1e-7343dff87a8a@gmx.de>
-Autocrypt: addr=friedrich.vock@gmx.de; keydata=
- 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
- f7+xmX0X3AMtWz/15Y+7cPO2
-In-Reply-To: <60efdecd-0957-4e06-9f1e-7343dff87a8a@gmx.de>
+To: vitaly.prosyak@amd.com, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com
+References: <20240121001951.75950-1-vitaly.prosyak@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240121001951.75950-1-vitaly.prosyak@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:+AQ+56tRrlaLp+aoSlbdyIrmTA5nMiY0aPnBmX1mh1/V0GCJtyL
- 5o/VuFOqzTyymmEf2499mptsfNPI0fzYQaoG6EdFyZMIbK12Fv6qPb2x3TbFdgWTsO+tM4X
- VWWhVEct01aSsq8P3lL6srRpg+Qbf2v64EFhbJes5tKHDdkUgw6z0yxbTDe9RMqwfOTCZNa
- dlHQxkS4savnR5Sf77h0A==
-UI-OutboundReport: notjunk:1;M01:P0:nELbfb4+urI=;JvWhQQheALwBXEE+56Qgc9VoCkG
- Kg0m3SgsqGQdInP4umZeZd8RnUwRSyyjRkSYnUl/TXdUaTX3H43gBVGR8Lq+ExLTczBWSjxAa
- lJB3vbP20LPlu0/nKxHGzqPhVxLkGmtIWEV4NCOB+cHHWXy2LNdbnebvfjTS3c2GjfOWQ+r0d
- ELWUqgsBbOhpgDSJwGimcrFRM/1TJtm0mZL4nWWhKB+g52nZOyFLU21GaYmkldOSvWMvSuF0a
- bZEObXGungz9Dd6O3keAkbEECfO6UUjppTN5K8oDAKXSroKy7qg9Pm1yQZX+SLFGHbJAysy4d
- 91GV5eZg9BpDex/glgJZNswFHIvuQW9i9PLHi5t6jrVI+LCmy1YnERhal8MoE5vqQs2demo7E
- CAp7rsLYPBYd2JGhY7pfncvCYrZCmbB20hvzol9AE1s1fXE0e2A3fVSbx4Vvnhcm731R5QLaV
- v3bUowqHnWWhftAfmoLWMEGkvm4bmPp6wM0GUC962X2EZrixfjJsEIstFF+IXCtYjbCpXEd3B
- Q2chlKdO9naqQBQhA/XkDvb/FKOgq8Diy8FGiV9LQFOlxaysEcCI+Dq58UWC6pcRdELD4TLQH
- N2Go2hUOgN3B/VKIRHkdJiS4zhb7cGFQ8SRo2FimmYsDidFY9LK4xRhYyakxr8ra9ovaovknr
- AhP1NQ35TeqXCu0r5M1lBF33vW+fyKrZLxs4Rni8pDEPwI6Hev7Ng8CojmMoWWiqIlJpykPR2
- lqCeGK1k97tT2FNbcnWPiAJMOM8G+MWQk8X98iBCupgftXQtGPBLqA1Zf4GwFpa60K2JjT+EW
- 5ZxbLLeVNaFpKBVhThjFW9rZAGqycSuXgkGwTiI5cgoxl9TIORAD4FrBhQxwC9cExqSmx73yy
- pAtUhso41NcvsSo1qDleFMb7BaLrcd1k8t+IpAawyBg3ofOgLSX+bLjmHOqSms5+Jd6TJZU76
- /UrQpz41qfmUewPxwpYOGmiLw48=
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0169.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b4::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB6037:EE_
+X-MS-Office365-Filtering-Correlation-Id: 543d5d94-8fb4-48e8-fcf2-08dc1b3f3849
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tdX5p2S2kSjl+Q0YMa7BseoWeyP9pcvMJfpUOtysKKAeuK50jChH02LcqswCNYEOWXWXmxypBFXGT335y3VbEY1lNsKTYMBGjT/XPWqBChlWv6i5EcJwbkZu3vL2rjJcoRmEi1jgj8AkIzND6zSihHvFNi7ca5ICCxtf1j2MlKbIhjP8MntbKvLyJp+NqNL8fQyBEkj274UITAssyPGTIOCvYIEyNXSJOaS5MwMyuvtx3sP0DFNkWmGLgLoDJViQV1v4h71NkwhDdA+hiAfzVY8m+nrj771hewRF8ZfN/MHSg4RYsgp7kAOdHMcLlsZ33P3cAfwRyulk34k7BJyNMgUOUAuM+yrHeZajIMNEBB1VxHupTTWzTDMFRWVdGBNOuoiKJwtCEmCcqyecvyt57j1Yz5AJPkYi6fDKE/HZc4DSvNoCwa2ZKfh4fnhkAy2eMxlBWBfnkSAeIXxeI5Jmxv/5uGTgbYA/kyR6GsiEIODRjSmcndZkdrf4/IIYht7W4/LFR1PtrXyZNGrAMI+ENQ4fofH148VNkK66HfPXKcKqMoB3QFsaubKLTrgS1ouk0XdFnLwcKEwFekHZcQZP1il+FWz6HKjrXIZHuXdwWV/Q9GiYwCcOe+5kpaV9HADJOicyS/1RA2ipYrqDtIxb0g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(39860400002)(366004)(136003)(346002)(396003)(230922051799003)(64100799003)(451199024)(1800799012)(186009)(26005)(2616005)(83380400001)(6666004)(478600001)(6512007)(2906002)(6506007)(6486002)(41300700001)(31686004)(36756003)(86362001)(8676002)(316002)(66946007)(66556008)(66476007)(8936002)(5660300002)(6636002)(38100700002)(31696002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WWNGM0ZYM0RBcUVnNzF1TER4L2EybE9qK0dCdUdPMXl1aGRDZ1VSdTR1a0lZ?=
+ =?utf-8?B?dmM3M25LTGdWcHBZeUZDUlJyeHBpU09saFVRYVJVTGxJbUhkWGVRaVA1K1lr?=
+ =?utf-8?B?cENaT0s2MW82bGsweTVEODkwRWdpemtHY056dk1wZ3FRb29iRnRoTUhyLzcw?=
+ =?utf-8?B?YWF0YXFpaWs0ZHNMcXFMTUpscGxkdEpVd3FEOG5idXRVSU9DeTAwTlM3dUti?=
+ =?utf-8?B?OXBxdGNlM1pILzh4YlNXRVRaYS9RUlBua1BVT0gyajZUZ3FtZ0dUbUxQUnBV?=
+ =?utf-8?B?elJJYnRGU0JPQWZFOUdSNGRadTVqZXM0bk5pelFUKzlFRXBkK2xlaFVZaHVW?=
+ =?utf-8?B?bk4vRVpyWTZWQWplMUhMVk1FaFlYUjNIbVJUK2w5WHkva3Z4N0NRZUh3Qmow?=
+ =?utf-8?B?NXo2Sk1FdnhqUG8vZklwcm1CbHpnTzc3NVdGQkVlSXBCR2V2ZThGdVF0R1Yy?=
+ =?utf-8?B?SDRGMUxHd2haZjM3S0lnVlZZYUpxTzQrcHN2K2FXZjFZUjF6OS8wNFJoV2Y4?=
+ =?utf-8?B?dndWNWxMRk5vTGtrYUc0OVBXN1FiaGVTTXg0VUdaQTNlRCs0SWtJVWJ3bzIw?=
+ =?utf-8?B?YmRKUmhZQVVNRWZjRXRRdDVxQkRITndMcEZ5aldGQ3Vnc25ZbjFsRXYybEcz?=
+ =?utf-8?B?TXlubzdSa2NrdThPdHhvQVpwUVdNME9WTEdOUlZkWkc3RWlMQWdWdko0SkE3?=
+ =?utf-8?B?VkE4NVQ1RFRHcHpHN1NiWWhjVnhRVnczUDFTbmF0UUduMkdSUEd0T1NpdUo3?=
+ =?utf-8?B?dXJzYnRNWnliNXJCQ2RXb3k4MHhkOWhxbkhCZ1RWZnlldjQvK1p1SGZxMU8y?=
+ =?utf-8?B?eXIvNDZ0TFF5dCtTeW5aK0JveUcvSFJ4S0NIY1lKU3RwdzNkV2xzaVdpMDBi?=
+ =?utf-8?B?Unhvc3daR0dEQUhIYjJrb2xTYlFBVmF3c2tJeFJmWWRnamdCUkJKSDg1NTRN?=
+ =?utf-8?B?VzZEaTZPREtCWGJRMEs1YkxMZ3RuSVlQdEVMZVJINmNkcGdWanpaK1Z3bTNz?=
+ =?utf-8?B?QjlCcU9nSU9WaGJGdG1XM3Yray9RdklnbEk4Y1pJT1Y5WTZ2MGd0MXlzZ1JN?=
+ =?utf-8?B?Qjc0S1NHVmhKSWlyZUpkYWZsNnBWRVRaRWxiMko0UUNNOENMcC9UalhjaVpS?=
+ =?utf-8?B?NnhOYVJ0UzdPU1Fob0NPTVd1SnBuM0JaZ3oyVW56VU9tUkF5VjBORWpoQjI5?=
+ =?utf-8?B?VHVsak4wNGZHTDcrakRVcEROVHlpSmxlUTQvMUVaWEZZSkdLL1lnQSt5ZlA5?=
+ =?utf-8?B?N21QS3VGWWtGb0hGNng2MGJmOWhJRDNrQW9CY1RYcktMMFZtSkNKcUE5czFR?=
+ =?utf-8?B?bENYdVdiSWJZM3BWYlJFbGRSR2EzUnFURVQvczFPcy9RK3dMWnV3cWV1SlhH?=
+ =?utf-8?B?MUhjNGNiNGxxZUp6MGk0TWV6b3BqMjNNeG1CSzRBdW0rQUVOaUNEdHBENXhw?=
+ =?utf-8?B?MVd3SXFleU9aMEx3d1ZaOUhZNWxpU0xURUtNdTNQTGF4N1VzdU1SaUhWcWdH?=
+ =?utf-8?B?WFFuYURrS0RBUE1NT0ZxbEZtZGE0RXdMbXY3Vmo4VnVXbUx4MC9yc2lLeWUz?=
+ =?utf-8?B?YjF0Q04vQWZ2T2lIUENZczJaSlpDRlZteE5DTXFZTmlzd1VuYzZWUTgxQ21x?=
+ =?utf-8?B?eWR6ektpRWI5a1pacWFYSkRjZ0NRQ1NzL25oeXV6bmdiekE5K3QrY1c3RmVQ?=
+ =?utf-8?B?cmdxRTNaenBSNXhRQ0poQ29HY1pudFZPaVVwMTROdndQeHJDMU9QUzhLcnBp?=
+ =?utf-8?B?d3h6UitUeFlseUxWQ3E3akdUM0RZN1lMbjJlRm9iVEg4M3VnNitwK1lmSnQ3?=
+ =?utf-8?B?TEpsU0wvTmZibG5vT3d6N0ZqdXA1eEJqTzhlZXdmanVTSUdRUnVGc3ZFdHNU?=
+ =?utf-8?B?S1Q3SVJ1K3BUU2FSR0VVMVZJLzhwazVROFlSOXJhVU8weU5sTTQ4cG1QYTdm?=
+ =?utf-8?B?U3hXMk0zdHZZMnFjclQ1SGsxNGpmZDdZTUpyNlNPM0Jpd0RNZzE3S3cwcE04?=
+ =?utf-8?B?aVoxUHNzWS9BTVRCcTRremRpWk9JQUI5aXplMVlSQ3ZYaFJUMHlPbCsrVHZG?=
+ =?utf-8?B?YXhYbDhPb1BSUVVsTUN3Z0swWU8vR3MzOTR2MWJ4N0swdTdLakc4N2lvVVZI?=
+ =?utf-8?Q?98UWSNW7cHd645BqvZXUN1C82?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 543d5d94-8fb4-48e8-fcf2-08dc1b3f3849
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2024 11:42:32.3707 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AAvmW9ccHIwxzqY3WauiaUuwmctmyfWx3DbB/J7Rg/GjGxJlR0ys8m+H4miKwQtr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6037
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,759 +123,211 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 22.01.24 11:21, Friedrich Vock wrote:
-> On 22.01.24 11:10, Christian K=C3=B6nig wrote:
->> Am 19.01.24 um 20:18 schrieb Felix Kuehling:
->>> On 2024-01-18 07:07, Christian K=C3=B6nig wrote:
->>>> Am 18.01.24 um 00:44 schrieb Friedrich Vock:
->>>>> On 18.01.24 00:00, Alex Deucher wrote:
->>>>>> [SNIP]
->>>>>>>>>> Right now, IH overflows, even if they occur repeatedly, only ge=
-t
->>>>>>>>>> registered once. If not registering IH overflows can trivially
->>>>>>>>>> lead to
->>>>>>>>>> system crashes, it's amdgpu's current handling that is broken.
->>>>>>>>> It's years that we last tested this but according to the HW
->>>>>>>>> documentation this should work fine.
->>>>>>>>>
->>>>>>>>> What could potentially happen is that the IH has silenced the
->>>>>>>>> source
->>>>>>>>> of the overflow. We never implemented resetting those, but in
->>>>>>>>> this
->>>>>>>>> case that here won't help either.
->>>>>>>>>
->>>>>>>> If the IH silenced the page faults (which quite clearly cause the
->>>>>>>> overflow here), then how are the page faults still logged in
->>>>>>>> dmesg?
->>>>>>> There should be a hardware rate limit for the page faults, e.g.
->>>>>>> there
->>>>>>> can only be X faults reported in N clock cycles and then a delay i=
-s
->>>>>>> inserted.
->>>>>> @Christian Koenig=C2=A0 Is that tied to xnack (i.e., noretry)? The
->>>>>> default
->>>>>> is noretry=3D1 on gfx10.3 and newer.=C2=A0 But it can be overridden=
-. It was
->>>>>> not set on some older kernels, maybe that is the problem? @Friedric=
-h
->>>>>> Vock does setting amdgpu.noretry=3D1 fix the issue?
->>>>>
->>>>>
->>>>> No, amdgpu.noretry=3D1 does not change anything.
->>>>
->>>> Well the good news first the hw engineer answered rather quickly.
->>>> The bad news is that the hardware really doesn't work as documented
->>>> in multiple ways.
->>>>
->>>> First of all the CLEAR bit is a level and not a trigger, so the
->>>> intention to clear it is indeed correct. For now please modify this
->>>> patch so that the CLEAR bit is set and cleared directly after
->>>> setting it, this way we should be able to detect further overflows
->>>> immediately.
->>>>
->>>> Then the APU the Steam Deck uses simply doesn't have the filter
->>>> function for page faults in the hardware, the really bad news is it
->>>> also doesn't have the extra IH rings where we could re-route the
->>>> faults to prevent overflows.
->>>>
->>>> That full explains the behavior you have been seeing, but doesn't
->>>> really provide a doable solution to mitigate this problem.
->>>>
->>>> I'm going to dig deeper into the hw documentation and specification
->>>> to see if we can use a different feature to avoid the overflow.
->>>
->>> If we're not enabling retry faults, then each wave front should
->>> generate at most one fault. You should be able to avoid overflows by
->>> making the IH ring large enough to accommodate one fault per wave
->>> front.
->>
->> That is the exact same argument our HW engineers came up with when we
->> asked why the APU is missing all those nice IH ring overflow avoidance
->> features the dGPUs have :)
->>
-> I can reproduce IH overflows on my RX 6700 XT dGPU as well FWIW.
+Am 21.01.24 um 01:19 schrieb vitaly.prosyak@amd.com:
+> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 >
->> The only problem with this approach is that on Navi when a wave is
->> blocked by waiting on a fault you can't kill it using soft recovery
->> any more (at least when my understanding is correct).
->>
-> Killing page-faulted waves via soft recovery works. From my testing on
-> Deck, it seems to take a bit of time, but if you try for long enough
-> soft recovery eventually succeeds.
+>     The issue started to appear after the following commit
+>   11b3b9f461c5c4f700f6c8da202fcc2fd6418e1f (scheduler to variable number
+>   of run-queues). The scheduler flag ready (ring->sched.ready) could not be
+>   used to validate multiple scenarios, for example, check job is running,
+>   gpu_reset, PCI errors etc. The reason is that after GPU reset, the flag
+>   is set to true unconditionally even for those rings with an uninitialized scheduler.
 
+That's probably a bug we should fix instead.
 
-On second thought, could it be that this is the critical flaw in the "at
-most one fault per wave" thinking?
+scheduler.ready means that the engines was initialized and should 
+*never* be touched during GPU reset.
 
-Most work submissions in practice submit more waves than the number of
-wave slots the GPU has.
-As far as I understand soft recovery, the only thing it does is kill all
-active waves. This frees up the CUs so more waves are launched, which
-can fault again, and that leads to potentially lots of faults for a
-single wave slot in the end.
+The only exception to this is when the GPU reset fails and we can't get 
+the engine working again. In this case the scheduler.ready flag should 
+be set to false.
+
+The problem is that when we moved this flag into the scheduler we had 
+some rings (like KIQ) which don't have a scheduler but still need to 
+toggle this flag. We should probably look into cleaning that up instead.
 
 Regards,
-Friedrich
+Christian.
 
+>   As a result, we called drm_sched_stop, drm_sched_start for the uninitialized
+>   schedule and NULL pointer dereference is occured. For example, the following
+>   occurs on Navi10 during GPU reset:
 >
-> Regards,
-> Friedrich
+>   [  354.231044] Hardware name: TYAN B8021G88V2HR-2T/S8021GM2NR-2T, BIOS V1.03.B10 04/01/2019
+>   [  354.239152] Workqueue: amdgpu-reset-dev drm_sched_job_timedout [gpu_sched]
+>   [  354.246047] RIP: 0010:__flush_work.isra.0+0x23a/0x250
+>   [  354.251110] Code: 8b 04 25 40 2e 03 00 48 89 44 24 40 48 8b 73 40 8b 4b 30 e9 f9 fe ff ff 40 30 f6 4c 8b 36 e9 37 fe ff ff 0f 0b e9 3a ff ff ff <0f> 0b e9 33 ff ff ff 66
+>   66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00
+>   [  354.269876] RSP: 0018:ffffb234c00e3c20 EFLAGS: 00010246
+>   [  354.275121] RAX: 0000000000000011 RBX: ffff9796d9796de0 RCX: 0000000000000000
+>   [  354.282271] RDX: 0000000000000001 RSI: 0000000000000000 RDI: ffff9796d9796de0
+>   [  354.289420] RBP: ffff9796d9796de0 R08: ffff977780401940 R09: ffffffffa1a5c620
+>   [  354.296570] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+>   [  354.303720] R13: 0000000000000001 R14: ffff9796d97905c8 R15: ffff9796d9790230
+>   [  354.310868] FS:  0000000000000000(0000) GS:ffff97865f040000(0000) knlGS:0000000000000000
+>   [  354.318963] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>   [  354.324717] CR2: 00007fd5341fca50 CR3: 0000002c27a22000 CR4: 00000000003506f0
+>   [  354.324717] CR2: 00007fd5341fca50 CR3: 0000002c27a22000 CR4: 00000000003506f0
+>   [  354.331859] Call Trace:
+>   [  354.334320]  <TASK>
+>   [  354.336433]  ? __flush_work.isra.0+0x23a/0x250
+>   [  354.340891]  ? __warn+0x81/0x130
+>   [  354.344139]  ? __flush_work.isra.0+0x23a/0x250
+>   [  354.348594]  ? report_bug+0x171/0x1a0
+>   [  354.352279]  ? handle_bug+0x3c/0x80
+>   [  354.355787]  ? exc_invalid_op+0x17/0x70
+>   [  354.359635]  ? asm_exc_invalid_op+0x1a/0x20
+>   [  354.363844]  ? __flush_work.isra.0+0x23a/0x250
+>   [  354.368307]  ? srso_return_thunk+0x5/0x5f
+>   [  354.372331]  ? srso_return_thunk+0x5/0x5f
+>   [  354.376351]  ? desc_read_finalized_seq+0x1f/0x70
+>   [  354.380982]  ? srso_return_thunk+0x5/0x5f
+>   [  354.385011]  ? _prb_read_valid+0x20e/0x280
+>   [  354.389130]  __cancel_work_timer+0xd3/0x160
+>   [  354.393333]  drm_sched_stop+0x46/0x1f0 [gpu_sched]
+>   [  354.398143]  amdgpu_device_gpu_recover+0x318/0xca0 [amdgpu]
+>   [  354.403995]  ? __drm_err+0x1/0x70 [drm]
+>   [  354.407884]  amdgpu_job_timedout+0x151/0x240 [amdgpu]
+>   [  354.413279]  drm_sched_job_timedout+0x76/0x100 [gpu_sched]
+>   [  354.418787]  process_one_work+0x174/0x340
+>   [  354.422816]  worker_thread+0x27b/0x3a0
+>   [  354.426586]  ? __pfx_worker_thread+0x10/0x10
+>   [  354.430874]  kthread+0xe8/0x120
+>   [  354.434030]  ? __pfx_kthread+0x10/0x10
+>   [  354.437790]  ret_from_fork+0x34/0x50
+>   [  354.441377]  ? __pfx_kthread+0x10/0x10
+>   [  354.445139]  ret_from_fork_asm+0x1b/0x30
+>   [  354.449079]  </TASK>
+>   [  354.451285] ---[ end trace 0000000000000000 ]---
+>   [  354.455917] BUG: kernel NULL pointer dereference, address: 0000000000000008
+>   [  354.462883] #PF: supervisor read access in kernel mode
+>   [  354.468029] #PF: error_code(0x0000) - not-present page
+>   [  354.473167] PGD 0 P4D 0
+>   [  354.475705] Oops: 0000 [#1] PREEMPT SMP NOPTI
+>   [  354.480066] CPU: 1 PID: 11 Comm: kworker/u64:0 Tainted: G        W          6.7.0-991912.1.zuul.e7596ab24dae4bb686e58b0f1e7842da #1
+>   [  354.491883] Hardware name: TYAN B8021G88V2HR-2T/S8021GM2NR-2T, BIOS V1.03.B10 04/01/2019
+>   [  354.499976] Workqueue: amdgpu-reset-dev drm_sched_job_timedout [gpu_sched]
+>   [  354.506855] RIP: 0010:drm_sched_stop+0x61/0x1f0 [gpu_sched]
 >
->>>
->>> If the faults are coming from SDMA, that may be another problem. I'm
->>> not sure whether it can generate multiple no-retry faults from the
->>> same queue.
->>
->> Regarding faults the SDMA is relatively harmless compared to the 3D
->> engine, IIRC the resolve queue is something like 128 entries deep. So
->> you never see more than those 128 faults if I'm not completely mistaken=
-.
->>
->> Sunil is setting up a test system for this in an AMD lab and will play
->> around with a few HW features to mitigate the issue. I still hope that
->> we can completely avoid the overflow altogether.
->>
->> Regards,
->> Christian.
->>
->>>
->>> Regards,
->>> =C2=A0 Felix
->>>
->>>
->>>>
->>>> Thanks,
->>>> Christian.
->>>>
->>>>>
->>>>> Regards,
->>>>> Friedrich
->>>>>
->>>>>> Alex
->>>>>>
->>>>>>>>>> The possibility of a repeated IH overflow in between reading
->>>>>>>>>> the wptr
->>>>>>>>>> and updating the rptr is a good point, but how can we detect
->>>>>>>>>> that at
->>>>>>>>>> all? It seems to me like we can't set the OVERFLOW_CLEAR bit
->>>>>>>>>> at all
->>>>>>>>>> then, because we're guaranteed to miss any overflows that
->>>>>>>>>> happen while
->>>>>>>>>> the bit is set.
->>>>>>>>> When an IH overflow is signaled we clear that flag by writing 1
->>>>>>>>> into
->>>>>>>>> the OVERFLOW_CLEAR bit and skip one entry in the IH ring buffer.
->>>>>>>>>
->>>>>>>>> What can of course happen is that the IH ring buffer overflows
->>>>>>>>> more
->>>>>>>>> than this single entry and we process IVs which are potentially
->>>>>>>>> corrupted, but we won't miss any additional overflows since we
->>>>>>>>> only
->>>>>>>>> start processing after resetting the flag.
->>>>>>>>>
->>>>>>>>> An IH overflow is also something you should *never* see in a
->>>>>>>>> production system. This is purely for driver bringup and as
->>>>>>>>> fallback
->>>>>>>>> when there is a severe incorrect programming of the HW.
->>>>>>>>>
->>>>>>>>> The only exception of that is page fault handling on MI products
->>>>>>>>> because of a hardware bug, to mitigate this we are processing
->>>>>>>>> page
->>>>>>>>> faults on a separate IH ring on those parts.
->>>>>>>>>
->>>>>>>>> On all other hw generations the IH should have some rate limit
->>>>>>>>> for the
->>>>>>>>> number of faults generated per second, so that the CPU is
->>>>>>>>> always able
->>>>>>>>> to catch up.
->>>>>>>> I'm wondering if there is another bug in here somewhere. Your
->>>>>>>> explanation of how it's supposed to work makes a lot of sense,
->>>>>>>> but from
->>>>>>>> what I can tell it doesn't work that way when I test it.
->>>>>>>>
->>>>>>>> =C2=A0From the printk_ratelimit stats it would seem like >2000 fa=
-ults
->>>>>>>> arrive
->>>>>>>> in less than a second, so perhaps your theory about fault
->>>>>>>> interrupt
->>>>>>>> ratelimiting not working is correct (but it's hard for me to
->>>>>>>> verify what
->>>>>>>> is going on without the documentation).
->>>>>>> I'm going to ping the relevant engineer and putting someone on
->>>>>>> the task
->>>>>>> to take a look.
->>>>>>>
->>>>>>> Thanks,
->>>>>>> Christian.
->>>>>>>
->>>>>>>> Regards,
->>>>>>>> Friedrich
->>>>>>>>
->>>>>>>>> Regards,
->>>>>>>>> Christian.
->>>>>>>>>
->>>>>>>>>> Regards,
->>>>>>>>>> Friedrich
->>>>>>>>>>
->>>>>>>>>>> When you clear the overflow again when updating the RPTR you
->>>>>>>>>>> could
->>>>>>>>>>> loose another overflow which might have happened in between
->>>>>>>>>>> and so
->>>>>>>>>>> potentially process corrupted IVs.
->>>>>>>>>>>
->>>>>>>>>>> That can trivially crash the system.
->>>>>>>>>>>
->>>>>>>>>>> Regards,
->>>>>>>>>>> Christian.
->>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 }
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 static int cik_ih_early_init(void *handle)
->>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
->>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
->>>>>>>>>>>> index b8c47e0cf37a..076559668573 100644
->>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
->>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
->>>>>>>>>>>> @@ -215,7 +215,7 @@ static u32 cz_ih_get_wptr(struct
->>>>>>>>>>>> amdgpu_device
->>>>>>>>>>>> *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32(mmIH_RB_C=
-NTL);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tm=
-p, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR, 1);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32(mmIH_RB_CNTL, tmp=
-);
->>>>>>>>>>>> -
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 ih->overflow =3D true;
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 out:
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return (wptr & ih->ptr_m=
-ask);
->>>>>>>>>>>> @@ -266,7 +266,19 @@ static void cz_ih_decode_iv(struct
->>>>>>>>>>>> amdgpu_device
->>>>>>>>>>>> *adev,
->>>>>>>>>>>> =C2=A0=C2=A0 static void cz_ih_set_rptr(struct amdgpu_device =
-*adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ih_ring *ih)
->>>>>>>>>>>> =C2=A0=C2=A0 {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 u32 tmp;
->>>>>>>>>>>> +
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32(mmIH_RB_RPTR, ih-=
->rptr);
->>>>>>>>>>>> +
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 /* If we overflowed previously (and thus =
-set the
->>>>>>>>>>>> OVERFLOW_CLEAR
->>>>>>>>>>>> bit),
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * reset it here to detect more over=
-flows if they occur.
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 if (ih->overflow) {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32(mm=
-IH_RB_CNTL);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_F=
-IELD(tmp, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR,
->>>>>>>>>>>> 0);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32(mmIH_RB_CN=
-TL, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ih->overflow =3D =
-false;
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> =C2=A0=C2=A0 }
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 static int cz_ih_early_init(void *handle)
->>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
->>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
->>>>>>>>>>>> index aecad530b10a..1a5e668643d1 100644
->>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
->>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
->>>>>>>>>>>> @@ -214,7 +214,7 @@ static u32 iceland_ih_get_wptr(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32(mmIH_RB_C=
-NTL);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tm=
-p, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR, 1);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32(mmIH_RB_CNTL, tmp=
-);
->>>>>>>>>>>> -
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 ih->overflow =3D true;
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 out:
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return (wptr & ih->ptr_m=
-ask);
->>>>>>>>>>>> @@ -265,7 +265,19 @@ static void iceland_ih_decode_iv(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0 static void iceland_ih_set_rptr(struct amdgpu_de=
-vice *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ih_ring *ih=
-)
->>>>>>>>>>>> =C2=A0=C2=A0 {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 u32 tmp;
->>>>>>>>>>>> +
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32(mmIH_RB_RPTR, ih-=
->rptr);
->>>>>>>>>>>> +
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 /* If we overflowed previously (and thus =
-set the
->>>>>>>>>>>> OVERFLOW_CLEAR
->>>>>>>>>>>> bit),
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * reset it here to detect more over=
-flows if they occur.
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 if (ih->overflow) {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32(mm=
-IH_RB_CNTL);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_F=
-IELD(tmp, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR,
->>>>>>>>>>>> 0);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32(mmIH_RB_CN=
-TL, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ih->overflow =3D =
-false;
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> =C2=A0=C2=A0 }
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 static int iceland_ih_early_init(void *handle)
->>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
->>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
->>>>>>>>>>>> index d9ed7332d805..ce8f7feec713 100644
->>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
->>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
->>>>>>>>>>>> @@ -418,6 +418,8 @@ static u32 ih_v6_0_get_wptr(struct
->>>>>>>>>>>> amdgpu_device
->>>>>>>>>>>> *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32_NO_KIQ(ih=
-_regs->ih_rb_cntl);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tm=
-p, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR, 1);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32_NO_KIQ(ih_regs->i=
-h_rb_cntl, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 ih->overflow =3D true;
->>>>>>>>>>>> +
->>>>>>>>>>>> =C2=A0=C2=A0 out:
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return (wptr & ih->ptr_m=
-ask);
->>>>>>>>>>>> =C2=A0=C2=A0 }
->>>>>>>>>>>> @@ -459,6 +461,7 @@ static void ih_v6_0_irq_rearm(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0 static void ih_v6_0_set_rptr(struct amdgpu_devic=
-e *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct =
-amdgpu_ih_ring *ih)
->>>>>>>>>>>> =C2=A0=C2=A0 {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 u32 tmp;
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ih_regs *i=
-h_regs;
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ih->use_doorbell) {
->>>>>>>>>>>> @@ -472,6 +475,16 @@ static void ih_v6_0_set_rptr(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-ih_regs =3D &ih->ih_regs;
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-WREG32(ih_regs->ih_rb_rptr, ih->rptr);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> +
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 /* If we overflowed previously (and thus =
-set the
->>>>>>>>>>>> OVERFLOW_CLEAR
->>>>>>>>>>>> bit),
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * reset it here to detect more over=
-flows if they occur.
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 if (ih->overflow) {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32_NO=
-_KIQ(ih->ih_regs.ih_rb_cntl);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_F=
-IELD(tmp, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR,
->>>>>>>>>>>> 0);
->>>>>>>>>>>> + WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ih->overflow =3D =
-false;
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> =C2=A0=C2=A0 }
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 /**
->>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
->>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
->>>>>>>>>>>> index 8fb05eae340a..668788ad34d9 100644
->>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
->>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
->>>>>>>>>>>> @@ -418,6 +418,8 @@ static u32 ih_v6_1_get_wptr(struct
->>>>>>>>>>>> amdgpu_device
->>>>>>>>>>>> *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32_NO_KIQ(ih=
-_regs->ih_rb_cntl);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tm=
-p, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR, 1);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32_NO_KIQ(ih_regs->i=
-h_rb_cntl, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 ih->overflow =3D true;
->>>>>>>>>>>> +
->>>>>>>>>>>> =C2=A0=C2=A0 out:
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return (wptr & ih->ptr_m=
-ask);
->>>>>>>>>>>> =C2=A0=C2=A0 }
->>>>>>>>>>>> @@ -459,6 +461,7 @@ static void ih_v6_1_irq_rearm(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0 static void ih_v6_1_set_rptr(struct amdgpu_devic=
-e *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct =
-amdgpu_ih_ring *ih)
->>>>>>>>>>>> =C2=A0=C2=A0 {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 u32 tmp;
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ih_regs *i=
-h_regs;
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ih->use_doorbell) {
->>>>>>>>>>>> @@ -472,6 +475,16 @@ static void ih_v6_1_set_rptr(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-ih_regs =3D &ih->ih_regs;
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-WREG32(ih_regs->ih_rb_rptr, ih->rptr);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> +
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 /* If we overflowed previously (and thus =
-set the
->>>>>>>>>>>> OVERFLOW_CLEAR
->>>>>>>>>>>> bit),
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * reset it here to detect more over=
-flows if they occur.
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 if (ih->overflow) {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32_NO=
-_KIQ(ih->ih_regs.ih_rb_cntl);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_F=
-IELD(tmp, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR,
->>>>>>>>>>>> 0);
->>>>>>>>>>>> + WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ih->overflow =3D =
-false;
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> =C2=A0=C2=A0 }
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 /**
->>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
->>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
->>>>>>>>>>>> index e64b33115848..0bdac923cb4d 100644
->>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
->>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
->>>>>>>>>>>> @@ -442,6 +442,7 @@ static u32 navi10_ih_get_wptr(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32_NO_KIQ(ih=
-_regs->ih_rb_cntl);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tm=
-p, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR, 1);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32_NO_KIQ(ih_regs->i=
-h_rb_cntl, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 ih->overflow =3D true;
->>>>>>>>>>>> =C2=A0=C2=A0 out:
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return (wptr & ih->ptr_m=
-ask);
->>>>>>>>>>>> =C2=A0=C2=A0 }
->>>>>>>>>>>> @@ -483,6 +484,7 @@ static void navi10_ih_irq_rearm(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0 static void navi10_ih_set_rptr(struct amdgpu_dev=
-ice *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct =
-amdgpu_ih_ring *ih)
->>>>>>>>>>>> =C2=A0=C2=A0 {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 u32 tmp;
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ih_regs *i=
-h_regs;
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ih =3D=3D &adev->irq=
-.ih_soft)
->>>>>>>>>>>> @@ -499,6 +501,16 @@ static void navi10_ih_set_rptr(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-ih_regs =3D &ih->ih_regs;
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-WREG32(ih_regs->ih_rb_rptr, ih->rptr);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> +
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 /* If we overflowed previously (and thus =
-set the
->>>>>>>>>>>> OVERFLOW_CLEAR
->>>>>>>>>>>> bit),
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * reset it here to detect more over=
-flows if they occur.
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 if (ih->overflow) {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32_NO=
-_KIQ(ih->ih_regs.ih_rb_cntl);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_F=
-IELD(tmp, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR,
->>>>>>>>>>>> 0);
->>>>>>>>>>>> + WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ih->overflow =3D =
-false;
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> =C2=A0=C2=A0 }
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 /**
->>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c
->>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/si_ih.c
->>>>>>>>>>>> index 9a24f17a5750..ff35056d2b54 100644
->>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
->>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
->>>>>>>>>>>> @@ -119,6 +119,7 @@ static u32 si_ih_get_wptr(struct
->>>>>>>>>>>> amdgpu_device
->>>>>>>>>>>> *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-tmp =3D RREG32(IH_RB_CNTL);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-tmp |=3D IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK;
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-WREG32(IH_RB_CNTL, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ih->overflow =3D =
-true;
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return (wptr & ih->ptr_m=
-ask);
->>>>>>>>>>>> =C2=A0=C2=A0 }
->>>>>>>>>>>> @@ -147,7 +148,18 @@ static void si_ih_decode_iv(struct
->>>>>>>>>>>> amdgpu_device
->>>>>>>>>>>> *adev,
->>>>>>>>>>>> =C2=A0=C2=A0 static void si_ih_set_rptr(struct amdgpu_device =
-*adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ih_ring *ih)
->>>>>>>>>>>> =C2=A0=C2=A0 {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 u32 tmp;
->>>>>>>>>>>> +
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32(IH_RB_RPTR, ih->r=
-ptr);
->>>>>>>>>>>> +
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 /* If we overflowed previously (and thus =
-set the
->>>>>>>>>>>> OVERFLOW_CLEAR
->>>>>>>>>>>> bit),
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * reset it here to detect more over=
-flows if they occur.
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 if (ih->overflow) {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32(IH=
-_RB_CNTL);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp &=3D ~IH_RB_C=
-NTL__WPTR_OVERFLOW_CLEAR_MASK;
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32(IH_RB_CNTL=
-, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> =C2=A0=C2=A0 }
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 static int si_ih_early_init(void *handle)
->>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
->>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
->>>>>>>>>>>> index 917707bba7f3..6f5090d3db48 100644
->>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
->>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
->>>>>>>>>>>> @@ -218,6 +218,7 @@ static u32 tonga_ih_get_wptr(struct
->>>>>>>>>>>> amdgpu_device
->>>>>>>>>>>> *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32(mmIH_RB_C=
-NTL);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tm=
-p, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR, 1);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32(mmIH_RB_CNTL, tmp=
-);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 ih->overflow =3D true;
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 out:
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return (wptr & ih->ptr_m=
-ask);
->>>>>>>>>>>> @@ -268,6 +269,8 @@ static void tonga_ih_decode_iv(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0 static void tonga_ih_set_rptr(struct amdgpu_devi=
-ce *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu=
-_ih_ring *ih)
->>>>>>>>>>>> =C2=A0=C2=A0 {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 u32 tmp;
->>>>>>>>>>>> +
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ih->use_doorbell) {
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-/* XXX check if swapping is necessary on BE */
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-*ih->rptr_cpu =3D ih->rptr;
->>>>>>>>>>>> @@ -275,6 +278,16 @@ static void tonga_ih_set_rptr(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } else {
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-WREG32(mmIH_RB_RPTR, ih->rptr);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> +
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 /* If we overflowed previously (and thus =
-set the
->>>>>>>>>>>> OVERFLOW_CLEAR
->>>>>>>>>>>> bit),
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * reset it here to detect more over=
-flows if they occur.
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 if (ih->overflow) {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32(mm=
-IH_RB_CNTL);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_F=
-IELD(tmp, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR,
->>>>>>>>>>>> 0);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32(mmIH_RB_CN=
-TL, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ih->overflow =3D =
-false;
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> =C2=A0=C2=A0 }
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 static int tonga_ih_early_init(void *handle)
->>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
->>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
->>>>>>>>>>>> index d364c6dd152c..bb005924f194 100644
->>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
->>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
->>>>>>>>>>>> @@ -372,6 +372,7 @@ static u32 vega10_ih_get_wptr(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32_NO_KIQ(ih=
-_regs->ih_rb_cntl);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tm=
-p, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR, 1);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32_NO_KIQ(ih_regs->i=
-h_rb_cntl, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 ih->overflow =3D true;
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 out:
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return (wptr & ih->ptr_m=
-ask);
->>>>>>>>>>>> @@ -413,6 +414,7 @@ static void vega10_ih_irq_rearm(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0 static void vega10_ih_set_rptr(struct amdgpu_dev=
-ice *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct =
-amdgpu_ih_ring *ih)
->>>>>>>>>>>> =C2=A0=C2=A0 {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 u32 tmp;
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ih_regs *i=
-h_regs;
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ih =3D=3D &adev->irq=
-.ih_soft)
->>>>>>>>>>>> @@ -429,6 +431,16 @@ static void vega10_ih_set_rptr(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-ih_regs =3D &ih->ih_regs;
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-WREG32(ih_regs->ih_rb_rptr, ih->rptr);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> +
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 /* If we overflowed previously (and thus =
-set the
->>>>>>>>>>>> OVERFLOW_CLEAR
->>>>>>>>>>>> bit),
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * reset it here to detect more over=
-flows if they occur.
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 if (ih->overflow) {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32_NO=
-_KIQ(ih->ih_regs.ih_rb_cntl);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_F=
-IELD(tmp, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR,
->>>>>>>>>>>> 0);
->>>>>>>>>>>> + WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ih->overflow =3D =
-false;
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> =C2=A0=C2=A0 }
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 /**
->>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
->>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
->>>>>>>>>>>> index ddfc6941f9d5..bb725a970697 100644
->>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
->>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
->>>>>>>>>>>> @@ -420,6 +420,7 @@ static u32 vega20_ih_get_wptr(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32_NO_KIQ(ih=
-_regs->ih_rb_cntl);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_FIELD(tm=
-p, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR, 1);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WREG32_NO_KIQ(ih_regs->i=
-h_rb_cntl, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 ih->overflow =3D true;
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 out:
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return (wptr & ih->ptr_m=
-ask);
->>>>>>>>>>>> @@ -462,6 +463,7 @@ static void vega20_ih_irq_rearm(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0 static void vega20_ih_set_rptr(struct amdgpu_dev=
-ice *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct =
-amdgpu_ih_ring *ih)
->>>>>>>>>>>> =C2=A0=C2=A0 {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 u32 tmp;
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ih_regs *i=
-h_regs;
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ih =3D=3D &adev->irq=
-.ih_soft)
->>>>>>>>>>>> @@ -478,6 +480,16 @@ static void vega20_ih_set_rptr(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-ih_regs =3D &ih->ih_regs;
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-WREG32(ih_regs->ih_rb_rptr, ih->rptr);
->>>>>>>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> +
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 /* If we overflowed previously (and thus =
-set the
->>>>>>>>>>>> OVERFLOW_CLEAR
->>>>>>>>>>>> bit),
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * reset it here to detect more over=
-flows if they occur.
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 if (ih->overflow) {
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D RREG32_NO=
-_KIQ(ih->ih_regs.ih_rb_cntl);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D REG_SET_F=
-IELD(tmp, IH_RB_CNTL,
->>>>>>>>>>>> WPTR_OVERFLOW_CLEAR,
->>>>>>>>>>>> 0);
->>>>>>>>>>>> + WREG32_NO_KIQ(ih->ih_regs.ih_rb_cntl, tmp);
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ih->overflow =3D =
-false;
->>>>>>>>>>>> +=C2=A0=C2=A0=C2=A0 }
->>>>>>>>>>>> =C2=A0=C2=A0 }
->>>>>>>>>>>>
->>>>>>>>>>>> =C2=A0=C2=A0 /**
->>>>>>>>>>>> --
->>>>>>>>>>>> 2.43.0
->>>>>>>>>>>>
->>>>
->>
+>    The solution is every place where we check the ready flag and check
+>   for ring->no_scheduler. The ready flag serves the purpose in case an initialization
+>   is failed, like starting the worker thread, etc.
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+> ---
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c    |  2 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        |  6 +++---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 14 ++++++++------
+>   3 files changed, 13 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> index 899e31e3a5e8..70bbf602df34 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> @@ -292,6 +292,8 @@ static int suspend_resume_compute_scheduler(struct amdgpu_device *adev, bool sus
+>   
+>   		if (!(ring && drm_sched_wqueue_ready(&ring->sched)))
+>   			continue;
+> +		if (ring->no_scheduler)
+> +			continue;
+>   
+>   		/* stop secheduler and drain ring. */
+>   		if (suspend) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> index e485dd3357c6..35132aa2c0f4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -1678,7 +1678,7 @@ static int amdgpu_debugfs_test_ib_show(struct seq_file *m, void *unused)
+>   	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
+>   		struct amdgpu_ring *ring = adev->rings[i];
+>   
+> -		if (!ring || !drm_sched_wqueue_ready(&ring->sched))
+> +		if (!ring || ring->no_scheduler || !drm_sched_wqueue_ready(&ring->sched))
+>   			continue;
+>   		drm_sched_wqueue_stop(&ring->sched);
+>   	}
+> @@ -1694,7 +1694,7 @@ static int amdgpu_debugfs_test_ib_show(struct seq_file *m, void *unused)
+>   	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
+>   		struct amdgpu_ring *ring = adev->rings[i];
+>   
+> -		if (!ring || !drm_sched_wqueue_ready(&ring->sched))
+> +		if (!ring || ring->no_scheduler || !drm_sched_wqueue_ready(&ring->sched))
+>   			continue;
+>   		drm_sched_wqueue_start(&ring->sched);
+>   	}
+> @@ -1916,7 +1916,7 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
+>   
+>   	ring = adev->rings[val];
+>   
+> -	if (!ring || !ring->funcs->preempt_ib ||
+> +	if (!ring || !ring->funcs->preempt_ib || ring->no_scheduler ||
+>   	    !drm_sched_wqueue_ready(&ring->sched))
+>   		return -EINVAL;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 2df14f0e79d8..894b657df1d3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5052,7 +5052,7 @@ bool amdgpu_device_has_job_running(struct amdgpu_device *adev)
+>   	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+>   		struct amdgpu_ring *ring = adev->rings[i];
+>   
+> -		if (!ring || !drm_sched_wqueue_ready(&ring->sched))
+> +		if (!ring || ring->no_scheduler || !drm_sched_wqueue_ready(&ring->sched))
+>   			continue;
+>   
+>   		spin_lock(&ring->sched.job_list_lock);
+> @@ -5191,8 +5191,10 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+>   	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+>   		struct amdgpu_ring *ring = adev->rings[i];
+>   
+> -		if (!ring || !drm_sched_wqueue_ready(&ring->sched))
+> +		if (!ring || ring->no_scheduler || !drm_sched_wqueue_ready(&ring->sched))
+>   			continue;
+> +		 if (ring->no_scheduler)
+> +			 continue;
+>   
+>   		/* Clear job fence from fence drv to avoid force_completion
+>   		 * leave NULL and vm flush fence in fence drv
+> @@ -5658,7 +5660,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>   		for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+>   			struct amdgpu_ring *ring = tmp_adev->rings[i];
+>   
+> -			if (!ring || !drm_sched_wqueue_ready(&ring->sched))
+> +			if (!ring || ring->no_scheduler || !drm_sched_wqueue_ready(&ring->sched))
+>   				continue;
+>   
+>   			drm_sched_stop(&ring->sched, job ? &job->base : NULL);
+> @@ -5727,7 +5729,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>   		for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+>   			struct amdgpu_ring *ring = tmp_adev->rings[i];
+>   
+> -			if (!ring || !drm_sched_wqueue_ready(&ring->sched))
+> +			if (!ring || ring->no_scheduler || !drm_sched_wqueue_ready(&ring->sched))
+>   				continue;
+>   
+>   			drm_sched_start(&ring->sched, true);
+> @@ -6082,7 +6084,7 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pci_dev *pdev, pci_channel_sta
+>   		for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+>   			struct amdgpu_ring *ring = adev->rings[i];
+>   
+> -			if (!ring || !drm_sched_wqueue_ready(&ring->sched))
+> +			if (!ring || ring->no_scheduler || !drm_sched_wqueue_ready(&ring->sched))
+>   				continue;
+>   
+>   			drm_sched_stop(&ring->sched, NULL);
+> @@ -6224,7 +6226,7 @@ void amdgpu_pci_resume(struct pci_dev *pdev)
+>   	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+>   		struct amdgpu_ring *ring = adev->rings[i];
+>   
+> -		if (!ring || !drm_sched_wqueue_ready(&ring->sched))
+> +		if (!ring || ring->no_scheduler || !drm_sched_wqueue_ready(&ring->sched))
+>   			continue;
+>   
+>   		drm_sched_start(&ring->sched, true);
+
