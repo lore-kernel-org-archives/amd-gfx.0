@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E8E3C47DD9
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 14:59:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73B05C47DD9
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 14:59:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1734C10F29E;
-	Mon, 22 Jan 2024 14:59:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCF1110F290;
+	Mon, 22 Jan 2024 14:59:17 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CFA510F29A;
- Mon, 22 Jan 2024 14:59:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB0BA10F2A5;
+ Mon, 22 Jan 2024 14:59:15 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 469C4CE0FFA;
- Mon, 22 Jan 2024 14:58:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F789C433A6;
- Mon, 22 Jan 2024 14:58:52 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 9F68CCE2AA3;
+ Mon, 22 Jan 2024 14:59:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65456C433F1;
+ Mon, 22 Jan 2024 14:59:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705935535;
- bh=J4gnxmlNZ29w29C4bJtmdBIP4o2ilD5vWDtLcyXP7Nc=;
+ s=k20201202; t=1705935550;
+ bh=iDvS58CE+1BqEwOar9BdWpfSHPIgBjO0gge764khmfk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KUBcj199z7irO5LlkILc5NHSK5LtXaz5zptpJKoAwArAPL1D/prmkdfBdXB0etPTo
- 0vxWgQhBE2LuE8k8gxQ2DqM5UQlWQjbS7CgAS81nxdPdjdnRDDsNN2ErKjTgokh9if
- P+aledEX+S3qCS35LAsGY2Y98YRbtKqRq3IWisKgQSb6mnu6FojLT7F0F1JTVWYeoX
- dSOEdh0TRY/+zqna/ryZKmB1YLRv62/4l0lDBBVBaf/W+blm8ejnpJYXFdicX6DdtE
- QLWzYG8MwghxrHnts1NI94OvO+0KfzLvjX8sm37sULhoOQYeQe+0zBOF8d5GBUPGdF
- XvHRocipLvNBg==
+ b=BkRb2GLBNgiYzPIuzqeo6hETrOCFeWr7Whcdi4cib8iXthJQjPUXqyjaDBKgEeR2d
+ Q4bQKmkhs0LMThgk4Ixg54delZZYcVZLh1Ha02FuPTmqNXxjxKvKkYBUcjhx7jGnar
+ 79nEoK0SG1nn+mIthRtCCGfhDXzoxTL0Q++UJOoJC6RzNaz86F8tEAeuRFqfacaHJj
+ 7SOcOu/wWv6cWIQRhaGyXPNKf7Z8qSjhrete6gicjAvwi8DvQhiTrGEMNxk34kr5UC
+ uAUTTrIstGeVwxvvOBcK/Jz2Rn+K055TUbRVdUcXYKuD5ASEznSo9owsullZ2GxAhE
+ BQ6QEL8Iu2NAA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.7 50/88] drm/amd/display: For prefetch mode > 0,
- extend prefetch if possible
-Date: Mon, 22 Jan 2024 09:51:23 -0500
-Message-ID: <20240122145608.990137-50-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.7 52/88] drm/amdkfd: fix mes set shader debugger
+ process management
+Date: Mon, 22 Jan 2024 09:51:25 -0500
+Message-ID: <20240122145608.990137-52-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122145608.990137-1-sashal@kernel.org>
 References: <20240122145608.990137-1-sashal@kernel.org>
@@ -53,134 +53,165 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: wenjing.liu@amd.com, dri-devel@lists.freedesktop.org,
- Jun Lei <jun.lei@amd.com>, airlied@gmail.com, Paul.Hsieh@amd.com,
- Sasha Levin <sashal@kernel.org>, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- nevenko.stupar@amd.com, Alvin Lee <alvin.lee2@amd.com>, meera.patel@amd.com,
- harry.wentland@amd.com, Ilya.Bakoulin@amd.com, srinivasan.shanmugam@amd.com,
- sunpeng.li@amd.com, hanghong.ma@amd.com, Dillon.Varone@amd.com, drv@mailo.com,
- qingqing.zhuo@amd.com, Xinhui.Pan@amd.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Jack.Xiao@amd.com,
+ Jonathan Kim <jonathan.kim@amd.com>, dri-devel@lists.freedesktop.org,
+ guchun.chen@amd.com, shashank.sharma@amd.com, Felix.Kuehling@amd.com,
+ Xinhui.Pan@amd.com, arvind.yadav@amd.com, Alice Wong <shiwei.wong@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, Eric Huang <jinhuieric.huang@amd.com>, lijo.lazar@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com, shaoyun.liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <alvin.lee2@amd.com>
+From: Jonathan Kim <jonathan.kim@amd.com>
 
-[ Upstream commit dd4e4bb28843393065eed279e869fac248d03f0f ]
+[ Upstream commit bd33bb1409b494558a2935f7bbc7842def957fcd ]
 
-[Description]
-For mode programming we want to extend the prefetch as much as possible
-(up to oto, or as long as we can for equ) if we're not already applying
-the 60us prefetch requirement. This is to avoid intermittent underflow
-issues during prefetch.
+MES provides the driver a call to explicitly flush stale process memory
+within the MES to avoid a race condition that results in a fatal
+memory violation.
 
-The prefetch extension is applied under the following scenarios:
-1. We're in prefetch mode 1 (i.e. we don't support MCLK switch in blank)
-2. We're using subvp or drr methods of p-state switch, in which case we
-   we don't care if prefetch takes up more of the blanking time
+When SET_SHADER_DEBUGGER is called, the driver passes a memory address
+that represents a process context address MES uses to keep track of
+future per-process calls.
 
-Mode programming typically chooses the smallest prefetch time possible
-(i.e. highest bandwidth during prefetch) presumably to create margin between
-p-states / c-states that happen in vblank and prefetch. Therefore we only
-apply this prefetch extension when p-state in vblank is not required (UCLK
-p-states take up the most vblank time).
+Normally, MES will purge its process context list when the last queue
+has been removed.  The driver, however, can call SET_SHADER_DEBUGGER
+regardless of whether a queue has been added or not.
 
-Reviewed-by: Jun Lei <jun.lei@amd.com>
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
+If SET_SHADER_DEBUGGER has been called with no queues as the last call
+prior to process termination, the passed process context address will
+still reside within MES.
+
+On a new process call to SET_SHADER_DEBUGGER, the driver may end up
+passing an identical process context address value (based on per-process
+gpu memory address) to MES but is now pointing to a new allocated buffer
+object during KFD process creation.  Since the MES is unaware of this,
+access of the passed address points to the stale object within MES and
+triggers a fatal memory violation.
+
+The solution is for KFD to explicitly flush the process context address
+from MES on process termination.
+
+Note that the flush call and the MES debugger calls use the same MES
+interface but are separated as KFD calls to avoid conflicting with each
+other.
+
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+Tested-by: Alice Wong <shiwei.wong@amd.com>
+Reviewed-by: Eric Huang <jinhuieric.huang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../dc/dml/dcn32/display_mode_vba_32.c        |  3 ++
- .../dc/dml/dcn32/display_mode_vba_util_32.c   | 33 +++++++++++++++----
- .../dc/dml/dcn32/display_mode_vba_util_32.h   |  1 +
- 3 files changed, 31 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       | 31 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       | 10 +++---
+ .../amd/amdkfd/kfd_process_queue_manager.c    |  1 +
+ drivers/gpu/drm/amd/include/mes_v11_api_def.h |  3 +-
+ 4 files changed, 40 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-index cbdfb762c10c..6c84b0fa40f4 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-@@ -813,6 +813,8 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 					(v->DRAMSpeedPerState[mode_lib->vba.VoltageLevel] <= MEM_STROBE_FREQ_MHZ ||
- 						v->DCFCLKPerState[mode_lib->vba.VoltageLevel] <= DCFCLK_FREQ_EXTRA_PREFETCH_REQ_MHZ) ?
- 							mode_lib->vba.ip.min_prefetch_in_strobe_us : 0,
-+					mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb] > 0 || mode_lib->vba.DRAMClockChangeRequirementFinal == false,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+index 9ddbf1494326..30c010836658 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -886,6 +886,11 @@ int amdgpu_mes_set_shader_debugger(struct amdgpu_device *adev,
+ 	op_input.op = MES_MISC_OP_SET_SHADER_DEBUGGER;
+ 	op_input.set_shader_debugger.process_context_addr = process_context_addr;
+ 	op_input.set_shader_debugger.flags.u32all = flags;
 +
- 					/* Output */
- 					&v->DSTXAfterScaler[k],
- 					&v->DSTYAfterScaler[k],
-@@ -3317,6 +3319,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 							v->SwathHeightCThisState[k], v->TWait,
- 							(v->DRAMSpeedPerState[i] <= MEM_STROBE_FREQ_MHZ || v->DCFCLKState[i][j] <= DCFCLK_FREQ_EXTRA_PREFETCH_REQ_MHZ) ?
- 									mode_lib->vba.ip.min_prefetch_in_strobe_us : 0,
-+							mode_lib->vba.PrefetchModePerState[i][j] > 0 || mode_lib->vba.DRAMClockChangeRequirementFinal == false,
++	/* use amdgpu mes_flush_shader_debugger instead */
++	if (op_input.set_shader_debugger.flags.process_ctx_flush)
++		return -EINVAL;
++
+ 	op_input.set_shader_debugger.spi_gdbg_per_vmid_cntl = spi_gdbg_per_vmid_cntl;
+ 	memcpy(op_input.set_shader_debugger.tcp_watch_cntl, tcp_watch_cntl,
+ 			sizeof(op_input.set_shader_debugger.tcp_watch_cntl));
+@@ -905,6 +910,32 @@ int amdgpu_mes_set_shader_debugger(struct amdgpu_device *adev,
+ 	return r;
+ }
  
- 							/* Output */
- 							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.DSTXAfterScaler[k],
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-index d940dfa5ae43..80fccd4999a5 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-@@ -3423,6 +3423,7 @@ bool dml32_CalculatePrefetchSchedule(
- 		unsigned int SwathHeightC,
- 		double TWait,
- 		double TPreReq,
-+		bool ExtendPrefetchIfPossible,
- 		/* Output */
- 		double   *DSTXAfterScaler,
- 		double   *DSTYAfterScaler,
-@@ -3892,12 +3893,32 @@ bool dml32_CalculatePrefetchSchedule(
- 			/* Clamp to oto for bandwidth calculation */
- 			LinesForPrefetchBandwidth = dst_y_prefetch_oto;
- 		} else {
--			*DestinationLinesForPrefetch = dst_y_prefetch_equ;
--			TimeForFetchingMetaPTE = Tvm_equ;
--			TimeForFetchingRowInVBlank = Tr0_equ;
--			*PrefetchBandwidth = prefetch_bw_equ;
--			/* Clamp to equ for bandwidth calculation */
--			LinesForPrefetchBandwidth = dst_y_prefetch_equ;
-+			/* For mode programming we want to extend the prefetch as much as possible
-+			 * (up to oto, or as long as we can for equ) if we're not already applying
-+			 * the 60us prefetch requirement. This is to avoid intermittent underflow
-+			 * issues during prefetch.
-+			 *
-+			 * The prefetch extension is applied under the following scenarios:
-+			 * 1. We're in prefetch mode > 0 (i.e. we don't support MCLK switch in blank)
-+			 * 2. We're using subvp or drr methods of p-state switch, in which case we
-+			 *    we don't care if prefetch takes up more of the blanking time
-+			 *
-+			 * Mode programming typically chooses the smallest prefetch time possible
-+			 * (i.e. highest bandwidth during prefetch) presumably to create margin between
-+			 * p-states / c-states that happen in vblank and prefetch. Therefore we only
-+			 * apply this prefetch extension when p-state in vblank is not required (UCLK
-+			 * p-states take up the most vblank time).
-+			 */
-+			if (ExtendPrefetchIfPossible && TPreReq == 0 && VStartup < MaxVStartup) {
-+				MyError = true;
-+			} else {
-+				*DestinationLinesForPrefetch = dst_y_prefetch_equ;
-+				TimeForFetchingMetaPTE = Tvm_equ;
-+				TimeForFetchingRowInVBlank = Tr0_equ;
-+				*PrefetchBandwidth = prefetch_bw_equ;
-+				/* Clamp to equ for bandwidth calculation */
-+				LinesForPrefetchBandwidth = dst_y_prefetch_equ;
-+			}
- 		}
++int amdgpu_mes_flush_shader_debugger(struct amdgpu_device *adev,
++				     uint64_t process_context_addr)
++{
++	struct mes_misc_op_input op_input = {0};
++	int r;
++
++	if (!adev->mes.funcs->misc_op) {
++		DRM_ERROR("mes flush shader debugger is not supported!\n");
++		return -EINVAL;
++	}
++
++	op_input.op = MES_MISC_OP_SET_SHADER_DEBUGGER;
++	op_input.set_shader_debugger.process_context_addr = process_context_addr;
++	op_input.set_shader_debugger.flags.process_ctx_flush = true;
++
++	amdgpu_mes_lock(&adev->mes);
++
++	r = adev->mes.funcs->misc_op(&adev->mes, &op_input);
++	if (r)
++		DRM_ERROR("failed to set_shader_debugger\n");
++
++	amdgpu_mes_unlock(&adev->mes);
++
++	return r;
++}
++
+ static void
+ amdgpu_mes_ring_to_queue_props(struct amdgpu_device *adev,
+ 			       struct amdgpu_ring *ring,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+index a27b424ffe00..c2c88b772361 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+@@ -291,9 +291,10 @@ struct mes_misc_op_input {
+ 			uint64_t process_context_addr;
+ 			union {
+ 				struct {
+-					uint64_t single_memop : 1;
+-					uint64_t single_alu_op : 1;
+-					uint64_t reserved: 30;
++					uint32_t single_memop : 1;
++					uint32_t single_alu_op : 1;
++					uint32_t reserved: 29;
++					uint32_t process_ctx_flush: 1;
+ 				};
+ 				uint32_t u32all;
+ 			} flags;
+@@ -369,7 +370,8 @@ int amdgpu_mes_set_shader_debugger(struct amdgpu_device *adev,
+ 				const uint32_t *tcp_watch_cntl,
+ 				uint32_t flags,
+ 				bool trap_en);
+-
++int amdgpu_mes_flush_shader_debugger(struct amdgpu_device *adev,
++				uint64_t process_context_addr);
+ int amdgpu_mes_add_ring(struct amdgpu_device *adev, int gang_id,
+ 			int queue_type, int idx,
+ 			struct amdgpu_mes_ctx_data *ctx_data,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 77f493262e05..8e55e78fce4e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -87,6 +87,7 @@ void kfd_process_dequeue_from_device(struct kfd_process_device *pdd)
+ 		return;
  
- 		*DestinationLinesToRequestVMInVBlank = dml_ceil(4.0 * TimeForFetchingMetaPTE / LineTime, 1.0) / 4.0;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
-index 592d174df6c6..5d34735df83d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
-@@ -747,6 +747,7 @@ bool dml32_CalculatePrefetchSchedule(
- 		unsigned int SwathHeightC,
- 		double TWait,
- 		double TPreReq,
-+		bool ExtendPrefetchIfPossible,
- 		/* Output */
- 		double   *DSTXAfterScaler,
- 		double   *DSTYAfterScaler,
+ 	dev->dqm->ops.process_termination(dev->dqm, &pdd->qpd);
++	amdgpu_mes_flush_shader_debugger(dev->adev, pdd->proc_ctx_gpu_addr);
+ 	pdd->already_dequeued = true;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
+index b1db2b190187..e07e93167a82 100644
+--- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
++++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
+@@ -571,7 +571,8 @@ struct SET_SHADER_DEBUGGER {
+ 		struct {
+ 			uint32_t single_memop : 1;  /* SQ_DEBUG.single_memop */
+ 			uint32_t single_alu_op : 1; /* SQ_DEBUG.single_alu_op */
+-			uint32_t reserved : 30;
++			uint32_t reserved : 29;
++			uint32_t process_ctx_flush : 1;
+ 		};
+ 		uint32_t u32all;
+ 	} flags;
 -- 
 2.43.0
 
