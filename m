@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84016C47DD9
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:15:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AD52C47DD9
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:15:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FAC610F3CA;
-	Mon, 22 Jan 2024 15:15:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7C3210F3D7;
+	Mon, 22 Jan 2024 15:15:45 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A59FD10F3CA;
- Mon, 22 Jan 2024 15:15:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06AF310F3CB;
+ Mon, 22 Jan 2024 15:15:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 19623CE210F;
- Mon, 22 Jan 2024 15:14:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7A6BC433F1;
- Mon, 22 Jan 2024 15:14:46 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 0EBAFCE2B24;
+ Mon, 22 Jan 2024 15:15:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B9BC433C7;
+ Mon, 22 Jan 2024 15:15:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705936488;
- bh=oqjYaQXVXeLVMMTlYPRnTAla9La0R0kljsceOMAO5tE=;
+ s=k20201202; t=1705936540;
+ bh=EFenuZeTfK4htTwIGJoDpBTqQUk9QC/xPh9GsknP7mo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XfpzfxFD/vz+c0wspemcOOPvnuvzEwVU/GalK6eOZMuK0HSj/2ZBzobFruVc7wA7G
- qAnmc4nT3x3snVThDzlnT5vrldwOU0ijdNXCxQIJgW/H6XZBcnyyKF5n6HwynB0p3K
- 1rePOXfvBZ/PK2vfYoA1HojHVhnzfPLVZDSTPLwqL5KfWLfBQG7mx1ppRKEYDyMzDn
- D4fFhVkzGSAiKa4VDSPpA+aKQqp8EkLDSfuMh5RPzS4b29OSbtLGCs2Wb8irGFizkY
- 8k4DTDnUHoq676LHDNkFjxyaHgSIihT60BoLOgLve7rLP4C864USaMAG5/pQOxSI+n
- ItljesNxFRDXA==
+ b=kK3HR8ovikzmiCl+OGQPgnX+Kh43K8j1ziqdt9S6p6RQGyjNPGYH5yTYTRqTLavyO
+ lKPFomQ9j6KlMlx/jRN3440NCpOOKOxtJQijw7VYxWC2r7o1y5zrUC9ypjtFcsHsQk
+ 1vhEWD+g5ugg/pWxg/ifMuRvv7+0D9PPJlYbRdQ2sRFVeYKfqLTH5k6VG0xmP41FKy
+ GEvXSw3OXTgkiCcMVteMfbjvucB+/EZGDE8BGFDCAY0oVRZswYTgB/DfMIQJKqPJJn
+ +9bmgw967RJMdglS1Q3IkrZc5VpHfPmz85w9NEBnPW2+gAO1dpgq7UzAo7rVi92SRd
+ suvQkdB+O4OUA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 33/35] drm/amdgpu: Let KFD sync with VM fences
-Date: Mon, 22 Jan 2024 10:12:30 -0500
-Message-ID: <20240122151302.995456-33-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 07/28] drm/amd/display: Fix tiled display
+ misalignment
+Date: Mon, 22 Jan 2024 10:14:33 -0500
+Message-ID: <20240122151521.996443-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240122151302.995456-1-sashal@kernel.org>
-References: <20240122151302.995456-1-sashal@kernel.org>
+In-Reply-To: <20240122151521.996443-1-sashal@kernel.org>
+References: <20240122151521.996443-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.15.147
+X-stable-base: Linux 5.10.208
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,45 +53,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, aric.cyr@amd.com, dillon.varone@amd.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ sunpeng.li@amd.com, airlied@gmail.com, Qingqing.Zhuo@amd.com,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, samson.tam@amd.com,
+ christian.koenig@amd.com,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ wenjing.liu@amd.com, Hamza Mahfooz <hamza.mahfooz@amd.com>, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, jun.lei@amd.com,
+ harry.wentland@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ alvin.lee2@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Felix Kuehling <Felix.Kuehling@amd.com>
+From: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
 
-[ Upstream commit ec9ba4821fa52b5efdbc4cdf0a77497990655231 ]
+[ Upstream commit c4b8394e76adba4f50a3c2696c75b214a291e24a ]
 
-Change the rules for amdgpu_sync_resv to let KFD synchronize with VM
-fences on page table reservations. This fixes intermittent memory
-corruption after evictions when using amdgpu_vm_handle_moved to update
-page tables for VM mappings managed through render nodes.
+[Why]
+When otg workaround is applied during clock update, otgs of
+tiled display went out of sync.
 
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+[How]
+To call dc_trigger_sync() after clock update to sync otgs again.
+
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Signed-off-by: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-index 862eb3c1c4c5..494466893486 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-@@ -208,7 +208,8 @@ static bool amdgpu_sync_test_fence(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 36a9e9c84ed4..272252cd0500 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -1440,6 +1440,10 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
+ 		wait_for_no_pipes_pending(dc, context);
+ 		/* pplib is notified if disp_num changed */
+ 		dc->hwss.optimize_bandwidth(dc, context);
++		/* Need to do otg sync again as otg could be out of sync due to otg
++		 * workaround applied during clock update
++		 */
++		dc_trigger_sync(dc, context);
+ 	}
  
- 	/* Never sync to VM updates either. */
- 	if (fence_owner == AMDGPU_FENCE_OWNER_VM &&
--	    owner != AMDGPU_FENCE_OWNER_UNDEFINED)
-+	    owner != AMDGPU_FENCE_OWNER_UNDEFINED &&
-+	    owner != AMDGPU_FENCE_OWNER_KFD)
- 		return false;
- 
- 	/* Ignore fences depending on the sync mode */
+ 	context->stream_mask = get_stream_mask(dc, context);
 -- 
 2.43.0
 
