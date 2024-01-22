@@ -4,41 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C40F8C47DD9
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:00:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2845EC47DD9
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:00:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D87610F2C2;
-	Mon, 22 Jan 2024 15:00:30 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F240910F2C0;
- Mon, 22 Jan 2024 15:00:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94B7210F2C0;
+	Mon, 22 Jan 2024 15:00:34 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0031410F2C1;
+ Mon, 22 Jan 2024 15:00:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 3656DCE2B15;
- Mon, 22 Jan 2024 14:59:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA73C433C7;
- Mon, 22 Jan 2024 14:59:49 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 795636115B;
+ Mon, 22 Jan 2024 15:00:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E686BC433F1;
+ Mon, 22 Jan 2024 15:00:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705935592;
- bh=9oQY2nlqZpvXgpcB9Y+B2gmJcaPcux2UKvXEAgFpgdw=;
+ s=k20201202; t=1705935631;
+ bh=6ZXLAZ3CUd7RckLL3TGYSlSEb3X1k/ch4z1/v29BQPw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EzxW3g4sfUf8gKRfMEHGvdj6VxysbeQun/Js6QbQORLfnOcleGRjRKQlSRQm7gkBV
- wMDY01g9A6usFv22sdXva4AYhQ/qTGGuCIKnABn/UJ4951j/xDjc0nkGpqaOV4bQ+T
- +4W5shsVtR+4/VVhELF2pz9Q4v0D9szHT6CuLOOlApF29j9VUYmufLXN3PnWpenZn7
- rOIzV8KU9n4QaAm18/4DW7DsPdCxggz2lVrT6mu92iOq9t8SeFCG67Lgn4NhLB+oMl
- NXwpJkkCkSeYCiS4DdSMG7Cm66ek5axe9DVbSoVwfMDbkl4mNUxUlv87/TH48hQYtT
- POMHXWpRTYACw==
+ b=pAEzrwXP663CBCxl5C1oxV+iOTiexH2M33bMSLwAh2RPwOWHiizIrivZBDHDhHRFd
+ xtItIAXd0IXA+mDM6qiWizjSzIQugw9wEBsu7IkjbqJZNYjj+KdJQcoB7ixFcZjr4/
+ QH97JAhcGwVP91e/z0yPHxBlBBr7dy350qRl6qI7o/Itkr5yF74T+AZEAkNYwjK9CJ
+ NUDQjSq5UumoXxTPf3qLnIQ4KcGwwhACKry9NJo/SMul231vDp5c/4fZ8nEz6wC5L6
+ 8FDbHFPFe2V2eSlmfLk73PY/6WirVWyO4oJdpgn2+j13e9LnJbbEinUlEHoVir3+vG
+ CPX1tYqi3R0pA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.7 58/88] drm/amdgpu: fix ftrace event amdgpu_bo_move
- always move on same heap
-Date: Mon, 22 Jan 2024 09:51:31 -0500
-Message-ID: <20240122145608.990137-58-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.7 67/88] drm/amd/display: fix usb-c connector_type
+Date: Mon, 22 Jan 2024 09:51:40 -0500
+Message-ID: <20240122145608.990137-67-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122145608.990137-1-sashal@kernel.org>
 References: <20240122145608.990137-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.7.1
@@ -54,123 +52,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hongkun.Zhang@amd.com, "Wang, Beyond" <Wang.Beyond@amd.com>,
-	Wang@freedesktop.org, mukul.joshi@amd.com, lijo.lazar@amd.com,
-	dri-devel@lists.freedesktop.org, Jun.Ma2@amd.com, airlied@gmail.com,
-	Sasha Levin <sashal@kernel.org>, guchun.chen@amd.com,
-	amd-gfx@lists.freedesktop.org, pierre-eric.pelloux-prayer@amd.com,
-	Philip.Yang@amd.com, srinivasan.shanmugam@amd.com,
-	Arunpravin.PaneerSelvam@amd.com, marek.olsak@amd.com,
-	maarten.lankhorst@linux.intel.com, Felix.Kuehling@amd.com,
-	Xinhui.Pan@amd.com, rajneesh.bhardwaj@amd.com, daniel@ffwll.ch,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Charlene Liu <charlene.liu@amd.com>,
+ sunpeng.li@amd.com, airlied@gmail.com, Qingqing.Zhuo@amd.com,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, Allen Pan <allen.pan@amd.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Wheeler <daniel.wheeler@amd.com>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Wayne Lin <wayne.lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Wang, Beyond" <Wang.Beyond@amd.com>
+From: Allen Pan <allen.pan@amd.com>
 
-[ Upstream commit 94aeb4117343d072e3a35b9595bcbfc0058ee724 ]
+[ Upstream commit 0d26644bc57d8737c8e2fb3145366f7d0b941935 ]
 
-Issue: during evict or validate happened on amdgpu_bo, the 'from' and
-'to' is always same in ftrace event of amdgpu_bo_move
+[why]
+BIOS switches to use USB-C connector type 0x18, but VBIOS's
+objectInfo table not supported yet. driver needs to patch it
+based on enc_cap from system integration info table.
 
-where calling the 'trace_amdgpu_bo_move', the comment says move_notify
-is called before move happens, but actually it is called after move
-happens, here the new_mem is same as bo->resource
-
-Fix: move trace_amdgpu_bo_move from move_notify to amdgpu_bo_move
-
-Signed-off-by: Wang, Beyond <Wang.Beyond@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Acked-by: Wayne Lin <wayne.lin@amd.com>
+Signed-off-by: Allen Pan <allen.pan@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 13 +------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  4 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  5 +++--
- 3 files changed, 5 insertions(+), 17 deletions(-)
+ .../gpu/drm/amd/display/dc/dcn35/dcn35_dio_link_encoder.c    | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 5ad03f2afdb4..425cebcc5cbf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -1245,19 +1245,15 @@ int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, void *buffer,
-  * amdgpu_bo_move_notify - notification about a memory move
-  * @bo: pointer to a buffer object
-  * @evict: if this move is evicting the buffer from the graphics address space
-- * @new_mem: new information of the bufer object
-  *
-  * Marks the corresponding &amdgpu_bo buffer object as invalid, also performs
-  * bookkeeping.
-  * TTM driver callback which is called when ttm moves a buffer.
-  */
--void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
--			   bool evict,
--			   struct ttm_resource *new_mem)
-+void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict)
- {
- 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
- 	struct amdgpu_bo *abo;
--	struct ttm_resource *old_mem = bo->resource;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_dio_link_encoder.c
+index f91e08895275..da94e5309fba 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_dio_link_encoder.c
+@@ -256,6 +256,10 @@ void dcn35_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_UHBR10_CAPABLE = bp_cap_info.DP_UHBR10_EN;
+ 		enc10->base.features.flags.bits.IS_UHBR13_5_CAPABLE = bp_cap_info.DP_UHBR13_5_EN;
+ 		enc10->base.features.flags.bits.IS_UHBR20_CAPABLE = bp_cap_info.DP_UHBR20_EN;
++		if (bp_cap_info.DP_IS_USB_C) {
++			/*BIOS not switch to use CONNECTOR_ID_USBC = 24 yet*/
++			enc10->base.features.flags.bits.DP_IS_USB_C = 1;
++		}
  
- 	if (!amdgpu_bo_is_amdgpu_bo(bo))
- 		return;
-@@ -1274,13 +1270,6 @@ void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
- 	/* remember the eviction */
- 	if (evict)
- 		atomic64_inc(&adev->num_evictions);
--
--	/* update statistics */
--	if (!new_mem)
--		return;
--
--	/* move_notify is called before move happens */
--	trace_amdgpu_bo_move(abo, new_mem->mem_type, old_mem->mem_type);
- }
- 
- void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-index d28e21baef16..a3ea8a82db23 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-@@ -344,9 +344,7 @@ int amdgpu_bo_set_metadata (struct amdgpu_bo *bo, void *metadata,
- int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, void *buffer,
- 			   size_t buffer_size, uint32_t *metadata_size,
- 			   uint64_t *flags);
--void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
--			   bool evict,
--			   struct ttm_resource *new_mem);
-+void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict);
- void amdgpu_bo_release_notify(struct ttm_buffer_object *bo);
- vm_fault_t amdgpu_bo_fault_reserve_notify(struct ttm_buffer_object *bo);
- void amdgpu_bo_fence(struct amdgpu_bo *bo, struct dma_fence *fence,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index ab4a762aed5b..75c9fd2c6c2a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -545,10 +545,11 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
- 			return r;
+ 	} else {
+ 		DC_LOG_WARNING("%s: Failed to get encoder_cap_info from VBIOS with error code %d!\n",
+@@ -264,4 +268,5 @@ void dcn35_link_encoder_construct(
  	}
- 
-+	trace_amdgpu_bo_move(abo, new_mem->mem_type, old_mem->mem_type);
- out:
- 	/* update statistics */
- 	atomic64_add(bo->base.size, &adev->num_bytes_moved);
--	amdgpu_bo_move_notify(bo, evict, new_mem);
-+	amdgpu_bo_move_notify(bo, evict);
- 	return 0;
+ 	if (enc10->base.ctx->dc->debug.hdmi20_disable)
+ 		enc10->base.features.flags.bits.HDMI_6GB_EN = 0;
++
  }
- 
-@@ -1553,7 +1554,7 @@ static int amdgpu_ttm_access_memory(struct ttm_buffer_object *bo,
- static void
- amdgpu_bo_delete_mem_notify(struct ttm_buffer_object *bo)
- {
--	amdgpu_bo_move_notify(bo, false, NULL);
-+	amdgpu_bo_move_notify(bo, false);
- }
- 
- static struct ttm_device_funcs amdgpu_bo_driver = {
 -- 
 2.43.0
 
