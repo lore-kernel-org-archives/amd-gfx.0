@@ -4,95 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF46AC47DDC
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 21:28:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51379C46CD2
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 22:40:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 814BA10EFD5;
-	Mon, 22 Jan 2024 21:28:36 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26D0710EFD5
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jan 2024 21:28:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lJAg/JHpUqH+4OJY2tOBGLRNSF1oM3DJ/YZg5zLkXw2H66ijPA9JSE5C8x6FUnqn9+mZDl196Hxj2TC3DUmtMFgdw4Y41ACpJEO9EtzHdIqAWBJmGkGVYuSDGHA1WnV9buY+SCQQb3+lkCO/cs3RYE+UaRQUhXz6pEw0Vp5VBn3YCqHfEoi8SiniPWjNqyDw2JsakQOqCrjacyNMBrNkvxlksKYicoK9aM4fDiSIXImYx1uUpXwUGT1YPHCuLDQV5PvFhqR87kC06/hl45VGvUqrUdplW+LaKvk2qa2z3js8l9yAQ2LnXPshN/3NXhX6KqZRX/Pnva3rbyAOIvBV8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9I8498vv9fGKGOIPkOTrREV8cU9IFgnOW0SOUNxmczE=;
- b=bJ9xb8ehzGRntl8oCWZYRHn4PBbkgXybNCizNQLk2hH4LgxS4PvHiQD5DVNRokbIWRQOaDqFjPL6+YMDXH+C5NG+iNtrEFdb39RgrQjWV2tvy951kRv0vet6FfcVjq+cj6xWaj1+LKeHMa2ZZdGG1XPINCcuaPDLxsy+9VZkAaNMM+brivC1HP1EeMetsmxW6pjFU64PzXR3EZ30TebTvVUMyRufQAuHEbFUeIXmVTDqnumaz+J8pqwuSoVe4grmhNgi8dHfhFRUHYbwF0fqsH38Q2gkvThjHQ7cbChIGSg/YHnP6VRD+XSF9MH8yXI9lBlGOqbLKIVp7VKETBkSXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9I8498vv9fGKGOIPkOTrREV8cU9IFgnOW0SOUNxmczE=;
- b=Vh3hg96uqMpv/QgF3QvI3lvRqCdm7khWhK/0PnXEYht10TgjEILKzCk0dJjAIUbtd03yEC+FxwqgTwQfxCLnlNr8FP/7781OD6ZJLuD5iS2LGZxGqIH+hoySdl7EeSc2euaVF1tfIKadDCuTEveSQF03PWJNDB5sR/al0uipgRg=
-Received: from BL0PR05CA0025.namprd05.prod.outlook.com (2603:10b6:208:91::35)
- by PH7PR12MB7356.namprd12.prod.outlook.com (2603:10b6:510:20f::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24; Mon, 22 Jan
- 2024 21:28:13 +0000
-Received: from BL6PEPF0001AB4A.namprd04.prod.outlook.com
- (2603:10b6:208:91:cafe::f4) by BL0PR05CA0025.outlook.office365.com
- (2603:10b6:208:91::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.19 via Frontend
- Transport; Mon, 22 Jan 2024 21:28:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB4A.mail.protection.outlook.com (10.167.242.68) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Mon, 22 Jan 2024 21:28:12 +0000
-Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 22 Jan
- 2024 15:28:10 -0600
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Mario
- Limonciello" <mario.limonciello@amd.com>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Hamza Mahfooz
- <hamza.mahfooz@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>, "Jani
- Nikula" <jani.nikula@linux.intel.com>
-Subject: [PATCH v2 3/8] Documentation/gpu: Add kernel doc entry for DPP
-Date: Mon, 22 Jan 2024 14:24:56 -0700
-Message-ID: <20240122212719.647008-4-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240122212719.647008-1-Rodrigo.Siqueira@amd.com>
-References: <20240122212719.647008-1-Rodrigo.Siqueira@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD62810F0A4;
+	Mon, 22 Jan 2024 22:40:16 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC57510F0A4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jan 2024 22:40:10 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-40e8fec0968so47593645e9.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jan 2024 14:40:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=froggi.es; s=google; t=1705963149; x=1706567949; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=jXX4PBBgW7CZPJzzjpr5xUI+MQDdiVRDNM50miw4wqI=;
+ b=F8N+AV4E5fRyP03X/r7PFzZRFHjcWMIl77WYkDz04FiFIY97q+ahPCw695s3J8RnhN
+ 8iEFbi5sKVj3TQDMnxkVvfAZsa6ARx4R1+ZnEHAokOhYyV0s0ggVLD4R2LVKMamPyRM9
+ B42s9+dwpLluiSi8C25m2EZRmZXHsMop17W+7r4QOG4Q3FP45CHwBMpW96lLpN8Tvob/
+ eE9ti2zRJ5xL6vGbFaCK3TrMFXKtd15Of58d/ReFHOxjvLhC3GuW5rCs/i6e0hREYYg4
+ 1RDvAJr/KyJbCDN1zLFgDjoKicjHWuGj+fQEFg1/vbgAjn3nyVvJM8elht3ZLrr5YqVO
+ IUcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705963149; x=1706567949;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=jXX4PBBgW7CZPJzzjpr5xUI+MQDdiVRDNM50miw4wqI=;
+ b=gOVuDzYkUaJuRiA020rl80r1XwlpV467PcpmVu4Vw6L70ak3/yk9zA4y3d5Al2aPza
+ BB3i8yWbYUz8m1zP9MSaDBZecJlxjKgiP6QZ4bIZGayjFdAq2PF0hyGOK4MPe3k8l8tm
+ 4brtQbD0wzMv/KafgUtdnw1FlCPZZ92A+4NauTGinM/p4oYBj1DHITklL1GNfr2AVSVj
+ jvhznH/DeLQm5d30R5JXq7vP18/29CwXL3KX4snklr5oyZSZ/IvAw+ejFRwA6n9FU6pt
+ gPyT/iUObprySTmO2sZBvc66nSye27jcwNEMU2J2jAXNAWgvBZ28iZQI9docghNcWi6A
+ hFqg==
+X-Gm-Message-State: AOJu0YybzSTZcAjOpDg4UsUt8yhsDOG/IjAU9sDJq+T0Bpc5lZyOJj0e
+ IHbdi7LlNmTyhxm+0X3ABlLh1GPnch58fh75fDPEeCWUXQ+5Uuqj8UNosZ8o/eU=
+X-Google-Smtp-Source: AGHT+IHh0oLUq5rxBK9X3KFN6sae8Q5Pl5zzjbet3yZewtSFKqq+pB0+ik1Jbx+8bzC/0bJyfaRkqw==
+X-Received: by 2002:a1c:4b0e:0:b0:40e:5560:1ad9 with SMTP id
+ y14-20020a1c4b0e000000b0040e55601ad9mr2555615wma.101.1705963148913; 
+ Mon, 22 Jan 2024 14:39:08 -0800 (PST)
+Received: from [192.168.0.89]
+ (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
+ by smtp.gmail.com with ESMTPSA id
+ m21-20020a05600c4f5500b0040e4733aecbsm40361622wmq.15.2024.01.22.14.39.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Jan 2024 14:39:08 -0800 (PST)
+Message-ID: <dc8506c4-9114-473e-bfdc-8a24f2264392@froggi.es>
+Date: Mon, 22 Jan 2024 22:39:07 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amdgpu: Reset IH OVERFLOW_CLEAR bit after writing
+ rptr
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Friedrich Vock <friedrich.vock@gmx.de>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>
+References: <20240114130008.868941-1-friedrich.vock@gmx.de>
+ <69cec077-4011-4738-bbb0-8fb1e6f52159@gmail.com>
+ <abdfec21-2642-4c68-8c51-cdfba54928aa@gmx.de>
+ <577a8451-0791-4bd1-8c6c-61a7cc293174@gmail.com>
+ <d15ac325-e830-4e11-a239-56eaeddecae8@gmx.de>
+ <e977939c-db01-4b14-8494-0bdad5be7a8a@gmail.com>
+ <CADnq5_Nb=ruoA2j-mHrQbxHY=yzwGm2kKjDiQ+ajk3urKKLing@mail.gmail.com>
+ <42af4788-10bb-4107-bd1a-05f15dc9c1fa@gmx.de>
+ <4d3e3c70-3307-4068-9416-613a19f587d4@gmail.com>
+ <6590bae2-406d-4f45-a3e9-5dc6653925cf@amd.com>
+ <0db29a99-f434-4886-9204-54eafaefa31a@amd.com>
+ <60efdecd-0957-4e06-9f1e-7343dff87a8a@gmx.de>
+ <098e975b-2271-4f11-9549-40bc2c444a28@gmx.de>
+ <d45b23d1-ab1d-4285-8b18-a0eebaa2d871@amd.com>
+Content-Language: en-US
+From: Joshua Ashton <joshua@froggi.es>
+In-Reply-To: <d45b23d1-ab1d-4285-8b18-a0eebaa2d871@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4A:EE_|PH7PR12MB7356:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ce89a30-8921-4cf8-9c21-08dc1b9109d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4h3iEqerj30SX6NlNUJ+oGFOIRrfxOsfHV6cJmaOPDN1aEWoeHwzxuxmDBGF0HUohvqLlpEN9Xh5KsJc8Nulzx0ihKO3njWriYC+4VdnGs/5KWSyuAR9l6OEyYIi9K7WFWRrj0Bvwq3i1cp0zzNsceXgECZKlanxfypVKiXoO2v2KylLx60bjAlMB70gyVVpljeok0qi9NhfxcLjzBG3h+A5c6Lw1AYr1QzVf/3iph05lH3lujzrXSuSsUH+Wd6GqgHGHNDRnDcNHBbAlNmTWSoqKn/4Rnh02sI7f9DvxWIYinNmeDFm4vDtuKTnB37p2QB1NtTXf4J1VCWP7H6rQqSNw4bQkfUdxTMNbrOrjqrrckZZ77DOA3wQJ52YD1ApEliDSO+hBvoarnlJ8uB+RkBB9iPWB5IPi7kAdJYUFt6dX4n7owJG0/RphCtfBK/YF7dEn/IAT3HmWzZoWYhVnP0T97qgJDSTbOkKkAXpmkh8oBTb/lw3X0AOgNKYGW4G3mDxdTUNLNb0p4Zy4okBdVqkc9DtJvSTJxI49K76uudT6IMb6EGaGY+EodzWgPKRDs4k4TB5bXd4jIE8yx7xQRaYVWpP9O/Jx0aqg34VS8UlWxdS+YUvFewiZsyzhvj5EtU+RHMniU0INlxp/eQaK7UTT2T60IyPbTkq6iO42a4lAubIIbjdTj7WAeHU2bxgQGcjTdbqYWbaJlJeGWUroWAPR84Xyj+aEXWOiQekjhbV61ljgv7OH34zE4Kz28GfgFR8O/G1fRGF7mgAPTELUA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(376002)(39860400002)(346002)(136003)(230922051799003)(1800799012)(64100799003)(82310400011)(186009)(451199024)(36840700001)(40470700004)(46966006)(36860700001)(81166007)(40460700003)(40480700001)(82740400003)(356005)(1076003)(426003)(70586007)(5660300002)(54906003)(70206006)(8676002)(2906002)(110136005)(26005)(336012)(4326008)(316002)(8936002)(16526019)(83380400001)(86362001)(6666004)(2616005)(47076005)(478600001)(41300700001)(36756003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2024 21:28:12.8304 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ce89a30-8921-4cf8-9c21-08dc1b9109d2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7356
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,84 +94,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harry Wentland <Harry.Wentland@amd.com>, Rodrigo
- Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-doc@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit introduces basic DPP information and the struct scan for
-code documentation.
 
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Harry Wentland <Harry.Wentland@amd.com>
-Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- .../gpu/amdgpu/display/dcn-blocks.rst         | 12 +++++++++
- drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h   | 26 +++++++++++++++++++
- 2 files changed, 38 insertions(+)
 
-diff --git a/Documentation/gpu/amdgpu/display/dcn-blocks.rst b/Documentation/gpu/amdgpu/display/dcn-blocks.rst
-index e4e0a4ddca4e..83fc4a03113e 100644
---- a/Documentation/gpu/amdgpu/display/dcn-blocks.rst
-+++ b/Documentation/gpu/amdgpu/display/dcn-blocks.rst
-@@ -28,3 +28,15 @@ HUBP
- 
- .. kernel-doc:: drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-    :internal:
-+
-+DPP
-+---
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-+   :doc: overview
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-+   :export:
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-+   :internal:
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
-index 4e604bf24f51..a962a9f36845 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
-@@ -27,6 +27,32 @@
- #ifndef __DAL_DPP_H__
- #define __DAL_DPP_H__
- 
-+/**
-+ * DOC: overview
-+ *
-+ * The DPP (Display Pipe and Plane) block is the unified display data
-+ * processing engine in DCN for processing graphic or video data on per DPP
-+ * rectangle base. This rectangle can be a part of SLS (Single Large Surface),
-+ * or a layer to be blended with other DPP, or a rectangle associated with a
-+ * display tile.
-+ *
-+ * It provides various functions including:
-+ * - graphic color keyer
-+ * - graphic cursor compositing
-+ * - graphic or video image source to destination scaling
-+ * - image sharping
-+ * - video format conversion from 4:2:0 or 4:2:2 to 4:4:4
-+ * - Color Space Conversion
-+ * - Host LUT gamma adjustment
-+ * - Color Gamut Remap
-+ * - brightness and contrast adjustment.
-+ *
-+ * DPP pipe consists of Converter and Cursor (CNVC), Scaler (DSCL), Color
-+ * Management (CM), Output Buffer (OBUF) and Digital Bypass (DPB) module
-+ * connected in a video/graphics pipeline.
-+ */
-+
-+
- #include "transform.h"
- #include "cursor_reg_cache.h"
- 
--- 
-2.43.0
+On 1/22/24 13:35, Christian König wrote:
+> Am 22.01.24 um 11:45 schrieb Friedrich Vock:
+>> On 22.01.24 11:21, Friedrich Vock wrote:
+>>> On 22.01.24 11:10, Christian König wrote:
+>>>> Am 19.01.24 um 20:18 schrieb Felix Kuehling:
+>>>>> On 2024-01-18 07:07, Christian König wrote:
+>>>>>> Am 18.01.24 um 00:44 schrieb Friedrich Vock:
+>>>>>>> On 18.01.24 00:00, Alex Deucher wrote:
+>>>>>>> [SNIP]
+>>>>>>> No, amdgpu.noretry=1 does not change anything.
+>>>>>>
+>>>>>> Well the good news first the hw engineer answered rather quickly.
+>>>>>> The bad news is that the hardware really doesn't work as documented
+>>>>>> in multiple ways.
+>>>>>>
+>>>>>> First of all the CLEAR bit is a level and not a trigger, so the
+>>>>>> intention to clear it is indeed correct. For now please modify this
+>>>>>> patch so that the CLEAR bit is set and cleared directly after
+>>>>>> setting it, this way we should be able to detect further overflows
+>>>>>> immediately.
+>>>>>>
+>>>>>> Then the APU the Steam Deck uses simply doesn't have the filter
+>>>>>> function for page faults in the hardware, the really bad news is it
+>>>>>> also doesn't have the extra IH rings where we could re-route the
+>>>>>> faults to prevent overflows.
+>>>>>>
+>>>>>> That full explains the behavior you have been seeing, but doesn't
+>>>>>> really provide a doable solution to mitigate this problem.
+>>>>>>
+>>>>>> I'm going to dig deeper into the hw documentation and specification
+>>>>>> to see if we can use a different feature to avoid the overflow.
+>>>>>
+>>>>> If we're not enabling retry faults, then each wave front should
+>>>>> generate at most one fault. You should be able to avoid overflows by
+>>>>> making the IH ring large enough to accommodate one fault per wave
+>>>>> front.
+>>>>
+>>>> That is the exact same argument our HW engineers came up with when we
+>>>> asked why the APU is missing all those nice IH ring overflow avoidance
+>>>> features the dGPUs have :)
+>>>>
+>>> I can reproduce IH overflows on my RX 6700 XT dGPU as well FWIW.
+> 
+> Interesting data point. We have probably looked to much into the faults 
+> on MI* products and never checked Navi.
+> 
+> Can you try to just setting WPTR_OVERFLOW_ENABLE to 0? At least in 
+> theory that should disable IH overflows altogether on Navi without 
+> causing loss of IVs.
+> 
+>>>
+>>>> The only problem with this approach is that on Navi when a wave is
+>>>> blocked by waiting on a fault you can't kill it using soft recovery
+>>>> any more (at least when my understanding is correct).
+>>>>
+>>> Killing page-faulted waves via soft recovery works. From my testing on
+>>> Deck, it seems to take a bit of time, but if you try for long enough
+>>> soft recovery eventually succeeds.
+> 
+> Ok that is massively strange. We had tons of discussions about that 
+> shader can't be interrupted while they wait for a fault on Navi.
+> 
+> Maybe killing them is still possible, need to double check that as well.
+> 
+>>
+>>
+>> On second thought, could it be that this is the critical flaw in the "at
+>> most one fault per wave" thinking?
+> 
+> Well completely agree that this. That rational to leave out the new IH 
+> features on APUs is rather weak.
+> 
+>>
+>> Most work submissions in practice submit more waves than the number of
+>> wave slots the GPU has.
+>> As far as I understand soft recovery, the only thing it does is kill all
+>> active waves. This frees up the CUs so more waves are launched, which
+>> can fault again, and that leads to potentially lots of faults for a
+>> single wave slot in the end.
+> 
+> Exactly that, but killing each wave takes a moment since we do that in a 
+> loop with a bit delay in there.
+> 
+> So the interrupt handler should at least in theory have time to catch up.
+
+I don't think there is any delay in that loop is there?
+
+	while (!dma_fence_is_signaled(fence) &&
+	       ktime_to_ns(ktime_sub(deadline, ktime_get())) > 0)
+		ring->funcs->soft_recovery(ring, vmid);
+
+(soft_recovery function does not have a delay/sleep/whatever either)
+
+FWIW, two other changes we did in SteamOS to make recovery more reliable 
+on VANGOGH was:
+
+1) Move the timeout determination after the spinlock setting the fence 
+error.
+
+2) Raise the timeout from 0.1s to 1s.
+
+- Joshie 🐸✨
+
+
+> 
+> Regards,
+> Christian.
+> 
+>>
+>> Regards,
+>> Friedrich
 
