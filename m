@@ -4,67 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAE8AC47258
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jan 2024 12:04:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD813C47DDC
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jan 2024 12:04:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 559BD10EE7F;
-	Tue, 23 Jan 2024 12:04:51 +0000 (UTC)
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5FC510EF79
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jan 2024 21:31:45 +0000 (UTC)
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 40MK47T1011931; Mon, 22 Jan 2024 21:31:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding;
- s=corp-2023-11-20; bh=8okG6hOKb/slWCShelNN3OM6mfb4/r3Ray8T1cL6VAo=;
- b=lmb40x4k8b+VRmtpHSySbQuVrC6OMNiadMYclvVUcRQO9ukhZ8pcq8wUgVfULPU1V3ey
- F/M6o+k4YAlUWCyJ2cQtFCnLZGvpVYzxcOEdmzn6bHP5WXwzyOgLXDONwgfA+FQKfy3s
- QlkT4PRqAYurT17LaZxuYDMcNRStsPhYYcCMA07sxbbwbG+S4sPTi2CuwItqdsVYvmic
- +FDKRXpTFfojyTxWExJiAmwAEMQ+REhcO7sH2LDt9Jio9DuYtKsiWZjRD0oA+hBTFVzD
- piiEnVxK2/53J34Ny7uZJmzKkzNMgb8Ce+geqIWJQn142/w7VkdyL95s4areSp+QV3sk NA== 
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3vr7cwcprw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 22 Jan 2024 21:31:41 +0000
-Received: from pps.filterd
- (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
- with ESMTP id 40MLE0QR016406; Mon, 22 Jan 2024 21:31:41 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3vs32ptwgx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 22 Jan 2024 21:31:41 +0000
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 40MLSu3b025671;
- Mon, 22 Jan 2024 21:31:40 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
- [10.129.136.47])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 3vs32ptwg9-1; Mon, 22 Jan 2024 21:31:40 +0000
-From: Samasth Norway Ananda <samasth.norway.ananda@oracle.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH  1/1] drm/amdgpu: fix wrong sizeof argument
-Date: Mon, 22 Jan 2024 13:31:39 -0800
-Message-ID: <20240122213139.3571875-1-samasth.norway.ananda@oracle.com>
-X-Mailer: git-send-email 2.42.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2183710F032;
+	Tue, 23 Jan 2024 12:04:52 +0000 (UTC)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95ABA10E657
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jan 2024 09:16:48 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-40ea5653f6bso21854895e9.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jan 2024 01:16:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1705914947; x=1706519747; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=JSJ7VruC7bi2nALb/EmcULYDuICQTeEcPYoZ2NUOQbw=;
+ b=uwK/68j89IPr+Hg7HFlXA/A/jtZiU3ga7Bn8KwGz8lHi7KJiIQKmiShFGbo9P5z1nO
+ +pCK7TYje1EXg66pF/ONkHYYTjvQ/kZFtSTzcpWmzZK5wrN0KV3rUYH8zqbKyDiRiK0B
+ zSOK9H9wYqL5PEq0bXrjKJ1ChJ7i1XFAEGADlCZPBY4O2SghXxASCdXP3mlnk8KqXXwU
+ PI1Izl7kZRo+FL85OHqx1+wb9+7aNkOx582jEcQJxgMrD4ogpYxyxkHgh5h9VE+sBsnM
+ /eKIoKhh84fQ/dxTOCi7AnL3+wV94lk0uuXK2wk509MZOeaK5SBrmjl5GunFJBlGrvDv
+ AG0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705914947; x=1706519747;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=JSJ7VruC7bi2nALb/EmcULYDuICQTeEcPYoZ2NUOQbw=;
+ b=JGD8WTYjfi/vR2LJH8XA3shdAA3eDd+zhi0vlgXpsZ2fbdN+NAPJuZDUhdpKf+58QZ
+ 1IYMTVzRTyYsQMQ6bZMApjbYX48Rn74RD5tPEQ/EfOIY10wZhhrQN5tD9+INKWi+ET93
+ Gqpy6dYG/3518HGc4ElFWJimMfN6gnRy9j+a7a8mfFqB7Z3hOi/ZHZUhZiAV9bIrZIaJ
+ 5IXA1AoNOfJN17JHLGzvM7FIDfmouUYvCyoNtdFz9bpMJa+h0dBc3WvwqR1MMx9h0CST
+ IsvaBCFZ07B3x2m8ozc/O9PTAX1FCbvmpnkWL7u66vt4fj/x3tD2XjmYXNj9n/PpF4M6
+ hR6A==
+X-Gm-Message-State: AOJu0YzOZjQ3SpJ/M6H6MIDwz0Me7+5gVI08u1SF+188I2SQ0aRfSbeU
+ /mN7AJDbqfMPnW0FDTGThoPNDZaU9u/Vh+Z/tAtVTCHfXkSOnVK0PDWXRyFFd1s=
+X-Google-Smtp-Source: AGHT+IFreBKad7C/PYy1DBUu1MwdS6tfn0AE6P4Uo31Rhc1rGaB4WNGWnDWIuoFrYBgcLlCN1oJYBg==
+X-Received: by 2002:a05:600c:291:b0:40e:44de:d2a9 with SMTP id
+ 17-20020a05600c029100b0040e44ded2a9mr2296035wmk.208.1705914947029; 
+ Mon, 22 Jan 2024 01:15:47 -0800 (PST)
+Received: from localhost ([102.140.209.237]) by smtp.gmail.com with ESMTPSA id
+ b1-20020a5d6341000000b0033930b9a2b1sm3400633wrw.26.2024.01.22.01.15.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Jan 2024 01:15:46 -0800 (PST)
+Date: Mon, 22 Jan 2024 12:15:43 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: meenakshikumar.somasundaram@amd.com
+Subject: [bug report] drm/amd/display: Add dpia display mode validation logic
+Message-ID: <53d04b9e-e237-42c8-b7d2-6d7d4c1e1dab@moroto.mountain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-22_09,2024-01-22_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- mlxlogscore=996
- spamscore=0 mlxscore=0 adultscore=0 bulkscore=0 phishscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311290000 definitions=main-2401220152
-X-Proofpoint-ORIG-GUID: CYa3Hvp87xJX-Sm0OwOJUkdEUuSzsg26
-X-Proofpoint-GUID: CYa3Hvp87xJX-Sm0OwOJUkdEUuSzsg26
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Tue, 23 Jan 2024 12:04:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,34 +68,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, samasth.norway.ananda@oracle.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-voltage_parameters is a point to a struct of type
-SET_VOLTAGE_PARAMETERS_V1_3. Passing just voltage_parameters would
-not print the right size of the struct variable. So we need to pass
-*voltage_parameters to sizeof().
+Hello Meenakshikumar Somasundaram,
 
-Fixes: 4630d5031cd8 ("drm/amdgpu: check PS, WS index") 
-Signed-off-by: Samasth Norway Ananda <samasth.norway.ananda@oracle.com>
----
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The patch 59f1622a5f05: "drm/amd/display: Add dpia display mode
+validation logic" from Dec 5, 2023 (linux-next), leads to the
+following Smatch static checker warning:
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-index 8f58954739e0..b1b4c09c3467 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-@@ -1526,7 +1526,7 @@ int atomctrl_get_leakage_id_from_efuse(struct pp_hwmgr *hwmgr, uint16_t *virtual
- 
- 	result = amdgpu_atom_execute_table(adev->mode_info.atom_context,
- 			GetIndexIntoMasterTable(COMMAND, SetVoltage),
--			(uint32_t *)voltage_parameters, sizeof(voltage_parameters));
-+			(uint32_t *)voltage_parameters, sizeof(*voltage_parameters));
- 
- 	*virtual_voltage_id = voltage_parameters->usVoltageLevel;
- 
--- 
-2.42.0
+	drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_dpia_bw.c:208 get_host_router_total_dp_tunnel_bw()
+	error: buffer overflow 'dc->links' 12 <= 12
 
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_dpia_bw.c
+    192 static int get_host_router_total_dp_tunnel_bw(const struct dc *dc, uint8_t hr_index)
+    193 {
+    194         uint8_t lowest_dpia_index = get_lowest_dpia_index(dc->links[0]);
+    195         uint8_t hr_index_temp = 0;
+    196         struct dc_link *link_dpia_primary, *link_dpia_secondary;
+    197         int total_bw = 0;
+    198 
+    199         for (uint8_t i = 0; i < MAX_PIPES * 2; ++i) {
+    200 
+    201                 if (!dc->links[i] || dc->links[i]->ep_type != DISPLAY_ENDPOINT_USB4_DPIA)
+    202                         continue;
+    203 
+    204                 hr_index_temp = (dc->links[i]->link_index - lowest_dpia_index) / 2;
+    205 
+    206                 if (hr_index_temp == hr_index) {
+    207                         link_dpia_primary = dc->links[i];
+--> 208                         link_dpia_secondary = dc->links[i + 1];
+
+Imagine "i = MAX_PIPES * 2 - 1" then that means [i + 1] is out of
+bounds.
+
+    209 
+    210                         /**
+    211                          * If BW allocation enabled on both DPIAs, then
+    212                          * HR BW = Estimated(dpia_primary) + Allocated(dpia_secondary)
+    213                          * otherwise HR BW = Estimated(bw alloc enabled dpia)
+    214                          */
+    215                         if ((link_dpia_primary->hpd_status &&
+    216                                 link_dpia_primary->dpia_bw_alloc_config.bw_alloc_enabled) &&
+    217                                 (link_dpia_secondary->hpd_status &&
+    218                                 link_dpia_secondary->dpia_bw_alloc_config.bw_alloc_enabled)) {
+    219                                         total_bw += link_dpia_primary->dpia_bw_alloc_config.estimated_bw +
+    220                                                 link_dpia_secondary->dpia_bw_alloc_config.allocated_bw;
+    221                         } else if (link_dpia_primary->hpd_status &&
+    222                                         link_dpia_primary->dpia_bw_alloc_config.bw_alloc_enabled) {
+    223                                 total_bw = link_dpia_primary->dpia_bw_alloc_config.estimated_bw;
+    224                         } else if (link_dpia_secondary->hpd_status &&
+    225                                 link_dpia_secondary->dpia_bw_alloc_config.bw_alloc_enabled) {
+    226                                 total_bw += link_dpia_secondary->dpia_bw_alloc_config.estimated_bw;
+    227                         }
+    228                         break;
+    229                 }
+    230         }
+    231 
+    232         return total_bw;
+    233 }
+
+regards,
+dan carpenter
