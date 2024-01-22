@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D4B1C47DD9
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:06:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1113CC47DAF
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:07:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD13010F298;
-	Mon, 22 Jan 2024 15:06:58 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68C0C10F319;
- Mon, 22 Jan 2024 15:06:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3A1110EF2E;
+	Mon, 22 Jan 2024 15:07:19 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2398510F2A8;
+ Mon, 22 Jan 2024 15:07:18 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id CB04061516;
- Mon, 22 Jan 2024 15:06:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1021C433F1;
- Mon, 22 Jan 2024 15:06:23 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id EBBE9CE2B18;
+ Mon, 22 Jan 2024 15:07:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E17FC433F1;
+ Mon, 22 Jan 2024 15:07:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705935986;
- bh=rx4dgLUNkTDqsW33qsOd9iKztc0OWISm4z1ZSgDnIQk=;
+ s=k20201202; t=1705936031;
+ bh=SGfn8d3Lh6PFke4hVCxeGPdjtPNX+Tp/pt2c5AA0Zo8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ToaqCCPsNh0GnjpeMUFr/52NHQakxumqsEDgNmL3KobqncDOapF91Rcg3rf0fife6
- p5GPtQDYEgkfAaKJzR9D8TT1YZg9OIj8BBM97OvhC5odUeKYeAdYP5/yCKQu/shvI7
- RxjNg5oykcCB6ZSZ4xbXkBp9w6fLibXYBAdbSZGaPKbnrrD+j1GjQLl8TlngUa8haR
- nJb8M6J8S//VLTDIoY4i+pJH/JGakh1xHpGcGZbbbPH6dA0yz44v+oTbA27R3tnE2h
- nEJPG52ahW/EXAkJ6ZEFaNG/Dkkm8bq83CTKYtd+fqBP5KA74cdXjpeZkCIN46T7k6
- UeQDu+x+CS7hw==
+ b=jBfKpSUwwnmBxb34gTsBskvvDM8cRWdtnzW9eeA9VsdyIv6bKerQk+9EhcNOT7qFN
+ rgdY32vvHfiy8OLhIrpspw/2+97rkCQqJMqmzpjM0TJlG+wvvh8AF7d+EtSp63btFZ
+ HFQoBMqDCUMMC+WTrA1t/g+LUk7fPxNNxoKPNIZaCbDmxALGmjmUItmmFj80n0540i
+ x7Lke5McytQaxYzaWrfFGiUtc7dQshMu1m+d68GvkzdpoDL3JR0I2vQGuIFoiJkRTh
+ XRAxH4G/wduEhCLuxtd5XFvPoq4EPR7Ajte3i0ll8QJScZoAGD2TvxNf2c2yDLbVdq
+ Wq4CCYLYvHOsw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.6 43/73] drm/amd/display: For prefetch mode > 0,
- extend prefetch if possible
-Date: Mon, 22 Jan 2024 10:01:57 -0500
-Message-ID: <20240122150432.992458-43-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 50/73] drm/amdgpu: fix ftrace event amdgpu_bo_move
+ always move on same heap
+Date: Mon, 22 Jan 2024 10:02:04 -0500
+Message-ID: <20240122150432.992458-50-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122150432.992458-1-sashal@kernel.org>
 References: <20240122150432.992458-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.6.13
@@ -53,134 +54,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: wenjing.liu@amd.com, dri-devel@lists.freedesktop.org,
- Jun Lei <jun.lei@amd.com>, airlied@gmail.com, Paul.Hsieh@amd.com,
- Sasha Levin <sashal@kernel.org>, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- nevenko.stupar@amd.com, Alvin Lee <alvin.lee2@amd.com>, meera.patel@amd.com,
- harry.wentland@amd.com, Ilya.Bakoulin@amd.com, srinivasan.shanmugam@amd.com,
- sunpeng.li@amd.com, hanghong.ma@amd.com, Dillon.Varone@amd.com, drv@mailo.com,
- qingqing.zhuo@amd.com, Xinhui.Pan@amd.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
+Cc: Hongkun.Zhang@amd.com, "Wang, Beyond" <Wang.Beyond@amd.com>,
+	Wang@freedesktop.org, pierre-eric.pelloux-prayer@amd.com,
+	lijo.lazar@amd.com, dri-devel@lists.freedesktop.org, Jun.Ma2@amd.com,
+	airlied@gmail.com, Sasha Levin <sashal@kernel.org>,
+	guchun.chen@amd.com, amd-gfx@lists.freedesktop.org,
+	matthew.auld@intel.com, Philip.Yang@amd.com,
+	srinivasan.shanmugam@amd.com, Lyndon.Li@amd.com, marek.olsak@amd.com,
+	maarten.lankhorst@linux.intel.com, Felix.Kuehling@amd.com,
+	Xinhui.Pan@amd.com, rajneesh.bhardwaj@amd.com, mukul.joshi@amd.com,
+	daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <alvin.lee2@amd.com>
+From: "Wang, Beyond" <Wang.Beyond@amd.com>
 
-[ Upstream commit dd4e4bb28843393065eed279e869fac248d03f0f ]
+[ Upstream commit 94aeb4117343d072e3a35b9595bcbfc0058ee724 ]
 
-[Description]
-For mode programming we want to extend the prefetch as much as possible
-(up to oto, or as long as we can for equ) if we're not already applying
-the 60us prefetch requirement. This is to avoid intermittent underflow
-issues during prefetch.
+Issue: during evict or validate happened on amdgpu_bo, the 'from' and
+'to' is always same in ftrace event of amdgpu_bo_move
 
-The prefetch extension is applied under the following scenarios:
-1. We're in prefetch mode 1 (i.e. we don't support MCLK switch in blank)
-2. We're using subvp or drr methods of p-state switch, in which case we
-   we don't care if prefetch takes up more of the blanking time
+where calling the 'trace_amdgpu_bo_move', the comment says move_notify
+is called before move happens, but actually it is called after move
+happens, here the new_mem is same as bo->resource
 
-Mode programming typically chooses the smallest prefetch time possible
-(i.e. highest bandwidth during prefetch) presumably to create margin between
-p-states / c-states that happen in vblank and prefetch. Therefore we only
-apply this prefetch extension when p-state in vblank is not required (UCLK
-p-states take up the most vblank time).
+Fix: move trace_amdgpu_bo_move from move_notify to amdgpu_bo_move
 
-Reviewed-by: Jun Lei <jun.lei@amd.com>
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Wang, Beyond <Wang.Beyond@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../dc/dml/dcn32/display_mode_vba_32.c        |  3 ++
- .../dc/dml/dcn32/display_mode_vba_util_32.c   | 33 +++++++++++++++----
- .../dc/dml/dcn32/display_mode_vba_util_32.h   |  1 +
- 3 files changed, 31 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 13 +------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  4 +---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  5 +++--
+ 3 files changed, 5 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-index cbdfb762c10c..6c84b0fa40f4 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-@@ -813,6 +813,8 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 					(v->DRAMSpeedPerState[mode_lib->vba.VoltageLevel] <= MEM_STROBE_FREQ_MHZ ||
- 						v->DCFCLKPerState[mode_lib->vba.VoltageLevel] <= DCFCLK_FREQ_EXTRA_PREFETCH_REQ_MHZ) ?
- 							mode_lib->vba.ip.min_prefetch_in_strobe_us : 0,
-+					mode_lib->vba.PrefetchModePerState[mode_lib->vba.VoltageLevel][mode_lib->vba.maxMpcComb] > 0 || mode_lib->vba.DRAMClockChangeRequirementFinal == false,
-+
- 					/* Output */
- 					&v->DSTXAfterScaler[k],
- 					&v->DSTYAfterScaler[k],
-@@ -3317,6 +3319,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 							v->SwathHeightCThisState[k], v->TWait,
- 							(v->DRAMSpeedPerState[i] <= MEM_STROBE_FREQ_MHZ || v->DCFCLKState[i][j] <= DCFCLK_FREQ_EXTRA_PREFETCH_REQ_MHZ) ?
- 									mode_lib->vba.ip.min_prefetch_in_strobe_us : 0,
-+							mode_lib->vba.PrefetchModePerState[i][j] > 0 || mode_lib->vba.DRAMClockChangeRequirementFinal == false,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index ace837cfa0a6..173b43a5aa13 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1250,19 +1250,15 @@ int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, void *buffer,
+  * amdgpu_bo_move_notify - notification about a memory move
+  * @bo: pointer to a buffer object
+  * @evict: if this move is evicting the buffer from the graphics address space
+- * @new_mem: new information of the bufer object
+  *
+  * Marks the corresponding &amdgpu_bo buffer object as invalid, also performs
+  * bookkeeping.
+  * TTM driver callback which is called when ttm moves a buffer.
+  */
+-void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+-			   bool evict,
+-			   struct ttm_resource *new_mem)
++void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict)
+ {
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
+ 	struct amdgpu_bo *abo;
+-	struct ttm_resource *old_mem = bo->resource;
  
- 							/* Output */
- 							&v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.DSTXAfterScaler[k],
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-index ecea008f19d3..208b89d13d3f 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-@@ -3423,6 +3423,7 @@ bool dml32_CalculatePrefetchSchedule(
- 		unsigned int SwathHeightC,
- 		double TWait,
- 		double TPreReq,
-+		bool ExtendPrefetchIfPossible,
- 		/* Output */
- 		double   *DSTXAfterScaler,
- 		double   *DSTYAfterScaler,
-@@ -3892,12 +3893,32 @@ bool dml32_CalculatePrefetchSchedule(
- 			/* Clamp to oto for bandwidth calculation */
- 			LinesForPrefetchBandwidth = dst_y_prefetch_oto;
- 		} else {
--			*DestinationLinesForPrefetch = dst_y_prefetch_equ;
--			TimeForFetchingMetaPTE = Tvm_equ;
--			TimeForFetchingRowInVBlank = Tr0_equ;
--			*PrefetchBandwidth = prefetch_bw_equ;
--			/* Clamp to equ for bandwidth calculation */
--			LinesForPrefetchBandwidth = dst_y_prefetch_equ;
-+			/* For mode programming we want to extend the prefetch as much as possible
-+			 * (up to oto, or as long as we can for equ) if we're not already applying
-+			 * the 60us prefetch requirement. This is to avoid intermittent underflow
-+			 * issues during prefetch.
-+			 *
-+			 * The prefetch extension is applied under the following scenarios:
-+			 * 1. We're in prefetch mode > 0 (i.e. we don't support MCLK switch in blank)
-+			 * 2. We're using subvp or drr methods of p-state switch, in which case we
-+			 *    we don't care if prefetch takes up more of the blanking time
-+			 *
-+			 * Mode programming typically chooses the smallest prefetch time possible
-+			 * (i.e. highest bandwidth during prefetch) presumably to create margin between
-+			 * p-states / c-states that happen in vblank and prefetch. Therefore we only
-+			 * apply this prefetch extension when p-state in vblank is not required (UCLK
-+			 * p-states take up the most vblank time).
-+			 */
-+			if (ExtendPrefetchIfPossible && TPreReq == 0 && VStartup < MaxVStartup) {
-+				MyError = true;
-+			} else {
-+				*DestinationLinesForPrefetch = dst_y_prefetch_equ;
-+				TimeForFetchingMetaPTE = Tvm_equ;
-+				TimeForFetchingRowInVBlank = Tr0_equ;
-+				*PrefetchBandwidth = prefetch_bw_equ;
-+				/* Clamp to equ for bandwidth calculation */
-+				LinesForPrefetchBandwidth = dst_y_prefetch_equ;
-+			}
- 		}
+ 	if (!amdgpu_bo_is_amdgpu_bo(bo))
+ 		return;
+@@ -1279,13 +1275,6 @@ void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+ 	/* remember the eviction */
+ 	if (evict)
+ 		atomic64_inc(&adev->num_evictions);
+-
+-	/* update statistics */
+-	if (!new_mem)
+-		return;
+-
+-	/* move_notify is called before move happens */
+-	trace_amdgpu_bo_move(abo, new_mem->mem_type, old_mem->mem_type);
+ }
  
- 		*DestinationLinesToRequestVMInVBlank = dml_ceil(4.0 * TimeForFetchingMetaPTE / LineTime, 1.0) / 4.0;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
-index 592d174df6c6..5d34735df83d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
-@@ -747,6 +747,7 @@ bool dml32_CalculatePrefetchSchedule(
- 		unsigned int SwathHeightC,
- 		double TWait,
- 		double TPreReq,
-+		bool ExtendPrefetchIfPossible,
- 		/* Output */
- 		double   *DSTXAfterScaler,
- 		double   *DSTYAfterScaler,
+ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index d28e21baef16..a3ea8a82db23 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -344,9 +344,7 @@ int amdgpu_bo_set_metadata (struct amdgpu_bo *bo, void *metadata,
+ int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, void *buffer,
+ 			   size_t buffer_size, uint32_t *metadata_size,
+ 			   uint64_t *flags);
+-void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+-			   bool evict,
+-			   struct ttm_resource *new_mem);
++void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict);
+ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo);
+ vm_fault_t amdgpu_bo_fault_reserve_notify(struct ttm_buffer_object *bo);
+ void amdgpu_bo_fence(struct amdgpu_bo *bo, struct dma_fence *fence,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 4e51dce3aab5..f573909332c0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -545,10 +545,11 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+ 			return r;
+ 	}
+ 
++	trace_amdgpu_bo_move(abo, new_mem->mem_type, old_mem->mem_type);
+ out:
+ 	/* update statistics */
+ 	atomic64_add(bo->base.size, &adev->num_bytes_moved);
+-	amdgpu_bo_move_notify(bo, evict, new_mem);
++	amdgpu_bo_move_notify(bo, evict);
+ 	return 0;
+ }
+ 
+@@ -1555,7 +1556,7 @@ static int amdgpu_ttm_access_memory(struct ttm_buffer_object *bo,
+ static void
+ amdgpu_bo_delete_mem_notify(struct ttm_buffer_object *bo)
+ {
+-	amdgpu_bo_move_notify(bo, false, NULL);
++	amdgpu_bo_move_notify(bo, false);
+ }
+ 
+ static struct ttm_device_funcs amdgpu_bo_driver = {
 -- 
 2.43.0
 
