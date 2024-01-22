@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52818C47DAF
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:02:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F74CC47DD9
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:02:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2768610F2D2;
-	Mon, 22 Jan 2024 15:02:01 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E991D10F2D6;
- Mon, 22 Jan 2024 15:01:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F27B510F2DF;
+	Mon, 22 Jan 2024 15:02:05 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35C9C10F2D8;
+ Mon, 22 Jan 2024 15:02:05 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 8C1F6B80E6C;
- Mon, 22 Jan 2024 15:01:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DAECC433B1;
- Mon, 22 Jan 2024 15:01:56 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8F4CF6115A;
+ Mon, 22 Jan 2024 15:02:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD74FC433A6;
+ Mon, 22 Jan 2024 15:02:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705935718;
- bh=hlwss65vsu1JL9eiVYuXMgPJu8Gko63+U/Dym0795eo=;
+ s=k20201202; t=1705935724;
+ bh=QSXYM/qKEYRrHwsHjMRC7WYNgQDaa6w1LGyVKlLjTJc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=bvHUUYVTIUhEXexF1vZCsNSkKobYNJwyzlgeaBX5C0aEItr99UKqIOJ3WkHLZ7gSj
- 3Apw6VYNRAlhvvW3pYGr0DL+IcO7Di5tyuIdgxw1SRR7q1rmk6HepD1vCVNbSzbKnS
- 4RbkDvv63wlHhb4E6mYF5FoyF/VOahh+ZnZgSVbVJuVmiSkQLi56Cp153e1XKdWlhg
- 2xeLwvPXPdpQn/mm5+rJmUZock9KIZ1ybCL3oRcS6yTKPalwYGq7+Nk8ySz5DAqZUC
- dtCLnTIDzXj964mggLqjSdQHYBDB9ClbPwlSiD6hfHxIwybveN1B7DvbgKCBnN+jr/
- fhnL88PbNWgaA==
+ b=b2cCF++WRLaKTez5Yu8eReaCxfUU1x1JGosjjk+DCpIvIVgIMLMUQmTDfnGrknpEJ
+ LAqynKz/2g3OY3wrmSlTgqj7rUeD7P/4JjmWvHOgd2RfSi7akBnzKHj3Vk0r1lspYt
+ zmDd2RyDT/y74I6o9a2cB/+13GP/sAhhoCJmfRPDACALmi0A15A75CFHVRz3HNtHQF
+ DwYwxwX+Q5V7vewDyzbeuBS1tFBjQ8jAxNEOyj58Y35sKcrhR9E+vPl1l0skzv8kFZ
+ SWrRPvBAiE4M603O4DgskaTnbgCZbes9fu7oA3HQTBG4i0i6KZ04SKYm4JobQ7UHb1
+ r6eaikNC9txgw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.7 80/88] drm/amdgpu: Fix '*fw' from
- request_firmware() not released in 'amdgpu_ucode_request()'
-Date: Mon, 22 Jan 2024 09:51:53 -0500
-Message-ID: <20240122145608.990137-80-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.7 83/88] Revert "drm/amdkfd: Relocate TBA/TMA to
+ opposite side of VM hole"
+Date: Mon, 22 Jan 2024 09:51:56 -0500
+Message-ID: <20240122145608.990137-83-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122145608.990137-1-sashal@kernel.org>
 References: <20240122145608.990137-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.7.1
@@ -54,55 +53,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- amd-gfx@lists.freedesktop.org, Lang.Yu@amd.com,
- dri-devel@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>,
- lee@kernel.org, le.ma@amd.com, Stanley.Yang@amd.com,
- Mario Limonciello <mario.limonciello@amd.com>, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Jay Cornwall <jay.cornwall@amd.com>,
+ Felix.Kuehling@amd.com, Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
+ Kaibo Ma <ent3rm4n@gmail.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+From: Kaibo Ma <ent3rm4n@gmail.com>
 
-[ Upstream commit 13a1851f923d9a7a78a477497295c2dfd16ad4a4 ]
+[ Upstream commit 0f35b0a7b8fa402adbffa2565047cdcc4c480153 ]
 
-Fixes the below:
-drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c:1404 amdgpu_ucode_request() warn: '*fw' from request_firmware() not released on lines: 1404.
+That commit causes NULL pointer dereferences in dmesgs when
+running applications using ROCm, including clinfo, blender,
+and PyTorch, since v6.6.1. Revert it to fix blender again.
 
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Lijo Lazar <lijo.lazar@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+This reverts commit 96c211f1f9ef82183493f4ceed4e347b52849149.
+
+Closes: https://github.com/ROCm/ROCm/issues/2596
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2991
+Reviewed-by: Jay Cornwall <jay.cornwall@amd.com>
+Signed-off-by: Kaibo Ma <ent3rm4n@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c | 26 ++++++++++----------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-index b14127429f30..0efb2568cb65 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-@@ -1397,9 +1397,13 @@ int amdgpu_ucode_request(struct amdgpu_device *adev, const struct firmware **fw,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
+index 62b205dac63a..6604a3f99c5e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
+@@ -330,12 +330,6 @@ static void kfd_init_apertures_vi(struct kfd_process_device *pdd, uint8_t id)
+ 	pdd->gpuvm_limit =
+ 		pdd->dev->kfd->shared_resources.gpuvm_size - 1;
  
- 	if (err)
- 		return -ENODEV;
-+
- 	err = amdgpu_ucode_validate(*fw);
--	if (err)
-+	if (err) {
- 		dev_dbg(adev->dev, "\"%s\" failed to validate\n", fw_name);
-+		release_firmware(*fw);
-+		*fw = NULL;
-+	}
- 
- 	return err;
+-	/* dGPUs: the reserved space for kernel
+-	 * before SVM
+-	 */
+-	pdd->qpd.cwsr_base = SVM_CWSR_BASE;
+-	pdd->qpd.ib_base = SVM_IB_BASE;
+-
+ 	pdd->scratch_base = MAKE_SCRATCH_APP_BASE_VI();
+ 	pdd->scratch_limit = MAKE_SCRATCH_APP_LIMIT(pdd->scratch_base);
  }
+@@ -345,18 +339,18 @@ static void kfd_init_apertures_v9(struct kfd_process_device *pdd, uint8_t id)
+ 	pdd->lds_base = MAKE_LDS_APP_BASE_V9();
+ 	pdd->lds_limit = MAKE_LDS_APP_LIMIT(pdd->lds_base);
+ 
+-	pdd->gpuvm_base = PAGE_SIZE;
++        /* Raven needs SVM to support graphic handle, etc. Leave the small
++         * reserved space before SVM on Raven as well, even though we don't
++         * have to.
++         * Set gpuvm_base and gpuvm_limit to CANONICAL addresses so that they
++         * are used in Thunk to reserve SVM.
++         */
++        pdd->gpuvm_base = SVM_USER_BASE;
+ 	pdd->gpuvm_limit =
+ 		pdd->dev->kfd->shared_resources.gpuvm_size - 1;
+ 
+ 	pdd->scratch_base = MAKE_SCRATCH_APP_BASE_V9();
+ 	pdd->scratch_limit = MAKE_SCRATCH_APP_LIMIT(pdd->scratch_base);
+-
+-	/*
+-	 * Place TBA/TMA on opposite side of VM hole to prevent
+-	 * stray faults from triggering SVM on these pages.
+-	 */
+-	pdd->qpd.cwsr_base = pdd->dev->kfd->shared_resources.gpuvm_size;
+ }
+ 
+ int kfd_init_apertures(struct kfd_process *process)
+@@ -413,6 +407,12 @@ int kfd_init_apertures(struct kfd_process *process)
+ 					return -EINVAL;
+ 				}
+ 			}
++
++                        /* dGPUs: the reserved space for kernel
++                         * before SVM
++                         */
++                        pdd->qpd.cwsr_base = SVM_CWSR_BASE;
++                        pdd->qpd.ib_base = SVM_IB_BASE;
+ 		}
+ 
+ 		dev_dbg(kfd_device, "node id %u\n", id);
 -- 
 2.43.0
 
