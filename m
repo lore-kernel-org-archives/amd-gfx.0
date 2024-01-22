@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67273C47DDB
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:18:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D306C47DD9
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jan 2024 15:19:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7A3F10F3DE;
-	Mon, 22 Jan 2024 15:18:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BD3810F3FB;
+	Mon, 22 Jan 2024 15:19:33 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50A3A10F3E8;
- Mon, 22 Jan 2024 15:18:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AB6010F3F0;
+ Mon, 22 Jan 2024 15:19:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id D44F9CE2B25;
- Mon, 22 Jan 2024 15:18:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA1AEC433B2;
- Mon, 22 Jan 2024 15:18:01 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 49A45CE2B24;
+ Mon, 22 Jan 2024 15:19:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AD9DC433C7;
+ Mon, 22 Jan 2024 15:19:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705936683;
- bh=AQk5hOmfL93JC6vL1eUWDaHwTasBc7zSQVqZE3sW23M=;
+ s=k20201202; t=1705936767;
+ bh=VJgGLZRJj1/aRH1kDurCsLU64GVGU7ctEoU9UEy2bcI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fQvi/Rs6+28sjYUCHLfh4rgT2PU+DEGn26ORjXFOCTWhEb5ahItetjK5eCvyKAI8n
- Wu0pZDUei5wSluLydrjQKUUJsf2UVGUDorJxwLc77FCpiZLgo36wr8QR25of/tHX+x
- 7rzPY+ZdaHnu7EvCHD8p7lBY1HJpYbJDWqCPeqCJkr1DVaN+FvNIQTNvFK9G5qGZ80
- rxyie4RusuQu54cE15+Ejs6anvHsu9l++yr31NW5p1GGL9I+ZVtSP0pkUdlSeOxBm/
- cS7BmCP8ZN6md8pjdygx6Y7tuVPB2TEiITlVVJmi3tShJo2tshENGYGAlRzRTVA8Rr
- XVnpcxCgx299g==
+ b=XQutGVTBjWbHogczdreGzFmydJVKfs/n1PrN/2Gp6h3M86dwnNOLC1EaJIYjoAwWg
+ g+QHbBuUYi/1kfCnGEcRLY/Odl061oBR4bDyMhZS36nU8kZVtEtcoVH63liOYmAO7i
+ 61jlhUyFiS3gC8/KbIAvPOuggd5K+aqN+IlLw9c1TaFSHaLtgodlUtMmyUdm6q6BVz
+ blcHy1LUmwKAmv4AC8xxAxtNE6iyW/SK5iev0CIQRgv0hdClorIVUPkxFV3NhEHtp6
+ mmfkZGNO3dpfD/zDBsZOjPR9jSxdFIZmscGca8bR6XvJJOzIbYpgJgOpMCOMSL9nKO
+ 1EE4wsqqi+c6A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 24/24] drm/amdgpu: Drop 'fence' check in
+Subject: [PATCH AUTOSEL 4.19 23/23] drm/amdgpu: Drop 'fence' check in
  'to_amdgpu_amdkfd_fence()'
-Date: Mon, 22 Jan 2024 10:16:38 -0500
-Message-ID: <20240122151659.997085-24-sashal@kernel.org>
+Date: Mon, 22 Jan 2024 10:18:03 -0500
+Message-ID: <20240122151823.997644-23-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240122151659.997085-1-sashal@kernel.org>
-References: <20240122151659.997085-1-sashal@kernel.org>
+In-Reply-To: <20240122151823.997644-1-sashal@kernel.org>
+References: <20240122151823.997644-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.4.267
+X-stable-base: Linux 4.19.305
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,7 +85,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-index 3107b9575929..eef7517c9d24 100644
+index 574c1181ae9a..75e4f1abb4c9 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
 @@ -88,7 +88,7 @@ struct amdgpu_amdkfd_fence *to_amdgpu_amdkfd_fence(struct dma_fence *f)
