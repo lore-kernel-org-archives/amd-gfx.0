@@ -4,88 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A921C47DDF
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jan 2024 08:59:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2780C47DDF
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jan 2024 09:31:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9F1310F6B7;
-	Wed, 24 Jan 2024 08:59:13 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2063.outbound.protection.outlook.com [40.107.101.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8051510F695
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jan 2024 08:59:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lyxNLPXd6xinF2D2LQfU+Hw1acnlUAcEvyq5VBF1DnEEcVz/5zJRX9MYw6wQZnYBiVl6wYrNjR0+ymqilMfFoZjomwPDAkHV2fLnUOcl065ro2vuaqrzK8tHdMyT1oKeSiBRPe0HPjTgwtCu7hlPKhPII1hTc678/OCJIq44WBNKl1qGZevKIwWRk6RXvCpLGb2t1ViCO9ADxitqNGdycGhtzscjy9sSrq+g5jtgJBNTGk0maEBDOzxdhzVZSSDSTWWfhX2HSocvEZmOMqlnjOuosSB0Q2435QR22+2bDZInHWS+CmSfv0plY21D+QNvBRKup2tt0sCjEwJ2TTLRPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aPhmLgt1kNr7JALYZBGFVnIGw3bKSjHDXxeD0tyczII=;
- b=JC/uzd5xcozAk0KsnSNQbhGfe42hU9FGOVb3s1EOKU9DVQGGQuSXkiLGEpKdv3a70aw+QRrIBdZ26IzLuJZWWW97WbKrccqo1LrbaOYVj0cIdvdkHal8ia9xgOUNyqcyh5ccuvs62d+6Ehv4fUvXQlwtgwIO7HLw7Ew4XpD/EEuBvQ/ov5zxbKY2Mu/PDNcAvuPWfSs273H9+U/HcAf4Y0L4HCPX+c3ssRYcrBqPKpp0WjlIYheu6yrRVTxBMZtq1PQeE7Cq0+8G70kmvp+nlYWih03THRL2hGE/iWu5vgHMtr2Q/kztI2LwgxNIpR6/NmJkRMdVlkdtjbFgNneilQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aPhmLgt1kNr7JALYZBGFVnIGw3bKSjHDXxeD0tyczII=;
- b=iGokqssyKvuEX86EeDtdaZGxrpiXqv+WJg9fuoHeWuQ3mlfOfuP/d+vHpc331jT6DcgpOj0FiRafR/wSjHJaxfzdKVqyh3+avwQP7mqa7WGJ8ClyZsgKWrc9b/BpAooRGCaBrYeTVC8HPnmyfFZO9qDUrFnH5F0qEG6hai7CH3E=
-Received: from BYAPR01CA0060.prod.exchangelabs.com (2603:10b6:a03:94::37) by
- PH7PR12MB5880.namprd12.prod.outlook.com (2603:10b6:510:1d8::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.22; Wed, 24 Jan
- 2024 08:59:05 +0000
-Received: from SJ1PEPF00001CE0.namprd05.prod.outlook.com
- (2603:10b6:a03:94:cafe::ec) by BYAPR01CA0060.outlook.office365.com
- (2603:10b6:a03:94::37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.22 via Frontend
- Transport; Wed, 24 Jan 2024 08:59:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00001CE0.mail.protection.outlook.com (10.167.242.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Wed, 24 Jan 2024 08:59:05 +0000
-Received: from lm-srdc-pc1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 24 Jan
- 2024 02:59:03 -0600
-From: Le Ma <le.ma@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/1] drm/amdgpu: enable interrupt prior to kfd device_init
-Date: Wed, 24 Jan 2024 16:58:50 +0800
-Message-ID: <20240124085850.29188-1-le.ma@amd.com>
-X-Mailer: git-send-email 2.38.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id F015510F6BC;
+	Wed, 24 Jan 2024 09:31:51 +0000 (UTC)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DDB310E851;
+ Tue, 23 Jan 2024 18:03:32 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-a3106f5aac8so10395966b.0; 
+ Tue, 23 Jan 2024 10:03:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1706032951; x=1706637751; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zzP0eSKOjbnQ2ru8HTdKomejWSOPl2M8Q/mGuB9QTvM=;
+ b=c/PxrEGYHSTZGfviKiZHqqtHvCLMiAYWDAx0SpztkC5egyMfxTeaIaL1qCfj6o8HYV
+ Yghy4pIVCeC0XT5EiYCDKIxsvka81Kvos8kwbqQJJpZEQiOaQv6MYqj86/f3+OYOemNo
+ ++npvd/i5iV9ZWgIEaIofZITIelnQLdXQ6PgwAzoh0q6qSKObeb+xyThW64+1dMaVGVr
+ NXThGdaog/mYgo7Otpws0zpNji2vpN9NnJh4JeyVynxXGS4PHgudUJvEL83ATLNAgmpV
+ i1oz86OMjxB8ETq54ZvM++Xvyj1L7lMpgHqsfv1dOoBe6E/fwp5l8WOSw4ZJuQ0pBviP
+ IT5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706032951; x=1706637751;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zzP0eSKOjbnQ2ru8HTdKomejWSOPl2M8Q/mGuB9QTvM=;
+ b=riSXgGhK+rKO/pLN7S8TQCoc4G6uA0IoczSPmmkExC3yqSXGhWs235buZrsejvy60G
+ iHSgHd3Fk+gZ8UmiTwVkcvIMCpnnql2WMSYMt0EJpZT1OLpCcAUn7hQyRLOfHPyhDuhg
+ VRGiXscTsQN4anhEDaYSsEHU/Cb2uO14joINhSpy//bVjuuuWBRshbz6O9p7xLLvNbvl
+ tkW5nY7YfT/XktZw5T/xg1bwheZLR3EM3EsJDDn8nt4BrhvQ3+6YNKkolouCLlEpFCJk
+ fMYj+sqZ4xorJWVlueUX+LMrQZ1f+SZNf2b1NxprV41MoViX6HNgZqfV/QVjvykHavSr
+ mBaw==
+X-Gm-Message-State: AOJu0YzpnZfKLGRbjLmCDMTn9J/IWhD3QD/i53rbQlMLNW2raD+u/hqz
+ u7p4ENxTprK6e7O6GJjziU3svw9+v5njxDUQnAc+/V7cIUhNE6/8fLii5zO8xolAwDia3mvg+2D
+ Nw3VzVWVdfVo2napKr95kKezpQTM=
+X-Google-Smtp-Source: AGHT+IFXNCzW7fj97YFexXyytl2W4XGvmpFASWQFHqqEseZhsAxlmfxjf3sCf6iXVl3hCAHBMPiR2WNUO1TEyg3u1mg=
+X-Received: by 2002:a17:906:4094:b0:a30:dca4:ee7e with SMTP id
+ u20-20020a170906409400b00a30dca4ee7emr135796ejj.93.1706032950735; Tue, 23 Jan
+ 2024 10:02:30 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE0:EE_|PH7PR12MB5880:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8efe6741-f3a0-47f1-f55d-08dc1cbab7eb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WcHC5jnB9SNIV2aJqoxBMIyYgNRwEr1LMkRAZjCIJNLtnsnvFvfdcHD14hD3NxnreWQtuOLLEne8fs+sVE48e4G4LH1X7KrKYHWkRV7WHG46ClppQ78B917YPUflOOMC7qc5wliHrOoYmzTFnEJEEY0S25qgBiP9N6nejPtUNIUpIv/+0CrgrGiaNoJZXp8o3HpItzWvWbvCLjFWYaoEFh5tZIwKbFkkAKqCu2diZQY2XEMS+a0EDfA4fPOPyIVPiCZjG6a9euhVpMwdsoHHhj9egFTkZ3oy+/dbtM7o4b6gvCvqA6yq5duSikqzjShNqfqorouDkOsBUCdlPaYHkUlPi974tb8zbzatoL/AkoOWt039pZdZXvxzAKd6SWdYACe1lNl11kfAa69/VphaCDZqYYeCf3wAxAJPGKWBSUXUz+HrCJYQWAO+9OZhmqsdZIQmL0XJm2WXgF8B9A9O9K6h0ok2HWrVS2Moi8G6TU53mSDwkS1Nlo/Zc9i5FjtLp+Ck9ZgrEUD8ZZRcP7M9EfLPzzI2msLE0Nnt+Mmzu9md6zPwZWdM1AzIPJQUJ139CDlVVItLLcpjm+/J02kD78/Dc2Gevq8ybnhkyNKN++GMkflbiGdrEshmznvVbhnSvzeaKHiXd9rVl3W+zeYLJxX1p6x4dl59iAssetAIVe9SL7vQSmu0hAvfdnRGfputK153pL7rTQutLmXgZnJgzAmayl/aUUxdggGnME+AipaqTSuZuQ7pYERMAij/bFtn3guZqYpTIt7IpbIltG5IbHPuwo01G/8ct+mLmlaMy6ywsvKFbWfNW5UvD8qWmvun
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(136003)(376002)(346002)(39860400002)(230173577357003)(230922051799003)(230273577357003)(64100799003)(451199024)(1800799012)(186009)(82310400011)(40470700004)(36840700001)(46966006)(4326008)(8936002)(8676002)(83380400001)(40460700003)(40480700001)(70586007)(70206006)(54906003)(6916009)(316002)(426003)(336012)(1076003)(26005)(16526019)(36860700001)(2906002)(82740400003)(5660300002)(47076005)(7696005)(81166007)(86362001)(356005)(2616005)(44832011)(478600001)(41300700001)(36756003)(6666004)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2024 08:59:05.3706 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8efe6741-f3a0-47f1-f55d-08dc1cbab7eb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE0.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5880
+References: <20240119181235.255060-1-andrealmeid@igalia.com>
+ <20240119181235.255060-3-andrealmeid@igalia.com> <Zaq-r7UZpEy7_Rrn@intel.com>
+ <ca1faaec-461b-401c-a86a-e0929d282b51@amd.com>
+In-Reply-To: <ca1faaec-461b-401c-a86a-e0929d282b51@amd.com>
+From: Xaver Hugl <xaver.hugl@gmail.com>
+Date: Tue, 23 Jan 2024 19:02:19 +0100
+Message-ID: <CAFZQkGyf5MxKeGgz09kgyYTp+g-Jk2uaiQkmzSX7BDGHpcz0CQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] drm/amdgpu: Implement check_async_props for planes
+To: Harry Wentland <harry.wentland@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Wed, 24 Jan 2024 09:31:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,55 +71,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Le Ma <le.ma@amd.com>, felix.kuehling@amd.com,
- lijo.lazar@amd.com, hawking.zhang@amd.com
+Cc: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ kernel-dev@igalia.com, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Pekka Paalanen <ppaalanen@gmail.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, Joshua Ashton <joshua@froggi.es>,
+ Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch is to eliminate interrupt warning below:
+Am Mo., 22. Jan. 2024 um 16:50 Uhr schrieb Harry Wentland
+<harry.wentland@amd.com>:
+>
+>
+>
+> On 2024-01-19 13:25, Ville Syrj=C3=A4l=C3=A4 wrote:
+> > On Fri, Jan 19, 2024 at 03:12:35PM -0300, Andr=C3=A9 Almeida wrote:
+> >> AMD GPUs can do async flips with changes on more properties than just
+> >> the FB ID, so implement a custom check_async_props for AMD planes.
+> >>
+> >> Allow amdgpu to do async flips with IN_FENCE_ID and FB_DAMAGE_CLIPS
+> >> properties. For userspace to check if a driver support this two
+> >> properties, the strategy for now is to use TEST_ONLY commits.
+> >>
+> >> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+> >> ---
+> >> v2: Drop overlay plane option for now
+> >>
+> >>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 29 +++++++++++++++++=
+++
+> >>   1 file changed, 29 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b=
+/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> >> index 116121e647ca..7afe8c1b62d4 100644
+> >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> >> @@ -25,6 +25,7 @@
+> >>    */
+> >>
+> >>   #include <drm/drm_atomic_helper.h>
+> >> +#include <drm/drm_atomic_uapi.h>
+> >>   #include <drm/drm_blend.h>
+> >>   #include <drm/drm_gem_atomic_helper.h>
+> >>   #include <drm/drm_plane_helper.h>
+> >> @@ -1430,6 +1431,33 @@ static void amdgpu_dm_plane_drm_plane_destroy_s=
+tate(struct drm_plane *plane,
+> >>      drm_atomic_helper_plane_destroy_state(plane, state);
+> >>   }
+> >>
+> >> +static int amdgpu_dm_plane_check_async_props(struct drm_property *pro=
+p,
+> >> +                                      struct drm_plane *plane,
+> >> +                                      struct drm_plane_state *plane_s=
+tate,
+> >> +                                      struct drm_mode_object *obj,
+> >> +                                      u64 prop_value, u64 old_val)
+> >> +{
+> >> +    struct drm_mode_config *config =3D &plane->dev->mode_config;
+> >> +    int ret;
+> >> +
+> >> +    if (prop !=3D config->prop_fb_id &&
+> >> +        prop !=3D config->prop_in_fence_fd &&
+> >
+> > IN_FENCE should just be allowed always.
+> >
+> >> +        prop !=3D config->prop_fb_damage_clips) {
+> >
+> > This seems a bit dubious to me. How is amdgpu using the damage
+> > information during async flips?
+>
+> Yeah, I'm also not sure this is right. Has anyone tested this
+> with a PSR SU panel?
+>
+> Harry
 
-  "[drm] Fence fallback timer expired on ring sdma0.0".
+I attempted to, but according to
+/sys/kernel/debug/dri/1/eDP-1/psr_state, PSR never kicks in on my
+laptop at all. The only reason I wanted this property though is to
+reduce the number of special cases for async pageflips compositors
+have to implement; as it's not necessary for any functionality I think
+it's also fine to leave it out.
 
-An early vm pt clearing job is sent to SDMA ahead of interrupt enabled,
-introduced by patch below:
-
-  - drm/amdkfd: Export DMABufs from KFD using GEM handles
-
-Signed-off-by: Le Ma <le.ma@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 56d9dfa61290..c8aa07282366 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2833,12 +2833,6 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
- 	if (r)
- 		goto init_failed;
- 
--	/* Don't init kfd if whole hive need to be reset during init */
--	if (!adev->gmc.xgmi.pending_reset) {
--		kgd2kfd_init_zone_device(adev);
--		amdgpu_amdkfd_device_init(adev);
--	}
--
- 	amdgpu_fru_get_product_info(adev);
- 
- init_failed:
-@@ -4204,6 +4198,12 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 
- 	amdgpu_fence_driver_hw_init(adev);
- 
-+	/* Don't init kfd if whole hive need to be reset during init */
-+	if (!adev->gmc.xgmi.pending_reset) {
-+		kgd2kfd_init_zone_device(adev);
-+		amdgpu_amdkfd_device_init(adev);
-+	}
-+
- 	dev_info(adev->dev,
- 		"SE %d, SH per SE %d, CU per SH %d, active_cu_number %d\n",
- 			adev->gfx.config.max_shader_engines,
--- 
-2.38.1
-
+> >> +            ret =3D drm_atomic_plane_get_property(plane, plane_state,
+> >> +                                                prop, &old_val);
+> >> +            return drm_atomic_check_prop_changes(ret, old_val, prop_v=
+alue, prop);
+> >> +    }
+> >> +
+> >> +    if (plane_state->plane->type !=3D DRM_PLANE_TYPE_PRIMARY) {
+> >> +            drm_dbg_atomic(prop->dev,
+> >> +                           "[OBJECT:%d] Only primary planes can be ch=
+anged during async flip\n",
+> >> +                           obj->id);
+> >> +            return -EINVAL;
+> >> +    }
+> >> +
+> >> +    return 0;
+> >> +}
+> >> +
+> >>   static const struct drm_plane_funcs dm_plane_funcs =3D {
+> >>      .update_plane   =3D drm_atomic_helper_update_plane,
+> >>      .disable_plane  =3D drm_atomic_helper_disable_plane,
+> >> @@ -1438,6 +1466,7 @@ static const struct drm_plane_funcs dm_plane_fun=
+cs =3D {
+> >>      .atomic_duplicate_state =3D amdgpu_dm_plane_drm_plane_duplicate_s=
+tate,
+> >>      .atomic_destroy_state =3D amdgpu_dm_plane_drm_plane_destroy_state=
+,
+> >>      .format_mod_supported =3D amdgpu_dm_plane_format_mod_supported,
+> >> +    .check_async_props =3D amdgpu_dm_plane_check_async_props,
+> >>   };
+> >>
+> >>   int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+> >> --
+> >> 2.43.0
+> >
