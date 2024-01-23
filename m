@@ -4,106 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6F5AC47258
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jan 2024 12:50:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1B72C47258
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jan 2024 14:03:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 685FF10E78E;
-	Tue, 23 Jan 2024 12:50:49 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1354E10E78E
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jan 2024 12:50:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AiZBNe/RLWNhSnMCcCbmcGhGQfdwY+obeuIBi+oGmKz0iPPfLtn/8mca7uBIQAmOHR89PxxP+9pQRY9OuL4l+OspukFmBY6cSwXw92a/oXokSD4H6PxlxGOcRu5GdKiVpteYB6GYLjJ/Q3v2Qtv3dnNUXICUlxjVjw140dHDOcVwLETtxoMTHk5PIsNnMG14un0ARwwJVkE4nJj+SUWfksNqZAp+BSfNHXFegYxU3o9hOE7egVeD7jVyzvhMTaFrr80VmGyGJDROXiAbyfgq8EBL1NoY0zodHPJo9xp27CkbGzUpeEqZzP+eqm/TMkUvgPcgElLF1xH0nM+O0NgRPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nhOD6xmodNU2IaJ1Kj3bj0iMxJtMXzW5ib+Yd1rMjcY=;
- b=W/B4+ipKq9aYeDaF/7odz5/JVvHH+aK48hL7FBuWnkqGOwFf1uITLFGrhYgJh5kmnd2SMA7Ejoe8wlIqS6b/nZX1DtzyT71cdfBGJTStr50BwSWmsmwq2dvItrra2SCNhcmnIjG0kbO3Vj2d3vCaH33L+oATq76Pgo429nYjW2Wdj8WOK4oSkB3O/lZxwUWsotsaRVIqIe/ecIdcqzREFwuX1tDvZus8hvx/shMNKsicTwn9TOOj/bxTEwELTFSROSuqcs/fyAOkabgeE8pYvIedvmCtATpY5Lk3rRl5jV4S8qrimgMznlWZYASLXeu7Ql28a7EjvbW45lUloYD1VA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nhOD6xmodNU2IaJ1Kj3bj0iMxJtMXzW5ib+Yd1rMjcY=;
- b=JEUx2RHyJXW0mtWNCyMi48Ur7loD23X6G9cDvRV0niRmE2DPPEYAzHGJJTjaBdgYP5zi+0fVvqyhpu6orjKnliTptHLhhzvfQ998b1qPHvzbntGQPQAR6hlN3DDPHALP3lhF/nSg9DEFbeD5FSrDfQE5kMWHXq7SqnQXfJu9m3k=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by IA1PR12MB6601.namprd12.prod.outlook.com (2603:10b6:208:3a3::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.37; Tue, 23 Jan
- 2024 12:50:42 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::61a8:83e4:c057:7790]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::61a8:83e4:c057:7790%5]) with mapi id 15.20.7202.034; Tue, 23 Jan 2024
- 12:50:42 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: Samasth Norway Ananda <samasth.norway.ananda@oracle.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH  1/1] drm/amdgpu: fix wrong sizeof argument
-Thread-Topic: [PATCH  1/1] drm/amdgpu: fix wrong sizeof argument
-Thread-Index: AQHaTfRk/vqQ6GkgZ0WjXXTEEydpc7DnWYoA
-Date: Tue, 23 Jan 2024 12:50:42 +0000
-Message-ID: <PH7PR12MB5997FB5AB47A008D4586C9A382742@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <20240122213139.3571875-1-samasth.norway.ananda@oracle.com>
-In-Reply-To: <20240122213139.3571875-1-samasth.norway.ananda@oracle.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|IA1PR12MB6601:EE_
-x-ms-office365-filtering-correlation-id: abe7c5cb-5977-4e63-d576-08dc1c11e88a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 2+ETp3z/l3IxLSMRwf5GVCImjPCajGFWm/+we/3yKTD+HmugBWRflcML+YBbFLQs23EvXchsAosNX4OFHfZRx7bURpcsrjbDfqkmLZYTz/E/UmTXuhIGb+Kj/Gxh3BFhAwQz+kRkGeyQPxMz8j0r69NpdNb9KE5OTOuCb5VIXBCJB7NT3pWR7lNXLwCV/44hDSsG/38m8GSzkPCInaJ5Ewp6UkuGnVj32UaeOr9fgttTgZ4o30ZOYn2ayNwKe71X8RoRMkdA4rxfwCuEQQpg4iHxFDvvw//pdjeMqcfDVXCd4YCGhAKtHE7hWhzO4K9ql7BIDeiKYUFvHy8A+jUv41lqH2sWAqpW8LMrqiMZRj3p7kN4Ez5Nhhsh7yZHF5+Guh408jA13KJ/PFyA969UcU2kVgpJgN+DyfloaqjKlWegwGVmPONBLUHyWE6HAvSFSrJ1LTp3NpERiBaVkpgjh7a0mmjrpi3yEOz5Plx27hx7Ur9flFc0w/KgIlqPwPTUjonZFudpSg9EKPepiZUDo7LTTUvq7iW+hTbLOsZPIbDW3hTLhxumnoIKUj0hkJYJ3VYQObDTUlg6qwt6lTGSTGDSyvZ9pzE9GvG3iBTaMbuZzNe0UXQpRYaxXqdbgOyk
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(366004)(39860400002)(346002)(136003)(376002)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(55016003)(41300700001)(38070700009)(122000001)(52536014)(9686003)(83380400001)(2906002)(26005)(38100700002)(33656002)(6506007)(7696005)(478600001)(5660300002)(53546011)(71200400001)(66946007)(76116006)(66556008)(66476007)(110136005)(86362001)(66446008)(64756008)(316002)(8676002)(8936002)(4326008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?MEHFW//lBFcjwK4xaZILQ7S8DYDCii1iAH3oR6GDaxgkz8uuszvKFXiDd/zV?=
- =?us-ascii?Q?ffWKrmm/HFEEfXTconkNYwUXmgHIJJ5pkDzahob3+rID7FlpdtLHWxO2/hHc?=
- =?us-ascii?Q?ZT7aaS+RMXbERDRo9hibBqX2HXont+jF8bpGgBadbKyTgytddlQiq9HWw5Ts?=
- =?us-ascii?Q?ebPB4NdN6sHHKBPkgxDlwyklmNcwv+mGlx2ZWRUZf5oqQCjFoGLGKLwcuoJb?=
- =?us-ascii?Q?+rW3x63CUw0rN6EoNc0AiZuvP8VMzsZh/TvdN8rinS2BV+6v4NuayENu/YeQ?=
- =?us-ascii?Q?cWrth4jZ42vPOSIlyZa6wmIF1Rs2osJ3QY/vgnnUHp07qVQcXh4N3kIibZg5?=
- =?us-ascii?Q?BjpoXjPi+M57mcy4t4cxuCp2dhFvU1b1B5Sz+I4TbqhDxSJepL43tIOUpnyp?=
- =?us-ascii?Q?b8qJvWX2CdMXEBwlq5jqzYaP2lebaFo1d9P0+ZnbfM0UkLeUlunWrvGgPphj?=
- =?us-ascii?Q?Pwrc88nVk4En5cAOoj32BfCmrlixY93M+Unjv9WSi5OIMbuliX+2Wy/OFh6F?=
- =?us-ascii?Q?WnCKHZMrrLSGO+qCcJqXvNU+ffKB+GxT8fGGVoOfzxgazMtxTLCUb06Doc6l?=
- =?us-ascii?Q?Imh6ghxYnhS8YS0ln2HE2IIo68PTIt33My4MOFy+QtM1ug/QLaEOH1WFpM8N?=
- =?us-ascii?Q?lVa8iVjwYYwjV5S5YdPbOviC7hyNWC2fcCExt5b/4tmCMgUMkd0SC+FXEKgM?=
- =?us-ascii?Q?kCz5G1xxbcj9oP3WGvB0cSElR5yk++7YJhNcLjbn9WHnpyuqlLbVnwjjBdGq?=
- =?us-ascii?Q?Yjyq/3jE0siTCIApWTesj7nZwdn9u5JiRKkkldCbsxllqdmnUB5J2qHpDToL?=
- =?us-ascii?Q?L9MWGxgmZs43EMwk/ilqo8zE65RiBpmA7ifLtrukOKVg/ToW123lAwkZELfm?=
- =?us-ascii?Q?tT7G2n9iK9pNdmkqfB+Qw5FS2azx4AFQ8drvZeeRL0q+/+RmAIDMYuYr8jm5?=
- =?us-ascii?Q?xoOU7dYHo5mKCy7Ncp82ZBBLlCxKePub0M8I+FibfnJY90j1ZrrcgiJ4wZ3y?=
- =?us-ascii?Q?30uhev7H6qhs2mQYXI3ddHS/Ym3pIQ8FqIi8zi+XoR7+/aCHmZ/mUorHfMRd?=
- =?us-ascii?Q?ydDYNtjLjyzJmxT893bpzCCGMHgSqjHDYUEMxasGBfKTwOwz4JXmcCmIXNea?=
- =?us-ascii?Q?BAgzBQJuIy1I76ezJk0+Wi7n8wtxSvNaarTtUMpdPx2ysFJyophqTLmQM7Tm?=
- =?us-ascii?Q?IHBSwkjJqujIuQPDWxQZFRoXAd5I/EOf/LZHFcRixQlEkLImJgFJA2WRuUdC?=
- =?us-ascii?Q?FBHDVgVctWWSz1Z8s6W2H8LhcLrTFcaZ0YjVVHNU7EXED2YhY37QzYo2CdGS?=
- =?us-ascii?Q?OpLbT0iow6FkSXbCV+DlzlP0C6L0DgZpcJR4iKvhABTBoQRkSg4tcgo0I6b4?=
- =?us-ascii?Q?mFsfwKcKe+2Qu70URIUDf7LURDR/+2bROuWqlN4lhE6RPHwQJNAJxNeU9e21?=
- =?us-ascii?Q?N0qxqf9ybDDbs0W/xg6Pt91nRA34IrC2me3YVusKubVBro++K9PHB1YhDXrr?=
- =?us-ascii?Q?j/dPh27/gqddWHW1S/vZFdh6CmwjgS87dxBxKxxf8s5kaW6Wy868p/c+kkfZ?=
- =?us-ascii?Q?B+yCBUbb6JXEe27UJ4w=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83D7F10E3BB;
+	Tue, 23 Jan 2024 14:03:52 +0000 (UTC)
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com
+ [209.85.161.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7CDF10E3BB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jan 2024 14:03:51 +0000 (UTC)
+Received: by mail-oo1-f51.google.com with SMTP id
+ 006d021491bc7-5993047a708so2167221eaf.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jan 2024 06:03:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1706018571; x=1706623371; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6leFmD8a0DrkH0vsGTsY7ZFbXE9VS4Tj7nkSBviGpXo=;
+ b=evVvv0E9qD/nzyD5JNIo7A14N4fSqHTYLyr8ripyJNyZsVwTjzuNEMiwdaQGFR9Y11
+ q1Y50v2mWasDurA4QoZDqvrPhro1NYroSf6IJCEQgStkpRuFDLGBWwWSnrTJOby1DztW
+ bBu1f0W5DyFtJDjGoua7eD/OvKoqm8F46XhZvlN2hsKGIgO0Gk+eqOs7OCSQMopstVnt
+ UGpuEOjF2rVudqvNMWKkJsF9DCJDuSVIm315IXdU3BhEyOL03o8Sx8pMnaTjKR2OXFsx
+ oailPXsCcActcxtb2ivBhE5XbLpdAXvslr942k4rNoP5BTpQvRiJ8JNPj7G5xyre2pOH
+ /vTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706018571; x=1706623371;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=6leFmD8a0DrkH0vsGTsY7ZFbXE9VS4Tj7nkSBviGpXo=;
+ b=ZoEPg1vplfapUz7vMCKmIW+MpORad3HXWcpp6xkeN8wjMqIYI2Y3R0iISrtS265Zu+
+ FJwkjVcz6tqt77UIg9IlO4V2yU0bMSjqw/rpvMBw9BSwXP8T4ggY40dd9+LrhLx1p2fN
+ KMStt4FrD676fGwItmIvwxfz92KayU9/PoH4Jxs+zMW3Do6xdFgtdNCvnZR+8/1PMmrp
+ eBqN8pA+o6JoSZ6zwc0W2lLxrGERd/PmuhZKoWV0rsTmLg6fXWYfh7k1vBEaFH9f3OOQ
+ 4mdJyPvxh3MiO1f/PHu7JkD8GJm+MzCyIIr7A8Gj76nENfCH9C+J9Whx8A7XoPnQtvhB
+ MT1w==
+X-Gm-Message-State: AOJu0YyEGPmkVKfsKmyqJKH4BH06k+y5SailBvxfn380GHkZxYfDGJwq
+ wcR8QY9JXglwlqssIIfYcKlUHqOf820m5GNBBU8cnZ8udyHvArQsTmas2LATDkeUCaNtOxDcw4R
+ hK/jt3okvvd/x/frI24L5QE1U8lo=
+X-Google-Smtp-Source: AGHT+IHewo6qq1nGlk8Q6PMiernjsFoKsEHcD+Cb9ROFbIjQPhFj1ncTYiaXSQQegO/Xg4y5QUagfSjOvf1k/FS5sDM=
+X-Received: by 2002:a05:6870:b513:b0:214:306d:3565 with SMTP id
+ v19-20020a056870b51300b00214306d3565mr1572209oap.54.1706018570998; Tue, 23
+ Jan 2024 06:02:50 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: abe7c5cb-5977-4e63-d576-08dc1c11e88a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jan 2024 12:50:42.1067 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Zf+I3hunDcFq7XyqZvRDxdL9L0tF8wRyRb9pDVj7wKinvGV1Px3fk0KgtVKcci4g
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6601
+References: <20240105060525.579292-1-Jun.Ma2@amd.com>
+In-Reply-To: <20240105060525.579292-1-Jun.Ma2@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 23 Jan 2024 09:02:39 -0500
+Message-ID: <CADnq5_MzP4TRW9ArFw+F0JqQBQ-bnz1-iZg43zmTWPnKWVL9Qw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Fix the warning info in mode1 reset
+To: Ma Jun <Jun.Ma2@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,49 +68,136 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: Alexander.Deucher@amd.com, christian.koenig@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+On Fri, Jan 5, 2024 at 1:15=E2=80=AFAM Ma Jun <Jun.Ma2@amd.com> wrote:
+>
+> Fix the warning info below during mode1 reset.
+> [  +0.000004] Call Trace:
+> [  +0.000004]  <TASK>
+> [  +0.000006]  ? show_regs+0x6e/0x80
+> [  +0.000011]  ? __flush_work.isra.0+0x2e8/0x390
+> [  +0.000005]  ? __warn+0x91/0x150
+> [  +0.000009]  ? __flush_work.isra.0+0x2e8/0x390
+> [  +0.000006]  ? report_bug+0x19d/0x1b0
+> [  +0.000013]  ? handle_bug+0x46/0x80
+> [  +0.000012]  ? exc_invalid_op+0x1d/0x80
+> [  +0.000011]  ? asm_exc_invalid_op+0x1f/0x30
+> [  +0.000014]  ? __flush_work.isra.0+0x2e8/0x390
+> [  +0.000007]  ? __flush_work.isra.0+0x208/0x390
+> [  +0.000007]  ? _prb_read_valid+0x216/0x290
+> [  +0.000008]  __cancel_work_timer+0x11d/0x1a0
+> [  +0.000007]  ? try_to_grab_pending+0xe8/0x190
+> [  +0.000012]  cancel_work_sync+0x14/0x20
+> [  +0.000008]  amddrm_sched_stop+0x3c/0x1d0 [amd_sched]
+> [  +0.000032]  amdgpu_device_gpu_recover+0x29a/0xe90 [amdgpu]
+>
+> This warning info was printed after applying the patch
+> "drm/sched: Convert drm scheduler to use a work queue rather than kthread=
+".
+> The root cause is that amdgpu driver tries to use the uninitialized
+> work_struct in the struct drm_gpu_scheduler
+>
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
 
-Best Regards,
-Kevin
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Samasth =
-Norway Ananda
-Sent: Tuesday, January 23, 2024 5:32 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; samasth.norway.ananda@o=
-racle.com
-Subject: [PATCH 1/1] drm/amdgpu: fix wrong sizeof argument
-
-voltage_parameters is a point to a struct of type SET_VOLTAGE_PARAMETERS_V1=
-_3. Passing just voltage_parameters would not print the right size of the s=
-truct variable. So we need to pass *voltage_parameters to sizeof().
-
-Fixes: 4630d5031cd8 ("drm/amdgpu: check PS, WS index")
-Signed-off-by: Samasth Norway Ananda <samasth.norway.ananda@oracle.com>
----
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c b/drivers/=
-gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-index 8f58954739e0..b1b4c09c3467 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-@@ -1526,7 +1526,7 @@ int atomctrl_get_leakage_id_from_efuse(struct pp_hwmg=
-r *hwmgr, uint16_t *virtual
-=20
- 	result =3D amdgpu_atom_execute_table(adev->mode_info.atom_context,
- 			GetIndexIntoMasterTable(COMMAND, SetVoltage),
--			(uint32_t *)voltage_parameters, sizeof(voltage_parameters));
-+			(uint32_t *)voltage_parameters, sizeof(*voltage_parameters));
-=20
- 	*virtual_voltage_id =3D voltage_parameters->usVoltageLevel;
-=20
---
-2.42.0
-
+>
+> v2:
+>  - Rename the function to amdgpu_ring_sched_ready and move it to
+> amdgpu_ring.c (Alex)
+>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 +++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   | 14 +++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  2 +-
+>  3 files changed, 17 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 4b1d5f42249f..d0d82e69b034 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5700,7 +5700,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device =
+*adev,
+>                 for (i =3D 0; i < AMDGPU_MAX_RINGS; ++i) {
+>                         struct amdgpu_ring *ring =3D tmp_adev->rings[i];
+>
+> -                       if (!ring || !drm_sched_wqueue_ready(&ring->sched=
+))
+> +                       if (!amdgpu_ring_sched_ready(ring))
+>                                 continue;
+>
+>                         drm_sched_stop(&ring->sched, job ? &job->base : N=
+ULL);
+> @@ -5776,7 +5776,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device =
+*adev,
+>                 for (i =3D 0; i < AMDGPU_MAX_RINGS; ++i) {
+>                         struct amdgpu_ring *ring =3D tmp_adev->rings[i];
+>
+> -                       if (!ring || !drm_sched_wqueue_ready(&ring->sched=
+))
+> +                       if (!amdgpu_ring_sched_ready(ring))
+>                                 continue;
+>
+>                         drm_sched_start(&ring->sched, true);
+> @@ -6265,7 +6265,7 @@ void amdgpu_pci_resume(struct pci_dev *pdev)
+>         for (i =3D 0; i < AMDGPU_MAX_RINGS; ++i) {
+>                 struct amdgpu_ring *ring =3D adev->rings[i];
+>
+> -               if (!ring || !drm_sched_wqueue_ready(&ring->sched))
+> +               if (!amdgpu_ring_sched_ready(ring))
+>                         continue;
+>
+>                 drm_sched_start(&ring->sched, true);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ring.c
+> index 41266bc99345..9555d5532d8e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -636,7 +636,8 @@ int amdgpu_ring_test_helper(struct amdgpu_ring *ring)
+>                 DRM_DEV_DEBUG(adev->dev, "ring test on %s succeeded\n",
+>                               ring->name);
+>
+> -       ring->sched.ready =3D !r;
+> +       if (!ring->no_scheduler)
+> +               ring->sched.ready =3D !r;
+>         return r;
+>  }
+>
+> @@ -719,3 +720,14 @@ void amdgpu_ring_ib_on_emit_de(struct amdgpu_ring *r=
+ing)
+>         if (ring->is_sw_ring)
+>                 amdgpu_sw_ring_ib_mark_offset(ring, AMDGPU_MUX_OFFSET_TYP=
+E_DE);
+>  }
+> +
+> +bool amdgpu_ring_sched_ready(struct amdgpu_ring *ring)
+> +{
+> +       if (!ring)
+> +               return false;
+> +
+> +       if (ring->no_scheduler || !drm_sched_wqueue_ready(&ring->sched))
+> +               return false;
+> +
+> +       return true;
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ring.h
+> index bbb53720a018..fe1a61eb6e4c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -450,5 +450,5 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsi=
+gned num_ibs,
+>  int amdgpu_ib_pool_init(struct amdgpu_device *adev);
+>  void amdgpu_ib_pool_fini(struct amdgpu_device *adev);
+>  int amdgpu_ib_ring_tests(struct amdgpu_device *adev);
+> -
+> +bool amdgpu_ring_sched_ready(struct amdgpu_ring *ring);
+>  #endif
+> --
+> 2.34.1
+>
