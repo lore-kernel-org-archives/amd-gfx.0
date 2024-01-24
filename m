@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DC7DC46CD2
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jan 2024 16:00:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E2F8C46CD2
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jan 2024 16:07:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E538910E9F9;
-	Wed, 24 Jan 2024 16:00:16 +0000 (UTC)
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
- [209.85.160.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3ACC10E9F9
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jan 2024 16:00:15 +0000 (UTC)
-Received: by mail-oa1-f47.google.com with SMTP id
- 586e51a60fabf-21432e87455so2101362fac.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jan 2024 08:00:15 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E48AE10E190;
+	Wed, 24 Jan 2024 16:07:46 +0000 (UTC)
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com
+ [209.85.161.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E8EE10E190
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jan 2024 16:07:42 +0000 (UTC)
+Received: by mail-oo1-f49.google.com with SMTP id
+ 006d021491bc7-59505514213so2453905eaf.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jan 2024 08:07:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706111955; x=1706716755; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1706112402; x=1706717202; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kdpQGunml0yvqF4VCAMbuIR9lIGAUmFXtZFN02yLoog=;
- b=ZOSd3mZ2GS64zC12iNQSiEZRoabEKZPG7MRgeJeNjmsvIcHMqnZjrEPx8azeBNCgew
- /wyNiCUCdVC2znWXciEP6WDmdoI7TdKu4gKDesC5TD585H70GX/jppoBZRKudn4Tcw1L
- 2akSYXBe3S+f/luCu4hoLN5Y3y55oMNkR5ZOslwz+DODWCuMMATOOSDzlNvVZ+b0poo2
- WpG4QC8kI9a763Ec3giCpyRlDUesgqkcSCtjNtwQK7kvoXEgqFX4hxdpZVMniz+hcM6L
- C2c3jlfzo0tTZXy/MKv6h8zI6E3H3TSPlrlwQ9oxDT78Q7ISBI38CxYoEybLpM7YADL5
- Ec0g==
+ bh=/RZsnqLm3pSskFLCbA7Nvw3Kmy0QBlWkSKaHgyt8JY0=;
+ b=RZKi7QR+UqIrIAMIMN67fbCJv4+RnbJuj6iT158IUJSWpDCWqO2QjIAg3FZXmWH7qM
+ yKvDq7LWbUjTIueaRl1HPZxrhCkQjIxcFesgg+y0qzdICdw+TXVSRuUYvAS44336trVT
+ pjPYruOJHYd+p5oZYtONJJVnIAOcIihDsFtcLhpWK9i343Qdulzr9rBbmVExwKTAmVvr
+ 9uvtHPg+2jKJvxcpECqUqCPST16q+UbcTzRtbmdqWdl2/Krf2QT9JrHgAN7WsTdJN9zp
+ 2ro/8aKdBjjbFhgieS5HEd/6FCUCBHio2cR6Z2mhYxbPxEo+y95yANl7PA/M32Q+uMGP
+ Lt4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706111955; x=1706716755;
+ d=1e100.net; s=20230601; t=1706112402; x=1706717202;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kdpQGunml0yvqF4VCAMbuIR9lIGAUmFXtZFN02yLoog=;
- b=qM4itVVBS8nKhHnLATuWi+/4MbDI6pFNNf2UDPXs2p7c0fx7sAIiUGdtiX+x3o3t0F
- Vn970pEyTjSwVJTqJPvq2j1vh0dXyXk9smz1hzNtoty5e9Z86yV3AWQVpcTHpzPjgyIi
- zrCiuilxeasT6oKcjO85CRSaB440otXrg5wuqGyAVLmlJi3tJAlDI0kdTXy5A2W70Dy3
- lOYwDBRTFhJg740iqUHdEXoLCaT1OKz3lFkv/D3H/HX160ssR0cHURwsd7bmE/BUUVne
- y8IqNSdXees6MWEcOZMOvhXq9P6Bnsje56YKspgBcwnpXLeJQCfXS6UDtELqwmj1683L
- DUiw==
-X-Gm-Message-State: AOJu0YyU1m8Qt5R2Mq5v+9YJ7z2W/pZ6flDYNSR4TZAezE5THoGHDgq3
- RPkChQFABwRWSDPtJdMG8zJy6FzHrxpavKeS8EQIWXbldimvEWtKhx/j7bXIl+WPmdS1PZqPMa3
- 5BE+k9s1b7Zr4HZY+KIWjFIJbxHG7Abea
-X-Google-Smtp-Source: AGHT+IF+J7YFQxgveBzGOLXCIIMVdAS0KzFiJMfQCUCYw5J13Gk01C79lqkcCw3M+danuQ6HwIpKZGd/8/XZI2uQfQ4=
-X-Received: by 2002:a05:6870:4152:b0:205:fe77:4f71 with SMTP id
- r18-20020a056870415200b00205fe774f71mr3437249oad.15.1706111955149; Wed, 24
- Jan 2024 07:59:15 -0800 (PST)
+ bh=/RZsnqLm3pSskFLCbA7Nvw3Kmy0QBlWkSKaHgyt8JY0=;
+ b=WhF3R6bzbPjxbKp54FWCP7PSS7gT2kDS0kf03ji/uUi0L4yhlfkuGh8RMU9plPV3tt
+ 7nbG735vf7zpYDrS+nKhqDmHZfPmSKUeTBi58x1g12/u9judtW/bNzluvR7LvfrE2ZJz
+ /vZ7Pw/IEMDXv+SSDw1aRVis19xczaiZHeyH87q+86cWLQ9dW+TjWqOPF8rf2X72SKAy
+ DV//zvQCqMZWcxw0KrUJjDUhfryzijQAQDJoLpk0112pHwW0nRTNZ8+AJGofMSePLRS5
+ Uxz2181SulYkGuvUC8AP2LD/nzK4zU2UHu8y7YpY6ZyehWGK9elBp/3t/Qz2VGjHVCWo
+ PV3Q==
+X-Gm-Message-State: AOJu0YyeG1zyawlGmpIQMS3F+awSSQhZGpXJXqCW4nBqTm4h2dVkE5gK
+ S1Y0H1S1bJk7qZEbu4YQPRXut02USrG3llDP7a63XiFznqUZZ+8bKFoWZkNMeTiUwitEVAI+to1
+ kDHZ+FcWxxlXfwscx4XTzQuz5X9w=
+X-Google-Smtp-Source: AGHT+IGp9Be9WUgeqn8MQ3NCVbPTI+/DW0oy8O3JhA2Me8uyUS5e/xlKzmJ2d5Ee2dRDnxnu3DyBI50DpeEj9yWuaI0=
+X-Received: by 2002:a05:6870:20d:b0:210:98d0:d5b0 with SMTP id
+ j13-20020a056870020d00b0021098d0d5b0mr571973oad.22.1706112402127; Wed, 24 Jan
+ 2024 08:06:42 -0800 (PST)
 MIME-Version: 1.0
 References: <20240124065932.892944-1-Prike.Liang@amd.com>
-In-Reply-To: <20240124065932.892944-1-Prike.Liang@amd.com>
+ <20240124065932.892944-2-Prike.Liang@amd.com>
+In-Reply-To: <20240124065932.892944-2-Prike.Liang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 24 Jan 2024 10:59:03 -0500
-Message-ID: <CADnq5_PJyh50wpHQuU_UFYvpnnp8PsteAJ7ymazFHMWD92cyDw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: skip to program GFXDEC registers for PM
- abort case
+Date: Wed, 24 Jan 2024 11:06:30 -0500
+Message-ID: <CADnq5_NnJeVALgswRm4f17XMZ_e5a_nd4D_q2vrXyRTvCuKx8A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: reset gpu for pm abort case
 To: Prike Liang <Prike.Liang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -74,74 +74,74 @@ Cc: Alexander.Deucher@amd.com, Deepak.Sharma@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 24, 2024 at 2:12=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
+On Wed, Jan 24, 2024 at 2:17=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
 rote:
 >
-> In the PM abort cases, the gfx power rail doesn't turn off so
-> some GFXDEC registers/CSB can't reset to default vaule. In order
-> to avoid unexpected problem now need skip to program GFXDEC registers
-> and bypass issue CSB packet for PM abort case.
+> In the pm abort case the gfx power rail not turn off from FCH side and
+> this will lead to the gfx reinitialized failed base on the unknown gfx
+> HW status, so let's reset the gpu to a known good power state.
 >
 > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 4 ++++
->  3 files changed, 6 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 5 +++++
+>  drivers/gpu/drm/amd/amdgpu/soc15.c      | 7 ++++++-
+>  2 files changed, 11 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index c5f3859fd682..26d983eb831b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1079,6 +1079,7 @@ struct amdgpu_device {
->         bool                            in_s3;
->         bool                            in_s4;
->         bool                            in_s0ix;
-> +       bool                            pm_complete;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_psp.c
+> index 9153f69bad7f..14b66c49a536 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -2935,6 +2935,11 @@ static int psp_resume(void *handle)
 >
->         enum pp_mp1_state               mp1_state;
->         struct amdgpu_doorbell_index doorbell_index;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 475bd59c9ac2..a01f9b0c2f30 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2486,6 +2486,7 @@ static int amdgpu_pmops_suspend_noirq(struct device=
- *dev)
->         struct drm_device *drm_dev =3D dev_get_drvdata(dev);
->         struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
+>         dev_info(adev->dev, "PSP is resuming...\n");
 >
-> +       adev->pm_complete =3D true;
-
-This needs to be cleared somewhere on resume.
-
->         if (amdgpu_acpi_should_gpu_reset(adev))
->                 return amdgpu_asic_reset(adev);
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_0.c
-> index 57808be6e3ec..3bf51f18e13c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -3034,6 +3034,10 @@ static int gfx_v9_0_cp_gfx_start(struct amdgpu_dev=
-ice *adev)
->
->         gfx_v9_0_cp_gfx_enable(adev, true);
->
-> +       if (adev->in_suspend && !adev->pm_complete) {
-> +               DRM_INFO(" will skip the csb ring write\n");
-> +               return 0;
+> +       if(amdgpu_asic_need_reset_on_init(adev)) {
+> +               DRM_INFO("PM abort case and let's reset asic \n");
+> +               amdgpu_asic_reset(adev);
 > +       }
+> +
 
-We probably want a similar fix for other gfx generations as well.
+Seems like it would be better to put this in the resume callback.
+
+>         if (psp->mem_train_ctx.enable_mem_training) {
+>                 ret =3D psp_mem_training(psp, PSP_MEM_TRAIN_RESUME);
+>                 if (ret) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amd=
+gpu/soc15.c
+> index 15033efec2ba..6ec4f6958c4c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> @@ -804,9 +804,15 @@ static bool soc15_need_reset_on_init(struct amdgpu_d=
+evice *adev)
+>         if (adev->asic_type =3D=3D CHIP_RENOIR)
+>                 return true;
+>
+> +       sol_reg =3D RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
+
+Is this register consistent for all soc15 chips?
 
 Alex
 
->         r =3D amdgpu_ring_alloc(ring, gfx_v9_0_get_csb_size(adev) + 4 + 3=
-);
->         if (r) {
->                 DRM_ERROR("amdgpu: cp failed to lock ring (%d).\n", r);
-> --
+> +
+>         /* Just return false for soc15 GPUs.  Reset does not seem to
+>          * be necessary.
+>          */
+> +       if (adev->in_suspend && !adev->pm_complete &&
+> +                       sol_reg)
+> +               return true;
+> +
+>         if (!amdgpu_passthrough(adev))
+>                 return false;
+>
+> @@ -816,7 +822,6 @@ static bool soc15_need_reset_on_init(struct amdgpu_de=
+vice *adev)
+>         /* Check sOS sign of life register to confirm sys driver and sOS
+>          * are already been loaded.
+>          */
+> -       sol_reg =3D RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
+>         if (sol_reg)
+>                 return true;
+>> --
 > 2.34.1
 >
