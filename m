@@ -4,90 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56A5EC47422
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jan 2024 07:04:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E25CC47422
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jan 2024 07:30:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C052610F65E;
-	Wed, 24 Jan 2024 07:04:42 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2086.outbound.protection.outlook.com [40.107.220.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC5EE10F659
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jan 2024 07:04:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FwEtmTlm9n2lO+7Nekpv/gM3N+vQNHG1t6hVdn2TXJkVp3xV3ojFEvj7rNRg31yq78YILjdCPhMLeJylEgPchNwwb1VLAwQRgSQG4FjmCn9gZM6VtU07a98AitJEvSmoHFvmZyP9c9Kz7SkO99g/4adpN/55mT4uUL4vbOkdOzdgt3mAkay9h4EO6MucQ8/14gNFuueC+yepE8jVE8aV2wzXWOjvVBxI4498pEO9eGIVdhPgkqEDrgNQROV1D+azIA9YPbUqG+N2yqlRpU4mhewAVQf0/2A1ZGhsrwpYRDVAMcpnMif9ILiXYulpBGXNuiebV7y/tGBveE2/ZxOfYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WZ9oLhM/FFwiTkMy+4guAtqnmUzMGMvNIgXfYrND9Z0=;
- b=J4trDOppfQD8F5CmCreQWBQK/UKtrRHN2tWjpPlce16NdwcOgpCEuW+NlqYvgeWAjegU4XvR4wOKzoVR64xmho3IDrCA0VbpA4jR8I9mW7lJBE6NpDjEDMI2P89EtsOnvlBxNJEf0sm9YrWPSuXMg1nSvmuIbp8PyVTAoKxUj9YmzY0tg/AllouPAYfozYaQ0Qegr0HhrCcu147nYmhIKUMw0swQdNQsMT1uE3OYCEGImUPwCgVX4PVFwgidAx2ozlUobshFQf1zzPMUL9kFJp5rt/OhdbYm1nBJQzRGzRG6/P4rCJlZ1G+P7o4lXAIUTWCPhEHzyaroLEB7CfLsig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WZ9oLhM/FFwiTkMy+4guAtqnmUzMGMvNIgXfYrND9Z0=;
- b=JkC+KEr+VeclJyyrb8ejsQz1NiA8nolW6GHA4dq4+u05VRf98m9tiA3aF8qKJMSrNvWsHmh/l0/mPOYtUceX7e3CBOwYV4/kV3bTmByfF53wBS7ESKUzGPVu1SYvy+wmgHVdHSItPfSJKuvW0D+qccwmyy8SYl/nYKvuP8ulX7s=
-Received: from MW4PR03CA0179.namprd03.prod.outlook.com (2603:10b6:303:8d::34)
- by SA0PR12MB7004.namprd12.prod.outlook.com (2603:10b6:806:2c0::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.22; Wed, 24 Jan
- 2024 07:04:38 +0000
-Received: from CO1PEPF000044F6.namprd21.prod.outlook.com
- (2603:10b6:303:8d:cafe::bd) by MW4PR03CA0179.outlook.office365.com
- (2603:10b6:303:8d::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.22 via Frontend
- Transport; Wed, 24 Jan 2024 07:04:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044F6.mail.protection.outlook.com (10.167.241.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7228.0 via Frontend Transport; Wed, 24 Jan 2024 07:04:37 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 24 Jan
- 2024 01:03:56 -0600
-Received: from tom-HP.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Wed, 24 Jan 2024 01:03:53 -0600
-From: Tom Chung <chiahsuan.chung@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 21/22] drm/amd/display: [FW Promotion] Release 0.0.202.0
-Date: Wed, 24 Jan 2024 15:01:58 +0800
-Message-ID: <20240124070159.1900622-22-chiahsuan.chung@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240124070159.1900622-1-chiahsuan.chung@amd.com>
-References: <20240124070159.1900622-1-chiahsuan.chung@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E65810F660;
+	Wed, 24 Jan 2024 07:30:29 +0000 (UTC)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE78310E0B9;
+ Wed, 24 Jan 2024 07:30:22 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-40e7065b7bdso61044125e9.3; 
+ Tue, 23 Jan 2024 23:30:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1706081358; x=1706686158; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=9DRGXaVxKMFHx2hiT7iy2bNi9Kyy1UbBqRbOG7bk9EA=;
+ b=HMHN+X2R7jQqpIqZARB2XiQlDLeo42Da4Flyec7hzY4+UCLhrxLQDLoGdtv27+npsH
+ qRuCBbtQf4IcJjuqPnhNHGZ+P+4V5Jvd2NWTiVeY5rYUVqCB/5rrttXOYonm9ZrvCw2m
+ N7CxYKk/t+1eSHGe6NzcDVsOwqGVuq2a8+Gdxqii+98HcXkN5EGrVw+OG4FrEM5Pra/m
+ 5Jn6EGFw2EP9KyIn+moBffgYMNFr6WMBz7rmAcfO1RVQoMEdvNQ1EHD1xh5Qx4uv1eRA
+ nbxPIpSf9Cb6C9Vr63Q+Sn8V/h4XYGWfx8TIOWoBsF774NF2gMCJVboErvbXRsktiN7B
+ i5Yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706081358; x=1706686158;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=9DRGXaVxKMFHx2hiT7iy2bNi9Kyy1UbBqRbOG7bk9EA=;
+ b=Aq7gmfkR2HbAhz64eOMaL458zZZy2RDVYDS509aK4+Pc0fPYlL03ydmdtmErt9cCPy
+ T9PRfOQXCrlSxg4PbYVpDbgKfgbmsjBVEP+VRdQmoYu2aBCBWDJgIgTHuSc4GVEa8SIs
+ KZjeXp/YlXXG3TAzY7o4XQ5E2ZY2sEH35UwXRSgEeimwDvH5z84KthpLHKFCA5dZySRr
+ OJBfkBj+bdldxVLYCsMvN6Wg3VyRt/p2p3/A8czuAWfE9d0UBUiCA3lJ/lVbddF3bgeq
+ 6dYiSlYfZrB63SysxlTx9N4HVlQPCB2q6OPfYikfv3NGjlviTjRxRnre44FwPyCQ8rEK
+ 8PhQ==
+X-Gm-Message-State: AOJu0YyAjchOKh3dHYE7ZDlEswTjvbqXcuMtrT6/T21dQm1nH6wNARLp
+ aen4YZx/ifW8VTTaZiZBU0P40/FAnyNjZux/9KKnd7pfFsa63ZfY
+X-Google-Smtp-Source: AGHT+IHyzerc8ODlelT9LcIwOXuNITuEKHKrpG9psQo5pdYryIcUoR+iK8dwa6wgUjXdTp7WS5B1lg==
+X-Received: by 2002:a05:600c:33a5:b0:40e:43e4:d9ca with SMTP id
+ o37-20020a05600c33a500b0040e43e4d9camr560010wmp.179.1706081357705; 
+ Tue, 23 Jan 2024 23:29:17 -0800 (PST)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ h7-20020a05600c350700b0040e63226f6dsm303045wmq.1.2024.01.23.23.29.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Jan 2024 23:29:17 -0800 (PST)
+Message-ID: <a307539f-8894-4d5f-a32d-3936e6fba65f@gmail.com>
+Date: Wed, 24 Jan 2024 08:29:14 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F6:EE_|SA0PR12MB7004:EE_
-X-MS-Office365-Filtering-Correlation-Id: 36acc281-d6d4-4448-b706-08dc1caaba94
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bt31NPiclBQDrQ+DU+zimeGNSqKf/nOBq1maISJzyq2yf+XxPe9uDkQEriGnBJqMOgr+XIFOw0ecPLsGVrWjSHoEOJQ/fiM1c2LLv82T4ohdAhMFrSSXL8r6J5N64/BLAcL6ZpC2Y+r8UVJwYEHFnsYjQz4IscST0r2JaG60S3+YDMdMB+1mqYUyC15CNFiR5NjskfdM9KVwS5pxJ+QvynAdo503OWEQPXP8MbK0e1NUtHq028iqJ7jHCNDzLe0n+ux/yZ68sLKJi7ChvsNV9dG1z128HaDDOAk81wh8HknNOtEl+XfpywggXdZlDJCHPZV1TZWMy7wZk+86MqDfg/kh2pmkgSkflp4vVM0VEIzD0OCMNEZIATAfDb1tnBF3L16GCX46AoJF9IbNBTQz7DJZp6zblOrXMKEvHa++I/SLOlniO8YYD5lZFKRQCp5oUCbl4wOsuzeJJwEJHQu4/KVmeaXcH4GFKoEM4ks9Smz8biMyw/k0N6zNWLz8VHJQzQE8XLq8vK4Mh/mRk2uX23voZcIthifqV3yCc+OPzfqjAt57hIjgt6tE9EAV5vNzv5tWB8KsGqz3PEtX31qBbMoqx5ZfieO+IV/YYyP1B81h5r4MAgoZFMQrfTBtzGLLHPq1rnxJjcWI0UCJ+Dv1IIkoz4/Fp4z7fKTgO9UQdj6DXocAgG5B+cfjyOJZ6k1NRZfYiUVqk+Gu+pvhIzQUCypZ5RZcp6uyrwYBmqgPyg9Ls29UMvrNvLQn3cGQAdwSFS/qMpI/pmqvoZhQMYTqQw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(376002)(136003)(396003)(39860400002)(230922051799003)(451199024)(64100799003)(82310400011)(186009)(1800799012)(36840700001)(46966006)(40470700004)(8936002)(8676002)(4326008)(4744005)(2906002)(5660300002)(86362001)(316002)(70586007)(70206006)(54906003)(6916009)(36756003)(36860700001)(47076005)(82740400003)(81166007)(356005)(7696005)(478600001)(83380400001)(2616005)(26005)(1076003)(426003)(336012)(41300700001)(40480700001)(40460700003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2024 07:04:37.8531 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36acc281-d6d4-4448-b706-08dc1caaba94
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F6.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7004
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: Remove double faults once write a device pfn
+Content-Language: en-US
+To: "Zhou, Xianrong" <Xianrong.Zhou@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20240122033210.713530-1-Xianrong.Zhou@amd.com>
+ <5ed7d46b-ae26-43f2-81e0-91e3cfc0218a@amd.com>
+ <MN2PR12MB4302C529B9F231F85539628EF1742@MN2PR12MB4302.namprd12.prod.outlook.com>
+ <76c3658d-2256-49c6-8e4c-49555c0a350a@amd.com>
+ <MN2PR12MB4302BBF634B2E3872904872BF17B2@MN2PR12MB4302.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <MN2PR12MB4302BBF634B2E3872904872BF17B2@MN2PR12MB4302.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,43 +81,388 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: chiahsuan.chung@amd.com, Sunpeng.Li@amd.com,
- Anthony Koo <anthony.koo@amd.com>, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, hersenxs.wu@amd.com,
- wayne.lin@amd.com, Harry.Wentland@amd.com, agustin.gutierrez@amd.com
+Cc: "mripard@kernel.org" <mripard@kernel.org>,
+ "x86@kernel.org" <x86@kernel.org>, "kherbst@redhat.com" <kherbst@redhat.com>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Huang,
+ Ray" <Ray.Huang@amd.com>, "hpa@zytor.com" <hpa@zytor.com>,
+ "zack.rusin@broadcom.com" <zack.rusin@broadcom.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, "Xu, Colin" <Colin.Xu@amd.com>,
+ "lee@kernel.org" <lee@kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "mingo@redhat.com" <mingo@redhat.com>,
+ "bcm-kernel-feedback-list@broadcom.com"
+ <bcm-kernel-feedback-list@broadcom.com>,
+ "matthew.auld@intel.com" <matthew.auld@intel.com>,
+ "dakr@redhat.com" <dakr@redhat.com>, "Yang, Philip" <Philip.Yang@amd.com>,
+ "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>, "Li,
+ Huazeng" <Huazeng.Li@amd.com>, "bp@alien8.de" <bp@alien8.de>,
+ "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
+ "luto@kernel.org" <luto@kernel.org>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>, "Zhang,
+ GuoQing \(Sam\)" <GuoQing.Zhang@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
+ "surenb@google.com" <surenb@google.com>, "Liu, Monk" <Monk.Liu@amd.com>,
+ "tvrtko.ursulin@linux.intel.com" <tvrtko.ursulin@linux.intel.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>,
+ "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "nirmoy.das@intel.com" <nirmoy.das@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Anthony Koo <anthony.koo@amd.com>
+Am 24.01.24 um 03:43 schrieb Zhou, Xianrong:
+> [AMD Official Use Only - General]
+>
+>>>>> The vmf_insert_pfn_prot could cause unnecessary double faults on a
+>>>>> device pfn. Because currently the vmf_insert_pfn_prot does not make
+>>>>> the pfn writable so the pte entry is normally read-only or dirty
+>>>>> catching.
+>>>> What? How do you got to this conclusion?
+>>> Sorry. I did not mention that this problem only exists on arm64 platform.
+>> Ok, that makes at least a little bit more sense.
+>>
+>>> Because on arm64 platform the PTE_RDONLY is automatically attached to
+>>> the userspace pte entries even through VM_WRITE + VM_SHARE.
+>>> The  PTE_RDONLY needs to be cleared in vmf_insert_pfn_prot. However
+>>> vmf_insert_pfn_prot do not make the pte writable passing false
+>>> @mkwrite to insert_pfn.
+>> Question is why is arm64 doing this? As far as I can see they must have some
+>> hardware reason for that.
+>>
+>> The mkwrite parameter to insert_pfn() was added by commit
+>> b2770da642540 to make insert_pfn() look more like insert_pfn_pmd() so that
+>> the DAX code can insert PTEs which are writable and dirty at the same time.
+>>
+> This is one scenario to do so. In fact on arm64 there are many scenarios could
+> be to do so. So we can let vmf_insert_pfn_prot supporting @mkwrite for drivers
+> at core layer and let drivers to decide whether or not to make writable and dirty
+> at one time. The patch did this. Otherwise double faults on arm64 when call
+> vmf_insert_pfn_prot.
 
- - Add control flag for IPS residency profiling
+Well, that doesn't answer my question why arm64 is double faulting in 
+the first place,.
 
-Reviewed-by: Tom Chung <chiahsuan.chung@amd.com>
-Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Anthony Koo <anthony.koo@amd.com>
----
- drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+So as long as this isn't sorted out I'm going to reject this patch.
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-index 49bc1e41ac67..aaa211c828ed 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -408,7 +408,13 @@ union replay_debug_flags {
- 		 */
- 		uint32_t enable_ips_visual_confirm : 1;
- 
--		uint32_t reserved : 21;
-+		/**
-+		 * 0x800 (bit 11)
-+		 * @enable_ips_residency_profiling: Enable IPS residency profiling
-+		 */
-+		uint32_t enable_ips_residency_profiling : 1;
-+
-+		uint32_t reserved : 20;
- 	} bitfields;
- 
- 	uint32_t u32All;
--- 
-2.34.1
+Regards,
+Christian.
+
+>
+>> This is a completely different use case to what you try to use it here for and
+>> that looks extremely fishy to me.
+>>
+>> Regards,
+>> Christian.
+>>
+>>>>> The first fault only sets up the pte entry which actually is dirty
+>>>>> catching. And the second immediate fault to the pfn due to first
+>>>>> dirty catching when the cpu re-execute the store instruction.
+>>>> It could be that this is done to work around some hw behavior, but
+>>>> not because of dirty catching.
+>>>>
+>>>>> Normally if the drivers call vmf_insert_pfn_prot and also supply
+>>>>> 'pfn_mkwrite' callback within vm_operations_struct which requires
+>>>>> the pte to be dirty catching then the vmf_insert_pfn_prot and the
+>>>>> double fault are reasonable. It is not a problem.
+>>>> Well, as far as I can see that behavior absolutely doesn't make sense.
+>>>>
+>>>> When pfn_mkwrite is requested then the driver should use PAGE_COPY,
+>>>> which is exactly what VMWGFX (the only driver using dirty tracking) is
+>> doing.
+>>>> Everybody else uses PAGE_SHARED which should make the pte writeable
+>>>> immediately.
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>> However the most of drivers calling vmf_insert_pfn_prot do not
+>>>>> supply the 'pfn_mkwrite' callback so that the second fault is unnecessary.
+>>>>>
+>>>>> So just like vmf_insert_mixed and vmf_insert_mixed_mkwrite pair, we
+>>>>> should also supply vmf_insert_pfn_mkwrite for drivers as well.
+>>>>>
+>>>>> Signed-off-by: Xianrong Zhou <Xianrong.Zhou@amd.com>
+>>>>> ---
+>>>>>     arch/x86/entry/vdso/vma.c                  |  3 ++-
+>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  2 +-
+>>>>>     drivers/gpu/drm/i915/gem/i915_gem_ttm.c    |  2 +-
+>>>>>     drivers/gpu/drm/nouveau/nouveau_gem.c      |  2 +-
+>>>>>     drivers/gpu/drm/radeon/radeon_gem.c        |  2 +-
+>>>>>     drivers/gpu/drm/ttm/ttm_bo_vm.c            |  8 +++++---
+>>>>>     drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c |  8 +++++---
+>>>>>     include/drm/ttm/ttm_bo.h                   |  3 ++-
+>>>>>     include/linux/mm.h                         |  2 +-
+>>>>>     mm/memory.c                                | 14 +++++++++++---
+>>>>>     10 files changed, 30 insertions(+), 16 deletions(-)
+>>>>>
+>>>>> diff --git a/arch/x86/entry/vdso/vma.c b/arch/x86/entry/vdso/vma.c
+>>>>> index 7645730dc228..dd2431c2975f 100644
+>>>>> --- a/arch/x86/entry/vdso/vma.c
+>>>>> +++ b/arch/x86/entry/vdso/vma.c
+>>>>> @@ -185,7 +185,8 @@ static vm_fault_t vvar_fault(const struct
+>>>> vm_special_mapping *sm,
+>>>>>               if (pvti && vclock_was_used(VDSO_CLOCKMODE_PVCLOCK))
+>>>> {
+>>>>>                       return vmf_insert_pfn_prot(vma, vmf->address,
+>>>>>                                       __pa(pvti) >> PAGE_SHIFT,
+>>>>> -                                   pgprot_decrypted(vma-
+>>>>> vm_page_prot));
+>>>>> +                                   pgprot_decrypted(vma-
+>>>>> vm_page_prot),
+>>>>> +                                   true);
+>>>>>               }
+>>>>>       } else if (sym_offset == image->sym_hvclock_page) {
+>>>>>               pfn = hv_get_tsc_pfn(); diff --git
+>>>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>>>> index 49a5f1c73b3e..adcb20d9e624 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>>>> @@ -64,7 +64,7 @@ static vm_fault_t amdgpu_gem_fault(struct
+>> vm_fault
+>>>> *vmf)
+>>>>>               }
+>>>>>
+>>>>>               ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma-
+>>>>> vm_page_prot,
+>>>>> -                                          TTM_BO_VM_NUM_PREFAULT);
+>>>>> +                                          TTM_BO_VM_NUM_PREFAULT,
+>>>> true);
+>>>>>               drm_dev_exit(idx);
+>>>>>       } else {
+>>>>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+>>>>> b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+>>>>> index 9227f8146a58..c6f13ae6c308 100644
+>>>>> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+>>>>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+>>>>> @@ -1114,7 +1114,7 @@ static vm_fault_t vm_fault_ttm(struct vm_fault
+>>>>> *vmf)
+>>>>>
+>>>>>       if (drm_dev_enter(dev, &idx)) {
+>>>>>               ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma-
+>>>>> vm_page_prot,
+>>>>> -                                          TTM_BO_VM_NUM_PREFAULT);
+>>>>> +                                          TTM_BO_VM_NUM_PREFAULT,
+>>>> true);
+>>>>>               drm_dev_exit(idx);
+>>>>>       } else {
+>>>>>               ret = ttm_bo_vm_dummy_page(vmf, vmf->vma-
+>>>>> vm_page_prot); diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c
+>>>>> b/drivers/gpu/drm/nouveau/nouveau_gem.c
+>>>>> index 49c2bcbef129..7e1453762ec9 100644
+>>>>> --- a/drivers/gpu/drm/nouveau/nouveau_gem.c
+>>>>> +++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+>>>>> @@ -56,7 +56,7 @@ static vm_fault_t nouveau_ttm_fault(struct
+>>>>> vm_fault
+>>>>> *vmf)
+>>>>>
+>>>>>       nouveau_bo_del_io_reserve_lru(bo);
+>>>>>       prot = vm_get_page_prot(vma->vm_flags);
+>>>>> -   ret = ttm_bo_vm_fault_reserved(vmf, prot,
+>>>> TTM_BO_VM_NUM_PREFAULT);
+>>>>> +   ret = ttm_bo_vm_fault_reserved(vmf, prot,
+>>>> TTM_BO_VM_NUM_PREFAULT,
+>>>>> +true);
+>>>>>       nouveau_bo_add_io_reserve_lru(bo);
+>>>>>       if (ret == VM_FAULT_RETRY && !(vmf->flags &
+>>>> FAULT_FLAG_RETRY_NOWAIT))
+>>>>>               return ret;
+>>>>> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c
+>>>>> b/drivers/gpu/drm/radeon/radeon_gem.c
+>>>>> index 3fec3acdaf28..b21cf00ae162 100644
+>>>>> --- a/drivers/gpu/drm/radeon/radeon_gem.c
+>>>>> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
+>>>>> @@ -62,7 +62,7 @@ static vm_fault_t radeon_gem_fault(struct vm_fault
+>>>> *vmf)
+>>>>>               goto unlock_resv;
+>>>>>
+>>>>>       ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm_page_prot,
+>>>>> -                                  TTM_BO_VM_NUM_PREFAULT);
+>>>>> +                                  TTM_BO_VM_NUM_PREFAULT, true);
+>>>>>       if (ret == VM_FAULT_RETRY && !(vmf->flags &
+>>>> FAULT_FLAG_RETRY_NOWAIT))
+>>>>>               goto unlock_mclk;
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+>>>>> b/drivers/gpu/drm/ttm/ttm_bo_vm.c index
+>>>> 4212b8c91dd4..7d14a7d267aa
+>>>>> 100644
+>>>>> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+>>>>> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+>>>>> @@ -167,6 +167,7 @@ EXPORT_SYMBOL(ttm_bo_vm_reserve);
+>>>>>      * @num_prefault: Maximum number of prefault pages. The caller
+>>>>> may
+>>>> want to
+>>>>>      * specify this based on madvice settings and the size of the GPU object
+>>>>>      * backed by the memory.
+>>>>> + * @mkwrite: make the pfn or page writable
+>>>>>      *
+>>>>>      * This function inserts one or more page table entries pointing to the
+>>>>>      * memory backing the buffer object, and then returns a return
+>>>>> code @@ -180,7 +181,8 @@ EXPORT_SYMBOL(ttm_bo_vm_reserve);
+>>>>>      */
+>>>>>     vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+>>>>>                                   pgprot_t prot,
+>>>>> -                               pgoff_t num_prefault)
+>>>>> +                               pgoff_t num_prefault,
+>>>>> +                               bool mkwrite)
+>>>>>     {
+>>>>>       struct vm_area_struct *vma = vmf->vma;
+>>>>>       struct ttm_buffer_object *bo = vma->vm_private_data; @@ -263,7
+>>>>> +265,7 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+>>>>>                * at arbitrary times while the data is mmap'ed.
+>>>>>                * See vmf_insert_pfn_prot() for a discussion.
+>>>>>                */
+>>>>> -           ret = vmf_insert_pfn_prot(vma, address, pfn, prot);
+>>>>> +           ret = vmf_insert_pfn_prot(vma, address, pfn, prot,
+>>>>> + mkwrite);
+>>>>>
+>>>>>               /* Never error on prefaulted PTEs */
+>>>>>               if (unlikely((ret & VM_FAULT_ERROR))) { @@ -312,7
+>>>>> +314,7
+>>>> @@
+>>>>> vm_fault_t ttm_bo_vm_dummy_page(struct vm_fault *vmf, pgprot_t
+>> prot)
+>>>>>       /* Prefault the entire VMA range right away to avoid further faults */
+>>>>>       for (address = vma->vm_start; address < vma->vm_end;
+>>>>>            address += PAGE_SIZE)
+>>>>> -           ret = vmf_insert_pfn_prot(vma, address, pfn, prot);
+>>>>> +           ret = vmf_insert_pfn_prot(vma, address, pfn, prot,
+>>>>> + true);
+>>>>>
+>>>>>       return ret;
+>>>>>     }
+>>>>> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
+>>>>> b/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
+>>>>> index 74ff2812d66a..bb8e4b641681 100644
+>>>>> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
+>>>>> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
+>>>>> @@ -452,12 +452,14 @@ vm_fault_t vmw_bo_vm_fault(struct vm_fault
+>>>> *vmf)
+>>>>>        * sure the page protection is write-enabled so we don't get
+>>>>>        * a lot of unnecessary write faults.
+>>>>>        */
+>>>>> -   if (vbo->dirty && vbo->dirty->method == VMW_BO_DIRTY_MKWRITE)
+>>>>> +   if (vbo->dirty && vbo->dirty->method == VMW_BO_DIRTY_MKWRITE)
+>>>> {
+>>>>>               prot = vm_get_page_prot(vma->vm_flags & ~VM_SHARED);
+>>>>> -   else
+>>>>> +           ret = ttm_bo_vm_fault_reserved(vmf, prot, num_prefault,
+>>>> false);
+>>>>> +   } else {
+>>>>>               prot = vm_get_page_prot(vma->vm_flags);
+>>>>> +           ret = ttm_bo_vm_fault_reserved(vmf, prot, num_prefault,
+>>>> true);
+>>>>> +   }
+>>>>>
+>>>>> -   ret = ttm_bo_vm_fault_reserved(vmf, prot, num_prefault);
+>>>>>       if (ret == VM_FAULT_RETRY && !(vmf->flags &
+>>>> FAULT_FLAG_RETRY_NOWAIT))
+>>>>>               return ret;
+>>>>>
+>>>>> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+>>>>> index 0223a41a64b2..66e293db69ee 100644
+>>>>> --- a/include/drm/ttm/ttm_bo.h
+>>>>> +++ b/include/drm/ttm/ttm_bo.h
+>>>>> @@ -386,7 +386,8 @@ vm_fault_t ttm_bo_vm_reserve(struct
+>>>> ttm_buffer_object *bo,
+>>>>>                            struct vm_fault *vmf);
+>>>>>     vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+>>>>>                                   pgprot_t prot,
+>>>>> -                               pgoff_t num_prefault);
+>>>>> +                               pgoff_t num_prefault,
+>>>>> +                               bool mkwrite);
+>>>>>     vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf);
+>>>>>     void ttm_bo_vm_open(struct vm_area_struct *vma);
+>>>>>     void ttm_bo_vm_close(struct vm_area_struct *vma); diff --git
+>>>>> a/include/linux/mm.h b/include/linux/mm.h index
+>>>>> f5a97dec5169..f8868e28ea04 100644
+>>>>> --- a/include/linux/mm.h
+>>>>> +++ b/include/linux/mm.h
+>>>>> @@ -3553,7 +3553,7 @@ int vm_map_pages_zero(struct
+>> vm_area_struct
+>>>> *vma, struct page **pages,
+>>>>>     vm_fault_t vmf_insert_pfn(struct vm_area_struct *vma, unsigned
+>>>>> long
+>>>> addr,
+>>>>>                       unsigned long pfn);
+>>>>>     vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma,
+>>>>> unsigned
+>>>> long addr,
+>>>>> -                   unsigned long pfn, pgprot_t pgprot);
+>>>>> +                   unsigned long pfn, pgprot_t pgprot, bool
+>>>>> + mkwrite);
+>>>>>     vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned
+>>>>> long
+>>>> addr,
+>>>>>                       pfn_t pfn);
+>>>>>     vm_fault_t vmf_insert_mixed_mkwrite(struct vm_area_struct *vma,
+>>>>> diff --git a/mm/memory.c b/mm/memory.c index
+>>>>> 7e1f4849463a..2c28f1a349ff
+>>>>> 100644
+>>>>> --- a/mm/memory.c
+>>>>> +++ b/mm/memory.c
+>>>>> @@ -2195,6 +2195,7 @@ static vm_fault_t insert_pfn(struct
+>>>> vm_area_struct *vma, unsigned long addr,
+>>>>>      * @addr: target user address of this page
+>>>>>      * @pfn: source kernel pfn
+>>>>>      * @pgprot: pgprot flags for the inserted page
+>>>>> + * @mkwrite: make the pfn writable
+>>>>>      *
+>>>>>      * This is exactly like vmf_insert_pfn(), except that it allows drivers
+>>>>>      * to override pgprot on a per-page basis.
+>>>>> @@ -2223,7 +2224,7 @@ static vm_fault_t insert_pfn(struct
+>>>> vm_area_struct *vma, unsigned long addr,
+>>>>>      * Return: vm_fault_t value.
+>>>>>      */
+>>>>>     vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma,
+>>>>> unsigned
+>>>> long addr,
+>>>>> -                   unsigned long pfn, pgprot_t pgprot)
+>>>>> +                   unsigned long pfn, pgprot_t pgprot, bool
+>>>>> + mkwrite)
+>>>>>     {
+>>>>>       /*
+>>>>>        * Technically, architectures with pte_special can avoid all
+>>>>> these @@ -2246,7 +2247,7 @@ vm_fault_t vmf_insert_pfn_prot(struct
+>>>> vm_area_struct *vma, unsigned long addr,
+>>>>>       track_pfn_insert(vma, &pgprot, __pfn_to_pfn_t(pfn, PFN_DEV));
+>>>>>
+>>>>>       return insert_pfn(vma, addr, __pfn_to_pfn_t(pfn, PFN_DEV), pgprot,
+>>>>> -                   false);
+>>>>> +                   mkwrite);
+>>>>>     }
+>>>>>     EXPORT_SYMBOL(vmf_insert_pfn_prot);
+>>>>>
+>>>>> @@ -2273,10 +2274,17 @@ EXPORT_SYMBOL(vmf_insert_pfn_prot);
+>>>>>     vm_fault_t vmf_insert_pfn(struct vm_area_struct *vma, unsigned
+>>>>> long
+>>>> addr,
+>>>>>                       unsigned long pfn)
+>>>>>     {
+>>>>> -   return vmf_insert_pfn_prot(vma, addr, pfn, vma->vm_page_prot);
+>>>>> +   return vmf_insert_pfn_prot(vma, addr, pfn, vma->vm_page_prot,
+>>>>> +false);
+>>>>>     }
+>>>>>     EXPORT_SYMBOL(vmf_insert_pfn);
+>>>>>
+>>>>> +vm_fault_t vmf_insert_pfn_mkwrite(struct vm_area_struct *vma,
+>>>>> +unsigned
+>>>> long addr,
+>>>>> +                   unsigned long pfn) {
+>>>>> +   return vmf_insert_pfn_prot(vma, addr, pfn, vma->vm_page_prot,
+>>>> true);
+>>>>> +} EXPORT_SYMBOL(vmf_insert_pfn_mkwrite);
+>>>>> +
+>>>>>     static bool vm_mixed_ok(struct vm_area_struct *vma, pfn_t pfn)
+>>>>>     {
+>>>>>       /* these checks mirror the abort conditions in vm_normal_page
+>>>>> */
 
