@@ -4,63 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB589C47258
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jan 2024 15:25:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89FEAC47422
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jan 2024 15:55:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80B4D10F911;
-	Thu, 25 Jan 2024 15:25:09 +0000 (UTC)
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
- [209.85.160.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0E6B10F911
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jan 2024 15:25:08 +0000 (UTC)
-Received: by mail-oa1-f44.google.com with SMTP id
- 586e51a60fabf-21481a3de56so1722667fac.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jan 2024 07:25:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706196248; x=1706801048; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=epf43hFwuI9y4ljhK7MIApBfTymGAqfGbAJTH6TXrUo=;
- b=kGu4tIDTKbKvUWnFBmFGpanFidVX8RS7Pumunr4j16NtbmNDZyXG3ul5d6m0hikUzJ
- nT+JwFQaKlPUY0EsjCqB7gPdArwa0b+kzO7nQtCYJXFsU3vmIBoDNbIGiYxqulxEekcC
- TvHGBlyruGVtP5hgJ6jfSnBxL59Lusnl2JQMolx54Prd0p4Mu17fh+CG4JNigVfdof0f
- pUcGoQPjOc5WKQAm5629BDQtvmRsDVhu6oX7tL5vH/vm88L/2m5xm7iA6APQwsv9DdWF
- yYLi5t9VfZbo3Hn8bGyo5zkuin0zb2F0ZVXZitv10QQ44gBhZ73L9fFP4aiVpb4nQE1E
- kFuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706196248; x=1706801048;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=epf43hFwuI9y4ljhK7MIApBfTymGAqfGbAJTH6TXrUo=;
- b=VfF6CkMrbkeo7nv6tpxCf4wJdvoFWZMe9/6KaLFhRl0mbTN4Qi8kX04BkQkPPGICMT
- PwevczpvbTKfdQubWMKIB4Tl3IrQZmJrLMBg/suOFVaiZNfN2BzT2umkOuynE3NQL2SK
- TsOem+uUcl0mFO+JGCazymim703Tl1a/AfAI+WMM4OGOWUMzh7JWNZ+G2YyvPn8ViuN5
- fPv1lebcuSC88ZaTpJC4MexD2BkrZr0YUZTvQaNgjH1m3Rhei0fMqX/FED4ibocaT8zQ
- O3IGC9h7gkwyiQPZA/eb9btqwqNGbtsH0NV4DVllJ7FTZkoY1c61PQYN+NVHPerRcKSU
- GyIg==
-X-Gm-Message-State: AOJu0Yyv6uMFMLAYAE6XhtUqRjmFO4mNjqmF4e3Wtt0+UXI5aGPmgSAe
- P2Z4XFHsa1zJOotDNUF8OSvTTK8m9F2lChxFo+Rzbyh3y6AqoW1btCfYiuQXdl22LkVKGmTziih
- OgUHSsB0Lk4DcXlh0pbL4cgtQNEdKc0as
-X-Google-Smtp-Source: AGHT+IF8blwj9rwCGqNpBUrTFBwxt4SpqWudpB2kT88zWu/IQSVELj+Q9TesTHcwZD5kvzutZ+EfY8U5j0pGPzkdEqc=
-X-Received: by 2002:a05:6871:5d3:b0:210:e14a:7a9c with SMTP id
- v19-20020a05687105d300b00210e14a7a9cmr986143oan.58.1706196248047; Thu, 25 Jan
- 2024 07:24:08 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0478F10F93B;
+	Thu, 25 Jan 2024 15:55:53 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2067.outbound.protection.outlook.com [40.107.220.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48B9510F93B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jan 2024 15:55:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OqVPsN/VAcb1qa5NsPZPdaYVuZbMUaqwjL4po45SCKU/UZ25c+Jz/Azy6SQA485OOjTaAq6TFgGh22wxYY8XVB2aLZNB9CNFgIG+um5bJUf6hYslPhixCcY2jQe43VG82fRf1F3UC9Y9Z8vdCtxiWUw6tfa4R/1QJxjYxjTlc+P+7qQ6+SArzC3R9ql0Hoy937tjgNWdqohGlW+J9vLjs+NoB+cZh6jEmzEO1lHGhS5B/zD3GWbgUCKQZ+sMpsO52bKGOUNUCjF61DKoaEYQDmm0baL+zPwnKKeRqoY0vkg3enB8utgygt9o+Hd7MfzfstrRCoF3DX7pfj9l5Bgxng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=whP9JhutUf6l2pItQtSauy9Kx3G7yTqqSwOJTsfuJvI=;
+ b=RhrrKlesxtwpr/LmY7b/qF7SERaQZlkS5LJC0MnggwUME0qkVewlIZgVUce2jLRuWCbH9MQ+6ks8GYomNX99UP2kZmoq1rOxZL5VJLTGk/DSW0Bhr+jq6HBZi4oE8NAeUaZ1OM8mRwFCGmaDYln+JFOfCDjK0TBLGy5nDezF9P8rYt6XIqCmEnve2kzc90H9GOjnLaVIlrEaT5xzQcrvxBFaF67r94dOq31DHfCPDT9ysAm3H69Xpurcpq0KUdHymxtZV/Z1NmQhX+V8udB5Tcl1qYZJvOExXWRbBcmqQqdIOSs4bRUdBkMKCLGy6csOj4dgmUPFww5v6Pc0kf+07Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=whP9JhutUf6l2pItQtSauy9Kx3G7yTqqSwOJTsfuJvI=;
+ b=cBVy2I86dhvW/EyS73jux0ztDH+xwedyJtxBamAnCjtb3cWSvIaeopjJoEUg5Xn60jDoDtnMymX69jrSKDiEfVABfRlZOTTdWfutE9Pkcg3rBxrlsTwUinXtt2PvIYs8FSdJT93nO6RtOyOH5W1uEB6RiN5AtBwkLDXQTmJuLVo=
+Received: from SA9PR13CA0032.namprd13.prod.outlook.com (2603:10b6:806:22::7)
+ by PH7PR12MB6636.namprd12.prod.outlook.com (2603:10b6:510:212::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.26; Thu, 25 Jan
+ 2024 15:55:32 +0000
+Received: from SN1PEPF0002BA4F.namprd03.prod.outlook.com
+ (2603:10b6:806:22:cafe::af) by SA9PR13CA0032.outlook.office365.com
+ (2603:10b6:806:22::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.19 via Frontend
+ Transport; Thu, 25 Jan 2024 15:55:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4F.mail.protection.outlook.com (10.167.242.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7228.16 via Frontend Transport; Thu, 25 Jan 2024 15:55:29 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.34; Thu, 25 Jan 2024 09:55:26 -0600
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>
+Subject: [PATCH] drm/amd/display: Fix potential NULL pointer dereferences in
+ 'dcn10_set_output_transfer_func()'
+Date: Thu, 25 Jan 2024 21:25:05 +0530
+Message-ID: <20240125155505.1258618-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240124065932.892944-1-Prike.Liang@amd.com>
- <CADnq5_PJyh50wpHQuU_UFYvpnnp8PsteAJ7ymazFHMWD92cyDw@mail.gmail.com>
- <DS7PR12MB6005078B67C8122627CAA45DFB7A2@DS7PR12MB6005.namprd12.prod.outlook.com>
- <CADnq5_P0NJ7Vd1LBbECxf-1X-s3BOdYb0Q4FjEQe9TptjX_j9A@mail.gmail.com>
-In-Reply-To: <CADnq5_P0NJ7Vd1LBbECxf-1X-s3BOdYb0Q4FjEQe9TptjX_j9A@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 25 Jan 2024 10:23:56 -0500
-Message-ID: <CADnq5_PO-gnc72wRM+mUxtCnsmqE0ytFVbB=QkMQkEGkCQoQFg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: skip to program GFXDEC registers for PM
- abort case
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4F:EE_|PH7PR12MB6636:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4c8ed1f-b4c5-4ece-2505-08dc1dbe0dda
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ZkdJHWsdd+avDy9Yx+UtB9wAgwicH4qfjyVr82TVzIOV8EEX+OtYmgMhsPh/TG0r7oMZ87VUCoMdwqyOodC3eiL2L+IiDEAIXBWyMnVPw/01fLgE+InGIX0OhKhhtQLA9BlvOofkIDQWHhh+3yHRrf5eXAeaMA4QzKh62VjtYPyrcHHwnevy+CEsJut0Elpf8/OfRXbsF9vnEEdoGGcU8V8pREBiDLcMfbdPt/rloQy2Nb4rQAJRtDJ1d9TgyV0tu3467zHRdpFLLhOTp5bDx1HqQbjhW8zGjamb/OATkVsKJQfggRy5cKnNGAoLlR1pGUw6zZDLbUSpCnUfT8LmQ8jd38zfHJCGn3XTDY00ggODyM0HjviEMmzLD9VGqjiATkC9TyAF9CIDNNuVCrHdHCBYhKQQJzQXxwB2Fx4scrQUNa7o0YN3XSqm41ikj3weNq3vQOWPWOhUZ0u/fZOEfJpRnw9zuGm67fdMzwt/8zw3K7rdKfIEAi74GG1K7hd9U8EXv35TaJnS3ILlrBj+SiIvBF5mHuYEDFiSR8K2QFFD9FpI1gRcd6FG0lwZ0r1OyRD8xMMwuEUoTKWrY1tqFl4tHu0gtk+2A+YZUABgWcSQZVeKUYsdvGn2zeHw4v4mp5MZAlYoE6S1/YE/+wew/GK0IiLQwY+K1edXscp1Pce2MGLTmN8Yoenlwp5F1lDUeKVsEuZbe1B/GEa7FdWmqHC2axN0nyJ2AyrI7/ftkXQ0GnOkNO2VgfEjLxtwX7EdUmw0AAD065z4ee0I8+kspw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(396003)(39860400002)(136003)(376002)(230922051799003)(64100799003)(1800799012)(451199024)(186009)(82310400011)(40470700004)(46966006)(36840700001)(5660300002)(41300700001)(2906002)(36756003)(6666004)(2616005)(26005)(16526019)(1076003)(7696005)(83380400001)(426003)(336012)(86362001)(316002)(110136005)(70586007)(6636002)(70206006)(54906003)(40480700001)(40460700003)(478600001)(356005)(81166007)(82740400003)(47076005)(36860700001)(8676002)(4326008)(8936002)(44832011)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2024 15:55:29.2378 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4c8ed1f-b4c5-4ece-2505-08dc1dbe0dda
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6636
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,121 +99,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Sharma,
- Deepak" <Deepak.Sharma@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Anthony Koo <Anthony.Koo@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org, Wyatt Wood <wyatt.wood@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 25, 2024 at 10:22=E2=80=AFAM Alex Deucher <alexdeucher@gmail.co=
-m> wrote:
->
-> On Wed, Jan 24, 2024 at 9:39=E2=80=AFPM Liang, Prike <Prike.Liang@amd.com=
-> wrote:
-> >
-> > [AMD Official Use Only - General]
-> >
-> > Hi, Alex
-> > > -----Original Message-----
-> > > From: Alex Deucher <alexdeucher@gmail.com>
-> > > Sent: Wednesday, January 24, 2024 11:59 PM
-> > > To: Liang, Prike <Prike.Liang@amd.com>
-> > > Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> > > <Alexander.Deucher@amd.com>; Sharma, Deepak
-> > > <Deepak.Sharma@amd.com>
-> > > Subject: Re: [PATCH 1/2] drm/amdgpu: skip to program GFXDEC registers=
- for
-> > > PM abort case
-> > >
-> > > On Wed, Jan 24, 2024 at 2:12=E2=80=AFAM Prike Liang <Prike.Liang@amd.=
-com> wrote:
-> > > >
-> > > > In the PM abort cases, the gfx power rail doesn't turn off so some
-> > > > GFXDEC registers/CSB can't reset to default vaule. In order to avoi=
-d
-> > > > unexpected problem now need skip to program GFXDEC registers and
-> > > > bypass issue CSB packet for PM abort case.
-> > > >
-> > > > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> > > > ---
-> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
-> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
-> > > >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 4 ++++
-> > > >  3 files changed, 6 insertions(+)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > > > index c5f3859fd682..26d983eb831b 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > > > @@ -1079,6 +1079,7 @@ struct amdgpu_device {
-> > > >         bool                            in_s3;
-> > > >         bool                            in_s4;
-> > > >         bool                            in_s0ix;
-> > > > +       bool                            pm_complete;
-> > > >
-> > > >         enum pp_mp1_state               mp1_state;
-> > > >         struct amdgpu_doorbell_index doorbell_index; diff --git
-> > > > a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > > index 475bd59c9ac2..a01f9b0c2f30 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > > @@ -2486,6 +2486,7 @@ static int amdgpu_pmops_suspend_noirq(struct
-> > > device *dev)
-> > > >         struct drm_device *drm_dev =3D dev_get_drvdata(dev);
-> > > >         struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
-> > > >
-> > > > +       adev->pm_complete =3D true;
-> > >
-> > > This needs to be cleared somewhere on resume.
-> > [Liang, Prike]  This flag is designed to indicate the amdgpu device sus=
-pension process status and will update the patch and clear it at the amdgpu=
- suspension beginning point.
-> > >
-> > > >         if (amdgpu_acpi_should_gpu_reset(adev))
-> > > >                 return amdgpu_asic_reset(adev);
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > > > b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > > > index 57808be6e3ec..3bf51f18e13c 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > > > @@ -3034,6 +3034,10 @@ static int gfx_v9_0_cp_gfx_start(struct
-> > > > amdgpu_device *adev)
-> > > >
-> > > >         gfx_v9_0_cp_gfx_enable(adev, true);
-> > > >
-> > > > +       if (adev->in_suspend && !adev->pm_complete) {
-> > > > +               DRM_INFO(" will skip the csb ring write\n");
-> > > > +               return 0;
-> > > > +       }
-> > >
-> > > We probably want a similar fix for other gfx generations as well.
-> > >
-> > > Alex
-> > >
-> > [Liang, Prike] IIRC, there's no issue on the Mendocino side even withou=
-t the fix. How about keep the other gfx generations unchanged firstly and a=
-fter sort out the failed case will add the quirk for each specific gfx resp=
-ectively?
->
-> Mendocino only supports S0i3 so we don't touch gfx on suspend/resume.
-> This would only happen on platforms that support S3.
+The 'stream' pointer is used in dcn10_set_output_transfer_func() before
+the check if 'stream' is NULL.
 
-E.g., try an aborted suspend on Raphael or PHX2.
+Fixes the below:
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn10/dcn10_hwseq.c:1892 dcn10_set_output_transfer_func() warn: variable dereferenced before check 'stream' (see line 1875)
 
-Alex
+Fixes: ddef02de0d71 ("drm/amd/display: add null checks before logging")
+Cc: Wyatt Wood <wyatt.wood@amd.com>
+Cc: Anthony Koo <Anthony.Koo@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
->
-> Alex
->
-> >
-> > > >         r =3D amdgpu_ring_alloc(ring, gfx_v9_0_get_csb_size(adev) +=
- 4 + 3);
-> > > >         if (r) {
-> > > >                 DRM_ERROR("amdgpu: cp failed to lock ring (%d).\n",
-> > > > r);
-> > > > --
-> > > > 2.34.1
-> > > >
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+index d923d8d915f9..22cce2b58f95 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+@@ -1890,6 +1890,9 @@ bool dcn10_set_output_transfer_func(struct dc *dc, struct pipe_ctx *pipe_ctx,
+ {
+ 	struct dpp *dpp = pipe_ctx->plane_res.dpp;
+ 
++	if (!stream)
++		return false;
++
+ 	if (dpp == NULL)
+ 		return false;
+ 
+@@ -1912,8 +1915,8 @@ bool dcn10_set_output_transfer_func(struct dc *dc, struct pipe_ctx *pipe_ctx,
+ 	} else
+ 		dpp->funcs->dpp_program_regamma_pwl(dpp, NULL, OPP_REGAMMA_BYPASS);
+ 
+-	if (stream != NULL && stream->ctx != NULL &&
+-			stream->out_transfer_func != NULL) {
++	if (stream->ctx &&
++	    stream->out_transfer_func) {
+ 		log_tf(stream->ctx,
+ 				stream->out_transfer_func,
+ 				dpp->regamma_params.hw_points_num);
+-- 
+2.34.1
+
