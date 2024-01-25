@@ -4,88 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD11AC47258
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jan 2024 18:38:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97D11C47258
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jan 2024 18:49:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6902110EE72;
-	Thu, 25 Jan 2024 18:38:54 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D29310EE72
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jan 2024 18:38:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1ACA910E71A;
+	Thu, 25 Jan 2024 18:49:57 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2071.outbound.protection.outlook.com [40.107.93.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F4A010E71A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jan 2024 18:49:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VWZiqlYGPxcrHr/sLIqjbp5d/XG9+9JgFlon8BiCOfslbY71k505oXecXowMXsEawTtBigfjsUJal8Kt7O2niAyNq5CKsqfUezOoe/GxM8N25H4LHF9cUxh7n2iZ6jbEHIl0XbErg8ysqIuTC5UPsiBBVB4LF7S8HVPFW5uvArSKZticQr0gXn0WHR9tcPs8P4INimim0RnAv5/tpeQ/PmgskWlBTVZ1iUGjtP9/vVWQAmZOUdf7nh2tcOfQp/mzbwxppNdUJ338eQcted/c5a6hN2wjwN4y+G0NyLfHb5RDiqM/jpp9p/Gm4kzd7FR2zsitwAbcD8wstKQt4H2t+w==
+ b=LLRFPK/AdQ8hUY7dA22lP9nduTunprvgiJ7Peb+/kNZIO5ABST4sQTSPiK4BanlyRidUqg6N73JQc1vFv4Txn2ZUt2seHI8FJGOaX/fiTQvTvgF6kf5lDcs4P4OxjkYGJrYHg2ORCN4Jx+/yrfydLI3/0oGu53WDlKkWL7YNCvxbNgMjDgWja2SwHh6+nmJMz/p9zVym97U3mQkVFy8zBRG0kk2tT4vqCEyt3Js5/GgFhx9W1v7e6aFon5nhnV/bsKIvW28ifYDdU6jtapSuyrKmEHrToswBdS49WgHGgesqcBDJGbZaYZkhxGKyfADslmNkP01a0V0sJYwiDfwrMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1VRsEf5udlh6oS+FpQg1Mr/i7hkdZv9kk0ooFV4dfaQ=;
- b=aV2OQoT7uz1ERmR0fBPSnhtGe7O1fBFeawwIuBuLxa9pB8PY8UGylXsSOSm5oVLZuDyV+IonrPS6W7jCSlrAD1lVNFoPjvjWiZ+cLb3xYRyaMBr72ZttHgwdunv3FrFnNs5W3bJeAHQMGNxafPrkn8AMPrEkALToHxVyHAU1CW/ODrbkby9/irX+ew5WAMige3fAEquF0KMWyHKuehBeiunEckUw7bNp82qfmM6lEyGCoKf6vSyKXnjy9bMG0iNbdtNk1PwHuBDNVR3Fj2+6eyigZabPIQb6JTRuPP3zeHa1/RXE9Xr8Ya5wyXrbT9oX0p9s5pg1hkVJqdB1AJ+46g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=/+NbRcxWWlWye2Jntjw/5RUDM3UitJELIKcJBa8Z5Us=;
+ b=j1EainSIoa4k97VHpodvLOFE9cl56URDYejEdFaB4AfZbq/KEiFYChA7ZVsuFzlj7I6W0MbSFLeNMa6h5SsAQRgT7eZyV6DOwWOoXLKBsQAEtvs6oM8WhSCcPgNXN+DNcKlF44rh/Z2zvgFVaGZezR7wEm8c5G2RbD49r/pSbVEvmbMtBAk9aNwmTr5mx1ETbuzop5m6xjg4l7nKwKHImseJ9PwVbtDX7x+opTiwaKtGPdvQkC1SaEKFa8+XFwcKYVyzoRGPw9qeNHpGkn/Ni3yxBQ3rUsZyvitw/l3yj9tZNHXmnKXsJk7SnmjLf/HYgB5V6pOw5lBpzUPDqH9uoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1VRsEf5udlh6oS+FpQg1Mr/i7hkdZv9kk0ooFV4dfaQ=;
- b=NAtHX8Yz0UX/LOrqZXcyJY03X341C3nSWKH+aByEr17tQ5ijOvO5tqLwCUfHxdd2Ji67oZJV/AxWzC9aDRkbsscg0Uox6pEOLL8Uc3mylBdhsJ3JCP3FxUUwCtsYw/1kXWwtiVE3C8j9cRjUYof9zOx+gtjBP1QVtALeL1lT10k=
-Received: from MN2PR03CA0016.namprd03.prod.outlook.com (2603:10b6:208:23a::21)
- by SN7PR12MB8027.namprd12.prod.outlook.com (2603:10b6:806:32a::7)
+ bh=/+NbRcxWWlWye2Jntjw/5RUDM3UitJELIKcJBa8Z5Us=;
+ b=PSjttQ74rQARajtDSN5RpWFxG4vSj9wLV0By+/WqXOr7mJfD685ic1W8WLA23MZjyfpTCYSmaJbbR18Esp26vxppzFyrQ1q6UO7A3omfi9NVip5bbcsav1c/9snLTRrLsYuAmOvpnuT0wQVAt82/iLwhqNYtMqDXHC1PyGScV+M=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MW6PR12MB8733.namprd12.prod.outlook.com (2603:10b6:303:24c::8)
+ by IA1PR12MB7710.namprd12.prod.outlook.com (2603:10b6:208:422::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.22; Thu, 25 Jan
- 2024 18:38:36 +0000
-Received: from MN1PEPF0000F0E2.namprd04.prod.outlook.com
- (2603:10b6:208:23a:cafe::6) by MN2PR03CA0016.outlook.office365.com
- (2603:10b6:208:23a::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.24 via Frontend
- Transport; Thu, 25 Jan 2024 18:38:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000F0E2.mail.protection.outlook.com (10.167.242.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7228.16 via Frontend Transport; Thu, 25 Jan 2024 18:38:33 +0000
-Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 25 Jan
- 2024 12:38:32 -0600
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/include: Add missing registers/mask for DCN316 and 350
-Date: Thu, 25 Jan 2024 11:37:25 -0700
-Message-ID: <20240125183752.999995-1-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
+ 2024 18:49:51 +0000
+Received: from MW6PR12MB8733.namprd12.prod.outlook.com
+ ([fe80::36bb:f12:cd0b:9e8e]) by MW6PR12MB8733.namprd12.prod.outlook.com
+ ([fe80::36bb:f12:cd0b:9e8e%4]) with mapi id 15.20.7228.027; Thu, 25 Jan 2024
+ 18:49:50 +0000
+Message-ID: <d122b1ed-cdaa-4a5b-950f-2c748c401635@amd.com>
+Date: Thu, 25 Jan 2024 11:49:45 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/8] Expand and improve AMDGPU documentation
+Content-Language: en-US
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+References: <20240122212719.647008-1-Rodrigo.Siqueira@amd.com>
+ <45f7662f-8fb3-4605-abd0-0600a160fc62@amd.com>
+From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
+In-Reply-To: <45f7662f-8fb3-4605-abd0-0600a160fc62@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: BN0PR02CA0059.namprd02.prod.outlook.com
+ (2603:10b6:408:e5::34) To MW6PR12MB8733.namprd12.prod.outlook.com
+ (2603:10b6:303:24c::8)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E2:EE_|SN7PR12MB8027:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9199c4c8-ac7e-4aeb-a5e3-08dc1dd4d5f8
+X-MS-TrafficTypeDiagnostic: MW6PR12MB8733:EE_|IA1PR12MB7710:EE_
+X-MS-Office365-Filtering-Correlation-Id: baa34d6f-d379-44a2-e319-08dc1dd66954
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RTKxZaXi040Znkl0D0UFBD/pUo5iRwvnipiXTcjL6W3/HMQmiOigqK+LK1vUeVYv55FSgcmTV4ThOMPCpZKMXNxs8eQxbabKWKGZX4NdvsC70vVNRdayuolwEn9aiQi3OypIHyzZVQPWk05VMOZrEzGj2KvqiNzjEx+8kM+n8HQHSJpbla6pZjCNb5FrLy5Jmk63v/j8264A5i6s0whJGlzwJPrArsyQDcxBy2JvXFNleB5pl+oJeot6RLZ0Day+uCVI6P21LiXew+1Gc94f0jMSaeCNeKFTOukPbe4ZZ0XrPGIldUzEG4KOv2Lngyd1/WqF8F6BP7ddj2wmvR0ptlTCjaxSYZ9rGr950oWKOaRCW18RfG0Fz2RPjB8D+ey2Zbs0GRZ6DguzG41wRHYAV3ziqEbWoMbBMJUkkdszLRsTKb8meGOMyPJhSCK/SCRcj7r8lx8nMuaozQJzmk2evirOYdUVc1EC6b44rmnHrwvkykfKSMcj2pQPOPfXfLL5yeSBsib8kSnLqcG5SqBRvMUhuG0yUi4UmRKuVx3OAo7QmlK6b88y49tRbBAkzkzrA19QxTbzaKXY+0a8sq7JfiwNBYtSlKvDfaXVM9W7mF8BXVlYqudEoo0WMaWQ/+xnKfXoFGNJ8408P/kZokQUOVFhR7ga5LLiW+KxchOxuzJ0kEXbi3GbCg3xwalkNuozM7ZtoVb4WMEq5q7eKaePSZoy9aA+pBH1afVHxGUG8NhqXOeV/0x7tKOuKro8hSh4ejGSckb81u7fvzttQFWZrQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(39860400002)(346002)(136003)(376002)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(82310400011)(40470700004)(36840700001)(46966006)(356005)(82740400003)(81166007)(426003)(66899024)(16526019)(336012)(41300700001)(83380400001)(6916009)(2616005)(86362001)(36756003)(70586007)(2906002)(6666004)(54906003)(478600001)(26005)(1076003)(30864003)(316002)(70206006)(8936002)(4326008)(5660300002)(47076005)(36860700001)(8676002)(40480700001)(40460700003)(36900700001);
+X-Microsoft-Antispam-Message-Info: qaTKQU4WgRt1zv6gDD0P6E1hCDgZs5jav5jabburUn21pkC3Wz6ncgXuSl7N8qNBoe2lQnTwUBxzggOIQ+JoYOrMxoDd+kHfMowS90j3WQ2k4/pfMaxdWRRzFvt1EVCK6bU6rmr4eG4p7A/7MFTALo6njr0TN2cYLEpUTNdOw06m9E0Vz/CaBgGJnC6kwLMEIpQI0vJOXDpyIcElK6L8/3OdbH7hYe3u/JPPafaJ4c+ZcUc2oBuXdw+um10KoPtLXCNQsOnoBRHTzrMZwLs33w+LtMxRBchVgqETyTZktwL/zm7flF5vAM/0ZMXN/Pecem43FXeJT1TkCacktKnlu1c/TzzapfAMw5TlPBO0YR+OD4vtW8Wtsj6xKCyFncx0NKYAANWglblSXeQY0Za6vP9Tr5NIQZXTEpHubQomW9g4GpsvkwYi2XmTOMAvJnnt/4j75Eagq480kw6YYRIxDPf61PnbKBgANH09RGnngz7JMw6TBQ9YIQUa9Fkq1Ld6m2FU6ZvBzPXErJc9LaGgtjRcHJeflXR8UrP8VDwZIIIXjGEaYpVyN5uBWcbv4761hGdJe2T4/PfynTLdX6JXXqWMJmY2rDPE8DZH4NEXQlWCoVxHdXPMdWzBX/21qx4Gm4Oonx3bcxSE6HuuE0TEPQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW6PR12MB8733.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(39860400002)(366004)(136003)(376002)(346002)(230922051799003)(186009)(1800799012)(64100799003)(451199024)(38100700002)(36756003)(31686004)(6666004)(316002)(66476007)(66946007)(6486002)(6506007)(66556008)(110136005)(5660300002)(53546011)(41300700001)(83380400001)(2906002)(8676002)(4326008)(478600001)(2616005)(31696002)(8936002)(6512007)(26005)(86362001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aW9jRk5ZSmFJc210a3hJcFVZeUdUL05BMUlnUkF3NDF4TjY2QnUzcHdCR1hO?=
+ =?utf-8?B?UlBjZ1ZveW9GR2VRL3dUayt0QzBwUERIKy9Wd1U4bjNnTnYwVDZBZWlsTHJs?=
+ =?utf-8?B?dzZvMU5NYnBEQ0R5Z29EMVNkVU8yNTdQaUFqL0hVTVgyZXNSWXo5b1I0MFl4?=
+ =?utf-8?B?U2ZncVdGYTBkcndiUzlFRHlndmpiSUgrbE0wVEFLb0pDQ3oxMnJqbG4xYVdO?=
+ =?utf-8?B?MTAreW5tNmtGZ1F6YytkSURCbzZZdkt6c0VuQmI3T2N3YlJxamZMMk9GYXdO?=
+ =?utf-8?B?V25XbWwrUUtYcG05RGdPdVdxVmdnV1NSbmMyanRsZnNYZXJheDBDMTFDeXBK?=
+ =?utf-8?B?d1YzRExYalkrU0JyU3ZkbmVxT3VvcG5Fbm9XR0RvcmJRdGxqY0s4cnpyN2pT?=
+ =?utf-8?B?aE9XaGRjSGJVSHl5L3ZOZytzS1JRTG0wRWZTRWloS2U0TGZZVmUwNnpHQnkz?=
+ =?utf-8?B?QmJsQ1pzMjdZSFFoNjJVRzJmVjFia3RvYjM3MW5lbDdOYmRLVmw4Y3cxNVFO?=
+ =?utf-8?B?WWQ3bHAyR0c0R0RmamVNZG13TEczdkFuNDlUeGdWYTl5eEJYd3N3Umd2MUsx?=
+ =?utf-8?B?UDhBWmJSeFBRTzVzbEw0Z2gzUHVWYTUwVEZObExlVTlMaHBvRVh6V3I1S1RN?=
+ =?utf-8?B?c0EwUWIvOHNyaWdjSHRoL2pWd3NPSnFGV05TOUxMVDFqR3MyUGVhQThoQ2d3?=
+ =?utf-8?B?WkRWSnRJcUdvM3hmeVFwcDI5RWtPdndzNGhKWm9rY2k0L3hVMVIxcVpzdDNW?=
+ =?utf-8?B?Q1hzZjdiYUNtb0tIVmFJQkxLWVhucXoybkhLVlhpUmJodk9TZmU0eGZ0Q0Rj?=
+ =?utf-8?B?VHJsMjYzR2dLcnpjZmZaZndtNmZOTzlZSDNzNURVMitmRkJSTWsvSnBsaCt5?=
+ =?utf-8?B?NWppNzc5bkRVOU00M0xiY3BLREQ3bU5FRkkySWZDb29wNkwzRE5XS2t6YkZ3?=
+ =?utf-8?B?eEJ1N3VzbFl0OS9sZDNyMVhEVEFHZ1oxRkZrQlRlZmttSXlzeXdqdjdRRnVz?=
+ =?utf-8?B?LzF6VmlyL3dDbm1sTE5naVdYZVRFRVk5dUdJMXBFWXJTUHpwSVEyUEpHSHE0?=
+ =?utf-8?B?KysrdUp6SDBCNlVUVjlxQTd3S0FUSnVFZmJLeUFhUVM1dlNiUGFxeTNwcExD?=
+ =?utf-8?B?SC9uUFQyUTNIRmR4NEJkMDBJZnlwbUZDNmNlN0twSi9HQ0k1NFlLN2pCOUxI?=
+ =?utf-8?B?UVpjSWw3c2pWbWlVbHdPaURhZ1BHM0pFdkdZRGJoZ1RkWTU0WVNicGhuQm0z?=
+ =?utf-8?B?QUhqbDg5THJNUDYrODZSTjd2d0hjb21KVnl5MHU1azFyZ1JVRG9zeW0xRXNN?=
+ =?utf-8?B?bVA0MFFTWGZnVGI0QTFUejUyaFNqdnRIWUQ5Zlc1ZEdaRGplaTQwMDY0bk9C?=
+ =?utf-8?B?VjFEWjJ0Mkd5bmlVWXloaUgrNUFGbGJ6QXcwa2w1aGZkbzE3UUZPN2JqUnpQ?=
+ =?utf-8?B?Y0F1K2FTcUFuMldrQTVXTjAvaWNETGR0S2xwVytrNEhQZWRCQWExZFRKaUl5?=
+ =?utf-8?B?VFVCSytCUnAvT0RrSUxJN2IzZldnOWgxcGxZREJSdkJpVmRtVWQ5TGlWUnlU?=
+ =?utf-8?B?Wk9JWlloTEhNeEw4V054aUJ3bjRhYis2VXhmcWVJa0pKSlFZU0p4MjB6ZUtl?=
+ =?utf-8?B?L3phY1R2TWI1MjdBMm01eFFGS0M3anJZTGUxTU9aa3luNktnZEVSeEU5Vldi?=
+ =?utf-8?B?ZkRqQ25rdzZIeFRPb3U4eVUyNGZmalEyc3lGVFNKc3E5ZGlRQk5RN2VnQmRJ?=
+ =?utf-8?B?WGpTT2k4V0VrYUQ3emlNenRxSzFscmRKMGNubDhrTHF0ak4zaXN3NzZDL3Qz?=
+ =?utf-8?B?aVNZR3FrSWx5bzNXNGNCaWRUT25aOXRzbk9TajNJZ1haaDNCdVRqQzZpcDE4?=
+ =?utf-8?B?Z1htV0VqM0F3TURDaWtJY1ZzdDBIMVpsSFFOOGQ1SkJuNmNGZmZmZGxVN0lJ?=
+ =?utf-8?B?dG5HMzB6Zkc3VEdCZERjS3hBeDRscmJGOU9LSWFwdTFlKzJqdFVEaFFibXU1?=
+ =?utf-8?B?K2drVTA0NHhvQzlNZHJUZXZydjBCQWRPYlJFREEvMG95VDRneDZkb3REcVAy?=
+ =?utf-8?B?cHBlQ1NKSU5JbzZOUkhBN2JBK1h3bTUxTVNGaThMdjgwY1pLd05UY1FOajJ5?=
+ =?utf-8?Q?Q59OJy/rov93bN8vEV3Nt3msM?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2024 18:38:33.9413 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9199c4c8-ac7e-4aeb-a5e3-08dc1dd4d5f8
+X-MS-Exchange-CrossTenant-Network-Message-Id: baa34d6f-d379-44a2-e319-08dc1dd66954
+X-MS-Exchange-CrossTenant-AuthSource: MW6PR12MB8733.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2024 18:49:50.8685 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E2.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8027
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aSoUzUXg5x6AiLwZXfMoZ8BATgDV0bZx3FNe/q10JuveLq0DVmkIZm0XQ1Fl4pWXuj57sH6jIUF2OVXZ4pHsoA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7710
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,272 +129,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Cc: Jun Lei <Jun.Lei@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- .../include/asic_reg/dcn/dcn_3_1_6_offset.h   |  4 ++
- .../include/asic_reg/dcn/dcn_3_1_6_sh_mask.h  | 10 +++
- .../include/asic_reg/dcn/dcn_3_5_0_offset.h   | 24 +++++++
- .../include/asic_reg/dcn/dcn_3_5_0_sh_mask.h  | 65 +++++++++++++++++++
- 4 files changed, 103 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_1_6_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_1_6_offset.h
-index 222fa8d13269..a05bf8e4f58d 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_1_6_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_1_6_offset.h
-@@ -626,6 +626,8 @@
- #define regDTBCLK_DTO2_MODULO_BASE_IDX                                                                  2
- #define regDTBCLK_DTO3_MODULO                                                                           0x0022
- #define regDTBCLK_DTO3_MODULO_BASE_IDX                                                                  2
-+#define regHDMICHARCLK0_CLOCK_CNTL                                                                      0x004a
-+#define regHDMICHARCLK0_CLOCK_CNTL_BASE_IDX                                                             2
- #define regPHYASYMCLK_CLOCK_CNTL                                                                        0x0052
- #define regPHYASYMCLK_CLOCK_CNTL_BASE_IDX                                                               2
- #define regPHYBSYMCLK_CLOCK_CNTL                                                                        0x0053
-@@ -638,6 +640,8 @@
- #define regPHYESYMCLK_CLOCK_CNTL_BASE_IDX                                                               2
- #define regPHYFSYMCLK_CLOCK_CNTL                                                                        0x0057
- #define regPHYFSYMCLK_CLOCK_CNTL_BASE_IDX                                                               2
-+#define regHDMISTREAMCLK_CNTL                                                                           0x0059
-+#define regHDMISTREAMCLK_CNTL_BASE_IDX                                                                  2
- #define regDCCG_GATE_DISABLE_CNTL3                                                                      0x005a
- #define regDCCG_GATE_DISABLE_CNTL3_BASE_IDX                                                             2
- #define regHDMISTREAMCLK0_DTO_PARAM                                                                     0x005b
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_1_6_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_1_6_sh_mask.h
-index 8ddb03a1dc39..df84941bbe5b 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_1_6_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_1_6_sh_mask.h
-@@ -1933,6 +1933,11 @@
- //DTBCLK_DTO3_MODULO
- #define DTBCLK_DTO3_MODULO__DTBCLK_DTO3_MODULO__SHIFT                                                         0x0
- #define DTBCLK_DTO3_MODULO__DTBCLK_DTO3_MODULO_MASK                                                           0xFFFFFFFFL
-+//HDMICHARCLK0_CLOCK_CNTL
-+#define HDMICHARCLK0_CLOCK_CNTL__HDMICHARCLK0_EN__SHIFT                                                       0x0
-+#define HDMICHARCLK0_CLOCK_CNTL__HDMICHARCLK0_SRC_SEL__SHIFT                                                  0x4
-+#define HDMICHARCLK0_CLOCK_CNTL__HDMICHARCLK0_EN_MASK                                                         0x00000001L
-+#define HDMICHARCLK0_CLOCK_CNTL__HDMICHARCLK0_SRC_SEL_MASK                                                    0x00000070L
- //PHYASYMCLK_CLOCK_CNTL
- #define PHYASYMCLK_CLOCK_CNTL__PHYASYMCLK_FORCE_EN__SHIFT                                                     0x0
- #define PHYASYMCLK_CLOCK_CNTL__PHYASYMCLK_FORCE_SRC_SEL__SHIFT                                                0x4
-@@ -1967,6 +1972,11 @@
- #define PHYFSYMCLK_CLOCK_CNTL__PHYFSYMCLK_FORCE_SRC_SEL__SHIFT                                                0x4
- #define PHYFSYMCLK_CLOCK_CNTL__PHYFSYMCLK_FORCE_EN_MASK                                                       0x00000001L
- #define PHYFSYMCLK_CLOCK_CNTL__PHYFSYMCLK_FORCE_SRC_SEL_MASK                                                  0x00000030L
-+//HDMISTREAMCLK_CNTL
-+#define HDMISTREAMCLK_CNTL__HDMISTREAMCLK0_SRC_SEL__SHIFT                                                     0x0
-+#define HDMISTREAMCLK_CNTL__HDMISTREAMCLK0_DTO_FORCE_DIS__SHIFT                                               0x10
-+#define HDMISTREAMCLK_CNTL__HDMISTREAMCLK0_SRC_SEL_MASK                                                       0x00000003L
-+#define HDMISTREAMCLK_CNTL__HDMISTREAMCLK0_DTO_FORCE_DIS_MASK                                                 0x00010000L
- //DCCG_GATE_DISABLE_CNTL3
- #define DCCG_GATE_DISABLE_CNTL3__HDMISTREAMCLK0_GATE_DISABLE__SHIFT                                           0x0
- #define DCCG_GATE_DISABLE_CNTL3__HDMISTREAMCLK1_GATE_DISABLE__SHIFT                                           0x1
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_5_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_5_0_offset.h
-index 7cf0a625277b..33b5d9be06b1 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_5_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_5_0_offset.h
-@@ -4802,6 +4802,10 @@
- #define regCM0_CM_DEALPHA_BASE_IDX                                                                      2
- #define regCM0_CM_COEF_FORMAT                                                                           0x0d8c
- #define regCM0_CM_COEF_FORMAT_BASE_IDX                                                                  2
-+#define regCM0_CM_TEST_DEBUG_INDEX                                                                      0x0d8d
-+#define regCM0_CM_TEST_DEBUG_INDEX_BASE_IDX                                                             2
-+#define regCM0_CM_TEST_DEBUG_DATA                                                                       0x0d8e
-+#define regCM0_CM_TEST_DEBUG_DATA_BASE_IDX                                                              2
- 
- 
- // addressBlock: dce_dc_dpp0_dispdec_dpp_dcperfmon_dc_perfmon_dispdec
-@@ -5210,6 +5214,10 @@
- #define regCM1_CM_DEALPHA_BASE_IDX                                                                      2
- #define regCM1_CM_COEF_FORMAT                                                                           0x0ef7
- #define regCM1_CM_COEF_FORMAT_BASE_IDX                                                                  2
-+#define regCM1_CM_TEST_DEBUG_INDEX                                                                      0x0ef8
-+#define regCM1_CM_TEST_DEBUG_INDEX_BASE_IDX                                                             2
-+#define regCM1_CM_TEST_DEBUG_DATA                                                                       0x0ef9
-+#define regCM1_CM_TEST_DEBUG_DATA_BASE_IDX                                                              2
- 
- 
- // addressBlock: dce_dc_dpp1_dispdec_dpp_dcperfmon_dc_perfmon_dispdec
-@@ -5618,6 +5626,10 @@
- #define regCM2_CM_DEALPHA_BASE_IDX                                                                      2
- #define regCM2_CM_COEF_FORMAT                                                                           0x1062
- #define regCM2_CM_COEF_FORMAT_BASE_IDX                                                                  2
-+#define regCM2_CM_TEST_DEBUG_INDEX                                                                      0x1063
-+#define regCM2_CM_TEST_DEBUG_INDEX_BASE_IDX                                                             2
-+#define regCM2_CM_TEST_DEBUG_DATA                                                                       0x1064
-+#define regCM2_CM_TEST_DEBUG_DATA_BASE_IDX                                                              2
- 
- 
- // addressBlock: dce_dc_dpp2_dispdec_dpp_dcperfmon_dc_perfmon_dispdec
-@@ -6026,6 +6038,10 @@
- #define regCM3_CM_DEALPHA_BASE_IDX                                                                      2
- #define regCM3_CM_COEF_FORMAT                                                                           0x11cd
- #define regCM3_CM_COEF_FORMAT_BASE_IDX                                                                  2
-+#define regCM3_CM_TEST_DEBUG_INDEX                                                                      0x11ce
-+#define regCM3_CM_TEST_DEBUG_INDEX_BASE_IDX                                                             2
-+#define regCM3_CM_TEST_DEBUG_DATA                                                                       0x11cf
-+#define regCM3_CM_TEST_DEBUG_DATA_BASE_IDX                                                              2
- 
- 
- // addressBlock: dce_dc_dpp3_dispdec_dpp_dcperfmon_dc_perfmon_dispdec
-@@ -10568,6 +10584,8 @@
- #define regDSCC0_DSCC_RATE_CONTROL_BUFFER2_MAX_FULLNESS_LEVEL_BASE_IDX                                  2
- #define regDSCC0_DSCC_RATE_CONTROL_BUFFER3_MAX_FULLNESS_LEVEL                                           0x3035
- #define regDSCC0_DSCC_RATE_CONTROL_BUFFER3_MAX_FULLNESS_LEVEL_BASE_IDX                                  2
-+#define regDSCC0_DSCC_TEST_DEBUG_BUS_ROTATE                                                             0x303a
-+#define regDSCC0_DSCC_TEST_DEBUG_BUS_ROTATE_BASE_IDX                                                    2
- 
- 
- // addressBlock: dce_dc_dsc0_dispdec_dsc_dcperfmon_dc_perfmon_dispdec
-@@ -10697,6 +10715,8 @@
- #define regDSCC1_DSCC_RATE_CONTROL_BUFFER2_MAX_FULLNESS_LEVEL_BASE_IDX                                  2
- #define regDSCC1_DSCC_RATE_CONTROL_BUFFER3_MAX_FULLNESS_LEVEL                                           0x3091
- #define regDSCC1_DSCC_RATE_CONTROL_BUFFER3_MAX_FULLNESS_LEVEL_BASE_IDX                                  2
-+#define regDSCC1_DSCC_TEST_DEBUG_BUS_ROTATE                                                             0x3096
-+#define regDSCC1_DSCC_TEST_DEBUG_BUS_ROTATE_BASE_IDX                                                    2
- 
- 
- // addressBlock: dce_dc_dsc1_dispdec_dsc_dcperfmon_dc_perfmon_dispdec
-@@ -10827,6 +10847,8 @@
- #define regDSCC2_DSCC_RATE_CONTROL_BUFFER2_MAX_FULLNESS_LEVEL_BASE_IDX                                  2
- #define regDSCC2_DSCC_RATE_CONTROL_BUFFER3_MAX_FULLNESS_LEVEL                                           0x30ed
- #define regDSCC2_DSCC_RATE_CONTROL_BUFFER3_MAX_FULLNESS_LEVEL_BASE_IDX                                  2
-+#define regDSCC2_DSCC_TEST_DEBUG_BUS_ROTATE                                                             0x30f2
-+#define regDSCC2_DSCC_TEST_DEBUG_BUS_ROTATE_BASE_IDX                                                    2
- 
- 
- // addressBlock: dce_dc_dsc2_dispdec_dsc_dcperfmon_dc_perfmon_dispdec
-@@ -10957,6 +10979,8 @@
- #define regDSCC3_DSCC_RATE_CONTROL_BUFFER2_MAX_FULLNESS_LEVEL_BASE_IDX                                  2
- #define regDSCC3_DSCC_RATE_CONTROL_BUFFER3_MAX_FULLNESS_LEVEL                                           0x3149
- #define regDSCC3_DSCC_RATE_CONTROL_BUFFER3_MAX_FULLNESS_LEVEL_BASE_IDX                                  2
-+#define regDSCC3_DSCC_TEST_DEBUG_BUS_ROTATE                                                             0x314e
-+#define regDSCC3_DSCC_TEST_DEBUG_BUS_ROTATE_BASE_IDX                                                    2
- 
- 
- // addressBlock: dce_dc_dsc3_dispdec_dsc_dcperfmon_dc_perfmon_dispdec
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_5_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_5_0_sh_mask.h
-index fca72e2ec929..ff77b71167eb 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_5_0_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_5_0_sh_mask.h
-@@ -16556,6 +16556,13 @@
- #define CM0_CM_COEF_FORMAT__CM_BIAS_FORMAT_MASK                                                               0x00000001L
- #define CM0_CM_COEF_FORMAT__CM_POST_CSC_COEF_FORMAT_MASK                                                      0x00000010L
- #define CM0_CM_COEF_FORMAT__CM_GAMUT_REMAP_COEF_FORMAT_MASK                                                   0x00000100L
-+
-+//CM0_CM_TEST_DEBUG_INDEX
-+#define CM0_CM_TEST_DEBUG_INDEX__CM_TEST_DEBUG_INDEX__SHIFT                                                   0x0
-+#define CM0_CM_TEST_DEBUG_INDEX__CM_TEST_DEBUG_WRITE_EN__SHIFT                                                0x8
-+#define CM0_CM_TEST_DEBUG_INDEX__CM_TEST_DEBUG_INDEX_MASK                                                     0x000000FFL
-+#define CM0_CM_TEST_DEBUG_INDEX__CM_TEST_DEBUG_WRITE_EN_MASK                                                  0x00000100L
-+
- #define DC_PERFMON10_PERFCOUNTER_CNTL__PERFCOUNTER_EVENT_SEL__SHIFT                                           0x0
- #define DC_PERFMON10_PERFCOUNTER_CNTL__PERFCOUNTER_CVALUE_SEL__SHIFT                                          0x9
- #define DC_PERFMON10_PERFCOUNTER_CNTL__PERFCOUNTER_INC_MODE__SHIFT                                            0xc
-@@ -27176,6 +27183,23 @@
- #define DIG0_AFMT_CNTL__AFMT_AUDIO_CLOCK_ON__SHIFT                                                            0x8
- #define DIG0_AFMT_CNTL__AFMT_AUDIO_CLOCK_EN_MASK                                                              0x00000001L
- #define DIG0_AFMT_CNTL__AFMT_AUDIO_CLOCK_ON_MASK                                                              0x00000100L
-+
-+//DIG0_DIG_BE_CLK_CNTL
-+#define DIG0_DIG_BE_CLK_CNTL__DIG_BE_MODE__SHIFT                                                              0x0
-+#define DIG0_DIG_BE_CLK_CNTL__DIG_BE_CLK_EN__SHIFT                                                            0x4
-+#define DIG0_DIG_BE_CLK_CNTL__DIG_BE_SOFT_RESET__SHIFT                                                        0x5
-+#define DIG0_DIG_BE_CLK_CNTL__HDCP_SOFT_RESET__SHIFT                                                          0x6
-+#define DIG0_DIG_BE_CLK_CNTL__DIG_BE_SYMCLK_G_CLOCK_ON__SHIFT                                                 0xb
-+#define DIG0_DIG_BE_CLK_CNTL__DIG_BE_SYMCLK_G_HDCP_CLOCK_ON__SHIFT                                            0xc
-+#define DIG0_DIG_BE_CLK_CNTL__DIG_BE_SYMCLK_G_TMDS_CLOCK_ON__SHIFT                                            0xd
-+#define DIG0_DIG_BE_CLK_CNTL__DIG_BE_MODE_MASK                                                                0x00000007L
-+#define DIG0_DIG_BE_CLK_CNTL__DIG_BE_CLK_EN_MASK                                                              0x00000010L
-+#define DIG0_DIG_BE_CLK_CNTL__DIG_BE_SOFT_RESET_MASK                                                          0x00000020L
-+#define DIG0_DIG_BE_CLK_CNTL__HDCP_SOFT_RESET_MASK                                                            0x00000040L
-+#define DIG0_DIG_BE_CLK_CNTL__DIG_BE_SYMCLK_G_CLOCK_ON_MASK                                                   0x00000800L
-+#define DIG0_DIG_BE_CLK_CNTL__DIG_BE_SYMCLK_G_HDCP_CLOCK_ON_MASK                                              0x00001000L
-+#define DIG0_DIG_BE_CLK_CNTL__DIG_BE_SYMCLK_G_TMDS_CLOCK_ON_MASK                                              0x00002000L
-+
- #define DIG0_DIG_BE_CNTL__DIG_DUAL_LINK_ENABLE__SHIFT                                                         0x0
- #define DIG0_DIG_BE_CNTL__DIG_SWAP__SHIFT                                                                     0x1
- #define DIG0_DIG_BE_CNTL__DIG_RB_SWITCH_EN__SHIFT                                                             0x2
-@@ -36716,6 +36740,17 @@
- #define DSCC0_DSCC_RATE_CONTROL_BUFFER2_MAX_FULLNESS_LEVEL__DSCC_RATE_CONTROL_BUFFER2_MAX_FULLNESS_LEVEL_MASK  0x0003FFFFL
- #define DSCC0_DSCC_RATE_CONTROL_BUFFER3_MAX_FULLNESS_LEVEL__DSCC_RATE_CONTROL_BUFFER3_MAX_FULLNESS_LEVEL__SHIFT  0x0
- #define DSCC0_DSCC_RATE_CONTROL_BUFFER3_MAX_FULLNESS_LEVEL__DSCC_RATE_CONTROL_BUFFER3_MAX_FULLNESS_LEVEL_MASK  0x0003FFFFL
-+
-+//DSCC0_DSCC_TEST_DEBUG_BUS_ROTATE
-+#define DSCC0_DSCC_TEST_DEBUG_BUS_ROTATE__DSCC_TEST_DEBUG_BUS0_ROTATE__SHIFT                                  0x0
-+#define DSCC0_DSCC_TEST_DEBUG_BUS_ROTATE__DSCC_TEST_DEBUG_BUS1_ROTATE__SHIFT                                  0x8
-+#define DSCC0_DSCC_TEST_DEBUG_BUS_ROTATE__DSCC_TEST_DEBUG_BUS2_ROTATE__SHIFT                                  0x10
-+#define DSCC0_DSCC_TEST_DEBUG_BUS_ROTATE__DSCC_TEST_DEBUG_BUS3_ROTATE__SHIFT                                  0x18
-+#define DSCC0_DSCC_TEST_DEBUG_BUS_ROTATE__DSCC_TEST_DEBUG_BUS0_ROTATE_MASK                                    0x0000001FL
-+#define DSCC0_DSCC_TEST_DEBUG_BUS_ROTATE__DSCC_TEST_DEBUG_BUS1_ROTATE_MASK                                    0x00001F00L
-+#define DSCC0_DSCC_TEST_DEBUG_BUS_ROTATE__DSCC_TEST_DEBUG_BUS2_ROTATE_MASK                                    0x001F0000L
-+#define DSCC0_DSCC_TEST_DEBUG_BUS_ROTATE__DSCC_TEST_DEBUG_BUS3_ROTATE_MASK                                    0x1F000000L
-+
- #define DC_PERFMON17_PERFCOUNTER_CNTL__PERFCOUNTER_EVENT_SEL__SHIFT                                           0x0
- #define DC_PERFMON17_PERFCOUNTER_CNTL__PERFCOUNTER_CVALUE_SEL__SHIFT                                          0x9
- #define DC_PERFMON17_PERFCOUNTER_CNTL__PERFCOUNTER_INC_MODE__SHIFT                                            0xc
-@@ -38488,6 +38523,18 @@
- #define DWB_OGAM_LUT_INDEX__DWB_OGAM_LUT_INDEX_MASK                                                           0x000001FFL
- #define DWB_OGAM_LUT_DATA__DWB_OGAM_LUT_DATA__SHIFT                                                           0x0
- #define DWB_OGAM_LUT_DATA__DWB_OGAM_LUT_DATA_MASK                                                             0x0003FFFFL
-+//DWB_OGAM_LUT_CONTROL
-+#define DWB_OGAM_LUT_CONTROL__DWB_OGAM_LUT_WRITE_COLOR_MASK__SHIFT                                            0x0
-+#define DWB_OGAM_LUT_CONTROL__DWB_OGAM_LUT_READ_COLOR_SEL__SHIFT                                              0x4
-+#define DWB_OGAM_LUT_CONTROL__DWB_OGAM_LUT_READ_DBG__SHIFT                                                    0x8
-+#define DWB_OGAM_LUT_CONTROL__DWB_OGAM_LUT_HOST_SEL__SHIFT                                                    0xc
-+#define DWB_OGAM_LUT_CONTROL__DWB_OGAM_LUT_CONFIG_MODE__SHIFT                                                 0x10
-+#define DWB_OGAM_LUT_CONTROL__DWB_OGAM_LUT_WRITE_COLOR_MASK_MASK                                              0x00000007L
-+#define DWB_OGAM_LUT_CONTROL__DWB_OGAM_LUT_READ_COLOR_SEL_MASK                                                0x00000030L
-+#define DWB_OGAM_LUT_CONTROL__DWB_OGAM_LUT_READ_DBG_MASK                                                      0x00000100L
-+#define DWB_OGAM_LUT_CONTROL__DWB_OGAM_LUT_HOST_SEL_MASK                                                      0x00001000L
-+#define DWB_OGAM_LUT_CONTROL__DWB_OGAM_LUT_CONFIG_MODE_MASK                                                   0x00010000L
-+
- #define DWB_OGAM_LUT_CONTROL__DWB_OGAM_LUT_WRITE_COLOR_MASK__SHIFT                                            0x0
- #define DWB_OGAM_LUT_CONTROL__DWB_OGAM_LUT_READ_COLOR_SEL__SHIFT                                              0x4
- #define DWB_OGAM_LUT_CONTROL__DWB_OGAM_LUT_HOST_SEL__SHIFT                                                    0xc
-@@ -52008,6 +52055,14 @@
- #define DIO_CLK_CNTL__SYMCLK_R_GATE_DIS__SHIFT                                                                0x10
- #define DIO_CLK_CNTL__SYMCLK_G_GATE_DIS__SHIFT                                                                0x11
- #define DIO_CLK_CNTL__DIO_FGCG_REP_DIS__SHIFT                                                                 0x14
-+#define DIO_CLK_CNTL__DISPCLK_G_HDCP_GATE_DIS__SHIFT                                                          0x15
-+#define DIO_CLK_CNTL__SYMCLKA_G_HDCP_GATE_DIS__SHIFT                                                          0x16
-+#define DIO_CLK_CNTL__SYMCLKB_G_HDCP_GATE_DIS__SHIFT                                                          0x17
-+#define DIO_CLK_CNTL__SYMCLKC_G_HDCP_GATE_DIS__SHIFT                                                          0x18
-+#define DIO_CLK_CNTL__SYMCLKD_G_HDCP_GATE_DIS__SHIFT                                                          0x19
-+#define DIO_CLK_CNTL__SYMCLKE_G_HDCP_GATE_DIS__SHIFT                                                          0x1a
-+#define DIO_CLK_CNTL__SYMCLKF_G_HDCP_GATE_DIS__SHIFT                                                          0x1b
-+#define DIO_CLK_CNTL__SYMCLKG_G_HDCP_GATE_DIS__SHIFT                                                          0x1c
- #define DIO_CLK_CNTL__DIO_TEST_CLK_SEL_MASK                                                                   0x0000007FL
- #define DIO_CLK_CNTL__DISPCLK_R_GATE_DIS_MASK                                                                 0x00000200L
- #define DIO_CLK_CNTL__DISPCLK_G_GATE_DIS_MASK                                                                 0x00000400L
-@@ -52019,6 +52074,16 @@
- #define DIO_CLK_CNTL__SYMCLK_R_GATE_DIS_MASK                                                                  0x00010000L
- #define DIO_CLK_CNTL__SYMCLK_G_GATE_DIS_MASK                                                                  0x00020000L
- #define DIO_CLK_CNTL__DIO_FGCG_REP_DIS_MASK                                                                   0x00100000L
-+
-+#define DIO_CLK_CNTL__DISPCLK_G_HDCP_GATE_DIS_MASK                                                            0x00200000L
-+#define DIO_CLK_CNTL__SYMCLKA_G_HDCP_GATE_DIS_MASK                                                            0x00400000L
-+#define DIO_CLK_CNTL__SYMCLKB_G_HDCP_GATE_DIS_MASK                                                            0x00800000L
-+#define DIO_CLK_CNTL__SYMCLKC_G_HDCP_GATE_DIS_MASK                                                            0x01000000L
-+#define DIO_CLK_CNTL__SYMCLKD_G_HDCP_GATE_DIS_MASK                                                            0x02000000L
-+#define DIO_CLK_CNTL__SYMCLKE_G_HDCP_GATE_DIS_MASK                                                            0x04000000L
-+#define DIO_CLK_CNTL__SYMCLKF_G_HDCP_GATE_DIS_MASK                                                            0x08000000L
-+#define DIO_CLK_CNTL__SYMCLKG_G_HDCP_GATE_DIS_MASK                                                            0x10000000L
-+
- #define DIO_PSP_INTERRUPT_STATUS__DIO_PSP_INTERRUPT_STATUS__SHIFT                                             0x0
- #define DIO_PSP_INTERRUPT_STATUS__DIO_PSP_INTERRUPT_MESSAGE__SHIFT                                            0x1
- #define DIO_PSP_INTERRUPT_STATUS__DIO_PSP_INTERRUPT_STATUS_MASK                                               0x00000001L
--- 
-2.43.0
+
+On 1/23/24 09:19, Hamza Mahfooz wrote:
+> On 1/22/24 16:24, Rodrigo Siqueira wrote:
+>> This patchset improves how the AMDGPU display documentation is
+>> organized, expands the kernel-doc to extract information from the
+>> source, and adds more context about DC workflow. Finally, at the end of
+>> this series, we also introduce a contribution section for those
+>> interested in contributing to the display code.
+>>
+>> Changes since V1:
+>> - Remove unprecise information about the DC process.
+>> - Expand the contribution list.
+>> - Rebase.
+>>
+>> Thanks
+>> Siqueira
+> 
+> Series is:
+> Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> 
+>>
+>> Rodrigo Siqueira (8):
+>>    Documentation/gpu: Add basic page for HUBP
+>>    Documentation/gpu: Add simple doc page for DCHUBBUB
+>>    Documentation/gpu: Add kernel doc entry for DPP
+>>    Documentation/gpu: Add kernel doc entry for MPC
+>>    Documentation/gpu: Add entry for OPP in the kernel doc
+>>    Documentation/gpu: Add entry for the DIO component
+>>    Documentation/gpu: Add an explanation about the DC weekly patches
+>>    Documentation/gpu: Introduce a simple contribution list for display
+>>      code
+>>
+>>   .../gpu/amdgpu/display/dcn-blocks.rst         |  78 ++++++
+>>   .../amdgpu/display/display-contributing.rst   | 168 ++++++++++++
+>>   .../gpu/amdgpu/display/display-manager.rst    |   3 -
+>>   Documentation/gpu/amdgpu/display/index.rst    |  78 +++++-
+>>   drivers/gpu/drm/amd/display/TODO              | 110 --------
+>>   .../gpu/drm/amd/display/dc/inc/hw/dchubbub.h  |   6 +
+>>   drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h   |  26 ++
+>>   drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |  13 +-
+>>   drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   | 250 ++++++++++++------
+>>   drivers/gpu/drm/amd/display/dc/inc/hw/opp.h   |  16 ++
+>>   .../amd/display/dc/link/hwss/link_hwss_dio.h  |  10 +
+>>   11 files changed, 560 insertions(+), 198 deletions(-)
+>>   create mode 100644 Documentation/gpu/amdgpu/display/dcn-blocks.rst
+>>   create mode 100644 
+>> Documentation/gpu/amdgpu/display/display-contributing.rst
+>>   delete mode 100644 drivers/gpu/drm/amd/display/TODO
+>>
+
+Thanks!
+
+Change pushed to amd-staging-drm-next.
 
