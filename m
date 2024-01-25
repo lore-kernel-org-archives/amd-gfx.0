@@ -4,88 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C8F6C47258
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jan 2024 22:28:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B4D4C47DDF
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jan 2024 22:57:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7771E10E505;
-	Thu, 25 Jan 2024 22:28:24 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2052.outbound.protection.outlook.com [40.107.237.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 292DC10E505
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jan 2024 22:28:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cl5BHfTZ54ASP64B1DEInXAR5fX/yO5phdof7bk9E48juvY71miEqh1cgqjQlcbq3gER6MHDVAIcfYYZBv9ew6bkBJ2e6Iw1PuilV6CSzDQV+apBOz6wcUo4epPiuOh8blWusXW+9zRopBBTYN3KGFXFBlUT+486poLz5yMMzZX2vjaO/sJ0hq4JwI1onQPa5ul68KteGxAvEAmobxfrY/yEt2iGwkZLfb8Jp2BOukyVFXZbBxYI+MyGX0ZLLPAIHTL8hpdGOaIkEKoNeHuymGDk87PF27R/EKY+0ftDkb1G8Kavvi9Snq3wC3fewirOijjRPTVHYzrFz6tQGNVovA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O8wxfmUi7RqqAK5Oq4fqGW9aDfX5O1k1eC2UA/wtGsU=;
- b=OZVDF7E07TJpoU//rZtrilHPBTtPVFXUU5xnD4fUhyI9SkgE1KYWxbPGAHmF7FtsRAJTAkeNPoR4cJIS3IKByE5BKJgwfwf1rMeWD6JhvEVmCTfXAuKf+ELd5fibMYYYoEsvIUsxKaVhiYs2MjdmPGfo1k5J/qZ+xD2djjpqqNqqQ9Y/4fKnOBru6iMDycNzUUvhqh1JKotOehazc6pG51UyiutGYv9QMl7joV032w69HZ+AmGms/r2cb0DAjRzBh3oWTTNOlhFSPUAnYkuCxmmloGLa0GkOqEetmK9+DDg757IDNTIo4n3KA4PgQR1zLvJEsCLzYb3UZE5jcxnTsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O8wxfmUi7RqqAK5Oq4fqGW9aDfX5O1k1eC2UA/wtGsU=;
- b=UUIoJtJbvhBxaJZW/Man6qALxxnxjxpcskKDqfWW2QzjKmqqe9p5fd+CR0Ys5MoT416lPsCXUmzYAcn5nfLf19EwYa87R8FjQjfYjFSih6DXjO13LFQ95eYWiud4kr0IYcZHtajCRzwIOikhPRaqfh6uj90iA3W5PR5eOnoPeYs=
-Received: from MN2PR20CA0017.namprd20.prod.outlook.com (2603:10b6:208:e8::30)
- by SJ2PR12MB7823.namprd12.prod.outlook.com (2603:10b6:a03:4c9::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.26; Thu, 25 Jan
- 2024 22:28:20 +0000
-Received: from BL6PEPF0001AB72.namprd02.prod.outlook.com
- (2603:10b6:208:e8:cafe::1b) by MN2PR20CA0017.outlook.office365.com
- (2603:10b6:208:e8::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.22 via Frontend
- Transport; Thu, 25 Jan 2024 22:28:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB72.mail.protection.outlook.com (10.167.242.165) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Thu, 25 Jan 2024 22:28:19 +0000
-Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 25 Jan
- 2024 16:28:18 -0600
-From: Felix Kuehling <felix.kuehling@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Relocate TBA/TMA to opposite side of VM hole (v2)
-Date: Thu, 25 Jan 2024 17:27:48 -0500
-Message-ID: <20240125222748.2089791-1-felix.kuehling@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAE5710E260;
+	Thu, 25 Jan 2024 22:57:57 +0000 (UTC)
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
+ [209.85.167.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2359910E260
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jan 2024 22:57:57 +0000 (UTC)
+Received: by mail-oi1-f180.google.com with SMTP id
+ 5614622812f47-3bd7c15a745so5135974b6e.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jan 2024 14:57:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1706223416; x=1706828216; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tvkHUUyJNybDaJ7bdfQxHAcDyD9LjxGCHwN1G88UFG4=;
+ b=INfXpeLpJSpoNPq0r2E/WUWGJyLiyxQwZIqdU6wh0qSwhLzcVk7Jm9JXBBjZBk0C2m
+ JA8rJcAh/Auq0ba1JouO/CFHgk8y/0OAKG1dtvkX5azVoiKmf7Uk7L4yY51UDAJWKqnO
+ kYkWM7+b3iD10fRZ5tcILB9Kh56NQiMRA33NCk+VBV8LOp0OmHtMDNutsQ8BcV8trmTJ
+ 8HYC8ATRglU1AQ/9tsZ6QthtDEGk3egkvLbMKqqoSws/1fQwSSrw4yLO86mafHogmR5D
+ FzUQxdOESi/n75Yln7ra+dqBEYSdT4QHMAsQlFQI0Eyg9XK62gD1qVNfNBoWd5/aemYz
+ WSkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706223416; x=1706828216;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tvkHUUyJNybDaJ7bdfQxHAcDyD9LjxGCHwN1G88UFG4=;
+ b=l8bIXc9W13+D67o2+Qs3Mqi8Az0PdVWoYPFiYYOBArJ3jqxSGmQlUC+zFsA6KeLHpU
+ wSUPKjnerEu2OwYLtX94rFPJAmbX8x/SptjWBnahny6M1mYhFclJ6fpNw+YsokffYBPw
+ 65NMm/aR++Cywm27YNo+QOKu+pAlkdZqRL0lUgpwnzkN3nDjZGPgu79teeXMbW4Orbbb
+ z+J5mNtixiWB+3//Pj2Lfm79UF8KnjvKL7F9LGkxd0yK4UbVPTWzdSmuDtIP2FdHN4KH
+ 8iIU/nyvioZ3vEJSyZFodsQkT+9gSspJ4OOJw7mNldkc/vvPwqq7Bl0J2X1hvE5kyL3v
+ X/8g==
+X-Gm-Message-State: AOJu0YxlNGHV66faK9bGs77NosFHnGZe3mmYPGTElcIGNupo0c/iR91s
+ 9dHEj5c5VCzelJGpSfGuFQhugXSD8j4qCl19EpzIbdB2MaS9yFPT/Vw/LelBLpfLB6rg/n0arRD
+ l2WdkQIb5GIr2TcrPeg5zC35sr8RwnSGP
+X-Google-Smtp-Source: AGHT+IFWfm0KdD8y0wvbm6zoJ+le6Z+WYkl6ZkI+0ABf6vtgfdCf2MlNz9chXh6BW52ZTiETR17M0E3u0tlCztJgBP8=
+X-Received: by 2002:a05:6870:1649:b0:214:911a:e871 with SMTP id
+ c9-20020a056870164900b00214911ae871mr429780oae.5.1706223416444; Thu, 25 Jan
+ 2024 14:56:56 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB72:EE_|SJ2PR12MB7823:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b04ca63-d8e9-4de0-3c48-08dc1df4eec2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DnU3QGIwn3Ac53CZ3WZ0oO2I3SWr9NEpVxYV/9RMZ4zKWEWKGOOFMW/V3OS0+ggTJ07u/V4s/VtAyjpcnuEWZr7jlAbzhp8Xi4yZxGMjRH0NmhmPMwS+GGeF37a5Ba80Q0z/hZXSP6Vmk+Ifi14ujFPklw4dUg9NsetkPVdFr9uUtpLj6pyZ/Ru2PM9Dm73zaK5jWu+NbB9cSwpzzJY+RbdhCZvgAOdd1yofQ1b0hpbqNcXEsfOXwJINby56pDSOJyli5jEwyiQNRReh6aFf/EgHhlAPNNBUqdQU3EfG1rqthEI3oTw+zxhdsITdNbhWdt9LDtPE+F4w05ZkR/dQiRZNogB5pwyiblvwQE5KhmTCQgEoobA9TAaqhBJ08l53KqCtdsdDbvLB7xa2/vnJRmV3Famtyau+V0j3OxDXHZzDaZ60bjuD/WPL0U3y+YoMEgjKP9JLiJtZ4fOx2HaaINcpQG2xZsH8iEMAQsCHxUuyuefzUtUD5fe8K0IsX2nZV2X8Ribd2lG9/VRZYhXoYmQanM9yIQaNb3/WaMBJRy4LmomOfW4sk0UPovw/pPIGJSFkuhDbxhxFXVXeVLFTu/hQzazuh6qpLpXQAx/PJ+l9Rk7hgtl0a2ovA3Y/3cMI1+X9vgidLCaTZUh0BETOybQhn7pXBojvVWxp3X3uzaWNJkgmA+o0SKSx39T3wgsSblmoZxrpSrmxj238SqOJYgddyNFDHOMH3tsPwFsNdiXNTSMb6d4G9RUDHW8CfBrfRfnTu466wTXbtO1lyjQueg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(396003)(136003)(376002)(346002)(230922051799003)(186009)(451199024)(64100799003)(82310400011)(1800799012)(40470700004)(46966006)(36840700001)(4326008)(8676002)(8936002)(44832011)(5660300002)(70586007)(2906002)(86362001)(70206006)(316002)(54906003)(36756003)(36860700001)(47076005)(356005)(6916009)(81166007)(7696005)(82740400003)(478600001)(83380400001)(6666004)(1076003)(26005)(2616005)(426003)(336012)(41300700001)(16526019)(40460700003)(40480700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2024 22:28:19.4231 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b04ca63-d8e9-4de0-3c48-08dc1df4eec2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB72.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7823
+References: <20240125032255.898308-1-Prike.Liang@amd.com>
+ <20240125032255.898308-2-Prike.Liang@amd.com>
+In-Reply-To: <20240125032255.898308-2-Prike.Liang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 25 Jan 2024 17:56:45 -0500
+Message-ID: <CADnq5_MKmkrCW0Gia74DJhq297W=AGeW8J4tQxxFxcSjt+-f3A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: reset gpu for pm abort case
+To: Prike Liang <Prike.Liang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,169 +69,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jay Cornwall <jay.cornwall@amd.com>, Christian
- Koenig <christian.koenig@amd.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Cc: Alexander.Deucher@amd.com, Deepak.Sharma@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The TBA and TMA, along with an unused IB allocation, reside at low
-addresses in the VM address space. A stray VM fault which hits these
-pages must be serviced by making their page table entries invalid.
-The scheduler depends upon these pages being resident and fails,
-preventing a debugger from inspecting the failure state.
+On Wed, Jan 24, 2024 at 11:11=E2=80=AFPM Prike Liang <Prike.Liang@amd.com> =
+wrote:
+>
+> In the pm abort case the gfx power rail not turn off from FCH side and
+> this will lead to the gfx reinitialized failed base on the unknown gfx
+> HW status, so let's reset the gpu to a known good power state.
+>
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
+>  drivers/gpu/drm/amd/amdgpu/soc15.c         | 8 +++++++-
+>  2 files changed, 12 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 56d9dfa61290..4c40ffaaa5c2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4627,6 +4627,11 @@ int amdgpu_device_resume(struct drm_device *dev, b=
+ool fbcon)
+>                         return r;
+>         }
+>
+> +       if(amdgpu_asic_need_reset_on_init(adev)) {
 
-By relocating these pages above 47 bits in the VM address space they
-can only be reached when bits [63:48] are set to 1. This makes it much
-less likely for a misbehaving program to generate accesses to them.
-The current placement at VA (PAGE_SIZE*2) is readily hit by a NULL
-access with a small offset.
+space between if and (.
 
-v2:
-- Move it to the reserved space to avoid concflicts with Mesa
-- Add macros to make reserved space management easier
+Also, I think we need to check that we are not in S0ix as well
+otherwise I think we'll always reset in S0ix.  We could probably do
+away with the GPU reset in the suspend_noirq callback with this
+change, but maybe make that a separate follow up patch.
 
-Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
-Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c      |  4 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c    |  7 ++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h       | 12 ++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c | 30 +++++++++++---------
- 4 files changed, 30 insertions(+), 23 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
-index 823d31f4a2a3..53d0a458d78e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
-@@ -28,9 +28,9 @@
- 
- uint64_t amdgpu_csa_vaddr(struct amdgpu_device *adev)
- {
--	uint64_t addr = adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT;
-+	uint64_t addr = AMDGPU_VA_RESERVED_CSA_START(
-+		adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT);
- 
--	addr -= AMDGPU_VA_RESERVED_CSA_SIZE;
- 	addr = amdgpu_gmc_sign_extend(addr);
- 
- 	return addr;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-index 3d0d56087d41..9e769ef50f2e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-@@ -45,11 +45,8 @@
-  */
- static inline u64 amdgpu_seq64_get_va_base(struct amdgpu_device *adev)
- {
--	u64 addr = adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT;
--
--	addr -= AMDGPU_VA_RESERVED_TOP;
--
--	return addr;
-+	return AMDGPU_VA_RESERVED_SEQ64_START(
-+		adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 666698a57192..f23b6153d310 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -135,11 +135,19 @@ struct amdgpu_mem_stats;
- #define AMDGPU_IS_MMHUB0(x) ((x) >= AMDGPU_MMHUB0_START && (x) < AMDGPU_MMHUB1_START)
- #define AMDGPU_IS_MMHUB1(x) ((x) >= AMDGPU_MMHUB1_START && (x) < AMDGPU_MAX_VMHUBS)
- 
--/* Reserve 2MB at top/bottom of address space for kernel use */
-+/* Reserve space at top/bottom of address space for kernel use */
- #define AMDGPU_VA_RESERVED_CSA_SIZE		(2ULL << 20)
-+#define AMDGPU_VA_RESERVED_CSA_START(top)	((top) \
-+						 - AMDGPU_VA_RESERVED_CSA_SIZE)
- #define AMDGPU_VA_RESERVED_SEQ64_SIZE		(2ULL << 20)
-+#define AMDGPU_VA_RESERVED_SEQ64_START(top)	(AMDGPU_VA_RESERVED_CSA_START(top) \
-+						 - AMDGPU_VA_RESERVED_SEQ64_SIZE)
-+#define AMDGPU_VA_RESERVED_TRAP_SIZE		(2ULL << 12)
-+#define AMDGPU_VA_RESERVED_TRAP_START(top)	(AMDGPU_VA_RESERVED_SEQ64_START(top) \
-+						 - AMDGPU_VA_RESERVED_TRAP_SIZE)
- #define AMDGPU_VA_RESERVED_BOTTOM		(2ULL << 20)
--#define AMDGPU_VA_RESERVED_TOP			(AMDGPU_VA_RESERVED_SEQ64_SIZE + \
-+#define AMDGPU_VA_RESERVED_TOP			(AMDGPU_VA_RESERVED_TRAP_SIZE + \
-+						 AMDGPU_VA_RESERVED_SEQ64_SIZE + \
- 						 AMDGPU_VA_RESERVED_CSA_SIZE)
- 
- /* See vm_update_mode */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-index 6604a3f99c5e..f899cce25b2a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-@@ -36,6 +36,7 @@
- #include <linux/mm.h>
- #include <linux/mman.h>
- #include <linux/processor.h>
-+#include "amdgpu_vm.h"
- 
- /*
-  * The primary memory I/O features being added for revisions of gfxip
-@@ -326,10 +327,16 @@ static void kfd_init_apertures_vi(struct kfd_process_device *pdd, uint8_t id)
- 	 * with small reserved space for kernel.
- 	 * Set them to CANONICAL addresses.
- 	 */
--	pdd->gpuvm_base = SVM_USER_BASE;
-+	pdd->gpuvm_base = max(SVM_USER_BASE, AMDGPU_VA_RESERVED_BOTTOM);
- 	pdd->gpuvm_limit =
- 		pdd->dev->kfd->shared_resources.gpuvm_size - 1;
- 
-+	/* dGPUs: the reserved space for kernel
-+	 * before SVM
-+	 */
-+	pdd->qpd.cwsr_base = SVM_CWSR_BASE;
-+	pdd->qpd.ib_base = SVM_IB_BASE;
-+
- 	pdd->scratch_base = MAKE_SCRATCH_APP_BASE_VI();
- 	pdd->scratch_limit = MAKE_SCRATCH_APP_LIMIT(pdd->scratch_base);
- }
-@@ -339,18 +346,19 @@ static void kfd_init_apertures_v9(struct kfd_process_device *pdd, uint8_t id)
- 	pdd->lds_base = MAKE_LDS_APP_BASE_V9();
- 	pdd->lds_limit = MAKE_LDS_APP_LIMIT(pdd->lds_base);
- 
--        /* Raven needs SVM to support graphic handle, etc. Leave the small
--         * reserved space before SVM on Raven as well, even though we don't
--         * have to.
--         * Set gpuvm_base and gpuvm_limit to CANONICAL addresses so that they
--         * are used in Thunk to reserve SVM.
--         */
--        pdd->gpuvm_base = SVM_USER_BASE;
-+	pdd->gpuvm_base = AMDGPU_VA_RESERVED_BOTTOM;
- 	pdd->gpuvm_limit =
- 		pdd->dev->kfd->shared_resources.gpuvm_size - 1;
- 
- 	pdd->scratch_base = MAKE_SCRATCH_APP_BASE_V9();
- 	pdd->scratch_limit = MAKE_SCRATCH_APP_LIMIT(pdd->scratch_base);
-+
-+	/*
-+	 * Place TBA/TMA on opposite side of VM hole to prevent
-+	 * stray faults from triggering SVM on these pages.
-+	 */
-+	pdd->qpd.cwsr_base = AMDGPU_VA_RESERVED_TRAP_START(
-+		pdd->dev->adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT);
- }
- 
- int kfd_init_apertures(struct kfd_process *process)
-@@ -407,12 +415,6 @@ int kfd_init_apertures(struct kfd_process *process)
- 					return -EINVAL;
- 				}
- 			}
--
--                        /* dGPUs: the reserved space for kernel
--                         * before SVM
--                         */
--                        pdd->qpd.cwsr_base = SVM_CWSR_BASE;
--                        pdd->qpd.ib_base = SVM_IB_BASE;
- 		}
- 
- 		dev_dbg(kfd_device, "node id %u\n", id);
--- 
-2.34.1
-
+> +               DRM_INFO("PM abort case and let's reset asic \n");
+> +               amdgpu_asic_reset(adev);
+> +       }
+> +
+>         if (dev->switch_power_state =3D=3D DRM_SWITCH_POWER_OFF)
+>                 return 0;
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amd=
+gpu/soc15.c
+> index 15033efec2ba..9329a00b6abc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> @@ -804,9 +804,16 @@ static bool soc15_need_reset_on_init(struct amdgpu_d=
+evice *adev)
+>         if (adev->asic_type =3D=3D CHIP_RENOIR)
+>                 return true;
+>
+> +       sol_reg =3D RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
+> +
+>         /* Just return false for soc15 GPUs.  Reset does not seem to
+>          * be necessary.
+>          */
+> +       if (adev->in_suspend && !adev->in_s0ix &&
+> +                       !adev->pm_complete &&
+> +                       sol_reg)
+> +               return true;
+> +
+>         if (!amdgpu_passthrough(adev))
+>                 return false;
+>
+> @@ -816,7 +823,6 @@ static bool soc15_need_reset_on_init(struct amdgpu_de=
+vice *adev)
+>         /* Check sOS sign of life register to confirm sys driver and sOS
+>          * are already been loaded.
+>          */
+> -       sol_reg =3D RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
+>         if (sol_reg)
+>                 return true;
+>
+> --
+> 2.34.1
+>
