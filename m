@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51E8FC47258
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jan 2024 22:15:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C8F6C47258
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jan 2024 22:28:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC71A10E841;
-	Thu, 25 Jan 2024 22:15:29 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2075.outbound.protection.outlook.com [40.107.96.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80DEA10E526;
- Thu, 25 Jan 2024 22:15:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7771E10E505;
+	Thu, 25 Jan 2024 22:28:24 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2052.outbound.protection.outlook.com [40.107.237.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 292DC10E505
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jan 2024 22:28:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e6rC4bt0Rj0b66uQfddtxQmafqwuryhhj9DM8gARnBAWuhbRm7ZJumXEenVtJAYQ42RSpirlzmQxWz9UVJMCs6ezdO9xkbhfTMUnI4ZDAo5pNUy0UH4EDddcsO9V/AKngWXlCvzGAXCCeW+SdtC7jCPTIs3K0LZGWAV1NAMqUdliSNWF7k9WrMmBhiGWlfaoG4H66PlNJbYW2Ptu/yat2WCrnbz2nNkCn+w1ABHxO6mhubiiGW/APvHeyAFfi5na187gQ7GYYfmJIo4IE+J12Mq0+zFaSIhyvPO7V7b1j4EzML0kv4X3dgJlnXy9SrHImTQIKkZl6VmcvFX12obXZw==
+ b=cl5BHfTZ54ASP64B1DEInXAR5fX/yO5phdof7bk9E48juvY71miEqh1cgqjQlcbq3gER6MHDVAIcfYYZBv9ew6bkBJ2e6Iw1PuilV6CSzDQV+apBOz6wcUo4epPiuOh8blWusXW+9zRopBBTYN3KGFXFBlUT+486poLz5yMMzZX2vjaO/sJ0hq4JwI1onQPa5ul68KteGxAvEAmobxfrY/yEt2iGwkZLfb8Jp2BOukyVFXZbBxYI+MyGX0ZLLPAIHTL8hpdGOaIkEKoNeHuymGDk87PF27R/EKY+0ftDkb1G8Kavvi9Snq3wC3fewirOijjRPTVHYzrFz6tQGNVovA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=af45UNzc21hRtxJDdh6qAQafgbVAMV5FSt/kZBbZmSw=;
- b=ivSQdP+d/BkFOv4NuGLC5My4qa2h6RnVvla/kjb36/SoxNgtSMso2xwT1mw8XD+dppBKZriZsg2fy/CQ7HjtSyS0STurzO9QUqf6R3VzmKEWPwYl14EeifSAQKr0LU3q9DMrG3GcBzavJhHxvFGUElusZrM2EkRHxIoDHOGCUJrLTQaCCgKYiqC1UFNflBZr3gBuQd2e3DaIQACjmZwE/GTUvYEllk7ocEimJwRXFdAWF0dVtFtfMlPjZ+Ko7B1yF2UA5ngUOhnLbb0eXZpbkQV5Ug1XNvNsjGg8JbgleCeH59+pKCk1V4KDQV/Sj+2VBf98rfjmh7jBAkgfsYelDQ==
+ bh=O8wxfmUi7RqqAK5Oq4fqGW9aDfX5O1k1eC2UA/wtGsU=;
+ b=OZVDF7E07TJpoU//rZtrilHPBTtPVFXUU5xnD4fUhyI9SkgE1KYWxbPGAHmF7FtsRAJTAkeNPoR4cJIS3IKByE5BKJgwfwf1rMeWD6JhvEVmCTfXAuKf+ELd5fibMYYYoEsvIUsxKaVhiYs2MjdmPGfo1k5J/qZ+xD2djjpqqNqqQ9Y/4fKnOBru6iMDycNzUUvhqh1JKotOehazc6pG51UyiutGYv9QMl7joV032w69HZ+AmGms/r2cb0DAjRzBh3oWTTNOlhFSPUAnYkuCxmmloGLa0GkOqEetmK9+DDg757IDNTIo4n3KA4PgQR1zLvJEsCLzYb3UZE5jcxnTsw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=af45UNzc21hRtxJDdh6qAQafgbVAMV5FSt/kZBbZmSw=;
- b=JiFX8DFTxfE2UxEM59uaflbcNG9RqJeC13cB3mNTt49CA7FKSyV0t6LMItuWuDHmKCtYXWVpcjKkaobZ7R6miJMPo81UPBKi6h98DPKpB0Zq5xSUHEKl5dy2ufrotYKvfzWO2Q9Kg7QoFSEo4kVbGcC4s2coYPREXfyPH83XufA=
-Received: from DM6PR03CA0019.namprd03.prod.outlook.com (2603:10b6:5:40::32) by
- IA1PR12MB8263.namprd12.prod.outlook.com (2603:10b6:208:3f8::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7228.26; Thu, 25 Jan 2024 22:15:22 +0000
-Received: from DS1PEPF00017095.namprd03.prod.outlook.com
- (2603:10b6:5:40:cafe::9b) by DM6PR03CA0019.outlook.office365.com
- (2603:10b6:5:40::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.32 via Frontend
- Transport; Thu, 25 Jan 2024 22:15:22 +0000
+ bh=O8wxfmUi7RqqAK5Oq4fqGW9aDfX5O1k1eC2UA/wtGsU=;
+ b=UUIoJtJbvhBxaJZW/Man6qALxxnxjxpcskKDqfWW2QzjKmqqe9p5fd+CR0Ys5MoT416lPsCXUmzYAcn5nfLf19EwYa87R8FjQjfYjFSih6DXjO13LFQ95eYWiud4kr0IYcZHtajCRzwIOikhPRaqfh6uj90iA3W5PR5eOnoPeYs=
+Received: from MN2PR20CA0017.namprd20.prod.outlook.com (2603:10b6:208:e8::30)
+ by SJ2PR12MB7823.namprd12.prod.outlook.com (2603:10b6:a03:4c9::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.26; Thu, 25 Jan
+ 2024 22:28:20 +0000
+Received: from BL6PEPF0001AB72.namprd02.prod.outlook.com
+ (2603:10b6:208:e8:cafe::1b) by MN2PR20CA0017.outlook.office365.com
+ (2603:10b6:208:e8::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.22 via Frontend
+ Transport; Thu, 25 Jan 2024 22:28:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,20 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017095.mail.protection.outlook.com (10.167.17.138) with Microsoft
+ BL6PEPF0001AB72.mail.protection.outlook.com (10.167.242.165) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Thu, 25 Jan 2024 22:15:22 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.7202.16 via Frontend Transport; Thu, 25 Jan 2024 22:28:19 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 25 Jan
- 2024 16:15:21 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu drm-fixes-6.8
-Date: Thu, 25 Jan 2024 17:15:03 -0500
-Message-ID: <20240125221503.5019-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.42.0
+ 2024 16:28:18 -0600
+From: Felix Kuehling <felix.kuehling@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdkfd: Relocate TBA/TMA to opposite side of VM hole (v2)
+Date: Thu, 25 Jan 2024 17:27:48 -0500
+Message-ID: <20240125222748.2089791-1-felix.kuehling@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -67,26 +66,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017095:EE_|IA1PR12MB8263:EE_
-X-MS-Office365-Filtering-Correlation-Id: f3747dcd-2fbf-412e-c4f5-08dc1df31f74
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB72:EE_|SJ2PR12MB7823:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b04ca63-d8e9-4de0-3c48-08dc1df4eec2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: cci3NwmIb5EpW1Y35mEaGF4SM5Ur1LqWv/y+sf29iYWTVDg6b9gv9ijyUlkPYtUeXzAN0Qnn3qMJ8chBvqcBM2y6sNLkNI495lLdDb0VjwBSieNnH/ohttJ3r2Yk2wWYUAY3FtS97SAdLJiYlLYFtK9z2wpQlpZOBzlHhGrMhhzLCegVEFONfDbSvMqrSU693IYz4eKy8N5fDp3P5Cyx6RCyXDdk4qFcxQIcrnHA127saAkPXDX3UZ9/nf2u+1cyQqD4jun/qYOE78VCwVoSrQik78dkNoW+4PetxZC9XKOblvOc/xeZfR3KhRzH9kSuQASfZrTOhfD2R3s0m75VK5v29W5s1rF9svXS6oGIam7ff564d0oON0WqpHinfCZjj0NYw06LNT7jeGWuCwqqfZxyErHztXKzJQizfPBR995n8w/mzikq5T9yLk1ZuHfwcI/RK777A+B9DaSZXzfZl8V+s8KAH7OiFIXzaLBNoMuEPoKoZPbP+5z9Azsh3kz0Q4rAAk96apwS0UkXmkZZeONxq+7zhgb2ZiHNxV1KXaimlr8N+YE4wA6ePLlYPFYgMRQKi4/2lMXWMamB7vhrGfV+Zxtt9pdYmAyPoOW+YzBnuzITTCZDDhLTHtibdogFSUM6rSAdAR230BxeI02vaHjtwo7X4+ryoSOdQoICvPWF6fmLZG0GCYOlWe/jNSVCLHkYecU3fNHhucpyEl6rGg3ERlP+Q1ahrZs+dYeceUoVmiSoZYFz+Su7sg8boNQp
+X-Microsoft-Antispam-Message-Info: DnU3QGIwn3Ac53CZ3WZ0oO2I3SWr9NEpVxYV/9RMZ4zKWEWKGOOFMW/V3OS0+ggTJ07u/V4s/VtAyjpcnuEWZr7jlAbzhp8Xi4yZxGMjRH0NmhmPMwS+GGeF37a5Ba80Q0z/hZXSP6Vmk+Ifi14ujFPklw4dUg9NsetkPVdFr9uUtpLj6pyZ/Ru2PM9Dm73zaK5jWu+NbB9cSwpzzJY+RbdhCZvgAOdd1yofQ1b0hpbqNcXEsfOXwJINby56pDSOJyli5jEwyiQNRReh6aFf/EgHhlAPNNBUqdQU3EfG1rqthEI3oTw+zxhdsITdNbhWdt9LDtPE+F4w05ZkR/dQiRZNogB5pwyiblvwQE5KhmTCQgEoobA9TAaqhBJ08l53KqCtdsdDbvLB7xa2/vnJRmV3Famtyau+V0j3OxDXHZzDaZ60bjuD/WPL0U3y+YoMEgjKP9JLiJtZ4fOx2HaaINcpQG2xZsH8iEMAQsCHxUuyuefzUtUD5fe8K0IsX2nZV2X8Ribd2lG9/VRZYhXoYmQanM9yIQaNb3/WaMBJRy4LmomOfW4sk0UPovw/pPIGJSFkuhDbxhxFXVXeVLFTu/hQzazuh6qpLpXQAx/PJ+l9Rk7hgtl0a2ovA3Y/3cMI1+X9vgidLCaTZUh0BETOybQhn7pXBojvVWxp3X3uzaWNJkgmA+o0SKSx39T3wgsSblmoZxrpSrmxj238SqOJYgddyNFDHOMH3tsPwFsNdiXNTSMb6d4G9RUDHW8CfBrfRfnTu466wTXbtO1lyjQueg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(376002)(39860400002)(136003)(396003)(230922051799003)(82310400011)(451199024)(1800799012)(64100799003)(186009)(36840700001)(40470700004)(46966006)(41300700001)(8676002)(8936002)(1076003)(2616005)(26005)(6666004)(7696005)(4326008)(83380400001)(16526019)(426003)(336012)(5660300002)(110136005)(966005)(478600001)(70586007)(70206006)(316002)(36860700001)(86362001)(82740400003)(81166007)(356005)(47076005)(40460700003)(40480700001)(36756003)(2906002)(36900700001);
+ SFS:(13230031)(4636009)(39860400002)(396003)(136003)(376002)(346002)(230922051799003)(186009)(451199024)(64100799003)(82310400011)(1800799012)(40470700004)(46966006)(36840700001)(4326008)(8676002)(8936002)(44832011)(5660300002)(70586007)(2906002)(86362001)(70206006)(316002)(54906003)(36756003)(36860700001)(47076005)(356005)(6916009)(81166007)(7696005)(82740400003)(478600001)(83380400001)(6666004)(1076003)(26005)(2616005)(426003)(336012)(41300700001)(16526019)(40460700003)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2024 22:15:22.0991 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3747dcd-2fbf-412e-c4f5-08dc1df31f74
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2024 22:28:19.4231 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b04ca63-d8e9-4de0-3c48-08dc1df4eec2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017095.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB72.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8263
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7823
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,103 +97,169 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Jay Cornwall <jay.cornwall@amd.com>, Christian
+ Koenig <christian.koenig@amd.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima,
+The TBA and TMA, along with an unused IB allocation, reside at low
+addresses in the VM address space. A stray VM fault which hits these
+pages must be serviced by making their page table entries invalid.
+The scheduler depends upon these pages being resident and fails,
+preventing a debugger from inspecting the failure state.
 
-Fixes for 6.8.
+By relocating these pages above 47 bits in the VM address space they
+can only be reached when bits [63:48] are set to 1. This makes it much
+less likely for a misbehaving program to generate accesses to them.
+The current placement at VA (PAGE_SIZE*2) is readily hit by a NULL
+access with a small offset.
 
-The following changes since commit b16702be210bb49256f8a32df2c310383134dd57:
+v2:
+- Move it to the reserved space to avoid concflicts with Mesa
+- Add macros to make reserved space management easier
 
-  Merge tag 'exynos-drm-fixes-for-v6.8-rc2' of git://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos into drm-fixes (2024-01-25 14:22:15 +1000)
+Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Cc: Christian Koenig <christian.koenig@amd.com>
+Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
+Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c      |  4 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c    |  7 ++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h       | 12 ++++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c | 30 +++++++++++---------
+ 4 files changed, 30 insertions(+), 23 deletions(-)
 
-are available in the Git repository at:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+index 823d31f4a2a3..53d0a458d78e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+@@ -28,9 +28,9 @@
+ 
+ uint64_t amdgpu_csa_vaddr(struct amdgpu_device *adev)
+ {
+-	uint64_t addr = adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT;
++	uint64_t addr = AMDGPU_VA_RESERVED_CSA_START(
++		adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT);
+ 
+-	addr -= AMDGPU_VA_RESERVED_CSA_SIZE;
+ 	addr = amdgpu_gmc_sign_extend(addr);
+ 
+ 	return addr;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
+index 3d0d56087d41..9e769ef50f2e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
+@@ -45,11 +45,8 @@
+  */
+ static inline u64 amdgpu_seq64_get_va_base(struct amdgpu_device *adev)
+ {
+-	u64 addr = adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT;
+-
+-	addr -= AMDGPU_VA_RESERVED_TOP;
+-
+-	return addr;
++	return AMDGPU_VA_RESERVED_SEQ64_START(
++		adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 666698a57192..f23b6153d310 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -135,11 +135,19 @@ struct amdgpu_mem_stats;
+ #define AMDGPU_IS_MMHUB0(x) ((x) >= AMDGPU_MMHUB0_START && (x) < AMDGPU_MMHUB1_START)
+ #define AMDGPU_IS_MMHUB1(x) ((x) >= AMDGPU_MMHUB1_START && (x) < AMDGPU_MAX_VMHUBS)
+ 
+-/* Reserve 2MB at top/bottom of address space for kernel use */
++/* Reserve space at top/bottom of address space for kernel use */
+ #define AMDGPU_VA_RESERVED_CSA_SIZE		(2ULL << 20)
++#define AMDGPU_VA_RESERVED_CSA_START(top)	((top) \
++						 - AMDGPU_VA_RESERVED_CSA_SIZE)
+ #define AMDGPU_VA_RESERVED_SEQ64_SIZE		(2ULL << 20)
++#define AMDGPU_VA_RESERVED_SEQ64_START(top)	(AMDGPU_VA_RESERVED_CSA_START(top) \
++						 - AMDGPU_VA_RESERVED_SEQ64_SIZE)
++#define AMDGPU_VA_RESERVED_TRAP_SIZE		(2ULL << 12)
++#define AMDGPU_VA_RESERVED_TRAP_START(top)	(AMDGPU_VA_RESERVED_SEQ64_START(top) \
++						 - AMDGPU_VA_RESERVED_TRAP_SIZE)
+ #define AMDGPU_VA_RESERVED_BOTTOM		(2ULL << 20)
+-#define AMDGPU_VA_RESERVED_TOP			(AMDGPU_VA_RESERVED_SEQ64_SIZE + \
++#define AMDGPU_VA_RESERVED_TOP			(AMDGPU_VA_RESERVED_TRAP_SIZE + \
++						 AMDGPU_VA_RESERVED_SEQ64_SIZE + \
+ 						 AMDGPU_VA_RESERVED_CSA_SIZE)
+ 
+ /* See vm_update_mode */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
+index 6604a3f99c5e..f899cce25b2a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
+@@ -36,6 +36,7 @@
+ #include <linux/mm.h>
+ #include <linux/mman.h>
+ #include <linux/processor.h>
++#include "amdgpu_vm.h"
+ 
+ /*
+  * The primary memory I/O features being added for revisions of gfxip
+@@ -326,10 +327,16 @@ static void kfd_init_apertures_vi(struct kfd_process_device *pdd, uint8_t id)
+ 	 * with small reserved space for kernel.
+ 	 * Set them to CANONICAL addresses.
+ 	 */
+-	pdd->gpuvm_base = SVM_USER_BASE;
++	pdd->gpuvm_base = max(SVM_USER_BASE, AMDGPU_VA_RESERVED_BOTTOM);
+ 	pdd->gpuvm_limit =
+ 		pdd->dev->kfd->shared_resources.gpuvm_size - 1;
+ 
++	/* dGPUs: the reserved space for kernel
++	 * before SVM
++	 */
++	pdd->qpd.cwsr_base = SVM_CWSR_BASE;
++	pdd->qpd.ib_base = SVM_IB_BASE;
++
+ 	pdd->scratch_base = MAKE_SCRATCH_APP_BASE_VI();
+ 	pdd->scratch_limit = MAKE_SCRATCH_APP_LIMIT(pdd->scratch_base);
+ }
+@@ -339,18 +346,19 @@ static void kfd_init_apertures_v9(struct kfd_process_device *pdd, uint8_t id)
+ 	pdd->lds_base = MAKE_LDS_APP_BASE_V9();
+ 	pdd->lds_limit = MAKE_LDS_APP_LIMIT(pdd->lds_base);
+ 
+-        /* Raven needs SVM to support graphic handle, etc. Leave the small
+-         * reserved space before SVM on Raven as well, even though we don't
+-         * have to.
+-         * Set gpuvm_base and gpuvm_limit to CANONICAL addresses so that they
+-         * are used in Thunk to reserve SVM.
+-         */
+-        pdd->gpuvm_base = SVM_USER_BASE;
++	pdd->gpuvm_base = AMDGPU_VA_RESERVED_BOTTOM;
+ 	pdd->gpuvm_limit =
+ 		pdd->dev->kfd->shared_resources.gpuvm_size - 1;
+ 
+ 	pdd->scratch_base = MAKE_SCRATCH_APP_BASE_V9();
+ 	pdd->scratch_limit = MAKE_SCRATCH_APP_LIMIT(pdd->scratch_base);
++
++	/*
++	 * Place TBA/TMA on opposite side of VM hole to prevent
++	 * stray faults from triggering SVM on these pages.
++	 */
++	pdd->qpd.cwsr_base = AMDGPU_VA_RESERVED_TRAP_START(
++		pdd->dev->adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT);
+ }
+ 
+ int kfd_init_apertures(struct kfd_process *process)
+@@ -407,12 +415,6 @@ int kfd_init_apertures(struct kfd_process *process)
+ 					return -EINVAL;
+ 				}
+ 			}
+-
+-                        /* dGPUs: the reserved space for kernel
+-                         * before SVM
+-                         */
+-                        pdd->qpd.cwsr_base = SVM_CWSR_BASE;
+-                        pdd->qpd.ib_base = SVM_IB_BASE;
+ 		}
+ 
+ 		dev_dbg(kfd_device, "node id %u\n", id);
+-- 
+2.34.1
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.8-2024-01-25
-
-for you to fetch changes up to c82eb25c5f005b33aebb1415a8472fc2eeea0deb:
-
-  drm/amd/display: "Enable IPS by default" (2024-01-25 16:00:24 -0500)
-
-----------------------------------------------------------------
-amd-drm-fixes-6.8-2024-01-25:
-
-amdgpu:
-- AC/DC power supply tracking fix
-- Don't show invalid vram vendor data
-- SMU 13.0.x fixes
-- GART fix for umr on systems without VRAM
-- GFX 10/11 UNORD_DISPATCH fixes
-- IPS display fixes (required for S0ix on some platforms)
-- Misc fixes
-
-----------------------------------------------------------------
-Alex Deucher (2):
-      drm/amdgpu/gfx10: set UNORD_DISPATCH in compute MQDs
-      drm/amdgpu/gfx11: set UNORD_DISPATCH in compute MQDs
-
-Alvin Lee (1):
-      drm/amd/display: Add Replay IPS register for DMUB command table
-
-ChunTao Tso (1):
-      drm/amd/display: Replay + IPS + ABM in Full Screen VPB
-
-Hawking Zhang (1):
-      drm/amdgpu: Fix null pointer dereference
-
-Kenneth Feng (1):
-      drm/amd/pm: update the power cap setting
-
-Lijo Lazar (3):
-      drm/amdgpu: Avoid fetching vram vendor information
-      drm/amdgpu: Show vram vendor only if available
-      drm/amd/pm: Fetch current power limit from FW
-
-Ma Jun (1):
-      drm/amdgpu/pm: Fix the power source flag error
-
-Nicholas Kazlauskas (1):
-      drm/amd/display: Allow IPS2 during Replay
-
-Roman Li (4):
-      drm/amd/display: Add IPS checks before dcn register access
-      drm/amd/display: Disable ips before dc interrupt setting
-      drm/amd: Add a DC debug mask for IPS
-      drm/amd/display: "Enable IPS by default"
-
-Srinivasan Shanmugam (1):
-      drm/amd/display: Fix uninitialized variable usage in core_link_ 'read_dpcd() & write_dpcd()' functions
-
-Tom St Denis (1):
-      drm/amd/amdgpu: Assign GART pages to AMD device mapping
-
-Yang Wang (1):
-      drm/amd/pm: udpate smu v13.0.6 message permission
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c           |  8 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c       | 17 ++++++-
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |  3 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c   |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c   |  1 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 21 ++++-----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  |  5 +-
- drivers/gpu/drm/amd/display/dc/dc.h                |  1 +
- drivers/gpu/drm/amd/display/dc/dc_types.h          |  5 ++
- .../drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c    |  9 +++-
- .../drm/amd/display/dc/link/protocols/link_dpcd.c  |  4 +-
- drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    | 47 +++++++++++++++++++
- .../drm/amd/display/modules/power/power_helpers.c  |  5 ++
- .../drm/amd/display/modules/power/power_helpers.h  |  1 +
- drivers/gpu/drm/amd/include/amd_shared.h           |  1 +
- drivers/gpu/drm/amd/include/amdgpu_reg_state.h     |  2 +-
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          | 14 ++----
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c     |  2 +
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c     |  2 +
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   | 54 +++++++++++++++++++++-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  4 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   | 54 +++++++++++++++++++++-
- 24 files changed, 229 insertions(+), 36 deletions(-)
