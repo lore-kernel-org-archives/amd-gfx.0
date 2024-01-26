@@ -4,60 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B4D4C47DDF
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jan 2024 22:57:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89813C47DDF
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jan 2024 01:27:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAE5710E260;
-	Thu, 25 Jan 2024 22:57:57 +0000 (UTC)
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
- [209.85.167.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2359910E260
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jan 2024 22:57:57 +0000 (UTC)
-Received: by mail-oi1-f180.google.com with SMTP id
- 5614622812f47-3bd7c15a745so5135974b6e.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jan 2024 14:57:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706223416; x=1706828216; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tvkHUUyJNybDaJ7bdfQxHAcDyD9LjxGCHwN1G88UFG4=;
- b=INfXpeLpJSpoNPq0r2E/WUWGJyLiyxQwZIqdU6wh0qSwhLzcVk7Jm9JXBBjZBk0C2m
- JA8rJcAh/Auq0ba1JouO/CFHgk8y/0OAKG1dtvkX5azVoiKmf7Uk7L4yY51UDAJWKqnO
- kYkWM7+b3iD10fRZ5tcILB9Kh56NQiMRA33NCk+VBV8LOp0OmHtMDNutsQ8BcV8trmTJ
- 8HYC8ATRglU1AQ/9tsZ6QthtDEGk3egkvLbMKqqoSws/1fQwSSrw4yLO86mafHogmR5D
- FzUQxdOESi/n75Yln7ra+dqBEYSdT4QHMAsQlFQI0Eyg9XK62gD1qVNfNBoWd5/aemYz
- WSkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706223416; x=1706828216;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=tvkHUUyJNybDaJ7bdfQxHAcDyD9LjxGCHwN1G88UFG4=;
- b=l8bIXc9W13+D67o2+Qs3Mqi8Az0PdVWoYPFiYYOBArJ3jqxSGmQlUC+zFsA6KeLHpU
- wSUPKjnerEu2OwYLtX94rFPJAmbX8x/SptjWBnahny6M1mYhFclJ6fpNw+YsokffYBPw
- 65NMm/aR++Cywm27YNo+QOKu+pAlkdZqRL0lUgpwnzkN3nDjZGPgu79teeXMbW4Orbbb
- z+J5mNtixiWB+3//Pj2Lfm79UF8KnjvKL7F9LGkxd0yK4UbVPTWzdSmuDtIP2FdHN4KH
- 8iIU/nyvioZ3vEJSyZFodsQkT+9gSspJ4OOJw7mNldkc/vvPwqq7Bl0J2X1hvE5kyL3v
- X/8g==
-X-Gm-Message-State: AOJu0YxlNGHV66faK9bGs77NosFHnGZe3mmYPGTElcIGNupo0c/iR91s
- 9dHEj5c5VCzelJGpSfGuFQhugXSD8j4qCl19EpzIbdB2MaS9yFPT/Vw/LelBLpfLB6rg/n0arRD
- l2WdkQIb5GIr2TcrPeg5zC35sr8RwnSGP
-X-Google-Smtp-Source: AGHT+IFWfm0KdD8y0wvbm6zoJ+le6Z+WYkl6ZkI+0ABf6vtgfdCf2MlNz9chXh6BW52ZTiETR17M0E3u0tlCztJgBP8=
-X-Received: by 2002:a05:6870:1649:b0:214:911a:e871 with SMTP id
- c9-20020a056870164900b00214911ae871mr429780oae.5.1706223416444; Thu, 25 Jan
- 2024 14:56:56 -0800 (PST)
-MIME-Version: 1.0
-References: <20240125032255.898308-1-Prike.Liang@amd.com>
- <20240125032255.898308-2-Prike.Liang@amd.com>
-In-Reply-To: <20240125032255.898308-2-Prike.Liang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 25 Jan 2024 17:56:45 -0500
-Message-ID: <CADnq5_MKmkrCW0Gia74DJhq297W=AGeW8J4tQxxFxcSjt+-f3A@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: reset gpu for pm abort case
-To: Prike Liang <Prike.Liang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1E1210E073;
+	Fri, 26 Jan 2024 01:27:23 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2074.outbound.protection.outlook.com [40.107.96.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B3F010E073
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jan 2024 01:27:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jhovmuFm8aU4At1x23qgeb61Wgln2aZFknSfjudEldlS/U7vD9xF70nI8HXoD2a6QRpX4oqwJQqr3j1eSbnO80xNJltN3uJCga8xNIe5+/IIfQmOZmYsUbgh5EUg0mMlrygzoKqm/OYmEZKJEjfKu4/nf4djfoRIj1KDNWGfcsSqDqJeSayjsuEKIqfOokold56rh2l7UIH/F0gdtBzZ6fKpNQm00Xslidj7X+05KQ51vPAC6xF+NE3NWFOugQgI+vd9hc1JFXDGMVjVJCyHiMi1IWizHE1hdE4YvOcIw/NK1khnxM3zH3hctEwczLS5bPHOo/i1UZRpx+7CW6163w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6NdZOT/gB/afhDEiRWam4s5+bqyH4JRqDiaOhY1UrhU=;
+ b=m1Q4zeUOk3zFfmgd+1pAHESa0G/kdNhsKhvMpUOULwDimxdkoWmZiz7HMiVQs1ZUBTa6w6KUS8GfoBQRBHRvJ5rzXhNf2kbXjumgZgXzFKVVN7QvunW15DN0B6spaMgim4/aqc3PG234L9Ibo0GEn7TGpcN+pTXbe4glPT07ETiwFcOdP/9V+jZl+1gJ8QnU4NJPnEn0PbiJ6Iju9/ZPTycDORWlHS5StQYL00fDVi5zDbjzKcvlpTsR0VQv+LxH/Lzu4hRvPVLisY8dBczLBhnz2sqMgx+7tee4keO8ybHi1gg4dpNOAybUFAd6+Iy059E6+Sfz6fcEyxXoEvyPyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6NdZOT/gB/afhDEiRWam4s5+bqyH4JRqDiaOhY1UrhU=;
+ b=uKA8kmTBTiOXQMS8xJmG/G2HaUbu5KM6webJ3jAUQHlXw0QuF90eV9iDJeIX8iFL2Gz++R9gWdQ5zkOL+3UiBLUjqoYz77Ucw90Dg+sjBPtt1xmc/1hFFpj0R8UbQip0ljQIuBnIHrCw7UBfO+kM6T6cXPkWtaTlhIWJ/cn6xqw=
+Received: from CH2PR12MB4152.namprd12.prod.outlook.com (2603:10b6:610:a7::8)
+ by DM3PR12MB9286.namprd12.prod.outlook.com (2603:10b6:8:1ae::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.26; Fri, 26 Jan
+ 2024 01:27:17 +0000
+Received: from CH2PR12MB4152.namprd12.prod.outlook.com
+ ([fe80::666d:81e0:86d1:6483]) by CH2PR12MB4152.namprd12.prod.outlook.com
+ ([fe80::666d:81e0:86d1:6483%7]) with mapi id 15.20.7228.026; Fri, 26 Jan 2024
+ 01:27:17 +0000
+From: "Xu, Feifei" <Feifei.Xu@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: update documentation on new chips
+Thread-Topic: [PATCH] drm/amdgpu: update documentation on new chips
+Thread-Index: AQHaSkfDyQVWpAHcC0ur5tKaun7+WbDrWPUA
+Date: Fri, 26 Jan 2024 01:27:17 +0000
+Message-ID: <CH2PR12MB41527B617B1B08A7E0885120FE792@CH2PR12MB4152.namprd12.prod.outlook.com>
+References: <20240118195106.3669705-1-alexander.deucher@amd.com>
+In-Reply-To: <20240118195106.3669705-1-alexander.deucher@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=34306538-5b75-453b-b351-4ce97c1bba6d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-01-26T01:27:00Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH2PR12MB4152:EE_|DM3PR12MB9286:EE_
+x-ms-office365-filtering-correlation-id: 7da6aa29-14d4-46d1-9a68-08dc1e0deeeb
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: jo8zqVvVpfAZu5FWxTrB29WXEjDEJlri35uJb3oEgUBWMJLEeAd+LFv6NaIQTokpQ6wL0xeOf31tRmJjqN+sYXo99jUJKVf5j8H2/MlEFS5/hG8Xpt7pVo07crON7zuc3nev+1cZa3McNzYRIKxTXoR/5/+NLT0W3HlqT5nEzP+sZAMevORUJoOlFj7JRSz2aux2bd/VK/9Y9eiDF0EZzcPWlTYzivlVRBvcztngQqKigcMx4GyAeoG7YTWQyZ2zcu7KuVth8LxdIXzO4QNLoRWsER3VMREQ3ajnB0hCHhyddvCBH/jQnVsUppsJuQt7VLJbko1gRpgVLED2Or/Czp13ANUe9xGOscNrpAl86La2WdEX4bo8DlgH5115vU3xuhLdeoOdSnUAC80gaGbUVSZPwRyIZjclN8yhNpS55x8RuR4h9x4GhlZciYZGgNlWjSdXCxutZsNGbbG5ndLlRq+yi3toNvi9rc5PmQPdSoZqiLGRl5bzxPkGE1P7OTxnuJ3y9NXewt3+pHfcqgaoCmeVzf0/NDWDy2mRXQABsGL3HXKLaTbv+mf6iDwF8NKsI+tmGzcmlAPGn5YF3u/RVmHA+C6EfA5RugEsExE1EG/ol2GKveeZ3ZzxYwOLTsDIsFdfpqJiRLWbgxwj6X+opA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB4152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(136003)(376002)(346002)(396003)(366004)(230922051799003)(64100799003)(451199024)(186009)(1800799012)(15650500001)(33656002)(83380400001)(2906002)(52536014)(5660300002)(4326008)(122000001)(8676002)(38070700009)(41300700001)(478600001)(38100700002)(66556008)(66946007)(64756008)(66476007)(316002)(53546011)(110136005)(76116006)(86362001)(9686003)(71200400001)(55016003)(66446008)(7696005)(6506007)(26005)(8936002)(545624020);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?hW+ba6ZWK5RsN0jGnnNydwzbqCLlsQsjMG3Nvl0wFQRW+EKzX+0wMJb0TZo5?=
+ =?us-ascii?Q?It+x5xdi8wli+J0LELw53SYfokL7bYh1FBeH7LVNvBLUTRSryaZhsleb1o+h?=
+ =?us-ascii?Q?YIU1Pz3RLgnRa8/MTxmrvUXCR3pdguVVHvVDAHqaar4laMZn84N0Cbe0aexw?=
+ =?us-ascii?Q?+75bkjXXLh/Pts/ZicL1Mj28cGWuNCqcAHj+EhCrxqM58KWdwb+1swotcpg6?=
+ =?us-ascii?Q?1lKkvew1pFKYKQ2YlI/YP7nkq2ME9F8KLv/2gJFmG5F7r4GXDnZvEyFlvROQ?=
+ =?us-ascii?Q?kp7TBe3FfAhLvAO5SxzLa55wUlbOYoWVlefH5opCHVJmNaiHirCfeVVwzLqu?=
+ =?us-ascii?Q?2WiJAr+90WShtpACWFfp07U+Aq3P7Dl5PdomzAhEiJviPm+8Q+39E1Nfj+A5?=
+ =?us-ascii?Q?J3Wn/csXRzUnB0MS+z7hmT7y5pB37dsRNoR+3yKqkt9xEVxP6Vf7uI2owoE0?=
+ =?us-ascii?Q?Ev6/crQkVrK9BJOdmavVEez18sx+5TRkcDm5PHBkF5QbWaslLQNUmNu52rII?=
+ =?us-ascii?Q?q3Y9TgLZ2IbHezKSE9zs0Aqqic39H8naPogE6bik8Y/nYaYDLJtELLNB3xfV?=
+ =?us-ascii?Q?GBa3HCyfZViQYDc/sCTQ6ZVXZb/11YVf84od/EqVcAl1sYQbE1TASFM/W5Mb?=
+ =?us-ascii?Q?p4/WIz947LSYnBR6ipKuyW2hFMUdPpBBu1NvchkMbH2Lb1+bMh/85e762Qgw?=
+ =?us-ascii?Q?2tHOZMKxfb+4j7sz8yXadb0jd6CRgpa2pawudDFFkqQbBDbU2vKkEV0zFTeA?=
+ =?us-ascii?Q?h5mk/h+ihjZzJaajCpIc5Yyj4dA4q/Xx4t/X0+EB+KYpUtroOPQov8mxaY8z?=
+ =?us-ascii?Q?lIx245cheHBHjf4c7OQPUvE+J5BlhCDg/zpdeGux6Y9pFWIfGfo2WgIAEoyT?=
+ =?us-ascii?Q?Ee0zLT0El+fH3CCiK6+6W4UNcLvInFOzFrwfjxnCNfXBTrwwIP7rfSsn+RPC?=
+ =?us-ascii?Q?6uzG6kK3HDLRInmS4CSd4I6lWvIIOAdeE1q9+GTnISgcI1/HyOZPFtVP42Z1?=
+ =?us-ascii?Q?UTiJaWyUpC0b95CIb8IzoBtzqWUVBMpb/OTa2U2Zn0wJOuzpCCfmEj9NdLyG?=
+ =?us-ascii?Q?nuLXBp7Tpo4JwfWo5y6aCqlcnZsj/mWFlD2mTi9qg1UIJaHdSH7IVJDwAAlH?=
+ =?us-ascii?Q?DVMill2uR6+aorglkUZI15olC/GC1HsGcIqgKOB5s+DuAOsk1HV/SwGh0bgW?=
+ =?us-ascii?Q?vnTMfYAJpKFZ91UUr2v0A0/bgKdS9pUV0B3jZxlkBc9rWgJ37iWJekQ41qQQ?=
+ =?us-ascii?Q?OIufKiYQsRCPFm2ENZPDaW5qyraFAaOqQL+912sHOeojJ69jFRvbCa01WFVf?=
+ =?us-ascii?Q?U81e9xqqPqTkv90xYGy2SJX5PreP3+2B1fQGtiPaBrXkdPLGfoHi9DYPkWyq?=
+ =?us-ascii?Q?xv9eW7dud5hAt/LDn+87PJbgnU3NVwcrFMQVL0N7YnGvWjENWj7ZCIANqhFi?=
+ =?us-ascii?Q?Yu433PqI6jJc0KrafVaAIKdoJyWFkfkP/Jy6icPgQRp+W3etqGHXprA7MTrE?=
+ =?us-ascii?Q?Q4a+211TFyalBxWpbjS67I95ILxxMsa6Aa10vu6PXFRIjyieOciL4TFO4nnq?=
+ =?us-ascii?Q?gQja281+YlquhgmeaF8=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4152.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7da6aa29-14d4-46d1-9a68-08dc1e0deeeb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jan 2024 01:27:17.1361 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Mh984r1lBKnllAtsYQ556eTI1fWdy12qhMJKq2VjJc/t+qcdKYQJmxnVJFTgMmmK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9286
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,84 +122,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Deepak.Sharma@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 24, 2024 at 11:11=E2=80=AFPM Prike Liang <Prike.Liang@amd.com> =
-wrote:
->
-> In the pm abort case the gfx power rail not turn off from FCH side and
-> this will lead to the gfx reinitialized failed base on the unknown gfx
-> HW status, so let's reset the gpu to a known good power state.
->
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
->  drivers/gpu/drm/amd/amdgpu/soc15.c         | 8 +++++++-
->  2 files changed, 12 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 56d9dfa61290..4c40ffaaa5c2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4627,6 +4627,11 @@ int amdgpu_device_resume(struct drm_device *dev, b=
-ool fbcon)
->                         return r;
->         }
->
-> +       if(amdgpu_asic_need_reset_on_init(adev)) {
+[AMD Official Use Only - General]
 
-space between if and (.
+Acked-by: Feifei Xu <Feifei Xu@amd.com>
 
-Also, I think we need to check that we are not in S0ix as well
-otherwise I think we'll always reset in S0ix.  We could probably do
-away with the GPU reset in the suspend_noirq callback with this
-change, but maybe make that a separate follow up patch.
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deu=
+cher
+Sent: Friday, January 19, 2024 3:51 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: update documentation on new chips
 
-Alex
+These have been released now, so add them to the documentation.
 
-> +               DRM_INFO("PM abort case and let's reset asic \n");
-> +               amdgpu_asic_reset(adev);
-> +       }
-> +
->         if (dev->switch_power_state =3D=3D DRM_SWITCH_POWER_OFF)
->                 return 0;
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amd=
-gpu/soc15.c
-> index 15033efec2ba..9329a00b6abc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -804,9 +804,16 @@ static bool soc15_need_reset_on_init(struct amdgpu_d=
-evice *adev)
->         if (adev->asic_type =3D=3D CHIP_RENOIR)
->                 return true;
->
-> +       sol_reg =3D RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
-> +
->         /* Just return false for soc15 GPUs.  Reset does not seem to
->          * be necessary.
->          */
-> +       if (adev->in_suspend && !adev->in_s0ix &&
-> +                       !adev->pm_complete &&
-> +                       sol_reg)
-> +               return true;
-> +
->         if (!amdgpu_passthrough(adev))
->                 return false;
->
-> @@ -816,7 +823,6 @@ static bool soc15_need_reset_on_init(struct amdgpu_de=
-vice *adev)
->         /* Check sOS sign of life register to confirm sys driver and sOS
->          * are already been loaded.
->          */
-> -       sol_reg =3D RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
->         if (sol_reg)
->                 return true;
->
-> --
-> 2.34.1
->
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ Documentation/gpu/amdgpu/dgpu-asic-info-table.csv | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv b/Documentat=
+ion/gpu/amdgpu/dgpu-asic-info-table.csv
+index 882d2518f8ed..3825f00ca9fe 100644
+--- a/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
++++ b/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
+@@ -16,6 +16,7 @@ Radeon (RX|TM) (PRO|WX) Vega /MI25 /V320 /V340L /8200 /91=
+00 /SSG MxGPU, VEGA10,  AMD Radeon (Pro) VII /MI50 /MI60, VEGA20, DCE 12, 9=
+.4.0, VCE 4.1.0 / UVD 7.2.0, 4.2.0  MI100, ARCTURUS, *, 9.4.1, VCN 2.5.0, 4=
+.2.2  MI200, ALDEBARAN, *, 9.4.2, VCN 2.6.0, 4.4.0
++MI300, AQUA_VANGARAM, *, 9.4.3, VCN 4.0.3, 4.4.2
+ AMD Radeon (RX|Pro) 5600(M|XT) /5700 (M|XT|XTB) /W5700, NAVI10, DCN 2.0.0,=
+ 10.1.10, VCN 2.0.0, 5.0.0  AMD Radeon (Pro) 5300 /5500XTB/5500(XT|M) /W550=
+0M /W5500, NAVI14, DCN 2.0.0, 10.1.1, VCN 2.0.2, 5.0.2  AMD Radeon RX 6800(=
+XT) /6900(XT) /W6800, SIENNA_CICHLID, DCN 3.0.0, 10.3.0, VCN 3.0.0, 5.2.0 @=
+@ -23,4 +24,5 @@ AMD Radeon RX 6700 XT / 6800M / 6700M, NAVY_FLOUNDER, DCN =
+3.0.0, 10.3.2, VCN 3.0  AMD Radeon RX 6600(XT) /6600M /W6600 /W6600M, DIMGR=
+EY_CAVEFISH, DCN 3.0.2, 10.3.4, VCN 3.0.16, 5.2.4  AMD Radeon RX 6500M /630=
+0M /W6500M /W6300M, BEIGE_GOBY, DCN 3.0.3, 10.3.5, VCN 3.0.33, 5.2.5  AMD R=
+adeon RX 7900 XT /XTX, , DCN 3.2.0, 11.0.0, VCN 4.0.0, 6.0.0
++AMD Radeon RX 7800 XT, , DCN 3.2.0, 11.0.3, VCN 4.0.0, 6.0.3
+ AMD Radeon RX 7600M (XT) /7700S /7600S, , DCN 3.2.1, 11.0.2, VCN 4.0.4, 6.=
+0.2
+--
+2.42.0
+
