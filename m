@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC3B2C47422
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jan 2024 15:51:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4C67C48286
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jan 2024 15:51:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1128010FBCD;
-	Fri, 26 Jan 2024 15:51:41 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2041.outbound.protection.outlook.com [40.107.95.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 373F310FBDF;
- Fri, 26 Jan 2024 15:51:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D50A610FBCE;
+	Fri, 26 Jan 2024 15:51:46 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2084.outbound.protection.outlook.com [40.107.94.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0000E10FBCE;
+ Fri, 26 Jan 2024 15:51:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MlfWYX7R2jKC0klCsRRLy2p5vNCwUNJSsiBnI63Z+NMjHivXVEjN/JcNZyaoqHAm+znJsPEfjIU1eKkKtIYj0+nUDbIeMl8zNP9jKENayOkLrD03fSfuFPsNMEJmk+HFaTNV8bKOaECJl0TppnsjxxA2HIeWZBV7H6p1xGjjQU45678cnFtNCfcaRPhHKa3wRavlpxx+UN+CNeXXXaEf+GPDtgobmMuUvYQLC0f9qOPGYiIrv4H9YNm71cBqDe7mFRRC/18NLPLOI/pDgza705047FlmwH6g3e1POB6X+nLcCH6ENfziQTZaxiDf6cwZwRFvqjZADAHbsOvKgA1/wA==
+ b=J+rzMToUX4rGDbD8yYJYNgdhRaaHWGKfpgqM/oT3KyqPnjF1jFkoxlF7Lea3f5j/dnaXucF9wsbGMWd7kEc8dOum3eYSmUBOkjRKlEBdUmnt1ze0sY1TAuaT6ikw0cr1Fu9+iqF5VEJH7TU32Ga9gaQXT2M493ONmQqLrcGxsxvRpSZWCQTn6+t4CiI7zc+TZ6POg13klgVDkTriXJBli+CALFLp6cVT9IgzMqMk2JwRhQHqFzMrgBxzRI2qH6jolFyPN33B6lBLy7LZquGw0Rk2s0Ug0w3bTc+1VO8mr+yxswsIBjtSVrUziD1lN6zS065usp+MW2NMJHP4ZRTXwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9fN/5aNfC9JxG/zdJCDq/JT8RYgv+ff2R5BBQPJJ4uY=;
- b=R7zOSDjDoCD4pW4vOE/gsi/c3w4KdNQMAACXciHQOIkq+zCgg2+jH2sNH6kMp4BBED9K6aDhMR5kMnz+zTGsKrZgkAdocI1NeTXtDfm40fd349d13SyNdivsWkPlL+iC0+dxu5IYizs9qeLhgixYnQiOVmyF5VWZ3I7pIWeoANMzxXDZJJFS6bBOkzspg6aRHCp0iexXLQiuG+Bb2aly+nhPjjOytL9kiXyVY3PAD3iurZfDZpttlRzYA4spKQcYlIbgSLRe97GSwumxBqEUxPm1Bc2UUk/z28y/fIiNN+E4yP9+Bl083FSXVL6B+riJIQ4DLu1PX+oZ5HRAPXNfrg==
+ bh=7opKPDW2k9gFFGTydi7qJ406j3JTfN/1HUjdxLd922g=;
+ b=YGMcGwMuc2WsDAd6VrC3z6xBsIBFIjpuvjiqysL9M2Kepr8l9aYrYRSDkFdf9N1bRRDBG3b6aet1IkcCsa3+4c3kPhdNnlIMszhSYy7j+ribaneWoPS/hX7ZvRvDHPrk9Fc9VLC/V04gEkuRSWMbV5BbhLFU1J350ewv4sxHY7nmm+rIckowBplI9y6B/wMuiKqm+hB5W63Oga+jhaZgupOm3xNvgpZ/AfPfoyLN9/2bSrHgcwYAuSgEYIdfHt4++rFgG9JKsuTwdPzVoCBdsDcFh+vpQcSUJnj2ViAbZFbPxD/APvaZ7dYMdQlKuLI/mtXbfQQM0S0r111q0gg2MQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=linux.ie smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9fN/5aNfC9JxG/zdJCDq/JT8RYgv+ff2R5BBQPJJ4uY=;
- b=Dxk+dVxZbpY6Gwy4ywMLjLmfjAiVrMQrHGiLyzmJpYDVqKPoD2IlkJYr2AmV1Z/wbP8ZtSmdGtjT/7/2ViL0zBxkTX4p0dArK4RJ8mdZTm1s6iUVfNIy+yol41SuWr/tspw67jzoVBKyuI1uAHDKSoflgGETjaF4nKy26/bPfT8=
-Received: from SJ0PR03CA0086.namprd03.prod.outlook.com (2603:10b6:a03:331::31)
- by DS0PR12MB7557.namprd12.prod.outlook.com (2603:10b6:8:130::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.22; Fri, 26 Jan
- 2024 15:51:34 +0000
-Received: from SJ1PEPF00001CDF.namprd05.prod.outlook.com
- (2603:10b6:a03:331:cafe::4a) by SJ0PR03CA0086.outlook.office365.com
- (2603:10b6:a03:331::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.22 via Frontend
- Transport; Fri, 26 Jan 2024 15:51:33 +0000
+ bh=7opKPDW2k9gFFGTydi7qJ406j3JTfN/1HUjdxLd922g=;
+ b=Z2cxeeJDbuf0MhCHaGpnkjbCHoJ77xUD3huhnahD3Bsf+0/yFpj5CvNM8urV23EgExghpioVbBRDb//hdbqGqxBdOO/ryCOheNvB5tXqRexOIOnc/IBoI/XwBSHVE6Eeg1Shvx3GUHc7DJpPdlZT3Kj+1vhDUD3gu7l6S1HD/+g=
+Received: from BYAPR21CA0020.namprd21.prod.outlook.com (2603:10b6:a03:114::30)
+ by MW4PR12MB7000.namprd12.prod.outlook.com (2603:10b6:303:208::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.39; Fri, 26 Jan
+ 2024 15:51:40 +0000
+Received: from SJ1PEPF00001CE0.namprd05.prod.outlook.com
+ (2603:10b6:a03:114:cafe::a6) by BYAPR21CA0020.outlook.office365.com
+ (2603:10b6:a03:114::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.8 via Frontend
+ Transport; Fri, 26 Jan 2024 15:51:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,13 +45,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00001CDF.mail.protection.outlook.com (10.167.242.7) with Microsoft
+ SJ1PEPF00001CE0.mail.protection.outlook.com (10.167.242.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Fri, 26 Jan 2024 15:51:33 +0000
+ 15.20.7202.16 via Frontend Transport; Fri, 26 Jan 2024 15:51:39 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Fri, 26 Jan
- 2024 09:51:29 -0600
+ 2024 09:51:35 -0600
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter
@@ -61,10 +61,10 @@ To: Alex Deucher <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  "Rodrigo Siqueira" <Rodrigo.Siqueira@amd.com>, Nicholas Choi
  <nicholas.choi@amd.com>, Daniel Latypov <dlatypov@google.com>, David Gow
  <davidgow@google.com>, <hersenxs.wu@amd.com>, <magalilemes00@gmail.com>
-Subject: [PATCH v4 5/8] drm/amd/display: Introduce KUnit to
- dcn20/display_mode_vba_20 library
-Date: Fri, 26 Jan 2024 08:48:05 -0700
-Message-ID: <20240126155022.1184856-6-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH v4 7/8] drm/amd/display: Introduce KUnit tests to dc_dmub_srv
+ library
+Date: Fri, 26 Jan 2024 08:48:07 -0700
+Message-ID: <20240126155022.1184856-8-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240126155022.1184856-1-Rodrigo.Siqueira@amd.com>
 References: <20240126155022.1184856-1-Rodrigo.Siqueira@amd.com>
@@ -76,26 +76,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDF:EE_|DS0PR12MB7557:EE_
-X-MS-Office365-Filtering-Correlation-Id: da497d78-074f-4ff4-cc1a-08dc1e86abf8
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE0:EE_|MW4PR12MB7000:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9b2d0743-e58a-432f-796d-08dc1e86af76
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Lb038lHlPiuE094OfGLrOnMV/oYRVCctRWelVIwGxbZLniGJ3D0IeYrTeO5CCoykIBBOde/Nv+RtGhVTyFLkUK6AWKcu5kEe3X+NXmlUZt5kZ3OGu/7dCapFbIeAKG+dMwt6CbyQ/XM18t9WzmgCwa+7WQHR4BTArmzXLHSax0p1wTZfEmXFYS57zakudtQiUPvgUZ3WnDswM8rAieUSK0F6bejrPPN1mffJWH/aV82vYv3LC5ZSlQwxQZIkp1WmnM7EWsTZECudIuDsSEs8IkR6cuF8HE4BO98r1j2no6p7Is7gn6jcOqHpKLoZBboYlSOT0P1PhybTt2sOed9XMMMrr+pVS9oCaMCqGSDIeQ/rpUPIeT1HyypxzQTcouO/AB65yeOcWkhrYNIZwhdwWSEGE3KT86rNgIQMQW1Pw+IDrwg+fs5Y44sy7CP4VNv038ntfDU/uFzk1o2aJS1N8bWFry8/YpZf1dBIfunGsXK1SX60muanuklqWwinnpx5X0UzloSh3+qK3gJ+vW5mSLxUS/XbuZ565DbloPtgVPdI1YMh6BCN5wA5WsXJVxRqdM60r4xwvdTy2qmJr46kHSPgAArSSwV8xrrKzzbukRfM+YUsnALCNR1btFOFL4r1gMlF+5s9lahLBrQFLrSHkHSf/ka+E7xrfqRi43Oiw++1tn5MPwzIOAITBUiPVxxcugKp4ZPZTrVMU//IrsyGlFu3uIeSWpyAN41YSm0sq+ODGysqw1vA7IlbRMMZZHyuynOWwFUBC7PECneDToQvUM52P9i2HxQVdf1MRg7TCfw=
+X-Microsoft-Antispam-Message-Info: JeDCPr6/T6k6v6/pPFSW1PzP6mHAGS0nn8WNbnxJevOHlBNA+9dGxCQEhGHAcwWEycG8rOKFKb6dy+gMpf1/u0ztOesk2sXRpa28WfDhtr4QSbdYmO5HKOKBHSvy2phuV+b7D9kkLGVtDZgc0VgbmnuumtBP/8z1wvY8DY/AWjPJLoqKIL3GqNTRXVrgDQVYTZJQUEXdmM69EDYX4YYjdvma8R8ZrSCXmcTnT6ggsYml5CEQ25bzqI7nmM7cOl8nRS8O32bd+cgP5WKKdB4OTt23u2W+COQYM298UOrm4iqRLqPuitrNkhdD5rIHiRZSBsYX0tU6KvficYa5oQawQoFwCmi9CkWpyUOCjKbhf66xCUboJO8UQj3BgE47SVsziQ3v6MdGaaGAHxoSxKBb8rQstTTh9w4naDBN5r411HjYosxAEesfR59uPeprBVIhQ5Yx3LRbYpupua1J4+Nrsg1fn9FFI3mrSLzqk3D4VPxVAW3EougJn/YAV09kdkbNxEuI/z6/rwxIjl6iGeSm2e6W2ufkk2ucY8g44zAoD/eFN7GJJOYSezrFeTJZ1f+yXTL5WsHiEIBwnLF/1f2SIf3uVLaqAwMqu8KCMTGkeJlHvaNO0lsVrw9RAAA1P9pC6/fdOjZp6lH5Jz5nJ4FXNdhLNgwTFFkc4EtLO93x5DWjhoYLyjqnB5O0PULPjLaq+rEs31NIu97lS46KtTJkVmM0omTycep9+yLwMIoaVOXG0FilcNsko9SmSCpLlGhgFyR8Mi1beY8EW7fOGysHKtnLFXtNAAi//WjdJSSvvJg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(346002)(136003)(376002)(39860400002)(230922051799003)(64100799003)(1800799012)(451199024)(186009)(82310400011)(36840700001)(40470700004)(46966006)(921011)(66899024)(47076005)(316002)(70206006)(70586007)(2616005)(54906003)(478600001)(7416002)(110136005)(83380400001)(5660300002)(2906002)(30864003)(82740400003)(36860700001)(8676002)(4326008)(8936002)(6666004)(66574015)(336012)(1076003)(426003)(16526019)(26005)(86362001)(36756003)(41300700001)(356005)(40460700003)(40480700001)(81166007)(36900700001);
+ SFS:(13230031)(4636009)(39860400002)(396003)(346002)(376002)(136003)(230922051799003)(451199024)(64100799003)(82310400011)(186009)(1800799012)(36840700001)(40470700004)(46966006)(54906003)(70206006)(478600001)(356005)(336012)(82740400003)(81166007)(86362001)(36756003)(41300700001)(83380400001)(426003)(26005)(8936002)(8676002)(4326008)(316002)(1076003)(36860700001)(110136005)(7416002)(70586007)(5660300002)(6666004)(2906002)(2616005)(16526019)(47076005)(66574015)(921011)(40460700003)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2024 15:51:33.6615 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: da497d78-074f-4ff4-cc1a-08dc1e86abf8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2024 15:51:39.5183 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b2d0743-e58a-432f-796d-08dc1e86af76
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE0.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7557
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,8 +107,9 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tales.aparecida@gmail.com, Trevor Woerner <twoerner@gmail.com>,
- javierm@redhat.com, dri-devel@lists.freedesktop.org, mwen@igalia.com,
+Cc: kernel test robot <lkp@intel.com>, tales.aparecida@gmail.com,
+ Trevor Woerner <twoerner@gmail.com>, javierm@redhat.com,
+ dri-devel@lists.freedesktop.org, mwen@igalia.com,
  =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>,
  amd-gfx@lists.freedesktop.org, Isabella Basso <isabbasso@riseup.net>,
  andrealmeid@riseup.net, kunit-dev@googlegroups.com
@@ -117,925 +118,219 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Maíra Canal <mairacanal@riseup.net>
 
-The display_mode_vba_20 deals with hundreds of display parameters for
-the DCN20 and sometimes does it in odd ways. The addition of unit tests
-intends to assure the quality of the code delivered by HW engineers and,
-also make it possible to refactor the code decreasing concerns about adding
-bugs to the codebase.
+Add a unit test to the SubVP feature in order to avoid possible
+regressions and ensure code robustness. In particular, this new test
+validates the expected parameters when using 4k144 and 4k240 displays.
 
 Signed-off-by: Maíra Canal <mairacanal@riseup.net>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Reported-by: kernel test robot <lkp@intel.com>
 ---
- .../dc/dml/dcn20/display_mode_vba_20.c        |   4 +
- .../dc/dml/dcn20/display_mode_vba_20_test.c   | 888 ++++++++++++++++++
- 2 files changed, 892 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/display_mode_vba_20_test.c
+ drivers/gpu/drm/amd/display/Kconfig           |  13 ++
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |   4 +
+ .../amd/display/tests/dc/dc_dmub_srv_test.c   | 159 ++++++++++++++++++
+ 3 files changed, 176 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-index 7bf4bb7ad044..29ef47028630 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-@@ -5116,3 +5116,7 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 				locals->OutputBppPerState[mode_lib->vba.VoltageLevel][k];
- 	}
+diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+index 877ba3be6aed..9724162d7509 100644
+--- a/drivers/gpu/drm/amd/display/Kconfig
++++ b/drivers/gpu/drm/amd/display/Kconfig
+@@ -90,4 +90,17 @@ config AMD_DC_BASICS_KUNIT_TEST
+ 
+ 		If unsure, say N.
+ 
++config AMD_DC_KUNIT_TEST
++	bool "Enable KUnit tests for the 'utils' sub-component of DAL" if !KUNIT_ALL_TESTS
++	depends on DRM_AMD_DC && KUNIT
++	default KUNIT_ALL_TESTS
++	help
++		Enables unit tests for the basics folder of Display Core. Only useful for
++		kernel devs running KUnit.
++
++		For more information on KUnit and unit tests in general please refer to
++		the KUnit documentation in Documentation/dev-tools/kunit/.
++
++		If unsure, say N.
++
+ endmenu
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index 2b79a0e5638e..181d1bcabb0f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -1415,3 +1415,7 @@ bool dc_wake_and_execute_gpint(const struct dc_context *ctx, enum dmub_gpint_com
+ 
+ 	return result;
  }
 +
-+#if IS_ENABLED(CONFIG_DML_KUNIT_TEST)
-+#include "../../tests/dc/dml/dcn20/display_mode_vba_20_test.c"
++#if IS_ENABLED(CONFIG_AMD_DC_KUNIT_TEST)
++#include "../tests/dc/dc_dmub_srv_test.c"
 +#endif
-diff --git a/drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/display_mode_vba_20_test.c b/drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/display_mode_vba_20_test.c
+diff --git a/drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c b/drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c
 new file mode 100644
-index 000000000000..eeeacc2758a3
+index 000000000000..d12c4e3816b5
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/tests/dc/dml/dcn20/display_mode_vba_20_test.c
-@@ -0,0 +1,888 @@
++++ b/drivers/gpu/drm/amd/display/tests/dc/dc_dmub_srv_test.c
+@@ -0,0 +1,159 @@
 +// SPDX-License-Identifier: MIT
 +/*
-+ * KUnit tests for dml/dcn20/display_mode_vba_20.c
++ * KUnit tests for dc_dmub_srv.c
 + *
 + * Copyright (C) 2022, Maíra Canal <mairacanal@riseup.net>
 + */
 +
 +#include <kunit/test.h>
-+#include "dml/display_mode_enums.h"
++#include "dc_dmub_srv.h"
 +
-+struct calculate_write_back_delay_test_case {
++/**
++ * DOC: overview
++ *
++ * The file dc_dumb_srv.c has many functions that work as an interface to
++ * generate some of the DMUB parameters. To offload some of the complexity from
++ * the DMUB, the 'dc_dmub_srv.c' file provides functions that perform
++ * mathematical calculations to generate the parameter that will be passed to
++ * the DMUB to enable specific configurations.
++ */
++
++/**
++ * struct populate_subvp_cmd_drr_info_test_case - Fields for subvp validation
++ *
++ * The function populate_subvp_cmd_drr_info() performs calculations based on
++ * different pipe context timing values. This struct maintains those fields
++ * required to be passed to the populate_subvp_cmd_drr_info.
++ */
++struct populate_subvp_cmd_drr_info_test_case {
 +	const char *desc;
-+	const enum source_format_class writeback_pixel_format;
-+	const double writeback_HRatio;
-+	const double writeback_VRatio;
-+	const unsigned int writeback_luma_HTaps;
-+	const unsigned int writeback_luma_VTaps;
-+	const unsigned int writeback_chroma_HTaps;
-+	const unsigned int writeback_chroma_VTaps;
-+	const unsigned int writeback_destination_width;
-+	const double calculate_write_back_delay;
-+};
++	/**
++	* @dc: In the specific context of populate_subvp_cmd_drr_info() test,
++	* we only care about the DC capabilities.
++	*/
++	struct dc *dc;
 +
-+struct calculate_active_row_bandwidth_test_case {
-+	const char *desc;
-+	const bool GPUVM_enable;
-+	const enum source_format_class source_pixel_format;
-+	const double VRatio;
-+	const bool DCC_enable;
-+	const double line_time;
-+	const unsigned int meta_row_byte_luma;
-+	const unsigned int meta_row_byte_chroma;
-+	const unsigned int meta_row_height_luma;
-+	const unsigned int meta_row_height_chroma;
-+	const unsigned int pixel_PTE_bytes_per_row_luma;
-+	const unsigned int pixel_PTE_bytes_per_row_chroma;
-+	const unsigned int dpte_row_height_luma;
-+	const unsigned int dpte_row_height_chroma;
-+	const double meta_row_bw;
-+	const double dpte_row_bw;
-+	const double qual_row_bw;
-+};
-+
-+/**
-+ * dscce_compute_delay_test - KUnit test for dscceComputeDelay
-+ * @test: represents a running instance of a test.
-+ */
-+static void dscce_compute_delay_test(struct kunit *test)
-+{
-+	/* Testing all the valid values for bits per color (bpc): {8, 10, 12} */
-+	/* Testing all the valid values for number of slices: {1, 2, 3, 4} */
-+
-+	/*
-+	 * For 4:4:4 encoding, the minimum bpp value is 8 and is incremented by
-+	 * 1/16 of a bit. Moreover, the sliceWidth must be less than or equal to
-+	 * 5184/numSlices.
++	/**
++	 * @subvp_pipe: This parameter plays an essential role in the
++	 * populate_subvp_cmd_drr_info validation because it will be used to
++	 * derive some of the parameters for the max VTotal, but it is also
++	 * employed in a pointer validation that extracts the phantom timing
++	 * from the context.
 +	 */
++	struct pipe_ctx *subvp_pipe;
 +
-+	/* Minimum sliceWidth value on 4:4:4 encoding */
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(8, 8.0, 1, 1, dm_444), 2004);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(8, 8.0625, 5184, 1, dm_444), 885);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(10, 8.125, 2592, 2, dm_444), 3495);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(10, 8.1875, 1728, 3, dm_444), 4356);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(12, 8.25, 864, 3, dm_444), 4425);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(12, 8.3125, 1296, 4, dm_444), 4854);
-+
-+	/*
-+	 * For 4:2:0 encoding, the minimum bpp value is 6 and is incremented by
-+	 * 1/16 of a bit. Moreover, the sliceWidth must be less than or equal to
-+	 * 4096/numSlices.
++	/**
++	 * @vblank_pipe: This field keeps the DRR timing values used in the Max
++	 * and Min VTotal calculation.
 +	 */
++	struct pipe_ctx *vblank_pipe;
 +
-+	/* Minimum sliceWidth value on 4:2:0 encoding */
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(8, 6.0, 2, 1, dm_420), 2982);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(8, 6.0625, 4096, 1, dm_420), 1428);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(10, 6.125, 2048, 2, dm_420), 3522);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(10, 6.1875, 1365, 3, dm_420), 4200);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(12, 6.25, 682, 3, dm_420), 5706);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(12, 6.3125, 1024, 4, dm_420), 7746);
-+
-+	/*
-+	 * For 4:2:2 encoding, the minimum bpp value is 7 and is incremented by
-+	 * 1/16 of a bit. Moreover, the sliceWidth must be less than or equal to
-+	 * 5184/numSlices.
++	/**
++	 * @context: In the context of populate_subvp_cmd_drr_info(), this
++	 * field it is only necessary to fulfill the requirements for
++	 * dc_state_get_paired_subvp_stream() helper.
 +	 */
-+
-+	/* Minimum sliceWidth value on n-4:2:2 encoding */
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(8, 7.0, 2, 1, dm_n422), 2694);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(8, 7.0625, 5184, 1, dm_n422), 1332);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(10, 7.125, 2592, 2, dm_n422), 3966);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(10, 7.1875, 1728, 3, dm_n422), 4824);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(12, 7.25, 864, 3, dm_n422), 4962);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(12, 7.3125, 1296, 4, dm_n422), 9282);
-+
-+	/* Minimum sliceWidth value on s-4:2:2 encoding */
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(8, 7.0, 1, 1, dm_s422), 2226);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(8, 7.0625, 5184, 1, dm_s422), 960);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(10, 7.125, 2592, 2, dm_s422), 3570);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(10, 7.1875, 1728, 3, dm_s422), 4428);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(12, 7.25, 864, 3, dm_s422), 4497);
-+
-+	KUNIT_EXPECT_EQ(test, dscceComputeDelay(12, 7.3125, 1296, 4, dm_s422), 4923);
-+}
-+
-+/**
-+ * DSC_compute_delay_test - KUnit test for dscComputeDelay
-+ * @test: represents a running instance of a test.
-+ */
-+static void DSC_compute_delay_test(struct kunit *test)
-+{
-+	/* 4:4:4 encoding */
-+	KUNIT_EXPECT_EQ(test, dscComputeDelay(dm_444), 30);
-+
-+	/* 4:2:0 encoding */
-+	KUNIT_EXPECT_EQ(test, dscComputeDelay(dm_420), 48);
-+
-+	/* 4:2:2 n-encoding */
-+	KUNIT_EXPECT_EQ(test, dscComputeDelay(dm_n422), 49);
-+
-+	/* 4:2:2 s-encoding */
-+	KUNIT_EXPECT_EQ(test, dscComputeDelay(dm_s422), 30);
-+}
-+
-+/**
-+ * calculate_TWait_test - KUnit test for CalculateTWait
-+ * @test: represents a running instance of a test.
-+ */
-+static void calculate_TWait_test(struct kunit *test)
-+{
-+	/* Zeroed Prefetch Mode */
-+
-+	/* DRAMClockChangeLatency > UrgentLatencyPixelDataOnly > SREnterPlusExitTime*/
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(0, 1300000, 1200000, 1000000), 2500000);
-+
-+	/* DRAMClockChangeLatency > SREnterPlusExitTime > UrgentLatencyPixelDataOnly */
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(0, 1300000, 900000, 1200000), 2200000);
-+
-+	/* UrgentLatencyPixelDataOnly > DRAMClockChangeLatency > SREnterPlusExitTime */
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(0, 1000000, 2000000, 900000), 3000000);
-+
-+	/* UrgentLatencyPixelDataOnly > SREnterPlusExitTime > DRAMClockChangeLatency */
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(0, 1000000, 1200000, 1100000), 2200000);
-+
-+	/* SREnterPlusExitTime > DRAMClockChangeLatency > UrgentLatencyPixelDataOnly */
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(0, 1000000, 900000, 2000000), 2000000);
-+
-+	/* SREnterPlusExitTime > UrgentLatencyPixelDataOnly > DRAMClockChangeLatency */
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(0, 1000000, 1200000, 1300000), 2200000);
-+
-+	/* Prefetch Mode equals 1 */
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(1, 2500000, 2000000, 900000), 2000000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(1, 1300000, 900000, 1200000), 1200000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(1, 1100000, 1200000, 1000000), 1200000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(1, 1000000, 1200000, 1100000), 1200000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(1, 1000000, 900000, 2000000), 2000000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(1, 1000000, 1200000, 1300000), 1300000);
-+
-+	/* Prefetch Mode greater than 1 */
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(1, 2500000, 2000000, 900000), 2000000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(2, 2500000, 900000, 2000000), 900000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(5, 1100000, 1200000, 1000000), 1200000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(4, 1000000, 1300000, 1200000), 1300000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(6, 1000000, 900000, 2000000), 900000);
-+	KUNIT_EXPECT_EQ(test, CalculateTWait(3, 1000000, 1200000, 1300000), 1200000);
-+}
-+
-+/**
-+ * calculate_write_back_delay_test - KUnit test for CalculateWriteBackDelay
-+ * @test: represents a running instance of a test.
-+ */
-+static void calculate_write_back_delay_test(struct kunit *test)
-+{
-+	const struct calculate_write_back_delay_test_case *test_param = test->param_value;
-+	double calculate_write_back_delay;
-+
-+	DC_FP_START();
-+	calculate_write_back_delay = CalculateWriteBackDelay
-+		(test_param->writeback_pixel_format,
-+		 test_param->writeback_HRatio,
-+		 test_param->writeback_VRatio,
-+		 test_param->writeback_luma_HTaps,
-+		 test_param->writeback_luma_VTaps,
-+		 test_param->writeback_chroma_HTaps,
-+		 test_param->writeback_chroma_VTaps,
-+		 test_param->writeback_destination_width);
-+	DC_FP_END();
-+
-+	KUNIT_EXPECT_EQ(test, test_param->calculate_write_back_delay,
-+			calculate_write_back_delay);
-+}
-+
-+/**
-+ * calculate_active_row_bandwidth_test - KUnit test for CalculateActiveRowBandwidth
-+ * @test: represents a running instance of a test.
-+ */
-+static void calculate_active_row_bandwidth_test(struct kunit *test)
-+{
-+	const struct calculate_active_row_bandwidth_test_case *test_param = test->param_value;
-+	double *meta_row_bw, *dpte_row_bw, *qual_row_bw;
-+
-+	meta_row_bw = kunit_kzalloc(test, sizeof(double), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, meta_row_bw);
-+
-+	dpte_row_bw = kunit_kzalloc(test, sizeof(double), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dpte_row_bw);
-+
-+	qual_row_bw = kunit_kzalloc(test, sizeof(double), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, qual_row_bw);
-+
-+	DC_FP_START();
-+	CalculateActiveRowBandwidth(test_param->GPUVM_enable,
-+				    test_param->source_pixel_format,
-+				    test_param->VRatio,
-+				    test_param->DCC_enable,
-+				    test_param->line_time,
-+				    test_param->meta_row_byte_luma,
-+				    test_param->meta_row_byte_chroma,
-+				    test_param->meta_row_height_luma,
-+				    test_param->meta_row_height_chroma,
-+				    test_param->pixel_PTE_bytes_per_row_luma,
-+				    test_param->pixel_PTE_bytes_per_row_chroma,
-+				    test_param->dpte_row_height_luma,
-+				    test_param->dpte_row_height_chroma,
-+				    meta_row_bw,
-+				    dpte_row_bw,
-+				    qual_row_bw);
-+	DC_FP_END();
-+
-+	KUNIT_EXPECT_EQ(test, test_param->meta_row_bw, *meta_row_bw);
-+	KUNIT_EXPECT_EQ(test, test_param->dpte_row_bw, *dpte_row_bw);
-+	KUNIT_EXPECT_EQ(test, test_param->qual_row_bw, *qual_row_bw);
-+}
-+
-+/**
-+ * trunc_to_valid_BPP_test - KUnit test for TruncToValidBPP
-+ * @test: represents a running instance of a test.
-+ */
-+static void trunc_to_valid_BPP_test(struct kunit *test)
-+{
-+	/* HDMI output for 4:2:0 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18.01, true, dm_hdmi, dm_420, 0), 18);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18, true, dm_hdmi, dm_420, 10), 18);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(15.01, false, dm_hdmi, dm_420, 0), 15);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(15, false, dm_hdmi, dm_420, 8), 15);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(12.01, true, dm_hdmi, dm_420, 0), 12);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(12, true, dm_hdmi, dm_420, 5), 12);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11.99, false, dm_hdmi, dm_420, 5), BPP_INVALID);
-+
-+	/* HDMI output for 4:2:0 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(36.01, true, dm_hdmi, dm_444, 0), 36);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(36, true, dm_hdmi, dm_444, 10), 36);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(30.01, false, dm_hdmi, dm_444, 0), 30);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(30, false, dm_hdmi, dm_444, 8), 30);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24.01, true, dm_hdmi, dm_444, 0), 24);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24, true, dm_hdmi, dm_444, 5), 24);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18.01, true, dm_hdmi, dm_444, 0), 18);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18, true, dm_hdmi, dm_444, 5), 18);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.99, false, dm_hdmi, dm_444, 5), BPP_INVALID);
-+
-+	/* HDMI output for different encoding types */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(36.01, true, dm_hdmi, dm_n422, 0), 24);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(36, true, dm_hdmi, dm_s422, 10), 24);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(30.01, false, dm_hdmi, dm_n422, 0), 20);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(30, false, dm_hdmi, dm_s422, 8), 20);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24.01, true, dm_hdmi, dm_n422, 0), 16);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24, true, dm_hdmi, dm_s422, 5), 16);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(15.99, false, dm_hdmi, dm_n422, 5), BPP_INVALID);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(-1, true, dm_hdmi, dm_s422, 0), BPP_INVALID);
-+
-+	/* Display Port output with DSC enabled and 4:2:0 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(5.99, true, dm_dp, dm_420, 0), BPP_INVALID);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(-1, true, dm_dp, dm_420, 0), BPP_INVALID);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(12, true, dm_dp, dm_420, 8), 12);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(1.5 * 8 - 1 / (double)16, true, dm_dp,
-+					      dm_420, 8), 11);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(7, true, dm_dp, dm_420, 3), 4);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(1.5 * 9 - 1 / (double)16, true, dm_dp,
-+					      dm_420, 9), 13);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(6, true, dm_dp, dm_420, 8), 6);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(6.25, true, dm_dp, dm_420, 8), 6);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(6 + 1 / (double)3, true, dm_dp, dm_420, 8), 6);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(6.50, true, dm_dp, dm_420, 8), 6);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(6.75, true, dm_dp, dm_420, 8), 6);
-+
-+	/* Embedded Display Port output with DSC enabled and n-4:2:2 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(6.99, true, dm_edp, dm_n422, 0), BPP_INVALID);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(-1, true, dm_edp, dm_n422, 0), BPP_INVALID);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(16, true, dm_edp, dm_n422, 7), 14);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(2 * 7 - 1 / (double)16, true, dm_edp,
-+					      dm_n422, 7), 13);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(7, true, dm_edp, dm_n422, 3), 6);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(2 * 9 - 1 / (double)16, true, dm_edp,
-+					      dm_n422, 9), 17);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11, true, dm_edp, dm_n422, 8), 11);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11 + 1 / (double)3, true, dm_edp,
-+					      dm_n422, 8), 11);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11.40, true, dm_edp, dm_n422, 8), 11);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11.50, true, dm_edp, dm_n422, 8), 11);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11.75, true, dm_edp, dm_n422, 8), 11);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11.95, true, dm_edp, dm_n422, 8), 11);
-+
-+	/* Display Port 2.0 output with DSC enabled and 4:4:4 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(7.99, true, dm_dp2p0, dm_444, 0), BPP_INVALID);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(-1, true, dm_dp2p0, dm_444, 0), BPP_INVALID);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(22, true, dm_dp2p0, dm_444, 11), 22);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(3 * 7 - 1 / (double)16, true, dm_dp2p0,
-+					      dm_444, 7), 20);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(14, true, dm_dp2p0, dm_444, 3), 9);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(3 * 9 - 1 / (double)16, true, dm_dp2p0,
-+					      dm_444, 9), 26);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17, true, dm_dp2p0, dm_444, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17 + 1 / (double)3, true, dm_dp2p0, dm_444, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.40, true, dm_dp2p0, dm_444, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.50, true, dm_dp2p0, dm_444, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.75, true, dm_dp2p0, dm_444, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.95, true, dm_dp2p0, dm_444, 7), 17);
-+
-+	/* WB output with DSC enabled and 4:2:2 s-encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(7.99, true, dm_wb, dm_s422, 0), BPP_INVALID);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(-1, true, dm_wb, dm_s422, 0), BPP_INVALID);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(22, true, dm_wb, dm_s422, 11), 22);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(3 * 7 - 1 / (double)16, true, dm_wb, dm_s422, 7), 20);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18, true, dm_wb, dm_s422, 3), 9);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(3 * 9 - 1 / (double)16, true, dm_wb, dm_s422, 9), 26);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17, true, dm_wb, dm_s422, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17 + 1 / (double)3, true, dm_wb, dm_s422, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.40, true, dm_wb, dm_s422, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.50, true, dm_wb, dm_s422, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.75, true, dm_wb, dm_s422, 7), 17);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.95, true, dm_wb, dm_s422, 7), 17);
-+
-+	/* Display Port output with DSC disabled for 4:2:0 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18.01, false, dm_dp, dm_420, 0), 18);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18, false, dm_dp, dm_420, 10), 18);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(15.01, false, dm_dp, dm_420, 0), 15);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(15, false, dm_dp, dm_420, 8), 15);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(12.01, false, dm_dp, dm_420, 0), 12);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(12, false, dm_dp, dm_420, 5), 12);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(11.99, false, dm_dp, dm_420, 5), BPP_INVALID);
-+
-+	/* Embedded Display Port output with DSC disabled for 4:2:2 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24.01, false, dm_edp, dm_s422, 0), 24);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24, false, dm_edp, dm_n422, 10), 24);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(20.01, false, dm_edp, dm_s422, 0), 20);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(20, false, dm_edp, dm_n422, 8), 20);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(16.01, false, dm_edp, dm_s422, 0), 16);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(16, false, dm_edp, dm_n422, 5), 16);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(15.99, false, dm_edp, dm_s422, 5), BPP_INVALID);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(-1, false, dm_edp, dm_n422, 5), BPP_INVALID);
-+
-+	/* WB output with DSC disabled for 4:4:4 encoding */
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(36.01, false, dm_wb, dm_444, 0), 36);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(36, false, dm_wb, dm_444, 10), 36);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(30.01, false, dm_wb, dm_444, 0), 30);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(30, false, dm_wb, dm_444, 8), 30);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24.01, false, dm_wb, dm_444, 0), 24);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(24, false, dm_wb, dm_444, 5), 24);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18.01, false, dm_wb, dm_444, 0), 18);
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(18, false, dm_wb, dm_444, 5), 18);
-+
-+	KUNIT_EXPECT_EQ(test, TruncToValidBPP(17.99, false, dm_wb, dm_444, 5), BPP_INVALID);
-+}
-+
-+static const struct calculate_write_back_delay_test_case calculate_write_back_delay_cases[] = {
-+	{
-+		.desc = "Trivial test",
-+		.writeback_pixel_format = dm_444_32,
-+		.writeback_HRatio = 1.0,
-+		.writeback_VRatio = 1.0,
-+		.writeback_luma_HTaps = 0,
-+		.writeback_luma_VTaps = 0,
-+		.writeback_chroma_HTaps = 0,
-+		.writeback_chroma_VTaps = 0,
-+		.writeback_destination_width = 0,
-+		.calculate_write_back_delay = 0x1p+2,
-+	},
-+	{
-+		.desc = "High Writeback HRatio and VRatio and zeroed taps",
-+		.writeback_pixel_format = dm_444_32,
-+		.writeback_HRatio = 2400.0,
-+		.writeback_VRatio = 2500.0,
-+		.writeback_luma_HTaps = 0,
-+		.writeback_luma_VTaps = 0,
-+		.writeback_chroma_HTaps = 0,
-+		.writeback_chroma_VTaps = 0,
-+		.writeback_destination_width = 0,
-+		.calculate_write_back_delay = 0x1p+2,
-+	},
-+	{
-+		.desc = "Simple Writeback Ratio",
-+		.writeback_pixel_format = dm_444_32,
-+		.writeback_HRatio = 1.0,
-+		.writeback_VRatio = 1.0,
-+		.writeback_luma_HTaps = 4,
-+		.writeback_luma_VTaps = 4,
-+		.writeback_chroma_HTaps = 5,
-+		.writeback_chroma_VTaps = 5,
-+		.writeback_destination_width = 2400,
-+		.calculate_write_back_delay = 0x1.2cap+11,
-+	},
-+	{
-+		.desc = "Non-integer WritebackVRatio with same number of Luma and Chroma taps",
-+		.writeback_pixel_format = dm_444_32,
-+		.writeback_HRatio = 1.0,
-+		.writeback_VRatio = 2567.56,
-+		.writeback_luma_HTaps = 7,
-+		.writeback_luma_VTaps = 7,
-+		.writeback_chroma_HTaps = 7,
-+		.writeback_chroma_VTaps = 7,
-+		.writeback_destination_width = 400,
-+		.calculate_write_back_delay = 0x1.61p+9,
-+	},
-+	{
-+		.desc = "No Writeback to Chroma Taps",
-+		.writeback_pixel_format = dm_444_32,
-+		.writeback_HRatio = 1.0,
-+		.writeback_VRatio = 1.5,
-+		.writeback_luma_HTaps = 5,
-+		.writeback_luma_VTaps = 5,
-+		.writeback_chroma_HTaps = 0,
-+		.writeback_chroma_VTaps = 0,
-+		.writeback_destination_width = 2400,
-+		.calculate_write_back_delay = 0x1.77cp+11,
-+	},
-+	{
-+		.desc = "No Writeback to Luma Taps",
-+		.writeback_pixel_format = dm_444_32,
-+		.writeback_HRatio = 2.0,
-+		.writeback_VRatio = 1.5,
-+		.writeback_luma_HTaps = 0,
-+		.writeback_luma_VTaps = 0,
-+		.writeback_chroma_HTaps = 3,
-+		.writeback_chroma_VTaps = 3,
-+		.writeback_destination_width = 3700,
-+		.calculate_write_back_delay = 0x1p+2,
-+	},
-+	{
-+		.desc = "High Writeback HRatio and VRatio",
-+		.writeback_pixel_format = dm_444_32,
-+		.writeback_HRatio = 2500000.0,
-+		.writeback_VRatio = 2000000.0,
-+		.writeback_luma_HTaps = 4,
-+		.writeback_luma_VTaps = 4,
-+		.writeback_chroma_HTaps = 5,
-+		.writeback_chroma_VTaps = 5,
-+		.writeback_destination_width = 3400,
-+		.calculate_write_back_delay = 0x1.be4cd8p-10,
-+	},
-+	{
-+		.desc = "Increase numeric error by increasing taps' Writeback",
-+		.writeback_pixel_format = dm_444_32,
-+		.writeback_HRatio = 3000.0,
-+		.writeback_VRatio = 2450.0,
-+		.writeback_luma_HTaps = 100,
-+		.writeback_luma_VTaps = 100,
-+		.writeback_chroma_HTaps = 200,
-+		.writeback_chroma_VTaps = 200,
-+		.writeback_destination_width = 1687,
-+		.calculate_write_back_delay = 0x1.49eap+15,
-+	},
-+	{
-+		.desc = "Turning point of the Writeback HRatio and VRatio",
-+		.writeback_pixel_format = dm_444_32,
-+		.writeback_HRatio = 100000.0,
-+		.writeback_VRatio = 100000.0,
-+		.writeback_luma_HTaps = 100,
-+		.writeback_luma_VTaps = 100,
-+		.writeback_chroma_HTaps = 200,
-+		.writeback_chroma_VTaps = 200,
-+		.writeback_destination_width = 1687,
-+		.calculate_write_back_delay = 0x1.b06ccap-2,
-+	},
-+	{
-+		.desc = "Simple Writeback Ratio for 4:4:4 8-bit encoding",
-+		.writeback_pixel_format = dm_444_8,
-+		.writeback_HRatio = 1.0,
-+		.writeback_VRatio = 1.0,
-+		.writeback_luma_HTaps = 4,
-+		.writeback_luma_VTaps = 4,
-+		.writeback_chroma_HTaps = 5,
-+		.writeback_chroma_VTaps = 5,
-+		.writeback_destination_width = 2400,
-+		.calculate_write_back_delay = 0x1.77cp+11,
-+	},
-+	{
-+		.desc = "Non-integer WritebackVRatio with same number of Luma and Chroma taps for 4:4:4 64-bit encoding",
-+		.writeback_pixel_format = dm_444_64,
-+		.writeback_HRatio = 100000.0,
-+		.writeback_VRatio = 100000.56,
-+		.writeback_luma_HTaps = 7,
-+		.writeback_luma_VTaps = 7,
-+		.writeback_chroma_HTaps = 7,
-+		.writeback_chroma_VTaps = 7,
-+		.writeback_destination_width = 400,
-+		.calculate_write_back_delay = 0x1.ceae7cp-8,
-+	},
-+	{
-+		.desc = "No Writeback to Chroma Taps for 4:2:0 8-bit encoding",
-+		.writeback_pixel_format = dm_420_8,
-+		.writeback_HRatio = 100000.00,
-+		.writeback_VRatio = 100000.56,
-+		.writeback_luma_HTaps = 8,
-+		.writeback_luma_VTaps = 8,
-+		.writeback_chroma_HTaps = 0,
-+		.writeback_chroma_VTaps = 0,
-+		.writeback_destination_width = 1333,
-+		.calculate_write_back_delay = 0x1.b6c2d6p-6,
-+	},
-+	{
-+		.desc = "No Writeback to Luma Taps for 4:2:0 10-bit encoding",
-+		.writeback_pixel_format = dm_420_10,
-+		.writeback_HRatio = 200000.0,
-+		.writeback_VRatio = 100000.56,
-+		.writeback_luma_HTaps = 0,
-+		.writeback_luma_VTaps = 0,
-+		.writeback_chroma_HTaps = 3,
-+		.writeback_chroma_VTaps = 3,
-+		.writeback_destination_width = 996,
-+		.calculate_write_back_delay = 0x1.ecd3f6p-9,
-+	},
-+	{
-+		.desc = "Reduce numeric error by decreasing Writeback HRatio and VRatio for 4:4:4 16-bit encoding",
-+		.writeback_pixel_format = dm_444_16,
-+		.writeback_HRatio = 2.0,
-+		.writeback_VRatio = 1.0,
-+		.writeback_luma_HTaps = 5,
-+		.writeback_luma_VTaps = 5,
-+		.writeback_chroma_HTaps = 5,
-+		.writeback_chroma_VTaps = 5,
-+		.writeback_destination_width = 2400.0,
-+		.calculate_write_back_delay = 0x1.77cp+11,
++	struct dc_state *context;
++};
++
++const struct dc_stream_status mock_dc_stream_state_returned_from_get_paired = {
++	.mall_stream_config =  (struct mall_stream_config) {
++		.paired_stream = &(struct dc_stream_state) {
++			.timing = {
++				.v_total = 216,
++				.h_total = 4000,
++				.v_addressable = 149,
++				.pix_clk_100hz = 5332500,
++				.v_front_porch = 1,
++			},
++		}
++	}
++};
++
++struct pipe_ctx mock_vblank_pipe_parameter = {
++	.stream = &(struct dc_stream_state) {
++		.timing = {
++			.v_total = 2250,
++			.h_total = 4400,
++			.v_addressable = 2160,
++			.pix_clk_100hz = 23760000,
++		},
 +	},
 +};
 +
-+static const struct calculate_active_row_bandwidth_test_case calculate_active_row_bandwidth_cases[] = {
-+	{
-+		.desc = "Trivial Test",
-+		.GPUVM_enable = false,
-+		.source_pixel_format = -1,
-+		.VRatio = 0.00,
-+		.DCC_enable = false,
-+		.line_time = 0.00,
-+		.meta_row_byte_luma = 0,
-+		.meta_row_byte_chroma = 0,
-+		.meta_row_height_luma = 0,
-+		.meta_row_height_chroma = 0,
-+		.pixel_PTE_bytes_per_row_luma = 0,
-+		.pixel_PTE_bytes_per_row_chroma = 0,
-+		.dpte_row_height_luma = 0,
-+		.dpte_row_height_chroma = 0,
-+		.meta_row_bw = 0.00,
-+		.dpte_row_bw = 0.00,
-+		.qual_row_bw = 0.00,
-+	},
-+	{
-+		.desc = "Zeroed Bandwidth with non-zeroed values",
-+		.GPUVM_enable = false,
-+		.source_pixel_format = dm_420_8,
-+		.VRatio = 1000.00,
-+		.DCC_enable = false,
-+		.line_time = 1000.00,
-+		.meta_row_byte_luma = 120,
-+		.meta_row_byte_chroma = 150,
-+		.meta_row_height_luma = 200,
-+		.meta_row_height_chroma = 200,
-+		.pixel_PTE_bytes_per_row_luma = 8,
-+		.pixel_PTE_bytes_per_row_chroma = 8,
-+		.dpte_row_height_luma = 100,
-+		.dpte_row_height_chroma = 100,
-+		.meta_row_bw = 0.00,
-+		.dpte_row_bw = 0.00,
-+		.qual_row_bw = 0.00,
-+	},
-+	{
-+		.desc = "GPUVM enabled and DCC not enabled with 4:2:0 8-bit encoding",
-+		.GPUVM_enable = true,
-+		.source_pixel_format = dm_420_8,
-+		.VRatio = 1000.00,
-+		.DCC_enable = false,
-+		.line_time = 1000.00,
-+		.meta_row_byte_luma = 120,
-+		.meta_row_byte_chroma = 150,
-+		.meta_row_height_luma = 200,
-+		.meta_row_height_chroma = 200,
-+		.pixel_PTE_bytes_per_row_luma = 8,
-+		.pixel_PTE_bytes_per_row_chroma = 8,
-+		.dpte_row_height_luma = 100,
-+		.dpte_row_height_chroma = 100,
-+		.meta_row_bw = 0x0p+0,
-+		.dpte_row_bw = 0x1.eb851eb851eb8p-4,
-+		.qual_row_bw = 0x1.eb851eb851eb8p-4,
-+	},
-+	{
-+		.desc = "GPUVM enabled and DCC not enabled with 4:2:0 10-bit encoding",
-+		.GPUVM_enable = true,
-+		.source_pixel_format = dm_420_10,
-+		.VRatio = 1000.00,
-+		.DCC_enable = false,
-+		.line_time = 1000.00,
-+		.meta_row_byte_luma = 120,
-+		.meta_row_byte_chroma = 150,
-+		.meta_row_height_luma = 200,
-+		.meta_row_height_chroma = 200,
-+		.pixel_PTE_bytes_per_row_luma = 9,
-+		.pixel_PTE_bytes_per_row_chroma = 9,
-+		.dpte_row_height_luma = 230,
-+		.dpte_row_height_chroma = 170,
-+		.meta_row_bw = 0x0p+0,
-+		.dpte_row_bw = 0x1.0cb3a88722f67p-4,
-+		.qual_row_bw = 0x1.0cb3a88722f67p-4,
-+	},
-+	{
-+		.desc = "GPUVM enabled and DCC not enabled with 4:2:0 12-bit encoding",
-+		.GPUVM_enable = true,
-+		.source_pixel_format = dm_420_12,
-+		.VRatio = 100.00,
-+		.DCC_enable = false,
-+		.line_time = 100.00,
-+		.meta_row_byte_luma = 120,
-+		.meta_row_byte_chroma = 150,
-+		.meta_row_height_luma = 200,
-+		.meta_row_height_chroma = 200,
-+		.pixel_PTE_bytes_per_row_luma = 2,
-+		.pixel_PTE_bytes_per_row_chroma = 2,
-+		.dpte_row_height_luma = 10,
-+		.dpte_row_height_chroma = 10,
-+		.meta_row_bw = 0x0p+0,
-+		.dpte_row_bw = 0x1.999999999999ap-3,
-+		.qual_row_bw = 0x0p+0,
-+	},
-+	{
-+		.desc = "GPUVM enabled and DCC not enabled with 4:4:4 16-bit encoding",
-+		.GPUVM_enable = true,
-+		.source_pixel_format = dm_444_16,
-+		.VRatio = 1000.00,
-+		.DCC_enable = false,
-+		.line_time = 1000.00,
-+		.meta_row_byte_luma = 120,
-+		.meta_row_byte_chroma = 150,
-+		.meta_row_height_luma = 200,
-+		.meta_row_height_chroma = 200,
-+		.pixel_PTE_bytes_per_row_luma = 9,
-+		.pixel_PTE_bytes_per_row_chroma = 9,
-+		.dpte_row_height_luma = 230,
-+		.dpte_row_height_chroma = 170,
-+		.meta_row_bw = 0x0p+0,
-+		.dpte_row_bw = 0x1.408e78356d141p-5,
-+		.qual_row_bw = 0x0p+0,
-+	},
-+	{
-+		.desc = "GPUVM not enabled and DCC enabled with 4:2:0 8-bit encoding",
-+		.GPUVM_enable = false,
-+		.source_pixel_format = dm_420_8,
-+		.VRatio = 1000.00,
-+		.DCC_enable = true,
-+		.line_time = 1000.00,
-+		.meta_row_byte_luma = 120,
-+		.meta_row_byte_chroma = 150,
-+		.meta_row_height_luma = 200,
-+		.meta_row_height_chroma = 200,
-+		.pixel_PTE_bytes_per_row_luma = 8,
-+		.pixel_PTE_bytes_per_row_chroma = 8,
-+		.dpte_row_height_luma = 100,
-+		.dpte_row_height_chroma = 100,
-+		.meta_row_bw = 0x1.f333333333333p-1,
-+		.dpte_row_bw = 0x0p+0,
-+		.qual_row_bw = 0x1.f333333333333p-1,
-+	},
-+	{
-+		.desc = "GPUVM not enabled and DCC enabled with 4:2:0 10-bit encoding",
-+		.GPUVM_enable = false,
-+		.source_pixel_format = dm_420_10,
-+		.VRatio = 700.00,
-+		.DCC_enable = true,
-+		.line_time = 1300.00,
-+		.meta_row_byte_luma = 170,
-+		.meta_row_byte_chroma = 350,
-+		.meta_row_height_luma = 300,
-+		.meta_row_height_chroma = 280,
-+		.pixel_PTE_bytes_per_row_luma = 8,
-+		.pixel_PTE_bytes_per_row_chroma = 8,
-+		.dpte_row_height_luma = 100,
-+		.dpte_row_height_chroma = 100,
-+		.meta_row_bw = 0x1.4888888888889p-1,
-+		.dpte_row_bw = 0x0p+0,
-+		.qual_row_bw = 0x1.4888888888889p-1,
-+	},
-+	{
-+		.desc = "GPUVM not enabled and DCC enabled with 4:2:2 8-bit encoding",
-+		.GPUVM_enable = false,
-+		.source_pixel_format = dm_422_8,
-+		.VRatio = 700.00,
-+		.DCC_enable = true,
-+		.line_time = 1300.00,
-+		.meta_row_byte_luma = 170,
-+		.meta_row_byte_chroma = 350,
-+		.meta_row_height_luma = 300,
-+		.meta_row_height_chroma = 280,
-+		.pixel_PTE_bytes_per_row_luma = 8,
-+		.pixel_PTE_bytes_per_row_chroma = 8,
-+		.dpte_row_height_luma = 100,
-+		.dpte_row_height_chroma = 100,
-+		.meta_row_bw = 0x1.3873873873874p-2,
-+		.dpte_row_bw = 0x0p+0,
-+		.qual_row_bw = 0x0p+0,
-+	},
-+	{
-+		.desc = "GPUVM not enabled and DCC enabled with 4:4:4 8-bit encoding",
-+		.GPUVM_enable = false,
-+		.source_pixel_format = dm_444_8,
-+		.VRatio = 1000.00,
-+		.DCC_enable = true,
-+		.line_time = 2000.00,
-+		.meta_row_byte_luma = 190,
-+		.meta_row_byte_chroma = 333,
-+		.meta_row_height_luma = 200,
-+		.meta_row_height_chroma = 210,
-+		.pixel_PTE_bytes_per_row_luma = 9,
-+		.pixel_PTE_bytes_per_row_chroma = 9,
-+		.dpte_row_height_luma = 230,
-+		.dpte_row_height_chroma = 170,
-+		.meta_row_bw = 0x1.e666666666666p-2,
-+		.dpte_row_bw = 0x0p+0,
-+		.qual_row_bw = 0x0p+0,
-+	},
-+	{
-+		.desc = "GPUVM enabled and DCC enabled with 4:2:0 8-bit encoding",
-+		.GPUVM_enable = true,
-+		.source_pixel_format = dm_420_8,
-+		.VRatio = 1000.00,
-+		.DCC_enable = true,
-+		.line_time = 2000.00,
-+		.meta_row_byte_luma = 120,
-+		.meta_row_byte_chroma = 150,
-+		.meta_row_height_luma = 200,
-+		.meta_row_height_chroma = 200,
-+		.pixel_PTE_bytes_per_row_luma = 8,
-+		.pixel_PTE_bytes_per_row_chroma = 8,
-+		.dpte_row_height_luma = 100,
-+		.dpte_row_height_chroma = 100,
-+		.meta_row_bw = 0x1.f333333333333p-2,
-+		.dpte_row_bw = 0x1.eb851eb851eb8p-5,
-+		.qual_row_bw = 0x1.1851eb851eb85p-1,
-+	},
-+	{
-+		.desc = "GPUVM enabled and DCC enabled with 4:2:0 10-bit encoding",
-+		.GPUVM_enable = true,
-+		.source_pixel_format = dm_420_10,
-+		.VRatio = 7000.00,
-+		.DCC_enable = true,
-+		.line_time = 1300.00,
-+		.meta_row_byte_luma = 170,
-+		.meta_row_byte_chroma = 350,
-+		.meta_row_height_luma = 300,
-+		.meta_row_height_chroma = 280,
-+		.pixel_PTE_bytes_per_row_luma = 8,
-+		.pixel_PTE_bytes_per_row_chroma = 8,
-+		.dpte_row_height_luma = 100,
-+		.dpte_row_height_chroma = 100,
-+		.meta_row_bw = 0x1.9aaaaaaaaaaaap+2,
-+		.dpte_row_bw = 0x1.4ad4ad4ad4ad5p-1,
-+		.qual_row_bw = 0x1.c405405405405p+2,
-+	},
-+	{
-+		.desc = "GPUVM enabled and DCC enabled with 4:4:4 16-bit encoding",
-+		.GPUVM_enable = true,
-+		.source_pixel_format = dm_444_16,
-+		.VRatio = 700.00,
-+		.DCC_enable = true,
-+		.line_time = 1300.00,
-+		.meta_row_byte_luma = 70,
-+		.meta_row_byte_chroma = 550,
-+		.meta_row_height_luma = 310,
-+		.meta_row_height_chroma = 280,
-+		.pixel_PTE_bytes_per_row_luma = 7,
-+		.pixel_PTE_bytes_per_row_chroma = 7,
-+		.dpte_row_height_luma = 190,
-+		.dpte_row_height_chroma = 340,
-+		.meta_row_bw = 0x1.f2065a3416de5p-4,
-+		.dpte_row_bw = 0x1.4506d72a14507p-6,
-+		.qual_row_bw = 0x0p+0,
-+	},
-+	{
-+		.desc = "GPUVM enabled and DCC enabled with 4:4:4 32-bit encoding",
-+		.GPUVM_enable = true,
-+		.source_pixel_format = dm_444_32,
-+		.VRatio = 700.00,
-+		.DCC_enable = true,
-+		.line_time = 1300.00,
-+		.meta_row_byte_luma = 170,
-+		.meta_row_byte_chroma = 350,
-+		.meta_row_height_luma = 300,
-+		.meta_row_height_chroma = 280,
-+		.pixel_PTE_bytes_per_row_luma = 8,
-+		.pixel_PTE_bytes_per_row_chroma = 8,
-+		.dpte_row_height_luma = 100,
-+		.dpte_row_height_chroma = 100,
-+		.meta_row_bw = 0x1.3873873873874p-2,
-+		.dpte_row_bw = 0x1.60e2dafa7c749p-5,
-+		.qual_row_bw = 0x0p+0,
++const struct pipe_ctx mock_subvp_pipe_parameter = {
++	.stream = &(struct dc_stream_state) {
++		.timing = {
++			.h_total = 4000,
++			.v_addressable = 2160,
++			.pix_clk_100hz = 5332500,
++		},
 +	},
 +};
 +
-+static void calculate_write_back_delay_test_to_desc(const struct
-+		calculate_write_back_delay_test_case * t, char *desc)
++struct populate_subvp_cmd_drr_info_test_case subvp_4k144_4k240_case = {
++	.desc = "4k144 and 4k240 displays are the perfect scenario for SubVP",
++	.dc = &(struct dc) {
++		.caps = {
++			.subvp_prefetch_end_to_mall_start_us = 15,
++			.subvp_fw_processing_delay_us = 15,
++		}
++	},
++
++	.subvp_pipe = (struct pipe_ctx *) &mock_subvp_pipe_parameter,
++	.vblank_pipe = &mock_vblank_pipe_parameter,
++	.context = &(struct dc_state) {
++		.stream_count = 1,
++		.streams[0] = mock_subvp_pipe_parameter.stream,
++		.stream_status[0] = mock_dc_stream_state_returned_from_get_paired,
++	},
++};
++
++/**
++ * populate_subvp_cmd_drr_info_with_4k144_4k240_parameters - Check two display with 4k144 and 4k240
++ *
++ * @test: Kunit parameter
++ *
++ * One of the scenarios where SubVP can perform really well is in a
++ * high-resolution display with a high refresh rate. In this sense, this test
++ * targets the parameter configuration for 4k144 and 4k240.
++ */
++static void populate_subvp_cmd_drr_info_with_4k144_4k240_parameters(struct kunit *test)
 +{
-+	strcpy(desc, t->desc);
++	struct dmub_cmd_fw_assisted_mclk_switch_pipe_data_v2 *pipe_data;
++	struct populate_subvp_cmd_drr_info_test_case tmp = subvp_4k144_4k240_case;
++
++	pipe_data = kunit_kzalloc(test,
++				  sizeof(struct dmub_cmd_fw_assisted_mclk_switch_pipe_data_v2),
++				  GFP_KERNEL);
++
++	populate_subvp_cmd_drr_info(tmp.dc,
++				    tmp.context,
++				    tmp.subvp_pipe,
++				    tmp.vblank_pipe,
++				    pipe_data);
++
++	// DRR must be in use
++	KUNIT_EXPECT_EQ(test, true, pipe_data->pipe_config.vblank_data.drr_info.drr_in_use);
++
++	// Use ramp should not be enable
++	KUNIT_EXPECT_EQ(test, false, pipe_data->pipe_config.vblank_data.drr_info.use_ramping);
++
++	// Expects 4ms for the DRR window size
++	KUNIT_EXPECT_EQ(test, 4, pipe_data->pipe_config.vblank_data.drr_info.drr_window_size_ms);
++
++	KUNIT_EXPECT_EQ(test, 2906, pipe_data->pipe_config.vblank_data.drr_info.min_vtotal_supported);
++	KUNIT_EXPECT_EQ(test, 7267, pipe_data->pipe_config.vblank_data.drr_info.max_vtotal_supported);
 +}
 +
-+KUNIT_ARRAY_PARAM(calculate_write_back_delay, calculate_write_back_delay_cases,
-+		  calculate_write_back_delay_test_to_desc);
-+
-+static void calculate_active_row_bandwidth_test_to_desc(const struct
-+		calculate_active_row_bandwidth_test_case * t, char *desc)
-+{
-+	strcpy(desc, t->desc);
-+}
-+
-+KUNIT_ARRAY_PARAM(calculate_active_row_bandwidth, calculate_active_row_bandwidth_cases,
-+		  calculate_active_row_bandwidth_test_to_desc);
-+
-+static struct kunit_case display_mode_vba_20_cases[] = {
-+	KUNIT_CASE(dscce_compute_delay_test),
-+	KUNIT_CASE(DSC_compute_delay_test),
-+	KUNIT_CASE(calculate_TWait_test),
-+	KUNIT_CASE_PARAM(calculate_write_back_delay_test, calculate_write_back_delay_gen_params),
-+	KUNIT_CASE_PARAM(calculate_active_row_bandwidth_test,
-+			 calculate_active_row_bandwidth_gen_params),
-+	KUNIT_CASE(trunc_to_valid_BPP_test),
++static struct kunit_case dc_dmub_srv_cases[] = {
++	KUNIT_CASE(populate_subvp_cmd_drr_info_with_4k144_4k240_parameters),
 +	{  }
 +};
 +
-+static struct kunit_suite display_mode_vba_20_suite = {
-+	.name = "display_mode_vba_20",
-+	.test_cases = display_mode_vba_20_cases,
++static struct kunit_suite dc_dmub_srv_suite = {
++	.name = "dc_dmub_srv",
++	.test_cases = dc_dmub_srv_cases,
 +};
 +
-+kunit_test_suite(display_mode_vba_20_suite);
++kunit_test_suite(dc_dmub_srv_suite);
 -- 
 2.43.0
 
