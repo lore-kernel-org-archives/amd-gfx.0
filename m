@@ -4,90 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 097CAC46CD2
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 Jan 2024 13:39:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB7DAC46CD2
+	for <amd-gfx@archiver.kernel.org>; Sat, 27 Jan 2024 16:59:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 968741123F1;
-	Sat, 27 Jan 2024 13:39:46 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2080.outbound.protection.outlook.com [40.107.94.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FF141123F1
- for <amd-gfx@lists.freedesktop.org>; Sat, 27 Jan 2024 13:39:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kKDxEeM9o8kTQslOUfwts0DfK8wPX/JO/6MIlozhLhnQKiKwIcbLijlbz902EMQPc7ObqcFu6gJkm4dQlF+2CQvnlpQc/X9NEgRqunTJ9EhK7oY8E5DzXKE6J+KhtdAjbyQyKARYqRWtcR3Gc1QQ2tubsEqg6hBwHdn0MKNOjndFJupZjA0EYPuwSbM9Zb5YngbwDDVwQOCWUh8SMngGfUR58r6CTKT6iKWlXwDeT1xZNBCvn+0BUWxYouuevfySxJCeHyORXcvnF3kUhVL9M1g/AXy3O9patx1eraid/WbnlEkXWEy6RiyhpH41mOr6IKZddGocUS+9E/OQy2fzlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pv2m+HSe/gnI1Im2x2p1MQ96LxdxtCJY/DFK1PHtCLw=;
- b=gWfao0S9hJMHzgvCR2+iKR3juLAAF0n2UmPmeIiE6GO/F3oT1l+S6CO9JbAi4j3P7Q8GOZcAhLpsLhyKH4jonwtHY2fLgsPm2vGu+Zgl2eMDsCnBugDAVPHix3gYYmPSg+1cZm7DsVWyX9RNp9df8lpxiUBpshS2VjF7n9P7GzIMvvBSiNo8leGApdsIIwuOFRwgVJfKhEvtvx+k7sF3twUV2UyghudTc5KW7DT+umYP4uawV8FbTQURzQOEd7v631jSJAuGSB4JQ66a1miHqpxC+oiTpvFRwL6d/ohwV38hQRe2zxUpsoGZYBBIMMGA6FP67LHMll1teBBTdB9zyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pv2m+HSe/gnI1Im2x2p1MQ96LxdxtCJY/DFK1PHtCLw=;
- b=jVtXxbewd2DbbImpCkg88Kf5W1lgPscXWPVm4Gj+W6i4vKdcTebOpSlRrc74vzdIV0UwF+nGwK91wUrrkHdODaS0YEo6Ik8oIM80tDmPWWNx9hOxoUiGYZC7kPlRd6OI6U41ksYyhrraiuCZad9JwGsFiwamsdPMTslKZ27QVZI=
-Received: from DM6PR12CA0034.namprd12.prod.outlook.com (2603:10b6:5:1c0::47)
- by DS0PR12MB8480.namprd12.prod.outlook.com (2603:10b6:8:159::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.27; Sat, 27 Jan
- 2024 13:39:26 +0000
-Received: from DS2PEPF00003447.namprd04.prod.outlook.com
- (2603:10b6:5:1c0:cafe::67) by DM6PR12CA0034.outlook.office365.com
- (2603:10b6:5:1c0::47) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.28 via Frontend
- Transport; Sat, 27 Jan 2024 13:39:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF00003447.mail.protection.outlook.com (10.167.17.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7228.16 via Frontend Transport; Sat, 27 Jan 2024 13:39:26 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34; Sat, 27 Jan 2024 07:39:24 -0600
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
- <aurabindo.pillai@amd.com>
-Subject: [PATCH] drm/amd/display: Fix 'panel_cntl' could be null in
- 'dcn21_set_backlight_level()'
-Date: Sat, 27 Jan 2024 19:09:09 +0530
-Message-ID: <20240127133909.1978795-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id B040B10F2FC;
+	Sat, 27 Jan 2024 16:59:12 +0000 (UTC)
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
+ [209.85.210.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEDD210F2E6
+ for <amd-gfx@lists.freedesktop.org>; Sat, 27 Jan 2024 16:59:10 +0000 (UTC)
+Received: by mail-ot1-f53.google.com with SMTP id
+ 46e09a7af769-6e114e247a2so440027a34.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 27 Jan 2024 08:59:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=umich.edu; s=google-2016-06-03; t=1706374684; x=1706979484;
+ darn=lists.freedesktop.org; 
+ h=user-agent:content-disposition:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=QYFyUKrKbQZpla68OAEdW2ZmpQP/NDEHBMcFoXhuHrU=;
+ b=h+9SncfNxKArM5HLkArdDVGxmyIVGgyv5TuObZIJ9yraGRzzkauCmBctSHIs+AOmMz
+ NSAh2mF9Z3g0QZb5n0GbaRiy+FoYs8B80KDNWmvd3Q6n0NNIpchfP76cPKIgkNUMziZW
+ n+dLHgdvxak/AW3vDs3OkE6HBqzX5T3JOcKQdVAW4F9a1lKb/uc9X3A0saMpmI9yzf5H
+ o+7Bsy3fPJR/gV+kxO8EmRkENTW8rKqH5FCgIHWPUpzBuPbmX7vw3PpLLgT5JLueLGeX
+ yuikvCi3bdk8Rca27rMyrMlqNdTlCB2teGd+UGDDXYEIYeZ+INxiqjIC+S8EmfSmJEx0
+ PHDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706374684; x=1706979484;
+ h=user-agent:content-disposition:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QYFyUKrKbQZpla68OAEdW2ZmpQP/NDEHBMcFoXhuHrU=;
+ b=gGTIRMqczOVT5JRuRgjfRE6LyrymEV6FKokXA2TDYgJ8soACN2DGW3cMvIZGD+UMID
+ p0XEi7FNOxzkfZvMq6jf3AxrvWLTIDptbF9v2je5uNrFldK0zGJMTNXcrUKyfv5AfeJQ
+ kOqGHd2flV5F4O2Y4QXF5WdA7LG2DciT9rSg+5XxPY6iXE9TjRGmlNtnQB6T+LEr8a1O
+ Dm0SNuC+983T1ZNbBsLwegKirJj423tWJ1AB6eRTpDtMITULm4cSVjNgs+YVJ2Pdi5G0
+ RRSPfBZ5gZzdup+CnNDqnS1R+hkXrKi08VfdSMCIz8hZPtYCJQrBFH8c06cUE/unhzE7
+ 4iog==
+X-Gm-Message-State: AOJu0YybYi0Oka3TOWANa+yWTuOi9bHhssuKYbJsI+Dajin4w1CxkNG3
+ 51bddfDEWG4ukWm1sPHIO5mOnus1bQUWDIZxZZ/dgFLnkKpbFnS5TKv55QJOe7o=
+X-Google-Smtp-Source: AGHT+IG0lXnGVWe/Ve4O/g76ErKZsS1iuWEGm6nF1kQ0FBGlMINS2DZU7TV3epHmrClmsxTmtN1C8w==
+X-Received: by 2002:a9d:6a02:0:b0:6df:b685:1fde with SMTP id
+ g2-20020a9d6a02000000b006dfb6851fdemr1940377otn.30.1706374684490; 
+ Sat, 27 Jan 2024 08:58:04 -0800 (PST)
+Received: from localhost (162-232-88-33.lightspeed.livnmi.sbcglobal.net.
+ [162.232.88.33]) by smtp.gmail.com with ESMTPSA id
+ f17-20020a4ae611000000b0059a2114326csm272446oot.14.2024.01.27.08.58.03
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Sat, 27 Jan 2024 08:58:04 -0800 (PST)
+Date: Sat, 27 Jan 2024 11:58:02 -0500
+From: William Bulley <web@umich.edu>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: Re: Have WX 3200 Radeon graphics card -- cannot get X11 session to
+ work
+Message-ID: <20240127165802.GA937@dell4>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003447:EE_|DS0PR12MB8480:EE_
-X-MS-Office365-Filtering-Correlation-Id: e0469fc9-3274-41fb-51a7-08dc1f3d614c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vGt702olOUWjj3xrtivn2I8/+3AIwGIdI6NGA/Nvtra+cNzcKkPES44LS0nLAhRN0/wwg2KhZ1McDTvpYfXOtuhfXd2nQkntH728cLFK3kGX3RGADDlYGFD+BlkDrOi2R/DWjXv1r3oUkV5J4vFR/FSIP3xcNP/F1hgqu3sl8ZCCivkM7ugODzneaOiPIwo89Zfs77PARuDhkH9rfjWdxCc6LiDqfIwAO6Hk5IJBB09ZUzaHGGXYJE8IDFm9TKS82rJaxXMzmxeGk4xx1y23xRJZnPBittrFQpMHp2yneqRQ6srOZL9d2A5jmqMl73BJf+QFpk4o3+Iu1n4otmSXxDWuuAxeft9mlDQ9Nh3ggobMebDkQbKGRJvnTBF4eu4pKCCO2YD6XtRxuQN2hbR/TjOiXTCFJLv3QNhDSgy9TyKnT+/gADluHO3vRVslen3jOZD8acVc8oLnBn+m5Iw3GGRHb06gixvko0J1ecVqGhoE9mcqJbv1l5yp5uphvT9Fv7YixXFBw+bRXtaYhprsIh0XZfd1FvOtA+kgZiAsrxXK8mh4/ED2bfyzX54fDzjHivjgEhafW+mixY3Xg2rY5DNy6AiZrqJE7J14FVkrWox5q7feKnt/fYMWS+dZZPDRD2OpbPWujgAa4o3XjFAuGjSimKaig8roZZAuXlUYfvH9+Ok3DYGBhtxnFVpSU93ovHaiaRoOyJ10rXj3ccMSRh/sPakweHBHvLUpobAlB5LXrfA7DEE9aWjfrFPYPGbOsYG+/QToV1IIYP1UyveMfw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(396003)(376002)(39860400002)(346002)(230922051799003)(64100799003)(451199024)(82310400011)(1800799012)(186009)(40470700004)(46966006)(36840700001)(2906002)(36756003)(41300700001)(5660300002)(316002)(83380400001)(70586007)(6636002)(54906003)(7696005)(47076005)(70206006)(40480700001)(6666004)(44832011)(40460700003)(16526019)(26005)(478600001)(86362001)(336012)(426003)(110136005)(2616005)(356005)(1076003)(81166007)(82740400003)(36860700001)(8936002)(8676002)(4326008)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2024 13:39:26.4844 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0469fc9-3274-41fb-51a7-08dc1f3d614c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003447.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8480
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.9.1 (2017-09-22)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,87 +72,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Anthony Koo <Anthony.Koo@amd.com>, Yongqiang Sun <yongqiang.sun@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-'panel_cntl' structure used control the display panel could be null,
-dereferencing it could lead to a null pointer access.
+According to "Deucher, Alexander" <Alexander.Deucher@amd.com> on Fri, 01/26/24 at 16:28:
+> 
+> [AMD Official Use Only - General]
+> 
+> Make sure you have OS mouse and keyboard drivers loaded and configured within your X config?
 
-Fixes the below:
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn21/dcn21_hwseq.c:269 dcn21_set_backlight_level() error: we previously assumed 'panel_cntl' could be null (see line 250)
+Can you be more specific about this?  I have tried (and failed) to bring up a working
+x11 session that doesn't have my mouse pointer frozen two different ways.
 
-Fixes: 474ac4a875ca ("drm/amd/display: Implement some asic specific abm call backs.")
-Cc: Yongqiang Sun <yongqiang.sun@amd.com>
-Cc: Anthony Koo <Anthony.Koo@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- .../amd/display/dc/hwss/dcn21/dcn21_hwseq.c   | 39 ++++++++++---------
- 1 file changed, 20 insertions(+), 19 deletions(-)
+1) I removed both my keyboard.conf and trackball.conf files from my xorg.conf.d directory.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
-index 8e88dcaf88f5..86b9265f670f 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
-@@ -237,34 +237,35 @@ bool dcn21_set_backlight_level(struct pipe_ctx *pipe_ctx,
- {
- 	struct dc_context *dc = pipe_ctx->stream->ctx;
- 	struct abm *abm = pipe_ctx->stream_res.abm;
-+	u32 otg_inst = pipe_ctx->stream_res.tg->inst;
- 	struct panel_cntl *panel_cntl = pipe_ctx->stream->link->panel_cntl;
- 
-+	if (!abm)
-+		return false;
-+
-+	if (!panel_cntl)
-+		return false;
-+
- 	if (dc->dc->res_pool->dmcu) {
- 		dce110_set_backlight_level(pipe_ctx, backlight_pwm_u16_16, frame_ramp);
- 		return true;
- 	}
- 
--	if (abm != NULL) {
--		uint32_t otg_inst = pipe_ctx->stream_res.tg->inst;
--
--		if (abm && panel_cntl) {
--			if (abm->funcs && abm->funcs->set_pipe_ex) {
--				abm->funcs->set_pipe_ex(abm,
--						otg_inst,
--						SET_ABM_PIPE_NORMAL,
--						panel_cntl->inst,
--						panel_cntl->pwrseq_inst);
--			} else {
--					dmub_abm_set_pipe(abm,
--							otg_inst,
--							SET_ABM_PIPE_NORMAL,
--							panel_cntl->inst,
--							panel_cntl->pwrseq_inst);
--			}
--		}
-+	if (abm->funcs && abm->funcs->set_pipe_ex) {
-+		abm->funcs->set_pipe_ex(abm,
-+					otg_inst,
-+					SET_ABM_PIPE_NORMAL,
-+					panel_cntl->inst,
-+					panel_cntl->pwrseq_inst);
-+	} else {
-+		dmub_abm_set_pipe(abm,
-+				  otg_inst,
-+				  SET_ABM_PIPE_NORMAL,
-+				  panel_cntl->inst,
-+				  panel_cntl->pwrseq_inst);
- 	}
- 
--	if (abm && abm->funcs && abm->funcs->set_backlight_level_pwm)
-+	if (abm->funcs && abm->funcs->set_backlight_level_pwm)
- 		abm->funcs->set_backlight_level_pwm(abm, backlight_pwm_u16_16,
- 			frame_ramp, 0, panel_cntl->inst);
- 	else
+After rebooting and issuing a startx command, same thing: beautiful x11 screen but frozen mouse.
+
+2) I replaced both keyboard.conf and trackball.conf into my xorg.conf.d directory.
+
+unix% cat keyboard.conf
+Section "InputClass"
+        Identifier      "KeyboardDefaults"
+        MatchIsKeyboard "on"
+EndSection
+
+unix% cat trackball.conf
+Section "InputDevice"
+        Identifier      "Mouse0"
+        Driver          "mouse"
+        Option          "Protocol"      "auto"
+#       Option          "Device"        "/dev/sysmouse"
+EndSection
+
+I also tried variant of the keyboard.conf file using the Identifier "Keyboard0" and
+again using a Section name "InputDevice" instead of "InputClass", still no change.
+
+After rebooting and issuing a startx command, same thing: beautiful x11 screen but frozen mouse.
+
+[    58.131] (II) config/udev: Adding input device System keyboard multiplexer (/dev/input/event0)
+[    58.131] (II) No input driver specified, ignoring this device.
+[    58.131] (II) This device may have been added with another device file.
+[    58.131] (II) config/udev: Adding input device System mouse (/dev/input/event1)
+[    58.131] (II) No input driver specified, ignoring this device.
+[    58.131] (II) This device may have been added with another device file.
+
+How am I supposed to specify an input driver for keyboard and mouse if not by
+the use of those two files (or similar) in my xorg.conf.d directory?
+
 -- 
-2.34.1
-
+William Bulley
+E-MAIL: web@umich.edu
+<web@umich.edu>
