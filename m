@@ -4,74 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E9DFC47422
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jan 2024 09:10:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26D63C4828A
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jan 2024 09:10:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 424F61126C2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE8EE1126CB;
 	Mon, 29 Jan 2024 09:10:24 +0000 (UTC)
-Received: from www254.your-server.de (www254.your-server.de [188.40.28.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB90D10E6FE;
- Sun, 28 Jan 2024 10:29:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=windeck-gymnasium.de; s=windeck_hetzner; h=Content-Type:In-Reply-To:
- References:To:Subject:From:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
- bh=Ip/cH0toWlht6UUCK0wZTthMNZH3KaCZRngkP5BTJSA=; b=l3fSjk+i9GD0AYl+vesQkCOkP7
- 7AgY0TfM6thMoSAkS6OWJs7OuYE7ss8PrVeIT92UKaUO4mhycGYu89ao6H2cq7OJEAaMXmPJLWIVX
- FW93c+zVszyt2CrpB8yD8EEWgNlVmf9f2XS/1UGDshW45Qe+hURZwEkIYbBGv8NbhtYvEp9QN3t/0
- D/ArucXUuT6+ntp8vgTpsgZuS2rjNGAnk/JEB3zt7MI5FKXaY/M7iA5NzOMGcmPZZmNfGCKgafUX1
- exca5ZBXspPusPQy2n0QoCMystTnqk/KEU6dbKFw0EjZBNQVgCIU0IlZYahINsd9GP502LEkfX9M/
- surTo0HQ==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
- by www254.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.94.2) (envelope-from <administrator@windeck-gymnasium.de>)
- id 1rU2PL-000GRt-Mx; Sun, 28 Jan 2024 11:28:59 +0100
-Received: from [2003:c2:2700:8b00:abb7:33fa:4db1:a46e]
- by sslproxy03.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <administrator@windeck-gymnasium.de>)
- id 1rU2PL-000Cts-29; Sun, 28 Jan 2024 11:28:59 +0100
-Message-ID: <e6bedb02-a3b4-4351-b41e-6f635a77c0ef@windeck-gymnasium.de>
-Date: Sun, 28 Jan 2024 11:28:58 +0100
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
+ [209.85.160.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE416112726
+ for <amd-gfx@lists.freedesktop.org>; Sun, 28 Jan 2024 16:20:29 +0000 (UTC)
+Received: by mail-qt1-f170.google.com with SMTP id
+ d75a77b69052e-4280f3ec702so5798631cf.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 28 Jan 2024 08:20:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1706458767; x=1707063567; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=DdPShsrtSjnJkieklYF0XOagkkrLbX3eYJLGUkn793s=;
+ b=PGCE0NgpGoaBaZlWoqxu1dugkwHTkz5z2ub1rTqOUsDL0o40O1FmRHcDf9+tghnI5j
+ z56SMz96huGC6w8WDoynwRXx8AVE8Q88YsospkuKVQL60tpzmSjR3dePbroSEds5t0f9
+ y7bBF3AHr5WfbddPtxQItHvyuIwJcVdCNVtpztuvV/1Pbr0W/xbduVEDdFTc+RkhHHTu
+ CIlK9T20v3O+vuYqaRdUXmB78tKtXpmfJYuLnok4V9m8H4KsulSFSEbkKZ6UVthWorrz
+ FRG13OforRIXWM7GCy/9dw6Dp4QBGLxd5sVX9hAh+YXUa8ztU/0XghBcL5H9dvhevjr6
+ pcdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706458767; x=1707063567;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=DdPShsrtSjnJkieklYF0XOagkkrLbX3eYJLGUkn793s=;
+ b=oQptUF00Fmn8HA80zhOES2O1MfK0v1wu6EbklD8yPqeedIYnvUU35PtLo6Sps3HZ+1
+ xAU3SLSIokfWW5bColnTBDnn22BdO1+J3N6+90VWcuz7SzY6WZwh6aC59ADjS16HHmU5
+ KsxQHGnm62vLTbKeVaTyZ+AsHOgKW5Nw3MVhGiiFmChFnrZY0b/zgSGLd+lAqW5P3Y+U
+ /LippGITo8ke9/DslieW1Muy/xLSJ0PJZF2kbvYFX+VMses0mac+yLTWG5kTTaHrJt1k
+ GHkyMxOC2Stj3Jvp+DWLZdMrM7TQwiAMJrYArBPf6bg5d9UBLzZFJOaglAW0K/rPhj7a
+ jsEQ==
+X-Gm-Message-State: AOJu0YwfyYVIwJzUFZoIbJ27aG062uVxAVnMZcErVj8/GqiTKtdXW6R7
+ PhBQ08HL2vU4GGwp9+5FE3u1FGim0Gr6HtQPSOaaSMj3tmT2jFM3btYv2E7N
+X-Google-Smtp-Source: AGHT+IGHaTgJ9Ttm/Q5W5APm+Zvbvsrfd/1U1a0qmGhv7SDWxL7cGo39ipBZ2KcwVCUXV4jNuOUGWg==
+X-Received: by 2002:a05:620a:1911:b0:783:944b:1253 with SMTP id
+ bj17-20020a05620a191100b00783944b1253mr6128165qkb.5.1706458767519; 
+ Sun, 28 Jan 2024 08:19:27 -0800 (PST)
+Received: from davidm-laptop.home
+ (hlfxns018gw-134-41-187-249.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [134.41.187.249]) by smtp.gmail.com with ESMTPSA id
+ a23-20020a05620a067700b007838362da2dsm2336155qkh.111.2024.01.28.08.19.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 28 Jan 2024 08:19:27 -0800 (PST)
+From: David McFarland <corngood@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 0/1] amdgpu: Fix crash when MEC2 firmware fails to load
+Date: Sun, 28 Jan 2024 12:18:04 -0400
+Message-Id: <20240128161803.1224103-1-corngood@gmail.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: =?UTF-8?Q?Dominik_F=C3=B6rderer?= <administrator@windeck-gymnasium.de>
-Subject: Re: [PATCH] drm/amd/display: add panel_power_savings sysfs entry to
- eDP connectors
-To: amd-gfx@lists.freedesktop.org, Hamza Mahfooz <hamza.mahfooz@amd.com>
-References: <20240126222300.119292-1-hamza.mahfooz@amd.com>
-Content-Language: de-DE
-Autocrypt: addr=administrator@windeck-gymnasium.de; keydata=
- xsBNBFKEx0EBCACd+Hh66bJTTKR2iOs4HhtIzDjZl17s3eOLhYYpTAbCbhuCDzvTOhUTuu3z
- kB1invo1QlleId5WtW2c4GTXTKpRy0H9tPLuH0eGJNV2YbfakqSDNRXf/azZQjgjrMps7YES
- ibXG2fE1vV4jxsV0Uurq/+lEaW99Jynnti+aiCw7XDopDz2OFC20oZ968ulxB5AB5s/uK2lY
- PYZy7rEPZWsv/3sxHwKogt8XOM3xoz59nyBq1+jqMQuIRgDry5GvPUF6y/yapA9eCQO7dhHe
- 5gA8uttA7nicQc109EIZyZ1NN/qmyvf/Xuku3nyhHC+AD2VBog5TpWzqE/MKKk+tVTJvABEB
- AAHNNkRvbWluaWsgRsO2cmRlcmVyIDxhZG1pbmlzdHJhdG9yQHdpbmRlY2stZ3ltbmFzaXVt
- LmRlPsLAjwQTAQgAOQIbIwYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AWIQSUjWmA/4wJ5usw
- UNfDRud6+gdeXgUCXZ7oLQAKCRDDRud6+gdeXrQlB/9YwT0UJeLilU5Fqmh2NDOhn4dCsLNq
- yNnKt3d88wxnonz6Z3j+Nn/3sKt0LgyinQx6dNuhp67DibpYDw01GomnSlcmdAQ/YG7y4CB5
- Mtcszm7gYUSUd1FlYwgpkAC3CEhLDJTyuuLZ3KNUIxITonp+ui3CrXTBF+vrRGvZq9WiyNcp
- s6LsQHWKw5VgvGhLklkjG5fxWj6EOI1N9T2VcLt41ZuVcDg9Vn/Je3/6n/g7UjFAsVPydvdm
- /37HGp/crj7+GKy9XMDRJfKddObAQ6w0NRpky+JFtnMuZXHEDy3dfO+K2cX66Jtr0kdjLiT4
- 77kd9acZ6B6QGJSq6WeO8/T2zsBNBFKEx0EBCADaI8479bL9mlzZYMNo+H+62mj35DDg6Oxl
- kgsEu/oKK8PY1gBbWOjiKZTP4ty3aw+0XsNsdVbbXV0rYvUvnyPIQoImIu77q/hw7OTJcjNI
- G3XCnSFgQW8r2aooFTqFQpq4o9IiVKAPLviHi3XipOLLisGYKEen3NtNXyc1vFFHu7d3qeaP
- X1hpmwizoQ10WpUvYkaLa0vFcRWyRzhf8reDlU9t2c/YV+eGjl4WSmxEEDehYZGMO02pxo2P
- F05FZorKWJ/9eL5xBkKB9TmldgFmtDF4Xeykz1+USxDacTCy05GSVD7eegkfIeVpgphiuP0u
- yQ1BJjg2HTO3AfWF3YUzABEBAAHCwHYEGAEIACACGwwWIQSUjWmA/4wJ5uswUNfDRud6+gde
- XgUCXZ7oOgAKCRDDRud6+gdeXilFB/0bVk9EFIbxl1EuYfvtESz/5+ixMQ7d5nNv4XlcrxY+
- ayfqAGzuJ1tvCtuHtiGJSTx4Ta83ysSbRYEexppLbJINjBr5J4R4wL6SOxj6Y0+JUZ1YJKmb
- D9K4BRknNuxdRZO/AmZ2TwrGemirAIf0EZFAPi4Uvp/xZs2svXTU6P4jb8p9MohEQCpaoQIe
- LAiFzLfK2eJMGjrQMFhnRe2pv7z54qLQ4wYdG1CGUkXivul+4y0yhp3W2mu5XSqxa0Tkzhy1
- X8x6aSSiURHeu7RPJnlBgFJbfhggsj4ZO0Yz5chC0YCu3CTMm/e6BgphRTxl8wFoQ3+STrT5
- dPs3WyUXqakj
-In-Reply-To: <20240126222300.119292-1-hamza.mahfooz@amd.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------hMcroKAiw86efeluxWK3lLA2"
-X-Authenticated-Sender: administrator@windeck-gymnasium.de
-X-Virus-Scanned: Clear (ClamAV 0.103.10/27167/Sat Jan 27 10:40:34 2024)
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 29 Jan 2024 09:10:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,117 +71,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: David McFarland <corngood@gmail.com>, mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------hMcroKAiw86efeluxWK3lLA2
-Content-Type: multipart/mixed; boundary="------------K7iH3v9nTnJsM97Kh0HgKxY6";
- protected-headers="v1"
-From: =?UTF-8?Q?Dominik_F=C3=B6rderer?= <administrator@windeck-gymnasium.de>
-To: amd-gfx@lists.freedesktop.org, Hamza Mahfooz <hamza.mahfooz@amd.com>
-Message-ID: <e6bedb02-a3b4-4351-b41e-6f635a77c0ef@windeck-gymnasium.de>
-Subject: Re: [PATCH] drm/amd/display: add panel_power_savings sysfs entry to
- eDP connectors
-References: <20240126222300.119292-1-hamza.mahfooz@amd.com>
-In-Reply-To: <20240126222300.119292-1-hamza.mahfooz@amd.com>
+I only noticed this because my distro broke the mec2.bin symbolic link, so the
+firmware failed to load.  This resulted in:
 
---------------K7iH3v9nTnJsM97Kh0HgKxY6
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+amdgpu 0000:0b:00.0: Direct firmware load for amdgpu/navi10_mec2.bin failed with error -2
+BUG: kernel NULL pointer dereference, address: 0000000000000008
+[...]
+Call Trace:
+ <TASK>
+ ? __die+0x23/0x70
+ ? page_fault_oops+0x17d/0x4b0
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? exc_page_fault+0x72/0x160
+ ? asm_exc_page_fault+0x26/0x30
+ ? request_firmware+0x48/0x60 [firmware_class]
+ ? amdgpu_gfx_cp_init_microcode+0x22e/0x260 [amdgpu]
+ gfx_v10_0_early_init+0x722/0x8d0 [amdgpu]
 
-SSd2ZSBhcHBsaWVkIHRoZSBwYXRjaCB0byA2LjcuMi4gVGhlIGRldmljZSB0aGVuIHNob3dz
-IHVwIHVuZGVyOg0KDQovc3lzL2RldmljZXMvcGNpMDAwMDowMC8wMDAwOjAwOjA4LjEvMDAw
-MDpjMTowMC4wL2RybS9jYXJkMS9jYXJkMS1lRFAtMS9hbWRncHUvcGFuZWxfcG93ZXJfc2F2
-aW5ncw0KKG9uIEZyYW1ld29yayBMYXB0b3AgMTMgYW1kIDc4NDBVIHdpdGggNzgwTSkuDQoN
-CkFmdGVyIGEgZmV3IHRlc3RzIGkgY2FuIHNheSB0aGF0IGF0IGxlYXN0IGluIG15IHN5c3Rl
-bSBpdOKAmXMgbm90IHdvcmtpbmcuIA0KU2V0dGluZyBhIHZhbHVlIGJldHdlZW4gMCBhbmQg
-NCBpbiAvc3lzLy4uLi9wYW5lbF9wb3dlcl9zYXZpbmdzIGNoYW5nZXMgDQpub3RoaW5nIGlu
-IHRoZSBwYW5lbCBiZWhhdmlvci4gVGhlcmUgYXJlIG5vIGVycm9ycyBpbiBrZXJuZWwgbG9n
-Lg0KDQpTZXR0aW5nIGFuIGFibWxldmVsIHZpYSBrZXJuZWwgb3B0aW9uIHN0aWxsIHdvcmtz
-IGFzIGludGVuZGVkLg0KDQoNClRoZSBpc3N1ZSBjYW4gYmUgcmVzb2x2ZWQgaWYgb25lIHNl
-dCB0aGUgcGFuZWxfcG93ZXJfc2F2aW5ncyB2YWx1ZSBhbmQgDQphZnRlciB0aGF0IGNoYW5n
-ZSB0aGUgZGlzcGxheSByZXNvbHV0aW9uIHRvIGEgbG93ZXIgdmFsdWUgYW5kIHRoYW4gDQpz
-d2l0Y2ggYmFjay4gRm9yIGV4YW1wbGUgdGhpcyBzY3JpcHQgd29ya3M6DQoNCg0KeHRlcm0g
-LWUgJ2VjaG8gMCB8IHN1ZG8gdGVlIA0KL3N5cy9kZXZpY2VzL3BjaTAwMDA6MDAvMDAwMDow
-MDowOC4xLzAwMDA6YzE6MDAuMC9kcm0vY2FyZDEvY2FyZDEtZURQLTEvYW1kZ3B1L3BhbmVs
-X3Bvd2VyX3NhdmluZ3MnDQpnbm9tZS1yYW5kciBtb2RpZnkgLW0gMTkyMHgxMjAwQDU5Ljk5
-OSBlRFAtMSAmJiBnbm9tZS1yYW5kciBtb2RpZnkgLW0gDQoyMjU2eDE1MDRANTkuOTk5IGVE
-UC0xDQoNCg0KQW0gMjYuMDEuMjQgdW0gMjM6MjIgc2NocmllYiBIYW16YSBNYWhmb296Og0K
-PiBXZSB3YW50IHByb2dyYW1zIGJlc2lkZXMgdGhlIGNvbXBvc2l0b3IgdG8gYmUgYWJsZSB0
-byBlbmFibGUgb3IgZGlzYWJsZQ0KPiBwYW5lbCBwb3dlciBzYXZpbmcgZmVhdHVyZXMuIEhv
-d2V2ZXIsIHNpbmNlIHRoZXkgYXJlIGN1cnJlbnRseSBvbmx5DQo+IGNvbmZpZ3VyYWJsZSB0
-aHJvdWdoIERSTSBwcm9wZXJ0aWVzLCB0aGF0IGlzbid0IHBvc3NpYmxlLiBTbywgdG8gcmVt
-ZWR5DQo+IHRoYXQgaXNzdWUgaW50cm9kdWNlIGEgbmV3ICJwYW5lbF9wb3dlcl9zYXZpbmdz
-IiBzeXNmcyBhdHRyaWJ1dGUuDQo+DQo+IENjOiBNYXJpbyBMaW1vbmNpZWxsbyA8bWFyaW8u
-bGltb25jaWVsbG9AYW1kLmNvbT4NCj4gU2lnbmVkLW9mZi1ieTogSGFtemEgTWFoZm9veiA8
-aGFtemEubWFoZm9vekBhbWQuY29tPg0KPiAtLS0NCj4gLi4uL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgNTkgKysrKysrKysrKysrKysrKysrKw0KPiAx
-IGZpbGUgY2hhbmdlZCwgNTkgaW5zZXJ0aW9ucygrKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyANCj4gYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+IGlu
-ZGV4IGNkOThiMzU2NTE3OC4uYjNmY2Q4MzMwMTVkIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gQEAg
-LTY1MzQsNiArNjUzNCw1OCBAQCANCj4gYW1kZ3B1X2RtX2Nvbm5lY3Rvcl9hdG9taWNfZHVw
-bGljYXRlX3N0YXRlKHN0cnVjdCBkcm1fY29ubmVjdG9yIA0KPiAqY29ubmVjdG9yKQ0KPiBy
-ZXR1cm4gJm5ld19zdGF0ZS0+YmFzZTsNCj4gfQ0KPiArc3RhdGljIHNzaXplX3QgcGFuZWxf
-cG93ZXJfc2F2aW5nc19zaG93KHN0cnVjdCBkZXZpY2UgKmRldmljZSwNCj4gKyBzdHJ1Y3Qg
-ZGV2aWNlX2F0dHJpYnV0ZSAqYXR0ciwNCj4gKyBjaGFyICpidWYpDQo+ICt7DQo+ICsgc3Ry
-dWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciA9IGRldl9nZXRfZHJ2ZGF0YShkZXZpY2Up
-Ow0KPiArIHN0cnVjdCBkcm1fZGV2aWNlICpkZXYgPSBjb25uZWN0b3ItPmRldjsNCj4gKyBz
-c2l6ZV90IHZhbDsNCj4gKw0KPiArIGRybV9tb2Rlc2V0X2xvY2soJmRldi0+bW9kZV9jb25m
-aWcuY29ubmVjdGlvbl9tdXRleCwgTlVMTCk7DQo+ICsgdmFsID0gdG9fZG1fY29ubmVjdG9y
-X3N0YXRlKGNvbm5lY3Rvci0+c3RhdGUpLT5hYm1fbGV2ZWw7DQo+ICsgZHJtX21vZGVzZXRf
-dW5sb2NrKCZkZXYtPm1vZGVfY29uZmlnLmNvbm5lY3Rpb25fbXV0ZXgpOw0KPiArDQo+ICsg
-cmV0dXJuIHN5c2ZzX2VtaXQoYnVmLCAiJWx1XG4iLCB2YWwpOw0KPiArfQ0KPiArDQo+ICtz
-dGF0aWMgc3NpemVfdCBwYW5lbF9wb3dlcl9zYXZpbmdzX3N0b3JlKHN0cnVjdCBkZXZpY2Ug
-KmRldmljZSwNCj4gKyBzdHJ1Y3QgZGV2aWNlX2F0dHJpYnV0ZSAqYXR0ciwNCj4gKyBjb25z
-dCBjaGFyICpidWYsIHNpemVfdCBjb3VudCkNCj4gK3sNCj4gKyBzdHJ1Y3QgZHJtX2Nvbm5l
-Y3RvciAqY29ubmVjdG9yID0gZGV2X2dldF9kcnZkYXRhKGRldmljZSk7DQo+ICsgc3RydWN0
-IGRybV9kZXZpY2UgKmRldiA9IGNvbm5lY3Rvci0+ZGV2Ow0KPiArIGxvbmcgdmFsOw0KPiAr
-IGludCByZXQ7DQo+ICsNCj4gKyByZXQgPSBrc3RydG9sKGJ1ZiwgMCwgJnZhbCk7DQo+ICsN
-Cj4gKyBpZiAocmV0KQ0KPiArIHJldHVybiByZXQ7DQo+ICsNCj4gKyBpZiAodmFsIDwgMCB8
-fCB2YWwgPiA0KQ0KPiArIHJldHVybiAtRUlOVkFMOw0KPiArDQo+ICsgZHJtX21vZGVzZXRf
-bG9jaygmZGV2LT5tb2RlX2NvbmZpZy5jb25uZWN0aW9uX211dGV4LCBOVUxMKTsNCj4gKyB0
-b19kbV9jb25uZWN0b3Jfc3RhdGUoY29ubmVjdG9yLT5zdGF0ZSktPmFibV9sZXZlbCA9IHZh
-bCA/Og0KPiArIEFCTV9MRVZFTF9JTU1FRElBVEVfRElTQUJMRTsNCj4gKyBkcm1fbW9kZXNl
-dF91bmxvY2soJmRldi0+bW9kZV9jb25maWcuY29ubmVjdGlvbl9tdXRleCk7DQo+ICsNCj4g
-KyByZXR1cm4gY291bnQ7DQo+ICt9DQo+ICsNCj4gK3N0YXRpYyBERVZJQ0VfQVRUUl9SVyhw
-YW5lbF9wb3dlcl9zYXZpbmdzKTsNCj4gKw0KPiArc3RhdGljIHN0cnVjdCBhdHRyaWJ1dGUg
-KmFtZGdwdV9hdHRyc1tdID0gew0KPiArICZkZXZfYXR0cl9wYW5lbF9wb3dlcl9zYXZpbmdz
-LmF0dHIsDQo+ICsgTlVMTA0KPiArfTsNCj4gKw0KPiArc3RhdGljIGNvbnN0IHN0cnVjdCBh
-dHRyaWJ1dGVfZ3JvdXAgYW1kZ3B1X2dyb3VwID0gew0KPiArIC5uYW1lID0gImFtZGdwdSIs
-DQo+ICsgLmF0dHJzID0gYW1kZ3B1X2F0dHJzDQo+ICt9Ow0KPiArDQo+IHN0YXRpYyBpbnQN
-Cj4gYW1kZ3B1X2RtX2Nvbm5lY3Rvcl9sYXRlX3JlZ2lzdGVyKHN0cnVjdCBkcm1fY29ubmVj
-dG9yICpjb25uZWN0b3IpDQo+IHsNCj4gQEAgLTY1NDEsNiArNjU5MywxMyBAQCBhbWRncHVf
-ZG1fY29ubmVjdG9yX2xhdGVfcmVnaXN0ZXIoc3RydWN0IA0KPiBkcm1fY29ubmVjdG9yICpj
-b25uZWN0b3IpDQo+IHRvX2FtZGdwdV9kbV9jb25uZWN0b3IoY29ubmVjdG9yKTsNCj4gaW50
-IHI7DQo+ICsgaWYgKGNvbm5lY3Rvci0+Y29ubmVjdG9yX3R5cGUgPT0gRFJNX01PREVfQ09O
-TkVDVE9SX2VEUCkgew0KPiArIHIgPSBzeXNmc19jcmVhdGVfZ3JvdXAoJmNvbm5lY3Rvci0+
-a2Rldi0+a29iaiwNCj4gKyAmYW1kZ3B1X2dyb3VwKTsNCj4gKyBpZiAocikNCj4gKyByZXR1
-cm4gcjsNCj4gKyB9DQo+ICsNCj4gYW1kZ3B1X2RtX3JlZ2lzdGVyX2JhY2tsaWdodF9kZXZp
-Y2UoYW1kZ3B1X2RtX2Nvbm5lY3Rvcik7DQo+IGlmICgoY29ubmVjdG9yLT5jb25uZWN0b3Jf
-dHlwZSA9PSBEUk1fTU9ERV9DT05ORUNUT1JfRGlzcGxheVBvcnQpIHx8DQoNCg0KLS0gDQpE
-b21pbmlrIEbDtnJkZXJlciAoTmV0endlcmthZG1pbmlzdHJhdG9yKQ0KV2luZGVjay1HeW1u
-YXNpdW0gQsO8aGwNCkh1bWJvbGR0c3RyLiAzDQpUZWwuIDA3MjIzLzk0MDk1ODUNCg0K
+The attached patch removes some code that looks like it was added by mistake, or
+by a bad merge. With it I get still get the load failed error as expected, but
+no crash. After fixing the firmware, no error is printed.
 
---------------K7iH3v9nTnJsM97Kh0HgKxY6--
 
---------------hMcroKAiw86efeluxWK3lLA2
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+David McFarland (1):
+  drm/amd: Don't init MEC2 firmware when it fails to load
 
------BEGIN PGP SIGNATURE-----
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-wsB5BAABCAAjFiEElI1pgP+MCebrMFDXw0bnevoHXl4FAmW2LGoFAwAAAAAACgkQw0bnevoHXl7B
-1AgAiZzMlkfXo8NA5bpNURzls4d5ja5WseyF3BCGK/vdTw2BVRQPgTuKSbgSeyTRTbQ4HoG9sRwa
-HhWr/5eSPafIS5GwvuPrVKE7oROR86rlcM98MFT+P5/8zTfn9EwHwkc017m0yfNoW+n7U52aNN6O
-0qtKESvVSYwIkpMZYK5iFNLnW0JfFvXsav3mxyxJbKAsJNxK0hncT9XYF7O/W3gFjHS6ctHKCz2V
-xOwVLUnvN4sMRmb6PsorGCkyEMKWrDvxPAoSzbzNNZhvabRDClXdTMyuy7epxkWTYD1Aj4Vamjfc
-h+wCozfrwWVsm/DgpBtpI9reWOuBiL0/lUjAZuM4cQ==
-=fxf+
------END PGP SIGNATURE-----
+-- 
+2.40.1
 
---------------hMcroKAiw86efeluxWK3lLA2--
