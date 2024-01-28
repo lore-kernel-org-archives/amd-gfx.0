@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A259C47422
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7634AC47DDB
 	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jan 2024 09:10:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A66401126D1;
-	Mon, 29 Jan 2024 09:10:34 +0000 (UTC)
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
- [209.85.222.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 751DD112726
- for <amd-gfx@lists.freedesktop.org>; Sun, 28 Jan 2024 16:20:38 +0000 (UTC)
-Received: by mail-qk1-f181.google.com with SMTP id
- af79cd13be357-783cdbecfe2so68207185a.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 28 Jan 2024 08:20:38 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FDF0112725;
+	Mon, 29 Jan 2024 09:10:35 +0000 (UTC)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FBE3112496;
+ Sun, 28 Jan 2024 09:05:44 +0000 (UTC)
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-42a8e0becfdso5199621cf.3; 
+ Sun, 28 Jan 2024 01:05:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706458777; x=1707063577; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xkFK2+4N/mKaw8xs4tJly4vP7nov7ElLkbj/0fopy7I=;
- b=Ipbj5hjPwOh/FXniEogVH8F4uqrenERkbmXPAyZS4CE8XJ+zlaVqsv+7mDl1Rz2RQz
- 3if5rm+fHrW86kjrmvAtn+2tYaysuaLMmAicIIck8AWBaMIaQlLOCJWoAE0tUOkn5aIZ
- Bd5AwE4zqDgo/ZXxwF/iEwN/CYh2jykT+LaS74UvQ/VLtCxPw9XFKBm4OjODqmpo+PYe
- K8giWXKTtyRByk0LBPp1C9VkkZg8W+qsfypR6VlpldJDFCK5Lc5YlnSMUKKlxGb0H2tU
- OGLjD6kR8JexXckO4BfKcTZV2MeJMbIPY/1JZ+rusz9o8npzDhAdi65w3n9Qf2ljZad7
- z74Q==
+ d=gmail.com; s=20230601; t=1706432679; x=1707037479; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=tl12HUX4uU642Pm0XD/FsExYrprZs5KqQHYM6NQv7yw=;
+ b=dRnScH0vdRSbQizneN9N6guvnV/c7W3RrXyBJkYOcLTSfcixih8jnTIyPdegVx0qSo
+ mT7povdA3LELCMpr7dNZ3VH56i9+KJpKOOh70SYtzNlaj6L8o7SnEN16oSiah3tccW05
+ TZYcNzo42IB5MndQrV0uQYwqTYgNTRn5dD3ecSUqfE1gBkZPpH20gxLoDhoMX/iT9iQ+
+ BQWSst7d1rBS9yyAp3wWtu3YDls8ksQRuf74766Wu/Bn8b+zlQxHMrZtWZanRYWURa05
+ zIjTmn7v8HN6hLEwYzUZGslaNg5NIvw/xvGJfFCNwObJ3gKd7w/azqcO29jMBbl8eAKM
+ yzig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706458777; x=1707063577;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xkFK2+4N/mKaw8xs4tJly4vP7nov7ElLkbj/0fopy7I=;
- b=adS7p1uvEavyK+FE+MfhMqxrTvGLq5xPM5lWqkI+ikICis5107Q19Cg2VlMfPKdADu
- yjpYHTxhzumvR6pBOm/QT4/YLagy1HTxt+Du9M+fdxLAc48hKdmc/f3QDx7Cq6eL5L3J
- yuRsS+c6D0bZ/oLS745Ze8IjNu90R74z3U3OxVfvXSV2s0K7YvtGPmmZBoOOECobljl2
- aSvMLfMJFoledP73tQjKbjPd2Mk1WepIAJs100pxgE73+osQ/BHG4PXau68Bmg6NkuGr
- g5jkPo9PtcXsSMdaS0zNXjWuPFvlFSiH+Z4K6hmW+fOqtXLNMfhO+y7Ktb8+Gz932f9Y
- 9RPA==
-X-Gm-Message-State: AOJu0YyaHK50ZvD/yj4CElPwwNVLx3waKh3HQbTZuZlEY3KbaZAWYZ6q
- 93E4cSk4kLgW3kBDZZO8Pe8V4ctE059KSG4umrwTYcLsq64gUaEEhq/G3XiY
-X-Google-Smtp-Source: AGHT+IGFSgMVqucX22+edrfVWHvd0GKeHnqURs5EsjsKWLWMmLHl0S1nOPgjhJ5kFJoXuYoqOqEyvA==
-X-Received: by 2002:a05:6214:48d:b0:686:9443:87b1 with SMTP id
- pt13-20020a056214048d00b00686944387b1mr6314250qvb.2.1706458777340; 
- Sun, 28 Jan 2024 08:19:37 -0800 (PST)
-Received: from davidm-laptop.home
- (hlfxns018gw-134-41-187-249.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [134.41.187.249]) by smtp.gmail.com with ESMTPSA id
- a23-20020a05620a067700b007838362da2dsm2336155qkh.111.2024.01.28.08.19.36
+ d=1e100.net; s=20230601; t=1706432679; x=1707037479;
+ h=content-disposition:mime-version:message-id:subject:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=tl12HUX4uU642Pm0XD/FsExYrprZs5KqQHYM6NQv7yw=;
+ b=SRFEF8hGy4pcExUn2gD1Quod1TG99bfXv4r0sCG9pzFYKuw3VIhRti25bNJSbODlai
+ Gi31m51sHcd4Nzn5yGtO/yH8q4HayQlx8TPvzWYt8RZqVjKC2X/38zo1pqeFvcu3hA1F
+ zHk1IytiadVotWg34X/vEu66ScKlEtSvlfNUYtEineXl/WFUA1YsT113hs4+ksrvYQA0
+ HxmCsb3iXlKxhhM9HAVKSt7so68sFg92S7huIm3VNMnQYBatEC5rrmLKdYO9q+ZbNTK4
+ 2lG/lInHRCVSSsR4QrnTUbEKsUAc1VZxpZBwN406VniVtp7IB7MLgfxfb8lPrq6JkdbK
+ F8Eg==
+X-Gm-Message-State: AOJu0Yx+1xlorBaeER3rRCD7pWdwggnU7jJjEYrAPvqMp7Vem/t11OYd
+ HipMgFagX1jR80o/tAwXHBr2kP41OE8n5TfAuqWJKTkgwOJayFs=
+X-Google-Smtp-Source: AGHT+IFyTE09o/xWHMwQXLRQeWK4UyZ7mKRESG5vo897/5dTOfLsZ+QnKmU9/J0QcLWgtItYdBAXtw==
+X-Received: by 2002:a05:622a:1050:b0:42a:6860:4b5d with SMTP id
+ f16-20020a05622a105000b0042a68604b5dmr4062236qte.91.1706432679336; 
+ Sun, 28 Jan 2024 01:04:39 -0800 (PST)
+Received: from localhost ([207.181.197.26]) by smtp.gmail.com with ESMTPSA id
+ kf13-20020a05622a2a8d00b0042a9a2e43ffsm709108qtb.92.2024.01.28.01.04.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 28 Jan 2024 08:19:36 -0800 (PST)
-From: David McFarland <corngood@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/1] drm/amd: Don't init MEC2 firmware when it fails to load
-Date: Sun, 28 Jan 2024 12:18:06 -0400
-Message-Id: <20240128161803.1224103-2-corngood@gmail.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20240128161803.1224103-1-corngood@gmail.com>
-References: <20240128161803.1224103-1-corngood@gmail.com>
+ Sun, 28 Jan 2024 01:04:38 -0800 (PST)
+Date: Sun, 28 Jan 2024 03:04:38 -0600
+From: Lenko Donchev <lenko.donchev@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: Use kcalloc() instead of kzalloc()
+Message-ID: <ZbYYpky2sb8p8hjx@nixos>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Mon, 29 Jan 2024 09:10:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,41 +75,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David McFarland <corngood@gmail.com>, mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The same calls are made directly above, but conditional on the firmware
-loading and validating successfully.
+We are trying to get rid of all multiplications from allocation
+functions to prevent integer overflows. Here the multiplication is
+obviously safe, but using kcalloc() is more appropriate and improves
+readability. This patch has no effect on runtime behavior.
 
-Fixes: 9931b67690cf ("drm/amd: Load GFX10 microcode during early_init")
+Link: https://www.kernel.org/doc/html/next/process/deprecated.html#open-coded-arithmetic-in-allocator-arguments
+Link: https://github.com/KSPP/linux/issues/162
+
+Signed-off-by: Lenko Donchev <lenko.donchev@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/link/protocols/link_dpcd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index d63cab294883..b0ba68016a02 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4022,18 +4022,16 @@ static int gfx_v10_0_init_microcode(struct amdgpu_device *adev)
- 	err = amdgpu_ucode_request(adev, &adev->gfx.mec2_fw, fw_name);
- 	if (!err) {
- 		amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_MEC2);
- 		amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_MEC2_JT);
- 	} else {
- 		err = 0;
- 		adev->gfx.mec2_fw = NULL;
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dpcd.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dpcd.c
+index 5c9a30211c10..b67cd78e7c58 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dpcd.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dpcd.c
+@@ -164,7 +164,7 @@ static void dpcd_extend_address_range(
+ 	if (new_addr_range.start != in_address || new_addr_range.end != end_address) {
+ 		*out_address = new_addr_range.start;
+ 		*out_size = ADDRESS_RANGE_SIZE(new_addr_range.start, new_addr_range.end);
+-		*out_data = kzalloc(*out_size * sizeof(**out_data), GFP_KERNEL);
++		*out_data = kcalloc(*out_size, sizeof(**out_data), GFP_KERNEL);
  	}
--	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_MEC2);
--	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_MEC2_JT);
+ }
  
- 	gfx_v10_0_check_fw_write_wait(adev);
- out:
- 	if (err) {
- 		amdgpu_ucode_release(&adev->gfx.pfp_fw);
- 		amdgpu_ucode_release(&adev->gfx.me_fw);
- 		amdgpu_ucode_release(&adev->gfx.ce_fw);
- 		amdgpu_ucode_release(&adev->gfx.rlc_fw);
 -- 
-2.40.1
+2.43.0
 
