@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9C2AC47258
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Jan 2024 16:14:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4169DC47DDB
+	for <amd-gfx@archiver.kernel.org>; Sun, 28 Jan 2024 16:14:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C5421126F2;
-	Sun, 28 Jan 2024 16:14:10 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9D091126F2;
- Sun, 28 Jan 2024 16:14:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D79231126F5;
+	Sun, 28 Jan 2024 16:14:31 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B41A1126F5;
+ Sun, 28 Jan 2024 16:14:30 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id BB61CCE0C6A;
- Sun, 28 Jan 2024 16:14:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F412EC43390;
- Sun, 28 Jan 2024 16:14:02 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id AFABF6195C;
+ Sun, 28 Jan 2024 16:13:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE7EBC433F1;
+ Sun, 28 Jan 2024 16:13:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1706458445;
- bh=eshXjJ2KbJhZ73e5khc8Rpg/K4834h8pZv6O+OOTfP0=;
+ s=k20201202; t=1706458439;
+ bh=azj0o16XNmiPoWegTfpJ3DfekAM5KM8ILmUwFJKxRGE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TwXzjTTMCKt6xLMtnQgeehAo2nz5WzhrLRd92X1XlMNa6BTRd9DFpbrtXpJvrAkOW
- Aug1O7qFnd12UflyQ5VGWKUBSu0cmeHpEZf7WxDHOo8r7ZOggLJ7zA6D4h6Zc+Jblm
- eBZS5mbBVL0aoLBbT063Zi83Xm1Rhi5bUo5Q4jPoeVyKL0VDBEiisyq63Po1frn5mc
- 4hLYttuLJgc5lcGdviCTlEk44LYIe0Eo4V6BAR8thB+/RPwq+0N7N3Gz+628nmltlp
- om1UA4/Qzp5J6p8nE3JcyPpF0j+zcPdOsyjQK4IPH6cCV1JMKmm6nAdxp3j9fjt6VA
- msorE4nYwuToA==
+ b=Jb/kzU7BYafSVjcFWnn673KnlxOJZYL9f2PYZ50zux7IDbNcraqPNBa7qx9u2eurA
+ zR/+WTSwBQ4e0laV3MQfcUSrqkmhGs6NXB8XViTIh9YP8sfi5NmjepIiK0VN4P/xK5
+ ua3raibRDmV4PfLXrLVYyElyIgo7Nk5vsXaqzLxXtatd0/Zaeib+uvATpitflDcoQU
+ clrlRUOhyQZJBYTH+YFRd7EhACGUxekePbwRFfyMvK5XGEROdHXHJzcL5yexDZVND2
+ lNzI+3MqGAWRE1bJIrIz5MkYqUqWaeDe+yDkDH0skN9SYQE/icqpxirAtPlPMPgPvd
+ gpcDpJLSBEeOw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.6 28/31] drm/amdgpu: Fix with right return code
- '-EIO' in 'amdgpu_gmc_vram_checking()'
-Date: Sun, 28 Jan 2024 11:12:58 -0500
-Message-ID: <20240128161315.201999-28-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 26/31] drm/amdgpu: fix avg vs input power
+ reporting on smu7
+Date: Sun, 28 Jan 2024 11:12:56 -0500
+Message-ID: <20240128161315.201999-26-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240128161315.201999-1-sashal@kernel.org>
 References: <20240128161315.201999-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.6.14
@@ -54,86 +53,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, mukul.joshi@amd.com, Xinhui.Pan@amd.com,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- dri-devel@lists.freedesktop.org, Xiaojian Du <Xiaojian.Du@amd.com>,
- amd-gfx@lists.freedesktop.org, Felix.Kuehling@amd.com,
- Lijo Lazar <lijo.lazar@amd.com>, tao.zhou1@amd.com, shiwu.zhang@amd.com,
- mario.limonciello@amd.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, ikshwaku.chauhan@amd.com,
- airlied@gmail.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking.Zhang@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, lijo.lazar@amd.com, sunran001@208suo.com,
+ Yang Wang <kevinyang.wang@amd.com>, ruanjinjie@huawei.com, Xinhui.Pan@amd.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ alexious@zju.edu.cn, mario.limonciello@amd.com, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+From: Alex Deucher <alexander.deucher@amd.com>
 
-[ Upstream commit fac4ebd79fed60e79cccafdad45a2bb8d3795044 ]
+[ Upstream commit 25852d4b97572ff62ffee574cb8bb4bc551af23a ]
 
-The amdgpu_gmc_vram_checking() function in emulation checks whether
-all of the memory range of shared system memory could be accessed by
-GPU, from this aspect, -EIO is returned for error scenarios.
+Hawaii, Bonaire, Fiji, and Tonga support average power, the others
+support current power.
 
-Fixes the below:
-drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c:919 gmc_v6_0_hw_init() warn: missing error code? 'r'
-drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c:1103 gmc_v7_0_hw_init() warn: missing error code? 'r'
-drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:1223 gmc_v8_0_hw_init() warn: missing error code? 'r'
-drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c:2344 gmc_v9_0_hw_init() warn: missing error code? 'r'
-
-Cc: Xiaojian Du <Xiaojian.Du@amd.com>
-Cc: Lijo Lazar <lijo.lazar@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 21 ++++++++++++++-------
- 1 file changed, 14 insertions(+), 7 deletions(-)
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index d78bd9732543..bc0eda1a729c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -876,21 +876,28 @@ int amdgpu_gmc_vram_checking(struct amdgpu_device *adev)
- 	 * seconds, so here, we just pick up three parts for emulation.
- 	 */
- 	ret = memcmp(vram_ptr, cptr, 10);
--	if (ret)
--		return ret;
-+	if (ret) {
-+		ret = -EIO;
-+		goto release_buffer;
-+	}
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index 11372fcc59c8..a2c7b2e111fa 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -3995,6 +3995,7 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 	uint32_t sclk, mclk, activity_percent;
+ 	uint32_t offset, val_vid;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
++	struct amdgpu_device *adev = hwmgr->adev;
  
- 	ret = memcmp(vram_ptr + (size / 2), cptr, 10);
--	if (ret)
--		return ret;
-+	if (ret) {
-+		ret = -EIO;
-+		goto release_buffer;
-+	}
- 
- 	ret = memcmp(vram_ptr + size - 10, cptr, 10);
--	if (ret)
--		return ret;
-+	if (ret) {
-+		ret = -EIO;
-+		goto release_buffer;
-+	}
- 
-+release_buffer:
- 	amdgpu_bo_free_kernel(&vram_bo, &vram_gpu,
- 			&vram_ptr);
- 
--	return 0;
-+	return ret;
- }
- 
- static ssize_t current_memory_partition_show(
+ 	/* size must be at least 4 bytes for all sensors */
+ 	if (*size < 4)
+@@ -4038,7 +4039,21 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 		*size = 4;
+ 		return 0;
+ 	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
+-		return smu7_get_gpu_power(hwmgr, (uint32_t *)value);
++		if ((adev->asic_type != CHIP_HAWAII) &&
++		    (adev->asic_type != CHIP_BONAIRE) &&
++		    (adev->asic_type != CHIP_FIJI) &&
++		    (adev->asic_type != CHIP_TONGA))
++			return smu7_get_gpu_power(hwmgr, (uint32_t *)value);
++		else
++			return -EOPNOTSUPP;
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
++		if ((adev->asic_type != CHIP_HAWAII) &&
++		    (adev->asic_type != CHIP_BONAIRE) &&
++		    (adev->asic_type != CHIP_FIJI) &&
++		    (adev->asic_type != CHIP_TONGA))
++			return -EOPNOTSUPP;
++		else
++			return smu7_get_gpu_power(hwmgr, (uint32_t *)value);
+ 	case AMDGPU_PP_SENSOR_VDDGFX:
+ 		if ((data->vr_config & VRCONF_VDDGFX_MASK) ==
+ 		    (VR_SVI2_PLANE_2 << VRCONF_VDDGFX_SHIFT))
 -- 
 2.43.0
 
