@@ -4,88 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B591C47422
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jan 2024 09:07:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B279C47DA9
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jan 2024 09:10:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA07810FA5A;
-	Mon, 29 Jan 2024 09:07:31 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45DE410F6A1
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jan 2024 09:07:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=a/XRWQagIH2qGO0o9e/3Yz5dzoxZQvQ8VIY8sKs2VRvpizQ4ig22wyoPcF6F8tcdXIunXjkK3k60g4yS22OLQlRIYvouebA331M5QehIBitFFxXrFKnOm7wlRttvlRX+1rmPuDxiXso7e2mxGWVVpR2IUp4PqLcBxuFhcsknfiBL6fIPIMXVyyYEOhul1FJ5jlC8bWe9UVk+ty+6CGhNaO1quGyJwYbpLs4mh5PXEMHsss48VBjNlxUWj/SQYOHPPdq78aJgUWQw8Mfq2NcuQjT5YA6r+2pZEYidHMWXDvkyKt6KBa92VjGE86QLhHY3b9NkpHuNIZfl0wjlBH662Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uqe1OwDpw170pjRjzUxYxg1P34PuuClNEw7DyDRnGQw=;
- b=Z+Zl8D7A8Zcp+11Aao2TXt3NhYL02Q9p8fOFEugEoGVf2te1VIydrP23E7651WbMcqJLYlbvPRSutdk9KOo8YosQ87A3cLpgfntt9sijliM6WpoMjNqwoV9HKmKiKs3DH2KSKqTQIr+46KsQX6kw1ocyizayEsKWSV6+4/8G7niBibvveC5O1M5T9tsxOE6CK0ocq1NH+OilsjW/O07weNPxjmqahDXBg8vUWJWFWq3FQXbKQfPmPqKLGS1dGB70i5VuTRFz4vt1AoLV1L5qEHpapfNRTvy3SZcLrdZ1Ch0hHi4v8memCCGS9HhpGXFt8uCIaPmxuw+bDp2pKtXf8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uqe1OwDpw170pjRjzUxYxg1P34PuuClNEw7DyDRnGQw=;
- b=kMs47YOS3H61iKL7YS+SrjeYBn9kQlYwmK7cBaG7IkKMY8MjwuMLrwmy+j22Q7OBbwF5+sev3jdHsaffIH6ixPPArNly/Qh28L6QgGDfsVoWgFe/+5QO1Jr31sVtLDwk8eZHqdlbGxFRdcvEt1iUGjw/0Sm0BwP9bZN1Xl0rbzE=
-Received: from DM6PR12CA0003.namprd12.prod.outlook.com (2603:10b6:5:1c0::16)
- by PH7PR12MB5877.namprd12.prod.outlook.com (2603:10b6:510:1d5::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.32; Mon, 29 Jan
- 2024 09:07:27 +0000
-Received: from DS3PEPF000099E1.namprd04.prod.outlook.com
- (2603:10b6:5:1c0:cafe::f6) by DM6PR12CA0003.outlook.office365.com
- (2603:10b6:5:1c0::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.34 via Frontend
- Transport; Mon, 29 Jan 2024 09:07:27 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099E1.mail.protection.outlook.com (10.167.17.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7249.19 via Frontend Transport; Mon, 29 Jan 2024 09:07:27 +0000
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 29 Jan
- 2024 03:07:21 -0600
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: remove golden setting for gfx 11.5.0
-Date: Mon, 29 Jan 2024 17:06:11 +0800
-Message-ID: <20240129090611.2716545-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.37.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0EE011267C;
+	Mon, 29 Jan 2024 09:10:23 +0000 (UTC)
+Received: from www254.your-server.de (www254.your-server.de [188.40.28.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1433C10E500;
+ Sun, 28 Jan 2024 18:33:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=windeck-gymnasium.de; s=windeck_hetzner; h=Content-Transfer-Encoding:
+ MIME-Version:Content-Type:In-Reply-To:References:Subject:To:From:Message-ID:
+ Date:Sender:Reply-To:Cc:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=pLIQI3W41b4CWYuYVFr//9ggDBCy+rm1o0L2EOl+CKg=; b=Jepu72W9RObtxs6+VaNrQPZ3L6
+ 5MfKQzTxj0GmqCrb//zcSZmaz8yHk5M1boKir84sW1w7P1etNv3Q211HLAhT5sbu+/WKBL+bpGS0L
+ 6O1fxll8k7C7mRmr0KqsXVNOWnZmtQX+Nl9UGZEldMzazL7ElC9xYVtbdpCrhd/OSLNthMDdrwoqi
+ jwA8NBNasDhqFEDO7mKBPQx70P+j0A0QAkRbIzXImkIQsGVSG/Nczf4myipHTaNsAUyrNNKO9viMa
+ ofSitOP910nKSBdfx6yDh9R1Lm5XwUwOwx32J/z86Ft7S7LZi4YeB7FDvzLTtNBJ3GhWalePhmC2Y
+ 6SxBdmwg==;
+Received: from sslproxy04.your-server.de ([78.46.152.42])
+ by www254.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.94.2) (envelope-from <administrator@windeck-gymnasium.de>)
+ id 1rU9xx-000Lgb-JV; Sun, 28 Jan 2024 19:33:13 +0100
+Received: from [192.168.0.34] (helo=webmail.your-server.de)
+ by sslproxy04.your-server.de with esmtpsa
+ (TLSv1.2:ECDHE-RSA-CHACHA20-POLY1305:256) (Exim 4.92)
+ (envelope-from <administrator@windeck-gymnasium.de>)
+ id 1rU9xw-000LyX-VK; Sun, 28 Jan 2024 19:33:12 +0100
+Received: from p200300C227008B00aBB733Fa4DB1a46e.dip0.t-ipconnect.de
+ (p200300C227008B00aBB733Fa4DB1a46e.dip0.t-ipconnect.de
+ [2003:c2:2700:8b00:abb7:33fa:4db1:a46e]) by webmail.your-server.de (Horde
+ Framework) with HTTPS; Sun, 28 Jan 2024 19:33:12 +0100
+Date: Sun, 28 Jan 2024 19:33:12 +0100
+Message-ID: <20240128193312.Horde.LVLLBfWU20JOoAAZklOkEat@webmail.your-server.de>
+From: administrator@windeck-gymnasium.de
+To: amd-gfx@lists.freedesktop.org, Hamza Mahfooz <hamza.mahfooz@amd.com>
+Subject: Re: [PATCH] drm/amd/display: add panel_power_savings sysfs entry to
+ eDP connectors
+References: <20240126222300.119292-1-hamza.mahfooz@amd.com>
+ <e6bedb02-a3b4-4351-b41e-6f635a77c0ef@windeck-gymnasium.de>
+In-Reply-To: <e6bedb02-a3b4-4351-b41e-6f635a77c0ef@windeck-gymnasium.de>
+User-Agent: Horde Application Framework 5
+Content-Type: text/plain; charset=utf-8; format=flowed; DelSp=Yes
 MIME-Version: 1.0
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099E1:EE_|PH7PR12MB5877:EE_
-X-MS-Office365-Filtering-Correlation-Id: 52ca5c59-1bb5-4918-87ba-08dc20a9b72e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sAao4/WP8gfI8mJmv7MykgHN1f0eicLD3ldlRawvNaLPKwdu4yR24y5JWoPUAtqgXssLdyxdt2q4HTiE7jxrt1OnQ0/Jt5Rm3IkkGcJbzXXPZWKcpSEi+CUKUgJlRmMQybKGEiUdbnzDnrYoiQcBlCsUEh/ej/lsyO0h6IzIC/Wbcg07gUg8NzBQW/urJ8t0ycGFtCcxhjXohxfHFZUEf9hNa6/VicuxgVtwmLyVTtgixifImQ623XRebRm62CponG/oNzcq2Wvu31eiXKI3zFxZKR+1evvJxBF9wHgS1gHCrQic6MgdRhmNPSA1TykfOpGtriHf7I/jzDAOKQquc3oYsgjC3d3YDf9yzIPEXEpdpCRWXiSds5qF3CoFcsEKfaPhyXjMx8Woww2oSVj7K+YAQizA4buZJJLP1UaW3xalPoYo2ftgTNb1CC2u7Adzo5dg1G8yOjP60HqQyz6Idjkk/KTg76wlMOUuqRhRq3guTcLAru0NWpjeADrtsjdLkPbYEgm06Ur6jBj+G8/h8eku0vzfem2Rcg48OSTq22fzYs4xos7U2tsDlbuoFAvsk0aKf8XzHcv0dbs8jjJylHXsGsUuNkFZi5INBVHSiH/JiDI02cjJh4i0al3m57nijvShvF1Ly0CESfm1jcV/YK7D5BG0EB/Xp/dE4K/C8awteMZWSKDTAjpmVZVp+OICqDm/58zQlxmYKtAOoDp86dFfPV5lEf9A20Klf3KvWhz2ah4gnYYpauR1geTrlT1VY4QIic+xe1ZyoFn+c+xIDA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(346002)(376002)(136003)(396003)(230922051799003)(451199024)(64100799003)(82310400011)(1800799012)(186009)(36840700001)(40470700004)(46966006)(41300700001)(16526019)(2616005)(336012)(426003)(1076003)(26005)(40460700003)(40480700001)(36860700001)(316002)(54906003)(36756003)(6916009)(47076005)(478600001)(7696005)(83380400001)(6666004)(82740400003)(81166007)(356005)(5660300002)(2906002)(70206006)(70586007)(86362001)(8676002)(4326008)(8936002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2024 09:07:27.3828 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52ca5c59-1bb5-4918-87ba-08dc20a9b72e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099E1.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5877
+X-Authenticated-Sender: administrator@windeck-gymnasium.de
+X-Virus-Scanned: Clear (ClamAV 0.103.10/27168/Sun Jan 28 10:37:47 2024)
+X-Mailman-Approved-At: Mon, 29 Jan 2024 09:10:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,78 +64,120 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Tim.Huang@amd.com, Lang.Yu@amd.com,
- christian.koenig@amd.com, Yifan Zhang <yifan1.zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No need to set golden settings in driver from gfx 11.5.0 onwards
+I've applied the patch to 6.7.2. The device then shows up under:
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 32 ++------------------------
- 1 file changed, 2 insertions(+), 30 deletions(-)
+/sys/devices/pci0000:00/0000:00:08.1/0000:c1:00.0/drm/card1/card1-eDP-1/amdgpu/panel_power_savings
+(on Framework Laptop 13 amd 7840U with 780M).
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index c1e000010760..4e99af904e04 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -90,10 +90,6 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_0_me.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_5_0_mec.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_5_0_rlc.bin");
- 
--static const struct soc15_reg_golden golden_settings_gc_11_0[] = {
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CNTL, 0x20000000, 0x20000000)
--};
--
- static const struct soc15_reg_golden golden_settings_gc_11_0_1[] =
- {
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, regCGTT_GS_NGG_CLK_CTRL, 0x9fff8fff, 0x00000010),
-@@ -104,24 +100,8 @@ static const struct soc15_reg_golden golden_settings_gc_11_0_1[] =
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, regPA_SC_ENHANCE_3, 0xfffffffd, 0x00000008),
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, regPA_SC_VRS_SURFACE_CNTL_1, 0xfff891ff, 0x55480100),
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, regTA_CNTL_AUX, 0xf7f7ffff, 0x01030000),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CNTL2, 0xfcffffff, 0x0000000a)
--};
--
--static const struct soc15_reg_golden golden_settings_gc_11_5_0[] = {
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regDB_DEBUG5, 0xffffffff, 0x00000800),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regGB_ADDR_CONFIG, 0x0c1807ff, 0x00000242),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regGCR_GENERAL_CNTL, 0x1ff1ffff, 0x00000500),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regGL2A_ADDR_MATCH_MASK, 0xffffffff, 0xfffffff3),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regGL2C_ADDR_MATCH_MASK, 0xffffffff, 0xfffffff3),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regGL2C_CTRL, 0xffffffff, 0xf37fff3f),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regGL2C_CTRL3, 0xfffffffb, 0x00f40188),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regGL2C_CTRL4, 0xf0ffffff, 0x80009007),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regPA_CL_ENHANCE, 0xf1ffffff, 0x00880007),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regPC_CONFIG_CNTL_1, 0xffffffff, 0x00010000),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regTA_CNTL_AUX, 0xf7f7ffff, 0x01030000),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regTA_CNTL2, 0x007f0000, 0x00000000),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CNTL2, 0xffcfffff, 0x0000200a),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, regUTCL1_CTRL_2, 0xffffffff, 0x0000048f)
-+	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CNTL2, 0xfcffffff, 0x0000000a),
-+	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CNTL, 0x20000000, 0x20000000)
- };
- 
- #define DEFAULT_SH_MEM_CONFIG \
-@@ -304,17 +284,9 @@ static void gfx_v11_0_init_golden_registers(struct amdgpu_device *adev)
- 						golden_settings_gc_11_0_1,
- 						(const u32)ARRAY_SIZE(golden_settings_gc_11_0_1));
- 		break;
--	case IP_VERSION(11, 5, 0):
--		soc15_program_register_sequence(adev,
--						golden_settings_gc_11_5_0,
--						(const u32)ARRAY_SIZE(golden_settings_gc_11_5_0));
--		break;
- 	default:
- 		break;
- 	}
--	soc15_program_register_sequence(adev,
--					golden_settings_gc_11_0,
--					(const u32)ARRAY_SIZE(golden_settings_gc_11_0));
- 
- }
- 
--- 
-2.37.3
+After a few tests i can say that at least in my system it’s not  
+working. Setting a value between 0 and 4 in
+/sys/.../panel_power_savings changes nothing in the panel behavior.  
+There are no errors in kernel log.
+
+Setting an abmlevel via kernel option still works as intended.
+
+The issue can be resolved if one set the panel_power_savings value and  
+after that change the display resolution to a lower value and than  
+switch back. For example this script works:
+
+xterm -e 'echo 0 | sudo tee  
+/sys/devices/pci0000:00/0000:00:08.1/0000:c1:00.0/drm/card1/card1-eDP-1/amdgpu/panel_power_savings'
+gnome-randr modify -m 1920x1200@59.999 eDP-1 && gnome-randr modify -m  
+2256x1504@59.999 eDP-1
+
+> Am 26.01.24 um 23:22 schrieb Hamza Mahfooz:
+> We want programs besides the compositor to be able to enable or disable
+> panel power saving features. However, since they are currently only
+> configurable through DRM properties, that isn't possible. So, to remedy
+> that issue introduce a new "panel_power_savings" sysfs attribute.
+>
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> ---
+> .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 59 +++++++++++++++++++
+> 1 file changed, 59 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index cd98b3565178..b3fcd833015d 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6534,6 +6534,58 @@  
+> amdgpu_dm_connector_atomic_duplicate_state(struct drm_connector  
+> *connector)
+> return &new_state->base;
+> }
+> +static ssize_t panel_power_savings_show(struct device *device,
+> + struct device_attribute *attr,
+> + char *buf)
+> +{
+> + struct drm_connector *connector = dev_get_drvdata(device);
+> + struct drm_device *dev = connector->dev;
+> + ssize_t val;
+> +
+> + drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+> + val = to_dm_connector_state(connector->state)->abm_level;
+> + drm_modeset_unlock(&dev->mode_config.connection_mutex);
+> +
+> + return sysfs_emit(buf, "%lu\n", val);
+> +}
+> +
+> +static ssize_t panel_power_savings_store(struct device *device,
+> + struct device_attribute *attr,
+> + const char *buf, size_t count)
+> +{
+> + struct drm_connector *connector = dev_get_drvdata(device);
+> + struct drm_device *dev = connector->dev;
+> + long val;
+> + int ret;
+> +
+> + ret = kstrtol(buf, 0, &val);
+> +
+> + if (ret)
+> + return ret;
+> +
+> + if (val < 0 || val > 4)
+> + return -EINVAL;
+> +
+> + drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+> + to_dm_connector_state(connector->state)->abm_level = val ?:
+> + ABM_LEVEL_IMMEDIATE_DISABLE;
+> + drm_modeset_unlock(&dev->mode_config.connection_mutex);
+> +
+> + return count;
+> +}
+> +
+> +static DEVICE_ATTR_RW(panel_power_savings);
+> +
+> +static struct attribute *amdgpu_attrs[] = {
+> + &dev_attr_panel_power_savings.attr,
+> + NULL
+> +};
+> +
+> +static const struct attribute_group amdgpu_group = {
+> + .name = "amdgpu",
+> + .attrs = amdgpu_attrs
+> +};
+> +
+> static int
+> amdgpu_dm_connector_late_register(struct drm_connector *connector)
+> {
+> @@ -6541,6 +6593,13 @@ amdgpu_dm_connector_late_register(struct  
+> drm_connector *connector)
+> to_amdgpu_dm_connector(connector);
+> int r;
+> + if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
+> + r = sysfs_create_group(&connector->kdev->kobj,
+> + &amdgpu_group);
+> + if (r)
+> + return r;
+> + }
+> +
+> amdgpu_dm_register_backlight_device(amdgpu_dm_connector);
+> if ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort) ||
+
+
 
