@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4169DC47DDB
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Jan 2024 16:14:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A113C47258
+	for <amd-gfx@archiver.kernel.org>; Sun, 28 Jan 2024 16:14:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D79231126F5;
-	Sun, 28 Jan 2024 16:14:31 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B41A1126F5;
- Sun, 28 Jan 2024 16:14:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A81A41126F6;
+	Sun, 28 Jan 2024 16:14:41 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C56FB1126F6;
+ Sun, 28 Jan 2024 16:14:40 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id AFABF6195C;
- Sun, 28 Jan 2024 16:13:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE7EBC433F1;
- Sun, 28 Jan 2024 16:13:57 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 18DD9CE0C6B;
+ Sun, 28 Jan 2024 16:14:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48B7CC433C7;
+ Sun, 28 Jan 2024 16:14:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1706458439;
- bh=azj0o16XNmiPoWegTfpJ3DfekAM5KM8ILmUwFJKxRGE=;
+ s=k20201202; t=1706458448;
+ bh=ndyF0NYfl+R+hLw0n6zDHkkOWpG+6FQY/3DxH0reCm8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Jb/kzU7BYafSVjcFWnn673KnlxOJZYL9f2PYZ50zux7IDbNcraqPNBa7qx9u2eurA
- zR/+WTSwBQ4e0laV3MQfcUSrqkmhGs6NXB8XViTIh9YP8sfi5NmjepIiK0VN4P/xK5
- ua3raibRDmV4PfLXrLVYyElyIgo7Nk5vsXaqzLxXtatd0/Zaeib+uvATpitflDcoQU
- clrlRUOhyQZJBYTH+YFRd7EhACGUxekePbwRFfyMvK5XGEROdHXHJzcL5yexDZVND2
- lNzI+3MqGAWRE1bJIrIz5MkYqUqWaeDe+yDkDH0skN9SYQE/icqpxirAtPlPMPgPvd
- gpcDpJLSBEeOw==
+ b=SZfGm36r/8nyDXNCPT/vmM1aVzwAtqo/q+rUYitEGMHUH6Tad1yRh2iESeh3QzaTD
+ khwy3PnCmM8DA3i4nin79bElUykUxb5x2DS/1/kDbLXkW/rbE4MjVltWYm/4YEcbYI
+ 98AWb9aXC1znhFHZikTQpAFBMs2wnp7apoXB4DzFiDodd9p8NlpmLhCQ0PlSbigfzH
+ UoXrwu/0tC1RmBWUFJqZav+nm08x9jw/nE4+hv/b0bSxmrYlFvmadiK7APTpURBLlY
+ Bd54XombxwJo2PWHwJC7Q5GYZQBltrhlu+OtGY4yztvKGfeIQYM/J9qCV16OGRvL5p
+ AAdLRZWjBtU2A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.6 26/31] drm/amdgpu: fix avg vs input power
- reporting on smu7
-Date: Sun, 28 Jan 2024 11:12:56 -0500
-Message-ID: <20240128161315.201999-26-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 29/31] drm/amdgpu: Release 'adev->pm.fw' before
+ return in 'amdgpu_device_need_post()'
+Date: Sun, 28 Jan 2024 11:12:59 -0500
+Message-ID: <20240128161315.201999-29-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240128161315.201999-1-sashal@kernel.org>
 References: <20240128161315.201999-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.6.14
@@ -53,64 +54,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, lijo.lazar@amd.com, sunran001@208suo.com,
- Yang Wang <kevinyang.wang@amd.com>, ruanjinjie@huawei.com, Xinhui.Pan@amd.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- alexious@zju.edu.cn, mario.limonciello@amd.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, shashank.sharma@amd.com,
+ dri-devel@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>,
+ amd-gfx@lists.freedesktop.org, victorchengchi.lu@amd.com, le.ma@amd.com,
+ hamza.mahfooz@amd.com, mario.limonciello@amd.com, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, andrealmeid@igalia.com,
+ candice.li@amd.com, airlied@gmail.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Monk Liu <Monk.Liu@amd.com>, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-[ Upstream commit 25852d4b97572ff62ffee574cb8bb4bc551af23a ]
+[ Upstream commit 8a44fdd3cf91debbd09b43bd2519ad2b2486ccf4 ]
 
-Hawaii, Bonaire, Fiji, and Tonga support average power, the others
-support current power.
+In function 'amdgpu_device_need_post(struct amdgpu_device *adev)' -
+'adev->pm.fw' may not be released before return.
 
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+Using the function release_firmware() to release adev->pm.fw.
+
+Thus fixing the below:
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1571 amdgpu_device_need_post() warn: 'adev->pm.fw' from request_firmware() not released on lines: 1554.
+
+Cc: Monk Liu <Monk.Liu@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index 11372fcc59c8..a2c7b2e111fa 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -3995,6 +3995,7 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
- 	uint32_t sclk, mclk, activity_percent;
- 	uint32_t offset, val_vid;
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct amdgpu_device *adev = hwmgr->adev;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 56d99ffbba2e..7791367e7c02 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1218,6 +1218,7 @@ bool amdgpu_device_need_post(struct amdgpu_device *adev)
+ 				return true;
  
- 	/* size must be at least 4 bytes for all sensors */
- 	if (*size < 4)
-@@ -4038,7 +4039,21 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
- 		*size = 4;
- 		return 0;
- 	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
--		return smu7_get_gpu_power(hwmgr, (uint32_t *)value);
-+		if ((adev->asic_type != CHIP_HAWAII) &&
-+		    (adev->asic_type != CHIP_BONAIRE) &&
-+		    (adev->asic_type != CHIP_FIJI) &&
-+		    (adev->asic_type != CHIP_TONGA))
-+			return smu7_get_gpu_power(hwmgr, (uint32_t *)value);
-+		else
-+			return -EOPNOTSUPP;
-+	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
-+		if ((adev->asic_type != CHIP_HAWAII) &&
-+		    (adev->asic_type != CHIP_BONAIRE) &&
-+		    (adev->asic_type != CHIP_FIJI) &&
-+		    (adev->asic_type != CHIP_TONGA))
-+			return -EOPNOTSUPP;
-+		else
-+			return smu7_get_gpu_power(hwmgr, (uint32_t *)value);
- 	case AMDGPU_PP_SENSOR_VDDGFX:
- 		if ((data->vr_config & VRCONF_VDDGFX_MASK) ==
- 		    (VR_SVI2_PLANE_2 << VRCONF_VDDGFX_SHIFT))
+ 			fw_ver = *((uint32_t *)adev->pm.fw->data + 69);
++			release_firmware(adev->pm.fw);
+ 			if (fw_ver < 0x00160e00)
+ 				return true;
+ 		}
 -- 
 2.43.0
 
