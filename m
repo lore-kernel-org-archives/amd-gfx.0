@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FF28C47DDB
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Jan 2024 16:16:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77E68C47DA9
+	for <amd-gfx@archiver.kernel.org>; Sun, 28 Jan 2024 16:16:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE621112718;
-	Sun, 28 Jan 2024 16:16:30 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5090F112710;
- Sun, 28 Jan 2024 16:16:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12E35112719;
+	Sun, 28 Jan 2024 16:16:34 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9996811271B;
+ Sun, 28 Jan 2024 16:16:32 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 92C29CE0C6B;
- Sun, 28 Jan 2024 16:15:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26166C433C7;
- Sun, 28 Jan 2024 16:15:55 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 1F70B6195C;
+ Sun, 28 Jan 2024 16:16:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1033C433F1;
+ Sun, 28 Jan 2024 16:16:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1706458557;
- bh=MI288FLtEqUq5o2SIXGR0lmVO9eM8omBcvCeY3vaCMI=;
+ s=k20201202; t=1706458591;
+ bh=9ALv9vgLPJGBB1fIBI476PvQ0+d3hLpcFhO+W0yHsxk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Yhuow47PtqUjvvwH3aE9yHeiDxWnXpNmQCRhcckAP0TBYnRK1uT/DpSmhHEIA+W2e
- 3YvZtJxRNQfMKF+gZv3X5wNgWZ1NGjQRTnO6y49CcjfdLbt5BeilF+pu/JF9O0IT3v
- FGPH+Dhjg07fdDj3CGOIBrNaEh8bxX0lK4Dq96hp2vNWqqLJPR99/Y6nQq7sC3NTe4
- FoCcso3xRWCNGc+9J19Fjlb2vBKJeLskQ/a1+ZlI9DjNZRuExvgkgl4ui42JPlFTCN
- sdipfzgeK9RdydwSnkxI7YtQXD71S+BMwIoYob9v02qyodtPSVQHYxMrJDlKXA9Hy1
- aRY4wB9bU8F6A==
+ b=EJ8Phu2KCg4DPNPhrwo96jY1X+tXifs9Ty7TG4JMLctcexTbWhdYHv8NfcSCN2ZFm
+ DNqw60ehuUavGnNfZMUeHa+Y+V4ywhEEGqKDyWSVKZYeOsrHP6Y8eJcvSHxvohBVoN
+ IE+rfI9Gt4aZgyiE6Pj778/soNWHZxG6G9FTwJ5DtsI6Ryin7BHfaWj6hBtnM6I3te
+ sgvbMXQejsDaBfNahqe2Qn/jNxMC9ObSIr4Zgp+Tkn9QPeumq00YLaIKyEY7HFIM1K
+ ZbnL37ytssY8imS1yE+p97PujCbwe41Z1MoxrapCc/3oqegWW2uCIYqmdf8dT1Ijk2
+ SOkczZq86uX8w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 18/19] drm/amdgpu: Release 'adev->pm.fw' before
+Subject: [PATCH AUTOSEL 5.10 13/13] drm/amdgpu: Release 'adev->pm.fw' before
  return in 'amdgpu_device_need_post()'
-Date: Sun, 28 Jan 2024 11:15:15 -0500
-Message-ID: <20240128161524.204182-18-sashal@kernel.org>
+Date: Sun, 28 Jan 2024 11:15:59 -0500
+Message-ID: <20240128161606.205221-13-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240128161524.204182-1-sashal@kernel.org>
-References: <20240128161524.204182-1-sashal@kernel.org>
+In-Reply-To: <20240128161606.205221-1-sashal@kernel.org>
+References: <20240128161606.205221-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.15.148
+X-stable-base: Linux 5.10.209
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,10 +91,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 19e32f38a4c4..816dd59212c1 100644
+index a093f1b27724..e833c02fabff 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1292,6 +1292,7 @@ bool amdgpu_device_need_post(struct amdgpu_device *adev)
+@@ -1184,6 +1184,7 @@ bool amdgpu_device_need_post(struct amdgpu_device *adev)
  				return true;
  
  			fw_ver = *((uint32_t *)adev->pm.fw->data + 69);
