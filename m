@@ -4,63 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 595F4C47DDB
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Jan 2024 19:38:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BDBFC48285
+	for <amd-gfx@archiver.kernel.org>; Sun, 28 Jan 2024 21:25:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C56F610E878;
-	Sun, 28 Jan 2024 19:38:53 +0000 (UTC)
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
- [209.85.210.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8684110E878
- for <amd-gfx@lists.freedesktop.org>; Sun, 28 Jan 2024 19:38:51 +0000 (UTC)
-Received: by mail-ot1-f43.google.com with SMTP id
- 46e09a7af769-6e0a64d9449so1421681a34.2
- for <amd-gfx@lists.freedesktop.org>; Sun, 28 Jan 2024 11:38:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=umich.edu; s=google-2016-06-03; t=1706470671; x=1707075471;
- darn=lists.freedesktop.org; 
- h=user-agent:content-disposition:mime-version:message-id:subject:cc
- :to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=xhFg0euwQd94lKaonX2H8VQfAuu53xHJO2j4YKc7i4Q=;
- b=MZY+8//0gdmuTJOOMFU9K2lXLEvvlCw7nttwgUhrAiS6FCHAZe8fyzd8y2kMSs06Hh
- 6uVxHy7HJT1hTzgtx0vAAdVp25Xvv8bUPSaTZJMPlBG0cNbdO1eubhXVFHHMhJOlx3op
- 2LJM4hHr59UBcCnPUhXZEfujL6FL3Lg2KS8lH7Ez6QkKdTgkL9Tp4tsNeJUXbcGnm9q7
- ne09fJrlnBd47bV9b2jfE5N2ESi8opmm5bRspNlvo8+QyIw8VB2Cb8H2dQzu4bNwSY4p
- Lw5FnLe3j7D0Xdldw1bjOas1uQakIQTy/24Wpq//crjGelD13bsWnRalfvIuGve2Lh+a
- 1XUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706470671; x=1707075471;
- h=user-agent:content-disposition:mime-version:message-id:subject:cc
- :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=xhFg0euwQd94lKaonX2H8VQfAuu53xHJO2j4YKc7i4Q=;
- b=ZP+Kc+aRMQPjXbfYPMGVssbsTtOqNkapP2km6aNqVJQ445hNeHiSx07LsZRbJEGssR
- y69xj9gSAv178rLqzC6z/WqRK31koiKMNLceHVUMeK+QcUljO59WQjEFu2klumJni7aY
- 9y7cD3LrjGyMxvbZe41KnlClMKt+QT36L2M/YhWlB+SGItMzuRhxYcVyg4Rd16OqcyUI
- UbkaoldVAnLxncqZXrOwbQem1mKsvdNfzN/xMUCGMJKMH/j22bsFUY8UwIK9S5Mrppt0
- 5ilj0sRkkv4f/PHPuxLZZudyVuSyxyQgQxMLxr6AAcTwXSKlPcQczbHDXWb0F7x4AiQc
- Eymg==
-X-Gm-Message-State: AOJu0YyAj4eUI3RGc79nrUJT1wFCxMeofH+JFDJcphzXKjY9+CEqfthh
- 95cOXhqZfFVDBbH57smN8xh1C8FiB5bjqyus/A6vMkz6GqpFRcY2XMNZ2Emoxo8=
-X-Google-Smtp-Source: AGHT+IHEB+A4v0+1QPnGSw4BhUwZyW2rbm+SdwS1NAdowJhfWzGjd+itrfL7exdV1nDFtD2YdgdIPg==
-X-Received: by 2002:a05:6830:87:b0:6e1:1437:8a45 with SMTP id
- a7-20020a056830008700b006e114378a45mr2752972oto.16.1706470670885; 
- Sun, 28 Jan 2024 11:37:50 -0800 (PST)
-Received: from localhost (162-232-88-33.lightspeed.livnmi.sbcglobal.net.
- [162.232.88.33]) by smtp.gmail.com with ESMTPSA id
- s9-20020a0568301e0900b006d87e38f91asm1253324otr.56.2024.01.28.11.37.50
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 28 Jan 2024 11:37:50 -0800 (PST)
-Date: Sun, 28 Jan 2024 14:37:49 -0500
-From: William Bulley <web@umich.edu>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: Re: Have WX 3200 Radeon graphics card -- cannot get X11 session to
- work
-Message-ID: <20240128193749.GB17405@dell4>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEC0310F823;
+	Sun, 28 Jan 2024 21:25:34 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E14D510F804;
+ Sun, 28 Jan 2024 21:25:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=esUOLqZ9eTPDph2l8qLm7kLjWJiyKC5ICzbRuvIVRhc=; b=ra+nySSUbn1Pfe9kXhEH4eKNE3
+ fU+ed5m11My9oo4y+NJdmHgU3JN+K0ojaZ26BFeLEhClKHscK4sGpY9CoD/E8TpjewV0PWNuA1lVl
+ ka2SaR3gq4rbRSABh4ZFdK5aPrUlrANkxBplof2tXfAJ+wDFHPpvRl435rdWkI9ag+kbjsq5V2UEm
+ E9fQPObmSSv2giS1pWeAk3+hbg3GfothPZoZ51T937B1D/1lZo8lQnbx6NcZ8ye5gJASG57IWtsAH
+ 6MBLB9U12tkV0d2qHGwldPaGs49TcWMiqr1t8+bHLX0z55rCMXyIgKWRzfvaKZdQawGbK4EKD94N4
+ JpY5SzIQ==;
+Received: from 201-42-129-61.dsl.telesp.net.br ([201.42.129.61]
+ helo=steammachine.lan) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1rUCeg-00B1M8-Kh; Sun, 28 Jan 2024 22:25:31 +0100
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v3 2/3] drm/atomic: Allow userspace to use explicit sync with
+ atomic async flips
+Date: Sun, 28 Jan 2024 18:25:14 -0300
+Message-ID: <20240128212515.630345-3-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240128212515.630345-1-andrealmeid@igalia.com>
+References: <20240128212515.630345-1-andrealmeid@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.9.1 (2017-09-22)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,49 +53,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>, daniel@ffwll.ch,
+ =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Simon Ser <contact@emersion.fr>, Xaver Hugl <xaver.hugl@gmail.com>,
+ Daniel Stone <daniel@fooishbar.org>, Pekka Paalanen <ppaalanen@gmail.com>,
+ Joshua Ashton <joshua@froggi.es>, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, Dave Airlie <airlied@gmail.com>,
+ christian.koenig@amd.com, ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-According to "Deucher, Alexander" <Alexander.Deucher@amd.com> on Fri, 01/26/24 at 16:28:
-> 
-> [AMD Official Use Only - General]
-> 
-> Make sure you have OS mouse and keyboard drivers loaded
-> and configured within your X config?
+Allow userspace to use explicit synchronization with atomic async flips.
+That means that the flip will wait for some hardware fence, and then
+will flip as soon as possible (async) in regard of the vblank.
 
-I got it to work!!!  Thanks to all who helped.
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
+---
+v3: new patch
 
-I got the clue I needed from this page this morning:
+ drivers/gpu/drm/drm_atomic_uapi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-   https://fedoraproject.org/wiki/Input_device_configuration 
-
-Here is the config that finally works:
-
-unix% pwd
-/usr/local/etc/X11/xorg.conf.d
-unix% cat 10-driver.conf
-
-Section "InputClass"
-        Identifier      "Keyboard0"
-        MatchIsKeyboard "on"
-        Driver          "libinput"
-EndSection
-
-Section "InputClass"
-        Identifier      "Mouse0"
-        MatchIsPointer  "on"
-        Driver          "libinput"
-EndSection
-
-Section "Device"
-        Identifier      "Card0"
-        Driver          "amdgpu"
-        BusID           "PCI:41:0:0"
-        Option          "DisplayPort-0" "Monitor0"
-EndSection
-
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 6d5b9fec90c7..edae7924ad69 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1060,7 +1060,8 @@ static int drm_atomic_check_plane_changes(struct drm_property *prop,
+ 	 * change will be either rejected or ignored, so we can stop the check
+ 	 * here
+ 	 */
+-	if (prop != config->prop_fb_id) {
++	if (prop != config->prop_fb_id &&
++	    prop != config->prop_in_fence_fd) {
+ 		ret = drm_atomic_plane_get_property(plane, plane_state,
+ 						    prop, &old_val);
+ 		return drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
 -- 
-William Bulley
-E-MAIL: web@umich.edu
-<web@umich.edu>
+2.43.0
+
