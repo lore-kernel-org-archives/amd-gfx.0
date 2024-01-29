@@ -4,114 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55CF9C47422
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jan 2024 14:36:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 665A6C47422
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jan 2024 14:41:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4DAA10F74C;
-	Mon, 29 Jan 2024 14:36:41 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2066.outbound.protection.outlook.com [40.107.95.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08CD810F75C
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jan 2024 14:36:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6A4A11292E;
+	Mon, 29 Jan 2024 14:41:18 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2089.outbound.protection.outlook.com [40.107.243.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3378811292E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jan 2024 14:41:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b5l3ErhCfRG6hTuoXLpp9XjbLiY1eSoBimdNJQc2NrjsNR8488VHliwkxfeVyzBJW8lCM/OgF5eIdbfIy2tggsr3dPQn89BoXIG72W5TiXufeyQyqPgieIl/6HVVCFzECWjfDwzbybMsARNoNdYyWuggDatZygMMx2x68hsgZmes6xy5q2c2NosWVPvTs/NVRRrSPlD8tS0hvSuu+HvGFIA2t90n+NcjlXmgnLHunR9rdHsIBQ6Pl3mP1gMJgdiFsicoNNDnUciDLrDk9MSa5/WeBEbuF6r38BqCnSKy2Yb6KC5vD8SH5AWkGUxSKbZo72/xE9RjAwWfjTaekawLOA==
+ b=G0n1Kw+PrkJ0Y4H7tWMe6ssncEt/B7ZGY6i1wDR/WqVvegMkMip/gc9kJbIDevagdvNzcIUqRR3BHKF0kfBtKJAUDedSvQi4C5h0Q94OrSFGxmYIF2bn8amNvAt7pZruAfJzxsJ67VXA9My0Rf8J0FXvi35zYL2yoqwER2LVSfA//HECF2SMqkLx7HpPuBtIReXTGld2DgT6EdZt/UpqnsE3cyyqd2Bpx3KL2gIjFij4me7Uww1WfOI64J5PEu/XJXtUfQMVvC8ndrVoloWENc0wOvie7XkYBqphbIBRs0qMl8o9hXfU0Ri7h/7x75ALBzAZRCzIw2VLts73qdovfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5h84Xu26hVw2nllGOLxzLiQAzyDJ5EVksFu34jCEjUU=;
- b=dpIiYhg2kSmwUrbV3uVGMO4nQZYS+2oEgCr2uGUIivoe5ZTWjPwTEBiLxc0PTdKHaKrR/lP31pADlp/+79fwJm8xkQO3Xw/SlIyYj0xK3elkokHVsPJvvm1iPRxuaaR3oha7vG0VolQ/jfSDdeCx2B4051aER6aGZVnzucX8QWZwAhMBTPbTg3QDxhqo9mxZuVhNPbniB9ltqSzqCgaGsEgTUsVE65R25D4hw7lffCrTnCjz27hMuCF4OKTV6u1+aXhV6K12SV9FuS6KAff4B/PKyR6D7hCa8b82uNOIwj1qqxbHFHBtKplqefunGK9C38Mwa3HCFhaOP5nJuPM2fg==
+ bh=7N5DjKlmM57kxo5yGyTe/9hhxsaG0priNMP3Dm3mzZU=;
+ b=AGNI25mKV2bTxj/MaBfecACwp8+Ou7e5hDZjlOxdpp0sulpVe6o0UHQCCUBbzEAuXwDUQrVxJAlr5cAIXNP/dEZNKmQ6hxYaEB18LYLXxaNKcmTcGgKiXYRjpE/MQv0YKpdoIthSKtqsL2B7L8wtGzAb5gYBO3u4UQ+9c8bwN2Yvu3YeYWAf5iFrzxSgWhlxgExhFSOpEXqtZUKddjS8/x9HIH1VIJ99Lp8AnP0T++CAOiugWpj/V/oQqbc72WyFHpeLhJXA/j3QiL6R5mussic70CDBA2fYjReWNwVwqXCpuAYswRli4SE4IE2Ir3LswMaqKsqFJFmng8OUaWb92Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5h84Xu26hVw2nllGOLxzLiQAzyDJ5EVksFu34jCEjUU=;
- b=npF/9sO0PYp8N1B1l42rdyvUrBitk+UPk8mUzhYT4WzG+koVQjTAkSMZ5r+Sq87f4d+oG8F+Sjk0na4lUg1IerLlR/8mRbs7su3JaAV4Q2H9oiqP+Xk/2T0we5uJ42TjyTkC5cvdiYZNjWvrstyWZn+3dikDGCDY8WHQcWyTLlE=
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
- SJ1PR12MB6289.namprd12.prod.outlook.com (2603:10b6:a03:458::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.32; Mon, 29 Jan
- 2024 14:36:35 +0000
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::b6a6:d4b4:bd6:c4f]) by DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::b6a6:d4b4:bd6:c4f%7]) with mapi id 15.20.7228.029; Mon, 29 Jan 2024
- 14:36:35 +0000
-From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-To: "Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 00/22] DC Patches Jan 29 2024
-Thread-Topic: [PATCH 00/22] DC Patches Jan 29 2024
-Thread-Index: AQHaTpNGEiRpa2JGtkyyIVxmf3YUFrDw460A
-Date: Mon, 29 Jan 2024 14:36:35 +0000
-Message-ID: <DS0PR12MB6534301B9BCD1EDAFA8B85C59C7E2@DS0PR12MB6534.namprd12.prod.outlook.com>
-References: <20240124070159.1900622-1-chiahsuan.chung@amd.com>
-In-Reply-To: <20240124070159.1900622-1-chiahsuan.chung@amd.com>
-Accept-Language: en-CA, en-US
+ bh=7N5DjKlmM57kxo5yGyTe/9hhxsaG0priNMP3Dm3mzZU=;
+ b=lgUtOZHxvt8OxlS+hsVyLrUEjUK9JDkuhRuiV44s5JEEZUkg4t+BwvYhI4KL1AKyHd7jsCC0d6Sw1BXDqg/wc+WnsNwcZQivbwlFez8ALC8pFj1TyYo1BSpjqGl1mTPPmGSybB0/tw7ldbcMhdt2hXgQ9m+eFlqmhQkv6nse4k0=
+Received: from DM8PR12MB5462.namprd12.prod.outlook.com (2603:10b6:8:24::11) by
+ SA0PR12MB4496.namprd12.prod.outlook.com (2603:10b6:806:9b::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7228.32; Mon, 29 Jan 2024 14:41:13 +0000
+Received: from DM8PR12MB5462.namprd12.prod.outlook.com
+ ([fe80::d370:b4a:9285:26ab]) by DM8PR12MB5462.namprd12.prod.outlook.com
+ ([fe80::d370:b4a:9285:26ab%4]) with mapi id 15.20.7228.029; Mon, 29 Jan 2024
+ 14:41:13 +0000
+From: "Min, Frank" <Frank.Min@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Update boot time errors polling sequence
+Thread-Topic: [PATCH] drm/amdgpu: Update boot time errors polling sequence
+Thread-Index: AQHaUsBrc+Dy8iMfTkiLSaUeyjo8o7Dw2+RA
+Date: Mon, 29 Jan 2024 14:41:13 +0000
+Message-ID: <DM8PR12MB5462109343A3BC49AA9A96A7E97E2@DM8PR12MB5462.namprd12.prod.outlook.com>
+References: <20240129143452.16596-1-Hawking.Zhang@amd.com>
+In-Reply-To: <20240129143452.16596-1-Hawking.Zhang@amd.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=53944af8-b002-4dcb-8961-1f847617c5c3;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-01-29T14:35:44Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=5e4f747f-7618-474c-b11e-c694cc64856e;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-01-29T14:37:34Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|SJ1PR12MB6289:EE_
-x-ms-office365-filtering-correlation-id: 7c95d434-eb3d-483e-f06b-08dc20d7b1ee
+x-ms-traffictypediagnostic: DM8PR12MB5462:EE_|SA0PR12MB4496:EE_
+x-ms-office365-filtering-correlation-id: cfc0e57c-d7a5-440b-e355-08dc20d8578e
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: mZqq1ImM1KNbAVhZ0gd9VkiirTa/UWrUC/kKdNvN/QahF3/37CJaqtPxnI7kICFeExZH5cWVAjhHrB8+2ZmrIKV0lGu3li639tQavp6yTo5jpv2HiB9DqAA9GFzhYMowNgCm1H3UVq7LmAxWoR9BpevgBh3zYJAS2SUO4a5ReTtEvxlFNNESsGeTSM3uSL2eAqYOZeQKa+SgGBmNeWjJ1hhyyC71T1be/+2CyN8X3lGT+ZDGnRDl9Z/xZjV2yUDLrPRm3MD1oZG0VWzuaxvsdfIcBWv8Sc8nqLwNG8p9qBhN11wYseuEmw0+cmx3QZKq9CAH9r77ReVixtA+5KrZCBtNFzBd/zpAUuNGDY6Io7z0i8Tbh61rJOgv2Gnr/U3cDDuvbHXNnEVncx8mOMgVZ5SxZ6jN5hDzMwol/p+pcTLPbRoXUbr/qhlM732cf8OR2/bPcn5zeE9fVTCYhzlrnMSsjiEhQbAPUNlKXtb3+bEOyk6/00Y/8MgnwpLSw32MfQeV1ACxS1hnonzEhaZ/80HOPK9/v8YcHxRRbszmGOrY4eaiSyHAg6YAqg9Lo9keyzmNFlc9MszBqxNN6eFEkxrYbn3NbItRt3xJ2mp+/AFzZOkpbEazsnkZJGGKMA4u
+x-microsoft-antispam-message-info: DMKHiBVpFltKEwOcJya1+S/IFMblCRDmGyYXwCnoxj5dC6FCRXfGoFAvZHCdnGxRGAnzr94Opf664wqE6q14dbp+SOVdcmvWcMFQ3WcP1wyvA+NmkhLo/sXjlEhb9R+ONIcolc6AfHcNaSsh+ReCxlq62MbTWiCFA7l+xDArf6FbgAVi/2fvt6FhYV5/vf7+Ilvpg2LcBPtPN7OmvQSeuqBYBzVP1vBoBemSanL3iv11jnzmjevu5qRIoTe7KSD0QlpbTjQrlwm8YG11J6uG8zIqgsnHYHgCRg+L6alUAOuebmub4pr9/S0YLY7+DqtihSZI589EDwgHUKOmkVTVNT3Jyf4XeV9f3mBs0iFGYZ4uNNbm+D3ZkrWjxsqSK/OSfcQK5fisW3He5BpIZgmfnx2Wlzs/b2Rgq7MqeRjOfz455EeNfaCfy45shP/89Da3tvARcDrz+45fKLFDHphIBz7cw1B8pvN74YEPp9lif2Hcpu1EwtqWr9itB1oxr3iEYIAEPy6pcEoQaaaMHdHyWjTJX8d3MK/yUnrPLTegVfWJ3qPt4vj6pT3qPJIE6tLD+MZK8uTPsYNjrJXTLtmQ0wlyCCIhjtVaTx5lAZMmIRHxvJBXLr/t7+farvO17Ojl
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(366004)(346002)(39860400002)(376002)(396003)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(8936002)(8676002)(64756008)(66446008)(316002)(66946007)(66556008)(66476007)(76116006)(33656002)(4326008)(110136005)(83380400001)(26005)(478600001)(71200400001)(38100700002)(52536014)(86362001)(2906002)(5660300002)(54906003)(122000001)(55016003)(9686003)(7696005)(53546011)(6506007)(38070700009)(41300700001);
+ IPV:NLI; SFV:NSPM; H:DM8PR12MB5462.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(376002)(136003)(366004)(346002)(396003)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(26005)(83380400001)(53546011)(7696005)(6506007)(9686003)(38100700002)(122000001)(5660300002)(66946007)(4326008)(8936002)(52536014)(8676002)(41300700001)(15650500001)(316002)(478600001)(71200400001)(2906002)(66476007)(64756008)(110136005)(66446008)(76116006)(66556008)(38070700009)(33656002)(86362001)(55016003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?QeduSRJVRUogtDpo/Z/QmpG+saCz2WWJ/t0oebYphqmqnfen0BEJPSvBo2BO?=
- =?us-ascii?Q?X3k6uGA45qTvfWDieVOuUyLZ/xtaiBFS5Es7E368lngqF1udu2xPsoGVH93L?=
- =?us-ascii?Q?hP2IAittCNSbpu6QHpQcM0HRvFE9Tce9lJrgmQAVRfWV6+0D611lfWu3IV3V?=
- =?us-ascii?Q?feHuW5hQTJ0GAYTJP7XAjiG+mnLnAvVfxHOn7wOVxrPUJzs4J2hvUtUJgsl7?=
- =?us-ascii?Q?nM16z8OEAfgo/rTySEvxEzCTGNX0c9NHdQN22IHcU0+RwBNbH5QAWnLexSjk?=
- =?us-ascii?Q?oNneGQqI+86XgmKKISZx4L9HdXUPPtt+7z4NGeSor+iDQnWawglpbTdXHvnt?=
- =?us-ascii?Q?8s5qSWZ/jvwVn0xsLb0B76qAXMVvHlyTrAcIAnTDQ55aY2UWxkvd+ScJb55v?=
- =?us-ascii?Q?6tCidZateaHRfXDq+xCHWMgz7GuhK+NOTjdq26CLyriOgHEt2Rf905rMQOl1?=
- =?us-ascii?Q?XM0c3reLag04piCINlgDa/bm3m5a/1jpUsAbfh/nAucVa43sbB4w+nR0R0GB?=
- =?us-ascii?Q?1C+NRDBlcTeXkQBAhanUEeI2Ua+uzRk7aB6rrFBr6D9TrZAI14tsUTBW8mZ1?=
- =?us-ascii?Q?urzU8ndaDbvKpToeoeWuj3t4sdAoPT6ems6TQKCvRAoPgzSOJtG8wvbBZmmP?=
- =?us-ascii?Q?IG/Uo5as6K5DsPQHH2KvZ3Yy0sRKfQUtbw2sjIbcLMQzNapvtfdp6DQ8qRcA?=
- =?us-ascii?Q?0/OzCwo4A8SUpz6NLce4pposRGSerLOqv+/8QlvAKFIWwkrmbdPUevz0Pa7N?=
- =?us-ascii?Q?3iWOkO07C/wAkniL1JdwKDlS5zLPw1IKcJXaWKt6HNyJdq+Qx7TvHFaLYyTA?=
- =?us-ascii?Q?TeNh990T335EJw9eQgdIcqNfQ98PY+SHE9o5gMndmCrujZG5BBXtyrmWO9DT?=
- =?us-ascii?Q?H0nzNYF0SJhI0FFlSbrK8Ow9jFais0eRswhGxTyrcdDZspmMuUzqeH/b693f?=
- =?us-ascii?Q?bDlyI8DnJW8VHCTqyOY15TfYRfCBbxjsh9hWa1mYgAeLP0O8s2KY6j35h5kW?=
- =?us-ascii?Q?alUdzEIqnfSDqSRvZ3kQu66coHk72IDrhGjT5yP65Z4kk756D5OJ8GQ/Af78?=
- =?us-ascii?Q?IOgIQ6Buw4LsdBsTyBhA9cwpPq/dIV/uDLAON8PjXd0C7cxQf3vGpqDkdYCQ?=
- =?us-ascii?Q?+CbBTtwr/hICUFQ/KgsyNSe3n49+igqX43M9pbxiCfjPcy4cSoV+6787alD4?=
- =?us-ascii?Q?51uYz4eFXIwEmay347WZGzX1fZsblY4JDr7oCPBbtQI/oJskXZbNgiIghdvQ?=
- =?us-ascii?Q?UsI/XdX7XVNirksWzfkALQ8JW+MTz4aA4/y/xmafGHCBoQqJ5vXPql6nwSfP?=
- =?us-ascii?Q?z60KYadwJjWmpSiPnHioQ/oqTTMukegq9DYHZwhtG4fePYITjgUBRS0PDzJo?=
- =?us-ascii?Q?DBbZEuPRpj27A/B83Vp3p1Vf2yeS0VmOKhay2HslWKb/w+S34gHSxJI9ZPi8?=
- =?us-ascii?Q?3jJ3KnGUg22CcC/tvvYmVFor7iv558zVAdh/OpSA4MaRU5gpblCyq09Qk3ay?=
- =?us-ascii?Q?tv/dwxlH1NysiQnyL9E5my5E7MCRe9FIVUrd4stCNRmE1JOtpmICHlmkNavD?=
- =?us-ascii?Q?5kcWSiHLinkBui6gLUw=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7ePNt8ELkh3Xgl4KFXMbpfLLXPlY2i37AeKGJDiIOqXs31Gai3GyLPGbAkls?=
+ =?us-ascii?Q?/vxPtYccnT3nB+iZq1y7OyARGcRqkAwhT+HopaRC4Zm4N1J2+wnleQBwdesm?=
+ =?us-ascii?Q?g4Lwa0mb+5YHwQh7MUz9leXeAALKyPetW6ZORZLcuhLFhzGU5WWAFiUgpWd6?=
+ =?us-ascii?Q?ldRFaTitimv+iPCeDpUjZxVR1dKtzlHTBz//hG1to1e7ogm3JCG9UzW3kVQu?=
+ =?us-ascii?Q?g1K2eXI3Etqj4W7vAElh+QVCthHRMLBzd7cnAn3PkgOIusF48cR7Rn9jYRx4?=
+ =?us-ascii?Q?N/z8nrvy7mSdVxQHHnrPHnM8LLp/nfAt9TET8Lp4pW2D9d/K3S5VPhBWq+CY?=
+ =?us-ascii?Q?yp+AYZmfwf4+ldXsUeuhifrxiL0K6h4n5bltMPzrcc0dM/hGDuUWYxD8GNFs?=
+ =?us-ascii?Q?qS0J3ZFIrn7oESvoIS97IHU2aULqYe1/wNYYyUd+xd5sAOr8rFb4RWhiM75T?=
+ =?us-ascii?Q?AUI/6t0Eovg5u8BNeni5Hb7qwnlbTZ5vA+LFfT20stYz5BqxOqR9diKPPq6n?=
+ =?us-ascii?Q?0k0Kcc4Y9H3xjgQNRiP7yHjSQfLlYvz0uGi4GgWGjMqsYuUWrcWtslUXtQQS?=
+ =?us-ascii?Q?+nm1TUfeunfNPkXrn4OZz2BB3K5DtTj84m4zg6gTXlrzcDsTrybpe/ucw4ZK?=
+ =?us-ascii?Q?zjmBDm4IEzIAZGA6jDB+OBCjawPGsJ0UAq09GVmDjCz447vFmHyFb0SrikPV?=
+ =?us-ascii?Q?dHktR4crTo2vk6zuuiEfg3gX/jezC7rHGXvp9hrm5WxXIvxGhXSu+YXBb6nV?=
+ =?us-ascii?Q?sr+rlcxTY2QsL0S6YsYJxR4gUFJ0E5+UIo2OSfE4fPI328XsbZWCWgET64/1?=
+ =?us-ascii?Q?i+DheTRgsaUeiwmfDohxksVx2tUpMSxK8A7mYIVymrhNRKh4+d6rUMgpPcQ6?=
+ =?us-ascii?Q?K4zny0YyPevcH0IgM2BKhnLD5PWP0IxJiCPvI95l0BtDetLaYjuG4C9vKn99?=
+ =?us-ascii?Q?XMyUXGiP9fniR+TCeJf/2OtsztCihGqZFX84bHLoVeVfYJtC6EJ9q4Qd9Oxn?=
+ =?us-ascii?Q?I3BCFI2mU/6HtDmmPkdFo1VxhGG+p1AJMalMFQRO2IA6BzyORflqKm1IMYzr?=
+ =?us-ascii?Q?SA2Dje6KaECwvXP969UlCuwtK/q4B1OpKvnKJuofsphBqFD25Wib8yaEqdO8?=
+ =?us-ascii?Q?UjSkpTi3PQYHS8CrmWXTQhCNcBw6LO2WmBmhb53uNtmdGridrG2JlPHerAIj?=
+ =?us-ascii?Q?ExBI5YWcAsCnXuvXOLO1BSBPWEk3G0fNRr9bXzx0TVtWZeGSQenRcUFuI2ni?=
+ =?us-ascii?Q?MZS0ZLorxRwgo/wNKOLqCiYVhH2bDY/vumOynkRG0MiT3BzHSBSayPGEMMk3?=
+ =?us-ascii?Q?sJRkg5dr0EkYvPqhKcZO8WiqYibyfizeYf5MyjmB0McGDieCSB4FVLVVF7yI?=
+ =?us-ascii?Q?hGNO7BIeWG1NtPFqnIKzSQt3RPRjqf7PLJVT+El49/kF+bFyhIC5S1oqRAlO?=
+ =?us-ascii?Q?3f6kGQ75k/C59xduvyqTJFnqESwBx/rTAVfIWFPQIgZwa0pHcB82CVhANnUT?=
+ =?us-ascii?Q?GGx4JGio/2MdM+uIFRpx0gBWjCQx8yd1gzM2U0B2qd6uS+XOE9eyAHQziQaG?=
+ =?us-ascii?Q?pAgvn4xgSyoRsJuiTEo=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c95d434-eb3d-483e-f06b-08dc20d7b1ee
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jan 2024 14:36:35.4525 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5462.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cfc0e57c-d7a5-440b-e355-08dc20d8578e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jan 2024 14:41:13.3527 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WfNPHJgPEGcjkf+qQhZMn4HfUFPOziLVbGZ5eatCiCrhy7zvhH6wJj88VB6V2jMu7KNm6hbILiioJd6ONDwclg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6289
+X-MS-Exchange-CrossTenant-userprincipalname: ujmNvLEOXarv9Byh+LlJrijsmKJPhA9bSxYtUmagp1b2ALWcDljHScHTpm6BWwff
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4496
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,198 +122,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Chung, ChiaHsuan \(Tom\)" <ChiaHsuan.Chung@amd.com>, "Li,
- Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li, Roman" <Roman.Li@amd.com>, "Zuo,
- Jerry" <Jerry.Zuo@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>,
- "Wu, Hersen" <hersenxs.wu@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>, "Gutierrez,
- Agustin" <Agustin.Gutierrez@amd.com>
+Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+[AMD Official Use Only - General]
 
-Hi all,
+This Patch looks good to me.
 
-This week this patchset was tested on the following systems:
-        * Lenovo ThinkBook T13s Gen4 with AMD Ryzen 5 6600U
-        * MSI Gaming X Trio RX 6800
-        * Gigabyte Gaming OC RX 7900 XTX
-
-These systems were tested on the following display/connection types:
-        * eDP, (1080p 60hz [5650U]) (1920x1200 60hz [6600U]) (2560x1600 120=
-hz[6600U])
-        * VGA and DVI (1680x1050 60hz [DP to VGA/DVI, USB-C to VGA/DVI])
-        * DP/HDMI/USB-C (1440p 170hz, 4k 60hz, 4k 144hz, 4k 240hz [Includes=
- USB-C to DP/HDMI adapters])
-        * Thunderbolt (LG Ultrafine 5k)
-        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60Hz displays)
-        * DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60 display=
-s, and HP Hook G2 with 1 4k60 display)
-        * USB 4 (Kensington SD5700T and 1x 4k 60Hz display)
-        * PCON (Club3D CAC-1085 and 1x 4k 144Hz display [at 4k 120HZ, as th=
-at is the max the adapter supports])
-
-The testing is a mix of automated and manual tests. Manual testing includes=
- (but is not limited to):
-        * Changing display configurations and settings
-        * Benchmark testing
-        * Feature testing (Freesync, etc.)
-
-Automated testing includes (but is not limited to):
-        * Script testing (scripts to automate some of the manual checks)
-        * IGT testing
-
-The patchset consists of the amd-staging-drm-next branch (Head commit - dbe=
-d0943b062d0837668fef7ad4af18639e9b241 -> drm/amdgpu: Show vram vendor only =
-if available) with new patches added on top of it.
-
-Tested on Ubuntu 22.04.3, on Wayland and X11, using KDE Plasma and Gnome.
-
-
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-
-
-Thank you,
-
-Dan Wheeler
-Sr. Technologist | AMD
-SW Display
----------------------------------------------------------------------------=
----------------------------------------
-1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
-amd.com
+Reviewed-By: Frank.Min <Frank.Min@amd.com>
 
 -----Original Message-----
-From: Tom Chung <chiahsuan.chung@amd.com>
-Sent: Wednesday, January 24, 2024 2:02 AM
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Hawking =
+Zhang
+Sent: Monday, January 29, 2024 10:35 PM
 To: amd-gfx@lists.freedesktop.org
-Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
-i@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo=
- <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.Li@amd.com>; Lin, Wayne <Wayn=
-e.Lin@amd.com>; Gutierrez, Agustin <Agustin.Gutierrez@amd.com>; Chung, Chia=
-Hsuan (Tom) <ChiaHsuan.Chung@amd.com>; Wu, Hersen <hersenxs.wu@amd.com>; Zu=
-o, Jerry <Jerry.Zuo@amd.com>; Wheeler, Daniel <Daniel.Wheeler@amd.com>
-Subject: [PATCH 00/22] DC Patches Jan 29 2024
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: Update boot time errors polling sequence
 
-This DC patchset brings improvements in multiple areas.
-In summary, we have:
+Update boot time errors polling seqeunce to align with the latest firmware =
+change.
 
-- Add control flag for IPS residency profiling
-- Populate invalid split index to be 0xF
-- Fix dcn35 8k30 Underflow/Corruption Issue
-- Fix DP audio settings
-- Use correct phantom pipe when populating subvp pipe info
-- Fix incorrect mpc_combine array size
-- Fix DPSTREAM CLK on and off sequence
-- Fix USB-C flag update after enc10 feature init
-- Add debugfs disallow edp psr
-- Unify optimize_required flags and VRR adjustments
-- Increased min_dcfclk_mhz and min_fclk_mhz
-- Fix static screen event mask definition change
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 14 +++++++++++++-  drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_ras.h |  5 +++++
+ 2 files changed, 18 insertions(+), 1 deletion(-)
 
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index 9e67355d4718..9b7a5c1c9af5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -4122,6 +4122,18 @@ static int amdgpu_ras_wait_for_boot_complete(struct =
+amdgpu_device *adev,
+        u32 reg_data;
+        int retry_loop;
 
++       reg_addr =3D (mmMP0_SMN_C2PMSG_92 << 2) +
++                  aqua_vanjaram_encode_ext_smn_addressing(instance);
++
++       for (retry_loop =3D 0; retry_loop < AMDGPU_RAS_BOOT_STATUS_POLLING_=
+LIMIT; retry_loop++) {
++               reg_data =3D amdgpu_device_indirect_rreg_ext(adev, reg_addr=
+);
++               if ((reg_data & AMDGPU_RAS_BOOT_STATUS_MASK) =3D=3D AMDGPU_=
+RAS_BOOT_STEADY_STATUS) {
++                       *boot_error =3D AMDGPU_RAS_BOOT_SUCEESS;
++                       return 0;
++               }
++               msleep(1);
++       }
++
+        /* The pattern for smn addressing in other SOC could be different f=
+rom
+         * the one for aqua_vanjaram. We should revisit the code if the pat=
+tern
+         * is changed. In such case, replace the aqua_vanjaram implementati=
+on @@ -4129,7 +4141,7 @@ static int amdgpu_ras_wait_for_boot_complete(struc=
+t amdgpu_device *adev,
+        reg_addr =3D (mmMP0_SMN_C2PMSG_126 << 2) +
+                   aqua_vanjaram_encode_ext_smn_addressing(instance);
 
-Alvin Lee (2):
-  drm/amd/display: For FPO and SubVP/DRR configs program vmin/max sel
-  drm/amd/display: Populate invalid split index to be 0xF
+-       for (retry_loop =3D 0; retry_loop < 1000; retry_loop++) {
++       for (retry_loop =3D 0; retry_loop <
++AMDGPU_RAS_BOOT_STATUS_POLLING_LIMIT; retry_loop++) {
+                reg_data =3D amdgpu_device_indirect_rreg_ext(adev, reg_addr=
+);
+                if (AMDGPU_RAS_GPU_ERR_BOOT_STATUS(reg_data)) {
+                        *boot_error =3D reg_data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.h
+index 0b6ffae1e8bb..d10e5bb0e52f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -46,6 +46,11 @@ struct amdgpu_iv_entry;
+ #define AMDGPU_RAS_GPU_ERR_HBM_ID(x)                   AMDGPU_GET_REG_FIEL=
+D(x, 13, 13)
+ #define AMDGPU_RAS_GPU_ERR_BOOT_STATUS(x)              AMDGPU_GET_REG_FIEL=
+D(x, 31, 31)
 
-Anthony Koo (1):
-  drm/amd/display: [FW Promotion] Release 0.0.202.0
-
-Aric Cyr (2):
-  drm/amd/display: Unify optimize_required flags and VRR adjustments
-  drm/amd/display: 3.2.270
-
-Charlene Liu (3):
-  Revert "drm/amd/display: initialize all the dpm level's stutter
-    latency"
-  drm/amd/display: fix USB-C flag update after enc10 feature init
-  drm/amd/display: fix DP audio settings
-
-Dmytro Laktyushkin (1):
-  drm/amd/display: Fix DPSTREAM CLK on and off sequence
-
-Eric Yang (1):
-  drm/amd/display: fix invalid reg access on DCN35 FPGA
-
-Fangzhi Zuo (1):
-  drm/amd/display: Fix dcn35 8k30 Underflow/Corruption Issue
-
-Fudongwang (1):
-  drm/amd/display: refine code for dmcub inbox1 ring buffer debug
-
-Hersen Wu (1):
-  drm/amd/display: add debugfs disallow edp psr
-
-Mounika Adhuri (1):
-  drm/amd/display: clkmgr unittest with removal of warn & rename DCN35
-    ips handshake for idle
-
-Nicholas Kazlauskas (2):
-  drm/amd/display: Wait before sending idle allow and after idle
-    disallow
-  drm/amd/display: Wait for mailbox ready when powering up DMCUB
-
-Nicholas Susanto (1):
-  drm/amd/display: Underflow workaround by increasing SR exit latency
-
-Sohaib Nadeem (1):
-  drm/amd/display: increased min_dcfclk_mhz and min_fclk_mhz
-
-Taimur Hassan (1):
-  drm/amd/display: Send DTBCLK disable message on first commit
-
-Wenjing Liu (2):
-  drm/amd/display: fix incorrect mpc_combine array size
-  drm/amd/display: use correct phantom pipe when populating subvp pipe
-    info
-
-Yiling Chen (1):
-  drm/amd/display: Fix static screen event mask definition change
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++-  .../gpu/drm/amd/di=
-splay/amdgpu_dm/amdgpu_dm.h |  1 +
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  7 ++-
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 53 +++++++++++++++++++  ..=
-./display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  | 53 ++++++++++---------  .../a=
-md/display/dc/clk_mgr/dcn35/dcn35_smu.c  | 15 ++++++
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 45 ++++++++++++----
- .../gpu/drm/amd/display/dc/core/dc_resource.c | 14 +++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  3 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  | 14 +++--
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |  2 -
- .../gpu/drm/amd/display/dc/dce/dce_audio.c    |  9 +++-
- .../display/dc/dcn32/dcn32_dio_link_encoder.c |  4 +-  .../display/dc/dcn3=
-2/dcn32_resource_helpers.c | 14 -----  .../display/dc/dcn35/dcn35_dio_link_=
-encoder.c |  4 +-  .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 15 +++--=
--  .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c  |  4 +-  .../display/dc/dm=
-l2/dml2_translation_helper.c | 33 +++++-------  .../amd/display/dc/hwss/dce=
-110/dce110_hwseq.c |  2 +-
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |  2 +-
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 20 ++++---
- .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   | 18 -------
- .../amd/display/dc/hwss/dcn30/dcn30_hwseq.h   |  3 --
- .../amd/display/dc/hwss/dcn30/dcn30_init.c    |  2 +-
- .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   | 18 +++++++
- .../amd/display/dc/hwss/dcn31/dcn31_hwseq.h   |  4 ++
- .../amd/display/dc/hwss/dcn31/dcn31_init.c    |  2 +-
- .../amd/display/dc/hwss/dcn314/dcn314_init.c  |  2 +-
- .../amd/display/dc/hwss/dcn32/dcn32_init.c    |  2 +-
- .../amd/display/dc/hwss/dcn35/dcn35_init.c    |  2 +-
- .../amd/display/dc/hwss/dcn351/dcn351_init.c  |  2 +-
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  2 +
- drivers/gpu/drm/amd/display/dc/inc/resource.h |  3 ++
- .../dc/resource/dcn32/dcn32_resource.c        |  2 +-
- .../dc/resource/dcn32/dcn32_resource.h        |  3 --
- .../dc/resource/dcn321/dcn321_resource.c      |  2 +-
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |  4 --
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 18 ++++---
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   | 13 ++++-
- 39 files changed, 274 insertions(+), 150 deletions(-)
-
++#define AMDGPU_RAS_BOOT_STATUS_POLLING_LIMIT   1000
++#define AMDGPU_RAS_BOOT_STEADY_STATUS          0xBA
++#define AMDGPU_RAS_BOOT_STATUS_MASK            0xFF
++#define AMDGPU_RAS_BOOT_SUCEESS                        0x80000000
++
+ #define AMDGPU_RAS_FLAG_INIT_BY_VBIOS          (0x1 << 0)
+ /* position of instance value in sub_block_index of
+  * ta_ras_trigger_error_input, the sub block uses lower 12 bits
 --
-2.34.1
+2.17.1
 
