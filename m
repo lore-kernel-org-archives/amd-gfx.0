@@ -4,52 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DADCC46CD2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA4C5C47DA9
 	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 08:42:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0607E112330;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 642D3112E0E;
 	Tue, 30 Jan 2024 08:42:46 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFFAB1127C9;
- Mon, 29 Jan 2024 09:30:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706520613; x=1738056613;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=y4HS+uVRW9WTygboGvo9yA3ZMYqEE+/M8DxBQGlLi/4=;
- b=ncEdJQwiFZi8VaAp0lLOXyvRzJaSJDngdAiZh+Ixbg0srmsSRs0QzfiA
- 9gfPQ4WUwUUy/Bvx09p9uFigqZaRjvDMpBluYOa22cRcFAG5S8jzsvZ6L
- gF1oUc9YqBtabw/netmf0UL4rwHVuex62jTLbmwwk9Rvh3zwMzv4y0eEF
- W8k408kFDDKRRIm9dH6i0MxzQwv9+0CKRaB5lnhIkj09NiTz3hRwPzpcZ
- TJ8OLAdB5SYU/62lBqDd/ElPmzoCjEYjnQzg+ZlzYd0vF4p0QsYXWSSG6
- kLa29/BekG+rTBRRhV5/td1sLUHOUaUSe8bu0McAjbOm7XztlqkSq0lYx g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10967"; a="21431513"
-X-IronPort-AV: E=Sophos;i="6.05,226,1701158400"; d="scan'208";a="21431513"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2024 01:30:07 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.05,226,1701158400"; d="scan'208";a="29726648"
-Received: from hbrandbe-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.59.53])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2024 01:30:03 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Mario Limonciello <mario.limonciello@amd.com>, Melissa Wen
- <mwen@igalia.com>, airlied@gmail.com, alexander.deucher@amd.com,
- alex.hung@amd.com, christian.koenig@amd.com, daniel@ffwll.ch,
- harry.wentland@amd.com, Rodrigo.Siqueira@amd.com, sunpeng.li@amd.com,
- Xinhui.Pan@amd.com
-Subject: Re: [RFC PATCH 0/2] drm/amd/display: switch amdgpu_dm_connector to
-In-Reply-To: <5fdad82b-3f14-4bb4-9f49-b8397419204d@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240126163429.56714-1-mwen@igalia.com>
- <5fdad82b-3f14-4bb4-9f49-b8397419204d@amd.com>
-Date: Mon, 29 Jan 2024 11:30:00 +0200
-Message-ID: <87o7d4jxlz.fsf@intel.com>
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
+ [209.85.219.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20A2B10EA75
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jan 2024 22:21:16 +0000 (UTC)
+Received: by mail-qv1-f45.google.com with SMTP id
+ 6a1803df08f44-68c3fbc48e0so2033686d6.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jan 2024 14:21:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1706566815; x=1707171615; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=gmoc6TMIM1XGef1GU+/KvkFMgd0OCyZYaEfBRT5oYnM=;
+ b=a7XDu0DGJ48XFgW8m7Aq0b77Bb3ptHPbAHbVv06M7J68dfJwk6XvZyUaQsV6o5yRpF
+ jvLuCvTiTasHzpJ54hFg9gy65jWQRNkUWandrnQzl/BNi8tW98n3Glk37IDFnSELUizh
+ xv8G3/vsJS53UsLtl+BuHro6od7Qvd6BX2JvlsZwQU2vIQgDB0bTEXzgDuaF84fyu+k4
+ yAV1pWH9Q1SF2wjOBDWW5jBqlquFLBY0L6XOaLEYejgnI7oDalTCfW5fJrok8dZDPj5e
+ 3XszZbeWyhp9WBj7VmorYyrN8toKEZFlGZfqoItv77rtesOBHY+Y6Wznjc8l0304uH7z
+ JrCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706566815; x=1707171615;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=gmoc6TMIM1XGef1GU+/KvkFMgd0OCyZYaEfBRT5oYnM=;
+ b=cDCvydiqTCQaYM+z3lZV/mu3s/OgPJbvywdcP9Nd/OWceXNSxLLQT9cFCr2yDmHZpy
+ yz5VkbQyqrEGOedAOl9JjMPnfa3IriLJjf54NH6+zrP3zFFHb/cd5akb7CxLhQE+QjvM
+ jciGiqnlAq/Aimxrcl75LOOPhzi1EhdqRZGjS3Im1TVp61eODJHJ0h8vlvHEaQjhVn1P
+ uhaqxnpAQYDwCc6vDMVqq5FnLcCYusOEemCsBchBQnRk+KEu8rRhfhs3p9NMbgVjOCt+
+ xNld2Mt581brf1ZtLhEgjZdhAgWvFyrjYukTryQhAClxIq0meYklv292M7qU8TVa4Yro
+ Vpsg==
+X-Gm-Message-State: AOJu0YweXZF6K21rF9bHJhwQRA8FV8QATpSV2VpnIMRGakmitIBvjlvi
+ 0J3IN3a39wxkmXEuJfNK14r96XWGQXZly9rKT+YeqKEfiDTL4BHS3ik3NKze
+X-Google-Smtp-Source: AGHT+IE2nGhFMHeKNbnOEOC7+Y7A45i3GR3qEYq5mky0uUF1YSSFYJGpGFnEcgleeVN6zpDYN7doxg==
+X-Received: by 2002:a05:620a:2944:b0:784:7b7:78f1 with SMTP id
+ n4-20020a05620a294400b0078407b778f1mr1228902qkp.6.1706566815224; 
+ Mon, 29 Jan 2024 14:20:15 -0800 (PST)
+Received: from davidm-laptop.home
+ (hlfxns018gw-134-41-187-249.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [134.41.187.249]) by smtp.gmail.com with ESMTPSA id
+ x12-20020a05620a0ecc00b0078366823711sm2009468qkm.119.2024.01.29.14.20.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jan 2024 14:20:14 -0800 (PST)
+From: David McFarland <corngood@gmail.com>
+To: mario.limonciello@amd.com
+Subject: [PATCH v2 1/1] drm/amd: Don't init MEC2 firmware when it fails to load
+Date: Mon, 29 Jan 2024 18:18:22 -0400
+Message-Id: <20240129221817.8797-2-corngood@gmail.com>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <8bda643f-314d-4947-83a4-8ad536dfdc41@amd.com>
+References: <8bda643f-314d-4947-83a4-8ad536dfdc41@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 30 Jan 2024 08:42:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,86 +74,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
+Cc: David McFarland <corngood@gmail.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 26 Jan 2024, Mario Limonciello <mario.limonciello@amd.com> wrote:
-> On 1/26/2024 10:28, Melissa Wen wrote:
->> Hi,
->> 
->> I'm debugging a null-pointer dereference when running
->> igt@kms_connector_force_edid and the way I found to solve the bug is to
->> stop using raw edid handler in amdgpu_connector_funcs_force and
->> create_eml_sink in favor of managing resouces via sruct drm_edid helpers
->> (Patch 1). The proper solution seems to be switch amdgpu_dm_connector
->> from struct edid to struct drm_edid and avoid the usage of different
->> approaches in the driver (Patch 2). However, doing it implies a good
->> amount of work and validation, therefore I decided to send this RFC
->> first to collect opinions and check if there is any parallel work on
->> this side. It's a working in progress.
->> 
->> The null-pointer error trigger by the igt@kms_connector_force_edid test
->> was introduced by:
->> - e54ed41620f ("drm/amd/display: Remove unwanted drm edid references")
->> 
->> You can check the error trace in the first patch.
->> 
->> This series was tested with kms_hdmi_inject and kms_force_connector. No
->> null-pointer error, kms_hdmi_inject is successul and kms_force_connector
->> is sucessful after the second execution - the force-edid subtest
->> still fails in the first run (I'm still investigating).
->> 
->> There is also a couple of cast warnings to be addressed - I'm looking
->> for the best replacement.
->> 
->> I appreciate any feedback and testing.
->
-> So I'm actually a little bit worried by hardcoding EDID_LENGTH in this 
-> series.
->
-> I have some other patches that I'm posting later on that let you get the 
-> EDID from _DDC BIOS method too.  My observation was that the EDID can be 
-> anywhere up to 512 bytes according to the ACPI spec.
->
-> An earlier version of my patch was using EDID_LENGTH when fetching it 
-> and the EDID checksum failed.
->
-> I'll CC you on the post, we probably want to get your changes and mine 
-> merged together.
+The same calls are made directly above, but conditional on the firmware
+loading and validating successfully.
 
-One of the main points of struct drm_edid is that it tracks the
-allocation size separately.
+Fixes: 9931b67690cf ("drm/amd: Load GFX10 microcode during early_init")
+Signed-off-by: David McFarland <corngood@gmail.com>
+---
+v2: signed off
 
-We should simply not trust edid->extensions, because most of the time it
-originates from outside the kernel.
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-Using drm_edid and immediately drm_edid_raw() falls short. That function
-should only be used during migration to help. And yeah, it also means
-EDID parsing should be done in drm_edid.c, and not spread out all over
-the subsystem.
-
-
-BR,
-Jani.
-
-
->
->> 
->> Melissa
->> 
->> Melissa Wen (2):
->>    drm/amd/display: fix null-pointer dereference on edid reading
->>    drm/amd/display: switch amdgpu_dm_connector to use struct drm_edid
->> 
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 78 ++++++++++---------
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  4 +-
->>   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  9 ++-
->>   .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 23 +++---
->>   4 files changed, 60 insertions(+), 54 deletions(-)
->> 
->
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index d63cab294883..b0ba68016a02 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4027,8 +4027,6 @@ static int gfx_v10_0_init_microcode(struct amdgpu_device *adev)
+ 		err = 0;
+ 		adev->gfx.mec2_fw = NULL;
+ 	}
+-	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_MEC2);
+-	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_MEC2_JT);
+ 
+ 	gfx_v10_0_check_fw_write_wait(adev);
+ out:
 -- 
-Jani Nikula, Intel
+2.40.1
+
