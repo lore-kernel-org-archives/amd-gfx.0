@@ -4,46 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12663C47DA9
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jan 2024 09:24:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 029EDC47DA9
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jan 2024 09:32:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADD981127C0;
-	Mon, 29 Jan 2024 09:24:46 +0000 (UTC)
-X-Greylist: delayed 2091 seconds by postgrey-1.36 at gabe;
- Mon, 29 Jan 2024 09:24:45 UTC
-Received: from whm50.louhi.net (whm50.louhi.net [77.240.19.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C6641127C0
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jan 2024 09:24:45 +0000 (UTC)
-Received: from [194.136.85.206] (port=46446 helo=eldfell)
- by whm50.louhi.net with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96.2)
- (envelope-from <pekka.paalanen@haloniitty.fi>) id 1rUNKy-0007D5-0Q;
- Mon, 29 Jan 2024 10:49:52 +0200
-Date: Mon, 29 Jan 2024 10:49:34 +0200
-From: Pekka Paalanen <pekka.paalanen@haloniitty.fi>
-To: =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
-Subject: Re: [PATCH v3 1/3] drm/atomic: Allow drivers to write their own
- plane check for async flips
-Message-ID: <20240129104934.0b887ec7@eldfell>
-In-Reply-To: <20240128212515.630345-2-andrealmeid@igalia.com>
-References: <20240128212515.630345-1-andrealmeid@igalia.com>
- <20240128212515.630345-2-andrealmeid@igalia.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08E711127CD;
+	Mon, 29 Jan 2024 09:31:56 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2042.outbound.protection.outlook.com [40.107.93.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB3051127C7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jan 2024 09:31:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BFM/+2UbzQT7ABXjkU6adBf5/M5iN4ZK+wgAxGVblutOSWuBgtXb+P3L5NW1tWeEyghPqMBAzdNUW6mbYyrKsa4apS7uZjnnqQmh6EyZVfJB8rh046Rup0gv9icY5KG91sFtVT2z7bRgOngsd6k5Pm4uZFacIikZ5x8/HmNj57YXvFHakqcFgIbwkxJvHf4XxEGmh0DBm0nEKnB554D34ZKkwgS+JtoNal+2KLXP+RYa8jpJF1ERl44bR8l2DXfukC3JRxXRSV0S3v72YXkS685DA+PyDkOKJTPCBfY9ujq5zWmvTUXKkN7JD5bXFHBW7I4kR3V/M2452wK1AaMslw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WabR18187nOfaKqXoae/PcnXb0zFSNV0CaYiWKLbh/g=;
+ b=JwPxwq+2mxH3jGTsDHnJJ3yVoPPlKo+xngKOGaQWG83axatkB+02ciMFQfUskB7SqzvmZwp9jM+UAKkRtrfL+gF07iAu9hQZ7hvk+4CzxRIPH1pBcI8GNDPQfN60OJixWo0SqK+/fbsYHH5hPFLY+XqU/pYNi6tXK3LG8WwInxEXEi4igL2XI+Mqdm/Ef65a1K0m5ESbIS7JL8SlHN0DjvnnaTFNqbU2KA+R5S22dGIzZQIKqQXaiXzsNiU9FFApufNxLAVq/xVnMzN52y76Rydc1pFojxgjfV4C12DXWW7+XDicYoE+1nnzvSpZFnqCIPSsfsWhzqfBbFv6/VpyfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WabR18187nOfaKqXoae/PcnXb0zFSNV0CaYiWKLbh/g=;
+ b=jzwA695NwMXFvdvkF6q9vxvECzBzvGr/6pebSdBeSgw6CULs8PpYmoo3Jme3Y10f/GjLl8zx3VhUsv+babp0hAjS4+ajzdIFzL58j4UMHUJezNXRliTm1epBNCq03NT7WedmHAwM7ho2ulY4fIVDbtEnGJU+42h7OVF6baA3xVg=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by SN7PR12MB7452.namprd12.prod.outlook.com (2603:10b6:806:299::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.32; Mon, 29 Jan
+ 2024 09:31:52 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::353:e785:731:7b81]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::353:e785:731:7b81%3]) with mapi id 15.20.7228.029; Mon, 29 Jan 2024
+ 09:31:51 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: use helper macro HW_ERR instead of Hardware
+ error string
+Thread-Topic: [PATCH] drm/amdgpu: use helper macro HW_ERR instead of Hardware
+ error string
+Thread-Index: AQHaUpMDHIKB/MKRek+9B9PMBVxh2bDwhrTQ
+Date: Mon, 29 Jan 2024 09:31:51 +0000
+Message-ID: <BN9PR12MB5257568E8E2489667E507020FC7E2@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20240129091000.2068752-1-kevinyang.wang@amd.com>
+In-Reply-To: <20240129091000.2068752-1-kevinyang.wang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=485be92b-9947-460b-950b-66d274efeea2;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-01-29T09:31:24Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SN7PR12MB7452:EE_
+x-ms-office365-filtering-correlation-id: 1ae1690f-8e67-4c7c-20c7-08dc20ad200a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: GwaZlbpx9Ij7KbdLjGlmOfA8M1P5wZFAMSqCm5gEcdor/9G8F6XnOeeMiKHlc5p4mybiHQcx5PH+PZ/6XJgD0V3UuPwwXof4q+Ne6OcdHso5F3TiLRJU49Ovh+GoRzHVp20G9EqcqKDZy1/DeBptRP7j6dxn8VjcBz9S9GKqT1ho8e+eO5m53XV5MprUROZTluYpM0spu9deiAL7CiVu9lYgDmtNytdnZXaNOK0sJTBs0hZfnhcRUbeWhMpLHqd83iFCedd5UGurIy1pXXUo4NCYJSir9Lq967J+nlt0HYKwXVI8T6vowWI21UH0GokF9iKiEQJskoNz9XFegAD5GYEs1XdM0YEwJIETj6K82oMg5kiDUlDiLpUznwN1fmGivwZNPWXnhXVodTcE9WThuoYtFnVIH4UU/SAbsZWyhyMj+P/cgvrrZAhuzA8u4JlKxlLg02F+HrPoYJHaA9KnNdghICQIeseGgndmtJP4iGXM2AYjIXjPnu9rJo9pgDEdByvh8gSrZvShcWo0MgnEbUFaiDG8w+AcURrz9hPXo6S4ilsbKpQPB4jcWflQdYaRVsLTx0oj0g5x5tZuSFp7nEkczNYm2csteHuMpl/cNDoFjKjL1PLSEYfn/sREeZZN
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(366004)(136003)(346002)(396003)(376002)(230922051799003)(64100799003)(1800799012)(451199024)(186009)(55016003)(83380400001)(33656002)(86362001)(38070700009)(122000001)(26005)(38100700002)(9686003)(53546011)(6506007)(7696005)(2906002)(478600001)(41300700001)(110136005)(76116006)(316002)(71200400001)(66556008)(66476007)(66446008)(64756008)(66946007)(8936002)(4326008)(5660300002)(52536014)(8676002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?dM+ReoQgLo/GGU87SsvUSFjQcvrckLw/mdC52smyVgLf6gzoNFC0YGSXJDUl?=
+ =?us-ascii?Q?cBk0P0CoSGdo4tPUDOgycCp+0sKC3j6q5e9JK4h4vxqOf4yHkk438R75LL5X?=
+ =?us-ascii?Q?2t087IeRZQkw1e36qKoOoSkX/OBqk3i3XNdoQDENhgLNJelRrKi1yo+IgB6l?=
+ =?us-ascii?Q?TdZh2GLbT5rVYAgVyVo/LZ7L2RqxVDLWXjmn0c9bZ9QhzTbPi+qvoq8673Nf?=
+ =?us-ascii?Q?HbRtqDNArjc85OEwP0nlKLn3ZJGswwhPChb8k3KItWlD9AP++pfdHFZRvOz3?=
+ =?us-ascii?Q?lK9GO4ekf2gPfogsBNCIdu82j9l+x8WZruqS9VPnUatw5O+HQHQdsS9Gc2+B?=
+ =?us-ascii?Q?wfLCWyz/vB30OwH8vGdtGHEZa0nVHe/FBWE6Yq3ul2iy7ueC4k5H5i4Urmle?=
+ =?us-ascii?Q?13fXX5u1hi+eQ8YaS6WqCCH0nYhjanv74I5xgJ9F8ikdf3CjuC9/r06fDRCP?=
+ =?us-ascii?Q?1iopoF/kSjoif2oTITnEzuRBJapocHIYVP4UikfdR8vul//QO7KtPqEZUsS0?=
+ =?us-ascii?Q?U2MpPxXCUklLt8IsdYexZlkEYXL0y8d+F6MbEDUFm/dPiibOWaR1HgPzpVoy?=
+ =?us-ascii?Q?W683/v46AI2ewUGLH13+E6fZryllRC0kFZMcV+Ry/XRxzRFHWnVDsT4BfFC2?=
+ =?us-ascii?Q?+I5cZceR1PQ0bOLy8ZB4ukFi1HahrbUUyhuvQMND0J1ZTH526pAHWD6YAqh+?=
+ =?us-ascii?Q?diME/VR5Bkr23xUZIxxpfkna/0q0KrlAXTxUkFQeMAvqdIV0dxM5px4AihgF?=
+ =?us-ascii?Q?hsxHncLay0GA68uBOqUjdryhCopqL3c1HKo3eMHLqMO7Cowzz9js2z0bSFy3?=
+ =?us-ascii?Q?6xNDiKn0XFSYNO7M4ul5DKqOxLAaEKWeoN+SQpFDt0TgGkDT4X+d9Xv0c0mR?=
+ =?us-ascii?Q?1qoWymBKVKmJh9jQjBkLPrlMbhL6wM36FHbjNpNcBHv07Mnnrq4SgMc/g8tL?=
+ =?us-ascii?Q?IepYo7c5/5s7gw+YhaIxgqHBfWxLKpKGHrUBOEi8lfXwMOCzw9+dlIwQ0AXW?=
+ =?us-ascii?Q?dbxVjgxaDXI1B15e+qIsd6S+HHEMBLKMpfFgMyN1k5k1ACEW+daplKt/r2+N?=
+ =?us-ascii?Q?1w6jvR5CrpdJrvqfA2OPtG7WxSyuU2u0g4QVKwL4kJGlnAdI+yK7mOCpAtCJ?=
+ =?us-ascii?Q?9ahBQJ6LHsCKrAfy/qh2f2eXUVM3VJvZ2swrSWWFktqk1ThWIM3M5ZiSguxT?=
+ =?us-ascii?Q?bS9QO62pLV+01qsjJLmMWhkMvU+JFBUNDvCLc7aIu9qWFIM513AecvWtvu5m?=
+ =?us-ascii?Q?tpoVmAZfnBhfrydzfDGSr3C4+sweykCe66/xxAaI+0Bt6kYoo7xlXwZBsPbA?=
+ =?us-ascii?Q?U+g8uguUqL8sPyzUczdUCTHr8iaQwl/047XzXOYlsMWbtxqWcM7QLNEweEv/?=
+ =?us-ascii?Q?Df4lZYY6nVGG5gWhmcAncvE/KQWDZaMHWdzu33op8pgxT+PW+UGvWAUhyLPL?=
+ =?us-ascii?Q?iETbVkpw075bQ/6FczfpfJQxda8rKAOw8h7eXOvfjcgEOdySjNYpgfAPd8sg?=
+ =?us-ascii?Q?xQegtSo149ftVMPsrnIDyvUO/lMndHgzWPbXEucWZaUQ7pPUMYKn05boZwne?=
+ =?us-ascii?Q?Va1jeuVyvYvBh9zHq9I=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/CyNE1g.rxLQR/tPHNy8jH2s";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - whm50.louhi.net
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - haloniitty.fi
-X-Get-Message-Sender-Via: whm50.louhi.net: authenticated_id:
- pekka.paalanen@haloniitty.fi
-X-Authenticated-Sender: whm50.louhi.net: pekka.paalanen@haloniitty.fi
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ae1690f-8e67-4c7c-20c7-08dc20ad200a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jan 2024 09:31:51.8592 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KF+JnEnnKtOAvkQ8nW6Lo6P9h8F1Dp2PGbaHlIyJH1pBkO+iTJF9wBrL/AGFwvi9HUHBT9gpdNKIh/BPXk/dBQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7452
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,259 +124,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel@ffwll.ch, 'Marek =?UTF-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Xaver Hugl <xaver.hugl@gmail.com>,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- alexander.deucher@amd.com, Joshua Ashton <joshua@froggi.es>,
- Daniel Stone <daniel@fooishbar.org>, Dave Airlie <airlied@gmail.com>,
- christian.koenig@amd.com, ville.syrjala@linux.intel.com
+Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/CyNE1g.rxLQR/tPHNy8jH2s
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+[AMD Official Use Only - General]
 
-On Sun, 28 Jan 2024 18:25:13 -0300
-Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-> Some hardware are more flexible on what they can flip asynchronously, so
-> rework the plane check so drivers can implement their own check, lifting
-> up some of the restrictions.
->=20
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> ---
-> v3: no changes
->=20
->  drivers/gpu/drm/drm_atomic_uapi.c | 62 ++++++++++++++++++++++---------
->  include/drm/drm_atomic_uapi.h     | 12 ++++++
->  include/drm/drm_plane.h           |  5 +++
->  3 files changed, 62 insertions(+), 17 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
-ic_uapi.c
-> index aee4a65d4959..6d5b9fec90c7 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -620,7 +620,7 @@ static int drm_atomic_plane_set_property(struct drm_p=
-lane *plane,
->  	return 0;
->  }
-> =20
-> -static int
-> +int
->  drm_atomic_plane_get_property(struct drm_plane *plane,
->  		const struct drm_plane_state *state,
->  		struct drm_property *property, uint64_t *val)
-> @@ -683,6 +683,7 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
-> =20
->  	return 0;
->  }
-> +EXPORT_SYMBOL(drm_atomic_plane_get_property);
-> =20
->  static int drm_atomic_set_writeback_fb_for_connector(
->  		struct drm_connector_state *conn_state,
-> @@ -1026,18 +1027,54 @@ int drm_atomic_connector_commit_dpms(struct drm_a=
-tomic_state *state,
->  	return ret;
->  }
-> =20
-> -static int drm_atomic_check_prop_changes(int ret, uint64_t old_val, uint=
-64_t prop_value,
-> +int drm_atomic_check_prop_changes(int ret, uint64_t old_val, uint64_t pr=
-op_value,
+Regards,
+Hawking
+-----Original Message-----
+From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+Sent: Monday, January 29, 2024 17:10
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
+ Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+Subject: [PATCH] drm/amdgpu: use helper macro HW_ERR instead of Hardware er=
+ror string
 
-Hi,
+use helper macro HW_ERR to instead of Hardwareare error string.
 
-should the word "async" be somewhere in the function name?
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c |  4 ++--  drivers/gpu/drm/amd/amd=
+gpu/amdgpu_mca.c | 12 ++++++------
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
->  					 struct drm_property *prop)
->  {
->  	if (ret !=3D 0 || old_val !=3D prop_value) {
->  		drm_dbg_atomic(prop->dev,
-> -			       "[PROP:%d:%s] No prop can be changed during async flip\n",
-> +			       "[PROP:%d:%s] This prop cannot be changed during async flip\n",
->  			       prop->base.id, prop->name);
->  		return -EINVAL;
->  	}
-> =20
->  	return 0;
->  }
-> +EXPORT_SYMBOL(drm_atomic_check_prop_changes);
-> +
-> +/* plane changes may have exceptions, so we have a special function for =
-them */
-> +static int drm_atomic_check_plane_changes(struct drm_property *prop,
-> +					  struct drm_plane *plane,
-> +					  struct drm_plane_state *plane_state,
-> +					  struct drm_mode_object *obj,
-> +					  u64 prop_value, u64 old_val)
-> +{
-> +	struct drm_mode_config *config =3D &plane->dev->mode_config;
-> +	int ret;
-> +
-> +	if (plane->funcs->check_async_props)
-> +		return plane->funcs->check_async_props(prop, plane, plane_state,
-> +							     obj, prop_value, old_val);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_aca.c
+index d7d2ec3ce399..be525cf3a182 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -120,10 +120,10 @@ static void aca_smu_bank_dump(struct amdgpu_device *a=
+dev, int idx, int total, st  {
+        int i;
 
-Is it really ok to allow drivers to opt-in to also *reject* the FB_ID
-and IN_FENCE_FD props on async commits?
+-       dev_info(adev->dev, "[Hardware error] Accelerator Check Architectur=
+e events logged\n");
++       dev_info(adev->dev, HW_ERR "Accelerator Check Architecture events
++logged\n");
+        /* plus 1 for output format, e.g: ACA[08/08]: xxxx */
+        for (i =3D 0; i < ARRAY_SIZE(aca_regs); i++)
+-               dev_info(adev->dev, "[Hardware error] ACA[%02d/%02d].%s=3D0=
+x%016llx\n",
++               dev_info(adev->dev, HW_ERR "ACA[%02d/%02d].%s=3D0x%016llx\n=
+",
+                         idx + 1, total, aca_regs[i].name, bank->regs[aca_r=
+egs[i].reg_idx]);  }
 
-Either intentionally or by accident.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_mca.c
+index 6452c09f22c6..24ad4b97177b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+@@ -212,16 +212,16 @@ int amdgpu_mca_smu_set_debug_mode(struct amdgpu_devic=
+e *adev, bool enable)
 
-> +
-> +	/*
-> +	 * if you are trying to change something other than the FB ID, your
-> +	 * change will be either rejected or ignored, so we can stop the check
-> +	 * here
-> +	 */
-> +	if (prop !=3D config->prop_fb_id) {
-> +		ret =3D drm_atomic_plane_get_property(plane, plane_state,
-> +						    prop, &old_val);
-> +		return drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
+ static void amdgpu_mca_smu_mca_bank_dump(struct amdgpu_device *adev, int i=
+dx, struct mca_bank_entry *entry)  {
+-       dev_info(adev->dev, "[Hardware error] Accelerator Check Architectur=
+e events logged\n");
+-       dev_info(adev->dev, "[Hardware error] aca entry[%02d].STATUS=3D0x%0=
+16llx\n",
++       dev_info(adev->dev, HW_ERR "Accelerator Check Architecture events l=
+ogged\n");
++       dev_info(adev->dev, HW_ERR "aca entry[%02d].STATUS=3D0x%016llx\n",
+                 idx, entry->regs[MCA_REG_IDX_STATUS]);
+-       dev_info(adev->dev, "[Hardware error] aca entry[%02d].ADDR=3D0x%016=
+llx\n",
++       dev_info(adev->dev, HW_ERR "aca entry[%02d].ADDR=3D0x%016llx\n",
+                 idx, entry->regs[MCA_REG_IDX_ADDR]);
+-       dev_info(adev->dev, "[Hardware error] aca entry[%02d].MISC0=3D0x%01=
+6llx\n",
++       dev_info(adev->dev, HW_ERR "aca entry[%02d].MISC0=3D0x%016llx\n",
+                 idx, entry->regs[MCA_REG_IDX_MISC0]);
+-       dev_info(adev->dev, "[Hardware error] aca entry[%02d].IPID=3D0x%016=
+llx\n",
++       dev_info(adev->dev, HW_ERR "aca entry[%02d].IPID=3D0x%016llx\n",
+                 idx, entry->regs[MCA_REG_IDX_IPID]);
+-       dev_info(adev->dev, "[Hardware error] aca entry[%02d].SYND=3D0x%016=
+llx\n",
++       dev_info(adev->dev, HW_ERR "aca entry[%02d].SYND=3D0x%016llx\n",
+                 idx, entry->regs[MCA_REG_IDX_SYND]);  }
 
-When I first read this code, it seemed to say: "If the prop is not
-FB_ID, then do the usual prop change checking that happens on all
-changes, not only async.". Reading this patch a few more times over, I
-finally realized drm_atomic_check_prop_changes() is about async
-specifically.
+--
+2.34.1
 
-> +	}
-> +
-> +	if (plane_state->plane->type !=3D DRM_PLANE_TYPE_PRIMARY) {
-> +		drm_dbg_atomic(prop->dev,
-> +			       "[OBJECT:%d] Only primary planes can be changed during async f=
-lip\n",
-> +			       obj->id);
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> =20
->  int drm_atomic_set_property(struct drm_atomic_state *state,
->  			    struct drm_file *file_priv,
-> @@ -1100,7 +1137,6 @@ int drm_atomic_set_property(struct drm_atomic_state=
- *state,
->  	case DRM_MODE_OBJECT_PLANE: {
->  		struct drm_plane *plane =3D obj_to_plane(obj);
->  		struct drm_plane_state *plane_state;
-> -		struct drm_mode_config *config =3D &plane->dev->mode_config;
-> =20
->  		plane_state =3D drm_atomic_get_plane_state(state, plane);
->  		if (IS_ERR(plane_state)) {
-> @@ -1108,19 +1144,11 @@ int drm_atomic_set_property(struct drm_atomic_sta=
-te *state,
->  			break;
->  		}
-> =20
-> -		if (async_flip && prop !=3D config->prop_fb_id) {
-> -			ret =3D drm_atomic_plane_get_property(plane, plane_state,
-> -							    prop, &old_val);
-> -			ret =3D drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
-> -			break;
-> -		}
-> -
-> -		if (async_flip && plane_state->plane->type !=3D DRM_PLANE_TYPE_PRIMARY=
-) {
-> -			drm_dbg_atomic(prop->dev,
-> -				       "[OBJECT:%d] Only primary planes can be changed during async =
-flip\n",
-> -				       obj->id);
-> -			ret =3D -EINVAL;
-> -			break;
-> +		if (async_flip) {
-> +			ret =3D drm_atomic_check_plane_changes(prop, plane, plane_state,
-
-Should there be "async" somewhere in the name of
-drm_atomic_check_plane_changes()?
-
-
-Thanks,
-pq
-
-> +							     obj, prop_value, old_val);
-> +			if (ret)
-> +				break;
->  		}
-> =20
->  		ret =3D drm_atomic_plane_set_property(plane,
-> diff --git a/include/drm/drm_atomic_uapi.h b/include/drm/drm_atomic_uapi.h
-> index 4c6d39d7bdb2..d65fa8fbbca0 100644
-> --- a/include/drm/drm_atomic_uapi.h
-> +++ b/include/drm/drm_atomic_uapi.h
-> @@ -29,6 +29,8 @@
->  #ifndef DRM_ATOMIC_UAPI_H_
->  #define DRM_ATOMIC_UAPI_H_
-> =20
-> +#include <linux/types.h>
-> +
->  struct drm_crtc_state;
->  struct drm_display_mode;
->  struct drm_property_blob;
-> @@ -37,6 +39,9 @@ struct drm_crtc;
->  struct drm_connector_state;
->  struct dma_fence;
->  struct drm_framebuffer;
-> +struct drm_mode_object;
-> +struct drm_property;
-> +struct drm_plane;
-> =20
->  int __must_check
->  drm_atomic_set_mode_for_crtc(struct drm_crtc_state *state,
-> @@ -53,4 +58,11 @@ int __must_check
->  drm_atomic_set_crtc_for_connector(struct drm_connector_state *conn_state,
->  				  struct drm_crtc *crtc);
-> =20
-> +int drm_atomic_plane_get_property(struct drm_plane *plane,
-> +				  const struct drm_plane_state *state,
-> +				  struct drm_property *property, uint64_t *val);
-> +
-> +int drm_atomic_check_prop_changes(int ret, uint64_t old_val, uint64_t pr=
-op_value,
-> +				  struct drm_property *prop);
-> +
->  #endif
-> diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-> index c6565a6f9324..73dac8d76831 100644
-> --- a/include/drm/drm_plane.h
-> +++ b/include/drm/drm_plane.h
-> @@ -540,6 +540,11 @@ struct drm_plane_funcs {
->  	 */
->  	bool (*format_mod_supported)(struct drm_plane *plane, uint32_t format,
->  				     uint64_t modifier);
-> +
-> +	int (*check_async_props)(struct drm_property *prop, struct drm_plane *p=
-lane,
-> +				 struct drm_plane_state *plane_state,
-> +				 struct drm_mode_object *obj,
-> +				 u64 prop_value, u64 old_val);
->  };
-> =20
->  /**
-
-
---Sig_/CyNE1g.rxLQR/tPHNy8jH2s
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmW3Zp4ACgkQI1/ltBGq
-qqc8ehAAooc9fYyi2pAyuNuCwLMhuUV+A791NMTj40g1r5gP0brsb6TlW+iX8+Ge
-rNYw4wHQRPKqAhhd/JywuMR1YP/tRHLrOZiG2381ZWk8QJmhW6aT1Q3RtojeraxK
-ubNMvzadC7Di6VmkKVvH/9rLgCs79Brz2nAEAPCdEWJ/Q4fiXhajk8maKM4Zf21l
-q3+AVBpIbP0OFpvw+HKu1EkDV8TdlWHRJYebWR+ju5L7LxDStSL5PuUFNA2TFWbG
-kQfpoS4TLmeM2BA4GjaADB32mo5a6y6GEAHolGsp9AHxRrCaN0+wCLObNmCgz/Xs
-EcylMgMUvHWJuL9Nhr2UzDwb668fJa2Drirmx62bXubjsmqTEMACvmdiLtYNPFHd
-tmrskOq2jquNsYdSOO1lyNsrU5wL27mOR2qkY/L/niMKtKOxD+e7SNzYe8YiJDAT
-gup/t+jSEVj5uEP9Fh5KWQLjGpv5M7ZOx4El3BZ5OfmD48lEkUWm4Ol4Cvwgn79d
-7+x62h69VWFskO05OLt/c7rkCiPxMwl6JDQA7GXSS5lAkjFVfrlIPDlT62E7xWTm
-TH0gdwCKbZNh81QuZ7hxKX6GLyk5Z9Ir5SzX8kHRdnMENiyKWLtW9rIvj7nCCgli
-PMckBk7wycSe6xUZkDBsDsJpreMhNDu/oXn1Tl+unqMWmfStaUk=
-=19nM
------END PGP SIGNATURE-----
-
---Sig_/CyNE1g.rxLQR/tPHNy8jH2s--
