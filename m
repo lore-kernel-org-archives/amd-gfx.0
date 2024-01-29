@@ -4,53 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FD24C47422
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jan 2024 09:39:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA8F8C47422
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jan 2024 10:06:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88CED1127D6;
-	Mon, 29 Jan 2024 09:39:41 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DF6010F6A8;
- Mon, 29 Jan 2024 09:39:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706521180; x=1738057180;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=vUokWzEw5+VC5jpC2OPRStu+GWoiZ2lrs+sppMiHM5k=;
- b=DiK3P93Zk8DZxJKkBJbtJAt8nTd9VgOgq7WddB1boej3/y6zu/jB2mje
- 6JDWppiqXnjdTecPIZXMGZo9ZhuFFQlM94aJXZSKA1Beqv0VJauX4SISr
- JR2qFdiFacmO7UEoCE3+kkoCS/X4ftQ9jehGMpnw4NlsLFdy+bzRWOU2X
- LERX/xLMjhEHsWg6TJEvcOJkPD/wQz/0spT3pQg1Ukw/utktXB/hTYI5O
- y7kt6rHEYJp51yL8q7RpnWAjT0tehKjfSPXwk8Sw0mke1JwHqWz1U9fmq
- AxqX1vv6/GoyRh+8IoIRnfjpBeV2aKqkveLhYG8x6PClWmjVU1+u8nhj6 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10967"; a="9650777"
-X-IronPort-AV: E=Sophos;i="6.05,226,1701158400"; 
-   d="scan'208";a="9650777"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2024 01:39:39 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.05,226,1701158400"; 
-   d="scan'208";a="3246388"
-Received: from hbrandbe-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.59.53])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2024 01:39:34 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, "Rafael J . Wysocki"
- <rafael@kernel.org>, Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH 2/2] drm/amd: Fetch the EDID from _DDC if available for eDP
-In-Reply-To: <20240126184639.8187-3-mario.limonciello@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240126184639.8187-1-mario.limonciello@amd.com>
- <20240126184639.8187-3-mario.limonciello@amd.com>
-Date: Mon, 29 Jan 2024 11:39:32 +0200
-Message-ID: <87le88jx63.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72A3B10F6D9;
+	Mon, 29 Jan 2024 10:06:32 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2067.outbound.protection.outlook.com [40.107.244.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27C2010F6D9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jan 2024 10:06:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oF8LM4RGND1xEFdJUE1hS3HRfguEsTx2ptdgb96FtE+YxRwPzCsXWP9205g+Y0bx+k/fmcWM7jHQUl0TSRozuj+4F3UHYXVSDyQa9EYjBfPL4IcPJoXbmmSLQmqSKFU3TwwSe7Bk4EyUOXrbmUZiIQ0wKzbUY/57NnoeHG+QFxpPe6uO3XL1p2vwG97xn1S4j2+cO3chiXE8AW3CIo9RuqhIyB2ij9H6oIE46xB535+Ht6RdJBd3MWL9/ESPSfLGkMZ3BePRhrZ3WSE2n2PiPDJytID1ZWc5VImh3iaaJBdL67HA+zBtpXeVn/FWxdo3XOnX8JegiSmrti7dosZlCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qEC/4jFyy+ggpRv/76Q4RUlsSifsKviwjHL6vGewiOs=;
+ b=jHzkuKWaqtL/CxslpdDzHprVerXih9RK7a5aTRmGKcyRFdrH0r3yS1g6EcZG2/tVLvjsuLux4zbNR+KxwBDZD0gnWFwzVPi4iiF/d0AHIwd2mng+ODR8RVtomFvWTucN20eHMtA23g1J46dBANKJsCoYJ+NLloPhi38TKXwG3FeDzAr8h8ZdmxsSuX3ul41WiCXljIy213W/QX3DoWEAafEdl0xTS2RVCg8cejTRBGez51XXPV6OjmrZTeJsS/aS7S5WgNHJit6mRI0MhDFexzYPw8GVS6Hz3NLzWjwWkCPdPJJyDUzV5DiTretkYP6jU2FpSvtx2wLLUXy+UbynTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qEC/4jFyy+ggpRv/76Q4RUlsSifsKviwjHL6vGewiOs=;
+ b=kMc7y39IQzTQnG9Aax0SxNnKssCIH/+Qf6NwijLfnDIVCl/o61SgU6Fvwqx6IqVlVArQCFWDGpPtLGeYiTaWzUuVF/c6+xPcigzNIkV0RraItcpDgqnIil/k4nELxkjWjprIIq9FxzK6azjPiWn2xitFnm1bwaYbNgDYJ/fjrwg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM6PR12MB4267.namprd12.prod.outlook.com (2603:10b6:5:21e::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.32; Mon, 29 Jan
+ 2024 10:06:22 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7228.029; Mon, 29 Jan 2024
+ 10:06:22 +0000
+Message-ID: <e128767a-9980-4892-a8bc-9acc206dd84e@amd.com>
+Date: Mon, 29 Jan 2024 11:06:17 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Support >=4GB GTT memory mapping
+Content-Language: en-US
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20240126194721.18853-1-Philip.Yang@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240126194721.18853-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0176.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b4::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4267:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb90576f-546d-43bf-8bed-08dc20b1f1e7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hfeLDmd3ZGNDCecOuOokFsQ/RT7b/svSqBSTf+wq8Zbzu04PFswabBlCxsF19OMALn2lsjen2rttGlZDELcuueFA8u0ZuB5hGRkSNXqSzWH1jb64WgvScnHa1WI2ML6L6auf4EZpiEp2YE0KGkACwbGCdMBxZB9Ggc5/UTnUeN6Va9Q7GmjBUaLQb07lCUv3CiVbU9EPxiAe1Cktvk6oOX1wEgRnFT0qBO4cIUb17p9uDZtzZ3DKbWb6SslQBRmAmKlLqaGJs0DwwF0yzI4bWlzXBAHuoCqFzkgvGRyakN1StwfvNXEd5OvSrFGNE87imhwnhBLUnUAH4dyuSy2vo0Obri6TOw+X4TMfyhHWCoqQmskJ7wVw2qC8znZwpU7Ji3TIPGaxAaQroO2aMNUvAosZ6hJpljzPEk39amGPSWuIo1MdM2vk/nOq5CPxGuISn84FeMNFH0NtkRUNETEjtwHDnUOgwBCXskaMcN2jow15smte9ZFo/lxLP9dasSVAy+BiyMq624HW1AETGimBKt7QYcMAb3Dgb2PSVKU2S4obPEJJ1gcXxp3YGn4iBTX+tOt1WCONduyr/SuIeM9v9r+kJunFkBS1x5sTxb548pcgvNECeGA2qCdjDQuuBo+ImlmHbhiMtQV7Y5KzThjOpw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(346002)(396003)(136003)(366004)(39860400002)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(83380400001)(6512007)(2616005)(38100700002)(26005)(8676002)(8936002)(5660300002)(4326008)(2906002)(478600001)(6486002)(6506007)(66476007)(66556008)(66946007)(6666004)(316002)(41300700001)(31696002)(86362001)(36756003)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0ZZTHdrdkZTMGZvdUs4Z0h0Y3pKSUNXc05YR0E4a3NPMWtZVmRCeDQ4cHdw?=
+ =?utf-8?B?djY0b0FsYXo3a2pjSzJScFpFQ1ZHYjMySThJa3BldmkrMk41VFU2enExeS9j?=
+ =?utf-8?B?K3VkaHkyc0Q4a21hNTNmTXgvVHdsMEJYNEhyTWoydEZRVndaM2gzcmdlbSt5?=
+ =?utf-8?B?Tk9WeUg3UkhmTkdpaUlsTjNQRmI4Z3dSUzZXK2RsUTZ3cVE5NGFkeFdBWXZI?=
+ =?utf-8?B?bFRXaXUyRkx6NXRFNlEyOU92ZSs3WEJKOU45NzJiQWc1VmpiVmdva3VDMDJa?=
+ =?utf-8?B?V1djU01IOEZhQTFoMDRPcldtYjFZdEltUTIvQ2s3YnptQzFLRmFDc0lHbFFC?=
+ =?utf-8?B?VUYxeFVqUHRLZ01LY3Z1bzFjMG1EeDhzUkJTYjRlT0F6R3lLd3hGMzBwRHFI?=
+ =?utf-8?B?TllSQUhGaFVSVFdsNWR2RHp3b1FMYlVrSXVnSGlVUkd2enZqbzFqbVpKSUFO?=
+ =?utf-8?B?d3NyL1lWaVYvelk4bjZUWGpvZ3Zpd3hRQUN2MFdGSjR6NEhEdzdPc1dXTTNY?=
+ =?utf-8?B?Y2wrMy9wUVVVV3QxUDZwaWl4MUNJckVMcjNCMjZ5Rnl2SlRBbFpxOUQwekNY?=
+ =?utf-8?B?aFZ6TDlMM092OWkwNW1CcTVtYzEvMWtRSkF0Z2EydG5RZUlMUHRlSjhZcmdR?=
+ =?utf-8?B?L3BsNzJibnVqTk9sK1h2ZG4vVUF6R3dhNHY2aUlMMWxteDVuRVpoY1poc2xa?=
+ =?utf-8?B?eUR2aTRYZkt3bi91RVJJNG9mUFF0ZVlYSEdoRFF4ejJHdEhpU3VMa0JncTZj?=
+ =?utf-8?B?anJ6NndQc2FaRTMrcSsrNm5GRXR5Z0FYV0lGSEZKemIwM0xhbXZ4TkRFMDJk?=
+ =?utf-8?B?SzFKRDI2b2d6WUVjQ0RHU2pBU3NmVjBVdGNxVWlZK2hHM25aYzhGU0JFVEhU?=
+ =?utf-8?B?VkVUTXdNRUNxOG53N1BYeVk4L056M3FHNnFacTFOa1NuQzZtaVRxeTFNOTQy?=
+ =?utf-8?B?WHNzSTBCY1R6RWorL2grV1NvMkpQSG90YWdDOUZ5Ui81UTAzT25hZzFXQ2Nz?=
+ =?utf-8?B?cGFsUzQreEtjTHNZOFdLUFdRTXpvdFRRTFlTSjdra3RJQTJRaVQ5S0ZYOGJx?=
+ =?utf-8?B?VVFoRElGVmEwdzkyZEh5aEpEcFl0UGMyK2dTVEdvU09SVUp6ZXpFdmc1anNl?=
+ =?utf-8?B?OFpUMk4vMjZ6L01xYU1NR3E0RFZCMnVNemRkR21pditDZVdPbFJqK3FtdWxj?=
+ =?utf-8?B?bjJNUDFUbnBTd0RxYk1iMTBuTkE1K0VCb3RySkVSR2lzUDlRU1NFeDA5SHg1?=
+ =?utf-8?B?RzlsYVd6Z2laWUlqWHR5anRLNnF5UWg2ajNkQlBBUXJBRGZvcFdFQnc5anF1?=
+ =?utf-8?B?aFZWWmptZHpGcmpoU1VKY0RqUTg0NEpFUVU1OFdZaDV3RE1QWmRqTHBjalV1?=
+ =?utf-8?B?cVE5blg2T0s0a1lCWWIvZGVJeG5sdFA3TCtYVm5OalhPS2FJQzh3elhTRnRr?=
+ =?utf-8?B?TWUweWZwWGpYdGJIY21VbDFxQ2EzSDJhTzBINUJRWi9RWkVPZVVqNU1ZRkw3?=
+ =?utf-8?B?M3J6aFNYVVZnRnFzU2pSNlpXZitwdEZHTzdBVUpVTXBBdTlGTmdQbzFkbldM?=
+ =?utf-8?B?eDlXaFJvOXNXUmk0KzFGcEkzUkVXdDhvNm1PMnJxa1I3Y2J5d3FTaXMzQlFa?=
+ =?utf-8?B?REk5MEc2aDYySlBxSmpSakxFVjU2WU1abjV1eXVhUittNWdnbkN2ZVEvcytK?=
+ =?utf-8?B?d2RWZGt4TmV0ODVGWDR2OTN0VW5VR0VrTlg0M3d4bXBtSTExNlJZS1Vsb3BF?=
+ =?utf-8?B?SEFIUDVlV2hPU044d2lUdjQ3Z1NqRDdaNWc3SElvVkxFUWNBTTlQN3JiYWhN?=
+ =?utf-8?B?dlhhTU1lWFFMM1hjWU9nRDlSUXpoQnlTbEg4NW5MeXpsUHh3ZnJad1BYVmtN?=
+ =?utf-8?B?UzJzKzlMSnUwRE1JaDZNeEpyWC9KWElVQ3ZkWmpQRFkvUG5YNzRYVSswaHJh?=
+ =?utf-8?B?TGo5a3BrRVBVajNTRldpdGpQNGNiTVNibGx0V0RWbEJOQnIrbDFBd3R5cGUy?=
+ =?utf-8?B?ckNTU0FRampZSzEreGc0dXlaM1docFFTa2FURkErb0tUVkNWd2l3UXlJNWxO?=
+ =?utf-8?B?OGw2NllxYnN3ZkFrMjltYnRramsrQzdpSXM2L1FpdUU3Z1lYMnQrNldSRGor?=
+ =?utf-8?Q?7x1U=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb90576f-546d-43bf-8bed-08dc20b1f1e7
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2024 10:06:22.1425 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pLwtQY+ZENDPWb7T4+kIdgg+VXMRilGSytSXl973XKn+oy/s8r5TV5SUfFeeg7JZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4267
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,183 +122,97 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: open list <linux-kernel@vger.kernel.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- Melissa Wen <mwen@igalia.com>, "open
- list:ACPI" <linux-acpi@vger.kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>
+Cc: Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 26 Jan 2024, Mario Limonciello <mario.limonciello@amd.com> wrote:
-> Some manufacturers have intentionally put an EDID that differs from
-> the EDID on the internal panel on laptops.
+Am 26.01.24 um 20:47 schrieb Philip Yang:
+> This is to work around a bug in function drm_prime_pages_to_sg if length
+> of nr_pages >= 4GB, by doing the same check for max_segment and then
+> calling sg_alloc_table_from_pages_segment directly instead.
 >
-> Attempt to fetch this EDID if it exists and prefer it over the EDID
-> that is provided by the panel.
+> This issue shows up on APU because VRAM is allocated as GTT memory. It
+> also fixes >=4GB GTT memory mapping for mGPUs with IOMMU isolation mode.
+
+Well that was talked about before and rejected. If we really want more 
+than 4GiB in DMA-bufs we need to fix drm_prime_pages_to_sg() instead.
+
+Regards,
+Christian.
+
 >
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  2 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c      | 30 +++++++++++++++++++
->  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    |  5 ++++
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++++-
->  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  7 +++--
->  5 files changed, 49 insertions(+), 3 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 50 ++++++++++++++-------
+>   1 file changed, 34 insertions(+), 16 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index c5f3859fd682..99abe12567a4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1520,6 +1520,7 @@ int amdgpu_acpi_get_mem_info(struct amdgpu_device *adev, int xcc_id,
->  
->  void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_caps *caps);
->  bool amdgpu_acpi_should_gpu_reset(struct amdgpu_device *adev);
-> +void *amdgpu_acpi_edid(struct amdgpu_device *adev, struct drm_connector *connector);
->  void amdgpu_acpi_detect(void);
->  void amdgpu_acpi_release(void);
->  #else
-> @@ -1537,6 +1538,7 @@ static inline int amdgpu_acpi_get_mem_info(struct amdgpu_device *adev,
->  }
->  static inline void amdgpu_acpi_fini(struct amdgpu_device *adev) { }
->  static inline bool amdgpu_acpi_should_gpu_reset(struct amdgpu_device *adev) { return false; }
-> +static inline void *amdgpu_acpi_edid(struct amdgpu_device *adev, struct drm_connector *connector) { return NULL; }
->  static inline void amdgpu_acpi_detect(void) { }
->  static inline void amdgpu_acpi_release(void) { }
->  static inline bool amdgpu_acpi_is_power_shift_control_supported(void) { return false; }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> index e550067e5c5d..c106335f1f22 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> @@ -1380,6 +1380,36 @@ bool amdgpu_acpi_should_gpu_reset(struct amdgpu_device *adev)
->  #endif
->  }
->  
-> +/**
-> + * amdgpu_acpi_edid
-> + * @adev: amdgpu_device pointer
-> + * @connector: drm_connector pointer
-> + *
-> + * Returns the EDID used for the internal panel if present, NULL otherwise.
-> + */
-> +void *
-> +amdgpu_acpi_edid(struct amdgpu_device *adev, struct drm_connector *connector)
-> +{
-> +	struct drm_device *ddev = adev_to_drm(adev);
-> +	struct acpi_device *acpidev = ACPI_COMPANION(ddev->dev);
-> +	void *edid;
-> +	int r;
-> +
-> +	if (!acpidev)
-> +		return NULL;
-> +
-> +	if (connector->connector_type != DRM_MODE_CONNECTOR_eDP)
-> +		return NULL;
-> +
-> +	r = acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, &edid);
-> +	if (r < 0) {
-> +		DRM_DEBUG_DRIVER("Failed to get EDID from ACPI: %d\n", r);
-> +		return NULL;
-> +	}
-> +
-> +	return kmemdup(edid, r, GFP_KERNEL);
-> +}
-> +
->  /*
->   * amdgpu_acpi_detect - detect ACPI ATIF/ATCS methods
->   *
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> index 9caba10315a8..c7e1563a46d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> @@ -278,6 +278,11 @@ static void amdgpu_connector_get_edid(struct drm_connector *connector)
->  	struct amdgpu_device *adev = drm_to_adev(dev);
->  	struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(connector);
->  
-> +	if (amdgpu_connector->edid)
-> +		return;
-> +
-> +	/* if the BIOS specifies the EDID via _DDC, prefer this */
-> +	amdgpu_connector->edid = amdgpu_acpi_edid(adev, connector);
-
-Imagine the EDID returned by acpi_video_get_edid() has edid->extensions
-bigger than 4. Of course it should not, but you have no guarantees, and
-it originates outside of the kernel.
-
-The real fix is to have the function return a struct drm_edid which
-tracks the allocation size separately. Unfortunately, it requires a
-bunch of changes along the way. We've mostly done it in i915, and I've
-sent a series to do this in drm/bridge [1].
-
-Bottom line, we should stop using struct edid in drivers. They'll all
-parse the info differently, and from what I've seen, often wrong.
-
-
-BR,
-Jani.
-
-
-[1] https://patchwork.freedesktop.org/series/128149/
-
-
->  	if (amdgpu_connector->edid)
->  		return;
->  
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index cd98b3565178..1faa21f542bd 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6562,17 +6562,23 @@ static void amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
->  {
->  	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
->  	struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(connector);
-> +	struct amdgpu_device *adev = drm_to_adev(connector->dev);
->  	struct dc_link *dc_link = aconnector->dc_link;
->  	struct dc_sink *dc_em_sink = aconnector->dc_em_sink;
->  	struct edid *edid;
->  
-> +	/* prefer ACPI over panel for eDP */
-> +	edid = amdgpu_acpi_edid(adev, connector);
-> +
->  	/*
->  	 * Note: drm_get_edid gets edid in the following order:
->  	 * 1) override EDID if set via edid_override debugfs,
->  	 * 2) firmware EDID if set via edid_firmware module parameter
->  	 * 3) regular DDC read.
->  	 */
-> -	edid = drm_get_edid(connector, &amdgpu_connector->ddc_bus->aux.ddc);
-> +	if (!edid)
-> +		edid = drm_get_edid(connector, &amdgpu_connector->ddc_bus->aux.ddc);
-> +
->  	if (!edid) {
->  		DRM_ERROR("No EDID found on connector: %s.\n", connector->name);
->  		return;
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index e3915c4f8566..6bf2a8867e76 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -895,6 +895,7 @@ enum dc_edid_status dm_helpers_read_local_edid(
->  {
->  	struct amdgpu_dm_connector *aconnector = link->priv;
->  	struct drm_connector *connector = &aconnector->base;
-> +	struct amdgpu_device *adev = drm_to_adev(connector->dev);
->  	struct i2c_adapter *ddc;
->  	int retry = 3;
->  	enum dc_edid_status edid_status;
-> @@ -909,8 +910,10 @@ enum dc_edid_status dm_helpers_read_local_edid(
->  	 * do check sum and retry to make sure read correct edid.
->  	 */
->  	do {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> index 055ba2ea4c12..a203633fd629 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> @@ -171,18 +171,41 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+>   	}
+>   
+>   	switch (bo->tbo.resource->mem_type) {
+> -	case TTM_PL_TT:
+> -		sgt = drm_prime_pages_to_sg(obj->dev,
+> -					    bo->tbo.ttm->pages,
+> -					    bo->tbo.ttm->num_pages);
+> -		if (IS_ERR(sgt))
+> -			return sgt;
 > -
-> -		edid = drm_get_edid(&aconnector->base, ddc);
-> +		/* prefer ACPI over panel for eDP */
-> +		edid = amdgpu_acpi_edid(adev, connector);
-> +		if (!edid)
-> +			edid = drm_get_edid(&aconnector->base, ddc);
->  
->  		/* DP Compliance Test 4.2.2.6 */
->  		if (link->aux_mode && connector->edid_corrupt)
+> -		if (dma_map_sgtable(attach->dev, sgt, dir,
+> -				    DMA_ATTR_SKIP_CPU_SYNC))
+> -			goto error_free;
+> -		break;
+> +	case TTM_PL_TT: {
+> +		size_t max_segment = 0;
+> +		u64 num_pages;
+> +		int err;
+> +
+> +		sgt = kmalloc(sizeof(*sgt), GFP_KERNEL);
+> +		if (!sgt)
+> +			return ERR_PTR(-ENOMEM);
+> +
+> +		if (obj->dev)
+> +			max_segment = dma_max_mapping_size(obj->dev->dev);
+> +		if (max_segment == 0)
+> +			max_segment = UINT_MAX;
+> +
+> +		/*
+> +		 * Use u64, otherwise if length of num_pages >= 4GB then size
+> +		 * (num_pages << PAGE_SHIFT) becomes 0
+> +		 */
+> +		num_pages = bo->tbo.ttm->num_pages;
+> +		err = sg_alloc_table_from_pages_segment(sgt, bo->tbo.ttm->pages,
+> +							num_pages, 0,
+> +							num_pages << PAGE_SHIFT,
+> +							max_segment, GFP_KERNEL);
+> +		if (err) {
+> +			kfree(sgt);
+> +			return ERR_PTR(err);
+> +		}
+>   
+> +		if (dma_map_sgtable(attach->dev, sgt, dir, DMA_ATTR_SKIP_CPU_SYNC)) {
+> +			sg_free_table(sgt);
+> +			kfree(sgt);
+> +			return ERR_PTR(-EBUSY);
+> +		}
+> +		break;
+> +	}
+>   	case TTM_PL_VRAM:
+>   		r = amdgpu_vram_mgr_alloc_sgt(adev, bo->tbo.resource, 0,
+>   					      bo->tbo.base.size, attach->dev,
+> @@ -195,11 +218,6 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+>   	}
+>   
+>   	return sgt;
+> -
+> -error_free:
+> -	sg_free_table(sgt);
+> -	kfree(sgt);
+> -	return ERR_PTR(-EBUSY);
+>   }
+>   
+>   /**
 
--- 
-Jani Nikula, Intel
