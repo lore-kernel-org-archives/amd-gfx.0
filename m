@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAB45C48286
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 15:05:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 197D3C48285
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 15:05:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D11731131B9;
-	Tue, 30 Jan 2024 15:05:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 503FB1131BD;
+	Tue, 30 Jan 2024 15:05:33 +0000 (UTC)
 Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
  [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE8531131AD;
- Tue, 30 Jan 2024 15:05:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB5381131BB;
+ Tue, 30 Jan 2024 15:05:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1706627121;
- bh=zvEHPqsSi2mmxgkeDkWSdLIXDtcP/2UPBIsgY7QDhVY=;
+ s=mail; t=1706627100;
+ bh=Kl6yFDA/A15PY0gUzrkPNTp3zRS8n6hwMIq/eK6dgX8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Y7I63n76OUj2pQJtD1zFNyuejbbnbSQjLkRcqs1py3PAdTlydMWXOuLzFG/U0BrnZ
- UZvuWMaeg5fUJD3rSHYjv4Dv8vKhuun4Y7Dy4PFU1rUPBlU3H3TVFP/m/kRE/fr0CP
- G0bH++zt1joHs40Qm5t2dZv4x7KC5ckUJRBHe1MDD4KU91KdBPi9M/FHZNQjO/WfGD
- woiqQU78fHzMqoJFCPd1gnkSC6z7GIVH7Fik5fr7EI38640Guo22f1Vujc7Vk8b+ZK
- PEzBqpEP1rvy8JabfDq+FV+F2OyeUR1h0yOQp4D2qcrF49IAKeJY9I7+5FKriXJXQ1
- 71AZ4qqHLF8Hg==
+ b=1X3C+HkzNDbtP6LME1atyrCylDISIKQQD3ylVziKc00A9IjEowuu7umIky664byg/
+ BNNBe83FVmRWU7h+bduWiJqoB6WasXr/gCJFXd/16PTPinSg555PFmC4ruy54EU85w
+ gbxkP42eUs1e/BnPvB7zgjmqpM5CTi+S+53Kjb23n01RxZlU4pzsVkLYpbRBHsMr1L
+ yB34TRDZz0UMzoFoqGYTtVwHOeexHqoGDENEXIifgvtTg53q7MWvRW1Pk7Cy9zvPs4
+ WC6ItQIQ6mRsI7gkpjCqEZQ0C2s3fvi/KOJ/4gt9Y3aFrgN5USqMYf9WdgrCmwxqU9
+ oMX/0UiRYoRxA==
 Received: from localhost.localdomain (cola.collaboradmins.com [195.201.22.229])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: vignesh)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id E0EAE3782089;
- Tue, 30 Jan 2024 15:05:16 +0000 (UTC)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 035B53781FC7;
+ Tue, 30 Jan 2024 15:04:55 +0000 (UTC)
 From: Vignesh Raman <vignesh.raman@collabora.com>
 To: dri-devel@lists.freedesktop.org
-Subject: [PATCH v3 5/9] drm/ci: meson: Add job to test panfrost GPU driver
-Date: Tue, 30 Jan 2024 20:33:36 +0530
-Message-Id: <20240130150340.687871-6-vignesh.raman@collabora.com>
+Subject: [PATCH v3 1/9] drm/ci: arm64.config: Enable
+ CONFIG_DRM_ANALOGIX_ANX7625
+Date: Tue, 30 Jan 2024 20:33:32 +0530
+Message-Id: <20240130150340.687871-2-vignesh.raman@collabora.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240130150340.687871-1-vignesh.raman@collabora.com>
 References: <20240130150340.687871-1-vignesh.raman@collabora.com>
@@ -59,63 +60,38 @@ Cc: linux-rockchip@lists.infradead.org, guilherme.gallo@collabora.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For amlogic meson SOC the GPU driver is panfrost. So add
-support in drm-ci to test panfrost driver for amlogic meson
-SOC and update xfails. Skip KMS tests for panfrost driver
-since it is not a not a KMS driver.
+Enable CONFIG_DRM_ANALOGIX_ANX7625 in the arm64 defconfig to get
+display driver probed on the mt8183-kukui-jacuzzi-juniper machine.
+
+arch/arm64/configs/defconfig has CONFIG_DRM_ANALOGIX_ANX7625=m,
+but drm-ci don't have initrd with modules, so add
+CONFIG_DRM_ANALOGIX_ANX7625=y in CI arm64 config.
 
 Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
 ---
 
 v2:
-  - Add panfrost GPU jobs for amlogic meson SOC with new xfails.
+  - No changes
 
 v3:
-  - Skip KMS tests for panfrost driver since it is not a not a KMS
-    driver and update xfails. Add the job name in GPU_VERSION and use
-    it for xfail file names instead of using DRIVER_NAME.
+  - No changes
 
 ---
- drivers/gpu/drm/ci/test.yml                        | 7 +++++++
- drivers/gpu/drm/ci/xfails/meson-g12b-gpu-fails.txt | 1 +
- drivers/gpu/drm/ci/xfails/meson-g12b-gpu-skips.txt | 2 ++
- 3 files changed, 10 insertions(+)
- create mode 100644 drivers/gpu/drm/ci/xfails/meson-g12b-gpu-fails.txt
- create mode 100644 drivers/gpu/drm/ci/xfails/meson-g12b-gpu-skips.txt
+ drivers/gpu/drm/ci/arm64.config | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
-index bf4c303a65f2..f4053bc0e365 100644
---- a/drivers/gpu/drm/ci/test.yml
-+++ b/drivers/gpu/drm/ci/test.yml
-@@ -358,6 +358,13 @@ mediatek:mt8183-display:
-     DEVICE_TYPE: meson-g12b-a311d-khadas-vim3
-     RUNNER_TAG: mesa-ci-x86-64-lava-meson-g12b-a311d-khadas-vim3
+diff --git a/drivers/gpu/drm/ci/arm64.config b/drivers/gpu/drm/ci/arm64.config
+index 8dbce9919a57..37d23fd7a367 100644
+--- a/drivers/gpu/drm/ci/arm64.config
++++ b/drivers/gpu/drm/ci/arm64.config
+@@ -187,6 +187,7 @@ CONFIG_MTK_DEVAPC=y
+ CONFIG_PWM_MTK_DISP=y
+ CONFIG_MTK_CMDQ=y
+ CONFIG_REGULATOR_DA9211=y
++CONFIG_DRM_ANALOGIX_ANX7625=y
  
-+meson:g12b-gpu:
-+  extends:
-+    - .g12b
-+  variables:
-+    GPU_VERSION: meson-g12b-gpu
-+    DRIVER_NAME: panfrost
-+
- meson:g12b-display:
-   extends:
-     - .g12b
-diff --git a/drivers/gpu/drm/ci/xfails/meson-g12b-gpu-fails.txt b/drivers/gpu/drm/ci/xfails/meson-g12b-gpu-fails.txt
-new file mode 100644
-index 000000000000..6f5e760d5ec0
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/meson-g12b-gpu-fails.txt
-@@ -0,0 +1 @@
-+panfrost_prime@gem-prime-import,Fail
-diff --git a/drivers/gpu/drm/ci/xfails/meson-g12b-gpu-skips.txt b/drivers/gpu/drm/ci/xfails/meson-g12b-gpu-skips.txt
-new file mode 100644
-index 000000000000..2ea09d1648bc
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/meson-g12b-gpu-skips.txt
-@@ -0,0 +1,2 @@
-+# Panfrost is not a KMS driver, so skip the KMS tests
-+kms_.*
+ # For nouveau.  Note that DRM must be a module so that it's loaded after NFS is up to provide the firmware.
+ CONFIG_ARCH_TEGRA=y
 -- 
 2.40.1
 
