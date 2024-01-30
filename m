@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9339C4828D
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 17:30:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 311D4C46CD2
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 17:33:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13A8111333B;
-	Tue, 30 Jan 2024 17:30:25 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 474421133D2;
- Tue, 30 Jan 2024 17:30:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C94C61133D5;
+	Tue, 30 Jan 2024 17:33:26 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81A291133D5;
+ Tue, 30 Jan 2024 17:33:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706635824; x=1738171824;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=olIIj8zvle/9+x+MAlxTh7nbmDBuEkKl/3nM+UCQXHg=;
- b=HHjs2Y57YzrevX7llLpRlKbK4lm6FflBDOGJdLcZuZw8NWcgU4/1+gqX
- 1HGMYKjKdMpkAPtg5NmAzZGnoyIByTvugnh8BmnV2fppB+MxPf/ztkdO2
- KcZ2ihy0mn+9vKhQ3MMyEKCvE5lwhog11h+ZQhUN1wu9qmxGCY5VaLEbQ
- 2cbr4KvFMqsWfCRxu8ejivrwHkZEayrHu0Npu8wvbpcl/WKaBBtuES3VC
- XFdUL0yu+zoU+Gshp28QoX7qWET8YmYwNY491l+tlBnw0KNKhLcw57c5+
- FRLo5gmx0dUsrD234eVqdE8rX6EBnOxSWDkk134HS26RWWM/deF4piNpM g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="434499750"
-X-IronPort-AV: E=Sophos;i="6.05,230,1701158400"; d="scan'208";a="434499750"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2024 08:22:56 -0800
+ t=1706636005; x=1738172005;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=KSB7tkjt5NHOnmeAWv0SsMQD2u1mtV1h5F6FvtwrSfA=;
+ b=MlslKQ274zB+ibApgm4TNPnHSnUNcVSN11XRFxG2SjHxlGTrLHEZzUJo
+ xeBRrb9ybL8zWgTIqEwWwFPjsyoKU/Bbv2Ioy4/f4hL49dlhYd3mFmfYT
+ qgQA82adxexGhFXgdrjwUH/OgYwNlssKRVQXjBA0hRwFfxoItzbLhyTEd
+ TWQ2AOW5InR8PruQhoVAwMOPp6Su99vdWsNRFZdDL5k/C/BAEdtSlCS+B
+ /ibAzycdr2HX/oOCm8fwYBKrCKscQiBOV1xnMw0W2g5yFzA7n76l3KEsq
+ 1+d31wJV3nmo0c68mClvuSF9THdtcFSxOWZFTuBGJENbqiU5PkOiWsVaN Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="402952826"
+X-IronPort-AV: E=Sophos;i="6.05,230,1701158400"; d="scan'208";a="402952826"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jan 2024 08:25:24 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.05,230,1701158400"; 
-   d="scan'208";a="3770654"
+X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="1119316361"
+X-IronPort-AV: E=Sophos;i="6.05,230,1701158400"; d="scan'208";a="1119316361"
 Received: from nkumi-mobl3.ger.corp.intel.com (HELO [10.213.210.105])
  ([10.213.210.105])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2024 08:22:55 -0800
-Message-ID: <240a7565-3cdc-4527-b896-9a94125b14dc@linux.intel.com>
-Date: Tue, 30 Jan 2024 16:22:53 +0000
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jan 2024 08:25:23 -0800
+Message-ID: <0259aab4-9f0d-4e79-a6ae-0bc026d12136@linux.intel.com>
+Date: Tue, 30 Jan 2024 16:25:23 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] Documentation/gpu: Update documentation on
- drm-shared-*
+Subject: Re: [PATCH 3/6] drm: update drm_show_memory_stats() for dma-bufs
 Content-Language: en-US
 To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, daniel@ffwll.ch
 References: <20240130161235.3237122-1-alexander.deucher@amd.com>
- <20240130161235.3237122-2-alexander.deucher@amd.com>
+ <20240130161235.3237122-4-alexander.deucher@amd.com>
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Organization: Intel Corporation UK Plc
-In-Reply-To: <20240130161235.3237122-2-alexander.deucher@amd.com>
+In-Reply-To: <20240130161235.3237122-4-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -64,34 +63,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Rob Clark <robdclark@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
+
 On 30/01/2024 16:12, Alex Deucher wrote:
-> Clarify the documentaiton in preparation for updated
-> helpers which check the handle count as well as whether
-> a dma-buf has been attached.
+> Show buffers as shared if they are shared via dma-buf as well
+> (e.g., shared with v4l or some other subsystem).
+> 
+> v2: switch to gem helper
 > 
 > Link: https://lore.kernel.org/all/20231207180225.439482-1-alexander.deucher@amd.com/
+> Reviewed-by: Rob Clark <robdclark@gmail.com> (v1)
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Rob Clark <robdclark@gmail.com>
 > ---
->   Documentation/gpu/drm-usage-stats.rst | 2 +-
+>   drivers/gpu/drm/drm_file.c | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-> index 7aca5c7a7b1d..6dc299343b48 100644
-> --- a/Documentation/gpu/drm-usage-stats.rst
-> +++ b/Documentation/gpu/drm-usage-stats.rst
-> @@ -138,7 +138,7 @@ indicating kibi- or mebi-bytes.
+> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> index 8c87287c3e16..638ffa4444f5 100644
+> --- a/drivers/gpu/drm/drm_file.c
+> +++ b/drivers/gpu/drm/drm_file.c
+> @@ -913,7 +913,7 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
+>   					DRM_GEM_OBJECT_PURGEABLE;
+>   		}
 >   
->   - drm-shared-<region>: <uint> [KiB|MiB]
->   
-> -The total size of buffers that are shared with another file (ie. have more
-> +The total size of buffers that are shared with another file (e.g., have more
->   than a single handle).
->   
->   - drm-total-<region>: <uint> [KiB|MiB]
+> -		if (obj->handle_count > 1) {
+> +		if (drm_gem_object_is_shared_for_memory_stats(obj)) {
+>   			status.shared += obj->size;
+>   		} else {
+>   			status.private += obj->size;
 
 Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
