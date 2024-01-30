@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF80BC48286
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 17:33:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B37F8C48285
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 17:33:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23EAB1133DF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7EAF1133E4;
 	Tue, 30 Jan 2024 17:33:27 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 336F511332F;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0A6011332F;
  Tue, 30 Jan 2024 17:33:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1706636005; x=1738172005;
  h=message-id:date:mime-version:subject:to:references:from:
  in-reply-to:content-transfer-encoding;
- bh=snCyDiwAr4Ld/B2J49FUCNA5VZIMbM67o4QiNHMJ7JU=;
- b=g7n2H3wzaItEcofQIsXfCIkDw5PgHDaYJW6z6cF5feBUWvdghKefnU92
- u/v3LMk+42w7RZS3Sl1MRgq0/iOBolNeFP3ImxK2+vVvJeWtdLCJ7kodx
- mCwUO7BsBqU0/1jtZGDiTyDQJlXysB+mzwLQEphjx7nR3YQe8aIUTrfB/
- FncmujeCBvPOFYETsGH/fFfnfuJqWwBmtrdtU+8HmYCI2dEKSK8JJOpCG
- ZK/HElu6XDtlHpcVMmUVd6+YwVvaGCH/sRhVdU+D4d5YxTFdvzAElGjtc
- iIyv2nKwf8N4wKgTUgZTcfPDTwRo6XyAzD8fn357bZUiUhNsvcRB5CnJT Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="402952721"
-X-IronPort-AV: E=Sophos;i="6.05,230,1701158400"; d="scan'208";a="402952721"
+ bh=XD9IqWzm5oFGyRCEVAHPcbBHSjTstyBuV0UUysWpTqk=;
+ b=DMsktYndaiKlk1ljPj8JIVU7QOp2BazKY7V7EG78lsQxQLA6wDUvqhYd
+ DjPETM6Gjg2sYJO3XvQ51ocOG4cJbFlcJwpPCZ9e9kQ43Rtf0k+XRJXcI
+ JD4CI0DAlHnTOyqeRTIHP2Qk6dqR4PfCl8GJtJtiMEYm81WcaohKLfkME
+ o2njl6coO/ZA7wufzQa7CgRVD0srXY1DuwPyq48yTLHpgtyBohQf7Tvhl
+ 4/JS+87lAm+LN2g2fTy6CqnD3nYqEF2i8B6+sN1rNGIghndDGREQPy1UN
+ QYdgOXnof7Ie0b5gkEIVpoi/WFcJRJWEWAfqQuo2GBVo3sRSIlGaQ9G6f g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="402953048"
+X-IronPort-AV: E=Sophos;i="6.05,230,1701158400"; d="scan'208";a="402953048"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2024 08:25:09 -0800
+ 30 Jan 2024 08:26:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="1119316351"
-X-IronPort-AV: E=Sophos;i="6.05,230,1701158400"; d="scan'208";a="1119316351"
+X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="1119316557"
+X-IronPort-AV: E=Sophos;i="6.05,230,1701158400"; d="scan'208";a="1119316557"
 Received: from nkumi-mobl3.ger.corp.intel.com (HELO [10.213.210.105])
  ([10.213.210.105])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2024 08:25:07 -0800
-Message-ID: <cc82911b-7caf-4f7a-8ce9-8b716fed8782@linux.intel.com>
-Date: Tue, 30 Jan 2024 16:25:05 +0000
+ 30 Jan 2024 08:26:12 -0800
+Message-ID: <8ea359bb-b794-4585-9d91-fdb866e1d01e@linux.intel.com>
+Date: Tue, 30 Jan 2024 16:26:12 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] drm: add drm_gem_object_is_shared_for_memory_stats()
+Subject: Re: [PATCH 5/6] drm/i915: Update shared stats to use the new gem
  helper
 Content-Language: en-US
 To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, daniel@ffwll.ch
 References: <20240130161235.3237122-1-alexander.deucher@amd.com>
- <20240130161235.3237122-3-alexander.deucher@amd.com>
+ <20240130161235.3237122-6-alexander.deucher@amd.com>
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Organization: Intel Corporation UK Plc
-In-Reply-To: <20240130161235.3237122-3-alexander.deucher@amd.com>
+In-Reply-To: <20240130161235.3237122-6-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,61 +68,34 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
+
 On 30/01/2024 16:12, Alex Deucher wrote:
-> Add a helper so that drm drivers can consistently report
-> shared status via the fdinfo shared memory stats interface.
-> 
-> In addition to handle count, show buffers as shared if they
-> are shared via dma-buf as well (e.g., shared with v4l or some
-> other subsystem).
+> Switch to using the new gem shared memory stats helper
+> rather than hand rolling it.
 > 
 > Link: https://lore.kernel.org/all/20231207180225.439482-1-alexander.deucher@amd.com/
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->   drivers/gpu/drm/drm_gem.c | 16 ++++++++++++++++
->   include/drm/drm_gem.h     |  1 +
->   2 files changed, 17 insertions(+)
+>   drivers/gpu/drm/i915/i915_drm_client.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index 44a948b80ee1..71b5f628d828 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -1506,3 +1506,19 @@ int drm_gem_evict(struct drm_gem_object *obj)
->   	return 0;
->   }
->   EXPORT_SYMBOL(drm_gem_evict);
-> +
-> +/**
-> + * drm_gem_object_is_shared_for_memory_stats - helper for shared memory stats
-> + *
-> + * This helper should only be used for fdinfo shared memory stats to determine
-> + * if a GEM object is shared.
-> + *
-> + * @obj: obj in question
-> + */
-> +bool drm_gem_object_is_shared_for_memory_stats(struct drm_gem_object *obj)
-> +{
-> +	if ((obj->handle_count > 1) || obj->dma_buf)
-> +		return true;
-> +	return false;
-> +}
-> +EXPORT_SYMBOL(drm_gem_object_is_shared_for_memory_stats);
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 369505447acd..86a9c696f038 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -552,6 +552,7 @@ unsigned long drm_gem_lru_scan(struct drm_gem_lru *lru,
->   			       bool (*shrink)(struct drm_gem_object *obj));
+> diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+> index fa6852713bee..f58682505491 100644
+> --- a/drivers/gpu/drm/i915/i915_drm_client.c
+> +++ b/drivers/gpu/drm/i915/i915_drm_client.c
+> @@ -53,7 +53,7 @@ obj_meminfo(struct drm_i915_gem_object *obj,
+>   					obj->mm.region->id : INTEL_REGION_SMEM;
+>   	const u64 sz = obj->base.size;
 >   
->   int drm_gem_evict(struct drm_gem_object *obj);
-> +bool drm_gem_object_is_shared_for_memory_stats(struct drm_gem_object *obj);
->   
->   #ifdef CONFIG_LOCKDEP
->   /**
-
-Not sure what the local view on static inlines, but fine nevertheless.
+> -	if (obj->base.handle_count > 1)
+> +	if (drm_gem_object_is_shared_for_memory_stats(&obj->base))
+>   		stats[id].shared += sz;
+>   	else
+>   		stats[id].private += sz;
 
 Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+
+Good that you remembered this story, I completely forgot!
 
 Regards,
 
