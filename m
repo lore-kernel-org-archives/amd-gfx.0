@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 731C2C47DDB
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 15:06:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01252C46CD2
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 15:06:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F54D1131D7;
-	Tue, 30 Jan 2024 15:06:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91CDA10EF31;
+	Tue, 30 Jan 2024 15:06:16 +0000 (UTC)
 Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
  [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65F301131D1;
- Tue, 30 Jan 2024 15:05:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 983DE10EF31;
+ Tue, 30 Jan 2024 15:06:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1706627127;
- bh=dgqVaSgdw4w3UECg8EiXIPy38vevdF8wJIr4YDkwsCo=;
+ s=mail; t=1706627143;
+ bh=UMCO5mdqEc4TEDL/YJjDUdv2tVlEkcBjHfEJqU0ujHY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EHFq48MvzXw6CDjaFG4FYsFlwWBr1HETacXYxH7JOnRAifPhG6ERSnjQ2xTYHLG6T
- IdDon0QTQQOnu2nKwh6EVUOzZQsgZwk4jEzIv81B7KsK8aGaLf6QCNHS/Rm/mVRBPL
- 9cOjfXtXtjiqx7HIDvDFCJ0bbw+6iAEcGDUgLXmS1s/Dc5VNFxF6DNODhPzOhbhjaY
- +cAL0TGF9qXc7WkbNFC0yi0xGcyK5PTUtUl0voD0BaNtSeKBIZyF2sBwKB76s19v2H
- uP2GRXpEEX5XKzwXvM1uFgFZ+hi28U7loerjhMqaIqenNb3g+HE0cST8k4o5FdP5IY
- bDarr5IstFtvA==
+ b=RU+RNKTFeddX+DnWfVUpEBLKrYr+TcJP/4PqsPsrWQ/gIKCAnFROU+z1A25inrBdt
+ 35C/9FckqJdRw+6uiKgwZoDClVcVCJWKRQfGK6aPEp1O9NRDzBFo0V51smms6TUyqe
+ fc4ugJ2gFCMe5Vk+N01ag04iFW10XY9T070xtPz77LEfHUDhmDgF0NDMRNyOF0ZAx5
+ 8K55DbPJ0w9nBYa5pU7zgJibqK3Q4XxSnUB3KbLQLLmLBH2g7yNky7Q/bJoOqjZRJx
+ 5wkuSH2exSHLUUhp2waIxtcqRkAe04qBMfekmPZ13gxTmHN0q9V8CL39SoybhM2vyZ
+ CCV48rKgjx0TQ==
 Received: from localhost.localdomain (cola.collaboradmins.com [195.201.22.229])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: vignesh)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 48DCA3782081;
- Tue, 30 Jan 2024 15:05:22 +0000 (UTC)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id D360537811CF;
+ Tue, 30 Jan 2024 15:05:38 +0000 (UTC)
 From: Vignesh Raman <vignesh.raman@collabora.com>
 To: dri-devel@lists.freedesktop.org
-Subject: [PATCH v3 6/9] drm/ci: rockchip: Rename existing job
-Date: Tue, 30 Jan 2024 20:33:37 +0530
-Message-Id: <20240130150340.687871-7-vignesh.raman@collabora.com>
+Subject: [PATCH v3 9/9] drm/ci: uprev IGT and update testlist
+Date: Tue, 30 Jan 2024 20:33:40 +0530
+Message-Id: <20240130150340.687871-10-vignesh.raman@collabora.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240130150340.687871-1-vignesh.raman@collabora.com>
 References: <20240130150340.687871-1-vignesh.raman@collabora.com>
@@ -59,450 +59,629 @@ Cc: linux-rockchip@lists.infradead.org, guilherme.gallo@collabora.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For rockchip rk3288 and rk3399, the display driver is rockchip.
-Currently, in drm-ci for rockchip, only the display driver is
-tested. So rename the rockchip job to indicate that display
-driver is tested.
-
-Rename the name of xfail files for rockchip (rk3288 and rk3399),
-to include information about the tested driver and update xfails
-accordingly.
+Uprev IGT and add amd, v3d, vc4 and vgem specific
+tests to testlist. Have testlist.txt per driver
+and include a base testlist so that the driver
+specific tests will run only on those hardware.
 
 Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
 ---
 
-v2:
-  - Refactor the patch to rename job to indicate display driver testing,
-    rename the existing xfail files.
-
 v3:
-  - Add the job name in GPU_VERSION and use it for xfail file names
-    instead of using DRIVER_NAME. Also update xfails.
+  - New patch in series to uprev IGT and update testlist.
 
 ---
- drivers/gpu/drm/ci/test.yml                   | 36 ++++++++-----
- .../xfails/rockchip-rk3288-display-fails.txt  | 21 ++++++++
- .../xfails/rockchip-rk3288-display-flakes.txt | 17 ++++++
- .../xfails/rockchip-rk3288-display-skips.txt  |  8 +++
- .../drm/ci/xfails/rockchip-rk3288-fails.txt   | 54 -------------------
- .../drm/ci/xfails/rockchip-rk3288-skips.txt   | 52 ------------------
- ....txt => rockchip-rk3399-display-fails.txt} | 38 +++++++------
- .../xfails/rockchip-rk3399-display-flakes.txt | 23 ++++++++
- .../xfails/rockchip-rk3399-display-skips.txt  |  6 +++
- .../drm/ci/xfails/rockchip-rk3399-flakes.txt  |  7 ---
- .../drm/ci/xfails/rockchip-rk3399-skips.txt   |  5 --
- 11 files changed, 117 insertions(+), 150 deletions(-)
- create mode 100644 drivers/gpu/drm/ci/xfails/rockchip-rk3288-display-fails.txt
- create mode 100644 drivers/gpu/drm/ci/xfails/rockchip-rk3288-display-flakes.txt
- create mode 100644 drivers/gpu/drm/ci/xfails/rockchip-rk3288-display-skips.txt
- delete mode 100644 drivers/gpu/drm/ci/xfails/rockchip-rk3288-fails.txt
- delete mode 100644 drivers/gpu/drm/ci/xfails/rockchip-rk3288-skips.txt
- rename drivers/gpu/drm/ci/xfails/{rockchip-rk3399-fails.txt => rockchip-rk3399-display-fails.txt} (71%)
- create mode 100644 drivers/gpu/drm/ci/xfails/rockchip-rk3399-display-flakes.txt
- create mode 100644 drivers/gpu/drm/ci/xfails/rockchip-rk3399-display-skips.txt
- delete mode 100644 drivers/gpu/drm/ci/xfails/rockchip-rk3399-flakes.txt
- delete mode 100644 drivers/gpu/drm/ci/xfails/rockchip-rk3399-skips.txt
+ drivers/gpu/drm/ci/gitlab-ci.yml              |   2 +-
+ drivers/gpu/drm/ci/igt_runner.sh              |  12 +-
+ drivers/gpu/drm/ci/testlist-amdgpu.txt        | 151 ++++++++++++++++++
+ drivers/gpu/drm/ci/testlist-msm.txt           |  50 ++++++
+ drivers/gpu/drm/ci/testlist-panfrost.txt      |  17 ++
+ drivers/gpu/drm/ci/testlist-v3d.txt           |  73 +++++++++
+ drivers/gpu/drm/ci/testlist-vc4.txt           |  49 ++++++
+ drivers/gpu/drm/ci/testlist.txt               | 100 ++++--------
+ .../gpu/drm/ci/xfails/amdgpu-stoney-fails.txt |  24 ++-
+ .../drm/ci/xfails/amdgpu-stoney-flakes.txt    |   9 +-
+ .../gpu/drm/ci/xfails/amdgpu-stoney-skips.txt |  10 +-
+ 11 files changed, 427 insertions(+), 70 deletions(-)
+ create mode 100644 drivers/gpu/drm/ci/testlist-amdgpu.txt
+ create mode 100644 drivers/gpu/drm/ci/testlist-msm.txt
+ create mode 100644 drivers/gpu/drm/ci/testlist-panfrost.txt
+ create mode 100644 drivers/gpu/drm/ci/testlist-v3d.txt
+ create mode 100644 drivers/gpu/drm/ci/testlist-vc4.txt
 
-diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
-index f4053bc0e365..1b8846c6bdbf 100644
---- a/drivers/gpu/drm/ci/test.yml
-+++ b/drivers/gpu/drm/ci/test.yml
-@@ -150,33 +150,45 @@ msm:sdm845:
-   script:
-     - ./install/bare-metal/cros-servo.sh
+diff --git a/drivers/gpu/drm/ci/gitlab-ci.yml b/drivers/gpu/drm/ci/gitlab-ci.yml
+index bc8cb3420476..e2b021616a8e 100644
+--- a/drivers/gpu/drm/ci/gitlab-ci.yml
++++ b/drivers/gpu/drm/ci/gitlab-ci.yml
+@@ -5,7 +5,7 @@ variables:
+   UPSTREAM_REPO: git://anongit.freedesktop.org/drm/drm
+   TARGET_BRANCH: drm-next
  
--rockchip:rk3288:
--  extends:
--    - .lava-igt:arm32
-+.rockchip:
-   stage: rockchip
-   variables:
--    DRIVER_NAME: rockchip
--    DEVICE_TYPE: rk3288-veyron-jaq
-     DTB: ${DEVICE_TYPE}
-     BOOT_METHOD: depthcharge
-+
-+.rk3288:
-+  extends:
-+    - .lava-igt:arm32
-+    - .rockchip
-+  variables:
-+    DEVICE_TYPE: rk3288-veyron-jaq
-     KERNEL_IMAGE_TYPE: "zimage"
--    GPU_VERSION: rockchip-rk3288
-     RUNNER_TAG: mesa-ci-x86-64-lava-rk3288-veyron-jaq
+-  IGT_VERSION: d2af13d9f5be5ce23d996e4afd3e45990f5ab977
++  IGT_VERSION: b0cc8160ebdc87ce08b7fd83bb3c99ff7a4d8610
  
--rockchip:rk3399:
-+.rk3399:
-   extends:
-     - .lava-igt:arm64
--  stage: rockchip
-+    - .rockchip
-   parallel: 2
-   variables:
--    DRIVER_NAME: rockchip
-     DEVICE_TYPE: rk3399-gru-kevin
--    DTB: ${DEVICE_TYPE}
--    BOOT_METHOD: depthcharge
-     KERNEL_IMAGE_TYPE: ""
--    GPU_VERSION: rockchip-rk3399
-     RUNNER_TAG: mesa-ci-x86-64-lava-rk3399-gru-kevin
+   DEQP_RUNNER_GIT_URL: https://gitlab.freedesktop.org/anholt/deqp-runner.git
+   DEQP_RUNNER_GIT_TAG: v0.15.0
+diff --git a/drivers/gpu/drm/ci/igt_runner.sh b/drivers/gpu/drm/ci/igt_runner.sh
+index f001e015d135..2fd09b9b7cf6 100755
+--- a/drivers/gpu/drm/ci/igt_runner.sh
++++ b/drivers/gpu/drm/ci/igt_runner.sh
+@@ -64,10 +64,20 @@ if ! grep -q "core_getversion" /install/testlist.txt; then
+ fi
  
-+rockchip:rk3288-display:
-+  extends:
-+    - .rk3288
-+  variables:
-+    GPU_VERSION: rockchip-rk3288-display
-+    DRIVER_NAME: rockchip
+ set +e
++if [ "$DRIVER_NAME" = "amdgpu" ]; then
++    TEST_LIST="/install/testlist-amdgpu.txt"
++elif [ "$DRIVER_NAME" = "msm" ]; then
++    TEST_LIST="/install/testlist-msm.txt"
++elif [ "$DRIVER_NAME" = "panfrost" ]; then
++    TEST_LIST="/install/testlist-panfrost.txt"
++else
++    TEST_LIST="/install/testlist.txt"
++fi
 +
-+rockchip:rk3399-display:
-+  extends:
-+    - .rk3399
-+  variables:
-+    GPU_VERSION: rockchip-rk3399-display
-+    DRIVER_NAME: rockchip
-+
- .i915:
-   extends:
-     - .lava-igt:x86_64
-diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-display-fails.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-display-fails.txt
+ igt-runner \
+     run \
+     --igt-folder /igt/libexec/igt-gpu-tools \
+-    --caselist /install/testlist.txt \
++    --caselist $TEST_LIST \
+     --output /results \
+     $IGT_SKIPS \
+     $IGT_FLAKES \
+diff --git a/drivers/gpu/drm/ci/testlist-amdgpu.txt b/drivers/gpu/drm/ci/testlist-amdgpu.txt
 new file mode 100644
-index 000000000000..6fae7d85c2c3
+index 000000000000..4486f86d340b
 --- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-display-fails.txt
-@@ -0,0 +1,21 @@
-+kms_cursor_crc@cursor-onscreen-32x10,Crash
-+kms_cursor_crc@cursor-onscreen-64x21,Crash
-+kms_cursor_crc@cursor-onscreen-64x64,Crash
-+kms_cursor_crc@cursor-random-32x10,Crash
-+kms_cursor_crc@cursor-random-64x21,Crash
-+kms_cursor_crc@cursor-sliding-32x10,Crash
-+kms_cursor_legacy@cursor-vs-flip-atomic,Fail
-+kms_cursor_legacy@cursor-vs-flip-atomic-transitions,Fail
-+kms_cursor_legacy@cursor-vs-flip-toggle,Fail
-+kms_cursor_legacy@flip-vs-cursor-crc-atomic,Crash
-+kms_flip@flip-vs-modeset-vs-hang,Crash
-+kms_flip@flip-vs-panning-vs-hang,Crash
-+kms_invalid_mode@int-max-clock,Crash
-+kms_pipe_crc_basic@read-crc-frame-sequence,Crash
-+kms_plane@pixel-format,Crash
-+kms_plane_cursor@primary,Crash
-+kms_prop_blob@invalid-set-prop,Crash
-+kms_prop_blob@invalid-set-prop-any,Crash
-+kms_properties@connector-properties-legacy,Crash
-+kms_properties@get_properties-sanity-atomic,Crash
-+kms_properties@get_properties-sanity-non-atomic,Crash
-diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-display-flakes.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-display-flakes.txt
++++ b/drivers/gpu/drm/ci/testlist-amdgpu.txt
+@@ -0,0 +1,151 @@
++testlist.txt
++amdgpu/amd_abm@dpms_cycle
++amdgpu/amd_abm@backlight_monotonic_basic
++amdgpu/amd_abm@backlight_monotonic_abm
++amdgpu/amd_abm@abm_enabled
++amdgpu/amd_abm@abm_gradual
++amdgpu/amd_bo@amdgpu_bo_export_import
++amdgpu/amd_bo@amdgpu_bo_metadata
++amdgpu/amd_bo@amdgpu_bo_map_unmap
++amdgpu/amd_bo@amdgpu_memory_alloc
++amdgpu/amd_bo@amdgpu_mem_fail_alloc
++amdgpu/amd_bo@amdgpu_bo_find_by_cpu_mapping
++amdgpu/amd_cp_dma_misc@GTT_to_VRAM-AMDGPU_HW_IP_GFX0
++amdgpu/amd_cp_dma_misc@GTT_to_VRAM-AMDGPU_HW_IP_COMPUTE0
++amdgpu/amd_cp_dma_misc@VRAM_to_GTT-AMDGPU_HW_IP_GFX0
++amdgpu/amd_cp_dma_misc@VRAM_to_GTT-AMDGPU_HW_IP_COMPUTE0
++amdgpu/amd_cp_dma_misc@VRAM_to_VRAM-AMDGPU_HW_IP_GFX0
++amdgpu/amd_cp_dma_misc@VRAM_to_VRAM-AMDGPU_HW_IP_COMPUTE0
++amdgpu/amd_dispatch@amdgpu-dispatch-test-compute-with-IP-COMPUTE
++amdgpu/amd_dispatch@amdgpu-dispatch-test-gfx-with-IP-GFX
++amdgpu/amd_dispatch@amdgpu-dispatch-hang-test-gfx-with-IP-GFX
++amdgpu/amd_dispatch@amdgpu-dispatch-hang-test-compute-with-IP-COMPUTE
++amdgpu/amd_dispatch@amdgpu-reset-test-gfx-with-IP-GFX-and-COMPUTE
++amdgpu/amd_hotplug@basic
++amdgpu/amd_hotplug@basic-suspend
++amdgpu/amd_jpeg_dec@amdgpu_cs_jpeg_decode
++amdgpu/amd_max_bpc@4k-mode-max-bpc
++amdgpu/amd_module_load@reload
++amdgpu/amd_plane@test-mpo-4k
++amdgpu/amd_plane@mpo-swizzle-toggle
++amdgpu/amd_plane@mpo-swizzle-toggle-multihead
++amdgpu/amd_plane@mpo-pan-rgb
++amdgpu/amd_plane@mpo-pan-rgb-multihead
++amdgpu/amd_plane@mpo-pan-nv12
++amdgpu/amd_plane@mpo-pan-nv12-multihead
++amdgpu/amd_plane@mpo-pan-p010
++amdgpu/amd_plane@mpo-pan-p010-multihead
++amdgpu/amd_plane@mpo-pan-multi-rgb
++amdgpu/amd_plane@mpo-pan-multi-nv12
++amdgpu/amd_plane@mpo-pan-multi-p010
++amdgpu/amd_plane@multi-overlay
++amdgpu/amd_plane@multi-overlay-invalid
++amdgpu/amd_plane@mpo-scale-rgb
++amdgpu/amd_plane@mpo-scale-rgb-multihead
++amdgpu/amd_plane@mpo-scale-nv12
++amdgpu/amd_plane@mpo-scale-nv12-multihead
++amdgpu/amd_plane@mpo-scale-p010
++amdgpu/amd_plane@mpo-scale-p010-multihead
++amdgpu/amd_pstate@amdgpu_pstate
++amdgpu/amd_subvp@dual-4k60
++amdgpu/amd_uvd_enc@uvd_enc_create
++amdgpu/amd_uvd_enc@amdgpu_uvd_enc_session_init
++amdgpu/amd_uvd_enc@amdgpu_uvd_enc_encode
++amdgpu/amd_uvd_enc@uvd_enc_destroy
++amdgpu/amd_vm@vmid-reserve-test
++amdgpu/amd_vm@amdgpu-vm-unaligned-map
++amdgpu/amd_vm@amdgpu-vm-mapping-test
++amdgpu/amd_assr@assr-links
++amdgpu/amd_assr@assr-links-dpms
++amdgpu/amd_assr@assr-links-suspend
++amdgpu/amd_bypass@8bpc-bypass-mode
++amdgpu/amd_cs_nop@cs-nops-with-nop-compute0
++amdgpu/amd_cs_nop@cs-nops-with-nop-gfx0
++amdgpu/amd_cs_nop@cs-nops-with-sync-compute0
++amdgpu/amd_cs_nop@cs-nops-with-sync-gfx0
++amdgpu/amd_cs_nop@cs-nops-with-fork-compute0
++amdgpu/amd_cs_nop@cs-nops-with-fork-gfx0
++amdgpu/amd_cs_nop@cs-nops-with-sync-fork-compute0
++amdgpu/amd_cs_nop@cs-nops-with-sync-fork-gfx0
++amdgpu/amd_dp_dsc@dsc-enable-basic
++amdgpu/amd_dp_dsc@dsc-slice-dimensions-change
++amdgpu/amd_dp_dsc@dsc-link-settings
++amdgpu/amd_dp_dsc@dsc-bpc
++amdgpu/amd_ilr@ilr-link-training-configs
++amdgpu/amd_ilr@ilr-policy
++amdgpu/amd_link_settings@link-training-configs
++amdgpu/amd_mem_leak@connector-suspend-resume
++amdgpu/amd_mem_leak@connector-hotplug
++amdgpu/amd_odm@odm-combine-2-to-1-4k144
++amdgpu/amd_prime@i915-to-amd
++amdgpu/amd_prime@amd-to-i915
++amdgpu/amd_prime@shrink
++amdgpu/amd_ras@RAS-basic
++amdgpu/amd_ras@RAS-query
++amdgpu/amd_ras@RAS-inject
++amdgpu/amd_ras@RAS-disable
++amdgpu/amd_ras@RAS-enable
++amdgpu/amd_syncobj@amdgpu_syncobj_timeline
++amdgpu/amd_vce_dec@amdgpu_cs_vce_create
++amdgpu/amd_vce_dec@amdgpu_cs_vce_encode
++amdgpu/amd_vce_dec@amdgpu_cs_vce_destroy
++amdgpu/amd_vpe@vpe-fence-test
++amdgpu/amd_vpe@vpe-blit-test
++amdgpu/amd_basic@memory-alloc
++amdgpu/amd_basic@userptr-with-IP-DMA
++amdgpu/amd_basic@cs-gfx-with-IP-GFX
++amdgpu/amd_basic@cs-compute-with-IP-COMPUTE
++amdgpu/amd_basic@cs-multi-fence-with-IP-GFX
++amdgpu/amd_basic@cs-sdma-with-IP-DMA
++amdgpu/amd_basic@semaphore-with-IP-GFX-and-IP-DMA
++amdgpu/amd_basic@eviction-test-with-IP-DMA
++amdgpu/amd_basic@sync-dependency-test-with-IP-GFX
++amdgpu/amd_color@crtc-linear-degamma
++amdgpu/amd_color@crtc-linear-regamma
++amdgpu/amd_color@crtc-lut-accuracy
++amdgpu/amd_deadlock@amdgpu-deadlock-sdma
++amdgpu/amd_deadlock@amdgpu-gfx-illegal-reg-access
++amdgpu/amd_deadlock@amdgpu-gfx-illegal-mem-access
++amdgpu/amd_deadlock@amdgpu-deadlock-gfx
++amdgpu/amd_deadlock@amdgpu-deadlock-compute
++amdgpu/amd_deadlock@amdgpu-deadlock-sdma-corrupted-header-test
++amdgpu/amd_deadlock@amdgpu-deadlock-sdma-slow-linear-copy
++amdgpu/amd_freesync_video_mode@freesync-base-to-various
++amdgpu/amd_freesync_video_mode@freesync-lower-to-higher
++amdgpu/amd_freesync_video_mode@freesync-non-preferred-to-freesync
++amdgpu/amd_freesync_video_mode@freesync-custom-mode
++amdgpu/amd_info@query-firmware-version
++amdgpu/amd_info@query-timestamp
++amdgpu/amd_info@query-timestamp-while-idle
++amdgpu/amd_mall@static-screen
++amdgpu/amd_mode_switch@mode-switch-first-last-pipe-0
++amdgpu/amd_mode_switch@mode-switch-first-last-pipe-1
++amdgpu/amd_mode_switch@mode-switch-first-last-pipe-2
++amdgpu/amd_mode_switch@mode-switch-first-last-pipe-3
++amdgpu/amd_mode_switch@mode-switch-first-last-pipe-4
++amdgpu/amd_mode_switch@mode-switch-first-last-pipe-5
++amdgpu/amd_pci_unplug@amdgpu_hotunplug_simple
++amdgpu/amd_pci_unplug@amdgpu_hotunplug_with_cs
++amdgpu/amd_pci_unplug@amdgpu_hotunplug_with_exported_bo
++amdgpu/amd_pci_unplug@amdgpu_hotunplug_with_exported_fence
++amdgpu/amd_psr@psr_enable
++amdgpu/amd_psr@psr_enable_null_crtc
++amdgpu/amd_psr@psr_su_mpo
++amdgpu/amd_psr@psr_su_ffu
++amdgpu/amd_psr@psr_su_cursor
++amdgpu/amd_psr@psr_su_cursor_mpo
++amdgpu/amd_psr@psr_su_mpo_scaling_1_5
++amdgpu/amd_psr@psr_su_mpo_scaling_0_75
++amdgpu/amd_security@amdgpu-security-alloc-buf-test
++amdgpu/amd_security@sdma-write-linear-helper-secure
++amdgpu/amd_security@gfx-write-linear-helper-secure
++amdgpu/amd_security@amdgpu-secure-bounce
++amdgpu/amd_uvd_dec@amdgpu_uvd_dec_create
++amdgpu/amd_uvd_dec@amdgpu_uvd_decode
++amdgpu/amd_uvd_dec@amdgpu_uvd_dec_destroy
++amdgpu/amd_vcn@vcn-decoder-create-decode-destroy
++amdgpu/amd_vcn@vcn-encoder-create-encode-destroy
++amdgpu/amd_vrr_range@freesync-parsing
++amdgpu/amd_vrr_range@freesync-parsing-suspend
++amdgpu/amd_vrr_range@freesync-range
++amdgpu/amd_vrr_range@freesync-range-suspend
+diff --git a/drivers/gpu/drm/ci/testlist-msm.txt b/drivers/gpu/drm/ci/testlist-msm.txt
 new file mode 100644
-index 000000000000..0bd27b8d41ce
+index 000000000000..b6c4371fe0b4
 --- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-display-flakes.txt
++++ b/drivers/gpu/drm/ci/testlist-msm.txt
+@@ -0,0 +1,50 @@
++testlist.txt
++msm_shrink@copy-gpu-sanitycheck-8
++msm_shrink@copy-gpu-sanitycheck-32
++msm_shrink@copy-gpu-8
++msm_shrink@copy-gpu-32
++msm_shrink@copy-gpu-madvise-8
++msm_shrink@copy-gpu-madvise-32
++msm_shrink@copy-gpu-oom-8
++msm_shrink@copy-gpu-oom-32
++msm_shrink@copy-mmap-sanitycheck-8
++msm_shrink@copy-mmap-sanitycheck-32
++msm_shrink@copy-mmap-8
++msm_shrink@copy-mmap-32
++msm_shrink@copy-mmap-madvise-8
++msm_shrink@copy-mmap-madvise-32
++msm_shrink@copy-mmap-oom-8
++msm_shrink@copy-mmap-oom-32
++msm_shrink@copy-mmap-dmabuf-sanitycheck-8
++msm_shrink@copy-mmap-dmabuf-sanitycheck-32
++msm_shrink@copy-mmap-dmabuf-8
++msm_shrink@copy-mmap-dmabuf-32
++msm_shrink@copy-mmap-dmabuf-madvise-8
++msm_shrink@copy-mmap-dmabuf-madvise-32
++msm_shrink@copy-mmap-dmabuf-oom-8
++msm_shrink@copy-mmap-dmabuf-oom-32
++msm_mapping@ring
++msm_mapping@sqefw
++msm_mapping@shadow
++msm_submitoverhead@submitbench-10-bos
++msm_submitoverhead@submitbench-10-bos-no-implicit-sync
++msm_submitoverhead@submitbench-100-bos
++msm_submitoverhead@submitbench-100-bos-no-implicit-sync
++msm_submitoverhead@submitbench-250-bos
++msm_submitoverhead@submitbench-250-bos-no-implicit-sync
++msm_submitoverhead@submitbench-500-bos
++msm_submitoverhead@submitbench-500-bos-no-implicit-sync
++msm_submitoverhead@submitbench-1000-bos
++msm_submitoverhead@submitbench-1000-bos-no-implicit-sync
++msm_recovery@hangcheck
++msm_recovery@gpu-fault
++msm_recovery@gpu-fault-parallel
++msm_recovery@iova-fault
++msm_submit@empty-submit
++msm_submit@invalid-queue-submit
++msm_submit@invalid-flags-submit
++msm_submit@invalid-in-fence-submit
++msm_submit@invalid-duplicate-bo-submit
++msm_submit@invalid-cmd-idx-submit
++msm_submit@invalid-cmd-type-submit
++msm_submit@valid-submit
+diff --git a/drivers/gpu/drm/ci/testlist-panfrost.txt b/drivers/gpu/drm/ci/testlist-panfrost.txt
+new file mode 100644
+index 000000000000..e1002156a508
+--- /dev/null
++++ b/drivers/gpu/drm/ci/testlist-panfrost.txt
 @@ -0,0 +1,17 @@
-+# Board Name: rk3288-veyron-jaq.dtb
-+# Bug Report: https://lore.kernel.org/dri-devel/bdb53650-1888-30b8-93ee-2290d020af4a@collabora.com/T/#u
-+# Failure Rate: 50
-+# IGT Version: 1.28-gd2af13d9f
-+# Linux Version: 6.7.0-rc3
-+
-+# Reported by deqp-runner
-+kms_cursor_crc@cursor-offscreen-64x21
-+kms_cursor_legacy@flip-vs-cursor-legacy
-+kms_cursor_legacy@flip-vs-cursor-atomic
-+kms_plane@plane-panning-top-left
-+
-+# The below test shows inconsistency across multiple runs, giving
-+# results of Pass and Crash alternately.
-+kms_cursor_crc@cursor-size-change
-+core_setmaster_vs_auth
-+kms_flip@modeset-vs-vblank-race
-diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-display-skips.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-display-skips.txt
++testlist.txt
++panfrost_get_param@base-params
++panfrost_get_param@get-bad-param
++panfrost_get_param@get-bad-padding
++panfrost_gem_new@gem-new-4096
++panfrost_gem_new@gem-new-0
++panfrost_gem_new@gem-new-zeroed
++panfrost_prime@gem-prime-import
++panfrost_submit@pan-submit
++panfrost_submit@pan-submit-error-no-jc
++panfrost_submit@pan-submit-error-bad-in-syncs
++panfrost_submit@pan-submit-error-bad-bo-handles
++panfrost_submit@pan-submit-error-bad-requirements
++panfrost_submit@pan-submit-error-bad-out-sync
++panfrost_submit@pan-reset
++panfrost_submit@pan-submit-and-close
++panfrost_submit@pan-unhandled-pagefault
+diff --git a/drivers/gpu/drm/ci/testlist-v3d.txt b/drivers/gpu/drm/ci/testlist-v3d.txt
 new file mode 100644
-index 000000000000..627bf03f3c78
+index 000000000000..6ef7957f6344
 --- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-display-skips.txt
-@@ -0,0 +1,8 @@
-+# Suspend to RAM seems to be broken on this machine
-+.*suspend.*
-+
-+# Machine is hanging in this test with linux kernel version 6.7.0-rc4, so skip it
-+kms_cursor_crc@cursor-onscreen-32x32
-+kms_pipe_crc_basic@disable-crc-after-crtc
-+kms_pipe_crc_basic@pipe-A-eDP-1
-+kms_bw@linear-tiling-3-displays-2560x1440
-diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-fails.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-fails.txt
-deleted file mode 100644
-index 90c63f519e9e..000000000000
---- a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-fails.txt
-+++ /dev/null
-@@ -1,54 +0,0 @@
--kms_3d,Crash
--kms_bw@linear-tiling-2-displays-1920x1080p,Fail
--kms_bw@linear-tiling-2-displays-2560x1440p,Fail
--kms_bw@linear-tiling-2-displays-3840x2160p,Fail
--kms_bw@linear-tiling-3-displays-1920x1080p,Fail
--kms_bw@linear-tiling-3-displays-2560x1440p,Fail
--kms_bw@linear-tiling-3-displays-3840x2160p,Fail
--kms_flip@flip-vs-modeset-vs-hang,Crash
--kms_flip@flip-vs-panning-vs-hang,Crash
--kms_force_connector_basic@force-load-detect,Fail
--kms_invalid_mode@int-max-clock,Crash
--kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Crash
--kms_pipe_crc_basic@nonblocking-crc-frame-sequence,Crash
--kms_pipe_crc_basic@read-crc-frame-sequence,Crash
--kms_plane@pixel-format,Crash
--kms_plane@pixel-format-source-clamping,Crash
--kms_plane@plane-position-hole,Crash
--kms_plane@plane-position-hole-dpms,Crash
--kms_plane_cursor@overlay,Crash
--kms_plane_cursor@pipe-A-overlay-size-128,Fail
--kms_plane_cursor@pipe-A-overlay-size-256,Fail
--kms_plane_cursor@pipe-A-overlay-size-64,Fail
--kms_plane_cursor@pipe-A-primary-size-128,Fail
--kms_plane_cursor@pipe-A-primary-size-256,Fail
--kms_plane_cursor@pipe-A-primary-size-64,Fail
--kms_plane_cursor@pipe-A-viewport-size-128,Fail
--kms_plane_cursor@pipe-A-viewport-size-256,Fail
--kms_plane_cursor@pipe-A-viewport-size-64,Fail
--kms_plane_cursor@pipe-B-overlay-size-128,Fail
--kms_plane_cursor@pipe-B-overlay-size-256,Fail
--kms_plane_cursor@pipe-B-overlay-size-64,Fail
--kms_plane_cursor@pipe-B-primary-size-128,Fail
--kms_plane_cursor@pipe-B-primary-size-256,Fail
--kms_plane_cursor@pipe-B-primary-size-64,Fail
--kms_plane_cursor@pipe-B-viewport-size-128,Fail
--kms_plane_cursor@pipe-B-viewport-size-256,Fail
--kms_plane_cursor@pipe-B-viewport-size-64,Fail
--kms_plane_cursor@primary,Crash
--kms_plane_cursor@viewport,Crash
--kms_plane_lowres@tiling-none,Fail
--kms_plane_scaling@downscale-with-modifier-factor-0-25,Fail
--kms_plane_scaling@downscale-with-rotation-factor-0-25,Fail
--kms_plane_scaling@upscale-with-modifier-20x20,Fail
--kms_plane_scaling@upscale-with-modifier-factor-0-25,Fail
--kms_plane_scaling@upscale-with-pixel-format-20x20,Fail
--kms_plane_scaling@upscale-with-pixel-format-factor-0-25,Fail
--kms_plane_scaling@upscale-with-rotation-20x20,Fail
--kms_prime@basic-crc,Fail
--kms_properties@connector-properties-atomic,Crash
--kms_properties@connector-properties-legacy,Crash
--kms_properties@get_properties-sanity-atomic,Crash
--kms_properties@get_properties-sanity-non-atomic,Crash
--kms_rmfb@close-fd,Crash
--kms_setmode@invalid-clone-single-crtc,Crash
-diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-skips.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-skips.txt
-deleted file mode 100644
-index f20c3574b75a..000000000000
---- a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-skips.txt
-+++ /dev/null
-@@ -1,52 +0,0 @@
--# Suspend to RAM seems to be broken on this machine
--.*suspend.*
--
--# Too unstable, machine ends up hanging after lots of Oopses
--kms_cursor_legacy.*
--
--# Started hanging the machine on Linux 5.19-rc2:
--#
--# [IGT] kms_plane_lowres: executing
--# [IGT] kms_plane_lowres: starting subtest pipe-F-tiling-y
--# [IGT] kms_plane_lowres: exiting, ret=77
--# Console: switching to colour frame buffer device 170x48
--# rockchip-drm display-subsystem: [drm] *ERROR* flip_done timed out
--# rockchip-drm display-subsystem: [drm] *ERROR* [CRTC:35:crtc-0] commit wait timed out
--# BUG: spinlock bad magic on CPU#3, kms_plane_lowre/482
--# 8<--- cut here ---
--# Unable to handle kernel paging request at virtual address 7812078e
--# [7812078e] *pgd=00000000
--# Internal error: Oops: 5 [#1] SMP ARM
--# Modules linked in:
--# CPU: 3 PID: 482 Comm: kms_plane_lowre Tainted: G        W         5.19.0-rc2-323596-g00535de92171 #1
--# Hardware name: Rockchip (Device Tree)
--# Process kms_plane_lowre (pid: 482, stack limit = 0x1193ac2b)
--#  spin_dump from do_raw_spin_lock+0xa4/0xe8
--#  do_raw_spin_lock from wait_for_completion_timeout+0x2c/0x120
--#  wait_for_completion_timeout from drm_crtc_commit_wait+0x18/0x7c
--#  drm_crtc_commit_wait from drm_atomic_helper_wait_for_dependencies+0x44/0x168
--#  drm_atomic_helper_wait_for_dependencies from commit_tail+0x34/0x180
--#  commit_tail from drm_atomic_helper_commit+0x164/0x18c
--#  drm_atomic_helper_commit from drm_atomic_commit+0xac/0xe4
--#  drm_atomic_commit from drm_client_modeset_commit_atomic+0x23c/0x284
--#  drm_client_modeset_commit_atomic from drm_client_modeset_commit_locked+0x60/0x1c8
--#  drm_client_modeset_commit_locked from drm_client_modeset_commit+0x24/0x40
--#  drm_client_modeset_commit from drm_fbdev_client_restore+0x58/0x94
--#  drm_fbdev_client_restore from drm_client_dev_restore+0x70/0xbc
--#  drm_client_dev_restore from drm_release+0xf4/0x114
--#  drm_release from __fput+0x74/0x240
--#  __fput from task_work_run+0x84/0xb4
--#  task_work_run from do_exit+0x34c/0xa20
--#  do_exit from do_group_exit+0x34/0x98
--#  do_group_exit from __wake_up_parent+0x0/0x18
--# Code: e595c008 12843d19 03e00000 03093168 (15940508)
--# ---[ end trace 0000000000000000 ]---
--# note: kms_plane_lowre[482] exited with preempt_count 1
--# Fixing recursive fault but reboot is needed!
--kms_plane_lowres@pipe-F-tiling-y
--
--# Take too long, we have only two machines, and these are very flaky
--kms_cursor_crc.*
--
--# Machine is hanging in this test, so skip it
--kms_pipe_crc_basic@disable-crc-after-crtc
-\ No newline at end of file
-diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-fails.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-display-fails.txt
-similarity index 71%
-rename from drivers/gpu/drm/ci/xfails/rockchip-rk3399-fails.txt
-rename to drivers/gpu/drm/ci/xfails/rockchip-rk3399-display-fails.txt
-index d516d9c1d546..6126bcebcbbb 100644
---- a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-fails.txt
-+++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-display-fails.txt
-@@ -1,12 +1,13 @@
--kms_color@gamma,Fail
-+kms_atomic_transition@modeset-transition,Fail
-+kms_atomic_transition@modeset-transition-fencing,Fail
-+kms_atomic_transition@plane-toggle-modeset-transition,Fail
- kms_color@legacy-gamma,Fail
--kms_color@pipe-A-legacy-gamma,Fail
--kms_color@pipe-B-legacy-gamma,Fail
- kms_cursor_crc@cursor-alpha-opaque,Fail
- kms_cursor_crc@cursor-alpha-transparent,Fail
- kms_cursor_crc@cursor-dpms,Fail
- kms_cursor_crc@cursor-offscreen-32x10,Fail
- kms_cursor_crc@cursor-offscreen-32x32,Fail
-+kms_cursor_crc@cursor-offscreen-64x21,Fail
- kms_cursor_crc@cursor-offscreen-64x64,Fail
- kms_cursor_crc@cursor-onscreen-32x10,Fail
- kms_cursor_crc@cursor-onscreen-32x32,Fail
-@@ -16,6 +17,7 @@ kms_cursor_crc@cursor-random-32x10,Fail
- kms_cursor_crc@cursor-random-32x32,Fail
- kms_cursor_crc@cursor-random-64x21,Fail
- kms_cursor_crc@cursor-random-64x64,Fail
-+kms_cursor_crc@cursor-rapid-movement-32x10,Fail
- kms_cursor_crc@cursor-rapid-movement-32x32,Fail
- kms_cursor_crc@cursor-rapid-movement-64x21,Fail
- kms_cursor_crc@cursor-rapid-movement-64x64,Fail
-@@ -24,23 +26,34 @@ kms_cursor_crc@cursor-sliding-32x10,Fail
- kms_cursor_crc@cursor-sliding-32x32,Fail
- kms_cursor_crc@cursor-sliding-64x21,Fail
- kms_cursor_crc@cursor-sliding-64x64,Fail
-+kms_cursor_legacy@basic-flip-before-cursor-atomic,Fail
-+kms_cursor_legacy@basic-flip-before-cursor-legacy,Fail
-+kms_cursor_legacy@cursor-vs-flip-atomic,Fail
-+kms_cursor_legacy@cursor-vs-flip-legacy,Fail
-+kms_cursor_legacy@cursor-vs-flip-toggle,Fail
-+kms_cursor_legacy@cursorA-vs-flipA-legacy,Fail
-+kms_cursor_legacy@flip-vs-cursor-atomic,Fail
-+kms_cursor_legacy@flip-vs-cursor-crc-atomic,Fail
-+kms_cursor_legacy@flip-vs-cursor-crc-legacy,Fail
-+kms_cursor_legacy@flip-vs-cursor-legacy,Fail
-+kms_cursor_legacy@long-nonblocking-modeset-vs-cursor-atomic,Fail
- kms_flip@basic-flip-vs-wf_vblank,Fail
- kms_flip@blocking-wf_vblank,Fail
- kms_flip@dpms-vs-vblank-race,Fail
-+kms_flip@dpms-vs-vblank-race-interruptible,Fail
- kms_flip@flip-vs-absolute-wf_vblank,Fail
--kms_flip@flip-vs-absolute-wf_vblank-interruptible,Fail
- kms_flip@flip-vs-blocking-wf-vblank,Fail
++++ b/drivers/gpu/drm/ci/testlist-v3d.txt
+@@ -0,0 +1,73 @@
++testlist.txt
++v3d_create_bo@create-bo-invalid-flags
++v3d_create_bo@create-bo-0
++v3d_create_bo@create-bo-4096
++v3d_create_bo@create-bo-zeroed
++v3d_get_bo_offset@create-get-offsets
++v3d_get_bo_offset@get-bad-handle
++v3d_get_param@base-params
++v3d_get_param@get-bad-param
++v3d_get_param@get-bad-flags
++v3d_job_submission@array-job-submission
++v3d_job_submission@multiple-singlesync-to-multisync
++v3d_job_submission@threaded-job-submission
++v3d_mmap@mmap-bad-flags
++v3d_mmap@mmap-bad-handle
++v3d_mmap@mmap-bo
++v3d_perfmon@create-perfmon-0
++v3d_perfmon@create-perfmon-exceed
++v3d_perfmon@create-perfmon-invalid-counters
++v3d_perfmon@create-single-perfmon
++v3d_perfmon@create-two-perfmon
++v3d_perfmon@get-values-invalid-pad
++v3d_perfmon@get-values-invalid-perfmon
++v3d_perfmon@get-values-invalid-pointer
++v3d_perfmon@get-values-valid-perfmon
++v3d_perfmon@destroy-invalid-perfmon
++v3d_perfmon@destroy-valid-perfmon
++v3d_submit_cl@bad-pad
++v3d_submit_cl@bad-flag
++v3d_submit_cl@bad-extension
++v3d_submit_cl@bad-bo
++v3d_submit_cl@bad-perfmon
++v3d_submit_cl@bad-in-sync
++v3d_submit_cl@bad-multisync-pad
++v3d_submit_cl@bad-multisync-extension
++v3d_submit_cl@bad-multisync-out-sync
++v3d_submit_cl@bad-multisync-in-sync
++v3d_submit_cl@valid-submission
++v3d_submit_cl@single-out-sync
++v3d_submit_cl@single-in-sync
++v3d_submit_cl@simple-flush-cache
++v3d_submit_cl@valid-multisync-submission
++v3d_submit_cl@multisync-out-syncs
++v3d_submit_cl@multi-and-single-sync
++v3d_submit_cl@multiple-job-submission
++v3d_submit_cl@job-perfmon
++v3d_submit_csd@bad-pad
++v3d_submit_csd@bad-flag
++v3d_submit_csd@bad-extension
++v3d_submit_csd@bad-bo
++v3d_submit_csd@bad-perfmon
++v3d_submit_csd@bad-in-sync
++v3d_submit_csd@bad-multisync-pad
++v3d_submit_csd@bad-multisync-extension
++v3d_submit_csd@bad-multisync-out-sync
++v3d_submit_csd@bad-multisync-in-sync
++v3d_submit_csd@valid-submission
++v3d_submit_csd@single-out-sync
++v3d_submit_csd@single-in-sync
++v3d_submit_csd@valid-multisync-submission
++v3d_submit_csd@multisync-out-syncs
++v3d_submit_csd@multi-and-single-sync
++v3d_submit_csd@multiple-job-submission
++v3d_submit_csd@job-perfmon
++v3d_wait_bo@bad-bo
++v3d_wait_bo@bad-pad
++v3d_wait_bo@unused-bo-0ns
++v3d_wait_bo@unused-bo-1ns
++v3d_wait_bo@map-bo-0ns
++v3d_wait_bo@map-bo-1ns
++v3d_wait_bo@used-bo-0ns
++v3d_wait_bo@used-bo-1ns
++v3d_wait_bo@used-bo
+diff --git a/drivers/gpu/drm/ci/testlist-vc4.txt b/drivers/gpu/drm/ci/testlist-vc4.txt
+new file mode 100644
+index 000000000000..5a9ee4751337
+--- /dev/null
++++ b/drivers/gpu/drm/ci/testlist-vc4.txt
+@@ -0,0 +1,49 @@
++testlist.txt
++vc4_create_bo@create-bo-4096
++vc4_create_bo@create-bo-0
++vc4_create_bo@create-bo-zeroed
++vc4_dmabuf_poll@poll-write-waits-until-write-done
++vc4_dmabuf_poll@poll-read-waits-until-write-done
++vc4_label_bo@set-label
++vc4_label_bo@set-bad-handle
++vc4_label_bo@set-bad-name
++vc4_label_bo@set-kernel-name
++vc4_lookup_fail@bad-color-write
++vc4_mmap@mmap-bad-handle
++vc4_mmap@mmap-bo
++vc4_perfmon@create-perfmon-0
++vc4_perfmon@create-perfmon-exceed
++vc4_perfmon@create-perfmon-invalid-events
++vc4_perfmon@create-single-perfmon
++vc4_perfmon@create-two-perfmon
++vc4_perfmon@get-values-invalid-perfmon
++vc4_perfmon@get-values-invalid-pointer
++vc4_perfmon@get-values-valid-perfmon
++vc4_perfmon@destroy-invalid-perfmon
++vc4_perfmon@destroy-valid-perfmon
++vc4_purgeable_bo@mark-willneed
++vc4_purgeable_bo@mark-purgeable
++vc4_purgeable_bo@mark-purgeable-twice
++vc4_purgeable_bo@mark-unpurgeable-twice
++vc4_purgeable_bo@access-purgeable-bo-mem
++vc4_purgeable_bo@access-purged-bo-mem
++vc4_purgeable_bo@mark-unpurgeable-check-retained
++vc4_purgeable_bo@mark-unpurgeable-purged
++vc4_purgeable_bo@free-purged-bo
++vc4_tiling@get-bad-handle
++vc4_tiling@set-bad-handle
++vc4_tiling@get-bad-flags
++vc4_tiling@set-bad-flags
++vc4_tiling@get-bad-modifier
++vc4_tiling@set-bad-modifier
++vc4_tiling@set-get
++vc4_tiling@get-after-free
++vc4_wait_bo@bad-bo
++vc4_wait_bo@bad-pad
++vc4_wait_bo@unused-bo-0ns
++vc4_wait_bo@unused-bo-1ns
++vc4_wait_bo@used-bo-0ns
++vc4_wait_bo@used-bo-1ns
++vc4_wait_bo@used-bo
++vc4_wait_seqno@bad-seqno-0ns
++vc4_wait_seqno@bad-seqno-1ns
+diff --git a/drivers/gpu/drm/ci/testlist.txt b/drivers/gpu/drm/ci/testlist.txt
+index 772fc025b1f8..705f157bd787 100644
+--- a/drivers/gpu/drm/ci/testlist.txt
++++ b/drivers/gpu/drm/ci/testlist.txt
+@@ -2910,68 +2910,38 @@ kms_writeback@writeback-invalid-parameters
+ kms_writeback@writeback-fb-id
+ kms_writeback@writeback-check-output
+ prime_mmap_kms@buffer-sharing
+-msm_shrink@copy-gpu-sanitycheck-8
+-msm_shrink@copy-gpu-sanitycheck-32
+-msm_shrink@copy-gpu-8
+-msm_shrink@copy-gpu-32
+-msm_shrink@copy-gpu-madvise-8
+-msm_shrink@copy-gpu-madvise-32
+-msm_shrink@copy-gpu-oom-8
+-msm_shrink@copy-gpu-oom-32
+-msm_shrink@copy-mmap-sanitycheck-8
+-msm_shrink@copy-mmap-sanitycheck-32
+-msm_shrink@copy-mmap-8
+-msm_shrink@copy-mmap-32
+-msm_shrink@copy-mmap-madvise-8
+-msm_shrink@copy-mmap-madvise-32
+-msm_shrink@copy-mmap-oom-8
+-msm_shrink@copy-mmap-oom-32
+-msm_shrink@copy-mmap-dmabuf-sanitycheck-8
+-msm_shrink@copy-mmap-dmabuf-sanitycheck-32
+-msm_shrink@copy-mmap-dmabuf-8
+-msm_shrink@copy-mmap-dmabuf-32
+-msm_shrink@copy-mmap-dmabuf-madvise-8
+-msm_shrink@copy-mmap-dmabuf-madvise-32
+-msm_shrink@copy-mmap-dmabuf-oom-8
+-msm_shrink@copy-mmap-dmabuf-oom-32
+-msm_mapping@ring
+-msm_mapping@sqefw
+-msm_mapping@shadow
+-msm_submitoverhead@submitbench-10-bos
+-msm_submitoverhead@submitbench-10-bos-no-implicit-sync
+-msm_submitoverhead@submitbench-100-bos
+-msm_submitoverhead@submitbench-100-bos-no-implicit-sync
+-msm_submitoverhead@submitbench-250-bos
+-msm_submitoverhead@submitbench-250-bos-no-implicit-sync
+-msm_submitoverhead@submitbench-500-bos
+-msm_submitoverhead@submitbench-500-bos-no-implicit-sync
+-msm_submitoverhead@submitbench-1000-bos
+-msm_submitoverhead@submitbench-1000-bos-no-implicit-sync
+-msm_recovery@hangcheck
+-msm_recovery@gpu-fault
+-msm_recovery@gpu-fault-parallel
+-msm_recovery@iova-fault
+-msm_submit@empty-submit
+-msm_submit@invalid-queue-submit
+-msm_submit@invalid-flags-submit
+-msm_submit@invalid-in-fence-submit
+-msm_submit@invalid-duplicate-bo-submit
+-msm_submit@invalid-cmd-idx-submit
+-msm_submit@invalid-cmd-type-submit
+-msm_submit@valid-submit
+-panfrost_get_param@base-params
+-panfrost_get_param@get-bad-param
+-panfrost_get_param@get-bad-padding
+-panfrost_gem_new@gem-new-4096
+-panfrost_gem_new@gem-new-0
+-panfrost_gem_new@gem-new-zeroed
+-panfrost_prime@gem-prime-import
+-panfrost_submit@pan-submit
+-panfrost_submit@pan-submit-error-no-jc
+-panfrost_submit@pan-submit-error-bad-in-syncs
+-panfrost_submit@pan-submit-error-bad-bo-handles
+-panfrost_submit@pan-submit-error-bad-requirements
+-panfrost_submit@pan-submit-error-bad-out-sync
+-panfrost_submit@pan-reset
+-panfrost_submit@pan-submit-and-close
+-panfrost_submit@pan-unhandled-pagefault
++prime_vgem@basic-read
++prime_vgem@basic-write
++prime_vgem@basic-gtt
++prime_vgem@basic-blt
++prime_vgem@shrink
++prime_vgem@coherency-gtt
++prime_vgem@coherency-blt
++prime_vgem@sync
++prime_vgem@busy
++prime_vgem@wait
++prime_vgem@basic-fence-read
++prime_vgem@basic-fence-mmap
++prime_vgem@basic-fence-blt
++prime_vgem@basic-fence-flip
++prime_vgem@fence-read-hang
++prime_vgem@fence-write-hang
++prime_vgem@fence-flip-hang
++prime_vgem@fence-wait
++vgem_basic@unload
++vgem_basic@setversion
++vgem_basic@second-client
++vgem_basic@create
++vgem_basic@mmap
++vgem_basic@bad-flag
++vgem_basic@bad-pad
++vgem_basic@bad-handle
++vgem_basic@bad-fence
++vgem_basic@busy-fence
++vgem_basic@dmabuf-export
++vgem_basic@dmabuf-mmap
++vgem_basic@dmabuf-fence
++vgem_basic@dmabuf-fence-before
++vgem_basic@sysfs
++vgem_basic@debugfs
++vgem_slow@nohang
+diff --git a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-fails.txt b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-fails.txt
+index ea87dc46bc2b..e47baa920c22 100644
+--- a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-fails.txt
+@@ -1,3 +1,20 @@
++amdgpu/amd_assr@assr-links,Fail
++amdgpu/amd_assr@assr-links-dpms,Fail
++amdgpu/amd_ilr@ilr-policy,Fail
++amdgpu/amd_mall@static-screen,Crash
++amdgpu/amd_mode_switch@mode-switch-first-last-pipe-2,Crash
++amdgpu/amd_pci_unplug@amdgpu_hotunplug_with_cs,Fail
++amdgpu/amd_pci_unplug@amdgpu_hotunplug_with_exported_bo,Fail
++amdgpu/amd_plane@mpo-pan-nv12,Fail
++amdgpu/amd_plane@mpo-pan-p010,Fail
++amdgpu/amd_plane@mpo-pan-rgb,Crash
++amdgpu/amd_plane@mpo-scale-nv12,Fail
++amdgpu/amd_plane@mpo-scale-p010,Fail
++amdgpu/amd_plane@mpo-scale-rgb,Crash
++amdgpu/amd_plane@mpo-swizzle-toggle,Fail
++amdgpu/amd_vce_dec@amdgpu_cs_vce_destroy,Fail
++amdgpu/amd_vce_dec@amdgpu_cs_vce_encode,Fail
++amdgpu/amd_vrr_range@freesync-parsing,Timeout
+ kms_addfb_basic@bad-pitch-65536,Fail
+ kms_addfb_basic@bo-too-small,Fail
+ kms_addfb_basic@too-high,Fail
+@@ -14,7 +31,13 @@ kms_bw@linear-tiling-1-displays-3840x2160p,Fail
+ kms_bw@linear-tiling-2-displays-3840x2160p,Fail
+ kms_bw@linear-tiling-3-displays-1920x1080p,Fail
+ kms_color@degamma,Fail
++kms_cursor_crc@cursor-onscreen-64x21,Fail
++kms_cursor_crc@cursor-onscreen-64x64,Fail
++kms_cursor_crc@cursor-random-64x21,Fail
++kms_cursor_crc@cursor-random-64x64,Fail
+ kms_cursor_crc@cursor-size-change,Fail
++kms_cursor_crc@cursor-sliding-64x21,Fail
++kms_cursor_crc@cursor-sliding-64x64,Fail
+ kms_cursor_crc@pipe-A-cursor-size-change,Fail
+ kms_cursor_crc@pipe-B-cursor-size-change,Fail
  kms_flip@flip-vs-modeset-vs-hang,Fail
- kms_flip@flip-vs-panning,Fail
- kms_flip@flip-vs-panning-interruptible,Fail
- kms_flip@flip-vs-panning-vs-hang,Fail
- kms_flip@modeset-vs-vblank-race,Fail
-+kms_flip@modeset-vs-vblank-race-interruptible,Fail
- kms_flip@plain-flip-fb-recreate,Fail
- kms_flip@plain-flip-fb-recreate-interruptible,Fail
- kms_flip@plain-flip-ts-check,Fail
- kms_flip@plain-flip-ts-check-interruptible,Fail
- kms_flip@wf_vblank-ts-check,Fail
--kms_flip@wf_vblank-ts-check-interruptible,Fail
- kms_invalid_mode@int-max-clock,Fail
- kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
- kms_pipe_crc_basic@compare-crc-sanitycheck-xr24,Fail
-@@ -56,20 +69,5 @@ kms_plane@plane-panning-top-left,Fail
- kms_plane@plane-position-covered,Fail
- kms_plane@plane-position-hole,Fail
- kms_plane@plane-position-hole-dpms,Fail
--kms_plane_cursor@overlay,Fail
--kms_plane_cursor@pipe-B-overlay-size-128,Fail
--kms_plane_cursor@pipe-B-overlay-size-256,Fail
--kms_plane_cursor@pipe-B-overlay-size-64,Fail
--kms_plane_cursor@pipe-B-primary-size-128,Fail
--kms_plane_cursor@pipe-B-primary-size-256,Fail
--kms_plane_cursor@pipe-B-primary-size-64,Fail
--kms_plane_cursor@pipe-B-viewport-size-128,Fail
--kms_plane_cursor@pipe-B-viewport-size-256,Fail
--kms_plane_cursor@pipe-B-viewport-size-64,Fail
--kms_plane_cursor@primary,Fail
--kms_plane_cursor@viewport,Fail
--kms_plane_multiple@atomic-pipe-B-tiling-none,Fail
- kms_plane_multiple@tiling-none,Fail
--kms_prime@basic-crc,Fail
- kms_rmfb@close-fd,Fail
--kms_universal_plane@universal-plane-pipe-B-functional,Fail
-diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-display-flakes.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-display-flakes.txt
-new file mode 100644
-index 000000000000..c19ae2fa9c18
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-display-flakes.txt
-@@ -0,0 +1,23 @@
-+# Board Name: rk3399-gru-kevin.dtb
-+# Bug Report: https://lore.kernel.org/dri-devel/bdb53650-1888-30b8-93ee-2290d020af4a@collabora.com/T/#u
-+# IGT Version: 1.28-gd2af13d9f
-+# Failure Rate: 50
+@@ -23,5 +46,4 @@ kms_hdr@bpc-switch,Fail
+ kms_hdr@bpc-switch-dpms,Fail
+ kms_plane@pixel-format,Fail
+ kms_plane_multiple@atomic-pipe-A-tiling-none,Fail
+-kms_rmfb@close-fd,Fail
+ kms_rotation_crc@primary-rotation-180,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-flakes.txt b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-flakes.txt
+index 6faf75e667d3..4736ba33ba5d 100644
+--- a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-flakes.txt
++++ b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-flakes.txt
+@@ -1 +1,8 @@
+-kms_async_flips@async-flip-with-page-flip-events
++# Board Name: hp-11A-G6-EE-grunt
++# Bug Report: https://lore.kernel.org/dri-devel/903b01f7-3f0d-18b7-a4b7-301c118c9321@collabora.com/T/#u
++# IGT Version: 1.28-gb0cc8160e
 +# Linux Version: 6.7.0-rc3
 +
 +# Reported by deqp-runner
-+kms_color@gamma
-+kms_cursor_legacy@cursorA-vs-flipA-toggle
-+kms_flip@dpms-vs-vblank-race
-+kms_flip@dpms-vs-vblank-race-interruptible
-+kms_flip@flip-vs-absolute-wf_vblank-interruptible
-+kms_flip@flip-vs-wf_vblank-interruptible
-+kms_flip@modeset-vs-vblank-race-interruptible
-+kms_pipe_crc_basic@compare-crc-sanitycheck-xr24
-+kms_setmode@basic
-+
-+# The below test shows inconsistency across multiple runs, giving
-+# results of Pass and Crash alternately.
-+kms_cursor_crc@cursor-rapid-movement-32x10
-+kms_flip@wf_vblank-ts-check-interruptible
-+kms_bw@linear-tiling-2-displays-1920x1080p
-+kms_bw@linear-tiling-3-displays-2560x1440p
-diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-display-skips.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-display-skips.txt
-new file mode 100644
-index 000000000000..cf5577b7720c
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-display-skips.txt
-@@ -0,0 +1,6 @@
-+# Suspend to RAM seems to be broken on this machine
++amdgpu/amd_pci_unplug@amdgpu_hotunplug_simple
++amdgpu/amd_pci_unplug@amdgpu_hotunplug_with_exported_bo
+diff --git a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-skips.txt b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-skips.txt
+index e2c538a0f954..872647298741 100644
+--- a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-skips.txt
++++ b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-skips.txt
+@@ -1,2 +1,10 @@
+ # Suspend to RAM seems to be broken on this machine
+-.*suspend.*
+\ No newline at end of file
 +.*suspend.*
 +
-+# Machine ends up hanging after lots of Oopses with linux version 6.7.0-rc4
-+# rockchip-dp ff970000.dp: AUX CH error happened: 0x2
-+kms_plane_multiple.*
-diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-flakes.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-flakes.txt
-deleted file mode 100644
-index c9fdc623ab91..000000000000
---- a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-flakes.txt
-+++ /dev/null
-@@ -1,7 +0,0 @@
--kms_bw@linear-tiling-2-displays-1920x1080p
--kms_cursor_crc@cursor-offscreen-64x21
--kms_flip@dpms-vs-vblank-race-interruptible
--kms_flip@flip-vs-wf_vblank-interruptible
--kms_plane_cursor@overlay
--kms_plane_cursor@primary
--kms_plane_cursor@viewport
-diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-skips.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-skips.txt
-deleted file mode 100644
-index 10c3d81a919a..000000000000
---- a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-skips.txt
-+++ /dev/null
-@@ -1,5 +0,0 @@
--# Suspend to RAM seems to be broken on this machine
--.*suspend.*
--
--# Too unstable, machine ends up hanging after lots of Oopses
--kms_cursor_legacy.*
++# GPU reset seen and it hangs the machine
++amdgpu/amd_deadlock@amdgpu-gfx-illegal-reg-access
++amdgpu/amd_dispatch@amdgpu-reset-test-gfx-with-IP-GFX-and-COMPUTE
++
++# Skip this test as core_getrevision fails with
++# Module amdgpu already inserted
++amdgpu/amd_module_load@reload
 -- 
 2.40.1
 
