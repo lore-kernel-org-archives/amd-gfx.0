@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 197D3C48285
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 15:05:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24099C46CD2
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jan 2024 15:05:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 503FB1131BD;
-	Tue, 30 Jan 2024 15:05:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 349B21131BE;
+	Tue, 30 Jan 2024 15:05:35 +0000 (UTC)
 Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
  [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB5381131BB;
- Tue, 30 Jan 2024 15:05:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21B071131BE;
+ Tue, 30 Jan 2024 15:05:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1706627100;
- bh=Kl6yFDA/A15PY0gUzrkPNTp3zRS8n6hwMIq/eK6dgX8=;
+ s=mail; t=1706627133;
+ bh=URYtar/EYKdvk24yq8i2kmfS77H7Oa8ScrMzfoeJcCg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=1X3C+HkzNDbtP6LME1atyrCylDISIKQQD3ylVziKc00A9IjEowuu7umIky664byg/
- BNNBe83FVmRWU7h+bduWiJqoB6WasXr/gCJFXd/16PTPinSg555PFmC4ruy54EU85w
- gbxkP42eUs1e/BnPvB7zgjmqpM5CTi+S+53Kjb23n01RxZlU4pzsVkLYpbRBHsMr1L
- yB34TRDZz0UMzoFoqGYTtVwHOeexHqoGDENEXIifgvtTg53q7MWvRW1Pk7Cy9zvPs4
- WC6ItQIQ6mRsI7gkpjCqEZQ0C2s3fvi/KOJ/4gt9Y3aFrgN5USqMYf9WdgrCmwxqU9
- oMX/0UiRYoRxA==
+ b=RGNEnZ3Osl5NmwJb/YucgJH/VPBsfpuYGZdMIh9Osq3ocSSBTncfl7RqEHTlqcgwo
+ HYXqnHLkMJG+GbK0On8O2Yu7/XWl++SPYClDzyQ1WmbMbDnTCMHDvm/jzd9je9oseH
+ vA7cG0y64Bsjz/K9V9rRU4Pans333w4KAdqMIrjUU1o4qtVyzyxs6/BDeokiGUwDaA
+ ZGY5x5iX8iv/dWywlQZwMXhJjxOBNhOZKT3M3BansHFy2pAsWoRPlO9xIJZh03969L
+ kaX9yX7Qz39AGzd9b2f6WlFeThUe7sl9eCdY0NBrh0Pobfsyirwq2lLAnwsdIPqod6
+ ueKJx+DDL1/pA==
 Received: from localhost.localdomain (cola.collaboradmins.com [195.201.22.229])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: vignesh)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 035B53781FC7;
- Tue, 30 Jan 2024 15:04:55 +0000 (UTC)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id EAE323782084;
+ Tue, 30 Jan 2024 15:05:27 +0000 (UTC)
 From: Vignesh Raman <vignesh.raman@collabora.com>
 To: dri-devel@lists.freedesktop.org
-Subject: [PATCH v3 1/9] drm/ci: arm64.config: Enable
- CONFIG_DRM_ANALOGIX_ANX7625
-Date: Tue, 30 Jan 2024 20:33:32 +0530
-Message-Id: <20240130150340.687871-2-vignesh.raman@collabora.com>
+Subject: [PATCH v3 7/9] drm/ci: rockchip: Add job to test panfrost GPU driver
+Date: Tue, 30 Jan 2024 20:33:38 +0530
+Message-Id: <20240130150340.687871-8-vignesh.raman@collabora.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240130150340.687871-1-vignesh.raman@collabora.com>
 References: <20240130150340.687871-1-vignesh.raman@collabora.com>
@@ -60,38 +59,96 @@ Cc: linux-rockchip@lists.infradead.org, guilherme.gallo@collabora.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable CONFIG_DRM_ANALOGIX_ANX7625 in the arm64 defconfig to get
-display driver probed on the mt8183-kukui-jacuzzi-juniper machine.
-
-arch/arm64/configs/defconfig has CONFIG_DRM_ANALOGIX_ANX7625=m,
-but drm-ci don't have initrd with modules, so add
-CONFIG_DRM_ANALOGIX_ANX7625=y in CI arm64 config.
+For rockchip rk3288 and rk3399, the GPU driver is panfrost.
+So add support in drm-ci to test panfrost driver for rockchip
+SOC and update xfails. Skip KMS tests for panfrost driver
+since it is not a not a KMS driver.
 
 Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
 ---
 
 v2:
-  - No changes
+  - Add panfrost GPU jobs for rockchip SOC with new xfails.
 
 v3:
-  - No changes
+  - Skip KMS tests for panfrost driver since it is not a not
+    a KMS driver and update xfails. Add the job name in GPU_VERSION
+    and use it for xfail file names instead of using DRIVER_NAME.
 
 ---
- drivers/gpu/drm/ci/arm64.config | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/ci/test.yml                        | 14 ++++++++++++++
+ .../drm/ci/xfails/rockchip-rk3288-gpu-fails.txt    |  1 +
+ .../drm/ci/xfails/rockchip-rk3288-gpu-skips.txt    |  2 ++
+ .../drm/ci/xfails/rockchip-rk3399-gpu-fails.txt    |  1 +
+ .../drm/ci/xfails/rockchip-rk3399-gpu-skips.txt    |  2 ++
+ 5 files changed, 20 insertions(+)
+ create mode 100644 drivers/gpu/drm/ci/xfails/rockchip-rk3288-gpu-fails.txt
+ create mode 100644 drivers/gpu/drm/ci/xfails/rockchip-rk3288-gpu-skips.txt
+ create mode 100644 drivers/gpu/drm/ci/xfails/rockchip-rk3399-gpu-fails.txt
+ create mode 100644 drivers/gpu/drm/ci/xfails/rockchip-rk3399-gpu-skips.txt
 
-diff --git a/drivers/gpu/drm/ci/arm64.config b/drivers/gpu/drm/ci/arm64.config
-index 8dbce9919a57..37d23fd7a367 100644
---- a/drivers/gpu/drm/ci/arm64.config
-+++ b/drivers/gpu/drm/ci/arm64.config
-@@ -187,6 +187,7 @@ CONFIG_MTK_DEVAPC=y
- CONFIG_PWM_MTK_DISP=y
- CONFIG_MTK_CMDQ=y
- CONFIG_REGULATOR_DA9211=y
-+CONFIG_DRM_ANALOGIX_ANX7625=y
+diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
+index 1b8846c6bdbf..8ab8a8f56d6a 100644
+--- a/drivers/gpu/drm/ci/test.yml
++++ b/drivers/gpu/drm/ci/test.yml
+@@ -175,6 +175,13 @@ msm:sdm845:
+     KERNEL_IMAGE_TYPE: ""
+     RUNNER_TAG: mesa-ci-x86-64-lava-rk3399-gru-kevin
  
- # For nouveau.  Note that DRM must be a module so that it's loaded after NFS is up to provide the firmware.
- CONFIG_ARCH_TEGRA=y
++rockchip:rk3288-gpu:
++  extends:
++    - .rk3288
++  variables:
++    GPU_VERSION: rockchip-rk3288-gpu
++    DRIVER_NAME: panfrost
++
+ rockchip:rk3288-display:
+   extends:
+     - .rk3288
+@@ -182,6 +189,13 @@ rockchip:rk3288-display:
+     GPU_VERSION: rockchip-rk3288-display
+     DRIVER_NAME: rockchip
+ 
++rockchip:rk3399-gpu:
++  extends:
++    - .rk3399
++  variables:
++    GPU_VERSION: rockchip-rk3399-gpu
++    DRIVER_NAME: panfrost
++
+ rockchip:rk3399-display:
+   extends:
+     - .rk3399
+diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-gpu-fails.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-gpu-fails.txt
+new file mode 100644
+index 000000000000..abd35a8ef6f4
+--- /dev/null
++++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-gpu-fails.txt
+@@ -0,0 +1 @@
++panfrost_prime@gem-prime-import,Crash
+diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-gpu-skips.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-gpu-skips.txt
+new file mode 100644
+index 000000000000..2ea09d1648bc
+--- /dev/null
++++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-gpu-skips.txt
+@@ -0,0 +1,2 @@
++# Panfrost is not a KMS driver, so skip the KMS tests
++kms_.*
+diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-gpu-fails.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-gpu-fails.txt
+new file mode 100644
+index 000000000000..6f5e760d5ec0
+--- /dev/null
++++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-gpu-fails.txt
+@@ -0,0 +1 @@
++panfrost_prime@gem-prime-import,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-gpu-skips.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-gpu-skips.txt
+new file mode 100644
+index 000000000000..2ea09d1648bc
+--- /dev/null
++++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-gpu-skips.txt
+@@ -0,0 +1,2 @@
++# Panfrost is not a KMS driver, so skip the KMS tests
++kms_.*
 -- 
 2.40.1
 
