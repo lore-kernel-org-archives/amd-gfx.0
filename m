@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FB00C47258
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jan 2024 20:15:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D2B3C47DB3
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jan 2024 20:15:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E995010FCC5;
-	Wed, 31 Jan 2024 20:15:52 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2069.outbound.protection.outlook.com [40.107.95.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE8FA10FCD7
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jan 2024 20:15:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E51210FC19;
+	Wed, 31 Jan 2024 20:15:57 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B2EE10FCD7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jan 2024 20:15:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=frGgI3rNNC3kcLrx/Ba1FaKoFmluUmFf9UOMVXGUiAamFbZyhklfZ2eKjVZ1Q9Xdl+a7bfmaBlKgXquuLikNMgVcuhsEaAYMFcVrGsGCPz/l9Eq4i/pevQMxM0TLWMPLVzBuYOxDHnY5YMr6wdwkOqr2x9UuMF5rQF74KmzGuhi9w0s1fCmOaqUONiFsqpQs28b6JfkGpwDeF7K3mUIOS7AFPBxvkV1Lgg154EZbPPOICEQluGr3efLHsv3g/i5gZ9uIFQxnckxGAxgFHwoypxo61+4OSDyS8DiMlqAJClx8nGVZyCh1JZpv+0aCcD7GMHP7Zb+aHQ/8UjHCMznlrQ==
+ b=FZ6TSDHiZWrr/HNYEf3LQro/UrQwXgAU+27bUsz5iyZqzuzX4UF0By7i9a7sw8f9CBXLtf8RHKOFQji2kbCS81w+jZvrm4s7yaev0otN6XQ4c0ZP0DZAzfghOC/NLIxCCJ/lTPGTxTfpXwDPB0mljn8W49KCr6nnjWeIgDZSoRQa1lL7xLLVfppkpOggOdlNB4g9CUkQdt56czdAsbGKbCT69djwDj8rud/sIyharfSM/Pyj34/QjKZ2yvL9G1bMzYxq1VhairwQmLxnLduJb2Otjpwi2QUwYDtTg4fuEMVCAUiSaCDElIbTXvqjCFPHM9kwvCrwTWU9RYvafGmi0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aeGVs8NxwCXo6pzfV8kpdf1vBQSNNc7pLiusaHnX06M=;
- b=gmbHCVE7ZdtUBN6yJOWya6405fMwJyz7mj55XfuflIz2u0EWkrCiYvSy0yF7G9seE6H6xsadYWdZYQCFPMFTo2egH9pRgWmQ9VcVch3PO6KLfRt8GuQ0/I8nWK7lMskCGLMlXM4uXAV00px+JiEGth70zQ5fZnkow8YRH7UnDHjwODg2015Hjxzr6N+cTUYBmfF+A0ORyQcHk5OTT//qvCSTUJURCzCICJIZrT0SptBLgooZB9TR8WuZtn6vwJeTc415S7/TXVdsE4wEvmXLVwTlIgjAr8vjh/enu8WVwatHA9XDYxpNWEd+VYA6BoQJyUPjFfI8bKvtJm+t5DM2Tg==
+ bh=CiROGyWKDuIl5zbMb3PIp+xXM337ozdqHldugy18UsA=;
+ b=YkYnDBCUFTI3I72cybSqs86Yd98hXEBcXMsH9epC9NdZesHy7x0rJv3LNE779+SToCYDKaZwguL3sx3hH3VPzRZJ9u4AEEF4qwYxNpHAvsql+PSI4LlcuCb94q0R1gTGGlWy5Sk/gXyGQVrvr/9ccyxcC+burzgfSaW+VNMpLqmj1+c3/LaRFnY49+m0u9q8DAg8299QXgHZ+rFPKxpmi+fmLrbZHLMkrKmIUmvLuvHsKM5Io6Z1tn/gWYgWirVO7fgN1vFRUIsEA30BY1UhKRFWaLAOls7s1FSuP1b5M5R+4kgkvwln6x6F3RGuLOF3t3RlK4fcq4A8D8y+Gwz69A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aeGVs8NxwCXo6pzfV8kpdf1vBQSNNc7pLiusaHnX06M=;
- b=lAhOXkn0R05NcjTvv5NvjCjDlTdbrTCTnwbJAXzsu0bQtGUtslta9wStLE1RuyZ+eA9+1eGnii8tmb6IpJqxR6SrTJyJVknhtRjmQWYS+EWEs4lmWiTOQcTwFL6adZQZ0yyVIU8X29kO1UblkUOI3nYn8GAVhrH2GyG1n4e+J7U=
-Received: from DM6PR08CA0054.namprd08.prod.outlook.com (2603:10b6:5:1e0::28)
- by PH7PR12MB9075.namprd12.prod.outlook.com (2603:10b6:510:2f0::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.34; Wed, 31 Jan
- 2024 20:15:49 +0000
-Received: from SN1PEPF0002636A.namprd02.prod.outlook.com
- (2603:10b6:5:1e0:cafe::36) by DM6PR08CA0054.outlook.office365.com
- (2603:10b6:5:1e0::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.24 via Frontend
- Transport; Wed, 31 Jan 2024 20:15:48 +0000
+ bh=CiROGyWKDuIl5zbMb3PIp+xXM337ozdqHldugy18UsA=;
+ b=i1dzO6D3UeH9hd4gEh+lzd/GCr2Lb95cmeN9yDmDlo2jaB/22WSvxYHY5dxjz4EndIIOJyxB4Z0HjkdLUdvxZDSw8nh6BksbtqsofDfurrj51aJ5yW7iNhkQASt5/n6bH6uk/g5DYXZkO0a8qCCb/8zLmeXh258VHZWEzCVRtwg=
+Received: from SN6PR01CA0010.prod.exchangelabs.com (2603:10b6:805:b6::23) by
+ IA0PR12MB7530.namprd12.prod.outlook.com (2603:10b6:208:440::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7228.34; Wed, 31 Jan 2024 20:15:46 +0000
+Received: from SN1PEPF0002636E.namprd02.prod.outlook.com
+ (2603:10b6:805:b6:cafe::6e) by SN6PR01CA0010.outlook.office365.com
+ (2603:10b6:805:b6::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.22 via Frontend
+ Transport; Wed, 31 Jan 2024 20:15:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +44,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF0002636A.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ SN1PEPF0002636E.mail.protection.outlook.com (10.167.241.139) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7249.19 via Frontend Transport; Wed, 31 Jan 2024 20:15:48 +0000
+ 15.20.7249.19 via Frontend Transport; Wed, 31 Jan 2024 20:15:45 +0000
 Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 31 Jan
- 2024 14:15:21 -0600
+ 2024 14:14:52 -0600
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 19/21] drm/amd/display: Trivial code style adjustment
-Date: Wed, 31 Jan 2024 15:11:25 -0500
-Message-ID: <20240131201220.19106-20-hamza.mahfooz@amd.com>
+Subject: [PATCH 16/21] drm/amd/display: Update phantom pipe enable / disable
+ sequence
+Date: Wed, 31 Jan 2024 15:11:22 -0500
+Message-ID: <20240131201220.19106-17-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240131201220.19106-1-hamza.mahfooz@amd.com>
 References: <20240131201220.19106-1-hamza.mahfooz@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002636A:EE_|PH7PR12MB9075:EE_
-X-MS-Office365-Filtering-Correlation-Id: 78659d55-d340-4911-518b-08dc22996a15
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636E:EE_|IA0PR12MB7530:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b536087-4afd-4f84-857d-08dc22996848
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gKQXrXfnwS/tA3Dtbo1+5H9oh3eopr8VomxjCTyq0qu1jlS6tKbf40wJdJjw9qckgaXSF4P2nWLTfdJEnr++kK6YSfKS47Npg1mDSXzvZ/xvi2a2JhBhoGC8B4ISXf+aQf6ECnei4zaFKkjAl/Eh42Tr1o385iYE7elAaUMkfOk65xTG4QFg06Hoy+RqJKv++oLNhgiSfY57ZJXsKTLRLh9Rfnt8MVrhuR+pLfDpXk13YwKegACJo/OTJ/wnge4obZYbIuPfxdYc4qsU2HrLJGeNgFAlBrm/cUIVApZKNSg+Hz1P8i83/2oY8cy/Y2xrdrKk1yMxskz2pmWTuRVIaefSYSH1GJYMO0u9GtW73Eky7DDg/iOMVJG1LObXFvGqT/OoKu5oIr8dW1dLnSiN7QLM6FaL+Mqf76xZpWNvhnUlXXZZCnIRJhMQbdOB46ZmdxEBifqvH8/aNbXBuV0ulQolv5g5wFFitWCnZsB/sD3OXwpXtXqx8kVZErVw9U+3K5/IF6zjDkW9i8DJuRd65B3rqaUGICmPmrYj7ffo4qikzgwy28XC3rX7ZN7Yv6rgV1YnM67URZBuIZdJ+z9bR/H4yMqC8B+W42MidgSprRfBy55+sjNHYEYTzIXQnLdDakdovrQd/5iYi6yn1od65Js8mhakanBOSAAcXWAJv8DvKQw+ELYzq2HfhcVy4reqcOjVlXaVQId48zMLGn/ow9AJrRoxfuPwJcBbAK0yFE4UFatzizjR+jMzMEm6fnUi/CoZ0NTSmmMolzzKI+iLBR0cQ/IppLK8z9BZyWEsA81Z2u1b4J0j/4jNzUHY7d/k
+X-Microsoft-Antispam-Message-Info: PoE//CzC6U4nEkw/8PFQ3vQdjdJsU8yVmVoQwCb2+r+EX5z6mrDQrY+SpylnJN8KsglkW7tZ5u69mvmHsMu+iJl1UKyv2uqZIhWAzbgezvXjJPmVLMcO00x1nexO0hmBj5fKX8mzLv2LGvmUwe+bf8HAdj01btyft8pmGmlx4i6VGCExr8wvqtPBAYTqCbMaUgkZ1C0nNDuHZ7VfSjcpjLQovuBTwZRqXnNAyvSPpbRfRTmd1Kp3qjBwAHicmZ7xnpzscetDgt7mB+XdVU2hw+xuGcyO5ix23oYvT5ruijsuFg4gStEh/0zAqShKUMMLxl22qWxtcW/mFG+rksQWQ1/J7NnPgHzUnGsfsLScNfSv7MJ20+ri92xpxSbBNhYeKhA7QBU7eB/bt+M5nOLPeN5NKS21XHLy0IEs2Rqn0kPOyRq/0QNXYKj0JSGBpm5HJ9ZPyfJOWKkI7HzArKjU2pL2mOdShKNGDHQSe+o201gImNMtpvf9KTX9wIkRRtFEV/B+SoIHnKsUtthP2xt98vUHhWpS1X8ExHEB0QQouIebrYNo5vUKJWjBFfz/08+WR+UwoYefyB61t1EzSrKi21GzDEwy0Y6RQ3BuCFyjNaq18ycB++g1/q/knQ4EUR1EtwPEMQeVMC5zlIE6s1zMC0L0+JcKaD7iPjEBlxat6nADTccyh/Os6dAKkl9oAdRl7xN9zqy13eWGWxmW0YLtecGNk/F4gESwBxUnH8B5Apr/6qzgJ5PzrLkQUfB/Qm+Pye3PNv5ESJJHCFkO0JiolQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(396003)(39860400002)(346002)(136003)(230922051799003)(1800799012)(186009)(82310400011)(451199024)(64100799003)(36840700001)(40470700004)(46966006)(54906003)(44832011)(8936002)(4326008)(8676002)(5660300002)(86362001)(2906002)(70206006)(70586007)(6916009)(316002)(36756003)(47076005)(36860700001)(82740400003)(81166007)(356005)(478600001)(83380400001)(1076003)(26005)(2616005)(16526019)(426003)(41300700001)(40480700001)(40460700003)(336012)(16060500005)(36900700001);
+ SFS:(13230031)(4636009)(230922051799003)(186009)(82310400011)(451199024)(1800799012)(40470700004)(36840700001)(46966006)(40460700003)(70586007)(70206006)(54906003)(30864003)(15650500001)(5660300002)(44832011)(2906002)(316002)(47076005)(8936002)(6916009)(8676002)(4326008)(508600001)(356005)(81166007)(36756003)(86362001)(36860700001)(26005)(336012)(16526019)(6666004)(426003)(1076003)(2616005)(83380400001)(36900700001)(16060500005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2024 20:15:48.3953 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78659d55-d340-4911-518b-08dc22996a15
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2024 20:15:45.3910 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b536087-4afd-4f84-857d-08dc22996848
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9075
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7530
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,53 +99,293 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: chiahsuan.chung@amd.com, Sunpeng.Li@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
- hersenxs.wu@amd.com, Hamza Mahfooz <hamza.mahfooz@amd.com>, wayne.lin@amd.com,
- Harry.Wentland@amd.com, agustin.gutierrez@amd.com
+Cc: chiahsuan.chung@amd.com, Samson Tam <samson.tam@amd.com>,
+ Sunpeng.Li@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ stable@vger.kernel.org, jerry.zuo@amd.com, Aurabindo.Pillai@amd.com,
+ hersenxs.wu@amd.com, Alvin Lee <alvin.lee2@amd.com>, wayne.lin@amd.com,
+ Harry.Wentland@amd.com, agustin.gutierrez@amd.com,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+From: Alvin Lee <alvin.lee2@amd.com>
 
-Just adjust the code indentation in the header and add a simple comment
-in the dm_cp_psp file.
+Previously we would call apply_ctx_to_hw to enable and disable
+phantom pipes. However, apply_ctx_to_hw can potentially update
+non-phantom pipes as well which is undesired. Instead of calling
+apply_ctx_to_hw as a whole, call the relevant helpers for each
+phantom pipe when enabling / disabling which will avoid us modifying
+hardware state for non-phantom pipes unknowingly.
 
+The use case is for an FRL display where FRL_Update is requested
+by the display. In this case link_state_valid flag is cleared in
+a passive callback thread and should be handled in the next stream /
+link update. However, due to the call to apply_ctx_to_hw for the
+phantom pipes during a flip, the main pipes were modified outside
+of the desired sequence (driver does not handle link_state_valid = 0
+on flips).
+
+Cc: stable@vger.kernel.org # 6.6+
+Reviewed-by: Samson Tam <samson.tam@amd.com>
 Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
 ---
- .../drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h   | 3 +--
- drivers/gpu/drm/amd/display/dc/dm_cp_psp.h                     | 3 +++
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  4 +-
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c |  4 +-
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.h |  4 +
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  2 +-
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.h   |  4 +
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 76 ++++++++++++++++---
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.h   |  2 +
+ .../amd/display/dc/hwss/dcn32/dcn32_init.c    |  3 +
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |  1 +
+ .../display/dc/hwss/hw_sequencer_private.h    |  7 ++
+ 10 files changed, 94 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h
-index a34c258c19dc..c76352a817de 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h
-@@ -36,8 +36,7 @@
- #define DALSMC_MSG_SetCabForUclkPstate	0x12
- #define DALSMC_Result_OK				0x1
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index c81f8af5d374..72512903f88f 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3851,7 +3851,9 @@ static void commit_planes_for_stream(struct dc *dc,
+ 		 * programming has completed (we turn on phantom OTG in order
+ 		 * to complete the plane disable for phantom pipes).
+ 		 */
+-		dc->hwss.apply_ctx_to_hw(dc, context);
++
++		if (dc->hwss.disable_phantom_streams)
++			dc->hwss.disable_phantom_streams(dc, context);
+ 	}
  
--void
--dcn32_smu_send_fclk_pstate_message(struct clk_mgr_internal *clk_mgr, bool enable);
-+void dcn32_smu_send_fclk_pstate_message(struct clk_mgr_internal *clk_mgr, bool enable);
- void dcn32_smu_transfer_wm_table_dram_2_smu(struct clk_mgr_internal *clk_mgr);
- void dcn32_smu_set_pme_workaround(struct clk_mgr_internal *clk_mgr);
- void dcn32_smu_send_cab_for_uclk_message(struct clk_mgr_internal *clk_mgr, unsigned int num_ways);
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h b/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h
-index 4229369c57f4..f4d3f04ec857 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h
-@@ -26,6 +26,9 @@
- #ifndef DM_CP_PSP_IF__H
- #define DM_CP_PSP_IF__H
+ 	if (update_type != UPDATE_TYPE_FAST)
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+index 88170ab0ec7e..a390a9ef81d2 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+@@ -1528,7 +1528,7 @@ static enum dc_status dce110_enable_stream_timing(
+ 	return DC_OK;
+ }
  
-+/*
-+ * Interface to CPLIB/PSP to enable ASSR
-+ */
- struct dc_link;
+-static enum dc_status apply_single_controller_ctx_to_hw(
++enum dc_status dce110_apply_single_controller_ctx_to_hw(
+ 		struct pipe_ctx *pipe_ctx,
+ 		struct dc_state *context,
+ 		struct dc *dc)
+@@ -2355,7 +2355,7 @@ enum dc_status dce110_apply_ctx_to_hw(
+ 		if (pipe_ctx->top_pipe || pipe_ctx->prev_odm_pipe)
+ 			continue;
  
- struct cp_psp_stream_config {
+-		status = apply_single_controller_ctx_to_hw(
++		status = dce110_apply_single_controller_ctx_to_hw(
+ 				pipe_ctx,
+ 				context,
+ 				dc);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.h
+index 08028a1779ae..ed3cc3648e8e 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.h
+@@ -39,6 +39,10 @@ enum dc_status dce110_apply_ctx_to_hw(
+ 		struct dc *dc,
+ 		struct dc_state *context);
+ 
++enum dc_status dce110_apply_single_controller_ctx_to_hw(
++		struct pipe_ctx *pipe_ctx,
++		struct dc_state *context,
++		struct dc *dc);
+ 
+ void dce110_enable_stream(struct pipe_ctx *pipe_ctx);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+index 7557e58f58b2..bc0a21957e33 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+@@ -2671,7 +2671,7 @@ void dcn20_setup_vupdate_interrupt(struct dc *dc, struct pipe_ctx *pipe_ctx)
+ 		tg->funcs->setup_vertical_interrupt2(tg, start_line);
+ }
+ 
+-static void dcn20_reset_back_end_for_pipe(
++void dcn20_reset_back_end_for_pipe(
+ 		struct dc *dc,
+ 		struct pipe_ctx *pipe_ctx,
+ 		struct dc_state *context)
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.h
+index 90316327e6fc..5c874f7b0683 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.h
+@@ -86,6 +86,10 @@ enum dc_status dcn20_enable_stream_timing(
+ void dcn20_disable_stream_gating(struct dc *dc, struct pipe_ctx *pipe_ctx);
+ void dcn20_enable_stream_gating(struct dc *dc, struct pipe_ctx *pipe_ctx);
+ void dcn20_setup_vupdate_interrupt(struct dc *dc, struct pipe_ctx *pipe_ctx);
++void dcn20_reset_back_end_for_pipe(
++		struct dc *dc,
++		struct pipe_ctx *pipe_ctx,
++		struct dc_state *context);
+ void dcn20_init_blank(
+ 		struct dc *dc,
+ 		struct timing_generator *tg);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+index 6c9299c7683d..aa36d7a56ca8 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+@@ -1474,9 +1474,44 @@ void dcn32_update_dsc_pg(struct dc *dc,
+ 	}
+ }
+ 
++void dcn32_disable_phantom_streams(struct dc *dc, struct dc_state *context)
++{
++	struct dce_hwseq *hws = dc->hwseq;
++	int i;
++
++	for (i = dc->res_pool->pipe_count - 1; i >= 0 ; i--) {
++		struct pipe_ctx *pipe_ctx_old =
++			&dc->current_state->res_ctx.pipe_ctx[i];
++		struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
++
++		if (!pipe_ctx_old->stream)
++			continue;
++
++		if (dc_state_get_pipe_subvp_type(dc->current_state, pipe_ctx_old) != SUBVP_PHANTOM)
++			continue;
++
++		if (pipe_ctx_old->top_pipe || pipe_ctx_old->prev_odm_pipe)
++			continue;
++
++		if (!pipe_ctx->stream || pipe_need_reprogram(pipe_ctx_old, pipe_ctx) ||
++				(pipe_ctx->stream && dc_state_get_pipe_subvp_type(context, pipe_ctx) != SUBVP_PHANTOM)) {
++			struct clock_source *old_clk = pipe_ctx_old->clock_source;
++
++			if (hws->funcs.reset_back_end_for_pipe)
++				hws->funcs.reset_back_end_for_pipe(dc, pipe_ctx_old, dc->current_state);
++			if (hws->funcs.enable_stream_gating)
++				hws->funcs.enable_stream_gating(dc, pipe_ctx_old);
++			if (old_clk)
++				old_clk->funcs->cs_power_down(old_clk);
++		}
++	}
++}
++
+ void dcn32_enable_phantom_streams(struct dc *dc, struct dc_state *context)
+ {
+ 	unsigned int i;
++	enum dc_status status = DC_OK;
++	struct dce_hwseq *hws = dc->hwseq;
+ 
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+ 		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
+@@ -1497,16 +1532,39 @@ void dcn32_enable_phantom_streams(struct dc *dc, struct dc_state *context)
+ 		}
+ 	}
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+-		struct pipe_ctx *new_pipe = &context->res_ctx.pipe_ctx[i];
+-
+-		if (new_pipe->stream && dc_state_get_pipe_subvp_type(context, new_pipe) == SUBVP_PHANTOM) {
+-			// If old context or new context has phantom pipes, apply
+-			// the phantom timings now. We can't change the phantom
+-			// pipe configuration safely without driver acquiring
+-			// the DMCUB lock first.
+-			dc->hwss.apply_ctx_to_hw(dc, context);
+-			break;
++		struct pipe_ctx *pipe_ctx_old =
++					&dc->current_state->res_ctx.pipe_ctx[i];
++		struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
++
++		if (pipe_ctx->stream == NULL)
++			continue;
++
++		if (dc_state_get_pipe_subvp_type(context, pipe_ctx) != SUBVP_PHANTOM)
++			continue;
++
++		if (pipe_ctx->stream == pipe_ctx_old->stream &&
++			pipe_ctx->stream->link->link_state_valid) {
++			continue;
+ 		}
++
++		if (pipe_ctx_old->stream && !pipe_need_reprogram(pipe_ctx_old, pipe_ctx))
++			continue;
++
++		if (pipe_ctx->top_pipe || pipe_ctx->prev_odm_pipe)
++			continue;
++
++		if (hws->funcs.apply_single_controller_ctx_to_hw)
++			status = hws->funcs.apply_single_controller_ctx_to_hw(
++					pipe_ctx,
++					context,
++					dc);
++
++		ASSERT(status == DC_OK);
++
++#ifdef CONFIG_DRM_AMD_DC_FP
++		if (hws->funcs.resync_fifo_dccg_dio)
++			hws->funcs.resync_fifo_dccg_dio(hws, dc, context);
++#endif
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.h
+index cecf7f0f5671..069e20bc87c0 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.h
+@@ -111,6 +111,8 @@ void dcn32_update_dsc_pg(struct dc *dc,
+ 
+ void dcn32_enable_phantom_streams(struct dc *dc, struct dc_state *context);
+ 
++void dcn32_disable_phantom_streams(struct dc *dc, struct dc_state *context);
++
+ void dcn32_init_blank(
+ 		struct dc *dc,
+ 		struct timing_generator *tg);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
+index 0980df6c65ea..2b073123d3ed 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
+@@ -109,6 +109,7 @@ static const struct hw_sequencer_funcs dcn32_funcs = {
+ 	.get_dcc_en_bits = dcn10_get_dcc_en_bits,
+ 	.commit_subvp_config = dcn32_commit_subvp_config,
+ 	.enable_phantom_streams = dcn32_enable_phantom_streams,
++	.disable_phantom_streams = dcn32_disable_phantom_streams,
+ 	.subvp_pipe_control_lock = dcn32_subvp_pipe_control_lock,
+ 	.update_visual_confirm_color = dcn10_update_visual_confirm_color,
+ 	.subvp_pipe_control_lock_fast = dcn32_subvp_pipe_control_lock_fast,
+@@ -159,6 +160,8 @@ static const struct hwseq_private_funcs dcn32_private_funcs = {
+ 	.set_pixels_per_cycle = dcn32_set_pixels_per_cycle,
+ 	.resync_fifo_dccg_dio = dcn32_resync_fifo_dccg_dio,
+ 	.is_dp_dig_pixel_rate_div_policy = dcn32_is_dp_dig_pixel_rate_div_policy,
++	.apply_single_controller_ctx_to_hw = dce110_apply_single_controller_ctx_to_hw,
++	.reset_back_end_for_pipe = dcn20_reset_back_end_for_pipe,
+ };
+ 
+ void dcn32_hw_sequencer_init_functions(struct dc *dc)
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+index 91b1b43a728f..f89f205e42a1 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+@@ -381,6 +381,7 @@ struct hw_sequencer_funcs {
+ 			struct dc_cursor_attributes *cursor_attr);
+ 	void (*commit_subvp_config)(struct dc *dc, struct dc_state *context);
+ 	void (*enable_phantom_streams)(struct dc *dc, struct dc_state *context);
++	void (*disable_phantom_streams)(struct dc *dc, struct dc_state *context);
+ 	void (*subvp_pipe_control_lock)(struct dc *dc,
+ 			struct dc_state *context,
+ 			bool lock,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h
+index 6137cf09aa54..b3c62a82cb1c 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h
+@@ -165,8 +165,15 @@ struct hwseq_private_funcs {
+ 	void (*set_pixels_per_cycle)(struct pipe_ctx *pipe_ctx);
+ 	void (*resync_fifo_dccg_dio)(struct dce_hwseq *hws, struct dc *dc,
+ 			struct dc_state *context);
++	enum dc_status (*apply_single_controller_ctx_to_hw)(
++			struct pipe_ctx *pipe_ctx,
++			struct dc_state *context,
++			struct dc *dc);
+ 	bool (*is_dp_dig_pixel_rate_div_policy)(struct pipe_ctx *pipe_ctx);
+ #endif
++	void (*reset_back_end_for_pipe)(struct dc *dc,
++			struct pipe_ctx *pipe_ctx,
++			struct dc_state *context);
+ };
+ 
+ struct dce_hwseq {
 -- 
 2.43.0
 
