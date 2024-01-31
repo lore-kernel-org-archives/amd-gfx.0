@@ -4,132 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED9DDC47258
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jan 2024 10:20:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51102C48285
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jan 2024 10:38:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1898D113AF3;
-	Wed, 31 Jan 2024 10:20:34 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2049.outbound.protection.outlook.com [40.107.101.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2FCF113AF1;
- Wed, 31 Jan 2024 10:20:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZOhzPTlfV1SzkXm/jEXJfvoya+0/dzo89rJfBOZMQOAOxFL+FOrR3Q1oKhWr3bgxoadTQE4UatuOmtpBkX1zeMVSVs5IiP7q5VrnEXGTvSEloMhJM4MbEqDtgcLbUdoPrkyv8geEWgkF69L/HF6/NSJOG0BkedL1e1EHnfEW+Sjz7UoASRFJynrH13x/ZkIAl2ipFxPp2uFW1Ld5rvlGIvUOQai327+VIQqFw/OvSb0oyQ93RqP/AiiaJQb/uDoLO9qXkpNXrRExBVOWNcuG5E/JfoagssbS0CKM55Kjsx8nepSC9pf70MtoB1Ri1HHoJirYby8+MDNh0CKKUxugCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sMCOf/9ZqG7vb9zNlawSzGmb1dds2U95pAZX6muYrPc=;
- b=MwY2QMPg6jIHhpIUWtB6upyq6YWXdjn4RtiWDXOkwt5Q/Z3Kj2G2E/HiMdCm21ovp+c0mfO/5gKDc7gpL/6P8cgkMfc4WvqybGpHbwLH5Aw72+OuPOPlk0dVkn8pE5jhx4OCF9XgC36fFti07uVodSz4TPyjcZSCIyQMe+U32cYnMDoxmx4CpBx70dsCh6fB2dpcUwyhaDKts22wQDosnlsZ9UUd0GfbxfhKk0LhY4Shqs4dcnQjhXRCtFUgTlXmgJ+53ncLygTq6eRbb3QP62UYO/cR8fwE/imnCSlZgbvssKlzyyQIKXhYstmAdVh6bc3XUd1CGLcfKSiJbStmdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sMCOf/9ZqG7vb9zNlawSzGmb1dds2U95pAZX6muYrPc=;
- b=jBiRCv2/BtKdJ/rukbb/wO4nZRuLX74KnGGsvE6dSZ1loF6j4+wbnaAO4WjR335GQiNliz7SZB4zb/vSnPIro8n/DgOe15ofAz4WlAgcXKX2QTgQey0s2GnK2VTHOyB4YSPtylCWOvoAKIf2HuL0AcnTns7PrP4o3AiugIdNPqg=
-Received: from IA1PR12MB6532.namprd12.prod.outlook.com (2603:10b6:208:3a3::12)
- by PH7PR12MB5950.namprd12.prod.outlook.com (2603:10b6:510:1d9::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.24; Wed, 31 Jan
- 2024 10:20:13 +0000
-Received: from IA1PR12MB6532.namprd12.prod.outlook.com
- ([fe80::f70b:6b07:4565:a2b1]) by IA1PR12MB6532.namprd12.prod.outlook.com
- ([fe80::f70b:6b07:4565:a2b1%6]) with mapi id 15.20.7228.036; Wed, 31 Jan 2024
- 10:20:13 +0000
-From: "Zhang, Julia" <Julia.Zhang@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhang, Julia"
- <Julia.Zhang@amd.com>, Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I
- Wu <olvaffe@gmail.com>, David Airlie <airlied@redhat.com>, Gerd Hoffmann
- <kraxel@redhat.com>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "virtualization@lists.linux-foundation.org"
- <virtualization@lists.linux-foundation.org>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, David Airlie <airlied@gmail.com>, Erik Faye-Lund
- <kusmabite@gmail.com>, "Olsak, Marek" <Marek.Olsak@amd.com>, "Pelloux-Prayer, 
- Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>, "Huang, Honglei1"
- <Honglei1.Huang@amd.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>, "Huang, Ray"
- <Ray.Huang@amd.com>, David Stevens <stevensd@chromium.org>
-Subject: Re: [PATCH v2 1/1] drm/virtio: Implement device_attach
-Thread-Topic: [PATCH v2 1/1] drm/virtio: Implement device_attach
-Thread-Index: AQHaUp5loSGDM+9UH0yP2y64Fdg2D7DyNKOAgAABk4CAADRYAIAB1EAA
-Date: Wed, 31 Jan 2024 10:20:12 +0000
-Message-ID: <IA1PR12MB653270F7FD75C1B4DF8B90E8F27C2@IA1PR12MB6532.namprd12.prod.outlook.com>
-References: <20240129103118.3258781-1-julia.zhang@amd.com>
- <ZbjZJ3qQzdOksnb2@phenom.ffwll.local> <ZbjaebswTCxmlwu0@phenom.ffwll.local>
- <97c50e01-ee33-4ac8-975c-f645c2ed49c6@amd.com>
-In-Reply-To: <97c50e01-ee33-4ac8-975c-f645c2ed49c6@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-imapappendstamp: IA1PR12MB6305.namprd12.prod.outlook.com
- (15.20.7249.014)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA1PR12MB6532:EE_|PH7PR12MB5950:EE_
-x-ms-office365-filtering-correlation-id: 2e22b94e-de55-4fed-ffba-08dc22463611
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: nLzSUvH6foJbYzk1mTxQ7BFi/1bkfMNZS8qDq9FNH8gjq57eAHjCQXYpitJbmH9pBA7uQ4xHKmHvRAmxDQl04LAa/sIV4v+sby6rP4SQqWsmda9PdrYRpDDl54EcQo+bi+VQlAdUQzbvVGFE+ZA2RhUMbsDvy4RSmOBz3yQyO+qrBLFaLWBo79v7ulM5x400N41Ug1vQouglz2A6ooyCxDcp/7udtg+zTSZJxG2F76fi7HBRH75esHsLHYkPKi9clhW8ESZWIf7NiBDaFl1Ny3BW7ioV1tggWjLnU6YbMC8NGBwUgHN6FnXH4jWQlf5hMPmBQkoEJyH4kXUnh+ZKR7qyIX1Ma3xNhcP7jWHNHLM8UW9SM8OcrppfNMmkFKApfrWPHOMyM6Fc56/snylUMHmgiJrQ6BxERU2Rve8tV9G+JAOrrxmP4QVCPsGPd3XomRWOREQZNsLVSvF5t+8kIDdbgwOZece/zEfh7C76yJcZo42QVaCn2k8EaHZZEYoakr4QidBLuQqH71SHYOrbsgaY+ycPeo3nc5irfd6oBMvByDlIXom4ENj5uR4DaIv9SGjCtYnbm4JAcsV13BnFr+nlyD0uLQL9whmampeQOpHx9bMfggT1dGJ+VEMWziSs
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR12MB6532.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(136003)(366004)(39860400002)(376002)(346002)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(316002)(55016003)(66476007)(66446008)(66556008)(66946007)(64756008)(122000001)(2906002)(8936002)(52536014)(9686003)(8676002)(38070700009)(76116006)(110136005)(5660300002)(33656002)(38100700002)(7416002)(83380400001)(66574015)(921011)(26005)(71200400001)(66899024)(966005)(6506007)(7696005)(41300700001)(53546011)(478600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Z3A1cHdVSlJZK1VEcko5aTBDbENSa0ZvOVRFNFBEcUt5SHZYNUNMeUtES2Mw?=
- =?utf-8?B?Vjd0ajNKMklpaHJBRm90RDlqai8vMldlelhvL0FZZWlCa2VNYkQzRFJ4RElC?=
- =?utf-8?B?d083UDE4RHJ4TVphYitwcGhxZVdnbDRMc2taZlRoRlEvZXJvWDlDQVVra3I3?=
- =?utf-8?B?NnBjcENpdTRDT25lemx4cXVIWnA5ckErcDNVaERjOG1vUlYzeXFnQzJqSGVZ?=
- =?utf-8?B?S0tzeUlQQ1ZtdVU2ZEZoT2tBMXhrMjlHcSs0UldmMEdZVmRjM0ZuQ3RaVlRo?=
- =?utf-8?B?aEdzNWR1RTY3WDU4dVc1dU44bi92Wm14VmJwaVVLQnlWdktTbnRiUGhvTytS?=
- =?utf-8?B?enlzZ2s4QU4wN2NiS3FXMVZpZVVMMEpSL2RCYzdTa3Z3UjZIQWFPSFFRYzJF?=
- =?utf-8?B?WTM2VVhuV1RVMXJnUFUzV0ozOXYwTWM3eWFLTHp2RlMydTY0TVNpNXd2cTRN?=
- =?utf-8?B?NXZMb0c2djZ0Y29MVkM1MzUrREFGa2ZXL3FFRU04QXRCOHJyYlBYNmx0UkRk?=
- =?utf-8?B?bjgrRUttNXo2NE95Z05CbE1VSXJyQzZQYm5IWUpjMzlTSVZzRHNFS0VFOXE4?=
- =?utf-8?B?MDNBNndxblYwVmdmbEltVWdVazVDaUhEcUs3ckkzZElZakdMQkR1aUplTEpI?=
- =?utf-8?B?U0VET1BKZVdITjJKeUwrN3VDS0xFYTI4SW1PSVcxOHJldlE2OGR5dDRVNHdj?=
- =?utf-8?B?VG1QcUwvbGdiK3pqMW54eml0M3FJcXhpSVNJTFJUbXNrS0VyM3JyYmpuTmw4?=
- =?utf-8?B?YmVSb0EzR1dDVllXdS9kM3BjK2t3QjMxOThGVlRsWWRydjhjWVhmU0N4M0xO?=
- =?utf-8?B?ajIvLzl3S1A3VWsyeDJZazhpK3dNSCtUV3R3WTg1STB0SWZ0UGlydHBxOHRB?=
- =?utf-8?B?V3lVdVR1RHIvTjBmeWFBODUwOGc4NW4zNk9CMHM5Y2NEOGtZbGZOM0R2SkJV?=
- =?utf-8?B?WmRtZDhrSER2T25nMG5aNEpXZnhsK3pXNDAxYm9SYllodk9nd3pHVkU2dUxz?=
- =?utf-8?B?RHdXc2Juc1FEQkhHYTVQem9VbTltL0gvWW01WGVEN3BiZzVNaWRXa2c1UWgy?=
- =?utf-8?B?RklLenNreWFCSkltaDVtYnNRYmhkWUxwQnZYKytKV2NEa3R0SmYvc3V2c0tt?=
- =?utf-8?B?a0d3L1g5R21mQmtWd3NKU1E3T2RtbzdMSjVILzFXYW56d0toU2tKRGpocUVG?=
- =?utf-8?B?em93NTRtYWJmQ3lzWjJDanhOb2dVaTVORy91QmgwMWUvRk1hUjNsdzlWSU4v?=
- =?utf-8?B?RnR6YXczNlZzaVg0a3Z1TXNuc3d2alZUUU90VEV1Ym42VGloOFI1TmxNQTR3?=
- =?utf-8?B?WlhSOWpydkVzV2pEZWVYY0dPMjc5cFdkWFkvc2Y4TkFGdWtIQkRCTmE3WElO?=
- =?utf-8?B?UkNxTGVDL0NMdUxGQ09ON0puNUVrVm0zaTdqSHE3OUc4M3h3YndaZEVYc2tY?=
- =?utf-8?B?VmtWckhFVGxUZVJXM2ZpeWdGeUlHUGtZVGpQZitid0FUNzJKOTNUZ01XZWl3?=
- =?utf-8?B?TVQ1V1pwWVpzekFiLzhubW0xUTFzWjM0QVJHWG9MM1g0Y3NnWkcrNk8xRWpB?=
- =?utf-8?B?Z0l0V1REZW1XbXF2NVVYM21qVmJnYkRJNXNDRDhZOE5POFR4blJkSHZvZjI5?=
- =?utf-8?B?UXQ5dERnbU9FaGZxSklTRDJrYWY4QUtoVnE1S0NCQnVSSEVxZmJpcmxhaTQ1?=
- =?utf-8?B?dnZKRmdzTTM2WlN3QXNuTTQvNjRScWgxVEdmYU1XRW1FRkJ1cGNlRE5WVU0v?=
- =?utf-8?B?ckpWaGEwVzRGMDFNYkcyR01EYTVPN3NrY3Y1QnZiWm1MUWJzTlg2dGpiODVR?=
- =?utf-8?B?b0YxczBKTVhDM0sxdzR1Yk5ETmowUUtrWHNLZVovTFJmZURyZU1kM3dXWmRs?=
- =?utf-8?B?aFdjRzJUS2RMZlRnY2tBTnlpZjI0SDQwU1NuVy9oRDNVWHpBalgvMVBJWFFI?=
- =?utf-8?B?UTVUcjhvNS8vb2E0b1NCbzdsMTR1OEtpbnVud3Qra0grUHlDajRGTWJsWENx?=
- =?utf-8?B?K2hpbU80NWZ3aTcwRUtrMHFOak4zWFN5bEp5TnNrNVltNys1d0swWVA0eGVQ?=
- =?utf-8?B?M290MXMvNEF0TGIvbEFUOTZWcXpzVmxHOExrdklDYThycXJ0c081S0Uwb0dW?=
- =?utf-8?Q?ek2s=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <6395FC751C127743BBC4052A75875A11@amdcloud.onmicrosoft.com>
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EF09113B57;
+	Wed, 31 Jan 2024 10:38:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABA52113B1A;
+ Wed, 31 Jan 2024 10:38:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1706697513; x=1738233513;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=KmL+q7M+AlKxUXoziAfb/kygQEAT1aLLZD+/AxeNGwo=;
+ b=STUbCOiNYrqlAW3AzsTb15GeIacvHurMd/4WdbRTJCcXRILTpLltSvo1
+ Ubx4Tmu5zNyPklMNS+GFxYyzqtg3oceOTZS7ifOh4SPig+tFbPDQbbzVi
+ 8iUY0+kVndE7mwK4eERRgTm3udpZwobZeMoEs3H1aksYf0BDqAnHHmFBh
+ FgE/eJfNYPjsB0ffiF/i98dHls7aXn1ehOqEv37lLLwt/o7T0YAJk9Ou7
+ yTQxZ20ZK4dPG6R6v3actG4nWjSrmk2gcULZm9DaWKJJi+z45mYFkjbT3
+ Ex6rs7RI0R8dE6z1ltBVuW9grZfnJddfbGA8/ctvE4GDDURfzDOQc1PfK g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="407279450"
+X-IronPort-AV: E=Sophos;i="6.05,231,1701158400"; d="scan'208";a="407279450"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Jan 2024 02:38:33 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.05,231,1701158400"; d="scan'208";a="22747780"
+Received: from lkp-server02.sh.intel.com (HELO 59f4f4cd5935) ([10.239.97.151])
+ by fmviesa002.fm.intel.com with ESMTP; 31 Jan 2024 02:38:29 -0800
+Received: from kbuild by 59f4f4cd5935 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1rV7z7-0001Sw-2w;
+ Wed, 31 Jan 2024 10:38:26 +0000
+Date: Wed, 31 Jan 2024 18:37:51 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH v2 2/4] drm: Add drm_get_acpi_edid() helper
+Message-ID: <202401311847.XFZpEOk4-lkp@intel.com>
+References: <20240130192608.11666-3-mario.limonciello@amd.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6532.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e22b94e-de55-4fed-ffba-08dc22463611
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jan 2024 10:20:12.9574 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dyrBoauuSV9VriH8vx1XV6/sKAwjT1MFvJIw5WCaI9QQJat6bKtbJ+7gW6cYKSsES2+06mzoVCPxgJdgCs2FdQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5950
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240130192608.11666-3-mario.limonciello@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,119 +62,570 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: llvm@lists.linux.dev, open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Melissa Wen <mwen@igalia.com>, "open list:ACPI" <linux-acpi@vger.kernel.org>,
+ Mario Limonciello <mario.limonciello@amd.com>, oe-kbuild-all@lists.linux.dev,
+ Mark Pearson <mpearson-lenovo@squebb.ca>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DQoNCk9uIDIwMjQvMS8zMCAyMjoyMywgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToNCj4gQW0gMzAu
-MDEuMjQgdW0gMTI6MTYgc2NocmllYiBEYW5pZWwgVmV0dGVyOg0KPj4gT24gVHVlLCBKYW4gMzAs
-IDIwMjQgYXQgMTI6MTA6MzFQTSArMDEwMCwgRGFuaWVsIFZldHRlciB3cm90ZToNCj4+PiBPbiBN
-b24sIEphbiAyOSwgMjAyNCBhdCAwNjozMToxOVBNICswODAwLCBKdWxpYSBaaGFuZyB3cm90ZToN
-Cj4+Pj4gQXMgdnJhbSBvYmplY3RzIGRvbid0IGhhdmUgYmFja2luZyBwYWdlcyBhbmQgdGh1cyBj
-YW4ndCBpbXBsZW1lbnQNCj4+Pj4gZHJtX2dlbV9vYmplY3RfZnVuY3MuZ2V0X3NnX3RhYmxlIGNh
-bGxiYWNrLiBUaGlzIHJlbW92ZXMgZHJtIGRtYS1idWYNCj4+Pj4gY2FsbGJhY2tzIGluIHZpcnRn
-cHVfZ2VtX21hcF9kbWFfYnVmKCkvdmlydGdwdV9nZW1fdW5tYXBfZG1hX2J1ZigpDQo+Pj4+IGFu
-ZCBpbXBsZW1lbnQgdmlydGdwdSBzcGVjaWZpYyBtYXAvdW5tYXAvYXR0YWNoIGNhbGxiYWNrcyB0
-byBzdXBwb3J0DQo+Pj4+IGJvdGggb2Ygc2htZW0gb2JqZWN0cyBhbmQgdnJhbSBvYmplY3RzLg0K
-Pj4+Pg0KPj4+PiBTaWduZWQtb2ZmLWJ5OiBKdWxpYSBaaGFuZyA8anVsaWEuemhhbmdAYW1kLmNv
-bT4NCj4+Pj4gLS0tDQo+Pj4+IMKgIGRyaXZlcnMvZ3B1L2RybS92aXJ0aW8vdmlydGdwdV9wcmlt
-ZS5jIHwgNDAgKysrKysrKysrKysrKysrKysrKysrKystLS0NCj4+Pj4gwqAgMSBmaWxlIGNoYW5n
-ZWQsIDM2IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pDQo+Pj4+DQo+Pj4+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vdmlydGlvL3ZpcnRncHVfcHJpbWUuYyBiL2RyaXZlcnMvZ3B1
-L2RybS92aXJ0aW8vdmlydGdwdV9wcmltZS5jDQo+Pj4+IGluZGV4IDQ0NDI1ZjIwZDkxYS4uYjQ5
-MGE1MzQzYjA2IDEwMDY0NA0KPj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdmlydGlvL3ZpcnRn
-cHVfcHJpbWUuYw0KPj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdmlydGlvL3ZpcnRncHVfcHJp
-bWUuYw0KPj4+PiBAQCAtNDksMTEgKzQ5LDI2IEBAIHZpcnRncHVfZ2VtX21hcF9kbWFfYnVmKHN0
-cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQgKmF0dGFjaCwNCj4+Pj4gwqAgew0KPj4+PiDCoMKgwqDC
-oMKgIHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqID0gYXR0YWNoLT5kbWFidWYtPnByaXY7DQo+
-Pj4+IMKgwqDCoMKgwqAgc3RydWN0IHZpcnRpb19ncHVfb2JqZWN0ICpibyA9IGdlbV90b192aXJ0
-aW9fZ3B1X29iaihvYmopOw0KPj4+PiArwqDCoMKgIHN0cnVjdCBzZ190YWJsZSAqc2d0Ow0KPj4+
-PiArwqDCoMKgIGludCByZXQ7DQo+Pj4+IMKgIMKgwqDCoMKgwqAgaWYgKHZpcnRpb19ncHVfaXNf
-dnJhbShibykpDQo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gdmlydGlvX2dwdV92cmFt
-X21hcF9kbWFfYnVmKGJvLCBhdHRhY2gtPmRldiwgZGlyKTsNCj4+Pj4gwqAgLcKgwqDCoCByZXR1
-cm4gZHJtX2dlbV9tYXBfZG1hX2J1ZihhdHRhY2gsIGRpcik7DQo+Pj4+ICvCoMKgwqAgc2d0ID0g
-ZHJtX3ByaW1lX3BhZ2VzX3RvX3NnKG9iai0+ZGV2LA0KPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgdG9fZHJtX2dlbV9zaG1lbV9vYmoob2JqKS0+cGFnZXMsDQo+
-Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBvYmotPnNpemUgPj4g
-UEFHRV9TSElGVCk7DQo+Pj4+ICvCoMKgwqAgaWYgKElTX0VSUihzZ3QpKQ0KPj4+PiArwqDCoMKg
-wqDCoMKgwqAgcmV0dXJuIHNndDsNCj4+Pj4gKw0KPj4+PiArwqDCoMKgIHJldCA9IGRtYV9tYXBf
-c2d0YWJsZShhdHRhY2gtPmRldiwgc2d0LCBkaXIsIERNQV9BVFRSX1NLSVBfQ1BVX1NZTkMpOw0K
-Pj4+PiArwqDCoMKgIGlmIChyZXQpIHsNCj4+Pj4gK8KgwqDCoMKgwqDCoMKgIHNnX2ZyZWVfdGFi
-bGUoc2d0KTsNCj4+Pj4gK8KgwqDCoMKgwqDCoMKgIGtmcmVlKHNndCk7DQo+Pj4+ICvCoMKgwqDC
-oMKgwqDCoCByZXR1cm4gRVJSX1BUUihyZXQpOw0KPj4+PiArwqDCoMKgIH0NCj4+Pj4gKw0KPj4+
-PiArwqDCoMKgIHJldHVybiBzZ3Q7DQo+Pj4+IMKgIH0NCj4+Pj4gwqAgwqAgc3RhdGljIHZvaWQg
-dmlydGdwdV9nZW1fdW5tYXBfZG1hX2J1ZihzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRh
-Y2gsDQo+Pj4+IEBAIC02MywxMiArNzgsMjkgQEAgc3RhdGljIHZvaWQgdmlydGdwdV9nZW1fdW5t
-YXBfZG1hX2J1ZihzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2gsDQo+Pj4+IMKgwqDC
-oMKgwqAgc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmogPSBhdHRhY2gtPmRtYWJ1Zi0+cHJpdjsN
-Cj4+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgdmlydGlvX2dwdV9vYmplY3QgKmJvID0gZ2VtX3RvX3Zp
-cnRpb19ncHVfb2JqKG9iaik7DQo+Pj4+IMKgICvCoMKgwqAgaWYgKCFzZ3QpDQo+Pj4+ICvCoMKg
-wqDCoMKgwqDCoCByZXR1cm47DQo+Pj4+ICsNCj4+Pj4gwqDCoMKgwqDCoCBpZiAodmlydGlvX2dw
-dV9pc192cmFtKGJvKSkgew0KPj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgdmlydGlvX2dwdV92cmFt
-X3VubWFwX2RtYV9idWYoYXR0YWNoLT5kZXYsIHNndCwgZGlyKTsNCj4+Pj4gLcKgwqDCoMKgwqDC
-oMKgIHJldHVybjsNCj4+Pj4gK8KgwqDCoCB9IGVsc2Ugew0KPj4+PiArwqDCoMKgwqDCoMKgwqAg
-ZG1hX3VubWFwX3NndGFibGUoYXR0YWNoLT5kZXYsIHNndCwgZGlyLCBETUFfQVRUUl9TS0lQX0NQ
-VV9TWU5DKTsNCj4+Pj4gK8KgwqDCoMKgwqDCoMKgIHNnX2ZyZWVfdGFibGUoc2d0KTsNCj4+Pj4g
-K8KgwqDCoMKgwqDCoMKgIGtmcmVlKHNndCk7DQo+Pj4+IMKgwqDCoMKgwqAgfQ0KPj4+PiArfQ0K
-Pj4+PiArDQo+Pj4+ICtzdGF0aWMgaW50IHZpcnRncHVfZ2VtX2RldmljZV9hdHRhY2goc3RydWN0
-IGRtYV9idWYgKmRtYV9idWYsDQo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQgKmF0dGFjaCkNCj4+Pj4gK3sNCj4+
-Pj4gK8KgwqDCoCBzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiA9IGF0dGFjaC0+ZG1hYnVmLT5w
-cml2Ow0KPj4+PiArwqDCoMKgIHN0cnVjdCB2aXJ0aW9fZ3B1X29iamVjdCAqYm8gPSBnZW1fdG9f
-dmlydGlvX2dwdV9vYmoob2JqKTsNCj4+Pj4gK8KgwqDCoCBpbnQgcmV0ID0gMDsNCj4+Pj4gKw0K
-Pj4+PiArwqDCoMKgIGlmICghdmlydGlvX2dwdV9pc192cmFtKGJvKSAmJiBvYmotPmZ1bmNzLT5w
-aW4pDQo+Pj4+ICvCoMKgwqDCoMKgwqDCoCByZXQgPSBvYmotPmZ1bmNzLT5waW4ob2JqKTsNCj4+
-Pj4gwqAgLcKgwqDCoCBkcm1fZ2VtX3VubWFwX2RtYV9idWYoYXR0YWNoLCBzZ3QsIGRpcik7DQo+
-Pj4+ICvCoMKgwqAgcmV0dXJuIHJldDsNCj4+PiBUaGlzIGRvZXNuJ3QgbG9vayBsaWtlIHdoYXQg
-SSd2ZSBleHBlY3RlZC4gVGhlcmUgc2hvdWxkIGJlIG5vIG5lZWQgdG8NCj4+PiBjaGFuZ2UgdGhl
-IG1hcC91bm1hcCBmdW5jdGlvbnMsIGVzcGVjaWFsbHkgbm90IGZvciB0aGUgdXN1YWwgZ2VtIGJv
-IGNhc2UuDQo+Pj4gV2Ugc2hvdWxkIGRlZmluaXRlbHkga2VlcCB1c2luZyB0aGUgZXhhY3Qgc2Ft
-ZSBjb2RlIGZvciB0aGF0LiBJbnN0ZWFkIGFsbA0KPj4+IEkgZXhwZWN0ZWQgaXMgcm91Z2hseQ0K
-Pj4+DQo+Pj4gdmlydGdwdV9nZW1fZGV2aWNlX2F0dGFjaCgpDQo+Pj4gew0KPj4+IMKgwqDCoMKg
-aWYgKHZpcnRpb19ncHVfaXNfdnJhbShibykpIHsNCj4+PiDCoMKgwqDCoMKgwqDCoCBpZiAoY2Fu
-X2FjY2Vzc192aXJ0aW9fdnJhbV9kaXJlY3RseShhdHRhY2gtPmRldikNCj4+PiDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHJldHVybiAwOw0KPj4+IMKgwqDCoMKgwqDCoMKgIGVsc2UNCj4+PiDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRUJVU1k7DQo+Pj4gwqDCoMKgwqB9IGVsc2Ugew0K
-Pj4+IMKgwqDCoMKgwqDCoMKgIHJldHVybiBkcm1fZ2VtX21hcF9hdHRhY2goKTsNCj4+PiDCoMKg
-wqDCoH0NCj4+PiB9DQo+Pj4NCj4+PiBOb3RlIHRoYXQgSSB0aGluayBjYW5fYWNjZXNzX3ZpcnRp
-b192cmFtX2RpcmVjdGx5KCkgbmVlZHMgdG8gYmUNCj4+PiBpbXBsZW1lbnRlZCBmaXJzdC4gSSdt
-IG5vdCBldmVuIHN1cmUgaXQncyBwb3NzaWJsZSwgbWlnaHQgYmUgdGhhdCBhbGwgdGhlDQo+Pj4g
-aW1wb3J0ZXJzIG5lZWQgdG8gc2V0IHRoZSBhdHRhY2htZW50LT5wZWVyMnBlZXIgZmxhZy4gV2hp
-Y2ggaXMgd2h5IHRoaXMNCj4+PiB0aGluZyBleGlzdHMgcmVhbGx5LiBCdXQgdGhhdCdzIGEgcGls
-ZSBtb3JlIHdvcmsgdG8gZG8uDQo+IA0KSGkgU2ltYSwgQ2hyaXN0aWFuLA0KDQo+IFllYWgsIHRo
-YXQgaXMgcmVhbGx5IGp1c3Qgc3BlY3VsYXRpdmUuIEFsbCBpbXBvcnRlcnMgbmVlZCB0byBzZXQg
-dGhlIHBlZXIycGVlciBmbGFnIGp1c3QgaW4gY2FzZS4NCg0KSSBzZWUsIEkgd2lsbCBtb2RpZnkg
-dGhpcy4NCg0KPiANCj4gV2hhdCBoYXBwZW5zIHVuZGVyIHRoZSBob29kIGlzIHRoYXQgSU9NTVUg
-cmVkaXJlY3RzIHRoZSAiVlJBTSIgbWVtb3J5IGFjY2VzcyB0byB3aGF0ZXZlciBhZGRyZXNzIHRo
-ZSBETUEtYnVmIG9uIHRoZSBob3N0IGlzIHBvaW50aW5nIHRvIChzeXN0ZW0sIFZSQU0sIGRvb3Ji
-ZWxsLCBJT01NVSwgd2hhdGV2ZXIpLg0KPiANCj4gSSdtIGFsc28gbm90IDEwMCUgc3VyZSBpZiBh
-bGwgdGhlIGNhY2hlIHNub29waW5nIGlzIGRvbmUgY29ycmVjdGx5IGluIGFsbCBjYXNlcywgYnV0
-IGZvciBub3cgaXQgc2VlbXMgdG8gd29yay4NCj4+Pj4NCj4+PiBGcmFua2x5IHRoZSBtb3JlIEkg
-bG9vayBhdCB0aGUgb3JpZ2luYWwgcGF0Y2ggdGhhdCBhZGRlZCB2cmFtIGV4cG9ydA0KPj4+IHN1
-cHBvcnQgdGhlIG1vcmUgdGhpcyBqdXN0IGxvb2tzIGxpa2UgYSAicGxzIHJldmVydCwgdGhpcyBp
-cyBqdXN0IHRvbw0KPj4+IGJyb2tlbiIuDQo+PiBUaGUgY29tbWl0IEkgbWVhbiBpcyB0aGlzIG9u
-ZTogZWE1ZWEzZDhhMTE3ICgiZHJtL3ZpcnRpbzogc3VwcG9ydCBtYXBwaW5nDQo+PiBleHBvcnRl
-ZCB2cmFtIikuIFRoZSBjb21taXQgbWVzc2FnZSBkZWZpbml0ZWx5IG5lZWRzIHRvIGNpdGUgdGhh
-dCBvbmUsIGFuZA0KPj4gYWxzbyBuZWVkcyBhIGNjOiBzdGFibGUgYmVjYXVzZSBub3QgcmVqZWN0
-aW5nIGludmFsaWQgaW1wb3J0cyBpcyBhIHByZXR0eQ0KPj4gYmlnIGRlYWwuDQo+IA0KPiBZZWFo
-LCBJJ3ZlIHBvaW50ZWQgb3V0IHRoYXQgY29tbWl0IGluIGFuIGludGVybmFsIGRpc2N1c3Npb24g
-YXMgd2VsbC4gSSB3YXMganVzdCBub3QgYXdhcmUgdGhhdCBpdCdzIHRoYXQgc2V2ZXJlbHkgYnJv
-a2VuLg0KPiANCg0KWWVhaCB3ZSBoYXZlIG1lbnRpb25lZCB0aGlzIHBhdGNoIGJlZm9yZSwgYnV0
-IEkgZG9uJ3QgdG90YWxseSB1bmRlcnN0YW5kIHdoeSB0aGlzIGlzIHRvbyBicm9rZW4uIFdpdGhv
-dXQgZXhwb3J0aW5nIHZyYW0gb2JqZWN0cywgZEdQVSBwcmltZSBmZWF0dXJlIHdvdWxkIG5vdCBi
-ZSByZWFsaXplZC4NCldvdWxkIHlvdSBtaW5kIHRvIGV4cGxhaW4gbW9yZSBhYm91dCBpdC4gVGhh
-bmtzIQ0KDQpCZXN0IHJlZ2FyZHMsDQpKdWxpYQ0KDQo+IFJlZ2FyZHMsDQo+IENocmlzdGlhbi4N
-Cj4gDQo+Pg0KPj4gQWxzbyBhZGRpbmcgRGF2aWQuDQo+PiAtU2ltYQ0KPj4NCj4+PiBXZSBzaG91
-bGQgZGVmaW5pdGVseSBub3Qgb3Blbi1jb2RlIGFueSBmdW5jdGlvbnMgZm9yIHRoZSBnZW1fYm8g
-ZXhwb3J0DQo+Pj4gY2FzZSwgd2hpY2ggeW91ciBwYXRjaCBzZWVtcyB0byBkbz8gT3IgbWF5YmUg
-SSdtIGp1c3QgZXh0cmVtZWx5IGNvbmZ1c2VkLg0KPj4+IC1TaW1hDQo+Pj4NCj4+Pj4gwqAgwqAg
-c3RhdGljIGNvbnN0IHN0cnVjdCB2aXJ0aW9fZG1hX2J1Zl9vcHMgdmlydGdwdV9kbWFidWZfb3Bz
-ID3CoCB7DQo+Pj4+IEBAIC04Myw3ICsxMTUsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHZpcnRp
-b19kbWFfYnVmX29wcyB2aXJ0Z3B1X2RtYWJ1Zl9vcHMgPcKgIHsNCj4+Pj4gwqDCoMKgwqDCoMKg
-wqDCoMKgIC52bWFwID0gZHJtX2dlbV9kbWFidWZfdm1hcCwNCj4+Pj4gwqDCoMKgwqDCoMKgwqDC
-oMKgIC52dW5tYXAgPSBkcm1fZ2VtX2RtYWJ1Zl92dW5tYXAsDQo+Pj4+IMKgwqDCoMKgwqAgfSwN
-Cj4+Pj4gLcKgwqDCoCAuZGV2aWNlX2F0dGFjaCA9IGRybV9nZW1fbWFwX2F0dGFjaCwNCj4+Pj4g
-K8KgwqDCoCAuZGV2aWNlX2F0dGFjaCA9IHZpcnRncHVfZ2VtX2RldmljZV9hdHRhY2gsDQo+Pj4+
-IMKgwqDCoMKgwqAgLmdldF91dWlkID0gdmlydGdwdV92aXJ0aW9fZ2V0X3V1aWQsDQo+Pj4+IMKg
-IH07DQo+Pj4+IMKgIC0twqANCj4+Pj4gMi4zNC4xDQo+Pj4+DQo+Pj4gLS3CoA0KPj4+IERhbmll
-bCBWZXR0ZXINCj4+PiBTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24NCj4+PiBo
-dHRwOi8vYmxvZy5mZndsbC5jaA0KPiANCg==
+Hi Mario,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on rafael-pm/linux-next]
+[also build test ERROR on rafael-pm/acpi-bus linus/master v6.8-rc2 next-20240131]
+[cannot apply to drm-misc/drm-misc-next rafael-pm/devprop]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Mario-Limonciello/ACPI-video-Handle-fetching-EDID-that-is-longer-than-256-bytes/20240131-032909
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git linux-next
+patch link:    https://lore.kernel.org/r/20240130192608.11666-3-mario.limonciello%40amd.com
+patch subject: [PATCH v2 2/4] drm: Add drm_get_acpi_edid() helper
+config: i386-buildonly-randconfig-003-20240131 (https://download.01.org/0day-ci/archive/20240131/202401311847.XFZpEOk4-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240131/202401311847.XFZpEOk4-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202401311847.XFZpEOk4-lkp@intel.com/
+
+All error/warnings (new ones prefixed by >>):
+
+>> drivers/platform/x86/wmi.c:68:2: error: unknown type name 'wmi_notify_handler'; did you mean 'acpi_notify_handler'?
+      68 |         wmi_notify_handler handler;
+         |         ^~~~~~~~~~~~~~~~~~
+         |         acpi_notify_handler
+   include/acpi/actypes.h:1061:8: note: 'acpi_notify_handler' declared here
+    1061 | void (*acpi_notify_handler) (acpi_handle device, u32 value, void *context);
+         |        ^
+>> drivers/platform/x86/wmi.c:163:30: error: incomplete definition of type 'struct acpi_device'
+     163 |         handle = wblock->acpi_device->handle;
+         |                  ~~~~~~~~~~~~~~~~~~~^
+   include/linux/acpi.h:795:8: note: forward declaration of 'struct acpi_device'
+     795 | struct acpi_device;
+         |        ^
+>> drivers/platform/x86/wmi.c:166:11: error: call to undeclared function 'acpi_execute_simple_method'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     166 |         status = acpi_execute_simple_method(handle, method, enable);
+         |                  ^
+   drivers/platform/x86/wmi.c:166:11: note: did you mean 'acpi_execute_reg_methods'?
+   include/acpi/acpixf.h:662:8: note: 'acpi_execute_reg_methods' declared here
+     662 |                             acpi_execute_reg_methods(acpi_handle device,
+         |                             ^
+   include/acpi/platform/aclinux.h:93:21: note: expanded from macro 'ACPI_EXTERNAL_RETURN_STATUS'
+      93 |         static ACPI_INLINE prototype {return(AE_NOT_CONFIGURED);}
+         |                            ^
+   drivers/platform/x86/wmi.c:210:49: error: incomplete definition of type 'struct acpi_device'
+     210 |         return acpi_evaluate_object(wblock->acpi_device->handle, "_WED", &input, out);
+         |                                     ~~~~~~~~~~~~~~~~~~~^
+   include/linux/acpi.h:795:8: note: forward declaration of 'struct acpi_device'
+     795 | struct acpi_device;
+         |        ^
+>> drivers/platform/x86/wmi.c:282:5: warning: no previous prototype for function 'wmi_instance_count' [-Wmissing-prototypes]
+     282 | int wmi_instance_count(const char *guid_string)
+         |     ^
+   drivers/platform/x86/wmi.c:282:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+     282 | int wmi_instance_count(const char *guid_string)
+         | ^
+         | static 
+>> drivers/platform/x86/wmi.c:326:13: warning: no previous prototype for function 'wmi_evaluate_method' [-Wmissing-prototypes]
+     326 | acpi_status wmi_evaluate_method(const char *guid_string, u8 instance, u32 method_id,
+         |             ^
+   drivers/platform/x86/wmi.c:326:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+     326 | acpi_status wmi_evaluate_method(const char *guid_string, u8 instance, u32 method_id,
+         | ^
+         | static 
+   drivers/platform/x86/wmi.c:368:30: error: incomplete definition of type 'struct acpi_device'
+     368 |         handle = wblock->acpi_device->handle;
+         |                  ~~~~~~~~~~~~~~~~~~~^
+   include/linux/acpi.h:795:8: note: forward declaration of 'struct acpi_device'
+     795 | struct acpi_device;
+         |        ^
+   drivers/platform/x86/wmi.c:412:30: error: incomplete definition of type 'struct acpi_device'
+     412 |         handle = wblock->acpi_device->handle;
+         |                  ~~~~~~~~~~~~~~~~~~~^
+   include/linux/acpi.h:795:8: note: forward declaration of 'struct acpi_device'
+     795 | struct acpi_device;
+         |        ^
+   drivers/platform/x86/wmi.c:441:15: error: call to undeclared function 'acpi_execute_simple_method'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     441 |                 wc_status = acpi_execute_simple_method(handle, wc_method, 1);
+         |                             ^
+   drivers/platform/x86/wmi.c:459:3: error: call to undeclared function 'acpi_execute_simple_method'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     459 |                 acpi_execute_simple_method(handle, wc_method, 0);
+         |                 ^
+>> drivers/platform/x86/wmi.c:475:13: warning: no previous prototype for function 'wmi_query_block' [-Wmissing-prototypes]
+     475 | acpi_status wmi_query_block(const char *guid_string, u8 instance,
+         |             ^
+   drivers/platform/x86/wmi.c:475:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+     475 | acpi_status wmi_query_block(const char *guid_string, u8 instance,
+         | ^
+         | static 
+>> drivers/platform/x86/wmi.c:526:13: warning: no previous prototype for function 'wmi_set_block' [-Wmissing-prototypes]
+     526 | acpi_status wmi_set_block(const char *guid_string, u8 instance, const struct acpi_buffer *in)
+         |             ^
+   drivers/platform/x86/wmi.c:526:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+     526 | acpi_status wmi_set_block(const char *guid_string, u8 instance, const struct acpi_buffer *in)
+         | ^
+         | static 
+   drivers/platform/x86/wmi.c:555:42: error: incomplete definition of type 'struct acpi_device'
+     555 |         acpi_handle handle = wblock->acpi_device->handle;
+         |                              ~~~~~~~~~~~~~~~~~~~^
+   include/linux/acpi.h:795:8: note: forward declaration of 'struct acpi_device'
+     795 | struct acpi_device;
+         |        ^
+   drivers/platform/x86/wmi.c:596:12: error: unknown type name 'wmi_notify_handler'; did you mean 'acpi_notify_handler'?
+     596 |                                        wmi_notify_handler handler,
+         |                                        ^~~~~~~~~~~~~~~~~~
+         |                                        acpi_notify_handler
+   include/acpi/actypes.h:1061:8: note: 'acpi_notify_handler' declared here
+    1061 | void (*acpi_notify_handler) (acpi_handle device, u32 value, void *context);
+         |        ^
+>> drivers/platform/x86/wmi.c:595:13: warning: no previous prototype for function 'wmi_install_notify_handler' [-Wmissing-prototypes]
+     595 | acpi_status wmi_install_notify_handler(const char *guid,
+         |             ^
+   drivers/platform/x86/wmi.c:595:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+     595 | acpi_status wmi_install_notify_handler(const char *guid,
+         | ^
+         | static 
+>> drivers/platform/x86/wmi.c:637:13: warning: no previous prototype for function 'wmi_remove_notify_handler' [-Wmissing-prototypes]
+     637 | acpi_status wmi_remove_notify_handler(const char *guid)
+         |             ^
+   drivers/platform/x86/wmi.c:637:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+     637 | acpi_status wmi_remove_notify_handler(const char *guid)
+         | ^
+         | static 
+>> drivers/platform/x86/wmi.c:679:13: warning: no previous prototype for function 'wmi_get_event_data' [-Wmissing-prototypes]
+     679 | acpi_status wmi_get_event_data(u32 event, struct acpi_buffer *out)
+         |             ^
+   drivers/platform/x86/wmi.c:679:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+     679 | acpi_status wmi_get_event_data(u32 event, struct acpi_buffer *out)
+         | ^
+         | static 
+>> drivers/platform/x86/wmi.c:706:6: warning: no previous prototype for function 'wmi_has_guid' [-Wmissing-prototypes]
+     706 | bool wmi_has_guid(const char *guid_string)
+         |      ^
+   drivers/platform/x86/wmi.c:706:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+     706 | bool wmi_has_guid(const char *guid_string)
+         | ^
+         | static 
+>> drivers/platform/x86/wmi.c:739:8: error: call to undeclared function 'acpi_device_uid'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     739 |         uid = acpi_device_uid(wblock->acpi_device);
+         |               ^
+>> drivers/platform/x86/wmi.c:739:6: error: incompatible integer to pointer conversion assigning to 'char *' from 'int' [-Wint-conversion]
+     739 |         uid = acpi_device_uid(wblock->acpi_device);
+         |             ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/platform/x86/wmi.c:728:7: warning: no previous prototype for function 'wmi_get_acpi_device_uid' [-Wmissing-prototypes]
+     728 | char *wmi_get_acpi_device_uid(const char *guid_string)
+         |       ^
+   drivers/platform/x86/wmi.c:728:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+     728 | char *wmi_get_acpi_device_uid(const char *guid_string)
+         | ^
+         | static 
+   drivers/platform/x86/wmi.c:1003:33: error: incomplete definition of type 'struct acpi_device'
+    1003 |         result = get_subobj_info(device->handle, method, &info);
+         |                                  ~~~~~~^
+   include/linux/acpi.h:795:8: note: forward declaration of 'struct acpi_device'
+     795 | struct acpi_device;
+         |        ^
+>> drivers/platform/x86/wmi.c:1030:6: error: call to undeclared function 'acpi_has_method'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1030 |         if (acpi_has_method(device->handle, method))
+         |             ^
+   drivers/platform/x86/wmi.c:1030:6: note: did you mean 'acpi_has_watchdog'?
+   include/linux/acpi.h:1445:20: note: 'acpi_has_watchdog' declared here
+    1445 | static inline bool acpi_has_watchdog(void) { return false; }
+         |                    ^
+   drivers/platform/x86/wmi.c:1030:28: error: incomplete definition of type 'struct acpi_device'
+    1030 |         if (acpi_has_method(device->handle, method))
+         |                             ~~~~~~^
+   include/linux/acpi.h:795:8: note: forward declaration of 'struct acpi_device'
+     795 | struct acpi_device;
+         |        ^
+   drivers/platform/x86/wmi.c:1087:20: error: incomplete definition of type 'struct acpi_device'
+    1087 |                         dev_warn(&device->dev, "duplicate WMI GUID %pUL (first instance was on %s)\n",
+         |                                   ~~~~~~^
+   include/linux/dev_printk.h:146:49: note: expanded from macro 'dev_warn'
+     146 |         dev_printk_index_wrap(_dev_warn, KERN_WARNING, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                        ^~~
+   include/linux/dev_printk.h:110:11: note: expanded from macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                         ^~~
+   include/linux/acpi.h:795:8: note: forward declaration of 'struct acpi_device'
+     795 | struct acpi_device;
+         |        ^
+   drivers/platform/x86/wmi.c:1088:41: error: incomplete definition of type 'struct acpi_device'
+    1088 |                                  guid, dev_name(&wblock->acpi_device->dev));
+         |                                                  ~~~~~~~~~~~~~~~~~~~^
+   include/linux/dev_printk.h:146:70: note: expanded from macro 'dev_warn'
+     146 |         dev_printk_index_wrap(_dev_warn, KERN_WARNING, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                                             ^~~~~~~~~~~
+   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                                     ^~~~~~~~~~~
+   include/linux/acpi.h:795:8: note: forward declaration of 'struct acpi_device'
+     795 | struct acpi_device;
+         |        ^
+   drivers/platform/x86/wmi.c:1110:38: error: incomplete definition of type 'struct acpi_device'
+    1110 |         status = acpi_evaluate_object(device->handle, "_WDG", NULL, &out);
+         |                                       ~~~~~~^
+   include/linux/acpi.h:795:8: note: forward declaration of 'struct acpi_device'
+     795 | struct acpi_device;
+         |        ^
+>> drivers/platform/x86/wmi.c:1189:12: error: call to undeclared function 'ec_read'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1189 |                 result = ec_read(address, &temp);
+         |                          ^
+   drivers/platform/x86/wmi.c:1189:12: note: did you mean 'up_read'?
+   include/linux/rwsem.h:198:13: note: 'up_read' declared here
+     198 | extern void up_read(struct rw_semaphore *sem);
+         |             ^
+   fatal error: too many errors emitted, stopping now [-ferror-limit=]
+   9 warnings and 20 errors generated.
+--
+>> drivers/platform/x86/dell/dell-wmi-led.c:71:11: error: call to undeclared function 'wmi_evaluate_method'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+      71 |         status = wmi_evaluate_method(DELL_LED_BIOS_GUID, 0, 1, &input, &output);
+         |                  ^
+>> drivers/platform/x86/dell/dell-wmi-led.c:168:7: error: call to undeclared function 'wmi_has_guid'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     168 |         if (!wmi_has_guid(DELL_LED_BIOS_GUID))
+         |              ^
+   2 errors generated.
+--
+>> drivers/platform/x86/dell/dell-wmi-aio.c:80:11: error: call to undeclared function 'wmi_get_event_data'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+      80 |         status = wmi_get_event_data(value, &response);
+         |                  ^
+>> drivers/platform/x86/dell/dell-wmi-aio.c:156:7: error: call to undeclared function 'wmi_has_guid'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     156 |                 if (wmi_has_guid(dell_wmi_aio_guids[i]))
+         |                     ^
+>> drivers/platform/x86/dell/dell-wmi-aio.c:177:8: error: call to undeclared function 'wmi_install_notify_handler'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     177 |         err = wmi_install_notify_handler(guid, dell_wmi_aio_notify, NULL);
+         |               ^
+   drivers/platform/x86/dell/dell-wmi-aio.c:177:8: note: did you mean 'acpi_install_notify_handler'?
+   include/acpi/acpixf.h:635:8: note: 'acpi_install_notify_handler' declared here
+     635 |                             acpi_install_notify_handler(acpi_handle device,
+         |                             ^
+   include/acpi/platform/aclinux.h:93:21: note: expanded from macro 'ACPI_EXTERNAL_RETURN_STATUS'
+      93 |         static ACPI_INLINE prototype {return(AE_NOT_CONFIGURED);}
+         |                            ^
+>> drivers/platform/x86/dell/dell-wmi-aio.c:192:2: error: call to undeclared function 'wmi_remove_notify_handler'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     192 |         wmi_remove_notify_handler(guid);
+         |         ^
+   drivers/platform/x86/dell/dell-wmi-aio.c:192:2: note: did you mean 'acpi_remove_notify_handler'?
+   include/acpi/acpixf.h:641:8: note: 'acpi_remove_notify_handler' declared here
+     641 |                             acpi_remove_notify_handler(acpi_handle device,
+         |                             ^
+   include/acpi/platform/aclinux.h:93:21: note: expanded from macro 'ACPI_EXTERNAL_RETURN_STATUS'
+      93 |         static ACPI_INLINE prototype {return(AE_NOT_CONFIGURED);}
+         |                            ^
+   4 errors generated.
+--
+>> drivers/platform/x86/dell/dell-wmi-descriptor.c:30:7: error: call to undeclared function 'wmi_has_guid'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+      30 |         if (!wmi_has_guid(DELL_WMI_DESCRIPTOR_GUID))
+         |              ^
+   1 error generated.
+--
+>> drivers/platform/x86/dell/dell-wmi-sysman/sysman.c:295:11: error: call to undeclared function 'wmi_query_block'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     295 |         status = wmi_query_block(guid_string, instance_id, &out);
+         |                  ^
+>> drivers/platform/x86/dell/dell-wmi-sysman/sysman.c:308:8: error: call to undeclared function 'wmi_instance_count'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     308 |         ret = wmi_instance_count(guid_string);
+         |               ^
+   2 errors generated.
+
+Kconfig warnings: (for reference only)
+   WARNING: unmet direct dependencies detected for ACPI_WMI
+   Depends on [n]: X86_PLATFORM_DEVICES [=y] && ACPI [=n]
+   Selected by [y]:
+   - DRM [=y] && HAS_IOMEM [=y] && (AGP [=n] || AGP [=n]=n) && !EMULATED_CMPXCHG && HAS_DMA [=y] && X86 [=y]
+
+
+vim +163 drivers/platform/x86/wmi.c
+
+a90b38c5866714 drivers/platform/x86/wmi.c Hans de Goede     2021-11-28   61  
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   62  struct wmi_block {
+844af950da946c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-24   63  	struct wmi_device dev;
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   64  	struct list_head list;
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   65  	struct guid_block gblock;
+b0e86302973d9e drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-24   66  	struct acpi_device *acpi_device;
+29e473f4b51ee5 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03   67  	struct rw_semaphore notify_lock;	/* Protects notify callback add/remove */
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05  @68  	wmi_notify_handler handler;
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   69  	void *handler_data;
+29e473f4b51ee5 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03   70  	bool driver_ready;
+a90b38c5866714 drivers/platform/x86/wmi.c Hans de Goede     2021-11-28   71  	unsigned long flags;
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   72  };
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   73  
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   74  
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   75  /*
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   76   * If the GUID data block is marked as expensive, we must enable and
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   77   * explicitily disable data collection.
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   78   */
+1c95ace78b6e8e drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04   79  #define ACPI_WMI_EXPENSIVE   BIT(0)
+1c95ace78b6e8e drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04   80  #define ACPI_WMI_METHOD      BIT(1)	/* GUID is a method */
+1c95ace78b6e8e drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04   81  #define ACPI_WMI_STRING      BIT(2)	/* GUID takes & returns a string */
+1c95ace78b6e8e drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04   82  #define ACPI_WMI_EVENT       BIT(3)	/* GUID is an event */
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   83  
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   84  static const struct acpi_device_id wmi_device_ids[] = {
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   85  	{"PNP0C14", 0},
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   86  	{"pnp0c14", 0},
+9bf9ca95a16e0b drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04   87  	{ }
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   88  };
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   89  MODULE_DEVICE_TABLE(acpi, wmi_device_ids);
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05   90  
+134038b075cb1d drivers/platform/x86/wmi.c Mario Limonciello 2022-08-29   91  /* allow duplicate GUIDs as these device drivers use struct wmi_driver */
+134038b075cb1d drivers/platform/x86/wmi.c Mario Limonciello 2022-08-29   92  static const char * const allow_duplicates[] = {
+134038b075cb1d drivers/platform/x86/wmi.c Mario Limonciello 2022-08-29   93  	"05901221-D566-11D1-B2F0-00A0C9062910",	/* wmi-bmof */
+a77272c1604186 drivers/platform/x86/wmi.c Armin Wolf        2022-09-27   94  	"8A42EA14-4F2A-FD45-6422-0087F7A7E608",	/* dell-wmi-ddv */
+75c487fcb69c98 drivers/platform/x86/wmi.c Armin Wolf        2023-11-03   95  	"44FADEB1-B204-40F2-8581-394BBDC1B651",	/* intel-wmi-sbl-fw-update */
+2340f12023efa7 drivers/platform/x86/wmi.c Armin Wolf        2023-11-03   96  	"86CCFD48-205E-4A77-9C48-2021CBEDE341",	/* intel-wmi-thunderbolt */
+b7a4706f66e5df drivers/platform/x86/wmi.c Armin Wolf        2023-11-23   97  	"F1DDEE52-063C-4784-A11E-8A06684B9B01",	/* dell-smm-hwmon */
+134038b075cb1d drivers/platform/x86/wmi.c Mario Limonciello 2022-08-29   98  	NULL
+134038b075cb1d drivers/platform/x86/wmi.c Mario Limonciello 2022-08-29   99  };
+134038b075cb1d drivers/platform/x86/wmi.c Mario Limonciello 2022-08-29  100  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  101  #define dev_to_wblock(__dev)	container_of_const(__dev, struct wmi_block, dev.dev)
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  102  #define dev_to_wdev(__dev)	container_of_const(__dev, struct wmi_device, dev)
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  103  
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05  104  /*
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05  105   * GUID parsing functions
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05  106   */
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05  107  
+028e6e204ace1f drivers/platform/x86/wmi.c Andy Shevchenko   2023-06-21  108  static bool guid_parse_and_compare(const char *string, const guid_t *guid)
+028e6e204ace1f drivers/platform/x86/wmi.c Andy Shevchenko   2023-06-21  109  {
+028e6e204ace1f drivers/platform/x86/wmi.c Andy Shevchenko   2023-06-21  110  	guid_t guid_input;
+028e6e204ace1f drivers/platform/x86/wmi.c Andy Shevchenko   2023-06-21  111  
+028e6e204ace1f drivers/platform/x86/wmi.c Andy Shevchenko   2023-06-21  112  	if (guid_parse(string, &guid_input))
+028e6e204ace1f drivers/platform/x86/wmi.c Andy Shevchenko   2023-06-21  113  		return false;
+028e6e204ace1f drivers/platform/x86/wmi.c Andy Shevchenko   2023-06-21  114  
+028e6e204ace1f drivers/platform/x86/wmi.c Andy Shevchenko   2023-06-21  115  	return guid_equal(&guid_input, guid);
+028e6e204ace1f drivers/platform/x86/wmi.c Andy Shevchenko   2023-06-21  116  }
+028e6e204ace1f drivers/platform/x86/wmi.c Andy Shevchenko   2023-06-21  117  
+a48e23385fcf39 drivers/platform/x86/wmi.c Mattias Jacobsson 2019-05-27  118  static const void *find_guid_context(struct wmi_block *wblock,
+a48e23385fcf39 drivers/platform/x86/wmi.c Mattias Jacobsson 2019-05-27  119  				     struct wmi_driver *wdriver)
+a48e23385fcf39 drivers/platform/x86/wmi.c Mattias Jacobsson 2019-05-27  120  {
+a48e23385fcf39 drivers/platform/x86/wmi.c Mattias Jacobsson 2019-05-27  121  	const struct wmi_device_id *id;
+a48e23385fcf39 drivers/platform/x86/wmi.c Mattias Jacobsson 2019-05-27  122  
+6e0bc588a0842d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  123  	id = wdriver->id_table;
+6e0bc588a0842d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  124  	if (!id)
+a48e23385fcf39 drivers/platform/x86/wmi.c Mattias Jacobsson 2019-05-27  125  		return NULL;
+a48e23385fcf39 drivers/platform/x86/wmi.c Mattias Jacobsson 2019-05-27  126  
+a48e23385fcf39 drivers/platform/x86/wmi.c Mattias Jacobsson 2019-05-27  127  	while (*id->guid_string) {
+028e6e204ace1f drivers/platform/x86/wmi.c Andy Shevchenko   2023-06-21  128  		if (guid_parse_and_compare(id->guid_string, &wblock->gblock.guid))
+a48e23385fcf39 drivers/platform/x86/wmi.c Mattias Jacobsson 2019-05-27  129  			return id->context;
+a48e23385fcf39 drivers/platform/x86/wmi.c Mattias Jacobsson 2019-05-27  130  		id++;
+a48e23385fcf39 drivers/platform/x86/wmi.c Mattias Jacobsson 2019-05-27  131  	}
+a48e23385fcf39 drivers/platform/x86/wmi.c Mattias Jacobsson 2019-05-27  132  	return NULL;
+a48e23385fcf39 drivers/platform/x86/wmi.c Mattias Jacobsson 2019-05-27  133  }
+a48e23385fcf39 drivers/platform/x86/wmi.c Mattias Jacobsson 2019-05-27  134  
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  135  static int get_subobj_info(acpi_handle handle, const char *pathname,
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  136  			   struct acpi_device_info **info)
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  137  {
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  138  	acpi_handle subobj_handle;
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  139  	acpi_status status;
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  140  
+bd142914f805b8 drivers/platform/x86/wmi.c Armin Wolf        2023-12-18  141  	status = acpi_get_handle(handle, pathname, &subobj_handle);
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  142  	if (status == AE_NOT_FOUND)
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  143  		return -ENOENT;
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  144  
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  145  	if (ACPI_FAILURE(status))
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  146  		return -EIO;
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  147  
+bd142914f805b8 drivers/platform/x86/wmi.c Armin Wolf        2023-12-18  148  	status = acpi_get_object_info(subobj_handle, info);
+bd142914f805b8 drivers/platform/x86/wmi.c Armin Wolf        2023-12-18  149  	if (ACPI_FAILURE(status))
+bd142914f805b8 drivers/platform/x86/wmi.c Armin Wolf        2023-12-18  150  		return -EIO;
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  151  
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  152  	return 0;
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  153  }
+d4fc91adfde11c drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-25  154  
+285dd01a6cfeb4 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  155  static acpi_status wmi_method_enable(struct wmi_block *wblock, bool enable)
+a66bfa7a4726e9 drivers/acpi/wmi.c         Matthew Garrett   2008-10-08  156  {
+43aacf838ef738 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  157  	struct guid_block *block;
+a66bfa7a4726e9 drivers/acpi/wmi.c         Matthew Garrett   2008-10-08  158  	char method[5];
+a66bfa7a4726e9 drivers/acpi/wmi.c         Matthew Garrett   2008-10-08  159  	acpi_status status;
+a66bfa7a4726e9 drivers/acpi/wmi.c         Matthew Garrett   2008-10-08  160  	acpi_handle handle;
+a66bfa7a4726e9 drivers/acpi/wmi.c         Matthew Garrett   2008-10-08  161  
+a66bfa7a4726e9 drivers/acpi/wmi.c         Matthew Garrett   2008-10-08  162  	block = &wblock->gblock;
+b0e86302973d9e drivers/platform/x86/wmi.c Andy Lutomirski   2015-11-24 @163  	handle = wblock->acpi_device->handle;
+a66bfa7a4726e9 drivers/acpi/wmi.c         Matthew Garrett   2008-10-08  164  
+a66bfa7a4726e9 drivers/acpi/wmi.c         Matthew Garrett   2008-10-08  165  	snprintf(method, 5, "WE%02X", block->notify_id);
+8122ab66b12967 drivers/platform/x86/wmi.c Zhang Rui         2013-09-03 @166  	status = acpi_execute_simple_method(handle, method, enable);
+736b48aae5e83b drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  167  	if (status == AE_NOT_FOUND)
+736b48aae5e83b drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  168  		return AE_OK;
+a66bfa7a4726e9 drivers/acpi/wmi.c         Matthew Garrett   2008-10-08  169  
+a66bfa7a4726e9 drivers/acpi/wmi.c         Matthew Garrett   2008-10-08  170  	return status;
+a66bfa7a4726e9 drivers/acpi/wmi.c         Matthew Garrett   2008-10-08  171  }
+a66bfa7a4726e9 drivers/acpi/wmi.c         Matthew Garrett   2008-10-08  172  
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  173  #define WMI_ACPI_METHOD_NAME_SIZE 5
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  174  
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  175  static inline void get_acpi_method_name(const struct wmi_block *wblock,
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  176  					const char method,
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  177  					char buffer[static WMI_ACPI_METHOD_NAME_SIZE])
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  178  {
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  179  	static_assert(ARRAY_SIZE(wblock->gblock.object_id) == 2);
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  180  	static_assert(WMI_ACPI_METHOD_NAME_SIZE >= 5);
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  181  
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  182  	buffer[0] = 'W';
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  183  	buffer[1] = method;
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  184  	buffer[2] = wblock->gblock.object_id[0];
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  185  	buffer[3] = wblock->gblock.object_id[1];
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  186  	buffer[4] = '\0';
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  187  }
+57f2ce89211383 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  188  
+51142a0886bd34 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  189  static inline acpi_object_type get_param_acpi_type(const struct wmi_block *wblock)
+51142a0886bd34 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  190  {
+51142a0886bd34 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  191  	if (wblock->gblock.flags & ACPI_WMI_STRING)
+51142a0886bd34 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  192  		return ACPI_TYPE_STRING;
+51142a0886bd34 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  193  	else
+51142a0886bd34 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  194  		return ACPI_TYPE_BUFFER;
+51142a0886bd34 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  195  }
+51142a0886bd34 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  196  
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  197  static acpi_status get_event_data(const struct wmi_block *wblock, struct acpi_buffer *out)
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  198  {
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  199  	union acpi_object param = {
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  200  		.integer = {
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  201  			.type = ACPI_TYPE_INTEGER,
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  202  			.value = wblock->gblock.notify_id,
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  203  		}
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  204  	};
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  205  	struct acpi_object_list input = {
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  206  		.count = 1,
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  207  		.pointer = &param,
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  208  	};
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  209  
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  210  	return acpi_evaluate_object(wblock->acpi_device->handle, "_WED", &input, out);
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  211  }
+25be44f6e2fc9d drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  212  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  213  static int wmidev_match_guid(struct device *dev, const void *data)
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  214  {
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  215  	struct wmi_block *wblock = dev_to_wblock(dev);
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  216  	const guid_t *guid = data;
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  217  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  218  	if (guid_equal(guid, &wblock->gblock.guid))
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  219  		return 1;
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  220  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  221  	return 0;
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  222  }
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  223  
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  224  static int wmidev_match_notify_id(struct device *dev, const void *data)
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  225  {
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  226  	struct wmi_block *wblock = dev_to_wblock(dev);
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  227  	const u32 *notify_id = data;
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  228  
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  229  	if (wblock->gblock.flags & ACPI_WMI_EVENT && wblock->gblock.notify_id == *notify_id)
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  230  		return 1;
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  231  
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  232  	return 0;
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  233  }
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  234  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  235  static struct bus_type wmi_bus_type;
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  236  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  237  static struct wmi_device *wmi_find_device_by_guid(const char *guid_string)
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  238  {
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  239  	struct device *dev;
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  240  	guid_t guid;
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  241  	int ret;
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  242  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  243  	ret = guid_parse(guid_string, &guid);
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  244  	if (ret < 0)
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  245  		return ERR_PTR(ret);
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  246  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  247  	dev = bus_find_device(&wmi_bus_type, NULL, &guid, wmidev_match_guid);
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  248  	if (!dev)
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  249  		return ERR_PTR(-ENODEV);
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  250  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  251  	return dev_to_wdev(dev);
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  252  }
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  253  
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  254  static struct wmi_device *wmi_find_event_by_notify_id(const u32 notify_id)
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  255  {
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  256  	struct device *dev;
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  257  
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  258  	dev = bus_find_device(&wmi_bus_type, NULL, &notify_id, wmidev_match_notify_id);
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  259  	if (!dev)
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  260  		return ERR_PTR(-ENODEV);
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  261  
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  262  	return to_wmi_device(dev);
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  263  }
+3ea7f59af8ffa1 drivers/platform/x86/wmi.c Armin Wolf        2024-01-03  264  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  265  static void wmi_device_put(struct wmi_device *wdev)
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  266  {
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  267  	put_device(&wdev->dev);
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  268  }
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  269  
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05  270  /*
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05  271   * Exported WMI functions
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05  272   */
+44b6b7661132b1 drivers/platform/x86/wmi.c Mario Limonciello 2017-11-01  273  
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  274  /**
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  275   * wmi_instance_count - Get number of WMI object instances
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  276   * @guid_string: 36 char string of the form fa50ff2b-f2e8-45de-83fa-65417f2f49ba
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  277   *
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  278   * Get the number of WMI object instances.
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  279   *
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  280   * Returns: Number of WMI object instances or negative error code.
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  281   */
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30 @282  int wmi_instance_count(const char *guid_string)
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  283  {
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  284  	struct wmi_device *wdev;
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  285  	int ret;
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  286  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  287  	wdev = wmi_find_device_by_guid(guid_string);
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  288  	if (IS_ERR(wdev))
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  289  		return PTR_ERR(wdev);
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  290  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  291  	ret = wmidev_instance_count(wdev);
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  292  	wmi_device_put(wdev);
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  293  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  294  	return ret;
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  295  }
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  296  EXPORT_SYMBOL_GPL(wmi_instance_count);
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  297  
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  298  /**
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  299   * wmidev_instance_count - Get number of WMI object instances
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  300   * @wdev: A wmi bus device from a driver
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  301   *
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  302   * Get the number of WMI object instances.
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  303   *
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  304   * Returns: Number of WMI object instances.
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  305   */
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  306  u8 wmidev_instance_count(struct wmi_device *wdev)
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  307  {
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  308  	struct wmi_block *wblock = container_of(wdev, struct wmi_block, dev);
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  309  
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  310  	return wblock->gblock.instance_count;
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  311  }
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  312  EXPORT_SYMBOL_GPL(wmidev_instance_count);
+2a2b13ae50cf70 drivers/platform/x86/wmi.c Armin Wolf        2023-04-30  313  
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05  314  /**
+d54bd4bc7b9ae9 drivers/platform/x86/wmi.c Armin Wolf        2023-04-25  315   * wmi_evaluate_method - Evaluate a WMI method (deprecated)
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05  316   * @guid_string: 36 char string of the form fa50ff2b-f2e8-45de-83fa-65417f2f49ba
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05  317   * @instance: Instance index
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05  318   * @method_id: Method ID to call
+5a707af10da95a drivers/platform/x86/wmi.c Andy Shevchenko   2017-04-21  319   * @in: Buffer containing input for the method call
+5a707af10da95a drivers/platform/x86/wmi.c Andy Shevchenko   2017-04-21  320   * @out: Empty buffer to return the method results
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05  321   *
+b4cc979588ee94 drivers/platform/x86/wmi.c Armin Wolf        2023-04-25  322   * Call an ACPI-WMI method, the caller must free @out.
+b4cc979588ee94 drivers/platform/x86/wmi.c Armin Wolf        2023-04-25  323   *
+b4cc979588ee94 drivers/platform/x86/wmi.c Armin Wolf        2023-04-25  324   * Return: acpi_status signaling success or error.
+bff431e49ff531 drivers/acpi/wmi.c         Carlos Corbacho   2008-02-05  325   */
+bba08f358f7930 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04 @326  acpi_status wmi_evaluate_method(const char *guid_string, u8 instance, u32 method_id,
+bba08f358f7930 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  327  				const struct acpi_buffer *in, struct acpi_buffer *out)
+722c856d46c6ca drivers/platform/x86/wmi.c Mario Limonciello 2017-11-01  328  {
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  329  	struct wmi_device *wdev;
+b0179b805eed10 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  330  	acpi_status status;
+b0179b805eed10 drivers/platform/x86/wmi.c Barnabás Pőcze    2021-09-04  331  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  332  	wdev = wmi_find_device_by_guid(guid_string);
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  333  	if (IS_ERR(wdev))
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  334  		return AE_ERROR;
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  335  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  336  	status = wmidev_evaluate_method(wdev, instance, method_id, in, out);
+722c856d46c6ca drivers/platform/x86/wmi.c Mario Limonciello 2017-11-01  337  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  338  	wmi_device_put(wdev);
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  339  
+7444f8347487df drivers/platform/x86/wmi.c Armin Wolf        2023-10-20  340  	return status;
+722c856d46c6ca drivers/platform/x86/wmi.c Mario Limonciello 2017-11-01  341  }
+722c856d46c6ca drivers/platform/x86/wmi.c Mario Limonciello 2017-11-01  342  EXPORT_SYMBOL_GPL(wmi_evaluate_method);
+722c856d46c6ca drivers/platform/x86/wmi.c Mario Limonciello 2017-11-01  343  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
