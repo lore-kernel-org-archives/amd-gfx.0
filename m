@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63416C47258
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jan 2024 18:51:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EA1AC47258
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jan 2024 20:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF1EB10FC47;
-	Wed, 31 Jan 2024 18:51:03 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2072.outbound.protection.outlook.com [40.107.237.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B2EB10FC54
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jan 2024 18:50:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24D4610E990;
+	Wed, 31 Jan 2024 20:12:45 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5761D10E990
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jan 2024 20:12:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z6/wIFZEVgaaxm6SuvQFEKCfIn6dqIwffrk0AKQhfnPN3YSWto/MF5Jh8Vv76R9k0Zpgo+TvBARGFUpw8+yZ3O0dDO/Q65iRrWnK9eDiEQx/sW1PGcDhHVs6NKqUa+vxHEG+hSueG7YT13ykF0mfoiSBvF2eD5ITahcVnlFkiLWoDZdVXoRXdL+OH13owX0VN7oYDVLiFmO5XxELJ50tlrR4skhDvbWN8M2KbuXqjVAQBG3pZ+6mbztNJmkyar6781LIhDlo8MLBBP9S1AkgX12QGw/byY59nG9ftoW5orjsddEOxt9E9JUsrR9nguAZxCHqgA7OU5TZgZ5uaFI4hQ==
+ b=f+bDtGZ1VNCQFymLaCN9LnmHXm9B1FlZExy1A24qZnYEMpBLgvf7DQ0YUxrC3+6yjbrwYBKx9Q3jj7UMiqqNDEIVM7GhftsotShNQr44uZHe3dA7p6BFQCnYQEF6zpJphUNYJCcQA0UJKFZcdk5TAbSPaWSbp5zcZibWCJz3RiEfhAW5ytNw2St+JR5fj2OkLCCvKlx/WC/31fF0Pg7lQj7dXxLxC0BfUC8TLD/zhxLUFMRePW4IabettDWHJ0ScfDR8Z74OwNg/B1IlyoBCQJJNhJ0Re1C+TeV6kY8/ntOlmE1fEg864NIGfcwiW4MaH4Ul3EkCA60gLARyf1B1VQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8OXClulTMy2f9WrXPBjQEtgUZhpjAxhvofoJLvg4RXw=;
- b=RHeuLDxf0PpzaKUGGgq/5P3DbXjouQZJSqhsBNjaGSbMgz/jptaXsctAmgfdpWVJtjK/+WBjYqMPg5+h7AexAE4HnOXruKqQhEtGathAPHX0JqgcQQg3dlsE3OxdN4ZGgGcj2Bu8Q/RWqAD0RvbQ/HB+4qvGSPyUTHnXcWNXZqzk2rD7DWuIwAtjbgZzOsUtw9BRIEDML3FDOjVZ6YeZR8Zt1/uGtWOx6wJsEngzz3QmDCiHuc3RAwUP8SCfAKg7VbL/srAvZqZ9m9709ugLBJJYfzKIKsRDzXaRWsiNBYSpl3Y2KitjokvXhbG28Zv3QvBbns2Q06sFn9eUuIUoPQ==
+ bh=+/qp2fAzsfulp61l3n9HxQW7LVauAmjUuuuvWKqJvjE=;
+ b=eUkqkYZQo5Ubo/JSHO0SMCU/GM7NxEXTc1Q5P/aLZEEz1/LDOYm6Dfyda0vN2alaKK+MQ+LmMiP8AlThT9FrYzV/sEX9/At2r7VQQtq7xytRuWC2AsbJzutcURP3Dj7OfY2B+mOq/ktfxzmlL2AyVcWxANMFP1bsbNX3sMVTdjlxXlE+Ey8/+M38gT2xyfX8yx6MCFiGEQ84FxqoiIglT59s2QoU/wcZ8UtgcifiQXxtjT87YWVvq3Fx2HI9o/IPoifGLr9Yj83GcRejSa9/hQu1BKmQX0hS8q3qO43eXyVYFHUdWWMsJ4trVd5EG0mG9/j1vJA+jieA8Uv8dleHhA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8OXClulTMy2f9WrXPBjQEtgUZhpjAxhvofoJLvg4RXw=;
- b=I+lRJWIqLmhWGvpJxDMMm0gbYr2vPzCr/8y1Fc1D7j/6L1ZDzRThAKtoo6cpzFo/158+MA+GU5LrlCjoCx2+CSZNIND6y3A9NvocqlYnmw0mcW8nj78ozNdWdbmzBS1Tg70nK7pDlwo+cQkOY+ubEk9+uTaCTGEtwmbKejMRUSo=
-Received: from DM6PR03CA0102.namprd03.prod.outlook.com (2603:10b6:5:333::35)
- by SJ2PR12MB8719.namprd12.prod.outlook.com (2603:10b6:a03:543::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.22; Wed, 31 Jan
- 2024 18:50:42 +0000
-Received: from DS3PEPF000099E2.namprd04.prod.outlook.com
- (2603:10b6:5:333:cafe::47) by DM6PR03CA0102.outlook.office365.com
- (2603:10b6:5:333::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.22 via Frontend
- Transport; Wed, 31 Jan 2024 18:50:40 +0000
+ bh=+/qp2fAzsfulp61l3n9HxQW7LVauAmjUuuuvWKqJvjE=;
+ b=RXnjvhylZQdoGCqiCXJFSI22UwGYlRjKzDue4SB1hQnZy9ISUs/c9xEoNJQmDEFNuqA7M80u6rSRowLhF+IuCxvgpcj/ZR9pgaH3wpwWVSqWET3vIX8nuj57j3MbbYrQeIcksds9wB0sGsMFzSGGlHlpk0t4TRkzovbotMrC35U=
+Received: from SA0PR11CA0117.namprd11.prod.outlook.com (2603:10b6:806:d1::32)
+ by SJ2PR12MB8720.namprd12.prod.outlook.com (2603:10b6:a03:539::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.23; Wed, 31 Jan
+ 2024 20:12:41 +0000
+Received: from SN1PEPF0002636C.namprd02.prod.outlook.com
+ (2603:10b6:806:d1:cafe::f2) by SA0PR11CA0117.outlook.office365.com
+ (2603:10b6:806:d1::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.24 via Frontend
+ Transport; Wed, 31 Jan 2024 20:12:40 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099E2.mail.protection.outlook.com (10.167.17.201) with Microsoft
+ SN1PEPF0002636C.mail.protection.outlook.com (10.167.241.137) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7249.19 via Frontend Transport; Wed, 31 Jan 2024 18:50:40 +0000
-Received: from lmoriche-tr.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.7249.19 via Frontend Transport; Wed, 31 Jan 2024 20:12:40 +0000
+Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 31 Jan
- 2024 12:50:39 -0600
-From: Laurent Morichetti <laurent.morichetti@amd.com>
+ 2024 14:12:38 -0600
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] amdkfd: fix the cwsr trap handler for gfx11
-Date: Wed, 31 Jan 2024 10:50:12 -0800
-Message-ID: <20240131185012.1265172-1-laurent.morichetti@amd.com>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH 02/21] drm/amd/display: Don't perform rate toggle on
+ DP2-capable FIXED_VS retimers
+Date: Wed, 31 Jan 2024 15:11:08 -0500
+Message-ID: <20240131201220.19106-3-hamza.mahfooz@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240131201220.19106-1-hamza.mahfooz@amd.com>
+References: <20240131201220.19106-1-hamza.mahfooz@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099E2:EE_|SJ2PR12MB8719:EE_
-X-MS-Office365-Filtering-Correlation-Id: a5a8001c-370b-48c7-b350-08dc228d8593
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636C:EE_|SJ2PR12MB8720:EE_
+X-MS-Office365-Filtering-Correlation-Id: 661d9ba5-cf82-4e07-6068-08dc2298fa51
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +lkKwLpJeGtWHPTwZ5/lGJ9W6X5gKvcJx4g9tKK7t3bk2Uwv4fqf4rGz8DqmD8Jno+2xy8swb/Cfm05COKqlnmZUuV8+f0mGzkWd/rqhzm/J4VC5cl7ejhZnJjR9q5JOEyFNY1YnfYrlL7drSpjOxz+EdSnSNcoDDMolPhilwyFLxwNlCWypGmYvOaZrNKnfStqy4VxKCukfqic63N2YX5qSCV3OWoxD5DRR4AzZWvPLIA5mciSIeGZYeSXhV5Gb4UEItgml36q/EIU5PkhQ5Jt9QFrhbDpNcnAG+Zh2ugH4CK8Dn8LHSRswMCyqz+HFfgw1cmM9PEsNzmcgB13YkiPV5lXvyZ1+n1YCF/GSOtjBV9wAFzCBNkm0h6agXs12ZqTJiotqobYmXqblyrdD65snaAutYVO6gjX9RqwOMxNHWNfrlT9dRsqVNbyT/VeUFG8EaYt0yhqCAuYLz1Y1pwQZogOoYLULo2HeSmiwo/SjENgnZyfqsSYJzogK1ku20bvJ4T0nir45nxkwJSsF6uK4ubun+K4j1sLmmMQEjTqKpnFo1sW0HmKijehZ2cQ1po/0vEiGWUsjXXbjJwuIDpTW0KwtnlaFIDBix2kjmy+fOhga4W9od/aBD3KlJ33yJUv4lYiOWt5uVjtUe32keVxdvoWwGG2Sk13EmbS3EXdIcLGMCRyOuSLt/9ipUyP4lFnRX0zdJqCJRyUGEBoWg5HYpehORbtkNfUznYsfya06yxYQaCMdh7X+5J8SykoC68akMu8o1mjBa1ez05awYw==
+X-Microsoft-Antispam-Message-Info: NYL4AUGWdGHROK0e6NtmEa6xZQEzPc2zeUZaf/78Jx2Ao/Umow4MdWU1/bnuJAZNjY8pZo6MtPVhTqE/RJ5tNIdIYF2UufMBiyR147v65b33aJdIZIKRFXS1546UjcywEu0aJDC1qJM4OE6jt0oVkQqv8EfGWavznjUR+8S9x/AyIJ8a1Zc6TjkDMRvQDXdWeZB7+PI0/AtrjCuji8U/TlKPRwL/HO9txt6A5U0bhOZ6FuU41HuXoXvp2qJGhn5/Yy2hZnVop2F2bhC/Ot3klKFcOM6v3aM6IjbAyKR5/Xgd1ZIYhfLaVZ1qJLqzi8M5mELxdWlHFPKtsQnA/5/TMrpJnDshdFKn1+ZOkmjmv+eUtRrjAW2i/TBIX4NWdqakFYEW1NWKkO97aXfQ7I17nDmQWwxUMK5N8+vdE8ZpKCsGFzNieFP6LA8eTqnd9nbkzMFtF+HN4on8i+fYMZTqYkuJRYmsctM8c1yIBUYl01Z8L/3fzsWZLhizsCIMlSOUUh1W8wbTo09vFIE90k8M5YBEuM5LDVIkQVGDHFSG5M3MMyWjJx+vPAZbI63ytB0QNXxI3eMRDhTlHGY1Lq/BgDM+Rfu7oH5XceJOr3YN0XH1JoZ8/UITr1aNmfWGT+qQkDxQjSxFcEoF5RjboTWrfFGWhtja1ecIZzMAoa2peVDqUTnuxp1MgP2eHa/p/DeTNSaHA+462UrvyASZIwnLxABLmLqpZL5Bsc034Vdst0TfmstIRFKIzwt+RaK/OvQy5zja6tfQ8nrVEKON+YOCtBQwoy+Y5+KF2QpZVqXefOY7c4zuikoeDjMjgwiUX3se
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(396003)(376002)(39860400002)(136003)(230922051799003)(64100799003)(1800799012)(186009)(451199024)(82310400011)(36840700001)(40470700004)(46966006)(70586007)(70206006)(54906003)(47076005)(44832011)(6916009)(478600001)(8676002)(6666004)(316002)(7696005)(8936002)(4326008)(1076003)(336012)(2616005)(426003)(2906002)(83380400001)(5660300002)(82740400003)(26005)(36860700001)(16526019)(86362001)(81166007)(356005)(40460700003)(36756003)(40480700001)(41300700001)(36900700001);
+ SFS:(13230031)(4636009)(376002)(39860400002)(136003)(346002)(396003)(230922051799003)(186009)(451199024)(82310400011)(64100799003)(1800799012)(40470700004)(36840700001)(46966006)(83380400001)(2906002)(426003)(336012)(2616005)(1076003)(5660300002)(36860700001)(16526019)(26005)(82740400003)(47076005)(54906003)(70206006)(70586007)(6666004)(4326008)(8936002)(8676002)(44832011)(316002)(6916009)(478600001)(86362001)(81166007)(356005)(40460700003)(41300700001)(36756003)(40480700001)(36900700001)(16060500005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2024 18:50:40.5769 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5a8001c-370b-48c7-b350-08dc228d8593
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2024 20:12:40.8371 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 661d9ba5-cf82-4e07-6068-08dc2298fa51
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099E2.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8719
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8720
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,78 +100,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jay.cornwall@amd.com, Lancelot Six <lancelot.six@amd.com>,
- Laurent Morichetti <laurent.morichetti@amd.com>
+Cc: Charlene Liu <charlene.liu@amd.com>, chiahsuan.chung@amd.com,
+ Sunpeng.Li@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, hersenxs.wu@amd.com,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, wayne.lin@amd.com,
+ Michael Strauss <michael.strauss@amd.com>, Harry.Wentland@amd.com,
+ agustin.gutierrez@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Call the 2nd level trap handler if the cwsr handler is entered with any
-one of wave_state, wave_end, or trap_after_inst exceptions.
+From: Michael Strauss <michael.strauss@amd.com>
 
-Signed-off-by: Laurent Morichetti <laurent.morichetti@amd.com>
-Tested-by: Lancelot Six <lancelot.six@amd.com>
+[WHY]
+Only required if FIXED_VS retimer does not support DP2-capable.
+
+[HOW]
+Gate link rate toggle with DP 128b/132b LTTPR channel coding cap check.
+
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Signed-off-by: Michael Strauss <michael.strauss@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h  |  2 +-
- .../drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm  | 17 ++++++++++++++++-
- 2 files changed, 17 insertions(+), 2 deletions(-)
+ .../link_dp_training_fixed_vs_pe_retimer.c    | 22 ++++++++++---------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-index d1caaf0e6a7c..2e9b64edb8d2 100644
---- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-+++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-@@ -2518,7 +2518,7 @@ static const uint32_t cwsr_trap_gfx11_hex[] = {
- 	0x8b6eff7b, 0x00000400,
- 	0xbfa20045, 0xbf830010,
- 	0xb8fbf803, 0xbfa0fffa,
--	0x8b6eff7b, 0x00000900,
-+	0x8b6eff7b, 0x00160900,
- 	0xbfa20015, 0x8b6eff7b,
- 	0x000071ff, 0xbfa10008,
- 	0x8b6fff7b, 0x00007080,
-diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
-index 71b3dc0c7363..7568ff3af978 100644
---- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
-+++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
-@@ -81,6 +81,11 @@ var SQ_WAVE_TRAPSTS_POST_SAVECTX_SHIFT		= 11
- var SQ_WAVE_TRAPSTS_POST_SAVECTX_SIZE		= 21
- var SQ_WAVE_TRAPSTS_ILLEGAL_INST_MASK		= 0x800
- var SQ_WAVE_TRAPSTS_EXCP_HI_MASK		= 0x7000
-+#if ASIC_FAMILY >= CHIP_PLUM_BONITO
-+var SQ_WAVE_TRAPSTS_WAVE_START_MASK		= 0x20000
-+var SQ_WAVE_TRAPSTS_WAVE_END_MASK		= 0x40000
-+var SQ_WAVE_TRAPSTS_TRAP_AFTER_INST_MASK	= 0x100000
-+#endif
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
+index c36e0e5df447..b5cf75975fff 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
+@@ -270,18 +270,20 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence(
  
- var SQ_WAVE_MODE_EXCP_EN_SHIFT			= 12
- var SQ_WAVE_MODE_EXCP_EN_ADDR_WATCH_SHIFT	= 19
-@@ -92,6 +97,16 @@ var SQ_WAVE_IB_STS_RCNT_FIRST_REPLAY_MASK	= 0x003F8000
+ 	rate = get_dpcd_link_rate(&lt_settings->link_settings);
  
- var SQ_WAVE_MODE_DEBUG_EN_MASK			= 0x800
+-	/* Vendor specific: Toggle link rate */
+-	toggle_rate = (rate == 0x6) ? 0xA : 0x6;
++	if (!link->dpcd_caps.lttpr_caps.main_link_channel_coding.bits.DP_128b_132b_SUPPORTED) {
++		/* Vendor specific: Toggle link rate */
++		toggle_rate = (rate == 0x6) ? 0xA : 0x6;
  
-+#if ASIC_FAMILY < CHIP_PLUM_BONITO
-+var S_TRAPSTS_NON_MASKABLE_EXCP_MASK		= SQ_WAVE_TRAPSTS_MEM_VIOL_MASK|SQ_WAVE_TRAPSTS_ILLEGAL_INST_MASK
-+#else
-+var S_TRAPSTS_NON_MASKABLE_EXCP_MASK		= SQ_WAVE_TRAPSTS_MEM_VIOL_MASK		|\
-+						  SQ_WAVE_TRAPSTS_ILLEGAL_INST_MASK	|\
-+						  SQ_WAVE_TRAPSTS_WAVE_START_MASK	|\
-+						  SQ_WAVE_TRAPSTS_WAVE_END_MASK		|\
-+						  SQ_WAVE_TRAPSTS_TRAP_AFTER_INST_MASK
-+#endif
-+
- // bits [31:24] unused by SPI debug data
- var TTMP11_SAVE_REPLAY_W64H_SHIFT		= 31
- var TTMP11_SAVE_REPLAY_W64H_MASK		= 0x80000000
-@@ -224,7 +239,7 @@ L_NOT_HALTED:
- 	// Check non-maskable exceptions. memory_violation, illegal_instruction
- 	// and xnack_error exceptions always cause the wave to enter the trap
- 	// handler.
--	s_and_b32	ttmp2, s_save_trapsts, SQ_WAVE_TRAPSTS_MEM_VIOL_MASK|SQ_WAVE_TRAPSTS_ILLEGAL_INST_MASK
-+	s_and_b32	ttmp2, s_save_trapsts, S_TRAPSTS_NON_MASKABLE_EXCP_MASK
- 	s_cbranch_scc1	L_FETCH_2ND_TRAP
+-	if (link->vendor_specific_lttpr_link_rate_wa == rate || link->vendor_specific_lttpr_link_rate_wa == 0) {
+-		core_link_write_dpcd(
+-				link,
+-				DP_LINK_BW_SET,
+-				&toggle_rate,
+-				1);
+-	}
++		if (link->vendor_specific_lttpr_link_rate_wa == rate || link->vendor_specific_lttpr_link_rate_wa == 0) {
++			core_link_write_dpcd(
++					link,
++					DP_LINK_BW_SET,
++					&toggle_rate,
++					1);
++		}
  
- 	// Check for maskable exceptions in trapsts.excp and trapsts.excp_hi.
-
-base-commit: 5c75a8a293f3e8f31e5ac10d3a6b87451028e5e6
+-	link->vendor_specific_lttpr_link_rate_wa = rate;
++		link->vendor_specific_lttpr_link_rate_wa = rate;
++	}
+ 
+ 	core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
+ 
 -- 
-2.25.1
+2.43.0
 
