@@ -4,89 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03911C47258
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jan 2024 14:26:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2506C47258
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jan 2024 14:32:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE59510E2E6;
-	Wed, 31 Jan 2024 14:26:23 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2053.outbound.protection.outlook.com [40.107.96.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C70F10E2E6
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jan 2024 14:26:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70B5C10F9FC;
+	Wed, 31 Jan 2024 14:32:33 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2067.outbound.protection.outlook.com [40.107.212.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4642E10F9D0;
+ Wed, 31 Jan 2024 14:32:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XPA7a0PG0NhrUWUEdw2UkC6vj3rOfp4T/q5bVDG+QeCNUgoILFgwR3re3sPW6kdMDAh9kt7VsK0+BMlmABbQfnPGSqFZ6tZEoAJUfo159gCK+C4A7uWFHemm051wU/GL4VuKUpEpKgMPpGtfJQtG/T97RyBUtQHqKl344B6kYaKi4y6x9eFH+uj9iY3MaX+DubTwHSHWKkCPrvxPStY/TEa7b49DQwMttAtVrvjvbvvY3vCd7uhCKlTN3SAKneSAzluAhDfIuoeX/O8ZWcWSwg+gwvZ1EF4o9H/zaMvETKz+UpSjMMkq8UbNktrwrUX0/xtPylolYsNdofq5eiHGFQ==
+ b=bO0ESyb4cdfztGM6m7UaiLc4daSwdlsi+tGPvnQOP3jnTaC8D7CczI44WZvFW1NsQvVFJPciAlh1Yc+Lx2hxjFPTIYt0cTcMruE5lqW0poBPGh17ksWQm6ThM6/80jE2WaLGlSuU8KHL7c0SQUkHIT325uybCxjhSiCupdTs8d9d6AAh3fVyBNAuerkWysXNZfvEZJEGLN/s/nYSdurP+FLJ58VihRlUMg5ZRrsKR6LFMkaVhQIXD0cqOJGMfG9vyc57J2sz3B9jk4xIZaFamB1DY5f0e9wTJw5s8DAz6Mp+R7DSec6i0Vi0GuN2ReZZ2BJsOTJz6a6/z0HPhUDsjQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=unhtpzV0gWzxPynJDSpyRSxjF6U9fmX+3lax7RoePNc=;
- b=iLEI74CrB8M+ys2/KbdGDReDeNkzpNvxk4HFnrNEVYidpMu0Br+8hBM632c6ZGsNfS/EHU8P3y0HjYAQyvKB3rY5ET8iDFJnim5+LswpZ9A0XqbKMv9NFppiUPBP693GkhlplDtZom9mM7jYQFz01gKVvkSprj85fJY5oSKkaz0sKnZwVGUy5y57weoD/H1bTZOAudFWEl9Q0U4tvNAYnAzWYspa9FWRvgWA4uWMWZdvh9M+klsFGY9eNsQegAmlk5aphHMFW2wmK1vTsTgtCq1gjq1NqjyBYfs4reEXCzRVyvBJx/Cp3fbUp97N/McFrbpIAK0b/ocX1L0KxDAGmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=05QewofrgYksp8hr/ZmRxpTxzQI2yT/1ul9hGfIC8/4=;
+ b=Dbxt3bhzbYUdwum3tS+hrW6s75JqGnuQMaHnSfUIlKe0nqrpqxhYn2javbQC/eBgiGfbuvBWVGUJNg+vg1jbfdghdQcptPan1hbvVS/UWvoKymhIbJFyJSDxoGBS15EbmsS410+oK9m8ZLa9utUkanMyEZazDp4ZOGMR+eeJCL4jfOtH38fyTMCqAHK/wG1y+6nYkDlxLg1pRf/5hLS1l5qINbFck8Y7KCGGs9gpK9bzgQd1NN3tBKfHnsmcjG0TTuUztOSID5dQ1MRwln2ZcuJByzm0c33giZuivlYU4tfjUnZJ14prY6LO9RgfGpbhwbSE1CmIUSX8euXyJlczDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=unhtpzV0gWzxPynJDSpyRSxjF6U9fmX+3lax7RoePNc=;
- b=fsW3++/cWfbHY4/UElrLC1DEdA4XVPzxOhSM8qLMKwJK2fYp3R4YRJ0cs5vpgyc04yosyXYMcGeJVIpr+ErCNlxNYbQmsonde6SXEMgWUwPHv0krWcZj78QxupvIL9uafi7C103euh1K/z/kpIw7wSThLMAKiy70YopkzBPfjLg=
-Received: from MN2PR01CA0063.prod.exchangelabs.com (2603:10b6:208:23f::32) by
- BL3PR12MB9052.namprd12.prod.outlook.com (2603:10b6:208:3bb::14) with
+ bh=05QewofrgYksp8hr/ZmRxpTxzQI2yT/1ul9hGfIC8/4=;
+ b=PdKhztySFTC7raYWaC76SixqwU9Hc4YtZW1tVoZ1lz+tvxG1qwZtqJ0DjzE15Xjtk/OEuAZskSYal7f12yow0izuQ2NTvYmQsEWAE6sMw40rB8AgejpVXMipfkPNy7pe7cRq7Mrv9lHSTY3rIpIqaufCTbH5Q9tYUxRwJqABQ3g=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS7PR12MB5861.namprd12.prod.outlook.com (2603:10b6:8:78::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.34; Wed, 31 Jan
- 2024 14:26:18 +0000
-Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
- (2603:10b6:208:23f:cafe::8e) by MN2PR01CA0063.outlook.office365.com
- (2603:10b6:208:23f::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.22 via Frontend
- Transport; Wed, 31 Jan 2024 14:26:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7249.19 via Frontend Transport; Wed, 31 Jan 2024 14:26:17 +0000
-Received: from shaoyunl-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 31 Jan
- 2024 08:26:16 -0600
-From: shaoyunl <shaoyun.liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Only create mes event log debugfs when mes is
- enabled
-Date: Wed, 31 Jan 2024 09:26:00 -0500
-Message-ID: <20240131142600.679750-1-shaoyun.liu@amd.com>
-X-Mailer: git-send-email 2.34.1
+ 2024 14:32:28 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7228.029; Wed, 31 Jan 2024
+ 14:32:28 +0000
+Content-Type: multipart/alternative;
+ boundary="------------90zUu0HBKlDPqT5zUfhyFenp"
+Message-ID: <638e9cf4-d03f-43a9-89f9-27f63326a8df@amd.com>
+Date: Wed, 31 Jan 2024 15:32:20 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] drm/virtio: Implement device_attach
+Content-Language: en-US
+To: "Zhang, Julia" <Julia.Zhang@amd.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, David Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Erik Faye-Lund <kusmabite@gmail.com>,
+ "Olsak, Marek" <Marek.Olsak@amd.com>,
+ "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>,
+ "Huang, Honglei1" <Honglei1.Huang@amd.com>,
+ "Chen, Jiqian" <Jiqian.Chen@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>,
+ David Stevens <stevensd@chromium.org>
+References: <20240129103118.3258781-1-julia.zhang@amd.com>
+ <ZbjZJ3qQzdOksnb2@phenom.ffwll.local> <ZbjaebswTCxmlwu0@phenom.ffwll.local>
+ <97c50e01-ee33-4ac8-975c-f645c2ed49c6@amd.com>
+ <IA1PR12MB653270F7FD75C1B4DF8B90E8F27C2@IA1PR12MB6532.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <IA1PR12MB653270F7FD75C1B4DF8B90E8F27C2@IA1PR12MB6532.namprd12.prod.outlook.com>
+X-ClientProxiedBy: FR2P281CA0035.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::22) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|BL3PR12MB9052:EE_
-X-MS-Office365-Filtering-Correlation-Id: e67ba6a1-ffee-4cc7-745a-08dc2268969c
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB5861:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e6f5618-048c-4a7e-7f63-08dc2269733f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wWp6DRk7RYDQPv4UJF+F0eeOcF+yOOz9rsEPyEuninZr9oHXYPUetfPQMr7UP9c+WMdhiXs8eXXiwRlFuBoyD/uMKuPNgacqQ+OltRTbJ1DDivlRZ0XJRS9mVuzrl6GYDBhDGrJcvRs8XCiueFhZWb4DVi7pWf0Fv10xrD6p51bxLM1h9Se0YGwMOPYeYYVxU6FLmN/dm0o425xDSY/TcyeaweEtkVSBrsfmu7d04WhtDHcdLxpiKnFP0ZTlzr9OQyLyjnTyJa5ru3mNayz8/b3Ww4GBg2JTxd5GRSPLfACNFblx420KXHsd32uK0tZT42ozk7WslJHT5XV+O1U2PTjtTR0QEnyrGgpBx82aLiKKoptOvwzY8FZxu810NT+HDG9lEkw0tVCKpXnAUcGLS+RUSAay+9YqdSiCP9x4f8KynAWsEgex8/+JYgLt/5WSrBu265wS6pdQB+052YgWAL09YXSGQ6U1sR6hj2BWhsBybehIuUbDck53HtwUd6TSRDFuVnUA0SzmmCjIoMoO2RFbLPXK63te8nLwFhXaFQ9yCdgvKjby487aHiG0cZLLiPw6CZxCv0lUq4HA9rObxY0e/GG/qfoWtE3zpXWgPSURclFtJZgfQxvHN7nXv2Zg7ubLWUaps4nxqNGnxjRPd3yurqpMgncFxXREoXVpZ0fbFNU2RjPFGtRXdn5xG0twkNqwvGSG8F9wiDyMsAzXPeL9jlGB/zTCovsQ6ZYEEGMqNQHYvWSB1ySLfikaqzKpMUobKmHN6rHv2hkcVdkyIXGpVp7Kjca2nDR9jMBtqgo=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(346002)(396003)(376002)(136003)(230922051799003)(82310400011)(186009)(64100799003)(451199024)(1800799012)(36840700001)(40470700004)(46966006)(40480700001)(40460700003)(83380400001)(41300700001)(86362001)(36756003)(82740400003)(81166007)(36860700001)(356005)(1076003)(47076005)(26005)(16526019)(426003)(336012)(2616005)(7696005)(478600001)(2906002)(6916009)(316002)(70206006)(70586007)(6666004)(4326008)(8676002)(8936002)(5660300002)(43062008)(36900700001);
+X-Microsoft-Antispam-Message-Info: 9DqepFFJ6hubf6TNz83J07HElhCW5PCw7dZWneueT/yuAkcoqLBq93Z69hAi6R9LAJdeh9m0WLr1nAfwuZqPQsh6avaW7u3Vd7xNnvPR9XjZDoMO7eoKUSvmpMYCZzNCQkVJryidfV5AWqkBLbg/bWUCT5DcR9WrttQrk9o9HufRRZw+3AKTj4eFOyj3waHlqCqBZZvQRfQzKy8NwzK4ru2da+PNBOr4CYRhgRuBmBKs/aCcPbbakoh+9ErSaX5pPAK1qh7ru3EjvPjQp/ehJJVb5iJhF/mweZog8sSe8BRKv8emhIHvVN+JiRXfglHpICvpan761TSjBqJHPK+TT63m3lG2Nq5+PkXRz6ngFGAdWALi7rJ4SJt/M3/rRS2EaSkQ711aSHNeiiy9mKcqEA+Df7+emVIaq64/8eSkNwD5pSpDM2pwpHXTnQUMQnKKp+uv9Gkf3EFPldIeCfWQ5oETsZo7uWfAEhw/EoKrxOO3Duh8821sZ5l/tpQqta0pE2n2tcESdlJ9NZuDXiK85xR57XpxIP092AAACV0UZ0e2SWltbr2i0oCQ69PNeswrAZMSjhpdddDOoAtcGY9h4CipH2LULHvafSL56MXrhbVodJB4NBE73jHAKTsaz+QkjHtUiaYnCP6yocRnqYllb58Lv1HD3LZZK9wrWsDG8uo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(376002)(136003)(396003)(366004)(346002)(230922051799003)(186009)(451199024)(1800799012)(64100799003)(66899024)(921011)(83380400001)(66574015)(2906002)(2616005)(7416002)(5660300002)(26005)(38100700002)(66556008)(66946007)(6486002)(31686004)(66476007)(6506007)(33964004)(53546011)(8936002)(6666004)(8676002)(6512007)(316002)(478600001)(110136005)(86362001)(31696002)(41300700001)(36756003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dlVWSHdYK0NRQnlsVy9abVdEenFySmUrbVlLWlNLWldIU25vR2FwekZSUTla?=
+ =?utf-8?B?MjQ2c0M3RC9ZWlJKazNkZi9WYk91MVZuZjVaVW10Zk5MU05HZkp1QWU2SmlV?=
+ =?utf-8?B?TkNmNmRPeWRIczVyODY1WmhnbHpuTXJEMWpaOWxtdHhsZVBHNHpPYXBWRmlh?=
+ =?utf-8?B?c2dmZXRGa1VhTTlaTThpY1R6YlpvdzdKY1M3NnNIdmxycUJCcVd0K21ZTEtC?=
+ =?utf-8?B?bFRFRnFUZ2ZNRUY1V3k0Tks0clA1b2luYzU3RUtUbjEwZjRNczArWUQ3UER3?=
+ =?utf-8?B?OVcvQWRMWnJkSEZoVkVUS0U4Q010emJFUmc3QmJ0QUExcHJWczJzaVlsQUpO?=
+ =?utf-8?B?eS9nUTBaYzMzTEZqMXBTa3pzVE0wbUxXM05ERzh6SGUrSUpOTWVoOUVPbzJT?=
+ =?utf-8?B?K3VaOFBGOTNzVWZwaS8rdDFPbWVpRStON2kyK29yUnZUdlYxeTJVaFIrVGNY?=
+ =?utf-8?B?VUVudWk5ZWlNWEVWRTQzYTZoZFovSndGWE9XaXpBSmsydzc0c1ByM0tDT0pv?=
+ =?utf-8?B?MElBYUF2eTcyaUFmNll1aStrTkJKZ0sveUVtTEtNZ3dqdmFHNC9ha2Q1YnVH?=
+ =?utf-8?B?NEJqS3hMUHdQdVBoMmxOcGVnSStLeklVUXZ4YWpHNmNEcVExc2ttSjEzU0tp?=
+ =?utf-8?B?YWoyTWdpMElmVFh0YmFTdEp0VVQwUWN0QVhvQVZCdEdJZ2VBTDdhSXp2SEJS?=
+ =?utf-8?B?Y2U4d0VwM0E0L3Z3TTMvS0dNSU43cXBrb21VU2owUnFxZ0xsdWJaWlUzSVo0?=
+ =?utf-8?B?Ylp3TllWNWlLcFJPcVN4ME4zRU5ON2QxY2p5Wm4xUUxxcnVJRTdtRTVaMFg3?=
+ =?utf-8?B?dXJMUzZUSmpjV0JSRnU4ZjhFTXdFQmNrTUs2clVzVXRWVEJ3R2pITXByWG5X?=
+ =?utf-8?B?cnA0NVo2LzBjZyt2d0JSYnIzTmFXTEVtTk5NdHJWdGx2bjJuY1NTWUJYb3hZ?=
+ =?utf-8?B?Y1NCMmtramV4TWtjTThFWnhxVVNFZUxnSnlVdHcvcURlbnNHaldyaFlDa3hG?=
+ =?utf-8?B?Rzlyd29NTU5DTzAzeXRlaU42MXBpSVNyVy9UZjBvRG4wWTRYQmY3S1JFZkF5?=
+ =?utf-8?B?M0FKQ1BJWm1rdXVGQ0VlRDV6cTV6N3BwbWRwYlMvWGUxRWdtWDY5RUNnZ2E3?=
+ =?utf-8?B?c0R3bEdZamh3NUY1MWlnUnpINFQzS2dkVlZBY21tZ0lMMmd6dUhKYzlMc0RC?=
+ =?utf-8?B?MlJ0UDJWQVlIdlp0OTVVOFZ6YW5iZmFXNENLZkZrM0hxMUNuekpzUHJncHFz?=
+ =?utf-8?B?VmNVdGVueVJpKy9GTCtVQmNTOVcxeUZhSmJhanR1TnBhV0kxZEVLZE5SZkl1?=
+ =?utf-8?B?WDBmaUxYU05RcmQwSjRTaElzUVZWeDlTQVlDQm5yRkplNEFBMk5mWlRSQUZR?=
+ =?utf-8?B?dmdzYWI5dDBiNGNJYUZMWGNRVmY3VFAwQnZiTDg5R3NUS1V2UnZ4aXNyRUpF?=
+ =?utf-8?B?VXFvRHVlcVFubGppMHlPMlRHN2dNbWZrNXNHd0crcDVkcFN2NWU1cHRDOGho?=
+ =?utf-8?B?UDMyVktaVldGVHRabGpOUXF2dXM0S2hObHc5M3RFNDZGaGdhWGFiZnZ3NWFq?=
+ =?utf-8?B?RGdUcHlJUnh5VEthTit5VkcyMkVKcENCNk5MTW9mdUZhUXdXRXozK1NXampT?=
+ =?utf-8?B?RGNNR3pqTkIxQTZOTWdjajdOZUszb1ZXcnpITlQwTHE3Q1ZXL3BBTkc1U2Q4?=
+ =?utf-8?B?dVFJUTAvdC9LTVlLWWFvV0JJRHY4RTBaRzhnbGNLaXdKcGF1cEJTOG1EMFpt?=
+ =?utf-8?B?TytQMHc5b1o1L2FhZlc3enRwb003TVVDc3pJMXU4Nk9sV3kxYXM2THdXYTV6?=
+ =?utf-8?B?T3VVRUVHeHlKV0pubENhWXZLaEZsVTljQW9FelhURDVOZHl3Qmt3NGlNQlh3?=
+ =?utf-8?B?bjhXU0dILzBlWkhtVlFuUlFpQXlqV2tHVXZNTUthMnJuaDVqRmwvaVQxS1Nr?=
+ =?utf-8?B?bThhTFgzWFFSK3NGbHlGMHlCczcwZ0VRS1NxcDVpWFhUTThIbmRJSVQ2aE5y?=
+ =?utf-8?B?Q21RTlhZMGplSnFpVUFDUldEcjJ5QnNRVVhFSnRENVNpbVZ6bFl0d2tMQnJJ?=
+ =?utf-8?B?UkZ6TDVVczloWnFzTW4zRHkyNGNQcGlPZ3gwbXVrMlJJZE41a1dvZkhUdVJk?=
+ =?utf-8?Q?M4ORL1yEz4FdR/vLmXoj3ClzC?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2024 14:26:17.8234 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e67ba6a1-ffee-4cc7-745a-08dc2268969c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e6f5618-048c-4a7e-7f63-08dc2269733f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2024 14:32:28.1806 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD9.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB9052
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: M2FToek8c/WAH10HhoZCN1L+pU2QXdLt6zzwUp4qirjOHkiw01FJ6vrL3cubmQ/m
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5861
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,36 +140,153 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: shaoyunl <shaoyun.liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Skip the debugfs file creation for mes event log if the GPU
-doesn't use MES. This to prevent potential kernel oops when
-user try to read the event log in debugfs on a GPU without MES
+--------------90zUu0HBKlDPqT5zUfhyFenp
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Am 31.01.24 um 11:20 schrieb Zhang, Julia:
+> On 2024/1/30 22:23, Christian König wrote:
+>> Am 30.01.24 um 12:16 schrieb Daniel Vetter:
+>>> On Tue, Jan 30, 2024 at 12:10:31PM +0100, Daniel Vetter wrote:
+>>>> [SNIP]
+> Hi Sima, Christian,
+>
+>> Yeah, that is really just speculative. All importers need to set the peer2peer flag just in case.
+> I see, I will modify this.
+>
+>> What happens under the hood is that IOMMU redirects the "VRAM" memory access to whatever address the DMA-buf on the host is pointing to (system, VRAM, doorbell, IOMMU, whatever).
+>>
+>> I'm also not 100% sure if all the cache snooping is done correctly in all cases, but for now it seems to work.
+>>>> Frankly the more I look at the original patch that added vram export
+>>>> support the more this just looks like a "pls revert, this is just too
+>>>> broken".
+>>> The commit I mean is this one: ea5ea3d8a117 ("drm/virtio: support mapping
+>>> exported vram"). The commit message definitely needs to cite that one, and
+>>> also needs a cc: stable because not rejecting invalid imports is a pretty
+>>> big deal.
+>> Yeah, I've pointed out that commit in an internal discussion as well. I was just not aware that it's that severely broken.
+>>
+> Yeah we have mentioned this patch before, but I don't totally understand why this is too broken. Without exporting vram objects, dGPU prime feature would not be realized.
+> Would you mind to explain more about it. Thanks!
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 0626ac0192a8..dd2b8f3fa2f1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -1565,9 +1565,9 @@ void amdgpu_debugfs_mes_event_log_init(struct amdgpu_device *adev)
- #if defined(CONFIG_DEBUG_FS)
- 	struct drm_minor *minor = adev_to_drm(adev)->primary;
- 	struct dentry *root = minor->debugfs_root;
--
--	debugfs_create_file("amdgpu_mes_event_log", 0444, root,
--			    adev, &amdgpu_debugfs_mes_event_log_fops);
-+	if (adev->enable_mes)
-+		debugfs_create_file("amdgpu_mes_event_log", 0444, root,
-+				    adev, &amdgpu_debugfs_mes_event_log_fops);
- 
- #endif
- }
--- 
-2.34.1
+One reason is that using sg tables without struct pages is actually a 
+hack we came up with because we couldn't hope to clean up the sg table 
+structure any time soon to not include struct page pointers.
 
+Another reason is that using this with devices which don't expect a DMA 
+address pointing into a virtual PCI BAR. So doing this without checking 
+the peer2peer flag can most likely cause quite a bit of trouble.
+
+Regards,
+Christian.
+
+>
+> Best regards,
+> Julia
+>
+>> Regards,
+>> Christian.
+>>
+--------------90zUu0HBKlDPqT5zUfhyFenp
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    Am 31.01.24 um 11:20 schrieb Zhang, Julia:<br>
+    <blockquote type="cite" cite="mid:IA1PR12MB653270F7FD75C1B4DF8B90E8F27C2@IA1PR12MB6532.namprd12.prod.outlook.com">
+      <pre class="moz-quote-pre" wrap="">On 2024/1/30 22:23, Christian König wrote:
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Am 30.01.24 um 12:16 schrieb Daniel Vetter:
+</pre>
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">On Tue, Jan 30, 2024 at 12:10:31PM +0100, Daniel Vetter wrote:
+</pre>
+          <blockquote type="cite">[SNIP]<span style="white-space: pre-wrap">
+</span>
+            <pre class="moz-quote-pre" wrap=""></pre>
+          </blockquote>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">Hi Sima, Christian,
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Yeah, that is really just speculative. All importers need to set the peer2peer flag just in case.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+I see, I will modify this.
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">
+What happens under the hood is that IOMMU redirects the &quot;VRAM&quot; memory access to whatever address the DMA-buf on the host is pointing to (system, VRAM, doorbell, IOMMU, whatever).
+
+I'm also not 100% sure if all the cache snooping is done correctly in all cases, but for now it seems to work.
+</pre>
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <blockquote type="cite">
+              <pre class="moz-quote-pre" wrap="">
+</pre>
+            </blockquote>
+            <pre class="moz-quote-pre" wrap="">Frankly the more I look at the original patch that added vram export
+support the more this just looks like a &quot;pls revert, this is just too
+broken&quot;.
+</pre>
+          </blockquote>
+          <pre class="moz-quote-pre" wrap="">The commit I mean is this one: ea5ea3d8a117 (&quot;drm/virtio: support mapping
+exported vram&quot;). The commit message definitely needs to cite that one, and
+also needs a cc: stable because not rejecting invalid imports is a pretty
+big deal.
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">
+Yeah, I've pointed out that commit in an internal discussion as well. I was just not aware that it's that severely broken.
+
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Yeah we have mentioned this patch before, but I don't totally understand why this is too broken. Without exporting vram objects, dGPU prime feature would not be realized.
+Would you mind to explain more about it. Thanks!</pre>
+    </blockquote>
+    <br>
+    One reason is that using sg tables without struct pages is actually
+    a hack we came up with because we couldn't hope to clean up the sg
+    table structure any time soon to not include struct page pointers.<br>
+    <br>
+    Another reason is that using this with devices which don't expect a
+    DMA address pointing into a virtual PCI BAR. So doing this without
+    checking the peer2peer flag can most likely cause quite a bit of
+    trouble.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite" cite="mid:IA1PR12MB653270F7FD75C1B4DF8B90E8F27C2@IA1PR12MB6532.namprd12.prod.outlook.com">
+      <pre class="moz-quote-pre" wrap="">
+
+Best regards,
+Julia
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Regards,
+Christian.
+
+</pre>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
+
+--------------90zUu0HBKlDPqT5zUfhyFenp--
