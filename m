@@ -4,114 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52A44C47DDB
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jan 2024 02:35:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBFBDC47DDB
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jan 2024 03:05:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECD71113886;
-	Wed, 31 Jan 2024 02:35:42 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20335113886
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jan 2024 02:35:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55F441138BD;
+	Wed, 31 Jan 2024 03:05:12 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2071.outbound.protection.outlook.com [40.107.244.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E26451138BD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jan 2024 03:05:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hLLTg08bsgvKZbEmY8ecsGu7B7gEOzOi+8bW4VjPKZxapmNLwbEZj+RhQ9mSev9gEpuHXBAl6/nHVX1z6htvk6h9hbgdv9XiLi9M1prYOGVlg4J5ya4EvN41EB0SUn1dmKcRsaOqqbRfYCYwPijAIEDHT9Ye05eLg9fRugC3y8dv1Jf2X3vNRZlh2jQTzzHx0zjA5fXwNdASZwTdDix/4ILOKMz+8p+rSNq7zb8lQDzn/wQcCTVaf6YBVeXSWSIUFBV6L2ZSaqlIEQgLCL0GcopjyWWquYOvXzWCCXUxUu4Qwgnnw8+U+HuvAIdZI7Z07jrntV5PkC24YNQae+JDrA==
+ b=Bhfe7lLdW8gFeKIkx4nBj8aixbHHHJnj44JNPFM4/IIa2bX6fDIZgP+H+07s1Dkkw5NexoYCtSKZpf5y78/KjzBhF/NZIZQuzUny4rP9S/KeYQTqLxceEbEok6nt7dIqgAJLSYDp/j3hY7OXHgMZNmgd3M2k/Etz3Jdq5Gng4j36tGcdwfEwB9etXlF2uSwEQh6PXCDonL5nISG3TDZdn0YYRUxphPGzx8azgbXzZcGasDfX8SzPtszp2jvobGif6S1pEMoc4P186hnQQOl3L431mBVBpfQD+VBTJ3Qu3MC3agBzQp+eGk8UB5kLj6O6dIMQc6u8bHO0V6fZEIAmEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5LtCa1PYlh6Yf+gQTAye0VYhCf0Gn6b+fkpRtyrNn00=;
- b=INKUmwT47P2TZyWNtY5Wac4M2IFCP3yCxdUJZ+tMdqkGKWaAqKy0DaulUHRKyGi/SZt93wuYbjYee3la1NAnrOx09DDTW3gCllIyN7M5jowfRYEKgwxx8EzNajlph2DDwSeeXs4pIQkK4mHOucC/edgk4gfx4hNB9AoPidCA3uWnFE7y8ooRmEvMQujxAy3WiX1KiWn+giuGo1ZRxhorB3GgqPFC3axooHJ4u9gR9mWZ8ciUDi7KKUwxZNCcOvi31M4rTFjUMd0nkY49Q96h1PbP3KAi9IhbYRjk+ZLP6puNTRGF4LAekb2EvR4ke9G3FlWU4viQ7wcMdTLBWVHdUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=jyIo4R/4lYXmUdjs/ZoCjklDFffNu9YB4Zr8i7StLXY=;
+ b=P+2eAqGqnEgaq+W7CYRCAhz1ZVfpVa8v9ELLowJHkcvBO4C9eZAzzGHZAG6/AVddPObFtKoy+turdLPT30FuImNaAsev05Usrmir6LZt4pFUOnY+nh7Q63VTFmPxXfL1oPBz07n9DXlHijzeVrQfAAx33Vw3soKHWV2UTxP2VkqcsXO0exeBv0w0ro2tLMHfEsPbMVLm2DDlfG/c+e0gFSwVoeqzj1Z/jwxuGKEVgHswhFsasA3fQ4z27nXH16evJ6R5s32n7O4ZT2WbiT+Ar6rLnxSv9fpStcW9Id8Us2Fmg9HQJwh3ZwDLriGeYPOzeEK7BCFcgVg4IzRLEidwPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5LtCa1PYlh6Yf+gQTAye0VYhCf0Gn6b+fkpRtyrNn00=;
- b=SmbWrhd6nAuBO0IOGWHSsz13jQTrq0+ceRdjy8fthWg7QFw8OKhlZLkPBEIC+g91JeyXJoDndp5TPX4/My/wtpSU2RhGZt83zr5uh+dP+MsONBVC5fW9C4G3iP9LindZHjqiXVX+TTphGeMZ+po6F07pS5CAlEzTRn33+igChnQ=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by PH8PR12MB6722.namprd12.prod.outlook.com (2603:10b6:510:1cd::20)
+ bh=jyIo4R/4lYXmUdjs/ZoCjklDFffNu9YB4Zr8i7StLXY=;
+ b=sxPAy3BpgcKlX6bKNoff0+q1vBQI4C0FQdK240t3mQSx2GptxjRFWrOttlUKdTOMVhHYj8qusruHEfH3KMDHeH0lX5gjRKhi7PEmBaF0AERwFOjBmUX//MRkaeSb9h43tDc51gKdKLWJpN0/pNijryDAr7ETLo+RvEr+pJhB8TI=
+Received: from BN7PR02CA0031.namprd02.prod.outlook.com (2603:10b6:408:20::44)
+ by CY8PR12MB7729.namprd12.prod.outlook.com (2603:10b6:930:84::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.34; Wed, 31 Jan
- 2024 02:35:38 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::353:e785:731:7b81]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::353:e785:731:7b81%3]) with mapi id 15.20.7228.029; Wed, 31 Jan 2024
- 02:35:38 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] use PSP address query command
-Thread-Topic: [PATCH 2/2] use PSP address query command
-Thread-Index: AQHaU2zRxzlx43i/Nk2SCSqYW5Yk1rDzNWfw
-Date: Wed, 31 Jan 2024 02:35:38 +0000
-Message-ID: <BN9PR12MB52572B032C796BC2A2917099FC7C2@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20240130110914.295366-1-tao.zhou1@amd.com>
- <20240130110914.295366-2-tao.zhou1@amd.com>
-In-Reply-To: <20240130110914.295366-2-tao.zhou1@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=c7d1a50f-92ce-49eb-a676-e6dee187c0e1;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-01-31T02:35:17Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|PH8PR12MB6722:EE_
-x-ms-office365-filtering-correlation-id: d40b0668-c3b7-4f41-580d-08dc22054f54
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: dlmXnjmPIHj6l2ekIzIzC3dveOp4u7XAo8F1mRAWvwIzaCWns/qHIsgcFRJ2FEkDHf7/Ptd5iHvOgPD0X6AwkKONagCtWvHNkUA4ajzj+NYuapCHdoC3zUP3qXfDsTd0lgS+rey7KE5IYVlnrAsZMdaeE6BERIY8bBGD8E5U6IU6PsUG903DDgNG69Elda2Aou9pes/M+sRRf7npi9UYO9N6BR1bVAl39pzVTeGVBbTvmDfIJgQs2Lni/MYM0uuiuVO6niIe9ykH2ZhGNB9lbBvkBjo/Ivl2tVtr9oSOWAlCuBJr7cBdNRStkpLUiRE9xJZ63xQhJveVMCfQuykp62bgjfN/SMantOgDx0qsTLDMqO1BzvWpl+suU8VTXSpgoPPIlSnONFTaUTDbWnmrmv3S/QXfx2BWZ/9RSKI9XNh0lJGjuT2T8C2KWlttfPjw2Du2hyeeJ6fG6OdbfN6QuAebUd+/1fgsY7l7pHTrfLD58hEoOzlYU5csjlkIItyhIxVv1ANSfnk+SHBA3kVDmVOJxzQoRC2T3pAJrkWNx062zQme/Mrufb6LANPORxiVd6aVbhYWsl3OHF2tQg2jtZQ0HiRS3Mpkzwduz3H3roRgzpZDS+93cR5b2EiQ1Rlr
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(346002)(136003)(376002)(396003)(39860400002)(230922051799003)(451199024)(186009)(1800799012)(64100799003)(83380400001)(9686003)(7696005)(5660300002)(55016003)(53546011)(478600001)(6506007)(26005)(71200400001)(38100700002)(4326008)(52536014)(8676002)(8936002)(41300700001)(33656002)(38070700009)(2906002)(86362001)(64756008)(76116006)(316002)(66476007)(66556008)(110136005)(122000001)(66446008)(66946007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Sh0MJyVWqXfrEvTEyCcT4JNj3r8NZyfXg01Ems3LnFNwitlmsZoR4kg6FFnr?=
- =?us-ascii?Q?Gkms46RfWp71zlYPNRN3BXCYqUUNEGbCTBMv4wQU8bQVMDOEeNgLGWwyCh06?=
- =?us-ascii?Q?e0WVdn+QUWsVQa3e7BuGM3+qBdMRNvsGNpx9aU/7TFGWLmOVegYXYRzJr5fM?=
- =?us-ascii?Q?obJ/lwMQ2P51jmAoZK5lnRlsKCmqswwb9U3lhNJm6OacdgQAxO4TninGbAhx?=
- =?us-ascii?Q?LDtnqsZSmQql8w2W4ZjAIg9Wa+JdbsRY0lQPVkvBp0l2HueV0yAr45KDIdyI?=
- =?us-ascii?Q?ElVhzkY9heq7Md7XK7Prc+3FEkkzA5ubU0A5hvV+SFL04353eQRtAT1kYZG5?=
- =?us-ascii?Q?l5JuGgasIk4U12XM6bY95DnrEgWLM2CP1ZFpx1ntclDg9dM9mxLsf0ptBxBo?=
- =?us-ascii?Q?fsw5GLQwmkjjyo3c7YEQOpo12PEX6+uqPHyD+3RGEhiTwxy9EX4xgMbS0HOQ?=
- =?us-ascii?Q?YFHtseWrG2/VvsfxmRReqgILsed85+hfZh6a+DaXKLdnH2WKm46gRHNRhQ+S?=
- =?us-ascii?Q?A6q5cubXZ5w7ttCtYFGBGH6x0tYobrTtYgPWpXmvOanbl3yyzOeAl5X30n3+?=
- =?us-ascii?Q?c8HQtLSlI3sQ0eajmtjgoa15toBOshM71D6cHaM0ltAS8GgSvphIWuln4wJC?=
- =?us-ascii?Q?KtGOCuogIpXYx4jMZaUvs7JpCDljtpN523m2ypeauOKnMlx8n4jfUxuGVYUI?=
- =?us-ascii?Q?qfPTDdItGnCh0OQCjVdzCYh9Hn2jVm+1YmjvSawWUnLPyk6pV4w1wArpw1Dq?=
- =?us-ascii?Q?WZmBNl+jUqy9gVVsIe0QRf91zJaKkIjAJ7gRaaBOmjUwBmUF8PVrFoDMXXqI?=
- =?us-ascii?Q?fQsMgy3J+rqCFxHi49uxcOY6dmYeHhxpd/2+h6cy8XnnEVqB16ysr4rYKON3?=
- =?us-ascii?Q?d5pWJnDJ2QtHz909PLruJbYx0IZqwc/uFC6bqoh2K7OgF+FHY1jUenRYz+Et?=
- =?us-ascii?Q?JhbCKtRdCmGJTkp54t5ZuefudnWzOiaYDN+7OInRrWuXXvYQSPj4DQsrT+XH?=
- =?us-ascii?Q?6iBimlrFZDeKhoqyPPwWTu0fwS3JqLsAD1j9mVgWiKc4Ezup29jiGxFYdaxn?=
- =?us-ascii?Q?Gm4LOEJ5Xqr8mNYWrc9YRi3DAMhV8QxMDc9V+5vUy70lHoVfTCZ5cfRbhgkn?=
- =?us-ascii?Q?SOfRkEq57ymBUCyKdHgtGGGmaSMsqzwcNXv6FCbyU0eC1YqGuPMU8xXuIDhr?=
- =?us-ascii?Q?22FPREwntyIxKBzLpEmEMoSdFHtnWO+lyxtxdXjoXUbir0/9tfDLTEHAF32B?=
- =?us-ascii?Q?YnQkghrl5mH5FxXi9Nau7eTnqBTbMQNAFnXs0BIfR1krR0IXawuh50rC4H06?=
- =?us-ascii?Q?ppsonqNKZogvqBoWhwEfyxBgX0+zYLMtUN/EpjDqdJ7gHKL6VwH0v8xuv79h?=
- =?us-ascii?Q?miEzzPzOJn/ZNW7GBHykRrD7Yc9i7MXU53/klR7lKgSM3EY83JbrTO6UrUla?=
- =?us-ascii?Q?U+yBByr8K5qV2tXus75o47VO2LIbEXBrEgl2RXu+30voBE8HIrE6a4iQolog?=
- =?us-ascii?Q?GVXfuZsYLXyEu6cGJytG2FAcNENCuGah1M2KyfUY9ouM+XbbEab4Lq+yzmyD?=
- =?us-ascii?Q?9D/Q4ZNsJ98AdTPhayQ=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2024 03:04:49 +0000
+Received: from BN1PEPF00004688.namprd05.prod.outlook.com
+ (2603:10b6:408:20:cafe::30) by BN7PR02CA0031.outlook.office365.com
+ (2603:10b6:408:20::44) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.22 via Frontend
+ Transport; Wed, 31 Jan 2024 03:04:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00004688.mail.protection.outlook.com (10.167.243.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7249.19 via Frontend Transport; Wed, 31 Jan 2024 03:04:48 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.34; Tue, 30 Jan 2024 21:04:36 -0600
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>, Anthony Koo <Anthony.Koo@amd.com>
+Subject: [PATCH v2] drm/amd/display: Fix 'panel_cntl' could be null in
+ 'dcn21_set_backlight_level()'
+Date: Wed, 31 Jan 2024 08:34:12 +0530
+Message-ID: <20240131030412.692179-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240127133909.1978795-1-srinivasan.shanmugam@amd.com>
+References: <20240127133909.1978795-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004688:EE_|CY8PR12MB7729:EE_
+X-MS-Office365-Filtering-Correlation-Id: e64ac47c-68c0-4f21-8657-08dc220962ee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Km0vtvpzQ58PGdTIDkb2/LRoZA8y+3zEUmLTTVtRLZovoB+y7nEFgw5CbyhWG93qxNiJFZKCO/WPNeW+bItsvtvcVLcFvlk2mp4fvkyRPMk5+Sk3Di4tr4FGmEAxLxfeVLdK9A7kD6LEZE6Ha/GQGgdkWecwQ8KKnxyc3taV9K/Bjq9m4fkxSLGdcKdL3J8OcdUkXwIawn4w3vLgoPHYNjCNrLs1pUKshFxOb52JooBvrP1Nlx9K8I1QUbdH0JRKcIGoxl5HOr10uZcOuYKRJPOpO9R4au2pJkMqcZemDkg98Kz22K+AlgUo5V0SAf3WNNfpGhm6z434D3TvMLG1HkYU2oUTPGKJYADy9thrpvzq6LdcoDyYgbR0Ch1aacue8UcTZ8BjqZJq+ssDRppX4bnfz2iWihVoP/WYa4S7OWsS6WYJH0uneTJ6snew29JV/gy8GciEHHYHhl4HiGQxTkd0ZwGgqIqjPjKJcNnsWOKN5tTTO/BbunUkl/nWir0BsMiaKPJrNtwTHoRjxIylZIl4pEi0vTLQZhMFfb/HGDB0ewMgxihNygxSJWOtqAOPFT6uLu4d5LzcWZCp3R4oGszmL2BfFdfjsc44t3vWkf37IzSRkhsx6x7omYdr29T1IjiK7ifF+ftv2op0w4VKmWSbIsoYW4v8ZWxaWIahfLoMLopcvhTPYERJYjJ+Ncq6CyyTeL6lJyoIowshoOKE0jCEVRvzO0aFIZBUdY4jeldciN/otlSbSoYUzHtwx23ckhyS6l3sEcSuzCLEP174rA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(39860400002)(136003)(346002)(396003)(376002)(230922051799003)(451199024)(82310400011)(64100799003)(186009)(1800799012)(36840700001)(46966006)(40470700004)(6636002)(8676002)(110136005)(8936002)(4326008)(86362001)(44832011)(5660300002)(70206006)(2906002)(54906003)(70586007)(316002)(47076005)(6666004)(36756003)(36860700001)(82740400003)(81166007)(356005)(7696005)(478600001)(83380400001)(26005)(16526019)(1076003)(336012)(426003)(41300700001)(40480700001)(2616005)(40460700003)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d40b0668-c3b7-4f41-580d-08dc22054f54
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jan 2024 02:35:38.0727 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZPNTAqKm+23WqAlwXZe00/MW9qNouAvc0SaeLvKTN8hMD8zhGt1D5uraUVVj3EuN7ks+SyHmGTPyn0ran0di/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6722
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2024 03:04:48.9148 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e64ac47c-68c0-4f21-8657-08dc220962ee
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004688.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7729
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,112 +101,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+Cc: Yongqiang Sun <yongqiang.sun@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+'panel_cntl' structure used to control the display panel could be null,
+dereferencing it could lead to a null pointer access.
 
-Series is
+Fixes the below:
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn21/dcn21_hwseq.c:269 dcn21_set_backlight_level() error: we previously assumed 'panel_cntl' could be null (see line 250)
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tao Zhou
-Sent: Tuesday, January 30, 2024 19:09
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: [PATCH 2/2] use PSP address query command
-
-Get UMC physical address from PSP in RAS error address coversion.
-
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+Fixes: 474ac4a875ca ("drm/amd/display: Implement some asic specific abm call backs.")
+Cc: Yongqiang Sun <yongqiang.sun@amd.com>
+Cc: Anthony Koo <Anthony.Koo@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 46 ++++++++++++++++++++++----
- 1 file changed, 39 insertions(+), 7 deletions(-)
+v2:
+ - Add NULL check for timing generator also which controls CRTC (Anthony)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/umc_v12_0.c
-index 836a4cc1134e..14ef7a24be7b 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-@@ -203,14 +203,14 @@ static bool umc_v12_0_bit_wise_xor(uint32_t val)
-        return result;
- }
+ .../amd/display/dc/hwss/dcn21/dcn21_hwseq.c   | 39 ++++++++++---------
+ 1 file changed, 20 insertions(+), 19 deletions(-)
 
--static void umc_v12_0_convert_error_address(struct amdgpu_device *adev,
--                                           struct ras_err_data *err_data, =
-uint64_t err_addr,
--                                           uint32_t ch_inst, uint32_t umc_=
-inst,
--                                           uint32_t node_inst)
-+static void umc_v12_0_mca_addr_to_pa(struct amdgpu_device *adev,
-+                                       uint64_t err_addr, uint32_t ch_inst=
-, uint32_t umc_inst,
-+                                       uint32_t node_inst,
-+                                       struct ta_ras_query_address_output =
-*addr_out)
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
+index 8e88dcaf88f5..5d2d8fd64d98 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
+@@ -237,34 +237,35 @@ bool dcn21_set_backlight_level(struct pipe_ctx *pipe_ctx,
  {
-        uint32_t channel_index, i;
--       uint64_t soc_pa, na, retired_page, column;
--       uint32_t bank_hash0, bank_hash1, bank_hash2, bank_hash3, col, row, =
-row_xor;
-+       uint64_t na, soc_pa;
-+       uint32_t bank_hash0, bank_hash1, bank_hash2, bank_hash3, col, row;
-        uint32_t bank0, bank1, bank2, bank3, bank;
-
-        bank_hash0 =3D (err_addr >> UMC_V12_0_MCA_B0_BIT) & 0x1ULL; @@ -260=
-,12 +260,44 @@ static void umc_v12_0_convert_error_address(struct amdgpu_de=
-vice *adev,
-        /* the umc channel bits are not original values, they are hashed */
-        UMC_V12_0_SET_CHANNEL_HASH(channel_index, soc_pa);
-
-+       addr_out->pa.pa =3D soc_pa;
-+       addr_out->pa.bank =3D bank;
-+       addr_out->pa.channel_idx =3D channel_index; }
+ 	struct dc_context *dc = pipe_ctx->stream->ctx;
+ 	struct abm *abm = pipe_ctx->stream_res.abm;
++	struct timing_generator *tg = pipe_ctx->stream_res.tg;
+ 	struct panel_cntl *panel_cntl = pipe_ctx->stream->link->panel_cntl;
++	u32 otg_inst;
 +
-+static void umc_v12_0_convert_error_address(struct amdgpu_device *adev,
-+                                           struct ras_err_data *err_data, =
-uint64_t err_addr,
-+                                           uint32_t ch_inst, uint32_t umc_=
-inst,
-+                                           uint32_t node_inst)
-+{
-+       uint32_t col, row, row_xor, bank, channel_index;
-+       uint64_t soc_pa, retired_page, column;
-+       struct ta_ras_query_address_input addr_in;
-+       struct ta_ras_query_address_output addr_out;
++	if (!abm && !tg && !panel_cntl)
++		return false;
 +
-+       addr_in.addr_type =3D TA_RAS_MCA_TO_PA;
-+       addr_in.ma.err_addr =3D err_addr;
-+       addr_in.ma.ch_inst =3D ch_inst;
-+       addr_in.ma.umc_inst =3D umc_inst;
-+       addr_in.ma.node_inst =3D node_inst;
-+
-+       if (psp_ras_query_address(&adev->psp, &addr_in, &addr_out))
-+               /* fallback to old path if fail to get pa from psp */
-+               umc_v12_0_mca_addr_to_pa(adev, err_addr, ch_inst, umc_inst,
-+                               node_inst, &addr_out);
-+
-+       soc_pa =3D addr_out.pa.pa;
-+       bank =3D addr_out.pa.bank;
-+       channel_index =3D addr_out.pa.channel_idx;
-+
-+       col =3D (err_addr >> 1) & 0x1fULL;
-+       row =3D (err_addr >> 10) & 0x3fffULL;
-+       row_xor =3D row ^ (0x1ULL << 13);
-        /* clear [C3 C2] in soc physical address */
-        soc_pa &=3D ~(0x3ULL << UMC_V12_0_PA_C2_BIT);
-        /* clear [C4] in soc physical address */
-        soc_pa &=3D ~(0x1ULL << UMC_V12_0_PA_C4_BIT);
-
--       row_xor =3D row ^ (0x1ULL << 13);
-        /* loop for all possibilities of [C4 C3 C2] */
-        for (column =3D 0; column < UMC_V12_0_NA_MAP_PA_NUM; column++) {
-                retired_page =3D soc_pa | ((column & 0x3) << UMC_V12_0_PA_C=
-2_BIT);
---
++	otg_inst = tg->inst;
+ 
+ 	if (dc->dc->res_pool->dmcu) {
+ 		dce110_set_backlight_level(pipe_ctx, backlight_pwm_u16_16, frame_ramp);
+ 		return true;
+ 	}
+ 
+-	if (abm != NULL) {
+-		uint32_t otg_inst = pipe_ctx->stream_res.tg->inst;
+-
+-		if (abm && panel_cntl) {
+-			if (abm->funcs && abm->funcs->set_pipe_ex) {
+-				abm->funcs->set_pipe_ex(abm,
+-						otg_inst,
+-						SET_ABM_PIPE_NORMAL,
+-						panel_cntl->inst,
+-						panel_cntl->pwrseq_inst);
+-			} else {
+-					dmub_abm_set_pipe(abm,
+-							otg_inst,
+-							SET_ABM_PIPE_NORMAL,
+-							panel_cntl->inst,
+-							panel_cntl->pwrseq_inst);
+-			}
+-		}
++	if (abm->funcs && abm->funcs->set_pipe_ex) {
++		abm->funcs->set_pipe_ex(abm,
++					otg_inst,
++					SET_ABM_PIPE_NORMAL,
++					panel_cntl->inst,
++					panel_cntl->pwrseq_inst);
++	} else {
++		dmub_abm_set_pipe(abm,
++				  otg_inst,
++				  SET_ABM_PIPE_NORMAL,
++				  panel_cntl->inst,
++				  panel_cntl->pwrseq_inst);
+ 	}
+ 
+-	if (abm && abm->funcs && abm->funcs->set_backlight_level_pwm)
++	if (abm->funcs && abm->funcs->set_backlight_level_pwm)
+ 		abm->funcs->set_backlight_level_pwm(abm, backlight_pwm_u16_16,
+ 			frame_ramp, 0, panel_cntl->inst);
+ 	else
+-- 
 2.34.1
 
