@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 623E8C48286
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Feb 2024 22:11:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13359C4828D
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Feb 2024 22:11:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C09C10E811;
-	Thu,  1 Feb 2024 22:11:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93F0A10E974;
+	Thu,  1 Feb 2024 22:11:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Js6cK/Dt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mZc2UyKR";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2050.outbound.protection.outlook.com [40.107.220.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B545810E7D5;
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2043.outbound.protection.outlook.com [40.107.212.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D65C710E974;
  Thu,  1 Feb 2024 22:11:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q/airV7S0FJJywzjVAYU6wIZswLIY6W46Z+gGyDdKnqavApzL3+2pN8cQ1GqJb818dW9ic5Z20fVm244HT5efYO7Qt3oZj48cXuOO1W/FziZt43zVVcGLN8rSm0T2Q9jWL10NbLLpiGKY/f+Jc430opVOO5IsokU+RU0aPK+V9IACibH8au+wOjMKejSzMxdX9WO/GHp5BhY21g0gtX9izl0HdtbbfbUc/t4kiNtoTTgWbx6qOY2h3IxqKEYUtyWsDIzVHZzQHYL3JJXjnohElWuIwKymwfgDAMceUhsWeGAKMykc3DXq2JDICm7Sus/CuocPXyJLnhhklJRvddFng==
+ b=nZoLBTAVX+79o31DrbNVqo6BEQFjWxrCv1D7gA2uwJetjvAdm5Qob+qrwNkIPqeuFENAV+hqRQMm9ZiKPHRXWFqSRMCveYnDzJdrv2zCd60gNkd3yQHL3c41eHkoo8WDjacYNMeEGBE1E7OQdKeKOVwBIXRI0aTSkOZmHxLqa2DEtmVOqVUWyT035/8iXBgqAsxgIsYNvIIS4mSeYOAznkl3fMgW91YN0+GJ8RLzx+v/XIqLnRtGhl9URn+BtbXQGMdcsVOfaU7W88Vz6TKNir6NGSi+y/q2IUWS71uJdUApQ2fvExa6N+XDyW/axnL4aj4TVGbH9dGnLVIEtx5n+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=arYU9KbThtvNV2wNGKkgSsiAiUqqY3/0QJfFUcsdB6c=;
- b=l0sjp18lp/tDA+gav+J90qv9iqREoWoA6vt1M3E/uhkwQxm8WO5pOj9Y61CKr5rNk+dZV1oBLT4Olw/8KHBTsK9mSQHLCkcBPAwlGbfKbxH33FRfyhKhXTlEjTz4r0gQJzYc8xuWT5jfgefbEUiK/H+4JQGiEAYue3kny/M3mK61zLLUO4Xel8zgc+UVb0+HOh9O6aT0BxD9zGxqsJZhJH2+50zyvpmbOtBi5Nbd8WZjx8crUJvgMw++WSSXwlLpYqKRaE2upZR2e6Gi6menPEBXzqts2a33jDxR8Gh8z+piqWq83vb2OoqcmZ4KdG8oSB7ipa5NJTtevYCcl4IlKA==
+ bh=vGjorbt8i1WoJyt0gsOHV4IXlJIyyELkjxtpx80Lwfc=;
+ b=GcqFtlSu8gYa15u8gkAElj7uKmXKDtJWXM5iwj71NdCH4TEAa+u1D/JsCMn7mEArzaK5PJ0oxrkqtTY2g4ENroUAlny98J5FBUjcpuGAyZH29lt4wRuX0Z6PlzMonucNo3DtqnWQroZzAnFTmbbH9YTGMoFtEPkculBVp1MrK5GOArZcDDwd1a+v5zziqItvaDqUZqu4u0Nnnj2zPcX4RXfTj5OFSgRsM+9zrciDqW+Rk/Sz6QDkQ9H49r7o1X52BHvYbD9furQP3807pUq6nXPziaXnnX/01vCB/2IL1TQjvBrnrhZvvJ8BJ1EyzsvEoxsCrqhDkxwq68m4Q21ZRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=arYU9KbThtvNV2wNGKkgSsiAiUqqY3/0QJfFUcsdB6c=;
- b=Js6cK/DtuG78W6WDQ7fEHcFmChpyqq1axoO2yN2lfUfkCOIdz/mDqFYW2wOjkcPaNym9cBcHyT/K/LEHD9WObQaqH3FNQTPaPnNXGD9luqwesJ8HeIThOUqYxDHVgjHEPNPMT3Hjwflx5uH4+gx0vHuRSw12AmeHr0trtkh3bso=
-Received: from DM6PR05CA0040.namprd05.prod.outlook.com (2603:10b6:5:335::9) by
- SA1PR12MB8888.namprd12.prod.outlook.com (2603:10b6:806:38a::21) with
+ bh=vGjorbt8i1WoJyt0gsOHV4IXlJIyyELkjxtpx80Lwfc=;
+ b=mZc2UyKRCOxTyvvydtukdDjVeNkrNfAaRESzhBAPQEhw04vE4Aaet60/PAfDjA9Aif+dhr1Th2VJ3fjuVis7JQa+Kyu1IKPHs5t1a49mMpaRwoHRUKHU0aYRoj+YQnWU12wiknpH+Nt1BM18IvqZE+MG1yXYbT49Obk6QZu4y78=
+Received: from DM6PR10CA0033.namprd10.prod.outlook.com (2603:10b6:5:60::46) by
+ SJ0PR12MB6878.namprd12.prod.outlook.com (2603:10b6:a03:483::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.22; Thu, 1 Feb
- 2024 22:11:38 +0000
-Received: from DS1PEPF00017090.namprd03.prod.outlook.com
- (2603:10b6:5:335:cafe::45) by DM6PR05CA0040.outlook.office365.com
- (2603:10b6:5:335::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.24 via Frontend
- Transport; Thu, 1 Feb 2024 22:11:38 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.24; Thu, 1 Feb
+ 2024 22:11:41 +0000
+Received: from DS1PEPF0001708F.namprd03.prod.outlook.com
+ (2603:10b6:5:60:cafe::94) by DM6PR10CA0033.outlook.office365.com
+ (2603:10b6:5:60::46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.22 via Frontend
+ Transport; Thu, 1 Feb 2024 22:11:41 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017090.mail.protection.outlook.com (10.167.17.132) with Microsoft
+ DS1PEPF0001708F.mail.protection.outlook.com (10.167.17.139) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7249.19 via Frontend Transport; Thu, 1 Feb 2024 22:11:38 +0000
+ 15.20.7249.19 via Frontend Transport; Thu, 1 Feb 2024 22:11:41 +0000
 Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 1 Feb
- 2024 16:11:37 -0600
+ 2024 16:11:40 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, 
  Harry Wentland <harry.wentland@amd.com>, "Rafael J . Wysocki"
@@ -64,10 +64,9 @@ CC: "open list:ACPI" <linux-acpi@vger.kernel.org>, open list
  <dri-devel@lists.freedesktop.org>, Melissa Wen <mwen@igalia.com>, "Mark
  Pearson" <mpearson-lenovo@squebb.ca>, Mario Limonciello
  <mario.limonciello@amd.com>
-Subject: [PATCH v3 1/5] ACPI: video: Handle fetching EDID that is longer than
- 256 bytes
-Date: Thu, 1 Feb 2024 16:11:15 -0600
-Message-ID: <20240201221119.42564-2-mario.limonciello@amd.com>
+Subject: [PATCH v3 4/5] drm/nouveau: Use drm_get_acpi_edid() helper
+Date: Thu, 1 Feb 2024 16:11:18 -0600
+Message-ID: <20240201221119.42564-5-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240201221119.42564-1-mario.limonciello@amd.com>
 References: <20240201221119.42564-1-mario.limonciello@amd.com>
@@ -79,26 +78,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017090:EE_|SA1PR12MB8888:EE_
-X-MS-Office365-Filtering-Correlation-Id: 441c21cb-945f-461b-9163-08dc2372c33a
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001708F:EE_|SJ0PR12MB6878:EE_
+X-MS-Office365-Filtering-Correlation-Id: 167f1b24-9c81-4efd-96bd-08dc2372c4d1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Y2qOF4lDTqANR7iT/MIaXQDonRr4LOqRXwfURf4hc4uo9H4Oaesct5aBkPvOjWUchbsGNJSTnM/cLDAFxVS3VwUXaHuiopoKmTGTRVRiWwLM/O3maNPzTnOZlKMv/wMYmkjG4+LybOhpAv4JIxgEdm3mcwJPyjsxUxiqpd2ViFlmeAneq0+hQDePQ1sCAyw+11EXPR7I/HGWYsVi2k6NF1/2Wlt9LXqDE8h2qrVgqn89u/P60k7qQ8trtmSUntB354YuhOOF4CDZfBahXEMUNYriTL2lsQ5lmwJvHaCyApTuyaIWFdmOdQIyq6oxjDM1aLKdTepPmtc8HUXES8SgUBs0IpkFALYpxNVkfT/ZIAbmnovwe060jGnpWJyhRNLoW3aNVs/MJCBSncU1AV7lrXbfxAuaLsK0X52na/KLacncNnN302PaKzhvxFxJcUoOPQd03ciWRxgigCACf2Pf2wmA9NDT7tQRnzacgCKGf1WfHgcj7wu0iz7e4AqcsAnz1MvSBUkhF86nwULofwtTPaP4RiCkQ+hsq0pTlKkyCm2Gigfxikg6HZXzQ/4tuFDtb51KIAQznCMF5z0zJ2KivUS+E7+HZ2Zc5eWPbqr+51XlYk7rWkkSA6VQ9dU0ka+0DB9fxwQlB6hmbqeWxPqhOl2nrJWu06wZrAN9Q3R/GsiB/ttDICeMrKD5F8MpB6Fvhrd0iMWdnT+w4UrxPhWTqaMS/0dU7mOzQDdCMKESpc0vY8vPzPRYtyyYqR8F4tA7KCWdrqkhKNYMtTaBlbYHls2epMcWqgdvWThboOQnqUA=
+X-Microsoft-Antispam-Message-Info: 3wMVIaS/pKAr4bLqn6pkNbLnG8FJxa4tzOCuSKM/0oQQ3LpAC2C+AxUtCz6yH6xWeLDVAEVywbB6aZCDfJDInYeMvoFksF1YgA9TjE+i72UiYNAte58Koc2OeX3cm0fUQrlNf7PwEpRerWVLNIlLqybYux+kzgguOGMssMt3ajK4H9N/1m90yIQ2nFXnbVmwV7cotP60N4oluOm9NBI1V08Uc+rBZmFWjGTY/leNar1JX3vcwFP3y1Cl4oLFQOCHkhY2OHaZaaNNUCeziZ60r7MFZ0enAIRdKPFkqJCL2W3SNl1g9pfY2VcRbucIakL5ly9ZTJ6r+LLgi3vxctWv5LjRB+YXrs+EMjdVMJWh5Ura6g8pgQ/jJkBYL1AkIX6+yUm4ZZS2FUS2/fXReODuSL+HMj2oOPauB6OrNg8CEDfpaetcZkrc5hSUEHk6SSQDyXXf4+2hUsEecbMmBQ/e7IBhhE3R5wYvA4Q2tWpOw/vM3YT8VytYEE8WY0segUo1BAh5QKHQ+j5Kgu0rhQ8CbCj1qPdomtfiydyaXnpJRELhqb4wS4okDzHDNKpfQSA/wsuzGq4V5HPEx0Nja1dYz7G9GyJWYsoCCy+vF1O/ZVw2ZQqc+gHMDISGTQ0YWowXOTbGKvvaJVMO6PD4x7IrdcfZy4UdZ/YyEO5PZ7QiWH90ee/+g+n0RvFRC3zov3d1SkVRtExn73fd9JMTiQKJEsTbt3AovI82G0pi29tZhCFnXfIob3YDYK03GoUY81NhMCxZFBPDAcb/J1td3L40Vg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(136003)(396003)(346002)(376002)(230922051799003)(64100799003)(82310400011)(186009)(451199024)(1800799012)(40470700004)(46966006)(36840700001)(336012)(2616005)(26005)(426003)(16526019)(1076003)(40480700001)(40460700003)(41300700001)(36860700001)(54906003)(966005)(478600001)(36756003)(83380400001)(7696005)(47076005)(6666004)(316002)(356005)(82740400003)(81166007)(8936002)(2906002)(86362001)(110136005)(5660300002)(70206006)(70586007)(4326008)(8676002)(44832011)(148743002)(36900700001);
+ SFS:(13230031)(4636009)(346002)(376002)(396003)(136003)(39860400002)(230922051799003)(82310400011)(1800799012)(64100799003)(186009)(451199024)(40470700004)(46966006)(36840700001)(47076005)(336012)(426003)(6666004)(70586007)(86362001)(54906003)(110136005)(316002)(70206006)(16526019)(8676002)(36860700001)(44832011)(8936002)(4326008)(81166007)(356005)(478600001)(1076003)(7696005)(26005)(40480700001)(2616005)(5660300002)(82740400003)(40460700003)(83380400001)(36756003)(2906002)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2024 22:11:38.7625 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 441c21cb-945f-461b-9163-08dc2372c33a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2024 22:11:41.4300 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 167f1b24-9c81-4efd-96bd-08dc2372c4d1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017090.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001708F.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8888
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6878
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,87 +112,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The ACPI specification allows for an EDID to be up to 512 bytes but
-the _DDC EDID fetching code will only try up to 256 bytes.
+Rather than inventing a wrapper to acpi_video_get_edid() use the
+one provided by drm. This fixes two problems:
+1. A memory leak that the memory provided by the ACPI call was
+   never freed.
+2. Validation of the BIOS provided blob.
 
-Modify the code to instead start at 512 bytes and work it's way
-down instead.
-
-As _DDC is now called up to 4 times on a machine debugging messages
-are noisier than necessary.  Decrease from info to debug.
-
-Link: https://uefi.org/htmlspecs/ACPI_Spec_6_4_html/Apx_B_Video_Extensions/output-device-specific-methods.html#ddc-return-the-edid-for-this-device
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
 v1->v2:
- * Use for loop for acpi_video_get_edid()
- * Use one of Rafael's suggestions for acpi_video_device_EDID()
- * Decrease message level too
+ * New patch
 ---
- drivers/acpi/acpi_video.c | 25 +++++++++----------------
- 1 file changed, 9 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/nouveau/nouveau_acpi.c      | 27 ---------------------
+ drivers/gpu/drm/nouveau/nouveau_acpi.h      |  2 --
+ drivers/gpu/drm/nouveau/nouveau_connector.c |  2 +-
+ 3 files changed, 1 insertion(+), 30 deletions(-)
 
-diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
-index 4afdda9db019..3bfd013e09d2 100644
---- a/drivers/acpi/acpi_video.c
-+++ b/drivers/acpi/acpi_video.c
-@@ -625,12 +625,9 @@ acpi_video_device_EDID(struct acpi_video_device *device,
+diff --git a/drivers/gpu/drm/nouveau/nouveau_acpi.c b/drivers/gpu/drm/nouveau/nouveau_acpi.c
+index 8f0c69aad248..de9daafb3fbb 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_acpi.c
++++ b/drivers/gpu/drm/nouveau/nouveau_acpi.c
+@@ -360,33 +360,6 @@ void nouveau_unregister_dsm_handler(void) {}
+ void nouveau_switcheroo_optimus_dsm(void) {}
+ #endif
  
- 	if (!device)
- 		return -ENODEV;
--	if (length == 128)
--		arg0.integer.value = 1;
--	else if (length == 256)
--		arg0.integer.value = 2;
--	else
-+	if (!length || (length % 128))
- 		return -EINVAL;
-+	arg0.integer.value = length / 128;
- 
- 	status = acpi_evaluate_object(device->dev->handle, "_DDC", &args, &buffer);
- 	if (ACPI_FAILURE(status))
-@@ -641,7 +638,8 @@ acpi_video_device_EDID(struct acpi_video_device *device,
- 	if (obj && obj->type == ACPI_TYPE_BUFFER)
- 		*edid = obj;
- 	else {
--		acpi_handle_info(device->dev->handle, "Invalid _DDC data\n");
-+		acpi_handle_debug(device->dev->handle,
-+				 "Invalid _DDC data for length %ld\n", length);
- 		status = -EFAULT;
- 		kfree(obj);
- 	}
-@@ -1447,7 +1445,6 @@ int acpi_video_get_edid(struct acpi_device *device, int type, int device_id,
- 
- 	for (i = 0; i < video->attached_count; i++) {
- 		video_device = video->attached_array[i].bind_info;
--		length = 256;
- 
- 		if (!video_device)
- 			continue;
-@@ -1478,18 +1475,14 @@ int acpi_video_get_edid(struct acpi_device *device, int type, int device_id,
- 			continue;
- 		}
- 
--		status = acpi_video_device_EDID(video_device, &buffer, length);
+-void *
+-nouveau_acpi_edid(struct drm_device *dev, struct drm_connector *connector)
+-{
+-	struct acpi_device *acpidev;
+-	int type, ret;
+-	void *edid;
 -
--		if (ACPI_FAILURE(status) || !buffer ||
--		    buffer->type != ACPI_TYPE_BUFFER) {
--			length = 128;
-+		for (length = 512; length > 0; length -= 128) {
- 			status = acpi_video_device_EDID(video_device, &buffer,
- 							length);
--			if (ACPI_FAILURE(status) || !buffer ||
--			    buffer->type != ACPI_TYPE_BUFFER) {
--				continue;
--			}
-+			if (ACPI_SUCCESS(status))
-+				break;
- 		}
-+		if (!length)
-+			continue;
- 
- 		*edid = buffer->buffer.pointer;
- 		return length;
+-	switch (connector->connector_type) {
+-	case DRM_MODE_CONNECTOR_LVDS:
+-	case DRM_MODE_CONNECTOR_eDP:
+-		type = ACPI_VIDEO_DISPLAY_LCD;
+-		break;
+-	default:
+-		return NULL;
+-	}
+-
+-	acpidev = ACPI_COMPANION(dev->dev);
+-	if (!acpidev)
+-		return NULL;
+-
+-	ret = acpi_video_get_edid(acpidev, type, -1, &edid);
+-	if (ret < 0)
+-		return NULL;
+-
+-	return kmemdup(edid, EDID_LENGTH, GFP_KERNEL);
+-}
+-
+ bool nouveau_acpi_video_backlight_use_native(void)
+ {
+ 	return acpi_video_backlight_use_native();
+diff --git a/drivers/gpu/drm/nouveau/nouveau_acpi.h b/drivers/gpu/drm/nouveau/nouveau_acpi.h
+index e39dd8b94b8b..6a3def8e6cca 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_acpi.h
++++ b/drivers/gpu/drm/nouveau/nouveau_acpi.h
+@@ -10,7 +10,6 @@ bool nouveau_is_v1_dsm(void);
+ void nouveau_register_dsm_handler(void);
+ void nouveau_unregister_dsm_handler(void);
+ void nouveau_switcheroo_optimus_dsm(void);
+-void *nouveau_acpi_edid(struct drm_device *, struct drm_connector *);
+ bool nouveau_acpi_video_backlight_use_native(void);
+ void nouveau_acpi_video_register_backlight(void);
+ #else
+@@ -19,7 +18,6 @@ static inline bool nouveau_is_v1_dsm(void) { return false; };
+ static inline void nouveau_register_dsm_handler(void) {}
+ static inline void nouveau_unregister_dsm_handler(void) {}
+ static inline void nouveau_switcheroo_optimus_dsm(void) {}
+-static inline void *nouveau_acpi_edid(struct drm_device *dev, struct drm_connector *connector) { return NULL; }
+ static inline bool nouveau_acpi_video_backlight_use_native(void) { return true; }
+ static inline void nouveau_acpi_video_register_backlight(void) {}
+ #endif
+diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
+index 856b3ef5edb8..746571d4cac0 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_connector.c
++++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
+@@ -713,7 +713,7 @@ nouveau_connector_detect_lvds(struct drm_connector *connector, bool force)
+ 	 * valid - it's not (rh#613284)
+ 	 */
+ 	if (nv_encoder->dcb->lvdsconf.use_acpi_for_edid) {
+-		edid = nouveau_acpi_edid(dev, connector);
++		edid = drm_get_acpi_edid(connector);
+ 		if (edid) {
+ 			status = connector_status_connected;
+ 			goto out;
 -- 
 2.34.1
 
