@@ -4,95 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 645FEC4828E
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Feb 2024 11:11:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A76F2C47DB3
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Feb 2024 11:12:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D87F710F022;
-	Fri,  2 Feb 2024 11:11:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38B3D10F037;
+	Fri,  2 Feb 2024 11:12:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=froggi.es header.i=@froggi.es header.b="Xrhz+Hib";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QlHKRmrs";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB14D10F022
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Feb 2024 11:11:29 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-33b1bb47c4fso671462f8f.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 02 Feb 2024 03:11:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=froggi.es; s=google; t=1706872287; x=1707477087; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=+WGx34JASRSbDn0vjsFh0ZguKJmvOPqQ2z1rloPdqGI=;
- b=Xrhz+Hibi0LHsMma8OoXt1AemcyjT1u4QF+tq2/JoQK+NPU7/BCM8DIsgMFt6ZiqBU
- HUbp2Ww4kzRUmPNcTB5wJbwBXhZ89N1kD/DXutdj7hNej6um0z1B1H3pe/q5zChFoC/P
- nTdVP0DsXVe44zo+UHN/EHXhgSi146fZJeNZUYcspnaEY7MUsfivzcXin/UIuo8nwfth
- malJzGGSuAi9Usn+StC61MU+R60i+XayPYse8XicMpleYOlc8ZINvjSFhQFNoxr53bSG
- wzCFzaIvsM2bHPkjlIMYVVf/BKXokD6SpFvAYw2Y2I8G1tOXmHEqq2uHL+ezptC0j62r
- Di+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706872287; x=1707477087;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+WGx34JASRSbDn0vjsFh0ZguKJmvOPqQ2z1rloPdqGI=;
- b=F/jHt/3khTwojCr8oojcylM4pgR7zwOcJgYfkTHMWYwXRbAt+8DU6CBltQzJlmnjnJ
- 0U20nejsMXwchWOGgkUmdKlPXLhUVtqs54aUdMUAHSPqGOtgUSOd3pOf+Ce1L4J1VYS5
- 0prd6/MwCTtzuLcuK1VVJrFOvv+n4cvCAJiCitpk+ohMLC+Y5/gBl7yQNPUU7tcBuIGm
- PohmuzZJI9QD4uIO1TBmhosyZpUHuQ1E1qIwvhIoCle4kdjdxjdgSPQ/hNNftCPQ+tmr
- GE/TS/GK2gLrlMtTTpgJF55KJkbkWhBUblbpWCSa0gsQ2Rfny4W+OSkNtkh6mA1RIxOX
- TKSA==
-X-Gm-Message-State: AOJu0YzJSsJaDkiul7/r+pNhySRkZsBy73v++jJi1F0ETT7PQY2Bm1FP
- komawlmRahAjeUur8Ez5CDR1C7NXMMByFT76y49ig2FEH+mEEexOSHtKpF4fPg4=
-X-Google-Smtp-Source: AGHT+IGT8j6oNg7oyO1qSRkX4pCWf5Tw80E32f4CV9CqxUzC494wSuy4qfcZ747QqT8Aw2WtdYM1zQ==
-X-Received: by 2002:adf:a151:0:b0:33b:1f96:5a1c with SMTP id
- r17-20020adfa151000000b0033b1f965a1cmr996730wrr.9.1706872286877; 
- Fri, 02 Feb 2024 03:11:26 -0800 (PST)
-X-Forwarded-Encrypted: i=0;
- AJvYcCXhwIzbFfd5pFDDexULHR1BbrFyG+NCuKaqbRpJHdOOEHjxorA0y+1JwoPAltB9QixQu871tCz5sffI92YxIFPjjY4LRXTT5+jmNIj05hPIpuHo1hHeM9qAP8PIQOl0cVntpc41TBR2dOOlXPFXz2yf8KuHCn79MTv9m356xZBwoxAnknb/8qjWaY9TVDJFVY5BX+5i49P4KwDgcBdafnngA3zVdoIz9s9SkzjlLlxcsrAfBUSYd1iB5zUlDf5HIkyEnlvOK8QlxuqxZnmq7vQ8mvU=
-Received: from [192.168.0.89]
- (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
- by smtp.gmail.com with ESMTPSA id
- z12-20020adfe54c000000b0033ae54cdd97sm1687867wrm.100.2024.02.02.03.11.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Feb 2024 03:11:26 -0800 (PST)
-Message-ID: <17c04323-b645-492e-8df1-7da8c80416f5@froggi.es>
-Date: Fri, 2 Feb 2024 11:11:25 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2060.outbound.protection.outlook.com [40.107.223.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 476A510F037
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Feb 2024 11:12:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UR9mODCQD+LUys9TQa7fwmboA46j+6Bh+ENDRJcYVVWtNluTRZv/UvA3hh84biWuqzKefKSD8orq8pYUqOzk+VMJFR9muqB0b76Px0/JNOFl6jjIDOkbC1fxgNYdEKyer7fQQ8iG41Mysr6Z+phVxkCMCTU2r8Q7uSJARHbAQ9IY3ot24fXflDxbnRLiDlKjQKpISk1SDkpYrJhlCrzHC7/DvxO8bPfL7vLIo6Wa1LnSRy6shAYtT6m7o2H4MhJqJBu065Viqxvj/T7BqF4DybRg+f3n1tZNaFtwtQpB5lCR/cpNa/OnoQgLR6/iA3ii3gA08eIhbk9Kyqy5Yllbag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OBpDdCRxrzXEaDLKqUTA05ev16okxqf6obF4/hs/0v0=;
+ b=KBneIEiFHYe8uaeimh6PzvtCwTmOy65ahzfOlEi0AtEOg2hBtW9ZyRSHMqwlVsAz8m+1VPjHbAUvi/I8PBp3p9HvNEI37j64MtS4m/w66v9vow2JuwpdwDXrSbYc9hHxRRJY00f4v3kXXRN9jzLFyt+HhrI1A216oL0xZ5ew2pqTKKMmZ8oY2YZzKDR/yTyrycVrVjqeXpqaFP3B3Bbk8EGsACaO+zmY3epEei0BM1gjEKqfLdgVcfhhO7Z29O47tSxE6jXaQeO2u/DQk9cpwfh3VwIvHOULFGSCnlbufntSMwBa4fJd07ayD4nlvJKtLdIbVhXnS6ufB2mZmkLX0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OBpDdCRxrzXEaDLKqUTA05ev16okxqf6obF4/hs/0v0=;
+ b=QlHKRmrshOYFe1MkjOSMWPpkjXs5Qp2R/A22fLNu4jQiZVhIxfpmPq+f8Wj8/jWxTwRdYs2XGmbCSnNhEy801CwblcqQ2kRa2pti6d2oy7Z1Fy/1NQslLHVByZ10PlB422HRVyrq8/C4BBx1UpQN4PNqQ2KQmeQf66+TyqRDQYo=
+Received: from SJ0PR05CA0054.namprd05.prod.outlook.com (2603:10b6:a03:33f::29)
+ by MN2PR12MB4237.namprd12.prod.outlook.com (2603:10b6:208:1d6::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.29; Fri, 2 Feb
+ 2024 11:12:47 +0000
+Received: from SJ5PEPF000001CD.namprd05.prod.outlook.com
+ (2603:10b6:a03:33f:cafe::f9) by SJ0PR05CA0054.outlook.office365.com
+ (2603:10b6:a03:33f::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.22 via Frontend
+ Transport; Fri, 2 Feb 2024 11:12:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001CD.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7202.16 via Frontend Transport; Fri, 2 Feb 2024 11:12:46 +0000
+Received: from canli-build.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Fri, 2 Feb
+ 2024 05:12:44 -0600
+From: Candice Li <candice.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Candice Li <candice.li@amd.com>
+Subject: [PATCH] drm/amd/pm: Retrieve UMC ODECC error count from aca bank
+Date: Fri, 2 Feb 2024 19:12:30 +0800
+Message-ID: <20240202111230.1153924-1-candice.li@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: Reset IH OVERFLOW_CLEAR bit after writing
- rptr
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Friedrich Vock <friedrich.vock@gmx.de>,
- Felix Kuehling <felix.kuehling@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Alex Deucher <alexdeucher@gmail.com>,
- "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240114130008.868941-1-friedrich.vock@gmx.de>
- <69cec077-4011-4738-bbb0-8fb1e6f52159@gmail.com>
- <abdfec21-2642-4c68-8c51-cdfba54928aa@gmx.de>
- <577a8451-0791-4bd1-8c6c-61a7cc293174@gmail.com>
- <d15ac325-e830-4e11-a239-56eaeddecae8@gmx.de>
- <e977939c-db01-4b14-8494-0bdad5be7a8a@gmail.com>
- <CADnq5_Nb=ruoA2j-mHrQbxHY=yzwGm2kKjDiQ+ajk3urKKLing@mail.gmail.com>
- <42af4788-10bb-4107-bd1a-05f15dc9c1fa@gmx.de>
- <4d3e3c70-3307-4068-9416-613a19f587d4@gmail.com>
- <6590bae2-406d-4f45-a3e9-5dc6653925cf@amd.com>
- <0db29a99-f434-4886-9204-54eafaefa31a@amd.com>
- <60efdecd-0957-4e06-9f1e-7343dff87a8a@gmx.de>
- <098e975b-2271-4f11-9549-40bc2c444a28@gmx.de>
- <d45b23d1-ab1d-4285-8b18-a0eebaa2d871@amd.com>
- <dc8506c4-9114-473e-bfdc-8a24f2264392@froggi.es>
- <2906c98e-47fe-4a39-b32d-9d060d571076@amd.com>
- <e8d1bca4-61f1-4b44-b70b-c66f8b095860@gmx.de>
- <7483cddf-010e-4df0-80ed-468f744449d8@amd.com>
-Content-Language: en-US
-From: Joshua Ashton <joshua@froggi.es>
-In-Reply-To: <7483cddf-010e-4df0-80ed-468f744449d8@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CD:EE_|MN2PR12MB4237:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71b6afdb-d1ec-4781-8f1b-08dc23dfe2cd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MNOoa85MSGCiRXOgFJuL4ajuvosiyp+zIeEPCyM26M1IJcF3H6xgGMb9Stk3TpWCPyxkIW0KhKLY7B+Ycb5WIM3tQ2rHY/3kniv8P6oppnm2F3TaAJ8iFjZ18QCnVNB5riKzsabyQeQjqbKmAQKd/2BIkodPTMjCwbh78xoyrRABVaeUZvNuw5qPbLmuyPs7wwyDkCELlOvkvkGjYNnwdSxYeSAaDfNQLtwM8glFyrDRn+l6t2Ijbq5V9Zr7q4wKaSqqTXXtdZCoPJVQPFnDAMTQZ4B37XVOGHWRlPxZm4pTt/YcKLbO6ayjRIxITtJ2pfqithl3VQ0Gdrs+ue9CmwKemzxgyh6CSkyI1UheQ2x/Yn4nPLVH5NLfURkZNpgbhXOM1BKjJZwCVOCRRiStjh8VpopCzcAVyvHBOyOD3Qj61y1yVEiXoITkxicOPrMvkSBzAk6J0hMUekJoona64fMECm/UuYjqhApS3iJwsixqKhaF02XZs9JRsVSuhZ90r5n7K4/OrbHLWtL30QdjD5oPvQTJpsQPYCQXhQruK/bNBO9CWr9bYNV/y90r+Qqd/Q2AoQwf1SriI3IOIPblQTuOc1iKb3qjuNiwKzF8UiB+NGCpVUSnNBpSgqSDjIylsuxtDTB2v1tAFf7MSl8ohJMaxm32wfcKBAZVQhi1AMKlxJACgMDckAkB/r2BPEjF02qYWwFG6Q+qMPpFZPmZc+DyNHCa4pMVm/CzB6HPg9vwR/41WJKRPy7UCjcFCk2ubposR4IfH1T2aWZZwyNxddviQzHPf+lVPFAjQ48FA7k=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(136003)(376002)(396003)(346002)(39860400002)(230922051799003)(1800799012)(451199024)(186009)(82310400011)(64100799003)(40470700004)(46966006)(36840700001)(2906002)(44832011)(5660300002)(8676002)(70206006)(2616005)(70586007)(316002)(6916009)(7696005)(6666004)(8936002)(1076003)(478600001)(426003)(26005)(16526019)(336012)(40460700003)(83380400001)(40480700001)(47076005)(36860700001)(86362001)(82740400003)(4326008)(356005)(81166007)(41300700001)(36756003)(171953004)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2024 11:12:46.8319 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71b6afdb-d1ec-4781-8f1b-08dc23dfe2cd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CD.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4237
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,118 +104,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Christian,
+Instead of software managed counters.
 
-Any update on finding an upstreamable solution for this problem?
+Signed-off-by: Candice Li <candice.li@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Having working hang recovery is really important for us on Steam Deck, 
-and it would be nice to have an upstream solution, and not carry a bunch 
-of patches you disagree with. :P
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index d6e14a5f406e63..03873d784be6d6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -2552,8 +2552,12 @@ static int mca_umc_mca_get_err_count(const struct mca_ras_info *mca_ras, struct
+ 				     enum amdgpu_mca_error_type type, struct mca_bank_entry *entry, uint32_t *count)
+ {
+ 	uint64_t status0;
++	uint32_t ext_error_code;
++	uint32_t odecc_err_cnt;
+ 
+ 	status0 = entry->regs[MCA_REG_IDX_STATUS];
++	ext_error_code = MCA_REG__STATUS__ERRORCODEEXT(status0);
++	odecc_err_cnt = MCA_REG__MISC0__ERRCNT(entry->regs[MCA_REG_IDX_MISC0]);
+ 
+ 	if (!REG_GET_FIELD(status0, MCMP1_STATUST0, Val)) {
+ 		*count = 0;
+@@ -2563,7 +2567,7 @@ static int mca_umc_mca_get_err_count(const struct mca_ras_info *mca_ras, struct
+ 	if (umc_v12_0_is_deferred_error(adev, status0) ||
+ 	    umc_v12_0_is_uncorrectable_error(adev, status0) ||
+ 	    umc_v12_0_is_correctable_error(adev, status0))
+-		*count = 1;
++		*count = (ext_error_code == 0) ? odecc_err_cnt : 1;
+ 
+ 	return 0;
+ }
+-- 
+2.25.1
 
-Thanks
-- Joshie 🐸✨
-
-On 1/23/24 12:49, Christian König wrote:
-> Am 23.01.24 um 12:35 schrieb Friedrich Vock:
->> On 23.01.24 10:36, Christian König wrote:
->>>
->>>
->>> Am 22.01.24 um 23:39 schrieb Joshua Ashton:
->>>> [SNIP]
->>>>>>
->>>>>> Most work submissions in practice submit more waves than the 
->>>>>> number of
->>>>>> wave slots the GPU has.
->>>>>> As far as I understand soft recovery, the only thing it does is
->>>>>> kill all
->>>>>> active waves. This frees up the CUs so more waves are launched, which
->>>>>> can fault again, and that leads to potentially lots of faults for a
->>>>>> single wave slot in the end.
->>>>>
->>>>> Exactly that, but killing each wave takes a moment since we do that
->>>>> in a loop with a bit delay in there.
->>>>>
->>>>> So the interrupt handler should at least in theory have time to
->>>>> catch up.
->>>>
->>>> I don't think there is any delay in that loop is there?
->>>
->>> Mhm, looks like I remember that incorrectly.
->>>
->>>>
->>>>     while (!dma_fence_is_signaled(fence) &&
->>>>            ktime_to_ns(ktime_sub(deadline, ktime_get())) > 0)
->>>>         ring->funcs->soft_recovery(ring, vmid);
->>>>
->>>> (soft_recovery function does not have a delay/sleep/whatever either)
->>>>
->>>> FWIW, two other changes we did in SteamOS to make recovery more
->>>> reliable on VANGOGH was:
->>>>
->>>> 1) Move the timeout determination after the spinlock setting the
->>>> fence error.
->>>
->>> Well that should not really have any effect.
->>>
->>>>
->>>> 2) Raise the timeout from 0.1s to 1s.
->>>
->>> Well that's not necessarily a good idea. If the SQ isn't able to
->>> respond in 100ms then I would really go into a hard reset.
->>>
->>> Waiting one extra second is way to long here.
->>
->> Bumping the timeout seemed to be necessary in order to reliably
->> soft-recover from hangs with page faults. (Being able to soft-recover
->> from these is actually a really good thing, because if e.g. games
->> accidentally trigger faults, it won't kill a user's entire system.)
-> 
-> I still have an extremely bad feeling about that. From the discussions a 
-> wave which waits for a fault resolution can't be preempted nor killed.
-> 
-> So what most likely happens is that some of the state sticks around in 
-> the hw and can only be cleared with a hard recovery.
-> 
-> For the steam deck it might still be the better option but that is most 
-> likely not the best solution for every use case. It could for example be 
-> that the system doesn't have the full performance any more.
-> 
->>
->> However, the bump I had in mind was more moderate: Currently the timeout
->> is 10ms (=0.01s). Bumping that to 0.1s already improves reliability
->> enough. I agree that waiting a full second before giving up might be a
->> bit too long.
-> 
-> Well we should never have a timeout longer than we would expect a 
-> submission to be. So assuming a minimum of 10fps we should never go over 
-> 100ms or so.
-> 
-> If killing the waves takes longer than the original submission would 
-> have then there is most likely some state not correctly cleared in the 
-> hw and we really have to do a hard reset to clean up.
-> 
-> Regards,
-> Christian.
-> 
->>
->> Regards,
->> Friedrich
->>
->>>
->>> Regards,
->>> Christian.
->>>
->>>>
->>>> - Joshie 🐸✨
->>>>
->>>>
->>>>>
->>>>> Regards,
->>>>> Christian.
->>>>>
->>>>>>
->>>>>> Regards,
->>>>>> Friedrich
->>>>
->>>
-> 
