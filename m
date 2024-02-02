@@ -4,62 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DFA9C4828F
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Feb 2024 16:51:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 739D1C4828F
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Feb 2024 17:00:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C563710EE9B;
-	Fri,  2 Feb 2024 16:51:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0462010EF90;
+	Fri,  2 Feb 2024 17:00:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ODm0x4Ch";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ofiz5IQQ";
 	dkim-atps=neutral
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
- [209.85.210.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9425110EE9B
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Feb 2024 16:51:26 +0000 (UTC)
-Received: by mail-ot1-f46.google.com with SMTP id
- 46e09a7af769-6dc8b280155so1389865a34.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 02 Feb 2024 08:51:26 -0800 (PST)
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
+ [209.85.160.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C09110EF90
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Feb 2024 17:00:57 +0000 (UTC)
+Received: by mail-oa1-f54.google.com with SMTP id
+ 586e51a60fabf-204f50f305cso1387937fac.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 02 Feb 2024 09:00:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706892684; x=1707497484; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1706893256; x=1707498056; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=mnY9o3B3SSTNVn9Y1Lp1mMMGnN4XmIIKfbkbQCcDIyY=;
- b=ODm0x4ChZYsy86453LYD6XXLJEkPnrOJPvGIhdP0SbPESagzBsynNKfGpCeyoU+jAf
- 8ZeCF6PAfm6GITHTk9itUjXIZWbFviWfcd3Jvv1uqY5OSD1FxxksoxO/3QLCL3Q0NBB9
- zg25KSqCCI16YH/px+LcCVqJqbI48VfRA46iBsIs7+neT7yR2l3+mWnPKzAyY26hWSOv
- xIHAmrNWO6PhDBon7kq/w7UwE7p+gKD3/cgAnIwEpvihv3+jTpCw8OnX+bKuMeJDiHkH
- Vjjz1/xg3gUzQiovMjqLm135OjExHXElUe9eho7W5BE9PWwTGfVhOLpYIxjaHIdz1LEp
- dFpQ==
+ bh=ebUWWI4+NXeYWoZA6koh5m3TIslHS5C1wTkfH4lQqL0=;
+ b=Ofiz5IQQ1VszO4el1VAoT1Fkj4cM/JuEVlhMQp9BPc5WOb16RHORmYg58YqbrDyFQo
+ BDV/Tqqg8Khp70Agb3o3Rtoib0nDWcg+4fP+9q5GJks6jQ5K5wwa0ViR0HRdEAM/sS4e
+ PecdvBn9kOcIX5obvsdmKT3+qAZCiNR5T+jL6WSVMo5JzEJWkrdDPOciKr+rz9c3PSsa
+ 9I9EMxnQ5yKzTNZpe+YgmQFX+IWr/27i5IGb70OjYtFw07iTy2Y2f51cOS5U6YqD1i3/
+ FGWKLg4qOkz9AfbzRHu0NbYc7/8JcXxHJzNvgUeM/irFC3Sn6JYRjiYWIP1D3PCwRBeV
+ MjAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706892684; x=1707497484;
+ d=1e100.net; s=20230601; t=1706893256; x=1707498056;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=mnY9o3B3SSTNVn9Y1Lp1mMMGnN4XmIIKfbkbQCcDIyY=;
- b=BmYkTyZd2h/GUbm6MoSCvP9/naau8LVMd4eF8TyCaxjIZ2WUCByuTZwAS9gvXhPgES
- 4g9/npzq0iqIDn7nn5fns34/q7Y1PbBYDv65fUk/eg9b4f9VMAJXnH54i8fCSJHuQ11r
- ddVoZHW/u+g0KkeZhJxZsBJvyyhan4WHqCF+dezMYS1DHGylms7olDQfugX/PdDyyAgm
- 7V+ScOILJRCdZYzPyX3GfrX5j/a1SfA8f3bqLopiPd/+cp8KHnK9E+DmGCOmV1jDoSUO
- z+SAIbUv+M4k+XkYUCAXy3qV79auK7C7e5OlBM9qq+uuLMFL01ca4YM0dVORRruGNtlz
- 398A==
-X-Gm-Message-State: AOJu0YwnOQkv0ieetJOhZgc9Uv4G3v0ZnDhtzTkUqiz+vnBKa99PaGNq
- N85drP8IEBwPhKCa8P3TLOExKTkJIECjhefeReYo1P9cHdDCLGizhmVcqP9L8ATyQh7YfoHLWcu
- 1TBPOya/O+1tXbabYYvN5I+/tcdtZlwGN
-X-Google-Smtp-Source: AGHT+IGhmuISjF4sAaiOW8QJbtuwsbGZBQ+AEdejOjY3pVmY9w2TaxsB+RcWd1sUKz1EMwBA8+1/69s8R+PE4ZzCuiA=
-X-Received: by 2002:a05:6871:70a:b0:218:72c5:acff with SMTP id
- f10-20020a056871070a00b0021872c5acffmr244229oap.50.1706892684069; Fri, 02 Feb
- 2024 08:51:24 -0800 (PST)
+ bh=ebUWWI4+NXeYWoZA6koh5m3TIslHS5C1wTkfH4lQqL0=;
+ b=SKm7cDwq1dwPaw4Mmh7b6XG7AE5Ru+uKf/yZpgeEvz6v8O4b130gVf5I+2rAOR6Tts
+ /vdgn4yVySfhw9RrSCAvt6czEtdggYtwQ8+wViQVkG8QgcpbwPBhmEXGI8/iNqFklRLH
+ WXyVhwdHq+oWtiiu+YqPULhQObvJRnSvxb4rtSz1JfDf9eJRp6EesK+pSILZTuTy1B8T
+ tOEe5Ct1jCL+vC2fkVxdbwOJAN29jRNVPzGke0goiJRGeEg31IEO88wtqAsRHePv4wF/
+ go2SkL7WagN3Yh7VCULDOGGiqrME2u+KynU6uDEb6sCmgd9wRTtlNEDAoaUIZuAShNDM
+ j9JA==
+X-Gm-Message-State: AOJu0YzswinDuD6Zh9swMNKMyVJG6zYETnoIAi1U3X1PoHpypE2cFeKZ
+ MqQM7sYjDVv/yPqp4NcvXS1qbesWHK2VQCD15Del0WN6uJd8kcQc4U5G/++6NJVysO72D3zS69n
+ eZVxjkqeVPnVk4T8riUei0D80yvw=
+X-Google-Smtp-Source: AGHT+IG7Ia/xb3jen5JZXXE0D/KdeIUSARgfrPcFPf95oVwldbC4sWXB10nSZMgZoLb1jo7jZiQs78KbZPXy9hnvMNc=
+X-Received: by 2002:a05:6871:4e41:b0:219:1a4e:67cf with SMTP id
+ uj1-20020a0568714e4100b002191a4e67cfmr280557oab.13.1706893255585; Fri, 02 Feb
+ 2024 09:00:55 -0800 (PST)
 MIME-Version: 1.0
-References: <20240202153547.274367-1-lijo.lazar@amd.com>
-In-Reply-To: <20240202153547.274367-1-lijo.lazar@amd.com>
+References: <20240202154635.1643762-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20240202154635.1643762-1-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 2 Feb 2024 11:51:10 -0500
-Message-ID: <CADnq5_PHS_trHQtiRfAYfnrSGKZTRP0MO7_DhKPVs4557VTPYw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Avoid fetching VRAM vendor info
-To: Lijo Lazar <lijo.lazar@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
- Alexander.Deucher@amd.com, Asad.Kamal@amd.com, Le.Ma@amd.com
+Date: Fri, 2 Feb 2024 12:00:44 -0500
+Message-ID: <CADnq5_Phbum-OsUa8MQF7e4+dgFksKWKSjhBnkM3T1EVYdNeMg@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/amdgpu: Fix potential out-of-bounds access in
+ 'amdgpu_discovery_reg_base_init()'
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,41 +78,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 2, 2024 at 10:53=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
-te:
+On Fri, Feb 2, 2024 at 10:53=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
 >
-> The present way to fetch VRAM vendor information turns out to be not
-> reliable on GFX 9.4.3 dGPUs as well. Avoid using the data.
+> The issue arises when the array 'adev->vcn.vcn_config' is accessed
+> before checking if the index 'adev->vcn.num_vcn_inst' is within the
+> bounds of the array.
 >
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> The fix involves moving the bounds check before the array access. This
+> ensures that 'adev->vcn.num_vcn_inst' is within the bounds of the array
+> before it is used as an index.
+>
+> Fixes the below:
+> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:1289 amdgpu_discovery_reg_b=
+ase_init() error: testing array offset 'adev->vcn.num_vcn_inst' after use.
+>
+> Fixes: aaf1090a6cb6 ("drm/amdgpu: Add instance mask for VCN and JPEG")
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+This tag is not correct.  I think it's actually:
+Fixes: a0ccc717c4ab ("drm/amdgpu/discovery: validate VCN and SDMA instances=
+")
 
+With that fixed, the patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 8 --------
->  1 file changed, 8 deletions(-)
+> v3:
+>  - Added fixes tag.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v9_0.c
-> index a3a11538207b..c1161f465b37 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1949,14 +1949,6 @@ static int gmc_v9_0_init_mem_ranges(struct amdgpu_=
-device *adev)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 >
->  static void gmc_v9_4_3_init_vram_info(struct amdgpu_device *adev)
->  {
-> -       static const u32 regBIF_BIOS_SCRATCH_4 =3D 0x50;
-> -       u32 vram_info;
-> -
-> -       /* Only for dGPU, vendor informaton is reliable */
-> -       if (!amdgpu_sriov_vf(adev) && !(adev->flags & AMD_IS_APU)) {
-> -               vram_info =3D RREG32(regBIF_BIOS_SCRATCH_4);
-> -               adev->gmc.vram_vendor =3D vram_info & 0xF;
-> -       }
->         adev->gmc.vram_type =3D AMDGPU_VRAM_TYPE_HBM;
->         adev->gmc.vram_width =3D 128 * 64;
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_discovery.c
+> index ef800590c1ab..93c84a1c1d3e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -1282,11 +1282,10 @@ static int amdgpu_discovery_reg_base_init(struct =
+amdgpu_device *adev)
+>                                  *     0b10 : encode is disabled
+>                                  *     0b01 : decode is disabled
+>                                  */
+> -                               adev->vcn.vcn_config[adev->vcn.num_vcn_in=
+st] =3D
+> -                                       ip->revision & 0xc0;
+> -                               ip->revision &=3D ~0xc0;
+>                                 if (adev->vcn.num_vcn_inst <
+>                                     AMDGPU_MAX_VCN_INSTANCES) {
+> +                                       adev->vcn.vcn_config[adev->vcn.nu=
+m_vcn_inst] =3D
+> +                                               ip->revision & 0xc0;
+>                                         adev->vcn.num_vcn_inst++;
+>                                         adev->vcn.inst_mask |=3D
+>                                                 (1U << ip->instance_numbe=
+r);
+> @@ -1297,6 +1296,7 @@ static int amdgpu_discovery_reg_base_init(struct am=
+dgpu_device *adev)
+>                                                 adev->vcn.num_vcn_inst + =
+1,
+>                                                 AMDGPU_MAX_VCN_INSTANCES)=
+;
+>                                 }
+> +                               ip->revision &=3D ~0xc0;
+>                         }
+>                         if (le16_to_cpu(ip->hw_id) =3D=3D SDMA0_HWID ||
+>                             le16_to_cpu(ip->hw_id) =3D=3D SDMA1_HWID ||
 > --
-> 2.25.1
+> 2.34.1
 >
