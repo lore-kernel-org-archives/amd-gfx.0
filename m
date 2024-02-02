@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55213C48298
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 08:29:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A6B4C48292
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 08:29:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61C7810E677;
-	Mon,  5 Feb 2024 08:29:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC29A10E8E5;
+	Mon,  5 Feb 2024 08:29:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FI917iAI";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VFOBftGh";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4DAB10E8DA;
- Fri,  2 Feb 2024 23:38:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73E2B10E8E3;
+ Fri,  2 Feb 2024 23:40:05 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 55ADD628EC;
- Fri,  2 Feb 2024 23:38:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0243C433C7;
- Fri,  2 Feb 2024 23:38:21 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id CE8CA628ED;
+ Fri,  2 Feb 2024 23:40:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62351C433F1;
+ Fri,  2 Feb 2024 23:40:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1706917102;
- bh=rXo/OW1stb+8csjSL/0LuA9d1f97mBRvbbGxdzmEy4s=;
+ s=korg; t=1706917204;
+ bh=unXX6g1ZBdLO7Jo440DSlmm54n4Lw76NBjvoeQ7FaE4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FI917iAIoYf8EFBseOpbKYIysuDTe0nJMkYtqWDFLn6+dbU9d29vrkdIyQvgvPuJa
- YyStD2A1fBTr7xuzgLhkFqgKRocPQUaI6YKQ5Pijxy9Qcu/reM962yKehmAA9nsYQY
- AaUDM+AUo7UOCieR8S2Djjaz9Wb5ZhnIPX5Br0Gc=
-Date: Fri, 2 Feb 2024 15:38:21 -0800
+ b=VFOBftGhrsfDFpKWZBkIB1P38BKvccfhxGFGhhIf5FMj4IMKNUNVcGgdgcai9P7s4
+ o19DBLwmAhnnpBuH69hZvj/Xi9FfZpSd9G1qP/4pf2pBkb5hFzXGzgnTCZgnnUWsNM
+ z0uc3O1fBgeW+mDAUcgA34IIRPjkVLYHtm38mHiA=
+Date: Fri, 2 Feb 2024 15:40:03 -0800
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Hamza Mahfooz <hamza.mahfooz@amd.com>
 Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
@@ -42,17 +42,18 @@ Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
  Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, Le Ma <le.ma@amd.com>,
  =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
  James Zhu <James.Zhu@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Wei Liu <wei.liu@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH 2/3] PCI: introduce can_remove()
-Message-ID: <2024020211-crushable-tabasco-28d1@gregkh>
+ Alex Shi <alexs@kernel.org>, Jerry Snitselaar <jsnitsel@redhat.com>,
+ Wei Liu <wei.liu@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-pci@vger.kernel.org
+Subject: Re: [PATCH 3/3] drm/amdgpu: wire up the can_remove() callback
+Message-ID: <2024020225-faceless-even-e3f8@gregkh>
 References: <20240202222603.141240-1-hamza.mahfooz@amd.com>
- <20240202222603.141240-2-hamza.mahfooz@amd.com>
+ <20240202222603.141240-3-hamza.mahfooz@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240202222603.141240-2-hamza.mahfooz@amd.com>
+In-Reply-To: <20240202222603.141240-3-hamza.mahfooz@amd.com>
 X-Mailman-Approved-At: Mon, 05 Feb 2024 08:29:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,12 +69,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 02, 2024 at 05:25:55PM -0500, Hamza Mahfooz wrote:
-> Wire up the can_remove() callback, such that pci drivers can implement
-> their own version of it.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> ---
+On Fri, Feb 02, 2024 at 05:25:56PM -0500, Hamza Mahfooz wrote:
+> Removing an amdgpu device that still has user space references allocated
+> to it causes undefined behaviour.
 
-Again, sorry, nope, not allowed.
+Then fix that please.  There should not be anything special about your
+hardware that all of the tens of thousands of other devices can't handle
+today.
+
+What happens when I yank your device out of a system with a pci hotplug
+bus?  You can't prevent that either, so this should not be any different
+at all.
+
+sorry, but please, just fix your driver.
+
+greg k-h
