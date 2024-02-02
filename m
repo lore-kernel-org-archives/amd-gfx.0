@@ -4,65 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1428C4828F
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Feb 2024 16:23:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DFA9C4828F
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Feb 2024 16:51:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E218F10E7FF;
-	Fri,  2 Feb 2024 16:23:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C563710EE9B;
+	Fri,  2 Feb 2024 16:51:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eO90pQXQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ODm0x4Ch";
 	dkim-atps=neutral
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com
- [209.85.160.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88CDC10E7B7;
- Fri,  2 Feb 2024 16:23:34 +0000 (UTC)
-Received: by mail-oa1-f49.google.com with SMTP id
- 586e51a60fabf-2191b085639so431372fac.0; 
- Fri, 02 Feb 2024 08:23:34 -0800 (PST)
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
+ [209.85.210.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9425110EE9B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Feb 2024 16:51:26 +0000 (UTC)
+Received: by mail-ot1-f46.google.com with SMTP id
+ 46e09a7af769-6dc8b280155so1389865a34.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 02 Feb 2024 08:51:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706891014; x=1707495814; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1706892684; x=1707497484; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=j+06YIBVDdULWxw5GQnDnWyMeZFXiBJGy11XybxUBgE=;
- b=eO90pQXQbMATGLJ61QMMI/gA5nWnHQvMrSbS7/d2A167krtaidxEb4u/8FrkFxktd/
- NRtM4lB3gB23RuPlcxIJw92NBDHZouARmcFTPuD5DjKtEM5Yfh/sQHP/LMlZcX5jzEuh
- LdoJCZvOBmARy4tO9UmfmlfEAsr1zs2G9Nwofjk4TQP7weKWA8IliQjddRO1jWhxrd7X
- XnpLShACeMLK3+b6BSMQsYuIoBXZdV2FMGh+EuNHcH1tdpYVmxZ5KTKDdkBsW210hSnL
- iuQaGCchzUXxGBeaqX9EDDpU8KN1iku6JdzkCo/+t86COTIHOlzPjlSpuyh3kFBLf3zI
- iGnw==
+ bh=mnY9o3B3SSTNVn9Y1Lp1mMMGnN4XmIIKfbkbQCcDIyY=;
+ b=ODm0x4ChZYsy86453LYD6XXLJEkPnrOJPvGIhdP0SbPESagzBsynNKfGpCeyoU+jAf
+ 8ZeCF6PAfm6GITHTk9itUjXIZWbFviWfcd3Jvv1uqY5OSD1FxxksoxO/3QLCL3Q0NBB9
+ zg25KSqCCI16YH/px+LcCVqJqbI48VfRA46iBsIs7+neT7yR2l3+mWnPKzAyY26hWSOv
+ xIHAmrNWO6PhDBon7kq/w7UwE7p+gKD3/cgAnIwEpvihv3+jTpCw8OnX+bKuMeJDiHkH
+ Vjjz1/xg3gUzQiovMjqLm135OjExHXElUe9eho7W5BE9PWwTGfVhOLpYIxjaHIdz1LEp
+ dFpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706891014; x=1707495814;
+ d=1e100.net; s=20230601; t=1706892684; x=1707497484;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=j+06YIBVDdULWxw5GQnDnWyMeZFXiBJGy11XybxUBgE=;
- b=ntlie7JZuITb1vMOArXn/aoYFZxLJ/fuoAzu6xemS0fThOaquuYdjeUZELkf42ET/0
- WUEnNYntcjimMwVqUj4xZznuTO9yA5gmZIfWVBqHh8mk7+9IV0B9egvDQ27rOMayt2+c
- fOF2zBUWhArx+yeKyBQc2fLqySH/X8K2ej5rlITsUgciZTNazvf2TakGv3yH7C+O0ReQ
- UZrp1Fy35oQSiiQhk4JGdb3n+JxcHn/rJN5s8bfzt4rYG9dwZ5tBNXljtvksJErTo0cP
- Ot6VJHYSTSFY5WuwV/PXsdiMwgt3XaG7uRo0wXFrEM/jvPvMMi1BV45pMYlq/gqEPE5/
- 9Ciw==
-X-Gm-Message-State: AOJu0YxzsLwmMX8Ctl3UC/F7L10r0x/TV4Rza7LXQyo5f6azgWmuUm1X
- bfwFpWkZ2KL5rGaqNj88eajJ2c6zOohVNj1yWv9v+u5FBT9QxOr4QdGkeZo4h7Ox3ewUK413Vhy
- 81D8cdKirno3UHUGX5oeyMuzw4FQ=
-X-Google-Smtp-Source: AGHT+IGcxhNRveKxhRVkFCGKQAlFC5u0InvpGQqzsMYza8L7+a2msgAi9LHM0ZYkFHKvlpL+u301GU3524ves7Q967s=
-X-Received: by 2002:a05:6870:80f:b0:214:fb4e:6184 with SMTP id
- fw15-20020a056870080f00b00214fb4e6184mr177962oab.13.1706891014071; Fri, 02
- Feb 2024 08:23:34 -0800 (PST)
+ bh=mnY9o3B3SSTNVn9Y1Lp1mMMGnN4XmIIKfbkbQCcDIyY=;
+ b=BmYkTyZd2h/GUbm6MoSCvP9/naau8LVMd4eF8TyCaxjIZ2WUCByuTZwAS9gvXhPgES
+ 4g9/npzq0iqIDn7nn5fns34/q7Y1PbBYDv65fUk/eg9b4f9VMAJXnH54i8fCSJHuQ11r
+ ddVoZHW/u+g0KkeZhJxZsBJvyyhan4WHqCF+dezMYS1DHGylms7olDQfugX/PdDyyAgm
+ 7V+ScOILJRCdZYzPyX3GfrX5j/a1SfA8f3bqLopiPd/+cp8KHnK9E+DmGCOmV1jDoSUO
+ z+SAIbUv+M4k+XkYUCAXy3qV79auK7C7e5OlBM9qq+uuLMFL01ca4YM0dVORRruGNtlz
+ 398A==
+X-Gm-Message-State: AOJu0YwnOQkv0ieetJOhZgc9Uv4G3v0ZnDhtzTkUqiz+vnBKa99PaGNq
+ N85drP8IEBwPhKCa8P3TLOExKTkJIECjhefeReYo1P9cHdDCLGizhmVcqP9L8ATyQh7YfoHLWcu
+ 1TBPOya/O+1tXbabYYvN5I+/tcdtZlwGN
+X-Google-Smtp-Source: AGHT+IGhmuISjF4sAaiOW8QJbtuwsbGZBQ+AEdejOjY3pVmY9w2TaxsB+RcWd1sUKz1EMwBA8+1/69s8R+PE4ZzCuiA=
+X-Received: by 2002:a05:6871:70a:b0:218:72c5:acff with SMTP id
+ f10-20020a056871070a00b0021872c5acffmr244229oap.50.1706892684069; Fri, 02 Feb
+ 2024 08:51:24 -0800 (PST)
 MIME-Version: 1.0
-References: <20240202084726.91920-1-jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <20240202084726.91920-1-jiapeng.chong@linux.alibaba.com>
+References: <20240202153547.274367-1-lijo.lazar@amd.com>
+In-Reply-To: <20240202153547.274367-1-lijo.lazar@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 2 Feb 2024 11:23:22 -0500
-Message-ID: <CADnq5_PQGSo1jzLZf7fKw5M25k_5=w+t0-y0=RjfLU5xY-m=fg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Simplify the calculation of variables
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
- airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Abaci Robot <abaci@linux.alibaba.com>
+Date: Fri, 2 Feb 2024 11:51:10 -0500
+Message-ID: <CADnq5_PHS_trHQtiRfAYfnrSGKZTRP0MO7_DhKPVs4557VTPYw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Avoid fetching VRAM vendor info
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Alexander.Deucher@amd.com, Asad.Kamal@amd.com, Le.Ma@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -79,43 +76,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 2, 2024 at 10:13=E2=80=AFAM Jiapeng Chong
-<jiapeng.chong@linux.alibaba.com> wrote:
+On Fri, Feb 2, 2024 at 10:53=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
+te:
 >
-> ./drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c:236:49-51: WARNING !A =
-|| A && B is equivalent to !A || B.
+> The present way to fetch VRAM vendor information turns out to be not
+> reliable on GFX 9.4.3 dGPUs as well. Avoid using the data.
 >
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=3D8169
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 
-Applied.  Thanks!
-
-Alex
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 8 --------
+>  1 file changed, 8 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c b/drivers/g=
-pu/drm/amd/display/dc/dml2/dml2_utils.c
-> index 1068b962d1c1..f15d1dbad6a9 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c
-> @@ -234,7 +234,7 @@ static bool get_plane_id(struct dml2_context *dml2, c=
-onst struct dc_state *state
->                 if (state->streams[i]->stream_id =3D=3D stream_id) {
->                         for (j =3D 0; j < state->stream_status[i].plane_c=
-ount; j++) {
->                                 if (state->stream_status[i].plane_states[=
-j] =3D=3D plane &&
-> -                                       (!is_plane_duplicate || (is_plane=
-_duplicate && (j =3D=3D plane_index)))) {
-> +                                       (!is_plane_duplicate || (j =3D=3D=
- plane_index))) {
->                                         *plane_id =3D (i << 16) | j;
->                                         return true;
->                                 }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gmc_v9_0.c
+> index a3a11538207b..c1161f465b37 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1949,14 +1949,6 @@ static int gmc_v9_0_init_mem_ranges(struct amdgpu_=
+device *adev)
+>
+>  static void gmc_v9_4_3_init_vram_info(struct amdgpu_device *adev)
+>  {
+> -       static const u32 regBIF_BIOS_SCRATCH_4 =3D 0x50;
+> -       u32 vram_info;
+> -
+> -       /* Only for dGPU, vendor informaton is reliable */
+> -       if (!amdgpu_sriov_vf(adev) && !(adev->flags & AMD_IS_APU)) {
+> -               vram_info =3D RREG32(regBIF_BIOS_SCRATCH_4);
+> -               adev->gmc.vram_vendor =3D vram_info & 0xF;
+> -       }
+>         adev->gmc.vram_type =3D AMDGPU_VRAM_TYPE_HBM;
+>         adev->gmc.vram_width =3D 128 * 64;
+>  }
 > --
-> 2.20.1.7.g153144c
+> 2.25.1
 >
