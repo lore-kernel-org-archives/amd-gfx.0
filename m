@@ -4,121 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54D57C4828D
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 16:51:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2069C4828D
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 17:06:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4F6D10FA7C;
-	Mon,  5 Feb 2024 16:51:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86CC910FAD3;
+	Mon,  5 Feb 2024 17:06:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XYmcPq5l";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GC76tq/s";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2080.outbound.protection.outlook.com [40.107.94.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C561610FA90
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Feb 2024 16:51:48 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2069.outbound.protection.outlook.com [40.107.102.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02E7310FAD0
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Feb 2024 17:06:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WkRVTxz1ywDDUkU0V4nXI6GeWkGPsqhW85lTKL5vSgQ1kgR1EX1U84SL1yHnuLARe6BmMXYj/AF1bEXoEuHwAs+ytq4a//AUWyUxxUE4MepUDjGGEKS+DO+sgH3EI9vhfF23k7VkIbK4ijziQIbJZcAnlLO3jKtTaeWcTn9YFVr2IOAfZKXSmJ6rpuwYitJcIaNvE3SHG30zrOJ9A4xwLPmU/jIK4Z2UTV1Jow2Lqgpws7iqYzxfy62RUSyNVvCvv7z7C+rae2e0zQsmGECOEC1kW84iccoojpEJqfC3gkgkw6pePkmD7RMJs+oCRrI8RNbzSxiiJ7kY1jTipshDdQ==
+ b=fuA1DYUCto7X1PdwmNqRyyGGL9XkOvA3LgXqMqgyDJKF7eIXbmyIhq/Kb/tJMdTBSPCfObF/7FPzZ1yaRiaZjzbvjX3r64o72A7LkM2fqXP409OTcqLXKPUc7ZooJoYLflF2yK5bmx/KcrGKcxn5h/lQcRgJ/4++deVyauZRPmbNwyQ3V+dMPr9baEJc2LcncrMC3/h3u52+FOthHbrn5pJYaXUIhKNAMx6uJU7qIFg5UNJOhsF114cVGqGibkvjFdx79aT5AxoSd/4ZEdp4sILtHvYqgKbjBONCpGG9c6sr2ngIX6X3Hif4S+Y3UiVeO8un/CqjQ3GaGk/XyPMPQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2+9mPOX6tCLU0vPe+CaKFWGblxNk7+DA66po7Z6eaWo=;
- b=ianZR02bjF6ID38eOGWkahm//spVk3rW4v6NAhhAmNtc8L2A6ZI9LbHcQhILY99JxNXS6YFJtqP7B3FL1hidi+v3pdHk3AaGWeeR1eLlDNTyn+C1Ia3ZcXuLREarpqTI9WrOuzwrOuxv46G8kpxMl74JtliF2BmG5w9q6K13pup39qKDvqveySJw+Tv3wk4z86E7HyVqZ5EKxqaeobU0KJTHqxb6RT/QK2TkSHEVkJEts5ywwO8VNiEh5/Q1LHRBQipvMtdnyx5f8SncS8S7ElfbxXolz8Jijd48qCR+auKIpr8fXadoA2TOJ+mK90TXwCMUjKRcd8t/h74tf5qopA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=GLIuGEBxNE1+ZFz1+HTy3iCriHgwRNhY8xUWTk7ZBg0=;
+ b=gwkG+S8OAT2GTDDsAg7k/7f0hVbVg92iAcJ1LgzjDAR2cwLKyQWrsInoXoDAJvN/W+IQYjSKfQRgyQL0W1dg5msUzf0OROLf9RopVevBA1QC6SedqkpZZkr/mL1ohW5UKrlrObfJDQaH5KtsE0fQ4BabfoRWAQclPw7sFLVyZmqOHMgbl8rUH23FuBazE+SqAU6msW7U9Naet5tBU3jl0nZWBaxCKxEk6ctCIceJymqGLqe6B3NHOwbbEINP663Yr5lwF+zMzlovUu25WcLfNG3P4lKDg3zxa/vAcF2RFOjeJ0J7QiSvyOh/lf3ObZJNbmERReDijyO4QfTwPPK3tg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2+9mPOX6tCLU0vPe+CaKFWGblxNk7+DA66po7Z6eaWo=;
- b=XYmcPq5lDBWB/UquQju6lLNs9RUvXNbo78SSvOE26DivNABs+9VisHPEqnJQAYGnYIJVdDDYtUbOnBeD5xMTIcgR0XTAQqQCaPGF2QzcvsdGoqZ2Qu9kg3an+60Uh5acLR8XNwzvgODMRDfxxmkY231aD2gwY5UIjXv4k0PTyYk=
-Received: from CY8PR12MB8193.namprd12.prod.outlook.com (2603:10b6:930:71::22)
- by MW4PR12MB6999.namprd12.prod.outlook.com (2603:10b6:303:20a::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.15; Mon, 5 Feb
- 2024 16:51:45 +0000
-Received: from CY8PR12MB8193.namprd12.prod.outlook.com
- ([fe80::92fa:88b3:a796:2c8c]) by CY8PR12MB8193.namprd12.prod.outlook.com
- ([fe80::92fa:88b3:a796:2c8c%5]) with mapi id 15.20.7270.012; Mon, 5 Feb 2024
- 16:51:45 +0000
-From: "Li, Roman" <Roman.Li@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, "Pillai, Aurabindo"
- <Aurabindo.Pillai@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/display: Implement bounds check for stream
- encoder creation in DCN301
-Thread-Topic: [PATCH] drm/amd/display: Implement bounds check for stream
- encoder creation in DCN301
-Thread-Index: AQHaV9v0YVSC/oi2D0u1zcJk6gRQILD78G4A
-Date: Mon, 5 Feb 2024 16:51:45 +0000
-Message-ID: <CY8PR12MB8193DEEF8A5AD21C2407338089472@CY8PR12MB8193.namprd12.prod.outlook.com>
-References: <20240205023449.2542171-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20240205023449.2542171-1-srinivasan.shanmugam@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=7a0eb997-9037-433f-9b0b-d8bbf26db48b;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-02-05T16:27:01Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB8193:EE_|MW4PR12MB6999:EE_
-x-ms-office365-filtering-correlation-id: 16396fbc-c578-4803-7594-08dc266abcbe
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 303e/jP3RAsZ8n+7XTzAw2x0wWaS9bZBSge58OGykONIm13cZ8tcnB6gfIzO3AmsEuRKCB7BPEFEyYgvDKmGsjLwD0qb+nVoSCppHwo6s1o29dnKTkdyCnqGCQGJT8+Tm2jXnkMfS0kO6Xa4r2cVRMab9UFDxrl0uJY+cmkBwJF/QnD5OYB94QBU3k7Q7dzt+/8d4AL5RY13jNJ9lZQ7+4MdcvlkPYDzdNfW59DNQKpC09bLLyQHJM2GKur6ixDVSzh0we68q43UnQvuSh55ez3xEixefnZK8Kv4PDGpkH7UyFCEw4rmWCS6lh51/0/7iwURK9rNu0c3wRNRhg2r8EVYxU3BVbF3wEOOo7fQYFnqAJ4vCpIzdeJXYdo3ZWkYhoVgyND3V/2ZJ6kyDMvr0zeyDdMUlR1iOCwnp5gpik/oqZN66LYyPNF5jovZqCqil/YsSB2/K4ztSiiYeFvfkUVaEKufIkEUYDw/XDT1Rc8dIppaVkcEtG03WKFqno/a/BDs4Wz4LTpXmiuMosLGRHNvd8ewDIg3tJ4/DwwfI0FDDWqaPd6yEyupBlmvCmkZJ+J72iblk5cx105hzNx1K6lkqHalL4Q+XAcK1bJ9j66uKj6A3jemmAWqFGexoD3c
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB8193.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(366004)(376002)(136003)(39860400002)(396003)(230273577357003)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(83380400001)(316002)(6636002)(110136005)(64756008)(66556008)(122000001)(76116006)(66446008)(38100700002)(7696005)(6506007)(53546011)(26005)(9686003)(33656002)(86362001)(2906002)(478600001)(71200400001)(66946007)(66476007)(4326008)(8936002)(8676002)(52536014)(5660300002)(38070700009)(55016003)(41300700001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?znuedcV02Hfx5WeISNQU+Lcyf578DjV9G9q4WudMG71kDjfC3z3ISvRCYilc?=
- =?us-ascii?Q?RAQTIFQvbvJw/HRqys6+a6QkjPEcGKdif4Mzso71+Nl+3aDvwnRe6RNN0M0p?=
- =?us-ascii?Q?Wzea58Xiy8FaG+rmjJuL6Ca6ABiWJYblw+G9k/CYjqXAqz/tBic4kpX51xm8?=
- =?us-ascii?Q?D0Dn7PO6IH2zjOVoBq6oB5Bx/R9Ssq6qzDm1CQY50cpT1Z24qyut2zk4GrGm?=
- =?us-ascii?Q?aLBPvlD5OSY3OLZTIzXrjVPsOeYq62BMCeEVVSi6lfe26kIyVWOCKwfsoBSg?=
- =?us-ascii?Q?M25ewFJzIb2X6J+01MoYvretF47CGSusEXMM4PBaKcpTgf0/V4hTY/n4C/zW?=
- =?us-ascii?Q?G/CLl5IV0Fl24VE+9inndQ7cfvZTFnGlqzfCs/7GUOQm1WowSeaeHWj1RKg/?=
- =?us-ascii?Q?9z+t1+MsuPqFMrZn5x1qlxYYBiwgbQ0uIEUV6yb3/oLBCkqA0wSmWyzLBp5F?=
- =?us-ascii?Q?yV9WKdC9afTOJgPhban+jnDJSlvJT2pHlGnyhRKmgmB48m2iMVMlVSS9Xhf3?=
- =?us-ascii?Q?RMSesDw+SE45BcM1z+XLIbh2TudWQbv7lralfZzGY1zTtEwXwWwOCh/qm/01?=
- =?us-ascii?Q?ESsvidk+6GGchChztxDNbp1fgxZeY719W4JisKnM3klJ8bt0VZBKDH2DHnfo?=
- =?us-ascii?Q?GI06MgswGZ3J+9VHTWAWFQ1tRDqAPfYymMuRAC88FuM1sg7Y7axqnJ23i09I?=
- =?us-ascii?Q?kFMBm1nVnUvdOb0bb7e1Yre8xUcrj6MeaS6rwHAHmPGfxU5JAaMYewGQuD3B?=
- =?us-ascii?Q?wjHY12IceOm8Shk63bsWfEi5r0ZNrBTQed/NiTsuhwj6kskMfveR4csF1Pcd?=
- =?us-ascii?Q?C0vUBjHXmQRMf9k5XTvEzqFQg1/H0DSc4VYgUCo+3nWQMbbkzFmave/o/ahL?=
- =?us-ascii?Q?89xyhXRUOTeaes1cAZhyZz3trtIZ5bLb3b23W29Nw5Qka6XAKh0ORpW95vQU?=
- =?us-ascii?Q?AfOA17/ZALiTIgYU0ruGLHYKLWycXnhzqqdu+vi9EdQUF73/Okp/BZhDn06T?=
- =?us-ascii?Q?8PfW5dIyvVheOrkdwD0b1bwAp/OjWUNnT1iNhlKOb+JZPbrcYLYcGEMemkbv?=
- =?us-ascii?Q?hZI1Nv3PF5/GL+Zcph7kl3byOsGgh8gmvRFxnoNrVZGIXVXLmH2eUmvubaBX?=
- =?us-ascii?Q?mevlgek/L6qbRILCx1GQ8eoroHoYtY9WbymZBTbe4XoKTZyjVoM1FmcCl3OS?=
- =?us-ascii?Q?XbfWblL5vtsQ2CXLWgvBtX2maXP55N7JEfRPYQlzkxH4VM8iWXq86Ae3S3AZ?=
- =?us-ascii?Q?hdX9SIzhLOqTs3NsvuoOqwHqXjH0vWMXi88kWxtd/AcQ7mElN85u1FhY1DDU?=
- =?us-ascii?Q?d+Pll0pHZWovh6Nhlj8SIs2/QwKrZYGrvEhxO8cTeSKBNxhMgibTQw8YumPy?=
- =?us-ascii?Q?VEEvJbmE9YiAVJTvanOiBnlglrUo/rwwI2q4gbmw9PWf33gQyggSxnjkh3yk?=
- =?us-ascii?Q?64vxkBaXPKdkHYN/nhKYkbW9J430EiEGTvyNKxUpGjts/dm2vM5IYzykarVu?=
- =?us-ascii?Q?d4LcpFGFcNNtj/W+QPEhK2YPTTElNIK+P1ykIgjhrclyMfmNbNk/+iBphIfY?=
- =?us-ascii?Q?bZ1rsKK6e+Ms8uQ1g+I=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=GLIuGEBxNE1+ZFz1+HTy3iCriHgwRNhY8xUWTk7ZBg0=;
+ b=GC76tq/sdJLwYb/W8CwQZDKcAMHcB6AEMXlhaEdrTToepMVCtzMzlGMIFXIm/GH3Y4wxn8kt/l4RQ5hOEyhgJ7uOksOjuwC39mCuR+Li2Hta/c1Bc8p6+GF09DPOTCiFMcyyIhJyyEOsuYbv+MWx9s3Gw9csCAIQ/fPGZv6kbHU=
+Received: from BYAPR07CA0027.namprd07.prod.outlook.com (2603:10b6:a02:bc::40)
+ by DM6PR12MB4203.namprd12.prod.outlook.com (2603:10b6:5:21f::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.8; Mon, 5 Feb
+ 2024 17:05:36 +0000
+Received: from MWH0EPF000971E5.namprd02.prod.outlook.com
+ (2603:10b6:a02:bc:cafe::93) by BYAPR07CA0027.outlook.office365.com
+ (2603:10b6:a02:bc::40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.36 via Frontend
+ Transport; Mon, 5 Feb 2024 17:05:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000971E5.mail.protection.outlook.com (10.167.243.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7249.19 via Frontend Transport; Mon, 5 Feb 2024 17:05:36 +0000
+Received: from MUN-L-SHSHARMA.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 5 Feb
+ 2024 11:05:34 -0600
+From: Shashank Sharma <shashank.sharma@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Shashank Sharma <shashank.sharma@amd.com>, Christian Koenig
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Felix
+ Kuehling" <Felix.Kuehling@amd.com>
+Subject: [PATCH v3] drm/amdgpu: change vm->task_info handling
+Date: Mon, 5 Feb 2024 18:05:08 +0100
+Message-ID: <20240205170508.974-1-shashank.sharma@amd.com>
+X-Mailer: git-send-email 2.38.0.windows.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E5:EE_|DM6PR12MB4203:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd1ef326-4154-4dee-6d03-08dc266cac13
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Q7aNgfGax0nfRkO49XCOn66YMXEyAOvYofghnkM8Fe/zpdshJNmAtM3S8rx5zlfW1ISuPf7D04cKRiqjHjO0OxjZ5rsUjmBmaY9h9GMrWO9RzC3U1WSdMUmzvsrgxFq92EeU6rBiNwKnOP0v5y7vn9FS0qUPBU0XG+leUpPjpNGN6NfzEDSzgn+8oIcg6DOH4tnugxOv40vXuDpHNCaPznaQa+6s88HI6RA0le+oIgcyOwjp7cmPTPzfuEjpz1Z/Ixw+/2zRky9r8KG11QCcu0agycBmABgDyw2TntL+TreldrgdybFfkYZ/nt0lLoGgByf4VDLtl80GXEAdFK4LGXMdy0Vq5HFVpcGohG7BM2drIHD/d5qJoNNMo5hlqiwi/u74ouVZRMMqy8Wp46P6mj2580ExYwAmk3rx+w4B64QdF1wX1gSxxTekDR0FZanb8SW5SFR0v2ownm9+AuZbNjRpZBxsLiLyFbdL7arF9nYp1DiBWx/RnpXLvcwYaDgafNerElm9LLkCi/MEtxBETp/w1ZncK8yxG6PailupCKreuofNBUOLASW9FRJ9frhof1XO/TDWdc4o8Ca55tyUYXLzzZp5zS6xvpxLC78yKCa4GxK8Ijz/WPCynYjpJPnJ4bv7imS0U1L7jnrEhSJjUhcBnLUES3BxB00J7O+d1kXyCXiFx1+br2KVhcDX0xl4uu9ON/Cezn3wzQFbpvtshnzoTYnM94brtaPZ7Nds0uZFlUpqS1Rz/hHdiQExODrqMp3s3B+1lGISGwXlQoNUkA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(39860400002)(376002)(136003)(346002)(396003)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(82310400011)(46966006)(36840700001)(40470700004)(81166007)(40480700001)(1076003)(2616005)(40460700003)(16526019)(26005)(47076005)(36860700001)(41300700001)(336012)(6916009)(54906003)(478600001)(316002)(83380400001)(7696005)(6666004)(426003)(356005)(36756003)(70206006)(2906002)(82740400003)(30864003)(8936002)(4326008)(44832011)(5660300002)(8676002)(70586007)(86362001)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8193.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16396fbc-c578-4803-7594-08dc266abcbe
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Feb 2024 16:51:45.4389 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LJ+eW2ALET95bAtBsbXekRblNqN0w2rVCDx4wR+7i4AuaMPK48SYBwe2xBhJjdFP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6999
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2024 17:05:36.3639 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd1ef326-4154-4dee-6d03-08dc266cac13
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E5.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4203
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,97 +106,660 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+This patch changes the handling and lifecycle of vm->task_info object.
+The major changes are:
+- vm->task_info is a dynamically allocated ptr now, and its uasge is
+  reference counted.
+- introducing two new helper funcs for task_info lifecycle management
+    - amdgpu_vm_get_task_info: reference counts up task_info before
+      returning this info
+    - amdgpu_vm_put_task_info: reference counts down task_info
+- last put to task_info() frees task_info from the vm.
 
-Inline.
+This patch also does logistical changes required for existing usage
+of vm->task_info.
 
-> -----Original Message-----
-> From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
-> Sent: Sunday, February 4, 2024 9:35 PM
-> To: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo
-> <Aurabindo.Pillai@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org; SHANMUGAM, SRINIVASAN
-> <SRINIVASAN.SHANMUGAM@amd.com>; Li, Roman <Roman.Li@amd.com>
-> Subject: [PATCH] drm/amd/display: Implement bounds check for stream
-> encoder creation in DCN301
->
-> 'stream_enc_regs' array is an array of dcn10_stream_enc_registers structu=
-res.
-> The array is initialized with four elements, corresponding to the four ca=
-lls to
-> stream_enc_regs() in the array initializer. This means that valid indices=
- for this
-> array are 0, 1, 2, and 3.
->
-> The error message 'stream_enc_regs' 4 <=3D 5 below, is indicating that th=
-ere is an
-> attempt to access this array with an index of 5, which is out of bounds. =
-This
-> could lead to undefined behavior
->
-> Here, eng_id is used as an index to access the stream_enc_regs array. If =
-eng_id
-> is 5, this would result in an out-of-bounds access.
->
-> Fixes the below:
-> drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn301/dcn301_reso
-> urce.c:1011 dcn301_stream_encoder_create() error: buffer overflow
-> 'stream_enc_regs' 4 <=3D 5
+V2: Do not block all the prints when task_info not found (Felix)
+V3: (Felix)
+   - Fix wrong indentation
+   - No debug message for -ENOMEM
+   - Add NULL check for task_info
+   - Do not duplicate the debug messages (ti vs no ti)
+   - Get first reference of task_info in vm_init(), put last
+     in vm_fini()
 
-Please mention that this is Smatch warning.
-In current implementation this function is called with eng_id  limited by n=
-um_stream_encoder =3D 4 for dcn301.
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   9 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     |  18 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c   |  12 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      | 158 ++++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  21 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c   |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c      |  24 +--
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c      |  23 +--
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c       |  20 ++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c       |  23 +--
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c      |  23 +--
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c    |  22 +--
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c |  20 +--
+ 13 files changed, 251 insertions(+), 124 deletions(-)
 
->
-> Fixes: 3a83e4e64bb1 ("drm/amd/display: Add dcn3.01 support to DC (v2)")
-> Cc: Roman Li <Roman.Li@amd.com>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->  .../display/dc/resource/dcn301/dcn301_resource.c | 16 ++++++++++++----
->  1 file changed, 12 insertions(+), 4 deletions(-)
->
-> diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c
-> index 511ff6b5b985..f915d7c3980e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c
-> +++
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c
-> @@ -1006,10 +1006,18 @@ static struct stream_encoder
-> *dcn301_stream_encoder_create(enum engine_id eng_id
->               return NULL;
->       }
-
->
-> -     dcn30_dio_stream_encoder_construct(enc1, ctx, ctx->dc_bios,
-> -                                     eng_id, vpg, afmt,
-> -                                     &stream_enc_regs[eng_id],
-> -                                     &se_shift, &se_mask);
-> +     if (eng_id < ARRAY_SIZE(stream_enc_regs)) {
-> +             dcn30_dio_stream_encoder_construct(enc1, ctx, ctx-
-> >dc_bios,
-> +                                                eng_id, vpg, afmt,
-> +                                                &stream_enc_regs[eng_id]=
-,
-> +                                                &se_shift, &se_mask);
-> +     } else {
-> +             DRM_ERROR("Invalid engine id: %d\n", eng_id);
-> +             kfree(enc1);
-> +             kfree(vpg);
-> +             kfree(afmt);
-> +             return NULL;
-> +     }
-
-Can you just extend the existing null checks instead?
-e.g.
-        if (!enc1 || !vpg || !afmt || (eng_id  >=3D ARRAY_SIZE(stream_enc_r=
-egs))
-
->
->       return &enc1->base;
->  }
-> --
-> 2.34.1
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 0e61ebdb3f3e..f9eb12697b95 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1775,9 +1775,14 @@ static int amdgpu_debugfs_vm_info_show(struct seq_file *m, void *unused)
+ 	list_for_each_entry(file, &dev->filelist, lhead) {
+ 		struct amdgpu_fpriv *fpriv = file->driver_priv;
+ 		struct amdgpu_vm *vm = &fpriv->vm;
++		struct amdgpu_task_info *ti;
++
++		ti = amdgpu_vm_get_task_info_vm(vm);
++		if (ti) {
++			seq_printf(m, "pid:%d\tProcess:%s ----------\n", ti->pid, ti->process_name);
++			amdgpu_vm_put_task_info(ti);
++		}
+ 
+-		seq_printf(m, "pid:%d\tProcess:%s ----------\n",
+-				vm->task_info.pid, vm->task_info.process_name);
+ 		r = amdgpu_bo_reserve(vm->root.bo, true);
+ 		if (r)
+ 			break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 1f357198533f..e6e6d56398f2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -35,7 +35,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ {
+ 	struct amdgpu_ring *ring = to_amdgpu_ring(s_job->sched);
+ 	struct amdgpu_job *job = to_amdgpu_job(s_job);
+-	struct amdgpu_task_info ti;
++	struct amdgpu_task_info *ti;
+ 	struct amdgpu_device *adev = ring->adev;
+ 	int idx;
+ 	int r;
+@@ -48,7 +48,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 		return DRM_GPU_SCHED_STAT_ENODEV;
+ 	}
+ 
+-	memset(&ti, 0, sizeof(struct amdgpu_task_info));
++
+ 	adev->job_hang = true;
+ 
+ 	if (amdgpu_gpu_recovery &&
+@@ -58,12 +58,16 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 		goto exit;
+ 	}
+ 
+-	amdgpu_vm_get_task_info(ring->adev, job->pasid, &ti);
+ 	DRM_ERROR("ring %s timeout, signaled seq=%u, emitted seq=%u\n",
+-		  job->base.sched->name, atomic_read(&ring->fence_drv.last_seq),
+-		  ring->fence_drv.sync_seq);
+-	DRM_ERROR("Process information: process %s pid %d thread %s pid %d\n",
+-		  ti.process_name, ti.tgid, ti.task_name, ti.pid);
++		   job->base.sched->name, atomic_read(&ring->fence_drv.last_seq),
++		   ring->fence_drv.sync_seq);
++
++	ti = amdgpu_vm_get_task_info_pasid(ring->adev, job->pasid);
++	if (ti) {
++		DRM_ERROR("Process information: process %s pid %d thread %s pid %d\n",
++			  ti->process_name, ti->tgid, ti->task_name, ti->pid);
++		amdgpu_vm_put_task_info(ti);
++	}
+ 
+ 	dma_fence_set_error(&s_job->s_fence->finished, -ETIME);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+index 4baa300121d8..a59364e9b6ed 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+@@ -230,8 +230,16 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
+ 
+ 	coredump->reset_vram_lost = vram_lost;
+ 
+-	if (reset_context->job && reset_context->job->vm)
+-		coredump->reset_task_info = reset_context->job->vm->task_info;
++	if (reset_context->job && reset_context->job->vm) {
++		struct amdgpu_task_info *ti;
++		struct amdgpu_vm *vm = reset_context->job->vm;
++
++		ti = amdgpu_vm_get_task_info_vm(vm);
++		if (ti) {
++			coredump->reset_task_info = *ti;
++			amdgpu_vm_put_task_info(ti);
++		}
++	}
+ 
+ 	coredump->adev = adev;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index d1b8afd105c9..8414567af683 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2127,6 +2127,117 @@ long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long timeout)
+ 	return dma_fence_wait_timeout(vm->last_unlocked, true, timeout);
+ }
+ 
++static void amdgpu_vm_destroy_task_info(struct kref *kref)
++{
++	struct amdgpu_task_info *ti = container_of(kref, struct amdgpu_task_info, refcount);
++
++	kfree(ti);
++}
++
++static inline struct amdgpu_vm *
++amdgpu_vm_get_vm_from_pasid(struct amdgpu_device *adev, u32 pasid)
++{
++	struct amdgpu_vm *vm;
++	unsigned long flags;
++
++	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
++	vm = xa_load(&adev->vm_manager.pasids, pasid);
++	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
++
++	return vm;
++}
++
++/**
++ * amdgpu_vm_put_task_info - reference down the vm task_info ptr
++ *
++ * @task_info: task_info struct under discussion.
++ *
++ * frees the vm task_info ptr at the last put
++ */
++void amdgpu_vm_put_task_info(struct amdgpu_task_info *task_info)
++{
++	kref_put(&task_info->refcount, amdgpu_vm_destroy_task_info);
++}
++
++/**
++ * amdgpu_vm_get_task_info_pasid - Extracts task info for a PASID.
++ *
++ * @adev: drm device pointer
++ * @pasid: PASID identifier for VM
++ *
++ * Returns the reference counted task_info structure, which must be
++ * referenced down with amdgpu_vm_put_task_info.
++ */
++struct amdgpu_task_info *
++amdgpu_vm_get_task_info_pasid(struct amdgpu_device *adev, u32 pasid)
++{
++	struct amdgpu_vm *vm;
++	struct amdgpu_task_info *ti = NULL;
++
++	vm = amdgpu_vm_get_vm_from_pasid(adev, pasid);
++	if (vm) {
++		ti = vm->task_info;
++		kref_get(&vm->task_info->refcount);
++	}
++
++	return ti;
++}
++
++/**
++ * amdgpu_vm_get_task_info_vm - Extracts task info for a vm.
++ *
++ * @vm: VM to get info from
++ *
++ * Returns the reference counted task_info structure, which must be
++ * referenced down with amdgpu_vm_put_task_info.
++ */
++struct amdgpu_task_info *
++amdgpu_vm_get_task_info_vm(struct amdgpu_vm *vm)
++{
++	struct amdgpu_task_info *ti = NULL;
++
++	if (vm) {
++		ti = vm->task_info;
++		kref_get(&vm->task_info->refcount);
++	}
++
++	return ti;
++}
++
++static int amdgpu_vm_create_task_info(struct amdgpu_vm *vm)
++{
++	vm->task_info = kzalloc(sizeof(struct amdgpu_task_info), GFP_KERNEL);
++	if (!vm->task_info)
++		return -ENOMEM;
++
++	kref_init(&vm->task_info->refcount);
++	kref_get(&vm->task_info->refcount);
++	return 0;
++}
++
++/**
++ * amdgpu_vm_set_task_info - Sets VMs task info.
++ *
++ * @vm: vm for which to set the info
++ */
++void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
++{
++	if (!vm->task_info)
++		return;
++
++	if (vm->task_info->pid == current->pid)
++		return;
++
++	vm->task_info->pid = current->pid;
++	get_task_comm(vm->task_info->task_name, current);
++
++	if (current->group_leader->mm != current->mm)
++		return;
++
++	vm->task_info->tgid = current->group_leader->pid;
++	get_task_comm(vm->task_info->process_name, current->group_leader);
++}
++
+ /**
+  * amdgpu_vm_init - initialize a vm instance
+  *
+@@ -2212,6 +2323,10 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	if (r)
+ 		goto error_free_root;
+ 
++	r = amdgpu_vm_create_task_info(vm);
++	if (r)
++		DRM_DEBUG("Failed to create task info for VM\n");
++
+ 	amdgpu_bo_unreserve(vm->root.bo);
+ 	amdgpu_bo_unref(&root_bo);
+ 
+@@ -2351,6 +2466,7 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 
+ 	root = amdgpu_bo_ref(vm->root.bo);
+ 	amdgpu_bo_reserve(root, true);
++	amdgpu_vm_put_task_info(vm->task_info);
+ 	amdgpu_vm_set_pasid(adev, vm, 0);
+ 	dma_fence_wait(vm->last_unlocked, false);
+ 	dma_fence_put(vm->last_unlocked);
+@@ -2507,48 +2623,6 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 	return 0;
+ }
+ 
+-/**
+- * amdgpu_vm_get_task_info - Extracts task info for a PASID.
+- *
+- * @adev: drm device pointer
+- * @pasid: PASID identifier for VM
+- * @task_info: task_info to fill.
+- */
+-void amdgpu_vm_get_task_info(struct amdgpu_device *adev, u32 pasid,
+-			 struct amdgpu_task_info *task_info)
+-{
+-	struct amdgpu_vm *vm;
+-	unsigned long flags;
+-
+-	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
+-
+-	vm = xa_load(&adev->vm_manager.pasids, pasid);
+-	if (vm)
+-		*task_info = vm->task_info;
+-
+-	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
+-}
+-
+-/**
+- * amdgpu_vm_set_task_info - Sets VMs task info.
+- *
+- * @vm: vm for which to set the info
+- */
+-void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
+-{
+-	if (vm->task_info.pid)
+-		return;
+-
+-	vm->task_info.pid = current->pid;
+-	get_task_comm(vm->task_info.task_name, current);
+-
+-	if (current->group_leader->mm != current->mm)
+-		return;
+-
+-	vm->task_info.tgid = current->group_leader->pid;
+-	get_task_comm(vm->task_info.process_name, current->group_leader);
+-}
+-
+ /**
+  * amdgpu_vm_handle_fault - graceful handling of VM faults.
+  * @adev: amdgpu device pointer
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 2cd86d2bf73f..a74b94c3c9ba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -190,10 +190,11 @@ struct amdgpu_vm_pte_funcs {
+ };
+ 
+ struct amdgpu_task_info {
+-	char	process_name[TASK_COMM_LEN];
+-	char	task_name[TASK_COMM_LEN];
+-	pid_t	pid;
+-	pid_t	tgid;
++	char		process_name[TASK_COMM_LEN];
++	char		task_name[TASK_COMM_LEN];
++	pid_t		pid;
++	pid_t		tgid;
++	struct kref	refcount;
+ };
+ 
+ /**
+@@ -356,7 +357,7 @@ struct amdgpu_vm {
+ 	uint64_t		pd_phys_addr;
+ 
+ 	/* Some basic info about the task */
+-	struct amdgpu_task_info task_info;
++	struct amdgpu_task_info *task_info;
+ 
+ 	/* Store positions of group of BOs */
+ 	struct ttm_lru_bulk_move lru_bulk_move;
+@@ -492,8 +493,14 @@ bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
+ 				  struct amdgpu_job *job);
+ void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev);
+ 
+-void amdgpu_vm_get_task_info(struct amdgpu_device *adev, u32 pasid,
+-			     struct amdgpu_task_info *task_info);
++struct amdgpu_task_info *
++amdgpu_vm_get_task_info_pasid(struct amdgpu_device *adev, u32 pasid);
++
++struct amdgpu_task_info *
++amdgpu_vm_get_task_info_vm(struct amdgpu_vm *vm);
++
++void amdgpu_vm_put_task_info(struct amdgpu_task_info *task_info);
++
+ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 			    u32 vmid, u32 node_id, uint64_t addr,
+ 			    bool write_fault);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index a160265ddc07..d9e895cb0c10 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -1027,7 +1027,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+ 			trace_amdgpu_vm_update_ptes(params, frag_start, upd_end,
+ 						    min(nptes, 32u), dst, incr,
+ 						    upd_flags,
+-						    vm->task_info.tgid,
++						    vm->task_info ? vm->task_info->tgid : 0,
+ 						    vm->immediate.fence_context);
+ 			amdgpu_vm_pte_update_flags(params, to_amdgpu_bo_vm(pt),
+ 						   cursor.level, pe_start, dst,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index a5a05c16c10d..7098f0be83c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -105,7 +105,7 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
+ 	struct amdgpu_vmhub *hub = &adev->vmhub[vmhub_index];
+ 	bool retry_fault = !!(entry->src_data[1] & 0x80);
+ 	bool write_fault = !!(entry->src_data[1] & 0x20);
+-	struct amdgpu_task_info task_info;
++	struct amdgpu_task_info *task_info;
+ 	uint32_t status = 0;
+ 	u64 addr;
+ 
+@@ -157,18 +157,22 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
+ 	if (!printk_ratelimit())
+ 		return 0;
+ 
+-	memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+-	amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
+-
+ 	dev_err(adev->dev,
+-		"[%s] page fault (src_id:%u ring:%u vmid:%u pasid:%u, for process %s pid %d thread %s pid %d)\n",
++		"[%s] page fault (src_id:%u ring:%u vmid:%u pasid:%u)\n",
+ 		entry->vmid_src ? "mmhub" : "gfxhub",
+-		entry->src_id, entry->ring_id, entry->vmid,
+-		entry->pasid, task_info.process_name, task_info.tgid,
+-		task_info.task_name, task_info.pid);
++		entry->src_id, entry->ring_id, entry->vmid, entry->pasid);
++	task_info = amdgpu_vm_get_task_info_pasid(adev, entry->pasid);
++	if (task_info) {
++		dev_err(adev->dev,
++			" in process %s pid %d thread %s pid %d\n",
++			task_info->process_name, task_info->tgid,
++			task_info->task_name, task_info->pid);
++		amdgpu_vm_put_task_info(task_info);
++	}
++
+ 	dev_err(adev->dev, "  in page starting at address 0x%016llx from client 0x%x (%s)\n",
+-		addr, entry->client_id,
+-		soc15_ih_clientid_name[entry->client_id]);
++			addr, entry->client_id,
++			soc15_ih_clientid_name[entry->client_id]);
+ 
+ 	if (!amdgpu_sriov_vf(adev))
+ 		hub->vmhub_funcs->print_l2_protection_fault_status(adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index 23d7b548d13f..bff88070bb00 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -126,19 +126,24 @@ static int gmc_v11_0_process_interrupt(struct amdgpu_device *adev,
+ 	}
+ 
+ 	if (printk_ratelimit()) {
+-		struct amdgpu_task_info task_info;
+-
+-		memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+-		amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
++		struct amdgpu_task_info *task_info;
+ 
+ 		dev_err(adev->dev,
+-			"[%s] page fault (src_id:%u ring:%u vmid:%u pasid:%u, for process %s pid %d thread %s pid %d)\n",
++			"[%s] page fault (src_id:%u ring:%u vmid:%u pasid:%u)\n",
+ 			entry->vmid_src ? "mmhub" : "gfxhub",
+-			entry->src_id, entry->ring_id, entry->vmid,
+-			entry->pasid, task_info.process_name, task_info.tgid,
+-			task_info.task_name, task_info.pid);
++			entry->src_id, entry->ring_id, entry->vmid, entry->pasid);
++		task_info = amdgpu_vm_get_task_info_pasid(adev, entry->pasid);
++		if (task_info) {
++			dev_err(adev->dev,
++				" in process %s pid %d thread %s pid %d)\n",
++				task_info->process_name, task_info->tgid,
++				task_info->task_name, task_info->pid);
++			amdgpu_vm_put_task_info(task_info);
++		}
++
+ 		dev_err(adev->dev, "  in page starting at address 0x%016llx from client %d\n",
+-			addr, entry->client_id);
++				addr, entry->client_id);
++
+ 		if (!amdgpu_sriov_vf(adev))
+ 			hub->vmhub_funcs->print_l2_protection_fault_status(adev, status);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index ff4ae73d27ec..ba1f18978487 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -1444,18 +1444,24 @@ static int gmc_v8_0_process_interrupt(struct amdgpu_device *adev,
+ 		gmc_v8_0_set_fault_enable_default(adev, false);
+ 
+ 	if (printk_ratelimit()) {
+-		struct amdgpu_task_info task_info;
++		struct amdgpu_task_info *task_info;
+ 
+-		memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+-		amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
++		dev_err(adev->dev, "GPU fault detected: %d 0x%08x\n",
++			entry->src_id, entry->src_data[0]);
++
++		task_info = amdgpu_vm_get_task_info_pasid(adev, entry->pasid);
++		if (task_info) {
++			dev_err(adev->dev, " for process %s pid %d thread %s pid %d\n",
++				task_info->process_name, task_info->tgid,
++				task_info->task_name, task_info->pid);
++			amdgpu_vm_put_task_info(task_info);
++		}
+ 
+-		dev_err(adev->dev, "GPU fault detected: %d 0x%08x for process %s pid %d thread %s pid %d\n",
+-			entry->src_id, entry->src_data[0], task_info.process_name,
+-			task_info.tgid, task_info.task_name, task_info.pid);
+ 		dev_err(adev->dev, "  VM_CONTEXT1_PROTECTION_FAULT_ADDR   0x%08X\n",
+-			addr);
++				addr);
+ 		dev_err(adev->dev, "  VM_CONTEXT1_PROTECTION_FAULT_STATUS 0x%08X\n",
+ 			status);
++
+ 		gmc_v8_0_vm_decode_fault(adev, status, addr, mc_client,
+ 					 entry->pasid);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 2ac5820e9c92..cc0968f553a1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -549,7 +549,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
+ 	bool retry_fault = !!(entry->src_data[1] & 0x80);
+ 	bool write_fault = !!(entry->src_data[1] & 0x20);
+ 	uint32_t status = 0, cid = 0, rw = 0;
+-	struct amdgpu_task_info task_info;
++	struct amdgpu_task_info *task_info;
+ 	struct amdgpu_vmhub *hub;
+ 	const char *mmhub_cid;
+ 	const char *hub_name;
+@@ -626,15 +626,20 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
+ 	if (!printk_ratelimit())
+ 		return 0;
+ 
+-	memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+-	amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
+-
+ 	dev_err(adev->dev,
+-		"[%s] %s page fault (src_id:%u ring:%u vmid:%u pasid:%u, for process %s pid %d thread %s pid %d)\n",
+-		hub_name, retry_fault ? "retry" : "no-retry",
+-		entry->src_id, entry->ring_id, entry->vmid,
+-		entry->pasid, task_info.process_name, task_info.tgid,
+-		task_info.task_name, task_info.pid);
++		"[%s] %s page fault (src_id:%u ring:%u vmid:%u pasid:%u)\n", hub_name,
++		retry_fault ? "retry" : "no-retry",
++		entry->src_id, entry->ring_id, entry->vmid, entry->pasid);
++
++	task_info = amdgpu_vm_get_task_info_pasid(adev, entry->pasid);
++	if (task_info) {
++		dev_err(adev->dev,
++			" for process %s pid %d thread %s pid %d)\n",
++			task_info->process_name, task_info->tgid,
++			task_info->task_name, task_info->pid);
++		amdgpu_vm_put_task_info(task_info);
++	}
++
+ 	dev_err(adev->dev, "  in page starting at address 0x%016llx from IH client 0x%x (%s)\n",
+ 		addr, entry->client_id,
+ 		soc15_ih_clientid_name[entry->client_id]);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index 3d68dd5523c6..43775cb67ff5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -2104,7 +2104,7 @@ static int sdma_v4_0_print_iv_entry(struct amdgpu_device *adev,
+ 					      struct amdgpu_iv_entry *entry)
+ {
+ 	int instance;
+-	struct amdgpu_task_info task_info;
++	struct amdgpu_task_info *task_info;
+ 	u64 addr;
+ 
+ 	instance = sdma_v4_0_irq_id_to_seq(entry->client_id);
+@@ -2116,15 +2116,20 @@ static int sdma_v4_0_print_iv_entry(struct amdgpu_device *adev,
+ 	addr = (u64)entry->src_data[0] << 12;
+ 	addr |= ((u64)entry->src_data[1] & 0xf) << 44;
+ 
+-	memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+-	amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
+-
+ 	dev_dbg_ratelimited(adev->dev,
+-		   "[sdma%d] address:0x%016llx src_id:%u ring:%u vmid:%u "
+-		   "pasid:%u, for process %s pid %d thread %s pid %d\n",
+-		   instance, addr, entry->src_id, entry->ring_id, entry->vmid,
+-		   entry->pasid, task_info.process_name, task_info.tgid,
+-		   task_info.task_name, task_info.pid);
++			   "[sdma%d] address:0x%016llx src_id:%u ring:%u vmid:%u pasid:%u\n",
++			   instance, addr, entry->src_id, entry->ring_id, entry->vmid,
++			   entry->pasid);
++
++	task_info = amdgpu_vm_get_task_info_pasid(adev, entry->pasid);
++	if (task_info) {
++		dev_dbg_ratelimited(adev->dev,
++				    " for process %s pid %d thread %s pid %d\n",
++				    task_info->process_name, task_info->tgid,
++				    task_info->task_name, task_info->pid);
++		amdgpu_vm_put_task_info(task_info);
++	}
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+index 0f24af6f2810..51a17d7076ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+@@ -1642,7 +1642,7 @@ static int sdma_v4_4_2_print_iv_entry(struct amdgpu_device *adev,
+ 					      struct amdgpu_iv_entry *entry)
+ {
+ 	int instance;
+-	struct amdgpu_task_info task_info;
++	struct amdgpu_task_info *task_info;
+ 	u64 addr;
+ 
+ 	instance = sdma_v4_4_2_irq_id_to_seq(entry->client_id);
+@@ -1654,15 +1654,19 @@ static int sdma_v4_4_2_print_iv_entry(struct amdgpu_device *adev,
+ 	addr = (u64)entry->src_data[0] << 12;
+ 	addr |= ((u64)entry->src_data[1] & 0xf) << 44;
+ 
+-	memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+-	amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
+-
+ 	dev_dbg_ratelimited(adev->dev,
+-		   "[sdma%d] address:0x%016llx src_id:%u ring:%u vmid:%u "
+-		   "pasid:%u, for process %s pid %d thread %s pid %d\n",
+-		   instance, addr, entry->src_id, entry->ring_id, entry->vmid,
+-		   entry->pasid, task_info.process_name, task_info.tgid,
+-		   task_info.task_name, task_info.pid);
++			    "[sdma%d] address:0x%016llx src_id:%u ring:%u vmid:%u pasid:%u\n",
++			    instance, addr, entry->src_id, entry->ring_id, entry->vmid,
++			    entry->pasid);
++
++	task_info = amdgpu_vm_get_task_info_pasid(adev, entry->pasid);
++	if (task_info) {
++		dev_dbg_ratelimited(adev->dev, " for process %s pid %d thread %s pid %d\n",
++				    task_info->process_name, task_info->tgid,
++				    task_info->task_name, task_info->pid);
++		amdgpu_vm_put_task_info(task_info);
++	}
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+index d9953c2b2661..06ac835190f9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+@@ -238,16 +238,16 @@ void kfd_smi_event_update_thermal_throttling(struct kfd_node *dev,
+ 
+ void kfd_smi_event_update_vmfault(struct kfd_node *dev, uint16_t pasid)
+ {
+-	struct amdgpu_task_info task_info;
+-
+-	memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+-	amdgpu_vm_get_task_info(dev->adev, pasid, &task_info);
+-	/* Report VM faults from user applications, not retry from kernel */
+-	if (!task_info.pid)
+-		return;
+-
+-	kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, "%x:%s\n",
+-			  task_info.pid, task_info.task_name);
++	struct amdgpu_task_info *task_info;
++
++	task_info = amdgpu_vm_get_task_info_pasid(dev->adev, pasid);
++	if (task_info) {
++		/* Report VM faults from user applications, not retry from kernel */
++		if (task_info->pid)
++			kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, "%x:%s\n",
++					 task_info->pid, task_info->task_name);
++		amdgpu_vm_put_task_info(task_info);
++	}
+ }
+ 
+ void kfd_smi_event_page_fault_start(struct kfd_node *node, pid_t pid,
+-- 
+2.43.0
 
