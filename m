@@ -4,93 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5896BC4828D
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 21:43:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAB1BC48292
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 21:54:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E23010FCC1;
-	Mon,  5 Feb 2024 21:43:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D40A310E28F;
+	Mon,  5 Feb 2024 21:54:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XeItxSot";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jj2o3pkn";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2041.outbound.protection.outlook.com [40.107.220.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E024210FCC1
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Feb 2024 21:43:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J5sD2O9OB85pkt3UXBV1v4BMKYsfbNd8/KR2uLspkxmAiLX9Ax2NcO3MBnYXkfdfo9LACDbXqNekQhUivwfw7YGFX0YqHsc5YNx0noHWJ6vCrYloCPYnJ2SJDiwm9fAJYSvguGqlFdCqDLf7IV9O1RWwz1J2rbH1FufkstnqJRFbbAnHPD3Y6kuMA0JE330Ar3ko8NSNNA7vqoooaDtHW+/MwrOaPx251NWmkj9DF44I9wxScsmoS03/v/Rw1V8FgwN4mfVcV+PAfd1N/p27bamfFIHNf31Y2bFkVZFkwSxVkbfuL9dLdQpOtmCexvIl4N+kwCpjTQdNKzxaFIjHgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QuT0nD89Uw4+/p2EyVf45YPND3/9Ga/TdCf+IRTMQXs=;
- b=WfXhkpLTqGuQOyY6IqbVvMkaOi08iFsrx/XUohJRFzPsD56eUCPEvr98KWnKsEv4OEmu+b68gOon02bGMrR4CA23SR4hwXSJleCjFpJSvAsqpY/sfucgXEnQ0Jg6QIQxS4qCaEv4Ar8/HU6qTZMBmCd95yCTmCJ8l+VpSjGH+wIx56e9G2nKJSS1E1cIIbbDj0fwb2mYi0+B+0kvmtOPDU/BQWUJtrOQn7IKeJbIhuQO+98zcBiB6I+yTb16cIsCvcwXn+y57EK/wl3Qy7InL4R2fM3DPgJVms4SQ5Iu2w0tP4CRb2ZBFvMcgl1lEtuqZZ8F1EA4muo02CBFVBseMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QuT0nD89Uw4+/p2EyVf45YPND3/9Ga/TdCf+IRTMQXs=;
- b=XeItxSotogUL018r6uHdwkjzZSi96JIVPwcHilEh4FGgj4t87pbztSMzFW3oPjD8Q1NAk6zuPuGQN6HeZBgxtmcnRcRIvqhGEs7xZVNmildCRNAt/5OSRZbfqmEC4Ne7j0qYAu+w0EsU7sgtdrFAnunzvnfIuHzAAK7M+7km//0=
-Received: from BY5PR16CA0003.namprd16.prod.outlook.com (2603:10b6:a03:1a0::16)
- by MN0PR12MB5810.namprd12.prod.outlook.com (2603:10b6:208:376::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.24; Mon, 5 Feb
- 2024 21:43:05 +0000
-Received: from SJ5PEPF000001D7.namprd05.prod.outlook.com
- (2603:10b6:a03:1a0:cafe::a4) by BY5PR16CA0003.outlook.office365.com
- (2603:10b6:a03:1a0::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.36 via Frontend
- Transport; Mon, 5 Feb 2024 21:43:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001D7.mail.protection.outlook.com (10.167.242.59) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7228.16 via Frontend Transport; Mon, 5 Feb 2024 21:43:04 +0000
-Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 5 Feb
- 2024 15:43:02 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <mario.limonciello@amd.com>, <stable@vger.kernel.org>,
- Marc Rossi <Marc.Rossi@amd.com>, Hamza Mahfooz <Hamza.Mahfooz@amd.com>
-Subject: [PATCH] drm/amd/display: Disable PSR-SU on Parade 08-01 TCON too
-Date: Mon, 5 Feb 2024 15:12:33 -0600
-Message-ID: <20240205211233.2601-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4359E10FC2D;
+ Mon,  5 Feb 2024 21:54:21 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 5A2D0CE10E3;
+ Mon,  5 Feb 2024 21:54:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEC07C433C7;
+ Mon,  5 Feb 2024 21:54:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1707170050;
+ bh=6GEDCFQk41XP9DzQmt+P7xWPiXzZfQEwbIAYsyL/6lY=;
+ h=From:Date:Subject:To:Cc:From;
+ b=Jj2o3pkngkvdJslLtmThbXMGJLXgEonRU0XkDkA5VSynRzNafZQYBhR0MwS2Yl2Av
+ WSXySO4kdnczUeTzv1GpIyQQ1tDJb+Pp1mJ2cqmarPN5orAlu3n6091jZg3mSMRER7
+ nOEuXRcSkcgkayi+1PhrreJvPypDfAHU5GegfQRvTCNHFBIfKKNQp6LcVDU5UWe9fA
+ v93Gd0MoGmDc34Y+chk4j+l7UMWP+fy83EW0ZIlsAeUkCSUC1pXxCwzNkQ7TpEIuZx
+ Ekupidglumd3Aode9f/uAldY8t3ukiCX2HOujyZiQSmdGUGQVGfaEYoiGUG2q3e4Mx
+ br5mYdGEBztJw==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Mon, 05 Feb 2024 14:54:05 -0700
+Subject: [PATCH] drm/amd/display: Increase frame-larger-than for all
+ display_mode_vba files
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D7:EE_|MN0PR12MB5810:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3284fc5b-388f-4e98-e996-08dc26936ee1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4lvTLLKVUH9/nJ5Ju7gdqov3MfhqVBaPMzV4I/6xe0wKP5uVZK27DrAQ9WY8UFkmQlyQBer6LDIi7BOZdoq45at/7zV0or2Lpt6Bxx4Xgpp+YQLC9MG5NHWyEYWZ4B+FUY1XggmduzdRHbIU3io6aPGO4iUETwuOlVC1mNyMN6szZnZgDdsstbHvXXNUXm2Gh1QfpGvNSGkqGPj3GhoyE8QwWv8G4i5E4n9gHTot68H2eHXqpDRef4Lsnwu5ANmxVmPeXqFJRNwi+dV7z4MwqCJXkcn2j2OgS9Z2nCAfS/w5Rqedtr67/t6iyO6ma8Mr8fvw5BGRrwe3vS9EaFFHYrx4dctVWjRTQxczzY0kpSdbVFrCzTiS1RDYOMBbYVmq6PGOlTqWffBhW/AgO2kWBEeGeUSyZRoq+Fxf9mYeCQcGORNRMR7Vm6pce5DH1l8PBvLj+dIyVOJg7FEaHLxgX2dRkKLk8+OrhBzHWWuwD3SYYHDMNv2MGyCka10KmGMR9pKXIQnVWv4OyAKV5SnTb3QXZyZH3RV/2kZRqwH5yR6YL+zwde1wegyHeQsv+aYForvtYw88LggmdRNi9Tzx/wj4hKShdfRPmBhN/JSrb1+BysMzvJPblucrgg2E8Iy6S4rSMbtma0hBRieuDoULGMqrzG1VgQGXRKViTwg9eEd+pr5Lwc3dNC+rX9SYEQEn4YKoW4871tE0uVRND76bdv/N3SQVmSLLYyTb+koMehNDvJqZVved/GSWp5kbjHL5RBoRyZ3zbjQeo3KdI6ngyOdsb6lCFL8WmEEKW2guy88=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(39860400002)(136003)(376002)(396003)(230922051799003)(230273577357003)(64100799003)(186009)(451199024)(82310400011)(1800799012)(40470700004)(46966006)(36840700001)(54906003)(336012)(44832011)(36860700001)(36756003)(8936002)(41300700001)(82740400003)(47076005)(86362001)(6666004)(70206006)(8676002)(6916009)(316002)(16526019)(4326008)(1076003)(7696005)(356005)(2616005)(2906002)(5660300002)(81166007)(70586007)(426003)(26005)(966005)(478600001)(83380400001)(40460700003)(40480700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2024 21:43:04.0864 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3284fc5b-388f-4e98-e996-08dc26936ee1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D7.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5810
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20240205-amdgpu-raise-flt-for-dml-vba-files-v1-1-9bc8c8b98fb4@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAPxYwWUC/x3NywqDMBBG4VeRWXcgTc2ifZXSRTR/7EC8MFOlI
+ L67weW3OWcngwqMXs1Oik1M5qnifmuo/8ZpAEuqJu9867wLHMc0LCtrFAPn8uM8K6ex8NZFzlJ
+ gDIQuxGcf0D6ohhZFlv81eX+O4wQUV7JbdAAAAA==
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, 
+ alexander.deucher@amd.com
+Cc: christian.koenig@amd.com, Xinhui.Pan@amd.com, morbo@google.com, 
+ justinstitt@google.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, llvm@lists.linux.dev, 
+ patches@lists.linux.dev, stable@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.13-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3644; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=6GEDCFQk41XP9DzQmt+P7xWPiXzZfQEwbIAYsyL/6lY=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDKkHIxnj9YTvrShxvWjc1DiTy07ynlzcAc6LYifEJZkWC
+ VXXirJ0lLIwiHExyIopslQ/Vj1uaDjnLOONU5Ng5rAygQxh4OIUgInsVGdk+BHpcmr2r5kGQTMk
+ Shd21Z6M5OET7p/ZEyf/12Z6pt7njYwMq3/f7WIIe2TkI/OmcAPbuVePSva0SKnYpwZNCmpP+L2
+ GHwA=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,39 +71,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Stuart Hayhurst has found that both at bootup and fullscreen VA-API video
-is leading to black screens for around 1 second and kernel WARNING [1] traces
-when calling dmub_psr_enable() with Parade 08-01 TCON.
+After a recent change in LLVM, allmodconfig (which has CONFIG_KCSAN=y
+and CONFIG_WERROR=y enabled) has a few new instances of
+-Wframe-larger-than for the mode support and system configuration
+functions:
 
-These symptoms all go away with PSR-SU disabled for this TCON, so disable
-it for now while DMUB traces [2] from the failure can be analyzed and the failure
-state properly root caused.
+  drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20v2.c:3393:6: error: stack frame size (2144) exceeds limit (2048) in 'dml20v2_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
+   3393 | void dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+        |      ^
+  1 error generated.
+
+  drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn21/display_mode_vba_21.c:3520:6: error: stack frame size (2192) exceeds limit (2048) in 'dml21_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
+   3520 | void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+        |      ^
+  1 error generated.
+
+  drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:3286:6: error: stack frame size (2128) exceeds limit (2048) in 'dml20_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
+   3286 | void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+        |      ^
+  1 error generated.
+
+Without the sanitizers enabled, there are no warnings.
+
+This was the catalyst for commit 6740ec97bcdb ("drm/amd/display:
+Increase frame warning limit with KASAN or KCSAN in dml2") and that same
+change was made to dml in commit 5b750b22530f ("drm/amd/display:
+Increase frame warning limit with KASAN or KCSAN in dml") but the
+frame_warn_flag variable was not applied to all files. Do so now to
+clear up the warnings and make all these files consistent.
 
 Cc: stable@vger.kernel.org
-Cc: Marc Rossi <Marc.Rossi@amd.com>
-Cc: Hamza Mahfooz <Hamza.Mahfooz@amd.com>
-Link: https://gitlab.freedesktop.org/drm/amd/uploads/a832dd515b571ee171b3e3b566e99a13/dmesg.log [1]
-Link: https://gitlab.freedesktop.org/drm/amd/uploads/8f13ff3b00963c833e23e68aa8116959/output.log [2]
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2645
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Closes: https://github.com/ClangBuiltLinux/linux/issue/1990
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
----
- drivers/gpu/drm/amd/display/modules/power/power_helpers.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dml/Makefile | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
-index e304e8435fb8..477289846a0a 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
-@@ -841,6 +841,8 @@ bool is_psr_su_specific_panel(struct dc_link *link)
- 				isPSRSUSupported = false;
- 			else if (dpcd_caps->sink_dev_id_str[1] == 0x08 && dpcd_caps->sink_dev_id_str[0] == 0x03)
- 				isPSRSUSupported = false;
-+			else if (dpcd_caps->sink_dev_id_str[1] == 0x08 && dpcd_caps->sink_dev_id_str[0] == 0x01)
-+				isPSRSUSupported = false;
- 			else if (dpcd_caps->psr_info.force_psrsu_cap == 0x1)
- 				isPSRSUSupported = true;
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index 6042a5a6a44f..59ade76ffb18 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -72,11 +72,11 @@ CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn10/dcn10_fpu.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/dcn20_fpu.o := $(dml_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_ccflags)
++CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_ccflags) $(frame_warn_flag)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_ccflags)
++CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_ccflags) $(frame_warn_flag)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_ccflags)
++CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_ccflags) $(frame_warn_flag)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_ccflags) $(frame_warn_flag)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_ccflags)
+
+---
+base-commit: 6813cdca4ab94a238f8eb0cef3d3f3fcbdfb0ee0
+change-id: 20240205-amdgpu-raise-flt-for-dml-vba-files-ee5b5a9c5e43
+
+Best regards,
 -- 
-2.34.1
+Nathan Chancellor <nathan@kernel.org>
 
