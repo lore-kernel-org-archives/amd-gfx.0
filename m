@@ -4,71 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE079C4828D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1312C48295
 	for <amd-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 14:40:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5050410FA03;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7028210FA04;
 	Mon,  5 Feb 2024 14:40:07 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XYBTCKL4";
-	dkim-atps=neutral
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A24510F58E
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Feb 2024 12:22:11 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5114a21176cso620444e87.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 05 Feb 2024 04:22:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1707135729; x=1707740529; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DsTopB40v8e+57R3FP+15KsfdhxipZbBAJNJON7l3mE=;
- b=XYBTCKL4WHyA1iza8ey5d/HDTNvKBZWAI91gPxd9nSQBYG0ATZ60tJC6q1Gs407wa2
- u9cuY3y8vWQzMTi4dAFml6ufIKIH1ZFk3VuOBrHihJPNpOUSFNRhh2m+3jebTaW6aJT8
- bOfuBzVwJJZR9qYiKgn0x5B5GZRIZR35VjfOg9ebvAcjr2RRf+FFSRj4e4bXkC/3fi1C
- /6q6ZFkADBjbD8dISxxRZJuV8usKYynxWaNsqMS0gBECde4kQyPtTWhvv5nDQAzK8+89
- udc0a2ztjxLbyM2wk3X6cBedH6Z21QIXCLb8/hDEnnwE8mZk2BKsnIOAxe4Q83tPy+90
- Hf4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707135729; x=1707740529;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DsTopB40v8e+57R3FP+15KsfdhxipZbBAJNJON7l3mE=;
- b=ZPQO1vhSds0t6HyQ8Uq8qPwa+hKK8zK3Ll6GsxldJ/YtepC6cnV2yrddB1HR9SkrMS
- 9p0RD2CCRTWkg0lqlgb/Ekmw4ID9WbCPLHlW5PYjxTHFRqq+6qeXlDHP0pWz/AHasNDU
- z66WqC0oS/SVeV99yCgCp2+SbLO5fDk0fbuSiCkJJwDBzp7FT0RhKluIgm4TZGT7VDgQ
- sVKvkKIYcK1i4TJ63Tk9s1iNSwWXdRJWWgttmlKvKZ45iawTbnODZs06Em9TfTn0dkKO
- rRD8Mo8PAsk4YoVnt1dkHFAqq/VYC0Gwn3ZJpBmSGcEZKtUCavzP5sVdvvetsIugvbrc
- c0OQ==
-X-Gm-Message-State: AOJu0YwTyKjVyBg9tj90OR6Y66AlikbcMUI0JMF1rlQ7/amXiy44Mlv4
- OyYQvELQ3q5MMYD3O3dDiuO1m4N+jFQeMulHq7WlAWX+t3pzXnMq
-X-Google-Smtp-Source: AGHT+IEOF08DEpMV/aE/bR6THEAkaKyqbsTR+aZvoSd+B423zZBGK06bqHI29Me8zUQgNkJYYs7TIg==
-X-Received: by 2002:a05:6512:1055:b0:511:536b:89e with SMTP id
- c21-20020a056512105500b00511536b089emr1248133lfb.0.1707135728790; 
- Mon, 05 Feb 2024 04:22:08 -0800 (PST)
-X-Forwarded-Encrypted: i=0;
- AJvYcCUhuGx+c5f52OKpYK4sIjM/j/qWUhfNP+BN/x2fhUnmjyAzVzpkMsHvapI0lc9LK4pbGDi3BGiiv1Ui42/31CQYcszxMRDVgM+61GVxVdDlh4vzLszfdlRR7gvACXgCSXb0WU7Ug/ZdPF3oiugFfnbr13PshUReJyFZl7XFrubNFxuT2iPzsm4L1p23j8e16x6ieuHxCeik5Ok2K87jhnv+JehO17/7b04fUeVDyw==
-Received: from localhost ([193.209.96.43]) by smtp.gmail.com with ESMTPSA id
- w13-20020a05651234cd00b00511560092e3sm27526lfr.298.2024.02.05.04.22.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Feb 2024 04:22:08 -0800 (PST)
-Date: Mon, 5 Feb 2024 14:22:07 +0200
-From: Zhi Wang <zhi.wang.linux@gmail.com>
-To: Emily Deng <Emily.Deng@amd.com>
-Cc: <amd-gfx@lists.freedesktop.org>, <bhelgaas@google.com>,
- <alex.williamson@redhat.com>, <linux-pci@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>
-Subject: Re: [PATCH] PCI: Add vf reset notification for pf
-Message-ID: <20240205142207.0000685a.zhi.wang.linux@gmail.com>
-In-Reply-To: <20240204061257.1408243-1-Emily.Deng@amd.com>
-References: <20240204061257.1408243-1-Emily.Deng@amd.com>
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.38; x86_64-w64-mingw32)
+X-Greylist: delayed 329 seconds by postgrey-1.36 at gabe;
+ Mon, 05 Feb 2024 12:34:40 UTC
+Received: from tretyak2.mcst.ru (tretyak2.mcst.ru [212.5.119.215])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB2A010EF46;
+ Mon,  5 Feb 2024 12:34:40 +0000 (UTC)
+Received: from tretyak2.mcst.ru (localhost [127.0.0.1])
+ by tretyak2.mcst.ru (Postfix) with ESMTP id D6021102399;
+ Mon,  5 Feb 2024 15:29:02 +0300 (MSK)
+Received: from frog.lab.sun.mcst.ru (frog.lab.sun.mcst.ru [176.16.4.50])
+ by tretyak2.mcst.ru (Postfix) with ESMTP id CEF09102394;
+ Mon,  5 Feb 2024 15:28:12 +0300 (MSK)
+Received: from artemiev-i.lab.sun.mcst.ru (avior-1 [192.168.63.223])
+ by frog.lab.sun.mcst.ru (8.13.4/8.12.11) with ESMTP id 415CS8Dw005304;
+ Mon, 5 Feb 2024 15:28:08 +0300
+From: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Igor Artemiev <Igor.A.Artemiev@mcst.ru>, Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org
+Subject: [lvc-project] [PATCH] drm/amd/pm: check return value of
+ amdgpu_irq_add_id()
+Date: Mon,  5 Feb 2024 15:25:21 +0300
+Message-Id: <20240205122522.81627-1-Igor.A.Artemiev@mcst.ru>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Anti-Virus: Kaspersky Anti-Virus for Linux Mail Server 5.6.39/RELEASE,
+ bases: 20111107 #2745587, check: 20240205 notchecked
+X-AV-Checked: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Mon, 05 Feb 2024 14:40:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,64 +56,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 4 Feb 2024 14:12:57 +0800
-Emily Deng <Emily.Deng@amd.com> wrote:
+amdgpu_irq_ad_id() may fail and the irq handlers will not be registered.
+This patch adds error code check.
 
-> When a vf has been reset, the pf wants to get notification to remove
-> the vf out of schedule.
-> 
-> Solution:
-> Add the callback function in pci_driver sriov_vf_reset_notification.
-> When vf reset happens, then call this callback function.
-> 
-> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
-> ---
->  drivers/pci/pci.c   | 8 ++++++++
->  include/linux/pci.h | 1 +
->  2 files changed, 9 insertions(+)
-> 
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index 60230da957e0..aca937b05531 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -4780,6 +4780,14 @@ EXPORT_SYMBOL_GPL(pcie_flr);
->   */
->  int pcie_reset_flr(struct pci_dev *dev, bool probe)
->  {
-> +	struct pci_dev *pf_dev;
-> +
-> +	if (dev->is_virtfn) {
-> +		pf_dev = dev->physfn;
-> +		if (pf_dev->driver->sriov_vf_reset_notification)
-> +
-> pf_dev->driver->sriov_vf_reset_notification(pf_dev, dev);
-> +	}
-> +
->  	if (dev->dev_flags & PCI_DEV_FLAGS_NO_FLR_RESET)
->  		return -ENOTTY;
->  
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index c69a2cc1f412..4fa31d9b0aa7 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -926,6 +926,7 @@ struct pci_driver {
->  	int  (*sriov_configure)(struct pci_dev *dev, int num_vfs);
-> /* On PF */ int  (*sriov_set_msix_vec_count)(struct pci_dev *vf, int
-> msix_vec_count); /* On PF */ u32  (*sriov_get_vf_total_msix)(struct
-> pci_dev *pf);
-> +	void  (*sriov_vf_reset_notification)(struct pci_dev *pf,
-> struct pci_dev *vf); const struct pci_error_handlers *err_handler;
->  	const struct attribute_group **groups;
->  	const struct attribute_group **dev_groups;
+Found by Linux Verification Center (linuxtesting.org).
 
-Hi:
+Signed-off-by: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
+---
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c    | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-I would suggest you can provide a cover letter including a complete
-picture that tells the background, detailed problem statement, the
-solutions and plus the users. As this seems very like a generic change,
-it needs a better justification to convince folks why this is the best
-solution. Without a complete picture, the solution just looks like a
-workaround.
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
+index 79a566f3564a..9cb965479dd8 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
+@@ -647,26 +647,34 @@ int smu9_register_irq_handlers(struct pp_hwmgr *hwmgr)
+ {
+ 	struct amdgpu_irq_src *source =
+ 		kzalloc(sizeof(struct amdgpu_irq_src), GFP_KERNEL);
++	int ret;
+ 
+ 	if (!source)
+ 		return -ENOMEM;
+ 
+ 	source->funcs = &smu9_irq_funcs;
+ 
+-	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
++	ret = amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
+ 			SOC15_IH_CLIENTID_THM,
+ 			THM_9_0__SRCID__THM_DIG_THERM_L2H,
+ 			source);
+-	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
++	if (ret)
++		return ret;
++
++	ret = amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
+ 			SOC15_IH_CLIENTID_THM,
+ 			THM_9_0__SRCID__THM_DIG_THERM_H2L,
+ 			source);
++	if (ret)
++		return ret;
+ 
+ 	/* Register CTF(GPIO_19) interrupt */
+-	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
++	ret = amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
+ 			SOC15_IH_CLIENTID_ROM_SMUIO,
+ 			SMUIO_9_0__SRCID__SMUIO_GPIO19,
+ 			source);
++	if (ret)
++		return ret;
+ 
+ 	return 0;
+ }
+-- 
+2.39.2
 
-Thanks,
-Zhi.
