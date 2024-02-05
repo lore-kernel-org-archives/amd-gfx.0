@@ -4,117 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A498C48291
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 08:33:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0BEDC48291
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Feb 2024 08:48:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A02D710EBA3;
-	Mon,  5 Feb 2024 08:32:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44E8510FE4D;
+	Mon,  5 Feb 2024 08:48:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jTX1lU1C";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fmZh1Zlo";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2070.outbound.protection.outlook.com [40.107.237.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99E1D10EBA3
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Feb 2024 08:32:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ee5Wm9bMR7xALNwWHac/rT7fExMRnnwvkU8yXrVPnmCJTQ/4MVV1Q+Adyt87QuR3s1klM2naQgnUJYB0w4xuTCD4GJoQLGrJHDapUnc0N/zSLd4IKnSmSRFzHUR55Of+9NRZBkO2jz/Srxi/yUWVXF1xYEr5Sozt3viMZpbibUDiHGTD/0YCAlzWknNmyCs2NbQlP/brp9x1Cn1lM72rg8Q+6Vi25DSaMJqESk/iaf3CNtEz+5jpyMz2UL87ZMIL2qgpKMF2kbZ36WN5su/dUx1o7DgXa7MifHj5fWBG7E8RRSlvGtTrvXgCISgWycceWnTYOaPJqtBKHUnOjPZ7DA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Uwq00xtUlT6pXawgrUXE/ebish3UJJ/A+hZqNuyWUbQ=;
- b=m6SczGzfgstmKI4ngRbgk/IFZLrg5vLe3JtkPSs+aJjBjFo+AP9FvPUX4DLOIK2nGxZJMbjNlmt/QTb1mNVFHd8d7xxaBKbfUsUDgUBJL2bMjXe5FpXiKnc/iuOdbKB6gpNnaUUS4XvbuXGocCFuQJVm58+Ilv31eZyJhYV8U1z8Ae/xObKSuG+L2h9UvJqX3/pBAhu4rpR1ff9+BH7jNrwUfzl+cmsYE7ZY1VmfwIdf6KIxD5Kf9MKPwgTx+9c1JYQT0eMrT2fvOGg0WnjfyDL+pjZ/97ZktYACErNTZIjbvQv0CIqzWE9N64eLkBOFwER1/cQvYXACxQ7tWCtYTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Uwq00xtUlT6pXawgrUXE/ebish3UJJ/A+hZqNuyWUbQ=;
- b=jTX1lU1C+AR7Khf2EbAK2PKV5Bnc4iMzTgvhQTcEZAfEH4hyWDWrVWRYu8fbDnd9U+5vliRUcG9g5sXNrpWdCWnfnyuK1P283LK1nBC0s9auWWYxqg3Ya9FcDpvEKpLNBA3AzVrb4FkkDLhbiz3DH1sgVaBGPVqMdPDJzC740VU=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by SJ1PR12MB6338.namprd12.prod.outlook.com (2603:10b6:a03:455::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.16; Mon, 5 Feb
- 2024 08:32:48 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::353:e785:731:7b81]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::353:e785:731:7b81%3]) with mapi id 15.20.7270.015; Mon, 5 Feb 2024
- 08:32:48 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Yang, Stanley" <Stanley.Yang@amd.com>
-Subject: RE: [PATCH Review 1/1] drm/amdgpu: Fix shared buff copy to user
-Thread-Topic: [PATCH Review 1/1] drm/amdgpu: Fix shared buff copy to user
-Thread-Index: AQHaWArO6R6TvH4hI0y5vk6CJ9lXWbD7a5vg
-Date: Mon, 5 Feb 2024 08:32:48 +0000
-Message-ID: <BN9PR12MB52578DB5F943D41352DD3200FC472@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20240205080955.1378983-1-Stanley.Yang@amd.com>
-In-Reply-To: <20240205080955.1378983-1-Stanley.Yang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=ddb120b1-51d9-4575-b51c-ca43038d4a1b;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-02-05T08:32:25Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SJ1PR12MB6338:EE_
-x-ms-office365-filtering-correlation-id: b07f31e4-6b40-48fb-4ffa-08dc26250904
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: GX7jCEWThHPxYBJljt3m1OSaKH2LvcAEWF8IKAglvSkSLjLaaRd9vIjsvaSjvCl4DaGfd6aXVDsEV+ENBFfEFYRU/3N7B5AvU9kwRuWU4eQcdVS4r0G+4jxkDmeCmRPUBSeVh+irFDjEGFHbKuroVFiSpLt4q/geWb/eriXr4iPdLjTewyHl5uTzMYV7UqjEoso+4BqiTfBarrIED8Unf9X2YAh6p3KKRt5UpXqXAKg2AcEgqP9wUs1gI6JV/BI7X6eyI7t8caP0PJXN8zyn/cBDcAhq6A5pBnSQ6fXENoMLPHl8BL2Gz53eHiGtIPcYh/3gE1AT3RhPovUgbXew7dJ1m0C8scx+DgVobSRqoYGx/kuBokDA/zs3ycCO2DZKVlDftMgj89a7HBTbYxsmfcwT6ktykTyewFBtsjp+Ki8/Pqo0XQcbsUcoYQ/goNyxuBFgY3T2qw/ZwSobn1hKULM8YGC+ZuSY+o+Y77Gk83pl4M1TtSy4SrrwuOYFNeBRaIxdpIUlpTlKnBpjzsS+b+U/o9WSbscgD9l5kKbrttPYRiKEoozSG32ul2xkPrhlx6GpG/LJvJL0TEcJgm13UHSnvQHIONJKSNnk4/LqQInLMubrPezsw1JtPGfxRf1h
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(396003)(376002)(136003)(39860400002)(366004)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(38070700009)(53546011)(6506007)(9686003)(7696005)(26005)(41300700001)(38100700002)(86362001)(122000001)(83380400001)(478600001)(33656002)(71200400001)(8676002)(8936002)(4326008)(2906002)(55016003)(5660300002)(52536014)(76116006)(66946007)(66446008)(66556008)(66476007)(110136005)(316002)(64756008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?agRgs9m48MZsvcSJvnZtRgs2jN0TmGRUT7P9zv2rWy8d0yYZzgDSCGtS87TP?=
- =?us-ascii?Q?tIRrgvqHJ6uOBekMf73OaPVcZ/t8ci5JH2jwgZY4FdoiiPl4bNTuZR0lPKoP?=
- =?us-ascii?Q?THABgvvt/So2yYMBH25SzkuYx+NhXg1eJ06E348ofw/bezigssyiFwC9FbjF?=
- =?us-ascii?Q?k+NISHfeBfb2qbnBbtluZKzAhPmZGHVlR7dkLPUlaBhfmprf26D6hG1M8eQ6?=
- =?us-ascii?Q?DrilRw0x4yUE/XO5xhpU1WyvgOmJL4ek3n7WqtoeaHCpneZEniR6KMm5RXJu?=
- =?us-ascii?Q?Y4ExNNzHFA9Ncqoq8yytlboc5HSF5z1RkSSHCe2pPC1kv0TGPEXKN3ew/sE9?=
- =?us-ascii?Q?FepXUfXvZazuu/UTphmb2/Ga7ttUAeyO2iTKyP14jGiEteFqDJzKXD0k6ZEn?=
- =?us-ascii?Q?D+fXKEy4atZFUDvDgEeT8+Dq3bAf78HXBYbCsZx3wh1UMO92/K71k8LCCL9j?=
- =?us-ascii?Q?ssYppbNvyg6LI6xD4BLKdefGMthu4zYd3AVOfLXbrjcgw56nhWxQelq9W7tJ?=
- =?us-ascii?Q?gCzrFW63u1s2APnr3SB0ZbgiNi3ltuQUiBVyUPphDexMDUgf3dxzZd3SwIR1?=
- =?us-ascii?Q?AGrhUkMD/OMVs4UNYaSCcBRawt2KM94cZI36FtrlMS4ptqdt4zCyJXr0SXCZ?=
- =?us-ascii?Q?RRWmgXbcjMBjTF+vMLW1XA7cdkeW4GHNfawZ2N6nwRflJiGQ5xKuRNH7ezYJ?=
- =?us-ascii?Q?k0ksOHIfCHGRnP7cZLsxRZFgE9QPDns/OGfeTei+m9Y+CS1sCbWg3SggoftK?=
- =?us-ascii?Q?EGAloZU2sfAKx9bUab+cPJlh5zvvyRBIGVwyQH0t8dQanHNVesXFsf03nIVc?=
- =?us-ascii?Q?sEEmy7iMjX3Z2loEUuS+9YJ9GdHkEQATai0h+lsglzHqtWpjBdq9pApvOLyN?=
- =?us-ascii?Q?6wFPMjz6fwWT0OoVJMJlz0nCnAJx5uEuUpQDN36XFFpr+Z4zBf041zgkTjH9?=
- =?us-ascii?Q?PrUx/SS53O2kKtr7oeFs0x+wixekEoeGlj4smv1MIMQPZs7R8P7Ay0qtV0OV?=
- =?us-ascii?Q?83lLsYOvThbqGQNbmcnOpqYst7LlWH+vbxH3WLKI2909U5zZK6o6kZEFn7bD?=
- =?us-ascii?Q?SqdcuVZzyxXftcDTA7OXwzqaw/5G4hZOqIh95WLwBRiNgbK7Q6bBm1uZ1/PB?=
- =?us-ascii?Q?5aG4iq7HngeYbnkw1Nv9EsTKoJyD2mxVFF2IrmPM3bk5eSSG9PgEC0v5BvRN?=
- =?us-ascii?Q?0Is+xSvDvxMuPcqBNMY36gts4vQOYBQIQSXQ8/xvrs9HYb5BbEh1XmJ3fOBc?=
- =?us-ascii?Q?zf/FrpdfSum74uc0i+mjvR+8mMpJKsnpluRIhVP04UAJosgGHIqfWH7aA+28?=
- =?us-ascii?Q?Cq4TDhpH7tTwYkzOUOct5vkzuzEp3pDuxF0pr0aOtOV6vTc/XNRBBftpjRvu?=
- =?us-ascii?Q?2PxVuupVFYRnKnKk8xfXEsm66m6ce/qsvRF3NXjSJfalsQ16RzUnHT7RaZCj?=
- =?us-ascii?Q?q+K3gBqIfBFmYf3pM9NmvE8/aAIWji4ckwRDLhjOrIpZVLOnfW1KwUpZ2vGd?=
- =?us-ascii?Q?S4Z4CgLNJlrV2PcCigxHJgAFv59upCMn47QOv0TADxB730JHm8tIoUCqz6+/?=
- =?us-ascii?Q?3M69avftzJKXdNaj88k=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C50D21121AE;
+ Mon,  5 Feb 2024 08:48:45 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-51121637524so6222690e87.1; 
+ Mon, 05 Feb 2024 00:48:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1707122924; x=1707727724; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=2ydA0TsnU465lLz9wxK97OfQIetnhQ94qrcei325RlU=;
+ b=fmZh1Zlo7DcSy6fH4ki656DWCsniZE6PdeQ0u+jHjXVJ3KkuJILabTlaX/FpZLC/+X
+ kQWC3erm4cVxjQki2QjFEHsuvSiCcXdbcVPG7uwZtkIJ5C4jhdnOFzAumlUigrB09OD8
+ oY4GBFt3Q3/1nSJE494QeY5+DQFMYTI1ZP14TwpPwHQUy2PZnYUkNOlfyvNCHYVzA80m
+ 6uD97lmacgGEKv+I6Mv5+E8Phxfnx621gMoKczr2BFd3hpFfIf03WWP1/+TMjQqHfTH7
+ gwjSv3lUUf6NH68+WtjyodYIp66W3HLtNig71LbzjbAoQp222w3YCzYzoU53vdYSHUXp
+ 4jMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707122924; x=1707727724;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=2ydA0TsnU465lLz9wxK97OfQIetnhQ94qrcei325RlU=;
+ b=QPuliCb4YzPn1bCUUnpzjVJjrdIw0v0Wsxp5QjnORor1rF1wuKnKeJdQvBXc/oNVB+
+ Do93tUtzy1HLuEz2VIgnQ9dky7F33OwRpLI4ljOeariNg+sHvTpm1i9lGpBMDr9TYaRH
+ Pv0YVUGEcroN5TtLMZxfipc1m8W1WRCgKnXjk/YysaG+MjgGh6EgYrWaljIRp0/AocAq
+ mIvAczQwv85KQsZPCYGFasHfPcL0pqIvgPGUGbjPc5WVrOgweK8qwp9NXemTU6aAklgJ
+ WMUY2pfVYFUl7aZECn34OfbIqnTYjuKLwoGY3KZW2GHhpVt6EShOsNaWbd7Ri5t/F4jV
+ 4hTA==
+X-Gm-Message-State: AOJu0YytQlkdYEQmEtMPZM67UuD83caeQwKWE3hSH+4ADXpY5yh+TUjd
+ n075Y3yxtQvzVwaq2gCGjMc9a/4CmFU69/VNSpTiqDvACWHnY6gR
+X-Google-Smtp-Source: AGHT+IGj2EJGaW3ePkdcXnqMICBr00UnLOrY2sn4RNzOXXc74BszNhMhBcvP3UIS16mAc/2cBo9nZg==
+X-Received: by 2002:a05:6512:31cb:b0:511:3a70:b954 with SMTP id
+ j11-20020a05651231cb00b005113a70b954mr6520932lfe.18.1707122923640; 
+ Mon, 05 Feb 2024 00:48:43 -0800 (PST)
+X-Forwarded-Encrypted: i=0;
+ AJvYcCXCoeSRFEtdkJcbTVUZ54U6K3KuWSeDkOfG2db1WYNHjJg/nRAjfbybs8KpLWSO1Pd6zr/YZ1svqmlZm3as6lC4UXHrL8TY5kWDNRXZcSECchOZt7VOzWEOSZwTxyfdBG5C7Olmv98tvr3AJSpdHITAI4o4A4z9GXYiyuWRN7poAITWXzkE3R6XPIZzZuzXD0GbAVB7ZvDKq8QGk3AJWHP4M8M/vTc9EQbuMiZZ/lbWB7idgBKgmJF2e9TbSZ/UYrwAPfhGUqWy0tPvhlBIXTLmZqXKxuoGfHZIJPBDpEp8Dte+UPe0/0cSTYPWBQswSUjTIr2o6duH2IRJ4ZQifAdzdHstuXQXoPuIEoNilHlJ+tACRHpFcMflp4iXhQYmITMGnspvl5B/crOIO1VlE1TDsjqzHjr26JaJJA87UhBR/oRT1OESDFQR3wsT+hrt572U9hyNVRRPJmfTDnyj07yhzV9tmHz26k0DxnAjbED3HFwVFZvc5Jz7oM6ml7r6csJrkara0EX0K+SpkKEDPk72N8lHRAam64iIulwa+3ApOaXISqm2IbqnMcHOnBtjUQSFe0VRfiDE/iC25pS6mWi+Tl436sPlbsRc/uDAqOcI1vXRFXjXLolBujD2yLQ1AETm27yRExX8o88gC9denL3Qi4GZ9K1lMq3PzMenHfEOVCr5QNP08F7af5epMZMFvTTQ3Ozi8p1fSQc++S64TL4KrhUvtnj2Q3uNCAMx6um8ytlvJZRqIh25Z97b
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ l30-20020a05600c1d1e00b0040e541ddcb1sm7877780wms.33.2024.02.05.00.48.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Feb 2024 00:48:43 -0800 (PST)
+Message-ID: <fe098f5a-b0b0-4698-ad8f-2d302fa37626@gmail.com>
+Date: Mon, 5 Feb 2024 09:48:39 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b07f31e4-6b40-48fb-4ffa-08dc26250904
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Feb 2024 08:32:48.6582 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: aCGEV3qUdkjv74R8jBOmZcZBFTbmQuvxA6uxw9HPcddlvv6A7lGF/bhfbyRQrhepbWkxi174w4+41mnNfkMyUw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6338
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] driver core: bus: introduce can_remove()
+Content-Language: en-US
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Bjorn Helgaas <bhelgaas@google.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, Le Ma <le.ma@amd.com>,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ James Zhu <James.Zhu@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Joerg Roedel <jroedel@suse.de>, Iwona Winiarska <iwona.winiarska@intel.com>,
+ Robin Murphy <robin.murphy@arm.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
+References: <20240202222603.141240-1-hamza.mahfooz@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240202222603.141240-1-hamza.mahfooz@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,52 +96,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Am 02.02.24 um 23:25 schrieb Hamza Mahfooz:
+> Currently, drivers have no mechanism to block requests to unbind
+> devices. However, this can cause resource leaks and leave the device in
+> an inconsistent state, such that rebinding the device may cause a hang
+> or otherwise prevent the device from being rebound. So, introduce
+> the can_remove() callback to allow drivers to indicate if it isn't
+> appropriate to remove a device at the given time.
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Well that is nonsense. When you physically remove a device (e.g. unplug 
+it) then there is nothing in software you can do to prevent that.
 
 Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Stanley.=
-Yang
-Sent: Monday, February 5, 2024 16:10
-To: amd-gfx@lists.freedesktop.org
-Cc: Yang, Stanley <Stanley.Yang@amd.com>
-Subject: [PATCH Review 1/1] drm/amdgpu: Fix shared buff copy to user
+Christian.
 
-ta if invoke node buffer
-|-------- ta type ----------|
-|--------  ta id  ----------|
-|-------- cmd  id ----------|
-|------ shared buf len -----|
-|------ shared buffer ------|
-
-ta if invoke node buffer is as above, copy shared buffer data to correct lo=
-cation
-
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_psp_ta.c
-index 468a67b302d4..ca5c86e5f7cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-@@ -362,7 +362,7 @@ static ssize_t ta_if_invoke_debugfs_write(struct file *=
-fp, const char *buf, size
-                }
-        }
-
--       if (copy_to_user((char *)buf, context->mem_context.shared_buf, shar=
-ed_buf_len))
-+       if (copy_to_user((char *)&buf[copy_pos], context->mem_context.share=
-d_buf, shared_buf_len))
-                ret =3D -EFAULT;
-
- err_free_shared_buf:
---
-2.25.1
+>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> ---
+>   drivers/base/bus.c         | 4 ++++
+>   include/linux/device/bus.h | 2 ++
+>   2 files changed, 6 insertions(+)
+>
+> diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+> index daee55c9b2d9..7c259b01ea99 100644
+> --- a/drivers/base/bus.c
+> +++ b/drivers/base/bus.c
+> @@ -239,6 +239,10 @@ static ssize_t unbind_store(struct device_driver *drv, const char *buf,
+>   
+>   	dev = bus_find_device_by_name(bus, NULL, buf);
+>   	if (dev && dev->driver == drv) {
+> +		if (dev->bus && dev->bus->can_remove &&
+> +		    !dev->bus->can_remove(dev))
+> +			return -EBUSY;
+> +
+>   		device_driver_detach(dev);
+>   		err = count;
+>   	}
+> diff --git a/include/linux/device/bus.h b/include/linux/device/bus.h
+> index 5ef4ec1c36c3..c9d4af0ed3b8 100644
+> --- a/include/linux/device/bus.h
+> +++ b/include/linux/device/bus.h
+> @@ -46,6 +46,7 @@ struct fwnode_handle;
+>    *		be called at late_initcall_sync level. If the device has
+>    *		consumers that are never bound to a driver, this function
+>    *		will never get called until they do.
+> + * @can_remove: Called before attempting to remove a device from this bus.
+>    * @remove:	Called when a device removed from this bus.
+>    * @shutdown:	Called at shut-down time to quiesce the device.
+>    *
+> @@ -85,6 +86,7 @@ struct bus_type {
+>   	int (*uevent)(const struct device *dev, struct kobj_uevent_env *env);
+>   	int (*probe)(struct device *dev);
+>   	void (*sync_state)(struct device *dev);
+> +	bool (*can_remove)(struct device *dev);
+>   	void (*remove)(struct device *dev);
+>   	void (*shutdown)(struct device *dev);
+>   
 
