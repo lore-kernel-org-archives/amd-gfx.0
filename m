@@ -4,68 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A9DEC4828D
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Feb 2024 14:45:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACBEFC4829B
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Feb 2024 15:59:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A6AB112C5D;
-	Tue,  6 Feb 2024 14:44:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A5E410F671;
+	Tue,  6 Feb 2024 15:59:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZLdgQ+ET";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Lrywy4Do";
 	dkim-atps=neutral
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
- [209.85.160.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 240C710EC6D;
- Tue,  6 Feb 2024 14:44:53 +0000 (UTC)
-Received: by mail-oa1-f42.google.com with SMTP id
- 586e51a60fabf-2196dd318feso1818678fac.2; 
- Tue, 06 Feb 2024 06:44:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1707230692; x=1707835492; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+20KhE5CzGghzyw+yh5TsIxVW9/ObxNGsBkKGzjlNGA=;
- b=ZLdgQ+ETP0DazhO/Ouap7iOYbYSDodbMfgLhvE2D1xDUeJJ1EZtGHUBmVf3aSsHS4G
- BnsJE38f9uEShW3jsFF4n0f2Ggy8ztxCaLRvvvLV0VYlVzQbVhkmshp2CYT7w+1xkdxn
- QCei658AOdiIkyAt2vn/I8RIybrcf8fqNd/gOkmq0UpetIp27dtXeg3Qm6YZAPCCDb5n
- hIAIu5N8xW57ksUS5YW57rGAR/fAChqcyshyDvwjTkO+c7nikLRM/8i9tOV37SO7npg2
- +9XbLw+8n2ID7e4Mja4g6Bcp0pK5qyTWqeFQmL1Rd+iD0wY4WAZ1gJn1L3PYlgU4+85m
- /6Rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707230692; x=1707835492;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+20KhE5CzGghzyw+yh5TsIxVW9/ObxNGsBkKGzjlNGA=;
- b=gcx5rBbT5ckWkXGCW3pD3Imr7eHyUK2f85YeveRgaFIA78zzBFFobaPWTyVxv7zPC5
- 5rxp3NKqryktYQYWCT4tdEWaiLLEfIdJ7rBr43nUp7J/qnuuxkjEjJxq9ueyo4zK3zPn
- ldiQMLkLPZFgI/qYY1d+dX6BTv66KtNaLEcvnb9JWzYxbhBAqBFQOfZhHI6wCrZgI0mo
- DritsYERwI62Vc/bHq074beXVXSXAhqDcbb2QZuJdC9aE62NeW7LT1VAV27DpBnnBxY0
- BKVyLD8mnzUgsNCZUa1mAPq/u1I7kDSLSdWIzY/0baxAtT/uF9AsA22T9WzEThIi/ufJ
- bs7Q==
-X-Gm-Message-State: AOJu0Yw3eLqZcIQHxSH5GkZ33CYDWxNqH5CxOFL/JyRSl8VF25YK6g9K
- ISdAf5/GvNu2ZKoB1h5Aql7zk1CEyM7X9xxA2895n+JBeq97UZbGnOUCRIQugqfLNAMYFZ8yElr
- Xi49GyxaFqbu/OEVvNyxuF0Hk+SY=
-X-Google-Smtp-Source: AGHT+IF0WZWM6Ib5EqucHZaEu5uV8FtMlbuTK8HqLl2KoroGz2pfdLgomL1X+7K8CnT8yIn7ZCEgAcp+W+dbQdJdLrU=
-X-Received: by 2002:a05:6870:638c:b0:219:3d70:97b9 with SMTP id
- t12-20020a056870638c00b002193d7097b9mr3072489oap.37.1707230692108; Tue, 06
- Feb 2024 06:44:52 -0800 (PST)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 557E610F671
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Feb 2024 15:59:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=g30hf+OUUB+hObJ/Lj9SVVekoQAgdumJa1+079bU8jbK1xirhlwFdC1vXRPywAlTOr+70aC38NYF0dcLX3vQotafmiIAD7yNjzIzEAI++J2lhavlyNAxhDH8t4LwngpkyC7ttSEbL5VAomqeUNNosugWntEKVrnCiQW9AldmOoYfv2ck5eBT0N5R6jSCuKzPo35SpNFfKhoShv+zPRBTMg1JBd2wO+T5KqjY1ja1DEvLo30URLH3PaUa33Wq0PdSgaLbUDIpzzq+3lGhGJ+5def56191+jf82SogCoBCiA1+wqvfAbufWeZX4rv2MxeSb3OLkJ8D/rRICrhC/jSqkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=z3/wI0Udl6k4LRzuq8mKerNSaGsf+xvE29/QZVocbsI=;
+ b=RWPghQEmd6KgVsltDxPy5hB4NQiVV76jx1vINqPmwM8n8y8nxkVB+T63y/GSzsRwrUo2Wz0cV3jPA/f3TOvUxdZ5zwivoWt/3PF7pEcCOfVdqvCvr7SWvPNKLtOrmqyWsr7gIyOb+3vujJK8aNYJAfsYesiiUEN13NvN7S0iqAqDFaomhhlNp14kHYCDQkTwLyGGMPlbLWwAC6jwr/k9pSq3n7YkV8q0PbCMkIliGiIeoQLJqOF3efEgW3eNoczbMDJbsyxt/nWF3JJz2x3ZHjCT9I8CoHH5OZi2lq/tuQ+aowTtUTh3CIZWDj+GHX6F0zUpy7RItfb+OgXPZJbgIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z3/wI0Udl6k4LRzuq8mKerNSaGsf+xvE29/QZVocbsI=;
+ b=Lrywy4DoKdUtSnX33IEecSbnsqizL/qcBh3OCL9AOL3kK+jR6FO/GIFkuh/TzZS4WLeB3EGCmvGQFcg1Vn7O/AfNhBO8hAxgYYgLXebsw2cSXgYkc8Q89rfHkEbIOB4dCqZkz4ojcU1lRJGxhtAht8xR6w5DpUH8Mmo/EQMp8sY=
+Received: from SJ0PR03CA0227.namprd03.prod.outlook.com (2603:10b6:a03:39f::22)
+ by DS7PR12MB5885.namprd12.prod.outlook.com (2603:10b6:8:78::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.15; Tue, 6 Feb
+ 2024 15:59:33 +0000
+Received: from SJ1PEPF00001CDD.namprd05.prod.outlook.com
+ (2603:10b6:a03:39f:cafe::27) by SJ0PR03CA0227.outlook.office365.com
+ (2603:10b6:a03:39f::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.36 via Frontend
+ Transport; Tue, 6 Feb 2024 15:59:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00001CDD.mail.protection.outlook.com (10.167.242.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7202.16 via Frontend Transport; Tue, 6 Feb 2024 15:59:32 +0000
+Received: from jz-tester2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 6 Feb
+ 2024 09:59:31 -0600
+From: James Zhu <James.Zhu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Felix.kuehling@amd.com>, <joseph.greathouse@amd.com>,
+ <vladimir.indic@amd.com>, <david.yatsin@amd.com>, <jamesz@amd.com>
+Subject: [PATCH v4 00/24] Support Host Trap Sampling for gfx941/gfx942
+Date: Tue, 6 Feb 2024 10:58:56 -0500
+Message-ID: <20240206155920.3171418-1-James.Zhu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20240205-amdgpu-raise-flt-for-dml-vba-files-v1-1-9bc8c8b98fb4@kernel.org>
-In-Reply-To: <20240205-amdgpu-raise-flt-for-dml-vba-files-v1-1-9bc8c8b98fb4@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 6 Feb 2024 09:44:40 -0500
-Message-ID: <CADnq5_OZq2s2wcLcMccMuk2Vrk2dzYu9uQdfM3hbzciB_AWbMQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Increase frame-larger-than for all
- display_mode_vba files
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
- morbo@google.com, justinstitt@google.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, llvm@lists.linux.dev, 
- patches@lists.linux.dev, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDD:EE_|DS7PR12MB5885:EE_
+X-MS-Office365-Filtering-Correlation-Id: a29cfff8-c533-4ee9-e3a9-08dc272c9be8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Z3L2eTbxiaw94Y7xygGOGYzYtjFjtIBIXnEfdo/80Y6CXhLV8XnCh8Kl1OFzGbxNd9hFDLvvvWIQijV4EfhycPEh4ibvBpR/6RFfDnQjLxst7FlvLoH4P5tMXzBvD7Gevlc3Q8JIH5olV58GLcO6POKnMEJ1eTVpq7EnY7oyThm+ZqV9Gpa57ChewtfJMKzX8tLd85b889+4bQRuAxc2ctfipG4t8PWW1eWieVztbziS1nnRi6aZOUQQ9NaSzS+wZephfSnsFYSnSM7TVCNvmCidiLLIo8zRZTYVIT/MpgeLj+gmX6Y8DRQHfR5AlqLvgIreL7YY5VpmotNDciGvSN9aha1SzCkGqaKohtLJvYKiugeISbYhUtboyYUEe7EO0b0QNMyLU8PG0bP5+CSSgFm2RRNBZmhVktdersvYtVpS/r+ejZ5IAAiZQ4b0sOutKKqFchIVGLMziIwzL6X8oRtL9Jz3d1lH6Q5GQ6C20BCRbBgDsovF0Xey+FMvz878lakSQFax5IguXK46RFaYcjZFOSAk7QkNmWBw31tjKJrRHwFECPmKPYgT6tGUdXCqWo+Q/4T7NTmGoseiehL/T3FSisGBuAyghreaIdIoPNGEF1Ouw+GdzZBMluIOknS88+j2uy8MCmklkEfmbn6pVtuu7AJJSwRjHTMR1cZzEO2S93ni+szSGNYPJeO8/tAl/eFAPRqZaHns4F9mRZzm/H47OJ17D7C1Q1e0WrXP8LO9q+sseiV5Mom2wtPYgv3BV2dt80wGC58r0NZvfokFaA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(39860400002)(136003)(396003)(376002)(230922051799003)(1800799012)(82310400011)(451199024)(186009)(64100799003)(40470700004)(46966006)(36840700001)(426003)(2616005)(1076003)(336012)(16526019)(26005)(40460700003)(40480700001)(6666004)(41300700001)(36860700001)(6916009)(316002)(54906003)(47076005)(478600001)(7696005)(83380400001)(36756003)(356005)(81166007)(82740400003)(86362001)(5660300002)(2906002)(8676002)(70206006)(70586007)(4326008)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2024 15:59:32.6293 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a29cfff8-c533-4ee9-e3a9-08dc272c9be8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDD.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5885
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,94 +105,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+PC sampling is a form of software profiling, where the threads of an application
+are periodically interrupted and the program counter that the threads are currently
+attempting to execute is saved out for profiling.
 
-On Mon, Feb 5, 2024 at 5:08=E2=80=AFPM Nathan Chancellor <nathan@kernel.org=
-> wrote:
->
-> After a recent change in LLVM, allmodconfig (which has CONFIG_KCSAN=3Dy
-> and CONFIG_WERROR=3Dy enabled) has a few new instances of
-> -Wframe-larger-than for the mode support and system configuration
-> functions:
->
->   drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20v=
-2.c:3393:6: error: stack frame size (2144) exceeds limit (2048) in 'dml20v2=
-_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
->    3393 | void dml20v2_ModeSupportAndSystemConfigurationFull(struct displ=
-ay_mode_lib *mode_lib)
->         |      ^
->   1 error generated.
->
->   drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn21/display_mode_vba_21.=
-c:3520:6: error: stack frame size (2192) exceeds limit (2048) in 'dml21_Mod=
-eSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
->    3520 | void dml21_ModeSupportAndSystemConfigurationFull(struct display=
-_mode_lib *mode_lib)
->         |      ^
->   1 error generated.
->
->   drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.=
-c:3286:6: error: stack frame size (2128) exceeds limit (2048) in 'dml20_Mod=
-eSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
->    3286 | void dml20_ModeSupportAndSystemConfigurationFull(struct display=
-_mode_lib *mode_lib)
->         |      ^
->   1 error generated.
->
-> Without the sanitizers enabled, there are no warnings.
->
-> This was the catalyst for commit 6740ec97bcdb ("drm/amd/display:
-> Increase frame warning limit with KASAN or KCSAN in dml2") and that same
-> change was made to dml in commit 5b750b22530f ("drm/amd/display:
-> Increase frame warning limit with KASAN or KCSAN in dml") but the
-> frame_warn_flag variable was not applied to all files. Do so now to
-> clear up the warnings and make all these files consistent.
->
-> Cc: stable@vger.kernel.org
-> Closes: https://github.com/ClangBuiltLinux/linux/issue/1990
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> ---
->  drivers/gpu/drm/amd/display/dc/dml/Makefile | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/dr=
-m/amd/display/dc/dml/Makefile
-> index 6042a5a6a44f..59ade76ffb18 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -72,11 +72,11 @@ CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_lib.o :=3D $=
-(dml_ccflags)
->  CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_vba.o :=3D $(dml_ccflags)
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn10/dcn10_fpu.o :=3D $(dml_ccflags)
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/dcn20_fpu.o :=3D $(dml_ccflags)
-> -CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o :=3D $(dml_ccfla=
-gs)
-> +CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o :=3D $(dml_ccfla=
-gs) $(frame_warn_flag)
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o :=3D $(dml_cc=
-flags)
-> -CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o :=3D $(dml_ccf=
-lags)
-> +CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o :=3D $(dml_ccf=
-lags) $(frame_warn_flag)
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o :=3D $(dml_=
-ccflags)
-> -CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o :=3D $(dml_ccfla=
-gs)
-> +CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o :=3D $(dml_ccfla=
-gs) $(frame_warn_flag)
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o :=3D $(dml_cc=
-flags)
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o :=3D $(dml_ccfla=
-gs) $(frame_warn_flag)
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o :=3D $(dml_cc=
-flags)
->
-> ---
-> base-commit: 6813cdca4ab94a238f8eb0cef3d3f3fcbdfb0ee0
-> change-id: 20240205-amdgpu-raise-flt-for-dml-vba-files-ee5b5a9c5e43
->
-> Best regards,
-> --
-> Nathan Chancellor <nathan@kernel.org>
->
+David Yat Sin (5):
+  drm/amdkfd/kfd_ioctl: add pc sampling support
+  drm/amdkfd: add pc sampling support
+  drm/amdkfd: enable pc sampling query
+  drm/amdkfd: enable pc sampling create
+  drm/amdkfd: Set debug trap bit when enabling PC Sampling
+
+James Zhu (19):
+  drm/amdkfd: add pc sampling mutex
+  drm/amdkfd: add trace_id return
+  drm/amdkfd: check pcs_entry valid
+  drm/amdkfd: enable pc sampling destroy
+  drm/amdkfd: add interface to trigger pc sampling trap
+  drm/amdkfd: trigger pc sampling trap for gfx v9
+  drm/amdkfd/gfx9: enable host trap
+  drm/amdgpu: use trapID 4 for host trap
+  drm/amdgpu: add sq host trap status check
+  drm/amdkfd: trigger pc sampling trap for arcturus
+  drm/amdkfd: trigger pc sampling trap for aldebaran
+  drm/amdkfd: use bit operation set debug trap
+  drm/amdkfd: add setting trap pc sampling flag
+  drm/amdkfd: enable pc sampling stop
+  drm/amdkfd: add queue remapping
+  drm/amdkfd: enable pc sampling start
+  drm/amdkfd: add pc sampling thread to trigger trap
+  drm/amdkfd: add pc sampling release when process release
+  drm/amdkfd: bump kfd ioctl minor version for pc sampling availability
+
+ .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c  |   11 +
+ .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |   14 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |   73 +
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h |    7 +
+ drivers/gpu/drm/amd/amdkfd/Makefile           |    3 +-
+ .../gpu/drm/amd/amdkfd/cwsr_trap_handler.h    | 2106 +++++++++--------
+ .../drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm |   29 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |   75 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.c        |   26 +
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.h        |    3 +
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c       |   14 +
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c |   11 +
+ .../drm/amd/amdkfd/kfd_device_queue_manager.h |    5 +
+ drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c  |  426 ++++
+ drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.h  |   35 +
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   46 +
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c      |   32 +-
+ .../amd/include/asic_reg/gc/gc_9_0_offset.h   |    2 +
+ .../amd/include/asic_reg/gc/gc_9_0_sh_mask.h  |    5 +
+ .../gpu/drm/amd/include/kgd_kfd_interface.h   |    7 +
+ include/uapi/linux/kfd_ioctl.h                |   64 +-
+ 21 files changed, 1914 insertions(+), 1080 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.c
+ create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_pc_sampling.h
+
+-- 
+2.25.1
+
