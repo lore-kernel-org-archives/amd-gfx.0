@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A006C4828D
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Feb 2024 09:11:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D2EDC4828D
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Feb 2024 09:11:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96DC410E3E0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9702210E3EE;
 	Tue,  6 Feb 2024 09:11:28 +0000 (UTC)
-Received: from tretyak2.mcst.ru (tretyak2.mcst.ru [212.5.119.215])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0641A10ECE7;
- Mon,  5 Feb 2024 16:09:36 +0000 (UTC)
-Received: from tretyak2.mcst.ru (localhost [127.0.0.1])
- by tretyak2.mcst.ru (Postfix) with ESMTP id 87D0C102394;
- Mon,  5 Feb 2024 19:09:32 +0300 (MSK)
-Received: from frog.lab.sun.mcst.ru (frog.lab.sun.mcst.ru [176.16.4.50])
- by tretyak2.mcst.ru (Postfix) with ESMTP id 81C9C102399;
- Mon,  5 Feb 2024 19:08:42 +0300 (MSK)
-Received: from artemiev-i.lab.sun.mcst.ru (avior-1 [192.168.63.223])
- by frog.lab.sun.mcst.ru (8.13.4/8.12.11) with ESMTP id 415G8f2q012090;
- Mon, 5 Feb 2024 19:08:41 +0300
-From: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: Igor Artemiev <Igor.A.Artemiev@mcst.ru>, Evan Quan <evan.quan@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org
-Subject: [lvc-project] [PATCH v2] drm/amd/pm: check return value of
- amdgpu_irq_add_id()
-Date: Mon,  5 Feb 2024 19:05:24 +0300
-Message-Id: <20240205160525.84638-1-Igor.A.Artemiev@mcst.ru>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <ac1c1709-8bb0-6713-132e-d9b149063169@ispras.ru>
-References: 
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FDE111295F;
+ Tue,  6 Feb 2024 05:53:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=w3Q42N/e2eCew/j8uEMfyElkzHhqrTXgEIBh4kRIFbk=; b=yWtPDNoN5tJ5DYCV9E0cJbndTg
+ SwomS3W/+jZdg3CoGSYr41fxanlYFkt7NXd0Z/Hq5DFyn9lyKxXS/hUtEBTi6fXb28L3NZ5XKHhGM
+ BJRUc9RzGxK0qnMI5LXW2p0CKXmY6q8M390rtXsbYyGsNWQasIF+BkCPIzDZzvpeEIbOlspQYLaI1
+ wnUvTVgu87H6eE475HMRPxEMjsa9B+AhT3UKtDABS9zzCSQJGBYB3C0MB2epLIEu1oIn4Cyrbs75o
+ 6P3mm5BNXqlr7HOQDeGZb0P4r2xN7bckWmlAMPQmZ29/yHOBG7HfWe3IxgWTqIaCXHIbPqQNT7BJZ
+ 7OZ7v/Pw==;
+Received: from [50.53.50.0] (helo=[192.168.254.15])
+ by bombadil.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
+ id 1rXEOI-000000069rh-2Xul; Tue, 06 Feb 2024 05:53:06 +0000
+Message-ID: <1b36c0aa-8a41-48e1-b21b-65f0ad521bcb@infradead.org>
+Date: Mon, 5 Feb 2024 21:53:05 -0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Anti-Virus: Kaspersky Anti-Virus for Linux Mail Server 5.6.39/RELEASE,
- bases: 20111107 #2745587, check: 20240205 notchecked
-X-AV-Checked: ClamAV using ClamSMTP
+User-Agent: Mozilla Thunderbird
+Subject: Re: linux-next: Tree for Feb 6 (gpu/drm/amd/display/ kernel-doc
+ warnings)
+Content-Language: en-US
+To: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+References: <20240206154329.6a8464fd@canb.auug.org.au>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20240206154329.6a8464fd@canb.auug.org.au>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 06 Feb 2024 09:11:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,66 +59,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_irq_ad_id() may fail and the irq handlers will not be registered.
-This patch adds error code check.
 
-Found by Linux Verification Center (linuxtesting.org).
 
-Signed-off-by: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
----
-v2: Free the source as Alexey Khoroshilov <khoroshilov@ispras.ru> suggested.
- .../drm/amd/pm/powerplay/hwmgr/smu_helper.c   | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
+On 2/5/24 20:43, Stephen Rothwell wrote:
+> Hi all,
+> 
+> Changes since 20240205:
+> 
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
-index 79a566f3564a..109df1039d5c 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
-@@ -647,28 +647,41 @@ int smu9_register_irq_handlers(struct pp_hwmgr *hwmgr)
- {
- 	struct amdgpu_irq_src *source =
- 		kzalloc(sizeof(struct amdgpu_irq_src), GFP_KERNEL);
-+	int ret;
- 
- 	if (!source)
- 		return -ENOMEM;
- 
- 	source->funcs = &smu9_irq_funcs;
- 
--	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
-+	ret = amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
- 			SOC15_IH_CLIENTID_THM,
- 			THM_9_0__SRCID__THM_DIG_THERM_L2H,
- 			source);
--	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
-+	if (ret)
-+		goto err;
-+
-+	ret = amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
- 			SOC15_IH_CLIENTID_THM,
- 			THM_9_0__SRCID__THM_DIG_THERM_H2L,
- 			source);
-+	if (ret)
-+		goto err;
- 
- 	/* Register CTF(GPIO_19) interrupt */
--	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
-+	ret = amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
- 			SOC15_IH_CLIENTID_ROM_SMUIO,
- 			SMUIO_9_0__SRCID__SMUIO_GPIO19,
- 			source);
-+	if (ret)
-+		goto err;
- 
- 	return 0;
-+
-+err:
-+	kfree(source);
-+
-+	return ret;
- }
- 
- void *smu_atom_get_data_table(void *dev, uint32_t table, uint16_t *size,
+Hi Rodrigo,
+
+Are you aware of these kernel-doc warnings?
+I think they are due to
+
+commit b8c1c3a82e75
+Author: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Date:   Mon Jan 22 14:24:57 2024 -0700
+    Documentation/gpu: Add kernel doc entry for MPC
+
+
+
+../drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h:1: warning: no structured comments found
+../drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h:1: warning: no structured comments found
+../drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h:1: warning: no structured comments found
+../drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h:1: warning: no structured comments found
+../drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h:1: warning: no structured comments found
+../drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h:1: warning: no structured comments found
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:1: warning: no structured comments found
+../drivers/gpu/drm/amd/display/dc/inc/hw/opp.h:1: warning: no structured comments found
+../drivers/gpu/drm/amd/display/dc/inc/hw/opp.h:1: warning: no structured comments found
+../drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.h:1: warning: no structured comments found
+../drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.h:1: warning: no structured comments found
+
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:132: warning: Incorrect use of kernel-doc format:          * @@overlap_only: Whether overlapping of different planes is allowed.
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:132: warning: Incorrect use of kernel-doc format:          * @@overlap_only: Whether overlapping of different planes is allowed.
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:132: warning: Incorrect use of kernel-doc format:          * @@overlap_only: Whether overlapping of different planes is allowed.
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:162: warning: Function parameter or struct member 'pre_multiplied_alpha' not described in 'mpcc_blnd_cfg'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:162: warning: Function parameter or struct member 'overlap_only' not described in 'mpcc_blnd_cfg'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'read_mpcc_state' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'mpc_init_single_inst' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'get_mpcc_for_dpp_from_secondary' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'get_mpcc_for_dpp' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'wait_for_idle' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'assert_mpcc_idle_before_connect' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'init_mpcc_list_from_hw' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'set_denorm' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'set_denorm_clamp' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'set_output_csc' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'set_ocsc_default' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'set_output_gamma' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'power_on_mpc_mem_pwr' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'set_dwb_mux' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'disable_dwb_mux' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'is_dwb_idle' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'set_out_rate_control' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'set_gamut_remap' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'program_1dlut' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'program_shaper' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'acquire_rmu' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'program_3dlut' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'release_rmu' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'get_mpc_out_mux' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'set_bg_color' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:548: warning: Function parameter or struct member 'set_mpc_mem_lp_mode' not described in 'mpc_funcs'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:132: warning: Incorrect use of kernel-doc format:          * @@overlap_only: Whether overlapping of different planes is allowed.
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:162: warning: Function parameter or struct member 'pre_multiplied_alpha' not described in 'mpcc_blnd_cfg'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:162: warning: Function parameter or struct member 'overlap_only' not described in 'mpcc_blnd_cfg'
+../drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:132: warning: Incorrect use of kernel-doc format:          * @@overlap_only: Whether overlapping of different planes is allowed.
+
+
+
+Can you address these, please?
+
+Thanks.
+
 -- 
-2.39.2
-
+#Randy
