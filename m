@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C696BC4828D
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Feb 2024 20:07:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CCBBC4829C
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Feb 2024 20:07:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72730112DC9;
-	Tue,  6 Feb 2024 20:07:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC84C112DCB;
+	Tue,  6 Feb 2024 20:07:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cWCZbUHa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TDWVRqPb";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2044.outbound.protection.outlook.com [40.107.100.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E46F112DC8
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Feb 2024 20:06:59 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1EFC112DC9
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Feb 2024 20:07:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RZuJyteRVC+RG+BlhE8prHbQ10uVHzP3yAmkf+ZiKgbn17ZEZNj3XvcFXyDPTJzN5ey2YqzKp5Qq+6wBckgEbYANBMGnZjioLpdc1i0BIRP4oRpatvA/sgIsiFemmAjUun2lsjAsujB4s1q50w8V4QpSawnffC7ke7iIpWTGTGBLzcv7XznkOdyEyQwJeTcRM4XDhvcf/x9NC7YwcpJbjlb/qxja0VH+9T3id0yDZ6Dev3PnW63A2SqZNveueOuVccCbkezbxhHbcR3ST1RfLTOuFhZr8+vnWG+hIaIAXhpVC1Oo62aVAU6XEsXV5p1rO/UHleesRL6i2UiSpi4srw==
+ b=YcQrfgt84MGNEPypmXxGTut3W5F0njFaEpm+W14NkM+LQlligOE6lTNlh5vFjxkmr8gXBTe37RwB5bPGGYmmOAAouUvv3+Hn47OjRLyOH7ZpGGnKBtP2PsMwMDwsU5cboPkuEO4SvLQWCYtqZt4IiI6jQd2RgyPR/0QWuJDzDYR7qEUJZ/nhz1zm6HE9KNpXV1XSD6Bvo7Dj1z2m9x7eZz/Huz+aGBdVxi1hXy24BmBn15pod93f2x8jwwMDl1mR/7hV14W4rDK39qJnBXALClx/LvAGuRMGUDBoy9w5qVZUBMLSNlbRDC7qvodG4quJqs4ZkmHZhCJxAHh/h/Uk4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hQESB5erRYjiU5m9+ozopvaDdEE8xpPKr4CDobmfVkg=;
- b=D3MG/LBhgt0F8XLLeWfc/jstZmpWlYfLgD+KigNOtHqHfgPG+QttSrRr4U2mfICYE0x0R1kGoPOiCuWPkJRH1b7L9NrRE6udBNGwfnsE/C1PnpRW71hAoGMMTv73tg4TIe/fL7lsXx0bgkR9Cmf67NEe1iLqirK8m2U17uH9O4LI8E1tPNuETNasO17selvRQJTakauIzY/ltUfyDUfz3QEOMxi8bPlkl04mKt51XKzKHHoYOxV5h9YoOrCP3u3uOZl0GXegeNmHgel33qQKeOTft2vsT82F7XlM1D56wAKAbMSVOxovUrIF1whU6tIiv/BK5xUOZr3mZy5/grTU7Q==
+ bh=ncJbbcBysQbPhl0Be1Rzl09sa20If5kaUJdj54KbIZc=;
+ b=ZL/v1cWL89EAfCIk848qnMWn1iFiaFCqY7kipzuMg9xfF98Ry+rV6AVDVMcJcUXxri/eJFLKZlTXfF2mN6uoo4ss3va8mf21tJcMx6PhII4ynCuWpRhCrqoanWUHZ96Icyp9jCn0JCUywXG2z4UQyP8nAmx0ADhc/gLNTupZUMAaYb+fougY5c/FI0tti89YjRQt702F6OSW0bleqRc+PUyTt+G4BkYBsHpuWUsOaS2n9S4/ezaft76a8QC01Ms1q6jUCxk+vCm3oaKBlv+GwwhxtM3aURgHPrp5EbF8xU56knOAl0vAgIlkiQYNa5sR5kA9NjxXOogA4kUbXQOJVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hQESB5erRYjiU5m9+ozopvaDdEE8xpPKr4CDobmfVkg=;
- b=cWCZbUHaXifYsx/DdJC2gtak6ghz04qzOFUWRfGA9Of/WmcQ/SKc3a3XN0HjBU6Se/V4sqsLE8YWjJB1ixQncOjDHOjcuAkIxpMD1LPl4X5yzP3ye0xecgwRpSzfO0gfuWBB4F7N5gSnnVld3luZZSTi8zA7ahFEKxJ6iaKD4VY=
-Received: from SN7PR04CA0208.namprd04.prod.outlook.com (2603:10b6:806:126::33)
- by PH7PR12MB8825.namprd12.prod.outlook.com (2603:10b6:510:26a::21)
+ bh=ncJbbcBysQbPhl0Be1Rzl09sa20If5kaUJdj54KbIZc=;
+ b=TDWVRqPbGyZpC0rVGPiLYDDUvN8pemc+aOjhVeSIKZPMRf0nSNGuzEB9P81U7m863gUQO81w/etWvoMMs3BI+eA5/uQCmMasu0yUfQmh5FhcPxswuDOElZm4zI16qcVhalbY1tjLIYg1kmy4UKZ2ZJsLpTTPGE4H0P99Rm2/fD8=
+Received: from SN7PR04CA0196.namprd04.prod.outlook.com (2603:10b6:806:126::21)
+ by SJ0PR12MB7083.namprd12.prod.outlook.com (2603:10b6:a03:4ae::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.16; Tue, 6 Feb
- 2024 20:06:56 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.14; Tue, 6 Feb
+ 2024 20:06:55 +0000
 Received: from SA2PEPF0000150B.namprd04.prod.outlook.com
- (2603:10b6:806:126:cafe::77) by SN7PR04CA0208.outlook.office365.com
- (2603:10b6:806:126::33) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:806:126:cafe::9b) by SN7PR04CA0196.outlook.office365.com
+ (2603:10b6:806:126::21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.36 via Frontend
- Transport; Tue, 6 Feb 2024 20:06:56 +0000
+ Transport; Tue, 6 Feb 2024 20:06:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,21 +50,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SA2PEPF0000150B.mail.protection.outlook.com (10.167.242.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7249.19 via Frontend Transport; Tue, 6 Feb 2024 20:06:55 +0000
+ 15.20.7249.19 via Frontend Transport; Tue, 6 Feb 2024 20:06:54 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 6 Feb
  2024 14:06:53 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Likun Gao <Likun.Gao@amd.com>, Kenneth Feng <kenneth.feng@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amd/swsmu: add judgement for vcn jpeg dpm set
-Date: Tue, 6 Feb 2024 15:06:37 -0500
-Message-ID: <20240206200639.1670753-2-alexander.deucher@amd.com>
+CC: Jonathan Kim <jonathan.kim@amd.com>, Jonathan Kim <Jonathan.Kim@amd.com>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdkfd: fill in data for control stack header for gfx10
+Date: Tue, 6 Feb 2024 15:06:36 -0500
+Message-ID: <20240206200639.1670753-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20240206200639.1670753-1-alexander.deucher@amd.com>
-References: <20240206200639.1670753-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -73,26 +72,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF0000150B:EE_|PH7PR12MB8825:EE_
-X-MS-Office365-Filtering-Correlation-Id: c29b759d-450e-469f-7caf-08dc274f2b2e
+X-MS-TrafficTypeDiagnostic: SA2PEPF0000150B:EE_|SJ0PR12MB7083:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1b40f8d-d6ef-485b-3609-08dc274f2a85
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EZEGtDyGP47aR6rMygibZjU1G/cUkC90veJuGCF7D5Iz813j44MatnC387vzXq14oDbFH61NZ8k1izaLs+pqeS6ME2rIC789PxzGAlxhJEXGi2NS3QMIzBG0ZzD8NhgBImC3oaoJAo19HtGWSxIcCEhRMm5pI5PfDPFYWnGzZRW1j6tjZILdkpVLR51KrjzHGRVQDeVo1VjA1Tf3m6tDbJcpen0xzqTgakirDhnOBsjhzX0K855scAnTnIa+zfoUokpAxJvNVUNjAnL3mNtamY4vW0L171a1wvUKG+foU+3oPo3V0Sql9mGf+YgPqb3SOLqMv27dfhviPv0OWvVJ8n8BfbLSrgTh1ZZUgvkRbwYYc9KEbXDsR3Yzut7zxCIT7SHksXXL1G7D9/Yq8KllWBOQVmC+s6rz4QO959aBT8nwniIRz/Paxsu6uYxVGmbB1bRnvD09FCvVrs68a2FJdxjMQslArhodgqeOUWAPeG8MzVMTQ7Q3iymTrEg0qK69Aw29EY5TZHI73pk8Bxbi8Nl6x2Gw2HISKPE7qf4BoMp+HuQca9cg0Qt6sfL4UTMCQvCY4G0FleaP/BBwmL7f909u7qf/SvBK25MAEo0ga+wtDzuNW+ZhJZjVVypw8QlckJ512/V3BA4RA1vbpMJ6UHWK4DMvxmLqvl+0ryzo+7emBYb+DUVVVEV6Y0y0sWBgXCHTO7JedR2m0WohB7JlP5B0BV0ZVBe2Fb5MCHIdYUuu09r6VATCF1D1ahJxIkDzqWvxCieGCqSoK8H3oVwBvw==
+X-Microsoft-Antispam-Message-Info: aCCEN+6MtlqdYvNtCYoRuuO176LH9DmFJBAnG8/5ejduSqramOy1jfsGPUl6W+J9lsVXHgs7rX144FXJ7zXTgmj85je6YM1+fEgIunz0bBOiu3MBoxfegpFkdgzJXJVTBxc0dKF86OlT91WuXqSIezP74PJWtH4FThVmH8UOCPAoTkOXyzet6+5LM2sujXqpeyi1gOtvL9ttkwh5Ao9u6Pqvs/v/yf9jrinhJGBsYYo1D79l6wWZZF8yAvumb1KNmJG7rASFB49C+gp4jL6A3K8pfmKOWL5iSpxKV/EepO9wZTSuLMm/K6L6t3+OG7SIKHzsOl9/6Ie6A/2f/yateb0LGVGmTPqs6E0LA8Dol0ATAQ6iJvP/6/JEoghwx7Wfxvuo/WBMUr/s2QFoV5DgWfRd0P8RpcbEh59limfTpXszxbBReLaQ1gCnh2dLs5I+De6CyRBAwJKq8JHsu8xE5UeNYLeTsS5CP8B8iabT8BfmdKNcr50Y+6DdrJXL6rqlS4i9snFduiehWpAan3oPenwEsKOSjYXNTwBjxiRz09mzXioYQFtGlfyOipvx9UDg+Y4UcEOm2PXGSNYuIXD6QunKEg1Avp0ftXCjfg1QcN/zNeiISQG+18rs8amJeiveORdoU1tmInXhytfW27N+BtFJmCSUPOgRgoWJcRgi6Rl95qKI74C5Yau4Xy06/YLwwl/qxNgCVe/O68XwqH/1VfWEOVZeNx8wzAgX+MKTCQXWfd/WXxozbgCbLaHa2urpkj0drAyjlUWEM5WFDBtpDg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(39860400002)(136003)(396003)(346002)(230922051799003)(186009)(451199024)(82310400011)(1800799012)(64100799003)(46966006)(36840700001)(40470700004)(36756003)(5660300002)(2906002)(41300700001)(86362001)(1076003)(426003)(336012)(2616005)(83380400001)(47076005)(16526019)(26005)(36860700001)(40480700001)(478600001)(7696005)(40460700003)(6666004)(81166007)(82740400003)(356005)(70586007)(8936002)(4326008)(6916009)(316002)(70206006)(54906003)(8676002)(36900700001);
+ SFS:(13230031)(4636009)(396003)(39860400002)(346002)(376002)(136003)(230922051799003)(451199024)(64100799003)(82310400011)(186009)(1800799012)(40470700004)(36840700001)(46966006)(36756003)(40480700001)(40460700003)(478600001)(86362001)(426003)(1076003)(336012)(356005)(36860700001)(47076005)(82740400003)(41300700001)(70586007)(16526019)(83380400001)(2616005)(5660300002)(8676002)(6916009)(2906002)(8936002)(6666004)(70206006)(4326008)(54906003)(81166007)(316002)(26005)(7696005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2024 20:06:55.9509 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c29b759d-450e-469f-7caf-08dc274f2b2e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2024 20:06:54.8259 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1b40f8d-d6ef-485b-3609-08dc274f2a85
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF0000150B.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8825
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7083
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,74 +106,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Likun Gao <Likun.Gao@amd.com>
+From: Jonathan Kim <jonathan.kim@amd.com>
 
-Only enable VCN/JPEG dpm when VCN/JPEG PG flag was set
-when smu set dpm table.
+The debugger requires the control stack header to be filled in to
+update_waves.
 
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Signed-off-by: Jonathan Kim <Jonathan.Kim@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 30 +++++++++++++++--------
- 1 file changed, 20 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h | 25 ++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 0ad947df777a..3d72c945cf56 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -751,6 +751,7 @@ static int smu_early_init(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+index 57bf5e513f4d..e5cc697a3ca8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+@@ -128,6 +128,31 @@ struct mqd_manager {
+ 	uint32_t mqd_size;
+ };
  
- static int smu_set_default_dpm_table(struct smu_context *smu)
- {
-+	struct amdgpu_device *adev = smu->adev;
- 	struct smu_power_context *smu_power = &smu->smu_power;
- 	struct smu_power_gate *power_gate = &smu_power->power_gate;
- 	int vcn_gate, jpeg_gate;
-@@ -759,25 +760,34 @@ static int smu_set_default_dpm_table(struct smu_context *smu)
- 	if (!smu->ppt_funcs->set_default_dpm_table)
- 		return 0;
- 
--	vcn_gate = atomic_read(&power_gate->vcn_gated);
--	jpeg_gate = atomic_read(&power_gate->jpeg_gated);
-+	if (adev->pg_flags & AMD_PG_SUPPORT_VCN)
-+		vcn_gate = atomic_read(&power_gate->vcn_gated);
-+	if (adev->pg_flags & AMD_PG_SUPPORT_JPEG)
-+		jpeg_gate = atomic_read(&power_gate->jpeg_gated);
- 
--	ret = smu_dpm_set_vcn_enable(smu, true);
--	if (ret)
--		return ret;
-+	if (adev->pg_flags & AMD_PG_SUPPORT_VCN) {
-+		ret = smu_dpm_set_vcn_enable(smu, true);
-+		if (ret)
-+			return ret;
-+	}
- 
--	ret = smu_dpm_set_jpeg_enable(smu, true);
--	if (ret)
--		goto err_out;
-+	if (adev->pg_flags & AMD_PG_SUPPORT_JPEG) {
-+		ret = smu_dpm_set_jpeg_enable(smu, true);
-+		if (ret)
-+			goto err_out;
-+	}
- 
- 	ret = smu->ppt_funcs->set_default_dpm_table(smu);
- 	if (ret)
- 		dev_err(smu->adev->dev,
- 			"Failed to setup default dpm clock tables!\n");
- 
--	smu_dpm_set_jpeg_enable(smu, !jpeg_gate);
-+	if (adev->pg_flags & AMD_PG_SUPPORT_JPEG)
-+		smu_dpm_set_jpeg_enable(smu, !jpeg_gate);
- err_out:
--	smu_dpm_set_vcn_enable(smu, !vcn_gate);
-+	if (adev->pg_flags & AMD_PG_SUPPORT_VCN)
-+		smu_dpm_set_vcn_enable(smu, !vcn_gate);
++struct mqd_user_context_save_area_header {
++	/* Byte offset from start of user context
++	 * save area to the last saved top (lowest
++	 * address) of control stack data. Must be
++	 * 4 byte aligned.
++	 */
++	uint32_t control_stack_offset;
 +
- 	return ret;
- }
++	/* Byte size of the last saved control stack
++	 * data. Must be 4 byte aligned.
++	 */
++	uint32_t control_stack_size;
++
++	/* Byte offset from start of user context save
++	 * area to the last saved base (lowest address)
++	 * of wave state data. Must be 4 byte aligned.
++	 */
++	uint32_t wave_state_offset;
++
++	/* Byte size of the last saved wave state data.
++	 * Must be 4 byte aligned.
++	 */
++	uint32_t wave_state_size;
++};
++
+ struct kfd_mem_obj *allocate_hiq_mqd(struct kfd_node *dev,
+ 				struct queue_properties *q);
  
 -- 
 2.42.0
