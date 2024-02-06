@@ -4,118 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3002AC4828D
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Feb 2024 21:01:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D5ABC48297
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Feb 2024 21:15:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC8FF112E38;
-	Tue,  6 Feb 2024 21:01:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDB33112E51;
+	Tue,  6 Feb 2024 21:15:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rlHfptoT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cL7v38oF";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2050.outbound.protection.outlook.com [40.107.92.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB3EE112E38
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Feb 2024 21:00:59 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2087.outbound.protection.outlook.com [40.107.237.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8B9C112E51
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Feb 2024 21:15:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EiTprR0QBsMd28daLXaIvybrRsMENwIy+rvwk8w43eI5zUL0fikoIo4ETNakS67FHzkWX6ZOtagGtCyDTPS5xkYKxiNQ4Ixm6bAiI8cRPNY9GwTm0zn2BPo0DSNnftxcOVXLlwTo5kPl6COE2fJowv/opVITTNmLT70eAdLWilm0RqvEeQ0M9tqlcda/5W0mW7Kfr0euhajSYNiDsmyiNjRtwJQC2sC31ZY4qQGVlXoAtsEi9Eal8+8ly4GNJfa/TjRtQOeopaWNT26r/l9bLpGN+yX/aDdP+R5Eap1MMIVu0MPMoSPH3Ieciq6nqkbFE1Itk3O7RlbJh2K3QB8kLQ==
+ b=GH6DCQDTvEOO3uQ6k40CFkc/6lBdYHH1Z/FekNmucCD8EozmJi5drhjMlmgscmlsAFMqHjyB836ygIK7Zu+ccis0YhRAbq+3mhybzf1G88GBpDLA/8NcB6v3jVHR5TzQO+gXKk1QTVz0SQxAqZGULYosj3KK+OuuFuH1NwRtcsDI+gzHZ5G+dSh99E3QvaOSl+ADo5jO1U98R3JatVExhcvgxBjEbdhu7ZPxSRG1rGmchm70nf7/PkBbg5wvmXDO0UUH8fLElAUoVLNZ3l2KhpJ9R83NXHU69FEbYWXfCuQ0M3n7hEpDI4IBkav6Yb6qL9kaQlGcMbA9Pt7xKLCPug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AGamhU1dmL5ROBEJ2IEinsXQ2gJ8ljNiK/yKFC0d+Eo=;
- b=NFmZOovGXNm3Nfu7Yi2DVSwLdjxzQKoKfBS0Ctnhvh83iu+X5PYGGy/N+mDPB8AcYYKDqqPW358DtQQ8wiMvqfpJdPmtGum+WTG5LY+gvsAQ0Az2hMnZAzUgMOiYjx+BFizFrfaHM851TRVEfAhPBpat57i9EXfx2yNBEqLw/Cv7kSgpE3hnThShxsjObFcDHtFYM5ISNlZ2kFQ3aT4Aj8Gi7Lu6dHBJVAzwB4kzjdZoXBrMUuf/1Exc/eWQ7+Bu2zWf9tiIqFk6tXpWQrf5RUZTOUTTSIB3ZWz4kgDcotwMQKvPQc7MA278SgtIpPivioEaekNXE6Rgdk1C3xgCCA==
+ bh=bG5bg19IC0mYxpkn9IPz0J8rNstz8+LfJCki5XsD0J0=;
+ b=XrBjrtcKHxyT6ie2Em3OjbEIhqV9kPKFHTKDzfYVLmwfrvJxHF/q3NL8ztxCMyiaA4jPVqd1EANfOIwamlA7ihIMebJNr6cvsFWS3aXx4teqbtHZiPe/4wDHqSvF8TCX5NvVqx/V5qobXdd6UMBt9hu3OcuBaWAi23Zc//KSUK5BdBLIMw5Glid6PGuhSi9DNW1iLuWjxOZ9PExiHEAYgMoyRzYOuuKJ6Pik/1mxXs1Oqz75kMzdZe3rsdhxJqulmhjUpcz5JAwGRbZo8rKbIhU3mXWgg5FmJNaPhfW7FQCQnmn2ldPT7L7MSnnycMg8G0xqz+oR6PebA77Uu4ifxg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AGamhU1dmL5ROBEJ2IEinsXQ2gJ8ljNiK/yKFC0d+Eo=;
- b=rlHfptoTwHrb5ZdNAWTZvrTZ2L2J6wlDHsFW6c3dWVo2uNQ93UbnYk7YuWdtev6rE8LkOtPKfYPEaUAS83b2Yu9ZPkvLxsRRZiDVSJup4ylpb+VqAkvnH0iGDJQsVEBMI+MAqbP5HORI0aWIQDlkrFzK3m6lecmi13gI4kwIZ4o=
-Received: from DS7PR12MB8321.namprd12.prod.outlook.com (2603:10b6:8:ec::17) by
- DM3PR12MB9413.namprd12.prod.outlook.com (2603:10b6:8:1af::12) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7270.16; Tue, 6 Feb 2024 21:00:56 +0000
-Received: from DS7PR12MB8321.namprd12.prod.outlook.com
- ([fe80::7f22:4cb3:cff9:2872]) by DS7PR12MB8321.namprd12.prod.outlook.com
- ([fe80::7f22:4cb3:cff9:2872%7]) with mapi id 15.20.7270.015; Tue, 6 Feb 2024
- 21:00:56 +0000
-From: "Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>
-To: "Joshi, Mukul" <Mukul.Joshi@amd.com>, "Russell, Kent"
- <Kent.Russell@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdkfd: Fix L2 cache size reporting in GFX9.4.3
-Thread-Topic: [PATCH] drm/amdkfd: Fix L2 cache size reporting in GFX9.4.3
-Thread-Index: AQHaWSc0e+xguhLBHU660UDlN/LGMLD9vYwAgAAPJFA=
-Date: Tue, 6 Feb 2024 21:00:56 +0000
-Message-ID: <DS7PR12MB8321603E0C8F002D9F2B69B4E3462@DS7PR12MB8321.namprd12.prod.outlook.com>
-References: <20240206180545.626910-1-kent.russell@amd.com>
- <BL3PR12MB64252107FFFBDCFAE77D9F3AEE462@BL3PR12MB6425.namprd12.prod.outlook.com>
-In-Reply-To: <BL3PR12MB64252107FFFBDCFAE77D9F3AEE462@BL3PR12MB6425.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=79a2657e-0a7b-4a03-ae06-b42de747dee3;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-02-06T20:05:06Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=bG5bg19IC0mYxpkn9IPz0J8rNstz8+LfJCki5XsD0J0=;
+ b=cL7v38oFjC9OGdLQlGNgnoZVMZivE0zvd6NKeR5au28kX2OLN7r+rbQfDVfAwnCR2ipf45fusZ6BceVChI0maA1DG66zrVavaN+GXNVQA7J8QO8vYXeRZRpLzqarcOJL5JIkmhxlAf0Pgg698IYMix3q39J0qpUxmUps65+zsiI=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB8321:EE_|DM3PR12MB9413:EE_
-x-ms-office365-filtering-correlation-id: 106d1fc8-8c5e-40a8-9967-08dc2756b6d4
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 9gVF0Dl8RydAxvHCApNlUAzVeE7+vYfLIiHnX0WEfSju85MiW7ibirrRc/n/tpnE+c/MFk7W+4UPAdnV8HNYV+HVp80lqwN15pHxtKsedwR7dp3M/UWPwa7uXZmccbjqk29YGSfp7AQNx4eNIwRPCmoJq1hRfZYKNBQQ+P1IJlYfRWusB77RCNt5xXPS6EhHrwBVJQgs7tZfIMbMi3LN/zUGNPUd1zjly7DvT2QQxEwdFc7fNe4r1MZkckHS4kzjxfCtVLLmTgjZz66ZdW1BrP04Qn4JUdbPy4XlsLGBEjpykpNOpJ41CSOiA1/rIuQDAtQyyfGecmm4kz5pU1KqJWxHsKgeLALLbElgrnWHNMyoG931+riFRtW33oDY9pNWxlA+XklDA4w92utu492BvIKss+fs5/3mE5O3unPZGB2a14nzc6RMd3Y7OaPpzcyIRIo4867T5dXhgelmqpy7R+L+hS8pErlaHUWZGPBb3UvDEpTwiTw53+QfpAiwA1d5XuUx/CHFxPkVR8wQu2Xg/DRWEH39DFBCULRxA0CXOrpX8Tav5Z8KguTeTsEzKW5wp/Auzrlme2aM+3cWU3aPPYkALo5/k45E8ZTpQPpqdhtCYrpWdVe1cnZ+j3eTrWTo
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB8321.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(136003)(376002)(39860400002)(396003)(366004)(230922051799003)(186009)(64100799003)(451199024)(1800799012)(478600001)(26005)(2906002)(41300700001)(66446008)(8936002)(5660300002)(71200400001)(8676002)(83380400001)(66476007)(64756008)(38100700002)(122000001)(110136005)(66946007)(6506007)(316002)(7696005)(52536014)(76116006)(66556008)(9686003)(53546011)(86362001)(38070700009)(33656002)(55016003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?rjeDWjqI6kDHDFLmKj9L692sFO1ZqejgABYqOjiKjVk0HgCtZwXyW6SFMFo4?=
- =?us-ascii?Q?rGEGlYG1yVn3wI36bBfpDzihUwLGSQa5mm5Mm3DPxA1v9IT4xqm5rba9L1Jk?=
- =?us-ascii?Q?Hs55BHiYahAoO1XW3UrT5v/ETMJpJNUZzJKjPChGVAQp2DjBA0PptWgO56TY?=
- =?us-ascii?Q?7jlhChkpuJPervM0pPxLZc7d2xUR2iCYUvho30TqcxRxcd1vTyskvCUP3Ys1?=
- =?us-ascii?Q?On8Bocm5kxGmvjLtUIeTgCaLVg7RZzYhyP1wN42tUZ2QoffM4hz84zXoDaTB?=
- =?us-ascii?Q?f0gbsXKnPnbj+6dNn9pX5MjgZlAzvwszi/KKhdqOii2pq2OyLWCWLzDdd37Y?=
- =?us-ascii?Q?FtU3e9YjfrjqcBepNvcxaVaGCP40/kFQJkLHuOr57rGCgkO8KgrF1kzwctyV?=
- =?us-ascii?Q?v5afUnhfADxtDHcQnuR2jpgRqYTY8sfK5pFz8KgLmfcmBlTP3Z9x3Y+8s3le?=
- =?us-ascii?Q?wgKs15wWQxONTM6TUxl1PiR9Tjq70GRzjp25I9Ozrx0ddjPCvZQqiHSZl4Fr?=
- =?us-ascii?Q?TPVNiuvVt2xZr7P7AhpBIn7uEY4DK7hk/Aw1H1BE2NgSvHYAqjVxwA+gpbrf?=
- =?us-ascii?Q?iQtxtiR+a8y7d7+4XIXVsQzBCDyWAFYAC1J2k3uPkcvAX/xsEnpgANFHxR1E?=
- =?us-ascii?Q?mn16EcoMpxGBaiFaWLVMFvhYKcFLsr8ZgxdcoKaVAPOV1B5IdYmnIuacVZ8W?=
- =?us-ascii?Q?Zy9o9Uu3CI1cTZS+UYVyca4vLAukYAJttX2Nyko7ZjTxHxAeIvM4F3btYNo0?=
- =?us-ascii?Q?bysrA7dARGvZ5vogB55OVdJgsgkuimGiBG6zAy8Sj1+jHrrK0SUUc0Z9aQbh?=
- =?us-ascii?Q?3OW7q3DYtZje8QDj5wBtWDD4N8f/hGI84AyLui/Z0ymFH2Fc1mxNfiHAkLI8?=
- =?us-ascii?Q?bPraX/6W5nw3bYpMBYKlGtqHH+FZUFaOmYwDwBzEf/5IFO8DG3nFa6xPzNCF?=
- =?us-ascii?Q?hOIbcG1Z/xrXgZ+y5ce8UJp2DqhdvyCFAISZWH/uAVGnUzkSE37Um6Q4w4DJ?=
- =?us-ascii?Q?AqKvbKpn6/U4f8QdF8W1tRFR07MnZCahocXMkg0uOeX0ctuwk6pHckrHxRtp?=
- =?us-ascii?Q?XEMpIQ11TB79R1xzJZ/yIGjW2x8hJG4jaiE0oTji/qEIvk7S4W1SGwYw2Cqe?=
- =?us-ascii?Q?IKBO2Nd9tv8YVvLc+FW0kByU7pciIbHJ3BFyOoS0Dr0LVYCe2hcNbmZIPRNp?=
- =?us-ascii?Q?JgkWZoEvgIohRRchN0cqLh2gFOGvvO0ErBr5yGfZB+fd8GVonf9A5XpEUIOD?=
- =?us-ascii?Q?1FR96+VVnA+bNzxiNOWRry7lM961ddeDKuNs+a09TqAdrH/kAxX1HbH2p7/d?=
- =?us-ascii?Q?NHfodkaROj/KkEX3E6cftx7pxa/E2qe/0U345yObESv8B2CLJjLTjzACdKH2?=
- =?us-ascii?Q?uw/KHw1ZHKzrHsXhrb/o2Onkml35xc3pEz12tcPeXXZDD4RlRS8Ghqmw94OE?=
- =?us-ascii?Q?7OxpgZ8Yw3WSdx3N4cjNgJyac4lXFOeFN9VMrkS5xNyPitL7jg3JbD8mEvZ7?=
- =?us-ascii?Q?t6FS0KNSZq0wqNjJLzcZ1s6AWUVPVITP77yvr6q1YeLiZ8My5TN/8r8rawkt?=
- =?us-ascii?Q?NCNiIE2fRQnEdfcvWBI=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by CYXPR12MB9318.namprd12.prod.outlook.com (2603:10b6:930:de::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.16; Tue, 6 Feb
+ 2024 21:15:15 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::6f2f:7892:e9fe:c62b]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::6f2f:7892:e9fe:c62b%5]) with mapi id 15.20.7270.012; Tue, 6 Feb 2024
+ 21:15:14 +0000
+Message-ID: <d4f0a9e8-54df-42d8-b130-e1b2977b8bde@amd.com>
+Date: Tue, 6 Feb 2024 16:15:13 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: Initialize kfd_gpu_cache_info for KFD topology
+Content-Language: en-US
+To: Joseph Greathouse <Joseph.Greathouse@amd.com>,
+ amd-gfx@lists.freedesktop.org, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+References: <20240206205524.2697359-1-Joseph.Greathouse@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20240206205524.2697359-1-Joseph.Greathouse@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0304.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6d::7) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CYXPR12MB9318:EE_
+X-MS-Office365-Filtering-Correlation-Id: d70df5b6-746e-4816-5421-08dc2758b62b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 67eozdcjGmBE5TRLwqCzs4KKlsHBTN/PA9HKWjtrl8ZtC3ciUWQ1BxJ6LjEMRTEb4g1izW+cXPXt4NIRiG1Tsv9c0DLUaBtQZAqkQNxIahSHXQXizqOH6yZW2zINnC+OqhWH/0JYDfpxefvyxs3xa+QRwZ1C+Y+I3nwcTbqjfPSk8J8BtFcXfq6VjydJ0h52z2qvAlo8Cl/Nzt9Si/FIdIzDVB0lroyHwR9m0eOfY0gdququvrPftEMTqZ7CjBEX8VEPWBKLCpfvz1OXLBuwUDCmss/GK8VfZplxUMA8dJaOwn5Ix2Tlj+Whp+U33yZkegiTFyXbun1n4FLc9HWjCsoDt3+pu+nhSQnAikmyLDjkJM6WN3WTV3wD8qgVOVm3saoj1sSFoWIFgjK37Nz/GAO3EEb23ugH5K75pqhr4ZOOmY9RFzvg3SnkqND/GhnBYoUDDaOWBqh2Pmm/4byWyuDphS8y7OQGt9TC0rWunx3nOFVUlocbA1BnsGSt2dFqc79PjIynVd1cfW1iEyd2HNhB8q27KIQlgvv/pnTDGWvz3Js5l2x8DuSD7ZILncFSnRqmaEJEtra5IubRHmZvvmT8IpizCINQIUCbzuFEZGIORe75py0eh4nBLqbvvDjUj3NvECGZ1YbAWstOUYv3aw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(346002)(39860400002)(366004)(396003)(376002)(230922051799003)(186009)(451199024)(1800799012)(64100799003)(2616005)(26005)(6636002)(41300700001)(66946007)(38100700002)(316002)(5660300002)(66476007)(8936002)(8676002)(66556008)(6506007)(110136005)(2906002)(44832011)(36916002)(53546011)(6486002)(31696002)(6512007)(478600001)(83380400001)(86362001)(36756003)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y1hCQjFueW1zamE3bFFsVnJqWXZwd0sxOVdnTjI1K3c2UG84NzV4dHJtbnpy?=
+ =?utf-8?B?aFJCUFR3N2RyUHNHYjJoZlhFVExVV2VZVGNVVkxzSnFDSU9tcnNuUHhucW9E?=
+ =?utf-8?B?bUJNYzFNR0xCbWNRWjlmaFkvLy9vUU1IdlFGeHZ0czNIRVlNcUVsSFFkWEdj?=
+ =?utf-8?B?Q1JjZmJNOTFwQU9QZFRmV1B0eWlzT1E4MGZvTVFpd0F0c0RzMk5aTEVZeW9n?=
+ =?utf-8?B?c0d5K1hrRWFMWHBpWHZ6WlQvaGVPN3hCbFdhNGtGSVRqRTJ6d2VwUGVRU0pX?=
+ =?utf-8?B?aWxmUkhrR2pqUGZRSGhHRUlHUi9YZmJJYTdKMXlrQ0ZaZ2RTb20wcmhwV1J1?=
+ =?utf-8?B?eFg2YmVxeGpEK3g5WG9oZlNMR1pOcVNiVGpRNFRNZFIya0RuaDhxZTJicVVs?=
+ =?utf-8?B?MnZES2ttSXdVRnJVeEF2bFg2M0dDem1UMlZhT3ZRdzFhekloWXhOMnk1VWQ4?=
+ =?utf-8?B?dW1LVWxnSmNrbTF3NnhRRnlKSlJxMU5CY1pkZFgrUnE0Q3phcXhGa3k1cWls?=
+ =?utf-8?B?N2xicEs0dy82RVlraXdrbDRqWDBvVGM5RHpYM3A4N0RVbkVYSDY1MG81bzJZ?=
+ =?utf-8?B?ZXN3aUdOVi9IdzJtTHFYM1VVdndSMFZSRzNpUDdpK1dhRVVKdjZSZ3EyNHNx?=
+ =?utf-8?B?NFBhejNYS1pNK3FqbHpLVXBObW5ZakduSnVvaUpaMi9UMzNTdnpBZmNkWkZy?=
+ =?utf-8?B?SWJYZllweDFFck5YTStHUzZ5NW05M212QnlGbW5CeDlrU0FIcXp1WUpxcnlM?=
+ =?utf-8?B?VERFaVQ1Unhsb2FDc2YzaHpkbDBKekR1eTYwdGtTWjVnZ1ppd1QwZ0FtSDIz?=
+ =?utf-8?B?VUlURE01c3M5d3ZzdlA3RXU3eFZpejQ3dTd0d1JQaXNCa3E4RGlYbXpwemQz?=
+ =?utf-8?B?RWtEUXV3Zk43cllaVWNpeFoyeTBxc3V6SVFLc1M1ZWxtWGtkRnhySC8rR3E4?=
+ =?utf-8?B?RzQ0MVJzYnUvZjEzbkJQQ0V6bjdzaDlld2cyYitmamx1Z1BDU0JPb2NYbHdL?=
+ =?utf-8?B?T21UV2REV00rRWFVT1Qrd2tQRGxZM01RNmFpbkx0dHFRcVhIaExabnlJL1JU?=
+ =?utf-8?B?a1FYOU0vL1ZGZEsvVExENUFOUHNuVWlNQ2x0M2R0ZW13SXllbk5jZ1Q2Y3Ny?=
+ =?utf-8?B?a25EMnNrZDE4SjE0ZDJ2VlFPRnU5cEo5Um5HcnVYMTJqWm9LWXJiZDE5cDEw?=
+ =?utf-8?B?Q2xUSDFvaUlWbkZCekpicjZWVHFjeVdjM2RLdjdvQm1SV3NzcEFGMC93UDgv?=
+ =?utf-8?B?bEowTEd4TGhwRklQRU9XV2hSYVFVblhjZGQ4RUw5WUhLNWRzQlFHVnRJTjBE?=
+ =?utf-8?B?WDBJOE5vUnpYYkhGdTdVYnJsY1NSc1lIbGV0ZnBoZ3QwN2ZhU0VmVjI1L1VS?=
+ =?utf-8?B?Zm1wbnIzZ0FnNFl4aldhdDFZTS85RGVuWjN6WVNkWFUwdm95K1lZdGcwaHh3?=
+ =?utf-8?B?aHlGRHdRdENVRUV4dU1hMlRybEUzMUZkVjhNZEx2ZHREa1c4Y1NUalkzZ2Nh?=
+ =?utf-8?B?KzlBeHc5R1h0b2dYbEt5bkh1dTFFeWdOVnNPU0VHSXdaNmtxQ3RGTUVrVTVD?=
+ =?utf-8?B?eXFYMWFIT2pjcWpOM1NmUWk1SEpMOHEyQ3FmMUs3TWw4dlBPWmxuZllSZXYv?=
+ =?utf-8?B?QWp0dm84ZTlERDM0aGhkbndWRTRxUUxSdy9QZzBvdER3Szd1SjdTbEdSdW5q?=
+ =?utf-8?B?SlZhVlo1cXRma05mU3hMdi93c2hxY2NraEE5bTB0WGp1QWJMekM4RG1Jd0JL?=
+ =?utf-8?B?amFjenE2eUtWWGtCaEUzanNuU21iTjNKUmFUNmdKZmJ5WTdGankvUGhxckVj?=
+ =?utf-8?B?TmRvWUhhN2RsY0J1elZPSUMybitCQW04QVh5OTBLTk9ZOS8xeG1YRjI3ZDJj?=
+ =?utf-8?B?Z2dGQUFRQ0FTbXJCRVptbWJHTStvYUFaM0RIVTVwTjNoQUlWUFNHNWZGUWVj?=
+ =?utf-8?B?QjluT2ZZRmtoWWpKdmxSZ1lubWl2akplaTRRWWhobFkrMGdZMFZsOFMxV0lB?=
+ =?utf-8?B?U0xlaFpZWEVKRkJycHlwcE54dThHTll5Ky9VQzYrL1VRT2tiRFVpNnVteWRm?=
+ =?utf-8?B?K2JveXFLWE1HdlE2dlQzSnBUeEpSdzlFZlYrOVpVUlJaNEFSTy96d1dzUU9L?=
+ =?utf-8?Q?HC/tmwDnREkvIduA8wP3+oPMB?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d70df5b6-746e-4816-5421-08dc2758b62b
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB8321.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 106d1fc8-8c5e-40a8-9967-08dc2756b6d4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Feb 2024 21:00:56.7397 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DB1qAB7gCFpVcU2qSJ570aH2rET4ocYTKXe2xbWqeuA4qv5ZCsGmhEc6D1h0Re1FQDkWbysYfuwrNdgM/M0Lgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9413
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2024 21:15:14.8346 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fJT4bR3ZIQOehXOU1cyShF8bTJQiQtUq7u+hsXXB2lfVkUa8sostfOyepgdqiV9bgKZob54YAu5smj+l+LYQ2A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9318
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,67 +131,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
 
-Comments inline.
-
-Regards,
-Ramesh
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Joshi, M=
-ukul
-Sent: Wednesday, February 7, 2024 1:36 AM
-To: Russell, Kent <Kent.Russell@amd.com>; amd-gfx@lists.freedesktop.org
-Subject: RE: [PATCH] drm/amdkfd: Fix L2 cache size reporting in GFX9.4.3
-
-[AMD Official Use Only - General]
-
-[AMD Official Use Only - General]
-
-The commit description needs a Fixes tag of the offending commit.
-With that fixed, this patch is:
-
-Reviewed-by: Mukul Joshi <mukul.joshi@amd.com>
-
-> -----Original Message-----
-> From: Russell, Kent <Kent.Russell@amd.com>
-> Sent: Tuesday, February 6, 2024 1:06 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Joshi, Mukul <Mukul.Joshi@amd.com>; Russell, Kent
-> <Kent.Russell@amd.com>
-> Subject: [PATCH] drm/amdkfd: Fix L2 cache size reporting in GFX9.4.3
+On 2024-02-06 15:55, Joseph Greathouse wrote:
+> The current kfd_gpu_cache_info structure is only partially
+> filled in for some architectures. This means that for devices
+> where we do not fill in some fields, we can returned
+> uninitialized values through  the KFD topology.
+> Zero out the kfd_gpu_cache_info before asking the remaining
+> fields to be filled in by lower-level functions.
 >
-> Its currently incorrectly multiplied by number of XCCs in the
-> partition
->
-> Signed-off-by: Kent Russell <kent.russell@amd.com>
+> Signed-off-by: Joseph Greathouse <Joseph.Greathouse@amd.com>
+
+This fixes your previous patch "drm/amdkfd: Add cache line sizes to KFD 
+topology". Alex, I think the previous patch hasn't gone upstream yet. Do 
+you want a Fixes: tag or is is possible to squash this with Joe's 
+previous patch before upstreaming?
+
+One nit-pick below.
+
+
 > ---
->  drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 1 +
+>   1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> index 3df2a8ad86fb..64bf2a56f010 100644
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> index 3df2a8ad86fb..67c1e7f84750 100644
 > --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
 > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -1640,9 +1640,7 @@ static int fill_in_l2_l3_pcache(struct
-> kfd_cache_properties **props_ext,
->               else
->                       mode =3D UNKNOWN_MEMORY_PARTITION_MODE;
->
-> -             if (pcache->cache_level =3D=3D 2)
-> -                     pcache->cache_size =3D
-> pcache_info[cache_type].cache_size * num_xcc;
-> -             else if (mode)
-> +             if (mode)
->                       pcache->cache_size =3D
-> pcache_info[cache_type].cache_size / mode;
->               else
->                       pcache->cache_size =3D
-> pcache_info[cache_type].cache_size;
-Ramesh: Per my reading a cache_size is correct and should be around 4 MiB. =
-Per my thinking "mode" does not come into play?
-> --
-> 2.34.1
+> @@ -1707,6 +1707,7 @@ static void kfd_fill_cache_non_crat_info(struct kfd_topology_device *dev, struct
+>   
+>   	gpu_processor_id = dev->node_props.simd_id_base;
+>   
+> +	memset(cache_info, 0, sizeof(struct kfd_gpu_cache_info) * KFD_MAX_CACHE_TYPES);
 
+Just use sizeof(cache_info). No need to calculate the size of the array 
+and risk getting it wrong.
+
+Regards,
+   Felix
+
+
+>   	pcache_info = cache_info;
+>   	num_of_cache_types = kfd_get_gpu_cache_info(kdev, &pcache_info);
+>   	if (!num_of_cache_types) {
