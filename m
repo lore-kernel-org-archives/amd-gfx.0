@@ -4,71 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D87A4C4828F
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Feb 2024 14:47:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B693DC4828D
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Feb 2024 16:35:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7289710EDF8;
-	Wed,  7 Feb 2024 14:47:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 327E110E059;
+	Wed,  7 Feb 2024 16:35:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hmYDDt94";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qfvunQIW";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A3F210EDF8
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Feb 2024 14:47:07 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-40ff28388a6so6334635e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Feb 2024 06:47:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1707317226; x=1707922026; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=G7bMSZCPksJ9wkAoSKhjByAwbRrlLP/P3we2+f+hUt0=;
- b=hmYDDt94iGRYIh97SMDkzmfF4OVZdIYTkji+2WcVRAjQGozz/HwDtVIE7Cxc0UswcB
- CcIMSBybX3fRePd2gK/CWR1fg1FDRvyICK8fO4Gfa9fsYL+4qteov8M3dwwBtEe1Uou5
- FIHPIgvfniQnKi9L4FFYPDXrJrymEv18vqug8VTaJ1IcrADE6hC4DiZmIDavYRzVxvds
- pRW8LuD2nZ43AHB9cxXectYnEoq4kVZWyR6wc7wNKpY0tW23gaQnyickhEzfuz4zQy/F
- 7FL0ZM6XkgsNCVM1uywi0so7rQpTlM8E4WVmoUQC416I325s5egQlvIKhKXYgyHI4Fh2
- 43zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707317226; x=1707922026;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=G7bMSZCPksJ9wkAoSKhjByAwbRrlLP/P3we2+f+hUt0=;
- b=LmHIeE0cjiIXLa7BEZiZCGtjx+LrB4hB4Jx2aAWohEyr7W36NTqFaW8VqFrAHKBnRd
- vP1hhfM8bk+kUvns+2VftJjKypgXOoq1M/45HWZUfzKXApPwpB5E0Y3yCmCUVklw6tdB
- oJXc6HzOYdTDW98oCtcmtO77qiMsC0UrxtbvMgZpMAuMohrTLsHQ4gh/b9ZFX7Uo4C00
- 25z1hvVYrnDSE1kgBKz+9tzba2B6js4DodjKTd6zYnn82oczU7ifrOfgU1KuU2mpJ6m3
- YcZotUPbz2+jMX2iMKdkXRVReIwa83VkgiRfy9hRoqExE94Pi73F7obKMSzi99bLvR0b
- M4Ag==
-X-Gm-Message-State: AOJu0Yxq6HausxJzRO2GzBhfIc2s5MBwjABIhb2f+C+PIOA6VcJ1e8kt
- Mk5EC2a4/OQbWUfRyuNubNzW9J7fbrXewCyClcBChHov1/cBmUFyOmy5ngB6
-X-Google-Smtp-Source: AGHT+IGeDkGcloQh8p0biaLVrXOwGT7OUtJk/c9NfColdL4PmubnclezPmtO8BM8X/BpokijPtlIzQ==
-X-Received: by 2002:adf:a1cb:0:b0:33b:1fb3:ad60 with SMTP id
- v11-20020adfa1cb000000b0033b1fb3ad60mr3599754wrv.1.1707317225555; 
- Wed, 07 Feb 2024 06:47:05 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCUoypUm6007G7kJNmeq8s9FGWMz1OXpguCmYmFQBaVcgxSj0RTsdmEHfrAy0EoC332c7kKgzuuzQvVPN1Fd+bIg6clR11yJsc7sQUAblf9uS7wrudQaQSbBfXSrIx9kqdJu6vlt6PoU
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- g2-20020adff3c2000000b00337d5cd0d8asm1655700wrp.90.2024.02.07.06.47.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Feb 2024 06:47:05 -0800 (PST)
-Message-ID: <1186fa59-49a3-4dea-b19b-125543631f0c@gmail.com>
-Date: Wed, 7 Feb 2024 15:47:03 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: Unmap only clear the page table leaves
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2071.outbound.protection.outlook.com [40.107.96.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E3FF10E094
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Feb 2024 16:35:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QihoaeeoZYXVBAUJUiBJh7FjTiH6cE3iNr4qoamAdjc1lTFEyTs6nvirhW/NVLfk3LtlGfRFTSRntZDsZSIelQIRrQS4m6na2MPCvSkliAAJk2oX8bh8vBBcmVTt/SIiAULbcIQpP6BMd8GdDKFkJ1Pa+Sc64swvLJu6kVNDqj8pN3jQybdLlnobd7k9XH6UytygctPpeb9pGJ+64EPDt/+eaG1FfkyiysitiTI5jXZHzim9HDBP/RRtLJkjbWE0Cm4UvZD8jlF1QhQp/zzjY+1Bk5PAc1b3U+T41qdITyTQIt0WH21V6IHH/1aOj/VfOioL4KZGy/PbRfRXRL6G9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=abK0Vi+NWreIeyUT5raYB10DZlRy24qwduxHBmbu0bs=;
+ b=ZHUZPd3lj36itQiqm7A+8uRtUV4HMJk7XL39h7x2Q0YbbUySLLoQXPzQ8/CLfR3qTP5eEx5Eo2/ps9NAykcNRCSuBch96TA6L3S7KaQTR1xnOxktp/JPw1G/NP8kXrCyPDVOBCC37pRPOVYAPrgrDeAiOw9Q9jYgbsB/+6cO1U2zyitC0DYvJJUkLAVSfEO1XylwX3NJ9+hy9IWMsF4sPMBMSxag6rDns9TOS4vDXsmb4cs6bb6dB6iNjWCxZoK+0b1RNjuXrUlZYR8KUdEdNEFZI92MYmsqfTm/JyaZwoL+8EFJVHb+fSGSIbgQqwLN7CopBElwAjfg0s3bTXKQQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=abK0Vi+NWreIeyUT5raYB10DZlRy24qwduxHBmbu0bs=;
+ b=qfvunQIWFQEHowqqrgyE1JbEBer8iVGSfLlKm+uhVjbu1fEi2fG+hBbDjOmb2uhG7wInB1Q1Cqr+U2+9A718OPVgw6hDaCxuq8szge6WbA5uzaLuKm7HQdWFFFJfZfNq8DKHP5jHtTuZi5GNqJsYhuIdXl1XNcU21yBsMEZDKEI=
+Received: from BL3PR12MB6425.namprd12.prod.outlook.com (2603:10b6:208:3b4::7)
+ by BY5PR12MB4323.namprd12.prod.outlook.com (2603:10b6:a03:211::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.17; Wed, 7 Feb
+ 2024 16:35:11 +0000
+Received: from BL3PR12MB6425.namprd12.prod.outlook.com
+ ([fe80::a1f9:8073:1b53:8779]) by BL3PR12MB6425.namprd12.prod.outlook.com
+ ([fe80::a1f9:8073:1b53:8779%5]) with mapi id 15.20.7270.012; Wed, 7 Feb 2024
+ 16:35:11 +0000
+From: "Joshi, Mukul" <Mukul.Joshi@amd.com>
+To: "Russell, Kent" <Kent.Russell@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v2] drm/amdkfd: Fix L2 cache size reporting in GFX9.4.3
+Thread-Topic: [PATCH v2] drm/amdkfd: Fix L2 cache size reporting in GFX9.4.3
+Thread-Index: AQHaWUPl/ekDfzXLqkWkq1UntBt5YbD/FIKQ
+Date: Wed, 7 Feb 2024 16:35:11 +0000
+Message-ID: <BL3PR12MB6425BC7CB32353E790082BEFEE452@BL3PR12MB6425.namprd12.prod.outlook.com>
+References: <20240206213140.629705-1-kent.russell@amd.com>
+In-Reply-To: <20240206213140.629705-1-kent.russell@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, christian.koenig@amd.com
-References: <20240201165017.29789-1-Philip.Yang@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240201165017.29789-1-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=c7e7ccc0-8bd2-4c2b-803a-232ce5392f1c;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-02-07T16:34:28Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL3PR12MB6425:EE_|BY5PR12MB4323:EE_
+x-ms-office365-filtering-correlation-id: 3cb88409-04a4-4816-10bb-08dc27fac0f5
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Sf6w6+xJyJJfzLMSrj/baF2NUXc7yxIereg7A6uHX6UGln5cvAMXHKKzW7f6lBkaKnyIFt6n/vGUmyunZ61gBIoxSXUslai1mSBo9BfI3jRqBYrP0fPMgVj2rm07s8o5Uq9sbo5N+/27WXitW2uj7t6Sartsw0yjy1LtNg02es/Nka1mI3KXMfQPkcTwsv0dFHj1VC2W2HTGUAXUialQnpK5PdhwYOcjPxH1QEcwUiOloR6jRPrH1Xj4yJ2qfpAeRV5UPiqbe8wt4nvjPt50di/T/gvs9l5e2IxSqF+ashY7LaS3xRMb6mrTLYbvyEgZRqxbc2pvAs7MQHq4BwXYrDmhNqe28qe1mQ/QbftvSAenJrzPSb0JwnjtX8xzCnSArOvY5+Sldy/qttw/gXvpLugh5HAElkbhDm2Hn4ZUnMW+qgwEIqKsfxQYj8TJt+P/ctsSvze5EqOJhqhiLcdKRlVLOj83xro/y0tqurG+QIZVaJwTACLwgzI2PfYLDAV/z/2uHrCeXsI7F7EQv7IY5+395Wa6t/yB9kIq6u6/Qk4zSY7/PHbOf6ftfW5ffsd63BDC4KqV57SfWGh+ODFvX7j+bzJWPrsg2nO9X/mX/r/qdWU4ZkA7vZYzbS9VdkGM
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL3PR12MB6425.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(39860400002)(346002)(136003)(396003)(366004)(230922051799003)(186009)(64100799003)(451199024)(1800799012)(26005)(33656002)(55016003)(83380400001)(66476007)(41300700001)(5660300002)(2906002)(38070700009)(76116006)(64756008)(66946007)(86362001)(66446008)(66556008)(478600001)(9686003)(53546011)(38100700002)(7696005)(6506007)(71200400001)(122000001)(8676002)(316002)(52536014)(110136005)(8936002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?UpJvo/P0A4iFxBUqbzdE08Y4Vk8HBqUtsxFB77pI85Alb5PNqWiKYtikW2Qb?=
+ =?us-ascii?Q?zsO0xwiZhxjjbrIumizyP0p8doMygGtT73Rg+cHhctClTaSH7RxMXcRIVg31?=
+ =?us-ascii?Q?5XLZeJHgLudExZ44L9yuxzfNDJ0/6+d8d9s3TWe5PAGVW6Da3bsfNnEeMHge?=
+ =?us-ascii?Q?obRLkU8gGpSMKuuRIMze2pxRSQ2YlponSODaJq4gIl/wDzSm1YzvBmVVe0k0?=
+ =?us-ascii?Q?6wqTdPBpFKcjvKdc8Jyu6rJeM8XfKDvPTjsrlkGLh9FMmFoC04RqpO5gNNxV?=
+ =?us-ascii?Q?L58xnaicbbubzuE7xSD0xbRlX2hHc6fo2MAzaQt2lzMzdRpOFlY7TEdfiU52?=
+ =?us-ascii?Q?Y2/5BywURGBpTAQd315GxMhQNlgzf3uRllbp5Xnappif3dYVhkxUDkfLJ1lV?=
+ =?us-ascii?Q?j4+WG1+ziIIa06EU5fKW+hNQlHJZsa7TLeF9WXhBEVWI05LOcy12ShUW3GjL?=
+ =?us-ascii?Q?95mnaJu8aqHSxmrPSoyNBHIs460xuOXwSmTl/5nkWYetkpHWg8oXyK8AVlBl?=
+ =?us-ascii?Q?zPMe4HgAgYKZSo9Z/M4ET8nz8xZPnJMeaVL6Cg6iwY/5HpunwMGIejUrynZC?=
+ =?us-ascii?Q?1J3wQXH77RGLeHzvEzsbTuyzz81ERZIVDx3toIwoeH1GlXrskExwhOozuN8E?=
+ =?us-ascii?Q?jK1Iio8oxQYuzzdag97rUOW6zOBpOYZ8vd1Xye+cpwz/7i97kLZMMCWMq50a?=
+ =?us-ascii?Q?cCkX76yQ445VS6xg51puTFBrVuyHqxcT4TwNwq5ER7FWcu2j6c0M4rCIzNe5?=
+ =?us-ascii?Q?TXxIvT5aZITTOAUJyX2JtWBzETheLDxvLy6P3A1iUOyaRUVgGualahVKYx89?=
+ =?us-ascii?Q?uQLnp3jyLdWvu8GOU9uH06ABe8HiPMHoo+q+MaRYuGrfZu1MXoKeZLTJ1jPj?=
+ =?us-ascii?Q?YAKwxqoH1FSaPj19KT5pFAO85UKmp3aH0aRaouhBeekjRWLiayBcAXepSCa5?=
+ =?us-ascii?Q?jI6oHVrsoJ+iXYTB0mo371cQodzRL8wqV8fBJyrayWcy+xxKXj6P1eMqQ0hP?=
+ =?us-ascii?Q?l1KxC/8DW+WCw1jU39NLg08CXvOYxTSGm7hIpAC5lTllUR0rO5yHvBK8z+Bq?=
+ =?us-ascii?Q?oWOMpPwY+W4Undo1VOBEn+FT0W9F9+4tTo1eEAgQJ3mlWwACdLdf5njIDIBq?=
+ =?us-ascii?Q?MHAcoz7RoNl7lCjDCmSJDDvfALrO+zemMN+h8QQqGHXGKpV3oNNdjeJk94il?=
+ =?us-ascii?Q?XpfxvOEW64V7JSsDtaDehF0dRurmBiWoSBqftrJcJNWKknMAVRwunF4PIFdW?=
+ =?us-ascii?Q?VW6z8ArjbUmzoqnhDh0j7sCUSu9nQNizWCuGlgQqJPAtNXKO3uDpIMpOO68D?=
+ =?us-ascii?Q?f4T8i8ghHNn+2QBh+9TT8z+5AdLhvpVGJeA3FrKbNVD1cbld7DtyjHrURlC8?=
+ =?us-ascii?Q?/hMB7CQPnyxKrqGTNFUz3WBi5ttJC6MpZkCvYsrxvh5y5pi3ndMWpo0G/sP2?=
+ =?us-ascii?Q?zaDEiHR6GpI8UztFUxWq2kNEZ3qoSGDDhyjaJDJc19rruf9x9mDvmbU+YMTV?=
+ =?us-ascii?Q?kXI8z3M+tV2L9pGCUpUM6n0PmDlTbsBR6Fm6jA2dcJQ2+i93lXp+R1msv0w2?=
+ =?us-ascii?Q?cqYgAO6G8DVJFq3ou5M=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL3PR12MB6425.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3cb88409-04a4-4816-10bb-08dc27fac0f5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Feb 2024 16:35:11.1997 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 94DxebtVG24cSoskU8Nz5ALDODguHVm2B/3pNfj0xt5KNYLgtD2CpcQTQ5WI3xu7fozGF2v4ezi210lubF6PNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4323
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,144 +128,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 01.02.24 um 17:50 schrieb Philip Yang:
-> SVM migration unmap pages from GPU and then update mapping to GPU to
-> recover page fault. Currently unmap clears the PDE entry for range
-> length >= huge page and free PTB bo, update mapping to alloc new PT bo.
-> There is race bug that the freed entry bo maybe still on the pt_free
-> list, reused when updating mapping and then freed, leave invalid PDE
-> entry and cause GPU page fault.
+[AMD Official Use Only - General]
 
-Well that race here is not clear to me. Can you explain more what's 
-going on and why we should change the VM code to avoid this situation?
+Reviewed-by: Mukul Joshi <mukul.joshi@amd.com>
 
+> -----Original Message-----
+> From: Russell, Kent <Kent.Russell@amd.com>
+> Sent: Tuesday, February 6, 2024 4:32 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Joshi, Mukul <Mukul.Joshi@amd.com>; Russell, Kent
+> <Kent.Russell@amd.com>
+> Subject: [PATCH v2] drm/amdkfd: Fix L2 cache size reporting in GFX9.4.3
 >
-> By setting the update to clear only one PDE entry or clear PTB, to
-> avoid unmap to free PTE bo. This fixes the race bug and improve the
-> unmap and map to GPU performance. Update mapping to huge page will
-> still free the PTB bo.
-
-I would only do this if we don't have any other way to clean this up 
-since that is a really ugly workaround for this issue.
-
-Regards,
-Christian.
-
+> Its currently incorrectly multiplied by number of XCCs in the partition
 >
-> With this change, the vm->pt_freed list and work is not needed. Add
-> WARN_ON(unlocked) in amdgpu_vm_pt_free_dfs to catch if unmap to free the
-> PTB.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> Fixes: 6b537864925e ("drm/amdkfd: Update cache info for GFX 9.4.3")
+> Signed-off-by: Kent Russell <kent.russell@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  4 ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  4 ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 43 ++++++-----------------
->   3 files changed, 10 insertions(+), 41 deletions(-)
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 10 ++++------
+>  1 file changed, 4 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 82e5fd66a10d..3bde77dfc63f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2256,8 +2256,6 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   	spin_lock_init(&vm->status_lock);
->   	INIT_LIST_HEAD(&vm->freed);
->   	INIT_LIST_HEAD(&vm->done);
-> -	INIT_LIST_HEAD(&vm->pt_freed);
-> -	INIT_WORK(&vm->pt_free_work, amdgpu_vm_pt_free_work);
->   	INIT_KFIFO(vm->faults);
->   
->   	r = amdgpu_vm_init_entities(adev, vm);
-> @@ -2446,8 +2444,6 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
->   
->   	amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
->   
-> -	flush_work(&vm->pt_free_work);
-> -
->   	root = amdgpu_bo_ref(vm->root.bo);
->   	amdgpu_bo_reserve(root, true);
->   	amdgpu_vm_set_pasid(adev, vm, 0);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index cdb61f1e7c35..74fe211b9ecd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -316,10 +316,6 @@ struct amdgpu_vm {
->   	/* BOs which are invalidated, has been updated in the PTs */
->   	struct list_head        done;
->   
-> -	/* PT BOs scheduled to free and fill with zero if vm_resv is not hold */
-> -	struct list_head	pt_freed;
-> -	struct work_struct	pt_free_work;
-> -
->   	/* contains the page directory */
->   	struct amdgpu_vm_bo_base     root;
->   	struct dma_fence	*last_update;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index a160265ddc07..a3d609655ce3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -657,27 +657,6 @@ static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
->   	amdgpu_bo_unref(&entry->bo);
->   }
->   
-> -void amdgpu_vm_pt_free_work(struct work_struct *work)
-> -{
-> -	struct amdgpu_vm_bo_base *entry, *next;
-> -	struct amdgpu_vm *vm;
-> -	LIST_HEAD(pt_freed);
-> -
-> -	vm = container_of(work, struct amdgpu_vm, pt_free_work);
-> -
-> -	spin_lock(&vm->status_lock);
-> -	list_splice_init(&vm->pt_freed, &pt_freed);
-> -	spin_unlock(&vm->status_lock);
-> -
-> -	/* flush_work in amdgpu_vm_fini ensure vm->root.bo is valid. */
-> -	amdgpu_bo_reserve(vm->root.bo, true);
-> -
-> -	list_for_each_entry_safe(entry, next, &pt_freed, vm_status)
-> -		amdgpu_vm_pt_free(entry);
-> -
-> -	amdgpu_bo_unreserve(vm->root.bo);
-> -}
-> -
->   /**
->    * amdgpu_vm_pt_free_dfs - free PD/PT levels
->    *
-> @@ -696,17 +675,7 @@ static void amdgpu_vm_pt_free_dfs(struct amdgpu_device *adev,
->   	struct amdgpu_vm_pt_cursor cursor;
->   	struct amdgpu_vm_bo_base *entry;
->   
-> -	if (unlocked) {
-> -		spin_lock(&vm->status_lock);
-> -		for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
-> -			list_move(&entry->vm_status, &vm->pt_freed);
-> -
-> -		if (start)
-> -			list_move(&start->entry->vm_status, &vm->pt_freed);
-> -		spin_unlock(&vm->status_lock);
-> -		schedule_work(&vm->pt_free_work);
-> -		return;
-> -	}
-> +	WARN_ON(unlocked);
->   
->   	for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
->   		amdgpu_vm_pt_free(entry);
-> @@ -1009,7 +978,15 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
->   		incr = (uint64_t)AMDGPU_GPU_PAGE_SIZE << shift;
->   		mask = amdgpu_vm_pt_entries_mask(adev, cursor.level);
->   		pe_start = ((cursor.pfn >> shift) & mask) * 8;
-> -		entry_end = ((uint64_t)mask + 1) << shift;
-> +
-> +		if (cursor.level < AMDGPU_VM_PTB && params->unlocked)
-> +			/*
-> +			 * Unmap to clear one PDE entry, to avoid unmap to free
-> +			 * PTB using pt_free work which has race condition.
-> +			 */
-> +			entry_end = 1ULL << shift;
-> +		else
-> +			entry_end = ((uint64_t)mask + 1) << shift;
->   		entry_end += cursor.pfn & ~(entry_end - 1);
->   		entry_end = min(entry_end, end);
->   
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> index 3df2a8ad86fb..533b8292b136 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -1640,12 +1640,10 @@ static int fill_in_l2_l3_pcache(struct
+> kfd_cache_properties **props_ext,
+>               else
+>                       mode =3D UNKNOWN_MEMORY_PARTITION_MODE;
+>
+> -             if (pcache->cache_level =3D=3D 2)
+> -                     pcache->cache_size =3D
+> pcache_info[cache_type].cache_size * num_xcc;
+> -             else if (mode)
+> -                     pcache->cache_size =3D
+> pcache_info[cache_type].cache_size / mode;
+> -             else
+> -                     pcache->cache_size =3D
+> pcache_info[cache_type].cache_size;
+> +             pcache->cache_size =3D pcache_info[cache_type].cache_size;
+> +             /* Partition mode only affects L3 cache size */
+> +             if (mode && pcache->cache_level =3D=3D 3)
+> +                     pcache->cache_size /=3D mode;
+>
+>               if (pcache_info[cache_type].flags &
+> CRAT_CACHE_FLAGS_DATA_CACHE)
+>                       pcache->cache_type |=3D HSA_CACHE_TYPE_DATA;
+> --
+> 2.34.1
 
