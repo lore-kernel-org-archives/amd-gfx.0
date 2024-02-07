@@ -4,119 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86E85C4828D
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Feb 2024 14:39:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D87A4C4828F
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Feb 2024 14:47:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09AB410E194;
-	Wed,  7 Feb 2024 14:39:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7289710EDF8;
+	Wed,  7 Feb 2024 14:47:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oBRLSExI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hmYDDt94";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB63A10E194
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Feb 2024 14:39:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=N9Acdw63M8bUXOJDV3HY5YEvyaGEnWcv2lqb73yXOsWPMRuX//YauPGPfDzUD1pmnAAciJWSg6FlRQvBRpkbdMo1QDbsekIbmcu6bC/9Fo6v5Aqyd6QNuB1U3RHyuBkbQqGms9K8LGR62uHIZLFO3VFlSH7JKFYVoGtOh3uQwNcYeAZtDSVDREIFM31tBu/wc95Mht1GRvM2Q36x5o2M8oEquy+2+JsLZ2T5h91ONWA4gqDnWGxNqh0shJVLlQomdeWxKj7O6B1NU5VXSaiiU8I8F+Duplc7X82fQYLAxTk0jULbcQt2NQl5AnrZMcqWxxgoRwA4JcE3o/4IBIKHRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gD34Wjs7/s0wJIvvVglF9OrS66O9PfhpFokUvVOJwVE=;
- b=ZQVxufIZAyXhsyOgrVoMqMM2yIVzfAmSfgK0cWtgPlKBLUG4Pc1eHKRAqIk8RwTxIvoHF3k+U1+g7mtVufpSi/rqpsBbt2mLa8gm42m4uLvqi7DHYw2Uzn2H0NR6vVrLJiU6YBUuFWJRkDhWfuggbvT/hmXcXpKMSHD3U1toU5j5ZtTQgedia5eDEjQiFFDs3iLmsUk51RR8J9rWc36LLQS0X0rjn766w0UrcQTuEUznfW15rkm8xNDHjRJvd4CYyKT5r97OlhToueRIqebJHsf+bJQCCJcrlq8BLMBM7RE8YyYx9yxKsaOwGiE06LRg6/OeXvrsDdCBcMZPcyj/AQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gD34Wjs7/s0wJIvvVglF9OrS66O9PfhpFokUvVOJwVE=;
- b=oBRLSExIbeCJXyGu8mGOYgOCB+iB/mYCuDRd2YtMEU1bYB8n1VyHwopuVVRHUdbhk52VrSEr5uWZt28tOYnSlJZttJZy5fJlj8gvSSdz1+SvpmhFugteCs8Ib+Pr3Id4Pp2864FD0rH+Y4vi9kIyePmBZ6hLgdHg67d7afrh+GM=
-Received: from SJ1PR12MB6194.namprd12.prod.outlook.com (2603:10b6:a03:458::12)
- by PH7PR12MB9102.namprd12.prod.outlook.com (2603:10b6:510:2f8::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.14; Wed, 7 Feb
- 2024 14:39:26 +0000
-Received: from SJ1PR12MB6194.namprd12.prod.outlook.com
- ([fe80::d767:4e15:1725:35ee]) by SJ1PR12MB6194.namprd12.prod.outlook.com
- ([fe80::d767:4e15:1725:35ee%6]) with mapi id 15.20.7270.007; Wed, 7 Feb 2024
- 14:39:26 +0000
-From: "Dong, Ruijing" <Ruijing.Dong@amd.com>
-To: "Thai, Thong" <Thong.Thai@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Thai, Thong" <Thong.Thai@amd.com>
-Subject: RE: [PATCH] drm/amdgpu/soc21: update VCN 4 max HEVC encoding
- resolution
-Thread-Topic: [PATCH] drm/amdgpu/soc21: update VCN 4 max HEVC encoding
- resolution
-Thread-Index: AQHaWVRCEUlP0F4HN0W7qF4dHUXnKLD+9CtQ
-Date: Wed, 7 Feb 2024 14:39:26 +0000
-Message-ID: <SJ1PR12MB619458B1696D59C33D4A92EA95452@SJ1PR12MB6194.namprd12.prod.outlook.com>
-References: <20240206232828.21053-1-thong.thai@amd.com>
-In-Reply-To: <20240206232828.21053-1-thong.thai@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=62431cd8-617b-481c-ad30-32aa8855beff;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-02-07T14:39:11Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ1PR12MB6194:EE_|PH7PR12MB9102:EE_
-x-ms-office365-filtering-correlation-id: 2bb8137f-f3d6-4c63-22e6-08dc27ea9567
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: EArRwKVTQVRkK35HEGzf4OmHhOyJlkBSWKup0dB6Uo0RpT+PgojvpgjAqjORuT3YwYQOMbIHQtTHBE9Gq1OPHyQ5na9Yw3rNAjaY+If+loSs+1aOtJVdC6IQyEbcILMgjR3gmVOXoj7tjvoTPz1xHFPjyZ3FKi6KVUuqPc7RUjwTY9EAAXk7N+vj/8769Uvdz64gzteKxKvyxHkMLQ6lnGmVrI2kkqbR5N8EpJZiHjx0hz55Bb92+x+wzFHbk3OFx7fxhACaRz85flagCxxgVc8tgBVBDCg1eK8P7CSVsvF5TyUmoJID3T4yXjE5p4tGlDCWmeA3f/bChq3gI9nkMFgLdL2xaZieUB3EOPKHt3QcrlAW3i8M4d9hBpfzrFZbNZNmJtN0HwsjJA7SCni4H4QAqVwrG6mQ9SxtaDPFvGYYPb5zOu4vdXfuKH2irsNI6aXdlbcuvMi9H7NCVWgDsfKBjiQvyarISO+XxHWYxzaMGvJMR+HqiNlVDTpUVzcJZQKG7GCEgy66zWRVb6bfL+RhkhGbx8gqSb83RlpDW27PgowxDl9OX42zVaAZUeK9Ju0XRYU7StXVg1RR35CMBGmG2y/H4scqzJ9cib9iEUY=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR12MB6194.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(346002)(39860400002)(136003)(376002)(366004)(230922051799003)(64100799003)(1800799012)(451199024)(186009)(83380400001)(110136005)(316002)(4326008)(38100700002)(122000001)(26005)(9686003)(66556008)(64756008)(6506007)(7696005)(53546011)(86362001)(5660300002)(15650500001)(478600001)(55016003)(66946007)(52536014)(71200400001)(8936002)(66446008)(8676002)(2906002)(66476007)(33656002)(76116006)(38070700009)(41300700001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0VHrnSxDbGlNTitom37j6aTnSBHoj2IOuua2VC3eAnaCn+h2wrJraLtRPd8e?=
- =?us-ascii?Q?uiEm9gT5RmvrADpdygQjvbXlTw3xvirNvVe08goUOfhEGJg9KR20yoPvH0rm?=
- =?us-ascii?Q?Js0oO90KqaZj3x38KBcUDLTUWkmQ9+Seys38rnCRIe0ZTPwaERL+C14xPRJ2?=
- =?us-ascii?Q?e+YoYzZMTDlUY5rYY7XCgGdq0C3OMPZFtX6WYdyAs2+Z1TDOGFB4vj9n/oLT?=
- =?us-ascii?Q?PuWB7OQDX8atKbCJrovObHPgzpgByrm2PkyAeuWaneA6sHtoZyHO1/MB7+8r?=
- =?us-ascii?Q?BaoG4kGE97EEjSIBIxAFr3plObRLDT0Psat7NucqRsDjJbA3E/cOM7ZMsaOc?=
- =?us-ascii?Q?zTro0GaBCOaeU1P5Ge4VNrKUUCaIHBNujWyS6Elrdz3PrEMl0d3ORS00J0CA?=
- =?us-ascii?Q?m7WKPGffCHip4RUpDXNAaCp1X3SgamdkbCHiDDR+nTnY+k1i8FuXi+jDJnLv?=
- =?us-ascii?Q?vQMMz1uyrHxuhvTmSpnse2vT6guXe91mArC0wvmoSLVFO4cV1Rl5O1xRJwoa?=
- =?us-ascii?Q?MdAMfsRy0IaOnUMqLnEmnyYH9BkNNORV95d1+6qGv4lrgI+l1Q0pZz8nxlxh?=
- =?us-ascii?Q?GR0f9aPGmXrcU/TIu4Xk01HFpZ/5/QKe/oJxW/r2boNgLx+9A8Qd5qWS3bVx?=
- =?us-ascii?Q?xJhTfsskynMGx+q1zA8CcbS4HFmYJAspz6kWgYEfSSFCYJwmhdIt5SSLOxrW?=
- =?us-ascii?Q?6yqtblNQ/8h/ib9S3Ejcn6LIzX7+UsTPh1N4gVLLFqLlRqXgbFK8e/YwQJ44?=
- =?us-ascii?Q?L9iX9szQXgxn1rjPJvRnwwvEBZVoBtFJMOIsUUfM1ngp+QUK3WBywC4A558q?=
- =?us-ascii?Q?2szqNiP0GWvLV0r7Gknq8m+Xns0dmFO+E0GVF/moXqZwFmUKYzPexu2pNek3?=
- =?us-ascii?Q?qdEaRfOXiG+u/90bTZoDEZByAhNomPM6jbcJlvSoRC1E2ylZebnF3LQFF+P0?=
- =?us-ascii?Q?IcYhHsPfR9rGwT2gMGoZXQVs5bMNdkDzP9qFHbpF0jsgH5kq4QJnUKCCbCNq?=
- =?us-ascii?Q?EfzDG96C7eT8LcDOh5GFjl/0lkjBz3MgSDZJllz5IuX6sm5hxizJQH+M/pkp?=
- =?us-ascii?Q?HUqF8Wj0n13Uz/FvmBfiC+ZzKocTHlHO4NhMLZSPi25v7uVeEHy+LStMfyUV?=
- =?us-ascii?Q?YPGKqe7/aTpLfEblqQ3KTeRcKfFKXP2yRRlMIK2xlMKUdUrdO0NBCVO2qeCV?=
- =?us-ascii?Q?/wrO0QHbB9gyGJTrzqYkSSJ0ltLAAwa7777KBY+DWpTBEwh2EEpw+yMIrefF?=
- =?us-ascii?Q?gcWcnRydzwrkSwGSxUXNJvxpiODylqtwA2K0qg9E8jWuZtPbl57HJSy/nLIU?=
- =?us-ascii?Q?h/gxH0Jh+hGQv1d8HsTgj1KkPDJgNKpCMNzwugthf5tZUrymx5ci3qLT8xhN?=
- =?us-ascii?Q?NBLJI9ympczf92GvJJiRJ8UDXQbdZucbAqxHr6PcMeh/fnAMS9xcj/PyIOwq?=
- =?us-ascii?Q?TAWIilB94Utg/DemsjPkCJiDuZ16cCdQSxR11Z36Qk2YdFf08qoEwXCDmpP4?=
- =?us-ascii?Q?90l478hZH4ecVTGvqw9oYeXIHGcwOApo+mR+Ri+JOm0ZxBFgkEKuxk1pCNzd?=
- =?us-ascii?Q?YVi5PQKhex33m6TO8pE=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A3F210EDF8
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Feb 2024 14:47:07 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-40ff28388a6so6334635e9.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 07 Feb 2024 06:47:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1707317226; x=1707922026; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=G7bMSZCPksJ9wkAoSKhjByAwbRrlLP/P3we2+f+hUt0=;
+ b=hmYDDt94iGRYIh97SMDkzmfF4OVZdIYTkji+2WcVRAjQGozz/HwDtVIE7Cxc0UswcB
+ CcIMSBybX3fRePd2gK/CWR1fg1FDRvyICK8fO4Gfa9fsYL+4qteov8M3dwwBtEe1Uou5
+ FIHPIgvfniQnKi9L4FFYPDXrJrymEv18vqug8VTaJ1IcrADE6hC4DiZmIDavYRzVxvds
+ pRW8LuD2nZ43AHB9cxXectYnEoq4kVZWyR6wc7wNKpY0tW23gaQnyickhEzfuz4zQy/F
+ 7FL0ZM6XkgsNCVM1uywi0so7rQpTlM8E4WVmoUQC416I325s5egQlvIKhKXYgyHI4Fh2
+ 43zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707317226; x=1707922026;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=G7bMSZCPksJ9wkAoSKhjByAwbRrlLP/P3we2+f+hUt0=;
+ b=LmHIeE0cjiIXLa7BEZiZCGtjx+LrB4hB4Jx2aAWohEyr7W36NTqFaW8VqFrAHKBnRd
+ vP1hhfM8bk+kUvns+2VftJjKypgXOoq1M/45HWZUfzKXApPwpB5E0Y3yCmCUVklw6tdB
+ oJXc6HzOYdTDW98oCtcmtO77qiMsC0UrxtbvMgZpMAuMohrTLsHQ4gh/b9ZFX7Uo4C00
+ 25z1hvVYrnDSE1kgBKz+9tzba2B6js4DodjKTd6zYnn82oczU7ifrOfgU1KuU2mpJ6m3
+ YcZotUPbz2+jMX2iMKdkXRVReIwa83VkgiRfy9hRoqExE94Pi73F7obKMSzi99bLvR0b
+ M4Ag==
+X-Gm-Message-State: AOJu0Yxq6HausxJzRO2GzBhfIc2s5MBwjABIhb2f+C+PIOA6VcJ1e8kt
+ Mk5EC2a4/OQbWUfRyuNubNzW9J7fbrXewCyClcBChHov1/cBmUFyOmy5ngB6
+X-Google-Smtp-Source: AGHT+IGeDkGcloQh8p0biaLVrXOwGT7OUtJk/c9NfColdL4PmubnclezPmtO8BM8X/BpokijPtlIzQ==
+X-Received: by 2002:adf:a1cb:0:b0:33b:1fb3:ad60 with SMTP id
+ v11-20020adfa1cb000000b0033b1fb3ad60mr3599754wrv.1.1707317225555; 
+ Wed, 07 Feb 2024 06:47:05 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUoypUm6007G7kJNmeq8s9FGWMz1OXpguCmYmFQBaVcgxSj0RTsdmEHfrAy0EoC332c7kKgzuuzQvVPN1Fd+bIg6clR11yJsc7sQUAblf9uS7wrudQaQSbBfXSrIx9kqdJu6vlt6PoU
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ g2-20020adff3c2000000b00337d5cd0d8asm1655700wrp.90.2024.02.07.06.47.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 Feb 2024 06:47:05 -0800 (PST)
+Message-ID: <1186fa59-49a3-4dea-b19b-125543631f0c@gmail.com>
+Date: Wed, 7 Feb 2024 15:47:03 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6194.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bb8137f-f3d6-4c63-22e6-08dc27ea9567
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Feb 2024 14:39:26.1888 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cUz9D0M4iK/Tii/pZjWCL+6V7QM5xPIDWdd89Q1Xc3p9KmH5cX1EhXn1R/uAFd2b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9102
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amdgpu: Unmap only clear the page table leaves
+Content-Language: en-US
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com, christian.koenig@amd.com
+References: <20240201165017.29789-1-Philip.Yang@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240201165017.29789-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,61 +83,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Am 01.02.24 um 17:50 schrieb Philip Yang:
+> SVM migration unmap pages from GPU and then update mapping to GPU to
+> recover page fault. Currently unmap clears the PDE entry for range
+> length >= huge page and free PTB bo, update mapping to alloc new PT bo.
+> There is race bug that the freed entry bo maybe still on the pt_free
+> list, reused when updating mapping and then freed, leave invalid PDE
+> entry and cause GPU page fault.
 
-Reviewed-by: Ruijing Dong <ruijing.dong@amd.com>
+Well that race here is not clear to me. Can you explain more what's 
+going on and why we should change the VM code to avoid this situation?
 
-Thanks,
-Ruijing
+>
+> By setting the update to clear only one PDE entry or clear PTB, to
+> avoid unmap to free PTE bo. This fixes the race bug and improve the
+> unmap and map to GPU performance. Update mapping to huge page will
+> still free the PTB bo.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Thong
-Sent: Tuesday, February 6, 2024 6:28 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Thai, Thong <Thong.Thai@amd.com>
-Subject: [PATCH] drm/amdgpu/soc21: update VCN 4 max HEVC encoding resolutio=
-n
+I would only do this if we don't have any other way to clean this up 
+since that is a really ugly workaround for this issue.
 
-Update the maximum resolution reported for HEVC encoding on VCN 4 devices t=
-o reflect its 8K encoding capability.
+Regards,
+Christian.
 
-Signed-off-by: Thong <thong.thai@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/soc21.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgp=
-u/soc21.c
-index 48c6efcdeac9..4d7188912edf 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -50,13 +50,13 @@ static const struct amd_ip_funcs soc21_common_ip_funcs;
- /* SOC21 */
- static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_encode_=
-array_vcn0[] =3D {
-        {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096,=
- 2304, 0)},
--       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 2304=
-, 0)},
-+       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352=
-,
-+0)},
-        {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1, 8192, 4352,=
- 0)},  };
-
- static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_encode_=
-array_vcn1[] =3D {
-        {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096,=
- 2304, 0)},
--       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 2304=
-, 0)},
-+       {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352=
-,
-+0)},
- };
-
- static const struct amdgpu_video_codecs vcn_4_0_0_video_codecs_encode_vcn0=
- =3D {
---
-2.34.1
+>
+> With this change, the vm->pt_freed list and work is not needed. Add
+> WARN_ON(unlocked) in amdgpu_vm_pt_free_dfs to catch if unmap to free the
+> PTB.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  4 ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  4 ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 43 ++++++-----------------
+>   3 files changed, 10 insertions(+), 41 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 82e5fd66a10d..3bde77dfc63f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2256,8 +2256,6 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	spin_lock_init(&vm->status_lock);
+>   	INIT_LIST_HEAD(&vm->freed);
+>   	INIT_LIST_HEAD(&vm->done);
+> -	INIT_LIST_HEAD(&vm->pt_freed);
+> -	INIT_WORK(&vm->pt_free_work, amdgpu_vm_pt_free_work);
+>   	INIT_KFIFO(vm->faults);
+>   
+>   	r = amdgpu_vm_init_entities(adev, vm);
+> @@ -2446,8 +2444,6 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>   
+>   	amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
+>   
+> -	flush_work(&vm->pt_free_work);
+> -
+>   	root = amdgpu_bo_ref(vm->root.bo);
+>   	amdgpu_bo_reserve(root, true);
+>   	amdgpu_vm_set_pasid(adev, vm, 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index cdb61f1e7c35..74fe211b9ecd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -316,10 +316,6 @@ struct amdgpu_vm {
+>   	/* BOs which are invalidated, has been updated in the PTs */
+>   	struct list_head        done;
+>   
+> -	/* PT BOs scheduled to free and fill with zero if vm_resv is not hold */
+> -	struct list_head	pt_freed;
+> -	struct work_struct	pt_free_work;
+> -
+>   	/* contains the page directory */
+>   	struct amdgpu_vm_bo_base     root;
+>   	struct dma_fence	*last_update;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index a160265ddc07..a3d609655ce3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -657,27 +657,6 @@ static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
+>   	amdgpu_bo_unref(&entry->bo);
+>   }
+>   
+> -void amdgpu_vm_pt_free_work(struct work_struct *work)
+> -{
+> -	struct amdgpu_vm_bo_base *entry, *next;
+> -	struct amdgpu_vm *vm;
+> -	LIST_HEAD(pt_freed);
+> -
+> -	vm = container_of(work, struct amdgpu_vm, pt_free_work);
+> -
+> -	spin_lock(&vm->status_lock);
+> -	list_splice_init(&vm->pt_freed, &pt_freed);
+> -	spin_unlock(&vm->status_lock);
+> -
+> -	/* flush_work in amdgpu_vm_fini ensure vm->root.bo is valid. */
+> -	amdgpu_bo_reserve(vm->root.bo, true);
+> -
+> -	list_for_each_entry_safe(entry, next, &pt_freed, vm_status)
+> -		amdgpu_vm_pt_free(entry);
+> -
+> -	amdgpu_bo_unreserve(vm->root.bo);
+> -}
+> -
+>   /**
+>    * amdgpu_vm_pt_free_dfs - free PD/PT levels
+>    *
+> @@ -696,17 +675,7 @@ static void amdgpu_vm_pt_free_dfs(struct amdgpu_device *adev,
+>   	struct amdgpu_vm_pt_cursor cursor;
+>   	struct amdgpu_vm_bo_base *entry;
+>   
+> -	if (unlocked) {
+> -		spin_lock(&vm->status_lock);
+> -		for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
+> -			list_move(&entry->vm_status, &vm->pt_freed);
+> -
+> -		if (start)
+> -			list_move(&start->entry->vm_status, &vm->pt_freed);
+> -		spin_unlock(&vm->status_lock);
+> -		schedule_work(&vm->pt_free_work);
+> -		return;
+> -	}
+> +	WARN_ON(unlocked);
+>   
+>   	for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
+>   		amdgpu_vm_pt_free(entry);
+> @@ -1009,7 +978,15 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+>   		incr = (uint64_t)AMDGPU_GPU_PAGE_SIZE << shift;
+>   		mask = amdgpu_vm_pt_entries_mask(adev, cursor.level);
+>   		pe_start = ((cursor.pfn >> shift) & mask) * 8;
+> -		entry_end = ((uint64_t)mask + 1) << shift;
+> +
+> +		if (cursor.level < AMDGPU_VM_PTB && params->unlocked)
+> +			/*
+> +			 * Unmap to clear one PDE entry, to avoid unmap to free
+> +			 * PTB using pt_free work which has race condition.
+> +			 */
+> +			entry_end = 1ULL << shift;
+> +		else
+> +			entry_end = ((uint64_t)mask + 1) << shift;
+>   		entry_end += cursor.pfn & ~(entry_end - 1);
+>   		entry_end = min(entry_end, end);
+>   
 
