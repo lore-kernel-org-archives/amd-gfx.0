@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FEB4C4829F
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Feb 2024 20:52:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B770C4829A
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Feb 2024 20:52:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC6F310E4C4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAFA110E4F0;
 	Wed,  7 Feb 2024 20:52:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vvSTuZz8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qa3u5lMl";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2050.outbound.protection.outlook.com [40.107.92.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5299410E460
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2077.outbound.protection.outlook.com [40.107.244.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5881010E464
  for <amd-gfx@lists.freedesktop.org>; Wed,  7 Feb 2024 20:52:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IvZi/K19iXafghSSnWRjRSjh1CDHex4i7fu/7KnyP3lc/X6hvEOtL6tvM+lLcMEPsz7uPbtwDwntS5gNBqJqyzz2IrjKH24hOuIz5gQgVmT/QcG5rceOC0rg5C2t7m7YWOCLUGczXxCjoLNqqHDCDxLnxxNrXI/8cUFcuJKvL1+nhQ0yWdqRRrSC6UiOAo0vaxswL3D4UpX4J3QMWquhv/b+QNHSK2RFEuzU3bz1J2KkIMkLu1vFGxNHUmnX9NC1AStlAPCbUcKN7BeZ/ul1SikD6bPr5oNABsOOo9T3iyKaM6ude3VxcrnD1GJxYBg/PR5P2CHedjJGJAYwpmHcxQ==
+ b=Kudta3ZTpqulQblWk8z7vt7XM7HWrOMbVN+pxLddOJ+WSviysZWlmVHupwp6pEqa8we2OVSykIeoEl3s+rxjouNT6BTCoanYc0DTDHbQqyVBMQuUjWLbJ8QdLEEbDLtTrX3GbIA9E6G6FQ1YlVotNTbCVTdG1y8Yi6J5FHxSYxdl1GU/xnyVPHUfGHPGtc0rupCsJQw7ySK1GqJ0teLxgawH/lZFghIEXfR7I3yBdCDvJsP8F62PNWIo3BwxkRxkz0tC79FPqnZWE4eC91nsTh8X6zVRSHUPcbUiSNRZRIGNhz62xcJu2PhLFcZNxZIFu5oMH82XU4KsPNbksduIyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=heEjFPlA1i+6gfCZC7ArCgZwFltR8YwalZDLMp2ub0E=;
- b=kFbjabT7FHL/5k7GY0P88NCRSLeHRd1RPkX5o/Az94sXnPIo6+yBPEfz8PNJCu62GHoeD206FHwmQmR/Fe/qr1mdLtdvm9O3p6aRPC7cb4R90894S/g7vjxtGIgeNABe2GKGta/ijr2JEBxxys4kYFHHXBb8iNHBpGImDDcU1k5sbxVF+V/8iOBzg73wIEKJ8xjNIp/zQpJ9ohMZpkv178EmQ8tjov+GmPhq7nUYUBoD3hMY+LSHQSzZZespvR2KFjZCZNYHCDDn0GzuhwPQlAJYkwd+Jjm8IYjy+O8ULV4Q4fLIDj8519NDSVaIu+9Y4mpXW8NgTWRDKGYWn4TcGA==
+ bh=WIr9X36PzEOr01KQT/VNaYxFF3ET/i6izyCHTfe7UOM=;
+ b=JFsdiIj5fRIL5POZiSB4w4aZfLbdMiT50aDPf3JR1uodfxu2xpirKHwbmSFR+QYn6kT4gSOYjauLki9O4v35pDmxR7gWYM6WUR2fAHJolRwzd9MP8WRB/P9cdgCV4EDrrdyNtxv6HlUJMCQWtgN7DpawUdbzbWwl4YrRCA7fLOfO8nOQz4LCFtW8pg3PMw6VVNFA1+qguiZxXQoU0U3AVO0nufc4xEWs5+LP0E9IYcaZZneRKPvG9ObLMAdP+ClqfFpjom0cSbBHTiXhy2QTHwRjILBqqW70+2wWtDZS2ejKLAh1CzesmNB6sysX+tm84xuV0zcrrnznG6mqZatopQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=heEjFPlA1i+6gfCZC7ArCgZwFltR8YwalZDLMp2ub0E=;
- b=vvSTuZz8TVQP8aNZNSS1K7DWxvRvhG+oaLz4D8ZrP58wO3Yf/7WY+iKIEtboQiE3uvh4mNmszQQXLEHATXfq2Cgb8saXez0eZ9a50pH36NVKJpoW+LrUuu2TlSCJRkzTWyQkXbYf/E+kbOYE2F21JRqyq2vejBE6PUO00wU+AUw=
-Received: from DM6PR18CA0021.namprd18.prod.outlook.com (2603:10b6:5:15b::34)
- by BL1PR12MB5352.namprd12.prod.outlook.com (2603:10b6:208:314::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.16; Wed, 7 Feb
- 2024 20:52:21 +0000
-Received: from DS2PEPF0000343D.namprd02.prod.outlook.com
- (2603:10b6:5:15b:cafe::9a) by DM6PR18CA0021.outlook.office365.com
- (2603:10b6:5:15b::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.36 via Frontend
- Transport; Wed, 7 Feb 2024 20:52:20 +0000
+ bh=WIr9X36PzEOr01KQT/VNaYxFF3ET/i6izyCHTfe7UOM=;
+ b=qa3u5lMljhpYRIa1K/uVsRjE0OxlDnRxeKkWWCWg1tK5iBHnqqgUMiMDyuReE/Aw5Rljza7mRqA70MuBx4/nyO8BLiCcE15fwYRjPBt7S4Tpygu2ifPYJ9mJdpSHz21CMPUsM9myOip8IM5kAfnIIciKd69F8XMzG29LT3APOXg=
+Received: from SJ0PR05CA0079.namprd05.prod.outlook.com (2603:10b6:a03:332::24)
+ by MW3PR12MB4491.namprd12.prod.outlook.com (2603:10b6:303:5c::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.17; Wed, 7 Feb
+ 2024 20:52:23 +0000
+Received: from SJ1PEPF00001CE9.namprd03.prod.outlook.com
+ (2603:10b6:a03:332:cafe::75) by SJ0PR05CA0079.outlook.office365.com
+ (2603:10b6:a03:332::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.14 via Frontend
+ Transport; Wed, 7 Feb 2024 20:52:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS2PEPF0000343D.mail.protection.outlook.com (10.167.18.40) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE9.mail.protection.outlook.com (10.167.242.25) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7249.19 via Frontend Transport; Wed, 7 Feb 2024 20:52:20 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7202.16 via Frontend Transport; Wed, 7 Feb 2024 20:52:22 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 7 Feb
- 2024 14:52:18 -0600
+ 2024 14:52:16 -0600
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
  (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 7 Feb
- 2024 14:52:17 -0600
+ 2024 14:52:15 -0600
 Received: from manjaura.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Wed, 7 Feb 2024 14:52:17 -0600
+ Transport; Wed, 7 Feb 2024 14:52:15 -0600
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, George Shen
- <george.shen@amd.com>, Martin Leung <martin.leung@amd.com>
-Subject: [PATCH 14/15] Revert "drm/amd/display: Add left edge pixel for
- YCbCr422/420 + ODM pipe split"
-Date: Wed, 7 Feb 2024 15:50:49 -0500
-Message-ID: <20240207205200.1608684-15-aurabindo.pillai@amd.com>
+ <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Charlene Liu
+ <charlene.liu@amd.com>, Muhammad Ahmed <ahmed.ahmed@amd.com>, Sung joon Kim
+ <sungjoon.kim@amd.com>
+Subject: [PATCH 11/15] drm/amd/display: allow psr-su/replay for z8
+Date: Wed, 7 Feb 2024 15:50:46 -0500
+Message-ID: <20240207205200.1608684-12-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240207205200.1608684-1-aurabindo.pillai@amd.com>
 References: <20240207205200.1608684-1-aurabindo.pillai@amd.com>
@@ -81,26 +81,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343D:EE_|BL1PR12MB5352:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf5e3038-00a2-4d54-b3fe-08dc281eadc9
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE9:EE_|MW3PR12MB4491:EE_
+X-MS-Office365-Filtering-Correlation-Id: 649630da-955b-4a08-9536-08dc281eaede
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HwKL0uWIV8osA+VzfEIpiz+9yHGWlc+fNap5mumx0ay5N4dlu6vyCoWcc+tHwWMidkxO0EZ/ZmN6pyy0BCrfqInBujlhgv3C+F+rt2WIozUBGdS+81V/Je5ZX239LHksuTZSsjX1+ox1iE2ihNEZ15PipXlpXR7sITyhf6salVCZwstN+n3nMLYUI5jmsrrvdnBjORY+ZDev5gVpvKjL/w325sjaWuCkcvuq/1K1HT6BEeWuhTEtzdnbxKWw0GFAegG/ZGjvSNWvo8/WR+23W9mGtjWM9+sJrXXPy2CwgFoRmF49cOwNxN6cs+MuQ+6+0Wp+WG70OxkMx4Jbp6KT1h+aLLheU1r1dsWaCH9cB02uCEKn4Ui8p96RjB8xVPyjnGxojXBZWJtNROlIuJ9wzwBqAos9U23+QwcPaRadRWmuEE6no1RQNml6ZXQFSqUKHAh4WDOdrffBuE9BBbAQ4bmIK8cdF/zVntnQ6dZ2j1uY8QcayJVS8s07rbMcPWfMo1DJELey3neY7DXa42RHtkXFND0Bnp4oHPqeZxuaOY9O8ctcVDN+dTnbhzGuVGweeyPY+o8ZfqdSPoQ6/VpreHtckQz46XbZdMHwc5IzZOo=
+X-Microsoft-Antispam-Message-Info: K4bGbLen62Qp5LrFD/XbgwJbtsG/BFn1/1glAAjZnNAejHUpClg91KK9u5oU891rcZpDlVW8FmkmJ2fYUOC1gFw0QKEacHyLiUU+07z+KRx1wp/Zg4a9PDVptSfRm9fEqpAyCcuBmbunqMHgU22m6Un93cNyDJ2krlX+yKLNYRqYRPAq014gUU8gWIQp52L2ZZ8HFR9K47j6HG9o1BTMOTTVPyW3qWSjecf9oVESAsOe6DjlIV3xBLIxpth933QbmKVP095KuNIf4JCHKXn3vhmm15726nqtZWy+qhpkVcngEpPggIjUBTSfl2Zr4BiMM8nQiXb4FA4sQty1PZpxKaUGK4FwbYtc0dF1SFRGp+K3TmnbklEjynT6gedyVb1Yt0xbMUFwaqOTew42Wm2bhWqKnRRvwHouIvJvT6KBjY5Pjw6lYrjL6EhnrYEMfnl6Y5r48qmQNm5O56xNUNQoKe2Lvo//p8xMkRbYSvrhJAXr6cCHHlPzocZCaS8UNk1V8P22r7r1YMfkoQZVo03jklSrvqF28oqovtixJbW56W85puziTMBY6Fjuqg2ckHrVfzJbW3gQ8DHkltL6MJN9ZyvJKBjpfAeJSFsyyJ1dO5U=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(6029001)(4636009)(346002)(39860400002)(396003)(136003)(376002)(230922051799003)(64100799003)(186009)(82310400011)(451199024)(1800799012)(46966006)(36840700001)(40470700004)(81166007)(54906003)(82740400003)(6916009)(83380400001)(356005)(2616005)(8676002)(336012)(6666004)(7696005)(26005)(1076003)(70586007)(316002)(70206006)(44832011)(86362001)(2906002)(5660300002)(426003)(4326008)(478600001)(8936002)(36756003)(41300700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(346002)(39860400002)(136003)(396003)(230922051799003)(186009)(64100799003)(82310400011)(1800799012)(451199024)(36840700001)(46966006)(40470700004)(2906002)(426003)(36756003)(41300700001)(356005)(81166007)(2616005)(82740400003)(1076003)(336012)(6666004)(26005)(83380400001)(7696005)(478600001)(5660300002)(316002)(4326008)(54906003)(86362001)(44832011)(8676002)(70586007)(8936002)(70206006)(6916009);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2024 20:52:20.7699 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf5e3038-00a2-4d54-b3fe-08dc281eadc9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2024 20:52:22.4751 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 649630da-955b-4a08-9536-08dc281eaede
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343D.namprd02.prod.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE9.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5352
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4491
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,159 +115,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: George Shen <george.shen@amd.com>
+From: Charlene Liu <charlene.liu@amd.com>
 
-[Why/How]
-A regression was identified with the change to add left edge pixel for
-YCbCr422/420 + ODM combine cases.
+[why]
+allow psr-su/replay for z8
 
-This reverts commit 8d09500a33f6a0e0df9cf17822fe51520d0df002
-
-Reviewed-by: Martin Leung <martin.leung@amd.com>
+Reviewed-by: Muhammad Ahmed <ahmed.ahmed@amd.com>
+Reviewed-by: Sung joon Kim <sungjoon.kim@amd.com>
 Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: George Shen <george.shen@amd.com>
+Signed-off-by: Charlene Liu <charlene.liu@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  4 --
- .../gpu/drm/amd/display/dc/core/dc_resource.c | 37 -------------------
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  7 +---
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  2 -
- drivers/gpu/drm/amd/display/dc/inc/resource.h |  4 --
- 5 files changed, 1 insertion(+), 53 deletions(-)
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_smu.c | 12 ++++++------
+ drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c |  8 ++++++--
+ 2 files changed, 12 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 1d0fd69cc7bd..4d5194293dbd 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3098,10 +3098,6 @@ static bool update_planes_and_stream_state(struct dc *dc,
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_smu.c
+index a07f7e685d28..9e588c56c570 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_smu.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_smu.c
+@@ -361,32 +361,32 @@ void dcn35_smu_set_zstate_support(struct clk_mgr_internal *clk_mgr, enum dcn_zst
+ 	case DCN_ZSTATE_SUPPORT_ALLOW:
+ 		msg_id = VBIOSSMC_MSG_AllowZstatesEntry;
+ 		param = (1 << 10) | (1 << 9) | (1 << 8);
+-		smu_print("%s: SMC_MSG_AllowZstatesEntry msg = ALLOW, param = %d\n", __func__, param);
++		smu_print("%s: SMC_MSG_AllowZstatesEntry msg = ALLOW, param = 0x%x\n", __func__, param);
+ 		break;
  
- 			if (otg_master && otg_master->stream->test_pattern.type != DP_TEST_PATTERN_VIDEO_MODE)
- 				resource_build_test_pattern_params(&context->res_ctx, otg_master);
--
--			if (otg_master && (otg_master->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR422 ||
--					otg_master->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR420))
--				resource_build_subsampling_params(&context->res_ctx, otg_master);
- 		}
- 	}
+ 	case DCN_ZSTATE_SUPPORT_DISALLOW:
+ 		msg_id = VBIOSSMC_MSG_AllowZstatesEntry;
+ 		param = 0;
+-		smu_print("%s: SMC_MSG_AllowZstatesEntry msg_id = DISALLOW, param = %d\n",  __func__, param);
++		smu_print("%s: SMC_MSG_AllowZstatesEntry msg_id = DISALLOW, param = 0x%x\n",  __func__, param);
+ 		break;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 96ea283bd169..1b7765bc5e5e 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -822,16 +822,6 @@ static struct rect calculate_odm_slice_in_timing_active(struct pipe_ctx *pipe_ct
- 			stream->timing.v_border_bottom +
- 			stream->timing.v_border_top;
  
--	/* Recout for ODM slices after the first slice need one extra left edge pixel
--	 * for 3-tap chroma subsampling.
--	 */
--	if (odm_slice_idx > 0 &&
--			(pipe_ctx->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR422 ||
--				pipe_ctx->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR420)) {
--		odm_rec.x -= 1;
--		odm_rec.width += 1;
--	}
--
- 	return odm_rec;
+ 	case DCN_ZSTATE_SUPPORT_ALLOW_Z10_ONLY:
+ 		msg_id = VBIOSSMC_MSG_AllowZstatesEntry;
+ 		param = (1 << 10);
+-		smu_print("%s: SMC_MSG_AllowZstatesEntry msg = ALLOW_Z10_ONLY, param = %d\n", __func__, param);
++		smu_print("%s: SMC_MSG_AllowZstatesEntry msg = ALLOW_Z10_ONLY, param = 0x%x\n", __func__, param);
+ 		break;
+ 
+ 	case DCN_ZSTATE_SUPPORT_ALLOW_Z8_Z10_ONLY:
+ 		msg_id = VBIOSSMC_MSG_AllowZstatesEntry;
+ 		param = (1 << 10) | (1 << 8);
+-		smu_print("%s: SMC_MSG_AllowZstatesEntry msg = ALLOW_Z8_Z10_ONLY, param = %d\n", __func__, param);
++		smu_print("%s: SMC_MSG_AllowZstatesEntry msg = ALLOW_Z8_Z10_ONLY, param = 0x%x\n", __func__, param);
+ 		break;
+ 
+ 	case DCN_ZSTATE_SUPPORT_ALLOW_Z8_ONLY:
+ 		msg_id = VBIOSSMC_MSG_AllowZstatesEntry;
+ 		param = (1 << 8);
+-		smu_print("%s: SMC_MSG_AllowZstatesEntry msg = ALLOW_Z8_ONLY, param = %d\n", __func__, param);
++		smu_print("%s: SMC_MSG_AllowZstatesEntry msg = ALLOW_Z8_ONLY, param = 0x%x\n", __func__, param);
+ 		break;
+ 
+ 	default: //DCN_ZSTATE_SUPPORT_UNKNOWN
+@@ -400,7 +400,7 @@ void dcn35_smu_set_zstate_support(struct clk_mgr_internal *clk_mgr, enum dcn_zst
+ 		clk_mgr,
+ 		msg_id,
+ 		param);
+-	smu_print("%s:  msg_id = %d, param = 0x%x, return = %d\n", __func__, msg_id, param, retv);
++	smu_print("%s:  msg_id = %d, param = 0x%x, return = 0x%x\n", __func__, msg_id, param, retv);
  }
  
-@@ -1448,7 +1438,6 @@ void resource_build_test_pattern_params(struct resource_context *res_ctx,
- 	enum controller_dp_test_pattern controller_test_pattern;
- 	enum controller_dp_color_space controller_color_space;
- 	enum dc_color_depth color_depth = otg_master->stream->timing.display_color_depth;
--	enum dc_pixel_encoding pixel_encoding = otg_master->stream->timing.pixel_encoding;
- 	int h_active = otg_master->stream->timing.h_addressable +
- 		otg_master->stream->timing.h_border_left +
- 		otg_master->stream->timing.h_border_right;
-@@ -1480,36 +1469,10 @@ void resource_build_test_pattern_params(struct resource_context *res_ctx,
- 		else
- 			params->width = last_odm_slice_width;
+ int dcn35_smu_get_dprefclk(struct clk_mgr_internal *clk_mgr)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
+index 912256006d75..80bebfc268db 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
+@@ -588,7 +588,9 @@ void dcn35_decide_zstate_support(struct dc *dc, struct dc_state *context)
+ 	} else if (context->stream_count == 1 && context->streams[0]->signal == SIGNAL_TYPE_EDP) {
+ 		struct dc_link *link = context->streams[0]->sink->link;
+ 		bool is_pwrseq0 = link && link->link_index == 0;
+-		bool is_psr1 = link && link->psr_settings.psr_version == DC_PSR_VERSION_1 && !link->panel_config.psr.disable_psr;
++		bool is_psr = (link && (link->psr_settings.psr_version == DC_PSR_VERSION_1 ||
++								link->psr_settings.psr_version == DC_PSR_VERSION_SU_1) && !link->panel_config.psr.disable_psr);
++		bool is_replay = link && link->replay_settings.replay_feature_enabled;
+ 		int minmum_z8_residency =
+ 			dc->debug.minimum_z8_residency_time > 0 ? dc->debug.minimum_z8_residency_time : 1000;
+ 		bool allow_z8 = context->bw_ctx.dml.vba.StutterPeriod > (double)minmum_z8_residency;
+@@ -596,12 +598,14 @@ void dcn35_decide_zstate_support(struct dc *dc, struct dc_state *context)
+ 			dc->debug.minimum_z10_residency_time > 0 ? dc->debug.minimum_z10_residency_time : 5000;
+ 		bool allow_z10 = context->bw_ctx.dml.vba.StutterPeriod > (double)minmum_z10_residency;
  
--		/* Extra left edge pixel is required for 3-tap chroma subsampling. */
--		if (i != 0 && (pixel_encoding == PIXEL_ENCODING_YCBCR422 ||
--				pixel_encoding == PIXEL_ENCODING_YCBCR420)) {
--			params->offset -= 1;
--			params->width += 1;
--		}
--
- 		offset += odm_slice_width;
- 	}
- }
- 
--void resource_build_subsampling_params(struct resource_context *res_ctx,
--	struct pipe_ctx *otg_master)
--{
--	struct pipe_ctx *opp_heads[MAX_PIPES];
--	int odm_cnt = 1;
--	int i;
--
--	odm_cnt = resource_get_opp_heads_for_otg_master(otg_master, res_ctx, opp_heads);
--
--	/* For ODM slices after the first slice, extra left edge pixel is required
--	 * for 3-tap chroma subsampling.
--	 */
--	if (otg_master->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR422 ||
--			otg_master->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR420) {
--		for (i = 0; i < odm_cnt; i++)
--			opp_heads[i]->stream_res.left_edge_extra_pixel = (i == 0) ? false : true;
--	}
--}
--
- bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
- {
- 	const struct dc_plane_state *plane_state = pipe_ctx->plane_state;
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index f15ba7335336..c55d5155ecb9 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -1573,8 +1573,7 @@ static void dcn20_detect_pipe_changes(struct dc_state *old_state,
- 	 * makes this assumption at the moment with how hubp reset is matched to
- 	 * same index mpcc reset.
- 	 */
--	if (old_pipe->stream_res.opp != new_pipe->stream_res.opp ||
--			old_pipe->stream_res.left_edge_extra_pixel != new_pipe->stream_res.left_edge_extra_pixel)
-+	if (old_pipe->stream_res.opp != new_pipe->stream_res.opp)
- 		new_pipe->update_flags.bits.opp_changed = 1;
- 	if (old_pipe->stream_res.tg != new_pipe->stream_res.tg)
- 		new_pipe->update_flags.bits.tg_changed = 1;
-@@ -1962,10 +1961,6 @@ static void dcn20_program_pipe(
- 			pipe_ctx->stream_res.opp,
- 			&pipe_ctx->stream->bit_depth_params,
- 			&pipe_ctx->stream->clamping);
--
--		pipe_ctx->stream_res.opp->funcs->opp_program_left_edge_extra_pixel(
--			pipe_ctx->stream_res.opp,
--			pipe_ctx->stream_res.left_edge_extra_pixel);
++		/*for psr1/psr-su, we allow z8 and z10 based on latency, for replay with IPS enabled, it will enter ips2*/
+ 		if (is_pwrseq0 && allow_z10)
+ 			support = DCN_ZSTATE_SUPPORT_ALLOW;
+-		else if (is_pwrseq0 && is_psr1)
++		else if (is_pwrseq0 && (is_psr || is_replay))
+ 			support = allow_z8 ? DCN_ZSTATE_SUPPORT_ALLOW_Z8_Z10_ONLY : DCN_ZSTATE_SUPPORT_ALLOW_Z10_ONLY;
+ 		else if (allow_z8)
+ 			support = DCN_ZSTATE_SUPPORT_ALLOW_Z8_ONLY;
++
  	}
  
- 	/* Set ABM pipe after other pipe configurations done */
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-index ebb659c327e0..3a6bf77a6873 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-@@ -333,8 +333,6 @@ struct stream_resource {
- 	uint8_t gsl_group;
- 
- 	struct test_pattern_params test_pattern_params;
--
--	bool left_edge_extra_pixel;
- };
- 
- struct plane_resource {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/resource.h b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-index b14d52e52fa2..77a60aa9f27b 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-@@ -107,10 +107,6 @@ void resource_build_test_pattern_params(
- 		struct resource_context *res_ctx,
- 		struct pipe_ctx *pipe_ctx);
- 
--void resource_build_subsampling_params(
--		struct resource_context *res_ctx,
--		struct pipe_ctx *pipe_ctx);
--
- bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx);
- 
- enum dc_status resource_build_scaling_params_for_context(
+ 	context->bw_ctx.bw.dcn.clk.zstate_support = support;
 -- 
 2.43.0
 
