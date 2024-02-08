@@ -4,122 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D0FBC4829D
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Feb 2024 12:07:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBF89C48260
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Feb 2024 13:15:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6375310E6A9;
-	Thu,  8 Feb 2024 12:07:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AA1110E6DB;
+	Thu,  8 Feb 2024 13:15:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bhnZAHK/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cAgQpn/0";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2043.outbound.protection.outlook.com [40.107.220.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79EAF10E62A;
- Thu,  8 Feb 2024 12:07:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kTX7y+B/GKslQ9zdp55uMnIoEZlBJHiffk0Oq7bGRUV7TQYrDf91iLUM568eah7RcmiI+OgaEwa6G75XploRPtRCDVe+gUCLx++SVrsg1RRzA/ugwSfZRy8YDd3b6kP2RdI2IdNphJadSjSRdIrHb9JVvodOw+2KNtjkWdiFqDdmXgHiLYDfWjQS4p/GBgHyihZQXOWWlXM3ZB4KA9t25sEa7qYltMZMnyEFISGAjDxM/8+bF0cU3wzhLArBZuRIErQokb+ke/72l/P/AY0ubyW79IaSKk1ju55+8uk8pq/9qWoYG19FNzkZli34x7RrbwguZHvSPFzt1c+IR6wr3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=irxKAIabGC/19cZEO3YxRrxz9U7Qv1Yfhv5Bh2s/W9M=;
- b=BnKacKzOy8Q83gFSvdtIKOlWcoxjrvJBQuuHiWk4vM456S0K2kzqcEVP0KInIAO2rcGNeMlqrk8AqFmSrb0rYhKGDuxgAtr3PKmImBj2Hh3mHjoBENuitSuk1JKNFUHNK9vap/lzO/P7YiX+Bssl0mp6cRygJu9puylEhfc0/yf6jdMCYCZhCVycCnUR4YC93gc9aFyoa0F6kJLcSQbclIdBtlegVASKwHYreLmV2ctLoIrcSCNG6ZLXT3/uapAQcqwl4V5v6cAIw4kn1oiLt51S6NDCCFC5nCeVnPKx+0LWzg4mEQXMKVvBe3hISkAJ66pptL0XjxuwX1kR8+9zNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=irxKAIabGC/19cZEO3YxRrxz9U7Qv1Yfhv5Bh2s/W9M=;
- b=bhnZAHK/FWAV1/wEdVHu48NratvNq4XAtv3ELL8y+23KcONKUh/SJemN+N8ISit07AG/2cJOYS5SdFXB2n9S/rSLax/R+jYaAuhDeiFdMXbzdfkLR+ROE8/c0mhOuBqbSdRave21B9WS4Zyj5EDBfvVruw6+HjG97SqtuwubTS4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
- by MW6PR12MB7085.namprd12.prod.outlook.com (2603:10b6:303:238::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.17; Thu, 8 Feb
- 2024 12:07:04 +0000
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::795e:efcc:ad1b:aafe]) by MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::795e:efcc:ad1b:aafe%4]) with mapi id 15.20.7270.016; Thu, 8 Feb 2024
- 12:07:04 +0000
-Message-ID: <86b5d704-9e0d-b989-1469-665e41d9b342@amd.com>
-Date: Thu, 8 Feb 2024 17:36:55 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] drm/buddy: Fix alloc_range() error handling code
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, matthew.auld@intel.com,
- mario.limonciello@amd.com
-References: <20240207174456.341121-1-Arunpravin.PaneerSelvam@amd.com>
- <07ed1fee-cb73-49ba-bef6-ca16b4c808e4@amd.com>
-Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <07ed1fee-cb73-49ba-bef6-ca16b4c808e4@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0111.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:96::10) To MN2PR12MB4342.namprd12.prod.outlook.com
- (2603:10b6:208:264::7)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 502F310E6DB;
+ Thu,  8 Feb 2024 13:15:50 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 58DF4CE1C6C;
+ Thu,  8 Feb 2024 13:15:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45069C433F1;
+ Thu,  8 Feb 2024 13:15:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1707398143;
+ bh=KFgrJViWvgwiOzgjsLdG7QKsqaf3QTYl4byPlFWT/Zg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cAgQpn/02Ce0EuLcjlfLihZIB3OhExW3yYI8rOXdBEBFBEiFNhpcpNjRXoLKLec/Z
+ 7XOdn9o3BD4e/HgeolBNIahh/GIxR6aPxlY7l69VyRkKSPLuBBfyM4HQEGlpb4zLkH
+ 2nl6mp7YVjznZgaothn67LBqjFWnwc/sBr9CMYRjlc8lmIMI+rQdz2/Ke7ab0Fo5YL
+ bjmo7wczvwJ2S7dUPLZxjA/U0mgrX1gzLvg6YFkMoWjexmYxKsF29sfWx1jxzx7nEy
+ sEN/9kSbwebiTRm1RscPABaTywqQeksYvBjeJSn/YZhEkIkd+s323tQjo0QKJNMUoV
+ 2OOt2K+oQMLQw==
+Date: Thu, 8 Feb 2024 14:15:40 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>, 
+ amd-gfx@lists.freedesktop.org,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, 
+ "open list:ACPI" <linux-acpi@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, 
+ Melissa Wen <mwen@igalia.com>, Dave Airlie <airlied@redhat.com>, 
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Subject: Re: Re: [PATCH v4 1/3] drm: Add drm_get_acpi_edid() helper
+Message-ID: <ysm2e3vczov7z7vezmexe35fjnkhsakud3elsgggedhk2lknlz@cx7j44y354db>
+References: <20240207224429.104625-1-mario.limonciello@amd.com>
+ <20240207224429.104625-2-mario.limonciello@amd.com>
+ <87y1bvb7ns.fsf@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|MW6PR12MB7085:EE_
-X-MS-Office365-Filtering-Correlation-Id: 91f0680d-ace0-4f56-52bc-08dc289e7668
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: i2xVXO4oziN/u+emF+LUvJJWXOHJ+F6fyl2p+R01MBrTh4xGrd3sZYqv5g6mNaTeXMj7UYQj1ziN9djwnOFtx3X2D7QrZgXtLM5ATvsjCQqxU4JxyK3hJYZWHbNf0kWDq16ctX8Ce+lcQoR2Xl2yBUlSj78pwujrpg4JRNCQslEEVbHLYFSp6cjSVBRdOgBXMNzXe6OpGH+8vHCVygpfKYlj+puEr0OvtT6iSJIeISRtNZ/B+5/jIhDVFINGlHVdVH8f1jiWKjgD+XWnHFmqhFsCWc2d0KKdSqMOX/rVtYgq1wr/5MPnDduIRIxDpfrFZfcYS62xc0fsEJ2DrU3kSvX4Nn3KOf+WGpvJJ62XH6l2BowjDXGAsehKjye7vKyv3Fy2TN+zS4R5yiiTOP/JQUF1bi9h7bgC+CGPMiFQqnPfbOGZs+gREI4fDVpxvJJfM4IfOoQnzeakTIYtMQ01CPzrGNZtJsB70VBOuegAaEc5TXfvdIV1P48xGTjezO+CK9odJDknUQ1BMWHarjYK8TTJGSayXj1djPTZxQ4LmRU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(366004)(39860400002)(376002)(396003)(136003)(230922051799003)(186009)(451199024)(1800799012)(64100799003)(38100700002)(26005)(83380400001)(6666004)(66574015)(31686004)(6506007)(66946007)(41300700001)(86362001)(316002)(66476007)(2906002)(5660300002)(478600001)(2616005)(6512007)(31696002)(4326008)(966005)(66556008)(53546011)(8936002)(6486002)(8676002)(36756003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MFhkbjQxY0RIL0RlVUh0czFSSnJKK1NRNStsaWp0djFBMFlPbldaV1NFRVBh?=
- =?utf-8?B?Qy9ObXpBMEdvMGIyemZlaGVTSlZybU01SVRhUVFNeC9JZEE2UURlYW5CQ3A0?=
- =?utf-8?B?OUpmc0RlSlBKUWhhdU1EMUNGWHdRUXdacnJzYXg4SGRhZnZYTVZNZjdsZ2t5?=
- =?utf-8?B?cnpjZ2kybWJhaklPQ0tQaFRGbXpGbzY3L3pVWVRkaE5MWTl2eUtVcUJ6SER0?=
- =?utf-8?B?ajZmMTlWak54M2NFbnN4cVNlK2U1WmxCRDZXOE9TdFVVWWYwMDhZaUN4b2hp?=
- =?utf-8?B?S2Y2ZlZYWHZMdE4xT3VYUXVOdjVuMjlUOERZSksvT3pxYmFMbG1jamIrcm9N?=
- =?utf-8?B?MHBlSE5MMUZvQXoxaTlwZ1p1clZFaUdiSGhLd2JaVXdJWGhKTWhRRUIyYk0w?=
- =?utf-8?B?Ymk2MytERUVNOUtlbnR0eVloaFpOOTY0ODkzemhLSXRnYTU1RzByRjdxTXYv?=
- =?utf-8?B?ZytpQXE4VDFLSlRsSzVLcDIyVlo4SW92ajdjTW96UEZCK0llUmtndXg5RWx1?=
- =?utf-8?B?NGpPdHkzdElIRE1Jbk44WFB2N2wyRkkzb2VGUGRiQmw1TVc4dVN3eFhTZk1s?=
- =?utf-8?B?WTQydlRXZ1V1ckVEZHpaZ05rLy93Rjd1Z1dLbmZFVk5LTk9WZ2hJQ3RyeG5r?=
- =?utf-8?B?b3pGSWdrQXNIUlR2ZWVlSnRHTWM4cFFHZUcvakFuSGNvRytkcXR0ZVNsS0E3?=
- =?utf-8?B?blF5bmZNUW8rand3SVlqV0dGZFRtSXFKRzl4MkdCYlR5OGdnTUZEUitLUjYv?=
- =?utf-8?B?U3ZhMTNxcm4xZm4zT0ZTaytuRkRSMjVBcFg5MllRenJNT01kMGlwK0w4UElF?=
- =?utf-8?B?TGdnd3BLS3RuY1hMZENzSXFzV2lLSnlMbjg5bnJGbTZZOURSVXdEMzYzRnZH?=
- =?utf-8?B?TG54elpOWUY0NjA1alF4cVJHeDhSU291V2UzYlE0WlNBSE03OThPTmc4eHFY?=
- =?utf-8?B?YjVrWWtWRFc5RCtjSGxWNng1aExlWUNzWlVrQzNibEU5dENlZ3RvZVNwdEpD?=
- =?utf-8?B?U2hBVGViMnZmNHdyYWh5Vy9ueTV0eE1WWk8rWkNOOXdiejZ3MExhTkFJUzZE?=
- =?utf-8?B?ckdWOU0rWTU2cGdsUVVUSlJobHBpYWd3MEVsOURSNU91dnl5WlVMVEJXaWFr?=
- =?utf-8?B?b00rcDNhTzhHbXh6SDdseSs4eUJsMkUzOCt3WmlmUFBJdW5QS1JQcU92UzNG?=
- =?utf-8?B?OXVwd0pzcVZuMnYzMEdyT0VYMThMSkhJMk5BdnVlTmIwdnA5Vkc1K1RyaDB6?=
- =?utf-8?B?V096VUJ3TVV3NkRJdnpnbDVUdldJQWZGeTNVSi81ZlU5UklZMG1ZUnlENGt0?=
- =?utf-8?B?NVRrN2JPWmJYS3JSUHNJaHAvQ2NWRlVzU3BZUHg2anF2R0thdDV3SnRibDlW?=
- =?utf-8?B?NjFVMGsrcTdaL1pzVElhNGZ0TlRaWXo0N011enFDcWl5RmttMjNSbGZHai91?=
- =?utf-8?B?ZlYzTkxiNE9Fc1Avc256MkVVcXNQTWp4eSszVVd3bXZxeFBsUDk0S3BZSVFF?=
- =?utf-8?B?WVUvYitZaXJMdVR5ZHVQOUJnSHB0OGIzSkorcFlLL09GQTQ0bEx1WFA1THYv?=
- =?utf-8?B?YUtDMnlWaVY3V2JoclNVbVVRTVJtMTRzREE4dTVpc05RRWNwaENtNGdQL1Jk?=
- =?utf-8?B?dHJmNSswRHJnTVVxSFVORjBXU291K0QxL2QvOUlXU0NrSU5CVFBNRWtiU0Jh?=
- =?utf-8?B?M2h6R2ZDRjhIT01pd3VCbnUwTFBmekwwZldjWlFNNnY2Z3lXdDJtYzR0MUhy?=
- =?utf-8?B?dTNGayt1YzA1R2hMRk1ONERIVStPOTh0TDZCZTI0T0hiK1h2cXluYldEcCtq?=
- =?utf-8?B?MTFTQkk5ZjRFSnZNWWlHZlZZSVV1b3FjSUs4U2lDTy83SS84YjF6V1F5U0tN?=
- =?utf-8?B?dkFCTmdOL0hSdW5jOHoxT3B5N3BTV1E1eUpTQ1dzeE5nTGVlaUdtcFNLemZV?=
- =?utf-8?B?R01nM2FLckNuQnBWY0t0NGJMK01VYjIzSCtPNkFQUTB2dUppRTc2ekUyL2Zq?=
- =?utf-8?B?VVhiV3BCM29HcU9BYXdNU2cyRno2YWJMbkgrVGFFVVVuMWF4YS9PdkxBQjdN?=
- =?utf-8?B?SHVZMjh0bTN5WDhuQmwxVmVmTXVNTXJLK0xQMWJUTHVpSnN3K011S0w5STdS?=
- =?utf-8?Q?q2t6e7xKVSLNV5/hfoefmifvN?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91f0680d-ace0-4f56-52bc-08dc289e7668
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2024 12:07:03.9866 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Yxm9+d4NHWl0iCiLgw9n6GCLTW056gqI6tCOk1uzhQZTqcJ4vDT9+ulWUWgjF5FMH+8CsQiYC4Aw9OHL0iCEiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB7085
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="wuwkuftvercgjsvr"
+Content-Disposition: inline
+In-Reply-To: <87y1bvb7ns.fsf@intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,53 +65,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
 
-On 2/8/2024 12:27 PM, Christian König wrote:
-> Am 07.02.24 um 18:44 schrieb Arunpravin Paneer Selvam:
->> Few users have observed display corruption when they boot
->> the machine to KDE Plasma or playing games. We have root
->> caused the problem that whenever alloc_range() couldn't
->> find the required memory blocks the function was returning
->> SUCCESS in some of the corner cases.
->>
->> The right approach would be if the total allocated size
->> is less than the required size, the function should
->> return -ENOSPC.
->>
->> Gitlab ticket link - 
->> https://gitlab.freedesktop.org/drm/amd/-/issues/3097
->> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
->> Signed-off-by: Arunpravin Paneer Selvam 
->> <Arunpravin.PaneerSelvam@amd.com>
->> Tested-by: Mario Limonciello <mario.limonciello@amd.com>
->
-> Acked-by: Christian König <christian.koenig@amd.com>
->
-> CC: stable.. ?
-I will check and add the stable kernel version.
+--wuwkuftvercgjsvr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks,
-Arun.
->
->> ---
->>   drivers/gpu/drm/drm_buddy.c | 6 ++++++
->>   1 file changed, 6 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
->> index f57e6d74fb0e..c1a99bf4dffd 100644
->> --- a/drivers/gpu/drm/drm_buddy.c
->> +++ b/drivers/gpu/drm/drm_buddy.c
->> @@ -539,6 +539,12 @@ static int __alloc_range(struct drm_buddy *mm,
->>       } while (1);
->>         list_splice_tail(&allocated, blocks);
->> +
->> +    if (total_allocated < size) {
->> +        err = -ENOSPC;
->> +        goto err_free;
->> +    }
->> +
->>       return 0;
->>     err_undo:
->
+On Thu, Feb 08, 2024 at 11:57:11AM +0200, Jani Nikula wrote:
+> On Wed, 07 Feb 2024, Mario Limonciello <mario.limonciello@amd.com> wrote:
+> > Some manufacturers have intentionally put an EDID that differs from
+> > the EDID on the internal panel on laptops.  Drivers can call this
+> > helper to attempt to fetch the EDID from the BIOS's ACPI _DDC method.
+> >
+> > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> > ---
+> >  drivers/gpu/drm/Kconfig    |  5 +++
+> >  drivers/gpu/drm/drm_edid.c | 77 ++++++++++++++++++++++++++++++++++++++
+> >  include/drm/drm_edid.h     |  1 +
+> >  3 files changed, 83 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> > index 6ec33d36f3a4..ec2bb71e8b36 100644
+> > --- a/drivers/gpu/drm/Kconfig
+> > +++ b/drivers/gpu/drm/Kconfig
+> > @@ -21,6 +21,11 @@ menuconfig DRM
+> >  	select KCMP
+> >  	select VIDEO_CMDLINE
+> >  	select VIDEO_NOMODESET
+> > +	select ACPI_VIDEO if ACPI
+> > +	select BACKLIGHT_CLASS_DEVICE if ACPI
+> > +	select INPUT if ACPI
+> > +	select X86_PLATFORM_DEVICES if ACPI && X86
+> > +	select ACPI_WMI if ACPI && X86
+>=20
+> I think I'll defer to drm maintainers on whether this is okay or
+> something to be avoided.
+>=20
+>=20
+> >  	help
+> >  	  Kernel-level support for the Direct Rendering Infrastructure (DRI)
+> >  	  introduced in XFree86 4.0. If you say Y here, you need to select
+> > diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> > index 923c4423151c..c649b4f9fd8e 100644
+> > --- a/drivers/gpu/drm/drm_edid.c
+> > +++ b/drivers/gpu/drm/drm_edid.c
+> > @@ -28,6 +28,7 @@
+> >   * DEALINGS IN THE SOFTWARE.
+> >   */
+> > =20
+> > +#include <acpi/video.h>
+> >  #include <linux/bitfield.h>
+> >  #include <linux/cec.h>
+> >  #include <linux/hdmi.h>
+> > @@ -2188,6 +2189,49 @@ drm_do_probe_ddc_edid(void *data, u8 *buf, unsig=
+ned int block, size_t len)
+> >  	return ret =3D=3D xfers ? 0 : -1;
+> >  }
+> > =20
+> > +/**
+> > + * drm_do_probe_acpi_edid() - get EDID information via ACPI _DDC
+> > + * @data: struct drm_device
+> > + * @buf: EDID data buffer to be filled
+> > + * @block: 128 byte EDID block to start fetching from
+> > + * @len: EDID data buffer length to fetch
+> > + *
+> > + * Try to fetch EDID information by calling acpi_video_get_edid() func=
+tion.
+> > + *
+> > + * Return: 0 on success or error code on failure.
+> > + */
+> > +static int
+> > +drm_do_probe_acpi_edid(void *data, u8 *buf, unsigned int block, size_t=
+ len)
+> > +{
+> > +	struct drm_device *ddev =3D data;
+> > +	struct acpi_device *acpidev =3D ACPI_COMPANION(ddev->dev);
+> > +	unsigned char start =3D block * EDID_LENGTH;
+> > +	void *edid;
+> > +	int r;
+> > +
+> > +	if (!acpidev)
+> > +		return -ENODEV;
+> > +
+> > +	/* fetch the entire edid from BIOS */
+> > +	r =3D acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, &edid);
+> > +	if (r < 0) {
+> > +		DRM_DEBUG_KMS("Failed to get EDID from ACPI: %d\n", r);
+> > +		return -EINVAL;
+> > +	}
+> > +	if (len > r || start > r || start + len > r) {
+> > +		r =3D -EINVAL;
+> > +		goto cleanup;
+> > +	}
+> > +
+> > +	memcpy(buf, edid + start, len);
+> > +	r =3D 0;
+> > +
+> > +cleanup:
+> > +	kfree(edid);
+> > +
+> > +	return r;
+> > +}
+> > +
+> >  static void connector_bad_edid(struct drm_connector *connector,
+> >  			       const struct edid *edid, int num_blocks)
+> >  {
+> > @@ -2643,6 +2687,39 @@ struct edid *drm_get_edid(struct drm_connector *=
+connector,
+> >  }
+> >  EXPORT_SYMBOL(drm_get_edid);
+> > =20
+> > +/**
+> > + * drm_get_acpi_edid - get EDID data, if available
+>=20
+> I'd prefer all the new EDID API to be named drm_edid_*. Makes a clean
+> break from the old API, and is more consistent.
+>=20
+> So perhaps drm_edid_read_acpi() to be in line with all the other struct
+> drm_edid based EDID reading functions.
+>=20
+> > + * @connector: connector we're probing
+> > + *
+> > + * Use the BIOS to attempt to grab EDID data if possible.
+> > + *
+> > + * The returned pointer must be freed using drm_edid_free().
+> > + *
+> > + * Return: Pointer to valid EDID or NULL if we couldn't find any.
+> > + */
+> > +const struct drm_edid *drm_get_acpi_edid(struct drm_connector *connect=
+or)
+> > +{
+> > +	const struct drm_edid *drm_edid;
+> > +
+> > +	switch (connector->connector_type) {
+> > +	case DRM_MODE_CONNECTOR_LVDS:
+> > +	case DRM_MODE_CONNECTOR_eDP:
+> > +		break;
+> > +	default:
+> > +		return NULL;
+> > +	}
+> > +
+> > +	if (connector->force =3D=3D DRM_FORCE_OFF)
+> > +		return NULL;
+> > +
+> > +	drm_edid =3D drm_edid_read_custom(connector, drm_do_probe_acpi_edid, =
+connector->dev);
+> > +
+> > +	/* Note: Do *not* call connector updates here. */
+> > +
+> > +	return drm_edid;
+> > +}
+> > +EXPORT_SYMBOL(drm_get_acpi_edid);
 
+Why shouldn't we use the BIOS/UEFI to retrieve them if it's available?
+
+I guess what I'm asking is why should we make this an exported function
+that drivers would have to call explicitly, instead of just making it
+part of the usual EDID retrieval interface.
+
+Maxime
+
+--wuwkuftvercgjsvr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZcTT/AAKCRDj7w1vZxhR
+xWUaAQD6cN2OZLS2on0CdvI61erefZfBVEzfJKIbzj+zTy36EgD/Tp/fQ9Ez18hY
+ZDmNNTVz7c/J4H5FwzAHoiHDwQDEJQE=
+=/woU
+-----END PGP SIGNATURE-----
+
+--wuwkuftvercgjsvr--
