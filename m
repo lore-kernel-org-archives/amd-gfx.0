@@ -4,128 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58F26C48260
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Feb 2024 18:48:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E350FC48260
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Feb 2024 19:41:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC4C410EA16;
-	Thu,  8 Feb 2024 18:48:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49FB810EB57;
+	Thu,  8 Feb 2024 19:41:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="F7H2h5Ry";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x6cs/6P4";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2064.outbound.protection.outlook.com [40.107.100.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EF1410EA16;
- Thu,  8 Feb 2024 18:48:47 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2073.outbound.protection.outlook.com [40.107.243.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97D4D10EB57
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Feb 2024 19:41:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nG2dNd2rEY7Ww9D0zWiZVnXDAfxSgeeh6AkpsmdNGircqkHPAIrVnpl+61MHmm/5+krGRUwJa0xxFKE7wpnPGfSkERWgVKyB4Nyvl+4+yjXJSYudCCkpab3uN1kY++i3GHDsXOwKs/TG2/GNOs7TYpl6tnBP4bn2xSvhCI+fbhzRcIWKyD+5BWx6X3G22znyDdVfn09SeWuABAuQNuz7K88yoiKCeusunaGnJyRmLQ7UHFSs/k6Vg0wkGhHu/12GTkYQj3Vkn5uusl0FRTO/izKGEalYG/dc0Ek6MRi/LZQK+AKHEPgFmC4wdUbd2dXVFDuVF6m1Rctn7tooda2DJA==
+ b=O09qNT7LMHWlc2W792OGlIC+kCtNAN85K6IfkrHcBr0VTbUm4EEvJCaOPq1kjCPFj69aNO7LTC6rmWThnDSkb2U7TrRrPMSkIE1b5u6NPNziQill3th1hv6hEF/HThfGJ7zQPipA7tgXrloKQTMyzTwSsjPI1zkoqArIEvc86V4ZgCqQ7wtzrgbjxNreluv+VfOb5p7MBAVfVspMLqXhkNYw3ciQWnLk+Hi8gutnbZv/6Jn23sTinZT05HdPQhkRDoiE2HS9rWy7eoTVLIou1OOuR9DXAO3zb/jfn2oZeVVKRwljb7NTvr/7CoHUEnTG3incEeNmAoMj2oDrGn+CJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NqNIM+7E9RN52RQqYZVmvOGnzBPRJcnusawxDFKy46A=;
- b=kaxC3VLJy39rCgh9yW0qGke7kuIiNUyhn/MSxJG3U7W692Txutp9NILfSKPbLMtfdhJOFOj7yI9L1N88wcP0l8fMLtqeLyyZTMvcqB9m+zAW+3qGMfA9unHXIFRTXsue1usPcbUBKaJkaLxPIJbQKio8cu8rKJskkc3o4irLtF+c9CaV0PPAqXX4funGyaI+eBjdAfuP6Cbny2jczrtPL5w3TpnbOiknwrJbCSW+TY5ol7/PnkxoryOvhQTR/7i3FtlXZNcDHs2EWn2WHp5eFOI+bSJSnOkam442WicnL7RZEGcIUuHL80nyxA0V6Oho5yQGQmVJORn+RDIdht87Ow==
+ bh=dEn54543V60CBEYWBF+3Xg3AQckvPM8TRGM5RIGqcN4=;
+ b=k7+Q28TJGFNoh6EJUhdklerEs0vC3dwTFxKCmMEHO7Eym5A9FcL/rvqIstOXoHIjYQ0CLo4PI2qG7f0ODtmwzvsRlh/rCS4QuNcYkipZ4TNYydQJFJQo+JywM3uVt0EewC1tmT0k8c2IC/KyCbhGXRpghifiuzRhh3xg1wIcKe1NUH7lHLhegOOJvc5F4M4u7UaeqnUESUOGbB4l8vVzhmapXPkmVmXR0s1/qLE9U/VFdqfelh5UE37F3bdthYdNW/FTsc2qTjv6UJiLwTIwsn8Y8RXhFCMRIWebnk5GC4kK4tLm11RIcUxJXxCF6O7j2pTB1QV5ZjEXt4njDtaBiw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NqNIM+7E9RN52RQqYZVmvOGnzBPRJcnusawxDFKy46A=;
- b=F7H2h5Ryr0F6MQTtFYL6dcWOYr0H47PtOszVRBoaFuxj5BnQXOWqCiYAEd9bSOzpLaCrpj0rGZ94Ruf5Olm3uRStvnWwFqBk1cgP1FKIIVtMuXQGZV8B8hBGwlQM94LyenMkmwWcETEnBcfSxjDcImnbQGSi4EdiULZIIXVvcJE=
+ bh=dEn54543V60CBEYWBF+3Xg3AQckvPM8TRGM5RIGqcN4=;
+ b=x6cs/6P43UMmKZm8crFGYxsJvvj11Ls8azLU376WM/O59zA5CRr63OskbFIB9ystEe3Jik2WA6d50ibA5K6fairBzgO4+AIEHlDUKLQ1UoJmRbLU6VpHUFauG/wvAZCqhv8BNOkUSpuyrqhFYGwbIYpvdqbxYuQZBdM3sdXzwSY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by LV3PR12MB9215.namprd12.prod.outlook.com (2603:10b6:408:1a0::21)
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by PH0PR12MB8097.namprd12.prod.outlook.com (2603:10b6:510:295::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.14; Thu, 8 Feb
- 2024 18:48:41 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::f6d2:541d:5eda:d826]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::f6d2:541d:5eda:d826%5]) with mapi id 15.20.7270.016; Thu, 8 Feb 2024
- 18:48:41 +0000
-Message-ID: <70c1b737-d4f5-4e66-8ee5-c9af22cec85c@amd.com>
-Date: Thu, 8 Feb 2024 12:48:38 -0600
+ 2024 19:41:18 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::6f2f:7892:e9fe:c62b]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::6f2f:7892:e9fe:c62b%5]) with mapi id 15.20.7270.012; Thu, 8 Feb 2024
+ 19:41:18 +0000
+Message-ID: <c14611b8-b524-4520-b6e5-ca67118c4b12@amd.com>
+Date: Thu, 8 Feb 2024 14:41:16 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] drm: Add drm_get_acpi_edid() helper
+Subject: Re: [Patch v2] drm/amdkfd: update SIMD distribution algo for GFXIP
+ 9.4.2 onwards
 Content-Language: en-US
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:ACPI" <linux-acpi@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Melissa Wen <mwen@igalia.com>,
- Dave Airlie <airlied@redhat.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-References: <20240207224429.104625-1-mario.limonciello@amd.com>
- <20240207224429.104625-2-mario.limonciello@amd.com>
- <87y1bvb7ns.fsf@intel.com>
- <ysm2e3vczov7z7vezmexe35fjnkhsakud3elsgggedhk2lknlz@cx7j44y354db>
- <87sf23auxv.fsf@intel.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <87sf23auxv.fsf@intel.com>
+To: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: Joseph.Greathouse@amd.com
+References: <20240208041401.1870940-1-rajneesh.bhardwaj@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20240208041401.1870940-1-rajneesh.bhardwaj@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DM6PR02CA0039.namprd02.prod.outlook.com
- (2603:10b6:5:177::16) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQZPR01CA0153.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:8c::14) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|LV3PR12MB9215:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d0ce743-e4e0-41f6-58e2-08dc28d691de
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|PH0PR12MB8097:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d4d2703-74a7-4e22-6860-08dc28ddeb23
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: U87DmfugsBJA99/khL/IWd+/XfynsfpMwVhr84BeZIhVgbHWRc9/32DOLxDinstruLU62NT5IvMqTAnWz1ziJ+CD59tPu0KrzsdQ9YY2LjY8027R8fHHl6eGigQKr0c5HRFMzrs0q0I23tyeW5EDqJn+XPZ72u17xR1zTVJbPm2Ukl8hbA0cPMK7W/Hcd2fH9FMtHDAmTzQTunt3KxEx6kT5V+y0AxeJxVUl8rSwrlXL0BfXQUM2cGPD3ELFkrbO/brfjfvbo2nzx1k51zT6nrYn9bVetT4WtTHgRHzEthxRP15ioEGRiAW+HGjt40C2ImnyGKJMp+R3wpxQMjOn4HUjY6I+KNWSCcV+4TbDmppbdqJh6CJ1rwQ91HbAWtFRMdEiIgaVOLYsfsw+e1qqdPW1I22+OFAwIHEu0J1bqFlN+R6QcivC5oENXqWrm9+Ryr4qMOA4Rlf0SH3FrYINLaYyRyFUZYOHlswnlE5nDE3lNMjyMxVc7gxIg9XeCgXBbsz2oTzUwBTszl16BrCx2ZEL1mpwRDs86IKWNB1AoqWcEOt0OU4OCio1K4ZI0sUw
+X-Microsoft-Antispam-Message-Info: xSNYRRIgRWHho6SaDbVv8c84WufE7Xj2XZy3nvmDVwslHXSTVLRSrwwZrKrgBvohVWqJgxXDK7Q5+7el7jTOsxdutt7wjRTW4FcooycjcqDuwYlx8ziN52Dr+vf1Bv5MXA2z77RjmYYJlzEi+6JAyhh0R1GXDF4t2jGopkdWBGKda5C9HAVVQWVb+qwZAo/iIdmDE+8Rdv/yDRSUTI7nF0s5BupouAhCZjwAeRbYoynlm/G5OtReCv0jkIQCqGRv4W7m8kEDPXqCoQnkQgraLmoWyHLcsFjF07WdCGqL6BacLP3UWoXzxfJRUH2ouOtLt3tc8GU1lC95U6rvAVv3d0yeE9Q7CPYBda3OA81ejES3a0bNVLs4vNyIM4gITVOFyRrgJfSl31Cl73I0lIweSaiNoAsdZ+BS+JajgBVc2tTbuogekvdnJoDjHMiNhe4R1S0roGt6NDwXxRt69RJCU0VpvaiuhszrwF0+7kHJH0VXyLFeQeFYaJAiJCXYzf+gEnvO7tcpF4JXDOT9hQ5EXpE2lwigK6XDQYe1RFTXUJI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(376002)(366004)(136003)(396003)(39860400002)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(31686004)(36756003)(66899024)(26005)(53546011)(41300700001)(6486002)(54906003)(86362001)(478600001)(6512007)(5660300002)(66476007)(2616005)(31696002)(66946007)(8936002)(44832011)(8676002)(66556008)(38100700002)(4326008)(6666004)(83380400001)(110136005)(7416002)(2906002)(6506007)(316002);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(136003)(366004)(39860400002)(346002)(396003)(230922051799003)(451199024)(1800799012)(64100799003)(186009)(36756003)(966005)(15650500001)(41300700001)(36916002)(53546011)(6506007)(6512007)(66556008)(66476007)(478600001)(66946007)(8676002)(5660300002)(8936002)(2906002)(31696002)(2616005)(86362001)(6486002)(26005)(44832011)(316002)(83380400001)(31686004)(38100700002)(4326008);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d2wwRGpWSGtRNzVRSkF2UDRObXliZDFuSTlmUEtzditZcVE5VFdCQUgxQmor?=
- =?utf-8?B?T2JOZ0dFVU50ZllqVUppcXlNSHQ2cVA2ajl2NHV5djIwY3VvampIdE9rYmVM?=
- =?utf-8?B?bG1UcWMrYklya3hzTzg3ME1NMU5PaTNNWlRmODVnTUdFNnBtK0hHbHEyUlJU?=
- =?utf-8?B?Vklva0hueVlGcVJtLy85SS9BSGdZVkFUOXQyZ1hYSGw4bkdvMzFQSHBURmg4?=
- =?utf-8?B?Z3ZsK0dNbmVGd0tveG1jTXJ4eElIMFpmbWZFR2F3MXVCMWdxNXM0bXpJdnNS?=
- =?utf-8?B?RzQrMkJRbWFmaS9EM1NCZnR3dFFHYVM4cDNxTEtDdFJFWkUxNk5tWVY1RkVa?=
- =?utf-8?B?c0hGMks3M1NOTXZTamZWWUtMNUtlejRrY0xLalBDZHd0S0xJZkRnaEpaTUsr?=
- =?utf-8?B?bzNwdXFtZ1NyakNCdUY0NmJ1dDc1YkR3dStiL1JpNUYrWUlWajF0d0huVVND?=
- =?utf-8?B?Y3VHa0p1VjBBWExPUDJ2YVdNcDc5ellXYXB5WXo4VjdaUnBVZ1lrTFNKajdK?=
- =?utf-8?B?UnZUcnl0WS9GSnJVVVAzeDNRTHRhK3E1em9vVmdBQ2ZyN296dkxzTi9wRTlW?=
- =?utf-8?B?dUF2T3kvNEtid1JrZFA3c2xmenNjYWJwZGFXTDFlWmJpWnhGblNiOTdlcGJT?=
- =?utf-8?B?cnNrcDI4S1QxV2tES1grZzR0aEFDV3lxYTZvMkNDOWVsdndhdFlQVmVWaTZ1?=
- =?utf-8?B?RTZOTWpZZHBPc3U2ZU8rdGJETnROTmFtaFZLSUpDNW82YjlueWtBeER0RlRS?=
- =?utf-8?B?cStNQTJFcWQyL1Z0dlVXekw4ZHBDbEhhVEpOdzdoZ2UrUERBWEszNjRqeFp1?=
- =?utf-8?B?aExodG9wbUNPUjBtQ3lWdXpmMlVqQVZIOVR2OGZyNit3cDRVYXQyRmhUZENF?=
- =?utf-8?B?cU9IV09qSGdOWGErd2xTVlZNUE5CbGtaVkcrRWUvVkhsOXhRM3FOZnJkaG82?=
- =?utf-8?B?VytMd2c0RFlwNFhrMnJQV2xRalpuVXBJSVJxWjJVM0s0S1NqYmFlZGozYnlU?=
- =?utf-8?B?TVl5VlZrR204aGpxNkhQdVRPdGVQbG5pTVhLZVdqaHJHWm1NMU5Laktuc0Fx?=
- =?utf-8?B?WExUalgrSFBYSVhaZ0ExSEl2OUVjeUNwZUJJRis0M1Y3VEhOYkEvYnpXYWlG?=
- =?utf-8?B?Z2dMcUVSNGFLRkorcFZIdHVsTFl1blpyOE5vdStFZ2Fkejk4ZURWUDNzSUhj?=
- =?utf-8?B?d0Z5MVVOTHdNaGZnN2FQaXl2NWVXS1VaQW0rS3Y0TnpqNVc1azZjL0xOSWta?=
- =?utf-8?B?OFJKSDN0S1lnYk9ZYkErK2dTRVdYNlI5djNxQWFleDZ2U2pLOGFPZHNMT0xq?=
- =?utf-8?B?Mk4vRy83S1NhK2VRZkN2aTlYdTU1ZnlRd1Q1cHRrVGtHTzdGS3plOXBob21V?=
- =?utf-8?B?Y2p5WHQrdU9UYmowM2R4a0V1NlJJWXgvKzAzWjN2QkNMRlZqTGVXQ3JCR1A2?=
- =?utf-8?B?R0ZGMVp1QTE5eVJBSEh2am1xTHF3V1NtUnpZdGloNUYxM1ZQaUxlU2lsVDZa?=
- =?utf-8?B?QVBQcGRQZjdzYThoSlVtOHhHM0tBZlhta2EyU2FUZk4xeFFUQWx2N3VHWW55?=
- =?utf-8?B?bThoS094UUt2UHk0U2NEbms4OFRHT0dTNzRPMnBEODNlbGlJWXBFSUZSNVBV?=
- =?utf-8?B?SDJieVptMzVEU2NhclRvd2JWRnVsd1hZQWYyeGh2SUJLa2ZjdGxNWHZPaVZK?=
- =?utf-8?B?WDMvL3ppRDVPVnMxUzk5Nk5FcmY5YWNjdUJrSEYwTjBRRk11Q1pGZWZZdlJ0?=
- =?utf-8?B?eWZNaVhBU3pLeTNaby9MaHNkcTFqcC96SVNETXB0KzNKR3hqeWt0OEEybGVj?=
- =?utf-8?B?Rm8wbXROd2N1RGs4YlhVYkliNHVocysrRXBQZHRyR1NHd3BpbXIvZkVSZHpi?=
- =?utf-8?B?QzM2UXpIdjZsMXgyZHhwYWlyYTZHVjFSck4weGcxekRyazN1Ni91L3pxRU1R?=
- =?utf-8?B?SGRnbmo1QVV5TGQrZlh3TnJ2dnlwblZCMWU1Wk9GVEw2QktJWGJzMWNPUnpp?=
- =?utf-8?B?SE1jeW5BdEZXcFVaRkl5OGdoanY4aG1ldVd3K29uQ1lDcTRkb1R2NFhDSStN?=
- =?utf-8?B?SzE3ekJDM0gvdnluRFZJSWl1R0JRRGltVGRiNzJVR3ArWFg2S1A2NGlkWHdz?=
- =?utf-8?Q?csDBJ3/v/imTsMVuR0RG4KVBe?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UVZSMktSZDFtbmlzWk1pMkorbTI5NFVQU0tKSXc0emw1a2daMzE5V1JlNTd5?=
+ =?utf-8?B?bjZORlFybGJ1WTZ2Q0FCRkVSeVVlYk5EdXAydHl1Q2JCdFN2YVQ1N3I2a0Vw?=
+ =?utf-8?B?b1RsMnhFQnF6RkI2YlZucWpYY0pTRysxVURWYVBwSlgwTW1xOGprZTd2bmgz?=
+ =?utf-8?B?RVFiUjl0WTF5N3hTZVd4T3ZaODBTcTRwTWFwTFpHSXBUeTZ5c0NreUozVkpt?=
+ =?utf-8?B?R0ZqS3NYazUrRktnMzl6ellEd0l3c0duVENldmZraVVHZWtvbm1WTkI4aWs2?=
+ =?utf-8?B?WEJnQkphMHRRUVJ6QWxmcmhER1F1cTZmLy9XNW5DckdzMnRWMDhRWFZHVDg3?=
+ =?utf-8?B?WUV0RE5LMEpMVUV6cFhFS0JBOUlFT0E1SkJCTEJKZEx3d2NwTDAxNDA3SEdu?=
+ =?utf-8?B?cjRoTXFPb29oMFJjVmprVU1jVko3dXE2a082VDJsSFBpcWVDL3hUZ2ticEIv?=
+ =?utf-8?B?TDdFNWVGREQ0cFR3b21TWVU2UmYxWGRMR3B0NUJVQ01JRWpaenM5RHBlSWd5?=
+ =?utf-8?B?Q3NseS9yS3Q4bVRQQngwZUpBWG5EL3FPellEanJiL2hqZzhEZWJhekQ3T2x4?=
+ =?utf-8?B?TDFwVzh3dlNseHdtVVlzUldPaVJLV05sdEY5dEpXSk1TNnNmZUVTN2xTZkRt?=
+ =?utf-8?B?SmZqbDltMDltUWJBVlhCNFNHbjJkUHVCd2ZQclFyTGU1dG9UVXZ5RE5LWndn?=
+ =?utf-8?B?a0xxcjE5N09HK3RKYzA0czdLUDQxQ3NjQUZkanhGUzNhVE1KMHpQR3A1S0gy?=
+ =?utf-8?B?WDNWQ21mYUhtS2lYYjRBT3lkMnFiaWFHTlY2bVhaY3JVTTQ4WloxQzJoSDRF?=
+ =?utf-8?B?YW14YThVWm0xVE1LV3dSQmM5TTdNMUw0aWF5V1p0MHB1UjE3VkV4a3E4RFND?=
+ =?utf-8?B?RXVta2tjL3IySkVvdHZYQ3pYK09OQ05pd3R6Q0dFSFNGdnhiWjd0N28ybmNF?=
+ =?utf-8?B?WEMrL0RYNGRBbFJ4dWF1VnNBamxIVzdNcnkyMW9hQks5UmlnZ0dMbTFNVzVC?=
+ =?utf-8?B?dVJvNjI0cnNlWE04M1RvWVBBcnM1ZmR4THpqNzB3bkV5ZERES2ZxenJDWEpm?=
+ =?utf-8?B?T0hGRndMbWZ2eTZKbHpyUS9FTnZpODUzWXhnUnkzbmE1RWN5U3dSZWJFdnE5?=
+ =?utf-8?B?U1o0ajZ3UEhNY0Z5SDVweExkNnFwcmpHSjVMYUtQRXpoY2F5U3JsKzZhcW1n?=
+ =?utf-8?B?Q3RqekFYeG5XMnNnMnFuSXZwamw1Y1EzcmJZS2UxTjR2a1RyMi9UNFQ5WFNP?=
+ =?utf-8?B?YStNdjZIbEowWHJBNjJuU3ZKTkpYYTZTNU5lVkplVmhuZmdKWHBReGx5dE84?=
+ =?utf-8?B?TEZXZTNhNWMrcXJ2WHZidkVuZE05TVZUNE1kSDZhdzR1ZVZ6ZkZjcXU0dnNF?=
+ =?utf-8?B?L2RSRnVuZzhDRGZ0MHdYWmtTazM0UlNIbU5DYWtuQlM2V000V2N0WTl6bmlj?=
+ =?utf-8?B?NklXalB2MVBVcnpWclZ2RnRpdW5JcVBJM1E5THZSSll0dDNRQk9vTXBrL094?=
+ =?utf-8?B?ajFMdE9wT1prT3l0aGFFdmQrL2tnSExjd2x0endZcko3Z1JZeGlQMExlNmtN?=
+ =?utf-8?B?MHROMExtMmUwNWJLSVR6aTQ1ZXNXZktQb0dkSHNhcHVaNExpdUJCZGFaSFdw?=
+ =?utf-8?B?UXVyUWQzZjhJc29jaHNsMUdzVmQ3N0w3VlhlM0RNY0dsb25xTzZKU1JraEZI?=
+ =?utf-8?B?ejB1NEdXY3RiM0RwZUFzTUZLVlg1THd1bDlMNFFGV25sb21ncUlsNVFwQnhm?=
+ =?utf-8?B?RVRwQitUc2NtbEZERUd0ZmFqOU1jZUplZFUyTVd6TXVLQ04wT1c5Z3VxV0Fn?=
+ =?utf-8?B?ckxLSFZPODhPdmdqaVRCcVZCZ25qVDUzTy9BOExhZitIdkJLMXJrSlRYbHNW?=
+ =?utf-8?B?djFYNDVGaUs5dXFIVmNuZTdDdVlGcVZ2enIxckJDVk1JQ0xoZ05UZXRJRGk5?=
+ =?utf-8?B?SVEvYTdiZCs5NnBHaktSYXVwenVHMFc3WWFKREE1WVJaVEZkK2RmMXMzZFpp?=
+ =?utf-8?B?cXpCeVRoZUtoM3NydGZ3OGNUWDRvUlZlYWVwL21PSXBTMytkWFRyZ3p1U2RZ?=
+ =?utf-8?B?bDBUS3BlMzRFMmIwbmV3QUdVelBNNUloL29qc0w4R0FEVjVZZG5vdW51aXdL?=
+ =?utf-8?Q?qi/umDSl86vG5aITdQZjlDjeI?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d0ce743-e4e0-41f6-58e2-08dc28d691de
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d4d2703-74a7-4e22-6860-08dc28ddeb23
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2024 18:48:41.6427 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2024 19:41:17.9328 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sR0DrMyqOlE4nMR0hbh+g5xx+G6Hm9Yp2r9cbp4+Exydmt1jluqLStaruzwwEWt7HFqbJTiWpHsmslgRt1W87w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9215
+X-MS-Exchange-CrossTenant-UserPrincipalName: Q7xgmlGzZPdOGZjmEHOAUFx9LRIOj+tAzsa3l0bM4UC730sNVD6oEXP02YcXPBZYNAmCFHN/TE7y7iFUOPuhcw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8097
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,180 +132,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/8/2024 08:31, Jani Nikula wrote:
-> On Thu, 08 Feb 2024, Maxime Ripard <mripard@kernel.org> wrote:
->> On Thu, Feb 08, 2024 at 11:57:11AM +0200, Jani Nikula wrote:
->>> On Wed, 07 Feb 2024, Mario Limonciello <mario.limonciello@amd.com> wrote:
->>>> Some manufacturers have intentionally put an EDID that differs from
->>>> the EDID on the internal panel on laptops.  Drivers can call this
->>>> helper to attempt to fetch the EDID from the BIOS's ACPI _DDC method.
->>>>
->>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>>> ---
->>>>   drivers/gpu/drm/Kconfig    |  5 +++
->>>>   drivers/gpu/drm/drm_edid.c | 77 ++++++++++++++++++++++++++++++++++++++
->>>>   include/drm/drm_edid.h     |  1 +
->>>>   3 files changed, 83 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
->>>> index 6ec33d36f3a4..ec2bb71e8b36 100644
->>>> --- a/drivers/gpu/drm/Kconfig
->>>> +++ b/drivers/gpu/drm/Kconfig
->>>> @@ -21,6 +21,11 @@ menuconfig DRM
->>>>   	select KCMP
->>>>   	select VIDEO_CMDLINE
->>>>   	select VIDEO_NOMODESET
->>>> +	select ACPI_VIDEO if ACPI
->>>> +	select BACKLIGHT_CLASS_DEVICE if ACPI
->>>> +	select INPUT if ACPI
->>>> +	select X86_PLATFORM_DEVICES if ACPI && X86
->>>> +	select ACPI_WMI if ACPI && X86
->>>
->>> I think I'll defer to drm maintainers on whether this is okay or
->>> something to be avoided.
 
-It's pretty much the same thing that all the other drivers do right now.
-Because the symbol is now used by DRM it needs to do this.
+On 2024-02-07 23:14, Rajneesh Bhardwaj wrote:
+> In certain cooperative group dispatch scenarios the default SPI resource
+> allocation may cause reduced per-CU workgroup occupancy. Set
+> COMPUTE_RESOURCE_LIMITS.FORCE_SIMD_DIST=1 to mitigate soft hang
+> scenarions.
+>
+> Suggested-by: Joseph Greathouse <Joseph.Greathouse@amd.com>
+> Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+> ---
+> * Found a bug in the previous reviewed version
+>    https://lists.freedesktop.org/archives/amd-gfx/2024-February/104101.html
+>    since the q->is_gws is unset for keeping the count.
+> * updated pqm_set_gws to pass minfo holding gws state for the active
+>    queues and use that to apply the FORCE_SIMD_DIST_MASK.
+>
+>   drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c        | 4 ++++
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h                  | 1 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 4 +++-
+>   3 files changed, 8 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> index 42d881809dc7..0b71db4c96b5 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> @@ -303,6 +303,10 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+>   		update_cu_mask(mm, mqd, minfo, 0);
+>   	set_priority(m, q);
+>   
+> +	if (minfo && KFD_GC_VERSION(mm->dev) >= IP_VERSION(9, 4, 2))
+> +		m->compute_resource_limits = minfo->gws ?
+> +			COMPUTE_RESOURCE_LIMITS__FORCE_SIMD_DIST_MASK : 0;
+> +
 
-Patch 3 in this version of the series tears it out from all the drivers.
+This looks OK because we don't set anything else in 
+m->compute_resource_limits. If that ever changes, we have to be more 
+careful here to not wipe out other fields in that register.
 
->>>
->>>
->>>>   	help
->>>>   	  Kernel-level support for the Direct Rendering Infrastructure (DRI)
->>>>   	  introduced in XFree86 4.0. If you say Y here, you need to select
->>>> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
->>>> index 923c4423151c..c649b4f9fd8e 100644
->>>> --- a/drivers/gpu/drm/drm_edid.c
->>>> +++ b/drivers/gpu/drm/drm_edid.c
->>>> @@ -28,6 +28,7 @@
->>>>    * DEALINGS IN THE SOFTWARE.
->>>>    */
->>>>   
->>>> +#include <acpi/video.h>
->>>>   #include <linux/bitfield.h>
->>>>   #include <linux/cec.h>
->>>>   #include <linux/hdmi.h>
->>>> @@ -2188,6 +2189,49 @@ drm_do_probe_ddc_edid(void *data, u8 *buf, unsigned int block, size_t len)
->>>>   	return ret == xfers ? 0 : -1;
->>>>   }
->>>>   
->>>> +/**
->>>> + * drm_do_probe_acpi_edid() - get EDID information via ACPI _DDC
->>>> + * @data: struct drm_device
->>>> + * @buf: EDID data buffer to be filled
->>>> + * @block: 128 byte EDID block to start fetching from
->>>> + * @len: EDID data buffer length to fetch
->>>> + *
->>>> + * Try to fetch EDID information by calling acpi_video_get_edid() function.
->>>> + *
->>>> + * Return: 0 on success or error code on failure.
->>>> + */
->>>> +static int
->>>> +drm_do_probe_acpi_edid(void *data, u8 *buf, unsigned int block, size_t len)
->>>> +{
->>>> +	struct drm_device *ddev = data;
->>>> +	struct acpi_device *acpidev = ACPI_COMPANION(ddev->dev);
->>>> +	unsigned char start = block * EDID_LENGTH;
->>>> +	void *edid;
->>>> +	int r;
->>>> +
->>>> +	if (!acpidev)
->>>> +		return -ENODEV;
->>>> +
->>>> +	/* fetch the entire edid from BIOS */
->>>> +	r = acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, &edid);
->>>> +	if (r < 0) {
->>>> +		DRM_DEBUG_KMS("Failed to get EDID from ACPI: %d\n", r);
->>>> +		return -EINVAL;
->>>> +	}
->>>> +	if (len > r || start > r || start + len > r) {
->>>> +		r = -EINVAL;
->>>> +		goto cleanup;
->>>> +	}
->>>> +
->>>> +	memcpy(buf, edid + start, len);
->>>> +	r = 0;
->>>> +
->>>> +cleanup:
->>>> +	kfree(edid);
->>>> +
->>>> +	return r;
->>>> +}
->>>> +
->>>>   static void connector_bad_edid(struct drm_connector *connector,
->>>>   			       const struct edid *edid, int num_blocks)
->>>>   {
->>>> @@ -2643,6 +2687,39 @@ struct edid *drm_get_edid(struct drm_connector *connector,
->>>>   }
->>>>   EXPORT_SYMBOL(drm_get_edid);
->>>>   
->>>> +/**
->>>> + * drm_get_acpi_edid - get EDID data, if available
->>>
->>> I'd prefer all the new EDID API to be named drm_edid_*. Makes a clean
->>> break from the old API, and is more consistent.
->>>
->>> So perhaps drm_edid_read_acpi() to be in line with all the other struct
->>> drm_edid based EDID reading functions.
->>>
 
-Roger that.  Even if it ends up not being exported out will rename as such.
+>   	q->is_active = QUEUE_IS_ACTIVE(*q);
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index 677281c0793e..f4b327a2d4a8 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -542,6 +542,7 @@ struct mqd_update_info {
+>   		} cu_mask;
+>   	};
+>   	enum mqd_update_flag update_flag;
+> +	bool gws;
 
->>>> + * @connector: connector we're probing
->>>> + *
->>>> + * Use the BIOS to attempt to grab EDID data if possible.
->>>> + *
->>>> + * The returned pointer must be freed using drm_edid_free().
->>>> + *
->>>> + * Return: Pointer to valid EDID or NULL if we couldn't find any.
->>>> + */
->>>> +const struct drm_edid *drm_get_acpi_edid(struct drm_connector *connector)
->>>> +{
->>>> +	const struct drm_edid *drm_edid;
->>>> +
->>>> +	switch (connector->connector_type) {
->>>> +	case DRM_MODE_CONNECTOR_LVDS:
->>>> +	case DRM_MODE_CONNECTOR_eDP:
->>>> +		break;
->>>> +	default:
->>>> +		return NULL;
->>>> +	}
->>>> +
->>>> +	if (connector->force == DRM_FORCE_OFF)
->>>> +		return NULL;
->>>> +
->>>> +	drm_edid = drm_edid_read_custom(connector, drm_do_probe_acpi_edid, connector->dev);
->>>> +
->>>> +	/* Note: Do *not* call connector updates here. */
->>>> +
->>>> +	return drm_edid;
->>>> +}
->>>> +EXPORT_SYMBOL(drm_get_acpi_edid);
->>
->> Why shouldn't we use the BIOS/UEFI to retrieve them if it's available?
->>
->> I guess what I'm asking is why should we make this an exported function
->> that drivers would have to call explicitly, instead of just making it
->> part of the usual EDID retrieval interface.
-> 
-> Two main questions:
-> 
-> What if the EDID from ACPI is bogus? Needs to be configurable in the
-> connector somehow?
+Instead of adding a new bool, can we add a flag to mqd_update_flag?
 
-In the earlier versions of the patch that touched amdgpu I left a knob 
-in the amdgpu kernel module to let users turn this off.  Whenever a 
-variation of this hits amdgpu I'm planning to keep that there unless 
-Alex or Christian have opinions against it.
+Looks good to me otherwise.
 
-> 
-> What if you have multiple local panels? This seems to only support one,
-> and would return the same EDID for both.
-> 
+Regards,
+   Felix
 
-The GPU driver should know best how many panels it's dealing with.
 
-How about if we make it "opt-out" by the connector?  The connector can 
-set a flag before it tries to get the EDID that it doesn't want one from 
-the BIOS for any reason (module parameter, too many eDP etc).
+>   };
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> index 43eff221eae5..5416a110ced9 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> @@ -95,6 +95,7 @@ void kfd_process_dequeue_from_device(struct kfd_process_device *pdd)
+>   int pqm_set_gws(struct process_queue_manager *pqm, unsigned int qid,
+>   			void *gws)
+>   {
+> +	struct mqd_update_info minfo = {0};
+>   	struct kfd_node *dev = NULL;
+>   	struct process_queue_node *pqn;
+>   	struct kfd_process_device *pdd;
+> @@ -146,9 +147,10 @@ int pqm_set_gws(struct process_queue_manager *pqm, unsigned int qid,
+>   	}
+>   
+>   	pdd->qpd.num_gws = gws ? dev->adev->gds.gws_size : 0;
+> +	minfo.gws = !!gws;
+>   
+>   	return pqn->q->device->dqm->ops.update_queue(pqn->q->device->dqm,
+> -							pqn->q, NULL);
+> +							pqn->q, &minfo);
+>   }
+>   
+>   void kfd_process_dequeue_from_all_devices(struct kfd_process *p)
