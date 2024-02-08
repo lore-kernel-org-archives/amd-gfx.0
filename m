@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8041C48260
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Feb 2024 05:53:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E262C48260
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Feb 2024 05:53:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28C6610E13D;
-	Thu,  8 Feb 2024 05:53:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78C4910E0EF;
+	Thu,  8 Feb 2024 05:53:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SzL9eH7e";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L0tInS8J";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2071.outbound.protection.outlook.com [40.107.243.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 364E610E13B
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Feb 2024 05:53:18 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12C7E10E13B
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Feb 2024 05:53:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fLySTcpQdEP9iJZSw85XzQZn/plS7AUAx3XsdFpWk+1TVbRff7AG9inFksTytJPwlyXPA5T05DabiyxWBibjxNjYqLFi4jg5D3KweB/FKMrJi1evNIo8W0NKwgJ8/1oNPbkhh+3TJm/AIu41pQa1XOKOGKrCf/ZtWtK8zlz7/1gYDY6FXplVkaPpR7dymgwCWcN9eddPDRJZzjwSmh5CCEsUAZXlvBtSJLE0QvFOwYD3/LqS+ktltc/QNrxoxizl2PmNX9fS7RT/Zs8K0LAmyocLjdgb/VZSSHY/SXZrj0xkpY8FdccznlNhsQJJ6uUfs+UQHH+gBCHDE5zqZ9q57g==
+ b=ZRMvYdD1tnQk1oo5SUyTg1crA+9q/uWbQRM/7k8GpOoSxbAqG3+fEleiQJi6SiFXTlOCWBaFq7RaNEnk5Fdmug2Cy9xTLvnJ8hJehK0ce/L0r3czolZUJAqOkdvBydwAyPD8uHSMvdQalCm+yIJdntMpFGCR+h0q5/S8822dVgVtgoMQZ34dtsqD4jeow7E26+JHbAKuwWhsOojuo/3zI3GjZUmvOi7kciZFByxnuF9WVtvh6GBpUSkRJJ0qv492Ultn2+NovvPPY07mjp7uRc+8sLivV0qVQNkS1jwE40uqKOGgSDP1nPCQZZuPnlWwSN2o+Q7YZ5oz4LAgfe8Zjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3POUoZpB9Th4DP7C2jjnkW0drv/XHLRoO18X2uyadKY=;
- b=i/JvQsy61DswLa7DOQV5n/5DeCxm+ex+aQC/+Ow0T6MCc5YB5F0MrapjJMLtoH8rYRMGcd2QnzpS8bEZlSmdCOnrJb24RDyoyXUDEzVw4BSGCMXrpmcDqs9indXZ/2RVDOBCwca1wXLY0bJXKuhSBIg4UVqeqrAtKU+q/wDxUqJmVqtrTIyX5yAJkSv7T1wVCliuEqq8ZX3amGeyimpZoyzHup/eVhk/Li036QAENut+OilTQ3UWgzw84LZ4bnUQXMy9G1CYvDIytZT5PI81JEsU8kF9ULYf3Aaq3xk5QRSoWfcyERJFsJm6yF1iPhBJoHBHa1umMnJNqnxo3HI+kg==
+ bh=WWirHPPrpLbuwLQCOy8zX+5BhnIcmOsAGcN1z1xtcQw=;
+ b=PIKdajBs0TxUMdgM6rUZ7pcNGlMj7axcQtciPBvJzfRvzzU4ORciGTT4XbjIvID2SC5bEDMyOYh4ROLiSfc6GQeCEy7Plorqn2fTWk4Bn5GwHJA2Y+11p0ZaPKhNmYZKZCxKOeqi5bmYpw3ub5w2S6R47rB9Dly9zWSH5S1Y8MY/hd2YsNpsibfmDkJoylaI0t/4QS047qBfRbtKQUPkx9Q93asS/N/Tz4XuxRhMxq/stBxYsradE60AlL+xDFCYfm088tPOj5nfmM94sf8pG6bG5CIO9BAqiPgSTtrWXN5maDB0xNT/wk+IcHBF4V/y1Qqqw8MVMxUhjtRWhfTNlg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3POUoZpB9Th4DP7C2jjnkW0drv/XHLRoO18X2uyadKY=;
- b=SzL9eH7edzJFkx/CyZhLjoUatZeRWJVe5XbPWIxF+k0KuC37qICawIxsD7wWSwbtPRyqjfNF7ePFoHu6qUQlyJZYUl/EU4Q9FsOlckJ17Cg+PyzmSXvWVMC7meS8zS1HavlyWWCPGb3OIw2S3WN8Q78GPfowmwdCkW9HDnxvHV4=
-Received: from MN2PR06CA0030.namprd06.prod.outlook.com (2603:10b6:208:23d::35)
- by SJ2PR12MB7797.namprd12.prod.outlook.com (2603:10b6:a03:4c5::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.14; Thu, 8 Feb
- 2024 05:53:15 +0000
+ bh=WWirHPPrpLbuwLQCOy8zX+5BhnIcmOsAGcN1z1xtcQw=;
+ b=L0tInS8JMqQ8tVZ2cc/Hbq4rVogf4kdqzc7gNLJLyDi5CLLYPG0d4UVK7x/3sRAnaQ6veDti71qcGiZZ3oCFFyJS16NXkOuf5wC1ar3nS6od0b9WbuJ9oIcfOjv+a3TMcXmDOJe27RYL7c4M/v2eWq3bf48L+bMcb7W9xFVA5KI=
+Received: from MN2PR06CA0002.namprd06.prod.outlook.com (2603:10b6:208:23d::7)
+ by DM6PR12MB4107.namprd12.prod.outlook.com (2603:10b6:5:218::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.8; Thu, 8 Feb
+ 2024 05:53:16 +0000
 Received: from BL6PEPF0001AB54.namprd02.prod.outlook.com
- (2603:10b6:208:23d:cafe::6e) by MN2PR06CA0030.outlook.office365.com
- (2603:10b6:208:23d::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.38 via Frontend
- Transport; Thu, 8 Feb 2024 05:53:14 +0000
+ (2603:10b6:208:23d:cafe::97) by MN2PR06CA0002.outlook.office365.com
+ (2603:10b6:208:23d::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.42 via Frontend
+ Transport; Thu, 8 Feb 2024 05:53:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,20 +50,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BL6PEPF0001AB54.mail.protection.outlook.com (10.167.241.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7249.19 via Frontend Transport; Thu, 8 Feb 2024 05:53:14 +0000
+ 15.20.7249.19 via Frontend Transport; Thu, 8 Feb 2024 05:53:15 +0000
 Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 7 Feb
- 2024 23:53:10 -0600
+ 2024 23:53:11 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <mario.limonciello@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>
-Subject: [PATCH v4 1/3] Revert "drm/amd: flush any delayed gfxoff on suspend
- entry"
-Date: Wed, 7 Feb 2024 23:52:54 -0600
-Message-ID: <20240208055256.130917-1-mario.limonciello@amd.com>
+CC: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH v4 3/3] drm/amd: Drop unneeded functions to check if s3/s0ix
+ active
+Date: Wed, 7 Feb 2024 23:52:56 -0600
+Message-ID: <20240208055256.130917-3-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240208055256.130917-1-mario.limonciello@amd.com>
+References: <20240208055256.130917-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -72,26 +73,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB54:EE_|SJ2PR12MB7797:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c6e1d14-9600-4b40-77df-08dc286a3d72
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB54:EE_|DM6PR12MB4107:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc66bf48-dc12-4c6a-0950-08dc286a3e87
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gbzUqC+vyvg7pP6QC0jedb9Rm9WtjFUWldbdlomYBVu5ektUQ2cT+JPCCZ7v3HzD9/08xX5OUWYUpm32+Cse7/xWdF6MBlQMHUJT5ZVaMjkLj4xft8DuleybDjgaiZ0cIZxzuXyBm+OqfxokCSXfK8EfuZ1FuO/qQDNlXqytHwSGyLGrn6rBy+RQ/F4pR0FhuIVqH4+rDZ9IeiS6dfrxbNh4Og9j8zpv5NdFsfCDa/ZD5HHKmcgHk3t341pNPAgNk2hmt7WzmeHpKO2N30iyEJQgxjn30y0LRDup+I8PizlfSZLo526NMKB7O8zsoiypg48kig1TCVP8we6uzX421z+w5Gu7/gTSitMoYXaN7thAlQycL7+7S9hHpsHT2LXOCRPLbN1OSQGNKmSsRY4GV26vgRH8jnqaqHc7VOtD1255X//wuO0Zey/LhMqy/B6zoCSiFCpeF/uMsLFbKxIr4mV6nlOcAexHx/1+N+fsNLVsccWkotsMhtojZvSjBMPw1HFodj17eGmgi7BvrgKk08lEmSDTihBJbTtw/HdUoerBknMmgxK3J8RS52YPRS3sH8WzaItKPq+qnwjYUSsro6OmIRcQYXRMiiA/u+lW874=
+X-Microsoft-Antispam-Message-Info: Py3wzPT65fKSe4vLhLWBRJmegroyhm2Ul4HpfnhEZmBY5iMyFHVmlY1kZF7rE7XsWFGepNZq41Nviecd0CyoPHzd11OnuyAkFF5flj8d0TuTt9THh2kN4tOl+ueP5mLS+a0kmiKada37Q6w90HLxgmyS2HLOX25Nta5jAjg36LJI1oywyRyc6O7ytq2G35012/8nGApQzHgYfylFwUO92k/QldmKFqMotaa8ereAnoieZ10VBJlapJffQNhTnqKk6gLSGvsqAIZPwXfj3zPLjYkOr7JEtuDBceL17iHtdatKE79aq/kqaIDpd0UkeEF5m0vdCOq3YLG9f9vHz+UgRTPHOEtHLOpEZEW7EdD0LIt3wn850YgWzm6YxJqnHVWhw0QFHuLzPTR3jlI+euTZ17ZX65IBgc8LKCaqRYbpUfYssXuqQO+qVrlQ+z7Id959gX61NhBmRLAYlRtcM3WJQg62BfgANVmPUvuRq/WOQkUOObuB0yFQ23urYC3Bnj6MXUVO08mMDlZgg74Y8dDCx6nosZl3QryKBaLqqvATLRVEdBxslft/4iVOyNeYjvjHj7ewnEC3hMFSxX0hWNrCb5FOKDV7viq/dGyW4Of8XC4=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(39860400002)(376002)(396003)(136003)(230922051799003)(64100799003)(186009)(82310400011)(1800799012)(451199024)(46966006)(36840700001)(40470700004)(316002)(54906003)(81166007)(6916009)(356005)(83380400001)(7696005)(8936002)(16526019)(70206006)(2616005)(26005)(6666004)(426003)(15650500001)(478600001)(82740400003)(44832011)(336012)(86362001)(5660300002)(70586007)(8676002)(36756003)(1076003)(2906002)(41300700001)(4326008);
+ SFS:(13230031)(4636009)(346002)(39860400002)(136003)(376002)(396003)(230922051799003)(451199024)(186009)(64100799003)(82310400011)(1800799012)(46966006)(36840700001)(40470700004)(356005)(41300700001)(336012)(6916009)(2906002)(4326008)(5660300002)(86362001)(8936002)(82740400003)(70206006)(44832011)(70586007)(8676002)(7696005)(83380400001)(478600001)(36756003)(6666004)(426003)(316002)(16526019)(1076003)(2616005)(81166007)(26005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2024 05:53:14.2011 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c6e1d14-9600-4b40-77df-08dc286a3d72
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2024 05:53:15.9980 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc66bf48-dc12-4c6a-0950-08dc286a3e87
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB54.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7797
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4107
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,57 +107,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-commit ab4750332dbe ("drm/amdgpu/sdma5.2: add begin/end_use ring
-callbacks") caused GFXOFF control to be used more heavily and the
-codepath that was removed from commit 0dee72639533 ("drm/amd: flush any
-delayed gfxoff on suspend entry") now can be exercised at suspend again.
+amdgpu_acpi_is_s0ix_active() and amdgpu_acpi_is_s0ix_active() aren't
+needed to be checked multiple times in a suspend cycle.  Checking and
+setting up policy one time in the prepare() callback is sufficient.
 
-Users report that by using GNOME to suspend the lockscreen trigger will
-cause SDMA traffic and the system can deadlock.
-
-This reverts commit 0dee726395333fea833eaaf838bc80962df886c8.
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Fixes: ab4750332dbe ("drm/amdgpu/sdma5.2: add begin/end_use ring callbacks")
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 9 ++++++++-
- 2 files changed, 8 insertions(+), 2 deletions(-)
+v4: New patch
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  4 ----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c |  7 +++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  | 17 ++---------------
+ 3 files changed, 5 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 670ecb789d59..2bc460cb993d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4573,7 +4573,6 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
- 		drm_fb_helper_set_suspend_unlocked(adev_to_drm(adev)->fb_helper, true);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index f6c38a974bae..53823539eba5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1545,12 +1545,8 @@ static inline int amdgpu_acpi_smart_shift_update(struct drm_device *dev,
+ #endif
  
- 	cancel_delayed_work_sync(&adev->delayed_init_work);
--	flush_delayed_work(&adev->gfx.gfx_off_delay_work);
+ #if defined(CONFIG_ACPI) && defined(CONFIG_SUSPEND)
+-bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev);
+-bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev);
+ void amdgpu_choose_low_power_state(struct amdgpu_device *adev);
+ #else
+-static inline bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev) { return false; }
+-static inline bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev) { return false; }
+ static void amdgpu_choose_low_power_state(struct amdgpu_device *adev) { }
+ #endif
  
- 	amdgpu_ras_suspend(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index cc21ed67a330..1d58728f8c3f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -1366,8 +1366,7 @@ bool amdgpu_acpi_should_gpu_reset(struct amdgpu_device *adev)
+ 	    adev->gfx.imu.funcs) /* Not need to do mode2 reset for IMU enabled APUs */
+ 		return false;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index aa8e1d29d10a..9831dd854532 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -727,8 +727,15 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
+-	if ((adev->flags & AMD_IS_APU) &&
+-	    amdgpu_acpi_is_s3_active(adev))
++	if ((adev->flags & AMD_IS_APU) && adev->in_s3)
+ 		return false;
  
- 		if (adev->gfx.gfx_off_req_count == 0 &&
- 		    !adev->gfx.gfx_off_state) {
--			schedule_delayed_work(&adev->gfx.gfx_off_delay_work,
-+			/* If going to s2idle, no need to wait */
-+			if (adev->in_s0ix) {
-+				if (!amdgpu_dpm_set_powergating_by_smu(adev,
-+						AMD_IP_BLOCK_TYPE_GFX, true))
-+					adev->gfx.gfx_off_state = true;
-+			} else {
-+				schedule_delayed_work(&adev->gfx.gfx_off_delay_work,
- 					      delay);
-+			}
- 		}
- 	} else {
- 		if (adev->gfx.gfx_off_req_count == 0) {
+ 	if (amdgpu_sriov_vf(adev))
+@@ -1472,7 +1471,7 @@ void amdgpu_acpi_release(void)
+  *
+  * returns true if supported, false if not.
+  */
+-bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev)
++static inline bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev)
+ {
+ 	return !(adev->flags & AMD_IS_APU) ||
+ 		(pm_suspend_target_state == PM_SUSPEND_MEM);
+@@ -1485,7 +1484,7 @@ bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev)
+  *
+  * returns true if supported, false if not.
+  */
+-bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev)
++static inline bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev)
+ {
+ 	if (!(adev->flags & AMD_IS_APU) ||
+ 	    (pm_suspend_target_state != PM_SUSPEND_TO_IDLE))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 971acf01bea6..2bc4c5bb9b5a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2456,13 +2456,6 @@ static int amdgpu_pmops_prepare(struct device *dev)
+ 	    pm_runtime_suspended(dev))
+ 		return 1;
+ 
+-	/* if we will not support s3 or s2i for the device
+-	 *  then skip suspend
+-	 */
+-	if (!amdgpu_acpi_is_s0ix_active(adev) &&
+-	    !amdgpu_acpi_is_s3_active(adev))
+-		return 1;
+-
+ 	return amdgpu_device_prepare(drm_dev);
+ }
+ 
+@@ -2476,10 +2469,6 @@ static int amdgpu_pmops_suspend(struct device *dev)
+ 	struct drm_device *drm_dev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
+ 
+-	if (amdgpu_acpi_is_s0ix_active(adev))
+-		adev->in_s0ix = true;
+-	else if (amdgpu_acpi_is_s3_active(adev))
+-		adev->in_s3 = true;
+ 	if (!adev->in_s0ix && !adev->in_s3)
+ 		return 0;
+ 	return amdgpu_device_suspend(drm_dev, true);
+@@ -2510,10 +2499,8 @@ static int amdgpu_pmops_resume(struct device *dev)
+ 		adev->no_hw_access = true;
+ 
+ 	r = amdgpu_device_resume(drm_dev, true);
+-	if (amdgpu_acpi_is_s0ix_active(adev))
+-		adev->in_s0ix = false;
+-	else
+-		adev->in_s3 = false;
++	adev->in_s0ix = adev->in_s3 = false;
++
+ 	return r;
+ }
+ 
 -- 
 2.34.1
 
