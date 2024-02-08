@@ -4,98 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3543C4829C
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Feb 2024 15:50:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ECA8C48260
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Feb 2024 15:55:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED81010E964;
-	Thu,  8 Feb 2024 15:50:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6CD210E032;
+	Thu,  8 Feb 2024 15:55:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BbAo5X1+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mxmO5pQ1";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2089.outbound.protection.outlook.com [40.107.220.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8F2810E95F;
- Thu,  8 Feb 2024 15:50:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jYZuFUkAFemr6fOUF0eOa/G1hPozGz5bVa7uNRRpcQiBXJivGLvTP3IK+hpMWVy53c25IbGjFa+baTzty4ymA9NatsdO7sqHdhFce8Hoj2Y6QWD0/ywT6BK9YSbcjk3gubN7zZG+xRnaa7Kb/GkDZbYnbIjBrAOXAif3SHSxX+BW2zR5bJvvV9FVGpBneJ+smPFZhVujQNU/6+LfDLwEQOuJ1LH+6WweeJDujNjmEvlsa0vXaO2qtIEvo82dUqjdNL8Rkyxzdd/kxcJ/6U/uefNSTmAepM/FV8RYj1EedcXCd2ixLaVJhJU5vxCcJ3b/f12R/x1puGM42apKg9P5xA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8hgM3DhoXd6/cqJsMx8lPIs0DRqvXqUuFAbBDkaX+m0=;
- b=B+TZQTTsBD7WRTfTJWcNvKiZH/K1wv7Y5IZ5rOynWXi4vwh1rd2OYwIGxetbArdumQMxalkl+896LsC6nJO5ZUQ99HvSNyh7H/qVnodL3FqI1PRU4UJOYMcKh8km4sLMTqV6JDfvOGg3uUZ6MKqe65WVSVin8BygT3UgcE12WRq0oaa90tjR0IDcokqN5w7NszmNJ73INhJbHrQTV//vylMHlvEnJDG3zcwVDyd+xHeGMKHE3AyagC0rPy9acj4egGPhik2eINo4RYvy2KRsNjmj5tLrko+xBjMY1rSSu3QPZrqD+auf+iwzGweTDCdA7q40QwPlj+Wc6IJRDeHe3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8hgM3DhoXd6/cqJsMx8lPIs0DRqvXqUuFAbBDkaX+m0=;
- b=BbAo5X1+VqDkST3raLueEzDsgkDadY+nK4xcXOBNA6Irg+BCij+CoFfQj+9fSGoWm43os1FzY0XjtrTp3cXpkuZBFSFSKsQnvt7qs+4UA+KqO6cAMNvZwZD7hW39XYJxsE2tH3NeaZtF48BqJN0LG+4oaDQxsfWml4WA0Yp/nUA=
-Received: from DM6PR21CA0025.namprd21.prod.outlook.com (2603:10b6:5:174::35)
- by PH0PR12MB7077.namprd12.prod.outlook.com (2603:10b6:510:21d::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.14; Thu, 8 Feb
- 2024 15:50:29 +0000
-Received: from DS1PEPF0001708E.namprd03.prod.outlook.com
- (2603:10b6:5:174:cafe::55) by DM6PR21CA0025.outlook.office365.com
- (2603:10b6:5:174::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.8 via Frontend
- Transport; Thu, 8 Feb 2024 15:50:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0001708E.mail.protection.outlook.com (10.167.17.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7249.19 via Frontend Transport; Thu, 8 Feb 2024 15:50:28 +0000
-Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34; Thu, 8 Feb 2024 09:50:24 -0600
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>
-CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
- <matthew.auld@intel.com>, <felix.kuehling@amd.com>,
- <mario.limonciello@amd.com>, Arunpravin Paneer Selvam
- <Arunpravin.PaneerSelvam@amd.com>
-Subject: [PATCH v6 3/3] drm/buddy: Add defragmentation support
-Date: Thu, 8 Feb 2024 21:20:00 +0530
-Message-ID: <20240208155000.339325-3-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240208155000.339325-1-Arunpravin.PaneerSelvam@amd.com>
-References: <20240208155000.339325-1-Arunpravin.PaneerSelvam@amd.com>
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16A4110E032
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Feb 2024 15:55:13 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-511234430a4so4056065e87.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 08 Feb 2024 07:55:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1707407711; x=1708012511; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Br8w8H8eiZUMV3asJy11prlsdQni3i/PsDMGcD0wuzw=;
+ b=mxmO5pQ1FwYqxYYQPk0D9aTJkfr2D3p7k5TNM8zltaGzlbZRsjxcd6roWq8qklX/ZF
+ 9/IoziriszpRnQx+O39XmyRZILMLfQy7tVfOKXhwmGLPAi84PxVN50Bk4ZfmCDYLknHp
+ k0Fzh+RFPr6suflnFlUmf2VXxUcfidIEvKxTxyS8xGf6T4di8WkNJqx6Q8zgW566teLo
+ TKfOi0q8DXivr4X2FuKwYEruSQYOqNsDeCIV7fMrsU0VqXORObJnLTiL4GYyMy9ysUVO
+ gYly2v19vTNEaPingqcS+OQCvPWE8U4x9V+z1EggHS88EzBOXTx91pOHrPTaYLcbxmaw
+ oxDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707407711; x=1708012511;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Br8w8H8eiZUMV3asJy11prlsdQni3i/PsDMGcD0wuzw=;
+ b=IibIyHgJXkMrn05Bi3W1pAsArgDnq25GOX3a0o3yJeSjiERiS2zyi4K7Q2x5yWsKC9
+ p5ZC0G/7FRdq333saPZMTSCeJt8c0yRdnHPTTn78ALXakcWV5z9ZmRV0JB5xlMCRLTlg
+ vdo0KN0OtKQCdzuuCenn5aFRJuEFjteez248ocdQ+9iWpVIzqwKpmtXvkgw6qeSzYguq
+ RMyKlcfgPndvRB8XHxa7ibZYHAwaV1FuAw+FJwD+8Ju09+NMXEdn2z79d9XwVw52xzjJ
+ EdazyMxuehv9VPF7FAk4jso1v1UgPq4kH0nSTAnQB/D9AYHK3KjFwK+76JFhEt4p2jjh
+ xPuQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVIgHpxyes7CGGOrH127bTHwm42cMiGXqcBmB7zBHFpDfTrJ5oweEp4zNMV+zxy5fAmImSoy8G5+188hNARp0Dd1ueOxszY8CYwxXFKcw==
+X-Gm-Message-State: AOJu0Yz3mcBy8EPeUTu94M6YgBTz8X1Kd4oyFN3cITI6RLCLQezXLM4T
+ 3pU4rc4y84Hm1OvzI10vIfvwG7ZsJS0KxbXJDRVT2x4FX2gNE8kyWc2SB5I1
+X-Google-Smtp-Source: AGHT+IHkylFXYHaZ2FcljcUbT1EEWgoBmb+TczzbojX9szEu3ZrIKKCfmMj8gC6BwHiRAni88a+jGw==
+X-Received: by 2002:ac2:4247:0:b0:511:4177:5089 with SMTP id
+ m7-20020ac24247000000b0051141775089mr6139378lfl.16.1707407710391; 
+ Thu, 08 Feb 2024 07:55:10 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXmwrputpEcePoFAhcwd8yfUTPeRtJ22V+TJsRuwVPOD3U8YN3wKj+Tn4zTBZUzUyUWZXJWBK46MvtorPoAoawwpBVy2QW5KkqbS8MLXQ==
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ g16-20020adfa490000000b0033b50ed5f98sm3229261wrb.72.2024.02.08.07.55.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 08 Feb 2024 07:55:09 -0800 (PST)
+Message-ID: <44f1432f-c574-436a-8db0-1e4a12e1f28f@gmail.com>
+Date: Thu, 8 Feb 2024 16:55:07 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/3] drm/amd: Drop unneeded functions to check if
+ s3/s0ix active
+Content-Language: en-US
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20240208055256.130917-1-mario.limonciello@amd.com>
+ <20240208055256.130917-3-mario.limonciello@amd.com>
+ <b2d9c463-19f8-40d0-86ca-37e500634b9d@gmail.com>
+ <a504e189-27cd-4766-843c-579cb36ef343@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <a504e189-27cd-4766-843c-579cb36ef343@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001708E:EE_|PH0PR12MB7077:EE_
-X-MS-Office365-Filtering-Correlation-Id: bf1859ba-ca86-42a1-fbb6-08dc28bdac78
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tskz9LibgNdcv6AjkhRt8+UOP2J2NiJRH+E2nqjtJJd2xzXEH0TxbUlcmbD2lwGgy5oYauE7Jbh1bDB8PKaWChmjW5BWfB4l1HtXMT4OSyECkLvo3Y75ESDaMvr3/GajJQVwSrQFS9vobtySI/Jiwi+AQyd7qXDN/ibRnDME9zmG2sVXNqRFp7Yb7KnSKo9Aq0UVugmf/m3xeFaarlTwweTfhXUlXjrr7D05i5FHdlMbfNnFaOQTubip19reyRr9qF0TOIk9cODWZgBCAc8gr/mYGT83YfqC7X9Uy612VAFEs4eZL/LxDI8vyD6WYTnvTMj170LhhgO7QzSU1rIhED+fb3DSqPEvvxjgNi/ffq3g597X0+ykwPyEyU74leu6Z9p7vteSGAm7JkIBFBU59/rawp6yx3YwuhzWmqy2+yUZLauLawqOJLPlImsE8B2wvj+3Ba5CzmK3tV0FH9xUrDrEX5tZCLkG3GbgWDrCV1B1G2F0b4YI6/tEs0cR5RlTzeOCKRBhXkW2WlPMbOf12sfAnnY+Sg22EZhWsBgqhIXNQOIjkfLsrLZoEIlEpitsO4jx0uv3wE8A3KLm6HzcET4x/oV1sXgUh65PVNsqB34=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(376002)(346002)(136003)(396003)(230922051799003)(1800799012)(186009)(451199024)(82310400011)(64100799003)(40470700004)(46966006)(36840700001)(86362001)(36756003)(478600001)(54906003)(1076003)(2616005)(16526019)(41300700001)(426003)(83380400001)(8676002)(70586007)(356005)(6666004)(7696005)(70206006)(8936002)(316002)(110136005)(81166007)(26005)(82740400003)(4326008)(2906002)(5660300002)(336012);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2024 15:50:28.4807 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf1859ba-ca86-42a1-fbb6-08dc28bdac78
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001708E.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7077
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,157 +89,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a function to support defragmentation.
 
-v1: Defragment the memory beginning from min_order
-    till the required memory space is available.
 
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Suggested-by: Matthew Auld <matthew.auld@intel.com>
----
- drivers/gpu/drm/drm_buddy.c | 67 +++++++++++++++++++++++++++++++------
- include/drm/drm_buddy.h     |  3 ++
- 2 files changed, 59 insertions(+), 11 deletions(-)
+Am 08.02.24 um 16:04 schrieb Mario Limonciello:
+> On 2/8/2024 00:54, Christian König wrote:
+>> Am 08.02.24 um 06:52 schrieb Mario Limonciello:
+>>> amdgpu_acpi_is_s0ix_active() and amdgpu_acpi_is_s0ix_active() aren't
+>>> needed to be checked multiple times in a suspend cycle. Checking and
+>>> setting up policy one time in the prepare() callback is sufficient.
+>>
+>> Mhm, looking at amdgpu_acpi_is_s3_active() I think we should not 
+>> cache that in a variable in the first place.
+>>
+>> Just calling the function all the time to check the state should be 
+>> sufficient, or do we then run into any state transition problems?
+>
+> I think calling to check it each time is perfectly fine, it should 
+> never change once the sequence starts until it's over.
+>
+> If the first 2 patches look OK, I'd like to get those merged so we can 
+> fix the regressions.  I'll do another series that can drop the cached 
+> parameters.
 
-diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-index 33ad0cfbd54c..fac423d2cb73 100644
---- a/drivers/gpu/drm/drm_buddy.c
-+++ b/drivers/gpu/drm/drm_buddy.c
-@@ -276,10 +276,12 @@ drm_get_buddy(struct drm_buddy_block *block)
- }
- EXPORT_SYMBOL(drm_get_buddy);
- 
--static void __drm_buddy_free(struct drm_buddy *mm,
--			     struct drm_buddy_block *block)
-+static unsigned int __drm_buddy_free(struct drm_buddy *mm,
-+				     struct drm_buddy_block *block,
-+				     bool defrag)
- {
- 	struct drm_buddy_block *parent;
-+	unsigned int order;
- 
- 	while ((parent = block->parent)) {
- 		struct drm_buddy_block *buddy;
-@@ -289,12 +291,14 @@ static void __drm_buddy_free(struct drm_buddy *mm,
- 		if (!drm_buddy_block_is_free(buddy))
- 			break;
- 
--		if (drm_buddy_block_is_clear(block) !=
--		    drm_buddy_block_is_clear(buddy))
--			break;
-+		if (!defrag) {
-+			if (drm_buddy_block_is_clear(block) !=
-+			    drm_buddy_block_is_clear(buddy))
-+				break;
- 
--		if (drm_buddy_block_is_clear(block))
--			mark_cleared(parent);
-+			if (drm_buddy_block_is_clear(block))
-+				mark_cleared(parent);
-+		}
- 
- 		list_del(&buddy->link);
- 
-@@ -304,8 +308,49 @@ static void __drm_buddy_free(struct drm_buddy *mm,
- 		block = parent;
- 	}
- 
-+	order = drm_buddy_block_order(block);
- 	mark_free(mm, block);
-+
-+	return order;
-+}
-+
-+/**
-+ * drm_buddy_defrag - Defragmentation routine
-+ *
-+ * @mm: DRM buddy manager
-+ * @min_order: minimum order in the freelist to begin
-+ * the defragmentation process
-+ *
-+ * Driver calls the defragmentation function when the
-+ * requested memory allocation returns -ENOSPC.
-+ */
-+void drm_buddy_defrag(struct drm_buddy *mm,
-+		      unsigned int min_order)
-+{
-+	struct drm_buddy_block *block;
-+	struct list_head *list;
-+	unsigned int order;
-+	int i;
-+
-+	if (min_order > mm->max_order)
-+		return;
-+
-+	for (i = min_order - 1; i >= 0; i--) {
-+		list = &mm->free_list[i];
-+		if (list_empty(list))
-+			continue;
-+
-+		list_for_each_entry_reverse(block, list, link) {
-+			if (!block->parent)
-+				continue;
-+
-+			order = __drm_buddy_free(mm, block, 1);
-+			if (order >= min_order)
-+				return;
-+		}
-+	}
- }
-+EXPORT_SYMBOL(drm_buddy_defrag);
- 
- /**
-  * drm_buddy_free_block - free a block
-@@ -321,7 +366,7 @@ void drm_buddy_free_block(struct drm_buddy *mm,
- 	if (drm_buddy_block_is_clear(block))
- 		mm->clear_avail += drm_buddy_block_size(mm, block);
- 
--	__drm_buddy_free(mm, block);
-+	__drm_buddy_free(mm, block, 0);
- }
- EXPORT_SYMBOL(drm_buddy_free_block);
- 
-@@ -470,7 +515,7 @@ __alloc_range_bias(struct drm_buddy *mm,
- 	if (buddy &&
- 	    (drm_buddy_block_is_free(block) &&
- 	     drm_buddy_block_is_free(buddy)))
--		__drm_buddy_free(mm, block);
-+		__drm_buddy_free(mm, block, 0);
- 	return ERR_PTR(err);
- }
- 
-@@ -588,7 +633,7 @@ alloc_from_freelist(struct drm_buddy *mm,
- 
- err_undo:
- 	if (tmp != order)
--		__drm_buddy_free(mm, block);
-+		__drm_buddy_free(mm, block, 0);
- 	return ERR_PTR(err);
- }
- 
-@@ -668,7 +713,7 @@ static int __alloc_range(struct drm_buddy *mm,
- 	if (buddy &&
- 	    (drm_buddy_block_is_free(block) &&
- 	     drm_buddy_block_is_free(buddy)))
--		__drm_buddy_free(mm, block);
-+		__drm_buddy_free(mm, block, 0);
- 
- err_free:
- 	if (err == -ENOSPC && total_allocated_on_err) {
-diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-index d81c596dfa38..d0f63e7b5915 100644
---- a/include/drm/drm_buddy.h
-+++ b/include/drm/drm_buddy.h
-@@ -166,6 +166,9 @@ void drm_buddy_free_list(struct drm_buddy *mm,
- 			 struct list_head *objects,
- 			 unsigned int flags);
- 
-+void drm_buddy_defrag(struct drm_buddy *mm,
-+		      unsigned int min_order);
-+
- void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p);
- void drm_buddy_block_print(struct drm_buddy *mm,
- 			   struct drm_buddy_block *block,
--- 
-2.25.1
+Feel free to add my Acked-by to the series, but for ACPI stuff I would 
+wait for Alex to take a look as well.
+
+Regards,
+Christian.
+
+>
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>>> ---
+>>> v4: New patch
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  4 ----
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c |  7 +++----
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  | 17 ++---------------
+>>>   3 files changed, 5 insertions(+), 23 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> index f6c38a974bae..53823539eba5 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> @@ -1545,12 +1545,8 @@ static inline int 
+>>> amdgpu_acpi_smart_shift_update(struct drm_device *dev,
+>>>   #endif
+>>>   #if defined(CONFIG_ACPI) && defined(CONFIG_SUSPEND)
+>>> -bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev);
+>>> -bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev);
+>>>   void amdgpu_choose_low_power_state(struct amdgpu_device *adev);
+>>>   #else
+>>> -static inline bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device 
+>>> *adev) { return false; }
+>>> -static inline bool amdgpu_acpi_is_s3_active(struct amdgpu_device 
+>>> *adev) { return false; }
+>>>   static void amdgpu_choose_low_power_state(struct amdgpu_device 
+>>> *adev) { }
+>>>   #endif
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+>>> index cc21ed67a330..1d58728f8c3f 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+>>> @@ -1366,8 +1366,7 @@ bool amdgpu_acpi_should_gpu_reset(struct 
+>>> amdgpu_device *adev)
+>>>           adev->gfx.imu.funcs) /* Not need to do mode2 reset for IMU 
+>>> enabled APUs */
+>>>           return false;
+>>> -    if ((adev->flags & AMD_IS_APU) &&
+>>> -        amdgpu_acpi_is_s3_active(adev))
+>>> +    if ((adev->flags & AMD_IS_APU) && adev->in_s3)
+>>>           return false;
+>>>       if (amdgpu_sriov_vf(adev))
+>>> @@ -1472,7 +1471,7 @@ void amdgpu_acpi_release(void)
+>>>    *
+>>>    * returns true if supported, false if not.
+>>>    */
+>>> -bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev)
+>>> +static inline bool amdgpu_acpi_is_s3_active(struct amdgpu_device 
+>>> *adev)
+>>>   {
+>>>       return !(adev->flags & AMD_IS_APU) ||
+>>>           (pm_suspend_target_state == PM_SUSPEND_MEM);
+>>> @@ -1485,7 +1484,7 @@ bool amdgpu_acpi_is_s3_active(struct 
+>>> amdgpu_device *adev)
+>>>    *
+>>>    * returns true if supported, false if not.
+>>>    */
+>>> -bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev)
+>>> +static inline bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device 
+>>> *adev)
+>>>   {
+>>>       if (!(adev->flags & AMD_IS_APU) ||
+>>>           (pm_suspend_target_state != PM_SUSPEND_TO_IDLE))
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>> index 971acf01bea6..2bc4c5bb9b5a 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>> @@ -2456,13 +2456,6 @@ static int amdgpu_pmops_prepare(struct device 
+>>> *dev)
+>>>           pm_runtime_suspended(dev))
+>>>           return 1;
+>>> -    /* if we will not support s3 or s2i for the device
+>>> -     *  then skip suspend
+>>> -     */
+>>> -    if (!amdgpu_acpi_is_s0ix_active(adev) &&
+>>> -        !amdgpu_acpi_is_s3_active(adev))
+>>> -        return 1;
+>>> -
+>>>       return amdgpu_device_prepare(drm_dev);
+>>>   }
+>>> @@ -2476,10 +2469,6 @@ static int amdgpu_pmops_suspend(struct device 
+>>> *dev)
+>>>       struct drm_device *drm_dev = dev_get_drvdata(dev);
+>>>       struct amdgpu_device *adev = drm_to_adev(drm_dev);
+>>> -    if (amdgpu_acpi_is_s0ix_active(adev))
+>>> -        adev->in_s0ix = true;
+>>> -    else if (amdgpu_acpi_is_s3_active(adev))
+>>> -        adev->in_s3 = true;
+>>>       if (!adev->in_s0ix && !adev->in_s3)
+>>>           return 0;
+>>>       return amdgpu_device_suspend(drm_dev, true);
+>>> @@ -2510,10 +2499,8 @@ static int amdgpu_pmops_resume(struct device 
+>>> *dev)
+>>>           adev->no_hw_access = true;
+>>>       r = amdgpu_device_resume(drm_dev, true);
+>>> -    if (amdgpu_acpi_is_s0ix_active(adev))
+>>> -        adev->in_s0ix = false;
+>>> -    else
+>>> -        adev->in_s3 = false;
+>>> +    adev->in_s0ix = adev->in_s3 = false;
+>>> +
+>>>       return r;
+>>>   }
+>>
+>
 
