@@ -4,43 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFB50C4828F
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Feb 2024 14:03:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D595C48260
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Feb 2024 14:18:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CC9410E7A7;
-	Thu,  8 Feb 2024 14:03:33 +0000 (UTC)
-Received: from exchange.fintech.ru (exchange.fintech.ru [195.54.195.159])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F70A10E02C;
- Thu,  8 Feb 2024 12:37:19 +0000 (UTC)
-Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
- (195.54.195.159) with Microsoft SMTP Server (TLS) id 14.3.498.0; Thu, 8 Feb
- 2024 15:37:15 +0300
-Received: from localhost (10.0.253.138) by Ex16-01.fintech.ru (10.0.10.18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 8 Feb 2024
- 15:37:15 +0300
-From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-To: Harry Wentland <harry.wentland@amd.com>
-CC: Nikita Zhandarovich <n.zhandarovich@fintech.ru>, Leo Li
- <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Leon Huang
- <Leon.Huang1@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <lvc-project@linuxtesting.org>
-Subject: [PATCH] drm/amd/display: Fix missing NULL check in
- dcn21_set_backlight_level()
-Date: Thu, 8 Feb 2024 04:37:11 -0800
-Message-ID: <20240208123711.52333-1-n.zhandarovich@fintech.ru>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B31310E7EE;
+	Thu,  8 Feb 2024 14:18:04 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dq89AK+b";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 087A210E7D3;
+ Thu,  8 Feb 2024 14:18:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1707401883; x=1738937883;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=WZbhxtgwvgzvLOYjWQKruO6g2DeNP6fb5asAJ3G2zbs=;
+ b=dq89AK+brdyiVGJrYH08CC8jwVjPa27JYkf3NB3EvnD+ymvIGo9m3qtm
+ ox4GYJqRxA48K6vPj42TY/1bXsEw+5cgfH9En/ymE+PtLpKTjZx6e0xMH
+ xKkWTVRAi9Y8SMQa26ek6ENZKeeMzMTtnW0UhN8TcuUfgzY3dornzH+nC
+ 9XZjN/jBiuRMG9YlUZuLl1EHuLUW8aY16KqvoEgbQfiSrt8OaODoF3TUj
+ Fu1UQohEze+oV32nfaMu3F21lBUtC9OX67dKcpChl9Yf3RGINam5XugXJ
+ qPV4ntHll/g2Z/Wod2fz+H2VK70aiLb4zNs1YwgkEdOKyJEoOGERlSxHr A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10977"; a="1366772"
+X-IronPort-AV: E=Sophos;i="6.05,254,1701158400"; 
+   d="scan'208";a="1366772"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2024 06:18:00 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.05,254,1701158400"; 
+   d="scan'208";a="6318682"
+Received: from pkawa-mobl.ger.corp.intel.com (HELO [10.252.20.188])
+ ([10.252.20.188])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2024 06:17:58 -0800
+Message-ID: <5c6fdae4-6fb0-4735-afe6-fe35481929fb@intel.com>
+Date: Thu, 8 Feb 2024 14:17:56 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/buddy: Fix alloc_range() error handling code
+Content-Language: en-GB
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
+ mario.limonciello@amd.com
+References: <20240207174456.341121-1-Arunpravin.PaneerSelvam@amd.com>
+ <c5d75c40-7fb4-44a4-8ea5-327385f88004@intel.com>
+ <ba6b433d-e672-bcb2-4d25-66b2db50d7b8@amd.com>
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <ba6b433d-e672-bcb2-4d25-66b2db50d7b8@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.0.253.138]
-X-ClientProxiedBy: Ex16-02.fintech.ru (10.0.10.19) To Ex16-01.fintech.ru
- (10.0.10.18)
-X-Mailman-Approved-At: Thu, 08 Feb 2024 14:03:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,56 +72,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On the off chance 'panel_cntl' ends up being not properly initialized,
-dcn21_set_backlight_level() may hit NULL pointer dereference while
-changing embedded panel backlight levels.
+On 08/02/2024 13:47, Arunpravin Paneer Selvam wrote:
+> Hi Matthew,
+> 
+> On 2/8/2024 7:00 PM, Matthew Auld wrote:
+>> On 07/02/2024 17:44, Arunpravin Paneer Selvam wrote:
+>>> Few users have observed display corruption when they boot
+>>> the machine to KDE Plasma or playing games. We have root
+>>> caused the problem that whenever alloc_range() couldn't
+>>> find the required memory blocks the function was returning
+>>> SUCCESS in some of the corner cases.
+>>
+>> Can you please give an example here?
+>>
+> In the try hard contiguous allocation, for example the requested memory 
+> is 1024 pages,
+> it might go and pick the highest and last block (of size 512 pages) in 
+> the freelist where
+> there are no more space exist in the total address range. In this kind 
+> of corner case,
+> alloc_range was returning success though the allocated size is less than 
+> the requested size.
+> Hence in try_hard_contiguous_allocation, we will not proceed to the LHS 
+> allocation and
+> we return only with the RHS allocation having only the 512 pages of 
+> allocation. This
+> leads to display corruption in many use cases (I think mainly when 
+> requested for contiguous huge buffer)
+> mainly on APU platforms.
 
-Prevent this issue by using some of the existing checks for the
-similar purpose. At the same time clean up redundant tests for
-NULL in 'abm'.
+Ok, I guess other thing is doing:
 
-Found by Linux Verification Center (linuxtesting.org) with static
-analysis tool SVACE.
+lhs_offset = drm_buddy_block_offset(block) - lhs_size;
 
-Fixes: 6f0ef80a00ad ("drm/amd/display: Fix ABM pipe/backlight issues when change backlight")
-Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
----
- drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+I presume it's possible for block_offset < lhs_size here, which might be 
+funny?
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
-index 8e88dcaf88f5..2b1b580541a8 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
-@@ -247,7 +247,7 @@ bool dcn21_set_backlight_level(struct pipe_ctx *pipe_ctx,
- 	if (abm != NULL) {
- 		uint32_t otg_inst = pipe_ctx->stream_res.tg->inst;
- 
--		if (abm && panel_cntl) {
-+		if (panel_cntl) {
- 			if (abm->funcs && abm->funcs->set_pipe_ex) {
- 				abm->funcs->set_pipe_ex(abm,
- 						otg_inst,
-@@ -261,15 +261,16 @@ bool dcn21_set_backlight_level(struct pipe_ctx *pipe_ctx,
- 							panel_cntl->inst,
- 							panel_cntl->pwrseq_inst);
- 			}
-+
-+			if (abm->funcs && abm->funcs->set_backlight_level_pwm)
-+				abm->funcs->set_backlight_level_pwm(abm, backlight_pwm_u16_16,
-+					frame_ramp, 0, panel_cntl->inst);
-+			else
-+				dmub_abm_set_backlight(dc, backlight_pwm_u16_16, frame_ramp,
-+					panel_cntl->inst);
- 		}
- 	}
- 
--	if (abm && abm->funcs && abm->funcs->set_backlight_level_pwm)
--		abm->funcs->set_backlight_level_pwm(abm, backlight_pwm_u16_16,
--			frame_ramp, 0, panel_cntl->inst);
--	else
--		dmub_abm_set_backlight(dc, backlight_pwm_u16_16, frame_ramp, panel_cntl->inst);
--
- 	return true;
- }
- 
+> 
+> Thanks,
+> Arun.
+>>>
+>>> The right approach would be if the total allocated size
+>>> is less than the required size, the function should
+>>> return -ENOSPC.
+>>>
+>>> Gitlab ticket link - 
+>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3097
+>>> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
+>>> Signed-off-by: Arunpravin Paneer Selvam 
+>>> <Arunpravin.PaneerSelvam@amd.com>
+>>> Tested-by: Mario Limonciello <mario.limonciello@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/drm_buddy.c | 6 ++++++
+>>>   1 file changed, 6 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+>>> index f57e6d74fb0e..c1a99bf4dffd 100644
+>>> --- a/drivers/gpu/drm/drm_buddy.c
+>>> +++ b/drivers/gpu/drm/drm_buddy.c
+>>> @@ -539,6 +539,12 @@ static int __alloc_range(struct drm_buddy *mm,
+>>>       } while (1);
+>>>         list_splice_tail(&allocated, blocks);
+>>> +
+>>> +    if (total_allocated < size) {
+>>> +        err = -ENOSPC;
+>>> +        goto err_free;
+>>> +    }
+>>> +
+>>>       return 0;
+>>>     err_undo:
+> 
