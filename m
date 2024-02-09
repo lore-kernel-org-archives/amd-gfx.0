@@ -4,95 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AF2DC48297
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 15:19:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF376C4828F
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 15:20:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D90D210F5EF;
-	Fri,  9 Feb 2024 15:19:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47E6010F5F2;
+	Fri,  9 Feb 2024 15:20:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="acc8kzb8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ODZX7zd5";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D920610F5FB;
- Fri,  9 Feb 2024 15:19:17 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2047.outbound.protection.outlook.com [40.107.237.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42B6D10F5F0
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Feb 2024 15:20:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=StR/oWnxTjpr7YLMZG9bCfPNUVx4hb5K2K32TfKx3ACpEgsJlmHBC2JdClZMY69ygo9aPTkIZTrNnbXq3tKS5QiG2bMryuLNWmyleQvLHAz5t88CLFLgeQ/bJGwN9M3mfFgVL6HxvNxMcPd7VPKn8pCY2A0BZ1H9Ytvcxmoyh0gEA5r/BCS1rBaXf9kVayyjkrreBSyp3Umu5pltgDeMSChxU0ro7DcEijEXAuY4uyOoYViXzqIBSuRvcJrlFhMPaHgMAl5GRXdJJTrX9zTAiJbGc577qtbb4dzKCiOgqMBM0oEkG+/Jdr3rdprJwpId06TxJmOGP9QdWoYRkF5Qzw==
+ b=M1bLFT6yP+ppRN1fTakSxA0wtN/4iGG5zb3NGzLys5rgFjUF09i0+itN7wz9wNoDmYSFYy/USBwE0oFa1KskgfvcCOY2Coe3VVZVs0n//wg3l41lK49Sjf1P60FdYvX/g3QM/p7oZQfKodKA2u5aQXkNoEjJcQL2qrfv9oApJMoL4far97eSNy1kRgGRl9xAXHn8wqdYLmotdZdHUh6XEIz+EGLGEHlzW+JjsMZMpRM/p4VCAyW8EzUKCdiHPQ4ygSMKN8lV4YNm7D/7NmU7H1TTi6gWMBlI32lawmKBE7gvJaZbBUa7/5Rb5Pr1Rojg+7+JY5rFsWN6i97SqWtnBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MOKi/AnzingsugwJpWyU60BSPTcIGERc7VvHneATWM4=;
- b=MqSotjR0lkJ9e8AKUO8HMZpvStH1zw3wcmqwfyrmMlyku0rTQs+ptNYDPqLaC/mhcChDfyNRFY7ziQvw61qe8a61axEBqugmXPZg5ZGgXAc4sl78n87ndcr4j2lvzLY9wVYtasM3w8l+Q1fCmZ4+usG5/pGdon4E43VUwvonRM1yYNxPz/5vVW7NwIF0Nu2S7CO/XHc+XC+65Ul6btc7Nqd0XwN3b3FYCZSBEDQqGA32JFwmmBWOsHCJau2kB17a6flYD4THzfyrfxK0W1zqZgOfH01MmmAR6GLhKBTUKr30kqA3uI+x1he5BVEoySl4GfCf9JKNuHHtYI1esaZjCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=gNHLogyxMqYVGD/q5omOQqUeLuLdNykyOsIfA+A5Ojk=;
+ b=mUVRHipbDuwrWOSDBjoRHjG9Ha2xZqQ1Dfl/fLPesxtfl5A0I+m71dQ6zr64AC/kIgFCfC8gHEOJID75A4NLuLP0Nt+i/sHApxsF7U8iMcksGTl3VwDI52CK+ZHK66MY33zTulVRKxImkdjeQ/HaiyquGAqGA2HndsdQqdl9V6LUHnNGcwh7BU8I/BMFMutzZwAOS0UqjNk+pYAui5Yf58fTBdpujAZlsWn1GxLRBsxPEc6nykJZUSFElX2tlrzsKzX3VQhUJ41zal108E3zCXZO4k4dG2hLUA7ptfS1f1KMpPopHYqIaSxxSRn1ggGAaf6PpxhDnc4rDAZ/XASj+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MOKi/AnzingsugwJpWyU60BSPTcIGERc7VvHneATWM4=;
- b=acc8kzb8Z7U1KZf+LGnXlz8GwCk3iPv/UpL8zeCvlhYIi55UfrsjGhSDz+5GP9FFcDyBAC4HJO2uwKMwY+dsOgQzycq4thKHLHDGbh8DoVRsW0saBxgSTc3qozXwb5exSdcSeqHt7TGT6bgEcvPDVUOd5joFkdhkLWa1pakjN10=
-Received: from BYAPR04CA0028.namprd04.prod.outlook.com (2603:10b6:a03:40::41)
- by MW3PR12MB4443.namprd12.prod.outlook.com (2603:10b6:303:2d::15)
+ bh=gNHLogyxMqYVGD/q5omOQqUeLuLdNykyOsIfA+A5Ojk=;
+ b=ODZX7zd5m25mQns2TgZrkZylN7ZRekeZhbhiY9ZZfbjwR7f3FuGuKkomMFoDgepzIuJLADD7Q6BF+gTd3wKQNpwRzqvQa/tvscvehXqiAdYugXqsK23WB5yh0YkXfG6MYs0630sj0A8IXyL+296Mo8f1kLnaM10iEKJvsvJ4BoQ=
+Received: from CY8PR12MB8193.namprd12.prod.outlook.com (2603:10b6:930:71::22)
+ by IA1PR12MB6307.namprd12.prod.outlook.com (2603:10b6:208:3e5::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.14; Fri, 9 Feb
- 2024 15:19:12 +0000
-Received: from CO1PEPF000044F2.namprd05.prod.outlook.com
- (2603:10b6:a03:40:cafe::fd) by BYAPR04CA0028.outlook.office365.com
- (2603:10b6:a03:40::41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.26 via Frontend
- Transport; Fri, 9 Feb 2024 15:19:11 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044F2.mail.protection.outlook.com (10.167.241.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7249.19 via Frontend Transport; Fri, 9 Feb 2024 15:19:11 +0000
-Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34; Fri, 9 Feb 2024 09:19:08 -0600
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>
-CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
- <matthew.auld@intel.com>, <mario.limonciello@amd.com>, "Arunpravin Paneer
- Selvam" <Arunpravin.PaneerSelvam@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH] drm/buddy: Fix alloc_range() error handling code
-Date: Fri, 9 Feb 2024 20:48:51 +0530
-Message-ID: <20240209151851.1811-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F2:EE_|MW3PR12MB4443:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3da4db65-97a8-4789-8094-08dc29827808
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XyC1xwrRqIcgm9q4mFLRQvmDf0mzYnbhrJt9CpIYY0CTwJWtnjbJ0TYCuwFyzfbKBG2QlvLal58D1l/95vMHyN7PnzAcq93xdvrtyyas5uo1l+E/reXZD1+BSLtBbeMzjaNfO0btxcYcdKJlCN6mDc6MHAT5U8pfIpm13lFYVxwN/Fu3mwJi1tv6r4DQ3zGU6e/DChOKwXDwSLK0gCV0bhQ0fCGEbfFYEmclil+1lZVG/0H3pCWzl4nxdNltXnYkOd2rZFOlwNrcmq00cr8EGLKJZBvKVrxAHfzo4Z08yoBeSr1w0KN+WwNxZUMfravadBT7IVF5T9HcrmoNeEU+Ook4G7yBtOWbGqVuH7oq52irwuYc9mdX4DGMYSHQXmdPEqDZoDQj94dSA5nfLyKIHZW+hrfFQK9sjSq1MoKGLZL85mwIYQQ/2F2a5DW25xnLPk4OubE6DUG17z4CBjDx6vyv8ptKRKoX6djvtNsyuZMSrittiL4sZKRR5659zlkzYX5h4W4eHwDBwYAfnuITc99DThNgN6wBLV53X1GLqOAj54yeilxF/44R1fmQriuNTYhEokw+PBr55UCgUXSpgR7rzermGgMtubGuGcjgRVEYhjkCHVA+gzE7atPq6qmZ
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(136003)(39860400002)(396003)(376002)(230922051799003)(186009)(82310400011)(64100799003)(451199024)(1800799012)(36840700001)(40470700004)(46966006)(110136005)(70586007)(70206006)(54906003)(316002)(41300700001)(2906002)(5660300002)(8936002)(83380400001)(86362001)(4326008)(8676002)(966005)(1076003)(7696005)(6666004)(36756003)(26005)(16526019)(2616005)(81166007)(356005)(82740400003)(478600001)(426003)(336012);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.14; Fri, 9 Feb
+ 2024 15:20:35 +0000
+Received: from CY8PR12MB8193.namprd12.prod.outlook.com
+ ([fe80::92fa:88b3:a796:2c8c]) by CY8PR12MB8193.namprd12.prod.outlook.com
+ ([fe80::92fa:88b3:a796:2c8c%5]) with mapi id 15.20.7292.013; Fri, 9 Feb 2024
+ 15:20:34 +0000
+From: "Li, Roman" <Roman.Li@amd.com>
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, "Pillai, Aurabindo"
+ <Aurabindo.Pillai@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd/display: Fix possible buffer overflow in
+ 'find_dcfclk_for_voltage()'
+Thread-Topic: [PATCH] drm/amd/display: Fix possible buffer overflow in
+ 'find_dcfclk_for_voltage()'
+Thread-Index: AQHaWYHh+D/mM5ZVhkCb2lBgcUmqUrECIbOQ
+Date: Fri, 9 Feb 2024 15:20:34 +0000
+Message-ID: <CY8PR12MB819367D896F28D9FAA0CEF31894B2@CY8PR12MB8193.namprd12.prod.outlook.com>
+References: <20240207045501.3344729-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20240207045501.3344729-1-srinivasan.shanmugam@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=b9945c25-c626-40a9-9e04-127f3ce94db9;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-02-09T15:20:08Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB8193:EE_|IA1PR12MB6307:EE_
+x-ms-office365-filtering-correlation-id: a20c9fb6-c904-4f97-b0f7-08dc2982a9a9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 91WSJYx1DGP3wzWb7WD8qys9KkNtVnPNaEw0zH8inDQFWh6I3Qn0FZPS987Ix5fLIQEXi/lmstMKGs33IG4Ay4GSAcYBPMMZNx2IjQ/bgSrhGC1GycziPq19zRfen55SPILQoSNGTxjwFCMjG6AVjvNJSN00JEsy8B6YA8wqAIIb7as7JsgeQYULAIvb5hi45cfrOyGYRQySS/Jlc1VLoZvY3oyB8TnyAN+HHJ6TGCCGN8rOvtYdTyIru0CfE2UMkag6xRHs7QkyDxyrYq+zk1hSt/crqMTLvO2r58MchHyra/hY6sY4gsKGHZsFgWzilc42vyg67xfxiHBQW2n37OkD7W9gxWuYHAjyV9xpdTGkQ80tlQPRvWqdoqf/2obpJ9uBgXptIKsNo6gCnoM3SIuzSYDzo1RG/z8yt2BiEClgbCIBLXX0KLVRL8zH/vogMZMCYRzK7vY5Q/N5fkF6sJOS4UskveOzPIMNLvPpbFprt93JdJRCvMRy3WJ280PIE0ls0dhVQ9Jb2CdJtEA7aDVOBTDXQ0FC04sP56IKd8d5+40fONtew4IVETRsVxYn8FklkyrQXzsnBq0b6nqd/noDBNikPVMZMGEw8xn9CroSbtvzyYiYhonmZztA6ou8
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB8193.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(396003)(136003)(376002)(366004)(346002)(230922051799003)(64100799003)(451199024)(1800799012)(186009)(478600001)(7696005)(53546011)(71200400001)(83380400001)(9686003)(2906002)(316002)(6636002)(26005)(110136005)(66946007)(76116006)(66556008)(66446008)(4326008)(66476007)(64756008)(5660300002)(8676002)(33656002)(38100700002)(8936002)(52536014)(38070700009)(122000001)(86362001)(6506007)(41300700001)(55016003);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?d5H5niB/SDuLwgfTvDX6Ug+EYilPwajzaQSCVmpgfZPgK2Zl7AxOFW6lDdCR?=
+ =?us-ascii?Q?Z4/eL64FG+0dYOpf/JgsPYYzWm8sWoy8Mn++AGlly44zOKWqXNdt0p1KXT+a?=
+ =?us-ascii?Q?uspFvBM2Wz9AF49jGd9lQf+NyDEf9D1fyR6h8wtiOZ6Ul/EqlyNNss0Pp0Qt?=
+ =?us-ascii?Q?OcQw8NohY0/EdwwGGY122QTHHG+yJuzRDh6A+T/XroB+lryy/OUp9AKEsUO7?=
+ =?us-ascii?Q?CbvFVQ9gvG7vrool+eJawXky5ATNZOu43JoQptWOasuMZCNVXdPU+FvMHIdP?=
+ =?us-ascii?Q?AVSMt9EmIHj6VaNiTCEcm1QGQTvbtU+BxVFYIDmtpiNjTjoKT4GW2ywX0PjC?=
+ =?us-ascii?Q?UV/lyQWJR2rXnhhPvcDHiqNYkHh7R7GITgDY3omoxDCSvpBzsr830tNMNRjU?=
+ =?us-ascii?Q?fa8mlsK6kc7OzNYoIJAWGBfcZLSdLA5mOxAUs77XTmp0tSiotx+yfYqdjHZb?=
+ =?us-ascii?Q?8oZmkKzbr5nYfC4AD5giU519fXquy1BuyGDmbwNQp8wfVb2udYYEsAEsF3q5?=
+ =?us-ascii?Q?IJ9Wj3gV8SHWggwaYfVdzB70ve8tQ/9P3txLPBmLbGDq77HE+qggDiD0sDm4?=
+ =?us-ascii?Q?GTO+18XDsBy9fZQIFNoc41Vrusf8iyMRe3X7OgluZ0kxXno3xslE1irYZa1A?=
+ =?us-ascii?Q?jqErDIRBsSXKuYUrpZUISnEQMv7WZ569/pHOq+sZ6tg0L67Wat4KATMkRJjG?=
+ =?us-ascii?Q?RyGYv5Pd17GI3MUcTbRNGxkfT70c9GIIdfEFjDfJ9fJ+F07K+WauqTBMVqU/?=
+ =?us-ascii?Q?ZRc4Roe7shR1AposnrQ2aEt7odkQZ8NImuSqRIomFSZ/KLTyrQltjMUNeS1u?=
+ =?us-ascii?Q?CTh1ZskHnlFsYV2JuJB3KVeCryZ9MO2DHctKChF/q33f3thBC9PVidcf61iv?=
+ =?us-ascii?Q?s8Tdfn51w9mXL1tn0Ti3U7bXS1Zen3kXAQaO+3atNx34UMah0Td+UczMHaKq?=
+ =?us-ascii?Q?YOFen32bTqTzJtvTW3axWOY3cSbxnIOzmzYSFlawzpRHhFseiG5Z8UIuUPzx?=
+ =?us-ascii?Q?i2SXyffzU+iS+0V0JyIXpk7AODMSVEgxNs2IIZzNWyFWeQYqs3gkuXElnDC+?=
+ =?us-ascii?Q?qpKk5+IU1B4Qjrk7NK7wPX2aP+ogBK2VPZwMTFOZYSJS0RG2+KEJML5NIdP6?=
+ =?us-ascii?Q?Rk9zWMkFwkOszVrz5AGpZOUUgYt3tcFQdTFD92HWynNMM2o5r6JuG/njsUJZ?=
+ =?us-ascii?Q?Mlk2hQb1tbogtRvfa8+vF7EudQZFZ/iWEkb1RUUhhaLv5dGiJEud3rhDEgwi?=
+ =?us-ascii?Q?QxIkkaVIFMdcDEQ6SXM1zeLL2tvCTX1qEtoVm0agqjLQ9EUE+7jXWiL2m8XS?=
+ =?us-ascii?Q?X+kbO/jSD+3jnjM6Gjh48+ntm6vufx9C4DCtXsU48HQsn/DL05xL1kuyZI9t?=
+ =?us-ascii?Q?/AVxjtWOBXxvk7/rvgq0y+SaFtdPkxBoSlHzZ5L9Ol70fSLvMb6rMQVF/ylD?=
+ =?us-ascii?Q?sJkwVGbBoDGOpmJX0JK0zCtW0VU7VdCuRt1PPhDEpgrvJjChqjcys3NviZF2?=
+ =?us-ascii?Q?zVbSqrkGOZraKiJ23bKaCljNDBx1vZn7V7qesZ6pCO4bBCkszoxVCUcOegH2?=
+ =?us-ascii?Q?r7wfs+cPx8cMeYvvwm8=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2024 15:19:11.4515 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3da4db65-97a8-4789-8094-08dc29827808
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4443
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8193.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a20c9fb6-c904-4f97-b0f7-08dc2982a9a9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Feb 2024 15:20:34.8616 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UbbRqbJ6NquapJmuJe7cq2utFQZBsdfNt2ITIoMRDCoDp+jYMS/F7PTYRVOlh6Bz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6307
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,44 +133,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Few users have observed display corruption when they boot
-the machine to KDE Plasma or playing games. We have root
-caused the problem that whenever alloc_range() couldn't
-find the required memory blocks the function was returning
-SUCCESS in some of the corner cases.
+[Public]
 
-The right approach would be if the total allocated size
-is less than the required size, the function should
-return -ENOSPC.
+> -----Original Message-----
+> From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
+> Sent: Tuesday, February 6, 2024 11:55 PM
+> To: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo
+> <Aurabindo.Pillai@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org; SHANMUGAM, SRINIVASAN
+> <SRINIVASAN.SHANMUGAM@amd.com>; Li, Roman <Roman.Li@amd.com>
+> Subject: [PATCH] drm/amd/display: Fix possible buffer overflow in
+> 'find_dcfclk_for_voltage()'
+>
+> when 'find_dcfclk_for_voltage()' function is looping over
+> VG_NUM_SOC_VOLTAGE_LEVELS (which is 8), but the size of the DcfClocks
+> array is VG_NUM_DCFCLK_DPM_LEVELS (which is 7).
+>
+> When the loop variable i reaches 7, the function tries to access clock_ta=
+ble-
+> >DcfClocks[7]. However, since the size of the DcfClocks array is 7, the v=
+alid
+> indices are 0 to 6. Index 7 is beyond the size of the array, leading to a=
+ buffer
+> overflow.
+>
+> Fixes the below:
+> drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn301/vg_clk_mgr.c:
+> 550 find_dcfclk_for_voltage() error: buffer overflow 'clock_table->DcfClo=
+cks' 7
+> <=3D 7
 
-Cc:  <stable@vger.kernel.org> # 6.7+
-Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3097
-Tested-by: Mario Limonciello <mario.limonciello@amd.com>
-Link: https://patchwork.kernel.org/project/dri-devel/patch/20240207174456.341121-1-Arunpravin.PaneerSelvam@amd.com/
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
----
- drivers/gpu/drm/drm_buddy.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+I recommend mentioning that this is a static analysis tool error.
+With that:
+Reviewed-by: Roman Li <roman.li@amd.com>
 
-diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-index f57e6d74fb0e..c1a99bf4dffd 100644
---- a/drivers/gpu/drm/drm_buddy.c
-+++ b/drivers/gpu/drm/drm_buddy.c
-@@ -539,6 +539,12 @@ static int __alloc_range(struct drm_buddy *mm,
- 	} while (1);
- 
- 	list_splice_tail(&allocated, blocks);
-+
-+	if (total_allocated < size) {
-+		err = -ENOSPC;
-+		goto err_free;
-+	}
-+
- 	return 0;
- 
- err_undo:
--- 
-2.25.1
+>
+> Fixes: 3a83e4e64bb1 ("drm/amd/display: Add dcn3.01 support to DC (v2)")
+> Cc: Roman Li <Roman.Li@amd.com>
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
+> b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
+> index a5489fe6875f..aa9fd1dc550a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
+> @@ -546,6 +546,8 @@ static unsigned int find_dcfclk_for_voltage(const
+> struct vg_dpm_clocks *clock_ta
+>       int i;
+>
+>       for (i =3D 0; i < VG_NUM_SOC_VOLTAGE_LEVELS; i++) {
+> +             if (i >=3D VG_NUM_DCFCLK_DPM_LEVELS)
+> +                     break;
+>               if (clock_table->SocVoltage[i] =3D=3D voltage)
+>                       return clock_table->DcfClocks[i];
+>       }
+> --
+> 2.34.1
 
