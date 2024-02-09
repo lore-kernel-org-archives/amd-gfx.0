@@ -4,110 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE4C5C48297
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 11:00:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C8B4C4828F
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 11:07:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 046EE10EF64;
-	Fri,  9 Feb 2024 11:00:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C6AE10F136;
+	Fri,  9 Feb 2024 11:07:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="PuzjyYG8";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="Lt9xkEtQ";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4B6210EF64
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Feb 2024 11:00:16 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-40fb5f5fd84so1885055e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 09 Feb 2024 03:00:16 -0800 (PST)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71F2D10F136
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Feb 2024 11:07:25 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-40fb5f5fd84so1896035e9.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 09 Feb 2024 03:07:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1707476415; x=1708081215; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ErqXxs7zcmxaorvJLxeIL8QoDb90GRIEAGPObd8dqj0=;
- b=PuzjyYG8bJAdYAljv7NmQSzWbdxSqEJSqTdpPMFRTdMjjNuyJqsgr0LDNGjAPN+nIV
- oCgq4o1l4OByeyAyJTYq6W4EKNt5zrUJEIfBrvvLrPx1h7x6owI96PYmu8eE97WSOtzd
- kW53+ysDDQ/V4I7cXu2VacaFJsbRnZG4ZkR2s=
+ d=ffwll.ch; s=google; t=1707476844; x=1708081644; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=PhrnFyHqy0aS26mIHqOzAL9BsMYc94FViF7OPHFoQ/w=;
+ b=Lt9xkEtQHfFcydfi2IPfYrMJVIFHhtB7CUskXVDmODACxoTnagSBIf+lFx4f1CmaY6
+ j/XjPf1VZa9faAHWgzu/BFVifBL9snEcpXSdp6+1m2GNDNJlW6btF02/wb1942DNVyBj
+ dXYmzqqU0bAQgX69FtriFfB/i31mlBoMox/w8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707476415; x=1708081215;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ErqXxs7zcmxaorvJLxeIL8QoDb90GRIEAGPObd8dqj0=;
- b=oBFPTvM1NoydMeny+KiARJ384lOIF0eYp8R3IGWdtbw5PxDAdawlkNZn3iVUYDpB3Q
- 8kGmfzaWmoYzQf8mQb6+uIQb3vKusFAU6+akrcngb091IehTA2NIVBH2JoMhSHcw+ptb
- 5Q0i3atIumowjgR27ByYEXxF/fKG8CfzxLMKHmyVqfYhdo4TIsPJkcbv4m36BS4DNzOd
- KgRWKcjoBXOE0lhxuFdlks+c0Ipsu+LwtFbaxgr81ZHTo2QJha/LhOqN0EgD0epYQdGb
- b7f7uiC5SpMcEHIH+09YIY3sPNS2JMUSPr9KECtIN09PoME3juVsdWTzP0n107zWSBuz
- eBXg==
+ d=1e100.net; s=20230601; t=1707476844; x=1708081644;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=PhrnFyHqy0aS26mIHqOzAL9BsMYc94FViF7OPHFoQ/w=;
+ b=u6BPqcOhBKsNMb+hiZaARk/p8qQ7/mFwCcgEkFDxVBVRu1Fcpj4WS1VpDifStGAUu0
+ baIS61ZIYonK/VhqXOlcK3QOLJkOMbGGj+2AoWbdC7gnHfU9Id+LsGHbwG5zCdxTyO7w
+ Zm0Mq1QqcfPDRcI2bKBcUH0xuckmC+PN8Q5M6RkWzbZoEnDH6y44498wpLgryU/NfVkC
+ 0g69kWHxG3UdmNO6us2Jpd2unadY4nH0fMzjq6t6lftIIm0GV5pZIR4N2KAKHCmrFAXC
+ LMAW8UKIlxrll5wpA7uawNlofGO236PHDqY7vLGSDmTP43Zmn8sGgVfXqtzaRZsN20vH
+ QzBw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUohrqRzAQVwrD/ydunkMJVhPhdGKZiS89TMdYdeo35MNG/Bv+gzLo2oKFvyTgRKUSaGpHnja0Hmmxh31l8HE097ydR4b3pWv1s7WL2sg==
-X-Gm-Message-State: AOJu0YzQ09fERKDRzUd6aNYij91HYyOs9VwexPexLaVmaSPzE9oZ8YEP
- Ap6uhkmuLi5JBcHvHgm/6KhX5Js4bcmZ/VtNTIjboFtv6eTjA6cbd1fCejF4V9Y=
-X-Google-Smtp-Source: AGHT+IEuXfaY9KBR9zsA3duPazyDD+I8pvQvlxqK/2eTeHa8KAeZqhfP1yN0TAPaRflSJwHnbU0Iwg==
-X-Received: by 2002:a05:6000:38c:b0:33b:5197:7136 with SMTP id
- u12-20020a056000038c00b0033b51977136mr1111009wrf.2.1707476414599; 
- Fri, 09 Feb 2024 03:00:14 -0800 (PST)
+ AJvYcCX+hNsfCNV6UuR1Nhk35WM6ZY9uOWfGhfPAF7vNLgrIyTWnK6c+xajLmC/8mhmlqLiBTKQFYFFUlfb07KEK5VI/WbG5ukC26tJ+GQexgA==
+X-Gm-Message-State: AOJu0YyhIhhTGR9KnyQcPFmoIr+XdoFu+GU6MtVOv9A/XuP0XzPAF77r
+ tdGjt4UXWXLASXVStbWuLL4GMs17Ql2LfaNHkDjjUkEPAlYZn/Rvp8rn7owngdI=
+X-Google-Smtp-Source: AGHT+IESgQ/XoK3SRZmBXi3b5ikWdz6eVncuVf3cEnstSnjQCV9N/vFouYd2MVwTobjhl48ECI9Ilg==
+X-Received: by 2002:adf:e188:0:b0:33b:52cf:ebd5 with SMTP id
+ az8-20020adfe188000000b0033b52cfebd5mr761452wrb.5.1707476843780; 
+ Fri, 09 Feb 2024 03:07:23 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCUHGQW0GPUdhcR5AQwoTXl3BpkEMSBlqTfxVZFRu6MUe/O4/U+wRxF2qh19k0ClVYO9HHv3DcGLj95tj+GEy1wl+GQYzYSDdQdrlmUJYsMGa9GCyEiDTVoR3IIdBCrNnwRPjjX4g5WNs/vjIl8rAwct71x9ljvYkwzDBeAPDUMXoB1WV9f6JdwiVCnAltzf4i5NRW0DFKIgEHGeGrIylNiJfLeAtFQ1xHxdWuu8NkpGcbvvBm+mJU7Jcw5ifIJzxPdUnREub1HyASwUYtHwh2XgdvkmOod4PYpaExV3YgSrOnEWp5FwrfXoguzfqq8tu+A3mIguzsNS5t1an91pbE+xBjHtFIhj/7pT0CasiePDGV90FU3siIuK19VW0l6vi+A7WNmsARlda2Yhimcb9Ms2zTnCeHXULMJR3cZVGntLwt/lDg7urP5JL2woihym04otl25pjKTW+fLEr0m6vdtl0rhGGK6VqPdFHY3nQtaZt07+oGqdqzwgxCZtDaaKkfLgowpYUvwsC+InwyJ5fzaoyM94w5MLAyVr+d4W0gjGFlHL2iKrw68m+uuIQm0L3Y5v0wJ+K0rayxexGUr10RqQll0skTdOdXz/aXgfF3lBQhZuZ5mOUd0UkNkLedTaCSFLAE7KqyULbLNvacc53qateKluJnQsnxccYcjIWx0rp2paiFWYJMLhk8Wi0L/8NTnox6cztAm2oTG4bF2vGhT3N59mo7afNf16OXpVURJ0KtVGm584unuadqm22xLec9oP6oAlHkZMwPlXWns=
+ AJvYcCVtdkordPphCgqyMB+BMAQXrG4CC6BqVcmdmOVeCn/Jn3saUScdVw2KpMv2L9QB9xybAk7EVtRBzqt88YHwPeIRMGdmauy71GqDYAOr80StpMlaw1Ah5p8GY9jA12cnZ/aa6dcwZbJ4NeX/kLY3FuRSNakzQv8cRw1Kg2R/R7VUQOGxpWNmW51Y+DC8aph7B55k2cuYvGO7bzLIFrDtXb3e7Jq9Xra2VTghe8WKHD6mPnG0FuFdnzjZ5D3bEYby11xF8eWCi/0Gc3zgXne2XpRuUGByEXiomn91j7vh7zaLhTyfkbZptNAz71BOn3yYBAmSx372jzuttcbC7nfszh0KNGNPjBprbIl+0tWrvgHlhUButRr5Ri4HExZLRvwkx6JaNm2w9rW7kqrOQ8WzDd5mCw==
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
  by smtp.gmail.com with ESMTPSA id
- j18-20020adff012000000b0033b44b4da56sm1494073wro.111.2024.02.09.03.00.13
+ o15-20020adfeacf000000b0033b5a6b4b9bsm1520956wrn.71.2024.02.09.03.07.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Feb 2024 03:00:14 -0800 (PST)
-Date: Fri, 9 Feb 2024 12:00:11 +0100
+ Fri, 09 Feb 2024 03:07:23 -0800 (PST)
+Date: Fri, 9 Feb 2024 12:07:21 +0100
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "open list:ACPI" <linux-acpi@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Melissa Wen <mwen@igalia.com>, Dave Airlie <airlied@redhat.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Subject: Re: [PATCH v4 1/3] drm: Add drm_get_acpi_edid() helper
+Message-ID: <ZcYHaXNJ8IqbLIra@phenom.ffwll.local>
+Mail-Followup-To: Jani Nikula <jani.nikula@linux.intel.com>,
  Mario Limonciello <mario.limonciello@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, Le Ma <le.ma@amd.com>,
- =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
- James Zhu <James.Zhu@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Alex Shi <alexs@kernel.org>, Jerry Snitselaar <jsnitsel@redhat.com>,
- Wei Liu <wei.liu@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-pci@vger.kernel.org
-Subject: Re: [PATCH 3/3] drm/amdgpu: wire up the can_remove() callback
-Message-ID: <ZcYFu65EOaiZsSnC@phenom.ffwll.local>
-Mail-Followup-To: Christian =?iso-8859-1?Q?K=F6nig?=
- <ckoenig.leichtzumerken@gmail.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Le Ma <le.ma@amd.com>,
- =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
- James Zhu <James.Zhu@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Alex Shi <alexs@kernel.org>, Jerry Snitselaar <jsnitsel@redhat.com>,
- Wei Liu <wei.liu@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-pci@vger.kernel.org
-References: <20240202222603.141240-1-hamza.mahfooz@amd.com>
- <20240202222603.141240-3-hamza.mahfooz@amd.com>
- <2024020225-faceless-even-e3f8@gregkh>
- <ZcJCLkNoV-pVU8oy@phenom.ffwll.local>
- <051a3088-048e-4613-9f22-8ea17f1b9736@gmail.com>
+ amd-gfx@lists.freedesktop.org,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "open list:ACPI" <linux-acpi@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Melissa Wen <mwen@igalia.com>, Dave Airlie <airlied@redhat.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+References: <20240207224429.104625-1-mario.limonciello@amd.com>
+ <20240207224429.104625-2-mario.limonciello@amd.com>
+ <87y1bvb7ns.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <051a3088-048e-4613-9f22-8ea17f1b9736@gmail.com>
+In-Reply-To: <87y1bvb7ns.fsf@intel.com>
 X-Operating-System: Linux phenom 6.6.11-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -123,71 +101,193 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 06, 2024 at 07:42:49PM +0100, Christian König wrote:
-> Am 06.02.24 um 15:29 schrieb Daniel Vetter:
-> > On Fri, Feb 02, 2024 at 03:40:03PM -0800, Greg Kroah-Hartman wrote:
-> > > On Fri, Feb 02, 2024 at 05:25:56PM -0500, Hamza Mahfooz wrote:
-> > > > Removing an amdgpu device that still has user space references allocated
-> > > > to it causes undefined behaviour.
-> > > Then fix that please.  There should not be anything special about your
-> > > hardware that all of the tens of thousands of other devices can't handle
-> > > today.
-> > > 
-> > > What happens when I yank your device out of a system with a pci hotplug
-> > > bus?  You can't prevent that either, so this should not be any different
-> > > at all.
-> > > 
-> > > sorry, but please, just fix your driver.
-> > fwiw Christian König from amd already rejected this too, I have no idea
-> > why this was submitted
+On Thu, Feb 08, 2024 at 11:57:11AM +0200, Jani Nikula wrote:
+> On Wed, 07 Feb 2024, Mario Limonciello <mario.limonciello@amd.com> wrote:
+> > Some manufacturers have intentionally put an EDID that differs from
+> > the EDID on the internal panel on laptops.  Drivers can call this
+> > helper to attempt to fetch the EDID from the BIOS's ACPI _DDC method.
+> >
+> > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> > ---
+> >  drivers/gpu/drm/Kconfig    |  5 +++
+> >  drivers/gpu/drm/drm_edid.c | 77 ++++++++++++++++++++++++++++++++++++++
+> >  include/drm/drm_edid.h     |  1 +
+> >  3 files changed, 83 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> > index 6ec33d36f3a4..ec2bb71e8b36 100644
+> > --- a/drivers/gpu/drm/Kconfig
+> > +++ b/drivers/gpu/drm/Kconfig
+> > @@ -21,6 +21,11 @@ menuconfig DRM
+> >  	select KCMP
+> >  	select VIDEO_CMDLINE
+> >  	select VIDEO_NOMODESET
+> > +	select ACPI_VIDEO if ACPI
+> > +	select BACKLIGHT_CLASS_DEVICE if ACPI
+> > +	select INPUT if ACPI
+> > +	select X86_PLATFORM_DEVICES if ACPI && X86
+> > +	select ACPI_WMI if ACPI && X86
 > 
-> Well that was my fault.
-> 
-> I commented on an internal bug tracker that when sysfs bind/undbind is a
-> different code path from PCI remove/re-scan we could try to reject it.
-> 
-> Turned out it isn't a different code path.
+> I think I'll defer to drm maintainers on whether this is okay or
+> something to be avoided.
 
-Yeah it's exactly the same code, and removing the sysfs stuff means we
-cant test hotunplug without physical hotunplugging stuff anymore. So
-really not great - if one is buggy so is the other, and sysfs allows us to
-control the timing a lot better to hit specific issues.
+Uh yeah this is a bit much, and select just messes with everything. Just
+#ifdef this in the code with a dummy alternative, if users configure their
+kernel without acpi but need it, they get to keep all the pieces.
+
+Alternatively make a DRM_ACPI_HELPERS symbol, but imo a Kconfig for every
+function is also not great. And just using #ifdef in the code also works
+for CONFIG_OF, which is exactly the same thing for platforms using dt to
+describe hw.
+
+Also I'd expect ACPI code to already provide dummy functions if ACPI is
+provided, so you probably dont even need all that much #ifdef in the code.
+
+What we defo cant do is select platform/hw stuff just because you enable
+CONFIG_DRM.
 -Sima
 
-> >   since the very elaborate plan I developed with a
-> > bunch of amd folks was to fix the various lifetime lolz we still have in
-> > drm. We unfortunately export the world of internal objects to userspace as
-> > uabi objects with dma_buf, dma_fence and everything else, but it's all
-> > fixable and we have the plan even documented:
-> > 
-> > https://dri.freedesktop.org/docs/drm/gpu/drm-uapi.html#device-hot-unplug
-> > 
-> > So yeah anything that isn't that plan of record is very much no-go for drm
-> > drivers. Unless we change that plan of course, but that needs a
-> > documentation patch first and a big discussion.
-> > 
-> > Aside from an absolute massive pile of kernel-internal refcounting bugs
-> > the really big one we agreed on after a lot of discussion is that SIGBUS
-> > on dma-buf mmaps is no-go for drm drivers, because it would break way too
-> > much userspace in ways which are simply not fixable (since sig handlers
-> > are shared in a process, which means the gl/vk driver cannot use it).
-> > 
-> > Otherwise it's bog standard "fix the kernel bugs" work, just a lot of it.
 > 
-> Ignoring a few memory leaks because of messed up refcounting we actually got
-> that working quite nicely.
 > 
-> At least hot unplug / hot add seems to be working rather reliable in our
-> internal testing.
+> >  	help
+> >  	  Kernel-level support for the Direct Rendering Infrastructure (DRI)
+> >  	  introduced in XFree86 4.0. If you say Y here, you need to select
+> > diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> > index 923c4423151c..c649b4f9fd8e 100644
+> > --- a/drivers/gpu/drm/drm_edid.c
+> > +++ b/drivers/gpu/drm/drm_edid.c
+> > @@ -28,6 +28,7 @@
+> >   * DEALINGS IN THE SOFTWARE.
+> >   */
+> >  
+> > +#include <acpi/video.h>
+> >  #include <linux/bitfield.h>
+> >  #include <linux/cec.h>
+> >  #include <linux/hdmi.h>
+> > @@ -2188,6 +2189,49 @@ drm_do_probe_ddc_edid(void *data, u8 *buf, unsigned int block, size_t len)
+> >  	return ret == xfers ? 0 : -1;
+> >  }
+> >  
+> > +/**
+> > + * drm_do_probe_acpi_edid() - get EDID information via ACPI _DDC
+> > + * @data: struct drm_device
+> > + * @buf: EDID data buffer to be filled
+> > + * @block: 128 byte EDID block to start fetching from
+> > + * @len: EDID data buffer length to fetch
+> > + *
+> > + * Try to fetch EDID information by calling acpi_video_get_edid() function.
+> > + *
+> > + * Return: 0 on success or error code on failure.
+> > + */
+> > +static int
+> > +drm_do_probe_acpi_edid(void *data, u8 *buf, unsigned int block, size_t len)
+> > +{
+> > +	struct drm_device *ddev = data;
+> > +	struct acpi_device *acpidev = ACPI_COMPANION(ddev->dev);
+> > +	unsigned char start = block * EDID_LENGTH;
+> > +	void *edid;
+> > +	int r;
+> > +
+> > +	if (!acpidev)
+> > +		return -ENODEV;
+> > +
+> > +	/* fetch the entire edid from BIOS */
+> > +	r = acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, &edid);
+> > +	if (r < 0) {
+> > +		DRM_DEBUG_KMS("Failed to get EDID from ACPI: %d\n", r);
+> > +		return -EINVAL;
+> > +	}
+> > +	if (len > r || start > r || start + len > r) {
+> > +		r = -EINVAL;
+> > +		goto cleanup;
+> > +	}
+> > +
+> > +	memcpy(buf, edid + start, len);
+> > +	r = 0;
+> > +
+> > +cleanup:
+> > +	kfree(edid);
+> > +
+> > +	return r;
+> > +}
+> > +
+> >  static void connector_bad_edid(struct drm_connector *connector,
+> >  			       const struct edid *edid, int num_blocks)
+> >  {
+> > @@ -2643,6 +2687,39 @@ struct edid *drm_get_edid(struct drm_connector *connector,
+> >  }
+> >  EXPORT_SYMBOL(drm_get_edid);
+> >  
+> > +/**
+> > + * drm_get_acpi_edid - get EDID data, if available
 > 
-> So it can't be that messed up.
+> I'd prefer all the new EDID API to be named drm_edid_*. Makes a clean
+> break from the old API, and is more consistent.
 > 
-> Regards,
-> Christian.
+> So perhaps drm_edid_read_acpi() to be in line with all the other struct
+> drm_edid based EDID reading functions.
 > 
-> > 
-> > Cheers, Sima
+> > + * @connector: connector we're probing
+> > + *
+> > + * Use the BIOS to attempt to grab EDID data if possible.
+> > + *
+> > + * The returned pointer must be freed using drm_edid_free().
+> > + *
+> > + * Return: Pointer to valid EDID or NULL if we couldn't find any.
+> > + */
+> > +const struct drm_edid *drm_get_acpi_edid(struct drm_connector *connector)
+> > +{
+> > +	const struct drm_edid *drm_edid;
+> > +
+> > +	switch (connector->connector_type) {
+> > +	case DRM_MODE_CONNECTOR_LVDS:
+> > +	case DRM_MODE_CONNECTOR_eDP:
+> > +		break;
+> > +	default:
+> > +		return NULL;
+> > +	}
+> > +
+> > +	if (connector->force == DRM_FORCE_OFF)
+> > +		return NULL;
+> > +
+> > +	drm_edid = drm_edid_read_custom(connector, drm_do_probe_acpi_edid, connector->dev);
+> > +
+> > +	/* Note: Do *not* call connector updates here. */
+> > +
+> > +	return drm_edid;
+> > +}
+> > +EXPORT_SYMBOL(drm_get_acpi_edid);
+> > +
+> >  /**
+> >   * drm_edid_read_custom - Read EDID data using given EDID block read function
+> >   * @connector: Connector to use
+> > diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+> > index 7923bc00dc7a..ca41be289fc6 100644
+> > --- a/include/drm/drm_edid.h
+> > +++ b/include/drm/drm_edid.h
+> > @@ -410,6 +410,7 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
+> >  	void *data);
+> >  struct edid *drm_get_edid(struct drm_connector *connector,
+> >  			  struct i2c_adapter *adapter);
+> > +const struct drm_edid *drm_get_acpi_edid(struct drm_connector *connector);
 > 
+> There's a comment
+> 
+> /* Interface based on struct drm_edid */
+> 
+> towards the end of the file, gathering all the new API under it.
+> 
+> Other than that, LGTM,
+> 
+> BR,
+> Jani.
+> 
+> >  u32 drm_edid_get_panel_id(struct i2c_adapter *adapter);
+> >  struct edid *drm_get_edid_switcheroo(struct drm_connector *connector,
+> >  				     struct i2c_adapter *adapter);
+> 
+> -- 
+> Jani Nikula, Intel
 
 -- 
 Daniel Vetter
