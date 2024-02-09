@@ -4,89 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C8B4C4828F
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 11:07:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5940EC48297
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Feb 2024 12:59:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C6AE10F136;
-	Fri,  9 Feb 2024 11:07:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2988110E26D;
+	Fri,  9 Feb 2024 12:58:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="Lt9xkEtQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5brwyVsw";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71F2D10F136
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Feb 2024 11:07:25 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-40fb5f5fd84so1896035e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 09 Feb 2024 03:07:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1707476844; x=1708081644; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=PhrnFyHqy0aS26mIHqOzAL9BsMYc94FViF7OPHFoQ/w=;
- b=Lt9xkEtQHfFcydfi2IPfYrMJVIFHhtB7CUskXVDmODACxoTnagSBIf+lFx4f1CmaY6
- j/XjPf1VZa9faAHWgzu/BFVifBL9snEcpXSdp6+1m2GNDNJlW6btF02/wb1942DNVyBj
- dXYmzqqU0bAQgX69FtriFfB/i31mlBoMox/w8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707476844; x=1708081644;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=PhrnFyHqy0aS26mIHqOzAL9BsMYc94FViF7OPHFoQ/w=;
- b=u6BPqcOhBKsNMb+hiZaARk/p8qQ7/mFwCcgEkFDxVBVRu1Fcpj4WS1VpDifStGAUu0
- baIS61ZIYonK/VhqXOlcK3QOLJkOMbGGj+2AoWbdC7gnHfU9Id+LsGHbwG5zCdxTyO7w
- Zm0Mq1QqcfPDRcI2bKBcUH0xuckmC+PN8Q5M6RkWzbZoEnDH6y44498wpLgryU/NfVkC
- 0g69kWHxG3UdmNO6us2Jpd2unadY4nH0fMzjq6t6lftIIm0GV5pZIR4N2KAKHCmrFAXC
- LMAW8UKIlxrll5wpA7uawNlofGO236PHDqY7vLGSDmTP43Zmn8sGgVfXqtzaRZsN20vH
- QzBw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX+hNsfCNV6UuR1Nhk35WM6ZY9uOWfGhfPAF7vNLgrIyTWnK6c+xajLmC/8mhmlqLiBTKQFYFFUlfb07KEK5VI/WbG5ukC26tJ+GQexgA==
-X-Gm-Message-State: AOJu0YyhIhhTGR9KnyQcPFmoIr+XdoFu+GU6MtVOv9A/XuP0XzPAF77r
- tdGjt4UXWXLASXVStbWuLL4GMs17Ql2LfaNHkDjjUkEPAlYZn/Rvp8rn7owngdI=
-X-Google-Smtp-Source: AGHT+IESgQ/XoK3SRZmBXi3b5ikWdz6eVncuVf3cEnstSnjQCV9N/vFouYd2MVwTobjhl48ECI9Ilg==
-X-Received: by 2002:adf:e188:0:b0:33b:52cf:ebd5 with SMTP id
- az8-20020adfe188000000b0033b52cfebd5mr761452wrb.5.1707476843780; 
- Fri, 09 Feb 2024 03:07:23 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCVtdkordPphCgqyMB+BMAQXrG4CC6BqVcmdmOVeCn/Jn3saUScdVw2KpMv2L9QB9xybAk7EVtRBzqt88YHwPeIRMGdmauy71GqDYAOr80StpMlaw1Ah5p8GY9jA12cnZ/aa6dcwZbJ4NeX/kLY3FuRSNakzQv8cRw1Kg2R/R7VUQOGxpWNmW51Y+DC8aph7B55k2cuYvGO7bzLIFrDtXb3e7Jq9Xra2VTghe8WKHD6mPnG0FuFdnzjZ5D3bEYby11xF8eWCi/0Gc3zgXne2XpRuUGByEXiomn91j7vh7zaLhTyfkbZptNAz71BOn3yYBAmSx372jzuttcbC7nfszh0KNGNPjBprbIl+0tWrvgHlhUButRr5Ri4HExZLRvwkx6JaNm2w9rW7kqrOQ8WzDd5mCw==
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- o15-20020adfeacf000000b0033b5a6b4b9bsm1520956wrn.71.2024.02.09.03.07.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Feb 2024 03:07:23 -0800 (PST)
-Date: Fri, 9 Feb 2024 12:07:21 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:ACPI" <linux-acpi@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Melissa Wen <mwen@igalia.com>, Dave Airlie <airlied@redhat.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: Re: [PATCH v4 1/3] drm: Add drm_get_acpi_edid() helper
-Message-ID: <ZcYHaXNJ8IqbLIra@phenom.ffwll.local>
-Mail-Followup-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:ACPI" <linux-acpi@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Melissa Wen <mwen@igalia.com>, Dave Airlie <airlied@redhat.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-References: <20240207224429.104625-1-mario.limonciello@amd.com>
- <20240207224429.104625-2-mario.limonciello@amd.com>
- <87y1bvb7ns.fsf@intel.com>
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2078.outbound.protection.outlook.com [40.107.93.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B880110E268;
+ Fri,  9 Feb 2024 12:58:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kQOJ6Me+sNzO91CXZoLa77i/Vdk8JKGZKG+VsBxt9yAb1QNgnjaf8WDfJedsOB8w5mOGaEvFsIpaakhL9rI3oMVvpP7uaET8zW+OSf/4K8O7y1gxJNy1YK1Pgv0D2IlKA7iBNELbCsYG8fwzmiAnbXu6BnNhSv0mYKFNfe6hss43AnLVzexB6WzoqvDH9QjpHCNyqjzICfJz6sewCvuFR5psC8Lh47iRW3vy1ozSpHvxfchHk5ADH3gl1/3SCP+MY9aXXIt2XSHXq1meJmnDZpputq5HXI357r7HUpmsVYZEtwjXOEcIgEdWHOH+SxwI6cLlQbAlEOyA4E4f96SkBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ntahNVRmV1plVPmZpmICQkF+Gpb5+TjQOyHgSfrrdoY=;
+ b=MhYY2HLS9Xu2zdkD5pe1YU0HdPOV5aD3zLcYbFPviJ5z34+0RpW0ojegaWQ4gHcUn/u9w6iS6kmo623IYLlHn9tprhrJo21etax3fcpSXb41Lk4MYOCxoLQA1r59flPyPR02V3HaoIS/NAEl7/XpfLC664hWVzzhRXTEHEbvmC+eaDZ86e1MPDfeMzlVRInp/xyCLAS27e8WezR0aVPNOT0+FiKaWv3YEaik4c9esyEtIKJKkmCk5EQnAyUKdOqFAwsn5E7v/jUlAyIj9ylDCu0OgNi80vigx5DdXtM2j5KOglcWwYcAXZY49RrTIVQ8WWMGEPfbGawiry6sv/SZsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ntahNVRmV1plVPmZpmICQkF+Gpb5+TjQOyHgSfrrdoY=;
+ b=5brwyVswgKj9YtqlKEuFzX6SS8mRLMq0pFqaHWaKeGIwzaAcWH31jBc54IeawQWFDxlePy51s3DGt9z2dHtg6bGHflJPQjee0Nefey+U5LPWnsKc3UA9xILMqF7Yh5kEd0KKdP6j4WJMStsIhaylnhvtWygHhfKALu1TqISWJZE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+ by BL1PR12MB5803.namprd12.prod.outlook.com (2603:10b6:208:393::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.28; Fri, 9 Feb
+ 2024 12:58:45 +0000
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::795e:efcc:ad1b:aafe]) by MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::795e:efcc:ad1b:aafe%4]) with mapi id 15.20.7270.016; Fri, 9 Feb 2024
+ 12:58:45 +0000
+Message-ID: <e72b0b7c-b446-e306-d01e-2d9e1ca5eaad@amd.com>
+Date: Fri, 9 Feb 2024 18:28:36 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH] drm/buddy: Fix alloc_range() error handling code
+Content-Language: en-US
+To: Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
+ mario.limonciello@amd.com
+References: <20240207174456.341121-1-Arunpravin.PaneerSelvam@amd.com>
+ <c5d75c40-7fb4-44a4-8ea5-327385f88004@intel.com>
+ <ba6b433d-e672-bcb2-4d25-66b2db50d7b8@amd.com>
+ <5c6fdae4-6fb0-4735-afe6-fe35481929fb@intel.com>
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <5c6fdae4-6fb0-4735-afe6-fe35481929fb@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0160.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:c8::21) To MN2PR12MB4342.namprd12.prod.outlook.com
+ (2603:10b6:208:264::7)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87y1bvb7ns.fsf@intel.com>
-X-Operating-System: Linux phenom 6.6.11-amd64 
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|BL1PR12MB5803:EE_
+X-MS-Office365-Filtering-Correlation-Id: f2c2f556-e352-45ec-3888-08dc296ed93f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 0201HWbfRebxtTH4KPUpDuNrE9HKsspZplSnNnqZtfA3+mlS4wrMWZDswAd/8CRsFVCHmHhoy457MC0lC+++Zx0So1+KDSCSEfOEp0/OdN3v/W1g36YLt/CyFptfgmzyADhEYmEhKefheJ/ORQCgxBrtn6Oq5SroidLH1VRsLiqsQIChJrox0lcQKa6hFvgTlLD0UakhXXmLuj3yQwmhBd+TWaNY6gYBCBl66wbIS+jCM3n3HRvrJbqKqx6bWc5S0lAFoAxFirrvIUZYV943JHgzAUvD4FisXcROkymCw0PRXlgW1JyI10jrFJq0N+JjyB2Hv4AUvoN38F0PdMHLAOpBhBUKbUO2Cg7X6MCaYbRmVAcywq1LqKNTXvCgx9VsxHzSOPbtXxXCUhtlI6LRtaZkGDCV7erQSFkE8K0Zky0cKCA5lv0nQoRt/jsxmgod5Lmyx0sRCFC38PklOJcpA+S7eo/R9M5/fZoGu0O2W4STF3GahJjfCOky1m5RY7nKuOEEdDJwX3lVVEIfLGuCcD2NGnsWQogBSvdbtcwKVUk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(346002)(39860400002)(396003)(376002)(136003)(230922051799003)(1800799012)(64100799003)(186009)(451199024)(31686004)(41300700001)(5660300002)(8676002)(8936002)(4326008)(2906002)(66556008)(66476007)(66946007)(36756003)(316002)(966005)(6486002)(478600001)(6512007)(2616005)(6666004)(31696002)(83380400001)(86362001)(53546011)(26005)(38100700002)(6506007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Yk5XdVB2L2t1MkM4eldmak5uT3lxOHBmdmI5TXBqekRqUWlFZXZObklZcnVN?=
+ =?utf-8?B?ak55Wmw3U2psdjFpUGIzaFVGM3U1eE5wUGhmQ1Ftc0pLMjNpRkw5YWUxNDdY?=
+ =?utf-8?B?Q1hqbXVTL2xqb0JJSmxGa3pMKzE3N00rRS9ZbEdEUlM2SjViM1VUb3IxbVVG?=
+ =?utf-8?B?aGwwMVQvanlLRDJyWG84ODFxbThKQXQ2OW0rTU5OUEtNYzg0S1lSWFR4aGlS?=
+ =?utf-8?B?bi9WZTFkSjNubGw0SzNWMG0xbHo2MUpQalhMeWtvYTB2bWorbjlGRzEwcXNi?=
+ =?utf-8?B?M0NPQ3ZHZWxxK0owdXVicFdsSVRBWWNINnF0Q04zdlNhVEl2OUNqYTR0clpK?=
+ =?utf-8?B?ajJXNGNaOEVjdHc5RFF3UkNsRVAwK2lPNzVrSEdpRDJ5RXhjQk5TcVVUL2hv?=
+ =?utf-8?B?TGF3MjFmRnFhek9ocTR2cCt0NVU0MGFlWGFVc09nOEFyVTU1bU1VbzFhZjY4?=
+ =?utf-8?B?dWJXMUs2NlR1WUdEVlhXUEpZMWE2dHdhSXdLRkF5RllidkJSOUlvVXJXU0Zv?=
+ =?utf-8?B?cTZBckIwaWprUjF2TENmQXZ1dmRMNENwKzN1ZjJEazIydk4xRDNPQmNuTU5n?=
+ =?utf-8?B?V3lYVjF3UGFmSkdVMy8zTGN3ZjJFcHhTem45UmFPWHJDbzF3c2pRNXhzWUZ6?=
+ =?utf-8?B?MVh3Um5jSVovaFBQMVFCZXF5dHlLNDhmajFXTjlaTmFtVzgreGx6dUJWY3JS?=
+ =?utf-8?B?dkMxUUw5ODdNNzVwODFmaG1MSUJlU2J3Y3VweVhjWFJIR2RYRFl1NWt2U0lI?=
+ =?utf-8?B?WWFIOStzSkxycnBwUGkrcmc3alM5K21UMTZpYXIvM2hBeVBPZWlxNFdPTWFZ?=
+ =?utf-8?B?MHFuNEY3a1VFSEpuT2JJampPUHYxOWgwLzNMaEdZczl0Rk5Pb3lUcUFUL1hk?=
+ =?utf-8?B?OUNBd0RUalFxMnR4anlQVVRlQjZtQWVjV1R3UjBPcnNIdnNZdUFwUFd2cGJD?=
+ =?utf-8?B?L0VSK21BMjBqZExtMG9VSnpLVklldkhITERVZmxGako3UnF4cmdKUHhVMHBw?=
+ =?utf-8?B?aXQ4TDArTFRUTjlrVkQ1dE9UY01PamsxYzNOMnhtbXFXY3ZYRzZlV0ZDd2J2?=
+ =?utf-8?B?ejJiQmszSUlycUlsMVVCUXlqYmF2YnBuSHJQcFoyMXZIU1ZVcVVwd3Rtb3BV?=
+ =?utf-8?B?dkZiWnFGZFR5Y28xNXI1UDFtQnNhNTZwRWFBaUJkRnFXVDZTemtERFIwUVYr?=
+ =?utf-8?B?TS9ab1VkSWplT1JVVURBRG9wQ3EydmdHejM2YmJWZWZxWTNBenl2NHFOZFN5?=
+ =?utf-8?B?MjAxaUJscEpNSlVzVXBGb1VrMXQ3NFpMdlNjbENlZ3NwYkMwa2w5REo4SldH?=
+ =?utf-8?B?K2JvNVNJbHlHQnRXcHhGYnpFZFJsR05JV2Y5Q09tSmtRZWhUVHdMd3dZcUhX?=
+ =?utf-8?B?R3JOdWhydU5WUzJnRU9tcFVUcjA1WnFpVDNpRHplRVJzK3VjdlpMYzlDWE8z?=
+ =?utf-8?B?QW81UmgyQ3NMU2NXaDJkVWNhT0h6RjNEUHhrTE1nOUowVXh6UXFmcmdlSjFU?=
+ =?utf-8?B?TmNVL29EYWZ0TW5TRm1FWHRnWW1WU3lET0VoWFhKTlhERXhzMjJrbGJpUUdO?=
+ =?utf-8?B?VVh4VlJlK0Y1eHV4blRKd2hqNDRYdWh1MTlRa056OXoyRGdiaXN4SStHVmtw?=
+ =?utf-8?B?YklmdGZyMlBEQ2MyMHloNkhjdTZCWTJOTlU1SU1ISWVxTDlsdVJEU3ZzL1BX?=
+ =?utf-8?B?RTNseU5PeGFqVWdIb2hIZGJTSk80U0picU9BLzN2elJBVTZGOVRXTDQ5UERU?=
+ =?utf-8?B?TDBSM0x5Smx4RW1aSU5MVzltOHJaSmdyUWJEWU5DNDdhR21jYVJuYnpzK24x?=
+ =?utf-8?B?ZzQ4bHZhNGNrTjF6UUVzTkZCRlU2NEI1L2ZpQlZFT0NORGZaOFRkd25jbzFt?=
+ =?utf-8?B?dmtSSGhySVk3bEhKa29CM0drbzUrZDVFeWRmbmdZV1kxcE82QTlNM1ZqbGRO?=
+ =?utf-8?B?ZEZVbnBCbGRpYWVOdnBlT3BFNklreDNzUnZlaXVSQWRkbE9nWkp4a05ISVU1?=
+ =?utf-8?B?K2JLYlBVWXNxaDBOS2hlVHpGT21OOUxGWUtldHU0SXpuMndxNWdIcDc2OUFy?=
+ =?utf-8?B?TXpuSkZHc2NJR1FpSlp4YVFhOEYzNEhUT0g5VzgreGkyTzM2SGJkbEhEVDhV?=
+ =?utf-8?Q?TPmNHsKiwWUShBc6SsmH8Xn+I?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2c2f556-e352-45ec-3888-08dc296ed93f
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2024 12:58:45.1102 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3VZ3xXg++a+cSbubgt4oMmUATFBFqz+HJUI7Ovy4doSjWMwjQKx9X7/C28Ytei8iFVZwZFlDtZxlYsENIM6Aug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5803
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,195 +135,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 08, 2024 at 11:57:11AM +0200, Jani Nikula wrote:
-> On Wed, 07 Feb 2024, Mario Limonciello <mario.limonciello@amd.com> wrote:
-> > Some manufacturers have intentionally put an EDID that differs from
-> > the EDID on the internal panel on laptops.  Drivers can call this
-> > helper to attempt to fetch the EDID from the BIOS's ACPI _DDC method.
-> >
-> > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> > ---
-> >  drivers/gpu/drm/Kconfig    |  5 +++
-> >  drivers/gpu/drm/drm_edid.c | 77 ++++++++++++++++++++++++++++++++++++++
-> >  include/drm/drm_edid.h     |  1 +
-> >  3 files changed, 83 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> > index 6ec33d36f3a4..ec2bb71e8b36 100644
-> > --- a/drivers/gpu/drm/Kconfig
-> > +++ b/drivers/gpu/drm/Kconfig
-> > @@ -21,6 +21,11 @@ menuconfig DRM
-> >  	select KCMP
-> >  	select VIDEO_CMDLINE
-> >  	select VIDEO_NOMODESET
-> > +	select ACPI_VIDEO if ACPI
-> > +	select BACKLIGHT_CLASS_DEVICE if ACPI
-> > +	select INPUT if ACPI
-> > +	select X86_PLATFORM_DEVICES if ACPI && X86
-> > +	select ACPI_WMI if ACPI && X86
-> 
-> I think I'll defer to drm maintainers on whether this is okay or
-> something to be avoided.
 
-Uh yeah this is a bit much, and select just messes with everything. Just
-#ifdef this in the code with a dummy alternative, if users configure their
-kernel without acpi but need it, they get to keep all the pieces.
 
-Alternatively make a DRM_ACPI_HELPERS symbol, but imo a Kconfig for every
-function is also not great. And just using #ifdef in the code also works
-for CONFIG_OF, which is exactly the same thing for platforms using dt to
-describe hw.
+On 2/8/2024 7:47 PM, Matthew Auld wrote:
+> On 08/02/2024 13:47, Arunpravin Paneer Selvam wrote:
+>> Hi Matthew,
+>>
+>> On 2/8/2024 7:00 PM, Matthew Auld wrote:
+>>> On 07/02/2024 17:44, Arunpravin Paneer Selvam wrote:
+>>>> Few users have observed display corruption when they boot
+>>>> the machine to KDE Plasma or playing games. We have root
+>>>> caused the problem that whenever alloc_range() couldn't
+>>>> find the required memory blocks the function was returning
+>>>> SUCCESS in some of the corner cases.
+>>>
+>>> Can you please give an example here?
+>>>
+>> In the try hard contiguous allocation, for example the requested 
+>> memory is 1024 pages,
+>> it might go and pick the highest and last block (of size 512 pages) 
+>> in the freelist where
+>> there are no more space exist in the total address range. In this 
+>> kind of corner case,
+>> alloc_range was returning success though the allocated size is less 
+>> than the requested size.
+>> Hence in try_hard_contiguous_allocation, we will not proceed to the 
+>> LHS allocation and
+>> we return only with the RHS allocation having only the 512 pages of 
+>> allocation. This
+>> leads to display corruption in many use cases (I think mainly when 
+>> requested for contiguous huge buffer)
+>> mainly on APU platforms.
+>
+> Ok, I guess other thing is doing:
+>
+> lhs_offset = drm_buddy_block_offset(block) - lhs_size;
+>
+> I presume it's possible for block_offset < lhs_size here, which might 
+> be funny?
+yes, seems it is possible, I will modify the lhs_offset calculation and 
+send the patch for review.
 
-Also I'd expect ACPI code to already provide dummy functions if ACPI is
-provided, so you probably dont even need all that much #ifdef in the code.
+Thanks,
+Arun.
+>
+>>
+>> Thanks,
+>> Arun.
+>>>>
+>>>> The right approach would be if the total allocated size
+>>>> is less than the required size, the function should
+>>>> return -ENOSPC.
+>>>>
+>>>> Gitlab ticket link - 
+>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3097
+>>>> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory 
+>>>> allocation")
+>>>> Signed-off-by: Arunpravin Paneer Selvam 
+>>>> <Arunpravin.PaneerSelvam@amd.com>
+>>>> Tested-by: Mario Limonciello <mario.limonciello@amd.com>
+>>>> ---
+>>>>   drivers/gpu/drm/drm_buddy.c | 6 ++++++
+>>>>   1 file changed, 6 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+>>>> index f57e6d74fb0e..c1a99bf4dffd 100644
+>>>> --- a/drivers/gpu/drm/drm_buddy.c
+>>>> +++ b/drivers/gpu/drm/drm_buddy.c
+>>>> @@ -539,6 +539,12 @@ static int __alloc_range(struct drm_buddy *mm,
+>>>>       } while (1);
+>>>>         list_splice_tail(&allocated, blocks);
+>>>> +
+>>>> +    if (total_allocated < size) {
+>>>> +        err = -ENOSPC;
+>>>> +        goto err_free;
+>>>> +    }
+>>>> +
+>>>>       return 0;
+>>>>     err_undo:
+>>
 
-What we defo cant do is select platform/hw stuff just because you enable
-CONFIG_DRM.
--Sima
-
-> 
-> 
-> >  	help
-> >  	  Kernel-level support for the Direct Rendering Infrastructure (DRI)
-> >  	  introduced in XFree86 4.0. If you say Y here, you need to select
-> > diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> > index 923c4423151c..c649b4f9fd8e 100644
-> > --- a/drivers/gpu/drm/drm_edid.c
-> > +++ b/drivers/gpu/drm/drm_edid.c
-> > @@ -28,6 +28,7 @@
-> >   * DEALINGS IN THE SOFTWARE.
-> >   */
-> >  
-> > +#include <acpi/video.h>
-> >  #include <linux/bitfield.h>
-> >  #include <linux/cec.h>
-> >  #include <linux/hdmi.h>
-> > @@ -2188,6 +2189,49 @@ drm_do_probe_ddc_edid(void *data, u8 *buf, unsigned int block, size_t len)
-> >  	return ret == xfers ? 0 : -1;
-> >  }
-> >  
-> > +/**
-> > + * drm_do_probe_acpi_edid() - get EDID information via ACPI _DDC
-> > + * @data: struct drm_device
-> > + * @buf: EDID data buffer to be filled
-> > + * @block: 128 byte EDID block to start fetching from
-> > + * @len: EDID data buffer length to fetch
-> > + *
-> > + * Try to fetch EDID information by calling acpi_video_get_edid() function.
-> > + *
-> > + * Return: 0 on success or error code on failure.
-> > + */
-> > +static int
-> > +drm_do_probe_acpi_edid(void *data, u8 *buf, unsigned int block, size_t len)
-> > +{
-> > +	struct drm_device *ddev = data;
-> > +	struct acpi_device *acpidev = ACPI_COMPANION(ddev->dev);
-> > +	unsigned char start = block * EDID_LENGTH;
-> > +	void *edid;
-> > +	int r;
-> > +
-> > +	if (!acpidev)
-> > +		return -ENODEV;
-> > +
-> > +	/* fetch the entire edid from BIOS */
-> > +	r = acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, &edid);
-> > +	if (r < 0) {
-> > +		DRM_DEBUG_KMS("Failed to get EDID from ACPI: %d\n", r);
-> > +		return -EINVAL;
-> > +	}
-> > +	if (len > r || start > r || start + len > r) {
-> > +		r = -EINVAL;
-> > +		goto cleanup;
-> > +	}
-> > +
-> > +	memcpy(buf, edid + start, len);
-> > +	r = 0;
-> > +
-> > +cleanup:
-> > +	kfree(edid);
-> > +
-> > +	return r;
-> > +}
-> > +
-> >  static void connector_bad_edid(struct drm_connector *connector,
-> >  			       const struct edid *edid, int num_blocks)
-> >  {
-> > @@ -2643,6 +2687,39 @@ struct edid *drm_get_edid(struct drm_connector *connector,
-> >  }
-> >  EXPORT_SYMBOL(drm_get_edid);
-> >  
-> > +/**
-> > + * drm_get_acpi_edid - get EDID data, if available
-> 
-> I'd prefer all the new EDID API to be named drm_edid_*. Makes a clean
-> break from the old API, and is more consistent.
-> 
-> So perhaps drm_edid_read_acpi() to be in line with all the other struct
-> drm_edid based EDID reading functions.
-> 
-> > + * @connector: connector we're probing
-> > + *
-> > + * Use the BIOS to attempt to grab EDID data if possible.
-> > + *
-> > + * The returned pointer must be freed using drm_edid_free().
-> > + *
-> > + * Return: Pointer to valid EDID or NULL if we couldn't find any.
-> > + */
-> > +const struct drm_edid *drm_get_acpi_edid(struct drm_connector *connector)
-> > +{
-> > +	const struct drm_edid *drm_edid;
-> > +
-> > +	switch (connector->connector_type) {
-> > +	case DRM_MODE_CONNECTOR_LVDS:
-> > +	case DRM_MODE_CONNECTOR_eDP:
-> > +		break;
-> > +	default:
-> > +		return NULL;
-> > +	}
-> > +
-> > +	if (connector->force == DRM_FORCE_OFF)
-> > +		return NULL;
-> > +
-> > +	drm_edid = drm_edid_read_custom(connector, drm_do_probe_acpi_edid, connector->dev);
-> > +
-> > +	/* Note: Do *not* call connector updates here. */
-> > +
-> > +	return drm_edid;
-> > +}
-> > +EXPORT_SYMBOL(drm_get_acpi_edid);
-> > +
-> >  /**
-> >   * drm_edid_read_custom - Read EDID data using given EDID block read function
-> >   * @connector: Connector to use
-> > diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
-> > index 7923bc00dc7a..ca41be289fc6 100644
-> > --- a/include/drm/drm_edid.h
-> > +++ b/include/drm/drm_edid.h
-> > @@ -410,6 +410,7 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
-> >  	void *data);
-> >  struct edid *drm_get_edid(struct drm_connector *connector,
-> >  			  struct i2c_adapter *adapter);
-> > +const struct drm_edid *drm_get_acpi_edid(struct drm_connector *connector);
-> 
-> There's a comment
-> 
-> /* Interface based on struct drm_edid */
-> 
-> towards the end of the file, gathering all the new API under it.
-> 
-> Other than that, LGTM,
-> 
-> BR,
-> Jani.
-> 
-> >  u32 drm_edid_get_panel_id(struct i2c_adapter *adapter);
-> >  struct edid *drm_get_edid_switcheroo(struct drm_connector *connector,
-> >  				     struct i2c_adapter *adapter);
-> 
-> -- 
-> Jani Nikula, Intel
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
