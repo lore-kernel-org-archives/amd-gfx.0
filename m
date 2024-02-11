@@ -4,121 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6054FC4829A
-	for <amd-gfx@archiver.kernel.org>; Sun, 11 Feb 2024 04:53:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70BF6C4829B
+	for <amd-gfx@archiver.kernel.org>; Sun, 11 Feb 2024 05:19:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A751210E350;
-	Sun, 11 Feb 2024 04:53:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDD4110E371;
+	Sun, 11 Feb 2024 05:19:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lKgz08KB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T4fwVPZy";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2050.outbound.protection.outlook.com [40.107.94.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB5E10E2CE
- for <amd-gfx@lists.freedesktop.org>; Sun, 11 Feb 2024 04:52:59 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2075.outbound.protection.outlook.com [40.107.237.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20A8710E371;
+ Sun, 11 Feb 2024 05:19:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ChAYTaVl404Qh0c7cHcnVOsoyQi4vI+xV0nva8ESBHfO/dVjSQi0W0h8A6ZZ1idX3PkNw7MkMGiZin/uGV0zwwCnbqwO0c+F85o/sGcqICPfRcxA55z7YE542O157uzd15lxcDg91f5yM1Iyg0Z3OvkzIK+5b7ZFstkvvfjkQEfk8zfO5/3sloNDKuM4adLC3VAJhShGrpGieB/fneuLGxAgrg9bd76NDmnr7nI8gGQfqc0T2iUv7e/N98EDgd+zxIVHGfHdvp5xklw8oaNpDWcRPnYUzXtvWCysx1Su5knHpgsgF3/i6CLwIyXr++RhUaGAWwImt7sO8GjZ5RR9xA==
+ b=Ew/zSBUVVBWyDO6IddOc4Pei4yt+JzdR7eAo84uoZOa9G0jWoNcWBD+9+WIWYPiYB44A4Ds/gIQIEkCPCm091XdohYBq4PaDVaJthJtgDwvLJIXonngyefK4RbmpOah7OVLZIOsLVUa4WYCZis4R/Q0CIZe6faHItP8A46SPUpe4l01ZeZ4pfs45T6+cH1p2AppNB/cS5pzxd6EvqA9VFh6mF+z80r+MiQB/FTJhXFBHvyEkSp2MLDFmOmL61Yin1tSeFL2bi4PHGkzvYF0+zI5+hNow7Q/2D4dkz19/fgFWcU0DTaFUTKzDdljL/514sux3MiMwzezNwEWb2IrjxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NYGx7BgQY2Pc1IRxRLm4zFiEvrT8597PNlLiUfOwYdc=;
- b=Fg3qJLKBond+vbpR6vbYXXD7XDRJXnKXOtrl18ZAqcoVomdrQc5c4QD1shvbu05xCII+XXrf1cnu3LhXobHnHSrMD2M4pCsUueCPoEdpEKftMfWYj+FzwcXReAAH27Q2ElByQ+AlrOFZ4LQ5aG864HsFzFu4F0KAPWgQ8faPC2GxfLlZL455DI76Oz97YA5SWAk86/f/M0EWV7DxAYmtRMwr7vAHwfGN2590ZfDViIecq6utNzxXsf/1D/U/lmBsQMXlZjclMkG1hGHyKzw66IwHnV7R/OyvOOuhboA0O3lR+ZMlEiqyNK0MO8AW9z50/Gpo6HPIWCPhF+s4FgPJyA==
+ bh=tjNiW1ttAiV4dYGr200byUa0PWMnRTLubI+6pw2v/R0=;
+ b=E4O8U/HMHuHPOUrZdTMVj6Ilil9tjOIxmDhfl3HfuCo5qUjjpbedL8pYBSRuzYiFZWMVbiqFFZ7v9kraogUemTJMiue2zkn6LGjWN7KGqe2eymMbWvgrWd08YkmuNW50PQXvts9fQwspHuhQpzSk7l8v3KWqCNj6+dDpHTcQ+uODHF/b+k7juwjvSA4Pm60yReZYGv+AsHvNaRYRXQm61bNSk8XJVgg+8tBiIVBt3LNZPbWMMXRiN3fku/UkTIbIGZhrSftkA4uduoU1CiAJNmnLwo8WAzzckdJmrzGrnWhlhtpjnpEf36uOy4c1vSHGc/L3Z6g4cBhHahKKmcJROw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NYGx7BgQY2Pc1IRxRLm4zFiEvrT8597PNlLiUfOwYdc=;
- b=lKgz08KBrSlkPGdADyZvq1XTVNriioQMbBfE4CCOOOwLpZbfDzQVuXOwGaUkuePEUBZPo2TA3bmmDo84NGC2YhyygsG5TIxATLFzy+EEVPeirlSxtITraOLwxHLmm+0yNVFdDmIRnXl/9nRIopDgpwZEC39j1jD8gM0oe8NDpuc=
+ bh=tjNiW1ttAiV4dYGr200byUa0PWMnRTLubI+6pw2v/R0=;
+ b=T4fwVPZyRcWLJf2umFhZLeIGPLxVCKd5fiQS8qfmvFfCUt5TxwX/h/5ulgkAi2MxKUTfzFaEXI72m6HgrCGGy12OZWliBpcCKvBZhRFZSyjXj4uLF4XiLCPIE2o153yhYB5nR7yoVu6p+IxETMqnE7YRqhpLOLUeiqQrbdETFk0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by DS7PR12MB5814.namprd12.prod.outlook.com (2603:10b6:8:76::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7270.16; Sun, 11 Feb 2024 04:52:47 +0000
+ by SJ2PR12MB8943.namprd12.prod.outlook.com (2603:10b6:a03:547::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.11; Sun, 11 Feb
+ 2024 05:19:26 +0000
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::dd00:9ab5:4d11:2d1a]) by MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::dd00:9ab5:4d11:2d1a%7]) with mapi id 15.20.7292.019; Sun, 11 Feb 2024
- 04:52:47 +0000
-Message-ID: <054248fd-dc3b-476b-863a-6d1361f1f365@amd.com>
-Date: Sat, 10 Feb 2024 22:52:46 -0600
+ 05:19:26 +0000
+Message-ID: <350ee747-c1bf-4513-aad3-f43b11fcdf0f@amd.com>
+Date: Sat, 10 Feb 2024 23:19:23 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: respect the abmlevel module parameter value
- if it is set
+Subject: Re: [PATCH v4 1/3] drm: Add drm_get_acpi_edid() helper
 Content-Language: en-US
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Alex Hung <alex.hung@amd.com>
-References: <20240209214631.23219-1-hamza.mahfooz@amd.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>, amd-gfx@lists.freedesktop.org, 
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "open list:ACPI" <linux-acpi@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Melissa Wen <mwen@igalia.com>,
+ Dave Airlie <airlied@redhat.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+References: <20240207224429.104625-1-mario.limonciello@amd.com>
+ <20240207224429.104625-2-mario.limonciello@amd.com>
+ <87y1bvb7ns.fsf@intel.com> <ZcYHaXNJ8IqbLIra@phenom.ffwll.local>
+ <9fa0c1ad-dd7d-4350-aad1-4723450850bd@amd.com>
+ <ZcZ1tdXqH90RabvV@phenom.ffwll.local>
 From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20240209214631.23219-1-hamza.mahfooz@amd.com>
+In-Reply-To: <ZcZ1tdXqH90RabvV@phenom.ffwll.local>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN6PR01CA0016.prod.exchangelabs.com (2603:10b6:805:b6::29)
- To MN0PR12MB6101.namprd12.prod.outlook.com
+X-ClientProxiedBy: SA0PR11CA0082.namprd11.prod.outlook.com
+ (2603:10b6:806:d2::27) To MN0PR12MB6101.namprd12.prod.outlook.com
  (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|DS7PR12MB5814:EE_
-X-MS-Office365-Filtering-Correlation-Id: a5586990-e6f6-4779-d668-08dc2abd4b0e
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SJ2PR12MB8943:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab028a70-b19c-41a3-9fc4-08dc2ac10399
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eu7Xrq6ZoO4XNTVbORXWGhJ1vekwu4NzYHvT4eddYMkV+VIOBSDjHgI+wdWR0J3G+orCadJyNnKsMe82VsB0wnDsYGh/VtH/yzhrghsN6sK/2334xw2pYa5ccKlz8Acu5PHMWbKCWn/CAKaRjfLn7DnEk1e8Z6kQuL+8hfnRwIr16qnTF8KcoZiMpZHXeqcslRQeCcjIjiMmSPLAMly2ioWggbPLn6gROAVQJf2159gN4Zt1/GvzWLEOq4ePmJT70zcHIXhEvOFVBztGq8pE5AvIDZQjYCT+Md6EZ1puv4sDHHu40Gh88b9JXu2+Ll2O4t1i4idsGkv4F+pBE3TA3IvM357mUBobcjGiE/jcmeH52C1X5rnKvl87zC8GsrXerFE8AhPBN1b/BcAgAlJ8QHivULc012JF2joMNXOXcJJjXHPfLV/Qf+o8MUydBK1v/wHJFimfq9qt2iAAUec5VXl1QL7GqRzoSIfhPG3e+2SZj3zGRKo69HOwVkcnDx4nTehgZ0Rt23rl421NfqQK11QaxBTqMpGseW/etNKrIWAcMDHY7VU+GoK5N/Ap7dVF
+X-Microsoft-Antispam-Message-Info: VfmXFw/YZInbHSaxVhseBKddMVl8kWqnulOO/pUIntOujUygeJd9sMDjHKfOFJpJmrBNYjDItwSwRjX0Yj8NUXpG7qNKaSXOm9rGrcEiXPn5Xn0EftK5aVVd0bpXVSHCa/N15f7rUdaEdEn7mRiKrQi5IAKjU3gFDHwGc752U6hJ4k+PgNiSfF5Xu3DdUwtB74U/aWuu+b5YMczLv1UgsMr0D/o7eeYrbzBEDKMsCOF9FoXOdgzgaVJNROiypaNJOKv3pO2Hok9bnDqGVJTxcC8vujIQNQzELuF2Z+MWdfH0y9i7eBvNIYtd2hgAZtPCIVYfaoJzASdrUE8nqOXN+H9BCJ3FiDKr4Vhp56qFqxDDdw1bzZE3GkxkbtvoT7WiPZ5hqGL4jq2LIqnNXWLDtu67Et65WabuKOsMWmst+R25PZR7mVP4cG2wsdS2xQaiYiAc9t2gdmu6nbW21rh+CTrU7JmTjRnbEfufM4KQthEZ2dyCvgnKc0zfyu2MICApEw5JAxbNmq0yyTovTe/osOnHWq8k3aE/SxiBixIF0vYTzxYSJ5wpzcJHXO7NnfgoILxIhidfPQO4LRg9c9nN0M2PvkkV6TMl03LnlN+gPPk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(376002)(346002)(39860400002)(396003)(366004)(230922051799003)(186009)(64100799003)(451199024)(1800799012)(66476007)(31686004)(44832011)(41300700001)(66556008)(2906002)(66946007)(38100700002)(5660300002)(31696002)(54906003)(8676002)(83380400001)(4326008)(8936002)(26005)(86362001)(6512007)(2616005)(53546011)(36756003)(6506007)(6486002)(316002)(478600001);
+ SFS:(13230031)(136003)(376002)(346002)(39860400002)(396003)(366004)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(53546011)(66899024)(41300700001)(6486002)(5660300002)(110136005)(478600001)(6506007)(31686004)(6666004)(6512007)(26005)(2616005)(921011)(2906002)(83380400001)(44832011)(7416002)(38100700002)(36756003)(8936002)(66476007)(66946007)(316002)(8676002)(66556008)(86362001)(31696002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SEYvcDRhWUFPaGs4U2hlckJHTW9RZlM3N2RTVjhMYW51bGZIZU9RcG15QkJp?=
- =?utf-8?B?VEhVTHQ4eC9BUzl0NEh3NE5WamNsZVJUcWFVL3VCejBNa1JBTjArQ3NVbG1n?=
- =?utf-8?B?Wk5hd0tCV01KMi9PWjBJbWVSa01HYTR5aXF3akJsYVNCOTV6RU1UdTJ4WU15?=
- =?utf-8?B?WFlPK3RJaXBYQWFybkh4RTdMUWV4bEJRR0RHc2htQ0ZGTjl2TkZ6OE55L240?=
- =?utf-8?B?Z3VQN2h0ZVJIVEdCSjc0Y1hWRmo2UTV6TUZ0L2FjaFBQVmNVK0puaUp2VktQ?=
- =?utf-8?B?R0U2K3E2U05NQWFGOHpyUGlvbmQ3enhyeFozSHMzdzI0THVnRHRvSVhvZ3hx?=
- =?utf-8?B?RHFrdjBZbzFjVG5oSVpTY1VhSTR4aFdmU0RPbWR3ci9MbU9lMUlzNWxSOUZ6?=
- =?utf-8?B?MjlXUWVkMFFWdUw0T0hSZ1M3dHl3dmhXM2hOYUlQeTZGay8ycm8rWHBiTVJ3?=
- =?utf-8?B?eEtqVkJvdmdZSXkvSVRzMmJxQS9tWGx2U1R4bGlSMTdWYncwdXdOckVpN3p5?=
- =?utf-8?B?MjBQcW9uZ3ZoU0JGaTk4aVZzMUFPdzR5cmI3VTBIUEJadzB0QTYxc3QwaENv?=
- =?utf-8?B?eCtpNmVCWDBoS2FMYjVYQ0JBL3AvT1k0K0IzeFJjQkpWeFdGMVZCd2hZcXBh?=
- =?utf-8?B?N2QvSGtYaXhWSzZYVXh0QTBvSFk5NURhalNtTFhXYXlyS1RrMFByd0JjSnFQ?=
- =?utf-8?B?bndGT08xVUxMSDBQL1hqRFpadjh3c0RjVzBpbVFFb3lWbXgyWms4ZTdlT2hG?=
- =?utf-8?B?UzJBRTUwaTh1aE53NDBBK3F6TnlpVzl5ZFJGTnRTNmllNlNRMVg2R2N6Q1lx?=
- =?utf-8?B?VXE1dDdVUmVicXFzZnlWaEF1MHo4M3BnSGJ3SXRLRVlLdk0rbVNNN3M5YWQ5?=
- =?utf-8?B?MkUrOE9WVnpVbEtta0RvZzg1VGd3VWtaak5FZmlWRVRZaTFCOXZOR2piM1pU?=
- =?utf-8?B?NFRUcWRablAvMnc2STNnQ0N1ZjhSWjRVUzZNa3ZqVWJ5bktObGlXaHliOGhJ?=
- =?utf-8?B?SVFTQndIbHdvZFBuMERMTjkxVXFHL1ZleGtlZzN3Y2JKUEFRTUQxdElwYm5p?=
- =?utf-8?B?QlNGcUtNemIrdFM3SkJscnNMMzE0ZHB5aXN6aVZMd25oRXQxcnZBbGIxc1JO?=
- =?utf-8?B?b0x3cUFRUWt2c3NhYlVKMStKdEJIRVhPejNzVUQzZ1hNVmJzZnliL3MyeFo5?=
- =?utf-8?B?cHQ0NHB4ZFhnUTkwKytnTWdKbUZIT2txRjdlMm9vVklIODAxc1RKMDh6VWNO?=
- =?utf-8?B?WDJHS2hFM3JBQU5sUnlaa3dUSFZkSTlrUkNYOW11cEwxZnhGNzl3MEdMUUln?=
- =?utf-8?B?VDcrcklidGVtYnkrclhmQ0dHclNnRjdaamN3TnlLMXdEeWpvTFBSK2FIVjEw?=
- =?utf-8?B?THNlRmJKR2tnenRTTHZCOExQRk80M01WLzQ1K1hQbitTcjhmM1VDSFBCZXp3?=
- =?utf-8?B?S2RUUzJEWXI0OGY5SnRKbVEzdUZqUjUwZGl0RXdIL2h6Q0VleE9QMUlFMnlL?=
- =?utf-8?B?c2t2d3N6MVY2dVhEUWRTNjh2UVppTGp2TzdqeHA1Y3NXZnY5WnVCWVRjYkZR?=
- =?utf-8?B?VERNaGE4Z3dHQVQ4Skkrd204V2VQMHdOUjF1NWJDcHFXOXBHNWNIMUU1ZGlH?=
- =?utf-8?B?cWVrWW9jRFlvS2UvZ2cxUXZQL2hZVDg5Q0d4R3psdnNrMllJZnlmTURNZWw2?=
- =?utf-8?B?NGRSczhGNDVIZWsxTzVOdS92R1Q0T0sxLzd1d3dGaTRJc1AreHJRa0FtVG5U?=
- =?utf-8?B?TXpqU0dCbkpwcVFlMmRWQzk0bC91RjhwL0lCcFNIaW9QQkJOa0FoenBsRngy?=
- =?utf-8?B?UmV5eFhXN0oxV2ZpTHNRcjJBV0MxcEMvL1o5NDVBVXZ1TFNGbUp2Yk5VZVZE?=
- =?utf-8?B?a0dZbkdSUmlSbGk2V2FYMGpqRDIyazdzOHVJeTFrSll4NHNKZ0JMaW1qcmYy?=
- =?utf-8?B?MWZ2TFIrdGN3MXF3c2U4QjUwdnVvVFJ4Q2lzcmFjU0dKS1RSRXQ4KzZjVlBR?=
- =?utf-8?B?SlBLYzN1VHNWS2lHRXZrYWtMaXFyYllsdjVFc091d3dla0lPMzZ5SWRZdjU0?=
- =?utf-8?B?eFNmOFhmSzN5bzgxekxLc2V3U1JPd0lmS2Z0QzRTbTZCSndQN1JXUERFU1NR?=
- =?utf-8?Q?d5cjW/nYlydROIafCngTm7HpW?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ck1FbDl5YndHNTlZNytlWmlLenBQdFZoNFVpSjk1SlhST2RmQVFYM1JYaEFQ?=
+ =?utf-8?B?VDR4YVcxV0ZidkRyenp5TkFsY040Skxhc2tkRDZMNEZpSXA0NERvY2wrQlJP?=
+ =?utf-8?B?TVY3MDg1RU44c0pZRTR3cmZBRFlaREs2djRmWi9mSWxIeFpocldQZHRrRGZa?=
+ =?utf-8?B?MnR0WFlmRElrd1NBZnBXM1J6VHNEWkcxYjJEeHpiZmErYUFrL21aWVRxTDRq?=
+ =?utf-8?B?SGtEc2V6Z0Vtd1Q4TzArSEdoVjNGMGJNRE0zMjhNRlFtYnhCTDNiZ2FuK1la?=
+ =?utf-8?B?QnAvUUwxQnNZbEdnVS9oNENkYWc5V3oxM3RycXhFRnBEUGZhUTIwZXAzS3dq?=
+ =?utf-8?B?TGd2Q2JGN2lOeU1Za0M0MVVuclJraWZzV0dUWmpJbmNhMTRKUnN6UndyVjk3?=
+ =?utf-8?B?QW1aRkpDeWt2WUQrZ0o2VSs3TzAyeUhlTHJqbjJ3djdBRnNBMXA2Z2FCWk1N?=
+ =?utf-8?B?aFlxb2lhSlRwVTdndmFYM0Y3dmlmNTZJaUVsK01GZmYyWVBtblFXbG1ZWVlJ?=
+ =?utf-8?B?TUJnV2Z4TzVuUzU2SVVzVEYvdkhESUFtd0xPQXA4bW9henVoQlRyL1dCaEtE?=
+ =?utf-8?B?bTNoVGtCc3pDdnlXN0FiUW03NnFRYXZkb01RRU9KL2s4cjNWUDhrdGc5U0xH?=
+ =?utf-8?B?T0xXWWEyMlBuYzVhRGQ4U1ByWE1Cd2g3WWhESHhNN3JIbUpjTFBRSjJBQ215?=
+ =?utf-8?B?VGw0QXpEWElCRUJaclFVUmRicjZiL3UwZmNmRXJoeW0vSFJSY05MWGNqazFW?=
+ =?utf-8?B?a2p2UWUyL0RiMTA3NVNaZjJqQ1JwbGRXUVlwaHYxRWRISDFCNjloOFBuS05v?=
+ =?utf-8?B?MkVXN1AxRDgzdXZrT0JkTGc3empqNFNhUy9MdkpkQmhRSU52a1V0bjg5Ykp2?=
+ =?utf-8?B?cC84VVhpZmg2Y0h4TG11c2RhSGtoVWZXNTBTRHBjR1A1cTA4K0xUZndTZ1J3?=
+ =?utf-8?B?SXlkZXZCYklKdE1rRmwvSTlsYXlQK2pnYW0yOHFjbC9OaUZ3S0h3cWxHNnVp?=
+ =?utf-8?B?RUh6UnROQkFUc3VZOU0rU2ErdWxwemxESUhJV1RDQ0g5R3YwZDRlMTgvT2Y0?=
+ =?utf-8?B?UHc5aTIxNzRnQmJvRFV1MitQcmd2YSs4VTVIaUZwYnREV3MyZGJmWWNTdUtC?=
+ =?utf-8?B?N2JjMDRIc3VKa2sxWW5xajFGY0VvcnpzRVExaHJjTGQyUFRORGtFY01JN1BC?=
+ =?utf-8?B?YVdOR2EvT1IyWVJuMVA3TEFnRnltRmw1TWtTdlVqNkdnSTl5bFI5dHBraWg4?=
+ =?utf-8?B?cGxobHoydjRQZWlwZkJkc1BySmNsRThUSDFzS25EajFXNEZhaitEYVF5Qml5?=
+ =?utf-8?B?aWtGYmw2a0hVc0tCRjZ3empYcW96L2Y3QkN2czRYUi9mZ0NselRBeTlUZFk5?=
+ =?utf-8?B?Y0xlQzNIeE93cFVrMHpRd1ljYlhVaVA4emVEOXd3TmtHekpGYU8zV3o3d2R0?=
+ =?utf-8?B?NEFFOGYzTnQvR29KcDFCNUpOY1l1OHV0bmlhc0RYUGdSUU9MZzBZL2ZrS010?=
+ =?utf-8?B?N2hTMHlzYUJlSW96cGtGN0lYdmFnTy9mamZpYng2d01nWnB5d1lsZVBBWWxv?=
+ =?utf-8?B?SFRhTGdlSTJYSlhNb2hJc0YyaWhHSDAxaFAzR2hoWWtsRXBVQUVjTUdsR2Ir?=
+ =?utf-8?B?MmFlS3d3RjlheXJROXR1VXh2NEszaElqNUtKMDJMWi9wZEN2ajE2d09LQW95?=
+ =?utf-8?B?MkxEcWRudVo2NUdaRnZLdFhDODB4cHQ5Q0l5V1c4T0Q0Rk9LMno4bkdVVEp5?=
+ =?utf-8?B?VUUxUS9Ua2I0K00rUDRWMThFNzhnTWlzL1ZGUkN2NUkvKzdTQllsQVdMSnVS?=
+ =?utf-8?B?NnFwWm5xZ09jZDdraE1wR013VTJINDQyTzBsMzRFTFBaVldabnlYbllNRU82?=
+ =?utf-8?B?UnNHdW81azI1WGlTTWVHVUt3QXNSYVNudUVBWHJxbnpFbVhhSHo3VHhtNWYz?=
+ =?utf-8?B?OW1oYlZHdVhDZFFvcmRrQWFldTFJWG5vVWFtOWs1STAwN3p4N1loVW96VlNa?=
+ =?utf-8?B?UlY2Q0NuRUFSSW5UbUQraXIwTDVJTzRjRjRDMGQvYmlDU2R0QTJCb2E3MGVH?=
+ =?utf-8?B?YUFmaEVPTVQ2ekhLN096Tk9JVURYQy9aV29yNHU3WFhmTm13ZjBYVVFraW1m?=
+ =?utf-8?Q?xWThTXnkSj3/S5HBD9/kko9MO?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5586990-e6f6-4779-d668-08dc2abd4b0e
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab028a70-b19c-41a3-9fc4-08dc2ac10399
 X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2024 04:52:47.7316 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2024 05:19:25.8277 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 27xnocqe5BJll9/R9ndphRSW54IZr2tE4f3dFZ7u9oZJY/e064wxF8au86n35OuXkRQtwZrjChaT46tMD66yNw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5814
+X-MS-Exchange-CrossTenant-UserPrincipalName: Fhyb9ABhSD8/0q8ICPEc/INdTWMdYGC+xsvjNhwnNouwqTyy9oOVFePaK6ZPQSrSmD2oHRKHUu7jG+d63QZ/2A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8943
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,99 +138,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/9/2024 15:46, Hamza Mahfooz wrote:
-> Currently, if the abmlevel module parameter is set, it is possible for
-> user space to override the ABM level at some point after boot. However,
-> that is undesirable because it means that we aren't respecting the
-> user's wishes with regard to the level that they want to use. So,
-> prevent user space from changing the ABM level if the module parameter
-> is set to a non-auto value.
+On 2/9/2024 12:57, Daniel Vetter wrote:
+> On Fri, Feb 09, 2024 at 09:34:13AM -0600, Mario Limonciello wrote:
+>> On 2/9/2024 05:07, Daniel Vetter wrote:
+>>> On Thu, Feb 08, 2024 at 11:57:11AM +0200, Jani Nikula wrote:
+>>>> On Wed, 07 Feb 2024, Mario Limonciello <mario.limonciello@amd.com> wrote:
+>>>>> Some manufacturers have intentionally put an EDID that differs from
+>>>>> the EDID on the internal panel on laptops.  Drivers can call this
+>>>>> helper to attempt to fetch the EDID from the BIOS's ACPI _DDC method.
+>>>>>
+>>>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>>>>> ---
+>>>>>    drivers/gpu/drm/Kconfig    |  5 +++
+>>>>>    drivers/gpu/drm/drm_edid.c | 77 ++++++++++++++++++++++++++++++++++++++
+>>>>>    include/drm/drm_edid.h     |  1 +
+>>>>>    3 files changed, 83 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+>>>>> index 6ec33d36f3a4..ec2bb71e8b36 100644
+>>>>> --- a/drivers/gpu/drm/Kconfig
+>>>>> +++ b/drivers/gpu/drm/Kconfig
+>>>>> @@ -21,6 +21,11 @@ menuconfig DRM
+>>>>>    	select KCMP
+>>>>>    	select VIDEO_CMDLINE
+>>>>>    	select VIDEO_NOMODESET
+>>>>> +	select ACPI_VIDEO if ACPI
+>>>>> +	select BACKLIGHT_CLASS_DEVICE if ACPI
+>>>>> +	select INPUT if ACPI
+>>>>> +	select X86_PLATFORM_DEVICES if ACPI && X86
+>>>>> +	select ACPI_WMI if ACPI && X86
+>>>>
+>>>> I think I'll defer to drm maintainers on whether this is okay or
+>>>> something to be avoided.
+>>>
+>>> Uh yeah this is a bit much, and select just messes with everything. Just
+>>> #ifdef this in the code with a dummy alternative, if users configure their
+>>> kernel without acpi but need it, they get to keep all the pieces.
+>>>
+>>> Alternatively make a DRM_ACPI_HELPERS symbol, but imo a Kconfig for every
+>>> function is also not great. And just using #ifdef in the code also works
+>>> for CONFIG_OF, which is exactly the same thing for platforms using dt to
+>>> describe hw.
+>>>
+>>> Also I'd expect ACPI code to already provide dummy functions if ACPI is
+>>> provided, so you probably dont even need all that much #ifdef in the code.
+>>>
+>>> What we defo cant do is select platform/hw stuff just because you enable
+>>> CONFIG_DRM.
+>>> -Sima
+>>
+>> The problem was with linking.  I'll experiment with #ifdef for the next
+>> version.
 > 
-> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-Tested-by: Mario Limonciello <mario.limonciello@amd.com>
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h               |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           | 11 ++++++-----
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 ++++++++++-----
->   3 files changed, 17 insertions(+), 11 deletions(-)
+> Ah yes, if e.g. acpi is a module but drm is built-in then it will compile,
+> but not link.
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 1291b8eb9dff..f5c8187e0d58 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -196,7 +196,7 @@ extern int amdgpu_smu_pptable_id;
->   extern uint amdgpu_dc_feature_mask;
->   extern uint amdgpu_dc_debug_mask;
->   extern uint amdgpu_dc_visual_confirm;
-> -extern uint amdgpu_dm_abm_level;
-> +extern int amdgpu_dm_abm_level;
->   extern int amdgpu_backlight;
->   extern int amdgpu_damage_clips;
->   extern struct amdgpu_mgpu_info mgpu_info;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 6ef7f22c1152..af7fae7907d7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -849,12 +849,13 @@ module_param_named(visualconfirm, amdgpu_dc_visual_confirm, uint, 0444);
->    * the ABM algorithm, with 1 being the least reduction and 4 being the most
->    * reduction.
->    *
-> - * Defaults to 0, or disabled. Userspace can still override this level later
-> - * after boot.
-> + * Defaults to -1, or disabled. Userspace can only override this level after
-> + * boot if it's set to auto.
->    */
-> -uint amdgpu_dm_abm_level;
-> -MODULE_PARM_DESC(abmlevel, "ABM level (0 = off (default), 1-4 = backlight reduction level) ");
-> -module_param_named(abmlevel, amdgpu_dm_abm_level, uint, 0444);
-> +int amdgpu_dm_abm_level = -1;
-> +MODULE_PARM_DESC(abmlevel,
-> +		 "ABM level (0 = off, 1-4 = backlight reduction level, -1 auto (default))");
-> +module_param_named(abmlevel, amdgpu_dm_abm_level, int, 0444);
->   
->   int amdgpu_backlight = -1;
->   MODULE_PARM_DESC(backlight, "Backlight control (0 = pwm, 1 = aux, -1 auto (default))");
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index fbe2aa40c21a..a5b3330879f3 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6513,7 +6513,8 @@ static void amdgpu_dm_connector_unregister(struct drm_connector *connector)
->   {
->   	struct amdgpu_dm_connector *amdgpu_dm_connector = to_amdgpu_dm_connector(connector);
->   
-> -	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP)
-> +	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP &&
-> +	    amdgpu_dm_abm_level < 0)
->   		sysfs_remove_group(&connector->kdev->kobj, &amdgpu_group);
->   
->   	drm_dp_aux_unregister(&amdgpu_dm_connector->dm_dp_aux.aux);
-> @@ -6577,9 +6578,12 @@ void amdgpu_dm_connector_funcs_reset(struct drm_connector *connector)
->   		state->vcpi_slots = 0;
->   		state->pbn = 0;
->   
-> -		if (connector->connector_type == DRM_MODE_CONNECTOR_eDP)
-> -			state->abm_level = amdgpu_dm_abm_level ?:
-> -				ABM_LEVEL_IMMEDIATE_DISABLE;
-> +		if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
-> +			if (amdgpu_dm_abm_level <= 0)
-> +				state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
-> +			else
-> +				state->abm_level = amdgpu_dm_abm_level;
-> +		}
->   
->   		__drm_atomic_helper_connector_reset(connector, &state->base);
->   	}
-> @@ -6617,7 +6621,8 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
->   		to_amdgpu_dm_connector(connector);
->   	int r;
->   
-> -	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
-> +	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP &&
-> +	    amdgpu_dm_abm_level < 0) {
->   		r = sysfs_create_group(&connector->kdev->kobj,
->   				       &amdgpu_group);
->   		if (r)
+> You need
+> 
+> 	depends on (ACPI || ACPI=n)
+> 
+> for this. Looks a bit funny but works for all combinations.
+
+Nope; this fails at link time with this combination:
+
+CONFIG_ACPI=y
+CONFIG_ACPI_VIDEO=m
+CONFIG_DRM=y
+
+ld: drivers/gpu/drm/drm_edid.o: in function `drm_do_probe_acpi_edid':
+drm_edid.c:(.text+0xd34): undefined reference to `acpi_video_get_edid'
+make[5]: *** [scripts/Makefile.vmlinux:37: vmlinux] Error 1
+
+So the logical solution is to try
+	depends on (ACPI_VIDEO || ACPI_VIDEO=n)
+
+But that leads me back to the rabbit hole of why I had the selects moved 
+to drm instead of drivers in the first place:
+
+drivers/gpu/drm/Kconfig:8:error: recursive dependency detected!
+drivers/gpu/drm/Kconfig:8:      symbol DRM depends on ACPI_VIDEO
+drivers/acpi/Kconfig:213:       symbol ACPI_VIDEO depends on 
+BACKLIGHT_CLASS_DEVICE
+drivers/video/backlight/Kconfig:136:    symbol BACKLIGHT_CLASS_DEVICE is 
+selected by DRM_RADEON
+drivers/gpu/drm/radeon/Kconfig:3:       symbol DRM_RADEON depends on DRM
+
+
+> 
+> Since this gets mess it might be useful to have a DRM_ACPI_HELPERS Kconfig
+> that controls all this.
+
+How about all those selects that I had in this patch moved to 
+DRM_ACPI_HELPERS and keep the patch that drops from all the drivers then?
+
+> -Sima
+> 
+>>
+>>>
+>>>>
+>>>>
+>>>>>    	help
+>>>>>    	  Kernel-level support for the Direct Rendering Infrastructure (DRI)
+>>>>>    	  introduced in XFree86 4.0. If you say Y here, you need to select
+>>>>> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+>>>>> index 923c4423151c..c649b4f9fd8e 100644
+>>>>> --- a/drivers/gpu/drm/drm_edid.c
+>>>>> +++ b/drivers/gpu/drm/drm_edid.c
+>>>>> @@ -28,6 +28,7 @@
+>>>>>     * DEALINGS IN THE SOFTWARE.
+>>>>>     */
+>>>>> +#include <acpi/video.h>
+>>>>>    #include <linux/bitfield.h>
+>>>>>    #include <linux/cec.h>
+>>>>>    #include <linux/hdmi.h>
+>>>>> @@ -2188,6 +2189,49 @@ drm_do_probe_ddc_edid(void *data, u8 *buf, unsigned int block, size_t len)
+>>>>>    	return ret == xfers ? 0 : -1;
+>>>>>    }
+>>>>> +/**
+>>>>> + * drm_do_probe_acpi_edid() - get EDID information via ACPI _DDC
+>>>>> + * @data: struct drm_device
+>>>>> + * @buf: EDID data buffer to be filled
+>>>>> + * @block: 128 byte EDID block to start fetching from
+>>>>> + * @len: EDID data buffer length to fetch
+>>>>> + *
+>>>>> + * Try to fetch EDID information by calling acpi_video_get_edid() function.
+>>>>> + *
+>>>>> + * Return: 0 on success or error code on failure.
+>>>>> + */
+>>>>> +static int
+>>>>> +drm_do_probe_acpi_edid(void *data, u8 *buf, unsigned int block, size_t len)
+>>>>> +{
+>>>>> +	struct drm_device *ddev = data;
+>>>>> +	struct acpi_device *acpidev = ACPI_COMPANION(ddev->dev);
+>>>>> +	unsigned char start = block * EDID_LENGTH;
+>>>>> +	void *edid;
+>>>>> +	int r;
+>>>>> +
+>>>>> +	if (!acpidev)
+>>>>> +		return -ENODEV;
+>>>>> +
+>>>>> +	/* fetch the entire edid from BIOS */
+>>>>> +	r = acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, &edid);
+>>>>> +	if (r < 0) {
+>>>>> +		DRM_DEBUG_KMS("Failed to get EDID from ACPI: %d\n", r);
+>>>>> +		return -EINVAL;
+>>>>> +	}
+>>>>> +	if (len > r || start > r || start + len > r) {
+>>>>> +		r = -EINVAL;
+>>>>> +		goto cleanup;
+>>>>> +	}
+>>>>> +
+>>>>> +	memcpy(buf, edid + start, len);
+>>>>> +	r = 0;
+>>>>> +
+>>>>> +cleanup:
+>>>>> +	kfree(edid);
+>>>>> +
+>>>>> +	return r;
+>>>>> +}
+>>>>> +
+>>>>>    static void connector_bad_edid(struct drm_connector *connector,
+>>>>>    			       const struct edid *edid, int num_blocks)
+>>>>>    {
+>>>>> @@ -2643,6 +2687,39 @@ struct edid *drm_get_edid(struct drm_connector *connector,
+>>>>>    }
+>>>>>    EXPORT_SYMBOL(drm_get_edid);
+>>>>> +/**
+>>>>> + * drm_get_acpi_edid - get EDID data, if available
+>>>>
+>>>> I'd prefer all the new EDID API to be named drm_edid_*. Makes a clean
+>>>> break from the old API, and is more consistent.
+>>>>
+>>>> So perhaps drm_edid_read_acpi() to be in line with all the other struct
+>>>> drm_edid based EDID reading functions.
+>>>>
+>>>>> + * @connector: connector we're probing
+>>>>> + *
+>>>>> + * Use the BIOS to attempt to grab EDID data if possible.
+>>>>> + *
+>>>>> + * The returned pointer must be freed using drm_edid_free().
+>>>>> + *
+>>>>> + * Return: Pointer to valid EDID or NULL if we couldn't find any.
+>>>>> + */
+>>>>> +const struct drm_edid *drm_get_acpi_edid(struct drm_connector *connector)
+>>>>> +{
+>>>>> +	const struct drm_edid *drm_edid;
+>>>>> +
+>>>>> +	switch (connector->connector_type) {
+>>>>> +	case DRM_MODE_CONNECTOR_LVDS:
+>>>>> +	case DRM_MODE_CONNECTOR_eDP:
+>>>>> +		break;
+>>>>> +	default:
+>>>>> +		return NULL;
+>>>>> +	}
+>>>>> +
+>>>>> +	if (connector->force == DRM_FORCE_OFF)
+>>>>> +		return NULL;
+>>>>> +
+>>>>> +	drm_edid = drm_edid_read_custom(connector, drm_do_probe_acpi_edid, connector->dev);
+>>>>> +
+>>>>> +	/* Note: Do *not* call connector updates here. */
+>>>>> +
+>>>>> +	return drm_edid;
+>>>>> +}
+>>>>> +EXPORT_SYMBOL(drm_get_acpi_edid);
+>>>>> +
+>>>>>    /**
+>>>>>     * drm_edid_read_custom - Read EDID data using given EDID block read function
+>>>>>     * @connector: Connector to use
+>>>>> diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+>>>>> index 7923bc00dc7a..ca41be289fc6 100644
+>>>>> --- a/include/drm/drm_edid.h
+>>>>> +++ b/include/drm/drm_edid.h
+>>>>> @@ -410,6 +410,7 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
+>>>>>    	void *data);
+>>>>>    struct edid *drm_get_edid(struct drm_connector *connector,
+>>>>>    			  struct i2c_adapter *adapter);
+>>>>> +const struct drm_edid *drm_get_acpi_edid(struct drm_connector *connector);
+>>>>
+>>>> There's a comment
+>>>>
+>>>> /* Interface based on struct drm_edid */
+>>>>
+>>>> towards the end of the file, gathering all the new API under it.
+>>>>
+>>>> Other than that, LGTM,
+>>>>
+>>>> BR,
+>>>> Jani.
+>>>>
+>>>>>    u32 drm_edid_get_panel_id(struct i2c_adapter *adapter);
+>>>>>    struct edid *drm_get_edid_switcheroo(struct drm_connector *connector,
+>>>>>    				     struct i2c_adapter *adapter);
+>>>>
+>>>> -- 
+>>>> Jani Nikula, Intel
+>>>
+>>
+> 
 
