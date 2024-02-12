@@ -4,120 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 597E6C48297
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Feb 2024 16:07:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14C03C48297
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Feb 2024 16:31:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6654C10E21E;
-	Mon, 12 Feb 2024 16:06:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE2D710E7E7;
+	Mon, 12 Feb 2024 16:31:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QREQMKYP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EvSbM/Aq";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2047.outbound.protection.outlook.com [40.107.243.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E38B10E21E
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Feb 2024 16:06:52 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2050.outbound.protection.outlook.com [40.107.220.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1204610EDFF;
+ Mon, 12 Feb 2024 16:31:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FkCYVvxKYoeDcbWfVnP55lXwtvJFCQ+dY14hBc2zloIbxQQeIbEamWB4ykPqDA9OwCUnJcCh8lmCukmp4szoDGBSwR911X37qktQDlm73JRKE6YoHB2ljPmP/UArJU7UI0m0v7R3f0wB1dCBPUh73u4E0L5ZNl12DatQZuK3Y6mHz91grxaEwDVE/8eNAuAaX5dFFpTV/9W/rtZ5PCplksZKMb/w0PchXJnJMfijcVLFP5smdhas9F0/VzJDclVdiqym1SvsMVoAd+k6MB5r1pkw/JIHfF5DqBz+Y/+NwACEEYlfp323Szw9B94g6E8ylHmT9fAJ4RkGepQ+x5DPoA==
+ b=B2BLAY/bKMKQJd/MwXjr2iQwSEtSLD02wPgM/ZcuAxR14yzxnnYE1XfDRxKIdIBTNW0YUYVCozD+46cUH3yVG8me9egotcODKBNw5FP12o4ID1unX3iZMY9zLXN2G/63yVOYAALx11yVzNyhxfNoeUZDn1eSGyEC2qYha3gpCg+uS9zby8y9Bqh0IdYgrYxaYUsBtLd03WjCoXnpzY2eCgdiFS4DCfsLDUaJtyQQUzCWWZPJPB9NOiEdP3R4J+rNht44LGHrMbhUm4ag5QHxYQff+wjTf3A7DbZP7ZzE+rtXmwaLsSP7dm+6niiXls07uDWqsb0PTqK6YpI0Hv6B2A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NuRKT6Ifn2k5PYgSoOrJ6jSMiiRK4Q+3HPPBP9u/UUw=;
- b=esVOJLkSq5YLD94drexAQBrpbKFGla/rIuc1oU09eUAnP+XdcMbqUQpPXr/y9h5UJTEwiMWDZLAljAWVeXPS/iiZFxe6XhalqSASELZqT6P0Q8v/G2eSkCKtfkzpiI5dh3HfEcEEQr68zMcunc9sCmSWfVu7FGO24IjzKAU6oX2NS3LG8OVkxJuDwmI+ANqVYsa9PYf8w6nsfFNKaop4jDsoXav+fGzA+MHSuldrWDWyey6ZW7P6WvnFbz01ybtfspzLYWrrVJiOyPyY6OwfTZBR/Ik0hIwcAkkkS/nieHyTe2MCxIf+W4EhHAOtR/2BjzE4cqKR+8RWygwtWshqcA==
+ bh=uWvisoDDPrjELF0J08m9VyVmtr8yMEDaJxd90x+PuQk=;
+ b=Gv2lS3/coyGhETNCrKyLpUj+7bpgq++IJ+TDDTT9YxUo7hRYkW+Qn/FcVnPAkl5k5hssg6/Rj9a+8JEwElscsII87lBDBvFvF7jzHHc+mvwvcT9CJlVbtMzXdEkrRSiI1KRBQUZGKCtLbDc//at0ZAQt2/EabzqnfSjyLOtlvkmOabE5rMkcy9hVETAqv1nHOF/KKBGx3UXXXiOdlOqzDgjp+ZvFdtUj7MWSbprMM+n5Ss1nieKBZbZOwKQhAMNK7dm0ovCQhHlq6xZrm0JP55vugzyGO7crpv252OpEBwLVGC9+qYmivf/pjfm7a2OnTAVdYI4bNdMs6BockH3EBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NuRKT6Ifn2k5PYgSoOrJ6jSMiiRK4Q+3HPPBP9u/UUw=;
- b=QREQMKYPV0IudEkdTkjupfcMoEY9DkELutCG94+XS65s3aZngYT0acx/tYedAnmzaiYb+KGbsC4AgXlUDB7+L91l7yW4MGhz1/a0nRQE3g70POPhGDu8uRQBxVs8jnlRqsa23Wol/RhUOZ6oSC8L6MmfwvqyWx/7JEEn0nGMNns=
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
- by LV8PR12MB9183.namprd12.prod.outlook.com (2603:10b6:408:193::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.24; Mon, 12 Feb
- 2024 16:06:48 +0000
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::2cf:b226:30be:d982]) by CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::2cf:b226:30be:d982%4]) with mapi id 15.20.7292.022; Mon, 12 Feb 2024
- 16:06:48 +0000
-From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Chung, ChiaHsuan (Tom)"
- <ChiaHsuan.Chung@amd.com>, "Li, Roman" <Roman.Li@amd.com>
-Subject: Re: [PATCH v2] drm/amdgpu/display: Initialize gamma correction mode
- variable in dcn30_get_gamcor_current()
-Thread-Topic: [PATCH v2] drm/amdgpu/display: Initialize gamma correction mode
- variable in dcn30_get_gamcor_current()
-Thread-Index: AQHaXcj2spDnuA9PiUeYFeorkSWUe7EG31F1
-Date: Mon, 12 Feb 2024 16:06:48 +0000
-Message-ID: <CH0PR12MB5284D2A6B36DB61492907A088B482@CH0PR12MB5284.namprd12.prod.outlook.com>
-References: <20240212153347.1175416-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20240212153347.1175416-1-srinivasan.shanmugam@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-02-12T16:06:43.798Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
-authentication-results: dkim=none (message not signed)
+ bh=uWvisoDDPrjELF0J08m9VyVmtr8yMEDaJxd90x+PuQk=;
+ b=EvSbM/Aqd2Fb2qx13i4Z5JXwnVaq/1vrbF8mZZtFTGd1M4VmV4TZ1pUXuTgbewQv2PRv2TNkLnz8c7hqVznW2OcWDFCYFtPDjWhPpLefmN/kJ9bnmI0tNHfWTq8jGueyDiSNe/IVyWPFWJmO2EiAWYTh5E4wcQOp/kwYx6n6DtM=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|LV8PR12MB9183:EE_
-x-ms-office365-filtering-correlation-id: 4c07c880-a5a2-4a74-18ff-08dc2be49e39
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: nHQCgVAfjChCVpUxQuveahj3Bm2b47czG2gR3lLy2GIl6SNmqC3zd8GW8vSeQNg/ZdflyaaGw8hD9/NCu6dgdKgwB9LusI1RRkZlCGIblLshkIl38V5z76cRGJtg/DF36Kg1zhnCqwK9XLJU8LVty1Jh8m0FzZgBLJncOut4WolvlLA23xvyMKwyDGIznc38z3OhPCvBLkV8ARnQcdfp8v7NHwDaPwc67nauNtrbk8PHiUdNBvl6tezbZY6uzymkdwdQFunmwYNXJGmEFqleRHvY+7E5Fduqfq2y8oVT9jlJqIYmo1GdPkn4FZg6NKyvBquOEU53qJTW1FrclWgQIMyZ80Xnlmy3JzmUNLUoype0GJj3WxLKvff5JQCc4y0sG++YRwJByZiWjFSFDTynhdsXckGB1bgy1s11irq/No0hXxpsi6XpIypo50oJoDKE1gW6B8cqJIsgO2LgVvXyKjhNfIv4zo48XYzOYV04tiJO1d8I97z0Ac4Cq9mhbIUrxBTCvkrMqXAWuOXRnDbG5bTqtjXVKDOGS4C3LP8uXMMTyB3M9utFeuTOOzyh1FoaTpXaqzTKq3dOSwDdzip1dBxNU1LIkLn59K8kVRvoVxQ=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(376002)(136003)(346002)(39860400002)(396003)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(19627405001)(54906003)(6636002)(316002)(41300700001)(55016003)(2906002)(66446008)(8676002)(8936002)(66476007)(5660300002)(52536014)(86362001)(83380400001)(66556008)(76116006)(91956017)(66946007)(64756008)(110136005)(4326008)(71200400001)(33656002)(478600001)(26005)(7696005)(38070700009)(9686003)(53546011)(6506007)(38100700002)(122000001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?FGRfVE+45PoLTd/HFsrrysVNG78cWJwEWPLTHdiEI0JYETApOIDT1hhunlU3?=
- =?us-ascii?Q?lhE4Cc6SbzljBzjAXsxkoJPzbSZhNhGOqw1bheKroSB0RY93ypXNFATw2Mw+?=
- =?us-ascii?Q?IzoYkal9Gsm1ld2GSFpTNRNtn3vxeyUKBmISBQfcyE71qEhOPSmrodO0IyuS?=
- =?us-ascii?Q?NjLtjaOw+YR9XNs3zddLjQByiQj9qLDqk1EtQZ1RpmAjfOV4C9Wz4GEmAFeS?=
- =?us-ascii?Q?4ZkXO4gkZBWdIYNffKl+JFBmT57Tk/H8DQ/BIrK7MZ+r+zC/B1pdMtC8FMXv?=
- =?us-ascii?Q?F0e9faErx+so22kvKgZ5HOTEQOL/m1khrw6sf5AoRcHrG6KfoN/0VCz5Pnp4?=
- =?us-ascii?Q?FvndI68hk+wrdVi+/CnJNZb/JAdXMYvuNoErELQ3RgNh64AMN4vzAb/UKGu6?=
- =?us-ascii?Q?PuXrp2hBe29PosixeTEM8aXEixFiFqYTFS6Q5FUgp+Qr1tS4DlxKZn86pqlI?=
- =?us-ascii?Q?MEQdPEI3C6adbC3MCAcG6FvANynPRC3rhZNsVAvPDC2/+XVPy96FksPNMcu/?=
- =?us-ascii?Q?rxqN7TWXhMlfhu/FiIyzgM1KaT4RIY7osThsumHF9ykI5aYRi2gXss/eYquw?=
- =?us-ascii?Q?rhqdDk4dAbIqC+ntw/wEVr7TsQIHxvXtfgWoLnaxtozcH1yMF5u9uUYsPZxO?=
- =?us-ascii?Q?2oU1AxQm5X7Wo7XYMKIVUww6c1k0TSgoKrqfTy4Sv4j4SvXdjLSryobQJE67?=
- =?us-ascii?Q?yEdinNw8F5ejv2/VMcr+zAnRrEFoROIvPavqsn14455TqNGYV+KO2UVWksL3?=
- =?us-ascii?Q?1Oon7GrM07tZhZpbHmU3H5LEYJyC/00EVJlbiWq6nFOsRs5Ze9vMqE4rf+U3?=
- =?us-ascii?Q?CYxgxXsb7i/4Qq6HyYdZb+91j0Rn84QOPwQv54pTYpeRm5LjQJLs4yXXU9tr?=
- =?us-ascii?Q?B2rErEBO6RQlYPNr1qkpYR0Bjah1QW+mtx+vJpopEdYj5HAzT8nhgqNa4XwO?=
- =?us-ascii?Q?Ub4A6zDTQFtrdCk1EnHenSrD19NiWbQW+ty0iTB40TyKfN8eX8UvAYeVlIvg?=
- =?us-ascii?Q?OxHyd9V9mTnbHMsgWvL252DcuBeSobg+xIcYlJQWdMgyxfXY3vx3VRAojGYM?=
- =?us-ascii?Q?suxXs0e1VVVMRB58w/2gkcuzBt/PWxvicUlVKzIaUSvg6wU4KXtlomWeXEEA?=
- =?us-ascii?Q?fYZzLthtxWJKdoxYcfxZhTRrsycAmMCVl2zSewzs0aPhzOYGduOEFu/E8HgX?=
- =?us-ascii?Q?P4OBlUmdARlm4G1NJNruv4iFZzP3nFpcIy2D3IM8ctANrDdAd3HMqpZL87da?=
- =?us-ascii?Q?MU2H8YXBeRhdA7lPd0X+FE7R1SrMq0pmPgPtC3IWWDai3zVGNRWppSfZM4PW?=
- =?us-ascii?Q?J5dWw3Q5nrpTAbKDr+pEfy4FEd8Hmb4t7UfhPbIzTFAeMiz01FcI5HP7Hqu+?=
- =?us-ascii?Q?JdQDNno3fgRdiO88LcxNnTS7ucpXE48rOINK81392BkhyTvH46Y6HfbEgkRW?=
- =?us-ascii?Q?47bJY/HopVnnqiw0tdygRbaqoVp59vMppd4sLJtu+NmLiwWL8nCBnZaXyJGh?=
- =?us-ascii?Q?ZHKCkOfrLofYH+9Bae4eh9RjFfk9Ct6so2qjZuqUYpcTgbJgepcHJC+8x0nx?=
- =?us-ascii?Q?07U9txIYzioWut/PK/w=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CH0PR12MB5284D2A6B36DB61492907A088B482CH0PR12MB5284namp_"
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by DS7PR12MB6095.namprd12.prod.outlook.com (2603:10b6:8:9c::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.24; Mon, 12 Feb
+ 2024 16:31:15 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::dd00:9ab5:4d11:2d1a]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::dd00:9ab5:4d11:2d1a%7]) with mapi id 15.20.7292.019; Mon, 12 Feb 2024
+ 16:31:15 +0000
+Message-ID: <08ced68d-99bc-4a5e-90e7-f6a4b4b20e93@amd.com>
+Date: Mon, 12 Feb 2024 10:31:12 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/3] drm: Add support to get EDID from ACPI
+To: amd-gfx@lists.freedesktop.org,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>
+Cc: "open list:ACPI" <linux-acpi@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Melissa Wen <mwen@igalia.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>
+References: <20240211055011.3583-1-mario.limonciello@amd.com>
+ <20240211055011.3583-2-mario.limonciello@amd.com>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20240211055011.3583-2-mario.limonciello@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DM6PR04CA0027.namprd04.prod.outlook.com
+ (2603:10b6:5:334::32) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|DS7PR12MB6095:EE_
+X-MS-Office365-Filtering-Correlation-Id: 322f7ccd-51b5-48b9-23a3-08dc2be8081f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: nzJTITkh27vVkHpzw46ShOEkrPZNcdOEeu4q1OUPXa30cTYrrhAI0AtL6gupCFGvEEsXltUORjXUuWNp3jOedemKyfGdQ/gvxXvFFvVk5Z5GSc3nxeJgpPjYeqGWtLKufH70X4lcBJe5NDt634iqMg9PUMgEp4W4/2hix8Aq9z5lasZCY2EfT+qp2y88nzMPlYNSphihzQ5DPKA632yMgJG1IDv04kKgvMMIPYNv653LptQBuUCrMuZtxzjtSGBHRAikloiWDwSe+JGKbAcfFqwyvB2bfFyYHJrflD61MCSPtpkPX4PBJphg5R1+t5w9LkBONRN/w/STe2uH/l9ljF7ijLYojinYLdhXEa8xNePFouRU8mOhnD5YBu9CyVc1eTMfKlDdBCKm/F+5uZVBeFB5x+6tdbtaA4x2HmxDrdnZ9nDK2GYSpAndUR6td54K4A9EOCL0O/KU3PN1jujq39Q1PY+sP9m8au6bkMM5f55GongfSGUBAWBp670DQ6NdadMhGfMppQIe8xod79ZYexmFiXfwJokARr324UHbfOGYfn6RQSDXzdYe2hSVUFCk
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(136003)(396003)(376002)(366004)(39860400002)(230922051799003)(186009)(64100799003)(451199024)(1800799012)(86362001)(31696002)(31686004)(6916009)(5660300002)(66476007)(66946007)(66556008)(8676002)(8936002)(4326008)(478600001)(6486002)(6506007)(6512007)(2906002)(44832011)(2616005)(41300700001)(83380400001)(38100700002)(66899024)(26005)(316002)(6666004)(53546011)(36756003)(54906003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emdTemJYOUFIaDFYSFNNNjZzaDl2b0puMTRZbFRyRnovbk54ZGh0dnhjYlZn?=
+ =?utf-8?B?MWVkVS9wdjRQWExHSnlxNUhwSEUwZmFMcUdwVjlFY0txWXBxL3NJcWowejRG?=
+ =?utf-8?B?Yit0SHlWRWcyMGhpUUVZMjF0Q0dycEJYUW5wS2hEUnBUS3d0ZjArYnlLQjBl?=
+ =?utf-8?B?U0d4SU1HMzQzN3ZuelgybGlRUkFtYXY4RXdFckgySjA5V3pZMzlHZEVZVVdV?=
+ =?utf-8?B?UVpVUFRreWZIbnY3VHlGUXlrK3Q2QjFjVDRiQ2o5eTJYSDlvaUorbTVtQk96?=
+ =?utf-8?B?QXhucGtjeWg3UmgzZHZ6L0JDVGZDM1ROODFKTzFyL2dnbVFaVThmUSt4aUhV?=
+ =?utf-8?B?Qjk2VXFoY0tiYy9WcmZ5UDFhNW5nLzhtNGRBZ3NnTkVqclpUZHFwM29kQzZi?=
+ =?utf-8?B?dVdhUk5xSjJsWUxoV29HQ0RBdXJ1RlgwSXNZdFZjOVE4dFFURDdEZmJkRTlE?=
+ =?utf-8?B?SDUzKzU3K0lUVDMwalR1b2Y0NzhBc3hqeFNaUXRMOGhkU2FWa3FZR0NCSzUy?=
+ =?utf-8?B?dzBuWlpQcUI0c2tUTTllaUxXME1MNFNhQjZzbVlQODhJVFo1SERPVTdNVGhy?=
+ =?utf-8?B?bisyZGttTzZIVEprS3N6eHdoMVhseEs5eDZ5c2hTRjZ3WjRiTnpZZW1iMXN1?=
+ =?utf-8?B?ZGYwYUFRR2l4WjJFSnRVNWRRT2ExNFkzVkdmdXlxVTY2SStjajdDMEcvaHl4?=
+ =?utf-8?B?TDBpYlFyVTVaNkduNDg3MUtjNlJCckNxVUlObFJWY3czQWVzM1U4ZDA1cXNh?=
+ =?utf-8?B?b010YjZka2lQeEN4ZTZ2ZlQ4MVl5dDc4OURSMXF4bTJmOWMrb21VaSt4VGFr?=
+ =?utf-8?B?b29xRmVudzJjRmc3NENmR3hTdU5rZzZRRE91eXpHSzlNL1RhUUN4cTU2UDZS?=
+ =?utf-8?B?MWpXaThCSG8ralpMRHFHUDFrQ2h6OFhqS0ZxOEJ2TUdZOFZUb0lPT3hxekx1?=
+ =?utf-8?B?eUhLc3dtQ1pUVjNiS2FhcW05RHdUaG1jeVkxb3VMWGk4VUFhcTBvQU1CcWJ5?=
+ =?utf-8?B?TEw2Z2tyeUUxTUFsTWhyNXU2SitYSkFDaHJ4Rnk1UXVyL0ZtR1dwTnBVY1dB?=
+ =?utf-8?B?WXJiNlBKaXJnRlduTDI4L3lpaXg0TVNWWUE3S2tkb1Q4Uk5wSWlnS2tBRHNW?=
+ =?utf-8?B?c2FBeVcwMENlZyszN1ZjMXE2SkZidWp2V1BsQlRzWmlMMFV1U3prbk12K0pp?=
+ =?utf-8?B?L2dtcGlpVnZyY21yMjZrZTBMU2xPcUpBSnNZSFhsNUU4YnMya2UwOFBzN2lo?=
+ =?utf-8?B?aVNLY0xpcVREMkRDN0w5bldPYlpJMHhXWUJQOEp3UHVZT25IVWRsbkdUYy9x?=
+ =?utf-8?B?TDlYeGh2TjNpdkJrWFREZmE4RERRODlXMmVZbDkwTzR6akc5b09pNnQ4b1NY?=
+ =?utf-8?B?Q1BQcXl1OG5OVXJVYkR0TTk1ODhVc2N4cUZKZmhocXhUNndBaDExV1lkODNL?=
+ =?utf-8?B?dkd2V0pyd3NWbGU1K083eTNublFEbVoybUNyTWx4V0sxYkg4b21BSHFzV0Ir?=
+ =?utf-8?B?QjhDcmFMUVpIcmljbnlKbTZIZ0MrL21ib1k5RGthRVJScHh1cnpKdXpxeEdi?=
+ =?utf-8?B?UjkrNzlyc2NDNWR2TjR4REYxY3hrQUk2WWdEM0RTbDdjbnArcVN0elQ5Qnc4?=
+ =?utf-8?B?ZGJ3OFBmR3VNUEgwSVdWOUhWcnp2RkxIL2tUQ1ZDVmdvRStIZUNMYTlXYmc4?=
+ =?utf-8?B?Mk9UbHRTaXBEMnA3VTJ4OUNXR1Q5UG1Md1hqOWUzcmpoT0tMZ3I2SE05Z21B?=
+ =?utf-8?B?ZFl5OGtYa0ErQW0rUno0N3kwU2VCeHd4S3ZwKzl6UUN6TjJybmlkb2Z1YzE2?=
+ =?utf-8?B?ZnBwTEN2MEREeGNXU3htSzd3cnltMXdGeGhwZndoY0txQWErTW5SWHNDcVZN?=
+ =?utf-8?B?YWhtNFFPSEorUWl1bnVWbk40d01BZWdDSU11aEg5ajNPU1lFakZOaHY0Y01T?=
+ =?utf-8?B?R0lKdGEwYUVXdUtGSDRrMjJzVk9uVXlGQndQeFM4dWFNQ3QxcG5JWVcwQksr?=
+ =?utf-8?B?UGN6RDd2Y2w4MTlhbFZkQTZuWFNQa244YjVrbkJUOXRkWExpTTBYQ0NFU3NB?=
+ =?utf-8?B?NFZYbFFnek5Wdk1KVXYwVko2RWdPRGUxSitrWjdMQ3Zoczlvc3Brd2t2ZFpz?=
+ =?utf-8?Q?P6F6Ax5VuPQsqgtPCjaWYXR53?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 322f7ccd-51b5-48b9-23a3-08dc2be8081f
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c07c880-a5a2-4a74-18ff-08dc2be49e39
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Feb 2024 16:06:48.6509 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: slShGrRDYLX3PSWr2d9B1z6EbMWFBvPOYOp3Wnbmh77HagPNIxdz3odqGwgGzmn/mKJ8iugxDacjHwHR+FqsvA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9183
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2024 16:31:14.9593 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aRfHhnVW8wQ+lyERg+UPIHmUUg/BxGlAxkX1mUUgHLjnYQdhsyRoV2cS9p4fXcCg5P+R5uYP0C2YYEAMp8UH/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6095
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,227 +133,271 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CH0PR12MB5284D2A6B36DB61492907A088B482CH0PR12MB5284namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 2/10/2024 23:50, Mario Limonciello wrote:
+> Some manufacturers have intentionally put an EDID that differs from
+> the EDID on the internal panel on laptops.  Drivers that prefer to
+> fetch this EDID can set a bit on the drm_connector to indicate that
+> the DRM EDID helpers should try to fetch it and it is preferred if
+> it's present.
+> 
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+> v1->v2:
+>   * Split code from previous amdgpu specific helper to generic drm helper.
+> v2->v3:
+>   * Add an extra select to fix a variety of randconfig errors found from
+>     LKP robot.
+> v3->v4:
+>   * Return struct drm_edid
+> v4->v5:
+>   * Rename to drm_edid_read_acpi
+>   * Drop selects
+> ---
+>   drivers/gpu/drm/Kconfig     |   7 +++
+>   drivers/gpu/drm/drm_edid.c  | 113 +++++++++++++++++++++++++++++++++---
+>   include/drm/drm_connector.h |   6 ++
+>   include/drm/drm_edid.h      |   1 +
+>   4 files changed, 119 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 2520db0b776e..a49740c528b9 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -103,6 +103,13 @@ config DRM_KMS_HELPER
+>   	help
+>   	  CRTC helpers for KMS drivers.
+>   
+> +config DRM_ACPI_HELPER
+> +	tristate "ACPI support in DRM"
+> +	depends on DRM
+> +	depends on (ACPI_VIDEO || ACPI_VIDEO=n)
+> +	help
+> +	  ACPI helpers for DRM drivers.
+> +
 
-[AMD Official Use Only - General]
+Unfortunately in my wider testing this still fails with a few combinations.
 
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+This combination fails to link:
 
---
+CONFIG_ACPI_VIDEO=m
+CONFIG_DRM_ACPI_HELPER=y
+CONFIG_DRM=y
 
-Regards,
-Jay
-________________________________
-From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
-Sent: Monday, February 12, 2024 10:33 AM
-To: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo <Aurabi=
-ndo.Pillai@amd.com>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; SHANMUGA=
-M, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Lakha, Bhawanpreet <Bhawanpre=
-et.Lakha@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHsuan.Chung@amd.com>; Li, Ro=
-man <Roman.Li@amd.com>
-Subject: [PATCH v2] drm/amdgpu/display: Initialize gamma correction mode va=
-riable in dcn30_get_gamcor_current()
+This combination links but doesn't work because the IS_REACHABLE() fails 
+(-EOPNOTSUPP):
 
-The dcn30_get_gamcor_current() function is responsible for determining
-the current gamma correction mode used by the display controller.
-However, the 'mode' variable, which stores the gamma correction mode,
-was not initialized before its first usage, leading to an uninitialized
-symbol error.
+CONFIG_ACPI_VIDEO=m
+CONFIG_DRM_ACPI_HELPER=M
+CONFIG_DRM=y
 
-Thus initializes the 'mode' variable with a default value of LUT_BYPASS
-before the conditional statements in the function, improves code clarity
-and stability, ensuring correct behavior of the
-dcn30_get_gamcor_current() function in determining the gamma correction
-mode.
+I'm tempted to split off all of drm_edid to it's own module instead  of 
+CONFIG_DRM_ACPI_HELPER which has a depends on (ACPI_VIDEO || ACPI_VIDEIO=n).
 
-Fixes the below:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_dpp_cm.c:77 dpp30_get_=
-gamcor_current() error: uninitialized symbol 'mode'.
+Or Daniel, any better ideas?
 
-Fixes: 03f54d7d3448 ("drm/amd/display: Add DCN3 DPP")
-Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Suggested-by: Roman Li <roman.li@amd.com>
----
-v2:
- - removed the below redundant code (Roman)
-         if (state_mode =3D=3D 0)
-                mode =3D LUT_BYPASS;
+>   config DRM_DEBUG_DP_MST_TOPOLOGY_REFS
+>           bool "Enable refcount backtrace history in the DP MST helpers"
+>   	depends on STACKTRACE_SUPPORT
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 69c68804023f..096c278b6f66 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -28,6 +28,7 @@
+>    * DEALINGS IN THE SOFTWARE.
+>    */
+>   
+> +#include <acpi/video.h>
+>   #include <linux/bitfield.h>
+>   #include <linux/cec.h>
+>   #include <linux/hdmi.h>
+> @@ -2188,6 +2189,62 @@ drm_do_probe_ddc_edid(void *data, u8 *buf, unsigned int block, size_t len)
+>   	return ret == xfers ? 0 : -1;
+>   }
+>   
+> +/**
+> + * drm_do_probe_acpi_edid() - get EDID information via ACPI _DDC
+> + * @data: struct drm_connector
+> + * @buf: EDID data buffer to be filled
+> + * @block: 128 byte EDID block to start fetching from
+> + * @len: EDID data buffer length to fetch
+> + *
+> + * Try to fetch EDID information by calling acpi_video_get_edid() function.
+> + *
+> + * Return: 0 on success or error code on failure.
+> + */
+> +static int
+> +drm_do_probe_acpi_edid(void *data, u8 *buf, unsigned int block, size_t len)
+> +{
+> +	struct drm_connector *connector = data;
+> +	struct drm_device *ddev = connector->dev;
+> +	struct acpi_device *acpidev = ACPI_COMPANION(ddev->dev);
+> +	unsigned char start = block * EDID_LENGTH;
+> +	void *edid;
+> +	int r;
+> +
+> +	if (!acpidev)
+> +		return -ENODEV;
+> +
+> +	switch (connector->connector_type) {
+> +	case DRM_MODE_CONNECTOR_LVDS:
+> +	case DRM_MODE_CONNECTOR_eDP:
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	/* fetch the entire edid from BIOS */
+> +	if (IS_REACHABLE(CONFIG_DRM_ACPI_HELPER)) {
+> +		r = acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, &edid);
+> +		if (r < 0) {
+> +			DRM_DEBUG_KMS("Failed to get EDID from ACPI: %d\n", r);
+> +			return -EINVAL;
+> +		}
+> +	} else {
+> +		r = -EOPNOTSUPP;
+> +	}
+> +	if (len > r || start > r || start + len > r) {
+> +		r = -EINVAL;
+> +		goto cleanup;
+> +	}
+> +
+> +	memcpy(buf, edid + start, len);
+> +	r = 0;
+> +
+> +cleanup:
+> +	kfree(edid);
+> +
+> +	return r;
+> +}
+> +
+>   static void connector_bad_edid(struct drm_connector *connector,
+>   			       const struct edid *edid, int num_blocks)
+>   {
+> @@ -2621,7 +2678,8 @@ EXPORT_SYMBOL(drm_probe_ddc);
+>    * @connector: connector we're probing
+>    * @adapter: I2C adapter to use for DDC
+>    *
+> - * Poke the given I2C channel to grab EDID data if possible.  If found,
+> + * If the connector allows it, try to fetch EDID data using ACPI. If not found
+> + * poke the given I2C channel to grab EDID data if possible.  If found,
+>    * attach it to the connector.
+>    *
+>    * Return: Pointer to valid EDID or NULL if we couldn't find any.
+> @@ -2629,20 +2687,50 @@ EXPORT_SYMBOL(drm_probe_ddc);
+>   struct edid *drm_get_edid(struct drm_connector *connector,
+>   			  struct i2c_adapter *adapter)
+>   {
+> -	struct edid *edid;
+> +	struct edid *edid = NULL;
+>   
+>   	if (connector->force == DRM_FORCE_OFF)
+>   		return NULL;
+>   
+> -	if (connector->force == DRM_FORCE_UNSPECIFIED && !drm_probe_ddc(adapter))
+> -		return NULL;
+> +	if (connector->acpi_edid_allowed)
+> +		edid = _drm_do_get_edid(connector, drm_do_probe_acpi_edid, connector, NULL);
+> +
+> +	if (!edid) {
+> +		if (connector->force == DRM_FORCE_UNSPECIFIED && !drm_probe_ddc(adapter))
+> +			return NULL;
+> +		edid = _drm_do_get_edid(connector, drm_do_probe_ddc_edid, adapter, NULL);
+> +	}
+>   
+> -	edid = _drm_do_get_edid(connector, drm_do_probe_ddc_edid, adapter, NULL);
+>   	drm_connector_update_edid_property(connector, edid);
+>   	return edid;
+>   }
+>   EXPORT_SYMBOL(drm_get_edid);
+>   
+> +/**
+> + * drm_edid_read_acpi - get EDID data, if available
+> + * @connector: connector we're probing
+> + *
+> + * Use the BIOS to attempt to grab EDID data if possible.
+> + *
+> + * The returned pointer must be freed using drm_edid_free().
+> + *
+> + * Return: Pointer to valid EDID or NULL if we couldn't find any.
+> + */
+> +const struct drm_edid *drm_edid_read_acpi(struct drm_connector *connector)
+> +{
+> +	const struct drm_edid *drm_edid;
+> +
+> +	if (connector->force == DRM_FORCE_OFF)
+> +		return NULL;
+> +
+> +	drm_edid = drm_edid_read_custom(connector, drm_do_probe_acpi_edid, connector);
+> +
+> +	/* Note: Do *not* call connector updates here. */
+> +
+> +	return drm_edid;
+> +}
+> +EXPORT_SYMBOL(drm_edid_read_acpi);
+> +
+>   /**
+>    * drm_edid_read_custom - Read EDID data using given EDID block read function
+>    * @connector: Connector to use
+> @@ -2727,10 +2815,11 @@ const struct drm_edid *drm_edid_read_ddc(struct drm_connector *connector,
+>   EXPORT_SYMBOL(drm_edid_read_ddc);
+>   
+>   /**
+> - * drm_edid_read - Read EDID data using connector's I2C adapter
+> + * drm_edid_read - Read EDID data using BIOS or connector's I2C adapter
+>    * @connector: Connector to use
+>    *
+> - * Read EDID using the connector's I2C adapter.
+> + * Read EDID from BIOS if allowed by connector or by using the connector's
+> + * I2C adapter.
+>    *
+>    * The EDID may be overridden using debugfs override_edid or firmware EDID
+>    * (drm_edid_load_firmware() and drm.edid_firmware parameter), in this priority
+> @@ -2742,10 +2831,18 @@ EXPORT_SYMBOL(drm_edid_read_ddc);
+>    */
+>   const struct drm_edid *drm_edid_read(struct drm_connector *connector)
+>   {
+> +	const struct drm_edid *drm_edid = NULL;
+> +
+>   	if (drm_WARN_ON(connector->dev, !connector->ddc))
+>   		return NULL;
+>   
+> -	return drm_edid_read_ddc(connector, connector->ddc);
+> +	if (connector->acpi_edid_allowed)
+> +		drm_edid = drm_edid_read_acpi(connector);
+> +
+> +	if (!drm_edid)
+> +		drm_edid = drm_edid_read_ddc(connector, connector->ddc);
+> +
+> +	return drm_edid;
+>   }
+>   EXPORT_SYMBOL(drm_edid_read);
+>   
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index fe88d7fc6b8f..74ed47f37a69 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -1886,6 +1886,12 @@ struct drm_connector {
+>   
+>   	/** @hdr_sink_metadata: HDR Metadata Information read from sink */
+>   	struct hdr_sink_metadata hdr_sink_metadata;
+> +
+> +	/**
+> +	 * @acpi_edid_allowed: Get the EDID from the BIOS, if available.
+> +	 * This is only applicable to eDP and LVDS displays.
+> +	 */
+> +	bool acpi_edid_allowed;
+>   };
+>   
+>   #define obj_to_connector(x) container_of(x, struct drm_connector, base)
+> diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+> index 518d1b8106c7..38b5e1b5c773 100644
+> --- a/include/drm/drm_edid.h
+> +++ b/include/drm/drm_edid.h
+> @@ -463,5 +463,6 @@ bool drm_edid_is_digital(const struct drm_edid *drm_edid);
+>   
+>   const u8 *drm_find_edid_extension(const struct drm_edid *drm_edid,
+>   				  int ext_id, int *ext_index);
+> +const struct drm_edid *drm_edid_read_acpi(struct drm_connector *connector);
+>   
+>   #endif /* __DRM_EDID_H__ */
 
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c b/drivers/=
-gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c
-index 54ec144f7b81..2f5b3fbd3507 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c
-@@ -56,16 +56,13 @@ static void dpp3_enable_cm_block(
-
- static enum dc_lut_mode dpp30_get_gamcor_current(struct dpp *dpp_base)
- {
--       enum dc_lut_mode mode;
-+       enum dc_lut_mode mode =3D LUT_BYPASS;
-         uint32_t state_mode;
-         uint32_t lut_mode;
-         struct dcn3_dpp *dpp =3D TO_DCN30_DPP(dpp_base);
-
-         REG_GET(CM_GAMCOR_CONTROL, CM_GAMCOR_MODE_CURRENT, &state_mode);
-
--       if (state_mode =3D=3D 0)
--               mode =3D LUT_BYPASS;
--
-         if (state_mode =3D=3D 2) {//Programmable RAM LUT
-                 REG_GET(CM_GAMCOR_CONTROL, CM_GAMCOR_SELECT_CURRENT, &lut_=
-mode);
-                 if (lut_mode =3D=3D 0)
---
-2.34.1
-
-
---_000_CH0PR12MB5284D2A6B36DB61492907A088B482CH0PR12MB5284namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof"><span style=3D"font-family: Aptos, Aptos_Embe=
-ddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 1=
-2pt; color: rgb(0, 0, 0);">Reviewed-by: Aurabindo Pillai &lt;aurabindo.pill=
-ai@amd.com&gt;</span></div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"Signature">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
---</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Jay<br>
-</div>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> SHANMUGAM, SRINIVASAN=
- &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;<br>
-<b>Sent:</b> Monday, February 12, 2024 10:33 AM<br>
-<b>To:</b> Siqueira, Rodrigo &lt;Rodrigo.Siqueira@amd.com&gt;; Pillai, Aura=
-bindo &lt;Aurabindo.Pillai@amd.com&gt;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; SHANMUGAM, SRINIVASAN &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;; Lakha, Bha=
-wanpreet &lt;Bhawanpreet.Lakha@amd.com&gt;; Chung, ChiaHsuan (Tom) &lt;Chia=
-Hsuan.Chung@amd.com&gt;; Li, Roman &lt;Roman.Li@amd.com&gt;<br>
-<b>Subject:</b> [PATCH v2] drm/amdgpu/display: Initialize gamma correction =
-mode variable in dcn30_get_gamcor_current()</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">The dcn30_get_gamcor_current() function is respons=
-ible for determining<br>
-the current gamma correction mode used by the display controller.<br>
-However, the 'mode' variable, which stores the gamma correction mode,<br>
-was not initialized before its first usage, leading to an uninitialized<br>
-symbol error.<br>
-<br>
-Thus initializes the 'mode' variable with a default value of LUT_BYPASS<br>
-before the conditional statements in the function, improves code clarity<br=
->
-and stability, ensuring correct behavior of the<br>
-dcn30_get_gamcor_current() function in determining the gamma correction<br>
-mode.<br>
-<br>
-Fixes the below:<br>
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_dpp_cm.c:77 dpp30_get_=
-gamcor_current() error: uninitialized symbol 'mode'.<br>
-<br>
-Fixes: 03f54d7d3448 (&quot;drm/amd/display: Add DCN3 DPP&quot;)<br>
-Cc: Bhawanpreet Lakha &lt;Bhawanpreet.Lakha@amd.com&gt;<br>
-Cc: Rodrigo Siqueira &lt;Rodrigo.Siqueira@amd.com&gt;<br>
-Cc: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;<br>
-Cc: Tom Chung &lt;chiahsuan.chung@amd.com&gt;<br>
-Signed-off-by: Srinivasan Shanmugam &lt;srinivasan.shanmugam@amd.com&gt;<br=
->
-Suggested-by: Roman Li &lt;roman.li@amd.com&gt;<br>
----<br>
-v2:<br>
-&nbsp;- removed the below redundant code (Roman)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (state_mode =3D=3D 0)<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; mode =3D LUT_BYPASS; <br>
-<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c | 5 +----<br>
-&nbsp;1 file changed, 1 insertion(+), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c b/drivers/=
-gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c<br>
-index 54ec144f7b81..2f5b3fbd3507 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c<br>
-@@ -56,16 +56,13 @@ static void dpp3_enable_cm_block(<br>
-&nbsp;<br>
-&nbsp;static enum dc_lut_mode dpp30_get_gamcor_current(struct dpp *dpp_base=
-)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum dc_lut_mode mode;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum dc_lut_mode mode =3D LUT_BYPASS;=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t state_mode;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t lut_mode;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dcn3_dpp *dpp =3D T=
-O_DCN30_DPP(dpp_base);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REG_GET(CM_GAMCOR_CONTROL,=
- CM_GAMCOR_MODE_CURRENT, &amp;state_mode);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (state_mode =3D=3D 0)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; mode =3D LUT_BYPASS;<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (state_mode =3D=3D 2) {=
-//Programmable RAM LUT<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; REG_GET(CM_GAMCOR_CONTROL, CM_GAMCOR_SELECT_CURRENT, =
-&amp;lut_mode);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (lut_mode =3D=3D 0)<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CH0PR12MB5284D2A6B36DB61492907A088B482CH0PR12MB5284namp_--
