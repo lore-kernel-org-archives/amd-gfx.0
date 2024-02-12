@@ -4,57 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D346C4829B
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Feb 2024 10:11:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACC2CC48297
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Feb 2024 11:28:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B103110EBCA;
-	Mon, 12 Feb 2024 10:11:18 +0000 (UTC)
-X-Greylist: delayed 461 seconds by postgrey-1.36 at gabe;
- Mon, 12 Feb 2024 10:11:17 UTC
-Received: from mx0-45.i-mecca.net (mx0-45.i-mecca.net [76.74.184.193])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5D0610EBBC
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Feb 2024 10:11:17 +0000 (UTC)
-Received: from ns14.i-mecca.net (unknown [192.168.1.14])
- by mx0.i-mecca.net (Postfix) with ESMTPS id 4AA8A161E34
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Feb 2024 02:03:27 -0800 (PST)
-Received: by ns14.i-mecca.net (Postfix) with ESMTPSA id A402080045
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Feb 2024 02:03:25 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------04nRxjUiPyqtTvJE70CLTL8s"
-Message-ID: <6dbb4988-5a8e-4c7f-bb52-9bff82e6f227@fedoraproject.org>
-Date: Mon, 12 Feb 2024 02:03:25 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E7BE10EC90;
+	Mon, 12 Feb 2024 11:28:10 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mocfvP5S";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4809510EC82;
+ Mon, 12 Feb 2024 11:28:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1707737289; x=1739273289;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version; bh=+F14TGso5qN3NYV3JxODwQl8z3yC2+YH4rdu54l6hTA=;
+ b=mocfvP5SniKug6yRrsX1Llak3qG78Ox2JL21ZKZKxKFvE8WRtySJsMY7
+ fHJpJQH7pk/b1y/3DnsW8gJGARHJbgJBRlsUpyrEVtorc66IEDI5fdkcO
+ IX0/m+g+kb3PxSHLqLHUT8e3LmMvQoRfVT/Gkz6W32hTzn51ifmRR+4Xx
+ Uyt15sZ1PUQZBqcv/zRuxZ7tUGyxd7tStRNESVpKULBm63N4Hvbhp1x9N
+ kPg+g7ytng6JFvNvW9qofaNL7TVVyzaKO7TuzdRf312MIHjMBRykPGCxG
+ +sm1Y1NkueXR0zoLtL8v1BRHSEoq3yuS2aWYzPuiuPh0GHBZ6+Km4Z6df Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10981"; a="27154554"
+X-IronPort-AV: E=Sophos;i="6.06,263,1705392000"; d="scan'208";a="27154554"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Feb 2024 03:28:05 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10981"; a="911457107"
+X-IronPort-AV: E=Sophos;i="6.06,263,1705392000"; d="scan'208";a="911457107"
+Received: from belyakov-mobl.ccr.corp.intel.com (HELO localhost)
+ ([10.252.63.91])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Feb 2024 03:28:01 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org, "open list:DRM DRIVERS"
+ <dri-devel@lists.freedesktop.org>, "open list:ACPI"
+ <linux-acpi@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ Melissa Wen <mwen@igalia.com>, Dave Airlie <airlied@redhat.com>, Maxime
+ Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Subject: Re: [PATCH v4 1/3] drm: Add drm_get_acpi_edid() helper
+In-Reply-To: <350ee747-c1bf-4513-aad3-f43b11fcdf0f@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20240207224429.104625-1-mario.limonciello@amd.com>
+ <20240207224429.104625-2-mario.limonciello@amd.com>
+ <87y1bvb7ns.fsf@intel.com> <ZcYHaXNJ8IqbLIra@phenom.ffwll.local>
+ <9fa0c1ad-dd7d-4350-aad1-4723450850bd@amd.com>
+ <ZcZ1tdXqH90RabvV@phenom.ffwll.local>
+ <350ee747-c1bf-4513-aad3-f43b11fcdf0f@amd.com>
+Date: Mon, 12 Feb 2024 13:27:57 +0200
+Message-ID: <874jedapmq.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-CA
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>
-From: Luya Tshimbalanga <luya@fedoraproject.org>
-Subject: Blank screen after enabling amdgpu.seamless on a Barcelo APU
-Autocrypt: addr=luya@fedoraproject.org; keydata=
- xsBNBGMWJsUBCADH0In1PH3XhTfqoAwz0PVMlP6Kxk0fy5pu8LOijwplSvitKm3hhHXyd1vK
- fiPObGIdsuwB5q8ed/zdBVh38s64pOKs6RusnnNjiCKmqvafVW96+AzpbXZwjiZ/ZpVl+PcU
- B6N7oBJ+lRJDXRCZjFyW0hstNy4QSu+zLD1s+Y02Av2BO4e+EnN8DcDaCRP0H6CkZEE+8yox
- t+BfnU5DaqUOHLOcVWhboBKF42f7Qzlt4p7G051aHo0JE5622w/jWLFz2dFazRMdK2F2+mkF
- WHUZQSm3lUk2O6mSNtSv7eHHt0s+bnLgEEP3DVPjCUGzTRQhxBoW+cUB3UScULg0WdUpABEB
- AAHNXEx1eWEgVHNoaW1iYWxhbmdhIChDb250cmlidXRvciBzcGVjaWFsaXplZCBpbiBkZXNp
- Z24gYW5kIHBhY2thZ2luZykgPGx1eWFAZmVkb3JhcHJvamVjdC5vcmc+wsCRBBMBCAA7FiEE
- 1zcffSlQ2CQ074hlUpmCwmgvVIQFAmMWJsUCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
- F4AACgkQUpmCwmgvVIRayQgAt3B0OUUgcJXoBhvh/IekwimwBlqAys2m7PBeb6z8JGPOa2jD
- GA8xrRdrZs8zskiO3oanTv+8QvdJKlh5qrhNyoxBCDmQEKlyY4iLYSzB1WEZ28MT4OKYXdbx
- Q8RNSMvoME4EMfkN9r5VmSfbLVfPFB3HHlSAODwyXiLgNVMRPK1poXme8JHXfbFyhyXRElST
- ddAyb8qrs3/eN9E+bVBM8vH9fC5KWH/2qwXRClk3tZeF5VLKEVbHTLrGotW+JFOcUWevpS/S
- v1BNaqW3AM/WQ1D6Mj348IZxJxs/PtVWAVLxeHf/tNsArkYwJ04vGdRPDgOyQ0kHuO+OJ4+/
- Zxmk087ATQRjFibFAQgAlwRqpXl8moY7UXLiuFtIwn2pqVWlU7BE8vA9Zbh9zrXraTBbKjDk
- LJMEuB6S86h28+4WdqztAcZx0QScU4Z1wCNypTTSQvREEzFHMNoWIGjbbuZaMXstMUUnP79/
- ZyJpa2iXdfz6xwiaq3mp5j+ywxoyLfXV4BV7OVI17dOqsoUToX/ZQ9zHt1pMze1KFzHpdFMZ
- X9znFYHXLykMEsX5/NaKw5zPGRtlswk6xtxc9E43+6+ZP/gi+HLVGE3ZTAn+QfTWaC4khWwo
- 2Mq4vyXh+ehHubhF/8xZeGcGrs3j6+6Hsp71KaikOhBuaFoRwiHvp+zck7qq8IKSIl3hD2XD
- GQARAQABwsB2BBgBCAAgFiEE1zcffSlQ2CQ074hlUpmCwmgvVIQFAmMWJsUCGwwACgkQUpmC
- wmgvVIS/Awf/fexbF5yKyvwG4Cd5W8T5bqusUg5p/tIoCuRwVnpt+IQWZydoZPeAhC/dNw7i
- Vq0r+nob0lWpbVYXIqkUW5NwNBRoQjDvLhtMCDdFL+0bJ3u5Ib4TPRpvB+7Uh/jRdfrjPFbn
- MUnjK849fWrLjJplOVYjb1tCo/v5LSg1TFZGlSnGqwDaKaYsKHXOQh924qI6Kp/q+2uN9eqY
- EDQUP39iWlPCT7bRS61Mw90yk4cM+tsBEa5Vh1n+nnPdZIYO+qeRdr/OEe9hDEgIJePnv4nh
- LP5a+B6ewexrEYz+X2+Y6Rs0Z2Krq+dfYjnV6IMkpeKHdZueXNSbtuEcqDBxG9qsFw==
-Organization: Fedora Project
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,288 +73,271 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------04nRxjUiPyqtTvJE70CLTL8s
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On Sat, 10 Feb 2024, Mario Limonciello <mario.limonciello@amd.com> wrote:
+> On 2/9/2024 12:57, Daniel Vetter wrote:
+>> On Fri, Feb 09, 2024 at 09:34:13AM -0600, Mario Limonciello wrote:
+>>> On 2/9/2024 05:07, Daniel Vetter wrote:
+>>>> On Thu, Feb 08, 2024 at 11:57:11AM +0200, Jani Nikula wrote:
+>>>>> On Wed, 07 Feb 2024, Mario Limonciello <mario.limonciello@amd.com> wrote:
+>>>>>> Some manufacturers have intentionally put an EDID that differs from
+>>>>>> the EDID on the internal panel on laptops.  Drivers can call this
+>>>>>> helper to attempt to fetch the EDID from the BIOS's ACPI _DDC method.
+>>>>>>
+>>>>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>>>>>> ---
+>>>>>>    drivers/gpu/drm/Kconfig    |  5 +++
+>>>>>>    drivers/gpu/drm/drm_edid.c | 77 ++++++++++++++++++++++++++++++++++++++
+>>>>>>    include/drm/drm_edid.h     |  1 +
+>>>>>>    3 files changed, 83 insertions(+)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+>>>>>> index 6ec33d36f3a4..ec2bb71e8b36 100644
+>>>>>> --- a/drivers/gpu/drm/Kconfig
+>>>>>> +++ b/drivers/gpu/drm/Kconfig
+>>>>>> @@ -21,6 +21,11 @@ menuconfig DRM
+>>>>>>    	select KCMP
+>>>>>>    	select VIDEO_CMDLINE
+>>>>>>    	select VIDEO_NOMODESET
+>>>>>> +	select ACPI_VIDEO if ACPI
+>>>>>> +	select BACKLIGHT_CLASS_DEVICE if ACPI
+>>>>>> +	select INPUT if ACPI
+>>>>>> +	select X86_PLATFORM_DEVICES if ACPI && X86
+>>>>>> +	select ACPI_WMI if ACPI && X86
+>>>>>
+>>>>> I think I'll defer to drm maintainers on whether this is okay or
+>>>>> something to be avoided.
+>>>>
+>>>> Uh yeah this is a bit much, and select just messes with everything. Just
+>>>> #ifdef this in the code with a dummy alternative, if users configure their
+>>>> kernel without acpi but need it, they get to keep all the pieces.
+>>>>
+>>>> Alternatively make a DRM_ACPI_HELPERS symbol, but imo a Kconfig for every
+>>>> function is also not great. And just using #ifdef in the code also works
+>>>> for CONFIG_OF, which is exactly the same thing for platforms using dt to
+>>>> describe hw.
+>>>>
+>>>> Also I'd expect ACPI code to already provide dummy functions if ACPI is
+>>>> provided, so you probably dont even need all that much #ifdef in the code.
+>>>>
+>>>> What we defo cant do is select platform/hw stuff just because you enable
+>>>> CONFIG_DRM.
+>>>> -Sima
+>>>
+>>> The problem was with linking.  I'll experiment with #ifdef for the next
+>>> version.
+>> 
+>> Ah yes, if e.g. acpi is a module but drm is built-in then it will compile,
+>> but not link.
+>> 
+>> You need
+>> 
+>> 	depends on (ACPI || ACPI=n)
+>> 
+>> for this. Looks a bit funny but works for all combinations.
+>
+> Nope; this fails at link time with this combination:
+>
+> CONFIG_ACPI=y
+> CONFIG_ACPI_VIDEO=m
+> CONFIG_DRM=y
+>
+> ld: drivers/gpu/drm/drm_edid.o: in function `drm_do_probe_acpi_edid':
+> drm_edid.c:(.text+0xd34): undefined reference to `acpi_video_get_edid'
+> make[5]: *** [scripts/Makefile.vmlinux:37: vmlinux] Error 1
+>
+> So the logical solution is to try
+> 	depends on (ACPI_VIDEO || ACPI_VIDEO=n)
+>
+> But that leads me back to the rabbit hole of why I had the selects moved 
+> to drm instead of drivers in the first place:
+>
+> drivers/gpu/drm/Kconfig:8:error: recursive dependency detected!
+> drivers/gpu/drm/Kconfig:8:      symbol DRM depends on ACPI_VIDEO
+> drivers/acpi/Kconfig:213:       symbol ACPI_VIDEO depends on 
+> BACKLIGHT_CLASS_DEVICE
+> drivers/video/backlight/Kconfig:136:    symbol BACKLIGHT_CLASS_DEVICE is 
+> selected by DRM_RADEON
+> drivers/gpu/drm/radeon/Kconfig:3:       symbol DRM_RADEON depends on DRM
 
-Hello team,
+Generally speaking the root cause is using "select" instead of "depends
+on" in the first place. The excessive selects are just band-aid over
+that root cause. And if you try to convert some but not all the selects
+to depends ons, you'll get recursive dependencies.
 
-Testing "amdgpu.seamless=1" on Ryzen 7 5825u using kernel 6.7.4 led to a 
-blank screen after the initial boot screen as tested on Dell Inc. 
-Inspiron 14 7425 2-in-1 with the following message from boot:
+Quoting Documentation/kbuild/kconfig-language.rst:
 
-"Feb 11 13:43:37 kernel: amdgpu 0000:04:00.0: [drm] *ERROR* 
-[CRTC:73:crtc-0] flip_done timed out"
+  Note:
+	select should be used with care. select will force
+	a symbol to a value without visiting the dependencies.
+	By abusing select you are able to select a symbol FOO even
+	if FOO depends on BAR that is not set.
+	In general use select only for non-visible symbols
+	(no prompts anywhere) and for symbols with no dependencies.
+	That will limit the usefulness but on the other hand avoid
+	the illegal configurations all over.
+
+Yeah, we ignore that, and get to keep all the pieces.
 
 
-Here is the journalctl report sorted by amdgpu:
+BR,
+Jani.
 
-'''
 
-journalctl -b -2 --no-hostname | grep amdgpu
-Feb 11 13:43:14 kernel: Command line: 
-root=UUID=b8250ad0-059a-4eb7-893d-9757e1c0599d ro rootflags=subvol=root 
-rhgb quiet amdgpu.seamless=1 
-root=UUID=b8250ad0-059a-4eb7-893d-9757e1c0599d ro rootflags=subvol=root 
-rhgb quiet
-Feb 11 13:43:14 kernel: Kernel command line: 
-root=UUID=b8250ad0-059a-4eb7-893d-9757e1c0599d ro rootflags=subvol=root 
-rhgb quiet amdgpu.seamless=1 
-root=UUID=b8250ad0-059a-4eb7-893d-9757e1c0599d ro rootflags=subvol=root 
-rhgb quiet
-Feb 11 13:43:14 dracut-cmdline[398]: Using kernel command line 
-parameters:  rd.driver.pre=btrfs 
-root=UUID=b8250ad0-059a-4eb7-893d-9757e1c0599d ro rootflags=subvol=root 
-rhgb quiet amdgpu.seamless=1 
-root=UUID=b8250ad0-059a-4eb7-893d-9757e1c0599d ro rootflags=subvol=root 
-rhgb quiet
-Feb 11 13:43:16 kernel: [drm] amdgpu kernel modesetting enabled.
-Feb 11 13:43:16 kernel: amdgpu: Virtual CRAT table created for CPU
-Feb 11 13:43:16 kernel: amdgpu: Topology: Add CPU node
-Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: enabling device (0006 -> 0007)
-Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: amdgpu: Fetched VBIOS from VFCT
-Feb 11 13:43:16 kernel: amdgpu: ATOM BIOS: 113-BARCELO-003
-Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: vgaarb: deactivate vga console
-Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: amdgpu: Trusted Memory Zone 
-(TMZ) feature enabled
-Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: amdgpu: MODE2 reset
-Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: amdgpu: VRAM: 2048M 
-0x000000F400000000 - 0x000000F47FFFFFFF (2048M used)
-Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: amdgpu: GART: 1024M 
-0x0000000000000000 - 0x000000003FFFFFFF
-Feb 11 13:43:16 kernel: [drm] amdgpu: 2048M of VRAM memory ready
-Feb 11 13:43:16 kernel: [drm] amdgpu: 14960M of GTT memory ready.
-Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: amdgpu: Will use PSP to 
-load VCN firmware
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: RAS: optional ras 
-ta ucode is not available
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: RAP: optional rap 
-ta ucode is not available
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: SECUREDISPLAY: 
-securedisplay ta ucode is not available
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: SMU is initialized 
-successfully!
-Feb 11 13:43:17 kernel: amdgpu: HMM registered 2048MB device memory
-Feb 11 13:43:17 kernel: kfd kfd: amdgpu: Allocated 3969056 bytes on gart
-Feb 11 13:43:17 kernel: kfd kfd: amdgpu: Total number of KFD nodes to be 
-created: 1
-Feb 11 13:43:17 kernel: amdgpu: Virtual CRAT table created for GPU
-Feb 11 13:43:17 kernel: amdgpu: Topology: Add dGPU node [0x15e7:0x1002]
-Feb 11 13:43:17 kernel: kfd kfd: amdgpu: added device 1002:15e7
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: SE 1, SH per SE 1, 
-CU per SH 8, active_cu_number 8
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring gfx uses VM 
-inv eng 0 on hub 0
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring gfx_low uses 
-VM inv eng 1 on hub 0
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring gfx_high uses 
-VM inv eng 4 on hub 0
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring comp_1.0.0 
-uses VM inv eng 5 on hub 0
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring comp_1.1.0 
-uses VM inv eng 6 on hub 0
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring comp_1.2.0 
-uses VM inv eng 7 on hub 0
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring comp_1.3.0 
-uses VM inv eng 8 on hub 0
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring comp_1.0.1 
-uses VM inv eng 9 on hub 0
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring comp_1.1.1 
-uses VM inv eng 10 on hub 0
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring comp_1.2.1 
-uses VM inv eng 11 on hub 0
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring comp_1.3.1 
-uses VM inv eng 12 on hub 0
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring kiq_0.2.1.0 
-uses VM inv eng 13 on hub 0
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring sdma0 uses VM 
-inv eng 0 on hub 8
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring vcn_dec uses 
-VM inv eng 1 on hub 8
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring vcn_enc0 uses 
-VM inv eng 4 on hub 8
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring vcn_enc1 uses 
-VM inv eng 5 on hub 8
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring jpeg_dec uses 
-VM inv eng 6 on hub 8
-Feb 11 13:43:17 kernel: [drm] Initialized amdgpu 3.57.0 20150101 for 
-0000:04:00.0 on minor 1
-Feb 11 13:43:17 kernel: fbcon: amdgpudrmfb (fb0) is primary device
-Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: [drm] fb0: amdgpudrmfb 
-frame buffer device
-Feb 11 13:43:20 systemd[1]: Starting 
-systemd-backlight@backlight:amdgpu_bl1.service - Load/Save Screen 
-Backlight Brightness of backlight:amdgpu_bl1...
-Feb 11 13:43:20 systemd[1]: Finished 
-systemd-backlight@backlight:amdgpu_bl1.service - Load/Save Screen 
-Backlight Brightness of backlight:amdgpu_bl1.
-Feb 11 13:43:20 audit[1]: SERVICE_START pid=1 uid=0 auid=4294967295 
-ses=4294967295 subj=system_u:system_r:init_t:s0 
-msg='unit=systemd-backlight@backlight:amdgpu_bl1 comm="systemd" 
-exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
-Feb 11 13:43:20 kernel: snd_hda_intel 0000:04:00.1: bound 0000:04:00.0 
-(ops amdgpu_dm_audio_component_bind_ops [amdgpu])
-Feb 11 13:43:25 gnome-shell[1539]: Added device '/dev/dri/card1' 
-(amdgpu) using atomic mode setting.
-Feb 11 13:43:37 kernel: amdgpu 0000:04:00.0: [drm] *ERROR* 
-[CRTC:73:crtc-0] flip_done timed out
-'''
-
-Should I submit the issue to the kernel bug report or here?
+>
+>
+>> 
+>> Since this gets mess it might be useful to have a DRM_ACPI_HELPERS Kconfig
+>> that controls all this.
+>
+> How about all those selects that I had in this patch moved to 
+> DRM_ACPI_HELPERS and keep the patch that drops from all the drivers then?
+>
+>> -Sima
+>> 
+>>>
+>>>>
+>>>>>
+>>>>>
+>>>>>>    	help
+>>>>>>    	  Kernel-level support for the Direct Rendering Infrastructure (DRI)
+>>>>>>    	  introduced in XFree86 4.0. If you say Y here, you need to select
+>>>>>> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+>>>>>> index 923c4423151c..c649b4f9fd8e 100644
+>>>>>> --- a/drivers/gpu/drm/drm_edid.c
+>>>>>> +++ b/drivers/gpu/drm/drm_edid.c
+>>>>>> @@ -28,6 +28,7 @@
+>>>>>>     * DEALINGS IN THE SOFTWARE.
+>>>>>>     */
+>>>>>> +#include <acpi/video.h>
+>>>>>>    #include <linux/bitfield.h>
+>>>>>>    #include <linux/cec.h>
+>>>>>>    #include <linux/hdmi.h>
+>>>>>> @@ -2188,6 +2189,49 @@ drm_do_probe_ddc_edid(void *data, u8 *buf, unsigned int block, size_t len)
+>>>>>>    	return ret == xfers ? 0 : -1;
+>>>>>>    }
+>>>>>> +/**
+>>>>>> + * drm_do_probe_acpi_edid() - get EDID information via ACPI _DDC
+>>>>>> + * @data: struct drm_device
+>>>>>> + * @buf: EDID data buffer to be filled
+>>>>>> + * @block: 128 byte EDID block to start fetching from
+>>>>>> + * @len: EDID data buffer length to fetch
+>>>>>> + *
+>>>>>> + * Try to fetch EDID information by calling acpi_video_get_edid() function.
+>>>>>> + *
+>>>>>> + * Return: 0 on success or error code on failure.
+>>>>>> + */
+>>>>>> +static int
+>>>>>> +drm_do_probe_acpi_edid(void *data, u8 *buf, unsigned int block, size_t len)
+>>>>>> +{
+>>>>>> +	struct drm_device *ddev = data;
+>>>>>> +	struct acpi_device *acpidev = ACPI_COMPANION(ddev->dev);
+>>>>>> +	unsigned char start = block * EDID_LENGTH;
+>>>>>> +	void *edid;
+>>>>>> +	int r;
+>>>>>> +
+>>>>>> +	if (!acpidev)
+>>>>>> +		return -ENODEV;
+>>>>>> +
+>>>>>> +	/* fetch the entire edid from BIOS */
+>>>>>> +	r = acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, &edid);
+>>>>>> +	if (r < 0) {
+>>>>>> +		DRM_DEBUG_KMS("Failed to get EDID from ACPI: %d\n", r);
+>>>>>> +		return -EINVAL;
+>>>>>> +	}
+>>>>>> +	if (len > r || start > r || start + len > r) {
+>>>>>> +		r = -EINVAL;
+>>>>>> +		goto cleanup;
+>>>>>> +	}
+>>>>>> +
+>>>>>> +	memcpy(buf, edid + start, len);
+>>>>>> +	r = 0;
+>>>>>> +
+>>>>>> +cleanup:
+>>>>>> +	kfree(edid);
+>>>>>> +
+>>>>>> +	return r;
+>>>>>> +}
+>>>>>> +
+>>>>>>    static void connector_bad_edid(struct drm_connector *connector,
+>>>>>>    			       const struct edid *edid, int num_blocks)
+>>>>>>    {
+>>>>>> @@ -2643,6 +2687,39 @@ struct edid *drm_get_edid(struct drm_connector *connector,
+>>>>>>    }
+>>>>>>    EXPORT_SYMBOL(drm_get_edid);
+>>>>>> +/**
+>>>>>> + * drm_get_acpi_edid - get EDID data, if available
+>>>>>
+>>>>> I'd prefer all the new EDID API to be named drm_edid_*. Makes a clean
+>>>>> break from the old API, and is more consistent.
+>>>>>
+>>>>> So perhaps drm_edid_read_acpi() to be in line with all the other struct
+>>>>> drm_edid based EDID reading functions.
+>>>>>
+>>>>>> + * @connector: connector we're probing
+>>>>>> + *
+>>>>>> + * Use the BIOS to attempt to grab EDID data if possible.
+>>>>>> + *
+>>>>>> + * The returned pointer must be freed using drm_edid_free().
+>>>>>> + *
+>>>>>> + * Return: Pointer to valid EDID or NULL if we couldn't find any.
+>>>>>> + */
+>>>>>> +const struct drm_edid *drm_get_acpi_edid(struct drm_connector *connector)
+>>>>>> +{
+>>>>>> +	const struct drm_edid *drm_edid;
+>>>>>> +
+>>>>>> +	switch (connector->connector_type) {
+>>>>>> +	case DRM_MODE_CONNECTOR_LVDS:
+>>>>>> +	case DRM_MODE_CONNECTOR_eDP:
+>>>>>> +		break;
+>>>>>> +	default:
+>>>>>> +		return NULL;
+>>>>>> +	}
+>>>>>> +
+>>>>>> +	if (connector->force == DRM_FORCE_OFF)
+>>>>>> +		return NULL;
+>>>>>> +
+>>>>>> +	drm_edid = drm_edid_read_custom(connector, drm_do_probe_acpi_edid, connector->dev);
+>>>>>> +
+>>>>>> +	/* Note: Do *not* call connector updates here. */
+>>>>>> +
+>>>>>> +	return drm_edid;
+>>>>>> +}
+>>>>>> +EXPORT_SYMBOL(drm_get_acpi_edid);
+>>>>>> +
+>>>>>>    /**
+>>>>>>     * drm_edid_read_custom - Read EDID data using given EDID block read function
+>>>>>>     * @connector: Connector to use
+>>>>>> diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+>>>>>> index 7923bc00dc7a..ca41be289fc6 100644
+>>>>>> --- a/include/drm/drm_edid.h
+>>>>>> +++ b/include/drm/drm_edid.h
+>>>>>> @@ -410,6 +410,7 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
+>>>>>>    	void *data);
+>>>>>>    struct edid *drm_get_edid(struct drm_connector *connector,
+>>>>>>    			  struct i2c_adapter *adapter);
+>>>>>> +const struct drm_edid *drm_get_acpi_edid(struct drm_connector *connector);
+>>>>>
+>>>>> There's a comment
+>>>>>
+>>>>> /* Interface based on struct drm_edid */
+>>>>>
+>>>>> towards the end of the file, gathering all the new API under it.
+>>>>>
+>>>>> Other than that, LGTM,
+>>>>>
+>>>>> BR,
+>>>>> Jani.
+>>>>>
+>>>>>>    u32 drm_edid_get_panel_id(struct i2c_adapter *adapter);
+>>>>>>    struct edid *drm_get_edid_switcheroo(struct drm_connector *connector,
+>>>>>>    				     struct i2c_adapter *adapter);
+>>>>>
+>>>>> -- 
+>>>>> Jani Nikula, Intel
+>>>>
+>>>
+>> 
+>
 
 -- 
-Luya Tshimbalanga
-Fedora Design Team
-Fedora Design Suite maintainer
-
---------------04nRxjUiPyqtTvJE70CLTL8s
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html data-lt-installed="true">
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body style="padding-bottom: 1px;">
-    <p>Hello team,</p>
-    <p>Testing "amdgpu.seamless=1" on Ryzen 7 5825u using kernel 6.7.4
-      led to a blank screen after the initial boot screen as tested on
-      Dell Inc. Inspiron 14 7425 2-in-1 with the following message from
-      boot:</p>
-    <p>"Feb 11 13:43:37 kernel: amdgpu 0000:04:00.0: [drm] *ERROR*
-      [CRTC:73:crtc-0] flip_done timed out"</p>
-    <p><br>
-    </p>
-    <p>Here is the journalctl report sorted by amdgpu:</p>
-    <p>'''</p>
-    <p>journalctl -b -2 --no-hostname | grep amdgpu<br>
-      Feb 11 13:43:14 kernel: Command line:
-      root=UUID=b8250ad0-059a-4eb7-893d-9757e1c0599d ro
-      rootflags=subvol=root rhgb quiet amdgpu.seamless=1
-      root=UUID=b8250ad0-059a-4eb7-893d-9757e1c0599d ro
-      rootflags=subvol=root rhgb quiet<br>
-      Feb 11 13:43:14 kernel: Kernel command line:
-      root=UUID=b8250ad0-059a-4eb7-893d-9757e1c0599d ro
-      rootflags=subvol=root rhgb quiet amdgpu.seamless=1
-      root=UUID=b8250ad0-059a-4eb7-893d-9757e1c0599d ro
-      rootflags=subvol=root rhgb quiet<br>
-      Feb 11 13:43:14 dracut-cmdline[398]: Using kernel command line
-      parameters:  rd.driver.pre=btrfs  
-      root=UUID=b8250ad0-059a-4eb7-893d-9757e1c0599d ro
-      rootflags=subvol=root rhgb quiet amdgpu.seamless=1
-      root=UUID=b8250ad0-059a-4eb7-893d-9757e1c0599d ro
-      rootflags=subvol=root rhgb quiet<br>
-      Feb 11 13:43:16 kernel: [drm] amdgpu kernel modesetting enabled.<br>
-      Feb 11 13:43:16 kernel: amdgpu: Virtual CRAT table created for CPU<br>
-      Feb 11 13:43:16 kernel: amdgpu: Topology: Add CPU node<br>
-      Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: enabling device (0006
-      -&gt; 0007)<br>
-      Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: amdgpu: Fetched VBIOS
-      from VFCT<br>
-      Feb 11 13:43:16 kernel: amdgpu: ATOM BIOS: 113-BARCELO-003<br>
-      Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: vgaarb: deactivate
-      vga console<br>
-      Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: amdgpu: Trusted
-      Memory Zone (TMZ) feature enabled<br>
-      Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: amdgpu: MODE2 reset<br>
-      Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: amdgpu: VRAM: 2048M
-      0x000000F400000000 - 0x000000F47FFFFFFF (2048M used)<br>
-      Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: amdgpu: GART: 1024M
-      0x0000000000000000 - 0x000000003FFFFFFF<br>
-      Feb 11 13:43:16 kernel: [drm] amdgpu: 2048M of VRAM memory ready<br>
-      Feb 11 13:43:16 kernel: [drm] amdgpu: 14960M of GTT memory ready.<br>
-      Feb 11 13:43:16 kernel: amdgpu 0000:04:00.0: amdgpu: Will use PSP
-      to load VCN firmware<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: RAS: optional
-      ras ta ucode is not available<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: RAP: optional
-      rap ta ucode is not available<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu:
-      SECUREDISPLAY: securedisplay ta ucode is not available<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: SMU is
-      initialized successfully!<br>
-      Feb 11 13:43:17 kernel: amdgpu: HMM registered 2048MB device
-      memory<br>
-      Feb 11 13:43:17 kernel: kfd kfd: amdgpu: Allocated 3969056 bytes
-      on gart<br>
-      Feb 11 13:43:17 kernel: kfd kfd: amdgpu: Total number of KFD nodes
-      to be created: 1<br>
-      Feb 11 13:43:17 kernel: amdgpu: Virtual CRAT table created for GPU<br>
-      Feb 11 13:43:17 kernel: amdgpu: Topology: Add dGPU node
-      [0x15e7:0x1002]<br>
-      Feb 11 13:43:17 kernel: kfd kfd: amdgpu: added device 1002:15e7<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: SE 1, SH per
-      SE 1, CU per SH 8, active_cu_number 8<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring gfx uses
-      VM inv eng 0 on hub 0<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring gfx_low
-      uses VM inv eng 1 on hub 0<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring gfx_high
-      uses VM inv eng 4 on hub 0<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring
-      comp_1.0.0 uses VM inv eng 5 on hub 0<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring
-      comp_1.1.0 uses VM inv eng 6 on hub 0<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring
-      comp_1.2.0 uses VM inv eng 7 on hub 0<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring
-      comp_1.3.0 uses VM inv eng 8 on hub 0<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring
-      comp_1.0.1 uses VM inv eng 9 on hub 0<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring
-      comp_1.1.1 uses VM inv eng 10 on hub 0<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring
-      comp_1.2.1 uses VM inv eng 11 on hub 0<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring
-      comp_1.3.1 uses VM inv eng 12 on hub 0<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring
-      kiq_0.2.1.0 uses VM inv eng 13 on hub 0<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring sdma0
-      uses VM inv eng 0 on hub 8<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring vcn_dec
-      uses VM inv eng 1 on hub 8<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring vcn_enc0
-      uses VM inv eng 4 on hub 8<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring vcn_enc1
-      uses VM inv eng 5 on hub 8<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: amdgpu: ring jpeg_dec
-      uses VM inv eng 6 on hub 8<br>
-      Feb 11 13:43:17 kernel: [drm] Initialized amdgpu 3.57.0 20150101
-      for 0000:04:00.0 on minor 1<br>
-      Feb 11 13:43:17 kernel: fbcon: amdgpudrmfb (fb0) is primary device<br>
-      Feb 11 13:43:17 kernel: amdgpu 0000:04:00.0: [drm] fb0:
-      amdgpudrmfb frame buffer device<br>
-      Feb 11 13:43:20 systemd[1]: Starting
-      <a class="moz-txt-link-abbreviated" href="mailto:systemd-backlight@backlight:amdgpu_bl1.service">systemd-backlight@backlight:amdgpu_bl1.service</a> - Load/Save Screen
-      Backlight Brightness of backlight:amdgpu_bl1...<br>
-      Feb 11 13:43:20 systemd[1]: Finished
-      <a class="moz-txt-link-abbreviated" href="mailto:systemd-backlight@backlight:amdgpu_bl1.service">systemd-backlight@backlight:amdgpu_bl1.service</a> - Load/Save Screen
-      Backlight Brightness of backlight:amdgpu_bl1.<br>
-      Feb 11 13:43:20 audit[1]: SERVICE_START pid=1 uid=0
-      auid=4294967295 ses=4294967295 subj=system_u:system_r:init_t:s0
-      msg='unit=systemd-backlight@backlight:amdgpu_bl1 comm="systemd"
-      exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=?
-      res=success'<br>
-      Feb 11 13:43:20 kernel: snd_hda_intel 0000:04:00.1: bound
-      0000:04:00.0 (ops amdgpu_dm_audio_component_bind_ops [amdgpu])<br>
-      Feb 11 13:43:25 gnome-shell[1539]: Added device '/dev/dri/card1'
-      (amdgpu) using atomic mode setting.<br>
-      Feb 11 13:43:37 kernel: amdgpu 0000:04:00.0: [drm] *ERROR*
-      [CRTC:73:crtc-0] flip_done timed out<br>
-      '''</p>
-    <p>Should I submit the issue to the kernel bug report or here?<br>
-    </p>
-    <pre class="moz-signature" cols="72">-- 
-Luya Tshimbalanga
-Fedora Design Team
-Fedora Design Suite maintainer</pre>
-    <div id="grammalecte_menu_main_button_shadow_host"
-      style="width: 0px; height: 0px;"></div>
-  </body>
-  <lt-container></lt-container>
-</html>
-
---------------04nRxjUiPyqtTvJE70CLTL8s--
+Jani Nikula, Intel
