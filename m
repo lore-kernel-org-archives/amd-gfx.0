@@ -4,69 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26DE4C4829A
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Feb 2024 22:52:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB682C48260
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Feb 2024 22:52:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B2E610E5D0;
-	Tue, 13 Feb 2024 22:52:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01EFE10E89F;
+	Tue, 13 Feb 2024 22:52:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="gVw3JHhE";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="CXCkHbJq";
 	dkim-atps=neutral
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD96C10E5EE
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Feb 2024 22:52:18 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-53fbf2c42bfso3649409a12.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Feb 2024 14:52:18 -0800 (PST)
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
+ [209.85.215.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 453C010E89F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Feb 2024 22:52:32 +0000 (UTC)
+Received: by mail-pg1-f179.google.com with SMTP id
+ 41be03b00d2f7-5bdbe2de25fso3800603a12.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Feb 2024 14:52:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1707864738; x=1708469538; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=n1biSooTx/UrebYR5OP4qSXkcgnNa/5VFREgCxOwPao=;
- b=gVw3JHhE5eKzjmfUWlV6um7Ld+MIg7eajO6BWo+bTfO+Cs1aAq4QAxNs1954KJyoTo
- lO72lIborEFoZ1eMuim9rwxrbWi0pmRCluKkerzZVt8Fmi6bW9STXVtouWatAk2FqJuw
- +2P91P5Ysyv89jngGyHYLy3kCkXfZNf0MuMSsK5Y2nMe/4reihPlvE4GM+X9fuDPs3Tw
- /w4gck5u4H+deEEpb2ehvgjirx0PF7ZN4jBcEV95PxnUAzTDr3occ/ziqkaVlALYP1Hm
- siQmZ3N/zup6/5hbskEkuq/8axRgvv1CMF4NBQnfbm0+yXOlUdvEX4dyGBOQSc9Chk3O
- 0MBQ==
+ d=usp.br; s=usp-google; t=1707864752; x=1708469552; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QPJKSwZeBPbnMdgaHzTCAO+LMUvPfr/R89O0sEj9gkg=;
+ b=CXCkHbJqqrqZ/9lY3vwOm1MOrVUinur5eKT7iTC06A8NfhG2vlAHY/+19ecDXev8MT
+ aYuqWJpawOhmOE2nv51AWGhlSp4CNpGMBTNCQl+fbMZEANvCxsa6e9VRgtI1dwRqsiAo
+ k8vzMdajzSy12FVJZKgxaEw3WTgNQirKhRpICxSNWqhgfotALt/zlwKB4PPVZZSF/Agm
+ SlXjZcU/bToFGBzm2p7sNx5ggFZ/8FB0P4gfqCikv9h6HUJE3E5oEPCMDWTztx8UlmB8
+ XQ2QKpVK+/NNHjRey6DrG+6ZmF3nbjKMJJo8m4ty7DM5daM1KUyREnPmZhCJ5nm5HFcV
+ zn8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707864738; x=1708469538;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=n1biSooTx/UrebYR5OP4qSXkcgnNa/5VFREgCxOwPao=;
- b=sXzYpPVjX0xlubSoK7XrPoZ0VCAUqESgkjqoaEltfyew2q0RA+OckKS19WBl6F8Ora
- 1jbqPPkZjE1K7OXpATaaS81O3OJG8RT4EPIvp4kTGK0KL14yETSQ/zbJEBoh2L8dLbnq
- fH7ah+joVbQKbjDBJ2Z959IRSCiZvRx30ShArMRztYiiSMq80kSPcdpcRH40RLhfKush
- FWTEJ7q3GQjbzxbir2Dqae8fmuyPWgIchNRV4s6S8Q2BmAjJpuf/wXgmCqUMvX5gREaT
- LvGKSZbrzoRjShsZ4vTNu7x4MQFtSSLegqr+FHt6zM3Vlgi5BGfduMbsXQ3u0BymYhuW
- BdrA==
+ d=1e100.net; s=20230601; t=1707864752; x=1708469552;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=QPJKSwZeBPbnMdgaHzTCAO+LMUvPfr/R89O0sEj9gkg=;
+ b=CgFeOka/+vQRQ11ppgc5nDbqLOmDQz/ScDd9a3LaJ415rwnJZjPoJv6OPImYA6b0OZ
+ 7OGMryyhhSn9QcWLqiFRGosfifa2VfvQmZE/GsjixKtXlc8rKMgxJS96BV6qcJBIpZPa
+ 9Ol47XrMX2e2tvOV0DT93RlIzbZ68xopyTE/Ceb0OHinzWb6xyK6J9KMugu1edwxtSzI
+ hC+IhzAlZgTxYev8azwTabe6DV0mR3A0oBK27P9233rySUyK4ggGd9L2YixfTw1kOTbd
+ wAlu7qhx1pCdWujmUznpzlxM10uv4TVIKD9+5AocUhPaCYM+aUkPuCbT74rL1GS0ZcoR
+ pldQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVLg2In1f3yZ2g6c89kb82eOYdXN5EDWjvOi3XIBJ7dvuiBNfXuP40E8q+YSg2u48nXgVyOHUxKZTbTmUAty4qnRPjvd4lWguEqdbL55g==
-X-Gm-Message-State: AOJu0YzAof/q+uTx8FssOP443oj56w895xF3+6sPS15nLyg+bKPXwTuD
- dRVoDOENVRt8dJ6TzMM+6za8YW1/R6YUq7jyVnIqLUUpjzCDZYhg7VCGs1VY2g==
-X-Google-Smtp-Source: AGHT+IG83kjcMgyb2TepVhraekXIrGAoO7/5x2dYYti0Y2M/nalGgdcVnPISARyASbiN2EjZJxr0xQ==
-X-Received: by 2002:a05:6a20:6f07:b0:19b:673d:824d with SMTP id
- gt7-20020a056a206f0700b0019b673d824dmr1066486pzb.46.1707864738360; 
- Tue, 13 Feb 2024 14:52:18 -0800 (PST)
+ AJvYcCV8sekoTqCsaze3oEVJrw6k6pRN5jNec5SNM7oPCwgnQ0r4JQwwrV8rtuq7yW6AZqyDLwYM78KAFQHY7m5JKC7NOEUlUKxoBVJZMlHv+Q==
+X-Gm-Message-State: AOJu0YwVn0a8Vox2b6ldXF7mBgaVo5RDzCuvG82gzWTJW4JCtyDmW/8U
+ 4pg0SNCK4pQ+iM/j2eG8utxS5CbykiU7fhiOIL9gtP02JQyExIQCzhXOiMMmwQ==
+X-Google-Smtp-Source: AGHT+IGSVr1+ATMwQt5rCANQn9q3OD2vEHmgNWq0lf5mwJzw3k+MmI5D9ArWdBHWaD3kaezo+zKTPw==
+X-Received: by 2002:a05:6a20:c31e:b0:19e:cdca:3e56 with SMTP id
+ dk30-20020a056a20c31e00b0019ecdca3e56mr867986pzb.27.1707864752221; 
+ Tue, 13 Feb 2024 14:52:32 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCXCiFWioP2hocfsaygH9ibRlbits+JDjuU/QXuJb2JVlOpqNH/v23Dygl9ANykWvEBeaX+I99sxAIVTQierYXlXJ+ZNpjQ9clLsKzo3whCzixc/NMeLrB5twSJzY2NE/+snoB/KB7FZ0RP4dV2a+j59NZsYPGN86+pimfvFR0KZqXAKt3jcLuEUx4+1woE1pwc6qI1RtcVqQ2BNl5IlKvWoD7oEAXvp5hrlClJSsSK3gf8+eiRXg8m96nUjr7VfnR48sax7zY2aipw6+W/VrP0PivaN0TuUMo3uzgn99VX4kbf3VooNNIGWt4Cudrvttf/4P1c22Y/TcNrychwT0JQmO13cAjvgDfMMDSV4AMU=
+ AJvYcCW52IN1lDshHR0n+DFxTl/0nUBytZBx6Gn6E+V37MN90DN4GVE5nHDXjmnSmnGwA48ONfiECF3JCJZhC3TMYMK8+sdzURjVyLZrUQm+4hnwN68ihzKSyXE1M2sqjXh8qxb+1LcFikiiqnFszpbxUjkiscV4xyOzyQpN1nrNcgRada/FK2R+Ue6NG/u5tnvWZSPRMyzDwuQj/qKbayv4HSTWuGsFO7ZQ1EJ5Lyk9XdONKKwF8PLtPTV3ieueWt+wW90ePBSmy012+anstlecrNIm4DI29byFTNS7iPRSp7mp53zvMTdpv9eBG6X8hJPSm6f8h34uO5KexMW0YpmpPaIQnNIirFvR0ohn3iCN9CDEnySd9WJIffxeHG/v
 Received: from fedora.. ([2804:7f4:8280:6434:9a20:a151:2d8b:d5a0])
  by smtp.gmail.com with ESMTPSA id
- r25-20020a639b19000000b005dc89142b99sm1528379pgd.84.2024.02.13.14.52.15
+ r25-20020a639b19000000b005dc89142b99sm1528379pgd.84.2024.02.13.14.52.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Feb 2024 14:52:17 -0800 (PST)
+ Tue, 13 Feb 2024 14:52:31 -0800 (PST)
 From: Joao Paulo Pereira da Silva <jppaulo11@usp.br>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- daniel@ffwll.ch, harry.wentland@amd.com, Rodrigo.Siqueira@amd.com,
- sunpeng.li@amd.com, Xinhui.Pan@amd.com
-Cc: Joao Paulo Pereira da Silva <jppaulo11@usp.br>,
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch
+Cc: jppaulo <jppaulo11@hotmail.com>,
+ Joao Paulo Pereira da Silva <jppaulo11@usp.br>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH 0/2] drm/amd/display: clean codestyle errors
-Date: Tue, 13 Feb 2024 19:43:08 -0300
-Message-ID: <20240213224339.379599-1-jppaulo11@usp.br>
+Subject: [PATCH 1/2] drm/amd/display: clean inconsistent indenting
+Date: Tue, 13 Feb 2024 19:43:09 -0300
+Message-ID: <20240213224339.379599-2-jppaulo11@usp.br>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240213224339.379599-1-jppaulo11@usp.br>
+References: <20240213224339.379599-1-jppaulo11@usp.br>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,14 +87,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-jppaulo (2):
-  drm/amd/display: clean inconsistent indenting
-  drm/amd/display: clean else not following close brace
+From: jppaulo <jppaulo11@hotmail.com>
 
- drivers/gpu/drm/amd/display/dc/core/dc.c              | 6 +++---
- drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c | 3 +--
- 2 files changed, 4 insertions(+), 5 deletions(-)
+Clean some wrong indenting that throw errors in checkpatch.
 
+Signed-off-by: Joao Paulo Pereira da Silva <jppaulo11@usp.br>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index aa7c02ba948e..7832832b973d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -962,7 +962,7 @@ static bool dc_construct(struct dc *dc,
+ 		goto fail;
+ 	}
+ 
+-        dc_ctx = dc->ctx;
++	dc_ctx = dc->ctx;
+ 
+ 	/* Resource should construct all asic specific resources.
+ 	 * This should be the only place where we need to parse the asic id
+@@ -3155,10 +3155,10 @@ static void commit_planes_do_stream_update(struct dc *dc,
+ 				if (stream_update->mst_bw_update->is_increase)
+ 					dc->link_srv->increase_mst_payload(pipe_ctx,
+ 							stream_update->mst_bw_update->mst_stream_bw);
+- 				else
++				else
+ 					dc->link_srv->reduce_mst_payload(pipe_ctx,
+ 							stream_update->mst_bw_update->mst_stream_bw);
+- 			}
++			}
+ 
+ 			if (stream_update->pending_test_pattern) {
+ 				dc_link_dp_set_test_pattern(stream->link,
 -- 
 2.43.0
 
