@@ -4,62 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33E61C48BC3
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Feb 2024 08:24:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B06A6C4829A
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Feb 2024 13:52:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1611310E33F;
-	Tue, 13 Feb 2024 08:24:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CE1910E563;
+	Tue, 13 Feb 2024 13:52:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="BELHSyJh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="H7NRehpK";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D65810E49A;
- Tue, 13 Feb 2024 00:51:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
- t=1707785454; x=1708390254; i=w_armin@gmx.de;
- bh=ey7reqdyEMdyt0U+wc6isCd5i2G3QaAEjU6W+bXRcdM=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
- b=BELHSyJhEmz3uAJ55HzjRL1FY6oYkh5fSPAP4VrjPTwQiIHWxjzBGiH7zNjhIX5M
- o1hL7CaND0ByRF5MC4FhkV7cuRHatvZe/wJP4N5+RQ2/TrCgqo1GAbHOBi4BgzYFj
- EM/J+Lc3rrUAXj+bCT1Q5OYyztmUvK/420LcOJvX/72Yi0DYFuh64G/2iS5w6ckJK
- NL7V1J/EiOu9wuwe3g4J/5wFss7Glpqspx4oBFayqscxnAlTGTivKqB2Qz/IY9Ldd
- Sngu3fskSSSRCVRd/KmthbvIgM/O7XKk1ZK6hNZwMvfZn5cLUr5yUYnZ4c0TeANaP
- /+qE2jxK9wf0YEJ1zw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from mx-amd-b650.users.agdsn.de ([141.30.226.129]) by mail.gmx.net
- (mrgmx005 [212.227.17.190]) with ESMTPSA (Nemesis) id
- 1MryT9-1rEsNn2fbh-00nvoP; Tue, 13 Feb 2024 01:50:54 +0100
-From: Armin Wolf <W_Armin@gmx.de>
-To: harry.wentland@amd.com,
-	sunpeng.li@amd.com,
-	Rodrigo.Siqueira@amd.com
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Fix memory leak in dm_sw_fini()
-Date: Tue, 13 Feb 2024 01:50:50 +0100
-Message-Id: <20240213005050.4442-1-W_Armin@gmx.de>
-X-Mailer: git-send-email 2.39.2
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2083.outbound.protection.outlook.com [40.107.93.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1502410E50A;
+ Tue, 13 Feb 2024 13:52:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=b7GsuWZOue09rq2+bfZi6sQ8TYwpAY/2YbLUUCK6mjfJDxJumehJoNc0AvCyTio3dPbtYCaLaq/ONni8R/pyy8uRo8ygh0jKz1t2Y6ZhuOiAuRL+bU1tmu57tuMBgh61g8l8gIOuIFPagDeHi99apciJIS7nie1IOPK64msoa1TXE7GYW6kFoMszxoE/+Q/ZQHjfaR2fWuIH9P2+QQhg8KbeyNeM2wj7XNQVTLIjPxe9MsVNmMXfloyj3NgtT5xsM/krsWZj21H04nyLZO5A5mxOdbMtc2Fv4ENQ+vLSb6GeVchOCNLVj9lcKCa/SI/jwkbC0m/RaiAjN3prsMLYnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qkdu6Myyqg8Cmg4PTCDnX9YhrNcYLp3uOeKpuuacY9c=;
+ b=PDkh3DRKr0zm87HRBB5KvOZcJ6cxhaq8sthf0aUDhnTCl/8duydm7wyA0CNi3KMYdU+eh3nDfEoxjN6/mbwGP+mTd2CJ4esPfNhcs6iA7K1CdTO1DwU18sdgjdPqvai2pbG70hXzGSeIsv2XFIsSlA6JlpqJZLVzZ0e0isNE73HxTLW2X7sFGzP0D70KRVLbE0L16FbxO5tm+1zB9i/ZdwybKgvtwCnAvQauDGDLtE4yCGVkVC6+JFP20POWumcGRDR526oBMIyVGUCBaW3ZdZqxTq46aJhBFY4Cp2BPFehc21wkGqpCUGvfYniurqGUMonmgqTrUSmK5d+PxAhW2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qkdu6Myyqg8Cmg4PTCDnX9YhrNcYLp3uOeKpuuacY9c=;
+ b=H7NRehpK2QMevVH3yod4JheWK9cteY++5naOgSEtKTnM76NJyKlSa60JTN782MWI3B2AK1IzyUWtTblXUyz0FaS8q2BNi/CmEg+N0ZsDQevQ8rygr04xJFCGiTgnSFiz4W0G4ekgpeqPHCDxIDp2GnOsbbRyJTzSYbsixh2WQyI=
+Received: from BN0PR04CA0152.namprd04.prod.outlook.com (2603:10b6:408:eb::7)
+ by DM6PR12MB4894.namprd12.prod.outlook.com (2603:10b6:5:209::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.25; Tue, 13 Feb
+ 2024 13:52:27 +0000
+Received: from BN2PEPF000044A2.namprd02.prod.outlook.com
+ (2603:10b6:408:eb:cafe::98) by BN0PR04CA0152.outlook.office365.com
+ (2603:10b6:408:eb::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.39 via Frontend
+ Transport; Tue, 13 Feb 2024 13:52:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF000044A2.mail.protection.outlook.com (10.167.243.153) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Tue, 13 Feb 2024 13:52:26 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Tue, 13 Feb 2024 07:52:23 -0600
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>
+CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
+ <matthew.auld@intel.com>, <mario.limonciello@amd.com>, <daniel@ffwll.ch>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ <stable@vger.kernel.org>
+Subject: [PATCH 1/2] drm/buddy: Fix alloc_range() error handling code
+Date: Tue, 13 Feb 2024 19:22:02 +0530
+Message-ID: <20240213135203.348050-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:txK5GIP1CJKI2+qnEyUyucXhG2X+JRy/QYC3OoT7DjNOn2mydAp
- M5bHds0vbZWQFEiZccqvIGQ3d8NxzQxJV4kmpqIyjK2KJc5MKQLebUpgnQhoPazXAiYhRqV
- nYnD1BztfPyXVTHvnuc70xzX0L0mzh0UqcoRy/77BAzaf+yU0IeFE//r5PdBiaccRI9j5Hg
- wnM+ChIcuLfQACJilY3eg==
-UI-OutboundReport: notjunk:1;M01:P0:9GILGb7t888=;Xkv/X0SRY9RV0DtgulGZhg+N60c
- kXd80iCFIP+MnX0QRtvOj4FK9592oNVlPshqD5jaOXnN8jbNWNQEr/xLMEuOICuMb2fECsOLM
- tJ5yE0LrTqakgngNZQvPs6/9PuFOiu6thEEkvjibkrsz1ETv2wNYT3diL1B0Qj+UkTT+OLRG5
- gwDl/6cT0y0aztnY6IRv/Ej9v3jAgCo6sdyrSSwGjRaDDXQz1VFwAotYPPH/LTLQ+YmgXMdhf
- OrrYOPkPIMZBOlQJgGzOCgJvuApzQX8vTDf95Q00lAOgffjXHTHRMzrBtyBUCfQYuuFCWA7ma
- F2xW+rOTNXqAMdvDEUvZRt36aMDY4TCV/+ti/LWQucxcGgjIPD1z/UebXOgjqBHyLiJL1+Rkf
- UyAOLsIS9PGF3Bfx42mBDd6hUDA9Xl9lS59Yqy8Tnwt4MbCAZooxrATzx5fHeqtCvSd/IKe9u
- qG/RBwq03VAQr7vCuzjY8bbBg0xUSe40/ztv4ucFgaT51BRPS6m1m7EbaWqFuljHGUG/rJBrd
- uPfSrB4I0DpPmoeGCqtlzvTBGE6/TQ31Uyd+zMelQC8BXrdJFuICXLGw8Bw+R8cr7LWO48QSu
- WVZWsSdl2Qv26NwrgnON5Fk33QvA+DOj0rGiaYwKmiXyBJ+/UqeC4BU5XmSJG+FtZzZ8xaoSo
- bEt3ytnMnqACCOjeWkyFsetBWrHPqtsBZ8X7Xte33QQk85epyVvuegcHi8s+qFH5hGkU8MHSO
- P14oiseodVgV23otrKGBzohb/hxBimX7xthiqndXcq1/pPIcX+PEilgJqo4t8eDp0AHjvSq+r
- /ZLxVojYaO7l6KnAI8ZbfUbFtDLJq2vS65vae9WW6giGA=
-X-Mailman-Approved-At: Tue, 13 Feb 2024 08:24:48 +0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A2:EE_|DM6PR12MB4894:EE_
+X-MS-Office365-Filtering-Correlation-Id: eafe824f-e4fc-4818-7cb5-08dc2c9b037d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DyqHOr59FuRgZPvbb8CHwvCdvrT4uqVQvvTfqFGkxMhXprg+7OlGUrTuVs7vzI118Kr5unSIWZOxm+soYYvFWa6p8Dn6hgsQKj7GaGcx/1PvZB45EkRbAKDseD9O8WJ1GXPzw3agm74EMFsCtSEsjVOjuGMZBZUQoGA2hnPcjEebw/iD91Xhnt62Kov/aWrTociJFFx3uVWlGDMnKsh/L//XIqlulqwfaEOBYyRhpy4e4gA/wkU8G5mmkm3jw5UzU4pQxdIzcXj81LYfVQsQtjBswSrRUXdZ2+R3ivL8Rv4IvuibDOVu+592316Ru1H9sbxgpw/JzDiLEQimE3lRIefF/5MGbxg6EnoRKUXiQtD//NBCday24ptwsUNgQ2pP4KNMNE5+/2mW6JiMmXTThAC/E0wOulZotRx5TCMV0d9s4MBVAAfUFgBVJEmrLC8tJ6dbGVxpKHr+4VAvY+R3lrVYYUR5jozh/NamCtZ2JW24jtuuY5gi4PeHrD94jxA65aFc9SKp0ksMc9RorXUH3tZZ9xHhkA261TQ+9vg+S7fDZ76DiJ/3R/eY7ceq56QF2qBz2URAfrLebkyKqt7CSQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(136003)(39860400002)(396003)(346002)(376002)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(82310400011)(46966006)(40470700004)(36840700001)(8936002)(8676002)(5660300002)(70206006)(70586007)(2906002)(4326008)(16526019)(36756003)(81166007)(356005)(82740400003)(86362001)(83380400001)(110136005)(478600001)(316002)(7696005)(54906003)(6666004)(966005)(1076003)(26005)(426003)(41300700001)(336012)(2616005);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2024 13:52:26.9407 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eafe824f-e4fc-4818-7cb5-08dc2c9b037d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A2.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4894
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,53 +108,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-After destroying dmub_srv, the memory associated with it is
-not freed, causing a memory leak:
+Few users have observed display corruption when they boot
+the machine to KDE Plasma or playing games. We have root
+caused the problem that whenever alloc_range() couldn't
+find the required memory blocks the function was returning
+SUCCESS in some of the corner cases.
 
-unreferenced object 0xffff896302b45800 (size 1024):
-  comm "(udev-worker)", pid 222, jiffies 4294894636
-  hex dump (first 32 bytes):
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace (crc 6265fd77):
-    [<ffffffff993495ed>] kmalloc_trace+0x29d/0x340
-    [<ffffffffc0ea4a94>] dm_dmub_sw_init+0xb4/0x450 [amdgpu]
-    [<ffffffffc0ea4e55>] dm_sw_init+0x15/0x2b0 [amdgpu]
-    [<ffffffffc0ba8557>] amdgpu_device_init+0x1417/0x24e0 [amdgpu]
-    [<ffffffffc0bab285>] amdgpu_driver_load_kms+0x15/0x190 [amdgpu]
-    [<ffffffffc0ba09c7>] amdgpu_pci_probe+0x187/0x4e0 [amdgpu]
-    [<ffffffff9968fd1e>] local_pci_probe+0x3e/0x90
-    [<ffffffff996918a3>] pci_device_probe+0xc3/0x230
-    [<ffffffff99805872>] really_probe+0xe2/0x480
-    [<ffffffff99805c98>] __driver_probe_device+0x78/0x160
-    [<ffffffff99805daf>] driver_probe_device+0x1f/0x90
-    [<ffffffff9980601e>] __driver_attach+0xce/0x1c0
-    [<ffffffff99803170>] bus_for_each_dev+0x70/0xc0
-    [<ffffffff99804822>] bus_add_driver+0x112/0x210
-    [<ffffffff99807245>] driver_register+0x55/0x100
-    [<ffffffff990012d1>] do_one_initcall+0x41/0x300
+The right approach would be if the total allocated size
+is less than the required size, the function should
+return -ENOSPC.
 
-Fix this by freeing dmub_srv after destroying it.
+Cc: <stable@vger.kernel.org> # 6.7+
+Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3097
+Tested-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://patchwork.kernel.org/project/dri-devel/patch/20240207174456.341121-1-Arunpravin.PaneerSelvam@amd.com/
+Acked-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/drm/drm_buddy.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Fixes: 743b9786b14a ("drm/amd/display: Hook up the DMUB service in DM")
-Signed-off-by: Armin Wolf <W_Armin@gmx.de>
-=2D--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
- 1 file changed, 1 insertion(+)
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index f57e6d74fb0e..c1a99bf4dffd 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -539,6 +539,12 @@ static int __alloc_range(struct drm_buddy *mm,
+ 	} while (1);
+ 
+ 	list_splice_tail(&allocated, blocks);
++
++	if (total_allocated < size) {
++		err = -ENOSPC;
++		goto err_free;
++	}
++
+ 	return 0;
+ 
+ err_undo:
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/g=
-pu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 59d2eee72a32..9cbfc8d39dee 100644
-=2D-- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2287,6 +2287,7 @@ static int dm_sw_fini(void *handle)
-
- 	if (adev->dm.dmub_srv) {
- 		dmub_srv_destroy(adev->dm.dmub_srv);
-+		kfree(adev->dm.dmub_srv);
- 		adev->dm.dmub_srv =3D NULL;
- 	}
-
-=2D-
-2.39.2
+base-commit: 2c80a2b715df75881359d07dbaacff8ad411f40e
+-- 
+2.25.1
 
