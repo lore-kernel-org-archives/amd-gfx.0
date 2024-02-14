@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86B1CC4829E
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 07:28:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85379C4829E
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 09:03:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 081B110E26A;
-	Thu, 15 Feb 2024 07:28:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2837710E15D;
+	Thu, 15 Feb 2024 09:03:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cfia/4I/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KstEo+x+";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4900010E26A
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Feb 2024 07:28:03 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-33cddf4b4b5so373702f8f.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Feb 2024 23:28:03 -0800 (PST)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55E6110E0BE;
+ Wed, 14 Feb 2024 22:44:33 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-1d94323d547so2094535ad.3; 
+ Wed, 14 Feb 2024 14:44:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1707982079; x=1708586879; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=J724PeHJWP0zxqy171puBImT652TP18ax4vddvoRtg8=;
- b=cfia/4I/H9P7S0dvtK7g44mR2cCf4OBhBb83jAo5Tq34Xd39aw6sKELf0gKYn5eJF3
- Zxcr5zukRkqKLBhixRBLEAUcB/MychsBFTUrBb5Q66G0zMWXqO2CvNuoRgwi+bH3iuQL
- P1u3RoO/b4dhn1kVnFaiDBA5oWMBc6BmjaTigWdHao/Oy7eZdib76IGTNmWx3xPanyPF
- 4buGcQZ0C7lSo4YKT33wnv52hav05n91tyu+yV5KhbwbKbut9raeW+QrDAW1lcmP/fZT
- BOIDjkaanLm5ElgQQpDcmhI1NFfKuh3llHjPHwnui8XVSt/VH6jQvg2wzrzrNmvpCiSU
- u9nQ==
+ d=gmail.com; s=20230601; t=1707950673; x=1708555473; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=3JywjW54T+fBYIkPqZ0r52IU6fFZGd6Cdajg00iAyqA=;
+ b=KstEo+x++Fx+d2CiBW4Yd4fcclmwZdbLrgmdGRpePjA4Ha/ptR/lJATHvy2mR5A7fu
+ wfeXIjF/NtrA0NOvbqpx94Hvx3hehr94LvoFEGY3NumQE4orIiBIAdZ30086aQe37ALW
+ GSvUMBcJ6gNyxYTxZoy24AkCSH8K+PMbiFldNyaLDV0vUKN1CYqKg3nTveNF4JUXCgNf
+ JfHJmbKkHsi9XGvueIBsgVDN9XrDQhZjYQYpJ8OyCwggaVtyyAo5o9NuD1Aji0NVpfRl
+ sYE0/NxlJ6Q+JDFM961i6dCctevF8Zxhn4i179PXfV6X/lCYT3BS7f3pIfr6SWcxW88B
+ FCmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707982079; x=1708586879;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=J724PeHJWP0zxqy171puBImT652TP18ax4vddvoRtg8=;
- b=l0VgyxB9asoMKLnPXGPZd5EgjAdL5PXxcCl+IAyRSCVb66fLqBXP5uFf3BzKl8PPyE
- wtR3eppS17MslZzviJ3ySLe//Eg+Of8b3oE6DWD9p5TFDKsjZ1pEuErMbglK1xKW/e87
- 6FJ/KXbBQqUQ2O2pA03m53IC6I3aoiBwtil/f+oYSOfpFoD1r7wQGEAwEylgF9eRgk8p
- oxKobcwERPHvtO6yXWY+4ESlHhHCcqfq9kDTiRtx/NAt41+6rClEeRfIoBkY/UhUWpJV
- 34fbWsil9UX8/Pm4KxEQpp04JiqeoAwPI77VxDCKuKN4ip9QSQkkP0W/k1ri07784ngr
- lKTw==
+ d=1e100.net; s=20230601; t=1707950673; x=1708555473;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3JywjW54T+fBYIkPqZ0r52IU6fFZGd6Cdajg00iAyqA=;
+ b=l1QPD+KFvh8CVBHz339ViiqzadaCpUhapIr9Wu8T20N/H86VLUQ3vtuiG8tBDu9GYq
+ XIRRypuf1H2Q2acDoG92bXJ7dGvbUs1r9noHxBSP8ZMpbHgT/pEz/jjB2mROG7sFldKS
+ c97jXxY3aFC1QmFPcuvZh+F9kqarZ77DoaAft2HRxAtds+4t758ylLdq0LNNqLG5LAtT
+ PES8U342l2PuKKqRD8i09hFJN8q7n5dEjWG3TKOfdWJQfvXYuNQWSUH75dFM/dOnmFbB
+ ck7VUVQX/MZth/0Q1ZbxCn3KTrO10DGeocCQyQ7R3XFPZ+YvhgmyMvoFk+ZtncH5cnFX
+ VA4w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWfoaa+QGzzW5vTGxSHOBxDTNsh11H+T+zYJr2SHJDGLSs2eoGfus5w5SBmjNpvfLNw1Ksbs1KbRlM2vsAeEEyGRQVt75NTh057bBgG/w==
-X-Gm-Message-State: AOJu0YxyrEiErigtPhX+Go+9UvS0dYJgPtMzrU6TbVPlrgSvdYMXnZCD
- 2g9+SN9yvl30bvd8VUb/TUE/Wy9TMvdV5gex6lHEGVI/JGF4a/SnlLJjyjPI
-X-Google-Smtp-Source: AGHT+IF+vonNOk6L8dbFQPOV32lHI89nFZMVI8dNMJ6Ycwlhhgf9sZre6BlqOLKyjLxTg4GiZ59Lqw==
-X-Received: by 2002:adf:e90a:0:b0:33b:2513:496f with SMTP id
- f10-20020adfe90a000000b0033b2513496fmr809278wrm.66.1707982079111; 
- Wed, 14 Feb 2024 23:27:59 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ AJvYcCVDFEApHM2VdXnVxAvFFQLjSMp/0laSl+38NeXWls2TgC/oY4OemZcX+aNSMWX6LBKZYUDFHWpOaPDuv1aGSlWEJqPbooApUsmpDWuITuUeARgU1D3DRZGFNSI1vW38cnXpeS+Qx1fYG/agt6IXlw==
+X-Gm-Message-State: AOJu0YwlcgQ2El8h7WBdelZezYqS2sSsZlR0e+XJ3JkhkOCQ8OdP0gb2
+ KminZ6VcfDDCWwcvwj8KHCDDnVceOU8m8xsInvgx+/+mAogLyrKeP13YgV86sZs=
+X-Google-Smtp-Source: AGHT+IGgJS7SuGWw/rt854cSssOAUSoxcDTXrkdQaT/B8eKFuwMa5+suH8+Q7FIOm96zpY1FtOJQ/Q==
+X-Received: by 2002:a17:902:7ec1:b0:1d7:133e:5c09 with SMTP id
+ p1-20020a1709027ec100b001d7133e5c09mr14830plb.22.1707950672419; 
+ Wed, 14 Feb 2024 14:44:32 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUVMhRyDVtH+n6FXXZIp5pFOCOGy05TdDDqMk1HAt1yI4T9JpOnOy+RYeaVujTfvjuZ4d6wPHnaDaLcqbWl8WcZ4nFaVk8l5HcFuRMCwrozhMQSO5LuKSehygfOTfUPL5/nzE+gTVYDtlxtoP0PyX9IaLwnA6lfi+fedemrPgN3YOxbnfWA7DzyGtXAOb3ShwUkc5JtouYs/dMxZ4myPtLBdfw4BkVyIBlOLVsYwD5w/n3oLc1aqwwClf5kzVBrz7PL9u9qGiZsuMH/bzI+8OpUIXDWIRxmEEkK9Ug9BPTGrYOHegTq4+bLK7ML6kOIzJNWbV4Ygb8x17BCu6jqrxKMKRyTqJefmR0cd1b49Jc=
+Received: from localhost.localdomain ([179.225.251.251])
  by smtp.gmail.com with ESMTPSA id
- v5-20020a5d59c5000000b0033b1277e95dsm872219wry.77.2024.02.14.23.27.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Feb 2024 23:27:58 -0800 (PST)
-Message-ID: <55944c59-2943-4557-ad23-eff38b548383@gmail.com>
-Date: Thu, 15 Feb 2024 08:27:57 +0100
+ jv12-20020a170903058c00b001d6f29c12f7sm1077950plb.135.2024.02.14.14.44.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Feb 2024 14:44:31 -0800 (PST)
+From: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ daniel@ffwll.ch, harry.wentland@amd.com, Rodrigo.Siqueira@amd.com,
+ sunpeng.li@amd.com, Xinhui.Pan@amd.com
+Cc: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH 0/3] drm/amd/display: fix codestyle for some dmub files 
+Date: Wed, 14 Feb 2024 19:42:14 -0300
+Message-Id: <20240214224217.15514-1-marcelomspessoto@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: bail on INFO IOCTL if the GPU is in reset
-Content-Language: en-US
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20240129155621.824237-1-alexander.deucher@amd.com>
- <BL1PR12MB514476B2675A7FEA612D6473F7482@BL1PR12MB5144.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <BL1PR12MB514476B2675A7FEA612D6473F7482@BL1PR12MB5144.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 15 Feb 2024 09:03:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,60 +84,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Well using this is in sysfs is a bug to begin with. This would prevent 
-starting new applications and crashing applications which don't expect 
-to get an -EPERM in return here.
+Marcelo Mendes Spessoto Junior (3):
+  drm/amd/display: clean codestyle errors
+  drm/amd/display: clean codestyle errors
+  drm/amd/display: clean codestyle errors
 
-If we need to make operations mutual exclusive with resets then we need 
-to take the appropriate locks and *not* work around by abusing 
-amdgpu_in_reset().
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 6 +++---
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c | 2 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c | 5 +++--
+ 3 files changed, 7 insertions(+), 6 deletions(-)
 
-The functionality of amdgpu_in_reset() is just to check in lower level 
-functions if we are inside the higher level reset thread and *not* 
-protect anybody from concurrent access.
-
-I think we should probably completely nuke the underlying flag and using 
-the thread owner of the lock to prevent such an abuse.
-
-Regards,
-Christian.
-
-Am 12.02.24 um 21:56 schrieb Deucher, Alexander:
-> [AMD Official Use Only - General]
->
-> Ping?
->
->> -----Original Message-----
->> From: Deucher, Alexander <Alexander.Deucher@amd.com>
->> Sent: Monday, January 29, 2024 10:56 AM
->> To: amd-gfx@lists.freedesktop.org
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
->> Subject: [PATCH] drm/amdgpu: bail on INFO IOCTL if the GPU is in reset
->>
->> This avoids queries to read registers or query the SMU for telemetry data while
->> the GPU is in reset. This mirrors what we already do for sysfs.
->>
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 3 +++
->>   1 file changed, 3 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> index a2df3025a754..d522e99c6f81 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> @@ -607,6 +607,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void
->> *data, struct drm_file *filp)
->>        int i, found, ret;
->>        int ui32_size = sizeof(ui32);
->>
->> +     if (amdgpu_in_reset(adev))
->> +             return -EPERM;
->> +
->>        if (!info->return_size || !info->return_pointer)
->>                return -EINVAL;
->>
->> --
->> 2.42.0
+-- 
+2.39.2
 
