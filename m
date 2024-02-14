@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D45CEC48BEB
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Feb 2024 18:40:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87D02C48BED
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Feb 2024 18:40:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AD2610E396;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5893310E394;
 	Wed, 14 Feb 2024 18:40:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qr7Rwv4H";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="p4ftiaEo";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2076.outbound.protection.outlook.com [40.107.223.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5C5110E0AD
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Feb 2024 18:40:41 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2063.outbound.protection.outlook.com [40.107.212.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2709510E34E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Feb 2024 18:40:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gAYzImuL2E6gLrHm1efkob1XG3vzH5JsB9lWM1y9JXBD9c0W2kuaNyR3MsKajLaENtXPh15yRDsCqD/O1OoZOpr2d3CgYJy5hZXppqSDCvv165gRZSRtoWV8RccNikQ6XWZqR2sicd1pVM9D0y8oybny8hAatRrjcP3N7LPMa5MbYl7VuC7vSAjm6CsIKhd/WftjIoZXf1BX6O7PLIBMhg7docox7piGRmrq/QDNYoEZnT39JFC2R+5HPDNVePfhycu0/BTrHOGx5D4fjis/FcRn/Mp/AlmBGgF6dUMZMrUvLcCwBs1loR5QjKhu+2NhGn2DipjVIuh+Q3i2kSRU3A==
+ b=cftaZqLwzcVg5m5j0+oY/FFEUbSZv02qnRk/XI0yF09I4twxomdJ0FeCNEYFwtlNgGar9erD6oqZKXbTwYzI3uxSki1wBRf0XLIjygWDhnIKdIz1J9jpifw83iyf+0fC1KoWdoaV1KREW3zIQtbZSmqhoOXUUaq/erjZnjdix3G/CrcGOMRXFJX1ADORjBDD6KwJkVnCdTSEfnIkamSV9yseZZ/OJasZ3zhmNH/MznVBzmwKcw40KGfNBPw9+/0O7u46ptY9PeTrmC8EMSMJ6+dRO9rh5PLvGk1FMvbVbVoPUqlDZ5QFQcqNES8HDedLMlVnRn227Cef24DC4w14JQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xdobe9xvSDIlpxWCs8iH+9+DUpDtA4+dcHw4fK5aQlw=;
- b=d8PL0KjD5COhL2ILlnzlkN6y7pBS+5r59J+1HxEanI8odNie5wgR00NOJc2KecLUyfC98i/iWv3cq+oWPaSbQEfvfsdkBLkmaDj/uS2ln6CLOxiRKvK3FIg23NoP1+Hv9pt856LbTO/L2fIxAff4JxOnYTsRZGfKl6d16cT18qlZRPW9lWlRXfgZVdyyi8+zXT7x3giWXHiPsbSE/wrJoINvI1Kgz0R/+wNb5xvDlKbmV6Sqfj/oczrUEfDsNuX/3js3sHhzzkIZDcradJJZaNaNVfO5BwYzS/GjY7wJWDipM7sHhGQMGu6O2y0SPFKXSPOiRLcaEomQA24nIw/r9w==
+ bh=M947VMqw3HisNhk8Fr7w0lcNAFcqtdLviusP7HxbP2s=;
+ b=URsBljXmK1QIOBYgq62okCT8FnQI45vEkLQzSjqaPeAUZKXUjEe0hUESF1xAeWPUeSgSByKw+jypKGZAr3AOjJOT1bCEVXYGWwo6h/n5O0laydH1W+gQL8XhLCJpBKcL1b/kP+tX1aKhOjYQU0x/iMrs1ZSTFcIFrT1KxR+Rh5Jfti1CijCoZHPEbEJb2SnUZ8Dx6y6pc3fQX7Iw5auUfFEOhMRC5I61glfuPE/y75wBBNesrjchy6IksoU7UAUH3jDFMkfyf8xs93FodJKAGu7VwmBPP6lJxS70jJbqXwbm/3DIhskFNPivBAWHTchGLpWUQe1/zQIbT0DdW2Citw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xdobe9xvSDIlpxWCs8iH+9+DUpDtA4+dcHw4fK5aQlw=;
- b=qr7Rwv4Hx3QevRNlz2z1r/JEf84EglBBbT+DG0WkTT5wfcBUhUrN8HN8lJWdvCDg4cbyhv1Kv5Tz8SvBD5KgSbf+PeWdKi8BE1ykS3VNi8D6HjjM7PA9fotm9BrhUyOgNIxr6iifsd2MCVtd4ZVy0Kbq5pkES9oMwuQbXNKeri8=
-Received: from BYAPR03CA0008.namprd03.prod.outlook.com (2603:10b6:a02:a8::21)
- by IA0PR12MB8647.namprd12.prod.outlook.com (2603:10b6:208:480::8)
+ bh=M947VMqw3HisNhk8Fr7w0lcNAFcqtdLviusP7HxbP2s=;
+ b=p4ftiaEoMRlRFxVi/IN5ZbyU/wf04PO1TWBzHMWD9/1Ce9yJk/Hwk8RRTo0qdDcPEGWwISkx2gPxXhX7skgfRrxJLdiGebkfzBLEk5557PLJxu2sLiWr5bISTnenhJ1A+1oRkwiBd19MFsKwdgC2A+xfOyOMDMkER6qliBOw+DM=
+Received: from BYAPR03CA0025.namprd03.prod.outlook.com (2603:10b6:a02:a8::38)
+ by SJ0PR12MB5662.namprd12.prod.outlook.com (2603:10b6:a03:429::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.26; Wed, 14 Feb
- 2024 18:40:38 +0000
+ 2024 18:40:39 +0000
 Received: from DS2PEPF0000343F.namprd02.prod.outlook.com
- (2603:10b6:a02:a8:cafe::2d) by BYAPR03CA0008.outlook.office365.com
- (2603:10b6:a02:a8::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.26 via Frontend
- Transport; Wed, 14 Feb 2024 18:40:37 +0000
+ (2603:10b6:a02:a8:cafe::5d) by BYAPR03CA0025.outlook.office365.com
+ (2603:10b6:a02:a8::38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.41 via Frontend
+ Transport; Wed, 14 Feb 2024 18:40:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,20 +50,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DS2PEPF0000343F.mail.protection.outlook.com (10.167.18.42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Wed, 14 Feb 2024 18:40:37 +0000
+ 15.20.7292.25 via Frontend Transport; Wed, 14 Feb 2024 18:40:38 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 14 Feb
- 2024 12:40:35 -0600
+ 2024 12:40:37 -0600
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>
-Subject: [PATCH 05/17] drm/amd/display: Remove redundant FPU guard
-Date: Wed, 14 Feb 2024 11:38:36 -0700
-Message-ID: <20240214184006.1356137-6-Rodrigo.Siqueira@amd.com>
+ <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Stable <stable@vger.kernel.org>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Rodrigo Siqueira
+ <rodrigo.siqueira@amd.com>
+Subject: [PATCH 06/17] drm/amd/display: adjust few initialization order in dm
+Date: Wed, 14 Feb 2024 11:38:37 -0700
+Message-ID: <20240214184006.1356137-7-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240214184006.1356137-1-Rodrigo.Siqueira@amd.com>
 References: <20240214184006.1356137-1-Rodrigo.Siqueira@amd.com>
@@ -75,26 +77,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343F:EE_|IA0PR12MB8647:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f1cdc5b-293c-4edc-5d19-08dc2d8c6fee
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343F:EE_|SJ0PR12MB5662:EE_
+X-MS-Office365-Filtering-Correlation-Id: cfa494b2-0366-4368-c971-08dc2d8c70bd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: U7n8SFVhHbWciOVtYh7Dr7DQeEnwlND5+i1fcfrpHIPlusgePDoaH9OiXE8bKlVbRmIXnoiU0HrIx7u3FOe2f2q9XujnwjBbmr8KWNUnzcQFhpE7YAruUYJX8TGeXNwX9cWIcR++LPgfqiK7qFQFqsoyxKGvbX4LZMQbfgZwc7lRGCyHMwQ+q2ykiT3uQYXNAAh6Hja+qiq3ckVx5sZVuLleqp7NjBpM6NsSirylDujpW1WVKwpNr4mnit8dAPpHEqduELpeWQHpj/A30sZXXpNNn5TFlfDtyB9yuCCCTARJs2+4gq4B80KL2KwyL63AjAH4mpg8e6eMmJu9okRdASRdXz9MI/bOPqsWlpb2Sb1isSPouHtHMJeuIgsS0rGXkmy59FYWh+dFXW5X9fhiPWJ5UBlpWISwA/m4tZBgeA4mkgYhM/p0In9qfBG27y6/Orr8W+EcPTBAyc1z50nSAbHAdCNxEJwLyAgoWEBl2lxRD4MhAkHxdsE9QO98kuik+GReaGGVGZWYNAwrlibbFYxNgk4VdyZxSAgz4EPSW5kkHWxaN3ltxoNS4I7m4q68iZq4EEp7MRrqSqWDy6tZT5sWRDmZdN208GmFnoxUi9A=
+X-Microsoft-Antispam-Message-Info: wCDiLlOkG/Ya14hUDqk4rytwVCjp8Vwkup1d+yH/oro33+0KAj+gWoJhrbePIcDtnyiezJMcaTIoke3sqLX4nx3UUhT9p5b6M5730yw80b+MjXmJ1q1jDv07hxLZNAEtYCm6fcHHzDFOPQOYmkCY8zTXXsDN84xkOBaxXnkiuUsHIoCV/t5YMy1VAK4nKtrr/Lm/WB8fd3QixuRsHsyOcMIPRePJyditwljBoJEeftaFqase7whDJ9l/NRVcdC5HTmHoJFqrFTAFy5H6+ISEvP36emCQdyZEXR1yoo/HzDLsB316alx8Qc9dqAH0UtCtPJWHkLSHFH4989CEZkBcxtyTNdMTkdYcaeE2/2R3NE2JfBogedi91wGnBMTdtO4owrwTz2VhEixgn5f4PcdKFLxSJ3gdy3/tZP4R9uM8NlK9yQDG7DODHODkSDTF3deRU2hRz9766OzpUgG+tSLqWksyucf9x2UMJIGNJ8kzaI8tfILN27Pujuuakw71Zu25RIOPLfJML9VP7GYV25BUT7P29LAX1oyDBKOFtHS7WrFl6/Y54kYxcLlg2xbT7tJ2YsJHQUi8XCb78pHzLZ30xWi0zal1qKZRwkYgox0050A=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(39860400002)(376002)(136003)(396003)(230922051799003)(186009)(82310400011)(64100799003)(1800799012)(451199024)(46966006)(36840700001)(40470700004)(4326008)(5660300002)(8936002)(4744005)(41300700001)(8676002)(2906002)(86362001)(356005)(83380400001)(82740400003)(81166007)(36756003)(2616005)(1076003)(54906003)(426003)(316002)(16526019)(70586007)(336012)(6916009)(478600001)(70206006)(26005);
+ SFS:(13230031)(4636009)(136003)(346002)(396003)(376002)(39860400002)(230922051799003)(186009)(82310400011)(64100799003)(1800799012)(451199024)(36840700001)(46966006)(40470700004)(82740400003)(356005)(81166007)(2906002)(5660300002)(4326008)(16526019)(1076003)(336012)(2616005)(26005)(316002)(8676002)(70586007)(54906003)(8936002)(70206006)(6916009)(478600001)(426003)(41300700001)(36756003)(83380400001)(86362001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2024 18:40:37.5394 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f1cdc5b-293c-4edc-5d19-08dc2d8c6fee
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2024 18:40:38.9144 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cfa494b2-0366-4368-c971-08dc2d8c70bd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8647
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5662
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,29 +111,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The function dcn32_build_wm_range_table call DC_FP_START/END. Drop the
-unnecessary FPU guard.
+From: Wayne Lin <wayne.lin@amd.com>
 
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+[Why]
+Observe error message "Can't retrieve aconnector in hpd_rx_irq_offload_work"
+when boot up with a mst tbt4 dock connected. After analyzing, there are few
+parts needed to be adjusted:
+
+1. hpd_rx_offload_wq[].aconnector is not initialzed before the dmub outbox
+hpd_irq handler get registered which causes the error message.
+
+2. registeration of hpd and hpd_rx_irq event for usb4 dp tunneling is not
+aligned with legacy interface sequence
+
+[How]
+Put DMUB_NOTIFICATION_HPD and DMUB_NOTIFICATION_HPD_IRQ handler
+registration into register_hpd_handlers() to align other interfaces and
+get hpd_rx_offload_wq[].aconnector initialized earlier than that.
+
+Leave DMUB_NOTIFICATION_AUX_REPLY registered as it was since we need that
+while calling dc_link_detect(). USB4 connection status will be proactively
+detected by dc_link_detect_connection_type() in amdgpu_dm_initialize_drm_device()
+
+Cc: Stable <stable@vger.kernel.org>
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c | 2 --
- 1 file changed, 2 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 37 +++++++++----------
+ 1 file changed, 18 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-index e64e45e4c833..ee5e7512a7ee 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-@@ -243,10 +243,8 @@ void dcn32_init_clocks(struct clk_mgr *clk_mgr_base)
- 	/* Get UCLK, update bounding box */
- 	clk_mgr_base->funcs->get_memclk_states_from_smu(clk_mgr_base);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b9ac3d2f8029..ed0ad44dd1d8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1843,21 +1843,12 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 			DRM_ERROR("amdgpu: fail to register dmub aux callback");
+ 			goto error;
+ 		}
+-		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD, dmub_hpd_callback, true)) {
+-			DRM_ERROR("amdgpu: fail to register dmub hpd callback");
+-			goto error;
+-		}
+-		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD_IRQ, dmub_hpd_callback, true)) {
+-			DRM_ERROR("amdgpu: fail to register dmub hpd callback");
+-			goto error;
+-		}
+-	}
+-
+-	/* Enable outbox notification only after IRQ handlers are registered and DMUB is alive.
+-	 * It is expected that DMUB will resend any pending notifications at this point, for
+-	 * example HPD from DPIA.
+-	 */
+-	if (dc_is_dmub_outbox_supported(adev->dm.dc)) {
++		/* Enable outbox notification only after IRQ handlers are registered and DMUB is alive.
++		 * It is expected that DMUB will resend any pending notifications at this point. Note
++		 * that hpd and hpd_irq handler registration are deferred to register_hpd_handlers() to
++		 * align legacy interface initialization sequence. Connection status will be proactivly
++		 * detected once in the amdgpu_dm_initialize_drm_device.
++		 */
+ 		dc_enable_dmub_outbox(adev->dm.dc);
  
--	DC_FP_START();
- 	/* WM range table */
- 	dcn32_build_wm_range_table(clk_mgr);
--	DC_FP_END();
+ 		/* DPIA trace goes to dmesg logs only if outbox is enabled */
+@@ -3546,6 +3537,14 @@ static void register_hpd_handlers(struct amdgpu_device *adev)
+ 	int_params.requested_polarity = INTERRUPT_POLARITY_DEFAULT;
+ 	int_params.current_polarity = INTERRUPT_POLARITY_DEFAULT;
+ 
++	if (dc_is_dmub_outbox_supported(adev->dm.dc)) {
++		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD, dmub_hpd_callback, true))
++			DRM_ERROR("amdgpu: fail to register dmub hpd callback");
++
++		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD_IRQ, dmub_hpd_callback, true))
++			DRM_ERROR("amdgpu: fail to register dmub hpd callback");
++	}
++
+ 	list_for_each_entry(connector,
+ 			&dev->mode_config.connector_list, head)	{
+ 
+@@ -3574,10 +3573,6 @@ static void register_hpd_handlers(struct amdgpu_device *adev)
+ 					handle_hpd_rx_irq,
+ 					(void *) aconnector);
+ 		}
+-
+-		if (adev->dm.hpd_rx_offload_wq)
+-			adev->dm.hpd_rx_offload_wq[connector->index].aconnector =
+-				aconnector;
+ 	}
  }
  
- static void dcn32_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr,
+@@ -4589,6 +4584,10 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 			goto fail;
+ 		}
+ 
++		if (dm->hpd_rx_offload_wq)
++			dm->hpd_rx_offload_wq[aconnector->base.index].aconnector =
++				aconnector;
++
+ 		if (!dc_link_detect_connection_type(link, &new_connection_type))
+ 			DRM_ERROR("KMS: Failed to detect connector\n");
+ 
 -- 
 2.43.0
 
