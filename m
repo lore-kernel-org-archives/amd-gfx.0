@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FBACC48BC3
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Feb 2024 21:35:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD6D4C48BC1
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Feb 2024 21:58:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6EF010E456;
-	Wed, 14 Feb 2024 21:35:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F74710E235;
+	Wed, 14 Feb 2024 21:58:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fkK/N+B+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m5YUhAvp";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2074.outbound.protection.outlook.com [40.107.92.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BC9210E456
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Feb 2024 21:35:54 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2083.outbound.protection.outlook.com [40.107.93.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D5CF10E09A;
+ Wed, 14 Feb 2024 21:58:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CRZInCqiSJaXu0So501hDfCfx4CTEs/FspYiOitoXNDbTnD3i7v2brHAu07ytV/PHTMMcTn3XoIV8CtyEbLWZvKxFTr7cr5AY6KHGY0TAm/RsRzSZbsxPXWCABP67gSyuUY3RJIiHRdllNT6/WjlFjwctGGiJGKjYVSibOa/G9peyCWC7Pqxy800UroYihwWK/Q+f4+/NOdEQwayobRiD5qq+UK/NhuB6ZXB16o3x85BpDPHNnIKsBUQpvt43boWbhVAVBxfbreA0huPlsy1rOXFMVYfE6lXIEAeFdQHb/QjRCrvH/dbmHL8jwg29qLM4OH21TsV97YtwuLRSSe7wg==
+ b=Vxr66pRLJeieSgqxFjVs4NN330sXRuzS9iiOwnMjkParg763oTEogTtp8aKfMBQpQCkR6h/9FnLRvG/Ao3UZLeo4k+B4Hs7k37R4zUaJ58wZCkKjk8uQrTaccuw5W0OLIlJ78XyJZvodjxBJx6bYShe1CvwKxo5n8GOAYvCTmNbcamWH22YCtx60+LzYE+UZ1CXO/RtAoivt9RzVuwUX5y/A9AWX9zreA2+DVl94w6XlCPGU1EOzTg7dwncf4o2ActcljH8lJLZh/O7bZUQRUUcTS92xOAe1uus+1M9zj3G9VIIWzFVhyxYXOp3VMg4zhwmhtSBkNWXcYZobOuum6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vpceNGhRYcxqeP0U/bJDwY9DxGNWzufeyLpCbZfdPtI=;
- b=amOrLzDoxBBlqbPerYYUf3BX2WRZnsd86PmsyrpDAuwZG6yOk5S8FPJDFrXg1mHcZxyogc2tt5hBQ7tMq3L3YNs0rfRtU+xCeA34ydNtBrWecupTEkmEQtQapoeGviQdkfUmAgeW3Ztr5+kYNIStJJ+UpPs8qMJwnp7+kWTsZrqGru8VI8x4FlJjHix8P9mhwpoQ5bLNtVnsJyVn7bUWt9awsfbtxtG8KASSRS3wTMnO0bnLnheegji9eu7/dCMWOB1RJFagRwY6G14oJKeYxxeronP4ompVV7LK4yGr3FXP/7RsQB0JuctdrAcoFKQ04fRn9mqvf4/MJXRz3bGwVg==
+ bh=2qqdtiNgAqw0BO6nbf/U2/XD22JRWHwjPHFynBAaKHo=;
+ b=K9BtPOftv3qpKt0knAhgpoKUHU1lJO09yaWfE1Iy2B+2ryKPxh6nXOE2RxQgdpYNuHvfyEqjn7yQ+N7de6I1BNfsznNYlrFBH0Ebzy0ZiwfAbFDhev/Nj0PXKwp+xLlSOE4eUARmXR8lUQF53aZ8l28MmsOjmky5Gs8FJl+G6O0MqQ8789SJDZg5oFBjq+hFcLSX8vzQoYP2LSsbycV/zm1X1GzqxMX8olr12IDRj0CCVYvlPG55wO6Xbu0UuIOiI9Q7sBAybg8uLVU8rFtBYADoaJA62fT9rzSkr2bYSiOdek+aWokLZ4ZCX/63eZbZ7w97pl6nNv7GP4m8b2EmxQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vpceNGhRYcxqeP0U/bJDwY9DxGNWzufeyLpCbZfdPtI=;
- b=fkK/N+B+fg0aZMKoEREqAdF6KK5PzjhJCxrYG7sd3E9SMQus2EmFiqC5/eeL37d+8gaLqVK/WUWOAvllg1c0L4EcG0D4cQF8psOmB790OmPfLXZx/hA+n9SFZJIyxb7ar5P0cYGI1v9+HUZGsc6UVmufoaEHgq2LVcPHRsUdb8s=
-Received: from CY5P221CA0154.NAMP221.PROD.OUTLOOK.COM (2603:10b6:930:6a::22)
- by MW6PR12MB8758.namprd12.prod.outlook.com (2603:10b6:303:23d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.24; Wed, 14 Feb
- 2024 21:35:48 +0000
-Received: from CY4PEPF0000EE31.namprd05.prod.outlook.com
- (2603:10b6:930:6a:cafe::b) by CY5P221CA0154.outlook.office365.com
- (2603:10b6:930:6a::22) with Microsoft SMTP Server (version=TLS1_2,
+ bh=2qqdtiNgAqw0BO6nbf/U2/XD22JRWHwjPHFynBAaKHo=;
+ b=m5YUhAvp5IsxSQXmHPMQLQEGpSi0wuVML9zsO2y2A9nPOOAwBNzYU1KtnLKlQ/zxdpxcVvd4QzSjOBJK0WRJPoluTcmhRTD/q4Ms0o3saq0Jgux7nr9KSGiO7UvkxvbyIUiSSOB5S+JBNVjqIzftSY6fpuTfNXxSP6jWNm6U1Ew=
+Received: from BL0PR1501CA0004.namprd15.prod.outlook.com
+ (2603:10b6:207:17::17) by MW4PR12MB8612.namprd12.prod.outlook.com
+ (2603:10b6:303:1ec::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.25; Wed, 14 Feb
+ 2024 21:58:27 +0000
+Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
+ (2603:10b6:207:17:cafe::df) by BL0PR1501CA0004.outlook.office365.com
+ (2603:10b6:207:17::17) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.41 via Frontend
- Transport; Wed, 14 Feb 2024 21:35:48 +0000
+ Transport; Wed, 14 Feb 2024 21:58:27 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,51 +48,58 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE31.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Wed, 14 Feb 2024 21:35:48 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.7292.25 via Frontend Transport; Wed, 14 Feb 2024 21:58:26 +0000
+Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 14 Feb
- 2024 15:35:46 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Yifan Zhang <yifan1.zhang@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: add SDMA 6.1.1 discovery support
-Date: Wed, 14 Feb 2024 16:35:28 -0500
-Message-ID: <20240214213528.2592338-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20240214213528.2592338-1-alexander.deucher@amd.com>
-References: <20240214213528.2592338-1-alexander.deucher@amd.com>
+ 2024 15:58:25 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: Daniel Vetter <daniel@ffwll.ch>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Alex Deucher <alexander.deucher@amd.com>,
+ "Hans de Goede" <hdegoede@redhat.com>, "open list:DRM DRIVERS"
+ <dri-devel@lists.freedesktop.org>
+CC: <amd-gfx@lists.freedesktop.org>, "open list:USB SUBSYSTEM"
+ <linux-usb@vger.kernel.org>, <linux-fbdev@vger.kernel.org>,
+ <nouveau@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <platform-driver-x86@vger.kernel.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-renesas-soc@vger.kernel.org>, "open list:ACPI"
+ <linux-acpi@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ Melissa Wen <mwen@igalia.com>, Mark Pearson <mpearson-lenovo@squebb.ca>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH v6 0/5] Add support for getting EDID over ACPI to DRM
+Date: Wed, 14 Feb 2024 15:57:51 -0600
+Message-ID: <20240214215756.6530-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE31:EE_|MW6PR12MB8758:EE_
-X-MS-Office365-Filtering-Correlation-Id: cdeb17b5-b005-430f-e315-08dc2da4e8b5
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|MW4PR12MB8612:EE_
+X-MS-Office365-Filtering-Correlation-Id: d3b2eb89-dbc3-4b06-2218-08dc2da8128f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OsQawMP0SF8ZrdZwma+oJbGMSR1sEzBvZqhg42+2+LjjqUY81mbe1UBPHGCyWCXwvqzxh2JwHM3co9o5v4SMoaaLWLbJ9lMNpvpSqLY/uDByt7o1b4glc4WLlBYhp/OV/mlVuFTVElo5NPjABUahqL3K0iaBQC4URSWKe/eyQMZkAKsX3Xr5lEOArFltqUMrXxaEykW+OIe7sVZWoWppAsOGjOMpqANpKFnu+iI9QoBcKRgbGaxy3Bg0q+ZD4C44TSpeNwtU43UDtfXS9bkvZmYFsf9O+F8MoMUSGjL7uqyObobrNEhAagcI53F4kjGBoiM2LJhRyF+Rin7jVcrw0pgkU4iqtElelxgOJB/RrPURtRNH02xhsYBHYu2cR8A4OXQWAlBlzLLCLFTwTKOujtFQcAZkrOMPupBPvzSDQo5h8X1Ik5L5JmII3PZQk+fbwTdMKXQJoc2HUFilMFM7zJdeOWHcCL6Vsvm1mR1jE1ke1TV0d/04hAmRXme90XK0IKX3s1uAEmusHi8HNT7akJuVoTLdIEzGK+1A8Jy1RWSF5am3FD2Aeos8q7ydazUKjvvXPUVUVmAaCbzIcTCxK/LN9s/uc7RIkDnINOcQne0LA7kpuAB9zU/T6/6aQj5BHb5TJJvYUfT9BHV4nNvtAuT8gXg5CozJqUGisGg3VsY=
+X-Microsoft-Antispam-Message-Info: eom7XwadlHEUd1nPgW4D5bqUip9Obx2DPHKyPiuHbnKwzsRorK4GwE5+R60EuJfk6Llzk/okwTUmlRhMNvDox5VSkBsTDjXmJk3bko8FBoffWmVkFoB+SGMf4kNUYwrRlzgMOSlfEuXSK3GLfP3Y60pTy0t3b4he9gpCfYZ4CqNiX1+bNFH50/fSsp4rm3PLVbUUTiNP3R1iVCnrog7hkB4dkeUN02H27CXwHAdjKOCnvN52Tu6hMAZjlsB+wWATJ0scBn2Xg8bPUz7ycgLgYFY7MEIt/3gZsucW2D8lkP8NUg+0fwDRvc/1HOxJFfoPwB5eSVpJVVxjNTTcjfoZHOss7ylftGTJv5x9nG+hHPbqtkZy7Y1uUfRw4gdg4rFQ97vnifo1sMpZojO9pAYVM3smMKyufoTGnVNkWVFBR0WOiptLatAhlXfBZKJ17dWzPzC4UQ7/EeLQfqAzc6YvtoaoWoT95MiP/jFxFqI4CQTvyyTfwRNd+qsZG9Lobvm6g5EGpwGOdLIDTq/Lb0s1Of/RDcT/eQlcmJSK6qXuYnqTEXSCsk+N5Gm/bYJ9YQcvRuBWJQU6pmbHmb9ADjG17wZkY42wyl/QhNTRelRAd3vbTpYwGSgOBeC8tQr5DaV16oMcAyyvS+PK/nDvV/G8LwDKx+f3Blk1Wg5O7q+zsiY=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(136003)(346002)(39860400002)(396003)(230922051799003)(451199024)(64100799003)(186009)(36860700004)(1800799012)(82310400011)(46966006)(40470700004)(2616005)(1076003)(83380400001)(82740400003)(16526019)(26005)(7696005)(356005)(81166007)(426003)(336012)(478600001)(4326008)(6916009)(5660300002)(8936002)(41300700001)(4744005)(70586007)(2906002)(6666004)(316002)(54906003)(36756003)(8676002)(70206006)(86362001);
+ SFS:(13230031)(4636009)(396003)(39860400002)(376002)(136003)(346002)(230922051799003)(1800799012)(64100799003)(451199024)(36860700004)(82310400011)(186009)(46966006)(40470700004)(6666004)(86362001)(41300700001)(36756003)(7696005)(83380400001)(4326008)(70206006)(8936002)(70586007)(8676002)(54906003)(1076003)(110136005)(2616005)(316002)(16526019)(2906002)(26005)(44832011)(7416002)(336012)(478600001)(426003)(5660300002)(82740400003)(81166007)(356005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2024 21:35:48.0794 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cdeb17b5-b005-430f-e315-08dc2da4e8b5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2024 21:58:26.8424 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3b2eb89-dbc3-4b06-2218-08dc2da8128f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE31.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD9.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8758
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB8612
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,28 +114,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yifan Zhang <yifan1.zhang@amd.com>
+This series adds the ability to fetch the EDID through ACPI for laptop
+panels. Drivers need to opt into the behavior.
 
-This patch to add SDMA 6.1.1 support.
+In this series it's enabled by default for all eDP or LVDS panels with
+AMDGPU and certain panels for Nouveau.
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
- 1 file changed, 1 insertion(+)
+Mario Limonciello (5):
+  drm: Stop using `select ACPI_VIDEO` in all drivers
+  drm: Stop using `select BACKLIGHT_CLASS_DEVICE`
+  drm: Add support to get EDID from ACPI
+  drm/amd: Fetch the EDID from _DDC if available for eDP
+  drm/nouveau: Use drm_edid_read_acpi() helper
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index ea4ca1e6d7b9..3bd47d882205 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -2050,6 +2050,7 @@ static int amdgpu_discovery_set_sdma_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(6, 0, 2):
- 	case IP_VERSION(6, 0, 3):
- 	case IP_VERSION(6, 1, 0):
-+	case IP_VERSION(6, 1, 1):
- 		amdgpu_device_ip_block_add(adev, &sdma_v6_0_ip_block);
- 		break;
- 	default:
+ drivers/gpu/drm/Kconfig                       |   1 +
+ drivers/gpu/drm/amd/amdgpu/Kconfig            |   9 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   1 +
+ .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   8 ++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   4 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |   2 +
+ drivers/gpu/drm/bridge/Kconfig                |   2 +-
+ drivers/gpu/drm/drm_edid.c                    | 109 ++++++++++++++++--
+ drivers/gpu/drm/fsl-dcu/Kconfig               |   2 +-
+ drivers/gpu/drm/gma500/Kconfig                |   7 +-
+ drivers/gpu/drm/gud/Kconfig                   |   2 +-
+ drivers/gpu/drm/i915/Kconfig                  |   9 +-
+ drivers/gpu/drm/nouveau/Kconfig               |   9 +-
+ drivers/gpu/drm/nouveau/nouveau_acpi.c        |  27 -----
+ drivers/gpu/drm/nouveau/nouveau_acpi.h        |   2 -
+ drivers/gpu/drm/nouveau/nouveau_connector.c   |  35 +++---
+ drivers/gpu/drm/radeon/Kconfig                |   9 +-
+ drivers/gpu/drm/renesas/shmobile/Kconfig      |   2 +-
+ drivers/gpu/drm/solomon/Kconfig               |   2 +-
+ drivers/gpu/drm/tilcdc/Kconfig                |   2 +-
+ drivers/gpu/drm/tiny/Kconfig                  |  14 +--
+ drivers/gpu/drm/xe/Kconfig                    |   8 +-
+ drivers/platform/loongarch/Kconfig            |   2 +-
+ drivers/platform/x86/Kconfig                  |   4 +-
+ drivers/staging/olpc_dcon/Kconfig             |   2 +-
+ drivers/usb/misc/Kconfig                      |   2 +-
+ drivers/video/fbdev/core/Kconfig              |   2 +-
+ include/drm/drm_connector.h                   |   6 +
+ include/drm/drm_edid.h                        |   1 +
+ 30 files changed, 165 insertions(+), 123 deletions(-)
+
 -- 
-2.42.0
+2.34.1
 
