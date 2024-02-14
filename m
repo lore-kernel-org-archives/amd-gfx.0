@@ -4,69 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85379C4829E
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 09:03:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12B53C48BEB
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 09:03:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2837710E15D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE68910E3D3;
 	Thu, 15 Feb 2024 09:03:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KstEo+x+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nqKMcGMc";
 	dkim-atps=neutral
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55E6110E0BE;
- Wed, 14 Feb 2024 22:44:33 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-1d94323d547so2094535ad.3; 
- Wed, 14 Feb 2024 14:44:33 -0800 (PST)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2A9C10E0BE;
+ Wed, 14 Feb 2024 22:44:43 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-1d7881b1843so2363225ad.3; 
+ Wed, 14 Feb 2024 14:44:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1707950673; x=1708555473; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=3JywjW54T+fBYIkPqZ0r52IU6fFZGd6Cdajg00iAyqA=;
- b=KstEo+x++Fx+d2CiBW4Yd4fcclmwZdbLrgmdGRpePjA4Ha/ptR/lJATHvy2mR5A7fu
- wfeXIjF/NtrA0NOvbqpx94Hvx3hehr94LvoFEGY3NumQE4orIiBIAdZ30086aQe37ALW
- GSvUMBcJ6gNyxYTxZoy24AkCSH8K+PMbiFldNyaLDV0vUKN1CYqKg3nTveNF4JUXCgNf
- JfHJmbKkHsi9XGvueIBsgVDN9XrDQhZjYQYpJ8OyCwggaVtyyAo5o9NuD1Aji0NVpfRl
- sYE0/NxlJ6Q+JDFM961i6dCctevF8Zxhn4i179PXfV6X/lCYT3BS7f3pIfr6SWcxW88B
- FCmA==
+ d=gmail.com; s=20230601; t=1707950683; x=1708555483; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=52CHDYauU/a10vE3y6h2ooh2dWhu6+6HHCSiTcqK4zg=;
+ b=nqKMcGMcAFvM4LJw33Va3kQJ5JMSEubMoDbxb7QiF9vPRx3ItRO2E+taeznq8D1Wkc
+ 0//SOQsNg2JosHoTCOd+hYw7+/ktBec5r0WpKUwuRO4Reigbl6g9teosAe61OaAZzcl+
+ 08LlhOUeYsG2HoEONy6ni9lpT7ON260KLKbTkuMsCeQ5JJgUitrG2XwhgE2Qo1LHhAI3
+ xdIWhp5XhRWSPpvFGo06U5Q3MieX2wdVb0+p0WQQuo4Y782imP/OI1C4p4IuhSPVgQGJ
+ eOey+kopOIgECidJTpCJ3+huf2bDbiiJRXYmHgfQACYTmW9RXaAEhrkJja2eHQcBL/3S
+ TYsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707950673; x=1708555473;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=3JywjW54T+fBYIkPqZ0r52IU6fFZGd6Cdajg00iAyqA=;
- b=l1QPD+KFvh8CVBHz339ViiqzadaCpUhapIr9Wu8T20N/H86VLUQ3vtuiG8tBDu9GYq
- XIRRypuf1H2Q2acDoG92bXJ7dGvbUs1r9noHxBSP8ZMpbHgT/pEz/jjB2mROG7sFldKS
- c97jXxY3aFC1QmFPcuvZh+F9kqarZ77DoaAft2HRxAtds+4t758ylLdq0LNNqLG5LAtT
- PES8U342l2PuKKqRD8i09hFJN8q7n5dEjWG3TKOfdWJQfvXYuNQWSUH75dFM/dOnmFbB
- ck7VUVQX/MZth/0Q1ZbxCn3KTrO10DGeocCQyQ7R3XFPZ+YvhgmyMvoFk+ZtncH5cnFX
- VA4w==
+ d=1e100.net; s=20230601; t=1707950683; x=1708555483;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=52CHDYauU/a10vE3y6h2ooh2dWhu6+6HHCSiTcqK4zg=;
+ b=B1zHFGiBi+/tn4pKf0nyI2TlyxuhnuskqRSPlYrCZFHLP4wOF0WMs8/QQLt7VwqAnI
+ LUXZ3vE4ETQ2qdSwMjre4o0GWUFP8EyAb/rrv0Rha+XhlOMeg71Jg6kGDdlm6dQBGWb/
+ Yyl4rtxGva89Ptj0ai3jR/WMFFCX51ZVP+sIfa8ykvUiVg+CS31kgmX7qsmuDqXhgvCG
+ xjW3+Xc9mD4y1WHtecrHj/eacvBvdzVesoWssozn42eH0rebjT67UgsKFga9sUx17F9N
+ SNWNTk9mOgS3U0U+emWUzAJeurrc1hxkl+3DCysWSJSTFUzTO1qDSj2u9nKHkugbTkwu
+ sjFQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVDFEApHM2VdXnVxAvFFQLjSMp/0laSl+38NeXWls2TgC/oY4OemZcX+aNSMWX6LBKZYUDFHWpOaPDuv1aGSlWEJqPbooApUsmpDWuITuUeARgU1D3DRZGFNSI1vW38cnXpeS+Qx1fYG/agt6IXlw==
-X-Gm-Message-State: AOJu0YwlcgQ2El8h7WBdelZezYqS2sSsZlR0e+XJ3JkhkOCQ8OdP0gb2
- KminZ6VcfDDCWwcvwj8KHCDDnVceOU8m8xsInvgx+/+mAogLyrKeP13YgV86sZs=
-X-Google-Smtp-Source: AGHT+IGgJS7SuGWw/rt854cSssOAUSoxcDTXrkdQaT/B8eKFuwMa5+suH8+Q7FIOm96zpY1FtOJQ/Q==
-X-Received: by 2002:a17:902:7ec1:b0:1d7:133e:5c09 with SMTP id
- p1-20020a1709027ec100b001d7133e5c09mr14830plb.22.1707950672419; 
- Wed, 14 Feb 2024 14:44:32 -0800 (PST)
+ AJvYcCWPOeViZqnZhTsr2xmlA/yAz3qDFpGsGAuG3AutEkOe5hHq8Tie3BZO5hQ5CFeS4ko8tBr6IPdGufDcJ211AEO9xjl9I80yYw0rj8Ku8jvQr/OztI5y42GDadhdjKBfagYLv/upPbhNNIprkOBAFQ==
+X-Gm-Message-State: AOJu0YxTpT2w641ZwKRIqg+9zHYjnPFkJwmC3d3jbDaYwmZyIiRWpNwW
+ ofHaBx+ez12xmrr3YhHRmjN9edWg5cVxT4aFrm8KLbkgi7qy6nc1
+X-Google-Smtp-Source: AGHT+IHThuCseJOtkAEkUVD/U78rJoGV3ZDVzYU76pLky/MI5VYa3CvRLgN29YUQdviclhelDO9eVA==
+X-Received: by 2002:a17:903:58d:b0:1d9:4282:4be8 with SMTP id
+ jv13-20020a170903058d00b001d942824be8mr25058plb.25.1707950683457; 
+ Wed, 14 Feb 2024 14:44:43 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCUVMhRyDVtH+n6FXXZIp5pFOCOGy05TdDDqMk1HAt1yI4T9JpOnOy+RYeaVujTfvjuZ4d6wPHnaDaLcqbWl8WcZ4nFaVk8l5HcFuRMCwrozhMQSO5LuKSehygfOTfUPL5/nzE+gTVYDtlxtoP0PyX9IaLwnA6lfi+fedemrPgN3YOxbnfWA7DzyGtXAOb3ShwUkc5JtouYs/dMxZ4myPtLBdfw4BkVyIBlOLVsYwD5w/n3oLc1aqwwClf5kzVBrz7PL9u9qGiZsuMH/bzI+8OpUIXDWIRxmEEkK9Ug9BPTGrYOHegTq4+bLK7ML6kOIzJNWbV4Ygb8x17BCu6jqrxKMKRyTqJefmR0cd1b49Jc=
+ AJvYcCW3PbDyOGQjfxDvf/hogoNHhkMRpwgJg30QjQjhwObnfu2nN2Mnu1YNT2BkC+rTrcjuEW+j8OJVdq+nnLbV/RvdrIO0eYsASwXu9TXo0wMi9nVW6Fdr5ARMdOdgr3IVM0I0bCMqQnvoxEqN9fv2FNrAq6BDrOQcVyodAFfErO3pmMm+50u5nDmu87O0IhcWZzfQydm+lCwidFsvknqG3BRatBsLqfeTNDPcUGr+H8VMmMzr52gbLqFvNmTHoa8uy5M/2XYrWw+6q3IlcSHh250Gzj0ZzzITTR5b3zZ/3jxPfExjE676xCPE5HSnkp05gk7x9BClAYXcrrg96WoGI9zE1BRiTdnv1f3b
 Received: from localhost.localdomain ([179.225.251.251])
  by smtp.gmail.com with ESMTPSA id
- jv12-20020a170903058c00b001d6f29c12f7sm1077950plb.135.2024.02.14.14.44.29
+ jv12-20020a170903058c00b001d6f29c12f7sm1077950plb.135.2024.02.14.14.44.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Feb 2024 14:44:31 -0800 (PST)
+ Wed, 14 Feb 2024 14:44:42 -0800 (PST)
 From: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- daniel@ffwll.ch, harry.wentland@amd.com, Rodrigo.Siqueira@amd.com,
- sunpeng.li@amd.com, Xinhui.Pan@amd.com
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch
 Cc: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH 0/3] drm/amd/display: fix codestyle for some dmub files 
-Date: Wed, 14 Feb 2024 19:42:14 -0300
-Message-Id: <20240214224217.15514-1-marcelomspessoto@gmail.com>
+Subject: [PATCH 3/3] drm/amd/display: clean codestyle errors
+Date: Wed, 14 Feb 2024 19:42:17 -0300
+Message-Id: <20240214224217.15514-4-marcelomspessoto@gmail.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20240214224217.15514-1-marcelomspessoto@gmail.com>
+References: <20240214224217.15514-1-marcelomspessoto@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 15 Feb 2024 09:03:41 +0000
@@ -84,16 +87,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Marcelo Mendes Spessoto Junior (3):
-  drm/amd/display: clean codestyle errors
-  drm/amd/display: clean codestyle errors
-  drm/amd/display: clean codestyle errors
+Use () for macro and adjust initial brace for dmub/src/dmub_dcn35.c
 
- drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 6 +++---
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c | 2 +-
+Signed-off-by: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
+---
  drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c | 5 +++--
- 3 files changed, 7 insertions(+), 6 deletions(-)
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
+index 60223efc6..fa38a5ae6 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
+@@ -35,9 +35,10 @@
+ #define BASE_INNER(seg) ctx->dcn_reg_offsets[seg]
+ #define CTX dmub
+ #define REGS dmub->regs_dcn35
+-#define REG_OFFSET_EXP(reg_name) BASE(reg##reg_name##_BASE_IDX) + reg##reg_name
++#define REG_OFFSET_EXP(reg_name) (BASE(reg##reg_name##_BASE_IDX) + reg##reg_name)
+ 
+-void dmub_srv_dcn35_regs_init(struct dmub_srv *dmub, struct dc_context *ctx) {
++void dmub_srv_dcn35_regs_init(struct dmub_srv *dmub, struct dc_context *ctx)
++{
+ 	struct dmub_srv_dcn35_regs *regs = dmub->regs_dcn35;
+ #define REG_STRUCT regs
+ 
 -- 
 2.39.2
 
