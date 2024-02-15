@@ -4,85 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D9CEC48BEC
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 08:53:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9B00C48260
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 08:53:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FF5310E4F3;
-	Fri, 16 Feb 2024 08:53:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23A3410E652;
+	Fri, 16 Feb 2024 08:53:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="T2N8PVS8";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="RKGXI8r5";
 	dkim-atps=neutral
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD84310E261;
- Fri, 16 Feb 2024 06:28:40 +0000 (UTC)
-Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 41G4xZru032307; Fri, 16 Feb 2024 06:28:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding;
- s=corp-2023-11-20; bh=11lhowEku9JauzXkE/wObrLIf2iNOyLR/O51AA5UCuY=;
- b=T2N8PVS86lByXQAks6rnchO2FxtwcI5Br/7b/QZMXkzC3UZT7wiOFORaIb/K3rsrLWRk
- zx6lHb4LDyFvLTSiPt9XBtlDpH80p4VGbHNC2wa7YX7mpnOUdWtupzrERO47lICHydus
- JgYCYpJ6tSPtYEzuYDOSEqp8bf91a3YWV1H1Ra3+h300GS40H8Pdsv3v57Z/Og2KlMHL
- EPymbvpIgpxDybp6yVOq4WhwD4zpVttTxVQwJ/aOsa/92dDmr0m9Ma+KAJdcfKXAOCXD
- MtGXSVdc2uGK7G+0HDUgKsxnny/hatnPFri7xe79TIeQXhkEaBNWoktZ3Zmcmc/wlLyy Dw== 
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3w91w6vduw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 16 Feb 2024 06:28:33 +0000
-Received: from pps.filterd
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
- with ESMTP id 41G5P48i024566; Fri, 16 Feb 2024 06:28:32 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3w5ykj07sn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 16 Feb 2024 06:28:32 +0000
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 41G6P0w5021393;
- Fri, 16 Feb 2024 06:28:31 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
- [10.129.136.47])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 3w5ykj07qv-1; Fri, 16 Feb 2024 06:28:31 +0000
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Alvin Lee <alvin.lee2@amd.com>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Duncan Ma <duncan.ma@amd.com>,
- Samson Tam <samson.tam@amd.com>, "JinZe.Xu" <jinze.xu@amd.com>,
- Josip Pavic <Josip.Pavic@amd.com>, Cruise Hung <cruise.hung@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: kernel-janitors@vger.kernel.org, dan.carpenter@linaro.org,
- Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
- kernel test robot <lkp@intel.com>, Dan Carpenter <error27@gmail.com>
-Subject: [PATCH] drm/amd/display: fix a possible NULL dereference bug
-Date: Thu, 15 Feb 2024 22:28:22 -0800
-Message-ID: <20240216062825.165627-1-harshit.m.mogalapalli@oracle.com>
-X-Mailer: git-send-email 2.43.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0359310E9BA;
+ Thu, 15 Feb 2024 16:05:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Subject:From:To:MIME-Version:Date:Message-ID:Content-Type:
+ Sender:Reply-To:Cc:Content-Transfer-Encoding:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=F7i2wcZPXzPlISGZ5Rwmm2JMfVHrFuKhNZ+KW9wD2+k=; b=RKGXI8r5Zt/4vWBnoTOtikLYBd
+ tUFZAJwddN/u8Mw0uMCpHxPoJS/ozuESe0tzMLRrb4Y0bWJdS/mriDYvFdDk792g7M6747tsqE5qn
+ f0vVXpgogDQ9D1z1qUNH8LHZhHOCG1RKOiaoiuhIS6IGQj73J/TaRNVf/vm3JG+x8Dng1Xhh0O5X0
+ WtwDJpFRY31Xk1jg0aTHqAhpCa0Sx8+VSvGl+Yc5WzfWSqwN+lsG7dxUQjsHLoCfcSgqT4b8lbnDg
+ m0h/KVeLsIIpAxljrdsq83Dp935Jz+9NQXT5GVRkkrGTbCxD4kJYHUOdxYMhVS3Qe+Ibj1bc7GXdV
+ uTfLZYZQ==;
+Received: from c-71-59-88-35.hsd1.nj.comcast.net ([71.59.88.35]
+ helo=[192.168.1.99]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1raeF7-0007OW-TO; Thu, 15 Feb 2024 17:05:46 +0100
+Content-Type: multipart/alternative;
+ boundary="------------gTR4d6Hug0celd0p923byl7c"
+Message-ID: <0efcdfe3-ea9e-43e5-ab07-6d69dca2c04a@igalia.com>
+Date: Thu, 15 Feb 2024 11:05:40 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-16_05,2024-02-14_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- bulkscore=0
- mlxlogscore=999 malwarescore=0 mlxscore=0 spamscore=0 suspectscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311290000 definitions=main-2402160051
-X-Proofpoint-ORIG-GUID: kc0_sxQHa_Md3hCzniJTwJnbPLO9kRu6
-X-Proofpoint-GUID: kc0_sxQHa_Md3hCzniJTwJnbPLO9kRu6
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: events@lists.x.org, xorg-devel@lists.x.org,
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ libre-soc-dev@lists.libre-soc.org, elections@x.org, members@x.org,
+ xorg@lists.freedesktop.org
+From: Christopher Michael <cmichael@igalia.com>
+Subject: 2024 X.Org Board of Directors Elections Nomination period is NOW
 X-Mailman-Approved-At: Fri, 16 Feb 2024 08:53:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,45 +63,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Smatch warns:
-	drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:136
-	dc_dmub_srv_cmd_list_queue_execute() warn: variable dereferenced
-	before check 'dc_dmub_srv' (see line 131)
+This is a multi-part message in MIME format.
+--------------gTR4d6Hug0celd0p923byl7c
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Fix this by moving the dereference "dc_dmub_srv->ctx" after the NULL check.
+We are seeking nominations for candidates for election to the X.Org 
+Foundation Board of Directors. All X.Org Foundation members are eligible 
+for election to the board.
 
-Fixes: 028bac583449 ("drm/amd/display: decouple dmcub execution to reduce lock granularity")
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <error27@gmail.com>
-Closes: https://lore.kernel.org/r/202311141141.GoLAPxD5-lkp@intel.com/
-Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
----
-Only compile tested
----
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Nominations for the 2024 election are now open and will remain open 
+until 23:59 UTC on 26 February 2024.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index 0bc32537e2eb..a4bd46ec6da4 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -128,7 +128,7 @@ bool dc_dmub_srv_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_srv,
- 		unsigned int count,
- 		union dmub_rb_cmd *cmd_list)
- {
--	struct dc_context *dc_ctx = dc_dmub_srv->ctx;
-+	struct dc_context *dc_ctx;
- 	struct dmub_srv *dmub;
- 	enum dmub_status status;
- 	int i;
-@@ -136,6 +136,7 @@ bool dc_dmub_srv_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_srv,
- 	if (!dc_dmub_srv || !dc_dmub_srv->dmub)
- 		return false;
- 
-+	dc_ctx = dc_dmub_srv->ctx;
- 	dmub = dc_dmub_srv->dmub;
- 
- 	for (i = 0 ; i < count; i++) {
--- 
-2.39.3
+The Board consists of directors elected from the membership. Each year, 
+an election is held to bring the total number of directors to eight. The 
+four members receiving the highest vote totals will serve as directors 
+for two year terms.
 
+The directors who received two year terms starting in 2023 were 
+Arkadiusz Hiler, Christopher Michael, Lyude Paul, and Daniel Vetter. 
+They will continue to serve until their term ends in 2024. Current 
+directors whose term expires in 2024 are Emma Anholt, Mark Filion, 
+Ricardo Garcia, and Alyssa Rosenzweig.
+<https://rosenzweig.io/>
+
+A director is expected to participate in the fortnightly IRC meeting to 
+discuss current business and to attend the annual meeting of the X.Org 
+Foundation, which will be held at a location determined in advance by 
+the Board of Directors.
+
+A member may nominate themselves or any other member they feel is 
+qualified. Nominations should be sent to the Election Committee at 
+elections@x.org.
+
+Nominees shall be required to be current members of the X.Org 
+Foundation, and submit a personal statement of up to 200 words that will 
+be provided to prospective voters. The collected statements, along with 
+the statement of contribution to the X.Org Foundation in the member's 
+account page on http://members.x.org, will be made available to all 
+voters to help them make their voting decisions.
+
+Nominations, membership applications or renewals and completed personal 
+statements must be received no later than 23:59 UTC on 26 February 2024.
+
+The slate of candidates will be published 04 March 2024 and candidate 
+Q&A will begin then. The deadline for Xorg membership applications and 
+renewals is 07 March 2024.
+
+
+Cheers,
+
+Christopher Michael, on behalf of the X.Org BoD
+
+
+--------------gTR4d6Hug0celd0p923byl7c
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>We are seeking nominations for candidates for election to the
+      X.Org Foundation Board of Directors. All X.Org Foundation members
+      are eligible for election to the board.</p>
+    <p>Nominations for the 2024 election are now open and will remain
+      open until 23:59 UTC on 26 February 2024.</p>
+    The Board consists of directors elected from the membership. Each
+    year, an election is held to bring the total number of directors to
+    eight. The four members receiving the highest vote totals will serve
+    as directors for two year terms.
+    <p>The directors who received two year terms starting in 2023 were <span
+        class="createlink">Arkadiusz Hiler, </span><span
+        class="createlink">Christopher Michael, </span><span
+        class="createlink">Lyude Paul, and Daniel Vetter</span>. They
+      will continue to serve until their term ends in 2024. Current
+      directors whose term expires in 2024 are <span class="createlink">Emma
+        Anholt, </span><span class="createlink">Mark Filion, </span><span
+        class="createlink">Ricardo Garcia, and Alyssa Rosenzweig.</span><a
+        href="https://rosenzweig.io/"><br>
+      </a></p>
+    <p>A director is expected to participate in the fortnightly IRC
+      meeting to discuss current business and to attend the annual
+      meeting of the X.Org Foundation, which will be held at a location
+      determined in advance by the Board of Directors.</p>
+    <p>A member may nominate themselves or any other member they feel is
+      qualified. Nominations should be sent to the Election Committee at
+      <a class="moz-txt-link-abbreviated" href="mailto:elections@x.org">elections@x.org</a>.<br>
+    </p>
+    <p>Nominees shall be required to be current members of the X.Org
+      Foundation, and submit a personal statement of up to 200 words
+      that will be provided to prospective voters. The collected
+      statements, along with the statement of contribution to the X.Org
+      Foundation in the member's account page on <a class="moz-txt-link-freetext" href="http://members.x.org">http://members.x.org</a>,
+      will be made available to all voters to help them make their
+      voting decisions.</p>
+    <p>Nominations, membership applications or renewals and completed
+      personal statements must be received no later than 23:59 UTC on 26
+      February 2024.</p>
+    <p>The slate of candidates will be published 04 March 2024 and
+      candidate Q&amp;A will begin then. The deadline for Xorg
+      membership applications and renewals is 07 March 2024.</p>
+    <p><br>
+    </p>
+    <p>Cheers,</p>
+    <p>Christopher Michael, on behalf of the X.Org BoD</p>
+    <p><br>
+    </p>
+    <p></p>
+  </body>
+</html>
+
+--------------gTR4d6Hug0celd0p923byl7c--
