@@ -4,61 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32A2BC48BF0
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 14:09:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08E4AC4829E
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 14:12:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C81D710E5F1;
-	Thu, 15 Feb 2024 14:09:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19C8910E510;
+	Thu, 15 Feb 2024 14:12:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QxJJV9Rc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BU+vdCnS";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F27D10E7DA;
- Thu, 15 Feb 2024 13:32:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1708003941; x=1739539941;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=O4jJ8i/gK8Pis+sDOmjDFyNSBQ1DPWMyPahef8wSofw=;
- b=QxJJV9RcrGT3kaXmxftvn4m9kCoE2jyM11BkxXo9cUVvjSf/CllfJuBq
- +f4DpfUVXRN0aXD79uKcooH9mnClax0pMrq3MsIl52GyPx0lzWad2V6hU
- EgFKlq/0Fel+KcMajiHUsoj98TDXlNQOSvw8/dQXTMfjWhP4EvSC+nox5
- 1AAC4NJR3MVif9BbFpiVvem1hmcrPtGYxXnBXHAPrhKO869fM7Szmi0dG
- +ANtYhpualRe8z5P4i4tsr7pJvN5eHuD4eAp15FRSWpcE3n00w9a8/1ly
- kzjd3WQzCUhA6iGVgVwJ4C1tlvF5vNucUjahemfFRcj3mCM+ULaSJ8l5d w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10984"; a="1943624"
-X-IronPort-AV: E=Sophos;i="6.06,161,1705392000"; 
-   d="scan'208";a="1943624"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2024 05:32:20 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,161,1705392000"; d="scan'208";a="26690872"
-Received: from ijarvine-desk1.ger.corp.intel.com (HELO localhost)
- ([10.246.32.150])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2024 05:32:14 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- dri-devel@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Lukas Wunner <lukas@wunner.de>
-Subject: [PATCH 1/3] drm/radeon: Use RMW accessors for changing LNKCTL2
-Date: Thu, 15 Feb 2024 15:31:53 +0200
-Message-Id: <20240215133155.9198-2-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240215133155.9198-1-ilpo.jarvinen@linux.intel.com>
-References: <20240215133155.9198-1-ilpo.jarvinen@linux.intel.com>
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FA2210E510;
+ Thu, 15 Feb 2024 14:12:18 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-40efcb37373so7147335e9.2; 
+ Thu, 15 Feb 2024 06:12:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1708006336; x=1708611136; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=aJPJk45tJ35CmV12mY4raCzYYj4R+MOk7Y0UwY06CoE=;
+ b=BU+vdCnSedCh0u/61UOkQ0vHvD4XFlomoZmC6wmAG9D41gJ+YsKXDWpmrFbtjkoCmv
+ ViJpQnCgoXE/JNt8HtAyXxeD57EsWn9F5Lh6VSe4AYZSsvz/tbu17Puoj/J+HVL+QJo1
+ 8fnS5yhK/RpE6raDZu831kUInIidF8p9f2vAezzTqZYqtfL39aihIxPSE5Juvj933jHj
+ RqgcYU6N9W2GwgTBKDd3jrMYAp9Y+wdImzmoc2L4Ruk22p8vu/cSh+GdhhsIEZlMp71p
+ 8V+HcWF/Z+6EVXPgf6HF8nnE6r0WrCQxKT6sEgMNPK8129iUwzykih36dzCUKoqE4TlJ
+ wGVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708006336; x=1708611136;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=aJPJk45tJ35CmV12mY4raCzYYj4R+MOk7Y0UwY06CoE=;
+ b=K+9KeIaBtg4RyXU3X67Tz0TVqY5mwnVVa7zi1SoA3cg15sNa4owzmpvJ7V0oWav/b3
+ 7nzsz1FQeAdjlYokvXlj99h/xoZDXc+7akwMv7TnYcsyUrBwuYiEL7ZgGJQlxKD/IpXj
+ T+LD8/HF8b2/HHJSMsLgB4SgoLQDh6w13uFj9E2e5B+nXO26Jiwg0k+jsqYlo85libBz
+ e9CRHoopLg5KhF0B4mRn9lnE2Cag5znq+oryWl2xG+A92ABEmjIH9GQwzonmUQo7eBxE
+ 8hy6aeQd1XOiZ5gUlYQNWMCdbub0rsxetaVU6mmpPWIg/xg1vJPwl/5xbFK/9UVJdmyZ
+ 9aLQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW4KmRjdSSVvV2Qw36x2+gm1yvFzA7e7RfHgHirIkWhzo0Elh5tLjdaqO3UVwAqNwp1Bw9PH4uf4L461UgSWPbvte6ftgIlzSuILNLSuRsqkcQYvHlaya+DU7p8D82M9mHRg4wlY5PRZuIOOTvIAnL5kguZ/mbtnDtDE9a/cDNMMfl/uGQiRsLrakDljkAKDpIZ9/1wshBz4iYWg/w/A+/jrDxXfq1zbQvdtNjaSwbh
+X-Gm-Message-State: AOJu0YxMXeULGqGDVyeJMl+3xqRosB0BHvyRl3lifGk7cbRRX61JHIKf
+ xJg75bJEpWzmgYO/O5pdjiXOdNTdHKIFPZCAy/1VvpSfG7UdHrcF
+X-Google-Smtp-Source: AGHT+IEUQXrc03AB98JvC7aCV3+SdG3He79Gs0UiygBwzJFzC+FfbbPwMdzR5HFdXsTxIDvppMeKhA==
+X-Received: by 2002:a05:600c:1f87:b0:411:fc3f:c620 with SMTP id
+ je7-20020a05600c1f8700b00411fc3fc620mr1497530wmb.20.1708006336297; 
+ Thu, 15 Feb 2024 06:12:16 -0800 (PST)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ je14-20020a05600c1f8e00b00411ee1dd5afsm2190696wmb.16.2024.02.15.06.12.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 Feb 2024 06:12:15 -0800 (PST)
+Message-ID: <b883e82e-9042-4656-b152-065ed31a81de@gmail.com>
+Date: Thu, 15 Feb 2024 15:12:10 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6 V4] fdinfo shared stats
+Content-Language: en-US
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, tvrtko.ursulin@linux.intel.com,
+ daniel@ffwll.ch
+References: <20240212210428.851952-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240212210428.851952-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 15 Feb 2024 14:09:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,151 +85,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert open coded RMW accesses for LNKCTL2 to use
-pcie_capability_clear_and_set_word() which makes its easier to
-understand what the code tries to do.
+Am 12.02.24 um 22:04 schrieb Alex Deucher:
+> We had a request to add shared buffer stats to fdinfo for amdgpu and
+> while implementing that, Christian mentioned that just looking at
+> the GEM handle count doesn't take into account buffers shared with other
+> subsystems like V4L or RDMA.  Those subsystems don't use GEM, so it
+> doesn't really matter from a GPU top perspective, but it's more
+> correct if you actually want to see shared buffers.
+>
+> After further discussions, add a helper and update all fdinfo
+> implementations to use that helper for consistency.
+>
+> v4: switch drm_gem_object_is_shared_for_memory_stats() to an inline function
 
-LNKCTL2 is not really owned by any driver because it is a collection of
-control bits that PCI core might need to touch. RMW accessors already
-have support for proper locking for a selected set of registers
-(LNKCTL2 is not yet among them but likely will be in the future) to
-avoid losing concurrent updates.
+I'm still not sure if looking at the actual handle count is the right 
+approach, but it's certainly better than before.
 
-Suggested-by: Lukas Wunner <lukas@wunner.de>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
----
- drivers/gpu/drm/radeon/cik.c | 40 ++++++++++++++----------------------
- drivers/gpu/drm/radeon/si.c  | 40 ++++++++++++++----------------------
- 2 files changed, 30 insertions(+), 50 deletions(-)
+So Reviewed-by: Christian König <christian.koenig@amd.com> for the 
+entire series.
 
-diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
-index 10be30366c2b..b5e96a8fc2c1 100644
---- a/drivers/gpu/drm/radeon/cik.c
-+++ b/drivers/gpu/drm/radeon/cik.c
-@@ -9592,28 +9592,18 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
- 								   PCI_EXP_LNKCTL_HAWD);
- 
- 				/* linkctl2 */
--				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
--							  &tmp16);
--				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN);
--				tmp16 |= (bridge_cfg2 &
--					  (PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN));
--				pcie_capability_write_word(root,
--							   PCI_EXP_LNKCTL2,
--							   tmp16);
--
--				pcie_capability_read_word(rdev->pdev,
--							  PCI_EXP_LNKCTL2,
--							  &tmp16);
--				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN);
--				tmp16 |= (gpu_cfg2 &
--					  (PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN));
--				pcie_capability_write_word(rdev->pdev,
--							   PCI_EXP_LNKCTL2,
--							   tmp16);
-+				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL2,
-+								   PCI_EXP_LNKCTL2_ENTER_COMP |
-+								   PCI_EXP_LNKCTL2_TX_MARGIN,
-+								   bridge_cfg2 |
-+								   (PCI_EXP_LNKCTL2_ENTER_COMP |
-+								    PCI_EXP_LNKCTL2_TX_MARGIN));
-+				pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL2,
-+								   PCI_EXP_LNKCTL2_ENTER_COMP |
-+								   PCI_EXP_LNKCTL2_TX_MARGIN,
-+								   gpu_cfg2 |
-+								   (PCI_EXP_LNKCTL2_ENTER_COMP |
-+								    PCI_EXP_LNKCTL2_TX_MARGIN));
- 
- 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
- 				tmp &= ~LC_SET_QUIESCE;
-@@ -9627,15 +9617,15 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
- 	speed_cntl &= ~LC_FORCE_DIS_SW_SPEED_CHANGE;
- 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
- 
--	pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL2, &tmp16);
--	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
-+	tmp16 = 0;
- 	if (speed_cap == PCIE_SPEED_8_0GT)
- 		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
- 	else if (speed_cap == PCIE_SPEED_5_0GT)
- 		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
- 	else
- 		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
--	pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL2, tmp16);
-+	pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL2,
-+					   PCI_EXP_LNKCTL2_TLS, tmp16);
- 
- 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
- 	speed_cntl |= LC_INITIATE_LINK_SPEED_CHANGE;
-diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
-index 85e9cba49cec..8eeaea64c75d 100644
---- a/drivers/gpu/drm/radeon/si.c
-+++ b/drivers/gpu/drm/radeon/si.c
-@@ -7193,28 +7193,18 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
- 								   PCI_EXP_LNKCTL_HAWD);
- 
- 				/* linkctl2 */
--				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
--							  &tmp16);
--				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN);
--				tmp16 |= (bridge_cfg2 &
--					  (PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN));
--				pcie_capability_write_word(root,
--							   PCI_EXP_LNKCTL2,
--							   tmp16);
--
--				pcie_capability_read_word(rdev->pdev,
--							  PCI_EXP_LNKCTL2,
--							  &tmp16);
--				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN);
--				tmp16 |= (gpu_cfg2 &
--					  (PCI_EXP_LNKCTL2_ENTER_COMP |
--					   PCI_EXP_LNKCTL2_TX_MARGIN));
--				pcie_capability_write_word(rdev->pdev,
--							   PCI_EXP_LNKCTL2,
--							   tmp16);
-+				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL2,
-+								   PCI_EXP_LNKCTL2_ENTER_COMP |
-+								   PCI_EXP_LNKCTL2_TX_MARGIN,
-+								   bridge_cfg2 &
-+								   (PCI_EXP_LNKCTL2_ENTER_COMP |
-+								    PCI_EXP_LNKCTL2_TX_MARGIN));
-+				pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL2,
-+								   PCI_EXP_LNKCTL2_ENTER_COMP |
-+								   PCI_EXP_LNKCTL2_TX_MARGIN,
-+								   gpu_cfg2 &
-+								   (PCI_EXP_LNKCTL2_ENTER_COMP |
-+								    PCI_EXP_LNKCTL2_TX_MARGIN));
- 
- 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
- 				tmp &= ~LC_SET_QUIESCE;
-@@ -7228,15 +7218,15 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
- 	speed_cntl &= ~LC_FORCE_DIS_SW_SPEED_CHANGE;
- 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
- 
--	pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL2, &tmp16);
--	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
-+	tmp16 = 0;
- 	if (speed_cap == PCIE_SPEED_8_0GT)
- 		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
- 	else if (speed_cap == PCIE_SPEED_5_0GT)
- 		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
- 	else
- 		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
--	pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL2, tmp16);
-+	pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL2,
-+					   PCI_EXP_LNKCTL2_TLS, tmp16);
- 
- 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
- 	speed_cntl |= LC_INITIATE_LINK_SPEED_CHANGE;
--- 
-2.39.2
+Should I take this through drm-misc-next?
+
+Regards,
+Christian.
+
+>
+> Alex Deucher (6):
+>    Documentation/gpu: Update documentation on drm-shared-*
+>    drm: add drm_gem_object_is_shared_for_memory_stats() helper
+>    drm: update drm_show_memory_stats() for dma-bufs
+>    drm/amdgpu: add shared fdinfo stats
+>    drm/i915: Update shared stats to use the new gem helper
+>    drm/xe: Update shared stats to use the new gem helper
+>
+>   Documentation/gpu/drm-usage-stats.rst      |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  4 ++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 11 +++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  6 ++++++
+>   drivers/gpu/drm/drm_file.c                 |  2 +-
+>   drivers/gpu/drm/i915/i915_drm_client.c     |  2 +-
+>   drivers/gpu/drm/xe/xe_drm_client.c         |  2 +-
+>   include/drm/drm_gem.h                      | 13 +++++++++++++
+>   8 files changed, 38 insertions(+), 4 deletions(-)
+>
 
