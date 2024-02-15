@@ -4,69 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 042CAC4829E
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 20:59:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4997CC48BC4
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 21:26:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4943210EA3E;
-	Thu, 15 Feb 2024 20:59:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61BF610E19B;
+	Thu, 15 Feb 2024 21:26:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XZtT7tP3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nPoM3Y2s";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4AA310E05F;
- Thu, 15 Feb 2024 20:59:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1708030774; x=1739566774;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=dzMOWydciWlsZQSBk3YqJpzmwB45g+fPik1wUBpE5hc=;
- b=XZtT7tP3KYpLZHEoNteRQIah/O8ZxYOxFBrf0rltljjp4cPo6dB/ioWL
- LtNF5Mxd2/+vvk1Ci6BXcigKMEMZaGQmBVPG4SsJ5cxVGGOFYBHT7sVYu
- ydCdg/+Nbm5NLUgj1hq/br1rTNYXPn4XoUZacrD0l8b9YYemX088aJkKh
- xEWYe/aVKkt+QYRAqIum60JMFV1qmJRGwnXXPsJql38nGj6LUexs4LL3n
- lRxF3lBut2mktYPImkxdlRTruKkE27rVaL+C9FqbzSq7invCoaZ9yzJVv
- NuWDAUwQwEoZJ7u4SMHEQ0YrcL0aeqsCk2KQNJjk58XgJ9FNZAGv/+K/H Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10985"; a="2021959"
-X-IronPort-AV: E=Sophos;i="6.06,162,1705392000"; 
-   d="scan'208";a="2021959"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2024 12:59:31 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,162,1705392000"; 
-   d="scan'208";a="3671651"
-Received: from lkp-server02.sh.intel.com (HELO 3c78fa4d504c) ([10.239.97.151])
- by orviesa009.jf.intel.com with ESMTP; 15 Feb 2024 12:59:25 -0800
-Received: from kbuild by 3c78fa4d504c with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1raipF-0000lM-1e;
- Thu, 15 Feb 2024 20:59:21 +0000
-Date: Fri, 16 Feb 2024 04:59:06 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Hans de Goede <hdegoede@redhat.com>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>
-Cc: Paul Gazzillo <paul@pgazz.com>,
- Necip Fazil Yildiran <fazilyildiran@gmail.com>,
- oe-kbuild-all@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
- linux-fbdev@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, intel-xe@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org,
- "open list:ACPI" <linux-acpi@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Melissa Wen <mwen@igalia.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH v6 1/5] drm: Stop using `select ACPI_VIDEO` in all drivers
-Message-ID: <202402160459.DYHkPajY-lkp@intel.com>
-References: <20240214215756.6530-2-mario.limonciello@amd.com>
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2089.outbound.protection.outlook.com [40.107.92.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E32910E19B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Feb 2024 21:26:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VI87qTQL5f9muwXp6IJvH9pmNYlilH7mjKsrJlPhGg3gI6BwIPAPGEMgVYdIilUJHNJILj1dFquzOyAhhuHRYx0CEJqbYjYWackB/mHaAFbM9jaTFzKFDYOIuYbtaG0GKIMKK4nqkrBgiTHN6RJ0qVcsit6+Fka5jau/cItrVD40C/tOTxAav7wpRuXxfnB+heYO/N+UlvXA8m6KjhZSZjna0DyDnbJQ5MNCbZYLSNcEReP0iM8l925QlcK5koY6zmhmjduNOdERDCv3MrYkd/WmV/0WwtzUh+WQELBdSJmR2kN48Y65zoh4GTTV++T4SY9RhZgXKzdbjyn9/U1g5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dKwjFiTP6Ez43WRoT/IsmyI61BqeF0yA+M7ym9L7UzA=;
+ b=AnUOyZ/LohvahgggB6/Us6HoupfPVh+vQdXA5Ko2INBgn1zMfwrbjFPVWzTCsdjCsm2u2GQ6Kis7hPKtATrh89XGgSmoqaHMT/Fsm8sLcz8+gNRxaY41LP5a3XpCgrpfqNHaG/gxv9TvXr3XFao+6NUTDNPAvNS7ThTxd2jyaoR6phKeylOpvWA0R6hKfW/mlW9JZZbtr8r5mD3zHEcZYg8FwqfxdpkVnY7ptgzhyOowxadh6aFa0uTxfQQA7roRDD1KxyVg1mXkujNtYAFkaYRquB6DBgMuGdjxe7ni4o1g+QIMZFVSbEOJWHOiZ9u8Bvkal5NtXcCR5fqbI7FLFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dKwjFiTP6Ez43WRoT/IsmyI61BqeF0yA+M7ym9L7UzA=;
+ b=nPoM3Y2sRgcVa77lIl45OJft7jpFHuYYJenZJppRxP2+rg9oAZVbcxcDtPiklbBwdhrG1QX2LmDk8PU8Z/kjA099pxyRvxAwJawH+qnIZhDPYBrTOXePYNTzlDru0cutn9rBKmR2v277V1CNeRTsLKvFvZHZf04D75UFBvWgCz0=
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
+ SN7PR12MB7811.namprd12.prod.outlook.com (2603:10b6:806:34f::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.25; Thu, 15 Feb
+ 2024 21:26:23 +0000
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::6503:7457:78d3:b2f4]) by DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::6503:7457:78d3:b2f4%4]) with mapi id 15.20.7292.021; Thu, 15 Feb 2024
+ 21:26:23 +0000
+From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+To: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
+ <Sunpeng.Li@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li,
+ Roman" <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Gutierrez,
+ Agustin" <Agustin.Gutierrez@amd.com>, "Chung, ChiaHsuan (Tom)"
+ <ChiaHsuan.Chung@amd.com>, "Wu, Hersen" <hersenxs.wu@amd.com>, "Zuo, Jerry"
+ <Jerry.Zuo@amd.com>
+Subject: RE: [PATCH 00/17] DC Patches February 14, 2024
+Thread-Topic: [PATCH 00/17] DC Patches February 14, 2024
+Thread-Index: AQHaX3VJOoFZKKUOTE2KzUkHsN51SLEL31Xw
+Date: Thu, 15 Feb 2024 21:26:23 +0000
+Message-ID: <DS0PR12MB6534D19FAA694DB66B7C927B9C4D2@DS0PR12MB6534.namprd12.prod.outlook.com>
+References: <20240214184006.1356137-1-Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20240214184006.1356137-1-Rodrigo.Siqueira@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=04d0dca8-310e-4150-8f2c-75fefb983de3;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-02-15T20:40:14Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|SN7PR12MB7811:EE_
+x-ms-office365-filtering-correlation-id: 449606a1-d520-488d-87f6-08dc2e6cc297
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: DvaBp0/PGOEAQp9tgyON//P1pwCtnAI4Qq8vfIsdlxCl25rEuMY4yWV7btyI1tqVuMkZ3EgiEWjP9q01/DSLQDNQHaosbicQkO4c/9NpEQZoPRc4ytywGEY/Wwi7iZ4a+fBGndksa+pxfTO9KbEjMWzNCbmAFqvsdORsnFxBPpqOT1x+fcV+dFLL+VnFCwkhaAuXadXfZcgCPzFucKYZSwWzZVM/+f4f1ta+wi8i/6EK0vpkxAOf91qIJtXoPfaMHVvEpjCUJM48hoVK9uCEzt7pdXhlcjl9qdVsoPD1jAeTRQnSjmzc3D1GhuRCNiiTsb6eUNkoQAROwwLmceZ+4fQIOs/8I3KnKWgbe7h40XGo+pBmRDp0ACff/+4qU7UoLSqxS6JhDQ5Y2SEaLpb1w3xC9LI39jac43SRftLDzeqrLWssXcPuagHBJ9FZpK5TmFYmf8KLqmVLBuOGV050TTsHB7hUsXzbx2WXbP9BCU729zTtrG/0xfjjEgrM15u8GHGlbgnqI7RcGilFeYSEF2vIyvIgTuhA2T2oRxEW9SS7G6gnv3je5Ef1mBenSMBxuD0RMTKPsVi65g4gkDry3ZkaNOIqUdztKQeiCl5nF6WjVNOpmw+1UklFGNrh5aVM
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(396003)(346002)(39860400002)(366004)(136003)(230922051799003)(1800799012)(64100799003)(186009)(451199024)(83380400001)(5660300002)(86362001)(66446008)(110136005)(478600001)(66476007)(66556008)(64756008)(76116006)(7696005)(71200400001)(6506007)(66946007)(53546011)(316002)(9686003)(2906002)(38100700002)(54906003)(52536014)(122000001)(8676002)(33656002)(55016003)(8936002)(26005)(4326008)(41300700001)(38070700009);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?pktih6SjGE3xIATLx5VToNTVYx9v/tb58PIDWBug1DjU801uhOfUi3TwZ84U?=
+ =?us-ascii?Q?//6wQ2zdPJ0D6msYPVipvKcl2md0bu2r1xxt45aQf9q8F1HUSSKwwf3T0zYe?=
+ =?us-ascii?Q?EwclMjNw7U6LblqEdiuE3kuTmv3U3rQPuw5ZHyKQZVei0UJQW7XeXqZQozYe?=
+ =?us-ascii?Q?mpQqUD00wsWzFgs9M0csSnLNLPJaOnclaOmYwNLwIIAMepsBI9blvwfZ+gl0?=
+ =?us-ascii?Q?kV5NRZaH2yiIfyZ8hNvsbPsZ5LkfYAfUfZaxNyqEd7g7CA93pS/i8XBUMOHj?=
+ =?us-ascii?Q?OPkESotstJQFEToavPLsTB9EJOb+vnL//wlnK7dFCsuUOa3KAOIEYhNBUV1b?=
+ =?us-ascii?Q?ToMxl6UjVmf8xMI7RAkZwl7hkp8v47Z6PnZdICqOOLIv3X8prJEPZn2t/PDG?=
+ =?us-ascii?Q?uRqYDlJ96WjJXac989PDhaG4zivxALeoOzEBEc56GivbKo0Bf2Y14Qbh5wJm?=
+ =?us-ascii?Q?R7ifoR7oO3tjVWlp9/wnH7++VPrl8Emj2A3i+MNgifwVuX+JQQidWZmhI35J?=
+ =?us-ascii?Q?tRFw/AP4TAm7gtA7n5MQcWAQX7SVh9lADFEox8oekPpEG5jfLGcV/kt/0BKe?=
+ =?us-ascii?Q?KVAohzsw644mQT+syu33BHZuWI3YYTI2Q4hDRJIhFpbPuicjF1JvhZDgpYNc?=
+ =?us-ascii?Q?xxc1d5lhfeNyQMZljFdYPTYQ4I6zkhO8pvTv9BmR+dxIwL/qQdDxgLaluDKA?=
+ =?us-ascii?Q?ssl9zTUGe/oa49J3HbrEDQN+OWE759Fvw3rHXd4BPFtczYxXxxxCtgr4Qrc1?=
+ =?us-ascii?Q?Hf3baNH5GZumv7gTof4RWlXRgpMBYk0g41LBUaHsPZuHs5/9v1XFYvBz2/7G?=
+ =?us-ascii?Q?lOZrq6v0/ZwcRFSTgqrDx0sTEbjP8uKhU3Eyf8FRYI7KXvAR/Peo9gm0Frbt?=
+ =?us-ascii?Q?NE/mA+2jELMdGWVtPgN7ygER9ho1Uifah8E4cY3Wa9TsnB23aVKTjpIuYbV7?=
+ =?us-ascii?Q?zeTxp5VE4iDw12qzJK+3cwsCQW95WFIb06CRJs67hhMlRtMrL/2S6oU+7CGC?=
+ =?us-ascii?Q?OiwrnpkpTjy2UmBeyZHMTbk9+OwiXaYGDQYo/oe1O0YyUvrrhwm5HPFHiHMZ?=
+ =?us-ascii?Q?MPQwMAnurrWhK/YW1ZNkuXd/o1WFcOmWlKDfQpwMrMg5f5HBsX24js7inVuk?=
+ =?us-ascii?Q?bunHTHEojSUuKamhlcUKe73AFJwmojMtxjgc2JrGLbGpvMpPfCyB3tvi+0dM?=
+ =?us-ascii?Q?lAP4w/ZHOIi2GgFrOnTcUhcrEJl79qIhVn9dgXyYwawigXxIAQTMvK29OO1N?=
+ =?us-ascii?Q?5f6SmDrm2LOX+M1rlRWsqxhmT7N2crh5kwCtKHS5rMbwVSIHhbubX21Bdw3/?=
+ =?us-ascii?Q?DmxEcTWisoF6NNTRLGZ6mvNNTP30XRrjuRM+kVZ/drUfHcVp9mR4kw3PP5W/?=
+ =?us-ascii?Q?kae5JGjzb7CciOnDUiHbZTjaCrZnefvPLLkhNiPX9R9gKg8/kwgmiwGeF6eT?=
+ =?us-ascii?Q?BEUYGpwPW29oGKj/D50nmGxWwT9/5YID++cWPIs3fyjqZp5ZtJ5Ai8PsieWI?=
+ =?us-ascii?Q?XCH3LvI/9Oxs4LMKKzxooqeT+KEQXS6oLaW5Njh5ybWySpNXX0C5lqnag6Jj?=
+ =?us-ascii?Q?dIfmJVstIpFdW/BlnCk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240214215756.6530-2-mario.limonciello@amd.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 449606a1-d520-488d-87f6-08dc2e6cc297
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Feb 2024 21:26:23.5640 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: t7eMqdx4V7JcdM2HIGLlYFE8zx3EIJ5ZjcLvgJdjb2c6Vov+JHyr1WbInYQ7Fdl7Pm8RYhhoP/cQJzYG1r6mvQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7811
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,131 +135,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mario,
+[Public]
 
-kernel test robot noticed the following build warnings:
+Hi all,
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.8-rc4 next-20240215]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+This week this patchset was tested on the following systems:
+        * Lenovo ThinkBook T13s Gen4 with AMD Ryzen 5 6600U
+        * MSI Gaming X Trio RX 6800
+        * Gigabyte Gaming OC RX 7900 XTX
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Mario-Limonciello/drm-Stop-using-select-ACPI_VIDEO-in-all-drivers/20240215-055936
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20240214215756.6530-2-mario.limonciello%40amd.com
-patch subject: [PATCH v6 1/5] drm: Stop using `select ACPI_VIDEO` in all drivers
-config: alpha-kismet-CONFIG_FB_BACKLIGHT-CONFIG_FB_ATMEL-0-0 (https://download.01.org/0day-ci/archive/20240216/202402160459.DYHkPajY-lkp@intel.com/config)
-reproduce: (https://download.01.org/0day-ci/archive/20240216/202402160459.DYHkPajY-lkp@intel.com/reproduce)
+These systems were tested on the following display/connection types:
+        * eDP, (1080p 60hz [5650U]) (1920x1200 60hz [6600U]) (2560x1600 120=
+hz[6600U])
+        * VGA and DVI (1680x1050 60hz [DP to VGA/DVI, USB-C to VGA/DVI])
+        * DP/HDMI/USB-C (1440p 170hz, 4k 60hz, 4k 144hz, 4k 240hz [Includes=
+ USB-C to DP/HDMI adapters])
+        * Thunderbolt (LG Ultrafine 5k)
+        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60Hz displays)
+        * DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60 display=
+s, and HP Hook G2 with 1 4k60 display)
+        * USB 4 (Kensington SD5700T and 1x 4k 60Hz display)
+        * PCON (Club3D CAC-1085 and 1x 4k 144Hz display [at 4k 120HZ, as th=
+at is the max the adapter supports])
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202402160459.DYHkPajY-lkp@intel.com/
+The testing is a mix of automated and manual tests. Manual testing includes=
+ (but is not limited to):
+        * Changing display configurations and settings
+        * Benchmark testing
+        * Feature testing (Freesync, etc.)
 
-kismet warnings: (new ones prefixed by >>)
->> kismet: WARNING: unmet direct dependencies detected for FB_BACKLIGHT when selected by FB_ATMEL
-   .config:166:warning: symbol value 'n' invalid for RAPIDIO_DISC_TIMEOUT
-   .config:190:warning: symbol value 'n' invalid for FAT_DEFAULT_CODEPAGE
-   .config:241:warning: symbol value 'n' invalid for SATA_MOBILE_LPM_POLICY
-   .config:335:warning: symbol value 'n' invalid for AIC79XX_DEBUG_MASK
-   .config:344:warning: symbol value 'n' invalid for PSTORE_BLK_MAX_REASON
-   .config:426:warning: symbol value 'n' invalid for KFENCE_SAMPLE_INTERVAL
-   .config:596:warning: symbol value 'n' invalid for DRM_XE_JOB_TIMEOUT_MIN
-   .config:618:warning: symbol value 'n' invalid for CRYPTO_DEV_QCE_SW_MAX_LEN
-   .config:712:warning: symbol value 'n' invalid for PANEL_LCD_CHARSET
-   .config:752:warning: symbol value 'n' invalid for AIC79XX_CMDS_PER_DEVICE
-   .config:770:warning: symbol value 'n' invalid for SND_AC97_POWER_SAVE_DEFAULT
-   .config:790:warning: symbol value 'n' invalid for PANEL_LCD_PIN_SDA
-   .config:810:warning: symbol value 'n' invalid for MAGIC_SYSRQ_DEFAULT_ENABLE
-   .config:823:warning: symbol value 'n' invalid for DRM_I915_MAX_REQUEST_BUSYWAIT
-   .config:860:warning: symbol value 'n' invalid for SND_AT73C213_TARGET_BITRATE
-   .config:875:warning: symbol value 'n' invalid for DRM_XE_PREEMPT_TIMEOUT_MIN
-   .config:884:warning: symbol value 'n' invalid for NET_EMATCH_STACK
-   .config:886:warning: symbol value 'n' invalid for VMCP_CMA_SIZE
-   .config:917:warning: symbol value 'n' invalid for INPUT_MOUSEDEV_SCREEN_Y
-   .config:1139:warning: symbol value 'n' invalid for MTDRAM_ERASE_SIZE
-   .config:1233:warning: symbol value 'n' invalid for SERIAL_UARTLITE_NR_UARTS
-   .config:1245:warning: symbol value 'n' invalid for USB_GADGET_STORAGE_NUM_BUFFERS
-   .config:1403:warning: symbol value 'n' invalid for LEGACY_PTY_COUNT
-   .config:1541:warning: symbol value 'n' invalid for WATCHDOG_OPEN_TIMEOUT
-   .config:1550:warning: symbol value 'n' invalid for AIC7XXX_RESET_DELAY_MS
-   .config:1686:warning: symbol value 'n' invalid for PANEL_LCD_PIN_E
-   .config:1717:warning: symbol value 'n' invalid for IBM_EMAC_POLL_WEIGHT
-   .config:1805:warning: symbol value 'n' invalid for DRM_I915_STOP_TIMEOUT
-   .config:1972:warning: symbol value 'n' invalid for KCOV_IRQ_AREA_SIZE
-   .config:2126:warning: symbol value 'n' invalid for RCU_FANOUT_LEAF
-   .config:2231:warning: symbol value 'n' invalid for DRM_XE_TIMESLICE_MAX
-   .config:2274:warning: symbol value 'n' invalid for PANEL_LCD_BWIDTH
-   .config:2465:warning: symbol value 'n' invalid for SND_SOC_SOF_DEBUG_IPC_FLOOD_TEST_NUM
-   .config:2585:warning: symbol value 'n' invalid for NOUVEAU_DEBUG_DEFAULT
-   .config:2775:warning: symbol value 'n' invalid for KCSAN_REPORT_ONCE_IN_MS
-   .config:2836:warning: symbol value 'n' invalid for AIC79XX_RESET_DELAY_MS
-   .config:2873:warning: symbol value 'n' invalid for KCSAN_UDELAY_INTERRUPT
-   .config:2887:warning: symbol value 'n' invalid for PSTORE_BLK_CONSOLE_SIZE
-   .config:2896:warning: symbol value 'n' invalid for PANEL_LCD_PIN_BL
-   .config:2920:warning: symbol value 'n' invalid for INITRAMFS_ROOT_GID
-   .config:3025:warning: symbol value 'n' invalid for ATM_FORE200E_TX_RETRY
-   .config:3062:warning: symbol value 'n' invalid for FB_OMAP2_DSS_MIN_FCK_PER_PCK
-   .config:3074:warning: symbol value 'n' invalid for BOOKE_WDT_DEFAULT_TIMEOUT
-   .config:3302:warning: symbol value 'n' invalid for KCSAN_UDELAY_TASK
-   .config:3394:warning: symbol value 'n' invalid for MTD_REDBOOT_DIRECTORY_BLOCK
-   .config:3401:warning: symbol value 'n' invalid for MMC_BLOCK_MINORS
-   .config:3404:warning: symbol value 'n' invalid for INET_TABLE_PERTURB_ORDER
-   .config:3448:warning: symbol value 'n' invalid for SCSI_NCR53C8XX_SYNC
-   .config:3530:warning: symbol value 'n' invalid for SERIAL_ALTERA_UART_BAUDRATE
-   .config:3564:warning: symbol value 'n' invalid for UCLAMP_BUCKETS_COUNT
-   .config:3640:warning: symbol value 'n' invalid for SERIAL_MCF_BAUDRATE
-   .config:3680:warning: symbol value 'n' invalid for STACK_MAX_DEFAULT_SIZE_MB
-   .config:3713:warning: symbol value 'n' invalid for DE2104X_DSL
-   .config:3724:warning: symbol value 'n' invalid for BLK_DEV_RAM_COUNT
-   .config:3970:warning: symbol value 'n' invalid for IP_VS_SH_TAB_BITS
-   .config:4097:warning: symbol value 'n' invalid for CMA_AREAS
-   .config:4114:warning: symbol value 'n' invalid for USBIP_VHCI_HC_PORTS
-   .config:4149:warning: symbol value 'n' invalid for INPUT_MOUSEDEV_SCREEN_X
-   .config:4265:warning: symbol value 'n' invalid for RIONET_RX_SIZE
-   .config:4408:warning: symbol value 'n' invalid for FTRACE_RECORD_RECURSION_SIZE
-   .config:4445:warning: symbol value 'n' invalid for RADIO_TYPHOON_PORT
-   .config:4551:warning: symbol value 'n' invalid for SERIAL_TXX9_NR_UARTS
-   .config:4565:warning: symbol value 'n' invalid for IBM_EMAC_TXB
-   .config:4947:warning: symbol value 'n' invalid for ARCH_MMAP_RND_BITS
-   .config:5030:warning: symbol value 'n' invalid for DRM_I915_FENCE_TIMEOUT
-   .config:5051:warning: symbol value 'n' invalid for TTY_PRINTK_LEVEL
-   .config:5144:warning: symbol value 'n' invalid for IP_VS_MH_TAB_INDEX
-   .config:5208:warning: symbol value 'n' invalid for MIPS_EJTAG_FDC_KGDB_CHAN
-   .config:5301:warning: symbol value 'n' invalid for KDB_DEFAULT_ENABLE
-   .config:5319:warning: symbol value 'n' invalid for SERIAL_ALTERA_UART_MAXPORTS
-   .config:5392:warning: symbol value 'n' invalid for PPC_EARLY_DEBUG_EHV_BC_HANDLE
-   .config:5433:warning: symbol value 'n' invalid for CRYPTO_DEV_FSL_CAAM_INTC_TIME_THLD
-   .config:5568:warning: symbol value 'n' invalid for PANEL_LCD_PIN_RW
-   .config:5575:warning: symbol value 'n' invalid for PANEL_LCD_HWIDTH
-   .config:5607:warning: symbol value 'n' invalid for LOCKDEP_CHAINS_BITS
-   .config:5699:warning: symbol value 'n' invalid for DRM_I915_HEARTBEAT_INTERVAL
-   .config:5706:warning: symbol value 'n' invalid for KCSAN_SKIP_WATCH
-   .config:5729:warning: symbol value 'n' invalid for PSTORE_BLK_KMSG_SIZE
-   .config:5933:warning: symbol value 'n' invalid for SERIAL_8250_RUNTIME_UARTS
-   .config:6028:warning: symbol value 'n' invalid for ARCH_MMAP_RND_COMPAT_BITS
-   .config:6099:warning: symbol value 'n' invalid for SND_MAX_CARDS
-   .config:6193:warning: symbol value 'n' invalid for RADIO_TRUST_PORT
-   .config:6195:warning: symbol value 'n' invalid for SERIAL_SH_SCI_NR_UARTS
-   .config:6218:warning: symbol value 'n' invalid for RCU_BOOST_DELAY
-   .config:6553:warning: symbol value 'n' invalid for CMA_SIZE_PERCENTAGE
-   .config:6639:warning: symbol value 'n' invalid for DRM_XE_PREEMPT_TIMEOUT_MAX
-   .config:6698:warning: symbol value 'n' invalid for DRM_XE_TIMESLICE_MIN
-   .config:6739:warning: symbol value 'n' invalid for SCSI_NCR53C8XX_MAX_TAGS
-   .config:6746:warning: symbol value 'n' invalid for DVB_MAX_ADAPTERS
-   .config:6761:warning: symbol value 'n' invalid for SCSI_SYM53C8XX_DMA_ADDRESSING_MODE
-   .config:6879:warning: symbol value 'n' invalid for ZSMALLOC_CHAIN_SIZE
-   .config:7073:warning: symbol value 'n' invalid for LOCKDEP_BITS
-   .config:7096:warning: symbol value 'n' invalid for SCSI_SYM53C8XX_MAX_TAGS
-   .config:7104:warning: symbol value 'n' invalid for IBM_EMAC_RXB
-   .config:7163:warning: symbol value 'n' invalid for SERIAL_ARC_NR_PORTS
-   .config:7198:warning: symbol value 'n' invalid for SCSI_MESH_RESET_DELAY_MS
-   .config:7199:warning: symbol value 'n' invalid for RIONET_TX_SIZE
-   .config:7337:warning: symbol value 'n' invalid for SCSI_MPT3SAS_MAX_SGE
-   .config:7477:warning: symbol value 'n' invalid for PANEL_LCD
-   .config:7508:warning: symbol value 'n' invalid for RCU_FANOUT
+Automated testing includes (but is not limited to):
+        * Script testing (scripts to automate some of the manual checks)
+        * IGT testing
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+The patchset consists of the amd-staging-drm-next branch (Head commit - 030=
+c6867a687 drm/amd/display: 3.2.272) with new patches added on top of it.
+
+Tested on Ubuntu 22.04.3, on Wayland and X11, using KDE Plasma and Gnome.
+
+
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+
+
+Thank you,
+
+Dan Wheeler
+Sr. Technologist | AMD
+SW Display
+---------------------------------------------------------------------------=
+---------------------------------------
+1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
+amd.com
+
+-----Original Message-----
+From: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>
+Sent: Wednesday, February 14, 2024 1:39 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo=
+ <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.Li@amd.com>; Lin, Wayne <Wayn=
+e.Lin@amd.com>; Gutierrez, Agustin <Agustin.Gutierrez@amd.com>; Chung, Chia=
+Hsuan (Tom) <ChiaHsuan.Chung@amd.com>; Wu, Hersen <hersenxs.wu@amd.com>; Zu=
+o, Jerry <Jerry.Zuo@amd.com>; Wheeler, Daniel <Daniel.Wheeler@amd.com>
+Subject: [PATCH 00/17] DC Patches February 14, 2024
+
+This DC patchset brings improvements in multiple areas. In summary, we
+highlight:
+
+- Re-enable windowed MPO support for DCN32/321.
+- Improvements in the subvp feature.
+- Code clean-up.
+- USB4 fixes.
+
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+
+Thanks
+Siqueira
+
+Alvin Lee (2):
+  drm/amd/display: Generalize new minimal transition path
+  drm/amd/display: Remove pixle rate limit for subvp
+
+Aric Cyr (2):
+  drm/amd/display: Fix nanosec stat overflow
+  drm/amd/display: 3.2.273
+
+Ethan Bitnun (1):
+  drm/amd/display: Only log during optimize_bandwidth call
+
+George Shen (1):
+  drm/amd/display: Check DP Alt mode DPCS state via DMUB
+
+Lewis Huang (1):
+  drm/amd/display: Only allow dig mapping to pwrseq in new asic
+
+Nicholas Kazlauskas (1):
+  drm/amd/display: Fix S4 hang polling on HW power up done for VBIOS
+    DMCUB
+
+Rodrigo Siqueira (6):
+  drm/amd/display: Remove break after return
+  drm/amd/display: Initialize variable with default value
+  drm/amd/display: Remove unused file
+  drm/amd/display: Add SMU timeout check and retry
+  drm/amd/display: Remove redundant FPU guard
+  drm/amd/display: Drop unnecessary header
+
+Swapnil Patel (1):
+  drm/amd/display: fix input states translation error for dcn35 & dcn351
+
+Wayne Lin (1):
+  drm/amd/display: adjust few initialization order in dm
+
+Wenjing Liu (1):
+  drm/amd/display: reenable windowed mpo odm support on dcn32 and dcn321
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  37 +++--
+ .../gpu/drm/amd/display/dc/basics/dce_calcs.c |   2 -
+ .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |   3 -
+ .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   |   2 +-
+ .../display/dc/clk_mgr/dcn10/rv1_clk_mgr.c    |   2 -
+ .../dc/clk_mgr/dcn10/rv1_clk_mgr_clk.c        |  79 ----------
+ .../dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c   |  11 +-
+ .../display/dc/clk_mgr/dcn301/dcn301_smu.c    |   6 +-
+ .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  |   4 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 146 +++++++-----------
+ drivers/gpu/drm/amd/display/dc/dc.h           |   2 +-
+ .../drm/amd/display/dc/dce/dce_panel_cntl.c   |   1 +
+ .../amd/display/dc/dcn301/dcn301_panel_cntl.c |   1 +
+ .../amd/display/dc/dcn31/dcn31_panel_cntl.c   |  18 ++-
+ .../display/dc/dcn32/dcn32_dio_link_encoder.c |  85 +++++++---
+ .../display/dc/dcn32/dcn32_dio_link_encoder.h |   5 +
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |   1 -
+ .../display/dc/dml2/dml2_translation_helper.c |   9 +-
+ .../gpu/drm/amd/display/dc/hdcp/hdcp_msg.c    |   2 -
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  31 ++--
+ .../drm/amd/display/dc/inc/hw/panel_cntl.h    |   2 +-
+ .../display/dc/irq/dcn20/irq_service_dcn20.c  |   2 -
+ .../display/dc/irq/dcn21/irq_service_dcn21.c  |   2 -
+ .../drm/amd/display/dc/link/link_factory.c    |  26 +---
+ .../dc/resource/dcn20/dcn20_resource.c        |   2 -
+ .../dc/resource/dcn32/dcn32_resource.c        |   1 +
+ .../dc/resource/dcn321/dcn321_resource.c      |   2 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn35.c |   8 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |   9 +-
+ .../drm/amd/display/modules/inc/mod_stats.h   |   4 +-
+ 30 files changed, 223 insertions(+), 282 deletions(-)  delete mode 100644 =
+drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_clk.c
+
+--
+2.43.0
+
