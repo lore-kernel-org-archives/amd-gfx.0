@@ -4,40 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 875FFC48BEB
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 09:03:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 569E8C4829E
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 09:03:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8812210E3FB;
-	Thu, 15 Feb 2024 09:03:44 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC34210E37E;
- Wed, 14 Feb 2024 15:09:15 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id CD07761A0F;
- Wed, 14 Feb 2024 15:09:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45F2EC433F1;
- Wed, 14 Feb 2024 15:09:10 +0000 (UTC)
-Date: Wed, 14 Feb 2024 10:10:41 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, Sumit
- Semwal <sumit.semwal@linaro.org>, Gustavo Padovan <gustavo@padovan.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-trace-kernel@vger.kernel.org, Alex
- Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v2 1/6] tracing, dma-buf: add a trace_dma_fence_sync_to
- event
-Message-ID: <20240214101041.2fbf9b87@gandalf.local.home>
-In-Reply-To: <137e8d79-bf19-4782-918e-0c09b029e3aa@amd.com>
-References: <20240117184329.479554-1-pierre-eric.pelloux-prayer@amd.com>
- <20240213155112.156537-1-pierre-eric.pelloux-prayer@amd.com>
- <20240213155112.156537-2-pierre-eric.pelloux-prayer@amd.com>
- <137e8d79-bf19-4782-918e-0c09b029e3aa@amd.com>
-X-Mailer: Claws Mail 3.19.1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39FD410E42B;
+	Thu, 15 Feb 2024 09:03:47 +0000 (UTC)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D65910E208;
+ Thu, 15 Feb 2024 05:59:51 +0000 (UTC)
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1raUmg-0001pd-LG; Thu, 15 Feb 2024 06:59:46 +0100
+Message-ID: <e65c6dc4-9b43-4c97-bb4c-d9c14655835d@leemhuis.info>
+Date: Thu, 15 Feb 2024 06:59:46 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Bug#1061449: linux-image-6.7-amd64: a boot message from amdgpu
+Content-Language: en-US, de-DE
+To: regressions@lists.linux.dev
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <170612149675.7169.757906919183146487.reportbug@kos-moceratops.home>
+ <ZbUB0YWxEET3Y0xA@eldamar.lan>
+From: "Linux regression tracking #update (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+In-Reply-To: <ZbUB0YWxEET3Y0xA@eldamar.lan>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1707976796;
+ db5397b1; 
+X-HE-SMSGID: 1raUmg-0001pd-LG
 X-Mailman-Approved-At: Thu, 15 Feb 2024 09:03:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,33 +48,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 14 Feb 2024 13:00:16 +0100
-Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
+On 27.01.24 14:14, Salvatore Bonaccorso wrote:
+> 
+> In Debian (https://bugs.debian.org/1061449) we got the following
+> quotred report:
+> 
+> On Wed, Jan 24, 2024 at 07:38:16PM +0100, Patrice Duroux wrote:
+>> Package: src:linux
+>> Version: 6.7.1-1~exp1
+>> Severity: normal
+>>
+>> Giving a try to 6.7, here is a message extracted from dmesg:
+>>
+>> [    4.177226] ------------[ cut here ]------------
+>> [    4.177227] WARNING: CPU: 6 PID: 248 at
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_factory.c:387
+>> construct_phy+0xb26/0xd60 [amdgpu]
+> 
+> Analysis showed that this appears to be a regression from b17ef04bf3a4
+> ("drm/amd/display: Pass pwrseq inst for backlight and ABM"). Does that
+> ring some bells?
+> 
+> See: https://bugs.debian.org/1061449#27
+> 
+> #regzbot introduced: b17ef04bf3a4
+> #regzbot link: https://bugs.debian.org/1061449
+> #regzbot title: Regression by b17ef04bf3a4 ("drm/amd/display: Pass pwrseq inst for backlight and ABM")
 
-> > +DEFINE_EVENT(dma_fence_from, dma_fence_sync_to, =20
->=20
-> For a single event you should probably use TRACE_EVENT() instead of=20
-> declaring a class. A class is only used if you have multiple events with=
-=20
-> the same parameters.
+#regzbot monitor:
+https://lore.kernel.org/amd-gfx/20240214184006.1356137-8-Rodrigo.Siqueira@amd.com/
+#regzbot fix: drm/amd/display: Only allow dig mapping to pwrseq in new asic
+#regzbot ignore-activity
 
-FYI, TRACE_EVENT() is actually defined as:
-
-#define TRACE_EVENT(name, proto, args, tstruct, assign, print) \
-	DECLARE_EVENT_CLASS(name,			       \
-			     PARAMS(proto),		       \
-			     PARAMS(args),		       \
-			     PARAMS(tstruct),		       \
-			     PARAMS(assign),		       \
-			     PARAMS(print));		       \
-	DEFINE_EVENT(name, name, PARAMS(proto), PARAMS(args));
-
-So basically, you could really just declare one TRACE_EVENT() and add
-DEFINE_EVENT()s on top of it ;)
-
-I never recommended that because I thought it would be confusing.
-
--- Steve
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+That page also explains what to do if mails like this annoy you.
