@@ -4,131 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFE73C48BC4
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 19:04:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B05EC4829E
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 19:25:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A70E510EA18;
-	Thu, 15 Feb 2024 19:04:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52B9310E908;
+	Thu, 15 Feb 2024 19:25:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="C/XOwYdD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Rs17/uYS";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2047.outbound.protection.outlook.com [40.107.101.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2DDB10E22C;
- Thu, 15 Feb 2024 19:04:04 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B68010E908;
+ Thu, 15 Feb 2024 19:25:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IvEmAriE+2PspVxemw2j3n7cvu+SjavtvEY5RuEY8wWo4fdT33C2grWCHbNwxOzDprH7LHQK3bu3PjcxCC7OkILwLgLIoyLh8uNGiWboLIyrZbuxzpvXX0qiWJjaiFzQZzgpVtY0WqCcz8C38zKoEu0tu657/s/rWfoS4hRKXy5kG5Yg80wtDDmZ+66nGaQB8sQmWjTl+6VFxRLi/X0oPaMJvgiv1szBJ045X34r52oUBYIosPE9SZEtntZnPqG0k/F4gMLrL43E1bTRv+HoNOcGh7RjgX9MYsAtf1768iYISbMZ4iYiyxAG8B8u/DZ/0GLrJ/FE7anYIcuOYzfO7Q==
+ b=FcnH1EBKdEx12DuYdr+WYwbSdqbFK6JgD3oBzpLZ9Nu2lohIrxeMzv6tvssiDpKQ+pAo9Ll1hpZqw2xI4sxY3jyR4muKm8Xbq2jdf2OWv7UQDFPvclFrbj8pdDaXOlK7o5+OhsNff5dU7oY+/1p1LHoOLrX7KLNmvJtOoS998K7WGHxvNGPSu1biSYmBjgzLOhRAEEhY0jNaJ7gdLCJI5nSVIfeJIiRiC2ZDqiOtM9Y+YYVj13mB07Oh+f9KTOYtM7VsE3Dr72uO8hh4RFRhZhVGqNBhDVyIlVDvUSgi6c9rY9HbKvxGjwxn7OE2GFm3sj9m+Um9yYZ/2Y/gtewe+w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f4XuuYsOSCdQXrJWV6tyJoAmDAM30z8Yj39x/o5TTzk=;
- b=XL6Gqgh0GXV5cJMVo1lX1NGzGQvTX9AoIjLw9yp3K3qxxsNa9+GAUQYxcPZdZMpLPG45CZggLXOTInpJ5dMT3kM7lyZofieBqaAJz/yx+AeaGCMXKdkhtJkFljl2onmBUOkmjxM1ZJY/ItYdwO0DrenwWy/+kpEL0igzmVRlllXnRyV1JmzfzresyCGPeEnfrX+YJ4p65LBIGZ9R9nwnygNJEHJt6d54GGJPph21mQl8F54HfCzNqpLwrktrDwWcx8iESBXpClB2FRq8+Jr0yHAZkghycJgIs1iRrU0+COgKpJNJZEtt03vzCy02+rU0Ulghxpe2Y61K7687rKJCqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=4aQ/HAysVaqHPp/azgOB0TR0rx3tiZV3s0brCgkTtGY=;
+ b=gRmHcE6Qr5AEUmSgttk4lRDLIwKvryBChsmCD2uSzOTH7gsr7zYpp++XSy7+KOawtGUL6mFFLaFpre5QkuebgQYJZ0KtZwskmU4ggML5zkwO7o6zDIPjzLqXVkv8YVs3IzaiEUwUm9OiwzvNlt3iqDfCsG0OTnEwbSuq8Od26OwAVs6pddniS4HnbbiSVCeU4uZAtB4uvWI3hl1V1Rsn5fqYfQLbXwctkcpSRnAEypq4AJTRfJHf2rkNrVRCiuzha47y3rDw545320x12BV6JGngtU72v/nFh5fOFhYAMgcqysH+QuQvmmx4f9jqXecugeT2Suv10F2qK5NkoaFsuA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f4XuuYsOSCdQXrJWV6tyJoAmDAM30z8Yj39x/o5TTzk=;
- b=C/XOwYdDB/8t71XedKLuu525VQlB7jcLX18maiPqrorwh+i7U016+/sOABNeQk6DUGXwc47L22O/d3/XQrcgrtGEO56krGcXqHT/nrmJcgB/cDfiI9/nLjP1vCbPJR8YvgwckUsxqiHm4ev7YXExKWSzAsGhI1Mbc1o3MUwUuqs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by DS0PR12MB8044.namprd12.prod.outlook.com (2603:10b6:8:148::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.31; Thu, 15 Feb
- 2024 19:04:02 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::dd00:9ab5:4d11:2d1a]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::dd00:9ab5:4d11:2d1a%7]) with mapi id 15.20.7316.012; Thu, 15 Feb 2024
- 19:04:02 +0000
-Message-ID: <ecbaadf9-dfa1-46af-9a7e-cfd7aa1120be@amd.com>
-Date: Thu, 15 Feb 2024 13:03:59 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/5] drm: Add support to get EDID from ACPI
-Content-Language: en-US
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>, Jani Nikula
- <jani.nikula@linux.intel.com>, Alex Deucher <alexander.deucher@amd.com>,
- Hans de Goede <hdegoede@redhat.com>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- amd-gfx@lists.freedesktop.org,
- "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
- linux-fbdev@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- intel-xe@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- "open list:ACPI" <linux-acpi@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Melissa Wen <mwen@igalia.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>
-References: <20240214215756.6530-1-mario.limonciello@amd.com>
- <20240214215756.6530-4-mario.limonciello@amd.com>
- <Zc1JEg5mC0ww_BeU@intel.com> <9831e9bc-d55f-4a72-950a-684a757af59c@amd.com>
- <Zc5cPjpNZydqKeS8@intel.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <Zc5cPjpNZydqKeS8@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN7P222CA0003.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:124::21) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+ bh=4aQ/HAysVaqHPp/azgOB0TR0rx3tiZV3s0brCgkTtGY=;
+ b=Rs17/uYSJduGFppdbWWEjcqlr09/ER0Akzv2N2ro9esyQRrb6gLCFPvB+/mlJgUM1tBNWkqVhhZXfiETSn8v0R8J/L8/9Alqwdrl1QqLdDn7LZTR0PjnHn+sFnsfPzhkI2TXz2iKlBNvJ3pML7wsjUT1F7n+eARv8jW/RuOrLb8=
+Received: from BYAPR06CA0047.namprd06.prod.outlook.com (2603:10b6:a03:14b::24)
+ by IA0PR12MB8648.namprd12.prod.outlook.com (2603:10b6:208:486::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.25; Thu, 15 Feb
+ 2024 19:25:08 +0000
+Received: from SJ1PEPF00001CEA.namprd03.prod.outlook.com
+ (2603:10b6:a03:14b:cafe::79) by BYAPR06CA0047.outlook.office365.com
+ (2603:10b6:a03:14b::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.26 via Frontend
+ Transport; Thu, 15 Feb 2024 19:25:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00001CEA.mail.protection.outlook.com (10.167.242.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Thu, 15 Feb 2024 19:25:08 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 15 Feb
+ 2024 13:25:06 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull v2] amdgpu, amdkfd drm-fixes-6.8
+Date: Thu, 15 Feb 2024 14:24:52 -0500
+Message-ID: <20240215192452.11805-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|DS0PR12MB8044:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69d27505-6321-4eec-fc3c-08dc2e58df59
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CEA:EE_|IA0PR12MB8648:EE_
+X-MS-Office365-Filtering-Correlation-Id: a455bf44-32e7-431a-8ac6-08dc2e5bd21d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Hh4mw9s01LFG2eftEVYv0j304xtQbDPyNwPndsN6ld/y44flztWeNCgVxg6h8A62kCXEaIVD6NwGXXr9SJpsO+UCDZyrKikqMaE1W9ah19XTIv/ZAKtNgyCGDft37WxrCqUJ8MwKOJWKpCYH1H6kEEe1M1agKEFJuWdWMQunQa0O1f0YN9AwM1SdL1td8P2+vFGdXIgmxNZnBDds5CCPkU/akBGfdUD34U+mhu46sxEaPgsPwjwV7OzO4u6oCsBWrEA1uy4pg2WOdfTo8Eo6zOw4s+wpT7mNuiHkg2nH6F23w5WZ/a/JxMc8QP0Ve9c+OJbIHEgfUQVIX+Tb2j1lLSzBY5haQqx0YTtNF3gtV1/hES+qAnh3/mzuj0U5VyLb6HuL9MofPU3lnrBYlm9Zj4hLLKeBlfUXUpgUQPsYQU7TzOjzkoT9dhXoR+aP7RhPztl2AZt6ruouKi0ziBBfkPuG2vdU0bW5ngad+0VhucG1P38vhlPM7DgPv8tbyyw7ZfAomccLjZk/rgrUAFx6B7sTSTBikv4brqvaQZb6SII=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(366004)(376002)(346002)(136003)(39860400002)(230922051799003)(186009)(64100799003)(1800799012)(451199024)(6506007)(6512007)(6486002)(966005)(478600001)(53546011)(31686004)(2906002)(7416002)(30864003)(44832011)(5660300002)(66899024)(316002)(41300700001)(54906003)(6916009)(66476007)(8936002)(66946007)(8676002)(66556008)(6666004)(4326008)(26005)(2616005)(83380400001)(66574015)(31696002)(36756003)(38100700002)(86362001);
+X-Microsoft-Antispam-Message-Info: dTCcMex0eBhh9bEHn9M7Nx+3uiX2ss/imQEI8jyuq933wR0UeRyc7BjW8A6cJVGQ4S+hkhmHKtefyPIOn9FxgPjv5q3oqeRlXIZp8cFw0gMJy+AbhMJ+od+Am409CERNSeCVfS1d3NsF9aV0Mui5Rirax1HSoTwiHyQ1/J/MnhAWEtDSzRUxHtwj+b3gT6sYkF/KmsNV+ESrBPH9kJFmVyxoZyPa6mUmitRXA1QM7RDToMcapaTbZsSa3ixG1kpdXL+nHA8dqfiyLzP89tEKsmR5hQRzC3IK1mdAX1oIZ6MzwH0FZCMv5wfl2HHS0Pkf3tuHBGt84B1YoiXroqaM9fGVIASxaU5b0cE4W/PdZKV50sNO4dQLy/SqSbNkyRevmAp20fMYLSNK5cm+GZgSbTfFGOlEmDVJW4azIHHOrH/2qzDTRmDqUYUBMutsGfT8YGNzN9b+qlg3QebPTIK6vLQPldVA7ePvL30js1JyAxW/ztDccTrjij0+S/G2HqorCFxvAvJM16VZujW6h07Zd3ozl0Kjdi9usgaqSdiHVqgLzLOPv9XedGqXA0lz5w1YzmKvdlcYpksqaqGgT85WMz2777llPkC/z8gb1FdfJtozLZ+7fpnzLLTL8yxjYOEy+hxFlMs0GMX2tdr8lotu8g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(39860400002)(346002)(376002)(396003)(136003)(230922051799003)(64100799003)(1800799012)(186009)(82310400011)(36860700004)(451199024)(40470700004)(46966006)(8936002)(8676002)(2906002)(5660300002)(4326008)(2616005)(336012)(426003)(83380400001)(16526019)(356005)(82740400003)(36756003)(26005)(1076003)(81166007)(70586007)(6666004)(316002)(110136005)(86362001)(70206006)(7696005)(966005)(478600001)(41300700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q2hrdkdZYVZ3NFM4bFFDY1NLbWNzeTQyY2crZjJTQ0UxNmtndVJlZW9FUEQz?=
- =?utf-8?B?SlQ4V3ZzVG81VlVZVHJVbm5HbFVRQm5XWDdKNnFZK1hteUtkdENKZ2c3Qk9C?=
- =?utf-8?B?WGJvZkNlZWFnM2VJeDV6V1lET2Q5b0NSYTNNdW9mMEZQeitFcVNkQXFMNGt3?=
- =?utf-8?B?UnZvaUVCcERKTUdGZ1FvWVBZTHoxcmlLamw4eUxjUCtKdW1SUDBJZVR0WjlI?=
- =?utf-8?B?SnYwN0JnL1ptR2Zyd0diaWR1elB0cE91ZGhmRUJ3c05TN3hSL0hjNU11Tzl3?=
- =?utf-8?B?L2RJY2N0UVdwN2NZR3JtMlBjTWZlMmRQYnVVUW44NFp6Z0ZGOTVrR3krUWZs?=
- =?utf-8?B?WVh2eEg4clZjb3lzM1VqL0FZNHc0R2xDRHM2ME83L1VxUzlqQnVrMU9sZ1lo?=
- =?utf-8?B?V0VhcXltL2NXWHlNempGQU12SFFuaFBWWkdyMFUyOEg5Zmc5M3Yrc3VXbWtN?=
- =?utf-8?B?UCtGcW9RZVdvNkVqZXZaTjYxdDhqQ1hTZHRLL2VabEEzbUdUdUVaTGFMcmZ6?=
- =?utf-8?B?YlpscGlBemVuYzlyTkNDdEV5ZTdvMUg1MVlhMi9zdkxvV3d3WmJMdURSZVkv?=
- =?utf-8?B?OXZmb2Q2ZWJId1VtTVoxOUhlZGw5WTVIdDFLZGVXRDQzRXJNdVJFT0VoNGNJ?=
- =?utf-8?B?VVpJbE5tRU00N0hBZTdQUUo0cGtoRjZqL2VGV3ZLa1hOVmIvSzJ5bStkaUJz?=
- =?utf-8?B?Mm0ya0pZY1FMYXNLbEhZbTVuZHA0WlY0RGFXVmRmVVZJSmEvK2kzWTN0WFFl?=
- =?utf-8?B?MGY1alRqa0ZxV2tDMjZ1eWxFQW1BZzRtbWgvYm00RUxiaHZhK3pwY0tVeENQ?=
- =?utf-8?B?eER3QjlaV0l2MHpsaUFCblkwODBkVmd1Qm5kMDg4N1ZhQm1nSkFzd09xRGZR?=
- =?utf-8?B?TDV5MWJ0TEJZWFcwanBoRlBUYXJpS1g1dTVuRmZ2elhQcFNZeXEwOXFSOCs1?=
- =?utf-8?B?ZTVDY25JY3k3b1Y2M092V3NsSEdOcmpaRmdMY3RLbm5OenlWMHorV0EweTY1?=
- =?utf-8?B?NWx4d0pCVVozRWFjS2l4aTFFdVpwaVJKNmNxNlk4Nisrem9nMXgyVno3SWNr?=
- =?utf-8?B?L0xxYkRDNE5aa2I5enJHN2tSWmtRTld5QjVRcUEwSFEvSVI2QW0xWE9RcjVR?=
- =?utf-8?B?WVcrUEg2UGNrVlhzY0RvWVNnQ2FhZXdxM0phN3RtNEdLMUlJcDhMRG5ZY2Zp?=
- =?utf-8?B?VDVNdTZWMTBBc3ZYcWFDK3JGVWo3OCs3bXhMR1Y0dkY4aW9LTU4xa2p0S0t5?=
- =?utf-8?B?b0RMYkZIRHo0Nkx3Q0ZZRDgxMk5USC91OGdNSGJoQVUzY1AvMUFTVmxzUEw5?=
- =?utf-8?B?aEZJSzBjdG1FcUpyTU9vQ2MvWmZPbTYvT0M2YXh6eGFUMkNEN1dYK21OQjhR?=
- =?utf-8?B?aEx1R1NhWTN1MmsxWStOR1gyWUxTYWRMVWF2ajBqODVCcThzYVI1ZTBHanNq?=
- =?utf-8?B?THBwQUVTM2JxVU1rUXJvd3NmSG5Cckd1MkVmVDVUaTFoT0tjMXFOdm90MnVM?=
- =?utf-8?B?OWdNVjRtY1pTcTRzSEtsYm52RlBNWjJNbitrTS9xeC9tRlVDL3ZuTmJpWXIz?=
- =?utf-8?B?RnZpL3VLMjlPUG5sd0RTV0dUUGQ3SENwZHIyUThOWVFrYkxxL3hqdU5IZlAy?=
- =?utf-8?B?KzFrWUQ1K3Y0ZThtTHpEaXh6K3VqT2lQWGpidEh1ei9Rdmp2bllHbU5MeHBa?=
- =?utf-8?B?WCtSQUU1VTZKbkloUGszZmRPcjIyS3lidllyU2RDa0llSFdTM1dCQVdYQ0hu?=
- =?utf-8?B?aStvREJYZUliS2tHUTJORzNVQjM0czAvVERFSTdCRTQ2aTlicFJuWGh3SWtn?=
- =?utf-8?B?VFBQZENRVkExNmRYdU5TTkJYbUJVaTJMeGVLK0kxOEROdklqRDljNGVHNHlK?=
- =?utf-8?B?alVvNkprdEppdjA0ellTQWNGMHExNGp6VUhCa05LaWVmS2ovU3lSeDJveElU?=
- =?utf-8?B?eFoyMlM3ZVNOWTVSVUdHaWdjNm5ET0tqTHJmMFBCWGM4M2hHNmFxTXEySlZk?=
- =?utf-8?B?Wm5tYWZvK3R4UVhyK3VHUVFLWlZONUgzMkxBQkNPWGtnSm14NDRVcDVaKzk0?=
- =?utf-8?B?VGg5ZzM4clNFY0pJcjczVjN0UFdJZStrUVBOVlo1TGVuVDl6enB2SExZNGkx?=
- =?utf-8?Q?zqzeWTIdgmmdCOIj9eaYg+inQ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69d27505-6321-4eec-fc3c-08dc2e58df59
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2024 19:04:02.0329 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2024 19:25:08.0570 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a455bf44-32e7-431a-8ac6-08dc2e5bd21d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RC59FrQORRspkEp/6HiZABArSug8zHdoEs1h/jSzEdEFQyaQigT7n4MNIlCaR2Tdq4+uWZcbMtX8GRfx09hznw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8044
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CEA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8648
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,307 +105,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/15/2024 12:47, Ville Syrjälä wrote:
-> On Thu, Feb 15, 2024 at 12:20:56PM -0600, Mario Limonciello wrote:
->> On 2/14/2024 17:13, Ville Syrjälä wrote:
->>> On Wed, Feb 14, 2024 at 03:57:54PM -0600, Mario Limonciello wrote:
->>>> Some manufacturers have intentionally put an EDID that differs from
->>>> the EDID on the internal panel on laptops.  Drivers that prefer to
->>>> fetch this EDID can set a bit on the drm_connector to indicate that
->>>> the DRM EDID helpers should try to fetch it and it is preferred if
->>>> it's present.
->>>>
->>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/Kconfig     |   1 +
->>>>    drivers/gpu/drm/drm_edid.c  | 109 +++++++++++++++++++++++++++++++++---
->>>>    include/drm/drm_connector.h |   6 ++
->>>>    include/drm/drm_edid.h      |   1 +
->>>>    4 files changed, 109 insertions(+), 8 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
->>>> index 872edb47bb53..3db89e6af01d 100644
->>>> --- a/drivers/gpu/drm/Kconfig
->>>> +++ b/drivers/gpu/drm/Kconfig
->>>> @@ -8,6 +8,7 @@
->>>>    menuconfig DRM
->>>>    	tristate "Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)"
->>>>    	depends on (AGP || AGP=n) && !EMULATED_CMPXCHG && HAS_DMA
->>>> +	depends on (ACPI_VIDEO || ACPI_VIDEO=n)
->>>>    	select DRM_PANEL_ORIENTATION_QUIRKS
->>>>    	select DRM_KMS_HELPER if DRM_FBDEV_EMULATION
->>>>    	select FB_CORE if DRM_FBDEV_EMULATION
->>>> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
->>>> index 923c4423151c..cdc30c6d05d5 100644
->>>> --- a/drivers/gpu/drm/drm_edid.c
->>>> +++ b/drivers/gpu/drm/drm_edid.c
->>>> @@ -28,6 +28,7 @@
->>>>     * DEALINGS IN THE SOFTWARE.
->>>>     */
->>>>    
->>>> +#include <acpi/video.h>
->>>>    #include <linux/bitfield.h>
->>>>    #include <linux/cec.h>
->>>>    #include <linux/hdmi.h>
->>>> @@ -2188,6 +2189,58 @@ drm_do_probe_ddc_edid(void *data, u8 *buf, unsigned int block, size_t len)
->>>>    	return ret == xfers ? 0 : -1;
->>>>    }
->>>>    
->>>> +/**
->>>> + * drm_do_probe_acpi_edid() - get EDID information via ACPI _DDC
->>>> + * @data: struct drm_connector
->>>> + * @buf: EDID data buffer to be filled
->>>> + * @block: 128 byte EDID block to start fetching from
->>>> + * @len: EDID data buffer length to fetch
->>>> + *
->>>> + * Try to fetch EDID information by calling acpi_video_get_edid() function.
->>>> + *
->>>> + * Return: 0 on success or error code on failure.
->>>> + */
->>>> +static int
->>>> +drm_do_probe_acpi_edid(void *data, u8 *buf, unsigned int block, size_t len)
->>>> +{
->>>> +	struct drm_connector *connector = data;
->>>> +	struct drm_device *ddev = connector->dev;
->>>> +	struct acpi_device *acpidev = ACPI_COMPANION(ddev->dev);
->>>> +	unsigned char start = block * EDID_LENGTH;
->>>> +	void *edid;
->>>> +	int r;
->>>> +
->>>> +	if (!acpidev)
->>>> +		return -ENODEV;
->>>> +
->>>> +	switch (connector->connector_type) {
->>>> +	case DRM_MODE_CONNECTOR_LVDS:
->>>> +	case DRM_MODE_CONNECTOR_eDP:
->>>> +		break;
->>>> +	default:
->>>> +		return -EINVAL;
->>>> +	}
->>>
->>> We could have other types of connectors that want this too.
->>> I don't see any real benefit in having this check tbh. Drivers
->>> should simply notset the flag on connectors where it won't work,
->>> and only the driver can really know that.
->>
->> Ack.
->>
->>>
->>>> +	/* fetch the entire edid from BIOS */
->>>> +	r = acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, &edid);
->>>> +	if (r < 0) {
->>>> +		DRM_DEBUG_KMS("Failed to get EDID from ACPI: %d\n", r);
->>>> +		return r;
->>>> +	}
->>>> +	if (len > r || start > r || start + len > r) {
->>>> +		r = -EINVAL;
->>>> +		goto cleanup;
->>>> +	}
->>>> +
->>>> +	memcpy(buf, edid + start, len);
->>>> +	r = 0;
->>>> +
->>>> +cleanup:
->>>> +	kfree(edid);
->>>> +
->>>> +	return r;
->>>> +}
->>>> +
->>>>    static void connector_bad_edid(struct drm_connector *connector,
->>>>    			       const struct edid *edid, int num_blocks)
->>>>    {
->>>> @@ -2621,7 +2674,8 @@ EXPORT_SYMBOL(drm_probe_ddc);
->>>>     * @connector: connector we're probing
->>>>     * @adapter: I2C adapter to use for DDC
->>>>     *
->>>> - * Poke the given I2C channel to grab EDID data if possible.  If found,
->>>> + * If the connector allows it, try to fetch EDID data using ACPI. If not found
->>>> + * poke the given I2C channel to grab EDID data if possible.  If found,
->>>>     * attach it to the connector.
->>>>     *
->>>>     * Return: Pointer to valid EDID or NULL if we couldn't find any.
->>>> @@ -2629,20 +2683,50 @@ EXPORT_SYMBOL(drm_probe_ddc);
->>>>    struct edid *drm_get_edid(struct drm_connector *connector,
->>>>    			  struct i2c_adapter *adapter)
->>>>    {
->>>> -	struct edid *edid;
->>>> +	struct edid *edid = NULL;
->>>>    
->>>>    	if (connector->force == DRM_FORCE_OFF)
->>>>    		return NULL;
->>>>    
->>>> -	if (connector->force == DRM_FORCE_UNSPECIFIED && !drm_probe_ddc(adapter))
->>>> -		return NULL;
->>>> +	if (connector->acpi_edid_allowed)
->>>> +		edid = _drm_do_get_edid(connector, drm_do_probe_acpi_edid, connector, NULL);
->>>> +
->>>> +	if (!edid) {
->>>> +		if (connector->force == DRM_FORCE_UNSPECIFIED && !drm_probe_ddc(adapter))
->>>> +			return NULL;
->>>> +		edid = _drm_do_get_edid(connector, drm_do_probe_ddc_edid, adapter, NULL);
->>>> +	}
->>>>    
->>>> -	edid = _drm_do_get_edid(connector, drm_do_probe_ddc_edid, adapter, NULL);
->>>>    	drm_connector_update_edid_property(connector, edid);
->>>>    	return edid;
->>>>    }
->>>>    EXPORT_SYMBOL(drm_get_edid);
->>>>    
->>>> +/**
->>>> + * drm_edid_read_acpi - get EDID data, if available
->>>> + * @connector: connector we're probing
->>>> + *
->>>> + * Use the BIOS to attempt to grab EDID data if possible.
->>>> + *
->>>> + * The returned pointer must be freed using drm_edid_free().
->>>> + *
->>>> + * Return: Pointer to valid EDID or NULL if we couldn't find any.
->>>> + */
->>>> +const struct drm_edid *drm_edid_read_acpi(struct drm_connector *connector)
->>>> +{
->>>> +	const struct drm_edid *drm_edid;
->>>> +
->>>> +	if (connector->force == DRM_FORCE_OFF)
->>>> +		return NULL;
->>>> +
->>>> +	drm_edid = drm_edid_read_custom(connector, drm_do_probe_acpi_edid, connector);
->>>> +
->>>> +	/* Note: Do *not* call connector updates here. */
->>>> +
->>>> +	return drm_edid;
->>>> +}
->>>> +EXPORT_SYMBOL(drm_edid_read_acpi);
->>>> +
->>>>    /**
->>>>     * drm_edid_read_custom - Read EDID data using given EDID block read function
->>>>     * @connector: Connector to use
->>>> @@ -2727,10 +2811,11 @@ const struct drm_edid *drm_edid_read_ddc(struct drm_connector *connector,
->>>>    EXPORT_SYMBOL(drm_edid_read_ddc);
->>>>    
->>>>    /**
->>>> - * drm_edid_read - Read EDID data using connector's I2C adapter
->>>> + * drm_edid_read - Read EDID data using BIOS or connector's I2C adapter
->>>>     * @connector: Connector to use
->>>>     *
->>>> - * Read EDID using the connector's I2C adapter.
->>>> + * Read EDID from BIOS if allowed by connector or by using the connector's
->>>> + * I2C adapter.
->>>>     *
->>>>     * The EDID may be overridden using debugfs override_edid or firmware EDID
->>>>     * (drm_edid_load_firmware() and drm.edid_firmware parameter), in this priority
->>>> @@ -2742,10 +2827,18 @@ EXPORT_SYMBOL(drm_edid_read_ddc);
->>>>     */
->>>>    const struct drm_edid *drm_edid_read(struct drm_connector *connector)
->>>>    {
->>>> +	const struct drm_edid *drm_edid = NULL;
->>>> +
->>>>    	if (drm_WARN_ON(connector->dev, !connector->ddc))
->>>>    		return NULL;
->>>>    
->>>> -	return drm_edid_read_ddc(connector, connector->ddc);
->>>> +	if (connector->acpi_edid_allowed)
->>>
->>> That should probably be called 'prefer_acpi_edid' or something
->>> since it's the first choice when the flag is set.
->>
->> OK.
->>
->>>
->>> But I'm not so sure there's any real benefit in having this
->>> flag at all. You anyway have to modify the driver to use this,
->>> so why not just have the driver do the call directly instead of
->>> adding this extra detour via the flag?
->>
->> This was proposed by Maxime Ripard during v4.
->>
->> https://lore.kernel.org/dri-devel/ysm2e3vczov7z7vezmexe35fjnkhsakud3elsgggedhk2lknlz@cx7j44y354db/
-> 
-> Which somewhat ignores Jani's concerns about potentially
-> bogus EDIDs coming from ACPI, as well as not allowing
-> the driver to dictate the priority between ACPI vs. DDC
-> vs. whatever else methods are available. Eg. i915 has
-> at least one other place where it could get the EDID.
-> So I don't think i915 could use this version.
-> 
-> But as long we still have the individual methods available
-> as separate exported functions I suppose drivers can still
-> choose to stitch their own thing together.
-> 
-> I just don't see much point in having that midlayer.
-> I don't think drivers can just plug that thing straight
-> into an existing vfunc or can they? If not, then they still
-> have to implement the actual function where it gets called.
-> And once you're doing that, calling two functions instead of
-> one seems about the same amount of work as setting that flag.
-> 
-> But if people think it's actually useful for them
-> I won't stand in the way.
+Hi Dave, Daniel,
 
-The series as is works on an OEM laptop I have on my desk with
-an amdgpu that has the EDID in the BIOS.
+Same PR as earlier today, but drop the panel power saving debugging patches
+for now at Harry's request.
 
-All that had to be done for amdgpu was to set the flag (which is what 
-patch 4 does).
+The following changes since commit 841c35169323cd833294798e58b9bf63fa4fa1de:
 
-> 
->>
->>>
->>>> +		drm_edid = drm_edid_read_acpi(connector);
->>>> +
->>>> +	if (!drm_edid)
->>>> +		drm_edid = drm_edid_read_ddc(connector, connector->ddc);
->>>> +
->>>> +	return drm_edid;
->>>>    }
->>>>    EXPORT_SYMBOL(drm_edid_read);
->>>>    
->>>> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
->>>> index fe88d7fc6b8f..74ed47f37a69 100644
->>>> --- a/include/drm/drm_connector.h
->>>> +++ b/include/drm/drm_connector.h
->>>> @@ -1886,6 +1886,12 @@ struct drm_connector {
->>>>    
->>>>    	/** @hdr_sink_metadata: HDR Metadata Information read from sink */
->>>>    	struct hdr_sink_metadata hdr_sink_metadata;
->>>> +
->>>> +	/**
->>>> +	 * @acpi_edid_allowed: Get the EDID from the BIOS, if available.
->>>> +	 * This is only applicable to eDP and LVDS displays.
->>>> +	 */
->>>> +	bool acpi_edid_allowed;
->>>
->>> Aren't there other bools/small stuff in there for tighter packing?
->>
->> Does the compiler automatically do the packing if you put bools nearby
->> in a struct?  If so; TIL.
-> 
-> Yes. Well, depends on the types and their alignment requirements
-> of course, and/or whether you specified __packed or not.
-> 
-> You can use 'pahole' to find the holes in structures.
-> 
+  Linux 6.8-rc4 (2024-02-11 12:18:13 -0800)
 
-Thanks!  I don't see a __packed attribute on struct drm_connector, but 
-I'll put it near by other bools in case that changes in the future.
+are available in the Git repository at:
 
->>
->>>
->>>>    };
->>>>    
->>>>    #define obj_to_connector(x) container_of(x, struct drm_connector, base)
->>>> diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
->>>> index 7923bc00dc7a..1c1ee927de9c 100644
->>>> --- a/include/drm/drm_edid.h
->>>> +++ b/include/drm/drm_edid.h
->>>> @@ -459,5 +459,6 @@ bool drm_edid_is_digital(const struct drm_edid *drm_edid);
->>>>    
->>>>    const u8 *drm_find_edid_extension(const struct drm_edid *drm_edid,
->>>>    				  int ext_id, int *ext_index);
->>>> +const struct drm_edid *drm_edid_read_acpi(struct drm_connector *connector);
->>>>    
->>>>    #endif /* __DRM_EDID_H__ */
->>>> -- 
->>>> 2.34.1
->>>
-> 
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.8-2024-02-15-2
 
+for you to fetch changes up to a8ac4bcaeb660c5eeb273507e8dbf713ba56de44:
+
+  drm/amdgpu: Fix implicit assumtion in gfx11 debug flags (2024-02-15 14:18:44 -0500)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.8-2024-02-15-2:
+
+amdgpu:
+- PSR fixes
+- Suspend/resume fixes
+- Link training fix
+- Aspect ratio fix
+- DCN 3.5 fixes
+- VCN 4.x fix
+- GFX 11 fix
+- Misc display fixes
+- Misc small fixes
+
+amdkfd:
+- Cache size reporting fix
+- SIMD distribution fix
+
+----------------------------------------------------------------
+Dan Carpenter (1):
+      drm/amd/display: Fix && vs || typos
+
+Hamza Mahfooz (1):
+      drm/amdgpu: make damage clips support configurable
+
+Kent Russell (1):
+      drm/amdkfd: Fix L2 cache size reporting in GFX9.4.3
+
+Mario Limonciello (2):
+      drm/amd: Stop evicting resources on APUs in suspend
+      Revert "drm/amd: flush any delayed gfxoff on suspend entry"
+
+Nicholas Kazlauskas (1):
+      drm/amd/display: Increase ips2_eval delay for DCN35
+
+Rajneesh Bhardwaj (2):
+      drm/amdkfd: update SIMD distribution algo for GFXIP 9.4.2 onwards
+      drm/amdgpu: Fix implicit assumtion in gfx11 debug flags
+
+Roman Li (1):
+      drm/amd/display: Fix array-index-out-of-bounds in dcn35_clkmgr
+
+Sohaib Nadeem (2):
+      Revert "drm/amd/display: increased min_dcfclk_mhz and min_fclk_mhz"
+      drm/amd/display: fixed integer types and null check locations
+
+Srinivasan Shanmugam (5):
+      drm/amd/display: Initialize 'wait_time_microsec' variable in link_dp_training_dpia.c
+      drm/amd/display: Fix possible use of uninitialized 'max_chunks_fbc_mode' in 'calculate_bandwidth()'
+      drm/amd/display: Fix possible buffer overflow in 'find_dcfclk_for_voltage()'
+      drm/amd/display: Fix possible NULL dereference on device remove/driver unload
+      drm/amdgpu/display: Initialize gamma correction mode variable in dcn30_get_gamcor_current()
+
+Thong (1):
+      drm/amdgpu/soc21: update VCN 4 max HEVC encoding resolution
+
+Tom Chung (1):
+      drm/amd/display: Preserve original aspect ratio in create stream
+
+Zhikai Zhai (1):
+      drm/amd/display: Add align done check
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                      |  3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c                 | 15 +++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c               | 12 +++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c                  | 13 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c                  |  9 ++++++++-
+ drivers/gpu/drm/amd/amdgpu/soc21.c                       |  4 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c         |  4 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c          |  9 +++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h                    |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c   |  4 +++-
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c                | 10 ++++------
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c        | 11 ++++++++++-
+ drivers/gpu/drm/amd/display/dc/basics/dce_calcs.c        |  2 +-
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c       | 16 ++++++++++------
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c   |  2 ++
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c | 15 +++++++++++----
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c      |  5 +----
+ drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c     |  2 +-
+ drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c  |  4 ++--
+ drivers/gpu/drm/amd/display/dc/link/link_validation.c    |  2 +-
+ .../drm/amd/display/dc/link/protocols/link_dp_training.c |  5 ++++-
+ .../display/dc/link/protocols/link_dp_training_dpia.c    |  2 +-
+ .../drm/amd/display/dc/resource/dcn35/dcn35_resource.c   |  2 +-
+ 23 files changed, 114 insertions(+), 38 deletions(-)
