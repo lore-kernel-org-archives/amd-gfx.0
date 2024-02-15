@@ -4,73 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0F93C4829E
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 14:27:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0148C4829E
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 14:36:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FA8910E8E5;
-	Thu, 15 Feb 2024 14:27:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6812710E075;
+	Thu, 15 Feb 2024 14:36:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SIwLgNql";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BtS1PzwT";
 	dkim-atps=neutral
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
- [209.85.208.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAE1110E8E5
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Feb 2024 14:27:41 +0000 (UTC)
-Received: by mail-lj1-f179.google.com with SMTP id
- 38308e7fff4ca-2d0e521de4eso11299631fa.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Feb 2024 06:27:41 -0800 (PST)
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88DE210E075
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Feb 2024 14:36:32 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-5c6bd3100fcso666723a12.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Feb 2024 06:36:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708007260; x=1708612060; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=pLpqhF8yw2QqFt8/7IC9oYG0MTWvHe5rh4/1xLxOh6o=;
- b=SIwLgNql5HTaEdV6gGYwpA1OecH9lRLwSPh2E95suouW+StPAj9ijsSpG9wa1OmKOy
- y1YgDNXAvAWa//mDd+fvgMPnpJ8v16P1IupuZbyh75qR5XArc0RZ1zcDf0uVloyxuz0p
- nRH5yPu784CxS9CLryD9ruDh/IyV5wgPiZcRH2YWj0IekGWRpPfk6czSD4xqmJY5jRXi
- exZI4L5goJ6vIgwHji4QQU97ZUTcVtvdY/E6JAqmlmoT/7UByuYvDSvgQL390Sakj6nH
- lC0Czd2JSnz1dV5dNLfvahlaEiEbkoCUzEicpl5npUKM3E71vmkT5sTPIF9SlC5wMtZC
- 0t8A==
+ d=gmail.com; s=20230601; t=1708007792; x=1708612592; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qFGUaNc2BwvT264p6miY/X79Zn3N6FcVMUURMpj9Rps=;
+ b=BtS1PzwT0bbYPuOcOsyISZrDBfBbZyMNC7OvOy477BN8uMOZ/4Xg/MCIvUmJGzITso
+ XE83U1QmOVrQms/nbaz6w/AY7CrYog8KLPZDbWqXdDZhwp8zB93X2YQ1nfviuqy/3me1
+ qoMtLljF9gp+5ka05UgdND+I8WelQ6l49h46zyx66RkrKIB5+Qob9dBNAqauac0IwbZ9
+ Q538HHKtJ9MHQGWzZHiKgQH4I1mlhcaNYtuiwz3wbG9JZzEfEcn0DoV9TemYT1bv6o11
+ 0q+TjWIjSQlKxbDyJmggnKMo2Ef6tyqPlV/YXvlellyyx/mT+V1/irqjhT/JajbYaoOq
+ J6EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708007260; x=1708612060;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pLpqhF8yw2QqFt8/7IC9oYG0MTWvHe5rh4/1xLxOh6o=;
- b=bqvUzRffAu826sy/vagX8SSao7uEC8pky+5RBY7SCElY78A0Eumu+MdO9v2K6q3oL7
- BMcMZuW8LY6WfsIP8lGDCN6i6NuroITg69fzjA3gQ0qEPQROP8jfdYfjqLjwuEwvPJbv
- PAdPV7y1NW4xkGGIYaHYmOdPgGn2fskhzN6dptwJZY6wvQERsn5zBhfOSVrpUZ0cnJoO
- DzdsuXvrdvRqS+3sOvpoiSidnNtHo7HVqF9OwXOWbZpa6D4iYqTl/8dkXOco3s11Ag3D
- aQKaPNVH81z4p74MSYr1J9EkqGidj2VNM4BqbrJwN1kQMijE+v/vnty+MWa37/e3vtbW
- 68nA==
+ d=1e100.net; s=20230601; t=1708007792; x=1708612592;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=qFGUaNc2BwvT264p6miY/X79Zn3N6FcVMUURMpj9Rps=;
+ b=L1vhggYhUtEO+kIvpLVyYeCTsH2fTUMKCzyjGC2MYXXQLm0hJM7FBYYMK6nTAQ2vIG
+ hSYfkF+jUFFWDEKI3YQrodr5y8itrg6KSRDO9DWrQZOVCxksibGMd7Qu46Q8gUo/e/Lw
+ pAQnhjEXkWzeS4vlu9A3H5qg/QRNBKG1CvEaBVMm8mTzeLdByAEq+KTGdom63DweXdZz
+ sLInxIKEnp6F+hiyl6dPguUdqVa+77TvsisVzk92XPmPwNlXIJ/mgil586QVMzEdETcT
+ Wah/PKHcNtK/GxNzet+KPiuYMzfHTq2E+gN0FMD9XQ4NEHU3UOPYquDw2Z+2dnwnuuzX
+ Ekfg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWS8I/pJAzAEjF3ZxjCj0g68gsgk5izgrI/VvMVBOk0nlhQ4b4b9VuS88yuTaRyywQ1HtYbdBNqUG0Nj5jHR599zCUzEz3kQxPzT6ysqQ==
-X-Gm-Message-State: AOJu0Yw+tDpkipWBgs7sOupWHHdtk+3tcaIZTOCvRU2DRJ/GJ89BcOTL
- WTv03NU6SbGKGMKTM0e7AHzvntCg+R/Qc4I89IL0YM2+qWlc2jKI
-X-Google-Smtp-Source: AGHT+IEzAm9isWFpS+p98kSvlTZhDKECq9ZP2W9kRFZBOXDdN6xio13Cskv+RmgMdf/zlapExvY2Jg==
-X-Received: by 2002:a2e:3c12:0:b0:2d0:8a78:9e69 with SMTP id
- j18-20020a2e3c12000000b002d08a789e69mr1597491lja.52.1708007259486; 
- Thu, 15 Feb 2024 06:27:39 -0800 (PST)
-Received: from [192.168.178.25] ([134.19.20.240])
- by smtp.gmail.com with ESMTPSA id
- y5-20020a7bcd85000000b00410ab50f70fsm5111710wmj.15.2024.02.15.06.27.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Feb 2024 06:27:39 -0800 (PST)
-Message-ID: <fe55bafa-6c77-4c52-b426-f41daf25bade@gmail.com>
-Date: Thu, 15 Feb 2024 15:27:38 +0100
+ AJvYcCWNmva7I4cPuuOLRcWFZ7v5CO2TlTWjUlhPOkmQbpRy53iBdQPi51vX34D4HYZuEtzHJ320pCR1386MJOndXpgTmb0do0IwoaUZyUvG+g==
+X-Gm-Message-State: AOJu0YxlaoD+5JSrABxnnxCiy2PgN6TRJj2vS+IzJHiCYRfyF/O7pgMl
+ 2jDIK4i4xGCb5Vcp8GbLFZT0ppuzNGO4X2hwCSGaPgc/dCM9ZYoJ1XYYy6Mqiw4Tj2INck/zM7G
+ otwl6K9t63w1Kcv3IwTmFBYOYIWoAWL1J
+X-Google-Smtp-Source: AGHT+IFdbPG4fasZpxzyjUcZyPy4pjrktxeMaPesL0F1OTkVZX7PHpPF6MG8AFOcMwcvW7ZamLUN5a4LUTffO6gc0YA=
+X-Received: by 2002:a17:90b:1993:b0:297:eca:8381 with SMTP id
+ mv19-20020a17090b199300b002970eca8381mr1885914pjb.16.1708007792242; Thu, 15
+ Feb 2024 06:36:32 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdkfd: Relocate TBA/TMA to opposite side of VM
- hole
-Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, arunpravin.paneerselvam@amd.com,
- lang.yu@amd.com, Jay Cornwall <jay.cornwall@amd.com>
-References: <20240213221230.3271736-1-felix.kuehling@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240213221230.3271736-1-felix.kuehling@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20240129155621.824237-1-alexander.deucher@amd.com>
+ <BL1PR12MB514476B2675A7FEA612D6473F7482@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <55944c59-2943-4557-ad23-eff38b548383@gmail.com>
+In-Reply-To: <55944c59-2943-4557-ad23-eff38b548383@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 15 Feb 2024 09:36:20 -0500
+Message-ID: <CADnq5_NtabnxNXA50+W92k-4302B=tazjhxzGDnp9or1uZmAkw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: bail on INFO IOCTL if the GPU is in reset
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,168 +80,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 13.02.24 um 23:12 schrieb Felix Kuehling:
-> The TBA and TMA, along with an unused IB allocation, reside at low
-> addresses in the VM address space. A stray VM fault which hits these
-> pages must be serviced by making their page table entries invalid.
-> The scheduler depends upon these pages being resident and fails,
-> preventing a debugger from inspecting the failure state.
+On Thu, Feb 15, 2024 at 2:53=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> By relocating these pages above 47 bits in the VM address space they
-> can only be reached when bits [63:48] are set to 1. This makes it much
-> less likely for a misbehaving program to generate accesses to them.
-> The current placement at VA (PAGE_SIZE*2) is readily hit by a NULL
-> access with a small offset.
+> Well using this is in sysfs is a bug to begin with. This would prevent
+> starting new applications and crashing applications which don't expect
+> to get an -EPERM in return here.
 >
-> v2:
-> - Move it to the reserved space to avoid concflicts with Mesa
-> - Add macros to make reserved space management easier
+> If we need to make operations mutual exclusive with resets then we need
+> to take the appropriate locks and *not* work around by abusing
+> amdgpu_in_reset().
 >
-> v3:
-> - Move VM  max PFN calculation into AMDGPU_VA_RESERVED macros
+> The functionality of amdgpu_in_reset() is just to check in lower level
+> functions if we are inside the higher level reset thread and *not*
+> protect anybody from concurrent access.
 >
-> Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
-> Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
+> I think we should probably completely nuke the underlying flag and using
+> the thread owner of the lock to prevent such an abuse.
 
-Can't full judge the KFD VI changes, but the rest looks good to me.
+Can we land some variant of this for now?  It fixes known issues and
+it's the same behavior we have in sysfs and debugfs already.  It's not
+clear to me how this should best be handled.  We basically want to
+block any access to the GPU (registers, firmwares, etc.) while the GPU
+is going through a reset.  Just locking the reset domain doesn't seem
+like the right solution.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Alex
 
-Regards,
-Christian.
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c      |  3 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c    |  6 +---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h       | 11 +++++++-
->   drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c | 29 ++++++++++----------
->   4 files changed, 27 insertions(+), 22 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
-> index 823d31f4a2a3..b0fb14a4b43c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
-> @@ -28,9 +28,8 @@
->   
->   uint64_t amdgpu_csa_vaddr(struct amdgpu_device *adev)
->   {
-> -	uint64_t addr = adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT;
-> +	uint64_t addr = AMDGPU_VA_RESERVED_CSA_START(adev);
->   
-> -	addr -= AMDGPU_VA_RESERVED_CSA_SIZE;
->   	addr = amdgpu_gmc_sign_extend(addr);
->   
->   	return addr;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-> index 3d0d56087d41..4b9afc4df031 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-> @@ -45,11 +45,7 @@
->    */
->   static inline u64 amdgpu_seq64_get_va_base(struct amdgpu_device *adev)
->   {
-> -	u64 addr = adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT;
-> -
-> -	addr -= AMDGPU_VA_RESERVED_TOP;
-> -
-> -	return addr;
-> +	return AMDGPU_VA_RESERVED_SEQ64_START(adev);
->   }
->   
->   /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index 2c4053b29bb3..42f6ddec50c1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -137,9 +137,18 @@ struct amdgpu_mem_stats;
->   
->   /* Reserve space at top/bottom of address space for kernel use */
->   #define AMDGPU_VA_RESERVED_CSA_SIZE		(2ULL << 20)
-> +#define AMDGPU_VA_RESERVED_CSA_START(adev)	(((adev)->vm_manager.max_pfn \
-> +						  << AMDGPU_GPU_PAGE_SHIFT)  \
-> +						 - AMDGPU_VA_RESERVED_CSA_SIZE)
->   #define AMDGPU_VA_RESERVED_SEQ64_SIZE		(2ULL << 20)
-> +#define AMDGPU_VA_RESERVED_SEQ64_START(adev)	(AMDGPU_VA_RESERVED_CSA_START(adev) \
-> +						 - AMDGPU_VA_RESERVED_SEQ64_SIZE)
-> +#define AMDGPU_VA_RESERVED_TRAP_SIZE		(2ULL << 12)
-> +#define AMDGPU_VA_RESERVED_TRAP_START(adev)	(AMDGPU_VA_RESERVED_SEQ64_START(adev) \
-> +						 - AMDGPU_VA_RESERVED_TRAP_SIZE)
->   #define AMDGPU_VA_RESERVED_BOTTOM		(1ULL << 16)
-> -#define AMDGPU_VA_RESERVED_TOP			(AMDGPU_VA_RESERVED_SEQ64_SIZE + \
-> +#define AMDGPU_VA_RESERVED_TOP			(AMDGPU_VA_RESERVED_TRAP_SIZE + \
-> +						 AMDGPU_VA_RESERVED_SEQ64_SIZE + \
->   						 AMDGPU_VA_RESERVED_CSA_SIZE)
->   
->   /* See vm_update_mode */
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-> index 6604a3f99c5e..4a64307bc438 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-> @@ -36,6 +36,7 @@
->   #include <linux/mm.h>
->   #include <linux/mman.h>
->   #include <linux/processor.h>
-> +#include "amdgpu_vm.h"
->   
->   /*
->    * The primary memory I/O features being added for revisions of gfxip
-> @@ -326,10 +327,16 @@ static void kfd_init_apertures_vi(struct kfd_process_device *pdd, uint8_t id)
->   	 * with small reserved space for kernel.
->   	 * Set them to CANONICAL addresses.
->   	 */
-> -	pdd->gpuvm_base = SVM_USER_BASE;
-> +	pdd->gpuvm_base = max(SVM_USER_BASE, AMDGPU_VA_RESERVED_BOTTOM);
->   	pdd->gpuvm_limit =
->   		pdd->dev->kfd->shared_resources.gpuvm_size - 1;
->   
-> +	/* dGPUs: the reserved space for kernel
-> +	 * before SVM
-> +	 */
-> +	pdd->qpd.cwsr_base = SVM_CWSR_BASE;
-> +	pdd->qpd.ib_base = SVM_IB_BASE;
-> +
->   	pdd->scratch_base = MAKE_SCRATCH_APP_BASE_VI();
->   	pdd->scratch_limit = MAKE_SCRATCH_APP_LIMIT(pdd->scratch_base);
->   }
-> @@ -339,18 +346,18 @@ static void kfd_init_apertures_v9(struct kfd_process_device *pdd, uint8_t id)
->   	pdd->lds_base = MAKE_LDS_APP_BASE_V9();
->   	pdd->lds_limit = MAKE_LDS_APP_LIMIT(pdd->lds_base);
->   
-> -        /* Raven needs SVM to support graphic handle, etc. Leave the small
-> -         * reserved space before SVM on Raven as well, even though we don't
-> -         * have to.
-> -         * Set gpuvm_base and gpuvm_limit to CANONICAL addresses so that they
-> -         * are used in Thunk to reserve SVM.
-> -         */
-> -        pdd->gpuvm_base = SVM_USER_BASE;
-> +	pdd->gpuvm_base = AMDGPU_VA_RESERVED_BOTTOM;
->   	pdd->gpuvm_limit =
->   		pdd->dev->kfd->shared_resources.gpuvm_size - 1;
->   
->   	pdd->scratch_base = MAKE_SCRATCH_APP_BASE_V9();
->   	pdd->scratch_limit = MAKE_SCRATCH_APP_LIMIT(pdd->scratch_base);
-> +
-> +	/*
-> +	 * Place TBA/TMA on opposite side of VM hole to prevent
-> +	 * stray faults from triggering SVM on these pages.
-> +	 */
-> +	pdd->qpd.cwsr_base = AMDGPU_VA_RESERVED_TRAP_START(pdd->dev->adev);
->   }
->   
->   int kfd_init_apertures(struct kfd_process *process)
-> @@ -407,12 +414,6 @@ int kfd_init_apertures(struct kfd_process *process)
->   					return -EINVAL;
->   				}
->   			}
-> -
-> -                        /* dGPUs: the reserved space for kernel
-> -                         * before SVM
-> -                         */
-> -                        pdd->qpd.cwsr_base = SVM_CWSR_BASE;
-> -                        pdd->qpd.ib_base = SVM_IB_BASE;
->   		}
->   
->   		dev_dbg(kfd_device, "node id %u\n", id);
-
+> Regards,
+> Christian.
+>
+> Am 12.02.24 um 21:56 schrieb Deucher, Alexander:
+> > [AMD Official Use Only - General]
+> >
+> > Ping?
+> >
+> >> -----Original Message-----
+> >> From: Deucher, Alexander <Alexander.Deucher@amd.com>
+> >> Sent: Monday, January 29, 2024 10:56 AM
+> >> To: amd-gfx@lists.freedesktop.org
+> >> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> >> Subject: [PATCH] drm/amdgpu: bail on INFO IOCTL if the GPU is in reset
+> >>
+> >> This avoids queries to read registers or query the SMU for telemetry d=
+ata while
+> >> the GPU is in reset. This mirrors what we already do for sysfs.
+> >>
+> >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >> ---
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 3 +++
+> >>   1 file changed, 3 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> >> index a2df3025a754..d522e99c6f81 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> >> @@ -607,6 +607,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void
+> >> *data, struct drm_file *filp)
+> >>        int i, found, ret;
+> >>        int ui32_size =3D sizeof(ui32);
+> >>
+> >> +     if (amdgpu_in_reset(adev))
+> >> +             return -EPERM;
+> >> +
+> >>        if (!info->return_size || !info->return_pointer)
+> >>                return -EINVAL;
+> >>
+> >> --
+> >> 2.42.0
+>
