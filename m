@@ -4,95 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DA81C48BF0
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 20:40:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8058C48BC4
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 20:48:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0BDF10E0C2;
-	Thu, 15 Feb 2024 20:40:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2378310EA23;
+	Thu, 15 Feb 2024 20:48:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HmhQuvV2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZOVBy3EN";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2057.outbound.protection.outlook.com [40.107.237.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C08C810E89C
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Feb 2024 20:40:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oJeHbWicsv75VtV0+/J49UegzHorRS5XWyHctN+oN0XszlT3IGn2V8zMZK3jtbI6Iozn0H0cRDEQN61RUeN4O2xwrvFmMaxygv/RAl2AMmuxEvi6pizyJc9PgWFBaUGc9lZpUQKe9PeTEjJ4iL+XmxjUED/re/tfsBbgmJquXVCe2bKoasFkUKjB+PgGInSNrnwyHJPmgLMR/fwxTvN5gg6h2sP1kP/CdR0EdMIbDJAXDGfpqFwSMp6IYLUagINCQhQ0CgU1UoZ0zE+Zviewi4Am82EUoFbZsdVtC6dvaOrv7xOaH05nlguqKFfoQu+2pxLbqJR3b8OkL6EE2ajNGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JlQ0fkGj8qvzEtett4XptiPBwpwlJNcM7uYG8vJZgG8=;
- b=QdElhEtYGd7Qt9hEJjkeHWcTX+C/017ReHso9d3cg6bW+d10gjp6NvAgHkATV1BIcIepd/9oslvQLfv2a3s/85X6mSF8EITPdrWLwC0/iycCI+HHerFH0dbH1LtcBFxMfaT6yv0XsYoKtnk7yZSYukvZuYb5z0nOR8zvIs8ECAU7M3IHGaAXxyP43xJ8WrvqoVhVYfLS8vsBiNrr08IHVW+xPkRqc89kcacT/dFlPLs1iVVs6ZVlDnWnzk13lowFafA/HI3U5TUeSkSSNygEQlgv3XKISG/TP/5yDNbjhCi4qNMk7ahG+CJYeqiEZMzoVx+hYB5MVNK4emmjfbAlPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JlQ0fkGj8qvzEtett4XptiPBwpwlJNcM7uYG8vJZgG8=;
- b=HmhQuvV2pwRh4vaO5HOjrBlRrZUR2E5Heeh+QVb3WBDYkkBhjWLazFg9CAVUS4wz2PjpaE5OqjX2CqaY75ixxqXS1eF7xGHCNXcFjlCKxcrz8+weaqatQnHcOeKUzC344aepcumKiPF3JzJOZRoel0twlOW/Qgkn7Sc9KMr4N5M=
-Received: from DS7PR06CA0013.namprd06.prod.outlook.com (2603:10b6:8:2a::13) by
- CH0PR12MB5386.namprd12.prod.outlook.com (2603:10b6:610:d5::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7316.12; Thu, 15 Feb 2024 20:40:25 +0000
-Received: from DS1PEPF00017097.namprd05.prod.outlook.com
- (2603:10b6:8:2a:cafe::e) by DS7PR06CA0013.outlook.office365.com
- (2603:10b6:8:2a::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.26 via Frontend
- Transport; Thu, 15 Feb 2024 20:40:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017097.mail.protection.outlook.com (10.167.18.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Thu, 15 Feb 2024 20:40:24 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 15 Feb
- 2024 14:40:20 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Yifan Zhang <yifan1.zhang@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>
-Subject: [PATCH 8/9] drm/amdgpu: add GC 11.5.1 discovery support
-Date: Thu, 15 Feb 2024 15:39:54 -0500
-Message-ID: <20240215203955.415314-8-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20240215203955.415314-1-alexander.deucher@amd.com>
-References: <20240215203955.415314-1-alexander.deucher@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E58C10EA05;
+ Thu, 15 Feb 2024 20:48:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1708030084; x=1739566084;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=2HCXSQsU9UnX7lXFl7AHSAP6YihKzbTu9UWh/36f/Bc=;
+ b=ZOVBy3ENetPy59hA9KI6/3H3OQeKFjSAmzBs/lO9WqfDJD9mV0jmk/yE
+ XYZlWJS2+L14bk39xVrZRNvk/WOt7VUhTgL3blxbHo+lmxwZaVsZ7BSKd
+ UGSJeXkoVT5P7jddlwdFPdKYdcOwC0qQUXs+gQA0kHBx52fu3EkZVxZQO
+ a9Zg/KVzeRP4eBMmN/hEeVd0HMDTX0KBet4tef2PZ+C03VjgHzr08aeAs
+ eUn5D4WiejB2kPOLvVF+0ngCjSwVka2CAn0Po5rKNMja2oTq3T5VSDFsl
+ huEQmYwZyXjy8mqlXOZrm9npcZjeLGg555BI/650RRZ7hii0gVRxtVaG4 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10985"; a="2278661"
+X-IronPort-AV: E=Sophos;i="6.06,162,1705392000"; 
+   d="scan'208";a="2278661"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Feb 2024 12:48:02 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,162,1705392000"; 
+   d="scan'208";a="3810566"
+Received: from lkp-server02.sh.intel.com (HELO 3c78fa4d504c) ([10.239.97.151])
+ by fmviesa008.fm.intel.com with ESMTP; 15 Feb 2024 12:47:58 -0800
+Received: from kbuild by 3c78fa4d504c with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1raieB-0000lE-28;
+ Thu, 15 Feb 2024 20:47:55 +0000
+Date: Fri, 16 Feb 2024 04:47:21 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>
+Cc: oe-kbuild-all@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
+ linux-fbdev@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, intel-xe@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org,
+ "open list:ACPI" <linux-acpi@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Melissa Wen <mwen@igalia.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH v6 1/5] drm: Stop using `select ACPI_VIDEO` in all drivers
+Message-ID: <202402160446.YAlmYBPI-lkp@intel.com>
+References: <20240214215756.6530-2-mario.limonciello@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017097:EE_|CH0PR12MB5386:EE_
-X-MS-Office365-Filtering-Correlation-Id: c8624903-3376-45ae-4a22-08dc2e665660
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: N6paK8vjfoUEeDGG+87x+m9d/1LhVjOseXvzWN+j0EDJitJrWhEO5GJK1h4yYx8eq3Hm3QSGXz8SnrF8nU12olwtujDWUgEDPu/oZhcQyR9NjhYx2wdl3grNQ4WeVclgYg8CYacGe2jxZP5Ze/OessD7dOMfGUa3HPI1TqW+HMHhTxH6pEgQQ6NJwEsiSDBv2nVomscIP0Ut202SjGCDa8AO7O11FGmcj2YJ2upYiLMywq1+fvvB/qbc7jieTfI3HUk01L3EA2YPlRfJ5PZNuVvGDOF8R0T+FheGz4oE4qEOcvcLeHzO3XVukUDmEQJXGItLX2EreBvSEbEZZKIZVVrr9Truk7j+A7eRxam+KIY/EOaxCsVLbp71e1bEm31dFD+K9woA3e2SCeUkMHS3ZyispvFDYa4HarhYhxQz0UnuZ6h2dUYiS9V2w3OdQmIZqCn+djDau+JUTuIUMMZ4jZaokLeeEo2W1xJyD/7BZUqSb+59j/NnjEWM7FSstsPCLuz/woN9gwywVcq9wWHsxEHTkGOKvqGteWvNUKC20v4Oy+BQLmhVbjksWAXfqOaCsTFQB2218GUJrnKzKymc24+wdPA2oUTE7Lg567trU3HNyWKSzKKcIEcNlcoHxQFKLn4R5tr//ZnOoNJoK3GnLjl8Ys1zfbaLzg+r+QL6ml8=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(136003)(346002)(396003)(39860400002)(376002)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(82310400011)(36860700004)(46966006)(40470700004)(4744005)(81166007)(86362001)(2906002)(8676002)(82740400003)(70586007)(356005)(8936002)(70206006)(4326008)(6916009)(5660300002)(41300700001)(83380400001)(2616005)(1076003)(16526019)(26005)(336012)(426003)(6666004)(36756003)(316002)(54906003)(478600001)(7696005);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2024 20:40:24.8116 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8624903-3376-45ae-4a22-08dc2e665660
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017097.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5386
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240214215756.6530-2-mario.limonciello@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,28 +79,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yifan Zhang <yifan1.zhang@amd.com>
+Hi Mario,
 
-This patch to add GC 11.5.1 support
+kernel test robot noticed the following build errors:
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
- 1 file changed, 1 insertion(+)
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.8-rc4 next-20240215]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 71dbf7a83e42..70aeb56bfd53 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -2005,6 +2005,7 @@ static int amdgpu_discovery_set_gc_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(11, 0, 3):
- 	case IP_VERSION(11, 0, 4):
- 	case IP_VERSION(11, 5, 0):
-+	case IP_VERSION(11, 5, 1):
- 		amdgpu_device_ip_block_add(adev, &gfx_v11_0_ip_block);
- 		break;
- 	default:
+url:    https://github.com/intel-lab-lkp/linux/commits/Mario-Limonciello/drm-Stop-using-select-ACPI_VIDEO-in-all-drivers/20240215-055936
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20240214215756.6530-2-mario.limonciello%40amd.com
+patch subject: [PATCH v6 1/5] drm: Stop using `select ACPI_VIDEO` in all drivers
+config: openrisc-randconfig-r064-20240215 (https://download.01.org/0day-ci/archive/20240216/202402160446.YAlmYBPI-lkp@intel.com/config)
+compiler: or1k-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240216/202402160446.YAlmYBPI-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202402160446.YAlmYBPI-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   or1k-linux-ld: drivers/video/fbdev/nvidia/nv_backlight.o: in function `nvidia_bl_init':
+>> nv_backlight.c:(.text+0x26c): undefined reference to `backlight_device_register'
+>> nv_backlight.c:(.text+0x26c): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `backlight_device_register'
+   or1k-linux-ld: drivers/video/fbdev/nvidia/nv_backlight.o: in function `nvidia_bl_exit':
+>> nv_backlight.c:(.text+0x32c): undefined reference to `backlight_device_unregister'
+>> nv_backlight.c:(.text+0x32c): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `backlight_device_unregister'
+   or1k-linux-ld: drivers/video/fbdev/aty/aty128fb.o: in function `aty128_remove':
+>> aty128fb.c:(.text+0x14c): undefined reference to `backlight_device_unregister'
+>> aty128fb.c:(.text+0x14c): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `backlight_device_unregister'
+   or1k-linux-ld: drivers/video/fbdev/aty/aty128fb.o: in function `aty128_init':
+>> aty128fb.c:(.text.unlikely+0x5bc): undefined reference to `backlight_device_register'
+>> aty128fb.c:(.text.unlikely+0x5bc): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `backlight_device_register'
+   or1k-linux-ld: drivers/auxdisplay/ht16k33.o: in function `ht16k33_fbdev_probe':
+>> ht16k33.c:(.text+0x17f4): undefined reference to `devm_backlight_device_register'
+>> ht16k33.c:(.text+0x17f4): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `devm_backlight_device_register'
+
+Kconfig warnings: (for reference only)
+   WARNING: unmet direct dependencies detected for FB_BACKLIGHT
+   Depends on [n]: HAS_IOMEM [=y] && FB [=y] && BACKLIGHT_CLASS_DEVICE [=n]
+   Selected by [y]:
+   - HT16K33 [=y] && AUXDISPLAY [=y] && FB [=y] && I2C [=y] && INPUT [=y]
+   - FB_ATMEL [=y] && FB [=y] && OF [=y] && HAVE_CLK [=y] && HAS_IOMEM [=y] && (HAVE_FB_ATMEL [=n] || COMPILE_TEST [=y])
+   - FB_NVIDIA [=y] && HAS_IOMEM [=y] && FB [=y] && PCI [=y] && FB_NVIDIA_BACKLIGHT [=y]
+   - FB_ATY128 [=y] && HAS_IOMEM [=y] && FB [=y] && PCI [=y] && FB_ATY128_BACKLIGHT [=y]
+
 -- 
-2.42.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
