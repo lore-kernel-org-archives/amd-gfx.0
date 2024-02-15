@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9E80C4829E
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 15:20:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BE4FC4829E
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Feb 2024 15:20:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E09310E952;
-	Thu, 15 Feb 2024 15:20:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1863710E96B;
+	Thu, 15 Feb 2024 15:20:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uFvFM+B+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lBHWIkT5";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2046.outbound.protection.outlook.com [40.107.93.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EDC810E952
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Feb 2024 15:20:25 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2079.outbound.protection.outlook.com [40.107.220.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D40F10E952
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Feb 2024 15:20:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fnG4+0Rw8+OeHO/238R0tnHfk5WyGxxjZsodwVRJj0KJqRCS65chvJHfp/IEbPWh+MdgJfP9rCLDn4BCqQsqYjmGfh3vfXGXG50OfVu8AU2/s886k9AkDWYCJAaKdX+BUmzPkgIj9vF1jznVjUcKmTdqhv5vgd3pmQcL/kCruC4hgdeK2u8aOU5+es4P/5wTDQlwOtdWG7wx+fyGDz1uv+kfLSSRukB8OZek3M2J2MuREj7/mr/UmPPoW/TmH4Ef/iQEjPegxtkovRCaZPJ1RZFNt2kcHP2/siQ357t7mOyZfA3bOEUTvJ4DsGJUAFXnyeMM0+s38HxVETqU5bmedA==
+ b=PXZMFEzlPJ3mTgSyXEuf1dmhAuEQI4FO+libjI6y7KzdJTHppzk4SFPG21fj+v80ei1A30Tl0No17Vxz+jD2eTrOu+cDAa2RY7teQy82zqPja2frE7+0aM6K5JfbhKpU3YvwwIL94rHIBG5PctSvQFTSlW+cObYQuWPqgAdqIic9OecPsCH/I71JbdnA6gFSGO9XHFvsR74+wfVnHMdPdS1Z3Qiq0GHIOc14CcgfQ7BlM5UCQ3jDKSwqibPH4slv84rA/OHeXIByv9M29MbuXgFXPGQsi6pv/D3ncqLAkpjjnt15vJH+JAWil9WZnjTSJ9qxsumnuUItmyRwYtDwcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vdvOQUB7m9rI/mTUOIr3deGqEHTdTSb/tdworNVwksk=;
- b=BwRUqcd4Z6WMzKB2QIHVx94V+eO5C1Q9wPTN1I+LtmY/Hh/mGZlKFdPTKY7WOn11t3wqbjTWVTXhW6pDjohZNpCeE01gJDiREyeGc/CC/uRApw2rRfxLBSv7yU/raEINg6Bwl4bFjBGJiSqi/G1hBlP/SVcZls5ESDhAdIVpalaj25Wub4AiHPvky+zrHfucNBpt1TgrFlL8E4BF8PrNwRpN2PE7sss75yuF2CUDVNKxu1dug1wBHNgQayxCBGZX5U4S3pZFTTfOltiS9WGw909664tSyQm2oGzIg2uwV3eiZW/4CAEoc+6hnYdhTs4BPdD9NvcvKI93bjAYYPzFNQ==
+ bh=whSjoTuDCfg9QPmKGkWQk1fhBtZfKM9u0SI7EoGaRNk=;
+ b=bhv2KvLSMefMndm1EcW/90aDUhd1J9s5gZhERdu94H4cG00/fvjMumGREwVyvk9IXWO3gR/uBgN0iA5LrHVH+wZNT82GN4OXyXkk7MkGlkzXmWpZzytVDfvRN5WDuPsPEG6FHq02uSpz9hBG9bCZ2OJlc7lBsVGNqINMTIrtgUIKCG5b+k/5jZesXxv+Kz9iZ3V+2r2SPRbGaoythoOP1YH+kgiQiYF1sOrLrtFA4tnfFR2TXk5r96HWpBhITLSH7meBR41fHibggBav4AlDg8+50esyAtpSEf6+XnbcYflja/Yf/sqkz9ZTY5gqEp05sntWUDI3ij9B+WGXFjohQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vdvOQUB7m9rI/mTUOIr3deGqEHTdTSb/tdworNVwksk=;
- b=uFvFM+B+xvqNStk0ZeoOo0uNRzktgZSdgcyc0Q42vh8HzYOkpgu357EyHtLkJNl7qrDb4Ss6n6PyyePld4N5Fi47sIpeQCw9fmPHEK684lb/cqP1wGaQ5H3lunIQgt55TXaYRQLwYI0Ex6fR9a7jPLHLy6VB0GrMYUvEgzVSIl0=
-Received: from BYAPR05CA0088.namprd05.prod.outlook.com (2603:10b6:a03:e0::29)
- by DM4PR12MB5310.namprd12.prod.outlook.com (2603:10b6:5:39e::10) with
+ bh=whSjoTuDCfg9QPmKGkWQk1fhBtZfKM9u0SI7EoGaRNk=;
+ b=lBHWIkT54fKSOJ1W7pNYwg2JS3jgAMU2DgCdHvUB9GHCuXv7kFtypuuK1dJdY/SUuK09dmF+gYFM2EAgXr6ikV3jaaIfE+rYg2QyvDfcew7+nPb9lB0JEw9GSWMNvzcmPKqylpWSB7Xq35TIAtT24XZSYNsAveG5xRXb3imIbXs=
+Received: from BYAPR05CA0106.namprd05.prod.outlook.com (2603:10b6:a03:e0::47)
+ by CO6PR12MB5426.namprd12.prod.outlook.com (2603:10b6:5:35d::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.30; Thu, 15 Feb
- 2024 15:20:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.14; Thu, 15 Feb
+ 2024 15:20:21 +0000
 Received: from SJ5PEPF000001D2.namprd05.prod.outlook.com
- (2603:10b6:a03:e0:cafe::12) by BYAPR05CA0088.outlook.office365.com
- (2603:10b6:a03:e0::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.14 via Frontend
- Transport; Thu, 15 Feb 2024 15:20:16 +0000
+ (2603:10b6:a03:e0:cafe::8e) by BYAPR05CA0106.outlook.office365.com
+ (2603:10b6:a03:e0::47) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.13 via Frontend
+ Transport; Thu, 15 Feb 2024 15:20:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SJ5PEPF000001D2.mail.protection.outlook.com (10.167.242.54) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Thu, 15 Feb 2024 15:20:15 +0000
+ 15.20.7292.25 via Frontend Transport; Thu, 15 Feb 2024 15:20:21 +0000
 Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 15 Feb
- 2024 09:20:14 -0600
+ 2024 09:20:15 -0600
 From: Philip Yang <Philip.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Felix.Kuehling@amd.com>, Philip Yang <Philip.Yang@amd.com>
-Subject: [PATCH 1/2] drm/amdkfd: Document and define SVM event tracing macro
-Date: Thu, 15 Feb 2024 10:18:29 -0500
-Message-ID: <20240215151830.22416-1-Philip.Yang@amd.com>
+Subject: [PATCH 2/2] drm/amdkfd: Output migrate end event if migration failed
+Date: Thu, 15 Feb 2024 10:18:30 -0500
+Message-ID: <20240215151830.22416-2-Philip.Yang@amd.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20240215151830.22416-1-Philip.Yang@amd.com>
+References: <20240215151830.22416-1-Philip.Yang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -70,26 +72,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D2:EE_|DM4PR12MB5310:EE_
-X-MS-Office365-Filtering-Correlation-Id: ccf0d9a5-899f-4789-2630-08dc2e399ccb
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D2:EE_|CO6PR12MB5426:EE_
+X-MS-Office365-Filtering-Correlation-Id: da4f6837-291d-4245-d400-08dc2e39a065
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ItN61EeeysnIw53eRgHenlc/kbuJ77dlnGcpY1QEGPJFIT+Vcm8xllcyfJKMdJewTgFdrPAHh+4jhV1hapRD115QuLVQglaq+Rw5gvMi8JBgNvsS9cB+gCasIiOZ/mYMpznHaJC9l1op4oUduzcarE6Xg2fDo7glqMRF1z0oKecOwLtlnYSWZEE4SaDbiSr77ig7/oA9kCmrZgYvzm5Y2GnAXrPHjZUTlRZS7uNex9mUrAj4KTeDydm+6z1sKmhFAnX90dp4BQ6pZRduav+nEfLYbNN8KBaq5CdUNey82CcF2PPMkk1hBrcAc/NId46cy/y54xZ9uxLkftFe5kAIatWf5W0bqKn4dSU5SMmiGBINpVnKgIsLQ/I24pTj16nZ6J1MHbFj0fwwYZRHdtp/8MS6h/Gh6RFo2FINFr5r0a1EO0C3oX1nAznTCpf/Nay3Ou2yqjsOtanVMviuFsaxOgujFo+vTFd2XZb3fg41KSC6VfbcMx35O+2PzloY+kyY+Vi2nLG23ie5jPZP7AblBnbVc/eat0BvT66NHOCnqaqcL6qXaiUPH1OadDS4FhSWd+JSnryzIVsL0AMEvzfYsIEta6+fJTiVdFfOrmIZVgjlVFmig28920eNyIrjSV3AjetzgBu8rSCoS+OJKUiQh4DPAlMoXOrZfGF0//aTSEc=
+X-Microsoft-Antispam-Message-Info: k85ZV5m8moe3AdjMBSrtXznQ3Ytzl9EnHRKNt3UmaULYxjj/w//LQJ0G1FZtvI7DCDdbcphHoTlBOWB3ZMHka119IF6P+PQCfufR41P0M8kYnGfcy9umZjmQKjkW2ugNWnJraNomesoZr6+llEG1f6MyColEUsmFNKj0+jvmIgcSMRRdoGJDnaZPjvVKEx94g7SLtVscUYfDaNRAd6QF/dDzpLsiEfseK0ZjNBw2E2FZYfVcB6R+MYfd1x/HNh3H2ZpNk1MOJ9ed3YftvERqgGPhL9xk8aItUno2Z/7ZpMMDKzIbqgiRqwpoAuv7wXW0mekTDU75OjNY6c2uPQxBWJIkBLBQGusHvrWOgfEl2RdI6lMLdvkZbTBJ7lK77RszWUxNWBH+p8MOJUQGMmBcuscFge4RZxJv8xzqbXl5SyYfJgp3hb1grrgf20Rn1Hsn9nmTBWOtnul4vbswfC0ooZnjYCQeD3TiPLCVuI977mmJwQWTuOgmm2hmnbRXy0/EOdCBT7QcHj4Oa9ZKuSpCvIQLMxxzIxz6CAZ2P4gkF3F144ryl6YVeDHw3Mimx0GKNK44PzFb6hNB4yzXg9OqBGft3yvkFKESid750piXLW8LCCeM++sardZP9Onlya4uMF4aN6Hmqqn829hcxsZgz0reRwosLGWzE81/8J9w7Bw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(376002)(346002)(136003)(39860400002)(230922051799003)(64100799003)(82310400011)(36860700004)(1800799012)(186009)(451199024)(46966006)(40470700004)(7696005)(8936002)(6916009)(8676002)(356005)(4326008)(86362001)(478600001)(5660300002)(82740400003)(70586007)(70206006)(81166007)(2906002)(316002)(426003)(336012)(6666004)(54906003)(36756003)(41300700001)(26005)(16526019)(2616005)(1076003)(83380400001);
+ SFS:(13230031)(4636009)(376002)(346002)(39860400002)(396003)(136003)(230922051799003)(451199024)(186009)(64100799003)(82310400011)(1800799012)(36860700004)(40470700004)(46966006)(2906002)(8936002)(8676002)(5660300002)(4326008)(83380400001)(336012)(426003)(1076003)(2616005)(356005)(82740400003)(16526019)(26005)(36756003)(86362001)(81166007)(70586007)(316002)(6916009)(70206006)(54906003)(7696005)(478600001)(6666004)(41300700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2024 15:20:15.6934 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ccf0d9a5-899f-4789-2630-08dc2e399ccb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2024 15:20:21.7559 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: da4f6837-291d-4245-d400-08dc2e39a065
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5310
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5426
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,242 +106,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Document how to use SMI system management interface to receive SVM
-events.
-
-Define SVM events message string format macro that could use by user
-mode for sscanf to parse the event. Add it to uAPI header file to make
-it obvious that is changing uAPI in future.
-
-No functional changes.
+To track the migrate end-event in case of a migration failure, always
+output migrate end event, with the failure result added to the existing
+migrate end event string.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 51 +++++++-------
- include/uapi/linux/kfd_ioctl.h              | 77 ++++++++++++++++++++-
- 2 files changed, 102 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c    | 16 ++++++++--------
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c |  5 +++--
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h |  2 +-
+ include/uapi/linux/kfd_ioctl.h              |  7 ++++---
+ 4 files changed, 16 insertions(+), 14 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index 480e222364d5..23cf9484331e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -445,15 +445,15 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
+ 	pr_debug("successful/cpages/npages 0x%lx/0x%lx/0x%lx\n",
+ 			 mpages, cpages, migrate.npages);
+ 
+-	kfd_smi_event_migration_end(node, p->lead_thread->pid,
+-				    start >> PAGE_SHIFT, end >> PAGE_SHIFT,
+-				    0, node->id, trigger);
+-
+ 	svm_range_dma_unmap_dev(adev->dev, scratch, 0, npages);
+ 
+ out_free:
+ 	kvfree(buf);
+ out:
++	kfd_smi_event_migration_end(node, p->lead_thread->pid,
++				    start >> PAGE_SHIFT, end >> PAGE_SHIFT,
++				    0, node->id, trigger, r);
++
+ 	if (!r && mpages) {
+ 		pdd = svm_range_get_pdd_by_node(prange, node);
+ 		if (pdd)
+@@ -737,15 +737,15 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
+ 	svm_migrate_copy_done(adev, mfence);
+ 	migrate_vma_finalize(&migrate);
+ 
+-	kfd_smi_event_migration_end(node, p->lead_thread->pid,
+-				    start >> PAGE_SHIFT, end >> PAGE_SHIFT,
+-				    node->id, 0, trigger);
+-
+ 	svm_range_dma_unmap_dev(adev->dev, scratch, 0, npages);
+ 
+ out_free:
+ 	kvfree(buf);
+ out:
++	kfd_smi_event_migration_end(node, p->lead_thread->pid,
++				    start >> PAGE_SHIFT, end >> PAGE_SHIFT,
++				    node->id, 0, trigger, r);
++
+ 	if (!r && cpages) {
+ 		mpages = cpages - upages;
+ 		pdd = svm_range_get_pdd_by_node(prange, node);
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-index d9953c2b2661..85465eb303a9 100644
+index 85465eb303a9..d1a567f8a8d9 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-@@ -225,15 +225,16 @@ void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset)
- 		event = KFD_SMI_EVENT_GPU_PRE_RESET;
- 		++(dev->reset_seq_num);
- 	}
--	kfd_smi_event_add(0, dev, event, "%x\n", dev->reset_seq_num);
-+	kfd_smi_event_add(0, dev, event,
-+			  KFD_EVENT_FMT_UPDATE_GPU_RESET(dev->reset_seq_num));
- }
- 
- void kfd_smi_event_update_thermal_throttling(struct kfd_node *dev,
- 					     uint64_t throttle_bitmask)
- {
--	kfd_smi_event_add(0, dev, KFD_SMI_EVENT_THERMAL_THROTTLE, "%llx:%llx\n",
--			  throttle_bitmask,
--			  amdgpu_dpm_get_thermal_throttling_counter(dev->adev));
-+	kfd_smi_event_add(0, dev, KFD_SMI_EVENT_THERMAL_THROTTLE,
-+			  KFD_EVENT_FMT_UPDATE_THERMAL_THROTTLING(throttle_bitmask,
-+			  amdgpu_dpm_get_thermal_throttling_counter(dev->adev)));
- }
- 
- void kfd_smi_event_update_vmfault(struct kfd_node *dev, uint16_t pasid)
-@@ -246,8 +247,8 @@ void kfd_smi_event_update_vmfault(struct kfd_node *dev, uint16_t pasid)
- 	if (!task_info.pid)
- 		return;
- 
--	kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, "%x:%s\n",
--			  task_info.pid, task_info.task_name);
-+	kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT,
-+			  KFD_EVENT_FMT_VMFAULT(task_info.pid, task_info.task_name));
- }
- 
- void kfd_smi_event_page_fault_start(struct kfd_node *node, pid_t pid,
-@@ -255,16 +256,16 @@ void kfd_smi_event_page_fault_start(struct kfd_node *node, pid_t pid,
- 				    ktime_t ts)
- {
- 	kfd_smi_event_add(pid, node, KFD_SMI_EVENT_PAGE_FAULT_START,
--			  "%lld -%d @%lx(%x) %c\n", ktime_to_ns(ts), pid,
--			  address, node->id, write_fault ? 'W' : 'R');
-+			  KFD_EVENT_FMT_PAGEFAULT_START(ktime_to_ns(ts), pid,
-+			  address, node->id, write_fault ? 'W' : 'R'));
- }
- 
- void kfd_smi_event_page_fault_end(struct kfd_node *node, pid_t pid,
- 				  unsigned long address, bool migration)
- {
- 	kfd_smi_event_add(pid, node, KFD_SMI_EVENT_PAGE_FAULT_END,
--			  "%lld -%d @%lx(%x) %c\n", ktime_get_boottime_ns(),
--			  pid, address, node->id, migration ? 'M' : 'U');
-+			  KFD_EVENT_FMT_PAGEFAULT_END(ktime_get_boottime_ns(),
-+			  pid, address, node->id, migration ? 'M' : 'U'));
- }
- 
- void kfd_smi_event_migration_start(struct kfd_node *node, pid_t pid,
-@@ -274,9 +275,9 @@ void kfd_smi_event_migration_start(struct kfd_node *node, pid_t pid,
- 				   uint32_t trigger)
- {
- 	kfd_smi_event_add(pid, node, KFD_SMI_EVENT_MIGRATE_START,
--			  "%lld -%d @%lx(%lx) %x->%x %x:%x %d\n",
--			  ktime_get_boottime_ns(), pid, start, end - start,
--			  from, to, prefetch_loc, preferred_loc, trigger);
-+			  KFD_EVENT_FMT_MIGRATE_START(ktime_get_boottime_ns(),
-+			  pid, start, end - start, from, to, prefetch_loc,
-+			  preferred_loc, trigger));
- }
+@@ -282,11 +282,12 @@ void kfd_smi_event_migration_start(struct kfd_node *node, pid_t pid,
  
  void kfd_smi_event_migration_end(struct kfd_node *node, pid_t pid,
-@@ -284,24 +285,23 @@ void kfd_smi_event_migration_end(struct kfd_node *node, pid_t pid,
- 				 uint32_t from, uint32_t to, uint32_t trigger)
+ 				 unsigned long start, unsigned long end,
+-				 uint32_t from, uint32_t to, uint32_t trigger)
++				 uint32_t from, uint32_t to, uint32_t trigger,
++				 int result)
  {
  	kfd_smi_event_add(pid, node, KFD_SMI_EVENT_MIGRATE_END,
--			  "%lld -%d @%lx(%lx) %x->%x %d\n",
--			  ktime_get_boottime_ns(), pid, start, end - start,
--			  from, to, trigger);
-+			  KFD_EVENT_FMT_MIGRATE_END(ktime_get_boottime_ns(), pid,
-+			  start, end - start, from, to, trigger));
+ 			  KFD_EVENT_FMT_MIGRATE_END(ktime_get_boottime_ns(), pid,
+-			  start, end - start, from, to, trigger));
++			  start, end - start, from, to, trigger, result));
  }
  
  void kfd_smi_event_queue_eviction(struct kfd_node *node, pid_t pid,
- 				  uint32_t trigger)
- {
- 	kfd_smi_event_add(pid, node, KFD_SMI_EVENT_QUEUE_EVICTION,
--			  "%lld -%d %x %d\n", ktime_get_boottime_ns(), pid,
--			  node->id, trigger);
-+			  KFD_EVENT_FMT_QUEUE_EVICTION(ktime_get_boottime_ns(),
-+			  pid, node->id, trigger));
- }
- 
- void kfd_smi_event_queue_restore(struct kfd_node *node, pid_t pid)
- {
- 	kfd_smi_event_add(pid, node, KFD_SMI_EVENT_QUEUE_RESTORE,
--			  "%lld -%d %x\n", ktime_get_boottime_ns(), pid,
--			  node->id);
-+			  KFD_EVENT_FMT_QUEUE_RESTORE(ktime_get_boottime_ns(),
-+			  pid, node->id));
- }
- 
- void kfd_smi_event_queue_restore_rescheduled(struct mm_struct *mm)
-@@ -317,9 +317,10 @@ void kfd_smi_event_queue_restore_rescheduled(struct mm_struct *mm)
- 		struct kfd_process_device *pdd = p->pdds[i];
- 
- 		kfd_smi_event_add(p->lead_thread->pid, pdd->dev,
--				  KFD_SMI_EVENT_QUEUE_RESTORE,
--				  "%lld -%d %x %c\n", ktime_get_boottime_ns(),
--				  p->lead_thread->pid, pdd->dev->id, 'R');
-+				  KFD_SMI_EVENT_QUEUE_RESTORE_RESCHEDULED,
-+				  KFD_EVENT_FMT_QUEUE_RESTORE_RESCHEDULED(
-+				  ktime_get_boottime_ns(), p->lead_thread->pid,
-+				  pdd->dev->id, 'R'));
- 	}
- 	kfd_unref_process(p);
- }
-@@ -329,8 +330,8 @@ void kfd_smi_event_unmap_from_gpu(struct kfd_node *node, pid_t pid,
- 				  uint32_t trigger)
- {
- 	kfd_smi_event_add(pid, node, KFD_SMI_EVENT_UNMAP_FROM_GPU,
--			  "%lld -%d @%lx(%lx) %x %d\n", ktime_get_boottime_ns(),
--			  pid, address, last - address + 1, node->id, trigger);
-+			  KFD_EVENT_FMT_UNMAP_FROM_GPU(ktime_get_boottime_ns(),
-+			  pid, address, last - address + 1, node->id, trigger));
- }
- 
- int kfd_smi_event_open(struct kfd_node *dev, uint32_t *fd)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
+index fa95c2dfd587..6c99eaa39f09 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
+@@ -41,7 +41,7 @@ void kfd_smi_event_migration_start(struct kfd_node *node, pid_t pid,
+ 			     uint32_t trigger);
+ void kfd_smi_event_migration_end(struct kfd_node *node, pid_t pid,
+ 			     unsigned long start, unsigned long end,
+-			     uint32_t from, uint32_t to, uint32_t trigger);
++			     uint32_t from, uint32_t to, uint32_t trigger, int r);
+ void kfd_smi_event_queue_eviction(struct kfd_node *node, pid_t pid,
+ 				  uint32_t trigger);
+ void kfd_smi_event_queue_restore(struct kfd_node *node, pid_t pid);
 diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-index 9ce46edc62a5..430c01f4148b 100644
+index 430c01f4148b..5220670a434d 100644
 --- a/include/uapi/linux/kfd_ioctl.h
 +++ b/include/uapi/linux/kfd_ioctl.h
-@@ -523,7 +523,8 @@ enum kfd_smi_event {
- 	KFD_SMI_EVENT_PAGE_FAULT_END = 8,
- 	KFD_SMI_EVENT_QUEUE_EVICTION = 9,
- 	KFD_SMI_EVENT_QUEUE_RESTORE = 10,
--	KFD_SMI_EVENT_UNMAP_FROM_GPU = 11,
-+	KFD_SMI_EVENT_QUEUE_RESTORE_RESCHEDULED = 11,
-+	KFD_SMI_EVENT_UNMAP_FROM_GPU = 12,
+@@ -601,6 +601,7 @@ struct kfd_ioctl_smi_events_args {
+  *    migrate_update: the GPU page is recovered by 'M' for migrate, 'U' for update
+  *    rescheduled: 'R' if the queue restore failed and rescheduled to try again
+  *    rw: 'W' for write page fault, 'R' for read page fault
++ *    result: page mirgate result, 0 for success, otherwise error code
+  */
+ #define KFD_EVENT_FMT_UPDATE_GPU_RESET(reset_seq_num)\
+ 		"%x\n", (reset_seq_num)
+@@ -622,9 +623,9 @@ struct kfd_ioctl_smi_events_args {
+ 		"%lld -%d @%lx(%lx) %x->%x %x:%x %d\n", (ns), (pid), (start), (size),\
+ 		(from), (to), (prefetch_loc), (preferred_loc), (migrate_trigger)
  
- 	/*
- 	 * max event number, as a flag bit to get events from all processes,
-@@ -564,6 +565,80 @@ struct kfd_ioctl_smi_events_args {
- 	__u32 anon_fd;	/* from KFD */
- };
+-#define KFD_EVENT_FMT_MIGRATE_END(ns, pid, start, size, from, to, migrate_trigger)\
+-		"%lld -%d @%lx(%lx) %x->%x %d\n", (ns), (pid), (start), (size),\
+-		(from), (to), (migrate_trigger)
++#define KFD_EVENT_FMT_MIGRATE_END(ns, pid, start, size, from, to, migrate_trigger, result)\
++		"%lld -%d @%lx(%lx) %x->%x %d %d\n", (ns), (pid), (start), (size),\
++		(from), (to), (migrate_trigger), (result)
  
-+/*
-+ * SVM event tracing via SMI system management interface
-+ *
-+ * Open event file descriptor
-+ *    use ioctl AMDKFD_IOC_SMI_EVENTS, pass in gpuid and return a anonymous file
-+ *    descriptor to receive SMI events.
-+ *    If calling with sudo permission, then file descriptor can be used to receive
-+ *    SVM events from all processes, otherwise, to only receive SVM events of same
-+ *    process.
-+ *
-+ * To enable the SVM event
-+ *    Write event file descriptor with KFD_SMI_EVENT_MASK_FROM_INDEX(event) bitmap
-+ *    mask to start record the event to the kfifo, use bitmap mask combination
-+ *    for multiple events. New event mask will overwrite the previous event mask.
-+ *    KFD_SMI_EVENT_MASK_FROM_INDEX(KFD_SMI_EVENT_ALL_PROCESS) bit requires sudo
-+ *    permisson to receive SVM events from all process.
-+ *
-+ * To receive the event
-+ *    Application can poll file descriptor to wait for the events, then read event
-+ *    from the file into a buffer. Each event is one line string message, starting
-+ *    with the event id, then the event specific information.
-+ *
-+ * To decode event information
-+ *    The following event format string macro can be used with sscanf to decode
-+ *    the specific event information.
-+ *    event triggers: the reason to generate the event, defined as enum for unmap,
-+ *    eviction and migrate events.
-+ *    node, from, to, prefetch_loc, preferred_loc: GPU ID, or 0 for system memory.
-+ *    addr: user mode address, in pages
-+ *    size: in pages
-+ *    pid: the process ID to generate the event
-+ *    ns: timestamp in nanosecond-resolution, starts at system boot time but
-+ *        stops during suspend
-+ *    migrate_update: the GPU page is recovered by 'M' for migrate, 'U' for update
-+ *    rescheduled: 'R' if the queue restore failed and rescheduled to try again
-+ *    rw: 'W' for write page fault, 'R' for read page fault
-+ */
-+#define KFD_EVENT_FMT_UPDATE_GPU_RESET(reset_seq_num)\
-+		"%x\n", (reset_seq_num)
-+
-+#define KFD_EVENT_FMT_UPDATE_THERMAL_THROTTLING(bitmask, counter)\
-+		"%llx:%llx\n", (bitmask), (counter)
-+
-+#define KFD_EVENT_FMT_VMFAULT(pid, task_name)\
-+		"%x:%s\n", (pid), (task_name)
-+
-+#define KFD_EVENT_FMT_PAGEFAULT_START(ns, pid, addr, node, rw)\
-+		"%lld -%d @%lx(%x) %c\n", (ns), (pid), (addr), (node), (rw)
-+
-+#define KFD_EVENT_FMT_PAGEFAULT_END(ns, pid, addr, node, migrate_update)\
-+		"%lld -%d @%lx(%x) %c\n", (ns), (pid), (addr), (node), (migrate_update)
-+
-+#define KFD_EVENT_FMT_MIGRATE_START(ns, pid, start, size, from, to, prefetch_loc,\
-+		preferred_loc, migrate_trigger)\
-+		"%lld -%d @%lx(%lx) %x->%x %x:%x %d\n", (ns), (pid), (start), (size),\
-+		(from), (to), (prefetch_loc), (preferred_loc), (migrate_trigger)
-+
-+#define KFD_EVENT_FMT_MIGRATE_END(ns, pid, start, size, from, to, migrate_trigger)\
-+		"%lld -%d @%lx(%lx) %x->%x %d\n", (ns), (pid), (start), (size),\
-+		(from), (to), (migrate_trigger)
-+
-+#define KFD_EVENT_FMT_QUEUE_EVICTION(ns, pid, node, evict_trigger)\
-+		"%lld -%d %x %d\n", (ns), (pid), (node), (evict_trigger)
-+
-+#define KFD_EVENT_FMT_QUEUE_RESTORE(ns, pid, node)\
-+		"%lld -%d %x\n", (ns), (pid), (node)
-+
-+#define KFD_EVENT_FMT_QUEUE_RESTORE_RESCHEDULED(ns, pid, node, rescheduled)\
-+		"%lld -%d %x %c\n", (ns), (pid), (node), (rescheduled)
-+
-+#define KFD_EVENT_FMT_UNMAP_FROM_GPU(ns, pid, addr, size, node, unmap_trigger)\
-+		"%lld -%d @%lx(%lx) %x %d\n", (ns), (pid), (addr), (size),\
-+		(node), (unmap_trigger)
-+
- /**************************************************************************************************
-  * CRIU IOCTLs (Checkpoint Restore In Userspace)
-  *
+ #define KFD_EVENT_FMT_QUEUE_EVICTION(ns, pid, node, evict_trigger)\
+ 		"%lld -%d %x %d\n", (ns), (pid), (node), (evict_trigger)
 -- 
 2.35.1
 
