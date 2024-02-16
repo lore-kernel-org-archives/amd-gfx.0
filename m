@@ -4,119 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0E32C48260
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 21:10:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D697C48BF3
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 21:19:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 915EE10E10E;
-	Fri, 16 Feb 2024 21:10:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05A9B10ECC9;
+	Fri, 16 Feb 2024 21:19:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SzfBidXK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dwnhhII5";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2085.outbound.protection.outlook.com [40.107.220.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 876E810E10E
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 21:10:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Sc2gzjRysJpwKXEObDi92RbHRwIQIshqD7v7lNMxOM6RHRXOWdYEKC+WyLmZ9wL1cxohrfcnVmi+8E4JPHRP96LIlD30+VR4H6pNnCBRrAy/RU/RFNjEuuTepIG+tNFAB3eGJ/q1b9+le0Dg/G05ugl10OcLwZVyzcoXDNdWagPnwiAJRHnXHFmlD+sjVx9MsFA8DDSo1pjQZd6uuu1lb5voP6M5bB5F7lN6TLRshtEtpx84hVP2FaqtqXVgigE9IJr2YmSTwJaVwTX6h5Y7tKRyDuLjLrZ/V9fgFTjdaf/VtmXEUTW7VB/sO7oI6LyTZJWuQS1wfKpXV+CXKrjlZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZcVsJHVCGVhFoJw/hrWenfgHc5Un+7nd7UVMufZmNAc=;
- b=hvprH9ch261XSNvYFsz++xbKZnD8wFNxZw15pbj95JAJEkbw3NXUQvYfnA7JqtWxMwnYBZdCEtLol90MXZlh6V/NjEcYxmWE68NIBD1bMSQCffg3nhwe+oPzhrzNUVLkm8Zg0q7+MfJVwvjqbkbUfrhGxody0kaCP/c1eupIhCq6urA3jIllz8+GngXGpDC1MZARgcQ/T90u/uebVp9SyP+FNmlZdxiyTvqepSfbygVkP5IPE0ythf2dp5OpISzokBGG6+c3ZhwetTocpvxaFl5WGPdDlEICyB2+K/q7Fpwu01Lk732XtB1j/ZB1XFtmF8V+qCZZhMHHz0cpgyillw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZcVsJHVCGVhFoJw/hrWenfgHc5Un+7nd7UVMufZmNAc=;
- b=SzfBidXKkjEF3cQhhAGlNs2QxpK/Gd8PabAMsndhvYWlo7O+lJLJUb/0MfvwmvOBkMdC2LWNZr5tzOQtLvh9s0yXoohDW7Q9LHsnxHCQrYTbR4dXGl4c4+0CLA1PRZaB4aVy8q6Y6IrRQeJHAfzr5MWVzDxZ+KAS6xFIT30Ba7c=
-Received: from DM4PR12MB5328.namprd12.prod.outlook.com (2603:10b6:5:39f::12)
- by DM4PR12MB5817.namprd12.prod.outlook.com (2603:10b6:8:60::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.12; Fri, 16 Feb
- 2024 21:10:19 +0000
-Received: from DM4PR12MB5328.namprd12.prod.outlook.com
- ([fe80::b4a6:ef0f:c28b:3d38]) by DM4PR12MB5328.namprd12.prod.outlook.com
- ([fe80::b4a6:ef0f:c28b:3d38%4]) with mapi id 15.20.7292.022; Fri, 16 Feb 2024
- 21:10:19 +0000
-From: "Luo, Zhigang" <Zhigang.Luo@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Lu, Victor Cheng Chi (Victor)" <VictorChengChi.Lu@amd.com>
-Subject: RE: [PATCH 3/4] drm/amdgpu: Use correct SRIOV macro for
- gmc_v9_0_vm_fault_interrupt_state
-Thread-Topic: [PATCH 3/4] drm/amdgpu: Use correct SRIOV macro for
- gmc_v9_0_vm_fault_interrupt_state
-Thread-Index: AQHaPaFmkK8z7Mppb0C3XcbpnL0fW7ENlnO1gAAmx6A=
-Date: Fri, 16 Feb 2024 21:10:19 +0000
-Message-ID: <DM4PR12MB5328796CB1B052628673C7C5F14C2@DM4PR12MB5328.namprd12.prod.outlook.com>
-References: <20240102173013.5543-1-victorchengchi.lu@amd.com>
- <20240102173013.5543-3-victorchengchi.lu@amd.com>
- <PH7PR12MB5974D8CA3E8119960CD0F7BEFA4C2@PH7PR12MB5974.namprd12.prod.outlook.com>
-In-Reply-To: <PH7PR12MB5974D8CA3E8119960CD0F7BEFA4C2@PH7PR12MB5974.namprd12.prod.outlook.com>
-Accept-Language: en-US, en-CA
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-02-16T18:49:50.576Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5328:EE_|DM4PR12MB5817:EE_
-x-ms-office365-filtering-correlation-id: fe4a14f4-6e1d-4a93-af84-08dc2f33ae54
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: lI0qLU47uwghqRhn3j0o8c1U6V+4ZWyElZ5PkEl/N79KmBNPBhC3z9REv9p85tihys7x7jyELzYXxrD6FB7seuDiHpFX8eQzl68LMFavv5ndPnPIEdaL8gDGUK+G9AOlvggmJPZFGTwx1zpmCX1CQWduI59m2V1aA7I+4yHwdQkE8kmNi0yzSgCGdphkU+lRERwELXQA+gHgmt4hvUgQzhvpLsHUeks/Gijg1R8MS6aoGZ16fdwMY9LEnkR4FpXsyFqNWbWbXP0IROgGQucFhXCkPRbYdio1lhwDPyu6ChuvXHzqC8XlaxSnIeWy4f9fyL5AxI9FGrCeQiDwJs31VFaiQ2j7RMLnda8XT+/b39GX7zklbEBXoaFrk8oB5vN6swV71Hy1f/qdnlcqey5Ta3ZlT14gcN1czArQTxrJldaCJmCZtTEwLM/fE5mzRP6HgGDcsYv8gpG3Z0n9JzFgpEmXA1808sT6gvaCCE89vML2LBTf+7FiQ7pF0T6wI0XvTq/3QGVH9Dg2lVpJGVW1wrBeiwQLGhK40iqmBVDRH7KLzVUaawqIeP+b9m7YLQkm5D9RkDmhe4I0rkTx8jVoQLQ/+tRpVzEdt0BhIzJts951mblJzEeexFJOWuQvNWwV
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5328.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(346002)(136003)(39860400002)(396003)(376002)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(4326008)(8676002)(2906002)(66556008)(8936002)(5660300002)(64756008)(66446008)(52536014)(7696005)(122000001)(26005)(83380400001)(38100700002)(33656002)(86362001)(38070700009)(53546011)(6506007)(66476007)(76116006)(66946007)(6916009)(71200400001)(316002)(9686003)(478600001)(55016003)(41300700001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?s34PMOnXnsE/AchV13KkdvFoxu4AxawwTCkdtTrXZV+4lTVmwIluh1RRkDhM?=
- =?us-ascii?Q?FskOLyF/ykeWHVTJUYiKOfvxF+0FMquSHICwJXAUBoDS42tcdqvlX8KO8unv?=
- =?us-ascii?Q?IuiiqNPkI8o2MVJSSPRiu2Yfg8CA2HaFsGpgObsaTONhzDulVMaHVsrkseJS?=
- =?us-ascii?Q?j81SN4//1U5R+EeWfvkgJ6nPoFLtbimnxWFDpDumoapLXUoOKDfv4EBOtAah?=
- =?us-ascii?Q?jJ7j16HRnJh0Z4ynOUIg+FV4Ok1tEOKliEl3C88TFo7PNDF0BXYbA8m43hxx?=
- =?us-ascii?Q?wJ/6MTClLy59HyuxSmf8pSbPBStDmktDWaYewimzu+UaGF088aQMuEEu7NNQ?=
- =?us-ascii?Q?LN61EaaOmEcX3o1FTttBH9WAd+8mEml6l79eC0XypxOuotB2NGbhhIHRNL0s?=
- =?us-ascii?Q?JqgbTvcsVlA0tPKQ38Jdy5FvVOOCBpQoV+4eRpCAOnZtGD1l2IJSrov2zz3m?=
- =?us-ascii?Q?WNAFsolLgFuD6QEZoxgXYnATTluB8rbyhTOWhVBMQ+dwdZNShWQ8/uWMPpFA?=
- =?us-ascii?Q?Dc+AG5fUJSQemO/7lyu9h4F6Gyzv0+UX7NvkQm/V8xi8Pom8VdGYn5YtTSeV?=
- =?us-ascii?Q?d/Iqx4wW0hecoTuxhftUOvnky/j0D/NWyRIFuat5yIEaN5SzY8g75RfkX7hF?=
- =?us-ascii?Q?Yp5yYM1SUfn8yWk0a9gx6MoaTBIGupc3QFOLRbHBzgiK1UcUoZL59hTekgwc?=
- =?us-ascii?Q?4n1W5fjav/HG5yJE1UeNI9xMtP7n2YvKUQ27BuaZ+dwyi5cKr+d8NhBQI8NQ?=
- =?us-ascii?Q?hznivTn1xGyx/teo6iqPL0LHMN3DblWgAG+posXTf1u4DRDowlit/w6qcwEU?=
- =?us-ascii?Q?QHwqs6m6mnEs7vfxRTudYMiVTIu4fB5CUmfLdL8k7R9/AomGqCWzpHm61Gh9?=
- =?us-ascii?Q?vVnsVpkDNPy3ICbc55IS3K0bxtbjJ+MSZC1sVbjuVnuJ9VNPZHzNbnPvO0LF?=
- =?us-ascii?Q?6aYzTU8HDL94dlU9+fs+djkPVKJjp3EcXxyaTRVmHFIBCd7rmUAVO8jrdIa/?=
- =?us-ascii?Q?1FJorruGYh9dd18vQWzX6DfkEYZrb6tVWv/fE3Wu5OYi2lof2Xq1KaQH5tZn?=
- =?us-ascii?Q?Fw4FEYVNlGa0zQARhh1Lzhne/yFn6ydXPmsc8yzLCAwq/DmUL/e41fibzqQl?=
- =?us-ascii?Q?hiiBtl+mB+EiRPGb8dzbf/I1wu6uMFai0EJQKGxzYbMbCH7Jxx0hXidxv/Do?=
- =?us-ascii?Q?LUmZTSvXiTGznRQvShh4YoiEsbipqf/WBB4pVPHcmhIhMHe4KbSXlozSE91Z?=
- =?us-ascii?Q?X0UumU719cAzvF8BQ7oIYAqSfYa+FtWiz1vnXxKOv+iiRg+rvpzGAeNsORZu?=
- =?us-ascii?Q?aUmWhxzkDeZr72mvL1Oo4jHtA6AvS0JYYT91598gMJda5K0N8qNJcTTt5mk/?=
- =?us-ascii?Q?3pnpreO3ZcYq7WlS1woQfFL7E7z1JTA9letxDCVFmxo8AU8ImZm7A29OyfuV?=
- =?us-ascii?Q?tPflXDL/kd1tJAiCi6mgEjh9VrdswMOatUxFbvkMdyzHblFm5GSIuvQT7LC1?=
- =?us-ascii?Q?EbxkRnuiXAWapV9HO/2CZfnTjVfz3bxhrQ//uJxluKZT1NUbs4mTF67ts8we?=
- =?us-ascii?Q?JCIRpGCv0C8VTfs7i6I=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_DM4PR12MB5328796CB1B052628673C7C5F14C2DM4PR12MB5328namp_"
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5A3210E3AC;
+ Fri, 16 Feb 2024 21:19:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1708118344; x=1739654344;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Wew+CW4tKdINP5Tg/pRZDgVR1S7k1tpLboeBWPBTKIE=;
+ b=dwnhhII5MEBCt0/s8cIOsPXAP+pSPlGGqs4704Y3hPh+5MxzRLzTM84U
+ 1NmqTAl693Wq33Ywv3r5MX1f4Lz/KtieurHMwuxhRxtuPfR9AZcLt4WT6
+ LShmU+5iChCjpTnvt0Ic6SqqFddCcmFmoWf6B/NJs2iG741UATt7fRCpN
+ 3EfYAp5bKjchy+locPJHIb3Ci8dLL++cQGCj06MpfHXNnpuHwAZMkZX8g
+ OKAMj5Fnwf3GZRSUrbuWxJ25Qmp4ChsQi+GdqEH34Nib/VvuAHpRUJQko
+ saMkV90Prjo/GP2t/vqWe++mCp9HCnEqwSqAacENmil0fPlZlX/yBmnnw w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10986"; a="2377624"
+X-IronPort-AV: E=Sophos;i="6.06,165,1705392000"; 
+   d="scan'208";a="2377624"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2024 13:19:04 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,165,1705392000"; 
+   d="scan'208";a="3996861"
+Received: from lkp-server02.sh.intel.com (HELO 3c78fa4d504c) ([10.239.97.151])
+ by orviesa010.jf.intel.com with ESMTP; 16 Feb 2024 13:18:58 -0800
+Received: from kbuild by 3c78fa4d504c with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1rb5bj-0001cC-1f;
+ Fri, 16 Feb 2024 21:18:55 +0000
+Date: Sat, 17 Feb 2024 05:18:06 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>
+Cc: Paul Gazzillo <paul@pgazz.com>,
+ Necip Fazil Yildiran <fazilyildiran@gmail.com>,
+ oe-kbuild-all@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
+ linux-fbdev@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, intel-xe@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org,
+ "open list:ACPI" <linux-acpi@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Melissa Wen <mwen@igalia.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH v6 1/5] drm: Stop using `select ACPI_VIDEO` in all drivers
+Message-ID: <202402170543.qd0JRj6h-lkp@intel.com>
+References: <20240214215756.6530-2-mario.limonciello@amd.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5328.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe4a14f4-6e1d-4a93-af84-08dc2f33ae54
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Feb 2024 21:10:19.4202 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /tufHx35IU3GzHetXemrdHvZbNySRo1CIbfsN2+MGEF7JKK3av8w6dnPtGl8YUQw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5817
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240214215756.6530-2-mario.limonciello@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,339 +81,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM4PR12MB5328796CB1B052628673C7C5F14C2DM4PR12MB5328namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hi Mario,
 
-[AMD Official Use Only - General]
+kernel test robot noticed the following build warnings:
 
-Reviewed By Zhigang Luo <Zhigang.Luo@amd.com>
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.8-rc4 next-20240216]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-From: Lu, Victor Cheng Chi (Victor) <VictorChengChi.Lu@amd.com>
-Sent: Friday, February 16, 2024 1:50 PM
-To: Luo, Zhigang <Zhigang.Luo@amd.com>
-Subject: Fw: [PATCH 3/4] drm/amdgpu: Use correct SRIOV macro for gmc_v9_0_v=
-m_fault_interrupt_state
+url:    https://github.com/intel-lab-lkp/linux/commits/Mario-Limonciello/drm-Stop-using-select-ACPI_VIDEO-in-all-drivers/20240215-055936
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20240214215756.6530-2-mario.limonciello%40amd.com
+patch subject: [PATCH v6 1/5] drm: Stop using `select ACPI_VIDEO` in all drivers
+config: alpha-kismet-CONFIG_FB_BACKLIGHT-CONFIG_FB_SH_MOBILE_LCDC-0-0 (https://download.01.org/0day-ci/archive/20240217/202402170543.qd0JRj6h-lkp@intel.com/config)
+reproduce: (https://download.01.org/0day-ci/archive/20240217/202402170543.qd0JRj6h-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202402170543.qd0JRj6h-lkp@intel.com/
 
-[AMD Official Use Only - General]
+kismet warnings: (new ones prefixed by >>)
+>> kismet: WARNING: unmet direct dependencies detected for FB_BACKLIGHT when selected by FB_SH_MOBILE_LCDC
+   .config:92:warning: symbol value 'n' invalid for AIC7XXX_DEBUG_MASK
+   .config:218:warning: symbol value 'n' invalid for RAPIDIO_DISC_TIMEOUT
+   .config:242:warning: symbol value 'n' invalid for SATA_MOBILE_LPM_POLICY
+   .config:259:warning: symbol value 'n' invalid for FAT_DEFAULT_CODEPAGE
+   .config:339:warning: symbol value 'n' invalid for PSTORE_BLK_MAX_REASON
+   .config:341:warning: symbol value 'n' invalid for PANEL_PROFILE
+   .config:352:warning: symbol value 'n' invalid for AIC79XX_DEBUG_MASK
+   .config:432:warning: symbol value 'n' invalid for KFENCE_SAMPLE_INTERVAL
+   .config:610:warning: symbol value 'n' invalid for DRM_XE_JOB_TIMEOUT_MIN
+   .config:616:warning: symbol value 'n' invalid for CRYPTO_DEV_QCE_SW_MAX_LEN
+   .config:717:warning: symbol value 'n' invalid for PANEL_LCD_CHARSET
+   .config:755:warning: symbol value 'n' invalid for AIC79XX_CMDS_PER_DEVICE
+   .config:784:warning: symbol value 'n' invalid for SND_AC97_POWER_SAVE_DEFAULT
+   .config:805:warning: symbol value 'n' invalid for PANEL_LCD_PIN_SDA
+   .config:807:warning: symbol value 'n' invalid for MAGIC_SYSRQ_DEFAULT_ENABLE
+   .config:825:warning: symbol value 'n' invalid for DRM_I915_MAX_REQUEST_BUSYWAIT
+   .config:864:warning: symbol value 'n' invalid for SND_AT73C213_TARGET_BITRATE
+   .config:886:warning: symbol value 'n' invalid for DRM_XE_PREEMPT_TIMEOUT_MIN
+   .config:894:warning: symbol value 'n' invalid for NET_EMATCH_STACK
+   .config:896:warning: symbol value 'n' invalid for VMCP_CMA_SIZE
+   .config:988:warning: symbol value 'n' invalid for INPUT_MOUSEDEV_SCREEN_Y
+   .config:1124:warning: symbol value 'n' invalid for RCU_CPU_STALL_TIMEOUT
+   .config:1150:warning: symbol value 'n' invalid for MTDRAM_ERASE_SIZE
+   .config:1237:warning: symbol value 'n' invalid for SERIAL_UARTLITE_NR_UARTS
+   .config:1303:warning: symbol value 'n' invalid for USB_GADGET_STORAGE_NUM_BUFFERS
+   .config:1396:warning: symbol value 'n' invalid for LEGACY_PTY_COUNT
+   .config:1533:warning: symbol value 'n' invalid for AIC7XXX_RESET_DELAY_MS
+   .config:1723:warning: symbol value 'n' invalid for IBM_EMAC_POLL_WEIGHT
+   .config:1759:warning: symbol value 'n' invalid for PANEL_LCD_PIN_E
+   .config:1805:warning: symbol value 'n' invalid for DRM_I915_STOP_TIMEOUT
+   .config:1981:warning: symbol value 'n' invalid for KCOV_IRQ_AREA_SIZE
+   .config:2132:warning: symbol value 'n' invalid for RCU_FANOUT_LEAF
+   .config:2232:warning: symbol value 'n' invalid for DRM_XE_TIMESLICE_MAX
+   .config:2278:warning: symbol value 'n' invalid for PANEL_LCD_BWIDTH
+   .config:2512:warning: symbol value 'n' invalid for PANEL_PARPORT
+   .config:2520:warning: symbol value 'n' invalid for SND_SOC_SOF_DEBUG_IPC_FLOOD_TEST_NUM
+   .config:2599:warning: symbol value 'n' invalid for NOUVEAU_DEBUG_DEFAULT
+   .config:2785:warning: symbol value 'n' invalid for KCSAN_REPORT_ONCE_IN_MS
+   .config:2883:warning: symbol value 'n' invalid for PSTORE_BLK_CONSOLE_SIZE
+   .config:2884:warning: symbol value 'n' invalid for KCSAN_UDELAY_INTERRUPT
+   .config:2894:warning: symbol value 'n' invalid for AIC79XX_RESET_DELAY_MS
+   .config:2908:warning: symbol value 'n' invalid for PANEL_LCD_PIN_BL
+   .config:2924:warning: symbol value 'n' invalid for DEBUG_OBJECTS_ENABLE_DEFAULT
+   .config:2931:warning: symbol value 'n' invalid for INITRAMFS_ROOT_GID
+   .config:3032:warning: symbol value 'n' invalid for ATM_FORE200E_TX_RETRY
+   .config:3059:warning: symbol value 'n' invalid for BOOKE_WDT_DEFAULT_TIMEOUT
+   .config:3068:warning: symbol value 'n' invalid for FB_OMAP2_DSS_MIN_FCK_PER_PCK
+   .config:3282:warning: symbol value 'n' invalid for KCSAN_UDELAY_TASK
+   .config:3397:warning: symbol value 'n' invalid for MMC_BLOCK_MINORS
+   .config:3400:warning: symbol value 'n' invalid for INET_TABLE_PERTURB_ORDER
+   .config:3410:warning: symbol value 'n' invalid for MTD_REDBOOT_DIRECTORY_BLOCK
+   .config:3443:warning: symbol value 'n' invalid for SCSI_NCR53C8XX_SYNC
+   .config:3560:warning: symbol value 'n' invalid for UCLAMP_BUCKETS_COUNT
+   .config:3580:warning: symbol value 'n' invalid for SCSI_MESH_RESET_DELAY_MS
+   .config:3610:warning: symbol value 'n' invalid for SERIAL_MCF_BAUDRATE
+   .config:3668:warning: symbol value 'n' invalid for STACK_MAX_DEFAULT_SIZE_MB
+   .config:3680:warning: symbol value 'n' invalid for DE2104X_DSL
+   .config:3693:warning: symbol value 'n' invalid for BLK_DEV_RAM_COUNT
+   .config:3752:warning: symbol value 'n' invalid for SERIAL_ALTERA_UART_BAUDRATE
+   .config:3932:warning: symbol value 'n' invalid for IP_VS_SH_TAB_BITS
+   .config:4071:warning: symbol value 'n' invalid for USBIP_VHCI_HC_PORTS
+   .config:4138:warning: symbol value 'n' invalid for INPUT_MOUSEDEV_SCREEN_X
+   .config:4250:warning: symbol value 'n' invalid for RIONET_RX_SIZE
+   .config:4394:warning: symbol value 'n' invalid for RADIO_TYPHOON_PORT
+   .config:4425:warning: symbol value 'n' invalid for FTRACE_RECORD_RECURSION_SIZE
+   .config:4508:warning: symbol value 'n' invalid for SERIAL_TXX9_NR_UARTS
+   .config:4550:warning: symbol value 'n' invalid for IBM_EMAC_TXB
+   .config:4931:warning: symbol value 'n' invalid for ARCH_MMAP_RND_BITS
+   .config:5013:warning: symbol value 'n' invalid for DRM_I915_FENCE_TIMEOUT
+   .config:5035:warning: symbol value 'n' invalid for TTY_PRINTK_LEVEL
+   .config:5172:warning: symbol value 'n' invalid for IP_VS_MH_TAB_INDEX
+   .config:5188:warning: symbol value 'n' invalid for MIPS_EJTAG_FDC_KGDB_CHAN
+   .config:5279:warning: symbol value 'n' invalid for KDB_DEFAULT_ENABLE
+   .config:5297:warning: symbol value 'n' invalid for SERIAL_ALTERA_UART_MAXPORTS
+   .config:5359:warning: symbol value 'n' invalid for CRYPTO_DEV_FSL_CAAM_INTC_TIME_THLD
+   .config:5361:warning: symbol value 'n' invalid for PPC_EARLY_DEBUG_EHV_BC_HANDLE
+   .config:5550:warning: symbol value 'n' invalid for PANEL_LCD_HWIDTH
+   .config:5576:warning: symbol value 'n' invalid for PANEL_LCD_PIN_RW
+   .config:5583:warning: symbol value 'n' invalid for LOCKDEP_CHAINS_BITS
+   .config:5677:warning: symbol value 'n' invalid for DRM_I915_HEARTBEAT_INTERVAL
+   .config:5683:warning: symbol value 'n' invalid for KCSAN_SKIP_WATCH
+   .config:5706:warning: symbol value 'n' invalid for PSTORE_BLK_KMSG_SIZE
+   .config:6004:warning: symbol value 'n' invalid for ARCH_MMAP_RND_COMPAT_BITS
+   .config:6113:warning: symbol value 'n' invalid for SND_MAX_CARDS
+   .config:6170:warning: symbol value 'n' invalid for SERIAL_SH_SCI_NR_UARTS
+   .config:6171:warning: symbol value 'n' invalid for RADIO_TRUST_PORT
+   .config:6246:warning: symbol value 'n' invalid for RCU_BOOST_DELAY
+   .config:6545:warning: symbol value 'n' invalid for CMA_SIZE_PERCENTAGE
+   .config:6684:warning: symbol value 'n' invalid for DRM_XE_TIMESLICE_MIN
+   .config:6702:warning: symbol value 'n' invalid for DRM_XE_PREEMPT_TIMEOUT_MAX
+   .config:6725:warning: symbol value 'n' invalid for SCSI_NCR53C8XX_MAX_TAGS
+   .config:6734:warning: symbol value 'n' invalid for DVB_MAX_ADAPTERS
+   .config:6747:warning: symbol value 'n' invalid for SCSI_SYM53C8XX_DMA_ADDRESSING_MODE
+   .config:6873:warning: symbol value 'n' invalid for ZSMALLOC_CHAIN_SIZE
+   .config:7082:warning: symbol value 'n' invalid for LOCKDEP_BITS
+   .config:7112:warning: symbol value 'n' invalid for IBM_EMAC_RXB
+   .config:7150:warning: symbol value 'n' invalid for SCSI_SYM53C8XX_MAX_TAGS
+   .config:7153:warning: symbol value 'n' invalid for SERIAL_ARC_NR_PORTS
+   .config:7244:warning: symbol value 'n' invalid for MTD_UBI_WL_THRESHOLD
+   .config:7262:warning: symbol value 'n' invalid for RIONET_TX_SIZE
 
-
-________________________________
-From: Lu, Victor Cheng Chi (Victor) <VictorChengChi.Lu@amd.com<mailto:Victo=
-rChengChi.Lu@amd.com>>
-Sent: Tuesday, January 2, 2024 12:30 PM
-To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
-d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Chander, Vignesh <Vignesh.Chander@amd.com<mailto:Vignesh.Chander@amd.co=
-m>>; Lu, Victor Cheng Chi (Victor) <VictorChengChi.Lu@amd.com<mailto:Victor=
-ChengChi.Lu@amd.com>>
-Subject: [PATCH 3/4] drm/amdgpu: Use correct SRIOV macro for gmc_v9_0_vm_fa=
-ult_interrupt_state
-
-Under SRIOV, programming to VM_CONTEXT*_CNTL regs failed because the
-current macro does not pass through the correct xcc instance.
-Use the *REG32_XCC macro in this case.
-
-The behaviour without SRIOV is the same.
-
-Signed-off-by: Victor Lu <victorchengchi.lu@amd.com<mailto:victorchengchi.l=
-u@amd.com>>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gmc_v9_0.c
-index 473a774294ce..e2e14d40109c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -496,14 +496,14 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct a=
-mdgpu_device *adev,
-                                 if (j >=3D AMDGPU_MMHUB0(0))
-                                         tmp =3D RREG32_SOC15_IP(MMHUB, reg=
-);
-                                 else
--                                       tmp =3D RREG32_SOC15_IP(GC, reg);
-+                                       tmp =3D RREG32_XCC(reg, j);
-
-                                 tmp &=3D ~bits;
-
-                                 if (j >=3D AMDGPU_MMHUB0(0))
-                                         WREG32_SOC15_IP(MMHUB, reg, tmp);
-                                 else
--                                       WREG32_SOC15_IP(GC, reg, tmp);
-+                                       WREG32_XCC(reg, tmp, j);
-                         }
-                 }
-                 break;
-@@ -524,14 +524,14 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct a=
-mdgpu_device *adev,
-                                 if (j >=3D AMDGPU_MMHUB0(0))
-                                         tmp =3D RREG32_SOC15_IP(MMHUB, reg=
-);
-                                 else
--                                       tmp =3D RREG32_SOC15_IP(GC, reg);
-+                                       tmp =3D RREG32_XCC(reg, j);
-
-                                 tmp |=3D bits;
-
-                                 if (j >=3D AMDGPU_MMHUB0(0))
-                                         WREG32_SOC15_IP(MMHUB, reg, tmp);
-                                 else
--                                       WREG32_SOC15_IP(GC, reg, tmp);
-+                                       WREG32_XCC(reg, tmp, j);
-                         }
-                 }
-                 break;
---
-2.34.1
-
---_000_DM4PR12MB5328796CB1B052628673C7C5F14C2DM4PR12MB5328namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:#1F4E79;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;
-	mso-ligatures:none;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"color:#1F4E79">Reviewed By Zhigang Lu=
-o &lt;Zhigang.Luo@amd.com&gt;<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"color:#1F4E79"><o:p>&nbsp;</o:p></spa=
-n></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Lu, Victor Cheng Chi (Victor) &lt;Victo=
-rChengChi.Lu@amd.com&gt;
-<br>
-<b>Sent:</b> Friday, February 16, 2024 1:50 PM<br>
-<b>To:</b> Luo, Zhigang &lt;Zhigang.Luo@amd.com&gt;<br>
-<b>Subject:</b> Fw: [PATCH 3/4] drm/amdgpu: Use correct SRIOV macro for gmc=
-_v9_0_vm_fault_interrupt_state<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only - General]<o:p><=
-/o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
-</p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> Lu, Victor Cheng Chi (Victor) &lt;<a href=3D"mailto=
-:VictorChengChi.Lu@amd.com">VictorChengChi.Lu@amd.com</a>&gt;<br>
-<b>Sent:</b> Tuesday, January 2, 2024 12:30 PM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
-reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
--gfx@lists.freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Chander, Vignesh &lt;<a href=3D"mailto:Vignesh.Chander@amd.com">=
-Vignesh.Chander@amd.com</a>&gt;; Lu, Victor Cheng Chi (Victor) &lt;<a href=
-=3D"mailto:VictorChengChi.Lu@amd.com">VictorChengChi.Lu@amd.com</a>&gt;<br>
-<b>Subject:</b> [PATCH 3/4] drm/amdgpu: Use correct SRIOV macro for gmc_v9_=
-0_vm_fault_interrupt_state</span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Under SRIOV, programm=
-ing to VM_CONTEXT*_CNTL regs failed because the<br>
-current macro does not pass through the correct xcc instance.<br>
-Use the *REG32_XCC macro in this case.<br>
-<br>
-The behaviour without SRIOV is the same.<br>
-<br>
-Signed-off-by: Victor Lu &lt;<a href=3D"mailto:victorchengchi.lu@amd.com">v=
-ictorchengchi.lu@amd.com</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 8 ++++----<br>
-&nbsp;1 file changed, 4 insertions(+), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gmc_v9_0.c<br>
-index 473a774294ce..e2e14d40109c 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-@@ -496,14 +496,14 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct a=
-mdgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (j &gt;=3D AMDGPU_MMHUB0(0))<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; tmp =3D RREG32_SOC15_IP(MMHUB, reg);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; tmp =3D RREG32_SOC15_IP(GC, reg);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; tmp =3D RREG32_XCC(reg, j);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D ~bits;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (j &gt;=3D AMDGPU_MMHUB0(0))<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; WREG32_SOC15_IP(MMHUB, reg, tmp);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; WREG32_SOC15_IP(GC, reg, tmp);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; WREG32_XCC(reg, tmp, j);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-@@ -524,14 +524,14 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct a=
-mdgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (j &gt;=3D AMDGPU_MMHUB0(0))<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; tmp =3D RREG32_SOC15_IP(MMHUB, reg);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; tmp =3D RREG32_SOC15_IP(GC, reg);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; tmp =3D RREG32_XCC(reg, j);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D bits;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (j &gt;=3D AMDGPU_MMHUB0(0))<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; WREG32_SOC15_IP(MMHUB, reg, tmp);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; WREG32_SOC15_IP(GC, reg, tmp);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; WREG32_XCC(reg, tmp, j);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
--- <br>
-2.34.1<o:p></o:p></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM4PR12MB5328796CB1B052628673C7C5F14C2DM4PR12MB5328namp_--
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
