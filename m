@@ -4,68 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 315C7C48260
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 05:04:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED3DEC48BEB
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 08:20:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 313BE10E0B5;
-	Fri, 16 Feb 2024 05:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68C7510E131;
+	Fri, 16 Feb 2024 08:20:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MhDacnUt";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=haloniitty.fi header.i=@haloniitty.fi header.b="bXDEcl+Y";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 258FE10E0B5;
- Fri, 16 Feb 2024 05:04:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1708059864; x=1739595864;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=mvd4+ES9H4+E9FF2CWmYJA4SeFWwPFFspFFuFegVVh4=;
- b=MhDacnUtW7U5OEs/kucpelEY+zaSUVnvFsQqYKLpwcwT3Z4sZbsRW7hA
- sblTo2uOUVphspJbbLZPzJu4paIynW60g7fO/kqfqsCl+w2n8JIoZ2KI0
- cNhaFeQP7Hyvfjzc8ZL8sr4u3y6fp4xbhxMvuRU23Z8GZD4nS3AbBVBxm
- Hu6/CaClAVy5cdEqO4xsNjLlb/sLtv4Wues3SvfDn6pZCB/5SjARByU4e
- t4o1mdisyWt3ymYggOFUvBAYRE5FqonKi6N6Vbjrdw0e8ttUzgHrQZZzI
- O/ilOy0wX1TQPl0Z+B3fnOIxmPflpJXZpg+rMq9Gn9N322aoFd2fv5LXR w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10985"; a="5148369"
-X-IronPort-AV: E=Sophos;i="6.06,163,1705392000"; 
-   d="scan'208";a="5148369"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2024 21:04:21 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,163,1705392000"; d="scan'208";a="34532258"
-Received: from lkp-server02.sh.intel.com (HELO 3c78fa4d504c) ([10.239.97.151])
- by orviesa002.jf.intel.com with ESMTP; 15 Feb 2024 21:04:15 -0800
-Received: from kbuild by 3c78fa4d504c with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1raqOT-00010S-0h;
- Fri, 16 Feb 2024 05:04:13 +0000
-Date: Fri, 16 Feb 2024 13:03:49 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Hans de Goede <hdegoede@redhat.com>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>
-Cc: Paul Gazzillo <paul@pgazz.com>,
- Necip Fazil Yildiran <fazilyildiran@gmail.com>,
- oe-kbuild-all@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
- linux-fbdev@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, intel-xe@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org,
- "open list:ACPI" <linux-acpi@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Melissa Wen <mwen@igalia.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH v6 1/5] drm: Stop using `select ACPI_VIDEO` in all drivers
-Message-ID: <202402161205.v9d7IYpg-lkp@intel.com>
-References: <20240214215756.6530-2-mario.limonciello@amd.com>
+Received: from whm50.louhi.net (whm50.louhi.net [77.240.19.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A31E910E256;
+ Fri, 16 Feb 2024 08:19:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=haloniitty.fi; s=default; h=Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=SwArZZWoMGaUCC+AgKvruw60znKf1jRE+TFnKaPirqQ=; b=bXDEcl+YuVId6rnVYekHhMzP3m
+ 8VFTkcifS/od+wIoEWEZmqojntpPTVvKkyPo/o6Ct9sDh7TXU28ldRbXwmrVoiJ/ELzBp8eKhR3p7
+ kxss9xDt1E1B6oKtymfcp3oh36SLnfh04pA94ai2xmrQPRqlxLT47gaW6CttbAzuty6YYjsUMsqxu
+ VkvJMYkf7XdvLUS4u77ltc72S42TOxLAqGeQO03Vf1FM8pQ9R2wMcvUuHCGwJSEKxl3pz9LCkOPZe
+ 5Zl2xs9kwZUu7go8VrYgbYjEuWpH2tfm+EoV3HK/bm57WzBYE57KnTwdg8kVEE6GpmfDjlkTnJn4y
+ QsEbgJvQ==;
+Received: from [194.136.85.206] (port=48728 helo=eldfell)
+ by whm50.louhi.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96.2)
+ (envelope-from <pekka.paalanen@haloniitty.fi>) id 1ratRf-0004TR-1u;
+ Fri, 16 Feb 2024 10:19:43 +0200
+Date: Fri, 16 Feb 2024 10:19:36 +0200
+From: Pekka Paalanen <pekka.paalanen@haloniitty.fi>
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Cc: <amd-gfx@lists.freedesktop.org>, Mario Limonciello
+ <mario.limonciello@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo
+ Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, David
+ Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Alex Hung
+ <alex.hung@amd.com>, Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] drm/amd/display: add panel_power_savings sysfs entry
+ to eDP connectors
+Message-ID: <20240216101936.2e210be2@eldfell>
+In-Reply-To: <20240202152837.7388-1-hamza.mahfooz@amd.com>
+References: <20240202152837.7388-1-hamza.mahfooz@amd.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240214215756.6530-2-mario.limonciello@amd.com>
+Content-Type: multipart/signed; boundary="Sig_/N0j5fPzI_9+T2QzPPLs30WV";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - whm50.louhi.net
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - haloniitty.fi
+X-Get-Message-Sender-Via: whm50.louhi.net: authenticated_id:
+ pekka.paalanen@haloniitty.fi
+X-Authenticated-Sender: whm50.louhi.net: pekka.paalanen@haloniitty.fi
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,131 +79,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mario,
+--Sig_/N0j5fPzI_9+T2QzPPLs30WV
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-kernel test robot noticed the following build warnings:
+On Fri, 2 Feb 2024 10:28:35 -0500
+Hamza Mahfooz <hamza.mahfooz@amd.com> wrote:
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.8-rc4 next-20240215]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> We want programs besides the compositor to be able to enable or disable
+> panel power saving features.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Mario-Limonciello/drm-Stop-using-select-ACPI_VIDEO-in-all-drivers/20240215-055936
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20240214215756.6530-2-mario.limonciello%40amd.com
-patch subject: [PATCH v6 1/5] drm: Stop using `select ACPI_VIDEO` in all drivers
-config: alpha-kismet-CONFIG_FB_BACKLIGHT-CONFIG_FB_ATY128-0-0 (https://download.01.org/0day-ci/archive/20240216/202402161205.v9d7IYpg-lkp@intel.com/config)
-reproduce: (https://download.01.org/0day-ci/archive/20240216/202402161205.v9d7IYpg-lkp@intel.com/reproduce)
+Could you also explain why, in the commit message, please?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202402161205.v9d7IYpg-lkp@intel.com/
+It is unexpected for arbitrary programs to be able to override the KMS
+client, and certainly new ways to do so should not be added without an
+excellent justification.
 
-kismet warnings: (new ones prefixed by >>)
->> kismet: WARNING: unmet direct dependencies detected for FB_BACKLIGHT when selected by FB_ATY128
-   .config:233:warning: symbol value 'n' invalid for SATA_MOBILE_LPM_POLICY
-   .config:335:warning: symbol value 'n' invalid for AIC79XX_DEBUG_MASK
-   .config:336:warning: symbol value 'n' invalid for PSTORE_BLK_MAX_REASON
-   .config:437:warning: symbol value 'n' invalid for KFENCE_SAMPLE_INTERVAL
-   .config:511:warning: symbol value 'n' invalid for INPUT_MOUSEDEV_SCREEN_Y
-   .config:613:warning: symbol value 'n' invalid for DRM_XE_JOB_TIMEOUT_MIN
-   .config:620:warning: symbol value 'n' invalid for CRYPTO_DEV_QCE_SW_MAX_LEN
-   .config:705:warning: symbol value 'n' invalid for AIC79XX_CMDS_PER_DEVICE
-   .config:719:warning: symbol value 'n' invalid for PANEL_LCD_CHARSET
-   .config:766:warning: symbol value 'n' invalid for XEN_MEMORY_HOTPLUG_LIMIT
-   .config:774:warning: symbol value 'n' invalid for PANEL_LCD_PIN_SDA
-   .config:791:warning: symbol value 'n' invalid for SND_AC97_POWER_SAVE_DEFAULT
-   .config:825:warning: symbol value 'n' invalid for MAGIC_SYSRQ_DEFAULT_ENABLE
-   .config:840:warning: symbol value 'n' invalid for DRM_I915_MAX_REQUEST_BUSYWAIT
-   .config:871:warning: symbol value 'n' invalid for USB_GADGET_STORAGE_NUM_BUFFERS
-   .config:875:warning: symbol value 'n' invalid for SND_AT73C213_TARGET_BITRATE
-   .config:894:warning: symbol value 'n' invalid for DRM_XE_PREEMPT_TIMEOUT_MIN
-   .config:903:warning: symbol value 'n' invalid for NET_EMATCH_STACK
-   .config:905:warning: symbol value 'n' invalid for VMCP_CMA_SIZE
-   .config:1160:warning: symbol value 'n' invalid for MTDRAM_ERASE_SIZE
-   .config:1246:warning: symbol value 'n' invalid for SERIAL_UARTLITE_NR_UARTS
-   .config:1287:warning: symbol value 'n' invalid for PANEL_LCD_PIN_E
-   .config:1411:warning: symbol value 'n' invalid for LEGACY_PTY_COUNT
-   .config:1517:warning: symbol value 'n' invalid for SERIAL_ALTERA_UART_BAUDRATE
-   .config:1543:warning: symbol value 'n' invalid for WATCHDOG_OPEN_TIMEOUT
-   .config:1547:warning: symbol value 'n' invalid for AIC7XXX_RESET_DELAY_MS
-   .config:1739:warning: symbol value 'n' invalid for IBM_EMAC_POLL_WEIGHT
-   .config:1833:warning: symbol value 'n' invalid for DRM_I915_STOP_TIMEOUT
-   .config:1972:warning: symbol value 'n' invalid for KCOV_IRQ_AREA_SIZE
-   .config:2263:warning: symbol value 'n' invalid for DRM_XE_TIMESLICE_MAX
-   .config:2304:warning: symbol value 'n' invalid for PANEL_LCD_BWIDTH
-   .config:2383:warning: symbol value 'n' invalid for AIC79XX_RESET_DELAY_MS
-   .config:2500:warning: symbol value 'n' invalid for SND_SOC_SOF_DEBUG_IPC_FLOOD_TEST_NUM
-   .config:2535:warning: symbol value 'n' invalid for PANEL_PARPORT
-   .config:2622:warning: symbol value 'n' invalid for NOUVEAU_DEBUG_DEFAULT
-   .config:2808:warning: symbol value 'n' invalid for KCSAN_REPORT_ONCE_IN_MS
-   .config:2904:warning: symbol value 'n' invalid for PSTORE_BLK_CONSOLE_SIZE
-   .config:2906:warning: symbol value 'n' invalid for KCSAN_UDELAY_INTERRUPT
-   .config:2928:warning: symbol value 'n' invalid for PANEL_LCD_PIN_BL
-   .config:2945:warning: symbol value 'n' invalid for DEBUG_OBJECTS_ENABLE_DEFAULT
-   .config:2952:warning: symbol value 'n' invalid for INITRAMFS_ROOT_GID
-   .config:3033:warning: symbol value 'n' invalid for MTD_REDBOOT_DIRECTORY_BLOCK
-   .config:3058:warning: symbol value 'n' invalid for ATM_FORE200E_TX_RETRY
-   .config:3075:warning: symbol value 'n' invalid for BOOKE_WDT_DEFAULT_TIMEOUT
-   .config:3098:warning: symbol value 'n' invalid for FB_OMAP2_DSS_MIN_FCK_PER_PCK
-   .config:3339:warning: symbol value 'n' invalid for KCSAN_UDELAY_TASK
-   .config:3430:warning: symbol value 'n' invalid for MMC_BLOCK_MINORS
-   .config:3434:warning: symbol value 'n' invalid for INET_TABLE_PERTURB_ORDER
-   .config:3476:warning: symbol value 'n' invalid for SCSI_NCR53C8XX_SYNC
-   .config:3596:warning: symbol value 'n' invalid for UCLAMP_BUCKETS_COUNT
-   .config:3678:warning: symbol value 'n' invalid for SERIAL_MCF_BAUDRATE
-   .config:3697:warning: symbol value 'n' invalid for VERBOSE_MCHECK_ON
-   .config:3699:warning: symbol value 'n' invalid for STACK_MAX_DEFAULT_SIZE_MB
-   .config:3745:warning: symbol value 'n' invalid for DE2104X_DSL
-   .config:3756:warning: symbol value 'n' invalid for BLK_DEV_RAM_COUNT
-   .config:4000:warning: symbol value 'n' invalid for IP_VS_SH_TAB_BITS
-   .config:4019:warning: symbol value 'n' invalid for FTRACE_RECORD_RECURSION_SIZE
-   .config:4118:warning: symbol value 'n' invalid for CMA_AREAS
-   .config:4145:warning: symbol value 'n' invalid for USBIP_VHCI_HC_PORTS
-   .config:4176:warning: symbol value 'n' invalid for INPUT_MOUSEDEV_SCREEN_X
-   .config:4290:warning: symbol value 'n' invalid for RIONET_RX_SIZE
-   .config:4465:warning: symbol value 'n' invalid for RADIO_TYPHOON_PORT
-   .config:4574:warning: symbol value 'n' invalid for SERIAL_TXX9_NR_UARTS
-   .config:4596:warning: symbol value 'n' invalid for IBM_EMAC_TXB
-   .config:4702:warning: symbol value 'n' invalid for IP_VS_MH_TAB_INDEX
-   .config:4979:warning: symbol value 'n' invalid for ARCH_MMAP_RND_BITS
-   .config:5060:warning: symbol value 'n' invalid for DRM_I915_FENCE_TIMEOUT
-   .config:5079:warning: symbol value 'n' invalid for TTY_PRINTK_LEVEL
-   .config:5216:warning: symbol value 'n' invalid for PANEL_LCD_PIN_RW
-   .config:5237:warning: symbol value 'n' invalid for MIPS_EJTAG_FDC_KGDB_CHAN
-   .config:5330:warning: symbol value 'n' invalid for KDB_DEFAULT_ENABLE
-   .config:5347:warning: symbol value 'n' invalid for SERIAL_ALTERA_UART_MAXPORTS
-   .config:5434:warning: symbol value 'n' invalid for PPC_EARLY_DEBUG_EHV_BC_HANDLE
-   .config:5517:warning: symbol value 'n' invalid for CRYPTO_DEV_FSL_CAAM_INTC_TIME_THLD
-   .config:5609:warning: symbol value 'n' invalid for PANEL_LCD_HWIDTH
-   .config:5638:warning: symbol value 'n' invalid for LOCKDEP_CHAINS_BITS
-   .config:5728:warning: symbol value 'n' invalid for DRM_I915_HEARTBEAT_INTERVAL
-   .config:5736:warning: symbol value 'n' invalid for KCSAN_SKIP_WATCH
-   .config:5759:warning: symbol value 'n' invalid for PSTORE_BLK_KMSG_SIZE
-   .config:5922:warning: symbol value 'n' invalid for RCU_BOOST_DELAY
-   .config:5956:warning: symbol value 'n' invalid for SERIAL_8250_RUNTIME_UARTS
-   .config:6051:warning: symbol value 'n' invalid for ARCH_MMAP_RND_COMPAT_BITS
-   .config:6218:warning: symbol value 'n' invalid for RADIO_TRUST_PORT
-   .config:6236:warning: symbol value 'n' invalid for SERIAL_SH_SCI_NR_UARTS
-   .config:6337:warning: symbol value 'n' invalid for DRM_XE_PREEMPT_TIMEOUT_MAX
-   .config:6588:warning: symbol value 'n' invalid for CMA_SIZE_PERCENTAGE
-   .config:6732:warning: symbol value 'n' invalid for DRM_XE_TIMESLICE_MIN
-   .config:6783:warning: symbol value 'n' invalid for DVB_MAX_ADAPTERS
-   .config:6793:warning: symbol value 'n' invalid for SCSI_NCR53C8XX_MAX_TAGS
-   .config:6801:warning: symbol value 'n' invalid for SCSI_SYM53C8XX_DMA_ADDRESSING_MODE
-   .config:6860:warning: symbol value 'n' invalid for SCSI_SYM53C8XX_MAX_TAGS
-   .config:6968:warning: symbol value 'n' invalid for RIONET_TX_SIZE
-   .config:6999:warning: symbol value 'n' invalid for ZSMALLOC_CHAIN_SIZE
-   .config:7132:warning: symbol value 'n' invalid for SCSI_MESH_RESET_DELAY_MS
-   .config:7173:warning: symbol value 'n' invalid for IBM_EMAC_RXB
-   .config:7195:warning: symbol value 'n' invalid for LOCKDEP_BITS
-   .config:7306:warning: symbol value 'n' invalid for OMAP2_DSS_MIN_FCK_PER_PCK
-   .config:7367:warning: symbol value 'n' invalid for SCSI_MPT3SAS_MAX_SGE
-   .config:7497:warning: symbol value 'n' invalid for PSTORE_DEFAULT_KMSG_BYTES
-   .config:7540:warning: symbol value 'n' invalid for PANEL_LCD
+Maybe debugfs would be more appropriate if the purpose is only testing
+rather than production environments?
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> However, since they are currently only
+> configurable through DRM properties, that isn't possible. So, to remedy
+> that issue introduce a new "panel_power_savings" sysfs attribute.
+
+When the DRM property was added, what was used as the userspace to
+prove its workings?
+
+
+Thanks,
+pq
+
+>=20
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> ---
+> v2: hide ABM_LEVEL_IMMEDIATE_DISABLE in the read case, force an atomic
+>     commit when setting the value, call sysfs_remove_group() in
+>     amdgpu_dm_connector_unregister() and add some documentation.
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 76 +++++++++++++++++++
+>  1 file changed, 76 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 8590c9f1dda6..3c62489d03dc 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6436,10 +6436,79 @@ int amdgpu_dm_connector_atomic_get_property(struc=
+t drm_connector *connector,
+>  	return ret;
+>  }
+> =20
+> +/**
+> + * DOC: panel power savings
+> + *
+> + * The display manager allows you to set your desired **panel power savi=
+ngs**
+> + * level (between 0-4, with 0 representing off), e.g. using the followin=
+g::
+> + *
+> + *   # echo 3 > /sys/class/drm/card0-eDP-1/amdgpu/panel_power_savings
+> + *
+> + * Modifying this value can have implications on color accuracy, so tread
+> + * carefully.
+> + */
+> +
+> +static ssize_t panel_power_savings_show(struct device *device,
+> +					struct device_attribute *attr,
+> +					char *buf)
+> +{
+> +	struct drm_connector *connector =3D dev_get_drvdata(device);
+> +	struct drm_device *dev =3D connector->dev;
+> +	u8 val;
+> +
+> +	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+> +	val =3D to_dm_connector_state(connector->state)->abm_level =3D=3D
+> +		ABM_LEVEL_IMMEDIATE_DISABLE ? 0 :
+> +		to_dm_connector_state(connector->state)->abm_level;
+> +	drm_modeset_unlock(&dev->mode_config.connection_mutex);
+> +
+> +	return sysfs_emit(buf, "%u\n", val);
+> +}
+> +
+> +static ssize_t panel_power_savings_store(struct device *device,
+> +					 struct device_attribute *attr,
+> +					 const char *buf, size_t count)
+> +{
+> +	struct drm_connector *connector =3D dev_get_drvdata(device);
+> +	struct drm_device *dev =3D connector->dev;
+> +	long val;
+> +	int ret;
+> +
+> +	ret =3D kstrtol(buf, 0, &val);
+> +
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (val < 0 || val > 4)
+> +		return -EINVAL;
+> +
+> +	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+> +	to_dm_connector_state(connector->state)->abm_level =3D val ?:
+> +		ABM_LEVEL_IMMEDIATE_DISABLE;
+> +	drm_modeset_unlock(&dev->mode_config.connection_mutex);
+> +
+> +	drm_kms_helper_hotplug_event(dev);
+> +
+> +	return count;
+> +}
+> +
+> +static DEVICE_ATTR_RW(panel_power_savings);
+> +
+> +static struct attribute *amdgpu_attrs[] =3D {
+> +	&dev_attr_panel_power_savings.attr,
+> +	NULL
+> +};
+> +
+> +static const struct attribute_group amdgpu_group =3D {
+> +	.name =3D "amdgpu",
+> +	.attrs =3D amdgpu_attrs
+> +};
+> +
+>  static void amdgpu_dm_connector_unregister(struct drm_connector *connect=
+or)
+>  {
+>  	struct amdgpu_dm_connector *amdgpu_dm_connector =3D to_amdgpu_dm_connec=
+tor(connector);
+> =20
+> +	sysfs_remove_group(&connector->kdev->kobj, &amdgpu_group);
+>  	drm_dp_aux_unregister(&amdgpu_dm_connector->dm_dp_aux.aux);
+>  }
+> =20
+> @@ -6541,6 +6610,13 @@ amdgpu_dm_connector_late_register(struct drm_conne=
+ctor *connector)
+>  		to_amdgpu_dm_connector(connector);
+>  	int r;
+> =20
+> +	if (connector->connector_type =3D=3D DRM_MODE_CONNECTOR_eDP) {
+> +		r =3D sysfs_create_group(&connector->kdev->kobj,
+> +				       &amdgpu_group);
+> +		if (r)
+> +			return r;
+> +	}
+> +
+>  	amdgpu_dm_register_backlight_device(amdgpu_dm_connector);
+> =20
+>  	if ((connector->connector_type =3D=3D DRM_MODE_CONNECTOR_DisplayPort) ||
+
+
+--Sig_/N0j5fPzI_9+T2QzPPLs30WV
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmXPGpgACgkQI1/ltBGq
+qqc/7hAAlGiJifPdESkeAkI4ecEIa/VhPtuaQOWtX9tA2Lv+8u5VMhA0YyAn2ql2
+dYiw24Gu1A1b69qvyUvKzQPbhBX80PT9LEfzysYMpjCVZMv/9VlvANNZaQUojoYV
+a9+ETsbiugKUxWLgj8q7a522nPTfqZ4Hg0X0wlt31qQ9eRQDZv8v2z+x6FvEn70V
+R3C3Pi2NXCjYkqG3F+n9fcN2JDUSFFFrIZuwPJIi4MO8PWUNk47a+nyxOVKmAI/E
+MwoGilxW7pm/B7W1A1FfKo/FS+G8KhWchNB70nsE+x1fxEOLd0YypFH8fIlT86T5
+rkUNueHG73/do6FEdx5TOB//stiSnG7RRSJA2xOYd2iwPZB5VdQ/v9YB9EyW2zun
+ba9Ne51RpmT1VDBxrknWZV/wCtoRiMzRAXl4YPLlXkYZtWids7+OzJR9R2oDGw13
+8k0lgfgvV3cWFtEXpNXdcL1ErTOeow8/vmST2BTPVhuDw04pdU0RsQriV8ZygEwz
+cXmpEgkfpn/Ay8Ppe5l0Jw0IuSGRW90Sf4hmd7SQ5klLB/lV4CxLAF+xtoMDbzfP
+Ok8485dWkxEntrpGLvR/LcLXRyLuRIAFD5znUbKlBKCWQcPn8l+4gt93S2e9jiWV
+bU3eKOG1TEAOgW7hSD/yWeFQr5ceYxERSdPaMn2rN6pp2X5NiGw=
+=N/D3
+-----END PGP SIGNATURE-----
+
+--Sig_/N0j5fPzI_9+T2QzPPLs30WV--
