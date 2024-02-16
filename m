@@ -4,70 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F05DC4829E
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Feb 2024 11:25:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8FC9C48BF6
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Feb 2024 11:25:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 494D410E083;
-	Sun, 18 Feb 2024 11:25:06 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L5XCdc0S";
-	dkim-atps=neutral
-Received: from mail-il1-f170.google.com (mail-il1-f170.google.com
- [209.85.166.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E95E310E0A2;
- Sat, 17 Feb 2024 20:27:09 +0000 (UTC)
-Received: by mail-il1-f170.google.com with SMTP id
- e9e14a558f8ab-36524116e30so489985ab.0; 
- Sat, 17 Feb 2024 12:27:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708201629; x=1708806429; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=0jU+JJenIXaa9bCS59dcZ028Hl4nXmKY23u7rsLZfHg=;
- b=L5XCdc0SzHL3dVcweP83d+JS7lI0zX/jrVavNmmkeIfXivZkb1Waa7k2GytsoaR+WZ
- gVfmXBzW0EKRaGfMg4ymIzOtVPEhisMqNZBZlj9LZ8kDdA7uMvCqSLq5yQkp3zxSSZet
- 0MKm2TLnTiEWXS8OJJAJnlFOFfeqO+ul7NpZ9DjotbbQgpy8I5YuW5KK3nHfZZSYV0f/
- eL6srjJHaBuGa/VOr7mhxdHjp/PcolLhLAWc2ZItYELWaRPHnf9qv7wGfCsDbs2tEmx4
- zvF+Zl3wSSeDTKu0yPYlieugwiKlvsdpz/S+sOgq+Ym+3AVPDQC59XuZAa3ngcDlMVqr
- U+/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708201629; x=1708806429;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=0jU+JJenIXaa9bCS59dcZ028Hl4nXmKY23u7rsLZfHg=;
- b=t9cAwM7AObpnNJeZL+7tTSeRmo9ERy9L18w3up17FkqNlEhGaZtwG1CNBBAqTBQFHl
- SXQbVjVY2BfEfnU+/pGoWz7lh/iuNSKN7tsbZcXsfs6HMf/Tf78FSZTSwI9UKYSY4//h
- v0wVs0eiZ9hFDXbGKgpWOnMDvGB49h9a37lb6vmerXHtBOwuf17Gznynoc6YjQwBtJ6G
- x0EjdriDJUq9KwC+PyPTuHrZ7p0ywLT+gi0oH1TnrEDmMYMTWp/pmPwkXOpLdtJOn4FP
- nb96prTQHg4xq9lEqQdeC4wMkNH1nXEz9u/IKPFMRemIqA8xxALjU/A3P4PJgqueKwxM
- QkMw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXCQ23+SEOlbECgZeDPEkA1eXyKgoS6LFw+5d2RP8CqJhEoTTao1poPgsS/zM8I10rLVtt7qQl99nKwOvtQPuEfXcJB6acwKJGQO6TNy8uvllRyKIEBLYg9jXRIauY6mAsikx+uNGFwv5UdBH3VVg==
-X-Gm-Message-State: AOJu0YybnO64rZC3TJ4JKlogR3tIR+Iz16g5gpeSJyYIYajw9uyz7F5A
- UmpnYbS+iaahniYo19jdkPBfZVKwSRqHGPqVCeKYXVgtze7LYo5d
-X-Google-Smtp-Source: AGHT+IE1oH9VXEm8Fs5qpor1HJboa85CM4WrYoLZ8He4jl6c8N7tNtouxyAkrXjQO8H55jJIDuMwuQ==
-X-Received: by 2002:a92:dc06:0:b0:365:1dd9:ee6b with SMTP id
- t6-20020a92dc06000000b003651dd9ee6bmr2148928iln.25.1708201628830; 
- Sat, 17 Feb 2024 12:27:08 -0800 (PST)
-Received: from pop-os.. ([2804:14c:30:24b4:6901:1644:7f56:fce2])
- by smtp.gmail.com with ESMTPSA id
- p12-20020a170902eacc00b001dbb06b6133sm1785223pld.127.2024.02.17.12.27.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 17 Feb 2024 12:27:08 -0800 (PST)
-From: =?UTF-8?q?T=C3=BAlio=20Fernandes?= <tuliomf09@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch
-Cc: =?UTF-8?q?T=C3=BAlio=20Fernandes?= <tuliomf09@gmail.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amd/display: clean unnecessary braces
-Date: Sat, 17 Feb 2024 17:20:15 -0300
-Message-Id: <20240217202015.2034288-1-tuliomf09@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4908910E09E;
+	Sun, 18 Feb 2024 11:25:10 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1773910E8F7;
+ Fri, 16 Feb 2024 15:58:08 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 174F5CE2995;
+ Fri, 16 Feb 2024 15:58:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2221CC433C7;
+ Fri, 16 Feb 2024 15:57:58 +0000 (UTC)
+Date: Fri, 16 Feb 2024 10:59:34 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Cc: "Sumit Semwal" <sumit.semwal@linaro.org>, Gustavo Padovan
+ <gustavo@padovan.org>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-media@vger.kernel.org>,
+ <linux-trace-kernel@vger.kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v3 6/8] drm: add drm_mode_atomic_commit event
+Message-ID: <20240216105934.7b81eae9@gandalf.local.home>
+In-Reply-To: <20240216151006.475077-7-pierre-eric.pelloux-prayer@amd.com>
+References: <20240216151006.475077-1-pierre-eric.pelloux-prayer@amd.com>
+ <20240216151006.475077-7-pierre-eric.pelloux-prayer@amd.com>
+X-Mailer: Claws Mail 3.19.1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Sun, 18 Feb 2024 11:25:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,59 +51,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Clean unnecessary braces in dc/dcn32/dcn32_resource_helpers.c and dc/dcn32/dcn201_link_encoder.c
+On Fri, 16 Feb 2024 16:09:55 +0100
+Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com> wrote:
+> 
+> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> ---
+>  drivers/gpu/drm/drm_atomic_uapi.c | 21 +++++++++++++++++++++
+>  drivers/gpu/drm/drm_trace.h       | 23 +++++++++++++++++++++++
+>  2 files changed, 44 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index 29d4940188d4..f31b5c6f870b 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -41,6 +41,7 @@
+>  #include <linux/file.h>
+>  
+>  #include "drm_crtc_internal.h"
+> +#include "drm_trace.h"
+>  
+>  /**
+>   * DOC: overview
+> @@ -1503,6 +1504,26 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+>  		drm_mode_object_put(obj);
+>  	}
+>  
+> +	if (trace_drm_mode_atomic_commit_enabled()) {
+> +		struct drm_crtc_state *crtc_state;
+> +		struct drm_crtc *crtc;
+> +		int *crtcs;
+> +		int i, num_crtcs;
+> +
+> +		crtcs = kcalloc(dev->mode_config.num_crtc, sizeof(int),
+> +				GFP_KERNEL);
+> +
+> +		if (crtcs) {
+> +			num_crtcs = 0;
+> +			for_each_new_crtc_in_state(state, crtc, crtc_state, i)
+> +				crtcs[num_crtcs++] = drm_crtc_index(crtc);
 
-Signed-off-by: Túlio Fernandes <tuliomf09@gmail.com>
----
- .../display/dc/dcn32/dcn32_resource_helpers.c    | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+Hmm, looking deeper into this, could you just do the loop the trace event?
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-index 87760600e154..e179dea148e7 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-@@ -110,14 +110,12 @@ uint32_t dcn32_helper_calculate_num_ways_for_subvp(
- 		struct dc_state *context)
- {
- 	if (context->bw_ctx.bw.dcn.mall_subvp_size_bytes > 0) {
--		if (dc->debug.force_subvp_num_ways) {
-+		if (dc->debug.force_subvp_num_ways)
- 			return dc->debug.force_subvp_num_ways;
--		} else {
-+		else
- 			return dcn32_helper_mall_bytes_to_ways(dc, context->bw_ctx.bw.dcn.mall_subvp_size_bytes);
--		}
--	} else {
-+	} else
- 		return 0;
--	}
- }
- 
- void dcn32_merge_pipes_for_subvp(struct dc *dc,
-@@ -250,9 +248,9 @@ bool dcn32_is_psr_capable(struct pipe_ctx *pipe)
- {
- 	bool psr_capable = false;
- 
--	if (pipe->stream && pipe->stream->link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED) {
-+	if (pipe->stream && pipe->stream->link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED)
- 		psr_capable = true;
--	}
-+
- 	return psr_capable;
- }
- 
-@@ -278,9 +276,9 @@ static void override_det_for_subvp(struct dc *dc, struct dc_state *context, uint
- 		if (pipe_ctx->stream && pipe_ctx->plane_state && dc_state_get_pipe_subvp_type(context, pipe_ctx) != SUBVP_PHANTOM) {
- 			if (dcn32_allow_subvp_high_refresh_rate(dc, context, pipe_ctx)) {
- 
--				if (pipe_ctx->stream->timing.v_addressable == 1080 && pipe_ctx->stream->timing.h_addressable == 1920) {
-+				if (pipe_ctx->stream->timing.v_addressable == 1080 && pipe_ctx->stream->timing.h_addressable == 1920)
- 					fhd_count++;
--				}
-+
- 				subvp_high_refresh_count++;
- 			}
- 		}
--- 
-2.34.1
+That is how different is the config.num_crtc compared to the final num_crtcs?
+That way, we don't need to do this allocation if it's not too different.
+That is, pass in the dev->mode_config.num_crtc to the tracepoint instead of
+num_crtcs.
+
+> +
+> +			trace_drm_mode_atomic_commit(file_priv, crtcs, num_crtcs, arg->flags);
+> +
+> +			kfree(crtcs);
+> +		}
+> +	}
+> +
+>  	ret = prepare_signaling(dev, state, arg, file_priv, &fence_state,
+>  				&num_fences);
+>  	if (ret)
+> diff --git a/drivers/gpu/drm/drm_trace.h b/drivers/gpu/drm/drm_trace.h
+> index 11c6dd577e8e..63489923c289 100644
+> --- a/drivers/gpu/drm/drm_trace.h
+> +++ b/drivers/gpu/drm/drm_trace.h
+> @@ -66,6 +66,29 @@ TRACE_EVENT(drm_vblank_event_delivered,
+>  		      __entry->seq)
+>  );
+>  
+> +TRACE_EVENT(drm_mode_atomic_commit,
+> +	    TP_PROTO(struct drm_file *file, int *crtcs, int ncrtcs, uint32_t flags),
+> +	    TP_ARGS(file, crtcs, ncrtcs, flags),
+> +	    TP_STRUCT__entry(
+> +		    __field(struct drm_file *, file)
+> +		    __dynamic_array(u32, crtcs, ncrtcs)
+
+Here the ncrtcs is what is passed in. It will always be allocated to that
+size though.
+
+> +		    __field(uint32_t, ncrtcs)
+> +		    __field(uint32_t, flags)
+> +		    ),
+> +	    TP_fast_assign(
+> +		    unsigned int i;
+> +
+> +		    __entry->file = file;
+> +		    for (i = 0; i < ncrtcs; i++)
+> +			((u32 *)__get_dynamic_array(crtcs))[i] = crtcs[i];
+
+Here we have:
+
+		int n = 0;
+
+		for_each_new_crtc_in_state(state, crtc, crtc_state, i)
+			((u32 *)__get_dynamic_array(crtcs))[n++] = drm_crtc_index(crtc);
+
+		__entry->ncrtcs = n;
+
+But this is only viable if the ncrtcs is close to the same size as dev->mode_config.num_crtc,
+otherwise it's not worth it.
+
+-- Steve
+
+
+
+> +		    __entry->ncrtcs = ncrtcs;
+> +		    __entry->flags = flags;
+> +		    ),
+> +	    TP_printk("file=%p, pid=%8d, flags=%08x, crtcs=%s", __entry->file,
+> +		      pid_nr(__entry->file->pid), __entry->flags,
+> +		      __print_array(__get_dynamic_array(crtcs), __entry->ncrtcs, 4))
+> +);
+> +
+>  #endif /* _DRM_TRACE_H_ */
+>  
+>  /* This part must be outside protection */
 
