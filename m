@@ -4,74 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2BFDC4829E
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Feb 2024 11:25:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB4BCC5475B
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Feb 2024 11:25:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4606D10E081;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EECAB10E045;
 	Sun, 18 Feb 2024 11:25:05 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="htUfiyMC";
-	dkim-atps=neutral
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82F1610E1B1;
- Sat, 17 Feb 2024 16:31:49 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-53fa455cd94so2153715a12.2; 
- Sat, 17 Feb 2024 08:31:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708187509; x=1708792309; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:sender
- :from:to:cc:subject:date:message-id:reply-to;
- bh=SbUePhJ5HZco+8XwW7JGmkYmeD0cFur/br8JHm4eCLs=;
- b=htUfiyMC2U+cY7O5OBd3du3N8o1SX7ld2cF2qhRzKzVsX6tR8d1ijN1Xn2f1tTTmhy
- 4DXBPXdLqIWvlVn44mOEE5iu5vV4U5boMuGqENbFlKSluv20sALs0X+9bskT7Keugj2L
- ot6B/Fu+djKxrh8TQEGSlcmBfZIWEGbVoEN7lwK8Hgy5b9OGx/u0nKyuzcxOr6KwapnI
- GdP8kFn1HLSH3DEoXEb8ubFYwfGSTz2i4wWce3wylt8ku1i1jp9kuH95aYRaZqjyYaUI
- 9OzyQsVcPPEt42lHJkcDadrDJ5BAsMDYgXTeQ04dGP3F97IWyujAkIaU3+vhJ0l7RR0s
- wCVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708187509; x=1708792309;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:sender
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=SbUePhJ5HZco+8XwW7JGmkYmeD0cFur/br8JHm4eCLs=;
- b=bd8ntGwifDP54PXdL1ywFD5rQWUYpW37antrkxXfv3n5SZuR9U38nuQbFWlyhGMhs7
- Xd5Dq0wJt9xVBWOV85QbdqmCBeE0D4YJsddxCuja6iH3/Brrws8KQx7iQ+72mRWLvlHc
- c2z2qD4jhEeSmP0xTPuuwWxMLC4CypCjKVtDnxfd8GhOGRI1XmHYs4Smx1xfQ4/+9E2o
- 0bf7EDMZv/7cTueTj46dfmjXheF5xp5tS0wlGF6pHOvMFliYpWt+h8Pht+MM0dofxr+O
- 68Uvlle1ful733oE8+VNjjz6DvLDvWkSwRHiaCRbmcTVwayxcYXpFbeAr3m0AWs8u6we
- AjSQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXiChe+uwcJSTKeDRnaKx3WqY9/Gr1C/nf7jfE+klE6Gj6YKUsqWVgpqwr6XGEsZZ//E5VYA5JI7L+omtpIhKu61rSftxk5zI7w4zeXexnoY3rJQXegqgFhbwVgcrz1r9cMh78YwnQs/LeZWPHltg==
-X-Gm-Message-State: AOJu0YwmDTVx9RjhUjt4Md1OVF69gMxu7GyumdxzDYeQl/eGBEbFjgRG
- Q9EPNnacwWRRXOZYdFhWTuQLaqE1Faq9fucGL9uP41JwSE6Vrhrt
-X-Google-Smtp-Source: AGHT+IGHtXjxjRmzrHmktbFcoQ6AOzSa0j7Xs/41gK9X+A9QlvcrIqXXFxmncHzXmMYB/bcm+P+Igg==
-X-Received: by 2002:a17:902:bd0a:b0:1d9:4ebd:b94d with SMTP id
- p10-20020a170902bd0a00b001d94ebdb94dmr7814293pls.55.1708187508931; 
- Sat, 17 Feb 2024 08:31:48 -0800 (PST)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- e14-20020a170902cf4e00b001db523e58f6sm1625357plg.133.2024.02.17.08.31.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 17 Feb 2024 08:31:48 -0800 (PST)
-Date: Sat, 17 Feb 2024 08:31:47 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- alexander.deucher@amd.com, matthew.auld@intel.com,
- mario.limonciello@amd.com, daniel@ffwll.ch
-Subject: Re: [PATCH v2 2/2] drm/tests/drm_buddy: add alloc_contiguous test
-Message-ID: <b59f744e-bc3d-4341-8586-4f4730aa351b@roeck-us.net>
-References: <20240214131853.5934-1-Arunpravin.PaneerSelvam@amd.com>
- <20240214131853.5934-2-Arunpravin.PaneerSelvam@amd.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CDC710EC3B;
+ Fri, 16 Feb 2024 16:42:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7C45061FA4;
+ Fri, 16 Feb 2024 16:42:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9ACC433C7;
+ Fri, 16 Feb 2024 16:42:36 +0000 (UTC)
+Date: Fri, 16 Feb 2024 11:44:12 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Gustavo Padovan <gustavo@padovan.org>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v2 6/6] drm: add drm_mode_atomic_commit event
+Message-ID: <20240216114412.1f181ffa@gandalf.local.home>
+In-Reply-To: <Zc-PQ9Yx4fk4TK43@phenom.ffwll.local>
+References: <20240117184329.479554-1-pierre-eric.pelloux-prayer@amd.com>
+ <20240213155112.156537-1-pierre-eric.pelloux-prayer@amd.com>
+ <20240213155112.156537-7-pierre-eric.pelloux-prayer@amd.com>
+ <20240213112017.726016f0@gandalf.local.home>
+ <Zc-PQ9Yx4fk4TK43@phenom.ffwll.local>
+X-Mailer: Claws Mail 3.19.1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240214131853.5934-2-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Sun, 18 Feb 2024 11:25:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,31 +54,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 14, 2024 at 06:48:53PM +0530, Arunpravin Paneer Selvam wrote:
-> From: Matthew Auld <matthew.auld@intel.com>
+On Fri, 16 Feb 2024 17:37:23 +0100
+Daniel Vetter <daniel@ffwll.ch> wrote:
+
+> > > @@ -1503,6 +1504,24 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+> > >  		drm_mode_object_put(obj);
+> > >  	}
+> > >  
+> > > +	if (trace_drm_mode_atomic_commit_enabled()) {
+> > > +		struct drm_crtc_state *crtc_state;
+> > > +		struct drm_crtc *crtc;
+> > > +		int *crtcs;
+> > > +		int i, num_crtcs;
+> > > +
+> > > +		crtcs = kcalloc(dev->mode_config.num_crtc, sizeof(int),
+> > > +				GFP_KERNEL);  
+> > 
+> > If the above allocation fails, this will cause a NULL kernel dereference.  
 > 
-> Sanity check DRM_BUDDY_CONTIGUOUS_ALLOCATION.
-> 
-> v2: Fix checkpatch warnings.
-> 
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3097
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Cc: Limonciello <mario.limonciello@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Yeah can't we somehow iterate directly into the trace subsystem? If
+> nothing else works I guess just a per-crtc event should do.
 
-Building csky:allmodconfig ... failed
-Building openrisc:allmodconfig ... failed
-Building parisc:allmodconfig ... failed
-Building xtensa:allmodconfig ... failed
+You mean like this?
 
-[ and presumably all other 32-bit systems which enable this test ]
+  https://lore.kernel.org/all/20240216105934.7b81eae9@gandalf.local.home/
 
---------------
-Error log:
-ERROR: modpost: "__umoddi3" [drivers/gpu/drm/tests/drm_buddy_test.ko] undefined!
-ERROR: modpost: "__moddi3" [drivers/gpu/drm/tests/drm_buddy_test.ko] undefined!
+;-)
 
-Guenter
+-- Steve
