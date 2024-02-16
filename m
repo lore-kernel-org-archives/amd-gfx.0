@@ -4,69 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F039C48260
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 18:08:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DC41C48260
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 18:38:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C975210EA27;
-	Fri, 16 Feb 2024 18:07:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EFFE10EC73;
+	Fri, 16 Feb 2024 18:37:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IDzBXAPJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TyFtznLx";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8563710EA27
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 18:07:57 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-2970595c1aeso1519205a91.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 10:07:57 -0800 (PST)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D6F310E123;
+ Fri, 16 Feb 2024 18:37:56 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-1d73066880eso22916005ad.3; 
+ Fri, 16 Feb 2024 10:37:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708106877; x=1708711677; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1708108676; x=1708713476; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vVABIM0paTRCq115FYZa3hjrdVRuipMVk+QNkUpALYU=;
- b=IDzBXAPJAVfJAjWYj+9Ra6OjzShBoNLJ7fDUD3sWdiv/EsXg5eSCQUS+YuJSDrnOLI
- 5emovpLSSoGxb0ZPOnNsOEziGPGJEJibzAOuj6r2rjt15S8kYZ8W7eYl7LWvNPenP+RG
- XxhVSWj77sMfGCEWObUbEPyK1RzMtqQVAPV73zYlhsX+sxtQp/snKX7PjFU02M5bRax8
- xZ4VVGBkhNiU3BkbaZ4wIAHFqP0hYlx3wBrMBh80Fz1jjjTw7yyxu4ZBdu8DCpJ8a437
- WZ52AMnfm0YBbpDdA3DaElmRgVn8rSgQ0h/bBWB3RE5/nI7mOLWyeqC4g+3F0oGTZmcK
- uUOQ==
+ bh=hTOTiA83cEyzgvuAUrqO3QZn2AXxY8Ci4OP2fK3qDG8=;
+ b=TyFtznLx3NnXswsblYHFNP/HnzTE1vbCXVKGSudzzB1KOuYdAUGuYwOGjW3G11u0qt
+ 6P8DF8U1P38/X1d/afQHmf//usw2HW+WgiFOkCM8yP7IVYy4Y3NEa7SKXKeN4Ke7V0sU
+ LFqFE01tIeSNRkwWmOUqsNAslZZQy5Ty0f61EA2xXY9D9dMjA5iT5sSFWoXl7ZEa8g3a
+ Qa/q9MwuJsxRtxx+xwqoTCmaJk2Kg/pxy9kV4Zncg2bL4gD/4GDFw/owhMdHbS8lMxUs
+ s6FrVZAa1TaF9/580moJE2dFhy3GmLAwWZlY+t0NpHzWa3tUqOoYOnZMJ/NyiMjNJ/lG
+ hnnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708106877; x=1708711677;
+ d=1e100.net; s=20230601; t=1708108676; x=1708713476;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=vVABIM0paTRCq115FYZa3hjrdVRuipMVk+QNkUpALYU=;
- b=uPGdJ+Yz5MhlkcflzS3SqsMP+FN+jlO3MIrsGD463mfgNoEZAbZVGc/AZaJgVW0l+J
- yax9ENtlIBJL+gGm9JYfiAD1TpFx3uGIb1bDEkezVeHUhSBfecbqtE/tGovsUEl3caCb
- aZybSNxQae5oiAtaDzcVNdQG27QbFKiEdXbw5WW9YG+bIVrGG+u8U74yo1qxXzGlbFo5
- GUSGu6PMW9DhIU/fI9KVfjOkcVce8tV00RLT3YgbNYUWKIiahfjS1YAWpn9idRiTLpkk
- bx5Odtv9rOkbh+p1DFz58jsYXlckrLJEUyGk6vDGHgHdsiS/bkrZBYKyDMdQfGAZIZ6I
- YsfA==
+ bh=hTOTiA83cEyzgvuAUrqO3QZn2AXxY8Ci4OP2fK3qDG8=;
+ b=VAJiiXe5/X40Mf7i8ByMKtoZaYc8I8UCSvScXN3ghaXGPrF12t4YMc0dXJ3NOlSisl
+ HpqjzPtZi/468748EPLo5pvhbxV3qc/CaihEHXyovqqZRsMk7BvIxGjGLo4zS4k6pLK0
+ l/ecrwnEtUbS9+3WwRE8sDcZWROtSuXt4CYTXa91NmUH4vy//ls7z7XY4N4KKo11Ol+O
+ zQAmrurhEgwjq/zXrA7h0+pTL1dquBTLThUJgT3qsjC7l4iADrWmasSd48tz/8e8Caks
+ qEvGbMOoZXaP8fj9+SkLSN6MJG6OJNOCQILxyaYziAVR9aWLkMwIgfpQKs7537vCG5WS
+ holQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXZlvgL194dhi3jfzAjgihPEIDAibTJqx2TsKCANcgduYTKZpA2ov9Ie0lWsRwo5Zh/ggESvMEPQ0IzS1FNfWvj5Go7YPxgXxzDy4yWrw==
-X-Gm-Message-State: AOJu0YyoVcWcTjqkoP0LGx7cgi94Km0+jSq9hm16G+i+Tc4I2xMoJq1B
- +oaXtut+jyQ8Ws1AgeHMlE5enCz9ss6HvULxFqGGTiNukIbZG0qkuQ6w1pNDK10fuPQ0qjOOlaD
- IlQ8TPnF8Q/uJ5UpwcjZryvFOtqCnL99i
-X-Google-Smtp-Source: AGHT+IG3QUJsOqTAvEcAENMd14/10qLzQ4Fvt21yYW2gnDpo5cl02l9zrJ34YrCa5YkSfy7iFWLqgtyaWhwrE+b29fQ=
-X-Received: by 2002:a17:90a:c908:b0:297:228a:fa6c with SMTP id
- v8-20020a17090ac90800b00297228afa6cmr5661752pjt.3.1708106876777; Fri, 16 Feb
- 2024 10:07:56 -0800 (PST)
+ AJvYcCX03lirP+eVbWlgXJoFbP/7pZZwPbXNO7uCUcq4WNOv/SYhSmFRD+MCEsVtHtimCbGQHBA1f33W/xOVMaGXtLJ7q4AO/vls0czjYLwZvdiMln9IhpdDaiP7m6wykZEAT2srY9LFGviOTjfjezY/RQ==
+X-Gm-Message-State: AOJu0YyHXIZe1iJyuO/U1ZjPU6WGa6x7d920kQVwuleKPn39/SfM5YMi
+ bvuX/639S6elwyGlgR94eX3pkP2TKsUbayYzG0Y9jN5fa5VsVyntMIv9WEkIlhwtj2lTGzAPc8w
+ qPvhjyZVggMJx8nt/x89fxowSJA8=
+X-Google-Smtp-Source: AGHT+IGYW++JuTQHjSFv47s+S9WuTXr1L6en1U64g+AlyvHrLKP/pLL6d+qesF+rFStorBQeD/VB8eU0L30G8qQRUK4=
+X-Received: by 2002:a17:902:ce01:b0:1db:96d3:3608 with SMTP id
+ k1-20020a170902ce0100b001db96d33608mr5737096plg.2.1708108675862; Fri, 16 Feb
+ 2024 10:37:55 -0800 (PST)
 MIME-Version: 1.0
-References: <20240216122401.216860-1-mwen@igalia.com>
-In-Reply-To: <20240216122401.216860-1-mwen@igalia.com>
+References: <20240216140709.73708-1-mario.limonciello@amd.com>
+ <8970de85-3117-4e28-82b4-3b35c5beb7cf@gmail.com>
+ <6b9e6f24-8fa5-43c5-88a2-068dfcb9996e@amd.com>
+ <e47b859d-eb0c-49f8-8a96-6f454fa18592@gmail.com>
+ <20361f26-2c83-4619-8f9e-ec8788b8280f@amd.com>
+ <126803c6-177a-4ffd-8b65-856fb83f9972@amd.com>
+ <0e10db11-0723-47e8-82ed-94d68e3c5afb@amd.com>
+In-Reply-To: <0e10db11-0723-47e8-82ed-94d68e3c5afb@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 16 Feb 2024 13:07:44 -0500
-Message-ID: <CADnq5_M_xQ_XcGy3Q6LxkPeNLGtjLGnaKqFJ0XwmJLtQgV=yNw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/display: fix null-pointer dereference on edid
- reading
-To: Melissa Wen <mwen@igalia.com>
-Cc: Harry Wentland <harry.wentland@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- sunpeng.li@amd.com, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- christian.koenig@amd.com, 
- Xinhui.Pan@amd.com, alex.hung@amd.com, amd-gfx@lists.freedesktop.org, 
- kernel-dev@igalia.com
+Date: Fri, 16 Feb 2024 13:37:43 -0500
+Message-ID: <CADnq5_NQ9Lx_A2v8mmaEPzct6yYJo9pC6EmUtee=HFrJ8ZnUNw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Only allow one entity to control ABM
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Hamza Mahfooz <Hamza.Mahfooz@amd.com>, Sun peng Li <Sunpeng.Li@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,217 +86,313 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Fri, Feb 16, 2024 at 10:42=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 16.02.24 um 16:12 schrieb Mario Limonciello:
+> > On 2/16/2024 09:05, Harry Wentland wrote:
+> >>
+> >>
+> >> On 2024-02-16 09:47, Christian K=C3=B6nig wrote:
+> >>> Am 16.02.24 um 15:42 schrieb Mario Limonciello:
+> >>>> On 2/16/2024 08:38, Christian K=C3=B6nig wrote:
+> >>>>> Am 16.02.24 um 15:07 schrieb Mario Limonciello:
+> >>>>>> By exporting ABM to sysfs it's possible that DRM master and softwa=
+re
+> >>>>>> controlling the sysfs file fight over the value programmed for ABM=
+.
+> >>>>>>
+> >>>>>> Adjust the module parameter behavior to control who control ABM:
+> >>>>>> -2: DRM
+> >>>>>> -1: sysfs (IE via software like power-profiles-daemon)
+> >>>>>
+> >>>>> Well that sounds extremely awkward. Why should a
+> >>>>> power-profiles-deamon has control over the panel power saving
+> >>>>> features?
+> >>>>>
+> >>>>> I mean we are talking about things like reducing backlight level
+> >>>>> when the is inactivity, don't we?
+> >>>>
+> >>>> We're talking about activating the ABM algorithm when the system is
+> >>>> in power saving mode; not from inactivity.  This allows the user to
+> >>>> squeeze out some extra power "just" in that situation.
+> >>>>
+> >>>> But given the comments on the other patch, I tend to agree with
+> >>>> Harry's proposal instead that we just drop the DRM property
+> >>>> entirely as there are no consumers of it.
+> >>>
+> >>> Yeah, but even then the design to let this be controlled by an
+> >>> userspace deamon is questionable. Stuff like that is handled inside
+> >>> the kernel and not exposed to userspace usually.
+> >>>
+> >
+> > Regarding the "how" and "why" of PPD; besides this panel power savings
+> > sysfs file there are two other things that are nominally changed.
+> >
+> > ACPI platform profile:
+> > https://www.kernel.org/doc/html/latest/userspace-api/sysfs-platform_pro=
+file.html
+> >
+> > AMD-Pstate EPP value:
+> > https://www.kernel.org/doc/html//latest/admin-guide/pm/amd-pstate.html
+> >
+> > When a user goes into "power saving" mode both of those are tweaked.
+> > Before we introduced the EPP tweaking in PPD we did discuss a callback
+> > within the kernel so that userspace could change "just" the ACPI
+> > platform profile and everything else would react.  There was pushback
+> > on this, and so instead knobs are offered for things that should be
+> > tweaked and the userspace daemon can set up policy for what to do when
+> > a a user uses a userspace client (such as GNOME or KDE) to change the
+> > desired system profile.
+>
+> Ok, well who came up with the idea of the userspace deamon? Cause I
+> think there will be even more push back on this approach.
+>
+> Basically when we go from AC to battery (or whatever) the drivers
+> usually handle that all inside the kernel today. Involving userspace is
+> only done when there is a need for that, e.g. inactivity detection or
+> similar.
+
+Well, we don't want policy in the kernel unless it's a platform or
+hardware requirement.  Kernel should provide the knobs and then
+userspace can set them however they want depending on user preference.
 
 Alex
 
-On Fri, Feb 16, 2024 at 7:24=E2=80=AFAM Melissa Wen <mwen@igalia.com> wrote=
-:
+
 >
-> Use i2c adapter when there isn't aux_mode in dc_link to fix a
-> null-pointer derefence that happens when running
-> igt@kms_force_connector_basic in a system with DCN2.1 and HDMI connector
-> detected as below:
+> >>
+> >> I think we'll need a bit in our kernel docs describing ABM.
+> >> Assumptions around what it is and does seem to lead to confusion.
+> >>
+> >> The thing is that ABM has a visual impact that not all users like. It
+> >> would make sense for users to be able to change the ABM level as
+> >> desired, and/or configure their power profiles to select a certain
+> >> ABM level.
+> >>
+> >> ABM will reduce the backlight and compensate by adjusting brightness
+> >> and contrast of the image. It has 5 levels: 0, 1, 2, 3, 4. 0 means
+> >> off. 4 means maximum backlight reduction. IMO, 1 and 2 look okay. 3
+> >> and 4 can be quite impactful, both to power and visual fidelity.
+> >>
+> >
+> > Aside from this patch Hamza did make some improvements to the kdoc in
+> > the recent patches, can you read through again and see if you think it
+> > still needs improvements?
 >
-> [  +0.178146] BUG: kernel NULL pointer dereference, address: 000000000000=
-04c0
-> [  +0.000010] #PF: supervisor read access in kernel mode
-> [  +0.000005] #PF: error_code(0x0000) - not-present page
-> [  +0.000004] PGD 0 P4D 0
-> [  +0.000006] Oops: 0000 [#1] PREEMPT SMP NOPTI
-> [  +0.000006] CPU: 15 PID: 2368 Comm: kms_force_conne Not tainted 6.5.0-a=
-sdn+ #152
-> [  +0.000005] Hardware name: HP HP ENVY x360 Convertible 13-ay1xxx/8929, =
-BIOS F.01 07/14/2021
-> [  +0.000004] RIP: 0010:i2c_transfer+0xd/0x100
-> [  +0.000011] Code: ea fc ff ff 66 0f 1f 84 00 00 00 00 00 90 90 90 90 90=
- 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 0f 1f 44 00 00 41 54 55 53 <4=
-8> 8b 47 10 48 89 fb 48 83 38 00 0f 84 b3 00 00 00 83 3d 2f 80 16
-> [  +0.000004] RSP: 0018:ffff9c4f89c0fad0 EFLAGS: 00010246
-> [  +0.000005] RAX: 0000000000000000 RBX: 0000000000000005 RCX: 0000000000=
-000080
-> [  +0.000003] RDX: 0000000000000002 RSI: ffff9c4f89c0fb20 RDI: 0000000000=
-0004b0
-> [  +0.000003] RBP: ffff9c4f89c0fb80 R08: 0000000000000080 R09: ffff8d8e0b=
-15b980
-> [  +0.000003] R10: 00000000000380e0 R11: 0000000000000000 R12: 0000000000=
-000080
-> [  +0.000002] R13: 0000000000000002 R14: ffff9c4f89c0fb0e R15: ffff9c4f89=
-c0fb0f
-> [  +0.000004] FS:  00007f9ad2176c40(0000) GS:ffff8d90fe9c0000(0000) knlGS=
-:0000000000000000
-> [  +0.000003] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  +0.000004] CR2: 00000000000004c0 CR3: 0000000121bc4000 CR4: 0000000000=
-750ee0
-> [  +0.000003] PKRU: 55555554
-> [  +0.000003] Call Trace:
-> [  +0.000006]  <TASK>
-> [  +0.000006]  ? __die+0x23/0x70
-> [  +0.000011]  ? page_fault_oops+0x17d/0x4c0
-> [  +0.000008]  ? preempt_count_add+0x6e/0xa0
-> [  +0.000008]  ? srso_alias_return_thunk+0x5/0x7f
-> [  +0.000011]  ? exc_page_fault+0x7f/0x180
-> [  +0.000009]  ? asm_exc_page_fault+0x26/0x30
-> [  +0.000013]  ? i2c_transfer+0xd/0x100
-> [  +0.000010]  drm_do_probe_ddc_edid+0xc2/0x140 [drm]
-> [  +0.000067]  ? srso_alias_return_thunk+0x5/0x7f
-> [  +0.000006]  ? _drm_do_get_edid+0x97/0x3c0 [drm]
-> [  +0.000043]  ? __pfx_drm_do_probe_ddc_edid+0x10/0x10 [drm]
-> [  +0.000042]  edid_block_read+0x3b/0xd0 [drm]
-> [  +0.000043]  _drm_do_get_edid+0xb6/0x3c0 [drm]
-> [  +0.000041]  ? __pfx_drm_do_probe_ddc_edid+0x10/0x10 [drm]
-> [  +0.000043]  drm_edid_read_custom+0x37/0xd0 [drm]
-> [  +0.000044]  amdgpu_dm_connector_mode_valid+0x129/0x1d0 [amdgpu]
-> [  +0.000153]  drm_connector_mode_valid+0x3b/0x60 [drm_kms_helper]
-> [  +0.000000]  __drm_helper_update_and_validate+0xfe/0x3c0 [drm_kms_helpe=
-r]
-> [  +0.000000]  ? amdgpu_dm_connector_get_modes+0xb6/0x520 [amdgpu]
-> [  +0.000000]  ? srso_alias_return_thunk+0x5/0x7f
-> [  +0.000000]  drm_helper_probe_single_connector_modes+0x2ab/0x540 [drm_k=
-ms_helper]
-> [  +0.000000]  status_store+0xb2/0x1f0 [drm]
-> [  +0.000000]  kernfs_fop_write_iter+0x136/0x1d0
-> [  +0.000000]  vfs_write+0x24d/0x440
-> [  +0.000000]  ksys_write+0x6f/0xf0
-> [  +0.000000]  do_syscall_64+0x60/0xc0
-> [  +0.000000]  ? srso_alias_return_thunk+0x5/0x7f
-> [  +0.000000]  ? syscall_exit_to_user_mode+0x2b/0x40
-> [  +0.000000]  ? srso_alias_return_thunk+0x5/0x7f
-> [  +0.000000]  ? do_syscall_64+0x6c/0xc0
-> [  +0.000000]  ? do_syscall_64+0x6c/0xc0
-> [  +0.000000]  entry_SYSCALL_64_after_hwframe+0x6e/0xd8
-> [  +0.000000] RIP: 0033:0x7f9ad46b4b00
-> [  +0.000000] Code: 40 00 48 8b 15 19 b3 0d 00 f7 d8 64 89 02 48 c7 c0 ff=
- ff ff ff eb b7 0f 1f 00 80 3d e1 3a 0e 00 00 74 17 b8 01 00 00 00 0f 05 <4=
-8> 3d 00 f0 ff ff 77 58 c3 0f 1f 80 00 00 00 00 48 83 ec 28 48 89
-> [  +0.000000] RSP: 002b:00007ffcbd3bd6d8 EFLAGS: 00000202 ORIG_RAX: 00000=
-00000000001
-> [  +0.000000] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f9ad4=
-6b4b00
-> [  +0.000000] RDX: 0000000000000002 RSI: 00007f9ad48a7417 RDI: 0000000000=
-000009
-> [  +0.000000] RBP: 0000000000000002 R08: 0000000000000064 R09: 0000000000=
-000000
-> [  +0.000000] R10: 0000000000000000 R11: 0000000000000202 R12: 00007f9ad4=
-8a7417
-> [  +0.000000] R13: 0000000000000009 R14: 00007ffcbd3bd760 R15: 0000000000=
-000001
-> [  +0.000000]  </TASK>
-> [  +0.000000] Modules linked in: ctr ccm rfcomm snd_seq_dummy snd_hrtimer=
- snd_seq snd_seq_device cmac algif_hash algif_skcipher af_alg bnep btusb bt=
-rtl btbcm btintel btmtk bluetooth uvcvideo videobuf2_vmalloc sha3_generic v=
-ideobuf2_memops uvc jitterentropy_rng videobuf2_v4l2 videodev drbg videobuf=
-2_common ansi_cprng mc ecdh_generic ecc qrtr binfmt_misc hid_sensor_accel_3=
-d hid_sensor_magn_3d hid_sensor_gyro_3d hid_sensor_trigger industrialio_tri=
-ggered_buffer kfifo_buf industrialio snd_ctl_led joydev hid_sensor_iio_comm=
-on rtw89_8852ae rtw89_8852a rtw89_pci snd_hda_codec_realtek rtw89_core snd_=
-hda_codec_generic intel_rapl_msr ledtrig_audio intel_rapl_common snd_hda_co=
-dec_hdmi mac80211 snd_hda_intel snd_intel_dspcfg kvm_amd snd_hda_codec snd_=
-soc_dmic snd_acp3x_rn snd_acp3x_pdm_dma libarc4 snd_hwdep snd_soc_core kvm =
-snd_hda_core cfg80211 snd_pci_acp6x snd_pcm nls_ascii snd_timer hp_wmi snd_=
-pci_acp5x nls_cp437 snd_rn_pci_acp3x ucsi_acpi sparse_keymap ccp snd platfo=
-rm_profile snd_acp_config typec_ucsi irqbypass vfat sp5100_tco
-> [  +0.000000]  snd_soc_acpi fat rapl pcspkr wmi_bmof roles rfkill rng_cor=
-e snd_pci_acp3x soundcore k10temp watchdog typec battery ac amd_pmc acpi_ta=
-d button hid_sensor_hub hid_multitouch evdev serio_raw msr parport_pc ppdev=
- lp parport fuse loop efi_pstore configfs ip_tables x_tables autofs4 ext4 c=
-rc16 mbcache jbd2 btrfs blake2b_generic dm_crypt dm_mod efivarfs raid10 rai=
-d456 async_raid6_recov async_memcpy async_pq async_xor async_tx libcrc32c c=
-rc32c_generic xor raid6_pq raid1 raid0 multipath linear md_mod amdgpu amdxc=
-p i2c_algo_bit drm_ttm_helper ttm crc32_pclmul crc32c_intel drm_exec gpu_sc=
-hed drm_suballoc_helper nvme ghash_clmulni_intel drm_buddy drm_display_help=
-er sha512_ssse3 nvme_core ahci xhci_pci sha512_generic hid_generic xhci_hcd=
- libahci rtsx_pci_sdmmc t10_pi i2c_hid_acpi drm_kms_helper i2c_hid mmc_core=
- libata aesni_intel crc64_rocksoft_generic crypto_simd amd_sfh crc64_rockso=
-ft scsi_mod usbcore cryptd crc_t10dif cec drm crct10dif_generic hid rtsx_pc=
-i crct10dif_pclmul scsi_common rc_core crc64 i2c_piix4
-> [  +0.000000]  usb_common crct10dif_common video wmi
-> [  +0.000000] CR2: 00000000000004c0
-> [  +0.000000] ---[ end trace 0000000000000000 ]---
+> Well what exactly is the requirement? That we have different ABM
+> settings for AC and battery? If yes providing different DRM properties
+> would sound like the right approach to me.
 >
-> Fixes: e54ed41620f ("drm/amd/display: Remove unwanted drm edid references=
-")
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
+> Regards,
+> Christian.
 >
-> v2:
-> - remove unused variables
->
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 +++++++++++++++----
->  1 file changed, 15 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index b9ac3d2f8029..c6c4d19a0377 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6650,10 +6650,15 @@ amdgpu_dm_connector_late_register(struct drm_conn=
-ector *connector)
->  static void amdgpu_dm_connector_funcs_force(struct drm_connector *connec=
-tor)
->  {
->         struct amdgpu_dm_connector *aconnector =3D to_amdgpu_dm_connector=
-(connector);
-> -       struct amdgpu_connector *amdgpu_connector =3D to_amdgpu_connector=
-(connector);
->         struct dc_link *dc_link =3D aconnector->dc_link;
->         struct dc_sink *dc_em_sink =3D aconnector->dc_em_sink;
->         struct edid *edid;
-> +       struct i2c_adapter *ddc;
-> +
-> +       if (dc_link->aux_mode)
-> +               ddc =3D &aconnector->dm_dp_aux.aux.ddc;
-> +       else
-> +               ddc =3D &aconnector->i2c->base;
->
->         /*
->          * Note: drm_get_edid gets edid in the following order:
-> @@ -6661,7 +6666,7 @@ static void amdgpu_dm_connector_funcs_force(struct =
-drm_connector *connector)
->          * 2) firmware EDID if set via edid_firmware module parameter
->          * 3) regular DDC read.
->          */
-> -       edid =3D drm_get_edid(connector, &amdgpu_connector->ddc_bus->aux.=
-ddc);
-> +       edid =3D drm_get_edid(connector, ddc);
->         if (!edid) {
->                 DRM_ERROR("No EDID found on connector: %s.\n", connector-=
->name);
->                 return;
-> @@ -6702,12 +6707,18 @@ static int get_modes(struct drm_connector *connec=
-tor)
->  static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
->  {
->         struct drm_connector *connector =3D &aconnector->base;
-> -       struct amdgpu_connector *amdgpu_connector =3D to_amdgpu_connector=
-(&aconnector->base);
-> +       struct dc_link *dc_link =3D aconnector->dc_link;
->         struct dc_sink_init_data init_params =3D {
->                         .link =3D aconnector->dc_link,
->                         .sink_signal =3D SIGNAL_TYPE_VIRTUAL
->         };
->         struct edid *edid;
-> +       struct i2c_adapter *ddc;
-> +
-> +       if (dc_link->aux_mode)
-> +               ddc =3D &aconnector->dm_dp_aux.aux.ddc;
-> +       else
-> +               ddc =3D &aconnector->i2c->base;
->
->         /*
->          * Note: drm_get_edid gets edid in the following order:
-> @@ -6715,7 +6726,7 @@ static void create_eml_sink(struct amdgpu_dm_connec=
-tor *aconnector)
->          * 2) firmware EDID if set via edid_firmware module parameter
->          * 3) regular DDC read.
->          */
-> -       edid =3D drm_get_edid(connector, &amdgpu_connector->ddc_bus->aux.=
-ddc);
-> +       edid =3D drm_get_edid(connector, ddc);
->         if (!edid) {
->                 DRM_ERROR("No EDID found on connector: %s.\n", connector-=
->name);
->                 return;
-> --
-> 2.43.0
+> >
+> >> Harry
+> >>
+> >>> Regards,
+> >>> Christian.
+> >>>
+> >>>>
+> >>>>>
+> >>>>> Regards,
+> >>>>> Christian.
+> >>>>>
+> >>>>>> 0-4: User via command line
+> >>>>>>
+> >>>>>> Also introduce a Kconfig option that allows distributions to choos=
+e
+> >>>>>> the default policy that is appropriate for them.
+> >>>>>>
+> >>>>>> Fixes: f97e4303da16 ("drm/amd/display: add panel_power_savings
+> >>>>>> sysfs entry to eDP connectors")
+> >>>>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> >>>>>> ---
+> >>>>>> Cc: Hamza Mahfooz <Hamza.Mahfooz@amd.com>
+> >>>>>> Cc: Harry Wentland <Harry.Wentland@amd.com>
+> >>>>>> Cc: Sun peng (Leo) Li <Sunpeng.Li@amd.com>
+> >>>>>>    drivers/gpu/drm/amd/amdgpu/Kconfig            | 72
+> >>>>>> +++++++++++++++++++
+> >>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 23 +++---
+> >>>>>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 +-
+> >>>>>>    3 files changed, 90 insertions(+), 11 deletions(-)
+> >>>>>>
+> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> >>>>>> b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> >>>>>> index 22d88f8ef527..2ab57ccf6f21 100644
+> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> >>>>>> @@ -80,6 +80,78 @@ config DRM_AMDGPU_WERROR
+> >>>>>>          Add -Werror to the build flags for amdgpu.ko.
+> >>>>>>          Only enable this if you are warning code for amdgpu.ko.
+> >>>>>> +choice
+> >>>>>> +    prompt "Amdgpu panel power Savings"
+> >>>>>> +    default AMDGPU_SYSFS_ABM
+> >>>>>> +    help
+> >>>>>> +        Control the default behavior for adaptive panel power
+> >>>>>> savings.
+> >>>>>> +
+> >>>>>> +        Panel power savings features will sacrifice color accurac=
+y
+> >>>>>> +        in exchange for power savings.
+> >>>>>> +
+> >>>>>> +        This can be configured for:
+> >>>>>> +        - dynamic control by the DRM master
+> >>>>>> +        - dynamic control by sysfs nodes
+> >>>>>> +        - statically by the user at kernel compile time
+> >>>>>> +
+> >>>>>> +        This value can also be overridden by the amdgpu.abmlevel
+> >>>>>> +        module parameter.
+> >>>>>> +
+> >>>>>> +config AMDGPU_DRM_ABM
+> >>>>>> +    bool "DRM Master control"
+> >>>>>> +    help
+> >>>>>> +        Export a property called 'abm_level' that can be
+> >>>>>> +        manipulated by the DRM master for supported hardware.
+> >>>>>> +
+> >>>>>> +config AMDGPU_SYSFS_ABM
+> >>>>>> +    bool "sysfs control"
+> >>>>>> +    help
+> >>>>>> +        Export a sysfs file 'panel_power_savings' that can be
+> >>>>>> +        manipulated by userspace for supported hardware.
+> >>>>>> +
+> >>>>>> +config AMDGPU_HARDCODE_ABM0
+> >>>>>> +    bool "No Panel power savings"
+> >>>>>> +    help
+> >>>>>> +        Disable panel power savings.
+> >>>>>> +        It can only overridden by the kernel command line.
+> >>>>>> +
+> >>>>>> +config AMDGPU_HARDCODE_ABM1
+> >>>>>> +    bool "25% Panel power savings"
+> >>>>>> +    help
+> >>>>>> +        Set the ABM panel power savings algorithm to 25%.
+> >>>>>> +        It can only overridden by the kernel command line.
+> >>>>>> +
+> >>>>>> +config AMDGPU_HARDCODE_ABM2
+> >>>>>> +    bool "50% Panel power savings"
+> >>>>>> +    help
+> >>>>>> +        Set the ABM panel power savings algorithm to 50%.
+> >>>>>> +        It can only overridden by the kernel command line.
+> >>>>>> +
+> >>>>>> +config AMDGPU_HARDCODE_ABM3
+> >>>>>> +    bool "75% Panel power savings"
+> >>>>>> +    help
+> >>>>>> +        Set the ABM panel power savings algorithm to 75%.
+> >>>>>> +        It can only overridden by the kernel command line.
+> >>>>>> +
+> >>>>>> +config AMDGPU_HARDCODE_ABM4
+> >>>>>> +    bool "100% Panel power savings"
+> >>>>>> +    help
+> >>>>>> +        Set the ABM panel power savings algorithm to 100%.
+> >>>>>> +        It can only overridden by the kernel command line.
+> >>>>>> +endchoice
+> >>>>>> +
+> >>>>>> +config AMDGPU_ABM_POLICY
+> >>>>>> +    int
+> >>>>>> +    default -2 if AMDGPU_DRM_ABM
+> >>>>>> +    default -1 if AMDGPU_SYSFS_ABM
+> >>>>>> +    default 0 if AMDGPU_HARDCODE_ABM0
+> >>>>>> +    default 1 if AMDGPU_HARDCODE_ABM1
+> >>>>>> +    default 2 if AMDGPU_HARDCODE_ABM2
+> >>>>>> +    default 3 if AMDGPU_HARDCODE_ABM3
+> >>>>>> +    default 4 if AMDGPU_HARDCODE_ABM4
+> >>>>>> +    default -1
+> >>>>>> +
+> >>>>>> +
+> >>>>>>    source "drivers/gpu/drm/amd/acp/Kconfig"
+> >>>>>>    source "drivers/gpu/drm/amd/display/Kconfig"
+> >>>>>>    source "drivers/gpu/drm/amd/amdkfd/Kconfig"
+> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>>> index af7fae7907d7..00d6c8b58716 100644
+> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>>> @@ -844,17 +844,24 @@ module_param_named(visualconfirm,
+> >>>>>> amdgpu_dc_visual_confirm, uint, 0444);
+> >>>>>>     * DOC: abmlevel (uint)
+> >>>>>>     * Override the default ABM (Adaptive Backlight Management)
+> >>>>>> level used for DC
+> >>>>>>     * enabled hardware. Requires DMCU to be supported and loaded.
+> >>>>>> - * Valid levels are 0-4. A value of 0 indicates that ABM should
+> >>>>>> be disabled by
+> >>>>>> - * default. Values 1-4 control the maximum allowable brightness
+> >>>>>> reduction via
+> >>>>>> - * the ABM algorithm, with 1 being the least reduction and 4
+> >>>>>> being the most
+> >>>>>> - * reduction.
+> >>>>>> + * Valid levels are -2 through 4.
+> >>>>>>     *
+> >>>>>> - * Defaults to -1, or disabled. Userspace can only override this
+> >>>>>> level after
+> >>>>>> - * boot if it's set to auto.
+> >>>>>> + *  -2: indicates that ABM should be controlled by DRM property
+> >>>>>> 'abm_level.
+> >>>>>> + *  -1: indicates that ABM should be controlled by the sysfs file
+> >>>>>> + *      'panel_power_savings'.
+> >>>>>> + *   0: indicates that ABM should be disabled.
+> >>>>>> + * 1-4: control the maximum allowable brightness reduction via
+> >>>>>> + *      the ABM algorithm, with 1 being the least reduction and
+> >>>>>> 4 being the most
+> >>>>>> + *      reduction.
+> >>>>>> + *
+> >>>>>> + * Both the DRM property 'abm_level' and the sysfs file
+> >>>>>> 'panel_power_savings'
+> >>>>>> + * will only be available on supported hardware configurations.
+> >>>>>> + *
+> >>>>>> + * The default value is configured by kernel configuration
+> >>>>>> option AMDGPU_ABM_POLICY
+> >>>>>>     */
+> >>>>>> -int amdgpu_dm_abm_level =3D -1;
+> >>>>>> +int amdgpu_dm_abm_level =3D CONFIG_AMDGPU_ABM_POLICY;
+> >>>>>>    MODULE_PARM_DESC(abmlevel,
+> >>>>>> -         "ABM level (0 =3D off, 1-4 =3D backlight reduction level=
+,
+> >>>>>> -1 auto (default))");
+> >>>>>> +         "ABM level (0 =3D off, 1-4 =3D backlight reduction level=
+,
+> >>>>>> -1 =3D sysfs control, -2 =3D drm control");
+> >>>>>>    module_param_named(abmlevel, amdgpu_dm_abm_level, int, 0444);
+> >>>>>>    int amdgpu_backlight =3D -1;
+> >>>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> >>>>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> >>>>>> index b9ac3d2f8029..147fe744f82e 100644
+> >>>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> >>>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> >>>>>> @@ -6515,7 +6515,7 @@ static void
+> >>>>>> amdgpu_dm_connector_unregister(struct drm_connector *connector)
+> >>>>>>        struct amdgpu_dm_connector *amdgpu_dm_connector =3D
+> >>>>>> to_amdgpu_dm_connector(connector);
+> >>>>>>        if (connector->connector_type =3D=3D DRM_MODE_CONNECTOR_eDP=
+ &&
+> >>>>>> -        amdgpu_dm_abm_level < 0)
+> >>>>>> +        amdgpu_dm_abm_level =3D=3D -1)
+> >>>>>> sysfs_remove_group(&connector->kdev->kobj, &amdgpu_group);
+> >>>>>> drm_dp_aux_unregister(&amdgpu_dm_connector->dm_dp_aux.aux);
+> >>>>>> @@ -6623,7 +6623,7 @@ amdgpu_dm_connector_late_register(struct
+> >>>>>> drm_connector *connector)
+> >>>>>>        int r;
+> >>>>>>        if (connector->connector_type =3D=3D DRM_MODE_CONNECTOR_eDP=
+ &&
+> >>>>>> -        amdgpu_dm_abm_level < 0) {
+> >>>>>> +        amdgpu_dm_abm_level =3D=3D -1) {
+> >>>>>>            r =3D sysfs_create_group(&connector->kdev->kobj,
+> >>>>>>                           &amdgpu_group);
+> >>>>>>            if (r)
+> >>>>>> @@ -7654,7 +7654,7 @@ void amdgpu_dm_connector_init_helper(struct
+> >>>>>> amdgpu_display_manager *dm,
+> >>>>>>        if (connector_type =3D=3D DRM_MODE_CONNECTOR_eDP &&
+> >>>>>>            (dc_is_dmcu_initialized(adev->dm.dc) ||
+> >>>>>> -         adev->dm.dc->ctx->dmub_srv) && amdgpu_dm_abm_level < 0) =
+{
+> >>>>>> +         adev->dm.dc->ctx->dmub_srv) && amdgpu_dm_abm_level =3D=
+=3D
+> >>>>>> -2) {
+> >>>>>> drm_object_attach_property(&aconnector->base.base,
+> >>>>>> adev->mode_info.abm_level_property, 0);
+> >>>>>>        }
+> >>>>>
+> >>>>
+> >>>
+> >>
+> >
 >
