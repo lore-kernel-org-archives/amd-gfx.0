@@ -4,82 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22C29C48260
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 18:02:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F039C48260
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 18:08:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8967210E028;
-	Fri, 16 Feb 2024 18:02:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C975210EA27;
+	Fri, 16 Feb 2024 18:07:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="jSBqkTdb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IDzBXAPJ";
 	dkim-atps=neutral
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F08610E028
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 18:02:52 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-a3d2422f1b5so66925966b.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 10:02:52 -0800 (PST)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8563710EA27
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 18:07:57 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-2970595c1aeso1519205a91.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 10:07:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1708106571; x=1708711371; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=kWOeJUy90KVtiP9YXPoGesfXE8zdwI8eJnlf9+BtZ90=;
- b=jSBqkTdbiNLKqjWS5rhefpqQQpTwk/U8Evxn0q10KODn1R1Hwqjv9LiOSU7OZ91NMT
- 7NrOPxCe6DGdUtt16pobvFN1VciIbIcPCCYGy+/lgIL/qS1tPB+nf+YKhPoh6zM306ko
- nq0GTegUIf27jpuoE+RxcCU3rmIwwirtPFlRg=
+ d=gmail.com; s=20230601; t=1708106877; x=1708711677; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vVABIM0paTRCq115FYZa3hjrdVRuipMVk+QNkUpALYU=;
+ b=IDzBXAPJAVfJAjWYj+9Ra6OjzShBoNLJ7fDUD3sWdiv/EsXg5eSCQUS+YuJSDrnOLI
+ 5emovpLSSoGxb0ZPOnNsOEziGPGJEJibzAOuj6r2rjt15S8kYZ8W7eYl7LWvNPenP+RG
+ XxhVSWj77sMfGCEWObUbEPyK1RzMtqQVAPV73zYlhsX+sxtQp/snKX7PjFU02M5bRax8
+ xZ4VVGBkhNiU3BkbaZ4wIAHFqP0hYlx3wBrMBh80Fz1jjjTw7yyxu4ZBdu8DCpJ8a437
+ WZ52AMnfm0YBbpDdA3DaElmRgVn8rSgQ0h/bBWB3RE5/nI7mOLWyeqC4g+3F0oGTZmcK
+ uUOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708106571; x=1708711371;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kWOeJUy90KVtiP9YXPoGesfXE8zdwI8eJnlf9+BtZ90=;
- b=gMr38IpWVdmmZOpAYy305tXAMPp7xLF6lMpfMlcM0FqbUDVqlBDYw2FFHsBHDMVDky
- 7FZ16K+vjczQiO6ouYsXiji4Ff1xX3i60U5rDO/CCg/G7xLvy5LNqYoRRj9KcsIiACGl
- +bqo9vDd7URYdOX+6Dav94PmC+qgoKE7bylLkfOCT0pe2Mp2CHK1D3KPsiwZdWrClSlD
- n8rVqodaE6ClxUGmH84B9dmXNaG2J5hQN/QicJ2ohYlg9psu4C8Ok6h99yC3VsJuapcF
- ML57JbimvUkw++QsEWKzgbJ8OY3004/bwFo1UI2sOMbxMTE8L1ghaojGD7DFYQKj6wCH
- uXJg==
+ d=1e100.net; s=20230601; t=1708106877; x=1708711677;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=vVABIM0paTRCq115FYZa3hjrdVRuipMVk+QNkUpALYU=;
+ b=uPGdJ+Yz5MhlkcflzS3SqsMP+FN+jlO3MIrsGD463mfgNoEZAbZVGc/AZaJgVW0l+J
+ yax9ENtlIBJL+gGm9JYfiAD1TpFx3uGIb1bDEkezVeHUhSBfecbqtE/tGovsUEl3caCb
+ aZybSNxQae5oiAtaDzcVNdQG27QbFKiEdXbw5WW9YG+bIVrGG+u8U74yo1qxXzGlbFo5
+ GUSGu6PMW9DhIU/fI9KVfjOkcVce8tV00RLT3YgbNYUWKIiahfjS1YAWpn9idRiTLpkk
+ bx5Odtv9rOkbh+p1DFz58jsYXlckrLJEUyGk6vDGHgHdsiS/bkrZBYKyDMdQfGAZIZ6I
+ YsfA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXF22YdjRIpSKO5h/EYpcn0NGp09BsY7323eL0jOZskF7TwS/Qh2EeiKE3QwzosZl3s/Hbzg3jbwuo8KmL2CrMR+U7NeJHBUw9rYdJa2A==
-X-Gm-Message-State: AOJu0Ywn1AAOlVj+i6HrdVi/17NdiFL2HlOCENNaWujoX/lC1HhFI1ep
- 0KZNMPqMBV+3pnCSLSgaslkh/0uOvOvFl5sX8QXy8bN9G6Jh823i2KzEVLqnPWI=
-X-Google-Smtp-Source: AGHT+IHSmOAy3oa2La7yssKepZFC0ok9e49lHpBPZtwML9qSR/4sCtqzMn/r6OGKsb48uF7ZvrRmBQ==
-X-Received: by 2002:a17:907:1604:b0:a38:526e:78ed with SMTP id
- cw4-20020a170907160400b00a38526e78edmr4205804ejd.7.1708106570987; 
- Fri, 16 Feb 2024 10:02:50 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- lc5-20020a170906f90500b00a3d6ff5f087sm191930ejb.55.2024.02.16.10.02.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Feb 2024 10:02:50 -0800 (PST)
-Date: Fri, 16 Feb 2024 19:02:48 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v2 1/6] tracing, dma-buf: add a trace_dma_fence_sync_to
- event
-Message-ID: <Zc-jSH4BVrBrkj5d@phenom.ffwll.local>
-References: <20240117184329.479554-1-pierre-eric.pelloux-prayer@amd.com>
- <20240213155112.156537-1-pierre-eric.pelloux-prayer@amd.com>
- <20240213155112.156537-2-pierre-eric.pelloux-prayer@amd.com>
- <Zc-OJAXlApzcOfYQ@phenom.ffwll.local>
- <b719d7b9-8a9a-42ad-b35b-145d6a835964@amd.com>
+ AJvYcCXZlvgL194dhi3jfzAjgihPEIDAibTJqx2TsKCANcgduYTKZpA2ov9Ie0lWsRwo5Zh/ggESvMEPQ0IzS1FNfWvj5Go7YPxgXxzDy4yWrw==
+X-Gm-Message-State: AOJu0YyoVcWcTjqkoP0LGx7cgi94Km0+jSq9hm16G+i+Tc4I2xMoJq1B
+ +oaXtut+jyQ8Ws1AgeHMlE5enCz9ss6HvULxFqGGTiNukIbZG0qkuQ6w1pNDK10fuPQ0qjOOlaD
+ IlQ8TPnF8Q/uJ5UpwcjZryvFOtqCnL99i
+X-Google-Smtp-Source: AGHT+IG3QUJsOqTAvEcAENMd14/10qLzQ4Fvt21yYW2gnDpo5cl02l9zrJ34YrCa5YkSfy7iFWLqgtyaWhwrE+b29fQ=
+X-Received: by 2002:a17:90a:c908:b0:297:228a:fa6c with SMTP id
+ v8-20020a17090ac90800b00297228afa6cmr5661752pjt.3.1708106876777; Fri, 16 Feb
+ 2024 10:07:56 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b719d7b9-8a9a-42ad-b35b-145d6a835964@amd.com>
-X-Operating-System: Linux phenom 6.6.11-amd64 
+References: <20240216122401.216860-1-mwen@igalia.com>
+In-Reply-To: <20240216122401.216860-1-mwen@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 16 Feb 2024 13:07:44 -0500
+Message-ID: <CADnq5_M_xQ_XcGy3Q6LxkPeNLGtjLGnaKqFJ0XwmJLtQgV=yNw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/display: fix null-pointer dereference on edid
+ reading
+To: Melissa Wen <mwen@igalia.com>
+Cc: Harry Wentland <harry.wentland@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ sunpeng.li@amd.com, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ christian.koenig@amd.com, 
+ Xinhui.Pan@amd.com, alex.hung@amd.com, amd-gfx@lists.freedesktop.org, 
+ kernel-dev@igalia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,117 +83,217 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 16, 2024 at 05:51:59PM +0100, Christian König wrote:
-> Am 16.02.24 um 17:32 schrieb Daniel Vetter:
-> > On Tue, Feb 13, 2024 at 04:50:26PM +0100, Pierre-Eric Pelloux-Prayer wrote:
-> > > This new event can be used to trace where a given dma_fence is added
-> > > as a dependency of some other work.
-> > How?
-> > 
-> > What I'd expected here is that you add a dependency chain from one fence
-> > to another, but this only has one fence.
-> 
-> That's what I though initially as well, but at the point we add the
-> dependency fences to the scheduler job we don't have the scheduler fence
-> initialized yet.
-> 
-> We could change this so that we only trace all the fences after we have
-> initialized the scheduler fence, but then we loose the information where the
-> dependency comes from.
+Applied.  Thanks!
 
-Hm right, I thought we'd dump the hashed pointe value into the fence
-events too, then you could make the connection. But we don't, so this is a
-bit annoying ...
+Alex
 
-And walking the entire scheduler dependency chain at trace_dma_fence_emit
-time (or something similar) maybe?
--Sima
-
-> > How do you figure out what's the
-> > next dma_fence that will stall on this dependency?
-> 
-> I'm not fully sure on that either. Pierre?
-> 
-> Christian.
-> 
-> 
-> >   Like in the gpu
-> > scheduler we do know what will be the fence that userspace gets back, so
-> > we can make that connection. And same for the atomic code (although you
-> > don't wire that up at all).
-> > 
-> > I'm very confused on how this works and rather worried it's a brittle
-> > amdgpu-only solution ...
-> > -Sima
-> > 
-> > > I plan to use it in amdgpu.
-> > > 
-> > > Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> > > ---
-> > >   drivers/dma-buf/dma-fence.c      |  1 +
-> > >   include/trace/events/dma_fence.h | 34 ++++++++++++++++++++++++++++++++
-> > >   2 files changed, 35 insertions(+)
-> > > 
-> > > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> > > index e0fd99e61a2d..671a499a5ccd 100644
-> > > --- a/drivers/dma-buf/dma-fence.c
-> > > +++ b/drivers/dma-buf/dma-fence.c
-> > > @@ -23,6 +23,7 @@
-> > >   EXPORT_TRACEPOINT_SYMBOL(dma_fence_emit);
-> > >   EXPORT_TRACEPOINT_SYMBOL(dma_fence_enable_signal);
-> > >   EXPORT_TRACEPOINT_SYMBOL(dma_fence_signaled);
-> > > +EXPORT_TRACEPOINT_SYMBOL(dma_fence_sync_to);
-> > >   static DEFINE_SPINLOCK(dma_fence_stub_lock);
-> > >   static struct dma_fence dma_fence_stub;
-> > > diff --git a/include/trace/events/dma_fence.h b/include/trace/events/dma_fence.h
-> > > index 3963e79ca7b4..9b3875f7aa79 100644
-> > > --- a/include/trace/events/dma_fence.h
-> > > +++ b/include/trace/events/dma_fence.h
-> > > @@ -83,6 +83,40 @@ DEFINE_EVENT(dma_fence, dma_fence_wait_end,
-> > >   	TP_ARGS(fence)
-> > >   );
-> > > +DECLARE_EVENT_CLASS(dma_fence_from,
-> > > +
-> > > +	TP_PROTO(struct dma_fence *fence, const char *reason),
-> > > +
-> > > +	TP_ARGS(fence, reason),
-> > > +
-> > > +	TP_STRUCT__entry(
-> > > +		__string(driver, fence->ops->get_driver_name(fence))
-> > > +		__string(timeline, fence->ops->get_timeline_name(fence))
-> > > +		__field(unsigned int, context)
-> > > +		__field(unsigned int, seqno)
-> > > +		__string(reason, reason)
-> > > +	),
-> > > +
-> > > +	TP_fast_assign(
-> > > +		__assign_str(driver, fence->ops->get_driver_name(fence));
-> > > +		__assign_str(timeline, fence->ops->get_timeline_name(fence));
-> > > +		__entry->context = fence->context;
-> > > +		__entry->seqno = fence->seqno;
-> > > +		__assign_str(reason, reason);
-> > > +	),
-> > > +
-> > > +	TP_printk("driver=%s timeline=%s context=%u seqno=%u reason=%s",
-> > > +		  __get_str(driver), __get_str(timeline), __entry->context,
-> > > +		  __entry->seqno, __get_str(reason))
-> > > +);
-> > > +
-> > > +DEFINE_EVENT(dma_fence_from, dma_fence_sync_to,
-> > > +
-> > > +	TP_PROTO(struct dma_fence *fence, const char *reason),
-> > > +
-> > > +	TP_ARGS(fence, reason)
-> > > +);
-> > > +
-> > >   #endif /*  _TRACE_DMA_FENCE_H */
-> > >   /* This part must be outside protection */
-> > > -- 
-> > > 2.40.1
-> > > 
-> 
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+On Fri, Feb 16, 2024 at 7:24=E2=80=AFAM Melissa Wen <mwen@igalia.com> wrote=
+:
+>
+> Use i2c adapter when there isn't aux_mode in dc_link to fix a
+> null-pointer derefence that happens when running
+> igt@kms_force_connector_basic in a system with DCN2.1 and HDMI connector
+> detected as below:
+>
+> [  +0.178146] BUG: kernel NULL pointer dereference, address: 000000000000=
+04c0
+> [  +0.000010] #PF: supervisor read access in kernel mode
+> [  +0.000005] #PF: error_code(0x0000) - not-present page
+> [  +0.000004] PGD 0 P4D 0
+> [  +0.000006] Oops: 0000 [#1] PREEMPT SMP NOPTI
+> [  +0.000006] CPU: 15 PID: 2368 Comm: kms_force_conne Not tainted 6.5.0-a=
+sdn+ #152
+> [  +0.000005] Hardware name: HP HP ENVY x360 Convertible 13-ay1xxx/8929, =
+BIOS F.01 07/14/2021
+> [  +0.000004] RIP: 0010:i2c_transfer+0xd/0x100
+> [  +0.000011] Code: ea fc ff ff 66 0f 1f 84 00 00 00 00 00 90 90 90 90 90=
+ 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 0f 1f 44 00 00 41 54 55 53 <4=
+8> 8b 47 10 48 89 fb 48 83 38 00 0f 84 b3 00 00 00 83 3d 2f 80 16
+> [  +0.000004] RSP: 0018:ffff9c4f89c0fad0 EFLAGS: 00010246
+> [  +0.000005] RAX: 0000000000000000 RBX: 0000000000000005 RCX: 0000000000=
+000080
+> [  +0.000003] RDX: 0000000000000002 RSI: ffff9c4f89c0fb20 RDI: 0000000000=
+0004b0
+> [  +0.000003] RBP: ffff9c4f89c0fb80 R08: 0000000000000080 R09: ffff8d8e0b=
+15b980
+> [  +0.000003] R10: 00000000000380e0 R11: 0000000000000000 R12: 0000000000=
+000080
+> [  +0.000002] R13: 0000000000000002 R14: ffff9c4f89c0fb0e R15: ffff9c4f89=
+c0fb0f
+> [  +0.000004] FS:  00007f9ad2176c40(0000) GS:ffff8d90fe9c0000(0000) knlGS=
+:0000000000000000
+> [  +0.000003] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  +0.000004] CR2: 00000000000004c0 CR3: 0000000121bc4000 CR4: 0000000000=
+750ee0
+> [  +0.000003] PKRU: 55555554
+> [  +0.000003] Call Trace:
+> [  +0.000006]  <TASK>
+> [  +0.000006]  ? __die+0x23/0x70
+> [  +0.000011]  ? page_fault_oops+0x17d/0x4c0
+> [  +0.000008]  ? preempt_count_add+0x6e/0xa0
+> [  +0.000008]  ? srso_alias_return_thunk+0x5/0x7f
+> [  +0.000011]  ? exc_page_fault+0x7f/0x180
+> [  +0.000009]  ? asm_exc_page_fault+0x26/0x30
+> [  +0.000013]  ? i2c_transfer+0xd/0x100
+> [  +0.000010]  drm_do_probe_ddc_edid+0xc2/0x140 [drm]
+> [  +0.000067]  ? srso_alias_return_thunk+0x5/0x7f
+> [  +0.000006]  ? _drm_do_get_edid+0x97/0x3c0 [drm]
+> [  +0.000043]  ? __pfx_drm_do_probe_ddc_edid+0x10/0x10 [drm]
+> [  +0.000042]  edid_block_read+0x3b/0xd0 [drm]
+> [  +0.000043]  _drm_do_get_edid+0xb6/0x3c0 [drm]
+> [  +0.000041]  ? __pfx_drm_do_probe_ddc_edid+0x10/0x10 [drm]
+> [  +0.000043]  drm_edid_read_custom+0x37/0xd0 [drm]
+> [  +0.000044]  amdgpu_dm_connector_mode_valid+0x129/0x1d0 [amdgpu]
+> [  +0.000153]  drm_connector_mode_valid+0x3b/0x60 [drm_kms_helper]
+> [  +0.000000]  __drm_helper_update_and_validate+0xfe/0x3c0 [drm_kms_helpe=
+r]
+> [  +0.000000]  ? amdgpu_dm_connector_get_modes+0xb6/0x520 [amdgpu]
+> [  +0.000000]  ? srso_alias_return_thunk+0x5/0x7f
+> [  +0.000000]  drm_helper_probe_single_connector_modes+0x2ab/0x540 [drm_k=
+ms_helper]
+> [  +0.000000]  status_store+0xb2/0x1f0 [drm]
+> [  +0.000000]  kernfs_fop_write_iter+0x136/0x1d0
+> [  +0.000000]  vfs_write+0x24d/0x440
+> [  +0.000000]  ksys_write+0x6f/0xf0
+> [  +0.000000]  do_syscall_64+0x60/0xc0
+> [  +0.000000]  ? srso_alias_return_thunk+0x5/0x7f
+> [  +0.000000]  ? syscall_exit_to_user_mode+0x2b/0x40
+> [  +0.000000]  ? srso_alias_return_thunk+0x5/0x7f
+> [  +0.000000]  ? do_syscall_64+0x6c/0xc0
+> [  +0.000000]  ? do_syscall_64+0x6c/0xc0
+> [  +0.000000]  entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+> [  +0.000000] RIP: 0033:0x7f9ad46b4b00
+> [  +0.000000] Code: 40 00 48 8b 15 19 b3 0d 00 f7 d8 64 89 02 48 c7 c0 ff=
+ ff ff ff eb b7 0f 1f 00 80 3d e1 3a 0e 00 00 74 17 b8 01 00 00 00 0f 05 <4=
+8> 3d 00 f0 ff ff 77 58 c3 0f 1f 80 00 00 00 00 48 83 ec 28 48 89
+> [  +0.000000] RSP: 002b:00007ffcbd3bd6d8 EFLAGS: 00000202 ORIG_RAX: 00000=
+00000000001
+> [  +0.000000] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f9ad4=
+6b4b00
+> [  +0.000000] RDX: 0000000000000002 RSI: 00007f9ad48a7417 RDI: 0000000000=
+000009
+> [  +0.000000] RBP: 0000000000000002 R08: 0000000000000064 R09: 0000000000=
+000000
+> [  +0.000000] R10: 0000000000000000 R11: 0000000000000202 R12: 00007f9ad4=
+8a7417
+> [  +0.000000] R13: 0000000000000009 R14: 00007ffcbd3bd760 R15: 0000000000=
+000001
+> [  +0.000000]  </TASK>
+> [  +0.000000] Modules linked in: ctr ccm rfcomm snd_seq_dummy snd_hrtimer=
+ snd_seq snd_seq_device cmac algif_hash algif_skcipher af_alg bnep btusb bt=
+rtl btbcm btintel btmtk bluetooth uvcvideo videobuf2_vmalloc sha3_generic v=
+ideobuf2_memops uvc jitterentropy_rng videobuf2_v4l2 videodev drbg videobuf=
+2_common ansi_cprng mc ecdh_generic ecc qrtr binfmt_misc hid_sensor_accel_3=
+d hid_sensor_magn_3d hid_sensor_gyro_3d hid_sensor_trigger industrialio_tri=
+ggered_buffer kfifo_buf industrialio snd_ctl_led joydev hid_sensor_iio_comm=
+on rtw89_8852ae rtw89_8852a rtw89_pci snd_hda_codec_realtek rtw89_core snd_=
+hda_codec_generic intel_rapl_msr ledtrig_audio intel_rapl_common snd_hda_co=
+dec_hdmi mac80211 snd_hda_intel snd_intel_dspcfg kvm_amd snd_hda_codec snd_=
+soc_dmic snd_acp3x_rn snd_acp3x_pdm_dma libarc4 snd_hwdep snd_soc_core kvm =
+snd_hda_core cfg80211 snd_pci_acp6x snd_pcm nls_ascii snd_timer hp_wmi snd_=
+pci_acp5x nls_cp437 snd_rn_pci_acp3x ucsi_acpi sparse_keymap ccp snd platfo=
+rm_profile snd_acp_config typec_ucsi irqbypass vfat sp5100_tco
+> [  +0.000000]  snd_soc_acpi fat rapl pcspkr wmi_bmof roles rfkill rng_cor=
+e snd_pci_acp3x soundcore k10temp watchdog typec battery ac amd_pmc acpi_ta=
+d button hid_sensor_hub hid_multitouch evdev serio_raw msr parport_pc ppdev=
+ lp parport fuse loop efi_pstore configfs ip_tables x_tables autofs4 ext4 c=
+rc16 mbcache jbd2 btrfs blake2b_generic dm_crypt dm_mod efivarfs raid10 rai=
+d456 async_raid6_recov async_memcpy async_pq async_xor async_tx libcrc32c c=
+rc32c_generic xor raid6_pq raid1 raid0 multipath linear md_mod amdgpu amdxc=
+p i2c_algo_bit drm_ttm_helper ttm crc32_pclmul crc32c_intel drm_exec gpu_sc=
+hed drm_suballoc_helper nvme ghash_clmulni_intel drm_buddy drm_display_help=
+er sha512_ssse3 nvme_core ahci xhci_pci sha512_generic hid_generic xhci_hcd=
+ libahci rtsx_pci_sdmmc t10_pi i2c_hid_acpi drm_kms_helper i2c_hid mmc_core=
+ libata aesni_intel crc64_rocksoft_generic crypto_simd amd_sfh crc64_rockso=
+ft scsi_mod usbcore cryptd crc_t10dif cec drm crct10dif_generic hid rtsx_pc=
+i crct10dif_pclmul scsi_common rc_core crc64 i2c_piix4
+> [  +0.000000]  usb_common crct10dif_common video wmi
+> [  +0.000000] CR2: 00000000000004c0
+> [  +0.000000] ---[ end trace 0000000000000000 ]---
+>
+> Fixes: e54ed41620f ("drm/amd/display: Remove unwanted drm edid references=
+")
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> ---
+>
+> v2:
+> - remove unused variables
+>
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 +++++++++++++++----
+>  1 file changed, 15 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index b9ac3d2f8029..c6c4d19a0377 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6650,10 +6650,15 @@ amdgpu_dm_connector_late_register(struct drm_conn=
+ector *connector)
+>  static void amdgpu_dm_connector_funcs_force(struct drm_connector *connec=
+tor)
+>  {
+>         struct amdgpu_dm_connector *aconnector =3D to_amdgpu_dm_connector=
+(connector);
+> -       struct amdgpu_connector *amdgpu_connector =3D to_amdgpu_connector=
+(connector);
+>         struct dc_link *dc_link =3D aconnector->dc_link;
+>         struct dc_sink *dc_em_sink =3D aconnector->dc_em_sink;
+>         struct edid *edid;
+> +       struct i2c_adapter *ddc;
+> +
+> +       if (dc_link->aux_mode)
+> +               ddc =3D &aconnector->dm_dp_aux.aux.ddc;
+> +       else
+> +               ddc =3D &aconnector->i2c->base;
+>
+>         /*
+>          * Note: drm_get_edid gets edid in the following order:
+> @@ -6661,7 +6666,7 @@ static void amdgpu_dm_connector_funcs_force(struct =
+drm_connector *connector)
+>          * 2) firmware EDID if set via edid_firmware module parameter
+>          * 3) regular DDC read.
+>          */
+> -       edid =3D drm_get_edid(connector, &amdgpu_connector->ddc_bus->aux.=
+ddc);
+> +       edid =3D drm_get_edid(connector, ddc);
+>         if (!edid) {
+>                 DRM_ERROR("No EDID found on connector: %s.\n", connector-=
+>name);
+>                 return;
+> @@ -6702,12 +6707,18 @@ static int get_modes(struct drm_connector *connec=
+tor)
+>  static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
+>  {
+>         struct drm_connector *connector =3D &aconnector->base;
+> -       struct amdgpu_connector *amdgpu_connector =3D to_amdgpu_connector=
+(&aconnector->base);
+> +       struct dc_link *dc_link =3D aconnector->dc_link;
+>         struct dc_sink_init_data init_params =3D {
+>                         .link =3D aconnector->dc_link,
+>                         .sink_signal =3D SIGNAL_TYPE_VIRTUAL
+>         };
+>         struct edid *edid;
+> +       struct i2c_adapter *ddc;
+> +
+> +       if (dc_link->aux_mode)
+> +               ddc =3D &aconnector->dm_dp_aux.aux.ddc;
+> +       else
+> +               ddc =3D &aconnector->i2c->base;
+>
+>         /*
+>          * Note: drm_get_edid gets edid in the following order:
+> @@ -6715,7 +6726,7 @@ static void create_eml_sink(struct amdgpu_dm_connec=
+tor *aconnector)
+>          * 2) firmware EDID if set via edid_firmware module parameter
+>          * 3) regular DDC read.
+>          */
+> -       edid =3D drm_get_edid(connector, &amdgpu_connector->ddc_bus->aux.=
+ddc);
+> +       edid =3D drm_get_edid(connector, ddc);
+>         if (!edid) {
+>                 DRM_ERROR("No EDID found on connector: %s.\n", connector-=
+>name);
+>                 return;
+> --
+> 2.43.0
+>
