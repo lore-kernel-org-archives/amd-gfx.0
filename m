@@ -4,64 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96D21C48BC4
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 15:08:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAD99C48260
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 15:10:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 230DD10EB67;
-	Fri, 16 Feb 2024 15:08:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3553810EB7F;
+	Fri, 16 Feb 2024 15:10:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e2abQ1RU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KAPURCFH";
 	dkim-atps=neutral
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
- [209.85.210.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAF4E10EB67
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 15:08:52 +0000 (UTC)
-Received: by mail-pf1-f176.google.com with SMTP id
- d2e1a72fcca58-6e0eacc5078so1776553b3a.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 07:08:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708096132; x=1708700932; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=88GGXIVGc9Soh+KCSNxX6os86qGGtUJZSglWuw8dIqc=;
- b=e2abQ1RUI/2pdGEUlWgVGQ2eZpdVzvSVl7MitI0XMJ0Jk61xGAKsmXk05exFNC0eqN
- cuU1Y1VjwhcDwIoaHcWZwcu9D9zkThlU54h0SFO+P1e2O3F/7sJkE2DZxSsclcm12LRh
- wgdZf8LFXnOS30EEHmGuVgMSB4/MFdQUbnjA/uBZO7/i6cFpuP/uUSngrzlLj6nq1LOb
- KPZe9FhvR2psts2Oe10lmFkmCJusUAXIhH2sWY1efq6GJ5qtdq57oyu3QJaydR58+syC
- l3XrGm6GZEZewQ/ddX6xaIuh/m18hm06gJ5KarfcCtYCy/SLo1qxAMRjZS+muZQ/NVrn
- UPZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708096132; x=1708700932;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=88GGXIVGc9Soh+KCSNxX6os86qGGtUJZSglWuw8dIqc=;
- b=urRYtDGcciQjnwiROC9rGsttOYxFJhAwFui6P1XudHAqJ3tKaVu/G8m3o6/pJjMTY8
- SpXwK1rpT3TGSrzSr6WhTpSoEj3vWy9g9I61KCmfRymxYrybL+Et70IrEmlyrfWUcqRM
- FQ9D8Vgj7MkXicN4zc5Mri0lgToVRZzTqdAEFsLUQN34cKcTYPV2B6KvFjFDMb9+zXzD
- qQffqaZEWPHphwK1uWGVmgG4VgiVxgMQHcMsKzgNfgRa27QRpnBU5dP5bkh8cOw9ygR7
- NFj9SWlJC8FzwXNw5Nfw7W7Bzl+hYgQ6bUPUKZKDbrMx/Z6JdknM3k5b/F5AKe5M40Ir
- dXQA==
-X-Gm-Message-State: AOJu0Yx2gFT8tQaSrKGzmzjFv9dvAKlTa8kgekyY2pyDatN4pmS5Pzrr
- eOOE8y8QS8VyMWAMQrJjRzvwtZsDaogLKy7OS7kFf1p6ej6G8U0dhjkXEe3GGN0pgkLHyZx+bH4
- G5R3iKPlEOPwSNu3xtiBqce5vjAuHRNB6
-X-Google-Smtp-Source: AGHT+IHIh5FuMOODXEWrgwkSOj1pQ1ElgPuwc1qlfMiMFN5oj+hSZrD3Cc3kac9yaJSCNOhiV0h9aMHj/yrB1hPp0xs=
-X-Received: by 2002:a17:90a:928e:b0:298:b0ac:980f with SMTP id
- n14-20020a17090a928e00b00298b0ac980fmr5043127pjo.41.1708096132136; Fri, 16
- Feb 2024 07:08:52 -0800 (PST)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2083.outbound.protection.outlook.com [40.107.237.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D39E10EB87;
+ Fri, 16 Feb 2024 15:10:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AW+TwpH2n2+ck2NYyISYiD388NlIw9fw/6r/7+KoqqU+dWxHpn+SdfiZr02+f6oa6w8fWXcE2JuZ4hy3XUwmPGiJWesNGQUvGThycsLckPidgewNJj0mIlSijDiyVRuUxxLeg/ekUzjCUhFZxn0U2/vlrGMWf3zo4D+8pO/qkX6rkkuQM4o0EI5/N+nrMKdm1lnzigjupaoHhopJkbTnPN7MA+34xCeUFYuYe3//5CpaNeqcipDpUlKBO4/myf91kXXL1qNE1osG8qKKJJWPmOeqIktHR9fmIuFOS36T94azxcjHYaL+nSWkPx5dpbVE0VV6W0Nzt/E9WoLUg6kDLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6U3zV3sEGElroYDGbHO+ERJDMOuX0a4RKCfE0j5zTZY=;
+ b=Bb+MqWARUtQmjeRtIjHqYMmx/msTXzCjKkGrs6CxM2NP0r/VDC/wDYbTgGsNSayLtNXLqYpQ86OD6pHzDZ9QR4SBmNPJqjgYpFLBBzZaVjbgh8UwThl8pCn0htm88LRKbdSmASS5PSRFRZbBj8/g41G6BmDOF/pb7IwSgmgRq4PRKdJXdOM0Aip4043VONHOVu1PgVJZtte+JVBK/LqrD3yth4kB3873VVqJ7IVrjs8uCrxtO+wT5x7VKrUgLdMQatbrQVdgOU6UZk5i9ByTytCD6nGNx9DGN83FCw1NgHY2wyfC/CIkUlhsEsTKi1dVBY38bVPJgsWrUcPaWsfIbQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linaro.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6U3zV3sEGElroYDGbHO+ERJDMOuX0a4RKCfE0j5zTZY=;
+ b=KAPURCFH4rRGDacY0vQp326ZICXYdv64vEGU/wSZ1pu/blKSkpUuRhniMxPO2vB4KaVA9kaTsRKVPRFKpgcBHWTUDPhRYCHiGyd253PZgbHETP6SOS2RDkJQoIJe3lBhvfTKqk2gC/Yh8aLfnxaMVXjHqgb3gr/fAS2Lr+/MPD0=
+Received: from BLAPR05CA0016.namprd05.prod.outlook.com (2603:10b6:208:36e::22)
+ by PH8PR12MB7158.namprd12.prod.outlook.com (2603:10b6:510:22a::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.26; Fri, 16 Feb
+ 2024 15:10:48 +0000
+Received: from MN1PEPF0000F0DE.namprd04.prod.outlook.com
+ (2603:10b6:208:36e:cafe::7d) by BLAPR05CA0016.outlook.office365.com
+ (2603:10b6:208:36e::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.13 via Frontend
+ Transport; Fri, 16 Feb 2024 15:10:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000F0DE.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Fri, 16 Feb 2024 15:10:48 +0000
+Received: from patedamande.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 16 Feb
+ 2024 09:10:44 -0600
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, "Sumit
+ Semwal" <sumit.semwal@linaro.org>, Gustavo Padovan <gustavo@padovan.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Steven Rostedt
+ <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, "Mathieu
+ Desnoyers" <mathieu.desnoyers@efficios.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-media@vger.kernel.org>,
+ <linux-trace-kernel@vger.kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v3 0/8] dma-fence, drm, amdgpu new trace events
+Date: Fri, 16 Feb 2024 16:09:49 +0100
+Message-ID: <20240216151006.475077-1-pierre-eric.pelloux-prayer@amd.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-References: <20240215214847.67525-1-mario.limonciello@amd.com>
-In-Reply-To: <20240215214847.67525-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 16 Feb 2024 10:08:39 -0500
-Message-ID: <CADnq5_MARozBmJkdf5EU5okaojGQGd8mTRRtzyntMamaVcDNGw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Change `jpeg_v4_0_5_start_dpg_mode()` to void
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, 
- coverity-bot <keescook+coverity-bot@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DE:EE_|PH8PR12MB7158:EE_
+X-MS-Office365-Filtering-Correlation-Id: f07abcd6-8df3-4db7-5974-08dc2f0174e4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uH84eeJoWKLI/eSsCfbp7/GsecWf1O3FUsVAwSFhkDBWF8FbLetVLFmXXpT7zDALpG9SznPyRXXifvkLWqvl6YL2VZc1GLli9C56ADWNdkDVzBmrU6bJjWYCZGPtzygxva1MZaz9J55lGwMWEMP1wTghwX/kpYz6AtIVsHj+PI8aKDllhOHnpKSCqH8ttKql6Jxer1vfJNNBCreHeeApxBiKz2FZs1i/xWDyccop3hS+t9Pi+6dDTFk/6tDmu+3e1wjN5MvmiBIAvL2Px+vNEu9OKlWw51eWJZxVUiXCJHh8jIK76iHWJz4VGD9TcD81a6pliC66V52kr0BLsmToysbq/QDnxS0EySsh5/Wc8YZ78mW18wyIhlvxM6wvAhJJhDjpOLbMpLUScO5IsqbxzQWU8J5i18Xep0FFAcwBTMCYd39Ta1MIckj6F/FANlxvQrLJQAUn4yXXjqRqZhttQWs9E3jGWeSBDawraUQRRzh4uSpIguoddZL69UUeFkZkIWxx3HhtfbNQ41tlJhXvJ9TqwjaZkHu7XhcGOvcjIoXacsfumQoZu1hbkSIq//AdmJ1milBgam1tiv5lLfyugsAnSLPbSygRrHB7aAXk4n+nKizDoI5GeMvAotFS846ba9wrHaaJHCC93J9mmVQhjg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(136003)(39860400002)(346002)(396003)(230922051799003)(64100799003)(1800799012)(82310400011)(451199024)(36860700004)(186009)(46966006)(40470700004)(7696005)(966005)(70206006)(86362001)(356005)(2906002)(82740400003)(5660300002)(8676002)(70586007)(8936002)(81166007)(336012)(921011)(26005)(16526019)(478600001)(110136005)(36756003)(41300700001)(316002)(426003)(83380400001)(2616005)(1076003);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2024 15:10:48.1893 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f07abcd6-8df3-4db7-5974-08dc2f0174e4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DE.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7158
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,64 +110,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 15, 2024 at 4:58=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> jpeg_v4_0_5_start_dpg_mode() always returns 0 and the return value
-> doesn't get used in the caller jpeg_v4_0_5_start(). Modify the
-> function to be void.
->
-> Reported-by: coverity-bot <keescook+coverity-bot@chromium.org>
-> Addresses-Coverity-ID: 1583635 ("Code maintainability issues")
-> Fixes: 0a119d53f74a ("drm/amdgpu/jpeg: add support for jpeg DPG mode")
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+This series adds new events to make it easier for tools
+like gpuvis or umr to graph the GPUs, kernel and applications
+activity.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+UMR patches using these events can be found here:
+https://gitlab.freedesktop.org/tomstdenis/umr/-/merge_requests/37
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c b/drivers/gpu/drm/a=
-md/amdgpu/jpeg_v4_0_5.c
-> index 3602738874ee..8d1754e35605 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-> @@ -358,7 +358,7 @@ static int jpeg_v4_0_5_enable_static_power_gating(str=
-uct amdgpu_device *adev, in
->   *
->   * Start JPEG block with dpg mode
->   */
-> -static int jpeg_v4_0_5_start_dpg_mode(struct amdgpu_device *adev, int in=
-st_idx, bool indirect)
-> +static void jpeg_v4_0_5_start_dpg_mode(struct amdgpu_device *adev, int i=
-nst_idx, bool indirect)
->  {
->         struct amdgpu_ring *ring =3D adev->jpeg.inst[inst_idx].ring_dec;
->         uint32_t reg_data =3D 0;
-> @@ -411,8 +411,6 @@ static int jpeg_v4_0_5_start_dpg_mode(struct amdgpu_d=
-evice *adev, int inst_idx,
->         WREG32_SOC15(JPEG, inst_idx, regUVD_JRBC_RB_CNTL, 0x00000002L);
->         WREG32_SOC15(JPEG, inst_idx, regUVD_JRBC_RB_SIZE, ring->ring_size=
- / 4);
->         ring->wptr =3D RREG32_SOC15(JPEG, inst_idx, regUVD_JRBC_RB_WPTR);
-> -
-> -       return 0;
->  }
->
->  /**
-> @@ -458,7 +456,7 @@ static int jpeg_v4_0_5_start(struct amdgpu_device *ad=
-ev)
->                         VCN_JPEG_DB_CTRL__EN_MASK);
->
->                 if (adev->pg_flags & AMD_PG_SUPPORT_JPEG_DPG) {
-> -                       r =3D jpeg_v4_0_5_start_dpg_mode(adev, i, adev->j=
-peg.indirect_sram);
-> +                       jpeg_v4_0_5_start_dpg_mode(adev, i, adev->jpeg.in=
-direct_sram);
->                         continue;
->                 }
->
-> --
-> 2.34.1
->
+V1:
+https://patchwork.kernel.org/project/linux-media/patch/20240117184329.479554-1-pierre-eric.pelloux-prayer@amd.com/
+
+Changes from V1:
+* uses trace_dma_fence_sync_to from dma-fence-chain.c
+* new amdgpu events
+* new drm plane commit event
+
+Changes from V2:
+* uses trace_dma_fence_used_as_dependency from drm_sched_job_add_dependency
+* add devname attribute to the trace_amdgpu_sched_run_job event
+* addressed review comments
+
+Pierre-Eric Pelloux-Prayer (8):
+  tracing, dma-buf: add a trace_dma_fence_sync_to event
+  dma-buf/fence-chain: use trace_dma_fence_sync_to
+  amdgpu: use trace_dma_fence_sync_to in amdgpu_fence_sync
+  drm/amdgpu: add a amdgpu_bo_fill trace event
+  drm/amdgpu: add a amdgpu_cs_start trace event
+  drm: add drm_mode_atomic_commit event
+  drm/sched: use trace_dma_fence_used_as_dependency
+  drm/amdgpu: add devname to trace_amdgpu_sched_run_job
+
+ drivers/dma-buf/dma-fence-chain.c         |  4 +++
+ drivers/dma-buf/dma-fence.c               |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c    |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c  |  9 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h  |  4 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 42 ++++++++++++++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c   |  2 ++
+ drivers/gpu/drm/drm_atomic_uapi.c         | 21 ++++++++++++
+ drivers/gpu/drm/drm_trace.h               | 23 +++++++++++++
+ drivers/gpu/drm/scheduler/sched_main.c    |  4 +++
+ include/trace/events/dma_fence.h          | 27 +++++++++++++++
+ 12 files changed, 133 insertions(+), 8 deletions(-)
+
+-- 
+2.40.1
+
