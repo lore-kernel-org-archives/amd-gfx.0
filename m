@@ -4,121 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC85CC48BEB
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 08:30:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D9CEC48BEC
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 08:53:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45B1210E0D9;
-	Fri, 16 Feb 2024 08:30:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FF5310E4F3;
+	Fri, 16 Feb 2024 08:53:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="P/NQOWxc";
+	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="T2N8PVS8";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2043.outbound.protection.outlook.com [40.107.94.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F13C710E0D9
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 08:30:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JarCUP1+PGwhsT7vsCFGhIoZyxCgbxXo76DmxUTd0IhVKuHVrUF/qmJRHDxFAFH+bIg3vKWJoh+jzlAUy8Y8tuK0hwEFVXxtDHBiTaNnvuEuLg4ZSWzp2vlq90lq959vUVy5d+mAz58vGy7I74barmStnqoUgaMCaJKTEV+KoBZwWpUrdsWv6oRsVu6TMqKRmwCJL4y39Zz2ndRk0H3eIsAi10l0Ej9ezfrrLVwRjQwo2tFt8OVfwTmp/W2hIlQWSFZRqvKHw81xaobxjdloY6gE8o6S3slHJ7Jth4NXpu2urBgFHQqgrT6HXocfPM6bzwi4w0oOQGqxB/WMSJ0MQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8gOp0eibB5z9oia34QQjHtUy4mkTqMJlJx86p4rSlUE=;
- b=WhmOpCc05boeHQPPni7RqfZGm7XceEspevzXk6yEBJk397tZhSmu2S2a8wiR9MOknjRbFLRrvR/qMXKLXX7nwUSmzWnUgwhz1porJ5RswCXbx2rU0DMKOQ/WPPg6ZaoNl151z48n98NNJwAEAlAyQBTnCorhxvArTQ+reTvYSNwdazavjaC78SLzjaYOR44U7jktsGd/2Gq3l/ktfmnZi2ubJhM3VJ8zx1QSQKoCypGRz6FFT2gE+FIUS9vv0BwewSvEhTgmCteCXHJkBS9+g8MZxks7w97L9LCGnyBKUz6ex4vzwopqnHbGwAQpxjKFQbxiKoQO7OFwXwiBLl+wjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8gOp0eibB5z9oia34QQjHtUy4mkTqMJlJx86p4rSlUE=;
- b=P/NQOWxcxz9AhvFKBFSk4GEPFvtZI9u2JCxF+f+3+DuuWsjcsLoliK60lvCwpMF4hhf23rWMl0NZ7WxE3MNNCXDo2T1lnSliA4DMO4eDhSCCMEGHk8qPRAfi1GSzSq22ijJKM6j0Zc5jhMIJYSBBK/E4+4e6POqtXU1Hg9w9UMY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB6611.namprd12.prod.outlook.com (2603:10b6:510:211::11)
- by PH8PR12MB7374.namprd12.prod.outlook.com (2603:10b6:510:216::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.14; Fri, 16 Feb
- 2024 08:30:18 +0000
-Received: from PH7PR12MB6611.namprd12.prod.outlook.com
- ([fe80::6b6c:cbf4:9ab:59b8]) by PH7PR12MB6611.namprd12.prod.outlook.com
- ([fe80::6b6c:cbf4:9ab:59b8%4]) with mapi id 15.20.7292.026; Fri, 16 Feb 2024
- 08:30:17 +0000
-Content-Type: multipart/alternative;
- boundary="------------H2BMj9C0n0NXDSj7SXF2Preh"
-Message-ID: <c662c1f7-4cf3-42c8-a120-9d38b72b2c4e@amd.com>
-Date: Fri, 16 Feb 2024 16:30:11 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Add 'replay' NULL check in
- 'edp_set_replay_allow_active()'
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD84310E261;
+ Fri, 16 Feb 2024 06:28:40 +0000 (UTC)
+Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 41G4xZru032307; Fri, 16 Feb 2024 06:28:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding;
+ s=corp-2023-11-20; bh=11lhowEku9JauzXkE/wObrLIf2iNOyLR/O51AA5UCuY=;
+ b=T2N8PVS86lByXQAks6rnchO2FxtwcI5Br/7b/QZMXkzC3UZT7wiOFORaIb/K3rsrLWRk
+ zx6lHb4LDyFvLTSiPt9XBtlDpH80p4VGbHNC2wa7YX7mpnOUdWtupzrERO47lICHydus
+ JgYCYpJ6tSPtYEzuYDOSEqp8bf91a3YWV1H1Ra3+h300GS40H8Pdsv3v57Z/Og2KlMHL
+ EPymbvpIgpxDybp6yVOq4WhwD4zpVttTxVQwJ/aOsa/92dDmr0m9Ma+KAJdcfKXAOCXD
+ MtGXSVdc2uGK7G+0HDUgKsxnny/hatnPFri7xe79TIeQXhkEaBNWoktZ3Zmcmc/wlLyy Dw== 
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3w91w6vduw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 16 Feb 2024 06:28:33 +0000
+Received: from pps.filterd
+ (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
+ with ESMTP id 41G5P48i024566; Fri, 16 Feb 2024 06:28:32 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3w5ykj07sn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 16 Feb 2024 06:28:32 +0000
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 41G6P0w5021393;
+ Fri, 16 Feb 2024 06:28:31 GMT
+Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
+ [10.129.136.47])
+ by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
+ 3w5ykj07qv-1; Fri, 16 Feb 2024 06:28:31 +0000
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-References: <20240215133129.2345398-1-srinivasan.shanmugam@amd.com>
-Content-Language: en-US
-From: "Chung, ChiaHsuan (Tom)" <chiahsuan.chung@amd.com>
-In-Reply-To: <20240215133129.2345398-1-srinivasan.shanmugam@amd.com>
-X-ClientProxiedBy: SI2PR01CA0007.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::11) To PH7PR12MB6611.namprd12.prod.outlook.com
- (2603:10b6:510:211::11)
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Duncan Ma <duncan.ma@amd.com>,
+ Samson Tam <samson.tam@amd.com>, "JinZe.Xu" <jinze.xu@amd.com>,
+ Josip Pavic <Josip.Pavic@amd.com>, Cruise Hung <cruise.hung@amd.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: kernel-janitors@vger.kernel.org, dan.carpenter@linaro.org,
+ Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+ kernel test robot <lkp@intel.com>, Dan Carpenter <error27@gmail.com>
+Subject: [PATCH] drm/amd/display: fix a possible NULL dereference bug
+Date: Thu, 15 Feb 2024 22:28:22 -0800
+Message-ID: <20240216062825.165627-1-harshit.m.mogalapalli@oracle.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB6611:EE_|PH8PR12MB7374:EE_
-X-MS-Office365-Filtering-Correlation-Id: ceaeb62e-abd5-4ccf-0e85-08dc2ec98170
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TggdWPRsa3qdWnT3rw4OWzXFAVkoOAkC8kNczSUrhDRKCFFk3c36PpNH51gifYxUJpmoqiLPAPi6F4uzqKUjWB34NiaI+yIi6TUpubHDZDxvqX0iC4lhegrySXgpDGytaUoDblN6ZemYPnbHaxHNefTqcHD89rFPCNo2CQgJm9UDjAer7TxFLBvjqzkyMCSfuFpNh864UC3H9/HcUMH7rPS4FwUUmMZfKWvxmNnA7wKzMa9vnRdN/X4PTQZO4ICJs5VrSdFISbHO6sW1JvIOVDLDhW90VacNDu4V+VWNo6WfjO4lWFDNpsrE5nI04+cUk4SWGlsd2sI06g6CcJ0GYS2kjnDqe6c8mD7qh0mVZkdCVDVhuy3vmz/AIzaUSHQqXDXvu2vSfQOql16HAq2X4bgj/TRMuHhGj3mlrYcefb86cI7rrbAdv4sTPX6f2/R4d+S7EU0+OZY0pUgTFJyb56No37rGFtvw55IuufNvOXXd4vqszYiLXeJ43e/PmY8UL9cBYQoOd5PPW7CND36I01jzdgk5U+JLbKmqAUPmIl11zRIl5kuomUD+Y7J7sPW+
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB6611.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(376002)(396003)(366004)(346002)(136003)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(31686004)(2906002)(5660300002)(26005)(83380400001)(2616005)(36756003)(38100700002)(33964004)(478600001)(53546011)(6506007)(6512007)(6486002)(31696002)(66946007)(316002)(110136005)(66556008)(66476007)(6666004)(4326008)(41300700001)(8676002)(8936002)(6636002)(86362001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZlRKRTNGeC9ETVU4NGhOSGdTd3lnRnBaQ1NodlJ2YnNiYis2K3FZNGJrRTVr?=
- =?utf-8?B?WEJGSit6N2Rjc214NmowdmxDU0RPSzYxRm5Kd2ljYk01ZjZKY050OFZMcXpK?=
- =?utf-8?B?dktOdi9zeVpYNXEzZExKdG5FQ3FuOW43TTkrdSsxeVVwL1VYVEhJdEFJd3pR?=
- =?utf-8?B?ek54UkJsb1czV1M2MitCTnF5bGZoYlpPNDhyYmtTbWhEV05OL0RmQVE0THlO?=
- =?utf-8?B?dGNMOUFuaEg5OWR5a1gwVmZONUtEcnNjNVRJaTNzeWNES1ZvQTlzbThiUzF3?=
- =?utf-8?B?ZU0vYkpsMnZubEdPVzZ2L2pKSHFGaGxDaGJHdS9sVXZjaUZVT2d0c3FjUm1E?=
- =?utf-8?B?d2VMNFRDSU1nMlkzWTBEc3lzSEgzUUdGM01sR1JIUGhuUHAxNnhRNXF6c1oz?=
- =?utf-8?B?UG9KQ3lySkpHTmZaN0s4V2hiZy91cVdTZ0FyUFFiN1h4aVdOeWhLbmhhSmhV?=
- =?utf-8?B?bnk1M05BcEhTMFRVb0FFdkVXVk85RVpRK042QnZtdTNCNTRMRm9lZmJaK2U3?=
- =?utf-8?B?ZVM0LzZSRENnZTlna2RtQ0FqbldZaWhrMTFCNXU1UkNuSEljZllObjlCQk91?=
- =?utf-8?B?UXJtM25yS1BwVkV5Z3VZVnZReG1WV3NIb2t5ZHhZWHhTeHQvZWo4Ylcva0NN?=
- =?utf-8?B?QytBNFRZYnUycU5wbzIxcFZHOU83bWtGRVBXSWtzMGxGZlpIZ05UOGtaNjFX?=
- =?utf-8?B?RjN0NzJtRHA4WVRzZmJMUFcrZkNPbUV0dGxCOUNkVndYblRuUmNFNXprMzhN?=
- =?utf-8?B?TktxVWQrcHdHUHZFZHB5RTk0Qk9rWUs3ZXJvQkkzcGpVR1NhMGR4MWQzMEdi?=
- =?utf-8?B?Uzk2S0tFczBpYkQ5azlpVldDRStrdFBxL2ZMTW55Wi9sSUpJUjBVY29RS3Fs?=
- =?utf-8?B?eU0rWTBBNytSUDhMcEJzZGEwUVpCL2JsTXIwTTN0SmEzNlR0ZTVTOTZrKzlu?=
- =?utf-8?B?SHJ2VDh2RUZNSS9QS0FMcHQ4YmRzUnN0aVEzMWVJZyszMDExNUVZR3V2Y1JO?=
- =?utf-8?B?STVKamZ1ZXM0Nmd1eTU1c3cvYzU3dzIyMTQ2L0krUmFMckpFcXRNWGZSWTNv?=
- =?utf-8?B?T1FpMmVReTc5TlZ2WnZDRzVuRlU3dGVnd1hEQ1ZlYUUwdEcxWkFPMUx4ZzVh?=
- =?utf-8?B?NFZlYzZ1Ty9iL2QxcWNTZXE2S1BSU3J3aFZyOTU2dFpLZGJsbCszc1g2R3ox?=
- =?utf-8?B?b1ZrdW9EdGxNWmUwcnBOSTdmZXZCekNRZWwwMVBmL0Rvb3QyNDBlajJiSnhx?=
- =?utf-8?B?RTh0ZEJJUnZ0NjFZWU5ENXBzTGptTjMzSmtYOFM1aGxXZUV6bjZQNnZaNXAz?=
- =?utf-8?B?T1JVcHJwd2xQTDJsSmgxSHRRZm5aVnl1cjFoT1dRUGNJWnFrbFBRSng2d3pI?=
- =?utf-8?B?bU9leFVwL01YeWl4dm93VXJ6SVlVWGQ1V2gwVTVSMzExaDB3aklBUW1TRUFv?=
- =?utf-8?B?QmlvL1BaUGJXZXF5RjdBVXlSU0VFMCtjOW1pa0Y3cUlEYWtsZUFCNDJoSjVq?=
- =?utf-8?B?cEw1UUFMSHhZVm1oU3VKTnU5VlArckdMQTlqSklYRUZFR2FTUnV6UzB0ampz?=
- =?utf-8?B?NElpWTAxMGp5c0tVTE15cDNEellYaS8rWkh6TTJFOUQ1NGZsZjhXZmdtK2hI?=
- =?utf-8?B?WGF4N1VOWEdZb3V0RmhETGhiQVUwbGg3ejdUV0QzLzNiejRVR2l1ZG5PN2Zn?=
- =?utf-8?B?dHNJWTJ6eVQxTzJjeW0wb3dzeXVZMEpwaHRFakdtUWlvWG5JSjVYWXI4eU1D?=
- =?utf-8?B?clFna3d6QWk4TDMyTFIxYXovSDlTRXlaZ1NESTl5aDVPNnpDUms1QjVINUl3?=
- =?utf-8?B?L2FKT1FVRnVCNzhCV3I0aHdKRlBnMGFrVFViTXd3RUZnZ1pYNmtXSUl5b0g3?=
- =?utf-8?B?STNHUVlkMlRpWTNRREZpSFpCV1hyRFgzR1h5RzJxZHdkRC9FeEZGdHN6UERn?=
- =?utf-8?B?akYycmtLZng2Z0kwU2V2Z1dCQjVrZWQ1WG4rVlVjclFieEVreWlpb0dyMGVL?=
- =?utf-8?B?TmJxTTVRNGMyQ1NyY3RVWmRDeEFwRWVudlBPQWtLUXhISmFFQm9PYllkVzYr?=
- =?utf-8?B?VWZlUVhLbWVleEk4Rm9mc1FaeGVMdFQ1Rmw1elg0QVNveVIvT05pY0pFcGtp?=
- =?utf-8?Q?SKfpDnzJjJwVfhywSW0HE12y4?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ceaeb62e-abd5-4ccf-0e85-08dc2ec98170
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6611.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2024 08:30:17.7623 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I8D7EpjeacikW2Ewz5d4pJsZi3EhZ54e8VtFsU/yT5rU93798e6CZBrCtKb7Wou9jdAz7bjyRgdGTq95ld75Ew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7374
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-16_05,2024-02-14_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ bulkscore=0
+ mlxlogscore=999 malwarescore=0 mlxscore=0 spamscore=0 suspectscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311290000 definitions=main-2402160051
+X-Proofpoint-ORIG-GUID: kc0_sxQHa_Md3hCzniJTwJnbPLO9kRu6
+X-Proofpoint-GUID: kc0_sxQHa_Md3hCzniJTwJnbPLO9kRu6
+X-Mailman-Approved-At: Fri, 16 Feb 2024 08:53:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,123 +98,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------H2BMj9C0n0NXDSj7SXF2Preh
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Smatch warns:
+	drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:136
+	dc_dmub_srv_cmd_list_queue_execute() warn: variable dereferenced
+	before check 'dc_dmub_srv' (see line 131)
 
-Reviewed-by: Tom Chung <chiahsuan.chung@amd.com>
+Fix this by moving the dereference "dc_dmub_srv->ctx" after the NULL check.
 
-On 2/15/2024 9:31 PM, Srinivasan Shanmugam wrote:
-> In the first if statement, we're checking if 'replay' is NULL. But in
-> the second if statement, we're not checking if 'replay' is NULL again
-> before calling replay->funcs->replay_set_power_opt().
->
-> if (replay == NULL && force_static)
->      return false;
->
-> ...
->
-> if (link->replay_settings.replay_feature_enabled &&
->      replay->funcs->replay_set_power_opt) {
-> 	replay->funcs->replay_set_power_opt(replay, *power_opts, panel_inst);
-> 	link->replay_settings.replay_power_opt_active = *power_opts;
-> }
->
-> If 'replay' is NULL, this will cause a null pointer dereference.
->
-> Fixes the below found by smatch:
-> drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_edp_panel_control.c:895 edp_set_replay_allow_active() error: we previously assumed 'replay' could be null (see line 887)
->
-> Fixes: c7ddc0a800bc ("drm/amd/display: Add Functions to enable Freesync Panel Replay")
-> Cc: Bhawanpreet Lakha<Bhawanpreet.Lakha@amd.com>
-> Cc: Roman Li<roman.li@amd.com>
-> Cc: Rodrigo Siqueira<Rodrigo.Siqueira@amd.com>
-> Cc: Aurabindo Pillai<aurabindo.pillai@amd.com>
-> Cc: Tom Chung<chiahsuan.chung@amd.com>
-> Suggested-by: Tom Chung<chiahsuan.chung@amd.com>
-> Signed-off-by: Srinivasan Shanmugam<srinivasan.shanmugam@amd.com>
-> ---
->   .../drm/amd/display/dc/link/protocols/link_edp_panel_control.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> index 443215b96308..acfbbc638cc6 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> @@ -892,7 +892,8 @@ bool edp_set_replay_allow_active(struct dc_link *link, const bool *allow_active,
->   
->   	/* Set power optimization flag */
->   	if (power_opts && link->replay_settings.replay_power_opt_active != *power_opts) {
-> -		if (link->replay_settings.replay_feature_enabled && replay->funcs->replay_set_power_opt) {
-> +		if (replay != NULL && link->replay_settings.replay_feature_enabled &&
-> +		    replay->funcs->replay_set_power_opt) {
->   			replay->funcs->replay_set_power_opt(replay, *power_opts, panel_inst);
->   			link->replay_settings.replay_power_opt_active = *power_opts;
->   		}
---------------H2BMj9C0n0NXDSj7SXF2Preh
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><span style="font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">Reviewed-by:
-      </span><span style="white-space: pre-wrap">Tom Chung <a class="moz-txt-link-rfc2396E" href="mailto:chiahsuan.chung@amd.com">&lt;chiahsuan.chung@amd.com&gt;</a></span></p>
-    <p><span style="font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);"></span></p>
-    <div class="moz-cite-prefix">On 2/15/2024 9:31 PM, Srinivasan
-      Shanmugam wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20240215133129.2345398-1-srinivasan.shanmugam@amd.com">
-      <pre class="moz-quote-pre" wrap="">In the first if statement, we're checking if 'replay' is NULL. But in
-the second if statement, we're not checking if 'replay' is NULL again
-before calling replay-&gt;funcs-&gt;replay_set_power_opt().
-
-if (replay == NULL &amp;&amp; force_static)
-    return false;
-
-...
-
-if (link-&gt;replay_settings.replay_feature_enabled &amp;&amp;
-    replay-&gt;funcs-&gt;replay_set_power_opt) {
-	replay-&gt;funcs-&gt;replay_set_power_opt(replay, *power_opts, panel_inst);
-	link-&gt;replay_settings.replay_power_opt_active = *power_opts;
-}
-
-If 'replay' is NULL, this will cause a null pointer dereference.
-
-Fixes the below found by smatch:
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_edp_panel_control.c:895 edp_set_replay_allow_active() error: we previously assumed 'replay' could be null (see line 887)
-
-Fixes: c7ddc0a800bc (&quot;drm/amd/display: Add Functions to enable Freesync Panel Replay&quot;)
-Cc: Bhawanpreet Lakha <a class="moz-txt-link-rfc2396E" href="mailto:Bhawanpreet.Lakha@amd.com">&lt;Bhawanpreet.Lakha@amd.com&gt;</a>
-Cc: Roman Li <a class="moz-txt-link-rfc2396E" href="mailto:roman.li@amd.com">&lt;roman.li@amd.com&gt;</a>
-Cc: Rodrigo Siqueira <a class="moz-txt-link-rfc2396E" href="mailto:Rodrigo.Siqueira@amd.com">&lt;Rodrigo.Siqueira@amd.com&gt;</a>
-Cc: Aurabindo Pillai <a class="moz-txt-link-rfc2396E" href="mailto:aurabindo.pillai@amd.com">&lt;aurabindo.pillai@amd.com&gt;</a>
-Cc: Tom Chung <a class="moz-txt-link-rfc2396E" href="mailto:chiahsuan.chung@amd.com">&lt;chiahsuan.chung@amd.com&gt;</a>
-Suggested-by: Tom Chung <a class="moz-txt-link-rfc2396E" href="mailto:chiahsuan.chung@amd.com">&lt;chiahsuan.chung@amd.com&gt;</a>
-Signed-off-by: Srinivasan Shanmugam <a class="moz-txt-link-rfc2396E" href="mailto:srinivasan.shanmugam@amd.com">&lt;srinivasan.shanmugam@amd.com&gt;</a>
+Fixes: 028bac583449 ("drm/amd/display: decouple dmcub execution to reduce lock granularity")
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <error27@gmail.com>
+Closes: https://lore.kernel.org/r/202311141141.GoLAPxD5-lkp@intel.com/
+Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 ---
- .../drm/amd/display/dc/link/protocols/link_edp_panel_control.c | 3 ++-
+Only compile tested
+---
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index 443215b96308..acfbbc638cc6 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -892,7 +892,8 @@ bool edp_set_replay_allow_active(struct dc_link *link, const bool *allow_active,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index 0bc32537e2eb..a4bd46ec6da4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -128,7 +128,7 @@ bool dc_dmub_srv_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_srv,
+ 		unsigned int count,
+ 		union dmub_rb_cmd *cmd_list)
+ {
+-	struct dc_context *dc_ctx = dc_dmub_srv->ctx;
++	struct dc_context *dc_ctx;
+ 	struct dmub_srv *dmub;
+ 	enum dmub_status status;
+ 	int i;
+@@ -136,6 +136,7 @@ bool dc_dmub_srv_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_srv,
+ 	if (!dc_dmub_srv || !dc_dmub_srv->dmub)
+ 		return false;
  
- 	/* Set power optimization flag */
- 	if (power_opts &amp;&amp; link-&gt;replay_settings.replay_power_opt_active != *power_opts) {
--		if (link-&gt;replay_settings.replay_feature_enabled &amp;&amp; replay-&gt;funcs-&gt;replay_set_power_opt) {
-+		if (replay != NULL &amp;&amp; link-&gt;replay_settings.replay_feature_enabled &amp;&amp;
-+		    replay-&gt;funcs-&gt;replay_set_power_opt) {
- 			replay-&gt;funcs-&gt;replay_set_power_opt(replay, *power_opts, panel_inst);
- 			link-&gt;replay_settings.replay_power_opt_active = *power_opts;
- 		}
-</pre>
-    </blockquote>
-  </body>
-</html>
++	dc_ctx = dc_dmub_srv->ctx;
+ 	dmub = dc_dmub_srv->dmub;
+ 
+ 	for (i = 0 ; i < count; i++) {
+-- 
+2.39.3
 
---------------H2BMj9C0n0NXDSj7SXF2Preh--
