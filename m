@@ -4,96 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21F02C48BEB
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 10:02:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ADABC48260
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 10:30:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A96A210EADA;
-	Fri, 16 Feb 2024 10:02:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDDA210E56A;
+	Fri, 16 Feb 2024 10:30:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="p9owmrwI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q03FHTlq";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2044.outbound.protection.outlook.com [40.107.93.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD41E10EAD8;
- Fri, 16 Feb 2024 10:02:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SuIsCsGdIK3H3CwNfRdUrm5jDqw4J4DGm9F4Kv97uNwaLPKFcD91KvSchz/gXcPyIe+iSRe+xc1OV9yiOxAV6EIVgsX5qVEXT4vEZ2j2XBY4pzORn7vqEiphFmJk2GtvynkqhppzB8CHE8yWc/QHrBIifOuCpvOyaL2V6XjOcAQRZe+g5wn1kJgXjtGO5JNWL1cMmCxlWGxzSuvl7ucVwWbl+TtnEz5L1cLXlLRK1z7ezmOcj78kUVWiD4eTVTtE1EIwf0kmTc488SMQV/CramaFt75GunqzCwZlmHJMZTQXcor01qFzXqutKQtSZHUK/PpiCLhILVB6UFdK5l+7zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z/xcixKgnLNo5NyGN37eGiMo+OVvkM+2G77a5CFkEes=;
- b=NB9pho5Zk6SSUBSbwzi42IDZow/d7RW+PIgRnTYpmdZPiqr3fY3A21bTC+s04hZ2OBAdU0ZfX4H++M/Th6qAs1tWRrYkcrA0I+C0w9EY6x0M3wY1hhDov17l2kTp7xehJjRSwp27va17+Lj3+Raoif18nfzCDm71zhILINHZ9q6q0flI0y5dwTZWPVsVXinLiAQktrippYIc+JOUn6RNRAtAICQYfVK3f0M8YFqtKR5eRXTZJTqOQu7m2UuigFBS6jvQzSpi9Kaa09XKu+x9N9NuRp1JbhnxPu1pcenYJgAPCdMOqhtAxkafpujNTRrM+Sryd4XfdO4Ir1hUl0vqwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z/xcixKgnLNo5NyGN37eGiMo+OVvkM+2G77a5CFkEes=;
- b=p9owmrwIqHr4kmbtjpoDIKZf0M/z74+mOHXK+NVfUbv22gtONw16xlor1CEtZOgiyfRChEwXmfkesUUCJae/sljNl02Miw34B5aZr/9BiISKz2GRGb3ZuF7O/VLWIVmYNyxHGsdaoZo4wlsX9I53dOS/vbYUjYQULHlx/ldo+u8=
-Received: from BY3PR10CA0001.namprd10.prod.outlook.com (2603:10b6:a03:255::6)
- by BL3PR12MB6570.namprd12.prod.outlook.com (2603:10b6:208:38d::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.31; Fri, 16 Feb
- 2024 10:02:23 +0000
-Received: from SJ1PEPF00001CE7.namprd03.prod.outlook.com
- (2603:10b6:a03:255:cafe::56) by BY3PR10CA0001.outlook.office365.com
- (2603:10b6:a03:255::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.26 via Frontend
- Transport; Fri, 16 Feb 2024 10:02:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00001CE7.mail.protection.outlook.com (10.167.242.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Fri, 16 Feb 2024 10:02:22 +0000
-Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Fri, 16 Feb 2024 04:02:19 -0600
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>
-CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
- <matthew.auld@intel.com>, <mario.limonciello@amd.com>, <spasswolf@web.de>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- <stable@vger.kernel.org>
-Subject: [PATCH] drm/buddy: Modify duplicate list_splice_tail call
-Date: Fri, 16 Feb 2024 15:30:48 +0530
-Message-ID: <20240216100048.4101-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FC0810E352;
+ Fri, 16 Feb 2024 10:30:00 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-33d152a34c7so455193f8f.3; 
+ Fri, 16 Feb 2024 02:30:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1708079399; x=1708684199; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=GKevrJOYIycMmtJhAGuLF6g1H2Kc16hvAKk7YFtZO5A=;
+ b=Q03FHTlqT/I8PZ+V/322yFF83U2gjj5xVd2HQjJMm2V1BeVsu/ioW3bMbiyGXQuRxy
+ UAdUpL2ezfQ4p/wwBUDpeH58Hguyyf5dzVT1RaIAIu56safCUMttk96TLmDrVR51WENb
+ a8SYiFZYtvpnPHluG5z2RknTVbEyCaF58u69K/2B9H5lt0BIp7cD9aksGQsVh6bhIu5w
+ R1Dd3E31E5urmP+EBX1RZL2G+JGijY5kIABL3xgPhh2ITKhD5eVYCGzCSw5fQtGK18g9
+ FNZKIx8FPdZWAu9f3xC7ZcWTm8CGeWwkhX+Pf+rgHEdtZWoDe+ba7FXy2nCycqdm0lek
+ FPIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708079399; x=1708684199;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=GKevrJOYIycMmtJhAGuLF6g1H2Kc16hvAKk7YFtZO5A=;
+ b=n6mTrBRsz+hBvIyP/XJ1ZsF0oOoSwkvf+qg8YtHfOKj3gRda+alFsKUPP4E2NN+Z66
+ y00OdaMJLJak36sh6+qQlbrxflbdOGvtqh5fJvHAHWpy2ZkKuzH9Szx31nVAkerwyfCd
+ lJyls+r0PJXMey9Yc3P20NWc/X47lCw/b5fSn7tpXHl22r0afAbPRwExTGybsfwUCa6F
+ 6S90RcR+/ikNdYUX4jrSYW1f6yPbv7K2PBHh2j8zslzPNW9Ggq3/u5ZYjsQ1gcTnprnf
+ 3rIgF017WXP06Z4n+2dFkWG4CUBnZo7iEsf1l+/2dkj1TMInZLWv2C75VGbYzfnjxEBt
+ nrIQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW7lDtM1Peo4eNUzD8iJJsuD/5ExgZB7Q7C1rk6xn5bWNH0w6ir8j2P0QO6vSu3Kf5jhy7rcQgOwPR4FBCahNsKO75k6Qogj/bONAUExFirJLigswIoJDQEZpIBMKT2JR1LEvM6AKvty1Pckwxx+Q==
+X-Gm-Message-State: AOJu0YzdXZ5zHnZ4FuyX3MmJd3lqMxd760CLas+DseyXDqcXueB1LF1Q
+ RAHd3HHfL4dSacf0U5Sh0rlanaN1nPmUOJsgMr41mmxEZ+tF4uWJ
+X-Google-Smtp-Source: AGHT+IGX25jBo8lBEAOfpYHIMUzW49tCJpni1AVlTfEoZVCupl+SQQH/VCfYoINBpYmPXgMDyXyBFg==
+X-Received: by 2002:a5d:6190:0:b0:33c:e206:3517 with SMTP id
+ j16-20020a5d6190000000b0033ce2063517mr3800297wru.43.1708079398403; 
+ Fri, 16 Feb 2024 02:29:58 -0800 (PST)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ x11-20020adff64b000000b0033d157bb26esm1800611wrp.32.2024.02.16.02.29.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 Feb 2024 02:29:57 -0800 (PST)
+Message-ID: <446bb875-7849-43b0-bb8e-be706aa3c666@gmail.com>
+Date: Fri, 16 Feb 2024 11:29:54 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE7:EE_|BL3PR12MB6570:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5b46a83d-cea3-4a8b-5381-08dc2ed65ec4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OOvDl0mSWU0RAsUe2ySFo2cp8dau3RoiDp5jcDTmpxVP2riUJA0CT1oDvZ4wX0RhlpxKiwZhJmcVBZKq/mwo1qmlwYEZJvjKMW62pBGckfJQ8oo7GiNcIVl9vIsMR5c4GEz1V6XqnMS0LN90crSLJU/+HSaiH8lPeMZI6uv+NH7A6MN6lri6a8ynofd8nNdSfoCdxDpCgucdj3HpFC+HtcRxXQtnD3EY7QUyAeRJYHXIhjCMVFQpFbMcsTOI9Mf2GfUnmUO/BLqOCnsD+aYNW7Ad1v4aGnRma1vLtsMKPlFw1CxUNqm0ybNkS13q8/lK0jHX+d3gy6PdDYH575aVvLrpmJ1D4X24wRrkDghdsQJ1Ykbpqlmu61HeKtgGBhVvNKERlalI/Bo66PGI+EGEYi9oP+wWbpwhgYdRQZC6Qubq9rJC2LJiyX5fyqqt2qgm2fsviUBzgMkdrTnc99mE90kWIvrFTCkdSjDxq11SJfJN4UcEXvgRPz7xvAcFwzdz3EBjqjxI/8ZuT4nZIqPTp0gAkzQIfRNzysNkaij3lVkIpsR29lXmutXWQ/BdKM4DbjhZQur0F+Bcx5q8+vAz6z163AtErnmSODYjqweBz8zPvXn6uE/QnCf5K8Fq6XwnxkR6nD5NGzzIuBnmjAYqlgwGqelST+4NYuFMlV2g63I=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(136003)(396003)(39860400002)(346002)(230922051799003)(451199024)(82310400011)(1800799012)(36860700004)(186009)(64100799003)(40470700004)(46966006)(2906002)(83380400001)(6666004)(316002)(426003)(2616005)(478600001)(7696005)(4326008)(8936002)(110136005)(8676002)(336012)(4744005)(41300700001)(70206006)(5660300002)(26005)(70586007)(54906003)(1076003)(16526019)(82740400003)(356005)(81166007)(86362001)(36756003);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2024 10:02:22.6321 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b46a83d-cea3-4a8b-5381-08dc2ed65ec4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE7.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6570
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amd/display: add panel_power_savings sysfs entry
+ to eDP connectors
+Content-Language: en-US
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Hung <alex.hung@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20240202152837.7388-1-hamza.mahfooz@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240202152837.7388-1-hamza.mahfooz@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,39 +93,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the duplicate list_splice_tail call when the
-total_allocated < size condition is true.
+Am 02.02.24 um 16:28 schrieb Hamza Mahfooz:
+> We want programs besides the compositor to be able to enable or disable
+> panel power saving features.
 
-Cc: <stable@vger.kernel.org> # 6.7+
-Fixes: 8746c6c9dfa3 ("drm/buddy: Fix alloc_range() error handling code")
-Reported-by: Bert Karwatzki <spasswolf@web.de>
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
----
- drivers/gpu/drm/drm_buddy.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Well I don't know the full background, but that is usually a no-go.
 
-diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-index c1a99bf4dffd..c4222b886db7 100644
---- a/drivers/gpu/drm/drm_buddy.c
-+++ b/drivers/gpu/drm/drm_buddy.c
-@@ -538,13 +538,13 @@ static int __alloc_range(struct drm_buddy *mm,
- 		list_add(&block->left->tmp_link, dfs);
- 	} while (1);
- 
--	list_splice_tail(&allocated, blocks);
--
- 	if (total_allocated < size) {
- 		err = -ENOSPC;
- 		goto err_free;
- 	}
- 
-+	list_splice_tail(&allocated, blocks);
-+
- 	return 0;
- 
- err_undo:
+> However, since they are currently only
+> configurable through DRM properties, that isn't possible.
 
-base-commit: a64056bb5a3215bd31c8ce17d609ba0f4d5c55ea
--- 
-2.25.1
+Maybe I'm repeating others, but I wanted to point it out explicitly: 
+This is intentional and not that easily changeable.
+
+If it's a common DRM property, e.g. something standardized among all 
+drivers, then amdgpu is not allowed to circumvent that.
+
+Regards,
+Christian.
+
+>   So, to remedy
+> that issue introduce a new "panel_power_savings" sysfs attribute.
+>
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> ---
+> v2: hide ABM_LEVEL_IMMEDIATE_DISABLE in the read case, force an atomic
+>      commit when setting the value, call sysfs_remove_group() in
+>      amdgpu_dm_connector_unregister() and add some documentation.
+> ---
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 76 +++++++++++++++++++
+>   1 file changed, 76 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 8590c9f1dda6..3c62489d03dc 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6436,10 +6436,79 @@ int amdgpu_dm_connector_atomic_get_property(struct drm_connector *connector,
+>   	return ret;
+>   }
+>   
+> +/**
+> + * DOC: panel power savings
+> + *
+> + * The display manager allows you to set your desired **panel power savings**
+> + * level (between 0-4, with 0 representing off), e.g. using the following::
+> + *
+> + *   # echo 3 > /sys/class/drm/card0-eDP-1/amdgpu/panel_power_savings
+> + *
+> + * Modifying this value can have implications on color accuracy, so tread
+> + * carefully.
+> + */
+> +
+> +static ssize_t panel_power_savings_show(struct device *device,
+> +					struct device_attribute *attr,
+> +					char *buf)
+> +{
+> +	struct drm_connector *connector = dev_get_drvdata(device);
+> +	struct drm_device *dev = connector->dev;
+> +	u8 val;
+> +
+> +	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+> +	val = to_dm_connector_state(connector->state)->abm_level ==
+> +		ABM_LEVEL_IMMEDIATE_DISABLE ? 0 :
+> +		to_dm_connector_state(connector->state)->abm_level;
+> +	drm_modeset_unlock(&dev->mode_config.connection_mutex);
+> +
+> +	return sysfs_emit(buf, "%u\n", val);
+> +}
+> +
+> +static ssize_t panel_power_savings_store(struct device *device,
+> +					 struct device_attribute *attr,
+> +					 const char *buf, size_t count)
+> +{
+> +	struct drm_connector *connector = dev_get_drvdata(device);
+> +	struct drm_device *dev = connector->dev;
+> +	long val;
+> +	int ret;
+> +
+> +	ret = kstrtol(buf, 0, &val);
+> +
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (val < 0 || val > 4)
+> +		return -EINVAL;
+> +
+> +	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+> +	to_dm_connector_state(connector->state)->abm_level = val ?:
+> +		ABM_LEVEL_IMMEDIATE_DISABLE;
+> +	drm_modeset_unlock(&dev->mode_config.connection_mutex);
+> +
+> +	drm_kms_helper_hotplug_event(dev);
+> +
+> +	return count;
+> +}
+> +
+> +static DEVICE_ATTR_RW(panel_power_savings);
+> +
+> +static struct attribute *amdgpu_attrs[] = {
+> +	&dev_attr_panel_power_savings.attr,
+> +	NULL
+> +};
+> +
+> +static const struct attribute_group amdgpu_group = {
+> +	.name = "amdgpu",
+> +	.attrs = amdgpu_attrs
+> +};
+> +
+>   static void amdgpu_dm_connector_unregister(struct drm_connector *connector)
+>   {
+>   	struct amdgpu_dm_connector *amdgpu_dm_connector = to_amdgpu_dm_connector(connector);
+>   
+> +	sysfs_remove_group(&connector->kdev->kobj, &amdgpu_group);
+>   	drm_dp_aux_unregister(&amdgpu_dm_connector->dm_dp_aux.aux);
+>   }
+>   
+> @@ -6541,6 +6610,13 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
+>   		to_amdgpu_dm_connector(connector);
+>   	int r;
+>   
+> +	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
+> +		r = sysfs_create_group(&connector->kdev->kobj,
+> +				       &amdgpu_group);
+> +		if (r)
+> +			return r;
+> +	}
+> +
+>   	amdgpu_dm_register_backlight_device(amdgpu_dm_connector);
+>   
+>   	if ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort) ||
 
