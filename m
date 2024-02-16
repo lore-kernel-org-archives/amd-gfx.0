@@ -4,129 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB896C48260
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 14:00:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28274C48BEF
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 14:02:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57EE910EB90;
-	Fri, 16 Feb 2024 14:00:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C1D510EBEA;
+	Fri, 16 Feb 2024 14:02:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aZ07qCt5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NvxPmOgm";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2077.outbound.protection.outlook.com [40.107.244.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD97610EB90;
- Fri, 16 Feb 2024 14:00:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dy/etnGJkpilJP+9yx9JAdGIVO106iSwBQPtZfwBcUGZo3kv7JZrFMeCB954Zr4NG4ETbfsd2sDZ79pHCpIFm+DAWOhmlMP6plgXKNkLO9q3Nod273d4SfwWGFW2Exef4adiTltiqHVgEisxbR7bQ7O8UgKEFg70mSWQfVkBraGTTqHknYX85B2GnBvP2oSD5TyVqHBxFbiDnlfm/iQX7LkJFeYds5bd66WDuYlEogyAuHXLP9BPQPA2cZbmM5pyimSSusEMp8mG2QqXqF+BjmcI0jbSn8wXXQyP5I3MOoWOrPfZdCPjBOUdwZ9wcvKuWh9u08bkTkBq8ZxQW2rvyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5gRPrF8RIDFdtyKDd5EBOyIx8xNVl+rgtoZCzouaxig=;
- b=VqY7R2L/5Wkdxwy0NwuVYA5s3wgPGsdif2pIWSa5rWST4YWiXfNYlJ5sgjIhESwdBWn3r/R62BEgykKBquUExWTZftAZ2Av4rWaosBCUJ2DvNi10qcC5l0OXKVdfSuD79fG3n3oNvlg6IKPNvgOSMEMt91Ig+l0BBjpUuEtB44WfSt0hMmusEy3rIAo3cl7dQgwpWtAlF4C0/GJQFID9wCWt8NdspZRBfP8BLlVVlO8kxtum3tzDleIrVba/pmLxgilW2KiOmIQoMzqWCPgK0K5BU0V3h85MfGE7LalAoEvaF4sPstwIEHMIHzyubsLnjy7lXc/q4kd62LNptPDMEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5gRPrF8RIDFdtyKDd5EBOyIx8xNVl+rgtoZCzouaxig=;
- b=aZ07qCt5zzKZEemS9ZAumkiV+Z4JAT+CiDex/8NXW541hWBJhq8tXpsRpCWmD5upMswBmqUV3zFp1C/bpDix1N5KRPfNaMiMGS6TTJNvaidym1IGvng6lFBVD51DyEO6m3lIvEKW0dI5uhkrPUCeGSXW0HLhknM3uQ2HiEY6/Gc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
- SJ0PR12MB5471.namprd12.prod.outlook.com (2603:10b6:a03:300::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.14; Fri, 16 Feb
- 2024 14:00:36 +0000
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::3301:dfb9:528a:1fa5]) by DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::3301:dfb9:528a:1fa5%7]) with mapi id 15.20.7316.012; Fri, 16 Feb 2024
- 14:00:36 +0000
-Message-ID: <b52d47d1-7748-4560-94a6-520c82eb3fa2@amd.com>
-Date: Fri, 16 Feb 2024 09:00:32 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: add panel_power_savings sysfs entry
- to eDP connectors
-Content-Language: en-US
-To: Pekka Paalanen <pekka.paalanen@haloniitty.fi>
-Cc: amd-gfx@lists.freedesktop.org,
- Mario Limonciello <mario.limonciello@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Hung <alex.hung@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20240202152837.7388-1-hamza.mahfooz@amd.com>
- <20240216101936.2e210be2@eldfell>
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <20240216101936.2e210be2@eldfell>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBP288CA0023.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c01:6a::19) To DM4PR12MB6280.namprd12.prod.outlook.com
- (2603:10b6:8:a2::11)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C864F10EBDB;
+ Fri, 16 Feb 2024 14:02:52 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-5128812662eso1097194e87.0; 
+ Fri, 16 Feb 2024 06:02:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1708092170; x=1708696970; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=6kQc3WXN4WFItSvSprim/t3oN2PXm9mWVhafKA6dwGs=;
+ b=NvxPmOgml+T6BFP7uqofrvgKnEZ1rVMyiA9gTIRd13OOkJivuaqtO3rWYbQIFuWbDQ
+ zWZBOlTUKo/WIo2r18XB6wc1SY6Ou8n5Y/1y1nof/r4bO0V6kG2IsjUL4Qje/FvjYJYV
+ 8PfNhlEqAr6TYRbua5WDBhi0VklwDbyAG6+D/8gMiDCsTdnvYhoUDhL3pCpFh4C2tGF/
+ qcaaYl17YqLj6iuG+QY7G8xmhTeVj3l4ECgYffQg12X1zLXNsi1SAyjF770n6Uh7K0/Y
+ xLs1OyBfsvnbTKYGuI7XYLiap8kZuowX+P8cXf0eCdbk125Q9Jhrq09u5xzebW6PCSph
+ /CpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708092170; x=1708696970;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=6kQc3WXN4WFItSvSprim/t3oN2PXm9mWVhafKA6dwGs=;
+ b=GqMXsPwEgmp0jARwHtApa+hArV1NcjAR7Lt6BDiae/6+vRgMoBvLbErB6GdWollNKG
+ mbG83450reZG3Pzv2E/8hAPwEBW40Ny/FhO4y50P+7sWqTHSehOkYZmbfa/kIUHrRq60
+ Imo780Oh2DR2QVE5YyMA3BP6VIbWfoqq/k94esEmjJpKRoaDEaqX2AisWLxKp4WzhouL
+ E4CWP5yB+uHXzrxCWSaYX4Z2ETpUg2nuafss7ZFxIV3W/xpN5OKd0WHVb2Fx2VPNoZ94
+ KJ0xFHN6SykZcMKMezGxBlw/R+dajy2qVlYkocnwr2muPdmX20z2h1MmNaN3+FzgO6pU
+ iYqw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV5BkLjtzp19BIUwDxStz+lx1qZ8rmVRrz0ZjJIwCj3kl+xLtoCTiO3BSJGP9U/OytMvNeROTTpUL04o+ydJ7y1h1o9yo+sEmEd72S5k6sbyRixYM5Ke/5wleIJvtADSl3CIc6fRNIRpO6lKCp3OOHzniJN7VBCWYQjoMcWs6TYslugD5a7GR3KT/wlXpjGYw==
+X-Gm-Message-State: AOJu0YyxF6EUpbWgLu5rzoOXuRH3E0b0XXqZDMRIKTxpkxOSDgdYKqxE
+ R//osQV4Ar+S4kHaLnxlHie4T2JM3Kpug4Zb7YYupzhUFoKxb45G
+X-Google-Smtp-Source: AGHT+IGwGcS5ue9p6fSA4N2fcytY4UkWE7f14+O+/3UexGm+Et8bZJsdamJr4iWzItvPQynTfxxEHA==
+X-Received: by 2002:a05:6512:2828:b0:511:9550:31c3 with SMTP id
+ cf40-20020a056512282800b00511955031c3mr4459594lfb.48.1708092169575; 
+ Fri, 16 Feb 2024 06:02:49 -0800 (PST)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ l36-20020a05600c1d2400b004124525ff18sm1961090wms.26.2024.02.16.06.02.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 Feb 2024 06:02:49 -0800 (PST)
+Message-ID: <26d13e0c-c52a-4681-bea8-4a631b514edd@gmail.com>
+Date: Fri, 16 Feb 2024 15:02:46 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|SJ0PR12MB5471:EE_
-X-MS-Office365-Filtering-Correlation-Id: 016fac1c-ba33-4d61-864b-08dc2ef7a651
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: E8wUFT/ZToZZJ0gdO7eVXo5JtjFLkflXk5p7sEKaRWIYiwOYJ6PvT1cE5+PkSz2DUoKiorXOCvs7qLd/d0lXq7nDznlwJ3jWxrB/3/AW9mFw2Q2DLMsfKgzVNbC/cT3NwVB2vXA2Uo++Ok1zI90DwDlmi6atgYH6huhW0irbIRCtfv11ZNBJy32ukLwshFrFm436Akq+o55jGfZ0kmJBiR8n6fBGJCx0wRwtLqiqzMoWzQ0Njm0m8oSxMOtDy54XUCJOiNOE1PVgeRS6viI7cX7YFyJkSRN0lyDEQ7psT8h8HZTuuVRy73QRfre7ohwE1UeNqkoSphyCx0QQPU02OJ7i80A99ly/9SIMYUY9riFXT8J8mYXLC8w4B0H/5PGlZUxYM37RSf/yW3t4hWr9dKRG2beMVkM+SNye0bQ9bh8jB3mlAYlL0SSCNu1NUv4tMHdAy7GCY2PBqcY0CsyTb/OYNXh72dUPQOWXonFUnU4VxV5G5+OFbUNS/fj3HmAiZT6D2F6PcD2LhHFM6RWRKcFYJezbIQN9e/sTVUdUzZ6BelhuBqRTqphRyDu6Vun7
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(396003)(136003)(346002)(39860400002)(366004)(230922051799003)(64100799003)(451199024)(186009)(1800799012)(36756003)(86362001)(31696002)(31686004)(4326008)(8936002)(8676002)(6916009)(66476007)(66556008)(66946007)(44832011)(5660300002)(2906002)(83380400001)(38100700002)(53546011)(6666004)(41300700001)(316002)(54906003)(26005)(2616005)(478600001)(6486002)(6512007)(6506007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RmgvMFpJcjlJTXBKU2RrVnRmdjN6OXdBWnJjQzRJdXI5ZGRIcitpaVY2OVdT?=
- =?utf-8?B?WGZJNlNjMXlHUk1PSklkRmVaTitlQ0VBWEZXS0ZLU081T2lIdHRMbCs0ZnJR?=
- =?utf-8?B?WUlob01VWGlhaGdjczQvTnpYMFlqWUhPampkTXZIdFFtaEpvcVlMcXBjSEND?=
- =?utf-8?B?YUhjNjhBaHEvaGdkdWZCRCtBamkyRzJ1S0lEeFpuZGpWVklKbzgvc1ZpaHFz?=
- =?utf-8?B?dEpUQVlOSWxSNE1BQUM2Uy9ON21DMEVSMDhEVm44dHZabjZEM1NYakRSeDZa?=
- =?utf-8?B?RlhkM1dNcTdyRmR4U3FOQjhUSXFkUHJ4eEowbmpjQmRyYlNZaXdSN1ppWTBz?=
- =?utf-8?B?SjI0R01TQWZPTHZGMzZOcWUzT0hqOFEvU0NlT1pSUkd4VmJuL2xIU3JWaHBs?=
- =?utf-8?B?c1M4T1cxbjYrSlFsQXJmOURqYzVFbFlZQXNQWUVjbk9CcXczOUIwbUZ5aS9n?=
- =?utf-8?B?dExpQktRTlFvVFA4Z2hHM00wUnh1UG0vajBKTTRONVRtTW40TzY3bWtZMng0?=
- =?utf-8?B?WlJPVGswZXlsR3hkTzF3YVpZUUtpS09XS29hNG10b0JjWUs0dTJzNWhML3Zu?=
- =?utf-8?B?SUxNK29ncUNqRWNFM21oRlY1NjYxVWQzYUcwSC9CUHpIZklmRE1VeEhUQTJU?=
- =?utf-8?B?dGNJNHQvWmY4ZjcxNjhXOVFRSGVUUnRYNzBCVzRGTmJnUmg3UTd3QVdjMktZ?=
- =?utf-8?B?Q0VDeGNNamV4UDBmR0xBS2J0S3A2Z29SUktsY1pneThpMEVyVWNjODFnSjQy?=
- =?utf-8?B?QW1YNXV0WW9tS0N6anlhdmVPcjQzS1BiMzRpdFIxb2dnTnFKUDN4a2Zmek5w?=
- =?utf-8?B?UDk2cE1jaWxGdmhCOVl2R09zdmRtckhIa0pETHRWb213blZYT3BWazhrQXN4?=
- =?utf-8?B?cmhDTWpSYXRBQ0xLZWFLV1VENG9YSjJLMUpwUVVTUVZXc21MMXd4RG1aeHIr?=
- =?utf-8?B?UXd5T0JTT29RdHZLc2wxMkExeTdQeEowcnJqKzR3SEZNMTBwRzhlM1VWUnhQ?=
- =?utf-8?B?eVQ0QUNpY1FVUjJucVVIbHplU0FQeXRuQndDN3daVU9XNU1TVGdNL0E3RkVP?=
- =?utf-8?B?bzJIRkFxaWNFOXNqbGJaTUJ6L3RVcy8vbTZsQm5tOWcrcUtKUlFoeHVQbmFp?=
- =?utf-8?B?YWttSkVieTlpczZYTmhyMjlHcmppNkxIb29qSTFQNTFpcWZwSTFjMEoyV0x1?=
- =?utf-8?B?ODFsd25SZCs4Vm55WFIrY1ZRYWlLb3R4K0VobEVTcEFmMEFLdnhtR1VKWC9U?=
- =?utf-8?B?Z3pWK2VNS2FWdlY1Y0FmTHBzaDhQNTNnS1Z6YnBkZ0dXdWlwREYrMHA3K3RR?=
- =?utf-8?B?RVVvcjcwV0M3TFVvc3NhajF6NzRpSi8wclRmT2JsQmxjREQwTVRQa3ppdXZW?=
- =?utf-8?B?NW5sT1JrMTE1VXd4TlJwZHF0UGhaN2tneVQyQ0kwRUJ6UjA4bDZNaWRSb3NL?=
- =?utf-8?B?T0VUdUhSeTVDVGtCVC9jcWpORXZVNks5Wkc4bWlBTXdjZHdsRVJ6cnRTKzcr?=
- =?utf-8?B?MkowUVg4S0lzRkxLWXNDc1oyeSs5S01LMzc3QUFCZ3ZtdGg1eFI3K0wwUUZQ?=
- =?utf-8?B?VVZob3BoYXl1SU15U2FmRnpJaHlGTWxVZ1BuTk1jN2srbG52OTBsZWE0RFJR?=
- =?utf-8?B?eG9KOXdxbjlQSU1UalpkUzcvZTZNVG9RTVVVS0FxM2RGRHJ3ckM0WC9BV3hH?=
- =?utf-8?B?MEpPM1g4bjZiS1NaS21WaWZUdmxVZ0pkTVhYb0ovL0kxZUZEck04U2I1T2ta?=
- =?utf-8?B?L3BXYWEwYmtOckFLQ0l3Tmp2QzM4MGFFWlAwcDh4LzVvVW40RjFVWERpbWw5?=
- =?utf-8?B?c2lSTWNuWk94SmpaazR2NklOZU84TDBub0NzdmVDODZiMElHblB0NjJ6Ui9O?=
- =?utf-8?B?S1hocGtEZEp3cG9DN3UrWHN5d21QL2VSYk1KUU1GRW9pYXpqdGFrdHV6MFhx?=
- =?utf-8?B?Tjg1d2p2QTR0SjNMK3ZWVXZCQ3J5SjlmSzlCdnQ5YjRaV1ZqLzl2N0x3VmFt?=
- =?utf-8?B?TnBIa3pldDN5KzlhelQrNXlQYzJvUHgxUlBZS0NHcUFGQkx1a0RTUmRDaEFB?=
- =?utf-8?B?ZFlUWWtVYWZwRjVPaVRFQzJvRVNTT1EwQjIzdmxnbWNVVDVUU2I3V1R3dVhB?=
- =?utf-8?Q?J0NVan56aCKPGN+BSuIVmobKm?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 016fac1c-ba33-4d61-864b-08dc2ef7a651
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2024 14:00:36.3400 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RtO3nDGMiLWBZKStOGSe6Kvi6Bd0wKf4uRybEZzGyEZedJWQxY/tYMLb+TcOaOYxu5q1wAvtmppaSg1kHoVPpw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5471
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 3/3] drm/buddy: Add defragmentation support
+Content-Language: en-US
+To: Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, felix.kuehling@amd.com,
+ mario.limonciello@amd.com
+References: <20240208155000.339325-1-Arunpravin.PaneerSelvam@amd.com>
+ <20240208155000.339325-3-Arunpravin.PaneerSelvam@amd.com>
+ <af43196c-d926-454b-8914-c5753f5d3799@intel.com>
+ <8f218231-68ae-4a9f-880c-11a37fac91f2@amd.com>
+ <292710a7-27be-497d-b6a7-67f964e41ed5@intel.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <292710a7-27be-497d-b6a7-67f964e41ed5@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,149 +92,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/16/24 03:19, Pekka Paalanen wrote:
-> On Fri, 2 Feb 2024 10:28:35 -0500
-> Hamza Mahfooz <hamza.mahfooz@amd.com> wrote:
-> 
->> We want programs besides the compositor to be able to enable or disable
->> panel power saving features.
-> 
-> Could you also explain why, in the commit message, please?
-> 
-> It is unexpected for arbitrary programs to be able to override the KMS
-> client, and certainly new ways to do so should not be added without an
-> excellent justification.
-
-Also, to be completely honest with you, I'm not sure why it was
-initially exposed as a DRM prop, since it's a power management feature.
-Which is to say, that it doesn't really make sense to have the
-compositor control it.
-
-> 
-> Maybe debugfs would be more appropriate if the purpose is only testing
-> rather than production environments?
-> 
->> However, since they are currently only
->> configurable through DRM properties, that isn't possible. So, to remedy
->> that issue introduce a new "panel_power_savings" sysfs attribute.
-> 
-> When the DRM property was added, what was used as the userspace to
-> prove its workings?
-> 
-> 
-> Thanks,
-> pq
-> 
+Am 16.02.24 um 14:21 schrieb Matthew Auld:
+> On 16/02/2024 12:33, Christian König wrote:
+>> Am 16.02.24 um 13:23 schrieb Matthew Auld:
+>>> On 08/02/2024 15:50, Arunpravin Paneer Selvam wrote:
+>>>> Add a function to support defragmentation.
+>>>>
+>>>> v1: Defragment the memory beginning from min_order
+>>>>      till the required memory space is available.
+>>>>
+>>>> Signed-off-by: Arunpravin Paneer Selvam 
+>>>> <Arunpravin.PaneerSelvam@amd.com>
+>>>> Suggested-by: Matthew Auld <matthew.auld@intel.com>
+>>>> ---
+>>>>   drivers/gpu/drm/drm_buddy.c | 67 
+>>>> +++++++++++++++++++++++++++++++------
+>>>>   include/drm/drm_buddy.h     |  3 ++
+>>>
+>>> No users?
 >>
->> Cc: Mario Limonciello <mario.limonciello@amd.com>
->> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
->> ---
->> v2: hide ABM_LEVEL_IMMEDIATE_DISABLE in the read case, force an atomic
->>      commit when setting the value, call sysfs_remove_group() in
->>      amdgpu_dm_connector_unregister() and add some documentation.
->> ---
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 76 +++++++++++++++++++
->>   1 file changed, 76 insertions(+)
+>> Other question is how can a buddy allocator fragment in the first place?
+>
+> The fragmentation is due to pages now being tracked as dirty/clear. 
+> Should the allocator merge together a page that is dirty with a page 
+> that is cleared? When should it do that? User wants to be able to keep 
+> the two separate if possible. For example, freeing one single dirty 
+> page can dirty a huge swathe of your already cleared pages if they are 
+> merged together. Or do you have some some other ideas here?
+
+Sorry, that was not what I meant. I should probably have been clearer.
+
+That dirty and clean pages are now kept separated is obvious, but why do 
+you need to de-fragment them at some point?
+
+Christian.
+
+>
 >>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index 8590c9f1dda6..3c62489d03dc 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -6436,10 +6436,79 @@ int amdgpu_dm_connector_atomic_get_property(struct drm_connector *connector,
->>   	return ret;
->>   }
->>   
->> +/**
->> + * DOC: panel power savings
->> + *
->> + * The display manager allows you to set your desired **panel power savings**
->> + * level (between 0-4, with 0 representing off), e.g. using the following::
->> + *
->> + *   # echo 3 > /sys/class/drm/card0-eDP-1/amdgpu/panel_power_savings
->> + *
->> + * Modifying this value can have implications on color accuracy, so tread
->> + * carefully.
->> + */
->> +
->> +static ssize_t panel_power_savings_show(struct device *device,
->> +					struct device_attribute *attr,
->> +					char *buf)
->> +{
->> +	struct drm_connector *connector = dev_get_drvdata(device);
->> +	struct drm_device *dev = connector->dev;
->> +	u8 val;
->> +
->> +	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
->> +	val = to_dm_connector_state(connector->state)->abm_level ==
->> +		ABM_LEVEL_IMMEDIATE_DISABLE ? 0 :
->> +		to_dm_connector_state(connector->state)->abm_level;
->> +	drm_modeset_unlock(&dev->mode_config.connection_mutex);
->> +
->> +	return sysfs_emit(buf, "%u\n", val);
->> +}
->> +
->> +static ssize_t panel_power_savings_store(struct device *device,
->> +					 struct device_attribute *attr,
->> +					 const char *buf, size_t count)
->> +{
->> +	struct drm_connector *connector = dev_get_drvdata(device);
->> +	struct drm_device *dev = connector->dev;
->> +	long val;
->> +	int ret;
->> +
->> +	ret = kstrtol(buf, 0, &val);
->> +
->> +	if (ret)
->> +		return ret;
->> +
->> +	if (val < 0 || val > 4)
->> +		return -EINVAL;
->> +
->> +	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
->> +	to_dm_connector_state(connector->state)->abm_level = val ?:
->> +		ABM_LEVEL_IMMEDIATE_DISABLE;
->> +	drm_modeset_unlock(&dev->mode_config.connection_mutex);
->> +
->> +	drm_kms_helper_hotplug_event(dev);
->> +
->> +	return count;
->> +}
->> +
->> +static DEVICE_ATTR_RW(panel_power_savings);
->> +
->> +static struct attribute *amdgpu_attrs[] = {
->> +	&dev_attr_panel_power_savings.attr,
->> +	NULL
->> +};
->> +
->> +static const struct attribute_group amdgpu_group = {
->> +	.name = "amdgpu",
->> +	.attrs = amdgpu_attrs
->> +};
->> +
->>   static void amdgpu_dm_connector_unregister(struct drm_connector *connector)
->>   {
->>   	struct amdgpu_dm_connector *amdgpu_dm_connector = to_amdgpu_dm_connector(connector);
->>   
->> +	sysfs_remove_group(&connector->kdev->kobj, &amdgpu_group);
->>   	drm_dp_aux_unregister(&amdgpu_dm_connector->dm_dp_aux.aux);
->>   }
->>   
->> @@ -6541,6 +6610,13 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
->>   		to_amdgpu_dm_connector(connector);
->>   	int r;
->>   
->> +	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
->> +		r = sysfs_create_group(&connector->kdev->kobj,
->> +				       &amdgpu_group);
->> +		if (r)
->> +			return r;
->> +	}
->> +
->>   	amdgpu_dm_register_backlight_device(amdgpu_dm_connector);
->>   
->>   	if ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort) ||
-> 
--- 
-Hamza
+>> Christian.
+>>
+>>>
+>>>>   2 files changed, 59 insertions(+), 11 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+>>>> index 33ad0cfbd54c..fac423d2cb73 100644
+>>>> --- a/drivers/gpu/drm/drm_buddy.c
+>>>> +++ b/drivers/gpu/drm/drm_buddy.c
+>>>> @@ -276,10 +276,12 @@ drm_get_buddy(struct drm_buddy_block *block)
+>>>>   }
+>>>>   EXPORT_SYMBOL(drm_get_buddy);
+>>>>   -static void __drm_buddy_free(struct drm_buddy *mm,
+>>>> -                 struct drm_buddy_block *block)
+>>>> +static unsigned int __drm_buddy_free(struct drm_buddy *mm,
+>>>> +                     struct drm_buddy_block *block,
+>>>> +                     bool defrag)
+>>>>   {
+>>>>       struct drm_buddy_block *parent;
+>>>> +    unsigned int order;
+>>>>         while ((parent = block->parent)) {
+>>>>           struct drm_buddy_block *buddy;
+>>>> @@ -289,12 +291,14 @@ static void __drm_buddy_free(struct drm_buddy 
+>>>> *mm,
+>>>>           if (!drm_buddy_block_is_free(buddy))
+>>>>               break;
+>>>>   -        if (drm_buddy_block_is_clear(block) !=
+>>>> -            drm_buddy_block_is_clear(buddy))
+>>>> -            break;
+>>>> +        if (!defrag) {
+>>>> +            if (drm_buddy_block_is_clear(block) !=
+>>>> +                drm_buddy_block_is_clear(buddy))
+>>>> +                break;
+>>>>   -        if (drm_buddy_block_is_clear(block))
+>>>> -            mark_cleared(parent);
+>>>> +            if (drm_buddy_block_is_clear(block))
+>>>> +                mark_cleared(parent);
+>>>> +        }
+>>>
+>>> Maybe check if the two blocks are incompatible and chuck a warn if 
+>>> they are not? Main thing is not to hide issues with split blocks 
+>>> that should have been merged before.
+>>>
+>>>> list_del(&buddy->link);
+>>>>   @@ -304,8 +308,49 @@ static void __drm_buddy_free(struct 
+>>>> drm_buddy *mm,
+>>>>           block = parent;
+>>>>       }
+>>>>   +    order = drm_buddy_block_order(block);
+>>>>       mark_free(mm, block);
+>>>> +
+>>>> +    return order;
+>>>> +}
+>>>> +
+>>>> +/**
+>>>> + * drm_buddy_defrag - Defragmentation routine
+>>>> + *
+>>>> + * @mm: DRM buddy manager
+>>>> + * @min_order: minimum order in the freelist to begin
+>>>> + * the defragmentation process
+>>>> + *
+>>>> + * Driver calls the defragmentation function when the
+>>>> + * requested memory allocation returns -ENOSPC.
+>>>> + */
+>>>> +void drm_buddy_defrag(struct drm_buddy *mm,
+>>>> +              unsigned int min_order)
+>>>
+>>> Just wondering if we need "full defag" also? We would probably need 
+>>> to call this at fini() anyway.
+>>>
+>>>> +{
+>>>> +    struct drm_buddy_block *block;
+>>>> +    struct list_head *list;
+>>>> +    unsigned int order;
+>>>> +    int i;
+>>>> +
+>>>> +    if (min_order > mm->max_order)
+>>>> +        return;
+>>>> +
+>>>> +    for (i = min_order - 1; i >= 0; i--) {
+>>>
+>>> Need to be careful with min_order = 0 ?
+>>>
+>>>> +        list = &mm->free_list[i];
+>>>> +        if (list_empty(list))
+>>>> +            continue;
+>>>> +
+>>>> +        list_for_each_entry_reverse(block, list, link) {
+>>>
+>>> Don't we need the safe_reverse() variant here, since this is 
+>>> removing from the list?
+>>>
+>>>> +            if (!block->parent)
+>>>> +                continue;
+>>>> +
+>>>> +            order = __drm_buddy_free(mm, block, 1);
+>>>> +            if (order >= min_order)
+>>>> +                return;
+>>>> +        }
+>>>> +    }
+>>>>   }
+>>>> +EXPORT_SYMBOL(drm_buddy_defrag);
+>>>>     /**
+>>>>    * drm_buddy_free_block - free a block
+>>>> @@ -321,7 +366,7 @@ void drm_buddy_free_block(struct drm_buddy *mm,
+>>>>       if (drm_buddy_block_is_clear(block))
+>>>>           mm->clear_avail += drm_buddy_block_size(mm, block);
+>>>>   -    __drm_buddy_free(mm, block);
+>>>> +    __drm_buddy_free(mm, block, 0);
+>>>>   }
+>>>>   EXPORT_SYMBOL(drm_buddy_free_block);
+>>>>   @@ -470,7 +515,7 @@ __alloc_range_bias(struct drm_buddy *mm,
+>>>>       if (buddy &&
+>>>>           (drm_buddy_block_is_free(block) &&
+>>>>            drm_buddy_block_is_free(buddy)))
+>>>> -        __drm_buddy_free(mm, block);
+>>>> +        __drm_buddy_free(mm, block, 0);
+>>>>       return ERR_PTR(err);
+>>>>   }
+>>>>   @@ -588,7 +633,7 @@ alloc_from_freelist(struct drm_buddy *mm,
+>>>>     err_undo:
+>>>>       if (tmp != order)
+>>>> -        __drm_buddy_free(mm, block);
+>>>> +        __drm_buddy_free(mm, block, 0);
+>>>>       return ERR_PTR(err);
+>>>>   }
+>>>>   @@ -668,7 +713,7 @@ static int __alloc_range(struct drm_buddy *mm,
+>>>>       if (buddy &&
+>>>>           (drm_buddy_block_is_free(block) &&
+>>>>            drm_buddy_block_is_free(buddy)))
+>>>> -        __drm_buddy_free(mm, block);
+>>>> +        __drm_buddy_free(mm, block, 0);
+>>>>     err_free:
+>>>>       if (err == -ENOSPC && total_allocated_on_err) {
+>>>> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+>>>> index d81c596dfa38..d0f63e7b5915 100644
+>>>> --- a/include/drm/drm_buddy.h
+>>>> +++ b/include/drm/drm_buddy.h
+>>>> @@ -166,6 +166,9 @@ void drm_buddy_free_list(struct drm_buddy *mm,
+>>>>                struct list_head *objects,
+>>>>                unsigned int flags);
+>>>>   +void drm_buddy_defrag(struct drm_buddy *mm,
+>>>> +              unsigned int min_order);
+>>>> +
+>>>>   void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p);
+>>>>   void drm_buddy_block_print(struct drm_buddy *mm,
+>>>>                  struct drm_buddy_block *block,
+>>
 
