@@ -4,118 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24265C48260
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 20:16:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0E32C48260
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 21:10:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A85A110E124;
-	Fri, 16 Feb 2024 20:16:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 915EE10E10E;
+	Fri, 16 Feb 2024 21:10:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mEsua3Gw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SzfBidXK";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8886210E124
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 20:16:12 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2085.outbound.protection.outlook.com [40.107.220.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 876E810E10E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 21:10:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LAvRwHv5NJbnN4yp9Dx0uNZcT0FQM88ObYA4zGfKxEnjvTzNx0ve+GVlH+zDUc2nssE2pfrArTB7HDNxIACckwiJM+PCBjvdZOJqGJlcJs/ZF+1w1IytIDh8sqISsXWtKekrjwssk69pqQBw7r9nqSaqwj9OtO63JRF+67IC4HgKGonEfohjwen4gLrvKPp7YqyYmY9LYxY0WdlAYNvFaEXr7scscNJXzxobWRc6sT8DqXyUPb2r4RqCqRWn6jXO6+pKgjRRWY9CHtmu8AtJynRKH00qnAdo0P8+z4ZDa/PYEFotU/+F8tBJoPEq1axqcSC0w6YgKy4z9DuiZSdiLA==
+ b=Sc2gzjRysJpwKXEObDi92RbHRwIQIshqD7v7lNMxOM6RHRXOWdYEKC+WyLmZ9wL1cxohrfcnVmi+8E4JPHRP96LIlD30+VR4H6pNnCBRrAy/RU/RFNjEuuTepIG+tNFAB3eGJ/q1b9+le0Dg/G05ugl10OcLwZVyzcoXDNdWagPnwiAJRHnXHFmlD+sjVx9MsFA8DDSo1pjQZd6uuu1lb5voP6M5bB5F7lN6TLRshtEtpx84hVP2FaqtqXVgigE9IJr2YmSTwJaVwTX6h5Y7tKRyDuLjLrZ/V9fgFTjdaf/VtmXEUTW7VB/sO7oI6LyTZJWuQS1wfKpXV+CXKrjlZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Uv2AbsGIcFHCTUgtUbVUthxbwCkkTBDBsr8Z8bpVgmM=;
- b=jkqY+TpmK2SP7b7GtynXpQmKVxp4/b4MFqk3hAnB+dZ7fd+B9vy7yyc2fdLxeULUHpUx7ive9uboLulGoEB9iBOOgRkSzT1A/+nrA7IbP2qKg6008lGSk9i2DmgLRDnzTa6uQlHQSNn1Pa77D2c/p3Cce8tChgEwdLeaGgLCbvc35up8XgFta8SoKING0hq+CkC8SW/pxk9BTmK9TIU4P5yTs0KDD94t/FHKlzkpZsVkqiK7/eU36kknUMCIW+oD8NxYYkjlyUr+fSBlB9mTo7BBkRoeo6xeYvgW9HHj/t0UDCKK9BI8zpLK6/E9t+7Dn6Vc7s7mpwUbRLO3R7p7lA==
+ bh=ZcVsJHVCGVhFoJw/hrWenfgHc5Un+7nd7UVMufZmNAc=;
+ b=hvprH9ch261XSNvYFsz++xbKZnD8wFNxZw15pbj95JAJEkbw3NXUQvYfnA7JqtWxMwnYBZdCEtLol90MXZlh6V/NjEcYxmWE68NIBD1bMSQCffg3nhwe+oPzhrzNUVLkm8Zg0q7+MfJVwvjqbkbUfrhGxody0kaCP/c1eupIhCq6urA3jIllz8+GngXGpDC1MZARgcQ/T90u/uebVp9SyP+FNmlZdxiyTvqepSfbygVkP5IPE0ythf2dp5OpISzokBGG6+c3ZhwetTocpvxaFl5WGPdDlEICyB2+K/q7Fpwu01Lk732XtB1j/ZB1XFtmF8V+qCZZhMHHz0cpgyillw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Uv2AbsGIcFHCTUgtUbVUthxbwCkkTBDBsr8Z8bpVgmM=;
- b=mEsua3GwrlVZzxrN14sgTJ+7vuZnlXrQOL7YuEz3QGpgQk1frAnZFkv7mnyqImknBy6kKMDdNSO9Ggy+cLqJsUQthPymY8V4cPshRKOb3OIuGwq80thShY3Px/IhzPrkixyNYzLPko3pJRmnvzSWGPBynBgHXG26PJptOxATwqM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BL1PR12MB5286.namprd12.prod.outlook.com (2603:10b6:208:31d::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.14; Fri, 16 Feb
- 2024 20:16:08 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::6f2f:7892:e9fe:c62b]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::6f2f:7892:e9fe:c62b%5]) with mapi id 15.20.7316.012; Fri, 16 Feb 2024
- 20:16:08 +0000
-Message-ID: <0e86e558-3d3c-4d24-9de9-7691d3f672e6@amd.com>
-Date: Fri, 16 Feb 2024 15:16:06 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdkfd: Document and define SVM event tracing
- macro
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240215151830.22416-1-Philip.Yang@amd.com>
+ bh=ZcVsJHVCGVhFoJw/hrWenfgHc5Un+7nd7UVMufZmNAc=;
+ b=SzfBidXKkjEF3cQhhAGlNs2QxpK/Gd8PabAMsndhvYWlo7O+lJLJUb/0MfvwmvOBkMdC2LWNZr5tzOQtLvh9s0yXoohDW7Q9LHsnxHCQrYTbR4dXGl4c4+0CLA1PRZaB4aVy8q6Y6IrRQeJHAfzr5MWVzDxZ+KAS6xFIT30Ba7c=
+Received: from DM4PR12MB5328.namprd12.prod.outlook.com (2603:10b6:5:39f::12)
+ by DM4PR12MB5817.namprd12.prod.outlook.com (2603:10b6:8:60::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.12; Fri, 16 Feb
+ 2024 21:10:19 +0000
+Received: from DM4PR12MB5328.namprd12.prod.outlook.com
+ ([fe80::b4a6:ef0f:c28b:3d38]) by DM4PR12MB5328.namprd12.prod.outlook.com
+ ([fe80::b4a6:ef0f:c28b:3d38%4]) with mapi id 15.20.7292.022; Fri, 16 Feb 2024
+ 21:10:19 +0000
+From: "Luo, Zhigang" <Zhigang.Luo@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Lu, Victor Cheng Chi (Victor)" <VictorChengChi.Lu@amd.com>
+Subject: RE: [PATCH 3/4] drm/amdgpu: Use correct SRIOV macro for
+ gmc_v9_0_vm_fault_interrupt_state
+Thread-Topic: [PATCH 3/4] drm/amdgpu: Use correct SRIOV macro for
+ gmc_v9_0_vm_fault_interrupt_state
+Thread-Index: AQHaPaFmkK8z7Mppb0C3XcbpnL0fW7ENlnO1gAAmx6A=
+Date: Fri, 16 Feb 2024 21:10:19 +0000
+Message-ID: <DM4PR12MB5328796CB1B052628673C7C5F14C2@DM4PR12MB5328.namprd12.prod.outlook.com>
+References: <20240102173013.5543-1-victorchengchi.lu@amd.com>
+ <20240102173013.5543-3-victorchengchi.lu@amd.com>
+ <PH7PR12MB5974D8CA3E8119960CD0F7BEFA4C2@PH7PR12MB5974.namprd12.prod.outlook.com>
+In-Reply-To: <PH7PR12MB5974D8CA3E8119960CD0F7BEFA4C2@PH7PR12MB5974.namprd12.prod.outlook.com>
+Accept-Language: en-US, en-CA
 Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20240215151830.22416-1-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4P288CA0058.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d2::21) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BL1PR12MB5286:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3910aa3d-c042-401d-d434-08dc2f2c1c9e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0YRVYOzDahINyTRRm/b2tkKMyYaXoigrKkAppelLEG+n5kRO0AWLY25KvTdLTRDHNh765b9Rw4iZRsQ0fWgzsTuDLqHHMSp9kqGOx9JatY/yepbI30O49EGZKzkEKStip4Hv6STHOf36SJ3BBcGSIcK3/Mu4l/uXb+KcOwjTHIDbOovdZmeahU146lYYx3In+WpKeAQLGeRKrNhbBXIMNmsoS2vDecSQJLv+DV63hW3TXzmOliOf9CWiFQS5FtLGlf/6XaEEakA4YWR8rVaEEcTuCY/xQnQX0hm5p0k6vfKqiFCmiHlCq6C/UpxsyQ/Ca0BjpxV5vQYwPRtrrh+z0M/xCaAyRke483r7pd7+W+Cia+wRh6mhOYkoL6tofCpUFPDE2fUvV0DUdP0hz+OninsqpXusIVC8NoFDkhU817XNPuAZewJiRdXwGWEWiIKP/bxi60S5dax54AqihJFMeAJrgix/N4VPWLW5NL8ysWmr3nPHmllp1utB3DCBwfAlL7IckemsRM8smVonfLqIeOtxpYgkta0mC6GU0aHaRHvpYAnoAC1Vk6OqPoIEL9KZ
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(366004)(396003)(136003)(39860400002)(346002)(230922051799003)(64100799003)(451199024)(186009)(1800799012)(2906002)(30864003)(6506007)(6512007)(26005)(36916002)(53546011)(2616005)(6486002)(36756003)(478600001)(38100700002)(86362001)(83380400001)(66556008)(8676002)(66946007)(8936002)(66476007)(5660300002)(31696002)(44832011)(316002)(31686004)(41300700001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-02-16T18:49:50.576Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5328:EE_|DM4PR12MB5817:EE_
+x-ms-office365-filtering-correlation-id: fe4a14f4-6e1d-4a93-af84-08dc2f33ae54
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: lI0qLU47uwghqRhn3j0o8c1U6V+4ZWyElZ5PkEl/N79KmBNPBhC3z9REv9p85tihys7x7jyELzYXxrD6FB7seuDiHpFX8eQzl68LMFavv5ndPnPIEdaL8gDGUK+G9AOlvggmJPZFGTwx1zpmCX1CQWduI59m2V1aA7I+4yHwdQkE8kmNi0yzSgCGdphkU+lRERwELXQA+gHgmt4hvUgQzhvpLsHUeks/Gijg1R8MS6aoGZ16fdwMY9LEnkR4FpXsyFqNWbWbXP0IROgGQucFhXCkPRbYdio1lhwDPyu6ChuvXHzqC8XlaxSnIeWy4f9fyL5AxI9FGrCeQiDwJs31VFaiQ2j7RMLnda8XT+/b39GX7zklbEBXoaFrk8oB5vN6swV71Hy1f/qdnlcqey5Ta3ZlT14gcN1czArQTxrJldaCJmCZtTEwLM/fE5mzRP6HgGDcsYv8gpG3Z0n9JzFgpEmXA1808sT6gvaCCE89vML2LBTf+7FiQ7pF0T6wI0XvTq/3QGVH9Dg2lVpJGVW1wrBeiwQLGhK40iqmBVDRH7KLzVUaawqIeP+b9m7YLQkm5D9RkDmhe4I0rkTx8jVoQLQ/+tRpVzEdt0BhIzJts951mblJzEeexFJOWuQvNWwV
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5328.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(346002)(136003)(39860400002)(396003)(376002)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(4326008)(8676002)(2906002)(66556008)(8936002)(5660300002)(64756008)(66446008)(52536014)(7696005)(122000001)(26005)(83380400001)(38100700002)(33656002)(86362001)(38070700009)(53546011)(6506007)(66476007)(76116006)(66946007)(6916009)(71200400001)(316002)(9686003)(478600001)(55016003)(41300700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emtNbmZkd2RKOVJaTEhlQk9mUGttQ2tuNGJQOE9PQnhvelMxNG5xeUZZcG1K?=
- =?utf-8?B?bVlyZXdyamNjeVJST3Fjd1ovSUkwNHh3UW11SEtVcWFNY0U0eGthN0pqYU1N?=
- =?utf-8?B?K0pFeVAvYWJqN3VkSGV3eE9kL01KdU15emVRVEZqUlRsbEV1eFlGWEpoZUp5?=
- =?utf-8?B?c0Y1dm5aRnhVa0s2UTdzMm55VnFGTFVpMlRDdzh6Z1Q3dUhFSVgzdEhLTkJv?=
- =?utf-8?B?SUlocWZla1R6TmZKVThEVW42d2lsRWdmYmV1cVZxWS9KSTkxam5qWnRwRnZo?=
- =?utf-8?B?cG1aMzRQeGR3VEZTYmd2dUQ0NTJydHFhSmhkd0VsZTdRWjF5VXFBMTVuNU1L?=
- =?utf-8?B?L2NiODIxVitKblZCRmNsQndxQ3lHb1ZqRHFLUkdEU1RZcFFTYnlMdjJoU05L?=
- =?utf-8?B?VlFkUXFsNUtsMmNxa3cySmpmWnBaZDc0bWF0cU5TcWVJT2xvWDkrOElPdkEr?=
- =?utf-8?B?TmtQU1JmN1FVRnhxVVdrU2JpT2JjamtCY1o1VjlUVlQ1UFM4ejRIdUp0bms0?=
- =?utf-8?B?bHFqVmxPWHhuaE5XcURZVlNoUHNYR2xEU3lDQVFnL3ZSNjdVZi95V2pLR3Jn?=
- =?utf-8?B?d2hmRmVaWGk5ajlMQ2lRN0x3SldyY1hxb0N3K0xQS2hVVG9EZGZmNGlHTm5E?=
- =?utf-8?B?RS9jclhrQTBSWkx1Z2NobzdMdHVrQVhNYnlmMkhtWDVJSzVQcTBzQlRTVnZY?=
- =?utf-8?B?aER3TTBWZC9SdERvM3VxUW41RTJKd2dmOUw2Z0NwZFY4MU1ZQ0lzUmZ5eUF4?=
- =?utf-8?B?M0FZZXB5MHRqK243dHhwU0cvRy9WTVNmcm5kUFNkaGQ0Ykg5OWQ1eElmdDc2?=
- =?utf-8?B?VGxnU05hRllUNVBRV1Y5SWluQlJORjhYSDd6cThSNDErT1JhdVJTclJaRmNY?=
- =?utf-8?B?K0Y1L0ZjWFRVbDVpakFnN3gxZE9EZ0FxWEUzUStoeTNvbkY3UXdoK2dYVUkw?=
- =?utf-8?B?eHFBTVBiTUw5dUZsd083cjVON1dFL3FycTBUcjRkbUdBNUdWTVRDTUhFaEpM?=
- =?utf-8?B?N2NXSVNKK1ZWSVBMcUZNK1lIbHpYTjJJSmlJQllUVWI0ZGRLT0o4UFJxMURX?=
- =?utf-8?B?RldIREd4RHhtZ25EVHcycWZrd28zYkk0QU8xRENkZ0FPOGJYL0VwQkYyeWh4?=
- =?utf-8?B?bEVQK0xwejMxd245MEIrMllZWXNUWGRFcTVyelpvZDBRMVhhejRZZDEydWhC?=
- =?utf-8?B?dXdtSmhXclZUUHpaMXl4aWQxcUdXSHRTUTJMbE9nRmFaUEVnYWdEMkxnS2pI?=
- =?utf-8?B?N0NvTWdNYzkwSFI4TGJKMkRmcStDeE8rdVFyL2tET3RlMnR3TytiU1BSTEdP?=
- =?utf-8?B?bExxVkRQU2UwdGVpSHFJeks2TVE1anU2V2NzWDRqcVFlZW81SnlrK2dZcmJ3?=
- =?utf-8?B?UkNKdXpocks1VkhFMm1vdlhaMUxPdGJEdlhwVy90VGdDM1dISXpRSHlZNHRZ?=
- =?utf-8?B?UEJvQTE0TkI4dHdYSFZrRTdUZGlQbk1XK2RNeXhPbnhFYzVMbHk0a2ZSNWcz?=
- =?utf-8?B?WkJhYjkyQ2FGeUI2dWZKM0RwOEhiem5JM216QnJ0eHQ4WXhkN1lnL1ZCT0hZ?=
- =?utf-8?B?N2hSS3RRQ05oQ0w1N2syQ1RrS0tXNGg5cnVId0dHSjJQQ0JtdGtDeEt0ZlR0?=
- =?utf-8?B?V0oyZjBGVFhlNW1idVQ3bVFOeUM2TVE3aUVlRjZMTGN4TE1LS0V2TWE1VVA1?=
- =?utf-8?B?ZStVSGhld3czdE9oOG1sM1dvRS9YUnNkOTZ6Ulc4WFJHeHhlY2JwWUxKQm5F?=
- =?utf-8?B?dmxhdXBMN3lGcnVjVEhXeFlKdUU0Qis1YlhYVm1mZmdvcENtRHo5NGIyUkNx?=
- =?utf-8?B?ZmJuUDRqdlBzNW1HcTlNODVIWHZkSFN6cDcxWWJtcTYrdWdoVytJdjNIblU3?=
- =?utf-8?B?RTIrejA2SlFVOEt5T1dyRHNzSVJDSFdvMmI5VERKOHFPL0owR2dqNmxCWkZu?=
- =?utf-8?B?N2NCaXZIUXp6VGdXaTZvMHBDakNxWHNySzJ0eHhLTGJ1R2w3eHFxaEg5Zm5P?=
- =?utf-8?B?YVBLTFh3Q3o3L0I0OE9yTEYwZUtURFFqOG9OL3pmU3U4UWVMaVpnUitjbGhN?=
- =?utf-8?B?UWlKS3FVSXZ6VW5wWGYrM0Z0YXMwWjdZQVVjVTZEc1BIeHV5Q0l5YzZEd3ZN?=
- =?utf-8?Q?EAY8gGk4h75a17+h24GIEhzMp?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?s34PMOnXnsE/AchV13KkdvFoxu4AxawwTCkdtTrXZV+4lTVmwIluh1RRkDhM?=
+ =?us-ascii?Q?FskOLyF/ykeWHVTJUYiKOfvxF+0FMquSHICwJXAUBoDS42tcdqvlX8KO8unv?=
+ =?us-ascii?Q?IuiiqNPkI8o2MVJSSPRiu2Yfg8CA2HaFsGpgObsaTONhzDulVMaHVsrkseJS?=
+ =?us-ascii?Q?j81SN4//1U5R+EeWfvkgJ6nPoFLtbimnxWFDpDumoapLXUoOKDfv4EBOtAah?=
+ =?us-ascii?Q?jJ7j16HRnJh0Z4ynOUIg+FV4Ok1tEOKliEl3C88TFo7PNDF0BXYbA8m43hxx?=
+ =?us-ascii?Q?wJ/6MTClLy59HyuxSmf8pSbPBStDmktDWaYewimzu+UaGF088aQMuEEu7NNQ?=
+ =?us-ascii?Q?LN61EaaOmEcX3o1FTttBH9WAd+8mEml6l79eC0XypxOuotB2NGbhhIHRNL0s?=
+ =?us-ascii?Q?JqgbTvcsVlA0tPKQ38Jdy5FvVOOCBpQoV+4eRpCAOnZtGD1l2IJSrov2zz3m?=
+ =?us-ascii?Q?WNAFsolLgFuD6QEZoxgXYnATTluB8rbyhTOWhVBMQ+dwdZNShWQ8/uWMPpFA?=
+ =?us-ascii?Q?Dc+AG5fUJSQemO/7lyu9h4F6Gyzv0+UX7NvkQm/V8xi8Pom8VdGYn5YtTSeV?=
+ =?us-ascii?Q?d/Iqx4wW0hecoTuxhftUOvnky/j0D/NWyRIFuat5yIEaN5SzY8g75RfkX7hF?=
+ =?us-ascii?Q?Yp5yYM1SUfn8yWk0a9gx6MoaTBIGupc3QFOLRbHBzgiK1UcUoZL59hTekgwc?=
+ =?us-ascii?Q?4n1W5fjav/HG5yJE1UeNI9xMtP7n2YvKUQ27BuaZ+dwyi5cKr+d8NhBQI8NQ?=
+ =?us-ascii?Q?hznivTn1xGyx/teo6iqPL0LHMN3DblWgAG+posXTf1u4DRDowlit/w6qcwEU?=
+ =?us-ascii?Q?QHwqs6m6mnEs7vfxRTudYMiVTIu4fB5CUmfLdL8k7R9/AomGqCWzpHm61Gh9?=
+ =?us-ascii?Q?vVnsVpkDNPy3ICbc55IS3K0bxtbjJ+MSZC1sVbjuVnuJ9VNPZHzNbnPvO0LF?=
+ =?us-ascii?Q?6aYzTU8HDL94dlU9+fs+djkPVKJjp3EcXxyaTRVmHFIBCd7rmUAVO8jrdIa/?=
+ =?us-ascii?Q?1FJorruGYh9dd18vQWzX6DfkEYZrb6tVWv/fE3Wu5OYi2lof2Xq1KaQH5tZn?=
+ =?us-ascii?Q?Fw4FEYVNlGa0zQARhh1Lzhne/yFn6ydXPmsc8yzLCAwq/DmUL/e41fibzqQl?=
+ =?us-ascii?Q?hiiBtl+mB+EiRPGb8dzbf/I1wu6uMFai0EJQKGxzYbMbCH7Jxx0hXidxv/Do?=
+ =?us-ascii?Q?LUmZTSvXiTGznRQvShh4YoiEsbipqf/WBB4pVPHcmhIhMHe4KbSXlozSE91Z?=
+ =?us-ascii?Q?X0UumU719cAzvF8BQ7oIYAqSfYa+FtWiz1vnXxKOv+iiRg+rvpzGAeNsORZu?=
+ =?us-ascii?Q?aUmWhxzkDeZr72mvL1Oo4jHtA6AvS0JYYT91598gMJda5K0N8qNJcTTt5mk/?=
+ =?us-ascii?Q?3pnpreO3ZcYq7WlS1woQfFL7E7z1JTA9letxDCVFmxo8AU8ImZm7A29OyfuV?=
+ =?us-ascii?Q?tPflXDL/kd1tJAiCi6mgEjh9VrdswMOatUxFbvkMdyzHblFm5GSIuvQT7LC1?=
+ =?us-ascii?Q?EbxkRnuiXAWapV9HO/2CZfnTjVfz3bxhrQ//uJxluKZT1NUbs4mTF67ts8we?=
+ =?us-ascii?Q?JCIRpGCv0C8VTfs7i6I=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM4PR12MB5328796CB1B052628673C7C5F14C2DM4PR12MB5328namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3910aa3d-c042-401d-d434-08dc2f2c1c9e
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2024 20:16:08.6372 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Zfoh/t5AAi61ue74usrOeYxEJlgHtcVRsy3CtXygS/S0M22pZqsVDlImZHdRVB2Rb1rBbPjx53ycqK+OnFJn9Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5286
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5328.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe4a14f4-6e1d-4a93-af84-08dc2f33ae54
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Feb 2024 21:10:19.4202 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /tufHx35IU3GzHetXemrdHvZbNySRo1CIbfsN2+MGEF7JKK3av8w6dnPtGl8YUQw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5817
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,252 +131,339 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_DM4PR12MB5328796CB1B052628673C7C5F14C2DM4PR12MB5328namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 2024-02-15 10:18, Philip Yang wrote:
-> Document how to use SMI system management interface to receive SVM
-> events.
+[AMD Official Use Only - General]
+
+Reviewed By Zhigang Luo <Zhigang.Luo@amd.com>
+
+From: Lu, Victor Cheng Chi (Victor) <VictorChengChi.Lu@amd.com>
+Sent: Friday, February 16, 2024 1:50 PM
+To: Luo, Zhigang <Zhigang.Luo@amd.com>
+Subject: Fw: [PATCH 3/4] drm/amdgpu: Use correct SRIOV macro for gmc_v9_0_v=
+m_fault_interrupt_state
+
+
+[AMD Official Use Only - General]
+
+
+________________________________
+From: Lu, Victor Cheng Chi (Victor) <VictorChengChi.Lu@amd.com<mailto:Victo=
+rChengChi.Lu@amd.com>>
+Sent: Tuesday, January 2, 2024 12:30 PM
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Chander, Vignesh <Vignesh.Chander@amd.com<mailto:Vignesh.Chander@amd.co=
+m>>; Lu, Victor Cheng Chi (Victor) <VictorChengChi.Lu@amd.com<mailto:Victor=
+ChengChi.Lu@amd.com>>
+Subject: [PATCH 3/4] drm/amdgpu: Use correct SRIOV macro for gmc_v9_0_vm_fa=
+ult_interrupt_state
+
+Under SRIOV, programming to VM_CONTEXT*_CNTL regs failed because the
+current macro does not pass through the correct xcc instance.
+Use the *REG32_XCC macro in this case.
+
+The behaviour without SRIOV is the same.
+
+Signed-off-by: Victor Lu <victorchengchi.lu@amd.com<mailto:victorchengchi.l=
+u@amd.com>>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gmc_v9_0.c
+index 473a774294ce..e2e14d40109c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -496,14 +496,14 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct a=
+mdgpu_device *adev,
+                                 if (j >=3D AMDGPU_MMHUB0(0))
+                                         tmp =3D RREG32_SOC15_IP(MMHUB, reg=
+);
+                                 else
+-                                       tmp =3D RREG32_SOC15_IP(GC, reg);
++                                       tmp =3D RREG32_XCC(reg, j);
+
+                                 tmp &=3D ~bits;
+
+                                 if (j >=3D AMDGPU_MMHUB0(0))
+                                         WREG32_SOC15_IP(MMHUB, reg, tmp);
+                                 else
+-                                       WREG32_SOC15_IP(GC, reg, tmp);
++                                       WREG32_XCC(reg, tmp, j);
+                         }
+                 }
+                 break;
+@@ -524,14 +524,14 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct a=
+mdgpu_device *adev,
+                                 if (j >=3D AMDGPU_MMHUB0(0))
+                                         tmp =3D RREG32_SOC15_IP(MMHUB, reg=
+);
+                                 else
+-                                       tmp =3D RREG32_SOC15_IP(GC, reg);
++                                       tmp =3D RREG32_XCC(reg, j);
+
+                                 tmp |=3D bits;
+
+                                 if (j >=3D AMDGPU_MMHUB0(0))
+                                         WREG32_SOC15_IP(MMHUB, reg, tmp);
+                                 else
+-                                       WREG32_SOC15_IP(GC, reg, tmp);
++                                       WREG32_XCC(reg, tmp, j);
+                         }
+                 }
+                 break;
+--
+2.34.1
+
+--_000_DM4PR12MB5328796CB1B052628673C7C5F14C2DM4PR12MB5328namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> Define SVM events message string format macro that could use by user
-> mode for sscanf to parse the event. Add it to uAPI header file to make
-> it obvious that is changing uAPI in future.
->
-> No functional changes.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 51 +++++++-------
->   include/uapi/linux/kfd_ioctl.h              | 77 ++++++++++++++++++++-
->   2 files changed, 102 insertions(+), 26 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> index d9953c2b2661..85465eb303a9 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> @@ -225,15 +225,16 @@ void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset)
->   		event = KFD_SMI_EVENT_GPU_PRE_RESET;
->   		++(dev->reset_seq_num);
->   	}
-> -	kfd_smi_event_add(0, dev, event, "%x\n", dev->reset_seq_num);
-> +	kfd_smi_event_add(0, dev, event,
-> +			  KFD_EVENT_FMT_UPDATE_GPU_RESET(dev->reset_seq_num));
->   }
->   
->   void kfd_smi_event_update_thermal_throttling(struct kfd_node *dev,
->   					     uint64_t throttle_bitmask)
->   {
-> -	kfd_smi_event_add(0, dev, KFD_SMI_EVENT_THERMAL_THROTTLE, "%llx:%llx\n",
-> -			  throttle_bitmask,
-> -			  amdgpu_dpm_get_thermal_throttling_counter(dev->adev));
-> +	kfd_smi_event_add(0, dev, KFD_SMI_EVENT_THERMAL_THROTTLE,
-> +			  KFD_EVENT_FMT_UPDATE_THERMAL_THROTTLING(throttle_bitmask,
-> +			  amdgpu_dpm_get_thermal_throttling_counter(dev->adev)));
->   }
->   
->   void kfd_smi_event_update_vmfault(struct kfd_node *dev, uint16_t pasid)
-> @@ -246,8 +247,8 @@ void kfd_smi_event_update_vmfault(struct kfd_node *dev, uint16_t pasid)
->   	if (!task_info.pid)
->   		return;
->   
-> -	kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, "%x:%s\n",
-> -			  task_info.pid, task_info.task_name);
-> +	kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT,
-> +			  KFD_EVENT_FMT_VMFAULT(task_info.pid, task_info.task_name));
->   }
->   
->   void kfd_smi_event_page_fault_start(struct kfd_node *node, pid_t pid,
-> @@ -255,16 +256,16 @@ void kfd_smi_event_page_fault_start(struct kfd_node *node, pid_t pid,
->   				    ktime_t ts)
->   {
->   	kfd_smi_event_add(pid, node, KFD_SMI_EVENT_PAGE_FAULT_START,
-> -			  "%lld -%d @%lx(%x) %c\n", ktime_to_ns(ts), pid,
-> -			  address, node->id, write_fault ? 'W' : 'R');
-> +			  KFD_EVENT_FMT_PAGEFAULT_START(ktime_to_ns(ts), pid,
-> +			  address, node->id, write_fault ? 'W' : 'R'));
->   }
->   
->   void kfd_smi_event_page_fault_end(struct kfd_node *node, pid_t pid,
->   				  unsigned long address, bool migration)
->   {
->   	kfd_smi_event_add(pid, node, KFD_SMI_EVENT_PAGE_FAULT_END,
-> -			  "%lld -%d @%lx(%x) %c\n", ktime_get_boottime_ns(),
-> -			  pid, address, node->id, migration ? 'M' : 'U');
-> +			  KFD_EVENT_FMT_PAGEFAULT_END(ktime_get_boottime_ns(),
-> +			  pid, address, node->id, migration ? 'M' : 'U'));
->   }
->   
->   void kfd_smi_event_migration_start(struct kfd_node *node, pid_t pid,
-> @@ -274,9 +275,9 @@ void kfd_smi_event_migration_start(struct kfd_node *node, pid_t pid,
->   				   uint32_t trigger)
->   {
->   	kfd_smi_event_add(pid, node, KFD_SMI_EVENT_MIGRATE_START,
-> -			  "%lld -%d @%lx(%lx) %x->%x %x:%x %d\n",
-> -			  ktime_get_boottime_ns(), pid, start, end - start,
-> -			  from, to, prefetch_loc, preferred_loc, trigger);
-> +			  KFD_EVENT_FMT_MIGRATE_START(ktime_get_boottime_ns(),
-> +			  pid, start, end - start, from, to, prefetch_loc,
-> +			  preferred_loc, trigger));
->   }
->   
->   void kfd_smi_event_migration_end(struct kfd_node *node, pid_t pid,
-> @@ -284,24 +285,23 @@ void kfd_smi_event_migration_end(struct kfd_node *node, pid_t pid,
->   				 uint32_t from, uint32_t to, uint32_t trigger)
->   {
->   	kfd_smi_event_add(pid, node, KFD_SMI_EVENT_MIGRATE_END,
-> -			  "%lld -%d @%lx(%lx) %x->%x %d\n",
-> -			  ktime_get_boottime_ns(), pid, start, end - start,
-> -			  from, to, trigger);
-> +			  KFD_EVENT_FMT_MIGRATE_END(ktime_get_boottime_ns(), pid,
-> +			  start, end - start, from, to, trigger));
->   }
->   
->   void kfd_smi_event_queue_eviction(struct kfd_node *node, pid_t pid,
->   				  uint32_t trigger)
->   {
->   	kfd_smi_event_add(pid, node, KFD_SMI_EVENT_QUEUE_EVICTION,
-> -			  "%lld -%d %x %d\n", ktime_get_boottime_ns(), pid,
-> -			  node->id, trigger);
-> +			  KFD_EVENT_FMT_QUEUE_EVICTION(ktime_get_boottime_ns(),
-> +			  pid, node->id, trigger));
->   }
->   
->   void kfd_smi_event_queue_restore(struct kfd_node *node, pid_t pid)
->   {
->   	kfd_smi_event_add(pid, node, KFD_SMI_EVENT_QUEUE_RESTORE,
-> -			  "%lld -%d %x\n", ktime_get_boottime_ns(), pid,
-> -			  node->id);
-> +			  KFD_EVENT_FMT_QUEUE_RESTORE(ktime_get_boottime_ns(),
-> +			  pid, node->id));
->   }
->   
->   void kfd_smi_event_queue_restore_rescheduled(struct mm_struct *mm)
-> @@ -317,9 +317,10 @@ void kfd_smi_event_queue_restore_rescheduled(struct mm_struct *mm)
->   		struct kfd_process_device *pdd = p->pdds[i];
->   
->   		kfd_smi_event_add(p->lead_thread->pid, pdd->dev,
-> -				  KFD_SMI_EVENT_QUEUE_RESTORE,
-> -				  "%lld -%d %x %c\n", ktime_get_boottime_ns(),
-> -				  p->lead_thread->pid, pdd->dev->id, 'R');
-> +				  KFD_SMI_EVENT_QUEUE_RESTORE_RESCHEDULED,
-> +				  KFD_EVENT_FMT_QUEUE_RESTORE_RESCHEDULED(
-> +				  ktime_get_boottime_ns(), p->lead_thread->pid,
-> +				  pdd->dev->id, 'R'));
->   	}
->   	kfd_unref_process(p);
->   }
-> @@ -329,8 +330,8 @@ void kfd_smi_event_unmap_from_gpu(struct kfd_node *node, pid_t pid,
->   				  uint32_t trigger)
->   {
->   	kfd_smi_event_add(pid, node, KFD_SMI_EVENT_UNMAP_FROM_GPU,
-> -			  "%lld -%d @%lx(%lx) %x %d\n", ktime_get_boottime_ns(),
-> -			  pid, address, last - address + 1, node->id, trigger);
-> +			  KFD_EVENT_FMT_UNMAP_FROM_GPU(ktime_get_boottime_ns(),
-> +			  pid, address, last - address + 1, node->id, trigger));
->   }
->   
->   int kfd_smi_event_open(struct kfd_node *dev, uint32_t *fd)
-> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-> index 9ce46edc62a5..430c01f4148b 100644
-> --- a/include/uapi/linux/kfd_ioctl.h
-> +++ b/include/uapi/linux/kfd_ioctl.h
-> @@ -523,7 +523,8 @@ enum kfd_smi_event {
->   	KFD_SMI_EVENT_PAGE_FAULT_END = 8,
->   	KFD_SMI_EVENT_QUEUE_EVICTION = 9,
->   	KFD_SMI_EVENT_QUEUE_RESTORE = 10,
-> -	KFD_SMI_EVENT_UNMAP_FROM_GPU = 11,
-> +	KFD_SMI_EVENT_QUEUE_RESTORE_RESCHEDULED = 11,
-> +	KFD_SMI_EVENT_UNMAP_FROM_GPU = 12,
->   
->   	/*
->   	 * max event number, as a flag bit to get events from all processes,
-> @@ -564,6 +565,80 @@ struct kfd_ioctl_smi_events_args {
->   	__u32 anon_fd;	/* from KFD */
->   };
->   
-> +/*
-> + * SVM event tracing via SMI system management interface
-> + *
-> + * Open event file descriptor
-> + *    use ioctl AMDKFD_IOC_SMI_EVENTS, pass in gpuid and return a anonymous file
-> + *    descriptor to receive SMI events.
-> + *    If calling with sudo permission, then file descriptor can be used to receive
-> + *    SVM events from all processes, otherwise, to only receive SVM events of same
-> + *    process.
-> + *
-> + * To enable the SVM event
-> + *    Write event file descriptor with KFD_SMI_EVENT_MASK_FROM_INDEX(event) bitmap
-> + *    mask to start record the event to the kfifo, use bitmap mask combination
-> + *    for multiple events. New event mask will overwrite the previous event mask.
-> + *    KFD_SMI_EVENT_MASK_FROM_INDEX(KFD_SMI_EVENT_ALL_PROCESS) bit requires sudo
-> + *    permisson to receive SVM events from all process.
-> + *
-> + * To receive the event
-> + *    Application can poll file descriptor to wait for the events, then read event
-> + *    from the file into a buffer. Each event is one line string message, starting
-> + *    with the event id, then the event specific information.
-> + *
-> + * To decode event information
-> + *    The following event format string macro can be used with sscanf to decode
-> + *    the specific event information.
-> + *    event triggers: the reason to generate the event, defined as enum for unmap,
-> + *    eviction and migrate events.
-> + *    node, from, to, prefetch_loc, preferred_loc: GPU ID, or 0 for system memory.
-> + *    addr: user mode address, in pages
-> + *    size: in pages
-> + *    pid: the process ID to generate the event
-> + *    ns: timestamp in nanosecond-resolution, starts at system boot time but
-> + *        stops during suspend
-> + *    migrate_update: the GPU page is recovered by 'M' for migrate, 'U' for update
-> + *    rescheduled: 'R' if the queue restore failed and rescheduled to try again
-> + *    rw: 'W' for write page fault, 'R' for read page fault
-> + */
-> +#define KFD_EVENT_FMT_UPDATE_GPU_RESET(reset_seq_num)\
-> +		"%x\n", (reset_seq_num)
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#1F4E79;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	mso-ligatures:none;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
+style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"color:#1F4E79">Reviewed By Zhigang Lu=
+o &lt;Zhigang.Luo@amd.com&gt;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F4E79"><o:p>&nbsp;</o:p></spa=
+n></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Lu, Victor Cheng Chi (Victor) &lt;Victo=
+rChengChi.Lu@amd.com&gt;
+<br>
+<b>Sent:</b> Friday, February 16, 2024 1:50 PM<br>
+<b>To:</b> Luo, Zhigang &lt;Zhigang.Luo@amd.com&gt;<br>
+<b>Subject:</b> Fw: [PATCH 3/4] drm/amdgpu: Use correct SRIOV macro for gmc=
+_v9_0_vm_fault_interrupt_state<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
+;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only - General]<o:p><=
+/o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
+</p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Lu, Victor Cheng Chi (Victor) &lt;<a href=3D"mailto=
+:VictorChengChi.Lu@amd.com">VictorChengChi.Lu@amd.com</a>&gt;<br>
+<b>Sent:</b> Tuesday, January 2, 2024 12:30 PM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Chander, Vignesh &lt;<a href=3D"mailto:Vignesh.Chander@amd.com">=
+Vignesh.Chander@amd.com</a>&gt;; Lu, Victor Cheng Chi (Victor) &lt;<a href=
+=3D"mailto:VictorChengChi.Lu@amd.com">VictorChengChi.Lu@amd.com</a>&gt;<br>
+<b>Subject:</b> [PATCH 3/4] drm/amdgpu: Use correct SRIOV macro for gmc_v9_=
+0_vm_fault_interrupt_state</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Under SRIOV, programm=
+ing to VM_CONTEXT*_CNTL regs failed because the<br>
+current macro does not pass through the correct xcc instance.<br>
+Use the *REG32_XCC macro in this case.<br>
+<br>
+The behaviour without SRIOV is the same.<br>
+<br>
+Signed-off-by: Victor Lu &lt;<a href=3D"mailto:victorchengchi.lu@amd.com">v=
+ictorchengchi.lu@amd.com</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 8 ++++----<br>
+&nbsp;1 file changed, 4 insertions(+), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gmc_v9_0.c<br>
+index 473a774294ce..e2e14d40109c 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
+@@ -496,14 +496,14 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct a=
+mdgpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (j &gt;=3D AMDGPU_MMHUB0(0))<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; tmp =3D RREG32_SOC15_IP(MMHUB, reg);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; tmp =3D RREG32_SOC15_IP(GC, reg);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; tmp =3D RREG32_XCC(reg, j);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D ~bits;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (j &gt;=3D AMDGPU_MMHUB0(0))<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; WREG32_SOC15_IP(MMHUB, reg, tmp);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; WREG32_SOC15_IP(GC, reg, tmp);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; WREG32_XCC(reg, tmp, j);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+@@ -524,14 +524,14 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct a=
+mdgpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (j &gt;=3D AMDGPU_MMHUB0(0))<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; tmp =3D RREG32_SOC15_IP(MMHUB, reg);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; tmp =3D RREG32_SOC15_IP(GC, reg);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; tmp =3D RREG32_XCC(reg, j);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D bits;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (j &gt;=3D AMDGPU_MMHUB0(0))<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; WREG32_SOC15_IP(MMHUB, reg, tmp);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; WREG32_SOC15_IP(GC, reg, tmp);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; WREG32_XCC(reg, tmp, j);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+-- <br>
+2.34.1<o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
 
-If we want user mode to use this with fscanf or sscanf, and we want this 
-to be extensible in the future so we can add new fields without breaking 
-user mode using these macros (as you do in patch 2), then the \n should 
-not be part of the format string here. We can add the \n in 
-kfd_smi_event_add instead.
-
-Regards,
-   Felix
-
-
-> +
-> +#define KFD_EVENT_FMT_UPDATE_THERMAL_THROTTLING(bitmask, counter)\
-> +		"%llx:%llx\n", (bitmask), (counter)
-> +
-> +#define KFD_EVENT_FMT_VMFAULT(pid, task_name)\
-> +		"%x:%s\n", (pid), (task_name)
-> +
-> +#define KFD_EVENT_FMT_PAGEFAULT_START(ns, pid, addr, node, rw)\
-> +		"%lld -%d @%lx(%x) %c\n", (ns), (pid), (addr), (node), (rw)
-> +
-> +#define KFD_EVENT_FMT_PAGEFAULT_END(ns, pid, addr, node, migrate_update)\
-> +		"%lld -%d @%lx(%x) %c\n", (ns), (pid), (addr), (node), (migrate_update)
-> +
-> +#define KFD_EVENT_FMT_MIGRATE_START(ns, pid, start, size, from, to, prefetch_loc,\
-> +		preferred_loc, migrate_trigger)\
-> +		"%lld -%d @%lx(%lx) %x->%x %x:%x %d\n", (ns), (pid), (start), (size),\
-> +		(from), (to), (prefetch_loc), (preferred_loc), (migrate_trigger)
-> +
-> +#define KFD_EVENT_FMT_MIGRATE_END(ns, pid, start, size, from, to, migrate_trigger)\
-> +		"%lld -%d @%lx(%lx) %x->%x %d\n", (ns), (pid), (start), (size),\
-> +		(from), (to), (migrate_trigger)
-> +
-> +#define KFD_EVENT_FMT_QUEUE_EVICTION(ns, pid, node, evict_trigger)\
-> +		"%lld -%d %x %d\n", (ns), (pid), (node), (evict_trigger)
-> +
-> +#define KFD_EVENT_FMT_QUEUE_RESTORE(ns, pid, node)\
-> +		"%lld -%d %x\n", (ns), (pid), (node)
-> +
-> +#define KFD_EVENT_FMT_QUEUE_RESTORE_RESCHEDULED(ns, pid, node, rescheduled)\
-> +		"%lld -%d %x %c\n", (ns), (pid), (node), (rescheduled)
-> +
-> +#define KFD_EVENT_FMT_UNMAP_FROM_GPU(ns, pid, addr, size, node, unmap_trigger)\
-> +		"%lld -%d @%lx(%lx) %x %d\n", (ns), (pid), (addr), (size),\
-> +		(node), (unmap_trigger)
-> +
->   /**************************************************************************************************
->    * CRIU IOCTLs (Checkpoint Restore In Userspace)
->    *
+--_000_DM4PR12MB5328796CB1B052628673C7C5F14C2DM4PR12MB5328namp_--
