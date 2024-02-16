@@ -4,76 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 371E0C48BEF
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 16:32:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1806C48260
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 16:37:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C769410EC16;
-	Fri, 16 Feb 2024 16:32:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65F0E10EC2A;
+	Fri, 16 Feb 2024 16:37:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="fLSu72tz";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="fwfYTuwe";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2013710EC16
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 16:32:40 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4123e958215so2368985e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 08:32:40 -0800 (PST)
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
+ [209.85.208.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 338AD10EC2A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 16:37:28 +0000 (UTC)
+Received: by mail-lj1-f179.google.com with SMTP id
+ 38308e7fff4ca-2d12bdd9a64so7963061fa.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Feb 2024 08:37:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1708101158; x=1708705958; darn=lists.freedesktop.org; 
+ d=ffwll.ch; s=google; t=1708101446; x=1708706246; darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=SgQeh6gny5JrINPGAEJwqjErNXlFS7uJm/gN6H25Wl4=;
- b=fLSu72tzVwSc8tPEo3RCJeWOsd0OIwR5OIjrMpDRdDJs/fId45CqrgQOld8nf82DCt
- 649o5Wil+6qvCqVqmDEzY8UB73/w3mk5jo4NnNKQIgpUnFZ3f6vNZX+Y798ChmWwZJOc
- uahYtlVdwzXmViVtAW50uDTnxjnEmdyr6KaXQ=
+ bh=2BJidT3hS5vkgQ0xTVUzjojqrGFxsDATBuEs0RRAQ6o=;
+ b=fwfYTuwevGkkvJTj/b3/b5xmMoPeqnYJspWmhOroZNeN8fQFpja0NavaOqwS3yc8Km
+ MZ150fYaTVnVZ27Vb47u2gYXDcjlYtgJDHubxb/JZgWLPswCWkThwQvVWV+bWTEMEH0I
+ HevTbrYFMtXe4jrNinjCGYugH2l4NZ0MykXx0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708101158; x=1708705958;
+ d=1e100.net; s=20230601; t=1708101446; x=1708706246;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SgQeh6gny5JrINPGAEJwqjErNXlFS7uJm/gN6H25Wl4=;
- b=ogqbxNDImaT9iCYGeepCJEHxEB8+DYAEKBpyQNo6nQpeP1q0waVXFnwC5VoNuPdElN
- /6ykndNloGh8SUl2yWgYWBk/6nFn2z4DWvOXNdMuoegBlikVBQLpI4y2+MqEj5LIwFfK
- 45dzX8dsqXrW9Q8ZRpotJe4ajgBfE2K/N8fxIIjkqLGfbEAE2aTmRp4zFdNXej1fVDWP
- FJjue+Q0r5E99oLQweryYcYrsIHNHAVyzfWiRSlB0JekZYkvUR9SKYISqP4k0RmT9gHj
- 5aLdBfX/YS/rdNc/ogxgpebRmQpfPtFf67I4td91mYe4lu0c3LV3QE9wdDFYjqRThUtL
- F/qA==
+ bh=2BJidT3hS5vkgQ0xTVUzjojqrGFxsDATBuEs0RRAQ6o=;
+ b=LM4AZR3wg4Hde3LZ3vgyC45PaES3AJWZkUuQI0Eon8b6EvGtA3BJhA9sXPztP7+bng
+ d6Flrk9CZLqSEWbbYUueNW6lqz43dlgvbCkPTkB4yYfqThsRxWC2d3+Wx96N55ZB6IN0
+ suwkB7gupexR8lDu7QiR7XSwUYkQryvJNhizQGLxoByBjqZKvCKEG86PAPTHdEWwUvLI
+ Iyg/pPRJF/wfxCNuZncVDiZR1uhPtNr7ZyyBNdeq8HYjUDKgMGcrg/CzMcu/xslgYviJ
+ aDKJt+KqbVkTa8itzPST+MkWVUyE9QVIOH2IYhlYX4TqbI1+5ZcrHO8r2EIlA4exUUF4
+ zDsQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWgKuZy+iqTLWogeUb1Thw4nKt3Jgm1asuAE1Xywnt4qaOriF47wycfv7H1MVcO12KcuR69UL7geUQ/y2h6fC2mtKFnYGyUVWHd4tQZ9w==
-X-Gm-Message-State: AOJu0YzWhrqK4EYCAeNzRIy9+W1du6dZAqtwzdtovS5+lNVptGQGWCzW
- +7Vfdsnvrym9HRpn3SIej3rUnOUymaLxp9BV/FEEQCEij6uPLWGs4QsPhj4EbFM=
-X-Google-Smtp-Source: AGHT+IFE0jwLawnXRHSScGe2ockTGkEpG5gU+Fwm8RLqeKicUfmzpG/tRRmoFIyQP2z5PdY038vGLA==
-X-Received: by 2002:a05:600c:510a:b0:411:de28:bb52 with SMTP id
- o10-20020a05600c510a00b00411de28bb52mr3914738wms.4.1708101158500; 
- Fri, 16 Feb 2024 08:32:38 -0800 (PST)
+ AJvYcCWFqJmUWPFUQJha7NzO6gpZONYFyKI3iOJ9MyJQwZgHWvCwmfD5520UQBzchrbbAYzskGxdwnfMuqu1fzJOS2PjbIsNpcv4xNMBBm5NQA==
+X-Gm-Message-State: AOJu0Yz8AuuteaG2KGvYNTRXlgu+pTfagI6M5lLh43NBBHJTgVOIAYeQ
+ v9gbylbnbmoBSzPwxBJrRn2vv/IsGH3iD/Nn4wVLK8nxXwFFBxPlSh5fB14En4c=
+X-Google-Smtp-Source: AGHT+IGS0GDo5tChpTazykXSgETAvi5nJVe9c/sifb50z1ANJBtBWxRUCH2PLe/YXqHGMMtGcrzHyw==
+X-Received: by 2002:a2e:a9a6:0:b0:2d2:233f:1ae0 with SMTP id
+ x38-20020a2ea9a6000000b002d2233f1ae0mr247313ljq.1.1708101446154; 
+ Fri, 16 Feb 2024 08:37:26 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
  by smtp.gmail.com with ESMTPSA id
- j6-20020a05600c190600b00411d0b58056sm2932741wmq.5.2024.02.16.08.32.37
+ bg22-20020a05600c3c9600b0040fc56712e8sm2881166wmb.17.2024.02.16.08.37.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Feb 2024 08:32:38 -0800 (PST)
-Date: Fri, 16 Feb 2024 17:32:36 +0100
+ Fri, 16 Feb 2024 08:37:25 -0800 (PST)
+Date: Fri, 16 Feb 2024 17:37:23 +0100
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
  Gustavo Padovan <gustavo@padovan.org>,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Steven Rostedt <rostedt@goodmis.org>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org,
  Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v2 1/6] tracing, dma-buf: add a trace_dma_fence_sync_to
- event
-Message-ID: <Zc-OJAXlApzcOfYQ@phenom.ffwll.local>
+Subject: Re: [PATCH v2 6/6] drm: add drm_mode_atomic_commit event
+Message-ID: <Zc-PQ9Yx4fk4TK43@phenom.ffwll.local>
 References: <20240117184329.479554-1-pierre-eric.pelloux-prayer@amd.com>
  <20240213155112.156537-1-pierre-eric.pelloux-prayer@amd.com>
- <20240213155112.156537-2-pierre-eric.pelloux-prayer@amd.com>
+ <20240213155112.156537-7-pierre-eric.pelloux-prayer@amd.com>
+ <20240213112017.726016f0@gandalf.local.home>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240213155112.156537-2-pierre-eric.pelloux-prayer@amd.com>
+In-Reply-To: <20240213112017.726016f0@gandalf.local.home>
 X-Operating-System: Linux phenom 6.6.11-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,91 +89,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 13, 2024 at 04:50:26PM +0100, Pierre-Eric Pelloux-Prayer wrote:
-> This new event can be used to trace where a given dma_fence is added
-> as a dependency of some other work.
-
-How?
-
-What I'd expected here is that you add a dependency chain from one fence
-to another, but this only has one fence. How do you figure out what's the
-next dma_fence that will stall on this dependency? Like in the gpu
-scheduler we do know what will be the fence that userspace gets back, so
-we can make that connection. And same for the atomic code (although you
-don't wire that up at all).
-
-I'm very confused on how this works and rather worried it's a brittle
-amdgpu-only solution ...
--Sima
-
-> I plan to use it in amdgpu.
+On Tue, Feb 13, 2024 at 11:20:17AM -0500, Steven Rostedt wrote:
+> On Tue, 13 Feb 2024 16:50:31 +0100
+> Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com> wrote:
 > 
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> ---
->  drivers/dma-buf/dma-fence.c      |  1 +
->  include/trace/events/dma_fence.h | 34 ++++++++++++++++++++++++++++++++
->  2 files changed, 35 insertions(+)
+> > @@ -1503,6 +1504,24 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+> >  		drm_mode_object_put(obj);
+> >  	}
+> >  
+> > +	if (trace_drm_mode_atomic_commit_enabled()) {
+> > +		struct drm_crtc_state *crtc_state;
+> > +		struct drm_crtc *crtc;
+> > +		int *crtcs;
+> > +		int i, num_crtcs;
+> > +
+> > +		crtcs = kcalloc(dev->mode_config.num_crtc, sizeof(int),
+> > +				GFP_KERNEL);
 > 
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index e0fd99e61a2d..671a499a5ccd 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -23,6 +23,7 @@
->  EXPORT_TRACEPOINT_SYMBOL(dma_fence_emit);
->  EXPORT_TRACEPOINT_SYMBOL(dma_fence_enable_signal);
->  EXPORT_TRACEPOINT_SYMBOL(dma_fence_signaled);
-> +EXPORT_TRACEPOINT_SYMBOL(dma_fence_sync_to);
->  
->  static DEFINE_SPINLOCK(dma_fence_stub_lock);
->  static struct dma_fence dma_fence_stub;
-> diff --git a/include/trace/events/dma_fence.h b/include/trace/events/dma_fence.h
-> index 3963e79ca7b4..9b3875f7aa79 100644
-> --- a/include/trace/events/dma_fence.h
-> +++ b/include/trace/events/dma_fence.h
-> @@ -83,6 +83,40 @@ DEFINE_EVENT(dma_fence, dma_fence_wait_end,
->  	TP_ARGS(fence)
->  );
->  
-> +DECLARE_EVENT_CLASS(dma_fence_from,
-> +
-> +	TP_PROTO(struct dma_fence *fence, const char *reason),
-> +
-> +	TP_ARGS(fence, reason),
-> +
-> +	TP_STRUCT__entry(
-> +		__string(driver, fence->ops->get_driver_name(fence))
-> +		__string(timeline, fence->ops->get_timeline_name(fence))
-> +		__field(unsigned int, context)
-> +		__field(unsigned int, seqno)
-> +		__string(reason, reason)
-> +	),
-> +
-> +	TP_fast_assign(
-> +		__assign_str(driver, fence->ops->get_driver_name(fence));
-> +		__assign_str(timeline, fence->ops->get_timeline_name(fence));
-> +		__entry->context = fence->context;
-> +		__entry->seqno = fence->seqno;
-> +		__assign_str(reason, reason);
-> +	),
-> +
-> +	TP_printk("driver=%s timeline=%s context=%u seqno=%u reason=%s",
-> +		  __get_str(driver), __get_str(timeline), __entry->context,
-> +		  __entry->seqno, __get_str(reason))
-> +);
-> +
-> +DEFINE_EVENT(dma_fence_from, dma_fence_sync_to,
-> +
-> +	TP_PROTO(struct dma_fence *fence, const char *reason),
-> +
-> +	TP_ARGS(fence, reason)
-> +);
-> +
->  #endif /*  _TRACE_DMA_FENCE_H */
->  
->  /* This part must be outside protection */
-> -- 
-> 2.40.1
+> If the above allocation fails, this will cause a NULL kernel dereference.
+
+Yeah can't we somehow iterate directly into the trace subsystem? If
+nothing else works I guess just a per-crtc event should do.
+
+The more fundamental issue: I don't get how this works. For atomic we
+have:
+- explicitly handed in in-fences as dependencies with the IN_FENCE
+  property
+- dependencies that drivers fish out of the dma_resv object of the
+  underlying gem buffer objects for each framebuffer. That has become
+  pretty much entirely generic code since everyone uses the same, and so
+  imo the dependency tracking should be fully generic too
+
+- atomic has an out-fence too, so we could even do the full fence->fence
+  dependency tracking. It's just not created as a userspace object if all
+  userspace asks for is a drm vblank event, but it is very much there. And
+  I think if you want fence tracking, we really should have fence tracking
+  :-) Also the out-fence should be 100% generic (or it's a driver bug)
+  because the driver functions hide the differences between generating a
+  vblank event and signalling a dma_fence.
+
+Cheers, Sima
+
+
 > 
+> -- Steve
+> 
+> > +
+> > +		num_crtcs = 0;
+> > +		for_each_new_crtc_in_state(state, crtc, crtc_state, i)
+> > +			crtcs[num_crtcs++] = drm_crtc_index(crtc);
+> > +
+> > +		trace_drm_mode_atomic_commit(file_priv, crtcs, num_crtcs, arg->flags);
+> > +
+> > +		kfree(crtcs);
+> > +	}
+> > +
+> >  	ret = prepare_signaling(dev, state, arg, file_priv, &fence_state,
+> >  				&num_fences);
+> >  	if (ret)
 
 -- 
 Daniel Vetter
