@@ -4,119 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68694C48260
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Feb 2024 21:20:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF137C48BF5
+	for <amd-gfx@archiver.kernel.org>; Sat, 17 Feb 2024 01:35:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA41410E1BC;
-	Fri, 16 Feb 2024 21:20:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 580E410ED13;
+	Sat, 17 Feb 2024 01:35:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vkbyeD9W";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ulq3KcMm";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2064.outbound.protection.outlook.com [40.107.223.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59BD810E1BC;
- Fri, 16 Feb 2024 21:20:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lOsyaM9F7ncv4//czucJdCWyQa+IjX8UhP3/kQ8IsGj1J9XtjTGFADtmv/XOXVDasi2E8IicTxO2CWhHK4ttsMVCDfx45/KuCHrexQDxz0BeW2NLerI8OHR0chM4QUCL3JQHcWwu90yLGGiWMWacELKDj6V9ZPp8Xk6aGD+axmuQF+PD3fPDdJfBPqM1ShpY/2k9QCK/mj1l/RNZRV80syZD6BlH6SJJlrCyiYOSdyXTNo0VJ36SqP8ZdcCRJZP+AK9j9IicMA218qCLaWxqRqvZOWJz5ttZOVaNXTEk3js9vXb9re8DVLeciqbSUPdbSiE1jDjlyyQAJ7fe1iPQMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qg9QDudX9SHC3jfWANdlwR6vDrBZJnmzz6+KY8AmYHk=;
- b=Xu10uYlSlbli9UV8ahdllYPSkVLg/t1rFIguB30nk61DHs4FW6uHV87M+MhZ8D4mP5oLQ7LMkxJKfUvzH/Vj5A2sqjpzRNg4XTWcHzF97JE+ZDnqXazebGstJSEvvxjExRFO2wZ51x+VzmGJps8+AIFr1rIHQpQKO2d1Husa4hT+L8j569wMvCFgKJ1u9s7yQhyrPKmWTAQoVr00tc6n3VkNAkZDSCbAd09f+ypX5z1r7nGwBcgRDpPF+91cxS5tGCXLUa0BsYpFsZMiJI08to/Rjj4GsxWy4TM5W6ochH7rGC2Q8uLu0BB8hFA50kKOINyYCB5uU2O4mdjSGIoAuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qg9QDudX9SHC3jfWANdlwR6vDrBZJnmzz6+KY8AmYHk=;
- b=vkbyeD9W2Yvd/NA74gnHV5oaL1gBAqLsyYgtGmfMlXGUoPCkVZkBU4Qvcrb1h9mm5sZe7rEs1cvAWTOWVZUP0fhO5Rs9qYbOYRgeLvLU/O4Ylt16Uqjkft9sHqeBYAtnEgFL+5pUHzIQJ9Hek3tVUlao9aweyau0YThn7UHTcmA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by SA1PR12MB7365.namprd12.prod.outlook.com (2603:10b6:806:2ba::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.25; Fri, 16 Feb
- 2024 21:20:09 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::3f6b:792d:4233:f994]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::3f6b:792d:4233:f994%6]) with mapi id 15.20.7316.012; Fri, 16 Feb 2024
- 21:20:08 +0000
-Message-ID: <0974e16a-9303-46a4-8a4d-374171e6be87@amd.com>
-Date: Fri, 16 Feb 2024 16:20:05 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd: Drop abm_level property
-Content-Language: en-US
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44F0E10ED13;
+ Sat, 17 Feb 2024 01:35:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1708133734; x=1739669734;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=tJeR/H25Fovx8yHdDib038WHOER0afSpQWRaKY3w+iE=;
+ b=Ulq3KcMmk95gLvjEWKpy/rGKnBxv/B7l+bx42KJ9BTpCbzeHuo4gGZOu
+ H+4r8G0g7vfREmd6yg8FVPMwpnNZ8+lVvGZL5O0ObBiBq3sUyKfWm3PT3
+ PnyT/F888Z6VW1Y9LS5pMwNFUsUmt7dRHW6fh5l9XBuqr40bvsghJ//Fl
+ oW9aDk2hu0xTkKbYTGnlft/iABDdzo1JIt8J7VKOZa4HrdoKPpLXVAtms
+ DW2R3Q0f7B4+BHI2abs6HOuqeVYTv0a1eT/+XFg7wqv2cIUT5Lu/Le5AS
+ hnNkTLP5vDnS3BT4aWuo2h7Oj+BNRv3PlYgL9Q0mYMLdPZMODIfO5ZB2j w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10986"; a="19803083"
+X-IronPort-AV: E=Sophos;i="6.06,165,1705392000"; d="scan'208";a="19803083"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2024 17:35:32 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,165,1705392000"; 
+   d="scan'208";a="4378886"
+Received: from lkp-server02.sh.intel.com (HELO 3c78fa4d504c) ([10.239.97.151])
+ by orviesa008.jf.intel.com with ESMTP; 16 Feb 2024 17:35:27 -0800
+Received: from kbuild by 3c78fa4d504c with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1rb9bu-0001kB-1k;
+ Sat, 17 Feb 2024 01:35:23 +0000
+Date: Sat, 17 Feb 2024 09:34:54 +0800
+From: kernel test robot <lkp@intel.com>
 To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Hamza Mahfooz <Hamza.Mahfooz@amd.com>,
- Sun peng Li <Sunpeng.Li@amd.com>
-References: <20240216153334.83372-1-mario.limonciello@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20240216153334.83372-1-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4P288CA0052.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d2::7) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+ Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>
+Cc: Paul Gazzillo <paul@pgazz.com>,
+ Necip Fazil Yildiran <fazilyildiran@gmail.com>,
+ oe-kbuild-all@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
+ linux-fbdev@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, intel-xe@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org,
+ "open list:ACPI" <linux-acpi@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Melissa Wen <mwen@igalia.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH v6 1/5] drm: Stop using `select ACPI_VIDEO` in all drivers
+Message-ID: <202402170903.pSlAhO5F-lkp@intel.com>
+References: <20240214215756.6530-2-mario.limonciello@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SA1PR12MB7365:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a86119f-e895-462a-e96d-08dc2f350d86
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 90wM6EW5DGAFPyMZM4j/fJrA/s5MOHNaYDdepVw/5zvDNlN1ccLWsD3mdknKvBx1lCdMdoFuLhhgHaxsHwh3ST+bGkoQ+X4pOoVM/qpoibDN7KRvaoNNOMW1kx+arx5wifINJRdn7EI8N+RhfP7XrnHYt5sLzQWG4gAChKL/c6cGUX2owe4t0EmBIjJDJhLpq73/pq2m90uCVOOKo0AZFf28KICSS4X9DkQvORqEX98A4jBeN3OEHmm8wbGOlRWmyusAuO2pgTQCWuH6AlF6seTd3OZycidWKo4gqEByVUt+LGfgdbo+rxmS/XeMmYjdbxAIj+rxTJgQm/2Tbkesa6MfegB+2AVZPg6F5k9M41HQxupdCzGYjipy+mKw85xwSMobNXn1yqn+9Y5oh+f6rf+S8W/3bFHJR5Lw+mg1V0JX6npYZNio6NCMmipG0FDRmnub93igMmcDwHi/6pOTXiHvAQ9MXN+2uUcqAju1yqBXJ5KYhW1ZE5JecIofYjYVAiRbCj20IMKWIRE47T0kO1rwtMBeMw8Z+Llyji/0McM4G+2plVpLm8KISiDUrXuR
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(346002)(39860400002)(396003)(376002)(136003)(230922051799003)(64100799003)(451199024)(186009)(1800799012)(450100002)(8936002)(36756003)(8676002)(4326008)(66946007)(5660300002)(66476007)(316002)(54906003)(2906002)(6666004)(2616005)(38100700002)(26005)(6486002)(53546011)(83380400001)(478600001)(31696002)(6512007)(6506007)(44832011)(86362001)(66556008)(41300700001)(31686004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2QxbHlJTTJrQUpFZ2hXZXR2c2dYSlJVWERBSHVFTEFjaU1XWGllTkhFLy9q?=
- =?utf-8?B?K1VReVVPVVNkTnJhUkdEQjVLb0U4T3FrYVJFWkZ3dUlmUmYwYkZBL0k1Vkda?=
- =?utf-8?B?ZTVSSXZwVThHWCt4NUNUWk9VRWFseWExRndMK2ZzTEQ2YXJxRWxPcG5VNmx5?=
- =?utf-8?B?QytFc2tTNGp4VEZYZDBTeU1UcU0xRU1iVXZZU1JEbEVYME0yVDdlMWFvT1dH?=
- =?utf-8?B?UTl6dEIrZ0J0RXlnWHc0WUt0dVh3K205K05CY210SG5xRDluSnB0RloxTUI5?=
- =?utf-8?B?RDdOWXFoRGlSMUoxRnZRdnNTeGQ0MjB3M3I4SWdTMVdNcGlBcWE2SFlKU2pH?=
- =?utf-8?B?V2JyQUZncnRiZFQzYXF4YU9vemc3cTljOXowSTF6bmZlMFJPUFV6M1dKdXNT?=
- =?utf-8?B?ZzlSZDJEamkrT1FFM2xpM3VnRksyWWtQdGhGMk5uZlgzMlRqdHRhRkJ5bS9W?=
- =?utf-8?B?bThYbjRRR21mS2dtaVNjcExHajkzYkRoSzFNT2wwclVyendoYjV2aVpEbGth?=
- =?utf-8?B?RVFSVWpJQmliOTEzdXo3elN5YUNXV29wd2YxalFNTERFTFUwS2hZSDREM0I3?=
- =?utf-8?B?L0c1M1FndlhvTDFVT1gvMjA1UnlsNFlDQmFKcFFZYS93YWJKMmN0MnBBcERz?=
- =?utf-8?B?TTd6SXlJUW54K1JOMi85Q0tvN1IyQkdhaDFiamV0NGlwQmU1OXpiMWpHTTFo?=
- =?utf-8?B?Um5OVVpQM1FJZUUxclQxcnBzNk5VNUJVUDdvTU1Hc1RoMndmaXhQYytuYS9I?=
- =?utf-8?B?VXNhcm11cloybVBLM0xjWStNU0ZDRmlpaUlYMFA0b3VNd1BiRnpBQ1FrS1Ew?=
- =?utf-8?B?aTJzdXUvTkYxYXA5eFNmaWZvZzlDMld1Z0NXbjc2Ynk5Tmo4YStXYkVVeWFK?=
- =?utf-8?B?bEx1ci8rcldySE1POHhTQWRxUVVremJ0SjRaaUVWUzIxZnpmTTZUVXNET0lJ?=
- =?utf-8?B?UVp4Y3V1dUtMcWJ0cUhFWXNsSWxvcmMranh1WVMwV3JKWlNqc1FqdHF1VDVL?=
- =?utf-8?B?NExDY0NSMzBZNHpWQjJFR3k1MnlNakpONUI4WTR1VHR0Ulh0bUJaSEs4Rm1Z?=
- =?utf-8?B?ZHp6RmtMZnZ5Myt4Rm9HeHltL0tNeDBETXBoaU1oQ09QeHU3VGJGdXcyK2VR?=
- =?utf-8?B?aXB6ZnI1WmhqMDFaU3EvQnpWNEZaS0VqeThpTGcvaHBmaGJHU0NWQktNbkRR?=
- =?utf-8?B?Qitlay8weXU4TFNqemxkci9DbDB2a3dxWXRvRVdWVHA0Z0FMaTZGNWRLdUNl?=
- =?utf-8?B?WXo3ZWhJQS95bTZlK2gwVTRUOVE4YnFkUHAvMVpFVFo4WFVwblU1OTMyRFFU?=
- =?utf-8?B?QkFQeHlhdit0VFlvMXZGQlJUZDlFejNGUnRaZXp0cmxIa3NOUW1naWhrdFZP?=
- =?utf-8?B?S2plM1psNTA1SThwb3BjMW5uV3cyUkFQK2JFUXlJSERObHU1ejJJWHJDdDNs?=
- =?utf-8?B?WElzeUh1N1FKalg3UXNCQ1U4MWFxRGNjd0FTTEd5UHVkOHFPeStXaWhQVTZM?=
- =?utf-8?B?eWRRTFE3TWRaZlNYeVg1TEZ5eFNGOEErNW8yUWt6c3ZQa3R2cEM3eUZXVmJZ?=
- =?utf-8?B?b0FDZWZkRU93M3FCb2dHYXB3cnBHVlkyc0VSQUlrVnU0SkpvQytJZ29HTDNi?=
- =?utf-8?B?RGtibjRtVE9Yb2w2eitxejJPWWxlS1IyejBlZkwyK1NBcTBpVEtyWWh0bFNs?=
- =?utf-8?B?bk5GemZ2UlRLQmJTNUpGU042Tk81TE9jSWtqUjRYN3l6Q0dtSDBpZWlqNFZN?=
- =?utf-8?B?Z05jS0kyYm10M01GQ0NQSVRrWUtUYmxZTXFwZlNEdzM4L1EwV1dZLzlIam5L?=
- =?utf-8?B?QUZ6TmFLSmkxNC9zdnMyNWRxb3U3MWxQYmpKeFA2Mm54S1lCWS9NRWE5Nmc2?=
- =?utf-8?B?YkJLbjNFUkwzZm1jVzJGQmZ5a1VHMXhMMnlnWXV3ek0xelZNeENDU1M3KzA3?=
- =?utf-8?B?ZWl5cWExV1FZKzF6cjM5QXFWTjYwSkdXNnRMakYrNUxNbWxwQ0FaVjY0N2N2?=
- =?utf-8?B?RUtiMTVOaGV6Si9taCtBeGVtVUVuQXBaSE9rVkhJV2dTeHNJcmRJeVJjWDdD?=
- =?utf-8?B?akdlaDVtNkZCbStWeEhKMzVSbHFTZmdUaUE4c1UxcXkyQlRTSnlxRThQV09n?=
- =?utf-8?Q?bXr/E5f/ZfQRnGDYhty7kgGde?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a86119f-e895-462a-e96d-08dc2f350d86
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2024 21:20:08.8067 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dd1qVM5u9AuVt/gD0KARKtD/90XTLmFjAOTXLApoDMMYo0RL5aGfY00PRbc+3iAEgRt/wRAYwuy7O3t0/gs3jQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7365
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240214215756.6530-2-mario.limonciello@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,99 +80,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Mario,
 
+kernel test robot noticed the following build warnings:
 
-On 2024-02-16 10:33, Mario Limonciello wrote:
-> This vendor specific property has never been used by userspace
-> software and conflicts with the panel_power_savings sysfs file.
-> That is a compositor and user could fight over the same data.
-> 
-> Fixes: f97e4303da16 ("drm/amd/display: add panel_power_savings sysfs entry to eDP connectors")
-> Suggested-by: Harry Wentland <Harry.Wentland@amd.com>
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> --
-> Cc: Hamza Mahfooz <Hamza.Mahfooz@amd.com>
-> Cc: Sun peng (Leo) Li <Sunpeng.Li@amd.com>
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.8-rc4 next-20240216]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+url:    https://github.com/intel-lab-lkp/linux/commits/Mario-Limonciello/drm-Stop-using-select-ACPI_VIDEO-in-all-drivers/20240215-055936
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20240214215756.6530-2-mario.limonciello%40amd.com
+patch subject: [PATCH v6 1/5] drm: Stop using `select ACPI_VIDEO` in all drivers
+config: alpha-kismet-CONFIG_FB_BACKLIGHT-CONFIG_FB_SSD1307-0-0 (https://download.01.org/0day-ci/archive/20240217/202402170903.pSlAhO5F-lkp@intel.com/config)
+reproduce: (https://download.01.org/0day-ci/archive/20240217/202402170903.pSlAhO5F-lkp@intel.com/reproduce)
 
-Harry
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202402170903.pSlAhO5F-lkp@intel.com/
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c       |  8 --------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h          |  2 --
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 --------------
->  3 files changed, 24 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index b8fbe97efe1d..3ecc7ef95172 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -1350,14 +1350,6 @@ int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
->  					 "dither",
->  					 amdgpu_dither_enum_list, sz);
->  
-> -	if (adev->dc_enabled) {
-> -		adev->mode_info.abm_level_property =
-> -			drm_property_create_range(adev_to_drm(adev), 0,
-> -						  "abm level", 0, 4);
-> -		if (!adev->mode_info.abm_level_property)
-> -			return -ENOMEM;
-> -	}
-> -
->  	return 0;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> index 2e4911050cc5..1fe21a70ddd0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> @@ -324,8 +324,6 @@ struct amdgpu_mode_info {
->  	struct drm_property *audio_property;
->  	/* FMT dithering */
->  	struct drm_property *dither_property;
-> -	/* Adaptive Backlight Modulation (power feature) */
-> -	struct drm_property *abm_level_property;
->  	/* hardcoded DFP edid from BIOS */
->  	struct edid *bios_hardcoded_edid;
->  	int bios_hardcoded_edid_size;
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index b9ac3d2f8029..e3b32ffba85a 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6388,9 +6388,6 @@ int amdgpu_dm_connector_atomic_set_property(struct drm_connector *connector,
->  	} else if (property == adev->mode_info.underscan_property) {
->  		dm_new_state->underscan_enable = val;
->  		ret = 0;
-> -	} else if (property == adev->mode_info.abm_level_property) {
-> -		dm_new_state->abm_level = val ?: ABM_LEVEL_IMMEDIATE_DISABLE;
-> -		ret = 0;
->  	}
->  
->  	return ret;
-> @@ -6433,10 +6430,6 @@ int amdgpu_dm_connector_atomic_get_property(struct drm_connector *connector,
->  	} else if (property == adev->mode_info.underscan_property) {
->  		*val = dm_state->underscan_enable;
->  		ret = 0;
-> -	} else if (property == adev->mode_info.abm_level_property) {
-> -		*val = (dm_state->abm_level != ABM_LEVEL_IMMEDIATE_DISABLE) ?
-> -			dm_state->abm_level : 0;
-> -		ret = 0;
->  	}
->  
->  	return ret;
-> @@ -7652,13 +7645,6 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
->  	aconnector->base.state->max_bpc = 16;
->  	aconnector->base.state->max_requested_bpc = aconnector->base.state->max_bpc;
->  
-> -	if (connector_type == DRM_MODE_CONNECTOR_eDP &&
-> -	    (dc_is_dmcu_initialized(adev->dm.dc) ||
-> -	     adev->dm.dc->ctx->dmub_srv) && amdgpu_dm_abm_level < 0) {
-> -		drm_object_attach_property(&aconnector->base.base,
-> -				adev->mode_info.abm_level_property, 0);
-> -	}
-> -
->  	if (connector_type == DRM_MODE_CONNECTOR_HDMIA) {
->  		/* Content Type is currently only implemented for HDMI. */
->  		drm_connector_attach_content_type_property(&aconnector->base);
+kismet warnings: (new ones prefixed by >>)
+>> kismet: WARNING: unmet direct dependencies detected for FB_BACKLIGHT when selected by FB_SSD1307
+   .config:254:warning: symbol value 'n' invalid for SATA_MOBILE_LPM_POLICY
+   .config:268:warning: symbol value 'n' invalid for INPUT_MOUSEDEV_SCREEN_Y
+   .config:441:warning: symbol value 'n' invalid for KFENCE_SAMPLE_INTERVAL
+   .config:460:warning: symbol value 'n' invalid for AIC79XX_DEBUG_MASK
+   .config:610:warning: symbol value 'n' invalid for USB_GADGET_STORAGE_NUM_BUFFERS
+   .config:619:warning: symbol value 'n' invalid for DRM_XE_JOB_TIMEOUT_MIN
+   .config:645:warning: symbol value 'n' invalid for CRYPTO_DEV_QCE_SW_MAX_LEN
+   .config:757:warning: symbol value 'n' invalid for PANEL_LCD_CHARSET
+   .config:758:warning: symbol value 'n' invalid for SERIAL_ALTERA_UART_BAUDRATE
+   .config:800:warning: symbol value 'n' invalid for SND_AC97_POWER_SAVE_DEFAULT
+   .config:834:warning: symbol value 'n' invalid for DUMMY_CONSOLE_ROWS
+   .config:844:warning: symbol value 'n' invalid for MAGIC_SYSRQ_DEFAULT_ENABLE
+   .config:858:warning: symbol value 'n' invalid for DRM_I915_MAX_REQUEST_BUSYWAIT
+   .config:882:warning: symbol value 'n' invalid for AIC79XX_CMDS_PER_DEVICE
+   .config:894:warning: symbol value 'n' invalid for SND_AT73C213_TARGET_BITRATE
+   .config:903:warning: symbol value 'n' invalid for DRM_XE_PREEMPT_TIMEOUT_MIN
+   .config:915:warning: symbol value 'n' invalid for NET_EMATCH_STACK
+   .config:917:warning: symbol value 'n' invalid for VMCP_CMA_SIZE
+   .config:942:warning: symbol value 'n' invalid for PANEL_LCD_PIN_SDA
+   .config:1062:warning: symbol value 'n' invalid for PANEL_LCD_PIN_E
+   .config:1143:warning: symbol value 'n' invalid for RCU_CPU_STALL_TIMEOUT
+   .config:1173:warning: symbol value 'n' invalid for MTDRAM_ERASE_SIZE
+   .config:1281:warning: symbol value 'n' invalid for SERIAL_UARTLITE_NR_UARTS
+   .config:1324:warning: symbol value 'n' invalid for VERBOSE_MCHECK_ON
+   .config:1453:warning: symbol value 'n' invalid for LEGACY_PTY_COUNT
+   .config:1605:warning: symbol value 'n' invalid for AIC7XXX_RESET_DELAY_MS
+   .config:1659:warning: symbol value 'n' invalid for XEN_MEMORY_HOTPLUG_LIMIT
+   .config:1755:warning: symbol value 'n' invalid for IBM_EMAC_POLL_WEIGHT
+   .config:1881:warning: symbol value 'n' invalid for DRM_I915_STOP_TIMEOUT
+   .config:2135:warning: symbol value 'n' invalid for AIC79XX_RESET_DELAY_MS
+   .config:2155:warning: symbol value 'n' invalid for KCOV_IRQ_AREA_SIZE
+   .config:2172:warning: symbol value 'n' invalid for RCU_FANOUT_LEAF
+   .config:2315:warning: symbol value 'n' invalid for DRM_XE_TIMESLICE_MAX
+   .config:2317:warning: symbol value 'n' invalid for PANEL_LCD_BWIDTH
+   .config:2557:warning: symbol value 'n' invalid for PANEL_PARPORT
+   .config:2643:warning: symbol value 'n' invalid for NOUVEAU_DEBUG_DEFAULT
+   .config:2791:warning: symbol value 'n' invalid for SND_SOC_SOF_DEBUG_IPC_FLOOD_TEST_NUM
+   .config:2831:warning: symbol value 'n' invalid for KCSAN_REPORT_ONCE_IN_MS
+   .config:2932:warning: symbol value 'n' invalid for KCSAN_UDELAY_INTERRUPT
+   .config:2954:warning: symbol value 'n' invalid for PANEL_LCD_PIN_BL
+   .config:2972:warning: symbol value 'n' invalid for DEBUG_OBJECTS_ENABLE_DEFAULT
+   .config:2978:warning: symbol value 'n' invalid for INITRAMFS_ROOT_GID
+   .config:3082:warning: symbol value 'n' invalid for ATM_FORE200E_TX_RETRY
+   .config:3119:warning: symbol value 'n' invalid for FB_OMAP2_DSS_MIN_FCK_PER_PCK
+   .config:3212:warning: symbol value 'n' invalid for PSTORE_BLK_CONSOLE_SIZE
+   .config:3341:warning: symbol value 'n' invalid for BOOKE_WDT_DEFAULT_TIMEOUT
+   .config:3400:warning: symbol value 'n' invalid for KCSAN_UDELAY_TASK
+   .config:3454:warning: symbol value 'n' invalid for MMC_BLOCK_MINORS
+   .config:3457:warning: symbol value 'n' invalid for INET_TABLE_PERTURB_ORDER
+   .config:3497:warning: symbol value 'n' invalid for SCSI_NCR53C8XX_SYNC
+   .config:3617:warning: symbol value 'n' invalid for UCLAMP_BUCKETS_COUNT
+   .config:3726:warning: symbol value 'n' invalid for SERIAL_MCF_BAUDRATE
+   .config:3797:warning: symbol value 'n' invalid for DE2104X_DSL
+   .config:3808:warning: symbol value 'n' invalid for BLK_DEV_RAM_COUNT
+   .config:3841:warning: symbol value 'n' invalid for FTRACE_RECORD_RECURSION_SIZE
+   .config:3941:warning: symbol value 'n' invalid for STACK_MAX_DEFAULT_SIZE_MB
+   .config:4058:warning: symbol value 'n' invalid for IP_VS_SH_TAB_BITS
+   .config:4147:warning: symbol value 'n' invalid for CMA_AREAS
+   .config:4204:warning: symbol value 'n' invalid for INPUT_MOUSEDEV_SCREEN_X
+   .config:4206:warning: symbol value 'n' invalid for USBIP_VHCI_HC_PORTS
+   .config:4318:warning: symbol value 'n' invalid for RIONET_RX_SIZE
+   .config:4534:warning: symbol value 'n' invalid for RADIO_TYPHOON_PORT
+   .config:4541:warning: symbol value 'n' invalid for IP_VS_MH_TAB_INDEX
+   .config:4625:warning: symbol value 'n' invalid for IBM_EMAC_TXB
+   .config:4651:warning: symbol value 'n' invalid for SERIAL_TXX9_NR_UARTS
+   .config:5011:warning: symbol value 'n' invalid for ARCH_MMAP_RND_BITS
+   .config:5062:warning: symbol value 'n' invalid for PANEL_LCD_PIN_RW
+   .config:5094:warning: symbol value 'n' invalid for DRM_I915_FENCE_TIMEOUT
+   .config:5116:warning: symbol value 'n' invalid for TTY_PRINTK_LEVEL
+   .config:5272:warning: symbol value 'n' invalid for MIPS_EJTAG_FDC_KGDB_CHAN
+   .config:5365:warning: symbol value 'n' invalid for KDB_DEFAULT_ENABLE
+   .config:5381:warning: symbol value 'n' invalid for SERIAL_ALTERA_UART_MAXPORTS
+   .config:5516:warning: symbol value 'n' invalid for PPC_EARLY_DEBUG_EHV_BC_HANDLE
+   .config:5649:warning: symbol value 'n' invalid for PANEL_LCD_HWIDTH
+   .config:5678:warning: symbol value 'n' invalid for LOCKDEP_CHAINS_BITS
+   .config:5764:warning: symbol value 'n' invalid for DRM_I915_HEARTBEAT_INTERVAL
+   .config:5773:warning: symbol value 'n' invalid for KCSAN_SKIP_WATCH
+   .config:5798:warning: symbol value 'n' invalid for RCU_BOOST_DELAY
+   .config:5814:warning: symbol value 'n' invalid for CRYPTO_DEV_FSL_CAAM_INTC_TIME_THLD
+   .config:6093:warning: symbol value 'n' invalid for ARCH_MMAP_RND_COMPAT_BITS
+   .config:6259:warning: symbol value 'n' invalid for RADIO_TRUST_PORT
+   .config:6263:warning: symbol value 'n' invalid for DRM_XE_PREEMPT_TIMEOUT_MAX
+   .config:6639:warning: symbol value 'n' invalid for CMA_SIZE_PERCENTAGE
+   .config:6767:warning: symbol value 'n' invalid for SCSI_SYM53C8XX_MAX_TAGS
+   .config:6786:warning: symbol value 'n' invalid for DRM_XE_TIMESLICE_MIN
+   .config:6896:warning: symbol value 'n' invalid for DVB_MAX_ADAPTERS
+   .config:6900:warning: symbol value 'n' invalid for SCSI_NCR53C8XX_MAX_TAGS
+   .config:6903:warning: symbol value 'n' invalid for RIONET_TX_SIZE
+   .config:6912:warning: symbol value 'n' invalid for SCSI_SYM53C8XX_DMA_ADDRESSING_MODE
+   .config:7200:warning: symbol value 'n' invalid for ZSMALLOC_CHAIN_SIZE
+   .config:7232:warning: symbol value 'n' invalid for OMAP2_DSS_MIN_FCK_PER_PCK
+   .config:7250:warning: symbol value 'n' invalid for SERIAL_ARC_NR_PORTS
+   .config:7278:warning: symbol value 'n' invalid for IBM_EMAC_RXB
+   .config:7421:warning: symbol value 'n' invalid for LOCKDEP_BITS
+   .config:7426:warning: symbol value 'n' invalid for SCSI_MPT3SAS_MAX_SGE
+   .config:7604:warning: symbol value 'n' invalid for RCU_FANOUT
+   .config:7657:warning: symbol value 'n' invalid for PANEL_LCD
+   .config:7780:warning: symbol value 'n' invalid for KDB_CONTINUE_CATASTROPHIC
+   .config:7944:warning: symbol value 'n' invalid for CRYPTO_DEV_FSL_CAAM_RINGSIZE
+   .config:8034:warning: symbol value 'n' invalid for MTDRAM_TOTAL_SIZE
 
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
