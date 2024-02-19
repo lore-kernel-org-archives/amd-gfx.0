@@ -4,116 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C66B2C48BC3
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Feb 2024 12:40:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD498C48BC3
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Feb 2024 12:52:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69E8310E22B;
-	Mon, 19 Feb 2024 12:40:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52C1010E3F5;
+	Mon, 19 Feb 2024 12:52:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="H2irE5q5";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QSMVtvfs";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C78510E22B
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Feb 2024 12:40:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=baX7VZWdK6J0/zDsiRfh9G8e8yWQJyOs17wJCe/G2tqOobSMnknhnxdE1ActQzQxB7BBzh6sbLvDWS0Z2c1EG4hbxZy88IH5OfNpLIwz5oX1Z0nbzWpQ8E7ackFR4vw5r0Ie2DQs+k0rCJTPm/uJ3fJfg7DK2C8ldvvfl95gw17j6Qx2GR2FJ92hMGI6JSEAQaQBlKFJDIbBK6C4I/ozRwUNWEDrXBvZyxaQffCR6GL/mh+Hm0uGEJ5MorpIxGKduhhoDN103exDlo+jWNTFTB+W39327C/6IE8vpYi5/cY0GCJI7okKpKNQWnXxeHBN5uOrJdvM6UpFLmzVaOGe1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8bUrBgeVL62gwaYscvoNTvQamtVMoKZNMwE7C0+SByU=;
- b=Z1jaQKOiQYgMkkOIFyoYN4ENMMZXOaJQAtg+tsneo3ZBiv8zQBzvk0BYgQsoUJQw8oM7iS2wCmvlU1MkXKv5X3MDrEYmeVPRlL8IJknU6PBIxLMbZfQD8S6IMNFrXS3JCsYAT1mXwGpZ6AGCCBm9skM2qwR8E78qnQKE8Y92wz5Vem6kw8jsfX7ybAQQk4PjAu0IHS35XNMa5KR+C6LlpjCmMChJlhCO8V3m3HvwBfe5yedkf9jWI3vnLOyVHcKGs0XiqAsmzioKX4y4SALatWCPsvS1tWz30QZVxih2oCT292oib9pI9tVFEXfXUXOhb8no7PsCicdi3TrbYBRwug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8bUrBgeVL62gwaYscvoNTvQamtVMoKZNMwE7C0+SByU=;
- b=H2irE5q5Y9FrvodKdJzzeWk2TA6krrK1YsOfLNqrf8u/5wQ95pa1xyWR5KRJiqw4neEIGaxoL4XTDVpZ3bT1dY3IHSdmMw1Sh7BWPNYK16xIi/3+3/+LUhN6YTiCe5GKhaBS3eFUoHSFrhOiyyHABtrUwKBp7RnLD7YKTHR756g=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- MN6PR12MB8513.namprd12.prod.outlook.com (2603:10b6:208:472::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.17; Mon, 19 Feb
- 2024 12:40:30 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::a397:19eb:d2e8:a596]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::a397:19eb:d2e8:a596%6]) with mapi id 15.20.7316.018; Mon, 19 Feb 2024
- 12:40:30 +0000
-Message-ID: <fe223d29-27ad-464d-bd4e-70ec89695d2e@amd.com>
-Date: Mon, 19 Feb 2024 18:10:22 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] drm/amdgpu: skip GFX FED error in page fault handling
-To: Tao Zhou <tao.zhou1@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240219081520.316064-1-tao.zhou1@amd.com>
- <20240219081520.316064-5-tao.zhou1@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20240219081520.316064-5-tao.zhou1@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0236.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:eb::20) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BDDE10E434;
+ Mon, 19 Feb 2024 12:52:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1708347164;
+ bh=RlJFnwC8vtKaCRSiqNBP6fs/G9L9iiOg4PIBPGdT9RU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=QSMVtvfseBUsWHd8wUrB3Ibay4Sz6yDaBFlcdwRfZDu7OZb7dzMN2z0D228h83b6D
+ PpHL+rGH/nqw5fLvRNk0jDlXSVOeD+27wus48q7YrBG5qxc76/KkCQDljqy1MsDZOg
+ micgwVxeWwS1qrGtK/yRCjih5BWeqUr+rSoZhV0Z2LWmIXEhYqyR5UdWrHsBHxQ3hk
+ 3f8yGFskfV80sMOw1Ns3IAE1L+6rlsI+WFiFTnx1pnW2UyOPiW5fC1axJ0Sh5/7tR5
+ dup+DkxrWG2e7wJVyBV3261jSKXDSlqC5EGojjeSlnX1DpYtub6lbmZX5ichLsNbwC
+ RYVQj6nkYBqZA==
+Received: from [100.95.196.25] (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: koike)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 9F4A437820C1;
+ Mon, 19 Feb 2024 12:52:40 +0000 (UTC)
+Message-ID: <e69a275c-4415-4f0c-bae4-af8112357ef6@collabora.com>
+Date: Mon, 19 Feb 2024 09:52:37 -0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|MN6PR12MB8513:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d43bf3d-90cf-45ea-c12e-08dc3147f4b7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TxWzi51nhCe/U/3ve1u68LnQU70HU5M6pqXDDTvzefduZliC2guZiGpK8HTxwZjLc2fRu/jxX4cFwScuf5ek+iDn4Pq4tFm68Rt1LXBKosLWV3iIzbtkUpmFJFdzApEf2/0E81gxTYvRuz8btysjdfMqqLDVEQQYNM/3bD6Lej68q1scubW2pQ2DvwBeQWJJH1XpWy+IOdY3N6QCaH5KeeuBXrdWboEPu0k490kedjuAh0Wpl78v+Q8QKTKcgcodeav3b7iUQlxA/WtmDZnz4ZA7RSgouRM9qhn3qooHy6VX9fWHXoqvkHzKYhv3rLoTkE2HmlGbELl2RHudx/9CACUwsqyy2xWyDWgV0ZCiSZprP+NXs2Z/mqanZTOk334AYcmEGRRtB1Jxlv/lxzByyv6ASe8fT/VkAZD6f79ARSDlifGOnqOFO9Oex92V4QVM05LTWlz9bFs22XOHpfKtwYBpJP3dQu9X7u0bLgXRBjMDk0Ybww8B7aulYYLfrTjSTJ7zyUz/L4FdAHXA7XJzN9hgySiIKZgoLxM+fRki9IY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q2g4VzJNTkI5R1h2TCt0T1VlaVdwMHRjRWtiYVlMbjl3OW5EV01LQzd6RUZH?=
- =?utf-8?B?di82RFV3M0JBZEZBbUczMG81RCtWMkg4QUFzdk9yZ0J6SFJDamwxSjA1SFFU?=
- =?utf-8?B?YlFpbzYyT3JSdVVTRnZhMlFJaDEyQWM3MGNOUE9RT0VmWlJRUHFlM1NQZVRh?=
- =?utf-8?B?M0xXYXhmZVVOTDBzbForeFZnbTdGZHJaNUVPT1dHTC80VTJRdEhDWGw2U0Iv?=
- =?utf-8?B?WnhiZ0paUVI1QTBPMFlTcEpxK1F2OVhuMEh5SU53VjBOTFdlbzJNUnAyWmhF?=
- =?utf-8?B?WjJtMEtIWThLdytHUUpQTTBRTXQyMy9UOStSbXQ5alFzVmo5UFkyb0xQcHIz?=
- =?utf-8?B?eGQyNkVFTDZ1Z05wY1V2ekFMczJ3N1dCSHNiV3N4TWNJZ1NUVXJjQVRyNWdB?=
- =?utf-8?B?a0tmYTd3eTcwcUxKQkRMektZNC9vVCt6aGYyc29VTHV3SFByNEdSMEQ1elRT?=
- =?utf-8?B?WEFZaEMrZEYxdGlwcHpmamxlQlVnOUZ1K2pMbWVNZHowd2x6eWdSd2tzYkpE?=
- =?utf-8?B?Z3RRbWdwblhxZ1lndjg3eEdMb1puQ1FzR0RrREFhQ0hydE5kNzluVTJObGRJ?=
- =?utf-8?B?a1o2eXFNMWFNWUZ0MXpLbmVOVEpGakpXR2pFSWVJWUk3eHd2YTRIYUZHYkEv?=
- =?utf-8?B?TzJlRjhkcHBlQkZLUHh4OFYwMXBlOCszb0NPYTMyMUtkQjNvRzI0bXhEY0dl?=
- =?utf-8?B?Vmh5S3ZWek1lN3lsZVQ2RS9wSU11Qlh0NWtjaVQ2MUxCQlZxdmtlbENYSjRR?=
- =?utf-8?B?dE5vck5IdDV5VUIxTzVIaDVUVTFKOWtEZGVLVUNuZ0o1b1NtWDVSN1dqVUpo?=
- =?utf-8?B?LzFiblByRFUwa3BWeGZYV25RbURoYXhzYngzRjhkQVJyMXc4T042OFM2MnY4?=
- =?utf-8?B?dkxlbTBnT3kvSDl4ZnZBbVQ4bFJpbG1WUVpMblhaVmVZeDJVSHhjWjB0K2pt?=
- =?utf-8?B?NzhYVmQ5R0xHbjdNWE5tbXZTSlJkSjZsbkpTcWRmQnNDT3BENDhvU2VOUUs1?=
- =?utf-8?B?WGptWTRzSU5aNXZaUEZIUjdQUUJma1ZrdXdwbUZUc0lOZ2pUdFNHVnBjQ3d3?=
- =?utf-8?B?NHpyQXkwL2JjemNiYWpZWWRxYURUQUdFTm9uczRDUG1yWGw5UG5IMENZR1Rs?=
- =?utf-8?B?S2d5WDBmRit4VE43Ym0yaWNDSldZK3JnZ0VNdGdxREtRNXk3c2VkTElObGU1?=
- =?utf-8?B?MzRQS045aURnQTBVQVB4Y0lEOGRVQ2ZXWWFFUmNBbnNKTEtscDJCdWdSZ0tQ?=
- =?utf-8?B?RC9xV1VIeUlEWjNuUnZsYU1Pd282ZXZ0K1FZT1RzaFZxNjNuUUNwZG05WFFk?=
- =?utf-8?B?aFRSZ0JGSkRNbk01UE1uZ1N5TDlqZlR2ZVRUZmthWklDZ3FjU25NTGJUZTU3?=
- =?utf-8?B?T251dG5QVjFWK3NRaHlhRjQ0WndhWC9OK2pWNDkvRWdQR2REU3Z0S3plaFhH?=
- =?utf-8?B?TDNKY1MraHJ0cHFvNVVYRGxneTlKdDVhR2dNUFJTN2pGZmJ1UHVBOXBIZ3VN?=
- =?utf-8?B?eUtlT1hySzczaThVZGFaWFVoUTdvb0Z6UmRHcWYzN2I4TjkwNDU3dWxLeXRV?=
- =?utf-8?B?NitWYkw5U3ZkeWw4OFg1WTc4VmovRExjaWNyRzV0b2ppQi95OUNmMXFnVUYy?=
- =?utf-8?B?ZHpkbE5pVENJYjlZeU92K09SeWlsclBCL1BMYnJITnNSeWkxWnUwMmtCempN?=
- =?utf-8?B?OUdFNzRzQTBqWXdYSnFYM0RUSGtSRXQvRDJnalJ6ZE1FS2JSTnBlVE52YUdn?=
- =?utf-8?B?M1lvMTBHVXNHME1qbVJvNjF1WGQ1NFhmWEZTeTV0UXRHUjNLbGVrYmhxWVlP?=
- =?utf-8?B?Tnp0clZmSmZvb2lUSy9sVlJaNWdaQlNKL1pYRk5hMkN2bzh5cmNXQnYyUWVY?=
- =?utf-8?B?MVZmSG5Qa013L3BGUHBTVjU3cmJQdFJKV2NLNjk3THRnVURKeHREaXovNUp5?=
- =?utf-8?B?UWE1am5tUFhDOGFpanp1cVdnWEV5RG4rU1FxYWwwVWw0VlM2MmdFRGRlbXg0?=
- =?utf-8?B?V0d5eERrS2RzcStoS3BGNFYwL2YxUVNzMnI5TXBxdGVFSlM5OW9xVXJEaGxD?=
- =?utf-8?B?dXdVV3NTd3RmSXNndEtEdHgwaWNvZDkyZkxUb3VDSFFUVmJGQWlIZDB2cWdm?=
- =?utf-8?Q?iLtAcnp3/1i6cn++LJFs88bwT?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d43bf3d-90cf-45ea-c12e-08dc3147f4b7
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Feb 2024 12:40:30.1454 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SY7bY4m46XfDNb1E/vADSzOQoLmkx83JxBQQBn8/0Va/6MNjD2wqz8TNVpg6fkx/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8513
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/9] drm/ci: mediatek: Add job to test panfrost and
+ powervr GPU driver
+Content-Language: en-US
+To: Vignesh Raman <vignesh.raman@collabora.com>,
+ dri-devel@lists.freedesktop.org
+Cc: daniel@fooishbar.org, airlied@gmail.com, daniel@ffwll.ch,
+ david.heidelberg@collabora.com, guilherme.gallo@collabora.com,
+ sergi.blanch.torne@collabora.com, robdclark@gmail.com,
+ linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20240130150340.687871-1-vignesh.raman@collabora.com>
+ <20240130150340.687871-4-vignesh.raman@collabora.com>
+ <61575073-ce37-4027-8f95-f05290cc10c4@collabora.com>
+ <2083520a-13f3-0ecd-45ce-ee4ba34d5bca@collabora.com>
+From: Helen Koike <helen.koike@collabora.com>
+In-Reply-To: <2083520a-13f3-0ecd-45ce-ee4ba34d5bca@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,51 +71,76 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 2/19/2024 1:45 PM, Tao Zhou wrote:
-> Let kfd interrupt handler process it.
+On 19/02/2024 06:39, Vignesh Raman wrote:
+> Hi Helen,
 > 
-> Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
+> On 09/02/24 23:51, Helen Koike wrote:
+>>
+>>
+>> On 30/01/2024 12:03, Vignesh Raman wrote:
+>>> For mediatek mt8173, the GPU driver is powervr and for mediatek
+>>> mt8183, the GPU driver is panfrost. So add support in drm-ci to
+>>> test panfrost and powervr GPU driver for mediatek SOCs and update
+>>> xfails. Powervr driver was merged in linux kernel, but there's no
+>>> mediatek support yet. So disable the mt8173-gpu job which uses
+>>> powervr driver.
+>>>
+>>> Add panfrost specific tests to testlist and skip KMS tests for
+>>> panfrost driver since it is not a not a KMS driver. Also update
+>>> the MAINTAINERS file to include xfails for panfrost driver.
+>>>
+>>> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+>>
+>> Hi Vignesh, thanks for your work.
+>>
+>> I'm still wondering about a few things, please check below.
+>>
+>>> ---
+>>>
+>>> v2:
+>>>    - Add panfrost and PVR GPU jobs for mediatek SOC with new xfails, 
+>>> add xfail
+>>>      entry to MAINTAINERS.
+>>
+>> Maybe we should review how the xfails failes are named. I think they 
+>> should start with the DRIVER_NAME instead of GPU_VERSION.
+>>
+>> For instance, consider the following job:
+>>
+>> mediatek:mt8183-gpu:
+>>    extends:
+>>      - .mt8183
+>>    variables:
+>>      GPU_VERSION: mediatek-mt8183-gpu
+>>      DRIVER_NAME: panfrost
+>>
+>> And we have mediatek-mt8183-gpu-skips.txt
+>>
+>> If there is an error, we want to notify the panfrost driver 
+>> maintainers (and maybe not the mediatek driver maintainers), so 
+>> MAINTAINERS file doesn't correspond to this.
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 773725a92cf1..70defc394b7b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -552,7 +552,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
->  {
->  	bool retry_fault = !!(entry->src_data[1] & 0x80);
->  	bool write_fault = !!(entry->src_data[1] & 0x20);
-> -	uint32_t status = 0, cid = 0, rw = 0;
-> +	uint32_t status = 0, cid = 0, rw = 0, fed = 0;
->  	struct amdgpu_task_info task_info;
->  	struct amdgpu_vmhub *hub;
->  	const char *mmhub_cid;
-> @@ -663,6 +663,14 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
->  	status = RREG32(hub->vm_l2_pro_fault_status);
->  	cid = REG_GET_FIELD(status, VM_L2_PROTECTION_FAULT_STATUS, CID);
->  	rw = REG_GET_FIELD(status, VM_L2_PROTECTION_FAULT_STATUS, RW);
-> +	fed = REG_GET_FIELD(status, VM_L2_PROTECTION_FAULT_STATUS, FED);
-> +
-> +	/* for gfx fed error, kfd will handle it, return directly */
-> +	if (fed && amdgpu_ras_is_poison_mode_supported(adev) &&
-> +	    amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(9, 4, 2) &&
-> +	    !strcmp(hub_name, "gfxhub0"))
-> +		return 1;
+> Agree.
+> 
+>>
+>> How about a naming <driver name>_<hardware/gpu>_<type: gpu/display> ?
+>>
+>> powervr_mediatek-mt8173_gpu-skipts.txt
+>> mediatek_mediatek-mt8173_display-skipts.txt
+>> panfrost_mediatek-mt8183_gpu-skips.txt
+>> mediatek_mediatek-mt8183_display-skips.txt
+>> ...
+>>
+>> What do you think?
+> 
+> Yes we can keep this naming. In this case do we still need gpu/display 
+> in the xfails file name?
 
-amdgpu_irq_dispatch() gives the impression that return value of 1 is
-treated as handled, hence won't be passed to kfd. The commit description
-says it is intended to pass to kfd for handling.
+If you think this split is not required, then I'm fine dropping it.
 
-Also, FED status check may be moved up so that it's not misunderstood as
-a regular page fault with the extra prints coming to dmesg log.
-Otherwise, poison status also needs to be added to dmesg.
+Regards,
+Helen
 
-Thanks,
-Lijo
-
-> +
->  	WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
->  #ifdef HAVE_STRUCT_XARRAY
->  	amdgpu_vm_update_fault_cache(adev, entry->pasid, addr, status, vmhub);
+> 
+> Regards,
+> Vignesh
