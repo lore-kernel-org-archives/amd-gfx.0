@@ -4,94 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F757C54766
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Feb 2024 08:15:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C9A3C48260
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Feb 2024 08:52:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9C8610E1A0;
-	Mon, 19 Feb 2024 08:15:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9089210E1B5;
+	Mon, 19 Feb 2024 08:52:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ViVwrTs5";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="c1+wIJB9";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2042.outbound.protection.outlook.com [40.107.92.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63C5A10E1A0
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Feb 2024 08:15:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dLcW8CR3ZzrTlqz+9c84JrXdKW61eAE+8v2LmGjAPdntElUcw6T005wmEYbnn7HpBEpALcmzcJxhEVcGKa5DWE1Q5y0WICyPleVCu8GkdjcRerQXtOy6Y7fXaN0RS912NlnrhQgEXppZnt89KPJMu+6Fes093JkWa2yAhd7uOQcjGXElYnbTsfDic371SSgq5/X28/VJNnvFzK3+JxqztsogTnlsp8TmrmLWbmjd7j5tLCCVWl8oPW5W0W5EWwlpyhYyQjv7/yT/goT4yX/3pJCqHYyfDyuuC3DFm6tm2Jk6Td4iSjMFHbpWDz7YcZ7G+LhPnL34FXgmYzhiMbInrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NGYUdkuU6SapPjKjXpQcCD2k44MooRodoqlJ5oyywkQ=;
- b=QwNhaUcsnBXLdjjI2R1B4HbhdT2MRaIAouBCpDnCLtuYr5m5HB25Ad+1BKkFEYpEEDcfOw4xpToPFwa3IBUmkTVXZmtalwDhQiBQME6QyTACM4TTpSBfI+pKfZuF1pvDe8SvVMH5A2iFXdTi0drDgECbJGSm43WqY9741p4ClP9xG9KIryxtZhd60VvUsuVElstkROLmHuQjiYAIrleZwfVy/71BbMQgl8wMp3bJoNNY1oEsGJsDuNyFUFIM5i0KL1VOSUZYCLexFOlwPmuEeuNH4GsH8x0VStYKtrd4ybHUeScpfuTZ/MIbRcw2ztIzPWXnBPCzhAu5PATNvo4SFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NGYUdkuU6SapPjKjXpQcCD2k44MooRodoqlJ5oyywkQ=;
- b=ViVwrTs5ye6elfNdi1wn199zfOiK2a2c0eFBQxqh6LHBqps5u6LLU+EOKJTB++e4Csp9mZWC760JC/Dm9YLKTEZxi0aH4DzkaazbvA6jS9TgGhKs3tK35AHxsw9Wx7lTcxZDJ0hr3ggyKtAp1zr5T8ys9I0tPDlcYBV92ao1e2Y=
-Received: from DM6PR03CA0101.namprd03.prod.outlook.com (2603:10b6:5:333::34)
- by IA1PR12MB6114.namprd12.prod.outlook.com (2603:10b6:208:3ea::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.19; Mon, 19 Feb
- 2024 08:15:37 +0000
-Received: from CY4PEPF0000EE3B.namprd03.prod.outlook.com
- (2603:10b6:5:333:cafe::3e) by DM6PR03CA0101.outlook.office365.com
- (2603:10b6:5:333::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.38 via Frontend
- Transport; Mon, 19 Feb 2024 08:15:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE3B.mail.protection.outlook.com (10.167.242.15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Mon, 19 Feb 2024 08:15:35 +0000
-Received: from tao-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 19 Feb
- 2024 02:15:34 -0600
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Tao Zhou <tao.zhou1@amd.com>
-Subject: [PATCH 4/5] amd/amdkfd: get node id for query_utcl2_poison_status
-Date: Mon, 19 Feb 2024 16:15:19 +0800
-Message-ID: <20240219081520.316064-4-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240219081520.316064-1-tao.zhou1@amd.com>
-References: <20240219081520.316064-1-tao.zhou1@amd.com>
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58AB510E1AB;
+ Mon, 19 Feb 2024 08:52:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1708332766;
+ bh=4X90vGi+S3GMD8xcunMsqdnSAQ5bq0oM8thgSR31da0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=c1+wIJB9dLAkFFYkLTsVtGo2Or1NO0CJwUEHlS8GwLHyT9hnJGRE9px9PHnthYq2a
+ XOuT1I79SybuczGIRRiJu2VegJUKqo/qpckhL+4Ze4fpu1PXiL2ypsMASzj/9A8bER
+ p3K3LddVkPhsm0xRfNmPDd+eEH3qf1Wbzd8JTRYey0LxDZ7KU8oo8qzlQwNXdroJpA
+ gjt2OFWM1ENlTG/ggT6h+l+aOQh3k1vUlLnz6BE6cQrcxF02ufERfuW7qjETqRAJFy
+ /dDV501hps75ck2b29IKbXCk82qu1Ju7gla2X3XGfYbMibxVhoQuj4f7VaW0ENycD3
+ sDWRU+FszXeWA==
+Received: from [100.66.96.193] (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: vignesh)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id D764D37820BF;
+ Mon, 19 Feb 2024 08:52:43 +0000 (UTC)
+Message-ID: <e1f56317-b70d-0b81-75f0-fef50616e026@collabora.com>
+Date: Mon, 19 Feb 2024 14:22:41 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v3 9/9] drm/ci: uprev IGT and update testlist
+Content-Language: en-US
+To: =?UTF-8?Q?Ma=c3=adra_Canal?= <mcanal@igalia.com>,
+ dri-devel@lists.freedesktop.org
+Cc: linux-rockchip@lists.infradead.org, guilherme.gallo@collabora.com,
+ sergi.blanch.torne@collabora.com, linux-kernel@vger.kernel.org,
+ david.heidelberg@collabora.com, helen.koike@collabora.com,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, linux-amlogic@lists.infradead.org, airlied@gmail.com
+References: <20240130150340.687871-1-vignesh.raman@collabora.com>
+ <20240130150340.687871-10-vignesh.raman@collabora.com>
+ <26f6426d-dcb6-4b14-b031-368b2248e9e7@igalia.com>
+ <799653a3-e079-4e17-9d68-c0e384a216b0@igalia.com>
+From: Vignesh Raman <vignesh.raman@collabora.com>
+In-Reply-To: <799653a3-e079-4e17-9d68-c0e384a216b0@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3B:EE_|IA1PR12MB6114:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35c88618-778e-4aec-5430-08dc3122f34a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /hcPfaUsi2MQTRhZ8nKEK+hkRwsK8iGu+czfPJeHIqqPcEZEZamrR+BxSrlAaMzbgVWejq1MHaQcLPoTvjSiRvms2XgNly8lE250yclmEwxGkFK2HVlSluO0uQGQKMKz3rvj8q2pV0zHWu0jHP+XcyOgsEcqusw/1Bzr1Sm0a+1KEMX+hjoMkb6qGRcXC6RBtwSJT6UEuD7sxtMaZxmGmnAUqfgdxOpbr8dNMA/4K5P6FVRYfzdCt0filf8Cr3BqcYWzNRsmmUbChXDgbuBxewN3XTbeK2vhfSYQ1YcLPYMSDTQyQvUWgUdq1js9RFRO10Dfk71RU7Bs6Q3xCYL74FnEz52WXPB/ogMDFRl/8W/6jTqO9G9mUGA549GTRvbuurTHT1LbzLPRVSORXMLsuljwLSIOvA0RtFGm9BZLGGpSBcOMe0dyZ3z15CgEAj2XRZD/sOaWuU+/1Jj55v5fPHpuIVawWY1bHSEJenwzqClcIVUHRK+p3DcTCVLurjYrKfThqsu2U6FaSLyJIbd2P0bdvGb6hd+41g3PH6PefK6c4pRnLw0w8JlPbc0GeFtu4hYoJQtXax75z3O7wWlZ/0aCNxklwhHMqvEFrS9cUc6sUpKj/9mH10WMAPUIo9Pp2UnM7FLh26tw/YjKRA4HDtfN7nyKW14/GDTOkw85s1s=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(346002)(39860400002)(396003)(136003)(230922051799003)(64100799003)(1800799012)(451199024)(186009)(36860700004)(82310400011)(40470700004)(46966006)(5660300002)(2906002)(2616005)(41300700001)(26005)(1076003)(36756003)(478600001)(16526019)(356005)(81166007)(83380400001)(426003)(336012)(82740400003)(86362001)(4326008)(6916009)(8676002)(8936002)(70586007)(70206006)(7696005)(316002)(6666004);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Feb 2024 08:15:35.8901 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35c88618-778e-4aec-5430-08dc3122f34a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3B.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6114
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,48 +68,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Obtain it from ring entry.
+Hi Maíra,
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c  | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+On 10/02/24 23:50, Maíra Canal wrote:
+> On 2/10/24 15:17, Maíra Canal wrote:
+>> On 1/30/24 12:03, Vignesh Raman wrote:
+>>> Uprev IGT and add amd, v3d, vc4 and vgem specific
+>>> tests to testlist. Have testlist.txt per driver
+>>> and include a base testlist so that the driver
+>>> specific tests will run only on those hardware.
+>>>
+>>> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+>>> ---
+>>>
+>>> v3:
+>>>    - New patch in series to uprev IGT and update testlist.
+>>>
+>>> ---
+>>>   drivers/gpu/drm/ci/gitlab-ci.yml              |   2 +-
+>>>   drivers/gpu/drm/ci/igt_runner.sh              |  12 +-
+>>>   drivers/gpu/drm/ci/testlist-amdgpu.txt        | 151 ++++++++++++++++++
+>>>   drivers/gpu/drm/ci/testlist-msm.txt           |  50 ++++++
+>>>   drivers/gpu/drm/ci/testlist-panfrost.txt      |  17 ++
+>>>   drivers/gpu/drm/ci/testlist-v3d.txt           |  73 +++++++++
+>>>   drivers/gpu/drm/ci/testlist-vc4.txt           |  49 ++++++
+>>>   drivers/gpu/drm/ci/testlist.txt               | 100 ++++--------
+>>>   .../gpu/drm/ci/xfails/amdgpu-stoney-fails.txt |  24 ++-
+>>>   .../drm/ci/xfails/amdgpu-stoney-flakes.txt    |   9 +-
+>>>   .../gpu/drm/ci/xfails/amdgpu-stoney-skips.txt |  10 +-
+>>>   11 files changed, 427 insertions(+), 70 deletions(-)
+>>>   create mode 100644 drivers/gpu/drm/ci/testlist-amdgpu.txt
+>>>   create mode 100644 drivers/gpu/drm/ci/testlist-msm.txt
+>>>   create mode 100644 drivers/gpu/drm/ci/testlist-panfrost.txt
+>>>   create mode 100644 drivers/gpu/drm/ci/testlist-v3d.txt
+>>>   create mode 100644 drivers/gpu/drm/ci/testlist-vc4.txt
+>>>
+>>> diff --git a/drivers/gpu/drm/ci/gitlab-ci.yml 
+>>> b/drivers/gpu/drm/ci/gitlab-ci.yml
+>>> index bc8cb3420476..e2b021616a8e 100644
+>>> --- a/drivers/gpu/drm/ci/gitlab-ci.yml
+>>> +++ b/drivers/gpu/drm/ci/gitlab-ci.yml
+>>> @@ -5,7 +5,7 @@ variables:
+>>>     UPSTREAM_REPO: git://anongit.freedesktop.org/drm/drm
+>>>     TARGET_BRANCH: drm-next
+>>> -  IGT_VERSION: d2af13d9f5be5ce23d996e4afd3e45990f5ab977
+>>> +  IGT_VERSION: b0cc8160ebdc87ce08b7fd83bb3c99ff7a4d8610
+>>>     DEQP_RUNNER_GIT_URL: 
+>>> https://gitlab.freedesktop.org/anholt/deqp-runner.git
+>>>     DEQP_RUNNER_GIT_TAG: v0.15.0
+>>> diff --git a/drivers/gpu/drm/ci/igt_runner.sh 
+>>> b/drivers/gpu/drm/ci/igt_runner.sh
+>>> index f001e015d135..2fd09b9b7cf6 100755
+>>> --- a/drivers/gpu/drm/ci/igt_runner.sh
+>>> +++ b/drivers/gpu/drm/ci/igt_runner.sh
+>>> @@ -64,10 +64,20 @@ if ! grep -q "core_getversion" 
+>>> /install/testlist.txt; then
+>>>   fi
+>>>   set +e
+>>> +if [ "$DRIVER_NAME" = "amdgpu" ]; then
+>>> +    TEST_LIST="/install/testlist-amdgpu.txt"
+>>> +elif [ "$DRIVER_NAME" = "msm" ]; then
+>>> +    TEST_LIST="/install/testlist-msm.txt"
+>>> +elif [ "$DRIVER_NAME" = "panfrost" ]; then
+>>> +    TEST_LIST="/install/testlist-panfrost.txt"
+>>> +else
+>>> +    TEST_LIST="/install/testlist.txt"
+>>> +fi
+>>> +
+>>
+>> Isn't V3D and VC4 testlists missing?
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-index 9a06c6fb6605..747cb785a7d3 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-@@ -367,10 +367,11 @@ static void event_interrupt_wq_v10(struct kfd_node *dev,
- 		   client_id == SOC15_IH_CLIENTID_UTCL2) {
- 		struct kfd_vm_fault_info info = {0};
- 		uint16_t ring_id = SOC15_RING_ID_FROM_IH_ENTRY(ih_ring_entry);
-+		uint32_t node_id = SOC15_NODEID_FROM_IH_ENTRY(ih_ring_entry);
- 		struct kfd_hsa_memory_exception_data exception_data;
- 
- 		if (client_id == SOC15_IH_CLIENTID_UTCL2 &&
--				amdgpu_amdkfd_ras_query_utcl2_poison_status(dev->adev)) {
-+		    amdgpu_amdkfd_ras_query_utcl2_poison_status(dev->adev, node_id)) {
- 			event_interrupt_poison_consumption(dev, pasid, client_id);
- 			return;
- 		}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-index 91dd5e045b51..eb94d967c532 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-@@ -413,10 +413,11 @@ static void event_interrupt_wq_v9(struct kfd_node *dev,
- 		   client_id == SOC15_IH_CLIENTID_UTCL2) {
- 		struct kfd_vm_fault_info info = {0};
- 		uint16_t ring_id = SOC15_RING_ID_FROM_IH_ENTRY(ih_ring_entry);
-+		uint32_t node_id = SOC15_NODEID_FROM_IH_ENTRY(ih_ring_entry);
- 		struct kfd_hsa_memory_exception_data exception_data;
- 
- 		if (client_id == SOC15_IH_CLIENTID_UTCL2 &&
--		    amdgpu_amdkfd_ras_query_utcl2_poison_status(dev->adev)) {
-+		    amdgpu_amdkfd_ras_query_utcl2_poison_status(dev->adev, node_id)) {
- 			event_interrupt_poison_consumption_v9(dev, pasid, client_id);
- 			return;
- 		}
--- 
-2.34.1
+Yes. We need to add ci jobs to test v3d/vc4. The initial idea was just 
+to split the testlist per driver and add vc4/v3d tests so that it can be 
+used in future. I will add the jobs as part of v4.
 
+>> It would be nice if you could provide us a link to a working pipeline.
+
+Will provide the working pipeline link in next series.
+
+>> Also, if possible, I would like to be CCed on the next version of this
+>> patch, as I have interest in the V3D/VC4 tests.
+
+Sure, will do.
+
+> Ah, one thing: it would be nice to add the testlists to the MAINTAINERS
+> file. This way, maintainers can keep track of any changes.
+
+Yes, will add the testlists to MAINTAINERS file.
+
+Thanks for the review and feedback.
+
+Regards,
+Vignesh
