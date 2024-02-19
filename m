@@ -4,117 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DD0DC48BF8
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Feb 2024 18:58:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D780C48BC3
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Feb 2024 21:48:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFA8610E090;
-	Mon, 19 Feb 2024 18:58:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5D7C10E135;
+	Mon, 19 Feb 2024 21:48:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oTxSoSqj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="opV7HV4+";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2089.outbound.protection.outlook.com [40.107.94.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7021610E090
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Feb 2024 18:58:51 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2052.outbound.protection.outlook.com [40.107.244.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B67F10E157;
+ Mon, 19 Feb 2024 21:48:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TeCQXxDrGCpNVPGdQb6sLx8b8Hh5qzGuJExzyc2rfMU/vUuHOhCDPEPJh0lmyP5ezhAOmcuwFx2iL6XnN2wdhSWcAT5XlXXVtsooNQVRgk0p1FHqBvxbNjZxUzbRbei8Dx0yrhgC/IA/vemTwF1N2WdV9YGpOI5RqUKnl8oUjsqqAb8CnAaauBLOpaj/ZkGfZo+jHnIzY3oXAx3+T+xcFnSXlq/JZ0RZByvCw14N07l/yJL5JsuuO+MbL3GtK8wzZHM54+9wsM6E6/L7S0XltEOAD5dTBb1VSjFqdleq0NB5vMXWuNvmNnEg2c/PNuopd8lQuYjJlP5iTjjBocmWkQ==
+ b=ffojUBqDP5v+1VV908dafGeF13e+Ulk6UrRT83n857JuNTkmDVhcaR9qs7ZwgOF6W2mDFvrEmtHgeON4AkvPwH67Tl3b2MjMrG9D/0Lm0OsEaGd9R5EM0Y9L11daLXkd6cx2frPAbb8TvVAsZa0MVjMT+GccRSpXfk8eEIJhV5A+DSNhsDh20GAkGJan02Ps1sPcqpqignEVij3AedROuJnJqoQSffH8lrt0YmLO0dttDy/7byxmu5knwvOG7kEcLVOmpdlauVPSR1icMKtxP4xRTOHWJSZmFdJG4xSBpANw/xdfCZpui21/r9upiOLDkxSBSR6DtkvOox0WfT/q0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BeHUQq0uNwq2uUbRVOKyLlCG2RMr9MwNTxhMFVagc4g=;
- b=LAKWLDKKqNtBc2qn+O2TcwLYj8J+M214F0t4mLM3OsV4DMjfobJmFx+fw4UlFqJFGDXt6ca6v5Q00G9tyKgK1FXzxKd1eZlY459BkCfw5SXO6Raxqf6FIRxd/QGTkd6FVH19VdPJr/PJDIkG0s/G+K2nwOjl87SrgHjOLoBlEbWlF4d03TTAPhISJ43jNBEDtcGNZOJWWmsiyq4k1JZHdwOccwgfBWwW3nUsMmuA/Pn7q2OXq3dE+Ix/A5gconVKOzdP3Ma92YyEPbNk5PkUo6cXwvWKb/AxsjKulrxLu8jfogV3ocf/Wyniu/tQGWsjIQu27ggkjQkfRo1Ooh2Z8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=QAn6QZCCjakM3O3okMDm8omoChcnL7IdWwsT7bkoWAM=;
+ b=JkOmeteCSyVpqhpHRkEBQbVQY2/kBwlqTl1DTIfXaMkrbrIFgBUzdczy9Ve5xuTFFMnn8jEe03NT1kjkIIyL/DmMDiBQccnIaXA3MxtslN/dqzCzu1MxJMAUU1JT5JF4SA0a6fW2HLK4N51wuRJRACn1uVbuGiQwBR6o9t2HRjHAqgqBhVrgdMj4lgKirKxSPBhPOERDDDanBgIXhVIk47kfoYfBsD16gZId4Cy0ZY2NZerNtzn3hfWkV0XMbyNbe3zzSz9nZfhLAnMPk1yfYBfaoikAHCP7+EqMlqwXhJuD4+EGpkE1G8wkiQi8tbcG/G1AJzAJYxDBCVsKjWGzNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BeHUQq0uNwq2uUbRVOKyLlCG2RMr9MwNTxhMFVagc4g=;
- b=oTxSoSqjmrUYqUIZpbllbmL53u2I3lL743/Piawj6h8AuXLDW674r36aHAwKtdqc3II7J85XkU3kWmvlqpMRecJE0VhjOxEAyLcERMBzgAcdzyOfJvQZSGHpTY3isftTl3UktBV9HVyN2icNTn5qJeYXTs4LCDANizo8ruMMhm4=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by SJ2PR12MB7942.namprd12.prod.outlook.com (2603:10b6:a03:4c3::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.15; Mon, 19 Feb
- 2024 18:58:49 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::65c2:9692:66a8:2388]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::65c2:9692:66a8:2388%4]) with mapi id 15.20.7316.018; Mon, 19 Feb 2024
- 18:58:48 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Ma, Jun" <Jun.Ma2@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Drop redundant parameter in
- amdgpu_gfx_kiq_init_ring
-Thread-Topic: [PATCH] drm/amdgpu: Drop redundant parameter in
- amdgpu_gfx_kiq_init_ring
-Thread-Index: AQHaYv6hAVm8jObfgkix0nGba5l/VbESBUFG
-Date: Mon, 19 Feb 2024 18:58:48 +0000
-Message-ID: <BL1PR12MB5144993411507A21C7C96EBDF7512@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20240219064055.1678968-1-Jun.Ma2@amd.com>
-In-Reply-To: <20240219064055.1678968-1-Jun.Ma2@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-02-19T18:58:48.534Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SJ2PR12MB7942:EE_
-x-ms-office365-filtering-correlation-id: bbbd7a52-43a4-4ea1-ba79-08dc317cce71
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: inPsKoTxoXFnSJceGoIjS8DHP8mWTt6GV6GrN7nU6uXHqKzI19MvUE6CHR20t9TMsOTFlDhhCXMqNtxeLKlr82swTOIbgUMTR0BOyJgSPlRbPqG0P0ebwYGIVp8Y7k5ZMsUdak7OkdzC8IreBmoCrtYQtej0rM4k00+tICzgt4JjzexYAE3phlhRDqq7YYdqaHCPFYs0zgPc8f1AItIDI21EuU05c4PO3yOWYZ1+IKGonvOB6rIonQfPansECBXd5O9HdnztH4lrpQfttmcTVQk8DW681NiJiy2pHJ+sea0QLgjo6s8W7CbgvSk4v/8DMH8UHwxmCS2G943Z/V55gZ1NVHJuhY/zOmfJNqlitDecQMnvdM6xm/Jv2vmQUjXFlbOOA/5sQMeTIbd8vU/eEs8SRqYO2WH8qlA2FzOUhMR7PeogQToq/5VTIdpYRrKBpnzkW0nVrVNh62WR8Z8EvfqEQdAT605XxTbpnTrpPWs6XVZvWicuEilFWCZ6kEWZoMPWQCu17wtcyIh+j7sWcvMbG40aiYzoXWG7dAx16850ymnaSYSnRvMKjM4mcrl3N4wo6Xxn5VNpZ3VTq5unh7QtKF5Uaw/B/j9fIu13aZDdSBFcDZI774005U5F3Vnl
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?GAXY34utZ1vClYIrqDdm+kOsar5cgTFZLJmC/zDNTIjDSq2+r5hjp+HRGOYr?=
- =?us-ascii?Q?5mBwZMzFBzVhzTsecIi/ffHdc02t0IgjGO6lwSXJW3W9muC2I0Xx0uzq7+Xx?=
- =?us-ascii?Q?jeuQTdS2VMA1pxXb+LgFG3HuKOFI8jKn7i1feA/Ehz5DmCp+tES/lLzL+jeF?=
- =?us-ascii?Q?V8VJ1LJXV/JwAwNWRmhPVBCgHESim7JxeK/UkEtklOwwj17rYZYUznM3Rjna?=
- =?us-ascii?Q?SKpegiuTiQvS6hmNLOm+FhvISxI6Q/6EbkP7MIPr3RNxfUC/zwB7wu3Y0eeQ?=
- =?us-ascii?Q?yt6pdWGBQDvFkGBW0hc80I/FjgH6D/Rot+AQl6SQZz3JqkLyOs589nTHLt59?=
- =?us-ascii?Q?g8QwsSyTTgCHUBNbK5hjPF1mb19Tz+69ciN3VwjiybbY2Xgas82p/UUpiLS9?=
- =?us-ascii?Q?JsXNisijsQzZ9vKg39Ml8TQ+u7qjUxgajAY1cn8WH53Mj3UOQXDi2hnJkbgp?=
- =?us-ascii?Q?pSgM2WGE5WhONhdj96wsfsog7wU3HXfDlaSFFS/dzUlZ1eAxLcwxWyPVk3kK?=
- =?us-ascii?Q?1/i67uDnWxo6FwxvqXmJZ2p2UF/wZwkoyLOIWZ15mTbFsK1a5CcjE7CuOU8t?=
- =?us-ascii?Q?/I0F4WAq6YlAdZqcmBdkm+451hqa92+8NWFJ8E6eVV92ATH4N8g2ILP95P0Y?=
- =?us-ascii?Q?iWgZ3CcbGmzzP4ZjcHbB2wO0DNrHdFob4Tsrvx6TjF1+/6uNMsmYeM1kjbMD?=
- =?us-ascii?Q?V0JM2ObZYauAEJuz/pkaOLiR2UjeboBLecPE0ufUuQDSAF3MHxq1o7BWhoIg?=
- =?us-ascii?Q?vmNMofA9rXtjHTsrf9/aXU/UjqMzvwfzJiWLzurCWD71/3+XVen155DL/L66?=
- =?us-ascii?Q?Bnl+xVnzLcBUfSdKlFCkhoyFf3ng+vCvD9BA1xQgSzQECSrEiGguxFWTeUGC?=
- =?us-ascii?Q?d1MlLAqF7Pwp/JNGV5+ZLC7lArz5ElaXLhBKMAUKFsoadbdJ4cruwzgymkBr?=
- =?us-ascii?Q?akII9wPdAC8CRvRG2O14ks6dOMjJNpBbKfNbcwIGdQrdI4NFQhjnG1TFZElg?=
- =?us-ascii?Q?qRFf8ViPxOAEOg9tLjrTNadLUWF8munzpQ3KMTfhq4Jdin88NrRv11+NAWce?=
- =?us-ascii?Q?WDgPZCxSrxq3c4HOlOz8PUMxzTdTJyBHtG1LcdBrQjaMiKXe6f+n59gCZts5?=
- =?us-ascii?Q?lBvc3tKsmdHhJDtjSNbpr6lhaRFqgfbgbhlo3lVshdgYNxdILZmzNAPJDiMP?=
- =?us-ascii?Q?2kRRRxWAt88Sd9BqacxVOVuqLKMw629GEE2UCRmHj5oOfUdTew1niO+3CUal?=
- =?us-ascii?Q?R5d5Vyh6WeEQ8bCJyKl0KpEbpN8CZ5hhgLfQ9cH2TDEYhk5Yr06EZUCsEjav?=
- =?us-ascii?Q?FIADM2rMrXxVeyT8h8wq1GdXWg7qkh/hGRPA+aMtpQ3UPEVi12SozlZpOnMO?=
- =?us-ascii?Q?fKSSkC9Bck3YB03rdSaSA86QbogVItCEuKWdA+8JPw1Ag5INVt96tgUX3cEY?=
- =?us-ascii?Q?U7+TD4Phi0ARe+IUSk6DgoNGjrIXYQlI9+yttBodadMc/USVfROPIAdk6PwL?=
- =?us-ascii?Q?TG/JXuRJb+q6hRe33S/JYNZVRC9+UxKH3hLYPE5gtP6Kx9NB+hOqebLMMH7w?=
- =?us-ascii?Q?aB9EmzRdL2c+xeTAyNU=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144993411507A21C7C96EBDF7512BL1PR12MB5144namp_"
+ bh=QAn6QZCCjakM3O3okMDm8omoChcnL7IdWwsT7bkoWAM=;
+ b=opV7HV4+ijA97zC4sSYCcMRet1PSEYL9Y1W/uODBsZrbocdLuIbtnmldBtvrQzUJlWEAKCbEd1AcFcGyzlnba4W3SZack4I+oCEdxBdS40XnG6vDHBZ1tyjicnbKFRxphCGE83S+ROEYyzSu9XV/HgzU8BEKL1oTS7vsBDngsH8=
+Received: from DS7PR03CA0091.namprd03.prod.outlook.com (2603:10b6:5:3b7::6) by
+ BY5PR12MB4035.namprd12.prod.outlook.com (2603:10b6:a03:206::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.19; Mon, 19 Feb
+ 2024 21:48:29 +0000
+Received: from DS1PEPF0001709A.namprd05.prod.outlook.com
+ (2603:10b6:5:3b7:cafe::3c) by DS7PR03CA0091.outlook.office365.com
+ (2603:10b6:5:3b7::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.39 via Frontend
+ Transport; Mon, 19 Feb 2024 21:48:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0001709A.mail.protection.outlook.com (10.167.18.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Mon, 19 Feb 2024 21:48:28 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 19 Feb
+ 2024 15:48:27 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd, radeon drm-next-6.9
+Date: Mon, 19 Feb 2024 16:48:10 -0500
+Message-ID: <20240219214810.4911-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709A:EE_|BY5PR12MB4035:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7cefd43c-11d5-4e85-a276-08dc3194823f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: CeyVfqselsRrqZvLxWEzzahtz3tzZPTXpRWrrOIul4rHrUPXV+FhY4Eh7f1tb0YH0Iax502KuPOdg97/bJUcSZfNN9Cz2+kfElUC9/lG3FCwDIEA4aIvL5HNsNKwW+skO1MG+bvR9FrOziT/Bak0aysr5q4VGMo0893qHgwMuEVqCrShC0TgSobQ8pVsK3c4NgwhjsPQt7XyZs4r+NaU8KgV/bai5pPxSWVckKLEcon/o9dTT46o8VjweRKhkAyOSfP66rTHp9/UbodDx0AkWiHKA+BPGtBicwS840GEDGfHHGXS4VHzUYuAlQ5QtSxjHAJPa7Y/UBzTqDyUVysOl+88/hkJ1e3+JSMTpOtrXIz8l5N/70TYFkXgaGN0X9VInhRPwl2s/VnKZTcVImBTT0MlYpB0DABzEA+a67kzWcHmMBZT+i8bzrvXU6XZd0m9S7Z2lSEDBpI+P3nI53k75CjttD8QlN02JCyT9GlIUZEdYbJU6vGPVytUFKwVaqqtoo2FiRUhWzDjiXM2tQgFnbaLG8pnYojkTcs/ENRKxCgSJKXFrGGQloc3n9FhswNXJvWS+IFWKi/ZXGSBOIpmbeT/8qlyfcz9Egcyi4BisgSmApuK1//ZT01rUnsyCCBF
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(46966006)(40470700004); DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bbbd7a52-43a4-4ea1-ba79-08dc317cce71
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Feb 2024 18:58:48.8764 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JyI0cYIFOlUE40uNXcQFjZ/HcYYAcn6IvvAFZGFjo840jC55+E436BoAHWANGNyL0R2B9fDwWrtUYsyG0jtfTQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7942
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Feb 2024 21:48:28.9115 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7cefd43c-11d5-4e85-a276-08dc3194823f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001709A.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4035
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,500 +104,346 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144993411507A21C7C96EBDF7512BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hi Dave, Sima,
 
-[Public]
+More new stuff for 6.9.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Ma, Jun <Jun.Ma2@amd.com>
-Sent: Monday, February 19, 2024 1:40 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Koenig, =
-Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexander.Deucher=
-@amd.com>
-Cc: Ma, Jun <Jun.Ma2@amd.com>
-Subject: [PATCH] drm/amdgpu: Drop redundant parameter in amdgpu_gfx_kiq_ini=
-t_ring
+The following changes since commit d5597444032b2f5c8624918fb5b29be5bba78a3c:
 
-Drop redundant parameters in function amdgpu_gfx_kiq_init_ring
-to simplify the code
+  drm/amdgpu: Fix HDP flush for VFs on nbio v7.9 (2024-02-07 12:26:24 -0500)
 
-Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 4 +---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 5 ++---
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 5 ++---
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 5 ++---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 5 ++---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 4 +---
- 7 files changed, 13 insertions(+), 21 deletions(-)
+are available in the Git repository at:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c
-index e114694d1131..4835d6d899e7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -304,11 +304,11 @@ static int amdgpu_gfx_kiq_acquire(struct amdgpu_devic=
-e *adev,
-         return -EINVAL;
- }
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.9-2024-02-19
 
--int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev,
--                            struct amdgpu_ring *ring,
--                            struct amdgpu_irq_src *irq, int xcc_id)
-+int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev, int xcc_id)
- {
-         struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[xcc_id];
-+       struct amdgpu_irq_src *irq =3D &kiq->irq;
-+       struct amdgpu_ring *ring =3D &kiq->ring;
-         int r =3D 0;
+for you to fetch changes up to 31e0a586f3385134bcad00d8194eb0728cb1a17d:
 
-         spin_lock_init(&kiq->ring_lock);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.h
-index f23bafec71c5..8fcf889ddce9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -471,9 +471,7 @@ static inline u32 amdgpu_gfx_create_bitmask(u32 bit_wid=
-th)
- void amdgpu_gfx_parse_disable_cu(unsigned *mask, unsigned max_se,
-                                  unsigned max_sh);
+  drm/amdgpu: add MMHUB 3.3.1 support (2024-02-19 14:50:46 -0500)
 
--int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev,
--                            struct amdgpu_ring *ring,
--                            struct amdgpu_irq_src *irq, int xcc_id);
-+int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev, int xcc_id);
+----------------------------------------------------------------
+amd-drm-next-6.9-2024-02-19:
 
- void amdgpu_gfx_kiq_free_ring(struct amdgpu_ring *ring);
+amdgpu:
+- ATHUB 4.1 support
+- EEPROM support updates
+- RAS updates
+- LSDMA 7.0 support
+- JPEG DPG support
+- IH 7.0 support
+- HDP 7.0 support
+- VCN 5.0 support
+- Misc display fixes
+- Retimer fixes
+- DCN 3.5 fixes
+- VCN 4.x fixes
+- PSR fixes
+- PSP 14.0 support
+- VA_RESERVED cleanup
+- SMU 13.0.6 updates
+- NBIO 7.11 updates
+- SDMA 6.1 updates
+- MMHUB 3.3 updates
+- Suspend/resume fixes
+- DMUB updates
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c
-index b02d63328f1c..691fa40e4e01 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4490,7 +4490,7 @@ static int gfx_v10_0_compute_ring_init(struct amdgpu_=
-device *adev, int ring_id,
- static int gfx_v10_0_sw_init(void *handle)
- {
-         int i, j, k, r, ring_id =3D 0;
--       struct amdgpu_kiq *kiq;
-+       int xcc_id =3D 0;
-         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+amdkfd:
+- Trap handler enhancements
+- Fix cache size reporting
+- Relocate the trap handler
 
-         switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
-@@ -4619,8 +4619,7 @@ static int gfx_v10_0_sw_init(void *handle)
-                         return r;
-                 }
+radeon:
+- fix typo in print statement
 
--               kiq =3D &adev->gfx.kiq[0];
--               r =3D amdgpu_gfx_kiq_init_ring(adev, &kiq->ring, &kiq->irq,=
- 0);
-+               r =3D amdgpu_gfx_kiq_init_ring(adev, xcc_id);
-                 if (r)
-                         return r;
-         }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v11_0.c
-index 2fb1342d5bd9..9d8ec709cd52 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -1329,7 +1329,7 @@ static int gfx_v11_0_rlc_backdoor_autoload_enable(str=
-uct amdgpu_device *adev)
- static int gfx_v11_0_sw_init(void *handle)
- {
-         int i, j, k, r, ring_id =3D 0;
--       struct amdgpu_kiq *kiq;
-+       int xcc_id =3D 0;
-         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+----------------------------------------------------------------
+Alex Deucher (1):
+      drm/amdgpu/psp: update define to better align with its meaning
 
-         switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
-@@ -1454,8 +1454,7 @@ static int gfx_v11_0_sw_init(void *handle)
-                         return r;
-                 }
+Aric Cyr (1):
+      drm/amd/display: 3.2.272
 
--               kiq =3D &adev->gfx.kiq[0];
--               r =3D amdgpu_gfx_kiq_init_ring(adev, &kiq->ring, &kiq->irq,=
- 0);
-+               r =3D amdgpu_gfx_kiq_init_ring(adev, xcc_id);
-                 if (r)
-                         return r;
-         }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v8_0.c
-index ea174b76ee70..b97ea62212b6 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -1900,8 +1900,8 @@ static void gfx_v8_0_sq_irq_work_func(struct work_str=
-uct *work);
- static int gfx_v8_0_sw_init(void *handle)
- {
-         int i, j, k, r, ring_id;
-+       int xcc_id =3D 0;
-         struct amdgpu_ring *ring;
--       struct amdgpu_kiq *kiq;
-         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+Charlene Liu (2):
+      drm/amd/display: enable fgcg by default
+      drm/amd/display: allow psr-su/replay for z8
 
-         switch (adev->asic_type) {
-@@ -2022,8 +2022,7 @@ static int gfx_v8_0_sw_init(void *handle)
-                 return r;
-         }
+Dan Carpenter (1):
+      drm/amd/display: Fix && vs || typos
 
--       kiq =3D &adev->gfx.kiq[0];
--       r =3D amdgpu_gfx_kiq_init_ring(adev, &kiq->ring, &kiq->irq, 0);
-+       r =3D amdgpu_gfx_kiq_init_ring(adev, xcc_id);
-         if (r)
-                 return r;
+Felix Kuehling (2):
+      drm/amdgpu: Reduce VA_RESERVED_BOTTOM to 64KB
+      drm/amdkfd: Relocate TBA/TMA to opposite side of VM hole
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_0.c
-index 169d45268ef6..7669f82aa1da 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -1997,8 +1997,8 @@ static int gfx_v9_0_compute_ring_init(struct amdgpu_d=
-evice *adev, int ring_id,
- static int gfx_v9_0_sw_init(void *handle)
- {
-         int i, j, k, r, ring_id;
-+       int xcc_id =3D 0;
-         struct amdgpu_ring *ring;
--       struct amdgpu_kiq *kiq;
-         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-         unsigned int hw_prio;
+Gabe Teeger (1):
+      Revert "drm/amd/display: Send DTBCLK disable message on first commit"
 
-@@ -2151,8 +2151,7 @@ static int gfx_v9_0_sw_init(void *handle)
-                 return r;
-         }
+George Shen (1):
+      Revert "drm/amd/display: Add left edge pixel for YCbCr422/420 + ODM pipe split"
 
--       kiq =3D &adev->gfx.kiq[0];
--       r =3D amdgpu_gfx_kiq_init_ring(adev, &kiq->ring, &kiq->irq, 0);
-+       r =3D amdgpu_gfx_kiq_init_ring(adev, xcc_id);
-         if (r)
-                 return r;
+Hamza Mahfooz (2):
+      drm/amdgpu: make damage clips support configurable
+      drm/amdgpu: respect the abmlevel module parameter value if it is set
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_4_3.c
-index aace4594a603..ec92c3c2080b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -843,7 +843,6 @@ static int gfx_v9_4_3_compute_ring_init(struct amdgpu_d=
-evice *adev, int ring_id,
- static int gfx_v9_4_3_sw_init(void *handle)
- {
-         int i, j, k, r, ring_id, xcc_id, num_xcc;
--       struct amdgpu_kiq *kiq;
-         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+Hawking Zhang (8):
+      drm/amdgpu: Add athub v4_1_0 ip headers (v5)
+      drm/amdgpu: Add athub v4_1_0 ip block support
+      drm/amdgpu: Add lsdma v7_0_0 ip headers (v3)
+      drm/amdgpu: Add osssys v7_0_0 ip headers (v4)
+      drm/amdgpu: Add hdp v7_0_0 ip headers (v3)
+      drm/amdgpu: Add vcn v5_0_0 ip headers (v5)
+      drm/amdgpu: Add mp v14_0_2 ip headers (v5)
+      drm/amdgpu: Add psp v14_0 ip block support
 
-         adev->gfx.mec.num_mec =3D 2;
-@@ -912,8 +911,7 @@ static int gfx_v9_4_3_sw_init(void *handle)
-                         return r;
-                 }
+Jonathan Kim (1):
+      drm/amdkfd: fill in data for control stack header for gfx10
 
--               kiq =3D &adev->gfx.kiq[xcc_id];
--               r =3D amdgpu_gfx_kiq_init_ring(adev, &kiq->ring, &kiq->irq,=
- xcc_id);
-+               r =3D amdgpu_gfx_kiq_init_ring(adev, xcc_id);
-                 if (r)
-                         return r;
+Kent Russell (1):
+      drm/amdkfd: Fix L2 cache size reporting in GFX9.4.3
 
---
-2.34.1
+Laurent Morichetti (1):
+      drm/amdkfd: pass debug exceptions to second-level trap handler
 
+Lijo Lazar (1):
+      drm/amd/pm: Allow setting max UCLK on SMU v13.0.6
 
---_000_BL1PR12MB5144993411507A21C7C96EBDF7512BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Likun Gao (16):
+      drm/amd/swsmu: add judgement for vcn jpeg dpm set
+      drm/amdgpu: skip ucode bo reserve for RLC AUTOLOAD
+      drm/amdgpu: support rlc auotload type set
+      drm/amdgpu: Add lsdma v7_0 ip block support
+      drm/amdgpu/discovery: Add lsdma v7_0 ip block
+      drm/amdgpu: Add ih v7_0 ip block support
+      drm/amdgpu/discovery: Add ih v7_0 ip block
+      drm/amdgpu: Add hdp v7_0 ip block support
+      drm/amdgpu/discovery: Add hdp v7_0 ip block
+      drm/amdgpu: use spirom update wait_for helper for psp v14
+      drm/amdgpu: support psp ip block for psp v14
+      drm/amdgpu/psp: set autoload support by default
+      drm/amdgpu/psp: handle TMR type via flag
+      drm/amdgpu/psp: set boot_time_tmr flag
+      drm/amdgpu: add psp_timeout to limit PSP related operation
+      drm/amdgpu: support psp ip block discovery for psp v14
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;font=
--style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Ma, Jun &lt;Jun.Ma2@a=
-md.com&gt;<br>
-<b>Sent:</b> Monday, February 19, 2024 1:40 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Deucher, Alexander=
- &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Cc:</b> Ma, Jun &lt;Jun.Ma2@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Drop redundant parameter in amdgpu_gfx_=
-kiq_init_ring</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Drop redundant parameters in function amdgpu_gfx_k=
-iq_init_ring<br>
-to simplify the code<br>
-<br>
-Signed-off-by: Ma Jun &lt;Jun.Ma2@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 6 +++---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 4 +---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c&nbsp; | 5 ++---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c&nbsp; | 5 ++---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c&nbsp;&nbsp; | 5 ++---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c&nbsp;&nbsp; | 5 ++---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 4 +---<br>
-&nbsp;7 files changed, 13 insertions(+), 21 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c<br>
-index e114694d1131..4835d6d899e7 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-@@ -304,11 +304,11 @@ static int amdgpu_gfx_kiq_acquire(struct amdgpu_devic=
-e *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;}<br>
-&nbsp;<br>
--int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; struct amdgpu_ring *ring,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; struct amdgpu_irq_src *irq, int xcc_id)<br>
-+int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev, int xcc_id)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_kiq *kiq =3D=
- &amp;adev-&gt;gfx.kiq[xcc_id];<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_irq_src *irq =3D &amp;k=
-iq-&gt;irq;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =3D &amp;kiq=
--&gt;ring;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r =3D 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock_init(&amp;kiq-&g=
-t;ring_lock);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.h<br>
-index f23bafec71c5..8fcf889ddce9 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h<br>
-@@ -471,9 +471,7 @@ static inline u32 amdgpu_gfx_create_bitmask(u32 bit_wid=
-th)<br>
-&nbsp;void amdgpu_gfx_parse_disable_cu(unsigned *mask, unsigned max_se,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned max_sh);<br>
-&nbsp;<br>
--int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; struct amdgpu_ring *ring,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; struct amdgpu_irq_src *irq, int xcc_id);<br>
-+int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev, int xcc_id);<br>
-&nbsp;<br>
-&nbsp;void amdgpu_gfx_kiq_free_ring(struct amdgpu_ring *ring);<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c<br>
-index b02d63328f1c..691fa40e4e01 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-@@ -4490,7 +4490,7 @@ static int gfx_v10_0_compute_ring_init(struct amdgpu_=
-device *adev, int ring_id,<br>
-&nbsp;static int gfx_v10_0_sw_init(void *handle)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, j, k, r, ring_id =
-=3D 0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_kiq *kiq;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int xcc_id =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D (struct amdgpu_device *)handle;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (amdgpu_ip_version(=
-adev, GC_HWIP, 0)) {<br>
-@@ -4619,8 +4619,7 @@ static int gfx_v10_0_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n r;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; kiq =3D &amp;adev-&gt;gfx.kiq[0];<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D amdgpu_gfx_kiq_init_ring(adev, &amp;kiq-&gt;ring, &amp;kiq=
--&gt;irq, 0);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D amdgpu_gfx_kiq_init_ring(adev, xcc_id);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n r;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v11_0.c<br>
-index 2fb1342d5bd9..9d8ec709cd52 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c<br>
-@@ -1329,7 +1329,7 @@ static int gfx_v11_0_rlc_backdoor_autoload_enable(str=
-uct amdgpu_device *adev)<br>
-&nbsp;static int gfx_v11_0_sw_init(void *handle)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, j, k, r, ring_id =
-=3D 0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_kiq *kiq;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int xcc_id =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D (struct amdgpu_device *)handle;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (amdgpu_ip_version(=
-adev, GC_HWIP, 0)) {<br>
-@@ -1454,8 +1454,7 @@ static int gfx_v11_0_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n r;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; kiq =3D &amp;adev-&gt;gfx.kiq[0];<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D amdgpu_gfx_kiq_init_ring(adev, &amp;kiq-&gt;ring, &amp;kiq=
--&gt;irq, 0);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D amdgpu_gfx_kiq_init_ring(adev, xcc_id);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n r;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v8_0.c<br>
-index ea174b76ee70..b97ea62212b6 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-@@ -1900,8 +1900,8 @@ static void gfx_v8_0_sq_irq_work_func(struct work_str=
-uct *work);<br>
-&nbsp;static int gfx_v8_0_sw_init(void *handle)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, j, k, r, ring_id;<b=
-r>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int xcc_id =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring;<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_kiq *kiq;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D (struct amdgpu_device *)handle;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type=
-) {<br>
-@@ -2022,8 +2022,7 @@ static int gfx_v8_0_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kiq =3D &amp;adev-&gt;gfx.kiq[0];<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_gfx_kiq_init_ring(adev, =
-&amp;kiq-&gt;ring, &amp;kiq-&gt;irq, 0);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_gfx_kiq_init_ring(adev, =
-xcc_id);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_0.c<br>
-index 169d45268ef6..7669f82aa1da 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-@@ -1997,8 +1997,8 @@ static int gfx_v9_0_compute_ring_init(struct amdgpu_d=
-evice *adev, int ring_id,<br>
-&nbsp;static int gfx_v9_0_sw_init(void *handle)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, j, k, r, ring_id;<b=
-r>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int xcc_id =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring;<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_kiq *kiq;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D (struct amdgpu_device *)handle;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int hw_prio;<br>
-&nbsp;<br>
-@@ -2151,8 +2151,7 @@ static int gfx_v9_0_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kiq =3D &amp;adev-&gt;gfx.kiq[0];<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_gfx_kiq_init_ring(adev, =
-&amp;kiq-&gt;ring, &amp;kiq-&gt;irq, 0);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_gfx_kiq_init_ring(adev, =
-xcc_id);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_4_3.c<br>
-index aace4594a603..ec92c3c2080b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
-@@ -843,7 +843,6 @@ static int gfx_v9_4_3_compute_ring_init(struct amdgpu_d=
-evice *adev, int ring_id,<br>
-&nbsp;static int gfx_v9_4_3_sw_init(void *handle)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, j, k, r, ring_id, x=
-cc_id, num_xcc;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_kiq *kiq;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D (struct amdgpu_device *)handle;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.mec.num_mec =
-=3D 2;<br>
-@@ -912,8 +911,7 @@ static int gfx_v9_4_3_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n r;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; kiq =3D &amp;adev-&gt;gfx.kiq[xcc_id];<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D amdgpu_gfx_kiq_init_ring(adev, &amp;kiq-&gt;ring, &amp;kiq=
--&gt;irq, xcc_id);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D amdgpu_gfx_kiq_init_ring(adev, xcc_id);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n r;<br>
-&nbsp;<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+Mario Limonciello (3):
+      drm/amd: Stop evicting resources on APUs in suspend
+      Revert "drm/amd: flush any delayed gfxoff on suspend entry"
+      drm/amd: Change `jpeg_v4_0_5_start_dpg_mode()` to void
 
---_000_BL1PR12MB5144993411507A21C7C96EBDF7512BL1PR12MB5144namp_--
+Martin Tsai (1):
+      drm/amd/display: should support dmub hw lock on Replay
+
+Michael Strauss (1):
+      drm/amd/display: Update FIXED_VS Retimer HWSS Test Pattern Sequences
+
+Nicholas Kazlauskas (2):
+      drm/amd/display: Add shared firmware state for DMUB IPS handshake
+      drm/amd/display: Increase ips2_eval delay for DCN35
+
+Nikita Zhandarovich (2):
+      drm/radeon/ni: Fix wrong firmware size logging in ni_init_microcode()
+      drm/amd/display: fix NULL checks for adev->dm.dc in amdgpu_dm_fini()
+
+Rajneesh Bhardwaj (2):
+      drm/amdkfd: update SIMD distribution algo for GFXIP 9.4.2 onwards
+      drm/amdgpu: Fix implicit assumtion in gfx11 debug flags
+
+Rodrigo Siqueira (1):
+      drm/amd/display: Remove break after return
+
+Roman Li (1):
+      drm/amd/display: Fix array-index-out-of-bounds in dcn35_clkmgr
+
+Saleemkhan Jamadar (2):
+      drm/amdgpu: add ucode id for jpeg DPG support
+      drm/amdgpu/jpeg: add support for jpeg DPG mode
+
+Sohaib Nadeem (2):
+      Revert "drm/amd/display: increased min_dcfclk_mhz and min_fclk_mhz"
+      drm/amd/display: fixed integer types and null check locations
+
+Sonny Jiang (7):
+      drm/amdgpu: add VCN_5_0_0 firmware support
+      drm/amdgpu: add VCN_5_0_0 IP block support
+      amdgpu/drm: Add vcn_v5_0_0_ip_block support
+      drm/amdgpu: Add JPEG5 support
+      drm/amdgpu/jpeg5: add power gating support
+      drm/amdgpu/jpeg5: Enable doorbell
+      drm/amdgpu: Add jpeg_v5_0_0 ip block support
+
+Srinivasan Shanmugam (7):
+      drm/amd/display: Initialize 'wait_time_microsec' variable in link_dp_training_dpia.c
+      drm/amd/display: Fix possible use of uninitialized 'max_chunks_fbc_mode' in 'calculate_bandwidth()'
+      drm/amd/display: Fix possible buffer overflow in 'find_dcfclk_for_voltage()'
+      drm/amd/display: Fix possible NULL dereference on device remove/driver unload
+      drm/amdgpu/display: Initialize gamma correction mode variable in dcn30_get_gamcor_current()
+      drm/amdgpu: Fix missing parameter descriptions in ih_v7_0.c
+      drm/amd/display: Add 'replay' NULL check in 'edp_set_replay_allow_active()'
+
+Thong (1):
+      drm/amdgpu/soc21: update VCN 4 max HEVC encoding resolution
+
+Tom Chung (1):
+      drm/amd/display: Preserve original aspect ratio in create stream
+
+Wenjing Liu (1):
+      drm/amd/display: treat plane clip size change as MED update type
+
+Yang Wang (2):
+      drm/amdgpu: implement smu send rma reason for smu v13.0.6
+      drm/amdgpu: send smu rma reason event in ras eeprom driver
+
+Yifan Zhang (8):
+      drm/amdgpu/nbio: Add NBIO 7.11.1 Support
+      drm/amdgpu: add nbio 7.11.1 discovery support
+      drm/amdgpu: add smuio 14.0.1 support
+      drm/amdgpu: add PSP 14.0.1 support
+      drm/amdgpu: add psp 14.0.1 discovery support
+      drm/amdgpu: add sdma 6.1.1 firmware
+      drm/amdgpu: add SDMA 6.1.1 discovery support
+      drm/amdgpu: add MMHUB 3.3.1 support
+
+Zhikai Zhai (1):
+      drm/amd/display: Add align done check
+
+ drivers/gpu/drm/amd/amdgpu/Makefile                |   15 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |    6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c           |   15 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c            |    3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   12 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |   27 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |   24 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |    9 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c           |   46 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h           |   36 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |   67 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h            |    5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c     |    3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c          |    6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c          |    7 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h          |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c            |    2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h            |   42 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |   15 +-
+ drivers/gpu/drm/amd/amdgpu/athub_v4_1_0.c          |  122 +
+ drivers/gpu/drm/amd/amdgpu/athub_v4_1_0.h          |   30 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c             |    1 +
+ drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c              |  142 +
+ drivers/gpu/drm/amd/amdgpu/hdp_v7_0.h              |   31 +
+ drivers/gpu/drm/amd/amdgpu/ih_v7_0.c               |  767 ++
+ drivers/gpu/drm/amd/amdgpu/ih_v7_0.h               |   28 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c           |   16 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.h           |   15 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c           |  310 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c           |  570 ++
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h           |   29 +
+ drivers/gpu/drm/amd/amdgpu/lsdma_v7_0.c            |  121 +
+ drivers/gpu/drm/amd/amdgpu/lsdma_v7_0.h            |   31 +
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c            |    1 +
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c            |    9 +-
+ drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h            |    1 +
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c             |    2 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c             |    5 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v14_0.c             |  672 ++
+ drivers/gpu/drm/amd/amdgpu/psp_v14_0.h             |   32 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c             |    1 +
+ drivers/gpu/drm/amd/amdgpu/soc21.c                 |    6 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c            | 1339 ++++
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.h            |   37 +
+ drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h     |    2 +-
+ .../gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm |   17 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c       |   29 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h       |   25 +
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c   |    4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    |    9 +
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |    1 +
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |    4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c          |   10 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   48 +-
+ drivers/gpu/drm/amd/display/dc/basics/dce_calcs.c  |    2 +-
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c |   16 +-
+ drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c   |    1 -
+ .../drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c |    2 +
+ .../amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   |   16 +-
+ .../drm/amd/display/dc/clk_mgr/dcn35/dcn35_smu.c   |   12 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |   11 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |   37 -
+ drivers/gpu/drm/amd/display/dc/dc.h                |   15 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c       |   83 +-
+ .../gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c  |    4 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c    |    5 +-
+ .../gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c   |    2 +-
+ .../gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c   |    8 +-
+ .../drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c    |    9 +-
+ .../drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c    |    4 +-
+ drivers/gpu/drm/amd/display/dc/inc/core_types.h    |    2 -
+ drivers/gpu/drm/amd/display/dc/inc/resource.h      |    4 -
+ .../amd/display/dc/link/accessories/link_dp_cts.c  |   27 +-
+ .../link/hwss/link_hwss_dio_fixed_vs_pe_retimer.c  |   16 +-
+ .../hwss/link_hwss_hpo_fixed_vs_pe_retimer_dp.c    |   51 +-
+ .../gpu/drm/amd/display/dc/link/link_validation.c  |    2 +-
+ .../amd/display/dc/link/protocols/link_dp_phy.c    |    6 +-
+ .../display/dc/link/protocols/link_dp_training.c   |    5 +-
+ .../dc/link/protocols/link_dp_training_dpia.c      |    2 +-
+ .../dc/link/protocols/link_edp_panel_control.c     |    3 +-
+ .../amd/display/dc/resource/dcn35/dcn35_resource.c |    5 +-
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h        |    6 +-
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |  115 +
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c  |    3 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.h  |    3 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.c  |    3 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.h  |    3 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c  |    3 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h  |    3 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c  |    3 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.h  |    3 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c  |   12 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.h  |    8 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c    |   13 +-
+ .../drm/amd/display/include/link_service_types.h   |    9 +
+ drivers/gpu/drm/amd/include/amd_shared.h           |    1 +
+ .../include/asic_reg/athub/athub_4_1_0_offset.h    |  287 +
+ .../include/asic_reg/athub/athub_4_1_0_sh_mask.h   | 1348 ++++
+ .../amd/include/asic_reg/hdp/hdp_7_0_0_offset.h    |  219 +
+ .../amd/include/asic_reg/hdp/hdp_7_0_0_sh_mask.h   |  735 ++
+ .../include/asic_reg/lsdma/lsdma_7_0_0_offset.h    |  388 +
+ .../include/asic_reg/lsdma/lsdma_7_0_0_sh_mask.h   | 1411 ++++
+ .../drm/amd/include/asic_reg/mp/mp_14_0_2_offset.h |  468 ++
+ .../amd/include/asic_reg/mp/mp_14_0_2_sh_mask.h    |  692 ++
+ .../amd/include/asic_reg/nbio/nbio_7_11_0_offset.h |    2 +
+ .../amd/include/asic_reg/oss/osssys_7_0_0_offset.h |  279 +
+ .../include/asic_reg/oss/osssys_7_0_0_sh_mask.h    | 1029 +++
+ .../amd/include/asic_reg/vcn/vcn_5_0_0_offset.h    | 1672 +++++
+ .../amd/include/asic_reg/vcn/vcn_5_0_0_sh_mask.h   | 7627 ++++++++++++++++++++
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c                |   15 +
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h            |    1 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |   40 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |    6 +
+ .../amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h   |    3 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h       |    3 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  142 +-
+ drivers/gpu/drm/radeon/ni.c                        |    2 +-
+ 117 files changed, 21302 insertions(+), 413 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/athub_v4_1_0.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/athub_v4_1_0.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/hdp_v7_0.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/ih_v7_0.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/lsdma_v7_0.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/lsdma_v7_0.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_v14_0.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/athub/athub_4_1_0_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/athub/athub_4_1_0_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/hdp/hdp_7_0_0_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/hdp/hdp_7_0_0_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/lsdma/lsdma_7_0_0_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/lsdma/lsdma_7_0_0_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/mp/mp_14_0_2_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/mp/mp_14_0_2_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/osssys_7_0_0_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/osssys_7_0_0_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_5_0_0_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_5_0_0_sh_mask.h
