@@ -4,62 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDDCFC5475B
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 14:46:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42F95C5475B
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 15:15:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A6DD10E496;
-	Tue, 20 Feb 2024 14:46:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDF8A10E470;
+	Tue, 20 Feb 2024 15:15:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XRy1XYzU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="O+fguCbD";
 	dkim-atps=neutral
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E768C10E496
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 14:45:59 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-5dc20645871so3471179a12.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 06:45:59 -0800 (PST)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92E8310E470
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 15:15:12 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-299e0271294so496051a91.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 07:15:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708440359; x=1709045159; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1708442112; x=1709046912; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Dqoh+aO5PuDXiiP1kNhYVUZ2C9dCr9HHTDaZyknCirw=;
- b=XRy1XYzUJeJIes4WthGIrRm/W1CRJdyrA3N+VwstP5AKoVaEtIcDKAuEt7jIGFM+eu
- dvxZM5SUFQobF5gPxR/85Z4e544fp0WtIP/ZWKgriqY5mxnH2hNPEJCMB3NlSuW114VQ
- LS3lY7SGP653lorLeBp1rp+UJfuxAn+bXpO52YNXPUeMEGgzKHGJ4+pUfAtaeOHJbGyC
- yBjk8y0OP/hD+70JbrsHb1NC+EOJAt8TbMO1+/DJAiYbNRaKKolm/GgnxwvcygMhmxQY
- cBjkSnLzmeKKwnP+AEgQKK0AbBc1sxCkTfdhOk3C52gkMIQI0uwtdJ3s7KOE94caFI5C
- ocMw==
+ bh=+gce0zDR5Y7zHMVedjBVzVrwCS5HvZS7sVWr8Z6KnA8=;
+ b=O+fguCbDksITk9j68UeJUIWlifnqYIrO4/wvPk3APTviuYdG6neNiykUBQSx47o/3O
+ sLfuuQGZX4jo02fg3anklnGzIsxxjvhW82x1/iSb603DU9QfcoTJGdN1UAgjWzLvpEzE
+ 7uQo9p7Cw2oUQhW/FV0x3sE+Dxt1aH2hChrRD4PZ3zqjHj66J2Cnq4PinEYPte9McTU1
+ lfLtQ5LdbsAEM62/eEuk87AR0lu8MYjaaKSrz9lHOZoOsJ+ertn/fCNB3xXrlSaV580K
+ UXEfwdFYcd69L5+llmQ91e14bWgH/2LPK8ZdOSFuvsC43mX4v4edbvHj9L+u9VVuX1ri
+ M8Uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708440359; x=1709045159;
+ d=1e100.net; s=20230601; t=1708442112; x=1709046912;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Dqoh+aO5PuDXiiP1kNhYVUZ2C9dCr9HHTDaZyknCirw=;
- b=eYduJGG9WukEur4x9k07/ljksldrDKjNy4m/74Qf3d2JBW9dslcwKc9t+jI2SpNZX+
- zvMqsSQgKkLNTCnLUoUsosVJVtIbag7Q5QQru9rEq9FqtkBwhbOUEeFSVGMCiMR5N7Qm
- YTEAxeVcx2XdIQks1cHtOGfmt3FkujEhl31iAz1lwj/9881V49xBMtJNp8uu7790NP5K
- qkAAyJjw9dFj5vksmq4rdBdOpzJUzbJ5BN1/jJbygoOU5WgaskFlKkUSgO91zV2lPBGd
- knN4Bq4cVQX1m8Mf1Z48c9fxu1jP+m4XKWl2SFOkxYDdfMzDEpcQXQr75OFEFBF0zsNo
- BQEg==
+ bh=+gce0zDR5Y7zHMVedjBVzVrwCS5HvZS7sVWr8Z6KnA8=;
+ b=f1YnX7IuFO9zQjA+ehF7E9G7uW/8eQZDlT6dN/UNi2Gt0gLYoyGE7UgBx+pBCb/+H5
+ 6cbsG9yEjVxftZyuxm+MphTt8Mvbn97wfZqfYrmyn9mH/1XQAwx4REvPG6sfBBD0wOt2
+ HwDymljfBIQtehvrARmRW7K5PNEHCiXFVKM2JooX8cyYVMdzYplfg7Nuf15J0/tMFlPN
+ MO9unQuDgRGykDByR4XNj1WWlm4+9UYvwoU/q9LHRy344MCCCis9CBjWnik4zWDfqbMG
+ 78gfVFZ8M/BkaWFf46LvgZXRczPHBD39+jVIBvKaSX9wSE5iF7Kc/Krs4BTMGznLazIO
+ eAhA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWzzBTrc8Tqc3Kd3OBppzigXJAXYlQwxTIllwHxROFEWHANP+4LqIz0vDOf8mv3ZY7faw9rdE7MDVpfV5meV5Gsa2b41/EjhqWZyqzS7A==
-X-Gm-Message-State: AOJu0YzbY40Avdi6hP83xfuQmu2eLWJaL7SplKX4MN64pEUI2obZWkWG
- CR7SwdsECCGqyDPpeUbBbzXe+1AbdOGixQCwgVT5IhR6D3PFO2ElJcbo8/RLfL1aPeQt8/uqyJw
- qpjDAdOHGGPm6o6wP1GsFGcybFoY=
-X-Google-Smtp-Source: AGHT+IEzbFTeHEExGYPs6vvdhejACokVXp8HYK3mE36/KNfRZqfgHDzUh/rrTveciNVPq7sJJFaxRjvi1RJGoOh5znw=
-X-Received: by 2002:a17:90b:1881:b0:299:1cce:f3c3 with SMTP id
- mn1-20020a17090b188100b002991ccef3c3mr19017313pjb.7.1708440359315; Tue, 20
- Feb 2024 06:45:59 -0800 (PST)
+ AJvYcCXZ12RsUb+uZjjlNsroWLkFEBV7+zQbg+TMxSR2OwhaY3my1XCwKv4qMP9qf2wtjV3Nk8NoeYiQNM5+waTAFZa2U0wp+pN6n5Er3ENVEw==
+X-Gm-Message-State: AOJu0YwFF+XncBM4f8LBdFeDN2Gqhtm4kevTKDHEnMNyN08TJNLBCiMz
+ hKdv2EQUdbUZMYSBSrZex+/pK72P8l73C5rm6iituyeKhcFj6BHaUKLGE0H0ST3OPHAJx+pHGxI
+ 9/8kM81Lkd36m35U+yI0zfv972r4=
+X-Google-Smtp-Source: AGHT+IGUa5eanlV2HVlvfGdfww6nGeKChBa7Yij8tbDir3iMt8GBO1mvj5T87de1T+TYmKBx3YrWg8Xwhzs2Gxstr/s=
+X-Received: by 2002:a17:90b:f12:b0:299:5a55:ef3a with SMTP id
+ br18-20020a17090b0f1200b002995a55ef3amr5550757pjb.4.1708442111924; Tue, 20
+ Feb 2024 07:15:11 -0800 (PST)
 MIME-Version: 1.0
 References: <ae64f04d-6e94-4da4-a740-78ea94e0552c@riadoklan.sk.eu.org>
  <2024021732-framing-tactful-833d@gregkh>
  <d369b45f-e1af-4117-83a5-3e429e3bfb23@leemhuis.info>
-In-Reply-To: <d369b45f-e1af-4117-83a5-3e429e3bfb23@leemhuis.info>
+ <CADnq5_OgPBtYpxBQ+aBmA2t7ob7EFPFWrF9OYXNgm00eEayMNA@mail.gmail.com>
+ <62bf771e-640a-45ab-a2de-3df459a9ed30@leemhuis.info>
+In-Reply-To: <62bf771e-640a-45ab-a2de-3df459a9ed30@leemhuis.info>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 20 Feb 2024 09:45:47 -0500
-Message-ID: <CADnq5_OgPBtYpxBQ+aBmA2t7ob7EFPFWrF9OYXNgm00eEayMNA@mail.gmail.com>
+Date: Tue, 20 Feb 2024 10:15:00 -0500
+Message-ID: <CADnq5_M4Zwv0_B1DoU_a8aNpyPVJj_PpjDG_oi3JkrGC5-hNgg@mail.gmail.com>
 Subject: Re: Kernel 6.7+ broke under-powering of my RX 6700XT. (Archlinux,
  mesa/amdgpu)
 To: Linux regressions mailing list <regressions@lists.linux.dev>
@@ -86,115 +88,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 19, 2024 at 9:47=E2=80=AFAM Linux regression tracking (Thorsten
+On Tue, Feb 20, 2024 at 10:03=E2=80=AFAM Linux regression tracking (Thorste=
+n
 Leemhuis) <regressions@leemhuis.info> wrote:
 >
-> On 17.02.24 14:30, Greg KH wrote:
-> > On Sat, Feb 17, 2024 at 02:01:54PM +0100, Roman Benes wrote:
-> >> Minimum power limit on latest(6.7+) kernels is 190W for my GPU (RX 670=
-0XT,
-> >> mesa, archlinux) and I cannot get power cap as low as before(to 115W),
-> >> neither with Corectrl, LACT or TuxClocker and /sys have a variable rea=
-d-only
-> >> even for root. This is not of above apps issue but of the kernel, I re=
-ad
-> >> similar issues from other bug reports of above apps. I downgraded to v=
-6.6.10
-> >> kernel and my 115W(under power)cap work again as before.
+> On 20.02.24 15:45, Alex Deucher wrote:
+> > On Mon, Feb 19, 2024 at 9:47=E2=80=AFAM Linux regression tracking (Thor=
+sten
+> > Leemhuis) <regressions@leemhuis.info> wrote:
+> >>
+> >> On 17.02.24 14:30, Greg KH wrote:
+> >>> On Sat, Feb 17, 2024 at 02:01:54PM +0100, Roman Benes wrote:
+> >>>> Minimum power limit on latest(6.7+) kernels is 190W for my GPU (RX 6=
+700XT,
+> >>>> mesa, archlinux) and I cannot get power cap as low as before(to 115W=
+),
+> >>>> neither with Corectrl, LACT or TuxClocker and /sys have a variable r=
+ead-only
+> >>>> even for root. This is not of above apps issue but of the kernel, I =
+read
+> >>>> similar issues from other bug reports of above apps. I downgraded to=
+ v6.6.10
+> >>>> kernel and my 115W(under power)cap work again as before.
+> >>>
+> >> For the record and everyone that lands here: the cause is known now
+> >> (it's 1958946858a62b ("drm/amd/pm: Support for getting power1_cap_min
+> >> value") [v6.7-rc1]) and the issue afaics tracked here:
+> >>
+> >> https://gitlab.freedesktop.org/drm/amd/-/issues/3183
+> >>
+> >> Other mentions:
+> >> https://gitlab.freedesktop.org/drm/amd/-/issues/3137
+> >> https://gitlab.freedesktop.org/drm/amd/-/issues/2992
+> >>
+> >> Haven't seen any statement from the amdgpu developers (now CCed) yet o=
+n
+> >> this there (but might have missed something!). From what I can see I
+> >> assume this will likely be somewhat tricky to handle, as a revert
+> >> overall might be a bad idea here. We'll see I guess.
 > >
-> > Any chance you can use 'git bisect' to figure out the offending change?
+> > The change aligns the driver what has been validated on each board
+> > design.  Windows uses the same limits.  Using values lower than the
+> > validated range can lead to undefined behavior and could potentially
+> > damage your hardware.
 >
-> For the record and everyone that lands here: the cause is known now
-> (it's 1958946858a62b ("drm/amd/pm: Support for getting power1_cap_min
-> value") [v6.7-rc1]) and the issue afaics tracked here:
+> Thx for the reply! Yeah, I was expecting something along those lines.
 >
-> https://gitlab.freedesktop.org/drm/amd/-/issues/3183
+> Nevertheless it afaics still is a regression in the eyes of many users.
+> I'm not sure how Linus feels about this, but I wonder if we can find
+> some solution here so that users that really want to, can continue to do
+> what was possible out-of-the box before. Is that possible to realize or
+> even supported already?
 >
-> Other mentions:
-> https://gitlab.freedesktop.org/drm/amd/-/issues/3137
-> https://gitlab.freedesktop.org/drm/amd/-/issues/2992
->
-> Haven't seen any statement from the amdgpu developers (now CCed) yet on
-> this there (but might have missed something!). From what I can see I
-> assume this will likely be somewhat tricky to handle, as a revert
-> overall might be a bad idea here. We'll see I guess.
+> And sure, those users would be running their hardware outside of its
+> specifications. But is that different from overclocking (which the
+> driver allows, doesn't it? If not by all means please correct me!)?
 
-The change aligns the driver what has been validated on each board
-design.  Windows uses the same limits.  Using values lower than the
-validated range can lead to undefined behavior and could potentially
-damage your hardware.
+Sure.  The driver has always had upper bound limits for overclocking,
+this change adds lower bounds checking for underclocking as well.
+When the silicon validation teams set the bounding box for a device,
+they set a range of values where it's reasonable to operate based on
+the characteristics of the design.
+
+If we did want to allow extended underclocking, we need a big warning
+in the logs at the very least.
 
 Alex
 
 >
-> Roman posted something that apparently was meant to go to the list, so
-> let me put it here:
+> Ciao, Thorsten
 >
-> """
-> UPDATE: User fililip already posted patch, but it need to be merged,
-> discussion is on gitlab link below.
->
-> (PS: I hope I am replying correctly to "all" now? - using original addr.)
->
->
-> > it seems that commit was already found(see user's 'fililip' comment):
+> >> Roman posted something that apparently was meant to go to the list, so
+> >> let me put it here:
+> >>
+> >> """
+> >> UPDATE: User fililip already posted patch, but it need to be merged,
+> >> discussion is on gitlab link below.
+> >>
+> >> (PS: I hope I am replying correctly to "all" now? - using original add=
+r.)
+> >>
+> >>
+> >>> it seems that commit was already found(see user's 'fililip' comment):
+> >>>
+> >>> https://gitlab.freedesktop.org/drm/amd/-/issues/3183
+> >>> commit 1958946858a62b6b5392ed075aa219d199bcae39
+> >>> Author: Ma Jun <Jun.Ma2@amd.com>
+> >>> Date:   Thu Oct 12 09:33:45 2023 +0800
+> >>>
+> >>>     drm/amd/pm: Support for getting power1_cap_min value
+> >>>
+> >>>     Support for getting power1_cap_min value on smu13 and smu11.
+> >>>     For other Asics, we still use 0 as the default value.
+> >>>
+> >>>     Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+> >>>     Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+> >>>     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >>>
+> >>> However, this is not good as it remove under-powering range too far. =
+I
+> >> was getting only about 7% less performance but 90W(!) less consumption
+> >> when set to my 115W before. Also I wonder if we as a OS of options and
+> >> freedom have to stick to such very high reference for min values witho=
+ut
+> >> ability to override them through some sys ctrls. Commit was done by am=
+d
+> >> guy and I wonder if because of maybe this post that I made few months
+> >> ago(business strategy?):
+> >>>
+> >>>
+> >> https://www.reddit.com/r/Amd/comments/183gye7/rx_6700xt_from_230w_to_c=
+apped_115w_at_only_10/
+> >>>
+> >>> This is not a dangerous OC upwards where I can understand desire to
+> >> protect HW, it is downward, having min cap at 190W when card pull on
+> >> 115W almost same speed is IMO crazy to deny. We don't talk about defau=
+lt
+> >> or reference values here either, just a move to lower the range of
+> >> options for whatever reason.
+> >>>
+> >>> I don't know how much power you guys have over them, but please
+> >> consider either reverting this change, or give us an option to set
+> >> min_cap through say /sys (right now param is readonly, even for root).
+> >>>
+> >>>
+> >>> Thank you in advance for looking into this, with regards:  Romano
+> >> """
+> >>
+> >> And while at it, let me add this issue to the tracking as well
+> >>
+> >> [TLDR: I'm adding this report to the list of tracked Linux kernel
+> >> regressions; the text you find below is based on a few templates
+> >> paragraphs you might have encountered already in similar form.
+> >> See link in footer if these mails annoy you.]
+> >>
+> >> Thanks for the report. To be sure the issue doesn't fall through the
+> >> cracks unnoticed, I'm adding it to regzbot, the Linux kernel regressio=
+n
+> >> tracking bot:
+> >>
+> >> #regzbot introduced 1958946858a62b /
+> >> #regzbot title drm: amdgpu: under-powering broke
+> >>
+> >> Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' ha=
+t)
+> >> --
+> >> Everything you wanna know about Linux kernel regression tracking:
+> >> https://linux-regtracking.leemhuis.info/about/#tldr
+> >> That page also explains what to do if mails like this annoy you.
 > >
-> > https://gitlab.freedesktop.org/drm/amd/-/issues/3183
-> > commit 1958946858a62b6b5392ed075aa219d199bcae39
-> > Author: Ma Jun <Jun.Ma2@amd.com>
-> > Date:   Thu Oct 12 09:33:45 2023 +0800
 > >
-> >     drm/amd/pm: Support for getting power1_cap_min value
-> >
-> >     Support for getting power1_cap_min value on smu13 and smu11.
-> >     For other Asics, we still use 0 as the default value.
-> >
-> >     Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-> >     Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
-> >     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >
-> > However, this is not good as it remove under-powering range too far. I
-> was getting only about 7% less performance but 90W(!) less consumption
-> when set to my 115W before. Also I wonder if we as a OS of options and
-> freedom have to stick to such very high reference for min values without
-> ability to override them through some sys ctrls. Commit was done by amd
-> guy and I wonder if because of maybe this post that I made few months
-> ago(business strategy?):
-> >
-> >
-> https://www.reddit.com/r/Amd/comments/183gye7/rx_6700xt_from_230w_to_capp=
-ed_115w_at_only_10/
-> >
-> > This is not a dangerous OC upwards where I can understand desire to
-> protect HW, it is downward, having min cap at 190W when card pull on
-> 115W almost same speed is IMO crazy to deny. We don't talk about default
-> or reference values here either, just a move to lower the range of
-> options for whatever reason.
-> >
-> > I don't know how much power you guys have over them, but please
-> consider either reverting this change, or give us an option to set
-> min_cap through say /sys (right now param is readonly, even for root).
-> >
-> >
-> > Thank you in advance for looking into this, with regards:  Romano
-> """
->
-> And while at it, let me add this issue to the tracking as well
->
-> [TLDR: I'm adding this report to the list of tracked Linux kernel
-> regressions; the text you find below is based on a few templates
-> paragraphs you might have encountered already in similar form.
-> See link in footer if these mails annoy you.]
->
-> Thanks for the report. To be sure the issue doesn't fall through the
-> cracks unnoticed, I'm adding it to regzbot, the Linux kernel regression
-> tracking bot:
->
-> #regzbot introduced 1958946858a62b /
-> #regzbot title drm: amdgpu: under-powering broke
->
-> Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
-> --
-> Everything you wanna know about Linux kernel regression tracking:
-> https://linux-regtracking.leemhuis.info/about/#tldr
-> That page also explains what to do if mails like this annoy you.
