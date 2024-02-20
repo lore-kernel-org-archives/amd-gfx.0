@@ -4,67 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFCA2C48BF6
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 08:14:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8931C54788
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 08:14:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE7BA10E65E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3AED10E657;
 	Wed, 21 Feb 2024 08:14:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="KPZq/onh";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="jo7dazof";
 	dkim-atps=neutral
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com
- [209.85.161.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88D9910E548
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 19:47:32 +0000 (UTC)
-Received: by mail-oo1-f53.google.com with SMTP id
- 006d021491bc7-59a8b9b327aso2136801eaf.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 11:47:32 -0800 (PST)
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED36A10E53A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 19:47:37 +0000 (UTC)
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-6e45d0c9676so1789877b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 11:47:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1708458451; x=1709063251; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=kKavcfBG3gYthrGqVOpoeYHIL94CsI6zaGPhx9ie61o=;
- b=KPZq/onhpIFi33kKBdRsARMi3qXeoxKvwqBsrBNYjfcRH1Wb2P2C8HPCKM/vxjXWO7
- f2E2ivoWqMNYH3f3Nkoz1j1tzILmpi6RVJrQmKsHajgsw+Xf5BAQJJbl7UWEtAAIQ2hl
- yv/uCXAU7M+VUgSrorFAdU3/NmeO+TngovYGwK0fJOcivYQKGUC/WmH5w4jk+cYnX0jF
- L+UeGX3KU4l6gu8I6QOCZgIN0Vi95I1Ne5+Gthujq8hBj2uzq/xt6nB5DXG1TfcTvfIv
- eXVs+lte5gcGrhV2eZ+rN62ffK3lOSIaBTGZeXPOree61CiCC6xzk3tmILsYNqnVjFg6
- e/vQ==
+ d=usp.br; s=usp-google; t=1708458457; x=1709063257; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Q6VIzixTXzfsOehBNdTAI/rwoARfHVoZJfkUg/7sqYs=;
+ b=jo7dazofMUTXm+ZVYxatgP8h8GL15OCTwCEBx2KHmltqIl+giMuSwSE0melsQ0ILpO
+ TBYkbyjGU+iHpX14KGKifwtB0+lGNhV5/9WHwkVHrX1Ip44BaE1Y7ub1xIOadTEGoJne
+ es+Cy06jmXlbvIUu28MoztFsxO2BPmiawCMV7Kzy+j+rmY8pXf8DcHYb1XVCVquMsDO2
+ T6EQTqxanqMbd2l7+GoPspH9ySatKUzcKONfiKeGvxAO9NAsvoEHLqa8//5EU3JqCj7p
+ b3Ry9o3Mrz2RSA2ENaVks3KcA3NS9t/5aUO4ZuSpdK3uehluENjrKcBapMZ5RQ7l+msq
+ lE8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708458451; x=1709063251;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=kKavcfBG3gYthrGqVOpoeYHIL94CsI6zaGPhx9ie61o=;
- b=JcJGg64eF9csA1Im1RMI1/TBUiB4Q5ZBtnrSiMpNePHN1TBIIE1oB1r8vebPoUxBx/
- Avrkicz/WStdclLSXuSwdsXxW+s71nd2rcosXMRVv964HSGQpUD70b+9uvOP2YMVRhFY
- xP0J+BKfmnDuJmgAW68f35ZFTPV4+SIeOcjx+6pMaXqnsypY2RFUW+s+gwxgPlOkzGdN
- 9MWzsebvF05q3hhLt7yIhn9/SQKs6Poggvk7egBLEq2tIeiI6Q+yaM1XGQrSW0kIn4bh
- pqRb7NnSz1poOJQzsD2+/TIZoNyX9NGXef9b+nnQOnjvmfgKcSKWakTk3ocp033xwbgI
- gNzA==
+ d=1e100.net; s=20230601; t=1708458457; x=1709063257;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Q6VIzixTXzfsOehBNdTAI/rwoARfHVoZJfkUg/7sqYs=;
+ b=tJ5AIGIq+oEWfowW5Aknmd2bz3a+YWs1RCOwStrWBdImRZqQn63x0T92f5VoMz2N5a
+ tcJV+vvmaBY8kYtyJ3cF8qU+2ZLXOxB2etDKGGvhS3m0wA+KGzfd8slwUqooRq/fRJ4U
+ PvqIKeREoWVVRKR0MGyTPq/47wqhl4KKMJjTZbDlMKGolUzmlwSj6K6iNMaHqcfVBWUy
+ A9Etw+ryu87o8QCwPqCoGT2ys9gCt+xGigghnYdL5gp7UC8QuHK8V69b2Rb4SUvK6xSq
+ SFs40PIkkOnFLnTyhEAq5QFYXOHrHWQf/2uwKPj4/XR085lOsC4Y2Q3lLpe1zCXJn0AR
+ r+aw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWLvPamc1bT1aTSKIiauxzjc8zuD4qmMGxXptXYMRntpmVWNvtWHrnD3v7GqXfvfEjIdRAWHnSkDWtVmzD6buI7p9dmkmSnAVO6mdTJJg==
-X-Gm-Message-State: AOJu0YwC0yZVJJoFDQwF8yP27+KFVeRoISnjinul4i7eDI8ZoNhV0NHi
- UUK374/8wpZXKb0eisq6r3QabsIcVeAykI2Gw/cEAE5qc0pLHQOExMokroYJmAY=
-X-Google-Smtp-Source: AGHT+IFaxPRYGN4RZZRfBvd1pSE4Ni2wV7jOEJ2+/DGSa0VJSWJ8krniwu+QP83KwkF++aasN5nciw==
-X-Received: by 2002:a05:6359:c8c:b0:178:fe3e:1e35 with SMTP id
- go12-20020a0563590c8c00b00178fe3e1e35mr18504857rwb.13.1708458451428; 
- Tue, 20 Feb 2024 11:47:31 -0800 (PST)
+ AJvYcCWCE7G9LKjnKfOZp9+pph2NRQMsl+2v1RjD6MSPv0ROOc6L/20PnVJLM6aec88MEXE8GypJppsZbHxyhSDu1FzAdlL1DI+EeCMs5EhK0A==
+X-Gm-Message-State: AOJu0YyJiythlC70Dp8BOTaexh3nhrjwaSfao3bolu+3Er3LlRKMBb0c
+ hJUsHs8POHevt+Qs4xbt/2u2CZWUnOZURjITn5yg3S3VQLIAsb/hw3O0rL6o13k=
+X-Google-Smtp-Source: AGHT+IFgSkgcVtlGl29yJIA184G9Y9bRu08SmE/6+uoV1knpPK9Evk4Db0EYpHCqkt1tBAyEziIoXg==
+X-Received: by 2002:a05:6a20:93a2:b0:19e:5dda:6bd with SMTP id
+ x34-20020a056a2093a200b0019e5dda06bdmr25055183pzh.8.1708458457453; 
+ Tue, 20 Feb 2024 11:47:37 -0800 (PST)
 Received: from localhost.localdomain ([185.153.176.89])
  by smtp.gmail.com with ESMTPSA id
- u21-20020aa78395000000b006e0ad616be3sm7293482pfm.110.2024.02.20.11.47.28
+ u21-20020aa78395000000b006e0ad616be3sm7293482pfm.110.2024.02.20.11.47.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Feb 2024 11:47:31 -0800 (PST)
+ Tue, 20 Feb 2024 11:47:37 -0800 (PST)
 From: David Tadokoro <davidbtadokoro@usp.br>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- daniel@ffwll.ch, harry.wentland@amd.com, Rodrigo.Siqueira@amd.com,
- sunpeng.li@amd.com, Xinhui.Pan@amd.com
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch
 Cc: David Tadokoro <davidbtadokoro@usp.br>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH 0/3] drm/amd/display: add prefix to dc/clk_mgr/dcn10 functions
-Date: Tue, 20 Feb 2024 16:46:54 -0300
-Message-Id: <20240220194657.243378-1-davidbtadokoro@usp.br>
+Subject: [PATCH 1/3] drm/amd/display: add prefix to rv1_clk_mgr_clk.c function
+Date: Tue, 20 Feb 2024 16:46:55 -0300
+Message-Id: <20240220194657.243378-2-davidbtadokoro@usp.br>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20240220194657.243378-1-davidbtadokoro@usp.br>
+References: <20240220194657.243378-1-davidbtadokoro@usp.br>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 21 Feb 2024 08:14:29 +0000
@@ -82,21 +85,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patchset has three commits that add prefix to all the functions defined in
-dc/clk_mgr/dcn10 that indicate the file that they were defined. Enforcing this
-pattern makes filtering results in debug tools like ftrace better.
+The function defined in dc/clk_mgr/dcn10/rv1_clk_mgr_clk.c doesn't
+have a name that indicates where it was declared.
 
-David Tadokoro (3):
-  drm/amd/display: add prefix to rv1_clk_mgr_clk.c function
-  drm/amd/display: add prefix to rv1_clk_mgr.c functions
-  drm/amd/display: add prefix to rv1_clk_mgr_vbios_smu.c functions
+To better filter results in debug tools like ftrace, prefix this
+function with 'rv1_clk_mgr_clk_'.
 
- .../display/dc/clk_mgr/dcn10/rv1_clk_mgr.c    | 24 +++++++++----------
- .../dc/clk_mgr/dcn10/rv1_clk_mgr_clk.c        |  2 +-
- .../dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c  | 14 +++++------
- .../dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.h  |  4 ++--
- 4 files changed, 22 insertions(+), 22 deletions(-)
+Signed-off-by: David Tadokoro <davidbtadokoro@usp.br>
+---
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_clk.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_clk.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_clk.c
+index 61dd12198a3c..b63e0e92d118 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_clk.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_clk.c
+@@ -49,7 +49,7 @@
+ 
+ 
+ /* Only used by testing framework*/
+-void rv1_dump_clk_registers(struct clk_state_registers *regs, struct clk_bypass *bypass, struct clk_mgr *clk_mgr_base)
++void rv1_clk_mgr_clk_dump_clk_registers(struct clk_state_registers *regs, struct clk_bypass *bypass, struct clk_mgr *clk_mgr_base)
+ {
+ 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+ 
 -- 
 2.39.2
 
