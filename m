@@ -4,120 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C3E6C48BC3
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 08:42:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DDD2C48BC4
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 09:06:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 444FA10E270;
-	Tue, 20 Feb 2024 08:42:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A093510E246;
+	Tue, 20 Feb 2024 09:06:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TsrOgZSw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mZdAlYB5";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2050.outbound.protection.outlook.com [40.107.101.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA51310E220;
- Tue, 20 Feb 2024 08:42:05 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8CB710E246
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 09:06:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZfNp9QokiSkEH9CG+Nr/zz/KifodYEIP/jfG4A5bG/+P7tFNXNpwoyDfSugiu8VlW9N/LO+Bdwtmc9qVCWbAOoArxS6OYQ7H/a+eqX1LZ1K6M5/EzwmKhxNqmfZEWkcRQdqOnE/IZ6/GJ44peUYn4Zc1BpEpZZcyMQB65verqtAb477Ml5dJam/4Xi2hAawiAePhlGiSDdcABZDg9VxCia4FQu0B2Jj9WtRgQwl58P9BJauA1zMrgBS79QRiaE4rZvVGdFkiNTEqe/5rUfdbRorjHMtyd7aB4UllBpCzmxxVi0QTBVtyuzpCCXM9WqLEY5WgsNLHRK2G2q0u2rmaoQ==
+ b=TistbtXTDnKr4ThWPxCxJ/6nLtOJIThS9h9T7fuBf98xvCES+5On4qDsHFIr8gwr7lBZ1l8fSU7LBUHDHHEFF7QcjVbYA/HfsXxAfhuQPyS05JHGTJYYXHQjSS8jIURR0qchSYqRiIOaULzGnaGQYAouhB2qGF3QvymcPJ8DyojTsxLgLbJ68W2MVBstSGevse05Tgj2jwfYpO7g9OvwZkKLmYqgZ/WEH9bBPGAO7B7DHotTHKC5iDBzsokOP/5yBZobrhK7dS7P6VsmL0ycBuzdPAyz2WCAdQKSV7m87LwYpvq5+RBG3g+WVUIg0tF1XVavOylSZZMUxc50HrJA2A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9Pxmi53D8ZrO9pXhr3zzK0VK6SMevtIBo28Rh/lqIyc=;
- b=LP8f6XjIWoHJIf7O9tuinz+O88zpqpV83ga+xcLPXIBsqV7AluShyaLve2r+GQlFdMofJVxl+30fFd6DXiZGSdHHCzbfu/UpSwd/6mDzJ/7IMoltIRhIYyu4PSNiytyphiGaqwdPjD1XVdAJh7WBcN8kUwzYc5yeZMcqufPktebh2x8eDQ45rCXPRGau5gbqqKbrfwOmA3LLU85QYpmRjQUjgysg9J7tZnLdYsAKDNNENyqs1BRO7obrWwQWnvcE5jeYUebGfVm1TbtTDE1xTNuiC/G1A6InV1mBU1rnZgkIf6vqjN+wV5gcsAm+dO21D/XMlAp40bbmMtygs6kLQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=CsaJJCpie9s6GrF9fm/geW+tF+SFWaH4sYNvv5xLUHQ=;
+ b=EbdOTS9LybGhWUWUhJZqQEb9F7f1LgPMeto18+bC0K7u3uWqCJ6zYb3IDZSBGaI0gKcn7/P0ViqpI6B4dmgUDXaOHtTAXWI+eZG+8lmhIFNTVqygsmY6VHuMJhEj3yAYAmaUH1CC8pqp7ujAk34N5qMUj+509OcHBaQZ/D8D80I4jU6LjuHdAwY2fq4uAgLeqOoJF3/q6cfeTfmsfldjVBc2EXadaP4ICNTZlH96K/5ayJaYx7OOlU+cc/mPLjQmb7+b6lxSp3MA/BeUt0bKTxnxKl/6f4fAd45a8wUyI23Y6GJP+eafcyBIPAKaJ9BtLS3OtIT7j1kE2pHKyjgOzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9Pxmi53D8ZrO9pXhr3zzK0VK6SMevtIBo28Rh/lqIyc=;
- b=TsrOgZSwiK6FfgGMsBsYVJeyYTyDXz4yV8lSHGq9ywTHuiyQMMV70RZ7qmJJjyeS0czeuvT+Dm92pBO0B3dSSO/yxBYx0Iihdrf52WMMkSg7R6dU908VeR7agglNmGigEXLyV+e3xI6DzVa+OKLJgrLesVcGHxTMLJUyUNHzEJM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW4PR12MB5625.namprd12.prod.outlook.com (2603:10b6:303:168::6)
+ bh=CsaJJCpie9s6GrF9fm/geW+tF+SFWaH4sYNvv5xLUHQ=;
+ b=mZdAlYB5wSTbH/hN9EQgwURJE8SAwHfT8WFLd5qAhojIr6Yr0rcSIa/XMb328c8/DWJGX2wjeW6IdcttHqgRf1TQzs1A/ErnfQOXhdLDCLDR02A6FZ2G1P/J80hWnzQK3HiIB4wIMX2kXIGAO/EBglL4tv7ETzMv3eac2qFnL1I=
+Received: from BN0PR04CA0134.namprd04.prod.outlook.com (2603:10b6:408:ed::19)
+ by MN0PR12MB5884.namprd12.prod.outlook.com (2603:10b6:208:37c::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.21; Tue, 20 Feb
- 2024 08:42:03 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7316.018; Tue, 20 Feb 2024
- 08:42:03 +0000
-Message-ID: <29df7e26-d7a8-4f67-b988-44353c4270ac@amd.com>
-Date: Tue, 20 Feb 2024 09:41:56 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/radeon: Call mmiowb() at the end of
- radeon_ring_commit()
-Content-Language: en-US
-To: Huacai Chen <chenhuacai@loongson.cn>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Huacai Chen <chenhuacai@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org, Tianyang Zhang <zhangtianyang@loongson.cn>
-References: <20240220074958.3288170-1-chenhuacai@loongson.cn>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20240220074958.3288170-1-chenhuacai@loongson.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0116.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.19; Tue, 20 Feb
+ 2024 09:06:42 +0000
+Received: from BN2PEPF0000449D.namprd02.prod.outlook.com
+ (2603:10b6:408:ed:cafe::76) by BN0PR04CA0134.outlook.office365.com
+ (2603:10b6:408:ed::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.39 via Frontend
+ Transport; Tue, 20 Feb 2024 09:06:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF0000449D.mail.protection.outlook.com (10.167.243.148) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Tue, 20 Feb 2024 09:06:41 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Tue, 20 Feb 2024 03:06:37 -0600
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Roman Li
+ <roman.li@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, "JinZe . Xu" <jinze.xu@amd.com>, Hersen Wu
+ <hersenxs.wu@amd.com>, Josip Pavic <josip.pavic@amd.com>, Qingqing Zhuo
+ <Qingqing.Zhuo@amd.com>, Harry Wentland <Harry.Wentland@amd.com>
+Subject: [PATCH v2] drm/amd/display: Fix potential null pointer dereference in
+ dc_dmub_srv
+Date: Tue, 20 Feb 2024 14:36:23 +0530
+Message-ID: <20240220090623.4156779-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB5625:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5866ded4-3626-4330-325a-08dc31efcf9f
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449D:EE_|MN0PR12MB5884:EE_
+X-MS-Office365-Filtering-Correlation-Id: a65a37df-fd08-478c-4ea6-08dc31f34121
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /g7exSPQNrvmCa40JZkqVJiCs49u3GqQg1kbXfs+Oq2p5cvmxlOKTgm1WInMtICJJiizBH6h5sHG5Q+xYO2VI5J1iLyiL7WNAvZXvLC6PwBHOAoljrFbw+r3uu9ePKvehq9et7Ihss4G9bMhYLE0PXz2+G6cl4dHXtguhTGkXm8wstu4ufqDyPEaIa5kgcvID9jRJ/fSx5mqP79Jjb6zrht/W1mC7nRkTChxxe/nDYkVuMl6MutLM7Vswkc91yo0RF5/o1F69G8wLdDp3cJgfNTvUJhhcRxnLAgxNQVPACH8T6H0eQAHvCMzVTqflqvaSjoKPKtxcg4ldUup3Lkf7D9K4SRANitk/M4UvXlJ5SD9RG+OOZrAGC/KVzFEHYayVTGnUK8QIsu4BatthquLYu6FNaIZRq2ODkYZZp7XlGVOP8XxIO+mt5dm90weMK50CrV36DOWhzcf5Kr2nsvclQ4MJdzFtWZQFp3iMoprTm5qGPXcC7cSlzhCJHv8nOq2zk5Ijx633mXIuMoWNWt9+fuDwlDYkxxHj3/FYy8wpUU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZWplTjFCWGthcGhycSs5d2lNbmlPR0t1QW42TEpRaEJWNHZOZFlVeFpiSXRV?=
- =?utf-8?B?TlNKeGlmeDF0YUJla3B2YXRraVg2MmNtYW9TeFovdE1tRlR1MzBTRDNVUzF2?=
- =?utf-8?B?YUVzR3Jvdmpsa3U1SVBRbG5xOXQ1bXdlajVPRFhtL0ZKY2poNUhha1NGd3h3?=
- =?utf-8?B?TVB6dStzbnQ4ZnJZVGEyL1ZOMHArR0Z1RW1PdW5TZjZXTXZYTDRuYUhvS0FZ?=
- =?utf-8?B?am1DY2QwbzdJbUpTQ0s2Q2dOUHNVNkEvd252MmlaUFk1UmpFNU13M0ozMzdN?=
- =?utf-8?B?a3UzWVR6RFpvOUxRYVJ2SEtOQmhEeWd3TVY5K1NZenNlL2thN05ERU9HZmdE?=
- =?utf-8?B?dS80M29pQ1NTdHZjK20waGtSRThDVnZyQnRYSHU3TVR0aUtsYW5EN3JNSmw1?=
- =?utf-8?B?c0pPVTFrRU56ZXl6a1hOa0dQM0x6UFJNZkJ3ZEp0cURaNG54cnc0RDMrMS9F?=
- =?utf-8?B?R2pkT2cvNmtNWk5IZHRKcFRPVDZlcUNESnh5bHdGTjV5cGViL2JXbU42NExL?=
- =?utf-8?B?T3VXNmNJb2c2QklBUzIrMHdJcmhkR2k0REZnL3FITUUyR1E0Sm01bFZaNkRr?=
- =?utf-8?B?Nk5Nclc1a0o4N2R4ZUNqTS9IN2sxWjJINXhPNDAzZjg4SDJlNmJJaDFHdEVz?=
- =?utf-8?B?L0Q0YzduanRPcXRnbERpZHA4cGwrUUxNdVEyTmRkbDZzMUhwNDNYUm9UY1ZQ?=
- =?utf-8?B?cDBxbzVOSHlTUUNXbVlrS1NhQytwSE5YVGZUcCt2ang4Q01uRUFoK1ZjVTJC?=
- =?utf-8?B?YWh4VG9veW1vY3E0R0xGbGFVUXhmZjRRV09YVDBDMkZTQ2t0eVNQZE03eDhG?=
- =?utf-8?B?aUc3cE1HWlBWanBRYWNSVmg0RnpQZUJKT0Vhc1NEQ0grM2xEMURrNVVVdlZn?=
- =?utf-8?B?R3hVaFhBcG42aDgzYnVYYkpFWC9xcFkySldGbkxnR2VTdm5USEdqZ09vdlJQ?=
- =?utf-8?B?UUp1OHB5NXM0aXgyZExqTFA1Tk0xTldPN2JVQmxEc21jSUo4OG9lUXVBeEl0?=
- =?utf-8?B?MXdmR20wNG1HU05COHFHd043bTFJd3JTZDNQL3kyWElUNXIzV3luVi90M01s?=
- =?utf-8?B?RGs0THlzRjdCVlJudTVGYlhQS3QwY3dVZUF1MFNPWXZQQTROSWV6NW9Maml1?=
- =?utf-8?B?N3RqOHh0dFZmSUliY2psZGszZUEyUnh6ODhkZW43TjZPS2s0WHY5YUg4dVk1?=
- =?utf-8?B?QWI0SU1tdmZMa0IyRlRjR0h2RGMrZGpaeGpxQnE2VHl1ZkswbHUyYlBSdjR3?=
- =?utf-8?B?WU9LZTQvdnlReWpERGpmWjJWd2RxOHBLVmx6NWQ4dHZSR0czZGJSZVdSbUNp?=
- =?utf-8?B?SWprZWlMS21SZVJtMC9UV1gxSHVaYmxzb1BIMW9wNjNRdHV6ZXp3S1JxZmVy?=
- =?utf-8?B?L3EvTGJ5MFA3SWxydEhZeWtvWWI5YmZFQ3k4WkhHWkhhMDJ2UjQzSnhxK3dD?=
- =?utf-8?B?bDdXMUlsR0NXTWRsYk04MGl0Wnk3cTlRUjhHZExzdVpqUmlaQndsTFNxRTZB?=
- =?utf-8?B?SVlXdkRVTEJKcXBCMGtkRWg4WEV1U2s1UWR4bTVvNG9Rd2tTeGtRRXp4L09i?=
- =?utf-8?B?MW5MdWRndndYSklBSUhHblN3UWdPTTIyeFYvRWdOUzFhVEUvVTNuQ1pRd3hy?=
- =?utf-8?B?QVlLd3hJL3BHd0FoZ3pKYVdRMWRaUy9nTGZlZkduMlNtRElaK2FEbFhNd1dP?=
- =?utf-8?B?NHB1SklhL1hYV0dsME02TVhFUy81L0JFQzRZK0J2NURzcFJXTjViZjZrTVR6?=
- =?utf-8?B?ZHJ5b05xdDVxT1BncFdWNXpJak02NHgzWFlNN3k2M0FOazNIOUVKZU81Q0pv?=
- =?utf-8?B?OWJhejJFb1Fnck1vc01DNWFobE1hWkM2aXhta0hwUnpuUWdYUytLeG56Q20z?=
- =?utf-8?B?endlZUtkRVpBTnhNNGtreGZYOWZFM2pqcWNFU2p0c3RTdzlVNXF2TXZJQm9W?=
- =?utf-8?B?NEVoYTlXeDNGUXRxb3RzUzl5TUNnSS94T3cxWUdBcVJVZ092Zzdoempmbmxi?=
- =?utf-8?B?SlBITEtTZ1BKc0dCVG5DaGNlZk56MlBTOFkyeFQrU2ZsRElRcEV3dnlHT3ha?=
- =?utf-8?B?b0pyOS82bFNFMXYyRTdkN0ZzL1k2RFRMZjRtWmZHSUhkaDhxNS83dGJpNS9n?=
- =?utf-8?Q?V0q4=3D?=
+X-Microsoft-Antispam-Message-Info: Zwd6E0PY+9LZJj3z4Lp7ABFfOUhPQHmlqr0b00EUvGXf0N4AKOj2B0YTsb7LPA8gtMLoBDgS0QndOozTKRikX3GX3VY+MJKpu4So7bAvwuZks1/7BRved+YROrhOue15fDP2V4y8xEvapjII1W/V7Qc/0vT2lJ0OgZS3oFzinp3d5go1642N0E3syHC/BTZbYWxE9KRoKgEw89D4FqW08VYE6619egVCd+7qOFJWib3dgY9jcEUfRpPpvpuyFFETsoVqAyRFZySMnNrANZOddYRk123zRyDkDpQ3BBGLGDccABePeu/nyZ38sdgp0055QVLDE6IM9kdRSv3jl4i+auxeD0VQA7UMxTnDdJrdEAsxIcvKz9XKealzNR0Tjm5vqKTXV8WXBWo64MVBWs6CYAzcTtnJwCWodGdBFXMvt4bBuMR8IJrQBRboLA8bVpV+qv1rXc0BqL9o+WI2iD3UDCgQCp8pj6Z6VtqCwo03X25KWHb0J3tMGLHc/rMmgtXWqyNQzihOMTqx0mIJEuf9uDQpdJ1xYtrhGQXX6uBKxFeMViA+C3c6DsXcEw11Y3WbIdIj5l5OOz9593AXM948FMuwSjZ6swp0Hffw0UWJYQyxYDV8hUo6IgEOZHkiZSH46ufuY7HZMt82NKcM6Rkl9SBffquk8upDRTco0oouDzE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(230273577357003)(36860700004)(40470700004)(46966006); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5866ded4-3626-4330-325a-08dc31efcf9f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2024 08:42:03.2415 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2024 09:06:41.8814 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a65a37df-fd08-478c-4ea6-08dc31f34121
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hb6UwOfhWeQ91Dmvo+Lxoy08QcjmoY94KLAiz0ry3xUynHZb8do3DeWIE9KPor2V
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5625
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5884
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,76 +110,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 20.02.24 um 08:49 schrieb Huacai Chen:
-> Commit fb24ea52f78e0d595852e ("drivers: Remove explicit invocations of
-> mmiowb()") remove all mmiowb() in drivers, but it says:
->
-> "NOTE: mmiowb() has only ever guaranteed ordering in conjunction with
-> spin_unlock(). However, pairing each mmiowb() removal in this patch with
-> the corresponding call to spin_unlock() is not at all trivial, so there
-> is a small chance that this change may regress any drivers incorrectly
-> relying on mmiowb() to order MMIO writes between CPUs using lock-free
-> synchronisation."
->
-> The mmio in radeon_ring_commit() is protected by a mutex rather than a
-> spinlock, but in the mutex fastpath it behaves similar to spinlock and
-> need a mmiowb() to make sure the wptr is up-to-date for hardware.
+Fixes potential null pointer dereference warnings in the
+dc_dmub_srv_cmd_list_queue_execute() and dc_dmub_srv_is_hw_pwr_up()
+functions.
 
-Well, if your hw platform can't guarantee that MMIO writes are ordered 
-then I would say you can't use radeon in the first place since this is a 
-mandatory prerequisite for correct hw behavior.
+In both functions, the 'dc_dmub_srv' variable was being dereferenced
+before it was checked for null. This could lead to a null pointer
+dereference if 'dc_dmub_srv' is null. The fix is to check if
+'dc_dmub_srv' is null before dereferencing it.
 
-Doing this here as a workaround is just the tip of the iceberg and 
-doesn't really fix the underlying problem.
+Thus moving the null checks for 'dc_dmub_srv' to the beginning of the
+functions to ensure that 'dc_dmub_srv' is not null when it is
+dereferenced.
 
-I strongly suggest to change your writel() implementation to include an 
-mmiowb() instead. If that is to heavy weight than at least the mutex 
-handling should be changed instead of adding platform specific 
-workarounds to a platform independent driver.
+Found by smatch & thus fixing the below:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:133 dc_dmub_srv_cmd_list_queue_execute() warn: variable dereferenced before check 'dc_dmub_srv' (see line 128)
+drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:1167 dc_dmub_srv_is_hw_pwr_up() warn: variable dereferenced before check 'dc_dmub_srv' (see line 1164)
 
-Regards,
-Christian.
+Fixes: 01fbdc34c687 ("drm/amd/display: decouple dmcub execution to reduce lock granularity")
+Fixes: 65138eb72e1f ("drm/amd/display: Add DCN35 DMUB")
+Cc: JinZe.Xu <jinze.xu@amd.com>
+Cc: Hersen Wu <hersenxs.wu@amd.com>
+Cc: Josip Pavic <josip.pavic@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
+Cc: Harry Wentland <Harry.Wentland@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+v2:
+ - For dc_dmub_srv_is_hw_pwr_up() move 'dc_ctx = dc_dmub_srv->ctx;'
+   below 'if (dc_dmub_srv->ctx->dc->debug.dmcub_emulation)' (Tom) 
 
->
-> Without this, we get such an error when run 'glxgears' on weak ordering
-> architectures such as LoongArch:
->
-> radeon 0000:04:00.0: ring 0 stalled for more than 10324msec
-> radeon 0000:04:00.0: ring 3 stalled for more than 10240msec
-> radeon 0000:04:00.0: GPU lockup (current fence id 0x000000000001f412 last fence id 0x000000000001f414 on ring 3)
-> radeon 0000:04:00.0: GPU lockup (current fence id 0x000000000000f940 last fence id 0x000000000000f941 on ring 0)
-> radeon 0000:04:00.0: scheduling IB failed (-35).
-> [drm:radeon_gem_va_ioctl [radeon]] *ERROR* Couldn't update BO_VA (-35)
-> radeon 0000:04:00.0: scheduling IB failed (-35).
-> [drm:radeon_gem_va_ioctl [radeon]] *ERROR* Couldn't update BO_VA (-35)
-> radeon 0000:04:00.0: scheduling IB failed (-35).
-> [drm:radeon_gem_va_ioctl [radeon]] *ERROR* Couldn't update BO_VA (-35)
-> radeon 0000:04:00.0: scheduling IB failed (-35).
-> [drm:radeon_gem_va_ioctl [radeon]] *ERROR* Couldn't update BO_VA (-35)
-> radeon 0000:04:00.0: scheduling IB failed (-35).
-> [drm:radeon_gem_va_ioctl [radeon]] *ERROR* Couldn't update BO_VA (-35)
-> radeon 0000:04:00.0: scheduling IB failed (-35).
-> [drm:radeon_gem_va_ioctl [radeon]] *ERROR* Couldn't update BO_VA (-35)
-> radeon 0000:04:00.0: scheduling IB failed (-35).
-> [drm:radeon_gem_va_ioctl [radeon]] *ERROR* Couldn't update BO_VA (-35)
->
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tianyang Zhang <zhangtianyang@loongson.cn>
-> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
-> ---
->   drivers/gpu/drm/radeon/radeon_ring.c | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_ring.c b/drivers/gpu/drm/radeon/radeon_ring.c
-> index 38048593bb4a..d461dc85d820 100644
-> --- a/drivers/gpu/drm/radeon/radeon_ring.c
-> +++ b/drivers/gpu/drm/radeon/radeon_ring.c
-> @@ -183,6 +183,7 @@ void radeon_ring_commit(struct radeon_device *rdev, struct radeon_ring *ring,
->   	if (hdp_flush && rdev->asic->mmio_hdp_flush)
->   		rdev->asic->mmio_hdp_flush(rdev);
->   	radeon_ring_set_wptr(rdev, ring);
-> +	mmiowb(); /* Make sure wptr is up-to-date for hw */
->   }
->   
->   /**
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index 0bc32537e2eb..a115e1170ef5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -128,7 +128,7 @@ bool dc_dmub_srv_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_srv,
+ 		unsigned int count,
+ 		union dmub_rb_cmd *cmd_list)
+ {
+-	struct dc_context *dc_ctx = dc_dmub_srv->ctx;
++	struct dc_context *dc_ctx;
+ 	struct dmub_srv *dmub;
+ 	enum dmub_status status;
+ 	int i;
+@@ -136,6 +136,7 @@ bool dc_dmub_srv_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_srv,
+ 	if (!dc_dmub_srv || !dc_dmub_srv->dmub)
+ 		return false;
+ 
++	dc_ctx = dc_dmub_srv->ctx;
+ 	dmub = dc_dmub_srv->dmub;
+ 
+ 	for (i = 0 ; i < count; i++) {
+@@ -1169,7 +1170,7 @@ void dc_dmub_srv_subvp_save_surf_addr(const struct dc_dmub_srv *dc_dmub_srv, con
+ 
+ bool dc_dmub_srv_is_hw_pwr_up(struct dc_dmub_srv *dc_dmub_srv, bool wait)
+ {
+-	struct dc_context *dc_ctx = dc_dmub_srv->ctx;
++	struct dc_context *dc_ctx;
+ 	enum dmub_status status;
+ 
+ 	if (!dc_dmub_srv || !dc_dmub_srv->dmub)
+@@ -1177,6 +1178,8 @@ bool dc_dmub_srv_is_hw_pwr_up(struct dc_dmub_srv *dc_dmub_srv, bool wait)
+ 
+ 	if (dc_dmub_srv->ctx->dc->debug.dmcub_emulation)
+ 		return true;
++
++	dc_ctx = dc_dmub_srv->ctx;
+ 
+ 	if (wait) {
+ 		if (dc_dmub_srv->ctx->dc->debug.disable_timeout) {
+-- 
+2.34.1
 
