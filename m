@@ -4,80 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E444EC48BC3
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 15:46:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D009C5475B
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 15:51:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B2F710E4C7;
-	Tue, 20 Feb 2024 15:46:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0EDB10E4CA;
+	Tue, 20 Feb 2024 15:51:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jSXNnD2R";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E2pD9PWE";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8A5E10E4C7
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 15:46:12 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-5d8ddbac4fbso4587174a12.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 07:46:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708443972; x=1709048772; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hFlO25fJaBnvhr3ct5wS1sC2xblmPvQV+yUKSBKVbxQ=;
- b=jSXNnD2R5lePzHyPqsPGc0G18YHqhmL9DjMdQ7AL0Xb1+4K2lmRkmzo/rcVV+Iyp/m
- XcwEAnr1EbQwcp272O8jSB9Gtv3b8byzyKrv7Y41wcJALUWRLdyZstjAIfLfMdm2OVHd
- ph9OalS21Lg3RQ0d06OwTgRxPRyfwt9iBB6tkClUuayEs/RKZkTLuI77Fdig7tMV+/ru
- ubGVe/pJync/qrM76TLCyzFtTxZMmD/GlQD7WaV+8Xm0t8R0LMq04rhSxDDAaNOpLcRr
- qm4PS3H83UgaBnbyy+J2+LeNGpiXCt2HuTGeNsVAy5Mad8xkNyVl8q0gWJNr+XIvz53u
- 70vA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708443972; x=1709048772;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hFlO25fJaBnvhr3ct5wS1sC2xblmPvQV+yUKSBKVbxQ=;
- b=aiycaU7auuAnzLMELOSNFSFo1Q/5GkNMh6Cu2xnZPrj6hPyinIGvYT05nXHx1W6ABv
- CBMBm9JsHoSd5kyClfOl80YElXc8CddmI92dlrpXGnvbhdxMO9syxHbQQRASVeR3QkLZ
- QI/oVyKnAfxMeu08GjY9hsY71ZOZr4zYulwKKHyqXsh8gDn1wpk08H8poGU1fthzPRr4
- elPz8qqle4GDjHWe3F08GouaPr1Mj7j/C0fZjFivc/SZhO+AeyCMf6fK9X1TSSXXawg+
- eIR1kSF26JN45CPNTHscI28fctnaclDDTEwqS9iwXtNE0ThgHmss6u66AFs2PMH0Hn/8
- 40hw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW97UqX+9B2oSdOvsvxnxcwFjWHDvYHA9fgSYOWE08FztNSfFcVISVLrqlTEDUsBvfL/quTu+NRoPRu8Ih9gr1BZ5LXuDfsmh9WHkh48w==
-X-Gm-Message-State: AOJu0Yw4Y3IJ5KhtA8GAbXfn72EL4Pp0OgbpGV8gi7aDFUogVzOczbmG
- re7ynwz7zrleNc8GyNVPE2E9n/SQGMYio8ZGnhlcE18AyqOk7u7ONeEp7pt+elArk2nXnDLEtWj
- bkPKvrSwFEwiVxEAVay+/ts/kblk=
-X-Google-Smtp-Source: AGHT+IGVyazWxyv68bCNmy5uTWHkR45NDvaNyxsIZ91D0rgLx9S2V+vK9H5jUgCG038EeQi1/I2EJlA91qq5+2BW8tw=
-X-Received: by 2002:a17:90a:f2d0:b0:299:d90:1635 with SMTP id
- gt16-20020a17090af2d000b002990d901635mr13266889pjb.5.1708443972117; Tue, 20
- Feb 2024 07:46:12 -0800 (PST)
-MIME-Version: 1.0
-References: <ae64f04d-6e94-4da4-a740-78ea94e0552c@riadoklan.sk.eu.org>
- <2024021732-framing-tactful-833d@gregkh>
- <d369b45f-e1af-4117-83a5-3e429e3bfb23@leemhuis.info>
- <CADnq5_OgPBtYpxBQ+aBmA2t7ob7EFPFWrF9OYXNgm00eEayMNA@mail.gmail.com>
- <62bf771e-640a-45ab-a2de-3df459a9ed30@leemhuis.info>
- <CADnq5_M4Zwv0_B1DoU_a8aNpyPVJj_PpjDG_oi3JkrGC5-hNgg@mail.gmail.com>
- <4bc8747a-d87f-423b-b0ce-8891e78ae094@redhat.com>
- <a6243c3b-d773-4693-88e9-033995616f12@leemhuis.info>
-In-Reply-To: <a6243c3b-d773-4693-88e9-033995616f12@leemhuis.info>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 20 Feb 2024 10:46:00 -0500
-Message-ID: <CADnq5_MHmz=HdGA22U-bk2b+4un70bmLzpbDyc3+tjzoRAnCeA@mail.gmail.com>
-Subject: Re: Kernel 6.7+ broke under-powering of my RX 6700XT. (Archlinux,
- mesa/amdgpu)
-To: Linux regressions mailing list <regressions@lists.linux.dev>
-Cc: Hans de Goede <hdegoede@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Ma Jun <Jun.Ma2@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Dave Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Greg KH <gregkh@linuxfoundation.org>, 
- Roman Benes <benes@riadoklan.sk.eu.org>
-Content-Type: text/plain; charset="UTF-8"
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2058.outbound.protection.outlook.com [40.107.96.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C205710E4CA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 15:51:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gJY8NpWj0wpgmjHfhSbQDWlPNLcfkJyW+AikF20nQQoPBpc3Ev/rzun2vseJl2Y73DfZtF12ce8MAFr2Zd27xjZL9uj11+VvUfIzXKk1itsKZhAbt+lGD9zbeh8euMVoCxt3GR5tog0FfC8Nf69QQZRoaoZBRQkENWspW1ustXc8PEURybMb+AJLc93dk4hhhCXR6m5bfUKRg8rx7DMUcw+5caLfEKPgnVzqndcWAjHXlxPAXL+2gPHQeVqE84A1twHEFV4n841gJJq3o1SxQEeX/nnKOmyhD/9xxNl1L5KPWgmdFkPQmIGq6wxQmYOUuiKi4lqIq5CZat1XEDrCSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QAoGczs1uz0BfyoWQutVOv23kBO7fIIMUmEyXvrX9GA=;
+ b=IbO8Fzvk4Hi2vljmO3XhEEAHU3mHwaCMkUK9/KYGUMb/3RkCXXeJkri8UjrlFmh0sqc9AClTdJzpK+ahqiYQItZ+cYLvTY3Wg5c92J4vPTZgelGPS/v7Up/iCGh9tIM1rZURHKHnISmAJ9lmvdPe/zuSkguRiO+lKsWm7Uj5z7VvpJ4v3R6sOQAVbanlemHziKYLqH69cgOvx5GtklBHkIQnIJrZNBEBr9cZIp1lU1PDEyHPcIxu/ggaGaKOPC9P2SmnPtkD1OdIesgrRdmgqs8f7MzF2UACVR7ycrBaDbBT/nqfB8Aak+8tYX/jHq/oOCqcXD8Bw39C5LJsiQ9dMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QAoGczs1uz0BfyoWQutVOv23kBO7fIIMUmEyXvrX9GA=;
+ b=E2pD9PWEuL28JC+qPwIu+2Me0PNMN4rB6GCpKqKgOI++tGLQVS1s/ykpCBS1qatrjB2IfpENpbiDyO4GnDlD8G6lxiAItnF98u1R/6/fMPtl7t5vSzLWSx472I4UCPA3WREPXVx16MxML3hB/LjeJLu+cUOj7xutF8EeBGykxFU=
+Received: from MW5PR12MB5600.namprd12.prod.outlook.com (2603:10b6:303:195::12)
+ by CH0PR12MB5332.namprd12.prod.outlook.com (2603:10b6:610:d7::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.21; Tue, 20 Feb
+ 2024 15:51:08 +0000
+Received: from MW5PR12MB5600.namprd12.prod.outlook.com
+ ([fe80::c339:e42f:5fd4:157b]) by MW5PR12MB5600.namprd12.prod.outlook.com
+ ([fe80::c339:e42f:5fd4:157b%6]) with mapi id 15.20.7316.018; Tue, 20 Feb 2024
+ 15:51:08 +0000
+From: "Dhume, Samir" <Samir.Dhume@amd.com>
+To: "Lu, Victor Cheng Chi (Victor)" <VictorChengChi.Lu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Chander, Vignesh" <Vignesh.Chander@amd.com>, "Lu, Victor Cheng Chi
+ (Victor)" <VictorChengChi.Lu@amd.com>
+Subject: RE: [PATCH 2/4] drm/amdgpu: Do not program SQ_TIMEOUT_CONFIG in SRIOV
+Thread-Topic: [PATCH 2/4] drm/amdgpu: Do not program SQ_TIMEOUT_CONFIG in SRIOV
+Thread-Index: AQHaPaFqyR5U9JGI306VTzEJl3Y7SrETrb5A
+Date: Tue, 20 Feb 2024 15:51:08 +0000
+Message-ID: <MW5PR12MB56009126E57FC3B919B6394FE6502@MW5PR12MB5600.namprd12.prod.outlook.com>
+References: <20240102173013.5543-1-victorchengchi.lu@amd.com>
+ <20240102173013.5543-2-victorchengchi.lu@amd.com>
+In-Reply-To: <20240102173013.5543-2-victorchengchi.lu@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=ae79a003-987d-4a7e-a93a-a20088256c35;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-02-20T15:50:18Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MW5PR12MB5600:EE_|CH0PR12MB5332:EE_
+x-ms-office365-filtering-correlation-id: d87be0d1-0dfd-449c-51fd-08dc322bc0fc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: tTz6bGp8cxPi+mif4JVpI3iwYarZHHwC1yT2W6u2e0iDUlNz/Ny4SH8bI7vvqAnKCENHR64RscA4+HPUSBF6vyVMFFoBHNJ63N+DPQezk3v7HEw2CGkQWAg6NtkZEv/hXfp3V4eoj7B59lESnGiLuywtmjtwWua2txTwmMjWIuydWGIU69xTAcib2ta8udtfglAtLSHd3vsIOVb4Zs7MomGMz5+uup1PGdxCjVrMX2Oo/3CgD4NTnYJO7Hje0yuMiEMpk25nVtnxYaduxbFhh6tphTwLyLUNcOfvi3vXhTnKtgUSyU+rw3Q38hZDYgaHz4ZFVa73x29WkjXXqu0so+QSm3asJi3Vex0nLmx/aiK8oTRyKoFcz5Uhe+yfruhlfOMBrPy78W4ek3bupPgPR5uqmUZx08YK5rLB2PbWaYREHB6i2dfhvkDxvpFo0ATBnqYfJ2bw36i3EtElAAv3Ta5Hk+odIDItyIiNyuN7jueWvL24WFxrj2FKsn56GGUHRbjTSTUZcS6zMLJGfkS9t4zYJFy/2PqiTgMHKfTz7t5FO1Sg387JanBWhVqDV3LCuRf16Fpf4XvMtGU/KZmkTnQT5smikTOPrxJwhHyFIcy/vyDPkOR1TUgKpJAt0Ti1
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW5PR12MB5600.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?rmovbrYqRaOBGvhUNEpr5e6CQzkdJyHWhGCZ6utt3QmFiArDmNmUMieLKY2m?=
+ =?us-ascii?Q?LLTrdvUf4cZBvBk73cGg5c6nn6P03eyPRROYs/dCE2VFug9JYqvAB5wTBIBI?=
+ =?us-ascii?Q?mhRaep0F8KunccGkF4DQhk2vSUOCcCXwd8wLbrqhLmlgXGD2FnMsBndUpwWK?=
+ =?us-ascii?Q?MedVIwk56gkLE0pH0yDgda78kLU9CmS0pQxv24lt5DVDD0qPHOO87v+BV65k?=
+ =?us-ascii?Q?RPbsc6WmDEDUqmcI65SWBpBqPu2JLVDDaAwKyCJv70xP9JN1uQycJN4PkPhv?=
+ =?us-ascii?Q?kKyxezkgHzem8DQUWleJ9pVGgHAbffnjgx9pkE1c74Zu5ZqjOHPpvhEN9J17?=
+ =?us-ascii?Q?YguU6Efc/AnM1sPzM8uN3P+wxazCtp2IKKeZ2yTgy8BP3Ba97nHNXvkQWSbw?=
+ =?us-ascii?Q?sHgyrlXFjP+XoPpwLHemBPTgj3izbzwbbBcAjW/+neWrymqC9RlVNaq7WHrS?=
+ =?us-ascii?Q?mp6ZwNgiqwUffIS6PaQXCGZYIn3t8jqJPQh6L5+ZzhoSOWlL0bHuLd1H6LD/?=
+ =?us-ascii?Q?uQyUbdI3hTodp30QDJin9kt1rssSQHs8/I3/amQsgLlqZF5kBlsu8OalxujD?=
+ =?us-ascii?Q?XMKSeFjhf8oLDU4X+ht48Z+qgLKxynXYRNcjLlfdYy0xpQAyI4zh3AdACTt9?=
+ =?us-ascii?Q?w7Uu6XJfeoAoexXvD+Yx+3xVA66gDIj7NvE1igOkpGDI2UVZg16nSJEvnjqz?=
+ =?us-ascii?Q?VJB4a4fdHSuWVqH0TDoC6+6+j46oKu+sWtJAXjWQH395iONBdG7aWl0iJbS5?=
+ =?us-ascii?Q?/kuymRHZtENR6MuBb43ctP3yWNQnfBtYncs2x8/cJcZLDZQEjtG5jWhNh4LA?=
+ =?us-ascii?Q?OddhgWA7ajHW3IckoCXF7YLJzNrRhdGyTjvCoEogAm400IU6GHS44IzyHWFI?=
+ =?us-ascii?Q?0R7V9p840d0dBM/OvXfHuW6Tjxqusv05+cYyR2MtBKUl0hp4yOPXq0MVCFVb?=
+ =?us-ascii?Q?IibjKyEWBI6yRXUJuS011PpBgWcCrvQdZYx7+4T2vAy9H1Dts+ifcpKVuNER?=
+ =?us-ascii?Q?m47UtihL2Qpl28zddH2htN33JdpbhhsOcGPsQBzBqC4I6XanKadvhv5mzQUz?=
+ =?us-ascii?Q?AKiI0KuYKiE+0UUCTjzaFHqPu7Bw6rp02hLmlui9kvXigeorcIl9uHI+RNKY?=
+ =?us-ascii?Q?9OI41I8VW9rZfGYyzWJy6TrTY3bvxyoEqa4d/ftSNmH+Fi/QlezJdLOcySMI?=
+ =?us-ascii?Q?C3ZHFsFFVxiHq/KB1YjNDRwyObCSmKmSgja0G+Qt+9ia/EZXeBrTbPqt7DV0?=
+ =?us-ascii?Q?fSYjp/Vzb31pWrbHRsejKAB8kvqT4gdcDL1OKK+mxwW9bcNdVipfvgYoZC9I?=
+ =?us-ascii?Q?jXv9wjDcm++YmpVwbL8WuGbE5J/ES9alY74rdeL5ygWW8AN/28clvg8oGUCq?=
+ =?us-ascii?Q?s4EmCDuVfJIDakoTiuaZ9W6kWjyPRH9N257UzKoy3msfvctaYV3rY9+8x9kz?=
+ =?us-ascii?Q?Oj4FqNobbFFgG7J3Xo68WcQN92ILzACs+lJl6klMmh6xAhdHT04LAlzG3kiz?=
+ =?us-ascii?Q?VjGqxNULgG3AYtxdbdliz6PuaXl33FFgFpQ3ETY47Yz2KHP/hO6xzoRn02N6?=
+ =?us-ascii?Q?GL17bJYRwLsERmNHI3E=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MW5PR12MB5600.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d87be0d1-0dfd-449c-51fd-08dc322bc0fc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Feb 2024 15:51:08.2002 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PGL0ydzgfg0Tsp0wtOp1KMaB/EsCtgBjaH+CQsB09f2fpyA/s+X/apIJhvQZsglB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5332
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,199 +130,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 20, 2024 at 10:42=E2=80=AFAM Linux regression tracking (Thorste=
-n
-Leemhuis) <regressions@leemhuis.info> wrote:
->
->
->
-> On 20.02.24 16:27, Hans de Goede wrote:
-> > Hi,
-> >
-> > On 2/20/24 16:15, Alex Deucher wrote:
-> >> On Tue, Feb 20, 2024 at 10:03=E2=80=AFAM Linux regression tracking (Th=
-orsten
-> >> Leemhuis) <regressions@leemhuis.info> wrote:
-> >>>
-> >>> On 20.02.24 15:45, Alex Deucher wrote:
-> >>>> On Mon, Feb 19, 2024 at 9:47=E2=80=AFAM Linux regression tracking (T=
-horsten
-> >>>> Leemhuis) <regressions@leemhuis.info> wrote:
-> >>>>>
-> >>>>> On 17.02.24 14:30, Greg KH wrote:
-> >>>>>> On Sat, Feb 17, 2024 at 02:01:54PM +0100, Roman Benes wrote:
-> >>>>>>> Minimum power limit on latest(6.7+) kernels is 190W for my GPU (R=
-X 6700XT,
-> >>>>>>> mesa, archlinux) and I cannot get power cap as low as before(to 1=
-15W),
-> >>>>>>> neither with Corectrl, LACT or TuxClocker and /sys have a variabl=
-e read-only
-> >>>>>>> even for root. This is not of above apps issue but of the kernel,=
- I read
-> >>>>>>> similar issues from other bug reports of above apps. I downgraded=
- to v6.6.10
-> >>>>>>> kernel and my 115W(under power)cap work again as before.
-> >>>>>>
-> >>>>> For the record and everyone that lands here: the cause is known now
-> >>>>> (it's 1958946858a62b ("drm/amd/pm: Support for getting power1_cap_m=
-in
-> >>>>> value") [v6.7-rc1]) and the issue afaics tracked here:
-> >>>>>
-> >>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3183
-> >>>>>
-> >>>>> Other mentions:
-> >>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3137
-> >>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/2992
-> >>>>>
-> >>>>> Haven't seen any statement from the amdgpu developers (now CCed) ye=
-t on
-> >>>>> this there (but might have missed something!). From what I can see =
-I
-> >>>>> assume this will likely be somewhat tricky to handle, as a revert
-> >>>>> overall might be a bad idea here. We'll see I guess.
-> >>>>
-> >>>> The change aligns the driver what has been validated on each board
-> >>>> design.  Windows uses the same limits.  Using values lower than the
-> >>>> validated range can lead to undefined behavior and could potentially
-> >>>> damage your hardware.
-> >>>
-> >>> Thx for the reply! Yeah, I was expecting something along those lines.
-> >>>
-> >>> Nevertheless it afaics still is a regression in the eyes of many user=
-s.
-> >>> I'm not sure how Linus feels about this, but I wonder if we can find
-> >>> some solution here so that users that really want to, can continue to=
- do
-> >>> what was possible out-of-the box before. Is that possible to realize =
-or
-> >>> even supported already?
-> >>>
-> >>> And sure, those users would be running their hardware outside of its
-> >>> specifications. But is that different from overclocking (which the
-> >>> driver allows, doesn't it? If not by all means please correct me!)?
-> >>
-> >> Sure.  The driver has always had upper bound limits for overclocking,
-> >> this change adds lower bounds checking for underclocking as well.
-> >> When the silicon validation teams set the bounding box for a device,
-> >> they set a range of values where it's reasonable to operate based on
-> >> the characteristics of the design.
-> >>
-> >> If we did want to allow extended underclocking, we need a big warning
-> >> in the logs at the very least.
-> >
-> > Requiring a module-option to be set to allow this, as well as a big
-> > warning in the logs sounds like a good solution to me.
->
-> Yeah, especially as it sounds from some of the reports as if some
-> vendors did a really bad job when it came to setting the proper
-> lower-bound limits are now adhered -- and thus higher then what we used
-> out-of-the box before 1958946858a62b was applied.
->
-> Side note: I assume those "lower bounds checking" is done round about
-> the same way by the Windows driver? Does that one allow users to go
-> lower somehow? Say after modifying the registry or something like that?
-> Or through external tools?
+[AMD Official Use Only - General]
 
-Windows uses the same limit.  I'm not aware of any way to override the
-limit on windows off hand.
+Reviewed-by: Samir Dhume <samir.dhume@amd.com>
 
-Alex
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Victor L=
+u
+Sent: Tuesday, January 2, 2024 12:30 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Chander, Vignesh <Vignesh.Chander@amd.com>; Lu, Victor Cheng Chi (Victo=
+r) <VictorChengChi.Lu@amd.com>
+Subject: [PATCH 2/4] drm/amdgpu: Do not program SQ_TIMEOUT_CONFIG in SRIOV
 
+VF should not program this register.
 
->
-> Ciao, Thorsten
->
-> >>>>> Roman posted something that apparently was meant to go to the list,=
- so
-> >>>>> let me put it here:
-> >>>>>
-> >>>>> """
-> >>>>> UPDATE: User fililip already posted patch, but it need to be merged=
-,
-> >>>>> discussion is on gitlab link below.
-> >>>>>
-> >>>>> (PS: I hope I am replying correctly to "all" now? - using original =
-addr.)
-> >>>>>
-> >>>>>
-> >>>>>> it seems that commit was already found(see user's 'fililip' commen=
-t):
-> >>>>>>
-> >>>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3183
-> >>>>>> commit 1958946858a62b6b5392ed075aa219d199bcae39
-> >>>>>> Author: Ma Jun <Jun.Ma2@amd.com>
-> >>>>>> Date:   Thu Oct 12 09:33:45 2023 +0800
-> >>>>>>
-> >>>>>>     drm/amd/pm: Support for getting power1_cap_min value
-> >>>>>>
-> >>>>>>     Support for getting power1_cap_min value on smu13 and smu11.
-> >>>>>>     For other Asics, we still use 0 as the default value.
-> >>>>>>
-> >>>>>>     Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-> >>>>>>     Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
-> >>>>>>     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >>>>>>
-> >>>>>> However, this is not good as it remove under-powering range too fa=
-r. I
-> >>>>> was getting only about 7% less performance but 90W(!) less consumpt=
-ion
-> >>>>> when set to my 115W before. Also I wonder if we as a OS of options =
-and
-> >>>>> freedom have to stick to such very high reference for min values wi=
-thout
-> >>>>> ability to override them through some sys ctrls. Commit was done by=
- amd
-> >>>>> guy and I wonder if because of maybe this post that I made few mont=
-hs
-> >>>>> ago(business strategy?):
-> >>>>>>
-> >>>>>>
-> >>>>> https://www.reddit.com/r/Amd/comments/183gye7/rx_6700xt_from_230w_t=
-o_capped_115w_at_only_10/
-> >>>>>>
-> >>>>>> This is not a dangerous OC upwards where I can understand desire t=
-o
-> >>>>> protect HW, it is downward, having min cap at 190W when card pull o=
-n
-> >>>>> 115W almost same speed is IMO crazy to deny. We don't talk about de=
-fault
-> >>>>> or reference values here either, just a move to lower the range of
-> >>>>> options for whatever reason.
-> >>>>>>
-> >>>>>> I don't know how much power you guys have over them, but please
-> >>>>> consider either reverting this change, or give us an option to set
-> >>>>> min_cap through say /sys (right now param is readonly, even for roo=
-t).
-> >>>>>>
-> >>>>>>
-> >>>>>> Thank you in advance for looking into this, with regards:  Romano
-> >>>>> """
-> >>>>>
-> >>>>> And while at it, let me add this issue to the tracking as well
-> >>>>>
-> >>>>> [TLDR: I'm adding this report to the list of tracked Linux kernel
-> >>>>> regressions; the text you find below is based on a few templates
-> >>>>> paragraphs you might have encountered already in similar form.
-> >>>>> See link in footer if these mails annoy you.]
-> >>>>>
-> >>>>> Thanks for the report. To be sure the issue doesn't fall through th=
-e
-> >>>>> cracks unnoticed, I'm adding it to regzbot, the Linux kernel regres=
-sion
-> >>>>> tracking bot:
-> >>>>>
-> >>>>> #regzbot introduced 1958946858a62b /
-> >>>>> #regzbot title drm: amdgpu: under-powering broke
-> >>>>>
-> >>>>> Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker'=
- hat)
-> >>>>> --
-> >>>>> Everything you wanna know about Linux kernel regression tracking:
-> >>>>> https://linux-regtracking.leemhuis.info/about/#tldr
-> >>>>> That page also explains what to do if mails like this annoy you.
-> >>>>
-> >>>>
-> >>
-> >
-> >
-> >
+Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_4_3.c
+index 00b21ece081f..30cc155f20d4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -3888,6 +3888,9 @@ static void gfx_v9_4_3_inst_enable_watchdog_timer(str=
+uct amdgpu_device *adev,
+        uint32_t i;
+        uint32_t data;
+
++       if (amdgpu_sriov_vf(adev))
++               return;
++
+        data =3D RREG32_SOC15(GC, GET_INST(GC, 0), regSQ_TIMEOUT_CONFIG);
+        data =3D REG_SET_FIELD(data, SQ_TIMEOUT_CONFIG, TIMEOUT_FATAL_DISAB=
+LE,
+                             amdgpu_watchdog_timer.timeout_fatal_disable ? =
+1 : 0);
+--
+2.34.1
+
