@@ -4,84 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF39AC48BC4
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 20:19:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23CE7C48BC4
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 20:28:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68FE410E097;
-	Tue, 20 Feb 2024 20:19:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9371110E22C;
+	Tue, 20 Feb 2024 20:28:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SU87Qa2x";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XI2DFHPT";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB8CA10E097
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 20:19:11 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-5dbcfa0eb5dso5519113a12.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 12:19:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708460351; x=1709065151; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=p7YC8fGEicIHkV9aDCwTa9axbQlb7lkTnq+sSaoXAXI=;
- b=SU87Qa2xmD1LlQmr+GQTm9KYNwbpLarZpmosg2tTcTgyaBzcZ8pYlBKQ+cc2kOP4xy
- np/Pu65ChGw+Qe3EOmjelhoGh4WO8U/IGW8L352UKZZYFOGB9J16lxuLXVZXm8prjpta
- Nq0AuKlQxsc4VJ9A/qaAO+7FJWeerBFhy8QFRTO49ygtlx6CwAdtYXQWWUipSmuxbzn7
- jLyA438Xmst5mLE2h56ddBNryJF+pMehDeW61MBy+w/ZBium5ofh5MPtus0EcbvBaegz
- QInNdBuFbCNO9nurpRwg7s/3IwjEQ4dNStSNrvxCHKbIJynjrxbbr4U05ZHzXc5L6T1v
- wQXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708460351; x=1709065151;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=p7YC8fGEicIHkV9aDCwTa9axbQlb7lkTnq+sSaoXAXI=;
- b=ZkJA+BLNgsUAKLyH8xJyUIa/cpDurU3e/khJA4JeXf0zIIrkeDj0UDA1NOq810ni9r
- TEXWhBcIaPN5zglb9imJw9jQlkp2al35wtjUFzNxUnVtDoe69/Ndi7RYwMYuQ+VX61Io
- iIWC9F6ycD+ARnKWaPSk5uaB6kBL/73WE6pvrauz1iNioJtTEjIsQddLVVQZu33r+oja
- kGUBAB3oooWtiAiSPdG+aMmm4m7SF7WW9j/DDqn4ubiz3wXk5VJOe4h1f4QC8cdqC/Jb
- V6JVH4lCq5Xr0UnFD+sV5JP/EqFghgHXcmYl+fEGAHxa1vnbeWiLHGaBAXtv0wI9CFzJ
- YerQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVsKW5N2ZvNEC8HCNSlrpT0kAzCua9dozpcyOJ9sLDMM2+VjTLg4ptvZg+1YEtMT7bWqBQzdIGNl89xEy/NJHvLaTR6AQ98hLYmfBciGQ==
-X-Gm-Message-State: AOJu0YzCXl29wvhEmjdNpgraBV+NeGOZnI6gHIwf8rtEhRdFMkaNFQZ+
- 8FBsPh5FnwoGRVrw/8wlCy2/uaJ6qC+ak3FIpNkR5vMK1IsbKH3UMEQ5k+hnlsc4ppVjgv45Hf2
- aT806O6/diJGxVC2+8dfHwRvVBVI=
-X-Google-Smtp-Source: AGHT+IG0wzqy2Tfjkemwpj3sDMv4npRLTuC3pKMMStySLPiZAhhhchsirVZDiGyTPc9qthY/+uUo9us/gp0lMkLtZNM=
-X-Received: by 2002:a17:90a:e645:b0:299:11ae:d507 with SMTP id
- ep5-20020a17090ae64500b0029911aed507mr11611099pjb.1.1708460351148; Tue, 20
- Feb 2024 12:19:11 -0800 (PST)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2051.outbound.protection.outlook.com [40.107.101.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77E3110E22C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 20:28:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QTCYRbfc8tUoRJeyx9NpQevMwrgHq6zUViGb3Vn81dJrvsDdwRDIc4CsuvSuE4TrIgQfEQmPgf2Grwpst7LtT1/SoEPtcSM6S/ND8DlwmM1737+0G/T77BnfrLDNo7TYIGLrJdMLcFBppIW67HRgwjVvIG8ryeqaOWra09fyn5L8nzuPbDEkYgmOuM3w1gHbulsW6gZR5wL0aC2vCKsvPNx2AX4kE+e4uPWbraOTmHvufqLa86TdZTtXDwHOKLKuwd/rqBOJpyZlwsgfehn0JRyQU0Nj7PdjiMn1AAMn6NGzqESTmzyCr2Gqmqzwg+217Gv+wuGu106OPn2bCYCmEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5AXKMfmsusyrAOOV7SGzNqZUO8NHto4OAf3LHtVN/W4=;
+ b=IbPq6efPEXv6DmBW0cK75tDmYL2yw6gR9u1vmegt7kV1Sxn4qxaSMMwKZNW4MPehvjDEB96Hi8TBZWQus89Dy4HjKyLVd0VyqMGs51rIbAjZWugD0RRignRr0PNihwpLIhG3kgKlib+o91cbF37UpXdqpQilLTyd1J0Etf9/odL5PT9XGQpegCXEIRimmJ6O8H5TwzxeC0Afhr02V1PHR0utkdubnHaAz2fnreraXGjPBjvOhGhT0ihURbPuJ2Wf0g6ghO80XuPqJkd0/IdlirWL12TVRsurM8php0MwTw/QpYQ47bFCR9IdxxtW4a0pso++LQ/RD5TzMtLvqSP5yQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5AXKMfmsusyrAOOV7SGzNqZUO8NHto4OAf3LHtVN/W4=;
+ b=XI2DFHPTkzrGSkvfx6xEj9NkwdXxcWujysSrwzsqsKCXJm1IznnXYbUhR/QLv088w4lRUhXQ+Dq+C9OTvqfW8K3PP8iWBtydP7vc+Wrfe3QtXRHNWPIg33nGcm5dmzVU5N/kDKcrs9O+Zj0IaiPltep8IKnznEuFhSV9/nmw9FI=
+Received: from MW4PR04CA0297.namprd04.prod.outlook.com (2603:10b6:303:89::32)
+ by LV8PR12MB9208.namprd12.prod.outlook.com (2603:10b6:408:182::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.21; Tue, 20 Feb
+ 2024 20:28:48 +0000
+Received: from MWH0EPF000971E9.namprd02.prod.outlook.com
+ (2603:10b6:303:89:cafe::53) by MW4PR04CA0297.outlook.office365.com
+ (2603:10b6:303:89::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.39 via Frontend
+ Transport; Tue, 20 Feb 2024 20:28:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000971E9.mail.protection.outlook.com (10.167.243.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Tue, 20 Feb 2024 20:28:47 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 20 Feb
+ 2024 14:28:46 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>, "Veerabadhran
+ Gopalakrishnan" <Veerabadhran.Gopalakrishnan@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu/jpeg: add support for jpeg multi instance
+Date: Tue, 20 Feb 2024 15:28:32 -0500
+Message-ID: <20240220202832.417241-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-References: <ae64f04d-6e94-4da4-a740-78ea94e0552c@riadoklan.sk.eu.org>
- <2024021732-framing-tactful-833d@gregkh>
- <d369b45f-e1af-4117-83a5-3e429e3bfb23@leemhuis.info>
- <CADnq5_OgPBtYpxBQ+aBmA2t7ob7EFPFWrF9OYXNgm00eEayMNA@mail.gmail.com>
- <62bf771e-640a-45ab-a2de-3df459a9ed30@leemhuis.info>
- <CADnq5_M4Zwv0_B1DoU_a8aNpyPVJj_PpjDG_oi3JkrGC5-hNgg@mail.gmail.com>
- <4bc8747a-d87f-423b-b0ce-8891e78ae094@redhat.com>
- <a6243c3b-d773-4693-88e9-033995616f12@leemhuis.info>
- <CADnq5_MHmz=HdGA22U-bk2b+4un70bmLzpbDyc3+tjzoRAnCeA@mail.gmail.com>
- <1aa3830d-ceb7-4eb1-b5bb-d6043684507f@gmail.com>
- <CADnq5_Nc+eEfXwaXfaTz75C9ww6ETVm_adCSfGsdD6OzguUQ6Q@mail.gmail.com>
- <3e077b5f-0684-4a07-9b74-ab242bb01975@gmail.com>
-In-Reply-To: <3e077b5f-0684-4a07-9b74-ab242bb01975@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 20 Feb 2024 15:18:58 -0500
-Message-ID: <CADnq5_NszWGKVZZomTojAm_u7O-04M6x_ox4KXQC79OuGA9ARA@mail.gmail.com>
-Subject: Re: Kernel 6.7+ broke under-powering of my RX 6700XT. (Archlinux,
- mesa/amdgpu)
-To: Romano <romaniox@gmail.com>
-Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
- Hans de Goede <hdegoede@redhat.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Ma Jun <Jun.Ma2@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Dave Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Greg KH <gregkh@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E9:EE_|LV8PR12MB9208:EE_
+X-MS-Office365-Filtering-Correlation-Id: 826b559a-bfe2-4821-d3ae-08dc32528ad7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ZNX/O6dAnUuna8H5/4mtiousl2gibFGVURkyhd53wLaQrsH7e+0BJLVjyYQwJAKKl46X73wXGb/m8vliUIIzYU8iDxhrKsZbz+W9yjRs8xQNsmMqulWLSnbfRMNipDeGhBngtNdcB5AHtLCySFX8h70mDoVdOzAryKwkuUM/PzSaiXw0ubnI8m0nVnbkrEyJffzXsO8LeH/iTmt94fZqEtI1/C/0hReREifIFaM9bMy+HSJKbxdanJmAy1XPvsiCZnzqUcwc9gWsIQuPkbU5T9S/tfC/NqP/LZ6W0mTxP/feKP7q4MwP+Q47TFRxlXN2jpMI+q4V2Et2h04pcuLlwztfg0cRhX3EAHagMRoTeeCzcgsyWNPdS1lwYgoLD6PjzvGKLbQVnWOxFexQVlTPs8ajcVU9GuWbkxakr8Qef11IpQgHQgRYe3ehiCEaMdaF6MZpzU4rlz1E0wWVp5JiRQlDhvb+VJd1kHIJDw77ZAT3/jaglrPPqWPSf2oPxQVU0SGCCciqy87x0q6dzq/TBeAO9vUb6J/luHQNNY5WIyB6DV0VzS2xjm4Z+8Ivj8zh3xiPg+vCHMD/obW3qkj62YeR1B8tAD/7rVEoZ0gGaFGfYVhOU4DGCPk1kQnQSidflTnPYb/zIY6mPayuSULdYQGY36yI2vOoiGBimxD2E2Y=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(230273577357003)(36860700004)(46966006)(40470700004); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2024 20:28:47.6312 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 826b559a-bfe2-4821-d3ae-08dc32528ad7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9208
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,266 +106,343 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 20, 2024 at 2:41=E2=80=AFPM Romano <romaniox@gmail.com> wrote:
->
-> If the increased low range is allowed via boot option, like in proposed
-> patch, user clearly made an intentional decision. Undefined, but won't
-> fry his hardware for sure. Undefined is also overclocking in that
-> matter. You can go out of range with ratio of voltage vs frequency(still
-> within vendor's limits) for example and crash the system.
+From: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
 
-This whole thing reminds me of this:
-https://xkcd.com/1172/
-The problem is another module parameter is another interface to
-maintain and validate.  Moreover, we've had a number of cases in the
-past where users have under or overclocked and reported bugs or
-stability issues and it did not come to light that they were doing
-that until we'd already spent a good deal of time trying to debug the
-issue.  This obviously can still happen if you allow any sort of over
-or underclocking, but at least if you stick to the limits you are
-staying within the bounding box of the design.
+Enable support for multi instance on JPEG 4.0.6.
 
-Alex
+v2: squash in fixes (Alex)
 
->
->
->
-> On 2/20/24 19:09, Alex Deucher wrote:
-> > On Tue, Feb 20, 2024 at 11:46=E2=80=AFAM Romano <romaniox@gmail.com> wr=
-ote:
-> >> For Windows, apps like MSI Afterburner is the one to try and what most
-> >> people go for. Using it in the past myself, I would be surprised if it
-> >> adhered to such a high min power cap. But even if it did, why would we
-> >> have to.
-> >>
-> >> Relying on vendors cap in this case has already proven wrong because
-> >> things worked for quite some time already and people reported saving
-> >> significant amount of watts, in my case 90W(!) for <10% perf.
-> >>
-> >> Therefore this talk about safety seems rather strange to me and
-> >> especially so when we are talking about min_cap. Or name me a single
-> >> case where someone fried his card due to "too low power" set in said
-> >> variable. Now there was a report, where by going way too low, driver
-> >> goes opposite into max power. That's it. That can be easily
-> >> detected(vents going crazy etc.) and reverted. It is a max_cap that
-> >> protect HW(also above scenario), not a min_cap. Feel free to adhere to
-> >> safety standards with that one.
-> > Because operation outside of the design bounding box is undefined.  It
-> > might work for some boards but not others.  It's possible some of the
-> > logic in the firmware or some of the components used on the board may
-> > not work correctly below a certain limit, or the voltage regulators
-> > used on a specific board have a minimum requirement that would not be
-> > an issue if you stick the bounding box.
-> >
-> > Alex
-> >
-> >> As for solution, what some suggested already exist - a patch posted by
-> >> fililip on gitlab is probably the way most of you would agree. It
-> >> introduce a variable that can be set during boot to override min_cap.
-> >> But he did not pull requested it, so please, if any one of you who hav=
-e
-> >> access to code and merge kernel would be kind enough to implement it.
-> >>
-> >>
-> >>
-> >> On 2/20/24 16:46, Alex Deucher wrote:
-> >>> On Tue, Feb 20, 2024 at 10:42=E2=80=AFAM Linux regression tracking (T=
-horsten
-> >>> Leemhuis) <regressions@leemhuis.info> wrote:
-> >>>>
-> >>>> On 20.02.24 16:27, Hans de Goede wrote:
-> >>>>> Hi,
-> >>>>>
-> >>>>> On 2/20/24 16:15, Alex Deucher wrote:
-> >>>>>> On Tue, Feb 20, 2024 at 10:03=E2=80=AFAM Linux regression tracking=
- (Thorsten
-> >>>>>> Leemhuis) <regressions@leemhuis.info> wrote:
-> >>>>>>> On 20.02.24 15:45, Alex Deucher wrote:
-> >>>>>>>> On Mon, Feb 19, 2024 at 9:47=E2=80=AFAM Linux regression trackin=
-g (Thorsten
-> >>>>>>>> Leemhuis) <regressions@leemhuis.info> wrote:
-> >>>>>>>>> On 17.02.24 14:30, Greg KH wrote:
-> >>>>>>>>>> On Sat, Feb 17, 2024 at 02:01:54PM +0100, Roman Benes wrote:
-> >>>>>>>>>>> Minimum power limit on latest(6.7+) kernels is 190W for my GP=
-U (RX 6700XT,
-> >>>>>>>>>>> mesa, archlinux) and I cannot get power cap as low as before(=
-to 115W),
-> >>>>>>>>>>> neither with Corectrl, LACT or TuxClocker and /sys have a var=
-iable read-only
-> >>>>>>>>>>> even for root. This is not of above apps issue but of the ker=
-nel, I read
-> >>>>>>>>>>> similar issues from other bug reports of above apps. I downgr=
-aded to v6.6.10
-> >>>>>>>>>>> kernel and my 115W(under power)cap work again as before.
-> >>>>>>>>> For the record and everyone that lands here: the cause is known=
- now
-> >>>>>>>>> (it's 1958946858a62b ("drm/amd/pm: Support for getting power1_c=
-ap_min
-> >>>>>>>>> value") [v6.7-rc1]) and the issue afaics tracked here:
-> >>>>>>>>>
-> >>>>>>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3183
-> >>>>>>>>>
-> >>>>>>>>> Other mentions:
-> >>>>>>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3137
-> >>>>>>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/2992
-> >>>>>>>>>
-> >>>>>>>>> Haven't seen any statement from the amdgpu developers (now CCed=
-) yet on
-> >>>>>>>>> this there (but might have missed something!). From what I can =
-see I
-> >>>>>>>>> assume this will likely be somewhat tricky to handle, as a reve=
-rt
-> >>>>>>>>> overall might be a bad idea here. We'll see I guess.
-> >>>>>>>> The change aligns the driver what has been validated on each boa=
-rd
-> >>>>>>>> design.  Windows uses the same limits.  Using values lower than =
-the
-> >>>>>>>> validated range can lead to undefined behavior and could potenti=
-ally
-> >>>>>>>> damage your hardware.
-> >>>>>>> Thx for the reply! Yeah, I was expecting something along those li=
-nes.
-> >>>>>>>
-> >>>>>>> Nevertheless it afaics still is a regression in the eyes of many =
-users.
-> >>>>>>> I'm not sure how Linus feels about this, but I wonder if we can f=
-ind
-> >>>>>>> some solution here so that users that really want to, can continu=
-e to do
-> >>>>>>> what was possible out-of-the box before. Is that possible to real=
-ize or
-> >>>>>>> even supported already?
-> >>>>>>>
-> >>>>>>> And sure, those users would be running their hardware outside of =
-its
-> >>>>>>> specifications. But is that different from overclocking (which th=
-e
-> >>>>>>> driver allows, doesn't it? If not by all means please correct me!=
-)?
-> >>>>>> Sure.  The driver has always had upper bound limits for overclocki=
-ng,
-> >>>>>> this change adds lower bounds checking for underclocking as well.
-> >>>>>> When the silicon validation teams set the bounding box for a devic=
-e,
-> >>>>>> they set a range of values where it's reasonable to operate based =
-on
-> >>>>>> the characteristics of the design.
-> >>>>>>
-> >>>>>> If we did want to allow extended underclocking, we need a big warn=
-ing
-> >>>>>> in the logs at the very least.
-> >>>>> Requiring a module-option to be set to allow this, as well as a big
-> >>>>> warning in the logs sounds like a good solution to me.
-> >>>> Yeah, especially as it sounds from some of the reports as if some
-> >>>> vendors did a really bad job when it came to setting the proper
-> >>>> lower-bound limits are now adhered -- and thus higher then what we u=
-sed
-> >>>> out-of-the box before 1958946858a62b was applied.
-> >>>>
-> >>>> Side note: I assume those "lower bounds checking" is done round abou=
-t
-> >>>> the same way by the Windows driver? Does that one allow users to go
-> >>>> lower somehow? Say after modifying the registry or something like th=
-at?
-> >>>> Or through external tools?
-> >>> Windows uses the same limit.  I'm not aware of any way to override th=
-e
-> >>> limit on windows off hand.
-> >>>
-> >>> Alex
-> >>>
-> >>>
-> >>>> Ciao, Thorsten
-> >>>>
-> >>>>>>>>> Roman posted something that apparently was meant to go to the l=
-ist, so
-> >>>>>>>>> let me put it here:
-> >>>>>>>>>
-> >>>>>>>>> """
-> >>>>>>>>> UPDATE: User fililip already posted patch, but it need to be me=
-rged,
-> >>>>>>>>> discussion is on gitlab link below.
-> >>>>>>>>>
-> >>>>>>>>> (PS: I hope I am replying correctly to "all" now? - using origi=
-nal addr.)
-> >>>>>>>>>
-> >>>>>>>>>
-> >>>>>>>>>> it seems that commit was already found(see user's 'fililip' co=
-mment):
-> >>>>>>>>>>
-> >>>>>>>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3183
-> >>>>>>>>>> commit 1958946858a62b6b5392ed075aa219d199bcae39
-> >>>>>>>>>> Author: Ma Jun <Jun.Ma2@amd.com>
-> >>>>>>>>>> Date:   Thu Oct 12 09:33:45 2023 +0800
-> >>>>>>>>>>
-> >>>>>>>>>>       drm/amd/pm: Support for getting power1_cap_min value
-> >>>>>>>>>>
-> >>>>>>>>>>       Support for getting power1_cap_min value on smu13 and sm=
-u11.
-> >>>>>>>>>>       For other Asics, we still use 0 as the default value.
-> >>>>>>>>>>
-> >>>>>>>>>>       Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-> >>>>>>>>>>       Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
-> >>>>>>>>>>       Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >>>>>>>>>>
-> >>>>>>>>>> However, this is not good as it remove under-powering range to=
-o far. I
-> >>>>>>>>> was getting only about 7% less performance but 90W(!) less cons=
-umption
-> >>>>>>>>> when set to my 115W before. Also I wonder if we as a OS of opti=
-ons and
-> >>>>>>>>> freedom have to stick to such very high reference for min value=
-s without
-> >>>>>>>>> ability to override them through some sys ctrls. Commit was don=
-e by amd
-> >>>>>>>>> guy and I wonder if because of maybe this post that I made few =
-months
-> >>>>>>>>> ago(business strategy?):
-> >>>>>>>>> https://www.reddit.com/r/Amd/comments/183gye7/rx_6700xt_from_23=
-0w_to_capped_115w_at_only_10/
-> >>>>>>>>>> This is not a dangerous OC upwards where I can understand desi=
-re to
-> >>>>>>>>> protect HW, it is downward, having min cap at 190W when card pu=
-ll on
-> >>>>>>>>> 115W almost same speed is IMO crazy to deny. We don't talk abou=
-t default
-> >>>>>>>>> or reference values here either, just a move to lower the range=
- of
-> >>>>>>>>> options for whatever reason.
-> >>>>>>>>>> I don't know how much power you guys have over them, but pleas=
-e
-> >>>>>>>>> consider either reverting this change, or give us an option to =
-set
-> >>>>>>>>> min_cap through say /sys (right now param is readonly, even for=
- root).
-> >>>>>>>>>> Thank you in advance for looking into this, with regards:  Rom=
-ano
-> >>>>>>>>> """
-> >>>>>>>>>
-> >>>>>>>>> And while at it, let me add this issue to the tracking as well
-> >>>>>>>>>
-> >>>>>>>>> [TLDR: I'm adding this report to the list of tracked Linux kern=
-el
-> >>>>>>>>> regressions; the text you find below is based on a few template=
-s
-> >>>>>>>>> paragraphs you might have encountered already in similar form.
-> >>>>>>>>> See link in footer if these mails annoy you.]
-> >>>>>>>>>
-> >>>>>>>>> Thanks for the report. To be sure the issue doesn't fall throug=
-h the
-> >>>>>>>>> cracks unnoticed, I'm adding it to regzbot, the Linux kernel re=
-gression
-> >>>>>>>>> tracking bot:
-> >>>>>>>>>
-> >>>>>>>>> #regzbot introduced 1958946858a62b /
-> >>>>>>>>> #regzbot title drm: amdgpu: under-powering broke
-> >>>>>>>>>
-> >>>>>>>>> Ciao, Thorsten (wearing his 'the Linux kernel's regression trac=
-ker' hat)
-> >>>>>>>>> --
-> >>>>>>>>> Everything you wanna know about Linux kernel regression trackin=
-g:
-> >>>>>>>>> https://linux-regtracking.leemhuis.info/about/#tldr
-> >>>>>>>>> That page also explains what to do if mails like this annoy you=
-.
-> >>>>>
+Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
+Reviewed-by: Veerabadhran Gopalakrishnan <Veerabadhran.Gopalakrishnan@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c | 177 ++++++++++++++++-------
+ 1 file changed, 123 insertions(+), 54 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+index 3602738874ee..521af589ffcd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+@@ -53,6 +53,11 @@ static int jpeg_v4_0_5_set_powergating_state(void *handle,
+ 
+ static void jpeg_v4_0_5_dec_ring_set_wptr(struct amdgpu_ring *ring);
+ 
++static int amdgpu_ih_clientid_jpeg[] = {
++	SOC15_IH_CLIENTID_VCN,
++	SOC15_IH_CLIENTID_VCN1
++};
++
+ /**
+  * jpeg_v4_0_5_early_init - set function pointers
+  *
+@@ -64,8 +69,20 @@ static int jpeg_v4_0_5_early_init(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
++	switch (amdgpu_ip_version(adev, UVD_HWIP, 0)) {
++	case IP_VERSION(4, 0, 5):
++		adev->jpeg.num_jpeg_inst = 1;
++		break;
++	case IP_VERSION(4, 0, 6):
++		adev->jpeg.num_jpeg_inst = 2;
++		break;
++	default:
++		DRM_DEV_ERROR(adev->dev,
++			"Failed to init vcn ip block(UVD_HWIP:0x%x)\n",
++			amdgpu_ip_version(adev, UVD_HWIP, 0));
++		return -EINVAL;
++	}
+ 
+-	adev->jpeg.num_jpeg_inst = 1;
+ 	adev->jpeg.num_jpeg_rings = 1;
+ 
+ 	jpeg_v4_0_5_set_dec_ring_funcs(adev);
+@@ -85,25 +102,30 @@ static int jpeg_v4_0_5_sw_init(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	struct amdgpu_ring *ring;
+-	int r;
++	int r, i;
+ 
+-	/* JPEG TRAP */
+-	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_VCN,
+-		VCN_4_0__SRCID__JPEG_DECODE, &adev->jpeg.inst->irq);
+-	if (r)
+-		return r;
++	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
++		if (adev->jpeg.harvest_config & (1 << i))
++			continue;
+ 
+-	/* JPEG DJPEG POISON EVENT */
+-	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_VCN,
+-			VCN_4_0__SRCID_DJPEG0_POISON, &adev->jpeg.inst->irq);
+-	if (r)
+-		return r;
++		/* JPEG TRAP */
++		r = amdgpu_irq_add_id(adev, amdgpu_ih_clientid_jpeg[i],
++				VCN_4_0__SRCID__JPEG_DECODE, &adev->jpeg.inst[i].irq);
++		if (r)
++			return r;
+ 
+-	/* JPEG EJPEG POISON EVENT */
+-	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_VCN,
+-			VCN_4_0__SRCID_EJPEG0_POISON, &adev->jpeg.inst->irq);
+-	if (r)
+-		return r;
++		/* JPEG DJPEG POISON EVENT */
++		r = amdgpu_irq_add_id(adev, amdgpu_ih_clientid_jpeg[i],
++			VCN_4_0__SRCID_DJPEG0_POISON, &adev->jpeg.inst[i].irq);
++		if (r)
++			return r;
++
++		/* JPEG EJPEG POISON EVENT */
++		r = amdgpu_irq_add_id(adev, amdgpu_ih_clientid_jpeg[i],
++			VCN_4_0__SRCID_EJPEG0_POISON, &adev->jpeg.inst[i].irq);
++		if (r)
++			return r;
++	}
+ 
+ 	r = amdgpu_jpeg_sw_init(adev);
+ 	if (r)
+@@ -113,21 +135,23 @@ static int jpeg_v4_0_5_sw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
+-	ring = adev->jpeg.inst->ring_dec;
+-	ring->use_doorbell = true;
+-	ring->doorbell_index = amdgpu_sriov_vf(adev) ?
+-				(((adev->doorbell_index.vcn.vcn_ring0_1) << 1) + 4) :
+-				((adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 1);
+-	ring->vm_hub = AMDGPU_MMHUB0(0);
++	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
++		if (adev->jpeg.harvest_config & (1 << i))
++			continue;
+ 
+-	sprintf(ring->name, "jpeg_dec");
+-	r = amdgpu_ring_init(adev, ring, 512, &adev->jpeg.inst->irq, 0,
+-			     AMDGPU_RING_PRIO_DEFAULT, NULL);
+-	if (r)
+-		return r;
++		ring = adev->jpeg.inst[i].ring_dec;
++		ring->use_doorbell = true;
++		ring->vm_hub = AMDGPU_MMHUB0(0);
++		ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 1 + 8 * i;
++		sprintf(ring->name, "jpeg_dec_%d", i);
++		r = amdgpu_ring_init(adev, ring, 512, &adev->jpeg.inst[i].irq,
++				     0, AMDGPU_RING_PRIO_DEFAULT, NULL);
++		if (r)
++			return r;
+ 
+-	adev->jpeg.internal.jpeg_pitch[0] = regUVD_JPEG_PITCH_INTERNAL_OFFSET;
+-	adev->jpeg.inst->external.jpeg_pitch[0] = SOC15_REG_OFFSET(JPEG, 0, regUVD_JPEG_PITCH);
++		adev->jpeg.internal.jpeg_pitch[0] = regUVD_JPEG_PITCH_INTERNAL_OFFSET;
++		adev->jpeg.inst[i].external.jpeg_pitch[0] = SOC15_REG_OFFSET(JPEG, i, regUVD_JPEG_PITCH);
++	}
+ 
+ 	return 0;
+ }
+@@ -162,8 +186,8 @@ static int jpeg_v4_0_5_sw_fini(void *handle)
+ static int jpeg_v4_0_5_hw_init(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-	struct amdgpu_ring *ring = adev->jpeg.inst->ring_dec;
+-	int r;
++	struct amdgpu_ring *ring;
++	int r, i;
+ 
+ 	// TODO: Enable ring test with DPG support
+ 	if (adev->pg_flags & AMD_PG_SUPPORT_JPEG_DPG) {
+@@ -171,9 +195,15 @@ static int jpeg_v4_0_5_hw_init(void *handle)
+ 		return 0;
+ 	}
+ 
+-	r = amdgpu_ring_test_helper(ring);
+-	if (r)
+-		return r;
++	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
++		if (adev->jpeg.harvest_config & (1 << i))
++			continue;
++
++		ring = adev->jpeg.inst[i].ring_dec;
++		r = amdgpu_ring_test_helper(ring);
++		if (r)
++			return r;
++	}
+ 
+ 	if (!r)
+ 		DRM_INFO("JPEG decode initialized successfully under SPG Mode\n");
+@@ -191,14 +221,20 @@ static int jpeg_v4_0_5_hw_init(void *handle)
+ static int jpeg_v4_0_5_hw_fini(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	int i;
+ 
+ 	cancel_delayed_work_sync(&adev->vcn.idle_work);
+-	if (!amdgpu_sriov_vf(adev)) {
+-		if (adev->jpeg.cur_state != AMD_PG_STATE_GATE &&
+-			RREG32_SOC15(JPEG, 0, regUVD_JRBC_STATUS))
+-			jpeg_v4_0_5_set_powergating_state(adev, AMD_PG_STATE_GATE);
+-	}
+ 
++	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
++		if (adev->jpeg.harvest_config & (1 << i))
++			continue;
++
++		if (!amdgpu_sriov_vf(adev)) {
++			if (adev->jpeg.cur_state != AMD_PG_STATE_GATE &&
++			    RREG32_SOC15(JPEG, i, regUVD_JRBC_STATUS))
++				jpeg_v4_0_5_set_powergating_state(adev, AMD_PG_STATE_GATE);
++		}
++	}
+ 	return 0;
+ }
+ 
+@@ -442,13 +478,17 @@ static void jpeg_v4_0_5_stop_dpg_mode(struct amdgpu_device *adev, int inst_idx)
+  */
+ static int jpeg_v4_0_5_start(struct amdgpu_device *adev)
+ {
+-	struct amdgpu_ring *ring = adev->jpeg.inst->ring_dec;
++	struct amdgpu_ring *ring;
+ 	int r, i;
+ 
+ 	if (adev->pm.dpm_enabled)
+ 		amdgpu_dpm_enable_jpeg(adev, true);
+ 
+ 	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
++		if (adev->jpeg.harvest_config & (1 << i))
++			continue;
++
++		ring = adev->jpeg.inst[i].ring_dec;
+ 		/* doorbell programming is done for every playback */
+ 		adev->nbio.funcs->vcn_doorbell_range(adev, ring->use_doorbell,
+ 				(adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 8 * i, i);
+@@ -511,11 +551,14 @@ static int jpeg_v4_0_5_stop(struct amdgpu_device *adev)
+ 	int r, i;
+ 
+ 	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
+-		if (adev->pg_flags & AMD_PG_SUPPORT_JPEG_DPG) {
++		if (adev->jpeg.harvest_config & (1 << i))
++			continue;
+ 
++		if (adev->pg_flags & AMD_PG_SUPPORT_JPEG_DPG) {
+ 			jpeg_v4_0_5_stop_dpg_mode(adev, i);
+ 			continue;
+ 		}
++
+ 		/* reset JMI */
+ 		WREG32_P(SOC15_REG_OFFSET(JPEG, i, regUVD_JMI_CNTL),
+ 			UVD_JMI_CNTL__SOFT_RESET_MASK,
+@@ -528,7 +571,6 @@ static int jpeg_v4_0_5_stop(struct amdgpu_device *adev)
+ 		if (r)
+ 			return r;
+ 	}
+-
+ 	if (adev->pm.dpm_enabled)
+ 		amdgpu_dpm_enable_jpeg(adev, false);
+ 
+@@ -546,7 +588,7 @@ static uint64_t jpeg_v4_0_5_dec_ring_get_rptr(struct amdgpu_ring *ring)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+ 
+-	return RREG32_SOC15(JPEG, 0, regUVD_JRBC_RB_RPTR);
++	return RREG32_SOC15(JPEG, ring->me, regUVD_JRBC_RB_RPTR);
+ }
+ 
+ /**
+@@ -563,7 +605,7 @@ static uint64_t jpeg_v4_0_5_dec_ring_get_wptr(struct amdgpu_ring *ring)
+ 	if (ring->use_doorbell)
+ 		return *ring->wptr_cpu_addr;
+ 	else
+-		return RREG32_SOC15(JPEG, 0, regUVD_JRBC_RB_WPTR);
++		return RREG32_SOC15(JPEG, ring->me, regUVD_JRBC_RB_WPTR);
+ }
+ 
+ /**
+@@ -581,29 +623,41 @@ static void jpeg_v4_0_5_dec_ring_set_wptr(struct amdgpu_ring *ring)
+ 		*ring->wptr_cpu_addr = lower_32_bits(ring->wptr);
+ 		WDOORBELL32(ring->doorbell_index, lower_32_bits(ring->wptr));
+ 	} else {
+-		WREG32_SOC15(JPEG, 0, regUVD_JRBC_RB_WPTR, lower_32_bits(ring->wptr));
++		WREG32_SOC15(JPEG, ring->me, regUVD_JRBC_RB_WPTR, lower_32_bits(ring->wptr));
+ 	}
+ }
+ 
+ static bool jpeg_v4_0_5_is_idle(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-	int ret = 1;
++	int i, ret = 1;
+ 
+-	ret &= (((RREG32_SOC15(JPEG, 0, regUVD_JRBC_STATUS) &
+-		UVD_JRBC_STATUS__RB_JOB_DONE_MASK) ==
+-		UVD_JRBC_STATUS__RB_JOB_DONE_MASK));
++	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
++		if (adev->jpeg.harvest_config & (1 << i))
++			continue;
+ 
++		ret &= (((RREG32_SOC15(JPEG, i, regUVD_JRBC_STATUS) &
++			UVD_JRBC_STATUS__RB_JOB_DONE_MASK) ==
++			UVD_JRBC_STATUS__RB_JOB_DONE_MASK));
++	}
+ 	return ret;
+ }
+ 
+ static int jpeg_v4_0_5_wait_for_idle(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	int i;
++
++	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
++		if (adev->jpeg.harvest_config & (1 << i))
++			continue;
+ 
+-	return SOC15_WAIT_ON_RREG(JPEG, 0, regUVD_JRBC_STATUS,
+-		UVD_JRBC_STATUS__RB_JOB_DONE_MASK,
+-		UVD_JRBC_STATUS__RB_JOB_DONE_MASK);
++		return SOC15_WAIT_ON_RREG(JPEG, i, regUVD_JRBC_STATUS,
++			UVD_JRBC_STATUS__RB_JOB_DONE_MASK,
++			UVD_JRBC_STATUS__RB_JOB_DONE_MASK);
++	}
++
++	return 0;
+ }
+ 
+ static int jpeg_v4_0_5_set_clockgating_state(void *handle,
+@@ -659,11 +713,25 @@ static int jpeg_v4_0_5_process_interrupt(struct amdgpu_device *adev,
+ 				      struct amdgpu_irq_src *source,
+ 				      struct amdgpu_iv_entry *entry)
+ {
++	uint32_t ip_instance;
++
+ 	DRM_DEBUG("IH: JPEG TRAP\n");
+ 
++	switch (entry->client_id) {
++	case SOC15_IH_CLIENTID_VCN:
++		ip_instance = 0;
++		break;
++	case SOC15_IH_CLIENTID_VCN1:
++		ip_instance = 1;
++		break;
++	default:
++		DRM_ERROR("Unhandled client id: %d\n", entry->client_id);
++		return 0;
++	}
++
+ 	switch (entry->src_id) {
+ 	case VCN_4_0__SRCID__JPEG_DECODE:
+-		amdgpu_fence_process(adev->jpeg.inst->ring_dec);
++		amdgpu_fence_process(adev->jpeg.inst[ip_instance].ring_dec);
+ 		break;
+ 	case VCN_4_0__SRCID_DJPEG0_POISON:
+ 	case VCN_4_0__SRCID_EJPEG0_POISON:
+@@ -736,6 +804,7 @@ static void jpeg_v4_0_5_set_dec_ring_funcs(struct amdgpu_device *adev)
+ 			continue;
+ 
+ 		adev->jpeg.inst[i].ring_dec->funcs = &jpeg_v4_0_5_dec_ring_vm_funcs;
++		adev->jpeg.inst[i].ring_dec->me = i;
+ 		DRM_DEV_INFO(adev->dev, "JPEG%d decode is enabled in VM mode\n", i);
+ 	}
+ }
+-- 
+2.42.0
+
