@@ -4,119 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59696C48BC3
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 19:36:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF39AC48BC4
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 20:19:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D237810E531;
-	Tue, 20 Feb 2024 19:36:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68FE410E097;
+	Tue, 20 Feb 2024 20:19:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dlNIMfAk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SU87Qa2x";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2074.outbound.protection.outlook.com [40.107.102.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50DB710E531
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 19:36:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RyOXwXczSzcexbMc15W+FI5EFOb0A1ybfJcoFpS1ilxTee+bBfCjJ13wNAAWufl3taN02UIUDQh8HusYpq9b0QfLCYUG8SuwI4CQpmQ8g4ZhbddTqax1pbBkwonEfO1oLKq2bQCHAKjgjs/nbDwRMhFmCDPMDk6oPo869hHqQE1BCk4REp5mg/FvGSXaiDlWqZzYUEQ6ChGVIM35j707nSCj537HoLs7szJDYdNze7isk/KTe2oei51aYkt6xpCqfG7eis6oMdRuaT7avYy7NkRa+bw9kkHiWQHkBredKxG9iUwxHJ5vwruZ/cxt0iq2wKESJMF2PlDEVEsm4HXMYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D/It8VYyqCG+UHoXjnERaSRuzjsSEMwglzn5zH02fvY=;
- b=MIvWyZ+r4ObWLXuE5KVIwQDOgSXtKgao0krK2owFkX0bIK5nYb4OlOykfCwNYL0d3UWFfEjK4cRb53N7loww7VA3+3+YB4DbC2GtskRn1FizkL4OKZzU13r+iNFVyw4K0J/kn1QD555E8nxMD4PrrJW2Af39Ikgfrl2NobccX0SbjahkgutG4+SkbCGtp9gzvKBUePeAVzV5HOTB1UMa2w2qBmOGTaihzywo88AQB8vn6/O8fRNBfWgfaGpLmzxWad9ijdbSXWQOJkgSZqd+q/WIHh+FxUzQR5sd9MHEBOIRFrUbiwvZysOjPN71Q1RWkGw/ce9CnC/9uxbEzHmxFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D/It8VYyqCG+UHoXjnERaSRuzjsSEMwglzn5zH02fvY=;
- b=dlNIMfAkMf8V3Br0Oitptg0kOEFy/sqrsnQrQtWtrujS7EMGIuSqyoZ3NlhStJp7OIX2XrWc7oyIVMeOvo9WSuiAW/Ic8sBdp5Rl8JLiaR4haPyfYD1i/haY4ZuNIahVVqud5ziTNV1oOrgofHNBJNM3YpfQ1wfFkpn0YBotKG0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by DS0PR12MB7851.namprd12.prod.outlook.com (2603:10b6:8:14a::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.19; Tue, 20 Feb
- 2024 19:35:59 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::9494:43c8:64df:6c1a]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::9494:43c8:64df:6c1a%5]) with mapi id 15.20.7316.018; Tue, 20 Feb 2024
- 19:35:59 +0000
-Message-ID: <5b85686d-c673-b5f8-58ec-bba5f794e3a9@amd.com>
-Date: Tue, 20 Feb 2024 14:35:57 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 1/2] drm/amdkfd: Document and define SVM event tracing
- macro
-Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>, Philip Yang
- <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240215151830.22416-1-Philip.Yang@amd.com>
- <0e86e558-3d3c-4d24-9de9-7691d3f672e6@amd.com>
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <0e86e558-3d3c-4d24-9de9-7691d3f672e6@amd.com>
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0061.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:2::33) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB8CA10E097
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 20:19:11 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-5dbcfa0eb5dso5519113a12.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 12:19:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1708460351; x=1709065151; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=p7YC8fGEicIHkV9aDCwTa9axbQlb7lkTnq+sSaoXAXI=;
+ b=SU87Qa2xmD1LlQmr+GQTm9KYNwbpLarZpmosg2tTcTgyaBzcZ8pYlBKQ+cc2kOP4xy
+ np/Pu65ChGw+Qe3EOmjelhoGh4WO8U/IGW8L352UKZZYFOGB9J16lxuLXVZXm8prjpta
+ Nq0AuKlQxsc4VJ9A/qaAO+7FJWeerBFhy8QFRTO49ygtlx6CwAdtYXQWWUipSmuxbzn7
+ jLyA438Xmst5mLE2h56ddBNryJF+pMehDeW61MBy+w/ZBium5ofh5MPtus0EcbvBaegz
+ QInNdBuFbCNO9nurpRwg7s/3IwjEQ4dNStSNrvxCHKbIJynjrxbbr4U05ZHzXc5L6T1v
+ wQXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708460351; x=1709065151;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=p7YC8fGEicIHkV9aDCwTa9axbQlb7lkTnq+sSaoXAXI=;
+ b=ZkJA+BLNgsUAKLyH8xJyUIa/cpDurU3e/khJA4JeXf0zIIrkeDj0UDA1NOq810ni9r
+ TEXWhBcIaPN5zglb9imJw9jQlkp2al35wtjUFzNxUnVtDoe69/Ndi7RYwMYuQ+VX61Io
+ iIWC9F6ycD+ARnKWaPSk5uaB6kBL/73WE6pvrauz1iNioJtTEjIsQddLVVQZu33r+oja
+ kGUBAB3oooWtiAiSPdG+aMmm4m7SF7WW9j/DDqn4ubiz3wXk5VJOe4h1f4QC8cdqC/Jb
+ V6JVH4lCq5Xr0UnFD+sV5JP/EqFghgHXcmYl+fEGAHxa1vnbeWiLHGaBAXtv0wI9CFzJ
+ YerQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVsKW5N2ZvNEC8HCNSlrpT0kAzCua9dozpcyOJ9sLDMM2+VjTLg4ptvZg+1YEtMT7bWqBQzdIGNl89xEy/NJHvLaTR6AQ98hLYmfBciGQ==
+X-Gm-Message-State: AOJu0YzCXl29wvhEmjdNpgraBV+NeGOZnI6gHIwf8rtEhRdFMkaNFQZ+
+ 8FBsPh5FnwoGRVrw/8wlCy2/uaJ6qC+ak3FIpNkR5vMK1IsbKH3UMEQ5k+hnlsc4ppVjgv45Hf2
+ aT806O6/diJGxVC2+8dfHwRvVBVI=
+X-Google-Smtp-Source: AGHT+IG0wzqy2Tfjkemwpj3sDMv4npRLTuC3pKMMStySLPiZAhhhchsirVZDiGyTPc9qthY/+uUo9us/gp0lMkLtZNM=
+X-Received: by 2002:a17:90a:e645:b0:299:11ae:d507 with SMTP id
+ ep5-20020a17090ae64500b0029911aed507mr11611099pjb.1.1708460351148; Tue, 20
+ Feb 2024 12:19:11 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|DS0PR12MB7851:EE_
-X-MS-Office365-Filtering-Correlation-Id: a41268e9-8b3d-450f-8ede-08dc324b2a5b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: cpwwIjELT9JE9FxGPBjuOxlxp/7PVhQoFr188Vi0pqYSfqZuJbiiRKLWK8y22R3HZH3NRW2YH4CgzilqR24W0HrdgPrm+kI8cEeuwhMgDRT7TPviJD5W7OqCDNtHZA7YPhzhTo0+AHpeRgXRJvPw+gbNPrIz/L5y/om4mRyNkakmmopqvWmp30zY8D+d2KPSjNUVpUPkDO8QDp5j9mLHoody6PgpX8fFnKwsK1ngC8EsvYZ3dfdFue0X9kjDixV91BOzP/sKUUibcMfa0MpbBDt56cMR7QLymwrv3PmsnJs8nofAFXciNA8fxe/cNEXqaD40+VX+lQI3KlO5EzlrK2S6DCnqpDnwKA/Fr3kEhjO+0+H05PDmIY7X3Q8kmsGuUiYznztr1FHghFzuKqmwERu5A6tZlY98zVDHTJA/W5K8oaW/llDOTZ/6XpY9wLeFGlmp/9gwkCGzcn/zEpycabBEcM7/dknTlNZ9qtG1lhQEhrjhX45QE45Y9vbBiEI43gjJo+doO3VvUwZrZ/GHJJjVP2WSLp2+9aVM1dmem6g=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MVk2Y2R0VENXTmhoNlQ1aFc0QjcyOEFleVE4eEZ4NFdpQURpclpWR3BEbTRQ?=
- =?utf-8?B?YmlOZW5IdW5Sc05qVWUvMVZDNm1oYno3NnBjVFR3Y1k1K2Y1MExIN0lZOXAw?=
- =?utf-8?B?SUdpdzZ4RjBBRXJxeERRVytqelA2bGxFVzdrd0h0TGhOVlBkOXFiWk15eDVm?=
- =?utf-8?B?WlFkSnBCalYycGxWWk5LR01naWxZSlhZc1dkbWxwNVJWdnNacEVjS0FEWVcz?=
- =?utf-8?B?MmlaTG8wTURkU1B4MVllZ3l3TFBOeEtMUzRSekRiajFGWVJta2p6eVZ6aEdr?=
- =?utf-8?B?aW4xaVdNUWVJR2JGSDVGREF5RUJwQWVFOXRZUzUxUk0wOGNTZmZPM0Q1bHJM?=
- =?utf-8?B?V1E5dG5PTmVvb016b3haK1hzR0t5c00rOUxZdkZqUm5yd0hQQTVnSGM5aHdO?=
- =?utf-8?B?MERleWVRMnh4RHZSTGJUTnlOQll5TEhMSzdjcmRuNGRNR1pXUnZiUG5ua2d0?=
- =?utf-8?B?WW1mZXNXU3RkWmFpcnVBa0ZFZVRqU2h2c2RSUkVLZUgxWmNmNlJtbFNZUjZC?=
- =?utf-8?B?NEgxb0VXTmpuTWxPSy8zWlRlMEhkN2F1Rno2a0NEUnFDQk9BODFSclF4aWdr?=
- =?utf-8?B?eWZMNHRjWFhNRHJCbHRkUUpIVXU1bjRndXloSVl4UG1XbzlITXcxRFRHMDVF?=
- =?utf-8?B?TnlsVXUxUGwzQ0JMUzJPa0dPQ1cwSEZnc3gvTW1kNCt3U3BnM3ZodFZKZWZk?=
- =?utf-8?B?cGZXRTYyVWdNSyszc1E5dXBKaVhSdWduSUdlbmVlQlprY0hsbktsS0pBY0Rz?=
- =?utf-8?B?bDlTdmN3YkdVSm9Ndm9DWDhBczZLbjFISWxxblRSUVU2Y2xvdlA2QUU5dEtJ?=
- =?utf-8?B?YXVqbUltYy9ZN1lYZmdvaG1SUVZoU2VLL29Qa0dMbUNHMFdpZHB4QkN0b0JQ?=
- =?utf-8?B?TkQzcWZMUkdlUFhKZ055T0M2dWIyOWZHU1U4MitiOSsxRGx3QWZ3Tmw3UHUv?=
- =?utf-8?B?ZXROemdza2hMRjJoNUFoYTdHYjIrZ1d0a3IzZmZRZ1NmYTVjaGZQZlJOc3JJ?=
- =?utf-8?B?QW5QeFplZUxLLy9rb0ZQNFlMNXFZQUgwcEc2dE4vNzc0NDg4cTd1V0xMVzFJ?=
- =?utf-8?B?KzFQVm9acnZ1SFV0aVZCelNDVWR2UllsM0tORHZOWDBrVjh6Y3gyS05nb0tt?=
- =?utf-8?B?OUgrMXVvdnpsUHdkendFWStWS241MzdYZjFWZllibDh0TDM2SllyeXJBcVpZ?=
- =?utf-8?B?UC9aSVVKWTY3RDgvYVBLWUhtdU1aVWtXTWw1ZVBVRzdiLytiUG43U0VlNFJD?=
- =?utf-8?B?OHhhU3Y0SWJiR0JZYXplaHZnRGRzTWJWS0xJNWdTWUhHQ3R0cFZUaXZtdkhU?=
- =?utf-8?B?dE9IOHJjeWVIL2hvNmE2TFBIMHFPV3JUOEMvdDhUOGJlQXdFa1pUaThzMHh1?=
- =?utf-8?B?d2VWanU4MnBDZllHS0NqRVNkOVFWKzRzRDBrV3U1WjRLZE0xdGovbkI2VU1y?=
- =?utf-8?B?Z0FIMytlZGJDV1F6UWhBUG1keGVkQTJFY2Z5MGZqaHZ3M3lzS0FXZVJHbSt6?=
- =?utf-8?B?REtPVUNzMlRBajRxU2ZadGpNY0lOQzU3L0dMa2RQdkJlbUEvRWpwRkFDQ2g3?=
- =?utf-8?B?cmx2c2EyWS9mejYxbzZtS3c2U2UzOEJVRldEV2IvVHhiTXp1cERDQUtvVUxH?=
- =?utf-8?B?OXNXT0NLTVB0aWR6blRaTkJ0WSswZCtmL0k2clY1T25mSXpOeHdpL09UNWhE?=
- =?utf-8?B?ZWNUSU4rbGZ6ZUlSQ0w5cmNGR1ZGT1NGejZwbk9JNkNEMG5sbHNhWU53Y3Z6?=
- =?utf-8?B?aEpPd2d3Z05jUkg5MTRkdXlKOHVWUFU0SEgrMk5nWnUrR1BCckhwU2Y4bkEr?=
- =?utf-8?B?TzlkSkNQM2FiSGx5b2pGTXE0K0xqQU1UMTR3ODBYMm1QL0daalJtdHhRL2xE?=
- =?utf-8?B?cXI1TkZ6Z3JmZWxxdHV2STVnZjVIN2JpMnZZdTJ5MmdNY3djRXNKTVZIcmtM?=
- =?utf-8?B?Zm5GN3NvUlhER0pXamcwNHdNUEFBMG5Bc0p2ZHplRm9WU3NDampaU0lQdkt2?=
- =?utf-8?B?VFJDd2VTMDlKQTBXVTh4bDNEWjJiSHcxbnlwWWd1cWlpYStFQTNwQW5GazlF?=
- =?utf-8?B?Z1BMcjhLa2lOT3dHUjJDTldJZWdYeUI3SmsxSzl3QmVjRkZCdm1mZFAxT1pY?=
- =?utf-8?Q?Az5o=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a41268e9-8b3d-450f-8ede-08dc324b2a5b
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2024 19:35:59.5542 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cccmZX3o3C16ejtxBoxIwbBDQXrBmBwp12lD9EnNYIgAo5IkzZywpOrJqJJO2iZJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7851
+References: <ae64f04d-6e94-4da4-a740-78ea94e0552c@riadoklan.sk.eu.org>
+ <2024021732-framing-tactful-833d@gregkh>
+ <d369b45f-e1af-4117-83a5-3e429e3bfb23@leemhuis.info>
+ <CADnq5_OgPBtYpxBQ+aBmA2t7ob7EFPFWrF9OYXNgm00eEayMNA@mail.gmail.com>
+ <62bf771e-640a-45ab-a2de-3df459a9ed30@leemhuis.info>
+ <CADnq5_M4Zwv0_B1DoU_a8aNpyPVJj_PpjDG_oi3JkrGC5-hNgg@mail.gmail.com>
+ <4bc8747a-d87f-423b-b0ce-8891e78ae094@redhat.com>
+ <a6243c3b-d773-4693-88e9-033995616f12@leemhuis.info>
+ <CADnq5_MHmz=HdGA22U-bk2b+4un70bmLzpbDyc3+tjzoRAnCeA@mail.gmail.com>
+ <1aa3830d-ceb7-4eb1-b5bb-d6043684507f@gmail.com>
+ <CADnq5_Nc+eEfXwaXfaTz75C9ww6ETVm_adCSfGsdD6OzguUQ6Q@mail.gmail.com>
+ <3e077b5f-0684-4a07-9b74-ab242bb01975@gmail.com>
+In-Reply-To: <3e077b5f-0684-4a07-9b74-ab242bb01975@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 20 Feb 2024 15:18:58 -0500
+Message-ID: <CADnq5_NszWGKVZZomTojAm_u7O-04M6x_ox4KXQC79OuGA9ARA@mail.gmail.com>
+Subject: Re: Kernel 6.7+ broke under-powering of my RX 6700XT. (Archlinux,
+ mesa/amdgpu)
+To: Romano <romaniox@gmail.com>
+Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
+ Hans de Goede <hdegoede@redhat.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Ma Jun <Jun.Ma2@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Dave Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Greg KH <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,564 +96,266 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2024-02-16 15:16, Felix Kuehling
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:0e86e558-3d3c-4d24-9de9-7691d3f672e6@amd.com">
-      <br>
-      On 2024-02-15 10:18, Philip Yang wrote:
-      <br>
-      <blockquote type="cite">Document how to use SMI system management
-        interface to receive SVM
-        <br>
-        events.
-        <br>
-        <br>
-        Define SVM events message string format macro that could use by
-        user
-        <br>
-        mode for sscanf to parse the event. Add it to uAPI header file
-        to make
-        <br>
-        it obvious that is changing uAPI in future.
-        <br>
-        <br>
-        No functional changes.
-        <br>
-        <br>
-        Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
-        <br>
-        ---
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 51
-        +++++++-------
-        <br>
-        &nbsp; include/uapi/linux/kfd_ioctl.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 77
-        ++++++++++++++++++++-
-        <br>
-        &nbsp; 2 files changed, 102 insertions(+), 26 deletions(-)
-        <br>
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-        b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-        <br>
-        index d9953c2b2661..85465eb303a9 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-        <br>
-        @@ -225,15 +225,16 @@ void kfd_smi_event_update_gpu_reset(struct
-        kfd_node *dev, bool post_reset)
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; event = KFD_SMI_EVENT_GPU_PRE_RESET;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ++(dev-&gt;reset_seq_num);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        -&nbsp;&nbsp;&nbsp; kfd_smi_event_add(0, dev, event, &quot;%x\n&quot;,
-        dev-&gt;reset_seq_num);
-        <br>
-        +&nbsp;&nbsp;&nbsp; kfd_smi_event_add(0, dev, event,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        KFD_EVENT_FMT_UPDATE_GPU_RESET(dev-&gt;reset_seq_num));
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; &nbsp; void kfd_smi_event_update_thermal_throttling(struct kfd_node
-        *dev,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t throttle_bitmask)
-        <br>
-        &nbsp; {
-        <br>
-        -&nbsp;&nbsp;&nbsp; kfd_smi_event_add(0, dev, KFD_SMI_EVENT_THERMAL_THROTTLE,
-        &quot;%llx:%llx\n&quot;,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throttle_bitmask,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        amdgpu_dpm_get_thermal_throttling_counter(dev-&gt;adev));
-        <br>
-        +&nbsp;&nbsp;&nbsp; kfd_smi_event_add(0, dev, KFD_SMI_EVENT_THERMAL_THROTTLE,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        KFD_EVENT_FMT_UPDATE_THERMAL_THROTTLING(throttle_bitmask,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        amdgpu_dpm_get_thermal_throttling_counter(dev-&gt;adev)));
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; &nbsp; void kfd_smi_event_update_vmfault(struct kfd_node *dev,
-        uint16_t pasid)
-        <br>
-        @@ -246,8 +247,8 @@ void kfd_smi_event_update_vmfault(struct
-        kfd_node *dev, uint16_t pasid)
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!task_info.pid)
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;
-        <br>
-        &nbsp; -&nbsp;&nbsp;&nbsp; kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT,
-        &quot;%x:%s\n&quot;,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; task_info.pid, task_info.task_name);
-        <br>
-        +&nbsp;&nbsp;&nbsp; kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_EVENT_FMT_VMFAULT(task_info.pid,
-        task_info.task_name));
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; &nbsp; void kfd_smi_event_page_fault_start(struct kfd_node *node,
-        pid_t pid,
-        <br>
-        @@ -255,16 +256,16 @@ void kfd_smi_event_page_fault_start(struct
-        kfd_node *node, pid_t pid,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ktime_t ts)
-        <br>
-        &nbsp; {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_smi_event_add(pid, node,
-        KFD_SMI_EVENT_PAGE_FAULT_START,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d @%lx(%x) %c\n&quot;, ktime_to_ns(ts), pid,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; address, node-&gt;id, write_fault ? 'W' : 'R');
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_EVENT_FMT_PAGEFAULT_START(ktime_to_ns(ts),
-        pid,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; address, node-&gt;id, write_fault ? 'W' : 'R'));
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; &nbsp; void kfd_smi_event_page_fault_end(struct kfd_node *node,
-        pid_t pid,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long address, bool migration)
-        <br>
-        &nbsp; {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_smi_event_add(pid, node, KFD_SMI_EVENT_PAGE_FAULT_END,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d @%lx(%x) %c\n&quot;,
-        ktime_get_boottime_ns(),
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pid, address, node-&gt;id, migration ? 'M' :
-        'U');
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        KFD_EVENT_FMT_PAGEFAULT_END(ktime_get_boottime_ns(),
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pid, address, node-&gt;id, migration ? 'M' :
-        'U'));
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; &nbsp; void kfd_smi_event_migration_start(struct kfd_node *node,
-        pid_t pid,
-        <br>
-        @@ -274,9 +275,9 @@ void kfd_smi_event_migration_start(struct
-        kfd_node *node, pid_t pid,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t trigger)
-        <br>
-        &nbsp; {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_smi_event_add(pid, node, KFD_SMI_EVENT_MIGRATE_START,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d @%lx(%lx) %x-&gt;%x %x:%x %d\n&quot;,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ktime_get_boottime_ns(), pid, start, end - start,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from, to, prefetch_loc, preferred_loc, trigger);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        KFD_EVENT_FMT_MIGRATE_START(ktime_get_boottime_ns(),
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pid, start, end - start, from, to, prefetch_loc,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; preferred_loc, trigger));
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; &nbsp; void kfd_smi_event_migration_end(struct kfd_node *node,
-        pid_t pid,
-        <br>
-        @@ -284,24 +285,23 @@ void kfd_smi_event_migration_end(struct
-        kfd_node *node, pid_t pid,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t from, uint32_t to, uint32_t trigger)
-        <br>
-        &nbsp; {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_smi_event_add(pid, node, KFD_SMI_EVENT_MIGRATE_END,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d @%lx(%lx) %x-&gt;%x %d\n&quot;,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ktime_get_boottime_ns(), pid, start, end - start,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from, to, trigger);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        KFD_EVENT_FMT_MIGRATE_END(ktime_get_boottime_ns(), pid,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; start, end - start, from, to, trigger));
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; &nbsp; void kfd_smi_event_queue_eviction(struct kfd_node *node,
-        pid_t pid,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t trigger)
-        <br>
-        &nbsp; {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_smi_event_add(pid, node, KFD_SMI_EVENT_QUEUE_EVICTION,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d %x %d\n&quot;, ktime_get_boottime_ns(), pid,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; node-&gt;id, trigger);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        KFD_EVENT_FMT_QUEUE_EVICTION(ktime_get_boottime_ns(),
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pid, node-&gt;id, trigger));
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; &nbsp; void kfd_smi_event_queue_restore(struct kfd_node *node,
-        pid_t pid)
-        <br>
-        &nbsp; {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_smi_event_add(pid, node, KFD_SMI_EVENT_QUEUE_RESTORE,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d %x\n&quot;, ktime_get_boottime_ns(), pid,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; node-&gt;id);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        KFD_EVENT_FMT_QUEUE_RESTORE(ktime_get_boottime_ns(),
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pid, node-&gt;id));
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; &nbsp; void kfd_smi_event_queue_restore_rescheduled(struct
-        mm_struct *mm)
-        <br>
-        @@ -317,9 +317,10 @@ void
-        kfd_smi_event_queue_restore_rescheduled(struct mm_struct *mm)
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process_device *pdd = p-&gt;pdds[i];
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_smi_event_add(p-&gt;lead_thread-&gt;pid,
-        pdd-&gt;dev,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_SMI_EVENT_QUEUE_RESTORE,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d %x %c\n&quot;, ktime_get_boottime_ns(),
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p-&gt;lead_thread-&gt;pid,
-        pdd-&gt;dev-&gt;id, 'R');
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_SMI_EVENT_QUEUE_RESTORE_RESCHEDULED,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_EVENT_FMT_QUEUE_RESTORE_RESCHEDULED(
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ktime_get_boottime_ns(),
-        p-&gt;lead_thread-&gt;pid,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd-&gt;dev-&gt;id, 'R'));
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_unref_process(p);
-        <br>
-        &nbsp; }
-        <br>
-        @@ -329,8 +330,8 @@ void kfd_smi_event_unmap_from_gpu(struct
-        kfd_node *node, pid_t pid,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t trigger)
-        <br>
-        &nbsp; {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_smi_event_add(pid, node, KFD_SMI_EVENT_UNMAP_FROM_GPU,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d @%lx(%lx) %x %d\n&quot;,
-        ktime_get_boottime_ns(),
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pid, address, last - address + 1, node-&gt;id,
-        trigger);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        KFD_EVENT_FMT_UNMAP_FROM_GPU(ktime_get_boottime_ns(),
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pid, address, last - address + 1, node-&gt;id,
-        trigger));
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; &nbsp; int kfd_smi_event_open(struct kfd_node *dev, uint32_t *fd)
-        <br>
-        diff --git a/include/uapi/linux/kfd_ioctl.h
-        b/include/uapi/linux/kfd_ioctl.h
-        <br>
-        index 9ce46edc62a5..430c01f4148b 100644
-        <br>
-        --- a/include/uapi/linux/kfd_ioctl.h
-        <br>
-        +++ b/include/uapi/linux/kfd_ioctl.h
-        <br>
-        @@ -523,7 +523,8 @@ enum kfd_smi_event {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_SMI_EVENT_PAGE_FAULT_END = 8,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_SMI_EVENT_QUEUE_EVICTION = 9,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_SMI_EVENT_QUEUE_RESTORE = 10,
-        <br>
-        -&nbsp;&nbsp;&nbsp; KFD_SMI_EVENT_UNMAP_FROM_GPU = 11,
-        <br>
-        +&nbsp;&nbsp;&nbsp; KFD_SMI_EVENT_QUEUE_RESTORE_RESCHEDULED = 11,
-        <br>
-        +&nbsp;&nbsp;&nbsp; KFD_SMI_EVENT_UNMAP_FROM_GPU = 12,
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * max event number, as a flag bit to get events from all
-        processes,
-        <br>
-        @@ -564,6 +565,80 @@ struct kfd_ioctl_smi_events_args {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 anon_fd;&nbsp;&nbsp;&nbsp; /* from KFD */
-        <br>
-        &nbsp; };
-        <br>
-        &nbsp; +/*
-        <br>
-        + * SVM event tracing via SMI system management interface
-        <br>
-        + *
-        <br>
-        + * Open event file descriptor
-        <br>
-        + *&nbsp;&nbsp;&nbsp; use ioctl AMDKFD_IOC_SMI_EVENTS, pass in gpuid and return
-        a anonymous file
-        <br>
-        + *&nbsp;&nbsp;&nbsp; descriptor to receive SMI events.
-        <br>
-        + *&nbsp;&nbsp;&nbsp; If calling with sudo permission, then file descriptor can
-        be used to receive
-        <br>
-        + *&nbsp;&nbsp;&nbsp; SVM events from all processes, otherwise, to only receive
-        SVM events of same
-        <br>
-        + *&nbsp;&nbsp;&nbsp; process.
-        <br>
-        + *
-        <br>
-        + * To enable the SVM event
-        <br>
-        + *&nbsp;&nbsp;&nbsp; Write event file descriptor with
-        KFD_SMI_EVENT_MASK_FROM_INDEX(event) bitmap
-        <br>
-        + *&nbsp;&nbsp;&nbsp; mask to start record the event to the kfifo, use bitmap
-        mask combination
-        <br>
-        + *&nbsp;&nbsp;&nbsp; for multiple events. New event mask will overwrite the
-        previous event mask.
-        <br>
-        + *&nbsp;&nbsp;&nbsp; KFD_SMI_EVENT_MASK_FROM_INDEX(KFD_SMI_EVENT_ALL_PROCESS)
-        bit requires sudo
-        <br>
-        + *&nbsp;&nbsp;&nbsp; permisson to receive SVM events from all process.
-        <br>
-        + *
-        <br>
-        + * To receive the event
-        <br>
-        + *&nbsp;&nbsp;&nbsp; Application can poll file descriptor to wait for the
-        events, then read event
-        <br>
-        + *&nbsp;&nbsp;&nbsp; from the file into a buffer. Each event is one line
-        string message, starting
-        <br>
-        + *&nbsp;&nbsp;&nbsp; with the event id, then the event specific information.
-        <br>
-        + *
-        <br>
-        + * To decode event information
-        <br>
-        + *&nbsp;&nbsp;&nbsp; The following event format string macro can be used with
-        sscanf to decode
-        <br>
-        + *&nbsp;&nbsp;&nbsp; the specific event information.
-        <br>
-        + *&nbsp;&nbsp;&nbsp; event triggers: the reason to generate the event, defined
-        as enum for unmap,
-        <br>
-        + *&nbsp;&nbsp;&nbsp; eviction and migrate events.
-        <br>
-        + *&nbsp;&nbsp;&nbsp; node, from, to, prefetch_loc, preferred_loc: GPU ID, or 0
-        for system memory.
-        <br>
-        + *&nbsp;&nbsp;&nbsp; addr: user mode address, in pages
-        <br>
-        + *&nbsp;&nbsp;&nbsp; size: in pages
-        <br>
-        + *&nbsp;&nbsp;&nbsp; pid: the process ID to generate the event
-        <br>
-        + *&nbsp;&nbsp;&nbsp; ns: timestamp in nanosecond-resolution, starts at system
-        boot time but
-        <br>
-        + *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stops during suspend
-        <br>
-        + *&nbsp;&nbsp;&nbsp; migrate_update: the GPU page is recovered by 'M' for
-        migrate, 'U' for update
-        <br>
-        + *&nbsp;&nbsp;&nbsp; rescheduled: 'R' if the queue restore failed and
-        rescheduled to try again
-        <br>
-        + *&nbsp;&nbsp;&nbsp; rw: 'W' for write page fault, 'R' for read page fault
-        <br>
-        + */
-        <br>
-        +#define KFD_EVENT_FMT_UPDATE_GPU_RESET(reset_seq_num)\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%x\n&quot;, (reset_seq_num)
-        <br>
-      </blockquote>
-      <br>
-      If we want user mode to use this with fscanf or sscanf, and we
-      want this to be extensible in the future so we can add new fields
-      without breaking user mode using these macros (as you do in patch
-      2), then the \n should not be part of the format string here. We
-      can add the \n in kfd_smi_event_add instead.
-      <br>
-    </blockquote>
-    <p>Add new fields in the middle of macro will break the user mode,
-      if adding new fields at end of the macro but before \n, this does
-      not break user mode binary compiled with old macro, the new fields
-      added are ignored safely, \n at end of the macro seems reasonable
-      as each event is one line string.<br>
-    </p>
-    <p>Regards,</p>
-    <p>Philip<br>
-    </p>
-    <blockquote type="cite" cite="mid:0e86e558-3d3c-4d24-9de9-7691d3f672e6@amd.com">
-      <br>
-      Regards,
-      <br>
-      &nbsp; Felix
-      <br>
-      <br>
-      <br>
-      <blockquote type="cite">+
-        <br>
-        +#define KFD_EVENT_FMT_UPDATE_THERMAL_THROTTLING(bitmask,
-        counter)\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%llx:%llx\n&quot;, (bitmask), (counter)
-        <br>
-        +
-        <br>
-        +#define KFD_EVENT_FMT_VMFAULT(pid, task_name)\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%x:%s\n&quot;, (pid), (task_name)
-        <br>
-        +
-        <br>
-        +#define KFD_EVENT_FMT_PAGEFAULT_START(ns, pid, addr, node, rw)\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d @%lx(%x) %c\n&quot;, (ns), (pid), (addr), (node),
-        (rw)
-        <br>
-        +
-        <br>
-        +#define KFD_EVENT_FMT_PAGEFAULT_END(ns, pid, addr, node,
-        migrate_update)\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d @%lx(%x) %c\n&quot;, (ns), (pid), (addr), (node),
-        (migrate_update)
-        <br>
-        +
-        <br>
-        +#define KFD_EVENT_FMT_MIGRATE_START(ns, pid, start, size, from,
-        to, prefetch_loc,\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; preferred_loc, migrate_trigger)\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d @%lx(%lx) %x-&gt;%x %x:%x %d\n&quot;, (ns), (pid),
-        (start), (size),\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (from), (to), (prefetch_loc), (preferred_loc),
-        (migrate_trigger)
-        <br>
-        +
-        <br>
-        +#define KFD_EVENT_FMT_MIGRATE_END(ns, pid, start, size, from,
-        to, migrate_trigger)\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d @%lx(%lx) %x-&gt;%x %d\n&quot;, (ns), (pid),
-        (start), (size),\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (from), (to), (migrate_trigger)
-        <br>
-        +
-        <br>
-        +#define KFD_EVENT_FMT_QUEUE_EVICTION(ns, pid, node,
-        evict_trigger)\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d %x %d\n&quot;, (ns), (pid), (node),
-        (evict_trigger)
-        <br>
-        +
-        <br>
-        +#define KFD_EVENT_FMT_QUEUE_RESTORE(ns, pid, node)\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d %x\n&quot;, (ns), (pid), (node)
-        <br>
-        +
-        <br>
-        +#define KFD_EVENT_FMT_QUEUE_RESTORE_RESCHEDULED(ns, pid, node,
-        rescheduled)\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d %x %c\n&quot;, (ns), (pid), (node), (rescheduled)
-        <br>
-        +
-        <br>
-        +#define KFD_EVENT_FMT_UNMAP_FROM_GPU(ns, pid, addr, size, node,
-        unmap_trigger)\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%lld -%d @%lx(%lx) %x %d\n&quot;, (ns), (pid), (addr),
-        (size),\
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (node), (unmap_trigger)
-        <br>
-        +
-        <br>
-        &nbsp;
-/**************************************************************************************************<br>
-        &nbsp;&nbsp; * CRIU IOCTLs (Checkpoint Restore In Userspace)
-        <br>
-        &nbsp;&nbsp; *
-        <br>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
+On Tue, Feb 20, 2024 at 2:41=E2=80=AFPM Romano <romaniox@gmail.com> wrote:
+>
+> If the increased low range is allowed via boot option, like in proposed
+> patch, user clearly made an intentional decision. Undefined, but won't
+> fry his hardware for sure. Undefined is also overclocking in that
+> matter. You can go out of range with ratio of voltage vs frequency(still
+> within vendor's limits) for example and crash the system.
+
+This whole thing reminds me of this:
+https://xkcd.com/1172/
+The problem is another module parameter is another interface to
+maintain and validate.  Moreover, we've had a number of cases in the
+past where users have under or overclocked and reported bugs or
+stability issues and it did not come to light that they were doing
+that until we'd already spent a good deal of time trying to debug the
+issue.  This obviously can still happen if you allow any sort of over
+or underclocking, but at least if you stick to the limits you are
+staying within the bounding box of the design.
+
+Alex
+
+>
+>
+>
+> On 2/20/24 19:09, Alex Deucher wrote:
+> > On Tue, Feb 20, 2024 at 11:46=E2=80=AFAM Romano <romaniox@gmail.com> wr=
+ote:
+> >> For Windows, apps like MSI Afterburner is the one to try and what most
+> >> people go for. Using it in the past myself, I would be surprised if it
+> >> adhered to such a high min power cap. But even if it did, why would we
+> >> have to.
+> >>
+> >> Relying on vendors cap in this case has already proven wrong because
+> >> things worked for quite some time already and people reported saving
+> >> significant amount of watts, in my case 90W(!) for <10% perf.
+> >>
+> >> Therefore this talk about safety seems rather strange to me and
+> >> especially so when we are talking about min_cap. Or name me a single
+> >> case where someone fried his card due to "too low power" set in said
+> >> variable. Now there was a report, where by going way too low, driver
+> >> goes opposite into max power. That's it. That can be easily
+> >> detected(vents going crazy etc.) and reverted. It is a max_cap that
+> >> protect HW(also above scenario), not a min_cap. Feel free to adhere to
+> >> safety standards with that one.
+> > Because operation outside of the design bounding box is undefined.  It
+> > might work for some boards but not others.  It's possible some of the
+> > logic in the firmware or some of the components used on the board may
+> > not work correctly below a certain limit, or the voltage regulators
+> > used on a specific board have a minimum requirement that would not be
+> > an issue if you stick the bounding box.
+> >
+> > Alex
+> >
+> >> As for solution, what some suggested already exist - a patch posted by
+> >> fililip on gitlab is probably the way most of you would agree. It
+> >> introduce a variable that can be set during boot to override min_cap.
+> >> But he did not pull requested it, so please, if any one of you who hav=
+e
+> >> access to code and merge kernel would be kind enough to implement it.
+> >>
+> >>
+> >>
+> >> On 2/20/24 16:46, Alex Deucher wrote:
+> >>> On Tue, Feb 20, 2024 at 10:42=E2=80=AFAM Linux regression tracking (T=
+horsten
+> >>> Leemhuis) <regressions@leemhuis.info> wrote:
+> >>>>
+> >>>> On 20.02.24 16:27, Hans de Goede wrote:
+> >>>>> Hi,
+> >>>>>
+> >>>>> On 2/20/24 16:15, Alex Deucher wrote:
+> >>>>>> On Tue, Feb 20, 2024 at 10:03=E2=80=AFAM Linux regression tracking=
+ (Thorsten
+> >>>>>> Leemhuis) <regressions@leemhuis.info> wrote:
+> >>>>>>> On 20.02.24 15:45, Alex Deucher wrote:
+> >>>>>>>> On Mon, Feb 19, 2024 at 9:47=E2=80=AFAM Linux regression trackin=
+g (Thorsten
+> >>>>>>>> Leemhuis) <regressions@leemhuis.info> wrote:
+> >>>>>>>>> On 17.02.24 14:30, Greg KH wrote:
+> >>>>>>>>>> On Sat, Feb 17, 2024 at 02:01:54PM +0100, Roman Benes wrote:
+> >>>>>>>>>>> Minimum power limit on latest(6.7+) kernels is 190W for my GP=
+U (RX 6700XT,
+> >>>>>>>>>>> mesa, archlinux) and I cannot get power cap as low as before(=
+to 115W),
+> >>>>>>>>>>> neither with Corectrl, LACT or TuxClocker and /sys have a var=
+iable read-only
+> >>>>>>>>>>> even for root. This is not of above apps issue but of the ker=
+nel, I read
+> >>>>>>>>>>> similar issues from other bug reports of above apps. I downgr=
+aded to v6.6.10
+> >>>>>>>>>>> kernel and my 115W(under power)cap work again as before.
+> >>>>>>>>> For the record and everyone that lands here: the cause is known=
+ now
+> >>>>>>>>> (it's 1958946858a62b ("drm/amd/pm: Support for getting power1_c=
+ap_min
+> >>>>>>>>> value") [v6.7-rc1]) and the issue afaics tracked here:
+> >>>>>>>>>
+> >>>>>>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3183
+> >>>>>>>>>
+> >>>>>>>>> Other mentions:
+> >>>>>>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3137
+> >>>>>>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/2992
+> >>>>>>>>>
+> >>>>>>>>> Haven't seen any statement from the amdgpu developers (now CCed=
+) yet on
+> >>>>>>>>> this there (but might have missed something!). From what I can =
+see I
+> >>>>>>>>> assume this will likely be somewhat tricky to handle, as a reve=
+rt
+> >>>>>>>>> overall might be a bad idea here. We'll see I guess.
+> >>>>>>>> The change aligns the driver what has been validated on each boa=
+rd
+> >>>>>>>> design.  Windows uses the same limits.  Using values lower than =
+the
+> >>>>>>>> validated range can lead to undefined behavior and could potenti=
+ally
+> >>>>>>>> damage your hardware.
+> >>>>>>> Thx for the reply! Yeah, I was expecting something along those li=
+nes.
+> >>>>>>>
+> >>>>>>> Nevertheless it afaics still is a regression in the eyes of many =
+users.
+> >>>>>>> I'm not sure how Linus feels about this, but I wonder if we can f=
+ind
+> >>>>>>> some solution here so that users that really want to, can continu=
+e to do
+> >>>>>>> what was possible out-of-the box before. Is that possible to real=
+ize or
+> >>>>>>> even supported already?
+> >>>>>>>
+> >>>>>>> And sure, those users would be running their hardware outside of =
+its
+> >>>>>>> specifications. But is that different from overclocking (which th=
+e
+> >>>>>>> driver allows, doesn't it? If not by all means please correct me!=
+)?
+> >>>>>> Sure.  The driver has always had upper bound limits for overclocki=
+ng,
+> >>>>>> this change adds lower bounds checking for underclocking as well.
+> >>>>>> When the silicon validation teams set the bounding box for a devic=
+e,
+> >>>>>> they set a range of values where it's reasonable to operate based =
+on
+> >>>>>> the characteristics of the design.
+> >>>>>>
+> >>>>>> If we did want to allow extended underclocking, we need a big warn=
+ing
+> >>>>>> in the logs at the very least.
+> >>>>> Requiring a module-option to be set to allow this, as well as a big
+> >>>>> warning in the logs sounds like a good solution to me.
+> >>>> Yeah, especially as it sounds from some of the reports as if some
+> >>>> vendors did a really bad job when it came to setting the proper
+> >>>> lower-bound limits are now adhered -- and thus higher then what we u=
+sed
+> >>>> out-of-the box before 1958946858a62b was applied.
+> >>>>
+> >>>> Side note: I assume those "lower bounds checking" is done round abou=
+t
+> >>>> the same way by the Windows driver? Does that one allow users to go
+> >>>> lower somehow? Say after modifying the registry or something like th=
+at?
+> >>>> Or through external tools?
+> >>> Windows uses the same limit.  I'm not aware of any way to override th=
+e
+> >>> limit on windows off hand.
+> >>>
+> >>> Alex
+> >>>
+> >>>
+> >>>> Ciao, Thorsten
+> >>>>
+> >>>>>>>>> Roman posted something that apparently was meant to go to the l=
+ist, so
+> >>>>>>>>> let me put it here:
+> >>>>>>>>>
+> >>>>>>>>> """
+> >>>>>>>>> UPDATE: User fililip already posted patch, but it need to be me=
+rged,
+> >>>>>>>>> discussion is on gitlab link below.
+> >>>>>>>>>
+> >>>>>>>>> (PS: I hope I am replying correctly to "all" now? - using origi=
+nal addr.)
+> >>>>>>>>>
+> >>>>>>>>>
+> >>>>>>>>>> it seems that commit was already found(see user's 'fililip' co=
+mment):
+> >>>>>>>>>>
+> >>>>>>>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3183
+> >>>>>>>>>> commit 1958946858a62b6b5392ed075aa219d199bcae39
+> >>>>>>>>>> Author: Ma Jun <Jun.Ma2@amd.com>
+> >>>>>>>>>> Date:   Thu Oct 12 09:33:45 2023 +0800
+> >>>>>>>>>>
+> >>>>>>>>>>       drm/amd/pm: Support for getting power1_cap_min value
+> >>>>>>>>>>
+> >>>>>>>>>>       Support for getting power1_cap_min value on smu13 and sm=
+u11.
+> >>>>>>>>>>       For other Asics, we still use 0 as the default value.
+> >>>>>>>>>>
+> >>>>>>>>>>       Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+> >>>>>>>>>>       Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+> >>>>>>>>>>       Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >>>>>>>>>>
+> >>>>>>>>>> However, this is not good as it remove under-powering range to=
+o far. I
+> >>>>>>>>> was getting only about 7% less performance but 90W(!) less cons=
+umption
+> >>>>>>>>> when set to my 115W before. Also I wonder if we as a OS of opti=
+ons and
+> >>>>>>>>> freedom have to stick to such very high reference for min value=
+s without
+> >>>>>>>>> ability to override them through some sys ctrls. Commit was don=
+e by amd
+> >>>>>>>>> guy and I wonder if because of maybe this post that I made few =
+months
+> >>>>>>>>> ago(business strategy?):
+> >>>>>>>>> https://www.reddit.com/r/Amd/comments/183gye7/rx_6700xt_from_23=
+0w_to_capped_115w_at_only_10/
+> >>>>>>>>>> This is not a dangerous OC upwards where I can understand desi=
+re to
+> >>>>>>>>> protect HW, it is downward, having min cap at 190W when card pu=
+ll on
+> >>>>>>>>> 115W almost same speed is IMO crazy to deny. We don't talk abou=
+t default
+> >>>>>>>>> or reference values here either, just a move to lower the range=
+ of
+> >>>>>>>>> options for whatever reason.
+> >>>>>>>>>> I don't know how much power you guys have over them, but pleas=
+e
+> >>>>>>>>> consider either reverting this change, or give us an option to =
+set
+> >>>>>>>>> min_cap through say /sys (right now param is readonly, even for=
+ root).
+> >>>>>>>>>> Thank you in advance for looking into this, with regards:  Rom=
+ano
+> >>>>>>>>> """
+> >>>>>>>>>
+> >>>>>>>>> And while at it, let me add this issue to the tracking as well
+> >>>>>>>>>
+> >>>>>>>>> [TLDR: I'm adding this report to the list of tracked Linux kern=
+el
+> >>>>>>>>> regressions; the text you find below is based on a few template=
+s
+> >>>>>>>>> paragraphs you might have encountered already in similar form.
+> >>>>>>>>> See link in footer if these mails annoy you.]
+> >>>>>>>>>
+> >>>>>>>>> Thanks for the report. To be sure the issue doesn't fall throug=
+h the
+> >>>>>>>>> cracks unnoticed, I'm adding it to regzbot, the Linux kernel re=
+gression
+> >>>>>>>>> tracking bot:
+> >>>>>>>>>
+> >>>>>>>>> #regzbot introduced 1958946858a62b /
+> >>>>>>>>> #regzbot title drm: amdgpu: under-powering broke
+> >>>>>>>>>
+> >>>>>>>>> Ciao, Thorsten (wearing his 'the Linux kernel's regression trac=
+ker' hat)
+> >>>>>>>>> --
+> >>>>>>>>> Everything you wanna know about Linux kernel regression trackin=
+g:
+> >>>>>>>>> https://linux-regtracking.leemhuis.info/about/#tldr
+> >>>>>>>>> That page also explains what to do if mails like this annoy you=
+.
+> >>>>>
