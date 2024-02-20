@@ -4,93 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4442C48BC3
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 08:14:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00405C48BF6
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 08:14:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DED710E319;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8436210E637;
 	Wed, 21 Feb 2024 08:14:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="izFDobbW";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="IgAC8GwE";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D950E10E4BD
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 15:27:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1708442831;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=EHZfEehJ30oQDz8+S3jdQFoPQv8+btekLaY6PoGCP/M=;
- b=izFDobbWbxjv0W66vTZWanp0jJvRJjFrYe4DRAMvWK/g7YG2NwXcvvJ2JcyegQFtQTM/Bs
- /tFcZzC86OIZJR71tRnE32BzmWkuyP/cSGKJCfvZSuzTKGDLSm2wjnBKTkhXvgUsVA0kAV
- yRr7uJJcnAehnDI/5z3UncWohe9hoaU=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-620-X9vQrx0rNeeAezOojbBNAw-1; Tue, 20 Feb 2024 10:27:10 -0500
-X-MC-Unique: X9vQrx0rNeeAezOojbBNAw-1
-Received: by mail-ej1-f71.google.com with SMTP id
- a640c23a62f3a-a2bc65005feso400893466b.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 07:27:10 -0800 (PST)
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B5EB10E53A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 19:47:46 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-6e435542d41so1584491b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 11:47:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=usp.br; s=usp-google; t=1708458466; x=1709063266; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WEwAJnG85LZhHLPhtupVWGgKznsoezSxNC+Z5m8WKxs=;
+ b=IgAC8GwEV0bBgxF8H8j1+nyMc37PXwT6TSw7dbJoKK2kO/U1BZR0FLEiyQDwWUuj/L
+ VkLsqg/WNPlhgwLF/PTBLQK3X2VmZsyEZqR9vT1lHaWMP1MFtqxTCQKnD6vY7wm2xa6G
+ 875E4/+DJKAve+JGSFaGrZL/cWWpL7SJ/+fgLDpHj1CDNBSEKd8Z3vR6jc8uv8CIUN0J
+ S/PkeuTP0KkZ9Gcl3+HjweANW1zQw0hYlqj5wF/b1r7fvV5V21UzCGVKEqwrjpUbLHaM
+ vGwVmwz2XJi81F/Z8lU+9axCTE9yyXgZThfY7YlWkrOMKA31MFqj/jZX0cpedVIF6Z/W
+ OqDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708442829; x=1709047629;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=EHZfEehJ30oQDz8+S3jdQFoPQv8+btekLaY6PoGCP/M=;
- b=BxL2Oe5BDTboG8yKD9iDlTFfLDt5awllq8VKT7LCLzmhUC4i9iEY6Q2yd5xIV8Lww2
- +aT/0tLprY/BLy4U81jKKxloRuDMELRp25f8WnRBWOMvJnp/QGfjlSCHW3lttWVKv3cW
- Tq1SJIUVzkkGCYi2FMDJsCwdgR/9l1u3oH3pMnZcrrwVAkJzrw+KP108gCIAjjF1qdk1
- LlWBn1dPs02CTtsJqw41SC2RsEBBM2E2fADioFGFlEEzZPNsNsjhAKqlCVcLpWEihcuM
- Q+7KEJDrIzRzIM1zrAMSg/t6xY4cQeDrot10N965Eh5KWVPOJfppJaZ4XwhMsAXKndKe
- MCzg==
+ d=1e100.net; s=20230601; t=1708458466; x=1709063266;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=WEwAJnG85LZhHLPhtupVWGgKznsoezSxNC+Z5m8WKxs=;
+ b=GQ8Vjz8It36OtENYGrHz6XSew55MrUmdM+6eX2+xZiB0okMUqgsTFhDQHuQrFWliaj
+ v/b2/SHI+Vp9k6IxDHtMksFRTI7FlFPDy50e+bckRLGtL7NEk3+nD9rc/msTOvbPIdK6
+ admUBEtN9mn2DG3IokihWMgD78iCxIUFR1VURJIvIqDw26DZ74Jsd9rMHYO3E3q96GhT
+ hhNfJ7likfOV5Q27G+hTUmvgF6LWfQTJOawvJMB4bIpTeYwjFMmIkRxTxDuEp9/wcd6b
+ 1WixkjwIlvuTtnHJ4v6DhrCpQf3wSmAllfpn71WuWc4HbOCoyzQXSgSJ805xM0i0BU+q
+ i64A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWXQQT/7yz11daPa6uzrFF0dXQDBa73mdapb+A60/ynRmKK3U1Q3J3JIvkO5GJBUbX8FkN1bGWZff6rPVejuqT2QCg7OEkWKM3h6DidEw==
-X-Gm-Message-State: AOJu0YxLqTm+ZAti/3wRid3PETnBmyoNnek21RwArdcROn0h2VOLm24A
- +Zfw1Cw95Ykggl6m9rfQ6+jNmkoRzXCI7DzBtWi4uHfVhabwjPnL5jBGMVJs3HlidO1dzdZJGmU
- tkyg0NRMVMZYBQLHvuEqoMGDt0zJLAlBQyzr77Z8ASSjVPj5nLMGhhNXsz/uUt/E=
-X-Received: by 2002:a17:906:371a:b0:a3f:d50:2f81 with SMTP id
- d26-20020a170906371a00b00a3f0d502f81mr1250581ejc.15.1708442829098; 
- Tue, 20 Feb 2024 07:27:09 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFxHJg4IHLApX94QhcFlCjvnTjdQtWaCi56R2/Zf6yt0BkxydCQja5u2fqYbR1jPT5BW5wx+A==
-X-Received: by 2002:a17:906:371a:b0:a3f:d50:2f81 with SMTP id
- d26-20020a170906371a00b00a3f0d502f81mr1250555ejc.15.1708442828692; 
- Tue, 20 Feb 2024 07:27:08 -0800 (PST)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
- (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+ AJvYcCV37ix4wwaXqGLg4rr0/vwRQQh+DyS1wgPBsBNmKL82U0CFGklp+/tAmkk7EVZR2L4tR/NTjT7lyI0suHTs979NT9c7m+cFLwfQuG0kSw==
+X-Gm-Message-State: AOJu0YwKklQOJi3Fts3f1hbM9iZl+QjsgC1U24doFovofJs7FW8Q0TfX
+ 7koz/1YW/F2r4RAFoN2+EntT/9GYLG6D5fex5HUc56AxpjbKuCLuTonuKqnQUAg=
+X-Google-Smtp-Source: AGHT+IHT/6ByV3nCKHTDzWjbdXhJg67w1/vgAwad3K/qgGS5NL2u7SrgCHlhoCDACT7hRksY4kRgGA==
+X-Received: by 2002:a05:6a21:3982:b0:19e:a1a3:b14 with SMTP id
+ ad2-20020a056a21398200b0019ea1a30b14mr19115226pzc.1.1708458465992; 
+ Tue, 20 Feb 2024 11:47:45 -0800 (PST)
+Received: from localhost.localdomain ([185.153.176.89])
  by smtp.gmail.com with ESMTPSA id
- tx12-20020a1709078e8c00b00a3e4673e7dbsm3227736ejc.38.2024.02.20.07.27.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Feb 2024 07:27:08 -0800 (PST)
-Message-ID: <4bc8747a-d87f-423b-b0ce-8891e78ae094@redhat.com>
-Date: Tue, 20 Feb 2024 16:27:07 +0100
+ u21-20020aa78395000000b006e0ad616be3sm7293482pfm.110.2024.02.20.11.47.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Feb 2024 11:47:45 -0800 (PST)
+From: David Tadokoro <davidbtadokoro@usp.br>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch
+Cc: David Tadokoro <davidbtadokoro@usp.br>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH 2/3] drm/amd/display: add prefix to rv1_clk_mgr.c functions
+Date: Tue, 20 Feb 2024 16:46:56 -0300
+Message-Id: <20240220194657.243378-3-davidbtadokoro@usp.br>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20240220194657.243378-1-davidbtadokoro@usp.br>
+References: <20240220194657.243378-1-davidbtadokoro@usp.br>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Kernel 6.7+ broke under-powering of my RX 6700XT. (Archlinux,
- mesa/amdgpu)
-To: Alex Deucher <alexdeucher@gmail.com>,
- Linux regressions mailing list <regressions@lists.linux.dev>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Greg KH <gregkh@linuxfoundation.org>, Roman Benes <benes@riadoklan.sk.eu.org>
-References: <ae64f04d-6e94-4da4-a740-78ea94e0552c@riadoklan.sk.eu.org>
- <2024021732-framing-tactful-833d@gregkh>
- <d369b45f-e1af-4117-83a5-3e429e3bfb23@leemhuis.info>
- <CADnq5_OgPBtYpxBQ+aBmA2t7ob7EFPFWrF9OYXNgm00eEayMNA@mail.gmail.com>
- <62bf771e-640a-45ab-a2de-3df459a9ed30@leemhuis.info>
- <CADnq5_M4Zwv0_B1DoU_a8aNpyPVJj_PpjDG_oi3JkrGC5-hNgg@mail.gmail.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <CADnq5_M4Zwv0_B1DoU_a8aNpyPVJj_PpjDG_oi3JkrGC5-hNgg@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, nl
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 21 Feb 2024 08:14:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -107,148 +85,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+The functions defined in dc/clk_mgr/dcn10/rv1_clk_mgr.c don't have
+names that indicates where they were declared.
 
-On 2/20/24 16:15, Alex Deucher wrote:
-> On Tue, Feb 20, 2024 at 10:03 AM Linux regression tracking (Thorsten
-> Leemhuis) <regressions@leemhuis.info> wrote:
->>
->> On 20.02.24 15:45, Alex Deucher wrote:
->>> On Mon, Feb 19, 2024 at 9:47 AM Linux regression tracking (Thorsten
->>> Leemhuis) <regressions@leemhuis.info> wrote:
->>>>
->>>> On 17.02.24 14:30, Greg KH wrote:
->>>>> On Sat, Feb 17, 2024 at 02:01:54PM +0100, Roman Benes wrote:
->>>>>> Minimum power limit on latest(6.7+) kernels is 190W for my GPU (RX 6700XT,
->>>>>> mesa, archlinux) and I cannot get power cap as low as before(to 115W),
->>>>>> neither with Corectrl, LACT or TuxClocker and /sys have a variable read-only
->>>>>> even for root. This is not of above apps issue but of the kernel, I read
->>>>>> similar issues from other bug reports of above apps. I downgraded to v6.6.10
->>>>>> kernel and my 115W(under power)cap work again as before.
->>>>>
->>>> For the record and everyone that lands here: the cause is known now
->>>> (it's 1958946858a62b ("drm/amd/pm: Support for getting power1_cap_min
->>>> value") [v6.7-rc1]) and the issue afaics tracked here:
->>>>
->>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3183
->>>>
->>>> Other mentions:
->>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3137
->>>> https://gitlab.freedesktop.org/drm/amd/-/issues/2992
->>>>
->>>> Haven't seen any statement from the amdgpu developers (now CCed) yet on
->>>> this there (but might have missed something!). From what I can see I
->>>> assume this will likely be somewhat tricky to handle, as a revert
->>>> overall might be a bad idea here. We'll see I guess.
->>>
->>> The change aligns the driver what has been validated on each board
->>> design.  Windows uses the same limits.  Using values lower than the
->>> validated range can lead to undefined behavior and could potentially
->>> damage your hardware.
->>
->> Thx for the reply! Yeah, I was expecting something along those lines.
->>
->> Nevertheless it afaics still is a regression in the eyes of many users.
->> I'm not sure how Linus feels about this, but I wonder if we can find
->> some solution here so that users that really want to, can continue to do
->> what was possible out-of-the box before. Is that possible to realize or
->> even supported already?
->>
->> And sure, those users would be running their hardware outside of its
->> specifications. But is that different from overclocking (which the
->> driver allows, doesn't it? If not by all means please correct me!)?
-> 
-> Sure.  The driver has always had upper bound limits for overclocking,
-> this change adds lower bounds checking for underclocking as well.
-> When the silicon validation teams set the bounding box for a device,
-> they set a range of values where it's reasonable to operate based on
-> the characteristics of the design.
-> 
-> If we did want to allow extended underclocking, we need a big warning
-> in the logs at the very least.
+To better filter results in debug tools like ftrace, prefix these
+functions with 'rv1_clk_mgr_'.
 
-Requiring a module-option to be set to allow this, as well as a big
-warning in the logs sounds like a good solution to me.
+Signed-off-by: David Tadokoro <davidbtadokoro@usp.br>
+---
+ .../display/dc/clk_mgr/dcn10/rv1_clk_mgr.c    | 22 +++++++++----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-Regards,
-
-Hans
-
-
-
-
-
->>>> Roman posted something that apparently was meant to go to the list, so
->>>> let me put it here:
->>>>
->>>> """
->>>> UPDATE: User fililip already posted patch, but it need to be merged,
->>>> discussion is on gitlab link below.
->>>>
->>>> (PS: I hope I am replying correctly to "all" now? - using original addr.)
->>>>
->>>>
->>>>> it seems that commit was already found(see user's 'fililip' comment):
->>>>>
->>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3183
->>>>> commit 1958946858a62b6b5392ed075aa219d199bcae39
->>>>> Author: Ma Jun <Jun.Ma2@amd.com>
->>>>> Date:   Thu Oct 12 09:33:45 2023 +0800
->>>>>
->>>>>     drm/amd/pm: Support for getting power1_cap_min value
->>>>>
->>>>>     Support for getting power1_cap_min value on smu13 and smu11.
->>>>>     For other Asics, we still use 0 as the default value.
->>>>>
->>>>>     Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
->>>>>     Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
->>>>>     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>>>>
->>>>> However, this is not good as it remove under-powering range too far. I
->>>> was getting only about 7% less performance but 90W(!) less consumption
->>>> when set to my 115W before. Also I wonder if we as a OS of options and
->>>> freedom have to stick to such very high reference for min values without
->>>> ability to override them through some sys ctrls. Commit was done by amd
->>>> guy and I wonder if because of maybe this post that I made few months
->>>> ago(business strategy?):
->>>>>
->>>>>
->>>> https://www.reddit.com/r/Amd/comments/183gye7/rx_6700xt_from_230w_to_capped_115w_at_only_10/
->>>>>
->>>>> This is not a dangerous OC upwards where I can understand desire to
->>>> protect HW, it is downward, having min cap at 190W when card pull on
->>>> 115W almost same speed is IMO crazy to deny. We don't talk about default
->>>> or reference values here either, just a move to lower the range of
->>>> options for whatever reason.
->>>>>
->>>>> I don't know how much power you guys have over them, but please
->>>> consider either reverting this change, or give us an option to set
->>>> min_cap through say /sys (right now param is readonly, even for root).
->>>>>
->>>>>
->>>>> Thank you in advance for looking into this, with regards:  Romano
->>>> """
->>>>
->>>> And while at it, let me add this issue to the tracking as well
->>>>
->>>> [TLDR: I'm adding this report to the list of tracked Linux kernel
->>>> regressions; the text you find below is based on a few templates
->>>> paragraphs you might have encountered already in similar form.
->>>> See link in footer if these mails annoy you.]
->>>>
->>>> Thanks for the report. To be sure the issue doesn't fall through the
->>>> cracks unnoticed, I'm adding it to regzbot, the Linux kernel regression
->>>> tracking bot:
->>>>
->>>> #regzbot introduced 1958946858a62b /
->>>> #regzbot title drm: amdgpu: under-powering broke
->>>>
->>>> Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
->>>> --
->>>> Everything you wanna know about Linux kernel regression tracking:
->>>> https://linux-regtracking.leemhuis.info/about/#tldr
->>>> That page also explains what to do if mails like this annoy you.
->>>
->>>
-> 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
+index 60761ff3cbf1..093084a48daa 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
+@@ -34,12 +34,12 @@
+ #include "rv1_clk_mgr_vbios_smu.h"
+ #include "rv1_clk_mgr_clk.h"
+ 
+-static void rv1_init_clocks(struct clk_mgr *clk_mgr)
++static void rv1_clk_mgr_init_clocks(struct clk_mgr *clk_mgr)
+ {
+ 	memset(&(clk_mgr->clks), 0, sizeof(struct dc_clocks));
+ }
+ 
+-static int rv1_determine_dppclk_threshold(struct clk_mgr_internal *clk_mgr, struct dc_clocks *new_clocks)
++static int rv1_clk_mgr_determine_dppclk_threshold(struct clk_mgr_internal *clk_mgr, struct dc_clocks *new_clocks)
+ {
+ 	bool request_dpp_div = new_clocks->dispclk_khz > new_clocks->dppclk_khz;
+ 	bool dispclk_increase = new_clocks->dispclk_khz > clk_mgr->base.clks.dispclk_khz;
+@@ -85,18 +85,18 @@ static int rv1_determine_dppclk_threshold(struct clk_mgr_internal *clk_mgr, stru
+ 	return disp_clk_threshold;
+ }
+ 
+-static void ramp_up_dispclk_with_dpp(
++static void rv1_clk_mgr_ramp_up_dispclk_with_dpp(
+ 		struct clk_mgr_internal *clk_mgr,
+ 		struct dc *dc,
+ 		struct dc_clocks *new_clocks,
+ 		bool safe_to_lower)
+ {
+ 	int i;
+-	int dispclk_to_dpp_threshold = rv1_determine_dppclk_threshold(clk_mgr, new_clocks);
++	int dispclk_to_dpp_threshold = rv1_clk_mgr_determine_dppclk_threshold(clk_mgr, new_clocks);
+ 	bool request_dpp_div = new_clocks->dispclk_khz > new_clocks->dppclk_khz;
+ 
+ 	/* this function is to change dispclk, dppclk and dprefclk according to
+-	 * bandwidth requirement. Its call stack is rv1_update_clocks -->
++	 * bandwidth requirement. Its call stack is rv1_clk_mgr_update_clocks -->
+ 	 * update_clocks --> dcn10_prepare_bandwidth / dcn10_optimize_bandwidth
+ 	 * --> prepare_bandwidth / optimize_bandwidth. before change dcn hw,
+ 	 * prepare_bandwidth will be called first to allow enough clock,
+@@ -187,7 +187,7 @@ static void ramp_up_dispclk_with_dpp(
+ 	clk_mgr->base.clks.max_supported_dppclk_khz = new_clocks->max_supported_dppclk_khz;
+ }
+ 
+-static void rv1_update_clocks(struct clk_mgr *clk_mgr_base,
++static void rv1_clk_mgr_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			struct dc_state *context,
+ 			bool safe_to_lower)
+ {
+@@ -274,7 +274,7 @@ static void rv1_update_clocks(struct clk_mgr *clk_mgr_base,
+ 	/* program dispclk on = as a w/a for sleep resume clock ramping issues */
+ 	if (should_set_clock(safe_to_lower, new_clocks->dispclk_khz, clk_mgr_base->clks.dispclk_khz)
+ 			|| new_clocks->dispclk_khz == clk_mgr_base->clks.dispclk_khz) {
+-		ramp_up_dispclk_with_dpp(clk_mgr, dc, new_clocks, safe_to_lower);
++		rv1_clk_mgr_ramp_up_dispclk_with_dpp(clk_mgr, dc, new_clocks, safe_to_lower);
+ 		clk_mgr_base->clks.dispclk_khz = new_clocks->dispclk_khz;
+ 		send_request_to_lower = true;
+ 	}
+@@ -291,7 +291,7 @@ static void rv1_update_clocks(struct clk_mgr *clk_mgr_base,
+ 	}
+ }
+ 
+-static void rv1_enable_pme_wa(struct clk_mgr *clk_mgr_base)
++static void rv1_clk_mgr_enable_pme_wa(struct clk_mgr *clk_mgr_base)
+ {
+ 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+ 	struct pp_smu_funcs_rv *pp_smu = NULL;
+@@ -305,10 +305,10 @@ static void rv1_enable_pme_wa(struct clk_mgr *clk_mgr_base)
+ }
+ 
+ static struct clk_mgr_funcs rv1_clk_funcs = {
+-	.init_clocks = rv1_init_clocks,
++	.init_clocks = rv1_clk_mgr_init_clocks,
+ 	.get_dp_ref_clk_frequency = dce12_get_dp_ref_freq_khz,
+-	.update_clocks = rv1_update_clocks,
+-	.enable_pme_wa = rv1_enable_pme_wa,
++	.update_clocks = rv1_clk_mgr_update_clocks,
++	.enable_pme_wa = rv1_clk_mgr_enable_pme_wa,
+ };
+ 
+ static struct clk_mgr_internal_funcs rv1_clk_internal_funcs = {
+-- 
+2.39.2
 
