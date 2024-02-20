@@ -4,79 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96CC8C48BC3
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 18:14:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E442C5475B
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Feb 2024 19:20:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49CFF10E2AE;
-	Tue, 20 Feb 2024 18:14:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 448C010E517;
+	Tue, 20 Feb 2024 19:20:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m8XHYtGO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KcW3LLmV";
 	dkim-atps=neutral
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0A9B10E2AE
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 18:14:12 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-5cedfc32250so4681288a12.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 10:14:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708452852; x=1709057652; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pVBaWzeVokqKhdlqG7O+PxMZPUVca0xVdEqixySYpMY=;
- b=m8XHYtGOv2Qwd2mSc3nKOBAwigq/aSuLhgkniGCv/hl3uXKV66fB/Fm0hOFXHX/iQb
- 3psM6FrDAlpU5Y32Uevn5ki8Ah75PLQBhjS+9aR7hKBHqxn7z/dwQrxpfEWPeOec4ZQ7
- 3MPWvbxW1Qh2uFziTjrumIfTfLqZp5qlxN7JeBXbH/ADlQN4rTYn0cRyIZ4Zgo690hGn
- SShS1d4sNtv0uYR3zyayYFbY/lDCWZI0iLUtT+gCo/frf+a87moi1llqcR20UNGqnbVF
- cwBEhiSb5SYchNzkTqSBfK4BoVbNM50krCm4GrR3A6wlcYahe6RJgajnMN+QBQBRBfQW
- VXsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708452852; x=1709057652;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pVBaWzeVokqKhdlqG7O+PxMZPUVca0xVdEqixySYpMY=;
- b=XLf1HrlBPkWZ8MMLqRHw/bH81T0XUV8ri3zTQK6l86qb9rIwICz50gr9uLdj2rsx1y
- osgA6rJHQ1xdpnvCxTQr2wrUZrxw+MWnW7qa2kmHSyzYS+fEMXiaDLn7A6faq2jKBHTN
- 7L7hg/rr+s0ZL6IgvvFF8M5BuR4aWFg9Jo7PCKiQR8iYwpSuqkGkrHSBAEccC6Bo6YW7
- ZD8gPoLek0zUfDA3wE1JTHjKwhrmwUKzt1v9ebH6GnXVsV3FbUIb//GGsX6lE0Sr6D5i
- r01qWO/lBOb1qdinhc9Kq3ZLirieoOULjezmwz0ynHZ7qe96qys72HyBHAAlmXLDI02q
- UKmQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVyS12CV4YkmUsiB8FEu4GXCFZzdiDUVjfl0LM2jKNC3NN3HoR48cEXdLI91bxrRTENVmqPwGqg2Icu+YMKY+GJdIuFM6dgEYrfKdBaEg==
-X-Gm-Message-State: AOJu0YwsJ3Cq4oabZtjQtHlPIMXOECVRNzWOVtMdStPhPK929EDzwpA9
- 0MVYUJOwIbo6cjtowC3aipowPqwCPK+gZUN5Tq3pDai6Qha3O9bocvCZT24N02qavpe5om7E/em
- ZHU6nDVuCeCY3W8WmJ/xhWDjiM30=
-X-Google-Smtp-Source: AGHT+IH/RMOR9qX0oSMWYPMMmECllCxsv0wpkML/jAYcPPrF65MqxsI7AWcUqmudVx+cZ7O8xbsT1aMkCRLltjMZI8Q=
-X-Received: by 2002:a17:90a:d48f:b0:299:519b:7108 with SMTP id
- s15-20020a17090ad48f00b00299519b7108mr7660882pju.9.1708452852307; Tue, 20 Feb
- 2024 10:14:12 -0800 (PST)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2074.outbound.protection.outlook.com [40.107.92.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38FC110E517
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 19:20:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=h+pGD9znfEopzEv3kVnEBDoVqsL9IWK2ogh/PT2XsP34ybkKACamXEC8G/fOK2eJR1d9edkBwZlsJD7CF9lU/KZRIZ9SdXqgPl66nW5R23+L3w5TPbd2Ks1+7Mk75lhXL3ZwDVopmIq4oWE7pxMfcMnCWEhWUix1IW55zIoSJ56v/WMgbAd3mPV15WZ4a1jhX/A6/PQvIibml1QI4kifAPwbQ91oVMs+tZulNvWVC6H8PnFmKwSr8381LiGLgHbBE9zwcwLDHP99YikK3NlFTgJ0eC3Zenhe8r865OqK7yym5XJp9UgTmt1XGmUjH/Kjwxtu9MLdGH4qKu2jRMi5Yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WAotOTSn/vW3wB/CMmQG7L/iJu61dxVfKT3piGnRk+g=;
+ b=GdEJxp5oetqLNqbYOW+TtJ9NGotVp8S5Z4aHxwm57KImhpQ5+jRASsy4j8EngBJW9r7RZ+9PgAitYonMw492e7Dc5B3bg8OKiGXt4vShAeKUv/Gatvu6vvVtHP1gmsE/MqWXwhWMgTE3B0HgUR54K2jHX/ssjfQWMaNiATUgcVFGDVbXQ5vxURXc9w8dWEneg3vUlYTqbJAD6ECxS07fLIrfknT83fE4UKWRFaWeViWPF4m3xqacoaZtKfjh6UIfSa3KlFnsBFft5y/EmdkiMmQEfRnQtdOgTCTdCdXJBRHyK1goxZrBP+ha8/eSy/Z7v2UQ9nlLio+f6QpKj+JJxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WAotOTSn/vW3wB/CMmQG7L/iJu61dxVfKT3piGnRk+g=;
+ b=KcW3LLmVVsehm9tAwPqdLxLeLfRGdEJN4995sQqehu6psVCPMh2kwHtTLQPiOiMhwurwxvKTrDPGmDfvWrnSqh4NDTudXL5iNxVrpGjDAodqvCguYXepiK1d3hB1LaBX3e9VIxEhqWc7DpkC1QU5gYrrXUZklf/sA4kjRav1tMk=
+Received: from CY5PR19CA0072.namprd19.prod.outlook.com (2603:10b6:930:69::14)
+ by IA0PR12MB8279.namprd12.prod.outlook.com (2603:10b6:208:40c::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.20; Tue, 20 Feb
+ 2024 19:20:31 +0000
+Received: from CY4PEPF0000EE34.namprd05.prod.outlook.com
+ (2603:10b6:930:69:cafe::ec) by CY5PR19CA0072.outlook.office365.com
+ (2603:10b6:930:69::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.40 via Frontend
+ Transport; Tue, 20 Feb 2024 19:20:30 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE34.mail.protection.outlook.com (10.167.242.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Tue, 20 Feb 2024 19:20:30 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 20 Feb
+ 2024 13:20:30 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 20 Feb
+ 2024 13:20:29 -0600
+Received: from 10.4.12.207.in-addr.arpa (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via
+ Frontend Transport; Tue, 20 Feb 2024 13:20:29 -0600
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, <hawking.zhang@amd.com>,
+ <aurabindo.pillai@amd.com>
+Subject: [PATCH] drm/amd: Update atomfirmware.h for DCN401
+Date: Tue, 20 Feb 2024 14:20:21 -0500
+Message-ID: <20240220192021.431356-1-aurabindo.pillai@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <ae64f04d-6e94-4da4-a740-78ea94e0552c@riadoklan.sk.eu.org>
- <2024021732-framing-tactful-833d@gregkh>
- <d369b45f-e1af-4117-83a5-3e429e3bfb23@leemhuis.info>
- <CADnq5_OgPBtYpxBQ+aBmA2t7ob7EFPFWrF9OYXNgm00eEayMNA@mail.gmail.com>
- <62bf771e-640a-45ab-a2de-3df459a9ed30@leemhuis.info>
- <CADnq5_M4Zwv0_B1DoU_a8aNpyPVJj_PpjDG_oi3JkrGC5-hNgg@mail.gmail.com>
- <4bc8747a-d87f-423b-b0ce-8891e78ae094@redhat.com>
-In-Reply-To: <4bc8747a-d87f-423b-b0ce-8891e78ae094@redhat.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 20 Feb 2024 13:14:00 -0500
-Message-ID: <CADnq5_NQM6phvaBupuAkJ0fX6vK=8yfbSz8-4P76fd8xHgiigg@mail.gmail.com>
-Subject: Re: Kernel 6.7+ broke under-powering of my RX 6700XT. (Archlinux,
- mesa/amdgpu)
-To: Hans de Goede <hdegoede@redhat.com>
-Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Ma Jun <Jun.Ma2@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Dave Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Greg KH <gregkh@linuxfoundation.org>, 
- Roman Benes <benes@riadoklan.sk.eu.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE34:EE_|IA0PR12MB8279:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ac17265-4eb2-4050-b41a-08dc324900e9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: j8xUh/N9wEEQgOg3nT2IF0ooSJzKIoLGolD/9zA9YvBEW0KFRR+D/jj0NT7T0IWtthIWeiasT+3fXySfTppFH/rvLnSrxLjTJZmYwMZnom4+kAsW975blYUQOuPx48a0vSoUFUI2/eopRybobI4bNw21Vk4Epe3zm+tyerBClZzL/KP5zhjJFGAbbP+GrLbxCF2NwDcN33M0uFFgmFCb3jEP6ZMpGZlhONuuvVGu0bYxmV9IDqaN1F8uYa5kRIilgwyiP0DTgixAbABTmE/XwR97jyAGNtUGIL14lv7ueWo8u/KetBzZwt7ma7mSXJNBt+ONe2b+S8EtdpPP7uKodRvbYv5biBvufPUdiZp05E0SZSa/VNqUO+fxqJvgW+8bRLnltJ+Rl+Dnp8y/AIQMAKuZ0yLLZOXoV2Or1jwDfTigKVvQjxhnZ/8a/567erKctcd3z2lCbwk7FfAexfnrP2khFuTt/ohk6+LUu3F12HzJ/bP/WDRA2tlDkDJv41VzY5gWz3MCb7Gh2ZgAaEJlyeK+0phKLzMlgHv1rG3NH3zsnD8R2DWAhNo/OS8oXzPId4c/jMl4XNwlG6WVHVrwwuaN48TTn2Z4/eSt7VyclUvfLb5ev4VYkbyhXWG6AukTk7Hh/G22Sr6mMzLweaYaC4n1oIGK5Llc4wLqA/ISLgE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(40470700004)(46966006); DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2024 19:20:30.8147 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ac17265-4eb2-4050-b41a-08dc324900e9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE34.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8279
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,185 +108,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 20, 2024 at 10:27=E2=80=AFAM Hans de Goede <hdegoede@redhat.com=
-> wrote:
->
-> Hi,
->
-> On 2/20/24 16:15, Alex Deucher wrote:
-> > On Tue, Feb 20, 2024 at 10:03=E2=80=AFAM Linux regression tracking (Tho=
-rsten
-> > Leemhuis) <regressions@leemhuis.info> wrote:
-> >>
-> >> On 20.02.24 15:45, Alex Deucher wrote:
-> >>> On Mon, Feb 19, 2024 at 9:47=E2=80=AFAM Linux regression tracking (Th=
-orsten
-> >>> Leemhuis) <regressions@leemhuis.info> wrote:
-> >>>>
-> >>>> On 17.02.24 14:30, Greg KH wrote:
-> >>>>> On Sat, Feb 17, 2024 at 02:01:54PM +0100, Roman Benes wrote:
-> >>>>>> Minimum power limit on latest(6.7+) kernels is 190W for my GPU (RX=
- 6700XT,
-> >>>>>> mesa, archlinux) and I cannot get power cap as low as before(to 11=
-5W),
-> >>>>>> neither with Corectrl, LACT or TuxClocker and /sys have a variable=
- read-only
-> >>>>>> even for root. This is not of above apps issue but of the kernel, =
-I read
-> >>>>>> similar issues from other bug reports of above apps. I downgraded =
-to v6.6.10
-> >>>>>> kernel and my 115W(under power)cap work again as before.
-> >>>>>
-> >>>> For the record and everyone that lands here: the cause is known now
-> >>>> (it's 1958946858a62b ("drm/amd/pm: Support for getting power1_cap_mi=
-n
-> >>>> value") [v6.7-rc1]) and the issue afaics tracked here:
-> >>>>
-> >>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3183
-> >>>>
-> >>>> Other mentions:
-> >>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3137
-> >>>> https://gitlab.freedesktop.org/drm/amd/-/issues/2992
-> >>>>
-> >>>> Haven't seen any statement from the amdgpu developers (now CCed) yet=
- on
-> >>>> this there (but might have missed something!). From what I can see I
-> >>>> assume this will likely be somewhat tricky to handle, as a revert
-> >>>> overall might be a bad idea here. We'll see I guess.
-> >>>
-> >>> The change aligns the driver what has been validated on each board
-> >>> design.  Windows uses the same limits.  Using values lower than the
-> >>> validated range can lead to undefined behavior and could potentially
-> >>> damage your hardware.
-> >>
-> >> Thx for the reply! Yeah, I was expecting something along those lines.
-> >>
-> >> Nevertheless it afaics still is a regression in the eyes of many users=
-.
-> >> I'm not sure how Linus feels about this, but I wonder if we can find
-> >> some solution here so that users that really want to, can continue to =
-do
-> >> what was possible out-of-the box before. Is that possible to realize o=
-r
-> >> even supported already?
-> >>
-> >> And sure, those users would be running their hardware outside of its
-> >> specifications. But is that different from overclocking (which the
-> >> driver allows, doesn't it? If not by all means please correct me!)?
-> >
-> > Sure.  The driver has always had upper bound limits for overclocking,
-> > this change adds lower bounds checking for underclocking as well.
-> > When the silicon validation teams set the bounding box for a device,
-> > they set a range of values where it's reasonable to operate based on
-> > the characteristics of the design.
-> >
-> > If we did want to allow extended underclocking, we need a big warning
-> > in the logs at the very least.
->
-> Requiring a module-option to be set to allow this, as well as a big
-> warning in the logs sounds like a good solution to me.
+Add new firmware header definitions reqiured for DCN401
 
-I dunno.  I kind of go back and forth with it.  It's yet another knob
-to maintain and when we've done things like this in the past, we get
-lots of bug reports or angry users because the kernel is sending
-warnings when they set it.
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+---
+ drivers/gpu/drm/amd/include/atomfirmware.h | 33 ++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
+index fa7d6ced786f..206c8a025f9e 100644
+--- a/drivers/gpu/drm/amd/include/atomfirmware.h
++++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+@@ -610,6 +610,39 @@ struct atom_firmware_info_v3_4 {
+         uint32_t reserved[2];
+ };
+ 
++struct atom_firmware_info_v3_5
++{
++  struct atom_common_table_header table_header;
++  uint32_t firmware_revision;
++  uint32_t bootup_clk_reserved[2];
++  uint32_t firmware_capability;             // enum atombios_firmware_capability
++  uint32_t fw_protect_region_size_in_kb;    /* FW allocate a write protect region at top of FB. */
++  uint32_t bios_scratch_reg_startaddr;      // 1st bios scratch register dword address
++  uint32_t bootup_voltage_reserved[2];
++  uint8_t  mem_module_id;
++  uint8_t  coolingsolution_id;              /*0: Air cooling; 1: Liquid cooling ... */
++  uint8_t  hw_blt_mode;                     //0:HW_BLT_DMA_PIO_MODE; 1:HW_BLT_LITE_SDMA_MODE; 2:HW_BLT_PCI_IO_MODE
++  uint8_t  reserved1;
++  uint32_t mc_baseaddr_high;
++  uint32_t mc_baseaddr_low;
++  uint8_t  board_i2c_feature_id;            // enum of atom_board_i2c_feature_id_def
++  uint8_t  board_i2c_feature_gpio_id;       // i2c id find in gpio_lut data table gpio_id
++  uint8_t  board_i2c_feature_slave_addr;
++  uint8_t  ras_rom_i2c_slave_addr;
++  uint32_t bootup_voltage_reserved1;
++  uint32_t zfb_reserved;
++  // if pplib_pptable_id!=0, pplib get powerplay table inside driver instead of from VBIOS
++  uint32_t pplib_pptable_id;
++  uint32_t hw_voltage_reserved[3];
++  uint32_t maco_pwrlimit_mw;                // bomaco mode power limit in unit of m-watt
++  uint32_t usb_pwrlimit_mw;                 // power limit when USB is enable in unit of m-watt
++  uint32_t fw_reserved_size_in_kb;          // VBIOS reserved extra fw size in unit of kb.
++  uint32_t pspbl_init_reserved[3];
++  uint32_t spi_rom_size;                    // GPU spi rom size
++  uint16_t support_dev_in_objinfo;
++  uint16_t disp_phy_tunning_size;
++  uint32_t reserved[16];
++};
+ /* 
+   ***************************************************************************
+     Data Table lcd_info  structure
+-- 
+2.43.0
 
->
-> Regards,
->
-> Hans
->
->
->
->
->
-> >>>> Roman posted something that apparently was meant to go to the list, =
-so
-> >>>> let me put it here:
-> >>>>
-> >>>> """
-> >>>> UPDATE: User fililip already posted patch, but it need to be merged,
-> >>>> discussion is on gitlab link below.
-> >>>>
-> >>>> (PS: I hope I am replying correctly to "all" now? - using original a=
-ddr.)
-> >>>>
-> >>>>
-> >>>>> it seems that commit was already found(see user's 'fililip' comment=
-):
-> >>>>>
-> >>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3183
-> >>>>> commit 1958946858a62b6b5392ed075aa219d199bcae39
-> >>>>> Author: Ma Jun <Jun.Ma2@amd.com>
-> >>>>> Date:   Thu Oct 12 09:33:45 2023 +0800
-> >>>>>
-> >>>>>     drm/amd/pm: Support for getting power1_cap_min value
-> >>>>>
-> >>>>>     Support for getting power1_cap_min value on smu13 and smu11.
-> >>>>>     For other Asics, we still use 0 as the default value.
-> >>>>>
-> >>>>>     Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-> >>>>>     Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
-> >>>>>     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >>>>>
-> >>>>> However, this is not good as it remove under-powering range too far=
-. I
-> >>>> was getting only about 7% less performance but 90W(!) less consumpti=
-on
-> >>>> when set to my 115W before. Also I wonder if we as a OS of options a=
-nd
-> >>>> freedom have to stick to such very high reference for min values wit=
-hout
-> >>>> ability to override them through some sys ctrls. Commit was done by =
-amd
-> >>>> guy and I wonder if because of maybe this post that I made few month=
-s
-> >>>> ago(business strategy?):
-> >>>>>
-> >>>>>
-> >>>> https://www.reddit.com/r/Amd/comments/183gye7/rx_6700xt_from_230w_to=
-_capped_115w_at_only_10/
-> >>>>>
-> >>>>> This is not a dangerous OC upwards where I can understand desire to
-> >>>> protect HW, it is downward, having min cap at 190W when card pull on
-> >>>> 115W almost same speed is IMO crazy to deny. We don't talk about def=
-ault
-> >>>> or reference values here either, just a move to lower the range of
-> >>>> options for whatever reason.
-> >>>>>
-> >>>>> I don't know how much power you guys have over them, but please
-> >>>> consider either reverting this change, or give us an option to set
-> >>>> min_cap through say /sys (right now param is readonly, even for root=
-).
-> >>>>>
-> >>>>>
-> >>>>> Thank you in advance for looking into this, with regards:  Romano
-> >>>> """
-> >>>>
-> >>>> And while at it, let me add this issue to the tracking as well
-> >>>>
-> >>>> [TLDR: I'm adding this report to the list of tracked Linux kernel
-> >>>> regressions; the text you find below is based on a few templates
-> >>>> paragraphs you might have encountered already in similar form.
-> >>>> See link in footer if these mails annoy you.]
-> >>>>
-> >>>> Thanks for the report. To be sure the issue doesn't fall through the
-> >>>> cracks unnoticed, I'm adding it to regzbot, the Linux kernel regress=
-ion
-> >>>> tracking bot:
-> >>>>
-> >>>> #regzbot introduced 1958946858a62b /
-> >>>> #regzbot title drm: amdgpu: under-powering broke
-> >>>>
-> >>>> Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' =
-hat)
-> >>>> --
-> >>>> Everything you wanna know about Linux kernel regression tracking:
-> >>>> https://linux-regtracking.leemhuis.info/about/#tldr
-> >>>> That page also explains what to do if mails like this annoy you.
-> >>>
-> >>>
-> >
->
