@@ -4,64 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D336AC48BC3
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 15:50:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32B29C5478A
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 17:00:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51D9510E7B6;
-	Wed, 21 Feb 2024 15:50:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEC6B10E054;
+	Wed, 21 Feb 2024 17:00:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iAH9eqWY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xXlr0LCF";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9677F10E7B6
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 15:50:45 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-1d95d67ff45so6255465ad.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 07:50:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708530645; x=1709135445; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zWTgTrsjm1nIcvsYZH9qhiyZ5y4f9MzlaFlw82zm38E=;
- b=iAH9eqWY5EIkPOY8rfEdmMa15HnPnVJR7pTZYIMY7uWuP0TEs0Icm971gPhnp32Iv1
- ScYH6VsWxg1Rvk9fgszgv3ee86uwrHnsKSEqis+d6zaG3VkdxI+WCyXOpAsxTZWGnVqT
- hUtVfsIDL7F+ZJ/uRyoopIG41VLzy9WwEp67R+eDD4/IGnfuBVEQBB3g5tZ5H9MWJ4Jt
- q/kELcBYIpqbLjtZCY6yDK5wF8Ag4RUFPgiYEgAGgacWEPAn5iSANRtmrjlbTXH2CPre
- +7cLv/VDOePaqNg5O0oi22zRFg4VtNsMfdvLKdEsLbg48BesI7qTgxjBbVh9UMzuk8OS
- ksiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708530645; x=1709135445;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zWTgTrsjm1nIcvsYZH9qhiyZ5y4f9MzlaFlw82zm38E=;
- b=hEduyjNLicaMVsI+y/dGXe6OWDHbE0ak1rEK5DcvJACY0c6/g6Sp/lQcKee4WRExbo
- 4FTfdS0/w58//mrLqLYxh0Z4eIPS9/uHe4ytsHoNPMwpAohIa7VbBuEvTNYc99f9G07P
- SWICiST8wWrYNCuy735APpDPxH1g6EHWph6+L8UOpdb9D6a3m6wo6S5QsPLu30vdU+C0
- qhsfE6Aswi20a74OL0nJ1D1/3QXNSIHybtA+94NvRXPsgwhqAOlXVFG1zU6yDApNebzG
- 1wxIUw0QuS9izg5QcgUKLJxh04rDjyUSWWXP5r1J7VV8dndNomu/M9whtfgeN+PoF/W1
- fYgQ==
-X-Gm-Message-State: AOJu0YzLDXTFfc19bwUr9Rg8dPEjIJcHqp64hQRKkqfH2mRQ9TbslqXz
- I89P2hCxMGwjyJFF9FszhS2sJE1hExbZtbSTA2I/+gNCqX7oig2yALPLVz0iCmxiqglDD2rYb3a
- 8SBzHNmarV4HQ4jKqOYVg1Y1NPhg=
-X-Google-Smtp-Source: AGHT+IEtmsITwdclFRW/lHfiKHrvnMFtua86VevA1myGjt1CZYMxFzKFkmOPtvceJzyF2bg025EB+kKRSbJ4lUvkUGY=
-X-Received: by 2002:a17:902:b285:b0:1db:e089:7461 with SMTP id
- u5-20020a170902b28500b001dbe0897461mr10166551plr.31.1708530644968; Wed, 21
- Feb 2024 07:50:44 -0800 (PST)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2046.outbound.protection.outlook.com [40.107.102.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F5FB10E054
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 17:00:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VWGJ+kyN989i4Zq8hnCYH8nSRbV8LULik20Q7DnMaH7qRzDYp5Z2iu3uLoX1LNsPsKO5oTyQp3p/OVav2Cik0UTJneCMzNWd1WMW+HOwW/rzq09Jw0V505bp8942ATz08D9gmUmTCByNvxytMELfv37ah70lcWWfIz+s0o08v49SoUGVpAH2ukCTECSl328owtOrJiB0RznXGtCpVigr07Hqu3Apmbx5GW6NT6L7OlMdYu2Xwv/6JId/T8ZoLVJI3AViNG93w1/CK3XZIVAkRXUazLa+1P24h+7+X23CbKoLIuq/jHr5TE+Rcp1K3XMf9pnTVLEtNfKCctzyBiOmqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zY8+a866oL/EsdgHc/LScYFz09zVQUF69CJVDPvCLKM=;
+ b=Rqmg1yEDyNaqPhWX9zuMc/S8DaoIkNo+SX/nivL6MilWlIRDO1QTYFYT6RyBfB9tSqWKv+H4qHQ7rq/dIWfEFhfWFi/umP62dBgGFRPZsAb0O8eZypuWYJepm9AgsrJeaqtU3HTKOc34r3uOtDTDLdTfSXU0K9kTc/pCs9q9YMEViUD0wAfjKu/c/TRCYrIEHesw2jmwVNRU2xiLgD8KEBv7q9gBmQVd0+EM+vvMAR+v4X8EYW4FeCy40byfWc+lUtSzW2AWBfq2i04Ogq05wQ0WgeUru855hCpgkODlPPL+MBCHNjniECylyzL3FqA3U5Rd7CiD0/t4jB/Ah28wRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zY8+a866oL/EsdgHc/LScYFz09zVQUF69CJVDPvCLKM=;
+ b=xXlr0LCF0EmIdMsISOSoxcoAcWX9INQy9I6x9YDxBb8r/uSHb8mcUoTW1Lf9PK/+7yZKQS7z50d96iI04eYzFEnBuIuXmRHyPhfvA1TesdaRMVrlPO+p6wEWERPaG3P31/K5D2T6lCk9xWgLb2x2ijsTOlJow9gkosKEeYx35D8=
+Received: from CH0PR03CA0028.namprd03.prod.outlook.com (2603:10b6:610:b0::33)
+ by MN2PR12MB4207.namprd12.prod.outlook.com (2603:10b6:208:1d9::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.21; Wed, 21 Feb
+ 2024 17:00:29 +0000
+Received: from DS3PEPF000099E2.namprd04.prod.outlook.com
+ (2603:10b6:610:b0:cafe::f2) by CH0PR03CA0028.outlook.office365.com
+ (2603:10b6:610:b0::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.41 via Frontend
+ Transport; Wed, 21 Feb 2024 17:00:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS3PEPF000099E2.mail.protection.outlook.com (10.167.17.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Wed, 21 Feb 2024 17:00:29 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 21 Feb
+ 2024 11:00:28 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Veerabadhran Gopalakrishnan <veerabadhran.gopalakrishnan@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+Subject: [PATCH 1/4] drm/amdgpu/vcn: Enable VCN 4.0.6 Support
+Date: Wed, 21 Feb 2024 12:00:12 -0500
+Message-ID: <20240221170015.8866-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.43.2
 MIME-Version: 1.0
-References: <20240220192021.431356-1-aurabindo.pillai@amd.com>
-In-Reply-To: <20240220192021.431356-1-aurabindo.pillai@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 21 Feb 2024 10:50:33 -0500
-Message-ID: <CADnq5_MVEjyr1nz+=bzQEtn5o0XvUxJgMzCuQv95pxmWOYz3YA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Update atomfirmware.h for DCN401
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- hawking.zhang@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099E2:EE_|MN2PR12MB4207:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7bcdeb8-5f36-4719-0c9f-08dc32fe9b89
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: mVoncmo7a7B+8Be0gv2f2eD9GCEjqvPMb3EqVYxqc+lKBPBhKj861bsMuJbGODxLRjOZhaVdkixpWGS2hW7V8HvBBm4m7d4OvcwxDQuqm5H3SA1oHKbuesPkunS7JTd2+eODsMDrZscMXCoeKjxBo7pHUAl3dOZ8clS7VHHFjYZuc2e3cNfld9onGrbeus5VZ4H3QX1u89THjA5NFyQYSvMt+UP46Yvy18IQAoRohssF81xzeSMEZ+Jb0Mv4mhoEM11VbXQnmCmI4ValDPccVBmLvNh82fpJ0/8ItnvOGQvp24EP1GaroVyunMrFh/yVg2G5G3tiZ4gsBIhpx0o3peNwNY7JA7kw139TLYD1drA1ACNTanRiT/TnkbifT8X8GCLsppOY/Zr8I5Xijr7C1RPFvX4orrf5bfuFJN17m6duKnT7GLZU0Rbm4fnBRS14prXm9WPWEpc7khvcwbshN3lkirARRezEjes8q/+RTiBC/voZUvZ+m8EsLVKcvNlylTZ65wYB5z0KSFQ/PywEAW5Ib/Dx+5Rb1RdU7FvB1iv520OB74VuZaFmHreSGp9j3879FO8gTRWmIXeCjw3TdXs9lt2IMAhxyxDJdKKf/tMOzhlQH59e+EySkJwnffIIV7mrR+HOeqFBSKd8WBeNVrADOC31FGtn/guPhvlcgj4=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(46966006)(40470700004); DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2024 17:00:29.1518 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7bcdeb8-5f36-4719-0c9f-08dc32fe9b89
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099E2.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4207
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,76 +104,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 20, 2024 at 2:38=E2=80=AFPM Aurabindo Pillai
-<aurabindo.pillai@amd.com> wrote:
->
-> Add new firmware header definitions reqiured for DCN401
->
-> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+From: Veerabadhran Gopalakrishnan <veerabadhran.gopalakrishnan@amd.com>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Modified driver to use the appropriate FW files and instance.
 
-> ---
->  drivers/gpu/drm/amd/include/atomfirmware.h | 33 ++++++++++++++++++++++
->  1 file changed, 33 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm=
-/amd/include/atomfirmware.h
-> index fa7d6ced786f..206c8a025f9e 100644
-> --- a/drivers/gpu/drm/amd/include/atomfirmware.h
-> +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-> @@ -610,6 +610,39 @@ struct atom_firmware_info_v3_4 {
->          uint32_t reserved[2];
->  };
->
-> +struct atom_firmware_info_v3_5
-> +{
-> +  struct atom_common_table_header table_header;
-> +  uint32_t firmware_revision;
-> +  uint32_t bootup_clk_reserved[2];
-> +  uint32_t firmware_capability;             // enum atombios_firmware_ca=
-pability
-> +  uint32_t fw_protect_region_size_in_kb;    /* FW allocate a write prote=
-ct region at top of FB. */
-> +  uint32_t bios_scratch_reg_startaddr;      // 1st bios scratch register=
- dword address
-> +  uint32_t bootup_voltage_reserved[2];
-> +  uint8_t  mem_module_id;
-> +  uint8_t  coolingsolution_id;              /*0: Air cooling; 1: Liquid =
-cooling ... */
-> +  uint8_t  hw_blt_mode;                     //0:HW_BLT_DMA_PIO_MODE; 1:H=
-W_BLT_LITE_SDMA_MODE; 2:HW_BLT_PCI_IO_MODE
-> +  uint8_t  reserved1;
-> +  uint32_t mc_baseaddr_high;
-> +  uint32_t mc_baseaddr_low;
-> +  uint8_t  board_i2c_feature_id;            // enum of atom_board_i2c_fe=
-ature_id_def
-> +  uint8_t  board_i2c_feature_gpio_id;       // i2c id find in gpio_lut d=
-ata table gpio_id
-> +  uint8_t  board_i2c_feature_slave_addr;
-> +  uint8_t  ras_rom_i2c_slave_addr;
-> +  uint32_t bootup_voltage_reserved1;
-> +  uint32_t zfb_reserved;
-> +  // if pplib_pptable_id!=3D0, pplib get powerplay table inside driver i=
-nstead of from VBIOS
-> +  uint32_t pplib_pptable_id;
-> +  uint32_t hw_voltage_reserved[3];
-> +  uint32_t maco_pwrlimit_mw;                // bomaco mode power limit i=
-n unit of m-watt
-> +  uint32_t usb_pwrlimit_mw;                 // power limit when USB is e=
-nable in unit of m-watt
-> +  uint32_t fw_reserved_size_in_kb;          // VBIOS reserved extra fw s=
-ize in unit of kb.
-> +  uint32_t pspbl_init_reserved[3];
-> +  uint32_t spi_rom_size;                    // GPU spi rom size
-> +  uint16_t support_dev_in_objinfo;
-> +  uint16_t disp_phy_tunning_size;
-> +  uint32_t reserved[16];
-> +};
->  /*
->    **********************************************************************=
-*****
->      Data Table lcd_info  structure
-> --
-> 2.43.0
->
+v2: squash in fixes (Alex)
+
+Signed-off-by: Veerabadhran Gopalakrishnan <veerabadhran.gopalakrishnan@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 2 ++
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 3 +++
+ 2 files changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index eb2a88991206..b2535023764f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -59,6 +59,7 @@
+ #define FIRMWARE_VCN4_0_3		"amdgpu/vcn_4_0_3.bin"
+ #define FIRMWARE_VCN4_0_4		"amdgpu/vcn_4_0_4.bin"
+ #define FIRMWARE_VCN4_0_5		"amdgpu/vcn_4_0_5.bin"
++#define FIRMWARE_VCN4_0_6		"amdgpu/vcn_4_0_6.bin"
+ #define FIRMWARE_VCN5_0_0		"amdgpu/vcn_5_0_0.bin"
+ 
+ MODULE_FIRMWARE(FIRMWARE_RAVEN);
+@@ -83,6 +84,7 @@ MODULE_FIRMWARE(FIRMWARE_VCN4_0_2);
+ MODULE_FIRMWARE(FIRMWARE_VCN4_0_3);
+ MODULE_FIRMWARE(FIRMWARE_VCN4_0_4);
+ MODULE_FIRMWARE(FIRMWARE_VCN4_0_5);
++MODULE_FIRMWARE(FIRMWARE_VCN4_0_6);
+ MODULE_FIRMWARE(FIRMWARE_VCN5_0_0);
+ 
+ static void amdgpu_vcn_idle_work_handler(struct work_struct *work);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+index 49e4c3c09aca..0468955338b7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+@@ -1684,6 +1684,9 @@ static int vcn_v4_0_5_process_interrupt(struct amdgpu_device *adev, struct amdgp
+ 	case SOC15_IH_CLIENTID_VCN:
+ 		ip_instance = 0;
+ 		break;
++	case SOC15_IH_CLIENTID_VCN1:
++		ip_instance = 1;
++		break;
+ 	default:
+ 		DRM_ERROR("Unhandled client id: %d\n", entry->client_id);
+ 		return 0;
+-- 
+2.43.2
+
