@@ -4,58 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD19AC48BEB
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 18:42:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87A56C48BEB
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 19:21:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04BA510E7B1;
-	Wed, 21 Feb 2024 18:42:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F151A10E7CC;
+	Wed, 21 Feb 2024 19:21:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cP3V4AEY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iHveigyu";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7C9F10E7A4;
- Wed, 21 Feb 2024 18:42:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1708540960; x=1740076960;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=QnI2zyePBvM4AlSqV7ASXHCphUNPI7BlTs7ly1ZsoDs=;
- b=cP3V4AEYhMTTDSaXIc9QXRejefOVsiiGx6ovTDJBCEpMwHDR+aPqgfzn
- VxExMHtDLAhXDCu8pT7eOropdr3uckl9ZsL/pADgbqRi+sZXawRe8MqTy
- cXxnVXt+osiPL1WGRP4xbmTuw3xz2qWbXR1u7d+UF3ycjYw74GNkoWZv7
- sdB+qFuIrUPmbI+wSHjSchRo0w60adq7aySV9NEetX3bO7f+z7FPIGrOA
- FsSv+7U9S1+slyeVqVDQY9cQomBWH/x6u/G9sxuxBZzg6DuXVPY257mhT
- 6cNfM1c8N1T6tT9l7E3vKzxAoU5uCdr1nCiqc72ffB6U9T5If8YR57jL+ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10991"; a="5674250"
-X-IronPort-AV: E=Sophos;i="6.06,176,1705392000"; 
-   d="scan'208";a="5674250"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2024 10:42:39 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,176,1705392000"; 
-   d="scan'208";a="5179551"
-Received: from conorwoo-mobl1.ger.corp.intel.com (HELO [10.252.22.137])
- ([10.252.22.137])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2024 10:42:38 -0800
-Message-ID: <2c841f63-10d5-4de3-b331-6b320a92dc64@intel.com>
-Date: Wed, 21 Feb 2024 18:42:35 +0000
-MIME-Version: 1.0
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2086.outbound.protection.outlook.com [40.107.94.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3F8710E7CC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 19:21:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GwF+MR2tRyaJiy/wkaegYSSRITAxz7wNFNKb3wUop2n+T1PLO+5SaxbkdGBTN9htNpqngxoTlCIx+2yFRMddHAGFD9Fr12XCbKl2SPLTaRPup88FHsNl9nRDARL6q9GqyorEmyRdCp7i9/e8rfHtZX0padVi7vt/hZTufwnWWmcIvV/6tG0w7Kwd1vYOBMT1OOR9uGHbjW2Ap3xpCFYD96QzwecJ+S40gNa8yGrvJsF235qUt8CD1GZvyjUNOdHqv85M/wiAscnfI0TxyQcGrGkuWVP94zoSUWCH6BRZYWe46Ijlz5kqEiIoGYWCqCjlivlHIZFtW08Y50CZLXEujw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FgWQhOVhRcfxvPfUR8rMt58hvaF0enRaj/h4IQ13z7I=;
+ b=IBR3SByelVE7edstlsFIjNdn4k6KKQpl/vCXygygbvZS+J4HUHK99pmf1yanoqwjMYIks7XIqcyEp6nTmTKi7J+J3+YEDT0nBAMbOED7bL1tOaAnypxuG4BvK5qEE0TDXedv4uLqupOjzCF8suigOHPjihEzwtnI5DQwhUiirCGskosDJM2uTstupiU8qLu0HgtCNyOPE0qwTBuBFdN21tQ3oVI6dCmvGPFVs19H13qzb+6vQpYGzLBYfP6X6SW5C+sotA6/78fn+sbq4UG9b03ChvGgH0P9hjCBBhqNYlPkDTj5UOoViYYSVw/QJs/ClWVsyPl75v7Hi5u4hybC9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FgWQhOVhRcfxvPfUR8rMt58hvaF0enRaj/h4IQ13z7I=;
+ b=iHveigyuGZEPynGSuOOILzjU5Bs0vyCbZxMJFrpv1tr0Te6Liom2jLD9pSiLgoQR9d9Vu/61zbjpqhB/Orao4Qg8ww7v9ELOCgm6PeUe3UD9zw8BBRddVsrxLd/PMGdAt0a41R03NdpqRihqqicE45loGXDP60DLhtbONrfJYEw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BY5PR12MB4920.namprd12.prod.outlook.com (2603:10b6:a03:1d3::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.20; Wed, 21 Feb
+ 2024 19:21:51 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::c25b:d4ab:643c:ede7]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::c25b:d4ab:643c:ede7%6]) with mapi id 15.20.7316.018; Wed, 21 Feb 2024
+ 19:21:51 +0000
+Message-ID: <e2209732-771f-41da-9d83-ac696a08bee5@amd.com>
+Date: Wed, 21 Feb 2024 14:21:49 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/3] drm/buddy: Add defragmentation support
-Content-Language: en-GB
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com, felix.kuehling@amd.com
-References: <20240221121801.3252-1-Arunpravin.PaneerSelvam@amd.com>
- <20240221121801.3252-3-Arunpravin.PaneerSelvam@amd.com>
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20240221121801.3252-3-Arunpravin.PaneerSelvam@amd.com>
+Subject: Re: [PATCH] drm/amdkfd: fix process reference drop on debug ioctl
+Content-Language: en-US
+To: Jonathan Kim <Jonathan.Kim@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: JinHuiEric.Huang@amd.com, Harish.Kasiviswanathan@amd.com
+References: <20240221105422.1354628-1-Jonathan.Kim@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20240221105422.1354628-1-Jonathan.Kim@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQXPR0101CA0037.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:14::14) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BY5PR12MB4920:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7e8e632-e1d7-4c61-1b32-08dc33125b3e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: smK9kdb2/H7sBgj22fGceFVeliFxwSnFG8GKlxCCTgeUhMrgfiCkH2paZPEOernMJlbXUOif+Ib7p3/vdT9oKneucEL5fkDPDxySGE2bhVbLuRdPzN1Yoe78QrTD3PMzUYVzLqC3Wu0fPXa6x//NLxhKjG9vLDjedcxxyRUMbTD7vgEoLMDGMDxM24/O6uldeCMLYCZnfKIqzZRdx0cmi+LfxMMIPd0lnY48dh5HM6KrhxDjIoFNCfX7HM7PQbOLeXfiYsoRbscu6GkXnHjJUvSeBBiPrpDqACI05dHRiNRO18C59lIYvfdUqraOYHwe5S8I99F0K9I8haIUr71A1AmuOCoRiGG8ElGxOWB1y1a6FAMgRa4HYZKjt7AhwNMOZcxRHgc0xlvMrZalMrskmhr7OGimVsc2JopLbG0asSbk/QrA2+gHLck83Q6SMXHJUnPbJlQmGjFiBKSmAR9Ouv0rVTD2miS85eECKfcD6wE/SOahg6+4ucjge/Kdd+UlRptP0AWM4OfSO7J6+f9EQRtdVGLGSGuZ6b0UIcRWg7U=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cGRnNFYzaXhFMWFraFhWZWlNcThtMDljODVxY0k5WUpHSERJbE5uSWZyZFJq?=
+ =?utf-8?B?VVFNSk1qREU1eXEvTm1QNmN3Qmpwc2c3YUJhaHJWZWYxcktSOWlHZUEwSEkx?=
+ =?utf-8?B?azhEZ3hTdWNrU1lISnFCUVV6bUdBNVI2WEtIc0ZIVHljbmxpTEdzRVFlb3RO?=
+ =?utf-8?B?Y0dySVY4U2l0TFpsRzZUbWd3ZEdZN2FXYnd1eGxEVG5tL0toVGpmTHFLYVJp?=
+ =?utf-8?B?ZnFMUWp2RW1xam16MzNnWXJnaGRjZjNOcWcrZGI0KzZEQVZRUDhBTmVTUWJI?=
+ =?utf-8?B?ZVZHNmg5OVYwRFN3UzlCU0JKd0RFU04ydXkzZnh2eCs5UFNaRTRBSUVpREtm?=
+ =?utf-8?B?ZlorU0c4SmdRcTJoK3JpelBqay9zM253TDZ5ZGVkMGpuTDQ0NHpnRG9yNmFs?=
+ =?utf-8?B?T2M2ZFVadk9sSmJRSytkSmM2bFJiSkdRdWROcDN2N1cweHdMN2hkZ3llZDdZ?=
+ =?utf-8?B?VjJnNUViVG54YW9xaWNQYVJZRzhvblNGRXZ3Mm1wZGxYZjIxZnhkU1E3ZVk1?=
+ =?utf-8?B?TmltQ3NtdDBYSDJQSjQrNmNOalEzd2ZBQkRQVUhiOVVzWDdkWXJKYXB1MDE4?=
+ =?utf-8?B?QVFiMVViQVlGNWhZOTg1V2cvdDNCQ20rbE5BeHE5Q1NtbnQySDRCa25vT2NV?=
+ =?utf-8?B?MERjcjNmMm1qMHRkbEZzc1lWQnViSndWZURtOXJhaU03ZVRFMzh2ai9HbVA4?=
+ =?utf-8?B?SENvOWRrTWV6Y1pNaFFueG1PNEtWVUJHV1lzdlg2cmZFeC9PYjdMZTM3VUM3?=
+ =?utf-8?B?eS9QaDAyL2VOZmFwT1RNNjFVOTR6U3ozN25ZTkF1aVVhTkZLWlNVUWtZNk1U?=
+ =?utf-8?B?Mk1kSnAyOUdFR3AvMEx3N0U2amEyb05TelFjSEpzcU5xZWFOeU41bHFUWENq?=
+ =?utf-8?B?QlN4S3RKdjlFV3BYdzNaN3E1cFZqWVBva2p1ZVphZ0tnbTFqeUFvME1xNm4w?=
+ =?utf-8?B?RFg3Z1RrR3l0M3dTNzdScE54d1FnYzZmYTRkM0w1ZDhJZG5XQzlQenFSK2lI?=
+ =?utf-8?B?bkhDUWljS0dHT3JMU0dVUy9hWElUeDVlYnNoMFVqRFVlMGE3UzY4QThlWEJq?=
+ =?utf-8?B?YmxMNmZvbG1SaEdKMlh2dlZ4YUFFNmo2aEozL0VCMWpFM3NWOHNZb2UxYTdh?=
+ =?utf-8?B?MCs2UkFLUGxNNkhNU0YreldkYTVGUUZHMGwwV3JRNTFZRXRXcTZGR216Z0xE?=
+ =?utf-8?B?cWJaZExuUXZLTzBYMC9CUjZGN3hYNkd1SkhMR1phdUF0WHlORHRCYVZXejZE?=
+ =?utf-8?B?eW5LaGJ5VUsvTGUwc1JFQXZFUzFRUGgrbHBIdkdHRlZkcXBLQlBIR3NSYW9M?=
+ =?utf-8?B?RXl3OFJWQ05SZm9udmxiNGdvcy9oWGlKSHlWSDBjMDR5Q3craERxTFNudUpE?=
+ =?utf-8?B?a1JqNjlBMC9wVld6NUFEVnZYWVZGVjdmSmFZeWVydS9oWGtvaDdiUTYwbFg0?=
+ =?utf-8?B?RUxia2RoRWpLVGdPZ1l5MjlCbFRLUFhnR3ZsUGxoek1kbTRRRVJXUXBTOXpj?=
+ =?utf-8?B?QmJMaWZISi9iR2tBaUU0cTlwZUtDWVBqMFBYRk5QSFRtSkNoVXgvQzQwOVFS?=
+ =?utf-8?B?NTMvekZxV2VFOGtid0tlTWtSS1NqSjhBM2oxdVNzRDBqcHBhRXNoSi95WmlW?=
+ =?utf-8?B?QVhjR0huSnk3TVJ6WnI3cmpBUytZOUlPWkk5R3VJL1dVelpkSVI5ako1b2Y2?=
+ =?utf-8?B?aGUzcVFjTS9NRkt5aUZHUDAzMU9iaUVrRThaWDRSZlQzbTdTaWN3TVplV29o?=
+ =?utf-8?B?YXREK0RwMGZyTW1EOEg1a1V5WXVGN2ljS1R4OHdGUkFta2tldlRJWUoySjBv?=
+ =?utf-8?B?Y0N2RVBjNEFXK25ZR3BkTWd3Y0ZpdHdGM3RYNVJsWm1tY0VKamkzZXZLOFlM?=
+ =?utf-8?B?amFUak9RNXo2S2ZPM1p4cW1IazN2Qk1nb1JZKzJJSksxcm1JU2p2T0REM2N2?=
+ =?utf-8?B?YUVvUXl1dFJXckRab0VxdXFFaTk4SWpyYUlRZTU3Q3k4K3plL0REOFV5T2Jn?=
+ =?utf-8?B?bmtBWVU1VHFmdFVhS0I2aG9nT2RTQVBzaWFmNzdkZWN4QTRRMWd3U0pnSG9Y?=
+ =?utf-8?B?cVd3SzZFbjYxUnM0Z3gvKy90b3ZNWU1HNko3dXZacnQzYk93bkVGdTFPaEh6?=
+ =?utf-8?Q?znWogZ21OZtH/4s2kHkgmcwAH?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7e8e632-e1d7-4c61-1b32-08dc33125b3e
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2024 19:21:51.6550 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MAn32jyMQBS42dorZP23ObO1gHETgSk+OOyS7sSrO5H40iadZrZD0YC3A9A0y8dz0E0QuaL9wMlSrdiM3M9JBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4920
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,254 +129,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 21/02/2024 12:18, Arunpravin Paneer Selvam wrote:
-> Add a function to support defragmentation.
-> 
-> v1:
->    - Defragment the memory beginning from min_order
->      till the required memory space is available.
-> 
-> v2(Matthew):
->    - add amdgpu user for defragmentation
->    - add a warning if the two blocks are incompatible on
->      defragmentation
->    - call full defragmentation in the fini() function
->    - place a condition to test if min_order is equal to 0
->    - replace the list with safe_reverse() variant as we might
->      remove the block from the list.
-> 
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Suggested-by: Matthew Auld <matthew.auld@intel.com>
+
+On 2024-02-21 05:54, Jonathan Kim wrote:
+> Prevent dropping the KFD process reference at the end of a debug
+> IOCTL call where the acquired process value is an error.
+>
+> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 17 +++-
->   drivers/gpu/drm/drm_buddy.c                  | 93 +++++++++++++++++---
->   include/drm/drm_buddy.h                      |  3 +
->   3 files changed, 97 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index e494f5bf136a..cff8a526c622 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -533,8 +533,21 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->   					   min_block_size,
->   					   &vres->blocks,
->   					   vres->flags);
-> -		if (unlikely(r))
-> -			goto error_free_blocks;
-> +		if (unlikely(r)) {
-> +			if (r == -ENOSPC) {
-> +				drm_buddy_defrag(mm, min_block_size);
-> +				r = drm_buddy_alloc_blocks(mm, fpfn,
-> +							   lpfn,
-> +							   size,
-> +							   min_block_size,
-> +							   &vres->blocks,
-> +							   vres->flags);
-> +				if (unlikely(r))
-> +					goto error_free_blocks;
-> +			} else {
-> +				goto error_free_blocks;
-> +			}
-> +		}
->   
->   		if (size > remaining_size)
->   			remaining_size = 0;
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index 18e004fa39d3..56bd1560fbcd 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -203,6 +203,8 @@ void drm_buddy_fini(struct drm_buddy *mm)
->   		drm_block_free(mm, mm->roots[i]);
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 80e90fdef291..824e660283b2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -2935,6 +2935,7 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
+>   	if (IS_ERR_OR_NULL(target)) {
+>   		pr_debug("Cannot find process PID %i to debug\n", args->pid);
+>   		r = target ? PTR_ERR(target) : -ESRCH;
+> +		target = NULL;
+>   		goto out;
 >   	}
 >   
-> +	drm_buddy_defrag(mm, mm->chunk_size << mm->max_order);
-
-I think this needs to be called higher up, otherwise we blow up with the 
-WARN, plus we just freed the root(s). There is also the case with 
-non-power-of-two VRAM size, in which case you get multiple roots and 
-max_order is just the largest root and not entire address space. I guess 
-do this in the loop above and use the root order instead?
-
-Also this should be done as part of the first patch and then in this 
-patch it is just a case of exporting it. Every commit should ideally be 
-functional by itself.
-
-> +
->   	WARN_ON(mm->avail != mm->size);
->   
->   	kfree(mm->roots);
-> @@ -276,25 +278,39 @@ drm_get_buddy(struct drm_buddy_block *block)
->   }
->   EXPORT_SYMBOL(drm_get_buddy);
->   
-> -static void __drm_buddy_free(struct drm_buddy *mm,
-> -			     struct drm_buddy_block *block)
-> +static unsigned int __drm_buddy_free(struct drm_buddy *mm,
-> +				     struct drm_buddy_block *block,
-> +				     bool defrag)
->   {
-> +	unsigned int order, block_order;
->   	struct drm_buddy_block *parent;
->   
-> +	block_order = drm_buddy_block_order(block);
-> +
->   	while ((parent = block->parent)) {
-> -		struct drm_buddy_block *buddy;
-> +		struct drm_buddy_block *buddy = NULL;
->   
->   		buddy = __get_buddy(block);
->   
->   		if (!drm_buddy_block_is_free(buddy))
->   			break;
->   
-> -		if (drm_buddy_block_is_clear(block) !=
-> -		    drm_buddy_block_is_clear(buddy))
-> -			break;
-> +		if (!defrag) {
-> +			/*
-> +			 * Check the block and its buddy clear state and exit
-> +			 * the loop if they both have the dissimilar state.
-> +			 */
-> +			if (drm_buddy_block_is_clear(block) !=
-> +			    drm_buddy_block_is_clear(buddy))
-> +				break;
->   
-> -		if (drm_buddy_block_is_clear(block))
-> -			mark_cleared(parent);
-> +			if (drm_buddy_block_is_clear(block))
-> +				mark_cleared(parent);
-> +		}
-> +
-> +		WARN_ON(defrag &&
-> +			(drm_buddy_block_is_clear(block) ==
-> +			 drm_buddy_block_is_clear(buddy)));
->   
->   		list_del(&buddy->link);
->   
-> @@ -304,8 +320,57 @@ static void __drm_buddy_free(struct drm_buddy *mm,
->   		block = parent;
->   	}
->   
-> -	mark_free(mm, block);
-> +	order = drm_buddy_block_order(block);
-> +	if (block_order != order)
-> +		mark_free(mm, block);
-> +
-> +	return order;
-> +}
-> +
-> +/**
-> + * drm_buddy_defrag - Defragmentation routine
-> + *
-> + * @mm: DRM buddy manager
-> + * @min_block_size: minimum size in bytes to begin
-> + * the defragmentation process
-> + *
-> + * Driver calls the defragmentation function when the
-> + * requested memory allocation returns -ENOSPC.
-> + */
-> +void drm_buddy_defrag(struct drm_buddy *mm,
-> +		      unsigned int min_block_size)
-
-u64 min_block_size. Most cards have 4G+ of VRAM :)
-
-> +{
-> +	struct drm_buddy_block *block, *tmp;
-> +	unsigned int order, min_order;
-> +	struct list_head *list;
-> +	unsigned long pages;
-> +	int i;
-> +
-> +	pages = min_block_size >> ilog2(mm->chunk_size);
-> +	min_order = fls(pages) - 1;
-
-I think min_block_size should be power-of-two, no?
-
-> +
-> +	if (!min_order)
-> +		return;
-> +
-> +	if (min_order > mm->max_order)
-> +		return;
-> +
-> +	for (i = min_order - 1; i >= 0; i--) {
-> +		list = &mm->free_list[i];
-> +		if (list_empty(list))
-> +			continue;
-> +
-> +		list_for_each_entry_safe_reverse(block, tmp, list, link) {
-> +			if (!block->parent)
-> +				continue;
-> +
-> +			order = __drm_buddy_free(mm, block, 1);
-
-s/1/true/
-
-> +			if (order >= min_order)
-> +				return;
-> +		}
-> +	}
->   }
-> +EXPORT_SYMBOL(drm_buddy_defrag);
->   
->   /**
->    * drm_buddy_free_block - free a block
-> @@ -321,7 +386,7 @@ void drm_buddy_free_block(struct drm_buddy *mm,
->   	if (drm_buddy_block_is_clear(block))
->   		mm->clear_avail += drm_buddy_block_size(mm, block);
->   
-> -	__drm_buddy_free(mm, block);
-> +	__drm_buddy_free(mm, block, 0);
->   }
->   EXPORT_SYMBOL(drm_buddy_free_block);
->   
-> @@ -468,7 +533,7 @@ __alloc_range_bias(struct drm_buddy *mm,
->   	if (buddy &&
->   	    (drm_buddy_block_is_free(block) &&
->   	     drm_buddy_block_is_free(buddy)))
-> -		__drm_buddy_free(mm, block);
-> +		__drm_buddy_free(mm, block, 0);
->   	return ERR_PTR(err);
->   }
->   
-> @@ -586,7 +651,7 @@ alloc_from_freelist(struct drm_buddy *mm,
->   
->   err_undo:
->   	if (tmp != order)
-> -		__drm_buddy_free(mm, block);
-> +		__drm_buddy_free(mm, block, 0);
->   	return ERR_PTR(err);
->   }
->   
-> @@ -666,7 +731,7 @@ static int __alloc_range(struct drm_buddy *mm,
->   	if (buddy &&
->   	    (drm_buddy_block_is_free(block) &&
->   	     drm_buddy_block_is_free(buddy)))
-> -		__drm_buddy_free(mm, block);
-> +		__drm_buddy_free(mm, block, 0);
->   
->   err_free:
->   	if (err == -ENOSPC && total_allocated_on_err) {
-> @@ -828,7 +893,7 @@ EXPORT_SYMBOL(drm_buddy_block_trim);
->    * @mm: DRM buddy manager to allocate from
->    * @start: start of the allowed range for this block
->    * @end: end of the allowed range for this block
-> - * @size: size of the allocation
-> + * @size: size of the allocation in bytes
->    * @min_block_size: alignment of the allocation
->    * @blocks: output list head to add allocated blocks
->    * @flags: DRM_BUDDY_*_ALLOCATION flags
-> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-> index 352a6364e26a..68a874846e78 100644
-> --- a/include/drm/drm_buddy.h
-> +++ b/include/drm/drm_buddy.h
-> @@ -167,6 +167,9 @@ void drm_buddy_free_list(struct drm_buddy *mm,
->   			 struct list_head *objects,
->   			 unsigned int flags);
->   
-> +void drm_buddy_defrag(struct drm_buddy *mm,
-> +		      unsigned int min_order);
-> +
->   void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p);
->   void drm_buddy_block_print(struct drm_buddy *mm,
->   			   struct drm_buddy_block *block,
