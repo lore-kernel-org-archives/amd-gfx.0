@@ -4,65 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7DE5C5478A
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 08:14:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13C2DC48BC3
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 08:14:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B25A10E669;
-	Wed, 21 Feb 2024 08:14:31 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VjQm/Xq0";
-	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B20E10E4CF
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 21:30:57 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-33d509c5706so1580145f8f.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Feb 2024 13:30:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708464656; x=1709069456; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=2e8Ca3XMMtWEk/SuzxxUVYBpBm/SMXEBNM1qnmPkVa0=;
- b=VjQm/Xq0anXOYoddDwL3mjd35USM5Bef7mtMklQxLatOMIeqE4cmsFrA5CuSR2X72q
- dukMTz9mQ1M1VVio/ZM9gIUs+ztzrg7LeEKFc//f0diVIwKnDCOVTmfbKYBD+cguiwEh
- Tez8DJvp+xCZoBKWHwAAa+Kmn8wCmZAXcefRYsdSuyrYiuDQv+C/BZEMtuUl47poqfRa
- INqAgklLVwAHSW17BtYjgIapBYV+HIrV44kKPIFF1MiBM+RYa0JAVVmZD2mOTqnUYEZZ
- Hu0WQ8H8IEZZvO0Euk340dF6HfUJpQ1JmR7GtA6EYc1byfVSzwf+HJwzEiqjTl8Tg2Y0
- DLQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708464656; x=1709069456;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2e8Ca3XMMtWEk/SuzxxUVYBpBm/SMXEBNM1qnmPkVa0=;
- b=T4EyqcQkCsfShjp9YbqypJ72luIvyR9D1mKCDfRvug39uv6H3T/rDiSC7aqm0DxMkh
- UnPHPYvCnEMBWlNDjcNuxxfsq256FhN6tMyKh81yJ7+CuzbxglS/YJHJKl0cOnKsbc3U
- HRCKCwXTcSxx1ffdN1sogAGL0XFxDVAfacH9yd0uA48cJjq2K9HWtNoJFC6JQEoyC+uY
- L61raj5YYCRC9GhIF8Q4BdMwvBkeAh0Jj54MYQ9QZuzozCXlS/y3W0lO3LyVv7MzFBbM
- 4BIG32FzOGToQXB6Y8exzNL/KwLi/1RbkSY4udsAzeRxbnywE88H90GEuyhCpkQGcqQd
- ijXg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUkkN66grbZC/1nBYCOJFe6lsApS8J3Qt8/PtzYMdZ7s/Wha6vsWeVMQvLUfQM8fvFssp476RbyOsNe3wm2fgn6kILsUfr8HggqYtfyFQ==
-X-Gm-Message-State: AOJu0YxjibRYvo3hE5BrWcLhS8yPkKF22aRRt9gpRfDSO60rf/AQ886e
- Mwn1gSz2B0wt7PndoEtJbtva2t5mV63xAUUBfBc5+n6n/eMZpDzf
-X-Google-Smtp-Source: AGHT+IGJfcO5veRZilkrg25JpXjm+WrghRCTZbOVYu/efBiREcrwr6k2zwxxQGvGcbeAa9r5dkgYsw==
-X-Received: by 2002:adf:ffc5:0:b0:33d:3f21:c38b with SMTP id
- x5-20020adfffc5000000b0033d3f21c38bmr4769329wrs.25.1708464655422; 
- Tue, 20 Feb 2024 13:30:55 -0800 (PST)
-Received: from [10.0.2.1] (server.riadoklan.sk.eu.org. [195.3.170.77])
- by smtp.gmail.com with ESMTPSA id
- h7-20020a056000000700b0033ce214a97csm14626342wrx.17.2024.02.20.13.30.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Feb 2024 13:30:54 -0800 (PST)
-Message-ID: <c0226a21-75d9-461b-a200-de6a616076e8@gmail.com>
-Date: Tue, 20 Feb 2024 22:30:53 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67DF810E66C;
+	Wed, 21 Feb 2024 08:14:41 +0000 (UTC)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A14110E623
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 06:07:02 +0000 (UTC)
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1rcfkw-0002hL-FQ; Wed, 21 Feb 2024 07:06:58 +0100
+Message-ID: <af6291d4-45c3-4eb6-95b8-14a5221e72a1@leemhuis.info>
+Date: Wed, 21 Feb 2024 07:06:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: Kernel 6.7+ broke under-powering of my RX 6700XT. (Archlinux,
  mesa/amdgpu)
-To: Alex Deucher <alexdeucher@gmail.com>
+Content-Language: en-US, de-DE
+To: Alex Deucher <alexdeucher@gmail.com>, Romano <romaniox@gmail.com>
 Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
  Hans de Goede <hdegoede@redhat.com>, Alex Deucher
  <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
@@ -84,11 +46,14 @@ References: <ae64f04d-6e94-4da4-a740-78ea94e0552c@riadoklan.sk.eu.org>
  <CADnq5_Nc+eEfXwaXfaTz75C9ww6ETVm_adCSfGsdD6OzguUQ6Q@mail.gmail.com>
  <3e077b5f-0684-4a07-9b74-ab242bb01975@gmail.com>
  <CADnq5_NszWGKVZZomTojAm_u7O-04M6x_ox4KXQC79OuGA9ARA@mail.gmail.com>
-Content-Language: en-US
-From: Romano <romaniox@gmail.com>
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
 In-Reply-To: <CADnq5_NszWGKVZZomTojAm_u7O-04M6x_ox4KXQC79OuGA9ARA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1708495622;
+ 257838e6; 
+X-HE-SMSGID: 1rcfkw-0002hL-FQ
 X-Mailman-Approved-At: Wed, 21 Feb 2024 08:14:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,56 +66,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This setting does not introduce stability problems or bugs. 
-Voltage/frequency ratio is dynamic relative to power cap, GPU auto 
-adjust to it. This is not like lowering voltage alone. By lowering GPU 
-power, it simply auto-adjust its frequency and voltage on the fly and 
-remain stable without crashes. If you lower power way too far, GPU flip 
-to maximum power usage on its own, as reported. So both lower than 
-vendors are not as undefined as it seems and safety checks are done 
-outside vendors range as well.
-
-As for maintenance, patch is literally single "if" switch and a boot 
-option.
-
-Idea that you spare yourself extra trouble from reports by not 
-implementing this is also false. If this patch is not implemented, I can 
-say with confidence that people will end up patching their kernels(I 
-know I would) due to how much power can this option save. It is way too 
-important. You will still end up with reports, only this time without 
-even be aware of the patch because it will be unofficial, "in-house" 
-made. And probably forget this thing even existed later on. You also 
-introduce extra work to the users, it will not be simple "pacman -Syu" 
-anymore, but hassle of whole kernel setup, patching and recompilation on 
-the user's side.
-
-
-
-On 2/20/24 21:18, Alex Deucher wrote:
+On 20.02.24 21:18, Alex Deucher wrote:
 > On Tue, Feb 20, 2024 at 2:41 PM Romano <romaniox@gmail.com> wrote:
+>>
 >> If the increased low range is allowed via boot option, like in proposed
 >> patch, user clearly made an intentional decision. Undefined, but won't
 >> fry his hardware for sure. Undefined is also overclocking in that
 >> matter. You can go out of range with ratio of voltage vs frequency(still
 >> within vendor's limits) for example and crash the system.
+> 
 > This whole thing reminds me of this:
 > https://xkcd.com/1172/
 > The problem is another module parameter is another interface to
-> maintain and validate.  Moreover, we've had a number of cases in the
+> maintain and validate.
+
+Yup, of course, all that is understood.
+
+But we have this "no regressions" rule for a reason. Adhering to it
+strictly would afaics be counter-productive in this situation, but give
+users some way to manually do what was possible before out-of-the box
+IMHO is the minimum we should do.
+
+Maybe just allow that parameter only up to a certain recent GPU
+generation, that way you won't have to deal with that at some point in
+the future.
+
+>  Moreover, we've had a number of cases in the
 > past where users have under or overclocked and reported bugs or
 > stability issues and it did not come to light that they were doing
 > that until we'd already spent a good deal of time trying to debug the
-> issue.  This obviously can still happen if you allow any sort of over
+> issue.
+
+Taint the kernel when that module parameter is used? We iirc have a
+taint bit exactly for this sort of situation. Sure, such reports will
+still happen, but then you at least have an indicator to spot them.
+
+Ciao, Thorsten
+
+>  This obviously can still happen if you allow any sort of over
 > or underclocking, but at least if you stick to the limits you are
 > staying within the bounding box of the design.
->
+> 
 > Alex
 >
->>
->>
 >> On 2/20/24 19:09, Alex Deucher wrote:
 >>> On Tue, Feb 20, 2024 at 11:46 AM Romano <romaniox@gmail.com> wrote:
 >>>> For Windows, apps like MSI Afterburner is the one to try and what most
@@ -190,6 +152,7 @@ On 2/20/24 21:18, Alex Deucher wrote:
 >>>> On 2/20/24 16:46, Alex Deucher wrote:
 >>>>> On Tue, Feb 20, 2024 at 10:42 AM Linux regression tracking (Thorsten
 >>>>> Leemhuis) <regressions@leemhuis.info> wrote:
+>>>>>>
 >>>>>> On 20.02.24 16:27, Hans de Goede wrote:
 >>>>>>> Hi,
 >>>>>>>
@@ -280,14 +243,14 @@ On 2/20/24 21:18, Alex Deucher wrote:
 >>>>>>>>>>>> Author: Ma Jun <Jun.Ma2@amd.com>
 >>>>>>>>>>>> Date:   Thu Oct 12 09:33:45 2023 +0800
 >>>>>>>>>>>>
->>>>>>>>>>>>        drm/amd/pm: Support for getting power1_cap_min value
+>>>>>>>>>>>>       drm/amd/pm: Support for getting power1_cap_min value
 >>>>>>>>>>>>
->>>>>>>>>>>>        Support for getting power1_cap_min value on smu13 and smu11.
->>>>>>>>>>>>        For other Asics, we still use 0 as the default value.
+>>>>>>>>>>>>       Support for getting power1_cap_min value on smu13 and smu11.
+>>>>>>>>>>>>       For other Asics, we still use 0 as the default value.
 >>>>>>>>>>>>
->>>>>>>>>>>>        Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
->>>>>>>>>>>>        Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
->>>>>>>>>>>>        Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>>>>>>>>>>>       Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+>>>>>>>>>>>>       Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+>>>>>>>>>>>>       Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 >>>>>>>>>>>>
 >>>>>>>>>>>> However, this is not good as it remove under-powering range too far. I
 >>>>>>>>>>> was getting only about 7% less performance but 90W(!) less consumption
@@ -327,3 +290,6 @@ On 2/20/24 21:18, Alex Deucher wrote:
 >>>>>>>>>>> Everything you wanna know about Linux kernel regression tracking:
 >>>>>>>>>>> https://linux-regtracking.leemhuis.info/about/#tldr
 >>>>>>>>>>> That page also explains what to do if mails like this annoy you.
+>>>>>>>
+> 
+> 
