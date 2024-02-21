@@ -4,117 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87A56C48BEB
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 19:21:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 723DFC48BEB
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 19:31:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F151A10E7CC;
-	Wed, 21 Feb 2024 19:21:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09A4D10E28C;
+	Wed, 21 Feb 2024 19:31:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iHveigyu";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="osJYnjDi";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2086.outbound.protection.outlook.com [40.107.94.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3F8710E7CC
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 19:21:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GwF+MR2tRyaJiy/wkaegYSSRITAxz7wNFNKb3wUop2n+T1PLO+5SaxbkdGBTN9htNpqngxoTlCIx+2yFRMddHAGFD9Fr12XCbKl2SPLTaRPup88FHsNl9nRDARL6q9GqyorEmyRdCp7i9/e8rfHtZX0padVi7vt/hZTufwnWWmcIvV/6tG0w7Kwd1vYOBMT1OOR9uGHbjW2Ap3xpCFYD96QzwecJ+S40gNa8yGrvJsF235qUt8CD1GZvyjUNOdHqv85M/wiAscnfI0TxyQcGrGkuWVP94zoSUWCH6BRZYWe46Ijlz5kqEiIoGYWCqCjlivlHIZFtW08Y50CZLXEujw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FgWQhOVhRcfxvPfUR8rMt58hvaF0enRaj/h4IQ13z7I=;
- b=IBR3SByelVE7edstlsFIjNdn4k6KKQpl/vCXygygbvZS+J4HUHK99pmf1yanoqwjMYIks7XIqcyEp6nTmTKi7J+J3+YEDT0nBAMbOED7bL1tOaAnypxuG4BvK5qEE0TDXedv4uLqupOjzCF8suigOHPjihEzwtnI5DQwhUiirCGskosDJM2uTstupiU8qLu0HgtCNyOPE0qwTBuBFdN21tQ3oVI6dCmvGPFVs19H13qzb+6vQpYGzLBYfP6X6SW5C+sotA6/78fn+sbq4UG9b03ChvGgH0P9hjCBBhqNYlPkDTj5UOoViYYSVw/QJs/ClWVsyPl75v7Hi5u4hybC9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FgWQhOVhRcfxvPfUR8rMt58hvaF0enRaj/h4IQ13z7I=;
- b=iHveigyuGZEPynGSuOOILzjU5Bs0vyCbZxMJFrpv1tr0Te6Liom2jLD9pSiLgoQR9d9Vu/61zbjpqhB/Orao4Qg8ww7v9ELOCgm6PeUe3UD9zw8BBRddVsrxLd/PMGdAt0a41R03NdpqRihqqicE45loGXDP60DLhtbONrfJYEw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BY5PR12MB4920.namprd12.prod.outlook.com (2603:10b6:a03:1d3::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.20; Wed, 21 Feb
- 2024 19:21:51 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::c25b:d4ab:643c:ede7]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::c25b:d4ab:643c:ede7%6]) with mapi id 15.20.7316.018; Wed, 21 Feb 2024
- 19:21:51 +0000
-Message-ID: <e2209732-771f-41da-9d83-ac696a08bee5@amd.com>
-Date: Wed, 21 Feb 2024 14:21:49 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: fix process reference drop on debug ioctl
-Content-Language: en-US
-To: Jonathan Kim <Jonathan.Kim@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: JinHuiEric.Huang@amd.com, Harish.Kasiviswanathan@amd.com
-References: <20240221105422.1354628-1-Jonathan.Kim@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20240221105422.1354628-1-Jonathan.Kim@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQXPR0101CA0037.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:14::14) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D470F10E23B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 19:31:19 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-6e332bc65b3so2523513b3a.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 11:31:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=usp.br; s=usp-google; t=1708543879; x=1709148679; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Wil8gjSyTnU+pz7pK0gmQPP7ZNjidWBs2035hdRRsNo=;
+ b=osJYnjDiBAYcHcPxOxHu90zZDTJdro6LQIpQ6iA1yH1prrxcQC6hLPjV3VC357Zyp0
+ JA6ogdFOiSL0Xcb3i7ho9WAeSc1oY61StCA8j1XPY/6yWJPvU2PZC8aYz1oWSNDQbjiP
+ lwx4GC66luAfzhlf479NzCVWfq28MCtb9OQjkoHCMvZGG5wqWBCfoR1IBcLT23QxqsgE
+ fOFNO3yJbnDR+hAxWFwbAxf9JUOrGFACCzVjX3OAxZ+KDBeFRupEtM0n0B3d42zL5MYn
+ Ng6FGEJ0B+pm11kX0zXq7ZOVZ+eoFq4LAY58SvSeUo6oJKcnT9lMjGGcS6aZefQtx3HJ
+ DvwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708543879; x=1709148679;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Wil8gjSyTnU+pz7pK0gmQPP7ZNjidWBs2035hdRRsNo=;
+ b=nMwLbDAxsFf6U42xvYZGFF6+imbnAUj42j2lGG2OfMVtrWlj1UdOoh5Qh8UMjQlHrz
+ 2F4URVtnOticev16pQx7GzinZTZg0yNYzvk2NDy4Q9QzcObDB067BbueEF6QEMvnZ9rU
+ c9ambk5b87Km3uP+7XkI/M5toktv8YkPzEx1nb6JhTPFhRIIFN+sJ2YdZ2W8xukoxp5W
+ KvKykXjMvunk8y55wnu6uxPF/Xw4rr0WwcP3jL+m+BS9i68G0mvn1Qr2hOf7pYfFrIWh
+ bTqD8toPDU2fJioZnZsI5sOcjjPvVcSW7vCBITVj3XqHvSI0Lr1ZJ+amfglIj8Zk+PRT
+ 9/2A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWJHl9LcSI57w/Ti5mbv98nquTOS4uK3ZiwGTWgiq+GG8+hHQOhjIbgzPa/Pkgp9/VeOYDz+JqI8/isAsH94UUA/GN4A1islz8dS8fUIA==
+X-Gm-Message-State: AOJu0YzCXBq5qDwrABuicOSp/pY1qyIWc9BjcAu70ckfS9Q8O/zki7sa
+ QdzkSQguGbtoZZHOWz5MnOrp4Xb8gXsNiH7uwsGomx5Ay+l4QfDZd6nfYGOKgQ==
+X-Google-Smtp-Source: AGHT+IHfXvxljzo3xaI0pUgJGFesNa7+zmxi1kE/L1RRj9v4JAJkaahqVIPUbfIVPPMvudIDHMXCyQ==
+X-Received: by 2002:a05:6a21:3941:b0:1a0:885e:9706 with SMTP id
+ ac1-20020a056a21394100b001a0885e9706mr15395464pzc.18.1708543879328; 
+ Wed, 21 Feb 2024 11:31:19 -0800 (PST)
+Received: from fedora.. ([2804:7f4:8280:eeaa:1a2:221e:6fb4:f083])
+ by smtp.gmail.com with ESMTPSA id
+ e8-20020a056a0000c800b006d98ae070c3sm2445093pfj.135.2024.02.21.11.31.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Feb 2024 11:31:18 -0800 (PST)
+From: Joao Paulo Pereira da Silva <jppaulo11@usp.br>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch
+Cc: Joao Paulo Pereira da Silva <jppaulo11@usp.br>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: Add prefix to functions inside
+ dnc10_cm_common.h
+Date: Wed, 21 Feb 2024 16:27:19 -0300
+Message-ID: <20240221192812.23038-1-jppaulo11@usp.br>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BY5PR12MB4920:EE_
-X-MS-Office365-Filtering-Correlation-Id: f7e8e632-e1d7-4c61-1b32-08dc33125b3e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: smK9kdb2/H7sBgj22fGceFVeliFxwSnFG8GKlxCCTgeUhMrgfiCkH2paZPEOernMJlbXUOif+Ib7p3/vdT9oKneucEL5fkDPDxySGE2bhVbLuRdPzN1Yoe78QrTD3PMzUYVzLqC3Wu0fPXa6x//NLxhKjG9vLDjedcxxyRUMbTD7vgEoLMDGMDxM24/O6uldeCMLYCZnfKIqzZRdx0cmi+LfxMMIPd0lnY48dh5HM6KrhxDjIoFNCfX7HM7PQbOLeXfiYsoRbscu6GkXnHjJUvSeBBiPrpDqACI05dHRiNRO18C59lIYvfdUqraOYHwe5S8I99F0K9I8haIUr71A1AmuOCoRiGG8ElGxOWB1y1a6FAMgRa4HYZKjt7AhwNMOZcxRHgc0xlvMrZalMrskmhr7OGimVsc2JopLbG0asSbk/QrA2+gHLck83Q6SMXHJUnPbJlQmGjFiBKSmAR9Ouv0rVTD2miS85eECKfcD6wE/SOahg6+4ucjge/Kdd+UlRptP0AWM4OfSO7J6+f9EQRtdVGLGSGuZ6b0UIcRWg7U=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cGRnNFYzaXhFMWFraFhWZWlNcThtMDljODVxY0k5WUpHSERJbE5uSWZyZFJq?=
- =?utf-8?B?VVFNSk1qREU1eXEvTm1QNmN3Qmpwc2c3YUJhaHJWZWYxcktSOWlHZUEwSEkx?=
- =?utf-8?B?azhEZ3hTdWNrU1lISnFCUVV6bUdBNVI2WEtIc0ZIVHljbmxpTEdzRVFlb3RO?=
- =?utf-8?B?Y0dySVY4U2l0TFpsRzZUbWd3ZEdZN2FXYnd1eGxEVG5tL0toVGpmTHFLYVJp?=
- =?utf-8?B?ZnFMUWp2RW1xam16MzNnWXJnaGRjZjNOcWcrZGI0KzZEQVZRUDhBTmVTUWJI?=
- =?utf-8?B?ZVZHNmg5OVYwRFN3UzlCU0JKd0RFU04ydXkzZnh2eCs5UFNaRTRBSUVpREtm?=
- =?utf-8?B?ZlorU0c4SmdRcTJoK3JpelBqay9zM253TDZ5ZGVkMGpuTDQ0NHpnRG9yNmFs?=
- =?utf-8?B?T2M2ZFVadk9sSmJRSytkSmM2bFJiSkdRdWROcDN2N1cweHdMN2hkZ3llZDdZ?=
- =?utf-8?B?VjJnNUViVG54YW9xaWNQYVJZRzhvblNGRXZ3Mm1wZGxYZjIxZnhkU1E3ZVk1?=
- =?utf-8?B?TmltQ3NtdDBYSDJQSjQrNmNOalEzd2ZBQkRQVUhiOVVzWDdkWXJKYXB1MDE4?=
- =?utf-8?B?QVFiMVViQVlGNWhZOTg1V2cvdDNCQ20rbE5BeHE5Q1NtbnQySDRCa25vT2NV?=
- =?utf-8?B?MERjcjNmMm1qMHRkbEZzc1lWQnViSndWZURtOXJhaU03ZVRFMzh2ai9HbVA4?=
- =?utf-8?B?SENvOWRrTWV6Y1pNaFFueG1PNEtWVUJHV1lzdlg2cmZFeC9PYjdMZTM3VUM3?=
- =?utf-8?B?eS9QaDAyL2VOZmFwT1RNNjFVOTR6U3ozN25ZTkF1aVVhTkZLWlNVUWtZNk1U?=
- =?utf-8?B?Mk1kSnAyOUdFR3AvMEx3N0U2amEyb05TelFjSEpzcU5xZWFOeU41bHFUWENq?=
- =?utf-8?B?QlN4S3RKdjlFV3BYdzNaN3E1cFZqWVBva2p1ZVphZ0tnbTFqeUFvME1xNm4w?=
- =?utf-8?B?RFg3Z1RrR3l0M3dTNzdScE54d1FnYzZmYTRkM0w1ZDhJZG5XQzlQenFSK2lI?=
- =?utf-8?B?bkhDUWljS0dHT3JMU0dVUy9hWElUeDVlYnNoMFVqRFVlMGE3UzY4QThlWEJq?=
- =?utf-8?B?YmxMNmZvbG1SaEdKMlh2dlZ4YUFFNmo2aEozL0VCMWpFM3NWOHNZb2UxYTdh?=
- =?utf-8?B?MCs2UkFLUGxNNkhNU0YreldkYTVGUUZHMGwwV3JRNTFZRXRXcTZGR216Z0xE?=
- =?utf-8?B?cWJaZExuUXZLTzBYMC9CUjZGN3hYNkd1SkhMR1phdUF0WHlORHRCYVZXejZE?=
- =?utf-8?B?eW5LaGJ5VUsvTGUwc1JFQXZFUzFRUGgrbHBIdkdHRlZkcXBLQlBIR3NSYW9M?=
- =?utf-8?B?RXl3OFJWQ05SZm9udmxiNGdvcy9oWGlKSHlWSDBjMDR5Q3craERxTFNudUpE?=
- =?utf-8?B?a1JqNjlBMC9wVld6NUFEVnZYWVZGVjdmSmFZeWVydS9oWGtvaDdiUTYwbFg0?=
- =?utf-8?B?RUxia2RoRWpLVGdPZ1l5MjlCbFRLUFhnR3ZsUGxoek1kbTRRRVJXUXBTOXpj?=
- =?utf-8?B?QmJMaWZISi9iR2tBaUU0cTlwZUtDWVBqMFBYRk5QSFRtSkNoVXgvQzQwOVFS?=
- =?utf-8?B?NTMvekZxV2VFOGtid0tlTWtSS1NqSjhBM2oxdVNzRDBqcHBhRXNoSi95WmlW?=
- =?utf-8?B?QVhjR0huSnk3TVJ6WnI3cmpBUytZOUlPWkk5R3VJL1dVelpkSVI5ako1b2Y2?=
- =?utf-8?B?aGUzcVFjTS9NRkt5aUZHUDAzMU9iaUVrRThaWDRSZlQzbTdTaWN3TVplV29o?=
- =?utf-8?B?YXREK0RwMGZyTW1EOEg1a1V5WXVGN2ljS1R4OHdGUkFta2tldlRJWUoySjBv?=
- =?utf-8?B?Y0N2RVBjNEFXK25ZR3BkTWd3Y0ZpdHdGM3RYNVJsWm1tY0VKamkzZXZLOFlM?=
- =?utf-8?B?amFUak9RNXo2S2ZPM1p4cW1IazN2Qk1nb1JZKzJJSksxcm1JU2p2T0REM2N2?=
- =?utf-8?B?YUVvUXl1dFJXckRab0VxdXFFaTk4SWpyYUlRZTU3Q3k4K3plL0REOFV5T2Jn?=
- =?utf-8?B?bmtBWVU1VHFmdFVhS0I2aG9nT2RTQVBzaWFmNzdkZWN4QTRRMWd3U0pnSG9Y?=
- =?utf-8?B?cVd3SzZFbjYxUnM0Z3gvKy90b3ZNWU1HNko3dXZacnQzYk93bkVGdTFPaEh6?=
- =?utf-8?Q?znWogZ21OZtH/4s2kHkgmcwAH?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f7e8e632-e1d7-4c61-1b32-08dc33125b3e
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2024 19:21:51.6550 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MAn32jyMQBS42dorZP23ObO1gHETgSk+OOyS7sSrO5H40iadZrZD0YC3A9A0y8dz0E0QuaL9wMlSrdiM3M9JBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4920
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,29 +82,462 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+While debugging with ftrace, it's useful to create filters to search
+within the codebase. However, since some function names lack prefixes,
+creating a good filter may become more difficult.
 
-On 2024-02-21 05:54, Jonathan Kim wrote:
-> Prevent dropping the KFD process reference at the end of a debug
-> IOCTL call where the acquired process value is an error.
->
-> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+Because of this, add prefix to functions declared inside the header
+dcn10/dcn10_cm_common.h to facilitate creating good filters for the
+functions declared inside the file.
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Joao Paulo Pereira da Silva <jppaulo11@usp.br>
+---
+ .../drm/amd/display/dc/dcn10/dcn10_cm_common.c | 12 ++++++------
+ .../drm/amd/display/dc/dcn10/dcn10_cm_common.h |  8 ++++----
+ .../drm/amd/display/dc/dcn10/dcn10_dpp_cm.c    | 18 +++++++++---------
+ .../drm/amd/display/dc/dcn20/dcn20_dpp_cm.c    |  8 ++++----
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c   |  8 ++++----
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c   |  2 +-
+ .../drm/amd/display/dc/dcn30/dcn30_dpp_cm.c    |  4 ++--
+ .../drm/amd/display/dc/dcn30/dcn30_dwb_cm.c    |  6 +++---
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c   |  8 ++++----
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c    |  2 +-
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c    |  6 +++---
+ .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c    |  2 +-
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c    |  2 +-
+ 13 files changed, 43 insertions(+), 43 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
+index 3538973bd0c6..3878b78faf89 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
+@@ -38,7 +38,7 @@
+ #define FN(reg_name, field_name) \
+ 	reg->shifts.field_name, reg->masks.field_name
+ 
+-void cm_helper_program_color_matrices(
++void dcn10_cm_common_helper_program_color_matrices(
+ 		struct dc_context *ctx,
+ 		const uint16_t *regval,
+ 		const struct color_matrices_reg *reg)
+@@ -62,7 +62,7 @@ void cm_helper_program_color_matrices(
+ 
+ }
+ 
+-void cm_helper_program_xfer_func(
++void dcn10_cm_common_helper_program_xfer_func(
+ 		struct dc_context *ctx,
+ 		const struct pwl_params *params,
+ 		const struct xfer_func_reg *reg)
+@@ -125,7 +125,7 @@ void cm_helper_program_xfer_func(
+ 
+ 
+ 
+-bool cm_helper_convert_to_custom_float(
++bool dcn10_cm_common_helper_convert_to_custom_float(
+ 		struct pwl_result_data *rgb_resulted,
+ 		struct curve_points3 *corner_points,
+ 		uint32_t hw_points_num,
+@@ -311,7 +311,7 @@ bool cm_helper_convert_to_custom_float(
+ #define DC_LOGGER \
+ 		ctx->logger
+ 
+-bool cm_helper_translate_curve_to_hw_format(struct dc_context *ctx,
++bool dcn10_cm_common_helper_translate_curve_to_hw_format(struct dc_context *ctx,
+ 				const struct dc_transfer_func *output_tf,
+ 				struct pwl_params *lut_params, bool fixpoint)
+ {
+@@ -507,7 +507,7 @@ bool cm_helper_translate_curve_to_hw_format(struct dc_context *ctx,
+ 		++rgb;
+ 		++i;
+ 	}
+-	cm_helper_convert_to_custom_float(rgb_resulted,
++	dcn10_cm_common_helper_convert_to_custom_float(rgb_resulted,
+ 						lut_params->corner_points,
+ 						hw_points, fixpoint);
+ 
+@@ -653,7 +653,7 @@ bool cm_helper_translate_curve_to_degamma_hw_format(
+ 		++rgb;
+ 		++i;
+ 	}
+-	cm_helper_convert_to_custom_float(rgb_resulted,
++	dcn10_cm_common_helper_convert_to_custom_float(rgb_resulted,
+ 						lut_params->corner_points,
+ 						hw_points, false);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.h
+index 0a68b63d6126..0622dbdbe84b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.h
+@@ -89,23 +89,23 @@ struct color_matrices_reg{
+ 	uint32_t csc_c33_c34;
+ };
+ 
+-void cm_helper_program_color_matrices(
++void dcn10_cm_common_helper_program_color_matrices(
+ 		struct dc_context *ctx,
+ 		const uint16_t *regval,
+ 		const struct color_matrices_reg *reg);
+ 
+-void cm_helper_program_xfer_func(
++void dcn10_cm_common_helper_program_xfer_func(
+ 		struct dc_context *ctx,
+ 		const struct pwl_params *params,
+ 		const struct xfer_func_reg *reg);
+ 
+-bool cm_helper_convert_to_custom_float(
++bool dcn10_cm_common_helper_convert_to_custom_float(
+ 		struct pwl_result_data *rgb_resulted,
+ 		struct curve_points3 *corner_points,
+ 		uint32_t hw_points_num,
+ 		bool fixpoint);
+ 
+-bool cm_helper_translate_curve_to_hw_format(
++bool dcn10_cm_common_helper_translate_curve_to_hw_format(
+ 		struct dc_context *ctx,
+ 		const struct dc_transfer_func *output_tf,
+ 		struct pwl_params *lut_params, bool fixpoint);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_cm.c
+index 904c2d278998..b5cd5f17bc63 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_cm.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_cm.c
+@@ -125,7 +125,7 @@ static void program_gamut_remap(
+ 		gam_regs.csc_c11_c12 = REG(CM_GAMUT_REMAP_C11_C12);
+ 		gam_regs.csc_c33_c34 = REG(CM_GAMUT_REMAP_C33_C34);
+ 
+-		cm_helper_program_color_matrices(
++		dcn10_cm_common_helper_program_color_matrices(
+ 				dpp->base.ctx,
+ 				regval,
+ 				&gam_regs);
+@@ -135,7 +135,7 @@ static void program_gamut_remap(
+ 		gam_regs.csc_c11_c12 = REG(CM_COMA_C11_C12);
+ 		gam_regs.csc_c33_c34 = REG(CM_COMA_C33_C34);
+ 
+-		cm_helper_program_color_matrices(
++		dcn10_cm_common_helper_program_color_matrices(
+ 				dpp->base.ctx,
+ 				regval,
+ 				&gam_regs);
+@@ -145,7 +145,7 @@ static void program_gamut_remap(
+ 		gam_regs.csc_c11_c12 = REG(CM_COMB_C11_C12);
+ 		gam_regs.csc_c33_c34 = REG(CM_COMB_C33_C34);
+ 
+-		cm_helper_program_color_matrices(
++		dcn10_cm_common_helper_program_color_matrices(
+ 				dpp->base.ctx,
+ 				regval,
+ 				&gam_regs);
+@@ -227,7 +227,7 @@ static void dpp1_cm_program_color_matrix(
+ 
+ 	}
+ 
+-	cm_helper_program_color_matrices(
++	dcn10_cm_common_helper_program_color_matrices(
+ 			dpp->base.ctx,
+ 			regval,
+ 			&gam_regs);
+@@ -385,7 +385,7 @@ void dpp1_cm_program_regamma_luta_settings(
+ 	gam_regs.region_start = REG(CM_RGAM_RAMA_REGION_0_1);
+ 	gam_regs.region_end = REG(CM_RGAM_RAMA_REGION_32_33);
+ 
+-	cm_helper_program_xfer_func(dpp->base.ctx, params, &gam_regs);
++	dcn10_cm_common_helper_program_xfer_func(dpp->base.ctx, params, &gam_regs);
+ 
+ }
+ 
+@@ -414,7 +414,7 @@ void dpp1_cm_program_regamma_lutb_settings(
+ 	gam_regs.region_start = REG(CM_RGAM_RAMB_REGION_0_1);
+ 	gam_regs.region_end = REG(CM_RGAM_RAMB_REGION_32_33);
+ 
+-	cm_helper_program_xfer_func(dpp->base.ctx, params, &gam_regs);
++	dcn10_cm_common_helper_program_xfer_func(dpp->base.ctx, params, &gam_regs);
+ }
+ 
+ void dpp1_program_input_csc(
+@@ -483,7 +483,7 @@ void dpp1_program_input_csc(
+ 
+ 	}
+ 
+-	cm_helper_program_color_matrices(
++	dcn10_cm_common_helper_program_color_matrices(
+ 			dpp->base.ctx,
+ 			regval,
+ 			&gam_regs);
+@@ -539,7 +539,7 @@ void dpp1_program_degamma_lutb_settings(
+ 	gam_regs.region_end = REG(CM_DGAM_RAMB_REGION_14_15);
+ 
+ 
+-	cm_helper_program_xfer_func(dpp->base.ctx, params, &gam_regs);
++	dcn10_cm_common_helper_program_xfer_func(dpp->base.ctx, params, &gam_regs);
+ }
+ 
+ /*program de gamma RAM A*/
+@@ -567,7 +567,7 @@ void dpp1_program_degamma_luta_settings(
+ 	gam_regs.region_start = REG(CM_DGAM_RAMA_REGION_0_1);
+ 	gam_regs.region_end = REG(CM_DGAM_RAMA_REGION_14_15);
+ 
+-	cm_helper_program_xfer_func(dpp->base.ctx, params, &gam_regs);
++	dcn10_cm_common_helper_program_xfer_func(dpp->base.ctx, params, &gam_regs);
+ }
+ 
+ void dpp1_power_on_degamma_lut(
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp_cm.c
+index 598caa508d43..254eb6a5844f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp_cm.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dpp_cm.c
+@@ -199,7 +199,7 @@ static void program_gamut_remap(
+ 		gam_regs.csc_c33_c34 = REG(CM_GAMUT_REMAP_B_C33_C34);
+ 	}
+ 
+-	cm_helper_program_color_matrices(
++	dcn10_cm_common_helper_program_color_matrices(
+ 				dpp->base.ctx,
+ 				regval,
+ 				&gam_regs);
+@@ -298,7 +298,7 @@ void dpp2_program_input_csc(
+ 
+ 	}
+ 
+-	cm_helper_program_color_matrices(
++	dcn10_cm_common_helper_program_color_matrices(
+ 			dpp->base.ctx,
+ 			regval,
+ 			&icsc_regs);
+@@ -407,7 +407,7 @@ static void dpp20_program_blnd_luta_settings(
+ 	gam_regs.region_start = REG(CM_BLNDGAM_RAMA_REGION_0_1);
+ 	gam_regs.region_end = REG(CM_BLNDGAM_RAMA_REGION_32_33);
+ 
+-	cm_helper_program_xfer_func(dpp->base.ctx, params, &gam_regs);
++	dcn10_cm_common_helper_program_xfer_func(dpp->base.ctx, params, &gam_regs);
+ }
+ 
+ /*program blnd lut RAM B*/
+@@ -435,7 +435,7 @@ static void dpp20_program_blnd_lutb_settings(
+ 	gam_regs.region_start = REG(CM_BLNDGAM_RAMB_REGION_0_1);
+ 	gam_regs.region_end = REG(CM_BLNDGAM_RAMB_REGION_32_33);
+ 
+-	cm_helper_program_xfer_func(dpp->base.ctx, params, &gam_regs);
++	dcn10_cm_common_helper_program_xfer_func(dpp->base.ctx, params, &gam_regs);
+ }
+ 
+ static enum dc_lut_mode dpp20_get_blndgam_current(struct dpp *dpp_base)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
+index 5da6e44f284a..e697bf79d14d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
+@@ -174,7 +174,7 @@ void mpc2_set_output_csc(
+ 		ocsc_regs.csc_c33_c34 = REG(CSC_C33_C34_B[opp_id]);
+ 	}
+ 
+-	cm_helper_program_color_matrices(
++	dcn10_cm_common_helper_program_color_matrices(
+ 			mpc20->base.ctx,
+ 			regval,
+ 			&ocsc_regs);
+@@ -233,7 +233,7 @@ void mpc2_set_ocsc_default(
+ 		ocsc_regs.csc_c33_c34 = REG(CSC_C33_C34_B[opp_id]);
+ 	}
+ 
+-	cm_helper_program_color_matrices(
++	dcn10_cm_common_helper_program_color_matrices(
+ 			mpc20->base.ctx,
+ 			regval,
+ 			&ocsc_regs);
+@@ -342,7 +342,7 @@ static void mpc2_program_lutb(struct mpc *mpc, int mpcc_id,
+ 	gam_regs.region_start = REG(MPCC_OGAM_RAMB_REGION_0_1[mpcc_id]);
+ 	gam_regs.region_end = REG(MPCC_OGAM_RAMB_REGION_32_33[mpcc_id]);
+ 
+-	cm_helper_program_xfer_func(mpc20->base.ctx, params, &gam_regs);
++	dcn10_cm_common_helper_program_xfer_func(mpc20->base.ctx, params, &gam_regs);
+ 
+ }
+ 
+@@ -369,7 +369,7 @@ static void mpc2_program_luta(struct mpc *mpc, int mpcc_id,
+ 	gam_regs.region_start = REG(MPCC_OGAM_RAMA_REGION_0_1[mpcc_id]);
+ 	gam_regs.region_end = REG(MPCC_OGAM_RAMA_REGION_32_33[mpcc_id]);
+ 
+-	cm_helper_program_xfer_func(mpc20->base.ctx, params, &gam_regs);
++	dcn10_cm_common_helper_program_xfer_func(mpc20->base.ctx, params, &gam_regs);
+ 
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+index 11f7746f3a65..4026e2034818 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+@@ -114,7 +114,7 @@ void dpp3_program_post_csc(
+ 
+ 	}
+ 
+-	cm_helper_program_color_matrices(
++	dcn10_cm_common_helper_program_color_matrices(
+ 			dpp->base.ctx,
+ 			regval,
+ 			&gam_regs);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c
+index e43f77c11c00..d19b0f47a6b0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c
+@@ -351,7 +351,7 @@ static void program_gamut_remap(
+ 		gam_regs.csc_c11_c12 = REG(CM_GAMUT_REMAP_C11_C12);
+ 		gam_regs.csc_c33_c34 = REG(CM_GAMUT_REMAP_C33_C34);
+ 
+-		cm_helper_program_color_matrices(
++		dcn10_cm_common_helper_program_color_matrices(
+ 				dpp->base.ctx,
+ 				regval,
+ 				&gam_regs);
+@@ -361,7 +361,7 @@ static void program_gamut_remap(
+ 		gam_regs.csc_c11_c12 = REG(CM_GAMUT_REMAP_B_C11_C12);
+ 		gam_regs.csc_c33_c34 = REG(CM_GAMUT_REMAP_B_C33_C34);
+ 
+-		cm_helper_program_color_matrices(
++		dcn10_cm_common_helper_program_color_matrices(
+ 				dpp->base.ctx,
+ 				regval,
+ 				&gam_regs);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb_cm.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb_cm.c
+index 03a50c32fcfe..560d31c96fe0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb_cm.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb_cm.c
+@@ -283,7 +283,7 @@ bool dwb3_ogam_set_input_transfer_func(
+ 	dwb_ogam_lut = kzalloc(sizeof(*dwb_ogam_lut), GFP_KERNEL);
+ 
+ 	if (dwb_ogam_lut) {
+-		cm_helper_translate_curve_to_hw_format(dwbc->ctx,
++		dcn10_cm_common_helper_translate_curve_to_hw_format(dwbc->ctx,
+ 			in_transfer_func_dwb_ogam,
+ 			dwb_ogam_lut, false);
+ 
+@@ -325,7 +325,7 @@ static void dwb3_program_gamut_remap(
+ 		gam_regs.csc_c11_c12 = REG(DWB_GAMUT_REMAPA_C11_C12);
+ 		gam_regs.csc_c33_c34 = REG(DWB_GAMUT_REMAPA_C33_C34);
+ 
+-		cm_helper_program_color_matrices(
++		dcn10_cm_common_helper_program_color_matrices(
+ 				dwbc30->base.ctx,
+ 				regval,
+ 				&gam_regs);
+@@ -334,7 +334,7 @@ static void dwb3_program_gamut_remap(
+ 		gam_regs.csc_c11_c12 = REG(DWB_GAMUT_REMAPB_C11_C12);
+ 		gam_regs.csc_c33_c34 = REG(DWB_GAMUT_REMAPB_C33_C34);
+ 
+-		cm_helper_program_color_matrices(
++		dcn10_cm_common_helper_program_color_matrices(
+ 				dwbc30->base.ctx,
+ 				regval,
+ 				&gam_regs);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
+index d1500b223858..37a1550e56d8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
+@@ -1073,7 +1073,7 @@ static void program_gamut_remap(
+ 		gam_regs.csc_c11_c12 = REG(MPC_GAMUT_REMAP_C11_C12_A[mpcc_id]);
+ 		gam_regs.csc_c33_c34 = REG(MPC_GAMUT_REMAP_C33_C34_A[mpcc_id]);
+ 
+-		cm_helper_program_color_matrices(
++		dcn10_cm_common_helper_program_color_matrices(
+ 				mpc30->base.ctx,
+ 				regval,
+ 				&gam_regs);
+@@ -1083,7 +1083,7 @@ static void program_gamut_remap(
+ 		gam_regs.csc_c11_c12 = REG(MPC_GAMUT_REMAP_C11_C12_B[mpcc_id]);
+ 		gam_regs.csc_c33_c34 = REG(MPC_GAMUT_REMAP_C33_C34_B[mpcc_id]);
+ 
+-		cm_helper_program_color_matrices(
++		dcn10_cm_common_helper_program_color_matrices(
+ 				mpc30->base.ctx,
+ 				regval,
+ 				&gam_regs);
+@@ -1247,7 +1247,7 @@ void mpc3_set_output_csc(
+ 		ocsc_regs.csc_c11_c12 = REG(CSC_C11_C12_B[opp_id]);
+ 		ocsc_regs.csc_c33_c34 = REG(CSC_C33_C34_B[opp_id]);
+ 	}
+-	cm_helper_program_color_matrices(
++	dcn10_cm_common_helper_program_color_matrices(
+ 			mpc30->base.ctx,
+ 			regval,
+ 			&ocsc_regs);
+@@ -1291,7 +1291,7 @@ void mpc3_set_ocsc_default(
+ 		ocsc_regs.csc_c33_c34 = REG(CSC_C33_C34_B[opp_id]);
+ 	}
+ 
+-	cm_helper_program_color_matrices(
++	dcn10_cm_common_helper_program_color_matrices(
+ 			mpc30->base.ctx,
+ 			regval,
+ 			&ocsc_regs);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+index 6dd479e8a348..942e6cc5b23c 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+@@ -1853,7 +1853,7 @@ bool dcn10_set_output_transfer_func(struct dc *dc, struct pipe_ctx *pipe_ctx,
+ 	/* dcn10_translate_regamma_to_hw_format takes 750us, only do it when full
+ 	 * update.
+ 	 */
+-	else if (cm_helper_translate_curve_to_hw_format(dc->ctx,
++	else if (dcn10_cm_common_helper_translate_curve_to_hw_format(dc->ctx,
+ 			stream->out_transfer_func,
+ 			&dpp->regamma_params, false)) {
+ 		dpp->funcs->dpp_program_regamma_pwl(
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+index 4853ecac53f9..d01f2434d7be 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+@@ -921,7 +921,7 @@ bool dcn20_set_output_transfer_func(struct dc *dc, struct pipe_ctx *pipe_ctx,
+ 			params = &stream->out_transfer_func->pwl;
+ 		else if (pipe_ctx->stream->out_transfer_func->type ==
+ 			TF_TYPE_DISTRIBUTED_POINTS &&
+-			cm_helper_translate_curve_to_hw_format(dc->ctx,
++			dcn10_cm_common_helper_translate_curve_to_hw_format(dc->ctx,
+ 			stream->out_transfer_func,
+ 			&mpc->blender_params, false))
+ 			params = &mpc->blender_params;
+@@ -950,7 +950,7 @@ bool dcn20_set_blend_lut(
+ 		if (plane_state->blend_tf->type == TF_TYPE_HWPWL)
+ 			blend_lut = &plane_state->blend_tf->pwl;
+ 		else if (plane_state->blend_tf->type == TF_TYPE_DISTRIBUTED_POINTS) {
+-			cm_helper_translate_curve_to_hw_format(plane_state->ctx,
++			dcn10_cm_common_helper_translate_curve_to_hw_format(plane_state->ctx,
+ 					plane_state->blend_tf,
+ 					&dpp_base->regamma_params, false);
+ 			blend_lut = &dpp_base->regamma_params;
+@@ -972,7 +972,7 @@ bool dcn20_set_shaper_3dlut(
+ 		if (plane_state->in_shaper_func->type == TF_TYPE_HWPWL)
+ 			shaper_lut = &plane_state->in_shaper_func->pwl;
+ 		else if (plane_state->in_shaper_func->type == TF_TYPE_DISTRIBUTED_POINTS) {
+-			cm_helper_translate_curve_to_hw_format(plane_state->ctx,
++			dcn10_cm_common_helper_translate_curve_to_hw_format(plane_state->ctx,
+ 					plane_state->in_shaper_func,
+ 					&dpp_base->shaper_params, true);
+ 			shaper_lut = &dpp_base->shaper_params;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+index c34c13e1e0a4..4f31af5bdff6 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+@@ -106,7 +106,7 @@ static bool dcn30_set_mpc_shaper_3dlut(struct pipe_ctx *pipe_ctx,
+ 		if (stream->func_shaper->type == TF_TYPE_HWPWL) {
+ 			shaper_lut = &stream->func_shaper->pwl;
+ 		} else if (stream->func_shaper->type == TF_TYPE_DISTRIBUTED_POINTS) {
+-			cm_helper_translate_curve_to_hw_format(stream->ctx, stream->func_shaper,
++			dcn10_cm_common_helper_translate_curve_to_hw_format(stream->ctx, stream->func_shaper,
+ 							       &dpp_base->shaper_params, true);
+ 			shaper_lut = &dpp_base->shaper_params;
+ 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+index 6c9299c7683d..06ca6b8a2dc7 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+@@ -446,7 +446,7 @@ bool dcn32_set_mpc_shaper_3dlut(
+ 		if (stream->func_shaper->type == TF_TYPE_HWPWL)
+ 			shaper_lut = &stream->func_shaper->pwl;
+ 		else if (stream->func_shaper->type == TF_TYPE_DISTRIBUTED_POINTS) {
+-			cm_helper_translate_curve_to_hw_format(stream->ctx,
++			dcn10_cm_common_helper_translate_curve_to_hw_format(stream->ctx,
+ 					stream->func_shaper,
+ 					&dpp_base->shaper_params, true);
+ 			shaper_lut = &dpp_base->shaper_params;
+-- 
+2.43.0
 
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 80e90fdef291..824e660283b2 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -2935,6 +2935,7 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
->   	if (IS_ERR_OR_NULL(target)) {
->   		pr_debug("Cannot find process PID %i to debug\n", args->pid);
->   		r = target ? PTR_ERR(target) : -ESRCH;
-> +		target = NULL;
->   		goto out;
->   	}
->   
