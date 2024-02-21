@@ -4,56 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E628DC5478A
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 14:10:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C8F7C48BF6
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 14:27:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FB3D10E746;
-	Wed, 21 Feb 2024 14:10:07 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4314710E6CA
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 10:10:41 +0000 (UTC)
-X-UUID: 6c386430499b4389a9f0883f1c0d84e6-20240221
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.35, REQID:3f8f4e42-865d-459e-8215-6035bc0ce356, IP:10,
- URL:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTI
- ON:release,TS:-5
-X-CID-INFO: VERSION:1.1.35, REQID:3f8f4e42-865d-459e-8215-6035bc0ce356, IP:10,
- UR
- L:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:-5
-X-CID-META: VersionHash:5d391d7, CLOUDID:0df7a480-4f93-4875-95e7-8c66ea833d57,
- B
- ulkID:240221180024PLCRANR9,BulkQuantity:0,Recheck:0,SF:38|24|17|19|44|66|1
- 02,TC:nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,CO
- L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_FSD,TF_CID_SPAM_FSI,TF_CID_SPAM_SNR,TF_CID_SPAM_FAS
-X-UUID: 6c386430499b4389a9f0883f1c0d84e6-20240221
-Received: from mail.kylinos.cn [(39.156.73.10)] by mailgw
- (envelope-from <chentao@kylinos.cn>) (Generic MTA)
- with ESMTP id 1480455945; Wed, 21 Feb 2024 18:00:22 +0800
-Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id EE804E000EBC;
- Wed, 21 Feb 2024 18:00:21 +0800 (CST)
-X-ns-mid: postfix-65D5C9B5-768232112
-Received: from kernel.. (unknown [172.20.15.254])
- by mail.kylinos.cn (NSMail) with ESMTPA id 0AE6BE000EBD;
- Wed, 21 Feb 2024 18:00:20 +0800 (CST)
-From: Kunwu Chan <chentao@kylinos.cn>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Kunwu Chan <chentao@kylinos.cn>
-Subject: [PATCH 1/3] drm/amdgpu: Simplify the allocation of fence slab caches
-Date: Wed, 21 Feb 2024 17:59:05 +0800
-Message-Id: <20240221095907.172408-2-chentao@kylinos.cn>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240221095907.172408-1-chentao@kylinos.cn>
-References: <20240221095907.172408-1-chentao@kylinos.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2F010E75F;
+	Wed, 21 Feb 2024 14:27:28 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="04Cm90qd";
+	dkim-atps=neutral
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2050.outbound.protection.outlook.com [40.107.243.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D7A710E75F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Feb 2024 14:27:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=I93IS0UaPXK12WXiAEb/4k7e394pWjN/PbSlhujP3VKcBkkNzimyDwZrleoyuZVUIXQErIvbop4JtoeVK9FBapSh71dUGmaEAXIw6CZ/s9fk8TCYeS2S8nekulq0LuADiXQ/I9WxD9rI83+hRUaAvSYePyKDqaCMYo5KyK/Whte3ncYlzoOWLDfwd5HXXGdiwVkoe1yFBg2fQBi0b8tGvg4Rf9+FZYsMLNAUJwaDViL8JsLsojl/q7JmBdbztz80F5325IkuVrMUyYMvOxfTTP/vP879I+o9ipOobpfI/c7vzicZi0ypxqzdY3JUr6xbOBMwwvlxOrd0bgeD1zZGZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6fZncHjqtrBO7bTsQFDXE4qHsgXDWMHicg+YaKDPL3s=;
+ b=KQCeIRg+RZhrXVKTU2IB8O3XD3XKg9AXnn/yELG3chPRO5LCrJKpbbhMRFsgu/6jag72I8A/xf9lFSrLwV8uu7Xj63qzqxf08xOqGDIGhA159xeiEjT1/3jkko5MZJsmKMUGHwXP0K7ypFAlWRXbQnTpSM1xJPH/bEUIP56+8AJJAYkquo/jlrqda86tTWxfNXtG7mP4B7mgSnVO77QCwLN+MpAUpnzjpCeJcGHEEtVCaoUnXvAdLXPn60rZ8PgcRR8TPbVIFvDME4ANJnISmJsCLZ4bq5uHWsSoeWlYLabNdxI2Lc64HEgxTHC5tDaAdbcmEt+JutD4MQiaYfYJUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6fZncHjqtrBO7bTsQFDXE4qHsgXDWMHicg+YaKDPL3s=;
+ b=04Cm90qd0Kl1Crwt2sBh5eusitb1JPX5jbLlXk+72FYsMV13ZCk3E+wMdXsQnQUbwA/RNs8IXfZSOQT2TDGngtd7LrwGWsERFgTIUGTdM4XhSEF/ybi5v8L4ME50f31N9phsAIMkTW43PzSMLQUOnPuUv1nS6eS9q0aWoWsbWDo=
+Received: from PR0P264CA0175.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:1c::19)
+ by BN9PR12MB5383.namprd12.prod.outlook.com (2603:10b6:408:104::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.20; Wed, 21 Feb
+ 2024 14:27:25 +0000
+Received: from SN1PEPF0002636B.namprd02.prod.outlook.com
+ (2603:10a6:100:1c:cafe::5d) by PR0P264CA0175.outlook.office365.com
+ (2603:10a6:100:1c::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.39 via Frontend
+ Transport; Wed, 21 Feb 2024 14:27:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002636B.mail.protection.outlook.com (10.167.241.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Wed, 21 Feb 2024 14:27:24 +0000
+Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 21 Feb
+ 2024 08:27:22 -0600
+From: Stanley.Yang <Stanley.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Stanley.Yang <Stanley.Yang@amd.com>
+Subject: [PATCH Review 1/1] drm/amdgpu: Fix ineffective ras_mask settings
+Date: Wed, 21 Feb 2024 22:27:07 +0800
+Message-ID: <20240221142707.1989184-1-Stanley.Yang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 21 Feb 2024 14:10:05 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636B:EE_|BN9PR12MB5383:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7930ebcc-fbc0-4f2a-d867-08dc32e938cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Wnaz7nJ7/JS5+5wdj8QIzxkE7PzMW3BzfMDIR0nt9T37TIuOCQIY+WgtyOKaS9UwfsAZZZD+nGn3m9N+Jk8G71EyyqcoywhyAxVYrjA3wpJLiuyj6y++0/2y+Y2OYnmGwGRklCY2JWUkQV4rm4HdUsGueuM1DGLiy+K8VIfL00uvL+E8PVDgWQB680it7rofxOlV4/YeAQTaxXrK8V8n35zhHXBmcng2JzmNYoF2X2xVzubHlKC1aAglzX6QGaOrNsK67+KLWtkrC2skKRTECWwWrhdVGfl37qL60Th+6aeSqavHV/AVX8NABgC4xmQpuFPJfZsF7Of3qadyElvBGfYPWeKWLbo20kYEB5HXp1yb8osG/Q3Loj17w/QA9LQVuJVmgirwVfAYyvgob1pk03Kqdtq5+kSnJ3hTrcVj0Qd4oTv7UlXFdDo4P5acSRpTCSbmAEUvin7QGDNn9TDIupz20FXRPJHrM3cusQMirfMGg9MiKWKOWHwbFXiv2J+cxTuQG3P+qg4g80wd9L1TnrGblQZbwW4++C9qsYJtGydDH+nphI9vr0JByhGCZgcVFk/TTSakwDV8yVW5Aw6MX9RCFASFzstNSR0WDAprfxm5H67zPIXZkCvKNbbfeuh40XijeSiJlmdSdZQI8btjTxEheX/timK57yNXZRQmqcU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(46966006)(40470700004); DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2024 14:27:24.0860 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7930ebcc-fbc0-4f2a-d867-08dc32e938cc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5383
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,30 +103,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the new KMEM_CACHE() macro instead of direct kmem_cache_create
-to simplify the creation of SLAB caches.
+Check amdgpu_ras_mask to fix ineffective ras_mask setting
+due to special asic without sram ecc enable but with poison
+supported.
 
-Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_fence.c
-index 70bff8cecfda..10832b470448 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -61,9 +61,7 @@ static struct kmem_cache *amdgpu_fence_slab;
-=20
- int amdgpu_fence_slab_init(void)
- {
--	amdgpu_fence_slab =3D kmem_cache_create(
--		"amdgpu_fence", sizeof(struct amdgpu_fence), 0,
--		SLAB_HWCACHE_ALIGN, NULL);
-+	amdgpu_fence_slab =3D KMEM_CACHE(amdgpu_fence, SLAB_HWCACHE_ALIGN);
- 	if (!amdgpu_fence_slab)
- 		return -ENOMEM;
- 	return 0;
---=20
-2.39.2
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index d991b3467c47..b85014e7f96b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -3629,6 +3629,7 @@ int amdgpu_ras_is_supported(struct amdgpu_device *adev,
+ 	     block == AMDGPU_RAS_BLOCK__SDMA ||
+ 	     block == AMDGPU_RAS_BLOCK__VCN ||
+ 	     block == AMDGPU_RAS_BLOCK__JPEG) &&
++		(amdgpu_ras_mask & (1 << block)) &&
+ 	    amdgpu_ras_is_poison_mode_supported(adev) &&
+ 	    amdgpu_ras_get_ras_block(adev, block, 0))
+ 		ret = 1;
+-- 
+2.25.1
 
