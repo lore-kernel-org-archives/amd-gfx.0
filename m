@@ -4,92 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C04CC48BF8
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Feb 2024 13:41:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D22DC54788
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Feb 2024 15:02:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A715910E939;
-	Thu, 22 Feb 2024 13:41:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF43A10E95C;
+	Thu, 22 Feb 2024 15:02:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MckV302e";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Z1L/cogp";
 	dkim-atps=neutral
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7751E10E939
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Feb 2024 13:41:41 +0000 (UTC)
+ (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22FBE10E95C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Feb 2024 15:02:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LWol2tHS+xFBXDXdsmwtUo8FTSkUtsRr2AwbeeTTzfKIbkYJZ/k79/oi3mMTYGsNoHQ+AuBW/zjLFSrY6mgFSRGaueR8K8E/YkG5lvKg5aD73kADNaef9XmD5ZvBYIQppgzjKrvfYIdXub++Z1NitiITdT/o1IBU/4URNJYE6WcFJX/Ba7iPg8om7tUOueGxZd7jKUxJLuINwd+Vbr5FdciduqdlvF2rEkHafI/cq4Sa+kJ6u59tBCOyzNqr5Xr04jl9glPptTsh7nWLs8PbR0FGvFFWgDe9dm1SdPv/Ipo+nHsX/Oe24dU1bhFVinvdwt0MPEYuxz4LlXbvQOk01A==
+ b=ll1rPK/PDYZXYxVVTC604KmTU1F63FYg9G9akgUKQN4IdXnGb8kwKMJADlYWJqsUkWuZQeSagWvevMZTsEqMQXKYO5PiTU37C/SFmTGy2zyp0JZMu3jGrw8Tuqiq6X6MMnAz7UFpgOnePs8+lFTrX9XoCHWgb4E3tizzGZgVZgFRqEx9NQU64nrBeZ+ShGMrricCWmvWq4I/eY+UE5v7fuddafIxSIzlKc2fcp+TbPQqEj30R+pqiIXCdPnYQ6HcTkMgCA1dzaYdk87GP7ugNY7YyCVGaOCTDuEwiqKqSRnMvsEwixU3n9tO6UtNFcDZUzzC1anFFEc7OqAlRCfTTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=szEYTQnUlpcRnY/bA6lAVM5QdrjE4AVWIqsF8BVIEk4=;
- b=E1J9LY8ZHCbo2BrSWh4z2BZqHfFwBvv8jZAdFREbWgduQVi6tyZymPGOBa26kXaQgbwcVY7TvGe/nZ/jWEFpsy2nxm0tSPnhVaG25Itx4nFd2DJeMqtRfBZ3cAHLWySBqWB1dlXfcksZdqn9Muu/jSh+aHvCMnCsWwoXIUumExbxA0EZKGKCA5EOFw4hRi33g0/1bfSxVrxf6pe1TyPYiexQZwJm7P7Ltfpx9dI0xwYbtN36kaifH832U7dgjrzOyJIC3WBpV5rm/OyWrf3qyyC8dG9dVfuZsfXNXGvPvux3Pyq7Ra7Z9lF1ozBIDZNsDQUpBrJLzEwJwRGg1gU1AQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=YDwxvLW86D04HLS/LNmhlnkxTQrC27MwpHPUsy51LG8=;
+ b=mWO36pUUW62L1pFYCDA6Q1ghtG9ZhzMQvAsaTwy69aItzMLox4gpzFkZVWym4VV66ewUl5Pln4NZDAMR9ysKMBzKtEX2IySRCYdcwUEn0zZnTGFLO28uwY8Id2sM3lH1MFYYw3uxMQhXVkctDgqbhI1Hagr+CMf9Jq64nQ/iR536EvjJu6upf6cClQSaNCwAyj/2RQ+qbTAmLlCpDxWUwzr6C8IRrRMpsccwBC/aq0eFB7METmGvMR4acMDsbI1gMoCvSK5t0OlsUi7l3p2pT/JhFHMTApGyYwBqGLI+GzNm04Z18B5ph5t1njdFc8uzNGSo9s1EUmgQOJlWNGipuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=szEYTQnUlpcRnY/bA6lAVM5QdrjE4AVWIqsF8BVIEk4=;
- b=MckV302eHQs+9jC0WGC9RLnB9pScPzSAP5p/OH4vAlZEU9LsLfxWvSZD69CyzMaseOjFWBf9KEAUegIOIg9cq2OcJxAvoVbbDWzm6R/8KvxQ2KqKTQf99N7QAQNwQsuMn084UHHQ0LOnhtHTO1zsB8FOMZCh3vClXT8C/Jm3GXw=
-Received: from SA0PR11CA0107.namprd11.prod.outlook.com (2603:10b6:806:d1::22)
- by CH0PR12MB5266.namprd12.prod.outlook.com (2603:10b6:610:d1::10)
+ bh=YDwxvLW86D04HLS/LNmhlnkxTQrC27MwpHPUsy51LG8=;
+ b=Z1L/cogpjAKSheNIVuprcUrpJdHx9Um2yMgupT5yYwK40EDTY2frdtEMBp7KpJBS7dqm+qylNb9wWyeqvaf8TKfengSKq/K1B8HZBBmaJCjwoVbeby+icRmstzY9AE4X9jnyrefIN7nHM/1dD20Czo73hXaimcNA5rKvtaD3T00=
+Received: from CY8PR12MB8193.namprd12.prod.outlook.com (2603:10b6:930:71::22)
+ by BN9PR12MB5305.namprd12.prod.outlook.com (2603:10b6:408:102::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.24; Thu, 22 Feb
- 2024 13:41:37 +0000
-Received: from SN1PEPF0002636C.namprd02.prod.outlook.com
- (2603:10b6:806:d1:cafe::27) by SA0PR11CA0107.outlook.office365.com
- (2603:10b6:806:d1::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.43 via Frontend
- Transport; Thu, 22 Feb 2024 13:41:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF0002636C.mail.protection.outlook.com (10.167.241.137) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Thu, 22 Feb 2024 13:41:36 +0000
-Received: from prike-code-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 22 Feb
- 2024 07:41:35 -0600
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Prike Liang <Prike.Liang@amd.com>
-Subject: [PATCH] drm/amdgpu: Enable gpu reset for S3 abort cases on Raven
- series
-Date: Thu, 22 Feb 2024 21:41:26 +0800
-Message-ID: <20240222134126.1111837-1-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.34.1
+ 2024 15:02:54 +0000
+Received: from CY8PR12MB8193.namprd12.prod.outlook.com
+ ([fe80::92fa:88b3:a796:2c8c]) by CY8PR12MB8193.namprd12.prod.outlook.com
+ ([fe80::92fa:88b3:a796:2c8c%5]) with mapi id 15.20.7316.018; Thu, 22 Feb 2024
+ 15:02:54 +0000
+From: "Li, Roman" <Roman.Li@amd.com>
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, "Pillai, Aurabindo"
+ <Aurabindo.Pillai@amd.com>, "Chung, ChiaHsuan (Tom)"
+ <ChiaHsuan.Chung@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhuo,
+ Lillian" <Qingqing.Zhuo@amd.com>
+Subject: RE: [PATCH v3] drm/amd/display: Prevent potential buffer overflow in
+ map_hw_resources
+Thread-Topic: [PATCH v3] drm/amd/display: Prevent potential buffer overflow in
+ map_hw_resources
+Thread-Index: AQHaZUjnfmnxnTjplEuIbDy8TbyESLEWdWhA
+Date: Thu, 22 Feb 2024 15:02:54 +0000
+Message-ID: <CY8PR12MB8193159E9586B82CF213D3EB89562@CY8PR12MB8193.namprd12.prod.outlook.com>
+References: <20240221063850.293956-1-srinivasan.shanmugam@amd.com>
+ <20240222043723.669677-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20240222043723.669677-1-srinivasan.shanmugam@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_64e4cbe8-b4f6-45dc-bcba-6123dfd2d8bf_ActionId=7b1f7c6e-8b29-4e7c-944d-a1c3f204ceb4;
+ MSIP_Label_64e4cbe8-b4f6-45dc-bcba-6123dfd2d8bf_ContentBits=0;
+ MSIP_Label_64e4cbe8-b4f6-45dc-bcba-6123dfd2d8bf_Enabled=true;
+ MSIP_Label_64e4cbe8-b4f6-45dc-bcba-6123dfd2d8bf_Method=Privileged;
+ MSIP_Label_64e4cbe8-b4f6-45dc-bcba-6123dfd2d8bf_Name=Non-Business-AIP
+ 2.0;
+ MSIP_Label_64e4cbe8-b4f6-45dc-bcba-6123dfd2d8bf_SetDate=2024-02-22T15:01:24Z;
+ MSIP_Label_64e4cbe8-b4f6-45dc-bcba-6123dfd2d8bf_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB8193:EE_|BN9PR12MB5305:EE_
+x-ms-office365-filtering-correlation-id: 7b6892a1-7537-4546-b940-08dc33b7592b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 2Hop6ZE2b5m4lyQEMs9znacBbTrZGr0krz2ya6EgcjcEDS+5F49OoAsk2uUwSRMtKUR5cwS5OXTIXvwhj/LrHPTRKaNRus1XmTGsGyBAdddJCDn2dqNCQGbpXtu/KiwC1MVirC5JD69lh6Dm7Ie8GNLBOpDvpFRmrcI0DAJPNwFiAz+h5jJ9SjX8UICHpMqBLEepwQ921BRkDnoU8UsGG3jzcaI/q6LD8ihVCoGzqaRgDSHhorXjJCiaZL2zxgQsOIBuC82tCkxrl4F+5STmL8+5gb1ghLcddkZrOJXBsCNUrE/h4HX1I8bKoQcawkpVkGNZImFyoDg2vLgBFPA6v2P1EsmrmFskR8xnJCWD1eGVzfMBFESNg7MecbIfBfP+KXGo8FqUJpB8grlxRFM91UoK+6S2Dba7a/77A9bEKOZH31Qemqqfr36YyMr+jV5FM4nOAJIHStnKaQzHKYAe/D1EKBnJjWfuP5FavRNe5iqPKz+1uVUz48SOT7nU0BevM7C2EIm/9BMn+fsIHedDjVvyIXQMmqU5ysx2oG6+4asapARph40BET2gFl7HEZOu4Rvh1rNP93LNtCA9X3IxANTc0DYihUIhooQ63QxM5Ba5r6DRxhKp9K1vQXUtWFNY
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB8193.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NS8D2yNCiMIrStFiQiAUiJ+tzBa3PG8uH6ITaOmZ+vAwCJ9yG1IwFVIasSHo?=
+ =?us-ascii?Q?CmcuJdheepTKgxzf0mnGh+PNRglwJPQNQNgrYyr8g4Fosstf7fvcc09MJsVw?=
+ =?us-ascii?Q?qzxEKcnEr3qwrufHriMiD8876IBwaeh3lemV6ShHXor0qLT8jSyawRv8YgzK?=
+ =?us-ascii?Q?s54Gy20OA2zmoJ4mi5wJxrNii29kX+AnwWb5sFocvRc+zY3isaKH2qk1dHXS?=
+ =?us-ascii?Q?LDeWnQn4yG8239EDK715vQCgC5lb4klAHuR8x5cssi/3+0NvhZD0+Rk4AIok?=
+ =?us-ascii?Q?2YOWaxPCTnpDcOdpiq9Dp14c8AhS95WQY1sYjiOdBqtJPhejrSPPQOw/nDbi?=
+ =?us-ascii?Q?+57Ezk0t6kAxEVNl1KvUrYoWnzah15KyI8zwObON1a3f5oNQlzCqWlBCsnyu?=
+ =?us-ascii?Q?1mSafQeSz/ug0BjahqEmBrlWypUrjNMczKa8TEBoLc0qLmYcKwCh/j2cFWPC?=
+ =?us-ascii?Q?roM7dwOWYaQ4ky2Cyqu27s5Prvl4cmjE+yesDCViaJwrSzQp1YjWVR9QoheJ?=
+ =?us-ascii?Q?eH39mDKzLk3mZB8IGzyJWZ9HaILHcwiBvxHDCO3X2Jg80zf+bPjtOCn/tvez?=
+ =?us-ascii?Q?66KGQP9l4qQ/epJaZv4EMRb8DKrpt04eqt9ay0yyrVLHPFs9p+F4n2ux49MD?=
+ =?us-ascii?Q?qKnYzVUkopi3xyFgzbY/86Csj3QuhMwPWA38paOG+iaezW8W9TMlW0PYVukr?=
+ =?us-ascii?Q?qsuGixOMF9GtSAUB2yfpoozc/9YE5R9gdanNC2EDG02P6EmYinlKRjbqgSZq?=
+ =?us-ascii?Q?OP7YD2ESNnnOBgEiJF/5tsbecyZ3+X0wJYWf+R6+A/c6dsmO38srNMc4x/xy?=
+ =?us-ascii?Q?hn09UR9VmSmK5Oh1T3rjtythLSwO8mwRcbMCoSk3VA5HrLcEg50beCvT7P5z?=
+ =?us-ascii?Q?r4XU3jG4NzdVg3mt17Cc4hjM4LL5G6qEdIOOSiUQh6YXNK6s4OF1PcvK5rRh?=
+ =?us-ascii?Q?vT6j9W3fg0vuD7HfZtrPZ0GzERo47RKD9Y2AoJiFtF//OJOmgpPOe5WcTsBN?=
+ =?us-ascii?Q?EjQdO1QEX6pRVgWXA51s6UEsW5x0tC/dVg60M+IrKkexmM3qdxUXv0WKWwOy?=
+ =?us-ascii?Q?MLt5CZbp2xdDQjB+udAJxS5j5wcGQ5Rx/c42FW0dQU1J15TE/gpa2TkFVCe4?=
+ =?us-ascii?Q?tPx7D/sI8nw2OhfYq6rN5p9dnG6R0ao91f0NIlcMhETu6Ov7kjjahfAabZrX?=
+ =?us-ascii?Q?GB2coYXhQmOeE270V64vneR6k/8uZsIAZ9rzsr+nE73rMN8FU/FK+lsQ62PV?=
+ =?us-ascii?Q?khp+x8l2bzPTxyOjLF2jF/Pgvo/qxiIKJyxcsMRhn6OUJQSvZYAto24XMZcs?=
+ =?us-ascii?Q?38MCHGBEiKlKl0V2CmjNwTzv6PunBBe8JIGRht/1nAc6Dl468MgSQrbLpWxv?=
+ =?us-ascii?Q?c7NbXmwYBTHrtSxaNROffx1n5ZHhM8gylFi7kp/HXDTuBKpbwF8n/TXCTnWs?=
+ =?us-ascii?Q?u5qE/xhwVX5Ihoyl50o2l8zKcBMrDkQR7UsLZVXZfGE2+WsDnQK4MnK8YVeD?=
+ =?us-ascii?Q?iuAtdVZwtivr7g6Qr+e8azY8okR7bHsmmmJlWoskRxa0yLmNDZZJLOJveL+R?=
+ =?us-ascii?Q?L2NEgAelYeIiUFXNMbs=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002636C:EE_|CH0PR12MB5266:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19848aa5-f640-4e63-118e-08dc33abfdd3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6JnwYprI9Vss/+9IVUtj80pXSTCQHYjhT3xitsMFZ780+D1gBflMYUFtGVMbqJo9CyiS+fTDYGDJyFh1+1mQ6DdUs0VGPnH9/scRloLQZ4dzu0B9/+95hcZs1WIbZXah8zSMI1ZZRYzSeJTR0JzwjN5SFxDJXHKy188GQYbLYP5kivgd+YsCp/ZHiep3uYnZL+Fgv0fogGORj0Rp4GP8yGQd1UWN3J+m2aoJQdQF511Ntr5S4fTtqSJQBONuDKEEz+v2R23JtyH4lOkIgZedTrethJNw4HK8PUOhm2/300Y8ACAcbbEP+taDg4RdjX7yDiG4vVcShNr41YOIJpGhFE8sxFDH038pWThvYDLba80GwdbidF1LN65GLbDSm5wSR9Hqrib4CYlecvdWOZCKtGkrVAigmzjITFbcD4TzIxviecQ5rSakyhwwff5sq8nFBouAAfBGP2Ub0H9WnlIOe0IQuMj0Ol3vA4mWBsNJplJSMFR44J/q4KifpXRm5NTQvsuhdGdicy6EhmyKQbI7XfuB9wWt/DNadlAHf2lgiCd6YmIgyLeDuyXHPIafYdc48mYRRL3F1jFKd6cb386ayIn1iGsvt5ooY8J7rCxTgHHKzl0x1hc4H63mWnnfuN35JIJuiaBVzWSXLBBnfokUsXvkoYUMhoL45L0/ErhwuY0=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(40470700004)(46966006); DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2024 13:41:36.9878 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19848aa5-f640-4e63-118e-08dc33abfdd3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636C.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5266
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8193.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b6892a1-7537-4546-b940-08dc33b7592b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Feb 2024 15:02:54.7785 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: IO0J4r/PqQxzvJX+M6HpEXDqw6n35aCbleLt5nevmKuvGdYHUBQOoHetCQRbGMyY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5305
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,81 +135,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently, GPU resets can now be performed successfully on the Raven
-series. While GPU reset is required for the S3 suspend abort case.
-So now can enable gpu reset for S3 abort cases on the Raven series.
+Reviewed-by: Roman Li <roman.li@amd.com>
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/soc15.c | 45 +++++++++++++++++-------------
- 1 file changed, 25 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index e4012f53632b..f68ef0863cb0 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -574,11 +574,34 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
- 		return AMD_RESET_METHOD_MODE1;
- }
- 
-+static bool soc15_need_reset_on_resume(struct amdgpu_device *adev)
-+{
-+	u32 sol_reg;
-+
-+	sol_reg = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
-+
-+	/* Will reset for the following suspend abort cases.
-+	 * 1) Only reset limit on APU side, dGPU hasn't checked yet.
-+	 * 2) S3 suspend abort and TOS already launched.
-+	 */
-+	if (adev->flags & AMD_IS_APU && adev->in_s3 &&
-+			!adev->suspend_complete &&
-+			sol_reg)
-+		return true;
-+
-+	return false;
-+}
-+
- static int soc15_asic_reset(struct amdgpu_device *adev)
- {
- 	/* original raven doesn't have full asic reset */
--	if ((adev->apu_flags & AMD_APU_IS_RAVEN) ||
--	    (adev->apu_flags & AMD_APU_IS_RAVEN2))
-+	/* On the latest Raven, the GPU reset can be performed
-+	 * successfully. So now, temporarily enable it for the
-+	 * S3 suspend abort case.
-+	 */
-+	if (!soc15_need_reset_on_resume(adev) &&
-+			((adev->apu_flags & AMD_APU_IS_RAVEN) ||
-+	    (adev->apu_flags & AMD_APU_IS_RAVEN2)))
- 		return 0;
- 
- 	switch (soc15_asic_reset_method(adev)) {
-@@ -1298,24 +1321,6 @@ static int soc15_common_suspend(void *handle)
- 	return soc15_common_hw_fini(adev);
- }
- 
--static bool soc15_need_reset_on_resume(struct amdgpu_device *adev)
--{
--	u32 sol_reg;
--
--	sol_reg = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
--
--	/* Will reset for the following suspend abort cases.
--	 * 1) Only reset limit on APU side, dGPU hasn't checked yet.
--	 * 2) S3 suspend abort and TOS already launched.
--	 */
--	if (adev->flags & AMD_IS_APU && adev->in_s3 &&
--			!adev->suspend_complete &&
--			sol_reg)
--		return true;
--
--	return false;
--}
--
- static int soc15_common_resume(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--- 
-2.34.1
+> -----Original Message-----
+> From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
+> Sent: Wednesday, February 21, 2024 11:37 PM
+> To: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo
+> <Aurabindo.Pillai@amd.com>; Chung, ChiaHsuan (Tom)
+> <ChiaHsuan.Chung@amd.com>; Li, Roman <Roman.Li@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org; SHANMUGAM, SRINIVASAN
+> <SRINIVASAN.SHANMUGAM@amd.com>; Zhuo, Lillian
+> <Qingqing.Zhuo@amd.com>
+> Subject: [PATCH v3] drm/amd/display: Prevent potential buffer overflow in
+> map_hw_resources
+>=20
+> Adds a check in the map_hw_resources function to prevent a potential buff=
+er
+> overflow. The function was accessing arrays using an index that could
+> potentially be greater than the size of the arrays, leading to a buffer o=
+verflow.
+>=20
+> Adds a check to ensure that the index is within the bounds of the arrays.=
+ If the
+> index is out of bounds, an error message is printed and break it will con=
+tinue
+> execution with just ignoring extra data early to prevent the buffer overf=
+low.
+>=20
+> Reported by smatch:
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml2_wrapper.c:79
+> map_hw_resources() error: buffer overflow 'dml2-
+> >v20.scratch.dml_to_dc_pipe_mapping.disp_cfg_to_stream_id' 6 <=3D 7
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml2_wrapper.c:81
+> map_hw_resources() error: buffer overflow 'dml2-
+> >v20.scratch.dml_to_dc_pipe_mapping.disp_cfg_to_plane_id' 6 <=3D 7
+>=20
+> Fixes: 482ce89eec1b ("drm/amd/display: Introduce DML2")
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Cc: Roman Li <roman.li@amd.com>
+> Cc: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Cc: Tom Chung <chiahsuan.chung@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+> v3:
+>  - s/return/break as return may leave the system in a bad state
+>=20
+>  drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
+> b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
+> index 26307e599614..2a58a7687bdb 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
+> @@ -76,6 +76,11 @@ static void map_hw_resources(struct dml2_context
+> *dml2,
+>  			in_out_display_cfg->hw.DLGRefClkFreqMHz =3D 50;
+>  		}
+>  		for (j =3D 0; j < mode_support_info->DPPPerSurface[i]; j++) {
+> +			if (i >=3D
+> __DML2_WRAPPER_MAX_STREAMS_PLANES__) {
+> +				dml_print("DML::%s: Index out of bounds:
+> i=3D%d, __DML2_WRAPPER_MAX_STREAMS_PLANES__=3D%d\n",
+> +					  __func__, i,
+> __DML2_WRAPPER_MAX_STREAMS_PLANES__);
+> +				break;
+> +			}
+>  			dml2-
+> >v20.scratch.dml_to_dc_pipe_mapping.dml_pipe_idx_to_stream_id[num_pip
+> es] =3D dml2->v20.scratch.dml_to_dc_pipe_mapping.disp_cfg_to_stream_id[i]=
+;
+>  			dml2-
+> >v20.scratch.dml_to_dc_pipe_mapping.dml_pipe_idx_to_stream_id_valid[nu
+> m_pipes] =3D true;
+>  			dml2-
+> >v20.scratch.dml_to_dc_pipe_mapping.dml_pipe_idx_to_plane_id[num_pipe
+> s] =3D dml2->v20.scratch.dml_to_dc_pipe_mapping.disp_cfg_to_plane_id[i];
+> --
+> 2.34.1
 
