@@ -4,121 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28A21C48BEB
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Feb 2024 23:04:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94FD4C48BEB
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Feb 2024 00:21:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97E2C10E80C;
-	Wed, 21 Feb 2024 23:04:26 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j5FlUEge";
-	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2058.outbound.protection.outlook.com [40.107.93.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8CAE10E80C;
- Wed, 21 Feb 2024 23:04:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nwlDAGn+wcHaUFQHTJ8OVr3pBoPRQOyYEZPqweMUJPiLA6rOvz86G/IUkIwT52U3RLn+BluW/wGpP9x06uLlIy0IR0Y22xZMUA5bx9m4j7+nVy0bdzUTpvi+8vcj30gOF5f/dsDvli+DhgHonH9vIiyN6pgtkFAMwIgAnPRkTeagpZG/cU/9WGIMInEAj96UwRUSmhXW1MPx7esUyUaSiXw4vCvFjINCtAOULv0Si2q4vaFcUzHijjbVaQqLRtqsTf28uBiPidtELCd5qokKWyQz30A7XC79s03IeOtNTfVe7CM85FSPfUrW+lcxZ86x0bxOUDZ27+CLLPeNPOGf0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WplncR8qMNJq04yTm3fQi4iwGpvlF+TxwRCbzXTwAA0=;
- b=MR3BfaGWkDfOrR0V47nWsz+zpLprgdkfcuLolRXL+YrOFiV9GQZsojxW+3DzoxlAbuEyagLUeEWIquRNjdU4y2VB6doaQdpUIYXkfzAXjmHynHL78bY9unay7/0RGtTnsoK14ovuwwRbPBHJerqFIh6nYlzBGuDE7fb5KiFBNgiTTgSqSlsj2lUCKg/gO32aKr9SqTE4AsblUCVFEgdIMoDizBaD2zoM13p3UoDB/fnnMrS1lhUpAdV48wyZe6het9LUgxfkUMucsEM20hPwF2/1Ysj67Ey1lPgMd2PWtB6T8lMO3bHVL8qF9J4Egh0dNfLEWpe8j3gTx/C6fCx3yw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WplncR8qMNJq04yTm3fQi4iwGpvlF+TxwRCbzXTwAA0=;
- b=j5FlUEge/kxnW8lT3smfvieo/WcbNNyxNOJB9+1vcWwrFUbaATzcDY4fzXvVda2ztvEDNz0ef7E1cTE4bGKHnKLVKpe3Azb89Xj/cJvMgteJKhFGVhELDjg617bLvPbD0T4jtyEYkfVn9iMoKh1MdAmhHN5l6aT/pTokXV12gM8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA1PR12MB8722.namprd12.prod.outlook.com (2603:10b6:806:373::9)
- by DM4PR12MB7551.namprd12.prod.outlook.com (2603:10b6:8:10d::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.20; Wed, 21 Feb
- 2024 23:04:23 +0000
-Received: from SA1PR12MB8722.namprd12.prod.outlook.com
- ([fe80::4b3:427e:7f83:2130]) by SA1PR12MB8722.namprd12.prod.outlook.com
- ([fe80::4b3:427e:7f83:2130%4]) with mapi id 15.20.7316.018; Wed, 21 Feb 2024
- 23:04:22 +0000
-Message-ID: <bccf8567-1b5e-497f-9724-e858447216e6@amd.com>
-Date: Wed, 21 Feb 2024 16:04:18 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Use kcalloc() instead of kzalloc()
-Content-Language: en-US
-To: Lenko Donchev <lenko.donchev@gmail.com>
-References: <ZbYYpky2sb8p8hjx@nixos>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <ZbYYpky2sb8p8hjx@nixos>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9PR03CA0631.namprd03.prod.outlook.com
- (2603:10b6:408:13b::6) To SA1PR12MB8722.namprd12.prod.outlook.com
- (2603:10b6:806:373::9)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E23910E834;
+	Thu, 22 Feb 2024 00:21:23 +0000 (UTC)
+X-Greylist: delayed 385 seconds by postgrey-1.36 at gabe;
+ Thu, 22 Feb 2024 00:21:21 UTC
+Received: from mail.mhcomputing.net (master.mhcomputing.net [74.208.228.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A08C510E834
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Feb 2024 00:21:21 +0000 (UTC)
+Received: by mail.mhcomputing.net (Postfix, from userid 1000)
+ id E34A3E5; Wed, 21 Feb 2024 16:14:55 -0800 (PST)
+Date: Wed, 21 Feb 2024 16:14:55 -0800
+From: Matthew Hall <mhall@mhcomputing.net>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: AMDGPU crash - request for assistance triaging / reporting
+Message-ID: <20240222001455.GA14576@mhcomputing.net>
+References: <20230721034359.GA1133@mhcomputing.net>
+ <BL1PR12MB514416A3C79BA1E6F43FEF83F73FA@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <20230721180131.GA10297@mhcomputing.net>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB8722:EE_|DM4PR12MB7551:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30a57a13-2844-4a1a-cac9-08dc3331714f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZDaMsQPIHfENyk9JqrjJGIqIlwmZteeDBEUr6W1oG/0urdVI8VLp9/7OeJg6bt5XtxAmdHei7YY9uzceUCh4pfac2kpzc3fTC8agw0o1ZK94r2Oas/rjsyANTtf0NvRevNHe0LUPDjOX6s4kAygPBZFwyeV4cOf84bvbbjmq9WjJFcQEujnoCsFs7cwutea4813v+65HnTuxuM3HYOT2DBd2FT9zhKvNMnTE/ajAYIyo2qYVettMvdSmXyN9sxAEIEA7LtRyMNlT+4IU8SSxNBGExT1oBPkHAg584hB4836U9rLQiEHghOhMKURHauog4yVmbbZKpiSo22iZYqTGB0wFeI0Hmt4F2HDwEnnc9eeNV/y8/Nh1M3LnfVm2RMzMoaxe1ZzQccZri1Kqbcq9b1BhFWAZRYSNb2kZzQkRNwAnNZmx0+E0JAwjcxwNJ2vdZVaSF4/xcejQxjL77zw7G5iESyCQiGH/pYoCr4vhPjTRBFokuKs7JFl5sdXtFJ+YclWqzaxfnTtWpbqkj2ZFtg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB8722.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VmpvYmtpRnk0Zk9kcENxYXZqWlIzVXFmNTdkMW9JSllTa1BQNTBaWDIxNnVM?=
- =?utf-8?B?WGNwZG9SNHpkU053RTlvNlVIT0Z1MzVSamUvQmhqclFkYnk4SlZoZ0tRMVFC?=
- =?utf-8?B?VFBtV3RmR3lKblM0emJrTnZNTC93cGwzSUJkRm1VNTI1YXBlZCtPdFhEczVW?=
- =?utf-8?B?cHV6L0MwVVA0K1A3ekRiNmkxbW5SWHFQZU40OFJjVjA0TnpxU2V6UURjSG1I?=
- =?utf-8?B?OTFUS0Rlc1V6aTROZG1taHRJNUZzcW15MmRyV0FQQzZLYU85d2dOd1FMeW9V?=
- =?utf-8?B?cDVBYlluc2JOdWdMQjlJSm52ZVArc09CalZrMFZpR3BQQzlxenB1ZUkzNkto?=
- =?utf-8?B?OVNKTjA4NEVVd2JTREdCdXF1cStUU0M0SGFodVRaVDBYd3V6OTJsK3MxU0FF?=
- =?utf-8?B?WHRvYWRPcE1ML3E5Qmo4cEV0TVpzelIyR1RUWERkN0VUckt1YjM4Z2tBdGlQ?=
- =?utf-8?B?NHN6QWVBQXp4YzcwYWhnTng3RDVYMWEzWWtpNkRhZHR4aUVqUUZ5WWZoL016?=
- =?utf-8?B?K2NjTGhJZlRvdkZuL1FXWlZYY1hOYXp1bTVnamtkdzhzV29Lck9ub3gwdVVQ?=
- =?utf-8?B?MzRNSHZaYWxJb000NWVQOXlkRTlxMlNmMHRlZnJwNHo3Q3J6RGtYT3hXd3BX?=
- =?utf-8?B?YTlyNEs4WjI5UWNIbmpEMjJsVUxVOXFrOFltZ1J0OWF1QVFJKy9NYUhCOVZv?=
- =?utf-8?B?RW1BYVlEdnlvd0xQbEFsbU1BV3dkUWc1RXg5Q2dyZFhJK2RaUEJib3BPbFN3?=
- =?utf-8?B?WEZWTkhxdVlScXcreGxIQVRzRVZaRlhhZWRFa3lTRWR0d2NUQ2pmUWdNZytU?=
- =?utf-8?B?c0hmaWZFSTgvNU5DM21oS2RtVkRHdGtIbW9FWmZDZkRzc0JUUGhZMjVmL3Qw?=
- =?utf-8?B?bjYyMzgwWWJpTzlVeXRiRUtnR3Bqa1VvUE5lcVNYYjNpbkJ0UFFrZkJFYmFK?=
- =?utf-8?B?VjhOMmJZYUp1UmFqSGhtb0xKSGwramRaR0RVT0t1eDlicU5UbUZzNXZOR25K?=
- =?utf-8?B?RnA5Tmg5QlVRWHB3RFhnbXkxOXhuR1RMVksxcEpNNXRmNWdsSXl5Y1R6eGVT?=
- =?utf-8?B?YytabjJYSmZaZ3RDZ2JRQTVNYmlWTmczeHR4Mm4zY3lWZWFXVDJDbWdlejVV?=
- =?utf-8?B?MVEyZGloM21MbHBkZlhpZG5ZWTBSaXhIR2JJRUptWkMzcDFlcGxTRDZBQytW?=
- =?utf-8?B?UWZFdExhQ0JpYVMveGNwbzZjVWVBYWZMYVZ1aVUvRUlrbS8zS3VqcGFEZHN4?=
- =?utf-8?B?UWtxSlVBM2dwSkJyMWtpaThDL1lrRXZMMzRqcTZNR0tzQ0M4aWF0a0Q1Z2dI?=
- =?utf-8?B?WW5XSXFYdExlUjIzY1JEUzJ3cG1CWm5ibG1FU3FoaEp5VG1ZdzlxeG1ZdFpo?=
- =?utf-8?B?S2haQ3JCczF3bzA5Ymp4UkZZQnFVdEh2clYrc3haTXk3Nlp0K1VwbXZRZDB6?=
- =?utf-8?B?SjN2K1R2OHNqRDNGVVk5NVpIT2NNY3hQYXdoWUg3NUtVSVhzR1ZBZDhDci9x?=
- =?utf-8?B?VHRLVzhTRi9ESG14eVNvdjV4bW8xMUlZQlppMzdYOUt0WTBSZE94ZlNteVlz?=
- =?utf-8?B?NElSQ1hRL3hqRnJaSjEvWnFaY3BGRWF6Z1ZobWRMNHpNWUJVN3R3OWNuRDlI?=
- =?utf-8?B?cGEzREgyYVpPTEx2MTJhYWxyZGNpU3NRMlJzZG5mV2U3dkwvUGY0SEh4c28z?=
- =?utf-8?B?d1J1VG15UkpHUndJUzhNTTk1ZUpvcHMzWjlML1ZLUzR4VU5idVdlVlRRZ0dB?=
- =?utf-8?B?NDlva1VBai9OMkxIb3A1QWViWGJhbTlzZjFJenFXL0k2VHBMemhMejIwYnUr?=
- =?utf-8?B?ZkdYU0J4eTlZQWV2eVhXbTVBSVhDRmpMNlhDZWdjZG9vUDk5eXpra3VzM2xN?=
- =?utf-8?B?K0E4cXlMQzdsYTBxOWRwYUhsY3dTcCsxVHhZWlU2WXk0OGw2MFNJcUw0NFdM?=
- =?utf-8?B?NFBxQjNNd0pXUDFzaXFIMkcwTnptU0lzeldiT3MwczhKZ00vdU9VWkRFYW55?=
- =?utf-8?B?czlNcXZUenpZdDNwbDJNOXNkZDExbk5hWlVpZXRJV1FGc0pDRFVFOG1SdU90?=
- =?utf-8?B?VGhWTTJzTUw1dUY1SWxrTVRJUGF3UGQrVVgrZU9HZHVqY0NnOUR2V3M5ays3?=
- =?utf-8?Q?C4iP5LYwhceF/Q9lJfT6VugIP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30a57a13-2844-4a1a-cac9-08dc3331714f
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB8722.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2024 23:04:22.8913 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GzCtf/D+OFOuUa2Dz/YG5hl10qFDVFe+UZV1OEK3DCqf9qVJSDcmaGTpxAShAL29FRjf5jIJsOdfR4aAMeLoaw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7551
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230721180131.GA10297@mhcomputing.net>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,36 +46,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi All,
 
+Even using the older stock Ubuntu kernel, I am still seeing this GPU crash killing my user sessions, even without intense 3-D activity.
 
-On 1/28/24 02:04, Lenko Donchev wrote:
-> We are trying to get rid of all multiplications from allocation
-> functions to prevent integer overflows. Here the multiplication is
-> obviously safe, but using kcalloc() is more appropriate and improves
-> readability. This patch has no effect on runtime behavior.
-> 
-> Link: https://www.kernel.org/doc/html/next/process/deprecated.html#open-coded-arithmetic-in-allocator-arguments
-> Link: https://github.com/KSPP/linux/issues/162
-> 
-> Signed-off-by: Lenko Donchev <lenko.donchev@gmail.com>
-> ---
->   drivers/gpu/drm/amd/display/dc/link/protocols/link_dpcd.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dpcd.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dpcd.c
-> index 5c9a30211c10..b67cd78e7c58 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dpcd.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dpcd.c
-> @@ -164,7 +164,7 @@ static void dpcd_extend_address_range(
->   	if (new_addr_range.start != in_address || new_addr_range.end != end_address) {
->   		*out_address = new_addr_range.start;
->   		*out_size = ADDRESS_RANGE_SIZE(new_addr_range.start, new_addr_range.end);
-> -		*out_data = kzalloc(*out_size * sizeof(**out_data), GFP_KERNEL);
-> +		*out_data = kcalloc(*out_size, sizeof(**out_data), GFP_KERNEL);
->   	}
->   }
->   
+It happens with X.org or Wayland, older kernel 6.5.0, and all recent latest non-snapshot releases from kernel.org as well.
 
-lgtm,
+The more Wayland, and the newer the kernel, the worse the frequency.
 
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+On the old stuff, frequency seems to be once every 2-3 weeks, on the new stuff, daily to a couple times daily.
+
+Linux mhall-xps-01 6.5.0-14-generic #14-Ubuntu SMP PREEMPT_DYNAMIC Tue Nov 14 14:59:49 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+
+Is there any way I can get some help to debug or fix this? It is happening to multiple similar Lenovo model users for multiple months now.
+
+https://gitlab.freedesktop.org/drm/amd/-/issues/2718
+
+Regards,
+Matthew.
+
+--
+
+2024-02-21T15:36:53.785101-08:00 mhall-xps-01 kernel: [2880378.141686] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring sdma0 timeout, signaled seq=1350708, emitted seq=1350710
+2024-02-21T15:36:53.785121-08:00 mhall-xps-01 kernel: [2880378.142104] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process information: process  pid 0 thread  pid 0
+2024-02-21T15:36:53.785124-08:00 mhall-xps-01 kernel: [2880378.142485] amdgpu 0000:67:00.0: amdgpu: GPU reset begin!
+2024-02-21T15:36:54.605112-08:00 mhall-xps-01 kernel: [2880378.965256] amdgpu 0000:67:00.0: amdgpu: MODE2 reset
+2024-02-21T15:36:54.617089-08:00 mhall-xps-01 kernel: [2880378.973994] amdgpu 0000:67:00.0: amdgpu: GPU reset succeeded, trying to resume
+2024-02-21T15:36:54.617097-08:00 mhall-xps-01 kernel: [2880378.974380] [drm] PCIE GART of 1024M enabled (table at 0x000000F41FC00000).
+2024-02-21T15:36:54.617099-08:00 mhall-xps-01 kernel: [2880378.974465] [drm] VRAM is lost due to GPU reset!
+2024-02-21T15:36:54.617100-08:00 mhall-xps-01 kernel: [2880378.974467] [drm] PSP is resuming...
+2024-02-21T15:36:54.637111-08:00 mhall-xps-01 kernel: [2880378.996584] [drm] reserve 0xa00000 from 0xf41e000000 for PSP TMR
+2024-02-21T15:36:54.961131-08:00 mhall-xps-01 kernel: [2880379.321327] amdgpu 0000:67:00.0: amdgpu: RAS: optional ras ta ucode is not available
+2024-02-21T15:36:54.973091-08:00 mhall-xps-01 kernel: [2880379.333287] amdgpu 0000:67:00.0: amdgpu: RAP: optional rap ta ucode is not available
+2024-02-21T15:36:54.973099-08:00 mhall-xps-01 kernel: [2880379.333292] amdgpu 0000:67:00.0: amdgpu: SECUREDISPLAY: securedisplay ta ucode is not available
+2024-02-21T15:36:54.973101-08:00 mhall-xps-01 kernel: [2880379.333300] amdgpu 0000:67:00.0: amdgpu: SMU is resuming...
+2024-02-21T15:36:54.977097-08:00 mhall-xps-01 kernel: [2880379.334001] amdgpu 0000:67:00.0: amdgpu: SMU is resumed successfully!
+2024-02-21T15:36:54.977105-08:00 mhall-xps-01 kernel: [2880379.335963] [drm] DMUB hardware initialized: version=0x0400003F
+2024-02-21T15:36:55.981082-08:00 mhall-xps-01 kernel: [2880380.339381] [drm] kiq ring mec 2 pipe 1 q 0
+2024-02-21T15:36:55.985137-08:00 mhall-xps-01 kernel: [2880380.344491] [drm] VCN decode and encode initialized successfully(under DPG Mode).
+2024-02-21T15:36:55.985148-08:00 mhall-xps-01 kernel: [2880380.345269] [drm] JPEG decode initialized successfully.
+2024-02-21T15:36:55.985149-08:00 mhall-xps-01 kernel: [2880380.345274] amdgpu 0000:67:00.0: amdgpu: ring gfx_0.0.0 uses VM inv eng 0 on hub 0
+2024-02-21T15:36:55.985150-08:00 mhall-xps-01 kernel: [2880380.345278] amdgpu 0000:67:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
+2024-02-21T15:36:55.985151-08:00 mhall-xps-01 kernel: [2880380.345279] amdgpu 0000:67:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
+2024-02-21T15:36:55.985152-08:00 mhall-xps-01 kernel: [2880380.345281] amdgpu 0000:67:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 5 on hub 0
+2024-02-21T15:36:55.985152-08:00 mhall-xps-01 kernel: [2880380.345283] amdgpu 0000:67:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 6 on hub 0
+2024-02-21T15:36:55.985153-08:00 mhall-xps-01 kernel: [2880380.345284] amdgpu 0000:67:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 7 on hub 0
+2024-02-21T15:36:55.985153-08:00 mhall-xps-01 kernel: [2880380.345286] amdgpu 0000:67:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 8 on hub 0
+2024-02-21T15:36:55.985154-08:00 mhall-xps-01 kernel: [2880380.345288] amdgpu 0000:67:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 9 on hub 0
+2024-02-21T15:36:55.985154-08:00 mhall-xps-01 kernel: [2880380.345289] amdgpu 0000:67:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 10 on hub 0
+2024-02-21T15:36:55.985155-08:00 mhall-xps-01 kernel: [2880380.345291] amdgpu 0000:67:00.0: amdgpu: ring kiq_0.2.1.0 uses VM inv eng 11 on hub 0
+2024-02-21T15:36:55.985156-08:00 mhall-xps-01 kernel: [2880380.345293] amdgpu 0000:67:00.0: amdgpu: ring sdma0 uses VM inv eng 12 on hub 0
+2024-02-21T15:36:55.985168-08:00 mhall-xps-01 kernel: [2880380.345295] amdgpu 0000:67:00.0: amdgpu: ring vcn_dec_0 uses VM inv eng 0 on hub 8
+2024-02-21T15:36:55.985168-08:00 mhall-xps-01 kernel: [2880380.345296] amdgpu 0000:67:00.0: amdgpu: ring vcn_enc_0.0 uses VM inv eng 1 on hub 8
+2024-02-21T15:36:55.985169-08:00 mhall-xps-01 kernel: [2880380.345298] amdgpu 0000:67:00.0: amdgpu: ring vcn_enc_0.1 uses VM inv eng 4 on hub 8
+2024-02-21T15:36:55.985169-08:00 mhall-xps-01 kernel: [2880380.345299] amdgpu 0000:67:00.0: amdgpu: ring jpeg_dec uses VM inv eng 5 on hub 8
+2024-02-21T15:36:55.991915-08:00 mhall-xps-01 kernel: [2880380.352137] amdgpu 0000:67:00.0: amdgpu: recover vram bo from shadow start
+2024-02-21T15:36:55.991926-08:00 mhall-xps-01 kernel: [2880380.352143] amdgpu 0000:67:00.0: amdgpu: recover vram bo from shadow done
+2024-02-21T15:36:55.991928-08:00 mhall-xps-01 kernel: [2880380.352174] amdgpu 0000:67:00.0: amdgpu: GPU reset(1) succeeded!
+2024-02-21T15:36:55.991929-08:00 mhall-xps-01 kernel: [2880380.352193] [drm] Skip scheduling IBs!
+2024-02-21T15:36:55.991930-08:00 mhall-xps-01 kernel: [2880380.352203] [drm] Skip scheduling IBs!
+2024-02-21T15:36:55.991932-08:00 mhall-xps-01 kernel: [2880380.352210] [drm] Skip scheduling IBs!
+2024-02-21T15:36:55.991933-08:00 mhall-xps-01 kernel: [2880380.352221] [drm] Skip scheduling IBs!
+2024-02-21T15:36:55.991935-08:00 mhall-xps-01 kernel: [2880380.352227] [drm] Skip scheduling IBs!
+2024-02-21T15:36:55.991936-08:00 mhall-xps-01 kernel: [2880380.352235] [drm] Skip scheduling IBs!
+2024-02-21T15:36:55.991937-08:00 mhall-xps-01 kernel: [2880380.352258] [drm] Skip scheduling IBs!
+2024-02-21T15:36:55.991939-08:00 mhall-xps-01 kernel: [2880380.352262] [drm] Skip scheduling IBs!
+2024-02-21T15:36:55.991940-08:00 mhall-xps-01 kernel: [2880380.352284] [drm] Skip scheduling IBs!
+2024-02-21T15:36:55.991941-08:00 mhall-xps-01 kernel: [2880380.352299] [drm] Skip scheduling IBs!
+2024-02-21T15:36:55.991942-08:00 mhall-xps-01 kernel: [2880380.352312] [drm] Skip scheduling IBs!
+2024-02-21T15:36:55.991943-08:00 mhall-xps-01 kernel: [2880380.352325] [drm] Skip scheduling IBs!
+2024-02-21T15:36:55.991944-08:00 mhall-xps-01 kernel: [2880380.352339] [drm] Skip scheduling IBs!
+2024-02-21T15:36:55.991945-08:00 mhall-xps-01 kernel: [2880380.352358] [drm] Skip scheduling IBs!
+2024-02-21T15:36:55.991947-08:00 mhall-xps-01 kernel: [2880380.352366] [drm] Skip scheduling IBs!
+2024-02-21T15:36:56.989097-08:00 mhall-xps-01 kernel: [2880381.345919] [drm] PCIE GART of 512M enabled (table at 0x00000080FEB00000).
+2024-02-21T15:36:56.989113-08:00 mhall-xps-01 kernel: [2880381.345949] [drm] PSP is resuming...
+2024-02-21T15:36:57.065064-08:00 mhall-xps-01 kernel: [2880381.421985] [drm] reserve 0xa00000 from 0x80fd000000 for PSP TMR
+2024-02-21T15:36:57.161054-08:00 mhall-xps-01 kernel: [2880381.521330] amdgpu 0000:03:00.0: amdgpu: RAS: optional ras ta ucode is not available
+2024-02-21T15:36:57.177051-08:00 mhall-xps-01 kernel: [2880381.536487] amdgpu 0000:03:00.0: amdgpu: SECUREDISPLAY: securedisplay ta ucode is not available
+2024-02-21T15:36:57.177055-08:00 mhall-xps-01 kernel: [2880381.536493] amdgpu 0000:03:00.0: amdgpu: SMU is resuming...
+2024-02-21T15:36:57.177056-08:00 mhall-xps-01 kernel: [2880381.536498] amdgpu 0000:03:00.0: amdgpu: smu driver if version = 0x0000000d, smu fw if version = 0x0000000f, smu fw program = 0, version = 0x00492000 (73.32.0)
+2024-02-21T15:36:57.177057-08:00 mhall-xps-01 kernel: [2880381.536504] amdgpu 0000:03:00.0: amdgpu: SMU driver if version not matched
+2024-02-21T15:36:57.217055-08:00 mhall-xps-01 kernel: [2880381.575099] amdgpu 0000:03:00.0: amdgpu: SMU is resumed successfully!
+2024-02-21T15:36:57.217063-08:00 mhall-xps-01 kernel: [2880381.576452] [drm] DMUB hardware initialized: version=0x02020017
+2024-02-21T15:36:57.221054-08:00 mhall-xps-01 kernel: [2880381.579774] [drm] kiq ring mec 2 pipe 1 q 0
+2024-02-21T15:36:57.225060-08:00 mhall-xps-01 kernel: [2880381.583037] [drm] VCN decode and encode initialized successfully(under DPG Mode).
+2024-02-21T15:36:57.225062-08:00 mhall-xps-01 kernel: [2880381.583055] amdgpu 0000:03:00.0: amdgpu: ring gfx_0.0.0 uses VM inv eng 0 on hub 0
+2024-02-21T15:36:57.225063-08:00 mhall-xps-01 kernel: [2880381.583057] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
+2024-02-21T15:36:57.225063-08:00 mhall-xps-01 kernel: [2880381.583059] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
+2024-02-21T15:36:57.225064-08:00 mhall-xps-01 kernel: [2880381.583060] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 5 on hub 0
+2024-02-21T15:36:57.225065-08:00 mhall-xps-01 kernel: [2880381.583061] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 6 on hub 0
+2024-02-21T15:36:57.225066-08:00 mhall-xps-01 kernel: [2880381.583063] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 7 on hub 0
+2024-02-21T15:36:57.225066-08:00 mhall-xps-01 kernel: [2880381.583064] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 8 on hub 0
+2024-02-21T15:36:57.225067-08:00 mhall-xps-01 kernel: [2880381.583066] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 9 on hub 0
+2024-02-21T15:36:57.225067-08:00 mhall-xps-01 kernel: [2880381.583067] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 10 on hub 0
+2024-02-21T15:36:57.225068-08:00 mhall-xps-01 kernel: [2880381.583069] amdgpu 0000:03:00.0: amdgpu: ring kiq_0.2.1.0 uses VM inv eng 11 on hub 0
+2024-02-21T15:36:57.225068-08:00 mhall-xps-01 kernel: [2880381.583070] amdgpu 0000:03:00.0: amdgpu: ring sdma0 uses VM inv eng 12 on hub 0
+2024-02-21T15:36:57.225069-08:00 mhall-xps-01 kernel: [2880381.583071] amdgpu 0000:03:00.0: amdgpu: ring vcn_dec_0 uses VM inv eng 0 on hub 8
+2024-02-21T15:36:57.237126-08:00 mhall-xps-01 kernel: [2880381.595618] [drm] Skip scheduling IBs!
+2024-02-21T15:36:57.237133-08:00 mhall-xps-01 kernel: [2880381.595637] [drm] Skip scheduling IBs!
+2024-02-21T15:36:57.237134-08:00 mhall-xps-01 kernel: [2880381.595648] [drm] Skip scheduling IBs!
+... SNIPPED ...
+2024-02-21T15:36:57.621302-08:00 mhall-xps-01 kernel: [2880381.979192] [drm] Skip scheduling IBs!
+2024-02-21T15:36:57.621303-08:00 mhall-xps-01 kernel: [2880381.979199] [drm] Skip scheduling IBs!
+2024-02-21T15:36:57.621303-08:00 mhall-xps-01 kernel: [2880381.979205] [drm] Skip scheduling IBs!
+2024-02-21T15:36:57.665432-08:00 mhall-xps-01 kernel: [2880382.021491] workqueue: delayed_fput hogged CPU for >10000us 16 times, consider switching to WQ_UNBOUND
+2024-02-21T15:37:23.225433-08:00 mhall-xps-01 kernel: [2880397.341439] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
+2024-02-21T15:37:33.465409-08:00 mhall-xps-01 kernel: [2880407.580685] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
+2024-02-21T15:37:43.705091-08:00 mhall-xps-01 kernel: [2880417.820114] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
+2024-02-21T15:37:53.945389-08:00 mhall-xps-01 kernel: [2880428.059779] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
+2024-02-21T15:38:04.185799-08:00 mhall-xps-01 kernel: [2880438.299089] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
+2024-02-21T15:38:14.425239-08:00 mhall-xps-01 kernel: [2880448.538928] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
+2024-02-21T15:38:24.665410-08:00 mhall-xps-01 kernel: [2880458.778463] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
+2024-02-21T15:38:34.905460-08:00 mhall-xps-01 kernel: [2880469.017993] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
+2024-02-21T15:38:45.145251-08:00 mhall-xps-01 kernel: [2880479.257543] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
+2024-02-21T15:38:55.385743-08:00 mhall-xps-01 kernel: [2880489.496921] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
+2024-02-21T15:39:05.625422-08:00 mhall-xps-01 kernel: [2880499.736383] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
+2024-02-21T15:39:15.865455-08:00 mhall-xps-01 kernel: [2880509.976241] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
+2024-02-21T15:39:26.105410-08:00 mhall-xps-01 kernel: [2880520.215766] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
+2024-02-21T15:39:36.345444-08:00 mhall-xps-01 kernel: [2880530.455123] [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* wait_for_completion_timeout timeout!
