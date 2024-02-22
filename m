@@ -4,94 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FFE8C48BF8
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Feb 2024 10:17:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11446C48BF8
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Feb 2024 13:05:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE5D210E883;
-	Thu, 22 Feb 2024 10:17:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 740EC10E924;
+	Thu, 22 Feb 2024 13:05:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ansiq7ZT";
+	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="hcedB2s1";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2074.outbound.protection.outlook.com [40.107.220.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE51010E883
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Feb 2024 10:17:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Eg6f+t5ewCJVdlX8GQZilCsOsqN6f0YK7SJHL/DxphnqkDrZis1iuhaChKSwa8EZYJwS4DxMIFWgc7DOEsvN5dFB+riy/W6LTaxciwbNI+9BMXMmHsQ4XW/3toFpw4kbTCoSqwBkhbuSmd+Dvd3XPotrvyHfJ8JIElipl3x081yxptwDZFcVybcnFvnbWxds4VfCMMqyc9ZcEDmIwZres0xBdFqnM0J+wwHlvqUa3sgxuTwtqa+RI/tUUWtmcOB4YzZGNmRNfE3hpXmpouP5r4Nczy5402kksQmDM0R06KGi8cXHmHJrvuXOvdNmuGs15oEOo5QehN77t88XbM+L2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rsbiizcILMVFgCToT5kJTNX27yN1UWZW6IMBdaWPdYI=;
- b=nMYuAVZakt4XBHigHlBhlAVMLeKUAK/37YoUAzC2vukCds5v4Dxxy8H3WNtWkalNWDIMK8qyb4WgzFKq6yXl/sqffcTRkE1wqaY06pDHCVfq5an06Ta8AVNEx8o5ZH3wchDpUWmr/HXuvgk9Sd7VyOSwl+chK4E702f+SBcHoIRUm6wR7gm/NfRgB+0LaLbpFvSRmLQo55CeFTsKJMuxXpwJYoDr28QQFLI+J+pYX8mm6TXGu0IpNMk+CE4Huz0fEspBdMiCuxNgzCtFA9D5cx7hUN8XgizRDHX6Ww0gNzB8bxdnwlxQo0oBdKUPnsjKsgqTTrSC3akK+zkSv+tPXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rsbiizcILMVFgCToT5kJTNX27yN1UWZW6IMBdaWPdYI=;
- b=Ansiq7ZTx11zdTkbpHyUmgB7/3K3WtFFSyEJ55m2gPrACxsltRI1hqr8D3aPDX9a2iSLZYl9phBkIn6jo9QD/R2IgVW6wCZGAmw9eJTDQwg3uutLpN22DdRQJgtQTuTCdqajcB1XDh7XUNLyrviKdwVHFw9nb4msBkuUW6rwXEc=
-Received: from DM6PR01CA0010.prod.exchangelabs.com (2603:10b6:5:296::15) by
- CH3PR12MB8258.namprd12.prod.outlook.com (2603:10b6:610:128::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.24; Thu, 22 Feb
- 2024 10:17:48 +0000
-Received: from DS1PEPF00017096.namprd05.prod.outlook.com
- (2603:10b6:5:296:cafe::72) by DM6PR01CA0010.outlook.office365.com
- (2603:10b6:5:296::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.42 via Frontend
- Transport; Thu, 22 Feb 2024 10:17:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017096.mail.protection.outlook.com (10.167.18.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Thu, 22 Feb 2024 10:17:48 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 22 Feb
- 2024 04:17:46 -0600
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
- <Felix.Kuehling@amd.com>, <mukul.joshi@amd.com>, <Asad.Kamal@amd.com>
-Subject: [PATCH 2/2] drm/amdkfd : Skip packet submission on fatal error
-Date: Thu, 22 Feb 2024 15:47:28 +0530
-Message-ID: <20240222101728.135595-2-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240222101728.135595-1-lijo.lazar@amd.com>
-References: <20240222101728.135595-1-lijo.lazar@amd.com>
+Received: from mail.damsy.net (mail.damsy.net [85.90.245.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE0A310E8A4;
+ Thu, 22 Feb 2024 13:05:11 +0000 (UTC)
+Message-ID: <55e420d4-0c9c-4255-9b2d-8d68f1afc5ab@damsy.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=damsy.net; s=201803;
+ t=1708607110;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=wYUSbGOEmfAVx7b/dFhgsrpPqsuJWC/57g3jbSD5G6I=;
+ b=hcedB2s17daKEmtlqmq2H2RmhTIAM94EWOtLQZNlBpVY4fgjzNKYJ6f92e4Hpmz8RUFbzv
+ r8FFVzu9x6M1yDPxNfALmSj2OXT2Bt9c3RpZzb902nmM6Vzhy+cU05RKezkQR7oJh8THgh
+ 4GUX+EOFQRqjGZ9Dxh9Gub9vIKIEmHGMb8ZP4IhNkDoLcj1kwTfpp15VJTnV0LuzZs3q69
+ uUPt7bs0oGCceAhxzKntPAyLJO+kICDQpjSil2KeTb1r1cWl90n+UQKKhptowFf6zq89r/
+ dJC5xDF9SjXLGRyjSTEmkSTAYYV04BXqcNAnjmKYT4XPtviUDkV251p0Ca/rjg==
+Date: Thu, 22 Feb 2024 14:05:09 +0100
 MIME-Version: 1.0
+Subject: Re: [PATCH v3 6/8] drm: add drm_mode_atomic_commit event
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20240216151006.475077-1-pierre-eric.pelloux-prayer@amd.com>
+ <20240216151006.475077-7-pierre-eric.pelloux-prayer@amd.com>
+ <Zc-MLQZ1bby_vKal@intel.com>
+Content-Language: fr
+From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
+In-Reply-To: <Zc-MLQZ1bby_vKal@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017096:EE_|CH3PR12MB8258:EE_
-X-MS-Office365-Filtering-Correlation-Id: 717bba92-e670-46f1-3f9a-08dc338f8518
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: a1g9jnPvSezYrKOO8ZuxGiuP5K4VsTwXatZeh/Kw0Q6sO2KRMcHJ6o4rWlTrDvhvx2YxUNzCCON2TbSmRE6Dtmmgpmt9mSS5/LrHhk5WHYu9uyKYzPaKtpWbKt1thYwy0BM+Wj2snV3UI+gBhKUtc3omQAOJbaoOHppzJm9bRKuSzDWpLj6UO+IGdDyrMsTphj9QnDUzZwEfLKW+3nShJNNvzOjb3dfllHkEvx2x7oiHKh4+D/8xBQ0DvWd/2x31a8TnAjjqYSZv7lZeadN/p+3WMScN0xpcSeOSfK5tSVckddEfRLKyLULuGTo77P9GKBoAI1clu+f++1tmHf8hFyTmbN1p02Wek+YiIlJrIOyeuZhDzV7mpydIqTj8fCx1f4aV44BbhqKSHsGnffFcp+Dt8Lqkzzfmg9SayFlKpYT+xz92aIsJeu3DJ3XlOobhd/ZxDJUFZtWLodb6oTJph46XVs9NtrevMYps6CLdK5XYgDuSL2oltb2EMy2l/6Ia1qldU1ZEjyNm46VekLXf45/xnhKsdZzJjczZX06bnnb7JyahswqV1DqrIZGjqAwxeUvtOtSIpCHvGP6TfeMspLUc+v9Ymksvwf/NeURF0m3sNCC8ilgi5Af4kJJe/4xfOhNMyKfT8+OG8dWo/vzY006ZmYbcWuvLIhRPJsoUGTE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(40470700004)(46966006); DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2024 10:17:48.5129 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 717bba92-e670-46f1-3f9a-08dc338f8518
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017096.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8258
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,158 +63,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If fatal error is detected, packet submission won't go through. Return
-error in such cases. Also, avoid waiting for fence when fatal error is
-detected.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c            |  5 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h            |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c |  4 ++++
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c         |  8 +++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h         |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c       | 10 +++++-----
- 6 files changed, 23 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 190039f14c30..f5f2945711be 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -742,6 +742,11 @@ void amdgpu_amdkfd_debug_mem_fence(struct amdgpu_device *adev)
- 	amdgpu_device_flush_hdp(adev, NULL);
- }
- 
-+bool amdgpu_amdkfd_is_fed(struct amdgpu_device *adev)
-+{
-+	return amdgpu_ras_get_fed_status(adev);
-+}
-+
- void amdgpu_amdkfd_ras_poison_consumption_handler(struct amdgpu_device *adev,
- 	enum amdgpu_ras_block block, bool reset)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index e60f63ccf79a..4fb32d86cd0e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -337,6 +337,7 @@ int amdgpu_amdkfd_get_tile_config(struct amdgpu_device *adev,
- 				struct tile_config *config);
- void amdgpu_amdkfd_ras_poison_consumption_handler(struct amdgpu_device *adev,
- 			enum amdgpu_ras_block block, bool reset);
-+bool amdgpu_amdkfd_is_fed(struct amdgpu_device *adev);
- bool amdgpu_amdkfd_bo_mapped_to_dev(struct amdgpu_device *adev, struct kgd_mem *mem);
- void amdgpu_amdkfd_block_mmu_notifications(void *p);
- int amdgpu_amdkfd_criu_resume(void *p);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index c0e71543389a..f4d395e38683 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1903,6 +1903,10 @@ int amdkfd_fence_wait_timeout(struct device_queue_manager *dqm,
- 	uint64_t *fence_addr =  dqm->fence_addr;
- 
- 	while (*fence_addr != fence_value) {
-+		/* Fatal err detected, this response won't come */
-+		if (amdgpu_amdkfd_is_fed(dqm->dev->adev))
-+			return -EIO;
-+
- 		if (time_after(jiffies, end_jiffies)) {
- 			dev_err(dev, "qcm fence wait loop timeout expired\n");
- 			/* In HWS case, this is used to halt the driver thread
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-index 1bea629c49ca..32c926986dbb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-@@ -286,7 +286,7 @@ int kq_acquire_packet_buffer(struct kernel_queue *kq,
- 	return -ENOMEM;
- }
- 
--void kq_submit_packet(struct kernel_queue *kq)
-+int kq_submit_packet(struct kernel_queue *kq)
- {
- #ifdef DEBUG
- 	int i;
-@@ -298,6 +298,10 @@ void kq_submit_packet(struct kernel_queue *kq)
- 	}
- 	pr_debug("\n");
- #endif
-+	/* Fatal err detected, packet submission won't go through */
-+	if (amdgpu_amdkfd_is_fed(kq->dev->adev))
-+		return -EIO;
-+
- 	if (kq->dev->kfd->device_info.doorbell_size == 8) {
- 		*kq->wptr64_kernel = kq->pending_wptr64;
- 		write_kernel_doorbell64(kq->queue->properties.doorbell_ptr,
-@@ -307,6 +311,8 @@ void kq_submit_packet(struct kernel_queue *kq)
- 		write_kernel_doorbell(kq->queue->properties.doorbell_ptr,
- 					kq->pending_wptr);
- 	}
-+
-+	return 0;
- }
- 
- void kq_rollback_packet(struct kernel_queue *kq)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h
-index 9a6244430845..e24ee50acdf0 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h
-@@ -47,7 +47,7 @@
- int kq_acquire_packet_buffer(struct kernel_queue *kq,
- 				size_t packet_size_in_dwords,
- 				unsigned int **buffer_ptr);
--void kq_submit_packet(struct kernel_queue *kq);
-+int kq_submit_packet(struct kernel_queue *kq);
- void kq_rollback_packet(struct kernel_queue *kq);
- 
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-index 401096c103b2..d6f65f39072b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-@@ -288,7 +288,7 @@ int pm_send_set_resources(struct packet_manager *pm,
- 
- 	retval = pm->pmf->set_resources(pm, buffer, res);
- 	if (!retval)
--		kq_submit_packet(pm->priv_queue);
-+		retval = kq_submit_packet(pm->priv_queue);
- 	else
- 		kq_rollback_packet(pm->priv_queue);
- 
-@@ -325,7 +325,7 @@ int pm_send_runlist(struct packet_manager *pm, struct list_head *dqm_queues)
- 	if (retval)
- 		goto fail_create_runlist;
- 
--	kq_submit_packet(pm->priv_queue);
-+	retval = kq_submit_packet(pm->priv_queue);
- 
- 	mutex_unlock(&pm->lock);
- 
-@@ -361,7 +361,7 @@ int pm_send_query_status(struct packet_manager *pm, uint64_t fence_address,
- 
- 	retval = pm->pmf->query_status(pm, buffer, fence_address, fence_value);
- 	if (!retval)
--		kq_submit_packet(pm->priv_queue);
-+		retval = kq_submit_packet(pm->priv_queue);
- 	else
- 		kq_rollback_packet(pm->priv_queue);
- 
-@@ -392,7 +392,7 @@ int pm_update_grace_period(struct packet_manager *pm, uint32_t grace_period)
- 
- 		retval = pm->pmf->set_grace_period(pm, buffer, grace_period);
- 		if (!retval)
--			kq_submit_packet(pm->priv_queue);
-+			retval = kq_submit_packet(pm->priv_queue);
- 		else
- 			kq_rollback_packet(pm->priv_queue);
- 	}
-@@ -421,7 +421,7 @@ int pm_send_unmap_queue(struct packet_manager *pm,
- 
- 	retval = pm->pmf->unmap_queues(pm, buffer, filter, filter_param, reset);
- 	if (!retval)
--		kq_submit_packet(pm->priv_queue);
-+		retval = kq_submit_packet(pm->priv_queue);
- 	else
- 		kq_rollback_packet(pm->priv_queue);
- 
--- 
-2.25.1
+Le 16/02/2024 à 17:24, Ville Syrjälä a écrit :
+> On Fri, Feb 16, 2024 at 04:09:55PM +0100, Pierre-Eric Pelloux-Prayer wrote:
+>> With this and the dma_fence_used_as_dependency event, a tool can draw the
+>> relationship between the compositing draw, the atomic commit, and vblank.
+>>
+>> An example on a 2 monitors system look like this:
+>>
+>> gnome-shell-1638    [018] .....  2571.905124: drm_mode_atomic_commit: file=00000000245c3f0c, pid=    1165, flags=00000201, crtcs={0x1}
+>> gnome-shell-1638    [018] .....  2571.905147: dma_fence_used_as_dependency: driver=drm_sched timeline=gfx_0.0.0 context=270 seqno=73240 reason=dma_fence_chain_init
+>> gnome-shell-1638    [018] .....  2571.913226: drm_mode_atomic_commit: file=00000000245c3f0c, pid=    1165, flags=00000201, crtcs={0x0}
+>> gnome-shell-1638    [018] .....  2571.913250: dma_fence_used_as_dependency: driver=drm_sched timeline=gfx_0.0.0 context=270 seqno=73241 reason=dma_fence_chain_init
+>>      <idle>-0       [018] d.h3.  2571.915687: drm_vblank_event: crtc=1, seq=155747, time=2571916093743, high-prec=true
+>>      <idle>-0       [018] d.h3.  2571.915968: drm_vblank_event: crtc=0, seq=153862, time=2571916377180, high-prec=true
+>>
+>> v2: fix unchecked memory allocation
+>>
+>> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>> ---
+>>   drivers/gpu/drm/drm_atomic_uapi.c | 21 +++++++++++++++++++++
+>>   drivers/gpu/drm/drm_trace.h       | 23 +++++++++++++++++++++++
+>>   2 files changed, 44 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+>> index 29d4940188d4..f31b5c6f870b 100644
+>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>> @@ -41,6 +41,7 @@
+>>   #include <linux/file.h>
+>>   
+>>   #include "drm_crtc_internal.h"
+>> +#include "drm_trace.h"
+>>   
+>>   /**
+>>    * DOC: overview
+>> @@ -1503,6 +1504,26 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+>>   		drm_mode_object_put(obj);
+>>   	}
+>>   
+>> +	if (trace_drm_mode_atomic_commit_enabled()) {
+>> +		struct drm_crtc_state *crtc_state;
+>> +		struct drm_crtc *crtc;
+>> +		int *crtcs;
+>> +		int i, num_crtcs;
+>> +
+>> +		crtcs = kcalloc(dev->mode_config.num_crtc, sizeof(int),
+>> +				GFP_KERNEL);
+>> +
+>> +		if (crtcs) {
+>> +			num_crtcs = 0;
+>> +			for_each_new_crtc_in_state(state, crtc, crtc_state, i)
+>> +				crtcs[num_crtcs++] = drm_crtc_index(crtc);
+>> +
+>> +			trace_drm_mode_atomic_commit(file_priv, crtcs, num_crtcs, arg->flags);
+>> +
+>> +			kfree(crtcs);
+>> +		}
+>> +	}
+> 
+> I think the current drm trace events are sort of semi-useless.
+> The problems are:
+> - no device id in the events so good luck with multi gpu systems
+> - vblank trace events are only emitted from some vblank
+>    codepaths but not others
+> 
+> I'm also not sure putting an event straight into the atomic ioctl is
+> particularly useful.
+> 
+> First of all it means that any commit not initiated by the atomic
+> ioctl will not be traced.
+> 
+> It would also seem more useful to me if the driver can emit the
+> trace just before it commits the frame to the hardware, so that
+> we can also observe the latency between userspace submitting
+> the frame vs. when the hardware will actually see it.
+> 
+> Also if we want tools to use these I think we're going to have to
+> make some kind of abi promises about the events, so we should make
+> sure they are as future proof as we can make them (eg. regarding
+> mutli-gpu systems/etc.).
 
+Thanks for your feedback.
+
+This series was also discussed on IRC with Sima [1], and the conclusion was
+that it would be good to rework the series with the following goals in
+mind:
+* make sure the events are useful for any drivers using the core drm code,
+not just amdgpu
+* add new events or extend existing ones so that all the required information is
+there (= no guessing needed)
+* document the updated tracepoints (as UAPI?): how they should be interpreted
+by tools (eg: how to reconstruct fence dependencies? how to measure latency? etc)
+
+
+Pierre-Eric
+
+
+[1]: https://dri.freedesktop.org/~cbrill/dri-log/?channel=dri-devel&date=2024-02-16
+
+
+
+
+> 
+>> +
+>>   	ret = prepare_signaling(dev, state, arg, file_priv, &fence_state,
+>>   				&num_fences);
+>>   	if (ret)
+>> diff --git a/drivers/gpu/drm/drm_trace.h b/drivers/gpu/drm/drm_trace.h
+>> index 11c6dd577e8e..63489923c289 100644
+>> --- a/drivers/gpu/drm/drm_trace.h
+>> +++ b/drivers/gpu/drm/drm_trace.h
+>> @@ -66,6 +66,29 @@ TRACE_EVENT(drm_vblank_event_delivered,
+>>   		      __entry->seq)
+>>   );
+>>   
+>> +TRACE_EVENT(drm_mode_atomic_commit,
+>> +	    TP_PROTO(struct drm_file *file, int *crtcs, int ncrtcs, uint32_t flags),
+>> +	    TP_ARGS(file, crtcs, ncrtcs, flags),
+>> +	    TP_STRUCT__entry(
+>> +		    __field(struct drm_file *, file)
+>> +		    __dynamic_array(u32, crtcs, ncrtcs)
+>> +		    __field(uint32_t, ncrtcs)
+>> +		    __field(uint32_t, flags)
+>> +		    ),
+>> +	    TP_fast_assign(
+>> +		    unsigned int i;
+>> +
+>> +		    __entry->file = file;
+>> +		    for (i = 0; i < ncrtcs; i++)
+>> +			((u32 *)__get_dynamic_array(crtcs))[i] = crtcs[i];
+>> +		    __entry->ncrtcs = ncrtcs;
+>> +		    __entry->flags = flags;
+>> +		    ),
+>> +	    TP_printk("file=%p, pid=%8d, flags=%08x, crtcs=%s", __entry->file,
+>> +		      pid_nr(__entry->file->pid), __entry->flags,
+>> +		      __print_array(__get_dynamic_array(crtcs), __entry->ncrtcs, 4))
+>> +);
+>> +
+>>   #endif /* _DRM_TRACE_H_ */
+>>   
+>>   /* This part must be outside protection */
+>> -- 
+>> 2.40.1
+> 
