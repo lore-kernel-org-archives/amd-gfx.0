@@ -4,102 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5928C54E55
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 09:04:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F058FC48BF6
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 09:04:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B83C10EFA3;
-	Mon, 26 Feb 2024 09:04:45 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="SM1IU5a4";
-	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9768710EC96;
- Fri, 23 Feb 2024 18:33:15 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41NEnafk007025; Fri, 23 Feb 2024 18:30:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=Kfo/C8zqynWW3khr9w38fLA/juhM//M+1TSK7YbUzao=; b=SM
- 1IU5a4CNIWLmOnc+jXipb4Ga9eIJLWms0rnPxEXMwHDSoxe92W9Ew+cz2UneOT08
- Iyi2XyxnbZDa1t3nXppWD2gBv5baFGSu5jpaJXHu6vAsxhujSo74jXQc1qhtrkyj
- b1JYz/cxWMolVJrmsIH4767eZriXHsfPc1ASRZIKs+Vh4MImjLRwoZRf+c04IWja
- WREgwfvGpnGGa1IxPu7qJXJNToVvZY2M73nvMYmrwiDnSM6QuEXhaYYJoUiQlYDP
- AVkDtm/36vZFGTWQ5CsU0kJMULpTBDkWBl74wMVr5RZuQ0KaRJ0q/8gb9Xik4nP2
- o7j3uPWaxue4GCbloFJw==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3we3233ydp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Feb 2024 18:30:49 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41NIUm69006076
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Feb 2024 18:30:48 GMT
-Received: from [10.110.104.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 23 Feb
- 2024 10:30:46 -0800
-Message-ID: <0aed6cf2-17ae-45aa-b7ff-03da932ea4e0@quicinc.com>
-Date: Fri, 23 Feb 2024 10:30:45 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+	by gabe.freedesktop.org (Postfix) with ESMTP id 791B110EFA4;
+	Mon, 26 Feb 2024 09:04:53 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA35110ECAE;
+ Fri, 23 Feb 2024 20:01:55 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 8B5A9CE2E7B;
+ Fri, 23 Feb 2024 20:01:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84C71C433F1;
+ Fri, 23 Feb 2024 20:01:46 +0000 (UTC)
+Date: Fri, 23 Feb 2024 15:03:39 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Kent Overstreet <kent.overstreet@linux.dev>
+Cc: Jeff Johnson <quic_jjohnson@quicinc.com>, LKML
+ <linux-kernel@vger.kernel.org>, Linux Trace Kernel
+ <linux-trace-kernel@vger.kernel.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-cxl@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-rdma@vger.kernel.org, linux-pm@vger.kernel.org,
+ iommu@lists.linux.dev, linux-tegra@vger.kernel.org, netdev@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, ath10k@lists.infradead.org,
+ linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+ ath12k@lists.infradead.org, brcm80211@lists.linux.dev,
+ brcm80211-dev-list.pdl@broadcom.com, linux-usb@vger.kernel.org,
+ linux-bcachefs@vger.kernel.org, linux-nfs@vger.kernel.org,
+ ocfs2-devel@lists.linux.dev, linux-cifs@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-edac@vger.kernel.org,
+ selinux@vger.kernel.org, linux-btrfs@vger.kernel.org,
+ linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-hwmon@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-wpan@vger.kernel.org, dev@openvswitch.org,
+ linux-s390@vger.kernel.org, tipc-discussion@lists.sourceforge.net, Julia
+ Lawall <Julia.Lawall@inria.fr>
 Subject: Re: [FYI][PATCH] tracing/treewide: Remove second parameter of
  __assign_str()
-Content-Language: en-US
-To: Steven Rostedt <rostedt@goodmis.org>, LKML <linux-kernel@vger.kernel.org>, 
- Linux Trace Kernel <linux-trace-kernel@vger.kernel.org>
-CC: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Linus Torvalds
- <torvalds@linux-foundation.org>,
- <linuxppc-dev@lists.ozlabs.org>, <kvm@vger.kernel.org>,
- <linux-block@vger.kernel.org>, <linux-cxl@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
- <linux-rdma@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <iommu@lists.linux.dev>, <linux-tegra@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-hyperv@vger.kernel.org>,
- <ath10k@lists.infradead.org>, <linux-wireless@vger.kernel.org>,
- <ath11k@lists.infradead.org>, <ath12k@lists.infradead.org>,
- <brcm80211@lists.linux.dev>, <brcm80211-dev-list.pdl@broadcom.com>,
- <linux-usb@vger.kernel.org>, <linux-bcachefs@vger.kernel.org>,
- <linux-nfs@vger.kernel.org>, <ocfs2-devel@lists.linux.dev>,
- <linux-cifs@vger.kernel.org>, <linux-xfs@vger.kernel.org>,
- <linux-edac@vger.kernel.org>, <selinux@vger.kernel.org>,
- <linux-btrfs@vger.kernel.org>, <linux-erofs@lists.ozlabs.org>,
- <linux-f2fs-devel@lists.sourceforge.net>,
- <linux-hwmon@vger.kernel.org>, <io-uring@vger.kernel.org>,
- <linux-sound@vger.kernel.org>, <bpf@vger.kernel.org>,
- <linux-wpan@vger.kernel.org>, <dev@openvswitch.org>,
- <linux-s390@vger.kernel.org>, <tipc-discussion@lists.sourceforge.net>,
- Julia Lawall <Julia.Lawall@inria.fr>
+Message-ID: <20240223150339.2249bc95@gandalf.local.home>
+In-Reply-To: <qsksxrdinia3cxr52tfe4p3pafsy4biktnodlfn4vyzud73p2j@6ycnhrhzwsv6>
 References: <20240223125634.2888c973@gandalf.local.home>
-From: Jeff Johnson <quic_jjohnson@quicinc.com>
-In-Reply-To: <20240223125634.2888c973@gandalf.local.home>
-Content-Type: text/plain; charset="UTF-8"
+ <0aed6cf2-17ae-45aa-b7ff-03da932ea4e0@quicinc.com>
+ <20240223134653.524a5c9e@gandalf.local.home>
+ <qsksxrdinia3cxr52tfe4p3pafsy4biktnodlfn4vyzud73p2j@6ycnhrhzwsv6>
+X-Mailer: Claws Mail 3.19.1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: wCcVNA_rPgQQt00obewLDHJucphy8QWk
-X-Proofpoint-GUID: wCcVNA_rPgQQt00obewLDHJucphy8QWk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-23_04,2024-02-23_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0
- impostorscore=0 priorityscore=1501 mlxscore=0 lowpriorityscore=0
- clxscore=1011 suspectscore=0 malwarescore=0 mlxlogscore=793 adultscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2402120000 definitions=main-2402230136
 X-Mailman-Approved-At: Mon, 26 Feb 2024 09:04:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,22 +74,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/23/2024 9:56 AM, Steven Rostedt wrote:
-> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
-> 
-> [
->    This is a treewide change. I will likely re-create this patch again in
->    the second week of the merge window of v6.9 and submit it then. Hoping
->    to keep the conflicts that it will cause to a minimum.
-> ]
-> 
-> With the rework of how the __string() handles dynamic strings where it
-> saves off the source string in field in the helper structure[1], the
-> assignment of that value to the trace event field is stored in the helper
-> value and does not need to be passed in again.
+On Fri, 23 Feb 2024 14:50:49 -0500
+Kent Overstreet <kent.overstreet@linux.dev> wrote:
 
-Just curious if this could be done piecemeal by first changing the
-macros to be variadic macros which allows you to ignore the extra
-argument. The callers could then be modified in their separate trees.
-And then once all the callers have be merged, the macros could be
-changed to no longer be variadic.
+> Tangentially related though, what would make me really happy is if we
+> could create the string with in the TP__fast_assign() section. I have to
+> have a bunch of annoying wrappers right now because the string length
+> has to be known when we invoke the tracepoint.
+
+You can use __string_len() to determine the string length in the tracepoint
+(which is executed in the TP_fast_assign() section).
+
+My clean up patches will make __assign_str_len() obsolete too (I'm working
+on them now), and you can just use __assign_str().
+
+I noticed that I don't have a string_len example in the sample code and I'm
+actually writing it now.
+
+// cutting out everything else:
+
+TRACE_EVENT(foo_bar,
+
+	TP_PROTO(const char *foo, int bar),
+
+	TP_ARGS(foo, bar),
+
+	TP_STRUCT__entry(
+		__string_len(	lstr,	foo,	bar < strlen(foo) ? bar : strlen(foo) )
+	),
+
+	TP_fast_assign(
+		__assign_str(lstr, foo);
+
+// Note, the above is with my updates, without them, you need to duplicate the logic
+
+//		__assign_str_len(lstr, foo, bar < strlen(foo) ? bar : strlen(foo));
+	),
+
+	TP_printk("%s", __get_str(lstr))
+);
+
+
+The above will allocate "bar < strlen(foo) ? bar : strlen(foo)" size on the
+ring buffer. As the size is already stored, my clean up code uses that
+instead of requiring duplicating the logic again.
+
+-- Steve
