@@ -4,53 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A4C9C48BC4
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 08:11:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 938B1C48BC4
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 08:24:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B48C10EB1B;
-	Fri, 23 Feb 2024 08:11:21 +0000 (UTC)
-Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 325F910EB14;
- Fri, 23 Feb 2024 08:11:18 +0000 (UTC)
-Received: from [192.168.1.137] ([213.144.156.170])
- by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202402230911154834; Fri, 23 Feb 2024 09:11:15 +0100
-Message-ID: <2d7632f0-0783-4d82-9d81-dd6bd52d5db6@daenzer.net>
-Date: Fri, 23 Feb 2024 09:11:14 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 012F810E08C;
+	Fri, 23 Feb 2024 08:24:07 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sy/EfSfa";
+	dkim-atps=neutral
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2064.outbound.protection.outlook.com [40.107.244.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5D6F10E08C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Feb 2024 08:24:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=C5o34Rb1OY67u5d8dYUkY3S2GUbBtaa4RCS2Jh0dKjPDAIXLDUVwU8GtOtCq1p6iooN0AQ7ypnHynLorV5ojnqmr0cIo4YmAIdTaO8QdljplDDvHqyyEqxDRgqVimkYoy6xq8tiVEJYXWM1bTiIYwg15Drc/1P66YidgO0vRIQXvc+jOXh+3p+iTToDeiDH9E1hihlVmsdKQdQqK2OBHDXQZq+bHlhtRVEA6vn2VW4+p35fqehyrAz1k0fcrml8ULINsc2cHjUhyq2p988CMCqb9Y0qBgZM6L/8pWjxKrXIz8tPYvXPG9+1HHV5bTas/HuZR/OojAKTm89CVgqHFxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X8fgQjZXpV7MVRHMC+rqxRVDg9NUNslqqbWUD7FPAx0=;
+ b=YKzN1mqfhnKEeIMZrSacmmG80mIXYtl3Fo7ctx2MRUfGZ/Uk5Mqkwicam4wC800b7ke72oJbREHqDKvuJqE8fTJab7Ou8feIZhzQFfOYK+qI3np7taRL+jz3Y9WPGITnGnpqwEPE3PKmRRXIKv6rwWYIukTBhy/IIX2SI3wIMZwBUDpLEXqCsBjKUnk49rLdHr7fPLmvT3aHcACLMZlnVqvV8IlxPXRTmIc0Djh8Ymh510Aqn1n67GuPxiN4n8A5+ZA3iAZ/viC003bsa2mpO5OZlAH/6gkaJ3zwqS862U+Wc75EdRW+GlpNY+7oF4myL6v8TnLdBewjf4Mrzp8Eew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X8fgQjZXpV7MVRHMC+rqxRVDg9NUNslqqbWUD7FPAx0=;
+ b=sy/EfSfa2Upi1xevteAY6KDre8qFlzKyqoNDl07iLAHaBpb/tcZ9PtNDifY2i9ppTh9D+Mg44yodpKlfwEE3Dtm6ukodcPPGcr6063ac4WvEHmso9N9/aEwB1AaCRg6tx1ODmWc386WzAHx/rji06Au26mS6TiXlt/pWj6+FiZ4=
+Received: from SA9PR13CA0153.namprd13.prod.outlook.com (2603:10b6:806:28::8)
+ by DM6PR12MB5021.namprd12.prod.outlook.com (2603:10b6:5:208::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.24; Fri, 23 Feb
+ 2024 08:24:03 +0000
+Received: from SA2PEPF000015CC.namprd03.prod.outlook.com
+ (2603:10b6:806:28:cafe::4f) by SA9PR13CA0153.outlook.office365.com
+ (2603:10b6:806:28::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.11 via Frontend
+ Transport; Fri, 23 Feb 2024 08:24:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF000015CC.mail.protection.outlook.com (10.167.241.202) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Fri, 23 Feb 2024 08:24:03 +0000
+Received: from tao-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 23 Feb
+ 2024 02:24:02 -0600
+From: Tao Zhou <tao.zhou1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Tao Zhou <tao.zhou1@amd.com>
+Subject: [PATCH 2/5] drm/amdgpu: add utcl2 poison query for gfxhub
+Date: Fri, 23 Feb 2024 16:23:49 +0800
+Message-ID: <20240223082352.323583-2-tao.zhou1@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240223082352.323583-1-tao.zhou1@amd.com>
+References: <20240223082352.323583-1-tao.zhou1@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/amdgpu: Refuse to create a KMS FB for non-P2P
- exported dma-bufs
-Content-Language: de-CH-frami, en-CA
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20240222172821.16901-1-michel@daenzer.net>
- <3156ea34-0655-4b0f-9438-9113fb714373@amd.com>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Autocrypt: addr=michel@daenzer.net; keydata=
- xsDiBDsehS8RBACbsIQEX31aYSIuEKxEnEX82ezMR8z3LG8ktv1KjyNErUX9Pt7AUC7W3W0b
- LUhu8Le8S2va6hi7GfSAifl0ih3k6Bv1Itzgnd+7ZmSrvCN8yGJaHNQfAevAuEboIb+MaVHo
- 9EMJj4ikOcRZCmQWw7evu/D9uQdtkCnRY9iJiAGxbwCguBHtpoGMxDOINCr5UU6qt+m4O+UD
- /355ohBBzzyh49lTj0kTFKr0Ozd20G2FbcqHgfFL1dc1MPyigej2gLga2osu2QY0ObvAGkOu
- WBi3LTY8Zs8uqFGDC4ZAwMPoFy3yzu3ne6T7d/68rJil0QcdQjzzHi6ekqHuhst4a+/+D23h
- Za8MJBEcdOhRhsaDVGAJSFEQB1qLBACOs0xN+XblejO35gsDSVVk8s+FUUw3TSWJBfZa3Imp
- V2U2tBO4qck+wqbHNfdnU/crrsHahjzBjvk8Up7VoY8oT+z03sal2vXEonS279xN2B92Tttr
- AgwosujguFO/7tvzymWC76rDEwue8TsADE11ErjwaBTs8ZXfnN/uAANgPM0jTWljaGVsIERh
- ZW56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD7CXgQTEQIAHgUCQFXxJgIbAwYLCQgHAwIDFQID
- AxYCAQIeAQIXgAAKCRBaga+OatuyAIrPAJ9ykonXI3oQcX83N2qzCEStLNW47gCeLWm/QiPY
- jqtGUnnSbyuTQfIySkLOwE0EOx6FRRAEAJZkcvklPwJCgNiw37p0GShKmFGGqf/a3xZZEpjI
- qNxzshFRFneZze4f5LhzbX1/vIm5+ZXsEWympJfZzyCmYPw86QcFxyZflkAxHx9LeD+89Elx
- bw6wT0CcLvSv8ROfU1m8YhGbV6g2zWyLD0/naQGVb8e4FhVKGNY2EEbHgFBrAAMGA/0VktFO
- CxFBdzLQ17RCTwCJ3xpyP4qsLJH0yCoA26rH2zE2RzByhrTFTYZzbFEid3ddGiHOBEL+bO+2
- GNtfiYKmbTkj1tMZJ8L6huKONaVrASFzLvZa2dlc2zja9ZSksKmge5BOTKWgbyepEc5qxSju
- YsYrX5xfLgTZC5abhhztpcJGBBgRAgAGBQI7HoVFAAoJEFqBr45q27IAlscAnjICalDn2zB1
- fXqoOkGsTwElvKa5AJ9FhyKJpysFRcejfdZwrwl9xb4oOg==
-In-Reply-To: <3156ea34-0655-4b0f-9438-9113fb714373@amd.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CTCH: RefID="str=0001.0A782F23.65D85324.0062,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
- Spam="Unknown"; VOD="Unknown"
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CC:EE_|DM6PR12MB5021:EE_
+X-MS-Office365-Filtering-Correlation-Id: 679790ad-4e09-4f47-a3bf-08dc3448cb6d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Kv1M0k3VxLaondkEFfscFDP98z5yyC6A99HbsLFFv7PgB0GKodvS/wGfc6O57Kd8rod/LHNU+4qsPRqdQ752Bf5PxO5o9Moy8ppTI1SONDSHWFnnAk5AdJ3EpjuERlBJqQvYzHhz9plu7Idu56Kn88BmdItEzY6UGLg2CLtCBDcHqNq/SL9X5R/0WSnKSyNt0aI0xYEQxFaIO2ooXR6iKDptfNN6/4AHpaY+TLeTKtjxwXWLCM329/HMeDsQRpkSXtJKzhBs1a4PlJK8NHHJ196oY/dUUYMM/tftm+HcxiIe2xm6JUTsLl1wzC9OEbqvsrizeJdNTbSiCWOsDS9JohVSzxzHlYercobcuH868Ywi7vmxipdzqHGq2bjOYSkGLJT1pgDsi8bGogrf44kv3pW6gqov0IDiewaVH8hgKtlaI5dwhfoyuQh/XGlCEsHj7/jXSUKnU3aMNAJOA5MHizqTXAA3DZp6ZSBvgPvZzLhy1Z+DgiFwd69HvkXiWPZInmHfg2Y5PZt00yCLbnSpk6VP16Op+lUmRSnskhP9LHRLbbCKDexYrvp39K7m7aNQMkj5eEQ0FjCfl7zGHyW8Eg+yy6HMTa3FadgiH2qnXpAK502WlR61OMK3hJZoX/4rWtEOrekSjBlK8ZV8wwNyp5fnsCWDU6x9qfVzyMAAY/k=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(40470700004)(46966006); DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2024 08:24:03.4392 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 679790ad-4e09-4f47-a3bf-08dc3448cb6d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CC.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB5021
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,43 +105,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2024-02-23 08:06, Christian König wrote:
-> Am 22.02.24 um 18:28 schrieb Michel Dänzer:
->> From: Michel Dänzer <mdaenzer@redhat.com>
->>
->> Pinning the BO storage to VRAM for scanout would make it inaccessible
->> to non-P2P dma-buf importers.
-> 
-> Thinking more about it I don't think we can do this.
-> 
-> Using the BO in a ping/pong fashion for scanout and DMA-buf is actually valid, you just can't do both at the same time.
-> 
-> And if I'm not completely mistaken we actually have use cases for this at the moment,
+Implement it for gfxhub 1.0 and 1.2.
 
-Those use cases don't have P2P & CONFIG_DMABUF_MOVE_NOTIFY?
+v2: input logical xcc id for poison query interface.
 
-(As discussed on the GitLab issue, AFAICT P2P could be made to work even without CONFIG_DMABUF_MOVE_NOTIFY, by pinning to VRAM instead of GTT for dma-buf sharing)
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h |  2 ++
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c   | 17 +++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c   | 15 +++++++++++++++
+ 3 files changed, 34 insertions(+)
 
-
-> only as fallback but it would still break existing userspace and that is a no-go.
-
-I'm obviously aware of this general rule. There are exceptions though, and this might be one.
-
-
-> So rejecting things during CS and atomic commit is the best thing we can do.
-
-It's problematic for a Wayland compositor:
-
-The CS ioctl failing is awkward. With GL, I'm pretty sure it means the compositor would have to destroy the context and create a new one. Not sure about Vulkan, but I suspect it's painful there as well.
-
-Similarly for the KMS atomic commit ioctl. The compositor can't know why exactly it failed, all it gets is an error code.
-
-And there's no other way for the compositor to detect when both things can actually work concurrently.
-
-Together, this means the compositor always has to assume the worst case, and do workarounds such as using the scanout GPU to copy from the scanout buffer to another buffer for access from another GPU. Even when direct access from the other GPU would actually work fine.
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h
+index c7b44aeb671b..103a837ccc71 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h
+@@ -38,6 +38,8 @@ struct amdgpu_gfxhub_funcs {
+ 	void (*mode2_save_regs)(struct amdgpu_device *adev);
+ 	void (*mode2_restore_regs)(struct amdgpu_device *adev);
+ 	void (*halt)(struct amdgpu_device *adev);
++	bool (*query_utcl2_poison_status)(struct amdgpu_device *adev,
++			int xcc_id);
+ };
+ 
+ struct amdgpu_gfxhub {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+index 22175da0e16a..d200310d1731 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+@@ -443,6 +443,22 @@ static void gfxhub_v1_0_init(struct amdgpu_device *adev)
+ 		mmVM_INVALIDATE_ENG0_ADDR_RANGE_LO32;
+ }
+ 
++static bool gfxhub_v1_0_query_utcl2_poison_status(struct amdgpu_device *adev,
++				int xcc_id)
++{
++	u32 status = 0;
++	struct amdgpu_vmhub *hub;
++
++	if (amdgpu_ip_version(adev, GC_HWIP, 0) != IP_VERSION(9, 4, 2))
++		return false;
++
++	hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
++	status = RREG32(hub->vm_l2_pro_fault_status);
++	/* reset page fault status */
++	WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
++
++	return REG_GET_FIELD(status, VM_L2_PROTECTION_FAULT_STATUS, FED);
++}
+ 
+ const struct amdgpu_gfxhub_funcs gfxhub_v1_0_funcs = {
+ 	.get_mc_fb_offset = gfxhub_v1_0_get_mc_fb_offset,
+@@ -452,4 +468,5 @@ const struct amdgpu_gfxhub_funcs gfxhub_v1_0_funcs = {
+ 	.set_fault_enable_default = gfxhub_v1_0_set_fault_enable_default,
+ 	.init = gfxhub_v1_0_init,
+ 	.get_xgmi_info = gfxhub_v1_1_get_xgmi_info,
++	.query_utcl2_poison_status = gfxhub_v1_0_query_utcl2_poison_status,
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
+index 49aecdcee006..77df8c9cbad2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
+@@ -620,6 +620,20 @@ static int gfxhub_v1_2_get_xgmi_info(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
++static bool gfxhub_v1_2_query_utcl2_poison_status(struct amdgpu_device *adev,
++				int xcc_id)
++{
++	u32 fed, status;
++
++	status = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regVM_L2_PROTECTION_FAULT_STATUS);
++	fed = REG_GET_FIELD(status, VM_L2_PROTECTION_FAULT_STATUS, FED);
++	/* reset page fault status */
++	WREG32_P(SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id),
++			regVM_L2_PROTECTION_FAULT_STATUS), 1, ~1);
++
++	return fed;
++}
++
+ const struct amdgpu_gfxhub_funcs gfxhub_v1_2_funcs = {
+ 	.get_mc_fb_offset = gfxhub_v1_2_get_mc_fb_offset,
+ 	.setup_vm_pt_regs = gfxhub_v1_2_setup_vm_pt_regs,
+@@ -628,6 +642,7 @@ const struct amdgpu_gfxhub_funcs gfxhub_v1_2_funcs = {
+ 	.set_fault_enable_default = gfxhub_v1_2_set_fault_enable_default,
+ 	.init = gfxhub_v1_2_init,
+ 	.get_xgmi_info = gfxhub_v1_2_get_xgmi_info,
++	.query_utcl2_poison_status = gfxhub_v1_2_query_utcl2_poison_status,
+ };
+ 
+ static int gfxhub_v1_2_xcp_resume(void *handle, uint32_t inst_mask)
 -- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+2.34.1
 
