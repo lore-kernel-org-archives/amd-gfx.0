@@ -4,121 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AF66C54798
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 16:59:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F787C54798
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 17:11:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBD8210EC69;
-	Fri, 23 Feb 2024 16:59:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA41E10EC76;
+	Fri, 23 Feb 2024 17:11:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EyHzW/K9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T+i3Sy2n";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2062.outbound.protection.outlook.com [40.107.102.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BE6A10EC69
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Feb 2024 16:59:02 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A7D310EC82
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Feb 2024 17:11:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BsKhXBw661LXZRlipMuzIqxMjBA+11t5TxJRf3zhhV+tJohvVbNXxzPF5TwsKbqw/jWkdOuSuArWomxtYDGT/OvCU1nF6FdChCiddbjfvQ6yWdvHktwi7IuYdmk95SkXCgbR3DNBb1qNJwFYjDSXPu/SD9eYS8MUZo0RwNprjN3Aq+gEtBoXjH1OKeHx0bieKYWqePz+suUJKUQHbuD5HecN499zHyiKc7NciOxrhRfIzDefLifYpslSL8sT2DeZ3JEGmef+UwqSuwPjUQ4e8aRbEqXBMwTSM8OB59luY8agm0L2c+tB/wn9hSflcVNcXbxs8+Ou79EnSTjzYq4rhQ==
+ b=DlyRMUFNCK68onECLr2rjiGUBjxwoWhr991BNq3wa32jKBYxKrEixvX+lOuLQTi/rd2R1a1yGTMK0EcBzjvrI8SwepwngiePCMtUtOIkhvKhy7PZldiJaJOZQ3dLmceUmibWteMaOLAJoRBo234i870Rw5MyETMO+OfqRR7xIeDNCP9HHIUbTw1jtwbL5n6A9//nCmHJP1tYk4nUQz/pKZ9E9UbOoQsOaXU5EUdfa8HFzz/oQsp39AX3oE3gk/AkCz365yV+j+CDSEg91jUD7ZOB3kBVk2wf8Q3+hvuGiRxJIN58ziUCrrbk2vL/JZHVvgIL5/Wz4jwi9r7K2suR3g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nH1E97TqX5B+kuD46PIaucgrl0VHfVDDSoJ0cUgyVks=;
- b=YVgoEg/8/sIAFHZNz50TSG26bBw4PlupPuN5DzKEAqFwxiN2fZ7Vb1TWCa1YEUCfN8zyrTHgyB3NpgWkQ4UaXApnrppDjRwFTHEbh9KIk80ThoMU+sZX++MZmDpXWUNRqdWBMSgzxcLjbeTEXQma0NW2sJvm6HK4Zhie0GCTI5EmZ402+rx7jEKu9WbuXozWLN509xSe+a/BkznEpaakTvXESahsCVmwckj8QE5CQT2Rs7YjhXy7pStdNWN/RJrso68VGt/w5jk0rMkjAiU/qK1iZLOmCCuKGgI/BBQBh2s9lrugRwNWBNb5uXm6v2Il6sXDx9EYx3e9/T6LaXw6Ag==
+ bh=NkVvdA2mqQAw46ArYxNBes5NxEIII1TlJzStnzX2C78=;
+ b=d7+Rh6rrvHV+rkepYgnmL7HRkEYTHsmmgdjYOJu5YMwL2WE+rrbgTbaGMtRYEChuFj6HORWAt47me3GaekpWg2YaxuXhK2Fw+jnsC/z3q5MfwZ5EcwSY4IyP3QtRxSoQIUKYoLg8JG9v4AabvO3tgouzWCsdxoMzkM3OPx352POwMJXoqVONCra2JQOqY1LKPf/hzmXZdWwnFbPVK4SIZh3ReaDJv77EekxJrnGG9lmq9JmAyxKWODRQxTXYCQr/YzQfB2p28m3f+OsLwHU6fg7M1i7t6mWyVLTj30M7RG+BzqJpX9JcB9gztL3luHsFmJe3r+msYB1KNZmVdMZ26w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nH1E97TqX5B+kuD46PIaucgrl0VHfVDDSoJ0cUgyVks=;
- b=EyHzW/K9j/6VzuRi82eWss5sCjiwdI8qR42Kh+7mEOMnmguoFKZd6xftNA0f12nLIlR+BDZxbTYfBzFZtGNwXR6AC8/6NLyqILMuTczoHdoE0iJO7CR29GtnvH+kqSF26FkE0mfPiJf3iM6ghiOrJ2vmf0wAOW8cUjbkADpxabU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by CY5PR12MB6108.namprd12.prod.outlook.com (2603:10b6:930:27::15) with
+ bh=NkVvdA2mqQAw46ArYxNBes5NxEIII1TlJzStnzX2C78=;
+ b=T+i3Sy2nTgldZnYE3JW8znpTGpzwe5feOBZ76ydEi0zDzmEALdYm3bumMOGR15ZDzdblAe9G//f5Ww6s6DL13Yvb7rkOxCuuSdtKTfgM2BUc2CUHJ9COiO4j+Dv5qzq06bMn8rO0djUiPMZ38oubCSW+JkRjhYBYgdColz1GyPQ=
+Received: from DM4PR12MB5328.namprd12.prod.outlook.com (2603:10b6:5:39f::12)
+ by SJ0PR12MB6712.namprd12.prod.outlook.com (2603:10b6:a03:44e::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.22; Fri, 23 Feb
- 2024 16:58:56 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::9494:43c8:64df:6c1a]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::9494:43c8:64df:6c1a%5]) with mapi id 15.20.7316.023; Fri, 23 Feb 2024
- 16:58:56 +0000
-Message-ID: <be0a4509-497f-2264-987d-2941ce21d97f@amd.com>
-Date: Fri, 23 Feb 2024 11:58:54 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v3 2/3] drm/amdgpu: implement TLB flush fence
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.20; Fri, 23 Feb
+ 2024 17:11:16 +0000
+Received: from DM4PR12MB5328.namprd12.prod.outlook.com
+ ([fe80::b4a6:ef0f:c28b:3d38]) by DM4PR12MB5328.namprd12.prod.outlook.com
+ ([fe80::b4a6:ef0f:c28b:3d38%5]) with mapi id 15.20.7316.016; Fri, 23 Feb 2024
+ 17:11:16 +0000
+From: "Luo, Zhigang" <Zhigang.Luo@amd.com>
+To: "Lu, Victor Cheng Chi (Victor)" <VictorChengChi.Lu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH 2/4] drm/amdgpu: Do not program SQ_TIMEOUT_CONFIG in SRIOV
+Thread-Topic: [PATCH 2/4] drm/amdgpu: Do not program SQ_TIMEOUT_CONFIG in SRIOV
+Thread-Index: AQHaPaFkB5CRdgtSXUmW4OYyRvLQJbENlpi9gArkf5A=
+Date: Fri, 23 Feb 2024 17:11:16 +0000
+Message-ID: <DM4PR12MB5328F1454363BD8694C1E6A8F1552@DM4PR12MB5328.namprd12.prod.outlook.com>
+References: <20240102173013.5543-1-victorchengchi.lu@amd.com>
+ <20240102173013.5543-2-victorchengchi.lu@amd.com>
+ <PH7PR12MB59745A45653A1B10F9C1653AFA4C2@PH7PR12MB5974.namprd12.prod.outlook.com>
+In-Reply-To: <PH7PR12MB59745A45653A1B10F9C1653AFA4C2@PH7PR12MB5974.namprd12.prod.outlook.com>
+Accept-Language: en-US, en-CA
 Content-Language: en-US
-To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20240223134206.899-1-shashank.sharma@amd.com>
- <20240223134206.899-2-shashank.sharma@amd.com>
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <20240223134206.899-2-shashank.sharma@amd.com>
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0128.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:1::28) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-02-16T18:49:57.671Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5328:EE_|SJ0PR12MB6712:EE_
+x-ms-office365-filtering-correlation-id: 31e0ea61-38b3-4429-f4f8-08dc3492720f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ++oTOZmxAQB/t9zjLzvDhyv/olbVA7eXP6q04pGYqKmzoFJBxgt5+goRsDKSG46AGLzhJuBKVZVnOh9Dkc+hJf7j6TASzld+fSbCdbJn8TuPs614j9Ez87vz2ZxPasUmsXDXY5lDtJfgb2AEXFE9Odnoxbn6077NkEIAKD7mq3ryQ51+zBGjgcCihZesdXO30MxiLRyWut01bWroMD+XQTRUSe1vN1rkf1vrBkliBPMBUPp/GJmqzKgsd8dk2RIeXQ8HPbus6xoVIfT3xeJGxoQk7ar43SOvMJ7YJQo5lDjWURUKBHWXZHg6uCgn245x9MukHzuTOs44CVUvlDFGL2Hp2bZs26N7BrUUfFA3g20xplSDznFjpcoXd75TBzrE/QyPI3VEJ04WN/v9krp/bCx50f7CIyTcjVmNQPTTy4xtliZ57vDPSMbK7YSwAKRswjNL36r29DsBJpOAWgXuSe0rV25ucLQUV/i8cVYWw760T5dKJtNGCyrQ5pIsJ3j+qPiauVHRrbEZ+wIeHbr5Wmh+mbhOSfLV/BaRgVrLwuu/+PwJ0U/TuXRTquAw1iR58zStb4f8daqwMg0jmvNZZa1xTvILGAVDg4VX7LH+/sby4QClfJNFVwpT3UZmEdIB
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5328.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?eal7ZPzXg7Tor+HGyKDhfU+Yb56blxtmZOg9Koze1I1vIyvffDeaylSHNrym?=
+ =?us-ascii?Q?pxREENtBtR2FXb/DfloUGCu9ehKrrznSSl4M+Dsd7YA4Hppmp6NslgwKktNN?=
+ =?us-ascii?Q?7hFaJw20kifAspAMB40MUJ9gsU1G+gTBsMWQ9GI9/MqjcyWByEPBdfnEZxII?=
+ =?us-ascii?Q?1wXSwe2GKroEDoeCSESLCnk7Uqa3XqdeeHUH9vv/z3/Bym9sD+U6iKbRH33o?=
+ =?us-ascii?Q?VfZYBndmRytoYIKLDXvrDGYmAxaQg2wu3YdG0o0C4gRXsxOYGCFjIEii7XJn?=
+ =?us-ascii?Q?1q1Cgj7Kk+uwwxnhe3Npo9PnKP1lxyW8lbRZt+B3o/YssKd6onmIP5J7ZuG1?=
+ =?us-ascii?Q?Xusn0Xwh5dBx1eRTiXdhhB4u5ED0ulc5E59xr2BcomiE+vUEJWOIitzSxEjM?=
+ =?us-ascii?Q?LhmmvFi360pQXHivdd/5s+Q3PI0OLEzbvjzGbMqTMHxtr0Sold7xTxPYV8Ke?=
+ =?us-ascii?Q?ZFb55Jfpbl74oxCGtaIW800j6LnUVAiPLKwRuiYGJlS4johYczFit/lEaj6R?=
+ =?us-ascii?Q?ymkEhTW+AUJVj5zoJEtVACdmkiiY08SYLCYm3kI1UOTjNuO9N8G8f9VtGvCf?=
+ =?us-ascii?Q?l/0rk7duz+PrzcZ6pee+x83xdzdDFaQfS1rPVRBu8FS1dWPpSSLyFmZHrd/J?=
+ =?us-ascii?Q?nfTCiYcKcMTkxmnl6DpChJpm2g4lhbV4flbQA6Mw7TYOtS55o8nJr7HmMneq?=
+ =?us-ascii?Q?GzAX4jXp6lpXlxcBmE+K8m0w8JypoyH7eGTmUoW4YXGD87tDF09bykOmiYvD?=
+ =?us-ascii?Q?zbKUjXkYmPhaAusF6yEX5Lzkfp+xELyBpcWbGo37mqM1hPFTqi1coHrMGP2a?=
+ =?us-ascii?Q?W37qNjZmDZESy04vXYBq45eu8PfKdh+BF1FM3Ysx1ptbUQP2LzURZwnNj3P8?=
+ =?us-ascii?Q?L/PhxT9jLcTpPOlHNvCZ4Xtkk5ddib6P2o0z+biozr6L0MJfyn3XsWAYXPb/?=
+ =?us-ascii?Q?tV0Wx8fBp7do1bQmFMXc6u6lP7A+eAcQoGUGaGINKRJvL+mbTa8BKRmf5z0E?=
+ =?us-ascii?Q?vdU4BpjHcXhn8NbgyXJVavsAAutPLmAiaCQC54pQEVEMvk5PURLme6ZYcx6f?=
+ =?us-ascii?Q?Q+sl19nJKK4HT5XL7PAto9TKjgRUwjBs96aEyJ92konFSQbfWIx7Om2N1JHS?=
+ =?us-ascii?Q?AJTW+TtN1Ib4EiLFUTI3TS+EZUNIfIqlNCxArbjNtFXeHhaDTyDU0EeyOdpl?=
+ =?us-ascii?Q?mtF3sSnQSXTTYJA5aQsyUzrlMWApqLuHZsv8DqRr1Evy3FndCbc3fjvvWUa/?=
+ =?us-ascii?Q?UEfWAiHwB0r9PevmtExR/7isfps3ri9qLTXwZ/lp7YbODMW2yQiyXS/pI0hp?=
+ =?us-ascii?Q?+dAcqkCnbTwpBzZjcSCnzn01MM/j6CHS6q4d3m8rYOf6kQ1zLoFtDRxbhVA1?=
+ =?us-ascii?Q?YgL2Nk6ETHagcmvq1OKMArnTftx1RX/dQpBa/zKk1RhmIO+GQgzlWBFOM/OE?=
+ =?us-ascii?Q?VCg1eQAzhNvftYjdXlIxEOaVQ+nvV/uNp9qs6WmLEp20wM8WKsIJwXydHHAL?=
+ =?us-ascii?Q?WtlS7k0MpxkoIvJ9G/2g5W2uH7pic2Wpi/0Z+/1lv7l02ANU7RLeXKyOernG?=
+ =?us-ascii?Q?1gl4HSfUFI4TFkDKyGg=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM4PR12MB5328F1454363BD8694C1E6A8F1552DM4PR12MB5328namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|CY5PR12MB6108:EE_
-X-MS-Office365-Filtering-Correlation-Id: f7d760f0-6725-40af-6cc5-08dc3490b934
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kTLYgRj+Dr6zuhHTXnLwAGP2UKIARTB6IHOF0FIKeX30NP3aiwLZNpaFj6qn9BwPUrMooZp8unk6CX/gHLWxYYGT4XwCQjADDlPaYBSNphB5Cwf9v3IWuwGl2kfDxIFOrjJDgkoECMtfdBN/2mjE1UZJDjPn2rj3PqRIMHHZYowOM8SeHV57RxPpphetvYJmDblptiC1AlTuDiPf/xOhznxbQjsW7XTMRYCVVvS+SwXgnBPMunwFBguJUJvTSq9RP1W3h3tvzTa+q4BoMWFC3/+5iCq3EIWyyX9X+bxS7XpsuDjfERbOWO56O941eZ4Xz9I3BlBLCJJJSr+r4k2IjLkZrVb2vhxbiiKEVv2NNhaITcmYi0HgJb3/48PjOE0o4zGcqn8iG7ufz2ZuUigKQLIDwQ94DCRfj0qnG/zK+8jsdOJXJOSICSmxgI1REco5y7uNi0ELydW2U5gebJ8cdv554FY6iHs47aU3bck89pU8fVYyo1SX8IeK4JUqeyTOBHHtsV3DRGWkgXazFTop+33KncLzH9rSe6UJqpISXNI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHppN1NKeHEzbmFrS0t2Nm1zckNHVVBHUGJxSVZncW1PakNTb3RNSW9iUHZ1?=
- =?utf-8?B?MzY1c2pzdVN5Q0lVZ3JDdm5VbVlUL3lVM2lsMmlKRjkyMjFpQk0xRlR6RkpD?=
- =?utf-8?B?ZXFRNytwbVJQVGIwY1BzVUVUUG45N2paNDBqL3B4WWwzWGhzdnJMUWdnTzB1?=
- =?utf-8?B?K29MYmpNODgzeVd1K3h0WVpCNUwvUjJZcGtZcy9kREZHZWN5cDNGK3poQXIw?=
- =?utf-8?B?NGkwYnBZc2o2dk5EdUlLQ2VpYkh6eHRJSVUwWldqKzJsQzVsTTlHQmhBL3F3?=
- =?utf-8?B?TlV1ODNwMmM5NDF5UkRaWjhOUHpjWHM4UmpTVndqakd3cTJVUEdtMGYrVFFX?=
- =?utf-8?B?Y3o2eTllVEdRWHQwdnV0RW5NcG1nZFdTblRLWjlPbWFnSk83dUJvVkUyMW5G?=
- =?utf-8?B?STBCeWg2Z2M3Zno3blNDd3lpdVgvU1VZZWlld2ZoSC90dnRFb1NOWjBFbGRU?=
- =?utf-8?B?TmpxWjJyczYrdXZ4aVJMMFgyRkJBSE51WEpKWmFXUHJkejZndFNUaW1HeDNH?=
- =?utf-8?B?Tk1PTTU0TVRuT1ZtNlNDa0kvUVpYQ2ZFUEdTbWJNYW9ybTVLQWhsNVVLdEZM?=
- =?utf-8?B?RTNuTW8zZkJDMXZia3pmUGNBaXljU1dOR25PcTExbFk0b2FzRkYyUW5QaW5Q?=
- =?utf-8?B?cXFWZEg5eElMUG11L0sweStWb2VvekdDN2tyb1lGUEdGbTdhZG5zV1VSNWtj?=
- =?utf-8?B?enRob053OXMwRHpZeXJtNkU3c2tPUXYzRTljM2ZyK3hlejcwb082azJEUmEw?=
- =?utf-8?B?c0krbE9PYWZPOU5BZGlnMnIzM2lzT3k5am5TOXRBT0Zrd0VJYk4zUlI0V3BZ?=
- =?utf-8?B?VGQwQmROdlVMV0g2ZnJxVTJEZU5IMFNxNENjR3gvQTFreXFpTk81TGlZbEFR?=
- =?utf-8?B?SG5GSDQ5cTVhUXlRbGZRZTBuZWNyUGhnWXFqTERHZS9qeWJzbGM1WjZjNFA0?=
- =?utf-8?B?K1hNcWg5NGJwY3JCVGZha1V1TWNjSlQwdFFYOC94dmVzcnBtdURaWG04cFQ3?=
- =?utf-8?B?VjhkS3lKaHhCL2pzenE2VTFjOFFNZ3VISWdKaURVK1ZManlMaWtaZGl6RUw3?=
- =?utf-8?B?TU84QXhISW5JamhjbndXSUpiVng2SUp0V3JTSXBhS2dPVkszdFRwZWVjTksy?=
- =?utf-8?B?SjUzNDNwQUNsUSsxZloveWZJRERFb1JSK1plbTFwdHhpMTJGc1JCRFhEelFW?=
- =?utf-8?B?aEp4NW5xNmdzdnpOc04zNE96ajJSU0F6RTR4VjFzNzN6Tlk1MERJcldiTGZn?=
- =?utf-8?B?dktxbkt0VTFKbkpSTSt6aU9DR1EwVm8zVkZweUxRYldiZU04YTRUNzBqbXVD?=
- =?utf-8?B?blgwNll4SWozazFwWE5YZVljRkdZN0ZHQUVIRndpSk1vUWlrUS9oQ3ZTMU5q?=
- =?utf-8?B?TUFDRU1IZU1GQVpoU2dlLys3U2JVbTMvUU5QK0Y3UXF4NnhacFFMb2kwb3JW?=
- =?utf-8?B?SEl1VDIzT1Zjb0draDhLUGs5T0FQSUNtMEc4R3k1T1lKc0pNU1QvYnBqbk9j?=
- =?utf-8?B?blNtNEp3dkVQMndCeXlOUElETnUyVksrT3FqYXp0OUNmWGFHTUdGMjV3cW9I?=
- =?utf-8?B?SDR1RTZrRUFPS3RhOWVVTkljdXBaNXpVSlpzSGQrVXRoUHdCTGl6aENuSlhS?=
- =?utf-8?B?ZStEZSswcGpEWEcwejlqZHQzVXhKQmlGSStqNk9kTWV4SkdpNkRMZUJ5bENR?=
- =?utf-8?B?WXdSWjBTU2F6L2xMVW9YdmlHUHdGYmFhQ25IZjIyL0J1Z1F2R2p0RFI5VHgz?=
- =?utf-8?B?M0dtV2p4QjZQYnpDemZlZkJpaEZ2R3pZZTdkTkxtN2s4RVdXMVZRRS8xTks4?=
- =?utf-8?B?ZHFSMVk1RHpoN2U3dnBMWm9pSG8vdEM2aDAzUjNvd3F5Rlp5N3JpcWVGQWph?=
- =?utf-8?B?aHJtMmFsd2NmaDlkbTAwZHM5ZWpJVER2ZmUzZVBrQVpoeFEvcHY1ZnlveEZr?=
- =?utf-8?B?Y21LdVA4MW85OVhwNEIrc29VM0F1UzBxd0k4VGVTQS96TDlEVm9SZGFOSG1V?=
- =?utf-8?B?TnFGTEgrb0VmSU9FV3laWmpjem5ad0lWUjg1U25BYWJMSVZMRlQ0eUJSSnVh?=
- =?utf-8?B?MzFLQlk1bXRRaCt3UTljcXVLZmtHcDRoYlJyanZrMTZNQi9ZRWJTV1hNL05N?=
- =?utf-8?Q?+xEI=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f7d760f0-6725-40af-6cc5-08dc3490b934
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2024 16:58:56.7931 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RxDY9uCGG3GmpwyPteazxh8wH1LEu89hIXebBwnhCz7/Ba/dLUR/9ELKk70fySbq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6108
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5328.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31e0ea61-38b3-4429-f4f8-08dc3492720f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Feb 2024 17:11:16.3114 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: vIoVmz/yBjriRRV/FHETw4Z7SyhEpFdejH3FM1EwlWMt03qBTiSmsSg87yA6DpIQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6712
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,231 +129,224 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2024-02-23 08:42, Shashank Sharma
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20240223134206.899-2-shashank.sharma@amd.com">
-      <pre class="moz-quote-pre" wrap="">From: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
+--_000_DM4PR12MB5328F1454363BD8694C1E6A8F1552DM4PR12MB5328namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-The problem is that when (for example) 4k pages are replaced
-with a single 2M page we need to wait for change to be flushed
-out by invalidating the TLB before the PT can be freed.
+[AMD Official Use Only - General]
 
-Solve this by moving the TLB flush into a DMA-fence object which
-can be used to delay the freeing of the PT BOs until it is signaled.
+Reviewed By Zhigang Luo <Zhigang.Luo@amd.com<mailto:Zhigang.Luo@amd.com>>
 
-V2: (Shashank)
-    - rebase
-    - set dma_fence_error only in case of error
-    - add tlb_flush fence only when PT/PD BO is locked (Felix)
-    - use vm-&gt;pasid when f is NULL (Mukul)
 
-Cc: Christian Koenig <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
-Cc: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
-Cc: Rajneesh Bhardwaj <a class="moz-txt-link-rfc2396E" href="mailto:rajneesh.bhardwaj@amd.com">&lt;rajneesh.bhardwaj@amd.com&gt;</a>
-Cc: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
-Signed-off-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
-Signed-off-by: Shashank Sharma <a class="moz-txt-link-rfc2396E" href="mailto:shashank.sharma@amd.com">&lt;shashank.sharma@amd.com&gt;</a>
+From: Lu, Victor Cheng Chi (Victor) <VictorChengChi.Lu@amd.com>
+Sent: Friday, February 16, 2024 1:50 PM
+To: Luo, Zhigang <Zhigang.Luo@amd.com>
+Subject: Fw: [PATCH 2/4] drm/amdgpu: Do not program SQ_TIMEOUT_CONFIG in SR=
+IOV
+
+
+[AMD Official Use Only - General]
+
+
+________________________________
+From: Lu, Victor Cheng Chi (Victor) <VictorChengChi.Lu@amd.com<mailto:Victo=
+rChengChi.Lu@amd.com>>
+Sent: Tuesday, January 2, 2024 12:30 PM
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Chander, Vignesh <Vignesh.Chander@amd.com<mailto:Vignesh.Chander@amd.co=
+m>>; Lu, Victor Cheng Chi (Victor) <VictorChengChi.Lu@amd.com<mailto:Victor=
+ChengChi.Lu@amd.com>>
+Subject: [PATCH 2/4] drm/amdgpu: Do not program SQ_TIMEOUT_CONFIG in SRIOV
+
+VF should not program this register.
+
+Signed-off-by: Victor Lu <victorchengchi.lu@amd.com<mailto:victorchengchi.l=
+u@amd.com>>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile           |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  10 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   4 +
- .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  | 106 ++++++++++++++++++
- 4 files changed, 122 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 4c989da4d2f3..fdbb3d770c7b 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -70,7 +70,8 @@ amdgpu-y += amdgpu_device.o amdgpu_doorbell_mgr.o amdgpu_kms.o \
- 	amdgpu_cs.o amdgpu_bios.o amdgpu_benchmark.o \
- 	atombios_dp.o amdgpu_afmt.o amdgpu_trace_points.o \
- 	atombios_encoders.o amdgpu_sa.o atombios_i2c.o \
--	amdgpu_dma_buf.o amdgpu_vm.o amdgpu_vm_pt.o amdgpu_ib.o amdgpu_pll.o \
-+	amdgpu_dma_buf.o amdgpu_vm.o amdgpu_vm_pt.o amdgpu_vm_tlb_fence.o \
-+	amdgpu_ib.o amdgpu_pll.o \
- 	amdgpu_ucode.o amdgpu_bo_list.o amdgpu_ctx.o amdgpu_sync.o \
- 	amdgpu_gtt_mgr.o amdgpu_preempt_mgr.o amdgpu_vram_mgr.o amdgpu_virt.o \
- 	amdgpu_atomfirmware.o amdgpu_vf_error.o amdgpu_sched.o \
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 0960e0a665d3..67c690044b97 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -932,6 +932,15 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	if (r)
- 		goto error_unlock;
- 
-+	/* Prepare a TLB flush fence to be attached to PTs */
-+	if (!unlocked &amp;&amp; params.needs_flush &amp;&amp; vm-&gt;is_compute_context) {
-+		amdgpu_vm_tlb_fence_create(adev, vm, fence);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_4_3.c
+index 00b21ece081f..30cc155f20d4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -3888,6 +3888,9 @@ static void gfx_v9_4_3_inst_enable_watchdog_timer(str=
+uct amdgpu_device *adev,
+         uint32_t i;
+         uint32_t data;
+
++       if (amdgpu_sriov_vf(adev))
++               return;
 +
-+		/* Makes sure no PD/PT is freed before the flush */
-+		dma_resv_add_fence(vm-&gt;root.bo-&gt;tbo.base.resv, *fence,
-+				   DMA_RESV_USAGE_BOOKKEEP);
-+	}
-+
- 	amdgpu_res_first(pages_addr ? NULL : res, offset,
- 			 (last - start + 1) * AMDGPU_GPU_PAGE_SIZE, &amp;cursor);
- 	while (cursor.remaining) {
-@@ -2237,6 +2246,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 
- 	mutex_init(&amp;vm-&gt;eviction_lock);
- 	vm-&gt;evicting = false;
-+	vm-&gt;tlb_fence_context = dma_fence_context_alloc(1);
- 
- 	r = amdgpu_vm_pt_create(adev, vm, adev-&gt;vm_manager.root_level,
- 				false, &amp;root, xcp_id);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index ac9380afcb69..8e6fd25d07b7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -332,6 +332,7 @@ struct amdgpu_vm {
- 	atomic64_t		tlb_seq;
- 	uint64_t		tlb_seq_va;
- 	uint64_t		*tlb_seq_cpu_addr;
-+	uint64_t		tlb_fence_context;
- 
- 	atomic64_t		kfd_last_flushed_seq;
- 
-@@ -585,5 +586,8 @@ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
- 				  uint64_t addr,
- 				  uint32_t status,
- 				  unsigned int vmhub);
-+void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev,
-+				 struct amdgpu_vm *vm,
-+				 struct dma_fence **fence);
- 
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
-new file mode 100644
-index 000000000000..569681badd7c
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
-@@ -0,0 +1,106 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
-+/*
-+ * Copyright 2023 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the &quot;Software&quot;),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ */
-+
-+#include &lt;linux/dma-fence.h&gt;
-+#include &lt;linux/workqueue.h&gt;
-+
-+#include &quot;amdgpu.h&quot;
-+#include &quot;amdgpu_vm.h&quot;
-+#include &quot;amdgpu_gmc.h&quot;
-+
-+struct amdgpu_tlb_fence {
-+	struct dma_fence	base;
-+	struct amdgpu_device	*adev;
-+	struct dma_fence	*dependency;
-+	struct work_struct	work;
-+	spinlock_t		lock;
-+	uint16_t		pasid;
-+
-+};
-+
-+static const char *amdgpu_tlb_fence_get_driver_name(struct dma_fence *fence)
-+{
-+	return &quot;amdgpu tlb fence&quot;;
-+}
-+
-+static const char *amdgpu_tlb_fence_get_timeline_name(struct dma_fence *f)
-+{
-+	return &quot;amdgpu tlb timeline&quot;;
-+}
-+
-+static void amdgpu_tlb_fence_work(struct work_struct *work)
-+{
-+	struct amdgpu_tlb_fence *f = container_of(work, typeof(*f), work);
-+	int r;
-+
-+	r = amdgpu_gmc_flush_gpu_tlb_pasid(f-&gt;adev, f-&gt;pasid, 2, true, 0);
-+	if (r) {
-+		dev_err(f-&gt;adev-&gt;dev, &quot;TLB flush failed for PASID %d.\n&quot;,
-+			f-&gt;pasid);
-+		dma_fence_set_error(&amp;f-&gt;base, r);
-+	}
-+
-+	dma_fence_signal(&amp;f-&gt;base);
-+	dma_fence_put(&amp;f-&gt;base);
-+}
-+
-+static const struct dma_fence_ops amdgpu_tlb_fence_ops = {
-+	.use_64bit_seqno = true,
-+	.get_driver_name = amdgpu_tlb_fence_get_driver_name,
-+	.get_timeline_name = amdgpu_tlb_fence_get_timeline_name
-+};
-+
-+void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-+				struct dma_fence **fence)
-+{
-+	struct amdgpu_tlb_fence *f;
-+
-+	f = kmalloc(sizeof(*f), GFP_KERNEL);
-+	if (!f) {
-+		/*
-+		 * We can't fail since the PDEs and PTEs are already updated, so
-+		 * just block for the dependency and execute the TLB flush
-+		 */
-+		if (*fence)
-+			dma_fence_wait(*fence, false);
-+
-+		amdgpu_gmc_flush_gpu_tlb_pasid(adev, vm-&gt;pasid, 2, true, 0);
-+		*fence = dma_fence_get_stub();
-+		return;
-+	}
-+
-+	f-&gt;adev = adev;
-+	f-&gt;dependency = *fence;
-+	f-&gt;pasid = vm-&gt;pasid;
-+	INIT_WORK(&amp;f-&gt;work, amdgpu_tlb_fence_work);
-+	spin_lock_init(&amp;f-&gt;lock);
-+
-+	dma_fence_init(&amp;f-&gt;base, &amp;amdgpu_tlb_fence_ops, &amp;f-&gt;lock,
-+		       vm-&gt;tlb_fence_context, atomic64_read(&amp;vm-&gt;tlb_seq));
-+
-+	/* TODO: We probably need a separate wq here */</pre>
-    </blockquote>
-    <p>tlb_fence_work flush tlb, then signal fence to free pt bo, but
-      how to guarantee the tlb_fence_work is executed after updating
-      page table done? This looks racy to schedule tlb_fence_work right
-      after creating fence to attach to pt bo.</p>
-    <p>Regards,</p>
-    <p>Philip<br>
-    </p>
-    <blockquote type="cite" cite="mid:20240223134206.899-2-shashank.sharma@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-+	dma_fence_get(&amp;f-&gt;base);
-+	schedule_work(&amp;f-&gt;work);
-+
-+	*fence = &amp;f-&gt;base;
-+}
-</pre>
-    </blockquote>
-  </body>
+         data =3D RREG32_SOC15(GC, GET_INST(GC, 0), regSQ_TIMEOUT_CONFIG);
+         data =3D REG_SET_FIELD(data, SQ_TIMEOUT_CONFIG, TIMEOUT_FATAL_DISA=
+BLE,
+                              amdgpu_watchdog_timer.timeout_fatal_disable ?=
+ 1 : 0);
+--
+2.34.1
+
+--_000_DM4PR12MB5328F1454363BD8694C1E6A8F1552DM4PR12MB5328namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#1F4E79;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	mso-ligatures:none;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
+style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"color:#1F4E79">Reviewed By Zhigang Lu=
+o &lt;<a href=3D"mailto:Zhigang.Luo@amd.com">Zhigang.Luo@amd.com</a>&gt;<o:=
+p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F4E79"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F4E79"><o:p>&nbsp;</o:p></spa=
+n></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Lu, Victor Cheng Chi (Victor) &lt;Victo=
+rChengChi.Lu@amd.com&gt;
+<br>
+<b>Sent:</b> Friday, February 16, 2024 1:50 PM<br>
+<b>To:</b> Luo, Zhigang &lt;Zhigang.Luo@amd.com&gt;<br>
+<b>Subject:</b> Fw: [PATCH 2/4] drm/amdgpu: Do not program SQ_TIMEOUT_CONFI=
+G in SRIOV<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
+;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only - General]<o:p><=
+/o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
+</p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Lu, Victor Cheng Chi (Victor) &lt;<a href=3D"mailto=
+:VictorChengChi.Lu@amd.com">VictorChengChi.Lu@amd.com</a>&gt;<br>
+<b>Sent:</b> Tuesday, January 2, 2024 12:30 PM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Chander, Vignesh &lt;<a href=3D"mailto:Vignesh.Chander@amd.com">=
+Vignesh.Chander@amd.com</a>&gt;; Lu, Victor Cheng Chi (Victor) &lt;<a href=
+=3D"mailto:VictorChengChi.Lu@amd.com">VictorChengChi.Lu@amd.com</a>&gt;<br>
+<b>Subject:</b> [PATCH 2/4] drm/amdgpu: Do not program SQ_TIMEOUT_CONFIG in=
+ SRIOV</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">VF should not program=
+ this register.<br>
+<br>
+Signed-off-by: Victor Lu &lt;<a href=3D"mailto:victorchengchi.lu@amd.com">v=
+ictorchengchi.lu@amd.com</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 3 +++<br>
+&nbsp;1 file changed, 3 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_4_3.c<br>
+index 00b21ece081f..30cc155f20d4 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
+@@ -3888,6 +3888,9 @@ static void gfx_v9_4_3_inst_enable_watchdog_timer(str=
+uct amdgpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t data;<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return;<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D RREG32_SOC15(GC, =
+GET_INST(GC, 0), regSQ_TIMEOUT_CONFIG);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(dat=
+a, SQ_TIMEOUT_CONFIG, TIMEOUT_FATAL_DISABLE,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_watchdog_timer.timeout_fatal_disable ? 1 : =
+0);<br>
+-- <br>
+2.34.1<o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
 </html>
+
+--_000_DM4PR12MB5328F1454363BD8694C1E6A8F1552DM4PR12MB5328namp_--
