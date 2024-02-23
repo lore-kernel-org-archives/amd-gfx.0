@@ -4,116 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AFE2C48BC4
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 09:51:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27D6BC48BC4
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 10:04:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDC6010EB51;
-	Fri, 23 Feb 2024 09:51:49 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Yus+ARRs";
-	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2060.outbound.protection.outlook.com [40.107.92.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABAA510EB51
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Feb 2024 09:51:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X5xRJirEDUoC00qz3oHvSBYZb8fXTV1swesdjYYEzuqRBuKVF3HzFGK4nYU50DO5jfmx7WiQ4FZNxdLU0+HEhIl9sEgKdPhPVyca0i749X+KpP8dOPwhl9lZEEHHdM5gxs2eK3/LWj8MN+GcSntUVwuU1EOwXtwol7NVTJSn+XstQsdIq3k8QoLg082soIqkrfHCzagBfj58Mx1FmhWu4LIFX1SmK6rZyViT9HGAylbyX4YTLLN8S0l0Bx4Zz/MErPdEw2aUfS6ezdLn8oP9eOEyPxxfqmgetGNFS6aBTMjpTTq2MQAkTEYNC/kepVOlxhUVSpgEKWLFpxGQOC0uYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iCW6Vlp/V7y8qVmBOK2lAqu22+6icJMAeoQsH31zWbU=;
- b=iLzzMZMd44pMvnoq7I5MeM+3/okevbkE7vGczF5Gz03kp4GWGLt3vmig1s3W/h9QkqYo+iBt3hQ+wKM7FPOVSE7PB2oTWOb5fbVm0fSvFDoiphBhnNqtuo5q+jadRKhfBVqyQ0yPHzXoI7kHvfsuzP3g4TKRPx5QxNxRe+xSCc9Xfv25rUYy8iJVImHdN1uXsP8sw5fzDzIzXjSUiPqqHYSq8C7KPttogSFT5MnG9Vb4+DdaA25LjzYgtRHtDFCBLS4ie2HzV3t6iYsrcgy/9XEVRn3S+GycTbHhaQoC3UKTCVlFQwWbzuAFEqmRKNGOEDAva37h08W3oquF00Rg3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iCW6Vlp/V7y8qVmBOK2lAqu22+6icJMAeoQsH31zWbU=;
- b=Yus+ARRsBh44YcffCFlzg3cJuvPcbIy8qtYAruH9UzSuR886G/hIvvQoEpbjiFNp2VMbV12aDcHxAIshQ7Yfsb4HqN9wB+Ri+Xk8cW2QQ2u1UXWQeGW66G1V39Duc+cgZIFvp5CTKdQ2iKokqmzJvvXzu8t1ntT/56kQi3Gm9ic=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN6PR12MB8469.namprd12.prod.outlook.com (2603:10b6:208:46e::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.21; Fri, 23 Feb
- 2024 09:51:45 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7316.018; Fri, 23 Feb 2024
- 09:51:45 +0000
-Message-ID: <1d216f6d-a4cf-43f6-8be1-1b21c9eda783@amd.com>
-Date: Fri, 23 Feb 2024 10:51:40 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/pm: Fix the power1_min_cap value
-Content-Language: en-US
-To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org,
- Alexander.Deucher@amd.com
-References: <20240223091911.1850226-1-Jun.Ma2@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20240223091911.1850226-1-Jun.Ma2@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0426.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:d1::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC2B10EB64;
+	Fri, 23 Feb 2024 10:04:40 +0000 (UTC)
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6803510EB62;
+ Fri, 23 Feb 2024 10:04:38 +0000 (UTC)
+Received: from [192.168.1.137] ([213.144.156.170])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202402231104335773; Fri, 23 Feb 2024 11:04:33 +0100
+Message-ID: <b08c2c14-5a99-49cf-ba79-b89f86487f15@daenzer.net>
+Date: Fri, 23 Feb 2024 11:04:27 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN6PR12MB8469:EE_
-X-MS-Office365-Filtering-Correlation-Id: 41122417-ed6d-4fc1-b56f-08dc34550b8c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Y0XlnI70R/s4z1FVbPsJz5iWQz4WzJ4N+m6SJGB+DsywJAryZtLOWaNaQR+cYqQMUBzMpPTY82oQegvTf+7DGT5qWmpK+d7LAOM2Sf73M0E/2noQLP5TQSKhmabnTdO4cQpBqn6GBUApVrF8CZ3b5LibF6RwZvlXXqBQYsSNETh+Z7WoXG5FvyxweoItIwlHvvSWkMnP34g0OgaO7k9aa66TerKJsARmHlr+cVnkq9XF8od2/KlNP5k6H64VyGtzYQCscnx7SF8VlTw+p7JbXfCi9otWDrv3ONnwiMuG13MH1a2rNhpBMGC/YBLcprwFQgyt5J+dtQtEB77SZMeWpobUXU9x67RBK9g3WvWlo/+rs5EbPlodWXRw3YLJIwlSd5EI5rvWPNvYYcVustmC0T2+rmGcfb7PnGcDAgGwB6yyJ2utHWVqrebNRDTqiIsekMgCDLClrMN2rSeGlOaEzTfLVLLE6uF42FaVlFXoruSh33524oXztfNJpp5OQXktos99AwQYYSTCxzjqccEofJYSicidgP6IgERbqNIRRRU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UHRkQkE4YURxS1BMUEJsa1RpZE9GWEhacm9KNmUzM1VpQW44cHhKNXRSSi95?=
- =?utf-8?B?SXVLek85dEJRQW9aM1p1KytzU0h2MzR0U3B2MmZWZyt3WlAwamppWHRZazZS?=
- =?utf-8?B?TFpDRkh6SDhoS1h4QU1zWjgwWFYyVEpHajBlWEJTd0tTR25KWGo5UHdWOEM4?=
- =?utf-8?B?R3BoUFNCY2VUc1Z3U2RpNVFwdVVMcU5mYkp1MGtlQTdyY3NhWU1maE5WYldJ?=
- =?utf-8?B?MnlTYmxRWlVqYUdOdWx1SVFjMER1SWVPdWtQK25aemFybjk4V3JUN3JEbU1q?=
- =?utf-8?B?dnViMEphVkJrRzJBRU5lTUFGWU9uVm9OQjRiYmdhZmNPQXZHU05vemx2S21K?=
- =?utf-8?B?OEsrUXZMZFpybjltSGtTTWtUUU9BYml1d2VIM3o4d0hVUHIyY3FUNkZZMjE0?=
- =?utf-8?B?eFpZNTh4U1NqVU1xVVBZQUtjL1pCY2lUU0g4cHVzK0YyMnV2Y3AzdTRKNWNw?=
- =?utf-8?B?Z05tTUJhVlNaWkx4U2pVcUdodFZNZWRLRjJkNUpsNUpLZGQ4TGkrYlA3dDEw?=
- =?utf-8?B?ZnBVODdISm53cXRYYmZyUDlHRjNXVUp3MDZXcnJpSi82SUJQY2loeHZHTUg2?=
- =?utf-8?B?ZnhOeXN3TDBtd09yN0lFYnE0enVnRUJZcFVCaGhsMFRDVXp4VkZtUU93WjZm?=
- =?utf-8?B?RWFOejFoczJFVkVTQmExT2NHbFp0cnNwK1lLN3F4d2s5K2tyU2tZUWFpQ2dZ?=
- =?utf-8?B?K0VBK1QwYS9TK2Z6MEdCR3hjM2dsQ29lZjM2elYvaUdvdGlhZ0YxQjZGMEZR?=
- =?utf-8?B?dGRid2ZQeURoUUdKd2FZbnJUKzJGTTd6RjI5MmRNTStJUUZ6WWZpTW1mQmhz?=
- =?utf-8?B?Z29UNWN4dUVLQzN1TjE1MlZFTjI1UjY4WlBGRmhEb0ZYWWdJTjFCWldIaUpC?=
- =?utf-8?B?MGVBVnA5MW5ua3pJc0s4SXoySktUbUxDenpDUFRtUkdlTUFwN3RrSWZVNlZZ?=
- =?utf-8?B?WUp4RDVlbmJNVkRHNkVmWk9TN2VCZ3grZVNLVTVDY1A1VW5WUzFOYVo1UkRN?=
- =?utf-8?B?OHpMWUNPWjRMUFFsanpId2h3TEFSWFNVTzdHM2hTazdVQnM2ZXluQzJmYjJZ?=
- =?utf-8?B?TXdBbndyNEhsOWlCTDkrQklodExZZTZZS0hPZ3ZSNE52WW43TE8vTDRIQjAz?=
- =?utf-8?B?TlBDZzUrTkJ4SS9QNHhUVWwyOEFFbEFYS2hSbnZmVWJ0MThFdld2c3ByUHlo?=
- =?utf-8?B?dXhDNTZvYTJtVFBaT1lmU2l2NEwvMVc1V2hrUiswVEc5aGNRSXFYVzY3c1h5?=
- =?utf-8?B?V0FFUXkzb1lrQTVTcjBud2FTZEsrLzF1ZUR4SldGS3ZDL3I1SVptOFFoaVpV?=
- =?utf-8?B?Qnl3eEhsbERERlRpMjFMQ2hScXdGUGUvY2ZKNVdNSExvVmV1eHhTajk5UmZl?=
- =?utf-8?B?Y0FvY0pwdHpkN1FZeXJTciswTk5ubFQ1Zm90U2J1ZmZZYnFIVGllOWVRSjlh?=
- =?utf-8?B?SWNUdDJqL09nRWNGRWxma2FYTjMyWWoyb1lEWkMyYlJNMzhNUUQyNllLVzJm?=
- =?utf-8?B?ZitmSWgyemsySVNlbWtqL2F0cGVycks4NUlPTThYUUs0a2hLRGQyOVRmbW93?=
- =?utf-8?B?QVNZUHdwdjVmS09ySmZkakUyc0ZwUVZqQWR1UlA1OFQ2SkFoZVA4QXduNGp2?=
- =?utf-8?B?MVR1Z0xZejQ4TzdydnVoRlVuSGEwcXlienIyanBucXlBSWF0UXpwaHlnV1hh?=
- =?utf-8?B?SURqeTZLZjdSTXZzRm5UZ3ZRS09DZGVhL2h0NjFxeEppNi9FbXZxaTBFVmIy?=
- =?utf-8?B?aVNmS0xGZXVVZlhuK3pGYStGSmIzRTVNMXRXZ01JTFE5a3dBaGpCeDhHa0J0?=
- =?utf-8?B?NVZTVkRGNlV1RmhLWURmNVZGOVd5dlZtdjJCcTliZ3hCMlpOampBTWxGNGph?=
- =?utf-8?B?NFN0enJndHR5dnQzTHVmRWxidm5xa3RFNWtCY3p4a3hpejZjQi9RRkZEcG80?=
- =?utf-8?B?VzhlS1ZIUHp1WGZQa2Z0cXdYUTVOQ3RJbmJ3SmNrQTB0aWpsZTRxbHlPN3Nh?=
- =?utf-8?B?V0JMWFJqMFExQmpUdUNMQklOYy9qTFl0RTJZT0lhdTQ1dmd4SStremFZbGlu?=
- =?utf-8?B?NitHVzNtU0tmeTh3M0xQMEcyQVpOc0lCYlpVWXByY3FtbTFRaHViRm1PZnRh?=
- =?utf-8?Q?fKR7Be/jHU0QJMLXpQVF7DlbJ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41122417-ed6d-4fc1-b56f-08dc34550b8c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2024 09:51:45.2758 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jEVliPJ3P/eDhAJMFakU+iNZ7LRy52mLvwZAaaoqP51G3NPtLz4oXWEsp5ZQz4/H
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8469
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/amdgpu: Refuse to create a KMS FB for non-P2P
+ exported dma-bufs
+Content-Language: de-CH-frami, en-CA
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20240222172821.16901-1-michel@daenzer.net>
+ <3156ea34-0655-4b0f-9438-9113fb714373@amd.com>
+ <2d7632f0-0783-4d82-9d81-dd6bd52d5db6@daenzer.net>
+ <84fa5bc1-6b4d-4d82-844a-8070d4bd78eb@amd.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Autocrypt: addr=michel@daenzer.net; keydata=
+ xsDiBDsehS8RBACbsIQEX31aYSIuEKxEnEX82ezMR8z3LG8ktv1KjyNErUX9Pt7AUC7W3W0b
+ LUhu8Le8S2va6hi7GfSAifl0ih3k6Bv1Itzgnd+7ZmSrvCN8yGJaHNQfAevAuEboIb+MaVHo
+ 9EMJj4ikOcRZCmQWw7evu/D9uQdtkCnRY9iJiAGxbwCguBHtpoGMxDOINCr5UU6qt+m4O+UD
+ /355ohBBzzyh49lTj0kTFKr0Ozd20G2FbcqHgfFL1dc1MPyigej2gLga2osu2QY0ObvAGkOu
+ WBi3LTY8Zs8uqFGDC4ZAwMPoFy3yzu3ne6T7d/68rJil0QcdQjzzHi6ekqHuhst4a+/+D23h
+ Za8MJBEcdOhRhsaDVGAJSFEQB1qLBACOs0xN+XblejO35gsDSVVk8s+FUUw3TSWJBfZa3Imp
+ V2U2tBO4qck+wqbHNfdnU/crrsHahjzBjvk8Up7VoY8oT+z03sal2vXEonS279xN2B92Tttr
+ AgwosujguFO/7tvzymWC76rDEwue8TsADE11ErjwaBTs8ZXfnN/uAANgPM0jTWljaGVsIERh
+ ZW56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD7CXgQTEQIAHgUCQFXxJgIbAwYLCQgHAwIDFQID
+ AxYCAQIeAQIXgAAKCRBaga+OatuyAIrPAJ9ykonXI3oQcX83N2qzCEStLNW47gCeLWm/QiPY
+ jqtGUnnSbyuTQfIySkLOwE0EOx6FRRAEAJZkcvklPwJCgNiw37p0GShKmFGGqf/a3xZZEpjI
+ qNxzshFRFneZze4f5LhzbX1/vIm5+ZXsEWympJfZzyCmYPw86QcFxyZflkAxHx9LeD+89Elx
+ bw6wT0CcLvSv8ROfU1m8YhGbV6g2zWyLD0/naQGVb8e4FhVKGNY2EEbHgFBrAAMGA/0VktFO
+ CxFBdzLQ17RCTwCJ3xpyP4qsLJH0yCoA26rH2zE2RzByhrTFTYZzbFEid3ddGiHOBEL+bO+2
+ GNtfiYKmbTkj1tMZJ8L6huKONaVrASFzLvZa2dlc2zja9ZSksKmge5BOTKWgbyepEc5qxSju
+ YsYrX5xfLgTZC5abhhztpcJGBBgRAgAGBQI7HoVFAAoJEFqBr45q27IAlscAnjICalDn2zB1
+ fXqoOkGsTwElvKa5AJ9FhyKJpysFRcejfdZwrwl9xb4oOg==
+In-Reply-To: <84fa5bc1-6b4d-4d82-844a-8070d4bd78eb@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CTCH: RefID="str=0001.0A782F23.65D86DB2.0077,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,131 +67,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 23.02.24 um 10:19 schrieb Ma Jun:
-> It's unreasonable to use 0 as the power1_min_cap when
-> OD is disabled. So, use the same lower limit as the value
-> used when OD is enabled.
->
-> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+On 2024-02-23 10:34, Christian König wrote:
+> Am 23.02.24 um 09:11 schrieb Michel Dänzer:
+>> On 2024-02-23 08:06, Christian König wrote:
+>>> Am 22.02.24 um 18:28 schrieb Michel Dänzer:
+>>>> From: Michel Dänzer <mdaenzer@redhat.com>
+>>>>
+>>>> Pinning the BO storage to VRAM for scanout would make it inaccessible
+>>>> to non-P2P dma-buf importers.
+>>> Thinking more about it I don't think we can do this.
+>>>
+>>> Using the BO in a ping/pong fashion for scanout and DMA-buf is actually valid, you just can't do both at the same time.
+>>>
+>>> And if I'm not completely mistaken we actually have use cases for this at the moment,
+>> Those use cases don't have P2P & CONFIG_DMABUF_MOVE_NOTIFY?
+> 
+> Nope, we are basically talking about unit tests and examples for inter device operations.
 
-Acked-by: Christian König <christian.koenig@amd.com>
+Sounds like the "no user-space regressions" rule might not apply then.
 
-> ---
->   drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c       | 9 ++++-----
->   drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 9 ++++-----
->   drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 9 ++++-----
->   drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c    | 9 ++++-----
->   drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c    | 9 ++++-----
->   5 files changed, 20 insertions(+), 25 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> index 4cd43bbec910..bcad42534da4 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> @@ -1303,13 +1303,12 @@ static int arcturus_get_power_limit(struct smu_context *smu,
->   	if (default_power_limit)
->   		*default_power_limit = power_limit;
->   
-> -	if (smu->od_enabled) {
-> +	if (smu->od_enabled)
->   		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
-> -		od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
-> -	} else {
-> +	else
->   		od_percent_upper = 0;
-> -		od_percent_lower = 100;
-> -	}
-> +
-> +	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
->   
->   	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
->   							od_percent_upper, od_percent_lower, power_limit);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index 8d1d29ffb0f1..ed189a3878eb 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -2357,13 +2357,12 @@ static int navi10_get_power_limit(struct smu_context *smu,
->   		*default_power_limit = power_limit;
->   
->   	if (smu->od_enabled &&
-> -		    navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_POWER_LIMIT)) {
-> +		    navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_POWER_LIMIT))
->   		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
-> -		od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
-> -	} else {
-> +	else
->   		od_percent_upper = 0;
-> -		od_percent_lower = 100;
-> -	}
-> +
-> +	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
->   
->   	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
->   					od_percent_upper, od_percent_lower, power_limit);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index f2f401f00ed1..a405424dd699 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -640,13 +640,12 @@ static int sienna_cichlid_get_power_limit(struct smu_context *smu,
->   	if (default_power_limit)
->   		*default_power_limit = power_limit;
->   
-> -	if (smu->od_enabled) {
-> +	if (smu->od_enabled)
->   		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
-> -		od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
-> -	} else {
-> +	else
->   		od_percent_upper = 0;
-> -		od_percent_lower = 100;
-> -	}
-> +
-> +	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
->   
->   	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
->   					od_percent_upper, od_percent_lower, power_limit);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index 67f44f851f59..9649484f11c0 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -2372,13 +2372,12 @@ static int smu_v13_0_0_get_power_limit(struct smu_context *smu,
->   	if (default_power_limit)
->   		*default_power_limit = power_limit;
->   
-> -	if (smu->od_enabled) {
-> +	if (smu->od_enabled)
->   		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
-> -		od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
-> -	} else {
-> +	else
->   		od_percent_upper = 0;
-> -		od_percent_lower = 100;
-> -	}
-> +
-> +	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
->   
->   	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
->   					od_percent_upper, od_percent_lower, power_limit);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> index 49e77f8896c1..ac27734674db 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> @@ -2336,13 +2336,12 @@ static int smu_v13_0_7_get_power_limit(struct smu_context *smu,
->   	if (default_power_limit)
->   		*default_power_limit = power_limit;
->   
-> -	if (smu->od_enabled) {
-> +	if (smu->od_enabled)
->   		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
-> -		od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
-> -	} else {
-> +	else
->   		od_percent_upper = 0;
-> -		od_percent_lower = 100;
-> -	}
-> +
-> +	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
->   
->   	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
->   					od_percent_upper, od_percent_lower, power_limit);
+
+> Those render into a shared buffer and then display it to check if the content was rendered/transferred correctly.
+
+That can be fixed by dropping the dma-buf attachments from other GPUs before creating the KMS FB.
+
+Conversely, tests / examples which do scanout first can be fixed by destroying KMS FBs before sharing the BO with another GPU.
+
+
+> I'm not sure if we still do those test cases, the last time I looked into it was before P2P was even supported, but I also can't rule it out.
+
+Sounds too vague to block this series.
+
+
+>>> So rejecting things during CS and atomic commit is the best thing we can do.
+>> It's problematic for a Wayland compositor:
+>>
+>> The CS ioctl failing is awkward. With GL, I'm pretty sure it means the compositor would have to destroy the context and create a new one. Not sure about Vulkan, but I suspect it's painful there as well.
+>>
+>> Similarly for the KMS atomic commit ioctl. The compositor can't know why exactly it failed, all it gets is an error code.
+> 
+> Yeah, but that is not because the kernel is doing anything wrong.
+> 
+> Sharing, rendering and then doing an atomic commit is a perfectly valid use case.
+> 
+> You just can't do scanout and sharing at the same time.
+
+Per my later follow-up, Xwayland can't really avoid it.
+
+
+>> And there's no other way for the compositor to detect when both things can actually work concurrently.
+> 
+> That I totally agree with. And IIRC we already have at least a query for the buffer placement. E.g. you can already check if the BO is in GTT or VRAM and shared.
+> 
+> What's missing is exposing if the device can scanout from GTT or not.
+
+Requiring Wayland compositors to have driver-specific knowledge like that baked in isn't great either.
+
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
