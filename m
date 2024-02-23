@@ -4,71 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B32F5C54E49
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C1B9C48BF6
 	for <amd-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 09:04:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E259010EF98;
-	Mon, 26 Feb 2024 09:04:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D094310EF5A;
+	Mon, 26 Feb 2024 09:04:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DTem8oqN";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="uWxPu15j";
 	dkim-atps=neutral
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com
- [209.85.222.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAE7610E052;
- Fri, 23 Feb 2024 19:20:25 +0000 (UTC)
-Received: by mail-ua1-f48.google.com with SMTP id
- a1e0cc1a2514c-7d5c25267deso327688241.3; 
- Fri, 23 Feb 2024 11:20:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708716024; x=1709320824; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MpygWIobeeqnXshX/tRPPBd9Dc0Ilv2Fxo8B3+OQ3wo=;
- b=DTem8oqNy8c+QfSIHT176qMt5NKBUYYRof8K7qL14qPmaTZCcw8Cj/G34QZ1rlsJZz
- OICM9tlasrpKwSYVtqU3rAZavCBQdY5V2W6mGJnN6JfzOWazOkiBV/bYqq7qAbgTHGhW
- 38M4JD2XK8AU7fariXDETNkGBJKAuXjF9H6ETst86oki9MSmBDhMPZ6GvGXmJbxPj/6y
- uSjvh8M/H9kiXeVCWSRgukFz/+x1AUYgUHFfCOQ5dAiLSygBlcyyM/fM7AYeTWhCBthy
- tREvj4IZ7JRmRHPbH6P5COxD4pUdUFt9m0pdsWqIAmu2mBFWioWXeWh0pJa0HilAKSyI
- GIYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708716024; x=1709320824;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MpygWIobeeqnXshX/tRPPBd9Dc0Ilv2Fxo8B3+OQ3wo=;
- b=vLiyuSA3N555juboFGDfsjKmiXDsuk6aSI21qH+lB8NLKVoYFNEkom25Tpviawxh2K
- 7R/G+7KByUUxZ8XfXdDLkZKMXKW5OxDBrV/F6fUmU14b/WlQYzJP98vIaaJSFjulrGWf
- e6411DQlH/eATIkXB7jeQKyrFBkjfx+R6h8mFqvYqiITeMDeiC7WUyVBk47X6XCjWNIi
- ZE4buJREjKB1a8sR1sXyk/zJHDS49d05CO9InvPHeXsL+YaWCLnVGRkdalBY5HX2iDJ6
- j6gYseZ/CIX5W26wWf7P9Pc+y63GkmpCEOGVNFgpm5zdIENdlre62JRD+KmdDGOuynLf
- rglQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXnnR7TQpkFU8P3OowPuhrjwDT5lQKgkwWLvVALbKqgR/czMgWy9rosc0pW8sDOd2TU7Er9BrLBV4YG1nKcsy9lVc+3AoGl8u5V20IRIw7+j9wbbpkVOS9d/DH65ZxVC7GPOBPc34usyeFJBx+0MA==
-X-Gm-Message-State: AOJu0YzRNJUxiTKkCWgftze74SKhAo+1OPBffc/DOJnzk3uN86hc1rst
- MZarHQpCMjA1cqOlNOug49RYff/sFGFK4tmqvRKIgTBf5eBfqmbE7eFeFHMp1skMf9KZI2CKmhV
- 8MqAn3+3A0a+2YEPEq95dkb/jBQE=
-X-Google-Smtp-Source: AGHT+IHKeoSIsbZvGBwasu4eASwuBq4PRnWshzB9b+gKFIhi9aAnBvznfBt2v03dZpUOny5EBg87j2pUn3ezgfuigb0=
-X-Received: by 2002:a05:6102:1622:b0:470:54a3:23b6 with SMTP id
- cu34-20020a056102162200b0047054a323b6mr1045586vsb.14.1708716024497; Fri, 23
- Feb 2024 11:20:24 -0800 (PST)
+X-Greylist: delayed 624 seconds by postgrey-1.36 at gabe;
+ Fri, 23 Feb 2024 20:01:32 UTC
+Received: from out-188.mta1.migadu.com (out-188.mta1.migadu.com
+ [95.215.58.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 210CE10ECB5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Feb 2024 20:01:32 +0000 (UTC)
+Date: Fri, 23 Feb 2024 14:50:49 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1708717865;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=G9nEEkfFGj8WFYt7yvHDxsoouHxXt+6aC7E5xhimc9A=;
+ b=uWxPu15jxbBy5Qv8sUU4/FKz9vhwMVdq24ex7AxwdBDTkpdTty7N4oFt5H+WpItVhn5h2q
+ QhDNbk6QMiXNrrlkBl7kMfsoV81d2NhOFvXWC0sVWqoHMtRJN5Tm42Zzvb2Qci9w4QIV6Q
+ wpkGE4FwRbb7rZDimmKQkBl02FYhYXk=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Kent Overstreet <kent.overstreet@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Jeff Johnson <quic_jjohnson@quicinc.com>, 
+ LKML <linux-kernel@vger.kernel.org>,
+ Linux Trace Kernel <linux-trace-kernel@vger.kernel.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Linus Torvalds <torvalds@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org,
+ kvm@vger.kernel.org, 
+ linux-block@vger.kernel.org, linux-cxl@vger.kernel.org,
+ linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, 
+ virtualization@lists.linux.dev, linux-rdma@vger.kernel.org,
+ linux-pm@vger.kernel.org, 
+ iommu@lists.linux.dev, linux-tegra@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-hyperv@vger.kernel.org, ath10k@lists.infradead.org,
+ linux-wireless@vger.kernel.org, 
+ ath11k@lists.infradead.org, ath12k@lists.infradead.org,
+ brcm80211@lists.linux.dev, 
+ brcm80211-dev-list.pdl@broadcom.com, linux-usb@vger.kernel.org,
+ linux-bcachefs@vger.kernel.org, 
+ linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
+ linux-cifs@vger.kernel.org, 
+ linux-xfs@vger.kernel.org, linux-edac@vger.kernel.org, selinux@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-erofs@lists.ozlabs.org, 
+ linux-f2fs-devel@lists.sourceforge.net, linux-hwmon@vger.kernel.org,
+ io-uring@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, linux-wpan@vger.kernel.org, 
+ dev@openvswitch.org, linux-s390@vger.kernel.org, 
+ tipc-discussion@lists.sourceforge.net, Julia Lawall <Julia.Lawall@inria.fr>
+Subject: Re: [FYI][PATCH] tracing/treewide: Remove second parameter of
+ __assign_str()
+Message-ID: <qsksxrdinia3cxr52tfe4p3pafsy4biktnodlfn4vyzud73p2j@6ycnhrhzwsv6>
+References: <20240223125634.2888c973@gandalf.local.home>
+ <0aed6cf2-17ae-45aa-b7ff-03da932ea4e0@quicinc.com>
+ <20240223134653.524a5c9e@gandalf.local.home>
 MIME-Version: 1.0
-References: <20240217202015.2034288-1-tuliomf09@gmail.com>
- <9b3fc6a9-a24f-4270-ac66-696fde238947@amd.com>
- <91f787db-9a11-4f6d-8bcb-d0e4b05604db@amd.com>
-In-Reply-To: <91f787db-9a11-4f6d-8bcb-d0e4b05604db@amd.com>
-From: Tulio Moreira Fernandes <tuliomf09@gmail.com>
-Date: Fri, 23 Feb 2024 16:20:13 -0300
-Message-ID: <CABMo7LKeo9R5h1SdMCproKOoWFsHNV7wa11z5Foc0cL7hQgqEA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: clean unnecessary braces
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com, 
- alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com, 
- daniel@ffwll.ch
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240223134653.524a5c9e@gandalf.local.home>
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Mon, 26 Feb 2024 09:04:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,92 +89,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi, Christian!
+On Fri, Feb 23, 2024 at 01:46:53PM -0500, Steven Rostedt wrote:
+> On Fri, 23 Feb 2024 10:30:45 -0800
+> Jeff Johnson <quic_jjohnson@quicinc.com> wrote:
+> 
+> > On 2/23/2024 9:56 AM, Steven Rostedt wrote:
+> > > From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
+> > > 
+> > > [
+> > >    This is a treewide change. I will likely re-create this patch again in
+> > >    the second week of the merge window of v6.9 and submit it then. Hoping
+> > >    to keep the conflicts that it will cause to a minimum.
+> > > ]
+> > > 
+> > > With the rework of how the __string() handles dynamic strings where it
+> > > saves off the source string in field in the helper structure[1], the
+> > > assignment of that value to the trace event field is stored in the helper
+> > > value and does not need to be passed in again.  
+> > 
+> > Just curious if this could be done piecemeal by first changing the
+> > macros to be variadic macros which allows you to ignore the extra
+> > argument. The callers could then be modified in their separate trees.
+> > And then once all the callers have be merged, the macros could be
+> > changed to no longer be variadic.
+> 
+> I weighed doing that, but I think ripping off the band-aid is a better
+> approach. One thing I found is that leaving unused parameters in the macros
+> can cause bugs itself. I found one case doing my clean up, where an unused
+> parameter in one of the macros was bogus, and when I made it a used
+> parameter, it broke the build.
+> 
+> I think for tree-wide changes, the preferred approach is to do one big
+> patch at once. And since this only affects TRACE_EVENT() macros, it
+> hopefully would not be too much of a burden (although out of tree users may
+> suffer from this, but do we care?)
 
-Ok, thanks for clarifying this for me.
+Agreed on doing it all at once, it'll be way less spam for people to
+deal with.
 
-I'll continue analyzing the files here, now based on these points.
-
-Best regards
-
-
-Em qui., 22 de fev. de 2024 =C3=A0s 06:33, Christian K=C3=B6nig
-<christian.koenig@amd.com> escreveu:
->
-> Am 21.02.24 um 19:01 schrieb Rodrigo Siqueira Jordao:
-> > [SNIP]
-> >> diff --git
-> >> a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-> >> b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-> >> index 87760600e154..e179dea148e7 100644
-> >> --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-> >> +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-> >> @@ -110,14 +110,12 @@ uint32_t
-> >> dcn32_helper_calculate_num_ways_for_subvp(
-> >>           struct dc_state *context)
-> >>   {
-> >>       if (context->bw_ctx.bw.dcn.mall_subvp_size_bytes > 0) {
-> >> -        if (dc->debug.force_subvp_num_ways) {
-> >> +        if (dc->debug.force_subvp_num_ways)
-> >>               return dc->debug.force_subvp_num_ways;
-> >> -        } else {
-> >> +        else
-> >>               return dcn32_helper_mall_bytes_to_ways(dc,
-> >> context->bw_ctx.bw.dcn.mall_subvp_size_bytes);
-> >> -        }
-> >> -    } else {
-> >> +    } else
-> >
-> > Actually, we want to keep the braces around the else part to keep the
-> > braces balanced with the if condition.
->
-> Yeah, and checkpatch actually complains about that. E.g. you shouldn't
-> use "} else" or "else {", but always "} else {".
->
-> So the patch is actually a bit bogus and introduces new coding style
-> warnings.
->
-> Regards,
-> Christian.
->
-> >
-> > Thanks
-> > Siqueira
-> >
-> >>           return 0;
-> >> -    }
-> >>   }
-> >>     void dcn32_merge_pipes_for_subvp(struct dc *dc,
-> >> @@ -250,9 +248,9 @@ bool dcn32_is_psr_capable(struct pipe_ctx *pipe)
-> >>   {
-> >>       bool psr_capable =3D false;
-> >>   -    if (pipe->stream &&
-> >> pipe->stream->link->psr_settings.psr_version !=3D
-> >> DC_PSR_VERSION_UNSUPPORTED) {
-> >> +    if (pipe->stream && pipe->stream->link->psr_settings.psr_version
-> >> !=3D DC_PSR_VERSION_UNSUPPORTED)
-> >>           psr_capable =3D true;
-> >> -    }
-> >> +
-> >>       return psr_capable;
-> >>   }
-> >>   @@ -278,9 +276,9 @@ static void override_det_for_subvp(struct dc
-> >> *dc, struct dc_state *context, uint
-> >>           if (pipe_ctx->stream && pipe_ctx->plane_state &&
-> >> dc_state_get_pipe_subvp_type(context, pipe_ctx) !=3D SUBVP_PHANTOM) {
-> >>               if (dcn32_allow_subvp_high_refresh_rate(dc, context,
-> >> pipe_ctx)) {
-> >>   -                if (pipe_ctx->stream->timing.v_addressable =3D=3D 1=
-080
-> >> && pipe_ctx->stream->timing.h_addressable =3D=3D 1920) {
-> >> +                if (pipe_ctx->stream->timing.v_addressable =3D=3D 108=
-0
-> >> && pipe_ctx->stream->timing.h_addressable =3D=3D 1920)
-> >>                       fhd_count++;
-> >> -                }
-> >> +
-> >>                   subvp_high_refresh_count++;
-> >>               }
-> >>           }
-> >
->
+Tangentially related though, what would make me really happy is if we
+could create the string with in the TP__fast_assign() section. I have to
+have a bunch of annoying wrappers right now because the string length
+has to be known when we invoke the tracepoint.
