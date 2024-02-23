@@ -4,54 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BFBBC54E49
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 08:41:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3718C48BC4
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 08:56:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8A8210EB34;
-	Fri, 23 Feb 2024 08:41:15 +0000 (UTC)
-Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9312810EB34;
- Fri, 23 Feb 2024 08:41:14 +0000 (UTC)
-Received: from [192.168.1.137] ([213.144.156.170])
- by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202402230941100373; Fri, 23 Feb 2024 09:41:10 +0100
-Message-ID: <23242e69-416b-4bf4-9c65-4dd1b160f380@daenzer.net>
-Date: Fri, 23 Feb 2024 09:41:08 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F09C10EB3E;
+	Fri, 23 Feb 2024 08:56:16 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="em86bRfj";
+	dkim-atps=neutral
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0804710EAF4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Feb 2024 03:43:02 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-a26fa294e56so64769066b.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Feb 2024 19:43:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1708659781; x=1709264581; darn=lists.freedesktop.org;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=qoOcFPkVKT6UWH+zKsM+RmlENkGApFguws+kBmVRMLM=;
+ b=em86bRfjEXnaKcgoxKYJxJwxnQKUd3woJtcecNA+eQjGwT8Yo/B6ErYUzbbo51IQ3t
+ 1VOHyYS2A7PztylFncgBt6hk1OKOGkIOD4tnqFrxBMmc/AxUyfX3GzKlMBGEpPwmcIbH
+ ie980QGB3qMkkSD4Y+6+Y5yjMGdLcrsa1LYaGw4Sav4/88VLds5nEbMnYok0Xq8QrX6e
+ wuh36KgYEuupe+MAaW5y0VPuEToF2E1gg5+YsaXJs3vNL3OS9q4kVq+5WcCtqx3X+L4h
+ Axd986AWi4jyjeMu219V3S7qPsJ0qPCR9dtsMmJAZZv+2DLxsSMRYkcnuCv1C7NYNZCL
+ q2vA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708659781; x=1709264581;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=qoOcFPkVKT6UWH+zKsM+RmlENkGApFguws+kBmVRMLM=;
+ b=pV9RD90da9tfkVZy2uJBVIz6D8LFq2cLAwDhJ5PbLSWu5q4dxvObaDGpEHLJWFMILl
+ fLlKV2eTwEhm3eKuHE4ym+jiMWfYNO+d2cdWXTii4S0FAizZvmq8+OUYb9A1q0ecHX15
+ nwvjak1ef+9DI4W6dCmxhwY8arafioFRW4JFZ+BIthDSmePOojz+cvftWJSCfZLCnM4Z
+ Yl9ItRJ1ifxHZVYC3k/+s3LQkeku4dTjAh7zxNLsEnWQeXoBeTlH5kOchih+H8n1wVjc
+ ADn7WvUX1Uj3LDmM93atZ450dpWfqiCykjcbU17LRkIScMtI1lBJYxi4YX6E4OIFmuX7
+ bzHg==
+X-Gm-Message-State: AOJu0Yxh0IEDF0Rd0xSkbM8zbNCMHdsHxBF4eS9uCq/8/J0OZI0ldVt2
+ GpHFws2QafswOKgOgZ8+k739qLbdGchddfihetA2Fc8HQSlNkvUcC+W11heyuvTSDh+QpvJ2naj
+ cvIOuojiOdVfDQPtTW+2WaH2zxjvZe1N71XE=
+X-Google-Smtp-Source: AGHT+IFkakkAFlVkM2Jw8IubBiEjm0Ryl0aUIy8Rjjwqrf5hgpZU4Kv4pCXOLl/4BB37/OTkvMjjgUcDKkiKnnJg0/w=
+X-Received: by 2002:a17:906:6b8c:b0:a3e:dcd2:2746 with SMTP id
+ l12-20020a1709066b8c00b00a3edcd22746mr478232ejr.3.1708659780788; Thu, 22 Feb
+ 2024 19:43:00 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/amdgpu: Refuse to create a KMS FB for non-P2P
- exported dma-bufs
-Content-Language: de-CH-frami, en-CA
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20240222172821.16901-1-michel@daenzer.net>
- <3156ea34-0655-4b0f-9438-9113fb714373@amd.com>
- <2d7632f0-0783-4d82-9d81-dd6bd52d5db6@daenzer.net>
-Autocrypt: addr=michel@daenzer.net; keydata=
- xsDiBDsehS8RBACbsIQEX31aYSIuEKxEnEX82ezMR8z3LG8ktv1KjyNErUX9Pt7AUC7W3W0b
- LUhu8Le8S2va6hi7GfSAifl0ih3k6Bv1Itzgnd+7ZmSrvCN8yGJaHNQfAevAuEboIb+MaVHo
- 9EMJj4ikOcRZCmQWw7evu/D9uQdtkCnRY9iJiAGxbwCguBHtpoGMxDOINCr5UU6qt+m4O+UD
- /355ohBBzzyh49lTj0kTFKr0Ozd20G2FbcqHgfFL1dc1MPyigej2gLga2osu2QY0ObvAGkOu
- WBi3LTY8Zs8uqFGDC4ZAwMPoFy3yzu3ne6T7d/68rJil0QcdQjzzHi6ekqHuhst4a+/+D23h
- Za8MJBEcdOhRhsaDVGAJSFEQB1qLBACOs0xN+XblejO35gsDSVVk8s+FUUw3TSWJBfZa3Imp
- V2U2tBO4qck+wqbHNfdnU/crrsHahjzBjvk8Up7VoY8oT+z03sal2vXEonS279xN2B92Tttr
- AgwosujguFO/7tvzymWC76rDEwue8TsADE11ErjwaBTs8ZXfnN/uAANgPM0jTWljaGVsIERh
- ZW56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD7CXgQTEQIAHgUCQFXxJgIbAwYLCQgHAwIDFQID
- AxYCAQIeAQIXgAAKCRBaga+OatuyAIrPAJ9ykonXI3oQcX83N2qzCEStLNW47gCeLWm/QiPY
- jqtGUnnSbyuTQfIySkLOwE0EOx6FRRAEAJZkcvklPwJCgNiw37p0GShKmFGGqf/a3xZZEpjI
- qNxzshFRFneZze4f5LhzbX1/vIm5+ZXsEWympJfZzyCmYPw86QcFxyZflkAxHx9LeD+89Elx
- bw6wT0CcLvSv8ROfU1m8YhGbV6g2zWyLD0/naQGVb8e4FhVKGNY2EEbHgFBrAAMGA/0VktFO
- CxFBdzLQ17RCTwCJ3xpyP4qsLJH0yCoA26rH2zE2RzByhrTFTYZzbFEid3ddGiHOBEL+bO+2
- GNtfiYKmbTkj1tMZJ8L6huKONaVrASFzLvZa2dlc2zja9ZSksKmge5BOTKWgbyepEc5qxSju
- YsYrX5xfLgTZC5abhhztpcJGBBgRAgAGBQI7HoVFAAoJEFqBr45q27IAlscAnjICalDn2zB1
- fXqoOkGsTwElvKa5AJ9FhyKJpysFRcejfdZwrwl9xb4oOg==
-In-Reply-To: <2d7632f0-0783-4d82-9d81-dd6bd52d5db6@daenzer.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CTCH: RefID="str=0001.0A782F22.65D85A27.002C,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
- Spam="Unknown"; VOD="Unknown"
+From: __- -__ <isapgswell@gmail.com>
+Date: Fri, 23 Feb 2024 00:42:50 -0300
+Message-ID: <CAN9WMdNLJmhUAsJv3yTLWnLZ-BnkpDJ6HrCX4f9KELyd1-egBw@mail.gmail.com>
+Subject: [INFO] mutter is a mess, wayland_xwayland
+To: amd-gfx@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="00000000000046a47d0612045b6a"
+X-Mailman-Approved-At: Fri, 23 Feb 2024 08:56:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,29 +70,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2024-02-23 09:11, Michel Dänzer wrote:
-> On 2024-02-23 08:06, Christian König wrote:
->>
->> So rejecting things during CS and atomic commit is the best thing we can do.
-> 
-> It's problematic for a Wayland compositor:
-> 
-> The CS ioctl failing is awkward. With GL, I'm pretty sure it means the compositor would have to destroy the context and create a new one. Not sure about Vulkan, but I suspect it's painful there as well.
-> 
-> Similarly for the KMS atomic commit ioctl. The compositor can't know why exactly it failed, all it gets is an error code.
-> 
-> And there's no other way for the compositor to detect when both things can actually work concurrently.
-> 
-> Together, this means the compositor always has to assume the worst case, and do workarounds such as using the scanout GPU to copy from the scanout buffer to another buffer for access from another GPU. Even when direct access from the other GPU would actually work fine.
+--00000000000046a47d0612045b6a
+Content-Type: text/plain; charset="UTF-8"
 
-It's worse for Xwayland:
+Hi,
 
-It can't know if/when the Wayland compositor uses a buffer for scanout. It would have to assume the worst case whenever a buffer is owned by the compositor.
+MUTTER_SYNC=0/1 complains, client/server and both?
 
-Except Xwayland can't know which GPU a buffer is originally from. So it can't know when the workaround is actually needed, or which GPU it has to use for the workaround.
+example:
+xorg_xfree_server((mutter_sync[0]) +
+steam_linux_client(listening_local_server)) + game(x)
+xorg_xfree_server((mutter_sync[1]) +
+steam_linux_client(listening_local_server)) + game (x)
 
+wayland_mutter_sync((0) steam_linux_client(listening_local_server))
+wayland_mutter_sync((1) steam_linux_client(listening_local_server))
 
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+... sorry not continous ...
 
+I think is simpler coz:
+
+ cases,
+MUTTER_SYNC=client_sync_focus
+MUTTER_SYNC=server_sync_focus
+MUTTER_SYNC=csc (clients, servers[wayland_xwayland] and clients) <- this is
+most expecting ...
+
+What you think?
+
+--00000000000046a47d0612045b6a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<div><br></div><div>MUTTER_SYNC=3D0/1 complains, client=
+/server and both?</div><div><br></div><div>example:</div><div>xorg_xfree_se=
+rver((mutter_sync[0])=C2=A0+ steam_linux_client(listening_local_server))=C2=
+=A0+ game(x)</div><div>xorg_xfree_server((mutter_sync[1])=C2=A0+ steam_linu=
+x_client(listening_local_server))=C2=A0+ game (x)</div><div><br></div><div>=
+wayland_mutter_sync((0) steam_linux_client(listening_local_server))</div><d=
+iv>wayland_mutter_sync((1) steam_linux_client(listening_local_server))<br><=
+/div><div>=C2=A0</div><div>... sorry not continous ...</div><div><br></div>=
+<div>I think is simpler coz:</div><div><br></div><div>=C2=A0cases,</div><di=
+v>MUTTER_SYNC=3D<span style=3D"background-color:rgb(255,153,0)"><font color=
+=3D"#ffffff">client_sync_focus</font></span></div><div>MUTTER_SYNC=3D<span =
+style=3D"background-color:rgb(255,153,0)"><font color=3D"#ffffff">server_sy=
+nc_focus</font></span></div><div>MUTTER_SYNC=3D<font color=3D"#ffff00" styl=
+e=3D"background-color:rgb(255,153,0)">csc</font> (<font color=3D"#00ff00" s=
+tyle=3D"background-color:rgb(255,255,0)">clients</font>, servers<font style=
+=3D"background-color:rgb(0,0,0)" color=3D"#ffffff">[<font style=3D"">waylan=
+d_xwayland</font>]</font> and <font color=3D"#00ff00" style=3D"background-c=
+olor:rgb(255,255,0)">clients</font>) <font color=3D"#ff9900" style=3D"backg=
+round-color:rgb(255,255,255)">&lt;- this is most expecting</font> ...<br></=
+div><div><br></div><div>What you think?</div><div><br></div><div><br></div>=
+</div>
+
+--00000000000046a47d0612045b6a--
