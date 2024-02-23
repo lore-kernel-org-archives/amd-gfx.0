@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69A22C54798
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 16:30:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 731E7C5478C
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Feb 2024 16:33:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9E3210EC5D;
-	Fri, 23 Feb 2024 16:30:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF9B710EC68;
+	Fri, 23 Feb 2024 16:33:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QQf0b+HF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B6oeFS8N";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B6E810EC60
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Feb 2024 16:30:55 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-29938dcb711so829705a91.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Feb 2024 08:30:55 -0800 (PST)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7607710EC70
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Feb 2024 16:33:18 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-29a6dcfdd30so362539a91.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Feb 2024 08:33:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708705854; x=1709310654; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1708705998; x=1709310798; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dGR232ZcqwuvuLAysDmaVRfgXH1M1DRNmBVmHlknB+I=;
- b=QQf0b+HF9DEvcfXIdVEFyIYBDpsmVuS7fTZhdTEh2ylPu8wa/9jkt/JrLcO4ExxQ9R
- hf9dgjEj2D4J78AGRDzFX4oIwsvcIOyb9VlK1Kb+wYCVpYsamcpYFRiKgQjLJsX30g+Q
- mXirt8Jfgw+5iGJC+JFggGqTyVN05QnYn7AZTMOlge1wPzuFbSNqi9uaQLNADIuNz+NO
- nFm8ymmJiLHn1kFZblail9xQWr5coLEj0LwkwJCbzPsS/BDW9Zno3Fwk0CMhxrKLYh23
- kdseCHhIc4jBsSAtqHTiOGBjD7jTkVDtmqnvonFFcEQtuTyp2A7TPXbZbsVHLNdTkhZa
- bTUA==
+ bh=xiM9bH5VjqYJX+etJTrLXxfvi1iycthNA4DwqdRH6GU=;
+ b=B6oeFS8N8rvVjfM8VhWyes0BrRHBywPyJSmQ1nRGbTegPx4vb2R/jhQoqLincBdQSI
+ S+vK+FnWZR58bjtGl8LHG5yJBSHwtfa9fr+8AjZ0RLUT8KEhCqK3IFiFTwceVSLpQ3C2
+ l/xzhNPqsysigR1X1hj7KFJB4ptWaia00gmyJw6bEzte3Rfyrdi45ykXOp/WKst6TYzy
+ NKMqwKYMFrfkHSUeB6/dL6ICeDkFHjRlFZSHc0fAwgi0tGaJN8fiDP5h46wOxjiW4LNy
+ kCOjWpg8j6FNiPBuGyzLs3tXJoqB8+JsXdgeZnchYRAn69FQZ4UvcY6LLPtHRNUZIi9Y
+ Ik+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708705854; x=1709310654;
+ d=1e100.net; s=20230601; t=1708705998; x=1709310798;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dGR232ZcqwuvuLAysDmaVRfgXH1M1DRNmBVmHlknB+I=;
- b=AcE8/FFqkJ3O/dwW+NZmKaWbaJyMWTxZjm9MEXdtC+saJbQgtE77uN07ht3w2eaH/N
- bliAjRoE/8BDrb+K9Tb3pOOr61a1hMtNIXDJ9UPbGnaNwnRHsW5Cup1gM8Ovh3Vo7b/X
- bz0S2YIfBL2gy3sAGFJ9dnWfADU6nCNCldkSDJUbb/ecKNrXAjuhhnb0lTzlSwIMir2V
- Xk3FleyRgCl4uQj7l00oIbCsiUy7ghZvCpi+wFJ55w+mpv0cRpo60RWgCZhGKU1Zfa0K
- NzVSnQlYcsG5UkXenH2x+IUwUNTAZKgJ+b9OZX+FomPmvWj2xLsYnYazGn4a7sZkfRBw
- /zZg==
-X-Gm-Message-State: AOJu0YzZ+Wo5EHyfnA3mg74isVpEPzsm2v1ZwnfJb5NvPQNVOCn8s7h9
- YysknsxheeF9eQFaTzyql/JYoLAl3w+uNbkVYuMQnAAPIxNytf5BnnZAQRJkJVQaBWIDns2eVXv
- Lb1PiMrGq4c/t7xhUyMYNWq6KOfI=
-X-Google-Smtp-Source: AGHT+IEGNz4vs2IQ3WT0A3xXOscaEezFEeTaZUnJn1lRM2MdL7dO5yEYJYg7ekj4sT6qOHBGNqACP4+01YqCuRGrmeY=
-X-Received: by 2002:a17:90a:5107:b0:299:5913:db15 with SMTP id
- t7-20020a17090a510700b002995913db15mr295360pjh.29.1708705854401; Fri, 23 Feb
- 2024 08:30:54 -0800 (PST)
+ bh=xiM9bH5VjqYJX+etJTrLXxfvi1iycthNA4DwqdRH6GU=;
+ b=gQq+6KOrUFeHMUcMHjHVnH1cnjxNpgXbhozS7WCi+NDJYC2U0im4SA40ak6PLmjAnK
+ vdVDptBBEVrfxTX60b7Tccm1SN51DoYtDdD7AYg0v82d3NamgY5DRUOYSmqY8ez7BVYY
+ stRBEHKhBmG3hdDhAc893mKDHWVqCVIG3Cpui0D6RVAy+DL4VgT1RuxqxopUtc4woYqh
+ vDIeHyEgd37J4GSsPJHUKxBr5sY+ocVZb/ZY7xrVJz6rSxVEQKAM6wvCRfT4VBsbqntN
+ 9UJsqd0W/+u1wofaK3EmqN+Iyfdc7AQjgLhUhC0qk78/GMZFVIDRRU7cewzRHPwaa3wb
+ eeEQ==
+X-Gm-Message-State: AOJu0YxMnIxPPacEXQKDU7hw3AiYVnTFtZh02yHCCcOIlxD/z9ZlGAOj
+ dm5kkucsBcgEbhWPLXPg1vgo8bkELVhn/T3MrZT53M8uLirx/Muqd9mhVCAFA3rHo5+k47lEdcU
+ ewlgUGcawP9NGKPk0Tpoj9L3SNv0=
+X-Google-Smtp-Source: AGHT+IGPXi6S6qh+urHSBKPikHfBzbPRIbtQFy+VHJOzjjOyhr/RRK5K8bXxf7nS7e4HgQOzFQs9uu2Ri/XYpD6y22M=
+X-Received: by 2002:a17:90b:1bc5:b0:299:4a63:9e50 with SMTP id
+ oa5-20020a17090b1bc500b002994a639e50mr344783pjb.14.1708705997834; Fri, 23 Feb
+ 2024 08:33:17 -0800 (PST)
 MIME-Version: 1.0
-References: <20240223094132.880396-1-pierre-eric.pelloux-prayer@amd.com>
-In-Reply-To: <20240223094132.880396-1-pierre-eric.pelloux-prayer@amd.com>
+References: <20240223091911.1850226-1-Jun.Ma2@amd.com>
+In-Reply-To: <20240223091911.1850226-1-Jun.Ma2@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 23 Feb 2024 11:30:43 -0500
-Message-ID: <CADnq5_MLkUTnLE=eFFSEV5gEq0gd3GobB5Pwsf5dJfG0MPOEgw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: disable ring_muxer if mcbp is off
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Date: Fri, 23 Feb 2024 11:33:05 -0500
+Message-ID: <CADnq5_P70-2goVHkq8RKLeQcKmBgze8geE3C+ZJx5WFwSbBsug@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/pm: Fix the power1_min_cap value
+To: Ma Jun <Jun.Ma2@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
+ Alexander.Deucher@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,128 +76,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 23, 2024 at 4:48=E2=80=AFAM Pierre-Eric Pelloux-Prayer
-<pierre-eric.pelloux-prayer@amd.com> wrote:
+On Fri, Feb 23, 2024 at 4:20=E2=80=AFAM Ma Jun <Jun.Ma2@amd.com> wrote:
 >
-> Using the ring_muxer without preemption adds overhead for no
-> reason since mcbp cannot be triggered.
+> It's unreasonable to use 0 as the power1_min_cap when
+> OD is disabled. So, use the same lower limit as the value
+> used when OD is enabled.
 >
-> Moving back to a single queue in this case also helps when
-> high priority app are used: in this case the gpu_scheduler
-> priority handling will work as expected - much better than
-> ring_muxer with its 2 independant schedulers competing for
-> the same hardware queue.
->
-> This change requires moving amdgpu_device_set_mcbp above
-> amdgpu_device_ip_early_init because we use adev->gfx.mcbp.
->
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd=
-.com>
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Fixes: 1958946858a6 ("drm/amd/pm: Support for getting power1_cap_min value"=
+)
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 ++--
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      | 21 ++++++++++++---------
->  2 files changed, 14 insertions(+), 11 deletions(-)
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c       | 9 ++++-----
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 9 ++++-----
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 9 ++++-----
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c    | 9 ++++-----
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c    | 9 ++++-----
+>  5 files changed, 20 insertions(+), 25 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index d534e192e260..40516d24026c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4054,13 +4054,13 @@ int amdgpu_device_init(struct amdgpu_device *adev=
-,
->                 return r;
->         }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/=
+gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> index 4cd43bbec910..bcad42534da4 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> @@ -1303,13 +1303,12 @@ static int arcturus_get_power_limit(struct smu_co=
+ntext *smu,
+>         if (default_power_limit)
+>                 *default_power_limit =3D power_limit;
 >
-> +       amdgpu_device_set_mcbp(adev);
+> -       if (smu->od_enabled) {
+> +       if (smu->od_enabled)
+>                 od_percent_upper =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> -               od_percent_lower =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> -       } else {
+> +       else
+>                 od_percent_upper =3D 0;
+> -               od_percent_lower =3D 100;
+> -       }
 > +
->         /* early init functions */
->         r =3D amdgpu_device_ip_early_init(adev);
->         if (r)
->                 return r;
+> +       od_percent_lower =3D le32_to_cpu(powerplay_table->overdrive_table=
+.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
 >
-> -       amdgpu_device_set_mcbp(adev);
-> -
->         /* Get rid of things like offb */
->         r =3D drm_aperture_remove_conflicting_pci_framebuffers(adev->pdev=
-, &amdgpu_kms_driver);
->         if (r)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_0.c
-> index 169d45268ef6..f682f830f7f6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -2080,7 +2080,7 @@ static int gfx_v9_0_sw_init(void *handle)
->                 ring->doorbell_index =3D adev->doorbell_index.gfx_ring0 <=
-< 1;
+>         dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d=
+ (default power: %d)\n",
+>                                                         od_percent_upper,=
+ od_percent_lower, power_limit);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gp=
+u/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> index 8d1d29ffb0f1..ed189a3878eb 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> @@ -2357,13 +2357,12 @@ static int navi10_get_power_limit(struct smu_cont=
+ext *smu,
+>                 *default_power_limit =3D power_limit;
 >
->                 /* disable scheduler on the real ring */
-> -               ring->no_scheduler =3D true;
-> +               ring->no_scheduler =3D adev->gfx.mcbp;
->                 ring->vm_hub =3D AMDGPU_GFXHUB(0);
->                 r =3D amdgpu_ring_init(adev, ring, 1024, &adev->gfx.eop_i=
-rq,
->                                      AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP,
-> @@ -2090,7 +2090,7 @@ static int gfx_v9_0_sw_init(void *handle)
->         }
+>         if (smu->od_enabled &&
+> -                   navi10_od_feature_is_supported(od_settings, SMU_11_0_=
+ODCAP_POWER_LIMIT)) {
+> +                   navi10_od_feature_is_supported(od_settings, SMU_11_0_=
+ODCAP_POWER_LIMIT))
+>                 od_percent_upper =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> -               od_percent_lower =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> -       } else {
+> +       else
+>                 od_percent_upper =3D 0;
+> -               od_percent_lower =3D 100;
+> -       }
+> +
+> +       od_percent_lower =3D le32_to_cpu(powerplay_table->overdrive_table=
+.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
 >
->         /* set up the software rings */
-> -       if (adev->gfx.num_gfx_rings) {
-> +       if (adev->gfx.mcbp && adev->gfx.num_gfx_rings) {
->                 for (i =3D 0; i < GFX9_NUM_SW_GFX_RINGS; i++) {
->                         ring =3D &adev->gfx.sw_gfx_ring[i];
->                         ring->ring_obj =3D NULL;
-> @@ -2181,7 +2181,7 @@ static int gfx_v9_0_sw_fini(void *handle)
->         int i;
->         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+>         dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d=
+ (default power: %d)\n",
+>                                         od_percent_upper, od_percent_lowe=
+r, power_limit);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/dr=
+ivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> index f2f401f00ed1..a405424dd699 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> @@ -640,13 +640,12 @@ static int sienna_cichlid_get_power_limit(struct sm=
+u_context *smu,
+>         if (default_power_limit)
+>                 *default_power_limit =3D power_limit;
 >
-> -       if (adev->gfx.num_gfx_rings) {
-> +       if (adev->gfx.mcbp && adev->gfx.num_gfx_rings) {
->                 for (i =3D 0; i < GFX9_NUM_SW_GFX_RINGS; i++)
->                         amdgpu_ring_fini(&adev->gfx.sw_gfx_ring[i]);
->                 amdgpu_ring_mux_fini(&adev->gfx.muxer);
-> @@ -5910,11 +5910,14 @@ static int gfx_v9_0_eop_irq(struct amdgpu_device =
-*adev,
+> -       if (smu->od_enabled) {
+> +       if (smu->od_enabled)
+>                 od_percent_upper =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.max[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+> -               od_percent_lower =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.min[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+> -       } else {
+> +       else
+>                 od_percent_upper =3D 0;
+> -               od_percent_lower =3D 100;
+> -       }
+> +
+> +       od_percent_lower =3D le32_to_cpu(powerplay_table->overdrive_table=
+.min[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
 >
->         switch (me_id) {
->         case 0:
-> -               if (adev->gfx.num_gfx_rings &&
-> -                   !amdgpu_mcbp_handle_trailing_fence_irq(&adev->gfx.mux=
-er)) {
-> -                       /* Fence signals are handled on the software ring=
-s*/
-> -                       for (i =3D 0; i < GFX9_NUM_SW_GFX_RINGS; i++)
-> -                               amdgpu_fence_process(&adev->gfx.sw_gfx_ri=
-ng[i]);
-> +               if (adev->gfx.num_gfx_rings) {
-> +                       if (!adev->gfx.mcbp) {
-> +                               amdgpu_fence_process(&adev->gfx.gfx_ring[=
-0]);
-> +                       } else if (!amdgpu_mcbp_handle_trailing_fence_irq=
-(&adev->gfx.muxer)) {
-> +                               /* Fence signals are handled on the softw=
-are rings*/
-> +                               for (i =3D 0; i < GFX9_NUM_SW_GFX_RINGS; =
-i++)
-> +                                       amdgpu_fence_process(&adev->gfx.s=
-w_gfx_ring[i]);
-> +                       }
->                 }
->                 break;
->         case 1:
-> @@ -7051,7 +7054,7 @@ static void gfx_v9_0_set_ring_funcs(struct amdgpu_d=
-evice *adev)
->         for (i =3D 0; i < adev->gfx.num_gfx_rings; i++)
->                 adev->gfx.gfx_ring[i].funcs =3D &gfx_v9_0_ring_funcs_gfx;
+>         dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d=
+ (default power: %d)\n",
+>                                         od_percent_upper, od_percent_lowe=
+r, power_limit);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> index 67f44f851f59..9649484f11c0 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> @@ -2372,13 +2372,12 @@ static int smu_v13_0_0_get_power_limit(struct smu=
+_context *smu,
+>         if (default_power_limit)
+>                 *default_power_limit =3D power_limit;
 >
-> -       if (adev->gfx.num_gfx_rings) {
-> +       if (adev->gfx.mcbp && adev->gfx.num_gfx_rings) {
->                 for (i =3D 0; i < GFX9_NUM_SW_GFX_RINGS; i++)
->                         adev->gfx.sw_gfx_ring[i].funcs =3D &gfx_v9_0_sw_r=
-ing_funcs_gfx;
->         }
+> -       if (smu->od_enabled) {
+> +       if (smu->od_enabled)
+>                 od_percent_upper =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.max[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+> -               od_percent_lower =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.min[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+> -       } else {
+> +       else
+>                 od_percent_upper =3D 0;
+> -               od_percent_lower =3D 100;
+> -       }
+> +
+> +       od_percent_lower =3D le32_to_cpu(powerplay_table->overdrive_table=
+.min[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+>
+>         dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d=
+ (default power: %d)\n",
+>                                         od_percent_upper, od_percent_lowe=
+r, power_limit);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> index 49e77f8896c1..ac27734674db 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> @@ -2336,13 +2336,12 @@ static int smu_v13_0_7_get_power_limit(struct smu=
+_context *smu,
+>         if (default_power_limit)
+>                 *default_power_limit =3D power_limit;
+>
+> -       if (smu->od_enabled) {
+> +       if (smu->od_enabled)
+>                 od_percent_upper =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.max[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+> -               od_percent_lower =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.min[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+> -       } else {
+> +       else
+>                 od_percent_upper =3D 0;
+> -               od_percent_lower =3D 100;
+> -       }
+> +
+> +       od_percent_lower =3D le32_to_cpu(powerplay_table->overdrive_table=
+.min[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+>
+>         dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d=
+ (default power: %d)\n",
+>                                         od_percent_upper, od_percent_lowe=
+r, power_limit);
 > --
-> 2.40.1
+> 2.34.1
 >
