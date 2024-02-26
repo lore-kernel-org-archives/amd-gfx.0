@@ -4,101 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 792F3C5478C
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 21:11:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC1A5C5478C
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 21:11:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B4B710EF44;
-	Mon, 26 Feb 2024 21:11:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2F4510EEFC;
+	Mon, 26 Feb 2024 21:11:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CB1lhniL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PXYAYhV/";
 	dkim-atps=neutral
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2086.outbound.protection.outlook.com [40.107.244.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9DC510E7D0;
- Mon, 26 Feb 2024 21:11:13 +0000 (UTC)
+ (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53BF510EF0A;
+ Mon, 26 Feb 2024 21:11:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dBjvSg8K8EfpiACLNM/7GjKTamY4J19jpQ8anFaS6D5W23uOxwkB3x40XSgTKyEcb9bz6VO2hnoQ7Ja/QULeyVSj7hUIiu83rrVC9ZxRBtbClW4Edho5rJssRzbRnC1RJfeB89UVdbUs4eVoJm0oBDZqmtZf1YvC/+TvfIeNDu6Qx5yjgR2jdlmu9mZTuchHKelaswwfQKYWgJWkaGKpar5lvMnhlle0PSVLe+hzDSFs15CMQfEpHRknTDmkNai3rU/tDgFkz4S5Bw2IuLPH3HnBPBhmJjDG3vNVho4T+0BlNFmqmYNmwrv+6IF2g45UCW6p1WvrCuIS3oeYDAXeQg==
+ b=TmIorT8K/vpQx0KBcwmzxPt/+aJntf7ulIR+kht3Kb3VRHEliOGcwLGs14v5HiNj3aP82XA5KhyE0CrFNjBMrpw6/3K0nUHU7Ofs2//wfQWju4QWLn8NpS+TI0l7vlRltxzvZIpOLankXtz+Y799zacNO6Xvcdqli1iEUGLzIZGnwDBKq9V/3h4VcV5gIQ1mITfSZRMCcpMZF1fHv8M5GbwCp1IU9MT3uPIgQsa/+ZovjJmO6dp3eHfl4xKGaSlvw2PaUXPwD0pcaYlzWT2KwhUTxrbl8O3XpnoZbbfE/b6hEl1ZRgHLEL2ck0ZbjZcbbR9A6WJOQ4sZLTvJiZNgTQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/88vdgzYFyy1eBZ4ZElq/tA42cU70lV9R+uH/dEZMN0=;
- b=VvZuchAkJuXmMMQdt1FDKA9OFwfz/Y4EWjxsMbRt0/wHhcOYR4n2HJu0U4wy/r8ciVJ1rj66iNqpi2jQrblXDLCPKm3Q3F+td8HBlkbMQ10KLnaGFHboZSUtwStutw31u0jm5jFuYGVCu3S0sdPpPf8ltgQQdQQaqUo5zhtIn2lXFxN1YJkIhyoq3rTQvNOq71SyXnkpt4EzghwsbeaL5nelO/hUp7cZkwoiSu+EHQw9BmvB4wTr01lDXu8KzSERoDGmeQHk+v+UtJRlllS2QtXO0ut1fJ5CEv5M0bf4HYaqEiBERed1kVxKWiFMNKLXaf4wQ09EEruBtjkzH4jFDA==
+ bh=DCLXVaAxtlQaCyA/mVOFugg0Y6oAGUD6EGdp2mnh+sY=;
+ b=MjAWO52AoPUACcNb3s+B/nhN8ENt64VYAugw/tjYxkr4IS83+QP6orn0pCEATjrjdZcSHAC7uSyEXVto8mMzj2cj7q6Sr71po/67VGemRrOfbf29Zk2t9J+wqXz9G1hFEos5mkCYgru7c4K9Zmbf9z2m1OlP4ARdJQTaPNelUjkFzceoh3O1BVCxFTaR5lsAqtLLikNAVfPr0AyBqFszdkY1XYk56YsuhU7xS6QlGrdRQwY9YuFZT47D57vbHc2BMKWnyC6wy8WF7TCd1biPnZEAv98zvuuSeuPYXwU3uqwtazViFwR3wGrqoJAG2gOyC66JCrpAIPg1WmnUF2ovmA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/88vdgzYFyy1eBZ4ZElq/tA42cU70lV9R+uH/dEZMN0=;
- b=CB1lhniL3JAcls25PhJfreLrVS6WJKwkMXgej2BCkSkTzuhqRFwcQ6rGYPWh4ohKZsPxXWtvbgkUIgRW95ND3E0RPU9gdQszV6aZ9WHJU8uo9EugHB5x3OMNSaFTRAPhLXDsuli8fMqiT3xaWcZ3tAeqENf/6ieHzuDxqVp9T+Q=
-Received: from SJ0PR13CA0074.namprd13.prod.outlook.com (2603:10b6:a03:2c4::19)
- by IA1PR12MB8357.namprd12.prod.outlook.com (2603:10b6:208:3ff::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.22; Mon, 26 Feb
- 2024 21:11:11 +0000
-Received: from DS2PEPF0000343A.namprd02.prod.outlook.com
- (2603:10b6:a03:2c4:cafe::c1) by SJ0PR13CA0074.outlook.office365.com
- (2603:10b6:a03:2c4::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.25 via Frontend
- Transport; Mon, 26 Feb 2024 21:11:11 +0000
+ bh=DCLXVaAxtlQaCyA/mVOFugg0Y6oAGUD6EGdp2mnh+sY=;
+ b=PXYAYhV/QLWMehrot047BMKflO7grxkksWcTuSIcK3nv52jc4U/egyxcgIyadzciasARa/d+EEnQorjD6bNe4tF5Y0orcPzzWvvrzYd/3cWT7JoOkrtmb9jEI4PJzQ2I/upMOmeni20yM4JX18v5BG+4dLvEKhaZVUqv9GPiuAo=
+Received: from MN2PR16CA0010.namprd16.prod.outlook.com (2603:10b6:208:134::23)
+ by CY5PR12MB6276.namprd12.prod.outlook.com (2603:10b6:930:f::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.34; Mon, 26 Feb
+ 2024 21:11:15 +0000
+Received: from BL02EPF0001A105.namprd05.prod.outlook.com
+ (2603:10b6:208:134:cafe::7d) by MN2PR16CA0010.outlook.office365.com
+ (2603:10b6:208:134::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.49 via Frontend
+ Transport; Mon, 26 Feb 2024 21:11:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS2PEPF0000343A.mail.protection.outlook.com (10.167.18.37) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0001A105.mail.protection.outlook.com (10.167.241.137) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Mon, 26 Feb 2024 21:11:10 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7292.25 via Frontend Transport; Mon, 26 Feb 2024 21:11:14 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 26 Feb
- 2024 15:11:10 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 15:11:13 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 26 Feb
- 2024 15:11:09 -0600
+ 2024 15:11:13 -0600
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 26 Feb 2024 15:11:09 -0600
+ Transport; Mon, 26 Feb 2024 15:11:12 -0600
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: <wayland-devel@lists.freedesktop.org>, Harry Wentland
- <harry.wentland@amd.com>, Arthur Grillo <arthurgrillo@riseup.net>, "Melissa
- Wen" <mwen@igalia.com>
-Subject: [RFC PATCH v4 07/42] drm/vkms: Avoid reading beyond LUT array
-Date: Mon, 26 Feb 2024 16:10:21 -0500
-Message-ID: <20240226211100.100108-8-harry.wentland@amd.com>
+ <harry.wentland@amd.com>
+Subject: [RFC PATCH v4 12/42] drm/colorop: Add BYPASS property
+Date: Mon, 26 Feb 2024 16:10:26 -0500
+Message-ID: <20240226211100.100108-13-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240226211100.100108-1-harry.wentland@amd.com>
 References: <20240226211100.100108-1-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: harry.wentland@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|IA1PR12MB8357:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8c42b2c-9ff8-4cd4-c052-08dc370f7539
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A105:EE_|CY5PR12MB6276:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1badf323-3186-4066-dfe2-08dc370f7777
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QoAJRq0GwHJRUVMCQegK/jjvruqakDxhOb9uMb1Aj7NYcVEVcW/Q4pZ5Dbypi+9N4gZR8MYBPZx6qdFK1rqZNEUUIMiCsee8FR4cIM07DFoYc8Mrg9OF0W36ln96vGoEJt3deNzfUDPlmn/L6cUiftOWJMceUmyc49jPxotlrUmQqBvQ6hDuz5qmymcPoDTNMkVQBEgyGtCybZjgg4VtWEmepOVhTgPpRQxoOXzlWGCeEF5KEC031GOuoY0vGcRFYk1nfHAS7HPkgUB7nQKpwLU4fqRNu4ReHZkvgOm9rxIDXy4Jipv8SC7yOOmrZg0aSz1zLPX2zu+LvQskCnBRyWtvzeJ9yeHrIk3U/VJT10acqx6OdlpowdNVUTTm2p4XW2suogr+7EEmbwk9zLQoxlE7z7uUXLKHTJucdCXHhbZr/ido9kmdjKHrPMpHIcv+rHU0mxUc7TwH8pLL1xT4EAS21cezaqmURJtrBTNGJf9NAbj5m9NGpB0WYvFAHo830ocUoR492Q3z0OmmsrpS8MSRoeiDNrxRj1eQ+zA3IwH2DDsCi0ukR9qM9adFIwMERQMDQ1gELnX36RYs5a7yw0n38poMPQwFqGIFkURXDfZQzbmS67Cx57j4sfe9/xDYKhVgV4tGS52Vgfj1QfUvfUtZEAmDD+M5sT0OewY1Oa7jB21Y/RxQESCAeuJJebPv/4t3ZKafpCWMkdLXmr66jZiHl+L/5c86DJDJJSsYCKtZXNvZ4IPGTB57drCezzA9
+X-Microsoft-Antispam-Message-Info: J+hcTeIc3SvDaHw/Wy0UYYKDfZ5DS07+JmHN7TIWX6upOSVuD2B7vG4eKFyMnLqKDMlXT7uikajPP8FxhcAWJKJx2uGVPGIDhv9uJ3RWXQ+Uo6mG4/Erv3WY8/kSIMhE0HxiWPA/Sl6tlAnF3KiIBWtS59Rzmcp7/zLSZVk3yYFMidlj1R+6piYSFbYQttqWAxYjdxW/3Cx8ckypRCLbgfxhv36h1sI5Eu8iyqEg4wszPg1OgYiWT/opo5v3GUPPyIx3xBNePwMfUOQ8omsE/QqMbk3XdgmceSWFdI2pxnVuXHd0gxvpu7++j8npO+fWgRpUUhlmB31f5MCmtZ/FRjK006a3hQckIcVHgalRTJiXFJHk0fGHpuRRvrLKGgtI7UGlIISuRttt+WdSHVrZHy9nQG+Et6xvNwA8utC4EE04lsZ7dYf8SmUORxJ6srdlnLYcw/mOzkiao5L+nF6fAkNZq0LyueFSChU8T2RTgSF+AqeVSoMdOjuQUD/zVYWq4MYNM9GJ06PMMyii5aPJ/5wZgeeW6VzRneEu0jyIt4porxkjeAUqiHfNg9erCPEeDWizjGE4Xunr4V39VdufaJjdggrrjPgb1Wvbpkwf40j2asAZqrIfY3lGf/S+CYkjjZTDI/xb7+UmLIXi5FMqvbTvGJgnGWhjTYk/lCLOL6uu90RQzutE/YtKAXvIy3GbRzVlf1kH+ccHzFu49SLbPXH6lyyPA252vTd2e/k6kTI/68fL85NC05fFf4vHPqt/
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230031)(36860700004); DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2024 21:11:10.9742 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8c42b2c-9ff8-4cd4-c052-08dc370f7539
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2024 21:11:14.6431 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1badf323-3186-4066-dfe2-08dc370f7777
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343A.namprd02.prod.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A105.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8357
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6276
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,56 +110,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When the floor LUT index (drm_fixp2int(lut_index) is the last
-index of the array the ceil LUT index will point to an entry
-beyond the array. Make sure we guard against it and use the
-value of the floor LUT index.
+We want to be able to bypass each colorop at all times.
+Introduce a new BYPASS boolean property for this.
 
-v3:
- - Drop bits from commit description that didn't contribute
-   anything of value
-
-Fixes: db1f254f2cfaf ("drm/vkms: Add support to 1D gamma LUT")
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Cc: Arthur Grillo <arthurgrillo@riseup.net>
-Reviewed-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/vkms/vkms_composer.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_atomic_uapi.c |  6 +++++-
+ drivers/gpu/drm/drm_colorop.c     | 16 ++++++++++++++++
+ include/drm/drm_colorop.h         | 20 ++++++++++++++++++++
+ 3 files changed, 41 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-index d178f2a400f6..b90e446d5954 100644
---- a/drivers/gpu/drm/vkms/vkms_composer.c
-+++ b/drivers/gpu/drm/vkms/vkms_composer.c
-@@ -123,6 +123,8 @@ static u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 chan
- 				      enum lut_channel channel)
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index fdd540cfe24f..87f00131be11 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -648,7 +648,9 @@ static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
+ 		struct drm_colorop_state *state, struct drm_file *file_priv,
+ 		struct drm_property *property, uint64_t val)
  {
- 	s64 lut_index = get_lut_index(lut, channel_value);
-+	u16 *floor_lut_value, *ceil_lut_value;
-+	u16 floor_channel_value, ceil_channel_value;
+-	if (property == colorop->curve_1d_type_property) {
++	if (property == colorop->bypass_property) {
++		state->bypass = val;
++	} else if (property == colorop->curve_1d_type_property) {
+ 		state->curve_1d_type = val;
+ 	} else {
+ 		drm_dbg_atomic(colorop->dev,
+@@ -668,6 +670,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
+ {
+ 	if (property == colorop->type_property) {
+ 		*val = colorop->type;
++	} else if (property == colorop->bypass_property) {
++		*val = state->bypass;
+ 	} else if (property == colorop->curve_1d_type_property) {
+ 		*val = state->curve_1d_type;
+ 	} else {
+diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+index f4740b6115d1..29979816a2d1 100644
+--- a/drivers/gpu/drm/drm_colorop.c
++++ b/drivers/gpu/drm/drm_colorop.c
+@@ -80,6 +80,18 @@ int drm_colorop_init(struct drm_device *dev, struct drm_colorop *colorop,
+ 				   colorop->type_property,
+ 				   colorop->type);
  
- 	/*
- 	 * This checks if `struct drm_color_lut` has any gap added by the compiler
-@@ -130,11 +132,15 @@ static u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 chan
++	/* bypass */
++	/* TODO can we reuse the mode_config->active_prop? */
++	prop = drm_property_create_bool(dev, DRM_MODE_PROP_ATOMIC,
++					"BYPASS");
++	if (!prop)
++		return -ENOMEM;
++
++	colorop->bypass_property = prop;
++	drm_object_attach_property(&colorop->base,
++				   colorop->bypass_property,
++				   1);
++
+ 	return ret;
+ }
+ EXPORT_SYMBOL(drm_colorop_init);
+@@ -123,6 +135,7 @@ int drm_colorop_curve_1d_init(struct drm_device *dev, struct drm_colorop *coloro
+ 	/* initialize 1D curve only attribute */
+ 	prop = drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC, "CURVE_1D_TYPE",
+ 					enum_list, len);
++
+ 	if (!prop)
+ 		return -ENOMEM;
+ 
+@@ -138,6 +151,8 @@ static void __drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colo
+ 							struct drm_colorop_state *state)
+ {
+ 	memcpy(state, colorop->state, sizeof(*state));
++
++	state->bypass = true;
+ }
+ 
+ struct drm_colorop_state *
+@@ -189,6 +204,7 @@ static void __drm_colorop_state_reset(struct drm_colorop_state *colorop_state,
+ 				      struct drm_colorop *colorop)
+ {
+ 	colorop_state->colorop = colorop;
++	colorop_state->bypass = true;
+ }
+ 
+ /**
+diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+index 539db900f16f..28aa5c1c309e 100644
+--- a/include/drm/drm_colorop.h
++++ b/include/drm/drm_colorop.h
+@@ -45,6 +45,14 @@ struct drm_colorop_state {
+ 
+ 	/* colorop properties */
+ 
++	/**
++	 * @bypass:
++	 *
++	 * True if colorop shall be bypassed. False if colorop is
++	 * enabled.
++	 */
++	bool bypass;
++
+ 	/**
+ 	 * @curve_1d_type:
+ 	 *
+@@ -132,6 +140,18 @@ struct drm_colorop {
  	 */
- 	static_assert(sizeof(struct drm_color_lut) == sizeof(__u16) * 4);
+ 	struct drm_property *type_property;
  
--	u16 *floor_lut_value = (__u16 *)&lut->base[drm_fixp2int(lut_index)];
--	u16 *ceil_lut_value = (__u16 *)&lut->base[drm_fixp2int_ceil(lut_index)];
-+	floor_lut_value = (__u16 *)&lut->base[drm_fixp2int(lut_index)];
-+	if (drm_fixp2int(lut_index) == (lut->lut_length - 1))
-+		/* We're at the end of the LUT array, use same value for ceil and floor */
-+		ceil_lut_value = floor_lut_value;
-+	else
-+		ceil_lut_value = (__u16 *)&lut->base[drm_fixp2int_ceil(lut_index)];
- 
--	u16 floor_channel_value = floor_lut_value[channel];
--	u16 ceil_channel_value = ceil_lut_value[channel];
-+	floor_channel_value = floor_lut_value[channel];
-+	ceil_channel_value = ceil_lut_value[channel];
- 
- 	return lerp_u16(floor_channel_value, ceil_channel_value,
- 			lut_index & DRM_FIXED_DECIMAL_MASK);
++	/**
++	 * @bypass_property:
++	 *
++	 * Boolean property to control enablement of the color
++	 * operation. Setting bypass to "true" shall always be supported
++	 * in order to allow compositors to quickly fall back to
++	 * alternate methods of color processing. This is important
++	 * since setting color operations can fail due to unique
++	 * HW constraints.
++	 */
++	struct drm_property *bypass_property;
++
+ 	/**
+ 	 * @curve_1d_type:
+ 	 *
 -- 
 2.44.0
 
