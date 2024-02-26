@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4160CC48BF6
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 21:11:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38488C48BF6
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 21:11:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC6B110EE14;
-	Mon, 26 Feb 2024 21:11:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ECD510EDFD;
+	Mon, 26 Feb 2024 21:11:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="O9SQGrdp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m648Mejd";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2059.outbound.protection.outlook.com [40.107.244.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FC0510E70A;
- Mon, 26 Feb 2024 21:11:11 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F71D10E7D0;
+ Mon, 26 Feb 2024 21:11:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GBHXVEK4ThXGVHvC1g3vqToP201FmgxkcgiGkKdDMJK5T0MowGkkND8hqtojMhAtMVTmyCfqstbf8+ANEhnrEyWoZvfTWs/cCq6FtADV49gzg/As1k+TXPS2iUlrGFX+tQf4TdVBAHaS6RllCQWMo3OpM/n6c+3onGckOGSDqxz6SiGBx7JLQaO/OJTTwWvicqwRJakzi1rU8kpAE/i1eSS9Cq9rNc52pP6Um0lXF2b2QVpXRlHqITphUYKALUXF+TR3ahl73muPaCxBkYMdwkns+ZZj524gCPzOUJ0BHGtlj0bmVBg1+XtrsgH6OiDSub8BVpzbatEdqfoIGhfuGw==
+ b=ldJMkqOcMsQ3iQeW7MYytdAbOYxjjKT6ILiyCJXxmTI8U4LA5LvFal6p8mkMWn5Hxjq0lAzmIFCwJqNHrsJR9C0JYJXnuxH+mTvnVV3n8IEZDxDa7iSnu2Dg6VsYa5QD1YEL6y6OChduD5aol49ivlxIPooKK5TrOZMlNNLGWHQKVpt2B/ZUtlo2v+qa58YsQ6Z6r+JRkd8sxV9UbNuC9KEnW2rtqyE6iGyQ87MlmuUipmxqTHaKwbTdx2wK9fBBqjH7Nr/bLkBkZM8SgJfC8BxuT2nXsISzNE93dXJL4s713R08q3OViBUSEiX3GJnMO+a7wyIZnqzc8/pJDHc9CA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fhy0ISQEnqYID4mGZ7qUn7eFfB/gLvqQx05elNWJa10=;
- b=WNDQztoAu0be8l5j8ERvPDyzngBGSQk1SoXC9Wi11TGMeYyd2fUSo7KAo3IfLhrWr+/NMlcrAnsK6qINcLr/gZpliHZR4uFwNVqfHk7QRN2Bc7zcRlktA1vkpNdTCRsqynguAkjiNB8fz2hdOMLF1RUu2aJZlOZ6AHzhRK3mcHzTivfZLZYRCoqGwgcKDnBwRZR7G2uO3DnfacSBbvoy0ZWvY42Yp9HZLAaRzt8q8KYrw7CjQ7SFpbN7NuPSNGRRCF4r/WSTKwJTtyduSZj2hyUHdQrGPt356h+yWdLPArwgksaxNB17Lq+aMx56iK86KOVbxGRsuDSTSELOrQDJcw==
+ bh=gdsPWq8coV9IKdILq7ZMyNqGig8vpOr6qx0OC6tx5l0=;
+ b=ah7bECHgg2kf2NWvX3VfFlzaVSPGgPGliAWLoXjaRXzfCdqdCngW5gWaSqPLMZSLELR1pRIlSnGYxkICIaoURhw5guPC0c5eLUT2hU3TYxUy21m+vbbk0QVTwKpTdLIEMIxaOXvWMkU4vCld5xhHJjWx1L1KNGPWCi763NKstOa8NOPLRmg6YfyI166jFLr/vUTRGUsN5dDSdwwAivvjnTozAasSGNs1vzvWt5lqWgb8B3bNoCWnlCxYBS0zw1MjVLKNmxim4aec9eQGe5xU8xtqCdNbZLs8/drIJ9GZyhRaWi1UsEf9RiU86TIHE+wfmOsynjdInmB+G8Io6QDEWA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fhy0ISQEnqYID4mGZ7qUn7eFfB/gLvqQx05elNWJa10=;
- b=O9SQGrdpCuCmNuBTRzsY7rLBZdxC0UvUvWRE4niA9dk2UeuwU91f1WtNi7nE9gPzrPptZXhhv9XROCKd+JwlVSdsZZir9wl1iHv21zJins0al/nawmAs8bMFZh140ResXukqxAkraNo78PT996uST3NaOepmTkgTY9KKwTE0w/Y=
-Received: from DM6PR12CA0025.namprd12.prod.outlook.com (2603:10b6:5:1c0::38)
- by BN9PR12MB5161.namprd12.prod.outlook.com (2603:10b6:408:11a::15) with
+ bh=gdsPWq8coV9IKdILq7ZMyNqGig8vpOr6qx0OC6tx5l0=;
+ b=m648MejdkxoPBCX+YXQaLZ6qnvQY53JCWozngzSR/D4w2jbV9JPNGlg1jxlMNX7YDPNmUd9+nfTwHugRK5Yxn2FcQcmRcVbb2TAzodI0W0ZurqJ46gNsckDA5yR9zwWKpdeG7fdZdwDMXWgtz3U0+mKu/cISaSpSq/baJ7INYyM=
+Received: from DM6PR12CA0020.namprd12.prod.outlook.com (2603:10b6:5:1c0::33)
+ by CH2PR12MB5001.namprd12.prod.outlook.com (2603:10b6:610:61::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.34; Mon, 26 Feb
- 2024 21:11:07 +0000
+ 2024 21:11:10 +0000
 Received: from DS2PEPF00003447.namprd04.prod.outlook.com
- (2603:10b6:5:1c0:cafe::ec) by DM6PR12CA0025.outlook.office365.com
- (2603:10b6:5:1c0::38) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:5:1c0:cafe::46) by DM6PR12CA0020.outlook.office365.com
+ (2603:10b6:5:1c0::33) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.49 via Frontend
- Transport; Mon, 26 Feb 2024 21:11:07 +0000
+ Transport; Mon, 26 Feb 2024 21:11:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,63 +50,54 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DS2PEPF00003447.mail.protection.outlook.com (10.167.17.74) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Mon, 26 Feb 2024 21:11:06 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ 15.20.7292.25 via Frontend Transport; Mon, 26 Feb 2024 21:11:09 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 26 Feb
- 2024 15:11:04 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 15:11:09 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 26 Feb
- 2024 13:11:04 -0800
+ 2024 15:11:09 -0600
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 26 Feb 2024 15:11:02 -0600
+ Transport; Mon, 26 Feb 2024 15:11:08 -0600
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: <wayland-devel@lists.freedesktop.org>, Harry Wentland
- <harry.wentland@amd.com>, Ville Syrjala <ville.syrjala@linux.intel.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>, Simon Ser
- <contact@emersion.fr>, Melissa Wen <mwen@igalia.com>,
- =?UTF-8?q?Jonas=20=C3=85dahl?= <jadahl@redhat.com>, Sebastian Wick
- <sebastian.wick@redhat.com>, Shashank Sharma <shashank.sharma@amd.com>,
- Alexander Goins <agoins@nvidia.com>, Joshua Ashton <joshua@froggi.es>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>, Aleix Pol
- <aleixpol@kde.org>, Xaver Hugl <xaver.hugl@gmail.com>, Victoria Brekenfeld
- <victoria@system76.com>, Sima <daniel@ffwll.ch>, Uma Shankar
- <uma.shankar@intel.com>, Naseer Ahmed <quic_naseer@quicinc.com>, "Christopher
- Braga" <quic_cbraga@quicinc.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Arthur Grillo <arthurgrillo@riseup.net>, Hector Martin <marcan@marcan.st>,
- Liviu Dudau <Liviu.Dudau@arm.com>, Sasha McIntosh <sashamcintosh@google.com>, 
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Subject: [RFC PATCH v4 00/42] Color Pipeline API w/ VKMS
-Date: Mon, 26 Feb 2024 16:10:14 -0500
-Message-ID: <20240226211100.100108-1-harry.wentland@amd.com>
+ <harry.wentland@amd.com>, Arthur Grillo <arthurgrillo@riseup.net>
+Subject: [RFC PATCH v4 06/42] drm/vkms: Add kunit tests for VKMS LUT handling
+Date: Mon, 26 Feb 2024 16:10:20 -0500
+Message-ID: <20240226211100.100108-7-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240226211100.100108-1-harry.wentland@amd.com>
+References: <20240226211100.100108-1-harry.wentland@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: harry.wentland@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003447:EE_|BN9PR12MB5161:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27e31154-8b2c-4d03-8cab-08dc370f72c2
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003447:EE_|CH2PR12MB5001:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7d64e2a-c994-4220-01a6-08dc370f749d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: z+wSU7Ef8S9x5qGMEWzzPPaHeox9+QcbaWWzh/Pd6WHQWmefl4fVFfxtPBCeiXGxFvaDG2WCiDiZ+ptKFIlHNpgJGr9KR9/lGyloE/o/uUEjA8hA94TriA6i50bRRLg1u0cDqMMfRx6zZbkgUUe+spKtLy8oQF2EyT9rkAY7N9wjbS4rbcsoFEMmO4pzmZg3wiKo93/LLTOCykWZBi4MUg5B8zeI3CEgUODrf3Van9BdbiPv9EbQ8ihzQ0yqh2eAmXMlS3gTvWJsAZOnzel4p8eD31ZJNz0dGXO9Gbm7/9iWINmH3fLkBMycnM3PW5mIz66EbuYrN5jXnLCYBlX5ykWjVfqi3IuuPTAsXJTjVJXFgzxiM4uzhlsV/zNw6tqKWWpbfc6Us+ovoY71H/BEF+LsaHe4vwTuhAa2I6/cFp7l3RhEsnwudOde4NUZ3FqXxKU1511B15HNxcLxLki8m466Vh1380t5Btz3GQDrpj/AI+9Msxp7rp0x3Zpmx2sErPrqi+KrBHXxpUxNkn7CPuBmB+MGKVJM5WgRbEwVP9IYe28vp8S89DeIJXkI1BdQZaPRcSEmjQwUjNKHUj9zhIrQj20iStS+qdAyjOb519rCFJYOtJJ3jn3StZv6GhMxC4j6pnGKxOsUoSkU/dAoAIT6FcSq1OYcsTaIkfWpvUow1QkQkbNdum+qBmFE6+a0PchtbPaSa2bCoU+Aon9dKQDy2C27I19BSOPqLkR/Gtc=
+X-Microsoft-Antispam-Message-Info: W0Hjrka4mJO9nifqg+czLICWQdy0rG2MkvUIu9pa9D7OD/8tNJMA0P4sVKvPdKL39hlJn2NvxQyvfvNquCfxnrvbjtSrCUNJ4OCv7z/ZZ+RGtP7LdxRCNzLlT9rO+XRplP0qKEEYhoZZKYfyOnGSPQKlLhjbjb8zCzbpj/a5Ybvvc0AY4k2c1I/HQ1ANI4J1BZOYbYUp3Wvu6ATzo996Q+x2nus0cUlnjxzzfjbMwWDngcJToXqpIBlmkm8R3k1ifDNPB7441Yd+qqwgHCEn7GJFBeIXMiNPZ8qHCcB3cZ+1Ib+qprg+1ikaoXKnqWJcHTBy/4z1j7SWmh2ob9pxkY9uKXI1BX+8mYMyVg+Q6QOY/Mhwf9hGjLA6n6xTHT4ZbgQaBnKL+my8PNvbS1yLqVpXOmjMOo0jfvtQ1Ta4n3JBZKNKwCoNFxmZuV2BavINpo7o2hoAv3IIv63tAaIJmgBAQRf2UhHYvuPbjKm8G9DWc+6O61eZQ0XdYZBpKdhIwJ3B07zsN0twbJYih/Ig5fbbqhTatKjp6gwVd9BhfGOid6VTUWAXSiNB35JwSukctsfaOULt2WCW/dep2M6RCYTdYv/Gcg2mXQzDVk3009DTglFp4S9tXwpWU6BUbSzWY08XI2crLBpqKT6jxbiZCZaVO4a9Yb+5gr8C/IadddY43/X71d6lM94JZijeOGaTecrCxSvTLuZiFP6SrD5Sr3f8hWIDYkeflhTdB2+u/jc7aB9XtN2SzyE08nGmOrmM
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230031)(36860700004); DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2024 21:11:06.8376 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27e31154-8b2c-4d03-8cab-08dc370f72c2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2024 21:11:09.9470 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7d64e2a-c994-4220-01a6-08dc370f749d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003447.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5161
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5001
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,251 +112,251 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an RFC set for a color pipeline API, along with a sample
-implementation in VKMS. All the key API bits are here. VKMS now
-supports two named transfer function colorops and two matrix
-colorops. We have IGT tests that check all four of these colorops
-with a pixel-by-pixel comparison that checks that these colorops
-do what we expect them to do with a +/- 1 8 bpc code point margin.
-
-The big new change with v4 is the addition of an amdgpu color
-pipeline, for all AMD GPUs with DCN 3 and newer. Amdgpu now support
-the following:
-
-1. 1D Curve EOTF
-2. 3x4 CTM
-3. Multiplier
-4. 1D Curve Inverse EOTF
-5. 1D LUT
-6. 1D Curve EOTF
-7. 1D LUT
-
-The supported curves for the 1D Curve type are:
-- sRGB EOTF and its inverse
-- PQ EOTF, scaled to [0.0, 125.0] and its inverse
-- BT.2020/BT.709 OETF and its inverse
-
-Note that the 1st and 5th colorops take the EOTF or Inverse
-OETF while the 3rd colorop takes the Inverse EOTF or OETF.
-
-We are working on two more ops for amdgpu, the HDR multiplier
-and the 3DLUT, which will give us this:
-
-1. 1D Curve EOTF
-2. 3x4 CTM
-3. HDR Multiplier
-4. 1D Curve Inverse EOTF
-5. 1D LUT
-6. 3D LUT
-7. 1D Curve EOTF
-8. 1D LUT
-
-This, essentially mirrors the color pipeline used by gamescope
-and presented by Melissa Wen, with the exception of the DEGAM
-LUT, which is not currently used. See
-[1] https://indico.freedesktop.org/event/4/contributions/186/attachments/138/218/xdc2023-TheRainbowTreasureMap-MelissaWen.pdf
-
-After this we'd like to also add the following ops:
-- Scaler (Informational only)
-- Color Encoding, to replace drm_plane's COLOR_ENCODING
-- Color Range, to replace drm_plane's COLOR_RANGE
-
-This patchset is grouped as follows:
- - Patches 1-3: couple general patches/fixes
- - Patches 4-7: introduce kunit to VKMS
- - Patch 7: description of motivation and details behind the
-            Color Pipeline API. If you're reading nothing else
-            but are interested in the topic I highly recommend
-            you take a look at this.
- - Patches 7-27: DRM core and VKMS changes for color pipeline API
- - Patches 28-40: DRM core and amdgpu changes for color pipeline API
-
-VKMS patches could still be improved in a few ways, though the
-payoff might be limited and I would rather focus on other work
-at the moment. The most obvious thing to improve would be to
-eliminate the hard-coded LUTs for identity, and sRGB, and replace
-them with fixed-point math instead.
-
-There are plenty of things that I would like to see here but
-haven't had a chance to look at. These will (hopefully) be
-addressed in future iterations, either in VKMS or amdgpu:
- - Clear documentation for each drm_colorop_type
- - Add custom LUT colorops to VKMS
- - Add pre-blending 3DLUT
- - How to support HW which can't bypass entire pipeline?
- - Add ability to create colorops that don't have BYPASS
- - Can we do a LOAD / COMMIT model for LUTs (and other properties)?
- - read-only scaling colorop which defines scaling taps and position
- - read-only color format colorop to define supported color formats
-   for a pipeline
- - named matrices, for things like converting YUV to RGB
-
-IGT tests can be found at
-https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/merge_requests/1
-
-IGT patches are also being sent to the igt-dev mailing list.
-
-If you prefer a gitlab MR for review you can find it at
-https://gitlab.freedesktop.org/hwentland/linux/-/merge_requests/5
+Debugging LUT math is much easier when we can unit test
+it. Add kunit functionality to VKMS and add tests for
+ - get_lut_index
+ - lerp_u16
 
 v4:
- - Add amdgpu color pipeline (WIP)
- - Don't block setting of deprecated properties, instead pass client cap
-   to atomic check so drivers can ignore these props
- - Drop IOCTL definitions (Pekka)
- - Use enum property for colorop TYPE (Pekka)
- - A few cleanups to the docs (Pekka)
- - Rework the TYPE enum to name relation to avoid code duplication (Pekka)
- - Add missing function declarations (Chaitanya Kumar Borah)
- - Allow setting of NEXT property to NULL in _set_ function (Chaitanya Kumar Borah)
- - Add helper for creation of pipeline drm_plane property (Pekka)
- - Always create Bypass pipeline (Pekka)
- - A bunch of changes to VKMS kunit tests (Pekka)
- - Fix index in CTM doc (Pekka)
+ - Test the critical points of the lerp function (Pekka)
 
 v3:
- - Abandon IOCTLs and discover colorops as clients iterate the pipeline
- - Remove need for libdrm
- - Add color_pipeline client cap and make mutually exclusive with
-   COLOR_RANGE and COLOR_ENCODING properties
- - add CTM colorop to VKMS
- - Use include way for kunit testing static functions (Arthur)
- - Make TYPE a range property
- - Move enum drm_colorop_type to uapi header
- - and a bunch of smaller bits that are highlighted in the relevant commit
-   description
+ - Use include way of testing static functions (Arthur)
 
-v2:
- - Rebased on drm-misc-next
- - Introduce a VKMS Kunit so we can test LUT functionality in vkms_composer
- - Incorporate feedback in color_pipeline.rst doc
- - Add support for sRGB inverse EOTF
- - Add 2nd enumerated TF colorop to VKMS
- - Fix LUTs and some issues with applying LUTs in VKMS
-
-Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
-Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
-Cc: Simon Ser <contact@emersion.fr>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Melissa Wen <mwen@igalia.com>
-Cc: Jonas Ådahl <jadahl@redhat.com>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>
-Cc: Shashank Sharma <shashank.sharma@amd.com>
-Cc: Alexander Goins <agoins@nvidia.com>
-Cc: Joshua Ashton <joshua@froggi.es>
-Cc: Michel Dänzer <mdaenzer@redhat.com>
-Cc: Aleix Pol <aleixpol@kde.org>
-Cc: Xaver Hugl <xaver.hugl@gmail.com>
-Cc: Victoria Brekenfeld <victoria@system76.com>
-Cc: Sima <daniel@ffwll.ch>
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Naseer Ahmed <quic_naseer@quicinc.com>
-Cc: Christopher Braga <quic_cbraga@quicinc.com>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 Cc: Arthur Grillo <arthurgrillo@riseup.net>
-Cc: Hector Martin <marcan@marcan.st>
-Cc: Liviu Dudau <Liviu.Dudau@arm.com>
-Cc: Sasha McIntosh <sashamcintosh@google.com>
-Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-
-Alex Hung (10):
-  drm/colorop: define a new macro for_each_new_colorop_in_state
-  drm/amd/display: Skip color pipeline initialization for cursor plane
-  drm/amd/display: Add support for sRGB EOTF in DEGAM block
-  drm/amd/display: Add support for sRGB Inverse EOTF in SHAPER block
-  drm/amd/display: Add support for sRGB EOTF in BLND block
-  drm/colorop: Add 1D Curve Custom LUT type
-  drm/amd/display: add shaper and blend colorops for 1D Curve Custom LUT
-  drm/amd/display: add 3x4 matrix colorop
-  drm/colorop: Add mutliplier type
-  drm/amd/display: add multiplier colorop
-
-Harry Wentland (32):
-  drm: Don't treat 0 as -1 in drm_fixp2int_ceil
-  drm: Add helper for conversion from signed-magnitude
-  drm: Correctly round for fixp2int_round
-  drm/vkms: Round fixp2int conversion in lerp_u16
-  drm/vkms: Create separate Kconfig file for VKMS
-  drm/vkms: Add kunit tests for VKMS LUT handling
-  drm/vkms: Avoid reading beyond LUT array
-  drm/doc/rfc: Describe why prescriptive color pipeline is needed
-  drm/colorop: Introduce new drm_colorop mode object
-  drm/colorop: Add TYPE property
-  drm/colorop: Add 1D Curve subtype
-  drm/colorop: Add BYPASS property
-  drm/colorop: Add NEXT property
-  drm/colorop: Add atomic state print for drm_colorop
-  drm/plane: Add COLOR PIPELINE property
-  drm/colorop: Add NEXT to colorop state print
-  drm/vkms: Add enumerated 1D curve colorop
-  drm/vkms: Add kunit tests for linear and sRGB LUTs
-  drm/colorop: Introduce DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-  drm/colorop: Add 3x4 CTM type
-  drm/vkms: Pull apply_colorop out of pre_blend_color_transform
-  drm/vkms: Use s32 for internal color pipeline precision
-  drm/vkms: add 3x4 matrix in color pipeline
-  drm/tests: Add a few tests around drm_fixed.h
-  drm/vkms: Add tests for CTM handling
-  drm/colorop: pass plane_color_pipeline client cap to atomic check
-  drm/amd/display: Ignore deprecated props when plane_color_pipeline set
-  drm/amd/display: Add bypass COLOR PIPELINE
-  drm/colorop: Add PQ 125 EOTF and its inverse
-  drm/amd/display: Enable support for PQ 125 EOTF and Inverse
-  drm/colorop: add BT2020/BT709 OETF and Inverse OETF
-  drm/amd/display: Add support for BT.709 and BT.2020 TFs
-
- Documentation/gpu/rfc/color_pipeline.rst      | 360 ++++++++
- drivers/gpu/drm/Kconfig                       |  14 +-
- drivers/gpu/drm/Makefile                      |   1 +
- .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   3 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   4 +
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 352 ++++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 160 ++++
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |  36 +
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  32 +
- drivers/gpu/drm/drm_atomic.c                  | 161 +++-
- drivers/gpu/drm/drm_atomic_helper.c           |  12 +
- drivers/gpu/drm/drm_atomic_state_helper.c     |   5 +
- drivers/gpu/drm/drm_atomic_uapi.c             | 158 ++++
- drivers/gpu/drm/drm_colorop.c                 | 411 +++++++++
- drivers/gpu/drm/drm_ioctl.c                   |   7 +
- drivers/gpu/drm/drm_mode_config.c             |   7 +
- drivers/gpu/drm/drm_plane.c                   |  52 ++
- drivers/gpu/drm/tests/Makefile                |   3 +-
- drivers/gpu/drm/tests/drm_fixp_test.c         |  69 ++
- drivers/gpu/drm/vkms/Kconfig                  |  20 +
- drivers/gpu/drm/vkms/Makefile                 |   4 +-
+---
+ drivers/gpu/drm/vkms/Kconfig                  |   5 +
  drivers/gpu/drm/vkms/tests/.kunitconfig       |   4 +
- drivers/gpu/drm/vkms/tests/vkms_color_tests.c | 449 ++++++++++
- drivers/gpu/drm/vkms/vkms_colorop.c           | 100 +++
- drivers/gpu/drm/vkms/vkms_composer.c          | 135 ++-
- drivers/gpu/drm/vkms/vkms_drv.h               |   8 +
- drivers/gpu/drm/vkms/vkms_luts.c              | 802 ++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_luts.h              |  12 +
- drivers/gpu/drm/vkms/vkms_plane.c             |   2 +
- include/drm/drm_atomic.h                      | 122 +++
- include/drm/drm_atomic_uapi.h                 |   3 +
- include/drm/drm_colorop.h                     | 301 +++++++
- include/drm/drm_file.h                        |   7 +
- include/drm/drm_fixed.h                       |  35 +-
- include/drm/drm_mode_config.h                 |  18 +
- include/drm/drm_plane.h                       |  13 +
- include/uapi/drm/drm.h                        |  16 +
- include/uapi/drm/drm_mode.h                   |  14 +
- 38 files changed, 3882 insertions(+), 30 deletions(-)
- create mode 100644 Documentation/gpu/rfc/color_pipeline.rst
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
- create mode 100644 drivers/gpu/drm/drm_colorop.c
- create mode 100644 drivers/gpu/drm/tests/drm_fixp_test.c
- create mode 100644 drivers/gpu/drm/vkms/Kconfig
+ drivers/gpu/drm/vkms/tests/vkms_color_tests.c | 163 ++++++++++++++++++
+ drivers/gpu/drm/vkms/vkms_composer.c          |   8 +-
+ 4 files changed, 178 insertions(+), 2 deletions(-)
  create mode 100644 drivers/gpu/drm/vkms/tests/.kunitconfig
  create mode 100644 drivers/gpu/drm/vkms/tests/vkms_color_tests.c
- create mode 100644 drivers/gpu/drm/vkms/vkms_colorop.c
- create mode 100644 drivers/gpu/drm/vkms/vkms_luts.c
- create mode 100644 drivers/gpu/drm/vkms/vkms_luts.h
- create mode 100644 include/drm/drm_colorop.h
 
---
+diff --git a/drivers/gpu/drm/vkms/Kconfig b/drivers/gpu/drm/vkms/Kconfig
+index b9ecdebecb0b..c1f8b343ff0e 100644
+--- a/drivers/gpu/drm/vkms/Kconfig
++++ b/drivers/gpu/drm/vkms/Kconfig
+@@ -13,3 +13,8 @@ config DRM_VKMS
+ 	  a VKMS.
+ 
+ 	  If M is selected the module will be called vkms.
++
++config DRM_VKMS_KUNIT_TESTS
++	tristate "Tests for VKMS" if !KUNIT_ALL_TESTS
++	depends on DRM_VKMS && KUNIT
++	default KUNIT_ALL_TESTS
+diff --git a/drivers/gpu/drm/vkms/tests/.kunitconfig b/drivers/gpu/drm/vkms/tests/.kunitconfig
+new file mode 100644
+index 000000000000..70e378228cbd
+--- /dev/null
++++ b/drivers/gpu/drm/vkms/tests/.kunitconfig
+@@ -0,0 +1,4 @@
++CONFIG_KUNIT=y
++CONFIG_DRM=y
++CONFIG_DRM_VKMS=y
++CONFIG_DRM_VKMS_KUNIT_TESTS=y
+diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_tests.c b/drivers/gpu/drm/vkms/tests/vkms_color_tests.c
+new file mode 100644
+index 000000000000..fc73e48aa57c
+--- /dev/null
++++ b/drivers/gpu/drm/vkms/tests/vkms_color_tests.c
+@@ -0,0 +1,163 @@
++/* SPDX-License-Identifier: GPL-2.0+ */
++
++#include <kunit/test.h>
++
++#include <drm/drm_fixed.h>
++
++#define TEST_LUT_SIZE 16
++
++static struct drm_color_lut test_linear_array[TEST_LUT_SIZE] = {
++	{ 0x0, 0x0, 0x0, 0 },
++	{ 0x1111, 0x1111, 0x1111, 0 },
++	{ 0x2222, 0x2222, 0x2222, 0 },
++	{ 0x3333, 0x3333, 0x3333, 0 },
++	{ 0x4444, 0x4444, 0x4444, 0 },
++	{ 0x5555, 0x5555, 0x5555, 0 },
++	{ 0x6666, 0x6666, 0x6666, 0 },
++	{ 0x7777, 0x7777, 0x7777, 0 },
++	{ 0x8888, 0x8888, 0x8888, 0 },
++	{ 0x9999, 0x9999, 0x9999, 0 },
++	{ 0xaaaa, 0xaaaa, 0xaaaa, 0 },
++	{ 0xbbbb, 0xbbbb, 0xbbbb, 0 },
++	{ 0xcccc, 0xcccc, 0xcccc, 0 },
++	{ 0xdddd, 0xdddd, 0xdddd, 0 },
++	{ 0xeeee, 0xeeee, 0xeeee, 0 },
++	{ 0xffff, 0xffff, 0xffff, 0 },
++};
++
++const struct vkms_color_lut test_linear_lut = {
++	.base = test_linear_array,
++	.lut_length = TEST_LUT_SIZE,
++	.channel_value2index_ratio = 0xf000fll
++};
++
++
++static void vkms_color_test_get_lut_index(struct kunit *test)
++{
++	int i;
++
++	KUNIT_EXPECT_EQ(test, drm_fixp2int(get_lut_index(&test_linear_lut, test_linear_array[0].red)), 0);
++
++	for (i = 0; i < TEST_LUT_SIZE; i++)
++		KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&test_linear_lut, test_linear_array[i].red)), i);
++}
++
++static void vkms_color_test_lerp(struct kunit *test)
++{
++	/*** half-way round down ***/
++	s64 t = 0x80000000 - 1;
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x10, t), 0x8);
++
++	/* odd a */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0x10, t), 0x8);
++
++	/* odd b */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0xf, t), 0x8);
++
++	/* b = a */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x10, t), 0x10);
++
++	/* b = a + 1 */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x11, t), 0x10);
++
++
++	/*** half-way round up ***/
++	t = 0x80000000;
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x10, t), 0x8);
++
++	/* odd a */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0x10, t), 0x9);
++
++	/* odd b */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0xf, t), 0x8);
++
++	/* b = a */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x10, t), 0x10);
++
++	/* b = a + 1 */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x11, t), 0x11);
++
++	/*** t = 0.0 ***/
++	t = 0x0;
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x10, t), 0x0);
++
++	/* odd a */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0x10, t), 0x1);
++
++	/* odd b */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0xf, t), 0x1);
++
++	/* b = a */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x10, t), 0x10);
++
++	/* b = a + 1 */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x11, t), 0x10);
++
++	/*** t = 1.0 ***/
++	t = 0x100000000;
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x10, t), 0x10);
++
++	/* odd a */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0x10, t), 0x10);
++
++	/* odd b */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0xf, t), 0xf);
++
++	/* b = a */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x10, t), 0x10);
++
++	/* b = a + 1 */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x11, t), 0x11);
++
++
++	/*** t = 0.0 + 1 ***/
++	t = 0x0 + 1;
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x10, t), 0x0);
++
++	/* odd a */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0x10, t), 0x1);
++
++	/* odd b */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0xf, t), 0x1);
++
++	/* b = a */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x10, t), 0x10);
++
++	/* b = a + 1 */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x11, t), 0x10);
++
++	/*** t = 1.0 - 1 ***/
++	t = 0x100000000 - 1;
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x10, t), 0x10);
++
++	/* odd a */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0x10, t), 0x10);
++
++	/* odd b */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0xf, t), 0xf);
++
++	/* b = a */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x10, t), 0x10);
++
++	/* b = a + 1 */
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x11, t), 0x11);
++
++
++	/*** t chosen to verify the flipping point of result a (or b) to a+1 (or b-1) ***/
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x1, 0x80000000 - 1), 0x0);
++	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x1, 0x80000000), 0x1);
++}
++
++static struct kunit_case vkms_color_test_cases[] = {
++	KUNIT_CASE(vkms_color_test_get_lut_index),
++	KUNIT_CASE(vkms_color_test_lerp),
++	{}
++};
++
++static struct kunit_suite vkms_color_test_suite = {
++	.name = "vkms-color",
++	.test_cases = vkms_color_test_cases,
++};
++kunit_test_suite(vkms_color_test_suite);
++
++MODULE_LICENSE("GPL");
+\ No newline at end of file
+diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+index e70cd473e3be..d178f2a400f6 100644
+--- a/drivers/gpu/drm/vkms/vkms_composer.c
++++ b/drivers/gpu/drm/vkms/vkms_composer.c
+@@ -91,7 +91,7 @@ static void fill_background(const struct pixel_argb_u16 *background_color,
+ }
+ 
+ // lerp(a, b, t) = a + (b - a) * t
+-static u16 lerp_u16(u16 a, u16 b, s64 t)
++u16 lerp_u16(u16 a, u16 b, s64 t)
+ {
+ 	s64 a_fp = drm_int2fixp(a);
+ 	s64 b_fp = drm_int2fixp(b);
+@@ -101,7 +101,7 @@ static u16 lerp_u16(u16 a, u16 b, s64 t)
+ 	return drm_fixp2int_round(a_fp + delta);
+ }
+ 
+-static s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value)
++s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value)
+ {
+ 	s64 color_channel_fp = drm_int2fixp(channel_value);
+ 
+@@ -429,3 +429,7 @@ int vkms_set_crc_source(struct drm_crtc *crtc, const char *src_name)
+ 
+ 	return ret;
+ }
++
++#ifdef CONFIG_DRM_VKMS_KUNIT_TESTS
++#include "tests/vkms_color_tests.c"
++#endif
+-- 
 2.44.0
 
