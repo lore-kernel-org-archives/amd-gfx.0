@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFD68C5478C
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 21:12:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BF52C5478C
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 21:12:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33DC210F245;
-	Mon, 26 Feb 2024 21:11:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E02710F231;
+	Mon, 26 Feb 2024 21:11:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LnNyjAeD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sVVsk+/H";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2041.outbound.protection.outlook.com [40.107.237.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDFB210F19E;
- Mon, 26 Feb 2024 21:11:28 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2066.outbound.protection.outlook.com [40.107.244.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0888A10EFC6;
+ Mon, 26 Feb 2024 21:11:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q3GQeA/5jIRWhUgOUxIudiD9PQWL+N1PEfg497L7BemxlQ9bqtzcOdru42GPeaW1rAsxl/aMlIkURjRK+QvTKQfq5/LNRrklhCy1BjJi2RDi9jVE7FqILUyhDWUpLNx9Y5hICnRckNT596zX6Xxy+2E+GUdpimliRMD9C2NOE3OoOZtXkUIh1jJq7dVz+vxK8n4V9mgintB0nwaYdEGTwgpgBk/587Pz01aKaDT400+FDgEoCWjsq+E3WdNyx+ZrG3Frob6orJ+iLPDcl8s+bv+2SJ5ZInytfcNMpl6TpTwUNvUahszl611YpYHqownKll/b8+slen+m0X0H2I+Ncg==
+ b=oM0SVj5Wv388hMoYT+0yxQ/U9cNsNd5dBOI2jal7BiDCsaR3AA3ABX6qyz6j/3OYQr36mZmpOGfEbN9Ta7/daberfkIyjhoET6yHqwNOj+Y1GzsElNmy2lIO7QJ4pdPYnQwf6SdubJEMtx5vM3xmtSRAE4OYuoBGg/SjU/lZ8gkNweuD4AffDPk6Tm9pMIEZtXi0syXmoRbvR29RqCpf614RCAASkwyp4jLdyv157bvDtizSaLN/ekP2B9Sk/xRDa9+bnIYRIJGbSmzsZCTRPvaC23TwBysSjCu0aeQ0mW6cQNsnBqiMweJY1SFV+mXKsd11tOk91KNmCY/x69fbiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LsR0SEb99sdSovHOyboxy/MPf5pSK1F/dvKhBpBICCM=;
- b=YTgG0uLrDJADxWwpSjYXF9rVLAxWp6+du8+0iKzasY77/phd8e6CgRzHn3cCqtU8FYmnJzyoLcvbP+67Bm9VK6xvqD+pYQSSAR+Scct2S4cHJKPDxm+F5RiS4d0xb9xHc6RAO98BUipIypIFXfTNE490L9AC8GaZykGts1sghE0sBDsMidJoXnv2lxlHO9V1ACIzuDsuRdCZLBtaGQbaJTyrtaFYMslh6eVpLLACkS2jXKmnc5zc+Mq49B8j1KF2+wf0XJCBHsBPkQbRAFaPbFrnJh4DyMAJdLBQxfsSPKlbPUSSmVOpSuVL0/kULUSAJykkBlMYK8A976mQYeYF8g==
+ bh=Ivh3fWZfhFIwSlfiBeJ/m4rYDjPDUZQ1OuPbIMSba+A=;
+ b=L0BPVuUcogY39u4dKsXrDSsYJ61SCR9NQLX3Q46yoa7FgFaiGXBwVu0os71chF/qdy/+Ou5qiqL/gn+TngusIFhxMiNSlxG4nDfO+zjnSlvk+Cw4EOVgjwoVUPrasiPUT6316hW63LfRYdFBehGF5BEl6PAVj2EuxKsLXdhwjHNuNjSj/V1DS8s+EbrZOSHGxZZJoMja17jCGilVfExNr3AGyeb5eNVDByme8wTYD9xxyTDbFHSFsN4Ki5ptwDzwzmrK6BUpm/k/n3k9rEDOJaa2/HTSSM7NY3ihORhel8D7geI+vJilqg0MazrUYBfsimSBwQLgoUXcTy90CW4Yyg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LsR0SEb99sdSovHOyboxy/MPf5pSK1F/dvKhBpBICCM=;
- b=LnNyjAeDuxGvp3pK/ML+ZPCzHVwY9YoZ2bXkJWqekFtO/iamtgPiQDs1qS/bGLh8hVdZ6iiRIPFl40mDAOqVLYnnlyHUkTPzjnf1AMWN3F5MRIqyGIB26oa3BRBBz35xf3e5rL6n4tQBaG5hL8MEgLvjtiphmM6db65JHQo9zbY=
-Received: from SJ0PR13CA0069.namprd13.prod.outlook.com (2603:10b6:a03:2c4::14)
- by DM6PR12MB4450.namprd12.prod.outlook.com (2603:10b6:5:28e::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.34; Mon, 26 Feb
- 2024 21:11:24 +0000
-Received: from DS2PEPF0000343A.namprd02.prod.outlook.com
- (2603:10b6:a03:2c4:cafe::57) by SJ0PR13CA0069.outlook.office365.com
- (2603:10b6:a03:2c4::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.25 via Frontend
- Transport; Mon, 26 Feb 2024 21:11:23 +0000
+ bh=Ivh3fWZfhFIwSlfiBeJ/m4rYDjPDUZQ1OuPbIMSba+A=;
+ b=sVVsk+/HVAkLYnrNzqbKNIPiAuqtfGZbSR3xiwtZklOfAfZsyVNYjO4OgD92kHhqr1pnqZCY7oMcxENAa+Ca8cn3zNJ3rOxuba9lGEEAeeU0SA8fxMloKJGt9Gr2bJW1daHRvmwPWWQRbRwCNlxMmxGJbqW7LwcuasiFNEkcMjg=
+Received: from CH0PR04CA0082.namprd04.prod.outlook.com (2603:10b6:610:74::27)
+ by MN2PR12MB4063.namprd12.prod.outlook.com (2603:10b6:208:1dc::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.36; Mon, 26 Feb
+ 2024 21:11:20 +0000
+Received: from DS2PEPF0000343D.namprd02.prod.outlook.com
+ (2603:10b6:610:74:cafe::a0) by CH0PR04CA0082.outlook.office365.com
+ (2603:10b6:610:74::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.49 via Frontend
+ Transport; Mon, 26 Feb 2024 21:11:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,54 +48,52 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS2PEPF0000343A.mail.protection.outlook.com (10.167.18.37) with Microsoft
+ DS2PEPF0000343D.mail.protection.outlook.com (10.167.18.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Mon, 26 Feb 2024 21:11:23 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ 15.20.7292.25 via Frontend Transport; Mon, 26 Feb 2024 21:11:20 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 26 Feb
- 2024 15:11:21 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 26 Feb
- 2024 15:11:21 -0600
+ 2024 15:11:15 -0600
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 26 Feb 2024 15:11:20 -0600
+ Transport; Mon, 26 Feb 2024 15:11:14 -0600
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: <wayland-devel@lists.freedesktop.org>, Harry Wentland
  <harry.wentland@amd.com>
-Subject: [RFC PATCH v4 25/42] drm/vkms: Add tests for CTM handling
-Date: Mon, 26 Feb 2024 16:10:39 -0500
-Message-ID: <20240226211100.100108-26-harry.wentland@amd.com>
+Subject: [RFC PATCH v4 15/42] drm/plane: Add COLOR PIPELINE property
+Date: Mon, 26 Feb 2024 16:10:29 -0500
+Message-ID: <20240226211100.100108-16-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240226211100.100108-1-harry.wentland@amd.com>
 References: <20240226211100.100108-1-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: harry.wentland@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|DM6PR12MB4450:EE_
-X-MS-Office365-Filtering-Correlation-Id: c768a0f8-00d7-49d7-b92b-08dc370f7caa
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343D:EE_|MN2PR12MB4063:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94b65c68-f938-4dd9-c734-08dc370f7aea
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: O9gtEVBGOY/c5UzTCA6v1iWU7/+kjPyABRE6E5ilICAcvAwIdYEbCa4Tv6PVtiEABgJsCdm8KVij+m++M8RS91UHX0Qx5CKFCsOVbH9AtT/nTPg90pKvOSl7BfTIp5IXdgbtUObwi5u8VrY3+MiP1M/FJpsLjdfhT/lxa/HanPSrUwNShrKtFugA3yy+7YVrFQxpEzZ5AeZ5bld/U9gsxxV1yr46eclQJPl60mbow3dukUpxhCjgYFszdVatyZeXKnYGrePFGaYw3kxNxcdRmkx5F4sF6XVM5zgZ4Tny0cDaMnhMlAe05/+fUHWCpzTFg/R2cWIxV8Sg/5lLyNIXLfhw+881hCJVQ5I8NwJglShop5WRdtdG9DuaNlK7lPub3IJJaloSyZEQhv7y5i4/utywMS3A7KTGUkZg7CUe2ArkslBDyiOt/B06Uo1IYdVwYB/KU2agyRq3+OtTBY1ht1K/e7Ytxj+rtBvUTYUQARVDFV9SgXK8k3bAOL+LNPS2SiArDLUq4M7sTNk/OFXf/EjoPHhKqz5f+jbn3TZ6QvtGD76p+2CfmIlR+Kcf3kbUMeYFub2muiooryXXMwhNvvFwaEeQHv/KDaAWq/VWYoJat15ZlO48BufeVYxNHj1sRdNWCULU87Q97HxYTJGYgSfHoz53cgT2VANxgntMV9ePwQL05jrUMKwD6weIltTiL1HkiWlypJcGxyaMpiPbPRQwSgnp7nuBT0+oaJEDmdRn7O+AmKE3AfG+Hoeb4iJE
+X-Microsoft-Antispam-Message-Info: Hd0hfgC8g8HESaxAxjWC4KIbvSOyfLIJH4DAjSFvTBQ18gr+EPazZI8YFHEQxA4mbjvUdX7zEe+4pAUiuQ/OVDunlrzWkKOmmtRHM9Rg1IEYA+c7HsCMrdb5qU8X49uaH9kmtiXrk1Xk2t1CRnKXCRNpGWsEcIve7ZP6tUaA0dhaH1o22xs04Slj4G2dQtLsinM627pbD8E7CvW2BPyja3mI21OhI+tCJNmDpxZOOd1oQKp4cFF3Pe/lB/DHzPfr7XRLAgjXhEdiqpqMU6ugZGdNyJ1N5ni6foXZq8VtN/gTfPcdXqPxez8Rj+uYu5ToJBLbgq843zvp8CVkFadSQTu3b56OPsphgiaLu9Nco8PI8kCf/vrusjArhpzTLc3panDER6r2Bfjfq1VqqevsHOVPFcX8GrBb9TS1Y7kdUgxDbP2k/N9/ZvwlSPhZBl6cK9D7tPqHq1t4sY0r8Zg5aLSckR8gkMO4wU8ocPgtKiUPbB9roqT5iy2SJMOQIiuplvsJFT0P59TJfUoMg1hJV5mxQb4XVJMsKrAnhgtt4X+d77WUC1LsKfAv2zTYrLm0mRHVmnOZ4UjBPpjoivoOKw7w+8hIXjIum4ikiOzJklgH0fIDutHh8O3nEvH5UB+BjTakN0x2dNBscphspxLLv0BnKmhAFxLyWsYcxh+A1/6N1Va84kkohtP4i1lfgBvBggMQBTqQPI6Ma9eqApH0VGDfB2mDmd29wM5moF7jZaG3hIY9W/WNazqqQwdLxivb
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230031)(36860700004); DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2024 21:11:23.4743 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c768a0f8-00d7-49d7-b92b-08dc370f7caa
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2024 21:11:20.5230 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94b65c68-f938-4dd9-c734-08dc370f7aea
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4450
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4063
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,311 +108,289 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A whole slew of tests for CTM handling that greatly helped in
-debugging the CTM code. The extent of tests might seem a bit
-silly but they're fast and might someday help save someone
-else's day when debugging this.
+We're adding a new enum COLOR PIPELINE property. This
+property will have entries for each COLOR PIPELINE by
+referencing the DRM object ID of the first drm_colorop
+of the pipeline. 0 disables the entire COLOR PIPELINE.
+
+Userspace can use this to discover the available color
+pipelines, as well as set the desired one. The color
+pipelines are programmed via properties on the actual
+drm_colorop objects.
 
 v4:
- - Comment on origin of bt709_enc matrix (Pekka)
- - Use full opaque alpha (Pekka)
- - Add additional check for Y < 0xffff (Pekka)
- - Remove unused code (Pekka)
- - Rename red, green, blue to Y, U, V where applicable
+ - Add pipeline property creation helper (Pekka)
+ - Fix function comment for
+   drm_atomic_set_colorop_for_plane (Pekka)
+ - Always create Bypass pipeline (Pekka)
+ - Add missing function declaration (Chaitanya Kumar Borah)
 
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/vkms/tests/vkms_color_tests.c | 251 ++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_composer.c          |   2 +-
- 2 files changed, 252 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_atomic.c              | 46 ++++++++++++++++++++
+ drivers/gpu/drm/drm_atomic_state_helper.c |  5 +++
+ drivers/gpu/drm/drm_atomic_uapi.c         | 42 ++++++++++++++++++
+ drivers/gpu/drm/drm_plane.c               | 52 +++++++++++++++++++++++
+ include/drm/drm_atomic.h                  |  3 ++
+ include/drm/drm_atomic_uapi.h             |  2 +
+ include/drm/drm_plane.h                   | 11 +++++
+ 7 files changed, 161 insertions(+)
 
-diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_tests.c b/drivers/gpu/drm/vkms/tests/vkms_color_tests.c
-index e6ac01dee830..83d07f7bae37 100644
---- a/drivers/gpu/drm/vkms/tests/vkms_color_tests.c
-+++ b/drivers/gpu/drm/vkms/tests/vkms_color_tests.c
-@@ -3,6 +3,7 @@
- #include <kunit/test.h>
- 
- #include <drm/drm_fixed.h>
-+#include <drm/drm_mode.h>
- 
- #define TEST_LUT_SIZE 16
- 
-@@ -181,11 +182,261 @@ static void vkms_color_srgb_inv_srgb(struct kunit *test)
- 	}
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 3645c36d63b3..27a8805c5fa1 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -1458,6 +1458,52 @@ drm_atomic_add_affected_planes(struct drm_atomic_state *state,
  }
+ EXPORT_SYMBOL(drm_atomic_add_affected_planes);
  
-+#define FIXPT_HALF        (DRM_FIXED_ONE >> 1)
-+#define FIXPT_QUARTER     (DRM_FIXED_ONE >> 2)
-+
-+const struct drm_color_ctm_3x4 test_matrix_3x4_50_desat = { {
-+	FIXPT_HALF, FIXPT_QUARTER, FIXPT_QUARTER, 0,
-+	FIXPT_QUARTER, FIXPT_HALF, FIXPT_QUARTER, 0,
-+	FIXPT_QUARTER, FIXPT_QUARTER, FIXPT_HALF, 0
-+} };
-+
-+static void vkms_color_ctm_3x4_50_desat(struct kunit *test)
-+{
-+	struct pixel_argb_s32 ref, out;
-+
-+	/* full white */
-+	ref.a = 0xffff;
-+	ref.r = 0xffff;
-+	ref.g = 0xffff;
-+	ref.b = 0xffff;
-+
-+	memcpy(&out, &ref, sizeof(out));
-+	apply_3x4_matrix(&out, &test_matrix_3x4_50_desat);
-+
-+	KUNIT_EXPECT_MEMEQ(test, &ref, &out, sizeof(out));
-+
-+	/* full black */
-+	ref.a = 0xffff;
-+	ref.r = 0x0;
-+	ref.g = 0x0;
-+	ref.b = 0x0;
-+
-+	memcpy(&out, &ref, sizeof(out));
-+	apply_3x4_matrix(&out, &test_matrix_3x4_50_desat);
-+
-+	KUNIT_EXPECT_MEMEQ(test, &ref, &out, sizeof(out));
-+
-+	/* 50% grey */
-+	ref.a = 0xffff;
-+	ref.r = 0x8000;
-+	ref.g = 0x8000;
-+	ref.b = 0x8000;
-+
-+	memcpy(&out, &ref, sizeof(out));
-+	apply_3x4_matrix(&out, &test_matrix_3x4_50_desat);
-+
-+	KUNIT_EXPECT_MEMEQ(test, &ref, &out, sizeof(out));
-+
-+	/* full red to 50% desat */
-+	ref.a = 0xffff;
-+	ref.r = 0x7fff;
-+	ref.g = 0x3fff;
-+	ref.b = 0x3fff;
-+
-+	out.a = 0xffff;
-+	out.r = 0xffff;
-+	out.g = 0x0;
-+	out.b = 0x0;
-+
-+	apply_3x4_matrix(&out, &test_matrix_3x4_50_desat);
-+
-+	KUNIT_EXPECT_MEMEQ(test, &ref, &out, sizeof(out));
-+}
-+
-+/*
-+ * BT.709 encoding matrix
++/**
++ * drm_atomic_add_affected_colorops - add colorops for plane
++ * @state: atomic state
++ * @plane: DRM plane
 + *
-+ * Values printed from within IGT when converting
-+ * igt_matrix_3x4_bt709_enc to the fixed-point format expected
-+ * by DRM/KMS.
++ * This function walks the current configuration and adds all colorops
++ * currently used by @plane to the atomic configuration @state. This is useful
++ * when an atomic commit also needs to check all currently enabled colorop on
++ * @plane, e.g. when changing the mode. It's also useful when re-enabling a plane
++ * to avoid special code to force-enable all colorops.
++ *
++ * Since acquiring a colorop state will always also acquire the w/w mutex of the
++ * current plane for that colorop (if there is any) adding all the colorop states for
++ * a plane will not reduce parallelism of atomic updates.
++ *
++ * Returns:
++ * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error is EDEADLK
++ * then the w/w mutex code has detected a deadlock and the entire atomic
++ * sequence must be restarted. All other errors are fatal.
 + */
-+const struct drm_color_ctm_3x4 test_matrix_3x4_bt709_enc = { {
-+	0x00000000366cf400ull, 0x00000000b7175900ull, 0x0000000127bb300ull, 0,
-+	0x800000001993b3a0ull, 0x800000005609fe80ull, 0x000000006f9db200ull, 0,
-+	0x000000009d70a400ull, 0x800000008f011100ull, 0x800000000e6f9330ull, 0
-+} };
-+
-+static void vkms_color_ctm_3x4_bt709(struct kunit *test)
++int
++drm_atomic_add_affected_colorops(struct drm_atomic_state *state,
++				 struct drm_plane *plane)
 +{
-+	struct pixel_argb_s32 out;
++	struct drm_colorop *colorop;
++	struct drm_colorop_state *colorop_state;
 +
-+	/* full white to bt709 */
-+	out.a = 0xffff;
-+	out.r = 0xffff;
-+	out.g = 0xffff;
-+	out.b = 0xffff;
++	WARN_ON(!drm_atomic_get_new_plane_state(state, plane));
 +
-+	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
++	drm_dbg_atomic(plane->dev,
++		       "Adding all current colorops for [plane:%d:%s] to %p\n",
++		       plane->base.id, plane->name, state);
 +
-+	/* Y 255 */
-+	KUNIT_EXPECT_GT(test, out.r, 0xfe00);
-+	KUNIT_EXPECT_LT(test, out.r, 0x10000);
++	drm_for_each_colorop(colorop, plane->dev) {
++		if (colorop->plane != plane)
++			continue;
 +
-+	/* U 0 */
-+	KUNIT_EXPECT_LT(test, out.g, 0x0100);
++		colorop_state = drm_atomic_get_colorop_state(state, colorop);
++		if (IS_ERR(colorop_state))
++			return PTR_ERR(colorop_state);
++	}
 +
-+	/* V 0 */
-+	KUNIT_EXPECT_LT(test, out.b, 0x0100);
-+
-+	/* full black to bt709 */
-+	out.a = 0xffff;
-+	out.r = 0x0;
-+	out.g = 0x0;
-+	out.b = 0x0;
-+
-+	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-+
-+	/* Y 0 */
-+	KUNIT_EXPECT_LT(test, out.r, 0x100);
-+
-+	/* U 0 */
-+	KUNIT_EXPECT_LT(test, out.g, 0x0100);
-+
-+	/* V 0 */
-+	KUNIT_EXPECT_LT(test, out.b, 0x0100);
-+
-+	/* gray to bt709 */
-+	out.a = 0xffff;
-+	out.r = 0x7fff;
-+	out.g = 0x7fff;
-+	out.b = 0x7fff;
-+
-+	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-+
-+	/* Y 127 */
-+	KUNIT_EXPECT_GT(test, out.r, 0x7e00);
-+	KUNIT_EXPECT_LT(test, out.r, 0x8000);
-+
-+	/* U 0 */
-+	KUNIT_EXPECT_LT(test, out.g, 0x0100);
-+
-+	/* V 0 */
-+	KUNIT_EXPECT_LT(test, out.b, 0x0100);
-+
-+	/* == red 255 - bt709 enc == */
-+	out.a = 0xffff;
-+	out.r = 0xffff;
-+	out.g = 0x0;
-+	out.b = 0x0;
-+
-+	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-+
-+	/* Y 54 */
-+	KUNIT_EXPECT_GT(test, out.r, 0x3500);
-+	KUNIT_EXPECT_LT(test, out.r, 0x3700);
-+
-+	/* U 0 */
-+	KUNIT_EXPECT_LT(test, out.g, 0x0100);
-+
-+	/* V 157 */
-+	KUNIT_EXPECT_GT(test, out.b, 0x9C00);
-+	KUNIT_EXPECT_LT(test, out.b, 0x9E00);
-+
-+
-+	/* == green 255 - bt709 enc == */
-+	out.a = 0xffff;
-+	out.r = 0x0;
-+	out.g = 0xffff;
-+	out.b = 0x0;
-+
-+	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-+
-+	/* Y 182 */
-+	KUNIT_EXPECT_GT(test, out.r, 0xB500);
-+	KUNIT_EXPECT_LT(test, out.r, 0xB780); /* laxed by half*/
-+
-+	/* U 0 */
-+	KUNIT_EXPECT_LT(test, out.g, 0x0100);
-+
-+	/* V 0 */
-+	KUNIT_EXPECT_LT(test, out.b, 0x0100);
-+
-+	/* == blue 255 - bt709 enc == */
-+	out.a = 0xffff;
-+	out.r = 0x0;
-+	out.g = 0x0;
-+	out.b = 0xffff;
-+
-+	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-+
-+	/* Y 18 */
-+	KUNIT_EXPECT_GT(test, out.r, 0x1100);
-+	KUNIT_EXPECT_LT(test, out.r, 0x1300);
-+
-+	/* U 111 */
-+	KUNIT_EXPECT_GT(test, out.g, 0x6E00);
-+	KUNIT_EXPECT_LT(test, out.g, 0x7000);
-+
-+	/* V 0 */
-+	KUNIT_EXPECT_LT(test, out.b, 0x0100);
-+
-+	/* == red 140 - bt709 enc == */
-+	out.a = 0xffff;
-+	out.r = 0x8c8c;
-+	out.g = 0x0;
-+	out.b = 0x0;
-+
-+	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-+
-+	/* Y 30 */
-+	KUNIT_EXPECT_GT(test, out.r, 0x1D00);
-+	KUNIT_EXPECT_LT(test, out.r, 0x1F00);
-+
-+	/* U 0 */
-+	KUNIT_EXPECT_LT(test, out.g, 0x100);
-+
-+	/* V 87 */
-+	KUNIT_EXPECT_GT(test, out.b, 0x5600);
-+	KUNIT_EXPECT_LT(test, out.b, 0x5800);
-+
-+	/* == green 140 - bt709 enc == */
-+	out.a = 0xffff;
-+	out.r = 0x0;
-+	out.g = 0x8c8c;
-+	out.b = 0x0;
-+
-+	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-+
-+	/* Y 30 */
-+	KUNIT_EXPECT_GT(test, out.r, 0x6400);
-+	KUNIT_EXPECT_LT(test, out.r, 0x6600);
-+
-+	/* U 0 */
-+	KUNIT_EXPECT_LT(test, out.g, 0x100);
-+
-+	/* V 0 */
-+	KUNIT_EXPECT_LT(test, out.b, 0x100);
-+
-+
-+	/* == blue 140 - bt709 enc == */
-+	out.a = 0xffff;
-+	out.r = 0x0;
-+	out.g = 0x0;
-+	out.b = 0x8c8c;
-+
-+	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-+
-+	/* Y 30 */
-+	KUNIT_EXPECT_GT(test, out.r, 0x900);
-+	KUNIT_EXPECT_LT(test, out.r, 0xB00);
-+
-+	/* U 61 */
-+	KUNIT_EXPECT_GT(test, out.g, 0x3C00);
-+	KUNIT_EXPECT_LT(test, out.g, 0x3E00);
-+
-+	/* V 0 */
-+	KUNIT_EXPECT_LT(test, out.b, 0x100);
-+
++	return 0;
 +}
++EXPORT_SYMBOL(drm_atomic_add_affected_colorops);
 +
- static struct kunit_case vkms_color_test_cases[] = {
- 	KUNIT_CASE(vkms_color_test_get_lut_index),
- 	KUNIT_CASE(vkms_color_test_lerp),
- 	KUNIT_CASE(vkms_color_test_linear),
- 	KUNIT_CASE(vkms_color_srgb_inv_srgb),
-+	KUNIT_CASE(vkms_color_ctm_3x4_50_desat),
-+	KUNIT_CASE(vkms_color_ctm_3x4_bt709),
- 	{}
- };
- 
-diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-index 8bbfce651526..2c5715242f91 100644
---- a/drivers/gpu/drm/vkms/vkms_composer.c
-+++ b/drivers/gpu/drm/vkms/vkms_composer.c
-@@ -164,7 +164,7 @@ static void apply_lut(const struct vkms_crtc_state *crtc_state, struct line_buff
+ /**
+  * drm_atomic_check_only - check whether a given config would work
+  * @state: atomic configuration to check
+diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+index 519228eb1095..d1dd082b1286 100644
+--- a/drivers/gpu/drm/drm_atomic_state_helper.c
++++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+@@ -267,6 +267,11 @@ void __drm_atomic_helper_plane_state_reset(struct drm_plane_state *plane_state,
+ 			plane_state->color_range = val;
  	}
+ 
++	if (plane->color_pipeline_property) {
++		/* default is always NULL, i.e., bypass */
++		plane_state->color_pipeline = NULL;
++	}
++
+ 	if (plane->zpos_property) {
+ 		if (!drm_object_property_get_default_value(&plane->base,
+ 							   plane->zpos_property,
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 87f00131be11..86f77a9aa3a8 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -256,6 +256,36 @@ drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
  }
+ EXPORT_SYMBOL(drm_atomic_set_fb_for_plane);
  
--static void apply_3x4_matrix(struct pixel_argb_s32 *pixel, const struct drm_color_ctm_3x4 *matrix)
-+void apply_3x4_matrix(struct pixel_argb_s32 *pixel, const struct drm_color_ctm_3x4 *matrix)
- {
- 	s64 rf, gf, bf;
++
++/**
++ * drm_atomic_set_colorop_for_plane - set colorop for plane
++ * @plane_state: atomic state object for the plane
++ * @colorop: colorop to use for the plane
++ *
++ * Helper function to select the color pipeline on a plane by setting
++ * it to the first drm_colorop element of the pipeline.
++ */
++void
++drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
++				 struct drm_colorop *colorop)
++{
++	struct drm_plane *plane = plane_state->plane;
++
++	if (colorop)
++		drm_dbg_atomic(plane->dev,
++			       "Set [COLOROP:%d] for [PLANE:%d:%s] state %p\n",
++			       colorop->base.id, plane->base.id, plane->name,
++			       plane_state);
++	else
++		drm_dbg_atomic(plane->dev,
++			       "Set [NOCOLOROP] for [PLANE:%d:%s] state %p\n",
++			       plane->base.id, plane->name, plane_state);
++
++	plane_state->color_pipeline = colorop;
++}
++EXPORT_SYMBOL(drm_atomic_set_colorop_for_plane);
++
++
+ /**
+  * drm_atomic_set_crtc_for_connector - set CRTC for connector
+  * @conn_state: atomic state object for the connector
+@@ -539,6 +569,16 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
+ 		state->color_encoding = val;
+ 	} else if (property == plane->color_range_property) {
+ 		state->color_range = val;
++	} else if (property == plane->color_pipeline_property) {
++		/* find DRM colorop object */
++		struct drm_colorop *colorop = NULL;
++		colorop = drm_colorop_find(dev, file_priv, val);
++
++		if (val && !colorop)
++			return -EACCES;
++
++		/* set it on drm_plane_state */
++		drm_atomic_set_colorop_for_plane(state, colorop);
+ 	} else if (property == config->prop_fb_damage_clips) {
+ 		ret = drm_property_replace_blob_from_id(dev,
+ 					&state->fb_damage_clips,
+@@ -621,6 +661,8 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
+ 		*val = state->color_encoding;
+ 	} else if (property == plane->color_range_property) {
+ 		*val = state->color_range;
++	} else if (property == plane->color_pipeline_property) {
++		*val = (state->color_pipeline) ? state->color_pipeline->base.id : 0;
+ 	} else if (property == config->prop_fb_damage_clips) {
+ 		*val = (state->fb_damage_clips) ?
+ 			state->fb_damage_clips->base.id : 0;
+diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
+index 672c655c7a8e..a747bd9eb20b 100644
+--- a/drivers/gpu/drm/drm_plane.c
++++ b/drivers/gpu/drm/drm_plane.c
+@@ -1729,3 +1729,55 @@ int drm_plane_create_scaling_filter_property(struct drm_plane *plane,
+ 	return 0;
+ }
+ EXPORT_SYMBOL(drm_plane_create_scaling_filter_property);
++
++#define MAX_COLOR_PIPELINES 5
++
++/**
++ * drm_plane_create_color_pipeline_property - create a new color pipeline
++ * property
++ *
++ * @plane: drm plane
++ * @pipelines: list of pipelines
++ * @num_pipelines: number of pipelines
++ *
++ * Create the COLOR_PIPELINE plane property to specific color pipelines on
++ * the plane.
++ *
++ * RETURNS:
++ * Zero for success or -errno
++ */
++int drm_plane_create_color_pipeline_property(struct drm_plane *plane,
++					     struct drm_prop_enum_list *pipelines,
++					     int num_pipelines)
++{
++	struct drm_prop_enum_list all_pipelines[MAX_COLOR_PIPELINES];
++	int len = 0;
++	int i;
++	struct drm_property *prop;
++
++	if (num_pipelines > (MAX_COLOR_PIPELINES - 1))
++		return -EINVAL;
++
++	/* Create default Bypass color pipeline */
++	all_pipelines[len].type = 0;
++	all_pipelines[len].name = "Bypass";
++	len++;
++
++	/* Add all other color pipelines */
++	for (i = 0; i < num_pipelines; i++, len++) {
++		all_pipelines[len].type = pipelines[i].type;
++		all_pipelines[len].name = pipelines[i].name;
++	}
++
++	prop = drm_property_create_enum(plane->dev, DRM_MODE_PROP_ATOMIC,
++					"COLOR_PIPELINE",
++					all_pipelines, len);
++	if (IS_ERR(prop))
++		return PTR_ERR(prop);
++
++	drm_object_attach_property(&plane->base, prop, 0);
++	plane->color_pipeline_property = prop;
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_plane_create_color_pipeline_property);
+\ No newline at end of file
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index 634b2827765f..2346f19eda9f 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -797,6 +797,9 @@ drm_atomic_add_affected_connectors(struct drm_atomic_state *state,
+ int __must_check
+ drm_atomic_add_affected_planes(struct drm_atomic_state *state,
+ 			       struct drm_crtc *crtc);
++int __must_check
++drm_atomic_add_affected_colorops(struct drm_atomic_state *state,
++				 struct drm_plane *plane);
  
+ int __must_check drm_atomic_check_only(struct drm_atomic_state *state);
+ int __must_check drm_atomic_commit(struct drm_atomic_state *state);
+diff --git a/include/drm/drm_atomic_uapi.h b/include/drm/drm_atomic_uapi.h
+index 70a115d523cd..436315523326 100644
+--- a/include/drm/drm_atomic_uapi.h
++++ b/include/drm/drm_atomic_uapi.h
+@@ -50,6 +50,8 @@ drm_atomic_set_crtc_for_plane(struct drm_plane_state *plane_state,
+ 			      struct drm_crtc *crtc);
+ void drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
+ 				 struct drm_framebuffer *fb);
++void drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
++				      struct drm_colorop *colorop);
+ int __must_check
+ drm_atomic_set_crtc_for_connector(struct drm_connector_state *conn_state,
+ 				  struct drm_crtc *crtc);
+diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
+index 9c8c1322f0a6..c270bc640df8 100644
+--- a/include/drm/drm_plane.h
++++ b/include/drm/drm_plane.h
+@@ -766,6 +766,14 @@ struct drm_plane {
+ 	 */
+ 	struct drm_property *color_range_property;
+ 
++	/**
++	 * @color_pipeline_property:
++	 *
++	 * Optional "COLOR_PIPELINE" enum property for specifying
++	 * a color pipeline to use on the plane.
++	 */
++	struct drm_property *color_pipeline_property;
++
+ 	/**
+ 	 * @scaling_filter_property: property to apply a particular filter while
+ 	 * scaling.
+@@ -979,4 +987,7 @@ drm_plane_get_damage_clips(const struct drm_plane_state *state);
+ int drm_plane_create_scaling_filter_property(struct drm_plane *plane,
+ 					     unsigned int supported_filters);
+ 
++int drm_plane_create_color_pipeline_property(struct drm_plane *plane,
++					     struct drm_prop_enum_list *pipelines,
++					     int num_pipelines);
+ #endif
 -- 
 2.44.0
 
