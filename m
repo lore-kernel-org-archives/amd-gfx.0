@@ -4,118 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1F0BC5478C
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 17:47:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79DD3C48BF6
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 18:01:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 027C810E409;
-	Mon, 26 Feb 2024 17:47:26 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2TnT4RmY";
-	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2087.outbound.protection.outlook.com [40.107.212.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F219910E002
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Feb 2024 17:47:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dCdr/glpGeQcUdX62ufYGP5sqiHQmoiAdU/AhfEPMeVx+UA/0b0ZD8BPgf545RXN3lf5Oo/e0uJU3HMkCVREf80PIEXrg3ZikgRqlBXTjLlrMObn/Vao/tRXrLUfn8XbIUbdpQrMCydjdCg7aO5iDneKoZHHLBCrMbQolqdEheqW7YvT3v0A0UJFjkeZCm4efXb0K5mL0u1wEt9coQc4bE9DnQDpHaLemdZ0zWQPbKsZ01PNBKPHF7zoqdvmm5uOeBzKL+ugTwumL0QekEHQZv6wnMshxK4qUbecwvUvHvefg7Kpdr6GWNHoXFT93/VcGZ78Sef3XM83wWnSBZHf5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b+y8aAsZj4GZx/4P2RrxSt6etToyZc86qxg8hnD/zBQ=;
- b=eftVHl3ELVPe+XK69fw/Wnpxqt0JEEITWMY8aCWfq3iPN9ngf9S4U5jQLyLT3SMtQ1h0jUkb65OQKnRKXGv9qejVn7rzv3qsY4PfIHRRpe3tS/7+DqD38I3swzS4xJSTEv/UVBx8xakflPiEQcTw13K/WFX2ll5qAZFqT8TZiGDy0qRHLgk8rKPl7SIyNWiYsC/mYPPWx7oV6BfspDH11U5DsAosw6lDE1OXc5ex/PwaYKipphdrolBN3/+RVpzucUMJ5tdC6KzyiNjpaqn0Bi9WEpaBJpwsaM/3yI9qK3TO1eUfcyMzBME72lXunWI6mNLgccT8hiqc4SRpvFTPaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b+y8aAsZj4GZx/4P2RrxSt6etToyZc86qxg8hnD/zBQ=;
- b=2TnT4RmYjpbvw2DAtp5ihCs4Sj2Go8DyJTRnCotgbSzhfIzURUB4+r0jsrbHL91jS13AHidhuUVdJpYatSuwnOq8lIKEtW/bXvLLHHvcJoXyUkEWazUpRBf1sB0Q2pYNKgH06V7JjxiKwkWP3Rhhh6ApLIVM3gzTiHx3mEmncOc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4599.namprd12.prod.outlook.com (2603:10b6:a03:107::22)
- by DM4PR12MB6039.namprd12.prod.outlook.com (2603:10b6:8:aa::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.17; Mon, 26 Feb
- 2024 17:47:21 +0000
-Received: from BYAPR12MB4599.namprd12.prod.outlook.com
- ([fe80::7309:cd67:8037:b9a9]) by BYAPR12MB4599.namprd12.prod.outlook.com
- ([fe80::7309:cd67:8037:b9a9%3]) with mapi id 15.20.7316.034; Mon, 26 Feb 2024
- 17:47:20 +0000
-Message-ID: <d4063eca-67b8-d4b1-b652-a8bf58b2a130@amd.com>
-Date: Mon, 26 Feb 2024 11:47:18 -0600
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH] drm/amdkfd: Use SQC when TCP would fail in gfx10.1
- context save
-To: Laurent Morichetti <laurent.morichetti@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20240223220830.1830131-1-laurent.morichetti@amd.com>
-Content-Language: en-US
-From: Jay Cornwall <jay.cornwall@amd.com>
-In-Reply-To: <20240223220830.1830131-1-laurent.morichetti@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN6PR05CA0033.namprd05.prod.outlook.com
- (2603:10b6:805:de::46) To BYAPR12MB4599.namprd12.prod.outlook.com
- (2603:10b6:a03:107::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E0F610E7E2;
+	Mon, 26 Feb 2024 18:01:50 +0000 (UTC)
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4D8C10E7E2;
+ Mon, 26 Feb 2024 18:01:47 +0000 (UTC)
+Received: from [192.168.1.137] ([213.144.156.170])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202402261901434144; Mon, 26 Feb 2024 19:01:43 +0100
+Message-ID: <35162d2f-dc3a-4628-bc19-928e0a7d27c3@daenzer.net>
+Date: Mon, 26 Feb 2024 19:01:42 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4599:EE_|DM4PR12MB6039:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38061d19-edaa-4f18-31db-08dc36f2fb58
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Al3DTgT3J4KW86qAn4Cr6ChmtSKcSfKc+smpt+V3VeYxGEHvvfsXXiFS/AEf3P5RS8ugpGZULHnlJziIVesNOS+iSawIs4in48TYMkUq/6Ffs3cxfg6fGupX47aNqRx5JoAvWkB9/3+9L8uXH14/zF0adrRUnHxNMwLRINh/tyvqWt+4jMFcZECbNNPr/2mOq5AxzRGnKs8lbNqIcvq2PT44goTgJEOQDajHUnDMkEoaMkcJl+aq8raX2fJPvzL0/dgev86BPd20JRc7uktZIHrhuhiSNxZOZGnbIqVf43tI0iZ9eHmCY4QxXk6IzkEwzvuvZpR3wEmKNbpCB2IJH6EE0swWVOfA30CLlgT/AvTWSDAQdLCzwqh3syRlaXQcvqlmLvYBBR/UalayVLEj/DrA8bJcnlq1Gyo/VyggmI06vfwrZA3imfAnHG4wJD1kN/QwueQHb/Y0NrcsJJmQW2cKnCI9vFhKr4ilI/o+9RRUxoIKdkWre9i1qmhm/X06rR0De328SI3IEbVCWCWdekNrJ715DQDcVlY2+LLhBBkYPaj9b83e2xhYlOeZGxvrhtyjARK68W5Oss7dUI7uTXnVcDGcz7J0dZQjnFzaVLUOVQG1iV9O13UsKPBTxGpR
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4599.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Yk1vZmJGUytMbjUwUzBDekhmL3pqSlp5bW5YaG9mMzVNR1VVZzZ0L2R0NmRr?=
- =?utf-8?B?U1ROVVAzYzgwVTZaM1dyekgxdC84YWxmc2tvZWdCMmxZYis2cU1RejRJVHds?=
- =?utf-8?B?ZjJINkRKUTVVR3VGNVhtaXFLaFlVMFBNZnl2MXlaek53Uk9nWUJhTmw0dklU?=
- =?utf-8?B?V1hzcVJxM1JvbW1TWVZDRTlPcTQ5cWJlQ1Q4aGtLQkVBVzFEOFdSeHFQa0Ns?=
- =?utf-8?B?d3JlNGQyekZOTUFCUkFsRW8wNFFMYlVZeGt4c3F6TTNGSTl2dGxKU2VjdWRO?=
- =?utf-8?B?TnBhekJ1ejE1MFY1YlJxY25zYWM0b0tkTDR6aGNkRkQ3MTZTVGR2eUVEYjBw?=
- =?utf-8?B?amhjVVlNTzdNazVIa2hyL0UrM2xLc2h6enJzZ1ZuU2J2Rkg3ajZxcE9oVFAx?=
- =?utf-8?B?bDFLNnExQzRXR21QSmU0QUFjeStPTGhmRkhudG9RWTA1K1ZwS042V3VCZHhE?=
- =?utf-8?B?MTR3QThDV3R5WmhFM1NsTDBma29VcGhoUVZpOVJCYWo1Q3NNdjhWbDZMMFBU?=
- =?utf-8?B?QnBBaWppUHk2N2kzTjFTQWxBY05hVElPU0tBSHJldmRpcEhGRmZvOWEwUmU0?=
- =?utf-8?B?eEQwb1FlbksrckZqUmZZMVVyYllEeWNZOVJZRDNqck4rZzM3WENLTHRJYkxJ?=
- =?utf-8?B?Y0xHRGFUdGVjWXNoajQ0TTZBdm5BRU0wMGMwc0Y3VmhCT0hqd2hyZTRKYjZy?=
- =?utf-8?B?S3RZWU1Zc1p6MTYzZXY1NUwxcmUrWitLVXM2N254R3Q0bVlUV3cwM3Y4R1Vp?=
- =?utf-8?B?cmdnRDEyRkpIY3hMRml0TUttZHQ3cjQxcUVzWmZ3MFFpNU9iNkZTNklscHAy?=
- =?utf-8?B?dW1mdHNrL3MzN2FveFB6ckVaelI0d0JPaERLM0M2WU1JVXF1Q25OOVZKdFIv?=
- =?utf-8?B?VDNhSi9YbFRnV0ZKcDltbmVZc084MVp2K0J0Tnp1N3FucHFZY3g2VERhUElr?=
- =?utf-8?B?M0x5QjJTL0VGUXY3aVhuemUrUDI0SGRtZFR5c2xadzNNS0N4ZEQxa1VQZ01C?=
- =?utf-8?B?eGwzTExCWFYrRFhadFRZb0M0NjE0M2JCa0xOcVN1YjUvWW1MSFdvVnNtNDQ5?=
- =?utf-8?B?bHM1bEJVbSsxM3lkK09iR1ZIZlZnbUlkalFLU2k3dVdpYnFGUFM5c0V6djV3?=
- =?utf-8?B?Ykxwb2RaYXpOSHZuVC9VSWtpWlpNOXY2NEFsWTJJbXFodFJDdVpQaEFjY0JF?=
- =?utf-8?B?bFlwWWxuM1E4UGZoMkF6VmxIYWhWMU0wWXJ2aUdBaWorSXZXOGZoNmVtOXpG?=
- =?utf-8?B?Si95RkxWN2JGblhidnlOd1R3UlFHRFc3VFQ3NUJoN3JkaVkzRDZndmg1dTdE?=
- =?utf-8?B?V2F3dFRtWFJuZHUzamYrMzMwTVhrWXl1MXZWWUlXRk93Y2hIVkR5cCtDVDdu?=
- =?utf-8?B?VkNkR2V5bDVUWC9zNlRlZ1pIdkEzVTh3Njk3NlJqZTZSR2xzTmdBQndHRlRM?=
- =?utf-8?B?RmZqb3NOeTlTRElHYkFTQ3Fya3FON0R2enhxQkJnV1RlUkEvUVI3R3QycUM4?=
- =?utf-8?B?aHZvVjU4VEVRMEJPV0JoLytrdE1sTmpCeDNYM25lOWFycHBKWnJjRkt5czY5?=
- =?utf-8?B?bUZqS091amt2YUpQUkFNYitIYVdZOEwvQmZDUFdwZUtwSnBRQW5jdDg1RTlI?=
- =?utf-8?B?ZU1BYjdEZnJmVHRFazNHYWRLTWk5eDdyUkVKM0VuNWpkNk5rZHd6akRDMWVh?=
- =?utf-8?B?eGxXYlB6cHBOMVBGd0F4Q2w2clRTVjZRNkh3cXV4TG9ZbnpHWVFlekVNZGtD?=
- =?utf-8?B?eWVqZEZTNmg1RUdXZG9sTGVUWFE1RVR4bTZpSWpaTzdCV3VtRXZRRDByZk1i?=
- =?utf-8?B?OVNoaHpuRlUvSWcyZFgydEVXZ3lwVmJwRy90djhjbWh5OEpRMk1oQmN2NElu?=
- =?utf-8?B?bC9ncCtiSGlyTFBISnNiemtRcG5TTXg5MXowWWhLTnFyMjYrOWhrOEpMVXdV?=
- =?utf-8?B?U0ZDdU1aV2kyRVBiaE9wcEFwaHl1ZGtHUmVGZW1yU1ZiSjlGTjQ3SWxlcjZY?=
- =?utf-8?B?eUZaL0wwRVdQTGdEaGpSUUxjS3Raa2p6clIxMGd1dTRua3JwOTlsZ211bnMz?=
- =?utf-8?B?Z1Q5UU84Zk5uK2hWSzE5VWt2UnIrbCszS1MzbGxaSU9DSmJ4aHhpU3o3SHho?=
- =?utf-8?Q?w1q5A0+A/XYydA4zhBH2jBXV6?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38061d19-edaa-4f18-31db-08dc36f2fb58
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4599.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2024 17:47:20.8862 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rPuemqcKzcTGrUia84phOHsOr4Qd1uyzMOrN49wOxMdlzPXp30TLJ+f8zKWK9TISLmC/Xl3b+3DUe3ftEfJ/Sw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6039
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/amdgpu: Refuse to create a KMS FB for non-P2P
+ exported dma-bufs
+Content-Language: de-CH-frami, en-CA
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20240222172821.16901-1-michel@daenzer.net>
+ <3156ea34-0655-4b0f-9438-9113fb714373@amd.com>
+ <2d7632f0-0783-4d82-9d81-dd6bd52d5db6@daenzer.net>
+ <84fa5bc1-6b4d-4d82-844a-8070d4bd78eb@amd.com>
+ <b08c2c14-5a99-49cf-ba79-b89f86487f15@daenzer.net>
+ <7dd49c00-8d5e-4492-801c-f1b6db5e1737@daenzer.net>
+ <d1528a0e-6dd3-497a-972c-3b86efd46313@amd.com>
+ <298c5ccd-d39c-4036-8ad6-624f635bc08c@daenzer.net>
+ <4253f207-23af-4510-aa0c-a7509546917a@amd.com>
+ <9e2f788e-7e74-4c71-ab45-7f72c230152f@daenzer.net>
+ <08f4b8be-2059-4489-b356-ef02ef41a927@daenzer.net>
+ <e34fd063-656b-4c17-bb71-2f2a9ff4a1ce@amd.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Autocrypt: addr=michel@daenzer.net; keydata=
+ xsDiBDsehS8RBACbsIQEX31aYSIuEKxEnEX82ezMR8z3LG8ktv1KjyNErUX9Pt7AUC7W3W0b
+ LUhu8Le8S2va6hi7GfSAifl0ih3k6Bv1Itzgnd+7ZmSrvCN8yGJaHNQfAevAuEboIb+MaVHo
+ 9EMJj4ikOcRZCmQWw7evu/D9uQdtkCnRY9iJiAGxbwCguBHtpoGMxDOINCr5UU6qt+m4O+UD
+ /355ohBBzzyh49lTj0kTFKr0Ozd20G2FbcqHgfFL1dc1MPyigej2gLga2osu2QY0ObvAGkOu
+ WBi3LTY8Zs8uqFGDC4ZAwMPoFy3yzu3ne6T7d/68rJil0QcdQjzzHi6ekqHuhst4a+/+D23h
+ Za8MJBEcdOhRhsaDVGAJSFEQB1qLBACOs0xN+XblejO35gsDSVVk8s+FUUw3TSWJBfZa3Imp
+ V2U2tBO4qck+wqbHNfdnU/crrsHahjzBjvk8Up7VoY8oT+z03sal2vXEonS279xN2B92Tttr
+ AgwosujguFO/7tvzymWC76rDEwue8TsADE11ErjwaBTs8ZXfnN/uAANgPM0jTWljaGVsIERh
+ ZW56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD7CXgQTEQIAHgUCQFXxJgIbAwYLCQgHAwIDFQID
+ AxYCAQIeAQIXgAAKCRBaga+OatuyAIrPAJ9ykonXI3oQcX83N2qzCEStLNW47gCeLWm/QiPY
+ jqtGUnnSbyuTQfIySkLOwE0EOx6FRRAEAJZkcvklPwJCgNiw37p0GShKmFGGqf/a3xZZEpjI
+ qNxzshFRFneZze4f5LhzbX1/vIm5+ZXsEWympJfZzyCmYPw86QcFxyZflkAxHx9LeD+89Elx
+ bw6wT0CcLvSv8ROfU1m8YhGbV6g2zWyLD0/naQGVb8e4FhVKGNY2EEbHgFBrAAMGA/0VktFO
+ CxFBdzLQ17RCTwCJ3xpyP4qsLJH0yCoA26rH2zE2RzByhrTFTYZzbFEid3ddGiHOBEL+bO+2
+ GNtfiYKmbTkj1tMZJ8L6huKONaVrASFzLvZa2dlc2zja9ZSksKmge5BOTKWgbyepEc5qxSju
+ YsYrX5xfLgTZC5abhhztpcJGBBgRAgAGBQI7HoVFAAoJEFqBr45q27IAlscAnjICalDn2zB1
+ fXqoOkGsTwElvKa5AJ9FhyKJpysFRcejfdZwrwl9xb4oOg==
+In-Reply-To: <e34fd063-656b-4c17-bb71-2f2a9ff4a1ce@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CTCH: RefID="str=0001.0A782F24.65DCD209.0009,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,12 +75,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/23/2024 16:08, Laurent Morichetti wrote:
-> Similarly to gfx9, gfx10.1 drops vector stores when an xnack error is
-> raised. To work around this issue, use scalar stores instead of vector
-> stores when trapsts.xnack_error == 1.
+On 2024-02-26 17:53, Christian König wrote:
+> Am 26.02.24 um 17:50 schrieb Michel Dänzer:
+>> On 2024-02-26 17:46, Michel Dänzer wrote:
+>>> On 2024-02-26 17:34, Christian König wrote:
+>>>
+>>>> My question is why has it worked so far? I mean we are not doing this since yesterday and the problem only shows up now?
+>>> Yes, Wayland compositors are only starting to try and make use of this now.
+>> To expand on this, mutter will want to do something like this as well sooner or later. I suspect it's the same for others like kwin, sway etc.
 > 
-> Signed-off-by: Laurent Morichetti <laurent.morichetti@amd.com>
+> Yeah, but we have done similar things with X decades before. E.g. basically the client sends a BO to the server for displaying it.
 
-Reviewed-by: Jay Cornwall <jay.cornwall@amd.com>
+The scenario in https://gitlab.freedesktop.org/mesa/mesa/-/issues/10635 is direct scanout of a client buffer on a secondary dGPU, while the compositor uses the APU as the primary compositing GPU.
+
+AFAIR Xorg has never supported direct scanout of client buffers in this scenario. Secondary GPU scanout is always done from a separate local buffer allocated by Xorg / the driver.
+
+This is Wayland compositors pushing the envelope.
+
+
+> Why we suddenly have to juggle with the fact that it is DMA-buf shared with another device?
+
+The problematic case is if the Wayland compositor has to produce a composited frame (e.g. due to a notification or other window popping up over the fullscreen window), but the client hasn't attached a new buffer to the fullscreen surface, so the compositor has to use the contents of the same client buffer which is still being scanned out by the dGPU for compositing with the APU.
+
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
