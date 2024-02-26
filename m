@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E12A9C5478C
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 21:11:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 792F3C5478C
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Feb 2024 21:11:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 114F110EE82;
-	Mon, 26 Feb 2024 21:11:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B4B710EF44;
+	Mon, 26 Feb 2024 21:11:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lh8uYRw/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CB1lhniL";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2050.outbound.protection.outlook.com [40.107.237.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D6BF10EDFD;
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2086.outbound.protection.outlook.com [40.107.244.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9DC510E7D0;
  Mon, 26 Feb 2024 21:11:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Gw86vdSSg+i+HwjqRy1aqeR9KYtquw1F+2KwcqlwcipGT/1SxxyStCAWmq4vmqcLLqct8D0ci03StL8zq9w7uoaYrDfQSIVub4x2FPKES3tQA+GZRB6Jy9Eb/0GU4Erkedoecx3gqPdjJM0baHRUA0nipdsHr0qFDjO9BvRDx4xiD7Hts7b3v7aUJyPv/xNm3oHGPnUZpc+dC+LcnTsa3LFw9deHzqQJJ941FWWmP+7SE+L9Aaw0U7n9MshT1VAFspwvFEvZI/gpPADYEYpu7sR81QbfVWeJiDc7okEaYhkwNCBIqIVyMKW3+/pzy87tvHoxZYcIvflNxgd/KDpe2A==
+ b=dBjvSg8K8EfpiACLNM/7GjKTamY4J19jpQ8anFaS6D5W23uOxwkB3x40XSgTKyEcb9bz6VO2hnoQ7Ja/QULeyVSj7hUIiu83rrVC9ZxRBtbClW4Edho5rJssRzbRnC1RJfeB89UVdbUs4eVoJm0oBDZqmtZf1YvC/+TvfIeNDu6Qx5yjgR2jdlmu9mZTuchHKelaswwfQKYWgJWkaGKpar5lvMnhlle0PSVLe+hzDSFs15CMQfEpHRknTDmkNai3rU/tDgFkz4S5Bw2IuLPH3HnBPBhmJjDG3vNVho4T+0BlNFmqmYNmwrv+6IF2g45UCW6p1WvrCuIS3oeYDAXeQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FBYbIHuNv5YlKwxQR3x1/u4gRY5PpNOaJ3vwpviWoHk=;
- b=nacQ2iGRmlnMaiaKhhPzQ+fMXhajWoDhH0993odrgGClC+GGLK1xL9MWlW3aI5E2Nm7tnBZ0DfHORLab5Yk6ihJoPPBzx3Yg7QcGg4NOVX8jtJiBR2QsA1s4CDi4tIKAZBC/IxZ6Urpcz+SRCMy3Q8wtTkQYSfxWziPbJvAkZmllsRUKIXscmx+Rme9yUtK/al+88xJnmXt34/e8ecqgJ2TTXCIfB4yuJKlk/oFMcMeBN/vsJfRF6aUUa/Jw65XkMG96j3+2rguIaT2GBmN99fIuQtmWKfmFwkKcojxi8hb+DbK+1Lm/oCjal6tycnLzrkax6JAsSPKr9TEI2hEx1g==
+ bh=/88vdgzYFyy1eBZ4ZElq/tA42cU70lV9R+uH/dEZMN0=;
+ b=VvZuchAkJuXmMMQdt1FDKA9OFwfz/Y4EWjxsMbRt0/wHhcOYR4n2HJu0U4wy/r8ciVJ1rj66iNqpi2jQrblXDLCPKm3Q3F+td8HBlkbMQ10KLnaGFHboZSUtwStutw31u0jm5jFuYGVCu3S0sdPpPf8ltgQQdQQaqUo5zhtIn2lXFxN1YJkIhyoq3rTQvNOq71SyXnkpt4EzghwsbeaL5nelO/hUp7cZkwoiSu+EHQw9BmvB4wTr01lDXu8KzSERoDGmeQHk+v+UtJRlllS2QtXO0ut1fJ5CEv5M0bf4HYaqEiBERed1kVxKWiFMNKLXaf4wQ09EEruBtjkzH4jFDA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FBYbIHuNv5YlKwxQR3x1/u4gRY5PpNOaJ3vwpviWoHk=;
- b=lh8uYRw/+EdlTvaDX/asnI1xggDT3H7m/pLf5Ls5mDN7nBLT8YNUjDlO6fUqJ8w8aJ5N40NhlSqhd4rSMxCM+lsvv6jRxzy0Ui2uGAtDoLzjiq3kyxWkAORhJ2aoYL38z6pdhV1ab4FCFoHYf58gASPBww0xS3P6VLSbA3891iI=
-Received: from SJ0PR13CA0073.namprd13.prod.outlook.com (2603:10b6:a03:2c4::18)
- by CH3PR12MB8075.namprd12.prod.outlook.com (2603:10b6:610:122::5)
+ bh=/88vdgzYFyy1eBZ4ZElq/tA42cU70lV9R+uH/dEZMN0=;
+ b=CB1lhniL3JAcls25PhJfreLrVS6WJKwkMXgej2BCkSkTzuhqRFwcQ6rGYPWh4ohKZsPxXWtvbgkUIgRW95ND3E0RPU9gdQszV6aZ9WHJU8uo9EugHB5x3OMNSaFTRAPhLXDsuli8fMqiT3xaWcZ3tAeqENf/6ieHzuDxqVp9T+Q=
+Received: from SJ0PR13CA0074.namprd13.prod.outlook.com (2603:10b6:a03:2c4::19)
+ by IA1PR12MB8357.namprd12.prod.outlook.com (2603:10b6:208:3ff::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.36; Mon, 26 Feb
- 2024 21:11:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.22; Mon, 26 Feb
+ 2024 21:11:11 +0000
 Received: from DS2PEPF0000343A.namprd02.prod.outlook.com
- (2603:10b6:a03:2c4:cafe::2f) by SJ0PR13CA0073.outlook.office365.com
- (2603:10b6:a03:2c4::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.28 via Frontend
- Transport; Mon, 26 Feb 2024 21:11:10 +0000
+ (2603:10b6:a03:2c4:cafe::c1) by SJ0PR13CA0074.outlook.office365.com
+ (2603:10b6:a03:2c4::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.25 via Frontend
+ Transport; Mon, 26 Feb 2024 21:11:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,49 +51,54 @@ Received: from SATLEXMB03.amd.com (165.204.84.17) by
  DS2PEPF0000343A.mail.protection.outlook.com (10.167.18.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.7292.25 via Frontend Transport; Mon, 26 Feb 2024 21:11:10 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 26 Feb
- 2024 15:11:07 -0600
+ 2024 15:11:10 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 26 Feb
+ 2024 15:11:09 -0600
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 26 Feb 2024 15:11:07 -0600
+ Transport; Mon, 26 Feb 2024 15:11:09 -0600
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: <wayland-devel@lists.freedesktop.org>, Harry Wentland
- <harry.wentland@amd.com>, Simon Ser <contact@emersion.fr>
-Subject: [RFC PATCH v4 05/42] drm/vkms: Create separate Kconfig file for VKMS
-Date: Mon, 26 Feb 2024 16:10:19 -0500
-Message-ID: <20240226211100.100108-6-harry.wentland@amd.com>
+ <harry.wentland@amd.com>, Arthur Grillo <arthurgrillo@riseup.net>, "Melissa
+ Wen" <mwen@igalia.com>
+Subject: [RFC PATCH v4 07/42] drm/vkms: Avoid reading beyond LUT array
+Date: Mon, 26 Feb 2024 16:10:21 -0500
+Message-ID: <20240226211100.100108-8-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240226211100.100108-1-harry.wentland@amd.com>
 References: <20240226211100.100108-1-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: harry.wentland@amd.com does not
+Received-SPF: None (SATLEXMB05.amd.com: harry.wentland@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|CH3PR12MB8075:EE_
-X-MS-Office365-Filtering-Correlation-Id: 46c89d13-2e86-417c-c614-08dc370f74bd
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|IA1PR12MB8357:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8c42b2c-9ff8-4cd4-c052-08dc370f7539
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UREpd2UWD7k2nfBoNlniDOuPoVhDMMQSsIsnivXcOPZQ0LcP2fRMy1XWS735nVlrCdNpN+MlLbKl6ZZvFAbJ68ryvU74rAFrhMk+YdwHH0rryGorZqmNDPson6LOEAajmzZOJ35wPdgVAufN8iupDeh1QOETwlUDZQrpojT8PuLGucWKGz2UjeVm/E0DLsr+Xwzu6OumqH+SbPGZpCy7QkdwVQ3sgD/1aotT/om1RpBmVsfs5ectxIGYC95cqrmGNzmjUfQuMT5DYwoG1ECAN0ZPAoRP+duf+FpZLrPaDR2KFHhAfQkgGRMUkU8CRSpw9bNL2l9VWGQdkBUGkBaN0z729iq5g5C8Ug3ia1AHxZ1HCvDSW8m+HRd02qr01DNhCTnLFyZA3UyrzFJkuVF7PocANqON95TUHF6m6aFObA86zdcwKGf9BHXwt1R+7fjEra7wDHnJCD3QvB1+PzwUophajDO74cgpdDv6YBnsENnXCidjlFHByieaNDblmZzkHHYOx6JKHlNE9Jf8GumRAsIivIL5aCMJN+E/WgzKwuuTXf9Ay6pKaT2zU/e8aTW7oDF/HIhvFMPz42xn3MRc+NiwZ9odvGwI9sBaaKzEC7x2EsfFazdhjWNQ6mjA+N2z1NCw69xO+MUadOXIdp4j00Pju3jnWcxcFdETIJbtbpBt4ND87635ErSAkbmOAyS70LDDnIW81C+vvBvvMPhA4yE6NOUSByvuKWSb+gFf0AWGXbQtXS9Qec3rayZ3Azlh
+X-Microsoft-Antispam-Message-Info: QoAJRq0GwHJRUVMCQegK/jjvruqakDxhOb9uMb1Aj7NYcVEVcW/Q4pZ5Dbypi+9N4gZR8MYBPZx6qdFK1rqZNEUUIMiCsee8FR4cIM07DFoYc8Mrg9OF0W36ln96vGoEJt3deNzfUDPlmn/L6cUiftOWJMceUmyc49jPxotlrUmQqBvQ6hDuz5qmymcPoDTNMkVQBEgyGtCybZjgg4VtWEmepOVhTgPpRQxoOXzlWGCeEF5KEC031GOuoY0vGcRFYk1nfHAS7HPkgUB7nQKpwLU4fqRNu4ReHZkvgOm9rxIDXy4Jipv8SC7yOOmrZg0aSz1zLPX2zu+LvQskCnBRyWtvzeJ9yeHrIk3U/VJT10acqx6OdlpowdNVUTTm2p4XW2suogr+7EEmbwk9zLQoxlE7z7uUXLKHTJucdCXHhbZr/ido9kmdjKHrPMpHIcv+rHU0mxUc7TwH8pLL1xT4EAS21cezaqmURJtrBTNGJf9NAbj5m9NGpB0WYvFAHo830ocUoR492Q3z0OmmsrpS8MSRoeiDNrxRj1eQ+zA3IwH2DDsCi0ukR9qM9adFIwMERQMDQ1gELnX36RYs5a7yw0n38poMPQwFqGIFkURXDfZQzbmS67Cx57j4sfe9/xDYKhVgV4tGS52Vgfj1QfUvfUtZEAmDD+M5sT0OewY1Oa7jB21Y/RxQESCAeuJJebPv/4t3ZKafpCWMkdLXmr66jZiHl+L/5c86DJDJJSsYCKtZXNvZ4IPGTB57drCezzA9
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230031)(36860700004); DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2024 21:11:10.1617 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46c89d13-2e86-417c-c614-08dc370f74bd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2024 21:11:10.9742 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8c42b2c-9ff8-4cd4-c052-08dc370f7539
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343A.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8075
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8357
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,68 +113,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This aligns with most other DRM drivers and will allow
-us to add new VKMS config options without polluting
-the DRM Kconfig.
+When the floor LUT index (drm_fixp2int(lut_index) is the last
+index of the array the ceil LUT index will point to an entry
+beyond the array. Make sure we guard against it and use the
+value of the floor LUT index.
 
 v3:
- - Change SPDX to GPL-2.0-only to match DRM KConfig
-   SPDX (Simon)
+ - Drop bits from commit description that didn't contribute
+   anything of value
 
+Fixes: db1f254f2cfaf ("drm/vkms: Add support to 1D gamma LUT")
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Simon Ser <contact@emersion.fr>
+Cc: Arthur Grillo <arthurgrillo@riseup.net>
+Reviewed-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/Kconfig      | 14 +-------------
- drivers/gpu/drm/vkms/Kconfig | 15 +++++++++++++++
- 2 files changed, 16 insertions(+), 13 deletions(-)
- create mode 100644 drivers/gpu/drm/vkms/Kconfig
+ drivers/gpu/drm/vkms/vkms_composer.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 2520db0b776e..e3ea8793cb8a 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -289,19 +289,7 @@ config DRM_VGEM
- 	  as used by Mesa's software renderer for enhanced performance.
- 	  If M is selected the module will be called vgem.
+diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+index d178f2a400f6..b90e446d5954 100644
+--- a/drivers/gpu/drm/vkms/vkms_composer.c
++++ b/drivers/gpu/drm/vkms/vkms_composer.c
+@@ -123,6 +123,8 @@ static u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 chan
+ 				      enum lut_channel channel)
+ {
+ 	s64 lut_index = get_lut_index(lut, channel_value);
++	u16 *floor_lut_value, *ceil_lut_value;
++	u16 floor_channel_value, ceil_channel_value;
  
--config DRM_VKMS
--	tristate "Virtual KMS (EXPERIMENTAL)"
--	depends on DRM && MMU
--	select DRM_KMS_HELPER
--	select DRM_GEM_SHMEM_HELPER
--	select CRC32
--	default n
--	help
--	  Virtual Kernel Mode-Setting (VKMS) is used for testing or for
--	  running GPU in a headless machines. Choose this option to get
--	  a VKMS.
--
--	  If M is selected the module will be called vkms.
-+source "drivers/gpu/drm/vkms/Kconfig"
+ 	/*
+ 	 * This checks if `struct drm_color_lut` has any gap added by the compiler
+@@ -130,11 +132,15 @@ static u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 chan
+ 	 */
+ 	static_assert(sizeof(struct drm_color_lut) == sizeof(__u16) * 4);
  
- source "drivers/gpu/drm/exynos/Kconfig"
+-	u16 *floor_lut_value = (__u16 *)&lut->base[drm_fixp2int(lut_index)];
+-	u16 *ceil_lut_value = (__u16 *)&lut->base[drm_fixp2int_ceil(lut_index)];
++	floor_lut_value = (__u16 *)&lut->base[drm_fixp2int(lut_index)];
++	if (drm_fixp2int(lut_index) == (lut->lut_length - 1))
++		/* We're at the end of the LUT array, use same value for ceil and floor */
++		ceil_lut_value = floor_lut_value;
++	else
++		ceil_lut_value = (__u16 *)&lut->base[drm_fixp2int_ceil(lut_index)];
  
-diff --git a/drivers/gpu/drm/vkms/Kconfig b/drivers/gpu/drm/vkms/Kconfig
-new file mode 100644
-index 000000000000..b9ecdebecb0b
---- /dev/null
-+++ b/drivers/gpu/drm/vkms/Kconfig
-@@ -0,0 +1,15 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+config DRM_VKMS
-+	tristate "Virtual KMS (EXPERIMENTAL)"
-+	depends on DRM && MMU
-+	select DRM_KMS_HELPER
-+	select DRM_GEM_SHMEM_HELPER
-+	select CRC32
-+	default n
-+	help
-+	  Virtual Kernel Mode-Setting (VKMS) is used for testing or for
-+	  running GPU in a headless machines. Choose this option to get
-+	  a VKMS.
-+
-+	  If M is selected the module will be called vkms.
+-	u16 floor_channel_value = floor_lut_value[channel];
+-	u16 ceil_channel_value = ceil_lut_value[channel];
++	floor_channel_value = floor_lut_value[channel];
++	ceil_channel_value = ceil_lut_value[channel];
+ 
+ 	return lerp_u16(floor_channel_value, ceil_channel_value,
+ 			lut_index & DRM_FIXED_DECIMAL_MASK);
 -- 
 2.44.0
 
