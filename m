@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB046C5478C
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Feb 2024 11:39:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 320BCC54798
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Feb 2024 11:39:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D90910F32C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F69E10F330;
 	Tue, 27 Feb 2024 11:39:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="OGYB/TFI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eeoPV/N2";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OGYB/TFI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eeoPV/N2";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="zlPdJuLT";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CZCFTYjr";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zlPdJuLT";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CZCFTYjr";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4635610F31E;
- Tue, 27 Feb 2024 11:39:08 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8153510EFC2;
+ Tue, 27 Feb 2024 11:39:06 +0000 (UTC)
 Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AEB5D22758;
- Tue, 27 Feb 2024 11:39:06 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 188521FD35;
+ Tue, 27 Feb 2024 11:39:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1709033946; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1709033945; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=eAl6IL4nDxzJ3Bsr51G5/lRG9ArSaV55PQQnGIZK2fk=;
- b=OGYB/TFID+1od+563ApTybS4aqZdMPpYo7wYXesoGjHAe1FtgzgmpRph4xVvPwFzNORFrU
- 8Hi/alaJ5oLGpxn0LaA7GXT2ZgWQv0UGKH28z9cYc00Rx45W7D8efa5MBS9/vtOgZOZ7XR
- y6p/QUDjfrnogPtOgKtbONmBBJLtX68=
+ bh=Qv+cmNpN6bABL4zQ3D1sbnX7AZu8VR7PIhXGXWvPPk8=;
+ b=zlPdJuLTMeoMP3U92nFgE03WfmufoZ7cfRMsBqpiUzj4JvtnCVGfUe+sPjmYa28qgtllBN
+ OQKK8PtXp43kJsXmHEvnxh60ellP7vBgAoshNzrsL6RGGrTccY/LDoFRBW+QqIbCC2W3Jn
+ ST5LaHghtHmj2gcvSmFHcV5+eU2wxrE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1709033946;
+ s=susede2_ed25519; t=1709033945;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=eAl6IL4nDxzJ3Bsr51G5/lRG9ArSaV55PQQnGIZK2fk=;
- b=eeoPV/N2wEQwzdVtVPmJ/33be/IhdaRvAtJdCDpgAFPTCxXXSUiI54ICLcugmnH4xu+dJs
- CyKQoOjL0uCMZAAg==
+ bh=Qv+cmNpN6bABL4zQ3D1sbnX7AZu8VR7PIhXGXWvPPk8=;
+ b=CZCFTYjrFyk0ilK9gk56lsct47mFeBBWpjF5TmUt3P9R6GT7NduSUMUNCbCjW/tVaDdZ8F
+ crSJkx3Gp08JMvBg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1709033946; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1709033945; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=eAl6IL4nDxzJ3Bsr51G5/lRG9ArSaV55PQQnGIZK2fk=;
- b=OGYB/TFID+1od+563ApTybS4aqZdMPpYo7wYXesoGjHAe1FtgzgmpRph4xVvPwFzNORFrU
- 8Hi/alaJ5oLGpxn0LaA7GXT2ZgWQv0UGKH28z9cYc00Rx45W7D8efa5MBS9/vtOgZOZ7XR
- y6p/QUDjfrnogPtOgKtbONmBBJLtX68=
+ bh=Qv+cmNpN6bABL4zQ3D1sbnX7AZu8VR7PIhXGXWvPPk8=;
+ b=zlPdJuLTMeoMP3U92nFgE03WfmufoZ7cfRMsBqpiUzj4JvtnCVGfUe+sPjmYa28qgtllBN
+ OQKK8PtXp43kJsXmHEvnxh60ellP7vBgAoshNzrsL6RGGrTccY/LDoFRBW+QqIbCC2W3Jn
+ ST5LaHghtHmj2gcvSmFHcV5+eU2wxrE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1709033946;
+ s=susede2_ed25519; t=1709033945;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=eAl6IL4nDxzJ3Bsr51G5/lRG9ArSaV55PQQnGIZK2fk=;
- b=eeoPV/N2wEQwzdVtVPmJ/33be/IhdaRvAtJdCDpgAFPTCxXXSUiI54ICLcugmnH4xu+dJs
- CyKQoOjL0uCMZAAg==
+ bh=Qv+cmNpN6bABL4zQ3D1sbnX7AZu8VR7PIhXGXWvPPk8=;
+ b=CZCFTYjrFyk0ilK9gk56lsct47mFeBBWpjF5TmUt3P9R6GT7NduSUMUNCbCjW/tVaDdZ8F
+ crSJkx3Gp08JMvBg==
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id E864313216;
- Tue, 27 Feb 2024 11:39:05 +0000 (UTC)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 4DB9413216;
+ Tue, 27 Feb 2024 11:39:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap2.dmz-prg2.suse.org with ESMTPSA id KD9SN9nJ3WVMUQAAn2gu4w
- (envelope-from <tzimmermann@suse.de>); Tue, 27 Feb 2024 11:39:05 +0000
+ by imap2.dmz-prg2.suse.org with ESMTPSA id SJ1jEdjJ3WVMUQAAn2gu4w
+ (envelope-from <tzimmermann@suse.de>); Tue, 27 Feb 2024 11:39:04 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, mripard@kernel.org,
  maarten.lankhorst@linux.intel.com, christian.koenig@amd.com,
@@ -84,18 +84,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 13/13] drm/qxl: Do not pin buffer objects for vmap
-Date: Tue, 27 Feb 2024 11:15:00 +0100
-Message-ID: <20240227113853.8464-14-tzimmermann@suse.de>
+Subject: [PATCH 11/13] drm/client: Pin vmap'ed GEM buffers
+Date: Tue, 27 Feb 2024 11:14:58 +0100
+Message-ID: <20240227113853.8464-12-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240227113853.8464-1-tzimmermann@suse.de>
 References: <20240227113853.8464-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="OGYB/TFI";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="eeoPV/N2"
-X-Spamd-Result: default: False [0.45 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=zlPdJuLT;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=CZCFTYjr
+X-Spamd-Result: default: False [2.68 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
  SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:98:from];
  TO_DN_SOME(0.00)[]; R_MISSING_CHARSET(2.50)[];
  BROKEN_CONTENT_TYPE(1.50)[];
@@ -104,7 +104,7 @@ X-Spamd-Result: default: False [0.45 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
  MX_GOOD(-0.01)[];
  FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,kernel.org,linux.intel.com,amd.com,linaro.org,collabora.com,quicinc.com,poorly.run,somainline.org,loongson.cn,redhat.com,broadcom.com];
  FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
- BAYES_HAM(-2.24)[96.39%]; ARC_NA(0.00)[];
+ BAYES_HAM(-0.01)[48.59%]; ARC_NA(0.00)[];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FROM_HAS_DN(0.00)[]; DWL_DNSWL_MED(-2.00)[suse.de:dkim];
  FREEMAIL_ENVRCPT(0.00)[gmail.com];
@@ -114,8 +114,8 @@ X-Spamd-Result: default: False [0.45 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
  DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email];
  FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[]
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: AEB5D22758
-X-Spamd-Bar: /
+X-Rspamd-Queue-Id: 188521FD35
+X-Spamd-Bar: ++
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,39 +130,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Pin and vmap are distinct operations. Do not perform a pin as part
-of the vmap call. This used to be necessary to keep the fbdev buffer
-in place while it is being updated. Fbdev emulation has meanwhile
-been fixed to lock the buffer correctly. Same for vunmap.
+The function drm_client_buffer_vmap() establishes a long-term mapping
+of the client's buffer object into the kernel address space. Make sure
+that buffer does not move by pinning it to its current location. Same
+for vunmap with unpin.
+
+The only caller of drm_client_buffer_vmap() is fbdev-dma, which uses
+gem-dma. As DMA-backed GEM buffers do not move, this change is for
+correctness with little impact in practice.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/qxl/qxl_object.c | 5 -----
- 1 file changed, 5 deletions(-)
+ drivers/gpu/drm/drm_client.c | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/qxl/qxl_object.c b/drivers/gpu/drm/qxl/qxl_object.c
-index 39218e979a807..5893e27a7ae50 100644
---- a/drivers/gpu/drm/qxl/qxl_object.c
-+++ b/drivers/gpu/drm/qxl/qxl_object.c
-@@ -164,10 +164,6 @@ int qxl_bo_vmap_locked(struct qxl_bo *bo, struct iosys_map *map)
- 		goto out;
- 	}
+diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
+index 2cc81831236b5..77fe217aeaf36 100644
+--- a/drivers/gpu/drm/drm_client.c
++++ b/drivers/gpu/drm/drm_client.c
+@@ -388,16 +388,30 @@ int
+ drm_client_buffer_vmap(struct drm_client_buffer *buffer,
+ 		       struct iosys_map *map_copy)
+ {
++	struct drm_gem_object *gem = buffer->gem;
+ 	struct iosys_map *map = &buffer->map;
+ 	int ret;
  
--	r = qxl_bo_pin_locked(bo);
--	if (r)
--		return r;
--
- 	r = ttm_bo_vmap(&bo->tbo, &bo->map);
- 	if (r) {
- 		qxl_bo_unpin_locked(bo);
-@@ -243,7 +239,6 @@ void qxl_bo_vunmap_locked(struct qxl_bo *bo)
- 		return;
- 	bo->kptr = NULL;
- 	ttm_bo_vunmap(&bo->tbo, &bo->map);
--	qxl_bo_unpin_locked(bo);
+-	ret = drm_gem_vmap_unlocked(buffer->gem, map);
++	drm_gem_lock(gem);
++
++	ret = drm_gem_pin_locked(gem);
+ 	if (ret)
+-		return ret;
++		goto err_drm_gem_pin_locked;
++	ret = drm_gem_vmap(gem, map);
++	if (ret)
++		goto err_drm_gem_vmap;
++
++	drm_gem_unlock(gem);
+ 
+ 	*map_copy = *map;
+ 
+ 	return 0;
++
++err_drm_gem_vmap:
++	drm_gem_unpin_locked(buffer->gem);
++err_drm_gem_pin_locked:
++	drm_gem_unlock(gem);
++	return ret;
  }
+ EXPORT_SYMBOL(drm_client_buffer_vmap);
  
- int qxl_bo_vunmap(struct qxl_bo *bo)
+@@ -411,9 +425,13 @@ EXPORT_SYMBOL(drm_client_buffer_vmap);
+  */
+ void drm_client_buffer_vunmap(struct drm_client_buffer *buffer)
+ {
++	struct drm_gem_object *gem = buffer->gem;
+ 	struct iosys_map *map = &buffer->map;
+ 
+-	drm_gem_vunmap_unlocked(buffer->gem, map);
++	drm_gem_lock(gem);
++	drm_gem_vunmap(gem, map);
++	drm_gem_unpin_locked(gem);
++	drm_gem_unlock(gem);
+ }
+ EXPORT_SYMBOL(drm_client_buffer_vunmap);
+ 
 -- 
 2.43.2
 
