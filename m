@@ -4,90 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25CE3C5478C
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Feb 2024 10:26:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68AB4C5478C
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Feb 2024 11:39:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A499B10F2E5;
-	Tue, 27 Feb 2024 10:26:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA42E10E60B;
+	Tue, 27 Feb 2024 11:38:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=froggi.es header.i=@froggi.es header.b="OLiOQHrS";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="mBofjGGT";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cPjARdQH";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eI+pozVz";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="exgRYLYR";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFB2410ED30
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Feb 2024 10:26:31 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-412a4055897so16807505e9.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Feb 2024 02:26:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=froggi.es; s=google; t=1709029589; x=1709634389; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Uhi+WrGIQRRJ8lSNfTDvuyNrAsyGAd/wwG+ZXqbxAiY=;
- b=OLiOQHrSZrZ7D8H3Ck0wt4cL1NgvYL5jlxkMOS/j25W5qyFE8nWEtka6tLNRoaoKAJ
- HgmIR4Iq6zT0P1oeplNrVLqd0SjOnNnH7xWAgtUJVGum2Mkj2lgDZjbDAoG4+UDaVpKr
- C3rveJx35ruWvt0fDjbAthki6RSYwnjMvpcijpncWbOSQ0ew7KIrdwMu1CLHhqmyisWm
- VM5sX+1FhoCe3o+LSNadKOCh4bJgAdR4y3G6MOHKF+GWfUDNXg0PzRq+ufG74C2aABiM
- oHg2Jm49cYZz/IghbTfnDh7pmwL8CEg/HGlYlgBVWB9GeQ6rbMCJj07dCEqLp0k+0pkf
- VneA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709029589; x=1709634389;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Uhi+WrGIQRRJ8lSNfTDvuyNrAsyGAd/wwG+ZXqbxAiY=;
- b=TdgzF0+1dhfNt3XOeh2kwxuSXdVz1lkjsoXbOBVxp7pN11I+x1rKWW+vl5gGOq0I4w
- NN3z3aFc+pUhpbnRXD0k2xcA+X3sy4y+OmkjhEUTLru2HOgBNG9iebmsB4ONDMOHhXxx
- KH9Y28/zGeVRrw60o38BD+S5H8AhxC2KfmXVBrDcpJ5vcWZYJkV5GR73hS2caKon2mkV
- Je1JPQzXnlEjEdynnMXa+de+pKhw6Qvz00ERS7TelFbIovmkjZ3UtczYRJCqY9ZU/pDZ
- b0c4vBSsiX4dbezIGGUzTPb3i/lh+azKpCtF8l7p11V5apv78Jcaw/ELzhJ/cwxJomK+
- VcbA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUfmIyL0lZxkdYkUGOdwIavZzvOxmPE57BslMIdfjgpHkmS9Aa9HSyYtep+C8O2pFh+jOiUQsmb8cp6iWbr43MBUck8RSVPps3ONcajdA==
-X-Gm-Message-State: AOJu0Yxg5GGExKrr+94NIUwKzHJ/MjLej4BZh7DVvmw8zKxumFo7ilsR
- 0jtos/BraUSi93+R2dNDpa2vR8yy9MGXW/DGIAI8nHVNHG1tVp62eg7vrRSa6cE=
-X-Google-Smtp-Source: AGHT+IFqZH8rmOCDpZ3D4x/lYkOfBXXnFSclNKDnxRlrjGhdDlBXDhTO23kdXm0W/NqSHHSPGYLFqQ==
-X-Received: by 2002:a5d:5267:0:b0:33d:5250:71b3 with SMTP id
- l7-20020a5d5267000000b0033d525071b3mr6901307wrc.57.1709029589425; 
- Tue, 27 Feb 2024 02:26:29 -0800 (PST)
-Received: from [192.168.0.89]
- (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
- by smtp.gmail.com with ESMTPSA id
- d24-20020adf9b98000000b0033dedaee5d5sm1600842wrc.30.2024.02.27.02.26.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Feb 2024 02:26:28 -0800 (PST)
-Message-ID: <f4839262-493c-495d-9fd0-bb9eb81ac430@froggi.es>
-Date: Tue, 27 Feb 2024 10:26:27 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1177610E60B;
+ Tue, 27 Feb 2024 11:38:58 +0000 (UTC)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2F9E8226DE;
+ Tue, 27 Feb 2024 11:38:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1709033937; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=5C4CK+3IOQMm2tEAZJPCPaPAJ0nIVyugJd/heULKsBk=;
+ b=mBofjGGTP9buT7BDxHFEUtkHb9Ql2f+Nt/q+czcsmODUOSsHDVToHO1rbSdHvknZQbudnG
+ k2hHt0aHJn91Y6RcECo/8jW056zpIpfJ3Yz79MLw6/WF02jOAUoNUikbrZqsBstu1yf5nu
+ idUUE9n7SNp1ROkCrutkXtaKcrPlEtc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1709033937;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=5C4CK+3IOQMm2tEAZJPCPaPAJ0nIVyugJd/heULKsBk=;
+ b=cPjARdQHlGQSH6PbnVsgqDFlGcCpvBuG4JsDRalPDUbO/B7rfTktrM+LxgLEZe9J/dno6M
+ vTxrqI88UEdNoQDw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1709033936; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=5C4CK+3IOQMm2tEAZJPCPaPAJ0nIVyugJd/heULKsBk=;
+ b=eI+pozVzqRLV5xA6BGWTcd8Pv7AxusQ9mMxoad1zWnWGXNvZETiOWZ1+/5Z6tXVXxvFBC2
+ wPlzlV+bHr8bM3x45hVU+Uxx12KFhegYLTrU6xmB78e/CoyJZga7Rftdf/eTM/J4hNHhTZ
+ wm/lmNrVfwOBiCAPdqB8Mr3+/oyhxag=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1709033936;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=5C4CK+3IOQMm2tEAZJPCPaPAJ0nIVyugJd/heULKsBk=;
+ b=exgRYLYRU1toZEzhUPaWw7UpZNnMlASkq200zc0im8evnK4Spfb09O+YUahTVm6WOPVATQ
+ tTJvKgsxzJdp/JAQ==
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 62B8213216;
+ Tue, 27 Feb 2024 11:38:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap2.dmz-prg2.suse.org with ESMTPSA id nxXHFs/J3WVMUQAAn2gu4w
+ (envelope-from <tzimmermann@suse.de>); Tue, 27 Feb 2024 11:38:55 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch, airlied@gmail.com, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, christian.koenig@amd.com,
+ sumit.semwal@linaro.org, dmitry.osipenko@collabora.com,
+ robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run,
+ marijn.suijten@somainline.org, suijingfeng@loongson.cn, kherbst@redhat.com,
+ lyude@redhat.com, dakr@redhat.com, airlied@redhat.com, kraxel@redhat.com,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, zack.rusin@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 00/13] drm: Fix reservation locking for pin/unpin and console
+Date: Tue, 27 Feb 2024 11:14:47 +0100
+Message-ID: <20240227113853.8464-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.43.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v4 00/42] Color Pipeline API w/ VKMS
-Content-Language: en-US
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Cc: wayland-devel@lists.freedesktop.org,
- Ville Syrjala <ville.syrjala@linux.intel.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Simon Ser <contact@emersion.fr>, Melissa Wen <mwen@igalia.com>,
- =?UTF-8?Q?Jonas_=C3=85dahl?= <jadahl@redhat.com>,
- Sebastian Wick <sebastian.wick@redhat.com>,
- Shashank Sharma <shashank.sharma@amd.com>,
- Alexander Goins <agoins@nvidia.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?=
- <mdaenzer@redhat.com>, Aleix Pol <aleixpol@kde.org>,
- Xaver Hugl <xaver.hugl@gmail.com>,
- Victoria Brekenfeld <victoria@system76.com>, Sima <daniel@ffwll.ch>,
- Uma Shankar <uma.shankar@intel.com>, Naseer Ahmed <quic_naseer@quicinc.com>,
- Christopher Braga <quic_cbraga@quicinc.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Arthur Grillo <arthurgrillo@riseup.net>, Hector Martin <marcan@marcan.st>,
- Liviu Dudau <Liviu.Dudau@arm.com>, Sasha McIntosh
- <sashamcintosh@google.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-References: <20240226211100.100108-1-harry.wentland@amd.com>
-From: Joshua Ashton <joshua@froggi.es>
-In-Reply-To: <20240226211100.100108-1-harry.wentland@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=eI+pozVz;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=exgRYLYR
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-1.51 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:98:from];
+ TO_DN_SOME(0.00)[]; R_MISSING_CHARSET(2.50)[];
+ BROKEN_CONTENT_TYPE(1.50)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLo3wgn6xaqcdyw4c639zmwwtu)];
+ RCVD_COUNT_THREE(0.00)[3]; DKIM_TRACE(0.00)[suse.de:+];
+ MX_GOOD(-0.01)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,kernel.org,linux.intel.com,amd.com,linaro.org,collabora.com,quicinc.com,poorly.run,somainline.org,loongson.cn,redhat.com,broadcom.com];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ BAYES_HAM(-3.00)[100.00%]; ARC_NA(0.00)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; DWL_DNSWL_MED(-2.00)[suse.de:dkim];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCPT_COUNT_TWELVE(0.00)[30]; MID_CONTAINS_FROM(1.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[patchwork.freedesktop.org:url,suse.de:dkim];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[]
+X-Rspamd-Queue-Id: 2F9E8226DE
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,266 +120,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Dma-buf locking semantics require the caller of pin and unpin to hold
+the buffer's reservation lock. Fix DRM to adhere to the specs. This
+enables to fix the locking in DRM's console emulation. Similar changes
+for vmap and mmap have been posted at [1][2]
+
+Most DRM drivers and memory managers acquire the buffer object's
+reservation lock within their GEM pin and unpin callbacks. This
+violates dma-buf locking semantics. We get away with it because PRIME
+does not provide pin/unpin, but attach/detach, for which the locking
+semantics is correct.
+
+Patches 1 to 8 rework DRM GEM code in various implementations to
+acquire the reservation lock when entering the pin and unpin callbacks.
+This prepares them for the next patch. Drivers that are not affected
+by these patches either don't acquire the reservation lock (amdgpu)
+or don't need preparation (loongson).
+
+Patch 9 moves reservation locking from the GEM pin/unpin callbacks
+into drm_gem_pin() and drm_gem_unpin(). As PRIME uses these functions
+internally it still gets the reservation lock.
+
+With the updated GEM callbacks, the rest of the patchset fixes the
+fbdev emulation's buffer locking. Fbdev emulation needs to keep its
+GEM buffer object inplace while updating its content. This required
+a implicit pinning and apparently amdgpu didn't do this at all.
+
+Patch 10 introduces drm_client_buffer_vmap_local() and _vunmap_local().
+The former function map a GEM buffer into the kernel's address space
+with regular vmap operations, but keeps holding the reservation lock.
+The _vunmap_local() helper undoes the vmap and releases the lock. The
+updated GEM callbacks make this possible. Between the two calls, the
+fbdev emulation can update the buffer content without have the buffer
+moved or evicted. Update fbdev-generic to use vmap_local helpers,
+which fix amdgpu. The idea of adding a "local vmap" has previously been
+attempted at [3] in a different form.
+
+Patch 11 adds implicit pinning to the DRM client's regular vmap
+helper so that long-term vmap'ed buffers won't be evicted. This only
+affects fbdev-dma, but GEM DMA helpers don't require pinning. So
+there are no practical changes.
+
+Patches 12 and 13 remove implicit pinning from the vmap and vunmap
+operations in gem-vram and qxl. These pin operations are not supposed
+to be part of vmap code, but were required to keep the buffers in place
+for fbdev emulation. With the conversion o ffbdev-generic to to
+vmap_local helpers, that code can finally be removed.
+
+Tested with amdgpu, nouveau, radeon, simpledrm and vc4.
+
+[1] https://patchwork.freedesktop.org/series/106371/
+[2] https://patchwork.freedesktop.org/series/116001/
+[3] https://patchwork.freedesktop.org/series/84732/
+
+Thomas Zimmermann (13):
+  drm/gem-shmem: Acquire reservation lock in GEM pin/unpin callbacks
+  drm/gem-vram: Acquire reservation lock in GEM pin/unpin callbacks
+  drm/msm: Provide msm_gem_get_pages_locked()
+  drm/msm: Acquire reservation lock in GEM pin/unpin callback
+  drm/nouveau: Provide nouveau_bo_{pin,unpin}_locked()
+  drm/nouveau: Acquire reservation lock in GEM pin/unpin callbacks
+  drm/qxl: Provide qxl_bo_{pin,unpin}_locked()
+  drm/qxl: Acquire reservation lock in GEM pin/unpin callbacks
+  drm/gem: Acquire reservation lock in drm_gem_{pin/unpin}()
+  drm/fbdev-generic: Fix locking with drm_client_buffer_vmap_local()
+  drm/client: Pin vmap'ed GEM buffers
+  drm/gem-vram: Do not pin buffer objects for vmap
+  drm/qxl: Do not pin buffer objects for vmap
+
+ drivers/gpu/drm/drm_client.c            |  92 ++++++++++++++++++---
+ drivers/gpu/drm/drm_fbdev_generic.c     |   4 +-
+ drivers/gpu/drm/drm_gem.c               |  34 +++++++-
+ drivers/gpu/drm/drm_gem_shmem_helper.c  |   6 +-
+ drivers/gpu/drm/drm_gem_vram_helper.c   | 101 ++++++++++--------------
+ drivers/gpu/drm/drm_internal.h          |   2 +
+ drivers/gpu/drm/loongson/lsdc_gem.c     |  13 +--
+ drivers/gpu/drm/msm/msm_gem.c           |  20 ++---
+ drivers/gpu/drm/msm/msm_gem.h           |   4 +-
+ drivers/gpu/drm/msm/msm_gem_prime.c     |  20 +++--
+ drivers/gpu/drm/nouveau/nouveau_bo.c    |  43 +++++++---
+ drivers/gpu/drm/nouveau/nouveau_bo.h    |   2 +
+ drivers/gpu/drm/nouveau/nouveau_prime.c |   8 +-
+ drivers/gpu/drm/qxl/qxl_object.c        |  26 +++---
+ drivers/gpu/drm/qxl/qxl_object.h        |   2 +
+ drivers/gpu/drm/qxl/qxl_prime.c         |   4 +-
+ drivers/gpu/drm/radeon/radeon_prime.c   |  11 ---
+ drivers/gpu/drm/vmwgfx/vmwgfx_gem.c     |  25 ++----
+ include/drm/drm_client.h                |  10 +++
+ include/drm/drm_gem.h                   |   3 +
+ include/drm/drm_gem_shmem_helper.h      |   7 +-
+ 21 files changed, 265 insertions(+), 172 deletions(-)
 
 
-On 2/26/24 21:10, Harry Wentland wrote:
-> This is an RFC set for a color pipeline API, along with a sample
-> implementation in VKMS. All the key API bits are here. VKMS now
-> supports two named transfer function colorops and two matrix
-> colorops. We have IGT tests that check all four of these colorops
-> with a pixel-by-pixel comparison that checks that these colorops
-> do what we expect them to do with a +/- 1 8 bpc code point margin.
-> 
-> The big new change with v4 is the addition of an amdgpu color
-> pipeline, for all AMD GPUs with DCN 3 and newer. Amdgpu now support
-> the following:
-> 
-> 1. 1D Curve EOTF
-> 2. 3x4 CTM
-> 3. Multiplier
-> 4. 1D Curve Inverse EOTF
-> 5. 1D LUT
-> 6. 1D Curve EOTF
-> 7. 1D LUT
-> 
-> The supported curves for the 1D Curve type are:
-> - sRGB EOTF and its inverse
-> - PQ EOTF, scaled to [0.0, 125.0] and its inverse
-> - BT.2020/BT.709 OETF and its inverse
-> 
-> Note that the 1st and 5th colorops take the EOTF or Inverse
-> OETF while the 3rd colorop takes the Inverse EOTF or OETF.
-> 
-> We are working on two more ops for amdgpu, the HDR multiplier
-> and the 3DLUT, which will give us this:
-> 
-> 1. 1D Curve EOTF
-> 2. 3x4 CTM
-> 3. HDR Multiplier
-> 4. 1D Curve Inverse EOTF
-> 5. 1D LUT
-> 6. 3D LUT
-> 7. 1D Curve EOTF
-> 8. 1D LUT
-> 
-> This, essentially mirrors the color pipeline used by gamescope
-> and presented by Melissa Wen, with the exception of the DEGAM
-> LUT, which is not currently used. See
-> [1] https://indico.freedesktop.org/event/4/contributions/186/attachments/138/218/xdc2023-TheRainbowTreasureMap-MelissaWen.pdf
-> 
-> After this we'd like to also add the following ops:
-> - Scaler (Informational only)
-
-Why informational only? Having NEAREST and in general custom taps should 
-be possible on AMDGPU right?
-
-We don't have to solve this now, but I just want to make sure that we 
-aren't locking this to info only.
-
-Thanks
-
-- Joshie 🐸✨
-
-> - Color Encoding, to replace drm_plane's COLOR_ENCODING
-> - Color Range, to replace drm_plane's COLOR_RANGE
-> 
-> This patchset is grouped as follows:
->   - Patches 1-3: couple general patches/fixes
->   - Patches 4-7: introduce kunit to VKMS
->   - Patch 7: description of motivation and details behind the
->              Color Pipeline API. If you're reading nothing else
->              but are interested in the topic I highly recommend
->              you take a look at this.
->   - Patches 7-27: DRM core and VKMS changes for color pipeline API
->   - Patches 28-40: DRM core and amdgpu changes for color pipeline API
-> 
-> VKMS patches could still be improved in a few ways, though the
-> payoff might be limited and I would rather focus on other work
-> at the moment. The most obvious thing to improve would be to
-> eliminate the hard-coded LUTs for identity, and sRGB, and replace
-> them with fixed-point math instead.
-> 
-> There are plenty of things that I would like to see here but
-> haven't had a chance to look at. These will (hopefully) be
-> addressed in future iterations, either in VKMS or amdgpu:
->   - Clear documentation for each drm_colorop_type
->   - Add custom LUT colorops to VKMS
->   - Add pre-blending 3DLUT
->   - How to support HW which can't bypass entire pipeline?
->   - Add ability to create colorops that don't have BYPASS
->   - Can we do a LOAD / COMMIT model for LUTs (and other properties)?
->   - read-only scaling colorop which defines scaling taps and position
->   - read-only color format colorop to define supported color formats
->     for a pipeline
->   - named matrices, for things like converting YUV to RGB
-> 
-> IGT tests can be found at
-> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/merge_requests/1
-> 
-> IGT patches are also being sent to the igt-dev mailing list.
-> 
-> If you prefer a gitlab MR for review you can find it at
-> https://gitlab.freedesktop.org/hwentland/linux/-/merge_requests/5
-> 
-> v4:
->   - Add amdgpu color pipeline (WIP)
->   - Don't block setting of deprecated properties, instead pass client cap
->     to atomic check so drivers can ignore these props
->   - Drop IOCTL definitions (Pekka)
->   - Use enum property for colorop TYPE (Pekka)
->   - A few cleanups to the docs (Pekka)
->   - Rework the TYPE enum to name relation to avoid code duplication (Pekka)
->   - Add missing function declarations (Chaitanya Kumar Borah)
->   - Allow setting of NEXT property to NULL in _set_ function (Chaitanya Kumar Borah)
->   - Add helper for creation of pipeline drm_plane property (Pekka)
->   - Always create Bypass pipeline (Pekka)
->   - A bunch of changes to VKMS kunit tests (Pekka)
->   - Fix index in CTM doc (Pekka)
-> 
-> v3:
->   - Abandon IOCTLs and discover colorops as clients iterate the pipeline
->   - Remove need for libdrm
->   - Add color_pipeline client cap and make mutually exclusive with
->     COLOR_RANGE and COLOR_ENCODING properties
->   - add CTM colorop to VKMS
->   - Use include way for kunit testing static functions (Arthur)
->   - Make TYPE a range property
->   - Move enum drm_colorop_type to uapi header
->   - and a bunch of smaller bits that are highlighted in the relevant commit
->     description
-> 
-> v2:
->   - Rebased on drm-misc-next
->   - Introduce a VKMS Kunit so we can test LUT functionality in vkms_composer
->   - Incorporate feedback in color_pipeline.rst doc
->   - Add support for sRGB inverse EOTF
->   - Add 2nd enumerated TF colorop to VKMS
->   - Fix LUTs and some issues with applying LUTs in VKMS
-> 
-> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
-> Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
-> Cc: Simon Ser <contact@emersion.fr>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Melissa Wen <mwen@igalia.com>
-> Cc: Jonas Ådahl <jadahl@redhat.com>
-> Cc: Sebastian Wick <sebastian.wick@redhat.com>
-> Cc: Shashank Sharma <shashank.sharma@amd.com>
-> Cc: Alexander Goins <agoins@nvidia.com>
-> Cc: Joshua Ashton <joshua@froggi.es>
-> Cc: Michel Dänzer <mdaenzer@redhat.com>
-> Cc: Aleix Pol <aleixpol@kde.org>
-> Cc: Xaver Hugl <xaver.hugl@gmail.com>
-> Cc: Victoria Brekenfeld <victoria@system76.com>
-> Cc: Sima <daniel@ffwll.ch>
-> Cc: Uma Shankar <uma.shankar@intel.com>
-> Cc: Naseer Ahmed <quic_naseer@quicinc.com>
-> Cc: Christopher Braga <quic_cbraga@quicinc.com>
-> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Cc: Arthur Grillo <arthurgrillo@riseup.net>
-> Cc: Hector Martin <marcan@marcan.st>
-> Cc: Liviu Dudau <Liviu.Dudau@arm.com>
-> Cc: Sasha McIntosh <sashamcintosh@google.com>
-> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> 
-> Alex Hung (10):
->    drm/colorop: define a new macro for_each_new_colorop_in_state
->    drm/amd/display: Skip color pipeline initialization for cursor plane
->    drm/amd/display: Add support for sRGB EOTF in DEGAM block
->    drm/amd/display: Add support for sRGB Inverse EOTF in SHAPER block
->    drm/amd/display: Add support for sRGB EOTF in BLND block
->    drm/colorop: Add 1D Curve Custom LUT type
->    drm/amd/display: add shaper and blend colorops for 1D Curve Custom LUT
->    drm/amd/display: add 3x4 matrix colorop
->    drm/colorop: Add mutliplier type
->    drm/amd/display: add multiplier colorop
-> 
-> Harry Wentland (32):
->    drm: Don't treat 0 as -1 in drm_fixp2int_ceil
->    drm: Add helper for conversion from signed-magnitude
->    drm: Correctly round for fixp2int_round
->    drm/vkms: Round fixp2int conversion in lerp_u16
->    drm/vkms: Create separate Kconfig file for VKMS
->    drm/vkms: Add kunit tests for VKMS LUT handling
->    drm/vkms: Avoid reading beyond LUT array
->    drm/doc/rfc: Describe why prescriptive color pipeline is needed
->    drm/colorop: Introduce new drm_colorop mode object
->    drm/colorop: Add TYPE property
->    drm/colorop: Add 1D Curve subtype
->    drm/colorop: Add BYPASS property
->    drm/colorop: Add NEXT property
->    drm/colorop: Add atomic state print for drm_colorop
->    drm/plane: Add COLOR PIPELINE property
->    drm/colorop: Add NEXT to colorop state print
->    drm/vkms: Add enumerated 1D curve colorop
->    drm/vkms: Add kunit tests for linear and sRGB LUTs
->    drm/colorop: Introduce DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
->    drm/colorop: Add 3x4 CTM type
->    drm/vkms: Pull apply_colorop out of pre_blend_color_transform
->    drm/vkms: Use s32 for internal color pipeline precision
->    drm/vkms: add 3x4 matrix in color pipeline
->    drm/tests: Add a few tests around drm_fixed.h
->    drm/vkms: Add tests for CTM handling
->    drm/colorop: pass plane_color_pipeline client cap to atomic check
->    drm/amd/display: Ignore deprecated props when plane_color_pipeline set
->    drm/amd/display: Add bypass COLOR PIPELINE
->    drm/colorop: Add PQ 125 EOTF and its inverse
->    drm/amd/display: Enable support for PQ 125 EOTF and Inverse
->    drm/colorop: add BT2020/BT709 OETF and Inverse OETF
->    drm/amd/display: Add support for BT.709 and BT.2020 TFs
-> 
->   Documentation/gpu/rfc/color_pipeline.rst      | 360 ++++++++
->   drivers/gpu/drm/Kconfig                       |  14 +-
->   drivers/gpu/drm/Makefile                      |   1 +
->   .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   3 +-
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   4 +
->   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 352 ++++++++
->   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 160 ++++
->   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |  36 +
->   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  32 +
->   drivers/gpu/drm/drm_atomic.c                  | 161 +++-
->   drivers/gpu/drm/drm_atomic_helper.c           |  12 +
->   drivers/gpu/drm/drm_atomic_state_helper.c     |   5 +
->   drivers/gpu/drm/drm_atomic_uapi.c             | 158 ++++
->   drivers/gpu/drm/drm_colorop.c                 | 411 +++++++++
->   drivers/gpu/drm/drm_ioctl.c                   |   7 +
->   drivers/gpu/drm/drm_mode_config.c             |   7 +
->   drivers/gpu/drm/drm_plane.c                   |  52 ++
->   drivers/gpu/drm/tests/Makefile                |   3 +-
->   drivers/gpu/drm/tests/drm_fixp_test.c         |  69 ++
->   drivers/gpu/drm/vkms/Kconfig                  |  20 +
->   drivers/gpu/drm/vkms/Makefile                 |   4 +-
->   drivers/gpu/drm/vkms/tests/.kunitconfig       |   4 +
->   drivers/gpu/drm/vkms/tests/vkms_color_tests.c | 449 ++++++++++
->   drivers/gpu/drm/vkms/vkms_colorop.c           | 100 +++
->   drivers/gpu/drm/vkms/vkms_composer.c          | 135 ++-
->   drivers/gpu/drm/vkms/vkms_drv.h               |   8 +
->   drivers/gpu/drm/vkms/vkms_luts.c              | 802 ++++++++++++++++++
->   drivers/gpu/drm/vkms/vkms_luts.h              |  12 +
->   drivers/gpu/drm/vkms/vkms_plane.c             |   2 +
->   include/drm/drm_atomic.h                      | 122 +++
->   include/drm/drm_atomic_uapi.h                 |   3 +
->   include/drm/drm_colorop.h                     | 301 +++++++
->   include/drm/drm_file.h                        |   7 +
->   include/drm/drm_fixed.h                       |  35 +-
->   include/drm/drm_mode_config.h                 |  18 +
->   include/drm/drm_plane.h                       |  13 +
->   include/uapi/drm/drm.h                        |  16 +
->   include/uapi/drm/drm_mode.h                   |  14 +
->   38 files changed, 3882 insertions(+), 30 deletions(-)
->   create mode 100644 Documentation/gpu/rfc/color_pipeline.rst
->   create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
->   create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
->   create mode 100644 drivers/gpu/drm/drm_colorop.c
->   create mode 100644 drivers/gpu/drm/tests/drm_fixp_test.c
->   create mode 100644 drivers/gpu/drm/vkms/Kconfig
->   create mode 100644 drivers/gpu/drm/vkms/tests/.kunitconfig
->   create mode 100644 drivers/gpu/drm/vkms/tests/vkms_color_tests.c
->   create mode 100644 drivers/gpu/drm/vkms/vkms_colorop.c
->   create mode 100644 drivers/gpu/drm/vkms/vkms_luts.c
->   create mode 100644 drivers/gpu/drm/vkms/vkms_luts.h
->   create mode 100644 include/drm/drm_colorop.h
-> 
-> --
-> 2.44.0
-> 
+base-commit: 7291e2e67dff0ff573900266382c9c9248a7dea5
+prerequisite-patch-id: bdfa0e6341b30cc9d7647172760b3473007c1216
+prerequisite-patch-id: bc27ac702099f481890ae2c7c4a9c531f4a62d64
+prerequisite-patch-id: f5d4bf16dc45334254527c2e31ee21ba4582761c
+prerequisite-patch-id: 734c87e610747779aa41be12eb9e4c984bdfa743
+prerequisite-patch-id: 0aa359f6144c4015c140c8a6750be19099c676fb
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+prerequisite-patch-id: cbc453ee02fae02af22fbfdce56ab732c7a88c36
+-- 
+2.43.2
 
