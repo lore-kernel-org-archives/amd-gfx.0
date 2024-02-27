@@ -4,129 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26541C54798
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Feb 2024 18:33:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C25AC5478C
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Feb 2024 18:49:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3E6F10E3D8;
-	Tue, 27 Feb 2024 18:33:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 090F210E7EC;
+	Tue, 27 Feb 2024 18:49:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4/2NlhRr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T2lfNEH9";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2068.outbound.protection.outlook.com [40.107.93.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E30210E3D8;
- Tue, 27 Feb 2024 18:33:34 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2047.outbound.protection.outlook.com [40.107.100.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60B0410E7EC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Feb 2024 18:49:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bRDw0hIt9D57YxZC1ygdXvMlFrS4oiUXarVfVz6tFfKtS0HtX3FMpwr1IqpICMjtZGWtUsBLzhfG7pOQy3dW6MiH4c5waru34VPZer/A4dXgoYQcPO6y+mqnBPUXYzJPQz/mwlSkO1uTCQMj9uKE5ytdHBvywysPqGJajrtRf83ohytznC8mDWNdkFiRI0/jv7wJzXRd39CGZNtQ/3mpdyFhV42hLcDChSncfE4BMtPrTftfx/UB7GtkoIxapgIRGOg8QilEuTbEVegZipUgTW5ZdEUNGBPjBT1zuo4sHRaQfTkBgXOED2UNi0KtDHS0332JiVF/9CFV6mZWBfmrRQ==
+ b=baGtScnQdFAwZpEFIYPHo8xyeY4tLFJdmNiEe6uJcPtd9bLptU94UEUAukqxE7cTIAQNSd7/HmgM7/iCfkMM+Q8i/z9C8seqIyGZeZD5yrLjwUbfvIHEVw9B6etuarHobXuNmwWCS/bER7dzcyXdzZn7ArbcuQsDOW0qaktjIT6ZgoKW2PuWjp94btlkRfQtvLWwbtM/qWAbZYz2G2UWZRJY/yaEGpFWcbAV+bnUeHnOOzDq8Bg6SIOIJlFAApXY+rmp/kmDvNeZD78AINxr44YtnHDL79FcgLgDVrInPscgnFlG8i+SsGxqYRigaex5SJKi17xyEoY2KPiuPfFpag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cTafJyqYABwni96NENvs6BmdGcvAKY3wkpe1CehqlHo=;
- b=nKg/ybmN6glx6NaNSUuqojRoNG+kBmFrbzbEGoktzvengqcRNpnTKR4ZgjjdW725YDbDYqKIMknIUvosnv8oyx4dSivqmNceDahYJwsLIb2HZ3KnDpCaEtk5ZiA98kNnnWuLXjb1Dkv8tUeTrDoHAeJrPj8+hhB3SLB89ZWziOvvlsTYVTC30A1wF7/94Lv/Y6zHr1Yg7qlZQ9FwnbeUL/9Cb37KvWs/ZUSYSCjr2m8HczQL8twS4p1fnVxEiFYSrnWbw9aewW9gDOnt0+jYH9oQbbSmMpwyP0DBdv9KTYsQzTZ43OjPH90dGkYAwiwFVKSW96+L2W6a2Ttcl15pTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=SfdLY8pl5xohtRNz5cK5amKMvlON6u8md4z9Q+T5zio=;
+ b=AKWi6rfZ51sYwED+w8jIPH0EDBdbzaHZabhrlIMMx+/c3b6lv1MhVJJfHhJRLMEzJwhuihzMIybOazp2tQRjLT/xdYbpK24PnY5GJ6LlqCRwzNslcVXAbagwj+Q21FRCMchKsUPpfLQkFp3mJQ8j+7cqDOIHGiuebrS3BHj1eivzJiGeVnJjwCWc2GppFblZRDOUeJipGsCtHz28+89GuwA2Trl1Ujjfkg7ybUBslKzdhkqy3Hmd/s2TFHdaGudYcaSFZkO7uBp/cWBcAS71EOo+qkYOxdhh4oCdND0rbwm6XO1O9E0QXTwJ/ezOhiNq4INSgeET5Ah1w5wBZJycPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cTafJyqYABwni96NENvs6BmdGcvAKY3wkpe1CehqlHo=;
- b=4/2NlhRr63Ega71FLqSd3ed7F0uGLLBA+/BLFLprqpycBULGT1cXXQ9q180yRg1e2qwNN/yH64vdQxeRb491F2M//imTH500FN/HZXW08wuek/t1vksnSOAfqJm0FRXUQGqSd064Xog+wCRRAJ+w/bd+OugbrzO4ExaXVILXkz0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM6PR12MB4266.namprd12.prod.outlook.com (2603:10b6:5:21a::22) with
+ bh=SfdLY8pl5xohtRNz5cK5amKMvlON6u8md4z9Q+T5zio=;
+ b=T2lfNEH9NLB+lOyNyB3530tBQ9Y0S9NoTogP1qDXxmxFtwe13GNZCJxwtohUBeAEWluCND1AeDAR/7v/kEfwoyIoBMdMxTIr6zP99Tazhu701llwzwkT28mvJlXg3Lgxt4S/Z4QSwwVQNr+gKp7rG2543rlNOcqwwNym+DgyFJI=
+Received: from BL0PR0102CA0047.prod.exchangelabs.com (2603:10b6:208:25::24) by
+ SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.39; Tue, 27 Feb
- 2024 18:33:32 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::f2b6:1034:76e8:f15a]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::f2b6:1034:76e8:f15a%6]) with mapi id 15.20.7316.031; Tue, 27 Feb 2024
- 18:33:31 +0000
-Message-ID: <e3eb2794-b90e-4300-96b4-61f6b45b5518@amd.com>
-Date: Tue, 27 Feb 2024 19:33:21 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/13] drm: Fix reservation locking for pin/unpin and
- console
-Content-Language: en-US
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch, airlied@gmail.com,
- mripard@kernel.org, maarten.lankhorst@linux.intel.com,
- sumit.semwal@linaro.org, robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, sean@poorly.run, marijn.suijten@somainline.org,
- suijingfeng@loongson.cn, kherbst@redhat.com, lyude@redhat.com,
- dakr@redhat.com, airlied@redhat.com, kraxel@redhat.com,
- alexander.deucher@amd.com, Xinhui.Pan@amd.com, zack.rusin@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20240227113853.8464-1-tzimmermann@suse.de>
- <d854f70b-1d62-4da7-bfbd-2184456d1d25@collabora.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <d854f70b-1d62-4da7-bfbd-2184456d1d25@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P250CA0010.EURP250.PROD.OUTLOOK.COM
- (2603:10a6:20b:5df::7) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.36; Tue, 27 Feb
+ 2024 18:49:01 +0000
+Received: from BL6PEPF0001AB78.namprd02.prod.outlook.com
+ (2603:10b6:208:25:cafe::e5) by BL0PR0102CA0047.outlook.office365.com
+ (2603:10b6:208:25::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.50 via Frontend
+ Transport; Tue, 27 Feb 2024 18:49:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB78.mail.protection.outlook.com (10.167.242.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Tue, 27 Feb 2024 18:49:01 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 27 Feb
+ 2024 12:49:00 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 1/2] Revert "drm/amd: Remove freesync video mode amdgpu
+ parameter"
+Date: Tue, 27 Feb 2024 13:48:46 -0500
+Message-ID: <20240227184847.3078099-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.43.2
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4266:EE_
-X-MS-Office365-Filtering-Correlation-Id: fea19e46-3403-4cd8-b38a-08dc37c2994d
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB78:EE_|SN7PR12MB7835:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35720dbf-52d7-4a08-0740-08dc37c4c3ac
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fYW+uKGWD9gVOrIQCcxDQvisYOqvBKCAMbi24tljOu5AuqVaTQ+CQFEKbQjZ6nb64A0fKmGo6+sX2EqzNXPAS4OEL7kPv5eJnBM2/FNPBzJHO0KeoBPU7sBh/CzmpsnFYhLnMVVkXcXBa+4wRdy5GuXyZXmpsfXlpokRHk2glA/ndYerkELxAT5VF1Ke71g1VMPvsf12k518EXTvf0G3rk6gDhY9yjnFWhnW4fufJ+fxWnEddAtMPCLcNF6VwqS44lr9BO4zqGBliQw3PUMECYqmUBFCjRInYIMwxqa1SFYqtm7ywo39DjZCBlR8Az3RVATOt2cj3Te+XE7zxF6dm6OoF82SjOipuMjNv+6PJ198SkLzB4k3xRBFQFmnc5YLQl5WgvoNfCHpku+nu9kdIuMB1Zc51daHIm+Q0BAMv5qPKzcYWsove6xmb8xsnuuknnf1+IKkvmk3bboQqvkJxzJGCXFPuoKTA1Fi20UEAAeKRkwnkOLaa0mIySSM4z8mLyI7axuBA8d9Tnrjv/EEnc8poJ2Nbjx88aJGGl3vKbxNZsOMYyiAMqGVpmjVzKstZ/4meACSaH/1HHDj98cv9jeWINzjNIjvp39EvjXqXmpC/W7xGA3armrWMIZv+U22PjM5gLJvW612eh4g04mSUvXHlqALSzwOyqgSVVHytdpF3pyKPvOtv3+L9P8FmkkhfGobC020Nl/+g9DIBSB8wA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(921011); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnFYSVJkUTRUNTJpRTIyUTZhQlVnbjJDd0lMY0p1QkVyV0NuYS83MmNWNVBt?=
- =?utf-8?B?SE90MzFMY3RuWnVJMktYeEdXbUpyZVp6T0RJTHovbmJxVzJlbkx1bDRxdDdZ?=
- =?utf-8?B?UHJ5eVlhakFML0xBVW9UY0hxNVVHcXJyZS9OV2ZoMmJkVzYwYUpTclRtVkFX?=
- =?utf-8?B?SHVVQXVVQUY0cGloaGh6Qk9WaWJtWkQ0UkhtLzFvdVV3ekdnNURpZGRRbFJh?=
- =?utf-8?B?YlI0SjdsM0FYMzFQRWloMFBvWGxJL2xKUWNLUnhOTWdva2xWRzEzSEtwRk1I?=
- =?utf-8?B?dHpGVzdNazAyKzZpcENod1NGU1hMVVVsOXhkeks5eS9sTCtQNGhpTXZ2V1ZG?=
- =?utf-8?B?RExtSWlOd0cycWlldGR3WFloVk11ZCtHVnA1YTAwZUk3VTVOZkxuRDUvdmdh?=
- =?utf-8?B?ZkxydEd2Q3JoQmZGaHlvSDZ1Uk9ISDR4R2lreElmQlpGaGJqMmUwZXlJM0Ry?=
- =?utf-8?B?UjcxN3Q2aFBWeE5McjBmcjdVVGwwQzloVGhEZUU2cVVyOWFTMmVHdk5ZcE44?=
- =?utf-8?B?NUpHWnkxaFBKTVZhY0VNQkV4TjhMb2ZsZG4vQ1FqYjhVdC9oS3BBYXRHaUtF?=
- =?utf-8?B?bWMwNnhQWDg5T0pHSC9QMXl0S29jbHBwSEdZZHBvOFEzZWxsSWhpMC9jK25h?=
- =?utf-8?B?VHdmNlZyMlNleXc2Ynhzc3pSQTlxU3lYYldhbXFnUVpuTDFOT1VjeGpaOGFo?=
- =?utf-8?B?bDhlMFJsWVNaZ2dub0t6UEZNNmJOQWIwQUlvcktEcXQ5Nm1SemJ6VzRyUFVH?=
- =?utf-8?B?MEdCeGI0RUp0Y2FPdExhT3BaeWZvRG9uOTYxYUhVK0VORDc2QXpjc0ZPMmpI?=
- =?utf-8?B?Z2doTnE2V3EvOCt3cUVCbmJNQlAxaFBzbm16YmRMcHM1dmdIc1gxQTJ5cnhU?=
- =?utf-8?B?R29ielkyTDFQRWttNEVMUVVHQUVVT0EvdmRiV05GY1BERUM1YW9VZ3lqQXBQ?=
- =?utf-8?B?U3JDWEMyaXRwRE5aNDFKWVBaM0xhZ0kwZFFuTEVJWEIyUHB3UFhsZGdtV0sw?=
- =?utf-8?B?WkNNWXZpbmVSMkVHeG9mYlU4bVpVTXNNYjJDUTNMSDVjTG1DWXBpdFVTWnBr?=
- =?utf-8?B?bXovRzA1R05QMFk0M0VxZTMzek55cWlZTDlnSWphd250OUNQR2pDbCtJVDQx?=
- =?utf-8?B?WUdhY1E2aDFBWmIxbnhOaFc5ZWFJT0I0VFBLTjg0TFJkc0xjT2p4NWRNTTZX?=
- =?utf-8?B?WXpDTjlLR2N5ZXRybnVRbkJaYVVlNWU5ajJpQzdRcXBmMFZtZ05sRkQzdFJn?=
- =?utf-8?B?UW8yT0lGeWFZbU81dUNSWHlOMTZBUlBLQTZNY1VVMUJpZkdlK3RzT0J0OERi?=
- =?utf-8?B?d2RwelplbGF6K0h6V1Y4N0JLYkRTT1lmRTgvcUhZSHIyMjhsekw0VzdIUU9w?=
- =?utf-8?B?VGpVSGNvWTZZci9pTndBcEpaNVQ4Y1B2NGJPWXp6bnBOMXFBbXlpekZsU0pX?=
- =?utf-8?B?aXlDR0V2Mk1lQmxsQk5SV0NTdWRGbHJWcU9ySmEwb1VkUDd1V0lyUEp6VElZ?=
- =?utf-8?B?YTRDYXp6TE9wcGhKNGFxb3hLeWFGallVeE1LZWxVMmpSbXV0QlBqaVVGM1RY?=
- =?utf-8?B?bENGZng1MENYc0JhcjRZTENMYWxOWm8vV0hHd3ZwME9TV1BuQXJobHUxeS9m?=
- =?utf-8?B?NFFwSE1pbmY4cUFUTkFmMTV0blFud3FoOWxGa0RuUWxHQldBQUN6NHBmOXBp?=
- =?utf-8?B?RGlTaU5GMEl3alNtNHRqWmFMZTJ4SmdRVEZ2R1c5WHlnVjg4TjJnY0hNRWF0?=
- =?utf-8?B?RnhiTmJhRWdCWHFEUWExMndna3J6MGlzOG9VZUNFNFRRREhBU0ZmM3RzNHNN?=
- =?utf-8?B?T3cwVkFBeTl5QjFsenRZUGZueExUY09ORXRCUHJOeFNzMnN3eXlPbmgyNW9n?=
- =?utf-8?B?MlRkWElKN1dSRlo3dlFENU1JMGJEOTEzemUxQzM1Y2ZJM0lIc2Qvenc0bHBn?=
- =?utf-8?B?cU5DaVlHeG9rT0pzTHJZaENJcU41cUxncEgrMjZQNHEvbFZjVm1zV2d5MHZN?=
- =?utf-8?B?aHhDcHc5ZGFyaVpRR0krUjkyRzZEUmZvSkhJODhRNm1PMXptUkhpVGIrZFQr?=
- =?utf-8?B?K29sR0dCUkx2amQwS0s0eDRXUVdpOEdERGdQaU15L20xdk53OTFxb3FBdDFh?=
- =?utf-8?Q?tdquSlAUT8Fisa51OEvEuLQo1?=
+X-Microsoft-Antispam-Message-Info: HA2f3/Q5skrQx9oDnxmclX923J1phaHYPj5WU49ssJ3zSodgWHRR37eOhlma+Q7s4FvKiyKF3PfHQSkImt+buJ5/+0F5dWu5Hw4v0lM5XfBzV5to/MwXDeGCzIILaZWVJeuRZ2olpHAWYRGhGg0qJ+erzwWfEjb1yCZVCmno+StXi47Eswd4oLM9enbM7bbpvhLOJahUu3Xc/Jg1FC5M36C/dFWr6pmIXM8tTwt7thm8UKL8ZZKgxP11iTkBa76Eh7hB+DSazEQ/6m3zmlfuyI6g9mN95FslOhMTT3JbZaGtih63WHpcpmYppGjYeLQbHRpqlwz0UOie8STAt6eOg8CTT7UAPgTOhTqd/mLXUx4Cjl1BvPUaJGOrqKtSGU1Bb8WVhrdFMCQAcGJ6WbNNP1b7xtZPsu/Vb/YMuTbr0QCjizR2zoLE7tq3VupZ0ms2RZADQpkiv0aypecEcO+Q7GOM9IPfXQeORUVnFTKRZsTYENLbbWwWlPkMsBOn9yfQoCAWi8ZY4YlW7N+teWRojBAoev7/pArkm6jePlUK0726qqHCXWCjwTdjJPe7KS0J/KrKJlpL0nIMBtaoGRhKIbFQ8c7P+fhoXBdqM0sjcQqBCY0GF8xf2TOP9cQYZU+6PRhaZgZLR0Chvqdgbdue3o2P+FMSFGpv1KvlLRkiPJ+rHWslj61jtRnlF/0t6X7AkhMgLNBU0IrG+WeHqhorKUhXtbGFFVZIK43/er7ALYM=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(82310400014)(36860700004); DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fea19e46-3403-4cd8-b38a-08dc37c2994d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2024 18:33:31.7823 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2024 18:49:01.5247 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35720dbf-52d7-4a08-0740-08dc37c4c3ac
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oo4dA+57OPmRT8J/Ay3phvzPGSoT++f21wqO6INvPQQmJTzp8Gmrqwt81Zk0jvyy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4266
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB78.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7835
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,83 +104,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 27.02.24 um 19:14 schrieb Dmitry Osipenko:
-> Hello,
->
-> Thank you for the patches!
->
-> On 2/27/24 13:14, Thomas Zimmermann wrote:
->> Dma-buf locking semantics require the caller of pin and unpin to hold
->> the buffer's reservation lock. Fix DRM to adhere to the specs. This
->> enables to fix the locking in DRM's console emulation. Similar changes
->> for vmap and mmap have been posted at [1][2]
->>
->> Most DRM drivers and memory managers acquire the buffer object's
->> reservation lock within their GEM pin and unpin callbacks. This
->> violates dma-buf locking semantics. We get away with it because PRIME
->> does not provide pin/unpin, but attach/detach, for which the locking
->> semantics is correct.
->>
->> Patches 1 to 8 rework DRM GEM code in various implementations to
->> acquire the reservation lock when entering the pin and unpin callbacks.
->> This prepares them for the next patch. Drivers that are not affected
->> by these patches either don't acquire the reservation lock (amdgpu)
->> or don't need preparation (loongson).
->>
->> Patch 9 moves reservation locking from the GEM pin/unpin callbacks
->> into drm_gem_pin() and drm_gem_unpin(). As PRIME uses these functions
->> internally it still gets the reservation lock.
->>
->> With the updated GEM callbacks, the rest of the patchset fixes the
->> fbdev emulation's buffer locking. Fbdev emulation needs to keep its
->> GEM buffer object inplace while updating its content. This required
->> a implicit pinning and apparently amdgpu didn't do this at all.
->>
->> Patch 10 introduces drm_client_buffer_vmap_local() and _vunmap_local().
->> The former function map a GEM buffer into the kernel's address space
->> with regular vmap operations, but keeps holding the reservation lock.
->> The _vunmap_local() helper undoes the vmap and releases the lock. The
->> updated GEM callbacks make this possible. Between the two calls, the
->> fbdev emulation can update the buffer content without have the buffer
->> moved or evicted. Update fbdev-generic to use vmap_local helpers,
->> which fix amdgpu. The idea of adding a "local vmap" has previously been
->> attempted at [3] in a different form.
->>
->> Patch 11 adds implicit pinning to the DRM client's regular vmap
->> helper so that long-term vmap'ed buffers won't be evicted. This only
->> affects fbdev-dma, but GEM DMA helpers don't require pinning. So
->> there are no practical changes.
->>
->> Patches 12 and 13 remove implicit pinning from the vmap and vunmap
->> operations in gem-vram and qxl. These pin operations are not supposed
->> to be part of vmap code, but were required to keep the buffers in place
->> for fbdev emulation. With the conversion o ffbdev-generic to to
->> vmap_local helpers, that code can finally be removed.
-> Isn't it a common behaviour for all DRM drivers to implicitly pin BO
-> while it's vmapped? I was sure it should be common /o\
+This reverts commit e94e787e37b99645e7c02d20d0a1ba0f8a18a82a.
 
-No, at least amdgpu and radon doesn't pin kmapped BOs and I don't think 
-nouveau does either.
+This conflicts with how compositors want to handle VRR.  Now
+that compositors actually handle VRR, we probably don't need
+freesync video.
 
-> Why would you want to kmap BO that isn't pinned?
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2985
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 27 +++++++++++++++++++++++++
+ 2 files changed, 28 insertions(+)
 
-The usual use case is to call the ttm kmap function when you need CPU 
-access.
-
-When the buffer hasn't moved we can use the cached CPU mapping, if the 
-buffer has moved since the last time or this is the first time that is 
-called we setup a new mapping.
-
-> Shouldn't TTM's vmap() be changed to do the pinning?
-
-Absolutely not, no. That would break tons of use cases.
-
-Regards,
-Christian.
-
->
-> I missed that TTM doesn't pin BO on vmap() and now surprised to see it.
-> It should be a rather serious problem requiring backporting of the
-> fixes, but I don't see the fixes tags on the patches (?)
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 0e365cadcc3fc..925026c183f41 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -194,6 +194,7 @@ extern int amdgpu_emu_mode;
+ extern uint amdgpu_smu_memory_pool_size;
+ extern int amdgpu_smu_pptable_id;
+ extern uint amdgpu_dc_feature_mask;
++extern uint amdgpu_freesync_vid_mode;
+ extern uint amdgpu_dc_debug_mask;
+ extern uint amdgpu_dc_visual_confirm;
+ extern int amdgpu_dm_abm_level;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 15a8a64fc4e28..82b154b103f43 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -199,6 +199,7 @@ int amdgpu_mes_kiq;
+ int amdgpu_noretry = -1;
+ int amdgpu_force_asic_type = -1;
+ int amdgpu_tmz = -1; /* auto */
++uint amdgpu_freesync_vid_mode;
+ int amdgpu_reset_method = -1; /* auto */
+ int amdgpu_num_kcq = -1;
+ int amdgpu_smartshift_bias;
+@@ -883,6 +884,32 @@ module_param_named(damageclips, amdgpu_damage_clips, int, 0444);
+ MODULE_PARM_DESC(tmz, "Enable TMZ feature (-1 = auto (default), 0 = off, 1 = on)");
+ module_param_named(tmz, amdgpu_tmz, int, 0444);
+ 
++/**
++ * DOC: freesync_video (uint)
++ * Enable the optimization to adjust front porch timing to achieve seamless
++ * mode change experience when setting a freesync supported mode for which full
++ * modeset is not needed.
++ *
++ * The Display Core will add a set of modes derived from the base FreeSync
++ * video mode into the corresponding connector's mode list based on commonly
++ * used refresh rates and VRR range of the connected display, when users enable
++ * this feature. From the userspace perspective, they can see a seamless mode
++ * change experience when the change between different refresh rates under the
++ * same resolution. Additionally, userspace applications such as Video playback
++ * can read this modeset list and change the refresh rate based on the video
++ * frame rate. Finally, the userspace can also derive an appropriate mode for a
++ * particular refresh rate based on the FreeSync Mode and add it to the
++ * connector's mode list.
++ *
++ * Note: This is an experimental feature.
++ *
++ * The default value: 0 (off).
++ */
++MODULE_PARM_DESC(
++	freesync_video,
++	"Enable freesync modesetting optimization feature (0 = off (default), 1 = on)");
++module_param_named(freesync_video, amdgpu_freesync_vid_mode, uint, 0444);
++
+ /**
+  * DOC: reset_method (int)
+  * GPU reset method (-1 = auto (default), 0 = legacy, 1 = mode0, 2 = mode1, 3 = mode2, 4 = baco)
+-- 
+2.43.2
 
