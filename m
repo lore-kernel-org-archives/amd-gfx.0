@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEA9EC5478C
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Feb 2024 15:46:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23C92C54798
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Feb 2024 15:54:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58C0E10E755;
-	Tue, 27 Feb 2024 15:46:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74F1C10E60D;
+	Tue, 27 Feb 2024 15:54:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qatQzC3H";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5N9aFPAC";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2075.outbound.protection.outlook.com [40.107.237.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47D6C10E755
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Feb 2024 15:46:13 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2054.outbound.protection.outlook.com [40.107.243.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34C4A10E68E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Feb 2024 15:54:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eYjSO9bPrDur89TfeML8TbN7S86AUBkI1YuIxZmf/6yckDpwDQce7/MIzGZC5dg15MOrvjWVPHriD6dNfSNOspsx882JwOYe1z4ZUn2RxjeDZC8T/DpVMF8aWcOOgx0hQV44iJRK6Pri6RWUxEgcvgSgB+J2H2GBLDwvGpoyrfqxRYCgmZbUo7QkDmfvSGnR/RzJQQdNcVvvTrFbXzIOdyE1b4NeYrc8zUl3cfAYg71gDQGLpmUShsAGTEVIPPRFm7s3E3X+alOVHUp1ztANo5HUyTUt5FyosEoqtvG7xEvYKAAEl6CZ+yOYuHJ3wpgE963O0dI/SI9ZiarrdRhWKg==
+ b=e18DS0y0yq9lIqfSg+XM46KAHBp1eQOiRTGcUGAYN04i0wWkLh8DXX1VndIHWV2BD/catUEMfxToDqwJVF+Jozpi0Ed6wBzjfh+la0GB0nnWry2Qz5GkZqNyS6NWR3il4M5lbG9nYCgSKkgEmfGzp4PGGRBYAZ3XX0AfKuM2gjL+S6AkldJpOhteVz5YiLXSXC6YkOWVhMWjBJjIPaZMdDaU/szUGyLrkr/XHkPbAu/5wSF1voFbmjcDqsqKlqV1EEqrSMhp0qe7emztwVmghlST0P1ySiplXzE7ngnBeI23AthUTDQhPwGeOvL0UFkEzekqYvCxtFDgdG18nYWR0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mBljWXXDf9f7iUvVjnqltLUQmp0kipzbGumUe4MHFPA=;
- b=DEJZwAtBT0V7//ysST9VRymtbs866vjU71lEXWl+0yMKMZbW5mjBWK4Wtvwmxnt55Nl8sK01Q4RRhMlxyIGPGV66cpL54aXqIOCrUSNXDvbf6jRZo7Ns1efRxsVkeYbyWAIdnrgogPLMuH2CeTRoSCCS9Ce6MmbMuYpErh2QZtDWgI0IISNNy1Tmd2MUamJMhUie36ICR7qeOYrIDwNhrG46zpZYFbUsi6imSkpylDvrUcB0FKKLKPvvhWPnITvx/QiIFaqCqCc53pkGvoNIWsn+rLCEeYT19veHijkkqb90EEFeCXIQ4YA12hfNEOR5KWqw8O+puJziLLt82XGpjQ==
+ bh=nAGflL946tGg0PZAD4iqZVOnSpGiGyJFCC8GD+C+YUM=;
+ b=d8uNmAsKhjIAVvBm4f0k4JIvguc40mISlJ++aBG0HFgCZ1Y+UbnyiIUfRAbBTL2A7XmOGFj0nJfHYAb/cMXKT9EHS2cj6tVX45XpKnghH0LOh6vsxvoQFevW+KrYa9kst2Tn5ZkqJvMu5+ExhL1W7EEfstFtEI09mobU7l5jrXe2O4BQQZEj9GpTJX9oajYdRRfpCGptRXAT57JI7Io9f4kuoQJKWuonllDCY/dGatFUn3L/kZsKUbYI/aIpwhTxs4D2ytwe4yqVaCur55nADzsYAgumYfW9XPag1C7tFqNfhZ557gvIfS0Xrhp6v7Aj4YdEDnpibOL7LgwsoTzUlA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mBljWXXDf9f7iUvVjnqltLUQmp0kipzbGumUe4MHFPA=;
- b=qatQzC3HboHDPFMH43gz6xipBY9kULyx+/RQD0cdOFS4nfwuUMG86CRPJzYN5g7WTrJ9eUdu1hg8h1r+kz89GCz7Xq3IF6+UQUEo+/Arp4qYaZCd2cdlZrw/sZN1q+TL6NZ9jeJOxMqaGGiK2/R71oSMsHuskBmw3pB62TpQS+0=
-Received: from BYAPR05CA0029.namprd05.prod.outlook.com (2603:10b6:a03:c0::42)
- by PH7PR12MB8780.namprd12.prod.outlook.com (2603:10b6:510:26b::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.36; Tue, 27 Feb
- 2024 15:46:05 +0000
-Received: from SJ1PEPF00001CE1.namprd05.prod.outlook.com
- (2603:10b6:a03:c0:cafe::2f) by BYAPR05CA0029.outlook.office365.com
- (2603:10b6:a03:c0::42) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.25 via Frontend
- Transport; Tue, 27 Feb 2024 15:46:04 +0000
+ bh=nAGflL946tGg0PZAD4iqZVOnSpGiGyJFCC8GD+C+YUM=;
+ b=5N9aFPACQQ70pjp7w2TpXPbwLWyXl6eBlF/kpzL9lsn9euL6nCbXBbY0sL0uXBfP7a30bf8NmrMnkwSYy2yM+aOng/9DwtKa1Z1ePIGunItk1MyVhOfLYTOqO9D79RzaWIl8NYUcN/Y9cwRerlhO50++e5fEvEz1JCVuBboKK1I=
+Received: from BN9PR03CA0412.namprd03.prod.outlook.com (2603:10b6:408:111::27)
+ by DS0PR12MB8454.namprd12.prod.outlook.com (2603:10b6:8:15e::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.34; Tue, 27 Feb
+ 2024 15:54:13 +0000
+Received: from BN3PEPF0000B06C.namprd21.prod.outlook.com
+ (2603:10b6:408:111:cafe::a8) by BN9PR03CA0412.outlook.office365.com
+ (2603:10b6:408:111::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.49 via Frontend
+ Transport; Tue, 27 Feb 2024 15:54:13 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,51 +48,47 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00001CE1.mail.protection.outlook.com (10.167.242.9) with Microsoft
+ BN3PEPF0000B06C.mail.protection.outlook.com (10.167.243.71) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Tue, 27 Feb 2024 15:46:04 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ 15.20.7362.0 via Frontend Transport; Tue, 27 Feb 2024 15:54:13 +0000
+Received: from harish-base-compute.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Tue, 27 Feb 2024 09:45:59 -0600
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix potential truncation by increasing
- SMU_FW_NAME_LEN
-Date: Tue, 27 Feb 2024 21:15:46 +0530
-Message-ID: <20240227154546.2818912-1-srinivasan.shanmugam@amd.com>
+ 15.1.2507.35; Tue, 27 Feb 2024 09:54:12 -0600
+From: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Subject: [PATCH] drm/amdgpu: Removed used parameter
+Date: Tue, 27 Feb 2024 10:53:55 -0500
+Message-ID: <20240227155355.517538-1-Harish.Kasiviswanathan@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE1:EE_|PH7PR12MB8780:EE_
-X-MS-Office365-Filtering-Correlation-Id: fcf5b381-5736-4bf7-620c-08dc37ab350c
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06C:EE_|DS0PR12MB8454:EE_
+X-MS-Office365-Filtering-Correlation-Id: b342d283-0a5d-4472-26b0-08dc37ac5808
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tFhtE3eMDwVwRjckOGnZuESEP4kzjH2X8Ao8rwIk70KjaD0d9qc9J1OF8ZcYjGdztOX3Yx1q1VGeCGKrrmUl1AYupxCsSOngCwIWFpJguZs/aaEdh3lZvdtN0f6aqOaVeQt1bqP5zuph5HALnvUiAWn8omybElk+CvfXvmODYDys4CcN8w09LrXt0lCrtCuHhkMtiaoa5X0v11zcTZCQUPTe6qFdcdN01uB8w8Pnc4nKTd9zMBXY960yBbBUJ5UWim06u1A4Y3OXqG0kuqrDPt1JoUjjNyzidSEvQnAtZrLD0aXUUhUENYWYhhYVtmfGmIgqNLtaptLWShEFYfRhEDYkwlWvQfyoU2oFsLziXoLSnDHtoIBX6GJOEYsaZc1qHddtl/2nlEen3I4rfsrA+PDXbHF5uOHe5flCF/F5ZkVSbuB1xzIdKTKeZzbvuWIEvwimFSW0MOgkrYNCLZpOtq/kdppqpavruFHsf6FFdH8kGc1J7huk6rKCmTJV20st2dNd6iyqH16ZCU6StMQRSkGETjHj/HxLUH4XRUCSo7JOuu4t96WPOlIP4/9k26GhltB/fCID7MPOsuYJGYuSc4VMIs6R3FrMTrRne61aoKfsXdAfo34Oiy47W9kaO/4Y03vpKd2RsC+38zXLiOPq5HOxhZbIJKjZLma/5AWPmLuoVFUT+Bs13VjoLB4/ibZRtAn54NRfPdDT/qY7VDkzxjT/n1w3ZRFedsBOrHuN4cNI/NTUbRFusbTDL/2GXGSx
+X-Microsoft-Antispam-Message-Info: 76Q+Bmqc4g8Gx1+FVMh0/QkOqg3tQViBAXGP8Oo6qWEwy/9b3lyLw6vGO2y41H0RpvkzuXUv+pDLapdjYBDhCzVny2MeipbHuyPaUmTbpeCIJa0WdZ+Aje1FZXbzxiRUQIffGEzbYuHsRCcpJVpj2smPipmY+Hjlh74hlTbec8QjMsro2F133AXCKkQp5pNkAqyyuIe8vLp/k2kCdp5OiOPSnOlKTlAKjtoL7zo0Q74Rp/aOEYfc9LqxtkkriQO/AAzPMKetzTb1NQgmOdaznFJ/EpUqpxvbOemVRRp73Ql18sJrG//hWNmmpiCK0kiToPCv+c6OZ0dXcFSm7Y9UJpKN6zZ3ge+v8XlDfqYw1UMi/a3J6IT6/1eo/eG9+HQhQK6g5qD8e5TyTpN7mNnu/jK2jK+2qPM6qbJX4lvzSBH6QeoD4O4H+ZTsqxwHGfuyH1bv45N+gXuCi4H1pcEvEclKL4WX2nKWBGcPBlysTf+Yv9a1HCZjb2gxfo6OOcUauJhecyhyejMVFU2doA+07l2PIDPCYl5eKEEkf86rOukYwVGLaWbbkbrkO422oq9WA0JaLHRF9Y6jthM4tlnAeB45ZUdwgSppNHAx99tj1M4WFy4JCztTNx5YBumBjZa+V9/u0m4uYkvu+DRHdXFKorJsjUs4Iv81857HB0m9FBWNakxFZxGeSVTAn0wFpaXDXOvkwcDZ5CeZLrhdKAo1oPia9N99/yJWxaBzSJfDDUW6BH8QbcpP5ZMH9w+mxx8m
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(230273577357003)(36860700004)(82310400014); DIR:OUT; SFP:1101; 
+ SFS:(13230031)(36860700004)(82310400014); DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2024 15:46:04.7457 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fcf5b381-5736-4bf7-620c-08dc37ab350c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2024 15:54:13.0130 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b342d283-0a5d-4472-26b0-08dc37ac5808
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B06C.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8780
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8454
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,49 +103,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Increases the size of SMU_FW_NAME_LEN from 0x24 (36 in decimal) to 0x2A
-(42 in decimal). This change prevents truncation when the snprintf
-function writes into the fw_name buffer in the smu_v11_0_init_microcode
-function.
+Also passing adev is misleading if BO is associated with different adev.
+In this case BO is mapped to a different device
 
-Previously, snprintf could write between 12 and 41 bytes into fw_name,
-which can only hold 36 bytes. This could lead to truncation if the size
-of the string is larger than 36 bytes. By increasing the size of
-SMU_FW_NAME_LEN to 42, we ensure that fw_name can accommodate the
-maximum possible string size.
-
-Fixes the below with gcc W=1
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/smu_v11_0.c: In function ‘smu_v11_0_init_microcode’:
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/smu_v11_0.c:110:54: warning: ‘.bin’ directive output may be truncated writing 4 bytes into a region of size between 0 and 29 [-Wformat-truncation=]
-  110 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
-      |                                                      ^~~~
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/smu_v11_0.c:110:9: note: ‘snprintf’ output between 12 and 41 bytes into a destination of size 36
-  110 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Fixes: 6b54496238cc ("drm/amd: Convert SMUv11 microcode to use `amdgpu_ucode_ip_version_decode`")
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Lijo Lazar <lijo.lazar@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index a870bdd49a4e..3d98b0e0eec2 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -35,7 +35,7 @@
- #define SMU_THERMAL_MINIMUM_ALERT_TEMP		0
- #define SMU_THERMAL_MAXIMUM_ALERT_TEMP		255
- #define SMU_TEMPERATURE_UNITS_PER_CENTIGRADES	1000
--#define SMU_FW_NAME_LEN			0x24
-+#define SMU_FW_NAME_LEN			0x2A
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 4fb32d86cd0e..0ef223c2affb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -320,7 +320,7 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
+ 					     void **kptr, uint64_t *size);
+ void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem *mem);
  
- #define SMU_DPM_USER_PROFILE_RESTORE (1 << 0)
- #define SMU_CUSTOM_FAN_SPEED_RPM     (1 << 1)
+-int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo);
++int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo);
+ 
+ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
+ 					    struct dma_fence __rcu **ef);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index ef71b12062a1..d0819fa5fcd8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -2189,13 +2189,13 @@ int amdgpu_amdkfd_gpuvm_sync_memory(
+ 
+ /**
+  * amdgpu_amdkfd_map_gtt_bo_to_gart - Map BO to GART and increment reference count
+- * @adev: Device to which allocated BO belongs
+  * @bo: Buffer object to be mapped
+  *
++ * BO will be mapped to GART of adev to which it is previously associated with
+  * Before return, bo reference count is incremented. To release the reference and unpin/
+  * unmap the BO, call amdgpu_amdkfd_free_gtt_mem.
+  */
+-int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo)
++int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo)
+ {
+ 	int ret;
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 824e660283b2..f030cafc5a0a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -371,7 +371,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 			goto err_wptr_map_gart;
+ 		}
+ 
+-		err = amdgpu_amdkfd_map_gtt_bo_to_gart(dev->adev, wptr_bo);
++		err = amdgpu_amdkfd_map_gtt_bo_to_gart(wptr_bo);
+ 		if (err) {
+ 			pr_err("Failed to map wptr bo to GART\n");
+ 			goto err_wptr_map_gart;
 -- 
 2.34.1
 
