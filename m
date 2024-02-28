@@ -4,62 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F414C5478C
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 14:25:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA0CAC47DD9
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 14:42:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA6F710E49A;
-	Wed, 28 Feb 2024 14:25:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71E2110E091;
+	Wed, 28 Feb 2024 14:42:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y2c0saPa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="G5BFw7R9";
 	dkim-atps=neutral
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 528AE10E49A
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 14:25:38 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-5dbf7b74402so4416126a12.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 06:25:38 -0800 (PST)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7A1C10E091
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 14:42:34 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-1dc5d0162bcso46991855ad.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 06:42:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709130338; x=1709735138; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1709131354; x=1709736154; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7fVEHGf7n/Z5tsOGvlb7khpwnTvIN9sEFj2KS5bzEn0=;
- b=Y2c0saPa+VBsZmxqB0vF23Yl6XfUjWVK43Mog/LvRU8wuQuEkFTVuktAkbuZtUuuyH
- g9SraHuiqINPG3VigKJ/sgYE2dSiiUvViGiOGkzMhRwnqFDIQW9B4k/YFXSbAmYzKNAz
- X+3mYPJ3xL6xDsuXHeaz2G5D3e3iUpPJHRKZrObyFh7mtn0WMPRHq7P+JixkDp/++jP8
- tcwBiDzJGaaqF+7ncOxF1AngFImxabritka8ouxaGdk6JZ3Ca5yTqJJ6VTGuUu5XzCRI
- v9IK/O1dKRfDn2Tv09yQNFBpQcVu10dSANDv0t4e48MS31C9sk6ylhz/QtON8kSgEZ8q
- 8NUQ==
+ bh=9RrRoP9FTKB9RW0a54kzqv0BuA+7ynzoItfg7omv4V0=;
+ b=G5BFw7R9+bBM2SUFIR+g+FET1wJdJ164/EwX34NSM+p6kC2lFXDXROXnpa1j0KKS0S
+ CDCy7M3DePGT4eLsDIl05qAzCJUxypWh9RIA0bhjD74c1tkEul3m/FN55JLeWhWlspc4
+ hcQ1HnzIfIikK9ivtW1fnTcZv6eh6ZZ+B2OoCwSFSZnq4DxrUpMARV3f6pFFqixX+xiX
+ eG7O2CxZRA4+u54oNwH7wwiT0HOaijaonM9IXh7axVogxqTcrwdZHVUGQFfwu7NT942p
+ BGjhUWlE18hf5WTuqnDn7vHUbvHw2zKp/WcNyfueaxXnZ2Lxwgx1Feo2b0rGwVI3y+g6
+ EtWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709130338; x=1709735138;
+ d=1e100.net; s=20230601; t=1709131354; x=1709736154;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=7fVEHGf7n/Z5tsOGvlb7khpwnTvIN9sEFj2KS5bzEn0=;
- b=HKLRK+5606V3zcA7nE3z7w+Xguspxeq7dlWEnmJwZ4wpaxS0Ew9+tpjjBdvT3Vlz/Z
- Rzcyc/9ewNxKu65c1MpZ7xjix+em2oKl3FvFs72q4UYAnG1GaBUdHsC6iG9Bk2tDsHiW
- cnImQ5CyQp3G2hKbdvynPWTdVH/9k08EKKj9sD+FKeJzsAcFUcv+aXFrrjm8o2KBllS2
- eaeZsXRhQoE4ZG2je6IM/TavvXweNhOhHHhDycRj/LoXLsOac0czn9L64Cns0kq57ZEg
- f/wjCeu7gOOpnRbFHRbTOKufQ6U5lAcvA/jfbtMBGohgjfKaNm+hSNdreFE/jJ89OVK5
- ZJFQ==
-X-Gm-Message-State: AOJu0Yyu/0tzC9seTIVbpt/fUQMEHzj3re1oba0M/h757t32O0+EJ8wn
- Cgls/P7AZdSbSwpnoO+2Q/cJiIHdgNIUcqUz6P94msLywotHRjT0EtCEANdkkhh/l4gr6CrdqHS
- EZMYAozLz7ETDdvy9QDWIQQMzrjc=
-X-Google-Smtp-Source: AGHT+IHZ+F54Dl9NPyta1GGdr/nlYVfrYfd2s8QYcZhvXEgK48EQBNtjLEdjtVS/EXM+E+zT47ZBbJYQwZzCsPlBARs=
-X-Received: by 2002:a17:90b:4f86:b0:29a:e05f:3f55 with SMTP id
- qe6-20020a17090b4f8600b0029ae05f3f55mr5147495pjb.2.1709130337633; Wed, 28 Feb
- 2024 06:25:37 -0800 (PST)
+ bh=9RrRoP9FTKB9RW0a54kzqv0BuA+7ynzoItfg7omv4V0=;
+ b=ihenlueaaez0lERd9oFO7yxMRkyctSOTaEJHidnfvCx/gQG1A9zTHjV/RWVI5sSYYL
+ u1GQ2X8MaCzl+dkiX1bq4MAUvS5RNdL/yDXsBr8QRMCUrNBXi80RTZQ8DCBg+O7sEnJk
+ TJ8aorzhqt5OS9HAwvlJ2+An01va/5duUDW2ffiEBMcHarN5tADQhzOAeQs2UgsGxRAM
+ gi6uC7H5jojzereUAodLL1xcBx0zQJuT7kWhA5KREJduREKEPfNY3SIKh6AhETpwdhor
+ oOVvpPjPQWq343NKjpB0+exLiWCew+f57qo1HJXiDCD1AEUxOuVUZ98pYXU+sfviie2z
+ h1EQ==
+X-Gm-Message-State: AOJu0Yz+7PKqa4/WNj0tuDLknZpHQ5dNWfFGIML107GGL3D/qRq77IQW
+ UJsfO0AbjTWZCHpILwCQtRNEtS/GeVIwAWNqSEudj6jRTrhUKBMt1tgV4lxiualI4EigsL97/So
+ FCQMDdL3VyIVEVSS+8mSEygGo6Wo=
+X-Google-Smtp-Source: AGHT+IH8ufNgb0fpIuaM5xZJQ8Dpj5Sy+mrw+hm4SircDNMBMwGzFY4eOdfs4S2GBId3z8xIvu7in3fudXGDvCXJ8R8=
+X-Received: by 2002:a17:902:c943:b0:1db:916e:d77a with SMTP id
+ i3-20020a170902c94300b001db916ed77amr17006337pla.2.1709131353967; Wed, 28 Feb
+ 2024 06:42:33 -0800 (PST)
 MIME-Version: 1.0
-References: <20240228113916.235390-1-li.ma@amd.com>
-In-Reply-To: <20240228113916.235390-1-li.ma@amd.com>
+References: <20240227155355.517538-1-Harish.Kasiviswanathan@amd.com>
+In-Reply-To: <20240227155355.517538-1-Harish.Kasiviswanathan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 28 Feb 2024 09:25:26 -0500
-Message-ID: <CADnq5_Puy+-6xfhjPSF_DjVo9ZJ65zZqkEMJB3qm3U+=tWrYaQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/swsmu: modify the gfx activity scaling
-To: Li Ma <li.ma@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- yifan1.zhang@amd.com, lang.yu@amd.com
+Date: Wed, 28 Feb 2024 09:42:21 -0500
+Message-ID: <CADnq5_PXiXTX+va2Y_WzwP2a+rmW4V6zyd_oeTLHa+F=12N5DQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Removed used parameter
+To: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,57 +75,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 28, 2024 at 6:39=E2=80=AFAM Li Ma <li.ma@amd.com> wrote:
+On Tue, Feb 27, 2024 at 11:13=E2=80=AFAM Harish Kasiviswanathan
+<Harish.Kasiviswanathan@amd.com> wrote:
 >
-> Add an if condition for gfx activity because the scaling has been changed=
- after smu fw version 5d4600.
-> And remove a warning log.
+> Also passing adev is misleading if BO is associated with different adev.
+> In this case BO is mapped to a different device
 >
-> Signed-off-by: Li Ma <li.ma@amd.com>
+> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c       | 2 --
->  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c | 5 ++++-
->  2 files changed, 4 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
+>  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         | 2 +-
+>  3 files changed, 4 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu=
-/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-> index 2aa7e9945a0b..7ac9bc0df8fd 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-> @@ -229,8 +229,6 @@ int smu_v14_0_check_fw_version(struct smu_context *sm=
-u)
->                 smu->smc_driver_if_version =3D SMU14_DRIVER_IF_VERSION_SM=
-U_V14_0_2;
->                 break;
->         case IP_VERSION(14, 0, 0):
-> -               if ((smu->smc_fw_version < 0x5d3a00))
-> -                       dev_warn(smu->adev->dev, "The PMFW version(%x) is=
- behind in this BIOS!\n", smu->smc_fw_version);
->                 smu->smc_driver_if_version =3D SMU14_DRIVER_IF_VERSION_SM=
-U_V14_0_0;
->                 break;
->         default:
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> index 47fdbae4adfc..9310c4758e38 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> @@ -261,7 +261,10 @@ static int smu_v14_0_0_get_smu_metrics_data(struct s=
-mu_context *smu,
->                 *value =3D metrics->MpipuclkFrequency;
->                 break;
->         case METRICS_AVERAGE_GFXACTIVITY:
-> -               *value =3D metrics->GfxActivity / 100;
-> +               if ((smu->smc_fw_version > 0x5d4600))
-> +                       *value =3D metrics->GfxActivity;
-> +               else
-> +                       *value =3D metrics->GfxActivity / 100;
->                 break;
->         case METRICS_AVERAGE_VCNACTIVITY:
->                 *value =3D metrics->VcnActivity / 100;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_amdkfd.h
+> index 4fb32d86cd0e..0ef223c2affb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> @@ -320,7 +320,7 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct k=
+gd_mem *mem,
+>                                              void **kptr, uint64_t *size)=
+;
+>  void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem *mem);
+>
+> -int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct =
+amdgpu_bo *bo);
+> +int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo);
+>
+>  int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
+>                                             struct dma_fence __rcu **ef);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index ef71b12062a1..d0819fa5fcd8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -2189,13 +2189,13 @@ int amdgpu_amdkfd_gpuvm_sync_memory(
+>
+>  /**
+>   * amdgpu_amdkfd_map_gtt_bo_to_gart - Map BO to GART and increment refer=
+ence count
+> - * @adev: Device to which allocated BO belongs
+>   * @bo: Buffer object to be mapped
+>   *
+> + * BO will be mapped to GART of adev to which it is previously associate=
+d with
+>   * Before return, bo reference count is incremented. To release the refe=
+rence and unpin/
+>   * unmap the BO, call amdgpu_amdkfd_free_gtt_mem.
+>   */
+> -int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct =
+amdgpu_bo *bo)
+> +int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo)
+>  {
+>         int ret;
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/a=
+md/amdkfd/kfd_chardev.c
+> index 824e660283b2..f030cafc5a0a 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -371,7 +371,7 @@ static int kfd_ioctl_create_queue(struct file *filep,=
+ struct kfd_process *p,
+>                         goto err_wptr_map_gart;
+>                 }
+>
+> -               err =3D amdgpu_amdkfd_map_gtt_bo_to_gart(dev->adev, wptr_=
+bo);
+> +               err =3D amdgpu_amdkfd_map_gtt_bo_to_gart(wptr_bo);
+>                 if (err) {
+>                         pr_err("Failed to map wptr bo to GART\n");
+>                         goto err_wptr_map_gart;
 > --
-> 2.25.1
+> 2.34.1
 >
