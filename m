@@ -4,65 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6D12C54E4A
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Feb 2024 22:41:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D572C5478C
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 01:46:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BFA010E9A4;
-	Tue, 27 Feb 2024 22:40:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70DAF10E1B1;
+	Wed, 28 Feb 2024 01:46:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="o5B2yp8b";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k1o2nvXp";
 	dkim-atps=neutral
-Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com
- [209.85.219.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29D8910E9A1
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Feb 2024 22:40:54 +0000 (UTC)
-Received: by mail-yb1-f174.google.com with SMTP id
- 3f1490d57ef6-dcc7cdb3a98so4957317276.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Feb 2024 14:40:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1709073653; x=1709678453; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=l24av5cz46t7M7tI2luq7oGX/wa+cXf3Hc4YW3YHjSo=;
- b=o5B2yp8bTPPwBJzG94mZg7JpvSoXu7PRT2rFC4Mib5Z6Lhp+pPy2GjUvqNfqXrq8eY
- ZPsOxxhl4TTAeVlPUyb/YnwLVYutqps9TWrrwjP2hGVrTUH6S8hDbyN5JlCjIiQhJ5tm
- 06swwgNuEsmzDQhyoIwxMobimo3JP63eVz4ogw+Coyp1GtdRxFxKFseB5V4hK96CgXRX
- ZE6WHBsz7hfBJV5g7BlNu3Z21RjuVTr0aiBf+9k/sGQgB4BcKjls4bW9hwr0gGVM3KSG
- 1hTcY2A/i6wn7M3GPcr0Pym1xJqDUGRatxi7jubURKftc8vJbg2bvpfQgLyDCrYGCA5c
- CNeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709073653; x=1709678453;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=l24av5cz46t7M7tI2luq7oGX/wa+cXf3Hc4YW3YHjSo=;
- b=vxq4THSIms4z+PKr1oKg3wpcldptiYDoiHYFZTsBNFKxblhhhZHo1IzqtVOnfO3pfR
- JrTzCRxqAvUD4Toba86YTXGOdaFepsATa+PLh33BvpbLuFTZXbF7dha5fPuM44cAxRnB
- /23++kqMxw5rocwGepktnlWZ+zVf8H9s1rssDiMXKFUXILn6zM3u0R7k/cbeE1RKtRhp
- XRhwIGiTxKT5jXZX2eRrHEoML6KfAw+PzxM6jse+9H7+b4rPgyCF6Iff5tvS5w8Xed2N
- HYBpTC1Uiyn/XNVetiZCSRscDz1f9Bkga17P0mEbSOr1GIFg4wq1X1QGqXVUFfSOuDeZ
- ZfZQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWI7oilUWdPh2a8bsVO3WyMee0Wf1+aOiVbwkWzg9tThGKKawvP4sOqcHTWPxNB+nvWqyNoTVlCqROUqNjoMQO66kUavNi7lcxyzaQg4Q==
-X-Gm-Message-State: AOJu0Yy13Au//9NSez9Mpcn7zVnpwi3y0YiLRckTvDCzf70EYzuno5R+
- y8ojV2J1oQOoXZEXkYmqLgZ3iFWHQQsrJ/6FsGaS3nvUnec+5LHMFRcKmtrE9oMFLdoP8RNi50E
- pmj6g8Uw4B+ElBmHX4Xb1YUWZNIwQxzEPhzhGGQ==
-X-Google-Smtp-Source: AGHT+IF7JmZrAwSzE5u2YUoyhCfxcW6ZoHVqg/vYI0u+8CvfTAGOQdSqPOy0FsY7FSJXpRenAcBfjlKR9Cj3074cOP4=
-X-Received: by 2002:a25:9e8d:0:b0:dcd:5bdb:4aa4 with SMTP id
- p13-20020a259e8d000000b00dcd5bdb4aa4mr830952ybq.51.1709073652982; Tue, 27 Feb
- 2024 14:40:52 -0800 (PST)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 112BE10E1B1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 01:45:59 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id F297B6124C;
+ Wed, 28 Feb 2024 01:45:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B25EC433F1;
+ Wed, 28 Feb 2024 01:45:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1709084757;
+ bh=xklcXaT4eTFbG1Se3wPnwYyKUpa9I+yjQPpHl5UYWHk=;
+ h=Date:From:To:Cc:Subject:From;
+ b=k1o2nvXp5EtvIzAJsZdS4HVaUtlu2Q+gBiNAqnYIRCBT+FydDt1frqGHPHoGMtFVS
+ b9YOisZu6kY4XeHewr6V+b4+d01/ZiFM49wqxzdaJkdKg4m3dP09Yb08o269aDG9Kg
+ JMNXu33I0T+oxNzJedrVag+hiODUTlLDBAO4fRwMUCAgu0Y88hmrUr/Uwsm2JTgRvJ
+ jknM1xzdEpYoPNfvT2BQcFyRi+pRM21RQqOta/GDrE6ah9/lfNZdpTbAGXeYcuoAsn
+ 0JZvT5xG9AULMyYf7WEsKWAnHH+URMn9Ge8623Rp26DsRdkkBEQiHKweoIG/V/Ik5S
+ zDewdYhP+DSow==
+Date: Tue, 27 Feb 2024 18:45:55 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sasha Levin <sashal@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org, llvm@lists.linux.dev
+Subject: Please apply commit 5b750b22530fe53bf7fd6a30baacd53ada26911b to
+ linux-6.1.y
+Message-ID: <20240228014555.GA2678858@dev-arch.thelio-3990X>
 MIME-Version: 1.0
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 28 Feb 2024 00:40:41 +0200
-Message-ID: <CAA8EJprfbMs_3PnpebhVg=NVrO5zc23cgx=1f4HAKLnT5b9J6Q@mail.gmail.com>
-Subject: DisplayPort: handling of HPD events / link training
-To: "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <dri-devel@lists.freedesktop.org>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>, nouveau@lists.freedesktop.org, 
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,36 +55,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Hi Greg and Sasha,
 
-We are currently looking at checking and/or possibly redesigning the
-way the MSM DRM driver handles the HPD events and link training.
+Please apply upstream commit 5b750b22530f ("drm/amd/display: Increase
+frame warning limit with KASAN or KCSAN in dml") to linux-6.1.y, as it
+is needed to avoid instances of -Wframe-larger-than in allmodconfig,
+which has -Werror enabled. It applies cleanly for me and it is already
+in 6.6 and 6.7. The fixes tag is not entirely accurate and commit
+e63e35f0164c ("drm/amd/display: Increase frame-larger-than for all
+display_mode_vba files"), which was recently applied to that tree,
+depends on it (I should have made that clearer in the patch).
 
-After a quick glance at the drivers implementing DP support, I noticed
-following main approaches:
-- Perform link training at the atomic_enable time, don't report
-failures (mtk, analogix, zynqmp, tegra, nouveau)
-- Perform link training at the atomic_enable time, report errors using
-link_status property (i915, mhdp8546)
-- Perform link training on the plug event (msm, it8605).
-- Perform link training from the DPMS handler, also calling it from
-the enable callback (AMDGPU, radeon).
+If there are any issues, please let me know.
 
-It looks like the majority wins and we should move HPD to
-atomic_enable time. Is that assumption correct?
-
-Also two related questions:
-- Is there a plan to actually make use of the link_status property?
-Intel presented it at FOSDEM 2018, but since that time it was not
-picked up by other drivers.
-
-- Is there any plan to create generic DP link training helpers? After
-glancing through the DP drivers there is a lot of similar code in the
-link training functions, with minor differences here and there. And
-it's those minor differences that bug me. It means that drivers might
-respond differently to similar devices. Or that there might be minor
-bugs here and there.
-
--- 
-With best wishes
-Dmitry
+Cheers,
+Nathan
