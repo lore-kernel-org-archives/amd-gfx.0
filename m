@@ -4,102 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06E17C5478C
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 18:52:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1435FC47DD9
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 20:48:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A166F10E296;
-	Wed, 28 Feb 2024 18:52:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6373A10E0A0;
+	Wed, 28 Feb 2024 20:48:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jsB+r/Ra";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FafKSYv8";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2068.outbound.protection.outlook.com [40.107.102.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 416D510E296
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 18:52:35 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2077.outbound.protection.outlook.com [40.107.223.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00A9710E083
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 20:48:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IBZXdx2TA6EYXD9VVrQnKFKoy8Pl1mjU3oq5ouMAGJKdN4C2jFkEaqXoJjw0V/5iWSZYCsCq4pHC0OzyPGD9fpd3ERwasZTlyzyGJUlD1RNXID4ZhycQiE6yo16IOoY8IKby5flsJ5sukX8ZwNRNBNx7eIv6AH+NtoLyg4ER6bfabpW0beU/u2SlX0VeMdLfJBjTnQEwDcQPv/389CM1G8hpdoPl0qb0gBXF0VsfaJYLMcY7yQ/x2Im0R7wBseMT0nWLW1LEgSMD2hld4j5HBqF1HczIUONINV9yCWIQqtF0gbkmYxX97GRyJV47tmoeJVrxdFOTTPnl3d2AI5ICcA==
+ b=CR75rUgaT32wO00N12DrTsBZWnpdbz1MB2ztOKKXDNE8dH/VqXqr5PWtvlV/UXJ6QFXDj+lhlFNlZYnZ/wLC3+/M6bqILzjbsSG8kJu8iqHxQNlon1FY5vErT7r/ztVr03Ef8K0Rm10PZOtu3cB+oY9Z+2HEQT933XnR4UKKoGh1M2wJs/lXnH9RgQtrL8Ep2mWzd/54z4MYoBtXR+i3oVKjPm1fn5yvp7NPmS+y8/JclkpcBwJHQcipz1ddPcOBkE8xfBFYGrTp8xqNVS8XW/afuDT1Syts9nzkb7xZWMqBol/3b3Zwh6uLDZBm89/LR61K3j5TYuWz2poO4U76qA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xVgVU7pLz6GZEjuEyCSk1wPybi5C2/HHYM8O3H94RjU=;
- b=S5gBFd5aKRjjL0u6kZJdv/7h+nuLuOJlcUSBsejP979VssopQvQDkdL5+RxhA9gyKDnDD0+2sOO/30gjMMrJzchcg1Vm+Zz6FJ1ljeSQCgVITaapkmtpUSGwz/CrLUoCcNGfFaZ9tVUHnHfNpB/mNEq/E7mag+AFuRtcaorVrLITHi3XXOnatnrGLavPaNLnrQ5L9xuJlv1zhNmNFgFUwzqpcI9hsyh4oLGT9gwyZifdF4cMby1iwofqCItEiu8pV7c42/x+vK8nNWZQAPfWk1pWi5RRk93pLzW9RjuCQIFLCAyM46laaM7PRA5yyiqEdfcORSsPH1FHzNDOwVA92Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=2TJRwAcfdAcVmHavIvYuNgmGc8jOPfTcl+p7zqkKjU0=;
+ b=Hnj6BbEuWIQGHEjs4HH20bxC4N8hc4D6tAcQDp3rHyiZgBfwVC4ARFNbK/WMpJ7FoigOqx55CA9Bv+SIJZz9A5FZqg3LMFQgYSditkOtQ5CbtpmMowQUtWiQ9a37mQH0dvMTo+ecGuWow8gw71jWvV0goGK4tw8CNCuFRPvSxt+MEZYZ2MS3mdCou5frjqwr5iYgzLB3Fm6lClU2cdem4jun4QZbkS3GtnySmfxirdSXOk/RDYHLHA5O/Rdogxx0AQ5IGMJtiVebAd+a61WMVaTbdpW3860ovM6s9a/Im0UjqgcDN/FbSpKQdo1QzB+EkNWABU5+qf8zdLBLe+hH2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xVgVU7pLz6GZEjuEyCSk1wPybi5C2/HHYM8O3H94RjU=;
- b=jsB+r/RaV7Nx3vBDLUNNuAoyk18qDWgW2dpbgC2A7LxNUMhWvDKrybWJuVRp/9z9Z2bXN+PT269S3vGkKXGqp9K6IbHF27I2afleD2IvTTAjAdRddvwHGMIMTvTrzSdekWpDsxaii0vDsyRX330P75SPlJQXTpz81RAWGWLQVLg=
-Received: from DM6PR12MB4974.namprd12.prod.outlook.com (2603:10b6:5:1bb::12)
- by CYYPR12MB8871.namprd12.prod.outlook.com (2603:10b6:930:c2::21) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=2TJRwAcfdAcVmHavIvYuNgmGc8jOPfTcl+p7zqkKjU0=;
+ b=FafKSYv8LFiP9emvM1Msr1UrjSj+wP5ikKFiZpf9oaHq4J8u2j4AKHN43C7a1dW7bb23+MuwNoH9yuPj3TDG4HAT4ZtxSZjPeLQCLgoi1PCcDC6UmpIgGi+LsxZvz4CdtkHE9w1V3RzS15iLnoJpWIGozDnbOkUa1L//tSxFUB8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by CH3PR12MB8904.namprd12.prod.outlook.com (2603:10b6:610:167::9)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.39; Wed, 28 Feb
- 2024 18:52:33 +0000
-Received: from PH8PR07CA0031.namprd07.prod.outlook.com (2603:10b6:510:2cf::11)
- by DM6PR12MB4974.namprd12.prod.outlook.com (2603:10b6:5:1bb::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.39; Wed, 28 Feb
- 2024 18:47:34 +0000
-Received: from SN1PEPF000252A2.namprd05.prod.outlook.com
- (2603:10b6:510:2cf:cafe::b) by PH8PR07CA0031.outlook.office365.com
- (2603:10b6:510:2cf::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.28 via Frontend
- Transport; Wed, 28 Feb 2024 18:47:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF000252A2.mail.protection.outlook.com (10.167.242.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Wed, 28 Feb 2024 18:47:33 +0000
-Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 28 Feb
- 2024 12:47:31 -0600
-From: Alex Hung <alex.hung@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
- <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
- <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, Alex Hung <alex.hung@amd.com>
-Subject: [PATCH 30/34] drm/amd/display: Backup and restore only on full updates
-Date: Wed, 28 Feb 2024 11:39:36 -0700
-Message-ID: <20240228183940.1883742-31-alex.hung@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240228183940.1883742-1-alex.hung@amd.com>
-References: <20240228183940.1883742-1-alex.hung@amd.com>
-MIME-Version: 1.0
+ 2024 20:48:26 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::8099:8c89:7b48:beed]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::8099:8c89:7b48:beed%6]) with mapi id 15.20.7316.039; Wed, 28 Feb 2024
+ 20:48:26 +0000
+Message-ID: <e9316e00-b35c-4031-adbc-13d8770e1e28@amd.com>
+Date: Wed, 28 Feb 2024 15:48:24 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Revert "drm/amdgpu: remove vm sanity check from
+ amdgpu_vm_make_compute" for Raven
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "Jesse.Zhang" <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ Yifan1.Zhang@amd.com
+References: <20240228050446.89436-1-Jesse.Zhang@amd.com>
+ <b49d2f47-6e24-4c42-9a49-a65cca59fcc0@gmail.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <b49d2f47-6e24-4c42-9a49-a65cca59fcc0@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YT4PR01CA0150.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ac::17) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A2:EE_|DM6PR12MB4974:EE_|CYYPR12MB8871:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11791f03-c393-42a9-a4ec-08dc388db9b7
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH3PR12MB8904:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fd2747f-54ee-4e4e-b90c-08dc389e9c5b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WIJVKtt7al5XHs7SVY02Hgmq09CIfHXKXYnxdNYrE/m0DFXZsVNGKGCzu4frcqg6wOl5S38P8QO0pAv4ZF2cR+oJcKoDhmzGRG2p/+SL+sm1cFlOXKYFg6dYzlzVHx3GkaD28wvyjyVkiiPcQbBbWq5Kyvn0who3RR+ft6mPyYp93foxCMYGqPwTL46rf8I40BPTzlI9ZXaYOAKfxRG2W+AQg4NYxBgCtOLDEFjxuf2RAX6ro1Paxqb9wMDn/rGNFV8veoJt1XZ4dkD2nRWb9PImGuXFeBwEj/SeMMLLxUaEPGFLolygURcqkaUknHRCGyauSJqfxpOZtNq2ykGPGrDQtM1Ofh7yqbi3/07Xd5L2wkevM9mhrEtTxZ68zplpKxdApd/meT+PPTD6oStf3enNHI9ZAoQOrvwFxyv+3QgDAtX+P3GNfPMTn053WnbLGdk9ZTwGIMW1/55paYd4KJ3duPFHi93Bv+2N28jHdQA574ZPf6cj0Jt2Bb6AK1Yd8EEx5Qwldh/UXU6G3oZ4nGZ8/yoe2OqfBCgfBofHlhtFvsb4/V/mj4qIGdmgRrQ/P20UzsC51lZwx7Fu4RgB4CdHyTkrpyElCO1vIGFCIknzdH1DOsEWxweiozw7FccT5MHE4lcs22n63W1TpcWMn1EUAOSE+TLnQ9m7U0BYstjXXcs7tXtVQcvxNgeQ4APk4DyCMjhD161mGDbsVPJ+CM8L8qyDfKp/Pnpe4TqZAyEXlXO8TZa6DJeVUONhoccV
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(82310400014); DIR:OUT; SFP:1101; 
+X-Microsoft-Antispam-Message-Info: kYtMm/HRyzCZDCcEgPO44qa4QtoHePsyIYFfdwIQbDDu2lU+WJ0Qz550GMh7w02tPHQLUPPJHyXYxQcwnqqu15B5yksI8a4R0QJYW/EhJs/7dLChI7Jybx2bXoJLS6+NsNgzomZqyztqg51ngd+owsLdiA14VyX0/soNab3a7K1B4/WHouj0mS/ea7/isGJmErHGM3AS2x+FGs07uqoJvZS87OJSuwEv6jYXi8lBu94hykpTVsl9UPlcS+eYjbKV6CAEgUhC21BVlBySIsikVPnVZaitLwkkHG5HXxXFAs3Dc9rB06vdnq9EjY6hpF7eMfOTTTwy9k8HWqQW9f2Lzuuv4QhJ7jOW37AiyntK/EdLtWxe9reDNRfw9VfC2/9J3CGhBn1xJmQvuWX/PBP8D/LEuPefBxPEAcRX6aFZpEvRWRWsCylSXdoBQ30y1z2VOKdKcBfqI9lIqlZQHZJns6X+eKrb159Grq/81sxCJfrPpEQVk9JxUKPobtRCkmuDOlfxwlwUQyvrjKh+ss6B6BZy5nSgnt0kKgWCD3/TdaxsHI1BgXeLtrvOGLsmpmL/K3CeWraq6Js9tnFw0DvJq8fXTDQrWCaZGMlPaoNBseds3vZHUAl2TL8UAIhQCE3lJrWqs0Rdi5aVxe74gEmkWA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QWtRb3c2cm96azhGcVo5VXBTdFRVZzdIc0ttS2NuVFAvenE3YVg4c2ZXaHlT?=
+ =?utf-8?B?WkZGTUZmZ0hYenI1YkxGZWJDME5kc0N6RDJlQStKVWRZTDRGbkdrb2xsSlB3?=
+ =?utf-8?B?VDZxRy9Vdk5SbE8zQnByQ2k0NElKdlF6Nm9WMFVRbmlFUXNXa3JsSlVhQXdq?=
+ =?utf-8?B?eU9mRUlQQjVNTnlzbDUrRUJVaVRDTE9TTGEvZjVkekhNTll4akVtTXNaRGJu?=
+ =?utf-8?B?T0lEVzdOVWxpS25aR0JOQ2xLYW5qcGg1eEpWY3J1ekVCeVNGcms3YW1MY0ta?=
+ =?utf-8?B?dDlsTFJCN1hRREZ0YndwSzhzS2lwK0h6WTl5R1MrYTYxZ1lhSGdsMlNHeC9S?=
+ =?utf-8?B?aGNnUkl2TElVWXFnR3VYczQ3TGdldGkzSUtwYTQzSml4cXpFUWRsNGNPdmpB?=
+ =?utf-8?B?clNRcDFDMnNwMm9zbVZZZ0VZbmFuL3dTNFdScUFFR2Q2d2YySGJRNTFLOGlS?=
+ =?utf-8?B?QjVLTkdMRFdQemgva0NDQ0p3dVNVV2dJK2FXY3VEdWxXcXo0bkpFWHRZbHo4?=
+ =?utf-8?B?VjNqK0lsV3JubFpSQld0TFNxc2I3Z1JzOTVKN1ZveXJYKzNpUWVTMUZxWDIw?=
+ =?utf-8?B?WFFoV2FZcXhtWDZJRzJaK2Z2OTkxMVRlS25EUi8yZCtZRkU1VDZQMEJ6Z0xH?=
+ =?utf-8?B?TUhnSWRiTFhQTG1Dd2xNb013WGF6TTJwQTF3UmVMWkdRV1lWeXJyUC9JejdG?=
+ =?utf-8?B?WUpsN1RhWUpGcUV1RVJzTzVQSmRwSk1CVjhjZ3JNd0VjQ1RrdXI5N25WY3U5?=
+ =?utf-8?B?cjBXVC90N1o4MjNxNy8yUUU5MlJjbHQvMkJpbXdqSy81eEkxNjlZRmlYV21F?=
+ =?utf-8?B?U1FlVGErODdTa21WQ1N3ZHdNUXhFUjdaUlVDd1I2T0l0dXpqMlhzZFNhd1U2?=
+ =?utf-8?B?cmNka2ZpWnlQc3l3aUM5NGMvTDhZaHNoaEVPWGFXbVJpcU1lcERUUFBNVmFn?=
+ =?utf-8?B?WEJNUFRCM1V3cWsreVpKOGU4N21HSnhYVWJXY2FhWEMwSjI0YTJndDlKRkQw?=
+ =?utf-8?B?MVVSN2RZQnE3Vm0zQ001blBPeWJEazlGMU5semZ1SVNWRVhPc1h2anFkSklI?=
+ =?utf-8?B?TDlpREE4dEV6UGNtWUVESWRTUi9aQ3pKc1ppbi9MaExIQU1aTS9SZ1AwcGZo?=
+ =?utf-8?B?czY4TnlmS3N1V1FuZUZuNjd0RXYvbnFna3BxanpkSG1WSzhwcThwU2RxL3hl?=
+ =?utf-8?B?YnczQnJ3RG9NaHFneUsyZGhHWXBnZFhOZWtzaHljb1g3KzdWeWF2TTc1empv?=
+ =?utf-8?B?VzNHL3R4Vm5Gbk5UcnAzWEVMc2dRVldiVU9maWFhWk9ZK1FiZi84UGcvTnZB?=
+ =?utf-8?B?SGtJOS9lanlibUdDTW51bGJBSGtacmR6MTB2cnBBN3ZweGc5SG9YcnQwbGFI?=
+ =?utf-8?B?Mk9KSStZMFk1Y295ZkVRUjdFc05rWC8zcXJWR2hrQ0FrelBsTG9CYkJiMys3?=
+ =?utf-8?B?M2JsL1hGbHNWNCs2YjFkU1U5NHBqekdET3BTRDczWEtYVDYyODh1RGM2by9i?=
+ =?utf-8?B?eG5lb3dhU2VrcEdCSThpNnhmL3IyU1d6MFJ6eHNDT2xTTWZCclJoRDliNml1?=
+ =?utf-8?B?NVdVYzgyczFsVEhwcmNQWUZndzB6ODJEWXI0aFRlanZKRXIyVWYzYmdaS1dE?=
+ =?utf-8?B?WlJDd3ZxL3lrcUJ1WDhZcm5MazVwd3QxVFNzTjBaSHNBdGlmaEJwUWNVYXB1?=
+ =?utf-8?B?ZXd1ZGd6eE1MS3oyR0R2L1V4K1Foc3dhYTcybWJXVnFkdDFOSU5TZEVNYmc1?=
+ =?utf-8?B?Q0l5VzZyYlBHamJ4WTZQRHRyZ0NaaE9PN3lKa1ZjWGkwaXQyOUxNV0RZa3o4?=
+ =?utf-8?B?THVFWmFLRzNyNlFTZGpWbDlXajFSZlZJc0NWSWxTeGxJcWJUd0ZrZEtyRGNm?=
+ =?utf-8?B?TFQycURkQUlKSkJYeDhUa2JkWVF4cXlzSWhVL2Ixbjd2a1c4QkhqNmNPOTN1?=
+ =?utf-8?B?a1pVMFJ4UUE3QTNDUzJsYyt6Nkg3a0tjUWhHMzFSYzZIaUQ4Q3RKelNuVFhq?=
+ =?utf-8?B?LzFtOGFvV1NpN3JweEIvazRRTUgyQWZNaFFBT2l1WWd2U1JrU3YrdGFaSjE5?=
+ =?utf-8?B?enl1ajBTeWpTdXdNSDNMT0JBYTMrelQzS0E2R2w2MnRBUG1EVjRYN21kRFU0?=
+ =?utf-8?Q?YVHUyQVfMIillm56EobH/J+uH?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2024 18:47:33.6507 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11791f03-c393-42a9-a4ec-08dc388db9b7
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fd2747f-54ee-4e4e-b90c-08dc389e9c5b
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2024 20:48:26.0626 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8871
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tq2zTy8hhv1+sBEuxZyROFRZLQKbTvSQZ3eCrJHAbG68cixtr94uSO557xADC8XuKIPnKpIeFyOwN2KoBPcWTA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8904
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,305 +134,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <alvin.lee2@amd.com>
 
-[WHY & HOW]
-Since the backup and restore for plane and stream states has
-a significant amount of data to copy, we will change the backup
-and restore sequence to only take place during full updates.
+On 2024-02-28 01:41, Christian König wrote:
+> Am 28.02.24 um 06:04 schrieb Jesse.Zhang:
+>> fix the issue when run clinfo:
+>> "amdgpu: Failed to create process VM object".
+>>
+>> when amdgpu initialized, seq64 do mampping and update bo mapping in 
+>> vm page table.
+>> But when clifo run. It also initializes a vm for a process device 
+>> through the function kfd_process_device_init_vm
+>> and ensure the root PD is clean through the function 
+>> amdgpu_vm_pt_is_root_clean.
+>> So they have a conflict, and clinfo  always failed.
+>
+> Big NAK for this, you removed the check but didn't solved the problem 
+> in any way.
+>
+> When Raven still needs the ats feature than it is intentional that 
+> this fails.
 
-We will also move the scratch memory to struct dc instead of dc_state
-to avoid needing to allocate large amounts of memory every time
-we create a new DC state.
+I agree. I think we should just remove all the pte_supports_ats stuff 
+from the amdgpu_vm code. We no longer use IOMMUv2. So there is no point 
+setting invalid PTEs to fail over to ATS any more. As far as I can see, 
+this will require changes in amdgpu_vm_clear_freed, amdgpu_vm_init, 
+amdgpu_vm_make_compute. Then you can remove amdgpu_vm.pte_support_ats 
+from the struct and remove amdgpu_vm_pt_is_root_clean.
 
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
-Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  10 +-
- .../gpu/drm/amd/display/dc/core/dc_state.c    |   1 -
- drivers/gpu/drm/amd/display/dc/dc.h           | 164 ++++++++++--------
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  22 ---
- 4 files changed, 100 insertions(+), 97 deletions(-)
+Regards,
+   Felix
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index d8967087335e..2105e4ba3384 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3162,9 +3162,10 @@ static bool update_planes_and_stream_state(struct dc *dc,
- 	}
- 
- 	context = dc->current_state;
--	backup_planes_and_stream_state(&dc->current_state->scratch, stream);
- 	update_type = dc_check_update_surfaces_for_stream(
- 			dc, srf_updates, surface_count, stream_update, stream_status);
-+	if (update_type == UPDATE_TYPE_FULL)
-+		backup_planes_and_stream_state(&dc->scratch.current_state, stream);
- 
- 	/* update current stream with the new updates */
- 	copy_stream_update_to_stream(dc, context, stream, stream_update);
-@@ -3267,7 +3268,8 @@ static bool update_planes_and_stream_state(struct dc *dc,
- 
- 	*new_context = context;
- 	*new_update_type = update_type;
--	backup_planes_and_stream_state(&context->scratch, stream);
-+	if (update_type == UPDATE_TYPE_FULL)
-+		backup_planes_and_stream_state(&dc->scratch.new_state, stream);
- 
- 	return true;
- 
-@@ -4321,7 +4323,7 @@ static bool commit_minimal_transition_based_on_current_context(struct dc *dc,
- 	 * This restores back the original stream and plane states associated
- 	 * with the current state.
- 	 */
--	restore_planes_and_stream_state(&dc->current_state->scratch, stream);
-+	restore_planes_and_stream_state(&dc->scratch.current_state, stream);
- 	intermediate_context = create_minimal_transition_state(dc,
- 			dc->current_state, &policy);
- 	if (intermediate_context) {
-@@ -4348,7 +4350,7 @@ static bool commit_minimal_transition_based_on_current_context(struct dc *dc,
- 	 * Restore stream and plane states back to the values associated with
- 	 * new context.
- 	 */
--	restore_planes_and_stream_state(&new_context->scratch, stream);
-+	restore_planes_and_stream_state(&dc->scratch.new_state, stream);
- 	return success;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-index 5cc7f8da209c..cce4e1c465b6 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-@@ -310,7 +310,6 @@ void dc_state_destruct(struct dc_state *state)
- 	memset(state->dc_dmub_cmd, 0, sizeof(state->dc_dmub_cmd));
- 	state->dmub_cmd_count = 0;
- 	memset(&state->perf_params, 0, sizeof(state->perf_params));
--	memset(&state->scratch, 0, sizeof(state->scratch));
- }
- 
- void dc_state_retain(struct dc_state *state)
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 09c6a393642a..9629bd9252b4 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1004,76 +1004,6 @@ struct dc_current_properties {
- 	unsigned int cursor_size_limit;
- };
- 
--struct dc {
--	struct dc_debug_options debug;
--	struct dc_versions versions;
--	struct dc_caps caps;
--	struct dc_cap_funcs cap_funcs;
--	struct dc_config config;
--	struct dc_bounding_box_overrides bb_overrides;
--	struct dc_bug_wa work_arounds;
--	struct dc_context *ctx;
--	struct dc_phy_addr_space_config vm_pa_config;
--
--	uint8_t link_count;
--	struct dc_link *links[MAX_PIPES * 2];
--	struct link_service *link_srv;
--
--	struct dc_state *current_state;
--	struct resource_pool *res_pool;
--
--	struct clk_mgr *clk_mgr;
--
--	/* Display Engine Clock levels */
--	struct dm_pp_clock_levels sclk_lvls;
--
--	/* Inputs into BW and WM calculations. */
--	struct bw_calcs_dceip *bw_dceip;
--	struct bw_calcs_vbios *bw_vbios;
--	struct dcn_soc_bounding_box *dcn_soc;
--	struct dcn_ip_params *dcn_ip;
--	struct display_mode_lib dml;
--
--	/* HW functions */
--	struct hw_sequencer_funcs hwss;
--	struct dce_hwseq *hwseq;
--
--	/* Require to optimize clocks and bandwidth for added/removed planes */
--	bool optimized_required;
--	bool wm_optimized_required;
--	bool idle_optimizations_allowed;
--	bool enable_c20_dtm_b0;
--
--	/* Require to maintain clocks and bandwidth for UEFI enabled HW */
--
--	/* FBC compressor */
--	struct compressor *fbc_compressor;
--
--	struct dc_debug_data debug_data;
--	struct dpcd_vendor_signature vendor_signature;
--
--	const char *build_id;
--	struct vm_helper *vm_helper;
--
--	uint32_t *dcn_reg_offsets;
--	uint32_t *nbio_reg_offsets;
--	uint32_t *clk_reg_offsets;
--
--	/* Scratch memory */
--	struct {
--		struct {
--			/*
--			 * For matching clock_limits table in driver with table
--			 * from PMFW.
--			 */
--			struct _vcs_dpi_voltage_scaling_st clock_limits[DC__VOLTAGE_STATES];
--		} update_bw_bounding_box;
--	} scratch;
--
--	struct dml2_configuration_options dml2_options;
--	enum dc_acpi_cm_power_state power_state;
--};
--
- enum frame_buffer_mode {
- 	FRAME_BUFFER_MODE_LOCAL_ONLY = 0,
- 	FRAME_BUFFER_MODE_ZFB_ONLY,
-@@ -1363,6 +1293,100 @@ struct dc_plane_info {
- 	int layer_index;
- };
- 
-+#include "dc_stream.h"
-+
-+struct dc_scratch_space {
-+	/* used to temporarily backup plane states of a stream during
-+	 * dc update. The reason is that plane states are overwritten
-+	 * with surface updates in dc update. Once they are overwritten
-+	 * current state is no longer valid. We want to temporarily
-+	 * store current value in plane states so we can still recover
-+	 * a valid current state during dc update.
-+	 */
-+	struct dc_plane_state plane_states[MAX_SURFACE_NUM];
-+	struct dc_gamma gamma_correction[MAX_SURFACE_NUM];
-+	struct dc_transfer_func in_transfer_func[MAX_SURFACE_NUM];
-+	struct dc_3dlut lut3d_func[MAX_SURFACE_NUM];
-+	struct dc_transfer_func in_shaper_func[MAX_SURFACE_NUM];
-+	struct dc_transfer_func blend_tf[MAX_SURFACE_NUM];
-+
-+	struct dc_stream_state stream_state;
-+	struct dc_transfer_func out_transfer_func;
-+};
-+
-+struct dc {
-+	struct dc_debug_options debug;
-+	struct dc_versions versions;
-+	struct dc_caps caps;
-+	struct dc_cap_funcs cap_funcs;
-+	struct dc_config config;
-+	struct dc_bounding_box_overrides bb_overrides;
-+	struct dc_bug_wa work_arounds;
-+	struct dc_context *ctx;
-+	struct dc_phy_addr_space_config vm_pa_config;
-+
-+	uint8_t link_count;
-+	struct dc_link *links[MAX_PIPES * 2];
-+	struct link_service *link_srv;
-+
-+	struct dc_state *current_state;
-+	struct resource_pool *res_pool;
-+
-+	struct clk_mgr *clk_mgr;
-+
-+	/* Display Engine Clock levels */
-+	struct dm_pp_clock_levels sclk_lvls;
-+
-+	/* Inputs into BW and WM calculations. */
-+	struct bw_calcs_dceip *bw_dceip;
-+	struct bw_calcs_vbios *bw_vbios;
-+	struct dcn_soc_bounding_box *dcn_soc;
-+	struct dcn_ip_params *dcn_ip;
-+	struct display_mode_lib dml;
-+
-+	/* HW functions */
-+	struct hw_sequencer_funcs hwss;
-+	struct dce_hwseq *hwseq;
-+
-+	/* Require to optimize clocks and bandwidth for added/removed planes */
-+	bool optimized_required;
-+	bool wm_optimized_required;
-+	bool idle_optimizations_allowed;
-+	bool enable_c20_dtm_b0;
-+
-+	/* Require to maintain clocks and bandwidth for UEFI enabled HW */
-+
-+	/* FBC compressor */
-+	struct compressor *fbc_compressor;
-+
-+	struct dc_debug_data debug_data;
-+	struct dpcd_vendor_signature vendor_signature;
-+
-+	const char *build_id;
-+	struct vm_helper *vm_helper;
-+
-+	uint32_t *dcn_reg_offsets;
-+	uint32_t *nbio_reg_offsets;
-+	uint32_t *clk_reg_offsets;
-+
-+	/* Scratch memory */
-+	struct {
-+		struct {
-+			/*
-+			 * For matching clock_limits table in driver with table
-+			 * from PMFW.
-+			 */
-+			struct _vcs_dpi_voltage_scaling_st clock_limits[DC__VOLTAGE_STATES];
-+		} update_bw_bounding_box;
-+		struct dc_scratch_space current_state;
-+		struct dc_scratch_space new_state;
-+	} scratch;
-+
-+	struct dml2_configuration_options dml2_options;
-+	enum dc_acpi_cm_power_state power_state;
-+
-+};
-+
- struct dc_scaling_info {
- 	struct rect src_rect;
- 	struct rect dst_rect;
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-index e034cbb40620..b5b090197ad7 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-@@ -524,25 +524,6 @@ struct dc_dmub_cmd {
- 	enum dm_dmub_wait_type wait_type;
- };
- 
--struct dc_scratch_space {
--	/* used to temporarily backup plane states of a stream during
--	 * dc update. The reason is that plane states are overwritten
--	 * with surface updates in dc update. Once they are overwritten
--	 * current state is no longer valid. We want to temporarily
--	 * store current value in plane states so we can still recover
--	 * a valid current state during dc update.
--	 */
--	struct dc_plane_state plane_states[MAX_SURFACE_NUM];
--	struct dc_gamma gamma_correction[MAX_SURFACE_NUM];
--	struct dc_transfer_func in_transfer_func[MAX_SURFACE_NUM];
--	struct dc_3dlut lut3d_func[MAX_SURFACE_NUM];
--	struct dc_transfer_func in_shaper_func[MAX_SURFACE_NUM];
--	struct dc_transfer_func blend_tf[MAX_SURFACE_NUM];
--
--	struct dc_stream_state stream_state;
--	struct dc_transfer_func out_transfer_func;
--};
--
- /**
-  * struct dc_state - The full description of a state requested by users
-  */
-@@ -624,9 +605,6 @@ struct dc_state {
- 	struct {
- 		unsigned int stutter_period_us;
- 	} perf_params;
--
--
--	struct dc_scratch_space scratch;
- };
- 
- struct replay_context {
--- 
-2.34.1
 
+>
+> Regards,
+> Christian.
+>
+>>
+>> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 ------
+>>   1 file changed, 6 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> index ed4a8c5d26d7..0bc0bc75be15 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> @@ -2361,12 +2361,6 @@ int amdgpu_vm_make_compute(struct 
+>> amdgpu_device *adev, struct amdgpu_vm *vm)
+>>        * changing any other state, in case it fails.
+>>        */
+>>       if (pte_support_ats != vm->pte_support_ats) {
+>> -        /* Sanity checks */
+>> -        if (!amdgpu_vm_pt_is_root_clean(adev, vm)) {
+>> -            r = -EINVAL;
+>> -            goto unreserve_bo;
+>> -        }
+>> -
+>>           vm->pte_support_ats = pte_support_ats;
+>>           r = amdgpu_vm_pt_clear(adev, vm, to_amdgpu_bo_vm(vm->root.bo),
+>>                          false);
+>
