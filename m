@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C1F9C54E49
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 11:45:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E85FC5478C
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 11:45:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8734A10E5D8;
-	Wed, 28 Feb 2024 11:44:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0168710E5DC;
+	Wed, 28 Feb 2024 11:45:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YGq+nYRV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SdO5JhGQ";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84CB310E5D8
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 11:44:58 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3462910E5DC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 11:45:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P/AvOa/u8S8llL3ONg19mYvwe2Qrr6hg1nvrJopaWCeBc8CfRENQP1gF5XH8b5+wWvC7cL7gT0mDTq7Sm4WC02EI969DNssQ+EhBq5D8eXEP0adxBc2zZXFCb2ibBR/RWNTFp7+jUNAbvsJT8kynrUkLwVGrwek7kv5vrwdequCfNiBGbETlNeL8ZMRoM5IUeFEDdzwuVPLEJwZKbt0/lzJABdiU8avKNk2PjrIkkK6xNjNRbwDSD2b1LofJb1L0dqZNbJobJWct1Ia/3iL5dt7/y+uMW7Yrwpn0NoV+PRVNN+aTWS9TH8m6Hz4fycq+alrjYh2YAEX6hTWU52x4kQ==
+ b=dfa5WB+/huX43LvGOrDXRMCLtwNwZ2Z69th75EPR0mEk8HGqSJEFFd6hobWUYBrJ180wUaJNOjHFUzUoYruAOoUzN2/ykGFFDjKu341RnbNV3GdQqe7kUQ/Vdx890qWx8NJnboTUhWyX6A3/NVtwb0Xb3vaHy8Uset63S5OneHI3ONY9MnMGUAIh6PyPbomMYJ8MZ6pd43+r4YGXAL0Mrj9KN+tP+TjemqUO/jSchHgG8n89lh7w1ZH+GfmjSFDsEJpGPGDEBZuK5ro2FjA4OU2NvUXZv08I8VnymLR3Bga63STns9CuY8PkjKtPF7JuyM3Tb57jrc9em/TGp/z68w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=37YCorYKenRnCZN/0I5pZjw38NB83uDEYcH9nzyUt3w=;
- b=i9AmniOFZ3hQBy8+HoG8ub3tMB6lYYNOWsGvnrrZfudsRG1I7nuO12Mjl38em2uXNkP/SN8xfKsOQDymcKe4nbtMuWyB65vJE707BithWqRVSqzX/jLHsGWzg7QDcN4AXVjNV2WPN+bWjfJoBFRnKoAScv3hH+RTl2OBj/QY8AfcCA5bvYdUlNTTuxvHkArOk0WqHnINquJyjF05N8pTzbJzdFxl5OsEI9zbKty/2f/NLOlOYvCyzhjxqz/pWasBeM2EUu5vwsboAos/hb9BL0xn+H1ER2AuH/j1Xc8vBRkdBfN+Dtq003QXkH8WPfyBmlbITv5LIAbZ8mU5MTUHCA==
+ bh=CzVmiqDVZfIpH2JDDpFDr69UhkpsV6+pH7Jpw1g2VOA=;
+ b=PvNoeRGVoxj6D6PcVqM/Mcw+r5LZN8sVtIBFPuyc1fJjoGgZUPvweRgUZf6CeqzUjfLbNMZB+h9ROi2y9jNsa1S8ALBgAYIXJfQDnBFKqI1XuPc0bhY/dcduuzx54+QaWLigglsLXQM3EQ5DP/Cgh3oKT3cykjIdKUVpNbuVW6WSFZOk10txuIndGEk//qWSbovMxT/3TOHTK4OijaXeg6QXYzBc/JapbOfC+Z6U+ZW11VYflfP13HPfUpdQdJLh8jXoZs4Rak7fg0uwbFBB2H6UEkYrDkoBn8qo+b6lUOjz6IJOSqRkl8qqclAPjlYohdlBblG9mFGX+SNxNOLiVw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=37YCorYKenRnCZN/0I5pZjw38NB83uDEYcH9nzyUt3w=;
- b=YGq+nYRVuShKLs320WA6stGmxeMSWyzaoZkIoHNbsKiJM+jACByKR/Ty2zxY8y35cVZPSkSk8zvcumgZyBrIIG5E11dBlvOuF3P3u9uK5QwgixHBONYszFGGGezZ6PdNbFp1+uC3GqO+7YXY5+lmCC48iWQL/g3j4TAlhTiSC4Y=
-Received: from DM6PR02CA0165.namprd02.prod.outlook.com (2603:10b6:5:332::32)
- by DM6PR12MB4369.namprd12.prod.outlook.com (2603:10b6:5:2a1::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.41; Wed, 28 Feb
- 2024 11:44:56 +0000
-Received: from DS3PEPF000099DB.namprd04.prod.outlook.com
- (2603:10b6:5:332:cafe::a9) by DM6PR02CA0165.outlook.office365.com
- (2603:10b6:5:332::32) with Microsoft SMTP Server (version=TLS1_2,
+ bh=CzVmiqDVZfIpH2JDDpFDr69UhkpsV6+pH7Jpw1g2VOA=;
+ b=SdO5JhGQ9OnvIUMgkE9Wob5WJ4V7CrMVe8QQlXFAXprd4Kri2itr+njzmNkY94W9A//18KEmZLmtO/9UsIONcid3WCzDAPHgusfTgbDnKOaDZ08X0h8LQ5KFrg8JjOtvw9mDy4UkFrEvaa/GhXfeuVcYcgLvoY4Neuj5uJAoMOI=
+Received: from DM5PR07CA0077.namprd07.prod.outlook.com (2603:10b6:4:ad::42) by
+ PH8PR12MB7111.namprd12.prod.outlook.com (2603:10b6:510:22d::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7316.15; Wed, 28 Feb 2024 11:44:58 +0000
+Received: from DS3PEPF000099DF.namprd04.prod.outlook.com
+ (2603:10b6:4:ad:cafe::14) by DM5PR07CA0077.outlook.office365.com
+ (2603:10b6:4:ad::42) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.28 via Frontend
- Transport; Wed, 28 Feb 2024 11:44:56 +0000
+ Transport; Wed, 28 Feb 2024 11:44:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,22 +48,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099DB.mail.protection.outlook.com (10.167.17.197) with Microsoft
+ DS3PEPF000099DF.mail.protection.outlook.com (10.167.17.202) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Wed, 28 Feb 2024 11:44:56 +0000
+ 15.20.7292.25 via Frontend Transport; Wed, 28 Feb 2024 11:44:58 +0000
 Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 28 Feb
- 2024 05:44:54 -0600
+ 2024 05:44:56 -0600
 From: Ma Jun <Jun.Ma2@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
  <Alexander.Deucher@amd.com>
 CC: Ma Jun <Jun.Ma2@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: Use rpm_mode flag instead of checking it
- again for rpm
-Date: Wed, 28 Feb 2024 19:44:39 +0800
-Message-ID: <20240228114440.1939084-1-Jun.Ma2@amd.com>
+Subject: [PATCH 2/2] drm/amgpu: Check return value of
+ amdgpu_device_baco_enter/exit
+Date: Wed, 28 Feb 2024 19:44:40 +0800
+Message-ID: <20240228114440.1939084-2-Jun.Ma2@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240228114440.1939084-1-Jun.Ma2@amd.com>
+References: <20240228114440.1939084-1-Jun.Ma2@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -72,25 +74,25 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DB:EE_|DM6PR12MB4369:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb06ff54-1ef0-4fcd-5dee-08dc3852afae
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DF:EE_|PH8PR12MB7111:EE_
+X-MS-Office365-Filtering-Correlation-Id: 300ac1e8-62c1-45d4-af66-08dc3852b09f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: e00CdIFTja4jfUxS1VXicYaKzxJsy8+GDDBm3j1UqvjbUtvFvmw6CQTD0VK34yXjKwGcf/GCVZKW4v/qvYMvTwLKE/eZOzk09uakAluclMkwmQlwW3y0+/IsCzdmHxMpoBmnyd4EgSl7BMD3Il2h8KhUyW8ZoFKqspjEoQ6E515bMcbV75B79Sw6q8qUYysDh1V+9Ch9zHHS8RE//g1+YH2F4JBX1rwnXzp1+KAC+WaI37R9t/tSc6jeC9cbcQS2izW+mgkTKounM9K4TqlE8J8or7TLs3xkAswjyzHA51L3kPwPhaPBZ28kTBeF3BvcCzjQ4vhp+bdXO2VjNLkYEHTRynmALwhNbGNiXNLpqsJ2t77N8wJq+fKgqdwq15TVaCTeBnFkkkix5EqMce5Q8rkhFyCA2eyLliYJpJoyyIFjxMZc8VDQs16XFnaRHRY+2R0zVymZz5Zzrs+isMkxgZ2hEsMaPswPcCctTA/r9iH87FXDvtwiSbqLA/VZaG/JLwOYQGJ3qV5USJv6stTUH0Ex0MQPlXGkkOtLmnVuOypqdtXVKz8a134vmGCP0NqLNJ3VpNMAyEnmOwAS4SDtmhOb6gYjhcbDfka4Q4W947LfILRZnB7i+Kel1mQRm8kUctJW1M70QMWzcDlzlqbeTqwqkiInivF1b54z+AOFAMVQNAFbrJ+cqG9Hdh8X2EjTU+yE79eZIxzuZ5f+HFDdmjdbmU0nO7Nfyf97AeZyG5365vKiSQ3nvcVEc4NBG+OJ
+X-Microsoft-Antispam-Message-Info: RNGwlLXorIVdbPliAIteLoo+g7Op3vXjgYusKkF82WCqLCgtuHMxcozN+el8Xsj6uuw+RiXl9G9o6gU/gaI+8fSTXV16gUfqsrydfl+JIzAdv/J+Fe/Tm3mxVmIYRx3HB/Hs+sE7A0dse+GpMXo+xUXsG5I1WGf0hpmiBTjq11Pw3evi240Ms157B2KQt4hQWsIrlMGmsxx2QYRi2yruCKvUC85oySEtc6Rdo8KMYC2Qigg45F1Q5LmIEqZP8C2N1OXVWEVSwDjHz6Ot3MYexJavCW6er35OIqL9X2nabBB632myHi4QCFcKu6KIb9qNYsCSLYyEZti0m5v3156svA645Qb9pqPAe3R/QHAOl6dOLtdasD5pkRTWLvezK34cj9pc7jI9uM6141isTXn0ZQreslznsaCSwF2zjjQ6UxMh5Rh5E6MQcbSRHPdXkLqTNqtTdl/X40ao2xHRME3wj06d1JbTHtnZiGTsSg7K8TwYyiqtUufwpFvIZG9IxOBXZEH9Wl5zN1lS/b++C9yj+C8vpsZqLEyD8mgHiD0lu37Fj2w652Mzuj+7WlAuHKX18cJa2O2o91HCBg4Y1ukwZQN8IgIxafwoNe8kex1h7rXpFKG+2twXVtKsp4Pm/Ra02RdhGIGPmiigqgEv3czUikZFnje/HrMI2XOL8kxQp95VjSHoMO7FvxfBPPLCwj4zkMluth+W1wrpUSJvNARLLsw4ewkXwXIYvQPavMmgKgnsupab+X96LKgN0fWY9oD/
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400014)(36860700004); DIR:OUT; SFP:1101; 
+ SFS:(13230031)(230273577357003)(36860700004)(82310400014); DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2024 11:44:56.4744 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb06ff54-1ef0-4fcd-5dee-08dc3852afae
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2024 11:44:58.0559 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 300ac1e8-62c1-45d4-af66-08dc3852b09f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DB.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DF.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4369
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7111
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,104 +107,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Because the rpm_mode flag is already set when the driver
-is initialized, we use it directly for runtime suspend/resume
-instead of checking it again
+Check return value of amdgpu_device_baco_enter/exit and print
+warning message because these errors may cause runtime resume failure
 
 Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index af7fae7907d7..8b83c26dc018 100644
+index 8b83c26dc018..11e089cfb465 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2666,7 +2666,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	}
- 
- 	adev->in_runpm = true;
--	if (amdgpu_device_supports_px(drm_dev))
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
- 
- 	/*
-@@ -2676,7 +2676,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	 * platforms.
- 	 * TODO: this may be also needed for PX capable platform.
- 	 */
--	if (amdgpu_device_supports_boco(drm_dev))
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
- 		adev->mp1_state = PP_MP1_STATE_UNLOAD;
- 
- 	ret = amdgpu_device_prepare(drm_dev);
-@@ -2685,15 +2685,15 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	ret = amdgpu_device_suspend(drm_dev, false);
- 	if (ret) {
- 		adev->in_runpm = false;
--		if (amdgpu_device_supports_boco(drm_dev))
-+		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
- 			adev->mp1_state = PP_MP1_STATE_NONE;
- 		return ret;
- 	}
- 
--	if (amdgpu_device_supports_boco(drm_dev))
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
- 		adev->mp1_state = PP_MP1_STATE_NONE;
- 
--	if (amdgpu_device_supports_px(drm_dev)) {
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
- 		/* Only need to handle PCI state in the driver for ATPX
- 		 * PCI core handles it for _PR3.
- 		 */
-@@ -2702,9 +2702,9 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 		pci_ignore_hotplug(pdev);
- 		pci_set_power_state(pdev, PCI_D3cold);
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_DYNAMIC_OFF;
--	} else if (amdgpu_device_supports_boco(drm_dev)) {
-+	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO) {
+@@ -2705,7 +2705,9 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO) {
  		/* nothing to do */
--	} else if (amdgpu_device_supports_baco(drm_dev)) {
-+	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
- 		amdgpu_device_baco_enter(drm_dev);
+ 	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
+-		amdgpu_device_baco_enter(drm_dev);
++		ret = amdgpu_device_baco_enter(drm_dev);
++		if (ret)
++			dev_warn(&pdev->dev, "warning: device fails to enter baco. ret=%d\n", ret);
  	}
  
-@@ -2727,7 +2727,7 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
- 	if (!pci_device_is_present(adev->pdev))
- 		adev->no_hw_access = true;
- 
--	if (amdgpu_device_supports_px(drm_dev)) {
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
- 
- 		/* Only need to handle PCI state in the driver for ATPX
-@@ -2739,22 +2739,22 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
- 		if (ret)
- 			return ret;
- 		pci_set_master(pdev);
--	} else if (amdgpu_device_supports_boco(drm_dev)) {
-+	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO) {
- 		/* Only need to handle PCI state in the driver for ATPX
- 		 * PCI core handles it for _PR3.
+ 	dev_dbg(&pdev->dev, "asic/device is runtime suspended\n");
+@@ -2745,7 +2747,9 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
  		 */
  		pci_set_master(pdev);
--	} else if (amdgpu_device_supports_baco(drm_dev)) {
-+	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
- 		amdgpu_device_baco_exit(drm_dev);
+ 	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
+-		amdgpu_device_baco_exit(drm_dev);
++		ret = amdgpu_device_baco_exit(drm_dev);
++		if (ret)
++			dev_warn(&pdev->dev, "warning: device fails to exit from baco. ret=%d\n", ret);
  	}
  	ret = amdgpu_device_resume(drm_dev, false);
  	if (ret) {
--		if (amdgpu_device_supports_px(drm_dev))
-+		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
- 			pci_disable_device(pdev);
- 		return ret;
- 	}
- 
--	if (amdgpu_device_supports_px(drm_dev))
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_ON;
- 	adev->in_runpm = false;
- 	return 0;
 -- 
 2.34.1
 
