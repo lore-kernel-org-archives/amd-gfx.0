@@ -4,74 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 031BEC54E49
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 14:45:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C483C47DD9
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 15:17:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E28C10E9DE;
-	Wed, 28 Feb 2024 14:45:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3F2510E2E1;
+	Wed, 28 Feb 2024 15:17:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m0nZF6q5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZoKXFv+K";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC4D610E9DE
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 14:45:28 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-412b83cfb44so813725e9.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 06:45:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709131527; x=1709736327; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=86f9Rf7Ej3iE+dr1yfX4f35+KYVAPnY0+IDCGgKJGy0=;
- b=m0nZF6q5M8J8JactJBg8sbLnLJ016yNYOzXStmb64FcPY+qWAM4sitZ6NWStZuYWK4
- fQ8HpA89rCabao3KjpJ3scdYVh3mXp8mCseuiUzYeEh+2xQ8LZXKoSA5yVUwBQB+4lc2
- W7Kwq9ksNGvLMP5yWSXxYd1nAg7KvAc1QPhSCxXQqeyJ+IeRuGjTfKEXJkgI/m+1iXgA
- LmOl1VNM8dLKzb3f1pYQ0Ppkh/iqRiNt4CUvnYCAYc6Z9DpReG65nBLDXJ/o8LemRC/X
- BksFfTEYd3VxqLGbQqL02m0rqeJLhd9jUCrrf9BH+turx/sEEGYpK1AJone0X7y931yj
- jWCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709131527; x=1709736327;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=86f9Rf7Ej3iE+dr1yfX4f35+KYVAPnY0+IDCGgKJGy0=;
- b=s4l4fClI+nyHZK/XjOKpshKqtTPDOaWmDlzhhEBflQrXg7xoVNVybW/fp809wFZJsO
- g/iPEHnTVLVKAt/qtHGecU9zBysIlwYbOTHGv6t12QiMfgE6yKktnrK1tgBOW47kAxST
- 7h1XHRmzCCmoxyLLb88RnulN33QC/E6wsFUdVwJDwS/Zfn9+fzTjhsNIRYeeOdZK9zP0
- BfvmJ0ri4WW2UNppEtxx30fAFgmScUQGOdzB/sxS5GVdDRUcDBl+EGmbIMgXY9YoGO2Z
- tgZ0WM7OYXyl+UUhFbcuOjEEWdfiQVUGUtVVIyQC9crSFXgotbxCYHq6gOr6VDL+AjHL
- 0k2A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWXrB+/J3g9yyjqkxUueJgb7aCIHcpXbS/4mHmhnAjvEGlGhRBQYeEazL9ZwR+RIFkXYvH+mnInjYp4uoZ3nIvgSmoedozj10ucmyVoag==
-X-Gm-Message-State: AOJu0YyPLzn3uT8rBbFJgksdVghiV7d9ibkl31QSUVV0XfOnVn4m5rHW
- rdZGIdCTnJtjTgyzLMihlN4qNz92dWlE4SH9poVDRStBCZl/qRco
-X-Google-Smtp-Source: AGHT+IG6BDO4uhplGB9wJgHzN0casuqzczcpwaaB+DxQFod6FGTyIFBedHQkrrLAK3pfAWXCTBnGEA==
-X-Received: by 2002:a05:600c:4fcb:b0:412:85c2:db12 with SMTP id
- o11-20020a05600c4fcb00b0041285c2db12mr10756286wmq.2.1709131526560; 
- Wed, 28 Feb 2024 06:45:26 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- cg12-20020a5d5ccc000000b0033b1c321070sm14569930wrb.31.2024.02.28.06.45.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Feb 2024 06:45:26 -0800 (PST)
-Message-ID: <d9a450ed-5632-42ce-b53c-e70b71762606@gmail.com>
-Date: Wed, 28 Feb 2024 15:45:24 +0100
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD6EE10E1AE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 15:17:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hxEgaixjsQoTIPAUfLRl/Bf2EAnXlDA30YHh8v/YQYEb3WES10fQqZyAK/lgbDZLr7dzufHMw2Q0miyb83Tpg2VlmPPQhbET6dNaC/EdqiQyRFr0YJW9ERFTSI59khOXRFLFsTfApWpMH1IxpuDk6EmPjXeqXYjFenApChoWzPCCvHyhI04taCUafUzOdfVauiWuOMSOwUv4QV+gHpSYvQHJE6iuYQlkhWdWlh2/7yVcKcvv3Ifa6sW37NWX+VWE3jJJ/ghE5E0rZEwxpYXsbvnCxL1hyjdyBE3JFCvX0lAYJ6kh+Xtx7qHkS/gsADOrTCevqOvoMFpn8Tmp+VKMWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HKjs2585/EC+wV2ZGLagZdBFvI8I67trpJz4K2aaROE=;
+ b=WamUPvgQy0vTu84HosNnFTXY1mISJ1eXmJ1BaGqodoFOjy35VvSyjNhKGAr0f8JQkwFBSAFKDky74ocgG/BxGFV8nkBemRV0J4/TBcm1VpGiu4CZliZdbR391jcx62vEuJuMhD3IYkh6X93L458m3Q2JwlG7YGCsSYsz0kaxbFWjuxFue3axvFSHZ2TgqLpjQSw/I4ITkclKJ9cOMIWxl+UNLepHhYsHzm4YUjzAwN2WkQn7acGMi17XbX5nW30DLeSdTMOlPXTJC2REV7+WuiXCW9F6OcenwKouII4R3Tji1o6FOoXATeZP79gbIyz3u9Z4Kv9tqzgOEUoIzD5dhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HKjs2585/EC+wV2ZGLagZdBFvI8I67trpJz4K2aaROE=;
+ b=ZoKXFv+KNXGfkmf0w0W4RALnq6DLZJPpjBZJKBqXzL5IGOvJPKjm7QX7NpvP4dW2+jxVhPCNPs/x4mrMcl4F0DVXjGBCb35b2dGLb9cVN3upWIyidpjqCOuUruSI4+QiBvLypYYN3SE9wQUwW0ByuVxF7CHQ9BVwJ+mOyOBCW00=
+Received: from CH5P220CA0002.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::10)
+ by SN7PR12MB7249.namprd12.prod.outlook.com (2603:10b6:806:2a9::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.41; Wed, 28 Feb
+ 2024 15:17:42 +0000
+Received: from DS3PEPF000099D4.namprd04.prod.outlook.com
+ (2603:10b6:610:1ef:cafe::ed) by CH5P220CA0002.outlook.office365.com
+ (2603:10b6:610:1ef::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.28 via Frontend
+ Transport; Wed, 28 Feb 2024 15:17:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS3PEPF000099D4.mail.protection.outlook.com (10.167.17.5) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Wed, 28 Feb 2024 15:17:41 +0000
+Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Wed, 28 Feb 2024 09:17:40 -0600
+From: Eric Huang <jinhuieric.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Eric Huang <jinhuieric.huang@amd.com>
+Subject: [PATCH] amd/amdkfd: remove unused parameter
+Date: Wed, 28 Feb 2024 10:17:27 -0500
+Message-ID: <20240228151727.102002-1-jinhuieric.huang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] Revert "drm/amd: Remove freesync video mode amdgpu
- parameter"
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240227184847.3078099-1-alexander.deucher@amd.com>
- <7e13e8d8-e486-4739-9844-f0b95861d34c@gmail.com>
- <CADnq5_OSLcbSX2H4b72YRVGz7GQqHg-8bcNWxdUdcoqAwP=dsg@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CADnq5_OSLcbSX2H4b72YRVGz7GQqHg-8bcNWxdUdcoqAwP=dsg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099D4:EE_|SN7PR12MB7249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f4986a5-7378-4e8f-374b-08dc387068ac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: brhQ7trw6d4jNOZpq+8cM0lkTvDYtf2kyD6Hbaox8Nr/gdq/2RkC4lwX8apXlDr+V3dAhCIWwrCZbXBB52Sw0akRXzdaoDwtG5otiGBM9lormV/hkaITzQY08bBhigLU0F9RJjFzp3N+38LCArytiYkY0VnPYBop6mu//N/IOW5e7vKNiU36T1dtg7zlKC8EbXN44/nSlyZoWprrrKy2rfPXpkMAgPujSkGMBrzEMLSSfx9qk2boc7rDKDhFYdx6ZwAQQq6sE67tMJ7v3I2MIlEtBt40JPAwXj3hqCvMVHIpaUgguFTSQZ8YC5yhWTf8nPj0WIEVRynrF6fqtFmlNsFO2LtaFeoeGl000eKzPCznqNgK5fjV1juRLUho3KKYCW3/virUdDFM2z1D1ZM3AGp4D9qNswaH6aV6wfsxdvu1QrD7pddlZDOyViPQOHzDljm6eyl0gYZUQTSQSsWXrj7SkEMs/tRteAoA8uGlEnVTqHXnbkBmNzdUvmdu2o9uVgYDpN+2RnDqi+TjeMzzNRC5eF6CWTxUEfKkXeQff+AHFtd+VMmr4Co4Af5bFnvi0glFeBXfntDPqQbYbv1+b2Dt+3wHLHJio0App86YlJMOqt2MgjOA967WcxI//8oJW4f5wiPdrBtNwLxRX31mzqajg3w+pJS0+Gcl1EdCD/asNq3NXaOYkBLhnnanCVXbnT5Jv0FE3Wd2dc0lafaHP4yFzMvwQrC+iCtGuIgZcRCWSp/lg6juMYB6stWUGTjB
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(82310400014); DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2024 15:17:41.9314 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f4986a5-7378-4e8f-374b-08dc387068ac
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099D4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7249
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,100 +103,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 28.02.24 um 15:23 schrieb Alex Deucher:
-> On Wed, Feb 28, 2024 at 2:03 AM Christian König
-> <ckoenig.leichtzumerken@gmail.com> wrote:
->> Am 27.02.24 um 19:48 schrieb Alex Deucher:
->>> This reverts commit e94e787e37b99645e7c02d20d0a1ba0f8a18a82a.
->>>
->>> This conflicts with how compositors want to handle VRR.  Now
->>> that compositors actually handle VRR, we probably don't need
->>> freesync video.
->>>
->>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2985
->> Scratching my head what actually happens here? Doesn't the problem then
->> just depend on a module parameter?
-> Yes.  The problem is that when freesync video is enabled, compositors
-> don't know which modes are actual modes and which are a VRR video
-> mode.  There are still customers that want the vrr video mode smooth
-> video playback, but compositors don't want this by default.  I guess
-> the alternative is to just drop this feature altogether now that
-> compositors and media players are starting to support this properly.
+The adev can be found from bo by amdgpu_ttm_adev(bo->tbo.bdev),
+and adev is also not used in the function
+amdgpu_amdkfd_map_gtt_bo_to_gart().
 
-That's what I would suggest as well.
+Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 3 +--
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         | 2 +-
+ 3 files changed, 3 insertions(+), 4 deletions(-)
 
-As far as I can see adding those modes is actually buggy behavior and we 
-need to avoid it.
-
-Christian.
-
->
-> Alex
->
->> Regards,
->> Christian.
->>
->>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 27 +++++++++++++++++++++++++
->>>    2 files changed, 28 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>> index 0e365cadcc3fc..925026c183f41 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>> @@ -194,6 +194,7 @@ extern int amdgpu_emu_mode;
->>>    extern uint amdgpu_smu_memory_pool_size;
->>>    extern int amdgpu_smu_pptable_id;
->>>    extern uint amdgpu_dc_feature_mask;
->>> +extern uint amdgpu_freesync_vid_mode;
->>>    extern uint amdgpu_dc_debug_mask;
->>>    extern uint amdgpu_dc_visual_confirm;
->>>    extern int amdgpu_dm_abm_level;
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> index 15a8a64fc4e28..82b154b103f43 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> @@ -199,6 +199,7 @@ int amdgpu_mes_kiq;
->>>    int amdgpu_noretry = -1;
->>>    int amdgpu_force_asic_type = -1;
->>>    int amdgpu_tmz = -1; /* auto */
->>> +uint amdgpu_freesync_vid_mode;
->>>    int amdgpu_reset_method = -1; /* auto */
->>>    int amdgpu_num_kcq = -1;
->>>    int amdgpu_smartshift_bias;
->>> @@ -883,6 +884,32 @@ module_param_named(damageclips, amdgpu_damage_clips, int, 0444);
->>>    MODULE_PARM_DESC(tmz, "Enable TMZ feature (-1 = auto (default), 0 = off, 1 = on)");
->>>    module_param_named(tmz, amdgpu_tmz, int, 0444);
->>>
->>> +/**
->>> + * DOC: freesync_video (uint)
->>> + * Enable the optimization to adjust front porch timing to achieve seamless
->>> + * mode change experience when setting a freesync supported mode for which full
->>> + * modeset is not needed.
->>> + *
->>> + * The Display Core will add a set of modes derived from the base FreeSync
->>> + * video mode into the corresponding connector's mode list based on commonly
->>> + * used refresh rates and VRR range of the connected display, when users enable
->>> + * this feature. From the userspace perspective, they can see a seamless mode
->>> + * change experience when the change between different refresh rates under the
->>> + * same resolution. Additionally, userspace applications such as Video playback
->>> + * can read this modeset list and change the refresh rate based on the video
->>> + * frame rate. Finally, the userspace can also derive an appropriate mode for a
->>> + * particular refresh rate based on the FreeSync Mode and add it to the
->>> + * connector's mode list.
->>> + *
->>> + * Note: This is an experimental feature.
->>> + *
->>> + * The default value: 0 (off).
->>> + */
->>> +MODULE_PARM_DESC(
->>> +     freesync_video,
->>> +     "Enable freesync modesetting optimization feature (0 = off (default), 1 = on)");
->>> +module_param_named(freesync_video, amdgpu_freesync_vid_mode, uint, 0444);
->>> +
->>>    /**
->>>     * DOC: reset_method (int)
->>>     * GPU reset method (-1 = auto (default), 0 = legacy, 1 = mode0, 2 = mode1, 3 = mode2, 4 = baco)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 4fb32d86cd0e..0ef223c2affb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -320,7 +320,7 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
+ 					     void **kptr, uint64_t *size);
+ void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem *mem);
+ 
+-int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo);
++int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo);
+ 
+ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
+ 					    struct dma_fence __rcu **ef);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index ef71b12062a1..bf8e6653341f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -2189,13 +2189,12 @@ int amdgpu_amdkfd_gpuvm_sync_memory(
+ 
+ /**
+  * amdgpu_amdkfd_map_gtt_bo_to_gart - Map BO to GART and increment reference count
+- * @adev: Device to which allocated BO belongs
+  * @bo: Buffer object to be mapped
+  *
+  * Before return, bo reference count is incremented. To release the reference and unpin/
+  * unmap the BO, call amdgpu_amdkfd_free_gtt_mem.
+  */
+-int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo)
++int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo)
+ {
+ 	int ret;
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 824e660283b2..f030cafc5a0a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -371,7 +371,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 			goto err_wptr_map_gart;
+ 		}
+ 
+-		err = amdgpu_amdkfd_map_gtt_bo_to_gart(dev->adev, wptr_bo);
++		err = amdgpu_amdkfd_map_gtt_bo_to_gart(wptr_bo);
+ 		if (err) {
+ 			pr_err("Failed to map wptr bo to GART\n");
+ 			goto err_wptr_map_gart;
+-- 
+2.34.1
 
