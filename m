@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C538C5478C
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 18:42:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02F71C5478C
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 18:43:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F225C10E478;
-	Wed, 28 Feb 2024 18:42:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85D4E10E47F;
+	Wed, 28 Feb 2024 18:43:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QlYhdNHZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zoKbnlzM";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2046.outbound.protection.outlook.com [40.107.95.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3887A10E478
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 18:42:51 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2078.outbound.protection.outlook.com [40.107.244.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40C2C10E47F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 18:43:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HTwI/jJKSAW+oORDFyi+hopqjKWK4hzzPPvXA10SGz5nANd6v3jSyzHChosB1of1JM4Ytowj7XUVNKVH7D0JfyZWWSTEI4nqUmgi3JVta3V0XpgF0/6Ttd9NCnTlg6hWYg7b124SWhTmPbD0rIZKJyyBdPX+TARiTSBW2In0fFNzQS3mHo9OignFOBAtZoztKDFghvPY7gaGhBgYM+j8TrbYObva/3LGh3mIJIvqwgWwe2sWb2K5SDkf7Nuw1rKUl8NJMWXHMK0I6C21mtdMpfVGek0WEnws3P5Q5FktpkOIQv0Pk2Y9dEKfDBnbreM5XtoZmFMMuuHPPY83sNtmZg==
+ b=TUSx5oSnw//G50VobrqwZwNXzhmzSTEBMmCwbrXFuJAEOm5rjOHZWCAyG20LN9wVPcwMtOdvsLDi0fcJRYBHgr0kkCMXM7iC9+KT1bMr0KfBLl3uBRL35bvVfyLq+BizcSWyLA0vyFz1W2JAK4OeY1n42EVm/cc7zUCmxgpJUQWlNE0T7kr8oNmy7kt8aSxR6whhHv6cZaZHD/YpbIf9sPEDfkvc2rcCJ/8s/t4X1asnlPWpShDPKFRuZKQY4vTJs8l0SZQojnOdpExIOlUKPgQsJFiirshfuXh+moA6kb/CTJ4E8wmq/RzxoQEK/dOr9MM7NWEqnqlwKkEZKwOBcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sPhk4wb/qszl5txx/GzukIEQOv/onBO5WO8Bvg6/NhY=;
- b=J6+JGc4/LHs/3+0fM/bFqCc72H9VF9lc3oCNDQ3M7R97xRTUQ0dmeVnhpD8TjIZpfeJNbfa/bxv2X82mOIQkli0frlbkehtqTatqKdzctuY4nAp3RDagMs/uImeN4ZmRwM+j3IPdyFBq5kWVfZtKr7n0VXoWrNjYrwpqR6PDZ3vp66zjdgU7KBNa0elcs9d/KQce1RCLUWEz2LobLYYq8vlKxGgfzTwqh4c3oOEauMQpNquM7GvnZuGr1n6Hj7g3SE+eetcqko4ZJjhDIlPjhBuH6ZvI2PdFkCvWzfayKz0PCrXf5ymABJMSwmQMJGv3N9FPihlhfeAI2p0l2Ol+BA==
+ bh=ipUFec7YByyf8/ZZTcCzUF/J7Ovn05gsnxT/GZjehOQ=;
+ b=gKGNtEtFh2/UanWoeCpVjDsMCGrt6+QLQTYddIQt7AYBZyMx+kKXYckaQr4njkca+06UZInzG8E68N9i+AgyhPVfwvRhsLDKNsoAYlG1N/IVpFqnh9r3tJsQGCjWYFLozD3KkvJ1xbxeXOBXYMVkiOAjLfONrIbBlQOFbXqzUZkLXr6dWIb4uibLblvlaL2oVpTmi6cHFqFCPJFddSGC9FxEOl5CtHZdyEncpxh6Ve9lfIfUwpxq3ilGDH0Jq4k3t08kGdDeJWReirBZ37QphQGVoJoJz4DHPtxGYxedn+x1dhPFm4ndP4SkqUCbRKNTUHfVYSUSALCq83rC/cEByQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sPhk4wb/qszl5txx/GzukIEQOv/onBO5WO8Bvg6/NhY=;
- b=QlYhdNHZ37797a6SWrQzICg6M2YpoZNiw6g6Jg79536t6h/O0oiruR6meoKxfvhYX/I366Sd7HSo/mUdTbMlkCXRjVxeEHvLQJwb4cj8Ug5YVqhdBK2+qXWLh0zfp1qaSLqCsRUR6shSgHdm8bUQi9YyEAU8YkOPdi3LDl8I0z8=
-Received: from CYXPR02CA0013.namprd02.prod.outlook.com (2603:10b6:930:cf::24)
- by PH8PR12MB6698.namprd12.prod.outlook.com (2603:10b6:510:1cd::14)
+ bh=ipUFec7YByyf8/ZZTcCzUF/J7Ovn05gsnxT/GZjehOQ=;
+ b=zoKbnlzM8bjqQNDqQSXzZv9carBHv7HrEkgc/KI1ngVsWI4mp0GkiGHzyXv6XIxh4aDmZkA0sKNytl33kvmp23IEevswHoozGiK4HkpXywoeOXD2y9RdPy4qa1dV2JEjWrubu9vaSBI9gvA2sdkjUKHejqOBVregenxQzMzi/vQ=
+Received: from CY5PR15CA0209.namprd15.prod.outlook.com (2603:10b6:930:82::27)
+ by SA3PR12MB9180.namprd12.prod.outlook.com (2603:10b6:806:39b::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.36; Wed, 28 Feb
- 2024 18:42:48 +0000
-Received: from CY4PEPF0000E9D9.namprd05.prod.outlook.com
- (2603:10b6:930:cf:cafe::e7) by CYXPR02CA0013.outlook.office365.com
- (2603:10b6:930:cf::24) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 18:43:02 +0000
+Received: from CY4PEPF0000E9D6.namprd05.prod.outlook.com
+ (2603:10b6:930:82:cafe::32) by CY5PR15CA0209.outlook.office365.com
+ (2603:10b6:930:82::27) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.28 via Frontend
- Transport; Wed, 28 Feb 2024 18:42:48 +0000
+ Transport; Wed, 28 Feb 2024 18:43:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,24 +48,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9D9.mail.protection.outlook.com (10.167.241.77) with Microsoft
+ CY4PEPF0000E9D6.mail.protection.outlook.com (10.167.241.80) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Wed, 28 Feb 2024 18:42:48 +0000
+ 15.20.7292.25 via Frontend Transport; Wed, 28 Feb 2024 18:43:02 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 28 Feb
- 2024 12:42:46 -0600
+ 2024 12:42:59 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Muhammad Ahmed
- <ahmed.ahmed@amd.com>, Charlene Liu <charlene.liu@amd.com>, Alex Hung
+ <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Duncan Ma <duncan.ma@amd.com>, Alex Hung
  <alex.hung@amd.com>
-Subject: [PATCH 09/34] drm/amd/display: Add debug key to allow disabling dtbclk
-Date: Wed, 28 Feb 2024 11:39:15 -0700
-Message-ID: <20240228183940.1883742-10-alex.hung@amd.com>
+Subject: [PATCH 10/34] drm/amd/display: Add debug prints for IPS testing
+Date: Wed, 28 Feb 2024 11:39:16 -0700
+Message-ID: <20240228183940.1883742-11-alex.hung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240228183940.1883742-1-alex.hung@amd.com>
 References: <20240228183940.1883742-1-alex.hung@amd.com>
@@ -77,25 +77,25 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D9:EE_|PH8PR12MB6698:EE_
-X-MS-Office365-Filtering-Correlation-Id: a208d8e8-f9ea-476f-9a36-08dc388d0fd3
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D6:EE_|SA3PR12MB9180:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4776421b-4977-48ba-2a6a-08dc388d17df
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DH545cO5M3TKYpWEGmjNJTT2AAinqKeOCYSVpwwfg1JMoNvqa91J/2BU1tjKUBEkwB0C+HxMflggDXbAKrM08ubmh365M0+LlZo7HtUUna5jh4+Qy07FTc51EUq9IXBwcDzqdrRUX8oJccr+4PQnde6B7CM5cfyNeK1AuLZ7rYA0KOTI5a+Y5kNjzEhmA5tiAzcAZzrVxaFcj3UuUT0qOo6Lt8X73J/4SbiSFgzOlyMddNK8BYTjEKXbap9ThWOFVz8cn28fkniF5JZD/gQfHoYUGOlXloQ1EYLj3NvWqvcStQh2FJI6c0c6NE33ooh2WEI00/C1duScaEXABPpBw1pxM9UPOfQYO/n3xYmcXu7GK/cQAxdQwk4TuAmt6PYz7a6jprNJY9HPft1MkRw7OuvnBLdZW/97T5seYbIY3tvNKXn9ptR5E3eBQubADLQLKpgEmtdeXpzZgmsVNidEbIkKKAef0N5rMdpiV0k1I9j8U5cX/ZHBdL5CV5COkK8xY2X9qMCfbMmDUjptR04VJrorPgm5JmzJJ2InQ+uuDioDwOGGWIPk7DTqluT2YavXbgEgqLYQ/I1RFP4ugPaDx9Z1UqtI6QhY/dLe06SuDlCej94KPLZEIACvm2PP8jzRhkKxdwojj2vVpdR+qVHcvPh0gZgq6j7s0Kak0gFqfkYmZKwTMsMu4u7VnsLJNhu3jQeAQ4iC8qwXASId1C+yP2n42jcNgE8fe1SjyktlZKrftU4r2dZ5bsqnwp5tZG2g
+X-Microsoft-Antispam-Message-Info: UyPtsNa/m/rSgh2ZNIBtFTprIUlv0E5XJonRlqVR05l/c7XPvmUOuvmlhP/6O7jce5y56zpHn+UyWc6SggNvKjiaCVD2B2ZTFxpuivRxIFjpcm/+15eSx8d1W/qkpAKA/6B2Zkedl7vH03EgQeUwv61uB6IIOokH0yzacsx2dIuAiYJT/7m14n8jNt5d7Y53LFJMXwXrrLIMtwG1AIEE1BNHYXAchfrmr4gavSlBlNrO87sgYJHM7aaAhi3ZGxb9b9NtQDmf7k9Onkkkw1IDp3j8vUK8Mf5IB21QwLonDmOcelXtqvFMy3W2dqxrEqspn+aoCI07fbrcTWMbA/3kzeQS3QWEY6uMkPN8AizzrNm8RhiZJHhZrZhqkZwP7dmShfoT35nsjH1eqXU6yjOSYj8z7SEWK/LX6XJF7iIOfw1hzHkd+nsurg87q0/3PCREgpzLJ4QOdOCIjHh3girs3Y2UGZxekGULVF9mNZPlc4E+bljhXAicFIsnWDq34DaAqSG1CL5cyf96DepCru0RDEwM0xpoIZ4ry3gTFH4sMe6Vx6jEgZrvidq7YTPeB6iiC+M9wnfeNGb6WwSloAmLP6PgQKKi4L1CZRqQjtHvVFcUHki70dKZV9bwG8892TzOL0MgxO4nmvYquG9gZ9qoyg/Nrk+WZEgPoYpnWfmfwChw5U2G0XHOHbx3I7jRSdbIEYqavYhWgfo/ymzmcf41ogpYPe15w2Iar0Tn7ucJN8U3+XsQxS6s2Wfn18jdM9Zp
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230031)(82310400014)(36860700004); DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2024 18:42:48.5744 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a208d8e8-f9ea-476f-9a36-08dc388d0fd3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2024 18:43:02.0875 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4776421b-4977-48ba-2a6a-08dc388d17df
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D6.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6698
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9180
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,45 +110,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Muhammad Ahmed <ahmed.ahmed@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+
+[WHY]
+To log commit states and when we transition in/out of allow and idle
+states and the caller.
 
 [HOW]
-Add debug key to allow disabling dtbclk
+Add a new logging helper and wrap idle optimization calls to receive
+the caller.
 
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Reviewed-by: Duncan Ma <duncan.ma@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Muhammad Ahmed <ahmed.ahmed@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c | 3 ++-
- drivers/gpu/drm/amd/display/dc/dc.h                          | 1 +
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 10 ++-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  7 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  | 73 +++++++++++++++++++
+ .../drm/amd/display/include/logger_types.h    |  1 +
+ 4 files changed, 86 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-index c378b879c76d..c6030bed95a0 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-@@ -244,7 +244,8 @@ void dcn35_update_clocks(struct clk_mgr *clk_mgr_base,
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 613d09c42f3b..501e0298623a 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -4820,11 +4820,15 @@ bool dc_set_replay_allow_active(struct dc *dc, bool active)
+ 	return true;
+ }
  
- 		if (clk_mgr_base->clks.dtbclk_en && !new_clocks->dtbclk_en) {
--			dcn35_smu_set_dtbclk(clk_mgr, false);
-+			if (clk_mgr->base.ctx->dc->config.allow_0_dtb_clk)
-+				dcn35_smu_set_dtbclk(clk_mgr, false);
- 			clk_mgr_base->clks.dtbclk_en = new_clocks->dtbclk_en;
- 		}
- 		/* check that we're not already in lower */
+-void dc_allow_idle_optimizations(struct dc *dc, bool allow)
++void dc_allow_idle_optimizations_internal(struct dc *dc, bool allow, char const *caller_name)
+ {
+ 	if (dc->debug.disable_idle_power_optimizations)
+ 		return;
+ 
++	if (allow != dc->idle_optimizations_allowed)
++		DC_LOG_IPS("%s: allow_idle old=%d new=%d (caller=%s)\n", __func__,
++			   dc->idle_optimizations_allowed, allow, caller_name);
++
+ 	if (dc->caps.ips_support && (dc->config.disable_ips == DMUB_IPS_DISABLE_ALL))
+ 		return;
+ 
+@@ -4839,10 +4843,10 @@ void dc_allow_idle_optimizations(struct dc *dc, bool allow)
+ 		dc->idle_optimizations_allowed = allow;
+ }
+ 
+-void dc_exit_ips_for_hw_access(struct dc *dc)
++void dc_exit_ips_for_hw_access_internal(struct dc *dc, const char *caller_name)
+ {
+ 	if (dc->caps.ips_support)
+-		dc_allow_idle_optimizations(dc, false);
++		dc_allow_idle_optimizations_internal(dc, false, caller_name);
+ }
+ 
+ bool dc_dmub_is_ips_idle_state(struct dc *dc)
 diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index ee8453bf958f..c1d8288a08b3 100644
+index c1d8288a08b3..c9485a7744d7 100644
 --- a/drivers/gpu/drm/amd/display/dc/dc.h
 +++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -435,6 +435,7 @@ struct dc_config {
- 	unsigned int disable_ips;
- 	unsigned int disable_ips_in_vpb;
- 	bool usb4_bw_alloc_support;
-+	bool allow_0_dtb_clk;
- };
+@@ -2339,8 +2339,11 @@ void dc_get_clock(struct dc *dc, enum dc_clock_type clock_type, struct dc_clock_
+ bool dc_is_plane_eligible_for_idle_optimizations(struct dc *dc, struct dc_plane_state *plane,
+ 				struct dc_cursor_attributes *cursor_attr);
  
- enum visual_confirm {
+-void dc_allow_idle_optimizations(struct dc *dc, bool allow);
+-void dc_exit_ips_for_hw_access(struct dc *dc);
++#define dc_allow_idle_optimizations(dc, allow) dc_allow_idle_optimizations_internal(dc, allow, __func__)
++#define dc_exit_ips_for_hw_access(dc) dc_exit_ips_for_hw_access_internal(dc, __func__)
++
++void dc_allow_idle_optimizations_internal(struct dc *dc, bool allow, const char *caller_name);
++void dc_exit_ips_for_hw_access_internal(struct dc *dc, const char *caller_name);
+ bool dc_dmub_is_ips_idle_state(struct dc *dc);
+ 
+ /* set min and max memory clock to lowest and highest DPM level, respectively */
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index 6083b1dcf050..b168dfc79381 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -910,6 +910,8 @@ void dc_dmub_srv_log_diagnostic_data(struct dc_dmub_srv *dc_dmub_srv)
+ 		return;
+ 	}
+ 
++	DC_LOG_ERROR("%s: DMCUB error - collecting diagnostic data\n", __func__);
++
+ 	if (!dc_dmub_srv_get_diagnostic_data(dc_dmub_srv, &diag_data)) {
+ 		DC_LOG_ERROR("%s: dc_dmub_srv_get_diagnostic_data failed.", __func__);
+ 		return;
+@@ -1201,6 +1203,7 @@ bool dc_dmub_srv_is_hw_pwr_up(struct dc_dmub_srv *dc_dmub_srv, bool wait)
+ 
+ static void dc_dmub_srv_notify_idle(const struct dc *dc, bool allow_idle)
+ {
++	volatile const struct dmub_shared_state_ips_fw *ips_fw;
+ 	struct dc_dmub_srv *dc_dmub_srv;
+ 	union dmub_rb_cmd cmd = {0};
+ 
+@@ -1211,6 +1214,7 @@ static void dc_dmub_srv_notify_idle(const struct dc *dc, bool allow_idle)
+ 		return;
+ 
+ 	dc_dmub_srv = dc->ctx->dmub_srv;
++	ips_fw = &dc_dmub_srv->dmub->shared_state[DMUB_SHARED_SHARE_FEATURE__IPS_FW].data.ips_fw;
+ 
+ 	memset(&cmd, 0, sizeof(cmd));
+ 	cmd.idle_opt_notify_idle.header.type = DMUB_CMD__IDLE_OPT;
+@@ -1226,6 +1230,12 @@ static void dc_dmub_srv_notify_idle(const struct dc *dc, bool allow_idle)
+ 			&dc_dmub_srv->dmub->shared_state[DMUB_SHARED_SHARE_FEATURE__IPS_DRIVER].data.ips_driver;
+ 		union dmub_shared_state_ips_driver_signals new_signals;
+ 
++		DC_LOG_IPS(
++			"%s wait idle (ips1_commit=%d ips2_commit=%d)",
++			__func__,
++			ips_fw->signals.bits.ips1_commit,
++			ips_fw->signals.bits.ips2_commit);
++
+ 		dc_dmub_srv_wait_idle(dc->ctx->dmub_srv);
+ 
+ 		memset(&new_signals, 0, sizeof(new_signals));
+@@ -1250,6 +1260,13 @@ static void dc_dmub_srv_notify_idle(const struct dc *dc, bool allow_idle)
+ 		ips_driver->signals = new_signals;
+ 	}
+ 
++	DC_LOG_IPS(
++		"%s send allow_idle=%d (ips1_commit=%d ips2_commit=%d)",
++		__func__,
++		allow_idle,
++		ips_fw->signals.bits.ips1_commit,
++		ips_fw->signals.bits.ips2_commit);
++
+ 	/* NOTE: This does not use the "wake" interface since this is part of the wake path. */
+ 	/* We also do not perform a wait since DMCUB could enter idle after the notification. */
+ 	dm_execute_dmub_cmd(dc->ctx, &cmd, allow_idle ? DM_DMUB_WAIT_TYPE_NO_WAIT : DM_DMUB_WAIT_TYPE_WAIT);
+@@ -1276,38 +1293,92 @@ static void dc_dmub_srv_exit_low_power_state(const struct dc *dc)
+ 
+ 		ips_driver->signals.all = 0;
+ 
++		DC_LOG_IPS(
++			"%s check (allow_ips1=%d allow_ips2=%d) (ips1_commit=%d ips2_commit=%d)",
++			__func__,
++			ips_driver->signals.bits.allow_ips1,
++			ips_driver->signals.bits.allow_ips2,
++			ips_fw->signals.bits.ips1_commit,
++			ips_fw->signals.bits.ips2_commit);
++
+ 		if (prev_driver_signals.bits.allow_ips2) {
++			DC_LOG_IPS(
++				"wait IPS2 eval (ips1_commit=%d ips2_commit=%d)",
++				ips_fw->signals.bits.ips1_commit,
++				ips_fw->signals.bits.ips2_commit);
++
+ 			udelay(dc->debug.ips2_eval_delay_us);
+ 
+ 			if (ips_fw->signals.bits.ips2_commit) {
++				DC_LOG_IPS(
++					"exit IPS2 #1 (ips1_commit=%d ips2_commit=%d)",
++					ips_fw->signals.bits.ips1_commit,
++					ips_fw->signals.bits.ips2_commit);
++
+ 				// Tell PMFW to exit low power state
+ 				dc->clk_mgr->funcs->exit_low_power_state(dc->clk_mgr);
+ 
++				DC_LOG_IPS(
++					"wait IPS2 entry delay (ips1_commit=%d ips2_commit=%d)",
++					ips_fw->signals.bits.ips1_commit,
++					ips_fw->signals.bits.ips2_commit);
++
+ 				// Wait for IPS2 entry upper bound
+ 				udelay(dc->debug.ips2_entry_delay_us);
+ 
++				DC_LOG_IPS(
++					"exit IPS2 #2 (ips1_commit=%d ips2_commit=%d)",
++					ips_fw->signals.bits.ips1_commit,
++					ips_fw->signals.bits.ips2_commit);
++
+ 				dc->clk_mgr->funcs->exit_low_power_state(dc->clk_mgr);
+ 
++				DC_LOG_IPS(
++					"wait IPS2 commit clear (ips1_commit=%d ips2_commit=%d)",
++					ips_fw->signals.bits.ips1_commit,
++					ips_fw->signals.bits.ips2_commit);
++
+ 				while (ips_fw->signals.bits.ips2_commit)
+ 					udelay(1);
+ 
++				DC_LOG_IPS(
++					"wait hw_pwr_up (ips1_commit=%d ips2_commit=%d)",
++					ips_fw->signals.bits.ips1_commit,
++					ips_fw->signals.bits.ips2_commit);
++
+ 				if (!dc_dmub_srv_is_hw_pwr_up(dc->ctx->dmub_srv, true))
+ 					ASSERT(0);
+ 
++				DC_LOG_IPS(
++					"resync inbox1 (ips1_commit=%d ips2_commit=%d)",
++					ips_fw->signals.bits.ips1_commit,
++					ips_fw->signals.bits.ips2_commit);
++
+ 				dmub_srv_sync_inbox1(dc->ctx->dmub_srv->dmub);
+ 			}
+ 		}
+ 
+ 		dc_dmub_srv_notify_idle(dc, false);
+ 		if (prev_driver_signals.bits.allow_ips1) {
++			DC_LOG_IPS(
++				"wait for IPS1 commit clear (ips1_commit=%d ips2_commit=%d)",
++				ips_fw->signals.bits.ips1_commit,
++				ips_fw->signals.bits.ips2_commit);
++
+ 			while (ips_fw->signals.bits.ips1_commit)
+ 				udelay(1);
+ 
++			DC_LOG_IPS(
++				"wait for IPS1 commit clear done (ips1_commit=%d ips2_commit=%d)",
++				ips_fw->signals.bits.ips1_commit,
++				ips_fw->signals.bits.ips2_commit);
+ 		}
+ 	}
+ 
+ 	if (!dc_dmub_srv_is_hw_pwr_up(dc->ctx->dmub_srv, true))
+ 		ASSERT(0);
++
++	DC_LOG_IPS("%s exited", __func__);
+ }
+ 
+ void dc_dmub_srv_set_power_state(struct dc_dmub_srv *dc_dmub_srv, enum dc_acpi_cm_power_state powerState)
+@@ -1335,6 +1406,8 @@ void dc_dmub_srv_apply_idle_power_optimizations(const struct dc *dc, bool allow_
+ 	if (dc_dmub_srv->idle_allowed == allow_idle)
+ 		return;
+ 
++	DC_LOG_IPS("%s state change: old=%d new=%d", __func__, dc_dmub_srv->idle_allowed, allow_idle);
++
+ 	/*
+ 	 * Entering a low power state requires a driver notification.
+ 	 * Powering up the hardware requires notifying PMFW and DMCUB.
+diff --git a/drivers/gpu/drm/amd/display/include/logger_types.h b/drivers/gpu/drm/amd/display/include/logger_types.h
+index f39e2785e618..83479951732a 100644
+--- a/drivers/gpu/drm/amd/display/include/logger_types.h
++++ b/drivers/gpu/drm/amd/display/include/logger_types.h
+@@ -64,6 +64,7 @@
+ #define DC_LOG_DWB(...) drm_dbg((DC_LOGGER)->dev, __VA_ARGS__)
+ #define DC_LOG_DP2(...) drm_dbg_dp((DC_LOGGER)->dev, __VA_ARGS__)
+ #define DC_LOG_AUTO_DPM_TEST(...) pr_debug("[AutoDPMTest]: "__VA_ARGS__)
++#define DC_LOG_IPS(...) pr_debug("[IPS]: "__VA_ARGS__)
+ 
+ struct dc_log_buffer_ctx {
+ 	char *buf;
 -- 
 2.34.1
 
