@@ -4,135 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 699E3C54E41
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 08:19:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45E7DC47DD9
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Feb 2024 08:43:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA14910E9CB;
-	Wed, 28 Feb 2024 08:19:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFAE710E862;
+	Wed, 28 Feb 2024 08:43:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="sznkX2Ob";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FeybRjlC";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="sznkX2Ob";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FeybRjlC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5nrW1IOb";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7E4110E9C6;
- Wed, 28 Feb 2024 08:19:46 +0000 (UTC)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DEBE41FBEE;
- Wed, 28 Feb 2024 08:19:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1709108384; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=nWPhJsPQKvrqarNFIej7vxQFJJnKTtYS/cMyoDdZX14=;
- b=sznkX2Oby5lAFmxQuk2CpsPYxBJkdjoXr7wPsKC5Mh6/Z03DVhYAfAXvcOHgH9CHRMMt6/
- onhPHoaoLDjYNkwrwAB/zV3J5miquTGKZ0Uu6NKk04tadcJ2r7yUIPUK/fw+vw0AsJcS66
- lAYwc9NwEB9S87jJz3hjMYarJ/cDL8Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1709108384;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=nWPhJsPQKvrqarNFIej7vxQFJJnKTtYS/cMyoDdZX14=;
- b=FeybRjlChq+XK2b3SMEenBN167kno2njkO76rnY7v1Z+XybGIlQ7vY1wMq3SdoXhGwuhcU
- uiUDQN5OeA5YDnDA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1709108384; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=nWPhJsPQKvrqarNFIej7vxQFJJnKTtYS/cMyoDdZX14=;
- b=sznkX2Oby5lAFmxQuk2CpsPYxBJkdjoXr7wPsKC5Mh6/Z03DVhYAfAXvcOHgH9CHRMMt6/
- onhPHoaoLDjYNkwrwAB/zV3J5miquTGKZ0Uu6NKk04tadcJ2r7yUIPUK/fw+vw0AsJcS66
- lAYwc9NwEB9S87jJz3hjMYarJ/cDL8Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1709108384;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=nWPhJsPQKvrqarNFIej7vxQFJJnKTtYS/cMyoDdZX14=;
- b=FeybRjlChq+XK2b3SMEenBN167kno2njkO76rnY7v1Z+XybGIlQ7vY1wMq3SdoXhGwuhcU
- uiUDQN5OeA5YDnDA==
-Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 2D79213A42;
- Wed, 28 Feb 2024 08:19:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap2.dmz-prg2.suse.org with ESMTPSA id 9xXKCaDs3mXvQAAAn2gu4w
- (envelope-from <tzimmermann@suse.de>); Wed, 28 Feb 2024 08:19:44 +0000
-Message-ID: <cd01e963-dd4d-4554-9feb-1750f72cc260@suse.de>
-Date: Wed, 28 Feb 2024 09:19:43 +0100
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2059.outbound.protection.outlook.com [40.107.93.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD47B10E862
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Feb 2024 08:43:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=faayShvBqpm981hL9mNAF6fhxLDITE7K26ezAsRGNo2Udih05KIpBIuIcxblHqRiUBGKoeclBHSGANwuAVm3MRcSbQ4fE2hl9oo8gPLRyUTecqqTWqXl7SrNl9e9DPVsQ56Ik+LevnqqVMdzO2DMIJkhQ1isKkFSEyshwjf94GTE+UxF+1rTviilRI2f5schq571H2d8pejj7uoXmu40GGdXukf+c92vpxp4m5xofVrrnkbTQQ2UQtb6xT0wX3mYrN1dgNPWtv7in2oAsCdrlg1AeCrj0mHhup/35MlLuPXJHOEsGtlb74ctO0gQMRRoq5zSI6VzPNOWn6c5qbevHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1vabYJXJa+HyheaGlCmtJKkv4wawLrixOnE6dFv4jzc=;
+ b=W0Klw7Vxh8x3AYXyjFshtL8yuDcy+rP80bRknXHYLJpcnv6E0eQ3XR1vU2IEM33FNytVcg4G7j/iCFqreJ6RqXmOLhult7mNGereIUizKe57ybHSUrrl9W7AhtFTsbfv1OfS5jg5pOMIdYk18cY2LzOcVvaeL1pfvziDSCJAO7mVXmk8NdpvB5kIx1up6RuAI9Ou23Hq3OrdcxloAxSVD/8koZmtrvAjJSYBeO0e3HYB2hZL8embTF5qBkj3x5j0wJrqK/jKo4CB09C9xX+LMdG2u5sHR1HRPEmdeICU6AnsxtRVBmuoobQHLxNayQ1Xaw3+c6kzlGnnwH2z1oK5qQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1vabYJXJa+HyheaGlCmtJKkv4wawLrixOnE6dFv4jzc=;
+ b=5nrW1IOb8C7Q9Ytexzk6t4KLfQyhBz8O4P8UK+9ivNz9/YKU7OTqm33XVbYZnvyLRl940XHaaCw+9eytljbWP9/8J5Y43t+dkTrEjjGDXSZd8WFl6/qnolYwUKw01208koNps/Kak6UoBLem2H3daVedsROojtsMQJmukLM5F6g=
+Received: from DM6PR17CA0021.namprd17.prod.outlook.com (2603:10b6:5:1b3::34)
+ by CH3PR12MB7740.namprd12.prod.outlook.com (2603:10b6:610:145::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.41; Wed, 28 Feb
+ 2024 08:43:22 +0000
+Received: from CY4PEPF0000EE33.namprd05.prod.outlook.com
+ (2603:10b6:5:1b3:cafe::38) by DM6PR17CA0021.outlook.office365.com
+ (2603:10b6:5:1b3::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.28 via Frontend
+ Transport; Wed, 28 Feb 2024 08:43:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE33.mail.protection.outlook.com (10.167.242.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Wed, 28 Feb 2024 08:43:22 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 28 Feb
+ 2024 02:43:18 -0600
+Received: from jessevm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Wed, 28 Feb 2024 02:43:17 -0600
+From: <jesse.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Arunpravin.PaneerSelvam@amd.com>,
+ <Felix.Kuehling@amd.com>, Jesse.Zhang <Jesse.Zhang@amd.com>
+Subject: [PATCH V2] Revert "drm/amdgpu: remove vm sanity check from
+ amdgpu_vm_make_compute" for Raven
+Date: Wed, 28 Feb 2024 16:43:16 +0800
+Message-ID: <20240228084316.124843-1-jesse.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/13] drm: Fix reservation locking for pin/unpin and
- console
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, daniel@ffwll.ch,
- airlied@gmail.com, mripard@kernel.org, maarten.lankhorst@linux.intel.com,
- christian.koenig@amd.com, sumit.semwal@linaro.org, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, suijingfeng@loongson.cn, kherbst@redhat.com,
- lyude@redhat.com, dakr@redhat.com, airlied@redhat.com, kraxel@redhat.com,
- alexander.deucher@amd.com, Xinhui.Pan@amd.com, zack.rusin@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20240227113853.8464-1-tzimmermann@suse.de>
- <d854f70b-1d62-4da7-bfbd-2184456d1d25@collabora.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <d854f70b-1d62-4da7-bfbd-2184456d1d25@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spamd-Result: default: False [-4.29 / 50.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; XM_UA_NO_VERSION(0.01)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
- NEURAL_HAM_LONG(-1.00)[-1.000]; BAYES_HAM(-3.00)[100.00%];
- RCVD_COUNT_THREE(0.00)[3];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; RCPT_COUNT_TWELVE(0.00)[29];
- FREEMAIL_TO(0.00)[collabora.com,ffwll.ch,gmail.com,kernel.org,linux.intel.com,amd.com,linaro.org,quicinc.com,poorly.run,somainline.org,loongson.cn,redhat.com,broadcom.com];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: jesse.zhang@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE33:EE_|CH3PR12MB7740:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7515ca82-3308-4b33-3eb7-08dc38395251
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: zBrI/N6dKH2bgQH/wV9wIDERcRCgZqse2AF8JrRsO3JdSzr/Uv2R7ibJCHGv3hvqjX4J8/22gw7TZjuyNnyKNsr26DV03zBr1GmIHxOEjHG4pbhCKo/Cv4BvgUteciEMsuP9oP3SdypDZtfEWQW9hzmJB03VsTjgMsbt2XXr8+a/RvVCR/mgNYy5kGZDL0YTsZzv91+qVFnHKkC5rG/q8h7i9uJWnoHMoUcAQTIAIKvru6CH5fyTFLPYgYfWFuLlGJkuOTRxUA+OaXhtuiHT/ZUldhupCX6Q9img5kHmwNzt8UaHHPR+pxyk1hBOhAkWGwuqz6GgY8t9wrD2zeaKNxKyiMMGh6TzuixU6jgzWnjjAj3R77vxYoWc26ccdeP2MVj10vXPzidpjLJxb/wBY6Hi1LrCdDKVwAS9L2JVjEC3keWfROI+52BsQZpWeu0Qb4IW5ub1Jus5k7o/+T44c9TYxbFvMZtJK/dSp613yUrFfl8JcB0nsq8VZeUQ/65PdOpXeWbcTVpps1YmkhJLgM/TtpE+/mIh7w8VpU2Rjxu2It6Edwy2U3hIbiY+yCeqV57WeafztuJfB9HsZ/unpuncH9sWCUS35Mm7igBIpLYxGZ9DM09eCt63mPzPYn5HLXHiFhs645YJk4elny6ujv/KTC+wxSltQ2/pvI8b5LwTsC7Tv2eJ5WGpxCUeJ8LsnRylc94eKIaiwulMVJznC4Uf9EDIv7J7Bc86r49TiLsSYZHGhsRqZMWQt3oyOqqd
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(82310400014); DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2024 08:43:22.4021 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7515ca82-3308-4b33-3eb7-08dc38395251
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE33.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7740
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,114 +107,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+From: "Jesse.Zhang" <Jesse.Zhang@amd.com>
 
-Am 27.02.24 um 19:14 schrieb Dmitry Osipenko:
-> Hello,
->
-> Thank you for the patches!
->
-> On 2/27/24 13:14, Thomas Zimmermann wrote:
->> Dma-buf locking semantics require the caller of pin and unpin to hold
->> the buffer's reservation lock. Fix DRM to adhere to the specs. This
->> enables to fix the locking in DRM's console emulation. Similar changes
->> for vmap and mmap have been posted at [1][2]
->>
->> Most DRM drivers and memory managers acquire the buffer object's
->> reservation lock within their GEM pin and unpin callbacks. This
->> violates dma-buf locking semantics. We get away with it because PRIME
->> does not provide pin/unpin, but attach/detach, for which the locking
->> semantics is correct.
->>
->> Patches 1 to 8 rework DRM GEM code in various implementations to
->> acquire the reservation lock when entering the pin and unpin callbacks.
->> This prepares them for the next patch. Drivers that are not affected
->> by these patches either don't acquire the reservation lock (amdgpu)
->> or don't need preparation (loongson).
->>
->> Patch 9 moves reservation locking from the GEM pin/unpin callbacks
->> into drm_gem_pin() and drm_gem_unpin(). As PRIME uses these functions
->> internally it still gets the reservation lock.
->>
->> With the updated GEM callbacks, the rest of the patchset fixes the
->> fbdev emulation's buffer locking. Fbdev emulation needs to keep its
->> GEM buffer object inplace while updating its content. This required
->> a implicit pinning and apparently amdgpu didn't do this at all.
->>
->> Patch 10 introduces drm_client_buffer_vmap_local() and _vunmap_local().
->> The former function map a GEM buffer into the kernel's address space
->> with regular vmap operations, but keeps holding the reservation lock.
->> The _vunmap_local() helper undoes the vmap and releases the lock. The
->> updated GEM callbacks make this possible. Between the two calls, the
->> fbdev emulation can update the buffer content without have the buffer
->> moved or evicted. Update fbdev-generic to use vmap_local helpers,
->> which fix amdgpu. The idea of adding a "local vmap" has previously been
->> attempted at [3] in a different form.
->>
->> Patch 11 adds implicit pinning to the DRM client's regular vmap
->> helper so that long-term vmap'ed buffers won't be evicted. This only
->> affects fbdev-dma, but GEM DMA helpers don't require pinning. So
->> there are no practical changes.
->>
->> Patches 12 and 13 remove implicit pinning from the vmap and vunmap
->> operations in gem-vram and qxl. These pin operations are not supposed
->> to be part of vmap code, but were required to keep the buffers in place
->> for fbdev emulation. With the conversion o ffbdev-generic to to
->> vmap_local helpers, that code can finally be removed.
-> Isn't it a common behaviour for all DRM drivers to implicitly pin BO
-> while it's vmapped? I was sure it should be common /o\
+fix the issue:
+"amdgpu: Failed to create process VM object".
 
-That's what I originally thought as well, but the intention is for pin 
-and vmap to be distinct operation. So far each driver has been 
-different, as you probably know best from your vmap refactoring. :)
+[Why]when amdgpu initialized, seq64 do mampping and update bo mapping in vm page table.
+But when clifo run. It also initializes a vm for a process device through the function kfd_process_device_init_vm
+and ensure the root PD is clean through the function amdgpu_vm_pt_is_root_clean.
+So they have a conflict, and clinfo  always failed.
 
->
-> Why would you want to kmap BO that isn't pinned?
+[HOW]
+Skip the seq64 entry check in vm page table.
 
-Pinning places the buffer object for the GPU. As a side effect, the 
-buffer is then kept in place, which enables vmap. So pinning only makes 
-sense for buffer objects that never move (shmem, dma). That's what patch 
-11 is for.
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
->
-> Shouldn't TTM's vmap() be changed to do the pinning?
-
-I don't think so. One problem is that pinning needs a memory area (vram, 
-GTT, system ram, etc) specified, which vmap simply doesn't know about. 
-That has been a problem for fbdev emulation at some point. Our fbdev 
-code tried to pin as part of vmap, but chose the wrong area and suddenly 
-the GPU could not see the buffer object any longer.  So the next best 
-thing for vmap was to pin the buffer object where ever it is currently 
-located. That is what gem-vram and qxl did so far. And of course, the 
-fbdev code needs to unpin and vunmap the buffer object quickly, so that 
-it can be relocated if the GPU needs it.  Hence, the vmap_local 
-interface removes such short-term pinning in favor of holding the 
-reservation lock.
-
->
-> I missed that TTM doesn't pin BO on vmap() and now surprised to see it.
-> It should be a rather serious problem requiring backporting of the
-> fixes, but I don't see the fixes tags on the patches (?)
-
-No chance TBH. The old code has worked for years and backporting all 
-this would require your vmap patches at a minimum.
-
-Except maybe for amdgpu. It uses fbdev-generic, which requires pinning, 
-but amdgpu doesn't pin. That looks fishy, but I'm not aware of any bug 
-reports either. I guess, a quick workaround could fix older amdgpu if 
-necessary.
-
-Best regards
-Thomas
-
->
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index a160265ddc07..bdae5381887e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -746,8 +746,21 @@ bool amdgpu_vm_pt_is_root_clean(struct amdgpu_device *adev,
+ 	enum amdgpu_vm_level root = adev->vm_manager.root_level;
+ 	unsigned int entries = amdgpu_vm_pt_num_entries(adev, root);
+ 	unsigned int i = 0;
++	u64 seq64_addr = (adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT) - AMDGPU_VA_RESERVED_TOP;
++
++	seq64_addr /= AMDGPU_GPU_PAGE_SIZE;
++	mask = amdgpu_vm_pt_entries_mask(adev, adev->vm_manager.root_level);
++	shift = amdgpu_vm_pt_level_shift(adev, adev->vm_manager.root_level);
++	seq64_entry = (seq64_addr >> shift) & mask;
+ 
+ 	for (i = 0; i < entries; i++) {
++		/* seq64  reserve 2M memory from top of address space.
++		 * Then do the mapping and update the vm page table at amdgpu initialize.
++		 * So skip the know result.
++		 */
++
++		if(i == seq64_entry)
++			continue;
+ 		if (to_amdgpu_bo_vm(vm->root.bo)->entries[i].bo)
+ 			return false;
+ 	}
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+2.34.1
 
