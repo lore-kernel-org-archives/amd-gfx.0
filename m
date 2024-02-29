@@ -4,71 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A578C48BF6
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Feb 2024 14:49:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 159DAC54E41
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Feb 2024 15:24:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49C7410E3BF;
-	Thu, 29 Feb 2024 14:49:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67F7E10E0A7;
+	Thu, 29 Feb 2024 15:24:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k2qhhOgQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WOZNBmvH";
 	dkim-atps=neutral
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB39010E3B9
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Feb 2024 14:49:29 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-a3ee69976c9so180005966b.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Feb 2024 06:49:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709218168; x=1709822968; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=xiAOBgUliWftbRe4r8CNAunQHuxKOV+4krtQJriJTEI=;
- b=k2qhhOgQOxIAp2KjlXwcgiQRTzd2K5fDlwLpxlI6CAuniF3g4YeZ64s1NeCEnJ9QUN
- A4LmtuGODEaCANYLo8el8eo6zD4AA4Ko1Bwn8ZijqxCIe+T+07xs9t8fZYNMj6CxQdq0
- T2+8UxW0xaKeruA8nLMV1TOa3/W55qYiAjCtPfq3gXBVMkCZMVkUWbPryVusSL4GJzC2
- eSlgwTveyFGNqQt1bzRVS7J8YwDHEdAJiZe4XQir22LrN/TLId+u05bzUI2+FBdxH0/S
- AixuFhaNRdbjG8YiHRQndE5T7gAzx/FHjnAmEnM6R+q6pSG4sek2Drn5QqmKDTpT+LKI
- ejjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709218168; x=1709822968;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xiAOBgUliWftbRe4r8CNAunQHuxKOV+4krtQJriJTEI=;
- b=LNOi0dvOtlpbgPkGvYni2bVi+rIpaq50S2bi5rCVHwoxftJUCmdJke95U6ZahTlcIG
- FYmgl4yRz3sgDPyXnsC0LBCukyK0wUdB0E4WxmPjfcv/o3EZjuLT7JT95v+hBE7iXT7v
- PZBdoyBBuHMdg65UoAhBAnrwffQqN0SEjJYf+jOqqIA/8U6tmz1QVTiZa+cQPFuCAipe
- ooQCk0tmw7o3xzabLRFZpsPL4r+3oUkSkZ5BUaU/af12zVW6GqbwjPQmPInXslLhxdR2
- rBH0nETBZs1s90Z2tKC2/pnph7IgtwEgD/H9udEt0XZD+QEaKKImtImKTH1FBhpEHctx
- XroQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXomQ5Xyuy3tjF6P+KDMLQmXkLiterBxScqb73xW8B3g/uKf7+QFgwFIY+AlrJQ15KemZ76VYWFQODhAHEJTUtlvEqwTmXOQoyC2V0O+Q==
-X-Gm-Message-State: AOJu0YxvAOVqdUfRXNo0gO6/4P8pGVg0SL+m6RKANs+tAhWiIrlsNY5w
- hqSY6j9ZHWb30PnhrCVrdwYjZKTIjMBz8HG2eMNFb/Y2eWVAWbzDmswrNlO2cq0=
-X-Google-Smtp-Source: AGHT+IHnYVcB4IsuwdRKCe6Y/b48LF7TU1EMxD2BH/ABaM4/lINtduwZUD9RJRQcTdLjupzJzANpKA==
-X-Received: by 2002:a17:906:3954:b0:a44:284a:597d with SMTP id
- g20-20020a170906395400b00a44284a597dmr1609189eje.11.1709218167674; 
- Thu, 29 Feb 2024 06:49:27 -0800 (PST)
-Received: from able.fritz.box ([2a00:e180:15dd:1300:6947:88a8:d838:c55])
- by smtp.gmail.com with ESMTPSA id
- jg29-20020a170907971d00b00a4412406741sm749167ejc.131.2024.02.29.06.49.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Feb 2024 06:49:27 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: Alexander.Deucher@amd.com,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu: workaround to avoid SET_Q_MODE packets
-Date: Thu, 29 Feb 2024 15:49:25 +0100
-Message-Id: <20240229144925.97165-2-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240229144925.97165-1-christian.koenig@amd.com>
-References: <20240229144925.97165-1-christian.koenig@amd.com>
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2083.outbound.protection.outlook.com [40.107.93.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D445910E068;
+ Thu, 29 Feb 2024 15:24:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MCGWyX0Joc1z9UgV2xXuwwHntu5N0giwwMxx4t7j5+C3fjks6mZ8/kNYCgiKGTLSkq6XBfvp5zHQYEZLUJwmbcO1FW2Sox/fz+k2H+GPvRzZNzxZreQPo/xy0k3X9wWsH9bH1DES3a3JuYuboKotdB8puFWlufkI5WhOesGvvL3x9IIQ3MTVTdc45YfHn4/BKNQkrQT8xYYvsiwwo9GIZGGon+LDsQbBEA3jvAwe1QUM9ghiIQp0zZmkZ9/OYOHHVQqWBvy1u+QK3FPB8oufq1xMTLw+01Rn1HPFei5vrTfuq9TUuVe+xKeBgAkWj24xYacuz9mPsaFNXIwxJH/DYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w+DeikyNmN3E7Sm/VvZJZ3NvH+0QTAtJpZSs3KAVVAQ=;
+ b=MJ0lryengicXPGHcJ+0hpeNkKbnZQK30v5RkyJZChZH0HyoA2cHTk06WfVee4FO0niUJhw9UqfQ4aH1pY0x1r7bSkh/5KCMKii0T46PQCe10EbOQw/gytmCRrKPgcT63GrfwwY2thDvxt3+Mf/PPx4bP5WWjPIaMrwInqdptzTiqwV74qTGwWcklX1jMFhX+Mr4kWBxj4ON8T1BGIGj0zLNfrnjw+VFyeSMOxxssXn2g2dgmwynIiUa3Iid2YA4se7HajxjRRpwIN7cvM4Wn/fWDbN0MYeTJNrSY/LVvtlAhthp3rbj9JzjGpOHrJwlgmH8RTSGX3GoFNKprLLeyjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w+DeikyNmN3E7Sm/VvZJZ3NvH+0QTAtJpZSs3KAVVAQ=;
+ b=WOZNBmvH0myBUFzcfaPv1x6UY1QR+kIMXyUODDoSEAoTVfycwI2QftxrgN3WzvKDnie7vdQzd9bIDdALUZ7gnddWGMUqUsVeKW++ySlOdkSc1q+AmpkrNOPd9AC3ZRga9zKqtxPAfQtfB03AxuPbqYeyzr9vsmQOCYL/d5L57R4=
+Received: from MN2PR15CA0024.namprd15.prod.outlook.com (2603:10b6:208:1b4::37)
+ by BL3PR12MB6473.namprd12.prod.outlook.com (2603:10b6:208:3b9::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.32; Thu, 29 Feb
+ 2024 15:24:39 +0000
+Received: from BL6PEPF0001AB75.namprd02.prod.outlook.com
+ (2603:10b6:208:1b4:cafe::6f) by MN2PR15CA0024.outlook.office365.com
+ (2603:10b6:208:1b4::37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.27 via Frontend
+ Transport; Thu, 29 Feb 2024 15:24:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB75.mail.protection.outlook.com (10.167.242.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Thu, 29 Feb 2024 15:24:39 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 29 Feb
+ 2024 09:24:38 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu drm-fixes-6.8
+Date: Thu, 29 Feb 2024 10:24:24 -0500
+Message-ID: <20240229152424.6646-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB75:EE_|BL3PR12MB6473:EE_
+X-MS-Office365-Filtering-Correlation-Id: bcf7b5a2-1bdb-4f5e-c459-08dc393a8bf4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: cR5dXuxrbkcfjQNUJIwPQpEAaohwhHMH5urlZNXF5LQkPwq4K8rpHxNifL2o583xh6U9uCs5pu1oWK040FllP4NGpMGOYaGS/UHYxd2vmNOZ7TRjl7eveN3HNBXqK2pFLaLgKG4xKYYVDQmKl/RL5kCPqYeFKJ+djRlL9VH5obIsNACKiTeujAaqCVmeQtefrdIzbS/5JsLfmWVIaq9AGuNSuet/sKUl6N3X7L6noATZU8mE77oZli8oooK5ajadoB6H4Ec5xoMLT/qk05sM/Z5z1kap9R/soTOyFQIiqiusCkLvqFZEqMlAYDmE7WwREicN5x06q6pnnZdbg6uz28t64FsFiJr1baeNMrXlAHJhSY7wDX8T8+TeoqZ+DBt6ejT8RPPjVa22hqZlsQv0MXz8+/9WeSnoUwxcp7TsnlP7ibxC+bKrVL0iG/zU9H3ki01iHiOZPRnkqETvisdHWB+i2J58bw6Se1hV/abERFr+GiCMY9JaXvSl67520LwwoRVwQe3c0yK5XFB9CYac47NSqQsZDE3987lVYv0UIGOHhDxg+DHxdDpwa/CI5qIjfdbzHKtrnKdaJR2fHnwbMB6cyQ5JOS0WpnxurOtCvMArwy227MxDijQNd4/wTifEI3lssm7zKHGwVumIAFyvXnK7uNygeQLlaaBNL67ByNmAXmPoEkRqTm5B+JE4n5ewkkxCLXK8uhut1NceBqCvWg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(82310400014); DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Feb 2024 15:24:39.8259 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bcf7b5a2-1bdb-4f5e-c459-08dc393a8bf4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB75.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6473
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,188 +104,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It turned out that executing the SET_Q_MODE packet on every submission
-creates to much overhead.
+Hi Dave, Sima,
 
-Implement a workaround which allows skipping the SET_Q_MODE packet if
-subsequent submissions all use the same parameters.
+Fixes for 6.8.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |   3 +
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 104 +++++++++++++++++++----
- 2 files changed, 92 insertions(+), 15 deletions(-)
+The following changes since commit d206a76d7d2726f3b096037f2079ce0bd3ba329b:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 756330767909..582053f1cd56 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -285,6 +285,9 @@ struct amdgpu_ring {
- 	unsigned		cond_exe_offs;
- 	u64			cond_exe_gpu_addr;
- 	volatile u32		*cond_exe_cpu_addr;
-+	unsigned int		set_q_mode_offs;
-+	volatile u32		*set_q_mode_ptr;
-+	u64			set_q_mode_token;
- 	unsigned		vm_hub;
- 	unsigned		vm_inv_eng;
- 	struct dma_fence	*vmid_wait;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 2ccbdee570cf..6e6b6eff48e2 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -5461,6 +5461,11 @@ static void gfx_v11_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
- 		amdgpu_ring_write(ring, PACKET3(PACKET3_PFP_SYNC_ME, 0));
- 		amdgpu_ring_write(ring, 0x0);
- 	}
-+
-+	/* Make sure that we can't skip the SET_Q_MODE packets when the VM
-+	 * changed in any way.
-+	 */
-+	ring->set_q_mode_ptr = NULL;
- }
- 
- static void gfx_v11_0_ring_emit_fence_kiq(struct amdgpu_ring *ring, u64 addr,
-@@ -5510,16 +5515,81 @@ static void gfx_v11_0_ring_emit_cntxcntl(struct amdgpu_ring *ring,
- 	amdgpu_ring_write(ring, 0);
- }
- 
-+static unsigned gfx_v11_0_ring_emit_init_cond_exec(struct amdgpu_ring *ring,
-+						   uint64_t addr)
-+{
-+	unsigned ret;
-+
-+	amdgpu_ring_write(ring, PACKET3(PACKET3_COND_EXEC, 3));
-+	amdgpu_ring_write(ring, lower_32_bits(addr));
-+	amdgpu_ring_write(ring, upper_32_bits(addr));
-+	/* discard following DWs if *cond_exec_gpu_addr==0 */
-+	amdgpu_ring_write(ring, 0);
-+	ret = ring->wptr & ring->buf_mask;
-+	/* patch dummy value later */
-+	amdgpu_ring_write(ring, 0);
-+
-+	return ret;
-+}
-+
- static void gfx_v11_0_ring_emit_gfx_shadow(struct amdgpu_ring *ring,
- 					   u64 shadow_va, u64 csa_va,
- 					   u64 gds_va, bool init_shadow,
- 					   int vmid)
- {
- 	struct amdgpu_device *adev = ring->adev;
-+	unsigned int offs, end;
- 
- 	if (!adev->gfx.cp_gfx_shadow)
- 		return;
- 
-+	/*
-+	 * The logic here isn't easy to understand because we need to keep state
-+	 * accross multiple executions of the function as well as between the
-+	 * CPU and GPU. The general idea is that the newly written GPU command
-+	 * has a condition on the previous one and only executed if really
-+	 * necessary.
-+	 */
-+
-+	/*
-+	 * The dw in the NOP controls if the next SET_Q_MODE packet should be
-+	 * executed or not. Reserve 64bits just to be on the save side.
-+	 */
-+	amdgpu_ring_write(ring, PACKET3(PACKET3_NOP, 1));
-+	offs = ring->wptr & ring->buf_mask;
-+
-+	/*
-+	 * We start with skipping the prefix SET_Q_MODE and always executing
-+	 * the postfix SET_Q_MODE packet. This is changed below with a
-+	 * WRITE_DATA command when the postfix executed.
-+	 */
-+	amdgpu_ring_write(ring, shadow_va ? 1 : 0);
-+	amdgpu_ring_write(ring, 0);
-+
-+	if (ring->set_q_mode_offs) {
-+		uint64_t addr;
-+
-+		addr = amdgpu_bo_gpu_offset(ring->ring_obj);
-+		addr += ring->set_q_mode_offs << 2;
-+		end = gfx_v11_0_ring_emit_init_cond_exec(ring, addr);
-+	}
-+
-+	/*
-+	 * When the postfix SET_Q_MODE packet executes we need to make sure that the
-+	 * next prefix SET_Q_MODE packet executes as well.
-+	 */
-+	if (!shadow_va) {
-+		uint64_t addr;
-+
-+		addr = amdgpu_bo_gpu_offset(ring->ring_obj);
-+		addr += offs << 2;
-+		amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
-+		amdgpu_ring_write(ring, WRITE_DATA_DST_SEL(5) | WR_CONFIRM);
-+		amdgpu_ring_write(ring, lower_32_bits(addr));
-+		amdgpu_ring_write(ring, upper_32_bits(addr));
-+		amdgpu_ring_write(ring, 0x1);
-+	}
-+
- 	amdgpu_ring_write(ring, PACKET3(PACKET3_SET_Q_PREEMPTION_MODE, 7));
- 	amdgpu_ring_write(ring, lower_32_bits(shadow_va));
- 	amdgpu_ring_write(ring, upper_32_bits(shadow_va));
-@@ -5531,23 +5601,26 @@ static void gfx_v11_0_ring_emit_gfx_shadow(struct amdgpu_ring *ring,
- 			  PACKET3_SET_Q_PREEMPTION_MODE_IB_VMID(vmid) : 0);
- 	amdgpu_ring_write(ring, init_shadow ?
- 			  PACKET3_SET_Q_PREEMPTION_MODE_INIT_SHADOW_MEM : 0);
--}
- 
--static unsigned gfx_v11_0_ring_emit_init_cond_exec(struct amdgpu_ring *ring,
--						   uint64_t addr)
--{
--	unsigned ret;
-+	if (ring->set_q_mode_offs)
-+		amdgpu_ring_patch_cond_exec(ring, end);
- 
--	amdgpu_ring_write(ring, PACKET3(PACKET3_COND_EXEC, 3));
--	amdgpu_ring_write(ring, lower_32_bits(addr));
--	amdgpu_ring_write(ring, upper_32_bits(addr));
--	/* discard following DWs if *cond_exec_gpu_addr==0 */
--	amdgpu_ring_write(ring, 0);
--	ret = ring->wptr & ring->buf_mask;
--	/* patch dummy value later */
--	amdgpu_ring_write(ring, 0);
-+	if (shadow_va) {
-+		uint64_t token = shadow_va ^ csa_va ^ gds_va ^ vmid;
- 
--	return ret;
-+		/*
-+		 * If the tokens match try to skip the last postfix SET_Q_MODE
-+		 * packet to avoid saving/restoring the state all the time.
-+		 */
-+		if (ring->set_q_mode_ptr && ring->set_q_mode_token == token)
-+			*ring->set_q_mode_ptr = 0;
-+
-+		ring->set_q_mode_token = token;
-+	} else {
-+		ring->set_q_mode_ptr = &ring->ring[ring->set_q_mode_offs];
-+	}
-+
-+	ring->set_q_mode_offs = offs;
- }
- 
- static int gfx_v11_0_ring_preempt_ib(struct amdgpu_ring *ring)
-@@ -6114,7 +6187,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_gfx = {
- 	.emit_frame_size = /* totally 247 maximum if 16 IBs */
- 		5 + /* update_spm_vmid */
- 		5 + /* COND_EXEC */
--		9 + /* SET_Q_PREEMPTION_MODE */
-+		22 + /* SET_Q_PREEMPTION_MODE */
- 		7 + /* PIPELINE_SYNC */
- 		SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
- 		SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
-@@ -6127,6 +6200,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_gfx = {
- 		31 + /*	DE_META */
- 		3 + /* CNTX_CTRL */
- 		5 + /* HDP_INVL */
-+		22 + /* SET_Q_PREEMPTION_MODE */
- 		8 + 8 + /* FENCE x2 */
- 		8, /* gfx_v11_0_emit_mem_sync */
- 	.emit_ib_size =	4, /* gfx_v11_0_ring_emit_ib_gfx */
--- 
-2.34.1
+  Linux 6.8-rc6 (2024-02-25 15:46:06 -0800)
 
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.8-2024-02-29
+
+for you to fetch changes up to b7cdccc6a849568775f738b1e233f751a8fed013:
+
+  drm/amd/display: Add monitor patch for specific eDP (2024-02-28 17:33:05 -0500)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.8-2024-02-29:
+
+amdgpu:
+- Fix potential buffer overflow
+- Fix power min cap
+- Suspend/resume fix
+- SI PM fix
+- eDP fix
+
+----------------------------------------------------------------
+Alex Deucher (1):
+      Revert "drm/amd/pm: resolve reboot exception for si oland"
+
+Ma Jun (1):
+      drm/amdgpu/pm: Fix the power1_min_cap value
+
+Prike Liang (1):
+      drm/amdgpu: Enable gpu reset for S3 abort cases on Raven series
+
+Ryan Lin (1):
+      drm/amd/display: Add monitor patch for specific eDP
+
+Srinivasan Shanmugam (1):
+      drm/amd/display: Prevent potential buffer overflow in map_hw_resources
+
+ drivers/gpu/drm/amd/amdgpu/soc15.c                 | 45 ++++++++++++----------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  6 ++-
+ drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c |  5 +++
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c         | 29 ++++++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  |  9 ++---
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    |  9 ++---
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |  9 ++---
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  9 ++---
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |  9 ++---
+ 9 files changed, 83 insertions(+), 47 deletions(-)
