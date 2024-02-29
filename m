@@ -4,64 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5F94C54E41
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Feb 2024 15:38:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C867DC54E41
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Feb 2024 15:46:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3335B10E4B1;
-	Thu, 29 Feb 2024 15:38:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A21210E4CC;
+	Thu, 29 Feb 2024 15:46:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Kn88UUnq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jkfv7Fdp";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93DA410E4B1
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Feb 2024 15:38:48 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-2997cb49711so523703a91.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Feb 2024 07:38:48 -0800 (PST)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2664E10E4CC;
+ Thu, 29 Feb 2024 15:46:35 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-1dc29f1956cso9609445ad.0; 
+ Thu, 29 Feb 2024 07:46:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709221128; x=1709825928; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1709221594; x=1709826394; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=JO4UjiYgg73kiOA06HsjlDA4OZJ/9f1/ECjxpc6uWsk=;
- b=Kn88UUnq9nxmJZzIP3wZFlXdG30ruUCAOnL7HFRB09V3MRa/XARtHY14H7zR/MBCiV
- 4zLNL3IDwN9IhrEAHhzqUwiW96qCVfgnZUPrKfYObnpDPHTmgczIDKJkuE3qSD4dnlcX
- BQy50UaWPoIImgLJ9zXRCeyxJrGX2SmVpgYgBYVUqSMhzKkcrbVEI+TlZyFo0d2A3XC4
- cE1frdBqmRw8iYNmmli4JkNosj+0BQRGbvsL5zLTsAIVT8U9I0bfqRWlXlLRPzB58gPq
- IFP+Gmw/dI101FwnVMFUsPW156xTVpKiFP0w9nAEdvLIcn7HKG95aP2ufjG7NwPqxmWy
- M3vw==
+ bh=eEWJ7fHnFKVu8gdE5jXlSXn13xT8OIn42g9Z5EsEfXs=;
+ b=jkfv7FdpKOQfGSLE01AegPGrGdA2gM4fGg4GB55xheY5TVDOughyEg2dktbjCkyGHo
+ sAVG1kdnt0UVIL1xcd5H/YG6Z5n5wNManNk+XwuDwGINKv5+3ay4a+IyvBdL1Eteweib
+ A/e12TMOdjw+xOqRw9pF5C/PfXojIzUORX9d62vDbp4b/niM1CBEZst+8q7uncRteZu+
+ Ai1exc6a2wIZyGe+xbyPYFzP6vRwBQ4+t56X3QXhPo9VS766Fwr365wTezmIhHnDt6Ru
+ WjI6sEjhMmlYF4Sh5lWa6xH19vw5sxUgijiy5fTlXMm5sB3Lo7RDTB3AY8QmA9tJtMNZ
+ rHBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709221128; x=1709825928;
+ d=1e100.net; s=20230601; t=1709221594; x=1709826394;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=JO4UjiYgg73kiOA06HsjlDA4OZJ/9f1/ECjxpc6uWsk=;
- b=NRwbbUC/oBngUmMIC1FFlM2YftbC4GvY5OFnvFgalkBlOB/2KvfjyP5nXNyQMRaax2
- HmApEkke+KXbLNiKeznnuXPZkQp+z9RYDOFQxlLZltA5Ft9zHUKVJV5k5sUiFCSzfwcD
- 54nK8Zl1Mx/LnuVMyZqtspIlLtQmjfuzMsxqb+7lZiIcF48qXcZNlsatmmwpgcVF1lAv
- 34acV+gxhsBMZ5YK+KrZT3p9IicQ+e7z6jbsobMHArH922bbAjq7VpPxy1HAjxcuXfoU
- kRbVUQAxb/2UX3RWK9fwEtPLeXUtZ2Dzhkh8CfMz2Z6faQj45A5oTWF3XX7Xul0YjEPP
- prvg==
+ bh=eEWJ7fHnFKVu8gdE5jXlSXn13xT8OIn42g9Z5EsEfXs=;
+ b=VAJ4ZrBgbRDRcDJZDBDjNRBdEdFz4qSQQQTNimOIHVQEmm4YQn2YrIF4ht/iJgrb+0
+ ltJzcOZLilchVAvDcQbTP5qg7K5eOmj38RQ3xw/xkgfW8rgIubefpaeuFjXvBBfFRKTv
+ 8NRAAlQyg8wIMHy1sOP+XMTpdn7KhNaWrv9qdq0O6B88tzViDtmTZPeYk5TK+mQ7rsim
+ dtIcXABbRN/Rte4m9JsEdhk4VXSpQtsdiXOLIYFCbh+wrxCG3+cKg2zVhjkQfvJEVHcx
+ PB6/V618GtxUR8B9fp6vwWTOwJmp9VUznK2tWOnvyHyAp03EhUKCmAhA+wmuJb03gS0u
+ y27Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWGq390XTzbXhKsqM4JXdeyr0D/UcsOLd55VlkmH42Cp9JdVr5DlZFHYdhMkcBCOGdo5WgEqq9ivYN/NBPAI3QFcrt8Qb8pOpcEqz4ndg==
-X-Gm-Message-State: AOJu0YwY60IPd2GoEPttwLcYs7pG3yL6prS+FM22d/+GVRSHqnx7DFb9
- 4QEBreOidZBFBkkVRz02cdBFwrvXGHptZeJIeugqq4wuNvog8c6z11kSCCGXVB8p6gx+vClFKKl
- MtUwmnTgluMNw7MigiF0915OrO9ud7+Ax
-X-Google-Smtp-Source: AGHT+IGAVA1Q2h1gKoftoBscmtJZlYAMIuhTkiSD0Ct8oJj+OtNTVjfXpZLHNnWxrI4p9X33oWrMmn/4Xv0JjkOea0A=
-X-Received: by 2002:a17:90a:bf0c:b0:29b:1c89:3770 with SMTP id
- c12-20020a17090abf0c00b0029b1c893770mr385945pjs.4.1709221127777; Thu, 29 Feb
- 2024 07:38:47 -0800 (PST)
+ AJvYcCXp35HFXJ6INUgRYw6PoR4hCAAXY5+sS85VSdJdgajfNYDPVdPUhXVQpKfy1ZQtwZdJRxsxJSnQN2jLunOxw0uhPE5e0693eFcGzhVOucyxwd7I5xlnw/OGWVvn53kqgV6Qu1Yw1T/wGIfzQ1YyYA==
+X-Gm-Message-State: AOJu0Yz4iCSNM67o4uf38J4y8hpKUPJ/1JwLvyx+xlD0HBQbbg0+TB+2
+ DtXXxnyBaui64/3AxHvY/KT3d+ytGIx4ymn80PClJOgUxwEuY8eMhIeIlAP7R6OPPq69k85zo6B
+ PhDab68Pr5ezjYauP/Ktmv3GfR8dKygJm
+X-Google-Smtp-Source: AGHT+IGrbashKqBZ2tV3PLN8CgPZa2z5gJJYfc88kdevqUke36eNBirRViD6TQOxEDvojhYYho1Fm4jUKaAFHyNuFtI=
+X-Received: by 2002:a17:902:ecc9:b0:1dc:b003:6382 with SMTP id
+ a9-20020a170902ecc900b001dcb0036382mr3128455plh.0.1709221594508; Thu, 29 Feb
+ 2024 07:46:34 -0800 (PST)
 MIME-Version: 1.0
-References: <20240229144925.97165-1-christian.koenig@amd.com>
- <20240229144925.97165-2-christian.koenig@amd.com>
-In-Reply-To: <20240229144925.97165-2-christian.koenig@amd.com>
+References: <20240227190828.444715-1-mwen@igalia.com>
+In-Reply-To: <20240227190828.444715-1-mwen@igalia.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 Feb 2024 10:38:35 -0500
-Message-ID: <CADnq5_M_myT1R-WU+hiVNUaH4wMfFY28iA7Mem5FCyqn-Pdckw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: workaround to avoid SET_Q_MODE packets
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
+Date: Thu, 29 Feb 2024 10:46:23 -0500
+Message-ID: <CADnq5_Pt1ncb_omsjwpoFNawt-2EhwQXFQ7QEk1=-Px-m=frKw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: check dc_link before dereferencing
+To: Melissa Wen <mwen@igalia.com>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, 
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
+ airlied@gmail.com, daniel@ffwll.ch, Dan Carpenter <dan.carpenter@linaro.org>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ kernel-dev@igalia.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -78,221 +81,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 29, 2024 at 9:58=E2=80=AFAM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> It turned out that executing the SET_Q_MODE packet on every submission
-> creates to much overhead.
->
-> Implement a workaround which allows skipping the SET_Q_MODE packet if
-> subsequent submissions all use the same parameters.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+Applied.  Thanks!
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
+On Tue, Feb 27, 2024 at 2:08=E2=80=AFPM Melissa Wen <mwen@igalia.com> wrote=
+:
+>
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6683 amdgpu_d=
+m_connector_funcs_force()
+> warn: variable dereferenced before check 'dc_link' (see line 6663)
+>
+> Fixes: 967176179215 ("drm/amd/display: fix null-pointer dereference on ed=
+id reading")
+> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |   3 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 104 +++++++++++++++++++----
->  2 files changed, 92 insertions(+), 15 deletions(-)
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_ring.h
-> index 756330767909..582053f1cd56 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -285,6 +285,9 @@ struct amdgpu_ring {
->         unsigned                cond_exe_offs;
->         u64                     cond_exe_gpu_addr;
->         volatile u32            *cond_exe_cpu_addr;
-> +       unsigned int            set_q_mode_offs;
-> +       volatile u32            *set_q_mode_ptr;
-> +       u64                     set_q_mode_token;
->         unsigned                vm_hub;
->         unsigned                vm_inv_eng;
->         struct dma_fence        *vmid_wait;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index 2ccbdee570cf..6e6b6eff48e2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -5461,6 +5461,11 @@ static void gfx_v11_0_ring_emit_vm_flush(struct am=
-dgpu_ring *ring,
->                 amdgpu_ring_write(ring, PACKET3(PACKET3_PFP_SYNC_ME, 0));
->                 amdgpu_ring_write(ring, 0x0);
->         }
-> +
-> +       /* Make sure that we can't skip the SET_Q_MODE packets when the V=
-M
-> +        * changed in any way.
-> +        */
-> +       ring->set_q_mode_ptr =3D NULL;
->  }
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 32efce81a5a7..46dd06e8fc7e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6653,7 +6653,7 @@ static void amdgpu_dm_connector_funcs_force(struct =
+drm_connector *connector)
+>         struct edid *edid;
+>         struct i2c_adapter *ddc;
 >
->  static void gfx_v11_0_ring_emit_fence_kiq(struct amdgpu_ring *ring, u64 =
-addr,
-> @@ -5510,16 +5515,81 @@ static void gfx_v11_0_ring_emit_cntxcntl(struct a=
-mdgpu_ring *ring,
->         amdgpu_ring_write(ring, 0);
->  }
->
-> +static unsigned gfx_v11_0_ring_emit_init_cond_exec(struct amdgpu_ring *r=
-ing,
-> +                                                  uint64_t addr)
-> +{
-> +       unsigned ret;
-> +
-> +       amdgpu_ring_write(ring, PACKET3(PACKET3_COND_EXEC, 3));
-> +       amdgpu_ring_write(ring, lower_32_bits(addr));
-> +       amdgpu_ring_write(ring, upper_32_bits(addr));
-> +       /* discard following DWs if *cond_exec_gpu_addr=3D=3D0 */
-> +       amdgpu_ring_write(ring, 0);
-> +       ret =3D ring->wptr & ring->buf_mask;
-> +       /* patch dummy value later */
-> +       amdgpu_ring_write(ring, 0);
-> +
-> +       return ret;
-> +}
-> +
->  static void gfx_v11_0_ring_emit_gfx_shadow(struct amdgpu_ring *ring,
->                                            u64 shadow_va, u64 csa_va,
->                                            u64 gds_va, bool init_shadow,
->                                            int vmid)
->  {
->         struct amdgpu_device *adev =3D ring->adev;
-> +       unsigned int offs, end;
->
->         if (!adev->gfx.cp_gfx_shadow)
->                 return;
->
-> +       /*
-> +        * The logic here isn't easy to understand because we need to kee=
-p state
-> +        * accross multiple executions of the function as well as between=
- the
-> +        * CPU and GPU. The general idea is that the newly written GPU co=
-mmand
-> +        * has a condition on the previous one and only executed if reall=
-y
-> +        * necessary.
-> +        */
-> +
-> +       /*
-> +        * The dw in the NOP controls if the next SET_Q_MODE packet shoul=
-d be
-> +        * executed or not. Reserve 64bits just to be on the save side.
-> +        */
-> +       amdgpu_ring_write(ring, PACKET3(PACKET3_NOP, 1));
-> +       offs =3D ring->wptr & ring->buf_mask;
-> +
-> +       /*
-> +        * We start with skipping the prefix SET_Q_MODE and always execut=
-ing
-> +        * the postfix SET_Q_MODE packet. This is changed below with a
-> +        * WRITE_DATA command when the postfix executed.
-> +        */
-> +       amdgpu_ring_write(ring, shadow_va ? 1 : 0);
-> +       amdgpu_ring_write(ring, 0);
-> +
-> +       if (ring->set_q_mode_offs) {
-> +               uint64_t addr;
-> +
-> +               addr =3D amdgpu_bo_gpu_offset(ring->ring_obj);
-> +               addr +=3D ring->set_q_mode_offs << 2;
-> +               end =3D gfx_v11_0_ring_emit_init_cond_exec(ring, addr);
-> +       }
-> +
-> +       /*
-> +        * When the postfix SET_Q_MODE packet executes we need to make su=
-re that the
-> +        * next prefix SET_Q_MODE packet executes as well.
-> +        */
-> +       if (!shadow_va) {
-> +               uint64_t addr;
-> +
-> +               addr =3D amdgpu_bo_gpu_offset(ring->ring_obj);
-> +               addr +=3D offs << 2;
-> +               amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
-> +               amdgpu_ring_write(ring, WRITE_DATA_DST_SEL(5) | WR_CONFIR=
-M);
-> +               amdgpu_ring_write(ring, lower_32_bits(addr));
-> +               amdgpu_ring_write(ring, upper_32_bits(addr));
-> +               amdgpu_ring_write(ring, 0x1);
-> +       }
-> +
->         amdgpu_ring_write(ring, PACKET3(PACKET3_SET_Q_PREEMPTION_MODE, 7)=
-);
->         amdgpu_ring_write(ring, lower_32_bits(shadow_va));
->         amdgpu_ring_write(ring, upper_32_bits(shadow_va));
-> @@ -5531,23 +5601,26 @@ static void gfx_v11_0_ring_emit_gfx_shadow(struct=
- amdgpu_ring *ring,
->                           PACKET3_SET_Q_PREEMPTION_MODE_IB_VMID(vmid) : 0=
-);
->         amdgpu_ring_write(ring, init_shadow ?
->                           PACKET3_SET_Q_PREEMPTION_MODE_INIT_SHADOW_MEM :=
- 0);
-> -}
->
-> -static unsigned gfx_v11_0_ring_emit_init_cond_exec(struct amdgpu_ring *r=
-ing,
-> -                                                  uint64_t addr)
-> -{
-> -       unsigned ret;
-> +       if (ring->set_q_mode_offs)
-> +               amdgpu_ring_patch_cond_exec(ring, end);
->
-> -       amdgpu_ring_write(ring, PACKET3(PACKET3_COND_EXEC, 3));
-> -       amdgpu_ring_write(ring, lower_32_bits(addr));
-> -       amdgpu_ring_write(ring, upper_32_bits(addr));
-> -       /* discard following DWs if *cond_exec_gpu_addr=3D=3D0 */
-> -       amdgpu_ring_write(ring, 0);
-> -       ret =3D ring->wptr & ring->buf_mask;
-> -       /* patch dummy value later */
-> -       amdgpu_ring_write(ring, 0);
-> +       if (shadow_va) {
-> +               uint64_t token =3D shadow_va ^ csa_va ^ gds_va ^ vmid;
->
-> -       return ret;
-> +               /*
-> +                * If the tokens match try to skip the last postfix SET_Q=
-_MODE
-> +                * packet to avoid saving/restoring the state all the tim=
-e.
-> +                */
-> +               if (ring->set_q_mode_ptr && ring->set_q_mode_token =3D=3D=
- token)
-> +                       *ring->set_q_mode_ptr =3D 0;
-> +
-> +               ring->set_q_mode_token =3D token;
-> +       } else {
-> +               ring->set_q_mode_ptr =3D &ring->ring[ring->set_q_mode_off=
-s];
-> +       }
-> +
-> +       ring->set_q_mode_offs =3D offs;
->  }
->
->  static int gfx_v11_0_ring_preempt_ib(struct amdgpu_ring *ring)
-> @@ -6114,7 +6187,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_rin=
-g_funcs_gfx =3D {
->         .emit_frame_size =3D /* totally 247 maximum if 16 IBs */
->                 5 + /* update_spm_vmid */
->                 5 + /* COND_EXEC */
-> -               9 + /* SET_Q_PREEMPTION_MODE */
-> +               22 + /* SET_Q_PREEMPTION_MODE */
->                 7 + /* PIPELINE_SYNC */
->                 SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
->                 SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
-> @@ -6127,6 +6200,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_rin=
-g_funcs_gfx =3D {
->                 31 + /* DE_META */
->                 3 + /* CNTX_CTRL */
->                 5 + /* HDP_INVL */
-> +               22 + /* SET_Q_PREEMPTION_MODE */
->                 8 + 8 + /* FENCE x2 */
->                 8, /* gfx_v11_0_emit_mem_sync */
->         .emit_ib_size =3D 4, /* gfx_v11_0_ring_emit_ib_gfx */
+> -       if (dc_link->aux_mode)
+> +       if (dc_link && dc_link->aux_mode)
+>                 ddc =3D &aconnector->dm_dp_aux.aux.ddc;
+>         else
+>                 ddc =3D &aconnector->i2c->base;
 > --
-> 2.34.1
+> 2.43.0
 >
