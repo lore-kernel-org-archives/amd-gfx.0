@@ -4,71 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85A3AC54E49
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Feb 2024 19:12:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 557D7C54798
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Feb 2024 20:39:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4100110E572;
-	Thu, 29 Feb 2024 19:12:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B452910E5DD;
+	Thu, 29 Feb 2024 20:39:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i1kKTX/9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UnBqyPBc";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23FFF10E47C;
- Thu, 29 Feb 2024 19:12:53 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-29b02e5c54cso942165a91.1; 
- Thu, 29 Feb 2024 11:12:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709233972; x=1709838772; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Px+JyXf4tLpdcNsZuGtIfGj/dsN60RYAYJbqilYoB+8=;
- b=i1kKTX/9mGvufT35/92q/b2+LRTk/GP8YC50VobBn8vpH2TKQ28KCM7+2Jb6Y+f6oR
- yrm+0JMtMJCHkVNeabIRBsGYAuJRZg5TG1CnfeHUCuxweK3NpiZ9PPQs7ReQN8uGdjQO
- h4ZAqxif7U1A/HlTXiOw5AyQtt2I+I4/KS/0LDC81qcvVC8WdgVGQS8XVsBQvvHCzJqs
- 1J4+zO1sohvF1qhce3R8ryosXfRxbVxTsQ1NuGIl2H7nSPutBXunUZjyClJtN96eMDzw
- mojfJ0nB8kzG0Lrp8pwmefR/cWD3gZyjSOR+/U1PLansMb4v32B0LHcRCws4mZs7cCnG
- mpfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709233972; x=1709838772;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Px+JyXf4tLpdcNsZuGtIfGj/dsN60RYAYJbqilYoB+8=;
- b=DsSbHZgQR4nerNAGwJcVrMVhz4//Pk9o8QcVYNKyGltNiNFkzQS5+Av4bcH3uuTUh1
- WAxiHN//WyYEUmOmWgzwfAocvosAuZ2/iX7HFTy9WHD7PIs11efmPPKNyI6ymP9SpiIB
- hgDP0oLojJLmB0JHq0XXTLEX1qjcfI7Oi+5kajQmalQM1xjf/7JFHSi5k4my0x6FczVA
- nviQ0OtKz+nHMtqMEq5OGmlLkItrgK8WZXly+ibruLFKyzwkUmy21XdchYXozDanHMel
- v5oM6AIxsuQtNw9CFsVw2jwzGmGZOfpKgrXnJYLzMDvBgUfMGVaN09/WoPo4MkJfBvTM
- BDcw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX3ukbPqcaW9Xl0LbdqMYVFeG1C92bEMGZzKCGBreTy0eDJ+LSFr3tMPf6UHtsVeLeMGJBRxVZwi/OswhLFrqxHHyla21vm5Vvxyfq1wBFEMrV2qvnQkTepFGsCmLKpzVXVRAUhf6YTs+6HwyJ/5g==
-X-Gm-Message-State: AOJu0Ywv2rq96dNg9YC1W4o1J2TZsatcN9rpnnX8bTF2VovPs+pJg1LO
- ZLeRmrxc2msPdZZFCa08+H1NmivCXn/LKIE1lEttCnXLy19bvIqM/sJyWvMBozylDuHFW0bmGUl
- 0oVXQ+IJyFhTFwhlwMgZf3Sr79/g=
-X-Google-Smtp-Source: AGHT+IFMzzhy10NqDN+BK2sKx5qHOBOz1iWOCM7oh2BvBq+hmVZas4TDKA77iA356owZsETodRWHQmax6qLWPeR7z20=
-X-Received: by 2002:a17:90b:ec6:b0:29b:17de:6951 with SMTP id
- gz6-20020a17090b0ec600b0029b17de6951mr1582952pjb.3.1709233972379; Thu, 29 Feb
- 2024 11:12:52 -0800 (PST)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76CB910E118;
+ Thu, 29 Feb 2024 20:39:16 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 4E6B7CE1A80;
+ Thu, 29 Feb 2024 20:39:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB589C433F1;
+ Thu, 29 Feb 2024 20:39:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1709239152;
+ bh=F1BWa4jzZKYFHykP4yUqY5Y3/LkmRdmf8Kjmr64U45s=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=UnBqyPBc6vQZct3ynFoSMxTHtFV0cajnkqJH36TeNWTaotTIfF92b4vxcYKoMwPMH
+ beZE7QWOTD2uuEF6tt1Ujogv12Pj4VRKKHcA2z7OzHS3cgMpOUPzVlUuQXE3w5TIEi
+ XpXPOkp23yNegPLxo0s8IieM02JRWjpHiA2JpZZ2K7AjkLGG0EE37MFknfBa3YjvYl
+ 6oFyq1vBpCY3RpipcvtQ/dxbMJ9U051ec0KCVkl+GL9IzEy8jE0CH0rraEeLM10xas
+ XPfbwByInw8ULfE7LmsX+t5R00pibZuqB1ril0UMX4ErgZIyY6cvudJ9UvRXM0Ulrd
+ lzhtGrx3ocANg==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Swapnil Patel <swapnil.patel@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, nicholas.kazlauskas@amd.com, hamza.mahfooz@amd.com,
+ roman.li@amd.com, syed.hassan@amd.com, sungkim@amd.com, jerry.zuo@amd.com,
+ Qingqing.Zhuo@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.7 24/24] drm/amd/display: fix input states
+ translation error for dcn35 & dcn351
+Date: Thu, 29 Feb 2024 15:37:04 -0500
+Message-ID: <20240229203729.2860356-24-sashal@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240229203729.2860356-1-sashal@kernel.org>
+References: <20240229203729.2860356-1-sashal@kernel.org>
 MIME-Version: 1.0
-References: <20240229181106.351877-1-helgaas@kernel.org>
-In-Reply-To: <20240229181106.351877-1-helgaas@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 Feb 2024 14:12:40 -0500
-Message-ID: <CADnq5_OdYfOOckVNzxZHgxCn5tuYHrCUuaTEnEubJS_2jwXw-Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: remove misleading amdgpu_pmops_runtime_idle()
- comment
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Bjorn Helgaas <bhelgaas@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.7.6
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,43 +69,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+From: Swapnil Patel <swapnil.patel@amd.com>
 
-On Thu, Feb 29, 2024 at 1:11=E2=80=AFPM Bjorn Helgaas <helgaas@kernel.org> =
-wrote:
->
-> From: Bjorn Helgaas <bhelgaas@google.com>
->
-> After 4020c2280233 ("drm/amdgpu: don't runtime suspend if there are
-> displays attached (v3)"), "ret" is unconditionally set later before being
-> used, so there's point in initializing it and the associated comment is n=
-o
-> longer meaningful.
->
-> Remove the comment and the unnecessary initialization.
->
-> Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index cc69005f5b46..68416e2a9130 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2744,8 +2744,7 @@ static int amdgpu_pmops_runtime_idle(struct device =
-*dev)
->  {
->         struct drm_device *drm_dev =3D dev_get_drvdata(dev);
->         struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
-> -       /* we don't want the main rpm_idle to call suspend - we want to a=
-utosuspend */
-> -       int ret =3D 1;
-> +       int ret;
->
->         if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_NONE) {
->                 pm_runtime_forbid(dev);
-> --
-> 2.34.1
->
+[ Upstream commit 27a6c49394b1a203beeb94752c9a1d6318f24ddf ]
+
+[Why]
+Currently there is an error while translating input clock sates into
+output clock states. The highest fclk setting from output sates is
+being dropped because of this error.
+
+[How]
+For dcn35 and dcn351, make output_states equal to input states.
+
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Swapnil Patel <swapnil.patel@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../drm/amd/display/dc/dml2/dml2_translation_helper.c    | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
+index 2c379be19aa84..16452dae4acac 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
+@@ -398,7 +398,6 @@ void dml2_init_soc_states(struct dml2_context *dml2, const struct dc *in_dc,
+ 	/* Copy clocks tables entries, if available */
+ 	if (dml2->config.bbox_overrides.clks_table.num_states) {
+ 		p->in_states->num_states = dml2->config.bbox_overrides.clks_table.num_states;
+-
+ 		for (i = 0; i < dml2->config.bbox_overrides.clks_table.num_entries_per_clk.num_dcfclk_levels; i++) {
+ 			p->in_states->state_array[i].dcfclk_mhz = dml2->config.bbox_overrides.clks_table.clk_entries[i].dcfclk_mhz;
+ 		}
+@@ -437,6 +436,14 @@ void dml2_init_soc_states(struct dml2_context *dml2, const struct dc *in_dc,
+ 	}
+ 
+ 	dml2_policy_build_synthetic_soc_states(s, p);
++	if (dml2->v20.dml_core_ctx.project == dml_project_dcn35 ||
++		dml2->v20.dml_core_ctx.project == dml_project_dcn351) {
++		// Override last out_state with data from last in_state
++		// This will ensure that out_state contains max fclk
++		memcpy(&p->out_states->state_array[p->out_states->num_states - 1],
++				&p->in_states->state_array[p->in_states->num_states - 1],
++				sizeof(struct soc_state_bounding_box_st));
++	}
+ }
+ 
+ void dml2_translate_ip_params(const struct dc *in, struct ip_params_st *out)
+-- 
+2.43.0
+
