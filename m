@@ -4,122 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0BBDC5475B
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Mar 2024 20:17:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13E4CC5475B
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Mar 2024 20:49:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8511B10EBCC;
-	Fri,  1 Mar 2024 20:17:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97AF710EA23;
+	Fri,  1 Mar 2024 20:49:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uaWiofDu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sSdva14w";
 	dkim-atps=neutral
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2048.outbound.protection.outlook.com [40.107.223.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1301110EBCC
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Mar 2024 20:17:34 +0000 (UTC)
+ (mail-dm6nam11on2065.outbound.protection.outlook.com [40.107.223.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEE4F10EA23;
+ Fri,  1 Mar 2024 20:49:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Di53lQM4rnV4vfL6KZxO7zEA9hYhqPkre6BpF5SrYVw7vdp/I6WDuJyFc1ITCxSY3p0GHhY2xhLiSlgru73JNRVRJ1rZhvdlftaCs5TF3gL/KciXgqmYcHqJnYtR/NzvCsADI8+1LBW+qGPbAMLTaTjvd+TEb1Pncj00nMsKGX+KztV33RkmwwjDQw1HTMInKe6cWTy/U6nO2cuVlLO9v8RaluQx++UB7n6GwLYA82rIJwxXaudQmnXLuYrz6GZy5olm6deKB8HxzhYA6TrulU2/uogqsWbe2rz50t2RwbAvaZ5pACUBRK4Qpg4qojFYduo0SwMj4YKGwIMPwDsViA==
+ b=iD8kvmAr7s+AvRZQBHnNUvJBHqddaftd3X9ambWzrq7g+nrvQQSusEOfkeGNXa713VC4peMzoRkcjW8BYRM2t48zZLf9A1OY0ElnPTicNvIMVXCJbFnqItu/AFwZYz4PFTAZY0Geh0WiIg/Cj6/3ns4gtEuf1vtbkf+5dNDfXOpIBqFr++f/fhwJNdBQ7UH37W8i6T2Je4dEAElRdZbmXtqxRg1GMjqeZ9WfLgqb1YuEpn1D5Zj6EMhAr2VWTIB4RckU7dOqwznSmH35jyiBvKfJYIYGrJKtLHrdYqZIFg1dk+eRfW+a64Yk9afHIxZe36yOx8msjspqLOdm10sEQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zpGEKU5xAaB+zFGcuVdVNN6Vjn9MoJohaATjUU44zis=;
- b=JSraBVmHsZApKl1vgBfpKcu/zoMdGYwSgNvdZdCfg/BIQuuiwOsNG8U63e2KZHaM08VT6nDRiNIUaZuzD6y2KE9g5aBYAu5bcOyS7ba6owIoyzgkSXk9tF95vQs66Luyz7+XmBhmNTs6SPCqgWhYIY4l0BJLYD5C7o0Rh4/HOtOAY9xUmG1KylwSUGVqH4A9qsIBqLJXzm19Gmfk/VyI8yLi67ofAoH7YNQ5ezHY3b5p9dGH7Xu4kiy3hSULGlUDwPlUlyyoqLv1avJ4+tfn4D96uCJmjWyFfyzlN8fms9XFgeublWTCXSnxkgNP10CwZQujEqmtDDDOpXI7BF9eOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=dSVXXTV6zzfv6J6hK4sVxjkmWcGqsAHtSAxHPqzHKQw=;
+ b=Ky4EtcYTxSURpJFqMiLz1RDNzkbTE9L+UjYfLxDbyJk4J0los+dWYu0fJ8K6wAR9Ufoix/McDd/DVanacF1vBD8JdY7M5CVCQV9MkPcR+2Warx6MPjgwFo8Mt8+Pgem1o7c1bF7LhQHB05rbe/IZ29kVf3LnyckO1uV3AmNhTMInUTaFCgPWl7SKGhlingXQoan07R6y9nLyAzMYLbeNf8KIqmmi/CaviHGQ5ZQioeAXrM8G9q6CMrtIb4v35dGKbYmNZoh59wWSBEgiQXZU8W9t3Ef0pv42hxEre3DUY4mvjs3Kq/VeRZDVk55W6xpW9pU5WjQTZngMALAt5jhtlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zpGEKU5xAaB+zFGcuVdVNN6Vjn9MoJohaATjUU44zis=;
- b=uaWiofDuS0RrQnX5wX6rq+ryaG1GCNSviZfCkeEUTKenwS18gHXtzU7XkvCLj5BQ+4F3CKB+11dDfvhXYBzRVHlc6Se4ALUZkKznbq5wdFtZdQQ2+K7zOeL2j7y/aVkx6r00wt1B5M0K7zfSZr1usz5ZZzfSWw4iXTEk/DNb39I=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
- by DS0PR12MB8504.namprd12.prod.outlook.com (2603:10b6:8:155::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.34; Fri, 1 Mar
- 2024 20:17:31 +0000
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::ff7e:b189:da4c:dab2]) by SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::ff7e:b189:da4c:dab2%6]) with mapi id 15.20.7316.037; Fri, 1 Mar 2024
- 20:17:31 +0000
-Message-ID: <1d76d001-e018-770e-5315-f174169b68e6@amd.com>
-Date: Fri, 1 Mar 2024 21:17:26 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v4 2/2] drm/amdgpu: sync page table freeing with tlb flush
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: Philip Yang <yangp@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-References: <20240301110724.947-1-shashank.sharma@amd.com>
- <20240301110724.947-2-shashank.sharma@amd.com>
- <fdc41038-62e8-4aa4-8a7f-86ca09324362@amd.com>
-From: "Sharma, Shashank" <shashank.sharma@amd.com>
-In-Reply-To: <fdc41038-62e8-4aa4-8a7f-86ca09324362@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0149.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:95::20) To SJ0PR12MB5673.namprd12.prod.outlook.com
- (2603:10b6:a03:42b::13)
+ bh=dSVXXTV6zzfv6J6hK4sVxjkmWcGqsAHtSAxHPqzHKQw=;
+ b=sSdva14wPb5JeWJf6kCkdEqkg7hBhoWKvU6JY/ZLpkmlPnzKjJC5sWNjtSEl7oS4GcKxKZa1M9rQ+LgiF1mKs0FJPbKNwnSnFZ3ng2qROL578LXWycEXJ/xgr8oMMAidfm1+u0/v4emu+3tuCTzKhg17ftUFUxDuV9s0yENT4CY=
+Received: from SJ0PR05CA0149.namprd05.prod.outlook.com (2603:10b6:a03:33d::34)
+ by MW5PR12MB5681.namprd12.prod.outlook.com (2603:10b6:303:19e::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.24; Fri, 1 Mar
+ 2024 20:49:18 +0000
+Received: from CO1PEPF000042AA.namprd03.prod.outlook.com
+ (2603:10b6:a03:33d:cafe::f7) by SJ0PR05CA0149.outlook.office365.com
+ (2603:10b6:a03:33d::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.27 via Frontend
+ Transport; Fri, 1 Mar 2024 20:49:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000042AA.mail.protection.outlook.com (10.167.243.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7362.11 via Frontend Transport; Fri, 1 Mar 2024 20:49:18 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 1 Mar
+ 2024 14:49:16 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd, radeon drm-next-6.9
+Date: Fri, 1 Mar 2024 15:48:56 -0500
+Message-ID: <20240301204857.13960-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|DS0PR12MB8504:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ff54d44-0c75-44fb-e6a7-08dc3a2c9f6e
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AA:EE_|MW5PR12MB5681:EE_
+X-MS-Office365-Filtering-Correlation-Id: a88ad216-58b1-4aa3-7029-08dc3a311068
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dE4232521kgwmaZCirPpliRifQm7u3kmaW7xux6qmZgjnbQnWiFCBzbxaGj3BCVU4jnD5a1dmo8Ta/foviJG/VgCr76u4hgPyPMpDoa3f7rM9FmgDe0vuiEmA4rbZ6tQUGlsn54dY149Tb75Q6a6RY2pwev+UMGIY/B+vVFly/w2RgDqzWKInGAeH/J3qqdY7vgjjrDmzUkq9KWBw45rYxObZ3xta774AmrwWDnB0x4L5B8hqkZc2+14cDEhZwGxjuPnpOsLfXDc8O6Nt/Z+hONobdHz/MKXT/CW6O/4TlSYRB7lAnEjJ6jqLzabPsy8aIZJsExerB1g0KyZuWEl6RnVV7sQlR0SNrDWAuRRJdX3f2JonjsKm8Qffv7c75eAs08Yim2LUaHD0EWFfMwq/PfL2nvbcxx2HyUJPU+L+pUMTt056e/7JePFvUU9IBgrSlR7w5MYVVGxeQkacUbkLEAKP3mpURTd0v3r6y6fIRDeiURr40bp+BGAt/3lh8QYYIjGvYZ+/VL7GN28TnWkXOJNkMIVG8qqmQXHhv5HCmmMkOQKS/o5gqo6dkVT6W4ab4w40g01nf05f+EqNLVsItq0u0XmhXJxQJ5UoSUR1fZiLNz2AARZct5tnAHWjtOL
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RDN1dzMvTEcxQVRzaXdMNUcvOE1QL2ZtYi9SNTAvOE50ejc1U3lKVHhIa3Vr?=
- =?utf-8?B?L0tQRlFvRnlzVlVpcWsvMTE3RDNYcHVEM2pXNlNudlQ2TWZqNEdQd3JrSzIy?=
- =?utf-8?B?cG9WeFdMSkk2cVR5YTBHajl1RmRVNE1rU2dSc1ljSThrSFNoOW5jSDI3TGlO?=
- =?utf-8?B?QnNBS2N3dzR4dWczcXQ3Wnk1Smh5N1RiRE5pc2NSYytiUTA2VSs3WS9Wc2FD?=
- =?utf-8?B?VnE4R2xzSDlSeTZXZHpEMWdkNThoOVZ5THJsY2lJbkhDY0xvNG5HVTcrWW1r?=
- =?utf-8?B?STBLN3pzSFpBVVQ5YWJsRm9tZElxZkpPdndWQXpvQ3FxNUlrUnpRRFR3d0c4?=
- =?utf-8?B?bllXeE9ISzZkSzlQMkhRWDhuTllZakxoUmpsSS9CcG5CU2xXc0ZjWkJyOUxE?=
- =?utf-8?B?ZWVrQ0FUTEszQVhVM0M4YklWbC9uUStaMEZiekk4MmxzQlNLdHpEVDR1L0h2?=
- =?utf-8?B?dGRHdDU2SWo3TjZNM0lYOW8vd05HdXhEa0RLRHRQVlAraFp0TVg2bm1GS1M1?=
- =?utf-8?B?bFp2WktJWHRxVk9BS080K1NuTm54YlBNMXIvYXdwSHlRSWs4cVlXRkVHZWtj?=
- =?utf-8?B?WmdjT2NGK3J0eVE0YkVQYVovV0dtb0tBSUZjSkcxYTJMTS9Pa2xObTZzbXZT?=
- =?utf-8?B?V2EyZTZScnh5eEw2TEQwL3lQakkxdTlEQ0U3QmhVeU1XQVQrWkJWVUdvWC8x?=
- =?utf-8?B?MHFpNDRtQkdSSnZkQ3Y0R2NGTHNzWDBCSkpodXhpQzJ2bUpRY0F6SWRUOCtn?=
- =?utf-8?B?R3BjYnRCTWQ2cVR0TTZPM3VReFYweGpsMWhUNC9tWUxQSXk3SzAwSWxNbFdQ?=
- =?utf-8?B?ZUtSRTN2WnJUbjBMWU9UaFE5c1RuaGZuZld1MSs2amhQaHp6dU12U2ZLamFC?=
- =?utf-8?B?UGcvY2RnRERINm52eFZzSWs1aUV4VDZ2eS8xZ2M0WDhqTmxNelgrbi9DVTI0?=
- =?utf-8?B?SFNValpYWXBLUjRSSW5uakd6Q2lCYXU1ekI0ZFB1TlpRUzhvR0gvQ1F5U25s?=
- =?utf-8?B?UzRBRXc3cXA1NCtwMG9iaXpFNDlNTFJ5dytaYVh5QjRsUGVqOWJTZjVkMkJW?=
- =?utf-8?B?bDJTQjMyMTJ0Vk1WN2dVRGN4Ri9WV3VUcUJmRnN6T2dnRG90QWxwVExxYk9X?=
- =?utf-8?B?SWZEbDNNdXJoNXdRTmo1NlJ0d1YyMjRYcE9mN0ZERXB6L2RZUlBxMFFBODdK?=
- =?utf-8?B?MVdjaTRDdnVhMGpLdTFFTTZDNUJYMVR6c3A4YU1IZ3c1cDBBYnVuSW1HQ3B1?=
- =?utf-8?B?c1BpazcrWlMvajZjZGtzdE10a2RyTjMySm52VW8ra0kyWERGNk0zelRnTGZC?=
- =?utf-8?B?c1I2TjRuNFIzTisxZ3NFVXpiblJ3M1BNVFgzYUJPSTlyY1dYaXY3NURTb0FX?=
- =?utf-8?B?VHRkRzcyU0pNc01JYkpNaG0zMnRNYXN4Wm04RDlzZVBGQm1ENUw5b2xiNTM3?=
- =?utf-8?B?alZCekNSdW9aNHByMm8wV3dwSExhSVhFbmhqeEQwbEdBanpUVWVhcTlqb2Jk?=
- =?utf-8?B?TVlwUG1PRmZEcDEvZFM3alNhY2J1R1RlL3BlRXZSUUNSWG9RVnVMQmgrNUIz?=
- =?utf-8?B?UzVSQ2gxaEN2VVJMcFJEdnBpZm9wSUlBZnBNMU9Bb2c3Ky9PRmk1T21uc1V5?=
- =?utf-8?B?QzZEWmozV0ZjNVBaTFBtWk9sb2VIeEptR3Vjdkp3YlZqV2VLQm0rVWJ6emRG?=
- =?utf-8?B?M2RwZExxTEVsZFhYcjBCazExam53ejN1V2duSlI1K3lCcU45MjR5NUhzNzZa?=
- =?utf-8?B?Z2FuajNETWpXNFdLd0FLYWJ6aklENytVTysyVU9yNzNoSkVxWGFIWkdvQlVL?=
- =?utf-8?B?WE8yYjZjdXBZZHhDZEJITnhRNE95eUNKWGs3UWFPc3ZhY1RCTkxBSFdQT0Vx?=
- =?utf-8?B?UWhSTVBuYjNDb0lWVjdlZU4rV2RuSkEvQVRZVlpJVGtCTEVpK3oweithLzIv?=
- =?utf-8?B?RThHYnpJajJVMkFZbGhjV0NTMUhhTkJTNTNtYmkyYVA0dkRVSXl0SFEyNCtU?=
- =?utf-8?B?VlEvdjV4TVo5NDhyOWl2SUNuOGlyL1Jkem5GMmlDT2pmdXdZMnJUbUNTUjVu?=
- =?utf-8?B?ZW9hay8raVpndFY3Q3N3N0hET3g0WThjYk1Qd1dwaXRYajBpcFQ1Z2JIQTdL?=
- =?utf-8?Q?wjYehlj0Go19R1hqGaqxg2Vg9?=
+X-Microsoft-Antispam-Message-Info: 3g9HzlHydvoz54HqO9FaTgz7eBD7DGduneJvpOaexM4MCeLO95WegCUI99Ygrw499MP5fb1EiN2cKYLaHq/3rmcA948yq2DzbBzgAasJmdgoBt+iW7gs61wkDx9hVWVJMlaNDJYKR1peuxbbWU1zM/2/kRXCxBxKM4XVt8dORG7CjUDibP3NRk7seA9vCcQhMRA1mUXvITR6eQfKZMld059EIPiOcC1DO9L4yd4csdYZlAMfNPwUos425dG8jOw+8qpk50IdSNOYxGoufNrZdvd5n4gvzwCL33/tKZL93pLscT6tn6MINoKGTQA+aq0nDx/OSzV3av5nb8SUbcLJJUkZ50+w942kj/sgdhYWuoFHovthBbJi2j8RqZhB8e/5Jsbyl4hvHOcQ5wizdLRy9TpPTI0QGb0AvPhWkr/0LK+G1NuwoSMaKikZnNLzM110E3UpeNeSfvIuQguVYup0Y3IR34wx75yNF9n3EFByWRtkQ+ejdtIuIBOsa3Unkqui5FN88j8B40TzNmwuh4fiyM9EW8Om4A+Qwj0vZkBxFodRLsNRk/h4ckU4+Yc8imJEZ5po8mZ0Lsye+qn7OPImf8ApoQLlcCMUx1RklCl++zQPbGcc+1x3LYwkqcrXEemhGBgh0Pcu21d+/6foQgjd0AJr+TQt4mNLnJWqE9CrbDsWEJOhIsznTnNo6tEdhSsk9zqA01AkLtxGbPjqmp5p9A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(82310400014)(36860700004); DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ff54d44-0c75-44fb-e6a7-08dc3a2c9f6e
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2024 20:17:31.0212 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2024 20:49:18.0668 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a88ad216-58b1-4aa3-7029-08dc3a311068
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AysrvTjSYPH5EMzEO7yXtq8kpqpeNvZK0AryFJCKjQzXQLJIuLgeDMeJ1aoWH9uUDh11AfaZXz2rz7JyMdsZQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8504
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5681
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,261 +104,301 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Dave, Sima,
 
-On 01/03/2024 14:29, Christian König wrote:
->
->
-> Am 01.03.24 um 12:07 schrieb Shashank Sharma:
->> The idea behind this patch is to delay the freeing of PT entry objects
->> until the TLB flush is done.
->>
->> This patch:
->> - Adds a tlb_flush_waitlist which will keep the objects that need to be
->>    freed after tlb_flush
->> - Adds PT entries in this list in amdgpu_vm_pt_free_dfs, instead of 
->> freeing
->>    them immediately.
->> - Exports function amdgpu_vm_pt_free to be called dircetly.
->> - Adds a 'force' input bool to amdgpu_vm_pt_free_dfs to differentiate
->>    between immediate freeing of the BOs (like from
->>    amdgpu_vm_pt_free_root) vs delayed freeing.
->>
->> V2: rebase
->> V4: (Christian)
->>      - add only locked PTEs entries in TLB flush waitlist.
->>      - do not create a separate function for list flush.
->>      - do not create a new lock for TLB flush.
->>      - there is no need to wait on tlb_flush_fence exclusively.
->>
->> Cc: Christian König <Christian.Koenig@amd.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Felix Kuehling <felix.kuehling@amd.com>
->> Cc: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
->> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 10 ++++++++++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  4 ++++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 21 ++++++++++++++-------
->>   3 files changed, 28 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> index 310aae6fb49b..94581a1fe34f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> @@ -990,11 +990,20 @@ int amdgpu_vm_update_range(struct amdgpu_device 
->> *adev, struct amdgpu_vm *vm,
->>         /* Prepare a TLB flush fence to be attached to PTs */
->>       if (!unlocked && params.needs_flush && vm->is_compute_context) {
->> +        struct amdgpu_vm_bo_base *entry, *next;
->> +
->>           amdgpu_vm_tlb_fence_create(adev, vm, fence);
->>             /* Makes sure no PD/PT is freed before the flush */
->>           dma_resv_add_fence(vm->root.bo->tbo.base.resv, *fence,
->>                      DMA_RESV_USAGE_BOOKKEEP);
->> +
->> +        if (list_empty(&vm->tlb_flush_waitlist))
->> +            goto error_unlock;
->> +
->> +        /* Now actually free the waitlist */
->> +        list_for_each_entry_safe(entry, next, 
->> &vm->tlb_flush_waitlist, vm_status)
->> +            amdgpu_vm_pt_free(entry);
->
-> This needs to be outside of the "if". We also need to free the PDs/PTs 
-> in non compute VMs.
+A few more updates for 6.9.
 
+The following changes since commit 31e0a586f3385134bcad00d8194eb0728cb1a17d:
 
-Noted,
+  drm/amdgpu: add MMHUB 3.3.1 support (2024-02-19 14:50:46 -0500)
 
->
->>       }
->>     error_unlock:
->> @@ -2214,6 +2223,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, 
->> struct amdgpu_vm *vm,
->>       INIT_LIST_HEAD(&vm->pt_freed);
->>       INIT_WORK(&vm->pt_free_work, amdgpu_vm_pt_free_work);
->>       INIT_KFIFO(vm->faults);
->> +    INIT_LIST_HEAD(&vm->tlb_flush_waitlist);
->>         r = amdgpu_seq64_alloc(adev, &vm->tlb_seq_va, 
->> &vm->tlb_seq_cpu_addr);
->>       if (r)
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> index 298f604b8e5f..ba374c2c61bd 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> @@ -343,6 +343,9 @@ struct amdgpu_vm {
->>       uint64_t        *tlb_seq_cpu_addr;
->>       uint64_t        tlb_fence_context;
->>   +    /* temporary storage of PT BOs until the TLB flush */
->> +    struct list_head    tlb_flush_waitlist;
->> +
->>       atomic64_t        kfd_last_flushed_seq;
->>         /* How many times we had to re-generate the page tables */
->> @@ -545,6 +548,7 @@ int amdgpu_vm_ptes_update(struct 
->> amdgpu_vm_update_params *params,
->>                 uint64_t start, uint64_t end,
->>                 uint64_t dst, uint64_t flags);
->>   void amdgpu_vm_pt_free_work(struct work_struct *work);
->> +void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry);
->>     #if defined(CONFIG_DEBUG_FS)
->>   void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct 
->> seq_file *m);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->> index 95dc0afdaffb..cb14e5686c0f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->> @@ -636,7 +636,7 @@ static int amdgpu_vm_pt_alloc(struct 
->> amdgpu_device *adev,
->>    *
->>    * @entry: PDE to free
->>    */
->> -static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
->> +void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
->>   {
->>       struct amdgpu_bo *shadow;
->>   @@ -685,13 +685,15 @@ void amdgpu_vm_pt_free_work(struct 
->> work_struct *work)
->>    * @vm: amdgpu vm structure
->>    * @start: optional cursor where to start freeing PDs/PTs
->>    * @unlocked: vm resv unlock status
->> + * @force: force free all PDs/PTs without waiting for TLB flush
->>    *
->>    * Free the page directory or page table level and all sub levels.
->>    */
->>   static void amdgpu_vm_pt_free_dfs(struct amdgpu_device *adev,
->>                     struct amdgpu_vm *vm,
->>                     struct amdgpu_vm_pt_cursor *start,
->> -                  bool unlocked)
->> +                  bool unlocked,
->> +                  bool force)
->>   {
->>       struct amdgpu_vm_pt_cursor cursor;
->>       struct amdgpu_vm_bo_base *entry;
->> @@ -708,11 +710,15 @@ static void amdgpu_vm_pt_free_dfs(struct 
->> amdgpu_device *adev,
->>           return;
->>       }
->>   -    for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
->> -        amdgpu_vm_pt_free(entry);
->> +    for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry) {
->> +        if (!force)
->> +            list_move(&entry->vm_status, &vm->tlb_flush_waitlist);
->> +        else
->> +            amdgpu_vm_pt_free(entry);
->> +    }
->>         if (start)
->> -        amdgpu_vm_pt_free(start->entry);
->> +        list_move(&start->entry->vm_status, &vm->tlb_flush_waitlist);
->>   }
->
-> The complexity inside amdgpu_vm_pt_free_dfs() really starts to make no 
-> sense any more.
->
-> First of all ditch the usage in amdgpu_vm_pt_free_root(). Instead just 
-> inline the call to for_each_amdgpu_vm_pt_dfs_safe() to free up all of 
-> the page tables immediately.
+are available in the Git repository at:
 
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.9-2024-03-01
 
-Noted,
+for you to fetch changes up to b07395d5d5e74e3a7e2e436fc0eced2b0f332074:
 
->
-> Then the other use case in amdgpu_vm_ptes_update():
->
-> /* Make sure previous mapping is freed */
-> if (cursor.entry->bo) {
->     params->table_freed = true;
->     amdgpu_vm_pt_free_dfs(adev, params->vm, &cursor, params->unlocked);
-> }
->
-> We should basically change params->table_freed into a list_head and 
-> put all to be freed entries on there. Something like that:
->
-> spin_lock(&vm->status_lock);
-> for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
->     list_move(&entry->vm_status, &params->table_freed);
-> spin_unlock(&vm->status_lock);
->
-> And then finally in amdgpu_vm_update_range() we should call 
-> amdgpu_vm_pt_free_dfs() to really free up all PDs/PTs (probably rename 
-> the function while at it).
+  drm/amdgpu: remove misleading amdgpu_pmops_runtime_idle() comment (2024-02-29 20:35:39 -0500)
 
-- in amdgpu_vm_pt_free_dfs, there are two different lists for locked and 
-unlocked PT entries
+----------------------------------------------------------------
+amd-drm-next-6.9-2024-03-01:
 
-   unlocked is saved in vm->pt_freed
+amdgpu:
+- GC 11.5.1 updates
+- Misc display cleanups
+- NBIO 7.9 updates
+- Backlight fixes
+- DMUB fixes
+- MPO fixes
+- atomfirmware table updates
+- SR-IOV fixes
+- VCN 4.x updates
+- use RMW accessors for pci config registers
+- PSR fixes
+- Suspend/resume fixes
+- RAS fixes
+- ABM fixes
+- Misc code cleanups
+- SI DPM fix
+- Revert freesync video
 
-   locked is freed immediately, which we now want to add into another 
-list  (params->table_freed in your suggestion) and free after tlb_flush
+amdkfd:
+- Misc cleanups
+- Error handling fixes
 
-  which means we have to do something like this:
+radeon:
+- use RMW accessors for pci config registers
 
-in amdgpu_vm_ptes_update {
+----------------------------------------------------------------
+Alex Deucher (3):
+      Revert "drm/amd/pm: resolve reboot exception for si oland"
+      Revert "drm/amd: Remove freesync video mode amdgpu parameter"
+      Reapply "Revert drm/amd/display: Enable Freesync Video Mode by default"
 
-  /* Make sure previous mapping is freed */
-if (cursor.entry->bo) {
+Alvin Lee (2):
+      drm/amd/display: Generalize new minimal transition path
+      drm/amd/display: Remove pixle rate limit for subvp
 
-     for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
+Aric Cyr (2):
+      drm/amd/display: Fix nanosec stat overflow
+      drm/amd/display: 3.2.273
 
-     if (unlocked) {
+Armin Wolf (1):
+      drm/amd/display: Fix memory leak in dm_sw_fini()
 
-         list_move(&entry->vm_status, &vm->pt_free);
+Asad Kamal (5):
+      Revert "drm/amdgpu: Add pci usage to nbio v7.9"
+      Revert "drm/amdgpu: Add pcie usage callback to nbio"
+      drm/amdgpu: Remove pcie bw sys entry
+      drm/amd/pm: Skip reporting pcie width/speed on vfs
+      drm/amd/pm: Fix esm reg mask use to get pcie speed
 
-     else
-         list_move(&entry->vm_status, &params->table_freed);
+Aurabindo Pillai (1):
+      drm/amd: Update atomfirmware.h for DCN401
 
-}
+Bjorn Helgaas (1):
+      drm/amdgpu: remove misleading amdgpu_pmops_runtime_idle() comment
 
-}
+Eric Huang (1):
+      amd/amdkfd: remove unused parameter
 
-and then we have to change the amdgpu_vm_pt_free_dfs() implementation to 
-simply free BOs, not searching anything like:
+Ethan Bitnun (1):
+      drm/amd/display: Only log during optimize_bandwidth call
 
-if (unlocked) {
+George Shen (1):
+      drm/amd/display: Check DP Alt mode DPCS state via DMUB
 
-     schedule_work(pt_free_work)
+Hawking Zhang (1):
+      drm/amdgpu: Do not toggle bif ras irq from guest
 
-} else {
+Ilpo Järvinen (2):
+      drm/radeon: Use RMW accessors for changing LNKCTL2
+      drm/amdgpu: Use RMW accessors for changing LNKCTL2
 
-    list_for_each(params->table_freed)
+Jonathan Kim (1):
+      drm/amdkfd: fix process reference drop on debug ioctl
 
-     amdgpu_vm_pt_free(entry)
+Kunwu Chan (3):
+      drm/amdgpu: Simplify the allocation of fence slab caches
+      drm/amdgpu: Simplify the allocation of mux_chunk slab caches
+      drm/amdgpu: Simplify the allocation of sync slab caches
 
-}
+Lenko Donchev (1):
+      drm/amd/display: Use kcalloc() instead of kzalloc()
 
-and then we would be able to call amdgpu_vm_pt_free_dfs() from 
-amdgpu_vm_update_range().
+Lewis Huang (1):
+      drm/amd/display: Only allow dig mapping to pwrseq in new asic
 
-Does that sound good to you ?
+Li Ma (1):
+      drm/amd/swsmu: modify the gfx activity scaling
 
-- Shashank
+Lijo Lazar (4):
+      drm/amdgpu: Add fatal error detected flag
+      drm/amdkfd: Skip packet submission on fatal error
+      drm/amdkfd: Add partition id field to location_id
+      drm/amd/pm: Increase SMUv13.0.6 mode-2 reset time
 
+Ma Jun (3):
+      drm/amdgpu: Drop redundant parameter in amdgpu_gfx_kiq_init_ring
+      drm/amdgpu: Fix the runtime resume failure issue
+      drm/amdgpu/pm: Fix the power1_min_cap value
 
-> Regards,
-> Christian.
->
->>     /**
->> @@ -724,7 +730,7 @@ static void amdgpu_vm_pt_free_dfs(struct 
->> amdgpu_device *adev,
->>    */
->>   void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct 
->> amdgpu_vm *vm)
->>   {
->> -    amdgpu_vm_pt_free_dfs(adev, vm, NULL, false);
->> +    amdgpu_vm_pt_free_dfs(adev, vm, NULL, false, true);
->>   }
->>     /**
->> @@ -1059,7 +1065,8 @@ int amdgpu_vm_ptes_update(struct 
->> amdgpu_vm_update_params *params,
->>                       params->needs_flush = true;
->>                       amdgpu_vm_pt_free_dfs(adev, params->vm,
->>                                     &cursor,
->> -                                  params->unlocked);
->> +                                  params->unlocked,
->> +                                  false);
->>                   }
->>                   amdgpu_vm_pt_next(adev, &cursor);
->>               }
->
+Mario Limonciello (1):
+      drm/amd: Drop abm_level property
+
+Melissa Wen (2):
+      drm/amd/display: fix null-pointer dereference on edid reading
+      drm/amd/display: check dc_link before dereferencing
+
+Nicholas Kazlauskas (1):
+      drm/amd/display: Fix S4 hang polling on HW power up done for VBIOS DMCUB
+
+Prike Liang (1):
+      drm/amdgpu: Enable gpu reset for S3 abort cases on Raven series
+
+Rodrigo Siqueira (5):
+      drm/amd/display: Initialize variable with default value
+      drm/amd/display: Remove unused file
+      drm/amd/display: Add SMU timeout check and retry
+      drm/amd/display: Remove redundant FPU guard
+      drm/amd/display: Drop unnecessary header
+
+Saleemkhan Jamadar (1):
+      drm/amdgpu/jpeg: add support for jpeg multi instance
+
+Srinivasan Shanmugam (5):
+      drm/amd/display: Fix potential null pointer dereference in dc_dmub_srv
+      drm/amdgpu/display: Address kdoc for 'is_psr_su' in 'fill_dc_dirty_rects'
+      drm/amd/display: Prevent potential buffer overflow in map_hw_resources
+      drm/amdgpu: Fix missing break in ATOM_ARG_IMM Case of atom_get_src_int()
+      drm/amd/amdgpu: Fix potential ioremap() memory leaks in amdgpu_device_init()
+
+Stanley.Yang (1):
+      drm/amdgpu: Fix ineffective ras_mask settings
+
+Swapnil Patel (1):
+      drm/amd/display: fix input states translation error for dcn35 & dcn351
+
+Tao Zhou (1):
+      drm/amdgpu: add deferred error check for UMC v12 address query
+
+Tim Huang (2):
+      drm/amdgpu: enable CGPG for GFX ip v11.5.1
+      drm/amdgpu: reserve more memory for MES runtime DRAM
+
+Veerabadhran Gopalakrishnan (3):
+      drm/amdgpu/vcn: Enable VCN 4.0.6 Support
+      drm/amdgpu/soc21: Added Video Capabilities for VCN 406
+      drm/amdgpu/soc21: Enabling PG and CG flags for VCN 4.0.6
+
+Victor Lu (4):
+      drm/amdgpu: Improve error checking in amdgpu_virt_rlcg_reg_rw (v2)
+      drm/amdgpu: Do not program IH_CHICKEN in vega20_ih.c under SRIOV
+      drm/amdgpu: Use correct SRIOV macro for gmc_v9_0_vm_fault_interrupt_state
+      drm/amdgpu: Do not program SQ_TIMEOUT_CONFIG in SRIOV
+
+Wayne Lin (1):
+      drm/amd/display: adjust few initialization order in dm
+
+Wenjing Liu (1):
+      drm/amd/display: reenable windowed mpo odm support on dcn32 and dcn321
+
+Yang Wang (1):
+      drm/amdgpu: enable pp_od_clk_voltage for gfx 9.4.3 SRIOV
+
+Yifan Zhang (14):
+      drm/amdgpu: add GFXHUB 11.5.1 support
+      drm/amdgpu: add tmz support for GC IP v11.5.1
+      drm/amdgpu: enable gmc11 discovery support for GC 11.5.1
+      drm/amdgpu: add initial GC 11.5.1 soc21 support
+      drm/amdgpu: enable soc21 discovery support for GC 11.5.1
+      drm/amdgpu: add GC 11.5.1 to GC 11.5.0 family
+      drm/amdgpu: add firmware for GC 11.5.1
+      drm/amdgpu: add imu firmware support for GC 11.5.1
+      drm/amdgpu: add mes firmware support for GC 11.5.1
+      drm/amdgpu: initialize gfx11.5.1
+      drm/amdkfd: add KFD support for GC 11.5.1
+      drm/amdgpu: add GC 11.5.1 discovery support
+      drm/amdgpu: enable MES discovery for GC 11.5.1
+      drm/amdgpu: add vcn 4.0.6 discovery support
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c           |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |   5 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h         |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  17 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |   7 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c        |   8 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  30 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c          |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h            |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h           |   2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c           |   8 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h           |   3 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |  33 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h            |   6 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c       |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c           |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c            |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h           |   1 +
+ drivers/gpu/drm/amd/amdgpu/atom.c                  |   2 +-
+ drivers/gpu/drm/amd/amdgpu/cik.c                   |  41 ++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |   5 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  17 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c              |   5 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |   5 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c            |   7 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c             |   2 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |   8 +-
+ drivers/gpu/drm/amd/amdgpu/imu_v11_0.c             |   1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c           | 177 ++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |  15 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c             |  63 --------
+ drivers/gpu/drm/amd/amdgpu/si.c                    |  41 ++---
+ drivers/gpu/drm/amd/amdgpu/soc15.c                 |  49 +++---
+ drivers/gpu/drm/amd/amdgpu/soc21.c                 |  35 ++++
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c             |   3 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c            |   3 +
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c             |  38 ++---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |   3 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |   1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c            |   7 +
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   4 +
+ drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c      |   8 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h      |   2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c    |  10 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c          |   5 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  87 +++++-----
+ drivers/gpu/drm/amd/display/dc/basics/dce_calcs.c  |   2 -
+ drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c   |   2 -
+ .../amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c    |   2 +-
+ .../drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c |   2 -
+ .../amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_clk.c |  79 ---------
+ .../dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c        |  11 +-
+ .../drm/amd/display/dc/clk_mgr/dcn301/dcn301_smu.c |   6 +-
+ .../amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c   |   4 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           | 146 +++++++----------
+ drivers/gpu/drm/amd/display/dc/dc.h                |   2 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c       |   7 +-
+ .../gpu/drm/amd/display/dc/dce/dce_panel_cntl.c    |   1 +
+ .../drm/amd/display/dc/dcn301/dcn301_panel_cntl.c  |   1 +
+ .../drm/amd/display/dc/dcn31/dcn31_panel_cntl.c    |  18 ++-
+ .../amd/display/dc/dcn32/dcn32_dio_link_encoder.c  |  85 +++++++---
+ .../amd/display/dc/dcn32/dcn32_dio_link_encoder.h  |   5 +
+ .../gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c   |   1 -
+ .../amd/display/dc/dml2/dml2_translation_helper.c  |   9 +-
+ drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c |   5 +
+ drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c     |   2 -
+ drivers/gpu/drm/amd/display/dc/inc/core_types.h    |  31 ++--
+ drivers/gpu/drm/amd/display/dc/inc/hw/panel_cntl.h |   2 +-
+ .../amd/display/dc/irq/dcn20/irq_service_dcn20.c   |   2 -
+ .../amd/display/dc/irq/dcn21/irq_service_dcn21.c   |   2 -
+ drivers/gpu/drm/amd/display/dc/link/link_factory.c |  26 +--
+ .../drm/amd/display/dc/link/protocols/link_dpcd.c  |   2 +-
+ .../amd/display/dc/resource/dcn20/dcn20_resource.c |   2 -
+ .../amd/display/dc/resource/dcn32/dcn32_resource.c |   1 +
+ .../display/dc/resource/dcn321/dcn321_resource.c   |   2 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c  |   8 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c    |   9 +-
+ .../gpu/drm/amd/display/modules/inc/mod_stats.h    |   4 +-
+ .../amd/include/asic_reg/nbio/nbio_7_9_0_sh_mask.h |   8 -
+ drivers/gpu/drm/amd/include/atomfirmware.h         |  32 ++++
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |  35 +++-
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c         |  29 ++++
+ drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  |  13 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    |   9 +-
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |   9 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c |  14 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |   9 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  26 +--
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |   9 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c     |   2 -
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   |   5 +-
+ drivers/gpu/drm/radeon/cik.c                       |  40 ++---
+ drivers/gpu/drm/radeon/si.c                        |  40 ++---
+ 98 files changed, 853 insertions(+), 712 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_clk.c
