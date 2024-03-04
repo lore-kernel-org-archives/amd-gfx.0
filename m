@@ -4,75 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6879DC48BF6
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Mar 2024 16:39:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FD8CC5478C
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Mar 2024 17:32:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08FCB10EA26;
-	Mon,  4 Mar 2024 16:39:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1E791123C1;
+	Mon,  4 Mar 2024 17:32:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MCHfAWjd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ReUNj1cM";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6308F10EA26;
- Mon,  4 Mar 2024 16:39:36 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-412e7fe422fso4820245e9.2; 
- Mon, 04 Mar 2024 08:39:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709570374; x=1710175174; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=MhNUAiSWO4T7l6IiApvoEvlWA3p5lp7Kta44ylU3vRE=;
- b=MCHfAWjdCd1yS7g/yiHKSP3CrnrokuM+k9IuJfLihBXtLk3b7YJWG/AdaKw364YBQ6
- kL9HqP8npSVi7KYDzOxrIff8fZH/BtFbtYj8al6Z270mXfsabrDcaOH/mWeJ/T6IJSie
- mCiXHisPJetklgpBQPIZI2qvuCntMcAlHb+/FuvBoQMKdky6Sb5Pq84Q7MYvBkY2Yxtw
- NSzlQ7Ep4sbVX0jmQRZtc/1pCoos4M8Jkg+u3MR4YTjdZfMKfuV2934wNRgRKf3+qbJc
- v57/tvrqE1fQIdroGyhzBWCvqkxSPg5OegTKNpXvrUY56qjnBdsXzE/vSVBtOZGKHnm9
- 7GoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709570374; x=1710175174;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MhNUAiSWO4T7l6IiApvoEvlWA3p5lp7Kta44ylU3vRE=;
- b=gDUXVMQ55kILsXvIQQWOKpOPMAgdG0OQloAR+CTBWZZECrFZniOQJMq4ibL7z5/YI4
- E3AOEsy3mcQXKzaquANVuTkQalQCHZ7LFHH7UFsuUhrHe8zomenqBBwyhpLOAW+/zakA
- cgP5NJKCKF1cWgrug2CwWjzVd8JTQWCnh3BgsF6jvLwiujJqsLXMgYJFxtQQpGpD+Pcl
- tXFAcmkiCEM8qC47F9sR07KLP+rOxo4os8s5hMvxQXf/mYC6bIOLRgn3m+MFFIOou6R1
- i+sc7NdMgfKJ2VoZ6vP/FOq2+xzfKd+2VfIL03LQQpSjRxgq/1OhIrNg4Qyo6VlbngzK
- zVZA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVOa33wDpzWGxPMjHcfOjVmzLYhGXgdk8hsNq0clh/dvJI4K/ZyZeP4jpy+u6RDYHkAA0pHfbIQuuS3HPDxIPdM+moDSAkW0UtH6m8Xo9/KN/52KSDmF2IunaKeoLfcHNclnjbxjxrcWY/afynxN3EuHSuVBreeu+JiL/jN/Pyvxy6/SzKfO4Q9/idncGlDLQ==
-X-Gm-Message-State: AOJu0YwJZEEgvOIVfkw2n9DO7ieTcWsdSLiFMBBbwJy7AaGjLWF6PTkx
- StFaHL7Ro6QY0h7ZpcZr9I837DbkkI48Zct0WbDpOkfU+phWSjO0
-X-Google-Smtp-Source: AGHT+IF8qB57ThaA300N8OaB2lwrFAu7k5Q7nXN5q3xnQJw/fI7SbrjzcKANpB1P578sPGSsPKIXww==
-X-Received: by 2002:a05:600c:1f90:b0:412:6015:3dc5 with SMTP id
- je16-20020a05600c1f9000b0041260153dc5mr7873076wmb.14.1709570374219; 
- Mon, 04 Mar 2024 08:39:34 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- g3-20020adfe403000000b0033af3a43e91sm12642090wrm.46.2024.03.04.08.39.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Mar 2024 08:39:33 -0800 (PST)
-Message-ID: <77148946-83ef-4576-a26b-ec84f9a4c63a@gmail.com>
-Date: Mon, 4 Mar 2024 17:39:30 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 3/3] drm/buddy: Add user for defragmentation
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2088.outbound.protection.outlook.com [40.107.220.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46A661123C1
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Mar 2024 17:32:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cun83v/y7TFhJLOjJrrXIp8lrT7+WFbwltCh02/os5qEiLJ++HCHrOtFL7mKpUalWwaGua+UvPbwPyZrzKKRJj9XnQJiTq/HnX6Z64SldZRgixwMLXPzUVCNhNbTchLVdUsy6GxTqDee7K+86vYJ00LbUcyuwYtjH+r+YDv9BmILMOcr785aHWSbSOpN/WE5ItqZkYtrP3ZDbH8J5ggmviUa6VGnKVhINQRCXqJ0RM5Fo3/J6OACOufYFHhzkv2ZZd/uBVxSprEobhnbgDhu/hpPo5Yb2S/mE9zG21Ws6MlsDY20x5MdLvrYkSs7KoOrChK7Qm8LR/Xz2degq7lJJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jGNJTK+G6p4ruXXOsCOQzHBxRGWWEWMsufW00g8cWog=;
+ b=QCzpQCVWx+ORKg9Gv0D4pjKfRPoSLsR6b96renVMkmTB2TwX+xfTf0ub49DEWVN7AtMSnnQTg2asmzxgC5lY95INcF9KAGvSwkShp8gxtZme4r5JEbsnkTX5Ls5pee7ZBPvZYjf6uFVez1MSgDfC+dlxnynT/w7q5UGyTGmpTKitQvA3wxuV1bmJhmBlSt+UxTYGbiISTrZ/VbgscuqCUMv3VrjEI5kzclpIDcoMy7S3yTCsHIjM7fDG1isP0ttscmWhIvhuKz4jwxO/RWOzoce7KM6c3yhvtYFE0xIftfAO59nmZ4q4K+TnO8uAxsPwdX2iMknhNKL5us98EMEMeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jGNJTK+G6p4ruXXOsCOQzHBxRGWWEWMsufW00g8cWog=;
+ b=ReUNj1cM9MgBBiwUO3RmC1tgVpGDnmaSZJA3nOXKLAusESZykXlSvLkeOn7gtQ7xGInkkGJ/UfQPOuwU/AU2i6rZwnPbQa6uRs+S6BX3B4O6UCbPmdn6jat5EdgSqqB0tIfJWdudYFuVdonDB8RVx7b2pcNbM0DkSsfpdKPk6AM=
+Received: from DM8PR12MB5399.namprd12.prod.outlook.com (2603:10b6:8:34::5) by
+ SN7PR12MB7249.namprd12.prod.outlook.com (2603:10b6:806:2a9::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.38; Mon, 4 Mar
+ 2024 17:32:47 +0000
+Received: from DM8PR12MB5399.namprd12.prod.outlook.com
+ ([fe80::f468:f934:754:7881]) by DM8PR12MB5399.namprd12.prod.outlook.com
+ ([fe80::f468:f934:754:7881%6]) with mapi id 15.20.7339.035; Mon, 4 Mar 2024
+ 17:32:47 +0000
+From: "Liu, Leo" <Leo.Liu@amd.com>
+To: "Dhume, Samir" <Samir.Dhume@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Wan, Gavin" <Gavin.Wan@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 3/3] drm/amdgpu/jpeg: support for sriov cpx mode
+Thread-Topic: [PATCH 3/3] drm/amdgpu/jpeg: support for sriov cpx mode
+Thread-Index: AQHabkdxafssGrASQ0KnVTKl/uaK/LEn1o3Q
+Date: Mon, 4 Mar 2024 17:32:47 +0000
+Message-ID: <DM8PR12MB539925E4E00DD99EF104C70BE5232@DM8PR12MB5399.namprd12.prod.outlook.com>
+References: <20240304151931.802397-1-samir.dhume@amd.com>
+ <20240304151931.802397-3-samir.dhume@amd.com>
+In-Reply-To: <20240304151931.802397-3-samir.dhume@amd.com>
+Accept-Language: en-CA, en-US
 Content-Language: en-US
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
- matthew.auld@intel.com, felix.kuehling@amd.com, mario.limonciello@amd.com
-References: <20240304163220.3093-1-Arunpravin.PaneerSelvam@amd.com>
- <20240304163220.3093-3-Arunpravin.PaneerSelvam@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240304163220.3093-3-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=f5078f52-c121-494a-abb7-1523a9fa0b30;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-03-04T17:29:47Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM8PR12MB5399:EE_|SN7PR12MB7249:EE_
+x-ms-office365-filtering-correlation-id: efff0f7e-fa20-48a5-a1f3-08dc3c711bce
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: fzDBgJIxYGFE/vizXvicefzbkrNSgjYkIuyZsdGz66USdLkNSLVjC3mgPosFlr2TplWUB+s4Mpw/opm4xAZQMIYVxQRawWyrLnDhvVtN79wT0Cl18OoDNn41Lsj7cuW5yTsH7xR6/Ytz0C1lc41EOL1m5v2zBw2KpaqLYZe0sAg3fLu+sep6DHI9hWsemHP3xnmmvwe5w5SXkQjN+3smlypQi5M6IVrLL5LF+AVtinEjis2+OmAR9OOkP/cLHijTLY3xtobyD5g7PgfDHMTXKU8IvIU1zmZXd5wO+pLXXq9mN/q0+hOw3+mR7R47ZfgGA+uiDv0pHnvWoBmCs4eQbLPKNSzq19eTIVn6OFUEuvJsA7PDgDhWYBZkPg4BT3iJCoVkUK6GGSuDYPFoUqNwBGXL1ILLRI3yuecP4bSulxLmTZV3miyUQQpvypMONjmrok+O5xFLoPh2o9abAQdGoKqxnfy2mHBrXnkwujP/YdK++6LN3FraD2R9iLHAx/Ejyebmxj0jgA4rxfpKdAqdf9eQ6dCjp9htJlNxhhvgF/rBrh8CBN8FgHZlkCo8RGukpU4g6GdxmbJqC652hXS5QZi22BUi7j4dU5pLav8fnLfO4QFwx7rzIfBJ6v+4EdxAsjyNWI7MVPIJoK0OfTCMs07G6Ij3Zb2am7qsgzmaYAhsBZrYniXCqiaXAQcS17rKvpXS3ejrIKDuNktR6aSYlg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM8PR12MB5399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wKsR8zIpTu/FTAU91uAsLFS1z4pvc37fVUh3BAr7A6sR2qHgFVB9F16aptWJ?=
+ =?us-ascii?Q?FAyddJuRB0gJEwOmZIeLkguBp2kG1X+WdxL8jPNNmeg9701eCXENFvSma6uM?=
+ =?us-ascii?Q?94Zu12pJmnR+WtxkBSvxU2XGWVtp2OMIeSgbjiGmmIKUFWq16dhwtVh+osbJ?=
+ =?us-ascii?Q?7LDvouKjulX165D14wTFkCBmSlG70xZJgrRd+3msS30l6sLF+Vq3Rhkcf8O3?=
+ =?us-ascii?Q?dQ++wXL6io2Yu/uU0DwUIGkbs77eGBtmGXmGC58dqJozQShtb7CLk2W4WBMP?=
+ =?us-ascii?Q?RmJVnrS+27B/O1xjexjFQyzfDIpjscmbOLfnE9tdtCx8+oEBs5Ya2j+lDID7?=
+ =?us-ascii?Q?NRCeizAPqmLE+pLxLpLgmpXlH4cawFyyCaRtk4u5VJ+SqHtpz2wpbxalgxaM?=
+ =?us-ascii?Q?01ivnIVeIuDr7vCJiLnA6d/w+HBkVfa3R/6p9z5YqSUJYTl3YU5BCVNcm5N0?=
+ =?us-ascii?Q?loGhpZDbcQMvshJKfxByeimINMgJ/fpr8ePRbctpDD/nXrBfRydPnz9KAvVG?=
+ =?us-ascii?Q?QeKP9YGpFECUr1mSReYie5HV8uo6c4100DMbXkjPyO9jai4IMNhnL7fgLUaw?=
+ =?us-ascii?Q?t+auUSMyfij7oXsJwElHXMQnSK9ehXemMchWzXajYsOX5vvMUpFgW/Jy8Zah?=
+ =?us-ascii?Q?jhOnznj98Zkcte9Ta7zQuXDxnbs2c0jTVUCv5YqiFIg0g1MLrumQlbA5zHA9?=
+ =?us-ascii?Q?PrfXtwGanb+AkTV7DmCsQst8iog6X4a8bfzgp5494Tnut2e34xkUGB2IZrW5?=
+ =?us-ascii?Q?mgH7Ao4o2UEnPLPvDbYqeWUllJZiRhlA6m5+ggOHovRt35J65HUWniq1x5Gt?=
+ =?us-ascii?Q?nI2Cl7FI5rXwct9RWurGGBJuNpvG6tvskDbr2viIgY1t5OHWCBcNYhn5g2K/?=
+ =?us-ascii?Q?1R7N8X9ERnLGN8mbfDebuimQSPPWj/533YGIjGRKnrLWe9QXp0ob+2VqFlEa?=
+ =?us-ascii?Q?LIQjU8RRd5E3rv+RfiCl2YUH+8/0T5Sya+uXTc6Gx8pWwlfO3ejxwcscSXqc?=
+ =?us-ascii?Q?wrWsuDrroH/fF7egalIUD+yuzkujatzqGgFpnappuLQ/pw2P3MnwDkW0CzFi?=
+ =?us-ascii?Q?lBl2p9K1tXWJmSacwz35kXmmwghUix5NXnAk44JDoQbUBE0WZ2C0bYZHwajr?=
+ =?us-ascii?Q?5sFl8v1moEHWTyQnnqgE2bSEgwtdqKXsCEG4p3h+SY76Y6zDvRNQh+HFC8md?=
+ =?us-ascii?Q?iMD5ot9mK3BO3gAgKOR6u+BzjeYzqVaxKheLCmecIJPKdp6+blhcLeccAM7V?=
+ =?us-ascii?Q?6u51fiRg1rvazI1MgQTJX6rZddNedH6o0fjCcQWEdpgavlM27JEmUaML41bv?=
+ =?us-ascii?Q?rxpKBk1H2lqbb6kKC2Utvq4trU4hGrppKVwiom0JZKDOJvdU5hIaEKzXwWZI?=
+ =?us-ascii?Q?uqOe3e5uRFGKvMlW027trG0plnPe0Uh83w6opUT1aoF1YI+4ywmKtS6Zojhb?=
+ =?us-ascii?Q?dXsuie3AXgLbSKjx9ycg4WBOu502qRcs9JyxR3vTHcqIrlmWxHLCLz5AYMDv?=
+ =?us-ascii?Q?3OTcR17TbyiNjbfKWX+J1RIXDYMKyn6pXAaMpXWxAbmc3G/lEkBPyHUgNmds?=
+ =?us-ascii?Q?og1G0y2DA75vnyetvMU=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5399.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: efff0f7e-fa20-48a5-a1f3-08dc3c711bce
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Mar 2024 17:32:47.4699 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: J57trLlPqHrBG3XaT6yRaucoSxKHiYp8wqmQzqEq/LgSbtIsyu2P+vDhc9LDQJEt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7249
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,63 +130,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 04.03.24 um 17:32 schrieb Arunpravin Paneer Selvam:
-> Add amdgpu driver as user for the drm buddy
-> defragmentation.
+[AMD Official Use Only - General]
+
+> -----Original Message-----
+> From: Dhume, Samir <Samir.Dhume@amd.com>
+> Sent: Monday, March 4, 2024 10:20 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Dhume, Samir <Samir.Dhume@amd.com>; Lazar, Lijo
+> <Lijo.Lazar@amd.com>; Wan, Gavin <Gavin.Wan@amd.com>; Liu, Leo
+> <Leo.Liu@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH 3/3] drm/amdgpu/jpeg: support for sriov cpx mode
 >
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Signed-off-by: Samir Dhume <samir.dhume@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 17 +++++++++++++++--
->   drivers/gpu/drm/drm_buddy.c                  |  1 +
->   2 files changed, 16 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c | 80 +++++++++++++++++++++-
+> --
+>  1 file changed, 73 insertions(+), 7 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index e494f5bf136a..cff8a526c622 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -533,8 +533,21 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->   					   min_block_size,
->   					   &vres->blocks,
->   					   vres->flags);
-> -		if (unlikely(r))
-> -			goto error_free_blocks;
-> +		if (unlikely(r)) {
-> +			if (r == -ENOSPC) {
-> +				drm_buddy_defrag(mm, min_block_size);
-> +				r = drm_buddy_alloc_blocks(mm, fpfn,
-> +							   lpfn,
-> +							   size,
-> +							   min_block_size,
-> +							   &vres->blocks,
-> +							   vres->flags);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+> b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+> index 32caeb37cef9..4bf087f8ca2b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+> @@ -65,9 +65,15 @@ static int amdgpu_ih_srcid_jpeg[] =3D {  static int
+> jpeg_v4_0_3_early_init(void *handle)  {
+>       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> +     struct amdgpu_xcp_mgr *xcp_mgr =3D adev->xcp_mgr;
 
-That doesn't looks like something we should do.
-
-We might fallback when contiguous memory is requested, but certainly not 
-on normal allocation failure.
+In general, to make the path clear, can we define and use the SRIOV specifi=
+c variables and function within "amdgpu_sriov_vf()" ?
 
 Regards,
-Christian.
+Leo
 
-> +				if (unlikely(r))
-> +					goto error_free_blocks;
-> +			} else {
-> +				goto error_free_blocks;
-> +			}
-> +		}
->   
->   		if (size > remaining_size)
->   			remaining_size = 0;
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index 40131ed9b0cd..19440f8caec0 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -396,6 +396,7 @@ void drm_buddy_defrag(struct drm_buddy *mm,
->   		}
->   	}
->   }
-> +EXPORT_SYMBOL(drm_buddy_defrag);
->   
->   /**
->    * drm_buddy_free_block - free a block
+>
+>       adev->jpeg.num_jpeg_rings =3D AMDGPU_MAX_JPEG_RINGS;
+>
+> +     if (amdgpu_sriov_vf(adev))
+> +             if (adev->xcp_mgr->funcs->query_partition_mode(xcp_mgr) =3D=
+=3D
+> +                             AMDGPU_CPX_PARTITION_MODE)
+> +                     adev->jpeg.num_jpeg_rings =3D 4;
+> +
+>       jpeg_v4_0_3_set_dec_ring_funcs(adev);
+>       jpeg_v4_0_3_set_irq_funcs(adev);
+>       jpeg_v4_0_3_set_ras_funcs(adev);
+> @@ -88,10 +94,28 @@ static int jpeg_v4_0_3_sw_init(void *handle)
+>       struct amdgpu_ring *ring;
+>       int i, j, r, jpeg_inst;
+>
+> +     bool sriov_cpx_odd =3D false;
+> +     struct amdgpu_xcp_mgr *xcp_mgr =3D adev->xcp_mgr;
+> +     int mode;
+> +
+> +     if (amdgpu_sriov_vf(adev)) {
+> +             mode =3D xcp_mgr->funcs->query_partition_mode(xcp_mgr);
+> +
+> +             if (mode =3D=3D AMDGPU_CPX_PARTITION_MODE) {
+> +                     if (adev->gfx.funcs->get_xcc_id(adev, 0) & 0x1)
+> +                             sriov_cpx_odd =3D true;
+> +             }
+> +     }
+> +
+>       for (j =3D 0; j < adev->jpeg.num_jpeg_rings; ++j) {
+>               /* JPEG TRAP */
+> -             r =3D amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_VCN,
+> +             if (!sriov_cpx_odd)
+> +                     r =3D amdgpu_irq_add_id(adev,
+> SOC15_IH_CLIENTID_VCN,
+>                               amdgpu_ih_srcid_jpeg[j], &adev->jpeg.inst-
+> >irq);
+> +             else
+> +                     r =3D amdgpu_irq_add_id(adev,
+> SOC15_IH_CLIENTID_VCN,
+> +                             amdgpu_ih_srcid_jpeg[j+4], &adev->jpeg.inst=
+-
+> >irq);
+> +
+>               if (r)
+>                       return r;
+>       }
+> @@ -116,10 +140,15 @@ static int jpeg_v4_0_3_sw_init(void *handle)
+>                                       (adev-
+> >doorbell_index.vcn.vcn_ring0_1 << 1) +
+>                                       1 + j + 9 * jpeg_inst;
+>                       } else {
+> -                             if (j < 4)
+> +                             if ((j < 4) && (!sriov_cpx_odd))
+>                                       ring->doorbell_index =3D
+>                                               (adev-
+> >doorbell_index.vcn.vcn_ring0_1 << 1) +
+>                                               4 + j + 32 * jpeg_inst;
+> +                             else if (sriov_cpx_odd)
+> +                                     ring->doorbell_index =3D
+> +                                             (adev-
+> >doorbell_index.vcn.vcn_ring0_1 << 1) +
+> +                                             12 + j + 32 * jpeg_inst;
+> +
+>                               else
+>                                       ring->doorbell_index =3D
+>                                               (adev-
+> >doorbell_index.vcn.vcn_ring0_1 << 1) + @@ -186,6 +215,9 @@ static int
+> jpeg_v4_0_3_start_sriov(struct amdgpu_device *adev)
+>       uint32_t size, size_dw, item_offset;
+>       uint32_t init_status;
+>       int i, j, jpeg_inst;
+> +     struct amdgpu_xcp_mgr *xcp_mgr =3D adev->xcp_mgr;
+> +     int mode;
+> +     bool cpx_odd =3D false;
+>
+>       struct mmsch_v4_0_cmd_direct_write
+>               direct_wt =3D { {0} };
+> @@ -197,6 +229,13 @@ static int jpeg_v4_0_3_start_sriov(struct
+> amdgpu_device *adev)
+>       end.cmd_header.command_type =3D
+>               MMSCH_COMMAND__END;
+>
+> +     mode =3D xcp_mgr->funcs->query_partition_mode(xcp_mgr);
+> +
+> +     if (mode =3D=3D AMDGPU_CPX_PARTITION_MODE) {
+> +             if (adev->gfx.funcs->get_xcc_id(adev, 0) & 0x1)
+> +                     cpx_odd =3D true;
+> +     }
+> +
+>       for (i =3D 0; i < adev->jpeg.num_jpeg_inst; i++) {
+>               jpeg_inst =3D GET_INST(JPEG, i);
+>
+> @@ -220,10 +259,14 @@ static int jpeg_v4_0_3_start_sriov(struct
+> amdgpu_device *adev)
+>                       tmp =3D SOC15_REG_OFFSET(JPEG, 0,
+> regUVD_JRBC0_UVD_JRBC_RB_SIZE);
+>                       MMSCH_V4_0_INSERT_DIRECT_WT(tmp, ring-
+> >ring_size / 4);
+>
+> -                     if (j <=3D 3) {
+> +                     if ((j <=3D 3) && (!cpx_odd)) {
+>                               header.mjpegdec0[j].table_offset =3D
+> item_offset;
+>                               header.mjpegdec0[j].init_status =3D 0;
+>                               header.mjpegdec0[j].table_size =3D table_si=
+ze;
+> +                     } else if (cpx_odd) {
+> +                             header.mjpegdec1[j].table_offset =3D
+> item_offset;
+> +                             header.mjpegdec1[j].init_status =3D 0;
+> +                             header.mjpegdec1[j].table_size =3D table_si=
+ze;
+>                       } else {
+>                               header.mjpegdec1[j - 4].table_offset =3D
+> item_offset;
+>                               header.mjpegdec1[j - 4].init_status =3D 0; =
+@@ -
+> 986,6 +1029,16 @@ static int jpeg_v4_0_3_process_interrupt(struct
+> amdgpu_device *adev,
+>                                     struct amdgpu_iv_entry *entry)  {
+>       uint32_t i, inst;
+> +     struct amdgpu_xcp_mgr *xcp_mgr =3D adev->xcp_mgr;
+> +     int mode;
+> +     bool sriov_cpx_odd =3D false;
+> +
+> +     mode =3D xcp_mgr->funcs->query_partition_mode(xcp_mgr);
+> +
+> +     if (mode =3D=3D AMDGPU_CPX_PARTITION_MODE) {
+> +             if (adev->gfx.funcs->get_xcc_id(adev, 0) & 0x1)
+> +                     sriov_cpx_odd =3D true;
+> +     }
+>
+>       i =3D node_id_to_phys_map[entry->node_id];
+>       DRM_DEV_DEBUG(adev->dev, "IH: JPEG TRAP\n"); @@ -1015,16
+> +1068,29 @@ static int jpeg_v4_0_3_process_interrupt(struct amdgpu_device
+> *adev,
+>               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[3]);
+>               break;
+>       case VCN_4_0__SRCID__JPEG4_DECODE:
+> -             amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[4]);
+> +             if (!sriov_cpx_odd)
+> +                     amdgpu_fence_process(&adev-
+> >jpeg.inst[inst].ring_dec[4]);
+> +             else
+> +                     amdgpu_fence_process(&adev-
+> >jpeg.inst[inst].ring_dec[0]);
+> +
+>               break;
+>       case VCN_4_0__SRCID__JPEG5_DECODE:
+> -             amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[5]);
+> +             if (!sriov_cpx_odd)
+> +                     amdgpu_fence_process(&adev-
+> >jpeg.inst[inst].ring_dec[5]);
+> +             else
+> +                     amdgpu_fence_process(&adev-
+> >jpeg.inst[inst].ring_dec[1]);
+>               break;
+>       case VCN_4_0__SRCID__JPEG6_DECODE:
+> -             amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[6]);
+> +             if (!sriov_cpx_odd)
+> +                     amdgpu_fence_process(&adev-
+> >jpeg.inst[inst].ring_dec[6]);
+> +             else
+> +                     amdgpu_fence_process(&adev-
+> >jpeg.inst[inst].ring_dec[2]);
+>               break;
+>       case VCN_4_0__SRCID__JPEG7_DECODE:
+> -             amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[7]);
+> +             if (!sriov_cpx_odd)
+> +                     amdgpu_fence_process(&adev-
+> >jpeg.inst[inst].ring_dec[7]);
+> +             else
+> +                     amdgpu_fence_process(&adev-
+> >jpeg.inst[inst].ring_dec[3]);
+>               break;
+>       default:
+>               DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d
+> %d\n",
+> --
+> 2.34.1
 
