@@ -4,71 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9C0AC48BF6
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Mar 2024 12:51:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE203C48BF6
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Mar 2024 14:16:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB72510F7CF;
-	Mon,  4 Mar 2024 12:51:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41CC01121E9;
+	Mon,  4 Mar 2024 14:16:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MhH+wILT";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="Nyz5cy7d";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D48C510E233
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Mar 2024 12:51:08 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-33e17fc5aceso1991380f8f.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Mar 2024 04:51:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709556667; x=1710161467; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Mr5ehkabRBtZi422qWuxoXMMfhibg0edlXdEaZ1BVzo=;
- b=MhH+wILTuh6TqECZ/xhcarrs9+lH3AignmF6aDkL+HBfFksEONVhhF4QgEuFQrfNGW
- oUvJpt95WbpD3nN+orex2eZC5twjhhSAcIy+WkM6og34rFxGOvsCSi+v6lyrI+/7jxu3
- 4Gn/W/3MxJlPn2jXMO7mz57VouYyBS+Tej9hhlyJrZ4k22s8iFqUhSVY1rJ1z8zXfcz0
- eY90c3z6F/oQCnZRxCNMTgTJMaZiF43ksVu3wotV8TQA3dG5CurnUxDZxxJac5jVx6Tz
- VW410ZVr3NKj/0LsweRzxo4mS/xo9XP2WIa3L2O+tqDFGR2AqWO2U4N01Cj/J4ejiJrw
- nrWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709556667; x=1710161467;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Mr5ehkabRBtZi422qWuxoXMMfhibg0edlXdEaZ1BVzo=;
- b=OKQJ4J+Z+HxtG5/mQFN4/knhE+dWyXZ8qwx/ggpY3q/Ph87wTwliTrBt+4tlLtWWMR
- cUwC0egHE5HpB9sTPuK0lw/HD0Ii6GRnznNbPUVnm+oJ7E9Q6D0RpatNEoB1Fg3nnPa+
- Nwp7ZzwI4LpX/Vd65EUG6od8CaodoWV5D/ZiyerFF0G41peV1qfqCxpzAYGDncMhWKry
- 8VsykvxzCTCFKCNMoY+qcSkhpwt4wLjbPcXp4M3PG9ccO/GMeRQCmkSDcINt2c7WiZ1e
- ErdoWeLNYFGll+5SmFxfazkuYwpxFd4diflUinbJD+FnwWovmyY5vUJjUBxs53LRCjZh
- EhSA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV1hry3vygBaFDFKi+AH+oAretbcgY5ZV+Wg/PS/Xm/T9ZGh8RiZlT9v3VxqYtU5wOMo1nB3TDR6keIbDgA+cCjzffkjQwe/eMGj/rXLQ==
-X-Gm-Message-State: AOJu0YzAJkFldr6bZws9apYL8kezU1vYyula5BPI9i3cnb/QqyvP+ixz
- yrbtf5tKHFs+WzrOFgXiWmnJ1+xDvS11cPBYjvUgZRcYYSVxzwhV
-X-Google-Smtp-Source: AGHT+IGEIxbujw1k6dQ1/qb+g5t23D3u5ZfE5f7Vf9bzbC0VPyrzRP9MXFMK7rk3tMbl3x9ZhTYrPg==
-X-Received: by 2002:adf:9c8b:0:b0:33e:30a:c6bd with SMTP id
- d11-20020adf9c8b000000b0033e030ac6bdmr9531053wre.6.1709556666648; 
- Mon, 04 Mar 2024 04:51:06 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- bs19-20020a056000071300b0033daaef7afcsm12427076wrb.83.2024.03.04.04.51.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Mar 2024 04:51:06 -0800 (PST)
-Message-ID: <0162bf19-4cb5-4f2c-85a3-234fe4f79837@gmail.com>
-Date: Mon, 4 Mar 2024 13:51:04 +0100
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 424C01121F6
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Mar 2024 14:12:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:References:Reply-To:Cc:To:From:Subject:MIME-Version:Date:
+ Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+ In-Reply-To:References; bh=2ow5WoWCUnT2GPprP9SShU1PL2Ham9rFrhPnQ0r3S7Y=;
+ t=1709561529; x=1709993529; b=Nyz5cy7d8QLbln3xoDShJhq7tONW/2usSVW5RSN7BwXFl10
+ jwWupJ7ZWISmL/WeLC08Wx4sRP+Yk0tbs6mcWPuWamU7LlbN+kiYHm/QAF/ZC/smefkjqA29afwL+
+ NJi7gDiqX0BDeW622rdxH0TVWBB02VryhypP8H2Po3BHHJdxOpgt6euqOfO/b0EWnfuGIiBA+un3F
+ fxS8A7Pm2skQ4sZsPbr34FXYthrgM3H5zgaxLqFT6c3tGLE5kmFvIosepLgqW0ffqW0PBm7m/0i5c
+ w/5LaJYb/te8ahSNAmUO3z8pjYXLm7uHgN/3sUr3Wv+dG8XsVWQT8o7GpgHMGhaA==;
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1rh92x-0000k1-W2; Mon, 04 Mar 2024 15:12:05 +0100
+Message-ID: <6e93a748-786e-4aca-9b97-65b25e664436@leemhuis.info>
+Date: Mon, 4 Mar 2024 15:12:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu : remove unused code
-Content-Language: en-US
-To: jesse.zhang@amd.com, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, aaron.liu@amd.com, Felix.Kuehling@amd.com
-References: <20240304091617.534109-1-jesse.zhang@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240304091617.534109-1-jesse.zhang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: Kernel 6.7+ broke under-powering of my RX 6700XT. (Archlinux,
+ mesa/amdgpu)
+Content-Language: en-US, de-DE
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Linux regressions mailing list <regressions@lists.linux.dev>
+Cc: Romano <romaniox@gmail.com>, Hans de Goede <hdegoede@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Greg KH <gregkh@linuxfoundation.org>
+References: <ae64f04d-6e94-4da4-a740-78ea94e0552c@riadoklan.sk.eu.org>
+ <2024021732-framing-tactful-833d@gregkh>
+ <d369b45f-e1af-4117-83a5-3e429e3bfb23@leemhuis.info>
+ <CADnq5_OgPBtYpxBQ+aBmA2t7ob7EFPFWrF9OYXNgm00eEayMNA@mail.gmail.com>
+ <62bf771e-640a-45ab-a2de-3df459a9ed30@leemhuis.info>
+ <CADnq5_M4Zwv0_B1DoU_a8aNpyPVJj_PpjDG_oi3JkrGC5-hNgg@mail.gmail.com>
+ <4bc8747a-d87f-423b-b0ce-8891e78ae094@redhat.com>
+ <a6243c3b-d773-4693-88e9-033995616f12@leemhuis.info>
+ <CADnq5_MHmz=HdGA22U-bk2b+4un70bmLzpbDyc3+tjzoRAnCeA@mail.gmail.com>
+ <1aa3830d-ceb7-4eb1-b5bb-d6043684507f@gmail.com>
+ <CADnq5_Nc+eEfXwaXfaTz75C9ww6ETVm_adCSfGsdD6OzguUQ6Q@mail.gmail.com>
+ <3e077b5f-0684-4a07-9b74-ab242bb01975@gmail.com>
+ <CADnq5_NszWGKVZZomTojAm_u7O-04M6x_ox4KXQC79OuGA9ARA@mail.gmail.com>
+ <af6291d4-45c3-4eb6-95b8-14a5221e72a1@leemhuis.info>
+ <CADnq5_Md1yQVxfxWBju7xrqZcU18KqfaJRGcE3tumCUy_3tHoA@mail.gmail.com>
+ <521c02b9-d7c6-4c0f-8259-4b66cc6f9e84@leemhuis.info>
+In-Reply-To: <521c02b9-d7c6-4c0f-8259-4b66cc6f9e84@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1709561529;
+ 8817d1c9; 
+X-HE-SMSGID: 1rh92x-0000k1-W2
+X-Mailman-Approved-At: Mon, 04 Mar 2024 14:16:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,135 +83,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 04.03.24 um 10:16 schrieb jesse.zhang@amd.com:
-> From: Jesse Zhang <jesse.zhang@amd.com>
->
-> Remove the unused function - amdgpu_vm_pt_is_root_clean
-> and remove the impossible condition
->
-> v1: entries == 0 is not possible any more,
->     so this condition could probably be removed (Felix)
->
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  2 -
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 61 ++++++-----------------
->   2 files changed, 16 insertions(+), 47 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index 7f95039bb37d..047ec1930d12 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -537,8 +537,6 @@ int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   			int level, bool immediate, struct amdgpu_bo_vm **vmbo,
->   			int32_t xcp_id);
->   void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct amdgpu_vm *vm);
-> -bool amdgpu_vm_pt_is_root_clean(struct amdgpu_device *adev,
-> -				struct amdgpu_vm *vm);
->   
->   int amdgpu_vm_pde_update(struct amdgpu_vm_update_params *params,
->   			 struct amdgpu_vm_bo_base *entry);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index 8bce4da67131..7ecddb77b3ae 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -367,6 +367,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   	struct amdgpu_bo *bo = &vmbo->bo;
->   	uint64_t addr;
->   	int r, idx;
-> +	uint64_t value = 0, flags = 0;
+On 21.02.24 16:53, Linux regression tracking (Thorsten Leemhuis) wrote:
+> On 21.02.24 16:39, Alex Deucher wrote:
+>> On Wed, Feb 21, 2024 at 1:06 AM Linux regression tracking (Thorsten
+>> Leemhuis) <regressions@leemhuis.info> wrote:
+>>>
+>>> On 20.02.24 21:18, Alex Deucher wrote:
+>>>> On Tue, Feb 20, 2024 at 2:41 PM Romano <romaniox@gmail.com> wrote:
+>>>>>
+>>>>> If the increased low range is allowed via boot option, like in proposed
+>>>>> patch, user clearly made an intentional decision. Undefined, but won't
+>>>>> fry his hardware for sure. Undefined is also overclocking in that
+>>>>> matter. You can go out of range with ratio of voltage vs frequency(still
+>>>>> within vendor's limits) for example and crash the system.
+>>>
+>>> But we have this "no regressions" rule for a reason. Adhering to it
+>>> strictly would afaics be counter-productive in this situation, but give
+>>> users some way to manually do what was possible before out-of-the box
+>>> IMHO is the minimum we should do.
+> [...]
 
-Please don't initialize the values here.
+TWIMC, I mentioned this twice in mails to Linus, he didn't get involved,
+so I assume things are fine the way they are for him. And then it's of
+course totally fine for me, too. :-D
 
-Rather move that before the if (... >= VEGA10) below.
+Thx again for all your help and sorry for causing trouble, but in my
+line of work these "might or might not be a regression from Linus
+viewpoint, so let's get him involved" sometimes just happen.
 
-With that fixed feel free to add Reviewed-by: Christian König 
-<christian.koenig@amd.com>
+Ciao, Thorsten
 
-Regards,
-Christian.
-
->   
->   	/* Figure out our place in the hierarchy */
->   	if (ancestor->parent) {
-> @@ -409,27 +410,24 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   
->   	addr = 0;
->   
-> -	if (entries) {
-> -		uint64_t value = 0, flags = 0;
-> -
-> -		if (adev->asic_type >= CHIP_VEGA10) {
-> -			if (level != AMDGPU_VM_PTB) {
-> -				/* Handle leaf PDEs as PTEs */
-> -				flags |= AMDGPU_PDE_PTE;
-> -				amdgpu_gmc_get_vm_pde(adev, level,
-> -						      &value, &flags);
-> -			} else {
-> -				/* Workaround for fault priority problem on GMC9 */
-> -				flags = AMDGPU_PTE_EXECUTABLE;
-> -			}
-> -		}
->   
-> -		r = vm->update_funcs->update(&params, vmbo, addr, 0, entries,
-> -					     value, flags);
-> -		if (r)
-> -			goto exit;
-> +	if (adev->asic_type >= CHIP_VEGA10) {
-> +		if (level != AMDGPU_VM_PTB) {
-> +			/* Handle leaf PDEs as PTEs */
-> +			flags |= AMDGPU_PDE_PTE;
-> +			amdgpu_gmc_get_vm_pde(adev, level,
-> +					      &value, &flags);
-> +		} else {
-> +			/* Workaround for fault priority problem on GMC9 */
-> +			flags = AMDGPU_PTE_EXECUTABLE;
-> +		}
->   	}
->   
-> +	r = vm->update_funcs->update(&params, vmbo, addr, 0, entries,
-> +				     value, flags);
-> +	if (r)
-> +		goto exit;
-> +
->   	r = vm->update_funcs->commit(&params, NULL);
->   exit:
->   	drm_dev_exit(idx);
-> @@ -673,33 +671,6 @@ void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct amdgpu_vm *vm)
->   	amdgpu_vm_pt_free_dfs(adev, vm, NULL, false);
->   }
->   
-> -/**
-> - * amdgpu_vm_pt_is_root_clean - check if a root PD is clean
-> - *
-> - * @adev: amdgpu_device pointer
-> - * @vm: the VM to check
-> - *
-> - * Check all entries of the root PD, if any subsequent PDs are allocated,
-> - * it means there are page table creating and filling, and is no a clean
-> - * VM
-> - *
-> - * Returns:
-> - *	0 if this VM is clean
-> - */
-> -bool amdgpu_vm_pt_is_root_clean(struct amdgpu_device *adev,
-> -				struct amdgpu_vm *vm)
-> -{
-> -	enum amdgpu_vm_level root = adev->vm_manager.root_level;
-> -	unsigned int entries = amdgpu_vm_pt_num_entries(adev, root);
-> -	unsigned int i = 0;
-> -
-> -	for (i = 0; i < entries; i++) {
-> -		if (to_amdgpu_bo_vm(vm->root.bo)->entries[i].bo)
-> -			return false;
-> -	}
-> -	return true;
-> -}
-> -
->   /**
->    * amdgpu_vm_pde_update - update a single level in the hierarchy
->    *
-
+#regzbot resolve: apparently not a regression from Linus viewpoint
