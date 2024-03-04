@@ -4,58 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 546A0C48BF6
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Mar 2024 12:36:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9C0AC48BF6
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Mar 2024 12:51:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A54061120DA;
-	Mon,  4 Mar 2024 12:36:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB72510F7CF;
+	Mon,  4 Mar 2024 12:51:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RkzrbKpc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MhH+wILT";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DED31120DA;
- Mon,  4 Mar 2024 12:36:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709555802; x=1741091802;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=+FtajtSxKbInVirJmin7eCfNQOWaG6cSc3qGgSAMFUQ=;
- b=RkzrbKpcHxKvsjkEQJEsmws/hqLN4K/XOzfBPwM1TxYQi0Jr3ctkFxnt
- 0Pnpfd7VqlsvlWD+4PojASTqhRR1mFClmulprgS9su9Ww9Beu0N4gE1aU
- V+yBJjUSZU1L8gtE12OWmo18FHwbAsHeeozLHp70oh/qdEaiWzYXsIJgS
- y7j55CnLSIF9N7RjYximc1J7a18VbUFpePfjpQH2bsbNo0FUvqQc06K4k
- lWTqVxHzrWE/jcSqrOC09YWrUzPtv6Jg4EOHtcTR35I+3av1JsrBRk67x
- q6ERCeVMJvE490mcgU1h0sTg0dPkuk6w/mLNoA8T/NDJ0hT0kDCe2HhNG g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11002"; a="7854531"
-X-IronPort-AV: E=Sophos;i="6.06,203,1705392000"; 
-   d="scan'208";a="7854531"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2024 04:36:41 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,203,1705392000"; 
-   d="scan'208";a="8937331"
-Received: from mshirdel-mobl.ger.corp.intel.com (HELO [10.252.23.228])
- ([10.252.23.228])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2024 04:36:39 -0800
-Message-ID: <0bae5cd3-2cb0-4ed2-ba49-ac991e909cbd@intel.com>
-Date: Mon, 4 Mar 2024 12:36:36 +0000
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D48C510E233
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Mar 2024 12:51:08 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-33e17fc5aceso1991380f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Mar 2024 04:51:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1709556667; x=1710161467; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Mr5ehkabRBtZi422qWuxoXMMfhibg0edlXdEaZ1BVzo=;
+ b=MhH+wILTuh6TqECZ/xhcarrs9+lH3AignmF6aDkL+HBfFksEONVhhF4QgEuFQrfNGW
+ oUvJpt95WbpD3nN+orex2eZC5twjhhSAcIy+WkM6og34rFxGOvsCSi+v6lyrI+/7jxu3
+ 4Gn/W/3MxJlPn2jXMO7mz57VouYyBS+Tej9hhlyJrZ4k22s8iFqUhSVY1rJ1z8zXfcz0
+ eY90c3z6F/oQCnZRxCNMTgTJMaZiF43ksVu3wotV8TQA3dG5CurnUxDZxxJac5jVx6Tz
+ VW410ZVr3NKj/0LsweRzxo4mS/xo9XP2WIa3L2O+tqDFGR2AqWO2U4N01Cj/J4ejiJrw
+ nrWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1709556667; x=1710161467;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Mr5ehkabRBtZi422qWuxoXMMfhibg0edlXdEaZ1BVzo=;
+ b=OKQJ4J+Z+HxtG5/mQFN4/knhE+dWyXZ8qwx/ggpY3q/Ph87wTwliTrBt+4tlLtWWMR
+ cUwC0egHE5HpB9sTPuK0lw/HD0Ii6GRnznNbPUVnm+oJ7E9Q6D0RpatNEoB1Fg3nnPa+
+ Nwp7ZzwI4LpX/Vd65EUG6od8CaodoWV5D/ZiyerFF0G41peV1qfqCxpzAYGDncMhWKry
+ 8VsykvxzCTCFKCNMoY+qcSkhpwt4wLjbPcXp4M3PG9ccO/GMeRQCmkSDcINt2c7WiZ1e
+ ErdoWeLNYFGll+5SmFxfazkuYwpxFd4diflUinbJD+FnwWovmyY5vUJjUBxs53LRCjZh
+ EhSA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV1hry3vygBaFDFKi+AH+oAretbcgY5ZV+Wg/PS/Xm/T9ZGh8RiZlT9v3VxqYtU5wOMo1nB3TDR6keIbDgA+cCjzffkjQwe/eMGj/rXLQ==
+X-Gm-Message-State: AOJu0YzAJkFldr6bZws9apYL8kezU1vYyula5BPI9i3cnb/QqyvP+ixz
+ yrbtf5tKHFs+WzrOFgXiWmnJ1+xDvS11cPBYjvUgZRcYYSVxzwhV
+X-Google-Smtp-Source: AGHT+IGEIxbujw1k6dQ1/qb+g5t23D3u5ZfE5f7Vf9bzbC0VPyrzRP9MXFMK7rk3tMbl3x9ZhTYrPg==
+X-Received: by 2002:adf:9c8b:0:b0:33e:30a:c6bd with SMTP id
+ d11-20020adf9c8b000000b0033e030ac6bdmr9531053wre.6.1709556666648; 
+ Mon, 04 Mar 2024 04:51:06 -0800 (PST)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ bs19-20020a056000071300b0033daaef7afcsm12427076wrb.83.2024.03.04.04.51.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 Mar 2024 04:51:06 -0800 (PST)
+Message-ID: <0162bf19-4cb5-4f2c-85a3-234fe4f79837@gmail.com>
+Date: Mon, 4 Mar 2024 13:51:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/3] drm/buddy: Add defragmentation support
-Content-Language: en-GB
-To: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com, felix.kuehling@amd.com
-References: <20240221121801.3252-1-Arunpravin.PaneerSelvam@amd.com>
- <20240221121801.3252-3-Arunpravin.PaneerSelvam@amd.com>
- <2c841f63-10d5-4de3-b331-6b320a92dc64@intel.com>
- <ebdc7ceb-2ec4-460c-b8a3-c90184cd800e@amd.com>
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <ebdc7ceb-2ec4-460c-b8a3-c90184cd800e@amd.com>
+Subject: Re: [PATCH] drm/amdgpu : remove unused code
+Content-Language: en-US
+To: jesse.zhang@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, aaron.liu@amd.com, Felix.Kuehling@amd.com
+References: <20240304091617.534109-1-jesse.zhang@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240304091617.534109-1-jesse.zhang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -72,253 +83,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 04/03/2024 12:22, Paneer Selvam, Arunpravin wrote:
-> Hi Matthew,
-> 
-> On 2/22/2024 12:12 AM, Matthew Auld wrote:
->> On 21/02/2024 12:18, Arunpravin Paneer Selvam wrote:
->>> Add a function to support defragmentation.
->>>
->>> v1:
->>>    - Defragment the memory beginning from min_order
->>>      till the required memory space is available.
->>>
->>> v2(Matthew):
->>>    - add amdgpu user for defragmentation
->>>    - add a warning if the two blocks are incompatible on
->>>      defragmentation
->>>    - call full defragmentation in the fini() function
->>>    - place a condition to test if min_order is equal to 0
->>>    - replace the list with safe_reverse() variant as we might
->>>      remove the block from the list.
->>>
->>> Signed-off-by: Arunpravin Paneer Selvam 
->>> <Arunpravin.PaneerSelvam@amd.com>
->>> Suggested-by: Matthew Auld <matthew.auld@intel.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 17 +++-
->>>   drivers/gpu/drm/drm_buddy.c                  | 93 +++++++++++++++++---
->>>   include/drm/drm_buddy.h                      |  3 +
->>>   3 files changed, 97 insertions(+), 16 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>> index e494f5bf136a..cff8a526c622 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>> @@ -533,8 +533,21 @@ static int amdgpu_vram_mgr_new(struct 
->>> ttm_resource_manager *man,
->>>                          min_block_size,
->>>                          &vres->blocks,
->>>                          vres->flags);
->>> -        if (unlikely(r))
->>> -            goto error_free_blocks;
->>> +        if (unlikely(r)) {
->>> +            if (r == -ENOSPC) {
->>> +                drm_buddy_defrag(mm, min_block_size);
->>> +                r = drm_buddy_alloc_blocks(mm, fpfn,
->>> +                               lpfn,
->>> +                               size,
->>> +                               min_block_size,
->>> +                               &vres->blocks,
->>> +                               vres->flags);
->>> +                if (unlikely(r))
->>> +                    goto error_free_blocks;
->>> +            } else {
->>> +                goto error_free_blocks;
->>> +            }
->>> +        }
->>>             if (size > remaining_size)
->>>               remaining_size = 0;
->>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
->>> index 18e004fa39d3..56bd1560fbcd 100644
->>> --- a/drivers/gpu/drm/drm_buddy.c
->>> +++ b/drivers/gpu/drm/drm_buddy.c
->>> @@ -203,6 +203,8 @@ void drm_buddy_fini(struct drm_buddy *mm)
->>>           drm_block_free(mm, mm->roots[i]);
->>>       }
->>>   +    drm_buddy_defrag(mm, mm->chunk_size << mm->max_order);
->>
->> I think this needs to be called higher up, otherwise we blow up with 
->> the WARN, plus we just freed the root(s). There is also the case with 
->> non-power-of-two VRAM size, in which case you get multiple roots and 
->> max_order is just the largest root and not entire address space. I 
->> guess do this in the loop above and use the root order instead?
->>
->> Also this should be done as part of the first patch and then in this 
->> patch it is just a case of exporting it. Every commit should ideally 
->> be functional by itself.
-> You mean we move the above change in drm_buddy_fini function and 
-> drm_buddy_defrag function as part of first patch.
-> And just we add export function and add amdgpu user in this patch. Is my 
-> understanding correct?
+Am 04.03.24 um 10:16 schrieb jesse.zhang@amd.com:
+> From: Jesse Zhang <jesse.zhang@amd.com>
+>
+> Remove the unused function - amdgpu_vm_pt_is_root_clean
+> and remove the impossible condition
+>
+> v1: entries == 0 is not possible any more,
+>     so this condition could probably be removed (Felix)
+>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  2 -
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 61 ++++++-----------------
+>   2 files changed, 16 insertions(+), 47 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index 7f95039bb37d..047ec1930d12 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -537,8 +537,6 @@ int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   			int level, bool immediate, struct amdgpu_bo_vm **vmbo,
+>   			int32_t xcp_id);
+>   void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+> -bool amdgpu_vm_pt_is_root_clean(struct amdgpu_device *adev,
+> -				struct amdgpu_vm *vm);
+>   
+>   int amdgpu_vm_pde_update(struct amdgpu_vm_update_params *params,
+>   			 struct amdgpu_vm_bo_base *entry);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index 8bce4da67131..7ecddb77b3ae 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -367,6 +367,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	struct amdgpu_bo *bo = &vmbo->bo;
+>   	uint64_t addr;
+>   	int r, idx;
+> +	uint64_t value = 0, flags = 0;
 
-Yeah, I think that makes sense.
+Please don't initialize the values here.
 
-> 
-> Thanks,
-> Arun.
->>
->>> +
->>>       WARN_ON(mm->avail != mm->size);
->>>         kfree(mm->roots);
->>> @@ -276,25 +278,39 @@ drm_get_buddy(struct drm_buddy_block *block)
->>>   }
->>>   EXPORT_SYMBOL(drm_get_buddy);
->>>   -static void __drm_buddy_free(struct drm_buddy *mm,
->>> -                 struct drm_buddy_block *block)
->>> +static unsigned int __drm_buddy_free(struct drm_buddy *mm,
->>> +                     struct drm_buddy_block *block,
->>> +                     bool defrag)
->>>   {
->>> +    unsigned int order, block_order;
->>>       struct drm_buddy_block *parent;
->>>   +    block_order = drm_buddy_block_order(block);
->>> +
->>>       while ((parent = block->parent)) {
->>> -        struct drm_buddy_block *buddy;
->>> +        struct drm_buddy_block *buddy = NULL;
->>>             buddy = __get_buddy(block);
->>>             if (!drm_buddy_block_is_free(buddy))
->>>               break;
->>>   -        if (drm_buddy_block_is_clear(block) !=
->>> -            drm_buddy_block_is_clear(buddy))
->>> -            break;
->>> +        if (!defrag) {
->>> +            /*
->>> +             * Check the block and its buddy clear state and exit
->>> +             * the loop if they both have the dissimilar state.
->>> +             */
->>> +            if (drm_buddy_block_is_clear(block) !=
->>> +                drm_buddy_block_is_clear(buddy))
->>> +                break;
->>>   -        if (drm_buddy_block_is_clear(block))
->>> -            mark_cleared(parent);
->>> +            if (drm_buddy_block_is_clear(block))
->>> +                mark_cleared(parent);
->>> +        }
->>> +
->>> +        WARN_ON(defrag &&
->>> +            (drm_buddy_block_is_clear(block) ==
->>> +             drm_buddy_block_is_clear(buddy)));
->>>             list_del(&buddy->link);
->>>   @@ -304,8 +320,57 @@ static void __drm_buddy_free(struct drm_buddy 
->>> *mm,
->>>           block = parent;
->>>       }
->>>   -    mark_free(mm, block);
->>> +    order = drm_buddy_block_order(block);
->>> +    if (block_order != order)
->>> +        mark_free(mm, block);
->>> +
->>> +    return order;
->>> +}
->>> +
->>> +/**
->>> + * drm_buddy_defrag - Defragmentation routine
->>> + *
->>> + * @mm: DRM buddy manager
->>> + * @min_block_size: minimum size in bytes to begin
->>> + * the defragmentation process
->>> + *
->>> + * Driver calls the defragmentation function when the
->>> + * requested memory allocation returns -ENOSPC.
->>> + */
->>> +void drm_buddy_defrag(struct drm_buddy *mm,
->>> +              unsigned int min_block_size)
->>
->> u64 min_block_size. Most cards have 4G+ of VRAM :)
->>
->>> +{
->>> +    struct drm_buddy_block *block, *tmp;
->>> +    unsigned int order, min_order;
->>> +    struct list_head *list;
->>> +    unsigned long pages;
->>> +    int i;
->>> +
->>> +    pages = min_block_size >> ilog2(mm->chunk_size);
->>> +    min_order = fls(pages) - 1;
->>
->> I think min_block_size should be power-of-two, no?
->>
->>> +
->>> +    if (!min_order)
->>> +        return;
->>> +
->>> +    if (min_order > mm->max_order)
->>> +        return;
->>> +
->>> +    for (i = min_order - 1; i >= 0; i--) {
->>> +        list = &mm->free_list[i];
->>> +        if (list_empty(list))
->>> +            continue;
->>> +
->>> +        list_for_each_entry_safe_reverse(block, tmp, list, link) {
->>> +            if (!block->parent)
->>> +                continue;
->>> +
->>> +            order = __drm_buddy_free(mm, block, 1);
->>
->> s/1/true/
->>
->>> +            if (order >= min_order)
->>> +                return;
->>> +        }
->>> +    }
->>>   }
->>> +EXPORT_SYMBOL(drm_buddy_defrag);
->>>     /**
->>>    * drm_buddy_free_block - free a block
->>> @@ -321,7 +386,7 @@ void drm_buddy_free_block(struct drm_buddy *mm,
->>>       if (drm_buddy_block_is_clear(block))
->>>           mm->clear_avail += drm_buddy_block_size(mm, block);
->>>   -    __drm_buddy_free(mm, block);
->>> +    __drm_buddy_free(mm, block, 0);
->>>   }
->>>   EXPORT_SYMBOL(drm_buddy_free_block);
->>>   @@ -468,7 +533,7 @@ __alloc_range_bias(struct drm_buddy *mm,
->>>       if (buddy &&
->>>           (drm_buddy_block_is_free(block) &&
->>>            drm_buddy_block_is_free(buddy)))
->>> -        __drm_buddy_free(mm, block);
->>> +        __drm_buddy_free(mm, block, 0);
->>>       return ERR_PTR(err);
->>>   }
->>>   @@ -586,7 +651,7 @@ alloc_from_freelist(struct drm_buddy *mm,
->>>     err_undo:
->>>       if (tmp != order)
->>> -        __drm_buddy_free(mm, block);
->>> +        __drm_buddy_free(mm, block, 0);
->>>       return ERR_PTR(err);
->>>   }
->>>   @@ -666,7 +731,7 @@ static int __alloc_range(struct drm_buddy *mm,
->>>       if (buddy &&
->>>           (drm_buddy_block_is_free(block) &&
->>>            drm_buddy_block_is_free(buddy)))
->>> -        __drm_buddy_free(mm, block);
->>> +        __drm_buddy_free(mm, block, 0);
->>>     err_free:
->>>       if (err == -ENOSPC && total_allocated_on_err) {
->>> @@ -828,7 +893,7 @@ EXPORT_SYMBOL(drm_buddy_block_trim);
->>>    * @mm: DRM buddy manager to allocate from
->>>    * @start: start of the allowed range for this block
->>>    * @end: end of the allowed range for this block
->>> - * @size: size of the allocation
->>> + * @size: size of the allocation in bytes
->>>    * @min_block_size: alignment of the allocation
->>>    * @blocks: output list head to add allocated blocks
->>>    * @flags: DRM_BUDDY_*_ALLOCATION flags
->>> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
->>> index 352a6364e26a..68a874846e78 100644
->>> --- a/include/drm/drm_buddy.h
->>> +++ b/include/drm/drm_buddy.h
->>> @@ -167,6 +167,9 @@ void drm_buddy_free_list(struct drm_buddy *mm,
->>>                struct list_head *objects,
->>>                unsigned int flags);
->>>   +void drm_buddy_defrag(struct drm_buddy *mm,
->>> +              unsigned int min_order);
->>> +
->>>   void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p);
->>>   void drm_buddy_block_print(struct drm_buddy *mm,
->>>                  struct drm_buddy_block *block,
-> 
+Rather move that before the if (... >= VEGA10) below.
+
+With that fixed feel free to add Reviewed-by: Christian König 
+<christian.koenig@amd.com>
+
+Regards,
+Christian.
+
+>   
+>   	/* Figure out our place in the hierarchy */
+>   	if (ancestor->parent) {
+> @@ -409,27 +410,24 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   
+>   	addr = 0;
+>   
+> -	if (entries) {
+> -		uint64_t value = 0, flags = 0;
+> -
+> -		if (adev->asic_type >= CHIP_VEGA10) {
+> -			if (level != AMDGPU_VM_PTB) {
+> -				/* Handle leaf PDEs as PTEs */
+> -				flags |= AMDGPU_PDE_PTE;
+> -				amdgpu_gmc_get_vm_pde(adev, level,
+> -						      &value, &flags);
+> -			} else {
+> -				/* Workaround for fault priority problem on GMC9 */
+> -				flags = AMDGPU_PTE_EXECUTABLE;
+> -			}
+> -		}
+>   
+> -		r = vm->update_funcs->update(&params, vmbo, addr, 0, entries,
+> -					     value, flags);
+> -		if (r)
+> -			goto exit;
+> +	if (adev->asic_type >= CHIP_VEGA10) {
+> +		if (level != AMDGPU_VM_PTB) {
+> +			/* Handle leaf PDEs as PTEs */
+> +			flags |= AMDGPU_PDE_PTE;
+> +			amdgpu_gmc_get_vm_pde(adev, level,
+> +					      &value, &flags);
+> +		} else {
+> +			/* Workaround for fault priority problem on GMC9 */
+> +			flags = AMDGPU_PTE_EXECUTABLE;
+> +		}
+>   	}
+>   
+> +	r = vm->update_funcs->update(&params, vmbo, addr, 0, entries,
+> +				     value, flags);
+> +	if (r)
+> +		goto exit;
+> +
+>   	r = vm->update_funcs->commit(&params, NULL);
+>   exit:
+>   	drm_dev_exit(idx);
+> @@ -673,33 +671,6 @@ void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>   	amdgpu_vm_pt_free_dfs(adev, vm, NULL, false);
+>   }
+>   
+> -/**
+> - * amdgpu_vm_pt_is_root_clean - check if a root PD is clean
+> - *
+> - * @adev: amdgpu_device pointer
+> - * @vm: the VM to check
+> - *
+> - * Check all entries of the root PD, if any subsequent PDs are allocated,
+> - * it means there are page table creating and filling, and is no a clean
+> - * VM
+> - *
+> - * Returns:
+> - *	0 if this VM is clean
+> - */
+> -bool amdgpu_vm_pt_is_root_clean(struct amdgpu_device *adev,
+> -				struct amdgpu_vm *vm)
+> -{
+> -	enum amdgpu_vm_level root = adev->vm_manager.root_level;
+> -	unsigned int entries = amdgpu_vm_pt_num_entries(adev, root);
+> -	unsigned int i = 0;
+> -
+> -	for (i = 0; i < entries; i++) {
+> -		if (to_amdgpu_bo_vm(vm->root.bo)->entries[i].bo)
+> -			return false;
+> -	}
+> -	return true;
+> -}
+> -
+>   /**
+>    * amdgpu_vm_pde_update - update a single level in the hierarchy
+>    *
+
