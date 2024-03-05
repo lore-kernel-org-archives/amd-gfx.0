@@ -4,75 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 408ECC54E41
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Mar 2024 09:18:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2758C54798
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Mar 2024 09:23:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9944112981;
-	Tue,  5 Mar 2024 09:18:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F0A4112976;
+	Tue,  5 Mar 2024 09:23:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QL4VxotI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GdjrYuEo";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E35CB11297D
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Mar 2024 09:18:16 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-33ddd1624beso3517273f8f.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 05 Mar 2024 01:18:16 -0800 (PST)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23B3A112976
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Mar 2024 09:23:18 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-412ee78f030so1821775e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 05 Mar 2024 01:23:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709630295; x=1710235095; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1709630596; x=1710235396; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=1wnnDCuevAWEv8/1aqb/aSMZJ+ekGepksubADplsek0=;
- b=QL4VxotI39wJTH+8SMjjGv8M5Nsa3VoavNYrcQzXXFUpaojK1cK9V1iisduNhC660V
- JGOrRj9XUYfZYVyvA48q7+yBdVOhfKAFiZqPS1HkBZXaXKfPFcXhsTWyvPHgkasehlfW
- DuYq09FyAH/Q6uYgqs32g6iEjPyJ7PLQUzN5b0dyl7I78FEcFLaCLbfLFop8juEdJj5E
- EbSX8xNkH4NA9lIbonQaCZAQoyBhWquXf+OSBjF1wcZm+RVRSItyPKGan/UcYyXJZ2eP
- cheISKQYdq4iBhPNxdBXNvHVNViKS69taXTijCIz3e4zwZflRi0+0gwagoVF558IcDNO
- S1Kg==
+ bh=cFd7yOvdXgTWs5yhPnGmK/O/s+ANxXU0hwG+z9cLTWY=;
+ b=GdjrYuEoirfzsN4hum0HbfgTYMcKry4NbHbUr4Dwi6d/yhGiSXLRMiCyFiHR7YkwSP
+ 6d9GZNpfZn3fgA+Cj4RjuiM+Ew+DIOykz4WJV3+ShlzNp4NvVOAnVowLsnr5ZPba+joU
+ pzAkXSRChFLF44+0CSzDAhoOhSyurBHH1f2WjcmDOGF9ItslBI+TK/g+UuOXNRzxwsHd
+ DvSmVQLjT/X9/t4KbFbblg6kFi+qAglWnXBefS+t8rl1lWk+y7ftvf+F/m4Kxn7NtDSK
+ e4DsiHtd6Eh8SiWTLfdhxJyzPxTjIn8BlRgVxCFInHrTa7vtlVIjq7AsCWqAu2CrS19v
+ GNJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709630295; x=1710235095;
+ d=1e100.net; s=20230601; t=1709630596; x=1710235396;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1wnnDCuevAWEv8/1aqb/aSMZJ+ekGepksubADplsek0=;
- b=JuH73UgG7b/7zfthoBoYb3ehsaqCuVr3k7fJikoRuLAI7ufilCW0tCc15sTKf7qZ2u
- 2gC44lLFbKEnEqdbfpXCCo6kjUr1yNSpf0eUdIGyR91wPLqcFCF885PN2eWIn4xllPua
- lbGFR05r+ANl2JUC1A73XD+mjs6a12obDm/QJz3ylvKmUBdEnRzF130FBoIKOAdPod70
- IZx7Za2D9mRZnd3HgJopx6tWoXdGrl9NfhNIYxZxeCR/TrKE434RTrrl9FjY5NOvfbLL
- l17smSYMbSoUxr3evhsIPkoMR7oWsCs+QNWlbUvoGqrMs/hnPespPFpr+6FmXKhO9DZV
- B8AQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX+rJoNT90A9zxa7qwiL4inzVQXjn2uQcEqvxA3CGw621g3G7b+TuvYHHEaCpFw0Mv9ORsp0qMM6KReP+rcjfYUDD6hrGU3uGO6NWce9w==
-X-Gm-Message-State: AOJu0YwDgBHXEMf6HSuZ0qgO8qYNn0z0zx1Vv2o6EzX12Y9UuXJdkWM1
- fdjq5g/zB0hsXxGsAmoBWVj3IslAQeQxSZt1lTSKiuBKWlfyCRTf05Oaexc9pmg=
-X-Google-Smtp-Source: AGHT+IGsLndR5WlhIKu0ugXPzawOuM2AOS6i5wM+ABN5BT3aGKZrL4qPzlh8zhxZU46lL5niVH6vCg==
-X-Received: by 2002:adf:a792:0:b0:33e:4865:9ced with SMTP id
- j18-20020adfa792000000b0033e48659cedmr1531016wrc.2.1709630292656; 
- Tue, 05 Mar 2024 01:18:12 -0800 (PST)
+ bh=cFd7yOvdXgTWs5yhPnGmK/O/s+ANxXU0hwG+z9cLTWY=;
+ b=K4fAUm0hY8zFdj7l+R8eTuB0w3BrvEX3vxoHD2N/btuDi4steb1uP818pnM+8bqQsq
+ JtHqqNjHfLNoAPNaq8pqn87aAHWxvTUdMymkdUYNLuQcpTBGIfo9AkWLlCqJaXjT70Ve
+ wn0kqIWI3ZNpwThIGiGi9zX7qKVLZOwd4Lopvm8q6DtmjE+DHk5AJ3Z/cxCRknXjQo+X
+ rRXReq7A5XbRh/h3cjvS3VHSja7RVOvAbxvipLwfuwPgUJnFoROyGs/kicoIaJxpzF9s
+ 8ti9WBaY169mqJC+xePozOfSjsqTrmbVk6YM9b+LaLkq/sSnkXfXNKa3hx2qWuxYTTfW
+ 3Ozg==
+X-Gm-Message-State: AOJu0YyPiGsR3xAkzPqh1kPnq88FtaDkhTzgWXx+5tUjrS/g6eWdqvUp
+ va3XD0zefz48vhxnwaTe+RkddQT363BBnrk8MWUd29X0bNhkWBrbPlYOty1PFvw=
+X-Google-Smtp-Source: AGHT+IHAHIKhHBVQ/JXGsIPjm8oRMR/sjkwevQa7ayzzn9yjxXf4z71NvOG9APaPu+byuvZgSsy0Ag==
+X-Received: by 2002:a05:600c:4fcf:b0:412:ebfe:68fe with SMTP id
+ o15-20020a05600c4fcf00b00412ebfe68femr1054715wmq.35.1709630596107; 
+ Tue, 05 Mar 2024 01:23:16 -0800 (PST)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- b11-20020a5d634b000000b0033d6fe3f6absm14269794wrw.62.2024.03.05.01.18.11
+ jg4-20020a05600ca00400b00412effedb29sm14444wmb.7.2024.03.05.01.23.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Mar 2024 01:18:12 -0800 (PST)
-Message-ID: <bcbec910-fcc4-4b84-a74b-6b6b0db0907c@gmail.com>
-Date: Tue, 5 Mar 2024 10:18:10 +0100
+ Tue, 05 Mar 2024 01:23:15 -0800 (PST)
+Message-ID: <80ed3bbc-397e-44d3-a42d-63e6005e0531@gmail.com>
+Date: Tue, 5 Mar 2024 10:23:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: Use offsets local to VCN in VF
+Subject: Re: [PATCH] drm/amdgpu: add ring timeout information in devcoredump
 Content-Language: en-US
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Hawking.Zhang@amd.com, Alexander.Deucher@amd.com, samir.dhume@amd.com,
- leo.liu@amd.com
-References: <20240305064031.548905-1-lijo.lazar@amd.com>
- <20240305064031.548905-2-lijo.lazar@amd.com>
- <6d178a2f-c404-422f-b5ee-1a138f8826e9@gmail.com>
- <ac9f28d4-ab49-4143-8b2c-c226d6323a16@amd.com>
+To: Sunil Khatri <sunil.khatri@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20240301124344.2594714-1-sunil.khatri@amd.com>
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <ac9f28d4-ab49-4143-8b2c-c226d6323a16@amd.com>
+In-Reply-To: <20240301124344.2594714-1-sunil.khatri@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,84 +84,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 05.03.24 um 10:03 schrieb Lazar, Lijo:
+Am 01.03.24 um 13:43 schrieb Sunil Khatri:
+> Add ring timeout related information in the amdgpu
+> devcoredump file for debugging purposes.
 >
-> On 3/5/2024 2:24 PM, Christian König wrote:
->>
->> Am 05.03.24 um 07:40 schrieb Lijo Lazar:
->>> For VCN 4.0.3, use only the local addressing scheme while in VF
->>> mode. This includes addressing scheme used for HUB offsets.
->>>
->>> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 20 +++++++++++++++++++-
->>>    1 file changed, 19 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
->>> b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
->>> index 7b5ad13b618e..a27f3f260aab 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
->>> @@ -1381,6 +1381,24 @@ static uint64_t
->>> vcn_v4_0_3_unified_ring_get_wptr(struct amdgpu_ring *ring)
->>>                        regUVD_RB_WPTR);
->>>    }
->>>    +static void vcn_v4_0_3_enc_ring_emit_vm_flush(struct amdgpu_ring
->>> *ring,
->>> +                unsigned int vmid, uint64_t pd_addr)
->>> +{
->>> +    struct amdgpu_vmhub *hub;
->>> +
->>> +    /* For VF, only local offsets should be used */
->>> +    if (amdgpu_sriov_vf(ring->adev))
->>> +        ring->vm_hub = AMDGPU_MMHUB0(0);
->> That is clearly a no-go since the vm_hub must be statically and can't be
->> changed here.
->>
-> After HUB allocation, the only usage of this hub pointer is to calculate
-> use the right offset. We still want VCN to use the right hub, only thing
-> is register offsets in MMHUB(0) are equal to 'local offsets'.
+> During the gpu recovery process the registered call
+> is triggered and add the debug information in data
+> file created by devcoredump framework under the
+> directory /sys/class/devcoredump/devcdx/
+>
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h       | 15 +++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c   | 11 +++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c | 12 +++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h |  1 +
+>   4 files changed, 38 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 9246bca0a008..9f57c7795c47 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -816,6 +816,17 @@ struct amdgpu_reset_info {
+>   #endif
+>   };
+>   
+> +/*
+> + *  IP and Queue information during timeout
+> + */
+> +struct amdgpu_ring_timeout_info {
+> +	bool timeout;
 
-The vm_hub is a static setup describing how the engine works. You 
-basically just insert an illegal value here to fix your register offset 
-calculation.
+What should that be good for?
 
-That is absolutely *not* something you can do.
+> +	char ring_name[32];
+> +	enum amdgpu_ring_type ip_type;
 
-What exactly is the requirement?
+Those information should already be available in the core dump.
+
+> +	bool soft_recovery;
+
+That doesn't make sense since we don't do a core dump in case of a soft 
+recovery.
+
+> +};
+> +
+> +
+>   /*
+>    * Non-zero (true) if the GPU has VRAM. Zero (false) otherwise.
+>    */
+> @@ -1150,6 +1161,10 @@ struct amdgpu_device {
+>   	bool                            debug_largebar;
+>   	bool                            debug_disable_soft_recovery;
+>   	bool                            debug_use_vram_fw_buf;
+> +
+> +#ifdef CONFIG_DEV_COREDUMP
+> +	struct amdgpu_ring_timeout_info ring_timeout_info;
+> +#endif
+
+Please never store core dump related information in the amdgpu_device 
+structure.
 
 Regards,
 Christian.
 
->
-> Thanks,
-> Lijo
->
->> Regards,
->> Christian.
->>
->>> +    hub = &ring->adev->vmhub[ring->vm_hub];
->>> +
->>> +    pd_addr = amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
->>> +
->>> +    /* wait for reg writes */
->>> +    vcn_v2_0_enc_ring_emit_reg_wait(ring, hub->ctx0_ptb_addr_lo32 +
->>> +                    vmid * hub->ctx_addr_distance,
->>> +                    lower_32_bits(pd_addr), 0xffffffff);
->>> +}
->>> +
->>>    static void vcn_v4_0_3_ring_emit_hdp_flush(struct amdgpu_ring *ring)
->>>    {
->>>        /* VCN engine access for HDP flush doesn't work when RRMT is
->>> enabled.
->>> @@ -1443,7 +1461,7 @@ static const struct amdgpu_ring_funcs
->>> vcn_v4_0_3_unified_ring_vm_funcs = {
->>>        .emit_ib_size = 5, /* vcn_v2_0_enc_ring_emit_ib */
->>>        .emit_ib = vcn_v2_0_enc_ring_emit_ib,
->>>        .emit_fence = vcn_v2_0_enc_ring_emit_fence,
->>> -    .emit_vm_flush = vcn_v2_0_enc_ring_emit_vm_flush,
->>> +    .emit_vm_flush = vcn_v4_0_3_enc_ring_emit_vm_flush,
->>>        .emit_hdp_flush = vcn_v4_0_3_ring_emit_hdp_flush,
->>>        .test_ring = amdgpu_vcn_enc_ring_test_ring,
->>>        .test_ib = amdgpu_vcn_unified_ring_test_ib,
+>   };
+>   
+>   static inline uint32_t amdgpu_ip_version(const struct amdgpu_device *adev,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> index 71a5cf37b472..e36b7352b2de 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -51,8 +51,19 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+>   	memset(&ti, 0, sizeof(struct amdgpu_task_info));
+>   	adev->job_hang = true;
+>   
+> +#ifdef CONFIG_DEV_COREDUMP
+> +	/* Update the ring timeout info for coredump*/
+> +	adev->ring_timeout_info.timeout = TRUE;
+> +	sprintf(adev->ring_timeout_info.ring_name, s_job->sched->name);
+> +	adev->ring_timeout_info.ip_type = ring->funcs->type;
+> +	adev->ring_timeout_info.soft_recovery = FALSE;
+> +#endif
+> +
+>   	if (amdgpu_gpu_recovery &&
+>   	    amdgpu_ring_soft_recovery(ring, job->vmid, s_job->s_fence->parent)) {
+> +#ifdef CONFIG_DEV_COREDUMP
+> +		adev->ring_timeout_info.soft_recovery = TRUE;
+> +#endif
+>   		DRM_ERROR("ring %s timeout, but soft recovered\n",
+>   			  s_job->sched->name);
+>   		goto exit;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> index 4baa300121d8..d4f892ed105f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> @@ -196,8 +196,16 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
+>   			   coredump->reset_task_info.process_name,
+>   			   coredump->reset_task_info.pid);
+>   
+> +	if (coredump->timeout_info.timeout) {
+> +		drm_printf(&p, "\nRing timed out details\n");
+> +		drm_printf(&p, "IP Type: %d Ring Name: %s Soft Recovery: %s\n",
+> +				coredump->timeout_info.ip_type,
+> +				coredump->timeout_info.ring_name,
+> +				coredump->timeout_info.soft_recovery ? "Successful":"Failed");
+> +	}
+> +
+>   	if (coredump->reset_vram_lost)
+> -		drm_printf(&p, "VRAM is lost due to GPU reset!\n");
+> +		drm_printf(&p, "\nVRAM is lost due to GPU reset!\n");
+>   	if (coredump->adev->reset_info.num_regs) {
+>   		drm_printf(&p, "AMDGPU register dumps:\nOffset:     Value:\n");
+>   
+> @@ -228,6 +236,7 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
+>   		return;
+>   	}
+>   
+> +	coredump->timeout_info = adev->ring_timeout_info;
+>   	coredump->reset_vram_lost = vram_lost;
+>   
+>   	if (reset_context->job && reset_context->job->vm)
+> @@ -236,6 +245,7 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
+>   	coredump->adev = adev;
+>   
+>   	ktime_get_ts64(&coredump->reset_time);
+> +	memset(&adev->ring_timeout_info, 0, sizeof(adev->ring_timeout_info));
+>   
+>   	dev_coredumpm(dev->dev, THIS_MODULE, coredump, 0, GFP_NOWAIT,
+>   		      amdgpu_devcoredump_read, amdgpu_devcoredump_free);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> index 19899f6b9b2b..37172d6e1f94 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> @@ -97,6 +97,7 @@ struct amdgpu_coredump_info {
+>   	struct amdgpu_task_info         reset_task_info;
+>   	struct timespec64               reset_time;
+>   	bool                            reset_vram_lost;
+> +	struct amdgpu_ring_timeout_info timeout_info;
+>   };
+>   #endif
+>   
 
