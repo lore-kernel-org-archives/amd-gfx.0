@@ -4,94 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D4E6C54E41
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA9BCC54798
 	for <amd-gfx@archiver.kernel.org>; Tue,  5 Mar 2024 14:15:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7741610E0FF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A93C0112B25;
 	Tue,  5 Mar 2024 14:15:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=marliere.net header.i=@marliere.net header.b="BGTAePN3";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hLyTDs6C";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2351E10E415;
- Tue,  5 Mar 2024 12:15:22 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-1dc13fb0133so41293725ad.3; 
- Tue, 05 Mar 2024 04:15:22 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709640921; x=1710245721;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:dkim-signature:from:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hVie1ubg1vO+1LPda2Bilx+ZCICOse/T4HjTbJik150=;
- b=s3nWZnYwqzYpDMYO8Oi0wwB3qN63qe8AtbherbX7YozWKw3EjAR/h+LdOT0tU4rCaI
- 2WOBv8+saj+a1TDuJX711F7y1d9hKmPDAlrNVa198dqsbc46DIFiOH9xkg+zKQLdY1/n
- zLMOHvIbTpM4yX5ogNBTsikLh4doJSe6ATGsiDsc5DRb5pqs0ZhyBfpaCow/IC/B5yOr
- cq9ftqtYvOiAjooVX88P33Gb6xBzMttDrwh99LDHNEcDuhRtji1M2wHIJFYMuhCJPuGS
- PU/hCTN+HR1vDchW38is53sIieZkAWVCl9vX9Xd0FCYcumTfOda6YAlN0ZnNlsW+0CZ/
- jNkg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUuH5U0/1ckg5nVPriPWnxfBblnvstO4vzUV+zx8blg+RJtZ3RWttDUNmnDyWMBLyfCHfOGx45o1d2yzk7wB/lRgL2meABg93dTeADVqp6c
-X-Gm-Message-State: AOJu0Yx6N1P4YdSXppxEahxBS8b0Y5SQm9dDci0PHihIwacZ3SdmP8x8
- V0cbxciKwBYaW+sVJlkiULyq1x7Z/8dsfcLUUjtu2Srsqojp6oJ7
-X-Google-Smtp-Source: AGHT+IGJOKhnhB8IG8kVYywr4PNMnLud3LPOcz2BGEvgb9t9EUw/+82Q9SP6kp1RrbEw8S9TIE5C6Q==
-X-Received: by 2002:a17:902:a389:b0:1db:cfa0:4045 with SMTP id
- x9-20020a170902a38900b001dbcfa04045mr1648983pla.60.1709640921328; 
- Tue, 05 Mar 2024 04:15:21 -0800 (PST)
-Received: from mail.marliere.net ([24.199.118.162])
- by smtp.gmail.com with ESMTPSA id
- u14-20020a17090341ce00b001dd1096e365sm4182621ple.281.2024.03.05.04.15.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Mar 2024 04:15:20 -0800 (PST)
-From: "Ricardo B. Marliere" <ricardo@marliere.net>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marliere.net;
- s=2024; t=1709640919;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=hVie1ubg1vO+1LPda2Bilx+ZCICOse/T4HjTbJik150=;
- b=BGTAePN3bozrIykaFwJ7dZRpAb3BkQUm8T27HtTgPzaCi4Jm5WG3/t8NFKNtGBKWMQo6vI
- VR8DZQz063RYjfaq0Dt0oivWnNRDf5chrbwk5oVXUjaiV2JkX7i3G6cqOAotaQlunulpgF
- IiiY8NOHzefaKVSSqwOw5SslHHaYVxLQs7hvb4nKIEEbmS5N67S8gFZLNEpZ/JhDYHAB+m
- esgBwae0rbuvwMvTGCM2i4vWOckYvswPONJiJ5nWyrhiRcAkCndD67y/jjvMX9a+qvEAmd
- YrGWD8FoqwuQPe2ETfmDvJb2TxgiLJlZ+4+kXpM7VLTK01nO7yLLbcK8rDBE4w==
-Authentication-Results: ORIGINATING;
- auth=pass smtp.auth=ricardo@marliere.net smtp.mailfrom=ricardo@marliere.net
-Date: Tue, 05 Mar 2024 09:15:14 -0300
-Subject: [PATCH] drm/amdkfd: make kfd_class constant
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC300112A0F;
+ Tue,  5 Mar 2024 10:49:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:References:Cc:To:From:Subject:MIME-Version:Date:
+ Message-ID:Content-Type:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=K3yp7C0pQ7ldKDkCbhOar0UBhiv6KJOFunnEtqi5GAQ=; b=hLyTDs6CWwg/1gSgwVj9cG+Zt/
+ zG352kTlF22EQDBx6hJJgWpdGRZX0WUi+LuLMAFlSwHDwVZjMnYfLpBpTHCsG5zCw6laVqDXjXneN
+ eeXH4QvEVtbdjcRD7ytwQ18t1bOfhHDeQw9m8dQRbBSjUGym9AZNCnr2FxE33p3XtT/UbJzeaSw9/
+ BfWecHt2BCw0BXEv3Z0z0V23KDLBFHd8Gj81gEYlhW3GsTaIeRMd/G4Dnb9ZpAOOjKuaRWaJBK2hr
+ emrsI0r8sbGN5R07Zt5GhyJw80LsLxKxD2bGtFXz2mIijYDhpgtRwmqX2jvx26LOY/GQm0rCk5K5o
+ 9PHPnVbQ==;
+Received: from c-71-59-88-35.hsd1.nj.comcast.net ([71.59.88.35]
+ helo=[192.168.1.99]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1rhSMX-006CeC-Jf; Tue, 05 Mar 2024 11:49:33 +0100
+Content-Type: multipart/alternative;
+ boundary="------------PUCnCxgdF0nKqUJPe2Gx1RhO"
+Message-ID: <39fac3a4-f9de-4968-b0ff-ac3bf503a4fb@igalia.com>
+Date: Tue, 5 Mar 2024 05:49:27 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240305-class_cleanup-drm-amd-v1-1-ea99b37f26c7@marliere.net>
-X-B4-Tracking: v=1; b=H4sIANEM52UC/x3M3QpAQBBA4VfRXJtay6a8iqT9GUyxtBMpeXeby
- +/inAeEEpNAVzyQ6GLhPWZUZQF+sXEm5JANWulG1cqgX63I6Fey8TwwpA3tFtAF32pjXGsaBbk
- 9Ek18/99+eN8PW1ehI2cAAAA=
-To: Felix Kuehling <Felix.Kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Ricardo B. Marliere" <ricardo@marliere.net>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2580; i=ricardo@marliere.net; 
- h=from:subject:message-id;
- bh=kW6ySO9UjKoPkDNKLl904Eg7AGlGAj8q4urpp8bhL+A=; 
- b=owEBbQKS/ZANAwAKAckLinxjhlimAcsmYgBl5wzUrYRyC7QPry2Qt/QVSUFHko1BN60HYq8im
- pKi9crZA16JAjMEAAEKAB0WIQQDCo6eQk7jwGVXh+HJC4p8Y4ZYpgUCZecM1AAKCRDJC4p8Y4ZY
- pojlD/4+yZ4Gt+Nxg1Sgg2TByTe24SdCm8LDHQY7YesXADry34SCqGMvqx/PEXvJylFH9kcgh/s
- NPZLOCmapuanwhUJXelV4CqSQS4An59xgPNJuFvmUa4iS4O8Chj3vgPGjtZFpIOsObdTxY0nYmI
- KkBMeUrNPYlVTFUFhnvXSFjSvrd552Un0aSb/IO2+ArAIF43bNQFgC0AeruTxuLRew+OEgYuMR0
- Flkq4sUbzc2i/GJID7KgIzhPM5ZcTPVmapA3B8JXvQAgPHOoazUPMBg0ruRZSwX5973Ul3rzvjl
- F2SkfJSzAvP7BFU3CDkPfXujvWr0U53VRqruHd9Rzr4mreStGDiTDK7kW9pikwU6SK4zG6NDknB
- EgfWQnhxm9wvZmmkQNGEpO7FsyXpKY3ZTj/S4XkflIR3zrnYdZafhiSiz+LwI34TwMMkIp8QD9g
- Zw6fZAgGNlfkTrQOzl+FAqzn4psKVPu3lv8yy1ipGmJbxP0Okwywi/OMk/SBYt8344Iwsz2Nwgp
- q1mM+J5h5/czFQqZmcws2MN7RiFoJH4ccKcD7BgSBAUsgqYbGd/ltg9Y38pcj9021m9/jDxCaQN
- c0/KZdhyOj3Fn/HzGgXONhT9xz3178ZH8jAvtC7uWcH5g7GW8n4QU3EqKyZTBqiehwrHjSGRgGk
- 6cTcmFrf0f88Jxg==
-X-Developer-Key: i=ricardo@marliere.net; a=openpgp;
- fpr=030A8E9E424EE3C0655787E1C90B8A7C638658A6
+User-Agent: Mozilla Thunderbird
+Subject: Reminder: 2024 X.Org Board of Directors Elections timeline extended, 
+ request for nominations
+Content-Language: en-US
+From: Christopher Michael <cmichael@igalia.com>
+To: events@lists.x.org, xorg-devel@lists.x.org,
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ libre-soc-dev@lists.libre-soc.org, elections@x.org, members@x.org,
+ xorg@lists.freedesktop.org
+Cc: board <board@foundation.x.org>
+References: <0efcdfe3-ea9e-43e5-ab07-6d69dca2c04a@igalia.com>
+ <08f8a967-25e1-4362-be38-3f1b050ec6f2@igalia.com>
+In-Reply-To: <08f8a967-25e1-4362-be38-3f1b050ec6f2@igalia.com>
 X-Mailman-Approved-At: Tue, 05 Mar 2024 14:15:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,81 +68,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since commit 43a7206b0963 ("driver core: class: make class_register() take
-a const *"), the driver core allows for struct class to be in read-only
-memory, so move the kfd_class structure to be declared at build time
-placing it into read-only memory, instead of having to be dynamically
-allocated at boot time.
+This is a multi-part message in MIME format.
+--------------PUCnCxgdF0nKqUJPe2Gx1RhO
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Suggested-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Ricardo B. Marliere <ricardo@marliere.net>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+This is a reminder that we are still looking for candidates for the 
+upcoming X.Org Board of Directors elections, and that membership 
+renewals are still open and will be needed to vote on those elections. 
+Please read below for more details.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index f030cafc5a0a..dfa8c69532d4 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -63,8 +63,10 @@ static const struct file_operations kfd_fops = {
- };
- 
- static int kfd_char_dev_major = -1;
--static struct class *kfd_class;
- struct device *kfd_device;
-+static const struct class kfd_class = {
-+	.name = kfd_dev_name,
-+};
- 
- static inline struct kfd_process_device *kfd_lock_pdd_by_id(struct kfd_process *p, __u32 gpu_id)
- {
-@@ -94,14 +96,13 @@ int kfd_chardev_init(void)
- 	if (err < 0)
- 		goto err_register_chrdev;
- 
--	kfd_class = class_create(kfd_dev_name);
--	err = PTR_ERR(kfd_class);
--	if (IS_ERR(kfd_class))
-+	err = class_register(&kfd_class);
-+	if (err)
- 		goto err_class_create;
- 
--	kfd_device = device_create(kfd_class, NULL,
--					MKDEV(kfd_char_dev_major, 0),
--					NULL, kfd_dev_name);
-+	kfd_device = device_create(&kfd_class, NULL,
-+				   MKDEV(kfd_char_dev_major, 0),
-+				   NULL, kfd_dev_name);
- 	err = PTR_ERR(kfd_device);
- 	if (IS_ERR(kfd_device))
- 		goto err_device_create;
-@@ -109,7 +110,7 @@ int kfd_chardev_init(void)
- 	return 0;
- 
- err_device_create:
--	class_destroy(kfd_class);
-+	class_unregister(&kfd_class);
- err_class_create:
- 	unregister_chrdev(kfd_char_dev_major, kfd_dev_name);
- err_register_chrdev:
-@@ -118,8 +119,8 @@ int kfd_chardev_init(void)
- 
- void kfd_chardev_exit(void)
- {
--	device_destroy(kfd_class, MKDEV(kfd_char_dev_major, 0));
--	class_destroy(kfd_class);
-+	device_destroy(&kfd_class, MKDEV(kfd_char_dev_major, 0));
-+	class_unregister(&kfd_class);
- 	unregister_chrdev(kfd_char_dev_major, kfd_dev_name);
- 	kfd_device = NULL;
- }
 
----
-base-commit: 8bc75586ea01f1c645063d3472c115ecab03e76c
-change-id: 20240305-class_cleanup-drm-amd-bdc7255b7540
+Cheers,
 
-Best regards,
--- 
-Ricardo B. Marliere <ricardo@marliere.net>
+Christopher Michael, on behalf of the X.Org BoD
 
+
+On 3/1/24 06:25, Christopher Michael wrote:
+>
+> We are seeking nominations for candidates for election to the X.org 
+> Foundation Board of Directors. However, as we presently do not have 
+> enough nominations to start the election - the decision has been made 
+> to extend the timeline by 2 weeks. Note this is a fairly regular part 
+> of the elections process.
+>
+>
+> The new deadline for nominations to the X.org Board of Directors is 
+> 23:59 UTC on 11 March 2024
+>
+>
+> The Board consists of directors elected from the membership. Each 
+> year, an election is held to bring the total number of directors to 
+> eight. The four members receiving the highest vote totals will serve 
+> as directors for two year terms.
+>
+> The directors who received two year terms starting in 2023 were 
+> Arkadiusz Hiler, Christopher Michael, Lyude Paul, and Daniel Vetter. 
+> They will continue to serve until their term ends in 2024. Current 
+> directors whose term expires in 2024 are Emma Anholt, Mark Filion, 
+> Ricardo Garcia, and Alyssa Rosenzweig.
+> <https://rosenzweig.io/>
+>
+> A director is expected to participate in the fortnightly IRC meeting 
+> to discuss current business and to attend the annual meeting of the 
+> X.Org Foundation, which will be held at a location determined in 
+> advance by the Board of Directors.
+>
+> A member may nominate themselves or any other member they feel is 
+> qualified. Nominations should be sent to the Election Committee at 
+> elections@x.org.
+>
+> Nominees shall be required to be current members of the X.Org 
+> Foundation, and submit a personal statement of up to 200 words that 
+> will be provided to prospective voters. The collected statements, 
+> along with the statement of contribution to the X.Org Foundation in 
+> the member's account page on http://members.x.org, will be made 
+> available to all voters to help them make their voting decisions.
+>
+> Nominations and completed personal statements must be received no 
+> later than 23:59 UTC on 11 March 2024.
+>
+> The slate of candidates will be published 18 March 2024 and candidate 
+> Q&A will begin then. The deadline for Xorg membership applications and 
+> renewals has also been extended 2 weeks and is now 25 March 2024.
+>
+>
+> Cheers,
+>
+> Christopher Michael, on behalf of the X.Org BoD
+>
+>
+--------------PUCnCxgdF0nKqUJPe2Gx1RhO
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>This is a reminder that we are still looking for candidates for
+      the upcoming X.Org Board of Directors elections, and that
+      membership renewals are still open and will be needed to vote on
+      those elections. Please read below for more details. <br>
+    </p>
+    <p><br>
+    </p>
+    <p>Cheers,</p>
+    <p>Christopher Michael, on behalf of the X.Org BoD</p>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 3/1/24 06:25, Christopher Michael
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:08f8a967-25e1-4362-be38-3f1b050ec6f2@igalia.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <p>We are seeking nominations for candidates for election to the
+        X.org Foundation Board of Directors. However, as we presently do
+        not have enough nominations to start the election - the decision
+        has been made to extend the timeline by 2 weeks. Note this is a
+        fairly regular part of the elections process.</p>
+      <p><br>
+      </p>
+      <p>The new deadline for nominations to the X.org Board of
+        Directors is 23:59 UTC on 11 March 2024</p>
+      <br>
+      The Board consists of directors elected from the membership. Each
+      year, an election is held to bring the total number of directors
+      to eight. The four members receiving the highest vote totals will
+      serve as directors for two year terms.
+      <p>The directors who received two year terms starting in 2023 were
+        <span class="createlink">Arkadiusz Hiler, </span><span
+          class="createlink">Christopher Michael, </span><span
+          class="createlink">Lyude Paul, and Daniel Vetter</span>. They
+        will continue to serve until their term ends in 2024. Current
+        directors whose term expires in 2024 are <span
+          class="createlink">Emma Anholt, </span><span
+          class="createlink">Mark Filion, </span><span
+          class="createlink">Ricardo Garcia, and Alyssa Rosenzweig.</span><a
+          href="https://rosenzweig.io/" moz-do-not-send="true"><br>
+        </a></p>
+      <p>A director is expected to participate in the fortnightly IRC
+        meeting to discuss current business and to attend the annual
+        meeting of the X.Org Foundation, which will be held at a
+        location determined in advance by the Board of Directors.</p>
+      <p>A member may nominate themselves or any other member they feel
+        is qualified. Nominations should be sent to the Election
+        Committee at <a
+          class="moz-txt-link-abbreviated moz-txt-link-freetext"
+          href="mailto:elections@x.org" moz-do-not-send="true">elections@x.org</a>.<br>
+      </p>
+      <p>Nominees shall be required to be current members of the X.Org
+        Foundation, and submit a personal statement of up to 200 words
+        that will be provided to prospective voters. The collected
+        statements, along with the statement of contribution to the
+        X.Org Foundation in the member's account page on <a
+          class="moz-txt-link-freetext" href="http://members.x.org"
+          moz-do-not-send="true">http://members.x.org</a>, will be made
+        available to all voters to help them make their voting
+        decisions.</p>
+      <p>Nominations and completed personal statements must be received
+        no later than 23:59 UTC on 11 March 2024.</p>
+      <p>The slate of candidates will be published 18 March 2024 and
+        candidate Q&amp;A will begin then. The deadline for Xorg
+        membership applications and renewals has also been extended 2
+        weeks and is now 25 March 2024.</p>
+      <p><br>
+      </p>
+      <p>Cheers,</p>
+      <p>Christopher Michael, on behalf of the X.Org BoD</p>
+      <p><br>
+      </p>
+    </blockquote>
+  </body>
+</html>
+
+--------------PUCnCxgdF0nKqUJPe2Gx1RhO--
