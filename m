@@ -4,75 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89890C54E41
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 14:29:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CAC7C54E41
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 14:41:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2998511322B;
-	Wed,  6 Mar 2024 14:29:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9725113240;
+	Wed,  6 Mar 2024 14:41:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SrCBVRoK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="19qLo2fg";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F43A11322B;
- Wed,  6 Mar 2024 14:29:14 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-1dcce5e84bcso55894055ad.1; 
- Wed, 06 Mar 2024 06:29:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709735354; x=1710340154; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6BJPk+nF2s8SJbHx5A0qKo3fTEzhCr5XKFS56tvgZrw=;
- b=SrCBVRoKXEMy9mhOK4JjvueSkMbejWiUCm7HkZB/THWlJJ7ArH5FRL/YFxBWFG5V+E
- qmEDjKPeIcxsnUGwld/Dy1nDxgD4A2/dcW0G/rTGU56peHap2SRm3BLtOCFCtTUfjtXZ
- v81haxUBQYV3magblDVghSsjU4ZGeRX8Xw/uhJUOzFc8Q0JvItvo18f1eV2njTSArkUN
- yXxJNuRHYcr4qXGytVovw4mCORhGBldJ1qVfQ8FjK6A34W3xpi472nqt/fsGCvIaXHiq
- 3rhqHnJ5+kilbkNyFTGJuEGihaL2+N4uDWejqksokr8g5h9bfdPxqpfbwfWgu5Q5ujcb
- Wfpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709735354; x=1710340154;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6BJPk+nF2s8SJbHx5A0qKo3fTEzhCr5XKFS56tvgZrw=;
- b=g/xLKIx8EBNcIQqdT1IVVSQKcCHiYozybL9u33RHh9pJxGTP1XGhvGaQc1RZOmeOgK
- DeYwpWwML+80LR3CiyNIDsu+gbmKb6MUT4EiaUln5ZxnVELIriz1rVIrr1PzS/SmtRWW
- 9frJiyMqWluObZocGwzt6nvaJ8qQGOzs0CMbdTuVGkMZzVdfHDTgXRCrvhloW32/C0vf
- DyDTXd05V1NSObm5f1WcxyGp5uymxHS2NCTZPczUfyDpCkgPvfGRfEmSjl5YvL2ZX67T
- 5rT0bSIqL2wd4Yb3zYWirE20DOPHi85FTUlETQJX8y0LtsM2r2hanWU3PyJJVX+3o9uI
- AFEA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUkt2b2ZRSkYyyyvSbs/fCAETz9XjS6lESQHcJNuM5CwtF3CRJFV99o8vHfXuj+n2y17VgejhjyH4zrqdJwoCpo0t0Ew+3rdBBHh6sJiOomC8RIwsSfTM3SeAvqER+nWU6Xp4bUugkegtT21RWFEA==
-X-Gm-Message-State: AOJu0YzbYk/zE5YIChSZGoiSnFirSzGAdSEX1I46RyRZ5anC98Sq23vE
- uIxrBRLm2u4ua8T01R4Um5NL/l3jEICtmZGgVVYHo/wgOAiIwHOUU3ZgGBCsD16kCQ5HxcOHyws
- v4jZq1VNOidh0R81ihQ9BJfYtmg3QJKTRswg=
-X-Google-Smtp-Source: AGHT+IGoP8Y2deM2LdARnpuZrV2fMX2Bw8NkQlSNzVdaewxYRTZsmevCNY/7EVO3PgkUsypAOs35UqnOCLzlJI96izo=
-X-Received: by 2002:a17:902:c20c:b0:1dc:d6ba:ed4c with SMTP id
- 12-20020a170902c20c00b001dcd6baed4cmr4881166pll.2.1709735353681; Wed, 06 Mar
- 2024 06:29:13 -0800 (PST)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2082.outbound.protection.outlook.com [40.107.243.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 862EC11323F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Mar 2024 14:41:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DjMLTDGTGWTp8jHCM9/o0CxheZWe/RkwfsIztDnGY5HV31uMp0qYOwdms1/glTEvJ5AYaqx1wTisWQ/DMxvHUhPp00HUr1OVZJNFIspzIg2TCA/BpixO2YROnvnjH4mLa9C3H4g6Eu32i8CyDZJjsR0JL9TLlkDCJmApXwgtNHczQ1Ax5E8Cfp2PUyIkUBmd+tyewqFn32vIj4D0CrecKsH3l/OXNUnz4zIp+6eGDvHrNBtw795a9XP4Kx01kIPgACC4++LFoGhuvGU0A2dZ/w3CkzKUAQnyc+QK1ofxJ2v95SwUWGn2KRrheHwWbG3VrrMqTdEzvtntZoyRySxWbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1B4wfVcG3nSOB+URrTo+Q/F9UP1LZp3iTOK8ehNAXFU=;
+ b=mMujWRX3yb4OBfdP9f8qdHIp5b6GAj2FrG93Tq/sFvK6FtDS7Lg9PLp/eFC09COI7uCJJUOuExgK5o0Nz2zdtdmkBMiaMfNSEUOJW27Le0jo/5f7DBP9mIhsVCpXyLwzNhdzIwUnkX987JFVm9dHv5kvfzOxBX8wX/ubA9XEN5DTfp+N610J2Wr2oLIY+XoIVnFPI2SQj+dc4pQqDbRAA5FUzGUx8038G7QBj+XNYFNYxxB95FRtT+VfBzW0eZFtxLrix9Y63FMrOIFuwXYifJcJcaE3h06m/KJ60Nfz4C64x9xSaZuTtLvFyIK9cnBNiZqSRQ7diU+m5YwaWx86qg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1B4wfVcG3nSOB+URrTo+Q/F9UP1LZp3iTOK8ehNAXFU=;
+ b=19qLo2fgKEAj3AjxgPNb6b1A1voqqjUt73RMRHv7GGHgcIBXEX84VRJei5KBhSxa9S8URapb772hm3ZK8/T7tJeu9SYklS/OHKFNWWQm/qZ8ZpJAfFeMQjCQA+60DL/rSoZnmaXOVXgx/a1oSohtN1Neg1RrWNtGXgIlxIQpflc=
+Received: from CH2PR05CA0050.namprd05.prod.outlook.com (2603:10b6:610:38::27)
+ by MW6PR12MB7087.namprd12.prod.outlook.com (2603:10b6:303:238::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.24; Wed, 6 Mar
+ 2024 14:41:44 +0000
+Received: from CH3PEPF0000000A.namprd04.prod.outlook.com (2603:10b6:610:38::4)
+ by CH2PR05CA0050.outlook.office365.com (2603:10b6:610:38::27) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7339.25 via Frontend Transport; Wed, 6 Mar 2024 14:41:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH3PEPF0000000A.mail.protection.outlook.com (10.167.244.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7362.11 via Frontend Transport; Wed, 6 Mar 2024 14:41:43 +0000
+Received: from MUN-L-SHSHARMA.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 6 Mar
+ 2024 08:41:41 -0600
+From: Shashank Sharma <shashank.sharma@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Philip Yang <yangp@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ "Rajneesh Bhardwaj" <rajneesh.bhardwaj@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Shashank Sharma <shashank.sharma@amd.com>
+Subject: [PATCH v5 1/2] drm/amdgpu: implement TLB flush fence
+Date: Wed, 6 Mar 2024 15:41:14 +0100
+Message-ID: <20240306144115.1007-1-shashank.sharma@amd.com>
+X-Mailer: git-send-email 2.38.0.windows.1
 MIME-Version: 1.0
-References: <20240306090408.3453152-1-sunil.khatri@amd.com>
- <2f792620-fd8a-412e-9130-e276ba36d5a0@amd.com>
- <5e2899cd-75b4-4ddd-97ff-4e10a2e67fbb@amd.com>
- <66815303-bd9c-4dfc-ae1a-bbdc5d1bb47c@amd.com>
- <17e12147-79dd-44ba-b8ae-b96fb72dcfbd@amd.com>
-In-Reply-To: <17e12147-79dd-44ba-b8ae-b96fb72dcfbd@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 6 Mar 2024 09:29:00 -0500
-Message-ID: <CADnq5_OkeH1x4YgSv6uw0HLb5c-5NOXnzQPJHsDvb=NmEePB-A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: cache in more vm fault information
-To: "Khatri, Sunil" <sukhatri@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Sunil Khatri <sunil.khatri@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org, 
- Pan@rtg-sunil-navi33.amd.com, Xinhui <Xinhui.Pan@amd.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Mukul Joshi <mukul.joshi@amd.com>, 
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000A:EE_|MW6PR12MB7087:EE_
+X-MS-Office365-Filtering-Correlation-Id: 03a9d052-0899-4e48-099c-08dc3deb8aed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RV2wldimfNNfUlsapPApknCYgXf8dH9oMN97Qw2OrbyNUhFFnwpNO4aGAuzqWOlNTaDWd60IYnfeTvMLO6eSTWCvWbaeV9Pa2MrS4MNuHwBm5xrQnXwg1j8PRnjZ4WS8khCdniTBY74zjWKk67T//JqcAPg/1gChAJSJWkfwEXPOLTWgED24cV0Pet4DlG4vrYX13jaf3n2kbbrI1vKzX92/+5JwyHIlRSN3dT+SvkgzkR+GhE54F8aXMiH/E+Wyr8dn48IMgAaQRq7ZZ8Umh0LLFF0xOkOlw+/jueyP4VcQh7G/3OTbz8LHlb3QQnhTDBzPoLV3aLqSOqcs/fjcmi0gLgUdjn6b1dubwi+zTtYo6crdvHS6U2sTSi5vwOEqPIDiJA3sp8Macv5v0lWtd8G1ApUBqUzwW4+LcisROiduCDg+cdAgJLvkj8xp/xm9D49j24WggQQV/IZ0mMIMVLoPJfva67RQ8+mVaY8vx9qLxAG1U7tZHnCohylAGVbX5zktVK13x2GNcutNPLnw2iOtHTr0RuYatTIk+PLyuKMfiSYb6pGjzHDMCN+haiILl+8bgauY1Zr73DKaZmOB71LyJHHvFmDe0NBGwwCmsilDtYd+6jyPbUFGUPOZgVQGaqxCgoXvOwjcgjtzi3e2QPXRv3pBeygOdNDEWr9/gVI5owgXB3ZM/MBXFoEDntTU/w8lmKvpNDIZz6Jp+Qe+KFiZCN6gO2FkPGP90uq1+kLtb+EqyVGmXJnyp/r50080
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(376005)(82310400014); DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2024 14:41:43.6542 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03a9d052-0899-4e48-099c-08dc3deb8aed
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB7087
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,249 +106,222 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 6, 2024 at 8:04=E2=80=AFAM Khatri, Sunil <sukhatri@amd.com> wro=
-te:
->
->
-> On 3/6/2024 6:12 PM, Christian K=C3=B6nig wrote:
-> > Am 06.03.24 um 11:40 schrieb Khatri, Sunil:
-> >>
-> >> On 3/6/2024 3:37 PM, Christian K=C3=B6nig wrote:
-> >>> Am 06.03.24 um 10:04 schrieb Sunil Khatri:
-> >>>> When an  page fault interrupt is raised there
-> >>>> is a lot more information that is useful for
-> >>>> developers to analyse the pagefault.
-> >>>
-> >>> Well actually those information are not that interesting because
-> >>> they are hw generation specific.
-> >>>
-> >>> You should probably rather use the decoded strings here, e.g. hub,
-> >>> client, xcc_id, node_id etc...
-> >>>
-> >>> See gmc_v9_0_process_interrupt() an example.
-> >>> I saw this v9 does provide more information than what v10 and v11
-> >>> provide like node_id and fault from which die but thats again very
-> >>> specific to IP_VERSION(9, 4, 3)) i dont know why thats information
-> >>> is not there in v10 and v11.
-> >>
-> >> I agree to your point but, as of now during a pagefault we are
-> >> dumping this information which is useful like which client
-> >> has generated an interrupt and for which src and other information
-> >> like address. So i think to provide the similar information in the
-> >> devcoredump.
-> >>
-> >> Currently we do not have all this information from either job or vm
-> >> being derived from the job during a reset. We surely could add more
-> >> relevant information later on as per request but this information is
-> >> useful as
-> >> eventually its developers only who would use the dump file provided
-> >> by customer to debug.
-> >>
-> >> Below is the information that i dump in devcore and i feel that is
-> >> good information but new information could be added which could be
-> >> picked later.
-> >>
-> >>> Page fault information
-> >>> [gfxhub] page fault (src_id:0 ring:24 vmid:3 pasid:32773)
-> >>> in page starting at address 0x0000000000000000 from client 0x1b (UTCL=
-2)
-> >
-> > This is a perfect example what I mean. You record in the patch is the
-> > client_id, but this is is basically meaningless unless you have access
-> > to the AMD internal hw documentation.
-> >
-> > What you really need is the client in decoded form, in this case
-> > UTCL2. You can keep the client_id additionally, but the decoded client
-> > string is mandatory to have I think.
-> >
-> > Sure i am capturing that information as i am trying to minimise the
-> > memory interaction to minimum as we are still in interrupt context
-> > here that why i recorded the integer information compared to decoding
-> and writing strings there itself but to postpone till we dump.
->
-> Like decoding to the gfxhub/mmhub based on vmhub/vmid_src and client
-> string from client id. So are we good to go with the information with
-> the above information of sharing details in devcoredump using the
-> additional information from pagefault cached.
+From: Christian König <christian.koenig@amd.com>
 
-I think amdgpu_vm_fault_info() has everything you need already (vmhub,
-status, and addr).  client_id and src_id are just tokens in the
-interrupt cookie so we know which IP to route the interrupt to.  We
-know what they will be because otherwise we'd be in the interrupt
-handler for a different IP.  I don't think ring_id has any useful
-information in this context and vmid and pasid are probably not too
-useful because they are just tokens to associate the fault with a
-process.  It would be better to have the process name.
+The problem is that when (for example) 4k pages are replaced
+with a single 2M page we need to wait for change to be flushed
+out by invalidating the TLB before the PT can be freed.
 
-Alex
+Solve this by moving the TLB flush into a DMA-fence object which
+can be used to delay the freeing of the PT BOs until it is signaled.
 
->
-> regards
-> sunil
->
-> >
-> > Regards,
-> > Christian.
-> >
-> >>
-> >> Regards
-> >> Sunil Khatri
-> >>
-> >>>
-> >>> Regards,
-> >>> Christian.
-> >>>
-> >>>>
-> >>>> Add all such information in the last cached
-> >>>> pagefault from an interrupt handler.
-> >>>>
-> >>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> >>>> ---
-> >>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 9 +++++++--
-> >>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 7 ++++++-
-> >>>>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 2 +-
-> >>>>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 2 +-
-> >>>>   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c  | 2 +-
-> >>>>   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c  | 2 +-
-> >>>>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 2 +-
-> >>>>   7 files changed, 18 insertions(+), 8 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> >>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> >>>> index 4299ce386322..b77e8e28769d 100644
-> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> >>>> @@ -2905,7 +2905,7 @@ void amdgpu_debugfs_vm_bo_info(struct
-> >>>> amdgpu_vm *vm, struct seq_file *m)
-> >>>>    * Cache the fault info for later use by userspace in debugging.
-> >>>>    */
-> >>>>   void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
-> >>>> -                  unsigned int pasid,
-> >>>> +                  struct amdgpu_iv_entry *entry,
-> >>>>                     uint64_t addr,
-> >>>>                     uint32_t status,
-> >>>>                     unsigned int vmhub)
-> >>>> @@ -2915,7 +2915,7 @@ void amdgpu_vm_update_fault_cache(struct
-> >>>> amdgpu_device *adev,
-> >>>>         xa_lock_irqsave(&adev->vm_manager.pasids, flags);
-> >>>>   -    vm =3D xa_load(&adev->vm_manager.pasids, pasid);
-> >>>> +    vm =3D xa_load(&adev->vm_manager.pasids, entry->pasid);
-> >>>>       /* Don't update the fault cache if status is 0.  In the multip=
-le
-> >>>>        * fault case, subsequent faults will return a 0 status which =
-is
-> >>>>        * useless for userspace and replaces the useful fault
-> >>>> status, so
-> >>>> @@ -2924,6 +2924,11 @@ void amdgpu_vm_update_fault_cache(struct
-> >>>> amdgpu_device *adev,
-> >>>>       if (vm && status) {
-> >>>>           vm->fault_info.addr =3D addr;
-> >>>>           vm->fault_info.status =3D status;
-> >>>> +        vm->fault_info.client_id =3D entry->client_id;
-> >>>> +        vm->fault_info.src_id =3D entry->src_id;
-> >>>> +        vm->fault_info.vmid =3D entry->vmid;
-> >>>> +        vm->fault_info.pasid =3D entry->pasid;
-> >>>> +        vm->fault_info.ring_id =3D entry->ring_id;
-> >>>>           if (AMDGPU_IS_GFXHUB(vmhub)) {
-> >>>>               vm->fault_info.vmhub =3D AMDGPU_VMHUB_TYPE_GFX;
-> >>>>               vm->fault_info.vmhub |=3D
-> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> >>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> >>>> index 047ec1930d12..c7782a89bdb5 100644
-> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> >>>> @@ -286,6 +286,11 @@ struct amdgpu_vm_fault_info {
-> >>>>       uint32_t    status;
-> >>>>       /* which vmhub? gfxhub, mmhub, etc. */
-> >>>>       unsigned int    vmhub;
-> >>>> +    unsigned int    client_id;
-> >>>> +    unsigned int    src_id;
-> >>>> +    unsigned int    ring_id;
-> >>>> +    unsigned int    pasid;
-> >>>> +    unsigned int    vmid;
-> >>>>   };
-> >>>>     struct amdgpu_vm {
-> >>>> @@ -605,7 +610,7 @@ static inline void
-> >>>> amdgpu_vm_eviction_unlock(struct amdgpu_vm *vm)
-> >>>>   }
-> >>>>     void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
-> >>>> -                  unsigned int pasid,
-> >>>> +                  struct amdgpu_iv_entry *entry,
-> >>>>                     uint64_t addr,
-> >>>>                     uint32_t status,
-> >>>>                     unsigned int vmhub);
-> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> >>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> >>>> index d933e19e0cf5..6b177ce8db0e 100644
-> >>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> >>>> @@ -150,7 +150,7 @@ static int gmc_v10_0_process_interrupt(struct
-> >>>> amdgpu_device *adev,
-> >>>>           status =3D RREG32(hub->vm_l2_pro_fault_status);
-> >>>>           WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
-> >>>>   -        amdgpu_vm_update_fault_cache(adev, entry->pasid, addr,
-> >>>> status,
-> >>>> +        amdgpu_vm_update_fault_cache(adev, entry, addr, status,
-> >>>>                            entry->vmid_src ? AMDGPU_MMHUB0(0) :
-> >>>> AMDGPU_GFXHUB(0));
-> >>>>       }
-> >>>>   diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> >>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> >>>> index 527dc917e049..bcf254856a3e 100644
-> >>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> >>>> @@ -121,7 +121,7 @@ static int gmc_v11_0_process_interrupt(struct
-> >>>> amdgpu_device *adev,
-> >>>>           status =3D RREG32(hub->vm_l2_pro_fault_status);
-> >>>>           WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
-> >>>>   -        amdgpu_vm_update_fault_cache(adev, entry->pasid, addr,
-> >>>> status,
-> >>>> +        amdgpu_vm_update_fault_cache(adev, entry, addr, status,
-> >>>>                            entry->vmid_src ? AMDGPU_MMHUB0(0) :
-> >>>> AMDGPU_GFXHUB(0));
-> >>>>       }
-> >>>>   diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> >>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> >>>> index 3da7b6a2b00d..e9517ebbe1fd 100644
-> >>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> >>>> @@ -1270,7 +1270,7 @@ static int gmc_v7_0_process_interrupt(struct
-> >>>> amdgpu_device *adev,
-> >>>>       if (!addr && !status)
-> >>>>           return 0;
-> >>>>   -    amdgpu_vm_update_fault_cache(adev, entry->pasid,
-> >>>> +    amdgpu_vm_update_fault_cache(adev, entry,
-> >>>>                        ((u64)addr) << AMDGPU_GPU_PAGE_SHIFT,
-> >>>> status, AMDGPU_GFXHUB(0));
-> >>>>         if (amdgpu_vm_fault_stop =3D=3D AMDGPU_VM_FAULT_STOP_FIRST)
-> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> >>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> >>>> index d20e5f20ee31..a271bf832312 100644
-> >>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> >>>> @@ -1438,7 +1438,7 @@ static int gmc_v8_0_process_interrupt(struct
-> >>>> amdgpu_device *adev,
-> >>>>       if (!addr && !status)
-> >>>>           return 0;
-> >>>>   -    amdgpu_vm_update_fault_cache(adev, entry->pasid,
-> >>>> +    amdgpu_vm_update_fault_cache(adev, entry,
-> >>>>                        ((u64)addr) << AMDGPU_GPU_PAGE_SHIFT,
-> >>>> status, AMDGPU_GFXHUB(0));
-> >>>>         if (amdgpu_vm_fault_stop =3D=3D AMDGPU_VM_FAULT_STOP_FIRST)
-> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> >>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> >>>> index 47b63a4ce68b..dc9fb1fb9540 100644
-> >>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> >>>> @@ -666,7 +666,7 @@ static int gmc_v9_0_process_interrupt(struct
-> >>>> amdgpu_device *adev,
-> >>>>       rw =3D REG_GET_FIELD(status, VM_L2_PROTECTION_FAULT_STATUS, RW=
-);
-> >>>>       WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
-> >>>>   -    amdgpu_vm_update_fault_cache(adev, entry->pasid, addr,
-> >>>> status, vmhub);
-> >>>> +    amdgpu_vm_update_fault_cache(adev, entry, addr, status, vmhub);
-> >>>>         dev_err(adev->dev,
-> >>>>           "VM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
-> >>>
-> >
+V2: (Shashank)
+    - rebase
+    - set dma_fence_error only in case of error
+    - add tlb_flush fence only when PT/PD BO is locked (Felix)
+    - use vm->pasid when f is NULL (Mukul)
+
+V4: - add a wait for (f->dependency) in tlb_fence_work (Christian)
+    - move the misplaced fence_create call to the end (Philip)
+
+V5: - free the f->dependency properly (Christian)
+
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Shashank Sharma <shashank.sharma@amd.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/Makefile           |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  10 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   4 +
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  | 112 ++++++++++++++++++
+ 4 files changed, 128 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index fa26a4e3a99d..91ab4cf29b5b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -70,7 +70,8 @@ amdgpu-y += amdgpu_device.o amdgpu_doorbell_mgr.o amdgpu_kms.o \
+ 	amdgpu_cs.o amdgpu_bios.o amdgpu_benchmark.o \
+ 	atombios_dp.o amdgpu_afmt.o amdgpu_trace_points.o \
+ 	atombios_encoders.o amdgpu_sa.o atombios_i2c.o \
+-	amdgpu_dma_buf.o amdgpu_vm.o amdgpu_vm_pt.o amdgpu_ib.o amdgpu_pll.o \
++	amdgpu_dma_buf.o amdgpu_vm.o amdgpu_vm_pt.o amdgpu_vm_tlb_fence.o \
++	amdgpu_ib.o amdgpu_pll.o \
+ 	amdgpu_ucode.o amdgpu_bo_list.o amdgpu_ctx.o amdgpu_sync.o \
+ 	amdgpu_gtt_mgr.o amdgpu_preempt_mgr.o amdgpu_vram_mgr.o amdgpu_virt.o \
+ 	amdgpu_atomfirmware.o amdgpu_vf_error.o amdgpu_sched.o \
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 0960e0a665d3..310aae6fb49b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -988,6 +988,15 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 
+ 	r = vm->update_funcs->commit(&params, fence);
+ 
++	/* Prepare a TLB flush fence to be attached to PTs */
++	if (!unlocked && params.needs_flush && vm->is_compute_context) {
++		amdgpu_vm_tlb_fence_create(adev, vm, fence);
++
++		/* Makes sure no PD/PT is freed before the flush */
++		dma_resv_add_fence(vm->root.bo->tbo.base.resv, *fence,
++				   DMA_RESV_USAGE_BOOKKEEP);
++	}
++
+ error_unlock:
+ 	amdgpu_vm_eviction_unlock(vm);
+ 	drm_dev_exit(idx);
+@@ -2237,6 +2246,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 
+ 	mutex_init(&vm->eviction_lock);
+ 	vm->evicting = false;
++	vm->tlb_fence_context = dma_fence_context_alloc(1);
+ 
+ 	r = amdgpu_vm_pt_create(adev, vm, adev->vm_manager.root_level,
+ 				false, &root, xcp_id);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 64b3f69efa57..298f604b8e5f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -341,6 +341,7 @@ struct amdgpu_vm {
+ 	atomic64_t		tlb_seq;
+ 	uint64_t		tlb_seq_va;
+ 	uint64_t		*tlb_seq_cpu_addr;
++	uint64_t		tlb_fence_context;
+ 
+ 	atomic64_t		kfd_last_flushed_seq;
+ 
+@@ -594,5 +595,8 @@ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
+ 				  uint64_t addr,
+ 				  uint32_t status,
+ 				  unsigned int vmhub);
++void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev,
++				 struct amdgpu_vm *vm,
++				 struct dma_fence **fence);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
+new file mode 100644
+index 000000000000..51cddfa3f1e8
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
+@@ -0,0 +1,112 @@
++// SPDX-License-Identifier: GPL-2.0 OR MIT
++/*
++ * Copyright 2023 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#include <linux/dma-fence.h>
++#include <linux/workqueue.h>
++
++#include "amdgpu.h"
++#include "amdgpu_vm.h"
++#include "amdgpu_gmc.h"
++
++struct amdgpu_tlb_fence {
++	struct dma_fence	base;
++	struct amdgpu_device	*adev;
++	struct dma_fence	*dependency;
++	struct work_struct	work;
++	spinlock_t		lock;
++	uint16_t		pasid;
++
++};
++
++static const char *amdgpu_tlb_fence_get_driver_name(struct dma_fence *fence)
++{
++	return "amdgpu tlb fence";
++}
++
++static const char *amdgpu_tlb_fence_get_timeline_name(struct dma_fence *f)
++{
++	return "amdgpu tlb timeline";
++}
++
++static void amdgpu_tlb_fence_work(struct work_struct *work)
++{
++	struct amdgpu_tlb_fence *f = container_of(work, typeof(*f), work);
++	int r;
++
++	if (f->dependency) {
++		dma_fence_wait(f->dependency, false);
++		dma_fence_put(f->dependency);
++		f->dependency = NULL;
++	}
++
++	r = amdgpu_gmc_flush_gpu_tlb_pasid(f->adev, f->pasid, 2, true, 0);
++	if (r) {
++		dev_err(f->adev->dev, "TLB flush failed for PASID %d.\n",
++			f->pasid);
++		dma_fence_set_error(&f->base, r);
++	}
++
++	dma_fence_signal(&f->base);
++	dma_fence_put(&f->base);
++}
++
++static const struct dma_fence_ops amdgpu_tlb_fence_ops = {
++	.use_64bit_seqno = true,
++	.get_driver_name = amdgpu_tlb_fence_get_driver_name,
++	.get_timeline_name = amdgpu_tlb_fence_get_timeline_name
++};
++
++void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
++				struct dma_fence **fence)
++{
++	struct amdgpu_tlb_fence *f;
++
++	f = kmalloc(sizeof(*f), GFP_KERNEL);
++	if (!f) {
++		/*
++		 * We can't fail since the PDEs and PTEs are already updated, so
++		 * just block for the dependency and execute the TLB flush
++		 */
++		if (*fence)
++			dma_fence_wait(*fence, false);
++
++		amdgpu_gmc_flush_gpu_tlb_pasid(adev, vm->pasid, 2, true, 0);
++		*fence = dma_fence_get_stub();
++		return;
++	}
++
++	f->adev = adev;
++	f->dependency = *fence;
++	f->pasid = vm->pasid;
++	INIT_WORK(&f->work, amdgpu_tlb_fence_work);
++	spin_lock_init(&f->lock);
++
++	dma_fence_init(&f->base, &amdgpu_tlb_fence_ops, &f->lock,
++		       vm->tlb_fence_context, atomic64_read(&vm->tlb_seq));
++
++	/* TODO: We probably need a separate wq here */
++	dma_fence_get(&f->base);
++	schedule_work(&f->work);
++
++	*fence = &f->base;
++}
+-- 
+2.43.2
+
