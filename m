@@ -4,94 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3313DC5475B
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 10:27:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E051C54E41
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 10:40:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACAB7112BA1;
-	Wed,  6 Mar 2024 10:27:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90FA5113009;
+	Wed,  6 Mar 2024 10:40:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="znt3aKAx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j9BFIrRl";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BB88112BA0
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Mar 2024 10:27:11 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2041.outbound.protection.outlook.com [40.107.223.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29EEE10EC7F;
+ Wed,  6 Mar 2024 10:40:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UDgw80U5LRRdskgbEcEwW8//OqLzqs5aAfVWaahnBYuaDnWRAaWKUBQXu9kY4FGbVy3RUQ3BFJreFIoonfOndUSr80xa6KVTmD7rNKSFZlgnqXzALCU8BlTg+rRt9na/j/PFBXHV2rFJ3uyIGvNC1OAjZAk3fnIX0aH4cdBr9KE1QfNrKtO9/IauaVH/2HXQfk7QD7suBpgqyUBIhLk38E5VT1f4G8GGW/bvJVg8ocnDPaHRlP1n8TerF3Jec28aOlT7y+tMaw3xvTwC9LD446B81oxp2oLSF87Z6fUAKUO7VWQl0FP5ycVVzC9BPF6zfRHNX9bsoOhvE3mF1FB8FQ==
+ b=NnHLHlXASLV3IdrVX+D16JT2nQHzEQnWlTJPs3/Py5ej/84Hg6NRfP4HMZbhKSI5sLbTSGwQvpzlZZAhFLNSYhZIdJLDYjXb5tirZ7AfooGwqKWNjRfHEPR8huCwUOEmiA10mpSNAxBkVw9ub9WvYMDJ5jQxK4rLZIxToEauEbWCZaYCR9dxF8VD+U+vzz9BVJm3fMrLY4/jmzm7d651M+JokPyAnflRMuyfoEzfpAB5FZlC8iBdduELaKRyZqOrADBL3NlUn3M7WFvUo8HwM44/0eDP70VrP9LBJfVM+iwnUAef8fNNHiPenigflMUJ6UwIEHBml+aqRSJn48DRFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6CafotgK122Y7jl66FaHO6F2VPIlto8CFvGU4lb4Q8o=;
- b=XAVKqVK+F95P3fDr4F7FaQ199lNNzA77iAy+D86XwSYoIaaJdVhgXF8A1Tdn31y497VSTaXXXPO21zoNZQENF2OEeNhCI3fRbw0hRoBDAc8JTKi0DaEv7Ca5ooXwSjQePCMeAISirjHkQVFmr4kURGYS49Hi0h6RO1S4qMO530DA8O49NqmON9cagUcmOScyvf+UHT091uDu+JRUXiOG20nALdXneLEsmqXBc6QIfUY3Uv+pWHIkMovAmiSKGHBDMAWC1Uqvh7eOasVn+tmypsNn5xxiZMMNW6HLVc+tgTR/ijd6pt0MbKI3DkRFuWkdeAVCGcGj9vH0TjROgHhzMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=JJAEt4RW8kbGxW4kDRKmEttcA5OsGwcy7D0RJj4zSac=;
+ b=RJ2IAjRl6FSty6Q/ILt2PqlDkWPWz2xYzInu/kQ1Hig8BLQH27pX5MVB8u/2/N2cfX3Acb9MmgmDAXEAgxfjrDc4+oMvGC5d9eQnc7o9iI2iDcwTrzIzP4CLxtsmDHXZ7qzP+15Ry8CKKSutuyirisW3ADCQaMmlejE/SR97oxj+v6KhjP+BndtCQmDe6cSHn2eLv5/xE+VMvayw2NWv+WBrTwQhda7FzefM1xPL4FaCC1wjnrXgnbSkvQWzavg7aibyPafFtX+8QkoTw0mKG7kZ+sw+0FomnFBk/ScA3Pi5Z4A4O/vrhcLwAXkOPuEr1C0AltLZQKmPmDrmELkx6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6CafotgK122Y7jl66FaHO6F2VPIlto8CFvGU4lb4Q8o=;
- b=znt3aKAxf9bDHu1DrChIX5d7jKrRUjwmmKvoPnNq7v9BspHWASQ6XrUFm1i4hN/b/v5PsqR41G5ewW5DjH0oiUiP9sxOEMeAkymcUVYp4Bw0TvaE81nonLdrup3APj+05nRL8WjmEu7+aMbQognCaj5qlkOQ4Nx964waK4Fxj08=
-Received: from CY5PR18CA0059.namprd18.prod.outlook.com (2603:10b6:930:13::22)
- by BL3PR12MB6569.namprd12.prod.outlook.com (2603:10b6:208:38c::9)
+ bh=JJAEt4RW8kbGxW4kDRKmEttcA5OsGwcy7D0RJj4zSac=;
+ b=j9BFIrRlSySg+FhTLmX8ji4NKuEQu2aCyAkejK2u5eTUS56yjtEI7z8LAZD0bERQdiO5GpAhC752l8VW0iU6UlsJGSpm5OeDq6Pw87OJRaof1WPT/xwZCwCRIdVabK4lXPilCV+9/Pg0jlO/XQyJiz+143i5ACHLMcOuYsg/zGg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13)
+ by SJ2PR12MB8183.namprd12.prod.outlook.com (2603:10b6:a03:4f4::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.26; Wed, 6 Mar
- 2024 10:27:05 +0000
-Received: from CY4PEPF0000E9D4.namprd03.prod.outlook.com
- (2603:10b6:930:13:cafe::26) by CY5PR18CA0059.outlook.office365.com
- (2603:10b6:930:13::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.24 via Frontend
- Transport; Wed, 6 Mar 2024 10:27:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9D4.mail.protection.outlook.com (10.167.241.147) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7362.11 via Frontend Transport; Wed, 6 Mar 2024 10:27:03 +0000
-Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 6 Mar
- 2024 04:26:43 -0600
-From: Ma Jun <Jun.Ma2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Kenneth.Feng@amd.com>, <Alexander.Deucher@amd.com>,
- <kevinyang.wang@amd.com>, Ma Jun <Jun.Ma2@amd.com>, Yin Zhenguo
- <zhenguo.yin@amd.com>
-Subject: [PATCH] drm/amdgpu/pm: Fix NULL pointer dereference when set/get
- power limit
-Date: Wed, 6 Mar 2024 18:26:15 +0800
-Message-ID: <20240306102615.2117462-1-Jun.Ma2@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.24; Wed, 6 Mar
+ 2024 10:40:11 +0000
+Received: from PH7PR12MB5596.namprd12.prod.outlook.com
+ ([fe80::6f48:e3f1:6ff9:75bd]) by PH7PR12MB5596.namprd12.prod.outlook.com
+ ([fe80::6f48:e3f1:6ff9:75bd%4]) with mapi id 15.20.7362.019; Wed, 6 Mar 2024
+ 10:40:11 +0000
+Message-ID: <5e2899cd-75b4-4ddd-97ff-4e10a2e67fbb@amd.com>
+Date: Wed, 6 Mar 2024 16:10:01 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: cache in more vm fault information
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Shashank Sharma <shashank.sharma@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Pan@rtg-sunil-navi33.amd.com,
+ Xinhui <Xinhui.Pan@amd.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Mukul Joshi <mukul.joshi@amd.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+References: <20240306090408.3453152-1-sunil.khatri@amd.com>
+ <2f792620-fd8a-412e-9130-e276ba36d5a0@amd.com>
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <2f792620-fd8a-412e-9130-e276ba36d5a0@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: PN2PR01CA0162.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:26::17) To PH7PR12MB5596.namprd12.prod.outlook.com
+ (2603:10b6:510:136::13)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D4:EE_|BL3PR12MB6569:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e1a8f29-064d-43c7-4908-08dc3dc7f72a
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5596:EE_|SJ2PR12MB8183:EE_
+X-MS-Office365-Filtering-Correlation-Id: afb969da-0f6c-41ef-37ad-08dc3dc9cc60
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yacdNyUk61D34kdhAvVP+gTE/EOLxrb5no0kTBMJQAkpOjSe0wZomEy2t71B6XOFtZE7i63hxn/VNieR5ftO6AFC187VJMy44qK053Ov+iA04tU1vn+GNdgKZ5OBLGcTCnyBun6jfHy5W3GlhmPeIpUMJWLhUFuQxyq2Eli6xd0V4435sUxnYCs+ox+eHSslWsVIqE6373B5PQYA6JBAkbaGXH6Sr3mDHvBsyT6ozu5UfWKeCdYk0lyKwt+G2aBat6fxKCWvZMBrFJ49DaEjZjX9hECLtbKv/S31n8qkXtUBXCS6i9Wnm/pSydLXfDdWVSrlVGwxtqr1ymuvfEBNWp+WU5eO9SSuv9pmjN6cwyyccmcDknW4gD/pCRzi4RNBsgm/0LuK2QHpIypQIpHeLkiLKRzSgpsBI/Tv2Bg3p3zL0Qp4a11aPcsIMYct+Y683vDGPwhFbxfM7cfmMydmNNO5Ah42cz8P8x2NYMjeqtTZ2COTxWjq7j+6FRBkROw2WA7qkR46UC+lyqa0zVPq4HjjHaTrWiAGkadrYXgQYrG02L17sHKRCThbE1Xd8y1piFX9V2Uu64/e9bSoi28VlM3GJ8cUsN0c1wuRgO8hRUOJZDRFrOg/LTA6lr9uZaw7W80rrhei2Rrkhiw3B7FpGWsbUl40tsJrMC9VrxWL52ZkNqWj12rdImIXLqGcmXQvABrPWD03lfPuSKnRY78ZbcEHdXf7CKg0UTyQyaUdg4lOm6q6uVnE7JHC1m6zTkv+
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(82310400014)(36860700004); DIR:OUT; SFP:1101; 
+X-Microsoft-Antispam-Message-Info: oBQrlc0WsZvNpWCvpfTzHR7j8VU4Jr2dS9r1bMIWFpiSSkLbTUY4CCjgqM3C0bw6T0FPwJuIQ1xWZdwCn/4SWHD8nquKJRVueVQBKtFL/WJW45UZ/xReVF0b/TKFilPAVEh079EGHPgcaikAxVyDVoPK1jWmPD5PD0Hi7WK3x4oFnfOYCIC8dHK42Lx+Kw0VU1ejQzYVuxnOMViLhdOnqRfxcBkxc6RNx/ftvyAvHEV37UHhk4jv6NjYfivyXcc47kBqaDr2LQ0EpHPUBI7vnoYPfTdwoYsiHMpUK2p27YxfJEnjYBXu3My542B95stX9+yPykFDyj7tdOJ1EckKAT9mWnLdp1xlSAyHtHyzaKp6R7/VAo1SMSVNgTC0lHSB+JcviFCPK9pzigFEzPYbKItIdya108Q+BHg+ejkOBN4e2i6Iens2KhfSDAv+fqWBx8dWKMIw4D/wOAp1PAVOce3MzDkMegyCgquLB2EiA1c/nHGaD/EPUlYftyN3ZqeqQZU9/kRpaC2KcljucDQl1VaYQODQ+j1qUH1SWLXhSmvyIryhN+C/pjVNhQ4RIugd96VeuBjRNqo1MEcN/zRxh+E2BfkWgqcQutEwpEPBxy3eUu2i7OL4bqWIeCUe/qaEzxrkC1yy7ZUv9JfJ+pP7d0u1LufPyA1u9QEAoWd2hCw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5596.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aURCTFhFMk9NQjVsdVZFcC9wdlB2SzNYbFBWaG1CaTNGQWpKajBiZnhnTkJy?=
+ =?utf-8?B?bTNyWTZheHpWcDZ5aWhKaGIrS0dSeEJ5UHh3bEVDang3OVovbjU2MFBxWkVC?=
+ =?utf-8?B?NXJaUllBYjJXQUdOMWJybGJKQWRLalh4U1hmOVFPYTVnN2NGRHFtM2I0V2lm?=
+ =?utf-8?B?OWtNMC9FM3hGVHRnSUU4dUxkYWI3VUVUYTI3KzN1aFZDOFl4RWpNSHBpVk5j?=
+ =?utf-8?B?YTlGbzIwRWtBMEJYc1k0Q1AzaXJSYWVORE8wOGV5S0VKTmp4aTJlczdtNGtD?=
+ =?utf-8?B?cFh3RDFOZE9JaXI0RGdWTWU0dmJTMjlhWWh3dDNJZ2FBSmNzd1lHWWVocHZr?=
+ =?utf-8?B?aVMyRGw0MElsS2pzVkQ0RTRZYlczeWdvT3E4Q2R1VWFPUjRIR1ZmUUROQlRw?=
+ =?utf-8?B?MVg5RHFIRDNYNDhoNUN1QzlkZ3FTN2hDSnhVcUE2NnVKVkFoazRlT1cxeVBQ?=
+ =?utf-8?B?WE5MUmpWRVlzY0dXd2xJMWFpYVVHNHB6dWhVWHdqRDdCRUIwTEdKTXpha2p6?=
+ =?utf-8?B?dG1Qa2F3WGgzNkltbGNORUtpOVo0OCtrRHNkKzQ2YUpKM3JucHl5Uk1MY0Qv?=
+ =?utf-8?B?TDd3ODFjWmIyMzFsR295L3o5NkkzWmhDSXVFSHJIY1V3OWtXK0hyZDZ6OEtU?=
+ =?utf-8?B?ZXppZGd5VHM1dzdPczZrNkVHUzl6enR4UVJNZkRpazhIS3JBZXl3SEZtNzAr?=
+ =?utf-8?B?eEFOZGw0cWNOU20xcWR3NDBYK1dVTEpmUjkwRUhRUlVRSjhPd0ZQWGJ0Tndj?=
+ =?utf-8?B?dHQyNWJSRllQbWV6NlUxdVdnWU9yRWpEQ0s5R0x2OFc5dGhFL1cyaUcrRmFp?=
+ =?utf-8?B?d09oUmQyakJZTTFvZi8vNi9qclZoc0ZXL0NpVTZJSHdWUGZJN1laWkwxWGFB?=
+ =?utf-8?B?bmZaQXRnQm13NHpBdFQ4NFg5dUhjQnhXRkNUdWNHaStQY3lNc2xXcTR5bFdy?=
+ =?utf-8?B?SzV5ZC9nL25YUmViUWZ6K29vb2E4VFJuYzE1V09EeEpyWDlDSk9FYkFOZE95?=
+ =?utf-8?B?STl0aUJpbklpNEVTbWUrMi9DcWtPRHc0ajM4WEVJWG52c2FjNnZUcXRNTXlD?=
+ =?utf-8?B?VzlRYjZXaGROY0NyalpvYjVuYTd6WTRuT1RqdzArVlhHRE9PdjEwZGFya1My?=
+ =?utf-8?B?ZDEyQUJzSnhETW9kUitDc1l2M3B4VldUQ0xpdUlUKzVHWlJHMnpCczR5c1dl?=
+ =?utf-8?B?NDJJOE1Tdmpva3pnTVZ1UzMvQ2VEWmp4dDBqSzFJSHlHblppYy9XMXB6UDlS?=
+ =?utf-8?B?c2svS3dRcDZDWTFVSjB5a2NjbVIwMkNVUElvb0RsS1BZaXJOYVk0U0NrL01x?=
+ =?utf-8?B?MFI0VG9zbVBMKzVGdU5MT3RFYldzQ3lrZ3lxQU1TbUtiMm16UmxLb0NLQXFD?=
+ =?utf-8?B?MWJwRXUwWVV2Uk00dXNoYXVML0NkcFZLYW5VN0xwOE5WN3c1NXFTRFN5bWVn?=
+ =?utf-8?B?TCtLam5VdmlkdzdEWVAwRVdRVFRMNjZMajQvZ3V5SmJ4dTgvRDBJbXhRK3Zo?=
+ =?utf-8?B?OUw0QmtURERXbU1FVnF1SExQMysyZHNoRHFYd2kwU3RVR2libDFUQWQ5c2JC?=
+ =?utf-8?B?c3hBUWlJbzg5M0xUZWkxYnBqbzFwVTkrS3pYbWRaUnVNQzd2MGQ5SkIybkNY?=
+ =?utf-8?B?UitpMkRvSncvbWRkNnA3cXlyNTBaajFCNFFXVWtaN0MyUUtWem81V3ExU0xH?=
+ =?utf-8?B?VmltUjE3RTJ4SHIrNGJLeVdtN2hYL29UTnNJaGw1bmpaV1J5L2VZYmxuczd6?=
+ =?utf-8?B?ZWV5VmN4S0laeXVlT0s2KzRLNnZmQWlMMXJtb1ZpVFBpMDg3ZWhwazE4ZC9P?=
+ =?utf-8?B?Z2FyWU9JbE9hSDZsWUtvRmNmTTZGdkIzeUQ2bjRCYXJqUyt2ME9tS0U3Rk5X?=
+ =?utf-8?B?Z1NpQ2VKOGIrQW9keGo5UWZqL0xrV0llK0ROcFlHVm9WbC9EcUcvalBGQlhy?=
+ =?utf-8?B?cnA5aEpZUTBNcEw0cW1VeW5iajZEbjV4SFlIYVVKWTUvRVBBbUVVVXg4RzZY?=
+ =?utf-8?B?MWMyRnppWHV5c2JJUHFLMmE0VkltNXo5U25xWjV2Zkk0a3Z5ZnAzK2pOODNJ?=
+ =?utf-8?B?akhRcUhsbGE2OGRraTRaM3BaZy9iRCtNWkV3bHhiVEZFRjd6aHVocFJXcFF4?=
+ =?utf-8?Q?VeFIGwSXiTMrSnudQvX3j0WGG?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2024 10:27:03.3360 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e1a8f29-064d-43c7-4908-08dc3dc7f72a
+X-MS-Exchange-CrossTenant-Network-Message-Id: afb969da-0f6c-41ef-37ad-08dc3dc9cc60
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5596.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2024 10:40:10.9745 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D4.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6569
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f0a5bDsbB+tv5qcaa6a0bVGn+8TtclF9gsEEnorc6a4Py/sW+NPm3vJMQh3O6dRZzip1tmFt+B7STZPA1bUcuQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8183
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,157 +134,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Because powerplay_table initialization is skipped under
-sriov case, We set default lower and upper OD value to
-avoid NULL pointer issue.
 
-Fixes: 7968e9748fbb ("drm/amdgpu/pm: Fix the power1_min_cap value")
-Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-Reported-by: Yin Zhenguo <zhenguo.yin@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c    | 15 ++++++++++-----
- drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c  | 16 ++++++++++------
- .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c  | 15 ++++++++++-----
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 15 ++++++++++-----
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 15 ++++++++++-----
- 5 files changed, 50 insertions(+), 26 deletions(-)
+On 3/6/2024 3:37 PM, Christian König wrote:
+> Am 06.03.24 um 10:04 schrieb Sunil Khatri:
+>> When an  page fault interrupt is raised there
+>> is a lot more information that is useful for
+>> developers to analyse the pagefault.
+>
+> Well actually those information are not that interesting  because they 
+> are hw generation specific.
+>
+> You should probably rather use the decoded strings here, e.g. hub, 
+> client, xcc_id, node_id etc...
+>
+> See gmc_v9_0_process_interrupt() an example.
+> I saw this v9 does provide more information than what v10 and v11 
+> provide like node_id and fault from which die but thats again very 
+> specific to IP_VERSION(9, 4, 3)) i dont know why thats information is 
+> not there in v10 and v11.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 1d96eb274d72..42c5e6b103e8 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -1303,12 +1303,17 @@ static int arcturus_get_power_limit(struct smu_context *smu,
- 	if (default_power_limit)
- 		*default_power_limit = power_limit;
- 
--	if (smu->od_enabled)
--		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
--	else
--		od_percent_upper = 0;
-+	if (powerplay_table) {
-+		if (smu->od_enabled)
-+			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
-+		else
-+			od_percent_upper = 0;
- 
--	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
-+		od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
-+	} else {
-+		od_percent_upper = 0;
-+		od_percent_lower = 10;
-+	}
- 
- 	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
- 							od_percent_upper, od_percent_lower, power_limit);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index ed189a3878eb..6cc2e2d27a0d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -2356,13 +2356,17 @@ static int navi10_get_power_limit(struct smu_context *smu,
- 	if (default_power_limit)
- 		*default_power_limit = power_limit;
- 
--	if (smu->od_enabled &&
--		    navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_POWER_LIMIT))
--		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
--	else
--		od_percent_upper = 0;
-+	if (powerplay_table) {
-+		if (smu->od_enabled && navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_POWER_LIMIT))
-+			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
-+		else
-+			od_percent_upper = 0;
- 
--	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
-+		od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
-+	} else {
-+		od_percent_upper = 0;
-+		od_percent_lower = 10;
-+	}
- 
- 	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
- 					od_percent_upper, od_percent_lower, power_limit);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index e2ad2b972ab0..5daeac2e6239 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -640,12 +640,17 @@ static int sienna_cichlid_get_power_limit(struct smu_context *smu,
- 	if (default_power_limit)
- 		*default_power_limit = power_limit;
- 
--	if (smu->od_enabled)
--		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
--	else
--		od_percent_upper = 0;
-+	if (powerplay_table) {
-+		if (smu->od_enabled)
-+			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
-+		else
-+			od_percent_upper = 0;
- 
--	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
-+		od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
-+	} else {
-+		od_percent_upper = 0;
-+		od_percent_lower = 10;
-+	}
- 
- 	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
- 					od_percent_upper, od_percent_lower, power_limit);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index 215f7c91ca73..271151c518e1 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -2369,12 +2369,17 @@ static int smu_v13_0_0_get_power_limit(struct smu_context *smu,
- 	if (default_power_limit)
- 		*default_power_limit = power_limit;
- 
--	if (smu->od_enabled)
--		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
--	else
--		od_percent_upper = 0;
-+	if (powerplay_table) {
-+		if (smu->od_enabled)
-+			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
-+		else
-+			od_percent_upper = 0;
- 
--	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
-+		od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
-+	} else {
-+		od_percent_upper = 0;
-+		od_percent_lower = 10;
-+	}
- 
- 	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
- 					od_percent_upper, od_percent_lower, power_limit);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 3dc7b60cb075..533a3c1ba41e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -2333,12 +2333,17 @@ static int smu_v13_0_7_get_power_limit(struct smu_context *smu,
- 	if (default_power_limit)
- 		*default_power_limit = power_limit;
- 
--	if (smu->od_enabled)
--		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
--	else
--		od_percent_upper = 0;
-+	if (powerplay_table) {
-+		if (smu->od_enabled)
-+			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
-+		else
-+			od_percent_upper = 0;
- 
--	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
-+		od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
-+	} else {
-+		od_percent_upper = 0;
-+		od_percent_lower = 10;
-+	}
- 
- 	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
- 					od_percent_upper, od_percent_lower, power_limit);
--- 
-2.34.1
+I agree to your point but, as of now during a pagefault we are dumping 
+this information which is useful like which client
+has generated an interrupt and for which src and other information like 
+address. So i think to provide the similar information in the devcoredump.
 
+Currently we do not have all this information from either job or vm 
+being derived from the job during a reset. We surely could add more 
+relevant information later on as per request but this information is 
+useful as
+eventually its developers only who would use the dump file provided by 
+customer to debug.
+
+Below is the information that i dump in devcore and i feel that is good 
+information but new information could be added which could be picked later.
+
+> Page fault information
+> [gfxhub] page fault (src_id:0 ring:24 vmid:3 pasid:32773)
+> in page starting at address 0x0000000000000000 from client 0x1b (UTCL2)
+
+Regards
+Sunil Khatri
+
+>
+> Regards,
+> Christian.
+>
+>>
+>> Add all such information in the last cached
+>> pagefault from an interrupt handler.
+>>
+>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 9 +++++++--
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 7 ++++++-
+>>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 2 +-
+>>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 2 +-
+>>   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c  | 2 +-
+>>   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c  | 2 +-
+>>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 2 +-
+>>   7 files changed, 18 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> index 4299ce386322..b77e8e28769d 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> @@ -2905,7 +2905,7 @@ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm 
+>> *vm, struct seq_file *m)
+>>    * Cache the fault info for later use by userspace in debugging.
+>>    */
+>>   void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
+>> -                  unsigned int pasid,
+>> +                  struct amdgpu_iv_entry *entry,
+>>                     uint64_t addr,
+>>                     uint32_t status,
+>>                     unsigned int vmhub)
+>> @@ -2915,7 +2915,7 @@ void amdgpu_vm_update_fault_cache(struct 
+>> amdgpu_device *adev,
+>>         xa_lock_irqsave(&adev->vm_manager.pasids, flags);
+>>   -    vm = xa_load(&adev->vm_manager.pasids, pasid);
+>> +    vm = xa_load(&adev->vm_manager.pasids, entry->pasid);
+>>       /* Don't update the fault cache if status is 0.  In the multiple
+>>        * fault case, subsequent faults will return a 0 status which is
+>>        * useless for userspace and replaces the useful fault status, so
+>> @@ -2924,6 +2924,11 @@ void amdgpu_vm_update_fault_cache(struct 
+>> amdgpu_device *adev,
+>>       if (vm && status) {
+>>           vm->fault_info.addr = addr;
+>>           vm->fault_info.status = status;
+>> +        vm->fault_info.client_id = entry->client_id;
+>> +        vm->fault_info.src_id = entry->src_id;
+>> +        vm->fault_info.vmid = entry->vmid;
+>> +        vm->fault_info.pasid = entry->pasid;
+>> +        vm->fault_info.ring_id = entry->ring_id;
+>>           if (AMDGPU_IS_GFXHUB(vmhub)) {
+>>               vm->fault_info.vmhub = AMDGPU_VMHUB_TYPE_GFX;
+>>               vm->fault_info.vmhub |=
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>> index 047ec1930d12..c7782a89bdb5 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>> @@ -286,6 +286,11 @@ struct amdgpu_vm_fault_info {
+>>       uint32_t    status;
+>>       /* which vmhub? gfxhub, mmhub, etc. */
+>>       unsigned int    vmhub;
+>> +    unsigned int    client_id;
+>> +    unsigned int    src_id;
+>> +    unsigned int    ring_id;
+>> +    unsigned int    pasid;
+>> +    unsigned int    vmid;
+>>   };
+>>     struct amdgpu_vm {
+>> @@ -605,7 +610,7 @@ static inline void 
+>> amdgpu_vm_eviction_unlock(struct amdgpu_vm *vm)
+>>   }
+>>     void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
+>> -                  unsigned int pasid,
+>> +                  struct amdgpu_iv_entry *entry,
+>>                     uint64_t addr,
+>>                     uint32_t status,
+>>                     unsigned int vmhub);
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c 
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>> index d933e19e0cf5..6b177ce8db0e 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>> @@ -150,7 +150,7 @@ static int gmc_v10_0_process_interrupt(struct 
+>> amdgpu_device *adev,
+>>           status = RREG32(hub->vm_l2_pro_fault_status);
+>>           WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
+>>   -        amdgpu_vm_update_fault_cache(adev, entry->pasid, addr, 
+>> status,
+>> +        amdgpu_vm_update_fault_cache(adev, entry, addr, status,
+>>                            entry->vmid_src ? AMDGPU_MMHUB0(0) : 
+>> AMDGPU_GFXHUB(0));
+>>       }
+>>   diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c 
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>> index 527dc917e049..bcf254856a3e 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+>> @@ -121,7 +121,7 @@ static int gmc_v11_0_process_interrupt(struct 
+>> amdgpu_device *adev,
+>>           status = RREG32(hub->vm_l2_pro_fault_status);
+>>           WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
+>>   -        amdgpu_vm_update_fault_cache(adev, entry->pasid, addr, 
+>> status,
+>> +        amdgpu_vm_update_fault_cache(adev, entry, addr, status,
+>>                            entry->vmid_src ? AMDGPU_MMHUB0(0) : 
+>> AMDGPU_GFXHUB(0));
+>>       }
+>>   diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c 
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+>> index 3da7b6a2b00d..e9517ebbe1fd 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+>> @@ -1270,7 +1270,7 @@ static int gmc_v7_0_process_interrupt(struct 
+>> amdgpu_device *adev,
+>>       if (!addr && !status)
+>>           return 0;
+>>   -    amdgpu_vm_update_fault_cache(adev, entry->pasid,
+>> +    amdgpu_vm_update_fault_cache(adev, entry,
+>>                        ((u64)addr) << AMDGPU_GPU_PAGE_SHIFT, status, 
+>> AMDGPU_GFXHUB(0));
+>>         if (amdgpu_vm_fault_stop == AMDGPU_VM_FAULT_STOP_FIRST)
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c 
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>> index d20e5f20ee31..a271bf832312 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>> @@ -1438,7 +1438,7 @@ static int gmc_v8_0_process_interrupt(struct 
+>> amdgpu_device *adev,
+>>       if (!addr && !status)
+>>           return 0;
+>>   -    amdgpu_vm_update_fault_cache(adev, entry->pasid,
+>> +    amdgpu_vm_update_fault_cache(adev, entry,
+>>                        ((u64)addr) << AMDGPU_GPU_PAGE_SHIFT, status, 
+>> AMDGPU_GFXHUB(0));
+>>         if (amdgpu_vm_fault_stop == AMDGPU_VM_FAULT_STOP_FIRST)
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c 
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> index 47b63a4ce68b..dc9fb1fb9540 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> @@ -666,7 +666,7 @@ static int gmc_v9_0_process_interrupt(struct 
+>> amdgpu_device *adev,
+>>       rw = REG_GET_FIELD(status, VM_L2_PROTECTION_FAULT_STATUS, RW);
+>>       WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
+>>   -    amdgpu_vm_update_fault_cache(adev, entry->pasid, addr, status, 
+>> vmhub);
+>> +    amdgpu_vm_update_fault_cache(adev, entry, addr, status, vmhub);
+>>         dev_err(adev->dev,
+>>           "VM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
+>
