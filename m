@@ -4,59 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD121C54E41
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 08:15:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4B44C5475B
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 08:15:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8E6D10E2ED;
-	Wed,  6 Mar 2024 08:15:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CE6B10E2D7;
+	Wed,  6 Mar 2024 08:15:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="eK71pGBZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="koYUx7Rf";
 	dkim-atps=neutral
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FCD0112D11;
- Tue,  5 Mar 2024 21:59:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1709675943;
- bh=Pi6T1W5bDFqqI2XXQ+4KYgY88rVQ95Vyl3n/fcXtOEo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=eK71pGBZ6Cz51o8qikvWm9K+PhISQRoVeIfPrE1JiwaG7q1A3dZgkjtiTAbgZgp4B
- m69Q9A106Ja++jlIoMXxTtnhwo2cpnaGCPXX+0rOsMd7edcefjvG+OthSgVAm0YG+f
- 84likditwTT7tx9UMns7EZBUfNHVdaIggZo1SEbHhX2IVe3jHtEaJO1DB/Xtbr53Hk
- BCF2Q3TBsTYA3Lh7WSssBcx882ZZbaRRWyKc6XKmxYGQjlL0JzyxoACxfQkGzlgTS5
- NfyWcJb5SAZclkjKZJdvPiySMBpD7/0op+jwvAnR0C3GCqBiyzqwaht8c3ZJeFNSQ6
- nfSnf4FKoD2aw==
-Received: from [100.109.49.129] (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 64017378149B;
- Tue,  5 Mar 2024 21:59:01 +0000 (UTC)
-Message-ID: <c844b72e-6c4e-4c99-8e7f-b9c62f63209d@collabora.com>
-Date: Wed, 6 Mar 2024 00:58:58 +0300
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
+ [209.85.160.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8005A10E6CF;
+ Wed,  6 Mar 2024 03:24:25 +0000 (UTC)
+Received: by mail-oa1-f47.google.com with SMTP id
+ 586e51a60fabf-2210a266118so1179333fac.1; 
+ Tue, 05 Mar 2024 19:24:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1709695464; x=1710300264; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=YY8pprhlY2hfjI+DczSHGBDtQSXX8a4KHHRyaWkDhB0=;
+ b=koYUx7Rf2RIGQOWxkpt917ls0e+ruCePeWLJd6jE1MNtT9NGK95Rj2yNZXsIDlztSt
+ eM70sLkzEpbpHemReFEBxSRXaYJpVVGBdRG3fT1j0Yn2pwuNqond/8KB668sbNfjiFVG
+ rDVJDchgPtES8uA7lPGETcMkMU08iA9sCdjo7bSI4o0XPOHffWNveEB7KaKvigph7Ozd
+ YlFfERsm0seQxqubUWmJPqLmVbltB4Ofk3oxFXixM40L7NytaN4dLikNHZw99Lw00Zs5
+ BbN9xRvs4ruVHQctbIWFZSULsRqkXvuTmnAG1F7UbDdoORLmhPXS7E9qpmEqnkSe/hek
+ L6Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1709695464; x=1710300264;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=YY8pprhlY2hfjI+DczSHGBDtQSXX8a4KHHRyaWkDhB0=;
+ b=RKy/PlYaYtNTyOQRyW5KzDNJxdNbfm533URXooJKX8Q5SwlPG8R7gsie0fQvPosH7e
+ Zz//GlR9b0dAJeIJBu0vTXTgsD59fU5hxZSN5nVX8DU+Fz9U8Wy86kMM24cKuhs1xNYa
+ SEAjBGqr5JCg7AWz7mLb5eSJY0SryfbcPBjMH8GJ0xUf6vq3Y+DGcyeYBuUfd0w+gbbD
+ Er9uFRgQfHI970MqEcnqELjHPGhy8lFJzozEzoLun7wl+xK3HCJhOLQQVHWUxvcFQ64b
+ QhG9wh0iO1e6q0cWhR8jxKskWoDKmQY7XtwfP8htDSuiVaiMQUZwfjxO5qn/6PjImu89
+ 61Vw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCViDJqukJSDZN+wFWWYV7LyvjMwh+gczMD+RQxXO2NhgvN/L2vHQZegr5lvLEt1TvHTU9Odqxj0BS77SqkebUAn58nJyY0N1Nx7kE+yJ7IW
+X-Gm-Message-State: AOJu0YwOmvoBjs9wBNt4qL/l4nOci6Lj0ZUFBrqX4M7UltvLSLdzxbOg
+ /stafJOTICjD25bZP96ze2AyjMepCs6xVaoELMjfeLyXUSO9hlft
+X-Google-Smtp-Source: AGHT+IG/qPbUHBENxg8B/NMPAY+Iva1zLONMjiTm2XMFQUb8yAin0rmXFmVqAKQdmhrKgGpK008ing==
+X-Received: by 2002:a05:6871:2218:b0:21e:e069:5852 with SMTP id
+ sc24-20020a056871221800b0021ee0695852mr4336776oab.55.1709695464513; 
+ Tue, 05 Mar 2024 19:24:24 -0800 (PST)
+Received: from kernel.. ([2402:e280:214c:86:d881:224e:f9c2:b24a])
+ by smtp.gmail.com with ESMTPSA id
+ s18-20020a056a0008d200b006e5af565b1dsm1824624pfu.201.2024.03.05.19.24.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Mar 2024 19:24:24 -0800 (PST)
+From: R SUNDAR <prosunofficial@gmail.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, rdunlap@infradead.org,
+ mario.limonciello@amd.com, mwen@igalia.com, swarupkotikalapudi@gmail.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, R SUNDAR <prosunofficial@gmail.com>
+Subject: [PATCH] Removed redundant @ symbol to fix kernel-doc warnings in
+ -next repo
+Date: Wed,  6 Mar 2024 08:54:14 +0530
+Message-Id: <20240306032414.18488-1-prosunofficial@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/13] drm: Fix reservation locking for pin/unpin and
- console
-Content-Language: en-US
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, mripard@kernel.org, maarten.lankhorst@linux.intel.com,
- christian.koenig@amd.com, sumit.semwal@linaro.org, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, suijingfeng@loongson.cn, kherbst@redhat.com,
- lyude@redhat.com, dakr@redhat.com, airlied@redhat.com, kraxel@redhat.com,
- alexander.deucher@amd.com, Xinhui.Pan@amd.com, zack.rusin@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20240227113853.8464-1-tzimmermann@suse.de>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20240227113853.8464-1-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 06 Mar 2024 08:15:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,82 +84,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/27/24 13:14, Thomas Zimmermann wrote:
-> Dma-buf locking semantics require the caller of pin and unpin to hold
-> the buffer's reservation lock. Fix DRM to adhere to the specs. This
-> enables to fix the locking in DRM's console emulation. Similar changes
-> for vmap and mmap have been posted at [1][2]
-> 
-> Most DRM drivers and memory managers acquire the buffer object's
-> reservation lock within their GEM pin and unpin callbacks. This
-> violates dma-buf locking semantics. We get away with it because PRIME
-> does not provide pin/unpin, but attach/detach, for which the locking
-> semantics is correct.
-> 
-> Patches 1 to 8 rework DRM GEM code in various implementations to
-> acquire the reservation lock when entering the pin and unpin callbacks.
-> This prepares them for the next patch. Drivers that are not affected
-> by these patches either don't acquire the reservation lock (amdgpu)
-> or don't need preparation (loongson).
-> 
-> Patch 9 moves reservation locking from the GEM pin/unpin callbacks
-> into drm_gem_pin() and drm_gem_unpin(). As PRIME uses these functions
-> internally it still gets the reservation lock.
-> 
-> With the updated GEM callbacks, the rest of the patchset fixes the
-> fbdev emulation's buffer locking. Fbdev emulation needs to keep its
-> GEM buffer object inplace while updating its content. This required
-> a implicit pinning and apparently amdgpu didn't do this at all.
-> 
-> Patch 10 introduces drm_client_buffer_vmap_local() and _vunmap_local().
-> The former function map a GEM buffer into the kernel's address space
-> with regular vmap operations, but keeps holding the reservation lock.
-> The _vunmap_local() helper undoes the vmap and releases the lock. The
-> updated GEM callbacks make this possible. Between the two calls, the
-> fbdev emulation can update the buffer content without have the buffer
-> moved or evicted. Update fbdev-generic to use vmap_local helpers,
-> which fix amdgpu. The idea of adding a "local vmap" has previously been
-> attempted at [3] in a different form.
-> 
-> Patch 11 adds implicit pinning to the DRM client's regular vmap
-> helper so that long-term vmap'ed buffers won't be evicted. This only
-> affects fbdev-dma, but GEM DMA helpers don't require pinning. So
-> there are no practical changes.
-> 
-> Patches 12 and 13 remove implicit pinning from the vmap and vunmap
-> operations in gem-vram and qxl. These pin operations are not supposed
-> to be part of vmap code, but were required to keep the buffers in place
-> for fbdev emulation. With the conversion o ffbdev-generic to to
-> vmap_local helpers, that code can finally be removed.
-> 
-> Tested with amdgpu, nouveau, radeon, simpledrm and vc4.
-> 
-> [1] https://patchwork.freedesktop.org/series/106371/
-> [2] https://patchwork.freedesktop.org/series/116001/
-> [3] https://patchwork.freedesktop.org/series/84732/
-> 
-> Thomas Zimmermann (13):
->   drm/gem-shmem: Acquire reservation lock in GEM pin/unpin callbacks
->   drm/gem-vram: Acquire reservation lock in GEM pin/unpin callbacks
->   drm/msm: Provide msm_gem_get_pages_locked()
->   drm/msm: Acquire reservation lock in GEM pin/unpin callback
->   drm/nouveau: Provide nouveau_bo_{pin,unpin}_locked()
->   drm/nouveau: Acquire reservation lock in GEM pin/unpin callbacks
->   drm/qxl: Provide qxl_bo_{pin,unpin}_locked()
->   drm/qxl: Acquire reservation lock in GEM pin/unpin callbacks
->   drm/gem: Acquire reservation lock in drm_gem_{pin/unpin}()
->   drm/fbdev-generic: Fix locking with drm_client_buffer_vmap_local()
->   drm/client: Pin vmap'ed GEM buffers
->   drm/gem-vram: Do not pin buffer objects for vmap
->   drm/qxl: Do not pin buffer objects for vmap
+For linux-next repository.
 
-The patches look good. I gave them fbtest on virtio-gpu, no problems
-spotted.
+./drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h:1: warning: no structured comments found
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:132: warning: Incorrect use of kernel-doc format:          * @@overlap_only: Whether overlapping of different planes is allowed.
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:132: warning: Incorrect use of kernel-doc format:          * @@overlap_only: Whether overlapping of different planes is allowed.
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:1: warning: no structured comments found
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:132: warning: Incorrect use of kernel-doc format:          * @@overlap_only: Whether overlapping of different planes is allowed.
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:162: warning: Function parameter or struct member 'pre_multiplied_alpha' not described in 'mpcc_blnd_cfg'
 
-Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Tested-by: Dmitry Osipenko <dmitry.osipenko@collabora.com> # virtio-gpu
+Signed-off-by: R SUNDAR <prosunofficial@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+index ba9b942ce09f..34a398f23fc6 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+@@ -110,9 +110,8 @@ struct mpcc_blnd_cfg {
+ 	 */
+ 	enum mpcc_alpha_blend_mode alpha_mode;
+ 
+-	/***
+-	 * @@pre_multiplied_alpha:
+-	 *
++	/**
++	 * @pre_multiplied_alpha:
+ 	 * Whether pixel color values were pre-multiplied by the alpha channel
+ 	 * (MPCC_ALPHA_MULTIPLIED_MODE).
+ 	 */
+@@ -129,7 +128,7 @@ struct mpcc_blnd_cfg {
+ 	int global_alpha;
+ 
+ 	/**
+-	 * @@overlap_only: Whether overlapping of different planes is allowed.
++	 * @overlap_only: Whether overlapping of different planes is allowed.
+ 	 */
+ 	bool overlap_only;
+ 
 -- 
-Best regards,
-Dmitry
+2.34.1
 
