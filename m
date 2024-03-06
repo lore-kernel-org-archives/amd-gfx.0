@@ -4,57 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10BF8C54798
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 02:40:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDBDBC54E58
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 03:08:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CA0A112E1E;
-	Wed,  6 Mar 2024 02:40:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B383112E4D;
+	Wed,  6 Mar 2024 03:08:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MZr+N44x";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4/tLpmv0";
 	dkim-atps=neutral
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32514112E1E;
- Wed,  6 Mar 2024 02:40:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1709692854;
- bh=mgOhO0IDZgLwsPvXZt6ogw3x+b9+CWMm5P2F9Ag7u7o=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=MZr+N44xWgYx/KeDYYxby6i5AzGFwBKGEf04A7jZxAjv/oiqSPM+Iac/PrkzORUkH
- A1WXgZKX3mcU8AvNMeimSYpUq9t+Juc6tBMXKanpqny19+fjNt1wAbIolq2ednOBDw
- tanlqsaUCXZnB1wseZjvY1ci9HHDWh3b5k5xvDYaV1PxT0tMOW9DklPtS7+xuMdDdG
- OjxOq2VbGWANCyPIMv2jX4XA0pChfI+Awtt/4eJr+aZkeUYEHzXwriZbtWCFwW466B
- MAgE7dgS0n1Wqkcs5dR+rnPHEJ1gCpsR2axSkhPy+RRHhGjmInK6oQcXWqffprHr2V
- nCXUY3ZHF6V3g==
-Received: from [100.66.96.193] (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: vignesh)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id F0AC53780624;
- Wed,  6 Mar 2024 02:40:51 +0000 (UTC)
-Message-ID: <ea5d08ef-a9bb-5102-4357-21dbae3462cd@collabora.com>
-Date: Wed, 6 Mar 2024 08:10:49 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v3 9/9] drm/ci: uprev IGT and update testlist
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2065.outbound.protection.outlook.com [40.107.223.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40152112E4D
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Mar 2024 03:08:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=c4QLfCyjVrixsSheD8wPP6ruoeoud8VfUph3JCdrP+KXZkVYW354TYJVxe0/pSRHwaRnhhYIRPDi3b+MByOAo8nS+FDFbbccCWcSQZmai5XR6t1d2qCF+SI7j51Ca2d2lQeaB3sqkBrbBodg1Doj0kSXr5HgS2fHxhBfsGXCg8j5ygqFk0N4hQ0KMKHbIHByRjkzXzkOD9MQDX9fdwI29ld4ewOq9DUelR/5k5GuNZKi+0GR2GXlAAWhKZLrOnoHRg6kJMXC74Bpo6jpr5DixowJsXHBQ+jQedAZ1aF7TIdT0/UgKPIqSvL12N5zPLPbWJLRXNAFrxBr1I4WaLqshg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=W6Wm0Q7qf5ivz+ApHSn/gW+jlQbM0Aq8/YJirHHZAkU=;
+ b=Hycv1uQwsEwhG9J/yLVQpXZXM1RMHM7tDgvv+GVwe4qaXdIrPpnQHqJXefmwQQ9peJgPFFoNEVWKMMxjmoNI4TccJWQBy8qD4L0zge7o9q2+a8F+3+GYaUwT1YVCHkYfB6KZjqmke+IEz7aQEkrmk9Zt4XHmZei6T88PZBJ71PF3rrVoQmZ0z11m2DGuFoOWrIgOqEf41FGSoBmWu47RQAe0i2ty9QkLO9SXtLkhzg59sOHvpA18xbyURVU+5VREiwe9GmoZT9a1+t7/ZKnAaYbYOIPSo60kaMmbN4QbPvBZz9NT678DHW+XYS4VpQV0GnF9SXIw5JthSyEFEgbSAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=W6Wm0Q7qf5ivz+ApHSn/gW+jlQbM0Aq8/YJirHHZAkU=;
+ b=4/tLpmv0b0CpDgQjUJOsucTZsRqOt0Z2ovqcc9/o5A5UuwX7fxpioGt+mlYmS4vuL0UhsksOz4L9muW95dbfwj8nuCXmF2eARcuo5uDjkB9gO7+jx6qlFWgIj/6x17quIeB67DPkamE5Q23oHQQI/VN99T8PKXmI+ugN1Wr+ScQ=
+Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
+ by DM4PR12MB6615.namprd12.prod.outlook.com (2603:10b6:8:8d::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7339.39; Wed, 6 Mar 2024 03:08:48 +0000
+Received: from PH7PR12MB5997.namprd12.prod.outlook.com
+ ([fe80::a1c6:58af:2578:8ff6]) by PH7PR12MB5997.namprd12.prod.outlook.com
+ ([fe80::a1c6:58af:2578:8ff6%4]) with mapi id 15.20.7339.035; Wed, 6 Mar 2024
+ 03:08:47 +0000
+From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 1/3] drm/amdgpu: add smu 14.0.1 support
+Thread-Topic: [PATCH 1/3] drm/amdgpu: add smu 14.0.1 support
+Thread-Index: AQHabxFTHO+ivYT3/ECuCwiyenTbPrEqCL6w
+Date: Wed, 6 Mar 2024 03:08:47 +0000
+Message-ID: <PH7PR12MB59975AA2DFDF97410C91CB9682212@PH7PR12MB5997.namprd12.prod.outlook.com>
+References: <20240305152446.1268829-1-alexander.deucher@amd.com>
+In-Reply-To: <20240305152446.1268829-1-alexander.deucher@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-From: Vignesh Raman <vignesh.raman@collabora.com>
-To: =?UTF-8?Q?Ma=c3=adra_Canal?= <mcanal@igalia.com>,
- dri-devel@lists.freedesktop.org
-Cc: linux-rockchip@lists.infradead.org, guilherme.gallo@collabora.com,
- sergi.blanch.torne@collabora.com, linux-kernel@vger.kernel.org,
- david.heidelberg@collabora.com, helen.koike@collabora.com,
- linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, linux-amlogic@lists.infradead.org, airlied@gmail.com
-References: <20240130150340.687871-1-vignesh.raman@collabora.com>
- <20240130150340.687871-10-vignesh.raman@collabora.com>
- <26f6426d-dcb6-4b14-b031-368b2248e9e7@igalia.com>
- <799653a3-e079-4e17-9d68-c0e384a216b0@igalia.com>
- <e1f56317-b70d-0b81-75f0-fef50616e026@collabora.com>
-In-Reply-To: <e1f56317-b70d-0b81-75f0-fef50616e026@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=4feeb0b9-3cea-4509-8014-c5be18aa0a65;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-03-06T03:07:36Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|DM4PR12MB6615:EE_
+x-ms-office365-filtering-correlation-id: 2b3c1f49-8c5e-4b68-4a57-08dc3d8abd62
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: eHx0jmYj4oeDwdr3q9L413iWghbqn42Sc7qT4h7JlCzdvdrWDDOtCmDeVrxsmBU3dV2sZuCtw/1Z7tz+GqbUXXdmMwAnXOpe8hJhteYNPbgy0DmnXkcvDr/17Ykt7AMDT/7yWafOO9Z0CoWvCDUi3LOBicXwoo9b+7GECaB3iLliOq+Ibwqy38eMJIQWjXaRMyUBx61D8nTi7L1992z+wnbJgVZrmR+8pD7UOHrJiVpUdckGS82oqghTpOIOpJhMvabgNUApI/xFVBh9aXxK+ST1rBG1Ofckt3c/kyy/LYfA9Ux3vm5c3eNIVjI5lGKQBkrnJVgDpN9SB+z5Funv9djQf66SMlsPFx/OrFSGVbBYTUQSxpCBP0WqqJqsEq8ai9QY8J2/qFXm3k+N5p2MIV9kc7YjSoBw9FJ3aR6znV9fe4Cks2zKBJB4CORwk814EdAowmjXP9U98vRxD2Ej9HdR+ioQk1X1gZu9Gq2HgRl414dPELebTTMgMxN/SZW2TTXxvrFJVsNWFD3fpwYB2G/8ykNBIscuPkFtxltJgMzvNyQAj7wQ6Bp98b5kmB/NAwx3EzLcFczDJ8P/ylENwr0yo3w/A8/R3+FNabntOH7dLTZlX2UUozl7Wk+k4Wjzsh2RIeqcbRcdoRaXsFnoc0uuvFEHR00Dzt1IerSw8191BSPwRn1fUSiQr4TxYOoVTRMpc4ylm6jcRZ5PhL/k4A==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?/f9aqVKF3kvCfnV8DsA9OoP2sMUr6jJtd6cDgGVsr2H2/zvkHh3BOogNJ7dg?=
+ =?us-ascii?Q?nDY6u1L4315pKG7kG41zY1f+XjHKfMtbvnwn1K6CsfpkeBXa9dqoGDZgosdC?=
+ =?us-ascii?Q?RsdNS+lb/5EJHI+plUCd+gSD+XOxCNZJADctFpr5zfvrG7aPK79JuLQQISFq?=
+ =?us-ascii?Q?IjcXxs4WwlBLY5xzi5gMHNGDqcvtb3F+VjiKMYQjcCFJDm9/CHR7NeWbl8CI?=
+ =?us-ascii?Q?bLVKlhOVfBJE9wQUDHxZ3wy/4u38in4c/4zeJTIWmPIs7/ymcfOsYhKYLWkn?=
+ =?us-ascii?Q?9wyty+6fnjjJhF8ml2TkleW5QK8nWzHS4z1qk39+wS4IgxQrcEygqkwzBgYg?=
+ =?us-ascii?Q?E/6OdF9yuqeik/FQWCpSlTysWBrK17ceF0F3QuxmmLoi2RMx9rjSCee1JKST?=
+ =?us-ascii?Q?2zAzaSDPTTvNo2AdpUOODsg5C9/lKx4UOzbHNOaGnS59jAel2QLrREYzKdit?=
+ =?us-ascii?Q?iXJtRW18dupPYLpycFAJJ1KFi6wSg40f7lU58msDkNinuNqsKx899gSFjLeQ?=
+ =?us-ascii?Q?TAGIgrdRsZINJfow2jOoG+GyiIRYi4Db/7an2BO/zi14RG3Nt834epAc2WQJ?=
+ =?us-ascii?Q?s3gshNhbeW11SQwyu+f9OPt5XKF0kkWDZTK87ECjxx0hFn0G2133U95SEj3D?=
+ =?us-ascii?Q?E3PT/ChqLuIDgzZCBnJvlQgiJFwdK/0el+cvJyiOdAeYDThIwhpPDoWL/S0Q?=
+ =?us-ascii?Q?ZaGCOKu8PHmA7iauSt8UUSHD7z6gDDwNB+Y0kmChUwqbVpbRF+YKXVHBWbcG?=
+ =?us-ascii?Q?6MN6Z/f1+DiJTiAvYVIuYaOhpGpCQdv9CBA+RkrPA44Z+NpOYm1Vptmi3nXP?=
+ =?us-ascii?Q?QTA61ZLldpvNZk9Y15JZiHbneDBvHI2y8xTIabUdpWTpg6cbLJOtD6lq0m49?=
+ =?us-ascii?Q?wPKqGay+3K60VQhAcIGprZ69+j2cz8yY9qDwEDpF34xfIQZypE3aXM5VB5KD?=
+ =?us-ascii?Q?iCX2ptOu4Jg1CjeNIY+ZiI5ivD3FAbWr+H8mWwnhhIuYYNXrD3TreYCBXU90?=
+ =?us-ascii?Q?ajJN4dxk7dXsFRw0FdSKQaKg5eX2nfEDFDrjqBy25jqHoBfeDW76/vB1Q9EA?=
+ =?us-ascii?Q?npL4jdvNRNhdTC73714zgVdkcmzfV9pf2o3jaywDOTJKKoE7ZfhBdGYBs0Ph?=
+ =?us-ascii?Q?PEtPrZ0x/KxuQ6J1hLL5Ny3HOADaF7vPCDLD1p+hSFuvtX/Kc65XjCfa0MSV?=
+ =?us-ascii?Q?k9yjCdaZ99BeJ6tSXfkHL1XWM51Mb0Vc7yFofXsXvk2FXglnhVkTnrTvpSyi?=
+ =?us-ascii?Q?cnRJmlP6OpiWy0AV5EIGXXBv+3pujcrPsrjM9KpMOTxb/YhLDajjTEqtfKYO?=
+ =?us-ascii?Q?NdvPBCXDn/wc3dZk+1ZB2nqqhNflPu3In5xitwM2epASOKT2BMqCcqRS452r?=
+ =?us-ascii?Q?fIQMD5ji32Bz0p/dEr9/WQ/dYaY3opGakzRiAHZUBH0eU1gZForUhWQRD2e9?=
+ =?us-ascii?Q?G5SLW45wRoWDEC1TYkxosOnYKaxSvRFbua0hx6vzre7hHs8Bbw3A/OaRcdIK?=
+ =?us-ascii?Q?voi4w3Qx3fdBP0Fsei/OgzwhJTTxEK6ahN3FDauwnmt75QrWJawd33biQsRe?=
+ =?us-ascii?Q?DpidmxpuftdXvChyR9o=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b3c1f49-8c5e-4b68-4a57-08dc3d8abd62
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Mar 2024 03:08:47.1546 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VC0RSm1xAd/jyX9vzREk0m1CnqmSIqtTlyp6ex77HpAiCP3t+pz6K5g9+cjGtiSb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6615
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,86 +129,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Maíra,
+[AMD Official Use Only - General]
 
-On 19/02/24 14:22, Vignesh Raman wrote:
-> Hi Maíra,
-> 
-> On 10/02/24 23:50, Maíra Canal wrote:
->> On 2/10/24 15:17, Maíra Canal wrote:
->>> On 1/30/24 12:03, Vignesh Raman wrote:
->>>> Uprev IGT and add amd, v3d, vc4 and vgem specific
->>>> tests to testlist. Have testlist.txt per driver
->>>> and include a base testlist so that the driver
->>>> specific tests will run only on those hardware.
->>>>
->>>> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
->>>> ---
->>>>
->>>> v3:
->>>>    - New patch in series to uprev IGT and update testlist.
->>>>
->>>> ---
->>>>   drivers/gpu/drm/ci/gitlab-ci.yml              |   2 +-
->>>>   drivers/gpu/drm/ci/igt_runner.sh              |  12 +-
->>>>   drivers/gpu/drm/ci/testlist-amdgpu.txt        | 151 
->>>> ++++++++++++++++++
->>>>   drivers/gpu/drm/ci/testlist-msm.txt           |  50 ++++++
->>>>   drivers/gpu/drm/ci/testlist-panfrost.txt      |  17 ++
->>>>   drivers/gpu/drm/ci/testlist-v3d.txt           |  73 +++++++++
->>>>   drivers/gpu/drm/ci/testlist-vc4.txt           |  49 ++++++
->>>>   drivers/gpu/drm/ci/testlist.txt               | 100 ++++--------
->>>>   .../gpu/drm/ci/xfails/amdgpu-stoney-fails.txt |  24 ++-
->>>>   .../drm/ci/xfails/amdgpu-stoney-flakes.txt    |   9 +-
->>>>   .../gpu/drm/ci/xfails/amdgpu-stoney-skips.txt |  10 +-
->>>>   11 files changed, 427 insertions(+), 70 deletions(-)
->>>>   create mode 100644 drivers/gpu/drm/ci/testlist-amdgpu.txt
->>>>   create mode 100644 drivers/gpu/drm/ci/testlist-msm.txt
->>>>   create mode 100644 drivers/gpu/drm/ci/testlist-panfrost.txt
->>>>   create mode 100644 drivers/gpu/drm/ci/testlist-v3d.txt
->>>>   create mode 100644 drivers/gpu/drm/ci/testlist-vc4.txt
->>>>
->>>> diff --git a/drivers/gpu/drm/ci/gitlab-ci.yml 
->>>> b/drivers/gpu/drm/ci/gitlab-ci.yml
->>>> index bc8cb3420476..e2b021616a8e 100644
->>>> --- a/drivers/gpu/drm/ci/gitlab-ci.yml
->>>> +++ b/drivers/gpu/drm/ci/gitlab-ci.yml
->>>> @@ -5,7 +5,7 @@ variables:
->>>>     UPSTREAM_REPO: git://anongit.freedesktop.org/drm/drm
->>>>     TARGET_BRANCH: drm-next
->>>> -  IGT_VERSION: d2af13d9f5be5ce23d996e4afd3e45990f5ab977
->>>> +  IGT_VERSION: b0cc8160ebdc87ce08b7fd83bb3c99ff7a4d8610
->>>>     DEQP_RUNNER_GIT_URL: 
->>>> https://gitlab.freedesktop.org/anholt/deqp-runner.git
->>>>     DEQP_RUNNER_GIT_TAG: v0.15.0
->>>> diff --git a/drivers/gpu/drm/ci/igt_runner.sh 
->>>> b/drivers/gpu/drm/ci/igt_runner.sh
->>>> index f001e015d135..2fd09b9b7cf6 100755
->>>> --- a/drivers/gpu/drm/ci/igt_runner.sh
->>>> +++ b/drivers/gpu/drm/ci/igt_runner.sh
->>>> @@ -64,10 +64,20 @@ if ! grep -q "core_getversion" 
->>>> /install/testlist.txt; then
->>>>   fi
->>>>   set +e
->>>> +if [ "$DRIVER_NAME" = "amdgpu" ]; then
->>>> +    TEST_LIST="/install/testlist-amdgpu.txt"
->>>> +elif [ "$DRIVER_NAME" = "msm" ]; then
->>>> +    TEST_LIST="/install/testlist-msm.txt"
->>>> +elif [ "$DRIVER_NAME" = "panfrost" ]; then
->>>> +    TEST_LIST="/install/testlist-panfrost.txt"
->>>> +else
->>>> +    TEST_LIST="/install/testlist.txt"
->>>> +fi
->>>> +
->>>
->>> Isn't V3D and VC4 testlists missing?
-> 
-> Yes. We need to add ci jobs to test v3d/vc4. The initial idea was just 
-> to split the testlist per driver and add vc4/v3d tests so that it can be 
-> used in future. I will add the jobs as part of v4.
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deu=
+cher
+Sent: Tuesday, March 5, 2024 11:25 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Yifan <Yifan1.Zhang@amd.com>; Deucher, Alexander <Alexander.Deuc=
+her@amd.com>
+Subject: [PATCH 1/3] drm/amdgpu: add smu 14.0.1 support
 
-To include RPi jobs, we need to tweak mesa-ci to pass kernel and dtb and 
-update mesa-ci in drm-ci. So will send this as a seperate patch/series.
+From: Yifan Zhang <yifan1.zhang@amd.com>
 
-Regards,
-Vignesh
+This patch to add smu 14.0.1 support.
+
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c      | 2 ++
+ drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c | 5 +++++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
+d/pm/swsmu/amdgpu_smu.c
+index eedb9a4f7e2d6..246b211b1e85f 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -712,6 +712,7 @@ static int smu_set_funcs(struct amdgpu_device *adev)
+                smu_v13_0_7_set_ppt_funcs(smu);
+                break;
+        case IP_VERSION(14, 0, 0):
++       case IP_VERSION(14, 0, 1):
+                smu_v14_0_0_set_ppt_funcs(smu);
+                break;
+        default:
+@@ -1895,6 +1896,7 @@ static int smu_disable_dpms(struct smu_context *smu)
+                case IP_VERSION(13, 0, 4):
+                case IP_VERSION(13, 0, 11):
+                case IP_VERSION(14, 0, 0):
++               case IP_VERSION(14, 0, 1):
+                        return 0;
+                default:
+                        break;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/d=
+rm/amd/pm/swsmu/smu14/smu_v14_0.c
+index 7ac9bc0df8fd7..a65c618c2f98e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+@@ -231,6 +231,10 @@ int smu_v14_0_check_fw_version(struct smu_context *smu=
+)
+        case IP_VERSION(14, 0, 0):
+                smu->smc_driver_if_version =3D SMU14_DRIVER_IF_VERSION_SMU_=
+V14_0_0;
+                break;
++       case IP_VERSION(14, 0, 1):
++               smu->smc_driver_if_version =3D SMU14_DRIVER_IF_VERSION_SMU_=
+V14_0_0;
++               break;
+[kevin]:
+
+There is a typo or share the same version with 14.0.0 ?
+
+Best Regards,
+Kevin
++
+        default:
+                dev_err(adev->dev, "smu unsupported IP version: 0x%x.\n",
+                        amdgpu_ip_version(adev, MP1_HWIP, 0)); @@ -734,6 +7=
+38,7 @@ int smu_v14_0_gfx_off_control(struct smu_context *smu, bool enable)
+        switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+        case IP_VERSION(14, 0, 2):
+        case IP_VERSION(14, 0, 0):
++       case IP_VERSION(14, 0, 1):
+                if (!(adev->pm.pp_feature & PP_GFXOFF_MASK))
+                        return 0;
+                if (enable)
+--
+2.44.0
+
