@@ -4,71 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 245ADC54E41
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 18:07:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6846BC5475B
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 18:19:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73CBC1133D2;
-	Wed,  6 Mar 2024 18:07:24 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="agkDsmsB";
-	dkim-atps=neutral
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
- [209.85.167.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 020E01133D2;
- Wed,  6 Mar 2024 18:07:23 +0000 (UTC)
-Received: by mail-oi1-f177.google.com with SMTP id
- 5614622812f47-3c19aaedfdaso4386595b6e.2; 
- Wed, 06 Mar 2024 10:07:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709748443; x=1710353243; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mQwUmBSggnRD0pcG/xZbZRZTuuiVEi9qcHO+7tcjts0=;
- b=agkDsmsB9S+Jtt37PkiMIy1Rc4gMIlJPUQl0ffwCxkfQA5lBvYiKmsHo+tU8c/ErAC
- zUPowVlQvOBPX2A35HaMS6bhibv0xnoENqxX6jTYh1m/x3xIDsNWBod85PfZKb88uvv2
- WasZ/aC/b2zPj+ZQA9kWeJiMeKS6aaK3sMR6lQjJozn8XTlSEDSOMC39LteMsRhyrWgC
- QnHdJjXSVHtznrDtNRWM8iNZ4sFOOUYUXKHDVijxs4Mmp8tT6/vO7/UL4ci+0aWfaSG9
- B5rI6ZyY0MGakBqEDUT6+ha9lkaGWSTDquOrxLB9GKcOAefyccT5ByFR1WyVOh9LyhZC
- 814w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709748443; x=1710353243;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mQwUmBSggnRD0pcG/xZbZRZTuuiVEi9qcHO+7tcjts0=;
- b=OBHLuwZ/7/KbF7BXUgvzupqRaaaxVv3MnstTyR4rH05hUIL1PMrlMdzW/GdZrcKO8b
- iYrGWaDaA0dU22eEm25Zw9vuiRPXcbHn69L/HnuzyRB0FdDD+X2S9WygbGxXBfEJ7BEv
- uVhMGsI3Pxfehtqj9yeYhwHLlPn2B9V3ixtiyf/zo7ijGQJxSZiFS5cF1sUsNdNmkat0
- cv42ijPdNzQcJLU6t/nTd0bB30Cdgqq7eNvmeYYJsrEaUgVXYl5EqydUdmEys1f/iZS4
- 4o52FCtQfRyOForzwm4Qc/jb6mBzbah8SmpeEqZB94LVgGSmaUNSu/myVcfr8RpbE0rX
- zh5A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV7Uok6D0n3croMk6lRIRS84qBHylBvJUtWSx2ePwlYcAUpT7jAKroVvCVUmrWAawoR2kKO3N0FP8hLl0SE173B6zyc+Kizav0v2JBfKe+j4a+1RNpesvz14lReRu+TLZKsmI20egDjn/dWm+uoLQ==
-X-Gm-Message-State: AOJu0Yx49ornVK1n3jgTlcZA98EXXFcaiRDlsxthUWMMXGCHNUr5ftNY
- /GH7vaLtiUgrTzwkE/5N4G6OtTbe9dU2PXspO4Ry007TXo6OsVt9TJKqzgssIPyXCwG2xhQKrC/
- 9kMMjewx+4BtS1t1IA2iEHaTECKU=
-X-Google-Smtp-Source: AGHT+IGPrOh7Nxf2XCNqNWJRrgy482/ux2E59iFt0t+DK4BrB5tNqimAy468jOtXO5UB4zF2DYDQvfbz5R4CL5EqVyY=
-X-Received: by 2002:a05:6808:2985:b0:3c2:1f27:832c with SMTP id
- ex5-20020a056808298500b003c21f27832cmr1561706oib.1.1709748442874; Wed, 06 Mar
- 2024 10:07:22 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F40CB10EFFA;
+	Wed,  6 Mar 2024 18:19:46 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4995910EA44;
+ Wed,  6 Mar 2024 18:19:44 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
+ 426IJdCc3551676; Wed, 6 Mar 2024 23:49:39 +0530
+Received: (from sunil@localhost)
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 426IJdIe3551675;
+ Wed, 6 Mar 2024 23:49:39 +0530
+From: Sunil Khatri <sunil.khatri@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Mukul Joshi <mukul.joshi@amd.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>
+Subject: [PATCH] drm/amdgpu: cache in more vm fault information
+Date: Wed,  6 Mar 2024 23:49:36 +0530
+Message-Id: <20240306181937.3551648-1-sunil.khatri@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240306032414.18488-1-prosunofficial@gmail.com>
-In-Reply-To: <20240306032414.18488-1-prosunofficial@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 6 Mar 2024 13:07:09 -0500
-Message-ID: <CADnq5_Nnx47dQCCyWrx9sNExFjZAOR=qt+nPdN0cqj1zyRLYRg@mail.gmail.com>
-Subject: Re: [PATCH] Removed redundant @ symbol to fix kernel-doc warnings in
- -next repo
-To: R SUNDAR <prosunofficial@gmail.com>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
- airlied@gmail.com, daniel@ffwll.ch, rdunlap@infradead.org, 
- mario.limonciello@amd.com, mwen@igalia.com, swarupkotikalapudi@gmail.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,68 +46,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixed up patch title prefix and applied.
+When an  page fault interrupt is raised there
+is a lot more information that is useful for
+developers to analyse the pagefault.
 
-Thanks!
+Add all such information in the last cached
+pagefault from an interrupt handler.
 
-Alex
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 9 +++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 7 ++++++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 2 +-
+ 7 files changed, 18 insertions(+), 8 deletions(-)
 
-On Tue, Mar 5, 2024 at 10:48=E2=80=AFPM R SUNDAR <prosunofficial@gmail.com>=
- wrote:
->
-> For linux-next repository.
->
-> ./drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h:1: warning: no structured =
-comments found
-> ./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:132: warning: Incorrect use=
- of kernel-doc format:          * @@overlap_only: Whether overlapping of di=
-fferent planes is allowed.
-> ./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:132: warning: Incorrect use=
- of kernel-doc format:          * @@overlap_only: Whether overlapping of di=
-fferent planes is allowed.
-> ./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:1: warning: no structured c=
-omments found
-> ./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:132: warning: Incorrect use=
- of kernel-doc format:          * @@overlap_only: Whether overlapping of di=
-fferent planes is allowed.
-> ./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:162: warning: Function para=
-meter or struct member 'pre_multiplied_alpha' not described in 'mpcc_blnd_c=
-fg'
->
-> Signed-off-by: R SUNDAR <prosunofficial@gmail.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/dr=
-m/amd/display/dc/inc/hw/mpc.h
-> index ba9b942ce09f..34a398f23fc6 100644
-> --- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-> +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-> @@ -110,9 +110,8 @@ struct mpcc_blnd_cfg {
->          */
->         enum mpcc_alpha_blend_mode alpha_mode;
->
-> -       /***
-> -        * @@pre_multiplied_alpha:
-> -        *
-> +       /**
-> +        * @pre_multiplied_alpha:
->          * Whether pixel color values were pre-multiplied by the alpha ch=
-annel
->          * (MPCC_ALPHA_MULTIPLIED_MODE).
->          */
-> @@ -129,7 +128,7 @@ struct mpcc_blnd_cfg {
->         int global_alpha;
->
->         /**
-> -        * @@overlap_only: Whether overlapping of different planes is all=
-owed.
-> +        * @overlap_only: Whether overlapping of different planes is allo=
-wed.
->          */
->         bool overlap_only;
->
-> --
-> 2.34.1
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 4299ce386322..b77e8e28769d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2905,7 +2905,7 @@ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m)
+  * Cache the fault info for later use by userspace in debugging.
+  */
+ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
+-				  unsigned int pasid,
++				  struct amdgpu_iv_entry *entry,
+ 				  uint64_t addr,
+ 				  uint32_t status,
+ 				  unsigned int vmhub)
+@@ -2915,7 +2915,7 @@ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
+ 
+ 	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
+ 
+-	vm = xa_load(&adev->vm_manager.pasids, pasid);
++	vm = xa_load(&adev->vm_manager.pasids, entry->pasid);
+ 	/* Don't update the fault cache if status is 0.  In the multiple
+ 	 * fault case, subsequent faults will return a 0 status which is
+ 	 * useless for userspace and replaces the useful fault status, so
+@@ -2924,6 +2924,11 @@ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
+ 	if (vm && status) {
+ 		vm->fault_info.addr = addr;
+ 		vm->fault_info.status = status;
++		vm->fault_info.client_id = entry->client_id;
++		vm->fault_info.src_id = entry->src_id;
++		vm->fault_info.vmid = entry->vmid;
++		vm->fault_info.pasid = entry->pasid;
++		vm->fault_info.ring_id = entry->ring_id;
+ 		if (AMDGPU_IS_GFXHUB(vmhub)) {
+ 			vm->fault_info.vmhub = AMDGPU_VMHUB_TYPE_GFX;
+ 			vm->fault_info.vmhub |=
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 047ec1930d12..c7782a89bdb5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -286,6 +286,11 @@ struct amdgpu_vm_fault_info {
+ 	uint32_t	status;
+ 	/* which vmhub? gfxhub, mmhub, etc. */
+ 	unsigned int	vmhub;
++	unsigned int	client_id;
++	unsigned int	src_id;
++	unsigned int	ring_id;
++	unsigned int	pasid;
++	unsigned int	vmid;
+ };
+ 
+ struct amdgpu_vm {
+@@ -605,7 +610,7 @@ static inline void amdgpu_vm_eviction_unlock(struct amdgpu_vm *vm)
+ }
+ 
+ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
+-				  unsigned int pasid,
++				  struct amdgpu_iv_entry *entry,
+ 				  uint64_t addr,
+ 				  uint32_t status,
+ 				  unsigned int vmhub);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index d933e19e0cf5..6b177ce8db0e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -150,7 +150,7 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
+ 		status = RREG32(hub->vm_l2_pro_fault_status);
+ 		WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
+ 
+-		amdgpu_vm_update_fault_cache(adev, entry->pasid, addr, status,
++		amdgpu_vm_update_fault_cache(adev, entry, addr, status,
+ 					     entry->vmid_src ? AMDGPU_MMHUB0(0) : AMDGPU_GFXHUB(0));
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index 527dc917e049..bcf254856a3e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -121,7 +121,7 @@ static int gmc_v11_0_process_interrupt(struct amdgpu_device *adev,
+ 		status = RREG32(hub->vm_l2_pro_fault_status);
+ 		WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
+ 
+-		amdgpu_vm_update_fault_cache(adev, entry->pasid, addr, status,
++		amdgpu_vm_update_fault_cache(adev, entry, addr, status,
+ 					     entry->vmid_src ? AMDGPU_MMHUB0(0) : AMDGPU_GFXHUB(0));
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index 3da7b6a2b00d..e9517ebbe1fd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -1270,7 +1270,7 @@ static int gmc_v7_0_process_interrupt(struct amdgpu_device *adev,
+ 	if (!addr && !status)
+ 		return 0;
+ 
+-	amdgpu_vm_update_fault_cache(adev, entry->pasid,
++	amdgpu_vm_update_fault_cache(adev, entry,
+ 				     ((u64)addr) << AMDGPU_GPU_PAGE_SHIFT, status, AMDGPU_GFXHUB(0));
+ 
+ 	if (amdgpu_vm_fault_stop == AMDGPU_VM_FAULT_STOP_FIRST)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index d20e5f20ee31..a271bf832312 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -1438,7 +1438,7 @@ static int gmc_v8_0_process_interrupt(struct amdgpu_device *adev,
+ 	if (!addr && !status)
+ 		return 0;
+ 
+-	amdgpu_vm_update_fault_cache(adev, entry->pasid,
++	amdgpu_vm_update_fault_cache(adev, entry,
+ 				     ((u64)addr) << AMDGPU_GPU_PAGE_SHIFT, status, AMDGPU_GFXHUB(0));
+ 
+ 	if (amdgpu_vm_fault_stop == AMDGPU_VM_FAULT_STOP_FIRST)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 47b63a4ce68b..dc9fb1fb9540 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -666,7 +666,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
+ 	rw = REG_GET_FIELD(status, VM_L2_PROTECTION_FAULT_STATUS, RW);
+ 	WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
+ 
+-	amdgpu_vm_update_fault_cache(adev, entry->pasid, addr, status, vmhub);
++	amdgpu_vm_update_fault_cache(adev, entry, addr, status, vmhub);
+ 
+ 	dev_err(adev->dev,
+ 		"VM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
+-- 
+2.34.1
+
