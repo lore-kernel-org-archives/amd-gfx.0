@@ -4,57 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B397C5475B
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 17:49:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D143C54E41
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Mar 2024 18:02:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99BC0112EBF;
-	Wed,  6 Mar 2024 17:49:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C15701133CB;
+	Wed,  6 Mar 2024 18:02:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JiUpWgd5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HqNC6PEo";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C985310F2FE;
- Wed,  6 Mar 2024 17:49:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1709747381; x=1741283381;
- h=message-id:date:mime-version:from:subject:to:cc:
- references:in-reply-to:content-transfer-encoding;
- bh=sjecjSSKS3aiqmdnhNd979n1T3xseaaV5Qc/E13dArw=;
- b=JiUpWgd5Dz3PaU7gcK7XTqnsObcOAFB6AmPBWtTH+ee2ngUmH9614oV0
- BHfnX0ZxOmjtXCKntQpAzJYgzRg2EhQhYxkZ4Zd/Z10tb1L9iDkc/Y3i6
- MHrNNSNXpgw0H8FtqX0rvJbbv/Y5qPGMPLqNgsnulc3TiwWukHv8eFFFz
- Ny6BPklE+KTr1JnZMC9JGVUMZ+AhrfWjH2Abb1RC3I6R/loB9x3HuaeWt
- 8tSKnJGSyNSTY5fbjJgbPE7Qa/YmdkwtDII2Eqctzrw6WOt9mJy+FU5fY
- kdHOXqTAVZAkRFFLoC+YnBWCXFgEHh3m4HB0YcuMLe1iyDtcldR+M16CD Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11005"; a="4234009"
-X-IronPort-AV: E=Sophos;i="6.06,209,1705392000"; 
-   d="scan'208";a="4234009"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2024 09:49:40 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,209,1705392000"; d="scan'208";a="14476158"
-Received: from dawidzix-mobl1.ger.corp.intel.com (HELO [10.249.140.92])
- ([10.249.140.92])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2024 09:49:38 -0800
-Message-ID: <fe992d24-f789-4659-8903-feef0154ed8d@intel.com>
-Date: Wed, 6 Mar 2024 17:49:34 +0000
-MIME-Version: 1.0
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2042.outbound.protection.outlook.com [40.107.93.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57F181133C6;
+ Wed,  6 Mar 2024 18:02:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZmUBZV6tDUhvz93eTClhYbAeerpc9VU/G6zzpzffuFKaX0eQCXPiPvcir+cCbDgeWvgomj83hBBH2kNrcW2sEfawOY49ir9yV6+hIxYHZyigXGo/oKtOFTsi2L9LP/y5QbTMhShDpLoi74OTo4u/3gqUTHu0ENl/cq4+FKeV0xuGYI983F7X9Y9CBs2e62OJVvagDYBS9AmrUgmSh24GAyJ9lhwrnoGn9Se/wvJ5o0cpNdAqPGgThv4YfwjgQFfd1h0IU+TOvkotS4spngleXXLMa30mrwOfKzduu2UW/OOjNUxy+JDQWPsuNIvLuRQH9NocAP6/hkU/eEMVggescA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E8Y3aveE3HRFSeCGl42/ZXnYZFCUd04RKxV5QFY4mUM=;
+ b=mLvaGudwmieUlbo0IEZ6MbiOurJ0dWz3+iyYIb11WE5F0pF9NVjncPCIDo3Y3wiyTGqzzZ5+aZOkXdWjOV9YT7EoH+GeGzGxowSBCaKK8ZmLprGwQmEmjZK3GilLleuY+nskZxTxLlkw5Fm4yRGEA7rTEDCfUcIf0+Lj6ZRz09soVgexoskBMx0on30nXFDQR7N01vf+vtRbftXCP8wraeh/NIQkIk9CEXr/kCqals/R/CVWWkNDODQYCK93xBLfsQhHxM9MaMvG9Qiup2WF8zN34uSKB6vFvgzMBhYYxKee6DTc8PsAswenGddVb13r8deuJQN4YCy2FKRZD1r0xA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E8Y3aveE3HRFSeCGl42/ZXnYZFCUd04RKxV5QFY4mUM=;
+ b=HqNC6PEoM5DhkOx/HHaFzra6fzrCmWdkXJuIXQUH/3BSHVJuDpyzYcdPQFkykFhD93ncOVkpm9+mdoYa7+1oa658NEsMaPC48HMDrBaE2UbNtRxebUI9vqL/Cg54PyaFhCm/Shre9DDJZAOzN/3H+ZMRIgjX02LIENzh4vnUtpI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by LV2PR12MB5752.namprd12.prod.outlook.com (2603:10b6:408:177::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.39; Wed, 6 Mar
+ 2024 18:02:54 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::dcf1:946c:3879:5765]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::dcf1:946c:3879:5765%4]) with mapi id 15.20.7339.035; Wed, 6 Mar 2024
+ 18:02:54 +0000
+Message-ID: <1ce952e9-ba06-4b02-83d0-107df0e4d13c@amd.com>
+Date: Wed, 6 Mar 2024 12:02:52 -0600
 User-Agent: Mozilla Thunderbird
-From: Matthew Auld <matthew.auld@intel.com>
-Subject: Re: [PATCH v8 1/3] drm/buddy: Implement tracking clear page feature
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
- felix.kuehling@amd.com, mario.limonciello@amd.com
-References: <20240304163220.3093-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-GB
-In-Reply-To: <20240304163220.3093-1-Arunpravin.PaneerSelvam@amd.com>
+Subject: Re: [PATCH] drm/amd: Drop abm_level property
+Content-Language: en-US
+To: Xaver Hugl <xaver.hugl@kde.org>
+Cc: Hamza.Mahfooz@amd.com, Harry.Wentland@amd.com, Sunpeng.Li@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Pekka Paalanen <pekka.paalanen@collabora.com>
+References: <2333702.irdbgypaU6@xavers-framework>
+ <e046ff23-8dd8-43ce-8249-c42d0bff7f5f@amd.com>
+ <CAFZQkGyHo8wWXhQYeSm+F37unvfE6O2USiNu5RVu5Zq+EudQmQ@mail.gmail.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <CAFZQkGyHo8wWXhQYeSm+F37unvfE6O2USiNu5RVu5Zq+EudQmQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SA0PR11CA0045.namprd11.prod.outlook.com
+ (2603:10b6:806:d0::20) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|LV2PR12MB5752:EE_
+X-MS-Office365-Filtering-Correlation-Id: 289c93f6-8adb-4f85-5506-08dc3e07a569
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: GLt//YJE7vw3utECkjux8sjca3+7lo8IjJWkOHJkcLJW03h3AA7g8K5lKkquwPX34f596Qn0zxVjXAqpYGYgCGc4cyEXjp4wXcTr8831RZygD15WGe6u7v4xYD/Z46qVQVhj/f8loxh6OfqyQVkLTvk23Aw5b+hcl8THpcnMC6rnqClwPXxgKRyk8uQ2jq5E8SmlaH9OO0dgy6rvcrnlUklPKhdoMvOfGJ/to2hzUpPiswSghkmGfRNMxOdcB4KKo+XPYNR71aOdCM5EWBohBQjNVgxZKq4BHbhK5vykk/cz5ZnPgBCtYYcRfrRzWeTEtpXSV5BlKAZefHtp0IFuNuYe3rJ/w+sxpEveR4F+1Vl2wwkdpJU8boR6Q+7anAO1CmzuLSGeDWC3gD09FjQf+pSb4TLkDHqqKy3Vx9WtjZbQWcMmsDBY984CXYhbLZHrS+GoYy2a9HIzqBdUkLT2AHIejtaKkGKPYQW2/a6MVF4cEXVofG2V3MxZwsA5Cl2IIiKsBnGPy1EjFQzLQjJy9cinseZmaK1NXYQNNb6NsvYSB8ZqmLLHqqmW7bjGdqgiTQycuQLvUwGNueKOt7PErg0wNYgHZ29W28XzwrnkrwelkmayUrklIGaKXugyJGXOEWlCraoXtc1gZyQh6pHDZyiPBDuHk32HfOKEdWZiRU8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZVA5RE5rV0hLR25ZSXA4WGxSa2dLN3FJYW1ibzR2L2JvbUIxT3N4U2JtVENR?=
+ =?utf-8?B?UmZLSmt2cFJMZzdDQWRncndJeENRZmVIenErTG1IVFp6ZVMrck5weXJ4TktD?=
+ =?utf-8?B?QTd3UDZtNXRrZUZLam9LK3lUTys3Yi93YUtxcmFVdGozR0h6SEhkZUI1M24x?=
+ =?utf-8?B?M002OG1mK2x4emk4dlJBZGFuNzIzeVVXK2d0MVJHMnd2SkNRczIzTTV3bDlE?=
+ =?utf-8?B?UUs1cll3eTQ1bnkzYXh4UUJlK1BTOEMwcjhWNTFIenpiUFdhTjE0blNSQnd5?=
+ =?utf-8?B?d2VsNExpSDcrL1p0bXMya2wrdXBiTk53RXREdENBZERIWERGUUZQUTd2ejVM?=
+ =?utf-8?B?TlhhN1VUWllVcTViVjdqYi9KTDdkVk91N2R6TDZmZ3hrSUdyeWhsRkxVbU1J?=
+ =?utf-8?B?eGE2RGFSWGoveHBMTHpYbkVjRmFMK1VBdk1TNng0UVIxUTVxTk54UmIwaXlO?=
+ =?utf-8?B?U1BlN0hSeW9rci9oY2hyZFdLQy96cUk5M2ZBWkdMOWs4OCtuQlhVM1BmbDlP?=
+ =?utf-8?B?VTRVVStLVzJVUUU3RFNvSG1VUDlaTWF6OTZIM2wwL1VKSHQvT3YvbUJHRCs2?=
+ =?utf-8?B?WjdscmpKR1UvYlZBSjBPSzNrcU1YVWhtK1RIdnN4Mk5NdC9uVjRjOFhYSXMv?=
+ =?utf-8?B?ZS9rQW00VngzNmt3VkExOTJrSmkxRFFKNzBVZlpURWV0Kzg4SVYwNGwrRzg3?=
+ =?utf-8?B?TUV2c0Y1aDE0RUljTUpsRkVBcXdtOXd2TDhadGllZVh5b3c3R1Q4Q045M0Rk?=
+ =?utf-8?B?UEhHNTRsU2lWcklFdCswZ01wNjlpY25XbllHS0cxQVRQRVFISitSTENvM2hm?=
+ =?utf-8?B?UHB3Wnpjd2ZvUWJuL3laQmNvRXBaZHVMSmtzWTkwa2hiU1pEUERTOXZNTHJ5?=
+ =?utf-8?B?UGNONWZuMDVXR2hzR3NNbnhwMmtBOGdOQSs2c0ZIRlJWUHpmSEYxWVJNR1k4?=
+ =?utf-8?B?TG9xa1FqaE9SVnNHVldvaG9xeGd4cU5NUjMzRHF0aFJKaC93Ymg4Qk54bXhz?=
+ =?utf-8?B?YnZ3bCtOZzQyNS9JY3RXc0RBT1o4QnRZZzlLY1M2OEpZdXpqcGdjaXpWS3ph?=
+ =?utf-8?B?cXhjT3pIUW5TaWM1TWo1dGxvc3hGTFJLV3ZCRTdreFNtVFlPZllkVmc0bkgx?=
+ =?utf-8?B?bG1Rd1VWVlp3TWJnY1lrd3ZLeGwxdnV4VnhxWnh1VkVPY0pMV3hPUFBFbEkr?=
+ =?utf-8?B?S2NHUzhzZnhrc3Q0WndJa0IvbGpFL1d5dHAxdTlsZWphWmVqNlhtWmIwTjhp?=
+ =?utf-8?B?L0l1eXBwdXh6VjVWMFpaa0oxT0FkOXFnMnhUd204c0RPRENuTG9uOEtDeXZB?=
+ =?utf-8?B?dDRJaDJicGZuM0FHS2tCNC9oampKcEJJbjJKMTlVSVlQQWpqQlc5L2kyeURi?=
+ =?utf-8?B?YXF6MndDa3dNUXVQcjhMdmp5SUNuNW5JczJweTluRVcvQkdlOW1sZW0wU0o3?=
+ =?utf-8?B?QXJCaDJvaWV6YmdRY3ZqdlRpSkNRWVZYSEMvS1dIVmFQcE1HSnV3a2x6YjRY?=
+ =?utf-8?B?SmU0bHBiVnBrNjFhTm9WMnlieTlEWXEweTNrNEFaUkV6RjFzSm5hVEtnZFZh?=
+ =?utf-8?B?TGNhREJObjlHVUxTNFQySURuUFBkdG5kSUd0MUtsTmtpcGYwaEpLN3YwaDR5?=
+ =?utf-8?B?NmE1aktoclNhWGp6RWd0dTkwYmZIeVNOcTBnS2FVOHdRUjZQVVd1eEVjaU5m?=
+ =?utf-8?B?Z1ZiT3hLcVR3VHZldGFrcm5qc0djZTNPbGN3Njdzd0M5QWtheklRSVErU2tX?=
+ =?utf-8?B?alJJZDJDNSttT1FubWRzeU1WVFppeW0xRTRYeGozUXBEQmMrTFBucHNtdWxm?=
+ =?utf-8?B?dlhma1RZSFJlc2pzWXBhdnMxV2VxK2FtRlFxZHYwTk41dDlzVGFGN1NTRGVv?=
+ =?utf-8?B?VmV6NXlSemg1K1dqY2tSV1hzcldIR0NTTmpHOFFaZzhQekxyMU9nTHBCVU9u?=
+ =?utf-8?B?WjY2SjFXZkdRc0VJamtCZEQrMlZ3eHpmbFY3M1VDMzJEaHEzNnpKNXllcm4z?=
+ =?utf-8?B?dlBhdHZWWm5NMDRWTktob0tsSmRCaGx6N2dVNElBRHA3RDZnMk52emVNTkk4?=
+ =?utf-8?B?VmV6cFR2SUxHODVNTnFsbjAyblZlbWNIR290dzlTNFd3REVaSGxJRWRmL0hS?=
+ =?utf-8?Q?uSYgLWypGk2bN1kVsfbWfuiUJ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 289c93f6-8adb-4f85-5506-08dc3e07a569
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2024 18:02:54.2175 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VbigYQz3uIVvXIpNSU9s7yugNmjV7cltR6PY224Ifql5Axpn5yZUSIWybZ9idhidKrfRMfcm1wQoRoHzp9it+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5752
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,864 +132,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 04/03/2024 16:32, Arunpravin Paneer Selvam wrote:
-> - Add tracking clear page feature.
+On 3/6/2024 12:00, Xaver Hugl wrote:
+> Am Mi., 6. März 2024 um 18:19 Uhr schrieb Mario Limonciello
+> <mario.limonciello@amd.com>:
+>> So the idea being if the compositor isn't using it we let
+>> power-profiles-daemon (or any other software) take control via sysfs and
+>> if the compositor does want to control it then it then it writes a DRM
+>> cap and we destroy the sysfs file?
 > 
-> - Driver should enable the DRM_BUDDY_CLEARED flag if it
->    successfully clears the blocks in the free path. On the otherhand,
->    DRM buddy marks each block as cleared.
-> 
-> - Track the available cleared pages size
-> 
-> - If driver requests cleared memory we prefer cleared memory
->    but fallback to uncleared if we can't find the cleared blocks.
->    when driver requests uncleared memory we try to use uncleared but
->    fallback to cleared memory if necessary.
-> 
-> - When a block gets freed we clear it and mark the freed block as cleared,
->    when there are buddies which are cleared as well we can merge them.
->    Otherwise, we prefer to keep the blocks as separated.
-> 
-> - Add a function to support defragmentation.
-> 
-> v1:
->    - Depends on the flag check DRM_BUDDY_CLEARED, enable the block as
->      cleared. Else, reset the clear flag for each block in the list(Christian)
->    - For merging the 2 cleared blocks compare as below,
->      drm_buddy_is_clear(block) != drm_buddy_is_clear(buddy)(Christian)
->    - Defragment the memory beginning from min_order
->      till the required memory space is available.
-> 
-> v2: (Matthew)
->    - Add a wrapper drm_buddy_free_list_internal for the freeing of blocks
->      operation within drm buddy.
->    - Write a macro block_incompatible() to allocate the required blocks.
->    - Update the xe driver for the drm_buddy_free_list change in arguments.
->    - add a warning if the two blocks are incompatible on
->      defragmentation
->    - call full defragmentation in the fini() function
->    - place a condition to test if min_order is equal to 0
->    - replace the list with safe_reverse() variant as we might
->      remove the block from the list.
-> 
-> v3:
->    - fix Gitlab user reported lockup issue.
->    - Keep DRM_BUDDY_HEADER_CLEAR define sorted(Matthew)
->    - modify to pass the root order instead max_order in fini()
->      function(Matthew)
->    - change bool 1 to true(Matthew)
->    - add check if min_block_size is power of 2(Matthew)
->    - modify the min_block_size datatype to u64(Matthew)
-> 
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Suggested-by: Matthew Auld <matthew.auld@intel.com>
+> Yes. That way still only one party controls it at a given time, and we
+> can get both good default behavior for display servers that don't care
+> (like Xorg or compositors without color management support), and
+> compositors that want to put in the effort can do more specific things
+> with it.
 
-Is there a unit test for this? What about maybe something roughly like:
+I think that's a very good solution.
 
-- Pick small random mm_size which is not always power-of-two.
-- Allocate and free some random portion of the address space, returning 
-those pages as non-dirty. Then do another cycle and randomly alternate 
-between requesting dirty and non-dirty pages (not going over the limit 
-you freed as non-dirty), putting that into two separate lists. Loop over 
-both lists at the end checking that the dirty list is indeed all dirty 
-pages and vice versa. Free it all again, keeping the dirty/clear status.
-- Also try to go over the clear limit for some allocation. The 
-allocation should never fail with reasonable page-size.
-- Test the defrag/force_merge interface. Clean the mm or create new one. 
-Intentionally fragment the address space, by creating two alternating 
-lists. Free both lists, one as dirty the other as clean. Try to allocate 
-double the previous size with matching min_page_size. Should fail. Call 
-force_merge. Should now succeed. Also check that the page is always 
-dirty after force_merge. Free the page as dirty, then repeat the whole 
-thing, doubling the page-size until you hit max_order.
-- Make sure we also call fini() with some part of the address space left 
-as non-dirty. Should not trigger any warnings.
-
-I think would be good to consider, but not a blocker or anything. Some 
-comments below, otherwise I think looks good.
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c  |   6 +-
->   drivers/gpu/drm/drm_buddy.c                   | 294 +++++++++++++++---
->   drivers/gpu/drm/i915/i915_ttm_buddy_manager.c |   6 +-
->   drivers/gpu/drm/tests/drm_buddy_test.c        |  18 +-
->   drivers/gpu/drm/xe/xe_ttm_vram_mgr.c          |   4 +-
->   include/drm/drm_buddy.h                       |  22 +-
->   6 files changed, 290 insertions(+), 60 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index 8db880244324..c0c851409241 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -571,7 +571,7 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->   	return 0;
->   
->   error_free_blocks:
-> -	drm_buddy_free_list(mm, &vres->blocks);
-> +	drm_buddy_free_list(mm, &vres->blocks, 0);
->   	mutex_unlock(&mgr->lock);
->   error_fini:
->   	ttm_resource_fini(man, &vres->base);
-> @@ -604,7 +604,7 @@ static void amdgpu_vram_mgr_del(struct ttm_resource_manager *man,
->   
->   	amdgpu_vram_mgr_do_reserve(man);
->   
-> -	drm_buddy_free_list(mm, &vres->blocks);
-> +	drm_buddy_free_list(mm, &vres->blocks, 0);
->   	mutex_unlock(&mgr->lock);
->   
->   	atomic64_sub(vis_usage, &mgr->vis_usage);
-> @@ -912,7 +912,7 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
->   		kfree(rsv);
->   
->   	list_for_each_entry_safe(rsv, temp, &mgr->reserved_pages, blocks) {
-> -		drm_buddy_free_list(&mgr->mm, &rsv->allocated);
-> +		drm_buddy_free_list(&mgr->mm, &rsv->allocated, 0);
->   		kfree(rsv);
->   	}
->   	if (!adev->gmc.is_app_apu)
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index c4222b886db7..40131ed9b0cd 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -57,6 +57,16 @@ static void list_insert_sorted(struct drm_buddy *mm,
->   	__list_add(&block->link, node->link.prev, &node->link);
->   }
->   
-> +static void clear_reset(struct drm_buddy_block *block)
-> +{
-> +	block->header &= ~DRM_BUDDY_HEADER_CLEAR;
-> +}
-> +
-> +static void mark_cleared(struct drm_buddy_block *block)
-> +{
-> +	block->header |= DRM_BUDDY_HEADER_CLEAR;
-> +}
-> +
->   static void mark_allocated(struct drm_buddy_block *block)
->   {
->   	block->header &= ~DRM_BUDDY_HEADER_STATE;
-> @@ -186,11 +196,21 @@ EXPORT_SYMBOL(drm_buddy_init);
->    */
->   void drm_buddy_fini(struct drm_buddy *mm)
->   {
-> +	u64 root_size, size;
-> +	unsigned int order;
->   	int i;
->   
-> +	size = mm->size;
-> +
->   	for (i = 0; i < mm->n_roots; ++i) {
-> +		order = ilog2(size) - ilog2(mm->chunk_size);
-> +		root_size = mm->chunk_size << order;
-> +		drm_buddy_defrag(mm, root_size);
-> +
->   		WARN_ON(!drm_buddy_block_is_free(mm->roots[i]));
->   		drm_block_free(mm, mm->roots[i]);
-> +
-> +		size -= root_size;
->   	}
->   
->   	WARN_ON(mm->avail != mm->size);
-> @@ -223,6 +243,12 @@ static int split_block(struct drm_buddy *mm,
->   	mark_free(mm, block->left);
->   	mark_free(mm, block->right);
->   
-> +	if (drm_buddy_block_is_clear(block)) {
-> +		mark_cleared(block->left);
-> +		mark_cleared(block->right);
-> +		clear_reset(block);
-> +	}
-> +
->   	mark_split(block);
->   
->   	return 0;
-> @@ -260,10 +286,12 @@ drm_get_buddy(struct drm_buddy_block *block)
->   }
->   EXPORT_SYMBOL(drm_get_buddy);
->   
-> -static void __drm_buddy_free(struct drm_buddy *mm,
-> -			     struct drm_buddy_block *block)
-> +static unsigned int __drm_buddy_free(struct drm_buddy *mm,
-> +				     struct drm_buddy_block *block,
-> +				     bool defrag)
->   {
->   	struct drm_buddy_block *parent;
-> +	unsigned int order;
->   
->   	while ((parent = block->parent)) {
->   		struct drm_buddy_block *buddy;
-> @@ -273,6 +301,23 @@ static void __drm_buddy_free(struct drm_buddy *mm,
->   		if (!drm_buddy_block_is_free(buddy))
->   			break;
->   
-> +		if (!defrag) {
-> +			/*
-> +			 * Check the block and its buddy clear state and exit
-> +			 * the loop if they both have the dissimilar state.
-> +			 */
-> +			if (drm_buddy_block_is_clear(block) !=
-> +			    drm_buddy_block_is_clear(buddy))
-> +				break;
-> +
-> +			if (drm_buddy_block_is_clear(block))
-> +				mark_cleared(parent);
-> +		}
-> +
-> +		WARN_ON(defrag &&
-> +			(drm_buddy_block_is_clear(block) ==
-> +			 drm_buddy_block_is_clear(buddy)));
-> +
->   		list_del(&buddy->link);
->   
->   		drm_block_free(mm, block);
-> @@ -281,7 +326,75 @@ static void __drm_buddy_free(struct drm_buddy *mm,
->   		block = parent;
->   	}
->   
-> +	order = drm_buddy_block_order(block);
->   	mark_free(mm, block);
-> +
-> +	return order;
-> +}
-> +
-> +/**
-> + * drm_buddy_defrag - Defragmentation routine
-> + *
-> + * @mm: DRM buddy manager
-> + * @min_block_size: minimum size in bytes to begin
-> + * the defragmentation process
-> + *
-> + * Driver calls the defragmentation function when the
-> + * requested memory allocation returns -ENOSPC.
-> + */
-> +void drm_buddy_defrag(struct drm_buddy *mm,
-> +		      u64 min_block_size)
-> +{
-> +	struct drm_buddy_block *block;
-> +	unsigned int order, min_order;
-> +	struct list_head *list;
-> +	unsigned long pages;
-> +	int i;
-> +
-> +	if (min_block_size <= mm->chunk_size)
-> +		return;
-> +
-> +	if (!is_power_of_2(min_block_size))
-> +		return;
-
-Just a question if caller expects us to round this up? I'm not sure...
-
-> +
-> +	pages = min_block_size >> ilog2(mm->chunk_size);
-> +	min_order = fls(pages) - 1;
-
-min_order = ilog2(min_block_size) - ilog2(mm->chunk_size);
-
-> +
-> +	if (min_order > mm->max_order)
-> +		return;
-> +
-> +	for (i = min_order - 1; i >= 0; i--) {
-> +		struct drm_buddy_block *prev;
-
-Nit: I guess move the block here:
-
-struct drm_buddy_block *block, *prev;
-
-> +
-> +		list = &mm->free_list[i];
-> +		if (list_empty(list))
-> +			continue;
-
-No need for the list_empty() check here?
-
-> +
-> +		list_for_each_entry_safe_reverse(block, prev, list, link) {
-> +			struct drm_buddy_block *buddy;
-> +
-> +			if (!block->parent)
-> +				continue;
-> +
-> +			buddy = __get_buddy(block);
-> +			if (!drm_buddy_block_is_free(buddy))
-> +				continue;
-> +
-> +			/*
-> +			 * If the prev block is same as buddy, don't access the
-> +			 * block in the next iteration as we would free the
-> +			 * buddy block as part of the free function.
-> +			 */
-> +			if (prev == buddy)
-> +				prev = list_prev_entry(prev, link);
-> +
-> +			list_del(&block->link);
-> +
-> +			order = __drm_buddy_free(mm, block, true);
-> +			if (order >= min_order)
-> +				return;
-> +		}
-> +	}
->   }
->   
->   /**
-> @@ -295,26 +408,59 @@ void drm_buddy_free_block(struct drm_buddy *mm,
->   {
->   	BUG_ON(!drm_buddy_block_is_allocated(block));
->   	mm->avail += drm_buddy_block_size(mm, block);
-> -	__drm_buddy_free(mm, block);
-> +	if (drm_buddy_block_is_clear(block))
-> +		mm->clear_avail += drm_buddy_block_size(mm, block);
-> +
-> +	__drm_buddy_free(mm, block, false);
->   }
->   EXPORT_SYMBOL(drm_buddy_free_block);
->   
-> -/**
-> - * drm_buddy_free_list - free blocks
-> - *
-> - * @mm: DRM buddy manager
-> - * @objects: input list head to free blocks
-> - */
-> -void drm_buddy_free_list(struct drm_buddy *mm, struct list_head *objects)
-> +static void __drm_buddy_free_list(struct drm_buddy *mm,
-> +				  struct list_head *objects,
-> +				  bool mark_clear,
-> +				  bool mark_dirty)
->   {
->   	struct drm_buddy_block *block, *on;
->   
-> +	WARN_ON(mark_dirty && mark_clear);
-> +
->   	list_for_each_entry_safe(block, on, objects, link) {
-> +		if (mark_clear)
-> +			mark_cleared(block);
-> +		else if (mark_dirty)
-> +			clear_reset(block);
->   		drm_buddy_free_block(mm, block);
->   		cond_resched();
->   	}
->   	INIT_LIST_HEAD(objects);
->   }
-> +
-> +static void drm_buddy_free_list_internal(struct drm_buddy *mm,
-> +					 struct list_head *objects)
-> +{
-> +	/*
-> +	 * Don't touch the clear/dirty bit, since allocation is still internal
-> +	 * at this point. For example we might have just failed part of the
-> +	 * allocation.
-> +	 */
-> +	__drm_buddy_free_list(mm, objects, false, false);
-> +}
-> +
-> +/**
-> + * drm_buddy_free_list - free blocks
-> + *
-> + * @mm: DRM buddy manager
-> + * @objects: input list head to free blocks
-> + * @flags: optional flags like DRM_BUDDY_CLEARED
-> + */
-> +void drm_buddy_free_list(struct drm_buddy *mm,
-> +			 struct list_head *objects,
-> +			 unsigned int flags)
-> +{
-> +	bool mark_clear = flags & DRM_BUDDY_CLEARED;
-> +
-> +	__drm_buddy_free_list(mm, objects, mark_clear, !mark_clear);
-> +}
->   EXPORT_SYMBOL(drm_buddy_free_list);
->   
->   static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
-> @@ -327,10 +473,19 @@ static inline bool contains(u64 s1, u64 e1, u64 s2, u64 e2)
->   	return s1 <= s2 && e1 >= e2;
->   }
->   
-> +static bool block_incompatible(struct drm_buddy_block *block, unsigned int flags)
-> +{
-> +	bool needs_clear = flags & DRM_BUDDY_CLEAR_ALLOCATION;
-> +
-> +	return needs_clear != drm_buddy_block_is_clear(block);
-> +}
-> +
->   static struct drm_buddy_block *
-> -alloc_range_bias(struct drm_buddy *mm,
-> -		 u64 start, u64 end,
-> -		 unsigned int order)
-> +__alloc_range_bias(struct drm_buddy *mm,
-> +		   u64 start, u64 end,
-> +		   unsigned int order,
-> +		   unsigned long flags,
-> +		   bool fallback)
->   {
->   	struct drm_buddy_block *block;
->   	struct drm_buddy_block *buddy;
-> @@ -369,6 +524,9 @@ alloc_range_bias(struct drm_buddy *mm,
->   
->   		if (contains(start, end, block_start, block_end) &&
->   		    order == drm_buddy_block_order(block)) {
-> +			if (!fallback && block_incompatible(block, flags))
-> +				continue;
-> +
->   			/*
->   			 * Find the free block within the range.
->   			 */
-> @@ -400,30 +558,57 @@ alloc_range_bias(struct drm_buddy *mm,
->   	if (buddy &&
->   	    (drm_buddy_block_is_free(block) &&
->   	     drm_buddy_block_is_free(buddy)))
-> -		__drm_buddy_free(mm, block);
-> +		__drm_buddy_free(mm, block, false);
->   	return ERR_PTR(err);
->   }
->   
->   static struct drm_buddy_block *
-> -get_maxblock(struct drm_buddy *mm, unsigned int order)
-> +__drm_buddy_alloc_range_bias(struct drm_buddy *mm,
-> +			     u64 start, u64 end,
-> +			     unsigned int order,
-> +			     unsigned long flags)
-
-Is the caller also using unsigned long for the flags? I think unsigned 
-int is more common for flags, since it will have same size on 32b?
-
-> +{
-> +	struct drm_buddy_block *block;
-> +	bool fallback = 0;
-
-fallback = false;
-
-> +
-> +	block = __alloc_range_bias(mm, start, end, order,
-> +				   flags, fallback);
-> +	if (IS_ERR(block))
-> +		return __alloc_range_bias(mm, start, end, order,
-> +					  flags, !fallback);
-> +
-> +	return block;
-> +}
-> +
-> +static struct drm_buddy_block *
-> +get_maxblock(struct drm_buddy *mm, unsigned int order,
-> +	     unsigned long flags)
->   {
-> -	struct drm_buddy_block *max_block = NULL, *node;
-> +	struct drm_buddy_block *max_block = NULL, *block = NULL;
->   	unsigned int i;
->   
->   	for (i = order; i <= mm->max_order; ++i) {
-> -		if (!list_empty(&mm->free_list[i])) {
-> -			node = list_last_entry(&mm->free_list[i],
-> -					       struct drm_buddy_block,
-> -					       link);
-> -			if (!max_block) {
-> -				max_block = node;
-> +		struct drm_buddy_block *tmp_block;
-> +
-> +		list_for_each_entry_reverse(tmp_block, &mm->free_list[i], link) {
-> +			if (block_incompatible(tmp_block, flags))
->   				continue;
-> -			}
->   
-> -			if (drm_buddy_block_offset(node) >
-> -			    drm_buddy_block_offset(max_block)) {
-> -				max_block = node;
-> -			}
-> +			block = tmp_block;
-> +			break;
-> +		}
-> +
-> +		if (!block)
-> +			continue;
-> +
-> +		if (!max_block) {
-> +			max_block = block;
-> +			continue;
-> +		}
-> +
-> +		if (drm_buddy_block_offset(block) >
-> +		    drm_buddy_block_offset(max_block)) {
-> +			max_block = block;
->   		}
->   	}
->   
-> @@ -440,11 +625,29 @@ alloc_from_freelist(struct drm_buddy *mm,
->   	int err;
->   
->   	if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
-> -		block = get_maxblock(mm, order);
-> +		block = get_maxblock(mm, order, flags);
->   		if (block)
->   			/* Store the obtained block order */
->   			tmp = drm_buddy_block_order(block);
->   	} else {
-> +		for (tmp = order; tmp <= mm->max_order; ++tmp) {
-> +			struct drm_buddy_block *tmp_block;
-> +
-> +			list_for_each_entry_reverse(tmp_block, &mm->free_list[tmp], link) {
-> +				if (block_incompatible(tmp_block, flags))
-> +					continue;
-> +
-> +				block = tmp_block;
-> +				break;
-> +			}
-> +
-> +			if (block)
-> +				break;
-> +		}
-> +	}
-> +
-> +	if (!block) {
-> +		/* Fallback method */
->   		for (tmp = order; tmp <= mm->max_order; ++tmp) {
->   			if (!list_empty(&mm->free_list[tmp])) {
->   				block = list_last_entry(&mm->free_list[tmp],
-> @@ -454,10 +657,10 @@ alloc_from_freelist(struct drm_buddy *mm,
->   					break;
->   			}
->   		}
-> -	}
->   
-> -	if (!block)
-> -		return ERR_PTR(-ENOSPC);
-> +		if (!block)
-> +			return ERR_PTR(-ENOSPC);
-> +	}
->   
->   	BUG_ON(!drm_buddy_block_is_free(block));
->   
-> @@ -473,7 +676,7 @@ alloc_from_freelist(struct drm_buddy *mm,
->   
->   err_undo:
->   	if (tmp != order)
-> -		__drm_buddy_free(mm, block);
-> +		__drm_buddy_free(mm, block, false);
->   	return ERR_PTR(err);
->   }
->   
-> @@ -524,6 +727,8 @@ static int __alloc_range(struct drm_buddy *mm,
->   			mark_allocated(block);
->   			total_allocated += drm_buddy_block_size(mm, block);
->   			mm->avail -= drm_buddy_block_size(mm, block);
-> +			if (drm_buddy_block_is_clear(block))
-> +				mm->clear_avail -= drm_buddy_block_size(mm, block);
->   			list_add_tail(&block->link, &allocated);
->   			continue;
->   		}
-> @@ -557,14 +762,14 @@ static int __alloc_range(struct drm_buddy *mm,
->   	if (buddy &&
->   	    (drm_buddy_block_is_free(block) &&
->   	     drm_buddy_block_is_free(buddy)))
-> -		__drm_buddy_free(mm, block);
-> +		__drm_buddy_free(mm, block, false);
->   
->   err_free:
->   	if (err == -ENOSPC && total_allocated_on_err) {
->   		list_splice_tail(&allocated, blocks);
->   		*total_allocated_on_err = total_allocated;
->   	} else {
-> -		drm_buddy_free_list(mm, &allocated);
-> +		drm_buddy_free_list_internal(mm, &allocated);
->   	}
->   
->   	return err;
-> @@ -630,11 +835,11 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
->   			list_splice(&blocks_lhs, blocks);
->   			return 0;
->   		} else if (err != -ENOSPC) {
-> -			drm_buddy_free_list(mm, blocks);
-> +			drm_buddy_free_list_internal(mm, blocks);
->   			return err;
->   		}
->   		/* Free blocks for the next iteration */
-> -		drm_buddy_free_list(mm, blocks);
-> +		drm_buddy_free_list_internal(mm, blocks);
->   	}
->   
->   	return -ENOSPC;
-> @@ -690,6 +895,8 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->   	list_del(&block->link);
->   	mark_free(mm, block);
->   	mm->avail += drm_buddy_block_size(mm, block);
-> +	if (drm_buddy_block_is_clear(block))
-> +		mm->clear_avail += drm_buddy_block_size(mm, block);
->   
->   	/* Prevent recursively freeing this node */
->   	parent = block->parent;
-> @@ -701,6 +908,8 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->   	if (err) {
->   		mark_allocated(block);
->   		mm->avail -= drm_buddy_block_size(mm, block);
-> +		if (drm_buddy_block_is_clear(block))
-> +			mm->clear_avail -= drm_buddy_block_size(mm, block);
->   		list_add(&block->link, blocks);
->   	}
->   
-> @@ -715,7 +924,7 @@ EXPORT_SYMBOL(drm_buddy_block_trim);
->    * @mm: DRM buddy manager to allocate from
->    * @start: start of the allowed range for this block
->    * @end: end of the allowed range for this block
-> - * @size: size of the allocation
-> + * @size: size of the allocation in bytes
->    * @min_block_size: alignment of the allocation
->    * @blocks: output list head to add allocated blocks
->    * @flags: DRM_BUDDY_*_ALLOCATION flags
-> @@ -788,7 +997,8 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   		do {
->   			if (flags & DRM_BUDDY_RANGE_ALLOCATION)
->   				/* Allocate traversing within the range */
-> -				block = alloc_range_bias(mm, start, end, order);
-> +				block = __drm_buddy_alloc_range_bias(mm, start, end,
-> +								     order, flags);
->   			else
->   				/* Allocate from freelist */
->   				block = alloc_from_freelist(mm, order, flags);
-> @@ -814,6 +1024,8 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   
->   		mark_allocated(block);
->   		mm->avail -= drm_buddy_block_size(mm, block);
-> +		if (drm_buddy_block_is_clear(block))
-> +			mm->clear_avail -= drm_buddy_block_size(mm, block);
->   		kmemleak_update_trace(block);
->   		list_add_tail(&block->link, &allocated);
->   
-> @@ -852,7 +1064,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   	return 0;
->   
->   err_free:
-> -	drm_buddy_free_list(mm, &allocated);
-> +	drm_buddy_free_list_internal(mm, &allocated);
->   	return err;
->   }
->   EXPORT_SYMBOL(drm_buddy_alloc_blocks);
-> @@ -885,8 +1097,8 @@ void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p)
->   {
->   	int order;
->   
-> -	drm_printf(p, "chunk_size: %lluKiB, total: %lluMiB, free: %lluMiB\n",
-> -		   mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20);
-> +	drm_printf(p, "chunk_size: %lluKiB, total: %lluMiB, free: %lluMiB, clear_free: %lluMiB\n",
-> +		   mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
->   
->   	for (order = mm->max_order; order >= 0; order--) {
->   		struct drm_buddy_block *block;
-> diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-> index 0d735d5c2b35..942345548bc3 100644
-> --- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-> +++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-> @@ -126,7 +126,7 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
->   	return 0;
->   
->   err_free_blocks:
-> -	drm_buddy_free_list(mm, &bman_res->blocks);
-> +	drm_buddy_free_list(mm, &bman_res->blocks, 0);
->   	mutex_unlock(&bman->lock);
->   err_free_res:
->   	ttm_resource_fini(man, &bman_res->base);
-> @@ -141,7 +141,7 @@ static void i915_ttm_buddy_man_free(struct ttm_resource_manager *man,
->   	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
->   
->   	mutex_lock(&bman->lock);
-> -	drm_buddy_free_list(&bman->mm, &bman_res->blocks);
-> +	drm_buddy_free_list(&bman->mm, &bman_res->blocks, 0);
->   	bman->visible_avail += bman_res->used_visible_size;
->   	mutex_unlock(&bman->lock);
->   
-> @@ -345,7 +345,7 @@ int i915_ttm_buddy_man_fini(struct ttm_device *bdev, unsigned int type)
->   	ttm_set_driver_manager(bdev, type, NULL);
->   
->   	mutex_lock(&bman->lock);
-> -	drm_buddy_free_list(mm, &bman->reserved);
-> +	drm_buddy_free_list(mm, &bman->reserved, 0);
->   	drm_buddy_fini(mm);
->   	bman->visible_avail += bman->visible_reserved;
->   	WARN_ON_ONCE(bman->visible_avail != bman->visible_size);
-> diff --git a/drivers/gpu/drm/tests/drm_buddy_test.c b/drivers/gpu/drm/tests/drm_buddy_test.c
-> index 2f32fb2f12e7..454ad9952f56 100644
-> --- a/drivers/gpu/drm/tests/drm_buddy_test.c
-> +++ b/drivers/gpu/drm/tests/drm_buddy_test.c
-> @@ -64,7 +64,7 @@ static void drm_test_buddy_alloc_contiguous(struct kunit *test)
->   							   DRM_BUDDY_CONTIGUOUS_ALLOCATION),
->   			       "buddy_alloc didn't error size=%u\n", 3 * ps);
->   
-> -	drm_buddy_free_list(&mm, &middle);
-> +	drm_buddy_free_list(&mm, &middle, 0);
->   	KUNIT_ASSERT_TRUE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
->   							   3 * ps, ps, &allocated,
->   							   DRM_BUDDY_CONTIGUOUS_ALLOCATION),
-> @@ -74,7 +74,7 @@ static void drm_test_buddy_alloc_contiguous(struct kunit *test)
->   							   DRM_BUDDY_CONTIGUOUS_ALLOCATION),
->   			       "buddy_alloc didn't error size=%u\n", 2 * ps);
->   
-> -	drm_buddy_free_list(&mm, &right);
-> +	drm_buddy_free_list(&mm, &right, 0);
->   	KUNIT_ASSERT_TRUE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
->   							   3 * ps, ps, &allocated,
->   							   DRM_BUDDY_CONTIGUOUS_ALLOCATION),
-> @@ -89,7 +89,7 @@ static void drm_test_buddy_alloc_contiguous(struct kunit *test)
->   							    DRM_BUDDY_CONTIGUOUS_ALLOCATION),
->   			       "buddy_alloc hit an error size=%u\n", 2 * ps);
->   
-> -	drm_buddy_free_list(&mm, &left);
-> +	drm_buddy_free_list(&mm, &left, 0);
->   	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
->   							    3 * ps, ps, &allocated,
->   							    DRM_BUDDY_CONTIGUOUS_ALLOCATION),
-> @@ -101,7 +101,7 @@ static void drm_test_buddy_alloc_contiguous(struct kunit *test)
->   
->   	KUNIT_ASSERT_EQ(test, total, ps * 2 + ps * 3);
->   
-> -	drm_buddy_free_list(&mm, &allocated);
-> +	drm_buddy_free_list(&mm, &allocated, 0);
->   	drm_buddy_fini(&mm);
->   }
->   
-> @@ -170,7 +170,7 @@ static void drm_test_buddy_alloc_pathological(struct kunit *test)
->   							  top, max_order);
->   	}
->   
-> -	drm_buddy_free_list(&mm, &holes);
-> +	drm_buddy_free_list(&mm, &holes, 0);
->   
->   	/* Nothing larger than blocks of chunk_size now available */
->   	for (order = 1; order <= max_order; order++) {
-> @@ -182,7 +182,7 @@ static void drm_test_buddy_alloc_pathological(struct kunit *test)
->   	}
->   
->   	list_splice_tail(&holes, &blocks);
-> -	drm_buddy_free_list(&mm, &blocks);
-> +	drm_buddy_free_list(&mm, &blocks, 0);
->   	drm_buddy_fini(&mm);
->   }
->   
-> @@ -277,7 +277,7 @@ static void drm_test_buddy_alloc_pessimistic(struct kunit *test)
->   
->   	list_del(&block->link);
->   	drm_buddy_free_block(&mm, block);
-> -	drm_buddy_free_list(&mm, &blocks);
-> +	drm_buddy_free_list(&mm, &blocks, 0);
->   	drm_buddy_fini(&mm);
->   }
->   
-> @@ -323,7 +323,7 @@ static void drm_test_buddy_alloc_optimistic(struct kunit *test)
->   							   size, size, &tmp, flags),
->   						  "buddy_alloc unexpectedly succeeded, it should be full!");
->   
-> -	drm_buddy_free_list(&mm, &blocks);
-> +	drm_buddy_free_list(&mm, &blocks, 0);
->   	drm_buddy_fini(&mm);
->   }
->   
-> @@ -358,7 +358,7 @@ static void drm_test_buddy_alloc_limit(struct kunit *test)
->   						drm_buddy_block_size(&mm, block),
->   						BIT_ULL(mm.max_order) * PAGE_SIZE);
->   
-> -	drm_buddy_free_list(&mm, &allocated);
-> +	drm_buddy_free_list(&mm, &allocated, 0);
->   	drm_buddy_fini(&mm);
->   }
->   
-> diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-> index 115ec745e502..1ad678b62c4a 100644
-> --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-> +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-> @@ -196,7 +196,7 @@ static int xe_ttm_vram_mgr_new(struct ttm_resource_manager *man,
->   	return 0;
->   
->   error_free_blocks:
-> -	drm_buddy_free_list(mm, &vres->blocks);
-> +	drm_buddy_free_list(mm, &vres->blocks, 0);
->   	mutex_unlock(&mgr->lock);
->   error_fini:
->   	ttm_resource_fini(man, &vres->base);
-> @@ -214,7 +214,7 @@ static void xe_ttm_vram_mgr_del(struct ttm_resource_manager *man,
->   	struct drm_buddy *mm = &mgr->mm;
->   
->   	mutex_lock(&mgr->lock);
-> -	drm_buddy_free_list(mm, &vres->blocks);
-> +	drm_buddy_free_list(mm, &vres->blocks, 0);
->   	mgr->visible_avail += vres->used_visible_size;
->   	mutex_unlock(&mgr->lock);
->   
-> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-> index a5b39fc01003..7393e6ca0fd6 100644
-> --- a/include/drm/drm_buddy.h
-> +++ b/include/drm/drm_buddy.h
-> @@ -6,6 +6,7 @@
->   #ifndef __DRM_BUDDY_H__
->   #define __DRM_BUDDY_H__
->   
-> +#include <linux/bitfield.h>
-
-We need this?
-
->   #include <linux/bitops.h>
->   #include <linux/list.h>
->   #include <linux/slab.h>
-> @@ -25,15 +26,20 @@
->   #define DRM_BUDDY_RANGE_ALLOCATION		BIT(0)
->   #define DRM_BUDDY_TOPDOWN_ALLOCATION		BIT(1)
->   #define DRM_BUDDY_CONTIGUOUS_ALLOCATION		BIT(2)
-> +#define DRM_BUDDY_CLEAR_ALLOCATION		BIT(3)
-> +#define DRM_BUDDY_CLEARED			BIT(4)
->   
->   struct drm_buddy_block {
->   #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
->   #define DRM_BUDDY_HEADER_STATE  GENMASK_ULL(11, 10)
-> +
-
-No need for the newline.
-
->   #define   DRM_BUDDY_ALLOCATED	   (1 << 10)
->   #define   DRM_BUDDY_FREE	   (2 << 10)
->   #define   DRM_BUDDY_SPLIT	   (3 << 10)
-> +
-
-And here.
-
-> +#define DRM_BUDDY_HEADER_CLEAR  GENMASK_ULL(9, 9)
->   /* Free to be used, if needed in the future */
-> -#define DRM_BUDDY_HEADER_UNUSED GENMASK_ULL(9, 6)
-> +#define DRM_BUDDY_HEADER_UNUSED GENMASK_ULL(8, 6)
->   #define DRM_BUDDY_HEADER_ORDER  GENMASK_ULL(5, 0)
->   	u64 header;
->   
-> @@ -86,6 +92,7 @@ struct drm_buddy {
->   	u64 chunk_size;
->   	u64 size;
->   	u64 avail;
-> +	u64 clear_avail;
->   };
->   
->   static inline u64
-> @@ -112,6 +119,12 @@ drm_buddy_block_is_allocated(struct drm_buddy_block *block)
->   	return drm_buddy_block_state(block) == DRM_BUDDY_ALLOCATED;
->   }
->   
-> +static inline bool
-> +drm_buddy_block_is_clear(struct drm_buddy_block *block)
-> +{
-> +	return block->header & DRM_BUDDY_HEADER_CLEAR;
-> +}
-> +
->   static inline bool
->   drm_buddy_block_is_free(struct drm_buddy_block *block)
->   {
-> @@ -150,7 +163,12 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->   
->   void drm_buddy_free_block(struct drm_buddy *mm, struct drm_buddy_block *block);
->   
-> -void drm_buddy_free_list(struct drm_buddy *mm, struct list_head *objects);
-> +void drm_buddy_free_list(struct drm_buddy *mm,
-> +			 struct list_head *objects,
-> +			 unsigned int flags);
-> +
-> +void drm_buddy_defrag(struct drm_buddy *mm,
-> +		      u64 min_order);
->   
->   void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p);
->   void drm_buddy_block_print(struct drm_buddy *mm,
-> 
-> base-commit: 216c1282dde38ca87ebdf1ccacee5a0682901574
+Harry, Hamza, what do you guys think?
