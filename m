@@ -4,93 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05E71C54E49
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Mar 2024 08:52:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39D29C54798
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Mar 2024 12:02:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7704610F2A5;
-	Thu,  7 Mar 2024 08:52:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91FDF10F404;
+	Thu,  7 Mar 2024 12:02:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NSMKxx3A";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rW7Bbwym";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16931113713
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Mar 2024 08:52:01 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2057.outbound.protection.outlook.com [40.107.244.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6B4710F404
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Mar 2024 12:02:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TmLG5FqeITYrD0cC4xNbEJygMciuqSqOVh4d8bI4JNK8gpy80oQrIPKgUH15OF0yC11OWycPH7dWnQRulACYnOkhRybQo0e6c+0IKpWqK/VYkPDThB39XmI9iLZwv6PFR/3Gj2iJWZJTibZn7z53OVMPnCPIvRyYJguHhtbRatjjkbBPz8ULWZbq50xKwvUU28UKdg+zqXiX5NKkggVM728UOtvjrC/1rmkNIIPulo/41RPtv+s/DPT8XHe8Zln2jPV4TdNuHBj7uk3gz/t21UyhnRrP0m8GJ/s+oltc09wM+jnH5A7viOSjMSm2Iy7FUkEAtsMD20UBhmqX7jLgmQ==
+ b=cRBEG14XhRbZR8mGKhg/N2aPire5OWrH/Jm4H3/gkHklxZgm98aG4rwV5rPh59tWWlJklSZi+KwdpwYkKuIyBRhs2K9HisVi60ubwmOV/n4a7NgXNQVGbUlJIWW2K50Mz71Vk7PgEmZnwv57in6gTcCJQW1Dpk0Szv0Z7ygBeXYoTezpLn6Xd88FSorg12h5dhSIHLU3LzExTqUrBGnAyRNm4vukUJ2Gp29UEDLaSwNnsd8Y88hX7cGXE1PbSZGp/qo/ZrDy/QCUGFBAh0lMg/WV285/E1gjfVZ8v3X9WjdVZLxxd/4bQhBqEMZyVc742DiSR6J9HyzvOeJZBFITjw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m9h+CTUUODOgH+xLz1L4PMdAAlQgnDjxkglI5C+4Ix8=;
- b=E/sZKYAMzA08MWcDgdOJSff73eHmfI0Suw4n7PARorMYL0Slo7IsmjXbGHxs6s82i+mEw94vSHujKg9Dl9xTamxCFWf4S4/K+YMDdT5oaDxaCrSDCVlLexFKRGTXvpCMZXsaxjxO7A+oLyvveweOutOnKmAg14bMAbasGmmg2AKFlA1NTwjAzum15TYTD+ku5euAgckSJf/s2WyzlJz++mYHLjEcCNh8HiEr0mykv0IkNgr2gaa9d6rO2t9MjlW+EkwR/wZwJ6snC67XfOa+Har4n5PNJeuqzadgKC6tc6SiUCJaR3o6tTcjl9poije16i2oYUSuso3xGHFriuP3/g==
+ bh=ln/2qPaLDhkpJwlVms/RWBoIZFKD5Nku49gxct+YIUA=;
+ b=BWXjCF19vuE1ZeIS/X7v/ClChNtmjSJ4CXpqxWpcvjnPUiEi9T9ZW5R3wVEPUVMZsZBd4Hx1KPJn7iZo1h8geWRWAaQwmBpM8YeQtln9LHE0Coi3s7n/PWVbTcWgWw03giADuSlNbF+Bserv8ytybr9q0GxC94XYShleSLdFJV9iL8jCPs8d2iz0kRAr0jHCJcNha+P2rn15H7CJ6AujSkbpsUNXZANZfM1K/8J85e5LfYfqlEpdDehRXNPmfs1/4FsCYGucDf1JglaumHt+Tqs7pUCVSoneZMSLxKIuRG9wvSEt5AsrvuaSxljtNnToIQ5/OpWKY73RXY0o89paDg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m9h+CTUUODOgH+xLz1L4PMdAAlQgnDjxkglI5C+4Ix8=;
- b=NSMKxx3A5S6yeOtefhNrySUSl2zWFvQg8dfRdXp9HdBxVKOCHvKwyLydThqWMCdcAq3NMBkyW98JD7L4R6qtckZgtJ6+zKewTRY564eOnKTQoukpONKEOa6NcyfNygvG4/pcxgiHV+NLnFHe/yjoDCXCWx16pZoIznlOeEuLT1w=
-Received: from BL1PR13CA0167.namprd13.prod.outlook.com (2603:10b6:208:2bd::22)
- by LV2PR12MB5966.namprd12.prod.outlook.com (2603:10b6:408:171::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.27; Thu, 7 Mar
- 2024 08:51:58 +0000
-Received: from BL02EPF0001A0FA.namprd03.prod.outlook.com
- (2603:10b6:208:2bd:cafe::a0) by BL1PR13CA0167.outlook.office365.com
- (2603:10b6:208:2bd::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.8 via Frontend
- Transport; Thu, 7 Mar 2024 08:51:58 +0000
+ bh=ln/2qPaLDhkpJwlVms/RWBoIZFKD5Nku49gxct+YIUA=;
+ b=rW7BbwymQBPqybQRVTdiQM3TF+c5f8cyc3QGjUsmjovtjOPw4PVm9dRgSHAjCizp4L2d4zJ6Zh2ezEmpPz+KSIWCIsjngSrYVI+jl3M5KAxB8CinQpodQ8mqPoZqSH3UfRYdccRBnInbgQ2LBcRVqhKWfeT8C5deDCv3IEhwvqQ=
+Received: from DS7PR05CA0099.namprd05.prod.outlook.com (2603:10b6:8:56::20) by
+ MN0PR12MB6103.namprd12.prod.outlook.com (2603:10b6:208:3c9::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.39; Thu, 7 Mar
+ 2024 12:02:01 +0000
+Received: from DS2PEPF00003444.namprd04.prod.outlook.com
+ (2603:10b6:8:56:cafe::32) by DS7PR05CA0099.outlook.office365.com
+ (2603:10b6:8:56::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.9 via Frontend
+ Transport; Thu, 7 Mar 2024 12:02:01 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A0FA.mail.protection.outlook.com (10.167.242.101) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS2PEPF00003444.mail.protection.outlook.com (10.167.17.71) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7362.11 via Frontend Transport; Thu, 7 Mar 2024 08:51:58 +0000
-Received: from jenkins-amdgpu-2666v3.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Thu, 7 Mar 2024 02:51:56 -0600
-From: Xiaojian Du <Xiaojian.Du@amd.com>
+ 15.20.7362.11 via Frontend Transport; Thu, 7 Mar 2024 12:02:01 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 7 Mar
+ 2024 06:02:00 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 7 Mar
+ 2024 04:02:00 -0800
+Received: from desktop-host.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Thu, 7 Mar 2024 06:01:59 -0600
+From: <vitaly.prosyak@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Xiaojian Du <Xiaojian.Du@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: add VCN sensor value for SMU 13.0.4
-Date: Thu, 7 Mar 2024 16:51:24 +0800
-Message-ID: <20240307085124.354075-2-Xiaojian.Du@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240307085124.354075-1-Xiaojian.Du@amd.com>
-References: <20240307085124.354075-1-Xiaojian.Du@amd.com>
+CC: Vitaly Prosyak <vitaly.prosyak@amd.com>, Christian Koenig
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Felix
+ Kuehling" <felix.kuehling@amd.com>, Joonkyo Jung <joonkyoj@yonsei.ac.kr>,
+ Dokyung Song <dokyungs@yonsei.ac.kr>, <jisoo.jang@yonsei.ac.kr>,
+ <yw9865@yonsei.ac.kr>
+Subject: [PATCH] drm/amdgpu: fix use-after-free bug
+Date: Thu, 7 Mar 2024 07:01:50 -0500
+Message-ID: <20240307120150.49715-1-vitaly.prosyak@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FA:EE_|LV2PR12MB5966:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7ab7bd3-2000-418e-e680-08dc3e83d8f9
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003444:EE_|MN0PR12MB6103:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0365299d-6cb6-4d28-2946-08dc3e9e65d0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vTH+gI6q4FV2+0HZBjh6k4jKNeww7XGxgw2A5nqdD380wEH0TA4r8azZaCVYu+85pwe1FeMuSkU2wtyEHyScrZWSetFRqhWwM/VVDGmCbr1WCCCOm7ZvureHApwJ1ecsyUPFMml0iGS3YZGYqiiNdeqo45y5Vf3kYZMDJMqlzViwiXfZCge0hlWKuvdLp+TI9kecVDldm3I7IRjRcXdozfyRlMqRZtmVYur4fi4POB86U+x1lMC3DjhiXpmO98n5flP47cnJPmyFENHOKB9L4h/a8IwlKBsyAaMOeNZfE2TCtKuuJ2GoD5dLRN1L+JkDHbipQIvhPLYRdrDZQNioRwhaKPUhfKzYty8q/KMujCr4Rh+dPKJxI51KaGGHDARVaXwIp1NkLmnojZ+FZUeVg6h/S7VMiM54nFQ6BrqnI/hX0e9ktBtTB349eN/FlrGToTOtOMHDsqRaQtK+S7s8llTIiA5Yu835OosODP9WEzh+4OZTwyvTXC45JKHMMBxP3sj5LWBt6aVgfot8MjQln5kPL3XIMIAJs6dG7PvELMc19G1gv7gRK9F2JtF6oQceBZqb1EaCMqWp2nlFpT604YB6PrgKUsNSSQtlUbkldPj9YgoV/aSZbNM3M25p9DDEuIgFznzHIJYqVNJDeJw6zBfZwcjqxe6HC7xbYRuOqStuph/pevwo/WuJ1prNFtQSuMQlGvVIV0YJ8DJ2Tu/aquuMKGCcUIlBtRLDD0hxtCs3Uchhjlhc6Dyf8XdtbmjI
+X-Microsoft-Antispam-Message-Info: n+r7uG2SzKPGCNs0syGzJ777HhUbNbH09FirsTB2mJF4FUXqatRUdYOAoWYRnnanjhX01siQvKhBoAg9zIpb3s1RCPTCZtal94ojMir+j2+gFhjZqjpYUq2IeivteOz3kj+XbbFXC60oyau0Jr+4yKMV2fuv1HWiEAnGCWDteEOerZkOvSLuyelgmawVuqzzsLj/NfzujMGlFTB5yUsIfOjIObXYLwaD8X9LSdjG2/YwwPwcZANRzILye7VxS6fwJMEI7OTUZHU0lmKM95ZonVen91wHPjqmX4R6wDF/wNDzSzadfueTZ7ocPbI2p355YTtX6a9jkNavF1iXpmgSPdrN6zojcMTxpAz+PN6I0C7rlknGG1HOzeToIql/bnHjyWyssGFDXsJlTdc9LL7bggaR+A85BAZgTMVkHUDTMX4YSxZn5xgFaslIF3TS+KwW3LjrkzjjLPpdELj05YNBOxFdanyGb/acRiju/JLhc8djxCYpmAmdnVri9g4BsjUB6KXgv2TikxBvUDWYAEjWNCzmZIJL7YxXqfqErpmhrM7QS4ngY5b8kGz4wZG7FL80m9u42TMpSJBNqKvnLJVQYGapAZ1nuBKtOVjae2HetU8/Ifx1y59VXAuecrrge6cUb0bGQNjT9JXSUgW0biIhsFBS/BEWCivVjWL+ehZRvw3wb+Lf5E51ejPsGz/LTl+dhRnuM26S7xa/0nwWzUJLVS5mKIL6bsLCjPpc04+4aQqaQHr6lsEI6pi5i1BEBUnZ
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(376005)(82310400014); DIR:OUT; SFP:1101; 
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(376005)(36860700004)(82310400014); DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2024 08:51:58.1193 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7ab7bd3-2000-418e-e680-08dc3e83d8f9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2024 12:02:01.2882 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0365299d-6cb6-4d28-2946-08dc3e9e65d0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FA.namprd03.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003444.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5966
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6103
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,39 +111,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This will add VCN sensor value for SMU 13.0.4.
+From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 
-Signed-off-by: Xiaojian Du <Xiaojian.Du@amd.com>
+The bug can be triggered by sending a single amdgpu_gem_userptr_ioctl
+to the AMDGPU DRM driver on any ASICs with an invalid address and size.
+The bug was reported by Joonkyo Jung <joonkyoj@yonsei.ac.kr>.
+For example the following code:
+
+static void Syzkaller1(int fd)
+{
+	struct drm_amdgpu_gem_userptr arg;
+	int ret;
+
+	arg.addr = 0xffffffffffff0000;
+	arg.size = 0x80000000; /*2 Gb*/
+	arg.flags = 0x7;
+	ret = drmIoctl(fd, 0xc1186451/*amdgpu_gem_userptr_ioctl*/, &arg);
+}
+
+Due to the address and size are not valid there is a failure in
+amdgpu_hmm_register->mmu_interval_notifier_insert->__mmu_interval_notifier_insert->
+check_shl_overflow, but we even the amdgpu_hmm_register failure we still call
+amdgpu_hmm_unregister into  amdgpu_gem_object_free which causes access to a bad address.
+The following stack is below when the issue is reproduced when Kazan is enabled:
+
+[  +0.000014] Hardware name: ASUS System Product Name/ROG STRIX B550-F GAMING (WI-FI), BIOS 1401 12/03/2020
+[  +0.000009] RIP: 0010:mmu_interval_notifier_remove+0x327/0x340
+[  +0.000017] Code: ff ff 49 89 44 24 08 48 b8 00 01 00 00 00 00 ad de 4c 89 f7 49 89 47 40 48 83 c0 22 49 89 47 48 e8 ce d1 2d 01 e9 32 ff ff ff <0f> 0b e9 16 ff ff ff 4c 89 ef e8 fa 14 b3 ff e9 36 ff ff ff e8 80
+[  +0.000014] RSP: 0018:ffffc90002657988 EFLAGS: 00010246
+[  +0.000013] RAX: 0000000000000000 RBX: 1ffff920004caf35 RCX: ffffffff8160565b
+[  +0.000011] RDX: dffffc0000000000 RSI: 0000000000000004 RDI: ffff8881a9f78260
+[  +0.000010] RBP: ffffc90002657a70 R08: 0000000000000001 R09: fffff520004caf25
+[  +0.000010] R10: 0000000000000003 R11: ffffffff8161d1d6 R12: ffff88810e988c00
+[  +0.000010] R13: ffff888126fb5a00 R14: ffff88810e988c0c R15: ffff8881a9f78260
+[  +0.000011] FS:  00007ff9ec848540(0000) GS:ffff8883cc880000(0000) knlGS:0000000000000000
+[  +0.000012] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  +0.000010] CR2: 000055b3f7e14328 CR3: 00000001b5770000 CR4: 0000000000350ef0
+[  +0.000010] Call Trace:
+[  +0.000006]  <TASK>
+[  +0.000007]  ? show_regs+0x6a/0x80
+[  +0.000018]  ? __warn+0xa5/0x1b0
+[  +0.000019]  ? mmu_interval_notifier_remove+0x327/0x340
+[  +0.000018]  ? report_bug+0x24a/0x290
+[  +0.000022]  ? handle_bug+0x46/0x90
+[  +0.000015]  ? exc_invalid_op+0x19/0x50
+[  +0.000016]  ? asm_exc_invalid_op+0x1b/0x20
+[  +0.000017]  ? kasan_save_stack+0x26/0x50
+[  +0.000017]  ? mmu_interval_notifier_remove+0x23b/0x340
+[  +0.000019]  ? mmu_interval_notifier_remove+0x327/0x340
+[  +0.000019]  ? mmu_interval_notifier_remove+0x23b/0x340
+[  +0.000020]  ? __pfx_mmu_interval_notifier_remove+0x10/0x10
+[  +0.000017]  ? kasan_save_alloc_info+0x1e/0x30
+[  +0.000018]  ? srso_return_thunk+0x5/0x5f
+[  +0.000014]  ? __kasan_kmalloc+0xb1/0xc0
+[  +0.000018]  ? srso_return_thunk+0x5/0x5f
+[  +0.000013]  ? __kasan_check_read+0x11/0x20
+[  +0.000020]  amdgpu_hmm_unregister+0x34/0x50 [amdgpu]
+[  +0.004695]  amdgpu_gem_object_free+0x66/0xa0 [amdgpu]
+[  +0.004534]  ? __pfx_amdgpu_gem_object_free+0x10/0x10 [amdgpu]
+[  +0.004291]  ? do_syscall_64+0x5f/0xe0
+[  +0.000023]  ? srso_return_thunk+0x5/0x5f
+[  +0.000017]  drm_gem_object_free+0x3b/0x50 [drm]
+[  +0.000489]  amdgpu_gem_userptr_ioctl+0x306/0x500 [amdgpu]
+[  +0.004295]  ? __pfx_amdgpu_gem_userptr_ioctl+0x10/0x10 [amdgpu]
+[  +0.004270]  ? srso_return_thunk+0x5/0x5f
+[  +0.000014]  ? __this_cpu_preempt_check+0x13/0x20
+[  +0.000015]  ? srso_return_thunk+0x5/0x5f
+[  +0.000013]  ? sysvec_apic_timer_interrupt+0x57/0xc0
+[  +0.000020]  ? srso_return_thunk+0x5/0x5f
+[  +0.000014]  ? asm_sysvec_apic_timer_interrupt+0x1b/0x20
+[  +0.000022]  ? drm_ioctl_kernel+0x17b/0x1f0 [drm]
+[  +0.000496]  ? __pfx_amdgpu_gem_userptr_ioctl+0x10/0x10 [amdgpu]
+[  +0.004272]  ? drm_ioctl_kernel+0x190/0x1f0 [drm]
+[  +0.000492]  drm_ioctl_kernel+0x140/0x1f0 [drm]
+[  +0.000497]  ? __pfx_amdgpu_gem_userptr_ioctl+0x10/0x10 [amdgpu]
+[  +0.004297]  ? __pfx_drm_ioctl_kernel+0x10/0x10 [drm]
+[  +0.000489]  ? srso_return_thunk+0x5/0x5f
+[  +0.000011]  ? __kasan_check_write+0x14/0x20
+[  +0.000016]  drm_ioctl+0x3da/0x730 [drm]
+[  +0.000475]  ? __pfx_amdgpu_gem_userptr_ioctl+0x10/0x10 [amdgpu]
+[  +0.004293]  ? __pfx_drm_ioctl+0x10/0x10 [drm]
+[  +0.000506]  ? __pfx_rpm_resume+0x10/0x10
+[  +0.000016]  ? srso_return_thunk+0x5/0x5f
+[  +0.000011]  ? __kasan_check_write+0x14/0x20
+[  +0.000010]  ? srso_return_thunk+0x5/0x5f
+[  +0.000011]  ? _raw_spin_lock_irqsave+0x99/0x100
+[  +0.000015]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+[  +0.000014]  ? srso_return_thunk+0x5/0x5f
+[  +0.000013]  ? srso_return_thunk+0x5/0x5f
+[  +0.000011]  ? srso_return_thunk+0x5/0x5f
+[  +0.000011]  ? preempt_count_sub+0x18/0xc0
+[  +0.000013]  ? srso_return_thunk+0x5/0x5f
+[  +0.000010]  ? _raw_spin_unlock_irqrestore+0x27/0x50
+[  +0.000019]  amdgpu_drm_ioctl+0x7e/0xe0 [amdgpu]
+[  +0.004272]  __x64_sys_ioctl+0xcd/0x110
+[  +0.000020]  do_syscall_64+0x5f/0xe0
+[  +0.000021]  entry_SYSCALL_64_after_hwframe+0x6e/0x76
+[  +0.000015] RIP: 0033:0x7ff9ed31a94f
+[  +0.000012] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <41> 89 c0 3d 00 f0 ff ff 77 1f 48 8b 44 24 18 64 48 2b 04 25 28 00
+[  +0.000013] RSP: 002b:00007fff25f66790 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+[  +0.000016] RAX: ffffffffffffffda RBX: 000055b3f7e133e0 RCX: 00007ff9ed31a94f
+[  +0.000012] RDX: 000055b3f7e133e0 RSI: 00000000c1186451 RDI: 0000000000000003
+[  +0.000010] RBP: 00000000c1186451 R08: 0000000000000000 R09: 0000000000000000
+[  +0.000009] R10: 0000000000000008 R11: 0000000000000246 R12: 00007fff25f66ca8
+[  +0.000009] R13: 0000000000000003 R14: 000055b3f7021ba8 R15: 00007ff9ed7af040
+[  +0.000024]  </TASK>
+[  +0.000007] ---[ end trace 0000000000000000 ]---
+
+v2: Consolidate any error handling into amdgpu_hmm_register
+    which applied to kfd_bo also. (Christian)
+
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>
+Cc: Joonkyo Jung <joonkyoj@yonsei.ac.kr>
+Cc: Dokyung Song <dokyungs@yonsei.ac.kr>
+Cc: <jisoo.jang@yonsei.ac.kr>
+Cc: <yw9865@yonsei.ac.kr>
+Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>:
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-index bb98156b2fa1..e8119918ef6b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-@@ -318,7 +318,7 @@ static int smu_v13_0_4_get_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->GfxActivity / 100;
- 		break;
- 	case METRICS_AVERAGE_VCNACTIVITY:
--		*value = metrics->UvdActivity;
-+		*value = metrics->UvdActivity / 100;
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
- 		*value = (metrics->AverageSocketPower << 8) / 1000;
-@@ -572,6 +572,12 @@ static int smu_v13_0_4_read_sensor(struct smu_context *smu,
- 						       (uint32_t *)data);
- 		*size = 4;
- 		break;
-+	case AMDGPU_PP_SENSOR_VCN_LOAD:
-+		ret = smu_v13_0_4_get_smu_metrics_data(smu,
-+							METRICS_AVERAGE_VCNACTIVITY,
-+							(uint32_t *)data);
-+		*size = 4;
-+		break;
- 	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
- 		ret = smu_v13_0_4_get_smu_metrics_data(smu,
- 						       METRICS_AVERAGE_SOCKETPOWER,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+index 55b65fc04b65..f1618a65f9b1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+@@ -129,13 +129,23 @@ static const struct mmu_interval_notifier_ops amdgpu_hmm_hsa_ops = {
+  */
+ int amdgpu_hmm_register(struct amdgpu_bo *bo, unsigned long addr)
+ {
++	int r;
++
+ 	if (bo->kfd_bo)
+-		return mmu_interval_notifier_insert(&bo->notifier, current->mm,
++		r = mmu_interval_notifier_insert(&bo->notifier, current->mm,
+ 						    addr, amdgpu_bo_size(bo),
+ 						    &amdgpu_hmm_hsa_ops);
+-	return mmu_interval_notifier_insert(&bo->notifier, current->mm, addr,
++	r = mmu_interval_notifier_insert(&bo->notifier, current->mm, addr,
+ 					    amdgpu_bo_size(bo),
+ 					    &amdgpu_hmm_gfx_ops);
++	if (r)
++		/*
++		 * To avoid call mmu_interval_notifier_remove with
++		 * RB_EMPTY_NODE(&interval_sub->interval_tree.rb)
++		 */
++		bo->notifier.mm = NULL;
++
++	return r;
+ }
+ 
+ /**
 -- 
-2.34.1
+2.25.1
 
