@@ -4,118 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61747C48BF6
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Mar 2024 06:06:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8CEEC54E49
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Mar 2024 06:30:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BA13112865;
-	Thu,  7 Mar 2024 06:06:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77FB710F067;
+	Thu,  7 Mar 2024 06:30:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="J8XVmSEl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IYhvMHvv";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BC68112865
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Mar 2024 06:06:34 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 414CB10F067;
+ Thu,  7 Mar 2024 06:30:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AK9sy8hkNS72dpAEmZrAku8r3u424QbHfN29/KVc+RMM7/zw/iPYtiNQhI9CYkRyUw18uNnIHvAktTX0ghoYZSPRjpe15s8KBabzgjP3a2navBfIaxJNpwaLAPYz1S4WM3RSjpZVV5vqU1AgFdoc0m0fq8h1r4XdrjCMAakqEXWL+1/YEXiqCefWPBv54lpQmMXg2+PIATwrKIeAUV+Gf0PoVRwbA4VXBnwdzfSXNqReUFJr1Y3xORofrqiXnjQDNUJ2laQwmhhZZee2jb42ZATUFKT+v7PhAQCYnAKvUVN5d8j23WNeDcQkk9otIcohxamBHiyHqeuPCflsU09HiQ==
+ b=n2cXJ+m0syPutltptQdDI0fkaJTTFZawwp4hRSUCj35eQ6js4THeV1yb7G/+kmqhUurRVLpitSfzIvhEndl8/e/kbAVyD1GWXktSfyr4cfioviMPzuEpiO+5rMI/+TWUt5/2yfkCbVQWUzizhi8BXbrgDwI7ex6gvZwGhWXMo610hrm9KQODvJmJASky4D5+FbI4SE+0/QtH3yxOqrswwN1h8Ky2Nnab2ec0MwoeOxc6i5K1SkGTQ8/1+vNXh383OjvARKvp3PCzryu2gnV0NKxfFmaHxpsVceNw6M3j79UCraONZNk6bMR1BLHw/wBEB47RzwQwVFCVJdy4bbB/pQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+NNAUJrSC5R9N1z8XfvzvzNWnvbgbTw/svrvyxjFvCA=;
- b=OHh7EuteF+Yx/XDskPH47F78UkBRfOTEstIZy1f4LvGzr0lH8/q0+2Sd+kJakHPUb2f6NNEX029ckOemiSemAJj7EC1x7WvJUMzz6XX5rdSfqDSQKAFGFpKqFuHXApPTmBxHJ5K1wJR3mdmWrObVNH3N+3ddXKxZR6VcAvO+j+bBUAmHEdCcRD29noXKDVXKt+PRdZ/MOFAnXxgfv+fXunE0TwbWC1mfPHW4PGrQlp6/4OssuSfuh1hQOenv0TxzKZWKpN57NU8GDT23X0Gaj9L6p99e7zDdDMRo0W1gZUEoxAex0eCWiyHtFg2LRPAzxg/V0j+tuXuegEe6+1DvCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=vtLSn2+SuLBTcsOr9G7Up5ReL8JqH1qpiX1afZ+NghA=;
+ b=F5WGA+11TfYJi0ppAQ7F8URzic+H64v/8NHifOUWui0j26k2XoXt2mOUENWM2afniZA36CtekAaRorh9v+VuKxUFe6AUbR6vfgZs3nps9ftutsHntQiPUA9Tbwexor/DLXspfS1qp9kClod9mMql08mD7cisUyq/yzSWy3mjbbtWzqzbSekx4qJ7EsvaXIl1RJmT3QHPmqq5g1DE2cvN3/DK0Y88H1mPmPcLNMUVM/fGa6F6NHbgSfYGtewZpIVexHu4E4h1hRwngOchhTNtkjhAdxsPGUc8pb/Ie83UuOJYs5FcsXodvQbgO5Y9rsFtyLDW0cvkRRWu+pwrKSb0hA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+NNAUJrSC5R9N1z8XfvzvzNWnvbgbTw/svrvyxjFvCA=;
- b=J8XVmSEl7C+0hTZLjWxRRGl/7NKbbsWeuvLw+14AuZ8xinaprSo8SfFtpWYyuitBySSkBwD3Mt9S1BTEeIhU1tudFP9TxONmctsAYiINQiZ8ks0iLJLJHoJz0SnlhOSvE9ZtfHGigxnHl4iqOcvp4c/5wXpkULWr9u1ULV7Jxwc=
-Received: from MW6PR12MB8898.namprd12.prod.outlook.com (2603:10b6:303:246::8)
- by CH2PR12MB4102.namprd12.prod.outlook.com (2603:10b6:610:a9::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.34; Thu, 7 Mar
- 2024 06:06:30 +0000
-Received: from MW6PR12MB8898.namprd12.prod.outlook.com
- ([fe80::d6a1:3931:bca2:6f07]) by MW6PR12MB8898.namprd12.prod.outlook.com
- ([fe80::d6a1:3931:bca2:6f07%6]) with mapi id 15.20.7339.035; Thu, 7 Mar 2024
- 06:06:30 +0000
-From: "Yu, Lang" <Lang.Yu@amd.com>
-To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: fix mmhub client id out-of-bounds access
-Thread-Topic: [PATCH] drm/amdgpu: fix mmhub client id out-of-bounds access
-Thread-Index: AQHacDoKq6fLMH8PAkiYJDvgcS3hHrErmdKAgAAvT1A=
-Date: Thu, 7 Mar 2024 06:06:29 +0000
-Message-ID: <MW6PR12MB889860BEDDA9C3705E4099D4FB202@MW6PR12MB8898.namprd12.prod.outlook.com>
-References: <20240307024854.2244635-1-Lang.Yu@amd.com>
- <CY5PR12MB6369E21D1B58474E7A179834C1202@CY5PR12MB6369.namprd12.prod.outlook.com>
-In-Reply-To: <CY5PR12MB6369E21D1B58474E7A179834C1202@CY5PR12MB6369.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=bfac0283-37ce-491f-ae04-e3735286024d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-03-07T06:01:04Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW6PR12MB8898:EE_|CH2PR12MB4102:EE_
-x-ms-office365-filtering-correlation-id: 7981326e-a79f-4c72-b589-08dc3e6cbb53
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 5V8HDvkBDII896LDaUUyNqoJAUt+QoxG+2N6ejku08Ot3WuSFvJb4QdDCJdgV334xofnB5fSqy4Wfbjf0hfZoOg5F543bKTju3Cqv0RgwGfwW8nnJGHS8tMdmIIHvLhsbUU68OgeCM9xVT9f22j4SYzt4fOtvhJCNSyCk2JAqSMYM0yrB44pTdafS+b+DPkckA69bi/85iKVHmxMUW0w1ay5thH2Az1/DS3AvVEjct3nccLYEF+FW8gGDkBI+Z0dGgdKlo+j3CwnzC4wM3ied698Tw2Y8OKiqM8qtodzFHIyqknO7hUXEQmai+/jfxGax1eB8XSKgeEm5zZimoWY+KkGv3JxLaeVNZs0I4D42QYKC8+gxRYqNh7urHKKE86mExqlZZI29iMYFGGNknhdHPDk29yKe9uSqeC1+Bv2Pjd13Ug/v/VjWQE+C5ZSvzShdaNPUJ6RoiQZQG+QtKu+4JDPKDgi5/c1ZgcdV8x+y8RoJ+POGpHkwmtwey5W8LaPogoZFRJtxlVi1JIBCPZr0k7L2HsAtgJxSfesmlHHsuVFaCmdGufTU8NQcDUsUw0DpzyWToDRzYzK6fbktYqSQ4FeL+rlqla3xnsRXi8z/i6jTZtMa6Zda4e4AYDc4TTut4ct5lWIQMuUEj9eL3GMFbiyArwOCYlfjCOriGQGq5FWmsUDa9Y2xsxnJ+W0Q1opRaPkNT97pT1Re8zVIGwHS6RH9UnsoUyLTnFbUpqcddw=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW6PR12MB8898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?37MUoU5SeStsL2MYXKIBq893+ooSPyH1UqNn20NSkMxGwqEqa9cPT7OkRWce?=
- =?us-ascii?Q?fTIbozEw6kkJ4xNhuxIkHLQRZ6C/2ilc/hDAeK5snGsPXNUGd+aDQK9VyvSU?=
- =?us-ascii?Q?3zH1P+o/eaRk8oun7DnhvuGnvtp/QRQn6vbCnoXC/tuAD464os8FOyUQDij4?=
- =?us-ascii?Q?R91VbDzH05YZk4qNMHRJrisnRKfhz7GMYhVnXXl2pAuZknxuRzmt13zKg0nm?=
- =?us-ascii?Q?m0KaedruyPPqE7AuX5+rDKx/1PAXlk0qvOokdYu42WWM7kFzqnBQtXIJNAME?=
- =?us-ascii?Q?4B7YV2LQ7dXuY5lmEKyadO3UfQAoL4FtNuZ37r75xWIAsGhNVyGpUJ0l7jT4?=
- =?us-ascii?Q?L2oBQ3HnKxvD8i1bNBdExQjriodPkxG9J5/JXReo67mlgeFhqwD+i2Awesuv?=
- =?us-ascii?Q?QF/J5J6C7kBivNTIOiYv8GNm/u4LZsBamspNYdRtMdis0C8WYnoWSrAXfOpX?=
- =?us-ascii?Q?QtNbdw6IeFT1GDkiFk4lwf60dR/Y+DzPYnbmG0JqW5CzWSppUTdojrOBjBHE?=
- =?us-ascii?Q?PVwQitKFI1mLfCJPajYgg2q0hFcUSwhq1NI9nV4zGwwXZLPcmpFFaj7T34E0?=
- =?us-ascii?Q?CRChAW2AWvrU1CG3JPj7EzrSBJG2aX8Icz7aUrNZ/n8PmNQqbJU9C2ej+DC3?=
- =?us-ascii?Q?xUFtYrNltecD2ODYc83b3fjh06egVD+Jj/3m3eewd6if2SO/783+tPbzdDlL?=
- =?us-ascii?Q?pTtvl+pQ3ZS1YZ36/rqXyLWwVGCpnzYKD5Yg9lg7xXkRqCtbIykpVJEw1N8a?=
- =?us-ascii?Q?7jem+jKAf0hJfaC5/y9bgXS11sp0CoegOM0A7jpM3z+9mbccrXi/6HF5kt8k?=
- =?us-ascii?Q?DiCJ0tPGoNO3QgwI/1c09E8YiVE5ngzwS47m3imgtsPyYY/qxjvR8hhcKomt?=
- =?us-ascii?Q?Gs6DQe0AINobib9IuebRe3LDJgjaIws8j+TuO1H9VnIC5ttN152phPSOeiLi?=
- =?us-ascii?Q?nOQ7gY4b7IQ2DNuBgXrOCYSetDZg1Rda6HJ7UbFFDIDv3FF04qD7TB6ZSigR?=
- =?us-ascii?Q?MjBAXZ+SP4HWV1dTmZjfH58i8wlpfMiTI3YYwAXJbBgLY71IVEblEo6701oY?=
- =?us-ascii?Q?8qlpxVcElOq4ZB73n+luxpc3STV1V1s5/RdEJaPqFAkgupY8eRSa8dTODgwq?=
- =?us-ascii?Q?W08gQ0YTlGcQwBQGaFZMIHeCPJONUHzaDJhYu5k5a55zZBLbTFRLHo0SOgVq?=
- =?us-ascii?Q?n52NN2bOpQ9LIMGzH9mKNTgd7hOZLA6cb2oywPmJW5FnwNT3kABSR5x2XjGS?=
- =?us-ascii?Q?rd8RLeYtBWo0Xspta/rGF8UdHoS6oG2exw6kOvlqVa2iDpHgJVQSucE1t6AI?=
- =?us-ascii?Q?jL27YqCstKwjYQinT1hvs4MUJ4hvQceOitd7YBlF4siKkz1klCumEzQOXawt?=
- =?us-ascii?Q?d3HWM65RjXz/ZBNqBdLMN3mZDzMM1r0RMlm7EfVVmQkZ1xn3bFswN9u9/4ok?=
- =?us-ascii?Q?NJrMG1zAzyBr9DPCg841q1DkvvFig8s6vqXF0GWRh1zLws5gSnb48C/vwptg?=
- =?us-ascii?Q?Yd2obBuu3RdYbuKN7sPFkGaXrgeMAicgxEjrTeHYejRLiAqvcwY1FbOou4C0?=
- =?us-ascii?Q?0cfKI91ycPyy+PRwfxQ=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=vtLSn2+SuLBTcsOr9G7Up5ReL8JqH1qpiX1afZ+NghA=;
+ b=IYhvMHvvv6S4JZZf0Z2KqOAh4DZNHLRbUxMpXwr52WIMzDiDX8rDNMPvb1DisX13wd7jOYtmKNJPkOX4R3NQC9NcZNcxP+qrn/sOQ0YiIkLFIJU4fxxFv4jcHexc5LbwkiNOxuPcxkrmd+5bV5WNp6csXxj2X6u/lqu6uusyqOU=
+Received: from SA0PR11CA0201.namprd11.prod.outlook.com (2603:10b6:806:1bc::26)
+ by SJ2PR12MB7893.namprd12.prod.outlook.com (2603:10b6:a03:4cc::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.39; Thu, 7 Mar
+ 2024 06:30:24 +0000
+Received: from SA2PEPF000015C9.namprd03.prod.outlook.com
+ (2603:10b6:806:1bc:cafe::6a) by SA0PR11CA0201.outlook.office365.com
+ (2603:10b6:806:1bc::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.26 via Frontend
+ Transport; Thu, 7 Mar 2024 06:30:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SA2PEPF000015C9.mail.protection.outlook.com (10.167.241.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7362.11 via Frontend Transport; Thu, 7 Mar 2024 06:30:24 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 7 Mar
+ 2024 00:30:23 -0600
+Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Thu, 7 Mar 2024 00:30:20 -0600
+From: Wayne Lin <Wayne.Lin@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>
+CC: <lyude@redhat.com>, <harry.wentland@amd.com>, <imre.deak@intel.com>,
+ "Wayne Lin" <Wayne.Lin@amd.com>, =?UTF-8?q?Leon=20Wei=C3=9F?=
+ <leon.weiss@ruhr-uni-bochum.de>, <stable@vger.kernel.org>,
+ <regressions@lists.linux.dev>
+Subject: [PATCH] drm/mst: Fix NULL pointer dereference at
+ drm_dp_add_payload_part2
+Date: Thu, 7 Mar 2024 14:29:57 +0800
+Message-ID: <20240307062957.2323620-1-Wayne.Lin@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB03.amd.com: Wayne.Lin@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015C9:EE_|SJ2PR12MB7893:EE_
+X-MS-Office365-Filtering-Correlation-Id: afd8a756-f805-4b79-5db6-08dc3e701240
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: rVPnLV3MKWxW3IDagIoKoWIKstipolT4k1q7eD7Fga7gOMBNuJi/OGjbVpjCgBDZpBVR8SCMqoAki4acashjrpp0LpLuVcE/gY1HVyZrERwWimVeRPLmi5Vfau1iMvbRisKudgyJMfe0a2iXPa7bXq8JthKi3EsaUka/jCBXgi4dpbzTTeXJ3HKo+/mSmuf3qcP+SnXK1Meyom1Ymm8EmWLAr7ilABNzCBR2T+WJeKV23mwy15ulZnI56GHOm79GsnYTYO4wPRmES+VRhXLhQE1DBsAESxNXvdug/W1rsGxpM1adCD7uNFTZB7PcpQxGZQRLYdbHgVjJ2NJ1s/NBAIeJYc+dnH7zjQqExeyFlYdn6afzas5zG14WaPjbecXTsEXa5Nd+QG3BEAgmG8UNZdyeDzYI9Su6f49ozT8Ul5Qi/T4iAzn6ILb6jfy4jzO5ZlSnrCtepcUwHcxXlcYnhQGDbEVTiQcgIGoES4st5vweNseK5JjKE1Vc6oVm+1CKJjYZvhUEeWGWfRBiF64vHb0CIYFMJd/L8V5DXR0eo2guB3bjmM3WLVO18IZ51EmHIM9j52B4RH8S7DPXXNm+o9N3FTKojYBnlBKFojBa10QZlnlNDuIEpeNEGp0oRG0voEAi6ayljUGuPNTo3hANZP8ZfrLDRjtAPIIlKYGxVUC49mB7nf681gLVpDdGxz9yBySNhSSn9FpKIfysXZsEww==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(82310400014)(376005)(36860700004); DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW6PR12MB8898.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7981326e-a79f-4c72-b589-08dc3e6cbb53
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Mar 2024 06:06:29.9663 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QZz2tYdhEWESsQFCtFC/BT7Y1ZD7q1iKIdPf48LnE7dSFdRY8Al4fcPZKfpKmP1mdxDLiJoX+Kn0AaRJqWLfMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4102
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2024 06:30:24.2610 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: afd8a756-f805-4b79-5db6-08dc3e701240
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015C9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7893
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,68 +110,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+[Why]
+Commit:
+- commit 5aa1dfcdf0a4 ("drm/mst: Refactor the flow for payload allocation/removement")
+accidently overwrite the commit
+- commit 54d217406afe ("drm: use mgr->dev in drm_dbg_kms in drm_dp_add_payload_part2")
+which cause regression.
 
->-----Original Message-----
->From: Zhang, Yifan <Yifan1.Zhang@amd.com>
->Sent: Thursday, March 7, 2024 11:11 AM
->To: Yu, Lang <Lang.Yu@amd.com>; amd-gfx@lists.freedesktop.org
->Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
->Subject: RE: [PATCH] drm/amdgpu: fix mmhub client id out-of-bounds access
->
->[AMD Official Use Only - General]
->
->Can we just add cid 0x140 "UMSCH" to mmhub_client_ids_v3_3 structure ?
+[How]
+Recover the original NULL fix and remove the unnecessary input parameter 'state' for
+drm_dp_add_payload_part2().
 
-Yes, we can. Then mmhub_client_ids_v3_3's capacity will change from 31 to 3=
-20
-and most of the space are unused.
+Fixes: 5aa1dfcdf0a4 ("drm/mst: Refactor the flow for payload allocation/removement")
+Reported-by: Leon Weiß <leon.weiss@ruhr-uni-bochum.de>
+Link: https://lore.kernel.org/r/38c253ea42072cc825dc969ac4e6b9b600371cc8.camel@ruhr-uni-bochum.de/
+Cc: lyude@redhat.com
+Cc: imre.deak@intel.com
+Cc: stable@vger.kernel.org
+Cc: regressions@lists.linux.dev
+Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 +-
+ drivers/gpu/drm/display/drm_dp_mst_topology.c             | 4 +---
+ drivers/gpu/drm/i915/display/intel_dp_mst.c               | 2 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c                   | 2 +-
+ include/drm/display/drm_dp_mst_helper.h                   | 1 -
+ 5 files changed, 4 insertions(+), 7 deletions(-)
 
-Regards,
-Lang
-
->-----Original Message-----
->From: Yu, Lang <Lang.Yu@amd.com>
->Sent: Thursday, March 7, 2024 10:49 AM
->To: amd-gfx@lists.freedesktop.org
->Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Yifan
-><Yifan1.Zhang@amd.com>; Yu, Lang <Lang.Yu@amd.com>
->Subject: [PATCH] drm/amdgpu: fix mmhub client id out-of-bounds access
->
->Fixes: aba2be41470a ("drm/amdgpu: add mmhub 3.3.0 support")
->
->Signed-off-by: Lang Yu <Lang.Yu@amd.com>
->---
-> drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c | 7 +++----
-> 1 file changed, 3 insertions(+), 4 deletions(-)
->
->diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
->b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
->index b3961968c10c..238ea40c2450 100644
->--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
->+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
->@@ -99,16 +99,15 @@
->mmhub_v3_3_print_l2_protection_fault_status(struct amdgpu_device *adev,
->        switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
->        case IP_VERSION(3, 3, 0):
->        case IP_VERSION(3, 3, 1):
->-               mmhub_cid =3D mmhub_client_ids_v3_3[cid][rw];
->+               mmhub_cid =3D cid < ARRAY_SIZE(mmhub_client_ids_v3_3) ?
->+                           mmhub_client_ids_v3_3[cid][rw] :
->+                           cid =3D=3D 0x140 ? "UMSCH" : NULL;
->                break;
->        default:
->                mmhub_cid =3D NULL;
->                break;
->        }
->
->-       if (!mmhub_cid && cid =3D=3D 0x140)
->-               mmhub_cid =3D "UMSCH";
->-
->        dev_err(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
->                mmhub_cid ? mmhub_cid : "unknown", cid);
->        dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
->--
->2.25.1
->
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index c27063305a13..2c36f3d00ca2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -363,7 +363,7 @@ void dm_helpers_dp_mst_send_payload_allocation(
+ 	mst_state = to_drm_dp_mst_topology_state(mst_mgr->base.state);
+ 	new_payload = drm_atomic_get_mst_payload_state(mst_state, aconnector->mst_output_port);
+ 
+-	ret = drm_dp_add_payload_part2(mst_mgr, mst_state->base.state, new_payload);
++	ret = drm_dp_add_payload_part2(mst_mgr, new_payload);
+ 
+ 	if (ret) {
+ 		amdgpu_dm_set_mst_status(&aconnector->mst_status,
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 03d528209426..95fd18f24e94 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -3421,7 +3421,6 @@ EXPORT_SYMBOL(drm_dp_remove_payload_part2);
+ /**
+  * drm_dp_add_payload_part2() - Execute payload update part 2
+  * @mgr: Manager to use.
+- * @state: The global atomic state
+  * @payload: The payload to update
+  *
+  * If @payload was successfully assigned a starting time slot by drm_dp_add_payload_part1(), this
+@@ -3430,14 +3429,13 @@ EXPORT_SYMBOL(drm_dp_remove_payload_part2);
+  * Returns: 0 on success, negative error code on failure.
+  */
+ int drm_dp_add_payload_part2(struct drm_dp_mst_topology_mgr *mgr,
+-			     struct drm_atomic_state *state,
+ 			     struct drm_dp_mst_atomic_payload *payload)
+ {
+ 	int ret = 0;
+ 
+ 	/* Skip failed payloads */
+ 	if (payload->payload_allocation_status != DRM_DP_MST_PAYLOAD_ALLOCATION_DFP) {
+-		drm_dbg_kms(state->dev, "Part 1 of payload creation for %s failed, skipping part 2\n",
++		drm_dbg_kms(mgr->dev, "Part 1 of payload creation for %s failed, skipping part 2\n",
+ 			    payload->port->connector->name);
+ 		return -EIO;
+ 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 53aec023ce92..2fba66aec038 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1160,7 +1160,7 @@ static void intel_mst_enable_dp(struct intel_atomic_state *state,
+ 	if (first_mst_stream)
+ 		intel_ddi_wait_for_fec_status(encoder, pipe_config, true);
+ 
+-	drm_dp_add_payload_part2(&intel_dp->mst_mgr, &state->base,
++	drm_dp_add_payload_part2(&intel_dp->mst_mgr,
+ 				 drm_atomic_get_mst_payload_state(mst_state, connector->port));
+ 
+ 	if (DISPLAY_VER(dev_priv) >= 12)
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index 0c3d88ad0b0e..88728a0b2c25 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -915,7 +915,7 @@ nv50_msto_cleanup(struct drm_atomic_state *state,
+ 		msto->disabled = false;
+ 		drm_dp_remove_payload_part2(mgr, new_mst_state, old_payload, new_payload);
+ 	} else if (msto->enabled) {
+-		drm_dp_add_payload_part2(mgr, state, new_payload);
++		drm_dp_add_payload_part2(mgr, new_payload);
+ 		msto->enabled = false;
+ 	}
+ }
+diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
+index 9b19d8bd520a..6c9145abc7e2 100644
+--- a/include/drm/display/drm_dp_mst_helper.h
++++ b/include/drm/display/drm_dp_mst_helper.h
+@@ -851,7 +851,6 @@ int drm_dp_add_payload_part1(struct drm_dp_mst_topology_mgr *mgr,
+ 			     struct drm_dp_mst_topology_state *mst_state,
+ 			     struct drm_dp_mst_atomic_payload *payload);
+ int drm_dp_add_payload_part2(struct drm_dp_mst_topology_mgr *mgr,
+-			     struct drm_atomic_state *state,
+ 			     struct drm_dp_mst_atomic_payload *payload);
+ void drm_dp_remove_payload_part1(struct drm_dp_mst_topology_mgr *mgr,
+ 				 struct drm_dp_mst_topology_state *mst_state,
+-- 
+2.37.3
 
