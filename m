@@ -4,75 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B74FC5475B
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Mar 2024 11:32:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 237F7C54E4A
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Mar 2024 14:01:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D39A1113871;
-	Fri,  8 Mar 2024 11:32:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5BF410EDE4;
+	Fri,  8 Mar 2024 14:01:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gtIXSKM0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CUqW9L+t";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29C85113870;
- Fri,  8 Mar 2024 11:32:38 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-33e162b1b71so1791457f8f.1; 
- Fri, 08 Mar 2024 03:32:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709897556; x=1710502356; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=V/U4R8MBg204kG8ugYCLmUhdGr32W8Oze66n2rkC7QY=;
- b=gtIXSKM0cTRyXiDBW4JJDG1DdUy8rwxAXZIPMCNU65r+wl6IpC9y/Q/04DU7Mlgk6u
- vOiUbWQAP+f1YEmLHLqvCNlBk2FrrtvZr5dfHHE7ROKy3p53pgzK8hXkUeFdiNMzoNg5
- iC3lLYwiDcPAmSB+jHfbuDIMtlIOOO33EphtuU7D20NXd0CZTtae36R3Cp0113wMRDIJ
- tKEzcEflRyTe/k1wgRJ09asNXNnPj0nzWo7q2UzH6GbSzmmjqH2XeXT9Lc8UQxy58QNc
- TPa4TTXMb6ALEq2ailTXjKPm682oh2FHizEDAC8K7/ycxm2KrUKTCXRVqpG71MY0TquI
- Ju7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709897556; x=1710502356;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=V/U4R8MBg204kG8ugYCLmUhdGr32W8Oze66n2rkC7QY=;
- b=cKYSyVlbSFkd/6cjwIFBZdjFJHxsvzw04IDEk5Ni0f40URzkl6HN54oorw+gGwhqzi
- 3TrIyfOOPKhYx6QHStZWWGVl/2FW/cVAdYNBDKi3kewG047pKM63p7OJH1HaCS63eGTb
- YKHLw+2F5fitzWl7ABLGzHS0q3jDtK3qVQiDHG1TuUwI6+tnWOT2rU0+vrfUtv3eVLpz
- T0TperFERlVnIYULUKyLH/wgONtPDZ21KpYjEFxOrbp4LHn4Nuoo4UEyO9vgTbFmSYyg
- OJ8omya6HxGHxwrPe3WfSwTgFFbXptLg6gn0qshx4JI53BQWwN0edAHE4AzP6rASz8zX
- zL2Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV41c67sQBlYphrdCpljyMd+FjFYZLSCDOUII2u7AFl3fQmLrmEfZFCFAhavDHNU2Zp25HY5XGOudNj9wIEj1V3IC0RGywkLGGgSx6Ced3DUgV3Hskf/gA9U98FiAr9qU2EZ9BkQsq9jZuNJ1g2eA==
-X-Gm-Message-State: AOJu0YxU3Jo8aoyf9jPg8jbGXxeujY7PNn+evYTBNYT+/eO3+T04fQG1
- cDJm2c6pzH8CsMhQZ13wNBUKUfRpuMHUUd7idFE4U7p7hgg5xAV/GSX0Mnocu0Y=
-X-Google-Smtp-Source: AGHT+IEcSif1kuJgvWx4ygkHntU5v9ZhD5o0vNZtjvZgIHMZpgFceu8DSdXPEKon71q2BG0DrNE5jA==
-X-Received: by 2002:a5d:5942:0:b0:33d:af84:2a59 with SMTP id
- e2-20020a5d5942000000b0033daf842a59mr13886868wri.28.1709897555662; 
- Fri, 08 Mar 2024 03:32:35 -0800 (PST)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- r27-20020adfa15b000000b0033e7938e218sm826032wrr.43.2024.03.08.03.32.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Mar 2024 03:32:35 -0800 (PST)
-Message-ID: <c411dce6-faaf-46c3-8bb6-8c4db871e598@gmail.com>
-Date: Fri, 8 Mar 2024 12:32:33 +0100
-MIME-Version: 1.0
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2075.outbound.protection.outlook.com [40.107.94.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70EC510F9F1
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Mar 2024 14:01:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Pt4nLn34vDvGj2bs15UMGGKEmju82/9epuTRK8EdyfHhBKDXZqvtYZ1G8Ft05jhlfQ0HPb0K4NRQjGOPXQrNNMvlzm6oNhqYyzpD7wsSy8gqPGDOjjs8wol9shRtLwTXj5tjnpMmPFdEX3DnE3MOTPxGt/LOWNjQ6MrazO1YkMkS80KAA5HGzKDwlgTZBJ7Fl0JKttV6jx9udksszNwq8JvSuzxq/EoVgILJxNOgJwKUf7wPmvrZdNeLi4Tqk0Fjs6fPg10gstFCqXg2OZcm56Df+mmL4Vfc1teW8mzSybrLxIlr4gKarIwocMInrjye0eBlQVrYsR7Z8qaSjC5vZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6E3CMjDL58PBB2dluCQ+Y1mu/bb/ByvJJjzIutidkfc=;
+ b=Vkd9qtjMIYELBzV0iASgZmUTEbUQlFDTqvmLFFSIHZ8pIBP2h+L3bvSUDAAuazNtyX7oQfLVtzDS59wl1q7fyQwGPJRI0uTnffmB8I9ssecdfdtj0Joe5Rw0vDI3UJ7WmtArNpqUjH1X/D7zKZCbfWauiALYHcI48b78rEOsapiXILj80ro1Cv/kiM3PvWaMTHRI4m6kK5P6VpmJzcwFZQNQYO0osQ68pSLhyLhHeKUlFmljkkZNYespwRmGkD56cgQABCGxVu0mSJ4fCkPYTV4CyqXsjxCcQClAFs90iHc4vzqM9IVw4RHT55N+8a8Dny7K0IrLsvsQolXt9ySb4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6E3CMjDL58PBB2dluCQ+Y1mu/bb/ByvJJjzIutidkfc=;
+ b=CUqW9L+tSyZ3MwNbDBBsBnaGS8LEHRfKsH+mDhdm6a85BubO8o4VvpWtc75Q/lVKq5mn1QuV1UydFenpRy9zd8V+vddAW7Tb0GXZgfCl6fBaCs8pUmPI9u5apWwjllgmzkJFaZaioS8aZmRRgaX3qqUEsnftiSbQjVEYxfLdRyQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ LV8PR12MB9184.namprd12.prod.outlook.com (2603:10b6:408:18f::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7339.39; Fri, 8 Mar 2024 14:01:02 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::621:96e2:a3a0:486a]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::621:96e2:a3a0:486a%4]) with mapi id 15.20.7362.024; Fri, 8 Mar 2024
+ 14:01:02 +0000
+Message-ID: <9f3c2e9e-7c9c-4b8d-9e90-58a0d9bfa87d@amd.com>
+Date: Fri, 8 Mar 2024 19:30:53 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: fix deadlock while reading mqd from debugfs
+Subject: Re: [PATCH v2] drm/amdgpu/pm: Fix NULL pointer dereference when get
+ power limit
+To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Kenneth.Feng@amd.com, Alexander.Deucher@amd.com, kevinyang.wang@amd.com,
+ Yin Zhenguo <zhenguo.yin@amd.com>
+References: <20240308095140.2221137-1-Jun.Ma2@amd.com>
 Content-Language: en-US
-To: Johannes Weiner <hannes@cmpxchg.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- "Sharma, Shashank" <Shashank.Sharma@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20240307221609.7651-1-hannes@cmpxchg.org>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240307221609.7651-1-hannes@cmpxchg.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20240308095140.2221137-1-Jun.Ma2@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0075.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:9a::15) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|LV8PR12MB9184:EE_
+X-MS-Office365-Filtering-Correlation-Id: efb24591-a645-4827-1a40-08dc3f78304f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: UEYq5i3Th3Gi4TUWrYLt4czG5tERPEQSEIWUKRCq81OUKZ+CAEDxpc33NamuJn/aK+mM3JoZEJZOgldHXOQSkM9bb3Ob64p5m88H7VJIj5YtQzVcOL1R7i8KuUWKfqmSZtJuBri9IAUV2Dahx9f/svhH5s70ssJQZ4wlYPLxF7Baw2U+B7rinmcn5RnCV5DvFck0/OJnqFCZeBmsivZ3hGfl1uenFGBIpz0ijaK/CQfdUbN6C+raZG+40vdRNnUNPTsjhCE3c9djVNJ29EYihI12F7PhM0Jr8Na0lvV/c8sK0iJB6AduF/z1vXbSscnQcqW4G4OETBguGmp0SezAFfE7LpP6i6QnALsfXYOSTXXLzrWfYCWmjW77avTlPUP7E6G9EhBiHJT8BAVDTbhZ5T1NDHwy1vrqGNST19uz7SO5YchN2gjS06cNhy8xc526KqnKyu7RKWE+cP186jrK286VVd7zywAgl28ELuSWu5XMQYWJhq2N/eQuc7195wGNDDpOxMIyHHGxKTtZLJ68yAhysAixZ7eJ9i+e/NdcoNswk4rUZeGcFDb9GoY9tj0Z2j73nDNVII8yikKFy1CqedTb3SWykIfNn49ysFTD1FoHstrGD3kHx2Gj5rMv/F7qik5rT/uUM+wXiJo0hvbuErFIdq9E2Kv2FukKdAb4044=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dVJsSkZhZlpyYWZvd1h2MTdZdWs0VlVSKzVXQXNRUEczUnY5OUhGSmZuZDdE?=
+ =?utf-8?B?bTAyV2o5dlg3Rk9MalMvcnZreUk3K1hyZkRsM05ybmllVk1jMmZ2VElnUFRv?=
+ =?utf-8?B?a2RTMDZKemtUUVpiakhnemRJMTZlYjJiZUs5ZCsxWkFBZTdMck02RTJKM3NE?=
+ =?utf-8?B?UlFMaXQ3ODI1NThFbHJIN3N5QjdoTzFoVVUzRlBld3IwdUNzcklKOXhBRUt2?=
+ =?utf-8?B?OVE4S0lUNzFiWVA4eUphZVlETjA5aGErOVRiSi9zV2dXa0tiUE5kc24waHBF?=
+ =?utf-8?B?SGU0OFdwSnFYdm51SEg0M2hQb1Y5WXVReTZHNnVpd0JGTTFJdU5JV0c1aG5N?=
+ =?utf-8?B?YWd2Um5YR2JIU0NFMFVSUlNxNUNnSm9oVlpFaERPSXpFZGFwaUI0VXlxdkdQ?=
+ =?utf-8?B?MHo0aHM4REpsWlk0TWo3Q293cEd6Sm1ZdG9FMzdkQXFlMkljbG5GUjdob3p0?=
+ =?utf-8?B?QVpNU0NtUUtDaFhpcWpFa0VVV2lDV2N2QmNYQXVJZUl0bXpoakd6WTU0dlpK?=
+ =?utf-8?B?dEt1TnNIdHZoSDZJN2U1bnhLQXBjK3hDdTVQdWVwaFVTamVqSW81aWJuQkg3?=
+ =?utf-8?B?bGF2VWtCL1pVTWtYVVlKbHBWektmR3Brdmx3SHlyWGZkVUw1dlhNY0M0Qm9a?=
+ =?utf-8?B?L3l6R3pPNW1YeGN5YjJwTUZSQlpIV3oydEZ6R2FZUnZPZXF1TjRMeHpjb0ZE?=
+ =?utf-8?B?cTJQQmoyMjd2eG9nOGJCMFhabnUxVFM2OE9FRWVHSktjYzhmTjhhak5hR2RG?=
+ =?utf-8?B?QktvM3lrWDhtbFdWUkhoQnBHVWpPQklsa0RKRUljMzRDdUhnV25IcTVIMTRU?=
+ =?utf-8?B?azNzbC91bHNnRkhZUGxIbmZpMVRVeFQrb0NkM3RzcHpwTXJ0VG82RkRGV3RY?=
+ =?utf-8?B?aXE5UVBMdGFjZjNUZWdFQzUyVE1DSDhUYlp4akJtNncvdytDaXZqZ29DUkE0?=
+ =?utf-8?B?VW01YldvMVhNemdoM241cVRSN1N3N0gyMUlNTDNYMzA3OE5FdjlJOHBXcm0v?=
+ =?utf-8?B?bzlCS0MvUE1OQnBUdlFPQWZPT3dOSk1lM3hMa1pnc0RPWTRMN1dPV29nMFhQ?=
+ =?utf-8?B?dHFHcG1wVHdNOERKcjYyK3ZXZnp4elg5RVlxdGJRSmRkdmltWXIyeHJFUjl0?=
+ =?utf-8?B?TkFOZXN2dzRPcG00NFEzQ1J6ZkcwU0tmOTduM05xYlU3R1V2cmJ0YzVLNzJp?=
+ =?utf-8?B?ZnVaNTlyTnl6YnVoci8yb2RXMlM1RjVoWm1zbGFlb3pCdHhONlM1ODVISmlZ?=
+ =?utf-8?B?QWJta2FaeExmdnlMOVg0dWRCdzVGOEUvZ1NmbmRoSW5rYXhWbERrazA2RFZ5?=
+ =?utf-8?B?TCs1c2xJa0pvamtLbWdDMWZuNHF0STVzaFB0Z3lwbysxN2pkemtmWWdRc0Uw?=
+ =?utf-8?B?MWNDdTRYLzhXSVNoZ0FPL0pXdWNjTk5Mc2FWYWNrN3J5Q3hURXJmbGpFTTA3?=
+ =?utf-8?B?VXQ5c1pLb0tRdlgzck5kYWJtRTF1NEtxYmhDMGFIbDV3bm16Vlpta0RqZXFH?=
+ =?utf-8?B?Y0pFa09Fa3hLVVdZOUI1WCtvRkZCYzRzMVFEbW8wc1M2VnJ6TmphcWxUdk1C?=
+ =?utf-8?B?cTJKcDcvQUxXSXNrNVpqSUFrZkxzNGpkTzZ2ODNjUUJmbXZBZXdycE91dWtH?=
+ =?utf-8?B?aTdkQUEvMmVVZEVoeWxaRkt2OFhDVDBkVUFQTnVzSTRqTWtUcTgxbTByT3k0?=
+ =?utf-8?B?a2U4K0M5SSsvNVE4WHR3UFdzWlEyREhKYWQyQWZtb2VROEFNamlwSk8wR0pt?=
+ =?utf-8?B?aWZWR3JWY055SGxlU1R6VEpUeDZFYkRERnpqaVBCeG1Cb3BFalZyNUd6ckFn?=
+ =?utf-8?B?eGpLWXkwTEU5VUxpN0sweThhV2I0MzNQN3RsamNmcTc3QlhCeXN0NnRxeHpz?=
+ =?utf-8?B?NWx4cHgxUEhtTXgrNWlQUXhSK2VhTmlCQkV3T1Q5aS96UHo2cC9WODh3dmlw?=
+ =?utf-8?B?cHpjdUgvYmQvV2lNemZPc2xhY2lycHBGcHhSUjUvWEpUdmhqVzBLbXZWWkw4?=
+ =?utf-8?B?SVJpNVZScWhmLzU3MkpTbVNLdzQwaDNqbjVOUGxkMFJjWlhwM3o3VkdsQlZN?=
+ =?utf-8?B?VGcrM01jSXgvQVhhbW1NeWwxbUZmMWF6bzVoNzU4QUN2c210OWoyYzZBcXlo?=
+ =?utf-8?Q?xq6sKxRD+sDlu4z7Edu8mSZRo?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: efb24591-a645-4827-1a40-08dc3f78304f
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2024 14:01:02.3002 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: F+nVb1hvVc9+TgJytcpMaXT0V+TsbSEMtz8ti1EdiOqJuYiuQUJF0uL/DSkBFj7o
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9184
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,215 +130,255 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Good catch, Shashank can you take a closer look?
+
+
+On 3/8/2024 3:21 PM, Ma Jun wrote:
+> Because powerplay_table initialization is skipped under
+> sriov case, We set default lower and upper OD value to
+> avoid NULL pointer issue.
+> 
+> Also, It's necessary to check od capability before
+> using the power limit value from powerplay_table.
+> 
+> Fixes: 7968e9748fbb ("drm/amdgpu/pm: Fix the power1_min_cap value")
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+> Reported-by: Yin Zhenguo <zhenguo.yin@amd.com>
+> ---
+> v1->v2: Check the od capability (Alex, Lijo)
+> ---
+>  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 18 ++++++-----
+>  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 18 ++++++-----
+>  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 30 +++++++++++--------
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 22 +++++++++-----
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 22 +++++++++-----
+>  5 files changed, 68 insertions(+), 42 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> index 1d96eb274d72..862d5d198f42 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> @@ -1285,8 +1285,9 @@ static int arcturus_get_power_limit(struct smu_context *smu,
+>  {
+>  	struct smu_11_0_powerplay_table *powerplay_table =
+>  		(struct smu_11_0_powerplay_table *)smu->smu_table.power_play_table;
+> +	struct smu_11_0_overdrive_table *od_settings = smu->od_settings;
+>  	PPTable_t *pptable = smu->smu_table.driver_pptable;
+> -	uint32_t power_limit, od_percent_upper, od_percent_lower;
+> +	uint32_t power_limit, od_percent_upper = 0, od_percent_lower = 10;
+>  
+>  	if (smu_v11_0_get_current_power_limit(smu, &power_limit)) {
+>  		/* the last hope to figure out the ppt limit */
+> @@ -1303,12 +1304,15 @@ static int arcturus_get_power_limit(struct smu_context *smu,
+>  	if (default_power_limit)
+>  		*default_power_limit = power_limit;
+>  
+> -	if (smu->od_enabled)
+> -		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> -	else
+> -		od_percent_upper = 0;
+> -
+> -	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> +	if (powerplay_table) {
+> +		if (smu->od_enabled) {
+> +			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> +		} else if (od_settings->cap[SMU_11_0_ODCAP_POWER_LIMIT]) {
+
+This check is applicable even for od_enabled case. Presently OD provides
+multiple feature capabilities; only if a capability is valid, then the
+limits defined in the table are valid.
+
+BTW, I'm not sure if that is the subject of this patch.
+
+For arcturus, overdrive doesn't look relevant; again that may not be
+relevant to this patch topic.
 
 Thanks,
-Christian.
-
-Am 07.03.24 um 23:07 schrieb Johannes Weiner:
-> An errant disk backup on my desktop got into debugfs and triggered the
-> following deadlock scenario in the amdgpu debugfs files. The machine
-> also hard-resets immediately after those lines are printed (although I
-> wasn't able to reproduce that part when reading by hand):
->
-> [ 1318.016074][ T1082] ======================================================
-> [ 1318.016607][ T1082] WARNING: possible circular locking dependency detected
-> [ 1318.017107][ T1082] 6.8.0-rc7-00015-ge0c8221b72c0 #17 Not tainted
-> [ 1318.017598][ T1082] ------------------------------------------------------
-> [ 1318.018096][ T1082] tar/1082 is trying to acquire lock:
-> [ 1318.018585][ T1082] ffff98c44175d6a0 (&mm->mmap_lock){++++}-{3:3}, at: __might_fault+0x40/0x80
-> [ 1318.019084][ T1082]
-> [ 1318.019084][ T1082] but task is already holding lock:
-> [ 1318.020052][ T1082] ffff98c4c13f55f8 (reservation_ww_class_mutex){+.+.}-{3:3}, at: amdgpu_debugfs_mqd_read+0x6a/0x250 [amdgpu]
-> [ 1318.020607][ T1082]
-> [ 1318.020607][ T1082] which lock already depends on the new lock.
-> [ 1318.020607][ T1082]
-> [ 1318.022081][ T1082]
-> [ 1318.022081][ T1082] the existing dependency chain (in reverse order) is:
-> [ 1318.023083][ T1082]
-> [ 1318.023083][ T1082] -> #2 (reservation_ww_class_mutex){+.+.}-{3:3}:
-> [ 1318.024114][ T1082]        __ww_mutex_lock.constprop.0+0xe0/0x12f0
-> [ 1318.024639][ T1082]        ww_mutex_lock+0x32/0x90
-> [ 1318.025161][ T1082]        dma_resv_lockdep+0x18a/0x330
-> [ 1318.025683][ T1082]        do_one_initcall+0x6a/0x350
-> [ 1318.026210][ T1082]        kernel_init_freeable+0x1a3/0x310
-> [ 1318.026728][ T1082]        kernel_init+0x15/0x1a0
-> [ 1318.027242][ T1082]        ret_from_fork+0x2c/0x40
-> [ 1318.027759][ T1082]        ret_from_fork_asm+0x11/0x20
-> [ 1318.028281][ T1082]
-> [ 1318.028281][ T1082] -> #1 (reservation_ww_class_acquire){+.+.}-{0:0}:
-> [ 1318.029297][ T1082]        dma_resv_lockdep+0x16c/0x330
-> [ 1318.029790][ T1082]        do_one_initcall+0x6a/0x350
-> [ 1318.030263][ T1082]        kernel_init_freeable+0x1a3/0x310
-> [ 1318.030722][ T1082]        kernel_init+0x15/0x1a0
-> [ 1318.031168][ T1082]        ret_from_fork+0x2c/0x40
-> [ 1318.031598][ T1082]        ret_from_fork_asm+0x11/0x20
-> [ 1318.032011][ T1082]
-> [ 1318.032011][ T1082] -> #0 (&mm->mmap_lock){++++}-{3:3}:
-> [ 1318.032778][ T1082]        __lock_acquire+0x14bf/0x2680
-> [ 1318.033141][ T1082]        lock_acquire+0xcd/0x2c0
-> [ 1318.033487][ T1082]        __might_fault+0x58/0x80
-> [ 1318.033814][ T1082]        amdgpu_debugfs_mqd_read+0x103/0x250 [amdgpu]
-> [ 1318.034181][ T1082]        full_proxy_read+0x55/0x80
-> [ 1318.034487][ T1082]        vfs_read+0xa7/0x360
-> [ 1318.034788][ T1082]        ksys_read+0x70/0xf0
-> [ 1318.035085][ T1082]        do_syscall_64+0x94/0x180
-> [ 1318.035375][ T1082]        entry_SYSCALL_64_after_hwframe+0x46/0x4e
-> [ 1318.035664][ T1082]
-> [ 1318.035664][ T1082] other info that might help us debug this:
-> [ 1318.035664][ T1082]
-> [ 1318.036487][ T1082] Chain exists of:
-> [ 1318.036487][ T1082]   &mm->mmap_lock --> reservation_ww_class_acquire --> reservation_ww_class_mutex
-> [ 1318.036487][ T1082]
-> [ 1318.037310][ T1082]  Possible unsafe locking scenario:
-> [ 1318.037310][ T1082]
-> [ 1318.037838][ T1082]        CPU0                    CPU1
-> [ 1318.038101][ T1082]        ----                    ----
-> [ 1318.038350][ T1082]   lock(reservation_ww_class_mutex);
-> [ 1318.038590][ T1082]                                lock(reservation_ww_class_acquire);
-> [ 1318.038839][ T1082]                                lock(reservation_ww_class_mutex);
-> [ 1318.039083][ T1082]   rlock(&mm->mmap_lock);
-> [ 1318.039328][ T1082]
-> [ 1318.039328][ T1082]  *** DEADLOCK ***
-> [ 1318.039328][ T1082]
-> [ 1318.040029][ T1082] 1 lock held by tar/1082:
-> [ 1318.040259][ T1082]  #0: ffff98c4c13f55f8 (reservation_ww_class_mutex){+.+.}-{3:3}, at: amdgpu_debugfs_mqd_read+0x6a/0x250 [amdgpu]
-> [ 1318.040560][ T1082]
-> [ 1318.040560][ T1082] stack backtrace:
-> [ 1318.041053][ T1082] CPU: 22 PID: 1082 Comm: tar Not tainted 6.8.0-rc7-00015-ge0c8221b72c0 #17 3316c85d50e282c5643b075d1f01a4f6365e39c2
-> [ 1318.041329][ T1082] Hardware name: Gigabyte Technology Co., Ltd. B650 AORUS PRO AX/B650 AORUS PRO AX, BIOS F20 12/14/2023
-> [ 1318.041614][ T1082] Call Trace:
-> [ 1318.041895][ T1082]  <TASK>
-> [ 1318.042175][ T1082]  dump_stack_lvl+0x4a/0x80
-> [ 1318.042460][ T1082]  check_noncircular+0x145/0x160
-> [ 1318.042743][ T1082]  __lock_acquire+0x14bf/0x2680
-> [ 1318.043022][ T1082]  lock_acquire+0xcd/0x2c0
-> [ 1318.043301][ T1082]  ? __might_fault+0x40/0x80
-> [ 1318.043580][ T1082]  ? __might_fault+0x40/0x80
-> [ 1318.043856][ T1082]  __might_fault+0x58/0x80
-> [ 1318.044131][ T1082]  ? __might_fault+0x40/0x80
-> [ 1318.044408][ T1082]  amdgpu_debugfs_mqd_read+0x103/0x250 [amdgpu 8fe2afaa910cbd7654c8cab23563a94d6caebaab]
-> [ 1318.044749][ T1082]  full_proxy_read+0x55/0x80
-> [ 1318.045042][ T1082]  vfs_read+0xa7/0x360
-> [ 1318.045333][ T1082]  ksys_read+0x70/0xf0
-> [ 1318.045623][ T1082]  do_syscall_64+0x94/0x180
-> [ 1318.045913][ T1082]  ? do_syscall_64+0xa0/0x180
-> [ 1318.046201][ T1082]  ? lockdep_hardirqs_on+0x7d/0x100
-> [ 1318.046487][ T1082]  ? do_syscall_64+0xa0/0x180
-> [ 1318.046773][ T1082]  ? do_syscall_64+0xa0/0x180
-> [ 1318.047057][ T1082]  ? do_syscall_64+0xa0/0x180
-> [ 1318.047337][ T1082]  ? do_syscall_64+0xa0/0x180
-> [ 1318.047611][ T1082]  entry_SYSCALL_64_after_hwframe+0x46/0x4e
-> [ 1318.047887][ T1082] RIP: 0033:0x7f480b70a39d
-> [ 1318.048162][ T1082] Code: 91 ba 0d 00 f7 d8 64 89 02 b8 ff ff ff ff eb b2 e8 18 a3 01 00 0f 1f 84 00 00 00 00 00 80 3d a9 3c 0e 00 00 74 17 31 c0 0f 05 <48> 3d 00 f0 ff ff 77 5b c3 66 2e 0f 1f 84 00 00 00 00 00 53 48 83
-> [ 1318.048769][ T1082] RSP: 002b:00007ffde77f5c68 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
-> [ 1318.049083][ T1082] RAX: ffffffffffffffda RBX: 0000000000000800 RCX: 00007f480b70a39d
-> [ 1318.049392][ T1082] RDX: 0000000000000800 RSI: 000055c9f2120c00 RDI: 0000000000000008
-> [ 1318.049703][ T1082] RBP: 0000000000000800 R08: 000055c9f2120a94 R09: 0000000000000007
-> [ 1318.050011][ T1082] R10: 0000000000000000 R11: 0000000000000246 R12: 000055c9f2120c00
-> [ 1318.050324][ T1082] R13: 0000000000000008 R14: 0000000000000008 R15: 0000000000000800
-> [ 1318.050638][ T1082]  </TASK>
->
-> amdgpu_debugfs_mqd_read() holds a reservation when it calls
-> put_user(), which may fault and acquire the mmap_sem. This violates
-> the established locking order.
->
-> Bounce the mqd data through a kernel buffer to get put_user() out of
-> the illegal section.
->
-> Fixes: 445d85e3c1df ("drm/amdgpu: add debugfs interface for reading MQDs")
-> Cc: stable@vger.kernel.org		[v6.5+]
-> Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 46 +++++++++++++++---------
->   1 file changed, 29 insertions(+), 17 deletions(-)
->
-> This fixes the lockdep splat for me, and the hexdump of the output
-> looks sane after the patch. However, I'm not at all familiar with this
-> code to say for sure that this is the right solution. The mqd seems
-> small enough that the kmalloc won't get crazy. I'm also assuming that
-> ring->mqd_size is safe to access before the reserve & kmap. Lastly I
-> went with an open loop instead of a memcpy() as I wasn't sure if that
-> memory is safe to address a byte at at time.
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> index 5505d646f43a..06f0a6534a94 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -524,46 +524,58 @@ static ssize_t amdgpu_debugfs_mqd_read(struct file *f, char __user *buf,
->   {
->   	struct amdgpu_ring *ring = file_inode(f)->i_private;
->   	volatile u32 *mqd;
-> -	int r;
-> +	u32 *kbuf;
-> +	int r, i;
->   	uint32_t value, result;
->   
->   	if (*pos & 3 || size & 3)
->   		return -EINVAL;
->   
-> -	result = 0;
-> +	kbuf = kmalloc(ring->mqd_size, GFP_KERNEL);
-> +	if (!kbuf)
-> +		return -ENOMEM;
->   
->   	r = amdgpu_bo_reserve(ring->mqd_obj, false);
->   	if (unlikely(r != 0))
-> -		return r;
-> +		goto err_free;
->   
->   	r = amdgpu_bo_kmap(ring->mqd_obj, (void **)&mqd);
-> -	if (r) {
-> -		amdgpu_bo_unreserve(ring->mqd_obj);
-> -		return r;
-> -	}
-> +	if (r)
-> +		goto err_unreserve;
->   
-> +	/*
-> +	 * Copy to local buffer to avoid put_user(), which might fault
-> +	 * and acquire mmap_sem, under reservation_ww_class_mutex.
-> +	 */
-> +	for (i = 0; i < ring->mqd_size/sizeof(u32); i++)
-> +		kbuf[i] = mqd[i];
-> +
-> +	amdgpu_bo_kunmap(ring->mqd_obj);
-> +	amdgpu_bo_unreserve(ring->mqd_obj);
-> +
-> +	result = 0;
->   	while (size) {
->   		if (*pos >= ring->mqd_size)
-> -			goto done;
-> +			break;
->   
-> -		value = mqd[*pos/4];
-> +		value = kbuf[*pos/4];
->   		r = put_user(value, (uint32_t *)buf);
->   		if (r)
-> -			goto done;
-> +			goto err_free;
->   		buf += 4;
->   		result += 4;
->   		size -= 4;
->   		*pos += 4;
->   	}
->   
-> -done:
-> -	amdgpu_bo_kunmap(ring->mqd_obj);
-> -	mqd = NULL;
-> -	amdgpu_bo_unreserve(ring->mqd_obj);
-> -	if (r)
-> -		return r;
+Lijo
+> +			od_percent_upper = 0;
+> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> +		}
+> +	}
+>  
+>  	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
+>  							od_percent_upper, od_percent_lower, power_limit);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> index ed189a3878eb..fe8d24a7d319 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> @@ -2339,7 +2339,7 @@ static int navi10_get_power_limit(struct smu_context *smu,
+>  		(struct smu_11_0_powerplay_table *)smu->smu_table.power_play_table;
+>  	struct smu_11_0_overdrive_table *od_settings = smu->od_settings;
+>  	PPTable_t *pptable = smu->smu_table.driver_pptable;
+> -	uint32_t power_limit, od_percent_upper, od_percent_lower;
+> +	uint32_t power_limit, od_percent_upper = 0, od_percent_lower = 10;
+>  
+>  	if (smu_v11_0_get_current_power_limit(smu, &power_limit)) {
+>  		/* the last hope to figure out the ppt limit */
+> @@ -2356,13 +2356,15 @@ static int navi10_get_power_limit(struct smu_context *smu,
+>  	if (default_power_limit)
+>  		*default_power_limit = power_limit;
+>  
+> -	if (smu->od_enabled &&
+> -		    navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_POWER_LIMIT))
+> -		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> -	else
+> -		od_percent_upper = 0;
 > -
-> +	kfree(kbuf);
->   	return result;
+> -	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> +	if (powerplay_table) {
+> +		if (smu->od_enabled) {
+> +			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> +		} else if (navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_POWER_LIMIT)) {
+> +			od_percent_upper = 0;
+> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> +		}
+> +	}
+>  
+>  	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
+>  					od_percent_upper, od_percent_lower, power_limit);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> index a405424dd699..c86e13f6b6c5 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> @@ -617,6 +617,12 @@ static uint32_t sienna_cichlid_get_throttler_status_locked(struct smu_context *s
+>  	return throttler_status;
+>  }
+>  
+> +static bool sienna_cichlid_is_od_feature_supported(struct smu_11_0_7_overdrive_table *od_table,
+> +						   enum SMU_11_0_7_ODFEATURE_CAP cap)
+> +{
+> +	return od_table->cap[cap];
+> +}
 > +
-> +err_unreserve:
-> +	amdgpu_bo_unreserve(ring->mqd_obj);
-> +err_free:
-> +	kfree(kbuf);
-> +	return r;
->   }
->   
->   static const struct file_operations amdgpu_debugfs_mqd_fops = {
-
+>  static int sienna_cichlid_get_power_limit(struct smu_context *smu,
+>  					  uint32_t *current_power_limit,
+>  					  uint32_t *default_power_limit,
+> @@ -625,7 +631,8 @@ static int sienna_cichlid_get_power_limit(struct smu_context *smu,
+>  {
+>  	struct smu_11_0_7_powerplay_table *powerplay_table =
+>  		(struct smu_11_0_7_powerplay_table *)smu->smu_table.power_play_table;
+> -	uint32_t power_limit, od_percent_upper, od_percent_lower;
+> +	struct smu_11_0_7_overdrive_table *od_settings = smu->od_settings;
+> +	uint32_t power_limit, od_percent_upper = 0, od_percent_lower = 10;
+>  	uint16_t *table_member;
+>  
+>  	GET_PPTABLE_MEMBER(SocketPowerLimitAc, &table_member);
+> @@ -640,12 +647,15 @@ static int sienna_cichlid_get_power_limit(struct smu_context *smu,
+>  	if (default_power_limit)
+>  		*default_power_limit = power_limit;
+>  
+> -	if (smu->od_enabled)
+> -		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+> -	else
+> -		od_percent_upper = 0;
+> -
+> -	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+> +	if (powerplay_table) {
+> +		if (smu->od_enabled) {
+> +			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+> +		} else if (sienna_cichlid_is_od_feature_supported(od_settings, SMU_11_0_7_ODCAP_POWER_LIMIT)) {
+> +			od_percent_upper = 0;
+> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+> +		}
+> +	}
+>  
+>  	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
+>  					od_percent_upper, od_percent_lower, power_limit);
+> @@ -1250,12 +1260,6 @@ static bool sienna_cichlid_is_support_fine_grained_dpm(struct smu_context *smu,
+>  	return dpm_desc->SnapToDiscrete == 0;
+>  }
+>  
+> -static bool sienna_cichlid_is_od_feature_supported(struct smu_11_0_7_overdrive_table *od_table,
+> -						   enum SMU_11_0_7_ODFEATURE_CAP cap)
+> -{
+> -	return od_table->cap[cap];
+> -}
+> -
+>  static void sienna_cichlid_get_od_setting_range(struct smu_11_0_7_overdrive_table *od_table,
+>  						enum SMU_11_0_7_ODSETTING_ID setting,
+>  						uint32_t *min, uint32_t *max)
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> index 6a501d2661f5..e17f93ba861e 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> @@ -2356,8 +2356,12 @@ static int smu_v13_0_0_get_power_limit(struct smu_context *smu,
+>  		(struct smu_13_0_0_powerplay_table *)table_context->power_play_table;
+>  	PPTable_t *pptable = table_context->driver_pptable;
+>  	SkuTable_t *skutable = &pptable->SkuTable;
+> -	uint32_t power_limit, od_percent_upper, od_percent_lower;
+>  	uint32_t msg_limit = skutable->MsgLimits.Power[PPT_THROTTLER_PPT0][POWER_SOURCE_AC];
+> +	const OverDriveLimits_t * const overdrive_upperlimits =
+> +						&pptable->SkuTable.OverDriveLimitsBasicMax;
+> +	const OverDriveLimits_t * const overdrive_lowerlimits =
+> +						&pptable->SkuTable.OverDriveLimitsMin;
+> +	uint32_t power_limit, od_percent_upper = 0, od_percent_lower = 10;
+>  
+>  	if (smu_v13_0_get_current_power_limit(smu, &power_limit))
+>  		power_limit = smu->adev->pm.ac_power ?
+> @@ -2369,12 +2373,16 @@ static int smu_v13_0_0_get_power_limit(struct smu_context *smu,
+>  	if (default_power_limit)
+>  		*default_power_limit = power_limit;
+>  
+> -	if (smu->od_enabled)
+> -		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+> -	else
+> -		od_percent_upper = 0;
+> -
+> -	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+> +	if (powerplay_table) {
+> +		if (smu->od_enabled) {
+> +			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+> +		} else if (overdrive_lowerlimits->FeatureCtrlMask &&
+> +					overdrive_upperlimits->FeatureCtrlMask) {
+> +			od_percent_upper = 0;
+> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+> +		}
+> +	}
+>  
+>  	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
+>  					od_percent_upper, od_percent_lower, power_limit);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> index 3dc7b60cb075..684cb5a7ef6c 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> @@ -2320,8 +2320,12 @@ static int smu_v13_0_7_get_power_limit(struct smu_context *smu,
+>  		(struct smu_13_0_7_powerplay_table *)table_context->power_play_table;
+>  	PPTable_t *pptable = table_context->driver_pptable;
+>  	SkuTable_t *skutable = &pptable->SkuTable;
+> -	uint32_t power_limit, od_percent_upper, od_percent_lower;
+>  	uint32_t msg_limit = skutable->MsgLimits.Power[PPT_THROTTLER_PPT0][POWER_SOURCE_AC];
+> +	const OverDriveLimits_t * const overdrive_upperlimits =
+> +						&pptable->SkuTable.OverDriveLimitsBasicMax;
+> +	const OverDriveLimits_t * const overdrive_lowerlimits =
+> +						&pptable->SkuTable.OverDriveLimitsMin;
+> +	uint32_t power_limit, od_percent_upper = 0, od_percent_lower = 10;
+>  
+>  	if (smu_v13_0_get_current_power_limit(smu, &power_limit))
+>  		power_limit = smu->adev->pm.ac_power ?
+> @@ -2333,12 +2337,16 @@ static int smu_v13_0_7_get_power_limit(struct smu_context *smu,
+>  	if (default_power_limit)
+>  		*default_power_limit = power_limit;
+>  
+> -	if (smu->od_enabled)
+> -		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+> -	else
+> -		od_percent_upper = 0;
+> -
+> -	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+> +	if (powerplay_table) {
+> +		if (smu->od_enabled) {
+> +			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+> +		} else if (overdrive_lowerlimits->FeatureCtrlMask &&
+> +					overdrive_upperlimits->FeatureCtrlMask) {
+> +			od_percent_upper = 0;
+> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+> +		}
+> +	}
+>  
+>  	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
+>  					od_percent_upper, od_percent_lower, power_limit);
