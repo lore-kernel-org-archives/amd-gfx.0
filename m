@@ -4,64 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7D9BC54E4A
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Mar 2024 14:33:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DA28C54E4A
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Mar 2024 14:56:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 685A610E750;
-	Fri,  8 Mar 2024 14:33:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 090B31138DE;
+	Fri,  8 Mar 2024 14:56:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GWeW44GN";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="H5AgBLhs";
 	dkim-atps=neutral
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46D9410E750
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Mar 2024 14:33:42 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-1dc1ff58fe4so15677775ad.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 08 Mar 2024 06:33:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709908422; x=1710513222; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OgqYtQvsG879MbgbpoxyFpjlrtEkL0cC8NVQecN52wc=;
- b=GWeW44GNwlCvphC4vUpISxjVijqIUIPi8tJF4QVWqo7CJqcgzg17d6u4Q+3bKgjNt0
- GjUDbCvtj7yDqYGlva3oT3+qqeGk5E1Du+jhbeEKXaZh4s0LqTSYhkGdpe7kqHSVyGAU
- nPemRjGKzjGY12glxlAf0VeG7l/q18vd/MC+jEu6kfzSWO89Ho7IZZWLB1rRzZZXlYN8
- zhbihprIeV7dImdm4z2B5+tAuqavGa5/TmoXprHzXl+Xx2xx2ydFk2ZkBgxFz4Bq6Ape
- t5nF7+TbggBtSUXfUADX7EO11aChjACanmj/Xaiv0sBes7IUv7tjHnRgSPDSWfoyNTbw
- 6g7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709908422; x=1710513222;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=OgqYtQvsG879MbgbpoxyFpjlrtEkL0cC8NVQecN52wc=;
- b=lanIjsq0bkXyOc8tAmdDyNjlph8jRkk8y0XzV5jjDdkImYbkRWPRrgzH8p2Nz2SNeh
- IHMlziqapniBIpGTfVwzWqJjfzKvhwI5rgBOn8ZByX6AEqsdDBvCap2sPg+k2XO+G5SK
- 1zKfdRNVyqSblGEaVH5g5F/nz9UFclb5/4rUqUrcPQVMfoJCi7y5yGMP08x3MWRU7NuY
- 7CjT39gaMAd1qLh4bqnMl02Fems/YOUo9O4KYMjrLNyo/7l/yoipDI18aI9pT8tLbB4l
- YM3BVlsQfB54hexfq5EP90ZC62LmxjwumNRSSolZ2YjVItPDVFDDO97Vd101WhqgzK3K
- cRBA==
-X-Gm-Message-State: AOJu0YyPYBHX8Yi6L+V0R+QstCbfJoU7DIyvNtdwjY9HeSUHtG71k0YZ
- s6SXK7CIVRjhW6gQQ6Pv/vQ2xD1Fwm2D2BDslj0poB/x1dzbew/fmS3rYIIAyjx2pQenKNBrXyZ
- zrKHCgT7J8Ex0jF56piXvgWYUIcbOUKXW
-X-Google-Smtp-Source: AGHT+IFhS+GDGS8MFnsTDR+gNvRC5F1qCPfNGw8TzgeSXo+a7vXoLXDpG+sdEBbHIHc0r5k1L8blSWMW7wN19j7Veo8=
-X-Received: by 2002:a17:902:654a:b0:1da:1daa:e2bd with SMTP id
- d10-20020a170902654a00b001da1daae2bdmr10831203pln.19.1709908421650; Fri, 08
- Mar 2024 06:33:41 -0800 (PST)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C44EA1138DE;
+ Fri,  8 Mar 2024 14:56:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=kyFdaFZn5fxDlyBsRXk/mw238QRIyiO/3fj7J8kHjNw=; b=H5AgBLhsvkRfuIv80r18F6uxFH
+ 3mzommNNDYBDIa5KLMtTPW6A5YvjaC8R4DrshbDWekHaNBgehR+Ma49Vfw9MsFghc2n53IhMhwK04
+ f1PEIbryunTIUbqr10vnICOY7r1+IjQHdqxW+jf1lI8r4MXgIZRwZeVF3dmGn6/z80cDXgmbFl7z2
+ SrcRx33EVFIpCritGKEkOJQDPr7vHoQg8/O4nF0B8oMvJiR6KGsq3I4vRigdse5hlwJvYGNDjiWST
+ 0BPx6FGB/Imrbi4MW08qlT4ovr2DNTnYPeqMj52laQEBWBOdLndkwjh0PDDM0CE8OmomLdSUfPyZ/
+ /eU+yLpQ==;
+Received: from [152.249.135.210] (helo=steammachine.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1ribdg-007p93-HA; Fri, 08 Mar 2024 15:56:01 +0100
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: kernel-dev@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Simon Ser <contact@emersion.fr>, Pekka Paalanen <ppaalanen@gmail.com>,
+ daniel@ffwll.ch, Daniel Stone <daniel@fooishbar.org>,
+ =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
+ Dave Airlie <airlied@gmail.com>, ville.syrjala@linux.intel.com,
+ Xaver Hugl <xaver.hugl@gmail.com>, Joshua Ashton <joshua@froggi.es>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+Subject: [RESEND PATCH v4 0/3] drm/atomic: Allow drivers to write their own
+ plane check for async
+Date: Fri,  8 Mar 2024 11:55:50 -0300
+Message-ID: <20240308145553.194165-1-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-References: <20240308085400.385793-1-Xiaojian.Du@amd.com>
- <20240308085400.385793-7-Xiaojian.Du@amd.com>
-In-Reply-To: <20240308085400.385793-7-Xiaojian.Du@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 8 Mar 2024 09:33:29 -0500
-Message-ID: <CADnq5_PCJX70A3=_RjAGhR++J45hgXebnhuHOhs-DbNXGKATCA@mail.gmail.com>
-Subject: Re: [PATCH v2 7/7] drm/amdgpu: add VCN sensor value for SMU 14.0.0
-To: Xiaojian Du <Xiaojian.Du@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,41 +65,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Hi,
 
-On Fri, Mar 8, 2024 at 4:13=E2=80=AFAM Xiaojian Du <Xiaojian.Du@amd.com> wr=
-ote:
->
-> This will add VCN sensor value for SMU 14.0.0.
->
-> Signed-off-by: Xiaojian Du <Xiaojian.Du@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> index 47fdbae4adfc..1d6630d20402 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> @@ -352,6 +352,12 @@ static int smu_v14_0_0_read_sensor(struct smu_contex=
-t *smu,
->                                                        (uint32_t *)data);
->                 *size =3D 4;
->                 break;
-> +       case AMDGPU_PP_SENSOR_VCN_LOAD:
-> +               ret =3D smu_v14_0_0_get_smu_metrics_data(smu,
-> +                                                       METRICS_AVERAGE_V=
-CNACTIVITY,
-> +                                                       (uint32_t *)data)=
-;
-> +               *size =3D 4;
-> +               break;
->         case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
->                 ret =3D smu_v14_0_0_get_smu_metrics_data(smu,
->                                                        METRICS_AVERAGE_SO=
-CKETPOWER,
-> --
-> 2.34.1
->
+AMD hardware can do async flips with overlay planes, so this patchset does a
+small redesign to allow drivers to choose per plane type if they can or cannot
+do async flips.
+
+It also allows async commits with IN_FENCE_ID in any driver.
+
+Changes from v3:
+- Major patchset redesign 
+v3: https://lore.kernel.org/lkml/20240128212515.630345-1-andrealmeid@igalia.com/
+
+Changes from v2:
+ - Allow IN_FENCE_ID for any driver
+ - Allow overlay planes again
+v2: https://lore.kernel.org/lkml/20240119181235.255060-1-andrealmeid@igalia.com/
+
+Changes from v1:
+ - Drop overlay planes option for now
+v1: https://lore.kernel.org/dri-devel/20240116045159.1015510-1-andrealmeid@igalia.com/
+
+André Almeida (3):
+  drm/atomic: Allow userspace to use explicit sync with atomic async
+    flips
+  drm: Allow drivers to choose plane types to async flip
+  drm/amdgpu: Make it possible to async flip overlay planes
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 1 +
+ drivers/gpu/drm/drm_atomic_uapi.c                       | 8 +++++---
+ drivers/gpu/drm/drm_plane.c                             | 3 +++
+ include/drm/drm_plane.h                                 | 5 +++++
+ 4 files changed, 14 insertions(+), 3 deletions(-)
+
+-- 
+2.43.0
+
