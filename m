@@ -4,71 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C54C6C5475B
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Mar 2024 08:26:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55DB4C54E5C
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Mar 2024 08:26:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59D6A112D6F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B69B0113389;
 	Fri,  8 Mar 2024 08:26:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cmpxchg-org.20230601.gappssmtp.com header.i=@cmpxchg-org.20230601.gappssmtp.com header.b="tFDT3ZKy";
+	dkim=pass (2048-bit key; unprotected) header.d=yonsei.ac.kr header.i=@yonsei.ac.kr header.b="dAlUCZ1F";
 	dkim-atps=neutral
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
- [209.85.222.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D1A010F5BC
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Mar 2024 22:16:16 +0000 (UTC)
-Received: by mail-qk1-f175.google.com with SMTP id
- af79cd13be357-7884124b06aso69134885a.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 07 Mar 2024 14:16:16 -0800 (PST)
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
+ [209.85.128.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01402112FFE
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Mar 2024 07:32:35 +0000 (UTC)
+Received: by mail-yw1-f170.google.com with SMTP id
+ 00721157ae682-609eb87a847so13679387b3.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 07 Mar 2024 23:32:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cmpxchg-org.20230601.gappssmtp.com; s=20230601; t=1709849776; x=1710454576;
+ d=yonsei.ac.kr; s=google; t=1709883154; x=1710487954;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=2zp3v54goojmEVAqqcqwPv6cH3vUgepVgSAhLnj7GBU=;
- b=tFDT3ZKyOIaMU1Gm2PHSR3El4qMGgtBsfXujlyXlGF+pQMCkt/NZTh4oP+GKMNRqFD
- h4APFCnKbzZdCgAQowi724nUN9ZQ8MxkuvQuIvAlkb08AuRk+sA/L+X8FJHFuLDh7Rb9
- xgWOHTN8nIZR86+kWCNu9jEAVWkgtsppeC+lOJrvdfgeic5cAlSTcjo/eUdhqUVGew+R
- BIOAZu4mwdnn5eWiczwYVffl7u4N9ohRdELyHmi4zyj9/Aq+dAI29NGJx7ViRPrMVJgV
- /DI+K4TwtKDT7kb+X2TGft/ykm1v05mQz3PJ6BWD+xNiiY97jKFdEkIkv0OQQZrBzQc7
- o8SA==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=ifPbKUI+bT00aa2fTtBnHrDwx+gpKaMAMhTI2u+fdZo=;
+ b=dAlUCZ1FfFNP7aor+QHfH0DpAwsW04szaqWFi1zP8U+6fOoRxT6UEc8386XKGvhJnc
+ EvwpUIxGSqcKuw7qtQpYFzvEc0hwDclKnS0exsSqXxZETjhn6qVs8wzjqlut0ryUikbL
+ hBPcUBrSyamsPjzjCDNip9+NJ+VnxOOJzKA345QnNJhIT+ab3J6nylRtJjG/mqZM5xvy
+ P6XGjKcPh1y2ObPQCfwCSfs8S7/Lqy6OhoT4aN3PKZ3aALRtNElMGMk3wdlTN0Yv26NZ
+ ya7a0fSTV3x2Bhn81NiOCUgetAAjYyN7LWnYDgNS0d9ibaVcsaP+CwnvFlqL4ETCBxfx
+ fsbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709849776; x=1710454576;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1709883154; x=1710487954;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=2zp3v54goojmEVAqqcqwPv6cH3vUgepVgSAhLnj7GBU=;
- b=aHpvDYjzgFdMScPxMtbT9XGxYChhD3TyFvyEbWWOdQdJtTDJmNWcLpPCcpOfNWlErr
- bdkJzwrh24zVszQI1dEOFmgmyFTuIBziwQNlb9DAbcyhkEjqSIQy3alsmqHM8Wx2WoaE
- PKHHW5C3zcoYccelapnEbgwspC7Od5C52avTa5A6A23fFFrgPwJi5n6+k1MBiCvkfxKK
- XcqlltBujEPee+B7Ql553ahvjvQdyWFl/nODtBmYPNR+IK52mTegwO30oXrgl7JD6xi4
- Emdk5G/Euc+jEa9RExYaUHxZonswjM1eo7Owc5GkZeZMyB2yyDwhxgeXtqjZtqweGXMu
- n/IA==
+ bh=ifPbKUI+bT00aa2fTtBnHrDwx+gpKaMAMhTI2u+fdZo=;
+ b=PKUJKnh4xZUmT2ltOYfNxpBoFI5sDdYGsvrnEU1/SL35WCkXvnzvN4DEY2QdR4v2wo
+ eN4raYOpC6YMufjTXGdpiqUDr1fZ1q4vi6RAYv+azN03mIQNuXjmDggcIozjgls39r1w
+ 4sfR/w5yVSSx2S+csUlDGIkQhqViYTBH5bEmi2bS6TrM+9wKzw4p3wc0tHMwfu81yAWQ
+ 5RFDVFFVFrc4IWoEj0uERe18/jZpLRoJvZgPM1S2nxHVj4kqWh+nhqc2tQOPh8wmbbCU
+ zczZPNnvt/eaFeE6290XyxKgRhIKGGK9THQSElJkc4xF1KwoFshT95k9ZrC1eYvRE3WX
+ oz6A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUpjj3PbfkG03K7xGcAzZk/Cki5HiJSWrNRT1MWOhoNk7w9nXS4m8eS5gr4tW3osC/is5SI23Ruw/J2QNEhi6THN/c89j6H1oNRyXhlPA==
-X-Gm-Message-State: AOJu0YxsDdukRAMuhDZ0WweEkqCEh9PhSiIfD5WD9d3OEu/yBLH/A+Kg
- PCFzWnIu8HkK1JHsFi3tonl3DH2aaicaCMlX3vIJu7kQsW/Sky3hxFQG7OHtHFk=
-X-Google-Smtp-Source: AGHT+IFkuf7HU47twIpvKZWFZeZI65WwFJHBcwQNWMYK70wy0RsqZDzkLqFS92cL0KO6OyA+B+oJNQ==
-X-Received: by 2002:a05:620a:5361:b0:788:1a1c:dcb6 with SMTP id
- op33-20020a05620a536100b007881a1cdcb6mr10975285qkn.5.1709849775724; 
- Thu, 07 Mar 2024 14:16:15 -0800 (PST)
-Received: from localhost
- (2603-7000-0c01-2716-da5e-d3ff-fee7-26e7.res6.spectrum.com.
- [2603:7000:c01:2716:da5e:d3ff:fee7:26e7])
- by smtp.gmail.com with ESMTPSA id
- bp9-20020a05620a458900b0078812f8a042sm6498316qkb.90.2024.03.07.14.16.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Mar 2024 14:16:14 -0800 (PST)
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: fix deadlock while reading mqd from debugfs
-Date: Thu,  7 Mar 2024 17:07:37 -0500
-Message-ID: <20240307221609.7651-1-hannes@cmpxchg.org>
-X-Mailer: git-send-email 2.44.0
+ AJvYcCX0xUfc2uAelk9Hb3ZMBcHaXoR8LiP+JJpjfjYmsnT/aCduzpNj5oy5bRpsiYBYYKVOTfa2Qk+BTTZksFHsg40nB3XONAlFB2v69HeT/Q==
+X-Gm-Message-State: AOJu0Yz3YD75UVh4WRbYxXKLAwggzzWHxKAlfFC2aNv7M0qBmqsnPSBb
+ lDnvUuoJBnGkY+Wu5BzlmuVVF5RzJA+bYSkmUOtAHpiN9LxfdweIk6tq5KWeZpB5uWyoTMWtJNT
+ 5uiGsksed6/FgN+j4LJjIIgnP/L1sNKBuX8t/oqDKHXeOwrCRWqk=
+X-Google-Smtp-Source: AGHT+IEkHUBBqG8NxKxk/C87N0S+tMEddUtFI9cRbgLj3QwzlTa9F1HccfntStdDK5EYNEQShXvCDzyc8CB/XmDiVc4=
+X-Received: by 2002:a81:ae54:0:b0:60a:6b4:a031 with SMTP id
+ g20-20020a81ae54000000b0060a06b4a031mr270059ywk.15.1709883154125; Thu, 07 Mar
+ 2024 23:32:34 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAKc8oVUXUHUYQSDYDZ3XqpfwcmOwoxii5+SkyteXoZSPRwshfQ@mail.gmail.com>
+ <CAKc8oVU8C-MRVa640603R2Gi7BRZ5P8ZN_uJoruDzR_A8xg71Q@mail.gmail.com>
+ <f3cb1403-6822-44b2-95fe-ab5f50ca3736@amd.com>
+In-Reply-To: <f3cb1403-6822-44b2-95fe-ab5f50ca3736@amd.com>
+From: Joonkyo Jung <joonkyoj@yonsei.ac.kr>
+Date: Fri, 8 Mar 2024 16:32:23 +0900
+Message-ID: <CAKc8oVXw0YhLdBHZUcc73aFAeL-zioCpEsNZYW7c7y70DYds-w@mail.gmail.com>
+Subject: Re: Reporting a slab-use-after-free in amdgpu
+To: vitaly prosyak <vprosyak@amd.com>
+Cc: Dokyung Song <dokyungs@yonsei.ac.kr>, Xinhui.Pan@amd.com,
+ alexander.deucher@amd.com, 
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
+ jisoo.jang@yonsei.ac.kr, "yw9865@gmail.com" <yw9865@gmail.com>
+Content-Type: multipart/alternative; boundary="000000000000026ea106132132ec"
 X-Mailman-Approved-At: Fri, 08 Mar 2024 08:26:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,211 +82,402 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-An errant disk backup on my desktop got into debugfs and triggered the
-following deadlock scenario in the amdgpu debugfs files. The machine
-also hard-resets immediately after those lines are printed (although I
-wasn't able to reproduce that part when reading by hand):
+--000000000000026ea106132132ec
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-[ 1318.016074][ T1082] ======================================================
-[ 1318.016607][ T1082] WARNING: possible circular locking dependency detected
-[ 1318.017107][ T1082] 6.8.0-rc7-00015-ge0c8221b72c0 #17 Not tainted
-[ 1318.017598][ T1082] ------------------------------------------------------
-[ 1318.018096][ T1082] tar/1082 is trying to acquire lock:
-[ 1318.018585][ T1082] ffff98c44175d6a0 (&mm->mmap_lock){++++}-{3:3}, at: __might_fault+0x40/0x80
-[ 1318.019084][ T1082]
-[ 1318.019084][ T1082] but task is already holding lock:
-[ 1318.020052][ T1082] ffff98c4c13f55f8 (reservation_ww_class_mutex){+.+.}-{3:3}, at: amdgpu_debugfs_mqd_read+0x6a/0x250 [amdgpu]
-[ 1318.020607][ T1082]
-[ 1318.020607][ T1082] which lock already depends on the new lock.
-[ 1318.020607][ T1082]
-[ 1318.022081][ T1082]
-[ 1318.022081][ T1082] the existing dependency chain (in reverse order) is:
-[ 1318.023083][ T1082]
-[ 1318.023083][ T1082] -> #2 (reservation_ww_class_mutex){+.+.}-{3:3}:
-[ 1318.024114][ T1082]        __ww_mutex_lock.constprop.0+0xe0/0x12f0
-[ 1318.024639][ T1082]        ww_mutex_lock+0x32/0x90
-[ 1318.025161][ T1082]        dma_resv_lockdep+0x18a/0x330
-[ 1318.025683][ T1082]        do_one_initcall+0x6a/0x350
-[ 1318.026210][ T1082]        kernel_init_freeable+0x1a3/0x310
-[ 1318.026728][ T1082]        kernel_init+0x15/0x1a0
-[ 1318.027242][ T1082]        ret_from_fork+0x2c/0x40
-[ 1318.027759][ T1082]        ret_from_fork_asm+0x11/0x20
-[ 1318.028281][ T1082]
-[ 1318.028281][ T1082] -> #1 (reservation_ww_class_acquire){+.+.}-{0:0}:
-[ 1318.029297][ T1082]        dma_resv_lockdep+0x16c/0x330
-[ 1318.029790][ T1082]        do_one_initcall+0x6a/0x350
-[ 1318.030263][ T1082]        kernel_init_freeable+0x1a3/0x310
-[ 1318.030722][ T1082]        kernel_init+0x15/0x1a0
-[ 1318.031168][ T1082]        ret_from_fork+0x2c/0x40
-[ 1318.031598][ T1082]        ret_from_fork_asm+0x11/0x20
-[ 1318.032011][ T1082]
-[ 1318.032011][ T1082] -> #0 (&mm->mmap_lock){++++}-{3:3}:
-[ 1318.032778][ T1082]        __lock_acquire+0x14bf/0x2680
-[ 1318.033141][ T1082]        lock_acquire+0xcd/0x2c0
-[ 1318.033487][ T1082]        __might_fault+0x58/0x80
-[ 1318.033814][ T1082]        amdgpu_debugfs_mqd_read+0x103/0x250 [amdgpu]
-[ 1318.034181][ T1082]        full_proxy_read+0x55/0x80
-[ 1318.034487][ T1082]        vfs_read+0xa7/0x360
-[ 1318.034788][ T1082]        ksys_read+0x70/0xf0
-[ 1318.035085][ T1082]        do_syscall_64+0x94/0x180
-[ 1318.035375][ T1082]        entry_SYSCALL_64_after_hwframe+0x46/0x4e
-[ 1318.035664][ T1082]
-[ 1318.035664][ T1082] other info that might help us debug this:
-[ 1318.035664][ T1082]
-[ 1318.036487][ T1082] Chain exists of:
-[ 1318.036487][ T1082]   &mm->mmap_lock --> reservation_ww_class_acquire --> reservation_ww_class_mutex
-[ 1318.036487][ T1082]
-[ 1318.037310][ T1082]  Possible unsafe locking scenario:
-[ 1318.037310][ T1082]
-[ 1318.037838][ T1082]        CPU0                    CPU1
-[ 1318.038101][ T1082]        ----                    ----
-[ 1318.038350][ T1082]   lock(reservation_ww_class_mutex);
-[ 1318.038590][ T1082]                                lock(reservation_ww_class_acquire);
-[ 1318.038839][ T1082]                                lock(reservation_ww_class_mutex);
-[ 1318.039083][ T1082]   rlock(&mm->mmap_lock);
-[ 1318.039328][ T1082]
-[ 1318.039328][ T1082]  *** DEADLOCK ***
-[ 1318.039328][ T1082]
-[ 1318.040029][ T1082] 1 lock held by tar/1082:
-[ 1318.040259][ T1082]  #0: ffff98c4c13f55f8 (reservation_ww_class_mutex){+.+.}-{3:3}, at: amdgpu_debugfs_mqd_read+0x6a/0x250 [amdgpu]
-[ 1318.040560][ T1082]
-[ 1318.040560][ T1082] stack backtrace:
-[ 1318.041053][ T1082] CPU: 22 PID: 1082 Comm: tar Not tainted 6.8.0-rc7-00015-ge0c8221b72c0 #17 3316c85d50e282c5643b075d1f01a4f6365e39c2
-[ 1318.041329][ T1082] Hardware name: Gigabyte Technology Co., Ltd. B650 AORUS PRO AX/B650 AORUS PRO AX, BIOS F20 12/14/2023
-[ 1318.041614][ T1082] Call Trace:
-[ 1318.041895][ T1082]  <TASK>
-[ 1318.042175][ T1082]  dump_stack_lvl+0x4a/0x80
-[ 1318.042460][ T1082]  check_noncircular+0x145/0x160
-[ 1318.042743][ T1082]  __lock_acquire+0x14bf/0x2680
-[ 1318.043022][ T1082]  lock_acquire+0xcd/0x2c0
-[ 1318.043301][ T1082]  ? __might_fault+0x40/0x80
-[ 1318.043580][ T1082]  ? __might_fault+0x40/0x80
-[ 1318.043856][ T1082]  __might_fault+0x58/0x80
-[ 1318.044131][ T1082]  ? __might_fault+0x40/0x80
-[ 1318.044408][ T1082]  amdgpu_debugfs_mqd_read+0x103/0x250 [amdgpu 8fe2afaa910cbd7654c8cab23563a94d6caebaab]
-[ 1318.044749][ T1082]  full_proxy_read+0x55/0x80
-[ 1318.045042][ T1082]  vfs_read+0xa7/0x360
-[ 1318.045333][ T1082]  ksys_read+0x70/0xf0
-[ 1318.045623][ T1082]  do_syscall_64+0x94/0x180
-[ 1318.045913][ T1082]  ? do_syscall_64+0xa0/0x180
-[ 1318.046201][ T1082]  ? lockdep_hardirqs_on+0x7d/0x100
-[ 1318.046487][ T1082]  ? do_syscall_64+0xa0/0x180
-[ 1318.046773][ T1082]  ? do_syscall_64+0xa0/0x180
-[ 1318.047057][ T1082]  ? do_syscall_64+0xa0/0x180
-[ 1318.047337][ T1082]  ? do_syscall_64+0xa0/0x180
-[ 1318.047611][ T1082]  entry_SYSCALL_64_after_hwframe+0x46/0x4e
-[ 1318.047887][ T1082] RIP: 0033:0x7f480b70a39d
-[ 1318.048162][ T1082] Code: 91 ba 0d 00 f7 d8 64 89 02 b8 ff ff ff ff eb b2 e8 18 a3 01 00 0f 1f 84 00 00 00 00 00 80 3d a9 3c 0e 00 00 74 17 31 c0 0f 05 <48> 3d 00 f0 ff ff 77 5b c3 66 2e 0f 1f 84 00 00 00 00 00 53 48 83
-[ 1318.048769][ T1082] RSP: 002b:00007ffde77f5c68 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
-[ 1318.049083][ T1082] RAX: ffffffffffffffda RBX: 0000000000000800 RCX: 00007f480b70a39d
-[ 1318.049392][ T1082] RDX: 0000000000000800 RSI: 000055c9f2120c00 RDI: 0000000000000008
-[ 1318.049703][ T1082] RBP: 0000000000000800 R08: 000055c9f2120a94 R09: 0000000000000007
-[ 1318.050011][ T1082] R10: 0000000000000000 R11: 0000000000000246 R12: 000055c9f2120c00
-[ 1318.050324][ T1082] R13: 0000000000000008 R14: 0000000000000008 R15: 0000000000000800
-[ 1318.050638][ T1082]  </TASK>
+Hi Vitaly,
 
-amdgpu_debugfs_mqd_read() holds a reservation when it calls
-put_user(), which may fault and acquire the mmap_sem. This violates
-the established locking order.
+No worries, thank you for working on the patches!
 
-Bounce the mqd data through a kernel buffer to get put_user() out of
-the illegal section.
+I have also confirmed that with the inflight patch, issue No.1
+(use-after-free) seems to be resolved.
+However, I have reproduced issue No.3 (slab-use-after-free) even with the
+patch for issue No.1 applied - if it's the first program tested after
+reboot.
+(i.e., if any other bugs are tested before the slab-use-after-free, it does
+not reproduce).
 
-Fixes: 445d85e3c1df ("drm/amdgpu: add debugfs interface for reading MQDs")
-Cc: stable@vger.kernel.org		[v6.5+]
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 46 +++++++++++++++---------
- 1 file changed, 29 insertions(+), 17 deletions(-)
+Could you check if the bug reproduces in this condition for you too?
+I will check and see why this is happening and update you if I have
+something new.
 
-This fixes the lockdep splat for me, and the hexdump of the output
-looks sane after the patch. However, I'm not at all familiar with this
-code to say for sure that this is the right solution. The mqd seems
-small enough that the kmalloc won't get crazy. I'm also assuming that
-ring->mqd_size is safe to access before the reserve & kmap. Lastly I
-went with an open loop instead of a memcpy() as I wasn't sure if that
-memory is safe to address a byte at at time.
+Thank you!
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index 5505d646f43a..06f0a6534a94 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -524,46 +524,58 @@ static ssize_t amdgpu_debugfs_mqd_read(struct file *f, char __user *buf,
- {
- 	struct amdgpu_ring *ring = file_inode(f)->i_private;
- 	volatile u32 *mqd;
--	int r;
-+	u32 *kbuf;
-+	int r, i;
- 	uint32_t value, result;
- 
- 	if (*pos & 3 || size & 3)
- 		return -EINVAL;
- 
--	result = 0;
-+	kbuf = kmalloc(ring->mqd_size, GFP_KERNEL);
-+	if (!kbuf)
-+		return -ENOMEM;
- 
- 	r = amdgpu_bo_reserve(ring->mqd_obj, false);
- 	if (unlikely(r != 0))
--		return r;
-+		goto err_free;
- 
- 	r = amdgpu_bo_kmap(ring->mqd_obj, (void **)&mqd);
--	if (r) {
--		amdgpu_bo_unreserve(ring->mqd_obj);
--		return r;
--	}
-+	if (r)
-+		goto err_unreserve;
- 
-+	/*
-+	 * Copy to local buffer to avoid put_user(), which might fault
-+	 * and acquire mmap_sem, under reservation_ww_class_mutex.
-+	 */
-+	for (i = 0; i < ring->mqd_size/sizeof(u32); i++)
-+		kbuf[i] = mqd[i];
-+
-+	amdgpu_bo_kunmap(ring->mqd_obj);
-+	amdgpu_bo_unreserve(ring->mqd_obj);
-+
-+	result = 0;
- 	while (size) {
- 		if (*pos >= ring->mqd_size)
--			goto done;
-+			break;
- 
--		value = mqd[*pos/4];
-+		value = kbuf[*pos/4];
- 		r = put_user(value, (uint32_t *)buf);
- 		if (r)
--			goto done;
-+			goto err_free;
- 		buf += 4;
- 		result += 4;
- 		size -= 4;
- 		*pos += 4;
- 	}
- 
--done:
--	amdgpu_bo_kunmap(ring->mqd_obj);
--	mqd = NULL;
--	amdgpu_bo_unreserve(ring->mqd_obj);
--	if (r)
--		return r;
--
-+	kfree(kbuf);
- 	return result;
-+
-+err_unreserve:
-+	amdgpu_bo_unreserve(ring->mqd_obj);
-+err_free:
-+	kfree(kbuf);
-+	return r;
- }
- 
- static const struct file_operations amdgpu_debugfs_mqd_fops = {
--- 
-2.44.0
+Best,
+Joonkyo
 
+
+
+On Fri, Mar 8, 2024 at 12:45=E2=80=AFPM vitaly prosyak <vprosyak@amd.com> w=
+rote:
+
+> Hi Joonkyo,
+> Sorry for the delay.
+> Yes, sure, I reproduced issue 2 (null-ptr-deref in amdgpu) and I will
+> provide the fix soon.
+> However, issue No. 3 is no longer reproducible if the recent patch
+> inflight is applied which fixes issue No 1.
+>
+> Do you see the same behavior?
+>
+> Thanks in advance, Vitaly
+> On 2024-03-07 20:18, Joonkyo Jung wrote:
+>
+> Hello,
+> thank you for patching the first bug we have sent!
+>
+> Just a quick touch base with you, to ask if there has been any update on
+> our other two bugs.
+> They were each sent with emails titled
+> "Reporting a slab-use-after-free in amdgpu" (this one)
+> "Reporting a null-ptr-deref in amdgpu".
+>
+> Thank you!
+>
+> Best,
+> Joonkyo
+>
+>
+> 2024=EB=85=84 2=EC=9B=94 16=EC=9D=BC (=EA=B8=88) =EC=98=A4=ED=9B=84 6:22,=
+ Joonkyo Jung <joonkyoj@yonsei.ac.kr>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+>> Hello,
+>>
+>> We would like to report a slab-use-after-free bug in the AMDGPU DRM
+>> driver in the linux kernel v6.8-rc4 that we found with our customized
+>> Syzkaller.
+>> The bug can be triggered by sending two ioctls to the AMDGPU DRM driver
+>> in succession.
+>>
+>> In amdgpu_bo_move, struct ttm_resource *old_mem =3D bo->resource is
+>> assigned.
+>> As you can see on the alloc & free stack calls, on the same function
+>> amdgpu_bo_move,
+>> amdgpu_move_blit in the end frees bo->resource at
+>> ttm_bo_move_accel_cleanup with ttm_bo_wait_free_node(bo, man->use_tt).
+>> But amdgpu_bo_move continues after that, reaching
+>> trace_amdgpu_bo_move(abo, new_mem->mem_type, old_mem->mem_type) at the e=
+nd,
+>> causing the use-after-free bug.
+>>
+>> Steps to reproduce are as below.
+>> union drm_amdgpu_gem_create *arg1;
+>>
+>> arg1 =3D malloc(sizeof(union drm_amdgpu_gem_create));
+>> arg1->in.bo_size =3D 0x8;
+>> arg1->in.alignment =3D 0x0;
+>> arg1->in.domains =3D 0x4;
+>> arg1->in.domain_flags =3D 0x9;
+>> ioctl(fd, 0xc0206440, arg1);
+>>
+>> arg1->in.bo_size =3D 0x7fffffff;
+>> arg1->in.alignment =3D 0x0;
+>> arg1->in.domains =3D 0x4;
+>> arg1->in.domain_flags =3D 0x9;
+>> ioctl(fd, 0xc0206440, arg1);
+>>
+>> The KASAN report is as follows:
+>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> BUG: KASAN: slab-use-after-free in amdgpu_bo_move+0x1479/0x1550
+>> Read of size 4 at addr ffff88800f5bee80 by task syz-executor/219
+>> Call Trace:
+>>  <TASK>
+>>  amdgpu_bo_move+0x1479/0x1550
+>>  ttm_bo_handle_move_mem+0x4d0/0x700
+>>  ttm_mem_evict_first+0x945/0x1230
+>>  ttm_bo_mem_space+0x6c7/0x940
+>>  ttm_bo_validate+0x286/0x650
+>>  ttm_bo_init_reserved+0x34c/0x490
+>>  amdgpu_bo_create+0x94b/0x1610
+>>  amdgpu_bo_create_user+0xa3/0x130
+>>  amdgpu_gem_create_ioctl+0x4bc/0xc10
+>>  drm_ioctl_kernel+0x300/0x410
+>>  drm_ioctl+0x648/0xb30
+>>  amdgpu_drm_ioctl+0xc8/0x160
+>>  </TASK>
+>>
+>> Allocated by task 219:
+>>  kmalloc_trace+0x211/0x390
+>>  amdgpu_vram_mgr_new+0x1d6/0xbe0
+>>  ttm_resource_alloc+0xfd/0x1e0
+>>  ttm_bo_mem_space+0x255/0x940
+>>  ttm_bo_validate+0x286/0x650
+>>  ttm_bo_init_reserved+0x34c/0x490
+>>  amdgpu_bo_create+0x94b/0x1610
+>>  amdgpu_bo_create_user+0xa3/0x130
+>>  amdgpu_gem_create_ioctl+0x4bc/0xc10
+>>  drm_ioctl_kernel+0x300/0x410
+>>  drm_ioctl+0x648/0xb30
+>>  amdgpu_drm_ioctl+0xc8/0x160
+>>
+>> Freed by task 219:
+>>  kfree+0x111/0x2d0
+>>  ttm_resource_free+0x17e/0x1e0
+>>  ttm_bo_move_accel_cleanup+0x77e/0x9b0
+>>  amdgpu_move_blit+0x3db/0x670
+>>  amdgpu_bo_move+0xfa2/0x1550
+>>  ttm_bo_handle_move_mem+0x4d0/0x700
+>>  ttm_mem_evict_first+0x945/0x1230
+>>  ttm_bo_mem_space+0x6c7/0x940
+>>  ttm_bo_validate+0x286/0x650
+>>  ttm_bo_init_reserved+0x34c/0x490
+>>  amdgpu_bo_create+0x94b/0x1610
+>>  amdgpu_bo_create_user+0xa3/0x130
+>>  amdgpu_gem_create_ioctl+0x4bc/0xc10
+>>  drm_ioctl_kernel+0x300/0x410
+>>  drm_ioctl+0x648/0xb30
+>>  amdgpu_drm_ioctl+0xc8/0x160
+>>
+>> The buggy address belongs to the object at ffff88800f5bee70
+>>  which belongs to the cache kmalloc-96 of size 96
+>> The buggy address is located 16 bytes inside of
+>>  freed 96-byte region [ffff88800f5bee70, ffff88800f5beed0)
+>>
+>> Should you need any more information, please do not hesitate to contact
+>> us.
+>>
+>> Best regards,
+>> Joonkyo Jung
+>>
+>
+
+--000000000000026ea106132132ec
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div><div dir=3D"ltr">Hi Vitaly,<br><br>No worries, thank you for working o=
+n the patches!<br><br>I have also confirmed that with the inflight patch, i=
+ssue No.1 (use-after-free) seems to be resolved.<br>However, I have reprodu=
+ced issue No.3 (slab-use-after-free) even with the patch for issue No.1 app=
+lied - if it&#39;s the first program tested after reboot.<br>(i.e., if any =
+other bugs are tested before the slab-use-after-free, it does not reproduce=
+).<br><br>Could you check if the bug reproduces in this condition for you t=
+oo?<br>I will check and see why this is happening and update you if I have =
+something new.<br><br>Thank you!<br><br>Best,<br>Joonkyo</div></div><div><d=
+iv dir=3D"ltr"><br><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" clas=
+s=3D"gmail_attr">On Fri, Mar 8, 2024 at 12:45=E2=80=AFPM vitaly prosyak &lt=
+;<a href=3D"mailto:vprosyak@amd.com" target=3D"_blank">vprosyak@amd.com</a>=
+&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px =
+0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><u><=
+/u>
+
+ =20
+  <div>
+    <p>Hi Joonkyo,<br>
+      Sorry for the delay. <br>
+      Yes, sure, I reproduced issue 2 (null-ptr-deref in amdgpu) and I
+      will provide the fix soon.<br>
+      However, issue No. 3 is no longer reproducible if the recent patch
+      inflight is applied which fixes issue No 1.</p>
+    <p>Do you see the same behavior?<br>
+    </p>
+    <p>Thanks in advance, Vitaly<br>
+    </p>
+    <div>On 2024-03-07 20:18, Joonkyo Jung
+      wrote:<br>
+    </div>
+    <blockquote type=3D"cite">
+     =20
+      <div>
+        <div>
+          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
+e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
+xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
+decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
+r:rgb(0,0,0)">Hello,=C2=A0</div>
+          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
+e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
+xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
+decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
+r:rgb(0,0,0)">thank
+            you for patching the first bug we have sent!</div>
+          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
+e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
+xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
+decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
+r:rgb(0,0,0)"><br>
+          </div>
+          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
+e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
+xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
+decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
+r:rgb(0,0,0)">Just
+            a quick touch base with you, to ask if there has been any
+            update on our other two bugs.</div>
+          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
+e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
+xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
+decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
+r:rgb(0,0,0)">They
+            were each sent with emails titled=C2=A0</div>
+          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
+e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
+xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
+decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
+r:rgb(0,0,0)">&quot;Reporting
+            a slab-use-after-free in amdgpu&quot; (this one)</div>
+          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
+e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
+xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
+decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
+r:rgb(0,0,0)">&quot;Reporting
+            a null-ptr-deref in amdgpu&quot;.=C2=A0</div>
+          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
+e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
+xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
+decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
+r:rgb(0,0,0)"><br>
+          </div>
+          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
+e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
+xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
+decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
+r:rgb(0,0,0)">Thank
+            you!=C2=A0</div>
+          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
+e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
+xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
+decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
+r:rgb(0,0,0)"><br>
+          </div>
+          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
+e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
+xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
+decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
+r:rgb(0,0,0)">Best,=C2=A0</div>
+          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
+e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
+xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
+decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
+r:rgb(0,0,0)">Joonkyo</div>
+        </div>
+        <br>
+      </div>
+      <div><br>
+        <div class=3D"gmail_quote">
+          <div dir=3D"ltr" class=3D"gmail_attr">2024=EB=85=84 2=EC=9B=94 16=
+=EC=9D=BC (=EA=B8=88) =EC=98=A4=ED=9B=84 6:22,
+            Joonkyo Jung &lt;<a href=3D"mailto:joonkyoj@yonsei.ac.kr" targe=
+t=3D"_blank">joonkyoj@yonsei.ac.kr</a>&gt;=EB=8B=98=EC=9D=B4
+            =EC=9E=91=EC=84=B1:<br>
+          </div>
+          <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
+ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+            <div dir=3D"ltr">Hello,<br>
+              <br>
+              We would like to report a slab-use-after-free bug in the
+              AMDGPU DRM driver in the linux kernel v6.8-rc4 that we
+              found with our customized Syzkaller.<br>
+              The bug can be triggered by sending two ioctls to the
+              AMDGPU DRM driver in succession.<br>
+              <br>
+              In amdgpu_bo_move, struct ttm_resource *old_mem =3D
+              bo-&gt;resource is assigned.<br>
+              As you can see on the alloc &amp; free stack calls, on the
+              same function amdgpu_bo_move,<br>
+              amdgpu_move_blit in the end frees bo-&gt;resource at
+              ttm_bo_move_accel_cleanup with ttm_bo_wait_free_node(bo,
+              man-&gt;use_tt).<br>
+              But amdgpu_bo_move continues after that, reaching
+              trace_amdgpu_bo_move(abo, new_mem-&gt;mem_type,
+              old_mem-&gt;mem_type) at the end, causing the
+              use-after-free bug.<br>
+              <br>
+              Steps to reproduce are as below.<br>
+              union drm_amdgpu_gem_create *arg1;<br>
+              <br>
+              arg1 =3D malloc(sizeof(union drm_amdgpu_gem_create));<br>
+              arg1-&gt;in.bo_size =3D 0x8;<br>
+              arg1-&gt;in.alignment =3D 0x0;<br>
+              arg1-&gt;in.domains =3D 0x4;<br>
+              arg1-&gt;in.domain_flags =3D 0x9;<br>
+              ioctl(fd, 0xc0206440, arg1);<br>
+              <br>
+              arg1-&gt;in.bo_size =3D 0x7fffffff;<br>
+              arg1-&gt;in.alignment =3D 0x0;<br>
+              arg1-&gt;in.domains =3D 0x4;<br>
+              arg1-&gt;in.domain_flags =3D 0x9;<br>
+              ioctl(fd, 0xc0206440, arg1);<br>
+              <br>
+              The KASAN report is as follows:<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+              BUG: KASAN: slab-use-after-free in
+              amdgpu_bo_move+0x1479/0x1550<br>
+              Read of size 4 at addr ffff88800f5bee80 by task
+              syz-executor/219<br>
+              Call Trace:<br>
+              =C2=A0&lt;TASK&gt;<br>
+              =C2=A0amdgpu_bo_move+0x1479/0x1550<br>
+              =C2=A0ttm_bo_handle_move_mem+0x4d0/0x700<br>
+              =C2=A0ttm_mem_evict_first+0x945/0x1230<br>
+              =C2=A0ttm_bo_mem_space+0x6c7/0x940<br>
+              =C2=A0ttm_bo_validate+0x286/0x650<br>
+              =C2=A0ttm_bo_init_reserved+0x34c/0x490<br>
+              =C2=A0amdgpu_bo_create+0x94b/0x1610<br>
+              =C2=A0amdgpu_bo_create_user+0xa3/0x130<br>
+              =C2=A0amdgpu_gem_create_ioctl+0x4bc/0xc10<br>
+              =C2=A0drm_ioctl_kernel+0x300/0x410<br>
+              =C2=A0drm_ioctl+0x648/0xb30<br>
+              =C2=A0amdgpu_drm_ioctl+0xc8/0x160<br>
+              =C2=A0&lt;/TASK&gt;<br>
+              <br>
+              Allocated by task 219:<br>
+              =C2=A0kmalloc_trace+0x211/0x390<br>
+              =C2=A0amdgpu_vram_mgr_new+0x1d6/0xbe0<br>
+              =C2=A0ttm_resource_alloc+0xfd/0x1e0<br>
+              =C2=A0ttm_bo_mem_space+0x255/0x940<br>
+              =C2=A0ttm_bo_validate+0x286/0x650<br>
+              =C2=A0ttm_bo_init_reserved+0x34c/0x490<br>
+              =C2=A0amdgpu_bo_create+0x94b/0x1610<br>
+              =C2=A0amdgpu_bo_create_user+0xa3/0x130<br>
+              =C2=A0amdgpu_gem_create_ioctl+0x4bc/0xc10<br>
+              =C2=A0drm_ioctl_kernel+0x300/0x410<br>
+              =C2=A0drm_ioctl+0x648/0xb30<br>
+              =C2=A0amdgpu_drm_ioctl+0xc8/0x160<br>
+              <br>
+              Freed by task 219:<br>
+              =C2=A0kfree+0x111/0x2d0<br>
+              =C2=A0ttm_resource_free+0x17e/0x1e0<br>
+              =C2=A0ttm_bo_move_accel_cleanup+0x77e/0x9b0<br>
+              =C2=A0amdgpu_move_blit+0x3db/0x670<br>
+              =C2=A0amdgpu_bo_move+0xfa2/0x1550<br>
+              =C2=A0ttm_bo_handle_move_mem+0x4d0/0x700<br>
+              =C2=A0ttm_mem_evict_first+0x945/0x1230<br>
+              =C2=A0ttm_bo_mem_space+0x6c7/0x940<br>
+              =C2=A0ttm_bo_validate+0x286/0x650<br>
+              =C2=A0ttm_bo_init_reserved+0x34c/0x490<br>
+              =C2=A0amdgpu_bo_create+0x94b/0x1610<br>
+              =C2=A0amdgpu_bo_create_user+0xa3/0x130<br>
+              =C2=A0amdgpu_gem_create_ioctl+0x4bc/0xc10<br>
+              =C2=A0drm_ioctl_kernel+0x300/0x410<br>
+              =C2=A0drm_ioctl+0x648/0xb30<br>
+              =C2=A0amdgpu_drm_ioctl+0xc8/0x160<br>
+              <br>
+              The buggy address belongs to the object at
+              ffff88800f5bee70<br>
+              =C2=A0which belongs to the cache kmalloc-96 of size 96<br>
+              The buggy address is located 16 bytes inside of<br>
+              =C2=A0freed 96-byte region [ffff88800f5bee70, ffff88800f5beed=
+0)<br>
+              <br>
+              Should you need any more information, please do not
+              hesitate to contact us.<br>
+              <br>
+              Best regards,<br>
+              Joonkyo Jung<br>
+            </div>
+          </blockquote>
+        </div>
+      </div>
+    </blockquote>
+  </div>
+
+</blockquote></div></div>
+</div>
+
+--000000000000026ea106132132ec--
