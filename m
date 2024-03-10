@@ -4,70 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDFD0C54798
-	for <amd-gfx@archiver.kernel.org>; Sat,  9 Mar 2024 16:27:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10B2DC54791
+	for <amd-gfx@archiver.kernel.org>; Sun, 10 Mar 2024 05:41:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA2201121D2;
-	Sat,  9 Mar 2024 16:27:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBD8711204C;
+	Sun, 10 Mar 2024 05:41:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e5dYkd9T";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="dig9gT64";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E96E1121D2
- for <amd-gfx@lists.freedesktop.org>; Sat,  9 Mar 2024 16:27:41 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-a450615d1c4so539210466b.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 09 Mar 2024 08:27:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710001659; x=1710606459; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1P1wwMFoY2RUh7Yj+jL9MiMM7Nkvq6eanhZxeCT4jZI=;
- b=e5dYkd9ToV1Wp5OPL3UrbjOHJ8A3usa1Jkbry8PqFdlGTT+X0FxpnXLYy2ziPdfQHs
- IzNIb6UsNiEHkLQV0OscX6dy34n6+DnMeLbPHiA6BnQNu8X/QvwRQIRhsoM6qD059yU8
- JI3Q9sA/airr8sTw+bMWp8R5v1YiYldUZaomZPxp2jVvTPdEiynLRjB4PZCAOW5NUap2
- mCEuUGGrmKrWvo18WUg8pzvW7AnOLDf4RCtHNyGMZsr0nb0BmkdzZ/zvaobkRkRtmKtA
- fHX3lRU7vz0mXJSbZe6t40IjnBn7Sgcz4LvJCrD1JZQUwN52NO+fwigaerFwfUuARV4d
- jFbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710001659; x=1710606459;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=1P1wwMFoY2RUh7Yj+jL9MiMM7Nkvq6eanhZxeCT4jZI=;
- b=bdlx9pHqEnkHbfipfkYqXPb7WD6TWSIyuuis64OVAnRoVn4hXx8/82CBB/JPVytJEz
- iyJsVGGni5bj3LiUUTpJ4VR3HX7qe1dpGh4FCidV1i+Q96hW1f7hUSrP2hGGtdzzF+vn
- KFLwPydvnj1KBqLHXrvxn25IVutMq3/LyCUQKXC7bXCbr+WNezg1mBnpd3W5YXgJ8ZWK
- dbbnJe/dAnz5EdfRwVk5g1MKJtRJe4SQ0f+LmyjjuQzt9Uq2C3mHyDTqhQlUJ54Diai3
- Yrow5RHEQhuPtFLH8cFsGAH0lXQdQ229dGptCL49tv4ka37u+xA/6LwX3SjnQhJKgtI/
- jOiQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVTocuJ+82VLMyUUw+OVj+xm9S9hDmifuToCqxKtSJP2sGHepDFHnBFOwE+CbFStJgyETekK32pw3nDPU0vreF5SzGCQox/eNsWuTUkNQ==
-X-Gm-Message-State: AOJu0YzKgTPqNX5QDDEv5+4h2Pi9zmDw5sxf5m7O+y+OKUqhbhCbt8ET
- vnGxE5EnZL1NZN9+AH3YJ+7kGUfRc3b+VXojbSWYGnFNKlcSs5DA82mOx7U5WqVJQijzYCLvF1P
- LQ2fIzP1slS4yMShzy/e4NA+71kA=
-X-Google-Smtp-Source: AGHT+IHHMNeP3+/otXi0qgvrZdjaTaAaOTiIqnN+erSanUTc3T8EWwNBtBOFWRSZpBbDRHpMPmETU7F++zaJ5QPVdQo=
-X-Received: by 2002:a17:906:a14c:b0:a45:fa87:b011 with SMTP id
- bu12-20020a170906a14c00b00a45fa87b011mr1606134ejb.20.1710001659328; Sat, 09
- Mar 2024 08:27:39 -0800 (PST)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1578D11204C
+ for <amd-gfx@lists.freedesktop.org>; Sun, 10 Mar 2024 05:41:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
+ t=1710049289; x=1710654089; i=friedrich.vock@gmx.de;
+ bh=X9LBql3Qe+ESf+/kwJmfU5sBw5HwDa67V3gic7/cvpI=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+ b=dig9gT64I0o/ZN42BpiMMCKuL2TJwKX5zOCzPVuMl4DpmSKdQUWHENeKmLCDPsfl
+ y0N2sTtdLhd0tFWGCMPf3TepoZJ3eZpn6flPs5Lp4NRoQFFfz8g4ciPfF+eIfX4vq
+ cMwnN9Fo4SeAR534Khv3e5JUPaKHA4w7fIXR5f4X04eFq9LuVTtEgJLjjZNmJ+MEr
+ RL6P9YEhH5UG8i6EWt+ghxTANVqAd4hrK9quAeAboRltfo1MINO1lCF6WgtF99Uhd
+ tXTPh+YmH7AggDT9JAqSjdV2eWAjVN3UHEWdEmUqshXgBQUiEdI9wq0rP367t1x9W
+ IZ6rFtZSm4lITkNroA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from arch.fritz.box ([213.152.118.97]) by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MmDIu-1r1MoD206y-00i8Oi; Sun, 10
+ Mar 2024 06:41:29 +0100
+From: Friedrich Vock <friedrich.vock@gmx.de>
+To: amd-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: Reset IH OVERFLOW_EN bit for IH 7.0
+Date: Sun, 10 Mar 2024 06:40:40 +0100
+Message-ID: <20240310054040.978056-1-friedrich.vock@gmx.de>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-References: <20240307190447.33423-1-joshua@froggi.es>
- <d9632885-35da-4e4a-b952-2b6a0c38c35b@amd.com>
-In-Reply-To: <d9632885-35da-4e4a-b952-2b6a0c38c35b@amd.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Sat, 9 Mar 2024 11:27:03 -0500
-Message-ID: <CAAxE2A7SV2cwBAFKikKDjeHzWQMU+emXG7kR2okt0C9WvD6Hfw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu: Forward soft recovery errors to userspace
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Joshua Ashton <joshua@froggi.es>, amd-gfx@lists.freedesktop.org, 
- "Olsak, Marek" <Marek.Olsak@amd.com>, Friedrich Vock <friedrich.vock@gmx.de>, 
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
- stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:T5GXu7WE7NOl79w3UwONHdDjGc0Up3QjiWof61v4vNWybjVCQna
+ TKzLI5v1R//bZX7FV0dCZ9JNr4Oocg/r9fuejL93JVhQPCV/ZO/nh6yfcY7WRj9rTqdxIJv
+ +WEmuzMRD3/9zt+B8RgH6ORlGA5kqzs9b+8rC3teLUHb0WXlWDRBxXf2kgbE+kpCUVMMGYf
+ 0OT4FAxmxzNvtngTEs4bQ==
+UI-OutboundReport: notjunk:1;M01:P0:Nf8iyvJiU/g=;tTnzJ9lnRH3EO3hOS14BF7Mzw9F
+ nOgmoZV96FmwlWT2AyQjSj8x/JRl1I13nzob1oryx4h+BFtiZ/9ZE+W5xFK2w34Li8ClUbEwy
+ EC181SWQP3itkvYwWgaueeOBzZQgZVzodeQB0kI2DZytNxMEuQkimBojM/3O2jUCVy1WiioAZ
+ u42HXD1fkPp07v6uSBrrNiJRrxe3KXDCTQuLUYKIuQG3cU401BC2YujIR+l8oNmMpY5gxLP4R
+ n/TVkyOplSdG96DtA5SurwlghrApYwSVtFHmVfcA+mA3x0TvdNHRhdHUZqQmbkuWTRKMt49Fc
+ bxsjktL4jwppjDQ/D5/j7QmAmByfFCjFBB9y5nTkTmpBCCIYjMaG4UBBkdlg6zyKloKlSf7OP
+ BJre1MdLJGNc7a+127HTrS8hL/JI7DwGlrMdwEXTPSUOZzeDMDJpYZhxPY2VAUuu6MYh/TyjE
+ HJO8w3nIIdE80QSU89hc2uoCkjsho+pbfgJE453nM9IBnu14vBxZRLnEg1r5TXU5efPewC7Wm
+ TCbVf/mKGteWgR7HGLdt7ic7qs7Lh5IhleeY4yVK+XKSLjGyCY6aIN/fprOfPBaHu6EALUBRh
+ Lb+wY6spMbE7tSO/t4/WnRCvQYdf7R8ZUXDjihhRcZGi0h8JIiWpXLTJRMXqzvKnv8fKaK1Ua
+ FlBfC61NK5bJeTSmNcGnKyPhWCTIYkpWEEOd8oLkmurUOKpkSv1ThZHUCtqBecPnE1Ls+M0Gz
+ wZUShxLpNF+BFWD9DmaupUEq2fjeDRkAsFgl0xoqeFTFkqQ76uwizADpW8voXCkfG2qVG5xZA
+ JB2UECmmGwMRuQlWiMAvEaDW0CBEWqRcVrOSKmhqnLWRE=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,55 +71,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
+IH 7.0 support landed shortly after the original patch for resetting the
+bit on all other generations, but without that patch applied.
 
-Marek
+Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 
-On Fri, Mar 8, 2024 at 3:43=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
-ig@amd.com> wrote:
->
-> Am 07.03.24 um 20:04 schrieb Joshua Ashton:
-> > As we discussed before[1], soft recovery should be
-> > forwarded to userspace, or we can get into a really
-> > bad state where apps will keep submitting hanging
-> > command buffers cascading us to a hard reset.
->
-> Marek you are in favor of this like forever.  So I would like to request
-> you to put your Reviewed-by on it and I will just push it into our
-> internal kernel branch.
->
-> Regards,
-> Christian.
->
-> >
-> > 1: https://lore.kernel.org/all/bf23d5ed-9a6b-43e7-84ee-8cbfd0d60f18@fro=
-ggi.es/
-> > Signed-off-by: Joshua Ashton <joshua@froggi.es>
-> >
-> > Cc: Friedrich Vock <friedrich.vock@gmx.de>
-> > Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Cc: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> > Cc: stable@vger.kernel.org
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 3 +--
-> >   1 file changed, 1 insertion(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_job.c
-> > index 4b3000c21ef2..aebf59855e9f 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> > @@ -262,9 +262,8 @@ amdgpu_job_prepare_job(struct drm_sched_job *sched_=
-job,
-> >       struct dma_fence *fence =3D NULL;
-> >       int r;
-> >
-> > -     /* Ignore soft recovered fences here */
-> >       r =3D drm_sched_entity_error(s_entity);
-> > -     if (r && r !=3D -ENODATA)
-> > +     if (r)
-> >               goto error;
-> >
-> >       if (!fence && job->gang_submit)
->
+Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
+=2D--
+ drivers/gpu/drm/amd/amdgpu/ih_v7_0.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/am=
+dgpu/ih_v7_0.c
+index 16fe428c0722d..7aed96fa10a9d 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+@@ -418,6 +418,12 @@ static u32 ih_v7_0_get_wptr(struct amdgpu_device *ade=
+v,
+ 	tmp =3D RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+ 	tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+ 	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
++
++	/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
++	 * can be detected.
++	 */
++	tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
++	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+ out:
+ 	return (wptr & ih->ptr_mask);
+ }
+=2D-
+2.44.0
+
