@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59C82C5475B
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Mar 2024 15:12:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27CA4C54E58
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Mar 2024 15:13:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA6AA10F07C;
-	Mon, 11 Mar 2024 15:12:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9FFD1125EF;
+	Mon, 11 Mar 2024 15:13:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WfiFaLZw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CRKwdzFD";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A49810F075;
- Mon, 11 Mar 2024 15:12:54 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7390D112AFC;
+ Mon, 11 Mar 2024 15:13:39 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 525B260C61;
- Mon, 11 Mar 2024 15:12:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B15D5C433F1;
- Mon, 11 Mar 2024 15:12:51 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id BA2F2CE0919;
+ Mon, 11 Mar 2024 15:13:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2274EC43390;
+ Mon, 11 Mar 2024 15:13:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1710169974;
- bh=vGsRcugzQXk3Cte7pTGXjU6O3+vYXY4P4bjFaOnISPY=;
+ s=k20201202; t=1710170017;
+ bh=Em+y3OczuTBhg6IrRilmQsX+jlGDdnBmeK0jNqSWFp8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WfiFaLZwQlz5rq7Pw/g+sWh2cSRiW+Ty+wWtZ3RL2TQ+uXNjxtG29UZbiZogiGQ6b
- GbFTU5YEulStUgflB+lAo/pA4UwNS8cSLwTdFzgf3gi6S/AE4bHto/+8INnaQcODNa
- 70oo8FeigaYIOdy1o8/swknHg770JLX4PlVEdHis6sltEuNv9RIJCSFKpwJfDqWXVT
- nPZuzPZ1Ams/TQniYJwAoFbGmsPWjnQjYYG+a6vWizfziwybssjFo7T5IdOETVZWHQ
- PNb8TTC8zPCQJn8N1XHy01mqfOjnF2xWqLwlBbK5crFsHiWC6ULhN8zy5K9G70IMqo
- oR9+epkBTFG4w==
+ b=CRKwdzFDR35tp6Fa7BDoOIHHXfkdrqE+vO2y4hzK+dJ7UUMg2xDzb74iFZrt6ASgP
+ +UKBx5lr/G9OY1bzITLF3gL0xSwDPdFZaPqSl9qX6+r5QJqTjzQ1Tq6WgLKZSfNJuB
+ i531bwtR4c+PY/YkiTKohBFKXYCLpyM4qVGXjy+ictahe/ee7OhSGAEbQ3ZwLH1RMe
+ diO74Mr722yLbLGBNgnx2LPhkkbIXJVccsbf4j/BKvEvV1Wv0PeiRsa+WyYKZ3H1Qy
+ v79MxD5d7+QPZwJF0H3WvzZXd9LCnDTFFZoJ1MSteVJr1XVCVgkedH9TvBJOpbUgi0
+ cQCq5EAd7oF4g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -39,17 +39,17 @@ Cc: Prike Liang <Prike.Liang@amd.com>,
  daniel@ffwll.ch, Hawking.Zhang@amd.com, lijo.lazar@amd.com, le.ma@amd.com,
  James.Zhu@amd.com, shane.xiao@amd.com, sonny.jiang@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.7 16/23] drm/amdgpu: Enable gpu reset for S3 abort
+Subject: [PATCH AUTOSEL 6.6 11/17] drm/amdgpu: Enable gpu reset for S3 abort
  cases on Raven series
-Date: Mon, 11 Mar 2024 11:11:56 -0400
-Message-ID: <20240311151217.317068-16-sashal@kernel.org>
+Date: Mon, 11 Mar 2024 11:13:02 -0400
+Message-ID: <20240311151314.317776-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240311151217.317068-1-sashal@kernel.org>
-References: <20240311151217.317068-1-sashal@kernel.org>
+In-Reply-To: <20240311151314.317776-1-sashal@kernel.org>
+References: <20240311151314.317776-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.7.9
+X-stable-base: Linux 6.6.21
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,7 +82,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 25 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 9b5af3f1383a7..f9ba1803046d9 100644
+index 2a7c606d1d191..a41ed67ea9fea 100644
 --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
 +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
 @@ -574,11 +574,34 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
@@ -122,7 +122,7 @@ index 9b5af3f1383a7..f9ba1803046d9 100644
  		return 0;
  
  	switch (soc15_asic_reset_method(adev)) {
-@@ -1297,24 +1320,6 @@ static int soc15_common_suspend(void *handle)
+@@ -1296,24 +1319,6 @@ static int soc15_common_suspend(void *handle)
  	return soc15_common_hw_fini(adev);
  }
  
