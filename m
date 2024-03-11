@@ -4,50 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B31BC54E67
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Mar 2024 08:30:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96BF0C54E58
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Mar 2024 08:30:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A32AF10F6DE;
-	Tue, 12 Mar 2024 08:30:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17C4310FB94;
+	Tue, 12 Mar 2024 08:30:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="FAVb25RW";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="gTEP+qU+";
 	dkim-atps=neutral
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 123031129B2;
- Mon, 11 Mar 2024 13:11:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1710162716;
- bh=t8ybMr9aWUyQwAIakzMgcukMu62SVuGBqlSrDr6eFng=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=FAVb25RWbdnuJ2Evo6bHDFH7w6fHNfWxGDs0x6OAciHED6+sM0PLWD7F2yer1/Zym
- pmAB54dB1QNue/wXg2+ZuUBvU+ESrfVzXCR2BizNMt+/XPm8JHpO+CEmxbe70Vk8W3
- 41BagS4p3m5nKeg0zadXyzM/5VbHGbvnGZ/3ZCzYAbRghhwI5rgUsj3yCdJewSNP3a
- xlQo4DcK7NB9CRj+vfwPvZB+Cj/AJgrzv3DFe3HH+vQ+315b33OAuBCXh62tysO8Jv
- kLzCOF+1K2lHB0FyE376nKVli1y+PcbKpYVxowZ7d6kDqm+UGxPXHB788H2r6YukjP
- TFgDsEf8W8g2Q==
-Received: from eldfell (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id EB2AB378003D;
- Mon, 11 Mar 2024 13:11:55 +0000 (UTC)
-Date: Mon, 11 Mar 2024 15:11:45 +0200
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <wayland-devel@lists.freedesktop.org>
-Subject: Re: [RFC PATCH v4 03/42] drm: Correctly round for fixp2int_round
-Message-ID: <20240311151145.227222cb.pekka.paalanen@collabora.com>
-In-Reply-To: <20240226211100.100108-4-harry.wentland@amd.com>
-References: <20240226211100.100108-1-harry.wentland@amd.com>
- <20240226211100.100108-4-harry.wentland@amd.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
+X-Greylist: delayed 319 seconds by postgrey-1.36 at gabe;
+ Mon, 11 Mar 2024 21:57:31 UTC
+Received: from out-179.mta0.migadu.com (out-179.mta0.migadu.com
+ [91.218.175.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6A4F112CAD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Mar 2024 21:57:31 +0000 (UTC)
+Message-ID: <03fe26b2-1b6b-49c8-ac34-e90c76562114@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1710193930;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=G3PsOHFrYJtHkNhKadH4zMG3Rkf5nMiw+jz9fku5Ijs=;
+ b=gTEP+qU+CrDNEe+UqbIGyHEDITEIH6ZCbnXqkhAaC/NEp/42LkFaVLwHPSvhKmRFh4EXoK
+ 7wAIXQFNQ8YGzxV+NiKnK3uIzUx+SctMmQPXRsxBs27pV4tQA3PPx+ydlh7ZPc6jVOlLSV
+ NKQQ0EZZCwY6ASqyrph/T80T22GVoQ4=
+Date: Tue, 12 Mar 2024 05:51:42 +0800
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/C/KR.w=Kev3_idWfyEicd=7";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-X-Mailman-Approved-At: Tue, 12 Mar 2024 08:30:06 +0000
+Subject: Re: [09/13] drm/gem: Acquire reservation lock in drm_gem_{pin/unpin}()
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@gmail.com, mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ christian.koenig@amd.com, sumit.semwal@linaro.org,
+ dmitry.osipenko@collabora.com, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ marijn.suijten@somainline.org, kherbst@redhat.com, lyude@redhat.com,
+ dakr@redhat.com, airlied@redhat.com, kraxel@redhat.com,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, zack.rusin@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20240227113853.8464-10-tzimmermann@suse.de>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Sui Jingfeng <sui.jingfeng@linux.dev>
+In-Reply-To: <20240227113853.8464-10-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
+X-Mailman-Approved-At: Tue, 12 Mar 2024 08:30:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,104 +69,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/C/KR.w=Kev3_idWfyEicd=7
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 26 Feb 2024 16:10:17 -0500
-Harry Wentland <harry.wentland@amd.com> wrote:
-
-> A value of 0x80000000 and higher should round up, and
-> below should round down. VKMS Kunit tests for lerp_u16
-> showed that this is not the case. Fix it.
->=20
-> 1 << (DRM_FIXED_POINT_HALF - 1) =3D
-> 1 << 15 =3D 0x8000
->=20
-> This is not 0.5, but 0.00000762939453125.
->=20
-> Instead of some smart math use a simple if/else to
-> round up or down. This helps people like me to understand
-> what the function does.
->=20
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> ---
->  include/drm/drm_fixed.h | 15 ++++++++++-----
->  1 file changed, 10 insertions(+), 5 deletions(-)
->=20
-> diff --git a/include/drm/drm_fixed.h b/include/drm/drm_fixed.h
-> index cb842ba80ddd..8ee549f68537 100644
-> --- a/include/drm/drm_fixed.h
-> +++ b/include/drm/drm_fixed.h
-> @@ -77,6 +77,8 @@ static inline u32 dfixed_div(fixed20_12 A, fixed20_12 B)
->  #define DRM_FIXED_DIGITS_MASK	(~DRM_FIXED_DECIMAL_MASK)
->  #define DRM_FIXED_EPSILON	1LL
->  #define DRM_FIXED_ALMOST_ONE	(DRM_FIXED_ONE - DRM_FIXED_EPSILON)
-> +#define DRM_FIXED_FRACTIONAL	0xffffffffll
-> +#define DRM_FIXED_HALF		0x80000000ll
-> =20
->  /**
->   * @drm_sm2fixp
-> @@ -106,11 +108,6 @@ static inline int drm_fixp2int(s64 a)
->  	return ((s64)a) >> DRM_FIXED_POINT;
->  }
-> =20
-> -static inline int drm_fixp2int_round(s64 a)
-> -{
-> -	return drm_fixp2int(a + (1 << (DRM_FIXED_POINT_HALF - 1)));
-> -}
-> -
->  static inline int drm_fixp2int_ceil(s64 a)
->  {
->  	if (a >=3D 0)
-> @@ -119,6 +116,14 @@ static inline int drm_fixp2int_ceil(s64 a)
->  		return drm_fixp2int(a - DRM_FIXED_ALMOST_ONE);
->  }
-> =20
-> +static inline int drm_fixp2int_round(s64 a)
-> +{
-> +	if ((a & DRM_FIXED_FRACTIONAL) < DRM_FIXED_HALF)
-> +		return drm_fixp2int(a);
-
-So, if we take -epsilon (which is -1 in raw s64 value, the largest
-possible value less than zero), this would return -1.0? That does not
-sound right.
-
-However, the "add 0.5 and truncate" trick always works, so I'd
-recommend sticking that.
+Hi,
 
 
-Thanks,
-pq
+On 2024/2/27 18:14, Thomas Zimmermann wrote:
+> Acquire the buffer object's reservation lock in drm_gem_pin() and
+> remove locking the drivers' GEM callbacks where necessary. Same for
+> unpin().
+>
+> DRM drivers and memory managers modified by this patch will now have
+> correct dma-buf locking semantics: the caller is responsible for
+> holding the reservation lock when calling the pin or unpin callback.
+>
+> DRM drivers and memory managers that are not modified will now be
+> protected against concurent invocation of their pin and unpin callbacks.
 
-> +	else
-> +		return drm_fixp2int_ceil(a);
-> +}
-> +
->  static inline unsigned drm_fixp_msbset(s64 a)
->  {
->  	unsigned shift, sign =3D (a >> 63) & 1;
+'concurent' -> 'concurrent'
+
+> PRIME does not implement struct dma_buf_ops.pin, which requires
+> the caller to hold the reservation lock. It does implement struct
+> dma_buf_ops.attach, which requires to callee to acquire the
+> reservation lock.
+
+which requires 'the' callee to acquire the reservation lock.
 
 
---Sig_/C/KR.w=Kev3_idWfyEicd=7
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+> The PRIME code uses drm_gem_pin(), so locks
+> are now taken as specified. Same for unpin and detach.
+>
+> The patch harmonizes GEM pin and unpin to have non-interruptible
+> reservation locking across all drivers, as is already the case for
+> vmap and vunmap. This affects gem-shmem, gem-vram, loongson, qxl and
+> radeon.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmXvAxEACgkQI1/ltBGq
-qqeOJw//a6PG7tSQ2UzSerdssV083e6z2B0IY5ysc2JvINerxzj8OMX3ZViYDZag
-4K1q9ssa/hNlGRm8QcdMVRuEaavM59uf9v57XcRfAiOu/v+T2fRplRQw9Mspmc1x
-zNbReJuEApLw1hZ0jB6ctEl91VL+zeUx78v+aQqJp/BJF2bQI6fKKjLRGo8hnij/
-2C+irLlCookfdaBYxYg0lNsQetPxj+uaVmDlo1RAuApnnb1DW6OOFzvIgpauKj85
-eMs0US28X/AyA+qT/n/c8VlRlXCrcclcKI1FhWN/zKH8r51kiq1fBLB7LbL4bRFu
-Fgzqz8O+Q6AKfeKy1YyJKkE5fp8ByfQtIrbza+0BbP/Pj4dBm17YzmM8JItn2ofQ
-HFsID1y59I+hB1M/SmXcmmFMdq/Q7Aeb1e5H2zz+ZUpo0mHKdlQb1WZyqjmUw8g2
-OGi9Sr33hbHr6mfMy5hlmAK6NS2SxHgqY6wFPoGJ16zpzKtyqok+2ALxfZajK9nl
-YCLrQQHqa6AVzcibjMcUy4L32pBRFUE7/7AgDf+a+UtIm/z2q5Tx+NCnNPcfCJ2I
-LC8KgoM6bwsq8wRBCmNyBw3HYh2zX++V5u7P00SWH4eHmGSc1TgC1LJMDv68CB19
-Nt2eAj3DIrn3mfyeRmrD0FWVAXDREm8lDlZn8mWG6lBO3CZpNf4=
-=El6/
------END PGP SIGNATURE-----
+Tested with drm/loongson, play with a few days.
+Switch to virtual terminal, then switch back is fine.
+not found problems yet. So,
 
---Sig_/C/KR.w=Kev3_idWfyEicd=7--
+Tested-by: Sui Jingfeng <sui.jingfeng@linux.dev>
+
