@@ -4,121 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8EEFC5475B
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Mar 2024 05:41:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2064DC54E58
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Mar 2024 05:49:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40F0710E0EA;
-	Mon, 11 Mar 2024 05:41:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A246810E0F3;
+	Mon, 11 Mar 2024 05:49:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j9qqecpE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3Qmd5LrN";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1C8210E0EA
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Mar 2024 05:41:36 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2059.outbound.protection.outlook.com [40.107.243.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7523410E0F3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Mar 2024 05:49:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O4cQ0rRQqErHRz/Jzm+rT85xOpCGL6fCUiMxOnAqnZ4dGh7ZkvSwnsSVxi7B+CFEDl5DHMNOAFvEp6lLbWxKdakrLSTLrNsUYczyD4kjWeNV4ZxwoWpia/o0f822xsYYU4zOI0syms1fJAqa2Ochfkp8KT+nCPV2Lw3W4zgI41cfdonMx1WcKqz8ZmzTfFZwJxEvZ7SNWq1YkGoKwItDzWoboJvzPF2leBJY/THS1yzApYqrDhbxrQbSaCG7/6Fupl4mwtHoPUomWLWsQeb0ZxuS6Mdl9EXk3/HUw1YzjlsJ6EIJ2iNmFVGIfOeMhLwsyrMU/D0zVTi9Sip4Dvu49A==
+ b=YoQgxaGe4PFDz0NDxY+0KwkXwG6wW5hEIkz5dTVuPiZueew7mpdqZ7efkQzpigXjoe+u7vwIvXdjooAdDk1AbS3/c2rt/EG503FyfpXXhJ+446ZyO01Yk9LvttaWM7htwIhke1UAzrtW0iarPmq6MKzk6o43OMsYKNNLOpYpONQNkLjYhxFSCb/dLzpbk6XFmcrG8NeoF16eCxySjAfnkJTaVjA68eT+5fJvifKPiv4n4sqWcy/tJD9t1BZ5/EMwznCPjTKPsYVzzUqYGw+M18OJh+PptDidEROr5q/CqXzLmLjph97GqyFZIpcdhKNnzv2c9uDoc3ZptrlMxAh+yA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZTUFSc9fPz+oSfb95ZvqXdeNy7BrytWyIbQjjHVw8IA=;
- b=JNalMboW9G33/LNspSkO1CZOYUR1GR0XxNEWmHpbu5kX/yL5FSxTRGkOkxZycgtkvmjby0y8kr3vQTttZsfNg/OPyBxMLmhqfnt0yQnvFOLLX1oyQ/WpyluSisjOtT2Ri55oNGgECRjqAUETRLPJEJH0NeLEolV5qvOGMOYMen9DJOdYAf9tqV0BGeNk3PmeSmdRi1NTDYNtwppA+xBIIRwel8AdRvIS4ZUtDWxHu/eO/qis1DroNCJxsnXXTQIc8aXNuHW7jUl1PFUuaXtKcVtirbGKMEznA9zCgmPiIvMq5C0WYirbWtHKUJ7P8TIQeC9Bt7ZXxF59/XSKaZuJGQ==
+ bh=SqZ16/OX4E44tzqiAsE2DHMxTcia9J8bSRgU+Iof/EQ=;
+ b=RCNJ+EE1TnXFBIHc+/9Qdu4+/NDI7oIMRIJem3hLzMATDrF0O//0asQU3GaKHbly/wR+lvbjBEauKisgqR4NB9oQvlhSHZhpDdyZeVX6ogljp9Y0pnavgVXLas2YrG9aBe+iHz9TJhndhlcaNC5p+yN10r7DVSD14RDXLsiYYTRdTbTobIt87/9z7l5AcGR5HtK7vzsTKHjUnG9nwjmUHi7y0oBAP3jN1LwaRXo94ok65pOynpu6dnaBt3kutT/dYSPydK0vI4WcAU8oOiJriv4lcHOcObbrnNqDP9IDRc2Dqv4z1WmjhNIoRB/UXf4C+BdJWv1ONadPdVxDoaB5wA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZTUFSc9fPz+oSfb95ZvqXdeNy7BrytWyIbQjjHVw8IA=;
- b=j9qqecpEvKxg20gklg8PfgipX1lCK/eTYI+lQPArd5vecK7uQSNNBWcAodKd6v8OCZVbfI/ZdFm3/LRHyE0hMc//BUEgKhMDEl+YpH96M8MdXKSCLKLrMqocBjzEDOXe1DUNWr3IoJ2dqR0YTVQsRaOhkQRSYZ8kEs6sZXX3Tts=
+ bh=SqZ16/OX4E44tzqiAsE2DHMxTcia9J8bSRgU+Iof/EQ=;
+ b=3Qmd5LrNBZ26le02H34Sq4kY5lcJ4q2BRAcT8nRxHw5i0gFzDhf6SFRYs0z7B962kVr8LE/cDPWW0HjcVfcjU21nh7X/2WEIrKgXDZF6FejeVJJVyeGqi62Dp4sCRsGixc2QXFSFqhRVUTEOug5S0fhDumyDRqK7lWQqHhcgfKE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB6611.namprd12.prod.outlook.com (2603:10b6:510:211::11)
- by LV3PR12MB9440.namprd12.prod.outlook.com (2603:10b6:408:215::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.35; Mon, 11 Mar
- 2024 05:41:34 +0000
-Received: from PH7PR12MB6611.namprd12.prod.outlook.com
- ([fe80::3f8e:6745:6de7:12b3]) by PH7PR12MB6611.namprd12.prod.outlook.com
- ([fe80::3f8e:6745:6de7:12b3%6]) with mapi id 15.20.7362.035; Mon, 11 Mar 2024
- 05:41:34 +0000
-Message-ID: <951b6dc0-8cf6-4b47-a16d-28e9d488348c@amd.com>
-Date: Mon, 11 Mar 2024 13:41:25 +0800
+Received: from DM4PR12MB6351.namprd12.prod.outlook.com (2603:10b6:8:a2::6) by
+ CY8PR12MB7268.namprd12.prod.outlook.com (2603:10b6:930:54::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7362.35; Mon, 11 Mar 2024 05:49:33 +0000
+Received: from DM4PR12MB6351.namprd12.prod.outlook.com
+ ([fe80::3c13:5719:7068:2510]) by DM4PR12MB6351.namprd12.prod.outlook.com
+ ([fe80::3c13:5719:7068:2510%3]) with mapi id 15.20.7362.031; Mon, 11 Mar 2024
+ 05:49:33 +0000
+Message-ID: <00160e7a-2781-4285-b4b4-3fba14fdf10c@amd.com>
+Date: Mon, 11 Mar 2024 13:49:22 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Fix potential index out of bounds in
- color transformation function
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Charlene Liu <Charlene.Liu@amd.com>, Harry Wentland
- <harry.wentland@amd.com>, Roman Li <roman.li@amd.com>
-References: <20240228091728.3237681-1-srinivasan.shanmugam@amd.com>
+Cc: majun@amd.com, Kenneth.Feng@amd.com, Alexander.Deucher@amd.com,
+ kevinyang.wang@amd.com, Yin Zhenguo <zhenguo.yin@amd.com>
+Subject: Re: [PATCH v2] drm/amdgpu/pm: Fix NULL pointer dereference when get
+ power limit
 Content-Language: en-US
-From: "Chung, ChiaHsuan (Tom)" <chiahsuan.chung@amd.com>
-In-Reply-To: <20240228091728.3237681-1-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: "Lazar, Lijo" <lijo.lazar@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20240308095140.2221137-1-Jun.Ma2@amd.com>
+ <9f3c2e9e-7c9c-4b8d-9e90-58a0d9bfa87d@amd.com>
+From: "Ma, Jun" <majun@amd.com>
+In-Reply-To: <9f3c2e9e-7c9c-4b8d-9e90-58a0d9bfa87d@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SG2PR01CA0112.apcprd01.prod.exchangelabs.com
- (2603:1096:4:40::16) To PH7PR12MB6611.namprd12.prod.outlook.com
- (2603:10b6:510:211::11)
+X-ClientProxiedBy: SI2P153CA0024.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:190::13) To DM4PR12MB6351.namprd12.prod.outlook.com
+ (2603:10b6:8:a2::6)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB6611:EE_|LV3PR12MB9440:EE_
-X-MS-Office365-Filtering-Correlation-Id: a52c27df-3394-47b8-018a-08dc418de916
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6351:EE_|CY8PR12MB7268:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0257c804-bd77-427c-91a6-08dc418f06e4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tcrw+W24RqUZ0pSd3wy39tecOzy5XH90gjybxdXMKsDEsTpl2zXm9UX71vDKUcjTa2m8r6qIyQAKY22qQVcgeqSIYbfjWbzZD/JlhR2fSH4Wh3OKxtzTDLm2QlcckD4U+hYlnaNZ1VaEHeZU6tK5HDxWOHA9DFOfQ9EAp+uHebY8DGyj2LQK9XSCQhHnBT8GH6UH4LAiA0QzhjqlkbZDjlCw3tBK11zrf527fdUyuQIMX1hCkRH/qYsTBd1hJ2aD/MmnLkSLCsouzVkx/R9xRuQQNZ1a+2nCHAnk/kfc5Hh0yBY4h2roBLK381eM2dejS3Xa5fvcs23AJ6O5r1P1aI4pggSTPUdSbsJQk/e+fQUSgaV1rdBrJBZSNTW3StKN0Y/epwujgb0YPW2anepumLfBz8OitmB/k7g1mESCAkk2s254+KJZGVNWEf0q+ItUcJfyXurWybwOelYjD/cpyGxDfDau3UbAYqXA0RjLCibgwLVFwKDwCxOrh420fOYKA8Lsh8/ZBz94fIspihttMfzciY3vwkMuk2UAqusqwNSlW39VTsVjoFyLUb63ZNfwWSMTr39BtadgeEJ06d9owwSzyUnGQGOjTbVDkxZJE6PaTxkPnbgfeP89zQ5ffBIZbHpNUAZWovvAdKVN7pSN8bhOVlyxNFaN9Z5omc9agAo=
+X-Microsoft-Antispam-Message-Info: nCCICwb6mgWP0NE521UUfB3lAFOqxnxc6FVEHZbhBG9T9rzbXZYeFQutvVtXiQdfBMKxijLwBm8X4cQRW26YEGgdnSYzp1I2J9c2Yvcxj/XsMpO7rnImzGX4tX53KPAcq5fdodQq+HPATsvNotmJRjEZ9rAvyEvVA7eOqj+NDuDFql22wl9DUWeO8yUsk4NwkIOfCV8eFi3KVbWix+Gmdby/S+n7CCK1neCsiihZjCx+ZEldIz1+SHwcLQRM59VeJbj7Z2uv9E2jMxhz7zx+g7bxyC5od59lmnn+f8GGr1e9VbPhpVx3I0370Abw8bFdouYpSkiHwAN9F1r70agDa3NJp9e6crDSSHq8SXSntebSjqCUQPACwivWjzrrPYkWY88GpCZQj2DHVrvzMv0dSkdhqFXUiMSOgAx9SHOQHUWMjh7D2ARkWSZ7MoB4Bz4QN/zMhDk/WHGe13I2Uf8VzriWHjORU01iUCrgl1KwHjdNhPh8Bk+O0w/x1M6uj2aIXDHGW77K0GNEQ7iVASvZF3m8efb3AV3zHqGRmbEw8sRjvIoZrXYwT3xQz3pf65Poks0xLIvTNVDDAg+iwMfFwSZ7t9vN8H9YLHkN2X8E1YFTInpK3KsxWdqXlkSORVc0dyAPTBeO3mTvRyU0ulvK1mk80amgWAi7Zk3j+EgjLa4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB6611.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6351.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230031)(1800799015)(376005); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RXFkcFJibm9lRDBCeW9XVk94UFlwMUE5QVpJQzZuQ1RrbWhDY055OHVTY2py?=
- =?utf-8?B?S3RTaHVTUjU5eVFaWEt4azZqdlZrZjNsNmtKeWJDMHZoM0R0QjU2bzJKak9O?=
- =?utf-8?B?eklybmxxd2Uyem5ldWZieXE3U2dta3ZmRmJaVitieXdDRmVveGp0WnhBTmxK?=
- =?utf-8?B?OU1sRkV2cVZmL1ZhMEV1MHJSVkpKcTh6bkFOY092enZXeUUwMm0xY2tvU0R2?=
- =?utf-8?B?QVJJQ3h2WG1ib3VJSmdGTldmNkc4TVBXMmE0cEIxdEFaNjlaNG9XSVBFdlZq?=
- =?utf-8?B?bW1hN2tya3A0RmQrLy9IcXFBcDM0Q1BVSml2S3d6ektjRmdMWHZ6b2Z6aFAz?=
- =?utf-8?B?NGllZGVobmU2QUhSWXBtUnhNc2d1K2h5TTlsYVRtaFozcWFJc3MyTWVyYWhy?=
- =?utf-8?B?N1JqeG1tQ3VzUTVhcjFQT2tIb084R0NON09PNElqZllpekdVeXhqd0NMSjkr?=
- =?utf-8?B?ZFZMUjYvOStJRXN5cjNmTlJWb2Y0ZXc4ZVViczRQUTNOT1dHUlZyODNUSmRL?=
- =?utf-8?B?ZTJmSUhDOVEvdlI3RmFWUHZCNE5BZ0Q0RkFoWnl1YkZheDBEMHlreU13SUp6?=
- =?utf-8?B?T0diV2NzT2k3Ykl2bFlCci9qRy9hVXkzdnQxNzFna0ZwZC80NXBJN1Y0V0kz?=
- =?utf-8?B?NXFUK3dmNzNKSmQ1QVdLb0FvTVdSQm50bDNqc3dhNEhraWR6OStkeitjWWdn?=
- =?utf-8?B?REVmRkp3N2lRMWhDVS9KT1FKZWNTRHBpVUtDMWVjL3QwUXNvYUdJYldyaWli?=
- =?utf-8?B?VHdwOE1QWTJzVWV5RWRsa0R0TEsxMTF2K2xjWkpEeWlrWlN4eDJpQjVLWFVL?=
- =?utf-8?B?ZHBJUmVmaTdVMUtvcTRVQmwzZndtdWhhanZxQ1VQY21SS0QreUZXeTNPR2dO?=
- =?utf-8?B?UVdPTi9zdDdXM2xEd2dkYkZESm1hQXhlNktWbDVDRFBrTHo4UE9GVVhqRVl4?=
- =?utf-8?B?THZMamJwanZPanRnbzEvTURibCsxeGJpQjcyWm04SEt2Y1NDLytITC8vU3Zq?=
- =?utf-8?B?Q0YyL1VEN0VIVmFsWEFTN2oyM2pJdFFyYzF2OFErV1YvY09oSjhhanpjdWNX?=
- =?utf-8?B?YXp3TjJBeTgrWlp5T2J6RjZpbUtoVnRYemJVUWFhemFrMldyTDZNSEJrR1VZ?=
- =?utf-8?B?Z1JwRC9zeXpNRWhXUFZEZ1hTeUNSNmYwMHBmL2VMR1BSem83ejdlakwzaHl3?=
- =?utf-8?B?Q2N5b3h6QXFWaDNrblRVWUNRNTJNTGwyTFp3dUxlbDRDcTN6bmxKbTgvdXNl?=
- =?utf-8?B?SXNHT3ErRFhwdVpaTGRSa2hKS0t4Y25PY3FDc0UrcjhVMllDK1ZmRWZ4bHMr?=
- =?utf-8?B?ZUp0aHQ2TkV5elRkMmJETlhJRHN1aXhzWXNwRW5IY2x6SG1iOTlIbzEwb1Qy?=
- =?utf-8?B?M2tPbSs2U1pDTG1RTVFFWjhPZTlLdDJqVENGY2pQWWQ4Njh2NUtjeU5NQXVU?=
- =?utf-8?B?L1I1KzJ3V3g3dVJVczRZdW5SblF1TTFlQlFQeWFLK0NIdlovSXplMEd0T2J4?=
- =?utf-8?B?YmsrclRmZ2d3MUlSRElEcGxYVy9KM2w5VExzTjdhVmxnNlJzL2c1ckRhMFZR?=
- =?utf-8?B?ZmhJVXIvQjdBWDhVOU5OMmRPc0lza2JuWEFiTmYzS25nQlB0MFpvY2RKT0hL?=
- =?utf-8?B?a3dnUVpNWHNtaTlqTkpBbUpzZlNiaE5mblN2Q2p4alhYOXVpeFR3TWFmSEZs?=
- =?utf-8?B?YWFkU1VObzV0d3ZzekQzeGFPd0k4Y1g1Y3cwdXNDcDQ1Rm5HMFJnNk5uV2VO?=
- =?utf-8?B?bFZ5ZDlvREZFN0xwZk1nb1ZQc2xTK3Urd2srR0pKdGZDZG1PMWdKSkJiaWJ6?=
- =?utf-8?B?TFlhUkpYY0tQdENKenVOTW5uVDMzSjU0eXJ1UEo3d29iYkk2d1I5SlNIYU9O?=
- =?utf-8?B?OUpFcTk2S0M5WERjSEFVRXA3TFZlQThKeGlKVnN0Z1dOL0FObmpwdld2cW5T?=
- =?utf-8?B?dlpSd0s2Z2dKbUtmUXRpZmpFNzRsMXovellpVVhUZm56RzREMWxUSXllT0pN?=
- =?utf-8?B?cWd1VkN2WEVkRWNleG9OVldDWXJUV0llWldmRTVTOHBaeDJGYU1GRHd0eGd0?=
- =?utf-8?B?K2dMSi91WW9pdnhGU1Fjclk4TnBGOC9UYjN1WS8rSW5WT2d3WWhBUVUzWU43?=
- =?utf-8?Q?5R8zUnUf05zN5xpQ35BfNFBDj?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eGkzOVBXNGs3WkFXNVl5R1dqS2pIY0VpenVVMU9rWCtTcFhjQWJQSmF3clFz?=
+ =?utf-8?B?QnorRmVoWXdQZDgvaGNnUEl1SWJ2VmxGL21uczRYQXlyUmVEN2J1VXo2MTJn?=
+ =?utf-8?B?a0N4dVB2QTZXdmJtNFk5dTJrT3g4U3JhZEZrRHVvVE1aTHBYMlFYSVcxVUhP?=
+ =?utf-8?B?ZmsvK1Z2K0ZkVDFkK3ordDlIT0UrOUcyUjkyNEM0RkpzaFJvbXd4Q3BOREpG?=
+ =?utf-8?B?bDlpUXVHVXFZT1FQQk56SFl6Q3FXeHhHSm5vVDhDMFBSUXJpckV0RW9YNVlo?=
+ =?utf-8?B?Z3N1bEpxQzlITXpDOFEzazZnVUh3L1Y3TFhidndRYll3cE4vcE04TmwvS0Vv?=
+ =?utf-8?B?eVY4VytWNzFHYWY0WUZrQzFmT3RtVjVMQnJhT2ZZREtPZUZPNlcvNEJnaWJk?=
+ =?utf-8?B?U0lFakxtUmhONkQ5aUVBT1JTZTgrQ0NuMlFOYUw3K0xiMVNoenRoWlhnV2Na?=
+ =?utf-8?B?MUFoWVV3UTdhL2duNEx3WXVYNm5XVTc0NFM0TEh0UmhFMnYvVU8xTlFWeFUx?=
+ =?utf-8?B?VkVMZUI0cFoydGZDSExic3dtdUxVZDBKemc1Y1g0enVkY3JsYWdzTkJ2OVFR?=
+ =?utf-8?B?QTUvbnkwUzh5elhQeTFMQkVwK0pVQmo3SFAvSjRkZnhPOU1WL2d0V2QyL0R5?=
+ =?utf-8?B?NmNWMWMxVWFBajZmd1FGWXZtL3R5aEI3Y3BxeklkV3ZFL0J0V3IxN1N4blZR?=
+ =?utf-8?B?Rkd4YUw2SThBeEVwVitOWVRMTnhMbXhxZGhsR2poMzJFb1dxSHVhWnduRmF1?=
+ =?utf-8?B?cTc5WXVtNmNOZ3pzNGRmc3YzU2pMbmFUb2ZCWThvT1A4Qmk5SDFJMzc4bWI1?=
+ =?utf-8?B?UVdJM0FUV2Vhc2RVbVVxWmFlWldmWVNyQS9EeGRybnhmOEkycmNhQmpJKy9n?=
+ =?utf-8?B?UFBLNWNBZXJVVy92WUhaaTl1MUMvVzE1blh1V1M3WEtxL24yRmF6aWVTYlRo?=
+ =?utf-8?B?MnVWb1hOeExHMSt3bHIrcUZsV2lFNDhJdmw4OU9GdUNSenZvaTFWUW1FRVVQ?=
+ =?utf-8?B?dGYrR3JxMG5IaHJaSlNQU1NGb1lXMG9neE9ta2M4WTF0MWpYdE5wRDdjWkI5?=
+ =?utf-8?B?MlJxWVh1dDhCQTdXSllCWEdMM0pNMDRveXl1Y3lRdy8xUlFMbEVBenFDbDZw?=
+ =?utf-8?B?SG5xa2Z1RkZRYTBJWXdhcUtpdzJ0WDFZNmswTTRoV05aMWc4UXBsNXp6MVUy?=
+ =?utf-8?B?Z2RGbUhpZ2UvY3pnVlJSNXdQeDZyT3oveUt1R0pIZjJBMXhhTktnOU1nR0Uz?=
+ =?utf-8?B?cjBBbFZ1S1hzV1BEVXhobVBEeWlTZVpmWFkzSFhKQVU4MHhKQXF6NEpkMlkz?=
+ =?utf-8?B?MVZlMVlFYU14QTFIQUZZYjd4RERZcDZoMkh4YnQ3NVBPbVRYekwvWEJvc25n?=
+ =?utf-8?B?WXcvTjRkY0JrVXpLbUJKMmYyTEFISUJHQkk1Y2xhYWVsOU5mMDRDbDkvRzYv?=
+ =?utf-8?B?Q2lNWFp5anBSRUdqWE9XSVNSMFo4YVhCNXRrUndlZWQ2U3hCNU1BVGpzNzdj?=
+ =?utf-8?B?cnphRWg4QXVOWmQvdGphZ3o2QW5tQzR3OWVHKzZ0TlovMWNRSmF2OE1OSTdx?=
+ =?utf-8?B?UDZaZFdzKzBXaThpU2lxYjE0a2xKVnZ0UHQ3bnc4Ri9FdzB2SkxERjI2TTBF?=
+ =?utf-8?B?OWcyS2pueWpETERZL21FcWJObkdFZTJQMDBaY2RMWXZ5Qm5GTGtheFo2bmdh?=
+ =?utf-8?B?WkFMODV2ZXdXQTRhaFQxWmdoMG4wWnBvUmJqdk5qOTZXc0lyc2hpYk4ydkNr?=
+ =?utf-8?B?b1Z2bWgxVG5MMW1vMWNDVlhiRHk3dHliT0ZLd3QwZUVRL2VkN1V6Y25Ld0JW?=
+ =?utf-8?B?bXcvYTdKWFF3T0hYVlNVUXhyNXVhNnJUTTY1MHZZOWFIWnpjekN0bnBNRUV4?=
+ =?utf-8?B?eVpkOXVncUJqcmxRYVN1V1dKSkR2bTdDdGkzL28zYXM1Sk1rMVV5N05BYnVW?=
+ =?utf-8?B?VmlVYTFnUWJsNXNuZGxEL25yL1dHSDE4Ti96Q2xIMHNYZ1NqdnVJcXhwM0xM?=
+ =?utf-8?B?TEhUYkMzSDBnbEg3NTlxZ2lkL3FhU1RsRnNPOEhCVklwSThTbHVya3VyZFRa?=
+ =?utf-8?B?VnNPaFYzUUw5Zms1clJqNzF6eWtZL0Vvd05zMk93NDZtWTJNN0o3aGNGWnBn?=
+ =?utf-8?Q?IVwoXaylREv5IA46p+2/85lYA?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a52c27df-3394-47b8-018a-08dc418de916
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6611.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0257c804-bd77-427c-91a6-08dc418f06e4
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6351.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2024 05:41:33.9828 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2024 05:49:33.3422 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CvQTzdtGKkcdEyy/Ih8dd7ka9RSRdau2hn1VWjcwvvJZTMINKZLBkxL/5f6i6cRsnLb++t6GffDHpntSuH4JCA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9440
+X-MS-Exchange-CrossTenant-UserPrincipalName: ClGbk/igV7QpWmeBsOQCRqkfMBT+czpH52XQBH+Uez/EN9pU15d/4COO+9w3NYTD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7268
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,48 +132,264 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Tom Chung <chiahsuan.chung@amd.com>
 
-On 2/28/2024 5:17 PM, Srinivasan Shanmugam wrote:
-> Fixes index out of bounds issue in the color transformation function.
-> The issue could occur when the index 'i' exceeds the number of transfer
-> function points (TRANSFER_FUNC_POINTS).
->
-> The fix adds a check to ensure 'i' is within bounds before accessing the
-> transfer function points. If 'i' is out of bounds, an error message is
-> logged and the function returns false to indicate an error.
->
-> Reported by smatch:
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_cm_common.c:405 cm_helper_translate_curve_to_hw_format() error: buffer overflow 'output_tf->tf_pts.red' 1025 <= s32max
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_cm_common.c:406 cm_helper_translate_curve_to_hw_format() error: buffer overflow 'output_tf->tf_pts.green' 1025 <= s32max
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_cm_common.c:407 cm_helper_translate_curve_to_hw_format() error: buffer overflow 'output_tf->tf_pts.blue' 1025 <= s32max
->
-> Fixes: b629596072e5 ("drm/amd/display: Build unity lut for shaper")
-> Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
-> Cc: Charlene Liu <Charlene.Liu@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Roman Li <roman.li@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: Tom Chung <chiahsuan.chung@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->   drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c | 5 +++++
->   1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
-> index b7e57aa27361..b0d192c6e63e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
-> @@ -402,6 +402,11 @@ bool cm_helper_translate_curve_to_hw_format(struct dc_context *ctx,
->   				i += increment) {
->   			if (j == hw_points - 1)
->   				break;
-> +			if (i >= TRANSFER_FUNC_POINTS) {
-> +				DC_LOG_ERROR("Index out of bounds: i=%d, TRANSFER_FUNC_POINTS=%d\n",
-> +					     i, TRANSFER_FUNC_POINTS);
-> +				return false;
-> +			}
->   			rgb_resulted[j].red = output_tf->tf_pts.red[i];
->   			rgb_resulted[j].green = output_tf->tf_pts.green[i];
->   			rgb_resulted[j].blue = output_tf->tf_pts.blue[i];
+
+On 3/8/2024 10:00 PM, Lazar, Lijo wrote:
+> 
+> 
+> On 3/8/2024 3:21 PM, Ma Jun wrote:
+>> Because powerplay_table initialization is skipped under
+>> sriov case, We set default lower and upper OD value to
+>> avoid NULL pointer issue.
+>>
+>> Also, It's necessary to check od capability before
+>> using the power limit value from powerplay_table.
+>>
+>> Fixes: 7968e9748fbb ("drm/amdgpu/pm: Fix the power1_min_cap value")
+>> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+>> Reported-by: Yin Zhenguo <zhenguo.yin@amd.com>
+>> ---
+>> v1->v2: Check the od capability (Alex, Lijo)
+>> ---
+>>  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 18 ++++++-----
+>>  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 18 ++++++-----
+>>  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 30 +++++++++++--------
+>>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 22 +++++++++-----
+>>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 22 +++++++++-----
+>>  5 files changed, 68 insertions(+), 42 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+>> index 1d96eb274d72..862d5d198f42 100644
+>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+>> @@ -1285,8 +1285,9 @@ static int arcturus_get_power_limit(struct smu_context *smu,
+>>  {
+>>  	struct smu_11_0_powerplay_table *powerplay_table =
+>>  		(struct smu_11_0_powerplay_table *)smu->smu_table.power_play_table;
+>> +	struct smu_11_0_overdrive_table *od_settings = smu->od_settings;
+>>  	PPTable_t *pptable = smu->smu_table.driver_pptable;
+>> -	uint32_t power_limit, od_percent_upper, od_percent_lower;
+>> +	uint32_t power_limit, od_percent_upper = 0, od_percent_lower = 10;
+>>  
+>>  	if (smu_v11_0_get_current_power_limit(smu, &power_limit)) {
+>>  		/* the last hope to figure out the ppt limit */
+>> @@ -1303,12 +1304,15 @@ static int arcturus_get_power_limit(struct smu_context *smu,
+>>  	if (default_power_limit)
+>>  		*default_power_limit = power_limit;
+>>  
+>> -	if (smu->od_enabled)
+>> -		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+>> -	else
+>> -		od_percent_upper = 0;
+>> -
+>> -	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+>> +	if (powerplay_table) {
+>> +		if (smu->od_enabled) {
+>> +			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+>> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+>> +		} else if (od_settings->cap[SMU_11_0_ODCAP_POWER_LIMIT]) {
+> 
+> This check is applicable even for od_enabled case. Presently OD provides
+> multiple feature capabilities; only if a capability is valid, then the
+> limits defined in the table are valid.
+> 
+> BTW, I'm not sure if that is the subject of this patch.
+> 
+> For arcturus, overdrive doesn't look relevant; again that may not be
+> relevant to this patch topic.
+> 
+Yes, We might need 2 patches here. One is used to fix the NULL pointer issue of
+powerplay_table, the other is used to check validity of overdiver table.
+
+Regards,
+Ma Jun
+
+> Thanks,
+> Lijo
+>> +			od_percent_upper = 0;
+>> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+>> +		}
+>> +	}
+>>  
+>>  	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
+>>  							od_percent_upper, od_percent_lower, power_limit);
+>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+>> index ed189a3878eb..fe8d24a7d319 100644
+>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+>> @@ -2339,7 +2339,7 @@ static int navi10_get_power_limit(struct smu_context *smu,
+>>  		(struct smu_11_0_powerplay_table *)smu->smu_table.power_play_table;
+>>  	struct smu_11_0_overdrive_table *od_settings = smu->od_settings;
+>>  	PPTable_t *pptable = smu->smu_table.driver_pptable;
+>> -	uint32_t power_limit, od_percent_upper, od_percent_lower;
+>> +	uint32_t power_limit, od_percent_upper = 0, od_percent_lower = 10;
+>>  
+>>  	if (smu_v11_0_get_current_power_limit(smu, &power_limit)) {
+>>  		/* the last hope to figure out the ppt limit */
+>> @@ -2356,13 +2356,15 @@ static int navi10_get_power_limit(struct smu_context *smu,
+>>  	if (default_power_limit)
+>>  		*default_power_limit = power_limit;
+>>  
+>> -	if (smu->od_enabled &&
+>> -		    navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_POWER_LIMIT))
+>> -		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+>> -	else
+>> -		od_percent_upper = 0;
+>> -
+>> -	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+>> +	if (powerplay_table) {
+>> +		if (smu->od_enabled) {
+>> +			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+>> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+>> +		} else if (navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_POWER_LIMIT)) {
+>> +			od_percent_upper = 0;
+>> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+>> +		}
+>> +	}
+>>  
+>>  	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
+>>  					od_percent_upper, od_percent_lower, power_limit);
+>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+>> index a405424dd699..c86e13f6b6c5 100644
+>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+>> @@ -617,6 +617,12 @@ static uint32_t sienna_cichlid_get_throttler_status_locked(struct smu_context *s
+>>  	return throttler_status;
+>>  }
+>>  
+>> +static bool sienna_cichlid_is_od_feature_supported(struct smu_11_0_7_overdrive_table *od_table,
+>> +						   enum SMU_11_0_7_ODFEATURE_CAP cap)
+>> +{
+>> +	return od_table->cap[cap];
+>> +}
+>> +
+>>  static int sienna_cichlid_get_power_limit(struct smu_context *smu,
+>>  					  uint32_t *current_power_limit,
+>>  					  uint32_t *default_power_limit,
+>> @@ -625,7 +631,8 @@ static int sienna_cichlid_get_power_limit(struct smu_context *smu,
+>>  {
+>>  	struct smu_11_0_7_powerplay_table *powerplay_table =
+>>  		(struct smu_11_0_7_powerplay_table *)smu->smu_table.power_play_table;
+>> -	uint32_t power_limit, od_percent_upper, od_percent_lower;
+>> +	struct smu_11_0_7_overdrive_table *od_settings = smu->od_settings;
+>> +	uint32_t power_limit, od_percent_upper = 0, od_percent_lower = 10;
+>>  	uint16_t *table_member;
+>>  
+>>  	GET_PPTABLE_MEMBER(SocketPowerLimitAc, &table_member);
+>> @@ -640,12 +647,15 @@ static int sienna_cichlid_get_power_limit(struct smu_context *smu,
+>>  	if (default_power_limit)
+>>  		*default_power_limit = power_limit;
+>>  
+>> -	if (smu->od_enabled)
+>> -		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+>> -	else
+>> -		od_percent_upper = 0;
+>> -
+>> -	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+>> +	if (powerplay_table) {
+>> +		if (smu->od_enabled) {
+>> +			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+>> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+>> +		} else if (sienna_cichlid_is_od_feature_supported(od_settings, SMU_11_0_7_ODCAP_POWER_LIMIT)) {
+>> +			od_percent_upper = 0;
+>> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+>> +		}
+>> +	}
+>>  
+>>  	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
+>>  					od_percent_upper, od_percent_lower, power_limit);
+>> @@ -1250,12 +1260,6 @@ static bool sienna_cichlid_is_support_fine_grained_dpm(struct smu_context *smu,
+>>  	return dpm_desc->SnapToDiscrete == 0;
+>>  }
+>>  
+>> -static bool sienna_cichlid_is_od_feature_supported(struct smu_11_0_7_overdrive_table *od_table,
+>> -						   enum SMU_11_0_7_ODFEATURE_CAP cap)
+>> -{
+>> -	return od_table->cap[cap];
+>> -}
+>> -
+>>  static void sienna_cichlid_get_od_setting_range(struct smu_11_0_7_overdrive_table *od_table,
+>>  						enum SMU_11_0_7_ODSETTING_ID setting,
+>>  						uint32_t *min, uint32_t *max)
+>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+>> index 6a501d2661f5..e17f93ba861e 100644
+>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+>> @@ -2356,8 +2356,12 @@ static int smu_v13_0_0_get_power_limit(struct smu_context *smu,
+>>  		(struct smu_13_0_0_powerplay_table *)table_context->power_play_table;
+>>  	PPTable_t *pptable = table_context->driver_pptable;
+>>  	SkuTable_t *skutable = &pptable->SkuTable;
+>> -	uint32_t power_limit, od_percent_upper, od_percent_lower;
+>>  	uint32_t msg_limit = skutable->MsgLimits.Power[PPT_THROTTLER_PPT0][POWER_SOURCE_AC];
+>> +	const OverDriveLimits_t * const overdrive_upperlimits =
+>> +						&pptable->SkuTable.OverDriveLimitsBasicMax;
+>> +	const OverDriveLimits_t * const overdrive_lowerlimits =
+>> +						&pptable->SkuTable.OverDriveLimitsMin;
+>> +	uint32_t power_limit, od_percent_upper = 0, od_percent_lower = 10;
+>>  
+>>  	if (smu_v13_0_get_current_power_limit(smu, &power_limit))
+>>  		power_limit = smu->adev->pm.ac_power ?
+>> @@ -2369,12 +2373,16 @@ static int smu_v13_0_0_get_power_limit(struct smu_context *smu,
+>>  	if (default_power_limit)
+>>  		*default_power_limit = power_limit;
+>>  
+>> -	if (smu->od_enabled)
+>> -		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+>> -	else
+>> -		od_percent_upper = 0;
+>> -
+>> -	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+>> +	if (powerplay_table) {
+>> +		if (smu->od_enabled) {
+>> +			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+>> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+>> +		} else if (overdrive_lowerlimits->FeatureCtrlMask &&
+>> +					overdrive_upperlimits->FeatureCtrlMask) {
+>> +			od_percent_upper = 0;
+>> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+>> +		}
+>> +	}
+>>  
+>>  	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
+>>  					od_percent_upper, od_percent_lower, power_limit);
+>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+>> index 3dc7b60cb075..684cb5a7ef6c 100644
+>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+>> @@ -2320,8 +2320,12 @@ static int smu_v13_0_7_get_power_limit(struct smu_context *smu,
+>>  		(struct smu_13_0_7_powerplay_table *)table_context->power_play_table;
+>>  	PPTable_t *pptable = table_context->driver_pptable;
+>>  	SkuTable_t *skutable = &pptable->SkuTable;
+>> -	uint32_t power_limit, od_percent_upper, od_percent_lower;
+>>  	uint32_t msg_limit = skutable->MsgLimits.Power[PPT_THROTTLER_PPT0][POWER_SOURCE_AC];
+>> +	const OverDriveLimits_t * const overdrive_upperlimits =
+>> +						&pptable->SkuTable.OverDriveLimitsBasicMax;
+>> +	const OverDriveLimits_t * const overdrive_lowerlimits =
+>> +						&pptable->SkuTable.OverDriveLimitsMin;
+>> +	uint32_t power_limit, od_percent_upper = 0, od_percent_lower = 10;
+>>  
+>>  	if (smu_v13_0_get_current_power_limit(smu, &power_limit))
+>>  		power_limit = smu->adev->pm.ac_power ?
+>> @@ -2333,12 +2337,16 @@ static int smu_v13_0_7_get_power_limit(struct smu_context *smu,
+>>  	if (default_power_limit)
+>>  		*default_power_limit = power_limit;
+>>  
+>> -	if (smu->od_enabled)
+>> -		od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+>> -	else
+>> -		od_percent_upper = 0;
+>> -
+>> -	od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+>> +	if (powerplay_table) {
+>> +		if (smu->od_enabled) {
+>> +			od_percent_upper = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+>> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+>> +		} else if (overdrive_lowerlimits->FeatureCtrlMask &&
+>> +					overdrive_upperlimits->FeatureCtrlMask) {
+>> +			od_percent_upper = 0;
+>> +			od_percent_lower = le32_to_cpu(powerplay_table->overdrive_table.min[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+>> +		}
+>> +	}
+>>  
+>>  	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
+>>  					od_percent_upper, od_percent_lower, power_limit);
