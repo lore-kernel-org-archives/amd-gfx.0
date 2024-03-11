@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07A5AC54E66
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Mar 2024 08:30:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B31BC54E67
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Mar 2024 08:30:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 188FC10FBB1;
-	Tue, 12 Mar 2024 08:30:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A32AF10F6DE;
+	Tue, 12 Mar 2024 08:30:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="v4iEn+1n";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="FAVb25RW";
 	dkim-atps=neutral
 Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
  [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE64E112A80;
- Mon, 11 Mar 2024 13:45:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 123031129B2;
+ Mon, 11 Mar 2024 13:11:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1710164728;
- bh=etQPVIeGvQgyTSZasgOHIek7mA2WMk1LPG637qsf5+c=;
+ s=mail; t=1710162716;
+ bh=t8ybMr9aWUyQwAIakzMgcukMu62SVuGBqlSrDr6eFng=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=v4iEn+1nUs5M4IHZTU+k9h5Suiq7v0BGy8IwTM+3BIJQQo5iG+VJP/M/zKNFFGG3M
- QMCFj9cvEXmfJGoFiMBXcBeBz3pG2gwnZUCMb/ZV+EpQtWkasc8UPCsmiCWgcIiGEQ
- SrC9FeZ8DGaf+UtipLs4qa7VpufCVkzjpYgIwi6zOQcuOfgWX3RbnPS8R8b1MwfFPf
- C7SAuBk1vdvs7KbJMuW3Q5u/V7R0YcH2Z8lbe9wxG9LffcHHwXBT979NoG6ayZ4K5H
- pyoktUSgSLqCC05DKZya8aVNjiSS/Yl82N3cE6TEn+YPrJT4bq7GIHSdtCtz5HIZYJ
- fPrM/zCcN948A==
+ b=FAVb25RWbdnuJ2Evo6bHDFH7w6fHNfWxGDs0x6OAciHED6+sM0PLWD7F2yer1/Zym
+ pmAB54dB1QNue/wXg2+ZuUBvU+ESrfVzXCR2BizNMt+/XPm8JHpO+CEmxbe70Vk8W3
+ 41BagS4p3m5nKeg0zadXyzM/5VbHGbvnGZ/3ZCzYAbRghhwI5rgUsj3yCdJewSNP3a
+ xlQo4DcK7NB9CRj+vfwPvZB+Cj/AJgrzv3DFe3HH+vQ+315b33OAuBCXh62tysO8Jv
+ kLzCOF+1K2lHB0FyE376nKVli1y+PcbKpYVxowZ7d6kDqm+UGxPXHB788H2r6YukjP
+ TFgDsEf8W8g2Q==
 Received: from eldfell (cola.collaboradmins.com [195.201.22.229])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: pq)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 1D5213780894;
- Mon, 11 Mar 2024 13:45:28 +0000 (UTC)
-Date: Mon, 11 Mar 2024 15:45:26 +0200
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id EB2AB378003D;
+ Mon, 11 Mar 2024 13:11:55 +0000 (UTC)
+Date: Mon, 11 Mar 2024 15:11:45 +0200
 From: Pekka Paalanen <pekka.paalanen@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>
 Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <wayland-devel@lists.freedesktop.org>, Arthur Grillo
- <arthurgrillo@riseup.net>
-Subject: Re: [RFC PATCH v4 06/42] drm/vkms: Add kunit tests for VKMS LUT
- handling
-Message-ID: <20240311154526.1f8f6c4b.pekka.paalanen@collabora.com>
-In-Reply-To: <20240226211100.100108-7-harry.wentland@amd.com>
+ <wayland-devel@lists.freedesktop.org>
+Subject: Re: [RFC PATCH v4 03/42] drm: Correctly round for fixp2int_round
+Message-ID: <20240311151145.227222cb.pekka.paalanen@collabora.com>
+In-Reply-To: <20240226211100.100108-4-harry.wentland@amd.com>
 References: <20240226211100.100108-1-harry.wentland@amd.com>
- <20240226211100.100108-7-harry.wentland@amd.com>
+ <20240226211100.100108-4-harry.wentland@amd.com>
 X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/3ma91tD+lI03d5cv3keYP/l";
+Content-Type: multipart/signed; boundary="Sig_/C/KR.w=Kev3_idWfyEicd=7";
  protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Tue, 12 Mar 2024 08:30:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -64,328 +62,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/3ma91tD+lI03d5cv3keYP/l
+--Sig_/C/KR.w=Kev3_idWfyEicd=7
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 26 Feb 2024 16:10:20 -0500
+On Mon, 26 Feb 2024 16:10:17 -0500
 Harry Wentland <harry.wentland@amd.com> wrote:
 
-> Debugging LUT math is much easier when we can unit test
-> it. Add kunit functionality to VKMS and add tests for
->  - get_lut_index
->  - lerp_u16
+> A value of 0x80000000 and higher should round up, and
+> below should round down. VKMS Kunit tests for lerp_u16
+> showed that this is not the case. Fix it.
 >=20
-> v4:
->  - Test the critical points of the lerp function (Pekka)
+> 1 << (DRM_FIXED_POINT_HALF - 1) =3D
+> 1 << 15 =3D 0x8000
 >=20
-> v3:
->  - Use include way of testing static functions (Arthur)
+> This is not 0.5, but 0.00000762939453125.
+>=20
+> Instead of some smart math use a simple if/else to
+> round up or down. This helps people like me to understand
+> what the function does.
 >=20
 > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Cc: Arthur Grillo <arthurgrillo@riseup.net>
 > ---
->  drivers/gpu/drm/vkms/Kconfig                  |   5 +
->  drivers/gpu/drm/vkms/tests/.kunitconfig       |   4 +
->  drivers/gpu/drm/vkms/tests/vkms_color_tests.c | 163 ++++++++++++++++++
->  drivers/gpu/drm/vkms/vkms_composer.c          |   8 +-
->  4 files changed, 178 insertions(+), 2 deletions(-)
->  create mode 100644 drivers/gpu/drm/vkms/tests/.kunitconfig
->  create mode 100644 drivers/gpu/drm/vkms/tests/vkms_color_tests.c
+>  include/drm/drm_fixed.h | 15 ++++++++++-----
+>  1 file changed, 10 insertions(+), 5 deletions(-)
 >=20
-
-Hi Harry,
-
-since fixed point math is hard, please allow me to nitpick so maybe
-these patches could be landed ahead of time.
-
-> diff --git a/drivers/gpu/drm/vkms/Kconfig b/drivers/gpu/drm/vkms/Kconfig
-> index b9ecdebecb0b..c1f8b343ff0e 100644
-> --- a/drivers/gpu/drm/vkms/Kconfig
-> +++ b/drivers/gpu/drm/vkms/Kconfig
-> @@ -13,3 +13,8 @@ config DRM_VKMS
->  	  a VKMS.
+> diff --git a/include/drm/drm_fixed.h b/include/drm/drm_fixed.h
+> index cb842ba80ddd..8ee549f68537 100644
+> --- a/include/drm/drm_fixed.h
+> +++ b/include/drm/drm_fixed.h
+> @@ -77,6 +77,8 @@ static inline u32 dfixed_div(fixed20_12 A, fixed20_12 B)
+>  #define DRM_FIXED_DIGITS_MASK	(~DRM_FIXED_DECIMAL_MASK)
+>  #define DRM_FIXED_EPSILON	1LL
+>  #define DRM_FIXED_ALMOST_ONE	(DRM_FIXED_ONE - DRM_FIXED_EPSILON)
+> +#define DRM_FIXED_FRACTIONAL	0xffffffffll
+> +#define DRM_FIXED_HALF		0x80000000ll
 > =20
->  	  If M is selected the module will be called vkms.
-> +
-> +config DRM_VKMS_KUNIT_TESTS
-> +	tristate "Tests for VKMS" if !KUNIT_ALL_TESTS
-> +	depends on DRM_VKMS && KUNIT
-> +	default KUNIT_ALL_TESTS
-> diff --git a/drivers/gpu/drm/vkms/tests/.kunitconfig b/drivers/gpu/drm/vk=
-ms/tests/.kunitconfig
-> new file mode 100644
-> index 000000000000..70e378228cbd
-> --- /dev/null
-> +++ b/drivers/gpu/drm/vkms/tests/.kunitconfig
-> @@ -0,0 +1,4 @@
-> +CONFIG_KUNIT=3Dy
-> +CONFIG_DRM=3Dy
-> +CONFIG_DRM_VKMS=3Dy
-> +CONFIG_DRM_VKMS_KUNIT_TESTS=3Dy
-> diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_tests.c b/drivers/gpu/=
-drm/vkms/tests/vkms_color_tests.c
-> new file mode 100644
-> index 000000000000..fc73e48aa57c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/vkms/tests/vkms_color_tests.c
-> @@ -0,0 +1,163 @@
-> +/* SPDX-License-Identifier: GPL-2.0+ */
-> +
-> +#include <kunit/test.h>
-> +
-> +#include <drm/drm_fixed.h>
-> +
-> +#define TEST_LUT_SIZE 16
-> +
-> +static struct drm_color_lut test_linear_array[TEST_LUT_SIZE] =3D {
-> +	{ 0x0, 0x0, 0x0, 0 },
-> +	{ 0x1111, 0x1111, 0x1111, 0 },
-> +	{ 0x2222, 0x2222, 0x2222, 0 },
-> +	{ 0x3333, 0x3333, 0x3333, 0 },
-> +	{ 0x4444, 0x4444, 0x4444, 0 },
-> +	{ 0x5555, 0x5555, 0x5555, 0 },
-> +	{ 0x6666, 0x6666, 0x6666, 0 },
-> +	{ 0x7777, 0x7777, 0x7777, 0 },
-> +	{ 0x8888, 0x8888, 0x8888, 0 },
-> +	{ 0x9999, 0x9999, 0x9999, 0 },
-> +	{ 0xaaaa, 0xaaaa, 0xaaaa, 0 },
-> +	{ 0xbbbb, 0xbbbb, 0xbbbb, 0 },
-> +	{ 0xcccc, 0xcccc, 0xcccc, 0 },
-> +	{ 0xdddd, 0xdddd, 0xdddd, 0 },
-> +	{ 0xeeee, 0xeeee, 0xeeee, 0 },
-> +	{ 0xffff, 0xffff, 0xffff, 0 },
-> +};
-> +
-> +const struct vkms_color_lut test_linear_lut =3D {
-> +	.base =3D test_linear_array,
-> +	.lut_length =3D TEST_LUT_SIZE,
-> +	.channel_value2index_ratio =3D 0xf000fll
-
-Where does 0xf000f come from? Could it be computed from DRM_FIXED_ONE
-and ARRAY_LENGTH()?
-
-> +};
-> +
-> +
-> +static void vkms_color_test_get_lut_index(struct kunit *test)
-> +{
-> +	int i;
-> +
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int(get_lut_index(&test_linear_lut, test=
-_linear_array[0].red)), 0);
-> +
-> +	for (i =3D 0; i < TEST_LUT_SIZE; i++)
-> +		KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&test_linear_lut=
-, test_linear_array[i].red)), i);
-
-Why this instead of
-
-+	for (i =3D 0; i < TEST_LUT_SIZE; i++)
-+		KUNIT_EXPECT_EQ(test, get_lut_index(&test_linear_lut, test_linear_array[=
-i].red), drm_int2fixp(i));
-
-and
-
-+	for (i =3D 0; i < 0xffff; i++)
-+		KUNIT_EXPECT_EQ(test, drm_fixp2int(get_lut_index(&test_linear_lut, i)), =
-i / 0x1111);
-
-?
-
-I think your original form is leaving quite much room for error in
-precision.
-
-> +}
-> +
-> +static void vkms_color_test_lerp(struct kunit *test)
-> +{
-> +	/*** half-way round down ***/
-> +	s64 t =3D 0x80000000 - 1;
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x10, t), 0x8);
-> +
-> +	/* odd a */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0x10, t), 0x8);
-> +
-> +	/* odd b */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0xf, t), 0x8);
-> +
-> +	/* b =3D a */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x10, t), 0x10);
-> +
-> +	/* b =3D a + 1 */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x11, t), 0x10);
-> +
-> +
-> +	/*** half-way round up ***/
-> +	t =3D 0x80000000;
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x10, t), 0x8);
-> +
-> +	/* odd a */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0x10, t), 0x9);
-> +
-> +	/* odd b */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0xf, t), 0x8);
-> +
-> +	/* b =3D a */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x10, t), 0x10);
-> +
-> +	/* b =3D a + 1 */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x11, t), 0x11);
-> +
-> +	/*** t =3D 0.0 ***/
-> +	t =3D 0x0;
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x10, t), 0x0);
-> +
-> +	/* odd a */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0x10, t), 0x1);
-> +
-> +	/* odd b */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0xf, t), 0x1);
-> +
-> +	/* b =3D a */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x10, t), 0x10);
-> +
-> +	/* b =3D a + 1 */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x11, t), 0x10);
-> +
-> +	/*** t =3D 1.0 ***/
-> +	t =3D 0x100000000;
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x10, t), 0x10);
-> +
-> +	/* odd a */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0x10, t), 0x10);
-> +
-> +	/* odd b */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0xf, t), 0xf);
-> +
-> +	/* b =3D a */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x10, t), 0x10);
-> +
-> +	/* b =3D a + 1 */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x11, t), 0x11);
-> +
-> +
-> +	/*** t =3D 0.0 + 1 ***/
-> +	t =3D 0x0 + 1;
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x10, t), 0x0);
-> +
-> +	/* odd a */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0x10, t), 0x1);
-> +
-> +	/* odd b */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0xf, t), 0x1);
-> +
-> +	/* b =3D a */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x10, t), 0x10);
-> +
-> +	/* b =3D a + 1 */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x11, t), 0x10);
-> +
-> +	/*** t =3D 1.0 - 1 ***/
-> +	t =3D 0x100000000 - 1;
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x10, t), 0x10);
-> +
-> +	/* odd a */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0x10, t), 0x10);
-> +
-> +	/* odd b */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x1, 0xf, t), 0xf);
-> +
-> +	/* b =3D a */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x10, t), 0x10);
-> +
-> +	/* b =3D a + 1 */
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x10, 0x11, t), 0x11);
-> +
-> +
-> +	/*** t chosen to verify the flipping point of result a (or b) to a+1 (o=
-r b-1) ***/
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x1, 0x80000000 - 1), 0x0);
-> +	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x1, 0x80000000), 0x1);
-
-What about b =3D 0xfffd also? The smaller number in b, and especially in
-b - a, the more precision error the rounding will forgive.
-
-> +}
-> +
-> +static struct kunit_case vkms_color_test_cases[] =3D {
-> +	KUNIT_CASE(vkms_color_test_get_lut_index),
-> +	KUNIT_CASE(vkms_color_test_lerp),
-> +	{}
-> +};
-> +
-> +static struct kunit_suite vkms_color_test_suite =3D {
-> +	.name =3D "vkms-color",
-> +	.test_cases =3D vkms_color_test_cases,
-> +};
-> +kunit_test_suite(vkms_color_test_suite);
-> +
-> +MODULE_LICENSE("GPL");
-> \ No newline at end of file
-> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/=
-vkms_composer.c
-> index e70cd473e3be..d178f2a400f6 100644
-> --- a/drivers/gpu/drm/vkms/vkms_composer.c
-> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
-> @@ -91,7 +91,7 @@ static void fill_background(const struct pixel_argb_u16=
- *background_color,
+>  /**
+>   * @drm_sm2fixp
+> @@ -106,11 +108,6 @@ static inline int drm_fixp2int(s64 a)
+>  	return ((s64)a) >> DRM_FIXED_POINT;
 >  }
 > =20
->  // lerp(a, b, t) =3D a + (b - a) * t
-> -static u16 lerp_u16(u16 a, u16 b, s64 t)
-> +u16 lerp_u16(u16 a, u16 b, s64 t)
+> -static inline int drm_fixp2int_round(s64 a)
+> -{
+> -	return drm_fixp2int(a + (1 << (DRM_FIXED_POINT_HALF - 1)));
+> -}
+> -
+>  static inline int drm_fixp2int_ceil(s64 a)
 >  {
->  	s64 a_fp =3D drm_int2fixp(a);
->  	s64 b_fp =3D drm_int2fixp(b);
-> @@ -101,7 +101,7 @@ static u16 lerp_u16(u16 a, u16 b, s64 t)
->  	return drm_fixp2int_round(a_fp + delta);
+>  	if (a >=3D 0)
+> @@ -119,6 +116,14 @@ static inline int drm_fixp2int_ceil(s64 a)
+>  		return drm_fixp2int(a - DRM_FIXED_ALMOST_ONE);
+>  }
+> =20
+> +static inline int drm_fixp2int_round(s64 a)
+> +{
+> +	if ((a & DRM_FIXED_FRACTIONAL) < DRM_FIXED_HALF)
+> +		return drm_fixp2int(a);
 
-Given the past, I guess it wouldn't hurt if all drm fixp functions had
-a few tests of their own.
+So, if we take -epsilon (which is -1 in raw s64 value, the largest
+possible value less than zero), this would return -1.0? That does not
+sound right.
+
+However, the "add 0.5 and truncate" trick always works, so I'd
+recommend sticking that.
 
 
 Thanks,
 pq
 
->  }
-> =20
-> -static s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_v=
-alue)
-> +s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value)
->  {
->  	s64 color_channel_fp =3D drm_int2fixp(channel_value);
-> =20
-> @@ -429,3 +429,7 @@ int vkms_set_crc_source(struct drm_crtc *crtc, const =
-char *src_name)
-> =20
->  	return ret;
->  }
+> +	else
+> +		return drm_fixp2int_ceil(a);
+> +}
 > +
-> +#ifdef CONFIG_DRM_VKMS_KUNIT_TESTS
-> +#include "tests/vkms_color_tests.c"
-> +#endif
+>  static inline unsigned drm_fixp_msbset(s64 a)
+>  {
+>  	unsigned shift, sign =3D (a >> 63) & 1;
 
 
---Sig_/3ma91tD+lI03d5cv3keYP/l
+--Sig_/C/KR.w=Kev3_idWfyEicd=7
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmXvCvYACgkQI1/ltBGq
-qqd0Hg//cupZg7EUEcGvadI9RT13UFBDy/nncgdbp1qQw9c9b1+sKhn90aTSA0jz
-4TKULCnuNco2I/HrNk+U/ftNDIV9L5/YSk+iYmvn3c+PgkK7lwsvkUARZZTJiixV
-GRZopuJifTnvwTlLGUJ70+coVfySznKnycSs2S1wVN8GdquMB+G0v/zxSe1XDkJi
-lYqZBJwAugm3he2aCddtGAgd0mlUwJr9jM0s+VdPyOAzsVritzFMEbGTwgaqDRSm
-H45dNpwVgbkDY8zVhrheX0PhidWKa4iM6UkXzs77AAEKaFv0Sy9vuhN4Jzuzao4g
-3GXvmko9+0Y2xf02BvDhbB58j7OEq8YkmKpGO0RiuymGZ0pmQDgeeiAjWD537b1W
-aooj4cUjjjj7/tb46tsjhh1r0tidqng2SAnpDEG8vj8KKWIwlmMBm5TEhOqLf942
-6FP23kZNsvKAfq70Z8vaRdBjdfTKCoZnFfHNDKcIfBFnbcjd0+bI5TYqsfDT91QX
-aEBDQ/iM6OMmFGMsu2gjWEtlRTvSWASoJaRUxZUQwhUqFiD4bjVn1+/xEuafg9iu
-dh4jZZWtp7Jcgr9TaA+0AwWAqvJjtbJjejSwqqHopu3Iu23M/R9Rv/LIz4+0bQ0K
-1hD/mF9CfiqOnpVYzq34Nqx9q++8ScnHJ64hvamja2RLymNEV0A=
-=2rEQ
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmXvAxEACgkQI1/ltBGq
+qqeOJw//a6PG7tSQ2UzSerdssV083e6z2B0IY5ysc2JvINerxzj8OMX3ZViYDZag
+4K1q9ssa/hNlGRm8QcdMVRuEaavM59uf9v57XcRfAiOu/v+T2fRplRQw9Mspmc1x
+zNbReJuEApLw1hZ0jB6ctEl91VL+zeUx78v+aQqJp/BJF2bQI6fKKjLRGo8hnij/
+2C+irLlCookfdaBYxYg0lNsQetPxj+uaVmDlo1RAuApnnb1DW6OOFzvIgpauKj85
+eMs0US28X/AyA+qT/n/c8VlRlXCrcclcKI1FhWN/zKH8r51kiq1fBLB7LbL4bRFu
+Fgzqz8O+Q6AKfeKy1YyJKkE5fp8ByfQtIrbza+0BbP/Pj4dBm17YzmM8JItn2ofQ
+HFsID1y59I+hB1M/SmXcmmFMdq/Q7Aeb1e5H2zz+ZUpo0mHKdlQb1WZyqjmUw8g2
+OGi9Sr33hbHr6mfMy5hlmAK6NS2SxHgqY6wFPoGJ16zpzKtyqok+2ALxfZajK9nl
+YCLrQQHqa6AVzcibjMcUy4L32pBRFUE7/7AgDf+a+UtIm/z2q5Tx+NCnNPcfCJ2I
+LC8KgoM6bwsq8wRBCmNyBw3HYh2zX++V5u7P00SWH4eHmGSc1TgC1LJMDv68CB19
+Nt2eAj3DIrn3mfyeRmrD0FWVAXDREm8lDlZn8mWG6lBO3CZpNf4=
+=El6/
 -----END PGP SIGNATURE-----
 
---Sig_/3ma91tD+lI03d5cv3keYP/l--
+--Sig_/C/KR.w=Kev3_idWfyEicd=7--
