@@ -4,94 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C48C9C54E5D
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Mar 2024 15:31:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6822BC54E58
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Mar 2024 15:45:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A257112E9C;
-	Tue, 12 Mar 2024 15:31:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F30EE112EAB;
+	Tue, 12 Mar 2024 15:44:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TV7IeSDX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BOemDjhC";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2071.outbound.protection.outlook.com [40.107.237.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46AD9112E9C
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Mar 2024 15:31:42 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5724B112EAB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Mar 2024 15:44:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NjHBptaDRJgYJX5RpfmmfmC4ao/S3sIEjStkdQ6EIqb5E8QimgHt+YQpKjEJ52KUwHoIy97qhMamdwLBE3/AodZneaYP4ehXUXmSyPVbQE9vWKuWw4Ww6J6tEQSq302W0oY4+na/Agc4fJyg+Q6lV3jLxCcx9zWp8tVkmgI0IiZodxrN2zO+HfS6/MIUJvQpWPcqFjPUY161YMPLE/kVFjrIUO8wPQw4En061daGULrji/xHojY+fbMpf1wHZKjSHZVoMIhkReUS6oUEeM96pdQeZ8MD6rEZPpHt9Eq1C5iuqTxsHqJM6fzM/NtO3dWJbM72GJQsqlmqyOUWl+eBIw==
+ b=F4uXWn8YRZzRcNBYRz3gBh7Mv72II3wN8d7XiXY97Km09hcR1LgOOCA8T3Bk1bgdmDH4i2MmoavKpcKekmpMJLHwG8CY9ZyJU+r43Vj9jNNWAnx7SWfSdXio4GeK1gX2GOGdkp3ps8fhd9Z3sMEzSFXttRBkXAlaNdXwNsXamaujBRgJ9Q74fCN8c1QGE7V1IRNabkmpI8BroIoYth1KTym+YqJTho+NrU2kS4gdpVe7+mtSLerNeQ3euTfuoouN5mHgYGMjHEyjNn6F7oN/qnOClkrtVSiafdeBVxu1710myg1DULApxlFo1Fdlz46DCFEhcyNeHySTdL2/sImbHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PxvYeLOFoJZvxPinJ2wTx6Ejt3vNPhgWzpx6K9MVkdY=;
- b=bXUfx8BF93nTQu9eBbseqUcz+Job7T4/+IaxaG4eKDRsulilNk7hA09WT58/zmCtDe33ohlK6rHbFkL/+5Vyjk+WZOMYbvupjNbkBJrGIQOKgmkWVJhZnY4cl6IX/dV+MSOcHMgls5bDXp4w4/bIPHYh6YOSF+/iUCCxJR1xLRcxDz5NSJnNqUx5PZnShJtF2T4C2AvHO4w1jJMG5E1q+tJlM9eNBJmxZysm3wUsDQB5ms7ktRf21P9zCOmLT1IFy7Jw7o8cNeT2+8zWmB+UlkhJFlPXkn2TFSkcU0Wb4EhR49xoULPug+aCgjuaT9B1zSKcd5ycrjWvu7uavIKbMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=O3PUTEMjKAo+xICRg9PdKG0q1Ya4Eargjmerk9wpkqY=;
+ b=lzKsGRSy+Rn/x4Trkyu5UWJfm2ybxZpzBirnXyiz4HWpYZpMfY9MPlXwGs/VKYiivdiEYQAJq0WMv7aPsM67COtkQRkqbZvxA+DzuTflr5IJGKdbmad0hc8ZzjuIRACSYOchOcBMl9u06Ec/DChaJ9YQCv2ymqlD/Izyl0lICps287iDsS/G0/r90prKTKSIjyNXOOLyFjbffCo9Q830Ir4vTYBZ1sVd/UL54fEyBV7Y8KuI2Z5e4C3cWJXYIwWcEvrkgZ6aY582NdmQSfWmZroLQSQFri290xUl5/ybN0HwefAE96v4sKXTWPyvOuvyr/9FRXlUOlG9K9j5UjBcHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PxvYeLOFoJZvxPinJ2wTx6Ejt3vNPhgWzpx6K9MVkdY=;
- b=TV7IeSDXkJSRVQMG4JYCZYiMma0MDdgT1cdfds0przWvMQxXo0jjO+4XJa+Xgj4KVQS8lNiyli7KSaL9TuFfap8oSb/sm3ktrwkJS77/mwKiOa2uk0M+QrsSlvA6jxVehiqR+s9k5ey2D/TxaP7GN+xz5wm3EaHCGGQAivuZthA=
-Received: from BLAPR03CA0069.namprd03.prod.outlook.com (2603:10b6:208:329::14)
- by CY5PR12MB6454.namprd12.prod.outlook.com (2603:10b6:930:36::22)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=O3PUTEMjKAo+xICRg9PdKG0q1Ya4Eargjmerk9wpkqY=;
+ b=BOemDjhCUQ9pKE+rG+D85eUllxVrEwbey2YDW4ZCzjKonlSypi9rope8H4vRej1NOzVA9CqxwpnAjspiSDP1BTmKK/RL0sMPFSYy5ILg6IENIAr3yOJqESqllHnEShmiTY2vDaupjeRzuCzmKMbHzr8wlpNHPsZkfr1kuDIGAKg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by DM6PR12MB4252.namprd12.prod.outlook.com (2603:10b6:5:211::17) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.36; Tue, 12 Mar
- 2024 15:31:39 +0000
-Received: from BL6PEPF0001AB56.namprd02.prod.outlook.com
- (2603:10b6:208:329:cafe::bc) by BLAPR03CA0069.outlook.office365.com
- (2603:10b6:208:329::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.18 via Frontend
- Transport; Tue, 12 Mar 2024 15:31:39 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB56.mail.protection.outlook.com (10.167.241.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7386.12 via Frontend Transport; Tue, 12 Mar 2024 15:31:39 +0000
-Received: from MUN-L-SHSHARMA.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 12 Mar
- 2024 10:31:37 -0500
-From: Shashank Sharma <shashank.sharma@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Shashank Sharma <shashank.sharma@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <Christian.Koenig@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: cleanup unused variable
-Date: Tue, 12 Mar 2024 16:31:00 +0100
-Message-ID: <20240312153100.1046-1-shashank.sharma@amd.com>
-X-Mailer: git-send-email 2.38.0.windows.1
+ 2024 15:44:56 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::8d12:60ee:8dfb:daef]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::8d12:60ee:8dfb:daef%4]) with mapi id 15.20.7362.035; Tue, 12 Mar 2024
+ 15:44:56 +0000
+Message-ID: <0dbe76eb-3a9d-4501-abc2-218d1735fcc5@amd.com>
+Date: Tue, 12 Mar 2024 11:44:53 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Fix sending VSC (+ colorimetry) packets
+ for DP/eDP displays without PSR
+Content-Language: en-US
+To: Joshua Ashton <joshua@froggi.es>, amd-gfx@lists.freedesktop.org
+Cc: Xaver Hugl <xaver.hugl@gmail.com>, Melissa Wen <mwen@igalia.com>
+References: <20240101182836.817565-1-joshua@froggi.es>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20240101182836.817565-1-joshua@froggi.es>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0101.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d7::17) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB56:EE_|CY5PR12MB6454:EE_
-X-MS-Office365-Filtering-Correlation-Id: 53816333-7d6b-4b94-2059-08dc42a982f8
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|DM6PR12MB4252:EE_
+X-MS-Office365-Filtering-Correlation-Id: d25e6733-184e-4542-f21e-08dc42ab5db3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JPEVjF5l4EcEJMd3z9nyLQruP0Le5jaPS17fi2Id4txUDm7TLs87EZ8KT7dUqzBy5krUT4Zat8CivASsL+rA1JFesnKrYfw3j/q7But1I1ykfxxT+ko/vdqHCVJk+dPCeurx51NHo6XJaAj4CZs86/eN+iKDZfgFWD9S4PR8uNZhm8TxS/kpwNIOE5lK8UNIy8GRLMt+8y4hSOmpYJnAppDNXErILKrToDgx0TzqZ7He4VaKqxl7vX49ITkJH+/dGPtX4Cl9CDYjmHv/qqWjWjVKxWbc8mzrMgUOwrrWFlncI8nP9Zzz3VxSjLVKfspgm07Is9cNtiVmyL1fypFPUBVRCedn671enLSxih1HPsH1Ams2k33Aaa7AKPwHeWuug/SMUWSUjYBEL0ExklrN1N1erQf8RHI6Fo0XM/oic3AcZE6dromGH3wKd4oVflxQyUxlNUHRFs8C8IqFD+mbRuHjRoGfoYB4ZOFxg/oO3wiNMQNxK37lrXN8ouU+wGPQj04Jeck+Xiy+In42fGEnnTzUgQECohoWO9tmuCxZJGRgbeu/F9zd2hmplbktTiXzxYbV81XPLUCSnY9G/eAHoOFpkcWTqt+tS7AlAQSdZKoA2OFj7XrbUFJOlJjqLz1uxFcCGjhLQAOpnWQARvsOyzN6RYmiXKLPFxVCBUi3sK0Ff3KFtjDN8Nt1TuetWsrEzWD/Hte9X3QdgPMngMcN4HbeIhDDeZKhjgqlFvN0GAA9AaMhXYoQtcMJmlLPQFsp
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(82310400014)(36860700004); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam-Message-Info: ayhoIdbwV1A21dc003bmZdzYw3ZQeJ3+aDUeb/MXIIWggB7+CPou0YyoIYmZeJNqmHyqnEfLZsSUD5rZoXxPZDlzaJxtpw9qt0wPrXWpzHc/r6W9Ubgr1dzHw1D2hPYzidSckMWyBJTqgjHoP+XlmaZbx3FmEZKWIvpoHHwzwldAOTRkSQSHKNi326tyutS1QhrjZDhp/k6nM1QwweckyWrb9vMp9ZjeOgCMbHHJ066ivIadm26L9MEDEO6A+PfM7EqCtuysXwnsNtTx3JpAJXCnaqNxdEr+U+hiA/2E8yJ+y0vVsP0QX9HiKq9hnDwDQmuqZI1LWMsU8J6suH8vK4Y9tPhxaaaBkottjJ93ZXMdEPcqf5fAtk5T4/MRnFWn+czc2K3Bva/d+knkcOMccc2hn7taU23Ep2WhtpApCo79NizArNrb+Rl+2EjpOahA89L8+TUYQSC//B224b+AaWjW6ers9G9atrpLxNhAU04elzPM6PJI87ZDWBbmmsH/G+LDpCCcvAxg2clkrrCLL4aP0bJHoXn9aK+f4uFYT2xFMXr9CbBT3MXt/bVbL2DzmP1ZSBHXea+8j4Y+fTNpUsfwI7EtMKUQXoMSv7rKFDkkHd0utBaAGL7Gg/DCXRlI
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RVJiQkJ3M0M3NXNyVVlEbmtSOS9ZdnU1OVFnemVjV3E2N1FkNzMrUTFUY2Uy?=
+ =?utf-8?B?bWRuaEtsQ1NiU1IvWFVrZnFrZUNzN1BkaHZDOHBIcXNjeE9zOXYxbjVQT2VS?=
+ =?utf-8?B?RTlXUi9rdTI0Y1pqaXdpOWQ3bElPNUFYdUV5RmZiZFVEajVMa2JtNHpLRmZ0?=
+ =?utf-8?B?SElUVlV0RVVNdFNiV3V5bFR3ZVVIb1gwVzJmSHIwV2QwYW00ZDJ5aFZoSHlZ?=
+ =?utf-8?B?RG10NDk5amZadzZ1MW9FVXpTSWVROGxXU3JtUlBzdDFWbzF6MWxWYnc0ck5x?=
+ =?utf-8?B?TEhJTFhvWC9ab1h2dFlHMk5wUnRvamJPWkJ0ZkJURmRVUHNQNjZYVTQ5c3JK?=
+ =?utf-8?B?Z3hySUgwbnd6NWEyVi9MTmtDdTd4MHZDdnc3NE9PN1NYYmp1OE9BMHR1VW1C?=
+ =?utf-8?B?SzM1SVN5MWFJbDNKT2xpNytsTGVaK09VMFA5UXV2RzFZNFYzTldDenRDdGNS?=
+ =?utf-8?B?R0E2OFJrRjlRbWdzYmhMWVNGM25Lcks2Q29TaUpHMUFpOWk4eCtTL1FyMHhy?=
+ =?utf-8?B?biszZGwrM0lOSm1lcWJZUXFHeXNwaU9LYjJYNlBwU0VnVG9Nc1VQSW1BdVhm?=
+ =?utf-8?B?RlFRRmlvaWptdE5HZWkzRmJaK0Nka2VYdktRck51VVFzZGFya3hlVlViTUl0?=
+ =?utf-8?B?UDk5ZlZqb25VRUl0c1BYbFNocEtVLyszOTdxT1pMQmhTMmh6WWdNNWtQbmxl?=
+ =?utf-8?B?a1RqbEN3eU5Wd0VoQ3VVZ0N4ZEV2cUVZTWlBRWNER0J6MFpCQkRQYTlmSnc3?=
+ =?utf-8?B?Zk8zWXJwYk0vWGhrM3lqb3J0ZGRLM0F1dlJwL1lOZnV0V3BXRndWbmVueVc2?=
+ =?utf-8?B?VUxrV1VXOWF0Qm1XcEd5YWlHenhpRkp0K21pTVB4SW40cldIR21TeFo4dDN0?=
+ =?utf-8?B?dG92UXMyMEUvWEUzSGM5UmdvMDhKb1dqV2xpODBIaXQ5bllWeXpxTk45MnVR?=
+ =?utf-8?B?NFo3Z0RKT2lZRmd5RmdQYXFxd0hiYmxhZHBGZlpiRDJ0Y2szRXgrWSsxWXFY?=
+ =?utf-8?B?RjN6N0pPamI1dVhqY1Qzd1U3OG80RjNSMy9JQjh2VGYyaEZkVTFaYnNYb1dW?=
+ =?utf-8?B?MTBYdVlPUEZZbVQ5bmQvMzlEM1kxZkNFYmNYZ0tUMFhnWkFYMjlnR0N2Z2Zk?=
+ =?utf-8?B?SU9rZTltODFPTkkxaXR1SUMwZEVQcnZVWTBjNVgvWExLZDFySW1NOUxiQzBW?=
+ =?utf-8?B?Zk16aVdwSjVrWFRDM2dVL1VtVHNqTHdHYnhDb09JYUh2TThNSEo2RWE5NEdI?=
+ =?utf-8?B?UFltRnloMFZkZUFLQ2szdVUyNzM1UnFGMUdvVE5JYjFqQ1F1bEhOVzhjT2tU?=
+ =?utf-8?B?NkZ1THhFWnM5anJ3cm1DNWNMdmRjZkJYUGVHTDRkVUpESXpqY1lVbm92cG9B?=
+ =?utf-8?B?SUJPSG5OOStMcVRCanBRdlpuVUdBT21iMTZaVjRITUN4RTF2dHMrVHJZWVpl?=
+ =?utf-8?B?T2Q3eXNVcDdOWjU2MTJWTTM2UnpDWnFrNTB3dThSSnpFL0VISU9Oc0dGaWpH?=
+ =?utf-8?B?ZGNjQ1RrTWxIWnFmem9HbHNVOEV4NW02a1pQV2VjUDFOZVA1REY3cGhXcGhq?=
+ =?utf-8?B?RXlhcTI0SnVGRWdvRmltVUxYZUxVcVo4OWUxN0trSHB2eW1SRHJnK1IzZVNF?=
+ =?utf-8?B?UUg0RXpZeTZjQVhkV0d0RThHNjZtdUN2UmFUVmRNMWxSdXY3LzAxNWprQjRP?=
+ =?utf-8?B?OWJzSSswVkJobkEwM3lXOUlyaCsxOFBXVkpSYTlSNkx4OEVhNGFkWndhTEp2?=
+ =?utf-8?B?bTM5TFU2OEl6M0swSElabDBGWGR1b0tNbkdYNnltWjZIcDJVY3JEcWdLRFds?=
+ =?utf-8?B?SVBHNjgxaFppWEFVRnptSTdSVjF4bzB4TFVla3VEcHZnc2NXTmVpTkhYODhn?=
+ =?utf-8?B?Nnh6OXBmSEY3Ni9RMFpaWXlYYmd1SjcyUlZIZnh2Ujdjc2VhQWlGU1lLc2d2?=
+ =?utf-8?B?RFV3bmc2YkMzcjR5eTlkUUhJZDlldis3M01TdjlSQmxUcWU3TEMzeUpZemd4?=
+ =?utf-8?B?ZnlLaDI2N2poVVVPVmVvYmpFdkFPdlVlS21rcDRUby9paVBrdG4ycWYyNEM0?=
+ =?utf-8?B?QkVuWHBDUVZaVG9oUGpCVmdVSzA4UHdSMVU3UmhXMVpsMVhMVnFPVC9oZUgy?=
+ =?utf-8?Q?2wx+OVd088xwjBe6ZmJjbWjan?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2024 15:31:39.3504 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53816333-7d6b-4b94-2059-08dc42a982f8
+X-MS-Exchange-CrossTenant-Network-Message-Id: d25e6733-184e-4542-f21e-08dc42ab5db3
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2024 15:44:56.0232 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB56.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6454
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EKKxw74ssCJeaqPtG1RB1XVUkF/nGhjcc2Qy/rCkwvk8BLmJSsaRl/fab50k+vLnZD+wbDj2TpJvT0S1w5lU1Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4252
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,65 +129,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch removes an unused input variable in the MES
-doorbell function.
 
-Cc: Christian König <Christian.Koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 89ac50405e25..7615daf89ba5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -40,7 +40,6 @@ int amdgpu_mes_doorbell_process_slice(struct amdgpu_device *adev)
- }
- 
- static int amdgpu_mes_kernel_doorbell_get(struct amdgpu_device *adev,
--					 struct amdgpu_mes_process *process,
- 					 int ip_type, uint64_t *doorbell_index)
- {
- 	unsigned int offset, found;
-@@ -65,7 +64,6 @@ static int amdgpu_mes_kernel_doorbell_get(struct amdgpu_device *adev,
- }
- 
- static void amdgpu_mes_kernel_doorbell_free(struct amdgpu_device *adev,
--					   struct amdgpu_mes_process *process,
- 					   uint32_t doorbell_index)
- {
- 	unsigned int old, rel_index;
-@@ -623,7 +621,7 @@ int amdgpu_mes_add_hw_queue(struct amdgpu_device *adev, int gang_id,
- 	*queue_id = queue->queue_id = r;
- 
- 	/* allocate a doorbell index for the queue */
--	r = amdgpu_mes_kernel_doorbell_get(adev, gang->process,
-+	r = amdgpu_mes_kernel_doorbell_get(adev,
- 					  qprops->queue_type,
- 					  &qprops->doorbell_off);
- 	if (r)
-@@ -681,8 +679,7 @@ int amdgpu_mes_add_hw_queue(struct amdgpu_device *adev, int gang_id,
- 	return 0;
- 
- clean_up_doorbell:
--	amdgpu_mes_kernel_doorbell_free(adev, gang->process,
--				       qprops->doorbell_off);
-+	amdgpu_mes_kernel_doorbell_free(adev, qprops->doorbell_off);
- clean_up_queue_id:
- 	spin_lock_irqsave(&adev->mes.queue_id_lock, flags);
- 	idr_remove(&adev->mes.queue_id_idr, queue->queue_id);
-@@ -736,8 +733,7 @@ int amdgpu_mes_remove_hw_queue(struct amdgpu_device *adev, int queue_id)
- 			  queue_id);
- 
- 	list_del(&queue->list);
--	amdgpu_mes_kernel_doorbell_free(adev, gang->process,
--				       queue->doorbell_off);
-+	amdgpu_mes_kernel_doorbell_free(adev, queue->doorbell_off);
- 	amdgpu_mes_unlock(&adev->mes);
- 
- 	amdgpu_mes_queue_free_mqd(queue);
--- 
-2.43.2
+On 2024-01-01 13:28, Joshua Ashton wrote:
+> The check for sending the vsc infopacket to the display was gated behind
+> PSR (Panel Self Refresh) being enabled.
+> 
+> The vsc infopacket also contains the colorimetry (specifically the
+> container color gamut) information for the stream on modern DP.
+> 
+> PSR is typically only supported on mobile phone eDP displays, thus this
+> was not getting sent for typical desktop monitors or TV screens.
+> 
+> This functionality is needed for proper HDR10 functionality on DP as it
+> wants BT2020 RGB/YCbCr for the container color space.
+> 
+
+So apparently this caused regressions on some panels. I sent a revert
+and we'll need to revisit this.
+
+https://gitlab.freedesktop.org/drm/amd/-/issues/3207
+https://gitlab.freedesktop.org/drm/amd/-/issues/3151
+
+> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+> 
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Xaver Hugl <xaver.hugl@gmail.com>
+> Cc: Melissa Wen <mwen@igalia.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   |  8 +++++---
+>  .../amd/display/modules/info_packet/info_packet.c   | 13 ++++++++-----
+>  2 files changed, 13 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 2845c884398e..6dff56408bf4 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6233,8 +6233,9 @@ create_stream_for_sink(struct drm_connector *connector,
+>  
+>  	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+>  		mod_build_hf_vsif_infopacket(stream, &stream->vsp_infopacket);
+> -
+> -	if (stream->link->psr_settings.psr_feature_enabled || stream->link->replay_settings.replay_feature_enabled) {
+> +	else if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT ||
+> +			 stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST ||
+> +			 stream->signal == SIGNAL_TYPE_EDP) {
+>  		//
+>  		// should decide stream support vsc sdp colorimetry capability
+>  		// before building vsc info packet
+
+The use_vsc_sdp_for_colorimetry is being cut off in this patch
+since it's not changed. We should add a DPCD revision check to
+ensure the panel's revision is >= 1.4. This is what we do on other
+OSes and this is likely why we're seeing the regressions in the
+freedesktop issues.
+
+> 			if (stream->linkstream->link->dpcd_caps.dprx_feature.bits.VSC_SDP_COLORIMETRY_SUPPORTED)
+> 				stream->use_vsc_sdp_for_colorimetry = true;
+
+
+
+> @@ -6250,8 +6251,9 @@ create_stream_for_sink(struct drm_connector *connector,
+>  		if (stream->out_transfer_func->tf == TRANSFER_FUNCTION_GAMMA22)
+>  			tf = TRANSFER_FUNC_GAMMA_22;
+>  		mod_build_vsc_infopacket(stream, &stream->vsc_infopacket, stream->output_color_space, tf);
+> -		aconnector->psr_skip_count = AMDGPU_DM_PSR_ENTRY_DELAY;
+>  
+> +		if (stream->link->psr_settings.psr_feature_enabled)
+> +			aconnector->psr_skip_count = AMDGPU_DM_PSR_ENTRY_DELAY;
+>  	}
+>  finish:
+>  	dc_sink_release(sink);
+> diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+> index 84f9b412a4f1..738ee763f24a 100644
+> --- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+> +++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+> @@ -147,12 +147,15 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+>  	}
+>  
+>  	/* VSC packet set to 4 for PSR-SU, or 2 for PSR1 */
+> -	if (stream->link->psr_settings.psr_version == DC_PSR_VERSION_SU_1)
+> -		vsc_packet_revision = vsc_packet_rev4;
+> -	else if (stream->link->replay_settings.config.replay_supported)
+> +	if (stream->link->psr_settings.psr_feature_enabled) {
+> +		if (stream->link->psr_settings.psr_version == DC_PSR_VERSION_SU_1)
+> +			vsc_packet_revision = vsc_packet_rev4;
+> +		else if (stream->link->psr_settings.psr_version == DC_PSR_VERSION_1)
+> +			vsc_packet_revision = vsc_packet_rev2;
+> +	}
+> +
+> +	if (stream->link->replay_settings.config.replay_supported)
+>  		vsc_packet_revision = vsc_packet_rev4;
+> -	else if (stream->link->psr_settings.psr_version == DC_PSR_VERSION_1)
+> -		vsc_packet_revision = vsc_packet_rev2;
+>  
+
+I'm curious whether this is really needed? The original code
+should already do the same, even without the additional
+.psr_feature_enabled check.
+
+I'll send a patch that is intended to fix the colorimetry while
+trying to avoid the regressions.
+
+Harry
+
+>  	/* Update to revision 5 for extended colorimetry support */
+>  	if (stream->use_vsc_sdp_for_colorimetry)
 
