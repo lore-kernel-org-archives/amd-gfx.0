@@ -4,74 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BDEBC54E66
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Mar 2024 10:20:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 888B0C54E60
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Mar 2024 10:59:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97E3010F6FA;
-	Tue, 12 Mar 2024 10:20:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6F77112DA8;
+	Tue, 12 Mar 2024 10:59:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OD2nxHAa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Nb1UQ1Gr";
 	dkim-atps=neutral
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F91510F360
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Mar 2024 10:20:41 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-513af1a29b1so1801443e87.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Mar 2024 03:20:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710238840; x=1710843640; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=E5lYM+poTbyZPbKmS5yDOJdwVky2nCNCI6GrNJvDjl4=;
- b=OD2nxHAa/P2Q7oFUhls1EHulw8pLkYGZxH3lDqIAAIORZ7WKXUXf3sPASABgGf0fMq
- YAiIjTUwDbcHCS1NPO4pdCz/xrWO5FKnBLGq+STr0N7nn4R8tDHkCR2ZwxWMq5kYR5pe
- W4DgmyHuU66CQHhtlDKKqoXwM5NgsZNEoqED9VHKd/PdcREPze5mtgLcC846rE191Ogz
- ZlIpYV5DW2G/lepyO2T0CpxZN4L/WdTyDmXUwhgID2HJpRpdRoVSrF5rT+5NLIXCntf5
- KoSJ5zCFpcXUQJ5ePM8Te4FIVAZCRQBpy+GHw3/Su+E/kRqb/siHeZ+w91EpNVMCRISY
- INig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710238840; x=1710843640;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=E5lYM+poTbyZPbKmS5yDOJdwVky2nCNCI6GrNJvDjl4=;
- b=Zl0QHa7Gl9DBu6u0taq7P0Mt0HnNhjOmJNfDSrXosLJ9aSgUuCoyuU0BRFhKb8okcZ
- /Q+bqqhca+e1oYF55f/tItJt9/AdwLA5aDPDCi0wyLGN4Dyl3tNmIGzXlS3QZDugLl8+
- HbdV4uiuunHiPKgoBq5BFcoqJlRJ+owBegnnythAYXE7JdwwDFvce3DZobqqNm4JNiZ7
- xT6pCwYKgR4uXE1IBriHd0u9wizu8Lx+oO/W585sefvdtRU18ncnIwOUeZjE9hDjG2I7
- OyYlfQpvEUEV29P6on3b62kO3GwJFkhdITDgjY4e7dR+QQ7flFBhQmBLFRqtpcnTvliU
- vSKw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUUhV6KCJG5q36ovaBMBp6ttoTiT+AkNVWRTwj9T0Qv9VdbBvOpwHBv3/kI00PV2ZjVgbCArOeFZdBgDJz5I3aMmZ2Ys8eoHzfb+39abw==
-X-Gm-Message-State: AOJu0YzmUVfgTXUeEl+MCKbd2u65kzOduNb5tq2eX/zX+lAsBY68qUZE
- IIdB2GparIn+p/pWyyOsytU1KGoC8eVaSJDgZdo/doFosYHBNcq9ER9mPEBxkuk=
-X-Google-Smtp-Source: AGHT+IFQykNU5cc/YBJ9IfqKeFQkvf1EhWjwV9iXkkzPYLq0MGvp+GUccrh18jggBeEMU55WW4QMfg==
-X-Received: by 2002:ac2:57c3:0:b0:513:95b6:2e78 with SMTP id
- k3-20020ac257c3000000b0051395b62e78mr5169183lfo.59.1710238839404; 
- Tue, 12 Mar 2024 03:20:39 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- v9-20020a05600c470900b0041312e8ef2bsm12081223wmo.26.2024.03.12.03.20.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 03:20:39 -0700 (PDT)
-Message-ID: <bbd11daf-edba-4986-ae33-4abf2ee36f61@gmail.com>
-Date: Tue, 12 Mar 2024 11:20:37 +0100
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2087.outbound.protection.outlook.com [40.107.93.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8F38112DA6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Mar 2024 10:59:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=k31GjJh3aDmH4VILgy/K6ykVzF7E2TsrC7HULjmdet5tEYC+yX6jt5PzL0qYFL3ZtTUtVlU9ODlsfU+EJn7Hyi+GgRkgRI6dLOyAUQN+EAt5Kd9X8rf/rwI+SaomO5vWkL8/aDPTKPkyR4bCp5QwU65nf1aSo+hqa9jP90UqCASYS7VGA2jbbM2I7yBRlTIaYDkqhHcP2lBNLmwswYvR00sxSlL+3lclWOqTnDZNRijdOpkWFqOyS5HjD8kPH+ejrBuECJjs2WAmWkvjNX0PD3Gr7dbJaXDbzKa7dvL3Rk2GWcEzyrIczleaqZcHk4P5qJhfgnq3JUNbNK9m+wextw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JYSXTxmw6B+Qw5ssRwwELTz0R9flOJWGNQqef6YB0VM=;
+ b=TfiMvrxgVbi86sI56NC01HB37PQta3eve+afa92VcLoTKSqikHwfC5L3/+XKEbKf6imfXyJ8iORoyU7bgf383setFetO8Barf9dDLFOnZgIc0jWH/zmR6kyAZbOvuUpt2dYB7bFpmbaZ8Q3Jz6aW/AC15xYsc7H7F2U3AxU84CJ0MhWh1oXGHYnE61GvHQgyDUtvmveTGPhtJUoydeurtBTnIpjtCx2znWtALQqO/3EbOJyEwLp0ocZdsDtICEEawoSG88ez+jQ/nl318hSCxvfPZ7Im1MShNO/GGWe3Dhc1kbe47VQD9EYkkqWELJSC9VZYHeNWyw1H0OOXbkFSfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JYSXTxmw6B+Qw5ssRwwELTz0R9flOJWGNQqef6YB0VM=;
+ b=Nb1UQ1GrKigIFWT4vhff7TeLf7tYMXjlCPWAFOWon0mI2VC5qPg3Bxx6JaFUychbeJcsns+yntg6+wOcpuE+MyeIBBiEZTy3T1row2RRAZ7JhUbfQjZT8+ggy2qWwIh/ZCZtkg/9uwRPurvoER57UN/EtXLo4liyo3H24qAR3KM=
+Received: from CH0P223CA0002.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:116::21)
+ by MW4PR12MB6951.namprd12.prod.outlook.com (2603:10b6:303:209::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.36; Tue, 12 Mar
+ 2024 10:59:50 +0000
+Received: from CH3PEPF00000015.namprd21.prod.outlook.com
+ (2603:10b6:610:116:cafe::47) by CH0P223CA0002.outlook.office365.com
+ (2603:10b6:610:116::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.36 via Frontend
+ Transport; Tue, 12 Mar 2024 10:59:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH3PEPF00000015.mail.protection.outlook.com (10.167.244.120) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7409.0 via Frontend Transport; Tue, 12 Mar 2024 10:59:49 +0000
+Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 12 Mar
+ 2024 05:59:47 -0500
+From: Ma Jun <Jun.Ma2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Kenneth.Feng@amd.com>, <Alexander.Deucher@amd.com>,
+ <kevinyang.wang@amd.com>, Ma Jun <Jun.Ma2@amd.com>
+Subject: [PATCH] drm/amdgpu/pm: Fix the ppfeature value
+Date: Tue, 12 Mar 2024 18:59:34 +0800
+Message-ID: <20240312105934.2291792-1-Jun.Ma2@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/43] drm/amd/display: Enable 2to1 ODM policy for DCN35
-Content-Language: en-US
-To: Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Harry.Wentland@amd.com, Sunpeng.Li@amd.com, Rodrigo.Siqueira@amd.com,
- Aurabindo.Pillai@amd.com, roman.li@amd.com, agustin.gutierrez@amd.com,
- chiahsuan.chung@amd.com, hersenxs.wu@amd.com, jerry.zuo@amd.com
-References: <20240312092036.3283319-1-Wayne.Lin@amd.com>
- <20240312092036.3283319-4-Wayne.Lin@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240312092036.3283319-4-Wayne.Lin@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000015:EE_|MW4PR12MB6951:EE_
+X-MS-Office365-Filtering-Correlation-Id: 701cf78f-7c48-4c47-44d8-08dc42838986
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 8lRoMOjGW6iN22ZVlvR2w216y+2/XoSpNuFmBY9NLylsEoLEsQmggtyanHYg8HzsRD3WBNwOub/B2nSxBqOlOdk6Ul/9ioWzpRxuWPnSu57HRo8WKOPJtesJcTeHHctgCDJ+bopnvoZo4Q63C63cX9pO0evZXBWkGYgBNkE/fidqczyVJVJtxRclCqTgdAK3VBbhJ6iDfVKFZTZM7OIvZINZPTR/fSp8BCPqymgQwf5fMl213fcPa8vjjhincyjvM8XZjzZ2iH4ayqmostXp9elXFbB07YG6sTdVrUTZJOOOJeabWl/yLyNl58kfyh4DkOJWQoUts2lVkqh2QqnlcgT6+nshzRMppKlS9FU1E//AciBir8HNjs1wlvbImPwuygjwlcdsnjV2i3M9xYdHB7cEcOxgroGjtiThw/dFXODphRwjnXvB8odi5sk+M/9N33G7eEGO/3GwnaO6Ahu0uhJDiUImcpWPlLKwrbbePTmRFfXdvdvR/MzPjq0jPpt8u37wjqhs4LDZSmrITy5Obsec+DQ313QpOsfY2+6ruzrPx3Qo4XZghJPenDBQEn8a0z0sLa3uhrTwHS+VzT0u+yq93ei5RncWXiYVYLv+Dd+i12U5D57pTydqY+vkNjRO1nY1qPwh9YijebQM7O2QtItfv4dsYRlLzQFAaOvWCO3/ARxTnWkcSO774jemZto7yHN23q0z1XyfcKV4QHA863u+9072HzAOW973ux44lfTejT6GQWIjGkHtpzbxpdN/
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(82310400014)(376005)(36860700004)(1800799015); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2024 10:59:49.4569 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 701cf78f-7c48-4c47-44d8-08dc42838986
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000015.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6951
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,54 +105,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just another general comment on how to upstream patches.
+Sometimes user may want to enable the od feature
+by setting ppfeaturemask when loading amdgpu driver.
+However,not all Asics support this feature.
+So we need to restore the ppfeature value and print
+a warning info.
 
-When publishing a large set of patches it is usually good convention to 
-sort them:
-1. Bug fixes which might even get backported
-2. Comment and other non function cleanups
-3. Functional cleanups
-4. New features
+Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c     | 15 ++++++++++++---
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h |  2 +-
+ 2 files changed, 13 insertions(+), 4 deletions(-)
 
-One good reason for that is that it usually makes fixes much easier to 
-port to older kernel versions, but it also makes things easier to review.
-
-If you are in doubt if a patch set is still fully compiling after 
-re-ordering things you can use the command
-
-git rebase -x make base_branch
-
-On your branch and git will run a make between after applying each 
-patch. This way you can double check that everything still builds fine.
-
-Working like that is not a must have, but really good practice.
-
-Regards,
-Christian.
-
-Am 12.03.24 um 10:19 schrieb Wayne Lin:
-> From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
->
-> [Why & How]
-> Enable 2to1 ODM policy for DCN35
->
-> Acked-by: Wayne Lin <wayne.lin@amd.com>
-> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> ---
->   drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> index 5d52853cac96..a8f4023ff3b1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> @@ -769,7 +769,7 @@ static const struct dc_debug_options debug_defaults_drv = {
->   	.support_eDP1_5 = true,
->   	.enable_hpo_pg_support = false,
->   	.enable_legacy_fast_update = true,
-> -	.enable_single_display_2to1_odm_policy = false,
-> +	.enable_single_display_2to1_odm_policy = true,
->   	.disable_idle_power_optimizations = false,
->   	.dmcub_emulation = false,
->   	.disable_boot_optimizations = false,
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+index f84bfed50681..d777056b2f9d 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -1548,12 +1548,14 @@ int amdgpu_dpm_get_smu_prv_buf_details(struct amdgpu_device *adev,
+ 	return ret;
+ }
+ 
+-int amdgpu_dpm_is_overdrive_supported(struct amdgpu_device *adev)
++bool amdgpu_dpm_is_overdrive_supported(struct amdgpu_device *adev)
+ {
++	bool od_support;
++
+ 	if (is_support_sw_smu(adev)) {
+ 		struct smu_context *smu = adev->powerplay.pp_handle;
+ 
+-		return (smu->od_enabled || smu->is_apu);
++		od_support = (smu->od_enabled || smu->is_apu);
+ 	} else {
+ 		struct pp_hwmgr *hwmgr;
+ 
+@@ -1566,8 +1568,15 @@ int amdgpu_dpm_is_overdrive_supported(struct amdgpu_device *adev)
+ 
+ 		hwmgr = (struct pp_hwmgr *)adev->powerplay.pp_handle;
+ 
+-		return hwmgr->od_enabled;
++		od_support = hwmgr->od_enabled;
++	}
++
++	if (!od_support && (adev->pm.pp_feature & PP_OVERDRIVE_MASK)) {
++		adev->pm.pp_feature &= ~PP_OVERDRIVE_MASK;
++		DRM_WARN("overdrive feature is not supported\n");
+ 	}
++
++	return od_support;
+ }
+ 
+ int amdgpu_dpm_set_pp_table(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+index 621200e0823f..0635f9d3a61a 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+@@ -551,7 +551,7 @@ int amdgpu_dpm_debugfs_print_current_performance_level(struct amdgpu_device *ade
+ int amdgpu_dpm_get_smu_prv_buf_details(struct amdgpu_device *adev,
+ 				       void **addr,
+ 				       size_t *size);
+-int amdgpu_dpm_is_overdrive_supported(struct amdgpu_device *adev);
++bool amdgpu_dpm_is_overdrive_supported(struct amdgpu_device *adev);
+ int amdgpu_dpm_set_pp_table(struct amdgpu_device *adev,
+ 			    const char *buf,
+ 			    size_t size);
+-- 
+2.34.1
 
