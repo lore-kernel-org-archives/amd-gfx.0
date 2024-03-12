@@ -4,78 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DDEBC54E66
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Mar 2024 09:23:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F97EC54E66
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Mar 2024 09:23:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E931A112BD3;
-	Tue, 12 Mar 2024 09:23:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0243A112BF6;
+	Tue, 12 Mar 2024 09:23:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E9SdZlf7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OOupOcv+";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2055.outbound.protection.outlook.com [40.107.223.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A6CD112BB9
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Mar 2024 09:23:04 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2041.outbound.protection.outlook.com [40.107.93.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A092112BF6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Mar 2024 09:23:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b6OwkhfDyrPCrKcJtvncamjcPzTxhEAEoZef53982IKFrHRG733zXjlb0ilDQLk0C0SXeExAFfi6xCOSMOdmDG1JpCm4kr7tutPwHO/z9NVhqvnF1Q9rLo7AQBmJ9YVMA6XzsyMxuY4rGWgfimEw/dP5Ig8v+nhvsC3kKju9IoQG0Lgk3poue2xYUtZHrvwERcFiESSeuFeVMkrQrMcNPIz3MLw9xwW94BMFbE9jJCwYu8aXTlCnqTuh0bVKks80LuOozapFIQhdjkJLcGtCq4nLORY9x1AE49CYAupmiSyuK/lnwt0M8lfnnP1QiTfCgNiPvmGnfMs+oF7kkR3o1Q==
+ b=VvGyBumy7TymCmI84oLNSFrNn93auyP1VNMdEpodVUYH6SB72ppdHVOIAdcPj+q0rfOKZio5dEt4ov4MNLXfZrfPN68Rr0j5DMJV+8/3B823e7wx/MqDRH3i5IDK5oup4WNbfQNNl4K+XqTtP24jzp0GXP03NicTl22oSy9BRO9Wak0sDv1rmhlyD2UbJPq9DyhBr6mN0PZos7uRlYgk74X9w+ClWjyfWHfzLltE3INcfpnejWaMxM4OFjgqI9l3hvcHSjjU4fei5FgnqKAPhvkyErtHBekG89NdMf4+LqaIa/oz1Yq4qNspGzvm0HskI+rdJdwjsrAiIkhCRSjUQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gkZNZgb6/qbwz4l54OQXGn7q9xCsXeDa2Q4Peu8Gmao=;
- b=cklhZe4SVmHiYvrF/avM5zuS1kjuqximxDs02cPVb9bgyJnb0ETLiDabua2PGRxnBRzgf49HaAx6xB/T7caTHO9nRtKaCRvLZRohw0VgepOcQB+k5XXBkOLHOH8So1pSnTqqmBgbn3vwF8csNqOxWP1CpDg97hiCg7Sax2efCJIMDwVeUh3zA4DmQn2yRb05E30YV2wvgeheW63lh3O/dViscPuQnaVT/3/NEb2Bp8QcrwkKz9JV8EcFdoFuEZLlE6dQ6F/StynJTGHtDg7eiDy9Hw91NZSnLXNXzW7sib+jtcyCVrAejqpliGgOrHYwVo7qDZvGHtoBLTtcZ4BSjQ==
+ bh=UobipCcM+imZRfHB5c/2TqbficlI5SbFgUtNHTHyWwA=;
+ b=ayKRk0XDp3yi0bIu6WN/qzl0/lGzLUcvNJclXBpprrAoYgeFPRpS0n7rZeHwFzn7HLMx7QyhbX19oSGyjx39ZiLGzBIwTsds71oikbRuv3yi1TdmtIyJAyG1dSxlZrHpHXApV0HbYXMJXdPuUT9DQwoc/y2Eg4/069pb49EXlHj8g0sQaPJ1apb4sFTn3Ii4+NUCfQX9+LNdJp2vro4U5e4hI238jn/fuHSZP/dfGoV1L1kW1nP1D+w09whjR1xYiH2FajoHZm61J7yP4obM6tH6Op9MsxwmuhEYYH5Ie1FeMNVAlyGlRNFXt4yhFHzrz0L5MSb18TB/cA3IAy7HHQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gkZNZgb6/qbwz4l54OQXGn7q9xCsXeDa2Q4Peu8Gmao=;
- b=E9SdZlf7XH9I41rgLvhq2cEsy18eHxbjLPecq6/AaMbgTzoSPoX7LxADjeoZIsYJ3iVfS4F1FymkLs6JPioWUTIhXy++lNre/y3oLpAAksvqWy1qOjFbJfA4A+w4oazNRwAHWfwcxFVqr93hCTIbbdC0lu3Ofggwy8b/Dr+MlzY=
-Received: from CY5PR15CA0227.namprd15.prod.outlook.com (2603:10b6:930:88::25)
- by DM4PR12MB7669.namprd12.prod.outlook.com (2603:10b6:8:106::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.24; Tue, 12 Mar
- 2024 09:23:02 +0000
-Received: from CY4PEPF0000E9D9.namprd05.prod.outlook.com
- (2603:10b6:930:88:cafe::ec) by CY5PR15CA0227.outlook.office365.com
- (2603:10b6:930:88::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.36 via Frontend
- Transport; Tue, 12 Mar 2024 09:23:02 +0000
+ bh=UobipCcM+imZRfHB5c/2TqbficlI5SbFgUtNHTHyWwA=;
+ b=OOupOcv+9L4OdQiEDusQIF62yFqrLuybNLDyW25yHkcRgfyFkqKPwKKlZ0Jh+jDaHF1d5Xky33FeTT4nY94McBjEQiBVpFeLWy5Il94UWA5S/xLv0nbuBvArvc9sWK4On6RpFOZF5/V4zQu0lKlVgLNkblVnQKQXRTYUisyvP78=
+Received: from CH2PR18CA0057.namprd18.prod.outlook.com (2603:10b6:610:55::37)
+ by CY8PR12MB8214.namprd12.prod.outlook.com (2603:10b6:930:76::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.18; Tue, 12 Mar
+ 2024 09:23:08 +0000
+Received: from DS2PEPF00003443.namprd04.prod.outlook.com
+ (2603:10b6:610:55:cafe::3a) by CH2PR18CA0057.outlook.office365.com
+ (2603:10b6:610:55::37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.18 via Frontend
+ Transport; Tue, 12 Mar 2024 09:23:08 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000E9D9.mail.protection.outlook.com (10.167.241.77) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF00003443.mail.protection.outlook.com (10.167.17.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7386.12 via Frontend Transport; Tue, 12 Mar 2024 09:23:02 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7386.12 via Frontend Transport; Tue, 12 Mar 2024 09:23:08 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 12 Mar
- 2024 04:23:01 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 04:23:07 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 12 Mar
- 2024 02:23:01 -0700
+ 2024 04:23:07 -0500
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 12 Mar 2024 04:22:55 -0500
+ Transport; Tue, 12 Mar 2024 04:23:02 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Ovidiu Bunea
- <ovidiu.bunea@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, <stable@vger.kernel.org>, "Nicholas
- Kazlauskas" <nicholas.kazlauskas@amd.com>, Charlene Liu
- <charlene.liu@amd.com>
-Subject: [PATCH 20/43] drm/amd/display: Revert "Set the power_down_on_boot
- function pointer to null"
-Date: Tue, 12 Mar 2024 17:20:13 +0800
-Message-ID: <20240312092036.3283319-21-Wayne.Lin@amd.com>
+ <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>, Chris Park <chris.park@amd.com>
+Subject: [PATCH 21/43] drm/amd/display: add stream clock source to DP DTO
+ params
+Date: Tue, 12 Mar 2024 17:20:14 +0800
+Message-ID: <20240312092036.3283319-22-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20240312092036.3283319-1-Wayne.Lin@amd.com>
 References: <20240312092036.3283319-1-Wayne.Lin@amd.com>
@@ -84,26 +81,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D9:EE_|DM4PR12MB7669:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90a8555c-f474-49e5-941b-08dc4276043f
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003443:EE_|CY8PR12MB8214:EE_
+X-MS-Office365-Filtering-Correlation-Id: 01cbb8a4-1783-4ada-e4ec-08dc427607a3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7lFQ8zI296vvqATK+E2Q4+m+uFjyFpY0R7VTj+cCKFkTo+KA/YiZkHEDPSKKA4Z4hXGbyMeDR8J4UaGttSVbnCjT608JuC3xcgHADIwJMNqJLJrFt6a3hzrLSjiqldpo+eCL7R9AefoJLr+/kanvhXMaSmrQGTPwILrsR4gBP3GVtFeuWKhHrcnWtYjq7DuUlxOOtJiO4xTQooVqjz2mNof9jURXqdgNFZQDHF4GEMO5/q9NIMTBwM4V76s7LGLnJtY62l4G0KZGxhr5XC5xYx+Hx+YwtW0J4anhKKyaUKtX0jIyQfRD6qEe2gRn38LSJElIwg4MP3WJ86GZ5J0PZYMwlVHzkPfs+kYN5hTOmlvjeZUD2XaGgwxyrkL7bGFDyadquQXaaMJyvX5pk1D9VJfd8K2vfwuRgi/oenXE55p2ob2G2JV/4QfdDpKf2jRXa4j7oKAkmu3hOiTA4sufhf6u80WeZO6de3PuacETQz9dgZkdFTt1++1H0984rltGdG0yyysKXx6E8BrzmFMVgI70s8F4gbxwqRQNQwpX7Ep1dL0o/X2WbkVXWI/5KEX01zgFmazkW+WNsjhdEvEkUWmiCgdTZYS4x0asELOLucpWGfitracoFRWMrp2Czyeev3P58d3iIiCRkJdyr5b8TzJKFwphGRGgW5qlOnVdqxrRzO/yuZHzX+inVepSvnZes7d4v4xQi54Bt9bsDcW8EjcjbvbETE+hOnxSKjwg7pMiC1N3sGQg7ZTJa6OrSP0T
+X-Microsoft-Antispam-Message-Info: lDPQs6NAQJmEsmbSeNrjvg5FkFEW7tOwSzXHGIA9DqmzQHupWT9qOKN/T/IxKCc/kRsQTTYnIH2Px5IsGR9pdv4pSSLvbdc9VXvqx8SAl6m9db/PLFFHiBBrWiDY2Y9vibgq7ChQmPOwLtikUNEY3HSEpXFRRUn7+RWJ2CfzlaISOvUIePwAAEmiDla5g1aTwiQV8nfOmxc3qu+gIas/cUA7sRG6wsfA/8oJ7XCJtDpeINRdc04+E0b46aCUfugSGJc6rzWHGvuVm29Xa5TcmEqlA33QRlco6jmiRG16ilksehQtfrJRK07M4QmezIKbVmXChp72/dLqOdWi1WPqMThh/b9Xn2xFIrR6EP82fmmfCRDU2lfblU1B8osPnC9JcRd0iYesiYJ6kQjUeGyM8PtChsk5TsTSCFxdaUSCfWELvQFBRTijEQZV9hkdY9dyxtsZSJG0eG9cHyIi9QgUkGe+j60W5Nhjx9q8qvB02c68EIyY5r7lTLGtQ9MokPK/Rr0ugMEfM0FdcXRhg3h4zU9zfoJfgAJoX6KO2YXuy5mkXRtn/w2FH1zz+OzFtLmHGfBroVX5zj2VP60Q98NT169BzR5JV6Ze/uQgwt/vrEuPpDW4LpBrYGPQiGsg44cmlrq+xFbnscy4Tcfax3r19HsMd6CorTEatrxkGBH/TVIzHHjzG8j9RqAd4qZ5nNSxrp5PGZ9XorFmt8UD3VqxIXdUvu7sSSmgltMEK6nz6Le3QygxVC690RxUDjGv0R5p
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(82310400014)(36860700004)(1800799015); DIR:OUT;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(82310400014)(36860700004)(376005)(1800799015); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2024 09:23:02.3523 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90a8555c-f474-49e5-941b-08dc4276043f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2024 09:23:08.0742 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01cbb8a4-1783-4ada-e4ec-08dc427607a3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D9.namprd05.prod.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003443.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7669
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8214
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,38 +115,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ovidiu Bunea <ovidiu.bunea@amd.com>
+From: Dillon Varone <dillon.varone@amd.com>
 
-This reverts commit 1b35616f8bdb ("drm/amd/display: Set the power_down_on_boot
-function pointer to null")
+[WHY&HOW]
+Stream clock source is a required parameter for DP DTO programming.
 
-[why & how]
-This commit breaks S0i3 entry because DCN does not enter IPS2.
-
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Reviewed-by: Chris Park <chris.park@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
+Signed-off-by: Dillon Varone <dillon.varone@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-index d4e0abbef28e..dce620d359a6 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-@@ -39,7 +39,7 @@
- static const struct hw_sequencer_funcs dcn35_funcs = {
- 	.program_gamut_remap = dcn30_program_gamut_remap,
- 	.init_hw = dcn35_init_hw,
--	.power_down_on_boot = NULL,
-+	.power_down_on_boot = dcn35_power_down_on_boot,
- 	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
- 	.apply_ctx_for_surface = NULL,
- 	.program_front_end_for_ctx = dcn20_program_front_end_for_ctx,
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
+index b9a06bf84cc9..722eff84ccfd 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
+@@ -59,6 +59,7 @@ enum dentist_dispclk_change_mode {
+ struct dp_dto_params {
+ 	int otg_inst;
+ 	enum signal_type signal;
++	enum streamclk_source clk_src;
+ 	uint64_t pixclk_hz;
+ 	uint64_t refclk_hz;
+ };
 -- 
 2.37.3
 
