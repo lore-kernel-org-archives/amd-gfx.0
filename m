@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF4A1C54E66
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Mar 2024 09:24:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A4CCC54E66
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Mar 2024 09:24:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BDE7112D3F;
-	Tue, 12 Mar 2024 09:24:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B634112D41;
+	Tue, 12 Mar 2024 09:24:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2GYXPCkA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OD7/mW50";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2084.outbound.protection.outlook.com [40.107.101.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4CBE112D41
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Mar 2024 09:24:29 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2057.outbound.protection.outlook.com [40.107.237.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7C6B112D41
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Mar 2024 09:24:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=djkiRhTsj8LVl7gxf0iYRIM0J3brMcCFjAGhY0ugrpd/RWsYRQPNh4UjjwOSR/OW2AFNElLEwW+YMBgSg3oNzbvq1wDnhY1IL7rP8tmZCNUwzS2AUmmWBY85U37vQs+QFcCVedUcegjppRPwGTaECulKS5NuFiVoKwVeKrcWO26vSEoPdJ5rJkC1KeSx+QIULWocosGcHspT3OE5GHa4Dx4RR0a+sB+njivYeZShWqEEbLiAtlNdksR0LV/MdKe4FZU/IfBnTJCdSr69xWOlvCBStdUfKkER0NlxC50NSuGZEPUSIk7e28VgxezVnR2xOkS7dHoDFg2k0uqF92WWig==
+ b=RGoJdm7ebEZ1C2pwUHTcgE+s6vPFeskXuFPXEcShQ1WKWoQ94wwlTRxE3zcvxvSioq/KEZMZzBMF7uqAh7c3hqUQvubFr71Pq+jM0zldX6hGTPqGvptkXckKJkNCXvxeUscdNTtOgoyL6KEiiNfwIttmj1VR3vMXFfRue3UDtA4b/UqqXudxeVj6Qk81+jA0ebilXxxvOLjQ4dtkiB73VAYsDnrSCZa0tf4Wq10AX1aTFLVtWYRWRLzzDml2X1HRMs6ud6khtY3np2CBgJ70gi97tzom3UxCBOCF5n5v85X7D8BkZPjHscCL5tcXpq0vADwyf4vsMJF8BegAk6VtMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xGBWjAipxnPWOtuhBmi+2+OY95r/e1L0c9S7H8x83Jc=;
- b=m9DGNV+Knb3BYOArV/uVQidFhsAJ7k5II5mbtGq3ErL4CkRDkEVPVgB7+yfR4j87f2DD12cR/RdFjmzOFfZ6O/p+tRLkWKHgNd+kA4H8/oZ3xwVWSswlyLtG6HXP6DMh3swB751oozaQ9pqEhhOcVmhSP201EOsg2R/Aihmy8ibLFif3YgxFxcEtp3D6Ro3ASe3XhwGXoPSR1MZYmPyDf5g5qg5lmyu5rVGdqk0ULSt/8SeBeYu1VUJA115/XngVJJaYEAraFK4x87+4Vwl9EuPUT7Obefrv/2gyZnjOynClxZlwY00dz44CG07l7roVs5EGM4882vRYMQuDLdni7g==
+ bh=5Tr8eKBxWWZ+3NUDpOfffs9eT1uS8WI9A8pfVmXXAeU=;
+ b=RkrpTR4TdZwbTNjprWHvQADmHyFy3D6JeTqFafE0b8+1LnMyZ5HebEJcVBvtvmdqOdWjilPQ4nSzAg8NdMFZpNC4Edeeb3fAVXxioTSz+Tz0Q7F1GVjj4lBvuR5ZYkR6eFAMmeZ0Ik+r4kocPgpp4QnZHiMRYe1cD65c4SIF/SeEBGnQSzyNitGW67FwOpcP4LaQhYMB8qXFANAv6pELM6ZCIqpZDJpyEOekwsA+U7jMGJ0dmGiZsMQUgAUTwFZenFDS7O3gDHNsIPg0ixTcEJp/ZJbtzb/tbPCjGdGJEZDJRdCc9B1eKVzXQfXlYC2zcAqAiT2acd/uGFbLIQa3Ag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xGBWjAipxnPWOtuhBmi+2+OY95r/e1L0c9S7H8x83Jc=;
- b=2GYXPCkAZfPfUH8nlH1fCHjIlCMge49wZY79iM5MIaBQVQjiAcjffVnZPOdF2GAMO/rfrCyIuUW9wZXo/bchkNs+BwF7yBthp0Kb3L6TsfgslckINjYXKgb30DA8ODkoR5dXLpDzPdPzo9BWZ4YNmQpiPKsL/9BVZddAMFl+aIA=
-Received: from CY8PR10CA0008.namprd10.prod.outlook.com (2603:10b6:930:4f::17)
- by DS0PR12MB6485.namprd12.prod.outlook.com (2603:10b6:8:c6::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7362.35; Tue, 12 Mar 2024 09:24:26 +0000
-Received: from CY4PEPF0000E9DC.namprd05.prod.outlook.com
- (2603:10b6:930:4f:cafe::86) by CY8PR10CA0008.outlook.office365.com
- (2603:10b6:930:4f::17) with Microsoft SMTP Server (version=TLS1_2,
+ bh=5Tr8eKBxWWZ+3NUDpOfffs9eT1uS8WI9A8pfVmXXAeU=;
+ b=OD7/mW50tXDVNEEO0cYv1GcsmRr2HbDpbmHBp9JIc3jc2cqLdu1yY8NmpT7Zga6CQ3VezRUihWax60bHjEV8KKtRdR0SnpHsLIQBWtfEnUGsaUl6gGuDAJLA8pHaAI7Agzs5UJ12nKRZTS23NFo0atq9tQwrmLTkEYbBTRrdBlM=
+Received: from CY8P220CA0035.NAMP220.PROD.OUTLOOK.COM (2603:10b6:930:47::19)
+ by SJ1PR12MB6049.namprd12.prod.outlook.com (2603:10b6:a03:48c::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.35; Tue, 12 Mar
+ 2024 09:24:34 +0000
+Received: from CY4PEPF0000E9D6.namprd05.prod.outlook.com
+ (2603:10b6:930:47:cafe::17) by CY8P220CA0035.outlook.office365.com
+ (2603:10b6:930:47::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.36 via Frontend
- Transport; Tue, 12 Mar 2024 09:24:25 +0000
+ Transport; Tue, 12 Mar 2024 09:24:33 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,26 +48,27 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000E9DC.mail.protection.outlook.com (10.167.241.82) with Microsoft
+ CY4PEPF0000E9D6.mail.protection.outlook.com (10.167.241.80) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7386.12 via Frontend Transport; Tue, 12 Mar 2024 09:24:25 +0000
+ 15.20.7386.12 via Frontend Transport; Tue, 12 Mar 2024 09:24:33 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 12 Mar
- 2024 04:24:24 -0500
+ 2024 04:24:32 -0500
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 12 Mar 2024 04:24:20 -0500
+ Transport; Tue, 12 Mar 2024 04:24:28 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Xi Liu <xi.liu@amd.com>, "Swapnil
- Patel" <swapnil.patel@amd.com>
-Subject: [PATCH 34/43] drm/amd/display: increase bb clock for DCN351
-Date: Tue, 12 Mar 2024 17:20:27 +0800
-Message-ID: <20240312092036.3283319-35-Wayne.Lin@amd.com>
+ <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Duncan Ma <duncan.ma@amd.com>
+Subject: [PATCH 35/43] drm/amd/display: Detect and disallow idle reallow
+ during reentrancy
+Date: Tue, 12 Mar 2024 17:20:28 +0800
+Message-ID: <20240312092036.3283319-36-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20240312092036.3283319-1-Wayne.Lin@amd.com>
 References: <20240312092036.3283319-1-Wayne.Lin@amd.com>
@@ -78,26 +79,26 @@ Received-SPF: None (SATLEXMB03.amd.com: Wayne.Lin@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DC:EE_|DS0PR12MB6485:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7abd567-2771-46bd-cc31-08dc427635f2
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D6:EE_|SJ1PR12MB6049:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1f09d3b2-bce5-47de-d743-08dc42763abd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tEDX2eAxvSFxv+UBUB1ziDVOoh4GDGLllY5dvjqaPQqebGqAdQGkYJNsINvbEo6J+LvfbAm5PvnTVOwoIH+fG1tBB2EquuuZRLUFHyhRZJuLfhO618dqBiuw3D7UiO0gzQe9in2NeWErYWJafqMQpd7URfqDPFcK122kAeKRtds1j5EXmpDNEjrnS1hBEyWRjWLe05j5oxeWM995tiV4DdaPyDUsbsXNY4fckCog9vHyKwW0dHmOoSglCj2N+Gi56FP+vL10idYoaxXSL0fM17AcYqJNCrkDfU29zIKMHnGGf/9le0LrQIkzs7lDq1LgELpTORvuGv1R8dPzAhfxQCscG4tQYLf8Kmm+IPAUEuvvoWFNV15YrowZ8UNmtsTIblYlP6mWuPSvMD6sDOpeVmUTtO2t8Y2LIvCbCLKjyeUCURqEopoT20JSMlUTh7woaAQe8rd6GtMHSv1cSZZZp0uUtBEALdX0k1xR6UR0SWBtovuYfDbqvBNfzEdkU4QBBJK7BpblCJ0a7WYMWFh5CGwPcuLsTr06hxkDzplL7sZAAp1l621awW2c4XW5EUO5vQ+KFGYQ1KLpr5zc7MkEDKncQxWU8ntzJsgBC2osEm9AYF920z7EW5nbM6BXHl7RbyRirmxxQ59W7ESeSB/7Htv1k2ro4a57kODvdUj+0cSV8onMeM4jXWa163vh7ErYNxjy7cJ4/Q9mqdDzddInrQiXBimp9JHaOgPsU799ypt5NTEV75ukcfXbghrVus5N
+X-Microsoft-Antispam-Message-Info: u8cFdJ+w8YhD5+MyIk3bDospiA9HAj1FTU/3lRMXm5mrL6EjaR61EVtBy56tzKfjO6n11gXaDkQF5NlZelHny/UqKhBxg4o7uSTdtQI7aiz4SmZS5Ibfcizs4Ghr3NkDDqylj969+iMU1u7b/1hCtA/Kj5n12QyfWL/gOcozoCtEFwgDBd+ZxwTBPi86MxP464atJiO0L2CW8fR3k/tdopGr6qq5zSA4/nCNF4r/hMllAY4nkXUP1CEt9vlOqrCm3BU62VPZHbXuHgHJ5ZJlAzVc7Y3TMpLqA1hwfcYfCsxQjh8+GNlVNfHCzDddWIFOLKFnN1rUpuCaUhTvodaIHC08XOsL1R45YB9D3ZzSFFw7gepCaZY9mp6Cwc/561fpvIzctLlXvGEUyl9CjM9k7GH+iunrrJv4S9Kc+/ZYZVsarEzWOyQ4QIhA9x0AgqGcQgrQ3cxAglMSRftDhhiZ48fdyox0eCOJ8e4zgoNj73jsC4QuszII0v6hPzvA1YP1MN6en68lcGOdvSGCFS6K2G6NVzwuyWRX2fbT0XmJFVsKJhPO2WoiP2FbzDc4d6wI3ADYSxJNfPJN0XobIALeFEt75NCa95Y1vyNcTsEFb6vq2WEiO1K5Kax6c5M99UiSrXNZRPZmFwKHdQJeaPb+GjI38xskpqyMBWd/l14UJwDnJVnwNFyDrfLgwrNk3njU5TEovYN8fF+sfVm8dsFf+WY2GKv9/qMqiZ+WtH3TDIH/EfvkalRf+CPib2KFIoyM
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230031)(36860700004)(1800799015)(376005)(82310400014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2024 09:24:25.7352 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7abd567-2771-46bd-cc31-08dc427635f2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2024 09:24:33.7768 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f09d3b2-bce5-47de-d743-08dc42763abd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9DC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D6.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6485
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6049
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,158 +113,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xi Liu <xi.liu@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[Why and how]
+[Why]
+Cursor updates can be preempted by queued flips in some DMs.
 
-Bounding box clocks for DCN351 should be increased as per request
+The synchronization model causes this to occur within the same thread
+at an intermediate level when we insert logs into the OS queue.
 
-Reviewed-by: Swapnil Patel <swapnil.patel@amd.com>
+Since this occurs on the same thread and we're still holding the lock
+(recursively) the cache is coherent.
+
+The exit sequence will run twice since we technically haven't finished
+the exit the first time, so we need a way to detect and avoid the
+reallow in the middle of this call to prevent the hang on the cursor
+update that was preempted.
+
+[How]
+Keep a counter that tracks the depth of the exit calls. Do not reallow
+until the counter is zero.
+
+Reviewed-by: Duncan Ma <duncan.ma@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Xi Liu <xi.liu@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 ---
- .../amd/display/dc/dml/dcn351/dcn351_fpu.c    | 90 ++++++++++++++++---
- 1 file changed, 76 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 14 ++++++++++++--
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h |  1 +
+ 2 files changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
-index 7bd67f6b1595..b6246406a042 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
-@@ -98,51 +98,110 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_51_soc = {
- 	.clock_limits = {
- 		{
- 			.state = 0,
--			.dispclk_mhz = 1200.0,
--			.dppclk_mhz = 1200.0,
-+			.dcfclk_mhz = 400.0,
-+			.fabricclk_mhz = 400.0,
-+			.socclk_mhz = 600.0,
-+			.dram_speed_mts = 3200.0,
-+			.dispclk_mhz = 600.0,
-+			.dppclk_mhz = 600.0,
- 			.phyclk_mhz = 600.0,
- 			.phyclk_d18_mhz = 667.0,
--			.dscclk_mhz = 186.0,
-+			.dscclk_mhz = 200.0,
- 			.dtbclk_mhz = 600.0,
- 		},
- 		{
- 			.state = 1,
--			.dispclk_mhz = 1200.0,
--			.dppclk_mhz = 1200.0,
-+			.dcfclk_mhz = 600.0,
-+			.fabricclk_mhz = 1000.0,
-+			.socclk_mhz = 733.0,
-+			.dram_speed_mts = 6400.0,
-+			.dispclk_mhz = 800.0,
-+			.dppclk_mhz = 800.0,
- 			.phyclk_mhz = 810.0,
- 			.phyclk_d18_mhz = 667.0,
--			.dscclk_mhz = 209.0,
-+			.dscclk_mhz = 266.7,
- 			.dtbclk_mhz = 600.0,
- 		},
- 		{
- 			.state = 2,
--			.dispclk_mhz = 1200.0,
--			.dppclk_mhz = 1200.0,
-+			.dcfclk_mhz = 738.0,
-+			.fabricclk_mhz = 1200.0,
-+			.socclk_mhz = 880.0,
-+			.dram_speed_mts = 7500.0,
-+			.dispclk_mhz = 800.0,
-+			.dppclk_mhz = 800.0,
- 			.phyclk_mhz = 810.0,
- 			.phyclk_d18_mhz = 667.0,
--			.dscclk_mhz = 209.0,
-+			.dscclk_mhz = 266.7,
- 			.dtbclk_mhz = 600.0,
- 		},
- 		{
- 			.state = 3,
--			.dispclk_mhz = 1200.0,
--			.dppclk_mhz = 1200.0,
-+			.dcfclk_mhz = 800.0,
-+			.fabricclk_mhz = 1400.0,
-+			.socclk_mhz = 978.0,
-+			.dram_speed_mts = 7500.0,
-+			.dispclk_mhz = 960.0,
-+			.dppclk_mhz = 960.0,
- 			.phyclk_mhz = 810.0,
- 			.phyclk_d18_mhz = 667.0,
--			.dscclk_mhz = 371.0,
-+			.dscclk_mhz = 320.0,
- 			.dtbclk_mhz = 600.0,
- 		},
- 		{
- 			.state = 4,
-+			.dcfclk_mhz = 873.0,
-+			.fabricclk_mhz = 1600.0,
-+			.socclk_mhz = 1100.0,
-+			.dram_speed_mts = 8533.0,
-+			.dispclk_mhz = 1066.7,
-+			.dppclk_mhz = 1066.7,
-+			.phyclk_mhz = 810.0,
-+			.phyclk_d18_mhz = 667.0,
-+			.dscclk_mhz = 355.6,
-+			.dtbclk_mhz = 600.0,
-+		},
-+		{
-+			.state = 5,
-+			.dcfclk_mhz = 960.0,
-+			.fabricclk_mhz = 1700.0,
-+			.socclk_mhz = 1257.0,
-+			.dram_speed_mts = 8533.0,
- 			.dispclk_mhz = 1200.0,
- 			.dppclk_mhz = 1200.0,
- 			.phyclk_mhz = 810.0,
- 			.phyclk_d18_mhz = 667.0,
--			.dscclk_mhz = 417.0,
-+			.dscclk_mhz = 400.0,
-+			.dtbclk_mhz = 600.0,
-+		},
-+		{
-+			.state = 6,
-+			.dcfclk_mhz = 1067.0,
-+			.fabricclk_mhz = 1850.0,
-+			.socclk_mhz = 1257.0,
-+			.dram_speed_mts = 8533.0,
-+			.dispclk_mhz = 1371.4,
-+			.dppclk_mhz = 1371.4,
-+			.phyclk_mhz = 810.0,
-+			.phyclk_d18_mhz = 667.0,
-+			.dscclk_mhz = 457.1,
-+			.dtbclk_mhz = 600.0,
-+		},
-+		{
-+			.state = 7,
-+			.dcfclk_mhz = 1200.0,
-+			.fabricclk_mhz = 2000.0,
-+			.socclk_mhz = 1467.0,
-+			.dram_speed_mts = 8533.0,
-+			.dispclk_mhz = 1600.0,
-+			.dppclk_mhz = 1600.0,
-+			.phyclk_mhz = 810.0,
-+			.phyclk_d18_mhz = 667.0,
-+			.dscclk_mhz = 533.3,
- 			.dtbclk_mhz = 600.0,
- 		},
- 	},
--	.num_states = 5,
-+	.num_states = 8,
- 	.sr_exit_time_us = 28.0,
- 	.sr_enter_plus_exit_time_us = 30.0,
- 	.sr_exit_z8_time_us = 250.0,
-@@ -177,6 +236,9 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_51_soc = {
- 	.do_urgent_latency_adjustment = 0,
- 	.urgent_latency_adjustment_fabric_clock_component_us = 0,
- 	.urgent_latency_adjustment_fabric_clock_reference_mhz = 0,
-+	.num_chans = 4,
-+	.dram_clock_change_latency_us = 11.72,
-+	.dispclk_dppclk_vco_speed_mhz = 2400.0,
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index f796ed061879..4878e9e50440 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -1437,6 +1437,8 @@ void dc_dmub_srv_apply_idle_power_optimizations(const struct dc *dc, bool allow_
+ 	 */
  
- /*
+ 	if (!allow_idle) {
++		dc_dmub_srv->idle_exit_counter += 1;
++
+ 		dc_dmub_srv_exit_low_power_state(dc);
+ 		/*
+ 		 * Idle is considered fully exited only after the sequence above
+@@ -1448,6 +1450,12 @@ void dc_dmub_srv_apply_idle_power_optimizations(const struct dc *dc, bool allow_
+ 		 * dm_execute_dmub_cmd submission instead of the "wake" helpers.
+ 		 */
+ 		dc_dmub_srv->idle_allowed = false;
++
++		dc_dmub_srv->idle_exit_counter -= 1;
++		if (dc_dmub_srv->idle_exit_counter < 0) {
++			ASSERT(0);
++			dc_dmub_srv->idle_exit_counter = 0;
++		}
+ 	} else {
+ 		/* Consider idle as notified prior to the actual submission to
+ 		 * prevent multiple entries. */
+@@ -1489,7 +1497,8 @@ bool dc_wake_and_execute_dmub_cmd_list(const struct dc_context *ctx, unsigned in
+ 	else
+ 		result = dm_execute_dmub_cmd(ctx, cmd, wait_type);
+ 
+-	if (result && reallow_idle && !ctx->dc->debug.disable_dmub_reallow_idle)
++	if (result && reallow_idle && dc_dmub_srv->idle_exit_counter == 0 &&
++	    !ctx->dc->debug.disable_dmub_reallow_idle)
+ 		dc_dmub_srv_apply_idle_power_optimizations(ctx->dc, true);
+ 
+ 	return result;
+@@ -1538,7 +1547,8 @@ bool dc_wake_and_execute_gpint(const struct dc_context *ctx, enum dmub_gpint_com
+ 
+ 	result = dc_dmub_execute_gpint(ctx, command_code, param, response, wait_type);
+ 
+-	if (result && reallow_idle && !ctx->dc->debug.disable_dmub_reallow_idle)
++	if (result && reallow_idle && dc_dmub_srv->idle_exit_counter == 0 &&
++	    !ctx->dc->debug.disable_dmub_reallow_idle)
+ 		dc_dmub_srv_apply_idle_power_optimizations(ctx->dc, true);
+ 
+ 	return result;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
+index 60c93e9e3533..c0a512a12531 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
+@@ -51,6 +51,7 @@ struct dc_dmub_srv {
+ 	struct dc_context *ctx;
+ 	void *dm;
+ 
++	int32_t idle_exit_counter;
+ 	bool idle_allowed;
+ 	bool needs_idle_wake;
+ };
 -- 
 2.37.3
 
