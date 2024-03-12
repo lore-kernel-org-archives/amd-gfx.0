@@ -4,77 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2C2DC54E58
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Mar 2024 08:32:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BDA8C54E66
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Mar 2024 09:21:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A0F31123AA;
-	Tue, 12 Mar 2024 08:32:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 406CA10FC9A;
+	Tue, 12 Mar 2024 09:21:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cXw5tqRn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3YSFUgz9";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F099112444
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Mar 2024 08:31:58 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-413328344acso3680335e9.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Mar 2024 01:31:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710232317; x=1710837117; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=80Be8dF2UCxPaJ1w2MwWXCWYBlvJuvL7IjlBjfpljkE=;
- b=cXw5tqRngq9DuGhu6jshrBE+lHqatBFsgIzplSe1xzfrMmQ3+zibFgpdSBofp/aXTE
- 6c2ZWrAXkllcalFXCtpxAouDQeFjZbzTch1E+xUQ3Dimd+VVXtLBEa89veD0QOOfGvH4
- hFHDGrMG7osTolCP+h7fDqqSWujh1EoAsOS5LvHuAHwKw76lMyrqVQl1qIvEc/48u1s+
- +m7+/sLg5rdBx3sc1oCEPUog7Sg6+vVH36sxhpI3oREpsCODWlyKRZb+GugeQopfouIs
- v1rEkhysEVaPuKcDnBs8wBK82A7MYDNOQ+Oo+lKm/AvITq1yMKDQdxrI/cAQPG7a5jon
- ZSQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710232317; x=1710837117;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=80Be8dF2UCxPaJ1w2MwWXCWYBlvJuvL7IjlBjfpljkE=;
- b=vtJgodwl/5QfV7eageczm+vA3DG/e28HkT/3GbMoxouuvxszegcQpqDMZZjpuYdknb
- S+m9n8h3CdyqGcOem4BjLODxfS4GuCL2QzEq4F1/RO6IaKjwq5t1FhVITOi1s13JbUS2
- iJK0eUrkqnTUOiw0Xc5zbpVkJpykwXb665Pm04sVdcvbkySCTP3ieF4A1a2UvJaHGiCm
- /RD05kgD1MvfdI9pzDThGJa5IR6FSPYkx7gIcRUSE0kTxzEXvTmBzBUJ80BTnL2EgaU3
- xYv90/Q+n28gS54rRSrGx7zSTk8XcNkHFuoWDOXLXtkpOGukgFeu77NxugIBcAMPhNXu
- go6Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVL+f3HAXVBjZIpzjXhxMPhmvN1G6X3m1+B0BT7DKpuCdhitLVXimsXU3+i3B/Fg67fUDjrRfc+OpN+aFuFKTCd1t79/7WGz0bQkzV9qg==
-X-Gm-Message-State: AOJu0Yx4+ovq+x4udkzEcDLrEGvoA25rMcDDGHSjyGumEPa+/FNJhIuQ
- PZvQYwvCiOFBRUIfrKCZZvfp9WRtq3s1Lc1ijHjjz3LMNxGMiWp/
-X-Google-Smtp-Source: AGHT+IG5DUWoqHYKjgzU/qVpzc36W/zZ/AoI4i8JaNHh3fRCddekEKoyMto7HUg57qGGrr1+xdksww==
-X-Received: by 2002:a05:600c:4f0e:b0:413:1212:3eed with SMTP id
- l14-20020a05600c4f0e00b0041312123eedmr6441928wmq.3.1710232316519; 
- Tue, 12 Mar 2024 01:31:56 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- p11-20020a05600c358b00b00412ebd587ebsm18323225wmq.3.2024.03.12.01.31.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 01:31:55 -0700 (PDT)
-Message-ID: <dac63b64-7b25-439f-a883-393e37826fb3@gmail.com>
-Date: Tue, 12 Mar 2024 09:31:52 +0100
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2047.outbound.protection.outlook.com [40.107.237.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B90B10FC9A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Mar 2024 09:21:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SKG21V07t8BpJi1EeeHpuF1MiIuht326Deex696kaCfkWrxgAN8lgnI82wEm8ZjY6EGRm1T73y7bhAenquPVemm4FIcXQFDuCk3EDZjK0Y4mrQRqvvVzwt1qTfwj574+0h7k2OnW7vgzEfDZUlG3zzivTLtXsC0hjJh/8Qz6JHimIirGNJyVX+BWLLcwZhSAAmGd34f4Cin8SzvrhqKUcz870vUlZnCnfOIGDyzdFnn7JcWLHFBjZYRCnp6ynF7o0GpuQkHqm59cwGvbFsi6aI4vdAKArb2filNdDzafkJ7JdX/iAMsHjWCZTmCWYt9GQy03OOeHcqQAzx2IgEzb9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6kZbhlqlzvXdUb+UvKS9Lw2fKSTX3x9Ee0LcOVtow1A=;
+ b=dd+ZQd42xHJdeIfEVfpmG4QVOh57+R8P1LIyCJFpqQvh9z14rbPJPPfvajj1avNxnPBpe3Sd6VtiKr3nmtRiJUsqaSZIAoirtUaFiOz4O5glLWuPN1fi2wldKAjG6idt6vLKwVuqa+QYEw8O1jQXQvXkVwF5dMSRjVyXYkchBUv+e8wA1UnUzNgNipm5ZyEy/PxH94DJ/8v53WHbHxWEigL4GXpSOPZGLxksy3JOogdI+eX2bdwTEL08mQmLycDh7iu0tr8uPAljVOSe94KJSfezhWyRjTKLoaL5JQs29SZC0tQvDUURI0pWIT6kwOrS78S2Axz2VoN4s68IT4RzGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6kZbhlqlzvXdUb+UvKS9Lw2fKSTX3x9Ee0LcOVtow1A=;
+ b=3YSFUgz9eDp2WqGrn2g2YQSB8o8O7aBiQOBrWlrkoUDN0lGdyTHpE+aYj2Ls0CXJVk4/waR8XrJOEsQmpDKXNWDPYrtLuDaqT9QOOqiQIljSM9+3Wb0V1xp6eRyE028DvozUCOQLUMJ/VXC6DW1nB+NghPmwpUcs0dXbRZSO1+I=
+Received: from MW4P221CA0028.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::33)
+ by IA0PR12MB8278.namprd12.prod.outlook.com (2603:10b6:208:3dc::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.36; Tue, 12 Mar
+ 2024 09:20:58 +0000
+Received: from MWH0EPF000971E8.namprd02.prod.outlook.com
+ (2603:10b6:303:8b:cafe::6b) by MW4P221CA0028.outlook.office365.com
+ (2603:10b6:303:8b::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.39 via Frontend
+ Transport; Tue, 12 Mar 2024 09:20:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MWH0EPF000971E8.mail.protection.outlook.com (10.167.243.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7386.12 via Frontend Transport; Tue, 12 Mar 2024 09:20:58 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 12 Mar
+ 2024 04:20:56 -0500
+Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Tue, 12 Mar 2024 04:20:47 -0500
+From: Wayne Lin <Wayne.Lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
+ <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
+ <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
+ <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>
+Subject: [PATCH 00/43] DC Patches March 18, 2024
+Date: Tue, 12 Mar 2024 17:19:53 +0800
+Message-ID: <20240312092036.3283319-1-Wayne.Lin@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] drm/amdgpu: implement TLB flush fence
-Content-Language: en-US
-To: "Sharma, Shashank" <shashank.sharma@amd.com>, Philip Yang
- <yangp@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20240306144115.1007-1-shashank.sharma@amd.com>
- <939a8f23-952f-8993-9c1c-178bb0fd42b5@amd.com>
- <98f72106-e62e-ef02-ff9b-d92edeb6950d@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <98f72106-e62e-ef02-ff9b-d92edeb6950d@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: Wayne.Lin@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E8:EE_|IA0PR12MB8278:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb6c6183-bd17-485a-371c-08dc4275ba2c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: luUyl6VIulmMqjw7sJRppF/w/79r5mMwO3zwBj/AuncO2WzWbfpKu2RPpMT4wAFi5JErR9Ds6o3MmiFep62Wz6/essGOoxiNf1HBpfZ2OSoEuTR0mzVhf4oA9u1vuvlkwak1jYVtXnFX18wDjlnf30+CQjkTz0YlzJYoFT7qV+ovb29drgFzKyVrgMbM+2D2k+ji3bt+g8ICyGnpezvRvqUWH/eaPPFN38OXt7XxhXa/xPtA73FxIOmdPEZZKLZE98QqbRovRmOjOXZkP0NihiB5XP+NlD9o7/duMRPONtdkao+SAvJPtMw95EALFUsAYZQ+7Cr2L/1XBT85G7ZXvYQ6RDncdUsF7WmugMi+NSnCMS8l2JhSxAZPxaAuy+lv6RPCipOK8FIa5mAlw/gYNg10cqJvCuXu7kEW+luyG6i6B26pmJNqVarxsjwwREp3CMi06I8UIHdh/u5mIIGzE+IarKsUqcv6ca4+i98/iMn0QHRmkmMQfLrkJMtERTwLchFLGAzDMQlMPJ85kytgxKKp6ntbit/14b8h8i+ISLcTU3XPC7gdhw5vbEzSf5ACsgW4vapfsPWMfLKCWWoVloe9Ib7FZL3CQAfxNYRsRNJw2xgm6EJRmBphyEZ0vvxjuJCeiA6O8HfITUZqYjQ3/vcvC/HhpX6envqYroxHyj3jIhqeTr8hPO5P5EA6VPQwthBQpbI0uf1fO/BHQybRV53IaBWLtzPDSmFzDAuIElibv0dvCrFaz9aS+d/cCMrW
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(36860700004)(82310400014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2024 09:20:58.0272 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb6c6183-bd17-485a-371c-08dc4275ba2c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8278
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,280 +110,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 11.03.24 um 15:37 schrieb Sharma, Shashank:
->
-> On 07/03/2024 20:22, Philip Yang wrote:
->>
->>
->> On 2024-03-06 09:41, Shashank Sharma wrote:
->>> From: Christian König<christian.koenig@amd.com>
->>>
->>> The problem is that when (for example) 4k pages are replaced
->>> with a single 2M page we need to wait for change to be flushed
->>> out by invalidating the TLB before the PT can be freed.
->>>
->>> Solve this by moving the TLB flush into a DMA-fence object which
->>> can be used to delay the freeing of the PT BOs until it is signaled.
->>>
->>> V2: (Shashank)
->>>      - rebase
->>>      - set dma_fence_error only in case of error
->>>      - add tlb_flush fence only when PT/PD BO is locked (Felix)
->>>      - use vm->pasid when f is NULL (Mukul)
->>>
->>> V4: - add a wait for (f->dependency) in tlb_fence_work (Christian)
->>>      - move the misplaced fence_create call to the end (Philip)
->>>
->>> V5: - free the f->dependency properly (Christian)
->>>
->>> Cc: Christian Koenig<christian.koenig@amd.com>
->>> Cc: Felix Kuehling<Felix.Kuehling@amd.com>
->>> Cc: Rajneesh Bhardwaj<rajneesh.bhardwaj@amd.com>
->>> Cc: Alex Deucher<alexander.deucher@amd.com>
->>> Reviewed-by: Shashank Sharma<shashank.sharma@amd.com>
->>> Signed-off-by: Christian König<christian.koenig@amd.com>
->>> Signed-off-by: Shashank Sharma<shashank.sharma@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/Makefile           |   3 +-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  10 ++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   4 +
->>>   .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  | 112 
->>> ++++++++++++++++++
->>>   4 files changed, 128 insertions(+), 1 deletion(-)
->>>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile 
->>> b/drivers/gpu/drm/amd/amdgpu/Makefile
->>> index fa26a4e3a99d..91ab4cf29b5b 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
->>> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
->>> @@ -70,7 +70,8 @@ amdgpu-y += amdgpu_device.o amdgpu_doorbell_mgr.o 
->>> amdgpu_kms.o \
->>>       amdgpu_cs.o amdgpu_bios.o amdgpu_benchmark.o \
->>>       atombios_dp.o amdgpu_afmt.o amdgpu_trace_points.o \
->>>       atombios_encoders.o amdgpu_sa.o atombios_i2c.o \
->>> -    amdgpu_dma_buf.o amdgpu_vm.o amdgpu_vm_pt.o amdgpu_ib.o 
->>> amdgpu_pll.o \
->>> +    amdgpu_dma_buf.o amdgpu_vm.o amdgpu_vm_pt.o 
->>> amdgpu_vm_tlb_fence.o \
->>> +    amdgpu_ib.o amdgpu_pll.o \
->>>       amdgpu_ucode.o amdgpu_bo_list.o amdgpu_ctx.o amdgpu_sync.o \
->>>       amdgpu_gtt_mgr.o amdgpu_preempt_mgr.o amdgpu_vram_mgr.o 
->>> amdgpu_virt.o \
->>>       amdgpu_atomfirmware.o amdgpu_vf_error.o amdgpu_sched.o \
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> index 0960e0a665d3..310aae6fb49b 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> @@ -988,6 +988,15 @@ int amdgpu_vm_update_range(struct amdgpu_device 
->>> *adev, struct amdgpu_vm *vm,
->>>         r = vm->update_funcs->commit(&params, fence);
->>>   +    /* Prepare a TLB flush fence to be attached to PTs */
->>> +    if (!unlocked && params.needs_flush && vm->is_compute_context) {
->>> +        amdgpu_vm_tlb_fence_create(adev, vm, fence);
->>> +
->>> +        /* Makes sure no PD/PT is freed before the flush */
->>> +        dma_resv_add_fence(vm->root.bo->tbo.base.resv, *fence,
->>> +                   DMA_RESV_USAGE_BOOKKEEP);
->>> +    }
->>> +
->>>   error_unlock:
->>>       amdgpu_vm_eviction_unlock(vm);
->>>       drm_dev_exit(idx);
->>> @@ -2237,6 +2246,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, 
->>> struct amdgpu_vm *vm,
->>>         mutex_init(&vm->eviction_lock);
->>>       vm->evicting = false;
->>> +    vm->tlb_fence_context = dma_fence_context_alloc(1);
->>>         r = amdgpu_vm_pt_create(adev, vm, adev->vm_manager.root_level,
->>>                   false, &root, xcp_id);
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>> index 64b3f69efa57..298f604b8e5f 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>> @@ -341,6 +341,7 @@ struct amdgpu_vm {
->>>       atomic64_t        tlb_seq;
->>>       uint64_t        tlb_seq_va;
->>>       uint64_t        *tlb_seq_cpu_addr;
->>> +    uint64_t        tlb_fence_context;
->>>         atomic64_t        kfd_last_flushed_seq;
->>>   @@ -594,5 +595,8 @@ void amdgpu_vm_update_fault_cache(struct 
->>> amdgpu_device *adev,
->>>                     uint64_t addr,
->>>                     uint32_t status,
->>>                     unsigned int vmhub);
->>> +void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev,
->>> +                 struct amdgpu_vm *vm,
->>> +                 struct dma_fence **fence);
->>>     #endif
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
->>> new file mode 100644
->>> index 000000000000..51cddfa3f1e8
->>> --- /dev/null
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
->>> @@ -0,0 +1,112 @@
->>> +// SPDX-License-Identifier: GPL-2.0 OR MIT
->>> +/*
->>> + * Copyright 2023 Advanced Micro Devices, Inc.
->>> + *
->>> + * Permission is hereby granted, free of charge, to any person 
->>> obtaining a
->>> + * copy of this software and associated documentation files (the 
->>> "Software"),
->>> + * to deal in the Software without restriction, including without 
->>> limitation
->>> + * the rights to use, copy, modify, merge, publish, distribute, 
->>> sublicense,
->>> + * and/or sell copies of the Software, and to permit persons to 
->>> whom the
->>> + * Software is furnished to do so, subject to the following 
->>> conditions:
->>> + *
->>> + * The above copyright notice and this permission notice shall be 
->>> included in
->>> + * all copies or substantial portions of the Software.
->>> + *
->>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
->>> EXPRESS OR
->>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
->>> MERCHANTABILITY,
->>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO 
->>> EVENT SHALL
->>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, 
->>> DAMAGES OR
->>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
->>> OTHERWISE,
->>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE 
->>> USE OR
->>> + * OTHER DEALINGS IN THE SOFTWARE.
->>> + */
->>> +
->>> +#include <linux/dma-fence.h>
->>> +#include <linux/workqueue.h>
->>> +
->>> +#include "amdgpu.h"
->>> +#include "amdgpu_vm.h"
->>> +#include "amdgpu_gmc.h"
->>> +
->>> +struct amdgpu_tlb_fence {
->>> +    struct dma_fence    base;
->>> +    struct amdgpu_device    *adev;
->>> +    struct dma_fence    *dependency;
->>> +    struct work_struct    work;
->>> +    spinlock_t        lock;
->>> +    uint16_t        pasid;
->>> +
->>> +};
->>> +
->>> +static const char *amdgpu_tlb_fence_get_driver_name(struct 
->>> dma_fence *fence)
->>> +{
->>> +    return "amdgpu tlb fence";
->>> +}
->>> +
->>> +static const char *amdgpu_tlb_fence_get_timeline_name(struct 
->>> dma_fence *f)
->>> +{
->>> +    return "amdgpu tlb timeline";
->>> +}
->>> +
->>> +static void amdgpu_tlb_fence_work(struct work_struct *work)
->>> +{
->>> +    struct amdgpu_tlb_fence *f = container_of(work, typeof(*f), work);
->>> +    int r;
->>> +
->>> +    if (f->dependency) {
->>> +        dma_fence_wait(f->dependency, false);
->>> +        dma_fence_put(f->dependency);
->>> +        f->dependency = NULL;
->>> +    }
->>> +
->>> +    r = amdgpu_gmc_flush_gpu_tlb_pasid(f->adev, f->pasid, 2, true, 0);
->>
->> To flush all XCCs, as this is a corner case, we could start with this 
->> to make it correct for SPX mode for now, with extra flush for other 
->> modes.
->>
->>     int num_xcc = f->adev->gfx.xcc_mask ? 
->> NUM_XCC(f->adev->gfx.xcc_mask) : 1;
->>     uint32_t xcc_mask = GENMASK(num_xcc - 1, 0);
->>     int i;
->>
->>     for_each_inst(i, xcc_mask)
->>          r = amdgpu_gmc_flush_gpu_tlb_pasid(f->adev, f->pasid, 
->> TLB_FLUSH_LEGACY, true, i);
->
-> Thanks for this input, Philip.
->
-> @Christian, your feedback for this ?
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
-IIRC Felix and I talked about that before. In theory each VM should only 
-clear one XCC, but in practice that won't work.
+- Clear mpc_tree in init_pipes
+- Program pixclk according to dcn revision
+- Add stream clock source to DP DTO params
+- Enabling urgent latency adjustment for DCN35
+- To adjust dprefclk by down spread percentage
+- Add debug option for idle reg checks
+- Revert few patches which cause regression
+- skip forcing odm in minimal transition
+- Fix noise issue on HDMI AV mute
+- Enable fast update for DCN314
+- Enable 2to1 ODM policy for DCN35
+- Fix DCN31 underflow problem
+- Add the MALL size in the fallback function
+- Modify coding style/errors and remove redundant codes
+- Add missing registers and offset
+- Fix few problems for DCN35
+- Fix a bug which dereferences freed memory
+- Enable new interface design for alternate scrambling
+- Enhance IPS handshake
+- Increase Z8 watermark times
+- Fix DML2 problem
+- Revert patch which cause regression
+- Fix problems for dmub idle power optimization
 
-I suggest to just make it another parameter and maybe separate fence 
-allocation from actually arming it.
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+---
 
-Christian.
+Alex Hung (2):
+  drm/amd/display: Delete duplicated function prototypes
+  drm/amd/display: Correct indentations and spaces
 
->
-> - Shashank
->
->>
->> Regards,
->> Philip
->>> +    if (r) {
->>> +        dev_err(f->adev->dev, "TLB flush failed for PASID %d.\n",
->>> +            f->pasid);
->>> +        dma_fence_set_error(&f->base, r);
->>> +    }
->>> +
->>> +    dma_fence_signal(&f->base);
->>> +    dma_fence_put(&f->base);
->>> +}
->>> +
->>> +static const struct dma_fence_ops amdgpu_tlb_fence_ops = {
->>> +    .use_64bit_seqno = true,
->>> +    .get_driver_name = amdgpu_tlb_fence_get_driver_name,
->>> +    .get_timeline_name = amdgpu_tlb_fence_get_timeline_name
->>> +};
->>> +
->>> +void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev, struct 
->>> amdgpu_vm *vm,
->>> +                struct dma_fence **fence)
->>> +{
->>> +    struct amdgpu_tlb_fence *f;
->>> +
->>> +    f = kmalloc(sizeof(*f), GFP_KERNEL);
->>> +    if (!f) {
->>> +        /*
->>> +         * We can't fail since the PDEs and PTEs are already 
->>> updated, so
->>> +         * just block for the dependency and execute the TLB flush
->>> +         */
->>> +        if (*fence)
->>> +            dma_fence_wait(*fence, false);
->>> +
->>> +        amdgpu_gmc_flush_gpu_tlb_pasid(adev, vm->pasid, 2, true, 0);
->>> +        *fence = dma_fence_get_stub();
->>> +        return;
->>> +    }
->>> +
->>> +    f->adev = adev;
->>> +    f->dependency = *fence;
->>> +    f->pasid = vm->pasid;
->>> +    INIT_WORK(&f->work, amdgpu_tlb_fence_work);
->>> +    spin_lock_init(&f->lock);
->>> +
->>> +    dma_fence_init(&f->base, &amdgpu_tlb_fence_ops, &f->lock,
->>> +               vm->tlb_fence_context, atomic64_read(&vm->tlb_seq));
->>> +
->>> +    /* TODO: We probably need a separate wq here */
->>> +    dma_fence_get(&f->base);
->>> +    schedule_work(&f->work);
->>> +
->>> +    *fence = &f->base;
->>> +}
+Anthony Koo (1):
+  drm/amd/display: [FW Promotion] Release 0.0.208.0
+
+Aric Cyr (2):
+  drm/amd/display: 3.2.276
+  drm/amd/display: 3.2.277
+
+Chaitanya Dhere (1):
+  drm/amd/display: Add TB_BORROWED_MAX definition
+
+Charlene Liu (2):
+  drm/amd/display: fix debug key not working on dml2
+  drm/amd/display: change aux_init to apu version
+
+Chris Park (1):
+  drm/amd/display: Prevent crash on bring-up
+
+Dillon Varone (3):
+  drm/amd/display: add stream clock source to DP DTO params
+  drm/amd/display: Program pixclk according to dcn revision
+  drm/amd/display: Power on VPG memory unconditionally if off
+
+Gabe Teeger (1):
+  drm/amd/display: Revert Add left edge pixel + ODM pipe split
+
+Leo Ma (1):
+  drm/amd/display: Fix noise issue on HDMI AV mute
+
+Martin Leung (1):
+  drm/amd/display: revert Exit idle optimizations before HDCP execution
+
+Natanel Roizenman (2):
+  drm/amd/display: Added debug prints for zstate_support and
+    StutterPeriod
+  drm/amd/display: Increase Z8 watermark times.
+
+Nicholas Kazlauskas (6):
+  drm/amd/display: Add debug option for idle reg checks
+  drm/amd/display: Workaround register access in idle race with cursor
+  drm/amd/display: Detect and disallow idle reallow during reentrancy
+  drm/amd/display: Add optional optimization for IPS handshake
+  drm/amd/display: Enable optimized handshake for DCN35
+  drm/amd/display: Enable reallow for idle on DCN35
+
+Nicholas Susanto (1):
+  drm/amd/display: Enabling urgent latency adjustment for DCN35
+
+Ovidiu Bunea (1):
+  drm/amd/display: Revert "Set the power_down_on_boot function pointer
+    to null"
+
+Rodrigo Siqueira (9):
+  drm/amd/display: Remove code duplication
+  drm/amd/display: Remove wrong signal from vrr calculation
+  drm/amd/display: Enable 2to1 ODM policy for DCN35
+  drm/amd/display: Add the MALL size in the fallback function
+  drm/amd/display: Move define to the proper header
+  drm/amd/display: Enable fast update for DCN314
+  drm/amd/display: Remove legacy code
+  drm/amd/display: Comments adjustments
+  drm/amd/display: Add missing registers and offset
+
+Samson Tam (1):
+  drm/amd/display: clear mpc_tree in init_pipes
+
+Sherry Wang (1):
+  drm/amd/display: correct hostvm flag
+
+Sung Joon Kim (1):
+  drm/amd/display: Enable new interface design for alternate scrambling
+
+Wenjing Liu (3):
+  drm/amd/display: skip forcing odm in minimal transition
+  drm/amd/display: Revert Remove pixle rate limit for subvp
+  drm/amd/display: fix a bug to dereference already freed old current
+    state memory
+
+Xi Liu (2):
+  drm/amd/display: increase bb clock for DCN351
+  drm/amd/display: Remove unnecessary hard coded DPM states
+
+Zhongwei (1):
+  drm/amd/display: To adjust dprefclk by down spread percentage
+
+ .../gpu/drm/amd/display/dc/bios/bios_parser.c |   1 +
+ .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |  15 ++-
+ .../display/dc/clk_mgr/dcn314/dcn314_smu.h    |  42 +++----
+ .../dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h  |   3 +-
+ .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  |  50 ++++++++
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 118 +++++++++++-------
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  40 +-----
+ drivers/gpu/drm/amd/display/dc/core/dc_stat.c |   2 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |   5 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  44 +++++--
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |   1 +
+ .../display/dc/dcn31/dcn31_dio_link_encoder.c |   2 +-
+ .../display/dc/dcn31/dcn31_dio_link_encoder.h |   2 +
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_vpg.c  |   7 +-
+ .../display/dc/dcn35/dcn35_dio_link_encoder.c |   2 +-
+ .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.h  |   1 +
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |   1 +
+ .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c  |  12 +-
+ .../amd/display/dc/dml/dcn351/dcn351_fpu.c    |  94 +++++++++++---
+ .../amd/display/dc/dml2/display_mode_core.c   |   2 +
+ .../display/dc/dml2/dml2_translation_helper.c |  17 ++-
+ .../gpu/drm/amd/display/dc/dml2/dml2_utils.c  |   6 +
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c |   3 +-
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |  16 +++
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  10 --
+ .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |  12 +-
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |  16 +++
+ .../amd/display/dc/hwss/dcn35/dcn35_init.c    |   2 +-
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |   2 -
+ drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |   1 +
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |   4 -
+ .../gpu/drm/amd/display/dc/link/link_dpms.c   |   3 +
+ .../dc/link/protocols/link_dp_training.c      |  16 +--
+ .../link/protocols/link_edp_panel_control.c   |  64 ++++++++++
+ .../link/protocols/link_edp_panel_control.h   |   2 +
+ .../dc/resource/dcn20/dcn20_resource.c        |   7 +-
+ .../dc/resource/dcn31/dcn31_resource.c        |   5 +-
+ .../dc/resource/dcn314/dcn314_resource.c      |  21 +---
+ .../dc/resource/dcn316/dcn316_resource.c      |   1 -
+ .../dc/resource/dcn32/dcn32_resource.c        |   3 +-
+ .../dc/resource/dcn321/dcn321_resource.c      |   4 +-
+ .../dc/resource/dcn35/dcn35_resource.c        |   5 +-
+ .../dc/resource/dcn351/dcn351_resource.c      |   3 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  73 ++++++++++-
+ .../amd/display/modules/freesync/freesync.c   |   2 +-
+ .../gpu/drm/amd/display/modules/hdcp/hdcp.c   |  10 --
+ .../drm/amd/display/modules/inc/mod_hdcp.h    |   8 --
+ .../display/modules/info_packet/info_packet.c |   2 -
+ .../include/asic_reg/dcn/dcn_3_2_1_offset.h   |  37 +++++-
+ .../include/asic_reg/dcn/dcn_3_2_1_sh_mask.h  |  16 +++
+ 50 files changed, 581 insertions(+), 234 deletions(-)
+
+-- 
+2.37.3
 
