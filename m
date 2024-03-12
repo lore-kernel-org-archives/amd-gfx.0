@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A84BC54E58
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Mar 2024 08:50:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9007FC54791
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Mar 2024 08:50:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FF9F10F408;
-	Wed, 13 Mar 2024 08:50:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 798D910F6FD;
+	Wed, 13 Mar 2024 08:50:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Rf5HwYc9";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="1TmDewdF";
 	dkim-atps=neutral
 Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
  [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DB9110EAB5;
- Tue, 12 Mar 2024 15:02:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BA08112EFE;
+ Tue, 12 Mar 2024 15:50:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1710255777;
- bh=sNhOAl6WiJ8OT+RamoCeEoHzS3CmYfdvSaDISHJFlG0=;
+ s=mail; t=1710258611;
+ bh=of33+2FStLO6ifIYx8BLxbRLIRNyrmzZr5NjtBoPN8s=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Rf5HwYc9xQ8CbQrhAnDq+2BWsDsSQq+E3EorkFWzEO56RcLdeBx7HVsLnI2CD58P7
- 7CsupAGx5MkhYkkSs9CMyJMsxE4XdNtfb0G38wGqPcebrskCtSeo4tKdM+DKvxir47
- TZ+eh77z4k6F6NaX0B8Dqvd7dbq2tyCD48G3Y8bM4p/IW8RZiG31KOhDqhfcx1IjVu
- DIzue8BK0W+9pXjVI9dBr1YK5tf/df7aEM4maWDdK74BljSXg1WA6oQz7RxfgyqPGb
- T/NAv94raRs4Uwde3Yng0fIukAKx6jXxZj5Ei0NniTKp5n2ACzBqoz1EoLxDjdL7/q
- sJFV7OwuMyJlg==
+ b=1TmDewdFYLvSntysK0y+pr5JdnPbjB60NEtK5PX+XelBgBhz5bYIbKGeGQ3eC5Mic
+ hGJxkB22zOcY2w6UTfjV+kpiQWkGNxIALWddmVxz+OhgcrF8HitX0vmb5VoQszZ/EF
+ SPZy1QuFqt1v/KSm2wEXudPSW5QlRkJ79tPvgx/CbNZngEtIt9b05l2f5GpwsVkiBs
+ N92hu9d2hgFc3zxwEIkZ3pZ+wV4o3D1vuMbXETy95Z/CJb11O9g14V37kOMSmQZXcZ
+ MtvKe8x2JOyb0Hn3+UbYe0zuqIa46oqwZUiGguqbJLQs27kFQwsSKSFtxvT121PdCx
+ pTbuVEJOXxxyg==
 Received: from eldfell (cola.collaboradmins.com [195.201.22.229])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: pq)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id C38E237809D0;
- Tue, 12 Mar 2024 15:02:56 +0000 (UTC)
-Date: Tue, 12 Mar 2024 17:02:47 +0200
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 69817378209A;
+ Tue, 12 Mar 2024 15:50:11 +0000 (UTC)
+Date: Tue, 12 Mar 2024 17:50:09 +0200
 From: Pekka Paalanen <pekka.paalanen@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>
 Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
  <wayland-devel@lists.freedesktop.org>
-Subject: Re: [RFC PATCH v4 10/42] drm/colorop: Add TYPE property
-Message-ID: <20240312170247.326b1c6e.pekka.paalanen@collabora.com>
-In-Reply-To: <20240226211100.100108-11-harry.wentland@amd.com>
+Subject: Re: [RFC PATCH v4 22/42] drm/vkms: Use s32 for internal color
+ pipeline precision
+Message-ID: <20240312175009.2d00f836.pekka.paalanen@collabora.com>
+In-Reply-To: <20240226211100.100108-23-harry.wentland@amd.com>
 References: <20240226211100.100108-1-harry.wentland@amd.com>
- <20240226211100.100108-11-harry.wentland@amd.com>
+ <20240226211100.100108-23-harry.wentland@amd.com>
 X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/0jeQ+i6HaG7wBAwlzJwNm1U";
+Content-Type: multipart/signed; boundary="Sig_/_Ze2DpM.ZIoPSmX2yt/kl1S";
  protocol="application/pgp-signature"; micalg=pgp-sha256
-X-Mailman-Approved-At: Wed, 13 Mar 2024 08:50:19 +0000
+X-Mailman-Approved-At: Wed, 13 Mar 2024 08:50:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,122 +63,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/0jeQ+i6HaG7wBAwlzJwNm1U
+--Sig_/_Ze2DpM.ZIoPSmX2yt/kl1S
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 26 Feb 2024 16:10:24 -0500
+On Mon, 26 Feb 2024 16:10:36 -0500
 Harry Wentland <harry.wentland@amd.com> wrote:
 
-> Add a read-only TYPE property. The TYPE specifies the colorop
-> type, such as enumerated curve, 1D LUT, CTM, 3D LUT, PWL LUT,
-> etc.
+> Certain operations require us to preserve values below 0.0 and
+> above 1.0 (0x0 and 0xffff respectively in 16 bpc unorm). One
+> such operation is a BT709 encoding operation followed by its
+> decoding operation, or the reverse.
 >=20
-> v4:
->  - Use enum property for TYPE (Pekka)
+> We'll use s32 values as intermediate in and outputs of our
+> color operations, for the operations where it matters.
 >=20
-> v3:
->  - Make TYPE a range property
->  - Move enum drm_colorop_type to uapi header
->  - Fix drm_get_colorop_type_name description
+> For now this won't apply to LUT operations. We might want to
+> update those to work on s32 as well, but it's unclear how
+> that should work for unorm LUT definitions. We'll revisit
+> that once we add LUT + CTM tests.
 >=20
-> For now we're only introducing an enumerated 1D LUT type to
-> illustrate the concept.
->=20
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> ---
->  drivers/gpu/drm/drm_atomic.c      |  4 +--
->  drivers/gpu/drm/drm_atomic_uapi.c |  8 +++++-
->  drivers/gpu/drm/drm_colorop.c     | 44 ++++++++++++++++++++++++++++++-
->  include/drm/drm_colorop.h         | 17 +++++++++++-
->  include/uapi/drm/drm_mode.h       |  4 +++
->  5 files changed, 72 insertions(+), 5 deletions(-)
+> In order to allow for this we'll also invert the nesting of our
+> colorop processing loops. We now use the pixel iteration loop
+> on the outside and the colorop iteration on the inside.
 
-...
+I always go through the same thought process:
 
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index a295ab96aee1..3a07a8fe2842 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -32,12 +32,17 @@
-> =20
->  /* TODO big colorop doc, including properties, etc. */
-> =20
-> +static const struct drm_prop_enum_list drm_colorop_type_enum_list[] =3D {
-> +	{ DRM_COLOROP_1D_CURVE, "1D Curve" },
-> +};
-> +
->  /* Init Helpers */
-> =20
->  int drm_colorop_init(struct drm_device *dev, struct drm_colorop *colorop,
-> -		     struct drm_plane *plane)
-> +		     struct drm_plane *plane, enum drm_colorop_type type)
->  {
->  	struct drm_mode_config *config =3D &dev->mode_config;
-> +	struct drm_property *prop;
->  	int ret =3D 0;
-> =20
->  	ret =3D drm_mode_object_add(dev, &colorop->base, DRM_MODE_OBJECT_COLORO=
-P);
-> @@ -46,12 +51,29 @@ int drm_colorop_init(struct drm_device *dev, struct d=
-rm_colorop *colorop,
-> =20
->  	colorop->base.properties =3D &colorop->properties;
->  	colorop->dev =3D dev;
-> +	colorop->type =3D type;
->  	colorop->plane =3D plane;
-> =20
->  	list_add_tail(&colorop->head, &config->colorop_list);
->  	colorop->index =3D config->num_colorop++;
-> =20
->  	/* add properties */
-> +
-> +	/* type */
-> +	prop =3D drm_property_create_enum(dev,
-> +					DRM_MODE_PROP_IMMUTABLE,
-> +					"TYPE", drm_colorop_type_enum_list,
-> +					ARRAY_SIZE(drm_colorop_type_enum_list));
+- putting the pixel iteration loop outermost is going to be horrible
+  for performance
 
-This list here is the list of all values the enum could take, right?
-Should it not be just the one value it's going to have? It'll never
-change, and it can never be changed.
+- maybe should turn the temporary line buffer to argb_s32 for all of
+  VKMS
 
-> +
-> +	if (!prop)
-> +		return -ENOMEM;
-> +
-> +	colorop->type_property =3D prop;
-> +
-> +	drm_object_attach_property(&colorop->base,
-> +				   colorop->type_property,
-> +				   colorop->type);
-> +
->  	return ret;
->  }
->  EXPORT_SYMBOL(drm_colorop_init);
+- that's going to be a lot of memory traffic... maybe your way is not
+  horrible for performance
+
+- maybe processing pixel by pixel is good, if you can prepare the
+  operation in advance, so you don't need to analyze colorops again and
+  again on each pixel
+
+- eh, maybe it's not a gain after all, needs benchmarking
+
+My comment on patch 17 was like the step 0 of this train of thought. I
+just always get the same comments in my mind when seeing the same code
+again.
+
 
 Thanks,
 pq
 
---Sig_/0jeQ+i6HaG7wBAwlzJwNm1U
+>=20
+> v4:
+>  - Clarify that we're packing 16-bit UNORM into s32, not
+>    converting values to a different representation (Pekka)
+>=20
+> v3:
+>  - Use new colorop->next pointer
+>=20
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> ---
+>  drivers/gpu/drm/vkms/vkms_composer.c | 57 +++++++++++++++++++++-------
+>  drivers/gpu/drm/vkms/vkms_drv.h      |  4 ++
+>  2 files changed, 48 insertions(+), 13 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/=
+vkms_composer.c
+> index 25b786b49db0..d2101fa55aa3 100644
+> --- a/drivers/gpu/drm/vkms/vkms_composer.c
+> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
+> @@ -164,7 +164,7 @@ static void apply_lut(const struct vkms_crtc_state *c=
+rtc_state, struct line_buff
+>  	}
+>  }
+> =20
+> -static void apply_colorop(struct pixel_argb_u16 *pixel, struct drm_color=
+op *colorop)
+> +static void apply_colorop(struct pixel_argb_s32 *pixel, struct drm_color=
+op *colorop)
+>  {
+>  	/* TODO is this right? */
+>  	struct drm_colorop_state *colorop_state =3D colorop->state;
+> @@ -191,25 +191,56 @@ static void apply_colorop(struct pixel_argb_u16 *pi=
+xel, struct drm_colorop *colo
+> =20
+>  static void pre_blend_color_transform(const struct vkms_plane_state *pla=
+ne_state, struct line_buffer *output_buffer)
+>  {
+> -	struct drm_colorop *colorop =3D plane_state->base.base.color_pipeline;
+> +	struct drm_colorop *colorop;
+> +	struct pixel_argb_s32 pixel;
+> =20
+> -	while (colorop) {
+> -		struct drm_colorop_state *colorop_state;
+> +	for (size_t x =3D 0; x < output_buffer->n_pixels; x++) {
+> =20
+> -		if (!colorop)
+> -			return;
+> +		/*
+> +		 * Some operations, such as applying a BT709 encoding matrix,
+> +		 * followed by a decoding matrix, require that we preserve
+> +		 * values above 1.0 and below 0.0 until the end of the pipeline.
+> +		 *
+> +		 * Pack the 16-bit UNORM values into s32 to give us head-room to
+> +		 * avoid clipping until we're at the end of the pipeline. Clip
+> +		 * intentionally at the end of the pipeline before packing
+> +		 * UNORM values back into u16.
+> +		 */
+> +		pixel.a =3D output_buffer->pixels[x].a;
+> +		pixel.r =3D output_buffer->pixels[x].r;
+> +		pixel.g =3D output_buffer->pixels[x].g;
+> +		pixel.b =3D output_buffer->pixels[x].b;
+> =20
+> -		/* TODO this is probably wrong */
+> -		colorop_state =3D colorop->state;
+> +		colorop =3D plane_state->base.base.color_pipeline;
+> +		while (colorop) {
+> +			struct drm_colorop_state *colorop_state;
+> =20
+> -		if (!colorop_state)
+> -			return;
+> +			if (!colorop)
+> +				return;
+> +
+> +			/* TODO this is probably wrong */
+> +			colorop_state =3D colorop->state;
+> +
+> +			if (!colorop_state)
+> +				return;
+> =20
+> -		for (size_t x =3D 0; x < output_buffer->n_pixels; x++)
+>  			if (!colorop_state->bypass)
+> -				apply_colorop(&output_buffer->pixels[x], colorop);
+> +				apply_colorop(&pixel, colorop);
+> =20
+> -		colorop =3D colorop->next;
+> +			colorop =3D colorop->next;
+> +		}
+> +
+> +		/* clamp pixel */
+> +		pixel.a =3D max(min(pixel.a, 0xffff), 0x0);
+> +		pixel.r =3D max(min(pixel.r, 0xffff), 0x0);
+> +		pixel.g =3D max(min(pixel.g, 0xffff), 0x0);
+> +		pixel.b =3D max(min(pixel.b, 0xffff), 0x0);
+> +
+> +		/* put back to output_buffer */
+> +		output_buffer->pixels[x].a =3D pixel.a;
+> +		output_buffer->pixels[x].r =3D pixel.r;
+> +		output_buffer->pixels[x].g =3D pixel.g;
+> +		output_buffer->pixels[x].b =3D pixel.b;
+>  	}
+>  }
+> =20
+> diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_=
+drv.h
+> index 2bcc24c196a2..fadb7685a360 100644
+> --- a/drivers/gpu/drm/vkms/vkms_drv.h
+> +++ b/drivers/gpu/drm/vkms/vkms_drv.h
+> @@ -36,6 +36,10 @@ struct vkms_frame_info {
+>  	unsigned int cpp;
+>  };
+> =20
+> +struct pixel_argb_s32 {
+> +	s32 a, r, g, b;
+> +};
+> +
+>  struct pixel_argb_u16 {
+>  	u16 a, r, g, b;
+>  };
+
+
+--Sig_/_Ze2DpM.ZIoPSmX2yt/kl1S
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmXwbpgACgkQI1/ltBGq
-qqd58BAAj2zfJHrEz85/Y8VU2XXhVx6m4QZLCjUhsnFkq7Ktq5dTGu6sCuX01s6F
-sdDLSXfmKoYrFfBlGaO6rJVxt+0otWN9LCFCsGmguJZPKCqX6FSW8KANxptzfp0Q
-gT3x300BKcTTTA8acjvCjJpCba9o/Gh8cTxs+Sv8syLn8qxDX1rDVdr+NKSrPkVo
-Zdl6m286r5Ied+qNQ23A1ANCL999XTVmcJ+5gTXiFhhjBLHk/v+edgsxSVoLyQ5D
-HU33QqMe9zlLc2aauhDa5bmju6CtNixMSFXJkdX2Wljd1sGCsJH0Ah6T4kMLg47y
-R5WdQZtFVAKZ/WwJmozPtkDh6AimysVw0zUquL4melQcapjPENkHIo2vaY1TkDj7
-Mr7ANrAV+zgmZD6dC60My9zfZ8IiToKmQ+1SXwYA1QuY8o6cEHdNybAjYQ6vjDfI
-72arPNS1wk/4+lnJGEnNWRcM/3sdjYDXXo7CY6A7ULe5Y6JwqpaAf0T8EP8ay4PI
-fkJEWq2UTJrlMiSSIgiX9LzODXTXpDPFIYktDhoRBe5nrr6TCTm2CIdokIN5ak1c
-a4Mhw+0027gyixdaW/dJG94i4MsOERxsgoYT4DaYGdk8TmhdsaACDdUrK0XCEiGa
-gQ+FUkRFv/SD9WZ8L/Py0o0dbwkGpXlyAjBKa6fXi/lLOng2ArY=
-=FS0A
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmXwebIACgkQI1/ltBGq
+qqco+xAAgmK0dBQRO+mZF17VpUwkvrwpxIorD7MONRxBvHi7DW6MprsxPJxXBOhm
+i2hbPABwASRCfq4wbTZCkD8grdrmzGuQmowUutGfVGhVLyXQhWAsEw5W720gfI6f
+dcbSDKQ+/2lyjC4Oi3fdkV7ioo8rLlo4azz54UKgB0VYUhZnoGihKQkI9P3j9+UY
+kHfK8plP/QzWSgxjt2ERhjwJQ3p86eYMfIky3pWxukski+yDQ7aik3lRt34qCBpM
+sOZyyOEXEUoGYpkLKVQrEbFGA7jlw6uLTg2pgHQbMLMiD2/6uWwyCce/LiuOD1qZ
+9zNTUS6MCVeLFq0OnFAs8DFPhBgS7kz47fz9yJ+9mIvi0V1raepBGTZ83N1KZXHc
+nvA9ASABN1M0u269009mtY+J3h5Voph470zVQlz3ED/TwK+Z6lkZE9g5sy8wt/4A
+ajVO+k26MmAE4aT8lI9x1b/drg9iaPkJro4N9qnlB9pDAEwPFdXI40S3poMhd3Oz
+Baph/1kPpAySzyremvH/30JRpA1Ioze586PdaiD+NEPQmUDARvMecV2EKaXiXobY
+I6J6ZthL+7+g4UAHSX1u8uDLNblAp0Kwi1GIYQ+HmbWjizZsmznHg5ChnVoNmjGs
+3vic1Jc6w2luv64ikPwyHOud6MWwgDcTRB0odXtOFifG76Tc9Ss=
+=+cIn
 -----END PGP SIGNATURE-----
 
---Sig_/0jeQ+i6HaG7wBAwlzJwNm1U--
+--Sig_/_Ze2DpM.ZIoPSmX2yt/kl1S--
