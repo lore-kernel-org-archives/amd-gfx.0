@@ -4,116 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDDA4C54E60
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Mar 2024 19:49:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56E46C54791
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Mar 2024 20:03:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DCFC10F856;
-	Wed, 13 Mar 2024 19:49:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2C3310E989;
+	Wed, 13 Mar 2024 20:03:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HWvdHbnw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="W9UQb3m7";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2056.outbound.protection.outlook.com [40.107.100.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3779B10F856
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Mar 2024 19:49:21 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2040.outbound.protection.outlook.com [40.107.244.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0D5710E989;
+ Wed, 13 Mar 2024 20:03:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nw2HdVHafUfus+dAClMs2geT5Kj+zwFV/UPyz0QnQx2UU9J9Y/5BO00KkVK5RPPyUVY8cVcm7sS6QSy2xj3BJ0X/mb2Udko9qEYP6Sf46ph5P/W27padwaCHHOOmdaONafMNnqjUYgwTraKN9g1kXA5iqVePNheKQ2q9nn6ICs0lBfmgYu8LeJXaMQuymLW0UAGiMy2oyen5PkCj6VXEVAdAC78vDPYiynv+G1mOw9k3SUIPUeUwCpBT/deu2wK153rnSsHGBf7mfTxQJ4cUHAzokTGYSl+S0pGCrLM4OT4lRpcvNEHLGyJZpNErf2XcqmNDwpRk6sJrJiSpEepWKg==
+ b=QNyCramj7d8ZBwZiuySnYihC9mLsl5ut6myHNwwyOrqba2HNOlEj4BirWPOdZFuQ/dap5kRSHDecRcF/VT3N3cZPqEOAqoj4ty6lq3xJ+8L/knTkt8a5RV8YvzIG/2ZbRAsDm2zTliEm5FaZleRl7k5tqDulE7TB/LKG7zdBltZnbNQUuXzqfGxCO35ACeYbYswigTZSlnEMDOoAG7Y4MZ2Ma/cmxfeT0Q4VmLpVyY76QHog9c1ewxHFUlumvQwSri1dLokfSJSjk4qA8zOKq1/5GiZy4xvJDlYyPF3qgr9QN1hG3xJd7koPM+WuYHZW6bpjY47JdHKHDZYuZTe5fQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o0UMyHO2yeFcukHkwN8mbVPddaOtrSECyeb9bSK5ESw=;
- b=cXFrMoTkKE5OltYe9oXuPYyP1kv1f5RDaZVOEj7i8WxxTeHPT8zniyLiT7/opZp2lc9TQny3+ty6eTkELc66wDKDegQoYUiJ0LE+w/LqNIZAfWnZN6H+Ur8JKV14hdu6vUUsrF4aUj5Jo+vLd3l5bl9IQV63MmxTVJ9LPv8PBjqfd+4D+YfKRhdf5umpYnrPxYJi/n2cNitwKz3vJG0am4xFRM//PxLaMNfLzLma+27FjEpBPaGs6HAGxjv5noiSkaRyODg3/YHGWhmcJ/XiQRf0GQSe5bqLAuWmTpag/93UtGufn3iq/lEjgHkc9Yj2CgDhQFT9s67p5Hx52U0DRQ==
+ bh=1PLlSPe5F2jSlEi6sXozzNs7J9I7H6YCGNDdaoe2Lc8=;
+ b=VA9B0driMvlRTnCt0smDNMkYRFzPGWMOlDEAbhyvu8mD44TOrEWnLnXuxjeK5beEM257SwVMDgCAP0g/XdbZuqEQIOlHJr6Q6vDN78svagifin3qjBOxw50RM1pwmMshdnAULPwNF3rl/uJ4a3yIpjt6DY3uK7OY/EpaCJjM7gF9we51DlGX6y5FS4MJYNRprIhQ9hhb3PxjKACF/NMNEeQvaxZggAsFLLhmP7eErC9UslfUyco+sKw/4tqVKXZTiFMILQtKlrDxo6FKB0RKTN/wfjnVOqsmCFJG/Z3dydHiSBOJrfk2eBJ7em3JhOnwofmirBWZROfkGvVns9clcA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o0UMyHO2yeFcukHkwN8mbVPddaOtrSECyeb9bSK5ESw=;
- b=HWvdHbnw+YPR7xYpuo1ddVPRthVkvJq9CLP92ajZrodbCZvqNGRE1WQG9gxzhrdOzNxq+oBtpUg6xHPzP4tt32yur1rzgGfRJHDnxPgRZkmcYYJLKMM16erI6JAnhs9lE4QZvExGwxug6Ak3vFsWvTHFdACHlWMFSKP3s0fUNQk=
+ bh=1PLlSPe5F2jSlEi6sXozzNs7J9I7H6YCGNDdaoe2Lc8=;
+ b=W9UQb3m73K6vGhGtSGXOur6yWzTJuPs6VYiHyRsqS0YcmFHBc2IRNHuL87K80SP6d3ZEkHmlr3kPrT8/m4RwDqBlGRXaof7pHk8mbJtPCgm6YtCU+5WfELB7i4VZoj6WTbRf0BnY90tyOgw7c9vMJxuyUh1qRfglof0bHem02iY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DS7PR12MB8371.namprd12.prod.outlook.com (2603:10b6:8:e9::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.36; Wed, 13 Mar
- 2024 19:49:18 +0000
+ by MN0PR12MB5833.namprd12.prod.outlook.com (2603:10b6:208:378::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.35; Wed, 13 Mar
+ 2024 20:03:41 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::8099:8c89:7b48:beed]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::8099:8c89:7b48:beed%7]) with mapi id 15.20.7386.017; Wed, 13 Mar 2024
- 19:49:18 +0000
-Message-ID: <aec029aa-8ceb-4450-9139-27c7dda43f98@amd.com>
-Date: Wed, 13 Mar 2024 15:49:15 -0400
+ 20:03:41 +0000
+Message-ID: <65d9f97b-95a8-474f-a716-32f810cbb1bc@amd.com>
+Date: Wed, 13 Mar 2024 16:03:37 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Do a basic health check before reset
+Subject: Re: [PATCH AUTOSEL 5.15 3/5] drm/amdgpu: Enable gpu reset for S3
+ abort cases on Raven series
 Content-Language: en-US
-To: Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Hawking.Zhang@amd.com, Alexander.Deucher@amd.com, Asad.Kamal@amd.com
-References: <20240313094132.668370-1-lijo.lazar@amd.com>
+To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Cc: Prike Liang <Prike.Liang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+ Hawking.Zhang@amd.com, lijo.lazar@amd.com, le.ma@amd.com, James.Zhu@amd.com,
+ shane.xiao@amd.com, sonny.jiang@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20240311151424.318621-1-sashal@kernel.org>
+ <20240311151424.318621-3-sashal@kernel.org>
 From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20240313094132.668370-1-lijo.lazar@amd.com>
+In-Reply-To: <20240311151424.318621-3-sashal@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQXPR0101CA0046.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:14::23) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQZPR01CA0066.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:88::15) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DS7PR12MB8371:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8fcf9196-caeb-4ad5-c4a7-08dc4396abdb
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MN0PR12MB5833:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d33c3bf-758a-49c5-4486-08dc4398adab
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AGxAh8slBHarYpuhJyVegdx9U86mbqEsgqjme2P6dQBBdjFqJ0HWycyq84N4KbYXMjL10MgJn74ytI0o4hokHswEHgWayIBI+SNbiyYTFxQSpSGLd/hfJo7kgg1XJRToOhgW/uCj8dglBds+BG+4Klzv8t29Ry+iTYcHpE+6yXoYt39IFVxNFXHjd4anSyfReS1SwSiibw1OTeswVTNN5ugL3OM3NZzWct77LgYX8fjWXfUaCiCvzPuxgRH7ZtojWj3KKPiBrwMxxHjFHZ3yBTQWPc4D0PCxh49Atw2aTErKMcRkR1ypN56CkFR7GkjTilXySjYk5exgdHtg6ELwlXZubKLlnsj9jAX5htNhlZGDGBH4cZ50TpaVCkt5s94Zm5IYjfG5LO+B5k4IWK8kYCbRPj80wKoBnYaBRNPmWMB0GizHEqHhOkhV0YX/BQp9VAesIfAXwlDIhGo3IJTIX2WWzpJVyZS81AWJlOCZJnYeVdlyIEF3QxTFqkL99RXWe/rOIpdHdooHW3K+58rvgjg2FQ5V3E8W+CfdrrIPvSWH/oW8MdACDBHtKMjAomiQuQxgkpColMd8SXZBckZVFmL31/rEgYXYmyOKqmImdaGn+ZIbt4/ggqfEUsgAc805wTBrCxzkkVuXq4dAlv42vXtLCCzSTS+LvbosALq4FEQ=
+X-Microsoft-Antispam-Message-Info: 1/twie5rzbx/Iip+30NZ8u4TTuBIXYEZ6igdv7KQvFN18WS3mxPZlc0XwDLxgUVsYB2NSVEX3k3JErzH+zwM7EwyooB6uPoO9FY+PWIDBRsFf7z5Im9SDPfxKNRjtk9DbyF+QqZ/XmCG5ewy1lkxM1K7zL2prj3nos4ZUa22VnafbHRO24KmvszvYPs991H3EYXVC2BMe4aIaT9zbS9LoAO2VMcGJFyviIyxK42qp2G926yZ0YXd1wKLQh3vIVMWtKP3zaMFxhvFLYwuEeiWpfwXbXFC1rGDXg75ThdASmg32qBhXYmgmCPFueCYrRj/UbZQaNkQ5OF31+1tcQJwB1QxLO5Ht7IZCgMkF+OEY0ntSq59HWC8DiK0WUymD9gCqSQKL22j/94NjdjtBI3RW0LKSsmcm0bYDX1ErLNPMx/Wy2RGvZ+mB4TVjf/HFQ4ElBwx/GxadHtfzIR4GiA4pf6tyPbr+4TRd9LZb8Nug/z1lEwlFCJxn5FJNPXr9lW4pGpuLwE659T9IKN0igp7h2H3Yfu0Y07oCq+9Z616k2n7kcQErBM7eO2SjQExPvGoQh5MB5GD3hzqnQ+pHmwKdcjqJ6isr9nHYlyjTrRckTZ5YUs4zERYQUfccfc61WGsoZRa9ASD2HJbesmLPYNZMsIpxFPRwRvbyU7a9SgelVU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(376005); DIR:OUT; SFP:1101; 
+ SFS:(13230031)(376005)(1800799015); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bWVIU2E1Nm85cEVpZWxKdm9wNDlORWd0NjM1dUx6VWZNVUJZOCt3am1reGJY?=
- =?utf-8?B?MVZrdVJHeFk1YUJJWWVYLytFWVprbFRRY2VWUzFyNWNBZGZOMzZRY2MrZzlu?=
- =?utf-8?B?OGtpaGorY3RuLy90b2k5TW9IVkxkeTM3UERmWmtyRDhNVEpNYTFBNy9sLzlI?=
- =?utf-8?B?RnI1RUUzU0ZpcHcvU0ZTNEVhMjJtcEd2UXJ5blQ4Y1dMUDhBMXI5eTJaQVJx?=
- =?utf-8?B?UUNCT01SUVN6YVdPMGhkQ3RsejJSY21oWGUrenFQZE5Dd3o5bFNETGNaZGV4?=
- =?utf-8?B?Z09HLzY4R0tEUjBrU0JkcHFuWHpmTzNWaFF1c2ZHNE1wRzlLRWs5R0hxeFdh?=
- =?utf-8?B?TGpmb0xnZlV5YlhrV1c2eVVzTXJ0YlNNUkcvODBhckREd3BkN09MTFlJbnUz?=
- =?utf-8?B?SFFOeThWaEs4NDhVMVNuOENPdnBGaGxZZjlzamFrdVBJOHVUcTJuUEtDaDhN?=
- =?utf-8?B?OGZORXVzTGk5Z25TZ3J2Wm5RNFZGNFdxQUpYRTcvRlpMMm9rMW5EUnRjcUVq?=
- =?utf-8?B?bm5aekdXNVR4Y2VVUFJ3WHZQTXlVRkxZZFJxOFN6Rnk4SXRqZ2tHbTZET3BY?=
- =?utf-8?B?M0tLM0ZzdVhNSmF2OE5vRFFmUDN6MnEyMU0wN3VFRTcvNE5sVlo3SE4yYkFG?=
- =?utf-8?B?MWZpbEY2b0pSOUdSZXNZVzZiK1d0akw4ejBQY244eTRhTWMwakEvQk52bk5w?=
- =?utf-8?B?bCtaZjQ4NmR6VjhJd0tlTE9IcTFBOVJ1enVKem9hUHVFanJ0dU8vcDZuWHhh?=
- =?utf-8?B?QzBVT1loOWFpWHN6TzRmdkZoVC9NQTlCZFJiV1draUUrVE82bGhTaW05Mnp4?=
- =?utf-8?B?SWtCeFYrWHAxRi9mNW9NQ0NQck5xbUsrV2s1aldIMzRoelRvVlNHSG00WDRs?=
- =?utf-8?B?ckRFOEpQUklFaWZObWFVNFI1NGp5M1M3YzQ0QXpZcHA5VElRbFgvbVd1NU1y?=
- =?utf-8?B?NXRNaVhZNVlld3VNOEszVld2L1VlSHk1aUtYWmVmY0craXBDclNwbEltcFZC?=
- =?utf-8?B?QVo0ejJSeUJlUzMwbjNBdzE1V2p4QTZ4VWNvaHh2dmF6ODZHQUlSUlMranlv?=
- =?utf-8?B?cG4zUU8rWW1JcWZiMzZ5U2x2VW9WNjJORDRydjZNR0xTNWkxSnZjTUlRY3Ax?=
- =?utf-8?B?MHJaQ0JaNFE5YjE0R2NBbUdGK0w0bDJmcDdydXNqdFF6S3FUR1hETS9vTm5Q?=
- =?utf-8?B?dFRXa3BkU25rQVpYT3JmQUJndzF4NWdYTG4zd3pUczd3YzZvWW95ak1QZ0dn?=
- =?utf-8?B?OFZtVEZ4b2xtK0l5NnV3enJhZSsrMXlRQ05iUER6elgzRTNiT0ZQN0szNSty?=
- =?utf-8?B?VE1vLzJpV2dhSkpOT0JGSU11Y0M1ek5iUGY5MjJlL2FkTHRWRklNMzBoUzVu?=
- =?utf-8?B?eWlHUGF4YTRhVkpSaEN5bmNHRUZCQ0NrZFJEVkg3a3AxampLZnplWGMxenJ6?=
- =?utf-8?B?Qml2UjBnd0RYcFpWdDIwcTFNVDFweUFrVUdkSVZRRzhXV0k3bkVtenF6bUQy?=
- =?utf-8?B?RG95aDRWVXE1L2JjalYwbzNzTWZaa2Z5eFcyWDJWMjV6QnJiYy9YY1pjMHJL?=
- =?utf-8?B?UmtydEVQekc1NUFUdjBtZHZ0WkVSeG1FbzdWajhqMEZqWkR4L0psTGdXMS82?=
- =?utf-8?B?OHNhR2N0YUxmb0VSRHFPcHplOUJJSjRYWmttK3VHT2ZMK2lZRVF1Q203UjJQ?=
- =?utf-8?B?QVBOMUtWb3A4bTZ1S0xzdjkydU9tVXZiZW5mUC80ZUp0cjdvcG5qdG9ySVRW?=
- =?utf-8?B?K3h4NEk3cjU1czNyNHEvT2JoNWlYUGh0VjdPT3BpOHg2Mk5kZmZzVURUWjlG?=
- =?utf-8?B?T2Fxbm10b2k1c1BxSEJ4SjFDaVNWSmZ3SW80TWp5dFRhYWplYm1xZlpadVhS?=
- =?utf-8?B?RGMxbmh5Y1Z4MVc5a3o5aUZMcm9hcUNHcWtBT3R6QkdKTm04NlB0bHU5ZXBi?=
- =?utf-8?B?dzFudFJESFVqZGg4VWV5WEF0RFN1OTVIWEMyVENTMzVVVWhQZlk4OWZLMHhM?=
- =?utf-8?B?bkRZTjdZQmhESFpFdnJEcDMvbmV4b2tmUHZjWkVqOWUwcW5FZGNUR2l1enRW?=
- =?utf-8?B?MXhieEc1aWI0cGU3ZUh0bzk2RGp5eHI0bUJ0L0xBM3ZlYWdRdDF5T3J2cmdy?=
- =?utf-8?Q?dJqjr2vG9Aw4PwYPKHlqXzsAU?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d1hKd0FjSFNxdTIvNUNLK0dYZkxJdVg2aXdQbjRiZFN2d1NrSW4rUFJibThm?=
+ =?utf-8?B?S1p0bG1Va2psQUJ2RVZZVHp2VVhEeWJ3eTJYbzlvaXF2ckdKTG1ZRTdrWEth?=
+ =?utf-8?B?ZVQxaGRRdGM4UXNPemlSay9KZExSZ1liRFVjWFlPQmtzSnNaZnpLcHB3YWdq?=
+ =?utf-8?B?WVVKMExxSTRYcFhDb2wvTjFSTm1iMGF4eDBhYVh5YnA2ZDdJU3dBSUg4cWsz?=
+ =?utf-8?B?MURqMzgwUk1NU1pxRDdpL1UxTWZadGxrY2FEUnhrSE1KRVRPek91SDFteW9D?=
+ =?utf-8?B?VjNiMTNlT29KdWFUdHA4T0FqVDdKUnBwOXRBblRNRkJRZWhZNzMrVU9qMmEx?=
+ =?utf-8?B?czcwODk3bTkwamhhQXJ2OWxndE1DaUVOQ3YrREU5c2NBRGJBM0I1bGtGblpr?=
+ =?utf-8?B?QUIwZXIwWjNFYW5USWFCU0R6ZWJuWGN3c2ZtcDBUalBXTTFrM21VY01Fcjlr?=
+ =?utf-8?B?b3kvODN5YXNwZTdrTm9XVXR4aEtOUUdTeVNIUm5kTlpVd1BCZ1UvWDYvVnZa?=
+ =?utf-8?B?MXJCalNvenhSL1RsZFdjVURYZVoydURBYlZmK01zc3l0R3ZzM1VMMEl3NWhR?=
+ =?utf-8?B?eHBnN2NXQk9qc09SVCtTMjFvN1BJQTJQZG9QZkZIMGw5TjI3WXNMaVo1djVr?=
+ =?utf-8?B?UElpMnczRjhqTG9OSkpxUC9HUnBlcnJtMFIrOStyRG8rWXVyRm9QRVlzT1Br?=
+ =?utf-8?B?bFR6OW1tNUd0MGtDTXlsaUJHLzdjWUVBdk1RM0JmY01QKzZzSHhYK2czRGNQ?=
+ =?utf-8?B?V1Z5Y0o3L1lpdXc4Zm04azMzd1RhbThFd05SakE2cW1neHZPU05RU0hFbEEr?=
+ =?utf-8?B?OHdvQWlZN3R0QVNaQXhvVGFFeFpzY2Z5UUljcTUzYkNvTDRoamkySkp4OVR1?=
+ =?utf-8?B?d1BtWUMzLzhrTE0zbVZQVWR0SEs0UVJIcXVpWkNDSVhTeUo1a29PKzVYaS9V?=
+ =?utf-8?B?UHVUMkNUSXk4TittNG9zVVFJTW5HeVpzaVlDUGpSSXdVOW10TG1uUURDdU1B?=
+ =?utf-8?B?RHpmS09LRkgrNWNJanhtbGdVTGs3ZHVKb3FWQ1JiZW1jRjR3SnJ5Q3lKLy9D?=
+ =?utf-8?B?Ujk3b3IwOHFLMjJQRS9QdHdWZzB3MnUyVnZHUlRpam1UQWpvUHNiSExvT0VY?=
+ =?utf-8?B?dlFDVGh0ME9wUHl3dGRYMUZXQ2V1VTBJSlQ3ZWV1NExBajNUbGR5bUsyVk9I?=
+ =?utf-8?B?d2RrU3o5VzIxQ1dFMlVTVmZvUGlwNlRCVzVKa1ZseFRKY01CUWpGZlJ6NDFm?=
+ =?utf-8?B?c0pIM2RNRUZtWFFLcXJFbE5lZXg0Vm15TitFK0lQejZ1R0gveDlaaEpMVXVZ?=
+ =?utf-8?B?OWdCbDY1RFRYcmhOMzJYR3d5d09NenZMZXlJUEw3Y2lucVY4Z1JFcUE3Mk9N?=
+ =?utf-8?B?eVpTV2lLS25SMzEzaHVZNEl6NDlvT0Q0cjVwc2g4MEM5dmJkdmlsWHhBMVdx?=
+ =?utf-8?B?b2VMS3NJVVM2aEtzWjFGOGpVWkUxa2hlSlVsUDJRWmFHRC9YbXVMMTBkUkNE?=
+ =?utf-8?B?NEVTbXExR2xUUDZzUjVXUjNJR1VNdEpic0NMUloxaWY2bzFPd2JLSWlhbmxC?=
+ =?utf-8?B?RkdET3lWZW11VlFVeUlHU2x5N0xnRTY2NXJYeHhyQ2pvUmc4blVvOE5BV09l?=
+ =?utf-8?B?VEpEb2RlT1pVaW4vSUdYS09yb2IxNFZFcThYWnZGb1ZOS0Y5RkhtZU1xUGpw?=
+ =?utf-8?B?SkhBd1hydDN2VVh5Rjc3TjFEcFBGdjRmZkoyTkI2UkxwbWFmbW00a1U5YWs4?=
+ =?utf-8?B?bzhMYW5rbjV1YUNVZ0lSVS9vd3p2cHN1Y3RkYTFpQ0tEcy85bnFUNVJRQmVQ?=
+ =?utf-8?B?T3JYNWpsZVM2RnpRQjV4TmVWTXBUbDd4aGdqcDkwMTZVMTNmRUcwaG04Vmgr?=
+ =?utf-8?B?RVI1K3N5V09jSklKSGFKRmxXQ1k0d0QzNWFwalp0ZFU1Q0xuMUhhNVVnNG9V?=
+ =?utf-8?B?NmQzWC9qYXY2OU5sd2Y1eHErVEdReGNSVWh6ZG56Ui9vYk1hcS8rVjJUS3BP?=
+ =?utf-8?B?MkNaZ1Z2QnJwcFBOV1BCZWN3SVBEQmxNYk5nWTJyd0xCaDdLRWNONjkxcDJ4?=
+ =?utf-8?B?ajlCRnF4MjZqTjZiUThTcmhCOVdFeEpCc0ZpancrelZqNWwxV1RVWmdJOGk3?=
+ =?utf-8?Q?7BE427Lvclnz3H9HcmusZXxik?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8fcf9196-caeb-4ad5-c4a7-08dc4396abdb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d33c3bf-758a-49c5-4486-08dc4398adab
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2024 19:49:18.8384 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2024 20:03:40.9065 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9emD7cIkg4+xUAOFR9YWcDL5ZhwBhh29zUDraDBcCL2YCH+81rdcbe7Xiz8uvcwvwNomcHUQGUCiDC8TEf/fLQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8371
+X-MS-Exchange-CrossTenant-UserPrincipalName: JETltVkxp6Vs85yVfNLhrIGCnZmmVCoz5D434xH3NLP+0oEMVcMn/uCKIr+ugheu6QJGnApircOUmCocdtkiug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5833
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,71 +136,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2024-03-13 5:41, Lijo Lazar wrote:
-> Check if the device is present in the bus before trying to recover. It
-> could be that device itself is lost from the bus in some hang
-> situations.
+On 2024-03-11 11:14, Sasha Levin wrote:
+> From: Prike Liang <Prike.Liang@amd.com>
 >
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 24 ++++++++++++++++++++++
->   1 file changed, 24 insertions(+)
+> [ Upstream commit c671ec01311b4744b377f98b0b4c6d033fe569b3 ]
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 1e9454e6e4cb..b37113b79483 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5536,6 +5536,23 @@ static inline void amdgpu_device_stop_pending_resets(struct amdgpu_device *adev)
->   
->   }
->   
-> +static int amdgpu_device_health_check(struct list_head *device_list_handle)
-> +{
-> +	struct amdgpu_device *tmp_adev;
-> +	int ret = 0;
-> +	u32 status;
-> +
-> +	list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
-> +		pci_read_config_dword(tmp_adev->pdev, PCI_COMMAND, &status);
-> +		if (PCI_POSSIBLE_ERROR(status)) {
-> +			dev_err(tmp_adev->dev, "device lost from bus!");
-> +			ret = -ENODEV;
+> Currently, GPU resets can now be performed successfully on the Raven
+> series. While GPU reset is required for the S3 suspend abort case.
+> So now can enable gpu reset for S3 abort cases on the Raven series.
 
-You could just return here. What's the point of looking for other 
-devices if you're going to return an error anyway?
+This looks suspicious to me. I'm not sure what conditions made the GPU 
+reset successful. But unless all the changes involved were also 
+backported, this should probably not be applied to older kernel 
+branches. I'm speculating it may be related to the removal of AMD IOMMUv2.
 
 Regards,
    Felix
 
 
-> +		}
-> +	}
+>
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/soc15.c | 45 +++++++++++++++++-------------
+>   1 file changed, 25 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> index 6a3486f52d698..ef5b3eedc8615 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> @@ -605,11 +605,34 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
+>   		return AMD_RESET_METHOD_MODE1;
+>   }
+>   
+> +static bool soc15_need_reset_on_resume(struct amdgpu_device *adev)
+> +{
+> +	u32 sol_reg;
 > +
-> +	return ret;
+> +	sol_reg = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
+> +
+> +	/* Will reset for the following suspend abort cases.
+> +	 * 1) Only reset limit on APU side, dGPU hasn't checked yet.
+> +	 * 2) S3 suspend abort and TOS already launched.
+> +	 */
+> +	if (adev->flags & AMD_IS_APU && adev->in_s3 &&
+> +			!adev->suspend_complete &&
+> +			sol_reg)
+> +		return true;
+> +
+> +	return false;
 > +}
 > +
->   /**
->    * amdgpu_device_gpu_recover - reset the asic and recover scheduler
->    *
-> @@ -5607,6 +5624,12 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   		device_list_handle = &device_list;
->   	}
+>   static int soc15_asic_reset(struct amdgpu_device *adev)
+>   {
+>   	/* original raven doesn't have full asic reset */
+> -	if ((adev->apu_flags & AMD_APU_IS_RAVEN) ||
+> -	    (adev->apu_flags & AMD_APU_IS_RAVEN2))
+> +	/* On the latest Raven, the GPU reset can be performed
+> +	 * successfully. So now, temporarily enable it for the
+> +	 * S3 suspend abort case.
+> +	 */
+> +	if (((adev->apu_flags & AMD_APU_IS_RAVEN) ||
+> +	    (adev->apu_flags & AMD_APU_IS_RAVEN2)) &&
+> +		!soc15_need_reset_on_resume(adev))
+>   		return 0;
 >   
-> +	if (!amdgpu_sriov_vf(adev)) {
-> +		r = amdgpu_device_health_check(device_list_handle);
-> +		if (r)
-> +			goto end_reset;
-> +	}
-> +
->   	/* We need to lock reset domain only once both for XGMI and single device */
->   	tmp_adev = list_first_entry(device_list_handle, struct amdgpu_device,
->   				    reset_list);
-> @@ -5772,6 +5795,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   					    reset_list);
->   	amdgpu_device_unlock_reset_domain(tmp_adev->reset_domain);
+>   	switch (soc15_asic_reset_method(adev)) {
+> @@ -1490,24 +1513,6 @@ static int soc15_common_suspend(void *handle)
+>   	return soc15_common_hw_fini(adev);
+>   }
 >   
-> +end_reset:
->   	if (hive) {
->   		mutex_unlock(&hive->hive_lock);
->   		amdgpu_put_xgmi_hive(hive);
+> -static bool soc15_need_reset_on_resume(struct amdgpu_device *adev)
+> -{
+> -	u32 sol_reg;
+> -
+> -	sol_reg = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
+> -
+> -	/* Will reset for the following suspend abort cases.
+> -	 * 1) Only reset limit on APU side, dGPU hasn't checked yet.
+> -	 * 2) S3 suspend abort and TOS already launched.
+> -	 */
+> -	if (adev->flags & AMD_IS_APU && adev->in_s3 &&
+> -			!adev->suspend_complete &&
+> -			sol_reg)
+> -		return true;
+> -
+> -	return false;
+> -}
+> -
+>   static int soc15_common_resume(void *handle)
+>   {
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
