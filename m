@@ -4,67 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D59D2C54E60
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Mar 2024 20:36:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 305A2C54791
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Mar 2024 20:46:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6366310EC61;
-	Wed, 13 Mar 2024 20:36:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83BBD10F640;
+	Wed, 13 Mar 2024 20:46:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PJ3vijfH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cG7BM2cT";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 996FF10E78F;
- Wed, 13 Mar 2024 20:36:23 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-29bfc3ca816so301590a91.0; 
- Wed, 13 Mar 2024 13:36:23 -0700 (PDT)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4517B10F4C5;
+ Wed, 13 Mar 2024 20:46:17 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-29bb3d62949so269714a91.1; 
+ Wed, 13 Mar 2024 13:46:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710362183; x=1710966983; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1710362777; x=1710967577; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Z0P1jMyCYtposYh4opD70xwEj0+xfXkkQO/G2AgEGYg=;
- b=PJ3vijfHT0bgl8b2CFNIVyqfnLesKkRgOskAxJZ80AYJSQDBHTAxi1tMYD8Ro6D3GC
- D7BwLEc1mXLVDNxo8T9hBZcKNJI12saamdZ+AGjiZKKNcfqAir7xbqTxNNovgvWrjNMF
- YGYT41sQDMh8znX9wX2ACj5ytnYdE0qu8ZHuTpz5pc+VQWvmmKH8/hCo0uO3Aqh35U9e
- BQSUu1KDY0lYBhgiKc1aoGtO5ll6wja1WDigulA1OlllJZfwMUYJNeKDdAnYov91q1Dg
- kvuvIxou6vJF0DgeLT5Jt9CEbvzAw6vLKnFFEKfixUyAKo31D2xXJfZ3CaG6RQC3vZB/
- eNyA==
+ bh=Ts6uCQCSR583D5MrwHjGerF6k57417HU7JnE/j9wabs=;
+ b=cG7BM2cT/64AyEQ2AvE3WYo/VeCo2EfVn7UgINgZo3xt+PpXtj5xtJCO+b3RSlIG2N
+ NED9U3QIcynJF4woLaUtA//E42Pt52yEp0l91FGu1GYZLJJBZmc9Joxi5QwQOmhJ+MQa
+ 4K4+xr3F5yEjjuPQzvUXzjeANN6kbC64Jm/fRDB22afJkIw0jRK7nTKjHu5RqIzFs2qd
+ p1+t4W7MbT9Jtd6vQlZen2VlQYvNWl/5EP4hD1kFAvPZ0D+4IUycCx1DUCwoPCo5cYOj
+ w0bdBxhyojCXtaacJA52K4Zy/sOd8G++iIgPFjaxdIla1JdzPMpuWwjxdqwD6W0Hi+Wg
+ uGVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710362183; x=1710966983;
+ d=1e100.net; s=20230601; t=1710362777; x=1710967577;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Z0P1jMyCYtposYh4opD70xwEj0+xfXkkQO/G2AgEGYg=;
- b=q2eLo5aDu9CiuNAar4Nxun0x6/Qkhq2El5W01nNaTige+BqEjjT4ewtun5g9MrvMHV
- 9W5nSKAeo+uGEKPLHXQJS8KV4Gq8zI8uk5dkMMfSg7Vt1LN5IdPu+DeROQ/ZrDkWqEJ2
- c8P574lus1RQwQTJAF11Ipjk681gXgPNOTtSQp1rMvWsGlT8t4nzYSbKbOXHJPZeq09h
- CrB0yW8+uWqkieragGhGsls8HzL/AWf5jf+q/Q99CNdDaZOni82plD+78QfMyV7jzcam
- Vqn7FK1bPP9t+1JCdR70O5Mg1qSBiqQl4cF9ghxlh3BpqExiklLKUUplFLq0PlfYOcQN
- pJJQ==
+ bh=Ts6uCQCSR583D5MrwHjGerF6k57417HU7JnE/j9wabs=;
+ b=R2/2oozLY1FcWqqUNeqnp2GhPKq0jR0F3h6sZN2yUOvv8EH9vEdtYnAmH5/t1iwE8R
+ CSK9QPx2kPr9Ggax2R/PxtcIxpaZq99bFXnerRLfI3PjwRqDeWeQi3U+1EmY1Rv41dbS
+ Q6ifXwW43zjwOw04ze8V+dAZJdVsTwtxAfT/DWijPnjuNj0xJDzaZi69hEtZreGFB77u
+ lziAyLPI5Z/ZxkAK7Z0Qyeh1FAYpO4+NYZc53d6AiSAPJrAXuzr6pet1Ve6WQ86yALD0
+ IuE25HTQLcIqJwJl3PunA/3++97RrpkNbixz1/4V9m/zFO1ar+ha7bqtwcJ5tn0qQ3JH
+ IRdQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX2IP4ZmW7SphI5cbD9UgEOI33iVzKNUseduPecYLQ7SPW+I/+AprscEDNzD24sO9U3SR2yzcMmcJNbHqrfPfnLQsWgsQqc8DPt+5TO1vOlGPimUcIVYT1FvERY9URmMzev75AoxFslh6ahA/WbzQ==
-X-Gm-Message-State: AOJu0YxI3NqX/Kxd9k6oRzgw4gABG+ufo7He0DdT0h634CteHb1JfDek
- e5Fm7KVls6iTZPzNR5Jb9wEKHNvvaTLEvkEpm3STqJqtl79zCceonc9r4ORdio2Xkch42Scq+E+
- ojzsa/kqyIHjz56S3ZlpTrkiuHho=
-X-Google-Smtp-Source: AGHT+IE8QOUe7k7X0QgjCkT37L75/xjPFxnl01fGGykO8p1LaCf9vr0q8ZdUbELBJFYpJW6yKCReepjlKYkkQPaEXmo=
-X-Received: by 2002:a17:90a:488f:b0:29b:ce33:492d with SMTP id
- b15-20020a17090a488f00b0029bce33492dmr11380791pjh.22.1710362182844; Wed, 13
- Mar 2024 13:36:22 -0700 (PDT)
+ AJvYcCVWg6A65nZyBDZ7sHQBC5IXe9jkaAKPu++Kz2T7c2sAg4BYENzrOf2+Vl3Ba5u7ahbz8BS9u31FTjPyVgHdiQZIg043XMsyU4jiHgM+bFGndoTvD46Ew97v8crZfd27N8/YfDoW7sV4oaQqs6ij3A==
+X-Gm-Message-State: AOJu0Yx8ZUwt4vFbpwrkoagHqpAea8dFBGSyISkOrfYdy2ZGkmz+M6Kk
+ RdwYVeDEPyo6XQG71zPXWh74EszWmys3m5ufT5SlXXs0mm/Qa+5EwUrVWXoD3BnPMXvhzbR8ojZ
+ jgm4PTysON3nOxCQ6pjVcxcgCV1U=
+X-Google-Smtp-Source: AGHT+IGYqfS5DvWMkzgnBKtCUoh0ekfjB6vYZlQVJbjyvNRGm42ddMgr01CInYZAvgWcnusQw48HiAHusT46XBd+NFM=
+X-Received: by 2002:a17:90a:be08:b0:29c:3c56:a4f5 with SMTP id
+ a8-20020a17090abe0800b0029c3c56a4f5mr5840535pjs.26.1710362776624; Wed, 13 Mar
+ 2024 13:46:16 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240312124148.257067-1-sunil.khatri@amd.com>
- <20240312124148.257067-2-sunil.khatri@amd.com>
-In-Reply-To: <20240312124148.257067-2-sunil.khatri@amd.com>
+References: <20240311151424.318621-1-sashal@kernel.org>
+ <20240311151424.318621-3-sashal@kernel.org>
+ <65d9f97b-95a8-474f-a716-32f810cbb1bc@amd.com>
+In-Reply-To: <65d9f97b-95a8-474f-a716-32f810cbb1bc@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 13 Mar 2024 16:36:11 -0400
-Message-ID: <CADnq5_ON0NfcpmnHKjNYWgxfvfz-J3tgjX92DaaN63iKb+FOZg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm:amdgpu: add firmware information of all IP's
-To: Sunil Khatri <sunil.khatri@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Wed, 13 Mar 2024 16:46:04 -0400
+Message-ID: <CADnq5_OHW9Sw5quFqk52ymGVKXe3PGidB9uLW9wcQcA=pCOTCA@mail.gmail.com>
+Subject: Re: [PATCH AUTOSEL 5.15 3/5] drm/amdgpu: Enable gpu reset for S3
+ abort cases on Raven series
+To: Felix Kuehling <felix.kuehling@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, 
+ Prike Liang <Prike.Liang@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com, 
+ daniel@ffwll.ch, Hawking.Zhang@amd.com, lijo.lazar@amd.com, le.ma@amd.com, 
+ James.Zhu@amd.com, shane.xiao@amd.com, sonny.jiang@amd.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,200 +86,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 12, 2024 at 8:42=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.com>=
- wrote:
+On Wed, Mar 13, 2024 at 4:12=E2=80=AFPM Felix Kuehling <felix.kuehling@amd.=
+com> wrote:
 >
-> Add firmware version information of each
-> IP and each instance where applicable.
+> On 2024-03-11 11:14, Sasha Levin wrote:
+> > From: Prike Liang <Prike.Liang@amd.com>
+> >
+> > [ Upstream commit c671ec01311b4744b377f98b0b4c6d033fe569b3 ]
+> >
+> > Currently, GPU resets can now be performed successfully on the Raven
+> > series. While GPU reset is required for the S3 suspend abort case.
+> > So now can enable gpu reset for S3 abort cases on the Raven series.
+>
+> This looks suspicious to me. I'm not sure what conditions made the GPU
+> reset successful. But unless all the changes involved were also
+> backported, this should probably not be applied to older kernel
+> branches. I'm speculating it may be related to the removal of AMD IOMMUv2=
+.
 >
 
-Is there a way we can share some common code with devcoredump,
-debugfs, and the info IOCTL?  All three places need to query this
-information and the same logic is repeated in each case.
+We should get confirmation from Prike, but I think he tested this on
+older kernels as well.
 
 Alex
 
-
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c | 122 ++++++++++++++++++++++
->  1 file changed, 122 insertions(+)
+> Regards,
+>    Felix
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_reset.c
-> index 611fdb90a1fc..78ddc58aef67 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> @@ -168,6 +168,123 @@ void amdgpu_coredump(struct amdgpu_device *adev, bo=
-ol vram_lost,
->  {
->  }
->  #else
-> +static void amdgpu_devcoredump_fw_info(struct amdgpu_device *adev, struc=
-t drm_printer *p)
-> +{
-> +       uint32_t version;
-> +       uint32_t feature;
-> +       uint8_t smu_program, smu_major, smu_minor, smu_debug;
-> +
-> +       drm_printf(p, "VCE feature version: %u, fw version: 0x%08x\n",
-> +                  adev->vce.fb_version, adev->vce.fw_version);
-> +       drm_printf(p, "UVD feature version: %u, fw version: 0x%08x\n",
-> +                  0, adev->uvd.fw_version);
-> +       drm_printf(p, "GMC feature version: %u, fw version: 0x%08x\n",
-> +                  0, adev->gmc.fw_version);
-> +       drm_printf(p, "ME feature version: %u, fw version: 0x%08x\n",
-> +                  adev->gfx.me_feature_version, adev->gfx.me_fw_version)=
-;
-> +       drm_printf(p, "PFP feature version: %u, fw version: 0x%08x\n",
-> +                  adev->gfx.pfp_feature_version, adev->gfx.pfp_fw_versio=
-n);
-> +       drm_printf(p, "CE feature version: %u, fw version: 0x%08x\n",
-> +                  adev->gfx.ce_feature_version, adev->gfx.ce_fw_version)=
-;
-> +       drm_printf(p, "RLC feature version: %u, fw version: 0x%08x\n",
-> +                  adev->gfx.rlc_feature_version, adev->gfx.rlc_fw_versio=
-n);
-> +
-> +       drm_printf(p, "RLC SRLC feature version: %u, fw version: 0x%08x\n=
-",
-> +                  adev->gfx.rlc_srlc_feature_version,
-> +                  adev->gfx.rlc_srlc_fw_version);
-> +       drm_printf(p, "RLC SRLG feature version: %u, fw version: 0x%08x\n=
-",
-> +                  adev->gfx.rlc_srlg_feature_version,
-> +                  adev->gfx.rlc_srlg_fw_version);
-> +       drm_printf(p, "RLC SRLS feature version: %u, fw version: 0x%08x\n=
-",
-> +                  adev->gfx.rlc_srls_feature_version,
-> +                  adev->gfx.rlc_srls_fw_version);
-> +       drm_printf(p, "RLCP feature version: %u, fw version: 0x%08x\n",
-> +                  adev->gfx.rlcp_ucode_feature_version,
-> +                  adev->gfx.rlcp_ucode_version);
-> +       drm_printf(p, "RLCV feature version: %u, fw version: 0x%08x\n",
-> +                  adev->gfx.rlcv_ucode_feature_version,
-> +                  adev->gfx.rlcv_ucode_version);
-> +       drm_printf(p, "MEC feature version: %u, fw version: 0x%08x\n",
-> +                  adev->gfx.mec_feature_version,
-> +                  adev->gfx.mec_fw_version);
-> +
-> +       if (adev->gfx.mec2_fw)
-> +               drm_printf(p,
-> +                          "MEC2 feature version: %u, fw version: 0x%08x\=
-n",
-> +                          adev->gfx.mec2_feature_version,
-> +                          adev->gfx.mec2_fw_version);
-> +
-> +       drm_printf(p, "IMU feature version: %u, fw version: 0x%08x\n",
-> +                  0, adev->gfx.imu_fw_version);
-> +       drm_printf(p, "PSP SOS feature version: %u, fw version: 0x%08x\n"=
-,
-> +                  adev->psp.sos.feature_version,
-> +                  adev->psp.sos.fw_version);
-> +       drm_printf(p, "PSP ASD feature version: %u, fw version: 0x%08x\n"=
-,
-> +                  adev->psp.asd_context.bin_desc.feature_version,
-> +                  adev->psp.asd_context.bin_desc.fw_version);
-> +
-> +       drm_printf(p, "TA XGMI feature version: 0x%08x, fw version: 0x%08=
-x\n",
-> +                  adev->psp.xgmi_context.context.bin_desc.feature_versio=
-n,
-> +                  adev->psp.xgmi_context.context.bin_desc.fw_version);
-> +       drm_printf(p, "TA RAS feature version: 0x%08x, fw version: 0x%08x=
-\n",
-> +                  adev->psp.ras_context.context.bin_desc.feature_version=
-,
-> +                  adev->psp.ras_context.context.bin_desc.fw_version);
-> +       drm_printf(p, "TA HDCP feature version: 0x%08x, fw version: 0x%08=
-x\n",
-> +                  adev->psp.hdcp_context.context.bin_desc.feature_versio=
-n,
-> +                  adev->psp.hdcp_context.context.bin_desc.fw_version);
-> +       drm_printf(p, "TA DTM feature version: 0x%08x, fw version: 0x%08x=
-\n",
-> +                  adev->psp.dtm_context.context.bin_desc.feature_version=
-,
-> +                  adev->psp.dtm_context.context.bin_desc.fw_version);
-> +       drm_printf(p, "TA RAP feature version: 0x%08x, fw version: 0x%08x=
-\n",
-> +                  adev->psp.rap_context.context.bin_desc.feature_version=
-,
-> +                  adev->psp.rap_context.context.bin_desc.fw_version);
-> +       drm_printf(p, "TA SECURE DISPLAY feature version: 0x%08x, fw vers=
-ion: 0x%08x\n",
-> +               adev->psp.securedisplay_context.context.bin_desc.feature_=
-version,
-> +               adev->psp.securedisplay_context.context.bin_desc.fw_versi=
-on);
-> +
-> +       /* SMC firmware */
-> +       version =3D adev->pm.fw_version;
-> +
-> +       smu_program =3D (version >> 24) & 0xff;
-> +       smu_major =3D (version >> 16) & 0xff;
-> +       smu_minor =3D (version >> 8) & 0xff;
-> +       smu_debug =3D (version >> 0) & 0xff;
-> +       drm_printf(p, "SMC feature version: %u, program: %d, fw version: =
-0x%08x (%d.%d.%d)\n",
-> +                  0, smu_program, version, smu_major, smu_minor, smu_deb=
-ug);
-> +
-> +       /* SDMA firmware */
-> +       for (int i =3D 0; i < adev->sdma.num_instances; i++) {
-> +               drm_printf(p, "SDMA%d feature version: %u, firmware versi=
-on: 0x%08x\n",
-> +                          i, adev->sdma.instance[i].feature_version,
-> +                          adev->sdma.instance[i].fw_version);
-> +       }
-> +
-> +       drm_printf(p, "VCN feature version: %u, fw version: 0x%08x\n",
-> +                  0, adev->vcn.fw_version);
-> +       drm_printf(p, "DMCU feature version: %u, fw version: 0x%08x\n",
-> +                  0, adev->dm.dmcu_fw_version);
-> +       drm_printf(p, "DMCUB feature version: %u, fw version: 0x%08x\n",
-> +                  0, adev->dm.dmcub_fw_version);
-> +       drm_printf(p, "PSP TOC feature version: %u, fw version: 0x%08x\n"=
-,
-> +                  adev->psp.toc.feature_version, adev->psp.toc.fw_versio=
-n);
-> +
-> +       version =3D adev->mes.kiq_version & AMDGPU_MES_VERSION_MASK;
-> +       feature =3D (adev->mes.kiq_version & AMDGPU_MES_FEAT_VERSION_MASK=
-)
-> +                                       >> AMDGPU_MES_FEAT_VERSION_SHIFT;
-> +       drm_printf(p, "MES_KIQ feature version: %u, fw version: 0x%08x\n"=
-,
-> +                  feature, version);
-> +
-> +       version =3D adev->mes.sched_version & AMDGPU_MES_VERSION_MASK;
-> +       feature =3D (adev->mes.sched_version & AMDGPU_MES_FEAT_VERSION_MA=
-SK)
-> +                                       >> AMDGPU_MES_FEAT_VERSION_SHIFT;
-> +       drm_printf(p, "MES feature version: %u, fw version: 0x%08x\n",
-> +                  feature, version);
-> +
-> +       drm_printf(p, "VPE feature version: %u, fw version: 0x%08x\n",
-> +                  adev->vpe.feature_version, adev->vpe.fw_version);
-> +
-> +}
-> +
->  static ssize_t
->  amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
->                         void *data, size_t datalen)
-> @@ -215,6 +332,11 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset,=
- size_t count,
->                 }
->         }
 >
-> +       if (coredump->adev) {
-> +               drm_printf(&p, "IP Firmwares\n");
-> +               amdgpu_devcoredump_fw_info(coredump->adev, &p);
-> +       }
-> +
->         if (coredump->ring) {
->                 drm_printf(&p, "\nRing timed out details\n");
->                 drm_printf(&p, "IP Type: %d Ring Name: %s\n",
-> --
-> 2.34.1
->
+> >
+> > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> > Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > Signed-off-by: Sasha Levin <sashal@kernel.org>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/soc15.c | 45 +++++++++++++++++------------=
+-
+> >   1 file changed, 25 insertions(+), 20 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/a=
+mdgpu/soc15.c
+> > index 6a3486f52d698..ef5b3eedc8615 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> > @@ -605,11 +605,34 @@ soc15_asic_reset_method(struct amdgpu_device *ade=
+v)
+> >               return AMD_RESET_METHOD_MODE1;
+> >   }
+> >
+> > +static bool soc15_need_reset_on_resume(struct amdgpu_device *adev)
+> > +{
+> > +     u32 sol_reg;
+> > +
+> > +     sol_reg =3D RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
+> > +
+> > +     /* Will reset for the following suspend abort cases.
+> > +      * 1) Only reset limit on APU side, dGPU hasn't checked yet.
+> > +      * 2) S3 suspend abort and TOS already launched.
+> > +      */
+> > +     if (adev->flags & AMD_IS_APU && adev->in_s3 &&
+> > +                     !adev->suspend_complete &&
+> > +                     sol_reg)
+> > +             return true;
+> > +
+> > +     return false;
+> > +}
+> > +
+> >   static int soc15_asic_reset(struct amdgpu_device *adev)
+> >   {
+> >       /* original raven doesn't have full asic reset */
+> > -     if ((adev->apu_flags & AMD_APU_IS_RAVEN) ||
+> > -         (adev->apu_flags & AMD_APU_IS_RAVEN2))
+> > +     /* On the latest Raven, the GPU reset can be performed
+> > +      * successfully. So now, temporarily enable it for the
+> > +      * S3 suspend abort case.
+> > +      */
+> > +     if (((adev->apu_flags & AMD_APU_IS_RAVEN) ||
+> > +         (adev->apu_flags & AMD_APU_IS_RAVEN2)) &&
+> > +             !soc15_need_reset_on_resume(adev))
+> >               return 0;
+> >
+> >       switch (soc15_asic_reset_method(adev)) {
+> > @@ -1490,24 +1513,6 @@ static int soc15_common_suspend(void *handle)
+> >       return soc15_common_hw_fini(adev);
+> >   }
+> >
+> > -static bool soc15_need_reset_on_resume(struct amdgpu_device *adev)
+> > -{
+> > -     u32 sol_reg;
+> > -
+> > -     sol_reg =3D RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
+> > -
+> > -     /* Will reset for the following suspend abort cases.
+> > -      * 1) Only reset limit on APU side, dGPU hasn't checked yet.
+> > -      * 2) S3 suspend abort and TOS already launched.
+> > -      */
+> > -     if (adev->flags & AMD_IS_APU && adev->in_s3 &&
+> > -                     !adev->suspend_complete &&
+> > -                     sol_reg)
+> > -             return true;
+> > -
+> > -     return false;
+> > -}
+> > -
+> >   static int soc15_common_resume(void *handle)
+> >   {
+> >       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
