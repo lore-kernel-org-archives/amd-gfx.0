@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 978C2C54791
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Mar 2024 08:50:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B39B6C54E60
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Mar 2024 08:50:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1099410F702;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FDCA10F703;
 	Wed, 13 Mar 2024 08:50:31 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="B1mvUxd4";
-	dkim-atps=neutral
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B486D10E06C;
- Tue, 12 Mar 2024 15:27:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1710257254;
- bh=ueGqMyU8LdG1VrYuRqTqRDBACthQtZHAgLXZ2oJ42os=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=B1mvUxd4Mven6r26gNJDAHpNxCh2HuuiOxq4KOFlX5T7oV4uNkGmLbpGOm8ATfZlF
- 32g/OG+vyOnDinaEyhgfeiILwuS+0PFjnGv/5adWsXrh51Ep1ViUiu3loUg8dPmq1V
- S8jeOiHeAO82v+yjJwESTHR9vGpzZGXQKoIQY5g9Nu4EvQkXn7WEZfQLX9wB7oY85j
- Y2osiMRKcLFA6j02QZdSM6ON7K/N+RkwiVQhjQWfzPUlUwzX4cVskZEp4CKsxgK3vR
- VsfNM+0rUKcjqx8YRaktCu9grzaB4TpQRMhuT8k7fTVhYdjCjcCopRaThfIJJLzBbQ
- o+SWW6r8mSjuQ==
-Received: from eldfell (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 12F8C37813DC;
- Tue, 12 Mar 2024 15:27:34 +0000 (UTC)
-Date: Tue, 12 Mar 2024 17:27:32 +0200
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <wayland-devel@lists.freedesktop.org>, Alex Hung <alex.hung@amd.com>
-Subject: Re: [RFC PATCH v4 17/42] drm/vkms: Add enumerated 1D curve colorop
-Message-ID: <20240312172732.68b58a70.pekka.paalanen@collabora.com>
-In-Reply-To: <20240226211100.100108-18-harry.wentland@amd.com>
-References: <20240226211100.100108-1-harry.wentland@amd.com>
- <20240226211100.100108-18-harry.wentland@amd.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
+X-Greylist: delayed 408 seconds by postgrey-1.36 at gabe;
+ Wed, 13 Mar 2024 06:28:02 UTC
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.209.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66CBC10E96B;
+ Wed, 13 Mar 2024 06:28:02 +0000 (UTC)
+X-QQ-mid: bizesmtp80t1710310709trkc2gr1
+X-QQ-Originating-IP: GLC8Iu67rXhV6eCFYKQmrbl6IkFlciWctK/Tvp2LRJk=
+Received: from john-PC ( [123.114.60.34]) by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 13 Mar 2024 14:18:27 +0800 (CST)
+X-QQ-SSF: 01400000000000E0L000000A0000000
+X-QQ-FEAT: RmDZc/K2LPGX8QM1YeXZshthElQ2uZpSSUsxNZv7fWEpt0RBL4E/tI9skKcKk
+ 5ZKVyGSJl6s0vhpvrJ0lBNIiqBablTIX6rfDaqRRdX6YMmoXIHmkJyt5dkxecksOnZBvLTS
+ BvY8b8+x3uU3l2ZZvXdM41PEGNgsaaYJIbyoSn8GSP+5p9ISHi7kqDiHsnaJ7aVOBgpCTeL
+ I75T0mKZGigjLTDDU29Hd1eflwxhYelYIPNV8gy3o3aadoOjBG2MIAeyshmJETwXq8tHCV0
+ 2Fp/Cz4T88wyf6HnXL0/43kW5pTFj8E6AiLizSKrWJitqyZfUkVGWf9+ZSEVUOEnFU+1tTi
+ Yk/Uh1FEKP4ICh+IFZEYZODJxIog/wakp2B9pTWCdpCzfemdPy8z/Q4ZgoHhT06jdcMv7t9
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 17432395954863793065
+Date: Wed, 13 Mar 2024 14:18:27 +0800
+From: Qiang Ma <maqianga@uniontech.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, srinivasan.shanmugam@amd.com,
+ sunran001@208suo.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/amdgpu: Clear the hotplug interrupt ack bit
+ before hpd initialization
+Message-ID: <A65A2F93D9F165EC+20240313141827.40f30bd5@john-PC>
+In-Reply-To: <20240131075703.24600-1-maqianga@uniontech.com>
+References: <20240131075703.24600-1-maqianga@uniontech.com>
+Organization: UOS
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/d8C4qKOBpZDLf74P_bsanmm";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-X-Mailman-Approved-At: Wed, 13 Mar 2024 08:50:20 +0000
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4a-0
+X-Mailman-Approved-At: Wed, 13 Mar 2024 08:50:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,204 +61,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/d8C4qKOBpZDLf74P_bsanmm
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On Wed, 31 Jan 2024 15:57:03 +0800
+Qiang Ma <maqianga@uniontech.com> wrote:
 
-On Mon, 26 Feb 2024 16:10:31 -0500
-Harry Wentland <harry.wentland@amd.com> wrote:
+Hello everyone, please help review this patch.
 
-> This patch introduces a VKMS color pipeline that includes two
-> drm_colorops for named transfer functions. For now the only ones
-> supported are sRGB EOTF, sRGB Inverse EOTF, and a Linear TF.
-> We will expand this in the future but I don't want to do so
-> without accompanying IGT tests.
->=20
-> We introduce a new vkms_luts.c file that hard-codes sRGB EOTF,
-> sRGB Inverse EOTF, and a linear EOTF LUT. These have been
-> generated with 256 entries each as IGT is currently testing
-> only 8 bpc surfaces. We will likely need higher precision
-> but I'm reluctant to make that change without clear indication
-> that we need it. We'll revisit and, if necessary, regenerate
-> the LUTs when we have IGT tests for higher precision buffers.
->=20
-> v4:
->  - Drop _tf_ from color_pipeline init function
->  - Pass supported TFs into colorop init
->  - Create bypass pipeline in DRM helper (Pekka)
->=20
-> v2:
->  - Add commit description
->  - Fix sRGB EOTF LUT definition
->  - Add linear and sRGB inverse EOTF LUTs
->=20
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
+  Qiang Ma
+
+> Problem:
+> The computer in the bios initialization process, unplug the HDMI
+> display, wait until the system up, plug in the HDMI display, did not
+> enter the hotplug interrupt function, the display is not bright.
+> 
+> Fix:
+> After the above problem occurs, and the hpd ack interrupt bit is 1,
+> the interrupt should be cleared during hpd_init initialization so that
+> when the driver is ready, it can respond to the hpd interrupt
+> normally.
+> 
+> Signed-off-by: Qiang Ma <maqianga@uniontech.com>
 > ---
->  drivers/gpu/drm/vkms/Makefile        |   4 +-
->  drivers/gpu/drm/vkms/vkms_colorop.c  |  70 +++
->  drivers/gpu/drm/vkms/vkms_composer.c |  45 ++
->  drivers/gpu/drm/vkms/vkms_drv.h      |   4 +
->  drivers/gpu/drm/vkms/vkms_luts.c     | 802 +++++++++++++++++++++++++++
->  drivers/gpu/drm/vkms/vkms_luts.h     |  12 +
->  drivers/gpu/drm/vkms/vkms_plane.c    |   2 +
->  7 files changed, 938 insertions(+), 1 deletion(-)
->  create mode 100644 drivers/gpu/drm/vkms/vkms_colorop.c
->  create mode 100644 drivers/gpu/drm/vkms/vkms_luts.c
->  create mode 100644 drivers/gpu/drm/vkms/vkms_luts.h
-
-...
-
-> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/=
-vkms_composer.c
-> index b90e446d5954..9493bdb1ba3f 100644
-> --- a/drivers/gpu/drm/vkms/vkms_composer.c
-> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
-> @@ -12,6 +12,7 @@
->  #include <linux/minmax.h>
-> =20
->  #include "vkms_drv.h"
-> +#include "vkms_luts.h"
-> =20
->  static u16 pre_mul_blend_channel(u16 src, u16 dst, u16 alpha)
+> v2:
+>  - Remove unused variable 'tmp'
+>  - Fixed function spelling errors
+>  
+> drivers/gpu/drm/amd/amdgpu/dce_v10_0.c |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 22 ++++++++++++++++++----
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 22 ++++++++++++++++++----
+>  4 files changed, 40 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c index
+> bb666cb7522e..12a8ba929a72 100644 ---
+> a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c +++
+> b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c @@ -51,6 +51,7 @@
+>  
+>  static void dce_v10_0_set_display_funcs(struct amdgpu_device *adev);
+>  static void dce_v10_0_set_irq_funcs(struct amdgpu_device *adev);
+> +static void dce_v10_0_hpd_int_ack(struct amdgpu_device *adev, int
+> hpd); 
+>  static const u32 crtc_offsets[] = {
+>  	CRTC0_REGISTER_OFFSET,
+> @@ -363,6 +364,7 @@ static void dce_v10_0_hpd_init(struct
+> amdgpu_device *adev) AMDGPU_HPD_DISCONNECT_INT_DELAY_IN_MS);
+>  		WREG32(mmDC_HPD_TOGGLE_FILT_CNTL +
+> hpd_offsets[amdgpu_connector->hpd.hpd], tmp); 
+> +		dce_v10_0_hpd_int_ack(adev,
+> amdgpu_connector->hpd.hpd); dce_v10_0_hpd_set_polarity(adev,
+> amdgpu_connector->hpd.hpd); amdgpu_irq_get(adev, &adev->hpd_irq,
+>  			       amdgpu_connector->hpd.hpd);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c index
+> 7af277f61cca..745e4fdffade 100644 ---
+> a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c +++
+> b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c @@ -51,6 +51,7 @@
+>  
+>  static void dce_v11_0_set_display_funcs(struct amdgpu_device *adev);
+>  static void dce_v11_0_set_irq_funcs(struct amdgpu_device *adev);
+> +static void dce_v11_0_hpd_int_ack(struct amdgpu_device *adev, int
+> hpd); 
+>  static const u32 crtc_offsets[] =
 >  {
-> @@ -163,6 +164,47 @@ static void apply_lut(const struct vkms_crtc_state *=
-crtc_state, struct line_buff
->  	}
->  }
-> =20
-> +static void pre_blend_color_transform(const struct vkms_plane_state *pla=
-ne_state, struct line_buffer *output_buffer)
+> @@ -387,6 +388,7 @@ static void dce_v11_0_hpd_init(struct
+> amdgpu_device *adev) AMDGPU_HPD_DISCONNECT_INT_DELAY_IN_MS);
+>  		WREG32(mmDC_HPD_TOGGLE_FILT_CNTL +
+> hpd_offsets[amdgpu_connector->hpd.hpd], tmp); 
+> +		dce_v11_0_hpd_int_ack(adev,
+> amdgpu_connector->hpd.hpd); dce_v11_0_hpd_set_polarity(adev,
+> amdgpu_connector->hpd.hpd); amdgpu_irq_get(adev, &adev->hpd_irq,
+> amdgpu_connector->hpd.hpd); }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c index
+> 143efc37a17f..28c4a735716b 100644 ---
+> a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c +++
+> b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c @@ -272,6 +272,21 @@ static
+> void dce_v6_0_hpd_set_polarity(struct amdgpu_device *adev,
+> WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd], tmp); }
+>  
+> +static void dce_v6_0_hpd_int_ack(struct amdgpu_device *adev,
+> +				 int hpd)
 > +{
-> +	struct drm_colorop *colorop =3D plane_state->base.base.color_pipeline;
+> +	u32 tmp;
 > +
-> +	while (colorop) {
-
-I think this would be easier to read if you used
-
-	for (; colorop; colorop =3D colorop->next) {
-
-and
-
-> +		struct drm_colorop_state *colorop_state;
-> +
-> +		if (!colorop)
-> +			return;
-> +
-> +		/* TODO this is probably wrong */
-> +		colorop_state =3D colorop->state;
-> +
-> +		if (!colorop_state)
-> +			return;
-
-	if (colorop_state->bypass)
-		continue;
-
-Something about 'switch (colorop->type)' to pick a function pointer to
-call, but hard to see at this point of the series how that would work.
-
-However, you can pick between srgb_inv_eotf and srgb_eotf already here.
-Then inside the loop you can just call one set of
-apply_lut_to_channel_value() and not need conditionals and avoid
-indentation levels.
-
-> +
-> +		for (size_t x =3D 0; x < output_buffer->n_pixels; x++) {
-> +			struct pixel_argb_u16 *pixel =3D &output_buffer->pixels[x];
-> +
-> +			if (colorop->type =3D=3D DRM_COLOROP_1D_CURVE &&
-> +				colorop_state->bypass =3D=3D false) {
-> +				switch (colorop_state->curve_1d_type) {
-> +					case DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF:
-> +						pixel->r =3D apply_lut_to_channel_value(&srgb_inv_eotf, pixel->r, =
-LUT_RED);
-> +						pixel->g =3D apply_lut_to_channel_value(&srgb_inv_eotf, pixel->g, =
-LUT_GREEN);
-> +						pixel->b =3D apply_lut_to_channel_value(&srgb_inv_eotf, pixel->b, =
-LUT_BLUE);
-> +						break;
-> +					case DRM_COLOROP_1D_CURVE_SRGB_EOTF:
-> +					default:
-> +						pixel->r =3D apply_lut_to_channel_value(&srgb_eotf, pixel->r, LUT_=
-RED);
-> +						pixel->g =3D apply_lut_to_channel_value(&srgb_eotf, pixel->g, LUT_=
-GREEN);
-> +						pixel->b =3D apply_lut_to_channel_value(&srgb_eotf, pixel->b, LUT_=
-BLUE);
-> +						break;
-> +				}
-> +			}
-
-else { aaargh_unknown_colorop(); }
-
-> +		}
-> +
-> +		colorop =3D colorop->next;
+> +	if (hpd >= adev->mode_info.num_hpd) {
+> +		DRM_DEBUG("invalid hdp %d\n", hpd);
+> +		return;
 > +	}
+> +
+> +	tmp = RREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd]);
+> +	tmp |= DC_HPD1_INT_CONTROL__DC_HPD1_INT_ACK_MASK;
+> +	WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd], tmp);
 > +}
-
-...
-
-> diff --git a/drivers/gpu/drm/vkms/vkms_luts.c b/drivers/gpu/drm/vkms/vkms=
-_luts.c
-> new file mode 100644
-> index 000000000000..6553d6d442b4
-> --- /dev/null
-> +++ b/drivers/gpu/drm/vkms/vkms_luts.c
-> @@ -0,0 +1,802 @@
-> +/* SPDX-License-Identifier: GPL-2.0+ */
 > +
-> +#include <drm/drm_mode.h>
+>  /**
+>   * dce_v6_0_hpd_init - hpd setup callback.
+>   *
+> @@ -311,6 +326,7 @@ static void dce_v6_0_hpd_init(struct
+> amdgpu_device *adev) continue;
+>  		}
+>  
+> +		dce_v6_0_hpd_int_ack(adev,
+> amdgpu_connector->hpd.hpd); dce_v6_0_hpd_set_polarity(adev,
+> amdgpu_connector->hpd.hpd); amdgpu_irq_get(adev, &adev->hpd_irq,
+> amdgpu_connector->hpd.hpd); }
+> @@ -3088,7 +3104,7 @@ static int dce_v6_0_hpd_irq(struct
+> amdgpu_device *adev, struct amdgpu_irq_src *source,
+>  			    struct amdgpu_iv_entry *entry)
+>  {
+> -	uint32_t disp_int, mask, tmp;
+> +	uint32_t disp_int, mask;
+>  	unsigned hpd;
+>  
+>  	if (entry->src_data[0] >= adev->mode_info.num_hpd) {
+> @@ -3101,9 +3117,7 @@ static int dce_v6_0_hpd_irq(struct
+> amdgpu_device *adev, mask = interrupt_status_offsets[hpd].hpd;
+>  
+>  	if (disp_int & mask) {
+> -		tmp = RREG32(mmDC_HPD1_INT_CONTROL +
+> hpd_offsets[hpd]);
+> -		tmp |= DC_HPD1_INT_CONTROL__DC_HPD1_INT_ACK_MASK;
+> -		WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd],
+> tmp);
+> +		dce_v6_0_hpd_int_ack(adev, hpd);
+>  		schedule_delayed_work(&adev->hotplug_work, 0);
+>  		DRM_DEBUG("IH: HPD%d\n", hpd + 1);
+>  	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c index
+> adeddfb7ff12..8ff2b5adfd95 100644 ---
+> a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c +++
+> b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c @@ -264,6 +264,21 @@ static
+> void dce_v8_0_hpd_set_polarity(struct amdgpu_device *adev,
+> WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd], tmp); }
+>  
+> +static void dce_v8_0_hpd_int_ack(struct amdgpu_device *adev,
+> +				 int hpd)
+> +{
+> +	u32 tmp;
 > +
-> +#include "vkms_drv.h"
-> +#include "vkms_luts.h"
+> +	if (hpd >= adev->mode_info.num_hpd) {
+> +		DRM_DEBUG("invalid hdp %d\n", hpd);
+> +		return;
+> +	}
 > +
-
-Here it would be really nice to explain how the tables were generated.
-
-> +static struct drm_color_lut linear_array[LUT_SIZE] =3D {
-> +	{ 0x0, 0x0, 0x0, 0 },
-
-...
-
-> +	{ 0xffff, 0xffff, 0xffff, 0 },
-> +};
+> +	tmp = RREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd]);
+> +	tmp |= DC_HPD1_INT_CONTROL__DC_HPD1_INT_ACK_MASK;
+> +	WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd], tmp);
+> +}
 > +
-> +const struct vkms_color_lut linear_eotf =3D {
-> +	.base =3D linear_array,
-> +	.lut_length =3D LUT_SIZE,
+>  /**
+>   * dce_v8_0_hpd_init - hpd setup callback.
+>   *
+> @@ -303,6 +318,7 @@ static void dce_v8_0_hpd_init(struct
+> amdgpu_device *adev) continue;
+>  		}
+>  
+> +		dce_v8_0_hpd_int_ack(adev,
+> amdgpu_connector->hpd.hpd); dce_v8_0_hpd_set_polarity(adev,
+> amdgpu_connector->hpd.hpd); amdgpu_irq_get(adev, &adev->hpd_irq,
+> amdgpu_connector->hpd.hpd); }
+> @@ -3176,7 +3192,7 @@ static int dce_v8_0_hpd_irq(struct
+> amdgpu_device *adev, struct amdgpu_irq_src *source,
+>  			    struct amdgpu_iv_entry *entry)
+>  {
+> -	uint32_t disp_int, mask, tmp;
+> +	uint32_t disp_int, mask;
+>  	unsigned hpd;
+>  
+>  	if (entry->src_data[0] >= adev->mode_info.num_hpd) {
+> @@ -3189,9 +3205,7 @@ static int dce_v8_0_hpd_irq(struct
+> amdgpu_device *adev, mask = interrupt_status_offsets[hpd].hpd;
+>  
+>  	if (disp_int & mask) {
+> -		tmp = RREG32(mmDC_HPD1_INT_CONTROL +
+> hpd_offsets[hpd]);
+> -		tmp |= DC_HPD1_INT_CONTROL__DC_HPD1_INT_ACK_MASK;
+> -		WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd],
+> tmp);
+> +		dce_v8_0_hpd_int_ack(adev, hpd);
+>  		schedule_delayed_work(&adev->hotplug_work, 0);
+>  		DRM_DEBUG("IH: HPD%d\n", hpd + 1);
+>  	}
 
-Why not use just 2 table entries for the linear array?
-
-I didn't see linear_eotf used at all? It could also just skip in the
-code, not need an array.
-
-> +	.channel_value2index_ratio =3D 0xff00ffll
-> +};
-
-
-Thanks,
-pq
-
---Sig_/d8C4qKOBpZDLf74P_bsanmm
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmXwdGQACgkQI1/ltBGq
-qqdYoQ//UaMaoW/CEU2QwU8iCYM/6T86SYJVkRIzv50dSvbtLzoLb2qg0KLCbptM
-269CrVj2R1s6f4JQPH8zYokxzVHfTZRp0eHurQIYFi3yXSPvsOlgC9i1LODPEGFj
-ZcN3j0Iw1B+VGk+RG2Tgmunrjhv5RmMHvFdAoyynHrN3qh009JrfjQAOD3tPn2lk
-QY159zt9UFoEotg0HWBZ+DLMu+KO/zVK060rpWczKXYB3R3lmuFHRKQumFkozJtT
-7Snh7aSzLQkbfLY52CwAjiNmDUvieObDGFEEd/5lMOa6C3QSS1A7w9m/TQwfzeGj
-EMskQPe5tT8eigec2vklBk+xCvz9JBzU2Zl2pm39XXNxaB4BQMQbx0262IWvSWZh
-W6TpDVYEX7rp0uOQU/lqlTEO8A3Di1SWzohocV5+eNYUEKzAbJXiI1EGZxxbHpiC
-C8q8bwW/9/R+UCV1IkghfHzwWxWngAUpX3Hjmj/USjrqMVEtky9UWlsXCOlN5iCy
-n7RtfWeXu0ALXJmFcx+d16IEhPrfwncEB3nCVaCilyFzxC2Zd/k2GnKiSgdISvuT
-wJ9tAgj73HNX+e8ps3N1yzkR+R3Oi1UDtHObS3XE5jSk0IyawMiSdL8BozEVHa3g
-ivNzYIoCczvoFDjvM4ir8EklmyOkR6m6dNRWRArPfGLSVNaqXCQ=
-=wtFW
------END PGP SIGNATURE-----
-
---Sig_/d8C4qKOBpZDLf74P_bsanmm--
