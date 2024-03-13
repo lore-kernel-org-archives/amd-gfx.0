@@ -4,123 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FD57C54791
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Mar 2024 14:40:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF305C54791
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Mar 2024 17:44:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC7F810E90D;
-	Wed, 13 Mar 2024 14:40:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3811910F5FB;
+	Wed, 13 Mar 2024 17:44:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MV9C4/QI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sxfjLjuP";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB19610E70F
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Mar 2024 14:40:56 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2071.outbound.protection.outlook.com [40.107.95.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB15F10F5FB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Mar 2024 17:44:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=algJm07ClQ/+YdhyAFPtZwMzzt9Vg9gYGmGLUb1hcdC18jKXjgruKBN8VJkDAka99Jh/xfHiDXu29d14IFeoYyoRFLIJunEB2qobv/JfSb3Yc4F0EYFMdhrvtwxf3LL4Sh2OYqf6nR2yW1b+W9dAnSzH7yKGQ/f+0iyUuxKueNi2cAfPO/3s89sOHHavA588xrZrctGQ9r66PqQXGW9aD7vcGaucgVusR0SipLm2okhtgOt3Ubk4Uzky/RBP+VcNF8pNb+qsHyK3WQacyI9QIBzt2wzOdpwRRl3oF0xbEJpZ7Y1J3MIozydRVGEjhzgNTC4cJZK8MWrCmgL92i18Hg==
+ b=ATkbwUe/LjeaVW91gDnFNfQXvPZ7tZ7OT2FazOEtuk6wIp6+sAkz4ZaudUIAgS0t7lEigQug0uyC0vFLv5ckg0v+sqy87DA8i1uXDEu32VSRKwlxtJ34bgGbmHsyFNUwfUFTl5bL8eMImXXbYZC7/8uD2wOEdzpVLOhuKKRv2W3BbJiV37ACUyRI7uz7lNgzvfOhTcYGMAbj3dYrNOmxcTY+v+T1kBPDo9Q5lTOlp7pgVXaXznf+TYfUcDYJjkiPjXcfPi9nMU8RGpkxj3c5O4AEvcHijePPykgBwrAkrd/xrZLgxg4U0RHW12KoXd6xKNYNwFitF+tdc/Xo1XZ3qQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gfkay5qdJ2B/5FlO4XxIersmAtHYi8zxp0x07qK//LU=;
- b=SSchebn++5zpP9OPAsNi3ey+tMpHCqpMjgTHojD+Y5WbbKGyCwYVZH/EflsheYrxDtdZbd+izl5lUdUHpwO43GsF/GXYnXscabrm5Y7KcQKNOAV8QG2Lk8RoqVCvlH3w5e5Kxpor09RWYMJHKfY4Pqoxd4AxFnjXxnP0GifyZ7EQ9KwoqT2ABIM/SfqFiqj7kSuBaJxCfr719HvM888m4sP3b/uEwSvmz/NHvPvSJt7PX9AhLnl4Yz2c9OBeZUH2BYMDT9WAoCoM4XXGNIrSdrJuzFjLgouFLS16NhIx/n+X1iIm8td1K5bA6AaxIJVezdFWoLwsH8hO+y1rcnA96A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=jtNPvFGvo98I+LHf7h5CIgdxO3dPjSkx7of8Iq3DXFs=;
+ b=biZSps4Q8VfHCY+Ds4XwgW+pC/PgkHejIzO/7wKAWFMmx2ldFn4WfhjYqk87k/f/EIxQ1TAfxsCq0Ggah8qHQvT/a2/X8IAlGRjASXSJZNkpn8YpY3sTFuR6e1snInP0jww8NdA6YTn+rvozwXEjICmuDr/b67v+HaUmdesq60yFLnl9y51SBDCuDLTn4tCBIolxVZ45kceOUjK8q+CbVfmpvGU6tu1fgQLHPNmAeHtzVoPDw4o1F7hKv7w9RqjVIIra0VJ6LNCmoQGycQXIi15vXEJ2PcD1qr/V6yfY6ZiphwOkHb9zeP6QeGGE0mFN6/VymjRCcTrH5gHgMNHxDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gfkay5qdJ2B/5FlO4XxIersmAtHYi8zxp0x07qK//LU=;
- b=MV9C4/QImTXw8B1Xy3xOx3X2v3eJxNj1/7a6l7Nha4zmV2LRFl9IoBw+E/6ULXEVkQyWX220BhBX3hRAaogvbwKA43bPU5ya8Dsd+JcpXPOxA4n0R9VRMU5ilsQuSi8yohou+LGgzYaAUpcLigJf8S3CbgXMP1FSt5s2ZwxvxYY=
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
- by IA1PR12MB6332.namprd12.prod.outlook.com (2603:10b6:208:3e2::13)
+ bh=jtNPvFGvo98I+LHf7h5CIgdxO3dPjSkx7of8Iq3DXFs=;
+ b=sxfjLjuPDa1+Qshm1AoS9oU3gyzXi3AI9QYuAAAchBV7zHSN/dxcZESdA3p+1FMkCNcl1mfCUPFTkV44+uzb7RkoKtlJ1k4Uml8ihiyJR6kRVwjT9I4XfX6kU/3aHVBrbru6EJ48i+sdlEP3pACrpfwj+nsWaaCj9abrHfiQKVY=
+Received: from BN8PR03CA0024.namprd03.prod.outlook.com (2603:10b6:408:94::37)
+ by PH7PR12MB6737.namprd12.prod.outlook.com (2603:10b6:510:1a8::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.27; Wed, 13 Mar
- 2024 14:40:49 +0000
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::797:7997:cff1:9be]) by CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::797:7997:cff1:9be%4]) with mapi id 15.20.7386.017; Wed, 13 Mar 2024
- 14:40:49 +0000
-From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-To: "Lin, Wayne" <Wayne.Lin@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
- <Sunpeng.Li@amd.com>, "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li,
- Roman" <Roman.Li@amd.com>, "Gutierrez, Agustin" <Agustin.Gutierrez@amd.com>,
- "Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Wu, Hersen"
- <hersenxs.wu@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, "Park, Chris"
- <Chris.Park@amd.com>, "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>, "Liu, Charlene" <Charlene.Liu@amd.com>
-Subject: Re: [PATCH 33/43] drm/amd/display: Prevent crash on bring-up
-Thread-Topic: [PATCH 33/43] drm/amd/display: Prevent crash on bring-up
-Thread-Index: AQHadF8V9a8VQVK5lUGhhndrC5dnSrE1wAxA
-Date: Wed, 13 Mar 2024 14:40:49 +0000
-Message-ID: <CH0PR12MB52848FF5C29D2FF732D21E338B2A2@CH0PR12MB5284.namprd12.prod.outlook.com>
-References: <20240312092036.3283319-1-Wayne.Lin@amd.com>
- <20240312092036.3283319-34-Wayne.Lin@amd.com>
-In-Reply-To: <20240312092036.3283319-34-Wayne.Lin@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-03-13T14:40:33.034Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|IA1PR12MB6332:EE_
-x-ms-office365-filtering-correlation-id: 54b9260e-a02a-4afe-52dd-08dc436b93b5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: a9Gsepfd5eqiVQJahXNcaHXf0j2djaFwiYqJ1/CXSsJZEWIP0xrMT4r7VhaEvZKG9e3HsbovG71aH+ZIHw1UghBLOsmDN/f1fM0Y77W0s4dte8NR7wHD5Dd3Hml44FHZ2Pw6gHqd2XfLh3Lih3s7JdPoBoDLUkw4kauAr5FudfD6dwsO0zRel/eyrayfZR5Dwvdqm7xdgcBOXQkp/tjXt28A4brHoFbzXC355cb5z/c8S1T3Sn1bCv5Zd/yqtNi9S28KG1nZn2nOFtDFEqCQV7Rbi9VkLoacNhSyEp37p5TrjBQTXHJZFcxFgFGW19BI1TWwTyHYttbO9cPHH0cwZyHHZuJ9VWXIaz2Sv6rZQxuE9+h1Z7XKCogFHH+PjuCM7x8qX4PipMrUJIa5KpIhrVBlc9vLKfG9Rdho20sYO2z1QB5KPbWRaikZ5twH+STm5vFQHhgL30eoZmvvIkisSJeWMD0im34FXMFYJK6fG3d24QUHPCEy1+MkOfwnffk6htgMTGFlz9o38jDWt+Gk/UXOC4dFHYz7+ker58p972ty+NIVBkZQMq9f/osUARBV0iTHGGN/zRZOdQHfhFPXez8+lCkYUGc5Den4mMI71J4IqVVlI44pQsXPXuRcGKifvnPwLehpWUTZ090OB8W9ZG5wTKRsHvEtDmpY/Djg76fK5eWpgweqdSbTQ+YF8PIEGn+M0tteIWc6eznMtgmljgZv8DwihIvrnRo1sxL6jAE=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?cvOumaRUC6nMJVPgaXd0GZjt7ObVUnmJoY3gAci4pe01SpvlF16Qip9b3wOa?=
- =?us-ascii?Q?3zMLZRfX6cJsVSyFT+JKTSskMP2I5nZNBSH6cBwmqz7eMo12RCj4sxgEVA1m?=
- =?us-ascii?Q?bTJvYJ6NrzMkxtOOW6nXjoJe9AS7BJn881tyDjHlSphWh808/6XpyhvE5zql?=
- =?us-ascii?Q?DG5EOoPNjt9xRXS2543bSs3nL1ge14OREOsq6XHziogoKxOc/fWCHlT3Uoav?=
- =?us-ascii?Q?G7N6e2We7YJcnzChy88mKNGUH3nI4bUdmWAdm3wz2S4DBCsAvboWbIquwSgt?=
- =?us-ascii?Q?ZqwLgl7P5iC3iQUIXevnowvZ2cZNnvbIzou3uV03ll9QgpoGNWPgJdGzNLXg?=
- =?us-ascii?Q?+ZUeb1XWRfktKYvsIlP1ZBmMpWPjMFVBoSBYM8yNqVPuS/q+lrGHxNaSCvtp?=
- =?us-ascii?Q?b+qJGHJcPWvwjJcmiFcCc5aJRpOuLe1kT0/eejgKVKmdVmcbi9QBVlRGGEg3?=
- =?us-ascii?Q?V9jDzDSrh9yug0SYAtVquzWnaKrTJkMG/XI60gzM9+tBT+UjQZjIOmpfq+lV?=
- =?us-ascii?Q?P7uQzy8fmyMAaCiRZQOVwF+hzfPEEqdEvbxDHBQ0gBBHSLHhIeDRmfaPG1mc?=
- =?us-ascii?Q?3FlblDBmQu3AkE3E8tHvDIhrz972rOgELwZSm0/O/xyWeQ89dtEkGmvUtpD4?=
- =?us-ascii?Q?8agxiPkxjz6tikHsjVRHdyz5LXmqWXcLRdAnVNKBgGW9GCdIBKWBEU5G8faK?=
- =?us-ascii?Q?3ytj791hqxF+fsn2wwjqb/SfM42K8oz6s1QigGi00xZh+6L71fNGpIVBerjC?=
- =?us-ascii?Q?ZmhlYzZT5cdb/eDc046/zNu0NE1cKwXMyIF8WBh78tEjw4Myko2yZ83reBFy?=
- =?us-ascii?Q?CVEBZmGHXHr8ZId/qmjUQxZQl7P0LJWdm09e8i3wjemgC86nPq+iY8FpU+dd?=
- =?us-ascii?Q?plO9WjsgKb4ZU8eeDDHnd00pkQg+BqTqNTJ5pYUcWzR5G8x+jEE/WobXGlBZ?=
- =?us-ascii?Q?oyag98ysiqWtoyFci3XURU+/U5Gy1ZckTcSoDQ/8NHLrUjfHU2geIsP95MFj?=
- =?us-ascii?Q?Nwm+8QRKz9BvN8jnevy7URkPQ+VOoSA9PLiY9xTatY5osCvQ12PL5WWZoVGj?=
- =?us-ascii?Q?5KN2lSw055rvM1VadRF2U00lRVK5kq9iQQr2X/6Za86yfA1YaVA8k7yJr77D?=
- =?us-ascii?Q?hFeN6NGQLgIF83fhHypEjFRNcCl7KQCQbDiXmszJdO/4OfMz2j99uR/QiFII?=
- =?us-ascii?Q?HCcjQdMTjAsKElFiKYMam77brXMlo/L1pY/8aVqv5UZyaSBSdnM+MFPugvbj?=
- =?us-ascii?Q?v++2HQOJqGvr0nr8uGeKNHfY9k7L6+RC1zw+3HwDcZclIOXE3gK5b6EIuqeq?=
- =?us-ascii?Q?JR4qLwJtprY3leFkHM++kLthcykr0kDag2KkAW3Xs1Uy5AShTvu1SgS3Oci8?=
- =?us-ascii?Q?X1laBw/ELrVM0VWy8mJi+kzDmAboxSOpFm28FRkv72AaYYlGL+mdH4IUFkg+?=
- =?us-ascii?Q?DlY5yg6NkCYWy0a2dez2mczPpyDc1hjwl7bBWKh/Zr8F7VlEgsR+02kcfvwL?=
- =?us-ascii?Q?hr1o+kKxQbslBEtc4jRmGASJWVsuTpADzdRUJ82wwOIaByq92E+g/BHBsJJG?=
- =?us-ascii?Q?jew9jC5VkeEdjHtb6HI=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CH0PR12MB52848FF5C29D2FF732D21E338B2A2CH0PR12MB5284namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.36; Wed, 13 Mar
+ 2024 17:44:38 +0000
+Received: from BN1PEPF0000468E.namprd05.prod.outlook.com
+ (2603:10b6:408:94:cafe::b5) by BN8PR03CA0024.outlook.office365.com
+ (2603:10b6:408:94::37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.18 via Frontend
+ Transport; Wed, 13 Mar 2024 17:44:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF0000468E.mail.protection.outlook.com (10.167.243.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7386.12 via Frontend Transport; Wed, 13 Mar 2024 17:44:38 +0000
+Received: from MKM-D1-DEWAALAM.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 13 Mar
+ 2024 12:44:37 -0500
+From: Dewan Alam <dewan.alam@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <hawking.zhang@amd.com>, Dewan Alam <dewan.alam@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: Enable IH Retry CAM by register read
+Date: Wed, 13 Mar 2024 13:43:44 -0400
+Message-ID: <20240313174344.2580-1-dewan.alam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468E:EE_|PH7PR12MB6737:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69fae5e3-c7b2-496f-e74b-08dc43854133
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: han8g99wkxWDrWiIXz/bK45sm5Pm1ZGJNYwkeeFKmnwhDRZIZdFpFjL+UEaH7yrsl1gvFcrPiJX0boGkrypsdvZCPdwPM0CM48Bfiif9eP9BVYV0UL2Cg/WfVPakdIxpdT4+rQlNUGdqFXfo+dGi5UE5O4Hxsv861856SQVA8z5WPYjN9TZv2vOn7uWwO1wYqOcreOLZPdtxHKWVCazInjBrZgZFVGsa1Fos7JiKT4MJLalO75iMjVNBuhEt06lmhjk9CJFA/D2EtLaxYGy1VU0/P3u7qlXgavqqjTIqb/F4/FlUPt32f3GV4wkpu+fL8TskWhas7U5zrXm3cesPCjBXKDFpdGDnKT8VKihgbxu48HaE5LrhLA3rmRS4NTO/nX03jYr3HozJGx28cEjXYsQ06LPB8Xm+LFTYEN/Da38nK8hnrURx1XP2Hlwj3WclkGqqyR04wB/rNn/FiYQhX+tboCwuq6yWmabxFGNzfs1LdUyj/edqRAOQK+wxxbKUEceGKPvz8CUfLqDNVEygF2y77rcvCB9XPGkkGZlV1kwVjsUsCOxDZm62QalNsK+ao0uGzGJmhpX6WhyqCXNCU2T3M1agCudpc70kAUnTaooyaeuotqMICHnaL668Wh2OUUFvNWmDB23o0u+tzJTahmRK3cZoUpa/uMhZMLKHdGzjDQjpJ1yYh3GiThUgGkn6+T2D2ITgigDxZi8puA4wrgtOm4GAtoF4eajzN9O3gMGn4dN/VhPWqP7aJ2thzveQ
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(82310400014)(36860700004); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54b9260e-a02a-4afe-52dd-08dc436b93b5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Mar 2024 14:40:49.8120 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7pSzrHIEYmbWrI7caQFL9ktUgfejrtSig/a+l8vEZLK2H/57j3Scx6g1mywlO4gWhqFN9bomU5nfxGrB+t+fzg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6332
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2024 17:44:38.2774 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69fae5e3-c7b2-496f-e74b-08dc43854133
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468E.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6737
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,201 +104,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CH0PR12MB52848FF5C29D2FF732D21E338B2A2CH0PR12MB5284namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+IH Retry CAM should be enabled by register reads instead of always being set to true.
 
-[AMD Official Use Only - General]
-
-Might want to avoid bringup in the commit description
-
---
-
-Regards,
-Jay
-________________________________
-From: Wayne Lin <Wayne.Lin@amd.com>
-Sent: Tuesday, March 12, 2024 5:20 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
-i@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo=
- <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.Li@amd.com>; Lin, Wayne <Wayn=
-e.Lin@amd.com>; Gutierrez, Agustin <Agustin.Gutierrez@amd.com>; Chung, Chia=
-Hsuan (Tom) <ChiaHsuan.Chung@amd.com>; Wu, Hersen <hersenxs.wu@amd.com>; Zu=
-o, Jerry <Jerry.Zuo@amd.com>; Park, Chris <Chris.Park@amd.com>; Limonciello=
-, Mario <Mario.Limonciello@amd.com>; Deucher, Alexander <Alexander.Deucher@=
-amd.com>; stable@vger.kernel.org <stable@vger.kernel.org>; Liu, Charlene <C=
-harlene.Liu@amd.com>
-Subject: [PATCH 33/43] drm/amd/display: Prevent crash on bring-up
-
-From: Chris Park <chris.park@amd.com>
-
-[Why]
-Disabling stream encoder invokes a function that no longer exists
-in bring-up.
-
-[How]
-Check if the function declaration is NULL in disable stream encoder.
-
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
-Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Chris Park <chris.park@amd.com>
+Signed-off-by: Dewan Alam <dewan.alam@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/dr=
-ivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index 9d5df4c0da59..0ba1feaf96c0 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -1185,7 +1185,8 @@ void dce110_disable_stream(struct pipe_ctx *pipe_ctx)
-                 if (dccg) {
-                         dccg->funcs->disable_symclk32_se(dccg, dp_hpo_inst=
-);
-                         dccg->funcs->set_dpstreamclk(dccg, REFCLK, tg->ins=
-t, dp_hpo_inst);
--                       dccg->funcs->set_dtbclk_dto(dccg, &dto_params);
-+                       if (dccg && dccg->funcs->set_dtbclk_dto)
-+                               dccg->funcs->set_dtbclk_dto(dccg, &dto_para=
-ms);
-                 }
-         } else if (dccg && dccg->funcs->disable_symclk_se) {
-                 dccg->funcs->disable_symclk_se(dccg, stream_enc->stream_en=
-c_inst,
---
-2.37.3
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+index b9e785846637..c330f5a88a06 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+@@ -337,13 +337,20 @@ static int vega20_ih_irq_init(struct amdgpu_device *adev)
+ 
+ 	/* Enable IH Retry CAM */
+ 	if (amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(4, 4, 0) ||
+-	    amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(4, 4, 2))
++	    amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(4, 4, 2)) {
+ 		WREG32_FIELD15(OSSSYS, 0, IH_RETRY_INT_CAM_CNTL_ALDEBARAN,
+ 			       ENABLE, 1);
+-	else
++		adev->irq.retry_cam_enabled = REG_GET_FIELD(
++			RREG32_SOC15(OSSSYS, 0,
++				mmIH_RETRY_INT_CAM_CNTL_ALDEBARAN),
++				IH_RETRY_INT_CAM_CNTL_ALDEBARAN, ENABLE);
++		} else {
+ 		WREG32_FIELD15(OSSSYS, 0, IH_RETRY_INT_CAM_CNTL, ENABLE, 1);
+-
+-	adev->irq.retry_cam_enabled = true;
++		adev->irq.retry_cam_enabled = REG_GET_FIELD(
++			RREG32_SOC15(OSSSYS, 0,
++				mmIH_RETRY_INT_CAM_CNTL),
++				IH_RETRY_INT_CAM_CNTL, ENABLE);
++		}
+ 
+ 	/* enable interrupts */
+ 	ret = vega20_ih_toggle_interrupts(adev, true);
+-- 
+2.34.1
 
-
---_000_CH0PR12MB52848FF5C29D2FF732D21E338B2A2CH0PR12MB5284namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Might want to avoid bringup in the commit description</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"Signature" style=3D"color: inherit; background-color: inherit;">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
---</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Jay<br>
-</div>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wayne Lin &lt;Wayne.L=
-in@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, March 12, 2024 5:20 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Li, Sun peng (Le=
-o) &lt;Sunpeng.Li@amd.com&gt;; Siqueira, Rodrigo &lt;Rodrigo.Siqueira@amd.c=
-om&gt;; Pillai, Aurabindo &lt;Aurabindo.Pillai@amd.com&gt;; Li, Roman &lt;R=
-oman.Li@amd.com&gt;; Lin, Wayne &lt;Wayne.Lin@amd.com&gt;; Gutierrez,
- Agustin &lt;Agustin.Gutierrez@amd.com&gt;; Chung, ChiaHsuan (Tom) &lt;Chia=
-Hsuan.Chung@amd.com&gt;; Wu, Hersen &lt;hersenxs.wu@amd.com&gt;; Zuo, Jerry=
- &lt;Jerry.Zuo@amd.com&gt;; Park, Chris &lt;Chris.Park@amd.com&gt;; Limonci=
-ello, Mario &lt;Mario.Limonciello@amd.com&gt;; Deucher, Alexander &lt;Alexa=
-nder.Deucher@amd.com&gt;;
- stable@vger.kernel.org &lt;stable@vger.kernel.org&gt;; Liu, Charlene &lt;C=
-harlene.Liu@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 33/43] drm/amd/display: Prevent crash on bring-up</f=
-ont>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Chris Park &lt;chris.park@amd.com&gt;<br>
-<br>
-[Why]<br>
-Disabling stream encoder invokes a function that no longer exists<br>
-in bring-up.<br>
-<br>
-[How]<br>
-Check if the function declaration is NULL in disable stream encoder.<br>
-<br>
-Cc: Mario Limonciello &lt;mario.limonciello@amd.com&gt;<br>
-Cc: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-Cc: stable@vger.kernel.org<br>
-Reviewed-by: Charlene Liu &lt;charlene.liu@amd.com&gt;<br>
-Acked-by: Wayne Lin &lt;wayne.lin@amd.com&gt;<br>
-Signed-off-by: Chris Park &lt;chris.park@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 3 ++-<br>
-&nbsp;1 file changed, 2 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/dr=
-ivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c<br>
-index 9d5df4c0da59..0ba1feaf96c0 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c<br>
-@@ -1185,7 +1185,8 @@ void dce110_disable_stream(struct pipe_ctx *pipe_ctx)=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (dccg) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dccg-=
-&gt;funcs-&gt;disable_symclk32_se(dccg, dp_hpo_inst);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dccg-=
-&gt;funcs-&gt;set_dpstreamclk(dccg, REFCLK, tg-&gt;inst, dp_hpo_inst);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dccg-&gt;funcs-&=
-gt;set_dtbclk_dto(dccg, &amp;dto_params);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dccg &amp;&a=
-mp; dccg-&gt;funcs-&gt;set_dtbclk_dto)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dccg-&gt;funcs-&gt;set_dtbclk_dto(dccg, &am=
-p;dto_params);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (dccg &amp;&amp;=
- dccg-&gt;funcs-&gt;disable_symclk_se) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; dccg-&gt;funcs-&gt;disable_symclk_se(dccg, stream_enc=
--&gt;stream_enc_inst,<br>
--- <br>
-2.37.3<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CH0PR12MB52848FF5C29D2FF732D21E338B2A2CH0PR12MB5284namp_--
