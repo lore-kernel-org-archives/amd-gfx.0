@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCC3DC54791
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Mar 2024 13:17:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABE23C54791
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Mar 2024 13:21:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EEED10E056;
-	Wed, 13 Mar 2024 13:17:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4154B10EF1F;
+	Wed, 13 Mar 2024 13:21:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YEfnY/T2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hb2LSbmU";
 	dkim-atps=neutral
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
- [209.85.167.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D539710E056
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Mar 2024 13:17:30 +0000 (UTC)
-Received: by mail-oi1-f173.google.com with SMTP id
- 5614622812f47-3c1f5e14bdbso2533390b6e.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Mar 2024 06:17:30 -0700 (PDT)
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com
+ [209.85.222.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C35D10EF1F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Mar 2024 13:21:55 +0000 (UTC)
+Received: by mail-ua1-f47.google.com with SMTP id
+ a1e0cc1a2514c-7dadba3284cso401831241.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Mar 2024 06:21:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710335850; x=1710940650; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1710336114; x=1710940914; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0DujU72uZmx0vxgEKHs7K4qoxSV34y9gEJ7f2jiacTE=;
- b=YEfnY/T2vcz/kWNr2KURhmLZwpyZohsZsldy7Gd8a1+Kv6TMe4Ook7CLZhK93miGpJ
- vIt5Kh4eBS2c+UkRlvUncOIc0yRD/5bnRYH/7lACWoLbrzT2d+TWTWMYG+WBzEZakH4C
- IIwIPmmxIJvVONR/z5zyb440N02HPKc/W2Oa27mE3qy8LSzPAeabQYp2OH7hWDN94ofh
- h37TIxs0DCifVULHtnAQCIDSfhWQvYXLaxUih2ww9SGY5MtiKDFTPXCs+Zq/FmD3mOuy
- k/949P1C0insJJjPzxCbw7VQcdAeCPxXBD9PjuxLNGqBrVtzMlG5ztV+ASxzNoMpQ+Zs
- f1IA==
+ bh=AdTmrLicne0xcyPbGXZU6GlpHzRsoMYU6PsfeUaLd0k=;
+ b=hb2LSbmU/7o3lnKupfCnJnh29Xvqwf+a0fJHV36wr1tAqxVrxyo7ZbUvPN09BKuH07
+ gwsmmBsnfW2E6typc1Vd5RmZR9jmhy5u8kNaG2IQn2Ctsss0v36lBIVT03FHIkTQ6FAF
+ dwTWmUju7HOp3Dn+ahCjRf7RgOX15ENR/5m8v2xAZkI0wz7VW09rFkqxo3JS/QlXTmoX
+ +nO5qU9JwsZL9IQvJYxJbo0BSE6Pwtl0TpqhCwaWtkuEXrLpmu1/7oB/FEXrypR65Nxk
+ jxxDUuJal1E6Ak3seprA1yc63ZOP+rPpCI01nysMte52NS3QDqr93IXvN1ILvF5u7CtG
+ rvDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710335850; x=1710940650;
+ d=1e100.net; s=20230601; t=1710336114; x=1710940914;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=0DujU72uZmx0vxgEKHs7K4qoxSV34y9gEJ7f2jiacTE=;
- b=ggqRib2bzlO9Cv0cVZHn/VfpFPliZV++M1SUWX2wN2m1/tbsECR6Evm5+j7tEVfFuM
- 0t5tuoymU1SCTN8V8MK+p04XqQda7pHB9cW+tJ3So2FMdoqKH1l6jU6eZvJFeJAWr/OT
- egQtuxKcJ8Kk5CX0+Y8GYLD/51SCa4qF1EjSpJeggtw7Mh93iqUxcvYZaYLl/kr+RNSK
- N6Ww2spVYAiKoemgZ841DMkMVxqSPvM76U5SV3LppW7JaHFYfj1Wq1CuOzo6euXoHPHO
- tNegKnV9OST9AXTlTwWoytY5+S1tPYvH3Fe4gK4ZAB58dhzXtpTPNOzW/PWlh/xcPrOy
- e2mQ==
-X-Gm-Message-State: AOJu0YzX2QRs9S/agX0Y9DegcmDDNjswDMk654n1AZP86lbIFDrAtO7y
- ttvxrSSIThEhzca68qYDdEN3C7KzZEZ2zuQGA20ZST5Mz/9tL+FMzk0mmqWH0V6s4ANyplLqgwm
- jYiqM0cVtn6rFynOv1lYHqR8+Fi0=
-X-Google-Smtp-Source: AGHT+IHjWNttGCNqKVOwTZa0PFgGrvYTxKitbjkIt5VJRHVOdvtMbdct2cs9CRHJc4z2o9W7aoqkK7ApVz6JHczaGk8=
-X-Received: by 2002:a05:6808:22a3:b0:3c2:5bff:db05 with SMTP id
- bo35-20020a05680822a300b003c25bffdb05mr3860453oib.10.1710335849746; Wed, 13
- Mar 2024 06:17:29 -0700 (PDT)
+ bh=AdTmrLicne0xcyPbGXZU6GlpHzRsoMYU6PsfeUaLd0k=;
+ b=e3Wedz+KFnmUqbSGGu11922WQPMs8aDfpupJpXU49WpXDrJt5SUqZGwb5rnaB7e3HL
+ X5rDsOlRh+ha+0WCEv/QzLIvFbRuttmLYk2vbWL9t1nH34J/3x+Ukp2XLCzFWXNSA2x8
+ 7HFoEM0hifVJgzF8tBQqy+q4H0mJxBIZAhP/NqRGcvO1dIY7Zr+KefZm4ivScxoXXT4a
+ 9xS3yPsDoLVq6024aQ9Yu7XZTRk1S8hXhOkL7+2i7mXkKb05W+fcyB/AlX9ck9qWSsoh
+ JE3EcH4LuJvvpEqZDbZdAX+WSPM93171vkRtwpT+xJDUtt7y4JzkQ6aD3/tjKN2YA9Ei
+ UDLA==
+X-Gm-Message-State: AOJu0Yx9vC2L5+bHUZ90yHYhgV9UTKexU6kr++Z0Q3e6y6yKyw0Kx/il
+ eEdQP4mHauGpmjHczhHhmXy0q4dhwWdV/GOsUHT0UkAWp/HNO1+6S/7V9vSqmHiFbLkvA9QkA0k
+ dg8CU5KcFUqHsA0BIO/wIKiWI2Uk=
+X-Google-Smtp-Source: AGHT+IGC/k1XvuTXmfw6IfKzYNe3W3t1lMdLqc2KXCoNclAqMwoJHN5i4x2i/ApXnS7ufb2DlK+NGvURWjYMQp53rw0=
+X-Received: by 2002:a67:b305:0:b0:474:c377:19f0 with SMTP id
+ a5-20020a67b305000000b00474c37719f0mr3712231vsm.14.1710336113685; Wed, 13 Mar
+ 2024 06:21:53 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240313114451.1592772-1-peytolee@amd.com>
-In-Reply-To: <20240313114451.1592772-1-peytolee@amd.com>
+References: <20240313105934.2362429-1-Jun.Ma2@amd.com>
+In-Reply-To: <20240313105934.2362429-1-Jun.Ma2@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 13 Mar 2024 09:17:17 -0400
-Message-ID: <CADnq5_OTwaLWJ9LiicJu-hO+WDF6fPB5PFQWzAqopyrDVn6R5Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/vpe: power on vpe when hw_init
-To: Peyton Lee <peytolee@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- Yifan Zhang <yifan1.zhang@amd.com>, Li Ma <li.ma@amd.com>,
- Lang Yu <lang.yu@amd.com>
+Date: Wed, 13 Mar 2024 09:21:41 -0400
+Message-ID: <CADnq5_MJi3Fua00wOgAhHsQp=_rYg954PighWQJ1uqkDht99rw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu/pm: Fix NULL pointer dereference when get
+ power limit
+To: Ma Jun <Jun.Ma2@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Kenneth.Feng@amd.com, 
+ Alexander.Deucher@amd.com, kevinyang.wang@amd.com, 
+ Yin Zhenguo <zhenguo.yin@amd.com>, Lazar Lijo <lijo.lazar@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -77,42 +78,256 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 13, 2024 at 7:41=E2=80=AFAM Peyton Lee <peytolee@amd.com> wrote=
-:
+On Wed, Mar 13, 2024 at 7:07=E2=80=AFAM Ma Jun <Jun.Ma2@amd.com> wrote:
 >
-> To fix mode2 reset failure.
-> Should power on VPE when hw_init.
-
-When does it get powered down again?  Won't this leave it powered up?
-
-Alex
-
+> Because powerplay_table initialization is skipped under
+> sriov case, We check and set default lower and upper OD
+> value if powerplay_table is NULL.
 >
-> Signed-off-by: Peyton Lee <peytolee@amd.com>
+> Fixes: 7968e9748fbb ("drm/amdgpu/pm: Fix the power1_min_cap value")
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+> Reported-by: Yin Zhenguo <zhenguo.yin@amd.com>
+> Suggested-by: Lazar Lijo <lijo.lazar@amd.com>
+> Suggested-by: Alex Deucher <Alexander.Deucher@amd.com>
+
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c    | 14 ++++++++------
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c  | 16 +++++++++-------
+>  .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c  | 14 ++++++++------
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 14 ++++++++------
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 14 ++++++++------
+>  5 files changed, 41 insertions(+), 31 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_vpe.c
-> index 70c5cc80ecdc..ecfe0f36e83e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> @@ -396,6 +396,12 @@ static int vpe_hw_init(void *handle)
->         struct amdgpu_vpe *vpe =3D &adev->vpe;
->         int ret;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/=
+gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> index 1d96eb274d72..a406372e79d8 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> @@ -1286,7 +1286,7 @@ static int arcturus_get_power_limit(struct smu_cont=
+ext *smu,
+>         struct smu_11_0_powerplay_table *powerplay_table =3D
+>                 (struct smu_11_0_powerplay_table *)smu->smu_table.power_p=
+lay_table;
+>         PPTable_t *pptable =3D smu->smu_table.driver_pptable;
+> -       uint32_t power_limit, od_percent_upper, od_percent_lower;
+> +       uint32_t power_limit, od_percent_upper =3D 0, od_percent_lower =
+=3D 0;
 >
-> +       /* Power on VPE */
-> +       ret =3D amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK=
-_TYPE_VPE,
-> +                                                    AMD_PG_STATE_UNGATE)=
+>         if (smu_v11_0_get_current_power_limit(smu, &power_limit)) {
+>                 /* the last hope to figure out the ppt limit */
+> @@ -1303,12 +1303,14 @@ static int arcturus_get_power_limit(struct smu_co=
+ntext *smu,
+>         if (default_power_limit)
+>                 *default_power_limit =3D power_limit;
+>
+> -       if (smu->od_enabled)
+> -               od_percent_upper =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> -       else
+> -               od_percent_upper =3D 0;
+> +       if (powerplay_table) {
+> +               if (smu->od_enabled)
+> +                       od_percent_upper =3D le32_to_cpu(powerplay_table-=
+>overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> +               else
+> +                       od_percent_upper =3D 0;
+>
+> -       od_percent_lower =3D le32_to_cpu(powerplay_table->overdrive_table=
+.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> +               od_percent_lower =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> +       }
+>
+>         dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d=
+ (default power: %d)\n",
+>                                                         od_percent_upper,=
+ od_percent_lower, power_limit);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gp=
+u/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> index ed189a3878eb..65bba5fc2335 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> @@ -2339,7 +2339,7 @@ static int navi10_get_power_limit(struct smu_contex=
+t *smu,
+>                 (struct smu_11_0_powerplay_table *)smu->smu_table.power_p=
+lay_table;
+>         struct smu_11_0_overdrive_table *od_settings =3D smu->od_settings=
 ;
-> +       if (ret)
-> +               return ret;
-> +
->         ret =3D vpe_load_microcode(vpe);
->         if (ret)
->                 return ret;
+>         PPTable_t *pptable =3D smu->smu_table.driver_pptable;
+> -       uint32_t power_limit, od_percent_upper, od_percent_lower;
+> +       uint32_t power_limit, od_percent_upper =3D 0, od_percent_lower =
+=3D 0;
+>
+>         if (smu_v11_0_get_current_power_limit(smu, &power_limit)) {
+>                 /* the last hope to figure out the ppt limit */
+> @@ -2356,13 +2356,15 @@ static int navi10_get_power_limit(struct smu_cont=
+ext *smu,
+>         if (default_power_limit)
+>                 *default_power_limit =3D power_limit;
+>
+> -       if (smu->od_enabled &&
+> -                   navi10_od_feature_is_supported(od_settings, SMU_11_0_=
+ODCAP_POWER_LIMIT))
+> -               od_percent_upper =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> -       else
+> -               od_percent_upper =3D 0;
+> +       if (powerplay_table) {
+> +               if (smu->od_enabled &&
+> +                           navi10_od_feature_is_supported(od_settings, S=
+MU_11_0_ODCAP_POWER_LIMIT))
+> +                       od_percent_upper =3D le32_to_cpu(powerplay_table-=
+>overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> +               else
+> +                       od_percent_upper =3D 0;
+>
+> -       od_percent_lower =3D le32_to_cpu(powerplay_table->overdrive_table=
+.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> +               od_percent_lower =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.min[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
+> +       }
+>
+>         dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d=
+ (default power: %d)\n",
+>                                         od_percent_upper, od_percent_lowe=
+r, power_limit);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/dr=
+ivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> index a405424dd699..9371e6e79c56 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> @@ -625,7 +625,7 @@ static int sienna_cichlid_get_power_limit(struct smu_=
+context *smu,
+>  {
+>         struct smu_11_0_7_powerplay_table *powerplay_table =3D
+>                 (struct smu_11_0_7_powerplay_table *)smu->smu_table.power=
+_play_table;
+> -       uint32_t power_limit, od_percent_upper, od_percent_lower;
+> +       uint32_t power_limit, od_percent_upper =3D 0, od_percent_lower =
+=3D 0;
+>         uint16_t *table_member;
+>
+>         GET_PPTABLE_MEMBER(SocketPowerLimitAc, &table_member);
+> @@ -640,12 +640,14 @@ static int sienna_cichlid_get_power_limit(struct sm=
+u_context *smu,
+>         if (default_power_limit)
+>                 *default_power_limit =3D power_limit;
+>
+> -       if (smu->od_enabled)
+> -               od_percent_upper =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.max[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+> -       else
+> -               od_percent_upper =3D 0;
+> +       if (powerplay_table) {
+> +               if (smu->od_enabled)
+> +                       od_percent_upper =3D le32_to_cpu(powerplay_table-=
+>overdrive_table.max[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+> +               else
+> +                       od_percent_upper =3D 0;
+>
+> -       od_percent_lower =3D le32_to_cpu(powerplay_table->overdrive_table=
+.min[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+> +               od_percent_lower =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.min[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
+> +       }
+>
+>         dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d=
+ (default power: %d)\n",
+>                                         od_percent_upper, od_percent_lowe=
+r, power_limit);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> index 6a501d2661f5..f1e388c2863a 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> @@ -2356,7 +2356,7 @@ static int smu_v13_0_0_get_power_limit(struct smu_c=
+ontext *smu,
+>                 (struct smu_13_0_0_powerplay_table *)table_context->power=
+_play_table;
+>         PPTable_t *pptable =3D table_context->driver_pptable;
+>         SkuTable_t *skutable =3D &pptable->SkuTable;
+> -       uint32_t power_limit, od_percent_upper, od_percent_lower;
+> +       uint32_t power_limit, od_percent_upper =3D 0, od_percent_lower =
+=3D 0;
+>         uint32_t msg_limit =3D skutable->MsgLimits.Power[PPT_THROTTLER_PP=
+T0][POWER_SOURCE_AC];
+>
+>         if (smu_v13_0_get_current_power_limit(smu, &power_limit))
+> @@ -2369,12 +2369,14 @@ static int smu_v13_0_0_get_power_limit(struct smu=
+_context *smu,
+>         if (default_power_limit)
+>                 *default_power_limit =3D power_limit;
+>
+> -       if (smu->od_enabled)
+> -               od_percent_upper =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.max[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+> -       else
+> -               od_percent_upper =3D 0;
+> +       if (powerplay_table) {
+> +               if (smu->od_enabled)
+> +                       od_percent_upper =3D le32_to_cpu(powerplay_table-=
+>overdrive_table.max[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+> +               else
+> +                       od_percent_upper =3D 0;
+>
+> -       od_percent_lower =3D le32_to_cpu(powerplay_table->overdrive_table=
+.min[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+> +               od_percent_lower =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.min[SMU_13_0_0_ODSETTING_POWERPERCENTAGE]);
+> +       }
+>
+>         dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d=
+ (default power: %d)\n",
+>                                         od_percent_upper, od_percent_lowe=
+r, power_limit);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> index 3dc7b60cb075..8abf0a772e6b 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> @@ -2320,7 +2320,7 @@ static int smu_v13_0_7_get_power_limit(struct smu_c=
+ontext *smu,
+>                 (struct smu_13_0_7_powerplay_table *)table_context->power=
+_play_table;
+>         PPTable_t *pptable =3D table_context->driver_pptable;
+>         SkuTable_t *skutable =3D &pptable->SkuTable;
+> -       uint32_t power_limit, od_percent_upper, od_percent_lower;
+> +       uint32_t power_limit, od_percent_upper =3D 0, od_percent_lower =
+=3D 0;
+>         uint32_t msg_limit =3D skutable->MsgLimits.Power[PPT_THROTTLER_PP=
+T0][POWER_SOURCE_AC];
+>
+>         if (smu_v13_0_get_current_power_limit(smu, &power_limit))
+> @@ -2333,12 +2333,14 @@ static int smu_v13_0_7_get_power_limit(struct smu=
+_context *smu,
+>         if (default_power_limit)
+>                 *default_power_limit =3D power_limit;
+>
+> -       if (smu->od_enabled)
+> -               od_percent_upper =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.max[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+> -       else
+> -               od_percent_upper =3D 0;
+> +       if (powerplay_table) {
+> +               if (smu->od_enabled)
+> +                       od_percent_upper =3D le32_to_cpu(powerplay_table-=
+>overdrive_table.max[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+> +               else
+> +                       od_percent_upper =3D 0;
+>
+> -       od_percent_lower =3D le32_to_cpu(powerplay_table->overdrive_table=
+.min[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+> +               od_percent_lower =3D le32_to_cpu(powerplay_table->overdri=
+ve_table.min[SMU_13_0_7_ODSETTING_POWERPERCENTAGE]);
+> +       }
+>
+>         dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d=
+ (default power: %d)\n",
+>                                         od_percent_upper, od_percent_lowe=
+r, power_limit);
 > --
 > 2.34.1
 >
