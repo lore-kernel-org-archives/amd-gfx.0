@@ -4,96 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A107C54E58
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 07:44:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3E09C54E58
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 08:24:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC7A010FCCD;
-	Fri, 15 Mar 2024 07:44:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53C9A10FFE1;
+	Fri, 15 Mar 2024 08:24:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NVmdQYSQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="F49o9o6f";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2086.outbound.protection.outlook.com [40.107.243.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE22110FCCD
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 07:44:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Cl6oKjJO4TxU2ulbDJWPh+adyqIrkDUbl+jMzcQcjpdRkwkJOQAxyGjUYEtJ+OjFW0HlMp2ovugVjCMl+mrkfyP858tu/k1WIY9dQ+iEP2Kt9ZmChFTcaroRstko0XdRlp55wTL+Za4ZtDW8HlFnaon00ZUkPKv9dVDcwkvkvMabLbRP4Ni9Y8ZeIffsZ+QCWigUM20k5EzXI55PY1l4TrSumqXc4X6EHQGKsN6gkyigJaZsXfn4lVxTTB+ITZ+WNkWiPLkEDpiX9mWW5HevIyHQHWystOUwXb/CsUBEK66tKUBmPeDFB1nYjvRKJ7OkmZ4N2gR4fZrScFSdUoGEDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rerTP+yC8DMY8m7+wU2mTM4jS6EQX/Z3fKeZMWjGDiU=;
- b=N4jomgAalpE152oYLGV7VEpGNn7ayqp/YM71NVwRNbDQkI+eP8trIU0aw2RAynKUmwR4x1I6G0n/BAHmvucyJykhwSAHKBzbbzMVmaj7YDMvU8mVZjkp2sEdkgGUHxuNWhS3ozSAN2swRmAld5FjB1tBQkQd+lR3W80TdZJP5uvcNqPETFdfAqqS7eIdO6XQv404SFzWSdcG6f6KLSds8x2PgCT+/9jOApyM+kEW8q1XE9nNpgz9h+3cSx/9Ony0LSMjyawpW68auAGscIPbT04hRc6tACr92oThYEv5aqfzD8cBCNXH5f16OkEzoV+/rr7zM1QISplJTOcINTxCwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rerTP+yC8DMY8m7+wU2mTM4jS6EQX/Z3fKeZMWjGDiU=;
- b=NVmdQYSQd+ZWnLzzP9k9DaRZ/+wmOW0GjmyuOddPP+GPxyEZtK0PP7ccOwq4tbFeYN80W6z6rT+rznxb+BfgRS6upZX7A3HLKcqmbSKRPdPy2/HXBKidBIGb+Ovz7mCIVO8Mz46opiU8Z5V8fgK9kQmj4gdh9hIuEgSTxpQEYyg=
-Received: from CH2PR08CA0020.namprd08.prod.outlook.com (2603:10b6:610:5a::30)
- by MW4PR12MB6976.namprd12.prod.outlook.com (2603:10b6:303:20a::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.22; Fri, 15 Mar
- 2024 07:44:14 +0000
-Received: from CH3PEPF0000000C.namprd04.prod.outlook.com
- (2603:10b6:610:5a:cafe::f7) by CH2PR08CA0020.outlook.office365.com
- (2603:10b6:610:5a::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.49 via Frontend
- Transport; Fri, 15 Mar 2024 07:44:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH3PEPF0000000C.mail.protection.outlook.com (10.167.244.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7386.12 via Frontend Transport; Fri, 15 Mar 2024 07:44:14 +0000
-Received: from asad-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 15 Mar
- 2024 02:44:10 -0500
-From: Asad Kamal <asad.kamal@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
- <shiwu.zhang@amd.com>, <asad.kamal@amd.com>, <donald.cheung@amd.com>,
- <sepehr.khatir@amd.com>, <daniel.oliveira@amd.com>, <charis.poag@amd.com>
-Subject: [PATCH v2 2/2] drm/amd/pm: Use metric table for pcie speed/width
-Date: Fri, 15 Mar 2024 15:43:55 +0800
-Message-ID: <20240315074355.3297281-2-asad.kamal@amd.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20240315074355.3297281-1-asad.kamal@amd.com>
-References: <20240315074355.3297281-1-asad.kamal@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA7D910E034;
+ Thu, 14 Mar 2024 16:58:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1710435483; x=1741971483;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=fcf8GvnNI2NlxwWa/BLBUBs674hhRLyrkoAa66D2RKo=;
+ b=F49o9o6f1wA2+0hKn2KaNWoiU1UaqF5OSDbpLsz7FOXcrELL9HyUrEm2
+ Q7o/CPG+e7ansTYgABaa4woiQvX89RKbkPHj+bcgh3tYYn0XGK646ElkI
+ HrgYq/7XfEdsyNtraXvIPPPL9YendLYAIydJX7fyXvsyOkFSLKRZSD2KS
+ /viwGMOLdRhlZ5Ia5FECnv7rM7SLSFF6MvtJ9znOXtJRdgwbP4P/BZ58s
+ J7j0afF+CVkZ4pph2QI+dRrCHA03wcMHd7Ly3thCHCt+6jI+JMAnuKqhK
+ T122oCRSneZNdNILJL0gsQT3+Fp4ao8P7KOOXtiUwYbhAvSMXWpouRApx A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11013"; a="22731674"
+X-IronPort-AV: E=Sophos;i="6.07,126,1708416000"; d="scan'208";a="22731674"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2024 09:58:02 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,126,1708416000"; d="scan'208";a="16952403"
+Received: from aschofie-mobl2.amr.corp.intel.com (HELO aschofie-mobl2)
+ ([10.209.72.214])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2024 09:57:59 -0700
+Date: Thu, 14 Mar 2024 09:57:57 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Linux Trace Kernel <linux-trace-kernel@vger.kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-cxl@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-rdma@vger.kernel.org, linux-pm@vger.kernel.org,
+ iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
+ netdev@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ ath10k@lists.infradead.org, linux-wireless@vger.kernel.org,
+ ath11k@lists.infradead.org, ath12k@lists.infradead.org,
+ brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
+ linux-usb@vger.kernel.org, linux-bcachefs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
+ linux-cifs@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-edac@vger.kernel.org, selinux@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-f2fs-devel@lists.sourceforge.net, linux-hwmon@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-sound@vger.kernel.org,
+ bpf@vger.kernel.org, linux-wpan@vger.kernel.org,
+ dev@openvswitch.org, linux-s390@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, Julia Lawall <Julia.Lawall@inria.fr>
+Subject: Re: [FYI][PATCH] tracing/treewide: Remove second parameter of
+ __assign_str()
+Message-ID: <ZfMslbCmCtyEaEWN@aschofie-mobl2>
+References: <20240223125634.2888c973@gandalf.local.home>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000C:EE_|MW4PR12MB6976:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7dc714e0-eb33-4883-f372-08dc44c3b604
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EW5fCII/Iwm7mkEjRVS/6Hmnp5tzcY7gX8+eLeSQqp4v7WVcy2nausbnEo5hjPf2jUzF8yrC3Ge2BjzvnIvwH2D9DL/WDzaKEzPFRtZ2mcUUlnuPX1daE0chNQrjOilaznvz096HRJ/AH/7uXWfcEtEnkRP3P+lg0OYOiPN9AXheLG+VA+id4DStNcK7qzdxumvJv2uqCM767gpA/s46wFDbzInf2qAW+5WBGfrrdvxYh+trWDoILyHwics64uNXEJuINPzXOUDqONG/NSYa24N+qu+TF48pEcE2K2nH8y1p59n1ZLzXxRr/MQYPXyCg2o3qcifa58TqhXIWV/x2xiMYm4jvoOQ6EFcVuU/bzuQWAtKzLbLCEy820DRqSIqLkOhNr8h8VrkX8EKcNkUj5+SjK7pyLUBW3VDucnNiNpqJYkRJBfWZiTY6N3nhhekxaYJzt2DLfXCaeuR4whk/+yTb0DfTsFkkrSnOhmy5rcWigcbio5jbrB1MXDlRF70vFXPDbYrLii+FR7oJfDxbiM37CvS6Y1JBFFcx59RTt48nsjHaQ7aF+sWcskA7YuplRi3goJQtCW28bMIuHLMhGBoGc2FbQVXrPIxImz6xeAwy9HhP1ckwKRN0QA4Q6VPLOiDzpcttF9SE4Hsta8sZj0TbxFCBFXfj3KT8YKELsK3VmWzjHsA8yW/voWpIGYyqSUEs1WfzCZDvxu4Mdh1El4a/CT3+QYr0+prLzoxP/QhmYpbYj1fe2JqeSUkWFtC3
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400014)(1800799015)(36860700004)(376005); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2024 07:44:14.2232 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7dc714e0-eb33-4883-f372-08dc44c3b604
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000C.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6976
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240223125634.2888c973@gandalf.local.home>
+X-Mailman-Approved-At: Fri, 15 Mar 2024 08:24:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,46 +91,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Report pcie link speed/width using metric table in case
-of one vf & if pmfw support is available, else report directly from
-registers in case of pf. Skip reporting it for other cases.
+On Fri, Feb 23, 2024 at 12:56:34PM -0500, Steven Rostedt wrote:
+> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
+> 
+> [
+>    This is a treewide change. I will likely re-create this patch again in
+>    the second week of the merge window of v6.9 and submit it then. Hoping
+>    to keep the conflicts that it will cause to a minimum.
+> ]
+> 
+> With the rework of how the __string() handles dynamic strings where it
+> saves off the source string in field in the helper structure[1], the
+> assignment of that value to the trace event field is stored in the helper
+> value and does not need to be passed in again.
+> 
+> This means that with:
+> 
+>   __string(field, mystring)
+> 
+> Which use to be assigned with __assign_str(field, mystring), no longer
+> needs the second parameter and it is unused. With this, __assign_str()
+> will now only get a single parameter.
+> 
+> There's over 700 users of __assign_str() and because coccinelle does not
+> handle the TRACE_EVENT() macro I ended up using the following sed script:
+> 
+>   git grep -l __assign_str | while read a ; do
+>       sed -e 's/\(__assign_str([^,]*[^ ,]\) *,[^;]*/\1)/' $a > /tmp/test-file;
+>       mv /tmp/test-file $a;
+>   done
+> 
+> I then searched for __assign_str() that did not end with ';' as those
+> were multi line assignments that the sed script above would fail to catch.
+> 
+> Note, the same updates will need to be done for:
+> 
+>   __assign_str_len()
+>   __assign_rel_str()
+>   __assign_rel_str_len()
+>   __assign_bitmask()
+>   __assign_rel_bitmask()
+>   __assign_cpumask()
+>   __assign_rel_cpumask()
+> 
+> [1] https://lore.kernel.org/linux-trace-kernel/20240222211442.634192653@goodmis.org/
+> 
+> Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+> ---
+>  arch/arm64/kernel/trace-events-emulation.h    |   2 +-
+>  arch/powerpc/include/asm/trace.h              |   4 +-
+>  arch/x86/kvm/trace.h                          |   2 +-
+>  drivers/base/regmap/trace.h                   |  18 +--
+>  drivers/base/trace.h                          |   2 +-
+>  drivers/block/rnbd/rnbd-srv-trace.h           |  12 +-
+>  drivers/cxl/core/trace.h                      |  24 ++--
 
-v2: Skip multi-vf check(Lijo)
+snip to CXL
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 744c84f3029f..c1dcbbd88464 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -2229,7 +2229,15 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
- 	gpu_metrics->gfxclk_lock_status = GET_METRIC_FIELD(GfxLockXCDMak) >> GET_INST(GC, 0);
- 
- 	if (!(adev->flags & AMD_IS_APU)) {
--		if (!amdgpu_sriov_vf(adev)) {
-+		/*Check smu version, PCIE link speed and width will be reported from pmfw metric
-+		 * table for both pf & one vf for smu version 85.99.0 or higher else report only
-+		 * for pf from registers
-+		 */
-+		if (smu->smc_fw_version >= 0x556300) {
-+			gpu_metrics->pcie_link_width = metrics_x->PCIeLinkWidth;
-+			gpu_metrics->pcie_link_speed =
-+				pcie_gen_to_speed(metrics_x->PCIeLinkSpeed);
-+		} else if (!amdgpu_sriov_vf(adev)) {
- 			link_width_level = smu_v13_0_6_get_current_pcie_link_width_level(smu);
- 			if (link_width_level > MAX_LINK_WIDTH)
- 				link_width_level = 0;
-@@ -2239,6 +2247,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
- 			gpu_metrics->pcie_link_speed =
- 				smu_v13_0_6_get_current_pcie_link_speed(smu);
- 		}
-+
- 		gpu_metrics->pcie_bandwidth_acc =
- 				SMUQ10_ROUND(metrics_x->PcieBandwidthAcc[0]);
- 		gpu_metrics->pcie_bandwidth_inst =
--- 
-2.42.0
+> diff --git a/drivers/cxl/core/trace.h b/drivers/cxl/core/trace.h
+> index bdf117a33744..07ba4e033347 100644
+> --- a/drivers/cxl/core/trace.h
+> +++ b/drivers/cxl/core/trace.h
+
+snip to poison
+
+> @@ -668,8 +668,8 @@ TRACE_EVENT(cxl_poison,
+>  	    ),
+>  
+>  	TP_fast_assign(
+> -		__assign_str(memdev, dev_name(&cxlmd->dev));
+> -		__assign_str(host, dev_name(cxlmd->dev.parent));
+> +		__assign_str(memdev);
+> +		__assign_str(host);
+
+I think I get that the above changes work because the TP_STRUCT__entry for
+these did:
+	__string(memdev, dev_name(&cxlmd->dev))
+	__string(host, dev_name(cxlmd->dev.parent))
+
+>  		__entry->serial = cxlmd->cxlds->serial;
+>  		__entry->overflow_ts = cxl_poison_overflow(flags, overflow_ts);
+>  		__entry->dpa = cxl_poison_record_dpa(record);
+> @@ -678,12 +678,12 @@ TRACE_EVENT(cxl_poison,
+>  		__entry->trace_type = trace_type;
+>  		__entry->flags = flags;
+>  		if (region) {
+> -			__assign_str(region, dev_name(&region->dev));
+> +			__assign_str(region);
+>  			memcpy(__entry->uuid, &region->params.uuid, 16);
+>  			__entry->hpa = cxl_trace_hpa(region, cxlmd,
+>  						     __entry->dpa);
+>  		} else {
+> -			__assign_str(region, "");
+> +			__assign_str(region);
+>  			memset(__entry->uuid, 0, 16);
+>  			__entry->hpa = ULLONG_MAX;
+
+For the above 2, there was no helper in TP_STRUCT__entry. A recently
+posted patch is fixing that up to be __string(region, NULL) See [1],
+with the actual assignment still happening in TP_fast_assign.
+
+Does that assign logic need to move to the TP_STRUCT__entry definition
+when you merge these changes? I'm not clear how much logic is able to be
+included, ie like 'C' style code in the TP_STRUCT__entry.
+
+[1]
+https://lore.kernel.org/linux-cxl/20240314044301.2108650-1-alison.schofield@intel.com/
+
+Thanks for helping,
+Alison
+
+
+>  		}
+
+
 
