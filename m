@@ -4,94 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE500C5475B
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 05:53:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13D44C54E5D
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 05:58:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6044B10F104;
-	Thu, 14 Mar 2024 05:53:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7663710EEE1;
+	Thu, 14 Mar 2024 05:58:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="QLjAqyIl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="H5Dgksfa";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B10710F104
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Mar 2024 05:53:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
- t=1710395595; x=1711000395; i=friedrich.vock@gmx.de;
- bh=Yu2m2f7oypI6/NNgrnFiPk7uE/x34rG/0v9DQgwkznw=;
- h=X-UI-Sender-Class:Date:From:Subject:To:References:In-Reply-To;
- b=QLjAqyIlUYsv5K29ajrJBvDWHM7/pHMVZvf/1ZIgUP3EJ2NBJnSPFfqEtd348zdH
- 9eM3pou1IiCpE4EekZukfFLoGBJrCZoTez1q3MhD4SJ4U/1ewjZlNQK0h66o4NohJ
- UMiXD+zwDifRKXuOZ7xGXQGWYfIsx9rhVcqLauq3K5MoWt6vIC9hBQYZl1zHjhFvv
- 6Prxazqu1z3OHFROfBL7m2bMdyRD+AqZiSj3Xd2geUZI2m9v57zfgBqKIF2sZaExx
- +TvgSISMnKwIPhpWMH5n+6qXqPCESdBLr6nJaG4zzLU0XTFCbnnEfx89cwF0KXqYb
- ZXKyiINZVLoAj0VGEw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.177.3] ([213.152.118.97]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MYvY2-1rFvsA3fOK-00Up6f; Thu, 14
- Mar 2024 06:53:14 +0100
-Message-ID: <f632c497-aa97-427c-a35b-a2bb47e0d8c1@gmx.de>
-Date: Thu, 14 Mar 2024 06:53:14 +0100
-MIME-Version: 1.0
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2081.outbound.protection.outlook.com [40.107.92.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C79F10EEE1;
+ Thu, 14 Mar 2024 05:58:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VhLwXl8kfVurudJ0t6H8RT6uCBKy3aPswcLo0cTY583ow77zO9N0HUb3ZKkTkYjUlWdgBHZv1lBpuzP+bODBMQt/fRBM/jtNpdtFyL+jINRdf1GxFcamKpRYqSYlBnyeWXJXKOizStHnD9O8RzdK7SMKH/GfjgDlZi2m5oxwFmswqBu4fEb+lw4MvLm8itdpKsIeE23rEkj1aSrW/pty4I8hqpGT+FfgpBURJ3mXHO5LrxqYD9VQ16/kZpVLEyN9firLxqmkqHV61kPzuqCDecZukvBtgq4HjPVm6mJzBxHiGDKh1az7N/ZH9viAGI41hLVEgmNd0p9u0VJ6F0X1IQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aN3uPVgfDTsdjwI1T2oBkB27lqTtGcdaEU7rkzbG4f4=;
+ b=bmYKtzxM4dqd8P8qItw5b2RdWyeHs4zu23jW54jLq4m/dnnGy3lORHW3fA1NHOGoU7AWqi7GoHEbR9es6S4viXyMknn/bmJb0uXxv86Wv0YfAK7LhFUU8g/y6+HWjWdJ2+BRGvYSAwPMoOrVv2DtYWlY/0mXp3rjv/VfIqlR3mdS5YuS9hyluDM83jL2odOiQvw475c956l0YmOjWgFnMtnCMgWRXbGq7KOGyuvsR86vmnuNEi1ddx2RlRWWaGe8/ohGgALGXvdI+jFVev1e8REx+kWZ0p1zXMNlknw6puN9v1GglgsX5j8HIzaOYTXTCUOx4RffCCqgua5ZRRhGLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aN3uPVgfDTsdjwI1T2oBkB27lqTtGcdaEU7rkzbG4f4=;
+ b=H5Dgksfal5rh3y9suoVHC/bS8DQq5X0NgYglvU2XB4CiazoHAMcaI7Zb5zv2zmqCvARIaePDdQwPbE6gOrRIAPr33JhIaZ6u+Vj1nnbKPExIqMT7DZ/+zXGT0zLSlEBOye0258iM3LqzBmfkmYUHJVTWzkUZXePOwOX+uCAXxDA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13)
+ by SA1PR12MB6996.namprd12.prod.outlook.com (2603:10b6:806:24f::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.36; Thu, 14 Mar
+ 2024 05:58:19 +0000
+Received: from PH7PR12MB5596.namprd12.prod.outlook.com
+ ([fe80::6974:3875:ed0:7033]) by PH7PR12MB5596.namprd12.prod.outlook.com
+ ([fe80::6974:3875:ed0:7033%3]) with mapi id 15.20.7386.017; Thu, 14 Mar 2024
+ 05:58:19 +0000
+Message-ID: <498b87fb-727c-4ea2-9633-6ecbff436eba@amd.com>
+Date: Thu, 14 Mar 2024 11:28:11 +0530
 User-Agent: Mozilla Thunderbird
-From: Friedrich Vock <friedrich.vock@gmx.de>
-Subject: Re: [PATCH] Documentation: add a page on amdgpu debugging
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240313210147.484930-1-alexander.deucher@amd.com>
+Subject: Re: [PATCH 2/2] drm:amdgpu: add firmware information of all IP's
 Content-Language: en-US
-Autocrypt: addr=friedrich.vock@gmx.de; keydata=
- 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
- f7+xmX0X3AMtWz/15Y+7cPO2
-In-Reply-To: <20240313210147.484930-1-alexander.deucher@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, Sunil Khatri <sunil.khatri@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20240312124148.257067-1-sunil.khatri@amd.com>
+ <20240312124148.257067-2-sunil.khatri@amd.com>
+ <CADnq5_ON0NfcpmnHKjNYWgxfvfz-J3tgjX92DaaN63iKb+FOZg@mail.gmail.com>
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <CADnq5_ON0NfcpmnHKjNYWgxfvfz-J3tgjX92DaaN63iKb+FOZg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:nKczI6sdRCFBe/cisyKZPfmiKOg4Gxho6yHYeQ1CSIPDcvm5Sw7
- 0Yc2DjQipkgjYe+vpd6CfGGLixKOxTZa0BeuQE/faFQpT/5qYte9ee1YihNqdUlvNrqui1b
- yiGh8yt0EKATOw0dgV+Gylfq2wilVUhuQ1zdFhaF+oj7DPzsQ0VM3vnu7HI/MwIoEuL5o5S
- Ah/HjvjORIZViI4o643mA==
-UI-OutboundReport: notjunk:1;M01:P0:cz/EQL8Tmz0=;H8v6PUYjGnqmmtAv20/QxjNfq8r
- CW1A9FidW1Onl6a+8/1vru7ypcjh7HVDjWcpLbRYhvl/NWT0yljjy8ATQhcIZsaSMoKAGww21
- Yqo52li/vLzuqb/aWr+4Y7poYO/2/lZFWlU6V33tg34T586VvisC9LDfQYZLdYX/BwVixLRex
- 8+ewyx8cDkG9PJc5vv1Dz4gE7NYY01hlBDP+VZfE96yAd5jTA+9w2oDyN72noKYlxy39X9M/M
- W7sODwzTItoy6L7NB04j0ehktqcg+yyFBCIuXl52bRX4CMzlFIcuDKgtbZ9ts2snBpKpTBcs2
- RLB3KBFIo8upd2r0Qj+TqRirdiNj2DbzclrAT0i6YIEeLONnE8wCWMrJY6k65Nk2KY1sfBuDs
- 4n1AbvISInwDmePHyo+2BQZq1zHltQGXA/RHI9SOz+lfxbVFVd0n9aaTL0bJJ0NzaX63QymPJ
- 6ePGmd9arnSwCy8o/djgAA4T07hkaIvR8JzW4m5MfHhu8mseTbGJ74lxSH+i+uIC0KkVJLzYh
- dpQsrag35hwoukAR8U96EZBs1gZsbbTzY5Nwi9SXYEG2xVAlQjXmHvDtWJFPCvPPi8BNaDh1H
- 9MhWsqI9jqhRFYlaKkjY4L/hpgsrg563mnIre9Oit8VYkx5E8HEcQ7e7lLVBxxShobZYm1emQ
- Srp/sN+Di+roJs10A8esoxho0fOCHFAVSMaSTKwwCRdKyS1HFduXQl2Wv+qeT2wkiF+JP1N4y
- Z4dDUiGjF3wdbSxU68dhY6c12mu4Gf5dDW+Tl4cDiKZaW8OPAEGlydWtAncEsBbQMBPoXT2Qh
- PRTRhZeXWrUMuUThJ6/6RrmsNG3V2tP9SsQcX6WMjDiAk=
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0176.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:de::18) To PH7PR12MB5596.namprd12.prod.outlook.com
+ (2603:10b6:510:136::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5596:EE_|SA1PR12MB6996:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a24c8e7-a35f-4ad2-fc7d-08dc43ebbfa9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: xb2d+T/F7XKniPpCsz7KFFA9DhgaT4Oy/uW1vB0ZwsaVtMrcMtQJZBF1jkruYi3gKb25y6nwS7dgrU5m966a4zCE7MldlAH/5LvMa7Ss3kd+M6BK5k6lpxhfVxASRhQeSz+xphQ4bweS6TJo2+2fvUxus+C87dfCrs8J/kR8uGwrOnLMwATyp3zW4sWPXOyzUl3aBZEMI+sHC0UVdlSRHOWsqdbaG+rlXEcTYteJIiObSMscMpDk79+6SZmWxh1YwZVyGXDsLk3qO0aOg4qq1KuCPkztdNHeJQJdp+xde57yjDeAdQdR3zwpgJzVJhpduKikAekH+OrCAhIq7f2Eo6KlT5YpS3ZD9oObvwZrUVJfvgssDG3ZxgP1e/xCl3DZ2xpKuAyryIpqOF7HJT1TAoXurF9WYT5m6Z/XA8XEuk4eZxdWvNL8QnvWxJxy9wB8qNEzB2Gv9j9NU9qho7p0zX0OMUQrDvH+MwOgzEFWzAEx0ajjGTRNGKjulBIucGR6k1JkjXPH1NDyDQzjSAdjXm1mAbMX+Z4BPdjbZGJQicugerT1jXYbUwKTTHaBsgUyKVyovi5xY8BwJh+o2inTlE1GUhTpnGbc4K2akZAjeFbx1A3ZA9lcb2+rtuOkYh2r10p6WtDbuq825qzMV2rrZEs7310dfRh5uZpsOuqBq+w=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5596.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K0VXUWVxcEN5ang0Y2dHTVlwc1JYRmJMQjA1UFdqVTNidjc5UHZNdEVGQXBL?=
+ =?utf-8?B?c0JxMEZpUGdmSTlQOTluRzFQUHRCQm9HWFN3a0lMT2swNENxbHJvbW45dStL?=
+ =?utf-8?B?QVBpWWE4UmtPeE41dnQ0VlI2Q29jWWhielR1MmZtWVFOWnNiSzRmeVFLY2x5?=
+ =?utf-8?B?a3FqcFFjdWFFSk9pNWhGTFpHTDdRc3ZiR0l5S3k5U2Izdit2RUR6WjQ2a3hU?=
+ =?utf-8?B?QXRzKzE3WkFYVWlCTEZhWmZEcStKTHNxSHExRCtEclJXcW9TcDFPK3hTVDl5?=
+ =?utf-8?B?TEtremdnUzVLYWVVSU9ENmNFaFVQekpkK044YTlSSktzMGt3LzN1M1cyNHA1?=
+ =?utf-8?B?cm9ycDFlRENEcUIzTGVwc2huaDhxT05SYXp0M3ZEeWNrUkxnbUkyR082MkVi?=
+ =?utf-8?B?c1VFWnlhMGhjWjBjZHlBbjlLYkYwbk1Tai9BR21qazlVd1ZQbkU0ZUhOcFZ5?=
+ =?utf-8?B?dzFGNGJadGFBM1ZJU2JKNFhGMVRveklCNU1ETU9HeCtHTnMweWNtdGZLWlln?=
+ =?utf-8?B?MUgyeXc1RDR4dXdNS1J3Q2dYOHgvalhpZHlTTVc5VHFBdFFGTzVsMndEL2di?=
+ =?utf-8?B?bng4ckNnZm5LMGtsY0ZzZ0JlREZJVmE2ZlhOc1dISmlmVW9XY2JRWE5LcHhX?=
+ =?utf-8?B?QzRYMmVxZmFqM3dtczNVVDRzMS93cVBmRGtNTnhqaDd0UW1UN1Nsb3Aybzl2?=
+ =?utf-8?B?a0hKc2NMVmZ5REJGNzRzZStvZG9TaW1zandteHQ1c29jVzQwRmZON202ZDZk?=
+ =?utf-8?B?UjBUVlZMM3hlMHQ2WllaK2ozL0I4b2xIOUtsMGh6VXVaTFowQWxURE9qblVu?=
+ =?utf-8?B?U0hLZEtxQ2c1a08xcjV1ZGRnQ0hVNHlyMS80YUIvOUlqUVVnYlROQWZNbW9w?=
+ =?utf-8?B?dHI2TnZmSjBCOUJxcTZvcXBDNkg3MHppRXI3UzBydEtZVVlRZUcrTU5rYlRZ?=
+ =?utf-8?B?ZEgwd2svajRpNmJ3L250Y1l4R2xJRUdnaFRncEJQNVJ5eXlnL2lnYzdEVkJN?=
+ =?utf-8?B?TlpZNktGOTVMR1FDaUlOOFF1RkNmOWRobUM4QkI0b1VJMEc5b2Z2NDdIQUE4?=
+ =?utf-8?B?dTNTb0YxMU1RKzFDRi82Wk5lRWh5UTUxaG1VOUg1eWZlM09XT1htOVo1VG45?=
+ =?utf-8?B?ZXRKbm9tTUZCRWpDRFQrM1dNOGc3QlBzYnRud0RIR0g1K2lrUllZUnlIamYw?=
+ =?utf-8?B?RkhHWHJTVmpnemppWmg0WHJFeU5IdUJJMjVnMzl4WmVQamt4MXBpMGRUWjEw?=
+ =?utf-8?B?VEFZcDNLT0V0SFJhRi84MU5tbm1zOTczOGtLVk5MZVVxV0hEME9kWTYvbk1o?=
+ =?utf-8?B?NjI2bHFLZTJ3MnpicWUvR0kwYVUxbVhkbnlWSWY4blRuYXUxYlYyWXM1S1BN?=
+ =?utf-8?B?S2ZQMEtZcTlSdFJiS0YyTWduR2xKV2hPUmJIdDVrVW9kbEJJR1dXVVdkTk4y?=
+ =?utf-8?B?LzAwcDFPVm5SZWRZM0RFdkFwcDUrZjliVTRFYXBXWkt3M3NjTzRGNC8vK0l0?=
+ =?utf-8?B?Z0JPWVpadE5tRTBDOGkwdGFsMnhKWVAyVzRZR0lnZktUTU9kMUxmcHhpRkNE?=
+ =?utf-8?B?Wk93RjRwWlJHN2tQZHROeVNlV0RzUktBbTlJdm91TTVXTG00aGhsNHlxR1g1?=
+ =?utf-8?B?SU1BTFZEcVlnK3RweHBScHcxZmdXSTJlUXBxTC9tVWtod3Y0eUJBeTNmWVlY?=
+ =?utf-8?B?VmlGRXFEN3B1MHZwUTBUSUxaM3NUTllkOVpYY2xtK2FOc1ZOY3QzTVNxbGpT?=
+ =?utf-8?B?aFZ6Z0lOajZOSkZBVDdDdlRSTmJYQlRaUEZLcDFnYXRVS3NVc2pRZGxMOFRM?=
+ =?utf-8?B?ZCtyOHZVZ2tJVjhVT09pUDIzMk5YY3RpcXhvV0YwSVBPNmVwbU5UQitUNDBQ?=
+ =?utf-8?B?UEV2bnFBeHZzdXp6R0lBb01TN011QmpuMmZzdWxXcTlGd1ZhVzhKeGJ5MmRl?=
+ =?utf-8?B?NTFRa0NST2Y2ZjcrcDZiN1pOUi95OVdid1RIaGlUMStjK1AvSFBKS3cxNitG?=
+ =?utf-8?B?Vm4vN2dEaUhWUjAvWU43eVJDeVQ2VXhidHFKMlJ5aWptb3NjQUJEQWVVUlJo?=
+ =?utf-8?B?SjNmQzllTHpoa25LREVPTnM4K2ZCZkJwdGFFL3JxYzg4V2o0VkdRR3B1bE4y?=
+ =?utf-8?Q?LqjMJnXnEHUD9L9t9HRAP9bV5?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a24c8e7-a35f-4ad2-fc7d-08dc43ebbfa9
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5596.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2024 05:58:19.5004 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZZHo3wIQp21aXboklUC9OCWMEdql45sOavM06XfqBf9nKwZjnbKdH8+Up1vii8hKzAGYDl5pR5jb55bfZIuj8Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6996
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,137 +133,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 13.03.24 22:01, Alex Deucher wrote:
-> Covers GPU page fault debugging and adds a reference
-> to umr.
+
+On 3/14/2024 2:06 AM, Alex Deucher wrote:
+> On Tue, Mar 12, 2024 at 8:42 AM Sunil Khatri <sunil.khatri@amd.com> wrote:
+>> Add firmware version information of each
+>> IP and each instance where applicable.
+>>
+> Is there a way we can share some common code with devcoredump,
+> debugfs, and the info IOCTL?  All three places need to query this
+> information and the same logic is repeated in each case.
+
+Hello Alex,
+
+Yes you re absolutely right the same information is being retrieved 
+again as done in debugfs. I can reorganize the code so same function 
+could be used by debugfs and devcoredump but this is exactly what i 
+tried to avoid here. I did try to use minimum functionality in 
+devcoredump without shuffling a lot of code here and there.
+
+Also our devcoredump is implemented in amdgpu_reset.c and not all the 
+information is available here and there we might have to include lot of 
+header and cross functions in amdgpu_reset until we want a dedicated 
+file for devcoredump.
+
+Info IOCTL does have a lot of information which also is in pipeline to 
+be dumped but this if we want to reuse the functionality of IOCTL we 
+need to reorganize a lot of code.
+
+If that is the need of the hour i could work on that. Please let me know.
+
+This is my suggestion if it makes sense:
+
+1. If we want to reuse a lot of functionality then we need to modularize 
+some of the functions further so they could be consumed directly by 
+devcoredump.
+2. We should also have a dedicated file for devcoredump.c/.h so its easy 
+to include headers of needed functionality cleanly and easy to expand 
+devcoredump.
+3. based on the priority and importance of this task we can add 
+information else some repetition is a real possibility.
+
 >
-> Signed-off-by: Alex Deucher<alexander.deucher@amd.com>
-> ---
->   Documentation/gpu/amdgpu/debugging.rst | 79 ++++++++++++++++++++++++++
->   Documentation/gpu/amdgpu/index.rst     |  1 +
->   2 files changed, 80 insertions(+)
->   create mode 100644 Documentation/gpu/amdgpu/debugging.rst
+> Alex
 >
-> diff --git a/Documentation/gpu/amdgpu/debugging.rst b/Documentation/gpu/=
-amdgpu/debugging.rst
-> new file mode 100644
-> index 000000000000..29971a7a6815
-> --- /dev/null
-> +++ b/Documentation/gpu/amdgpu/debugging.rst
-> @@ -0,0 +1,79 @@
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> + GPU Debugging
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +GPUVM Debugging
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +To aid in debugging GPU virtual memory related problems, the driver sup=
-ports a
-> +number of options module paramters:
-> +
-> +`vm_fault_stop` - If non-0, halt the GPU memory controller on a GPU pag=
-e fault.
-> +
-> +`vm_update_mode` - If non-0, use the CPU to update GPU page tables rath=
-er than
-> +the GPU.
-> +
-> +
-> +Decoding a GPUVM Page Fault
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D
-> +
-> +If you see a GPU page fault in the kernel log, you can decode it to fig=
-ure
-> +out what is going wrong in your application.  A page fault in your kern=
-el
-> +log may look something like this:
-> +
-> +::
-> +
-> + [gfxhub0] no-retry page fault (src_id:0 ring:24 vmid:3 pasid:32777, fo=
-r process glxinfo pid 2424 thread glxinfo:cs0 pid 2425)
-> +   in page starting at address 0x0000800102800000 from IH client 0x1b (=
-UTCL2)
-> + VM_L2_PROTECTION_FAULT_STATUS:0x00301030
-> + 	Faulty UTCL2 client ID: TCP (0x8)
-> + 	MORE_FAULTS: 0x0
-> + 	WALKER_ERROR: 0x0
-> + 	PERMISSION_FAULTS: 0x3
-> + 	MAPPING_ERROR: 0x0
-> + 	RW: 0x0
-> +
-> +First you have the memory hub, gfxhub and mmhub.  gfxhub is the memory
-> +hub used for graphics, compute, and sdma on some chips.  mmhub is the
-> +memory hub used for multi-media and sdma on some chips.
-> +
-> +Next you have the vmid and pasid.  If the vmid is 0, this fault was lik=
-ely
-> +caused by the kernel driver or firmware.  If the vmid is non-0, it is g=
-enerally
-> +a fault in a user application.  The pasid is used to link a vmid to a s=
-ystem
-> +process id.  If the process is active when the fault happens, the proce=
-ss
-> +information will be printed.
-> +
-> +The GPU virtual address that caused the fault comes next.
-> +
-> +The client ID indicates the GPU block that caused the fault.
-> +Some common client IDs:
-> +
-> +- CB/DB: The color/depth backend of the graphics pipe
-> +- CPF: Command Processor Frontend
-> +- CPC: Command Processor Compute
-> +- CPG: Command Processor Graphics
-> +- TCP: Shaders
-
-For shader accesses, maybe including SQC (data)/SQC (inst) for SMEM
-accesses/instruction prefetching would be useful?
-
-Thanks,
-Friedrich
-
-> +- SDMA: SDMA engines
-> +- VCN: Video encode/decode engines
-> +- JPEG: JPEG engines
-> +
-> +PERMISSION_FAULTS describe what faults were encountered:
-> +
-> +- bit 0: the PTE was not valid
-> +- bit 1: the PTE read bit was not set
-> +- bit 2: the PTE write bit was not set
-> +- bit 3: the PTE execute bit was not set
-> +
-> +Finally, RW, indicates whether the access was a read (0) or a write (1)=
-.
-> +
-> +In the example above, a shader (cliend id =3D TCP) generated a read (RW=
- =3D 0x0) to
-> +an invalid page (PERMISSION_FAULTS =3D 0x3) at GPU virtual address
-> +0x0000800102800000.  The user can then inspect can then inspect their s=
-hader
-> +code and resource descriptor state to determine what caused the GPU pag=
-e fault.
-> +
-> +UMR
-> +=3D=3D=3D
-> +
-> +`umr<https://gitlab.freedesktop.org/tomstdenis/umr>`_ is a general purp=
-ose
-> +GPU debugging and diagnostics tool.  Please see the umr documentation f=
-or
-> +more information about its capabilities.
-> diff --git a/Documentation/gpu/amdgpu/index.rst b/Documentation/gpu/amdg=
-pu/index.rst
-> index 912e699fd373..847e04924030 100644
-> --- a/Documentation/gpu/amdgpu/index.rst
-> +++ b/Documentation/gpu/amdgpu/index.rst
-> @@ -15,4 +15,5 @@ Next (GCN), Radeon DNA (RDNA), and Compute DNA (CDNA) =
-architectures.
->      ras
->      thermal
->      driver-misc
-> +   debugging
->      amdgpu-glossary
+>
+>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c | 122 ++++++++++++++++++++++
+>>   1 file changed, 122 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+>> index 611fdb90a1fc..78ddc58aef67 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+>> @@ -168,6 +168,123 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
+>>   {
+>>   }
+>>   #else
+>> +static void amdgpu_devcoredump_fw_info(struct amdgpu_device *adev, struct drm_printer *p)
+>> +{
+>> +       uint32_t version;
+>> +       uint32_t feature;
+>> +       uint8_t smu_program, smu_major, smu_minor, smu_debug;
+>> +
+>> +       drm_printf(p, "VCE feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->vce.fb_version, adev->vce.fw_version);
+>> +       drm_printf(p, "UVD feature version: %u, fw version: 0x%08x\n",
+>> +                  0, adev->uvd.fw_version);
+>> +       drm_printf(p, "GMC feature version: %u, fw version: 0x%08x\n",
+>> +                  0, adev->gmc.fw_version);
+>> +       drm_printf(p, "ME feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.me_feature_version, adev->gfx.me_fw_version);
+>> +       drm_printf(p, "PFP feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.pfp_feature_version, adev->gfx.pfp_fw_version);
+>> +       drm_printf(p, "CE feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.ce_feature_version, adev->gfx.ce_fw_version);
+>> +       drm_printf(p, "RLC feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.rlc_feature_version, adev->gfx.rlc_fw_version);
+>> +
+>> +       drm_printf(p, "RLC SRLC feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.rlc_srlc_feature_version,
+>> +                  adev->gfx.rlc_srlc_fw_version);
+>> +       drm_printf(p, "RLC SRLG feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.rlc_srlg_feature_version,
+>> +                  adev->gfx.rlc_srlg_fw_version);
+>> +       drm_printf(p, "RLC SRLS feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.rlc_srls_feature_version,
+>> +                  adev->gfx.rlc_srls_fw_version);
+>> +       drm_printf(p, "RLCP feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.rlcp_ucode_feature_version,
+>> +                  adev->gfx.rlcp_ucode_version);
+>> +       drm_printf(p, "RLCV feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.rlcv_ucode_feature_version,
+>> +                  adev->gfx.rlcv_ucode_version);
+>> +       drm_printf(p, "MEC feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.mec_feature_version,
+>> +                  adev->gfx.mec_fw_version);
+>> +
+>> +       if (adev->gfx.mec2_fw)
+>> +               drm_printf(p,
+>> +                          "MEC2 feature version: %u, fw version: 0x%08x\n",
+>> +                          adev->gfx.mec2_feature_version,
+>> +                          adev->gfx.mec2_fw_version);
+>> +
+>> +       drm_printf(p, "IMU feature version: %u, fw version: 0x%08x\n",
+>> +                  0, adev->gfx.imu_fw_version);
+>> +       drm_printf(p, "PSP SOS feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->psp.sos.feature_version,
+>> +                  adev->psp.sos.fw_version);
+>> +       drm_printf(p, "PSP ASD feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->psp.asd_context.bin_desc.feature_version,
+>> +                  adev->psp.asd_context.bin_desc.fw_version);
+>> +
+>> +       drm_printf(p, "TA XGMI feature version: 0x%08x, fw version: 0x%08x\n",
+>> +                  adev->psp.xgmi_context.context.bin_desc.feature_version,
+>> +                  adev->psp.xgmi_context.context.bin_desc.fw_version);
+>> +       drm_printf(p, "TA RAS feature version: 0x%08x, fw version: 0x%08x\n",
+>> +                  adev->psp.ras_context.context.bin_desc.feature_version,
+>> +                  adev->psp.ras_context.context.bin_desc.fw_version);
+>> +       drm_printf(p, "TA HDCP feature version: 0x%08x, fw version: 0x%08x\n",
+>> +                  adev->psp.hdcp_context.context.bin_desc.feature_version,
+>> +                  adev->psp.hdcp_context.context.bin_desc.fw_version);
+>> +       drm_printf(p, "TA DTM feature version: 0x%08x, fw version: 0x%08x\n",
+>> +                  adev->psp.dtm_context.context.bin_desc.feature_version,
+>> +                  adev->psp.dtm_context.context.bin_desc.fw_version);
+>> +       drm_printf(p, "TA RAP feature version: 0x%08x, fw version: 0x%08x\n",
+>> +                  adev->psp.rap_context.context.bin_desc.feature_version,
+>> +                  adev->psp.rap_context.context.bin_desc.fw_version);
+>> +       drm_printf(p, "TA SECURE DISPLAY feature version: 0x%08x, fw version: 0x%08x\n",
+>> +               adev->psp.securedisplay_context.context.bin_desc.feature_version,
+>> +               adev->psp.securedisplay_context.context.bin_desc.fw_version);
+>> +
+>> +       /* SMC firmware */
+>> +       version = adev->pm.fw_version;
+>> +
+>> +       smu_program = (version >> 24) & 0xff;
+>> +       smu_major = (version >> 16) & 0xff;
+>> +       smu_minor = (version >> 8) & 0xff;
+>> +       smu_debug = (version >> 0) & 0xff;
+>> +       drm_printf(p, "SMC feature version: %u, program: %d, fw version: 0x%08x (%d.%d.%d)\n",
+>> +                  0, smu_program, version, smu_major, smu_minor, smu_debug);
+>> +
+>> +       /* SDMA firmware */
+>> +       for (int i = 0; i < adev->sdma.num_instances; i++) {
+>> +               drm_printf(p, "SDMA%d feature version: %u, firmware version: 0x%08x\n",
+>> +                          i, adev->sdma.instance[i].feature_version,
+>> +                          adev->sdma.instance[i].fw_version);
+>> +       }
+>> +
+>> +       drm_printf(p, "VCN feature version: %u, fw version: 0x%08x\n",
+>> +                  0, adev->vcn.fw_version);
+>> +       drm_printf(p, "DMCU feature version: %u, fw version: 0x%08x\n",
+>> +                  0, adev->dm.dmcu_fw_version);
+>> +       drm_printf(p, "DMCUB feature version: %u, fw version: 0x%08x\n",
+>> +                  0, adev->dm.dmcub_fw_version);
+>> +       drm_printf(p, "PSP TOC feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->psp.toc.feature_version, adev->psp.toc.fw_version);
+>> +
+>> +       version = adev->mes.kiq_version & AMDGPU_MES_VERSION_MASK;
+>> +       feature = (adev->mes.kiq_version & AMDGPU_MES_FEAT_VERSION_MASK)
+>> +                                       >> AMDGPU_MES_FEAT_VERSION_SHIFT;
+>> +       drm_printf(p, "MES_KIQ feature version: %u, fw version: 0x%08x\n",
+>> +                  feature, version);
+>> +
+>> +       version = adev->mes.sched_version & AMDGPU_MES_VERSION_MASK;
+>> +       feature = (adev->mes.sched_version & AMDGPU_MES_FEAT_VERSION_MASK)
+>> +                                       >> AMDGPU_MES_FEAT_VERSION_SHIFT;
+>> +       drm_printf(p, "MES feature version: %u, fw version: 0x%08x\n",
+>> +                  feature, version);
+>> +
+>> +       drm_printf(p, "VPE feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->vpe.feature_version, adev->vpe.fw_version);
+>> +
+>> +}
+>> +
+>>   static ssize_t
+>>   amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
+>>                          void *data, size_t datalen)
+>> @@ -215,6 +332,11 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
+>>                  }
+>>          }
+>>
+>> +       if (coredump->adev) {
+>> +               drm_printf(&p, "IP Firmwares\n");
+>> +               amdgpu_devcoredump_fw_info(coredump->adev, &p);
+>> +       }
+>> +
+>>          if (coredump->ring) {
+>>                  drm_printf(&p, "\nRing timed out details\n");
+>>                  drm_printf(&p, "IP Type: %d Ring Name: %s\n",
+>> --
+>> 2.34.1
+>>
