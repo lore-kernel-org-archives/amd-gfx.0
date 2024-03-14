@@ -4,93 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 933EDC54E5D
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 16:54:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0DEDC54E5D
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 17:51:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0736C10FC16;
-	Thu, 14 Mar 2024 16:54:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1980A10FC5E;
+	Thu, 14 Mar 2024 17:51:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OfIOrldL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cv4SXlOR";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2081.outbound.protection.outlook.com [40.107.212.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD6AC10FC16
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Mar 2024 16:54:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SFr3tc8nxhDRypl+nvvoKbDggm/o3g6uUVEmDzY6vX9K3irbee+FT0vnASaB83SNazZV8GVaGoh7hjH7qDuAOZqvCwm/R91UwG3/Tu9E8QXIdqyGpcJ2M3j6Tyun4tfvPpmNcHb1LgYLW35tgfBBdKDBhrIGYj/8OjeuxSSh1YlMhIdE9onivFD/kW7+/gwmlPLeNJzi+Ty5n8ErVrGKfzmotMgJnYRimToFD1BlZpJ9WaCBSfWE3McOPxswpQFUoI8Gbq8Lb14c+i5BVp2GhR3wabzhIkFsGqiMqxIeXFHKR2V2nvXipb6xqJJlWriYmSvVBM8sJQb6wag4hLJfjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1qgml6hLGi4L8eQRprR6WbA2X795IOAsGSdHoBFacbs=;
- b=Y9qL3aEyt84KifYCIHxB4zMwK21jkzLp/P35LP8/fkqnjhuElV7jezLY9LCvfjl969k4N05xGhV8SiAbV6uzcllJTB7gERvAiTAgc5h9yckRqFDuqNOniddvVdlB6Asp9mav6DodvNIhPN7iz+9d7DqMtV4kr6HDikaVD6Ml8We9GIuLZn6WououDHPNZPfsdJ5Zycbls5U6N7XeeSn7cHGKfIepZJ0csayL7JJZQ6wJeiKCoFnfWch1pefBc98rdJbC2iQCN/d/X1e9eKZZWN9/wu9b/pylEs/Wi5uTdCgaTtVBVJ1GmdAwrRecdzWgqBwSB02D01DELfONjicJuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1qgml6hLGi4L8eQRprR6WbA2X795IOAsGSdHoBFacbs=;
- b=OfIOrldL/8kSgvncTWbaZf8oE1Ed0DvEj9mDocbImm613RbO6n821hPFC/1E7tkXOMi5qKzyUHxZ5SEQh7b4A7QbTpLdClfNXGkcyccZ9AklSuPlENwah+Ai+Rg/OxexBEMjyESfXBw5OKNgpTapmJJDy+PqmLtIZZigH3AnpOg=
-Received: from CH0PR03CA0303.namprd03.prod.outlook.com (2603:10b6:610:118::16)
- by SA3PR12MB9177.namprd12.prod.outlook.com (2603:10b6:806:39d::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.24; Thu, 14 Mar
- 2024 16:54:37 +0000
-Received: from CH1PEPF0000AD7A.namprd04.prod.outlook.com
- (2603:10b6:610:118:cafe::dc) by CH0PR03CA0303.outlook.office365.com
- (2603:10b6:610:118::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.18 via Frontend
- Transport; Thu, 14 Mar 2024 16:54:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000AD7A.mail.protection.outlook.com (10.167.244.59) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7386.12 via Frontend Transport; Thu, 14 Mar 2024 16:54:36 +0000
-Received: from MKM-L1-ZHLUO987.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 14 Mar
- 2024 11:54:35 -0500
-From: Zhigang Luo <Zhigang.Luo@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Sashank.Saye@amd.com>, <Jeffrey.Chan@amd.com>,
- Zhigang Luo <Zhigang.Luo@amd.com>
-Subject: [PATCH] drm/amdgpu: trigger flr_work if reading pf2vf data failed
-Date: Thu, 14 Mar 2024 12:54:09 -0400
-Message-ID: <20240314165409.17657-1-Zhigang.Luo@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D612510FC5E;
+ Thu, 14 Mar 2024 17:51:55 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-29bd4dfbf56so956471a91.3; 
+ Thu, 14 Mar 2024 10:51:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1710438715; x=1711043515; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=83o/z763nISRcPT8Ce4hg/uxvl1Iug2mRWFmiJSQha0=;
+ b=cv4SXlORGG8ziAQdUbUX2408E8LuFVjnvsqiJvZVJ5vHyQanwPrXXwPFafLjn9MELu
+ Ius5TwS/6U/gY9+Jt8ROV5QgXvX62+0SvHkhX096bVnGrfyc2UUdNEX3ISiHT0/4jLpr
+ hc0O/GDNJO6wRdfSEVUZMZh2Z6SQJIr71D04Y5hpApzmJ/HuUWy6NEkqRvLarCygWp/q
+ vfEtPS2dBcouz/8IVue/Sgk+IQXZJAdJVbJ9CEpRx86kkc/jjsDM/+kWdsYTzm4Ku1K1
+ QIOAaZSSQ/10/a2Hl4hSaN4MrAYh8Rkn5BtOVk0/pAbLoqaeUEj7wRraS2jeZi3Vhz05
+ pZfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710438715; x=1711043515;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=83o/z763nISRcPT8Ce4hg/uxvl1Iug2mRWFmiJSQha0=;
+ b=N3Z2WzjvbzHrujoIlTTSG5gSZrpxbgI1oiX+MlEKp9IC/dv+cX3femimfAHd20ogWX
+ iqs4FyU8rg5gRdE/VtT2Lh4Mndad0cgweOS/NO95YIUW7d3cGb7j+T+XhXHLF4NWZaTR
+ fu35mVn5r6cN9jNqF96GPRyvM9uab1OJOGjgrvuPsjMGn1xO7bz58rwudo5QswXp+lv2
+ 0Bn6c0t0aojGdsG6kPb92dXSIkVF6M1DJw21u0K3YpWe/Mp5PdkF+YcJQlbmczYJEpxG
+ lDn6Eb/uIzA77nnt7saYPFLAQVRAU0TloGdD94IugDvXnJCTo0iJFekdNBTbG4973jLx
+ sECA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV6K7kNwcarp7aSWl03vIFWBcyoH8zZu8bCJIhtmMcX2BtSuXvMZa3XZv/JMInXXJpinHHyjg1eAIhHgjWvacnaLrstOx2hA/8k9PfHxLQGP5N9FZ1fHK4svPXnPpmxAE1pFJyKVpeEKBhd7I8yxA==
+X-Gm-Message-State: AOJu0Yy/LDhrobu9KVQTFlfBrEMBHW6F+GpehpZxxsp/kdinLAff3hOb
+ Ne+O+N+woHFklBjDIM7MlotiXZGzdw6DIvkKwGpLQtE5wQmfsSySbftDb7SCbeZBdt8c5fz/b8M
+ yqKQtF7tHXjQWaeplsCvizc+4WfU=
+X-Google-Smtp-Source: AGHT+IGME2ZBAjfwN5W4buTyp4q6UKGQ3GqH2t3Nk3YFMv7LRHDx2QR5986+nNZie6GdhVNX/cqIqgT3EyzylKiQKAk=
+X-Received: by 2002:a17:90a:6c06:b0:29b:4d0b:66ab with SMTP id
+ x6-20020a17090a6c0600b0029b4d0b66abmr684578pjj.33.1710438715102; Thu, 14 Mar
+ 2024 10:51:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|SA3PR12MB9177:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1da6d6e4-8431-44fb-07bd-08dc44476e9d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zDaKEVkyKuDt3C+WPz7d11Ag03hr8tAoIH3UezqJ35MFWqTWDdXI9c3lm8eXWCvA4THy08xN3OwyaGnZOWDmqvxFfaPEu76uS2K2P/a7Ady4SOYBnRdM4hizpuUlr32JuLoaUpOeFkJq0I7ngIG5SuzSPymtqeyQbCO0drYOkSlvyVmynIZX2RM8Z+MeZzL6HHczf/ay3a4yMvJYIitXGOqjXypZLVx1h0FfxqimACng09GWnB72PbYOH/zfhKA4vp9c/OzvrDvooDXDFm/CKAKynSTusxugJScB3tayj2YQ/AcwNygaqF1PnmxeUpn8kJO71mcJHjTjMDuXu+3sHGTlxaSIPBdt5vU2qyXoEUQYktxNdYG4AMJBrlspeHWr4i5nhX2uKl2zxpchyfd6GSlTC8l+W/lKTloxKlG5rRKqEX/7LUB73xUtEUOqm1X6DwtHEyCawNXBusUqhBV/iRuvDzmVxmjWL7TMiiiflur3N1uh4VOH5BFHeeVEq7ubut5bYeAvg9snXApcNAsqZ2ELSJCf4jE9Ug/s4KesxKZH2axHjT9V6IFyEXUKqfClz6Q+E9d+U2aRYd7hupnoMcZqRNqBU3i+13ibPFil+dWjzlkH38+KvIhIpV0csxvE4m6F9ve+gfS24P/VrYeiqK1jZytThLb1FishXWnw4/VnJ2ZFx071p2FiOu4te3ZYkJzR/pteZM42uR76A5K1HJpbN3bztmMk/sxDkiJ8kIMgAlFQ49gZPTcTkssyAA17
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400014)(376005)(1800799015)(36860700004); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2024 16:54:36.8294 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1da6d6e4-8431-44fb-07bd-08dc44476e9d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9177
+References: <20240312124148.257067-1-sunil.khatri@amd.com>
+ <CADnq5_O-cyDkNLznZpvnZtz15Mi1_rkigirG80BmYJprP_udnw@mail.gmail.com>
+ <59cf081e-5924-42b5-a3f1-de8b012f09d1@amd.com>
+ <CADnq5_N0H75UU2aFTAkqUrdGxKPxBQUnodsH-bcpS-ZUqgUb3A@mail.gmail.com>
+ <32aad098-9392-4899-9839-1beaedcac8b8@amd.com>
+In-Reply-To: <32aad098-9392-4899-9839-1beaedcac8b8@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 14 Mar 2024 13:51:42 -0400
+Message-ID: <CADnq5_NvBsbmTteDKmzi1DZHPKGfoSMjW5TFfy2x60YDxydc=g@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: add the IP information of the soc
+To: "Khatri, Sunil" <sukhatri@amd.com>
+Cc: Sunil Khatri <sunil.khatri@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,184 +85,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-if reading pf2vf data failed 5 times continuously, it means something is
-wrong. Need to trigger flr_work to recover the issue.
+On Thu, Mar 14, 2024 at 12:16=E2=80=AFPM Khatri, Sunil <sukhatri@amd.com> w=
+rote:
+>
+>
+> On 3/14/2024 8:12 PM, Alex Deucher wrote:
+> > On Thu, Mar 14, 2024 at 1:44=E2=80=AFAM Khatri, Sunil <sukhatri@amd.com=
+> wrote:
+> >>
+> >> On 3/14/2024 1:58 AM, Alex Deucher wrote:
+> >>> On Tue, Mar 12, 2024 at 8:41=E2=80=AFAM Sunil Khatri <sunil.khatri@am=
+d.com> wrote:
+> >>>> Add all the IP's information on a SOC to the
+> >>>> devcoredump.
+> >>>>
+> >>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> >>>> ---
+> >>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c | 19 ++++++++++++++++++=
++
+> >>>>    1 file changed, 19 insertions(+)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_reset.c
+> >>>> index a0dbccad2f53..611fdb90a1fc 100644
+> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> >>>> @@ -196,6 +196,25 @@ amdgpu_devcoredump_read(char *buffer, loff_t of=
+fset, size_t count,
+> >>>>                              coredump->reset_task_info.process_name,
+> >>>>                              coredump->reset_task_info.pid);
+> >>>>
+> >>>> +       /* GPU IP's information of the SOC */
+> >>>> +       if (coredump->adev) {
+> >>>> +               drm_printf(&p, "\nIP Information\n");
+> >>>> +               drm_printf(&p, "SOC Family: %d\n", coredump->adev->f=
+amily);
+> >>>> +               drm_printf(&p, "SOC Revision id: %d\n", coredump->ad=
+ev->rev_id);
+> >>>> +
+> >>>> +               for (int i =3D 0; i < coredump->adev->num_ip_blocks;=
+ i++) {
+> >>>> +                       struct amdgpu_ip_block *ip =3D
+> >>>> +                               &coredump->adev->ip_blocks[i];
+> >>>> +                       drm_printf(&p, "IP type: %d IP name: %s\n",
+> >>>> +                                  ip->version->type,
+> >>>> +                                  ip->version->funcs->name);
+> >>>> +                       drm_printf(&p, "IP version: (%d,%d,%d)\n\n",
+> >>>> +                                  ip->version->major,
+> >>>> +                                  ip->version->minor,
+> >>>> +                                  ip->version->rev);
+> >>>> +               }
+> >>>> +       }
+> >>> I think the IP discovery table would be more useful.  Either walk the
+> >>> adev->ip_versions structure, or just include the IP discovery binary.
+> >> I did explore the adev->ip_versions and if i just go through the array
+> >> it doesn't give any useful information directly.
+> >> There are no ways to find directly from adev->ip_versions below things
+> >> until i also reparse the discovery binary again like done the discover=
+y
+> >> amdgpu_discovery_reg_base_init and walk through the headers of various
+> >> ips using discovery binary.
+> >> a. Which IP is available on soc or not.
+> >> b. How many instances are there
+> >> Also i again have to change back to major, minor and rev convention fo=
+r
+> >> this information to be useful. I am exploring it more if i find some
+> >> other information i will update.
+> >>
+> >> adev->ip_block[] is derived from ip discovery only for each block whic=
+h
+> >> is there on the SOC, so we are not reading information which isnt
+> >> applicable for the soc. We have name , type and version no of the IPs
+> >> available on the soc. If you want i could add no of instances of each =
+IP
+> >> too if you think that's useful information here. Could you share what
+> >> information is missing in this approach so i can include that.
+> > I was hoping to get the actual IP versions for the IPs from IP
+> > discovery rather than the versions from the ip_block array.  The
+> > latter are common so you can end up with the same version used across
+> > a wide variety of chips (e.g., all gfx10.x based chips use the same
+> > gfx 10 IP code even if the actual IP version is different for most of
+> > the chips).
+> Got it. let me check how to get it could be done rightly.
+> >
+> >> For dumping the IP discovery binary, i dont understand how that
+> >> information would be useful directly and needs to be decoded like we a=
+re
+> >> doing in discovery init. Please correct me if my understanding is wron=
+g
+> >> here.
+> > It's probably not a high priority, I was just thinking it might be
+> > useful to have in case there ended up being some problem related to
+> > the IP discovery table on some boards.  E.g., we'd know that all
+> > boards with a certain harvest config seem to align with a reported
+> > problem.  Similar for vbios.  It's more for telemetry.  E.g., all the
+> > boards reporting some problem have a particular powerplay config or
+> > whatever.
+> I got it.
+> But two points of contention here in my understanding. The dump works
+> only where there is reset and not sure if it could be used very early in
+> development of not. Second point is that devcoredump is 4096
+> bytes/4Kbyte of memory where we are dumping all the information. Not
+> sure if that could be increased but it might not be enough if we are
+> planning to dump all to it.
 
-also use dev_err to print the error message to get which device has
-issue and add warning message if waiting IDH_FLR_NOTIFICATION_CMPL
-timeout.
+ah, ok.  Let's skip the IP versions in that case, we can use the
+family and rev_id and external_rev_id to look up the IP versions.
 
-Signed-off-by: Zhigang Luo <Zhigang.Luo@amd.com>
-Change-Id: Ia7ce934d0c3068ad3934715c14bbffdfcbafc4c2
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 15 +++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 29 ++++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  1 +
- drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      |  2 ++
- drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      |  2 ++
- 5 files changed, 39 insertions(+), 10 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 1e9454e6e4cb..9bb04a56d020 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -143,6 +143,8 @@ const char *amdgpu_asic_name[] = {
- 	"LAST",
- };
- 
-+static inline void amdgpu_device_stop_pending_resets(struct amdgpu_device *adev);
-+
- /**
-  * DOC: pcie_replay_count
-  *
-@@ -4972,6 +4974,8 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
- retry:
- 	amdgpu_amdkfd_pre_reset(adev);
- 
-+	amdgpu_device_stop_pending_resets(adev);
-+
- 	if (from_hypervisor)
- 		r = amdgpu_virt_request_full_gpu(adev, true);
- 	else
-@@ -5689,11 +5693,12 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 			tmp_adev->asic_reset_res = r;
- 		}
- 
--		/*
--		 * Drop all pending non scheduler resets. Scheduler resets
--		 * were already dropped during drm_sched_stop
--		 */
--		amdgpu_device_stop_pending_resets(tmp_adev);
-+		if (!amdgpu_sriov_vf(tmp_adev))
-+			/*
-+			* Drop all pending non scheduler resets. Scheduler resets
-+			* were already dropped during drm_sched_stop
-+			*/
-+			amdgpu_device_stop_pending_resets(tmp_adev);
- 	}
- 
- 	/* Actual ASIC resets if needed.*/
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index 7a4eae36778a..4e8364a46d4e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -32,6 +32,7 @@
- 
- #include "amdgpu.h"
- #include "amdgpu_ras.h"
-+#include "amdgpu_reset.h"
- #include "vi.h"
- #include "soc15.h"
- #include "nv.h"
-@@ -424,7 +425,7 @@ static int amdgpu_virt_read_pf2vf_data(struct amdgpu_device *adev)
- 		return -EINVAL;
- 
- 	if (pf2vf_info->size > 1024) {
--		DRM_ERROR("invalid pf2vf message size\n");
-+		dev_err(adev->dev, "invalid pf2vf message size: 0x%x\n", pf2vf_info->size);
- 		return -EINVAL;
- 	}
- 
-@@ -435,7 +436,9 @@ static int amdgpu_virt_read_pf2vf_data(struct amdgpu_device *adev)
- 			adev->virt.fw_reserve.p_pf2vf, pf2vf_info->size,
- 			adev->virt.fw_reserve.checksum_key, checksum);
- 		if (checksum != checkval) {
--			DRM_ERROR("invalid pf2vf message\n");
-+			dev_err(adev->dev,
-+				"invalid pf2vf message: header checksum=0x%x calculated checksum=0x%x\n",
-+				checksum, checkval);
- 			return -EINVAL;
- 		}
- 
-@@ -449,7 +452,9 @@ static int amdgpu_virt_read_pf2vf_data(struct amdgpu_device *adev)
- 			adev->virt.fw_reserve.p_pf2vf, pf2vf_info->size,
- 			0, checksum);
- 		if (checksum != checkval) {
--			DRM_ERROR("invalid pf2vf message\n");
-+			dev_err(adev->dev,
-+				"invalid pf2vf message: header checksum=0x%x calculated checksum=0x%x\n",
-+				checksum, checkval);
- 			return -EINVAL;
- 		}
- 
-@@ -485,7 +490,7 @@ static int amdgpu_virt_read_pf2vf_data(struct amdgpu_device *adev)
- 			((struct amd_sriov_msg_pf2vf_info *)pf2vf_info)->uuid;
- 		break;
- 	default:
--		DRM_ERROR("invalid pf2vf version\n");
-+		dev_err(adev->dev, "invalid pf2vf version: 0x%x\n", pf2vf_info->version);
- 		return -EINVAL;
- 	}
- 
-@@ -584,8 +589,21 @@ static void amdgpu_virt_update_vf2pf_work_item(struct work_struct *work)
- 	int ret;
- 
- 	ret = amdgpu_virt_read_pf2vf_data(adev);
--	if (ret)
-+	if (ret) {
-+		adev->virt.vf2pf_update_retry_cnt++;
-+		if ((adev->virt.vf2pf_update_retry_cnt >= 5) &&
-+		    amdgpu_sriov_runtime(adev) && !amdgpu_in_reset(adev)) {
-+			if (amdgpu_reset_domain_schedule(adev->reset_domain,
-+							  &adev->virt.flr_work))
-+				return;
-+			else
-+				dev_err(adev->dev, "Failed to queue work! at %s", __func__);
-+		}
-+
- 		goto out;
-+	}
-+
-+	adev->virt.vf2pf_update_retry_cnt = 0;
- 	amdgpu_virt_write_vf2pf_data(adev);
- 
- out:
-@@ -606,6 +624,7 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
- 	adev->virt.fw_reserve.p_pf2vf = NULL;
- 	adev->virt.fw_reserve.p_vf2pf = NULL;
- 	adev->virt.vf2pf_update_interval_ms = 0;
-+	adev->virt.vf2pf_update_retry_cnt = 0;
- 
- 	if (adev->mman.fw_vram_usage_va && adev->mman.drv_vram_usage_va) {
- 		DRM_WARN("Currently fw_vram and drv_vram should not have values at the same time!");
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-index 3f59b7b5523f..eedf5d44bf00 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -257,6 +257,7 @@ struct amdgpu_virt {
- 	/* vf2pf message */
- 	struct delayed_work vf2pf_work;
- 	uint32_t vf2pf_update_interval_ms;
-+	int vf2pf_update_retry_cnt;
- 
- 	/* multimedia bandwidth config */
- 	bool     is_mm_bw_enabled;
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-index a2bd2c3b1ef9..0c7275bca8f7 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-@@ -276,6 +276,8 @@ static void xgpu_ai_mailbox_flr_work(struct work_struct *work)
- 		timeout -= 10;
- 	} while (timeout > 1);
- 
-+	dev_warn(adev->dev, "waiting IDH_FLR_NOTIFICATION_CMPL timeout\n");
-+
- flr_done:
- 	atomic_set(&adev->reset_domain->in_gpu_reset, 0);
- 	up_write(&adev->reset_domain->sem);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-index 77f5b55decf9..ee9aa2815d5a 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-@@ -309,6 +309,8 @@ static void xgpu_nv_mailbox_flr_work(struct work_struct *work)
- 		timeout -= 10;
- 	} while (timeout > 1);
- 
-+	dev_warn(adev->dev, "waiting IDH_FLR_NOTIFICATION_CMPL timeout\n");
-+
- flr_done:
- 	atomic_set(&adev->reset_domain->in_gpu_reset, 0);
- 	up_write(&adev->reset_domain->sem);
--- 
-2.25.1
-
+>
+> Another point is since we have sysfs/debugfs/info ioctl etc information
+> available. We should sort out what really is helpful in debugging GPU
+> hang and that's added in devcore.
+>
+> Regards
+> Sunil
+>
+> >
+> > Alex
+> >
+> >
+> >>> Alex
+> >>>
+> >>>> +
+> >>>>           if (coredump->ring) {
+> >>>>                   drm_printf(&p, "\nRing timed out details\n");
+> >>>>                   drm_printf(&p, "IP Type: %d Ring Name: %s\n",
+> >>>> --
+> >>>> 2.34.1
+> >>>>
