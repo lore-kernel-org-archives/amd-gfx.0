@@ -4,93 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D53E3C54E5D
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 16:01:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8CD5C54E60
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 16:16:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1884510E6C1;
-	Thu, 14 Mar 2024 16:01:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35A9310FBC3;
+	Thu, 14 Mar 2024 16:16:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="krSmQIRg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Uia3ku2s";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2055.outbound.protection.outlook.com [40.107.93.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43B0210E3DD
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Mar 2024 16:01:18 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB88410F955;
+ Thu, 14 Mar 2024 16:16:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B7a71n8osBtzNeS4Iq66iagkCgyBeTPf/sdoUqVa5KRGlQL8vNkf38UN+RdMIGQ/HsI5TYjebTySsTWD6Cib5gocTfTsMIHlIt5cQ65GfQLiCcxlk38KzBxjTvwk6S2yylhutReIRP0dKzdnxQM17pFVJxeXF2J8haHV0ZCRawKdBnJ8T6e9wRqn3FzpcdwTrpDRyDhm9/a35kvr8Z496vfI6S2tk9c/7eFQeP/UaXv6BWQUtbXmLuE2vBrcvr3gV1NdUPQe6PCkv4PfA5rJvLSq4dZc3ptU/nER4foaMX7uYRRD/NqZecqzmTbCYxdT+a+eZhIBLuwGM2jnuX5JeQ==
+ b=n/jrZ20upEHXjm43h8guctQKhCD3E86vLqLsVPzg83U/q6zMP7RxF5R4yfXU3RNa2aE2/KqxQLBibju6ndW6f/6P2FQHaurdDbKPsBzMhvH2gJHmYPEEG4KVNeVTb//zG66eEWvLCburVX0AVBUsABV82XF2uRa70zlS6YTI+H+Tzd2QvYHhdZHJdYbzQj9tzhwHH7TIL4hy2Vsz0rJDRTXWjDl96vyl6CNdcSlbvSvZ+FROKHtUxBkmrLode8H678av+2nEa2tQkqZUFjprg3fKxtKdyBdf+wiSQG/Zz9vaqtFbFtnevK6UXzKvCqll3H8oJm7WDyb04T+lCtIcag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jb3TH3NLKKeSYNaO14wpzsmayHGSztz7BZnUwIY7WNE=;
- b=j8fYn39lRfRBbSEfMzhfa1dSOJ9hG0pMwJE3/f+bzdz5y5IeSv/yCot97pba80iZtv6KVfo8wlHwi4jvGg6dh7xhx7xA3drx+q9lf2o8OWZBPS2YT+13aLswek1ObKCVZSCF0JhrVo0tODCz+u6eJIdm0C7sNfP+uunqVapu98Wz9jyACDZukxOU+n16XKesor5RpnT8x6wBOMHHdhcfo+rbuKcZzVeVleH9eDugzW5dwUoDwV1qWO1roAtOOaxiiElIjgIvPsnStvXYwYTi5oy2QogAoSEiZv8gcI0J/+NZVvb4VESchdhRnn76MkL9pZhGZuhRpYlsccYnu/y0SA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=MCjxNV2koQpnqRFnbLAJs5Hi7EdmfOiFjfI2vU3Hzls=;
+ b=KkBLKryEnMqlrvUScoO3MqttxEFbrgDAUMpN3n9YzCJB+VZo+DlfcLBT41gGjE3tjYvgJ5O6Gx8vOwnZH9+XBcT2p/HvLCdT75fWkJzbJTeoYN9Q+GOH/uHVqL3BjB7NObwN0HIImjWpKhRod0cI3o7RgXDCkvXRBZ0MuhDYVborXxXBTtkkaRu/dgoDKWPjliBH/MVLWFC4KlqZ6evEigEWqvTRDxEFEPHqFGxjGqcneYOVfSUjFDG3kufdhap7lctIrYTOzdnFvr4D2HZbnxSOY9cvcE+8Ilwd8V/TrRx31qdJrQe3fIgZZbD6hZi3oUTXvdJQjeU+lMcP9SP8jQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jb3TH3NLKKeSYNaO14wpzsmayHGSztz7BZnUwIY7WNE=;
- b=krSmQIRg9Cyr5kMnCGhui/Wr+5ttaft+zPhuWjTsFWbTf/QUZLmYQ3IMEDpkmdGORSdrdl7Hkcd45uhBwH5NjfKmgMRFjfaVgBDW/8oX+w+mV8dlTn3BFrhwoWF5BpqAAShIePErSq3pbfoDtARJu2SoxLCUGLxSzHC521tkGy8=
-Received: from MW4PR03CA0055.namprd03.prod.outlook.com (2603:10b6:303:8e::30)
- by PH0PR12MB5605.namprd12.prod.outlook.com (2603:10b6:510:129::14)
+ bh=MCjxNV2koQpnqRFnbLAJs5Hi7EdmfOiFjfI2vU3Hzls=;
+ b=Uia3ku2s/7bV/EhDBnUw+06fSsZRnCL71GgPTxICcO3TEMMohpvPscEZAiZKorrERjKTZDvRSB9q6n3PbRtGu4BOFCPzbQJqYi2EHprrIMWC/vNWRuE7EaL4k7mqbZIkThTnTNLpaZa4CAN5w1Q4Mi5k7ZiWWLxkjECRmTtsdw8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13)
+ by SA1PR12MB5659.namprd12.prod.outlook.com (2603:10b6:806:236::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.35; Thu, 14 Mar
- 2024 16:01:14 +0000
-Received: from MWH0EPF000971E4.namprd02.prod.outlook.com
- (2603:10b6:303:8e:cafe::ad) by MW4PR03CA0055.outlook.office365.com
- (2603:10b6:303:8e::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.35 via Frontend
- Transport; Thu, 14 Mar 2024 16:01:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000971E4.mail.protection.outlook.com (10.167.243.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7386.12 via Frontend Transport; Thu, 14 Mar 2024 16:01:13 +0000
-Received: from mukjoshi-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 14 Mar
- 2024 11:01:12 -0500
-From: Mukul Joshi <mukul.joshi@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, <Jay.Cornwall@amd.com>, Mukul Joshi
- <mukul.joshi@amd.com>, Jay Cornwall <jay.cornwall@amd.com>
-Subject: [PATCH 1/2] drm/amdkfd: Rename read_doorbell_id in MQD functions
-Date: Thu, 14 Mar 2024 12:00:28 -0400
-Message-ID: <20240314160029.623784-1-mukul.joshi@amd.com>
-X-Mailer: git-send-email 2.35.1
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.41; Thu, 14 Mar
+ 2024 16:16:15 +0000
+Received: from PH7PR12MB5596.namprd12.prod.outlook.com
+ ([fe80::6974:3875:ed0:7033]) by PH7PR12MB5596.namprd12.prod.outlook.com
+ ([fe80::6974:3875:ed0:7033%3]) with mapi id 15.20.7386.017; Thu, 14 Mar 2024
+ 16:16:15 +0000
+Message-ID: <32aad098-9392-4899-9839-1beaedcac8b8@amd.com>
+Date: Thu, 14 Mar 2024 21:46:05 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amdgpu: add the IP information of the soc
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Sunil Khatri <sunil.khatri@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20240312124148.257067-1-sunil.khatri@amd.com>
+ <CADnq5_O-cyDkNLznZpvnZtz15Mi1_rkigirG80BmYJprP_udnw@mail.gmail.com>
+ <59cf081e-5924-42b5-a3f1-de8b012f09d1@amd.com>
+ <CADnq5_N0H75UU2aFTAkqUrdGxKPxBQUnodsH-bcpS-ZUqgUb3A@mail.gmail.com>
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <CADnq5_N0H75UU2aFTAkqUrdGxKPxBQUnodsH-bcpS-ZUqgUb3A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: PN2PR01CA0095.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:27::10) To PH7PR12MB5596.namprd12.prod.outlook.com
+ (2603:10b6:510:136::13)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E4:EE_|PH0PR12MB5605:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0aec48e8-d6fc-4f90-6aed-08dc443ff996
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5596:EE_|SA1PR12MB5659:EE_
+X-MS-Office365-Filtering-Correlation-Id: df11bc1a-7536-48bc-94ec-08dc444212d3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2xVmHSUvYu3zpHFFTTsWY8hCpD05bkDcWqJkRlTSYOp1oXgu4AGZUo+q56wIwFETfdoY6M2hQjy0xD3HWUlNzSbm0X+oVXEjN1ebg0GTgfBXBeGTQz2+JKeF0HgEu16+jabmKZEF+FSyV2N+pXGMBBZ0SB5R2K2N91No5AFlogKAZFyBhpjvUPIgxtb8XRhfsFdHcFrTjhDgFecB30uGjl/8TRGmfaF3dOrB+84NIHvAURh6SIimd3c5qMFCLraISQBJxYvwhHh4Uj3+flYQMeae7FjUG/qH58TJS2+db1vGrVFr0PjGyL2O8Yp/q5tVv3Vr4D6yxvrFCRCqFREyjsMmM4TY62liSUMsUpNeCZraODpwnf4Ox4E3OqkRSMmRGM5RgUQIuxr5QzrYJZXIQUn0aqSv19t+cN/wM5yf4yba9eb0RmzYmtHrhGnQvXYvmauZ3NUH/EOR1h098YCnFn6zL0espU6MALBSKP0g6wTTincjaY1undgRHaJEhAFW+kUdFu28yHvD3YY7135PFcWI0lEdaFfCq86IQR7Qr1IZuRPcFpBbLqnEikNQ5AEtDVWjY0aHYHvIFEKCdRslwZAtRPmTk/gmu16vIg3ZVibK9CYx7h9+a9WK78qV/wIDxUGL74d64Ozre2EcAEV+lpMFnbmpBMdOjwE/4Y98pWlB8dY8M4gspvfNJgaX3cvFwafxt0OWnff1f20MfPlkoSrunKHN+cxEnkipdNby+qAmmmIuJPFD1GJYPpvLvm/W
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(36860700004)(82310400014); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam-Message-Info: WlNZgeDIaP8V7+A6jZNkgFujPqThWeOdIubislMpz4OR46O0kXpSuvYFXJav/gcOYG2G05cALc6KH04F34NT1vduL5+Q2urmnWabAmJOG47mLfQf+CZLQ10biMH03gG1C9XN3H/pABJK0Y32rOzX0LNDGWWYsLbQJtYeE7neutFPYXITmTRevaZ/ekNp/z8xTWIy75XfaLwhjKCEqEec1v4q/JRNZIZMb8aByEC3VoMvz266px3/NzxbqN7eHsJM7gcCAdbaNpdGIUQCQh+QEVaEoGbusQ275Ugt4a/QXPalY7MjBB2e5qOcIEMTvJvvOocv9YCSSefg4UcHba2EJACSH/cllK87KQfuZYNWS+KzJMJIKey14epeTZuOSQmMSp2M0k7uglXR13r/tLSHWL+ggaATsGZX7gQxcP3qFQ8NzO49Rd91c0iqCO4gdgd+KbRfKIAh29CiJVe9l6rFucfLY0gXCpGI1IvqDqcnDqXAYO7VPo4thhaAHqu7Vl9FOUJn9UvzQu3ogWs/bGnjYMcAy3MdPmuIm/xA/L4x7Keg2PgPPWyR7ZqDDCsESqDJndrqNiXyfrZRI9m9YO0OqG2ZVE14n+wtrF9YtPCarshAoZTWiTMwXmSat1qV3GuM8ONUwrQw2Lgv6AV+xa7JvZeVw8zWG+5LlKVasOqSqoU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5596.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TzlEZHhRRjBTTG5BZmFwYWZzUnpUNkFuQUx0RVZoUTN5QlBUV3JlM0d4ZEp6?=
+ =?utf-8?B?VEQzU0ZmaGRYK2JZZU44emlIc0RtOFJ0ZnN2Q3ZBcHV0QXRKUXpuSm96TzE5?=
+ =?utf-8?B?UFZ6UXNSczdZc0ZkQ0VoQ0RDcUFoMDhnbmtNZWNYQzE4d01XeVFlbnBhZC9r?=
+ =?utf-8?B?NzBqTHpCQXE0dkdrK0RNQXhLVUFMdTR2cFUvaERQaEVOanpXVzEzNU5SZ1k1?=
+ =?utf-8?B?eDNhSVNUeHRjSkMrcE9lWmo0SmxPajliOGxTQllFQ20zeU9BLzQ1alNCb2I0?=
+ =?utf-8?B?cndWaWFFdE14ZmtmVHN4djl4WGJtOUdnYjZhUGpSc1orUGd1T3M3eDFzS2dv?=
+ =?utf-8?B?blBpVW10RDdnSWh1VzNlOWhGc2pZOXhGQ1czUG9XOEZENGtGYlE1R05SRTND?=
+ =?utf-8?B?TnVkSUtrVldvVkJqbHpsQ0E3bGQ3ZDY1enRSNnVnSzVIU01CRDRXK1o1STVM?=
+ =?utf-8?B?cHNUUzFIVDBoWndsck5taTNrN2RNVVRUWXhIVTdFc0RTOTZ2eHNXTVJqVXFM?=
+ =?utf-8?B?bVJCSEdhWWZvRVlQY0FEbE5Cd1RGaTZMOTdhRHEvR2hZa0xIQXh1YnI3OFhG?=
+ =?utf-8?B?MHB6OUdjdlcxQ3VkN1EvVG5mTlFSSmVLMm1TVTMxUktJbllQeEE2ai9jTHRa?=
+ =?utf-8?B?OG81WkY4Umh2SXljYUdiWnJ2Uld1aFV2N2poT2ZYbGV5bHY5SWJ2WVE4YlV1?=
+ =?utf-8?B?ZTByMVhLenRmTkVxcEVEeWVVSlVoMGhOYWxWMFdKeElsQUdTNTJxSnlGYVhs?=
+ =?utf-8?B?Y2U3M0hESG5XVWJGeFNTMmlrUnA1K1hmbGI2cHJmWXdiT3lZZDFHbEpRcGRY?=
+ =?utf-8?B?NXBkNngvVTNaM1BFdHFsd3ZEMTV3Y1QxRWRwMENvRGJzRlpqNmQ2TUxoY2px?=
+ =?utf-8?B?TWh5MmVZdHNabEdieUxDS3U2QU15SUtOMmdQeWFUSkJLblcyTVlQL3Jzb2Zp?=
+ =?utf-8?B?SVpaVzY4K2ZyM0xOYXg2S2NSNEEwaUVsUSsxUkNYZjA3K3d3UGN4WGgxYU5y?=
+ =?utf-8?B?VHFvdkhWaytMcHY1MWtSN2xTRk5kTHM2MGtvVHJhOGxia1Q1ZVZQZ1B2V0pp?=
+ =?utf-8?B?N0x1RHQ2NGZtMmo3TmV0ZXlhZVV3Y2M0SzJpWDJraWxKOFpPdXlNU3ZESHQw?=
+ =?utf-8?B?MzRLVUM3QzNRVUR5cnNneUhOSXB5UEYzbW5OdzNLR2tmUi9yOWVqc1dTVjli?=
+ =?utf-8?B?VWQ2Wmc1MmhFL1Fhc1pFQ0xtb3h6dUZtVkxDdXlMQW9aN3REVzlJN2thK0lM?=
+ =?utf-8?B?QU5tcXRnSndybHhyOW9FaFhXdjl1My9PcitPMDBQWHNOUHovNnhkMmdCNlo0?=
+ =?utf-8?B?UjJnZDJIdWxkYURqNFJMTnIzOWdkVUhIVGxLR2RMbi9QZ09wS05Fb0VHY1ox?=
+ =?utf-8?B?NDhoN3JqUEdKRWp6dU41Q1ZVdnVNR2RHYUVEdUViSVUwQVhwRm9YVk01NmZ3?=
+ =?utf-8?B?cS9zb2R2MzFnYUQ2ZnZ4Q0thWDF4QjlPWktjYzJQeVZDTEVxcmtvM3J5MEF1?=
+ =?utf-8?B?c0V5blhSbzFBQUR4NGo3VDd2TU1wVXJxSW8zOEFoampFbm1uWURZaEhDZ0FO?=
+ =?utf-8?B?bGFBbkJsa1lEbllIdFpIWFpHS3lhY2RWNEdmNmxDT2VBY01xMXRxVklKU1hn?=
+ =?utf-8?B?OXkvd1VUYXhoSHBnQmVwcE1XbFZVRGhpVEFPSWNCdjhmK3FpWHNoeCttLzJr?=
+ =?utf-8?B?ZlBzbGhyN2pRMVAxOU9OZkVpdjM0MTVIbHUwMldCRDNkczIrN3EzZjMwNU95?=
+ =?utf-8?B?MnZNY0JJWGNWM1A4L2tFdmRQaGpuNHRMcDBhTDZWRGwwalR6dldxMENrdmxS?=
+ =?utf-8?B?VWIvTlVTRTlWcG1HUXg4QThRZGx2ZmtWb0d6UUNwRDZxNDBhUXZxc1hBMVdP?=
+ =?utf-8?B?cHRPd2J1RHloR0lxRnIvZkxaU0hvMFVVRE1abFRMZW1VVW5qMkNjY2dnUW9O?=
+ =?utf-8?B?VncvbjFmb0tNSFQrZFgvUEN2MkZJakdvQVkrZGZ2UGZ2U2ZDa3ZKNlRzakZM?=
+ =?utf-8?B?R2t3YVhpdVlLZVorWTE1eGJpcjVjaU5TZ09mRzVzMWdJdlNsT3U5MjdlUkdr?=
+ =?utf-8?B?WTBZQ1dlMmZhUDJUWHRqYWhVV1pxUHl2TVpleDVTMGFIb1NoV2F0YXZHRTY1?=
+ =?utf-8?Q?OgdRilFVeSgkNvB0FwKblsvfr?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2024 16:01:13.9218 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0aec48e8-d6fc-4f90-6aed-08dc443ff996
+X-MS-Exchange-CrossTenant-Network-Message-Id: df11bc1a-7536-48bc-94ec-08dc444212d3
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5596.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2024 16:16:15.5784 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E4.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5605
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: x/7d7OKSt4QwDgscJVR50QJ5KkBIlZpMqkdM69itqRLJao2Jbv+poRjlKRDIiSZH6Kalt1F+7oW8CngNBvUWLw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5659
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,157 +135,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rename read_doorbell_id function to a more meaningful name,
-implying what it is used for. No functional change.
 
-Suggested-by: Jay Cornwall <jay.cornwall@amd.com>
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h          | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c      | 4 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c      | 4 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c      | 4 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c       | 4 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c       | 4 ++--
- 7 files changed, 12 insertions(+), 12 deletions(-)
+On 3/14/2024 8:12 PM, Alex Deucher wrote:
+> On Thu, Mar 14, 2024 at 1:44 AM Khatri, Sunil <sukhatri@amd.com> wrote:
+>>
+>> On 3/14/2024 1:58 AM, Alex Deucher wrote:
+>>> On Tue, Mar 12, 2024 at 8:41 AM Sunil Khatri <sunil.khatri@amd.com> wrote:
+>>>> Add all the IP's information on a SOC to the
+>>>> devcoredump.
+>>>>
+>>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c | 19 +++++++++++++++++++
+>>>>    1 file changed, 19 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+>>>> index a0dbccad2f53..611fdb90a1fc 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+>>>> @@ -196,6 +196,25 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
+>>>>                              coredump->reset_task_info.process_name,
+>>>>                              coredump->reset_task_info.pid);
+>>>>
+>>>> +       /* GPU IP's information of the SOC */
+>>>> +       if (coredump->adev) {
+>>>> +               drm_printf(&p, "\nIP Information\n");
+>>>> +               drm_printf(&p, "SOC Family: %d\n", coredump->adev->family);
+>>>> +               drm_printf(&p, "SOC Revision id: %d\n", coredump->adev->rev_id);
+>>>> +
+>>>> +               for (int i = 0; i < coredump->adev->num_ip_blocks; i++) {
+>>>> +                       struct amdgpu_ip_block *ip =
+>>>> +                               &coredump->adev->ip_blocks[i];
+>>>> +                       drm_printf(&p, "IP type: %d IP name: %s\n",
+>>>> +                                  ip->version->type,
+>>>> +                                  ip->version->funcs->name);
+>>>> +                       drm_printf(&p, "IP version: (%d,%d,%d)\n\n",
+>>>> +                                  ip->version->major,
+>>>> +                                  ip->version->minor,
+>>>> +                                  ip->version->rev);
+>>>> +               }
+>>>> +       }
+>>> I think the IP discovery table would be more useful.  Either walk the
+>>> adev->ip_versions structure, or just include the IP discovery binary.
+>> I did explore the adev->ip_versions and if i just go through the array
+>> it doesn't give any useful information directly.
+>> There are no ways to find directly from adev->ip_versions below things
+>> until i also reparse the discovery binary again like done the discovery
+>> amdgpu_discovery_reg_base_init and walk through the headers of various
+>> ips using discovery binary.
+>> a. Which IP is available on soc or not.
+>> b. How many instances are there
+>> Also i again have to change back to major, minor and rev convention for
+>> this information to be useful. I am exploring it more if i find some
+>> other information i will update.
+>>
+>> adev->ip_block[] is derived from ip discovery only for each block which
+>> is there on the SOC, so we are not reading information which isnt
+>> applicable for the soc. We have name , type and version no of the IPs
+>> available on the soc. If you want i could add no of instances of each IP
+>> too if you think that's useful information here. Could you share what
+>> information is missing in this approach so i can include that.
+> I was hoping to get the actual IP versions for the IPs from IP
+> discovery rather than the versions from the ip_block array.  The
+> latter are common so you can end up with the same version used across
+> a wide variety of chips (e.g., all gfx10.x based chips use the same
+> gfx 10 IP code even if the actual IP version is different for most of
+> the chips).
+Got it. let me check how to get it could be done rightly.
+>
+>> For dumping the IP discovery binary, i dont understand how that
+>> information would be useful directly and needs to be decoded like we are
+>> doing in discovery init. Please correct me if my understanding is wrong
+>> here.
+> It's probably not a high priority, I was just thinking it might be
+> useful to have in case there ended up being some problem related to
+> the IP discovery table on some boards.  E.g., we'd know that all
+> boards with a certain harvest config seem to align with a reported
+> problem.  Similar for vbios.  It's more for telemetry.  E.g., all the
+> boards reporting some problem have a particular powerplay config or
+> whatever.
+I got it.
+But two points of contention here in my understanding. The dump works 
+only where there is reset and not sure if it could be used very early in 
+development of not. Second point is that devcoredump is 4096 
+bytes/4Kbyte of memory where we are dumping all the information. Not 
+sure if that could be increased but it might not be enough if we are 
+planning to dump all to it.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index f4d395e38683..1ce398ab0b3d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1997,7 +1997,7 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
- 	 * check those fields
- 	 */
- 	mqd_mgr = dqm->mqd_mgrs[KFD_MQD_TYPE_HIQ];
--	if (mqd_mgr->read_doorbell_id(dqm->packet_mgr.priv_queue->queue->mqd)) {
-+	if (mqd_mgr->check_preemption_failed(dqm->packet_mgr.priv_queue->queue->mqd)) {
- 		dev_err(dev, "HIQ MQD's queue_doorbell_id0 is not 0, Queue preemption time out\n");
- 		while (halt_if_hws_hang)
- 			schedule();
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-index e5cc697a3ca8..ba3eebb2ca6d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-@@ -119,7 +119,7 @@ struct mqd_manager {
- #if defined(CONFIG_DEBUG_FS)
- 	int	(*debugfs_show_mqd)(struct seq_file *m, void *data);
- #endif
--	uint32_t (*read_doorbell_id)(void *mqd);
-+	uint32_t (*check_preemption_failed)(void *mqd);
- 	uint64_t (*mqd_stride)(struct mqd_manager *mm,
- 				struct queue_properties *p);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-index 1a4a69943c71..8f9f56f7a8b0 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-@@ -206,7 +206,7 @@ static void __update_mqd(struct mqd_manager *mm, void *mqd,
- 	q->is_active = QUEUE_IS_ACTIVE(*q);
- }
- 
--static uint32_t read_doorbell_id(void *mqd)
-+static uint32_t check_preemption_failed(void *mqd)
- {
- 	struct cik_mqd *m = (struct cik_mqd *)mqd;
- 
-@@ -423,7 +423,7 @@ struct mqd_manager *mqd_manager_init_cik(enum KFD_MQD_TYPE type,
- #if defined(CONFIG_DEBUG_FS)
- 		mqd->debugfs_show_mqd = debugfs_show_mqd;
- #endif
--		mqd->read_doorbell_id = read_doorbell_id;
-+		mqd->check_preemption_failed = check_preemption_failed;
- 		break;
- 	case KFD_MQD_TYPE_DIQ:
- 		mqd->allocate_mqd = allocate_mqd;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-index 22cbfa1bdadd..d4cf7d845928 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-@@ -224,7 +224,7 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
- 	q->is_active = QUEUE_IS_ACTIVE(*q);
- }
- 
--static uint32_t read_doorbell_id(void *mqd)
-+static uint32_t check_preemption_failed(void *mqd)
- {
- 	struct v10_compute_mqd *m = (struct v10_compute_mqd *)mqd;
- 
-@@ -488,7 +488,7 @@ struct mqd_manager *mqd_manager_init_v10(enum KFD_MQD_TYPE type,
- #if defined(CONFIG_DEBUG_FS)
- 		mqd->debugfs_show_mqd = debugfs_show_mqd;
- #endif
--		mqd->read_doorbell_id = read_doorbell_id;
-+		mqd->check_preemption_failed = check_preemption_failed;
- 		pr_debug("%s@%i\n", __func__, __LINE__);
- 		break;
- 	case KFD_MQD_TYPE_DIQ:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-index 826bc4f6c8a7..2b9f57c267eb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-@@ -278,7 +278,7 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
- 	q->is_active = QUEUE_IS_ACTIVE(*q);
- }
- 
--static uint32_t read_doorbell_id(void *mqd)
-+static uint32_t check_preemption_failed(void *mqd)
- {
- 	struct v11_compute_mqd *m = (struct v11_compute_mqd *)mqd;
- 
-@@ -517,7 +517,7 @@ struct mqd_manager *mqd_manager_init_v11(enum KFD_MQD_TYPE type,
- #if defined(CONFIG_DEBUG_FS)
- 		mqd->debugfs_show_mqd = debugfs_show_mqd;
- #endif
--		mqd->read_doorbell_id = read_doorbell_id;
-+		mqd->check_preemption_failed = check_preemption_failed;
- 		pr_debug("%s@%i\n", __func__, __LINE__);
- 		break;
- 	case KFD_MQD_TYPE_DIQ:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-index 697b6d530d12..7c93a0932677 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-@@ -316,7 +316,7 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
- }
- 
- 
--static uint32_t read_doorbell_id(void *mqd)
-+static uint32_t check_preemption_failed(void *mqd)
- {
- 	struct v9_mqd *m = (struct v9_mqd *)mqd;
- 
-@@ -881,7 +881,7 @@ struct mqd_manager *mqd_manager_init_v9(enum KFD_MQD_TYPE type,
- #if defined(CONFIG_DEBUG_FS)
- 		mqd->debugfs_show_mqd = debugfs_show_mqd;
- #endif
--		mqd->read_doorbell_id = read_doorbell_id;
-+		mqd->check_preemption_failed = check_preemption_failed;
- 		if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 3)) {
- 			mqd->init_mqd = init_mqd_hiq_v9_4_3;
- 			mqd->load_mqd = hiq_load_mqd_kiq_v9_4_3;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-index 3e1a574d4ea6..dbc868e0363f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-@@ -237,7 +237,7 @@ static void __update_mqd(struct mqd_manager *mm, void *mqd,
- 	q->is_active = QUEUE_IS_ACTIVE(*q);
- }
- 
--static uint32_t read_doorbell_id(void *mqd)
-+static uint32_t check_preemption_failed(void *mqd)
- {
- 	struct vi_mqd *m = (struct vi_mqd *)mqd;
- 
-@@ -482,7 +482,7 @@ struct mqd_manager *mqd_manager_init_vi(enum KFD_MQD_TYPE type,
- #if defined(CONFIG_DEBUG_FS)
- 		mqd->debugfs_show_mqd = debugfs_show_mqd;
- #endif
--		mqd->read_doorbell_id = read_doorbell_id;
-+		mqd->check_preemption_failed = check_preemption_failed;
- 		break;
- 	case KFD_MQD_TYPE_DIQ:
- 		mqd->allocate_mqd = allocate_mqd;
--- 
-2.35.1
+Another point is since we have sysfs/debugfs/info ioctl etc information 
+available. We should sort out what really is helpful in debugging GPU 
+hang and that's added in devcore.
 
+Regards
+Sunil
+
+>
+> Alex
+>
+>
+>>> Alex
+>>>
+>>>> +
+>>>>           if (coredump->ring) {
+>>>>                   drm_printf(&p, "\nRing timed out details\n");
+>>>>                   drm_printf(&p, "IP Type: %d Ring Name: %s\n",
+>>>> --
+>>>> 2.34.1
+>>>>
