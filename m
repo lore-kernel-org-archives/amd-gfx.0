@@ -4,71 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1CBEC54E67
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 14:42:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C26E0C54E67
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 14:50:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC5B10E07D;
-	Thu, 14 Mar 2024 14:42:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36DBD10F4ED;
+	Thu, 14 Mar 2024 14:50:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Fl4DsOa2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2LyShoAu";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B76710E07D;
- Thu, 14 Mar 2024 14:42:19 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-29a5f100c1aso676165a91.0; 
- Thu, 14 Mar 2024 07:42:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710427339; x=1711032139; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Za5iucYxSXOJJRA/mt5b8AE1A6QwDe4Iqg1yMlydUGA=;
- b=Fl4DsOa2U5hqqgo2EPnMZcGqeU0bqV0M3Lml7KhzaXbpwQ1Rx2FE9hJr6e8cWZbXfZ
- /lNKy8Sb9TAeO5EDBxNQnV77W73Bj1pyJYptwcRjy+wE9YN1JNc0CpMr7j9PINgM/FnI
- 5Frc4a5jGjKQjqTixU55mTJ8koLqlbXWN/9Psre+aMH0uUJ+IbPQlbq9au5D1e0SqjIt
- NVnkTyQM7YRIXzcJu6Q2zZOQiFDFt1Wn3q6xEkEjN0ICgBM79g85iIIuZeJa8Ku9BSO+
- JmpWMBaBaEB1h847jwtbR5qc/mLD430DFJ19fKuhmqouWxsbrtn0jaHcGzmfl7h2Pxae
- NA5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710427339; x=1711032139;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Za5iucYxSXOJJRA/mt5b8AE1A6QwDe4Iqg1yMlydUGA=;
- b=qT4+mFUiL53iLUeQcwQ7VsZ5X8LU7w3rsr/bVoNiH60iFkvRhi4c4fd/E3C6NZYG1i
- 3kns3cp8PqTwQkF1czeriWMEUHK1XJB/2NBHurXy8bCZ8ZKTzQDVBzx92Ajrb4ZVslwU
- iiAafKz3H6Dee2kQUyrPDGiGpyrFrCAHBWvc64Bu9abn4LF5xSXpZ/Q2Mr/0iIgXgWb5
- NkjTj9lqyx7wJssxEXf/ct1aFQf2JlxSuE+906Aq55jjNmCSpJVXNdGTggWJHGIiW7rx
- jeC2icb+OrffKJkE+CzoKVIu1ECyqood63brkSXOq/XDHXglVzOSNxDyKoJYfZoz1TwE
- cquw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW92IGrJFMn6jwXVWomkOaRRTyBJ/E94cvyOaov+uzy4FCH5iiAesNvX/07kN+4o1GwUzKm0xcocnUMuXZSDJp5x8a/ezUxVDJGUUzI5imI0+FdP5D4XV2fSuS8JRNQmxSuTATPMFhTJwX7GbHq9Q==
-X-Gm-Message-State: AOJu0Yz7iBHpJNL1F1MmOJqOGmT6GwqxDidjWOtMniJAus8/O+DMhdKL
- YkN0HFE8KM667N6CMfrHoXhs5JaXiEcSgSAMFxbvFnHTaCa1qDSGWVoxzQyk7Aq8kNXb7ye+ivW
- hbJTgh7tdPg+LC4qYoV3oidt/mys=
-X-Google-Smtp-Source: AGHT+IFDsGELtULQd8kAZwzF1azSs4E+MUi/jEgN69Py3hQjMsHBAvIku8XVK6gdRADILX2kdAyXmSUegd5Y0q2kbMw=
-X-Received: by 2002:a17:90b:30c6:b0:299:1777:134c with SMTP id
- hi6-20020a17090b30c600b002991777134cmr1752577pjb.33.1710427338838; Thu, 14
- Mar 2024 07:42:18 -0700 (PDT)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2072.outbound.protection.outlook.com [40.107.100.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E3E610F4ED
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Mar 2024 14:50:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kSBz4o5TXNJEKyEp3Kta0QmotHn6P7oeX6kXxykvyC7CHsuTPc4zk1jPMEoFpWfawHBYx8NsIQnmyulodPBW7UIO1V/YUBEkLZ6uKJ4VdfSSiIW/yEiykJZD/1kkmmKuHU8i/qD0RUL1RCvr/fCXq45Q9kwz5/EnLJBfOkuzXrkGrZYFJOCjvWBfXXsRrjyImI0enyes7wdIbaDN3oqXKXNtV2k+Ez/V1fokePDAQq2LIwdFJwIi+QhdjI8Zx6rmLWlXyZClmio42/Elj9SYyKMPyN9V6cHHi3mlMip0ah05ZV+Hiry3Gavf4+rQ3DP/s9FcDOl3iwNymN7f61m7Hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DP55sZLSavRJcgVkSzjvwaDwA6eTlffMWwhBI6G0ND4=;
+ b=mKGntT6xfX2rY53eyQaICRMbtjwRmZ7aVgv51jcy5VeKHSp0vDK1JZ8v/Tpzg1dpdmmgGcczlihRViRJRw/YFDzQibTXTtzejDnBnhVV0XUyyXqYq5FFd1GWcne74pHZKCFDXdVL5trYYB8dhrnohJrT9FnfLVGRr5RXq4oi/kabSaYzmJ/N+Bj7kz56nDMPhLWv2+EXWmrLGWI9rnwpnZzgyYR6yv3XuiwrfDrwBk2nq4V2e2eDp9C9BIIubUxhilkSfM0RwUt8cREAogIeAjrmJLzCgZm7wakHP5R7MHNl7dxqVfD+9A5j9sFADXvpXSRTuqLFWuimBkaJMAu8YQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DP55sZLSavRJcgVkSzjvwaDwA6eTlffMWwhBI6G0ND4=;
+ b=2LyShoAuORTm8DRnoXSUGoUFzh/mWktebToPPVTLstQSRhCUWq27wlctDGwq9woqc4mQWBwaLNY8WaZes8cTxcdVTRMCPn+AB+YjVizFlf6XvG6lNyDpgOkAKs/Ydb8QG327LAD0+OZNFm2Sb79Pm6cNtg5YG7C51kvMS4gY/v4=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by MN2PR12MB4094.namprd12.prod.outlook.com (2603:10b6:208:15f::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.21; Thu, 14 Mar
+ 2024 14:50:15 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::b001:1430:f089:47ae]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::b001:1430:f089:47ae%7]) with mapi id 15.20.7362.035; Thu, 14 Mar 2024
+ 14:50:15 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Liang, Prike" <Prike.Liang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: correct the KGQ fallback message
+Thread-Topic: [PATCH] drm/amdgpu: correct the KGQ fallback message
+Thread-Index: AQHadSj/mOMTe4M9dUOwAkuY7NN937E3U3Gq
+Date: Thu, 14 Mar 2024 14:50:14 +0000
+Message-ID: <BL1PR12MB51442714D6C96B5F4487F84BF7292@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20240313092936.1274265-1-Prike.Liang@amd.com>
+In-Reply-To: <20240313092936.1274265-1-Prike.Liang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-03-14T14:50:14.637Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|MN2PR12MB4094:EE_
+x-ms-office365-filtering-correlation-id: a1c760da-aff8-49dc-aeb0-08dc44360ef9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: T6AV+ILzLSxeYGliBXEQFXjgSOrgRy2n7dEiiYG3g6VeO4ooHx6BGKdtltuB661/qVBiTlb4gQl9+/6GCnCt5XEJ+4Lq4OIOHv+MXsZ8KQEHOYhNPX3BpGC/kLqr0PMHaQxICYXfBIhrrDIglAPx4QMYIe92n4VnzLSbi+gWIQGrEn6xWNxy0lgMT5f/4Ttvue3+JjVidJdQs1lM3APRJw8qnAv3HWWe/pKC30l57CUpC4jiVLzF/H1b1QdEW/foQObf5OXNej2y+aHbmjxh0SP5J0x4fyzJdxAe1oh5umQshZ2yrmMldUV3TENDLkSvkVjNE88z7yIbppr9g82+cn7fSd2nef6k5CG5Tzr/WCmMBvrfaZeUtVYyPJQvAq8CmGva4l1x4/6y2TvnYcJGyrRnZ2/ltFRlvpvf9ofcK3nq/2lyqPFgrNkA0sKPUqXfvvGzNAFWhenbVaQPURmrw6ySfmfQ2RI4ug5Lz4qtzItUxtqaqyTu85Vl0ttvC2g56qWgxfTY3c2tk1N/iJzPBTvYReYl/D21/MNG8FnJKpVBSqxLHsvvH+x+7aAuubRWk5GjSUwoCYaiYiUKLZY3hlQjUGCq2y1EJWaoHGZWYyUO+T9p0OSulYVeg103XnSfrg9XObF4qyUTXAhD3J8vXE7EL1Bs6FGi5d2tj6N0EL+N20ZmoT63gfc+liw7yOxr6a/TwhQhCiljBzgzyEfXvA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?m4Yg58qXQVMyt/NLNK58EB75W9qBulLPJ6sqoP9Vhg7dg0jPOX0TW/9kKawU?=
+ =?us-ascii?Q?wIz2ayHkas/fQCTuXA+fAe7Fs76XJAb2Xd8j5I/x896RR+wlpvKXQVRdZvwg?=
+ =?us-ascii?Q?hrEyru11ihLTvFQTEUhTLqIyrnX5KhquIKcv5Ndv3J4NJVzf88oiCAeddp8G?=
+ =?us-ascii?Q?aIQZnzI0na3cx610EKLZ7yZfUwc0cZTtsChdxLxFWitEFM4sRRH7QRbzwINl?=
+ =?us-ascii?Q?6M6uzKUcj1o6vuicnCCb7C242w1Sv1/lj+D+vNz87aFj9dNJcaQXL/bn1Jsc?=
+ =?us-ascii?Q?YS6NiFE1fhY1jA4L5hHjrrQli1PWzvieg15YwdVTJrNzEDtdbIXYYwrKjs+O?=
+ =?us-ascii?Q?rqkS1tQObyFNpx0F5m6FkV5UfVuwCCfS7dHaQc+hLA5IjiwE/50ypvrYt2y4?=
+ =?us-ascii?Q?JVUunT7oTYNKIzl0NvlmagFFFWbcwl6ltRfq6MBjJwkPVzJ8fF4UgHbvUmQb?=
+ =?us-ascii?Q?El/0p+KzPSlv9x4B+eh0CoOZxnry/0VvDjQNqEGoBrIqa4x1OxUpKvCk9lfD?=
+ =?us-ascii?Q?ImSDjdpGRIWK1wRQoQE4avRxVQMi/+MYjC5UQXgD2Nui7R43a3QmpuyQgQBW?=
+ =?us-ascii?Q?PsRh8Tjoqx65zL6S/wZyLY+ebK8MyZfrD3IX0bj+lDoUiwweLsBSYCp2AII8?=
+ =?us-ascii?Q?hrSxDNfB42hfsBbdEi7juc4BYFw7x2KgD0V/eX2L/7W466Zj2eEESOulDSTR?=
+ =?us-ascii?Q?a1aDk0E2cU56WdhiOg7QkfuMILwgU0wWnRqvhkqmlvDwOzM+8T+TuH1iWvXP?=
+ =?us-ascii?Q?B83SCNZ9hyWHj6SsmFreyqM0CRlaQ2wXc4lNtfMFZwJBcEHoGqPwy1om9S++?=
+ =?us-ascii?Q?ZtrtYp4pEsjyWDADQvYH0uzvI5Kg/qGC/OKgRfhscuKL8auOfvRJrW2Uxs+7?=
+ =?us-ascii?Q?cb6cupTw8f81lsQvF5tk4l0+YEMl9bfbesPZV/VtQkiBfjdCnST44xnNXDlI?=
+ =?us-ascii?Q?7SpDU/F5UH2AP4rlOg6TqF57BMTCknsdqD2dXztYJj7tj6qSQs0RdgclYHpD?=
+ =?us-ascii?Q?R9hLvg5tZz8kOlnjLzpejPqN8TqDefWXIGetBwR5sKmc0/V4RMz+tMjp7exS?=
+ =?us-ascii?Q?VatFkkrXeWyyHctFnuUPXAlPYSKiRUDqkLStnuRinNIMGpM41/ooRZM3PipN?=
+ =?us-ascii?Q?IgAF5x39TE+3ipYRSz2YvtxJIiOpwkIvecQ+69t19zN6zNHG7TmqQ2HY02je?=
+ =?us-ascii?Q?64mDNxVtt6y8A+FxQC8yuahq0gGcrTLCkyTQGCWnZD0gh3MOQXWyARkVjRU0?=
+ =?us-ascii?Q?ErxAj1SKlHyU0hvI+qW1ciPlZAUEC/E13NoVG5kpayCHibSN3ZqDEJI6VwOj?=
+ =?us-ascii?Q?7jF4IKqiiTloDIEab/pSWliLzMG9hY0TG5gX1k3MbB7hKPNmUwUsl9gj3avv?=
+ =?us-ascii?Q?PppohYcB+lvyQhhgS15rbYAgWVchwgO+Pcaz7PhhUTyzfwLzHo5Isq4mgdcI?=
+ =?us-ascii?Q?Y07MlvZTIWd32xdgjwvqXWuaa+mUSecECllLVG9EWlohyS8IhA4bcJkxs4Vo?=
+ =?us-ascii?Q?Glo/tYoUqav9d9g1LTEsR1rIgTKQbOdVhdll5XMpGrNmWKvvl6I3CUxlTQ1z?=
+ =?us-ascii?Q?K5ZR0zebs4PfYLEsWDY=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB51442714D6C96B5F4487F84BF7292BL1PR12MB5144namp_"
 MIME-Version: 1.0
-References: <20240312124148.257067-1-sunil.khatri@amd.com>
- <CADnq5_O-cyDkNLznZpvnZtz15Mi1_rkigirG80BmYJprP_udnw@mail.gmail.com>
- <59cf081e-5924-42b5-a3f1-de8b012f09d1@amd.com>
-In-Reply-To: <59cf081e-5924-42b5-a3f1-de8b012f09d1@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 14 Mar 2024 10:42:06 -0400
-Message-ID: <CADnq5_N0H75UU2aFTAkqUrdGxKPxBQUnodsH-bcpS-ZUqgUb3A@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: add the IP information of the soc
-To: "Khatri, Sunil" <sukhatri@amd.com>
-Cc: Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1c760da-aff8-49dc-aeb0-08dc44360ef9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Mar 2024 14:50:14.9433 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ZBq73YyyvOSdg3iLu691FKW/ynCm6Xgvlus3aezqXToX93RgHwledJ5OFAQQO/n3GA++vIZ4HImgy2uek70BrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4094
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,104 +126,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 14, 2024 at 1:44=E2=80=AFAM Khatri, Sunil <sukhatri@amd.com> wr=
-ote:
+--_000_BL1PR12MB51442714D6C96B5F4487F84BF7292BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: Liang, Prike <Prike.Liang@amd.com>
+Sent: Wednesday, March 13, 2024 5:29 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liang, Prike <Prike.Lia=
+ng@amd.com>
+Subject: [PATCH] drm/amdgpu: correct the KGQ fallback message
+
+Fix the KGQ fallback function name, as this will
+help differentiate the failure in the KCQ enablement.
+
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gfx.c
+index 4835d6d899e7..d95555dc5485 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -686,7 +686,7 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev, i=
+nt xcc_id)
+         r =3D amdgpu_ring_test_helper(kiq_ring);
+         spin_unlock(&kiq->ring_lock);
+         if (r)
+-               DRM_ERROR("KCQ enable failed\n");
++               DRM_ERROR("KGQ enable failed\n");
+
+         return r;
+ }
+--
+2.34.1
+
+
+--_000_BL1PR12MB51442714D6C96B5F4487F84BF7292BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
->
-> On 3/14/2024 1:58 AM, Alex Deucher wrote:
-> > On Tue, Mar 12, 2024 at 8:41=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.=
-com> wrote:
-> >> Add all the IP's information on a SOC to the
-> >> devcoredump.
-> >>
-> >> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c | 19 +++++++++++++++++++
-> >>   1 file changed, 19 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_reset.c
-> >> index a0dbccad2f53..611fdb90a1fc 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> >> @@ -196,6 +196,25 @@ amdgpu_devcoredump_read(char *buffer, loff_t offs=
-et, size_t count,
-> >>                             coredump->reset_task_info.process_name,
-> >>                             coredump->reset_task_info.pid);
-> >>
-> >> +       /* GPU IP's information of the SOC */
-> >> +       if (coredump->adev) {
-> >> +               drm_printf(&p, "\nIP Information\n");
-> >> +               drm_printf(&p, "SOC Family: %d\n", coredump->adev->fam=
-ily);
-> >> +               drm_printf(&p, "SOC Revision id: %d\n", coredump->adev=
-->rev_id);
-> >> +
-> >> +               for (int i =3D 0; i < coredump->adev->num_ip_blocks; i=
-++) {
-> >> +                       struct amdgpu_ip_block *ip =3D
-> >> +                               &coredump->adev->ip_blocks[i];
-> >> +                       drm_printf(&p, "IP type: %d IP name: %s\n",
-> >> +                                  ip->version->type,
-> >> +                                  ip->version->funcs->name);
-> >> +                       drm_printf(&p, "IP version: (%d,%d,%d)\n\n",
-> >> +                                  ip->version->major,
-> >> +                                  ip->version->minor,
-> >> +                                  ip->version->rev);
-> >> +               }
-> >> +       }
-> > I think the IP discovery table would be more useful.  Either walk the
-> > adev->ip_versions structure, or just include the IP discovery binary.
->
-> I did explore the adev->ip_versions and if i just go through the array
-> it doesn't give any useful information directly.
-> There are no ways to find directly from adev->ip_versions below things
-> until i also reparse the discovery binary again like done the discovery
-> amdgpu_discovery_reg_base_init and walk through the headers of various
-> ips using discovery binary.
-> a. Which IP is available on soc or not.
-> b. How many instances are there
-> Also i again have to change back to major, minor and rev convention for
-> this information to be useful. I am exploring it more if i find some
-> other information i will update.
->
-> adev->ip_block[] is derived from ip discovery only for each block which
-> is there on the SOC, so we are not reading information which isnt
-> applicable for the soc. We have name , type and version no of the IPs
-> available on the soc. If you want i could add no of instances of each IP
-> too if you think that's useful information here. Could you share what
-> information is missing in this approach so i can include that.
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;font=
+-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liang, Prike &lt;Prik=
+e.Liang@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, March 13, 2024 5:29 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Liang, Pri=
+ke &lt;Prike.Liang@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: correct the KGQ fallback message</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Fix the KGQ fallback function name, as this will<b=
+r>
+help differentiate the failure in the KCQ enablement.<br>
+<br>
+Signed-off-by: Prike Liang &lt;Prike.Liang@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 2 +-<br>
+&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gfx.c<br>
+index 4835d6d899e7..d95555dc5485 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
+@@ -686,7 +686,7 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev, i=
+nt xcc_id)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ring_test_hel=
+per(kiq_ring);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock(&amp;kiq-&gt;r=
+ing_lock);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_ERROR(&quot;KCQ enable failed\n&quot;);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; DRM_ERROR(&quot;KGQ enable failed\n&quot;);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;}<br>
+-- <br>
+2.34.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
-I was hoping to get the actual IP versions for the IPs from IP
-discovery rather than the versions from the ip_block array.  The
-latter are common so you can end up with the same version used across
-a wide variety of chips (e.g., all gfx10.x based chips use the same
-gfx 10 IP code even if the actual IP version is different for most of
-the chips).
-
->
-> For dumping the IP discovery binary, i dont understand how that
-> information would be useful directly and needs to be decoded like we are
-> doing in discovery init. Please correct me if my understanding is wrong
-> here.
-
-It's probably not a high priority, I was just thinking it might be
-useful to have in case there ended up being some problem related to
-the IP discovery table on some boards.  E.g., we'd know that all
-boards with a certain harvest config seem to align with a reported
-problem.  Similar for vbios.  It's more for telemetry.  E.g., all the
-boards reporting some problem have a particular powerplay config or
-whatever.
-
-Alex
-
-
-> > Alex
-> >
-> >> +
-> >>          if (coredump->ring) {
-> >>                  drm_printf(&p, "\nRing timed out details\n");
-> >>                  drm_printf(&p, "IP Type: %d Ring Name: %s\n",
-> >> --
-> >> 2.34.1
-> >>
+--_000_BL1PR12MB51442714D6C96B5F4487F84BF7292BL1PR12MB5144namp_--
