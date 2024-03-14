@@ -4,58 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2EA1C54E66
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 08:24:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D392C54E58
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 08:24:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A45E010FFE9;
-	Fri, 15 Mar 2024 08:24:29 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A19C10FCBC;
- Thu, 14 Mar 2024 18:32:01 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E3C8C6150D;
- Thu, 14 Mar 2024 18:32:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A243FC43390;
- Thu, 14 Mar 2024 18:31:55 +0000 (UTC)
-Date: Thu, 14 Mar 2024 14:34:06 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Alison Schofield <alison.schofield@intel.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
- <linux-trace-kernel@vger.kernel.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- linux-block@vger.kernel.org, linux-cxl@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-rdma@vger.kernel.org, linux-pm@vger.kernel.org,
- iommu@lists.linux.dev, linux-tegra@vger.kernel.org, netdev@vger.kernel.org,
- linux-hyperv@vger.kernel.org, ath10k@lists.infradead.org,
- linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
- ath12k@lists.infradead.org, brcm80211@lists.linux.dev,
- brcm80211-dev-list.pdl@broadcom.com, linux-usb@vger.kernel.org,
- linux-bcachefs@vger.kernel.org, linux-nfs@vger.kernel.org,
- ocfs2-devel@lists.linux.dev, linux-cifs@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-edac@vger.kernel.org,
- selinux@vger.kernel.org, linux-btrfs@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-hwmon@vger.kernel.org, io-uring@vger.kernel.org,
- linux-sound@vger.kernel.org, bpf@vger.kernel.org,
- linux-wpan@vger.kernel.org, dev@openvswitch.org,
- linux-s390@vger.kernel.org, tipc-discussion@lists.sourceforge.net, Julia
- Lawall <Julia.Lawall@inria.fr>
-Subject: Re: [FYI][PATCH] tracing/treewide: Remove second parameter of
- __assign_str()
-Message-ID: <20240314143406.6289a060@gandalf.local.home>
-In-Reply-To: <ZfMslbCmCtyEaEWN@aschofie-mobl2>
-References: <20240223125634.2888c973@gandalf.local.home>
- <ZfMslbCmCtyEaEWN@aschofie-mobl2>
-X-Mailer: Claws Mail 3.19.1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98CE410FFEB;
+	Fri, 15 Mar 2024 08:24:32 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=cmpxchg-org.20230601.gappssmtp.com header.i=@cmpxchg-org.20230601.gappssmtp.com header.b="dYYTe1XJ";
+	dkim-atps=neutral
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com
+ [209.85.219.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3C4C10EDE5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Mar 2024 17:09:58 +0000 (UTC)
+Received: by mail-qv1-f47.google.com with SMTP id
+ 6a1803df08f44-68f571be9ddso8148496d6.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Mar 2024 10:09:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cmpxchg-org.20230601.gappssmtp.com; s=20230601; t=1710436197; x=1711040997;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=wq3tDY8BbJifWyupgIyZpzh/9hWKNCkxl+BfruynXAQ=;
+ b=dYYTe1XJU2M6Oz5ItN9uVdmRBCN8g8yCZFLPcCqbUuGVtA9frFsyByCCDSAoKGbypm
+ ZVFqw2l32Vqebi0QaRzga3HaYVIBGZB6my60BL1Tb9IsAwqDjUSRVz4Qk1dZoEcdYxk3
+ 5tV0xm4ldx2CAW8TyMq6sUbagB51Zc6maBXYVDJG42Ci84/PkfnklzWVkugJ2dogsKMh
+ 4hJhpGOJtXpGwjAEGlRwmdMf4vzPo73n90x8BN9KpuBsQqWxAazFeDxYYWqGPkDLL69y
+ cG0Cc6/gojglVk9ONICIXnlai4ZsDBE//wcZBPW35xQyX9krmVA9mqY6s3vqpGUqmlRF
+ DTkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710436197; x=1711040997;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=wq3tDY8BbJifWyupgIyZpzh/9hWKNCkxl+BfruynXAQ=;
+ b=S2Qveg8Gd9ACu7UktDgmrX/ISgIFD5uvqXgnfd/o17RFU5EyX1LuPGu5VxsvqbQ2RJ
+ 83L7Po6se+OyFcbZcG6eGX2NVIeQ3jkR9ws1TARZJc+zIZ0i7nxAe565Pc+E+hkuQ3iJ
+ weDTFz9GWw2jLp1qq0TyOblkzacEOjMwOSkJ3MjX/n1Y/lJ9LZBg4xrUiTcpNHQt2giD
+ g8cG3PeKO1u0YFd423eHGB8COo8p3r2IbZz3gOUCvBvel0prA8GkCEuD4tGaMTyOn/Ka
+ 5qjqpLH18UbsW+a7ugH3gCYu/O9UKCL3zRBxzDS90M/q7oz0d2+oIF0h2Sz29l4/h80z
+ mJsQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUFUbCKUJq3Q65FoUvVQ535CiGmGAN/tr7lCw/0GqEsEpVqBba5g9x8uTyIU9+zKBRZYezs+9owSuZ0UeSMIV9JUmcL3leQTIqAGfEXbg==
+X-Gm-Message-State: AOJu0YyRW1fsBkgLtHy7hEB1nkTFTBZFWK4lbcwYfUOxwNmPHo0wUYyx
+ cSpMYtpyOnMpcCC0Aq2ldrT7Vic4y+RQhwmjXmvFLkuUbMHvVW7cgDY0SHFBc8c=
+X-Google-Smtp-Source: AGHT+IG9aYKr3SLrUEGgyDZji2FG4IGp3KCRhhwIdIrak8oLuo4wulKWroEURFFbiWSVw95P6gj41A==
+X-Received: by 2002:a0c:d989:0:b0:691:6dd8:4606 with SMTP id
+ y9-20020a0cd989000000b006916dd84606mr65545qvj.30.1710436197410; 
+ Thu, 14 Mar 2024 10:09:57 -0700 (PDT)
+Received: from localhost
+ (2603-7000-0c01-2716-da5e-d3ff-fee7-26e7.res6.spectrum.com.
+ [2603:7000:c01:2716:da5e:d3ff:fee7:26e7])
+ by smtp.gmail.com with ESMTPSA id
+ z10-20020a056214040a00b00690d951b7d9sm700131qvx.6.2024.03.14.10.09.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Mar 2024 10:09:56 -0700 (PDT)
+Date: Thu, 14 Mar 2024 13:09:48 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ "Sharma, Shashank" <Shashank.Sharma@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amdgpu: fix deadlock while reading mqd from debugfs
+Message-ID: <20240314170948.GA581298@cmpxchg.org>
+References: <20240307221609.7651-1-hannes@cmpxchg.org>
+ <c411dce6-faaf-46c3-8bb6-8c4db871e598@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c411dce6-faaf-46c3-8bb6-8c4db871e598@gmail.com>
 X-Mailman-Approved-At: Fri, 15 Mar 2024 08:24:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,110 +91,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 14 Mar 2024 09:57:57 -0700
-Alison Schofield <alison.schofield@intel.com> wrote:
+Hello,
 
-> On Fri, Feb 23, 2024 at 12:56:34PM -0500, Steven Rostedt wrote:
-> > From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
-> > 
-> > [
-> >    This is a treewide change. I will likely re-create this patch again in
-> >    the second week of the merge window of v6.9 and submit it then. Hoping
-> >    to keep the conflicts that it will cause to a minimum.
-> > ]
+On Fri, Mar 08, 2024 at 12:32:33PM +0100, Christian König wrote:
+> Am 07.03.24 um 23:07 schrieb Johannes Weiner:
+> > Lastly I went with an open loop instead of a memcpy() as I wasn't
+> > sure if that memory is safe to address a byte at at time.
 
-Note, change of plans. I plan on sending this in the next merge window, as
-this merge window I have this patch:
+Shashank pointed out to me in private that byte access would indeed be
+safe. However, after actually trying it it won't work because memcpy()
+doesn't play nice with mqd being volatile:
 
-  https://lore.kernel.org/linux-trace-kernel/20240312113002.00031668@gandalf.local.home/
+/home/hannes/src/linux/linux/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c: In function 'amdgpu_debugfs_mqd_read':
+/home/hannes/src/linux/linux/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:550:22: warning: passing argument 1 of '__builtin_dynamic_object_size' discards 'volatil' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  550 |         memcpy(kbuf, mqd, ring->mqd_size);
 
-That will warn if the source string of __string() is different than the
-source string of __assign_str(). I want to make sure they are identical
-before just dropping one of them.
+So I would propose leaving the patch as-is. Shashank, does that sound
+good to you?
 
+(Please keep me CC'd on replies, as I'm not subscribed to the graphics
+lists.)
 
-> 
-> > diff --git a/drivers/cxl/core/trace.h b/drivers/cxl/core/trace.h
-> > index bdf117a33744..07ba4e033347 100644
-> > --- a/drivers/cxl/core/trace.h
-> > +++ b/drivers/cxl/core/trace.h  
-> 
-> snip to poison
-> 
-> > @@ -668,8 +668,8 @@ TRACE_EVENT(cxl_poison,
-> >  	    ),
-> >  
-> >  	TP_fast_assign(
-> > -		__assign_str(memdev, dev_name(&cxlmd->dev));
-> > -		__assign_str(host, dev_name(cxlmd->dev.parent));
-> > +		__assign_str(memdev);
-> > +		__assign_str(host);  
-> 
-> I think I get that the above changes work because the TP_STRUCT__entry for
-> these did:
-> 	__string(memdev, dev_name(&cxlmd->dev))
-> 	__string(host, dev_name(cxlmd->dev.parent))
-
-That's the point. They have to be identical or you will likely bug.
-
-The __string(name, src) is used to find the string length of src which
-allocates the necessary length on the ring buffer. The __assign_str(name, src)
-will copy src into the ring buffer.
-
-Similar to:
-
-	len = strlen(src);
-	buf = malloc(len);
-	strcpy(buf, str);
-
-Where __string() is strlen() and __assign_str() is strcpy(). It doesn't
-make sense to use two different strings, and if you did, it would likely be
-a bug.
-
-But the magic behind __string() does much more than just get the length of
-the string, and it could easily save the pointer to the string (along with
-its length) and have it copy that in the __assign_str() call, making the
-src parameter of __assign_str() useless.
-
-> 
-> >  		__entry->serial = cxlmd->cxlds->serial;
-> >  		__entry->overflow_ts = cxl_poison_overflow(flags, overflow_ts);
-> >  		__entry->dpa = cxl_poison_record_dpa(record);
-> > @@ -678,12 +678,12 @@ TRACE_EVENT(cxl_poison,
-> >  		__entry->trace_type = trace_type;
-> >  		__entry->flags = flags;
-> >  		if (region) {
-> > -			__assign_str(region, dev_name(&region->dev));
-> > +			__assign_str(region);
-> >  			memcpy(__entry->uuid, &region->params.uuid, 16);
-> >  			__entry->hpa = cxl_trace_hpa(region, cxlmd,
-> >  						     __entry->dpa);
-> >  		} else {
-> > -			__assign_str(region, "");
-> > +			__assign_str(region);
-> >  			memset(__entry->uuid, 0, 16);
-> >  			__entry->hpa = ULLONG_MAX;  
-> 
-> For the above 2, there was no helper in TP_STRUCT__entry. A recently
-> posted patch is fixing that up to be __string(region, NULL) See [1],
-> with the actual assignment still happening in TP_fast_assign.
-
-__string(region, NULL) doesn't make sense. It's like:
-
-	len = strlen(NULL);
-	buf = malloc(len);
-	strcpy(buf, NULL);
-
-??
-
-I'll reply to that email.
-
--- Steve
-
-> 
-> Does that assign logic need to move to the TP_STRUCT__entry definition
-> when you merge these changes? I'm not clear how much logic is able to be
-> included, ie like 'C' style code in the TP_STRUCT__entry.
-> 
-> [1]
-> https://lore.kernel.org/linux-cxl/20240314044301.2108650-1-alison.schofield@intel.com/
+Thanks!
