@@ -4,124 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E79BC5475B
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 06:10:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E31F7C54E5D
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 08:12:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B576D10F8BB;
-	Thu, 14 Mar 2024 06:10:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D63010F215;
+	Thu, 14 Mar 2024 08:12:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LQnKkTHv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ufzHeBN9";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2063.outbound.protection.outlook.com [40.107.92.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2EAE10F8BD;
- Thu, 14 Mar 2024 06:10:32 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2067.outbound.protection.outlook.com [40.107.94.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BBAC10F77E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Mar 2024 08:12:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Td52dCOIBGhPKj7UIUu2Dpuh+jlRn7G55GKaiHMdkot2zSWHaVaOOtP3qqS09QUA+xk+WYDV75S6wQ/O44KegI0kwh0+ggxwURNDtC9Q+jaNkNL2FysFRN8bbO1PV5AVI4ZlzN/87PbmGJgmRaR2KaR+yaUdvp7Ri8ip8EbpmpJLZcO0Ev7TgrNp086FmvRw0rlGVcjSZdkKH9yVPwatTuEnc4kvSKtEcqCCFLyOoK0pT5Ed/wJslMCzMe9vCe3moguqlaNGGdlOa+zBL2fMGnA3eiauwUXqgNawp+SoZ2xZPXs2wMcMGDK3GMUx3QMEUO6zGKKuFN95IzY5oxJoCw==
+ b=AtbT/GHaqwWRzD460zxbrfb5cWnIzGjtxzLl2/4KNzH8ZD7WJKZaGgyxqQoEf2BYPlQ0B4+vCp+Gz1eURmv4kxyeCLT4ETkshj1nE5ZWB0KWmOqotHHYkLbqnq1Fn/lb4ylEm4+jF/57K6yrdN+dzBT46RKEtApj5mOFZdYRjOCS4y+ogZtVjdcq4LJOA5klQOsuu1tfHxObfcDkvIEuJLmMBubMDqQep2IIESCqbnNSLnF7h/SiAMz0vNyPSrxAIE+T63src4DlmRSjuwXkWJy/rwe0ElCdICXzneezR0/GQkrCy3VnffPTqU3uVLTzguum+dHv2uBXKY+HmxgYIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Mo7u6BYuMm3iowu8MvZmwOqVo3RO1hkjFR1Xu+pVNJI=;
- b=k1mzaVTJvFn9x2qPb5rTmh20ARd1jbwtdMxtSoUefudYch6bzSddervEs6kN4nMLh0BGO+iatqbcKVIOI3AYmTbTzjWjh3zpYYN35qHZ7rfi3z0G0zC0rIBso/r34TXlABOrM+9lcVqyNtWkrp3p4ngroYmIInVgnHbBldHgp7zFX0cBtRsfH6TeH34ADiUInfZjWQ/o6LU0i6d//vMet461AEfLsFcYDvvwrInE23HItxleCC7qqQPaONGg8rFJFTgPqnJi05HDgYxhfFcog5zTIOsm6qJONXF4sbGEL2T1r5GhYcwMNczSbdCV660+09LIMeqYGrqba8Do5av45w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=T5gBZBkMb949RpXssd8iXj1torlYHjREbzHSJMvFup8=;
+ b=VciasXM9veAs+9xo6GqQb/Z9nb6yamcCYNEDbAerA5zjpD5TthVSC0zxCAYhBJIfEZERrW8Ck2SeoK773y/gYQnSUub18da7bHrKb1JLM1jgRUJi6dPbKz4u/4PsZZA7YC7SGjF7p4u9ZHjJgNOZwj6abPAR1It454tS34bFSL3CT9/apDWrFYP9rsFVrpHKKzFvsMK7dzaI4+ZK/DaIruAJeyPJxrS/QxAgPZwXOU7nHDIOyMjhmPSYpUEMLCj7hKgB5fSGaY08LQJomBCy9xYFYGsFE4bS8ha0SQJfeU2WMiyhSE131YDl1QVoVaM+cONdjMuy+qO4/E/4J6wtjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mo7u6BYuMm3iowu8MvZmwOqVo3RO1hkjFR1Xu+pVNJI=;
- b=LQnKkTHvEoBicpui/G27sESB4seGA1HwwBu0VKuzMUC3gdouB7MPegqclcDiuyiUdXfbIMKgZ8xQ0231KVhPXcvRvxHtxqV9cjq28TXBJ0T+ysIMmzlFG36Ci12WgHWNV7zLbb8HD7C8euVKBxcFATBEIR80sihpC3jyZshr1ws=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by MW6PR12MB8998.namprd12.prod.outlook.com (2603:10b6:303:249::9)
+ bh=T5gBZBkMb949RpXssd8iXj1torlYHjREbzHSJMvFup8=;
+ b=ufzHeBN9WwZdWG1B1i+4LLCnh1fVU5UbSJf9+IwczRSX/cw+hAGqm9jhL8YKUowvo/8tg9/Bj6G2qJzcjKqoczH8KWWoyD1Fc+vpc7OUb0Rq0kbyBfkpFtFGoQkLdHVzRMsuQk1+y2b+MrXhzjGrdSswgXTiR0YnxM2xLtD5S/I=
+Received: from BN9PR03CA0352.namprd03.prod.outlook.com (2603:10b6:408:f6::27)
+ by SJ0PR12MB6760.namprd12.prod.outlook.com (2603:10b6:a03:44c::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.19; Thu, 14 Mar
- 2024 06:10:30 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::966b:7f50:4f07:3c8b]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::966b:7f50:4f07:3c8b%5]) with mapi id 15.20.7386.017; Thu, 14 Mar 2024
- 06:10:30 +0000
-Message-ID: <0ee30d3b-0dbc-3eb6-a19c-abeb85cbc883@amd.com>
-Date: Thu, 14 Mar 2024 07:10:23 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 2/2] drm:amdgpu: add firmware information of all IP's
-Content-Language: en-US
-To: "Khatri, Sunil" <sukhatri@amd.com>, Alex Deucher <alexdeucher@gmail.com>, 
- Sunil Khatri <sunil.khatri@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20240312124148.257067-1-sunil.khatri@amd.com>
- <20240312124148.257067-2-sunil.khatri@amd.com>
- <CADnq5_ON0NfcpmnHKjNYWgxfvfz-J3tgjX92DaaN63iKb+FOZg@mail.gmail.com>
- <498b87fb-727c-4ea2-9633-6ecbff436eba@amd.com>
-From: "Sharma, Shashank" <shashank.sharma@amd.com>
-In-Reply-To: <498b87fb-727c-4ea2-9633-6ecbff436eba@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0266.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e8::14) To MW4PR12MB5667.namprd12.prod.outlook.com
- (2603:10b6:303:18a::10)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.20; Thu, 14 Mar
+ 2024 08:12:42 +0000
+Received: from BN3PEPF0000B072.namprd04.prod.outlook.com
+ (2603:10b6:408:f6:cafe::4a) by BN9PR03CA0352.outlook.office365.com
+ (2603:10b6:408:f6::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.20 via Frontend
+ Transport; Thu, 14 Mar 2024 08:12:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN3PEPF0000B072.mail.protection.outlook.com (10.167.243.117) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7386.12 via Frontend Transport; Thu, 14 Mar 2024 08:12:41 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 14 Mar
+ 2024 03:12:40 -0500
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Yang Wang <kevinyang.wang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: add ras event id support
+Date: Thu, 14 Mar 2024 16:12:28 +0800
+Message-ID: <20240314081228.3538091-1-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|MW6PR12MB8998:EE_
-X-MS-Office365-Filtering-Correlation-Id: f59fd58d-e7b7-4952-4552-08dc43ed7336
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B072:EE_|SJ0PR12MB6760:EE_
+X-MS-Office365-Filtering-Correlation-Id: e274119c-90a0-45a6-a8ed-08dc43fe857a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZRTtKm6Y6NuiBtS1XUBXGsvqtVcDxxyOgJHd986glfYgYmoX5Gqt3x1BpgaoPZMs3EaNUJVA3KqAGiWBo4jNqxE7uAU9+LcXcXWLkcqjLkzaLx61R1Xj8t7IDJSBMudkgjiMaLAMAlRSTt/Mf2EZCC+y9XpWHGLVZfOfj/c6H3lRZSxw054ZoRuO9FqG8d+jSu6MdbmVdYHHk48Z6/4v2Gh1apPiiixZrskyFyNdAcqols9mNqWE8DVcGPeu62jCvoO30sEwlYCvBpWrb20HqghL+7pY1irdXWld/y02HUijwlK84kOXCuuqLTvBXNORL5E713ISBcnumI8zmT9V5BxTiVkjkL6SJRrY2YWQWChewTEWRL3J1KtlVEs/ZFInMkTSfc/noysKCqNGbxD+Ftc4LPWwq71HqPw3fDQVWXrOB1x9LcCqGShl0z1pRBVdLBsYtli6N0GwWXWUIvO9sXeS6MKET61d3xDy2lt+1qgRZomzjxSZAfrUbW7gu1rCi7jN0ac6uGD+hNgCHv70SIr1WvzCsioLROCJiQ1l2G6QBeRiZ+PJbYyQn3H31t4JD8NSY5wkS5JyILRvBKueNhgMUNAgXLkv0mFaXILMlpDzGXNg/wUKoN7wN5fA7laBjDhSFUuIqr12k7zy8LkUvzM1L7iuFKTIbG0p3Ppxis8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(376005); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZDQyMkFVaTBtb05mUXpkeDRlcGQrZ0Zud3Bkelo4enpQejE5Qkc3eEQ5RU05?=
- =?utf-8?B?QnRMMXZ5YXZaZ2cxR1N1c2VJK256SmNVTkhRRFg2WVdhZS95eHJJaGNPUCt5?=
- =?utf-8?B?WUF3emVYTmVvYlFnL0s0VTdYMEx1NGFFQ1Bud2F2OUdsY3MwNzdmRlBnWG50?=
- =?utf-8?B?UFBkWG5Bc2d6NkIzSjFmRGl0TkY4bEhHQ3oxa09rMkcvdGxvUHJ3T2Z2bTBz?=
- =?utf-8?B?MHhnVkhoZWcvbURlTTB2SEhONTYyT2lZU0p2RW1ZVXA4aXJuSTI0akJlN3Zy?=
- =?utf-8?B?RnV0ZlFsNDVLaWFRR0tvbEY2WXhjRENEUnlzM1FKeERkR1BsUUN2Y1lqdEpM?=
- =?utf-8?B?eEV3STdNTldRRGhTMmtKTUplWHB5aEgxVUY4ZlluMWhzMTIzRFRUbXlQNTUx?=
- =?utf-8?B?WHlvL0xwN2VPMHBTT1RmNFNQK3FqTkV6S2N0ZXVwRDN3cWFtcnM5YkpLQUVZ?=
- =?utf-8?B?YWxQNUpoamhXRWx3UlhmdkVkQXIxMVdqVm1zWmU3eUd6UHJLa0pqT2xyK2tF?=
- =?utf-8?B?Rks2WnZZbVpBTS9JWGpIbXh2UDdqSHVCU3Jjb0xNTWN1MWN0M1M5RjZ6VGlt?=
- =?utf-8?B?dVZSZ1lTeUhHTFFxTDdWSmdBNWNKaURlYU9pNmlRMis4YS9KTWliS05iMTZN?=
- =?utf-8?B?L0ZJa1djc3JBTXlrMDQwOHZqUHo1cXpkVmJzVU02QmVYK21sWXhpUlQvbFdW?=
- =?utf-8?B?NHNnOTZESXkzNzNNNFljRlc3bmtJZ3JzNm9MR1ZINWJPVUpFYmVrSW1LY1Rz?=
- =?utf-8?B?VU9DK3ErU212UkluT1U2dTBMNWdkNUN4T3RlYUtNdGFlNWt1MCtRa1hCbHJi?=
- =?utf-8?B?RFE3T01CblRxSEM5TkRmZW1ZUHEwZDJjaDZHaXJpazh1TFlYdnFkSlRSbHBB?=
- =?utf-8?B?VWR4S05XQ2pGNnhQZEo3QlJHZis1L0tWalRXUWZhdWZldHVNRjIvMUtaUFBD?=
- =?utf-8?B?cEszRW9MNTU0cUdCRFl5ZVBBSy9UaEljNGE2bk5lREw4SzRFQVJjY0JjUlB4?=
- =?utf-8?B?Zmx1R2VUQm1sdkw0aUZqVmVDOHV4Vk5vQnNZaTJONTdNMnppN1ViOXR0T3Bk?=
- =?utf-8?B?RWEvdU90SXdZZTV3VkR2OWlMYWhUS3lCYjZNdzhrYVZNVXNEUUJLeVo3cjB5?=
- =?utf-8?B?TkY4MUZZcTBWU096N09DL1lDUG83dWJYOHpqelM5UDFHNzJJL0pvR2UyTWpQ?=
- =?utf-8?B?S25ZZDd5L2hmU1BDWnBWcVBzcmd3eXNPTzNCb1duNnBXeEVMZUQ5N29iWW1Z?=
- =?utf-8?B?cGZUbDI5OXhXa2pMeHhjWWlnTnI4eUI3K1pCMXBoRmU1Zkh2eUNkTTROUWsz?=
- =?utf-8?B?WnlkcVFCUDZmY0lrZVNhMllWY1B3UGs5NlJFOXhQL2pDYVRIbHI1RXRZSjFj?=
- =?utf-8?B?LzhvZmRyN2pHL0FGYzFyYlBYODhPVDVWZngySDV1ZmRIVnEybkVOODFJRWJ1?=
- =?utf-8?B?cUI0ZzZRUm1JNkZ2Q3k2NkVNWTV2N3RqNWRoRkVwbkNaeWdUMjAyMHVDM25j?=
- =?utf-8?B?b3F4YjIyZnFIYlRqcEx6dk0vaUtidjlKMGtnekRpNy8xaUpBTnJDclVwNng5?=
- =?utf-8?B?SWd5Zmc0ckQzWmg1cG5FS3hyUjAvVkZxSERmYm9VKzBWeWVBeE1hZjJpdzBa?=
- =?utf-8?B?Sm5XS2FJTG43bklUbFhzWW5Ed1BYRzNXVXl6b0V1S2xZSjZZTElna1pQVk5y?=
- =?utf-8?B?Yk9VR095Tm92ZUdTZFNhc0k5cE82eDNPMkRTYWJpL2pQeWhlUEEvaS9QVHor?=
- =?utf-8?B?QnlTbk1ITHY0aC9HZVVVRUhiT3BBbUZJRlF2YWFFSGEzMy9GUEJFcEZmazBS?=
- =?utf-8?B?RVhwaXp3NnJNTWVhOUtqV3dsa3ZHS2ovOGZOb01KUHR4WVViR3M0QnM2T1Jh?=
- =?utf-8?B?TFRGVVg0Nk5jTFhHUFpBc1BtYW9jbW16bXY5S3NxcThIVUF4QUhpY0ZUcmJq?=
- =?utf-8?B?OVlOa0xKTXA5RGowS24zQWxEaGp1Z2FTU3JDQm4wMjhTeVdjMjVYakxHVXZN?=
- =?utf-8?B?Q1E2V0JpNGxvV3JLVDNoU3JSakJXTCt3VVd4RkFaOUZpa1dlRHRQTGVhdkhE?=
- =?utf-8?B?aHpyYUhGaXJkZEVRV2QvVTRkelJzbUZTazQ2bmpqc3gvT1VsbnRHMUc4Q2lK?=
- =?utf-8?Q?57o1t7oL19Y9aFxANdp8OfR4u?=
+X-Microsoft-Antispam-Message-Info: x3PQntrnYrb3F130lAjvnXY5884JmTF89MD1VTvZAlniSDSx3pXo6Zeb1IErA7S8Hfn811Ou/eMBiLDjDSRaWi6N0yM2u+lwAJnpC1COl476+PYQH+VQ0YNEr4HBJnq64IhUgjfSHSFq18FkgF9O0BVi5lDpFeDsOMxAW0ZHZh0fmp9h7Rb0e1PswWSl6CD4X1OrV9xiOSH08TlGnEcEtk4IJhVXpO/97KEIZFS1p+MBjs03Z6d0Q3+pNlqSWn/8ZtWH/5V//ZZV1zI0DinXNKg5uTjq7UlBwZEn1dqBrPV+ctOgY5Q9Hx+J1Css1kEIQJeowPrb0SXZO8LkRkZdD5gglFZCmfRi2X/wK0y4oEBHz7QpqRbJPI9DbVhU964TL5fmr94QlQVYTY6IURs+mQFHlsdJwkEQWf+V5J4zf6LYgCJyN3ghfWV3UYBZJLhx2L/bwnNulOGyh8I+/WSGc5TQXaoHxuS+9y7yY9+nSL6VvfCQdbAfuLyd+qfwJ3wcePtaRUMsmUiCdPAU5jPjIB5vJWohx0IAUfJLs4VnXz1XHN9w9tscean4Uk2nmsbJP7gSzI0aIZBpK5ZzdEjJftR0Dd8E9x6tv84pXT/baMtLrNdosVg5xDjiKRkarKDcGNk93rOLdG+VDliMsqFefstS/KMH9bTS0JvHOqeE7uvrqkwybnN9hFE91OtzMtwAngfQ9Mgb539OonLBlXQavNnFfJjyyibh5CdXwudg5sy0yaimWI/a7bB/AQP1n58v
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(376005)(1800799015)(82310400014); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f59fd58d-e7b7-4952-4552-08dc43ed7336
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2024 06:10:30.1486 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2024 08:12:41.9461 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e274119c-90a0-45a6-a8ed-08dc43fe857a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BSIXkw4GtEelxR7StK3vkcqkwE/VHTagiemrFeHpG7nA2uJZ6wZZyc/4vUGjPEM8lrzlZFwfaUyFk0bUB4TOVQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8998
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B072.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6760
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,291 +104,549 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+add amdgpu ras event id support to better distinguish different
+error information sources in dmesg logs.
 
-On 14/03/2024 06:58, Khatri, Sunil wrote:
->
-> On 3/14/2024 2:06 AM, Alex Deucher wrote:
->> On Tue, Mar 12, 2024 at 8:42 AM Sunil Khatri <sunil.khatri@amd.com> 
->> wrote:
->>> Add firmware version information of each
->>> IP and each instance where applicable.
->>>
->> Is there a way we can share some common code with devcoredump,
->> debugfs, and the info IOCTL?  All three places need to query this
->> information and the same logic is repeated in each case.
->
-> Hello Alex,
->
-> Yes you re absolutely right the same information is being retrieved 
-> again as done in debugfs. I can reorganize the code so same function 
-> could be used by debugfs and devcoredump but this is exactly what i 
-> tried to avoid here. I did try to use minimum functionality in 
-> devcoredump without shuffling a lot of code here and there.
->
-> Also our devcoredump is implemented in amdgpu_reset.c and not all the 
-> information is available here and there we might have to include lot 
-> of header and cross functions in amdgpu_reset until we want a 
-> dedicated file for devcoredump.
+the following log will be identify by event id:
+{event_id} interrupt to inform RAS event
+{event_id} ACA logs
+{event_id} errors statistic since from current injection/error query
+{event_id} errors statistic since from gpu load
 
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c  |  32 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h  |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c  | 203 +++++++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h  |  30 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h |   1 +
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c   |  10 +-
+ 6 files changed, 191 insertions(+), 88 deletions(-)
 
-I think Alex is suggesting to have one common backend to generate all 
-the core debug info, and then different wrapper functions which can pack 
-this raw info into the packets aligned with respective infra like 
-devcore/debugfs/info IOCTL, which seems like a good idea to me.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+index 24ad4b97177b..0734490347db 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+@@ -210,22 +210,26 @@ int amdgpu_mca_smu_set_debug_mode(struct amdgpu_device *adev, bool enable)
+ 	return -EOPNOTSUPP;
+ }
+ 
+-static void amdgpu_mca_smu_mca_bank_dump(struct amdgpu_device *adev, int idx, struct mca_bank_entry *entry)
++static void amdgpu_mca_smu_mca_bank_dump(struct amdgpu_device *adev, int idx, struct mca_bank_entry *entry,
++					 struct ras_query_context *qctx)
+ {
+-	dev_info(adev->dev, HW_ERR "Accelerator Check Architecture events logged\n");
+-	dev_info(adev->dev, HW_ERR "aca entry[%02d].STATUS=0x%016llx\n",
+-		 idx, entry->regs[MCA_REG_IDX_STATUS]);
+-	dev_info(adev->dev, HW_ERR "aca entry[%02d].ADDR=0x%016llx\n",
+-		 idx, entry->regs[MCA_REG_IDX_ADDR]);
+-	dev_info(adev->dev, HW_ERR "aca entry[%02d].MISC0=0x%016llx\n",
+-		 idx, entry->regs[MCA_REG_IDX_MISC0]);
+-	dev_info(adev->dev, HW_ERR "aca entry[%02d].IPID=0x%016llx\n",
+-		 idx, entry->regs[MCA_REG_IDX_IPID]);
+-	dev_info(adev->dev, HW_ERR "aca entry[%02d].SYND=0x%016llx\n",
+-		 idx, entry->regs[MCA_REG_IDX_SYND]);
++	u64 event_id = qctx->event_id;
++
++	RAS_EVENT_LOG(adev, event_id, HW_ERR "Accelerator Check Architecture events logged\n");
++	RAS_EVENT_LOG(adev, event_id, HW_ERR "aca entry[%02d].STATUS=0x%016llx\n",
++		      idx, entry->regs[MCA_REG_IDX_STATUS]);
++	RAS_EVENT_LOG(adev, event_id, HW_ERR "aca entry[%02d].ADDR=0x%016llx\n",
++		      idx, entry->regs[MCA_REG_IDX_ADDR]);
++	RAS_EVENT_LOG(adev, event_id, HW_ERR "aca entry[%02d].MISC0=0x%016llx\n",
++		      idx, entry->regs[MCA_REG_IDX_MISC0]);
++	RAS_EVENT_LOG(adev, event_id, HW_ERR "aca entry[%02d].IPID=0x%016llx\n",
++		      idx, entry->regs[MCA_REG_IDX_IPID]);
++	RAS_EVENT_LOG(adev, event_id, HW_ERR "aca entry[%02d].SYND=0x%016llx\n",
++		      idx, entry->regs[MCA_REG_IDX_SYND]);
+ }
+ 
+-int amdgpu_mca_smu_log_ras_error(struct amdgpu_device *adev, enum amdgpu_ras_block blk, enum amdgpu_mca_error_type type, struct ras_err_data *err_data)
++int amdgpu_mca_smu_log_ras_error(struct amdgpu_device *adev, enum amdgpu_ras_block blk, enum amdgpu_mca_error_type type,
++				 struct ras_err_data *err_data, struct ras_query_context *qctx)
+ {
+ 	struct amdgpu_smuio_mcm_config_info mcm_info;
+ 	struct ras_err_addr err_addr = {0};
+@@ -244,7 +248,7 @@ int amdgpu_mca_smu_log_ras_error(struct amdgpu_device *adev, enum amdgpu_ras_blo
+ 	list_for_each_entry(node, &mca_set.list, node) {
+ 		entry = &node->entry;
+ 
+-		amdgpu_mca_smu_mca_bank_dump(adev, i++, entry);
++		amdgpu_mca_smu_mca_bank_dump(adev, i++, entry, qctx);
+ 
+ 		count = 0;
+ 		ret = amdgpu_mca_smu_parse_mca_error_count(adev, blk, type, entry, &count);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h
+index b964110ed1e0..e5bf07ce3451 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h
+@@ -169,6 +169,7 @@ void amdgpu_mca_smu_debugfs_init(struct amdgpu_device *adev, struct dentry *root
+ void amdgpu_mca_bank_set_init(struct mca_bank_set *mca_set);
+ int amdgpu_mca_bank_set_add_entry(struct mca_bank_set *mca_set, struct mca_bank_entry *entry);
+ void amdgpu_mca_bank_set_release(struct mca_bank_set *mca_set);
+-int amdgpu_mca_smu_log_ras_error(struct amdgpu_device *adev, enum amdgpu_ras_block blk, enum amdgpu_mca_error_type type, struct ras_err_data *err_data);
++int amdgpu_mca_smu_log_ras_error(struct amdgpu_device *adev, enum amdgpu_ras_block blk, enum amdgpu_mca_error_type type,
++				 struct ras_err_data *err_data, struct ras_query_context *qctx);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 8ebab6f22e5a..ef87f107c942 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -1045,6 +1045,7 @@ static void amdgpu_ras_get_ecc_info(struct amdgpu_device *adev, struct ras_err_d
+ static void amdgpu_ras_error_print_error_data(struct amdgpu_device *adev,
+ 					      struct ras_manager *ras_mgr,
+ 					      struct ras_err_data *err_data,
++					      struct ras_query_context *qctx,
+ 					      const char *blk_name,
+ 					      bool is_ue,
+ 					      bool is_de)
+@@ -1052,27 +1053,28 @@ static void amdgpu_ras_error_print_error_data(struct amdgpu_device *adev,
+ 	struct amdgpu_smuio_mcm_config_info *mcm_info;
+ 	struct ras_err_node *err_node;
+ 	struct ras_err_info *err_info;
++	u64 event_id = qctx->event_id;
+ 
+ 	if (is_ue) {
+ 		for_each_ras_error(err_node, err_data) {
+ 			err_info = &err_node->err_info;
+ 			mcm_info = &err_info->mcm_info;
+ 			if (err_info->ue_count) {
+-				dev_info(adev->dev, "socket: %d, die: %d, "
+-					 "%lld new uncorrectable hardware errors detected in %s block\n",
+-					 mcm_info->socket_id,
+-					 mcm_info->die_id,
+-					 err_info->ue_count,
+-					 blk_name);
++				RAS_EVENT_LOG(adev, event_id, "socket: %d, die: %d, "
++					      "%lld new uncorrectable hardware errors detected in %s block\n",
++					      mcm_info->socket_id,
++					      mcm_info->die_id,
++					      err_info->ue_count,
++					      blk_name);
+ 			}
+ 		}
+ 
+ 		for_each_ras_error(err_node, &ras_mgr->err_data) {
+ 			err_info = &err_node->err_info;
+ 			mcm_info = &err_info->mcm_info;
+-			dev_info(adev->dev, "socket: %d, die: %d, "
+-				 "%lld uncorrectable hardware errors detected in total in %s block\n",
+-				 mcm_info->socket_id, mcm_info->die_id, err_info->ue_count, blk_name);
++			RAS_EVENT_LOG(adev, event_id, "socket: %d, die: %d, "
++				      "%lld uncorrectable hardware errors detected in total in %s block\n",
++				      mcm_info->socket_id, mcm_info->die_id, err_info->ue_count, blk_name);
+ 		}
+ 
+ 	} else {
+@@ -1081,44 +1083,44 @@ static void amdgpu_ras_error_print_error_data(struct amdgpu_device *adev,
+ 				err_info = &err_node->err_info;
+ 				mcm_info = &err_info->mcm_info;
+ 				if (err_info->de_count) {
+-					dev_info(adev->dev, "socket: %d, die: %d, "
+-						"%lld new deferred hardware errors detected in %s block\n",
+-						mcm_info->socket_id,
+-						mcm_info->die_id,
+-						err_info->de_count,
+-						blk_name);
++					RAS_EVENT_LOG(adev, event_id, "socket: %d, die: %d, "
++						      "%lld new deferred hardware errors detected in %s block\n",
++						      mcm_info->socket_id,
++						      mcm_info->die_id,
++						      err_info->de_count,
++						      blk_name);
+ 				}
+ 			}
+ 
+ 			for_each_ras_error(err_node, &ras_mgr->err_data) {
+ 				err_info = &err_node->err_info;
+ 				mcm_info = &err_info->mcm_info;
+-				dev_info(adev->dev, "socket: %d, die: %d, "
+-					"%lld deferred hardware errors detected in total in %s block\n",
+-					mcm_info->socket_id, mcm_info->die_id,
+-					err_info->de_count, blk_name);
++				RAS_EVENT_LOG(adev, event_id, "socket: %d, die: %d, "
++					      "%lld deferred hardware errors detected in total in %s block\n",
++					      mcm_info->socket_id, mcm_info->die_id,
++					      err_info->de_count, blk_name);
+ 			}
+ 		} else {
+ 			for_each_ras_error(err_node, err_data) {
+ 				err_info = &err_node->err_info;
+ 				mcm_info = &err_info->mcm_info;
+ 				if (err_info->ce_count) {
+-					dev_info(adev->dev, "socket: %d, die: %d, "
+-						"%lld new correctable hardware errors detected in %s block\n",
+-						mcm_info->socket_id,
+-						mcm_info->die_id,
+-						err_info->ce_count,
+-						blk_name);
++					RAS_EVENT_LOG(adev, event_id, "socket: %d, die: %d, "
++						      "%lld new correctable hardware errors detected in %s block\n",
++						      mcm_info->socket_id,
++						      mcm_info->die_id,
++						      err_info->ce_count,
++						      blk_name);
+ 				}
+ 			}
+ 
+ 			for_each_ras_error(err_node, &ras_mgr->err_data) {
+ 				err_info = &err_node->err_info;
+ 				mcm_info = &err_info->mcm_info;
+-				dev_info(adev->dev, "socket: %d, die: %d, "
+-					"%lld correctable hardware errors detected in total in %s block\n",
+-					mcm_info->socket_id, mcm_info->die_id,
+-					err_info->ce_count, blk_name);
++				RAS_EVENT_LOG(adev, event_id, "socket: %d, die: %d, "
++					      "%lld correctable hardware errors detected in total in %s block\n",
++					      mcm_info->socket_id, mcm_info->die_id,
++					      err_info->ce_count, blk_name);
+ 			}
+ 		}
+ 	}
+@@ -1131,77 +1133,79 @@ static inline bool err_data_has_source_info(struct ras_err_data *data)
+ 
+ static void amdgpu_ras_error_generate_report(struct amdgpu_device *adev,
+ 					     struct ras_query_if *query_if,
+-					     struct ras_err_data *err_data)
++					     struct ras_err_data *err_data,
++					     struct ras_query_context *qctx)
+ {
+ 	struct ras_manager *ras_mgr = amdgpu_ras_find_obj(adev, &query_if->head);
+ 	const char *blk_name = get_ras_block_str(&query_if->head);
++	u64 event_id = qctx->event_id;
+ 
+ 	if (err_data->ce_count) {
+ 		if (err_data_has_source_info(err_data)) {
+-			amdgpu_ras_error_print_error_data(adev, ras_mgr, err_data,
++			amdgpu_ras_error_print_error_data(adev, ras_mgr, err_data, qctx,
+ 							  blk_name, false, false);
+ 		} else if (!adev->aid_mask &&
+ 			   adev->smuio.funcs &&
+ 			   adev->smuio.funcs->get_socket_id &&
+ 			   adev->smuio.funcs->get_die_id) {
+-			dev_info(adev->dev, "socket: %d, die: %d "
+-				 "%ld correctable hardware errors "
+-				 "detected in %s block\n",
+-				 adev->smuio.funcs->get_socket_id(adev),
+-				 adev->smuio.funcs->get_die_id(adev),
+-				 ras_mgr->err_data.ce_count,
+-				 blk_name);
++			RAS_EVENT_LOG(adev, event_id, "socket: %d, die: %d "
++				      "%ld correctable hardware errors "
++				      "detected in %s block\n",
++				      adev->smuio.funcs->get_socket_id(adev),
++				      adev->smuio.funcs->get_die_id(adev),
++				      ras_mgr->err_data.ce_count,
++				      blk_name);
+ 		} else {
+-			dev_info(adev->dev, "%ld correctable hardware errors "
+-				 "detected in %s block\n",
+-				 ras_mgr->err_data.ce_count,
+-				 blk_name);
++			RAS_EVENT_LOG(adev, event_id, "%ld correctable hardware errors "
++				      "detected in %s block\n",
++				      ras_mgr->err_data.ce_count,
++				      blk_name);
+ 		}
+ 	}
+ 
+ 	if (err_data->ue_count) {
+ 		if (err_data_has_source_info(err_data)) {
+-			amdgpu_ras_error_print_error_data(adev, ras_mgr, err_data,
++			amdgpu_ras_error_print_error_data(adev, ras_mgr, err_data, qctx,
+ 							  blk_name, true, false);
+ 		} else if (!adev->aid_mask &&
+ 			   adev->smuio.funcs &&
+ 			   adev->smuio.funcs->get_socket_id &&
+ 			   adev->smuio.funcs->get_die_id) {
+-			dev_info(adev->dev, "socket: %d, die: %d "
+-				 "%ld uncorrectable hardware errors "
+-				 "detected in %s block\n",
+-				 adev->smuio.funcs->get_socket_id(adev),
+-				 adev->smuio.funcs->get_die_id(adev),
+-				 ras_mgr->err_data.ue_count,
+-				 blk_name);
++			RAS_EVENT_LOG(adev, event_id, "socket: %d, die: %d "
++				      "%ld uncorrectable hardware errors "
++				      "detected in %s block\n",
++				      adev->smuio.funcs->get_socket_id(adev),
++				      adev->smuio.funcs->get_die_id(adev),
++				      ras_mgr->err_data.ue_count,
++				      blk_name);
+ 		} else {
+-			dev_info(adev->dev, "%ld uncorrectable hardware errors "
+-				 "detected in %s block\n",
+-				 ras_mgr->err_data.ue_count,
+-				 blk_name);
++			RAS_EVENT_LOG(adev, event_id, "%ld uncorrectable hardware errors "
++				      "detected in %s block\n",
++				      ras_mgr->err_data.ue_count,
++				      blk_name);
+ 		}
+ 	}
+ 
+ 	if (err_data->de_count) {
+ 		if (err_data_has_source_info(err_data)) {
+-			amdgpu_ras_error_print_error_data(adev, ras_mgr, err_data,
++			amdgpu_ras_error_print_error_data(adev, ras_mgr, err_data, qctx,
+ 							  blk_name, false, true);
+ 		} else if (!adev->aid_mask &&
+ 			   adev->smuio.funcs &&
+ 			   adev->smuio.funcs->get_socket_id &&
+ 			   adev->smuio.funcs->get_die_id) {
+-			dev_info(adev->dev, "socket: %d, die: %d "
+-				 "%ld deferred hardware errors "
+-				 "detected in %s block\n",
+-				 adev->smuio.funcs->get_socket_id(adev),
+-				 adev->smuio.funcs->get_die_id(adev),
+-				 ras_mgr->err_data.de_count,
+-				 blk_name);
++			RAS_EVENT_LOG(adev, event_id, "socket: %d, die: %d "
++				      "%ld deferred hardware errors "
++				      "detected in %s block\n",
++				      adev->smuio.funcs->get_socket_id(adev),
++				      adev->smuio.funcs->get_die_id(adev),
++				      ras_mgr->err_data.de_count,
++				      blk_name);
+ 		} else {
+-			dev_info(adev->dev, "%ld deferred hardware errors "
+-				 "detected in %s block\n",
+-				 ras_mgr->err_data.de_count,
+-				 blk_name);
++			RAS_EVENT_LOG(adev, event_id, "%ld deferred hardware errors "
++				      "detected in %s block\n",
++				      ras_mgr->err_data.de_count,
++				      blk_name);
+ 		}
+ 	}
+ }
+@@ -1294,6 +1298,7 @@ ssize_t amdgpu_ras_aca_sysfs_read(struct device *dev, struct device_attribute *a
+ static int amdgpu_ras_query_error_status_helper(struct amdgpu_device *adev,
+ 						struct ras_query_if *info,
+ 						struct ras_err_data *err_data,
++						struct ras_query_context *qctx,
+ 						unsigned int error_query_mode)
+ {
+ 	enum amdgpu_ras_block blk = info ? info->head.block : AMDGPU_RAS_BLOCK_COUNT;
+@@ -1338,8 +1343,8 @@ static int amdgpu_ras_query_error_status_helper(struct amdgpu_device *adev,
+ 				return ret;
+ 		} else {
+ 			/* FIXME: add code to check return value later */
+-			amdgpu_mca_smu_log_ras_error(adev, blk, AMDGPU_MCA_ERROR_TYPE_UE, err_data);
+-			amdgpu_mca_smu_log_ras_error(adev, blk, AMDGPU_MCA_ERROR_TYPE_CE, err_data);
++			amdgpu_mca_smu_log_ras_error(adev, blk, AMDGPU_MCA_ERROR_TYPE_UE, err_data, qctx);
++			amdgpu_mca_smu_log_ras_error(adev, blk, AMDGPU_MCA_ERROR_TYPE_CE, err_data, qctx);
+ 		}
+ 	}
+ 
+@@ -1351,6 +1356,7 @@ int amdgpu_ras_query_error_status(struct amdgpu_device *adev, struct ras_query_i
+ {
+ 	struct ras_manager *obj = amdgpu_ras_find_obj(adev, &info->head);
+ 	struct ras_err_data err_data;
++	struct ras_query_context qctx;
+ 	unsigned int error_query_mode;
+ 	int ret;
+ 
+@@ -1364,8 +1370,12 @@ int amdgpu_ras_query_error_status(struct amdgpu_device *adev, struct ras_query_i
+ 	if (!amdgpu_ras_get_error_query_mode(adev, &error_query_mode))
+ 		return -EINVAL;
+ 
++	memset(&qctx, 0, sizeof(qctx));
++	qctx.event_id = amdgpu_ras_acquire_event_id(adev, amdgpu_ras_intr_triggered() ?
++						   RAS_EVENT_TYPE_ISR : RAS_EVENT_TYPE_INVALID);
+ 	ret = amdgpu_ras_query_error_status_helper(adev, info,
+ 						   &err_data,
++						   &qctx,
+ 						   error_query_mode);
+ 	if (ret)
+ 		goto out_fini_err_data;
+@@ -1376,7 +1386,7 @@ int amdgpu_ras_query_error_status(struct amdgpu_device *adev, struct ras_query_i
+ 	info->ce_count = obj->err_data.ce_count;
+ 	info->de_count = obj->err_data.de_count;
+ 
+-	amdgpu_ras_error_generate_report(adev, info, &err_data);
++	amdgpu_ras_error_generate_report(adev, info, &err_data, &qctx);
+ 
+ out_fini_err_data:
+ 	amdgpu_ras_error_data_fini(&err_data);
+@@ -3036,6 +3046,31 @@ static int amdgpu_get_ras_schema(struct amdgpu_device *adev)
+ 			AMDGPU_RAS_ERROR__PARITY;
+ }
+ 
++static void ras_event_mgr_init(struct ras_event_manager *mgr)
++{
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(mgr->seqnos); i++)
++		atomic64_set(&mgr->seqnos[i], 0);
++}
++
++static void amdgpu_ras_event_mgr_init(struct amdgpu_device *adev)
++{
++	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
++	struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev);
++
++	ras->event_mgr = hive ? &hive->event_mgr : &ras->__event_mgr;
++
++	/* init event manager with node 0 on xgmi system */
++	if (!amdgpu_in_reset(adev)) {
++		if (!hive || adev->gmc.xgmi.node_id == 0)
++			ras_event_mgr_init(ras->event_mgr);
++	}
++
++	if (hive)
++		amdgpu_put_xgmi_hive(hive);
++}
++
+ int amdgpu_ras_init(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+@@ -3356,6 +3391,8 @@ int amdgpu_ras_late_init(struct amdgpu_device *adev)
+ 	if (amdgpu_sriov_vf(adev))
+ 		return 0;
+ 
++	amdgpu_ras_event_mgr_init(adev);
++
+ 	if (amdgpu_aca_is_enabled(adev)) {
+ 		if (amdgpu_in_reset(adev))
+ 			r = amdgpu_aca_reset(adev);
+@@ -3472,13 +3509,37 @@ void amdgpu_ras_set_fed(struct amdgpu_device *adev, bool status)
+ 		atomic_set(&ras->fed, !!status);
+ }
+ 
++bool amdgpu_ras_event_id_is_valid(struct amdgpu_device *adev, u64 id)
++{
++	return !(id & BIT_ULL(63));
++}
++
++u64 amdgpu_ras_acquire_event_id(struct amdgpu_device *adev, enum ras_event_type type)
++{
++	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
++	u64 id;
++
++	switch (type) {
++	case RAS_EVENT_TYPE_ISR:
++		id = (u64)atomic64_read(&ras->event_mgr->seqnos[type]);
++		break;
++	case RAS_EVENT_TYPE_INVALID:
++	default:
++		id = BIT_ULL(63) | 0ULL;
++		break;
++	}
++
++	return id;
++}
++
+ void amdgpu_ras_global_ras_isr(struct amdgpu_device *adev)
+ {
+ 	if (atomic_cmpxchg(&amdgpu_ras_in_intr, 0, 1) == 0) {
+ 		struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
++		u64 event_id = (u64)atomic64_inc_return(&ras->event_mgr->seqnos[RAS_EVENT_TYPE_ISR]);
+ 
+-		dev_info(adev->dev, "uncorrectable hardware error"
+-			"(ERREVENT_ATHUB_INTERRUPT) detected!\n");
++		RAS_EVENT_LOG(adev, event_id, "uncorrectable hardware error"
++			      "(ERREVENT_ATHUB_INTERRUPT) detected!\n");
+ 
+ 		ras->gpu_reset_flags |= AMDGPU_RAS_GPU_RESET_MODE1_RESET;
+ 		amdgpu_ras_reset_gpu(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index e0f8ce9d8440..64788ae7d85d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -64,6 +64,14 @@ struct amdgpu_iv_entry;
+ /* The high three bits indicates socketid */
+ #define AMDGPU_RAS_GET_FEATURES(val)  ((val) & ~AMDGPU_RAS_FEATURES_SOCKETID_MASK)
+ 
++#define RAS_EVENT_LOG(adev, id, fmt, ...)				\
++do {									\
++	if (amdgpu_ras_event_id_is_valid((adev), (id)))			\
++	    dev_info((adev)->dev, "{%llu}" fmt, (id), ##__VA_ARGS__);	\
++	else								\
++	    dev_info((adev)->dev, fmt, ##__VA_ARGS__);			\
++} while (0)
++
+ enum amdgpu_ras_block {
+ 	AMDGPU_RAS_BLOCK__UMC = 0,
+ 	AMDGPU_RAS_BLOCK__SDMA,
+@@ -419,6 +427,21 @@ struct umc_ecc_info {
+ 	int record_ce_addr_supported;
+ };
+ 
++enum ras_event_type {
++	RAS_EVENT_TYPE_INVALID = -1,
++	RAS_EVENT_TYPE_ISR = 0,
++	RAS_EVENT_TYPE_COUNT,
++};
++
++struct ras_event_manager {
++	atomic64_t seqnos[RAS_EVENT_TYPE_COUNT];
++};
++
++struct ras_query_context {
++	enum ras_event_type type;
++	u64 event_id;
++};
++
+ struct amdgpu_ras {
+ 	/* ras infrastructure */
+ 	/* for ras itself. */
+@@ -479,6 +502,11 @@ struct amdgpu_ras {
+ 	atomic_t page_retirement_req_cnt;
+ 	/* Fatal error detected flag */
+ 	atomic_t fed;
++
++	/* RAS event manager */
++	struct ras_event_manager __event_mgr;
++	struct ras_event_manager *event_mgr;
++
+ };
+ 
+ struct ras_fs_data {
+@@ -879,4 +907,6 @@ void amdgpu_ras_del_mca_err_addr(struct ras_err_info *err_info,
+ void amdgpu_ras_set_fed(struct amdgpu_device *adev, bool status);
+ bool amdgpu_ras_get_fed_status(struct amdgpu_device *adev);
+ 
++bool amdgpu_ras_event_id_is_valid(struct amdgpu_device *adev, u64 id);
++u64 amdgpu_ras_acquire_event_id(struct amdgpu_device *adev, enum ras_event_type type);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+index 1592c63b3099..a3bfc16de6d4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+@@ -44,6 +44,7 @@ struct amdgpu_hive_info {
+ 
+ 	struct amdgpu_reset_domain *reset_domain;
+ 	atomic_t ras_recovery;
++	struct ras_event_manager event_mgr;
+ };
+ 
+ struct amdgpu_pcs_ras_field {
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+index 77af4e25ff46..4a02e1f041da 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+@@ -404,10 +404,16 @@ static int umc_v12_0_err_cnt_init_per_channel(struct amdgpu_device *adev,
+ static void umc_v12_0_ecc_info_query_ras_error_count(struct amdgpu_device *adev,
+ 					void *ras_error_status)
+ {
++	struct ras_query_context qctx;
++
++	memset(&qctx, 0, sizeof(qctx));
++	qctx.event_id = amdgpu_ras_acquire_event_id(adev, amdgpu_ras_intr_triggered() ?
++						    RAS_EVENT_TYPE_ISR : RAS_EVENT_TYPE_INVALID);
++
+ 	amdgpu_mca_smu_log_ras_error(adev,
+-		AMDGPU_RAS_BLOCK__UMC, AMDGPU_MCA_ERROR_TYPE_CE, ras_error_status);
++		AMDGPU_RAS_BLOCK__UMC, AMDGPU_MCA_ERROR_TYPE_CE, ras_error_status, &qctx);
+ 	amdgpu_mca_smu_log_ras_error(adev,
+-		AMDGPU_RAS_BLOCK__UMC, AMDGPU_MCA_ERROR_TYPE_UE, ras_error_status);
++		AMDGPU_RAS_BLOCK__UMC, AMDGPU_MCA_ERROR_TYPE_UE, ras_error_status, &qctx);
+ }
+ 
+ static void umc_v12_0_ecc_info_query_ras_error_address(struct amdgpu_device *adev,
+-- 
+2.34.1
 
-If you think you need a new file for this backend it should be fine.
-
-
-something like:
-
-amdgpu_debug_core.c::
-
-struct amdgpu_core_debug_info {
-
-/* Superset of all the info you are collecting from HW */
-
-};
-
-- amdgpu_debug_generate_core_info
-
-{
-
-/* This function collects the core debug info from HW and saves in 
-amdgpu_core_debug_info,
-
-   we can update this periodically regardless of a request */
-
-}
-
-and then:
-
-devcore_info *amdgpu_debug_pack_for_devcore(core_debug_info)
-
-{
-
-/* convert core debug info into devcore aligned format/data */
-
-}
-
-ioctl_info *amdgpu_debug_pack_for_info_ioctl(core_debug_info)
-
-{
-
-/* convert core debug info into info IOCTL aligned format/data */
-
-}
-
-debugfs_info *amdgpu_debug_pack_for_debugfs(core_debug_info)
-
-{
-
-/* convert core debug info into debugfs aligned format/data */
-
-}
-
-- Shashank
-
->
->
->
-> Info IOCTL does have a lot of information which also is in pipeline to 
-> be dumped but this if we want to reuse the functionality of IOCTL we 
-> need to reorganize a lot of code.
->
-> If that is the need of the hour i could work on that. Please let me know.
->
-> This is my suggestion if it makes sense:
->
-> 1. If we want to reuse a lot of functionality then we need to 
-> modularize some of the functions further so they could be consumed 
-> directly by devcoredump.
-> 2. We should also have a dedicated file for devcoredump.c/.h so its 
-> easy to include headers of needed functionality cleanly and easy to 
-> expand devcoredump.
-> 3. based on the priority and importance of this task we can add 
-> information else some repetition is a real possibility.
->
->>
->> Alex
->>
->>
->>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c | 122 
->>> ++++++++++++++++++++++
->>>   1 file changed, 122 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
->>> index 611fdb90a1fc..78ddc58aef67 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
->>> @@ -168,6 +168,123 @@ void amdgpu_coredump(struct amdgpu_device 
->>> *adev, bool vram_lost,
->>>   {
->>>   }
->>>   #else
->>> +static void amdgpu_devcoredump_fw_info(struct amdgpu_device *adev, 
->>> struct drm_printer *p)
->>> +{
->>> +       uint32_t version;
->>> +       uint32_t feature;
->>> +       uint8_t smu_program, smu_major, smu_minor, smu_debug;
->>> +
->>> +       drm_printf(p, "VCE feature version: %u, fw version: 0x%08x\n",
->>> +                  adev->vce.fb_version, adev->vce.fw_version);
->>> +       drm_printf(p, "UVD feature version: %u, fw version: 0x%08x\n",
->>> +                  0, adev->uvd.fw_version);
->>> +       drm_printf(p, "GMC feature version: %u, fw version: 0x%08x\n",
->>> +                  0, adev->gmc.fw_version);
->>> +       drm_printf(p, "ME feature version: %u, fw version: 0x%08x\n",
->>> +                  adev->gfx.me_feature_version, 
->>> adev->gfx.me_fw_version);
->>> +       drm_printf(p, "PFP feature version: %u, fw version: 0x%08x\n",
->>> +                  adev->gfx.pfp_feature_version, 
->>> adev->gfx.pfp_fw_version);
->>> +       drm_printf(p, "CE feature version: %u, fw version: 0x%08x\n",
->>> +                  adev->gfx.ce_feature_version, 
->>> adev->gfx.ce_fw_version);
->>> +       drm_printf(p, "RLC feature version: %u, fw version: 0x%08x\n",
->>> +                  adev->gfx.rlc_feature_version, 
->>> adev->gfx.rlc_fw_version);
->>> +
->>> +       drm_printf(p, "RLC SRLC feature version: %u, fw version: 
->>> 0x%08x\n",
->>> +                  adev->gfx.rlc_srlc_feature_version,
->>> +                  adev->gfx.rlc_srlc_fw_version);
->>> +       drm_printf(p, "RLC SRLG feature version: %u, fw version: 
->>> 0x%08x\n",
->>> +                  adev->gfx.rlc_srlg_feature_version,
->>> +                  adev->gfx.rlc_srlg_fw_version);
->>> +       drm_printf(p, "RLC SRLS feature version: %u, fw version: 
->>> 0x%08x\n",
->>> +                  adev->gfx.rlc_srls_feature_version,
->>> +                  adev->gfx.rlc_srls_fw_version);
->>> +       drm_printf(p, "RLCP feature version: %u, fw version: 0x%08x\n",
->>> +                  adev->gfx.rlcp_ucode_feature_version,
->>> +                  adev->gfx.rlcp_ucode_version);
->>> +       drm_printf(p, "RLCV feature version: %u, fw version: 0x%08x\n",
->>> +                  adev->gfx.rlcv_ucode_feature_version,
->>> +                  adev->gfx.rlcv_ucode_version);
->>> +       drm_printf(p, "MEC feature version: %u, fw version: 0x%08x\n",
->>> +                  adev->gfx.mec_feature_version,
->>> +                  adev->gfx.mec_fw_version);
->>> +
->>> +       if (adev->gfx.mec2_fw)
->>> +               drm_printf(p,
->>> +                          "MEC2 feature version: %u, fw version: 
->>> 0x%08x\n",
->>> +                          adev->gfx.mec2_feature_version,
->>> +                          adev->gfx.mec2_fw_version);
->>> +
->>> +       drm_printf(p, "IMU feature version: %u, fw version: 0x%08x\n",
->>> +                  0, adev->gfx.imu_fw_version);
->>> +       drm_printf(p, "PSP SOS feature version: %u, fw version: 
->>> 0x%08x\n",
->>> +                  adev->psp.sos.feature_version,
->>> +                  adev->psp.sos.fw_version);
->>> +       drm_printf(p, "PSP ASD feature version: %u, fw version: 
->>> 0x%08x\n",
->>> + adev->psp.asd_context.bin_desc.feature_version,
->>> + adev->psp.asd_context.bin_desc.fw_version);
->>> +
->>> +       drm_printf(p, "TA XGMI feature version: 0x%08x, fw version: 
->>> 0x%08x\n",
->>> + adev->psp.xgmi_context.context.bin_desc.feature_version,
->>> + adev->psp.xgmi_context.context.bin_desc.fw_version);
->>> +       drm_printf(p, "TA RAS feature version: 0x%08x, fw version: 
->>> 0x%08x\n",
->>> + adev->psp.ras_context.context.bin_desc.feature_version,
->>> + adev->psp.ras_context.context.bin_desc.fw_version);
->>> +       drm_printf(p, "TA HDCP feature version: 0x%08x, fw version: 
->>> 0x%08x\n",
->>> + adev->psp.hdcp_context.context.bin_desc.feature_version,
->>> + adev->psp.hdcp_context.context.bin_desc.fw_version);
->>> +       drm_printf(p, "TA DTM feature version: 0x%08x, fw version: 
->>> 0x%08x\n",
->>> + adev->psp.dtm_context.context.bin_desc.feature_version,
->>> + adev->psp.dtm_context.context.bin_desc.fw_version);
->>> +       drm_printf(p, "TA RAP feature version: 0x%08x, fw version: 
->>> 0x%08x\n",
->>> + adev->psp.rap_context.context.bin_desc.feature_version,
->>> + adev->psp.rap_context.context.bin_desc.fw_version);
->>> +       drm_printf(p, "TA SECURE DISPLAY feature version: 0x%08x, fw 
->>> version: 0x%08x\n",
->>> + adev->psp.securedisplay_context.context.bin_desc.feature_version,
->>> + adev->psp.securedisplay_context.context.bin_desc.fw_version);
->>> +
->>> +       /* SMC firmware */
->>> +       version = adev->pm.fw_version;
->>> +
->>> +       smu_program = (version >> 24) & 0xff;
->>> +       smu_major = (version >> 16) & 0xff;
->>> +       smu_minor = (version >> 8) & 0xff;
->>> +       smu_debug = (version >> 0) & 0xff;
->>> +       drm_printf(p, "SMC feature version: %u, program: %d, fw 
->>> version: 0x%08x (%d.%d.%d)\n",
->>> +                  0, smu_program, version, smu_major, smu_minor, 
->>> smu_debug);
->>> +
->>> +       /* SDMA firmware */
->>> +       for (int i = 0; i < adev->sdma.num_instances; i++) {
->>> +               drm_printf(p, "SDMA%d feature version: %u, firmware 
->>> version: 0x%08x\n",
->>> +                          i, adev->sdma.instance[i].feature_version,
->>> + adev->sdma.instance[i].fw_version);
->>> +       }
->>> +
->>> +       drm_printf(p, "VCN feature version: %u, fw version: 0x%08x\n",
->>> +                  0, adev->vcn.fw_version);
->>> +       drm_printf(p, "DMCU feature version: %u, fw version: 0x%08x\n",
->>> +                  0, adev->dm.dmcu_fw_version);
->>> +       drm_printf(p, "DMCUB feature version: %u, fw version: 
->>> 0x%08x\n",
->>> +                  0, adev->dm.dmcub_fw_version);
->>> +       drm_printf(p, "PSP TOC feature version: %u, fw version: 
->>> 0x%08x\n",
->>> +                  adev->psp.toc.feature_version, 
->>> adev->psp.toc.fw_version);
->>> +
->>> +       version = adev->mes.kiq_version & AMDGPU_MES_VERSION_MASK;
->>> +       feature = (adev->mes.kiq_version & 
->>> AMDGPU_MES_FEAT_VERSION_MASK)
->>> +                                       >> 
->>> AMDGPU_MES_FEAT_VERSION_SHIFT;
->>> +       drm_printf(p, "MES_KIQ feature version: %u, fw version: 
->>> 0x%08x\n",
->>> +                  feature, version);
->>> +
->>> +       version = adev->mes.sched_version & AMDGPU_MES_VERSION_MASK;
->>> +       feature = (adev->mes.sched_version & 
->>> AMDGPU_MES_FEAT_VERSION_MASK)
->>> +                                       >> 
->>> AMDGPU_MES_FEAT_VERSION_SHIFT;
->>> +       drm_printf(p, "MES feature version: %u, fw version: 0x%08x\n",
->>> +                  feature, version);
->>> +
->>> +       drm_printf(p, "VPE feature version: %u, fw version: 0x%08x\n",
->>> +                  adev->vpe.feature_version, adev->vpe.fw_version);
->>> +
->>> +}
->>> +
->>>   static ssize_t
->>>   amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
->>>                          void *data, size_t datalen)
->>> @@ -215,6 +332,11 @@ amdgpu_devcoredump_read(char *buffer, loff_t 
->>> offset, size_t count,
->>>                  }
->>>          }
->>>
->>> +       if (coredump->adev) {
->>> +               drm_printf(&p, "IP Firmwares\n");
->>> +               amdgpu_devcoredump_fw_info(coredump->adev, &p);
->>> +       }
->>> +
->>>          if (coredump->ring) {
->>>                  drm_printf(&p, "\nRing timed out details\n");
->>>                  drm_printf(&p, "IP Type: %d Ring Name: %s\n",
->>> -- 
->>> 2.34.1
->>>
