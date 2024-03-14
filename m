@@ -4,49 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BB53C54E58
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2EA1C54E66
 	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 08:24:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72A9610FFE7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A45E010FFE9;
 	Fri, 15 Mar 2024 08:24:29 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="lp2A1u66";
-	dkim-atps=neutral
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBE4110E529;
- Thu, 14 Mar 2024 15:23:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1710429837;
- bh=VNcT3RuFVLB5eXXbqaDWJMjkWNlBbyMqSBKU6p8wgjU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=lp2A1u66JEpyrSUvs29wUITPceJmETVaB78xpcnLqIZSzr9EWBk4GtZGg/P1GugmO
- B9/4q1Un0O3e61gY6a1il0Jkj24pr5bCoIdTLoESOxDY0hUoh8zMhonkGmy9Cq1xsp
- aYZyTxP4ZJOEpDpNC3sAlDuPKndGeiVY1cqi3mTSt8WjO9TiaXwfP+zDlHIMlcoSRk
- WvgPLRKRXBFF5QT8C88hh+ggt+N8p5aulDc49tHeL6sZTvIXXjG8oLxgM8j4CpPMUL
- T144cmH6hCRHjwVKaurp38/+bcHzNNO+6ilRD62FUKZkDnMJtjMHa6DH8N0fa9R0Xs
- BQn8Yl6iJrmJw==
-Received: from eldfell (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 192B1378209A;
- Thu, 14 Mar 2024 15:23:57 +0000 (UTC)
-Date: Thu, 14 Mar 2024 17:23:39 +0200
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <wayland-devel@lists.freedesktop.org>
-Subject: Re: [RFC PATCH v4 23/42] drm/vkms: add 3x4 matrix in color pipeline
-Message-ID: <20240314172339.4cbf3a7b.pekka.paalanen@collabora.com>
-In-Reply-To: <20240226211100.100108-24-harry.wentland@amd.com>
-References: <20240226211100.100108-1-harry.wentland@amd.com>
- <20240226211100.100108-24-harry.wentland@amd.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A19C10FCBC;
+ Thu, 14 Mar 2024 18:32:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id E3C8C6150D;
+ Thu, 14 Mar 2024 18:32:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A243FC43390;
+ Thu, 14 Mar 2024 18:31:55 +0000 (UTC)
+Date: Thu, 14 Mar 2024 14:34:06 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Alison Schofield <alison.schofield@intel.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
+ <linux-trace-kernel@vger.kernel.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-cxl@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-rdma@vger.kernel.org, linux-pm@vger.kernel.org,
+ iommu@lists.linux.dev, linux-tegra@vger.kernel.org, netdev@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, ath10k@lists.infradead.org,
+ linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+ ath12k@lists.infradead.org, brcm80211@lists.linux.dev,
+ brcm80211-dev-list.pdl@broadcom.com, linux-usb@vger.kernel.org,
+ linux-bcachefs@vger.kernel.org, linux-nfs@vger.kernel.org,
+ ocfs2-devel@lists.linux.dev, linux-cifs@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-edac@vger.kernel.org,
+ selinux@vger.kernel.org, linux-btrfs@vger.kernel.org,
+ linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-hwmon@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-wpan@vger.kernel.org, dev@openvswitch.org,
+ linux-s390@vger.kernel.org, tipc-discussion@lists.sourceforge.net, Julia
+ Lawall <Julia.Lawall@inria.fr>
+Subject: Re: [FYI][PATCH] tracing/treewide: Remove second parameter of
+ __assign_str()
+Message-ID: <20240314143406.6289a060@gandalf.local.home>
+In-Reply-To: <ZfMslbCmCtyEaEWN@aschofie-mobl2>
+References: <20240223125634.2888c973@gandalf.local.home>
+ <ZfMslbCmCtyEaEWN@aschofie-mobl2>
+X-Mailer: Claws Mail 3.19.1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/9Zg0taUTa7H5G5hF=l+3vTq";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 15 Mar 2024 08:24:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,189 +71,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/9Zg0taUTa7H5G5hF=l+3vTq
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On Thu, 14 Mar 2024 09:57:57 -0700
+Alison Schofield <alison.schofield@intel.com> wrote:
 
-On Mon, 26 Feb 2024 16:10:37 -0500
-Harry Wentland <harry.wentland@amd.com> wrote:
+> On Fri, Feb 23, 2024 at 12:56:34PM -0500, Steven Rostedt wrote:
+> > From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
+> > 
+> > [
+> >    This is a treewide change. I will likely re-create this patch again in
+> >    the second week of the merge window of v6.9 and submit it then. Hoping
+> >    to keep the conflicts that it will cause to a minimum.
+> > ]
 
-> We add two 3x4 matrices into the VKMS color pipeline. The reason
-> we're adding matrices is so that we can test that application
-> of a matrix and its inverse yields an output equal to the input
-> image.
+Note, change of plans. I plan on sending this in the next merge window, as
+this merge window I have this patch:
 
-You will test also cases where the matrix configuration will not
-produce output equal to input, right?
+  https://lore.kernel.org/linux-trace-kernel/20240312113002.00031668@gandalf.local.home/
 
-Otherwise one can accidentally pass the matrix test by ignoring all
-matrices.
-
-> One complication with the matrix implementation has to do with
-> the fact that the matrix entries are in signed-magnitude fixed
-> point, whereas the drm_fixed.h implementation uses 2s-complement.
-> The latter one is the one that we want for easy addition and
-> subtraction, so we convert all entries to 2s-complement.
->=20
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> ---
->  drivers/gpu/drm/vkms/vkms_colorop.c  | 32 +++++++++++++++++++++++++++-
->  drivers/gpu/drm/vkms/vkms_composer.c | 27 +++++++++++++++++++++++
->  include/drm/drm_colorop.h            |  2 ++
->  3 files changed, 60 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/vkms/vkms_colorop.c b/drivers/gpu/drm/vkms/v=
-kms_colorop.c
-> index d2db366da6d3..a0e54b2c1f7a 100644
-> --- a/drivers/gpu/drm/vkms/vkms_colorop.c
-> +++ b/drivers/gpu/drm/vkms/vkms_colorop.c
-> @@ -35,7 +35,37 @@ const int vkms_initialize_color_pipeline(struct drm_pl=
-ane *plane, struct drm_pro
-> =20
->  	prev_op =3D op;
-> =20
-> -	/* 2nd op: 1d curve */
-> +	/* 2nd op: 3x4 matrix */
-> +	op =3D kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
-> +	if (!op) {
-> +		DRM_ERROR("KMS: Failed to allocate colorop\n");
-> +		return -ENOMEM;
-> +	}
-> +
-> +	ret =3D drm_colorop_ctm_3x4_init(dev, op, plane);
-> +	if (ret)
-> +		return ret;
-> +
-> +	drm_colorop_set_next_property(prev_op, op);
-> +
-> +	prev_op =3D op;
-> +
-> +	/* 3rd op: 3x4 matrix */
-> +	op =3D kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
-> +	if (!op) {
-> +		DRM_ERROR("KMS: Failed to allocate colorop\n");
-> +		return -ENOMEM;
-> +	}
-> +
-> +	ret =3D drm_colorop_ctm_3x4_init(dev, op, plane);
-> +	if (ret)
-> +		return ret;
-> +
-> +	drm_colorop_set_next_property(prev_op, op);
-> +
-> +	prev_op =3D op;
-> +
-> +	/* 4th op: 1d curve */
->  	op =3D kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
->  	if (!op) {
->  		DRM_ERROR("KMS: Failed to allocate colorop\n");
-> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/=
-vkms_composer.c
-> index d2101fa55aa3..8bbfce651526 100644
-> --- a/drivers/gpu/drm/vkms/vkms_composer.c
-> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
-> @@ -164,6 +164,30 @@ static void apply_lut(const struct vkms_crtc_state *=
-crtc_state, struct line_buff
->  	}
->  }
-> =20
-> +static void apply_3x4_matrix(struct pixel_argb_s32 *pixel, const struct =
-drm_color_ctm_3x4 *matrix)
-> +{
-> +	s64 rf, gf, bf;
-> +
-> +	rf =3D drm_fixp_mul(drm_sm2fixp(matrix->matrix[0]), drm_int2fixp(pixel-=
->r)) +
-> +	     drm_fixp_mul(drm_sm2fixp(matrix->matrix[1]), drm_int2fixp(pixel->g=
-)) +
-> +	     drm_fixp_mul(drm_sm2fixp(matrix->matrix[2]), drm_int2fixp(pixel->b=
-)) +
-> +	     drm_sm2fixp(matrix->matrix[3]);
-
-It would be nice if the driver had its private data for the matrix
-colorop state, so it could convert the matrix only once when userspace
-sets it.
+That will warn if the source string of __string() is different than the
+source string of __assign_str(). I want to make sure they are identical
+before just dropping one of them.
 
 
-Thanks,
-pq
+> 
+> > diff --git a/drivers/cxl/core/trace.h b/drivers/cxl/core/trace.h
+> > index bdf117a33744..07ba4e033347 100644
+> > --- a/drivers/cxl/core/trace.h
+> > +++ b/drivers/cxl/core/trace.h  
+> 
+> snip to poison
+> 
+> > @@ -668,8 +668,8 @@ TRACE_EVENT(cxl_poison,
+> >  	    ),
+> >  
+> >  	TP_fast_assign(
+> > -		__assign_str(memdev, dev_name(&cxlmd->dev));
+> > -		__assign_str(host, dev_name(cxlmd->dev.parent));
+> > +		__assign_str(memdev);
+> > +		__assign_str(host);  
+> 
+> I think I get that the above changes work because the TP_STRUCT__entry for
+> these did:
+> 	__string(memdev, dev_name(&cxlmd->dev))
+> 	__string(host, dev_name(cxlmd->dev.parent))
 
-> +
-> +	gf =3D drm_fixp_mul(drm_sm2fixp(matrix->matrix[4]), drm_int2fixp(pixel-=
->r)) +
-> +	     drm_fixp_mul(drm_sm2fixp(matrix->matrix[5]), drm_int2fixp(pixel->g=
-)) +
-> +	     drm_fixp_mul(drm_sm2fixp(matrix->matrix[6]), drm_int2fixp(pixel->b=
-)) +
-> +	     drm_sm2fixp(matrix->matrix[7]);
-> +
-> +	bf =3D drm_fixp_mul(drm_sm2fixp(matrix->matrix[8]), drm_int2fixp(pixel-=
->r)) +
-> +	     drm_fixp_mul(drm_sm2fixp(matrix->matrix[9]), drm_int2fixp(pixel->g=
-)) +
-> +	     drm_fixp_mul(drm_sm2fixp(matrix->matrix[10]), drm_int2fixp(pixel->=
-b)) +
-> +	     drm_sm2fixp(matrix->matrix[11]);
-> +
-> +	pixel->r =3D drm_fixp2int(rf);
-> +	pixel->g =3D drm_fixp2int(gf);
-> +	pixel->b =3D drm_fixp2int(bf);
-> +}
-> +
->  static void apply_colorop(struct pixel_argb_s32 *pixel, struct drm_color=
-op *colorop)
->  {
->  	/* TODO is this right? */
-> @@ -185,6 +209,9 @@ static void apply_colorop(struct pixel_argb_s32 *pixe=
-l, struct drm_colorop *colo
->  				DRM_DEBUG_DRIVER("unkown colorop 1D curve type %d\n", colorop_state-=
->curve_1d_type);
->  				break;
->  		}
-> +	} else if (colorop->type =3D=3D DRM_COLOROP_CTM_3X4) {
-> +		if (colorop_state->data)
-> +			apply_3x4_matrix(pixel, (struct drm_color_ctm_3x4 *) colorop_state->d=
-ata->data);
->  	}
-> =20
->  }
-> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-> index 4aee29e161d6..8710e550790c 100644
-> --- a/include/drm/drm_colorop.h
-> +++ b/include/drm/drm_colorop.h
-> @@ -224,6 +224,8 @@ int drm_colorop_init(struct drm_device *dev, struct d=
-rm_colorop *colorop,
-> =20
->  int drm_colorop_curve_1d_init(struct drm_device *dev, struct drm_colorop=
- *colorop,
->  			      struct drm_plane *plane, u64 supported_tfs);
-> +int drm_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_colorop =
-*colorop,
-> +			     struct drm_plane *plane);
-> =20
->  struct drm_colorop_state *
->  drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop);
+That's the point. They have to be identical or you will likely bug.
 
+The __string(name, src) is used to find the string length of src which
+allocates the necessary length on the ring buffer. The __assign_str(name, src)
+will copy src into the ring buffer.
 
---Sig_/9Zg0taUTa7H5G5hF=l+3vTq
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+Similar to:
 
------BEGIN PGP SIGNATURE-----
+	len = strlen(src);
+	buf = malloc(len);
+	strcpy(buf, str);
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmXzFnsACgkQI1/ltBGq
-qqeW2hAAkswLaQZrCXe7Zsbze3mzvHrny69Hpvsuxej/HZMCJ9b5/9YHa6S4d/M4
-7TWZpELcfMvIPMKKX+uuPCEl5jrBJ8r/dJkYxLl8ItL1hPTkPXk0kP64cI19qetL
-VrpnplA2o5pGScHvA6uVY8hbtHfd5DzyTw59BtCi6ci4Jhof4m12WLLpo6Fw6WdT
-Q1JC+0mqqdbU5Hqo+XmTIZOBv8KklksIWwGMZmnlj0V9sJ9thNKkebaFfWUR3/wu
-QFe7y/bvuMZSPZVCSJIHzvEuyCEozsT9AHulFGARgAv/60ojbSWGsdAZQWNP3DIv
-yXVgo4HqQX8PWABD7JwfCjrb5LFJTJw5E4HXyN/TYr0Hq85Ch5zx5VqF59sSca9I
-pb7W1dVn4Mo8d8envYipWPwLUzFbTry8R+3+flbG7ELVp46T7NvX0dmp/31w9qNp
-FrpXiNqIbaAhT7WkrgEEVdZjE6l3MwGxj6AJwgxck3nv7oOyLshvvVJ6v2mOKSIw
-ulY3N7pGF+q44SRlwoSdFmzNl+aA69ebpTQhjMsmqu53ZpWCAganHN8II3LjEL/I
-XW16zjrQWhCIQkK4fyAhkY3O1PQ8JyzAlmp2D4DDcAcjSpM3imJXzI8wIJv3jahT
-7oM+T3K6tfxFz9iZ4iEwvMOWJTojjZCv4j7vsOb4sb/50jhc/k8=
-=91hl
------END PGP SIGNATURE-----
+Where __string() is strlen() and __assign_str() is strcpy(). It doesn't
+make sense to use two different strings, and if you did, it would likely be
+a bug.
 
---Sig_/9Zg0taUTa7H5G5hF=l+3vTq--
+But the magic behind __string() does much more than just get the length of
+the string, and it could easily save the pointer to the string (along with
+its length) and have it copy that in the __assign_str() call, making the
+src parameter of __assign_str() useless.
+
+> 
+> >  		__entry->serial = cxlmd->cxlds->serial;
+> >  		__entry->overflow_ts = cxl_poison_overflow(flags, overflow_ts);
+> >  		__entry->dpa = cxl_poison_record_dpa(record);
+> > @@ -678,12 +678,12 @@ TRACE_EVENT(cxl_poison,
+> >  		__entry->trace_type = trace_type;
+> >  		__entry->flags = flags;
+> >  		if (region) {
+> > -			__assign_str(region, dev_name(&region->dev));
+> > +			__assign_str(region);
+> >  			memcpy(__entry->uuid, &region->params.uuid, 16);
+> >  			__entry->hpa = cxl_trace_hpa(region, cxlmd,
+> >  						     __entry->dpa);
+> >  		} else {
+> > -			__assign_str(region, "");
+> > +			__assign_str(region);
+> >  			memset(__entry->uuid, 0, 16);
+> >  			__entry->hpa = ULLONG_MAX;  
+> 
+> For the above 2, there was no helper in TP_STRUCT__entry. A recently
+> posted patch is fixing that up to be __string(region, NULL) See [1],
+> with the actual assignment still happening in TP_fast_assign.
+
+__string(region, NULL) doesn't make sense. It's like:
+
+	len = strlen(NULL);
+	buf = malloc(len);
+	strcpy(buf, NULL);
+
+??
+
+I'll reply to that email.
+
+-- Steve
+
+> 
+> Does that assign logic need to move to the TP_STRUCT__entry definition
+> when you merge these changes? I'm not clear how much logic is able to be
+> included, ie like 'C' style code in the TP_STRUCT__entry.
+> 
+> [1]
+> https://lore.kernel.org/linux-cxl/20240314044301.2108650-1-alison.schofield@intel.com/
