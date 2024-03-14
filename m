@@ -4,125 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4AB9C54E60
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 14:40:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1CBEC54E67
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 14:42:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6542F10FBDA;
-	Thu, 14 Mar 2024 14:40:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC5B10E07D;
+	Thu, 14 Mar 2024 14:42:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="13gjzTv4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Fl4DsOa2";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2047.outbound.protection.outlook.com [40.107.223.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A16B10FBDA;
- Thu, 14 Mar 2024 14:40:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Kn7XBlkKpzs7znalaHCOkznVfsjC7njVFMKPAGkaTPYharHTq4lImloUn+D5kIrh2TbqxBDrTMaQmSLBCIt1lVl8k6NAvxnnmJkUuq7ZNxtF9By9QT5WENaOjYPjPNGgZWp9lMGotGirUM06e0lres2k/20vYaHyy/Xxv5wW1bJZL0q/M1sM1tHGFDqgNGRSyuvNRlrVUqMIS8NlvDCQSQ5GwsxZnNl+34q/EbyNwkx+ztJ1rBlz9W8jHdf3pEV+ntqNzyKFd6PV547Ujl036c8fybYFnoPx5PvQkHi4vVIy3eKJsp3nSXoXcrEUYTcfnSWvIzDYTCJRWEne/vpMbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=swD6T/RgLjivDz91v2PAuhPqj4jTfq7HpwbMhSlFdJA=;
- b=C768septOhDnjzmYZS8deL9mjYC6mCi1duhlhNAwn/8hIp1O/d5vMZtx4yN5wzzqw5XBwvapdTN7wFwK5HdRQ2PhtQlpXyiCFy2GdrdZMqXDr118T5fDXyNO6tqvy57FSQUNle54bzhRUVxe3HYD3Ff/qe9wzVVoEAYbFWcojel8AeI9tsQEXZadgosz/TP4UXChg5mNvprh+XW844GGCkJ33I0oEo6xwCHfZKCOlaTybIs3Kb3Yq8EgWvIARt5XtAI+SbaaJPMil/3Gii3tyhy2Uimi8vv6OD+xWJ0C5u1nh8jkdAgDWqlTw2VH4xEkwvO3MzdopSsy7QgYHcAZqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=swD6T/RgLjivDz91v2PAuhPqj4jTfq7HpwbMhSlFdJA=;
- b=13gjzTv4pWM3vCZWhZ3OuoxAUkB6vgTNz+MUj+aXSuvq5pv0Y0voPxQUNRZLvEfkNSIYkHgROkO8/aQyMP9xTlE8fPyFYAWCYM46M2cT+QCt1R/1/Gm18TA2pIDSxTOTyGjuC9TQCkhhOwiT1Dn3eqh/CGqa0KmeEfVhUfh9i4s=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by SA3PR12MB7857.namprd12.prod.outlook.com (2603:10b6:806:31e::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.21; Thu, 14 Mar
- 2024 14:40:41 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::b001:1430:f089:47ae]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::b001:1430:f089:47ae%7]) with mapi id 15.20.7362.035; Thu, 14 Mar 2024
- 14:40:41 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Qiang Ma <maqianga@uniontech.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, "daniel@ffwll.ch" <daniel@ffwll.ch>, 
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
- "sunran001@208suo.com" <sunran001@208suo.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2] drm/amdgpu: Clear the hotplug interrupt ack bit before
- hpd initialization
-Thread-Topic: [PATCH v2] drm/amdgpu: Clear the hotplug interrupt ack bit
- before hpd initialization
-Thread-Index: AQHaVBuV1+DuIno39kWTMzibKUqKELE1dE6AgAIefBA=
-Date: Thu, 14 Mar 2024 14:40:40 +0000
-Message-ID: <BL1PR12MB5144F6A9CAB0504C8AD5728CF7292@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20240131075703.24600-1-maqianga@uniontech.com>
- <A65A2F93D9F165EC+20240313141827.40f30bd5@john-PC>
-In-Reply-To: <A65A2F93D9F165EC+20240313141827.40f30bd5@john-PC>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=be9acc67-a4ec-4e26-9175-6848817506c8;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-03-14T14:40:38Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SA3PR12MB7857:EE_
-x-ms-office365-filtering-correlation-id: 564fd3d9-222a-4cde-8bd5-08dc4434b8dd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Kg2KOrVU49WCPmbEVAENvfbhvss6iNXwpOvbgxJK9aN6OYE1nxXUqu9FYNN7OQQXJ5CT1RUzkY84CxAmIrO0Odah2S0CNo2tm65fXLQ5rxZNMr3YfNg9OTqwnsMiJmdPHdM13YpjXmNuZwTg0J/zzYuyLNvfRzLiXHbjcDaqssJxkJF0cTWYqD4YezniWCG2xprvOpH9KmiKnL8OyJ62ehFlvXsvX4AQguMlDNq/4FaxsJnefa1a5I5VDRRWQEnGtJ1pjxKhhRnAV+SMlNye/qd78yG83rQJELu84QaXP2SbgGHX2e1ryYxMXJ7u5UEQ1VT5MTUjVj0u//jig6p55pQVnZ7cv+shUrpBp8tLFc4s9TG6EtkIaYYb88EOSPkOhzC+STF/kaNm/3VP+edUsT2/mXxcfcjjR9ePUS5syKQFthjU6R6t/aTrh3tjBXkObPBnz3CWrvDEiCEb2t2fLWcF8oVud/mZuDMSPZDg3Sw2azU3+mE96V5Hu/StC3wDJ4b5kkRgQdNfTo1iYNey4Jj6TyBqcWVAPgcl6f6L+a+qANo8DK/AyvCydltBxgHHuERjxBJQCZMVrIFu5FDIuSxLhVHJhL49VZjWkyVK3fYFcNcmGTExrItGDSp+GVgDpGtC3e8y7ww98aTf5mG2tTXZ7S872tkq6xeaPXWw900WZnsyZiMIHy8iQWfkl65b0k7gIo3O35VFIpN7vBwCXJqxhqwQ9CO8Hx3jcV+AN4U=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(376005)(921011)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?fxOu+4x3629nwmL1ykAmQzvrGQJdbvLQ8try7lEvONd9pz1iEdOyh3EFAcWm?=
- =?us-ascii?Q?dIJ+6NAyesP4DALXDjdqEqt9ChBaVwiBloS/dw0LqupYzQKbqsRMYUdMh1a/?=
- =?us-ascii?Q?yFzm6ecZyr7Hup1R2gqiSzEtWr/4uCpfl/jRB2ADwjo1E8pa8dift3NmKy3+?=
- =?us-ascii?Q?OvwL8XCySvTg+TiM48eoLZsORTeFd2ivh0DtSWsM19ZOaAQy9YVGsH74/zHk?=
- =?us-ascii?Q?B4goSth7zsk6Uwrz3zMM7LJcf89X1Z5DWROHnoT4aCruxmrqnG8+QPl/0dAG?=
- =?us-ascii?Q?cgHbthIZVkMZpBizX/Oe5OsgYhRQyKfjQXNWG6X9mj5f9Pr/ciEy7P7jU3Or?=
- =?us-ascii?Q?rVxv7xoaguC+ZyRufd7S//cJtJfq2BQX7krX9tP9oN3Un5HJavvyNFeW4BDx?=
- =?us-ascii?Q?D9B9/+hLeNCpZZaB0HnxrGKA7pWZwIety1Kuaj8lI9DH1HSlnkd2VdnU4Rbv?=
- =?us-ascii?Q?hnyCh7Ubm16DXcXjiWfOyrLoFJEwspA+3GutnV+xK2JADYYSPX40peCn67G/?=
- =?us-ascii?Q?Ghy//3QnKVmEh0rq9siWIInTbBaHQFWXnrHjvZHUNEpNTnQfeM8Tal3AqOKi?=
- =?us-ascii?Q?2zvs3VaMB0ifhkna8BzooGUbyWlc/Morpq9YZ/yRh+gnwqjo0Tw/SsRcgaKV?=
- =?us-ascii?Q?NAbN9r6h9OqHlmdccZAoZFba8AP/jY8oKfQQ8ITHIHmQOJevQbUr5mWTYiUN?=
- =?us-ascii?Q?Ghfqw5uVn6M+OtVx+/HLnHDBlez0wlu/9t9bMEYEglMU84KtGsIe5wr6TuHb?=
- =?us-ascii?Q?0xoMqqOLEEM7wr24Dca12lD8nT3O9i4kHVnw5MUdRE6/RjWXWNFPPIfB+VhW?=
- =?us-ascii?Q?oBxrs6qcxX07el1BQEN/xObJE0EbSTz8GOvV7oFYv621QfAhFdqQCIvw4RwO?=
- =?us-ascii?Q?Ni3GvM5Yefhc9dGh8FXOOmsHLmRkHn/Yb6oCZX0VNxOIJinT6oC2p44Qt3eC?=
- =?us-ascii?Q?gMVOc6kC15o2HDSHx+uxPekl6SKaPvLXdBm8ikJMqjhLsWqBc1j52v1J8ELz?=
- =?us-ascii?Q?7gJDeHttIdB9V+WHHj/A0gpuOH0oeYvT5uFu0ieWfGX1KS0EPgaI9P96VT13?=
- =?us-ascii?Q?8V+jxJxQa16CDocnbhCe7D+7JE3JIcQZtv/vQ9fPPRcWhPP3gmQbyOToPLKy?=
- =?us-ascii?Q?/45j/zUG8YEktPE4M8QCMrXIXU732yOfVP+5zvsLikB6b6NwiTe0z1cJNVqQ?=
- =?us-ascii?Q?WzXvWqza9tM+i1oRQfSmuraGngbdxzSHr44xsH0VV9/Pbc/Ga6qSeOdsJW2C?=
- =?us-ascii?Q?yUP1vp9GzfptEKtRRtVgIHD0lEXuO1B4lvVwEZLuP8eQFPApmpBwwyfXBHzv?=
- =?us-ascii?Q?6IqVMBT/mLs302J47gmuiWw/r8C+4psgkg7Ua1+PLeOK/V4sDXMFmXOtex9T?=
- =?us-ascii?Q?jdooN1YIfE5h8Kz/jkEa/E20qg8AXEZmlNJdeXIntfe46GS55iG1Gx8d9Zvk?=
- =?us-ascii?Q?qd2GoskWbX2NPh91tSSXk/PBzsk0Qr7dv0Pk/v2ElRlKHABgsA3xf3f88qNB?=
- =?us-ascii?Q?vWfTV/Df8Gpnhv2BlFkerPwNNve8zgqzI4kJP3cNs5HaulH/eyrQQjZf9H75?=
- =?us-ascii?Q?LobHTDxSJJPZY214na8=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B76710E07D;
+ Thu, 14 Mar 2024 14:42:19 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-29a5f100c1aso676165a91.0; 
+ Thu, 14 Mar 2024 07:42:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1710427339; x=1711032139; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Za5iucYxSXOJJRA/mt5b8AE1A6QwDe4Iqg1yMlydUGA=;
+ b=Fl4DsOa2U5hqqgo2EPnMZcGqeU0bqV0M3Lml7KhzaXbpwQ1Rx2FE9hJr6e8cWZbXfZ
+ /lNKy8Sb9TAeO5EDBxNQnV77W73Bj1pyJYptwcRjy+wE9YN1JNc0CpMr7j9PINgM/FnI
+ 5Frc4a5jGjKQjqTixU55mTJ8koLqlbXWN/9Psre+aMH0uUJ+IbPQlbq9au5D1e0SqjIt
+ NVnkTyQM7YRIXzcJu6Q2zZOQiFDFt1Wn3q6xEkEjN0ICgBM79g85iIIuZeJa8Ku9BSO+
+ JmpWMBaBaEB1h847jwtbR5qc/mLD430DFJ19fKuhmqouWxsbrtn0jaHcGzmfl7h2Pxae
+ NA5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710427339; x=1711032139;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Za5iucYxSXOJJRA/mt5b8AE1A6QwDe4Iqg1yMlydUGA=;
+ b=qT4+mFUiL53iLUeQcwQ7VsZ5X8LU7w3rsr/bVoNiH60iFkvRhi4c4fd/E3C6NZYG1i
+ 3kns3cp8PqTwQkF1czeriWMEUHK1XJB/2NBHurXy8bCZ8ZKTzQDVBzx92Ajrb4ZVslwU
+ iiAafKz3H6Dee2kQUyrPDGiGpyrFrCAHBWvc64Bu9abn4LF5xSXpZ/Q2Mr/0iIgXgWb5
+ NkjTj9lqyx7wJssxEXf/ct1aFQf2JlxSuE+906Aq55jjNmCSpJVXNdGTggWJHGIiW7rx
+ jeC2icb+OrffKJkE+CzoKVIu1ECyqood63brkSXOq/XDHXglVzOSNxDyKoJYfZoz1TwE
+ cquw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW92IGrJFMn6jwXVWomkOaRRTyBJ/E94cvyOaov+uzy4FCH5iiAesNvX/07kN+4o1GwUzKm0xcocnUMuXZSDJp5x8a/ezUxVDJGUUzI5imI0+FdP5D4XV2fSuS8JRNQmxSuTATPMFhTJwX7GbHq9Q==
+X-Gm-Message-State: AOJu0Yz7iBHpJNL1F1MmOJqOGmT6GwqxDidjWOtMniJAus8/O+DMhdKL
+ YkN0HFE8KM667N6CMfrHoXhs5JaXiEcSgSAMFxbvFnHTaCa1qDSGWVoxzQyk7Aq8kNXb7ye+ivW
+ hbJTgh7tdPg+LC4qYoV3oidt/mys=
+X-Google-Smtp-Source: AGHT+IFDsGELtULQd8kAZwzF1azSs4E+MUi/jEgN69Py3hQjMsHBAvIku8XVK6gdRADILX2kdAyXmSUegd5Y0q2kbMw=
+X-Received: by 2002:a17:90b:30c6:b0:299:1777:134c with SMTP id
+ hi6-20020a17090b30c600b002991777134cmr1752577pjb.33.1710427338838; Thu, 14
+ Mar 2024 07:42:18 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 564fd3d9-222a-4cde-8bd5-08dc4434b8dd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Mar 2024 14:40:40.9824 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: woV682h9I9/se5JBSwt8Uhgkvn5XaoUAVEhTSAqK0Htty1NTMkp6+mKSYOHH6zkLEzWhTGmHHkpoD/puVU0Jvg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7857
+References: <20240312124148.257067-1-sunil.khatri@amd.com>
+ <CADnq5_O-cyDkNLznZpvnZtz15Mi1_rkigirG80BmYJprP_udnw@mail.gmail.com>
+ <59cf081e-5924-42b5-a3f1-de8b012f09d1@amd.com>
+In-Reply-To: <59cf081e-5924-42b5-a3f1-de8b012f09d1@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 14 Mar 2024 10:42:06 -0400
+Message-ID: <CADnq5_N0H75UU2aFTAkqUrdGxKPxBQUnodsH-bcpS-ZUqgUb3A@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: add the IP information of the soc
+To: "Khatri, Sunil" <sukhatri@amd.com>
+Cc: Sunil Khatri <sunil.khatri@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,210 +83,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
-
-> -----Original Message-----
-> From: Qiang Ma <maqianga@uniontech.com>
-> Sent: Wednesday, March 13, 2024 2:18 AM
-> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>;
-> airlied@gmail.com; daniel@ffwll.ch; SHANMUGAM, SRINIVASAN
-> <SRINIVASAN.SHANMUGAM@amd.com>; sunran001@208suo.com
-> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux=
--
-> kernel@vger.kernel.org
-> Subject: Re: [PATCH v2] drm/amdgpu: Clear the hotplug interrupt ack bit
-> before hpd initialization
+On Thu, Mar 14, 2024 at 1:44=E2=80=AFAM Khatri, Sunil <sukhatri@amd.com> wr=
+ote:
 >
-> On Wed, 31 Jan 2024 15:57:03 +0800
-> Qiang Ma <maqianga@uniontech.com> wrote:
 >
-> Hello everyone, please help review this patch.
+> On 3/14/2024 1:58 AM, Alex Deucher wrote:
+> > On Tue, Mar 12, 2024 at 8:41=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.=
+com> wrote:
+> >> Add all the IP's information on a SOC to the
+> >> devcoredump.
+> >>
+> >> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> >> ---
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c | 19 +++++++++++++++++++
+> >>   1 file changed, 19 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_reset.c
+> >> index a0dbccad2f53..611fdb90a1fc 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> >> @@ -196,6 +196,25 @@ amdgpu_devcoredump_read(char *buffer, loff_t offs=
+et, size_t count,
+> >>                             coredump->reset_task_info.process_name,
+> >>                             coredump->reset_task_info.pid);
+> >>
+> >> +       /* GPU IP's information of the SOC */
+> >> +       if (coredump->adev) {
+> >> +               drm_printf(&p, "\nIP Information\n");
+> >> +               drm_printf(&p, "SOC Family: %d\n", coredump->adev->fam=
+ily);
+> >> +               drm_printf(&p, "SOC Revision id: %d\n", coredump->adev=
+->rev_id);
+> >> +
+> >> +               for (int i =3D 0; i < coredump->adev->num_ip_blocks; i=
+++) {
+> >> +                       struct amdgpu_ip_block *ip =3D
+> >> +                               &coredump->adev->ip_blocks[i];
+> >> +                       drm_printf(&p, "IP type: %d IP name: %s\n",
+> >> +                                  ip->version->type,
+> >> +                                  ip->version->funcs->name);
+> >> +                       drm_printf(&p, "IP version: (%d,%d,%d)\n\n",
+> >> +                                  ip->version->major,
+> >> +                                  ip->version->minor,
+> >> +                                  ip->version->rev);
+> >> +               }
+> >> +       }
+> > I think the IP discovery table would be more useful.  Either walk the
+> > adev->ip_versions structure, or just include the IP discovery binary.
+>
+> I did explore the adev->ip_versions and if i just go through the array
+> it doesn't give any useful information directly.
+> There are no ways to find directly from adev->ip_versions below things
+> until i also reparse the discovery binary again like done the discovery
+> amdgpu_discovery_reg_base_init and walk through the headers of various
+> ips using discovery binary.
+> a. Which IP is available on soc or not.
+> b. How many instances are there
+> Also i again have to change back to major, minor and rev convention for
+> this information to be useful. I am exploring it more if i find some
+> other information i will update.
+>
+> adev->ip_block[] is derived from ip discovery only for each block which
+> is there on the SOC, so we are not reading information which isnt
+> applicable for the soc. We have name , type and version no of the IPs
+> available on the soc. If you want i could add no of instances of each IP
+> too if you think that's useful information here. Could you share what
+> information is missing in this approach so i can include that.
 
-This was applied back in January, sorry if I forget to reply.
+I was hoping to get the actual IP versions for the IPs from IP
+discovery rather than the versions from the ip_block array.  The
+latter are common so you can end up with the same version used across
+a wide variety of chips (e.g., all gfx10.x based chips use the same
+gfx 10 IP code even if the actual IP version is different for most of
+the chips).
+
+>
+> For dumping the IP discovery binary, i dont understand how that
+> information would be useful directly and needs to be decoded like we are
+> doing in discovery init. Please correct me if my understanding is wrong
+> here.
+
+It's probably not a high priority, I was just thinking it might be
+useful to have in case there ended up being some problem related to
+the IP discovery table on some boards.  E.g., we'd know that all
+boards with a certain harvest config seem to align with a reported
+problem.  Similar for vbios.  It's more for telemetry.  E.g., all the
+boards reporting some problem have a particular powerplay config or
+whatever.
 
 Alex
 
->
->   Qiang Ma
->
-> > Problem:
-> > The computer in the bios initialization process, unplug the HDMI
-> > display, wait until the system up, plug in the HDMI display, did not
-> > enter the hotplug interrupt function, the display is not bright.
-> >
-> > Fix:
-> > After the above problem occurs, and the hpd ack interrupt bit is 1,
-> > the interrupt should be cleared during hpd_init initialization so that
-> > when the driver is ready, it can respond to the hpd interrupt
-> > normally.
-> >
-> > Signed-off-by: Qiang Ma <maqianga@uniontech.com>
-> > ---
-> > v2:
-> >  - Remove unused variable 'tmp'
-> >  - Fixed function spelling errors
-> >
-> > drivers/gpu/drm/amd/amdgpu/dce_v10_0.c |  2 ++
-> > drivers/gpu/drm/amd/amdgpu/dce_v11_0.c |  2 ++
-> > drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 22 ++++++++++++++++++---
-> -
-> > drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 22 ++++++++++++++++++---
-> -
-> >  4 files changed, 40 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c index
-> > bb666cb7522e..12a8ba929a72 100644 ---
-> > a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c +++
-> > b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c @@ -51,6 +51,7 @@
-> >
-> >  static void dce_v10_0_set_display_funcs(struct amdgpu_device *adev);
-> > static void dce_v10_0_set_irq_funcs(struct amdgpu_device *adev);
-> > +static void dce_v10_0_hpd_int_ack(struct amdgpu_device *adev, int
-> > hpd);
-> >  static const u32 crtc_offsets[] =3D {
-> >     CRTC0_REGISTER_OFFSET,
-> > @@ -363,6 +364,7 @@ static void dce_v10_0_hpd_init(struct
-> > amdgpu_device *adev) AMDGPU_HPD_DISCONNECT_INT_DELAY_IN_MS);
-> >             WREG32(mmDC_HPD_TOGGLE_FILT_CNTL +
-> > hpd_offsets[amdgpu_connector->hpd.hpd], tmp);
-> > +           dce_v10_0_hpd_int_ack(adev,
-> > amdgpu_connector->hpd.hpd); dce_v10_0_hpd_set_polarity(adev,
-> > amdgpu_connector->hpd.hpd); amdgpu_irq_get(adev, &adev->hpd_irq,
-> >                            amdgpu_connector->hpd.hpd); diff --git
-> > a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c index
-> > 7af277f61cca..745e4fdffade 100644 ---
-> > a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c +++
-> > b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c @@ -51,6 +51,7 @@
-> >
-> >  static void dce_v11_0_set_display_funcs(struct amdgpu_device *adev);
-> > static void dce_v11_0_set_irq_funcs(struct amdgpu_device *adev);
-> > +static void dce_v11_0_hpd_int_ack(struct amdgpu_device *adev, int
-> > hpd);
-> >  static const u32 crtc_offsets[] =3D
-> >  {
-> > @@ -387,6 +388,7 @@ static void dce_v11_0_hpd_init(struct
-> > amdgpu_device *adev) AMDGPU_HPD_DISCONNECT_INT_DELAY_IN_MS);
-> >             WREG32(mmDC_HPD_TOGGLE_FILT_CNTL +
-> > hpd_offsets[amdgpu_connector->hpd.hpd], tmp);
-> > +           dce_v11_0_hpd_int_ack(adev,
-> > amdgpu_connector->hpd.hpd); dce_v11_0_hpd_set_polarity(adev,
-> > amdgpu_connector->hpd.hpd); amdgpu_irq_get(adev, &adev->hpd_irq,
-> > amdgpu_connector->hpd.hpd); } diff --git
-> > a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c index
-> > 143efc37a17f..28c4a735716b 100644 ---
-> > a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c +++
-> > b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c @@ -272,6 +272,21 @@
-> static
-> > void dce_v6_0_hpd_set_polarity(struct amdgpu_device *adev,
-> > WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd], tmp); }
-> >
-> > +static void dce_v6_0_hpd_int_ack(struct amdgpu_device *adev,
-> > +                            int hpd)
-> > +{
-> > +   u32 tmp;
-> > +
-> > +   if (hpd >=3D adev->mode_info.num_hpd) {
-> > +           DRM_DEBUG("invalid hdp %d\n", hpd);
-> > +           return;
-> > +   }
-> > +
-> > +   tmp =3D RREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd]);
-> > +   tmp |=3D DC_HPD1_INT_CONTROL__DC_HPD1_INT_ACK_MASK;
-> > +   WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd], tmp); }
-> > +
-> >  /**
-> >   * dce_v6_0_hpd_init - hpd setup callback.
-> >   *
-> > @@ -311,6 +326,7 @@ static void dce_v6_0_hpd_init(struct
-> amdgpu_device
-> > *adev) continue;
-> >             }
-> >
-> > +           dce_v6_0_hpd_int_ack(adev,
-> > amdgpu_connector->hpd.hpd); dce_v6_0_hpd_set_polarity(adev,
-> > amdgpu_connector->hpd.hpd); amdgpu_irq_get(adev, &adev->hpd_irq,
-> > amdgpu_connector->hpd.hpd); } @@ -3088,7 +3104,7 @@ static int
-> > dce_v6_0_hpd_irq(struct amdgpu_device *adev, struct amdgpu_irq_src
-> > *source,
-> >                         struct amdgpu_iv_entry *entry)  {
-> > -   uint32_t disp_int, mask, tmp;
-> > +   uint32_t disp_int, mask;
-> >     unsigned hpd;
-> >
-> >     if (entry->src_data[0] >=3D adev->mode_info.num_hpd) { @@ -3101,9
-> > +3117,7 @@ static int dce_v6_0_hpd_irq(struct amdgpu_device *adev,
-> > mask =3D interrupt_status_offsets[hpd].hpd;
-> >
-> >     if (disp_int & mask) {
-> > -           tmp =3D RREG32(mmDC_HPD1_INT_CONTROL +
-> > hpd_offsets[hpd]);
-> > -           tmp |=3D
-> DC_HPD1_INT_CONTROL__DC_HPD1_INT_ACK_MASK;
-> > -           WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd],
-> > tmp);
-> > +           dce_v6_0_hpd_int_ack(adev, hpd);
-> >             schedule_delayed_work(&adev->hotplug_work, 0);
-> >             DRM_DEBUG("IH: HPD%d\n", hpd + 1);
-> >     }
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c index
-> > adeddfb7ff12..8ff2b5adfd95 100644 ---
-> > a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c +++
-> > b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c @@ -264,6 +264,21 @@
-> static
-> > void dce_v8_0_hpd_set_polarity(struct amdgpu_device *adev,
-> > WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd], tmp); }
-> >
-> > +static void dce_v8_0_hpd_int_ack(struct amdgpu_device *adev,
-> > +                            int hpd)
-> > +{
-> > +   u32 tmp;
-> > +
-> > +   if (hpd >=3D adev->mode_info.num_hpd) {
-> > +           DRM_DEBUG("invalid hdp %d\n", hpd);
-> > +           return;
-> > +   }
-> > +
-> > +   tmp =3D RREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd]);
-> > +   tmp |=3D DC_HPD1_INT_CONTROL__DC_HPD1_INT_ACK_MASK;
-> > +   WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd], tmp); }
-> > +
-> >  /**
-> >   * dce_v8_0_hpd_init - hpd setup callback.
-> >   *
-> > @@ -303,6 +318,7 @@ static void dce_v8_0_hpd_init(struct
-> amdgpu_device
-> > *adev) continue;
-> >             }
-> >
-> > +           dce_v8_0_hpd_int_ack(adev,
-> > amdgpu_connector->hpd.hpd); dce_v8_0_hpd_set_polarity(adev,
-> > amdgpu_connector->hpd.hpd); amdgpu_irq_get(adev, &adev->hpd_irq,
-> > amdgpu_connector->hpd.hpd); } @@ -3176,7 +3192,7 @@ static int
-> > dce_v8_0_hpd_irq(struct amdgpu_device *adev, struct amdgpu_irq_src
-> > *source,
-> >                         struct amdgpu_iv_entry *entry)  {
-> > -   uint32_t disp_int, mask, tmp;
-> > +   uint32_t disp_int, mask;
-> >     unsigned hpd;
-> >
-> >     if (entry->src_data[0] >=3D adev->mode_info.num_hpd) { @@ -3189,9
-> > +3205,7 @@ static int dce_v8_0_hpd_irq(struct amdgpu_device *adev,
-> > mask =3D interrupt_status_offsets[hpd].hpd;
-> >
-> >     if (disp_int & mask) {
-> > -           tmp =3D RREG32(mmDC_HPD1_INT_CONTROL +
-> > hpd_offsets[hpd]);
-> > -           tmp |=3D
-> DC_HPD1_INT_CONTROL__DC_HPD1_INT_ACK_MASK;
-> > -           WREG32(mmDC_HPD1_INT_CONTROL + hpd_offsets[hpd],
-> > tmp);
-> > +           dce_v8_0_hpd_int_ack(adev, hpd);
-> >             schedule_delayed_work(&adev->hotplug_work, 0);
-> >             DRM_DEBUG("IH: HPD%d\n", hpd + 1);
-> >     }
 
+> > Alex
+> >
+> >> +
+> >>          if (coredump->ring) {
+> >>                  drm_printf(&p, "\nRing timed out details\n");
+> >>                  drm_printf(&p, "IP Type: %d Ring Name: %s\n",
+> >> --
+> >> 2.34.1
+> >>
