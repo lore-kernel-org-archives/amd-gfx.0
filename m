@@ -4,114 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C26E0C54E67
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 14:50:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29D88C54E60
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 16:01:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36DBD10F4ED;
-	Thu, 14 Mar 2024 14:50:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9962410E3DD;
+	Thu, 14 Mar 2024 16:01:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2LyShoAu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MVGYrdYO";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2072.outbound.protection.outlook.com [40.107.100.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E3E610F4ED
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Mar 2024 14:50:17 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2067.outbound.protection.outlook.com [40.107.101.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E23C10E3DD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Mar 2024 16:01:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kSBz4o5TXNJEKyEp3Kta0QmotHn6P7oeX6kXxykvyC7CHsuTPc4zk1jPMEoFpWfawHBYx8NsIQnmyulodPBW7UIO1V/YUBEkLZ6uKJ4VdfSSiIW/yEiykJZD/1kkmmKuHU8i/qD0RUL1RCvr/fCXq45Q9kwz5/EnLJBfOkuzXrkGrZYFJOCjvWBfXXsRrjyImI0enyes7wdIbaDN3oqXKXNtV2k+Ez/V1fokePDAQq2LIwdFJwIi+QhdjI8Zx6rmLWlXyZClmio42/Elj9SYyKMPyN9V6cHHi3mlMip0ah05ZV+Hiry3Gavf4+rQ3DP/s9FcDOl3iwNymN7f61m7Hw==
+ b=fvHh/D4qjcrGkp7oSoM1bRHxTYTpMvs3m4l5YaG8HJC5jW/utGQ9tZLnXJifJegZs8MgvvFf8wdXZfW/y/duMvmAvgifO8y5h+c3WuH0JiSKJfWfLXw2dNaZddiYcO/cEENm/xj9dmD2mAYMcgZUzucS/b/j7Yqbk496MeiXn+BZvu8/MBYuXfGJHozRGHCbF86GwTM3VVatpGa8xziwGjjEUeDbPrhzr/cnWi5ezhHk+CCt75/R+shsKnbKtSN1Ei9XXHWeL8ZOmYSQg1EUfa6xowdtE3baJiE2SIML8MdMs6CMAACLRXv1u1Y/f+DscW+BdQb5UE/anFfCigEbqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DP55sZLSavRJcgVkSzjvwaDwA6eTlffMWwhBI6G0ND4=;
- b=mKGntT6xfX2rY53eyQaICRMbtjwRmZ7aVgv51jcy5VeKHSp0vDK1JZ8v/Tpzg1dpdmmgGcczlihRViRJRw/YFDzQibTXTtzejDnBnhVV0XUyyXqYq5FFd1GWcne74pHZKCFDXdVL5trYYB8dhrnohJrT9FnfLVGRr5RXq4oi/kabSaYzmJ/N+Bj7kz56nDMPhLWv2+EXWmrLGWI9rnwpnZzgyYR6yv3XuiwrfDrwBk2nq4V2e2eDp9C9BIIubUxhilkSfM0RwUt8cREAogIeAjrmJLzCgZm7wakHP5R7MHNl7dxqVfD+9A5j9sFADXvpXSRTuqLFWuimBkaJMAu8YQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=5bvHta5+gzpPiAZMeffP93J8j+eUaE+t9JYYiTHhLls=;
+ b=bhSritdL1J5LPhYFd5u256f5moEE7g/wtbhXK4Zy70vwnyc56U5RBi5yVee7Cf/Wy0siS9IkftS2WWZ18xturGlKBA7OuFj595abUqw6Bodo03gi7P+RRYx9qo3n4Lmmd0O4s3xbP58afLRJb7W6h7SGRh4tUgxIdamV1qXLYDnEzmJFbNycCci4coD+Cw5eKeWU20S61DZmbJPjFeeBeiTIpPfzm2r46iMzQnzaYte5m3+I3YuQ7BRZUFuMZpq7Z3SPQqtitddd/dY8SEeC25BQteYfWw/FS5HeLXgG/vElR4/wsFEuCWN+dTfGGMj8e4+KK5gHkRgZPVFZaN7zaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DP55sZLSavRJcgVkSzjvwaDwA6eTlffMWwhBI6G0ND4=;
- b=2LyShoAuORTm8DRnoXSUGoUFzh/mWktebToPPVTLstQSRhCUWq27wlctDGwq9woqc4mQWBwaLNY8WaZes8cTxcdVTRMCPn+AB+YjVizFlf6XvG6lNyDpgOkAKs/Ydb8QG327LAD0+OZNFm2Sb79Pm6cNtg5YG7C51kvMS4gY/v4=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by MN2PR12MB4094.namprd12.prod.outlook.com (2603:10b6:208:15f::23)
+ bh=5bvHta5+gzpPiAZMeffP93J8j+eUaE+t9JYYiTHhLls=;
+ b=MVGYrdYO1c2fS3sRWEY5Yh6u3AaQ5ndopJW02Wt4jdTUBMyry3I2WrTOure78/Z4M29sui89FNvuMUXu841YSacQATUHqGwXJdTkQIS31zTOb/FFDrHMpuDZcwVHusbnswf4Hm3s0h49JaREwrtE+uspqIvFNM0QCWqQbzQH2ME=
+Received: from MW4PR03CA0037.namprd03.prod.outlook.com (2603:10b6:303:8e::12)
+ by SJ2PR12MB8830.namprd12.prod.outlook.com (2603:10b6:a03:4d0::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.21; Thu, 14 Mar
- 2024 14:50:15 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::b001:1430:f089:47ae]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::b001:1430:f089:47ae%7]) with mapi id 15.20.7362.035; Thu, 14 Mar 2024
- 14:50:15 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Liang, Prike" <Prike.Liang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: correct the KGQ fallback message
-Thread-Topic: [PATCH] drm/amdgpu: correct the KGQ fallback message
-Thread-Index: AQHadSj/mOMTe4M9dUOwAkuY7NN937E3U3Gq
-Date: Thu, 14 Mar 2024 14:50:14 +0000
-Message-ID: <BL1PR12MB51442714D6C96B5F4487F84BF7292@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20240313092936.1274265-1-Prike.Liang@amd.com>
-In-Reply-To: <20240313092936.1274265-1-Prike.Liang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-03-14T14:50:14.637Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|MN2PR12MB4094:EE_
-x-ms-office365-filtering-correlation-id: a1c760da-aff8-49dc-aeb0-08dc44360ef9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: T6AV+ILzLSxeYGliBXEQFXjgSOrgRy2n7dEiiYG3g6VeO4ooHx6BGKdtltuB661/qVBiTlb4gQl9+/6GCnCt5XEJ+4Lq4OIOHv+MXsZ8KQEHOYhNPX3BpGC/kLqr0PMHaQxICYXfBIhrrDIglAPx4QMYIe92n4VnzLSbi+gWIQGrEn6xWNxy0lgMT5f/4Ttvue3+JjVidJdQs1lM3APRJw8qnAv3HWWe/pKC30l57CUpC4jiVLzF/H1b1QdEW/foQObf5OXNej2y+aHbmjxh0SP5J0x4fyzJdxAe1oh5umQshZ2yrmMldUV3TENDLkSvkVjNE88z7yIbppr9g82+cn7fSd2nef6k5CG5Tzr/WCmMBvrfaZeUtVYyPJQvAq8CmGva4l1x4/6y2TvnYcJGyrRnZ2/ltFRlvpvf9ofcK3nq/2lyqPFgrNkA0sKPUqXfvvGzNAFWhenbVaQPURmrw6ySfmfQ2RI4ug5Lz4qtzItUxtqaqyTu85Vl0ttvC2g56qWgxfTY3c2tk1N/iJzPBTvYReYl/D21/MNG8FnJKpVBSqxLHsvvH+x+7aAuubRWk5GjSUwoCYaiYiUKLZY3hlQjUGCq2y1EJWaoHGZWYyUO+T9p0OSulYVeg103XnSfrg9XObF4qyUTXAhD3J8vXE7EL1Bs6FGi5d2tj6N0EL+N20ZmoT63gfc+liw7yOxr6a/TwhQhCiljBzgzyEfXvA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(376005)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?m4Yg58qXQVMyt/NLNK58EB75W9qBulLPJ6sqoP9Vhg7dg0jPOX0TW/9kKawU?=
- =?us-ascii?Q?wIz2ayHkas/fQCTuXA+fAe7Fs76XJAb2Xd8j5I/x896RR+wlpvKXQVRdZvwg?=
- =?us-ascii?Q?hrEyru11ihLTvFQTEUhTLqIyrnX5KhquIKcv5Ndv3J4NJVzf88oiCAeddp8G?=
- =?us-ascii?Q?aIQZnzI0na3cx610EKLZ7yZfUwc0cZTtsChdxLxFWitEFM4sRRH7QRbzwINl?=
- =?us-ascii?Q?6M6uzKUcj1o6vuicnCCb7C242w1Sv1/lj+D+vNz87aFj9dNJcaQXL/bn1Jsc?=
- =?us-ascii?Q?YS6NiFE1fhY1jA4L5hHjrrQli1PWzvieg15YwdVTJrNzEDtdbIXYYwrKjs+O?=
- =?us-ascii?Q?rqkS1tQObyFNpx0F5m6FkV5UfVuwCCfS7dHaQc+hLA5IjiwE/50ypvrYt2y4?=
- =?us-ascii?Q?JVUunT7oTYNKIzl0NvlmagFFFWbcwl6ltRfq6MBjJwkPVzJ8fF4UgHbvUmQb?=
- =?us-ascii?Q?El/0p+KzPSlv9x4B+eh0CoOZxnry/0VvDjQNqEGoBrIqa4x1OxUpKvCk9lfD?=
- =?us-ascii?Q?ImSDjdpGRIWK1wRQoQE4avRxVQMi/+MYjC5UQXgD2Nui7R43a3QmpuyQgQBW?=
- =?us-ascii?Q?PsRh8Tjoqx65zL6S/wZyLY+ebK8MyZfrD3IX0bj+lDoUiwweLsBSYCp2AII8?=
- =?us-ascii?Q?hrSxDNfB42hfsBbdEi7juc4BYFw7x2KgD0V/eX2L/7W466Zj2eEESOulDSTR?=
- =?us-ascii?Q?a1aDk0E2cU56WdhiOg7QkfuMILwgU0wWnRqvhkqmlvDwOzM+8T+TuH1iWvXP?=
- =?us-ascii?Q?B83SCNZ9hyWHj6SsmFreyqM0CRlaQ2wXc4lNtfMFZwJBcEHoGqPwy1om9S++?=
- =?us-ascii?Q?ZtrtYp4pEsjyWDADQvYH0uzvI5Kg/qGC/OKgRfhscuKL8auOfvRJrW2Uxs+7?=
- =?us-ascii?Q?cb6cupTw8f81lsQvF5tk4l0+YEMl9bfbesPZV/VtQkiBfjdCnST44xnNXDlI?=
- =?us-ascii?Q?7SpDU/F5UH2AP4rlOg6TqF57BMTCknsdqD2dXztYJj7tj6qSQs0RdgclYHpD?=
- =?us-ascii?Q?R9hLvg5tZz8kOlnjLzpejPqN8TqDefWXIGetBwR5sKmc0/V4RMz+tMjp7exS?=
- =?us-ascii?Q?VatFkkrXeWyyHctFnuUPXAlPYSKiRUDqkLStnuRinNIMGpM41/ooRZM3PipN?=
- =?us-ascii?Q?IgAF5x39TE+3ipYRSz2YvtxJIiOpwkIvecQ+69t19zN6zNHG7TmqQ2HY02je?=
- =?us-ascii?Q?64mDNxVtt6y8A+FxQC8yuahq0gGcrTLCkyTQGCWnZD0gh3MOQXWyARkVjRU0?=
- =?us-ascii?Q?ErxAj1SKlHyU0hvI+qW1ciPlZAUEC/E13NoVG5kpayCHibSN3ZqDEJI6VwOj?=
- =?us-ascii?Q?7jF4IKqiiTloDIEab/pSWliLzMG9hY0TG5gX1k3MbB7hKPNmUwUsl9gj3avv?=
- =?us-ascii?Q?PppohYcB+lvyQhhgS15rbYAgWVchwgO+Pcaz7PhhUTyzfwLzHo5Isq4mgdcI?=
- =?us-ascii?Q?Y07MlvZTIWd32xdgjwvqXWuaa+mUSecECllLVG9EWlohyS8IhA4bcJkxs4Vo?=
- =?us-ascii?Q?Glo/tYoUqav9d9g1LTEsR1rIgTKQbOdVhdll5XMpGrNmWKvvl6I3CUxlTQ1z?=
- =?us-ascii?Q?K5ZR0zebs4PfYLEsWDY=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB51442714D6C96B5F4487F84BF7292BL1PR12MB5144namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.36; Thu, 14 Mar
+ 2024 16:01:15 +0000
+Received: from MWH0EPF000971E4.namprd02.prod.outlook.com
+ (2603:10b6:303:8e:cafe::aa) by MW4PR03CA0037.outlook.office365.com
+ (2603:10b6:303:8e::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.35 via Frontend
+ Transport; Thu, 14 Mar 2024 16:01:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000971E4.mail.protection.outlook.com (10.167.243.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7386.12 via Frontend Transport; Thu, 14 Mar 2024 16:01:14 +0000
+Received: from mukjoshi-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 14 Mar
+ 2024 11:01:13 -0500
+From: Mukul Joshi <mukul.joshi@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Felix.Kuehling@amd.com>, <Jay.Cornwall@amd.com>, Mukul Joshi
+ <mukul.joshi@amd.com>, Jay Cornwall <jay.cornwall@amd.com>
+Subject: [PATCH 2/2] drm/amdkfd: Check preemption status on all XCDs
+Date: Thu, 14 Mar 2024 12:00:29 -0400
+Message-ID: <20240314160029.623784-2-mukul.joshi@amd.com>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20240314160029.623784-1-mukul.joshi@amd.com>
+References: <20240314160029.623784-1-mukul.joshi@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E4:EE_|SJ2PR12MB8830:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5af3682e-82d5-4b2f-b3a1-08dc443ffa20
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MQqizTmfTQHnp6ax1d1k613Xbl33G8rpUOfud92F6uAnN8InksxViXqelpGdWR3LCKG0FY6FBqf3RXo4tScYHybD6zAIvgl93sTGyW9OpU+2uI95w6AZ5Tmwa/TBg+rihNlt4DfKvsHyallhWKPD0DlKUU+mw4LsRCEHOrOo2ZFvH9ZmpM8fCbiEWjhwuOgnHlTOlR69+hIXwYTebHS/yZSD38LgnM5+L+Kgb1m6fio92eNnq+QbztdRA89+I+3lUrU4Uz18SVAxcLw/kYBgJV9sXh2FjX0MIxSaIVctcHxvzw3qvFOId4RiU5VAu3A6qZ4f5jnOOGNhHWuhzl8qPAN5xsIK7FFZCI7iucF57dBvs/iTvrQRu7+5U3vHMf37d9YceEM7hYNbYII7PY2Wu7itUjUCQWjhfXFFZVeatR2fiMvQ8EupmbnNCYBFMQWpWFwvWBVoqijxfiMm0c2+H+WhLmnQMF46a0V4zZFsaoZBWDRObT3SKKGGwNd/5xXCBSo/LYFqbIdAOmpVIR7uXOXIvXpiBXT3o8YDTNNQurcGD4+Vzmg7ljmlUqJYsqkDS+7L3LrSWMO2WIs5/nYb5iNtCTC1UPSzojsXRzDopgU4DKUtFR9036GWGs5I+WphhAAb95Bz0e9sg5BEKlmINWSRlUrt5XcjOZWB9wB4SwnZB37s/LzluRtD4lKe7jwzO1X5gjU+hvVZuiLR1tGBajzUnQNBZDPnxX8ret1skbPSqzVBJr0geKBRuaEX14kZ
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(82310400014)(1800799015)(36860700004)(376005); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1c760da-aff8-49dc-aeb0-08dc44360ef9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Mar 2024 14:50:14.9433 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZBq73YyyvOSdg3iLu691FKW/ynCm6Xgvlus3aezqXToX93RgHwledJ5OFAQQO/n3GA++vIZ4HImgy2uek70BrQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4094
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2024 16:01:14.8280 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5af3682e-82d5-4b2f-b3a1-08dc443ffa20
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E4.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8830
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,120 +107,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB51442714D6C96B5F4487F84BF7292BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+This patch adds the following functionality:
+- Check the queue preemption status on all XCDs in a partition
+  for GFX 9.4.3.
+- Update the queue preemption debug message to print the queue
+  doorbell id for which preemption failed.
+- Change the signature of check preemption failed function to
+  return a bool instead of uint32_t and pass the MQD manager
+  as an argument.
 
-[Public]
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Liang, Prike <Prike.Liang@amd.com>
-Sent: Wednesday, March 13, 2024 5:29 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liang, Prike <Prike.Lia=
-ng@amd.com>
-Subject: [PATCH] drm/amdgpu: correct the KGQ fallback message
-
-Fix the KGQ fallback function name, as this will
-help differentiate the failure in the KCQ enablement.
-
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Suggested-by: Jay Cornwall <jay.cornwall@amd.com>
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c |  3 +--
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c  | 18 +++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h  |  4 ++-
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c  |  4 +--
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  4 +--
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c  |  4 +--
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   | 25 ++++++++++++++++---
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c   |  4 +--
+ 8 files changed, 52 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c
-index 4835d6d899e7..d95555dc5485 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -686,7 +686,7 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev, i=
-nt xcc_id)
-         r =3D amdgpu_ring_test_helper(kiq_ring);
-         spin_unlock(&kiq->ring_lock);
-         if (r)
--               DRM_ERROR("KCQ enable failed\n");
-+               DRM_ERROR("KGQ enable failed\n");
-
-         return r;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 1ce398ab0b3d..151fabf84040 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1997,8 +1997,7 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
+ 	 * check those fields
+ 	 */
+ 	mqd_mgr = dqm->mqd_mgrs[KFD_MQD_TYPE_HIQ];
+-	if (mqd_mgr->check_preemption_failed(dqm->packet_mgr.priv_queue->queue->mqd)) {
+-		dev_err(dev, "HIQ MQD's queue_doorbell_id0 is not 0, Queue preemption time out\n");
++	if (mqd_mgr->check_preemption_failed(mqd_mgr, dqm->packet_mgr.priv_queue->queue->mqd)) {
+ 		while (halt_if_hws_hang)
+ 			schedule();
+ 		return -ETIME;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+index 050a6936ff84..cbec8c87c984 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+@@ -290,3 +290,21 @@ uint64_t kfd_mqd_stride(struct mqd_manager *mm,
+ {
+ 	return mm->mqd_size;
  }
---
-2.34.1
++
++bool kfd_check_hiq_mqd_doorbell_id(struct kfd_node *node, uint32_t doorbell_id,
++				   uint32_t inst)
++{
++	if (doorbell_id) {
++		struct device *dev = node->adev->dev;
++
++		if (KFD_GC_VERSION(node) == IP_VERSION(9, 4, 3))
++			dev_err(dev, "XCC %d: Queue preemption failed for queue with doorbell_id: %x\n",
++							inst, doorbell_id);
++		else
++			dev_err(dev, "Queue preemption failed for queue with doorbell_id: %x\n",
++							doorbell_id);
++		return true;
++	}
++
++	return false;
++}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+index ba3eebb2ca6d..17cc1f25c8d0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+@@ -119,7 +119,7 @@ struct mqd_manager {
+ #if defined(CONFIG_DEBUG_FS)
+ 	int	(*debugfs_show_mqd)(struct seq_file *m, void *data);
+ #endif
+-	uint32_t (*check_preemption_failed)(void *mqd);
++	bool (*check_preemption_failed)(struct mqd_manager *mm, void *mqd);
+ 	uint64_t (*mqd_stride)(struct mqd_manager *mm,
+ 				struct queue_properties *p);
+ 
+@@ -198,4 +198,6 @@ void kfd_get_hiq_xcc_mqd(struct kfd_node *dev,
+ uint64_t kfd_hiq_mqd_stride(struct kfd_node *dev);
+ uint64_t kfd_mqd_stride(struct mqd_manager *mm,
+ 			struct queue_properties *q);
++bool kfd_check_hiq_mqd_doorbell_id(struct kfd_node *node, uint32_t doorbell_id,
++				   uint32_t inst);
+ #endif /* KFD_MQD_MANAGER_H_ */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
+index 8f9f56f7a8b0..05f3ac2eaef9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
+@@ -206,11 +206,11 @@ static void __update_mqd(struct mqd_manager *mm, void *mqd,
+ 	q->is_active = QUEUE_IS_ACTIVE(*q);
+ }
+ 
+-static uint32_t check_preemption_failed(void *mqd)
++static bool check_preemption_failed(struct mqd_manager *mm, void *mqd)
+ {
+ 	struct cik_mqd *m = (struct cik_mqd *)mqd;
+ 
+-	return m->queue_doorbell_id0;
++	return kfd_check_hiq_mqd_doorbell_id(mm->dev, m->queue_doorbell_id0, 0);
+ }
+ 
+ static void update_mqd(struct mqd_manager *mm, void *mqd,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+index d4cf7d845928..2eff37aaf827 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+@@ -224,11 +224,11 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 	q->is_active = QUEUE_IS_ACTIVE(*q);
+ }
+ 
+-static uint32_t check_preemption_failed(void *mqd)
++static bool check_preemption_failed(struct mqd_manager *mm, void *mqd)
+ {
+ 	struct v10_compute_mqd *m = (struct v10_compute_mqd *)mqd;
+ 
+-	return m->queue_doorbell_id0;
++	return kfd_check_hiq_mqd_doorbell_id(mm->dev, m->queue_doorbell_id0, 0);
+ }
+ 
+ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+index 2b9f57c267eb..68dbc0399c87 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+@@ -278,11 +278,11 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 	q->is_active = QUEUE_IS_ACTIVE(*q);
+ }
+ 
+-static uint32_t check_preemption_failed(void *mqd)
++static bool check_preemption_failed(struct mqd_manager *mm, void *mqd)
+ {
+ 	struct v11_compute_mqd *m = (struct v11_compute_mqd *)mqd;
+ 
+-	return m->queue_doorbell_id0;
++	return kfd_check_hiq_mqd_doorbell_id(mm->dev, m->queue_doorbell_id0, 0);
+ }
+ 
+ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index 7c93a0932677..6bddc16808d7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -316,11 +316,11 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ }
+ 
+ 
+-static uint32_t check_preemption_failed(void *mqd)
++static bool check_preemption_failed(struct mqd_manager *mm, void *mqd)
+ {
+ 	struct v9_mqd *m = (struct v9_mqd *)mqd;
+ 
+-	return m->queue_doorbell_id0;
++	return kfd_check_hiq_mqd_doorbell_id(mm->dev, m->queue_doorbell_id0, 0);
+ }
+ 
+ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+@@ -607,6 +607,24 @@ static int destroy_hiq_mqd_v9_4_3(struct mqd_manager *mm, void *mqd,
+ 	return err;
+ }
+ 
++static bool check_preemption_failed_v9_4_3(struct mqd_manager *mm, void *mqd)
++{
++	uint64_t hiq_mqd_size = kfd_hiq_mqd_stride(mm->dev);
++	uint32_t xcc_mask = mm->dev->xcc_mask;
++	int inst = 0, xcc_id;
++	struct v9_mqd *m;
++	bool ret = false;
++
++	for_each_inst(xcc_id, xcc_mask) {
++		m = get_mqd(mqd + hiq_mqd_size * inst);
++		ret |= kfd_check_hiq_mqd_doorbell_id(mm->dev,
++					m->queue_doorbell_id0, inst);
++		++inst;
++	}
++
++	return ret;
++}
++
+ static void get_xcc_mqd(struct kfd_mem_obj *mqd_mem_obj,
+ 			       struct kfd_mem_obj *xcc_mqd_mem_obj,
+ 			       uint64_t offset)
+@@ -881,15 +899,16 @@ struct mqd_manager *mqd_manager_init_v9(enum KFD_MQD_TYPE type,
+ #if defined(CONFIG_DEBUG_FS)
+ 		mqd->debugfs_show_mqd = debugfs_show_mqd;
+ #endif
+-		mqd->check_preemption_failed = check_preemption_failed;
+ 		if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 3)) {
+ 			mqd->init_mqd = init_mqd_hiq_v9_4_3;
+ 			mqd->load_mqd = hiq_load_mqd_kiq_v9_4_3;
+ 			mqd->destroy_mqd = destroy_hiq_mqd_v9_4_3;
++			mqd->check_preemption_failed = check_preemption_failed_v9_4_3;
+ 		} else {
+ 			mqd->init_mqd = init_mqd_hiq;
+ 			mqd->load_mqd = kfd_hiq_load_mqd_kiq;
+ 			mqd->destroy_mqd = destroy_hiq_mqd;
++			mqd->check_preemption_failed = check_preemption_failed;
+ 		}
+ 		break;
+ 	case KFD_MQD_TYPE_DIQ:
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+index dbc868e0363f..c1fafc502515 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+@@ -237,11 +237,11 @@ static void __update_mqd(struct mqd_manager *mm, void *mqd,
+ 	q->is_active = QUEUE_IS_ACTIVE(*q);
+ }
+ 
+-static uint32_t check_preemption_failed(void *mqd)
++static bool check_preemption_failed(struct mqd_manager *mm, void *mqd)
+ {
+ 	struct vi_mqd *m = (struct vi_mqd *)mqd;
+ 
+-	return m->queue_doorbell_id0;
++	return kfd_check_hiq_mqd_doorbell_id(mm->dev, m->queue_doorbell_id0, 0);
+ }
+ 
+ static void update_mqd(struct mqd_manager *mm, void *mqd,
+-- 
+2.35.1
 
-
---_000_BL1PR12MB51442714D6C96B5F4487F84BF7292BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;font=
--style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liang, Prike &lt;Prik=
-e.Liang@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, March 13, 2024 5:29 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Liang, Pri=
-ke &lt;Prike.Liang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: correct the KGQ fallback message</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Fix the KGQ fallback function name, as this will<b=
-r>
-help differentiate the failure in the KCQ enablement.<br>
-<br>
-Signed-off-by: Prike Liang &lt;Prike.Liang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 2 +-<br>
-&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c<br>
-index 4835d6d899e7..d95555dc5485 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-@@ -686,7 +686,7 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev, i=
-nt xcc_id)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ring_test_hel=
-per(kiq_ring);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock(&amp;kiq-&gt;r=
-ing_lock);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; DRM_ERROR(&quot;KCQ enable failed\n&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; DRM_ERROR(&quot;KGQ enable failed\n&quot;);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;}<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB51442714D6C96B5F4487F84BF7292BL1PR12MB5144namp_--
