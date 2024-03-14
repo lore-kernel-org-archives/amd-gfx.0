@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43366C54E69
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BB53C54E58
 	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 08:24:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A2FF10FFE5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72A9610FFE7;
 	Fri, 15 Mar 2024 08:24:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="TczOxxB9";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="lp2A1u66";
 	dkim-atps=neutral
 Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
  [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17B5B10F486;
- Thu, 14 Mar 2024 15:36:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBE4110E529;
+ Thu, 14 Mar 2024 15:23:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1710430595;
- bh=QX+7qSR8qbS3NbGcqoa/9nM94Jmg78tNOrKERGsp4wI=;
+ s=mail; t=1710429837;
+ bh=VNcT3RuFVLB5eXXbqaDWJMjkWNlBbyMqSBKU6p8wgjU=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=TczOxxB9Sb87m3f8+Xi7PtL7Vj7ThDOduyZPiA8StoUGlYKHvVPJ6rsY5VaRZjqRp
- CdRouQOBFH23EedZq+guvX11Z4+rTEvEBRb4Tl7IeeV1jj7FuCHNvu080S+4sxwwkS
- ohgk4Syd8OwenXdbLoNeLnjP8vkhVXt0zgku4HUya7SrjEoTutkCZhtttra6REehni
- SxXmoQePG+qSx5xBHX4lCKPfDyMe3mzoF7/5t7qBEvwaOYrj/UmcoS0lcbD9JE6HVk
- 3/COqW4AcLraYW7YwniGL2YIVFa1Ub0m7k8S4W9RQMBN8e2BepJqidy9WqeQU7TOSM
- hfBnancG/dmMg==
+ b=lp2A1u66JEpyrSUvs29wUITPceJmETVaB78xpcnLqIZSzr9EWBk4GtZGg/P1GugmO
+ B9/4q1Un0O3e61gY6a1il0Jkj24pr5bCoIdTLoESOxDY0hUoh8zMhonkGmy9Cq1xsp
+ aYZyTxP4ZJOEpDpNC3sAlDuPKndGeiVY1cqi3mTSt8WjO9TiaXwfP+zDlHIMlcoSRk
+ WvgPLRKRXBFF5QT8C88hh+ggt+N8p5aulDc49tHeL6sZTvIXXjG8oLxgM8j4CpPMUL
+ T144cmH6hCRHjwVKaurp38/+bcHzNNO+6ilRD62FUKZkDnMJtjMHa6DH8N0fa9R0Xs
+ BQn8Yl6iJrmJw==
 Received: from eldfell (cola.collaboradmins.com [195.201.22.229])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: pq)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 780E437820F5;
- Thu, 14 Mar 2024 15:36:35 +0000 (UTC)
-Date: Thu, 14 Mar 2024 17:36:34 +0200
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 192B1378209A;
+ Thu, 14 Mar 2024 15:23:57 +0000 (UTC)
+Date: Thu, 14 Mar 2024 17:23:39 +0200
 From: Pekka Paalanen <pekka.paalanen@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>
 Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
  <wayland-devel@lists.freedesktop.org>
-Subject: Re: [RFC PATCH v4 24/42] drm/tests: Add a few tests around drm_fixed.h
-Message-ID: <20240314173634.743be67a.pekka.paalanen@collabora.com>
-In-Reply-To: <20240226211100.100108-25-harry.wentland@amd.com>
+Subject: Re: [RFC PATCH v4 23/42] drm/vkms: add 3x4 matrix in color pipeline
+Message-ID: <20240314172339.4cbf3a7b.pekka.paalanen@collabora.com>
+In-Reply-To: <20240226211100.100108-24-harry.wentland@amd.com>
 References: <20240226211100.100108-1-harry.wentland@amd.com>
- <20240226211100.100108-25-harry.wentland@amd.com>
+ <20240226211100.100108-24-harry.wentland@amd.com>
 X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/zpAeDeeK6W8Kkey9FfQ2AyH";
+Content-Type: multipart/signed; boundary="Sig_/9Zg0taUTa7H5G5hF=l+3vTq";
  protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Fri, 15 Mar 2024 08:24:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -62,169 +62,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/zpAeDeeK6W8Kkey9FfQ2AyH
+--Sig_/9Zg0taUTa7H5G5hF=l+3vTq
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 26 Feb 2024 16:10:38 -0500
+On Mon, 26 Feb 2024 16:10:37 -0500
 Harry Wentland <harry.wentland@amd.com> wrote:
 
-> While working on the CTM implementation of VKMS I had to ascertain
-> myself of a few assumptions. One of those is whether drm_fixed.h
-> treats its numbers using signed-magnitude or twos-complement. It is
-> twos-complement.
->=20
-> In order to make someone else's day easier I am adding the
-> drm_test_int2fixp test that validates the above assumption.
->=20
-> I am also adding a test for the new sm2fixp function that converts
-> from a signed-magnitude fixed point to the twos-complement fixed
-> point.
+> We add two 3x4 matrices into the VKMS color pipeline. The reason
+> we're adding matrices is so that we can test that application
+> of a matrix and its inverse yields an output equal to the input
+> image.
+
+You will test also cases where the matrix configuration will not
+produce output equal to input, right?
+
+Otherwise one can accidentally pass the matrix test by ignoring all
+matrices.
+
+> One complication with the matrix implementation has to do with
+> the fact that the matrix entries are in signed-magnitude fixed
+> point, whereas the drm_fixed.h implementation uses 2s-complement.
+> The latter one is the one that we want for easy addition and
+> subtraction, so we convert all entries to 2s-complement.
 >=20
 > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 > ---
->  drivers/gpu/drm/tests/Makefile        |  3 +-
->  drivers/gpu/drm/tests/drm_fixp_test.c | 69 +++++++++++++++++++++++++++
->  2 files changed, 71 insertions(+), 1 deletion(-)
->  create mode 100644 drivers/gpu/drm/tests/drm_fixp_test.c
+>  drivers/gpu/drm/vkms/vkms_colorop.c  | 32 +++++++++++++++++++++++++++-
+>  drivers/gpu/drm/vkms/vkms_composer.c | 27 +++++++++++++++++++++++
+>  include/drm/drm_colorop.h            |  2 ++
+>  3 files changed, 60 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/drivers/gpu/drm/tests/Makefile b/drivers/gpu/drm/tests/Makef=
-ile
-> index d6183b3d7688..98468f7908dd 100644
-> --- a/drivers/gpu/drm/tests/Makefile
-> +++ b/drivers/gpu/drm/tests/Makefile
-> @@ -19,6 +19,7 @@ obj-$(CONFIG_DRM_KUNIT_TEST) +=3D \
->  	drm_modes_test.o \
->  	drm_plane_helper_test.o \
->  	drm_probe_helper_test.o \
-> -	drm_rect_test.o
-> +	drm_rect_test.o	\
-> +	drm_fixp_test.o
+> diff --git a/drivers/gpu/drm/vkms/vkms_colorop.c b/drivers/gpu/drm/vkms/v=
+kms_colorop.c
+> index d2db366da6d3..a0e54b2c1f7a 100644
+> --- a/drivers/gpu/drm/vkms/vkms_colorop.c
+> +++ b/drivers/gpu/drm/vkms/vkms_colorop.c
+> @@ -35,7 +35,37 @@ const int vkms_initialize_color_pipeline(struct drm_pl=
+ane *plane, struct drm_pro
 > =20
->  CFLAGS_drm_mm_test.o :=3D $(DISABLE_STRUCTLEAK_PLUGIN)
-> diff --git a/drivers/gpu/drm/tests/drm_fixp_test.c b/drivers/gpu/drm/test=
-s/drm_fixp_test.c
-> new file mode 100644
-> index 000000000000..f420f173ff66
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tests/drm_fixp_test.c
-> @@ -0,0 +1,69 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * Copyright 2022 Advanced Micro Devices, Inc.
-> + */
+>  	prev_op =3D op;
+> =20
+> -	/* 2nd op: 1d curve */
+> +	/* 2nd op: 3x4 matrix */
+> +	op =3D kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
+> +	if (!op) {
+> +		DRM_ERROR("KMS: Failed to allocate colorop\n");
+> +		return -ENOMEM;
+> +	}
 > +
-> +#include <kunit/test.h>
-> +#include <drm/drm_fixed.h>
+> +	ret =3D drm_colorop_ctm_3x4_init(dev, op, plane);
+> +	if (ret)
+> +		return ret;
 > +
-> +static void drm_test_sm2fixp(struct kunit *test)
+> +	drm_colorop_set_next_property(prev_op, op);
+> +
+> +	prev_op =3D op;
+> +
+> +	/* 3rd op: 3x4 matrix */
+> +	op =3D kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
+> +	if (!op) {
+> +		DRM_ERROR("KMS: Failed to allocate colorop\n");
+> +		return -ENOMEM;
+> +	}
+> +
+> +	ret =3D drm_colorop_ctm_3x4_init(dev, op, plane);
+> +	if (ret)
+> +		return ret;
+> +
+> +	drm_colorop_set_next_property(prev_op, op);
+> +
+> +	prev_op =3D op;
+> +
+> +	/* 4th op: 1d curve */
+>  	op =3D kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
+>  	if (!op) {
+>  		DRM_ERROR("KMS: Failed to allocate colorop\n");
+> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/=
+vkms_composer.c
+> index d2101fa55aa3..8bbfce651526 100644
+> --- a/drivers/gpu/drm/vkms/vkms_composer.c
+> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
+> @@ -164,6 +164,30 @@ static void apply_lut(const struct vkms_crtc_state *=
+crtc_state, struct line_buff
+>  	}
+>  }
+> =20
+> +static void apply_3x4_matrix(struct pixel_argb_s32 *pixel, const struct =
+drm_color_ctm_3x4 *matrix)
 > +{
-> +	KUNIT_EXPECT_EQ(test, 0x7fffffffffffffffll, ((1LL << 63) - 1));
+> +	s64 rf, gf, bf;
 > +
-> +	/* 1 */
-> +	KUNIT_EXPECT_EQ(test, drm_int2fixp(1), drm_sm2fixp(1ull << DRM_FIXED_PO=
-INT));
+> +	rf =3D drm_fixp_mul(drm_sm2fixp(matrix->matrix[0]), drm_int2fixp(pixel-=
+>r)) +
+> +	     drm_fixp_mul(drm_sm2fixp(matrix->matrix[1]), drm_int2fixp(pixel->g=
+)) +
+> +	     drm_fixp_mul(drm_sm2fixp(matrix->matrix[2]), drm_int2fixp(pixel->b=
+)) +
+> +	     drm_sm2fixp(matrix->matrix[3]);
 
-This sounds like confusing two different APIs.
-
-DRM_FIXED_POINT is for the two's complement representation, and sm is
-not.
-
-It does not look like there is a #define for the signed-magnitude UAPI
-construct, otherwise drm_color_ctm_s31_32_to_qm_n() would be using it.
-
-It's just an accident that DRM_FIXED_POINT has the right value for sm.
-
-Hm, drm_color_ctm_s31_32_to_qm_n() produces two's complement. Why not
-use that for implementing drm_sm2fixp()?
+It would be nice if the driver had its private data for the matrix
+colorop state, so it could convert the matrix only once when userspace
+sets it.
 
 
 Thanks,
 pq
 
 > +
-> +	/* -1 */
-> +	KUNIT_EXPECT_EQ(test, drm_int2fixp(-1), drm_sm2fixp((1ull << 63) | (1ul=
-l << DRM_FIXED_POINT)));
+> +	gf =3D drm_fixp_mul(drm_sm2fixp(matrix->matrix[4]), drm_int2fixp(pixel-=
+>r)) +
+> +	     drm_fixp_mul(drm_sm2fixp(matrix->matrix[5]), drm_int2fixp(pixel->g=
+)) +
+> +	     drm_fixp_mul(drm_sm2fixp(matrix->matrix[6]), drm_int2fixp(pixel->b=
+)) +
+> +	     drm_sm2fixp(matrix->matrix[7]);
 > +
-> +	/* 0.5 */
-> +	KUNIT_EXPECT_EQ(test, drm_fixp_from_fraction(1, 2), drm_sm2fixp(1ull <<=
- (DRM_FIXED_POINT - 1)));
+> +	bf =3D drm_fixp_mul(drm_sm2fixp(matrix->matrix[8]), drm_int2fixp(pixel-=
+>r)) +
+> +	     drm_fixp_mul(drm_sm2fixp(matrix->matrix[9]), drm_int2fixp(pixel->g=
+)) +
+> +	     drm_fixp_mul(drm_sm2fixp(matrix->matrix[10]), drm_int2fixp(pixel->=
+b)) +
+> +	     drm_sm2fixp(matrix->matrix[11]);
 > +
-> +	/* -0.5 */
-> +	KUNIT_EXPECT_EQ(test, drm_fixp_from_fraction(-1, 2), drm_sm2fixp((1ull =
-<< 63) | (1ull << (DRM_FIXED_POINT - 1))));
-> +
+> +	pixel->r =3D drm_fixp2int(rf);
+> +	pixel->g =3D drm_fixp2int(gf);
+> +	pixel->b =3D drm_fixp2int(bf);
 > +}
 > +
-> +static void drm_test_int2fixp(struct kunit *test)
-> +{
-> +	/* 1 */
-> +	KUNIT_EXPECT_EQ(test, 1ll << 32, drm_int2fixp(1));
-> +
-> +	/* -1 */
-> +	KUNIT_EXPECT_EQ(test, -(1ll << 32), drm_int2fixp(-1));
-> +
-> +	/* 1 + (-1) =3D 0 */
-> +	KUNIT_EXPECT_EQ(test, 0, drm_int2fixp(1) + drm_int2fixp(-1));
-> +
-> +	/* 1 / 2 */
-> +	KUNIT_EXPECT_EQ(test, 1ll << 31, drm_fixp_from_fraction(1, 2));
-> +
-> +	/* -0.5 */
-> +	KUNIT_EXPECT_EQ(test, -(1ll << 31), drm_fixp_from_fraction(-1, 2));
-> +
-> +	/* (1 / 2) + (-1) =3D 0.5 */
-> +	KUNIT_EXPECT_EQ(test, 1ll << 31, drm_fixp_from_fraction(-1, 2) + drm_in=
-t2fixp(1));
-> +
-> +	/* (1 / 2) - 1) =3D 0.5 */
-> +	KUNIT_EXPECT_EQ(test, -(1ll << 31), drm_fixp_from_fraction(1, 2) + drm_=
-int2fixp(-1));
-> +
-> +	/* (1 / 2) - 1) =3D 0.5 */
-> +	KUNIT_EXPECT_EQ(test, -(1ll << 31), drm_fixp_from_fraction(1, 2) - drm_=
-int2fixp(1));
-> +
-> +}
-> +
-> +static struct kunit_case drm_fixp_tests[] =3D {
-> +	KUNIT_CASE(drm_test_int2fixp),
-> +	KUNIT_CASE(drm_test_sm2fixp),
-> +	{ }
-> +};
-> +
-> +static struct kunit_suite drm_rect_test_suite =3D {
-> +	.name =3D "drm_fixp",
-> +	.test_cases =3D drm_fixp_tests,
-> +};
-> +
-> +kunit_test_suite(drm_rect_test_suite);
-> +
-> +MODULE_AUTHOR("AMD");
-> +MODULE_LICENSE("GPL and additional rights");
-> \ No newline at end of file
+>  static void apply_colorop(struct pixel_argb_s32 *pixel, struct drm_color=
+op *colorop)
+>  {
+>  	/* TODO is this right? */
+> @@ -185,6 +209,9 @@ static void apply_colorop(struct pixel_argb_s32 *pixe=
+l, struct drm_colorop *colo
+>  				DRM_DEBUG_DRIVER("unkown colorop 1D curve type %d\n", colorop_state-=
+>curve_1d_type);
+>  				break;
+>  		}
+> +	} else if (colorop->type =3D=3D DRM_COLOROP_CTM_3X4) {
+> +		if (colorop_state->data)
+> +			apply_3x4_matrix(pixel, (struct drm_color_ctm_3x4 *) colorop_state->d=
+ata->data);
+>  	}
+> =20
+>  }
+> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+> index 4aee29e161d6..8710e550790c 100644
+> --- a/include/drm/drm_colorop.h
+> +++ b/include/drm/drm_colorop.h
+> @@ -224,6 +224,8 @@ int drm_colorop_init(struct drm_device *dev, struct d=
+rm_colorop *colorop,
+> =20
+>  int drm_colorop_curve_1d_init(struct drm_device *dev, struct drm_colorop=
+ *colorop,
+>  			      struct drm_plane *plane, u64 supported_tfs);
+> +int drm_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_colorop =
+*colorop,
+> +			     struct drm_plane *plane);
+> =20
+>  struct drm_colorop_state *
+>  drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop);
 
 
---Sig_/zpAeDeeK6W8Kkey9FfQ2AyH
+--Sig_/9Zg0taUTa7H5G5hF=l+3vTq
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmXzGYIACgkQI1/ltBGq
-qqeQvhAAkwPoFk8RGRfQvAuZA3rgL+1fkYkbLINMYOCsI08Gxbm/A5SqHJkN9QwF
-8fRLTYgstLqQe8Xb1ZxaO6HyrSeYUyLOeGMBphFJ0EVumSnG14awQYD6yzf2hAXo
-6UMaChz7D5lpoueuwa0ZH4DDvAysy3w8WnNCOaLrOTzYgdOS8ZTuQ4+NYf1PZZi/
-hZF+qOA72jcsFxFUKKGvvkzvcYPeGmy2UkYO0xt/baTtwpJV66RkLhxbriDKFIk0
-ValOnVJEyC1K5UR17641KSfxfNyQTtPDV/q2OGy9YSwa2O985kCZeC6GtLLpMEZs
-Fpd/AbKUVV0s5bdKzmypIn8O7nw/R9/cXIpdKLI+qktYmozPP4BRuJOPYb39qbF+
-3NLBE9URMV51Hs8E+38pJQWTh2UQ8fEa4PnNBhX/Mk0vlxXQqxYT1Fcm8+HIiV7I
-1FLYdPSM7bWvdDVFbi4/yYnQbBmVWMXIVrQi+9O2QO3x7bax063llzDm7LybFjPC
-dCzwiLubcCEfWpy4Isgwj7qSH49BZXs8pFJSpZ5ObQ8e2IKRFWjCvQ3p5+egwUjN
-WU0RaH6n64J6ohcsq7MQ1IFcrlkJncU3GWa7ycaSNWxel788xtZ25/qoKWa9H4a7
-EeThiY5rl5VSrTMMQdADHhFaBt0sY1AW4zkpxGb2vzeP2/UfJT8=
-=HFG/
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmXzFnsACgkQI1/ltBGq
+qqeW2hAAkswLaQZrCXe7Zsbze3mzvHrny69Hpvsuxej/HZMCJ9b5/9YHa6S4d/M4
+7TWZpELcfMvIPMKKX+uuPCEl5jrBJ8r/dJkYxLl8ItL1hPTkPXk0kP64cI19qetL
+VrpnplA2o5pGScHvA6uVY8hbtHfd5DzyTw59BtCi6ci4Jhof4m12WLLpo6Fw6WdT
+Q1JC+0mqqdbU5Hqo+XmTIZOBv8KklksIWwGMZmnlj0V9sJ9thNKkebaFfWUR3/wu
+QFe7y/bvuMZSPZVCSJIHzvEuyCEozsT9AHulFGARgAv/60ojbSWGsdAZQWNP3DIv
+yXVgo4HqQX8PWABD7JwfCjrb5LFJTJw5E4HXyN/TYr0Hq85Ch5zx5VqF59sSca9I
+pb7W1dVn4Mo8d8envYipWPwLUzFbTry8R+3+flbG7ELVp46T7NvX0dmp/31w9qNp
+FrpXiNqIbaAhT7WkrgEEVdZjE6l3MwGxj6AJwgxck3nv7oOyLshvvVJ6v2mOKSIw
+ulY3N7pGF+q44SRlwoSdFmzNl+aA69ebpTQhjMsmqu53ZpWCAganHN8II3LjEL/I
+XW16zjrQWhCIQkK4fyAhkY3O1PQ8JyzAlmp2D4DDcAcjSpM3imJXzI8wIJv3jahT
+7oM+T3K6tfxFz9iZ4iEwvMOWJTojjZCv4j7vsOb4sb/50jhc/k8=
+=91hl
 -----END PGP SIGNATURE-----
 
---Sig_/zpAeDeeK6W8Kkey9FfQ2AyH--
+--Sig_/9Zg0taUTa7H5G5hF=l+3vTq--
