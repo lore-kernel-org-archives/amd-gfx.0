@@ -4,64 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FC87C54E60
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 13:17:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBBE8C54E67
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Mar 2024 13:18:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D8E810FB0C;
-	Thu, 14 Mar 2024 13:17:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34BBD10F9F5;
+	Thu, 14 Mar 2024 13:18:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Cd6Q8d0b";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AsYrkMqf";
 	dkim-atps=neutral
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
- [209.85.215.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 239CC10FB09
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Mar 2024 13:17:16 +0000 (UTC)
-Received: by mail-pg1-f170.google.com with SMTP id
- 41be03b00d2f7-5bdbe2de25fso690889a12.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Mar 2024 06:17:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710422235; x=1711027035; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=npN9tw7zdaaNZSnth85nlhwxRT6Vtth/2fX+UrTvoyg=;
- b=Cd6Q8d0bUzfNgwP3FNW5YbrT4qM6heKa4Zm2MBuuSxP9HBrh0g55WeRiGTCLvicMmr
- U6M5ippwvwC9kvXrh3H/aV+RaUzmsgGC5Af77rrJbfXvivZ3hW58cwX6hdsXe61CcY+K
- hFiZgfOa8HMv3HmvFYb9/SIZayPc04q+HWLqgOPGhPvUGO2cQtXNznnDbHGuvHzd0VmM
- xd3leja2Y77sKLELPkni8iw/GdR/0wMMj0kNtB2IYexHxdfDhTISwMsBOpl/jR4jHBeL
- zUM4D3nwgHYam1T5Uoi7+J75N+6Waow2Wvp8RfbWLLoG05WJmx2yl9Ajxe+nIG/28bVO
- 3LuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710422235; x=1711027035;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=npN9tw7zdaaNZSnth85nlhwxRT6Vtth/2fX+UrTvoyg=;
- b=oUiFE6o4sMYDiw7qSAWrjssFvmrrLNyQiTeY2lwqlUD+FceZ7FFopjGSGr5lOZ9uuH
- dz4Qc2GW8FLd5t3ngul0y0DHJcQuRA+7nHtS5/R+KhVjDsfxl5iO3Bg6Fotv1c2PIvPt
- bUYOMwFenRp3d3xr7QiH8IfI81YcyGd2VG4m07eL7cXQ3ouVn4oU3hLZVzfyYWCYS64n
- lLqVvLtdtpV0SxKJ15xz5JKQsi60UEYSmeOIdKIjBMkSTHEdZuMYK9FZJnmxj0Fq40tX
- EsMBBAtuYVsMyUs3LKJScS/gd6qBswUqEbTOQgJXxYKOVBGJBueDB9PL7mOvyth8L3qu
- WtIg==
-X-Gm-Message-State: AOJu0YyLXEr9VYCX9cDKLdq9XJRUeFM482nbVd1+R8r8X5H8pzsCZ7mi
- Njf5k81+eKDjHqEqaR7eOD5KJNRUcZZ949B455ZpGVF8JnynqzunFF9qizjOUrnFQTJkwSqAm88
- rqwZsFt5mVJFf26ssmixNvcJHkVtrkSWw5Tk=
-X-Google-Smtp-Source: AGHT+IEMaEzE/n22MkLwgXKID0Gr9OtY7w4VZypEFYhB0tLPLP2zt+iZwO6a6UMF4+1yAtBiUUjhKcpnXA0RUZd/nNs=
-X-Received: by 2002:a17:902:ee52:b0:1dc:a832:7e14 with SMTP id
- 18-20020a170902ee5200b001dca8327e14mr1997030plo.64.1710422235335; Thu, 14 Mar
- 2024 06:17:15 -0700 (PDT)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2044.outbound.protection.outlook.com [40.107.94.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A98710F939
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Mar 2024 13:18:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HiFGHv5AjjvwuO09fuakuR7CKFbbx+NFSJQDciyzkTsQ5LgzaBU+gM0AtsGGZy+FFPvzv0FCjq0NBnfNfN5t6erHTn7NPTJpfPq3ZJEhpFxG81HwTkwrW4ord4Qz6j28z4gDt5yKQ0DbZjVndRttpKjLRa8TKEZ5Mv0L7Qk6yiq5x1mUdFmBkGEV33L/BmYO2eUG5dQBaFxKu4uNtxaYIMaNbAb1sDmf2VdCo/2BQc/9MKkYimYQZK+lPsA6VDcWNWGxspDJyKnblVOl4rGzXigmyr7h9hr+N8o0ifCgNgX7b6XNoj3RrMnGCuuqTPXmnB0SWbYamJxSt+TK2VGhRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZWx7G5lmE2FK94/W3d2fDPb5wVr/AdjOp6NETyci38E=;
+ b=GKfq5ycfN4M1YS8h/D4YC+s9vVBAAMOYLtTk0vdkFtM+UbJ0rratK+/ep2tTckEGOuslNR5TF34jygZ85hKMXKT2C0jCWTIRO41L9L224SRTCjh8B9H24kvRWXup33p3SywIlUn1OwS8gZ5rKn/FmANgovDfrWOOjr1Dzj28+sIomk0VJ/HqrK3qm2Kqxyd9mX+sqIscPRKLpB/ZPJPIWUfc9sRksxd/dm9m1DRI70H9ev2Rt1lpdFns39k4AIZaHape0XranbzHQrViHoNdGWH9GcUZc9Lw7PHpMOU3YSy3/sYrZkUZvkcCHYlWI2jG2YUhwhvi01wVPGGhKXpXcg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZWx7G5lmE2FK94/W3d2fDPb5wVr/AdjOp6NETyci38E=;
+ b=AsYrkMqfhdlK4WDfg3Yilbmf40hDssWh9DZqslo/PS5LOG+5epDH7Ms8cfkFEkfW4NpiMpIy2P29UZIWlriEFIqJwrcVwImCb5x9wuMHeRh9O4wb9xcQcjWpvBNj7LuIKAf5Ip+oSogE1cLHjCtC+O3RuRC81t/tt+a8F+FqoeY=
+Received: from BL1P222CA0021.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::26)
+ by CY5PR12MB6453.namprd12.prod.outlook.com (2603:10b6:930:37::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.18; Thu, 14 Mar
+ 2024 13:18:45 +0000
+Received: from BL6PEPF0001AB75.namprd02.prod.outlook.com
+ (2603:10b6:208:2c7:cafe::c9) by BL1P222CA0021.outlook.office365.com
+ (2603:10b6:208:2c7::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.21 via Frontend
+ Transport; Thu, 14 Mar 2024 13:18:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB75.mail.protection.outlook.com (10.167.242.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7386.12 via Frontend Transport; Thu, 14 Mar 2024 13:18:45 +0000
+Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Thu, 14 Mar 2024 08:18:43 -0500
+From: Hawking Zhang <Hawking.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>, Kenneth Feng <Kenneth.Feng@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>
+CC: Hawking Zhang <Hawking.Zhang@amd.com>, Yang Wang <kevinyang.wang@amd.com>
+Subject: [PATCH] drm/amdgpu: Bypass display ta if display hw is not available
+Date: Thu, 14 Mar 2024 21:18:30 +0800
+Message-ID: <20240314131830.27538-1-Hawking.Zhang@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20240314103620.27165-1-Hawking.Zhang@amd.com>
-In-Reply-To: <20240314103620.27165-1-Hawking.Zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 14 Mar 2024 09:17:03 -0400
-Message-ID: <CADnq5_NmJDvia+jL1Zy97=QSnjauX-p-_61CeDmDqPhxPNeN-g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Bypass display ta if it is harvested
-To: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Kenneth Feng <Kenneth.Feng@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB75:EE_|CY5PR12MB6453:EE_
+X-MS-Office365-Filtering-Correlation-Id: eaaea7ed-da9f-4973-f4ad-08dc442946df
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RIHA3PQb6UGu+PD1esFbE4jah8TfZfCgGqVR8jMIuUe9+0tSjoKthZ6vlPSl9vXloDAY/tQ58LdboS3NN3J/cRtAUl7OVxZ7aZ47c/DGnhjf6QVDBVVI/OaqqRNqS8OWBmIycDFVYxTV7gThz9udxigtnwOY8qpzjorbgpuSjVEG+zeTm6rEAkmH+mjsiziF8htKrUHZKlL84HBzcZY7Bb2Oj4+q+gkVgDW5cd6AjnYW/jBuBRiJ8xgUmcVd9ZiUpIG6YpqyxsOmQtufUrtZ/dC0m9mf44jMcrIe8u996K9m1eSN3oAahvpkqN+pNxJTnmwLrZC5lMyrl7i91IjepkOrKfmjNU6VtEGvFiXUffbNkub6ABR/pJaCmb9O1P8eIBbAal4grxRNz44teNh5f4D1BEkwSXInmRpAjTD8uNwj3FnelL/PZdbDipQs4EASc8ausTOU9lcO3tRXGhi4U3Eb9IIIFL1odayK1I8MLUBMDM49g1cpp5Vm7Mi/c+pa19KVs4GPLpHpa1hi1KXhXynaTbnb/qk+BokJ3EaQJo7x5SdmMOhTsKbLqTt7DuaCfSJdOTsLzabyNTF28P52e7xyUoyqTpTKTFyUxUy/GE1cQUqki4juAUZqtWUkrtoc4+hAvCGSvz85NRpoRKqzHskdE5jGZ5pEJWGlhk55kE0FBj7GHkg63NAer7nVjl1XovGghxgQfFzItudQp+jCEeePXPhCNPpo9nkKTk2AFezEc49tvgls5BWkKl9p1BqJ
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(376005)(82310400014)(36860700004)(1800799015); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2024 13:18:45.2729 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eaaea7ed-da9f-4973-f4ad-08dc442946df
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB75.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6453
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,97 +105,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 14, 2024 at 6:47=E2=80=AFAM Hawking Zhang <Hawking.Zhang@amd.co=
-m> wrote:
->
-> Display TA doesn't need to be loaded/invoked if it
-> is harvested.
->
-> Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.c
-> index 867397fe2e9d..bb4988c45ca9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -1830,6 +1830,10 @@ static int psp_hdcp_initialize(struct psp_context =
-*psp)
->         if (amdgpu_sriov_vf(psp->adev))
->                 return 0;
->
-> +       /* bypass hdcp initialization if dmu is harvested */
-> +       if (psp->adev->harvest_ip_mask & AMD_HARVEST_IP_DMU_MASK)
-> +               return 0;
-> +
->         if (!psp->hdcp_context.context.bin_desc.size_bytes ||
->             !psp->hdcp_context.context.bin_desc.start_addr) {
->                 dev_info(psp->adev->dev, "HDCP: optional hdcp ta ucode is=
- not available\n");
-> @@ -1862,6 +1866,9 @@ int psp_hdcp_invoke(struct psp_context *psp, uint32=
-_t ta_cmd_id)
->         if (amdgpu_sriov_vf(psp->adev))
->                 return 0;
->
-> +       if (!psp->hdcp_context.context.initialized)
-> +               return 0;
-> +
->         return psp_ta_invoke(psp, ta_cmd_id, &psp->hdcp_context.context);
->  }
->
-> @@ -1897,6 +1904,10 @@ static int psp_dtm_initialize(struct psp_context *=
-psp)
->         if (amdgpu_sriov_vf(psp->adev))
->                 return 0;
->
-> +       /* bypass dtm initialization if dmu is harvested */
-> +       if (psp->adev->harvest_ip_mask & AMD_HARVEST_IP_DMU_MASK)
-> +               return 0;
+Do not load/invoke display TA if display hardware is not
+available
 
-I think there may be some SKUs where the display blocks are not
-harvested, but they are not used so the atombios tables are empty.
-This gets fixed up in dm_early_init() so the harvest flag should be
-set by the end of early_init.  That should come before this code gets
-called so I think we should be fine.
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-> +
->         if (!psp->dtm_context.context.bin_desc.size_bytes ||
->             !psp->dtm_context.context.bin_desc.start_addr) {
->                 dev_info(psp->adev->dev, "DTM: optional dtm ta ucode is n=
-ot available\n");
-> @@ -1929,6 +1940,9 @@ int psp_dtm_invoke(struct psp_context *psp, uint32_=
-t ta_cmd_id)
->         if (amdgpu_sriov_vf(psp->adev))
->                 return 0;
->
-> +       if (!psp->dtm_context.context.initialized)
-> +               return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 867397fe2e9d..e7d7fd2cc31d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -1830,6 +1830,10 @@ static int psp_hdcp_initialize(struct psp_context *psp)
+ 	if (amdgpu_sriov_vf(psp->adev))
+ 		return 0;
+ 
++	/* bypass hdcp initialization if dmu is harvested */
++	if (!amdgpu_device_has_display_hardware(psp->adev))
++		return 0;
++
+ 	if (!psp->hdcp_context.context.bin_desc.size_bytes ||
+ 	    !psp->hdcp_context.context.bin_desc.start_addr) {
+ 		dev_info(psp->adev->dev, "HDCP: optional hdcp ta ucode is not available\n");
+@@ -1862,6 +1866,9 @@ int psp_hdcp_invoke(struct psp_context *psp, uint32_t ta_cmd_id)
+ 	if (amdgpu_sriov_vf(psp->adev))
+ 		return 0;
+ 
++	if (!psp->hdcp_context.context.initialized)
++		return 0;
++
+ 	return psp_ta_invoke(psp, ta_cmd_id, &psp->hdcp_context.context);
+ }
+ 
+@@ -1897,6 +1904,10 @@ static int psp_dtm_initialize(struct psp_context *psp)
+ 	if (amdgpu_sriov_vf(psp->adev))
+ 		return 0;
+ 
++	/* bypass dtm initialization if dmu is harvested */
++	if (!amdgpu_device_has_display_hardware(psp->adev))
++		return 0;
++
+ 	if (!psp->dtm_context.context.bin_desc.size_bytes ||
+ 	    !psp->dtm_context.context.bin_desc.start_addr) {
+ 		dev_info(psp->adev->dev, "DTM: optional dtm ta ucode is not available\n");
+@@ -1929,6 +1940,9 @@ int psp_dtm_invoke(struct psp_context *psp, uint32_t ta_cmd_id)
+ 	if (amdgpu_sriov_vf(psp->adev))
+ 		return 0;
+ 
++	if (!psp->dtm_context.context.initialized)
++		return 0;
++
+ 	return psp_ta_invoke(psp, ta_cmd_id, &psp->dtm_context.context);
+ }
+ 
+@@ -2063,6 +2077,10 @@ static int psp_securedisplay_initialize(struct psp_context *psp)
+ 	if (amdgpu_sriov_vf(psp->adev))
+ 		return 0;
+ 
++	/* bypass securedisplay initialization if dmu is harvested */
++	if (!amdgpu_device_has_display_hardware(psp->adev))
++                return 0;
++
+ 	if (!psp->securedisplay_context.context.bin_desc.size_bytes ||
+ 	    !psp->securedisplay_context.context.bin_desc.start_addr) {
+ 		dev_info(psp->adev->dev, "SECUREDISPLAY: securedisplay ta ucode is not available\n");
+-- 
+2.17.1
 
-Doesn't the dtm_initialize function need a harvest check?
-
-> +
->         return psp_ta_invoke(psp, ta_cmd_id, &psp->dtm_context.context);
->  }
->
-> @@ -2063,6 +2077,10 @@ static int psp_securedisplay_initialize(struct psp=
-_context *psp)
->         if (amdgpu_sriov_vf(psp->adev))
->                 return 0;
->
-> +       /* bypass securedisplay initialization if dmu is harvested */
-> +       if (psp->adev->harvest_ip_mask & AMD_HARVEST_IP_DMU_MASK)
-> +                return 0;
-
-Don't we need to check if the context is initialized in
-psp_securedisplay_invoke()?
-
-> +
->         if (!psp->securedisplay_context.context.bin_desc.size_bytes ||
->             !psp->securedisplay_context.context.bin_desc.start_addr) {
->                 dev_info(psp->adev->dev, "SECUREDISPLAY: securedisplay ta=
- ucode is not available\n");
-> --
-> 2.17.1
->
