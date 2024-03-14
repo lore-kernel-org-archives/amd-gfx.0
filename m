@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B41A2C54E66
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 08:24:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43366C54E69
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 08:24:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1220610FFDF;
-	Fri, 15 Mar 2024 08:24:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A2FF10FFE5;
+	Fri, 15 Mar 2024 08:24:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="29rXDjsT";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="TczOxxB9";
 	dkim-atps=neutral
 Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
  [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2A8D10E295;
- Thu, 14 Mar 2024 16:02:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17B5B10F486;
+ Thu, 14 Mar 2024 15:36:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1710432145;
- bh=OebvIykPnKzFMgLsQYXofT9STmJeJ3CQ/dvUuXmK/2w=;
+ s=mail; t=1710430595;
+ bh=QX+7qSR8qbS3NbGcqoa/9nM94Jmg78tNOrKERGsp4wI=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=29rXDjsTaXvDSR5XeYHhZalxfUGQcTCkmIKYraxN+mMpUOTNsGt4tLgKcSqWjuncX
- mGN+0z9gOemN8cRQHvnVaYqLI04kOJj2FoCHiqjuDP2vd3qKelULGy6ef3Met5tnNO
- /9P0QM/IqIpgEUJMcOmMUx9lLRRwPjKOJaBljV9rNsIkvrzM0pgRFMvWK1k8KXpYNM
- GfKD4HT/j2USDXqaMx1UNKqV7k1FbdBQAwqHMIOLLpvVX9PmOPKTTz5+oY/wPSX72a
- tjIC1dh0pkqTLkzN8TI/jClz9DWv2Kso4sA4grPyq1GQ6owKASZbcUL/cX4A/pzSEF
- 742ZyrdQdPm3g==
+ b=TczOxxB9Sb87m3f8+Xi7PtL7Vj7ThDOduyZPiA8StoUGlYKHvVPJ6rsY5VaRZjqRp
+ CdRouQOBFH23EedZq+guvX11Z4+rTEvEBRb4Tl7IeeV1jj7FuCHNvu080S+4sxwwkS
+ ohgk4Syd8OwenXdbLoNeLnjP8vkhVXt0zgku4HUya7SrjEoTutkCZhtttra6REehni
+ SxXmoQePG+qSx5xBHX4lCKPfDyMe3mzoF7/5t7qBEvwaOYrj/UmcoS0lcbD9JE6HVk
+ 3/COqW4AcLraYW7YwniGL2YIVFa1Ub0m7k8S4W9RQMBN8e2BepJqidy9WqeQU7TOSM
+ hfBnancG/dmMg==
 Received: from eldfell (cola.collaboradmins.com [195.201.22.229])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: pq)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 7DF8B37820F5;
- Thu, 14 Mar 2024 16:02:25 +0000 (UTC)
-Date: Thu, 14 Mar 2024 18:02:23 +0200
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 780E437820F5;
+ Thu, 14 Mar 2024 15:36:35 +0000 (UTC)
+Date: Thu, 14 Mar 2024 17:36:34 +0200
 From: Pekka Paalanen <pekka.paalanen@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>
 Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
  <wayland-devel@lists.freedesktop.org>
-Subject: Re: [RFC PATCH v4 25/42] drm/vkms: Add tests for CTM handling
-Message-ID: <20240314180223.65ab8777.pekka.paalanen@collabora.com>
-In-Reply-To: <20240226211100.100108-26-harry.wentland@amd.com>
+Subject: Re: [RFC PATCH v4 24/42] drm/tests: Add a few tests around drm_fixed.h
+Message-ID: <20240314173634.743be67a.pekka.paalanen@collabora.com>
+In-Reply-To: <20240226211100.100108-25-harry.wentland@amd.com>
 References: <20240226211100.100108-1-harry.wentland@amd.com>
- <20240226211100.100108-26-harry.wentland@amd.com>
+ <20240226211100.100108-25-harry.wentland@amd.com>
 X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/lB/ul+0s_RsGEiR.Q42ykxb";
+Content-Type: multipart/signed; boundary="Sig_/zpAeDeeK6W8Kkey9FfQ2AyH";
  protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Fri, 15 Mar 2024 08:24:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -62,381 +62,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/lB/ul+0s_RsGEiR.Q42ykxb
+--Sig_/zpAeDeeK6W8Kkey9FfQ2AyH
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 26 Feb 2024 16:10:39 -0500
+On Mon, 26 Feb 2024 16:10:38 -0500
 Harry Wentland <harry.wentland@amd.com> wrote:
 
-> A whole slew of tests for CTM handling that greatly helped in
-> debugging the CTM code. The extent of tests might seem a bit
-> silly but they're fast and might someday help save someone
-> else's day when debugging this.
+> While working on the CTM implementation of VKMS I had to ascertain
+> myself of a few assumptions. One of those is whether drm_fixed.h
+> treats its numbers using signed-magnitude or twos-complement. It is
+> twos-complement.
 >=20
-> v4:
->  - Comment on origin of bt709_enc matrix (Pekka)
->  - Use full opaque alpha (Pekka)
->  - Add additional check for Y < 0xffff (Pekka)
->  - Remove unused code (Pekka)
->  - Rename red, green, blue to Y, U, V where applicable
+> In order to make someone else's day easier I am adding the
+> drm_test_int2fixp test that validates the above assumption.
+>=20
+> I am also adding a test for the new sm2fixp function that converts
+> from a signed-magnitude fixed point to the twos-complement fixed
+> point.
 >=20
 > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 > ---
->  drivers/gpu/drm/vkms/tests/vkms_color_tests.c | 251 ++++++++++++++++++
->  drivers/gpu/drm/vkms/vkms_composer.c          |   2 +-
->  2 files changed, 252 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/tests/Makefile        |  3 +-
+>  drivers/gpu/drm/tests/drm_fixp_test.c | 69 +++++++++++++++++++++++++++
+>  2 files changed, 71 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/gpu/drm/tests/drm_fixp_test.c
 >=20
-> diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_tests.c b/drivers/gpu/=
-drm/vkms/tests/vkms_color_tests.c
-> index e6ac01dee830..83d07f7bae37 100644
-> --- a/drivers/gpu/drm/vkms/tests/vkms_color_tests.c
-> +++ b/drivers/gpu/drm/vkms/tests/vkms_color_tests.c
-> @@ -3,6 +3,7 @@
->  #include <kunit/test.h>
+> diff --git a/drivers/gpu/drm/tests/Makefile b/drivers/gpu/drm/tests/Makef=
+ile
+> index d6183b3d7688..98468f7908dd 100644
+> --- a/drivers/gpu/drm/tests/Makefile
+> +++ b/drivers/gpu/drm/tests/Makefile
+> @@ -19,6 +19,7 @@ obj-$(CONFIG_DRM_KUNIT_TEST) +=3D \
+>  	drm_modes_test.o \
+>  	drm_plane_helper_test.o \
+>  	drm_probe_helper_test.o \
+> -	drm_rect_test.o
+> +	drm_rect_test.o	\
+> +	drm_fixp_test.o
 > =20
->  #include <drm/drm_fixed.h>
-> +#include <drm/drm_mode.h>
-> =20
->  #define TEST_LUT_SIZE 16
-> =20
-> @@ -181,11 +182,261 @@ static void vkms_color_srgb_inv_srgb(struct kunit =
-*test)
->  	}
->  }
-> =20
-> +#define FIXPT_HALF        (DRM_FIXED_ONE >> 1)
-> +#define FIXPT_QUARTER     (DRM_FIXED_ONE >> 2)
-> +
-> +const struct drm_color_ctm_3x4 test_matrix_3x4_50_desat =3D { {
-> +	FIXPT_HALF, FIXPT_QUARTER, FIXPT_QUARTER, 0,
-> +	FIXPT_QUARTER, FIXPT_HALF, FIXPT_QUARTER, 0,
-> +	FIXPT_QUARTER, FIXPT_QUARTER, FIXPT_HALF, 0
-
-These are supposed to be sign-magnitude, not fixed-point, to my
-understanding. It just happens that these specific values have the same
-bit pattern in both representations.
-
-
-> +} };
-> +
-> +static void vkms_color_ctm_3x4_50_desat(struct kunit *test)
-> +{
-> +	struct pixel_argb_s32 ref, out;
-> +
-> +	/* full white */
-> +	ref.a =3D 0xffff;
-> +	ref.r =3D 0xffff;
-> +	ref.g =3D 0xffff;
-> +	ref.b =3D 0xffff;
-> +
-> +	memcpy(&out, &ref, sizeof(out));
-> +	apply_3x4_matrix(&out, &test_matrix_3x4_50_desat);
-> +
-> +	KUNIT_EXPECT_MEMEQ(test, &ref, &out, sizeof(out));
-> +
-> +	/* full black */
-> +	ref.a =3D 0xffff;
-> +	ref.r =3D 0x0;
-> +	ref.g =3D 0x0;
-> +	ref.b =3D 0x0;
-> +
-> +	memcpy(&out, &ref, sizeof(out));
-> +	apply_3x4_matrix(&out, &test_matrix_3x4_50_desat);
-> +
-> +	KUNIT_EXPECT_MEMEQ(test, &ref, &out, sizeof(out));
-> +
-> +	/* 50% grey */
-> +	ref.a =3D 0xffff;
-> +	ref.r =3D 0x8000;
-> +	ref.g =3D 0x8000;
-> +	ref.b =3D 0x8000;
-> +
-> +	memcpy(&out, &ref, sizeof(out));
-> +	apply_3x4_matrix(&out, &test_matrix_3x4_50_desat);
-> +
-> +	KUNIT_EXPECT_MEMEQ(test, &ref, &out, sizeof(out));
-> +
-> +	/* full red to 50% desat */
-> +	ref.a =3D 0xffff;
-> +	ref.r =3D 0x7fff;
-> +	ref.g =3D 0x3fff;
-> +	ref.b =3D 0x3fff;
-> +
-> +	out.a =3D 0xffff;
-> +	out.r =3D 0xffff;
-> +	out.g =3D 0x0;
-> +	out.b =3D 0x0;
-> +
-> +	apply_3x4_matrix(&out, &test_matrix_3x4_50_desat);
-> +
-> +	KUNIT_EXPECT_MEMEQ(test, &ref, &out, sizeof(out));
-> +}
-> +
+>  CFLAGS_drm_mm_test.o :=3D $(DISABLE_STRUCTLEAK_PLUGIN)
+> diff --git a/drivers/gpu/drm/tests/drm_fixp_test.c b/drivers/gpu/drm/test=
+s/drm_fixp_test.c
+> new file mode 100644
+> index 000000000000..f420f173ff66
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tests/drm_fixp_test.c
+> @@ -0,0 +1,69 @@
+> +// SPDX-License-Identifier: MIT
 > +/*
-> + * BT.709 encoding matrix
-> + *
-> + * Values printed from within IGT when converting
-> + * igt_matrix_3x4_bt709_enc to the fixed-point format expected
-> + * by DRM/KMS.
-
-Shouldn't that be sign-magnitude, not fixed point?
-
-I was hoping to get a reference to a spec like BT.709 and a formula for
-getting the blow out of it. IGT can change over time, and I don't know
-where IGT for that matrix from.
-
-But ok, this is a test with an arbitrary matrix, not necessarily the
-BT.709 matrix specifically.
-
-Btw. which BT.709 matrix is this? YUV->RGB, RGB->XYZ, or the inverse of
-one of those? Limited or full quantization range?
-
-Judging by the tests, I guess RGB->YUV full range.
-
+> + * Copyright 2022 Advanced Micro Devices, Inc.
 > + */
-> +const struct drm_color_ctm_3x4 test_matrix_3x4_bt709_enc =3D { {
-> +	0x00000000366cf400ull, 0x00000000b7175900ull, 0x0000000127bb300ull, 0,
-> +	0x800000001993b3a0ull, 0x800000005609fe80ull, 0x000000006f9db200ull, 0,
-> +	0x000000009d70a400ull, 0x800000008f011100ull, 0x800000000e6f9330ull, 0
-> +} };
 > +
-> +static void vkms_color_ctm_3x4_bt709(struct kunit *test)
+> +#include <kunit/test.h>
+> +#include <drm/drm_fixed.h>
+> +
+> +static void drm_test_sm2fixp(struct kunit *test)
 > +{
-> +	struct pixel_argb_s32 out;
+> +	KUNIT_EXPECT_EQ(test, 0x7fffffffffffffffll, ((1LL << 63) - 1));
 > +
-> +	/* full white to bt709 */
-> +	out.a =3D 0xffff;
-> +	out.r =3D 0xffff;
-> +	out.g =3D 0xffff;
-> +	out.b =3D 0xffff;
-> +
-> +	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-> +
-> +	/* Y 255 */
-> +	KUNIT_EXPECT_GT(test, out.r, 0xfe00);
-> +	KUNIT_EXPECT_LT(test, out.r, 0x10000);
-> +
-> +	/* U 0 */
-> +	KUNIT_EXPECT_LT(test, out.g, 0x0100);
+> +	/* 1 */
+> +	KUNIT_EXPECT_EQ(test, drm_int2fixp(1), drm_sm2fixp(1ull << DRM_FIXED_PO=
+INT));
 
-For all of these U/V too, you may want to enforce a range. The value
-must be approximately 0x100. Something like 0x17 would very wrong.
+This sounds like confusing two different APIs.
 
-Hmm, wait...
+DRM_FIXED_POINT is for the two's complement representation, and sm is
+not.
 
-Neutral color should have U and V neutral, that is, zero, right? So
-what is zero in this integer representation?
+It does not look like there is a #define for the signed-magnitude UAPI
+construct, otherwise drm_color_ctm_s31_32_to_qm_n() would be using it.
 
-You don't seem to be testing negative U or V...
+It's just an accident that DRM_FIXED_POINT has the right value for sm.
+
+Hm, drm_color_ctm_s31_32_to_qm_n() produces two's complement. Why not
+use that for implementing drm_sm2fixp()?
 
 
 Thanks,
 pq
 
 > +
-> +	/* V 0 */
-> +	KUNIT_EXPECT_LT(test, out.b, 0x0100);
+> +	/* -1 */
+> +	KUNIT_EXPECT_EQ(test, drm_int2fixp(-1), drm_sm2fixp((1ull << 63) | (1ul=
+l << DRM_FIXED_POINT)));
 > +
-> +	/* full black to bt709 */
-> +	out.a =3D 0xffff;
-> +	out.r =3D 0x0;
-> +	out.g =3D 0x0;
-> +	out.b =3D 0x0;
+> +	/* 0.5 */
+> +	KUNIT_EXPECT_EQ(test, drm_fixp_from_fraction(1, 2), drm_sm2fixp(1ull <<=
+ (DRM_FIXED_POINT - 1)));
 > +
-> +	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-> +
-> +	/* Y 0 */
-> +	KUNIT_EXPECT_LT(test, out.r, 0x100);
-> +
-> +	/* U 0 */
-> +	KUNIT_EXPECT_LT(test, out.g, 0x0100);
-> +
-> +	/* V 0 */
-> +	KUNIT_EXPECT_LT(test, out.b, 0x0100);
-> +
-> +	/* gray to bt709 */
-> +	out.a =3D 0xffff;
-> +	out.r =3D 0x7fff;
-> +	out.g =3D 0x7fff;
-> +	out.b =3D 0x7fff;
-> +
-> +	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-> +
-> +	/* Y 127 */
-> +	KUNIT_EXPECT_GT(test, out.r, 0x7e00);
-> +	KUNIT_EXPECT_LT(test, out.r, 0x8000);
-> +
-> +	/* U 0 */
-> +	KUNIT_EXPECT_LT(test, out.g, 0x0100);
-> +
-> +	/* V 0 */
-> +	KUNIT_EXPECT_LT(test, out.b, 0x0100);
-> +
-> +	/* =3D=3D red 255 - bt709 enc =3D=3D */
-> +	out.a =3D 0xffff;
-> +	out.r =3D 0xffff;
-> +	out.g =3D 0x0;
-> +	out.b =3D 0x0;
-> +
-> +	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-> +
-> +	/* Y 54 */
-> +	KUNIT_EXPECT_GT(test, out.r, 0x3500);
-> +	KUNIT_EXPECT_LT(test, out.r, 0x3700);
-> +
-> +	/* U 0 */
-> +	KUNIT_EXPECT_LT(test, out.g, 0x0100);
-> +
-> +	/* V 157 */
-> +	KUNIT_EXPECT_GT(test, out.b, 0x9C00);
-> +	KUNIT_EXPECT_LT(test, out.b, 0x9E00);
-> +
-> +
-> +	/* =3D=3D green 255 - bt709 enc =3D=3D */
-> +	out.a =3D 0xffff;
-> +	out.r =3D 0x0;
-> +	out.g =3D 0xffff;
-> +	out.b =3D 0x0;
-> +
-> +	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-> +
-> +	/* Y 182 */
-> +	KUNIT_EXPECT_GT(test, out.r, 0xB500);
-> +	KUNIT_EXPECT_LT(test, out.r, 0xB780); /* laxed by half*/
-> +
-> +	/* U 0 */
-> +	KUNIT_EXPECT_LT(test, out.g, 0x0100);
-> +
-> +	/* V 0 */
-> +	KUNIT_EXPECT_LT(test, out.b, 0x0100);
-> +
-> +	/* =3D=3D blue 255 - bt709 enc =3D=3D */
-> +	out.a =3D 0xffff;
-> +	out.r =3D 0x0;
-> +	out.g =3D 0x0;
-> +	out.b =3D 0xffff;
-> +
-> +	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-> +
-> +	/* Y 18 */
-> +	KUNIT_EXPECT_GT(test, out.r, 0x1100);
-> +	KUNIT_EXPECT_LT(test, out.r, 0x1300);
-> +
-> +	/* U 111 */
-> +	KUNIT_EXPECT_GT(test, out.g, 0x6E00);
-> +	KUNIT_EXPECT_LT(test, out.g, 0x7000);
-> +
-> +	/* V 0 */
-> +	KUNIT_EXPECT_LT(test, out.b, 0x0100);
-> +
-> +	/* =3D=3D red 140 - bt709 enc =3D=3D */
-> +	out.a =3D 0xffff;
-> +	out.r =3D 0x8c8c;
-> +	out.g =3D 0x0;
-> +	out.b =3D 0x0;
-> +
-> +	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-> +
-> +	/* Y 30 */
-> +	KUNIT_EXPECT_GT(test, out.r, 0x1D00);
-> +	KUNIT_EXPECT_LT(test, out.r, 0x1F00);
-> +
-> +	/* U 0 */
-> +	KUNIT_EXPECT_LT(test, out.g, 0x100);
-> +
-> +	/* V 87 */
-> +	KUNIT_EXPECT_GT(test, out.b, 0x5600);
-> +	KUNIT_EXPECT_LT(test, out.b, 0x5800);
-> +
-> +	/* =3D=3D green 140 - bt709 enc =3D=3D */
-> +	out.a =3D 0xffff;
-> +	out.r =3D 0x0;
-> +	out.g =3D 0x8c8c;
-> +	out.b =3D 0x0;
-> +
-> +	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-> +
-> +	/* Y 30 */
-> +	KUNIT_EXPECT_GT(test, out.r, 0x6400);
-> +	KUNIT_EXPECT_LT(test, out.r, 0x6600);
-> +
-> +	/* U 0 */
-> +	KUNIT_EXPECT_LT(test, out.g, 0x100);
-> +
-> +	/* V 0 */
-> +	KUNIT_EXPECT_LT(test, out.b, 0x100);
-> +
-> +
-> +	/* =3D=3D blue 140 - bt709 enc =3D=3D */
-> +	out.a =3D 0xffff;
-> +	out.r =3D 0x0;
-> +	out.g =3D 0x0;
-> +	out.b =3D 0x8c8c;
-> +
-> +	apply_3x4_matrix(&out, &test_matrix_3x4_bt709_enc);
-> +
-> +	/* Y 30 */
-> +	KUNIT_EXPECT_GT(test, out.r, 0x900);
-> +	KUNIT_EXPECT_LT(test, out.r, 0xB00);
-> +
-> +	/* U 61 */
-> +	KUNIT_EXPECT_GT(test, out.g, 0x3C00);
-> +	KUNIT_EXPECT_LT(test, out.g, 0x3E00);
-> +
-> +	/* V 0 */
-> +	KUNIT_EXPECT_LT(test, out.b, 0x100);
+> +	/* -0.5 */
+> +	KUNIT_EXPECT_EQ(test, drm_fixp_from_fraction(-1, 2), drm_sm2fixp((1ull =
+<< 63) | (1ull << (DRM_FIXED_POINT - 1))));
 > +
 > +}
 > +
->  static struct kunit_case vkms_color_test_cases[] =3D {
->  	KUNIT_CASE(vkms_color_test_get_lut_index),
->  	KUNIT_CASE(vkms_color_test_lerp),
->  	KUNIT_CASE(vkms_color_test_linear),
->  	KUNIT_CASE(vkms_color_srgb_inv_srgb),
-> +	KUNIT_CASE(vkms_color_ctm_3x4_50_desat),
-> +	KUNIT_CASE(vkms_color_ctm_3x4_bt709),
->  	{}
->  };
-> =20
-> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/=
-vkms_composer.c
-> index 8bbfce651526..2c5715242f91 100644
-> --- a/drivers/gpu/drm/vkms/vkms_composer.c
-> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
-> @@ -164,7 +164,7 @@ static void apply_lut(const struct vkms_crtc_state *c=
-rtc_state, struct line_buff
->  	}
->  }
-> =20
-> -static void apply_3x4_matrix(struct pixel_argb_s32 *pixel, const struct =
-drm_color_ctm_3x4 *matrix)
-> +void apply_3x4_matrix(struct pixel_argb_s32 *pixel, const struct drm_col=
-or_ctm_3x4 *matrix)
->  {
->  	s64 rf, gf, bf;
-> =20
+> +static void drm_test_int2fixp(struct kunit *test)
+> +{
+> +	/* 1 */
+> +	KUNIT_EXPECT_EQ(test, 1ll << 32, drm_int2fixp(1));
+> +
+> +	/* -1 */
+> +	KUNIT_EXPECT_EQ(test, -(1ll << 32), drm_int2fixp(-1));
+> +
+> +	/* 1 + (-1) =3D 0 */
+> +	KUNIT_EXPECT_EQ(test, 0, drm_int2fixp(1) + drm_int2fixp(-1));
+> +
+> +	/* 1 / 2 */
+> +	KUNIT_EXPECT_EQ(test, 1ll << 31, drm_fixp_from_fraction(1, 2));
+> +
+> +	/* -0.5 */
+> +	KUNIT_EXPECT_EQ(test, -(1ll << 31), drm_fixp_from_fraction(-1, 2));
+> +
+> +	/* (1 / 2) + (-1) =3D 0.5 */
+> +	KUNIT_EXPECT_EQ(test, 1ll << 31, drm_fixp_from_fraction(-1, 2) + drm_in=
+t2fixp(1));
+> +
+> +	/* (1 / 2) - 1) =3D 0.5 */
+> +	KUNIT_EXPECT_EQ(test, -(1ll << 31), drm_fixp_from_fraction(1, 2) + drm_=
+int2fixp(-1));
+> +
+> +	/* (1 / 2) - 1) =3D 0.5 */
+> +	KUNIT_EXPECT_EQ(test, -(1ll << 31), drm_fixp_from_fraction(1, 2) - drm_=
+int2fixp(1));
+> +
+> +}
+> +
+> +static struct kunit_case drm_fixp_tests[] =3D {
+> +	KUNIT_CASE(drm_test_int2fixp),
+> +	KUNIT_CASE(drm_test_sm2fixp),
+> +	{ }
+> +};
+> +
+> +static struct kunit_suite drm_rect_test_suite =3D {
+> +	.name =3D "drm_fixp",
+> +	.test_cases =3D drm_fixp_tests,
+> +};
+> +
+> +kunit_test_suite(drm_rect_test_suite);
+> +
+> +MODULE_AUTHOR("AMD");
+> +MODULE_LICENSE("GPL and additional rights");
+> \ No newline at end of file
 
 
---Sig_/lB/ul+0s_RsGEiR.Q42ykxb
+--Sig_/zpAeDeeK6W8Kkey9FfQ2AyH
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmXzH5AACgkQI1/ltBGq
-qqfFqhAAr0AiOdy/HOICE0PXjQKjyRXAaNot7DUhuQoJSQRxn9GjINFQXHLHL6eA
-On9XjRidYCvlVs5tj9qCC0/1oZjvg1dML6G3E2fp2WDQWHdGaBiWt0JoZj4VniLE
-QshBkrMmQBb05ITRzxkxRPyR6eRWJOomXkpHqL/U75oWnuwFJQqKT2ixvocbji3v
-YpesxMGTSXag0G0o2nvJmLdApD/y6Heo6WvJQBW/7SL6IfGENzvrJ/QDMA4lAQNf
-HYfFOzH6KqNlBQj5TOgGBKSJBzM7ZQ9pbwBfd5ZVg6Dhk6mVcQdo0IXw+IjI4o7u
-Ose04PN9PWLaQgJAOUfz9J1Bxo/Bx+OgTpsu14npvPj886ejmCAgOnDqZWb+/icL
-N2oozekELf3d67Ciwdkavm3seAvEsTxZ94JniraoSrHCsdFgSESkLIHZ9Q4CJU/X
-/eVJrIxw8WkVk3W4V2eNzeaC5kgHbvmW/EE30+ZK8tdV21YAbif/TGgwUsISpi+R
-U0V60hhzzxABCPe/tFOL0DuqZn9MhumpOJJIu4+qdgU6BhL2DfV8jQBV9pKDls+h
-JNAyuG/SHVWTlVbvP1D/ODAQgEanqhnJd77SFPTJYo5457oe2PsqMwPvwF4/fR+9
-uGCnaBK8yntCyR49ZHtpmgIyCYZ+5zGAd0XB77yTImhVv/aX9jo=
-=Fj1L
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmXzGYIACgkQI1/ltBGq
+qqeQvhAAkwPoFk8RGRfQvAuZA3rgL+1fkYkbLINMYOCsI08Gxbm/A5SqHJkN9QwF
+8fRLTYgstLqQe8Xb1ZxaO6HyrSeYUyLOeGMBphFJ0EVumSnG14awQYD6yzf2hAXo
+6UMaChz7D5lpoueuwa0ZH4DDvAysy3w8WnNCOaLrOTzYgdOS8ZTuQ4+NYf1PZZi/
+hZF+qOA72jcsFxFUKKGvvkzvcYPeGmy2UkYO0xt/baTtwpJV66RkLhxbriDKFIk0
+ValOnVJEyC1K5UR17641KSfxfNyQTtPDV/q2OGy9YSwa2O985kCZeC6GtLLpMEZs
+Fpd/AbKUVV0s5bdKzmypIn8O7nw/R9/cXIpdKLI+qktYmozPP4BRuJOPYb39qbF+
+3NLBE9URMV51Hs8E+38pJQWTh2UQ8fEa4PnNBhX/Mk0vlxXQqxYT1Fcm8+HIiV7I
+1FLYdPSM7bWvdDVFbi4/yYnQbBmVWMXIVrQi+9O2QO3x7bax063llzDm7LybFjPC
+dCzwiLubcCEfWpy4Isgwj7qSH49BZXs8pFJSpZ5ObQ8e2IKRFWjCvQ3p5+egwUjN
+WU0RaH6n64J6ohcsq7MQ1IFcrlkJncU3GWa7ycaSNWxel788xtZ25/qoKWa9H4a7
+EeThiY5rl5VSrTMMQdADHhFaBt0sY1AW4zkpxGb2vzeP2/UfJT8=
+=HFG/
 -----END PGP SIGNATURE-----
 
---Sig_/lB/ul+0s_RsGEiR.Q42ykxb--
+--Sig_/zpAeDeeK6W8Kkey9FfQ2AyH--
