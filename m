@@ -4,92 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA98BC54E67
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 16:01:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B814C54E67
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 16:22:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A9B311231F;
-	Fri, 15 Mar 2024 16:01:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 034D6112357;
+	Fri, 15 Mar 2024 16:22:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fgDvdL+X";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="btmr0ymH";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2049.outbound.protection.outlook.com [40.107.223.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF10411231F
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 16:01:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RPzPFmrmJYpoKBTSQo+aCgPjlBq2SdNXRR1ch8qupr/HO+1mXElUlkxr/iKhYkhIoza+bc/VrR2azHGxFo6PqbhxADKA/yIfMU1p5/KDuMU+XSwLAjxpr2a/kIMHVTwjSdeAj67bVlifCIooKz+t4ifYYqoSAnHbg4YXaFWdOiVdJgITKZu894ncjH8dHLuc7aeCpSzv0VX2Gj6aYSz0s4Qj+f/SBKVfRBNOn9ey9yJ2LIhEEqBjYsIGlI8JMn7AuuNaClYsy63/lT4kKKT2wVLDlB6POCTs6yCAClR2C8Lm94UsBo7tiSK55KVEsY/0iehbQqXb4ogibWPmlKJG5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UFq6Fu/ipEqXvnAbokKf+DlkGsbpelwVmnPvsqj8zkA=;
- b=cgAXi9hcCNCDcIF1K3fLM6tv5hzaHRi8orbMG7Zi1uOTMyOQy4DrkrTSW+i1lioPIMUkY+7EJ6fGb4Xn9jXSKETz7u1qx7Gw+GO5PItNVjsPXZGTu8Z7IRVQKTVJjNut4UNFI5og4GrWApOSc3ckMOP4ZHY9OmkIxkK/IW2Cq6MS7TnJjF/mvoyUYd1FMsDA3DbumV2Kbl2rZ2C8dZ50wrK7pcwwDj7q4Xgw8cALYKcu1ZksblGYcLh+RcY2UdHN9AQOPwTxIdkaX5PBidRMhYlV58H2Ql+jY2XET6IYiU+bZHYG/IgXTdO37n8OhcGBaEI4N1dMMoah29ldBoMe5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UFq6Fu/ipEqXvnAbokKf+DlkGsbpelwVmnPvsqj8zkA=;
- b=fgDvdL+XRom2Q/+rawJEJJP3D1x40aRwvsWbAMzJa3XbCHqz1ZdNEwsTKHSae/BcOK2M7fiCv2So+S8YFPJO+smO5rhI9rE1197JANRgnpmiaZJvhB1/g/HpKCW4L6qGiqOjYEthdxGj6MrlqqL4wNBnbFPYsRiyLHR9UMqKdnc=
-Received: from BLAPR05CA0010.namprd05.prod.outlook.com (2603:10b6:208:36e::19)
- by PH7PR12MB6587.namprd12.prod.outlook.com (2603:10b6:510:211::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.20; Fri, 15 Mar
- 2024 16:01:24 +0000
-Received: from BL6PEPF0001AB56.namprd02.prod.outlook.com
- (2603:10b6:208:36e:cafe::ad) by BLAPR05CA0010.outlook.office365.com
- (2603:10b6:208:36e::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.8 via Frontend
- Transport; Fri, 15 Mar 2024 16:01:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB56.mail.protection.outlook.com (10.167.241.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7386.12 via Frontend Transport; Fri, 15 Mar 2024 16:01:24 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 15 Mar
- 2024 11:01:23 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] Documentation: add a page on amdgpu debugging
-Date: Fri, 15 Mar 2024 12:01:08 -0400
-Message-ID: <20240315160108.2595995-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.44.0
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6218411221B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 15:26:18 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-33d38c9ca5bso1164872f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 08:26:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1710516376; x=1711121176; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=YaYrSpOckt716kWLIWQKm3OppZY/2t/QcB9ou2RNxFs=;
+ b=btmr0ymHfzbwl7h5MbGA1JWYulSORPSgTEHHxuXkEW2rNkVpdM75k9nwt9+PAw9bVr
+ JXHZlJ8XXKINnM+qZ+VsMWMALRncU4Fdck82bUlkf0faJ6BWZQaejWwWAQYwFLe5kbhM
+ 61W8Vz6VYWzOtOGofTw2HSH41NCIgN/q8S91nW51KxC4E1aEM7RjxyrTzEURYzWH3M5h
+ fs7EQpcZjTgaYEzyHbsS6b8smXpqf7uYQP/Qm/TBA9yVenU9di8JxXBZQK2OQt2aGH/+
+ kpjpkFiPdbXfDhuoll5D5QjdgMfVWpPf9Jqh1TNgfMYMdbEVReaMHDqlwmRA80sJYk3s
+ nwyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710516376; x=1711121176;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=YaYrSpOckt716kWLIWQKm3OppZY/2t/QcB9ou2RNxFs=;
+ b=czyhGN/zq9L5VmtpCsTOAcpPO1oec5S5HzamIvCe+hPywlTUQBJ0IaaY8ao+tvZj2o
+ VeeMbzFUD5J18xthEvsTMIOCcLAKnhE+8xqGfkiEK+pCibgpfqnfmDa+PZQ4RBdHewwa
+ AJxVIpQqnUiqYI8D1SywvYn922IrP1ZS86BXdOvWbNYQ4OPq9J9oi6uui0ZKU0/Rfpsf
+ A+/kpntPYPn8i+jg0zBFHjNmpVr0S1AM/EkzFQwQeyGr4gN4PNk4X8mCIiAr8NDYsiwZ
+ N2GzsaM7AhwOXWRu2NgIQCCQdOkkB5U/cRDSU2sggBHmotRjW0tGZrIU3KiGF+xUF8j0
+ UgDA==
+X-Gm-Message-State: AOJu0YyJllQNLv9Q5kqUSK5EpqCvpae22m15mkNCYqiUqF72G28rxHVO
+ XZZJQB07nej/6MwBO0wpPmdKH5Us//1OotR4MYxBFOkvYsEYrOwUG1tKIGvy6mo=
+X-Google-Smtp-Source: AGHT+IFF5uqlmyrTxw34wmMSKcj0yjMLnHk5yjNQC+z23LSo5AiPIQ3hNVJyoYxoGGncOjK9lrJUJw==
+X-Received: by 2002:adf:a395:0:b0:33e:1f2a:d88a with SMTP id
+ l21-20020adfa395000000b0033e1f2ad88amr3635419wrb.69.1710516376345; 
+ Fri, 15 Mar 2024 08:26:16 -0700 (PDT)
+Received: from localhost ([102.222.70.76]) by smtp.gmail.com with ESMTPSA id
+ s15-20020adfeccf000000b0033e9e26a2d0sm3411152wro.37.2024.03.15.08.26.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Mar 2024 08:26:15 -0700 (PDT)
+Date: Fri, 15 Mar 2024 18:26:12 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: nicholas.kazlauskas@amd.com
+Cc: amd-gfx@lists.freedesktop.org
+Subject: [bug report] drm/amd/display: Add debug counters to IPS exit prints
+Message-ID: <9855fbc4-344c-41b1-b767-d4f0b71b88a0@moroto.mountain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB56:EE_|PH7PR12MB6587:EE_
-X-MS-Office365-Filtering-Correlation-Id: 04311480-97e7-4bb5-0d4b-08dc45092a13
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sVCu+gAV/0U+/rmJLc3W1yZ+Wo3exCZrud4LvT5J0csZdZShzsoY8K17eTdeK3DmMgPBsJYShB/aDcQL3JdAdJX16jDkARdnOTeB07JLj6MMrqLTHg2L5jiAu0LBGgag492mUaVTnpo5JwWowRpCcp7nDLyaWjBxg40tinJa1qscHfsxxmUCAcM1ZUP/UI6FSytb2+ftrmksJgJqRlemQK9RIZpj36Pc++1Aj/aTmypMrN7eCwPx3XOQVVbkape9LGWbuG61cLtaMj9oLYwycA2hyuuzyKACBtlNhvyX7I6RsJ3uYfY78gH0jvbXhBH8ngZ0on2hk8oSn4zVAbUbE0eoPOnEk69+URMz15XAEwdteSuROPhIQw/2q6N+cPByobOt97bBMn4fAdPO+sjxSR1gbg087J5w6EBDZnG5AJNceLtu4yZufWc/+IS3Wdntypa6VdL964eQvghObywOrX2+DswNgy58wg7zwCJbWLyG1jJmOaHk7/PyZ7scbkos1sVbfazk+uBkdwGSpPO1+CLvnL0PIgGqZERCd7kxuk57DIz/tVgNf71D3uFBlT2Ewf74UHJJt5W8IROkWro5kQzR7q0ZyQ2xIkHTKlwE1Y6pA0RXmAIljvqVRYfFS0gxdTjGLsHM/v7mSULj4gNugK0rs4iTzumgwSQaRHOtsKf/iyzDlq8nrCxP1BDEtUl7aRs3ab3qnxz5E46ynkPatA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(82310400014)(36860700004)(376005); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2024 16:01:24.2212 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04311480-97e7-4bb5-0d4b-08dc45092a13
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB56.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6587
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Fri, 15 Mar 2024 16:22:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,113 +75,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Covers GPU page fault debugging and adds a reference
-to umr.
+Hello Nicholas Kazlauskas,
 
-v2: update client ids to include SQC/G
+Commit 2dfaea1d715a ("drm/amd/display: Add debug counters to IPS exit
+prints") from Feb 21, 2024 (linux-next), leads to the following
+Smatch static checker warning:
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- Documentation/gpu/amdgpu/debugging.rst | 79 ++++++++++++++++++++++++++
- Documentation/gpu/amdgpu/index.rst     |  1 +
- 2 files changed, 80 insertions(+)
- create mode 100644 Documentation/gpu/amdgpu/debugging.rst
+drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:1398 dc_dmub_srv_exit_low_power_state() error: uninitialized symbol 'ips1_exit_count'.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:1398 dc_dmub_srv_exit_low_power_state() error: uninitialized symbol 'ips2_exit_count'.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:1398 dc_dmub_srv_exit_low_power_state() error: uninitialized symbol 'rcg_exit_count'.
 
-diff --git a/Documentation/gpu/amdgpu/debugging.rst b/Documentation/gpu/amdgpu/debugging.rst
-new file mode 100644
-index 000000000000..8b7fdcdf1158
---- /dev/null
-+++ b/Documentation/gpu/amdgpu/debugging.rst
-@@ -0,0 +1,79 @@
-+===============
-+ GPU Debugging
-+===============
-+
-+GPUVM Debugging
-+===============
-+
-+To aid in debugging GPU virtual memory related problems, the driver supports a
-+number of options module paramters:
-+
-+`vm_fault_stop` - If non-0, halt the GPU memory controller on a GPU page fault.
-+
-+`vm_update_mode` - If non-0, use the CPU to update GPU page tables rather than
-+the GPU.
-+
-+
-+Decoding a GPUVM Page Fault
-+===========================
-+
-+If you see a GPU page fault in the kernel log, you can decode it to figure
-+out what is going wrong in your application.  A page fault in your kernel
-+log may look something like this:
-+
-+::
-+
-+ [gfxhub0] no-retry page fault (src_id:0 ring:24 vmid:3 pasid:32777, for process glxinfo pid 2424 thread glxinfo:cs0 pid 2425)
-+   in page starting at address 0x0000800102800000 from IH client 0x1b (UTCL2)
-+ VM_L2_PROTECTION_FAULT_STATUS:0x00301030
-+ 	Faulty UTCL2 client ID: TCP (0x8)
-+ 	MORE_FAULTS: 0x0
-+ 	WALKER_ERROR: 0x0
-+ 	PERMISSION_FAULTS: 0x3
-+ 	MAPPING_ERROR: 0x0
-+ 	RW: 0x0
-+
-+First you have the memory hub, gfxhub and mmhub.  gfxhub is the memory
-+hub used for graphics, compute, and sdma on some chips.  mmhub is the
-+memory hub used for multi-media and sdma on some chips.
-+
-+Next you have the vmid and pasid.  If the vmid is 0, this fault was likely
-+caused by the kernel driver or firmware.  If the vmid is non-0, it is generally
-+a fault in a user application.  The pasid is used to link a vmid to a system
-+process id.  If the process is active when the fault happens, the process
-+information will be printed.
-+
-+The GPU virtual address that caused the fault comes next.
-+
-+The client ID indicates the GPU block that caused the fault.
-+Some common client IDs:
-+
-+- CB/DB: The color/depth backend of the graphics pipe
-+- CPF: Command Processor Frontend
-+- CPC: Command Processor Compute
-+- CPG: Command Processor Graphics
-+- TCP/SQC/SQG: Shaders
-+- SDMA: SDMA engines
-+- VCN: Video encode/decode engines
-+- JPEG: JPEG engines
-+
-+PERMISSION_FAULTS describe what faults were encountered:
-+
-+- bit 0: the PTE was not valid
-+- bit 1: the PTE read bit was not set
-+- bit 2: the PTE write bit was not set
-+- bit 3: the PTE execute bit was not set
-+
-+Finally, RW, indicates whether the access was a read (0) or a write (1).
-+
-+In the example above, a shader (cliend id = TCP) generated a read (RW = 0x0) to
-+an invalid page (PERMISSION_FAULTS = 0x3) at GPU virtual address
-+0x0000800102800000.  The user can then inspect can then inspect their shader
-+code and resource descriptor state to determine what caused the GPU page fault.
-+
-+UMR
-+===
-+
-+`umr <https://gitlab.freedesktop.org/tomstdenis/umr>`_ is a general purpose
-+GPU debugging and diagnostics tool.  Please see the umr documentation for
-+more information about its capabilities.
-diff --git a/Documentation/gpu/amdgpu/index.rst b/Documentation/gpu/amdgpu/index.rst
-index 912e699fd373..847e04924030 100644
---- a/Documentation/gpu/amdgpu/index.rst
-+++ b/Documentation/gpu/amdgpu/index.rst
-@@ -15,4 +15,5 @@ Next (GCN), Radeon DNA (RDNA), and Compute DNA (CDNA) architectures.
-    ras
-    thermal
-    driver-misc
-+   debugging
-    amdgpu-glossary
--- 
-2.44.0
+drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c
+    1279 static void dc_dmub_srv_exit_low_power_state(const struct dc *dc)
+    1280 {
+    1281         struct dc_dmub_srv *dc_dmub_srv;
+    1282         uint32_t rcg_exit_count, ips1_exit_count, ips2_exit_count;
+    1283 
+    1284         if (dc->debug.dmcub_emulation)
+    1285                 return;
+    1286 
+    1287         if (!dc->ctx->dmub_srv || !dc->ctx->dmub_srv->dmub)
+    1288                 return;
+    1289 
+    1290         dc_dmub_srv = dc->ctx->dmub_srv;
+    1291 
+    1292         if (dc->clk_mgr->funcs->exit_low_power_state) {
+    1293                 volatile const struct dmub_shared_state_ips_fw *ips_fw =
+    1294                         &dc_dmub_srv->dmub->shared_state[DMUB_SHARED_SHARE_FEATURE__IPS_FW].data.ips_fw;
+    1295                 volatile struct dmub_shared_state_ips_driver *ips_driver =
+    1296                         &dc_dmub_srv->dmub->shared_state[DMUB_SHARED_SHARE_FEATURE__IPS_DRIVER].data.ips_driver;
+    1297                 union dmub_shared_state_ips_driver_signals prev_driver_signals = ips_driver->signals;
+    1298 
+    1299                 rcg_exit_count = ips_fw->rcg_exit_count;
+    1300                 ips1_exit_count = ips_fw->ips1_exit_count;
+    1301                 ips2_exit_count = ips_fw->ips2_exit_count;
+    1302 
+    1303                 ips_driver->signals.all = 0;
+    1304 
+    1305                 DC_LOG_IPS(
+    1306                         "%s (allow ips1=%d ips2=%d) (commit ips1=%d ips2=%d) (count rcg=%d ips1=%d ips2=%d)",
+    1307                         __func__,
+    1308                         ips_driver->signals.bits.allow_ips1,
+    1309                         ips_driver->signals.bits.allow_ips2,
+    1310                         ips_fw->signals.bits.ips1_commit,
+    1311                         ips_fw->signals.bits.ips2_commit,
+    1312                         ips_fw->rcg_entry_count,
+    1313                         ips_fw->ips1_entry_count,
+    1314                         ips_fw->ips2_entry_count);
+    1315 
+    1316                 /* Note: register access has technically not resumed for DCN here, but we
+    1317                  * need to be message PMFW through our standard register interface.
+    1318                  */
+    1319                 dc_dmub_srv->needs_idle_wake = false;
+    1320 
+    1321                 if (prev_driver_signals.bits.allow_ips2) {
+    1322                         DC_LOG_IPS(
+    1323                                 "wait IPS2 eval (ips1_commit=%d ips2_commit=%d)",
+    1324                                 ips_fw->signals.bits.ips1_commit,
+    1325                                 ips_fw->signals.bits.ips2_commit);
+    1326 
+    1327                         udelay(dc->debug.ips2_eval_delay_us);
+    1328 
+    1329                         if (ips_fw->signals.bits.ips2_commit) {
+    1330                                 DC_LOG_IPS(
+    1331                                         "exit IPS2 #1 (ips1_commit=%d ips2_commit=%d)",
+    1332                                         ips_fw->signals.bits.ips1_commit,
+    1333                                         ips_fw->signals.bits.ips2_commit);
+    1334 
+    1335                                 // Tell PMFW to exit low power state
+    1336                                 dc->clk_mgr->funcs->exit_low_power_state(dc->clk_mgr);
+    1337 
+    1338                                 DC_LOG_IPS(
+    1339                                         "wait IPS2 entry delay (ips1_commit=%d ips2_commit=%d)",
+    1340                                         ips_fw->signals.bits.ips1_commit,
+    1341                                         ips_fw->signals.bits.ips2_commit);
+    1342 
+    1343                                 // Wait for IPS2 entry upper bound
+    1344                                 udelay(dc->debug.ips2_entry_delay_us);
+    1345 
+    1346                                 DC_LOG_IPS(
+    1347                                         "exit IPS2 #2 (ips1_commit=%d ips2_commit=%d)",
+    1348                                         ips_fw->signals.bits.ips1_commit,
+    1349                                         ips_fw->signals.bits.ips2_commit);
+    1350 
+    1351                                 dc->clk_mgr->funcs->exit_low_power_state(dc->clk_mgr);
+    1352 
+    1353                                 DC_LOG_IPS(
+    1354                                         "wait IPS2 commit clear (ips1_commit=%d ips2_commit=%d)",
+    1355                                         ips_fw->signals.bits.ips1_commit,
+    1356                                         ips_fw->signals.bits.ips2_commit);
+    1357 
+    1358                                 while (ips_fw->signals.bits.ips2_commit)
+    1359                                         udelay(1);
+    1360 
+    1361                                 DC_LOG_IPS(
+    1362                                         "wait hw_pwr_up (ips1_commit=%d ips2_commit=%d)",
+    1363                                         ips_fw->signals.bits.ips1_commit,
+    1364                                         ips_fw->signals.bits.ips2_commit);
+    1365 
+    1366                                 if (!dc_dmub_srv_is_hw_pwr_up(dc->ctx->dmub_srv, true))
+    1367                                         ASSERT(0);
+    1368 
+    1369                                 DC_LOG_IPS(
+    1370                                         "resync inbox1 (ips1_commit=%d ips2_commit=%d)",
+    1371                                         ips_fw->signals.bits.ips1_commit,
+    1372                                         ips_fw->signals.bits.ips2_commit);
+    1373 
+    1374                                 dmub_srv_sync_inbox1(dc->ctx->dmub_srv->dmub);
+    1375                         }
+    1376                 }
+    1377 
+    1378                 dc_dmub_srv_notify_idle(dc, false);
+    1379                 if (prev_driver_signals.bits.allow_ips1) {
+    1380                         DC_LOG_IPS(
+    1381                                 "wait for IPS1 commit clear (ips1_commit=%d ips2_commit=%d)",
+    1382                                 ips_fw->signals.bits.ips1_commit,
+    1383                                 ips_fw->signals.bits.ips2_commit);
+    1384 
+    1385                         while (ips_fw->signals.bits.ips1_commit)
+    1386                                 udelay(1);
+    1387 
+    1388                         DC_LOG_IPS(
+    1389                                 "wait for IPS1 commit clear done (ips1_commit=%d ips2_commit=%d)",
+    1390                                 ips_fw->signals.bits.ips1_commit,
+    1391                                 ips_fw->signals.bits.ips2_commit);
+    1392                 }
+    1393         }
 
+variables uninitialized on else path
+
+    1394 
+    1395         if (!dc_dmub_srv_is_hw_pwr_up(dc->ctx->dmub_srv, true))
+    1396                 ASSERT(0);
+    1397 
+--> 1398         DC_LOG_IPS("%s exit (count rcg=%d ips1=%d ips2=%d)",
+    1399                 __func__,
+    1400                 rcg_exit_count,
+    1401                 ips1_exit_count,
+    1402                 ips2_exit_count);
+
+used here
+
+    1403 }
+
+regards,
+dan carpenter
