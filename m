@@ -4,120 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EFDFC54E67
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 12:23:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12366C54E58
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 12:47:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D68B112209;
-	Fri, 15 Mar 2024 12:23:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 705BB11221A;
+	Fri, 15 Mar 2024 12:46:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nrpvlxPT";
+	dkim=pass (2048-bit key; unprotected) header.d=googlemail.com header.i=@googlemail.com header.b="R7b9bhqn";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2060.outbound.protection.outlook.com [40.107.95.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF74811220E
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 12:23:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mYjrGntTefql5Ur4pO00Fif6TvLQ0ysWi+sErjl2r1//5DoKiz+g54GROd3Sc/3MtrOIxrU51NKrCav1I3lBFg1MhDEQVzkAlG6zIeNQxf3q6jOrwT3hG6RCFOptnnWhip7OkraviZXj5HZS/1U6QbnRvk/Y002qL7+gkQNZa/wEmUUOysTyvTnIfWETQYYYT1kgtBYhYlK/KZhIe52zqBeDpL/W/ek4bWQY85oQB9VgBv9m3/SJbX3gcX7t34wAxORVBxl2bzHjSUK06PQ0pRi1pGbmqDAO/L8mMYSDBUX2H7aCSvTlMULi/bPywel02nHpjV0QcNhx0esxkbo0iA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+AdXUppuGeUizoIfM0As0OFwfelLUnO6XDC4O8p5VyY=;
- b=iTA+JbDmNz5iAxlMsC4n3mpxnEQkyGYxmmqEfa22BexWFBXMGZFWkpsAoE7mZdJ0SxtIkfkJsMSTsJ+oZvgCfVncCI+7PsmvNRHHBMtbQ8hPruA27XaJ87vg4tXnZc6A7RfB2WlGGR00YzaswTvDF6AVgTQ59ibyoIOe/GZzQEUlHeHuYKiBH2hnXrS6F+aTbW2CvDPlixhmGXCfJT4uhh8S94zRGa11dBZnafSkio/Z6f2afsbYA8BYb8isW3GtFwD4Tt4hBhCc6MTCUXQ5dOIYCzk2qsYx6cJhNZlDAUnxQH/Z3nH6KJ3EN/rtkvz/kmEpVJQ6VHh/OqJ89EvfDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+AdXUppuGeUizoIfM0As0OFwfelLUnO6XDC4O8p5VyY=;
- b=nrpvlxPTG5McRZTfxxwzDzuWtf6C6aX4sKSo7bmIh/p8JklI9jLa6yGPBfeLYsPxq6l/E1KvDUbnUosidf8V2MzWCRiOfkLdd/1XDAsqq+MteuK6GFSz2j7wtcCpWaKRqJCa3zG3FIG9c+EGrzvY5BBYMunm6dap0TSOfrlhQnM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- SJ2PR12MB8691.namprd12.prod.outlook.com (2603:10b6:a03:541::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.22; Fri, 15 Mar
- 2024 12:23:25 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::f349:addf:ae3e:814]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::f349:addf:ae3e:814%5]) with mapi id 15.20.7386.017; Fri, 15 Mar 2024
- 12:23:24 +0000
-Message-ID: <7190d590-dc75-4b27-965a-2cd2ea465836@amd.com>
-Date: Fri, 15 Mar 2024 17:53:16 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] drm/amdgpu: drop setting buffer funcs in sdma442
-Content-Language: en-US
-To: "Ma, Le" <Le.Ma@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Song, Asher"
- <Asher.Song@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20240315091607.1070927-1-le.ma@amd.com>
- <9b808afd-8daa-40e2-a4c9-365ef4bd63cd@amd.com>
- <CO6PR12MB53951B5DDF728C963913FB86F6282@CO6PR12MB5395.namprd12.prod.outlook.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <CO6PR12MB53951B5DDF728C963913FB86F6282@CO6PR12MB5395.namprd12.prod.outlook.com>
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07DBC1121C2;
+ Fri, 15 Mar 2024 11:39:03 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-a3ddc13bbb3so562203266b.0; 
+ Fri, 15 Mar 2024 04:39:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=googlemail.com; s=20230601; t=1710502742; x=1711107542;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ajSGsc6A/F/qkby1cV3DFijz3ujuoh7yFblhBSAWTk4=;
+ b=R7b9bhqnJUp3E8d4suy65iFCwcwScI5+MICGcrLDUXNqM3Ghlr9uZXCebETrFQU/85
+ udeRglq0rpnFTtlbJbfPLyQxMb5crhiFP82FIlQdK9ajEECeU1gdfdV1ErGRA49UoZgd
+ i0FFBFTIZuanV9Jx0/QZyVj4uNojq1jKZxKOY7COHIwji6l8bwss1UVyyHMbeCfPtyNC
+ MW8qwNuRIO8R0T5BXDBaJzIvPg/lBwW2a423dpOMYJ/iCAg3V7E3EgDlO4MnfWqjWTvY
+ 3SD/fZ5WRkVs2E7m6ULHhobxdCEfc/8UKVKYLrO17QV9YK112znBKsaptSqt6k5xTHzA
+ 91KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710502742; x=1711107542;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ajSGsc6A/F/qkby1cV3DFijz3ujuoh7yFblhBSAWTk4=;
+ b=FKQJQKPQ0qJ8mnjEN+VnMNTvm9vmH79kaK/fUseD9lC/VsbzXl9MiUKYJHD93OnZNd
+ 8BxuvwmqNBP8NaEvl1KPS97vfV82GGX+MAGeKfxMWQdjF/49IzGgJ2HGZ8Wlg2xDvwmb
+ DJg42uE1tfAEtXNH6KlqcivvR+jtambpFcTqLAdyDgGLt6f7AIGOH4XFBeakkBE2Rmrg
+ zmsE6ijWw90dytFc01NRJ6Q2f9l+w+4lZfy2i9QtHhdysK+KH9lbkgWNxdfEXlPvMSQG
+ DNwUGxAnpvQKiB4WiS4JCSbLlPjU3C1PnQLRgXATSPxAIoftGA8s0eO4Kk/MOB63Y5Mo
+ HIJw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXfhAlF7tsmzg4IjzoEEqtvr/LeQfOQ5jERQ9U04iuqUNmh5Q86LbWflH/RUoLA+ObkT49SxtAXdwVz1Wf3gZV7OFL6AudL9e2moiKSsS4cyCP/r+Eyn2Y9w9766JocBwEvqE1Y83iHby5QUEX9TQ==
+X-Gm-Message-State: AOJu0Yzwep3sB55R2PiKRL6WYwOHSpPPHJxlHxd+vSTGh825+cpDIQ2N
+ 2IWVLiOPTjl89XTw98K8xFVi0pjrZgbkRkBfo9mOpS1bR34cftPc
+X-Google-Smtp-Source: AGHT+IHJJjdK95FxiFWtuKqFb5okKLCX+Xl17xr9ZeV/oMTb5MlWFKMC//tYf9kBKFRK8DaZbTEwfQ==
+X-Received: by 2002:a17:906:1501:b0:a45:d7fb:8423 with SMTP id
+ b1-20020a170906150100b00a45d7fb8423mr7825935ejd.9.1710502741739; 
+ Fri, 15 Mar 2024 04:39:01 -0700 (PDT)
+Received: from ddev.DebianHome
+ (dynamic-095-119-217-226.95.119.pool.telefonica.de. [95.119.217.226])
+ by smtp.gmail.com with ESMTPSA id
+ fg3-20020a056402548300b005682f47aea7sm1610024edb.94.2024.03.15.04.39.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Mar 2024 04:39:01 -0700 (PDT)
+From: =?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>
+To: linux-security-module@vger.kernel.org
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Stefan Haberland <sth@linux.ibm.com>,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Mark Brown <broonie@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-s390@vger.kernel.org, bpf@vger.kernel.org
+Subject: [PATCH 05/10] drivers: use new capable_any functionality
+Date: Fri, 15 Mar 2024 12:37:26 +0100
+Message-ID: <20240315113828.258005-5-cgzones@googlemail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240315113828.258005-1-cgzones@googlemail.com>
+References: <20240315113828.258005-1-cgzones@googlemail.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0065.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:99::16) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|SJ2PR12MB8691:EE_
-X-MS-Office365-Filtering-Correlation-Id: e43da467-9f6c-4d2c-cef8-08dc44eab5eb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7l+e2WJ5uPoOVwTxS6e9+Ktw1Gnd+JkgL/Aq3mUD2tPXrTAAejbV40CwTYws2lcx5WwVjApUwov24uWi8JxbxD+oviia54xBFSyMnhNX+H5soyxirc4sEDphq1+hH9o77RKGwo8J/Neac+m5t7VTO0EhPVKPAywalidrRZGO0jVjjGUh9VDnbom3SAFXKA7izT/KhA2Cshj1k6EVTjmghXfgNUuNhJOUtgdILPYo2VJDcIUPs5iDbe+cPYOjE20AyFibcPLDRCMBAfHFT03nw1ocm8Rs1Fs5X/7wtzNzEQl2JwdrDYCDbPPFi5H4SpEOPjJtQan7X8+fyHVjMAk76CviLro48fWPD7E4vuZgccR1EurK5ooC4JcOVkk4K05dlTHxMRd9HsfNA5lMSIbZ3eEm5I1JFhGAA21Cs402d66XiToGHBtghJgkJ/CrIO+vwIqxsc4itTgbMa+Ppm8v9u4QT3SqRbUcC2p4YolfUI+ndj4qLRy4vXRAmCL4ucSG++s5qSzjkqahpe/qIMDf6X/5KfLDXLa9aKZaxWWC68+HygSRhTabj4+m2pOIHOQuZcdvdd3Rg/whQnykNkKZPQek9HEAZRf45J9jsGYX2FY3ygEAWD4pw1O7cbAIG88jWMGnxWMbi5quBhHLfbp9zp8ZuXOm+VjrgBscpRM5eXw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2w2c0ZlTlJYZlFKOE9hbjRscTNxWGRrYTcxN1NIZlRWR0lUa3g5d2JNY2Zm?=
- =?utf-8?B?OEhpOEwyM3piKzlhU2xlRzNpSlVHbGRSS1VBWFNyQkxMTHdPU1BXZW9rYm9l?=
- =?utf-8?B?NTkxbzdHMGJhbThGRmE1a01HRE92K2hweFEzOEFXaFprVHhoVC9RckQ5TE5P?=
- =?utf-8?B?VWZYRUg0K0E2MmpzNERpcHdwMzBvY1pOQUVBMXhPZ2xvSlBYcXRaQzhnN1Rv?=
- =?utf-8?B?SWZ1MldIRjFibndKd0U5VjY0aEQ4L2JBMlNLQ3dhcGJPb3c5V0lROVBXRUpn?=
- =?utf-8?B?TDc5Zi9nRFYzR1lGcXo2QTBtQkdMQjN0Q1VCMG5Vbk1rdHBBc3BMT0cwR0Nl?=
- =?utf-8?B?RW9Jdktqd0pId1ZrSTNZQ2tVb0x5U0lTUVpqU2h6ZnR1L3pZcTJwa09YclYv?=
- =?utf-8?B?YmgwQlQvdTBFRERLTWREdm5Pc2NldUpJQjVxWUtxYkV4N3RLUDl5U2lSSXVJ?=
- =?utf-8?B?R1ZmU3NzbWVteTIvYi8zVmMxVGsvQ215b0tURVo2OEY3WjBXV2FiWHoxYmk0?=
- =?utf-8?B?V25zeXdZeVU0UVhkUm9zcEp1anVtWnJLcjlpRTJCRW5HWU1xUzNWS0hyYVpS?=
- =?utf-8?B?R1NQSnlLeEo1WDVDdHlnUXhEVXlFQmJHNzBKSmZHN0NFYjBsMDNaWHpOK2xQ?=
- =?utf-8?B?bkY2bzhFeEVsVEhjdTFYMG5mdkNDUk1nenVmaG5TOTFEU1dEUDJBV3gxTThO?=
- =?utf-8?B?MFp0d1M0bmpReU16am9QVUorWjlaKzFUZFN2ZFpWaXE3V1VOcFlvT3RIWjZR?=
- =?utf-8?B?YldMZ3R0ZmxVUmhzczVrYzZMZUNGZVcvK0VET3orTmdzSE1COFZuTEoxaEIx?=
- =?utf-8?B?NUpxYWVVeFc0OHdMZ2hveGFoMzFqUXJ6T1hLYkRaVExWcG9nMUVvWkRmcjN6?=
- =?utf-8?B?d1QxQU1BUDdsMGs2OXlHaVJkR05KTUprT255RzV1NVgrUjZuc0l6a0gyOGhj?=
- =?utf-8?B?eitVWDZ5elJyWU81Q2kxRHZRTStxSEZTd3EvVUdUcXQxM2xiR2NBWThqMjN3?=
- =?utf-8?B?TFF1TVRzRC9ZNGJHUEJwRW80SXhkYyt1bTFGYUkxdWhyK3lTZ1JDUm5LMDZv?=
- =?utf-8?B?LzZWQ3duM1pHaEM3L0pVUzA5bWU5UXdJZGlVbWZublRTeURKRDlIaW51MFlq?=
- =?utf-8?B?NHN3bGpIUGVkWFBFRDVBR0dOTHBVVDl2UC9VbHp4SjFBNGJPWlBkVkFDNzYy?=
- =?utf-8?B?U0xPZ2ZIRndRWk5UZ1lsSVRCNkx3aXFJU1p6WUdlTi9ZNGMwSk9IYm5qbUth?=
- =?utf-8?B?K1Q3WmhGU08rVm1qTU5ld1NTTW5uTk94aU1JNTRwQW9sVkRRS2g5NHJZYm5n?=
- =?utf-8?B?cFplRndXaFBuYWFicXBGbzdXYmlqNE1OSmw3c3JSRTFKQUthWjRmczg1dXZJ?=
- =?utf-8?B?ckcxNzcyaHF6WFptYURFeFZMNy9VUlZnMGlZengzU0JPT21tamplNndLaE1n?=
- =?utf-8?B?RVY1VmFicm1FT080Mm41bFZmMENUQ25KT2kzWHRNOWNPNlpoWGNVU3ZGU1NV?=
- =?utf-8?B?VWYwT1JXdUtYYWhJT0lvUVVnbjd3cUZ0dVluVFk4K0Y1TDRHcEU3M2paS2Ur?=
- =?utf-8?B?U3A0U2RkOUdUV2Y0Vi80SEJrUGxubEQyUy9qczJ5dWRtcFZYaXN5ejRaU3R6?=
- =?utf-8?B?OHBCaCtLci9QdkEvOFN6S0pWTEM3NDEwQkw0SnZCRldoUEN5WjVmRnVIVTNL?=
- =?utf-8?B?VThDN21hNU41YTNOR2VHYnIyL2VDeWxBWVhvOFMwRTlKajJCYTVJVlZ3KzBm?=
- =?utf-8?B?dTBWRjlWUEZ1QlV4Ymw1RDd0aVpmOGE5UVZlVWdub2V4ZVVIWnJsWnV6L0Fs?=
- =?utf-8?B?b1g2MWh4TG1kcXVKK0ZodWxSSWZSUzduTVNJR2NCdy84L0RXZVYySzF4cEZG?=
- =?utf-8?B?N0pLZjkrMGN1aGNUV3VhYkgrb2ZVK0RjNGpXUkhVcE1hK2MrOWV4NGZUMDl5?=
- =?utf-8?B?MXBUTGhpZHU0VDFOZmg3ZUxKM0NRSFJnUUpaU0RTOWo5WTF4RFQ5aWx3d1lt?=
- =?utf-8?B?bVZ3a0VMd2VsSXRSdTluQ3AzMXF5SThGSG9lWSt5WDMvU2pZd1R0Nk5ITFR0?=
- =?utf-8?B?azl3OUlLSGgzSXRHazN4VEdoWHVYRnhPeEIzNEd2cXg0VGw2aGFZeDYxRmE2?=
- =?utf-8?Q?Geu6uVEDWOmqxYE/WlwM+9LAZ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e43da467-9f6c-4d2c-cef8-08dc44eab5eb
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2024 12:23:24.8674 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v41P9CuBZszDP8bP9RDMVs//XCmPdwLJTfTLpDROHYLIbmWWfFtIY6bmE76628Zg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8691
+X-Mailman-Approved-At: Fri, 15 Mar 2024 12:46:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,130 +100,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Use the new added capable_any function in appropriate cases, where a
+task is required to have any of two capabilities.
 
+Reorder CAP_SYS_ADMIN last.
 
-On 3/15/2024 5:45 PM, Ma, Le wrote:
-> [AMD Official Use Only - General]
-> 
->  
->  
->> -----Original Message-----
->> From: Lazar, Lijo <_Lijo.Lazar@amd.com_ <mailto:Lijo.Lazar@amd.com>>
->> Sent: Friday, March 15, 2024 6:14 PM
->> To: Ma, Le <_Le.Ma@amd.com_ <mailto:Le.Ma@amd.com>>; _amd-gfx@lists.freedesktop.org_
-> <mailto:amd-gfx@lists.freedesktop.org>
->> Cc: Zhang, Hawking <_Hawking.Zhang@amd.com_ <mailto:Hawking.Zhang@amd.com>>; Song, Asher
->> <_Asher.Song@amd.com_ <mailto:Asher.Song@amd.com>>; Deucher, Alexander
-> <_Alexander.Deucher@amd.com_ <mailto:Alexander.Deucher@amd.com>>
->> Subject: Re: [PATCH 1/1] drm/amdgpu: drop setting buffer funcs in sdma442
->> 
->> 
->> 
->> On 3/15/2024 2:46 PM, Le Ma wrote:
->> > To fix the entity rq NULL issue. This setting has been moved to upper level.
->> >
->> 
->> Need to call amdgpu_ttm_set_buffer_funcs_status(adev, true/false) in
->> mode-2 reset handlers as well.
->  
-> Thanks for pointing out this. I think we can make another separated
-> patch to handle it for mode2 since this patch is for alignment purpose.
-> Actually, the set_buffer_funcs will not be unset/set in reset case as
-> the conditions below:
->  
-> void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool
-> enable)
-> {
->         struct ttm_resource_manager *man =
-> ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
->         uint64_t size;
->         int r;
->  
->         if (!adev->mman.initialized || amdgpu_in_reset(adev) ||
->             adev->mman.buffer_funcs_enabled == enable ||
-> adev->gmc.is_app_apu)
->                 return;
->  
->  
+Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
+Acked-by: Alexander Gordeev <agordeev@linux.ibm.com> (s390 portion)
+---
+v4:
+   Additional usage in kfd_ioctl()
+v3:
+   rename to capable_any()
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 3 +--
+ drivers/net/caif/caif_serial.c           | 2 +-
+ drivers/s390/block/dasd_eckd.c           | 2 +-
+ 3 files changed, 3 insertions(+), 4 deletions(-)
 
-Thanks for clarifying.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index dfa8c69532d4..8c7ebca01c17 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -3290,8 +3290,7 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+ 	 * more priviledged access.
+ 	 */
+ 	if (unlikely(ioctl->flags & KFD_IOC_FLAG_CHECKPOINT_RESTORE)) {
+-		if (!capable(CAP_CHECKPOINT_RESTORE) &&
+-						!capable(CAP_SYS_ADMIN)) {
++		if (!capable_any(CAP_CHECKPOINT_RESTORE, CAP_SYS_ADMIN)) {
+ 			retcode = -EACCES;
+ 			goto err_i1;
+ 		}
+diff --git a/drivers/net/caif/caif_serial.c b/drivers/net/caif/caif_serial.c
+index ed3a589def6b..e908b9ce57dc 100644
+--- a/drivers/net/caif/caif_serial.c
++++ b/drivers/net/caif/caif_serial.c
+@@ -326,7 +326,7 @@ static int ldisc_open(struct tty_struct *tty)
+ 	/* No write no play */
+ 	if (tty->ops->write == NULL)
+ 		return -EOPNOTSUPP;
+-	if (!capable(CAP_SYS_ADMIN) && !capable(CAP_SYS_TTY_CONFIG))
++	if (!capable_any(CAP_SYS_TTY_CONFIG, CAP_SYS_ADMIN))
+ 		return -EPERM;
+ 
+ 	/* release devices to avoid name collision */
+diff --git a/drivers/s390/block/dasd_eckd.c b/drivers/s390/block/dasd_eckd.c
+index 373c1a86c33e..8f9a5136306a 100644
+--- a/drivers/s390/block/dasd_eckd.c
++++ b/drivers/s390/block/dasd_eckd.c
+@@ -5384,7 +5384,7 @@ static int dasd_symm_io(struct dasd_device *device, void __user *argp)
+ 	char psf0, psf1;
+ 	int rc;
+ 
+-	if (!capable(CAP_SYS_ADMIN) && !capable(CAP_SYS_RAWIO))
++	if (!capable_any(CAP_SYS_RAWIO, CAP_SYS_ADMIN))
+ 		return -EACCES;
+ 	psf0 = psf1 = 0;
+ 
+-- 
+2.43.0
 
-In this case, we don't require that since reset() condition is set. I
-saw amdgpu_ttm_set_buffer_funcs_status(tmp_adev, true) getting called in
-amdgpu_do_asic_reset(), thought it was affected by reset.
-
-Thanks,
-Lijo
-
->> 
->> Thanks,
->> Lijo
->> 
->> > Fixes b70438004a14 ("drm/amdgpu: move buffer funcs setting up a
->> > level")
->> >
->> > Signed-off-by: Le Ma <_le.ma@amd.com_ <mailto:le.ma@amd.com>>
->> > ---
->> >  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 20 +-------------------
->> >  1 file changed, 1 insertion(+), 19 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
->> > b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
->> > index eaa4f5f49949..589a734982a7 100644
->> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
->> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
->> > @@ -431,16 +431,11 @@ static void sdma_v4_4_2_inst_gfx_stop(struct
->> amdgpu_device *adev,
->> >      struct amdgpu_ring *sdma[AMDGPU_MAX_SDMA_INSTANCES];
->> >      u32 doorbell_offset, doorbell;
->> >      u32 rb_cntl, ib_cntl;
->> > -   int i, unset = 0;
->> > +   int i;
->> >
->> >      for_each_inst(i, inst_mask) {
->> >              sdma[i] = &adev->sdma.instance[i].ring;
->> >
->> > -           if ((adev->mman.buffer_funcs_ring == sdma[i]) && unset != 1) {
->> > -                   amdgpu_ttm_set_buffer_funcs_status(adev, false);
->> > -                   unset = 1;
->> > -           }
->> > -
->> >              rb_cntl = RREG32_SDMA(i, regSDMA_GFX_RB_CNTL);
->> >              rb_cntl = REG_SET_FIELD(rb_cntl, SDMA_GFX_RB_CNTL,
->> RB_ENABLE, 0);
->> >              WREG32_SDMA(i, regSDMA_GFX_RB_CNTL, rb_cntl); @@ -
->> 490,17 +485,10 @@
->> > static void sdma_v4_4_2_inst_page_stop(struct amdgpu_device *adev,
->> >      struct amdgpu_ring *sdma[AMDGPU_MAX_SDMA_INSTANCES];
->> >      u32 rb_cntl, ib_cntl;
->> >      int i;
->> > -   bool unset = false;
->> >
->> >      for_each_inst(i, inst_mask) {
->> >              sdma[i] = &adev->sdma.instance[i].page;
->> >
->> > -           if ((adev->mman.buffer_funcs_ring == sdma[i]) &&
->> > -                   (!unset)) {
->> > -                   amdgpu_ttm_set_buffer_funcs_status(adev, false);
->> > -                   unset = true;
->> > -           }
->> > -
->> >              rb_cntl = RREG32_SDMA(i, regSDMA_PAGE_RB_CNTL);
->> >              rb_cntl = REG_SET_FIELD(rb_cntl, SDMA_PAGE_RB_CNTL,
->> >                                      RB_ENABLE, 0);
->> > @@ -950,13 +938,7 @@ static int sdma_v4_4_2_inst_start(struct
->> amdgpu_device *adev,
->> >                      r = amdgpu_ring_test_helper(page);
->> >                      if (r)
->> >                              return r;
->> > -
->> > -                   if (adev->mman.buffer_funcs_ring == page)
->> > -                           amdgpu_ttm_set_buffer_funcs_status(adev,
->> true);
->> >              }
->> > -
->> > -           if (adev->mman.buffer_funcs_ring == ring)
->> > -                   amdgpu_ttm_set_buffer_funcs_status(adev, true);
->> >      }
->> >
->> >      return r;
