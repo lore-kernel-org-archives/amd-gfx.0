@@ -4,63 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8032DC54E67
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 16:44:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A64A9C54E58
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 17:11:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E688510FE36;
-	Fri, 15 Mar 2024 16:44:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B8A71123AF;
+	Fri, 15 Mar 2024 17:11:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XxjP0+Fd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qts1sw3x";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E44110FE36
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 16:44:45 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-1dd9066b7c3so16655255ad.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 09:44:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710521085; x=1711125885; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2tsDhVW89tF+Qu8fD9oV+RCIpwRcajF+955rDL5O0Ec=;
- b=XxjP0+Fd7OlZgj6+GTepUvxqEHN++fQx62jpKBpXcHLF/+YJuk+tQH/Tw0K56BN1wJ
- G1LHXbUEQcEjrg2i5GinmlCO0Trk9yB7NPUgHhgPOjX+cqkLrbczBzqNJBkkcKE59Ltu
- XTQUH+evT6uynrkwaKNwnp5ljBVDkinuz5fjSPtB7GjoNdpImj8v7ZhWNuNeyjuMkj0H
- xpYe1h6drDscfeFHhJQANMYkhFuRZPFzeXU8ajVQdORH/DmfpRZjj3bql3YMFTQadc0k
- 7tocEH6J7Y6mF8SjLsV7voLtlsHSgkfidDfzz7DayNmCBrIntFVQQ5BQIbte0u6bAzut
- njyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710521085; x=1711125885;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=2tsDhVW89tF+Qu8fD9oV+RCIpwRcajF+955rDL5O0Ec=;
- b=PiwrJLEU4TPN3d6R/bTnyk0m75oNQkHUWluZkMV510dfNleI20FfUQnlYip5ETlWVk
- dLNQHfW2t2SS41sdaiL88LQdhZx0lkY0ZnSSeZ4ZXiorKdalDjZ+qPvj7HJ58lslPT4V
- TlKkpPbL7pIb7vmtgAwh2Qeb7uobB3CH4qnvnRgU2AJ13xZCieiMu1pUNDJPzB+hdoGa
- ZwvgCtyh5uI9emM1S8jvCXctWmsuUDGdMIlR1+K2VpjH7M4CMw25UYHktaggZ4VOPCbC
- Uo1+4m1uXR4pxaz4sDG/Sj/ApfSBedKXnasdMHmnVS8XdgMFysDAZs1+scwOq2uvAaWe
- eLSA==
-X-Gm-Message-State: AOJu0YzecDeInhjNAKf4LbZDgN1O1LOL92YLPz8uYRSnchgfaMms+Lbi
- 7aGIOvXC/MpRCuUEn0biPMEvntMycgDz6CV5KnzvqPIAZkdw8xDNioGV9EQQWm5jWJf0tCFduVo
- zS9LOznvMpDOmdVpmVCJ7mvZCCmc=
-X-Google-Smtp-Source: AGHT+IEHwS1lQj7WDLBNziepsrqpAeaYo7/4IaoBEwwgVrEYUkZZ1ko1Ox/c2gWhESw8inXmFE0Oxo7kTCoudooCAr8=
-X-Received: by 2002:a17:903:1251:b0:1dc:696d:ec6e with SMTP id
- u17-20020a170903125100b001dc696dec6emr5724853plh.21.1710521085287; Fri, 15
- Mar 2024 09:44:45 -0700 (PDT)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2076.outbound.protection.outlook.com [40.107.223.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C6DE1123AE;
+ Fri, 15 Mar 2024 17:11:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MQalvg1/KwKTWqQtmt/TYWBIGcrz7y/UfmMPxs63bNVEMupsXfaFFqkUt9yZqTjfsM3kivwyd4TDMb6Nnk3nVW6TPChrv81ucp5CuSpNGJ95rPukNh+FkoTpqqzlAqAEzB7E/KUnabnlohKJlX1+zj9vmGhDnTIi69BNiq9JDyO+D0VPST4W7vbsHUcryad85+/6kSi62bT8rITlzOpK8QUGbvim6bPyYLG+xGVM9kI3q2M/15DqfLcGfgmYPYqWpOqBYCC8XdF+BHCR02a5jmV1yyRqf9zvPbPGikBNdWYDcs+/N9kXHuTOL44KRIVHvVxOI3Ln7AF0bczJljPGCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mYsDASjighoGf97P1Te0CaT7ij+Q3ogtri7+S0ufsGw=;
+ b=RRk6DhOQM8/1m6GOlYJoLx8j/4u7paneNu5idBMNUsOZp+Avkao6P4J8GBwQXK3T/LtI5VI5Q3YHunbc0h+thwxjXf2P5tSdn35umjioTwBlOSLytiuza3x8oO7x2dkxse9lQ/w8FgNGgRnioBZeC5DDvCEmvHtcZSVdriwthkK8dxJCEyzsi0z1fZHsxfqZzvWePANwj2Cri2pEQI8mSb76ZwkoNL+karajzc44BT1SEg9g9yUgQqM73mqckzmPWwZYUaF5u35iQ/Yb1JLRHqYQVGXuKNDsOqic13wvhGWAG0h8JADjc6OZ6m6mWDXsUiJSJ5/lc94Sm66/bNGLyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mYsDASjighoGf97P1Te0CaT7ij+Q3ogtri7+S0ufsGw=;
+ b=Qts1sw3xGMIEsvKd6/HMgHqRuhzUWc/aGoWAqgkC0Rckue8EuipjwHlfkhAkB53C0ZMhBDh7xa72cExFZ31WBSkeR/lUkpOlkZLKKlk/qR4Q5PfOhRSZhvvlbfOT9fzzKm5FHe+Q4/L7LGLbWo/iBSrmyZ7J9hlU44jucEKehUk=
+Received: from BN0PR07CA0017.namprd07.prod.outlook.com (2603:10b6:408:141::31)
+ by BY5PR12MB4324.namprd12.prod.outlook.com (2603:10b6:a03:209::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.22; Fri, 15 Mar
+ 2024 17:11:22 +0000
+Received: from BN2PEPF0000449F.namprd02.prod.outlook.com
+ (2603:10b6:408:141:cafe::47) by BN0PR07CA0017.outlook.office365.com
+ (2603:10b6:408:141::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.36 via Frontend
+ Transport; Fri, 15 Mar 2024 17:11:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF0000449F.mail.protection.outlook.com (10.167.243.150) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7386.12 via Frontend Transport; Fri, 15 Mar 2024 17:11:21 +0000
+Received: from thonkpad.localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 15 Mar
+ 2024 12:11:20 -0500
+From: <sunpeng.li@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: Joshua Ashton <joshua@froggi.es>, =?UTF-8?q?Michel=20D=C3=A4nzer?=
+ <mdaenzer@redhat.com>, Chao Guo <chao.guo@nxp.com>, Xaver Hugl
+ <xaver.hugl@gmail.com>, Vikas Korjani <Vikas.Korjani@amd.com>, Robert Mader
+ <robert.mader@posteo.de>, Pekka Paalanen <pekka.paalanen@collabora.com>,
+ "Sean Paul" <sean@poorly.run>, Simon Ser <contact@emersion.fr>, Shashank
+ Sharma <shashank.sharma@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ "Sebastian Wick" <sebastian.wick@redhat.com>, Leo Li <sunpeng.li@amd.com>
+Subject: [PATCH 0/2] drm/amdgpu/display: Make multi-plane configurations more
+ flexible
+Date: Fri, 15 Mar 2024 13:09:56 -0400
+Message-ID: <20240315170959.165505-1-sunpeng.li@amd.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-References: <20240315160108.2595995-1-alexander.deucher@amd.com>
-In-Reply-To: <20240315160108.2595995-1-alexander.deucher@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 15 Mar 2024 12:44:33 -0400
-Message-ID: <CADnq5_PMfhTQ+=aSJ5DqCj3p5hjbQUHZsx=3xXc0FEqL_9WDiQ@mail.gmail.com>
-Subject: Re: [PATCH] Documentation: add a page on amdgpu debugging
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449F:EE_|BY5PR12MB4324:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7ae4110-5b41-49ef-9867-08dc4512f018
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: dAVzMBAvBkQdl7iWBsdJf7w/9HAlp0F7vTwarbd5TN9RfkC3SurdzNkxljKRdOuFpkUVykX9YllLEpoWhndPQIMGAJaNljVfK9G9wHF/INOUzROBt1HloX6zdsSXlPmZMHpSoEpabfqkWQUB3JyP7Wzc0zOPe/SxA4/D5sWmiRTO8yItuvp5rAldD5apHuw+fFcIvx5ehM2q5Bk75Sad034RYaOljzt8T+KTC6PMCS244kl/BL3bgvi11fIOK+XyRuNs1SeW6bKX4dqKwEQTR/tJUU5b2o2xq+Ni4iTSyQmXdtHt9MKyLPIe3gdepyfY/zjxNAkYF29D/6vI+p12vy7PnTB9fs8z5Vxl8GiycMYVyTK1hSHr0bSQKQzr1RaUyNjh259ozCvIW+i/HwWBP1UCav4fmWZnYFqDM4d2eZSh0W7G+hCk7lDMAQGiTdYVQZ0hMTderEGmbDhpyIdBBT7omJwgQ5749ku5wUAPCOId6aGqkWIHuOUJta2OpNU3fX8NgpI0y69aj+taSEyPA2LH7Tfv2f/JQXbhjYFNnhk8lJkmbAXiWy5PTI25ZzyO+ntM/5TmJWUGbOr5XnAgFbrV/jeicybxQWqLGauWJ1pPeWtLmGICP4qtXFfTHusYvLEgu9nMXpBxF0LWAqNJ0/SSrgN2WVt+zG4VShGyJTyH60Y+dUT8Vo3J+vAfG2XyMAAYdnSEoJeyGFrtqwuaPg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(82310400014)(376005)(1800799015)(7416005); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2024 17:11:21.9326 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7ae4110-5b41-49ef-9867-08dc4512f018
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4324
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,141 +111,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 15, 2024 at 12:07=E2=80=AFPM Alex Deucher <alexander.deucher@am=
-d.com> wrote:
->
-> Covers GPU page fault debugging and adds a reference
-> to umr.
->
-> v2: update client ids to include SQC/G
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  Documentation/gpu/amdgpu/debugging.rst | 79 ++++++++++++++++++++++++++
->  Documentation/gpu/amdgpu/index.rst     |  1 +
->  2 files changed, 80 insertions(+)
->  create mode 100644 Documentation/gpu/amdgpu/debugging.rst
->
-> diff --git a/Documentation/gpu/amdgpu/debugging.rst b/Documentation/gpu/a=
-mdgpu/debugging.rst
-> new file mode 100644
-> index 000000000000..8b7fdcdf1158
-> --- /dev/null
-> +++ b/Documentation/gpu/amdgpu/debugging.rst
-> @@ -0,0 +1,79 @@
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> + GPU Debugging
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +GPUVM Debugging
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +To aid in debugging GPU virtual memory related problems, the driver supp=
-orts a
-> +number of options module paramters:
-> +
-> +`vm_fault_stop` - If non-0, halt the GPU memory controller on a GPU page=
- fault.
-> +
-> +`vm_update_mode` - If non-0, use the CPU to update GPU page tables rathe=
-r than
-> +the GPU.
-> +
-> +
-> +Decoding a GPUVM Page Fault
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-> +
-> +If you see a GPU page fault in the kernel log, you can decode it to figu=
-re
-> +out what is going wrong in your application.  A page fault in your kerne=
-l
-> +log may look something like this:
-> +
-> +::
-> +
-> + [gfxhub0] no-retry page fault (src_id:0 ring:24 vmid:3 pasid:32777, for=
- process glxinfo pid 2424 thread glxinfo:cs0 pid 2425)
-> +   in page starting at address 0x0000800102800000 from IH client 0x1b (U=
-TCL2)
-> + VM_L2_PROTECTION_FAULT_STATUS:0x00301030
-> +       Faulty UTCL2 client ID: TCP (0x8)
-> +       MORE_FAULTS: 0x0
-> +       WALKER_ERROR: 0x0
-> +       PERMISSION_FAULTS: 0x3
-> +       MAPPING_ERROR: 0x0
-> +       RW: 0x0
-> +
-> +First you have the memory hub, gfxhub and mmhub.  gfxhub is the memory
-> +hub used for graphics, compute, and sdma on some chips.  mmhub is the
-> +memory hub used for multi-media and sdma on some chips.
-> +
-> +Next you have the vmid and pasid.  If the vmid is 0, this fault was like=
-ly
-> +caused by the kernel driver or firmware.  If the vmid is non-0, it is ge=
-nerally
-> +a fault in a user application.  The pasid is used to link a vmid to a sy=
-stem
-> +process id.  If the process is active when the fault happens, the proces=
-s
-> +information will be printed.
-> +
-> +The GPU virtual address that caused the fault comes next.
-> +
-> +The client ID indicates the GPU block that caused the fault.
-> +Some common client IDs:
-> +
-> +- CB/DB: The color/depth backend of the graphics pipe
-> +- CPF: Command Processor Frontend
-> +- CPC: Command Processor Compute
-> +- CPG: Command Processor Graphics
-> +- TCP/SQC/SQG: Shaders
-> +- SDMA: SDMA engines
-> +- VCN: Video encode/decode engines
-> +- JPEG: JPEG engines
-> +
-> +PERMISSION_FAULTS describe what faults were encountered:
-> +
-> +- bit 0: the PTE was not valid
-> +- bit 1: the PTE read bit was not set
-> +- bit 2: the PTE write bit was not set
-> +- bit 3: the PTE execute bit was not set
-> +
-> +Finally, RW, indicates whether the access was a read (0) or a write (1).
-> +
-> +In the example above, a shader (cliend id =3D TCP) generated a read (RW =
-=3D 0x0) to
-> +an invalid page (PERMISSION_FAULTS =3D 0x3) at GPU virtual address
-> +0x0000800102800000.  The user can then inspect can then inspect their sh=
-ader
+From: Leo Li <sunpeng.li@amd.com>
 
-removed the duplicated text above locally.
+These patches aim to make the amdgpgu KMS driver play nicer with compositors
+when building multi-plane scanout configurations. They do so by:
 
-Alex
+1. Making cursor behavior more sensible.
+2. Allowing placement of DRM OVERLAY planes underneath the PRIMARY plane for
+   'underlay' configurations (perhaps more of a RFC, see below).
 
-> +code and resource descriptor state to determine what caused the GPU page=
- fault.
-> +
-> +UMR
-> +=3D=3D=3D
-> +
-> +`umr <https://gitlab.freedesktop.org/tomstdenis/umr>`_ is a general purp=
-ose
-> +GPU debugging and diagnostics tool.  Please see the umr documentation fo=
-r
-> +more information about its capabilities.
-> diff --git a/Documentation/gpu/amdgpu/index.rst b/Documentation/gpu/amdgp=
-u/index.rst
-> index 912e699fd373..847e04924030 100644
-> --- a/Documentation/gpu/amdgpu/index.rst
-> +++ b/Documentation/gpu/amdgpu/index.rst
-> @@ -15,4 +15,5 @@ Next (GCN), Radeon DNA (RDNA), and Compute DNA (CDNA) a=
-rchitectures.
->     ras
->     thermal
->     driver-misc
-> +   debugging
->     amdgpu-glossary
-> --
-> 2.44.0
->
+Please see the commit messages for details.
+
+
+For #2, the simplest way to accomplish this was to increase the value of the
+immutable zpos property for the PRIMARY plane. This allowed OVERLAY planes with
+a mutable zpos range of (0-254) to be positioned underneath the PRIMARY for an
+underlay scanout configuration.
+
+Technically speaking, DCN hardware does not have a concept of primary or overlay
+planes - there are simply 4 general purpose hardware pipes that can be maped in
+any configuration. So the immutable zpos restriction on the PRIMARY plane is
+kind of arbitrary; it can have a mutable range of (0-254) just like the
+OVERLAYs. The distinction between PRIMARY and OVERLAY planes is also somewhat
+arbitrary. We can interpret PRIMARY as the first plane that should be enabled on
+a CRTC, but beyond that, it doesn't mean much for amdgpu.
+
+Therefore, I'm curious about how compositors devs understand KMS planes and
+their zpos properties, and how we would like to use them. It isn't clear to me
+how compositors wish to interpret and use the DRM zpos property, or
+differentiate between OVERLAY and PRIMARY planes, when it comes to setting up
+multi-plane scanout.
+
+Ultimately, what I'd like to answer is "What can we do on the KMS driver and DRM
+plane API side, that can make building multi-plane scanout configurations easier
+for compositors?" I'm hoping we can converge on something, whether that be
+updating the existing documentation to better define the usage, or update the
+API to provide support for something that is lacking.
+
+Thanks,
+Leo
+
+
+Some links to provide context and details:
+* What is underlay?: https://gitlab.freedesktop.org/emersion/libliftoff/-/issues/76
+* Discussion on how to implement underlay on Weston: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1258#note_2325164
+
+Cc: Joshua Ashton <joshua@froggi.es>
+Cc: Michel Dänzer <mdaenzer@redhat.com>
+Cc: Chao Guo <chao.guo@nxp.com>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>
+Cc: Vikas Korjani <Vikas.Korjani@amd.com>
+Cc: Robert Mader <robert.mader@posteo.de>
+Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Simon Ser <contact@emersion.fr>
+Cc: Shashank Sharma <shashank.sharma@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Sebastian Wick <sebastian.wick@redhat.com>
+
+Leo Li (2):
+  drm/amd/display: Introduce overlay cursor mode
+  drm/amd/display: Move PRIMARY plane zpos higher
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 405 ++++++++++++++++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   7 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   1 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  28 +-
+ 4 files changed, 391 insertions(+), 50 deletions(-)
+
+-- 
+2.44.0
+
