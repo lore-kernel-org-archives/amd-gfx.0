@@ -4,68 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A882C54E58
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 12:54:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45164C54E58
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 13:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3160112247;
-	Fri, 15 Mar 2024 12:54:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C034410E12C;
+	Fri, 15 Mar 2024 13:15:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LYJHkhuN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JYITxDHf";
 	dkim-atps=neutral
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6285210E079
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 12:54:48 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id
- 41be03b00d2f7-5d8b887bb0cso1557463a12.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 05:54:48 -0700 (PDT)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5623410E113;
+ Fri, 15 Mar 2024 13:15:17 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-29c731ba369so1672146a91.3; 
+ Fri, 15 Mar 2024 06:15:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710507287; x=1711112087; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1710508517; x=1711113317; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=uFjXCd8bcCsu32n851w/XlW3w6V7D5XNjxnjzZvTlh0=;
- b=LYJHkhuNXeRx+WqEaGOthFJCxgG6ZFmiMy0sPX3BJrboFp4XlP780KClExSVvuNLn/
- IploG9eybtaTYmA39fYTXXvvZsgXTKExWltUg3PivoxOhnmLxr5/Ll6GxDUeoq25WpOP
- 81aAeuHa3Bw7Qo2SwzXhoUGXNiFWPB9Q5AKN+MBSaNWy6Yr+sk4Z9Y515hNvEmrPzHRo
- h25QKEoZgso2MorYG+dE3rl8JMzNyARcutqK9PGwOI2id4V26jWogX3pWIX9C8tiBB2P
- +rslYJvGC/hwZUkQsWpQJ/1WZTjHuI6IYcjSURPbavrp1KorIoP+4zVO6CbYUvqV4GSS
- LgPA==
+ bh=7xArLs+uRWKVcLaNLsdyx3ULVcbdPBPfj9m9G7izSGw=;
+ b=JYITxDHfQu1ea1Dwj6tFQnhmI36+i+jNBPUil22Z6hcduooU/6XJXt8XtiM4TCT5dS
+ ntqbhcjNLr3VDJWSR6DmAVD5wTtJu5UHRWpv1cIpcFPohE+tffSPIphXoE1XMK3u6zVT
+ I2aLDjiMuJx3xhwxxUwWK4RFXLEKPc08t0jgDDG5UH9b1UH1UhsMYsHmlQ8MhTIJl1HE
+ pECty76LPqovmfxCjTfs6gUndfWyJJv4gEOTVcZEeyF+RtjAQ8G5idVOWwVAE25PqsUz
+ xa9F8hNBx6x5JDMCDm20ipHcH9wq12VC0sovg04RtB8zDspXbPpuSylE43/Uql+O5xpL
+ zJuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710507287; x=1711112087;
+ d=1e100.net; s=20230601; t=1710508517; x=1711113317;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=uFjXCd8bcCsu32n851w/XlW3w6V7D5XNjxnjzZvTlh0=;
- b=UlWVlpw4re0OahbfQs/xlZ1r0ReEEZvpWSKsoasjYqsNQnRMqbsy3WOWN8Lt/8uWUM
- xyR1FPMahK/cR1YsnLPf8WKWb7BdIq34lR1l3YGzEZJGgXIOAWDQ1OkUWUd2dEHQLlib
- JXk2/ZY6Ct77Rp6i2OpUsTP3uk2tRwyg6Wi6QN9Ee0+ZW/7Ni+Uolh8035Q2XAlX9fXD
- CJbL7QG4KTvfFwZbWKOM4UkNT9o68uDr2p9TtYgIMX5LzQAchLBZGbC/VjvwX/8Mn2Ux
- 3bQWLYjnRp4woS3LI9rmqdKBatr9RWmGKelk9woww2foum4JeF2Lm568L7xumf2HfDFG
- wGuw==
-X-Gm-Message-State: AOJu0Yyrgs4KjzER9rDE3CVJupL9xq7ZDVNpm5PtJ1+VUG9dR8LLDYaf
- QuQsa/3LhcsQBc6lllwT/ewiZX8Vfg7/J6btNFOV49qs5smDlzWaYKxDVeoCOhHwMSJ220oiU8w
- a5ZYLCnxx4SaMJef/8T7SMF7K9B/Ns6/o
-X-Google-Smtp-Source: AGHT+IE8x9tMM420CsY3tlV+7uVLeCBftYFlaITBiuzY3A4e814of0YA+lv5crn/P3+Gix0tfe7unttMVpy+2yQYFxw=
-X-Received: by 2002:a17:90a:ee93:b0:29b:acc6:c54f with SMTP id
- i19-20020a17090aee9300b0029bacc6c54fmr4517214pjz.35.1710507287365; Fri, 15
- Mar 2024 05:54:47 -0700 (PDT)
+ bh=7xArLs+uRWKVcLaNLsdyx3ULVcbdPBPfj9m9G7izSGw=;
+ b=R5PyIBpF20/9VDhUN4udiLkiV14m1Xemw43VCYlTwEtj8ManqSgJbPeqJOZwUHTxV9
+ zAOt5BrJj7YZpCK1PfE9pJlxPErSnoJKt0Y1BPhcfDk2e4oEMQrA4swHupLQ1pZb2g6w
+ tJZ1He7GFsEvgFbqdUwz/iq6MnVSs0steCzNTeK13Yd06zfMZXz6bKWZH2cC2+aV/fdV
+ tRMxxUxWk4hpeqWjOolhl8nmpygT2NVOJBQiubTXkhkgqggASTS8mDufIBOIWWebpak2
+ OuQLcwvuaulLPWaa53ZQzYstBwXULq+bH7b+RCfgU0jXx4pnUjYtavgKdI+4cxvIEnPa
+ ZlAw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWBcnp4qGMoclYTzpu/8FVqr8A5Ly4GIRU3EsvYW/Pp42h/mYc0lUsRIWZPxEwKrqWNbGysdhEnnsbefS/r0xOL3TrklKXUUqDh2sVBu5aupsZ3QEnGZ26221ZqhLOHRZ4hd2OkgwDFotdhdrXtnw==
+X-Gm-Message-State: AOJu0YzaMLZHeIVBoBmfKyShtEU9rmx7YLDbCWkGC11qE784j8xFzTbd
+ CqFomSztODEx7RD1ZuCaFIxix1mUpV5r30RCTFEjXgM7xGwI8GAHhvcrWdfMsAz+O49siRmAbnC
+ 4CmA2bg9VUDjSwCfF7gX97k6L0Kk=
+X-Google-Smtp-Source: AGHT+IFszOtqZsBrsCaeD8AagP6jTW2qGgUUxVKCWna95eZpFtJXyEtQc+YvHuRJlO1PeqRIIw6BgYeFAlMEpQI+mFg=
+X-Received: by 2002:a17:90a:ee93:b0:29b:22d2:9dd5 with SMTP id
+ i19-20020a17090aee9300b0029b22d29dd5mr4615017pjz.38.1710508516676; Fri, 15
+ Mar 2024 06:15:16 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240313114451.1592772-1-peytolee@amd.com>
- <CADnq5_OTwaLWJ9LiicJu-hO+WDF6fPB5PFQWzAqopyrDVn6R5Q@mail.gmail.com>
- <MN2PR12MB4373845FF59F1ACC83AAEFC986292@MN2PR12MB4373.namprd12.prod.outlook.com>
- <CADnq5_MzsCoj0VMKkQecWfGS1UAXE7Xvje3eoNbTP7fbdvXHRQ@mail.gmail.com>
- <MN2PR12MB437320223A607D4BAA8C182586282@MN2PR12MB4373.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB437320223A607D4BAA8C182586282@MN2PR12MB4373.namprd12.prod.outlook.com>
+References: <20240315121315.406601-1-sunil.khatri@amd.com>
+In-Reply-To: <20240315121315.406601-1-sunil.khatri@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 15 Mar 2024 08:54:35 -0400
-Message-ID: <CADnq5_NciR_1wqRCSYTJ+nUsYbfGiEBJtt3cwzyvREODGkywWw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/vpe: power on vpe when hw_init
-To: "Lee, Peyton" <Peyton.Lee@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
- Yifan" <Yifan1.Zhang@amd.com>, 
- "Ma, Li" <Li.Ma@amd.com>, "Yu, Lang" <Lang.Yu@amd.com>
+Date: Fri, 15 Mar 2024 09:15:04 -0400
+Message-ID: <CADnq5_NsqSWknj5x0v22iF2_UPCEFO7gnj4BV5j22x-jitO1=g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: add the hw_ip version of all IP's
+To: Sunil Khatri <sunil.khatri@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,109 +80,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 14, 2024 at 9:40=E2=80=AFPM Lee, Peyton <Peyton.Lee@amd.com> wr=
-ote:
+On Fri, Mar 15, 2024 at 8:13=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.com>=
+ wrote:
 >
-> [AMD Official Use Only - General]
+> Add all the IP's version information on a SOC to the
+> devcoredump.
 >
-> Hi Alex
->
-> > I think it will continue to be powered up until a VPE job comes in and =
-completes and the idle handler gets scheduled.  If a VPE job doesn't come i=
-n, it will stay powered up I think.
-> Yes, correct.
-> And after the VPE is called to do initialization, a simple test is execut=
-ed for checking VPE status, and the idle handler gets scheduled to power of=
-f the VPE when the test finished.
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 
-Does the IB test take care of this?  I just want to confirm that we
-aren't leaving it powered up unless a user runs a VPE workload which
-might not happen.
+This looks great.
 
-Alex
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c | 62 +++++++++++++++++++++++
+>  1 file changed, 62 insertions(+)
 >
-> Thanks,
-> Peyton
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_reset.c
+> index a0dbccad2f53..3d4bfe0a5a7c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> @@ -29,6 +29,43 @@
+>  #include "sienna_cichlid.h"
+>  #include "smu_v13_0_10.h"
 >
-> -----=E5=8E=9F=E5=A7=8B=E9=83=B5=E4=BB=B6-----
-> =E5=AF=84=E4=BB=B6=E8=80=85: Alex Deucher <alexdeucher@gmail.com>
-> =E5=AF=84=E4=BB=B6=E6=97=A5=E6=9C=9F: Thursday, March 14, 2024 8:58 PM
-> =E6=94=B6=E4=BB=B6=E8=80=85: Lee, Peyton <Peyton.Lee@amd.com>
-> =E5=89=AF=E6=9C=AC: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Al=
-exander.Deucher@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>; Ma, Li <Li.M=
-a@amd.com>; Yu, Lang <Lang.Yu@amd.com>
-> =E4=B8=BB=E6=97=A8: Re: [PATCH] drm/amdgpu/vpe: power on vpe when hw_init
+> +const char *hw_ip_names[MAX_HWIP] =3D {
+> +       [GC_HWIP]               =3D "GC",
+> +       [HDP_HWIP]              =3D "HDP",
+> +       [SDMA0_HWIP]            =3D "SDMA0",
+> +       [SDMA1_HWIP]            =3D "SDMA1",
+> +       [SDMA2_HWIP]            =3D "SDMA2",
+> +       [SDMA3_HWIP]            =3D "SDMA3",
+> +       [SDMA4_HWIP]            =3D "SDMA4",
+> +       [SDMA5_HWIP]            =3D "SDMA5",
+> +       [SDMA6_HWIP]            =3D "SDMA6",
+> +       [SDMA7_HWIP]            =3D "SDMA7",
+> +       [LSDMA_HWIP]            =3D "LSDMA",
+> +       [MMHUB_HWIP]            =3D "MMHUB",
+> +       [ATHUB_HWIP]            =3D "ATHUB",
+> +       [NBIO_HWIP]             =3D "NBIO",
+> +       [MP0_HWIP]              =3D "MP0",
+> +       [MP1_HWIP]              =3D "MP1",
+> +       [UVD_HWIP]              =3D "UVD/JPEG/VCN",
+> +       [VCN1_HWIP]             =3D "VCN1",
+> +       [VCE_HWIP]              =3D "VCE",
+> +       [VPE_HWIP]              =3D "VPE",
+> +       [DF_HWIP]               =3D "DF",
+> +       [DCE_HWIP]              =3D "DCE",
+> +       [OSSSYS_HWIP]           =3D "OSSSYS",
+> +       [SMUIO_HWIP]            =3D "SMUIO",
+> +       [PWR_HWIP]              =3D "PWR",
+> +       [NBIF_HWIP]             =3D "NBIF",
+> +       [THM_HWIP]              =3D "THM",
+> +       [CLK_HWIP]              =3D "CLK",
+> +       [UMC_HWIP]              =3D "UMC",
+> +       [RSMU_HWIP]             =3D "RSMU",
+> +       [XGMI_HWIP]             =3D "XGMI",
+> +       [DCI_HWIP]              =3D "DCI",
+> +       [PCIE_HWIP]             =3D "PCIE",
+> +};
+> +
+> +
+>  int amdgpu_reset_init(struct amdgpu_device *adev)
+>  {
+>         int ret =3D 0;
+> @@ -196,6 +233,31 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset,=
+ size_t count,
+>                            coredump->reset_task_info.process_name,
+>                            coredump->reset_task_info.pid);
 >
-> On Wed, Mar 13, 2024 at 9:33=E2=80=AFPM Lee, Peyton <Peyton.Lee@amd.com> =
-wrote:
-> >
-> > [AMD Official Use Only - General]
-> >
-> > Hi Alex,
-> >
-> > There are two places where VPE will lose power: When there is a system =
-call to vpe_hw_fini(), and the vpe-thread finds that VEP has no jobs in the=
- queue.
-> > This patch is to make sure that VPE is power up before loading firmware=
-.
+> +       /* GPU IP's information of the SOC */
+> +       if (coredump->adev) {
+> +
+> +               drm_printf(&p, "\nIP Information\n");
+> +               drm_printf(&p, "SOC Family: %d\n", coredump->adev->family=
+);
+> +               drm_printf(&p, "SOC Revision id: %d\n", coredump->adev->r=
+ev_id);
+> +               drm_printf(&p, "SOC External Revision id: %d\n",
+> +                          coredump->adev->external_rev_id);
+> +
+> +               for (int i =3D 1; i < MAX_HWIP; i++) {
+> +                       for (int j =3D 0; j < HWIP_MAX_INSTANCE; j++) {
+> +                               int ver =3D coredump->adev->ip_versions[i=
+][j];
+> +
+> +                               if (ver)
+> +                                       drm_printf(&p, "HWIP: %s[%d][%d]:=
+ v%d.%d.%d.%d.%d\n",
+> +                                                  hw_ip_names[i], i, j,
+> +                                                  IP_VERSION_MAJ(ver),
+> +                                                  IP_VERSION_MIN(ver),
+> +                                                  IP_VERSION_REV(ver),
+> +                                                  IP_VERSION_VARIANT(ver=
+),
+> +                                                  IP_VERSION_SUBREV(ver)=
+);
+> +                       }
+> +               }
+> +       }
+> +
+>         if (coredump->ring) {
+>                 drm_printf(&p, "\nRing timed out details\n");
+>                 drm_printf(&p, "IP Type: %d Ring Name: %s\n",
+> --
+> 2.34.1
 >
-> I think it will continue to be powered up until a VPE job comes in and co=
-mpletes and the idle handler gets scheduled.  If a VPE job doesn't come in,=
- it will stay powered up I think.
->
-> Alex
->
-> >
-> > Thanks,
-> > Peyton
-> > -----=E5=8E=9F=E5=A7=8B=E9=83=B5=E4=BB=B6-----
-> > =E5=AF=84=E4=BB=B6=E8=80=85: Alex Deucher <alexdeucher@gmail.com>
-> > =E5=AF=84=E4=BB=B6=E6=97=A5=E6=9C=9F: Wednesday, March 13, 2024 9:17 PM
-> > =E6=94=B6=E4=BB=B6=E8=80=85: Lee, Peyton <Peyton.Lee@amd.com>
-> > =E5=89=AF=E6=9C=AC: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>; Ma,
-> > Li <Li.Ma@amd.com>; Yu, Lang <Lang.Yu@amd.com>
-> > =E4=B8=BB=E6=97=A8: Re: [PATCH] drm/amdgpu/vpe: power on vpe when hw_in=
-it
-> >
-> > On Wed, Mar 13, 2024 at 7:41=E2=80=AFAM Peyton Lee <peytolee@amd.com> w=
-rote:
-> > >
-> > > To fix mode2 reset failure.
-> > > Should power on VPE when hw_init.
-> >
-> > When does it get powered down again?  Won't this leave it powered up?
-> >
-> > Alex
-> >
-> > >
-> > > Signed-off-by: Peyton Lee <peytolee@amd.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c | 6 ++++++
-> > >  1 file changed, 6 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> > > index 70c5cc80ecdc..ecfe0f36e83e 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> > > @@ -396,6 +396,12 @@ static int vpe_hw_init(void *handle)
-> > >         struct amdgpu_vpe *vpe =3D &adev->vpe;
-> > >         int ret;
-> > >
-> > > +       /* Power on VPE */
-> > > +       ret =3D amdgpu_device_ip_set_powergating_state(adev, AMD_IP_B=
-LOCK_TYPE_VPE,
-> > > +                                                    AMD_PG_STATE_UNG=
-ATE);
-> > > +       if (ret)
-> > > +               return ret;
-> > > +
-> > >         ret =3D vpe_load_microcode(vpe);
-> > >         if (ret)
-> > >                 return ret;
-> > > --
-> > > 2.34.1
-> > >
