@@ -4,120 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BD5EC54E58
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 13:18:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B4D3C54E67
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 13:25:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8C6610E079;
-	Fri, 15 Mar 2024 13:18:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF13910E14E;
+	Fri, 15 Mar 2024 13:25:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iL4VYFvk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Odmc49O+";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2072.outbound.protection.outlook.com [40.107.237.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 250ED10E079;
- Fri, 15 Mar 2024 13:18:05 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D573A10E14E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 13:25:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Uty/UI5SWS4UYoi4sbyg3rz6zyeZsiyNNi3it5dA3iu4+7Jc4C50goTYnHUSqvpFoH5993lb8AB/pAzMoWF/1VwO2uIvxFYLpfGQEKyg+/B9PcUvG2pm2O6ps+k5g6wLfysnLTFCwi2rsRVf1zyJ/UcGlhmDlDU4C+YOQySP/gcssO+H+ZKJTTD0OhDjJxSVUfsRmikgc3gestY6ok/4hsJl33mYg25lJqjRW+G4YDMDDCr9MkgXTbgr/mos2pbLEtjmvfDPq0BQc5Z+vx+uwNgWxDck+uZ5W3LNqS8hPZUi7mcb1XMi9N/r7CLYSJSTvzrKlb3AhsnIwjCoHsvPig==
+ b=EQYxD3QqdatBZxHOmxaY2Nf9+MtHVEpWs+FI8nzHyREC01YQPTjlzmb110SURGS20LEvTVATRvJVvdsjbgquoWF9SxpbW+tCzvnqgLq/PFhdPHF34xDZCQ1Le0thw2rb4EUbD/ZUUDAk+saAXlzJ5MR922HI4vwZit2lmmQHymTusSKVWflqEKv4MFrBiB2l6nIENwO9kGdkmtvHcMv+VCnJTOMpq5Cm9ahk9+rRwQL6//kg/zzXv94QS0c8pYL3RSjzekFFT8lIwrIjY/zNNEgONt1/4A6LpS0XF0UqwXv4m2QeGQ6mIJ1iMHZfCVPJNT99q2zaAsaANFd22jfDEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YIIZHVtccFZ5Rbh/EB1ql/1iL8qa5XHtNzwz+ohefTM=;
- b=h+cA099vHvMfYO72GaZdVPtt+CocmGQ8l87C9YkAhzqc3RRBxQnYkn8gNlNrv2YnXt8OIALTHtMkjBJ1P3ZPOhnJervsxShD7HSvMbsWQ6OfIfe0uSd/IDIltN9AYf/+ShUjrjfOtHlS+I/LJAJZa6vvvEgInXfuIHShd/Afqm+M4bOOVbz7EIL7A5muqe6eF/3DFl2hABn8FjQ8/TCjSjeju6M/RV6Vo8JwLFBN7iFXYjZMtBUzKKStbwc3Nq3a8+dAFklrgio5voDQBXDV8lpUc5njGYpZxeq57S6G4ErRLYUNr7rbiNBHHi94L3BcD4z0hqFHZizA20AtgY33Hg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=kWkVg4SK2SdLFIX8zLvKMZzk4TjOo6FHmjyujRpIkVQ=;
+ b=GxVU9y1qF6rYrgd+D4dMS44HziGQ8T6FBS24TiPst/NlHLQLXp6Iv/e0x7s7HL6O9DICJQn9xgPKzDrWhdFX6uKyCCFRSShgjRQ+SZ54gRy/OuqO88zhbVDQL38IjcdW+ZgdBiDXFQ3heMgw2YJ/8AYaA5d79zWs/Cb1mFDZun1SOOvJJPa7kVrupOgsMIJQRpdTw3cNBb3z69GoWDBGJn0seRSLMebPVdeMFQplAS/g4SifjW7TBd+fPGoJEl7EoauVyahm/5qw7hk60xiF0XZakz9JF405zypIaKJpZp0yY+AdKPIl4Uv3QrpKkFuWsWOAz6buKFt0YG5EJL5vgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YIIZHVtccFZ5Rbh/EB1ql/1iL8qa5XHtNzwz+ohefTM=;
- b=iL4VYFvkjXpfhnzHJrHt4W4KqQf/MgaoSxE4nFnoERS+YWd8RPXlukjTonVKBG4OF8DaCpWd4zcyxd9wZXOusBHS6ZSfDDQwEXSVBMOcuPjv5XrlPHCCXjmppTZFZm3a1iA7vcqyVcV9jKsSih/IOPKy1MtEG22Hg/oktJVakKg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13)
- by PH7PR12MB6634.namprd12.prod.outlook.com (2603:10b6:510:211::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.22; Fri, 15 Mar
- 2024 13:18:02 +0000
-Received: from PH7PR12MB5596.namprd12.prod.outlook.com
- ([fe80::6974:3875:ed0:7033]) by PH7PR12MB5596.namprd12.prod.outlook.com
- ([fe80::6974:3875:ed0:7033%3]) with mapi id 15.20.7386.017; Fri, 15 Mar 2024
- 13:18:02 +0000
-Message-ID: <3db5a50d-f695-4319-a254-5a5bccde1601@amd.com>
-Date: Fri, 15 Mar 2024 18:47:53 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: add the hw_ip version of all IP's
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>, Sunil Khatri <sunil.khatri@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20240315121315.406601-1-sunil.khatri@amd.com>
- <CADnq5_NsqSWknj5x0v22iF2_UPCEFO7gnj4BV5j22x-jitO1=g@mail.gmail.com>
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <CADnq5_NsqSWknj5x0v22iF2_UPCEFO7gnj4BV5j22x-jitO1=g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0199.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:e9::9) To PH7PR12MB5596.namprd12.prod.outlook.com
- (2603:10b6:510:136::13)
+ bh=kWkVg4SK2SdLFIX8zLvKMZzk4TjOo6FHmjyujRpIkVQ=;
+ b=Odmc49O+eyoIgFBgXmBA/4LOkjPuUMrSbTe7YblnO19F4+YI4mnNE/TEMdg3Hciho6V9DrBL7FF90jAQUZWVitt2LMcJ8EG6xdiD4QuyFI94zr0sF66wh/a0Ai/HCSY96wsTjWrRHNhZJvTwATTYTuNo1C4YUtIsyAkew3iXMg0=
+Received: from CH0PR04CA0120.namprd04.prod.outlook.com (2603:10b6:610:75::35)
+ by DM4PR12MB6397.namprd12.prod.outlook.com (2603:10b6:8:b4::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.36; Fri, 15 Mar
+ 2024 13:25:43 +0000
+Received: from CH2PEPF0000009A.namprd02.prod.outlook.com
+ (2603:10b6:610:75:cafe::d) by CH0PR04CA0120.outlook.office365.com
+ (2603:10b6:610:75::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.38 via Frontend
+ Transport; Fri, 15 Mar 2024 13:25:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH2PEPF0000009A.mail.protection.outlook.com (10.167.244.22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7386.12 via Frontend Transport; Fri, 15 Mar 2024 13:25:41 +0000
+Received: from MUN-L-SHSHARMA.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 15 Mar
+ 2024 08:25:39 -0500
+From: Shashank Sharma <shashank.sharma@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Christian Koenig <christian.koenig@amd.com>, Felix Kuehling
+ <Felix.Kuehling@amd.com>, Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ "Alex Deucher" <alexander.deucher@amd.com>, Shashank Sharma
+ <shashank.sharma@amd.com>
+Subject: [PATCH v6 1/2] drm/amdgpu: implement TLB flush fence
+Date: Fri, 15 Mar 2024 14:25:10 +0100
+Message-ID: <20240315132511.1103-1-shashank.sharma@amd.com>
+X-Mailer: git-send-email 2.38.0.windows.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5596:EE_|PH7PR12MB6634:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb33042f-9df2-4cce-d05f-08dc44f2577e
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009A:EE_|DM4PR12MB6397:EE_
+X-MS-Office365-Filtering-Correlation-Id: d56ab3a3-9238-42f5-172d-08dc44f36969
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: H6sgDIOkR/D/+J7mnJsb+62BHictrc7q6pr6Wx7d5rq1/TgK6O5w474uGDflJvuhzQihaSFPvVwu7/HqEcC6HCIIDHFummVTYCOQr6i09UmMqsWdD8YqZ9Jq52u1lNgwvTSdzzm/JJiljT28ggApEUNf+3jtt9wBD+4BBQvQ3vxCW6j9qmmrOnLUI34hRD0eYqQfT56rP6/XA097cfr2VRnthhdHWLfQY9WEyfbO7hWZt4t9RRsrtCqF3B4Y67H9ry+hXxfUSzWLg1ME1nz6EC4Xi0TDSjkIXj7bYgeZg0ssAiAMCrW31fZiElZZx+weW8w0CTLsQD0Jg7lfXdLXPenAeA4IJPjGGdLJ0JaHC42dLF5a/dTD79oNAm8aVyL/anbpJndbqq9yZ8Y+wnnMV2qCOZpr8xgMKXWkdtrM6TucH33LECJwZlV/yvDQIPKUvathkio+evpPUE8TrUd0DITYeSE+beSQgrXHteK+B1ghYeqYo5naLKU9covoWgtnKEa7U6/IMs82kuqXrcf7wchmVWPZmEAL6jWxYwFvleFXjFAENgzqnKwi2aZpQzYbiG7b3yZBNNgPkD9uxCj/4Gz6wGRQLTiJjKvp27N1Mz6KdVLCEVDRmuM3uP7KboNMuxKLRc1jBlqmiOWj5BZVrMgl3T29eTehjirqRt+z2js=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5596.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RzVlRmN6MG9idlBLNFkwa2tzbFNWTU43OFpNQld5ZnFkVDE3VnFtaHJISmVy?=
- =?utf-8?B?QzJFRFZ6a1hnbTV5L25sU0N6S2V5bUc1OU95VUdYQ2VMM2w4QW9sSlAzYlor?=
- =?utf-8?B?VzBTZWRlUDhIWW5zQlo0WndmNkROd0F2ZWQyYmxyYUcwR2VWZzE3ZCt6b2Zm?=
- =?utf-8?B?T1B6SHg1Z1FkMS94MWt6UlhNSVJpUmpQLzJESU0wQlQ5R2hYdXQ4YXc2QnE2?=
- =?utf-8?B?ZitIWWEzS3VCdEc2cWlINEw1dTlxK1lnUldBWUZIa2c5NUZORitXc3kvdmFG?=
- =?utf-8?B?enYrckVZYTNIMUVMSVFzR2Y4UVNNSWZESWp5Z1RwTXZnek1GYkJOcTA2T20w?=
- =?utf-8?B?NElUeU9kdVRvMm9wdmVpUS8xUFc2Vkw3OEZQNDVqSGYzL1c4VUYySDYzZ1N4?=
- =?utf-8?B?cE5OMGZaV0JoU0Fud3N5dGlSM0NFdkZINFQ0eHBiVDdycUZwVERKVW9wQ3Nj?=
- =?utf-8?B?ekxXcjN2L0N2dmFhTHFSaGVUU3RCSEl2THhjaUYzbHYyMmY5QlpLSDh5dWJE?=
- =?utf-8?B?NXZxZjd2YUhQVDZ4Mmg1OEJsaDlaS2YzdHVhSktFZ1l2NUpoUEVJdDAvdVpX?=
- =?utf-8?B?OXhWc2o1WUtrN1kwSW5ldkVNa1BjRENRNnVTMmtMMXFRQzdJMnZIRmZpMUtk?=
- =?utf-8?B?NFJtcEx6ZFhFZmR0T21ZeVJnYkszVWVub1NjdjNpU014dDM5YWRBcDZaZXlY?=
- =?utf-8?B?MFJERm8xUkM5SVJOQUlWc1hZVWNpSzdDTUpSeVZZaEh4RHJXSWpzUm5uWW01?=
- =?utf-8?B?QUxROXlhNGJhNklqRXhTQ3BlTG9OMmUrZUkwbjk0anB4MFluYnRpUjlUQ1dh?=
- =?utf-8?B?dXFUa1crT1hDeEhTZDkzUEp3Q1haZk1NQURNdUxkc2cwdE1hR0dsdlpTVlcv?=
- =?utf-8?B?cUVXTG16R29tSWtPMllTT2d3aG54aU1JSzJTc3k5RW5YdnN5ckx2TGdnRS9i?=
- =?utf-8?B?UGFndUVTS1ZNWlA1Tkh2VEJ6V2R2MTJpRFRUaGZVcmlJU1c4UUtaNk9ySEpx?=
- =?utf-8?B?ZHlZZlRGSEx3bXIvK3FSZWc3M1UxR2E3UXRjT0h5ekZXVzhjRm5Rd2dwMS9K?=
- =?utf-8?B?Z29TWVR4dGFCby8yTlRjY2ppaEsvK2I4ZWlKQ3hyb0M1NytaSnlCWjg4NnZo?=
- =?utf-8?B?REVCa25HU0pMM0ltN0lQVjh5elRxL2NJM1JGQlNKTlROd1M5NGp6dmlMUng0?=
- =?utf-8?B?TjUyOUt2bzh4RFo4R0xHQzMxeHVKa0Y4OEpWK2xRRHl3b0hEN0N2VjRmNFcx?=
- =?utf-8?B?dzkzNGRuM0cwSFEzc2FpRkd0WG9IdDBQdzM1eHJkaVpWNDF6YTRDRFhTY2Fk?=
- =?utf-8?B?K213M09wRE8wdW5xTTZidUZ5a1l6RjRROVF5Ny83bUlzbkJiZmt1R0l0NFFu?=
- =?utf-8?B?YlRnVEY2K2NwR1F2Qkp6M1pZaWppcUkvQm5NT2NwTmtRaElFRXhhM2ZUMmQ3?=
- =?utf-8?B?TEp6aXdwa0JyRDZDNXJZUHdBZ1dhb0RNaERBL3FyTStHeVdqVlNkaklWYmpU?=
- =?utf-8?B?bGtvWWkrUDgycGt6NjB4SFcyaVl2bzRUcTEzYW1PdE5GWEM5Sys3OEh3YUR1?=
- =?utf-8?B?K052RzBKd2dtK2FsN3FwTngwRmkxY0wxdG9LMHhROGJ6ZEFEeWM1akRHSmRR?=
- =?utf-8?B?Tnd6R3lwMWc0em15VEtETVh4M1RJdzRlUUQ0cy9sSHhMaTY1bjg5UkdER09D?=
- =?utf-8?B?WCtHSUVSVkJMcjcyZ0lzK2FPb1VXQlpxTHBLN1NhOSt6MTdzZ2JOWUxJdEdj?=
- =?utf-8?B?MjlSM21DUDlnU3AyRitYdnRXc3VyQTFwUlpoK3VRN2gvRGtoZkRzR3ZXV09p?=
- =?utf-8?B?dVdJVExhQ2Y4SVNnaXVieisxd1J4Z0diY0M3MWRKY0FaMUk1VE5VQ3A0S0Vk?=
- =?utf-8?B?eGFncE9wTVNMZldBUjlBRGxTSTBzbUpYU3lwV2RocEttRUlMMTkzSkJtc0hX?=
- =?utf-8?B?cSt5ZEo1L2ppZjlJZjdkbW1tTzgyTy9tQmpSTWRQTWU4eXUyVlpsWnQwMUpj?=
- =?utf-8?B?TkJ6dTlQd2l5dDRNcEtyc2RQaFhlazdOVVduQ2tYNE5NS0xyTitPWFFwb0g2?=
- =?utf-8?B?NUwvQ3pKRTFPOTJTQ3B6ZlY4eDRtWkE2OUZUQjhBYU1jdXpqenJnY21CSCtz?=
- =?utf-8?Q?/8GSDIc6MH4HgmrwB9EDbpWzN?=
+X-Microsoft-Antispam-Message-Info: l5jDAZv21LINMz/tIWZ0zLXacoPFALWBaU75bMCKRTXeDGQSDZbpFV5/zloEEVX85JTA7qzu7d+gTw8UAYN3u72bzcHNEIemOqE2trYcAA+bv/Qg3DDlupd3F0nxTd8WpGavRxQItNV4lRNbFCcMvsNAvQiHziHIKEO2jfnS8nbSedrn+Wtj+BTTSg08h13dOgtlrDPWidrhtY3fFZkP+qUTujx2JWzgtRnyXmcKoQfknUb9tqOqSBFo+W1/plaiqXoDKrYkZS9Sh3HQoNEyIHZUO5YHt7Dzl5dVVUH8z/gYFSTSp4BCcYlFsXnoZpyZd4vd/yXS70vyFQXUwOzXcCYnE3cS/jVhG4CnLMns42UQxYvm+jJlnoYQ9ok+MQFS22GGlCWuF8Co/XIvlC8QvOASRzI8QFzXckVOI0iua4TA8BEDkG7TVb/0bMcY3O3cjK7nu7gdQ2fwEQweQFPMsusK00CUydKNLd6zFj43XntWTekxRVRAOJaYxDxJvdEnSZ+0I0d41nbAAi1GGoJxo2mNSMpIsT33H0ByLeysZgCDGmOagtxJ20TQcDIy3p40YERkQIVWnYUlDpV0+I6hPWcHwkUJ8tB6cZ247hZt466TDJqJcYLplxbctG0G5cL5pRlpqGjFnV+ZNSh6GBUD8fVEKXKRjqqhTiMrTj8QyR+7kHPChCX8YCNUysyzRDtV5bEItioJI0IO3Y3O8ssJ7v+mShCxcTVN9l/TTateUB9lIFG4KElaDvaYz6dHwgP6
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(82310400014)(36860700004); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb33042f-9df2-4cce-d05f-08dc44f2577e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5596.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2024 13:18:02.4100 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2024 13:25:41.5379 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d56ab3a3-9238-42f5-172d-08dc44f36969
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NgrwKMp5lEcxQk2RJAn5uii1I12jfHFov7s72+15/QVN4rMQG7/ikOghYcw8b7ecDPHFfdnJU9QApjT4CwnTVQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6634
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6397
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,104 +107,469 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Christian Koenig <christian.koenig@amd.com>
 
-On 3/15/2024 6:45 PM, Alex Deucher wrote:
-> On Fri, Mar 15, 2024 at 8:13 AM Sunil Khatri <sunil.khatri@amd.com> wrote:
->> Add all the IP's version information on a SOC to the
->> devcoredump.
->>
->> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> This looks great.
->
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+The problem is that when (for example) 4k pages are replaced
+with a single 2M page we need to wait for change to be flushed
+out by invalidating the TLB before the PT can be freed.
 
-Thanks Alex
+Solve this by moving the TLB flush into a DMA-fence object which
+can be used to delay the freeing of the PT BOs until it is signaled.
+Also remove existing TLB flush cb and vm->last_tlb_flush fence and
+replace it with new method of flushing tlb.
 
->
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c | 62 +++++++++++++++++++++++
->>   1 file changed, 62 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
->> index a0dbccad2f53..3d4bfe0a5a7c 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
->> @@ -29,6 +29,43 @@
->>   #include "sienna_cichlid.h"
->>   #include "smu_v13_0_10.h"
->>
->> +const char *hw_ip_names[MAX_HWIP] = {
->> +       [GC_HWIP]               = "GC",
->> +       [HDP_HWIP]              = "HDP",
->> +       [SDMA0_HWIP]            = "SDMA0",
->> +       [SDMA1_HWIP]            = "SDMA1",
->> +       [SDMA2_HWIP]            = "SDMA2",
->> +       [SDMA3_HWIP]            = "SDMA3",
->> +       [SDMA4_HWIP]            = "SDMA4",
->> +       [SDMA5_HWIP]            = "SDMA5",
->> +       [SDMA6_HWIP]            = "SDMA6",
->> +       [SDMA7_HWIP]            = "SDMA7",
->> +       [LSDMA_HWIP]            = "LSDMA",
->> +       [MMHUB_HWIP]            = "MMHUB",
->> +       [ATHUB_HWIP]            = "ATHUB",
->> +       [NBIO_HWIP]             = "NBIO",
->> +       [MP0_HWIP]              = "MP0",
->> +       [MP1_HWIP]              = "MP1",
->> +       [UVD_HWIP]              = "UVD/JPEG/VCN",
->> +       [VCN1_HWIP]             = "VCN1",
->> +       [VCE_HWIP]              = "VCE",
->> +       [VPE_HWIP]              = "VPE",
->> +       [DF_HWIP]               = "DF",
->> +       [DCE_HWIP]              = "DCE",
->> +       [OSSSYS_HWIP]           = "OSSSYS",
->> +       [SMUIO_HWIP]            = "SMUIO",
->> +       [PWR_HWIP]              = "PWR",
->> +       [NBIF_HWIP]             = "NBIF",
->> +       [THM_HWIP]              = "THM",
->> +       [CLK_HWIP]              = "CLK",
->> +       [UMC_HWIP]              = "UMC",
->> +       [RSMU_HWIP]             = "RSMU",
->> +       [XGMI_HWIP]             = "XGMI",
->> +       [DCI_HWIP]              = "DCI",
->> +       [PCIE_HWIP]             = "PCIE",
->> +};
->> +
->> +
->>   int amdgpu_reset_init(struct amdgpu_device *adev)
->>   {
->>          int ret = 0;
->> @@ -196,6 +233,31 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
->>                             coredump->reset_task_info.process_name,
->>                             coredump->reset_task_info.pid);
->>
->> +       /* GPU IP's information of the SOC */
->> +       if (coredump->adev) {
->> +
->> +               drm_printf(&p, "\nIP Information\n");
->> +               drm_printf(&p, "SOC Family: %d\n", coredump->adev->family);
->> +               drm_printf(&p, "SOC Revision id: %d\n", coredump->adev->rev_id);
->> +               drm_printf(&p, "SOC External Revision id: %d\n",
->> +                          coredump->adev->external_rev_id);
->> +
->> +               for (int i = 1; i < MAX_HWIP; i++) {
->> +                       for (int j = 0; j < HWIP_MAX_INSTANCE; j++) {
->> +                               int ver = coredump->adev->ip_versions[i][j];
->> +
->> +                               if (ver)
->> +                                       drm_printf(&p, "HWIP: %s[%d][%d]: v%d.%d.%d.%d.%d\n",
->> +                                                  hw_ip_names[i], i, j,
->> +                                                  IP_VERSION_MAJ(ver),
->> +                                                  IP_VERSION_MIN(ver),
->> +                                                  IP_VERSION_REV(ver),
->> +                                                  IP_VERSION_VARIANT(ver),
->> +                                                  IP_VERSION_SUBREV(ver));
->> +                       }
->> +               }
->> +       }
->> +
->>          if (coredump->ring) {
->>                  drm_printf(&p, "\nRing timed out details\n");
->>                  drm_printf(&p, "IP Type: %d Ring Name: %s\n",
->> --
->> 2.34.1
->>
+V2: (Shashank)
+    - rebase
+    - set dma_fence_error only in case of error
+    - add tlb_flush fence only when PT/PD BO is locked (Felix)
+    - use vm->pasid when f is NULL (Mukul)
+
+V4: - add a wait for (f->dependency) in tlb_fence_work (Christian)
+    - move the misplaced fence_create call to the end (Philip)
+
+V5: - free the f->dependency properly (Christian)
+
+V6: (Shashank)
+    - added some cleanup from the HW seq patch in this patch.
+    - introduce params.needs_flush and its usage in this patch.
+    - remove vm->last_tlb_flush and tlb_cb.
+    - rebase without TLB HW seq patch.
+
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Acked-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+Tested-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+Reviewed-by: Shashank Sharma <shashank.sharma@amd.com>
+Signed-off-by: Christian KÃ¶nig <christian.koenig@amd.com>
+Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/Makefile           |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  77 ++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  26 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c    |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c     |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |   4 +
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  | 112 ++++++++++++++++++
+ 7 files changed, 141 insertions(+), 87 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 4536c8ad0e11..f24f11ac3e92 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -70,7 +70,8 @@ amdgpu-y += amdgpu_device.o amdgpu_doorbell_mgr.o amdgpu_kms.o \
+ 	amdgpu_cs.o amdgpu_bios.o amdgpu_benchmark.o \
+ 	atombios_dp.o amdgpu_afmt.o amdgpu_trace_points.o \
+ 	atombios_encoders.o amdgpu_sa.o atombios_i2c.o \
+-	amdgpu_dma_buf.o amdgpu_vm.o amdgpu_vm_pt.o amdgpu_ib.o amdgpu_pll.o \
++	amdgpu_dma_buf.o amdgpu_vm.o amdgpu_vm_pt.o amdgpu_vm_tlb_fence.o \
++	amdgpu_ib.o amdgpu_pll.o \
+ 	amdgpu_ucode.o amdgpu_bo_list.o amdgpu_ctx.o amdgpu_sync.o \
+ 	amdgpu_gtt_mgr.o amdgpu_preempt_mgr.o amdgpu_vram_mgr.o amdgpu_virt.o \
+ 	amdgpu_atomfirmware.o amdgpu_vf_error.o amdgpu_sched.o \
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 81fb3465e197..3b64623f32ea 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -111,21 +111,6 @@ struct amdgpu_prt_cb {
+ 	struct dma_fence_cb cb;
+ };
+ 
+-/**
+- * struct amdgpu_vm_tlb_seq_struct - Helper to increment the TLB flush sequence
+- */
+-struct amdgpu_vm_tlb_seq_struct {
+-	/**
+-	 * @vm: pointer to the amdgpu_vm structure to set the fence sequence on
+-	 */
+-	struct amdgpu_vm *vm;
+-
+-	/**
+-	 * @cb: callback
+-	 */
+-	struct dma_fence_cb cb;
+-};
+-
+ /**
+  * amdgpu_vm_set_pasid - manage pasid and vm ptr mapping
+  *
+@@ -868,23 +853,6 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+ 	return r;
+ }
+ 
+-/**
+- * amdgpu_vm_tlb_seq_cb - make sure to increment tlb sequence
+- * @fence: unused
+- * @cb: the callback structure
+- *
+- * Increments the tlb sequence to make sure that future CS execute a VM flush.
+- */
+-static void amdgpu_vm_tlb_seq_cb(struct dma_fence *fence,
+-				 struct dma_fence_cb *cb)
+-{
+-	struct amdgpu_vm_tlb_seq_struct *tlb_cb;
+-
+-	tlb_cb = container_of(cb, typeof(*tlb_cb), cb);
+-	atomic64_inc(&tlb_cb->vm->tlb_seq);
+-	kfree(tlb_cb);
+-}
+-
+ /**
+  * amdgpu_vm_update_range - update a range in the vm page table
+  *
+@@ -917,7 +885,6 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 			   struct dma_fence **fence)
+ {
+ 	struct amdgpu_vm_update_params params;
+-	struct amdgpu_vm_tlb_seq_struct *tlb_cb;
+ 	struct amdgpu_res_cursor cursor;
+ 	enum amdgpu_sync_mode sync_mode;
+ 	int r, idx;
+@@ -925,12 +892,6 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+ 		return -ENODEV;
+ 
+-	tlb_cb = kmalloc(sizeof(*tlb_cb), GFP_KERNEL);
+-	if (!tlb_cb) {
+-		r = -ENOMEM;
+-		goto error_unlock;
+-	}
+-
+ 	/* Vega20+XGMI where PTEs get inadvertently cached in L2 texture cache,
+ 	 * heavy-weight flush TLB unconditionally.
+ 	 */
+@@ -948,6 +909,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	params.immediate = immediate;
+ 	params.pages_addr = pages_addr;
+ 	params.unlocked = unlocked;
++	params.needs_flush = flush_tlb;
+ 	params.allow_override = allow_override;
+ 
+ 	/* Implicitly sync to command submissions in the same VM before
+@@ -961,7 +923,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	amdgpu_vm_eviction_lock(vm);
+ 	if (vm->evicting) {
+ 		r = -EBUSY;
+-		goto error_free;
++		goto error_unlock;
+ 	}
+ 
+ 	if (!unlocked && !dma_fence_is_signaled(vm->last_unlocked)) {
+@@ -974,7 +936,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 
+ 	r = vm->update_funcs->prepare(&params, resv, sync_mode);
+ 	if (r)
+-		goto error_free;
++		goto error_unlock;
+ 
+ 	amdgpu_res_first(pages_addr ? NULL : res, offset,
+ 			 (last - start + 1) * AMDGPU_GPU_PAGE_SIZE, &cursor);
+@@ -1024,7 +986,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		tmp = start + num_entries;
+ 		r = amdgpu_vm_ptes_update(&params, start, tmp, addr, flags);
+ 		if (r)
+-			goto error_free;
++			goto error_unlock;
+ 
+ 		amdgpu_res_next(&cursor, num_entries * AMDGPU_GPU_PAGE_SIZE);
+ 		start = tmp;
+@@ -1032,21 +994,14 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 
+ 	r = vm->update_funcs->commit(&params, fence);
+ 
+-	if (flush_tlb || params.table_freed) {
+-		tlb_cb->vm = vm;
+-		if (fence && *fence &&
+-		    !dma_fence_add_callback(*fence, &tlb_cb->cb,
+-					   amdgpu_vm_tlb_seq_cb)) {
+-			dma_fence_put(vm->last_tlb_flush);
+-			vm->last_tlb_flush = dma_fence_get(*fence);
+-		} else {
+-			amdgpu_vm_tlb_seq_cb(NULL, &tlb_cb->cb);
+-		}
+-		tlb_cb = NULL;
+-	}
++	/* Prepare a TLB flush fence to be attached to PTs */
++	if (!unlocked && params.needs_flush && vm->is_compute_context) {
++		amdgpu_vm_tlb_fence_create(adev, vm, fence);
+ 
+-error_free:
+-	kfree(tlb_cb);
++		/* Makes sure no PD/PT is freed before the flush */
++		dma_resv_add_fence(vm->root.bo->tbo.base.resv, *fence,
++				   DMA_RESV_USAGE_BOOKKEEP);
++	}
+ 
+ error_unlock:
+ 	amdgpu_vm_eviction_unlock(vm);
+@@ -2386,11 +2341,11 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 
+ 	vm->last_update = dma_fence_get_stub();
+ 	vm->last_unlocked = dma_fence_get_stub();
+-	vm->last_tlb_flush = dma_fence_get_stub();
+ 	vm->generation = 0;
+ 
+ 	mutex_init(&vm->eviction_lock);
+ 	vm->evicting = false;
++	vm->tlb_fence_context = dma_fence_context_alloc(1);
+ 
+ 	r = amdgpu_vm_pt_create(adev, vm, adev->vm_manager.root_level,
+ 				false, &root, xcp_id);
+@@ -2429,10 +2384,8 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	amdgpu_bo_unref(&root_bo);
+ 
+ error_free_delayed:
+-	dma_fence_put(vm->last_tlb_flush);
+ 	dma_fence_put(vm->last_unlocked);
+ 	amdgpu_vm_fini_entities(vm);
+-
+ 	return r;
+ }
+ 
+@@ -2530,7 +2483,6 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 	struct amdgpu_bo_va_mapping *mapping, *tmp;
+ 	bool prt_fini_needed = !!adev->gmc.gmc_funcs->set_prt;
+ 	struct amdgpu_bo *root;
+-	unsigned long flags;
+ 	int i;
+ 
+ 	amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
+@@ -2543,11 +2495,6 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 	amdgpu_vm_set_pasid(adev, vm, 0);
+ 	dma_fence_wait(vm->last_unlocked, false);
+ 	dma_fence_put(vm->last_unlocked);
+-	dma_fence_wait(vm->last_tlb_flush, false);
+-	/* Make sure that all fence callbacks have completed */
+-	spin_lock_irqsave(vm->last_tlb_flush->lock, flags);
+-	spin_unlock_irqrestore(vm->last_tlb_flush->lock, flags);
+-	dma_fence_put(vm->last_tlb_flush);
+ 
+ 	list_for_each_entry_safe(mapping, tmp, &vm->freed, list) {
+ 		if (mapping->flags & AMDGPU_PTE_PRT && prt_fini_needed) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 8efa8422f4f7..ba92f431f4e0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -257,9 +257,9 @@ struct amdgpu_vm_update_params {
+ 	unsigned int num_dw_left;
+ 
+ 	/**
+-	 * @table_freed: return true if page table is freed when updating
++	 * @needs_flush: true whenever we need to invalidate the TLB
+ 	 */
+-	bool table_freed;
++	bool needs_flush;
+ 
+ 	/**
+ 	 * @allow_override: true for memory that is not uncached: allows MTYPE
+@@ -338,10 +338,10 @@ struct amdgpu_vm {
+ 	struct drm_sched_entity	immediate;
+ 	struct drm_sched_entity	delayed;
+ 
+-	/* Last finished delayed update */
++	/* Sequence number indicating necessary TLB flush */
+ 	atomic64_t		tlb_seq;
+-	struct dma_fence	*last_tlb_flush;
+ 	atomic64_t		kfd_last_flushed_seq;
++	uint64_t		tlb_fence_context;
+ 
+ 	/* How many times we had to re-generate the page tables */
+ 	uint64_t		generation;
+@@ -562,21 +562,6 @@ int amdgpu_vm_pt_map_tables(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+  */
+ static inline uint64_t amdgpu_vm_tlb_seq(struct amdgpu_vm *vm)
+ {
+-	unsigned long flags;
+-	spinlock_t *lock;
+-
+-	/*
+-	 * Workaround to stop racing between the fence signaling and handling
+-	 * the cb. The lock is static after initially setting it up, just make
+-	 * sure that the dma_fence structure isn't freed up.
+-	 */
+-	rcu_read_lock();
+-	lock = vm->last_tlb_flush->lock;
+-	rcu_read_unlock();
+-
+-	spin_lock_irqsave(lock, flags);
+-	spin_unlock_irqrestore(lock, flags);
+-
+ 	return atomic64_read(&vm->tlb_seq);
+ }
+ 
+@@ -611,5 +596,8 @@ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
+ 				  uint64_t addr,
+ 				  uint32_t status,
+ 				  unsigned int vmhub);
++void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev,
++				 struct amdgpu_vm *vm,
++				 struct dma_fence **fence);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+index 6e31621452de..3895bd7d176a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+@@ -108,7 +108,9 @@ static int amdgpu_vm_cpu_update(struct amdgpu_vm_update_params *p,
+ static int amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
+ 				struct dma_fence **fence)
+ {
+-	/* Flush HDP */
++	if (p->needs_flush)
++		atomic64_inc(&p->vm->tlb_seq);
++
+ 	mb();
+ 	amdgpu_device_flush_hdp(p->adev, NULL);
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index 124389a6bf48..601df0ce8290 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -972,7 +972,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+ 			while (cursor.pfn < frag_start) {
+ 				/* Make sure previous mapping is freed */
+ 				if (cursor.entry->bo) {
+-					params->table_freed = true;
++					params->needs_flush = true;
+ 					amdgpu_vm_pt_free_dfs(adev, params->vm,
+ 							      &cursor,
+ 							      params->unlocked);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 349416e176a1..66e8a016126b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -126,6 +126,10 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
+ 
+ 	WARN_ON(ib->length_dw == 0);
+ 	amdgpu_ring_pad_ib(ring, ib);
++
++	if (p->needs_flush)
++		atomic64_inc(&p->vm->tlb_seq);
++
+ 	WARN_ON(ib->length_dw > p->num_dw_left);
+ 	f = amdgpu_job_submit(p->job);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
+new file mode 100644
+index 000000000000..51cddfa3f1e8
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
+@@ -0,0 +1,112 @@
++// SPDX-License-Identifier: GPL-2.0 OR MIT
++/*
++ * Copyright 2023 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#include <linux/dma-fence.h>
++#include <linux/workqueue.h>
++
++#include "amdgpu.h"
++#include "amdgpu_vm.h"
++#include "amdgpu_gmc.h"
++
++struct amdgpu_tlb_fence {
++	struct dma_fence	base;
++	struct amdgpu_device	*adev;
++	struct dma_fence	*dependency;
++	struct work_struct	work;
++	spinlock_t		lock;
++	uint16_t		pasid;
++
++};
++
++static const char *amdgpu_tlb_fence_get_driver_name(struct dma_fence *fence)
++{
++	return "amdgpu tlb fence";
++}
++
++static const char *amdgpu_tlb_fence_get_timeline_name(struct dma_fence *f)
++{
++	return "amdgpu tlb timeline";
++}
++
++static void amdgpu_tlb_fence_work(struct work_struct *work)
++{
++	struct amdgpu_tlb_fence *f = container_of(work, typeof(*f), work);
++	int r;
++
++	if (f->dependency) {
++		dma_fence_wait(f->dependency, false);
++		dma_fence_put(f->dependency);
++		f->dependency = NULL;
++	}
++
++	r = amdgpu_gmc_flush_gpu_tlb_pasid(f->adev, f->pasid, 2, true, 0);
++	if (r) {
++		dev_err(f->adev->dev, "TLB flush failed for PASID %d.\n",
++			f->pasid);
++		dma_fence_set_error(&f->base, r);
++	}
++
++	dma_fence_signal(&f->base);
++	dma_fence_put(&f->base);
++}
++
++static const struct dma_fence_ops amdgpu_tlb_fence_ops = {
++	.use_64bit_seqno = true,
++	.get_driver_name = amdgpu_tlb_fence_get_driver_name,
++	.get_timeline_name = amdgpu_tlb_fence_get_timeline_name
++};
++
++void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
++				struct dma_fence **fence)
++{
++	struct amdgpu_tlb_fence *f;
++
++	f = kmalloc(sizeof(*f), GFP_KERNEL);
++	if (!f) {
++		/*
++		 * We can't fail since the PDEs and PTEs are already updated, so
++		 * just block for the dependency and execute the TLB flush
++		 */
++		if (*fence)
++			dma_fence_wait(*fence, false);
++
++		amdgpu_gmc_flush_gpu_tlb_pasid(adev, vm->pasid, 2, true, 0);
++		*fence = dma_fence_get_stub();
++		return;
++	}
++
++	f->adev = adev;
++	f->dependency = *fence;
++	f->pasid = vm->pasid;
++	INIT_WORK(&f->work, amdgpu_tlb_fence_work);
++	spin_lock_init(&f->lock);
++
++	dma_fence_init(&f->base, &amdgpu_tlb_fence_ops, &f->lock,
++		       vm->tlb_fence_context, atomic64_read(&vm->tlb_seq));
++
++	/* TODO: We probably need a separate wq here */
++	dma_fence_get(&f->base);
++	schedule_work(&f->work);
++
++	*fence = &f->base;
++}
+-- 
+2.43.2
+
