@@ -4,132 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07DA4C54E5D
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 01:40:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65D24C54E60
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 02:33:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F8CE10FF38;
-	Fri, 15 Mar 2024 01:40:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 878F810E3FF;
+	Fri, 15 Mar 2024 02:33:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FRRO5334";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VmSG1sAG";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2063.outbound.protection.outlook.com [40.107.102.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 274D210FF38
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 01:40:31 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2084.outbound.protection.outlook.com [40.107.212.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 965F410E3FF;
+ Fri, 15 Mar 2024 02:33:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F9ICwGNhpDX56D21kbGZ4dravSUnUeltsgyDwv4Q+YRYt+EoYtMB9P8cCrIdpb3rPaxs6DvSC1YQFxzRNFYLN3j3C5K88HWOMWkNywohH7X/36gJnzPa7LqBspNuFqUP8hgmO7tYg2eVAgKD/ljBZ/H/KNgwVAp306Ca+LTLy4rxFq6kMYPtUNguL330KI8HYb8P4wsxu2tIz0aO/IY6ssm5ue4KdcIpr9rmBe6L6RPTZH02/phN3Ui61Q0tpPYpEmOS7kULTXBqU2R1+RTV7RldfypIEoJn3VkRddy2vN2NpzG4wmcGJn9m5P/A8IQEEMWnAwEFdUlnWWoF5r0BvA==
+ b=Q+Ceduhs79ZhA0D7XM4neN+Rgs3vMs5t+Wo67GXOA8MwX+aJGfjX7WPwuMv8iEULPg5dNzAIvDc7TvgFNZ95k4u+ftjRTBG9i3OId8HUd+s/li470+Q65MmR1qwKrl0yKLRLB5XsKbwwaNMEwe3hntbU54C8QsFpumsMtKaN99Rllh+QkYETPsNsI79fThhRP5AbrVOARf3fqBh14W05bSuCCSuFfc/h3tMxEt7EdfN+V+Ef0CoMVWCJkbVZ9Hl2GfvgeeiGLfsTkP/qYJe7d731XIW+aXrDA+lhLWbo6KLbQfKdJzGeNC8qK6Xsu3d1S6zkojOlJEcKZLsOs48iag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cPwH5f5LUP86GF4LS/xepzQYFyWKzi/eM6Xosx0luDA=;
- b=FRMRenVvaxo/5PhMZQITJqaIMREyxsPPacwb3BnFVloeBVp8Hbv54wl08QB8f5lGVoaSOZYQIB0bFARMn53EKBKaIPjKTrNbt+8NPeusXmxxyKzx2yC5V5pkWlAg5cg5HV+ni4N31aN3vGlHE3rPx+40ZHJGES4nUxNFzPcyJ/annQTCXuPbnaNHLEQNa9mkoEOO7P8qIsFjnWqh5E9DYw8EgHETkM11GbQz/5kRX05U01b/nYLgT78dH6SJuCScQXRalZMmBZNDFlJ9C3jyORc7bmtWzkq3Yj+yWyvbMFz+AhUkxOYMEE50mBpfCK8CeNjV8eQUIdPA+Nb7fgQ6aA==
+ bh=iBiy6IfDi5JJbOgri4NaMj8gEInvKXAynq6wMT8A1WY=;
+ b=jr8a+XUjrArvNyb/pyfiiGFCdhohRD8b/XpD2EKI/NyS+PlxBfwGaKxj819K3fvOR9OYrXMRrELELBS3Knh2neAVWW/6FNjMDEAzysMdQLdNIHbCZ6VHmZf+01mxGx3+QnqmQkPy/16yBk2Z60H7aJQ0fu2/Qfy9PqSwJ1qK1UarkbAY95xGOvYD46hUPJexKpGwCpgmVi0D1njZrmQtOj47odrIGoXpBHqJAqMupQnlcWHH98936PCWochj3yRZhKQZL/2oJqIPf3xJue1SHQjdBTfCNiaJQNcCObReG+m1+Gu/fCsK8WbkMArQ8r0NjGY6WNYgsIFR0ri2esxXDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cPwH5f5LUP86GF4LS/xepzQYFyWKzi/eM6Xosx0luDA=;
- b=FRRO5334xXSDxlv1MrcfzqT+WPcpvWr8s7UH+ihVryR1OeDrxKywDZTHqWcdGqFYSRF884/is6r1VLY5HX2XQBZzLCTA4+KScxQCvxFiEVJ9yFUBgoaR8M7/GdFm/9XXDUGcm2hjFE5IDm147fxLpTne+RzdbS2N1fTbPiyvko8=
-Received: from MN2PR12MB4373.namprd12.prod.outlook.com (2603:10b6:208:261::8)
- by DM4PR12MB6493.namprd12.prod.outlook.com (2603:10b6:8:b6::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.36; Fri, 15 Mar
- 2024 01:40:28 +0000
-Received: from MN2PR12MB4373.namprd12.prod.outlook.com
- ([fe80::950c:8c43:3454:884b]) by MN2PR12MB4373.namprd12.prod.outlook.com
- ([fe80::950c:8c43:3454:884b%4]) with mapi id 15.20.7362.035; Fri, 15 Mar 2024
- 01:40:28 +0000
-From: "Lee, Peyton" <Peyton.Lee@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, 
- Alexander" <Alexander.Deucher@amd.com>, "Zhang, Yifan"
- <Yifan1.Zhang@amd.com>, "Ma, Li" <Li.Ma@amd.com>, "Yu, Lang"
- <Lang.Yu@amd.com>
-Subject: =?utf-8?B?5Zue6KaGOiBbUEFUQ0hdIGRybS9hbWRncHUvdnBlOiBwb3dlciBvbiB2cGUg?=
- =?utf-8?Q?when_hw=5Finit?=
-Thread-Topic: [PATCH] drm/amdgpu/vpe: power on vpe when hw_init
-Thread-Index: AQHadTtmZPKIR7z+KUKKDKPyWJhnTbE1pxOAgADLt0CAAMFAAIAA0Wfg
-Date: Fri, 15 Mar 2024 01:40:28 +0000
-Message-ID: <MN2PR12MB437320223A607D4BAA8C182586282@MN2PR12MB4373.namprd12.prod.outlook.com>
-References: <20240313114451.1592772-1-peytolee@amd.com>
- <CADnq5_OTwaLWJ9LiicJu-hO+WDF6fPB5PFQWzAqopyrDVn6R5Q@mail.gmail.com>
- <MN2PR12MB4373845FF59F1ACC83AAEFC986292@MN2PR12MB4373.namprd12.prod.outlook.com>
- <CADnq5_MzsCoj0VMKkQecWfGS1UAXE7Xvje3eoNbTP7fbdvXHRQ@mail.gmail.com>
-In-Reply-To: <CADnq5_MzsCoj0VMKkQecWfGS1UAXE7Xvje3eoNbTP7fbdvXHRQ@mail.gmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=75a20cad-4a42-4916-bc2a-bffdc274b18b;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-03-15T01:27:32Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=iBiy6IfDi5JJbOgri4NaMj8gEInvKXAynq6wMT8A1WY=;
+ b=VmSG1sAGrOfQKBeZhu4NUsRZXlU05BZqWDc0HCAHamQrqPnU0tMgV1mIlbt2b1+JZP7fqTRwmKm69dRFQ+KdyZBA0IFSq0fWdjfkVMpNSLOBdodlxWButY3vtxr4d5yAthr77n2CNZWfweRTfO+z+P1c3gq9rTJzn+RUi0RwYbE=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN2PR12MB4373:EE_|DM4PR12MB6493:EE_
-x-ms-office365-filtering-correlation-id: 0d64473f-7393-4629-b2b2-08dc4490e4bb
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: iDrLbKo/Q/ts3DLsVx1TCUPfxTUJ1KJGVAy5cLdQNUBqDK3/+CM4QmQ2n6gyVuxlAZK9OrHJTTIRZlpJi/AgN2d4iuPbgU1Xs6ryLWMjullxQigOwWKgGPygMrzGQzaLK2OA8JqlK1dPLL4GjgZieoZOmiWmmoVC0YdA2lxvl8ayUcXxObxZScYqr6NZZ/weMiwp5V+8S0K/iTfEufeEljS81SvdEUrBoVcaAmszTZhqKcjn5yhwRbbMyy9m1SNjRCt5KX8IlxIrpjU35fNBpjku3S1FqP8SUr47GDFc7Zj5yUogUYSer7cMJKy4CX8fCyeCJDvDRuYCB2mxZphWkL/0yDJ0EhovhCsp7R3XSnoNwL/+lJjDQKX3XbCchQA9WVVejazobEbFyTaf4fRYod1tuGMWPxuU+FFiIXkX9osBAueju7fEDCxchV8U7BFXmVYsks17OcH7e/nxGuLnUTLhlDW7dhBJ+gWc4FiTWZ0YRqAQ3CZvMMrp5X4YTude2ar8VSpjWdfWf4Expq2sfuTYMpxVfh45CR6qhIpFYhQH2tWJ+/xjvhILp9aMo3pnPtCjo2yoajyXzXAexHgdq9ADx1yHf7JfIiEhTGrS9I1m3MWuixl7GvanNqptuyofhWfOIC2fAAcQ6Q7AXWb/ClCN0nmabA0nUDMKtGcIUYPHx8UBRUp3JB7rMUBopGb6tEvYrlPfMLT1db7zJP34KlchDxevgbCYB0SoFUB978s=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:zh-tw; SCL:1;
- SRV:; IPV:NLI; SFV:NSPM; H:MN2PR12MB4373.namprd12.prod.outlook.com; PTR:;
- CAT:NONE; SFS:(13230031)(376005)(366007)(1800799015)(38070700009); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NlBjeVNSc0o5UDh4bFo1VzRPeTZQeGdVcTFqU2gzUTYyQWVNcEJ4WWdoaEp5?=
- =?utf-8?B?aEJWUVNoOGJoM25iQmF6MjRtWVV1OUZINVdzV1JFZ1NWQ2xtVSszUUU4ZlJH?=
- =?utf-8?B?b2Z0eGNpWjRzQTBZV1BKa1NKQ1NnN0lhNnpadndBZFBYWHNvaW1LS1h3MU5B?=
- =?utf-8?B?TnIvZnJMRHhlQWVYZ0Y2NFdxeHRQUW9GTUdMUC94UFh1QjhZMWNBbGQ0YzlS?=
- =?utf-8?B?UUp6OHZNOVpoSGJoOWVwd3BIS0FYcGZQUmk2NTROc1JXZGFCZVlTTHJEVG5I?=
- =?utf-8?B?R1NqSldEWHRtb3p3azdxSURXSzRoK3FRQS9VMEx0dGhUN21IblVETW5xS0hK?=
- =?utf-8?B?NHRuV1JKSGdWb1pYc1BEUWFlcU1La05QMThzTFZHSmhqbWY4Z242VkZrTE1P?=
- =?utf-8?B?ck55aGlaSUsxWnlIQ0VXLzlUa0ZOWDdwZXgwQ0hNQmpHbkE2eUExUHpFOG5I?=
- =?utf-8?B?bFByMzNybUZtTUJMcy9GT1p6Ky9hcVZXdUpSVXhYVEdLRGJhSmFMcUpXTVc1?=
- =?utf-8?B?MUYzdCtWc3krZUlNWXRtTkZjVWpoU2lMTzdhK2lTNE9HbURSOUt5U0hZTTlN?=
- =?utf-8?B?R0pjQjdpTGRhQnZFenI0RnRVdUJ2S1dVZ2lkZzBpckg2UWVVYzhQZDlvQjEz?=
- =?utf-8?B?a1FqYzdXa3FaeDlBalZidEtkQTF4a0xRN3RJSmRzUXNJNjVJRnhBRG4ycEty?=
- =?utf-8?B?MGZsRWRmQ2ZyYnFSUnlHcUJtTjZPcTg5M1VWM3p2MnB3ZVdmdVQ0TUZZNUYx?=
- =?utf-8?B?c2owai83ZURVSG5jaXdtTFhWU0swOU9QQnZjaUlsSnhISGs0ZENRSk1QTFVh?=
- =?utf-8?B?bFFvbTJwQjY5aDkzOEVUTHVDZlRQUmk0UEZtbDdOTUhqcVNjM01nWDdmdUU2?=
- =?utf-8?B?b1BvSEVadlI4MzVGMmtZMkhFNWM3V2FtSFhPd0daSjdGbzhyY0Izems2MVZ4?=
- =?utf-8?B?SkYzSCt2QWhjb0JTRER4R1dZZDhtQnpwc0ljd3Y5QkMzNURYZ2xSMzMwemto?=
- =?utf-8?B?V3JWQzZpUS9uVTRhUWFMdkJvYWNjalVrcWFTbmY2dFo2MVM4OEFLS3BHUEM3?=
- =?utf-8?B?cUZoSmJrNm51ZHltSjlwUjl3dEh1VHlTM05RWWVIV3FibHVrcWdmbElhbWdk?=
- =?utf-8?B?V0pEaks5S2FtVWxJa1M3aGlVZ2MrQ3c4ci91YlRXNWZ6dHh3aC80VHNrSmJB?=
- =?utf-8?B?bEZYSFhETGF3Y3lIaHRMZjNEUkpaZnVrK0lTMGsrUzRlSk96b0hGaDJNWjVK?=
- =?utf-8?B?eEdNZnptbit4VllpTi9sN3hsWmMyS0IyTHZVeFpKMG1Gd2JHZ1AxVXBkVnZp?=
- =?utf-8?B?elR2SWNjcnlZUGYvMVpyWElRMHg4OXN0MHZ3QU4ydVl3bWM5SjNGZEs1cE9O?=
- =?utf-8?B?Q0c2Rk00RU1mcklLSnJWeVNRdVk5bXpTY0diYU1nR0Y0MUJVYVRIYXl4bDls?=
- =?utf-8?B?K3hnYmRxTUlpOGN4OG1wVEV1VlNZdUNyWUh6bmI0OWJHRndTYU8wYkErWlIr?=
- =?utf-8?B?L29nVlROenFLdDF5eWwxUkxSNDN6REd0OC9hMnVDMk9idC9LOGl3OFM0czlW?=
- =?utf-8?B?dGFZM2RPSitjRUlab2hBSDYrOTJ2MXEvSDBsVFAyU0FOSDhIaFNaRC9meTRJ?=
- =?utf-8?B?NlQrVFp1STVMUmcycVBTenJtclRRcWRLeFp0TWVnR0pGRi9PZlp1em5pd2or?=
- =?utf-8?B?YkZaVlYwUVYxRnVjRGVISzg0TnJlR1VPdkFWQXpaOFkwblJoQi9SZFlRcUFp?=
- =?utf-8?B?Y2RibWRPTFdLWnB6RFVmbjFTOWVobWxKb0lGK3FZVUltT0Z6ZVh5WUVSWXpl?=
- =?utf-8?B?UFdPTDhnUXJmVkhUenhLUDY5WXRLd0hEa0Zqc25ES2kyRFI1TDBOUTFFSUFB?=
- =?utf-8?B?aTRwR3Zvd3hJNnlkR0hybDRvRGIzRGVYZUVqMWdydU5kVXExdURIVlpQNkxr?=
- =?utf-8?B?R09PeGYwMmRqZVJyUklBbUM3ZzBoY252SitVTG42bFoyR3l4R2RLdUJnZWw3?=
- =?utf-8?B?M1BNVlNsT1dCSldoSFRQd3ppR0dLaDVNUUg4cU1LN0lobmVhYnVXWnNNQWVX?=
- =?utf-8?B?K2ZwVkc4MmRZTTBzVlVnTEt1aURQQldaRGZZK3RodDFZWHNXQUh0OTFWRUlp?=
- =?utf-8?Q?hXNQ=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by SA1PR12MB7295.namprd12.prod.outlook.com (2603:10b6:806:2b6::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.34; Fri, 15 Mar
+ 2024 02:33:12 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::8099:8c89:7b48:beed]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::8099:8c89:7b48:beed%7]) with mapi id 15.20.7386.017; Fri, 15 Mar 2024
+ 02:33:10 +0000
+Message-ID: <330606ad-4236-4b2c-9606-b51ec6567a25@amd.com>
+Date: Thu, 14 Mar 2024 22:33:08 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: Proposal to add CRIU support to DRM render nodes
+Content-Language: en-US
+To: Tvrtko Ursulin <tursulin@ursulin.net>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Dave Airlie <airlied@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
+ criu@openvz.org
+Cc: "Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <03a9977c-2044-40c7-9688-9ab326abb81c@amd.com>
+ <81c7b2c3-564a-4946-832b-5394cd19a7b7@ursulin.net>
+ <b5134b40-6e84-47c9-a4f2-2a2c0faa9481@ursulin.net>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <b5134b40-6e84-47c9-a4f2-2a2c0faa9481@ursulin.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQXP288CA0018.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c00:41::48) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SA1PR12MB7295:EE_
+X-MS-Office365-Filtering-Correlation-Id: fff5bdeb-63b3-46ad-c74e-08dc44984169
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: AFdvOxOhtiQ21jAVupn1t3GNd9pdED9UwmLjuUuRFNwX/DUWXaDXBNalsNdKgc7zJZLzsQjKlPxlOMyXEiRtW2EHX1/ZLVe4R9yV9/zw8kBVfP6VOSMg6glut42i2oCbNrpaKSyh6AjIehgdXtOdGktONe3manXWmLO7gfAxvf6yOjP+l4e9e3kh2BYNneqhYTwJVLqBG3KT49nw+IlVipFPXOzI5zuhGqTK7sMlP6gayGaK08OC87ZxeDeA1EJHqgIzngO785Kr6VsUJmztePB7EjroTgBWBxvgcNIqa7H+wws7QqujUUPpX9KGZcHQLmncGVBTFPEdQgvEAeq1F/SjNe950Zd2F2HyF3vNwLSy+sNvc96KXnY3DX6SZQSg/ss44+rCaavJKKRFzrS0fj0ep1CuMO9hkkPHXVOR7KbYXmX0sx13IBJVPa+voucF0JHawn++lVL8DdNfJFbufhic5ZU/Si1poUK+g9nfbcZWT8j3iHY/zlhLgNIN+NOZJmoxwD1MjvdVs1BhM/5rw+xJvAKldNLOKbFsRJaoYSkl+kG1Ey4QzqttkDrdNnzyz2F71E/JcbOoUlcXceR8G2V6OFfgHMRjFClHNMhYW5LC3F1+vLrGb7sR2UATDP6Z8AtM+tK7sWWhPk+ofjrzvOnj2MrvWsCWpEMFIDrpADE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(366007)(3613699003); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VnVBb1YvZnVObWJxZGptcjMvWlVpWkY2aldHMFQrVCs0Tmd2VzRnTUpadmVC?=
+ =?utf-8?B?cjlvRGtPY2lJMVVmQzluazFNU0FYN1hUNnNRbkRhQVl2SlgwNE1vVlVGSzFB?=
+ =?utf-8?B?UUtvc25scDJYTU1Kdm1PckhUK3RmS2t3d2hmekRpeVE3Mi9JMVlBOVEwTlBM?=
+ =?utf-8?B?SU01bDFuekNaWkFHSTE0SEpHM3pKdlVZa3h3cDVqc1FtVEIyZjNPR1U2NWow?=
+ =?utf-8?B?eU4xOWk0ZlZuQTMrejZFRlVOT2ZNVVBEQW9XTUo5TDlCTzVYbmhRMDdvNzM3?=
+ =?utf-8?B?emZXbHJoVEVLOXowUVlFTFFmc0pSTGp0Qkc3Qjl6dGcvQlNIejlwNElXbmto?=
+ =?utf-8?B?NU5NN2NOMFNJVEdWWkdseXFBQ1c4dVR3cjdPV0Y5SVk3cThER25ZMVl1ZGNt?=
+ =?utf-8?B?SURSZU5xYW9rSDFwbTZHYnpiUnhRd2RNNVhRcUg2a3NNUjFhaWwwamp2Y3Jt?=
+ =?utf-8?B?cHFWRlBYK3VSWmdLb3VDZXdJYmtBakJLUVlMY1NtRnhnZ0ErNis2L1lBTjZW?=
+ =?utf-8?B?VEFiVDhvaGVuYlI5QkN4ZzFHWWFROGwwWEgzdzNjUzRqLzRtMzB2UElsZEFF?=
+ =?utf-8?B?M0pDbjUzMVgxZExKak1JK21uTFFDZ1k3Umw2ZUZtK1QwR0czL0xZMHYwQTVY?=
+ =?utf-8?B?Q3RFdWQzWHM5cGZSQTJnY2IyamwvZ2l1M2JiVzQ1dUZ5djRNMjNjWk1YTzFP?=
+ =?utf-8?B?b1ljU3MxMm1oUEtGWHhxZXoySlFmWHlyYmdqUnpjcGRHVHdXcHdyc01PdmVF?=
+ =?utf-8?B?MWRQdW1qZjh0S3BGRGxtNmMxUWZaM29KYWdqaTBucVJWTmVQN0pRcnV4bmJT?=
+ =?utf-8?B?RnNRKzI0bkxpalJaOW9VcUMxcko1Rkw3U29uSEExUVV6TTFuU01xdXdzOXdS?=
+ =?utf-8?B?MzdUVHNZWXhVSHkrc1U2SUx1V0pod01lMm1JdFhoOS9vMk0yb1FudGh5ODZx?=
+ =?utf-8?B?MnlKa1RQQnVjcUJqLy9ZYjk2Vi91L1J5R1JHRlhrK0RvaHF3V0xrdXBEQUxk?=
+ =?utf-8?B?eHFMVzAvaVpxdFdaT0haMDh3QkE2RkxFNVBUM0RyTFlCQkVzb2tGTjh2bWEz?=
+ =?utf-8?B?WVFiWFI4eDVzNm8wN1R0WVhlOVJzcll0MjhZWFVzbFFLTlFSYThBeDUyQmhl?=
+ =?utf-8?B?RC9EOWRaRkxhWWVkWlBkdi8vTVFjRWdlbmxnZUthQ01YVlB2NWU4NGZpdXk5?=
+ =?utf-8?B?MnhvL1kxMld3cEZFbEkyWjRUbVM0TTJWNy9BVWtTbzlTVnprcTRueGVXV1Uw?=
+ =?utf-8?B?ZG1EMmE5TWVXT1krMTNEejdoek5jdjl2QjJGOHpwVElqcjZ0MjNZcVdFdzkx?=
+ =?utf-8?B?R2JJU0hMTHg4M3ROaW1ocGwzU0tSNm4xZnpWOHIzb3NINkhGMWNmeWpHcDZy?=
+ =?utf-8?B?WFQwcHBTMU5WU2dacjJtNERicFpOTlZvZlN6aWVtZXdOQ1pJTU4zL0E0K0Rw?=
+ =?utf-8?B?OXhSTGs4clU1MzhqTnR1bkFLcXJ6cGNDT0ZrMzE4ZGdKeW5iS3A0V0lnc1R5?=
+ =?utf-8?B?cDVCTm12ZDRNcWszWC9sNWM2QW5QcHJVVkxGK1JieUd2Rk5PNUE1YnZzc2xZ?=
+ =?utf-8?B?TEVYdit2L2hLT2dvcWVOV3ZaNUdsU01WR0hIRk44U1dURElpbk9nejBMdVlF?=
+ =?utf-8?B?ZVhubmRtcTFCaGxhR1JTZGlkbjJ2VVNSSmp5aStCZ3N0Z0JMY0hUREd4NGVq?=
+ =?utf-8?B?RGZnWXo1NXZhaDFwdzlSb1JaczFWeUxJYzJlVkMvMnZCdnFJYjVjQ3EyZmo1?=
+ =?utf-8?B?REx3SDhzTVR2ZUtPSVFGYmpCbEMvY1Z1eVZpdVFWYnc3ZHB2enpWNDNkTkVE?=
+ =?utf-8?B?MGR5TDEreTljdHRkeUNEVTBZdWU3NXFQeUVmNXZnWUpkWjNac05KUnF0Y0JN?=
+ =?utf-8?B?NTFxQ2ExMUxyS0lYRVMzRVNNZUFPb3dCSkFEZTBzeEVrOTRPZWlsVVVCbk5I?=
+ =?utf-8?B?Rk5OeEtSNkZLeUYyOERHSEtwVENmWTBXUXFCWDJjMmdSL1hkbmJ0eGwzVUdD?=
+ =?utf-8?B?Q1phVzRTY2JLTEVINGpWYmkzUlU3b2ZsVm5vM1Fuait0QWVYOFlWVXhnTVZq?=
+ =?utf-8?B?cDZjKzlQVXBwZWdJSG9EMzB3TnhnTnpnL3VxOUMwYzJkWUtZdlQ4UHhhUEd0?=
+ =?utf-8?Q?qrgoN1hIXTivyX0cIoydZCFl4?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fff5bdeb-63b3-46ad-c74e-08dc44984169
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4373.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d64473f-7393-4629-b2b2-08dc4490e4bb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Mar 2024 01:40:28.2647 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0GH/ZZ4Ny5KNZQHLOdd2NYfRNaNWCwNI3BzVJWSkcbFdVDoFIfXgSgqfpIf0WRORkHu8DY3l/wYAoa8aJWdmcg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6493
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2024 02:33:10.4169 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UBjRwliKdFqOOLLQJsOFZ1fNH0wWtikIRWyC8Kp9EQDvj3QDgdgBVF3d+XLrDjJNVgwWwlPUmHkvoov/Fc7znw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7295
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,57 +135,389 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCkhpIEFsZXgNCg0KPiBJIHRoaW5r
-IGl0IHdpbGwgY29udGludWUgdG8gYmUgcG93ZXJlZCB1cCB1bnRpbCBhIFZQRSBqb2IgY29tZXMg
-aW4gYW5kIGNvbXBsZXRlcyBhbmQgdGhlIGlkbGUgaGFuZGxlciBnZXRzIHNjaGVkdWxlZC4gIElm
-IGEgVlBFIGpvYiBkb2Vzbid0IGNvbWUgaW4sIGl0IHdpbGwgc3RheSBwb3dlcmVkIHVwIEkgdGhp
-bmsuDQpZZXMsIGNvcnJlY3QuDQpBbmQgYWZ0ZXIgdGhlIFZQRSBpcyBjYWxsZWQgdG8gZG8gaW5p
-dGlhbGl6YXRpb24sIGEgc2ltcGxlIHRlc3QgaXMgZXhlY3V0ZWQgZm9yIGNoZWNraW5nIFZQRSBz
-dGF0dXMsIGFuZCB0aGUgaWRsZSBoYW5kbGVyIGdldHMgc2NoZWR1bGVkIHRvIHBvd2VyIG9mZiB0
-aGUgVlBFIHdoZW4gdGhlIHRlc3QgZmluaXNoZWQuDQoNClRoYW5rcywNClBleXRvbg0KDQotLS0t
-LeWOn+Wni+mDteS7ti0tLS0tDQrlr4Tku7bogIU6IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJA
-Z21haWwuY29tPg0K5a+E5Lu25pel5pyfOiBUaHVyc2RheSwgTWFyY2ggMTQsIDIwMjQgODo1OCBQ
-TQ0K5pS25Lu26ICFOiBMZWUsIFBleXRvbiA8UGV5dG9uLkxlZUBhbWQuY29tPg0K5Ymv5pysOiBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5k
-ZXIuRGV1Y2hlckBhbWQuY29tPjsgWmhhbmcsIFlpZmFuIDxZaWZhbjEuWmhhbmdAYW1kLmNvbT47
-IE1hLCBMaSA8TGkuTWFAYW1kLmNvbT47IFl1LCBMYW5nIDxMYW5nLll1QGFtZC5jb20+DQrkuLvm
-l6g6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHUvdnBlOiBwb3dlciBvbiB2cGUgd2hlbiBod19pbml0
-DQoNCk9uIFdlZCwgTWFyIDEzLCAyMDI0IGF0IDk6MzPigK9QTSBMZWUsIFBleXRvbiA8UGV5dG9u
-LkxlZUBhbWQuY29tPiB3cm90ZToNCj4NCj4gW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVy
-YWxdDQo+DQo+IEhpIEFsZXgsDQo+DQo+IFRoZXJlIGFyZSB0d28gcGxhY2VzIHdoZXJlIFZQRSB3
-aWxsIGxvc2UgcG93ZXI6IFdoZW4gdGhlcmUgaXMgYSBzeXN0ZW0gY2FsbCB0byB2cGVfaHdfZmlu
-aSgpLCBhbmQgdGhlIHZwZS10aHJlYWQgZmluZHMgdGhhdCBWRVAgaGFzIG5vIGpvYnMgaW4gdGhl
-IHF1ZXVlLg0KPiBUaGlzIHBhdGNoIGlzIHRvIG1ha2Ugc3VyZSB0aGF0IFZQRSBpcyBwb3dlciB1
-cCBiZWZvcmUgbG9hZGluZyBmaXJtd2FyZS4NCg0KSSB0aGluayBpdCB3aWxsIGNvbnRpbnVlIHRv
-IGJlIHBvd2VyZWQgdXAgdW50aWwgYSBWUEUgam9iIGNvbWVzIGluIGFuZCBjb21wbGV0ZXMgYW5k
-IHRoZSBpZGxlIGhhbmRsZXIgZ2V0cyBzY2hlZHVsZWQuICBJZiBhIFZQRSBqb2IgZG9lc24ndCBj
-b21lIGluLCBpdCB3aWxsIHN0YXkgcG93ZXJlZCB1cCBJIHRoaW5rLg0KDQpBbGV4DQoNCj4NCj4g
-VGhhbmtzLA0KPiBQZXl0b24NCj4gLS0tLS3ljp/lp4vpg7Xku7YtLS0tLQ0KPiDlr4Tku7bogIU6
-IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPg0KPiDlr4Tku7bml6XmnJ86IFdl
-ZG5lc2RheSwgTWFyY2ggMTMsIDIwMjQgOToxNyBQTQ0KPiDmlLbku7bogIU6IExlZSwgUGV5dG9u
-IDxQZXl0b24uTGVlQGFtZC5jb20+DQo+IOWJr+acrDogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmc7IERldWNoZXIsIEFsZXhhbmRlcg0KPiA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47
-IFpoYW5nLCBZaWZhbiA8WWlmYW4xLlpoYW5nQGFtZC5jb20+OyBNYSwNCj4gTGkgPExpLk1hQGFt
-ZC5jb20+OyBZdSwgTGFuZyA8TGFuZy5ZdUBhbWQuY29tPg0KPiDkuLvml6g6IFJlOiBbUEFUQ0hd
-IGRybS9hbWRncHUvdnBlOiBwb3dlciBvbiB2cGUgd2hlbiBod19pbml0DQo+DQo+IE9uIFdlZCwg
-TWFyIDEzLCAyMDI0IGF0IDc6NDHigK9BTSBQZXl0b24gTGVlIDxwZXl0b2xlZUBhbWQuY29tPiB3
-cm90ZToNCj4gPg0KPiA+IFRvIGZpeCBtb2RlMiByZXNldCBmYWlsdXJlLg0KPiA+IFNob3VsZCBw
-b3dlciBvbiBWUEUgd2hlbiBod19pbml0Lg0KPg0KPiBXaGVuIGRvZXMgaXQgZ2V0IHBvd2VyZWQg
-ZG93biBhZ2Fpbj8gIFdvbid0IHRoaXMgbGVhdmUgaXQgcG93ZXJlZCB1cD8NCj4NCj4gQWxleA0K
-Pg0KPiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogUGV5dG9uIExlZSA8cGV5dG9sZWVAYW1kLmNvbT4N
-Cj4gPiAtLS0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZwZS5jIHwg
-NiArKysrKysNCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKQ0KPiA+DQo+ID4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cGUuYw0KPiA+
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZwZS5jDQo+ID4gaW5kZXggNzBj
-NWNjODBlY2RjLi5lY2ZlMGYzNmU4M2UgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZwZS5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3ZwZS5jDQo+ID4gQEAgLTM5Niw2ICszOTYsMTIgQEAgc3RhdGljIGludCB2
-cGVfaHdfaW5pdCh2b2lkICpoYW5kbGUpDQo+ID4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3ZwZSAq
-dnBlID0gJmFkZXYtPnZwZTsNCj4gPiAgICAgICAgIGludCByZXQ7DQo+ID4NCj4gPiArICAgICAg
-IC8qIFBvd2VyIG9uIFZQRSAqLw0KPiA+ICsgICAgICAgcmV0ID0gYW1kZ3B1X2RldmljZV9pcF9z
-ZXRfcG93ZXJnYXRpbmdfc3RhdGUoYWRldiwgQU1EX0lQX0JMT0NLX1RZUEVfVlBFLA0KPiA+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQU1EX1BH
-X1NUQVRFX1VOR0FURSk7DQo+ID4gKyAgICAgICBpZiAocmV0KQ0KPiA+ICsgICAgICAgICAgICAg
-ICByZXR1cm4gcmV0Ow0KPiA+ICsNCj4gPiAgICAgICAgIHJldCA9IHZwZV9sb2FkX21pY3JvY29k
-ZSh2cGUpOw0KPiA+ICAgICAgICAgaWYgKHJldCkNCj4gPiAgICAgICAgICAgICAgICAgcmV0dXJu
-IHJldDsNCj4gPiAtLQ0KPiA+IDIuMzQuMQ0KPiA+DQo=
+
+On 2024-03-12 5:45, Tvrtko Ursulin wrote:
+>
+> On 11/03/2024 14:48, Tvrtko Ursulin wrote:
+>>
+>> Hi Felix,
+>>
+>> On 06/12/2023 21:23, Felix Kuehling wrote:
+>>> Executive Summary: We need to add CRIU support to DRM render nodes 
+>>> in order to maintain CRIU support for ROCm application once they 
+>>> start relying on render nodes for more GPU memory management. In 
+>>> this email I'm providing some background why we are doing this, and 
+>>> outlining some of the problems we need to solve to checkpoint and 
+>>> restore render node state and shared memory (DMABuf) state. I have 
+>>> some thoughts on the API design, leaning on what we did for KFD, but 
+>>> would like to get feedback from the DRI community regarding that API 
+>>> and to what extent there is interest in making that generic.
+>>>
+>>> We are working on using DRM render nodes for virtual address 
+>>> mappings in ROCm applications to implement the CUDA11-style VM API 
+>>> and improve interoperability between graphics and compute. This uses 
+>>> DMABufs for sharing buffer objects between KFD and multiple render 
+>>> node devices, as well as between processes. In the long run this 
+>>> also provides a path to moving all or most memory management from 
+>>> the KFD ioctl API to libdrm.
+>>>
+>>> Once ROCm user mode starts using render nodes for virtual address 
+>>> management, that creates a problem for checkpointing and restoring 
+>>> ROCm applications with CRIU. Currently there is no support for 
+>>> checkpointing and restoring render node state, other than CPU 
+>>> virtual address mappings. Support will be needed for checkpointing 
+>>> GEM buffer objects and handles, their GPU virtual address mappings 
+>>> and memory sharing relationships between devices and processes.
+>>>
+>>> Eventually, if full CRIU support for graphics applications is 
+>>> desired, more state would need to be captured, including scheduler 
+>>> contexts and BO lists. Most of this state is driver-specific.
+>>>
+>>> After some internal discussions we decided to take our design 
+>>> process public as this potentially touches DRM GEM and DMABuf APIs 
+>>> and may have implications for other drivers in the future.
+>>>
+>>> One basic question before going into any API details: Is there a 
+>>> desire to have CRIU support for other DRM drivers?
+>>
+>> This sounds like a very interesting feature on the overall, although 
+>> I cannot answer on the last question here.
+>
+> I forgot to finish this thought. I cannot answer / don't know of any 
+> concrete plans, but I think feature is pretty cool and if amdgpu gets 
+> it working I wouldn't be surprised if other drivers would get interested.
+
+Thanks, that's good to hear!
+
+
+>
+>> Funnily enough, it has a tiny relation to an i915 feature I recently 
+>> implemented on Mesa's request, which is to be able to "upload" the 
+>> GPU context from the GPU hang error state and replay the hanging 
+>> request. It is kind of (at a stretch) a very special tiny subset of 
+>> checkout and restore so I am not mentioning it as a curiosity.
+>>
+>> And there is also another partical conceptual intersect with the (at 
+>> the moment not yet upstream) i915 online debugger. This part being in 
+>> the area of discovering and enumerating GPU resources beloning to the 
+>> client.
+>>
+>> I don't see an immediate design or code sharing opportunities though 
+>> but just mentioning.
+>>
+>> I did spend some time reading your plugin and kernel implementation 
+>> out of curiousity and have some comments and questions.
+>>
+>>> With that out of the way, some considerations for a possible DRM 
+>>> CRIU API (either generic of AMDGPU driver specific): The API goes 
+>>> through several phases during checkpoint and restore:
+>>>
+>>> Checkpoint:
+>>>
+>>>  1. Process-info (enumerates objects and sizes so user mode can 
+>>> allocate
+>>>     memory for the checkpoint, stops execution on the GPU)
+>>>  2. Checkpoint (store object metadata for BOs, queues, etc.)
+>>>  3. Unpause (resumes execution after the checkpoint is complete)
+>>>
+>>> Restore:
+>>>
+>>>  1. Restore (restore objects, VMAs are not in the right place at 
+>>> this time)
+>>>  2. Resume (final fixups after the VMAs are sorted out, resume 
+>>> execution)
+>>
+>> Btw is check-pointing guaranteeing all relevant activity is idled? 
+>> For instance dma_resv objects are free of fences which would need to 
+>> restored for things to continue executing sensibly? Or how is that 
+>> handled?
+
+In our compute use cases, we suspend user mode queues. This can include 
+CWSR (compute-wave-save-restore) where the state of in-flight waves is 
+stored in memory and can be reloaded and resumed from memory later. We 
+don't use any fences other than "eviction fences", that are signaled 
+after the queues are suspended. And those fences are never handed to 
+user mode. So we don't need to worry about any fence state in the 
+checkpoint.
+
+If we extended this to support the kernel mode command submission APIs, 
+I would expect that we'd wait for all current submissions to complete, 
+and stop new ones from being sent to the HW before taking the 
+checkpoint. When we take the checkpoint in the CRIU plugin, the CPU 
+threads are already frozen and cannot submit any more work. If we wait 
+for all currently pending submissions to drain, I think we don't need to 
+save any fence state because all the fences will have signaled. (I may 
+be missing some intricacies and I'm afraid it may not be that simple in 
+reality, but that's my opening bid. ;)
+
+
+>>
+>>> For some more background about our implementation in KFD, you can 
+>>> refer to this whitepaper: 
+>>> https://github.com/checkpoint-restore/criu/blob/criu-dev/plugins/amdgpu/README.md
+>>>
+>>> Potential objections to a KFD-style CRIU API in DRM render nodes, 
+>>> I'll address each of them in more detail below:
+>>>
+>>>   * Opaque information in the checkpoint data that user mode can't
+>>>     interpret or do anything with
+>>>   * A second API for creating objects (e.g. BOs) that is separate from
+>>>     the regular BO creation API
+>>>   * Kernel mode would need to be involved in restoring BO sharing
+>>>     relationships rather than replaying BO creation, export and import
+>>>     from user mode
+>>>
+>>> # Opaque information in the checkpoint
+>>>
+>>> This comes out of ABI compatibility considerations. Adding any new 
+>>> objects or attributes to the driver/HW state that needs to be 
+>>> checkpointed could potentially break the ABI of the CRIU 
+>>> checkpoint/restore ioctl if the plugin needs to parse that 
+>>> information. Therefore, much of the information in our KFD CRIU 
+>>> ioctl API is opaque. It is written by kernel mode in the checkpoint, 
+>>> it is consumed by kernel mode when restoring the checkpoint, but 
+>>> user mode doesn't care about the contents or binary layout, so there 
+>>> is no user mode ABI to break. This is how we were able to maintain 
+>>> CRIU support when we added the SVM API to KFD without changing the 
+>>> CRIU plugin and without breaking our ABI.
+>>>
+>>> Opaque information may also lend itself to API abstraction, if this 
+>>> becomes a generic DRM API with driver-specific callbacks that fill 
+>>> in HW-specific opaque data.
+>>
+>> This feels sound in principle to me. Fundamentally the state is very 
+>> hardware specfic, and/or driver version specific, so I don't see 
+>> anything could be gained in practice by making it much less opaque. 
+>> (Apart from making things more complicated.)
+>>
+>> I was however unsure of the current split of how you dump buffer 
+>> objects with some data in the defined bo structure, and some in 
+>> completely opaque private data. Is there a benefit to that split, or 
+>> maybe in other words, is there a benefit on having part transparent 
+>> and part opaque for buffer objects?
+
+Some of the buffer object state is needed by the plugin. E.g. the size 
+and mmap offset are needed to match VMAs with BOs. I'd have to review 
+the plugin in detail to prove that all the fields are, in fact, needed 
+by the plugin, but that was the intent. Anything that the plugin doesn't 
+need to know should be in the opaque data structures.
+
+
+>>
+>> To slightly touch upon the question of whether this could become a 
+>> generic DRM API. It feels it would be hard to do it from the start. 
+>> What sounds more feasible is if/when generic looking helpers can be 
+>> spotted while developing the RFC then potentially structure the code 
+>> they can easily be promoted to shared/common at some future moment.
+
+Yes, that's how this usually goes, in my experience. Thanks for confirming.
+
+
+>>
+>>> # Second API for creating objects
+>>>
+>>> Creating BOs and other objects when restoring a checkpoint needs 
+>>> more information than the usual BO alloc and similar APIs provide. 
+>>> For example, we need to restore BOs with the same GEM handles so 
+>>> that user mode can continue using those handles after resuming 
+>>> execution. If BOs are shared through DMABufs without dynamic 
+>>> attachment, we need to restore pinned BOs as pinned. Validation of 
+>>> virtual addresses and handling MMU notifiers must be suspended until 
+>>> the virtual address space is restored. For user mode queues we need 
+>>> to save and restore a lot of queue execution state so that execution 
+>>> can resume cleanly.
+>>
+>> This also sounds justified to me. Restore creating all internal 
+>> objects is definitely special and sounds better to add uapi to create 
+>> them directly with the correct properties, than to add uapi to adjust 
+>> internal properties after creation. And in case you would always need 
+>> some new uapi - so at least to adjust after creation. At which point 
+>> you may have both in one. Internally implementation can be split or 
+>> common, whatever makes sense for a given object type, but new uapi 
+>> definitely sounds is required.
+>>> # Restoring buffer sharing relationships
+>>>
+>>> Different GEM handles in different render nodes and processes can 
+>>> refer to the same underlying shared memory, either by directly 
+>>> pointing to the same GEM object, or by creating an import attachment 
+>>> that may get its SG tables invalidated and updated dynamically 
+>>> through dynamic attachment callbacks. In the latter case it's 
+>>> obvious, who is the exporter and who is the importer. In the first 
+>>> case, either one could be the exporter, and it's not clear who would 
+>>> need to create the BO and who would need to 
+>>
+>> To see if I follow the former case correctly.
+>>
+>> This could be two clients A and B, where B has imported a dma-buf 
+>> shared BO from A and has since closed the dma-buf fd? Which results 
+>> in a single BO with reference count of 2 and obj->import_attach 
+>> unset. History of who created the object is lost.
+
+Yes. In the amdgpu driver this happens when the exporter and import 
+device are the same.
+
+
+>>
+>> In fact it could even be that two imported objects remain (clients A, 
+>> B and C) and A, who originally created the BO, has since fully 
+>> released it. So any kind of "creator" tracking if added wouldn't be 
+>> fully reliable either.
+
+That's a good point.
+
+
+>>
+>>> import it when restoring the checkpoint. To further complicate 
+>>> things, multiple processes in a checkpoint get restored 
+>>> concurrently. So there is no guarantee that an exporter has restored 
+>>> a shared BO at the time an importer is trying to restore its import.
+>>>
+>>> A proposal to deal with these problems would be to treat importers 
+>>> and exporters the same. Whoever restores first, ends up creating the 
+>>> BO and potentially attaching to it. The other process(es) can find 
+>>> BOs that were already restored by another process by looking it up 
+>>> with a unique ID that could be based on the DMABuf inode number. An 
+>>> alternative would be a two-pass approach that needs to restore BOs 
+>>> on two passes:
+>>>
+>>>  1. Restore exported BOs
+>>>  2. Restore imports
+>>>
+>>> With some inter-process synchronization in CRIU itself between these 
+>>> two passes. This may require changes in the core CRIU, outside our 
+>>> plugin. Both approaches depend on identifying BOs with some unique 
+>>> ID that could be based on the DMABuf inode number in the checkpoint. 
+>>> However, we would need to identify the processes in the same restore 
+>>> session, possibly based on parent/child process relationships, to 
+>>> create a scope where those IDs are valid during restore.
+>>
+>> If my understanding above is on the right track, then I think this is 
+>> the only thing which can be done (for all scenarios).
+
+I presented two alternatives. I think you're in favor of the first one, 
+where it doesn't matter who is the importer and exporter. I think the 
+two-pass approach requires that you can identify an exporter. And as you 
+pointed out, the exporter may already have dropped their reference to 
+the BO.
+
+
+>>
+>> I also *think* it would be safe. At least at the moment I cannot 
+>> think what could go wrong. Semantics are that it doesn't really 
+>> matter who created the object.
+
+I would agree. What matters is that the object is recreated on the 
+correct device, and that all the direct references and import 
+attachments pointing to it are restored.
+
+
+>>
+>>> Finally, we would also need to checkpoint and restore DMABuf file 
+>>> descriptors themselves. These are anonymous file descriptors. The 
+>>> CRIU plugin could probably be taught to recreate them from the 
+>>> original exported BO based on the inode number that could be queried 
+>>> with fstat in the checkpoint. It would need help from the render 
+>>> node CRIU API to find the right BO from the inode, which may be from 
+>>> a different process in the same restore session.
+>>
+>> This part feels like it is breaking the component separation a bit 
+>> because even for buffers fully owned by amdgpu, strictly speaking the 
+>> dma-buf fd is not. At least my understanding from the above is that 
+>> you propose to attempt to import the fd, from the kernel side, during 
+>> the checkpoint process? Like:
+>>
+>> Checkpoint:
+>>
+>> CRIU for each anon fd:
+>>    amdgpu_plugin(fd)
+>>      -> attempt in kernel dma buf import (passes fd to kernel via 
+>> ioctl?)
+>>          -> is it ours? (no -> error)
+>>              -> create a record mapping fd number to amdgpu BO
+>>
+>> Restore:
+>>
+>> for each dma-buf fd record:
+>>     create BO if does not exists
+>>     export BO to same fd
+>>     close BO handle if not in regular BO handle records
+>>
+>> Or since you mention lookup by inode, that would need to be 
+>> dmabuf_plugin so it can lookup inodes in the private mount space. 
+>> However how would it co-operate with amdgpu_plugin is not clear to me.
+
+The way I think about the ownership is, whichever driver created the 
+underlying BO owns the checkpointing of the dmabuf. You need 
+driver-specific information to link the dmabuf with the driver's BO and 
+you need the right driver to recreate the BO and the dmabuf fd when 
+restoring the checkpoint.
+
+It gets really interesting if you have an amdgpu plugin and an i915 
+plugin, and they checkpoint an application that shares BOs between the 
+two devices through DMABufs. E.g. if i915 created a BO and amdgpu 
+imported it, then during restore, i915 needs to restore the dmabuf 
+before the amdgpu import of it can be restored. I think that brings us 
+back to a two-phase approach to restoring the memory sharing 
+relationships. Uff.
+
+
+>
+> I later also realised that I was maybe increasing the scope for you 
+> here. :) You did state focus is ROCm applications which possibly 
+> doesn't care about dma-resv, fences, syncobjs etc?
+
+That's my focus for now. But I don't want to engineer a solution that 
+would preclude your use cases in the future.
+
+
+>
+> But I think the "how to handle dma-bufs" design question is still 
+> relevant and interesting. For example I had this thought that perhaps 
+> what would be needed is a CRIU plugin hierarchy.
+>
+> Because fundamentally we would be snapshoting a hierarcy of kernel 
+> objects belonging to different drivers (kfd, amdgpu, dma-buf, ...). 
+> And if one day someone would to try to handle dma fences and drm 
+> syncobjs, the argument for a hierarchial design would be even stronger 
+> I think.
+>
+> Something like a drm_plugin.so could call sub-plugins (amdgpu, 
+> dma-buf, sync file, ...) and internally build the representation of 
+> the whole state and how the relationship between the objects.
+
+Maybe. I guess a structure similar to libdrm makes sense. I'm not sure 
+it's strictly a hierarchy. Maybe more like some common code shared by 
+multiple GPU driver plugins. I think the common checkpoint state is 
+quite limited and restoring it requires the GPU-specific drivers anyway.
+
+Also the idea of building a representation of the whole state doesn't 
+work well with the CRIU design, because "the whole state" can include 
+multiple processes that restore themselves concurrently and only 
+synchronize with each other in a few places in the restore process. I 
+feel, if we can work out how to checkpoint and restore shared objects 
+between processes, we can do the same for shared objects between drivers 
+without imposing a strict hierarchy and some omniscient entity that 
+needs to know "the whole state".
+
+
+>
+> With that kind of design there probably would be a need to define some 
+> common kernel side api and uapi, so all involved objects can be 
+> enumerated with some unique ids etc.
+>
+> Now.. the counter argument.. the more state from different drivers 
+> would one want to handle the bigger this project would get. Would it 
+> even be feasible is the question, to the point that it may be simpler 
+> to just run the workload in a VM via SR-IOV and simply hibernate the 
+> whole thin guest. :)
+
+Well, CRIU kind of tries to do that, but with containers instead of VMs. ;)
+
+Regards,
+   Felix
+
+
+>
+> Regards,
+>
+> Tvrtko
