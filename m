@@ -4,88 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12366C54E58
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 12:47:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A882C54E58
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 12:54:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 705BB11221A;
-	Fri, 15 Mar 2024 12:46:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3160112247;
+	Fri, 15 Mar 2024 12:54:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=googlemail.com header.i=@googlemail.com header.b="R7b9bhqn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LYJHkhuN";
 	dkim-atps=neutral
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07DBC1121C2;
- Fri, 15 Mar 2024 11:39:03 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-a3ddc13bbb3so562203266b.0; 
- Fri, 15 Mar 2024 04:39:03 -0700 (PDT)
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6285210E079
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 12:54:48 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-5d8b887bb0cso1557463a12.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 05:54:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20230601; t=1710502742; x=1711107542;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1710507287; x=1711112087; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ajSGsc6A/F/qkby1cV3DFijz3ujuoh7yFblhBSAWTk4=;
- b=R7b9bhqnJUp3E8d4suy65iFCwcwScI5+MICGcrLDUXNqM3Ghlr9uZXCebETrFQU/85
- udeRglq0rpnFTtlbJbfPLyQxMb5crhiFP82FIlQdK9ajEECeU1gdfdV1ErGRA49UoZgd
- i0FFBFTIZuanV9Jx0/QZyVj4uNojq1jKZxKOY7COHIwji6l8bwss1UVyyHMbeCfPtyNC
- MW8qwNuRIO8R0T5BXDBaJzIvPg/lBwW2a423dpOMYJ/iCAg3V7E3EgDlO4MnfWqjWTvY
- 3SD/fZ5WRkVs2E7m6ULHhobxdCEfc/8UKVKYLrO17QV9YK112znBKsaptSqt6k5xTHzA
- 91KA==
+ bh=uFjXCd8bcCsu32n851w/XlW3w6V7D5XNjxnjzZvTlh0=;
+ b=LYJHkhuNXeRx+WqEaGOthFJCxgG6ZFmiMy0sPX3BJrboFp4XlP780KClExSVvuNLn/
+ IploG9eybtaTYmA39fYTXXvvZsgXTKExWltUg3PivoxOhnmLxr5/Ll6GxDUeoq25WpOP
+ 81aAeuHa3Bw7Qo2SwzXhoUGXNiFWPB9Q5AKN+MBSaNWy6Yr+sk4Z9Y515hNvEmrPzHRo
+ h25QKEoZgso2MorYG+dE3rl8JMzNyARcutqK9PGwOI2id4V26jWogX3pWIX9C8tiBB2P
+ +rslYJvGC/hwZUkQsWpQJ/1WZTjHuI6IYcjSURPbavrp1KorIoP+4zVO6CbYUvqV4GSS
+ LgPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710502742; x=1711107542;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1710507287; x=1711112087;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ajSGsc6A/F/qkby1cV3DFijz3ujuoh7yFblhBSAWTk4=;
- b=FKQJQKPQ0qJ8mnjEN+VnMNTvm9vmH79kaK/fUseD9lC/VsbzXl9MiUKYJHD93OnZNd
- 8BxuvwmqNBP8NaEvl1KPS97vfV82GGX+MAGeKfxMWQdjF/49IzGgJ2HGZ8Wlg2xDvwmb
- DJg42uE1tfAEtXNH6KlqcivvR+jtambpFcTqLAdyDgGLt6f7AIGOH4XFBeakkBE2Rmrg
- zmsE6ijWw90dytFc01NRJ6Q2f9l+w+4lZfy2i9QtHhdysK+KH9lbkgWNxdfEXlPvMSQG
- DNwUGxAnpvQKiB4WiS4JCSbLlPjU3C1PnQLRgXATSPxAIoftGA8s0eO4Kk/MOB63Y5Mo
- HIJw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXfhAlF7tsmzg4IjzoEEqtvr/LeQfOQ5jERQ9U04iuqUNmh5Q86LbWflH/RUoLA+ObkT49SxtAXdwVz1Wf3gZV7OFL6AudL9e2moiKSsS4cyCP/r+Eyn2Y9w9766JocBwEvqE1Y83iHby5QUEX9TQ==
-X-Gm-Message-State: AOJu0Yzwep3sB55R2PiKRL6WYwOHSpPPHJxlHxd+vSTGh825+cpDIQ2N
- 2IWVLiOPTjl89XTw98K8xFVi0pjrZgbkRkBfo9mOpS1bR34cftPc
-X-Google-Smtp-Source: AGHT+IHJJjdK95FxiFWtuKqFb5okKLCX+Xl17xr9ZeV/oMTb5MlWFKMC//tYf9kBKFRK8DaZbTEwfQ==
-X-Received: by 2002:a17:906:1501:b0:a45:d7fb:8423 with SMTP id
- b1-20020a170906150100b00a45d7fb8423mr7825935ejd.9.1710502741739; 
- Fri, 15 Mar 2024 04:39:01 -0700 (PDT)
-Received: from ddev.DebianHome
- (dynamic-095-119-217-226.95.119.pool.telefonica.de. [95.119.217.226])
- by smtp.gmail.com with ESMTPSA id
- fg3-20020a056402548300b005682f47aea7sm1610024edb.94.2024.03.15.04.39.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Mar 2024 04:39:01 -0700 (PDT)
-From: =?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>
-To: linux-security-module@vger.kernel.org
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Stefan Haberland <sth@linux.ibm.com>,
- Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Mark Brown <broonie@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-s390@vger.kernel.org, bpf@vger.kernel.org
-Subject: [PATCH 05/10] drivers: use new capable_any functionality
-Date: Fri, 15 Mar 2024 12:37:26 +0100
-Message-ID: <20240315113828.258005-5-cgzones@googlemail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240315113828.258005-1-cgzones@googlemail.com>
-References: <20240315113828.258005-1-cgzones@googlemail.com>
+ bh=uFjXCd8bcCsu32n851w/XlW3w6V7D5XNjxnjzZvTlh0=;
+ b=UlWVlpw4re0OahbfQs/xlZ1r0ReEEZvpWSKsoasjYqsNQnRMqbsy3WOWN8Lt/8uWUM
+ xyR1FPMahK/cR1YsnLPf8WKWb7BdIq34lR1l3YGzEZJGgXIOAWDQ1OkUWUd2dEHQLlib
+ JXk2/ZY6Ct77Rp6i2OpUsTP3uk2tRwyg6Wi6QN9Ee0+ZW/7Ni+Uolh8035Q2XAlX9fXD
+ CJbL7QG4KTvfFwZbWKOM4UkNT9o68uDr2p9TtYgIMX5LzQAchLBZGbC/VjvwX/8Mn2Ux
+ 3bQWLYjnRp4woS3LI9rmqdKBatr9RWmGKelk9woww2foum4JeF2Lm568L7xumf2HfDFG
+ wGuw==
+X-Gm-Message-State: AOJu0Yyrgs4KjzER9rDE3CVJupL9xq7ZDVNpm5PtJ1+VUG9dR8LLDYaf
+ QuQsa/3LhcsQBc6lllwT/ewiZX8Vfg7/J6btNFOV49qs5smDlzWaYKxDVeoCOhHwMSJ220oiU8w
+ a5ZYLCnxx4SaMJef/8T7SMF7K9B/Ns6/o
+X-Google-Smtp-Source: AGHT+IE8x9tMM420CsY3tlV+7uVLeCBftYFlaITBiuzY3A4e814of0YA+lv5crn/P3+Gix0tfe7unttMVpy+2yQYFxw=
+X-Received: by 2002:a17:90a:ee93:b0:29b:acc6:c54f with SMTP id
+ i19-20020a17090aee9300b0029bacc6c54fmr4517214pjz.35.1710507287365; Fri, 15
+ Mar 2024 05:54:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 15 Mar 2024 12:46:58 +0000
+References: <20240313114451.1592772-1-peytolee@amd.com>
+ <CADnq5_OTwaLWJ9LiicJu-hO+WDF6fPB5PFQWzAqopyrDVn6R5Q@mail.gmail.com>
+ <MN2PR12MB4373845FF59F1ACC83AAEFC986292@MN2PR12MB4373.namprd12.prod.outlook.com>
+ <CADnq5_MzsCoj0VMKkQecWfGS1UAXE7Xvje3eoNbTP7fbdvXHRQ@mail.gmail.com>
+ <MN2PR12MB437320223A607D4BAA8C182586282@MN2PR12MB4373.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB437320223A607D4BAA8C182586282@MN2PR12MB4373.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 15 Mar 2024 08:54:35 -0400
+Message-ID: <CADnq5_NciR_1wqRCSYTJ+nUsYbfGiEBJtt3cwzyvREODGkywWw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/vpe: power on vpe when hw_init
+To: "Lee, Peyton" <Peyton.Lee@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
+ Yifan" <Yifan1.Zhang@amd.com>, 
+ "Ma, Li" <Li.Ma@amd.com>, "Yu, Lang" <Lang.Yu@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,64 +82,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the new added capable_any function in appropriate cases, where a
-task is required to have any of two capabilities.
+On Thu, Mar 14, 2024 at 9:40=E2=80=AFPM Lee, Peyton <Peyton.Lee@amd.com> wr=
+ote:
+>
+> [AMD Official Use Only - General]
+>
+> Hi Alex
+>
+> > I think it will continue to be powered up until a VPE job comes in and =
+completes and the idle handler gets scheduled.  If a VPE job doesn't come i=
+n, it will stay powered up I think.
+> Yes, correct.
+> And after the VPE is called to do initialization, a simple test is execut=
+ed for checking VPE status, and the idle handler gets scheduled to power of=
+f the VPE when the test finished.
 
-Reorder CAP_SYS_ADMIN last.
+Does the IB test take care of this?  I just want to confirm that we
+aren't leaving it powered up unless a user runs a VPE workload which
+might not happen.
 
-Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
-Acked-by: Alexander Gordeev <agordeev@linux.ibm.com> (s390 portion)
----
-v4:
-   Additional usage in kfd_ioctl()
-v3:
-   rename to capable_any()
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 3 +--
- drivers/net/caif/caif_serial.c           | 2 +-
- drivers/s390/block/dasd_eckd.c           | 2 +-
- 3 files changed, 3 insertions(+), 4 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index dfa8c69532d4..8c7ebca01c17 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -3290,8 +3290,7 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
- 	 * more priviledged access.
- 	 */
- 	if (unlikely(ioctl->flags & KFD_IOC_FLAG_CHECKPOINT_RESTORE)) {
--		if (!capable(CAP_CHECKPOINT_RESTORE) &&
--						!capable(CAP_SYS_ADMIN)) {
-+		if (!capable_any(CAP_CHECKPOINT_RESTORE, CAP_SYS_ADMIN)) {
- 			retcode = -EACCES;
- 			goto err_i1;
- 		}
-diff --git a/drivers/net/caif/caif_serial.c b/drivers/net/caif/caif_serial.c
-index ed3a589def6b..e908b9ce57dc 100644
---- a/drivers/net/caif/caif_serial.c
-+++ b/drivers/net/caif/caif_serial.c
-@@ -326,7 +326,7 @@ static int ldisc_open(struct tty_struct *tty)
- 	/* No write no play */
- 	if (tty->ops->write == NULL)
- 		return -EOPNOTSUPP;
--	if (!capable(CAP_SYS_ADMIN) && !capable(CAP_SYS_TTY_CONFIG))
-+	if (!capable_any(CAP_SYS_TTY_CONFIG, CAP_SYS_ADMIN))
- 		return -EPERM;
- 
- 	/* release devices to avoid name collision */
-diff --git a/drivers/s390/block/dasd_eckd.c b/drivers/s390/block/dasd_eckd.c
-index 373c1a86c33e..8f9a5136306a 100644
---- a/drivers/s390/block/dasd_eckd.c
-+++ b/drivers/s390/block/dasd_eckd.c
-@@ -5384,7 +5384,7 @@ static int dasd_symm_io(struct dasd_device *device, void __user *argp)
- 	char psf0, psf1;
- 	int rc;
- 
--	if (!capable(CAP_SYS_ADMIN) && !capable(CAP_SYS_RAWIO))
-+	if (!capable_any(CAP_SYS_RAWIO, CAP_SYS_ADMIN))
- 		return -EACCES;
- 	psf0 = psf1 = 0;
- 
--- 
-2.43.0
 
+>
+> Thanks,
+> Peyton
+>
+> -----=E5=8E=9F=E5=A7=8B=E9=83=B5=E4=BB=B6-----
+> =E5=AF=84=E4=BB=B6=E8=80=85: Alex Deucher <alexdeucher@gmail.com>
+> =E5=AF=84=E4=BB=B6=E6=97=A5=E6=9C=9F: Thursday, March 14, 2024 8:58 PM
+> =E6=94=B6=E4=BB=B6=E8=80=85: Lee, Peyton <Peyton.Lee@amd.com>
+> =E5=89=AF=E6=9C=AC: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Al=
+exander.Deucher@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>; Ma, Li <Li.M=
+a@amd.com>; Yu, Lang <Lang.Yu@amd.com>
+> =E4=B8=BB=E6=97=A8: Re: [PATCH] drm/amdgpu/vpe: power on vpe when hw_init
+>
+> On Wed, Mar 13, 2024 at 9:33=E2=80=AFPM Lee, Peyton <Peyton.Lee@amd.com> =
+wrote:
+> >
+> > [AMD Official Use Only - General]
+> >
+> > Hi Alex,
+> >
+> > There are two places where VPE will lose power: When there is a system =
+call to vpe_hw_fini(), and the vpe-thread finds that VEP has no jobs in the=
+ queue.
+> > This patch is to make sure that VPE is power up before loading firmware=
+.
+>
+> I think it will continue to be powered up until a VPE job comes in and co=
+mpletes and the idle handler gets scheduled.  If a VPE job doesn't come in,=
+ it will stay powered up I think.
+>
+> Alex
+>
+> >
+> > Thanks,
+> > Peyton
+> > -----=E5=8E=9F=E5=A7=8B=E9=83=B5=E4=BB=B6-----
+> > =E5=AF=84=E4=BB=B6=E8=80=85: Alex Deucher <alexdeucher@gmail.com>
+> > =E5=AF=84=E4=BB=B6=E6=97=A5=E6=9C=9F: Wednesday, March 13, 2024 9:17 PM
+> > =E6=94=B6=E4=BB=B6=E8=80=85: Lee, Peyton <Peyton.Lee@amd.com>
+> > =E5=89=AF=E6=9C=AC: amd-gfx@lists.freedesktop.org; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>; Ma,
+> > Li <Li.Ma@amd.com>; Yu, Lang <Lang.Yu@amd.com>
+> > =E4=B8=BB=E6=97=A8: Re: [PATCH] drm/amdgpu/vpe: power on vpe when hw_in=
+it
+> >
+> > On Wed, Mar 13, 2024 at 7:41=E2=80=AFAM Peyton Lee <peytolee@amd.com> w=
+rote:
+> > >
+> > > To fix mode2 reset failure.
+> > > Should power on VPE when hw_init.
+> >
+> > When does it get powered down again?  Won't this leave it powered up?
+> >
+> > Alex
+> >
+> > >
+> > > Signed-off-by: Peyton Lee <peytolee@amd.com>
+> > > ---
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c | 6 ++++++
+> > >  1 file changed, 6 insertions(+)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> > > index 70c5cc80ecdc..ecfe0f36e83e 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> > > @@ -396,6 +396,12 @@ static int vpe_hw_init(void *handle)
+> > >         struct amdgpu_vpe *vpe =3D &adev->vpe;
+> > >         int ret;
+> > >
+> > > +       /* Power on VPE */
+> > > +       ret =3D amdgpu_device_ip_set_powergating_state(adev, AMD_IP_B=
+LOCK_TYPE_VPE,
+> > > +                                                    AMD_PG_STATE_UNG=
+ATE);
+> > > +       if (ret)
+> > > +               return ret;
+> > > +
+> > >         ret =3D vpe_load_microcode(vpe);
+> > >         if (ret)
+> > >                 return ret;
+> > > --
+> > > 2.34.1
+> > >
