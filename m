@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E15D1C54E58
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 05:42:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9DE3C54E66
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Mar 2024 05:42:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 442DF10F51E;
-	Fri, 15 Mar 2024 05:42:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E7CB10F580;
+	Fri, 15 Mar 2024 05:42:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="a6nWtR92";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EM3f5XY6";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2077.outbound.protection.outlook.com [40.107.93.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6CEA10F51E
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 05:42:11 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2075.outbound.protection.outlook.com [40.107.100.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F2C610F580
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Mar 2024 05:42:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TOBIzgBGpMftwo7Qr2Lenxuu68/N8jiQ84ZwTqAmnUWGqgNYjE6bnIuySXf/JqINyhP4gA2urtl8B37x22IBPgaJeaRjai5V7V/b8a8orwUVj/+w/xJ5NYeLPDe+H5A8NyNUkRDqTo/v0WmT3gugdvKhCUWS/Q1D2HCoxdLnsEGbk1aI8m3EfDBElf7h52j9i4cR7gQTf/wp7XdL6wyEllaNlLKYTTkn5JPe9Ml4h/O0ANwGt8h4IRuuJmGtzkTW/qjjewWpa3+0lxwvnIzOWxoGFUORROoVQpgJRR+3mIZAnnNBvP2Ge5fl4bpncU3zjNYp+d1hMUAuPXXVvbdnQw==
+ b=EViu1mRjDK5C9PPRfmIKkEvg1YsxB9s9ngrDXHDIJ+ewOEM5p68jZRNMFGj+Cgrlqfl6b+BDE7Ypqki8cUJ70PpaHgUaw/JWQ4kz5YFT7+FyTqo2rDBkOl4I5muWlJf1Brk2/dMVgDloTgwCALtfci9Gcpsd9l9DdjsZHJzQj8nwxhowKJ8aajVNJSNC8qiS8imlpv64z5BwZUacerCPEei8821wmsAGdDsleQILXdFV5vj6Q1Mi/peXVn28luNnkXeo1GfNnzly6wZNk7wCO8wtl5VWrmjmion2jNFf3ndT4DCS8KL3awPSJC0+jJ+pSjE/2z4C/mIb6jirSt8hoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6HoBKKlPiafse1qdAPR4deEu+tLEwpkCm1T1W+V3MaU=;
- b=hVENaCeWu4hHrzWr06mmdV6ZK+/oxYSwX4r3K/y1uy9lGXHflztth2iAUF000wX3fZh8sF/c8WJYQOaZkjamvSNEIqvNUyYmB2XICK/VmyAdueP1yBSnJGq/Q+zHy5AbbYy6EBr3NhH0jmH/gyxaXvaC+nDMErFIJRukAmFvCnMRmY7jhYv5o5KJ770eOtwCbruVAZOAh0tm3Wx5p+Fgn5zJigt+O8y9hmMmhLbhyNG6lvoCRw1p+7LuWKnGx87+y4KujlcgxrcDqOdCzPo2B39LdeOBCNHJnFu6GZexx5laDBEDwuJ6BMCeyaJEE7B2LpVSUIZSDP5cE/uqAYbyXw==
+ bh=du3612mO2x4dqWRM8Gu2TCVTwPuPV2V4/pekS/VjHbI=;
+ b=EBvbuAysEl1RdSOgS5MEXUt9JiElp5B7NRT44vNGbTMQFYvO8wUQF+1BMkvMOip/Vxox7D/TiQmsg5/xMKYQSQa6yvyjfoW6UvV1rff95cvIWQX63N11aO/VUXmoPUXpfxo3xG+geqR9JVnE6JDq7YbMRwNMJAskznHuvsOtvq2qb87dm6+4iBpADAe4brbv1PX9mU8D1MNHW4ANxD8imvp2eS7y7KpOnu+0J6gOfsmODMNGU8QpNhxZ9xZ48iNXVCQIWOXC972suRbf4oyOSF8KriWr3PYnJvih9NDR/HEHO635TGu/uj2KVe0YbiolAozI5d7WuMDKK91+2MnGag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6HoBKKlPiafse1qdAPR4deEu+tLEwpkCm1T1W+V3MaU=;
- b=a6nWtR92Of4PiEmwxyr9b+c1quULk7TqrUkpS4huYND04odyURdwY4O/JYPQ/bpQhSvTZDgwZ09kMlnnTdjrVcLSOOm/T1lPHFUURVyUpSL36fCR/WDLFSXaH8IC8XQAp6I2J0CdU240BVS6kkMrbyiwx+PrrmAsHtg2ybpHzos=
-Received: from BL0PR02CA0122.namprd02.prod.outlook.com (2603:10b6:208:35::27)
- by LV8PR12MB9357.namprd12.prod.outlook.com (2603:10b6:408:1ff::14)
+ bh=du3612mO2x4dqWRM8Gu2TCVTwPuPV2V4/pekS/VjHbI=;
+ b=EM3f5XY6//5gsN9MGA+G3N8poCbAp48gHaonJQkHPqanmWhcKsrZ9sIIgYsh19y19BDkHUiFAlUlnQIkkFGQuYg6gCUfRDRaanlhLFqWFAKC6b4QvLnqeQnotvw0zNEsG4lcRoconObTr3jq/7yEmONfgIp07I/Z6JYYD3RFCyA=
+Received: from BL0PR02CA0123.namprd02.prod.outlook.com (2603:10b6:208:35::28)
+ by MW4PR12MB5665.namprd12.prod.outlook.com (2603:10b6:303:187::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.19; Fri, 15 Mar
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.35; Fri, 15 Mar
  2024 05:42:09 +0000
-Received: from MN1PEPF0000ECDB.namprd02.prod.outlook.com (2603:10b6:208:35::4)
- by BL0PR02CA0122.outlook.office365.com (2603:10b6:208:35::27) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7386.20 via Frontend Transport; Fri, 15 Mar 2024 05:42:09 +0000
+Received: from MN1PEPF0000ECDB.namprd02.prod.outlook.com
+ (2603:10b6:208:35:cafe::52) by BL0PR02CA0123.outlook.office365.com
+ (2603:10b6:208:35::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.20 via Frontend
+ Transport; Fri, 15 Mar 2024 05:42:08 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,22 +50,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  MN1PEPF0000ECDB.mail.protection.outlook.com (10.167.242.139) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7386.12 via Frontend Transport; Fri, 15 Mar 2024 05:42:09 +0000
+ 15.20.7386.12 via Frontend Transport; Fri, 15 Mar 2024 05:42:08 +0000
 Received: from asad-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 15 Mar
- 2024 00:42:05 -0500
+ 2024 00:42:02 -0500
 From: Asad Kamal <asad.kamal@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
  <shiwu.zhang@amd.com>, <asad.kamal@amd.com>, <donald.cheung@amd.com>,
  <sepehr.khatir@amd.com>, <daniel.oliveira@amd.com>, <charis.poag@amd.com>
-Subject: [PATCH 2/2] drm/amd/pm: Use metric table for pcie speed/width
-Date: Fri, 15 Mar 2024 13:41:49 +0800
-Message-ID: <20240315054149.3259906-2-asad.kamal@amd.com>
+Subject: [PATCH 1/2] drm/amd/pm: Update SMUv13.0.6 PMFW headers
+Date: Fri, 15 Mar 2024 13:41:48 +0800
+Message-ID: <20240315054149.3259906-1-asad.kamal@amd.com>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20240315054149.3259906-1-asad.kamal@amd.com>
-References: <20240315054149.3259906-1-asad.kamal@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -74,26 +72,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDB:EE_|LV8PR12MB9357:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d35b8c7-6d3b-4b91-4529-08dc44b2a823
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDB:EE_|MW4PR12MB5665:EE_
+X-MS-Office365-Filtering-Correlation-Id: b78686a6-1ed5-43ec-4e32-08dc44b2a769
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GH1swfXF/MrUTMsMuMJxVlhCfFWEWqIKRw3HSpE+hODVZwwpPoMRiNaSdM0NFReOcktdyMlCAIKIKYUxqpbdnMQbvMnPyNskWHY0SAuZc5E8QMnoJMVucX+9DcJjzxITrpPPkAuhfkeCK5eg4ji6yioRrv3Q4PmN+4bnsYL8iiXF31/dVnyZTe8pk5pa7dWdnaHvZPJZ2UQJ9HTpKCQZAr0t0HRevQY/YaEjAgrFjwDtls5ZdwJFEalCk8nXEpp5upX7hIF5tnlgEyGRJKJ8JxJw69+pSSf4wWBIO82HKeaJIA1ow579Hb0Pk0Zm3ikfGyt0o7jp4610E7BgbAKehC12r1O1QVhuR8wEMpu9Gvp/9bDrFFfujmDPeUSqWj/2VsgPrjl5ad/8BvYwprruNB4RSTh76jBzk6ce2MDj0EM+4NmfY/nGsCDJBEQfy2Fi/UeUkwVH6aFxZpJtI43retfp5PylFbPF2K3HYOacNZ/71FSdrBHkXSmWC52AWBU6g9yowXDcfmsVfM+Z4L7URBly7PDTSqIFTkW6/xF1uMMfpGJCfMC15b53buudmP+vD0k7FlZ/pd3VsCE1UmxgN3Agcsx0F2XeAc+N9XIgT4ApXZ0+sMiWknC/4ZWYD9YBuq8fQpNvtNtezki56oIYC7hKbwEL/LvTjZN1JPa5Nh/sNg1IA23dPl+piQtaYNrbeiQLAXusn8JwziIirLjQsSybzFQhAY6bauNHZxph66droE7KEvmGpIx3M1Xf/edw
+X-Microsoft-Antispam-Message-Info: IWr7NEIJgcOxTsiidMQEd9unFvikf56phjs+mRj1sQ2SU2gf0+FkicqFdNYakYg9jdxat2UVUQe2ztCly2sd+sh6vWtMWk62Or4wbMU/ubxmya32a6lS8kgU2Sjg9aRlEZFZV+OLCCT0hHEivm6xg/ZgTz9M+LEJYp21zYMAPPZ5qs3jQhsCS9qIcnpipLmw5HtBVc8FYxQ2z5PiT/PZ33Cx1CCkYXC3F3RqKxUin0QD3GBWtqBYKQnAj2qPJH9mLau8zjN+GuC05IJJBQqjs9KozR5FnJoq4aeC8ISw+znlCV5XvjBytpnq6nJBkOz66GfpmT3u/2RfWcesOyewg6VxOPYx8ODODqXhKm3ADpD1fpC+OR1AZuONGDGRMdXQzpHr4F3nfPnmYc8c9ieNQ9+OEjMOvFYIs31CpXuhLAiqqGL16J3jIqeOy5CJju1Dn28WNWIggXgXYaSOpEE6mx2i/6+c3JVMOJhe9mMjGr5toT8pTwAP8CkB3u7CwLctkJnr4DdIY9PZsqofey2DrvBrU4ImZoGuUMAGhbwkaaVJwTEj2k/oq6zQzJonLWffH5wnhb4osJl3SaGONKLrbhub4Bu/KWxqzx10rTCpyD4sjLTfurlC9xCAwuUxlcdqs7e+bCZU/TSx0heK2dOL+giGI7YgOBNRjbnAmJRJKOKwY8n9OQL4B6QFKNVBM1ChnuG6vAz+MRZPkgdXGvuvjhOXDO6cNqW7cXQ/y/cTb6NgAQuUyQBZrQmk7ltyS4AS
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(82310400014)(1800799015)(376005); DIR:OUT;
+ SFS:(13230031)(36860700004)(376005)(1800799015)(82310400014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2024 05:42:09.5206 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d35b8c7-6d3b-4b91-4529-08dc44b2a823
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2024 05:42:08.3019 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b78686a6-1ed5-43ec-4e32-08dc44b2a769
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECDB.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9357
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5665
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,54 +106,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Report pcie link speed/width using metric table in case
-of one vf & if pmfw support is available, else report directly from
-registers in case of pf. Skip reporting it for other cases.
+Update PMFW interface headers for updated metrics table
+with pcie link speed and pcie link width
 
 Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 ---
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 744c84f3029f..2a934864b5eb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -2167,6 +2167,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
- 		(struct gpu_metrics_v1_5 *)smu_table->gpu_metrics_table;
- 	struct amdgpu_device *adev = smu->adev;
- 	int ret = 0, xcc_id, inst, i, j;
-+	enum amdgpu_sriov_vf_mode mode;
- 	MetricsTableX_t *metrics_x;
- 	MetricsTableA_t *metrics_a;
- 	u16 link_width_level;
-@@ -2229,7 +2230,17 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
- 	gpu_metrics->gfxclk_lock_status = GET_METRIC_FIELD(GfxLockXCDMak) >> GET_INST(GC, 0);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h
+index 7b812b9994d7..2a7c58186907 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h
+@@ -123,7 +123,7 @@ typedef enum {
+   VOLTAGE_GUARDBAND_COUNT
+ } GFX_GUARDBAND_e;
  
- 	if (!(adev->flags & AMD_IS_APU)) {
--		if (!amdgpu_sriov_vf(adev)) {
-+		/*Check smu version, PCIE link speed and width will be reported from pmfw metric
-+		 * table for both pf & one vf for smu version 85.99.0 or higher else report only
-+		 * for pf from registers
-+		 */
-+		mode = amdgpu_virt_get_sriov_vf_mode(adev);
-+		if (smu->smc_fw_version >= 0x556300 &&
-+		    mode != SRIOV_VF_MODE_MULTI_VF) {
-+			gpu_metrics->pcie_link_width = metrics_x->PCIeLinkWidth;
-+			gpu_metrics->pcie_link_speed =
-+				pcie_gen_to_speed(metrics_x->PCIeLinkSpeed);
-+		} else if (!amdgpu_sriov_vf(adev)) {
- 			link_width_level = smu_v13_0_6_get_current_pcie_link_width_level(smu);
- 			if (link_width_level > MAX_LINK_WIDTH)
- 				link_width_level = 0;
-@@ -2239,6 +2250,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
- 			gpu_metrics->pcie_link_speed =
- 				smu_v13_0_6_get_current_pcie_link_speed(smu);
- 		}
+-#define SMU_METRICS_TABLE_VERSION 0xB
++#define SMU_METRICS_TABLE_VERSION 0xC
+ 
+ typedef struct __attribute__((packed, aligned(4))) {
+   uint32_t AccumulationCounter;
+@@ -223,6 +223,9 @@ typedef struct __attribute__((packed, aligned(4))) {
+   // VCN/JPEG ACTIVITY
+   uint32_t VcnBusy[4];
+   uint32_t JpegBusy[32];
 +
- 		gpu_metrics->pcie_bandwidth_acc =
- 				SMUQ10_ROUND(metrics_x->PcieBandwidthAcc[0]);
- 		gpu_metrics->pcie_bandwidth_inst =
++  uint32_t PCIeLinkSpeed;
++  uint32_t PCIeLinkWidth;
+ } MetricsTableX_t;
+ 
+ typedef struct __attribute__((packed, aligned(4))) {
 -- 
 2.42.0
 
