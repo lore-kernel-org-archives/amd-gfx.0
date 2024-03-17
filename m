@@ -4,119 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04C00C54E67
-	for <amd-gfx@archiver.kernel.org>; Sun, 17 Mar 2024 10:10:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7FE7C54E67
+	for <amd-gfx@archiver.kernel.org>; Sun, 17 Mar 2024 18:02:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF28610EF58;
-	Sun, 17 Mar 2024 10:10:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C426910ECD6;
+	Sun, 17 Mar 2024 18:02:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JHo6W89A";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X3YnJCWO";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2044.outbound.protection.outlook.com [40.107.93.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B03B310EF58
- for <amd-gfx@lists.freedesktop.org>; Sun, 17 Mar 2024 10:10:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gmgoFoMhgaJ+AH9ugt8m9O+8J0rOKwIOnWPLZZCvAE8jB1OUODC2EcpzbMPW34FpAY7Ng71varQSc8OSsWEpgHce6SBNhSiWYPvIX8eNEW7Z5kE1vzyp5+YI83OQyNITRzIOnfSIveXzsENZ9ipZlmWDMeeyggu/PUL9n6wgel8+uBD6YLomnJsaxG6Hrgs5fbsger41kljsq5d5GYpVq1BXnGHuQrPaTCQ+QinLW5koUbiYZIIXuGoHRO3RZByya+EF876UoyZtMCg6/gn8p77GuqLxG2BNaZKcD51DN0Ngo5gclwEOPanDwMWcXgtug6afKDFmCo5n1K5tMvcV9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rizPZ/i5OHPLgWRkFGFTXAIbwDzmw3uxJEm6UZqsqrU=;
- b=cuMLeocmZso9vZ37FRdOxp1akaVgZTmWD40XKM3ECvRLpyb7G3brbtWTIaFGPmMnxWkOo83oOd077nzqPkwtQP5+L7fDwecZUJ1pH9pz5z3qJ9NUSpOS3s2Dj9r1XEAp+4uKDC15aMRe3zrKrY6pMh+nchSc61ZS2+Y0jOz3IpcHk815AU/LDM8h61EJ27j/UgpKB3p9fgQ+ll/YYaGHD/JqZVhvh3qIVGTLJG6dCzNkAhvGfKfoga2UsD42n0PrJ2fhkjJHO+yrGohCbv02i4c4sQPYMA27g5evVjAtEgybMsmlJq/OcQ6cXzSNNbPgLNAyU6x1sueN8sufwlLy0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rizPZ/i5OHPLgWRkFGFTXAIbwDzmw3uxJEm6UZqsqrU=;
- b=JHo6W89A9VFnLxWeqaSAmlg75b4/6o7jCIH9iBIr8Pbg2/Cc5QfODOwbZPTGPpOUjp5krrqoixH8yVbDBMeJwRJMVbkKTHhHC3hIo52Ka4lS48LchRwdbmo/Q5lG3b23y+nkgfxiidbBvPy6eM+3bbH6EDq2GPyieg8QPsGfK0o=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by DM6PR12MB4339.namprd12.prod.outlook.com (2603:10b6:5:2af::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.25; Sun, 17 Mar
- 2024 10:10:00 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::74e4:f50f:79af:c996]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::74e4:f50f:79af:c996%7]) with mapi id 15.20.7386.023; Sun, 17 Mar 2024
- 10:10:00 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-Subject: RE: [PATCH 3/3] drm/amdgpu: make reset method configurable for RAS
- poison
-Thread-Topic: [PATCH 3/3] drm/amdgpu: make reset method configurable for RAS
- poison
-Thread-Index: AQHadSaXp/4veLcT0k2cozHPpudhHbE7uxIg
-Date: Sun, 17 Mar 2024 10:10:00 +0000
-Message-ID: <BN9PR12MB5257021E902FF9AA80E66667FC2E2@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20240313091155.347161-1-tao.zhou1@amd.com>
- <20240313091155.347161-3-tao.zhou1@amd.com>
-In-Reply-To: <20240313091155.347161-3-tao.zhou1@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=9d723123-62f6-4aca-88e6-d355f27537b0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-03-17T10:05:49Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|DM6PR12MB4339:EE_
-x-ms-office365-filtering-correlation-id: 9d6c933a-bd7e-4c35-77cb-08dc466a67bb
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ksgLrtyDBdu3DEc95wOYPqMhsk8E5fvTFneyoW/dchDMDHi1ztEw5//bin0KpkcBB33yIX7ELkLzDeIOteRVRpEnDaB37hTUo0geYKghzPUkmvZXJJVnWIDfse1HJiTTYGhHz+d39jd72xt+bGFLpcUYyM4UYlCQQGGcjBkq6Jig8IgS4KaEf4o8AspTwoqgXRloL732xxnW/B4+TOsFsYNPr/LNBLLSOTlhc66THmj0teUp0z7TyWWsgfBLezrw8Rf2MtifmJc23n5htZPPx3P6pAhAwzmhjEpC3LuGOVnl5zzaqoKFTZb9nl/mfDqHI88M+c0p16ef4Uf+Sye6WUkPgCPBQeTXprC2lNujlXmO1o/MEg6KIHje59KB72uZAGruKz+Uxo1T2WMGaxrTvdas3eNq4PL/3HgVTVgKWceyOx5E4wUphr4lDn99ReYmNqad5DNbxlTEqFeWlSs3mBIebYUkhbp5M1MPoNiyjSrghYfalA9DpKIkdlnIC6OeKpW3CK/qILsMTl6iAXWtuSY5KqDDKZY7bdJjBBBx+FF2SK1lYe0WcMXmu2ym5X0EGInf3VQNa+dMWEUN7rnrbWD+3Mv21ZIdoLNaBE+/KyfXyHtclPLUlpmFCSZLGhW6EQgP5VEvWN8szRUBAnpiG36Dx6t7SuZKMs0aojUVSAdfVRCIiS/vE8sT99WWRUM/sq0jaQEo6NmGYpHhGmXWRTIHo4Yo3tUNQHypT0Zo+r0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(366007)(1800799015)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?5g7u+58ukyo2V7HWcgiOUALnBlU08c6XUdhAf2wViPI25vaiUK6n+Kk5m7bT?=
- =?us-ascii?Q?5XzZlGpfhyqmV67RxrLT24YurmNDYDqERC/cxiZa47sYLkOk1aDO9Dnb156n?=
- =?us-ascii?Q?Oz6Rah7bHQlvPl3+KPyQUGQSk0e2yIFkozbyWb30wHKINv61xplk/Tx01hvV?=
- =?us-ascii?Q?+Qrdn+3KhaWbZv46cuj5wTiv1uwmlRIylRdiyhkccGPJckFDhUD4uxROuT6r?=
- =?us-ascii?Q?/0ogrGMTZRldc4tNo3ZroB1CFuBnOa/LRQEQK8kyCd/m6HCzwUruEEGUxDhA?=
- =?us-ascii?Q?Ure2QdT3liefGNjOYFDPRIvg6STtHYUHXJ5aH5F6jEh3c152Ymq0+KAz8jxV?=
- =?us-ascii?Q?NcpOVsiuDCIh6QaORm5AnnuAjSEVHvbTlN6akX1ErqkPj1XSCSL9reWmAfeZ?=
- =?us-ascii?Q?5T/5JoUKI43vxKSf3e3JxLgoLEVwlWccritYSipuSO5ijWukDuK4Cs9spiKR?=
- =?us-ascii?Q?cpX33A+c4rWOaYLYkC1QAv1GBW2LQa7dPBJd9fSlsIUqW1Mqkdhl56nPhF0a?=
- =?us-ascii?Q?tpbqzIg92eyYlaegng/DXJSpabkYLgvOQrOLTLIjgGy9Tq6eKzEcI+8DHK5G?=
- =?us-ascii?Q?uwgicAdO0DMeb0sNa56FR/8ZvxGIaiEFwLOIIkHcdW5+KpGzXOzjPcHLIBs1?=
- =?us-ascii?Q?d1GfU/S0ulJvHhbLAcVmTs2N04/QkZ2vNhgm8q9uXOO6f+2uoNwz89+lnqw7?=
- =?us-ascii?Q?mmd3A8RULT9TiWieIFK1xO+tC00AMXBcAKyw5DKBb+8/GryxwSvx74arpfW4?=
- =?us-ascii?Q?N7dt8B1no71klXhDirR9x7nE8mvcfNP40LS29DO6t3QguPhT8UUfL+TiWUfk?=
- =?us-ascii?Q?di90XwrjOHc2K1xFT671qJRHXAPuiuSJhLkxBSOgJHRFkerbpPXIamSYLhqn?=
- =?us-ascii?Q?auCB0QM1koEFYYIs3g+lMXgWBr7zC41ZNZPISU4tfxFbMsKCRfZdPWqNniUy?=
- =?us-ascii?Q?AZ5fxwVarzECeLGKUIxdrwCl2LKaeO0tNVorNM8irHSe7nlVzdV5JKAMmUUN?=
- =?us-ascii?Q?Wyf4KrEIA6JpSfyJbtVNRK/vhMDTtESV7U6YJQqstI6de+mzF4ukUPvMLPcm?=
- =?us-ascii?Q?WnWr7qsmja+yAebmutvnFWquJvAzIQ9o4GeDSOc0sYE4VtxbiUDRLv+axtbB?=
- =?us-ascii?Q?Zq5pa5la7ANg0V8UzYrV9GjEsMgixtQcKpVVc2JCZYtmZm10DI5CtKJ1ty8p?=
- =?us-ascii?Q?vwH9hgkSVLBd6b+NB9H4rQ4EHzo03x/M1P/wpOfQayfbGLT6Q8Z+lOdgKciB?=
- =?us-ascii?Q?9O+T43VvH1DPecJwL8+Ktz160uV3vzcbipwDBzr5PUvVG2bZv1PaEm00+Rw8?=
- =?us-ascii?Q?i29ynNDzjDrDchbKLj7IR78p3pJSDzTv6oyq6N+6vjrhA5b/QEthTVAq5jUt?=
- =?us-ascii?Q?tKn9tPBUqWSceV72N7qSdAG+Z19TWHJDw4qgCkY88FbVvL0w+aLeI0eTQSz3?=
- =?us-ascii?Q?FvvQu1rIY40Hp3qvgcHsQxF6yV6Tn5tVHHhrSF1xNow6u3KoUx9AnTAbors6?=
- =?us-ascii?Q?uTenzM2d/E4JL4mGkqeyGeJop5iJu03dvjPwqlFRCSrsylff3+M5S8Qvg4Rw?=
- =?us-ascii?Q?6YFDH6qmMzQaw7WUkV0=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BF3C10E226;
+ Sun, 17 Mar 2024 18:02:13 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-512e4f4e463so3991833e87.1; 
+ Sun, 17 Mar 2024 11:02:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1710698531; x=1711303331; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=MzKqTULejlRdhOCK57EtCsKlcFoP0JMCOwXzk5JnzwA=;
+ b=X3YnJCWOMmjh0Ff3o2WvC5F+IghIRHflSYfbuhbI1h4ZNixfsGppu8vprIimSkb1lY
+ 3uo/g/02OCprUJzJ2e4sayt4aT6xLmngZ11PmLfrpx8zgYc7kydNrHsAJi7PM3A0B550
+ alkLHGrO6MXQvPAsd39P1swF5tGIPJTD3K9wfTQxCVGfQH9zrElRfNYPuS/1YKbuIYsl
+ 8Pj4Y5v3pX6UEBc6Z2Iy2av0WtFzikZ16hDqSZo+1PAZG+k7WP7z9nrEr0BmBrpoct+P
+ PcfmA1ytyzSzYRvNy5U81gcDoUruGWrm0jvXGD+utblWBZCTVj5xHaiOREmnNlFLAWPX
+ yo+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710698531; x=1711303331;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MzKqTULejlRdhOCK57EtCsKlcFoP0JMCOwXzk5JnzwA=;
+ b=FqX7Ref4oMfAJlsnmzXdAByLgg0Du+/nMy/D0lF67xQUCa96NtIFxdB+YhLT71/ToQ
+ Po5aHPZnhbg3CfnEt+27ScYuNIsG8bnrw1GXhIbALnx+JTkHsxoADGEyRKsHx8lZoIbb
+ fN9LLTnllOrRJcV+329gp+oLnFifdE8ya2tAhh8ZoCEve8SP1ldlySDOy8ElQ6M/vE8b
+ hTV8DCLqASlXHvCdrjZqNrzpwg1cn6sz9uhF92GFhEmFUCuX8NxCuFuhsPXJwXthxKdT
+ iZkTwJ4E/8eNiEsReveJAyMeJGAd1tG5DJLhR90uXHb+ebiyF4NvyrGwRQLfHGlvF8Dk
+ CgCQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX+GVKJWYTwgv3dZ3hMFBKbNB/JQVpyLDhvZLZ0d6AbpoZyj0hVdc+6RtdBgoRyKlhLyAUhG5Mleti0d5YrreZAEk3Mayxyg32Byw7tVHEDNTtKlapYTV89AZNxVQc2LO5d4r1UY+Hwv1totd8c7G7NGKI7joiDEzlcljGRiN8Ly78IAkA10UJkjZ4xX95CRYUuQBHmDGOmXryDbD2YojBopmVNyxHmLRnuWPIcHydo
+X-Gm-Message-State: AOJu0Yw/fzAL36knyTFNHce8eja9hbzbR0RS3mK22h2+852xeJoqudGC
+ d1mDiWmMDkuDFEJweavXmr1gksH54I4qxSewKCan9R/utjTaKUUnYbRucCsedb4=
+X-Google-Smtp-Source: AGHT+IFCus1zUTDDRuMKlHSuX7mZxcmUN2oBoDJZChg/lN8tzdLoS7uVD3wjUYqAFNQG1yYzEapq8A==
+X-Received: by 2002:a05:6512:3294:b0:513:c95c:4dc4 with SMTP id
+ p20-20020a056512329400b00513c95c4dc4mr7747510lfe.7.1710698530912; 
+ Sun, 17 Mar 2024 11:02:10 -0700 (PDT)
+Received: from betty.fdsoft.se (213-67-237-183-no99.tbcn.telia.com.
+ [213.67.237.183]) by smtp.gmail.com with ESMTPSA id
+ g21-20020ac24d95000000b00513cdde18efsm1318346lfe.75.2024.03.17.11.02.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 17 Mar 2024 11:02:10 -0700 (PDT)
+Received: from ester.fdsoft.se ([192.168.1.2])
+ by betty.fdsoft.se with esmtp (Exim 4.97.1)
+ (envelope-from <frej.drejhammar@gmail.com>)
+ id 1rlupl-000000005e0-3xex; Sun, 17 Mar 2024 19:02:10 +0100
+From: Frej Drejhammar <frej.drejhammar@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Frej Drejhammar <frej.drejhammar@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, linux-tegra@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Sean Paul <sean@poorly.run>, stable@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Subject: [PATCH 00/11] drm: Only try to set formats supported by the hardware
+Date: Sun, 17 Mar 2024 19:01:25 +0100
+Message-ID: <cover.1710698386.git.frej.drejhammar@gmail.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d6c933a-bd7e-4c35-77cb-08dc466a67bb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2024 10:10:00.0352 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zR5VfVYL3/Mk2lOiW1bOtRUoh9WXXu2EJPEZivaRJ1ZX5EVy77mrxAFXna95lb+WPRqWghNYyzPsZ5aIfkCZOA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4339
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,309 +102,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+When userland uses DRM_IOCTL_MODE_ADDFB to add a framebuffer, the DRM
+subsystem tries to find a pixel format from the supplied depth and
+bpp-values. It does this by calling drm_driver_legacy_fb_format().
+Unfortunately drm_driver_legacy_fb_format() can return formats not
+supported by the underlying hardware. This series of patches remedies
+this problem in patch 1.
 
-Let's not copy kfd interrupt handler and the work queue implementation from=
- v9 to v10 since the firmware/hardware design are totally different.
+In order to use the same logic for determining the pixel format, when
+a fbdev adds a framebuffer as userland does, patches 2 to 11 migrates
+fbdev users of drm_mode_legacy_fb_format() to
+drm_driver_legacy_fb_format().
 
-We shall have another patch to fix kfd int v10 for poison consumption handl=
-ing and also v11.
+This series has been tested with the nouveau and modesetting drivers
+on a NVIDIA NV96, the modesetting driver on Beagleboard Black, and
+with the Intel and modesetting drivers on an Intel HD Graphics 4000
+chipset.
 
-Regards,
-Hawking
+This is an evolved version of the changes proposed in "drm: Don't
+return unsupported formats in drm_mode_legacy_fb_format" [1] following
+the suggestions of Thomas Zimmermann.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tao Zhou
-Sent: Wednesday, March 13, 2024 17:12
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: make reset method configurable for RAS poi=
-son
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-samsung-soc@vger.kernel.org
+Cc: linux-tegra@vger.kernel.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: "Maíra Canal" <mcanal@igalia.com>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Sean Paul <sean@poorly.run>
+Cc: stable@vger.kernel.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: "Ville Syrjälä" <ville.syrjala@linux.intel.com>
 
-Each RAS block has different requirement for gpu reset in poison consumptio=
-n handling.
-Add support for mmhub RAS poison consumption handling.
+[1] https://lore.kernel.org/all/20240310152803.3315-1-frej.drejhammar@gmail.com/
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c       | 14 ++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h       |  4 ++--
- .../gpu/drm/amd/amdkfd/kfd_int_process_v10.c  | 20 ++++++++++++++-----
- .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   | 20 ++++++++++++++-----
- 7 files changed, 42 insertions(+), 24 deletions(-)
+Frej Drejhammar (11):
+  drm: Only return supported formats from drm_driver_legacy_fb_format
+  drm/fbdev_generic: Use drm_driver_legacy_fb_format() for fbdev
+  drm/armada: Use drm_driver_legacy_fb_format() for fbdev
+  drm/exynos: Use drm_driver_legacy_fb_format() for fbdev
+  drm/gma500: Use drm_driver_legacy_fb_format() for fbdev
+  drm/i915: Use drm_driver_legacy_fb_format() for fbdev
+  drm/msm: Use drm_driver_legacy_fb_format() for fbdev
+  drm/omapdrm: Use drm_driver_legacy_fb_format() for fbdev
+  drm/radeon: Use drm_driver_legacy_fb_format() for fbdev
+  drm/tegra: Use drm_driver_legacy_fb_format() for fbdev
+  drm/xe: Use drm_driver_legacy_fb_format() for fbdev
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.c
-index 9687650b0fe3..262d20167039 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -760,7 +760,7 @@ bool amdgpu_amdkfd_is_fed(struct amdgpu_device *adev)  =
-}
+ drivers/gpu/drm/armada/armada_fbdev.c         |  5 +-
+ drivers/gpu/drm/drm_fb_helper.c               |  2 +-
+ drivers/gpu/drm/drm_fbdev_dma.c               |  4 +-
+ drivers/gpu/drm/drm_fbdev_generic.c           |  4 +-
+ drivers/gpu/drm/drm_fourcc.c                  | 83 +++++++++++++++++++
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c     |  6 +-
+ drivers/gpu/drm/gma500/fbdev.c                |  2 +-
+ drivers/gpu/drm/i915/display/intel_fbdev_fb.c |  6 +-
+ drivers/gpu/drm/msm/msm_fbdev.c               |  4 +-
+ drivers/gpu/drm/omapdrm/omap_fbdev.c          |  6 +-
+ drivers/gpu/drm/radeon/radeon_fbdev.c         |  6 +-
+ drivers/gpu/drm/tegra/fbdev.c                 |  5 +-
+ drivers/gpu/drm/xe/display/intel_fbdev_fb.c   |  5 +-
+ 13 files changed, 119 insertions(+), 19 deletions(-)
 
- void amdgpu_amdkfd_ras_poison_consumption_handler(struct amdgpu_device *ad=
-ev,
--       enum amdgpu_ras_block block, bool reset)
-+       enum amdgpu_ras_block block, uint32_t reset)
- {
-        amdgpu_umc_poison_handler(adev, block, reset);  } diff --git a/driv=
-ers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_=
-amdkfd.h
-index 03bf20e0e3da..ad50c7bbc326 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -400,7 +400,7 @@ void amdgpu_amdkfd_debug_mem_fence(struct amdgpu_device=
- *adev);  int amdgpu_amdkfd_get_tile_config(struct amdgpu_device *adev,
-                                struct tile_config *config);
- void amdgpu_amdkfd_ras_poison_consumption_handler(struct amdgpu_device *ad=
-ev,
--                       enum amdgpu_ras_block block, bool reset);
-+                       enum amdgpu_ras_block block, uint32_t reset);
- bool amdgpu_amdkfd_is_fed(struct amdgpu_device *adev);  bool amdgpu_amdkfd=
-_bo_mapped_to_dev(struct amdgpu_device *adev, struct kgd_mem *mem);  void a=
-mdgpu_amdkfd_block_mmu_notifications(void *p); diff --git a/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index e32a186c2de1..58fe7bebdf1b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2045,7 +2045,7 @@ static void amdgpu_ras_interrupt_poison_consumption_h=
-andler(struct ras_manager *
-                }
-        }
 
--       amdgpu_umc_poison_handler(adev, obj->head.block, false);
-+       amdgpu_umc_poison_handler(adev, obj->head.block, 0);
-
-        if (block_obj->hw_ops && block_obj->hw_ops->handle_poison_consumpti=
-on)
-                poison_stat =3D block_obj->hw_ops->handle_poison_consumptio=
-n(adev);
-@@ -2698,7 +2698,7 @@ static int amdgpu_ras_page_retirement_thread(void *pa=
-ram)
-                atomic_dec(&con->page_retirement_req_cnt);
-
-                amdgpu_umc_bad_page_polling_timeout(adev,
--                               false, MAX_UMC_POISON_POLLING_TIME_ASYNC);
-+                               0, MAX_UMC_POISON_POLLING_TIME_ASYNC);
-        }
-
-        return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_umc.c
-index 20436f81856a..2c02585dcbff 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-@@ -186,9 +186,7 @@ static int amdgpu_umc_do_page_retirement(struct amdgpu_=
-device *adev,
-        amdgpu_umc_handle_bad_pages(adev, ras_error_status);
-
-        if (err_data->ue_count && reset) {
--               /* use mode-2 reset for poison consumption */
--               if (!entry)
--                       con->gpu_reset_flags |=3D AMDGPU_RAS_GPU_RESET_MODE=
-2_RESET;
-+               con->gpu_reset_flags |=3D reset;
-                amdgpu_ras_reset_gpu(adev);
-        }
-
-@@ -196,7 +194,7 @@ static int amdgpu_umc_do_page_retirement(struct amdgpu_=
-device *adev,  }
-
- int amdgpu_umc_bad_page_polling_timeout(struct amdgpu_device *adev,
--                       bool reset, uint32_t timeout_ms)
-+                       uint32_t reset, uint32_t timeout_ms)
- {
-        struct ras_err_data err_data;
-        struct ras_common_if head =3D {
-@@ -238,8 +236,7 @@ int amdgpu_umc_bad_page_polling_timeout(struct amdgpu_d=
-evice *adev,
-        if (reset) {
-                struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
-
--               /* use mode-2 reset for poison consumption */
--               con->gpu_reset_flags |=3D AMDGPU_RAS_GPU_RESET_MODE2_RESET;
-+               con->gpu_reset_flags |=3D reset;
-                amdgpu_ras_reset_gpu(adev);
-        }
-
-@@ -247,7 +244,7 @@ int amdgpu_umc_bad_page_polling_timeout(struct amdgpu_d=
-evice *adev,  }
-
- int amdgpu_umc_poison_handler(struct amdgpu_device *adev,
--                       enum amdgpu_ras_block block, bool reset)
-+                       enum amdgpu_ras_block block, uint32_t reset)
- {
-        int ret =3D AMDGPU_RAS_SUCCESS;
-
-@@ -311,7 +308,8 @@ int amdgpu_umc_process_ras_data_cb(struct amdgpu_device=
- *adev,
-                void *ras_error_status,
-                struct amdgpu_iv_entry *entry)
- {
--       return amdgpu_umc_do_page_retirement(adev, ras_error_status, entry,=
- true);
-+       return amdgpu_umc_do_page_retirement(adev, ras_error_status, entry,
-+                               AMDGPU_RAS_GPU_RESET_MODE1_RESET);
- }
-
- int amdgpu_umc_ras_sw_init(struct amdgpu_device *adev) diff --git a/driver=
-s/gpu/drm/amd/amdgpu/amdgpu_umc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
-index 26d2ae498daf..4365a20eeb49 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
-@@ -103,7 +103,7 @@ struct amdgpu_umc {
- int amdgpu_umc_ras_sw_init(struct amdgpu_device *adev);  int amdgpu_umc_ra=
-s_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block);  =
-int amdgpu_umc_poison_handler(struct amdgpu_device *adev,
--                       enum amdgpu_ras_block block, bool reset);
-+                       enum amdgpu_ras_block block, uint32_t reset);
- int amdgpu_umc_process_ecc_irq(struct amdgpu_device *adev,
-                struct amdgpu_irq_src *source,
-                struct amdgpu_iv_entry *entry);
-@@ -123,5 +123,5 @@ int amdgpu_umc_loop_channels(struct amdgpu_device *adev=
-,
-                        umc_func func, void *data);
-
- int amdgpu_umc_bad_page_polling_timeout(struct amdgpu_device *adev,
--                       bool reset, uint32_t timeout_ms);
-+                       uint32_t reset, uint32_t timeout_ms);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c b/drivers/gpu=
-/drm/amd/amdkfd/kfd_int_process_v10.c
-index 650da18b0d87..94ab1f33fc4a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-@@ -134,6 +134,7 @@ static void event_interrupt_poison_consumption(struct k=
-fd_node *dev,  {
-        enum amdgpu_ras_block block =3D 0;
-        int old_poison, ret =3D -EINVAL;
-+       uint32_t reset =3D 0;
-        struct kfd_process *p =3D kfd_lookup_process_by_pasid(pasid);
-
-        if (!p)
-@@ -153,6 +154,15 @@ static void event_interrupt_poison_consumption(struct =
-kfd_node *dev,
-        case SOC15_IH_CLIENTID_UTCL2:
-                ret =3D kfd_dqm_evict_pasid(dev->dqm, pasid);
-                block =3D AMDGPU_RAS_BLOCK__GFX;
-+               if (ret)
-+                       reset =3D AMDGPU_RAS_GPU_RESET_MODE2_RESET;
-+               break;
-+       case SOC15_IH_CLIENTID_VMC:
-+       case SOC15_IH_CLIENTID_VMC1:
-+               ret =3D kfd_dqm_evict_pasid(dev->dqm, pasid);
-+               block =3D AMDGPU_RAS_BLOCK__MMHUB;
-+               if (ret)
-+                       reset =3D AMDGPU_RAS_GPU_RESET_MODE1_RESET;
-                break;
-        case SOC15_IH_CLIENTID_SDMA0:
-        case SOC15_IH_CLIENTID_SDMA1:
-@@ -160,6 +170,7 @@ static void event_interrupt_poison_consumption(struct k=
-fd_node *dev,
-        case SOC15_IH_CLIENTID_SDMA3:
-        case SOC15_IH_CLIENTID_SDMA4:
-                block =3D AMDGPU_RAS_BLOCK__SDMA;
-+               reset =3D AMDGPU_RAS_GPU_RESET_MODE2_RESET;
-                break;
-        default:
-                break;
-@@ -170,17 +181,16 @@ static void event_interrupt_poison_consumption(struct=
- kfd_node *dev,
-        /* resetting queue passes, do page retirement without gpu reset
-         * resetting queue fails, fallback to gpu reset solution
-         */
--       if (!ret) {
-+       if (!ret)
-                dev_warn(dev->adev->dev,
-                        "RAS poison consumption, unmap queue flow succeeded=
-: client id %d\n",
-                        client_id);
--               amdgpu_amdkfd_ras_poison_consumption_handler(dev->adev, blo=
-ck, false);
--       } else {
-+       else
-                dev_warn(dev->adev->dev,
-                        "RAS poison consumption, fall back to gpu reset flo=
-w: client id %d\n",
-                        client_id);
--               amdgpu_amdkfd_ras_poison_consumption_handler(dev->adev, blo=
-ck, true);
--       }
-+
-+       amdgpu_amdkfd_ras_poison_consumption_handler(dev->adev, block, rese=
-t);
- }
-
- static bool event_interrupt_isr_v10(struct kfd_node *dev, diff --git a/dri=
-vers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/k=
-fd_int_process_v9.c
-index 11641f4645e6..2a37ab7a7150 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-@@ -145,6 +145,7 @@ static void event_interrupt_poison_consumption_v9(struc=
-t kfd_node *dev,  {
-        enum amdgpu_ras_block block =3D 0;
-        int old_poison, ret =3D -EINVAL;
-+       uint32_t reset =3D 0;
-        struct kfd_process *p =3D kfd_lookup_process_by_pasid(pasid);
-
-        if (!p)
-@@ -164,6 +165,15 @@ static void event_interrupt_poison_consumption_v9(stru=
-ct kfd_node *dev,
-        case SOC15_IH_CLIENTID_UTCL2:
-                ret =3D kfd_dqm_evict_pasid(dev->dqm, pasid);
-                block =3D AMDGPU_RAS_BLOCK__GFX;
-+               if (ret)
-+                       reset =3D AMDGPU_RAS_GPU_RESET_MODE2_RESET;
-+               break;
-+       case SOC15_IH_CLIENTID_VMC:
-+       case SOC15_IH_CLIENTID_VMC1:
-+               ret =3D kfd_dqm_evict_pasid(dev->dqm, pasid);
-+               block =3D AMDGPU_RAS_BLOCK__MMHUB;
-+               if (ret)
-+                       reset =3D AMDGPU_RAS_GPU_RESET_MODE1_RESET;
-                break;
-        case SOC15_IH_CLIENTID_SDMA0:
-        case SOC15_IH_CLIENTID_SDMA1:
-@@ -171,6 +181,7 @@ static void event_interrupt_poison_consumption_v9(struc=
-t kfd_node *dev,
-        case SOC15_IH_CLIENTID_SDMA3:
-        case SOC15_IH_CLIENTID_SDMA4:
-                block =3D AMDGPU_RAS_BLOCK__SDMA;
-+               reset =3D AMDGPU_RAS_GPU_RESET_MODE2_RESET;
-                break;
-        default:
-                break;
-@@ -181,17 +192,16 @@ static void event_interrupt_poison_consumption_v9(str=
-uct kfd_node *dev,
-        /* resetting queue passes, do page retirement without gpu reset
-         * resetting queue fails, fallback to gpu reset solution
-         */
--       if (!ret) {
-+       if (!ret)
-                dev_warn(dev->adev->dev,
-                        "RAS poison consumption, unmap queue flow succeeded=
-: client id %d\n",
-                        client_id);
--               amdgpu_amdkfd_ras_poison_consumption_handler(dev->adev, blo=
-ck, false);
--       } else {
-+       else
-                dev_warn(dev->adev->dev,
-                        "RAS poison consumption, fall back to gpu reset flo=
-w: client id %d\n",
-                        client_id);
--               amdgpu_amdkfd_ras_poison_consumption_handler(dev->adev, blo=
-ck, true);
--       }
-+
-+       amdgpu_amdkfd_ras_poison_consumption_handler(dev->adev, block, rese=
-t);
- }
-
- static bool context_id_expected(struct kfd_dev *dev)
---
-2.34.1
+base-commit: 119b225f01e4d3ce974cd3b4d982c76a380c796d
+-- 
+2.44.0
 
