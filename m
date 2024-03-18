@@ -4,73 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4DFBC54E5D
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Mar 2024 10:32:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7AA0C54E58
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Mar 2024 10:38:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66BBF10EF1D;
-	Mon, 18 Mar 2024 10:32:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 301E810F553;
+	Mon, 18 Mar 2024 10:38:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A8ud6h8L";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Eokjr6YE";
 	dkim-atps=neutral
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A97210EF1D
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 10:32:58 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-513d23be0b6so4146770e87.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 03:32:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710757976; x=1711362776; darn=lists.freedesktop.org;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Jz5VE8rb9auasH1hWdpw1tUHRe+vfMYKfWLojnnJVK8=;
- b=A8ud6h8Lh/wf1bTm2BXgqbYOTcqFekelCirg7A8WmCu0VnM6jMzJYUNVvtRR+9veD0
- QiTxeZbS5AY8LncSsML1ksy8u58KDp+paoOTypBZIVpWugrZkR3YpBxipsAPLsnZOM3L
- defd8Z88UGx4HfllymNR7YVJdClLVkK1l+cyByqo2uhfmschh4SGujjTsvyjdOSB6XAZ
- +0pL2BeaLddIGaeqWLxSKqmH+NO24cT1PDj3axyQ+b83XvSNQVsIC3IH1XXG1yXw5HX7
- oDjynF4V4hdYeZ4YScA1txVEvrPYgQqMqQwDfexDWYJW5Mtqh40jCJOkbLZRVf2950lA
- zoiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710757976; x=1711362776;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=Jz5VE8rb9auasH1hWdpw1tUHRe+vfMYKfWLojnnJVK8=;
- b=qsI559sIvBfbJUVRvlCgUyLUOtewOrQ6gk3y3cw3wB4oo7cbAcOrfFqRZE6Ym8JA6s
- guKhLBarAHdawCQEqtRksFb4kOPWb8TTfAdr2FzsHyAaF8/L1QCJcnhShG7XoETb9Era
- eHeaXvjYKg08qGcqKc62rOelJSa0Te9gzuZVP38diE3nWjQ9+JH9Qc/tS5DQxNrdSHQV
- 4V7KiEEg5q4twbrtcgEnnJXNgFTwUkj4nuWKnF7Mzr3uadcEn8c4iozH+LMldqwBfwCW
- ltm/IYo+AsAGqgeOgeruoFzgz/6I+9hh3Jc7vO4eMtT3zbN39PX+QAqOzl0vm88Nf09L
- t9+A==
-X-Gm-Message-State: AOJu0YxirgHGB3qEyBXM7mxlKau2UI+mKkszbeMXED2ZXtXwIuaqSfjd
- AglR+tXShBxHh6JCX/wilV8X774h0pDJAVLnBa4kaH0xVwa0JqZ5
-X-Google-Smtp-Source: AGHT+IHxP8GySFM0XcZwm2Hy3dRyQp9YYqgPyfCxzaRhcPzzBOJewWR2ie6Mkm0JYLZRhsNp3UPpig==
-X-Received: by 2002:a05:6512:2013:b0:512:fab6:6df6 with SMTP id
- a19-20020a056512201300b00512fab66df6mr2025254lfb.4.1710757975697; 
- Mon, 18 Mar 2024 03:32:55 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- je20-20020a05600c1f9400b00413e6af1bd5sm14267772wmb.47.2024.03.18.03.32.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Mar 2024 03:32:55 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------ayYns5kAbnRHkTS0Ib20v0QK"
-Message-ID: <ed3cb49f-071e-4728-afbd-8b2411fd677a@gmail.com>
-Date: Mon, 18 Mar 2024 11:32:51 +0100
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2077.outbound.protection.outlook.com [40.107.96.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A15F010F553
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 10:38:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RS7HzDydxxd42w3kOnt5E1RzzkW2WIXxlRT/pX/tnrRh85sF56U28TrQ+j2P4pSn/JFhiHzOyGiVtsBxgIaTTp88jcIREbVWr39OcRENg4sDpj1G1MP0Z4wDJCMyDgN4ugmPLirzGHwurzkSs4dxJCzVjVQ8BdfArFV2XuYr7KTxLW1DNF3I67OqYvBWdr8IzZ7F/YdVhnN6CvyDBVYM5/6pb088WuBWmBKSCc9hQbHWfry4D9I2fNLSSmwFiLiBQKFZq4jqXMPhytKD9NQcg0hteb7GVAfIWkHAF0bjQjXs0coLnXIl/4AE9ryxtNVcihjIm8wi5SStX4CuR9wmKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mHgHN+aSDA7bcE6FZcbdzs+qrGQC9Ivzx0ouoE7yFBE=;
+ b=EynBW3S178IrJe8tXiqC6Y5Qn7jtHVYJolmbuYfripApxWjPaIwyScHEF1tQKLy7o8cej3Kdhwyk4CAJ98RBuSJH2ct+isGs7gNl0X9fPAy6QgMTahRtL6ZtrHsPYijqrcd1sYc/1XRq+DfZh3/bq3kMP5lsHuIi+Zt59bfbs7LjvRpgkDsDoe0fAnOebsc8p8a2Fkv1c1/XholXf3iBBzopOQxbHjggPiX3pvw1PvgzJRe4YusnwatmpDneBQPEocVwpjmGd8yTQ4oEeU+axqkwvF2yl0YsgGV2yHll7kmfjphLBJMmxIhZVSfkipcm0tYUB3xtJ1EXCKC0YujkQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mHgHN+aSDA7bcE6FZcbdzs+qrGQC9Ivzx0ouoE7yFBE=;
+ b=Eokjr6YEY7exUbD2aylNfK15QdjWCLSIJ+PdocKABnkbDwKjc2FMO6OP4zDieQ3CMGarRJnKuTC5FIn8K23qD/ujH3R2RxFxsTKCKwtM978RSfCyqjJ/S5PeLTMY60Ij74l59U72JgDQROch8rmTXMqOmsj7f3LrWSSVguCeUJo=
+Received: from CY5PR17CA0009.namprd17.prod.outlook.com (2603:10b6:930:17::14)
+ by CY5PR12MB6321.namprd12.prod.outlook.com (2603:10b6:930:22::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.26; Mon, 18 Mar
+ 2024 10:38:18 +0000
+Received: from CY4PEPF0000EDD4.namprd03.prod.outlook.com
+ (2603:10b6:930:17:cafe::c1) by CY5PR17CA0009.outlook.office365.com
+ (2603:10b6:930:17::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.27 via Frontend
+ Transport; Mon, 18 Mar 2024 10:38:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD4.mail.protection.outlook.com (10.167.241.208) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7409.10 via Frontend Transport; Mon, 18 Mar 2024 10:38:18 +0000
+Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 18 Mar
+ 2024 05:38:16 -0500
+From: Lang Yu <Lang.Yu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Lee Peyton <Peyton.Lee@amd.com>, 
+ Alan Liu <haoping.liu@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>, Lang Yu
+ <Lang.Yu@amd.com>
+Subject: [PATCH] Revert "drm/amdgpu/vpe: don't emit cond exec command under
+ collaborate mode"
+Date: Mon, 18 Mar 2024 18:38:02 +0800
+Message-ID: <20240318103802.3009373-1-Lang.Yu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [bug report] drm/amdgpu: add ring buffer information in
- devcoredump
-Content-Language: en-US
-To: "Khatri, Sunil" <sukhatri@amd.com>,
- Dan Carpenter <dan.carpenter@linaro.org>, sunil.khatri@amd.com,
- christian.koenig@amd.com, Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <9a7c7f33-dd72-4fe0-918b-00b920f7635d@moroto.mountain>
- <72df7acd-4019-4159-b9c7-ffa8cda9e86a@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <72df7acd-4019-4159-b9c7-ffa8cda9e86a@amd.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD4:EE_|CY5PR12MB6321:EE_
+X-MS-Office365-Filtering-Correlation-Id: 297467b3-5504-4737-e151-08dc4737865f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uV7Lz7KhVucemazGJ50biRXTbejBBPTnjlGHUu12Kg/EZnoEuVHyjFvzAlRjPgtuB3tNiXT1DUlBtZdoZjqKX83tIjIZLjp4s915Bc+Esv/zDI3gUzjje0105KVEyDt55ygpQWBYaXOmM/exHBPr3SRaAqJk6i7lBCkXlLnNDxr6PE8BNWHUfkB3xZpyPDjwZCROsOVfDnmeWewOBM9ANf1+2RHnHR54Y5wc0AaB4eHyk6JQL6yoCyTkesJl+VsJ+2O03+ZNdaYnC9jczHOz94u64uuORR98iyeZYnws5ki8jSChRJEiYbpXEDqv7OofQrc+oxAeH2csZIHayJlKOL/MlTtnJsfVLuzz7kCgnChGo9rzvda8W8w/vlzYaFd3HeUQXqxttNah0lcq8d7DbcMM4MVZ4D5Qy7KmT6i+/fTceFZq8se3/u4JCNpIzZqMFVrw3kJ8kwjpGVWsneh5olSZAO37AMVTK6f1XAHDaKa15Efsa8tQay0R5tm72EfrbXPz3RzULSR7CqnsC7+Nt5FklaA/nAb2NIaDGMdk9pLvfO9kZpv4+jAZ2wKmRcZLyNwL5kjtOSg8Y8BeIlJAtH23FYv1xOXFgYemXSJ8BeUgm/Ga1AXa1AJf+y8SDOsKbwJIt4N3XQjcYTrS7NXAWUwO9rdcjvJSEUjVMq8ldUTGsH/7702o8JsGmZtS5UqU6mni8SLlLS8XLRqWgp5FeBHUeNlRc3/IDwXsrrl12zdCKGu4eIxZ6M/TNGOvmPbb
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(1800799015)(82310400014)(36860700004)(376005); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2024 10:38:18.1877 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 297467b3-5504-4737-e151-08dc4737865f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6321
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,307 +107,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------ayYns5kAbnRHkTS0Ib20v0QK
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Ready now. Remove this workaround.
+This reverts commit 1a2bb3bb2a84f8364f0a8b338afa9b9025e1bcc0.
 
-Am 15.03.24 um 20:08 schrieb Khatri, Sunil:
->
-> Thanks for pointing these. I do have some doubt and i raised inline.
->
-> On 3/15/2024 8:46 PM, Dan Carpenter wrote:
->> Hello Sunil Khatri,
->>
->> Commit 42742cc541bb ("drm/amdgpu: add ring buffer information in
->> devcoredump") from Mar 11, 2024 (linux-next), leads to the following
->> Smatch static checker warning:
->>
->> 	drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c:219 amdgpu_devcoredump_read()
->> 	error: we previously assumed 'coredump->adev' could be null (see line 206)
->>
->> drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
->>      171 static ssize_t
->>      172 amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
->>      173                         void *data, size_t datalen)
->>      174 {
->>      175         struct drm_printer p;
->>      176         struct amdgpu_coredump_info *coredump = data;
->>      177         struct drm_print_iterator iter;
->>      178         int i;
->>      179
->>      180         iter.data = buffer;
->>      181         iter.offset = 0;
->>      182         iter.start = offset;
->>      183         iter.remain = count;
->>      184
->>      185         p = drm_coredump_printer(&iter);
->>      186
->>      187         drm_printf(&p, "**** AMDGPU Device Coredump ****\n");
->>      188         drm_printf(&p, "version: " AMDGPU_COREDUMP_VERSION "\n");
->>      189         drm_printf(&p, "kernel: " UTS_RELEASE "\n");
->>      190         drm_printf(&p, "module: " KBUILD_MODNAME "\n");
->>      191         drm_printf(&p, "time: %lld.%09ld\n", coredump->reset_time.tv_sec,
->>      192                         coredump->reset_time.tv_nsec);
->>      193
->>      194         if (coredump->reset_task_info.pid)
->>      195                 drm_printf(&p, "process_name: %s PID: %d\n",
->>      196                            coredump->reset_task_info.process_name,
->>      197                            coredump->reset_task_info.pid);
->>      198
->>      199         if (coredump->ring) {
->>      200                 drm_printf(&p, "\nRing timed out details\n");
->>      201                 drm_printf(&p, "IP Type: %d Ring Name: %s\n",
->>      202                            coredump->ring->funcs->type,
->>      203                            coredump->ring->name);
->>      204         }
->>      205
->>      206         if (coredump->adev) {
->>                      ^^^^^^^^^^^^^^
->> Check for NULL
-> This is the check for NULL. Is there any issue here ?
->>      207                 struct amdgpu_vm_fault_info *fault_info =
->>      208                         &coredump->adev->vm_manager.fault_info;
->>      209
->>      210                 drm_printf(&p, "\n[%s] Page fault observed\n",
->>      211                            fault_info->vmhub ? "mmhub" : "gfxhub");
->>      212                 drm_printf(&p, "Faulty page starting at address: 0x%016llx\n",
->>      213                            fault_info->addr);
->>      214                 drm_printf(&p, "Protection fault status register: 0x%x\n\n",
->>      215                            fault_info->status);
->>      216         }
->>      217
->>      218         drm_printf(&p, "Ring buffer information\n");
->> --> 219         for (int i = 0; i < coredump->adev->num_rings; i++) {
->>                                      ^^^^^^^^^^^^^^
->> Unchecked dereference
-> Agree
->>      220                 int j = 0;
->>      221                 struct amdgpu_ring *ring = coredump->adev->rings[i];
->>      222
->>      223                 drm_printf(&p, "ring name: %s\n", ring->name);
->>      224                 drm_printf(&p, "Rptr: 0x%llx Wptr: 0x%llx RB mask: %x\n",
->>      225                            amdgpu_ring_get_rptr(ring),
->>      226                            amdgpu_ring_get_wptr(ring),
->>      227                            ring->buf_mask);
->>      228                 drm_printf(&p, "Ring size in dwords: %d\n",
->>      229                            ring->ring_size / 4);
->>      230                 drm_printf(&p, "Ring contents\n");
->>      231                 drm_printf(&p, "Offset \t Value\n");
->>      232
->>      233                 while (j < ring->ring_size) {
->>      234                         drm_printf(&p, "0x%x \t 0x%x\n", j, ring->ring[j/4]);
->>      235                         j += 4;
->>      236                 }
->>      237         }
->>      238
->>      239         if (coredump->reset_vram_lost)
->>      240                 drm_printf(&p, "VRAM is lost due to GPU reset!\n");
->>      241         if (coredump->adev->reset_info.num_regs) {
->>                      ^^^^^^^^^^^^^^
->> Here too
-> Agree.
->>      242                 drm_printf(&p, "AMDGPU register dumps:\nOffset:     Value:\n");
->>      243
->>      244                 for (i = 0; i < coredump->adev->reset_info.num_regs; i++)
->>      245                         drm_printf(&p, "0x%08x: 0x%08x\n",
->>      246                                    coredump->adev->reset_info.reset_dump_reg_list[i],
->>      247                                    coredump->adev->reset_info.reset_dump_reg_value[i]);
->>      248         }
->>      249
->>      250         return count - iter.remain;
->>      251 }
->
->
-> Although adev is a global structure and never in the code it is being 
-> checked for NULL as it wont be NULL until the driver is unloaded. I 
-> can add a check  for adev in the beginning of the function 
-> amdgpu_devcoredump_read for completeness of the tool but still not 
-> very sure of it.
->
-> Christian and Alex Do you agree with my understanding the adev does 
-> really need a validation for NULL. I dint see throughout the code adev 
-> to be validated for NULL. Do you recommend to add a check for NULL for 
-> adev in the above mentioned function/places.
->
+Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+Tested-by: Alan Liu <haoping.liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-No, that doesn't make sense. adev is mandatory to be around for the core 
-dump to be valid and accessible.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+index 70c5cc80ecdc..7a65a2b128ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+@@ -575,9 +575,6 @@ static unsigned int vpe_ring_init_cond_exec(struct amdgpu_ring *ring,
+ {
+ 	unsigned int ret;
+ 
+-	if (ring->adev->vpe.collaborate_mode)
+-		return ~0;
+-
+ 	amdgpu_ring_write(ring, VPE_CMD_HEADER(VPE_CMD_OPCODE_COND_EXE, 0));
+ 	amdgpu_ring_write(ring, lower_32_bits(addr));
+ 	amdgpu_ring_write(ring, upper_32_bits(addr));
+-- 
+2.25.1
 
-Without a device you don't have a core dump in the first place.
-
-Regards,
-Christian.
-
-> Regards Sunil
->
->> regards,
->> dan carpenter
-
---------------ayYns5kAbnRHkTS0Ib20v0QK
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Am 15.03.24 um 20:08 schrieb Khatri, Sunil:<br>
-    <blockquote type="cite"
-      cite="mid:72df7acd-4019-4159-b9c7-ffa8cda9e86a@amd.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <p>Thanks for pointing these. I do have some doubt and i raised
-        inline.<br>
-      </p>
-      <div class="moz-cite-prefix">On 3/15/2024 8:46 PM, Dan Carpenter
-        wrote:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:9a7c7f33-dd72-4fe0-918b-00b920f7635d@moroto.mountain">
-        <pre class="moz-quote-pre" wrap="">Hello Sunil Khatri,
-
-Commit 42742cc541bb ("drm/amdgpu: add ring buffer information in
-devcoredump") from Mar 11, 2024 (linux-next), leads to the following
-Smatch static checker warning:
-
-	drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c:219 amdgpu_devcoredump_read()
-	error: we previously assumed 'coredump-&gt;adev' could be null (see line 206)
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-    171 static ssize_t
-    172 amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
-    173                         void *data, size_t datalen)
-    174 {
-    175         struct drm_printer p;
-    176         struct amdgpu_coredump_info *coredump = data;
-    177         struct drm_print_iterator iter;
-    178         int i;
-    179 
-    180         iter.data = buffer;
-    181         iter.offset = 0;
-    182         iter.start = offset;
-    183         iter.remain = count;
-    184 
-    185         p = drm_coredump_printer(&amp;iter);
-    186 
-    187         drm_printf(&amp;p, "**** AMDGPU Device Coredump ****\n");
-    188         drm_printf(&amp;p, "version: " AMDGPU_COREDUMP_VERSION "\n");
-    189         drm_printf(&amp;p, "kernel: " UTS_RELEASE "\n");
-    190         drm_printf(&amp;p, "module: " KBUILD_MODNAME "\n");
-    191         drm_printf(&amp;p, "time: %lld.%09ld\n", coredump-&gt;reset_time.tv_sec,
-    192                         coredump-&gt;reset_time.tv_nsec);
-    193 
-    194         if (coredump-&gt;reset_task_info.pid)
-    195                 drm_printf(&amp;p, "process_name: %s PID: %d\n",
-    196                            coredump-&gt;reset_task_info.process_name,
-    197                            coredump-&gt;reset_task_info.pid);
-    198 
-    199         if (coredump-&gt;ring) {
-    200                 drm_printf(&amp;p, "\nRing timed out details\n");
-    201                 drm_printf(&amp;p, "IP Type: %d Ring Name: %s\n",
-    202                            coredump-&gt;ring-&gt;funcs-&gt;type,
-    203                            coredump-&gt;ring-&gt;name);
-    204         }
-    205 
-    206         if (coredump-&gt;adev) {
-                    ^^^^^^^^^^^^^^
-Check for NULL</pre>
-      </blockquote>
-      This is the check for NULL. Is there any issue here ?<br>
-      <blockquote type="cite"
-        cite="mid:9a7c7f33-dd72-4fe0-918b-00b920f7635d@moroto.mountain">
-        <pre class="moz-quote-pre" wrap="">    207                 struct amdgpu_vm_fault_info *fault_info =
-    208                         &amp;coredump-&gt;adev-&gt;vm_manager.fault_info;
-    209 
-    210                 drm_printf(&amp;p, "\n[%s] Page fault observed\n",
-    211                            fault_info-&gt;vmhub ? "mmhub" : "gfxhub");
-    212                 drm_printf(&amp;p, "Faulty page starting at address: 0x%016llx\n",
-    213                            fault_info-&gt;addr);
-    214                 drm_printf(&amp;p, "Protection fault status register: 0x%x\n\n",
-    215                            fault_info-&gt;status);
-    216         }
-    217 
-    218         drm_printf(&amp;p, "Ring buffer information\n");
---&gt; 219         for (int i = 0; i &lt; coredump-&gt;adev-&gt;num_rings; i++) {
-                                    ^^^^^^^^^^^^^^
-Unchecked dereference</pre>
-      </blockquote>
-      Agree<br>
-      <blockquote type="cite"
-        cite="mid:9a7c7f33-dd72-4fe0-918b-00b920f7635d@moroto.mountain">
-        <pre class="moz-quote-pre" wrap="">    220                 int j = 0;
-    221                 struct amdgpu_ring *ring = coredump-&gt;adev-&gt;rings[i];
-    222 
-    223                 drm_printf(&amp;p, "ring name: %s\n", ring-&gt;name);
-    224                 drm_printf(&amp;p, "Rptr: 0x%llx Wptr: 0x%llx RB mask: %x\n",
-    225                            amdgpu_ring_get_rptr(ring),
-    226                            amdgpu_ring_get_wptr(ring),
-    227                            ring-&gt;buf_mask);
-    228                 drm_printf(&amp;p, "Ring size in dwords: %d\n",
-    229                            ring-&gt;ring_size / 4);
-    230                 drm_printf(&amp;p, "Ring contents\n");
-    231                 drm_printf(&amp;p, "Offset \t Value\n");
-    232 
-    233                 while (j &lt; ring-&gt;ring_size) {
-    234                         drm_printf(&amp;p, "0x%x \t 0x%x\n", j, ring-&gt;ring[j/4]);
-    235                         j += 4;
-    236                 }
-    237         }
-    238 
-    239         if (coredump-&gt;reset_vram_lost)
-    240                 drm_printf(&amp;p, "VRAM is lost due to GPU reset!\n");
-    241         if (coredump-&gt;adev-&gt;reset_info.num_regs) {
-                    ^^^^^^^^^^^^^^
-Here too</pre>
-      </blockquote>
-      Agree.<br>
-      <blockquote type="cite"
-        cite="mid:9a7c7f33-dd72-4fe0-918b-00b920f7635d@moroto.mountain">
-        <pre class="moz-quote-pre" wrap="">    242                 drm_printf(&amp;p, "AMDGPU register dumps:\nOffset:     Value:\n");
-    243 
-    244                 for (i = 0; i &lt; coredump-&gt;adev-&gt;reset_info.num_regs; i++)
-    245                         drm_printf(&amp;p, "0x%08x: 0x%08x\n",
-    246                                    coredump-&gt;adev-&gt;reset_info.reset_dump_reg_list[i],
-    247                                    coredump-&gt;adev-&gt;reset_info.reset_dump_reg_value[i]);
-    248         }
-    249 
-    250         return count - iter.remain;
-    251 }</pre>
-      </blockquote>
-      <p><br>
-      </p>
-      <p>Although adev is a global structure and never in the code it is
-        being checked for NULL as it wont be NULL until the driver is
-        unloaded. I can add a check  for adev in the beginning of the
-        function <span style="white-space: pre-wrap">amdgpu_devcoredump_read for completeness of the tool but still not very sure of it.</span></p>
-      <p><span style="white-space: pre-wrap">Christian and Alex
-Do you agree with my understanding the adev does really need a validation for NULL. I dint see throughout the code adev to be validated for NULL. Do you recommend to add a check for NULL for adev in the above mentioned function/places.</span></p>
-    </blockquote>
-    <br>
-    No, that doesn't make sense. adev is mandatory to be around for the
-    core dump to be valid and accessible.<br>
-    <br>
-    Without a device you don't have a core dump in the first place.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:72df7acd-4019-4159-b9c7-ffa8cda9e86a@amd.com">
-      <p><span style="white-space: pre-wrap">Regards
-Sunil
-</span></p>
-      <blockquote type="cite"
-        cite="mid:9a7c7f33-dd72-4fe0-918b-00b920f7635d@moroto.mountain">
-        <pre class="moz-quote-pre" wrap="">regards,
-dan carpenter
-</pre>
-      </blockquote>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------ayYns5kAbnRHkTS0Ib20v0QK--
