@@ -4,123 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55F30C54E58
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Mar 2024 13:54:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5553C54E5D
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Mar 2024 14:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFEBE10E314;
-	Mon, 18 Mar 2024 13:54:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E41510EEA2;
+	Mon, 18 Mar 2024 14:04:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eAEKcPte";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sM6X6zBM";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2066.outbound.protection.outlook.com [40.107.220.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0E6C10E314
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 13:54:53 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2088.outbound.protection.outlook.com [40.107.212.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70DC110EEA2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 14:04:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q0udwuq/qDIjKrAi56/aaMGWXtn7vPBsTvR468ZmD/9mn9LTojgLHF/6a1YCsp3rMReFKbCeT0tgmbSemeAh9i96sM2YWjJTwOM47Oj0euV5TVtEMBaXYrcebek7/IbLn2tbbtzmZn82KSDIJq3JJuWXWwv6jDyt4rA6W3ubLfRmg2mDp04i3GzzLXVKYPmysp4PJ2g2JyRiqGtZhdQeathKtLFIv8mvJHuF36+wR5wnxRpH0GQ9TE56NWLILgFRU60FewlYIsKJ4RflTB/XrGzjXF7RZTNxIv0NqKeULDCR8MqwXyk2VxNt3GD1GutXqNeNrUWZFQ4pW3ht/c2mHA==
+ b=jvjE+rTkdkGM6y8Jrv+Znji7vH5+eDN53T1a5iByexhQhwr3N6zglIwp8tAf4JXPo8YkBP5MBXf8oy9SHloizi0QTp/F1ZItpGBJ+OUGegMpPiasj59B4Yljzf2VvUNimcSyfkXpEgDE67lrMsrWnTZWcx6SLZYZc8JOAf+H0fekOmFzCFF44QnDw9BTrXI6c0TSgaK3fM6lWQJ5uijNmsQLCL9gOBQZvF0HSoEOyE7+8Ux3GE9vEAa/hQv18BmVLhgYeE5d5mHrV5iUSzAS+OqGXyN0/D8Nvjm953umiko2VVuEyr8eBudBnKLs/uA+XyxKKiCY+nLtGqbNIqefpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MbUNvEWfQugJJaRarTc2TERJi8yRrArprR2pWqUuS/k=;
- b=jXBQSO6StUuaFy5uKuj6ycs1kaswN6A/bXir6Wh6iJEq8X1kFFB1dX4Bb1GBmtfkgYRd3bawHneCSd4BM9Qkeb098IludsuLRrxW8PBikHmzq618158E/TE7kRFNZRTXuR5atTy8haZZTUnDC7VcJqQ+jpiY32HdQBqlCeAV+fuBKTi8Sb3c47C4sut/QJTekB1Rm2R6WR3h1aOZSTVmAiKQvuvb6Tul7axkfsEs+Qb+vk6Gqh7nFA1h0eg8RMWVmwtQOCssAqJ6qlTAOJCVncfCnmgZhvpgZIQ/wOnwqqKr0D1sjlCbzMyI75AB3712FY9XHjWEZKmv2Zc/BxDiaw==
+ bh=71DkKPAhLTe1G5F6EumU7pRqZSkXbam1QhWpPCzDIqg=;
+ b=DVyHKDIUr6A+uW30EqX9ysYAruwDYjkDXQZ7Sf99bLqj4pAibswX5SeXwIkYdGwKq8wSEdDHMcfa50t1kCQPfZTaa/51yOcWIjUWYI3mvtmEmV0Bj6F6Xo7En87D6LkpffYl3fvxj+p+Ti010jT6LiadRFNyDQrIK9g6RgXXWLbEJJG9/a/YivrW5UjWYeCoR4uhbtEydnVKmqe9K6VMi4vay9yjeJVc6ZYRbBoQ+jM/Thjg6ZnJDs9sSY29ftGgQunSLN4wiX379P3IPpOfy3MB4dU+NCXKrStMf+caALetlSM72Kk8Y2g+mPdeVx+7pKzg2T/XeqlujBIqdjZYPg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MbUNvEWfQugJJaRarTc2TERJi8yRrArprR2pWqUuS/k=;
- b=eAEKcPteOzCELT0rtGSK7yFcNdokhg4qT5K4S974WY/zB27KEKvnG3P7cPCBH+wLlZgg3lErPIjVIEos/iYQFnkbscfaun5gy96VBWqtmqUMFBbRkNC0mXaW3tSaxywr1ttgQWfdG+PZTyZ73d8urbiOzaecJHdJiU6ZjaAoDKg=
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
- SJ2PR12MB9138.namprd12.prod.outlook.com (2603:10b6:a03:565::9) with
+ bh=71DkKPAhLTe1G5F6EumU7pRqZSkXbam1QhWpPCzDIqg=;
+ b=sM6X6zBMUv/Gd70+nJRdqY/ibF/ovZfv960q2qjuu9/Y6HcEaH2FxSgX/XxtFlYMvZjJn/FBgo8CKhE+aULaEOnagsd/9yoZulXCzsYCk55mH72FnZdEZFoHbFldgiv6cvDjtqL0Y3bScj4Z6v6NMAbqbVVEsB29V9Q7CKphxjI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS7PR12MB5933.namprd12.prod.outlook.com (2603:10b6:8:7c::14) by
+ CH3PR12MB9124.namprd12.prod.outlook.com (2603:10b6:610:1a7::6) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7386.26; Mon, 18 Mar 2024 13:54:49 +0000
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::6503:7457:78d3:b2f4]) by DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::6503:7457:78d3:b2f4%5]) with mapi id 15.20.7386.025; Mon, 18 Mar 2024
- 13:54:49 +0000
-From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-To: "Lin, Wayne" <Wayne.Lin@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
- <Sunpeng.Li@amd.com>, "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li, Roman"
- <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Gutierrez, Agustin"
- <Agustin.Gutierrez@amd.com>, "Chung, ChiaHsuan (Tom)"
- <ChiaHsuan.Chung@amd.com>, "Wu, Hersen" <hersenxs.wu@amd.com>, "Zuo, Jerry"
- <Jerry.Zuo@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>
-Subject: RE: [PATCH 00/43] DC Patches March 18, 2024
-Thread-Topic: [PATCH 00/43] DC Patches March 18, 2024
-Thread-Index: AQHadF6YsHqvq9ZDQEu9hilC2REXQrE9jqaw
-Date: Mon, 18 Mar 2024 13:54:49 +0000
-Message-ID: <DS0PR12MB65346BEAD764293E9B2143829C2D2@DS0PR12MB6534.namprd12.prod.outlook.com>
-References: <20240312092036.3283319-1-Wayne.Lin@amd.com>
-In-Reply-To: <20240312092036.3283319-1-Wayne.Lin@amd.com>
-Accept-Language: en-CA, en-US
+ 15.20.7386.26; Mon, 18 Mar 2024 14:04:25 +0000
+Received: from DS7PR12MB5933.namprd12.prod.outlook.com
+ ([fe80::f405:814f:a551:4b85]) by DS7PR12MB5933.namprd12.prod.outlook.com
+ ([fe80::f405:814f:a551:4b85%7]) with mapi id 15.20.7386.025; Mon, 18 Mar 2024
+ 14:04:25 +0000
+Content-Type: multipart/alternative;
+ boundary="------------eZNHrdARV0g4xT9PuNselyHR"
+Message-ID: <0e729b5c-818e-495f-a479-b48c3177094a@amd.com>
+Date: Mon, 18 Mar 2024 10:04:19 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/2] drm/amdgpu: sync page table freeing with tlb flush
+To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <Christian.Koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>
+References: <20240318120837.2011-1-shashank.sharma@amd.com>
+ <20240318120837.2011-2-shashank.sharma@amd.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=7a2191e6-2499-40ad-b1b3-91b2c9f0d790;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-03-18T13:54:10Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|SJ2PR12MB9138:EE_
-x-ms-office365-filtering-correlation-id: 7c6c7e1d-d5d0-4319-2698-08dc4752fa93
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: vKrKQrEqiJnF3r4nuRprUJmc4bopz8ut6w/nn7DdwsNNPrPX9URVD7DLE6S/FGruvP9CvpFwIZ+g98kskzs3XZ+sw83QY+7D2ZndVNX93UYhduZjAybWzkmDageIZm4IoZN9T+TKNfeEJ6KDaWkz/+hl96vtFaCSBWIreMiq2Dlv+YltPy1vtmGCpeTM+P38tKcwc7wPXwoMDSTFyVDSJJMopM1MQF58N0kttcJgaEqruYVNG9aduEeVBaVaQLWYHSEr+hlhV2D0gl84SrUdE2RaNeWH3rvjR+LKyDLrG43X5hFjDJX5vO6l2Qk7lQAIPtRX4ghY5K4BaqIdR7Ib2LngZg2UlynnHPhAI/xXw/FNvxpGtAp9bJJQT7SF/r9J/Rn8DSt+VKFxfjklGq6FW1CxBwMhgcj7bGF3EtYvCKXwTcA5MX+wPrEs3x5dQPRlxbuH7p2hjPTXcA4+4fSzEC18FDgfWzQY5rbee+15R6qly+lDzc/S0g2m2JCOX++CFBJw4JjiUlwh05i+9AzN0uLd1GAaPR23FnbTqoIIyqpJL+NQEub2xSpaAZfzuRf72pJTKm/HOIbmtUoTGNzcszClxWwVBOkO9RLHInNx0gV9yjasQo6Mh8CYuZ6UYzogVUoTJXfGqrg681mV3LYvOL8Bu2FN8fZU3ahAIzNCeRZoPSNSl9d+RV9avBjDToJ/QtMAOThFtB50G1oPwDtuio55WE6ZQQzHuJM+V3N4+6c=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(366007)(376005)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?a8AqIw34BwtlhZOzFr3a9p320BqqH3FZAW7q7JxZt+KAsz6LBFo+nrV9LhH5?=
- =?us-ascii?Q?u6MwQfpa17x0v7SmDFCmuzKKRpGRxunA0vHJQ5DoiPP8xaf5qPQmplLjpEN5?=
- =?us-ascii?Q?9a3fmF9GYFCkSePWEOztovMvSf5f1jOZl2f9rvw+ma7MqH+kC4izKEjL4+Lc?=
- =?us-ascii?Q?JRzNblZmwv7IDDrZHWoX+mKyR0VAgmjeiWdSYKwtVMVt+4v6Zh2QBbf/xO1m?=
- =?us-ascii?Q?IVb2iSma3+zVaoIpYP4cLrler1SiN5235D2Dbejv9x54U4wayL8pE4/0Xjmb?=
- =?us-ascii?Q?K7TreSZH30TOmtGr4oHg9gnByuv9AHGzgFt62VwPrIWlWOzPKL0lv0Cvmrnh?=
- =?us-ascii?Q?MZ0AbCiNp18rA9H17Vz96CJ+sukOFT76AgMl7XPOsOFHoE/G9E4f5iIGdRKE?=
- =?us-ascii?Q?uvfd3/mDmjB2u1kjkcAO/OSHMR5nC3Tu0Lim3Uo8r5blumgZf7BPnEzhl5tn?=
- =?us-ascii?Q?OTfgtWJ3b3CYA4/6UCTzCtbRL6X8eMB+qrfCBk7bQ5hZDCL+FU3hJ5Ht+5DF?=
- =?us-ascii?Q?nYW65o7x/1zHIbyjVdfFxoY6Mycmpgt4g4WFYXSef1KSlY/nG2haAfB1esQ4?=
- =?us-ascii?Q?MGs+E7EM+1riPBC4vEv5PMFrXU3Le+LRRFBxlg7MfsJmqqaS7kJ5oN7ngrAX?=
- =?us-ascii?Q?ZnZnoCi1GjgH7viGyBorhOO884qbO83YCWWSX78IIEhPTL8GdAhzWHMzV0K6?=
- =?us-ascii?Q?eSpvVJK9UBs+IPQl3ToZ5hmRMRgscJIWkRxob37igoRLhqAxU0Om6x9pzn1j?=
- =?us-ascii?Q?lvSD3gyvGyn4LN1HKeZC/+HMSZ5pH4+/Wgtp13+GHaKiFLCCs3Kc1eUaY1HF?=
- =?us-ascii?Q?fssOYS+7kHN0m28BiabMgJ5oTP5ulqqcbpjRViUxkxvECC/UAMtDITDBBs91?=
- =?us-ascii?Q?qPu2+ASsmGWjxkyGR36TvED7cCbTCIVX/z47mNySTV8f2ZWqYXJbFKZRKi3M?=
- =?us-ascii?Q?Ks+Il6sjKv9Ka3LiY7UcT12GzdJrAbM8ZxxQvFIGJHqKBFJFY3BwyoZ1P7Fq?=
- =?us-ascii?Q?lLCVDKqMUaQCUB74JTQuKa+a9ZYRb6JcQpb5PezhkGoczFj2AiC8Y/CmQty5?=
- =?us-ascii?Q?f7vkfaDCHkrog2IuWQhxuoehuUj8nHXaPZ1l7DKbGZMJlN55G1ykugnDqXx6?=
- =?us-ascii?Q?lmPUzgAKhy5P8w5Khe4w9edrnaqpt+ahD04gchgt+JeyLF0CHLH+ssIM0psV?=
- =?us-ascii?Q?2WZ8CR5TSf2GfBKFRCv3lXRz1OjZxr4YVEET4ddwZU1zHqZWYDnyeLofUUTQ?=
- =?us-ascii?Q?c6HHaO89FWuDW4Zcq5JNxTcGbIZHLYcs04wlbhgRL+ijfqmz4K2IFdx6fdVH?=
- =?us-ascii?Q?ifebxn6477ZePyBIuAcDPOyi2XVEgye3pUBjgTZIhE/vrs9ulI1At3ftlA9w?=
- =?us-ascii?Q?1YSTNkqeQSfXJEwIQxbtOTo0i+hgpAiiVSRK7l5ig6Mh9a9TkDmUiallqvCH?=
- =?us-ascii?Q?a6L/firgHZv6Xf4j5i72bZ1a0/tLeyEchkaBB5XkUKhXVmvewZsg+c+hiEJS?=
- =?us-ascii?Q?Dzrag6zqM+kdsG3jB333yKiRxXFKuwC/r9wecN+1u8onhJILEDKrdZC0SoxQ?=
- =?us-ascii?Q?Ggo+M0tyODGtQ/QEzrI=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: "Bhardwaj, Rajneesh" <rajneesh.bhardwaj@amd.com>
+In-Reply-To: <20240318120837.2011-2-shashank.sharma@amd.com>
+X-ClientProxiedBy: YQBPR01CA0033.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::41)
+ To DS7PR12MB5933.namprd12.prod.outlook.com
+ (2603:10b6:8:7c::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR12MB5933:EE_|CH3PR12MB9124:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6c7474e1-9c23-40e0-9263-08dc4754518e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7zcQ2dmHIsSZSheV4Ohnaj8By84q2YPz5uK8Py53jP2xI0Xy4ds2TWWgVKFbA9reSOEllBhEK4ROa/4AcZADMOLI/JMLqXMKoXC7kk0RvD4zjnz6jBMUhYbxfLm1NgeRL62x5UIPg9xjW53MjR5sIkYsSZFQU7L52MW3baQOo5vxQ0K+v8bTbpSQTVx7t+Krq5Ad64K9NXXHzfMvw41g0w/Al2OYD3u0iRtMuN6E2PbWEQJhiuYuowEpIIXy1MsmaWDUHL7pYbfzkqiktlJaypQosRvKGy0X7K7b773uZMOBjJEIcPRxlV6Sh+DM3Iw7J9J/FtXXUgRF7ykpySGDTmmMeZCvq/OzkWkbL0Qp14zP20Pcy6dHUW3J96jygtR79N6dVVr4O6HOG4SjhOa7UYm/urPDLk/A3BRBpJ7UW5qZDvSIimFiL3bPOozUcM0OjAUSqvDlliBuefbX/xew11FdCbIxF4d8q1XFR+orBCmYYpTcZ9D2EbibVrAldhO0jV6QHr8frNTqa1fHiT8irW9GcHM55XfWuSVmiGGwWb9LoUvHBe0mR0cWSipOjMofYbmdOb4A/N8wbRaWI+Ur8QTJKeGnZke8LgaIWNd7RQ/6lJhnSRogUbciNBy4CZ96psYPwmKh0pOSOYTbkCdCZ9cgAjqxF5rPn9tC9/oL7Lo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB5933.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NE5ONVVoSkpqZHlGUkR3S2czdnlnUlVuYVROZ2VBR0NkTlR6NFhtdU9vY0Z5?=
+ =?utf-8?B?RVJxeTVJVTJ1MTVVV1N1U1pndk1peks1K1VRb2N4eFR5M3BVdE51K1ZMUnJO?=
+ =?utf-8?B?M2doU0gzUTFJdXlycEdDdEpVS25BTWVNL0FVU0Fkb0ZLWHRBRFQxL0F2MXph?=
+ =?utf-8?B?RDJTdEJxZWlBbU44eHZNZmZRK0hETEpwR1p3WVh4WThndXhoWEhNV1YxTXRZ?=
+ =?utf-8?B?NWVONzJMZVhUWXpxbUJJK3paalMwdFY3cGlid1dTY1E2WW41S2dhbHRSS2Y3?=
+ =?utf-8?B?c1RlTmg4V2VYQ3hDL0VlMU1MQlVZeGFTMXE5dWxaNFR6aThqRXlJUlFRM2Mz?=
+ =?utf-8?B?Y3dDRWFoWUVCRmY0K21FRkFyZTMzVFZmSG1scWZpUDkwc2thL3c4cXBIQnJz?=
+ =?utf-8?B?aWVSRE5XSzVhZGorNW9NelJXQVBQbUlxb29nU2FtcVVOKzRadXpQSWJVUnh1?=
+ =?utf-8?B?NkdTSldlUzJWVXN4TkVwZ3NHaWhYREJ5L1kyODF2MkV1TVF6WFpJRWJjcFB6?=
+ =?utf-8?B?UldtYXJBSkNkS1dlTGc4aWlIUzV6SkZQSWNodVlUWXpObzNZYzRnSWpJZVFm?=
+ =?utf-8?B?ckNFU2NWbU5iYVBBK3BubkJBMTI1OVVMcUJlc0pQMVlnK0IyZWNqNzNua0xU?=
+ =?utf-8?B?dHIwSi9wY2ZtVit2WjJKY1lhRUIyaEcrN1FadEgvak1xa2RUVXIyL25rN3lG?=
+ =?utf-8?B?aHF6TGFMYzFIdndtYTNLL05PdEZ6VFNsQzFWbHFpOU9wWEh6OVAyTmp4MDQ2?=
+ =?utf-8?B?ZzZacDBFckNoaVNGMm1NRlA0ckhBZERrYnRlMVRDSUdXTUhreVZ1QlYwandW?=
+ =?utf-8?B?VHVVdmxDYzE0MG81WmpHbUxlYWRUK2s4eTFvRWNybXhMSXRBMHRJK0FnRmt6?=
+ =?utf-8?B?WDNSVzlPSmhQVjV1andMM096U0piV2hxM1dxc25aRUVuaDFTeUxENkVqbU50?=
+ =?utf-8?B?ZWt3TUNPNlAzNk1uVGxVbnRDRkRBYVJyeElrU1UvVUF6aHJOSWViZEMweUh6?=
+ =?utf-8?B?dGVDRUl5M1NsaWg4eXpFNXYyVzRiWFRNSkJvb09KaSt1TU9vakZVQ3VWV253?=
+ =?utf-8?B?NXdNZlQzNWdvcWVwVmF2M1BNUVNTdVlIdkhoR1k5MTJKL2E0alhjRWxLMGtP?=
+ =?utf-8?B?TTdaazhvVG5waFR3Mi9wdUtlUndrZStlTlFDcW02MStzTGZUcW9QdUNXdjhi?=
+ =?utf-8?B?bW1zN01rS3FpRmExb29MRWJHUVhLdHE5WFlmWFZ2RXBMc0ovOHdyZHVHZHVG?=
+ =?utf-8?B?TVdPWDBLWXNxcFBRaU9LZW5qSzJBSEF6NnJiaDJ3VTRjbkZWZ3prUTlNTHgz?=
+ =?utf-8?B?KytYcEkyNkhUVUJRL1pkNitaeUFGbU9RaWhoTEdTdFZnUVJDQnhmMGxmeS9n?=
+ =?utf-8?B?QzBMTlF1VHJuZ2ZJOXk1UmFicTNpZndNeFppaTY2STFaS2NEbGZrVHdlUXVa?=
+ =?utf-8?B?b1MwU2VkbzJtbGIwQ3hWTENyUjd0OWhTS1FNTGNYVURMS0FMRkdINC8zcDNM?=
+ =?utf-8?B?dStRNjFrczU4WWZ2Q2toSUxhTzcvVFZtVURDM3dFRGhvSHk5RUNjZ08vellM?=
+ =?utf-8?B?OVFnMHFHb0hGS1NiRmdyRHEyYTdoeWwrcWFjVCtwQ1V3VnFJYSt3S04zYUN0?=
+ =?utf-8?B?V0ZEUEd4ekZzRWVEUUwranFKeDgxdjlYcVhucVk5K2RkcFQyWERaSE9EZXBv?=
+ =?utf-8?B?d21vd29LdWxHN0wxUUJyUnV3VG01VTRIK1ZDSUtqaE15SkxyZGZjcGMvMURy?=
+ =?utf-8?B?K2pDOWx5NEFGTlNPYVFoS01NQndzQXI2Z1ZwRHN5eVJwR2FGR2tDR0w1ZmlZ?=
+ =?utf-8?B?b2VqcnlHanlNWFlYc20rZUdpMFVFcEh2M3RFd0dpYVNqQUlkbkszY3NzZDFP?=
+ =?utf-8?B?VFltYVdqQ3kvempMUGliclcyYzZLWEMxWWRvZ3FjcktndjdINUFqMWN5N0JH?=
+ =?utf-8?B?NWJRb0dISXllV1F1ekVuOG03MzI5cEVwV3lQWDB2TlM3MWtMWUpMcnVyYitv?=
+ =?utf-8?B?SXl1YTNwOUMwMVZ3aFRKM2hHaC9nK0UrN0ZHUStSYit0K3ErZ0MyV3VwL0Yx?=
+ =?utf-8?B?eWF4akVTQS9DTEdramFBWjV0S1Evc0IwUVRWaUlzeWMzZ1FBRlFSc1JYOUNI?=
+ =?utf-8?Q?mP8vV/PHeHW32zWIiuPDLCVkb?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c7474e1-9c23-40e0-9263-08dc4754518e
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB5933.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c6c7e1d-d5d0-4319-2698-08dc4752fa93
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Mar 2024 13:54:49.6118 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uv1ZiRfBVSlDOF1gKaNIwmARZDfV66DkXDKCcU9a+0Rz+FFwZJRQnY4TGXGHTBf+kc+wDU9GKIhDRzP4A2QbHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9138
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2024 14:04:25.3403 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1X2JkUKbEsFlFZnIoBtBO9Z11v6AZr2mTTVhrMYKJ9+7A9PiiEyS5UJuQ9xjHWJxcN79EkUC61qh60vpio5tUw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9124
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,241 +131,528 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+--------------eZNHrdARV0g4xT9PuNselyHR
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi all,
+HI Shashank
 
-This week this patchset was tested on the following systems:
-        * Lenovo ThinkBook T13s Gen4 with AMD Ryzen 5 6600U
-        * MSI Gaming X Trio RX 6800
-        * Gigabyte Gaming OC RX 7900 XTX
+We'll probably need a v8 with the null pointer crash fixed i.e. before 
+freeing the PT entries check for a valid entry before calling 
+amdgpu_vm_pt_free. The crash is seen with device memory allocators but 
+the system memory allocators are looking fine.
 
-These systems were tested on the following display/connection types:
-        * eDP, (1080p 60hz [5650U]) (1920x1200 60hz [6600U]) (2560x1600 120=
-hz[6600U])
-        * VGA and DVI (1680x1050 60hz [DP to VGA/DVI, USB-C to VGA/DVI])
-        * DP/HDMI/USB-C (1440p 170hz, 4k 60hz, 4k 144hz, 4k 240hz [Includes=
- USB-C to DP/HDMI adapters])
-        * Thunderbolt (LG Ultrafine 5k)
-        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60Hz displays)
-        * DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60 display=
-s, and HP Hook G2 with 1 4k60 display)
-        * USB 4 (Kensington SD5700T and 1x 4k 60Hz display)
-        * PCON (Club3D CAC-1085 and 1x 4k 144Hz display [at 4k 120HZ, as th=
-at is the max the adapter supports])
+[  127.255863] [drm] Using MTYPE_RW for local memory
+[  333.606136] hugetlbfs: test_with_MPI.e (25268): Using mlock ulimits 
+for SHM_HUGETLB is obsolete
+[  415.351447] BUG: kernel NULL pointer dereference, address: 
+0000000000000008
+[  415.359245] #PF: supervisor write access in kernel mode
+[  415.365081] #PF: error_code(0x0002) - not-present page
+[  415.370817] PGD 101259067 P4D 101259067 PUD 10125a067 PMD 0
+[  415.377140] Oops: 0002 [#1] PREEMPT SMP NOPTI
+[  415.382004] CPU: 0 PID: 25481 Comm: test_with_MPI.e Tainted: 
+G           OE 5.18.2-mi300-build-140423-ubuntu-22.04+ #24
+[  415.394437] Hardware name: AMD Corporation Sh51p/Sh51p, BIOS 
+RMO1001AS 02/21/2024
+[  415.402797] RIP: 0010:amdgpu_vm_ptes_update+0x6fd/0xa10 [amdgpu]
+[  415.409648] Code: 4c 89 ff 4d 8d 66 30 e8 f1 ed ff ff 48 85 db 74 42 
+48 39 5d a0 74 40 48 8b 53 20 48 8b 4b 18 48 8d 43 18 48 8d 75 b0 4c 89 
+ff <48
+ > 89 51 08 48 89 0a 49 8b 56 30 48 89 42 08 48 89 53 18 4c 89 63
+[  415.430621] RSP: 0018:ffffc9000401f990 EFLAGS: 00010287
+[  415.436456] RAX: ffff888147bb82f0 RBX: ffff888147bb82d8 RCX: 
+0000000000000000
+[  415.444426] RDX: 0000000000000000 RSI: ffffc9000401fa30 RDI: 
+ffff888161f80000
+[  415.452397] RBP: ffffc9000401fa80 R08: 0000000000000000 R09: 
+ffffc9000401fa00
+[  415.460368] R10: 00000007f0cc0000 R11: 00000007f0c85000 R12: 
+ffffc9000401fb20
+[  415.468340] R13: 00000007f0d00000 R14: ffffc9000401faf0 R15: 
+ffff888161f80000
+[  415.476312] FS:  00007f132ff89840(0000) GS:ffff889f87c00000(0000) 
+knlGS:0000000000000000
+[  415.485350] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  415.491767] CR2: 0000000000000008 CR3: 0000000161d46003 CR4: 
+0000000000770ef0
+[  415.499738] PKRU: 55555554
+[  415.502750] Call Trace:
+[  415.505482]  <TASK>
+[  415.507825]  amdgpu_vm_update_range+0x32a/0x880 [amdgpu]
+[  415.513869]  amdgpu_vm_clear_freed+0x117/0x250 [amdgpu]
+[  415.519814] amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu+0x18c/0x250 
+[amdgpu]
+[  415.527729]  kfd_ioctl_unmap_memory_from_gpu+0xed/0x340 [amdgpu]
+[  415.534551]  kfd_ioctl+0x3b6/0x510 [amdgpu]
+[  415.539324]  ? kfd_ioctl_get_dmabuf_info+0x1d0/0x1d0 [amdgpu]
+[  415.545844]  ? __fget_light+0xc5/0x100
+[  415.550037]  __x64_sys_ioctl+0x91/0xc0
+[  415.554227]  do_syscall_64+0x5c/0x80
+[  415.558223]  ? debug_smp_processor_id+0x17/0x20
+[  415.563285]  ? fpregs_assert_state_consistent+0x23/0x60
+[  415.569124]  ? exit_to_user_mode_prepare+0x45/0x190
+[  415.574572]  ? ksys_write+0xce/0xe0
 
-The testing is a mix of automated and manual tests. Manual testing includes=
- (but is not limited to):
-        * Changing display configurations and settings
-        * Benchmark testing
-        * Feature testing (Freesync, etc.)
-
-Automated testing includes (but is not limited to):
-        * Script testing (scripts to automate some of the manual checks)
-        * IGT testing
-
-The patchset consists of the amd-staging-drm-next branch (Head commit - 0b2=
-33252a7c1 drm/amd/display: 3.2.275) with new patches added on top of it.
-
-Tested on Ubuntu 22.04.3, on Wayland and X11, using KDE Plasma and Gnome.
 
 
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+On 3/18/2024 8:08 AM, Shashank Sharma wrote:
 
+> The idea behind this patch is to delay the freeing of PT entry objects
+> until the TLB flush is done.
+>
+> This patch:
+> - Adds a tlb_flush_waitlist in amdgpu_vm_update_params which will keep the
+>    objects that need to be freed after tlb_flush.
+> - Adds PT entries in this list in amdgpu_vm_ptes_update after finding
+>    the PT entry.
+> - Changes functionality of amdgpu_vm_pt_free_dfs from (df_search + free)
+>    to simply freeing of the BOs, also renames it to
+>    amdgpu_vm_pt_free_list to reflect this same.
+> - Exports function amdgpu_vm_pt_free_list to be called directly.
+> - Calls amdgpu_vm_pt_free_list directly from amdgpu_vm_update_range.
+>
+> V2: rebase
+> V4: Addressed review comments from Christian
+>      - add only locked PTEs entries in TLB flush waitlist.
+>      - do not create a separate function for list flush.
+>      - do not create a new lock for TLB flush.
+>      - there is no need to wait on tlb_flush_fence exclusively.
+>
+> V5: Addressed review comments from Christian
+>      - change the amdgpu_vm_pt_free_dfs's functionality to simple freeing
+>        of the objects and rename it.
+>      - add all the PTE objects in params->tlb_flush_waitlist
+>      - let amdgpu_vm_pt_free_root handle the freeing of BOs independently
+>      - call amdgpu_vm_pt_free_list directly
+>
+> V6: Rebase
+> V7: Rebase
+>
+> Cc: Christian König<Christian.Koenig@amd.com>
+> Cc: Alex Deucher<alexander.deucher@amd.com>
+> Cc: Felix Kuehling<felix.kuehling@amd.com>
+> Cc: Rajneesh Bhardwaj<rajneesh.bhardwaj@amd.com>
+> Acked-by: Felix Kuehling<felix.kuehling@amd.com>
+> Acked-by: Rajneesh Bhardwaj<rajneesh.bhardwaj@amd.com>
+> Tested-by: Rajneesh Bhardwaj<rajneesh.bhardwaj@amd.com>
+> Signed-off-by: Shashank Sharma<shashank.sharma@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  5 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  7 +++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 53 +++++++++++++----------
+>   3 files changed, 40 insertions(+), 25 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 26f1c3359642..eaa402f99fe0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -977,6 +977,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	params.unlocked = unlocked;
+>   	params.needs_flush = flush_tlb;
+>   	params.allow_override = allow_override;
+> +	INIT_LIST_HEAD(&params.tlb_flush_waitlist);
+>   
+>   	/* Implicitly sync to command submissions in the same VM before
+>   	 * unmapping. Sync to moving fences before mapping.
+> @@ -1062,8 +1063,10 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	if (r)
+>   		goto error_unlock;
+>   
+> -	if (params.needs_flush)
+> +	if (params.needs_flush) {
+>   		r = amdgpu_vm_tlb_flush(&params, fence);
+> +		amdgpu_vm_pt_free_list(adev, &params);
+> +	}
+>   
+>   error_unlock:
+>   	amdgpu_vm_eviction_unlock(vm);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index b0a4fe683352..54d7da396de0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -266,6 +266,11 @@ struct amdgpu_vm_update_params {
+>   	 * to be overridden for NUMA local memory.
+>   	 */
+>   	bool allow_override;
+> +
+> +	/**
+> +	 * @tlb_flush_waitlist: temporary storage for BOs until tlb_flush
+> +	 */
+> +	struct list_head tlb_flush_waitlist;
+>   };
+>   
+>   struct amdgpu_vm_update_funcs {
+> @@ -547,6 +552,8 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+>   			  uint64_t start, uint64_t end,
+>   			  uint64_t dst, uint64_t flags);
+>   void amdgpu_vm_pt_free_work(struct work_struct *work);
+> +void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
+> +			    struct amdgpu_vm_update_params *params);
+>   
+>   #if defined(CONFIG_DEBUG_FS)
+>   void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index 601df0ce8290..440dc8c581fc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -622,40 +622,30 @@ void amdgpu_vm_pt_free_work(struct work_struct *work)
+>   }
+>   
+>   /**
+> - * amdgpu_vm_pt_free_dfs - free PD/PT levels
+> + * amdgpu_vm_pt_free_list - free PD/PT levels
+>    *
+>    * @adev: amdgpu device structure
+> - * @vm: amdgpu vm structure
+> - * @start: optional cursor where to start freeing PDs/PTs
+> - * @unlocked: vm resv unlock status
+> + * @params: see amdgpu_vm_update_params definition
+>    *
+> - * Free the page directory or page table level and all sub levels.
+> + * Free the page directory objects saved in the flush list
+>    */
+> -static void amdgpu_vm_pt_free_dfs(struct amdgpu_device *adev,
+> -				  struct amdgpu_vm *vm,
+> -				  struct amdgpu_vm_pt_cursor *start,
+> -				  bool unlocked)
+> +void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
+> +			    struct amdgpu_vm_update_params *params)
+>   {
+> -	struct amdgpu_vm_pt_cursor cursor;
+> -	struct amdgpu_vm_bo_base *entry;
+> +	struct amdgpu_vm_bo_base *entry, *next;
+> +	struct amdgpu_vm *vm = params->vm;
+> +	bool unlocked = params->unlocked;
+>   
+>   	if (unlocked) {
+>   		spin_lock(&vm->status_lock);
+> -		for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
+> -			list_move(&entry->vm_status, &vm->pt_freed);
+> -
+> -		if (start)
+> -			list_move(&start->entry->vm_status, &vm->pt_freed);
+> +		list_splice_init(&vm->pt_freed, &params->tlb_flush_waitlist);
+>   		spin_unlock(&vm->status_lock);
+>   		schedule_work(&vm->pt_free_work);
+>   		return;
+>   	}
+>   
+> -	for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
+> +	list_for_each_entry_safe(entry, next, &params->tlb_flush_waitlist, vm_status)
+>   		amdgpu_vm_pt_free(entry);
+> -
+> -	if (start)
+> -		amdgpu_vm_pt_free(start->entry);
+>   }
+>   
+>   /**
+> @@ -667,7 +657,11 @@ static void amdgpu_vm_pt_free_dfs(struct amdgpu_device *adev,
+>    */
+>   void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>   {
+> -	amdgpu_vm_pt_free_dfs(adev, vm, NULL, false);
+> +	struct amdgpu_vm_pt_cursor cursor;
+> +	struct amdgpu_vm_bo_base *entry;
+> +
+> +	for_each_amdgpu_vm_pt_dfs_safe(adev, vm, NULL, cursor, entry)
+> +		amdgpu_vm_pt_free(entry);
+>   }
+>   
+>   /**
+> @@ -972,10 +966,21 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+>   			while (cursor.pfn < frag_start) {
+>   				/* Make sure previous mapping is freed */
+>   				if (cursor.entry->bo) {
+> +					struct amdgpu_vm_pt_cursor seek;
+> +					struct amdgpu_vm_bo_base *entry;
+> +
+>   					params->needs_flush = true;
+> -					amdgpu_vm_pt_free_dfs(adev, params->vm,
+> -							      &cursor,
+> -							      params->unlocked);
+> +					spin_lock(&params->vm->status_lock);
+> +					for_each_amdgpu_vm_pt_dfs_safe(adev, params->vm, &cursor,
+> +								       seek, entry) {
+> +						list_move(&entry->vm_status,
+> +							  &params->tlb_flush_waitlist);
+> +					}
+> +
+> +					/* enter start node now */
+> +					list_move(&cursor.entry->vm_status,
+> +						  &params->tlb_flush_waitlist);
+> +					spin_unlock(&params->vm->status_lock);
+>   				}
+>   				amdgpu_vm_pt_next(adev, &cursor);
+>   			}
+--------------eZNHrdARV0g4xT9PuNselyHR
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you,
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p>HI Shashank</p>
+    <p>We'll probably need a v8 with the null pointer crash fixed i.e.
+      before freeing the PT entries check for a valid entry before
+      calling amdgpu_vm_pt_free. The crash is seen with device memory
+      allocators but the system memory allocators are looking fine.</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p><span><span class="ui-provider a b c d e f g h i j k l m n o p q r s t u v w x y z ab ac ae af ag ah ai aj ak" dir="ltr">[&nbsp; 127.255863] [drm] Using MTYPE_RW for local memory<br>
+          [&nbsp; 333.606136] hugetlbfs: test_with_MPI.e (25268): Using mlock
+          ulimits for SHM_HUGETLB is obsolete<br>
+          [&nbsp; 415.351447] BUG: kernel NULL pointer dereference, address:
+          0000000000000008<br>
+          [&nbsp; 415.359245] #PF: supervisor write access in kernel mode<br>
+          [&nbsp; 415.365081] #PF: error_code(0x0002) - not-present page<br>
+          [&nbsp; 415.370817] PGD 101259067 P4D 101259067 PUD 10125a067 PMD 0<br>
+          [&nbsp; 415.377140] Oops: 0002 [#1] PREEMPT SMP NOPTI<br>
+          [&nbsp; 415.382004] CPU: 0 PID: 25481 Comm: test_with_MPI.e
+          Tainted: G&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OE&nbsp;&nbsp;&nbsp;&nbsp;
+          5.18.2-mi300-build-140423-ubuntu-22.04+ #24<br>
+          [&nbsp; 415.394437] Hardware name: AMD Corporation Sh51p/Sh51p,
+          BIOS RMO1001AS 02/21/2024<br>
+          [&nbsp; 415.402797] RIP: 0010:amdgpu_vm_ptes_update+0x6fd/0xa10
+          [amdgpu]<br>
+          [&nbsp; 415.409648] Code: 4c 89 ff 4d 8d 66 30 e8 f1 ed ff ff 48 85
+          db 74 42 48 39 5d a0 74 40 48 8b 53 20 48 8b 4b 18 48 8d 43 18
+          48 8d 75 b0 4c 89 ff &lt;48<br>
+          &gt; 89 51 08 48 89 0a 49 8b 56 30 48 89 42 08 48 89 53 18 4c
+          89 63<br>
+          [&nbsp; 415.430621] RSP: 0018:ffffc9000401f990 EFLAGS: 00010287<br>
+          [&nbsp; 415.436456] RAX: ffff888147bb82f0 RBX: ffff888147bb82d8
+          RCX: 0000000000000000<br>
+          [&nbsp; 415.444426] RDX: 0000000000000000 RSI: ffffc9000401fa30
+          RDI: ffff888161f80000<br>
+          [&nbsp; 415.452397] RBP: ffffc9000401fa80 R08: 0000000000000000
+          R09: ffffc9000401fa00<br>
+          [&nbsp; 415.460368] R10: 00000007f0cc0000 R11: 00000007f0c85000
+          R12: ffffc9000401fb20<br>
+          [&nbsp; 415.468340] R13: 00000007f0d00000 R14: ffffc9000401faf0
+          R15: ffff888161f80000<br>
+          [&nbsp; 415.476312] FS:&nbsp; 00007f132ff89840(0000)
+          GS:ffff889f87c00000(0000) knlGS:0000000000000000<br>
+          [&nbsp; 415.485350] CS:&nbsp; 0010 DS: 0000 ES: 0000 CR0:
+          0000000080050033<br>
+          [&nbsp; 415.491767] CR2: 0000000000000008 CR3: 0000000161d46003
+          CR4: 0000000000770ef0<br>
+          [&nbsp; 415.499738] PKRU: 55555554<br>
+          [&nbsp; 415.502750] Call Trace:<br>
+          [&nbsp; 415.505482]&nbsp; &lt;TASK&gt;<br>
+          [&nbsp; 415.507825]&nbsp; amdgpu_vm_update_range+0x32a/0x880 [amdgpu]<br>
+          [&nbsp; 415.513869]&nbsp; amdgpu_vm_clear_freed+0x117/0x250 [amdgpu]<br>
+          [&nbsp; 415.519814]&nbsp;
+          amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu+0x18c/0x250 [amdgpu]<br>
+          [&nbsp; 415.527729]&nbsp; kfd_ioctl_unmap_memory_from_gpu+0xed/0x340
+          [amdgpu]<br>
+          [&nbsp; 415.534551]&nbsp; kfd_ioctl+0x3b6/0x510 [amdgpu]<br>
+          [&nbsp; 415.539324]&nbsp; ? kfd_ioctl_get_dmabuf_info+0x1d0/0x1d0
+          [amdgpu]<br>
+          [&nbsp; 415.545844]&nbsp; ? __fget_light+0xc5/0x100<br>
+          [&nbsp; 415.550037]&nbsp; __x64_sys_ioctl+0x91/0xc0<br>
+          [&nbsp; 415.554227]&nbsp; do_syscall_64+0x5c/0x80<br>
+          [&nbsp; 415.558223]&nbsp; ? debug_smp_processor_id+0x17/0x20<br>
+          [&nbsp; 415.563285]&nbsp; ? fpregs_assert_state_consistent+0x23/0x60<br>
+          [&nbsp; 415.569124]&nbsp; ? exit_to_user_mode_prepare+0x45/0x190<br>
+          [&nbsp; 415.574572]&nbsp; ? ksys_write+0xce/0xe0</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+    </p>
+    <p><br>
+    </p>
+    <p>On 3/18/2024 8:08 AM, Shashank Sharma wrote:</p>
+    <blockquote type="cite" cite="mid:20240318120837.2011-2-shashank.sharma@amd.com">
+      <pre class="moz-quote-pre" wrap="">The idea behind this patch is to delay the freeing of PT entry objects
+until the TLB flush is done.
 
-Dan Wheeler
-Sr. Technologist | AMD
-SW Display
----------------------------------------------------------------------------=
----------------------------------------
-1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
-amd.com
+This patch:
+- Adds a tlb_flush_waitlist in amdgpu_vm_update_params which will keep the
+  objects that need to be freed after tlb_flush.
+- Adds PT entries in this list in amdgpu_vm_ptes_update after finding
+  the PT entry.
+- Changes functionality of amdgpu_vm_pt_free_dfs from (df_search + free)
+  to simply freeing of the BOs, also renames it to
+  amdgpu_vm_pt_free_list to reflect this same.
+- Exports function amdgpu_vm_pt_free_list to be called directly.
+- Calls amdgpu_vm_pt_free_list directly from amdgpu_vm_update_range.
 
------Original Message-----
-From: Wayne Lin <Wayne.Lin@amd.com>
-Sent: Tuesday, March 12, 2024 5:20 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
-i@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo=
- <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.Li@amd.com>; Lin, Wayne <Wayn=
-e.Lin@amd.com>; Gutierrez, Agustin <Agustin.Gutierrez@amd.com>; Chung, Chia=
-Hsuan (Tom) <ChiaHsuan.Chung@amd.com>; Wu, Hersen <hersenxs.wu@amd.com>; Zu=
-o, Jerry <Jerry.Zuo@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Wheeler, Dani=
-el <Daniel.Wheeler@amd.com>
-Subject: [PATCH 00/43] DC Patches March 18, 2024
+V2: rebase
+V4: Addressed review comments from Christian
+    - add only locked PTEs entries in TLB flush waitlist.
+    - do not create a separate function for list flush.
+    - do not create a new lock for TLB flush.
+    - there is no need to wait on tlb_flush_fence exclusively.
 
-This DC patchset brings improvements in multiple areas. In summary, we high=
-light:
+V5: Addressed review comments from Christian
+    - change the amdgpu_vm_pt_free_dfs's functionality to simple freeing
+      of the objects and rename it.
+    - add all the PTE objects in params-&gt;tlb_flush_waitlist
+    - let amdgpu_vm_pt_free_root handle the freeing of BOs independently
+    - call amdgpu_vm_pt_free_list directly
 
-- Clear mpc_tree in init_pipes
-- Program pixclk according to dcn revision
-- Add stream clock source to DP DTO params
-- Enabling urgent latency adjustment for DCN35
-- To adjust dprefclk by down spread percentage
-- Add debug option for idle reg checks
-- Revert few patches which cause regression
-- skip forcing odm in minimal transition
-- Fix noise issue on HDMI AV mute
-- Enable fast update for DCN314
-- Enable 2to1 ODM policy for DCN35
-- Fix DCN31 underflow problem
-- Add the MALL size in the fallback function
-- Modify coding style/errors and remove redundant codes
-- Add missing registers and offset
-- Fix few problems for DCN35
-- Fix a bug which dereferences freed memory
-- Enable new interface design for alternate scrambling
-- Enhance IPS handshake
-- Increase Z8 watermark times
-- Fix DML2 problem
-- Revert patch which cause regression
-- Fix problems for dmub idle power optimization
+V6: Rebase
+V7: Rebase
 
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+Cc: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>
+Cc: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
+Cc: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com">&lt;felix.kuehling@amd.com&gt;</a>
+Cc: Rajneesh Bhardwaj <a class="moz-txt-link-rfc2396E" href="mailto:rajneesh.bhardwaj@amd.com">&lt;rajneesh.bhardwaj@amd.com&gt;</a>
+Acked-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com">&lt;felix.kuehling@amd.com&gt;</a>
+Acked-by: Rajneesh Bhardwaj <a class="moz-txt-link-rfc2396E" href="mailto:rajneesh.bhardwaj@amd.com">&lt;rajneesh.bhardwaj@amd.com&gt;</a>
+Tested-by: Rajneesh Bhardwaj <a class="moz-txt-link-rfc2396E" href="mailto:rajneesh.bhardwaj@amd.com">&lt;rajneesh.bhardwaj@amd.com&gt;</a>
+Signed-off-by: Shashank Sharma <a class="moz-txt-link-rfc2396E" href="mailto:shashank.sharma@amd.com">&lt;shashank.sharma@amd.com&gt;</a>
 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  5 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  7 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 53 +++++++++++++----------
+ 3 files changed, 40 insertions(+), 25 deletions(-)
 
-Alex Hung (2):
-  drm/amd/display: Delete duplicated function prototypes
-  drm/amd/display: Correct indentations and spaces
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 26f1c3359642..eaa402f99fe0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -977,6 +977,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	params.unlocked = unlocked;
+ 	params.needs_flush = flush_tlb;
+ 	params.allow_override = allow_override;
++	INIT_LIST_HEAD(&amp;params.tlb_flush_waitlist);
+ 
+ 	/* Implicitly sync to command submissions in the same VM before
+ 	 * unmapping. Sync to moving fences before mapping.
+@@ -1062,8 +1063,10 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	if (r)
+ 		goto error_unlock;
+ 
+-	if (params.needs_flush)
++	if (params.needs_flush) {
+ 		r = amdgpu_vm_tlb_flush(&amp;params, fence);
++		amdgpu_vm_pt_free_list(adev, &amp;params);
++	}
+ 
+ error_unlock:
+ 	amdgpu_vm_eviction_unlock(vm);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index b0a4fe683352..54d7da396de0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -266,6 +266,11 @@ struct amdgpu_vm_update_params {
+ 	 * to be overridden for NUMA local memory.
+ 	 */
+ 	bool allow_override;
++
++	/**
++	 * @tlb_flush_waitlist: temporary storage for BOs until tlb_flush
++	 */
++	struct list_head tlb_flush_waitlist;
+ };
+ 
+ struct amdgpu_vm_update_funcs {
+@@ -547,6 +552,8 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+ 			  uint64_t start, uint64_t end,
+ 			  uint64_t dst, uint64_t flags);
+ void amdgpu_vm_pt_free_work(struct work_struct *work);
++void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
++			    struct amdgpu_vm_update_params *params);
+ 
+ #if defined(CONFIG_DEBUG_FS)
+ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index 601df0ce8290..440dc8c581fc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -622,40 +622,30 @@ void amdgpu_vm_pt_free_work(struct work_struct *work)
+ }
+ 
+ /**
+- * amdgpu_vm_pt_free_dfs - free PD/PT levels
++ * amdgpu_vm_pt_free_list - free PD/PT levels
+  *
+  * @adev: amdgpu device structure
+- * @vm: amdgpu vm structure
+- * @start: optional cursor where to start freeing PDs/PTs
+- * @unlocked: vm resv unlock status
++ * @params: see amdgpu_vm_update_params definition
+  *
+- * Free the page directory or page table level and all sub levels.
++ * Free the page directory objects saved in the flush list
+  */
+-static void amdgpu_vm_pt_free_dfs(struct amdgpu_device *adev,
+-				  struct amdgpu_vm *vm,
+-				  struct amdgpu_vm_pt_cursor *start,
+-				  bool unlocked)
++void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
++			    struct amdgpu_vm_update_params *params)
+ {
+-	struct amdgpu_vm_pt_cursor cursor;
+-	struct amdgpu_vm_bo_base *entry;
++	struct amdgpu_vm_bo_base *entry, *next;
++	struct amdgpu_vm *vm = params-&gt;vm;
++	bool unlocked = params-&gt;unlocked;
+ 
+ 	if (unlocked) {
+ 		spin_lock(&amp;vm-&gt;status_lock);
+-		for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
+-			list_move(&amp;entry-&gt;vm_status, &amp;vm-&gt;pt_freed);
+-
+-		if (start)
+-			list_move(&amp;start-&gt;entry-&gt;vm_status, &amp;vm-&gt;pt_freed);
++		list_splice_init(&amp;vm-&gt;pt_freed, &amp;params-&gt;tlb_flush_waitlist);
+ 		spin_unlock(&amp;vm-&gt;status_lock);
+ 		schedule_work(&amp;vm-&gt;pt_free_work);
+ 		return;
+ 	}
+ 
+-	for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
++	list_for_each_entry_safe(entry, next, &amp;params-&gt;tlb_flush_waitlist, vm_status)
+ 		amdgpu_vm_pt_free(entry);
+-
+-	if (start)
+-		amdgpu_vm_pt_free(start-&gt;entry);
+ }
+ 
+ /**
+@@ -667,7 +657,11 @@ static void amdgpu_vm_pt_free_dfs(struct amdgpu_device *adev,
+  */
+ void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ {
+-	amdgpu_vm_pt_free_dfs(adev, vm, NULL, false);
++	struct amdgpu_vm_pt_cursor cursor;
++	struct amdgpu_vm_bo_base *entry;
++
++	for_each_amdgpu_vm_pt_dfs_safe(adev, vm, NULL, cursor, entry)
++		amdgpu_vm_pt_free(entry);
+ }
+ 
+ /**
+@@ -972,10 +966,21 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+ 			while (cursor.pfn &lt; frag_start) {
+ 				/* Make sure previous mapping is freed */
+ 				if (cursor.entry-&gt;bo) {
++					struct amdgpu_vm_pt_cursor seek;
++					struct amdgpu_vm_bo_base *entry;
++
+ 					params-&gt;needs_flush = true;
+-					amdgpu_vm_pt_free_dfs(adev, params-&gt;vm,
+-							      &amp;cursor,
+-							      params-&gt;unlocked);
++					spin_lock(&amp;params-&gt;vm-&gt;status_lock);
++					for_each_amdgpu_vm_pt_dfs_safe(adev, params-&gt;vm, &amp;cursor,
++								       seek, entry) {
++						list_move(&amp;entry-&gt;vm_status,
++							  &amp;params-&gt;tlb_flush_waitlist);
++					}
++
++					/* enter start node now */
++					list_move(&amp;cursor.entry-&gt;vm_status,
++						  &amp;params-&gt;tlb_flush_waitlist);
++					spin_unlock(&amp;params-&gt;vm-&gt;status_lock);
+ 				}
+ 				amdgpu_vm_pt_next(adev, &amp;cursor);
+ 			}
+</pre>
+    </blockquote>
+  </body>
+</html>
 
-Anthony Koo (1):
-  drm/amd/display: [FW Promotion] Release 0.0.208.0
-
-Aric Cyr (2):
-  drm/amd/display: 3.2.276
-  drm/amd/display: 3.2.277
-
-Chaitanya Dhere (1):
-  drm/amd/display: Add TB_BORROWED_MAX definition
-
-Charlene Liu (2):
-  drm/amd/display: fix debug key not working on dml2
-  drm/amd/display: change aux_init to apu version
-
-Chris Park (1):
-  drm/amd/display: Prevent crash on bring-up
-
-Dillon Varone (3):
-  drm/amd/display: add stream clock source to DP DTO params
-  drm/amd/display: Program pixclk according to dcn revision
-  drm/amd/display: Power on VPG memory unconditionally if off
-
-Gabe Teeger (1):
-  drm/amd/display: Revert Add left edge pixel + ODM pipe split
-
-Leo Ma (1):
-  drm/amd/display: Fix noise issue on HDMI AV mute
-
-Martin Leung (1):
-  drm/amd/display: revert Exit idle optimizations before HDCP execution
-
-Natanel Roizenman (2):
-  drm/amd/display: Added debug prints for zstate_support and
-    StutterPeriod
-  drm/amd/display: Increase Z8 watermark times.
-
-Nicholas Kazlauskas (6):
-  drm/amd/display: Add debug option for idle reg checks
-  drm/amd/display: Workaround register access in idle race with cursor
-  drm/amd/display: Detect and disallow idle reallow during reentrancy
-  drm/amd/display: Add optional optimization for IPS handshake
-  drm/amd/display: Enable optimized handshake for DCN35
-  drm/amd/display: Enable reallow for idle on DCN35
-
-Nicholas Susanto (1):
-  drm/amd/display: Enabling urgent latency adjustment for DCN35
-
-Ovidiu Bunea (1):
-  drm/amd/display: Revert "Set the power_down_on_boot function pointer
-    to null"
-
-Rodrigo Siqueira (9):
-  drm/amd/display: Remove code duplication
-  drm/amd/display: Remove wrong signal from vrr calculation
-  drm/amd/display: Enable 2to1 ODM policy for DCN35
-  drm/amd/display: Add the MALL size in the fallback function
-  drm/amd/display: Move define to the proper header
-  drm/amd/display: Enable fast update for DCN314
-  drm/amd/display: Remove legacy code
-  drm/amd/display: Comments adjustments
-  drm/amd/display: Add missing registers and offset
-
-Samson Tam (1):
-  drm/amd/display: clear mpc_tree in init_pipes
-
-Sherry Wang (1):
-  drm/amd/display: correct hostvm flag
-
-Sung Joon Kim (1):
-  drm/amd/display: Enable new interface design for alternate scrambling
-
-Wenjing Liu (3):
-  drm/amd/display: skip forcing odm in minimal transition
-  drm/amd/display: Revert Remove pixle rate limit for subvp
-  drm/amd/display: fix a bug to dereference already freed old current
-    state memory
-
-Xi Liu (2):
-  drm/amd/display: increase bb clock for DCN351
-  drm/amd/display: Remove unnecessary hard coded DPM states
-
-Zhongwei (1):
-  drm/amd/display: To adjust dprefclk by down spread percentage
-
- .../gpu/drm/amd/display/dc/bios/bios_parser.c |   1 +
- .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |  15 ++-
- .../display/dc/clk_mgr/dcn314/dcn314_smu.h    |  42 +++----
- .../dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.h  |   3 +-
- .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  |  50 ++++++++
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 118 +++++++++++-------
- .../gpu/drm/amd/display/dc/core/dc_resource.c |  40 +-----
- drivers/gpu/drm/amd/display/dc/core/dc_stat.c |   2 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |   5 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  44 +++++--
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |   1 +
- .../display/dc/dcn31/dcn31_dio_link_encoder.c |   2 +-
- .../display/dc/dcn31/dcn31_dio_link_encoder.h |   2 +
- .../gpu/drm/amd/display/dc/dcn31/dcn31_vpg.c  |   7 +-
- .../display/dc/dcn35/dcn35_dio_link_encoder.c |   2 +-
- .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.h  |   1 +
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |   1 +
- .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c  |  12 +-
- .../amd/display/dc/dml/dcn351/dcn351_fpu.c    |  94 +++++++++++---
- .../amd/display/dc/dml2/display_mode_core.c   |   2 +
- .../display/dc/dml2/dml2_translation_helper.c |  17 ++-
- .../gpu/drm/amd/display/dc/dml2/dml2_utils.c  |   6 +
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c |   3 +-
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |  16 +++
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  10 --
- .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |  12 +-
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |  16 +++
- .../amd/display/dc/hwss/dcn35/dcn35_init.c    |   2 +-
- .../gpu/drm/amd/display/dc/inc/core_types.h   |   2 -
- drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |   1 +
- drivers/gpu/drm/amd/display/dc/inc/resource.h |   4 -
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |   3 +
- .../dc/link/protocols/link_dp_training.c      |  16 +--
- .../link/protocols/link_edp_panel_control.c   |  64 ++++++++++
- .../link/protocols/link_edp_panel_control.h   |   2 +
- .../dc/resource/dcn20/dcn20_resource.c        |   7 +-
- .../dc/resource/dcn31/dcn31_resource.c        |   5 +-
- .../dc/resource/dcn314/dcn314_resource.c      |  21 +---
- .../dc/resource/dcn316/dcn316_resource.c      |   1 -
- .../dc/resource/dcn32/dcn32_resource.c        |   3 +-
- .../dc/resource/dcn321/dcn321_resource.c      |   4 +-
- .../dc/resource/dcn35/dcn35_resource.c        |   5 +-
- .../dc/resource/dcn351/dcn351_resource.c      |   3 +
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  73 ++++++++++-
- .../amd/display/modules/freesync/freesync.c   |   2 +-
- .../gpu/drm/amd/display/modules/hdcp/hdcp.c   |  10 --
- .../drm/amd/display/modules/inc/mod_hdcp.h    |   8 --
- .../display/modules/info_packet/info_packet.c |   2 -
- .../include/asic_reg/dcn/dcn_3_2_1_offset.h   |  37 +++++-
- .../include/asic_reg/dcn/dcn_3_2_1_sh_mask.h  |  16 +++
- 50 files changed, 581 insertions(+), 234 deletions(-)
-
---
-2.37.3
-
+--------------eZNHrdARV0g4xT9PuNselyHR--
