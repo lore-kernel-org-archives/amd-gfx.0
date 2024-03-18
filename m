@@ -4,61 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5305BC54E5D
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Mar 2024 13:37:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B0B1C54E58
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Mar 2024 13:44:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2CA410F73B;
-	Mon, 18 Mar 2024 13:37:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C6F710F2F7;
+	Mon, 18 Mar 2024 13:44:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hA9PA2Zk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eNdZGnTf";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CA7A10F73B
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 13:37:07 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-29deb7e2f7aso2466743a91.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 06:37:07 -0700 (PDT)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53AC210F2F7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 13:44:11 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-29fbe140c24so436054a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 06:44:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710769027; x=1711373827; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1710769451; x=1711374251; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=x8K253EiuCBn/yhFvAgVhA8gkFoVuWaoPjixkpwn7RA=;
- b=hA9PA2ZkLQ0ti8Cb5FhraV6fpeys5MRRsv9XnQ5+YCPbSWfQRZPw5uhhX8XCFdTWaL
- hrXqXFs0Vnx7uOltc7d31RHLvGvsW6Wvg3BN6cx3SeTzgepiFHJ+3bW700A2ztQSVHoG
- d1/3dIvDgTfg8AMcI6XNHTaBsSgs2v58RFSWfuu09Swy+OZhAVWfx0xR4vPipciEkVnH
- DAljUwq3V0TwnY9ajRf5w5rEgkPmtvu8Jvsm6i9vnYbUZLY230We2+on+TLctIO95bPN
- 6UNi2ZU4I1mXvtRSiNJZ1ZxkUXquvjwHup5EmGOPKR3tcBWlMdIh3it06comu7Hnbuhj
- zzGA==
+ bh=nv+GHXq5bzhob0zzctJe7iJvtc6EhBTWxvZ8Lv+aKF8=;
+ b=eNdZGnTfrc+fBM/XACqxQdoBoXdMdZdFoSu6K8U3BAYjxJSqbz1hnwMqRW7DTUpRi2
+ +RAWTMhtmtKHNlLnAaWFC4TVogxgGyfu6/D7cUoVPKjP0qAcZCc9tUe8OtqeLCccIZja
+ T/W/7mk5+k8sfzxXkDg5XIC36H7CNbN0nHayoyz9Vu5Qe6uXdRWW8tXu5yO8LEKY48fV
+ HLRyAYsAwpR9FbcJ35CyO0Qj04ST4uAbzZ+jXUFoNC1G3QLCpCGLLJi0Oz/KYzYajFJX
+ e5TXbIaYeWaA7ykzgnZbkujRM7Xicm3bDtkKApmXB0DCOnXcX4T4wyXFKDzRigS5Ndi5
+ FMNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710769027; x=1711373827;
+ d=1e100.net; s=20230601; t=1710769451; x=1711374251;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=x8K253EiuCBn/yhFvAgVhA8gkFoVuWaoPjixkpwn7RA=;
- b=ezFqzEmntu4uM8x4EUKUV21eYSNckW+iRopYEaPVRqzgrRZoPOdcLAsp1OtKTLxJNg
- pUXLAqTP09iUxe0JkFFHtSyhfubugX4PEbeZ8T/ZyVn05j1XjcSBDTJjhQRfN0eBNDHO
- doN2DxI1GFBt5P4+GbIAvhPLmOPK0s+qAkYtMtTvxfR5+dNPjb+1Go1V9STBA6JqF6wD
- umuV+RI/WZ76lC7i695x9Rh1QWYUBW2urIkY5OmcnP1YBBeGxGm+38la5vL4QbomC+rJ
- yfwNx9+C01zzGiGZ+E9vKXD952gHpoas040nQMD8MB6or9+mtzXg1pPJnpjUw9yCkJgb
- sj3Q==
-X-Gm-Message-State: AOJu0Yy7utaw6MJPtJHvvRlircOcXJazl+aBpPedWQj+EuXtoauSHGu7
- 3QXxdk5BOJATMFqA3XMvTU/AIPXBH4ObAHCjCvShspJjGra7MWgljm2uOhZ77LVcfz69ucCxKpu
- 9rPcX2d8Nqz4kqZCiogMswz4EG2vYjfPN
-X-Google-Smtp-Source: AGHT+IGDYcoyxepJjRf50qOWDi1n91GKZ7qCACIRd919UW69h59LYYDzX2UG0h2gdxvwNN6jtl3CqEcyt0MiH4hw1V8=
-X-Received: by 2002:a17:90a:7f95:b0:299:df2:66b2 with SMTP id
- m21-20020a17090a7f9500b002990df266b2mr8517816pjl.22.1710769027163; Mon, 18
- Mar 2024 06:37:07 -0700 (PDT)
+ bh=nv+GHXq5bzhob0zzctJe7iJvtc6EhBTWxvZ8Lv+aKF8=;
+ b=qRoYeOZCaACShZK5pZ9nCzllmZ5whFLxqV4rkzlzumMxWMJzrxn6NYWUklk4pQ39ya
+ pjnktfIhfXktf8XutCFzcoQ1QE0YnjLLPYiKvX3HhZBZOEzjqyk1Cm9KgsSnuCJcyY1T
+ Q8SXoxQb0bwkueF7YXeBA1GSGtR+fYXLFGwD02R2aQtwHSRKELw/faM2OXA0W6Sf6ub7
+ WwioShX0DYDnueWSIMQwjxgnnO9ls3d5oyYfiXbBR4TfTIxChQepsTaebKU6z+IXBgbH
+ LtyLYx5bMy2xGdde14tG3teCCVwRDms136X/QDbUTzBVclhvpB5pNSH9TnbsRtQI96cd
+ +9lQ==
+X-Gm-Message-State: AOJu0YyAcKPSSbqzSKmZcatunaxef0zxjMOM+QFrzba/eJgU0TddgAYr
+ ZY3omYPWqVkbV/r0AE0X5bhXiar5kvA8JCAA7kYCiWS3aL4nQm745232Qv3s4lsLIE1Aa4xTJR+
+ XJXE3XEDJITqUtmHdLxwzj25PY3kx9a2p
+X-Google-Smtp-Source: AGHT+IF0kSBInP2T4RzYPNdKQWXT2yrvhLw5aj+yzN/L3fHt2rhnoW0Ybmp2DB5GYYmkRGYJPHvZ9PjGlkZN5NZRo/k=
+X-Received: by 2002:a17:90a:fe13:b0:29c:776f:8911 with SMTP id
+ ck19-20020a17090afe1300b0029c776f8911mr10136587pjb.21.1710769450757; Mon, 18
+ Mar 2024 06:44:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240318065211.11097-1-kkartaltepe@gmail.com>
-In-Reply-To: <20240318065211.11097-1-kkartaltepe@gmail.com>
+References: <20240318103802.3009373-1-Lang.Yu@amd.com>
+In-Reply-To: <20240318103802.3009373-1-Lang.Yu@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 18 Mar 2024 09:36:54 -0400
-Message-ID: <CADnq5_MxfDSaOoD9J2DfdkM2wzX_HfRPkLv8CSSVPzJSKi1aUQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Remove pci address checks from acpi_vfct_bios
-To: Kurt Kartaltepe <kkartaltepe@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Mon, 18 Mar 2024 09:43:59 -0400
+Message-ID: <CADnq5_P7uyATE_MwmkFGFFP5CWqcNn_KG_4bA5qrLuxkDa2vrw@mail.gmail.com>
+Subject: Re: [PATCH] Revert "drm/amdgpu/vpe: don't emit cond exec command
+ under collaborate mode"
+To: Lang Yu <Lang.Yu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ Lee Peyton <Peyton.Lee@amd.com>, Alan Liu <haoping.liu@amd.com>, 
+ Yifan Zhang <yifan1.zhang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -75,44 +78,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 18, 2024 at 4:47=E2=80=AFAM Kurt Kartaltepe <kkartaltepe@gmail.=
-com> wrote:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
+On Mon, Mar 18, 2024 at 6:38=E2=80=AFAM Lang Yu <Lang.Yu@amd.com> wrote:
 >
-> These checks prevent using amdgpu with the pcie=3Dassign-busses parameter
-> which will re-address devices from their acpi values.
+> Ready now. Remove this workaround.
+> This reverts commit 1a2bb3bb2a84f8364f0a8b338afa9b9025e1bcc0.
 >
-> Signed-off-by: Kurt Kartaltepe <kkartaltepe@gmail.com>
-
-This will likely break multi-GPU functionality.  The BDF values are
-how the sbios/driver differentiates between the VFCT images.  If you
-have multiple GPUs in the system, the driver won't be able to figure
-out which one goes with which GPU an you may end up assigning the
-wrong image to the wrong device.
-
-Alex
-
-
+> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+> Tested-by: Alan Liu <haoping.liu@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 3 ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c | 3 ---
 >  1 file changed, 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_bios.c
-> index 618e469e3622..932ce13ad232 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> @@ -386,9 +386,6 @@ static bool amdgpu_acpi_vfct_bios(struct amdgpu_devic=
-e *adev)
->                 }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_vpe.c
+> index 70c5cc80ecdc..7a65a2b128ec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> @@ -575,9 +575,6 @@ static unsigned int vpe_ring_init_cond_exec(struct am=
+dgpu_ring *ring,
+>  {
+>         unsigned int ret;
 >
->                 if (vhdr->ImageLength &&
-> -                   vhdr->PCIBus =3D=3D adev->pdev->bus->number &&
-> -                   vhdr->PCIDevice =3D=3D PCI_SLOT(adev->pdev->devfn) &&
-> -                   vhdr->PCIFunction =3D=3D PCI_FUNC(adev->pdev->devfn) =
-&&
->                     vhdr->VendorID =3D=3D adev->pdev->vendor &&
->                     vhdr->DeviceID =3D=3D adev->pdev->device) {
->                         adev->bios =3D kmemdup(&vbios->VbiosContent,
+> -       if (ring->adev->vpe.collaborate_mode)
+> -               return ~0;
+> -
+>         amdgpu_ring_write(ring, VPE_CMD_HEADER(VPE_CMD_OPCODE_COND_EXE, 0=
+));
+>         amdgpu_ring_write(ring, lower_32_bits(addr));
+>         amdgpu_ring_write(ring, upper_32_bits(addr));
 > --
-> 2.44.0
+> 2.25.1
 >
