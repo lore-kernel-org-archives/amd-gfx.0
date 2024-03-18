@@ -4,98 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA782C54E58
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Mar 2024 21:41:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41BE9C54E5D
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Mar 2024 23:03:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB42210EFB6;
-	Mon, 18 Mar 2024 21:41:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BED1510E56C;
+	Mon, 18 Mar 2024 23:03:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2ydSDqyW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rJyB6Kmd";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2041.outbound.protection.outlook.com [40.107.100.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B73A10E79D;
- Mon, 18 Mar 2024 21:41:29 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2104.outbound.protection.outlook.com [40.107.223.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8455310E56C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 23:03:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fZay6wPxw5eh0tH0VU2NtumXlJLYjdSZww3+5Eo0Hdoj06vqj4b4bFRkeL3v4RU9sFjQBXp2I8z+paCChGMJR1Vxl9Qg/PRBzJ1uWBQbrsYn0KumqzDaQwDjtds8cGeDNvGlNtPX5rsnjfXUXLC9V6F/chfSd7+bCrME2bBktZVelXvsSN+VQPp8IS4qM45LoCN+/7jsDUVB+W3YcyE2lZD6vJX87Ue/uyBoYG8i7NWqRn2pMq7wKk5gLCDOVRBT+qZKgw+VK9+M4NHUhyDMsJQ29E2nwA6nZUuOJ4y6DoMwHZZbFiwENOhtQtgixk3f578e320LdLVqDx+OoIx38g==
+ b=NUqDp1M/cNi6gcIvAJlhcCDTZVrS3VWhVCqfjhpoqVElPXYxu/fU6bLSQW0FQiApVTo6utlMbCURzQ+sLU4+XrDx0l6g+31osh1/9GW6CqjJRXkt2sf8PDX34a8eL0NjlGXpGE78kUCV+VgLoBCHryeh1fF0mVZDQX5apx15CTgSMJwKZH/HhER1GfIZPwA1HdEGfGN3ToH6NsX8GEnxsAEFQ381wimQxwny97zoayv8MOY7narchF3EQTUgByKlIrh/J2pI84KEHOCQtNCC0WKZnyuLmdSVrk+FwD8EoBTAzqbeohVfUy5L3XZiruXzS5295xtsohuzm6M9OTB63g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z/G8OS3564RszDils/+3O/zjOb2wOUR4YcAZRCwlpEI=;
- b=huXTaOVZkdzJ/yrNCFEsgwbD3Nkz0C4zSMYsjDWZoCOwrawy42DbtBfd7mdUe0jBYdRsXZfeTQzN8r7VlX2XYDua1LfRRS6qVh4TSkC92U6j+qPKP40ZDstEpZYAeLNDcTQLhuNJaNurriJHLHJGqrqXxfuxq7Ce8olt0lT5EOviIrLHPaWQzqUGXjG4C0cWlNrHMUJ/5FpNi9BcQ6QVNE0ncctiEhwTsay1qiuU5zyqYfdRwRX5OvXPShKI9KGEn/rRLgBQS0CbUoFxkn3s5CdtB3xhPZLBHW7WJOq+RPPbecwsuXivURVwoC5RvOtw4qodMWagI7gyITwqTpCaaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=CGk9miGpcexfXsv4nofHL0/wylvzyozrMbXNz5GACZw=;
+ b=TGPxkFeOih2HmuVvaxJtuOdjifpnUhhx4rhcVhFEK3UJKjThU/ohBf6XfrCkaWfjxYaMnDlRbMNRzLhmHRf6yZaS5bntNDLgcCEFiB4T9WWM9UjkBmMFeIA2yKy2iWSOwCKWXIf7HCI+7uASP6DmCIkY8efzas/Nd7XQUDmdzi+PHCOjijXgxLnif0qjhfwAczfONbgzdZ2vRD+05/0QwXPe1qgn9NlzkENeKKF8I2T7JGRVJx9f8FCqOUgKtLfnFCPoP2+XLpdd/lGfRb0bkrrHccZtMODFJXZFbNGoiawWIxciNegMwrQM7iMPqkhWLrpO7sdDLCqXXRt+iG4FdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z/G8OS3564RszDils/+3O/zjOb2wOUR4YcAZRCwlpEI=;
- b=2ydSDqyWDHbjdJ0z4eoHr8raxPN4jiHGvVaiQ35F/Z6DwlO6UodzWXL4liD2qYzBURwKkucAZmpsTyFRPAtnWVuTBOMbbHK3PtoBWfI2bLy9vpXEpbhzmDqEHYPpCMcQcJ6R5DI2bOF8rOi/K05Ja+slO/Zcr3/G+ycdVOW4y00=
-Received: from PH0P220CA0025.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:d3::18)
- by SA3PR12MB7857.namprd12.prod.outlook.com (2603:10b6:806:31e::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.27; Mon, 18 Mar
- 2024 21:41:26 +0000
-Received: from SN1PEPF0002BA4D.namprd03.prod.outlook.com
- (2603:10b6:510:d3:cafe::e9) by PH0P220CA0025.outlook.office365.com
- (2603:10b6:510:d3::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.26 via Frontend
- Transport; Mon, 18 Mar 2024 21:41:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF0002BA4D.mail.protection.outlook.com (10.167.242.70) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Mon, 18 Mar 2024 21:41:25 +0000
-Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Mon, 18 Mar 2024 16:41:22 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
- <matthew.auld@intel.com>, <mario.limonciello@amd.com>,
- <felix.kuehling@amd.com>, Arunpravin Paneer Selvam
- <Arunpravin.PaneerSelvam@amd.com>
-Subject: [PATCH v9 3/3] drm/tests: Add a test case for drm buddy clear
- allocation
-Date: Tue, 19 Mar 2024 03:10:58 +0530
-Message-ID: <20240318214058.2014-3-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240318214058.2014-1-Arunpravin.PaneerSelvam@amd.com>
-References: <20240318214058.2014-1-Arunpravin.PaneerSelvam@amd.com>
+ bh=CGk9miGpcexfXsv4nofHL0/wylvzyozrMbXNz5GACZw=;
+ b=rJyB6Kmd5k/SCpx0PBk77ZrNHlp4wk7bvpcuuj9taQGNnwEinUUJnlQ+rR6JaCKhNdcI6019YPQGAVIG3axxygkeU1zTuV1m41at5L5jEvBrJIe4NP0WqeqMmRzBdDQ0oxUq/moP40WBTkutBf2j3FobAXNX/uvBFps9emWDHL0=
+Received: from MW6PR12MB8733.namprd12.prod.outlook.com (2603:10b6:303:24c::8)
+ by LV2PR12MB5798.namprd12.prod.outlook.com (2603:10b6:408:17a::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.26; Mon, 18 Mar
+ 2024 23:03:30 +0000
+Received: from MW6PR12MB8733.namprd12.prod.outlook.com
+ ([fe80::2243:aadd:acd3:3455]) by MW6PR12MB8733.namprd12.prod.outlook.com
+ ([fe80::2243:aadd:acd3:3455%4]) with mapi id 15.20.7386.025; Mon, 18 Mar 2024
+ 23:03:29 +0000
+Message-ID: <c08f0e08-941f-457f-bfb6-5abc3d6584e5@amd.com>
+Date: Mon, 18 Mar 2024 17:03:25 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Improve 'dml32_TruncToValidBPP()'
+ function
+Content-Language: en-US
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Roman Li <roman.li@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>
+References: <20240224063939.1512278-1-srinivasan.shanmugam@amd.com>
+From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20240224063939.1512278-1-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BN8PR04CA0040.namprd04.prod.outlook.com
+ (2603:10b6:408:d4::14) To MW6PR12MB8733.namprd12.prod.outlook.com
+ (2603:10b6:303:24c::8)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4D:EE_|SA3PR12MB7857:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3579ca4-9057-4ed6-b780-08dc479429ab
+X-MS-TrafficTypeDiagnostic: MW6PR12MB8733:EE_|LV2PR12MB5798:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: p5PDjZuh3NHZySNMy1wmwb7qkg5EO18MRAczZPgDqW3q10oz3ZS+bGoxba65zvqK+MsGHhn8T4QHjPK6vk5jbhFw0lImZr2zWt+DLkPqrfyDeofFlHd7I3SIz566stW891nG9iNlsisOgNPJ+OeQWbeLANdrtCqhmLADlGdxhj8kJFS80QaVm7HN7dbStex6G0t8IPBoFOAxe67PIZQnEVtbHqd6VbrVBZmdPaS3DGwh8FATNE9YdS6n1uzDYEcPSUsbr04qWQppFVMTBQjauDyAA1aCtQsoZmls9YIAD7pRZcwy3HrxgrrINRite+98K54lT/DrsLx4SChcftK72zgGZlWPtSkYGszCvreRy7FrncH4uEGOkJXdxrregwntQPQF2IUvOzLJgLJHdo24N7PcFIHJaXhKGuD6NoMNYxuUyhdRR3EtvrGgVwbaSnRVgk1UDjVj6wH7ISV9I1ZUAzme5kKOTlYl5OEi0s2HFP1WWGiYijiZ60+1W15ndLX7oUa+f4eox/KnwMB4uVlO47HTgn4GErhLzk2S6DI2S9Mxs9wpQtEvCA/17kxsHa60w7vsdUzyVFQCpsUJbjrHX3aZB5RuQUubz/uIfmIdU7vVcKz6OpVwSXF0tWbrW9agDdLNNJ8wROc76rJi658gEJJzAiiDQ1DsbLNweJY56UawOVOTfv9qjyfbfEo++1vGd8AG/D28oU9R29Pnk5S/QUUAdTtH2JYP8K5XkgZeDvyOZVUnS3TpoxnnpYFTeuar
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(36860700004)(376005)(82310400014); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam-Message-Info: R++rePwkjR80pwDzqMliSCwwyU6fvfJE6IeICTZLKDSCS472+G4uFWSEeAG0D6H1MarZoEHjotT27DrSF/2WUDRbv7Kg+vRnE1P2kkzhekhNOqkAgwG9pVdVEsNNWeYPK5/tsksqM6WJlx7sb22Q/EUvNu0+hoFoZqYENQD86R7ICclbcqjIjI/x/t07sT7sEOt49FOpFm8g/9S5Ff0SkzZUcWzBGTxlRuJQsC5Ka0sW+5rchz6wm7+JpnOf0OqhZHf4sgoZfMaLZcmXAlGubDJnq8PugFyb3D0JiIoWw2rmYK7D1xfw8j0TO66/cAPiKLWj882PG6bZqH/OP0J6wZ5wMXJ4uhU4ZfdRtJMTOkFsVAUvN5TM5gVZzDJQ21X+Qz9xUu9SFRD2/b1k930C9d+nFbb0sqGytsl8hbBdPPjEDKlRLshr3WQO+5JQxQkSiI5aylDEbspj1kOchIGPx8i6XMUkXV8X9RYGDA29kubQ0S9jodnX3m4ABWBWAelM6/6xqE2nmf+f9j4KBtO8yf7mv0UXnahPirgT4Ndwu8rDaNlIPYG4xtZyZtYE6nQ+D9D1fmyfg5eCraTFemZNcpcoA2C74t5HhjQhi22C2kaglU8uSxpuomb0rGRN7K9cPDmAQAbv2DCMdiMJ72XmmUXpdqUpqX2QG/gGihCYSZw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW6PR12MB8733.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N2ZTdnRmWndtUnp6NHFvUTZYZmQwSXBJMStQcEs4Zm9UMEpWUGM2dXpHK2xY?=
+ =?utf-8?B?bU05cVpuMHNMeWRFd3ppSjBVM2Zoc1F4b3BmTTlRT21WWjFKV1QzTzA4MzdH?=
+ =?utf-8?B?MzloNUNWbVJmazF6Vk1aWS9hMU9lbWNBUmpQMWJhT2hNZXFUYml3ZlcyWllC?=
+ =?utf-8?B?ekhGTXExUm1VRzUyWjhyMVB6YmNwQ3VmUUV2NXcwVVNIRUg4MmR6MllzVXZF?=
+ =?utf-8?B?Y3lBdkptSW5QM3RybUdyTW1MeXkzZ2ZQRlNTV2FGUTlubTVSSGdUVldSZlVV?=
+ =?utf-8?B?YVlTNTVobDNZUDlpbDJjRUs3YUhXbXdVMktwTWpsQ0J1bnJ4TDlFV3NOM09J?=
+ =?utf-8?B?Ly9uTHdpMDFRTkFQSG1lOFZsc1U4Z3ZiZVVwNllVS3NEZDJ4SVNpRVFidXp3?=
+ =?utf-8?B?UVFPdkpjVW0wMVVRNU56UmZNYVR0U1BPRjRUaEI1UUdYSUQrWWR2V1VlaUxR?=
+ =?utf-8?B?bmlLTVJrcnVweVlnektFeGJRYUxYZzRpK2Y5eEd2aGI4N2U1UUdpT2I4Vk9M?=
+ =?utf-8?B?RWtVSURFckw5Vm5pUXFyOTdpM2JGVHROTW9QcE9OZG94Q3k5TENrdXYzOE9v?=
+ =?utf-8?B?ZGFiTTVtcDZ1R2t6bHhPdFMrUTFHMFVZTnNYb0hYL2U2ZTZvQzJsR3dJRzZn?=
+ =?utf-8?B?bkVtMTJVM0JmS0tldnFsK1BvNEFyMW52akY3Skl5YURuYlZZWVRWQWxLb2xy?=
+ =?utf-8?B?Tk9xSExRRHBwNXJvc0VIam1MWWZDS2dCZ0gvNi90WDlGbFdNb2pCOTVKRTBx?=
+ =?utf-8?B?dUZhVDRSd0V1OFBOL3oyWmlYcUwwamJsVTRLSGd4SEhyb05qcnFKKzczcUZZ?=
+ =?utf-8?B?L1dYaU40RmRTdmlPbTJTcG8zRTluM0ZSeUsrZXIzQk1SU0N6UWtqOGNkSUkv?=
+ =?utf-8?B?eWwxSExoU2xpdjFSU1diN0lhZ3Z3d3BGZDA5L0IxNzJ5WnlFc2EwU1VxTEhT?=
+ =?utf-8?B?ckVhcE9WZFhzc29qR2RTVkhzVFV4OWduVTh2TzYzSTBJbHlUUy9YRTNuOEVj?=
+ =?utf-8?B?LzZJYVkzVDMyS1hWL082SSthd0VpWSt3RE5aT2hhaE40dEoreHhiMXNjaUxN?=
+ =?utf-8?B?RlhpZFFuMSt0Ukl4WitmS3FkaFVVaEFaMnd4VmRwVERTMWUyMHF0QVoyZk5s?=
+ =?utf-8?B?MS9mK1ZOV3NZeVVlajVlN0lXWnI5dWxVUC8rVitJdms1REpzbEdzMnB3bERa?=
+ =?utf-8?B?b0dLcEE2TGZ4V1lqOGY1Q2Q2THdYQW5VVXNudytiSWFHVzEvQnN5YkdGaWdN?=
+ =?utf-8?B?cWpnS3ZSZ0w2a3UxS0hzTk51anpIY2xFejRjRklXbXBCaUJHd0FHdDdqUExz?=
+ =?utf-8?B?QnFncmtpYTYyN3phM0VmN0JJMmZieVBYQnhXajJOanJNQ1hBUzNxcjZjc0pX?=
+ =?utf-8?B?YUtzTml6eHFwZ1BqZlIzWFoyb2xiTWw4bytSQVR0TEtSbDc0UUVhYTNQZlR0?=
+ =?utf-8?B?ZjlNbndjNGtHWnIybm1kUGVROFNRWkRaUWI5SDBVVWdXR1hvTzQzeFJvYjNO?=
+ =?utf-8?B?aFRibDdUTW5ka0ZUaTZCR1d4b0xGSzlEaUFJZ1BTays3dmQ0MHZJYW9nakRM?=
+ =?utf-8?B?VHljYWZXMy9LNnJ2SGRJWGlnR0JuWnRsZ3NjbmZNWVU3SGtGTGYxRUxGcisz?=
+ =?utf-8?B?QWlXcVpUUjBjMWd3QVJIeTlxcHR1Z1hkVFJJcFZkdlk2ekx4a2RHdklqVjJS?=
+ =?utf-8?B?K2tRRU1UYmxOMkRpOEN3OEpVQ0szRHRTQjFxSDJLMmhSdm9oQkhXVkhkcnFF?=
+ =?utf-8?B?eHRsQUszWHg5NWZhOUd3Mks3dExJc1NKTXprT1grWWFFZDE1NFJXc1ZRQ0Vo?=
+ =?utf-8?B?bWd1RlR2ZVFtN2I0VG1HV2lkQ0NsdUphN3Fjd2RXVTlpSWc1TkdqNHpqbEVE?=
+ =?utf-8?B?cEo3dzBjOVhvaWpaa2NjY0Q2elNONi9td0lkM0NmTU82aVo3NGRuejhlQms2?=
+ =?utf-8?B?aExLNkpoVzVOSlBHZUFQSzBWT08zY3NVMU1jWmRRamhpZ0dNem1zclp2dG1u?=
+ =?utf-8?B?aTV3cld5U1ZST1dtOW5QZSt0d2E2WlE3b0gwYk55ZFI3bERPUGtDRkJlU2o5?=
+ =?utf-8?B?S2NzQXlqS1BNYVZzRWJzY1ZvQXRtVTAzUUNieWpYdVBJdHVzTXphdWV5bGc0?=
+ =?utf-8?Q?8dd/ezuUn1gXTem0FBv1FrvTV?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2024 21:41:25.8994 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3579ca4-9057-4ed6-b780-08dc479429ab
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52639ee3-f8b7-4494-d368-08dc479fa061
+X-MS-Exchange-CrossTenant-AuthSource: MW6PR12MB8733.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2024 23:03:29.8225 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4D.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7857
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rikNP358QW4r5iHIkSVDGaZcYk7iSeMtfMg9L6GVMj0WF4ZQnOXny33eGwLTVHUAyJ8LBiHBpZHGJMnPKiyhIg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5798
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,160 +128,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a new test case for the drm buddy clear and dirty
-allocation.
 
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Suggested-by: Matthew Auld <matthew.auld@intel.com>
----
- drivers/gpu/drm/tests/drm_buddy_test.c | 127 +++++++++++++++++++++++++
- 1 file changed, 127 insertions(+)
 
-diff --git a/drivers/gpu/drm/tests/drm_buddy_test.c b/drivers/gpu/drm/tests/drm_buddy_test.c
-index 454ad9952f56..d355a6e61893 100644
---- a/drivers/gpu/drm/tests/drm_buddy_test.c
-+++ b/drivers/gpu/drm/tests/drm_buddy_test.c
-@@ -19,6 +19,132 @@ static inline u64 get_size(int order, u64 chunk_size)
- 	return (1 << order) * chunk_size;
- }
- 
-+static void drm_test_buddy_alloc_clear(struct kunit *test)
-+{
-+	unsigned long n_pages, total, i = 0;
-+	const unsigned long ps = SZ_4K;
-+	struct drm_buddy_block *block;
-+	const int max_order = 12;
-+	LIST_HEAD(allocated);
-+	struct drm_buddy mm;
-+	unsigned int order;
-+	u64 mm_size, size;
-+	LIST_HEAD(dirty);
-+	LIST_HEAD(clean);
-+
-+	mm_size = PAGE_SIZE << max_order;
-+	KUNIT_EXPECT_FALSE(test, drm_buddy_init(&mm, mm_size, ps));
-+
-+	KUNIT_EXPECT_EQ(test, mm.max_order, max_order);
-+
-+	/**
-+	 * Idea is to allocate and free some random portion of the address space,
-+	 * returning those pages as non-dirty and randomly alternate between
-+	 * requesting dirty and non-dirty pages (not going over the limit
-+	 * we freed as non-dirty), putting that into two separate lists.
-+	 * Loop over both lists at the end checking that the dirty list
-+	 * is indeed all dirty pages and vice versa. Free it all again,
-+	 * keeping the dirty/clear status.
-+	 */
-+	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
-+							    5 * ps, ps, &allocated,
-+							    DRM_BUDDY_TOPDOWN_ALLOCATION),
-+				"buddy_alloc hit an error size=%u\n", 5 * ps);
-+	drm_buddy_free_list(&mm, &allocated, DRM_BUDDY_CLEARED);
-+
-+	n_pages = 10;
-+	do {
-+		unsigned long flags;
-+		struct list_head *list;
-+		int slot = i % 2;
-+
-+		if (slot == 0) {
-+			list = &dirty;
-+			flags = 0;
-+		} else if (slot == 1) {
-+			list = &clean;
-+			flags = DRM_BUDDY_CLEAR_ALLOCATION;
-+		}
-+
-+		KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
-+								    ps, ps, list,
-+								    flags),
-+					"buddy_alloc hit an error size=%u\n", ps);
-+	} while (++i < n_pages);
-+
-+	list_for_each_entry(block, &clean, link)
-+		KUNIT_EXPECT_EQ(test, drm_buddy_block_is_clear(block), true);
-+
-+	list_for_each_entry(block, &dirty, link)
-+		KUNIT_EXPECT_EQ(test, drm_buddy_block_is_clear(block), false);
-+
-+	drm_buddy_free_list(&mm, &clean, DRM_BUDDY_CLEARED);
-+
-+	/**
-+	 * Trying to go over the clear limit for some allocation.
-+	 * The allocation should never fail with reasonable page-size.
-+	 */
-+	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
-+							    10 * ps, ps, &clean,
-+							    DRM_BUDDY_CLEAR_ALLOCATION),
-+				"buddy_alloc hit an error size=%u\n", 10 * ps);
-+
-+	drm_buddy_free_list(&mm, &clean, DRM_BUDDY_CLEARED);
-+	drm_buddy_free_list(&mm, &dirty, 0);
-+	drm_buddy_fini(&mm);
-+
-+	KUNIT_EXPECT_FALSE(test, drm_buddy_init(&mm, mm_size, ps));
-+
-+	/**
-+	 * Create a new mm. Intentionally fragment the address space by creating
-+	 * two alternating lists. Free both lists, one as dirty the other as clean.
-+	 * Try to allocate double the previous size with matching min_page_size. The
-+	 * allocation should never fail as it calls the force_merge. Also check that
-+	 * the page is always dirty after force_merge. Free the page as dirty, then
-+	 * repeat the whole thing, increment the order until we hit the max_order.
-+	 */
-+
-+	order = 1;
-+	do {
-+		size = PAGE_SIZE << order;
-+		i = 0;
-+		n_pages = mm_size / ps;
-+		do {
-+			struct list_head *list;
-+			int slot = i % 2;
-+
-+			if (slot == 0)
-+				list = &dirty;
-+			else if (slot == 1)
-+				list = &clean;
-+
-+			KUNIT_ASSERT_FALSE_MSG(test,
-+					       drm_buddy_alloc_blocks(&mm, 0, mm_size,
-+								      ps, ps, list, 0),
-+					       "buddy_alloc hit an error size=%u\n",
-+					       ps);
-+		} while (++i < n_pages);
-+
-+		drm_buddy_free_list(&mm, &clean, DRM_BUDDY_CLEARED);
-+		drm_buddy_free_list(&mm, &dirty, 0);
-+
-+		KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
-+								    size, size, &allocated,
-+								    DRM_BUDDY_CLEAR_ALLOCATION),
-+					"buddy_alloc hit an error size=%u\n", size);
-+		total = 0;
-+		list_for_each_entry(block, &allocated, link) {
-+			KUNIT_EXPECT_EQ(test, drm_buddy_block_is_clear(block), false);
-+			total += drm_buddy_block_size(&mm, block);
-+		}
-+		KUNIT_EXPECT_EQ(test, total, size);
-+
-+		drm_buddy_free_list(&mm, &allocated, 0);
-+	} while (++order <= max_order);
-+
-+	drm_buddy_fini(&mm);
-+}
-+
- static void drm_test_buddy_alloc_contiguous(struct kunit *test)
- {
- 	const unsigned long ps = SZ_4K, mm_size = 16 * 3 * SZ_4K;
-@@ -368,6 +494,7 @@ static struct kunit_case drm_buddy_tests[] = {
- 	KUNIT_CASE(drm_test_buddy_alloc_pessimistic),
- 	KUNIT_CASE(drm_test_buddy_alloc_pathological),
- 	KUNIT_CASE(drm_test_buddy_alloc_contiguous),
-+	KUNIT_CASE(drm_test_buddy_alloc_clear),
- 	{}
- };
- 
--- 
-2.25.1
+On 2/23/24 11:39 PM, Srinivasan Shanmugam wrote:
+> Refactors the dml32_TruncToValidBPP function by removing a
+> redundant return statement.
+> 
+> The function previously had a return statement at the end that was
+> never executed because all execution paths in the function ended with
+> a return statement before this line.
+> 
+> Fixes the below:
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_util_32.c:1680 dml32_TruncToValidBPP() warn: ignoring unreachable code.
+> 
+> Fixes: dda4fb85e433 ("drm/amd/display: DML changes for DCN32/321")
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Cc: Roman Li <roman.li@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Cc: Tom Chung <chiahsuan.chung@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>   .../gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c | 2 --
+>   1 file changed, 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+> index 80fccd4999a5..54ac8242f7b0 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+> @@ -1678,8 +1678,6 @@ double dml32_TruncToValidBPP(
+>   	}
+>   
+>   	*RequiredSlots = dml_ceil(DesiredBPP / MaxLinkBPP * 64, 1);
+> -
+> -	return BPP_INVALID;
+>   } // TruncToValidBPP
+>   
+>   double dml32_RequiredDTBCLK(
 
+Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
