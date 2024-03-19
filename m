@@ -4,74 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0317C54E60
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Mar 2024 10:29:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AF2EC54E5D
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Mar 2024 10:36:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B1F310F952;
-	Tue, 19 Mar 2024 10:29:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B427310F98D;
+	Tue, 19 Mar 2024 10:36:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bIyXxVdX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v/A8yiuo";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A2C810E4D2;
- Tue, 19 Mar 2024 10:29:05 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-41400a9844aso21184265e9.0; 
- Tue, 19 Mar 2024 03:29:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710844143; x=1711448943; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=nYhxlcLm2ju7Vke60GQCUqLG9abp/zkC8GYhtSApUBA=;
- b=bIyXxVdXxFS7m3U9ctNTDJ8wNiR9G2Dyxee4byM9pKWAkL6DLEL9OWH1WI/XVSpuwO
- mbCTaS92+XyVB64GbhC5775WeYncKf89obRSccg1A7VWxrJQ9K++eV9xmaAMOODPVIPN
- RIohr48KNbou97N9hABGjmawbz1F84VsfTzxHpPW6ITbtV3j79DygK1xx8OlfwHTG/fg
- 6tsg56VMu8NKDXAeR76TkbYXq3KWIvOr0ikpRIqnHRqsL/jIg59QqppoX1BNYXBfll6r
- 7yXU71fLwN+AYe7Px8MUz9y4XuZd5i1rPCM6oe1cvEYLohnGWxPDSC45lFCV3Q1NrpSN
- TlTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710844143; x=1711448943;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=nYhxlcLm2ju7Vke60GQCUqLG9abp/zkC8GYhtSApUBA=;
- b=YbwYRfPvNiLCNDDUXx/ATAgxprO1bOV0vVPOrZquCg0Ot5Cw1SZmpVSsj+hItJ0eqL
- Jn0Tcgk8AYxi4h6XJVPHFt7nYIIvBo9IrcsK62F5oei/mqfJYRq0lGA8tdecH57UwD2W
- SPLNHBzpdUkJ+YS6etwCxfJHoEwpco4LSBl9uKwpbL2kwgJsVZr69SXEFB0Mj0FriLyL
- tkI/OR3M14N1Yw4hjMYFJ/RsK/ttD+0gTerRneniEDuBddH3/W785d1nNPhsNpTlAyKL
- 4Zpmg4QCxDibdScI0TEphdlhGjH7dKsC/ij8ck1DTERmbthyU0e7oyS672dvF8YShhIw
- 3YTg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW+5rQOwKRLJi96TeYKp1RQ5DGkBhDtzrur4rmilf4KnFbkJ89zzkSr6qVpxn9/tsqlKQ3M9q6IcB3L5kE7nowcPUWMzrL5nSSQut8uQ1LvcaBZ1bNs/PFQ5XYVh1ehW+5DIU2D7J5R+4lP99kU0w==
-X-Gm-Message-State: AOJu0YyRTyCVeXs8hnfFW2UC3KmJer0EJbp8jkF178anBYOw2ScNdy3o
- sTZL9jdHMp59RHRBQPe5DZ6HWzDEOFfz512jFsKQDvqZYg6Qg8zO
-X-Google-Smtp-Source: AGHT+IEfC/HTP62nbr/Wz4xz6hFyvSKuknJs3UyMpsDCB8CIHrnUvLO2iLEyast2GEknf+s6DK/npQ==
-X-Received: by 2002:adf:ee0e:0:b0:33e:d139:412c with SMTP id
- y14-20020adfee0e000000b0033ed139412cmr1983754wrn.30.1710844142924; 
- Tue, 19 Mar 2024 03:29:02 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- az23-20020adfe197000000b0033e9d9f891csm5305690wrb.58.2024.03.19.03.29.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Mar 2024 03:29:02 -0700 (PDT)
-Message-ID: <b1fc43cf-699f-496d-a239-11a5b288292b@gmail.com>
-Date: Tue, 19 Mar 2024 11:28:59 +0100
-MIME-Version: 1.0
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2105.outbound.protection.outlook.com [40.107.244.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 157A310F98D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Mar 2024 10:36:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ohACPtVDcANSWuwD4Kw1iuKw+gq1Om29NHVcmy7TZxxNpuDvURdpEIAFmGn2r1YxBHNqW/sUNjFSXmbSfHNmfD6Ve8oXf9XTZEKqU/L3y/uTw8QLqxhqmWLegvejEaUNZ+4KMgMWSWAhMQPh+N6vS4wWT2ViIWEw4YTynFD0i70w1XRcJCiJpYSakoCQwYwQQm5JxEZL6eQntbe6nF3Rxul+5xPmBnjBOQQDvdWMJnGrNHK92NzFzJHl2nXmOo5t5iTpnoIdfglDkzS+MXQhwcLkmIOmF07ITsaCJyc4NfRJsKFpWg6Rukq2VGS2/owqjS7aMMPbIUEZww6I1fROBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2OA6BBLdnqYoPx6vba9QNHSd0Rv59naJUq651ObXEKk=;
+ b=DaCUIjtrRNBQ/TZuUe3GqsPRnF6jeJeS2MA7Xyj0PkL0g+eHMoh35s2c2vZR/3lo1LaljTAla+KdzchuTTnKtF2Aj0TWNkeU3cpKSueB43NeSEbyZbbbb4y+w99MqJYxkUfeP/mFnYgQ8LfPueOjw/byLe0nfBTH63qdB/D9olxI8R0OKVaULEb5APmqSJOjujaZVvXfDo6C/shsEy7pxa7uFuaciIUz/WYePXh+wqI3ZDUEYghGxUIUxjs6E/hAy2ZTxCSBFnevsGVMN9/2myELiQ0RCtIOKOmfjPPdi3yBcFot78SdzfmqitdX+hiStCttIQ6QnIjg3gCeVhGALg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2OA6BBLdnqYoPx6vba9QNHSd0Rv59naJUq651ObXEKk=;
+ b=v/A8yiuoh0bJINyI5mLT85xd1Ymx2yJKn+5vXVHgkQzcC6rspQ3K9F1wLtGxzcHIb2W/58EjFVkyRCViacJiBo88QJFx6xuEF8TWCSpQKq89HYSzjOeoOwhFO4LV/0F7g66fX8LQ5O2Hfh3zpGZiYW+gCIlj5+LbnLpXUpRCLT8=
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
+ by CH3PR12MB8972.namprd12.prod.outlook.com (2603:10b6:610:169::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.27; Tue, 19 Mar
+ 2024 10:36:24 +0000
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::ff7e:b189:da4c:dab2]) by SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::ff7e:b189:da4c:dab2%6]) with mapi id 15.20.7386.023; Tue, 19 Mar 2024
+ 10:36:24 +0000
+Message-ID: <bb61fc11-0a2a-4b3d-80c5-ee6f5a6ed098@amd.com>
+Date: Tue, 19 Mar 2024 11:36:17 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 2/3] drm/amdgpu: Enable clear page functionality
+Subject: Re: [PATCH v9 2/2] drm/amdgpu: sync page table freeing with tlb flush
 Content-Language: en-US
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
- matthew.auld@intel.com, mario.limonciello@amd.com, felix.kuehling@amd.com
-References: <20240318214058.2014-1-Arunpravin.PaneerSelvam@amd.com>
- <20240318214058.2014-2-Arunpravin.PaneerSelvam@amd.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240318214058.2014-2-Arunpravin.PaneerSelvam@amd.com>
+To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+References: <20240318161140.2101-1-shashank.sharma@amd.com>
+ <20240318161140.2101-2-shashank.sharma@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240318161140.2101-2-shashank.sharma@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR5P281CA0043.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f3::14) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|CH3PR12MB8972:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 43FsNqUGS0fK0UWvx6mmfM327QKMSK3GgiwusA+47ccLKIxt456gZpVRYUp6gTaM3+HBL7HvKDPghU21n315n0hQSqsXTJRB0gOOs0h7r7O9yQ5WgLwPD62mkhNWOpmSFwFUoGmnLiha3IyWtDXvPtgIwNQUikExvnLIAu7vdwBgEfefe/7HrbHZNr0w1wirBmK+sAXEaLkqt5zjIX38KfNGoQ31xlulk+BM4u9NuzXsFL1IMBSUClkKksOeL7AuoRufEomDcZCxvKK+TO0Z25+BPby19BkMUoXKJwiilB5Exk4UgkUt+91V464J2XRKZ+t9EqWMCL2VBI1Gv4HHNviN4y1CN42wHYsm0IeUxctqwITpfgGYLlsrhJXc5SrslBP5NFavdKxET9r1HiQJs4Nln3A+PHrXX5R+lZT2SgMmd/D8J08yES0L9GZiIAarqCO81nmEtu5sDDAKjXyM5nTyQ+axxyOlgQtW83UBhW74NHo9QQfv0Xhs5qMH7CYmB/MteK+K/P3nIo8z/ErW9rcocfLTNYoDGj3hb6myN/BrFs0jHLbNmTrUa1xsF4O89YnAI3rd3nZu0QspltrfwzNv+QI+A/66pow+eFl0veslQIDimhCYPn1KmEln+RZS++55mr3vuvfe5pmqqiJRlHaOM7QzOwO7y46uHly1cXo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M1BBclhWU3dZNHdsTUhmWUhlWGFyUEVrRXZTQnlFNkczTU5yeFRYbWZSWFRS?=
+ =?utf-8?B?VDE1SXlpWi82T3ordU40R1QrWS9RTkZmU3NkSE83N08vMlVQTE9CdEJsekVC?=
+ =?utf-8?B?YUp6T3dRMHFOVjN5RjA2dCsza3N4Smp1SG16TUdZc05mZkdzV2swTXFMWUl4?=
+ =?utf-8?B?VStvZmhnbU9qd3hzamttV0xIb2V3bEhxMDgzdjBXVk02VnRmZVhaRHc1bFMy?=
+ =?utf-8?B?SEE3RmZyZ3c4UHFFSHJaY3ptZERHQlNJTWN5ZUNOZGtMQ2daUjgzSXdDYkxK?=
+ =?utf-8?B?eW9wdGt0dzBMenFpZFF6eTNHU01Ec3Q5QzBPT21Pc1VneDdPNmxEUGNKcExu?=
+ =?utf-8?B?QzcvcjA0VVJHOFk4RXY0bFFLa0x4OUxJNVBKTk5ZMFJ6WUJwMnlzSG1qS05R?=
+ =?utf-8?B?eS9BVVZJQkFjc1Rxb1BUZ0FLWGxtSU14bG1kVzErMTJCaFdDYVNyNHpwVTln?=
+ =?utf-8?B?aGU1ZzZKSmRhb0NWK1lHTmlJVXl6aGlEalY3cUMvQ0lWamZiUEVzRzZiT3ph?=
+ =?utf-8?B?UDdRamZ5QmVYaGxFRlFiQnJzc1ZUY1dzWGJvYTNZZWlpaHl4cnZrQ0paL0Vv?=
+ =?utf-8?B?czI0bFhGZk1VTEF3NTBWOTRuZHVYbHlqaEpLVzMvOGtqa0V3WmhBN2RCdysw?=
+ =?utf-8?B?VE1QcWRqMlhDUXd6SSs1UGVYU0hiRTZ3YlpyZzBLaWZmaEplN2hKZGFqbjBz?=
+ =?utf-8?B?WlMxQUNlK0ZrRVdLdkFYd1AwN3dxdm13N2U0NGhRcEpNR0NYbU02T1o1Vzht?=
+ =?utf-8?B?Vm9rUWVsRjdHTllrY0YvWlRzSmhhU3dCRXBVcnlNY2p2Z1RuTnNBLzVSb1M5?=
+ =?utf-8?B?cCtzTlQ0OTU2VWtlNlF0YTZ4QmRFVFZmMWdMaml5c3k1eUR4YW43SlMrTlEz?=
+ =?utf-8?B?SFlldDh1VEljMWNqNnFmRmNsL3E3NUU5RGRBc1hkQXBUdkVxbUw3OXprSTFx?=
+ =?utf-8?B?UXJkOS9JaWsxM0lOVlk1RmI4VzlaL3A3QWh6WDVDeG1UMk10aUFiOXU5dTlK?=
+ =?utf-8?B?aThpSmxEQzFWME9FR21IRi9lbXdpOGpOSFk0YWk3UjF0ajYyTko3VHpFVDE5?=
+ =?utf-8?B?UFpyTEh5ZU1pbm1wL1dkWlphbWFRbDZYUHBrNzRlTVg1QWEwT2hyVDRUd0dv?=
+ =?utf-8?B?Rks3K0QzRGVhWXN1MlJtYTVyRnFiSVJOeEpYbmd0RmRBanFPb0ozS0tVUG9o?=
+ =?utf-8?B?c3V1UXA5MndRUGhTVFlQUGVFTVZoK2FSRy84Sy9MK1loTUZFdWZQclR2NG5J?=
+ =?utf-8?B?UFdPWkkyREpBUHRUcm9ZejViMS9kMmwxWnRxdE5WQkpEZHpwOTFVajNWa0d5?=
+ =?utf-8?B?cFBaWUpMYU1SeU9lSkNTMVRTY0hBSXQxcXBFZVVyREUwa3R1Q21IclczZTFO?=
+ =?utf-8?B?dWt6eU4xS2dUWkxxYmhsNlZCL0orR2hqVEdZNnkyaFo4OVpiRFMxcnpvWnpa?=
+ =?utf-8?B?V25sNmtkWEk1Y1dtMko0Q0xudW5CUHVETlZVemxFZ01FeEtueDJMc2NDdmZV?=
+ =?utf-8?B?STErZmVqYUxBM3FEVUxuR0Y2dnlBZ2E2SkdRVnJJMEJpMmwxMzJOa01ucGd3?=
+ =?utf-8?B?REVGQmxxM0dlYWdCcnhVTVVvSHZId0FCOWNiRTZsbDJHMUVVMU5IR1c0cHZO?=
+ =?utf-8?B?cmk1d0s4dFkxU1Jpa0NGcXl4SFF4SW9JMmltQlVqTG00SmJhZ0xrZW95UE56?=
+ =?utf-8?B?NlA1cjVRSE1OZzZhN2NxMm4vRXBmZkQrckMzc29odnA1SXlpcVVIYVFtWGpv?=
+ =?utf-8?B?VGt0ZHFOWXR5Zk1JcG55cGFRUHZIR0NxdzNZSm1VQWFEa0U2MEFxRWppRExs?=
+ =?utf-8?B?SDNGQmxWM3F3WTlTTmNVLzBhVVdkL1dyMjloTDArS0M2VGVRSWozYlVBRTFI?=
+ =?utf-8?B?UmhDUHl4OG5BVlBrZDNJWUo5MU1XdjI3RGdqUmtWL1hrL1FobG5ZcFFoMHJO?=
+ =?utf-8?B?M0lLLzBHZmNndTU5c0FKUW9OaDZmZi9vcVBURU5Mb1VzRjh6TVZKQnQvU3FL?=
+ =?utf-8?B?NUdTUy9QZ2V5RTVTcTRyMURlbXBUWnB5UFFtWUFMQlE5MlZ6ZkZxeXVaclhL?=
+ =?utf-8?B?UVovaGM2dDVWczFYMkVKNnp5aDRiQW1xL09VRWh1a3dPZHd2dlRVdWhudWoy?=
+ =?utf-8?Q?HC3dt3Xu8xJXFRCDMwI5PjgHA?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 726f2d5c-f14c-4c00-dd99-08dc48006c7e
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2024 10:36:23.8754 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: c8PCCeXAYAHd5vUhOq7urV+8aShLV5dPhPt8VZBKgfc3OfvTXR6qNZaoRvzTczPF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8972
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,315 +128,238 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-Am 18.03.24 um 22:40 schrieb Arunpravin Paneer Selvam:
-> Add clear page support in vram memory region.
+Am 18.03.24 um 17:11 schrieb Shashank Sharma:
+> The idea behind this patch is to delay the freeing of PT entry objects
+> until the TLB flush is done.
 >
-> v1(Christian):
->    - Dont handle clear page as TTM flag since when moving the BO back
->      in from GTT again we don't need that.
->    - Make a specialized version of amdgpu_fill_buffer() which only
->      clears the VRAM areas which are not already cleared
->    - Drop the TTM_PL_FLAG_WIPE_ON_RELEASE check in
->      amdgpu_object.c
+> This patch:
+> - Adds a tlb_flush_waitlist in amdgpu_vm_update_params which will keep the
+>    objects that need to be freed after tlb_flush.
+> - Adds PT entries in this list in amdgpu_vm_ptes_update after finding
+>    the PT entry.
+> - Changes functionality of amdgpu_vm_pt_free_dfs from (df_search + free)
+>    to simply freeing of the BOs, also renames it to
+>    amdgpu_vm_pt_free_list to reflect this same.
+> - Exports function amdgpu_vm_pt_free_list to be called directly.
+> - Calls amdgpu_vm_pt_free_list directly from amdgpu_vm_update_range.
 >
-> v2:
->    - Modify the function name amdgpu_ttm_* (Alex)
->    - Drop the delayed parameter (Christian)
->    - handle amdgpu_res_cleared(&cursor) just above the size
->      calculation (Christian)
->    - Use AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE for clearing the buffers
->      in the free path to properly wait for fences etc.. (Christian)
+> V2: rebase
+> V4: Addressed review comments from Christian
+>      - add only locked PTEs entries in TLB flush waitlist.
+>      - do not create a separate function for list flush.
+>      - do not create a new lock for TLB flush.
+>      - there is no need to wait on tlb_flush_fence exclusively.
 >
-> v3(Christian):
->    - Remove buffer clear code in VRAM manager instead change the
->      AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE handling to set
->      the DRM_BUDDY_CLEARED flag.
->    - Remove ! from amdgpu_res_cleared(&cursor) check.
+> V5: Addressed review comments from Christian
+>      - change the amdgpu_vm_pt_free_dfs's functionality to simple freeing
+>        of the objects and rename it.
+>      - add all the PTE objects in params->tlb_flush_waitlist
+>      - let amdgpu_vm_pt_free_root handle the freeing of BOs independently
+>      - call amdgpu_vm_pt_free_list directly
 >
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Suggested-by: Christian König <christian.koenig@amd.com>
+> V6: Rebase
+> V7: Rebase
+> V8: Added a NULL check to fix this backtrace issue:
+> [  415.351447] BUG: kernel NULL pointer dereference, address: 0000000000000008
+> [  415.359245] #PF: supervisor write access in kernel mode
+> [  415.365081] #PF: error_code(0x0002) - not-present page
+> [  415.370817] PGD 101259067 P4D 101259067 PUD 10125a067 PMD 0
+> [  415.377140] Oops: 0002 [#1] PREEMPT SMP NOPTI
+> [  415.382004] CPU: 0 PID: 25481 Comm: test_with_MPI.e Tainted: G           OE     5.18.2-mi300-build-140423-ubuntu-22.04+ #24
+> [  415.394437] Hardware name: AMD Corporation Sh51p/Sh51p, BIOS RMO1001AS 02/21/2024
+> [  415.402797] RIP: 0010:amdgpu_vm_ptes_update+0x6fd/0xa10 [amdgpu]
+> [  415.409648] Code: 4c 89 ff 4d 8d 66 30 e8 f1 ed ff ff 48 85 db 74 42 48 39 5d a0 74 40 48 8b 53 20 48 8b 4b 18 48 8d 43 18 48 8d 75 b0 4c 89 ff <48
+>> 89 51 08 48 89 0a 49 8b 56 30 48 89 42 08 48 89 53 18 4c 89 63
+> [  415.430621] RSP: 0018:ffffc9000401f990 EFLAGS: 00010287
+> [  415.436456] RAX: ffff888147bb82f0 RBX: ffff888147bb82d8 RCX: 0000000000000000
+> [  415.444426] RDX: 0000000000000000 RSI: ffffc9000401fa30 RDI: ffff888161f80000
+> [  415.452397] RBP: ffffc9000401fa80 R08: 0000000000000000 R09: ffffc9000401fa00
+> [  415.460368] R10: 00000007f0cc0000 R11: 00000007f0c85000 R12: ffffc9000401fb20
+> [  415.468340] R13: 00000007f0d00000 R14: ffffc9000401faf0 R15: ffff888161f80000
+> [  415.476312] FS:  00007f132ff89840(0000) GS:ffff889f87c00000(0000) knlGS:0000000000000000
+> [  415.485350] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  415.491767] CR2: 0000000000000008 CR3: 0000000161d46003 CR4: 0000000000770ef0
+> [  415.499738] PKRU: 55555554
+> [  415.502750] Call Trace:
+> [  415.505482]  <TASK>
+> [  415.507825]  amdgpu_vm_update_range+0x32a/0x880 [amdgpu]
+> [  415.513869]  amdgpu_vm_clear_freed+0x117/0x250 [amdgpu]
+> [  415.519814]  amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu+0x18c/0x250 [amdgpu]
+> [  415.527729]  kfd_ioctl_unmap_memory_from_gpu+0xed/0x340 [amdgpu]
+> [  415.534551]  kfd_ioctl+0x3b6/0x510 [amdgpu]
+>
+> V9: Addressed review comments from Christian
+>      - No NULL check reqd for root PT freeing
+>      - Free PT list regardless of needs_flush
+>      - Move adding BOs in list in a separate function
+>
+> Cc: Christian König <Christian.Koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Felix Kuehling <felix.kuehling@amd.com>
+> Cc: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 > Acked-by: Felix Kuehling <felix.kuehling@amd.com>
+> Acked-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+> Tested-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
 
-Just a few nit picks below, but in general already looks good to me.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 22 ++++---
->   .../gpu/drm/amd/amdgpu/amdgpu_res_cursor.h    | 25 ++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 61 ++++++++++++++++++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  5 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c  |  6 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h  |  5 ++
->   6 files changed, 111 insertions(+), 13 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  3 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  7 +++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 66 +++++++++++++++--------
+>   3 files changed, 53 insertions(+), 23 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 8bc79924d171..c92d92b28a57 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -39,6 +39,7 @@
->   #include "amdgpu.h"
->   #include "amdgpu_trace.h"
->   #include "amdgpu_amdkfd.h"
-> +#include "amdgpu_vram_mgr.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 104bf600c85f..8fada1152664 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -986,6 +986,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	params.unlocked = unlocked;
+>   	params.needs_flush = flush_tlb;
+>   	params.allow_override = allow_override;
+> +	INIT_LIST_HEAD(&params.tlb_flush_waitlist);
+>   
+>   	/* Implicitly sync to command submissions in the same VM before
+>   	 * unmapping. Sync to moving fences before mapping.
+> @@ -1076,6 +1077,8 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   		tlb_cb = NULL;
+>   	}
+>   
+> +	amdgpu_vm_pt_free_list(adev, &params);
+> +
+>   error_free:
+>   	kfree(tlb_cb);
+>   	amdgpu_vm_eviction_unlock(vm);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index b0a4fe683352..54d7da396de0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -266,6 +266,11 @@ struct amdgpu_vm_update_params {
+>   	 * to be overridden for NUMA local memory.
+>   	 */
+>   	bool allow_override;
+> +
+> +	/**
+> +	 * @tlb_flush_waitlist: temporary storage for BOs until tlb_flush
+> +	 */
+> +	struct list_head tlb_flush_waitlist;
+>   };
+>   
+>   struct amdgpu_vm_update_funcs {
+> @@ -547,6 +552,8 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+>   			  uint64_t start, uint64_t end,
+>   			  uint64_t dst, uint64_t flags);
+>   void amdgpu_vm_pt_free_work(struct work_struct *work);
+> +void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
+> +			    struct amdgpu_vm_update_params *params);
+>   
+>   #if defined(CONFIG_DEBUG_FS)
+>   void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index 601df0ce8290..d904fc96ba0f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -622,40 +622,58 @@ void amdgpu_vm_pt_free_work(struct work_struct *work)
+>   }
 >   
 >   /**
->    * DOC: amdgpu_object
-> @@ -601,8 +602,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
->   	if (!amdgpu_bo_support_uswc(bo->flags))
->   		bo->flags &= ~AMDGPU_GEM_CREATE_CPU_GTT_USWC;
+> - * amdgpu_vm_pt_free_dfs - free PD/PT levels
+> + * amdgpu_vm_pt_free_list - free PD/PT levels
+>    *
+>    * @adev: amdgpu device structure
+> - * @vm: amdgpu vm structure
+> - * @start: optional cursor where to start freeing PDs/PTs
+> - * @unlocked: vm resv unlock status
+> + * @params: see amdgpu_vm_update_params definition
+>    *
+> - * Free the page directory or page table level and all sub levels.
+> + * Free the page directory objects saved in the flush list
+>    */
+> -static void amdgpu_vm_pt_free_dfs(struct amdgpu_device *adev,
+> -				  struct amdgpu_vm *vm,
+> -				  struct amdgpu_vm_pt_cursor *start,
+> -				  bool unlocked)
+> +void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
+> +			    struct amdgpu_vm_update_params *params)
+>   {
+> -	struct amdgpu_vm_pt_cursor cursor;
+> -	struct amdgpu_vm_bo_base *entry;
+> +	struct amdgpu_vm_bo_base *entry, *next;
+> +	struct amdgpu_vm *vm = params->vm;
+> +	bool unlocked = params->unlocked;
+> +
+> +	if (list_empty(&params->tlb_flush_waitlist))
+> +		return;
 >   
-> -	if (adev->ras_enabled)
-> -		bo->flags |= AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
-> +	bo->flags |= AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
->   
->   	bo->tbo.bdev = &adev->mman.bdev;
->   	if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA |
-> @@ -632,15 +632,17 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
->   
->   	if (bp->flags & AMDGPU_GEM_CREATE_VRAM_CLEARED &&
->   	    bo->tbo.resource->mem_type == TTM_PL_VRAM) {
-> -		struct dma_fence *fence;
-> +		struct dma_fence *fence = NULL;
->   
-> -		r = amdgpu_fill_buffer(bo, 0, bo->tbo.base.resv, &fence, true);
-> +		r = amdgpu_ttm_clear_buffer(bo, bo->tbo.base.resv, &fence);
->   		if (unlikely(r))
->   			goto fail_unreserve;
->   
-> -		dma_resv_add_fence(bo->tbo.base.resv, fence,
-> -				   DMA_RESV_USAGE_KERNEL);
-> -		dma_fence_put(fence);
-> +		if (fence) {
-> +			dma_resv_add_fence(bo->tbo.base.resv, fence,
-> +					   DMA_RESV_USAGE_KERNEL);
-> +			dma_fence_put(fence);
-> +		}
->   	}
->   	if (!bp->resv)
->   		amdgpu_bo_unreserve(bo);
-> @@ -1365,8 +1367,12 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
->   	if (WARN_ON_ONCE(!dma_resv_trylock(bo->base.resv)))
->   		return;
->   
-> -	r = amdgpu_fill_buffer(abo, AMDGPU_POISON, bo->base.resv, &fence, true);
-> +	r = amdgpu_fill_buffer(abo, 0, bo->base.resv, &fence, true);
->   	if (!WARN_ON(r)) {
-> +		struct amdgpu_vram_mgr_resource *vres;
-> +
-> +		vres = to_amdgpu_vram_mgr_resource(bo->resource);
-> +		vres->flags |= DRM_BUDDY_CLEARED;
-
-Those lines should probably be in the VRAM manager.
-
->   		amdgpu_bo_fence(abo, fence, false);
->   		dma_fence_put(fence);
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
-> index 381101d2bf05..50fcd86e1033 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
-> @@ -164,4 +164,29 @@ static inline void amdgpu_res_next(struct amdgpu_res_cursor *cur, uint64_t size)
->   	}
->   }
->   
-> +/**
-> + * amdgpu_res_cleared - check if blocks are cleared
-> + *
-> + * @cur: the cursor to extract the block
-> + *
-> + * Check if the @cur block is cleared
-> + */
-> +static inline bool amdgpu_res_cleared(struct amdgpu_res_cursor *cur)
-> +{
-> +	struct drm_buddy_block *block;
-> +
-> +	switch (cur->mem_type) {
-> +	case TTM_PL_VRAM:
-> +		block = cur->node;
-> +
-> +		if (!amdgpu_vram_mgr_is_cleared(block))
-> +			return false;
-> +		break;
-> +	default:
-> +		return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 8722beba494e..bcbffe909b47 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -378,11 +378,15 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
->   	    (abo->flags & AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE)) {
->   		struct dma_fence *wipe_fence = NULL;
->   
-> -		r = amdgpu_fill_buffer(abo, AMDGPU_POISON, NULL, &wipe_fence,
-> -					false);
-> +		r = amdgpu_fill_buffer(abo, 0, NULL, &wipe_fence,
-> +				       false);
->   		if (r) {
->   			goto error;
->   		} else if (wipe_fence) {
-> +			struct amdgpu_vram_mgr_resource *vres;
-> +
-> +			vres = to_amdgpu_vram_mgr_resource(bo->resource);
-> +			vres->flags |= DRM_BUDDY_CLEARED;
->   			dma_fence_put(fence);
->   			fence = wipe_fence;
->   		}
-> @@ -2214,6 +2218,59 @@ static int amdgpu_ttm_fill_mem(struct amdgpu_ring *ring, uint32_t src_data,
->   	return 0;
->   }
->   
-
-Some kerneldoc here what the function does would ne nice to have.
-
-> +int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
-> +			    struct dma_resv *resv,
-> +			    struct dma_fence **fence)
-> +{
-> +	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
-> +	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
-> +	struct amdgpu_res_cursor cursor;
-> +	struct dma_fence *f = NULL;
-
-It might be cleaner to just use the stub fence here (see 
-dma_fence_get_stub()).
-
-This would avoid to local variable init in the caller and the if which 
-checks if the function returned a fence or not.
-
-> +	u64 addr;
-> +	int r;
-> +
-> +	if (!adev->mman.buffer_funcs_enabled)
-> +		return -EINVAL;
-> +
-> +	amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &cursor);
-> +
-> +	mutex_lock(&adev->mman.gtt_window_lock);
-> +	while (cursor.remaining) {
-> +		struct dma_fence *next = NULL;
-> +		u64 size;
-> +
-> +		if (amdgpu_res_cleared(&cursor)) {
-> +			amdgpu_res_next(&cursor, cursor.size);
-> +			continue;
-> +		}
-> +
-> +		/* Never clear more than 256MiB at once to avoid timeouts */
-> +		size = min(cursor.size, 256ULL << 20);
-> +
-> +		r = amdgpu_ttm_map_buffer(&bo->tbo, bo->tbo.resource, &cursor,
-> +					  1, ring, false, &size, &addr);
-> +		if (r)
-> +			goto err;
-> +
-> +		r = amdgpu_ttm_fill_mem(ring, 0, addr, size, resv,
-> +					&next, true, true);
-> +		if (r)
-> +			goto err;
-> +
-> +		dma_fence_put(f);
-> +		f = next;
-> +
-> +		amdgpu_res_next(&cursor, size);
-> +	}
-> +err:
-> +	mutex_unlock(&adev->mman.gtt_window_lock);
-> +	if (fence)
-
-Just make fence a mandatory parameter and drop the if and the get/put dance.
-
-> +		*fence = dma_fence_get(f);
-> +	dma_fence_put(f);
-> +
-> +	return r;
-> +}
-> +
->   int amdgpu_fill_buffer(struct amdgpu_bo *bo,
->   			uint32_t src_data,
->   			struct dma_resv *resv,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> index 65ec82141a8e..b404d89d52e5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -38,8 +38,6 @@
->   #define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
->   #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
->   
-> -#define AMDGPU_POISON	0xd0bed0be
+>   	if (unlocked) {
+>   		spin_lock(&vm->status_lock);
+> -		for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
+> -			list_move(&entry->vm_status, &vm->pt_freed);
 > -
->   extern const struct attribute_group amdgpu_vram_mgr_attr_group;
->   extern const struct attribute_group amdgpu_gtt_mgr_attr_group;
+> -		if (start)
+> -			list_move(&start->entry->vm_status, &vm->pt_freed);
+> +		list_splice_init(&vm->pt_freed, &params->tlb_flush_waitlist);
+>   		spin_unlock(&vm->status_lock);
+>   		schedule_work(&vm->pt_free_work);
+>   		return;
+>   	}
 >   
-> @@ -155,6 +153,9 @@ int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
->   			       uint64_t size, bool tmz,
->   			       struct dma_resv *resv,
->   			       struct dma_fence **f);
-> +int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
-> +			    struct dma_resv *resv,
-> +			    struct dma_fence **fence);
->   int amdgpu_fill_buffer(struct amdgpu_bo *bo,
->   			uint32_t src_data,
->   			struct dma_resv *resv,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index c0c851409241..e494f5bf136a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -450,6 +450,7 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->   {
->   	struct amdgpu_vram_mgr *mgr = to_vram_mgr(man);
->   	struct amdgpu_device *adev = to_amdgpu_device(mgr);
-> +	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
->   	u64 vis_usage = 0, max_bytes, min_block_size;
->   	struct amdgpu_vram_mgr_resource *vres;
->   	u64 size, remaining_size, lpfn, fpfn;
-> @@ -501,6 +502,9 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->   	if (place->flags & TTM_PL_FLAG_CONTIGUOUS)
->   		vres->flags |= DRM_BUDDY_CONTIGUOUS_ALLOCATION;
+> -	for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
+> +	list_for_each_entry_safe(entry, next, &params->tlb_flush_waitlist, vm_status)
+>   		amdgpu_vm_pt_free(entry);
+> +}
 >   
-> +	if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CLEARED)
-> +		vres->flags |= DRM_BUDDY_CLEAR_ALLOCATION;
+> -	if (start)
+> -		amdgpu_vm_pt_free(start->entry);
+> +/**
+> + * amdgpu_vm_pt_add_list - add PD/PT level to the flush list
+> + *
+> + * @params: parameters for the update
+> + * @cursor: first PT entry to start DF search from, non NULL
+> + *
+> + * This list will be freed after TLB flush.
+> + */
+> +static void amdgpu_vm_pt_add_list(struct amdgpu_vm_update_params *params,
+> +				  struct amdgpu_vm_pt_cursor *cursor)
+> +{
+> +	struct amdgpu_vm_pt_cursor seek;
+> +	struct amdgpu_vm_bo_base *entry;
 > +
-
-Mhm, you should probably *not* store this flags in the vres structure.
-
-As soon as the BO is used the VRAM wouldn't be cleared any more.
-
-Regards,
-Christian.
-
->   	if (fpfn || lpfn != mgr->mm.size)
->   		/* Allocate blocks in desired range */
->   		vres->flags |= DRM_BUDDY_RANGE_ALLOCATION;
-> @@ -604,7 +608,7 @@ static void amdgpu_vram_mgr_del(struct ttm_resource_manager *man,
->   
->   	amdgpu_vram_mgr_do_reserve(man);
->   
-> -	drm_buddy_free_list(mm, &vres->blocks, 0);
-> +	drm_buddy_free_list(mm, &vres->blocks, vres->flags);
->   	mutex_unlock(&mgr->lock);
->   
->   	atomic64_sub(vis_usage, &mgr->vis_usage);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> index 0e04e42cf809..8478522d7366 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> @@ -53,6 +53,11 @@ static inline u64 amdgpu_vram_mgr_block_size(struct drm_buddy_block *block)
->   	return (u64)PAGE_SIZE << drm_buddy_block_order(block);
+> +	spin_lock(&params->vm->status_lock);
+> +	for_each_amdgpu_vm_pt_dfs_safe(params->adev, params->vm, cursor, seek, entry) {
+> +		if (entry && entry->bo)
+> +			list_move(&entry->vm_status, &params->tlb_flush_waitlist);
+> +	}
+> +
+> +	/* enter start node now */
+> +	list_move(&cursor->entry->vm_status, &params->tlb_flush_waitlist);
+> +	spin_unlock(&params->vm->status_lock);
 >   }
 >   
-> +static inline bool amdgpu_vram_mgr_is_cleared(struct drm_buddy_block *block)
-> +{
-> +	return drm_buddy_block_is_clear(block);
-> +}
-> +
->   static inline struct amdgpu_vram_mgr_resource *
->   to_amdgpu_vram_mgr_resource(struct ttm_resource *res)
+>   /**
+> @@ -667,7 +685,11 @@ static void amdgpu_vm_pt_free_dfs(struct amdgpu_device *adev,
+>    */
+>   void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct amdgpu_vm *vm)
 >   {
+> -	amdgpu_vm_pt_free_dfs(adev, vm, NULL, false);
+> +	struct amdgpu_vm_pt_cursor cursor;
+> +	struct amdgpu_vm_bo_base *entry;
+> +
+> +	for_each_amdgpu_vm_pt_dfs_safe(adev, vm, NULL, cursor, entry)
+> +		amdgpu_vm_pt_free(entry);
+>   }
+>   
+>   /**
+> @@ -973,9 +995,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+>   				/* Make sure previous mapping is freed */
+>   				if (cursor.entry->bo) {
+>   					params->needs_flush = true;
+> -					amdgpu_vm_pt_free_dfs(adev, params->vm,
+> -							      &cursor,
+> -							      params->unlocked);
+> +					amdgpu_vm_pt_add_list(params, &cursor);
+>   				}
+>   				amdgpu_vm_pt_next(adev, &cursor);
+>   			}
 
