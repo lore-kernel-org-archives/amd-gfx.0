@@ -4,93 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64A7CC54E58
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 10:09:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE6A6C54E58
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 10:49:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0333C10F580;
-	Wed, 20 Mar 2024 10:09:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD4E10F78E;
+	Wed, 20 Mar 2024 10:49:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j7K1fDG9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ma+iyhG3";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2048.outbound.protection.outlook.com [40.107.93.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0689E10F580
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 10:09:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Zep5Wxx/PC5SKv4WX1k6u4uBO/8aEm+XeJK4EVxU+ho4OCFQeMkurbsH5ROlTVSsgy35JwmgqZcLMMJVDFZxp+xWN0W/u9UMgvA6lw904IrbM+lRNp1mq0sC6VBPpbTYmLTMKOC39FHKrBRbp4pzzwKKTUSqmi6l1ZD7wD7WlIfWdFjRiGxgCA8WsHNAkvsU08r8uPO3a7RPEOOLer60aGjcP1oQ1okrtVXwPxz4jqxTLiBht8auSallgPyT4VVjnb+oQ+hL/yqj0ClMVXnXfL0p3Ei82Fjmvz1jBsS9eNoGGpIn2KNsi1QCDSLCbLCmKZy0aaQRV97cDRk5+7En/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Be23aGg0aX/U5sVxsok/WF5LAj4bfmV94uz22gTMQq4=;
- b=dKHTUUqteR6zR7aLebBkwDxMLKZKFG1TwXvEhoflM0U0DDFeDdqEzjk5/RgYTqEISz91CLKHB9Cs6C44zTHdxsJ4m5wcvdZeOJuL4+9Gxv5dQ/ZCHOkTtwp5pGrB1ffzWJKdypmJlB7s1wBTYygRqgcl+i81U2iI0nmPrdiRt0Df/z/3ZwRDHpLuTxvybX8RdaKtLmalb82BzxM5P36E20heX9HA6CnoHbe3r1BD4U3K1RFMVef64gPP0zbnltWy7ilySZ74wDx5Xa3L8nNlyR9OkQbNnt92qvcImb1SjpeJNZ7OqC+oHKbuBHyoEy7826OSoKboWflUtIS+IlLx7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Be23aGg0aX/U5sVxsok/WF5LAj4bfmV94uz22gTMQq4=;
- b=j7K1fDG9/x7vVhIyveE1pdgTuTY69QivqoN1WPOJZ4/7L/5L/13/Ehc2zwcOZsuSik4sCCKUv+LhJqohsFUNiexPCyYtotPFXKMYyhy2YKhl46pKKiwuNgHWBoM+Q+FBPVxgq/kaGNHLWu0INwgFDy97E+qIN5nhhMilF/d+/bo=
-Received: from SJ0PR05CA0198.namprd05.prod.outlook.com (2603:10b6:a03:330::23)
- by CH0PR12MB8508.namprd12.prod.outlook.com (2603:10b6:610:18c::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.30; Wed, 20 Mar
- 2024 10:09:41 +0000
-Received: from SJ5PEPF000001CB.namprd05.prod.outlook.com
- (2603:10b6:a03:330:cafe::6d) by SJ0PR05CA0198.outlook.office365.com
- (2603:10b6:a03:330::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.11 via Frontend
- Transport; Wed, 20 Mar 2024 10:09:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001CB.mail.protection.outlook.com (10.167.242.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Wed, 20 Mar 2024 10:09:41 +0000
-Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 20 Mar
- 2024 05:09:39 -0500
-From: Ma Jun <Jun.Ma2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
- <Alexander.Deucher@amd.com>
-CC: Ma Jun <Jun.Ma2@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix the runtime pm mode error
-Date: Wed, 20 Mar 2024 18:09:26 +0800
-Message-ID: <20240320100926.2614497-1-Jun.Ma2@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D2E910EE0D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Mar 2024 15:04:51 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-513d4559fb4so6874324e87.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Mar 2024 08:04:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1710860689; x=1711465489; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Jv/uWSD+G+ay7c7HRJxuglU4B1i2HwQDLwaxV+71/EY=;
+ b=Ma+iyhG3Jjks0oQBHLFCOPd4ltg5Kr5mxtnJm8FQVrVjpVH0/Peh/W394DmXvxIIPM
+ 6TIXEu2e23jv2q9b4qXQ1kOgIJfPQZSoEqyR92mu4IVYssCwJOofUmi2wYhSm8t3AMob
+ rY722/J4aHXg7+iIy8xA6Jmz1YUSw2qXp92R/ZM/SAhDrowWuI/SPKeushH93SAhOv5H
+ N6xF3H+y6xAHf8NFVm7dK1d+GEQ/9o9mT7vG5t6lt2wxIvdvQmGeHibArKjBt2m57CBV
+ XJmfUSDx8jRiHF0ZrEiNbfYhSd+zhpVPsPxU2loDwa0KYAYp2rR2xO05Ug/cIt1EYQgE
+ dPVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710860689; x=1711465489;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Jv/uWSD+G+ay7c7HRJxuglU4B1i2HwQDLwaxV+71/EY=;
+ b=cArz0Eo0kWScc7HvNcuTQeJ7GagE8AUQMeglek/vpo2QQjDKZg0culjiLi/IkSuFxW
+ dx+c1TZe2qf9fhmVeDN3cBBFkNkk79iPyQbNb++7luBie9WKMFucWl6p31X92bRDLIx7
+ asfXpBKDsMcvrrFBqkmA2H5DpVH/6/K+VkE8+x+L6oSkA3PrBZE+10xgDB9uHg5+0qap
+ weFgnTtgijtrYI5iRhcxyj19wquPq8sRbr41yhRVUEXI1fY6af1W7+dPMWxJECW21iiw
+ xYqeUpRnndHxc8/IV/kje045XVezJ6U5rrTVhTJHniL2zcA3MUUUbHKYr13kVYhC36rM
+ nrcg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCULzDPZ+KXrX+BqcyG6u11PZMBUw1c3YAls1vuhwUb0jARmxAKw8zIolO/q/juKEUYccU/T15jR5E7YAyv86iRYbvnLkG9m/qbcc9WXBQ==
+X-Gm-Message-State: AOJu0YxE8lxeY16NlYq1NRf6JURoC+tk81YULCe0LVakT//FE8PS2CfV
+ j5E6UVaYRKEFRHzVtgNfJX+zg8xjIyTyrqFOhsRv5hSc4lUxry48xOZubbu4S6UZ/L3OT5YnsBO
+ OrhRD5FUWbx8va8Hg3Azzm9/wETI=
+X-Google-Smtp-Source: AGHT+IGFedwBgFTj9cmo1LljwlLa0GjKtZGurP6+578WiU6ZKPudC4Oz6viQhvY/B+xTn+SE2zR3n9OKcHQUjyZCMpw=
+X-Received: by 2002:a05:6512:1cd:b0:513:cc23:3b6b with SMTP id
+ f13-20020a05651201cd00b00513cc233b6bmr2295102lfp.48.1710860689237; Tue, 19
+ Mar 2024 08:04:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CB:EE_|CH0PR12MB8508:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab0cf3c3-d28a-41bd-4a9c-08dc48c5dbce
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zrMSDkS4k0LJU5otqhrVzXuwUke9O49PvqtLal8rNqiXXXYpxaiErKZbotJZHszhq5rMAw/Tc7RrgtpFU73Z24ZZbwCdRigSHfrHX4mokFSLwtts8uoNyyYJYUybNxV2FRyq0ZxwIz5WcWYgkELVnLrS49+cVBKl0JhL8uHDWq0exlddhQhIj0XW3Cl1Gl0NnXIyHBX0yGE6jqdtM1g5twiCm2FGElpc1U2XVuG8SUrfV3NAvKcQ4/Bgd8iY4Y8rQCN/8Ipqf2J0B4p39R92i8Ok/xOJzWbGIR/DWwStBtFRHvbLBgayzF42wfVZ9+Q9SBGLhrlFxbYaRB8rrtGBgqL/MpT4Ezm8lWvFX33qwCTeE2wf/8qSIJytc43/lZNB/4zFd38WA4ETaMfQzK2kEqGNHCPAQyVQgpfaNDDJPeNNZMAjAB51TpCEplCCzWLB0cslNGe1t3+oBOD0YfRQpx3FhcZMPhtOS67+7GzN5ejLfQSwoOGq/mlV92OvfYu3CNwQWTi0FOy9Gmp9YPZxco7xZ2dBM5Uz0yTeMjjTq/MBHMX08Fh04nWnZr9zhIRaQqyY3CAnkqmHZxkSPRCZgg5a+xXpTn/GFl1J6Rou4x62cITXqXktDTMm2D104//Mz2UROYhb9nFDg2lRdzplbsOEny2fPD+aVAYVC1Xjpg796fVxbA/k0RwKaqV/Jrx9N9WPh0X+h77IIWaSfKNOyMO0wGDNWTQP97+9RUXuzTuZntuMVqd58WSychcYbl+G
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400014)(376005)(36860700004)(1800799015); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 10:09:41.2161 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab0cf3c3-d28a-41bd-4a9c-08dc48c5dbce
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CB.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8508
+References: <20240318065211.11097-1-kkartaltepe@gmail.com>
+ <CADnq5_MxfDSaOoD9J2DfdkM2wzX_HfRPkLv8CSSVPzJSKi1aUQ@mail.gmail.com>
+ <CACawnnzv5Ro32h3wJ_5EQ=9k=b8mGA4FEGjXbWTUP-jdmWERBg@mail.gmail.com>
+ <CADnq5_N4eZ9LbDRLwbAv0NVnmp1GrMwp+cDs4tP0FHwf1r7YRg@mail.gmail.com>
+ <CACawnnz17jd4f+VrVhx5oH_DmOSb7jSLGZnmj0PcOZeQ+=UD5A@mail.gmail.com>
+ <CADnq5_Mj_9=hBC47K5urr5VLTiaUQsv1Lib0uPTq8-XGSDh-tw@mail.gmail.com>
+ <CADnq5_OtProx-8d_0epm9TrYtE_rHLYDhEb6XrK9bgOPi7MicQ@mail.gmail.com>
+ <CACawnnx8Z5jbBdzct9Omeq3Y6iJhMDTDy_C3DRPe9irjoHRn+Q@mail.gmail.com>
+ <cbc7739a-21c3-4872-bcb0-4fceaf607d32@amd.com>
+In-Reply-To: <cbc7739a-21c3-4872-bcb0-4fceaf607d32@amd.com>
+From: Kurt Kartaltepe <kkartaltepe@gmail.com>
+Date: Tue, 19 Mar 2024 08:04:37 -0700
+Message-ID: <CACawnnwei18rsUPXcPW8iUBXyKBghoOHSzMMy6ndwi64ovF88g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Remove pci address checks from acpi_vfct_bios
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Wed, 20 Mar 2024 10:49:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,89 +86,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Because of the logic error, Arcturus and vega20 currently
-use the AMDGPU_RUNPM_NONE for runtime pm even though they
-support BACO. So, the code is optimized to fix this error.
+On Tue, Mar 19, 2024 at 2:54=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+>
+> Well what problems do you run into? The ACPI and BIOS assignments
+> usually work much better than whatever the Linux PCI subsystem comes up
+> with.
 
-Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 56 ++++++++++++-------------
- 1 file changed, 27 insertions(+), 29 deletions(-)
+Perhaps its easier to show the lspci output for the BIOS assignment
+and we can agree it's far from helpful
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 1f92fb1e7421..70cf2d0c7683 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -150,42 +150,40 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
- 	}
- 
- 	adev->pm.rpm_mode = AMDGPU_RUNPM_NONE;
--	if (amdgpu_device_supports_px(dev) &&
--	    (amdgpu_runtime_pm != 0)) { /* enable PX as runtime mode */
--		adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
--		dev_info(adev->dev, "Using ATPX for runtime pm\n");
--	} else if (amdgpu_device_supports_boco(dev) &&
--		   (amdgpu_runtime_pm != 0)) { /* enable boco as runtime mode */
--		adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
--		dev_info(adev->dev, "Using BOCO for runtime pm\n");
--	} else if (amdgpu_device_supports_baco(dev) &&
--		   (amdgpu_runtime_pm != 0)) {
--		switch (adev->asic_type) {
--		case CHIP_VEGA20:
--		case CHIP_ARCTURUS:
--			/* enable BACO as runpm mode if runpm=1 */
--			if (amdgpu_runtime_pm > 0)
--				adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
--			break;
--		case CHIP_VEGA10:
--			/* enable BACO as runpm mode if noretry=0 */
--			if (!adev->gmc.noretry)
-+	if (amdgpu_runtime_pm > 0) {
-+		adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
-+		dev_info(adev->dev, "Forcing BACO for runtime pm\n");
-+	} else if (amdgpu_runtime_pm != 0) {
-+		if (amdgpu_device_supports_px(dev)) { /* enable PX as runtime mode */
-+			adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
-+			dev_info(adev->dev, "Using ATPX for runtime pm\n");
-+		} else if (amdgpu_device_supports_boco(dev)) { /* enable boco as runtime mode */
-+			adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
-+			dev_info(adev->dev, "Using BOCO for runtime pm\n");
-+		} else if (amdgpu_device_supports_baco(dev)) {
-+			switch (adev->asic_type) {
-+			case CHIP_VEGA10:
-+				/* enable BACO as runpm mode if noretry=0 */
-+				if (!adev->gmc.noretry)
-+					adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
-+				break;
-+			default:
-+				/* enable BACO as runpm mode on CI+ */
- 				adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
--			break;
--		default:
--			/* enable BACO as runpm mode on CI+ */
--			adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
--			break;
--		}
-+				break;
-+			}
- 
--		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO)
--			dev_info(adev->dev, "Using BACO for runtime pm\n");
-+			if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO)
-+				dev_info(adev->dev, "Using BACO for runtime pm\n");
-+		}
- 	}
- 
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_NONE)
-+		dev_info(adev->dev, "No PM mode for runtime pm\n");
-+
- 	/* Call ACPI methods: require modeset init
- 	 * but failure is not fatal
- 	 */
--
- 	acpi_status = amdgpu_acpi_init(adev);
- 	if (acpi_status)
- 		dev_dbg(dev->dev, "Error during ACPI methods call\n");
--- 
-2.34.1
+           +-04.1-[64-c3]----00.0-[65-68]--+-01.0-[66]----00.0-[67]----00.0
+ Intel Corporation JHL7540 Thunderbolt 3 USB Controller [Titan Ridge
+DD 2018]
+           |                               +-02.0-[67]--
+           |                               \-04.0-[68]--
 
+In this case the bios has assigned the upstream port 65-68, for its 3
+downstreams 66,67,68, and then assigned the upstream port of the
+device's own bridge to 67.
+
+In this case not only did BIOS produce an invalid topology but it also
+does not provide any space at the first upstream or downstream ports
+which the current PCI implementation would require to assign bus
+numbers if I understand it correctly.
+
+>
+> The PCI subsystem in the Linux kernel for example can't handle back to
+> back resources behind multiple downstream bridges.
+>
+> So when the BIOS fails to assign something it's extremely unlikely that
+> the Linux kernel will do the right thing either.
+
+I'm not sure this is still the case, the PCI subsystem with realloc
+(and assign-busses for x86) deals with enumerating this topology which
+reports multiple bridges just fine. The same configuration as above
+produces this bus numbering (with hpbussize=3D20)
+
+           +-04.1-[24-66]----00.0-[25-66]--+-01.0-[26-45]----00.0-[27-29]--=
++-01.0-[28]----00.0
+ Intel Corporation DG2 [Arc A750]
+           |                               |
+    \-04.0-[29]----00.0  Intel Corporation DG2 Audio Controller
+           |                               +-02.0-[46]----00.0  Intel
+Corporation JHL7540 Thunderbolt 3 USB Controller [Titan Ridge DD 2018]
+           |                               \-04.0-[47-66]--
+
+The Linux kernel doesnt do the right thing without these features, and
+these are not the default. So you may be right that by default it does
+not recover from the situation of well.
+
+
+Given the bus allocation at the root port I can imagine a more
+aggressive than default but less aggressive than `assign-busses`
+reallocation scheme could deal with both preserving root allocations
+like the APU and renumbering things behind upstream ports. That might
+be a better approach than renumbering even the root bus devices.
+
+>
+> Regards,
+> Christian.
