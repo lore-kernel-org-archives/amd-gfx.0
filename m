@@ -4,59 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C419C54E5D
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Mar 2024 09:00:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE3F7C54E5D
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Mar 2024 09:00:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBF6610F88F;
-	Tue, 19 Mar 2024 09:00:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50B1710F890;
+	Tue, 19 Mar 2024 09:00:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XDBMXUk8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jwda0t+P";
 	dkim-atps=neutral
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDD8010F58A
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 14:19:35 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-513d717269fso4389222e87.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 07:19:35 -0700 (PDT)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51A5B10E20D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Mar 2024 01:56:06 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-513c8b72b24so5556321e87.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Mar 2024 18:56:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710771574; x=1711376374; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1710813364; x=1711418164; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=76jK/ARKKeFVpWmJze+n0eS6xxzaNLiSycBwOm9i61s=;
- b=XDBMXUk8t2VggObzcoj0tGr2ZWzQ2joJ9MFSQVy0Hrtp9cF48P3UcXiG7lnhsSmKvz
- baiu+0EbsvfdaQQbOIFal+clShlY90AcTgy2AxpyqkDUBi5YDSQ48rt+RKgJEvWGrjA1
- ffgyikvzYga9M3maGrV7Q4I9LErqt1GQ1up6a/bTpEJivJ/D0Oscu5mvOfEnL9o8xe2B
- D76WjHhepFo+j28zyAD1RrdNCw/l3/ex/Z6YBC6ZWinKsNhLQ8JCEnNvI/vV/4BZ2ct6
- HESxJZ8Lf8jFJQ7eZFuCWKlDY4e3Yi6MP9mGsyM3hvlX36DTjxSjTLZhBKEe8ucC/lZN
- oH7A==
+ bh=/npr9ZBgPo4lt1K3xYl0Hg1IsU/NO66AdS2S7y8TJ2o=;
+ b=Jwda0t+PsMVLfEcrX2Dv8OHlh1j4sRKmS9KX+3WL/4M5lp73AwhYFRHaH7at3IM8Aa
+ O1+MZbD2m7G0QfQgQiCq33srAIseU+WHZVkNNt6KkfMSnZKFmIJsQRrukJECiaHf+Zt1
+ +ZVW+tKReeTDNIh0//qzm5tU3Pmv/oUilZrWLMpqkVGrH04/CJmoQRb57CzVdgf/jHII
+ IJfKjAHKj1BXYuIxJzz7YtU+KH43UnTxJlbefOa4e0eGoVztWpgJwhOQ1roDt1cXfudN
+ FhGqGVWcpto60bMV/yJjzyZSbbPqOfK05tBjGd8VUGpwsa8xXf/1R1RjKyAawzrc6JZS
+ r5iA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710771574; x=1711376374;
+ d=1e100.net; s=20230601; t=1710813364; x=1711418164;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=76jK/ARKKeFVpWmJze+n0eS6xxzaNLiSycBwOm9i61s=;
- b=Gsv7PhGgotBKGs/U7aC48M67QffyRtkwd87MSAivCnACvu4qoEj6xt1HHG+IRLNQd7
- 7QPycNBZmdTWbNJhd8xLnMxbhtIV0mGrfPfQMBW6qADw/9vx2lWr9xrcCnknKvzZmX7+
- y0qe4hqqcF2326Zh4z34Pev0piZmkT2mBTZ8Co4ZXR7qLAk1h1uZjtgCBzyRyeFI/0Tj
- h+TbqzbrlqhYhFaALWns81ztXSft6j6xmGJfnUMgDQ7WVZi6HPtYhI+XekBOWXEl8I5y
- k3s7Up82/cQo1OlAz7SpzbIJdrsHzIeb9oD04jxXhygvbtQL9L5eDygysigQJQiE9yz/
- Okeg==
-X-Gm-Message-State: AOJu0Yw28hi/kXH2Kjc1H+D6P8lXixuLvDQbLybXH2AB0w32Nrpdpxul
- PvQtJ6jsAx6sT9fsff960BijkPHtHy7Wr+r40Z3quG73yb2gDQ3nNVme+Yk8VZbu0h9rHT/l5f4
- YqE/XcPWIO362noQg6LV+4haCWBc=
-X-Google-Smtp-Source: AGHT+IHBS2/ts9lWGbTLTSENq3NYJ/7+kwHZdgTe8sxrHSUGlm6Q7XH10Z1TaEfPAUlQsivDAbxVVFT93HvXZutpzhA=
-X-Received: by 2002:a05:6512:473:b0:513:da61:9b46 with SMTP id
- x19-20020a056512047300b00513da619b46mr6173158lfd.53.1710771573371; Mon, 18
- Mar 2024 07:19:33 -0700 (PDT)
+ bh=/npr9ZBgPo4lt1K3xYl0Hg1IsU/NO66AdS2S7y8TJ2o=;
+ b=i2axFZ4ZuZzVeJn/H1frIAK0aDxL8m+iezM4SnjcC2LeD7VBP+nmkDRlrszFOXtDBd
+ eW/CL4EFIRDa9HPeq+O8egeeo0o7eYraSIMtIQnBihJYXrTr3ic3gscOhSUYpps9S2/m
+ bGxWGRtnBTcFC60xA2EtE4X+2YVmwtyNldj5agRJIvXhfT75JU5yupY5L85W8ZU/11g0
+ 5SNU6LBafiWvsLYgTCjhlLf0K2bGGYRtzFYkN83hschy68tNwtv8+yMAl9K1u30sRfS9
+ BNw/n0YrjDuhecguQH8pDrAioPvEb2Ncp7o/sGZdBHbprfIa4EWENvV0X/MKSla+u0FL
+ 9bLQ==
+X-Gm-Message-State: AOJu0YwA1s8Og3xT/8BqQ9kMDfsgpJOwRoILEngUD6MCgMvTVnvFeOGh
+ oopmtdjlB4GV0YgaGih6q7vKCdyLjAcJ3Q8H+ms6p2f52cyAfS0vwKWI+IGUed8pBX3w4AU/4YL
+ IuSdL5by36J6+aww3NVzhPRGFXoA=
+X-Google-Smtp-Source: AGHT+IExRMRPzOVhj9qi1Lc+VzoewkEnDD/KGB5hFwfMkT7V9AYpLZWs89VHTaZLzhpV62Ey+M1jykAAHkcwQHgMvhU=
+X-Received: by 2002:a19:5f5b:0:b0:513:e7ff:15b7 with SMTP id
+ a27-20020a195f5b000000b00513e7ff15b7mr598458lfj.59.1710813364016; Mon, 18 Mar
+ 2024 18:56:04 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240318065211.11097-1-kkartaltepe@gmail.com>
  <CADnq5_MxfDSaOoD9J2DfdkM2wzX_HfRPkLv8CSSVPzJSKi1aUQ@mail.gmail.com>
-In-Reply-To: <CADnq5_MxfDSaOoD9J2DfdkM2wzX_HfRPkLv8CSSVPzJSKi1aUQ@mail.gmail.com>
+ <CACawnnzv5Ro32h3wJ_5EQ=9k=b8mGA4FEGjXbWTUP-jdmWERBg@mail.gmail.com>
+ <CADnq5_N4eZ9LbDRLwbAv0NVnmp1GrMwp+cDs4tP0FHwf1r7YRg@mail.gmail.com>
+ <CACawnnz17jd4f+VrVhx5oH_DmOSb7jSLGZnmj0PcOZeQ+=UD5A@mail.gmail.com>
+ <CADnq5_Mj_9=hBC47K5urr5VLTiaUQsv1Lib0uPTq8-XGSDh-tw@mail.gmail.com>
+ <CADnq5_OtProx-8d_0epm9TrYtE_rHLYDhEb6XrK9bgOPi7MicQ@mail.gmail.com>
+In-Reply-To: <CADnq5_OtProx-8d_0epm9TrYtE_rHLYDhEb6XrK9bgOPi7MicQ@mail.gmail.com>
 From: Kurt Kartaltepe <kkartaltepe@gmail.com>
-Date: Mon, 18 Mar 2024 07:19:21 -0700
-Message-ID: <CACawnnzv5Ro32h3wJ_5EQ=9k=b8mGA4FEGjXbWTUP-jdmWERBg@mail.gmail.com>
+Date: Mon, 18 Mar 2024 18:55:52 -0700
+Message-ID: <CACawnnx8Z5jbBdzct9Omeq3Y6iJhMDTDy_C3DRPe9irjoHRn+Q@mail.gmail.com>
 Subject: Re: [PATCH] drm/amdgpu: Remove pci address checks from acpi_vfct_bios
 To: Alex Deucher <alexdeucher@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org
@@ -77,38 +82,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 18, 2024 at 6:37=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
-> wrote:
+On Mon, Mar 18, 2024 at 12:57=E2=80=AFPM Alex Deucher <alexdeucher@gmail.co=
+m> wrote:
 >
-> On Mon, Mar 18, 2024 at 4:47=E2=80=AFAM Kurt Kartaltepe <kkartaltepe@gmai=
-l.com> wrote:
+> On Mon, Mar 18, 2024 at 3:52=E2=80=AFPM Alex Deucher <alexdeucher@gmail.c=
+om> wrote:
 > >
-> > These checks prevent using amdgpu with the pcie=3Dassign-busses paramet=
-er
-> > which will re-address devices from their acpi values.
-> >
-> > Signed-off-by: Kurt Kartaltepe <kkartaltepe@gmail.com>
+...
+> > Depends on the platform, but recent ones use VFCT.  That said, there
+> > should only ever be one IGPU in the system so I think we could just
+> > rely on the VID and DID for APUs in this case and check everything for
+> > dGPUs.
 >
-> This will likely break multi-GPU functionality.  The BDF values are
-> how the sbios/driver differentiates between the VFCT images.  If you
-> have multiple GPUs in the system, the driver won't be able to figure
-> out which one goes with which GPU an you may end up assigning the
-> wrong image to the wrong device.
+> Is there a reason why you need this option?  Even beyond this, I could
+> envision other problems related to APUs and ACPI if these changed.
 >
 > Alex
 
-The vendor and device portions must be correct in the existing
-kernels, so device type differentiation should already work without
-BDF values.
+So there are multiple factors in play. I am trying to make use of the
+lovely usb4/tb3 controllers on the 7940HS with the reportedly Intel
+Tamales Module 2 pci/pci bridge over the usb4 interface. This provides
+a handy way to expand the pcie bus but configuring ACPI and pcie
+topology isn't generally an option on consumer BIOS (unless you want
+to enlighten me). This leaves us in the situation where the bios can
+enumerate devices poorly resulting in inaccessible devices due to
+address conflicts. To resolve address conflicts the only option I'm
+aware of is pci=3Dassign-busses, maybe this could also be configured at
+runtime but assign-busses seemed nice in some ways.
 
-So does that mean the concern is images are different for devices with
-the same vendor:device pairs? There are sites out there dedicated to
-dumping AMD's video roms which seem to suggest all discrete devices
-would be fine loading the same rom. Is there another platform you are
-thinking of where devices with the same vendor:device values would
-need different images?
+I havnt experienced any issues with the APU (graphics, hardware
+encoders/decoders) but I do think assign-busses might be renumbering
+again after suspend/resume/pci rescans but I need to debug further,
+maybe suspend/resume are just broken when ACPI addresses are wrong.
+Obviously the graphics user space (compositors, mesa might be working
+as expected) dont handle the device switching addresses while in use,
+for amdgpu kernel side I haven't inspected deeply yet.
 
-(Sorry this is my first patch to the mailing list and I am replying
-with gmail, I hope it doesnt break things).
+I'm not sure if this is the right approach to solving the problem, and
+given your input i'm considering it may be better, though not
+upstreamable, to implement renumbering only for specified devices like
+this pci bridge or investigate runtime management of the pci bus
+addresses. The current assign-busses implementation is quite the big
+hammer admittedly.
 
 --Kurt Kartaltepe
