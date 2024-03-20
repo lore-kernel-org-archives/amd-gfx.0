@@ -4,52 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8390DC6FD1F
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 15:26:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A124FC54E58
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 15:37:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F369110FD6D;
-	Wed, 20 Mar 2024 15:26:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E819E10F17F;
+	Wed, 20 Mar 2024 15:37:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IRo04Og4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aHJpLs+V";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14C7C10FD6A
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 15:26:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1710948380; x=1742484380;
- h=date:from:to:cc:subject:message-id;
- bh=EpEVjbl2y4T2HANeSSeifO/cCogNnSlOptuP4w9ZY6c=;
- b=IRo04Og4OBZOxAaaP61JQhm9y96r8PS8eQ+NzeZRd/4D/2nwyn3VT+0W
- j0r/iifHWGG1J64j2I3OTt5ds0IRdLR98MCAiv1KeCx/CxliSROrAlB8G
- moWlHeruLHpmNzaS/GpjisTVjXphG+a+rBTWy7hM2vktddg5WguNT9mur
- f+8lv/2FuxjzS+TXEhusXEkN4IVdu/CQGUqK8xBihqbpSX+066RVeCIDp
- FT3SAqEtJA1k6n25Ld/DPlXSDuEpxoVS7xHWdtRgvcFZX8YLAgKZIh+hw
- gJMEK5Y5/PLYSMj/JTXt3ClyXGz10qAc4ZT6UeUcXG73ujLb94WevpVNV A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11019"; a="31313469"
-X-IronPort-AV: E=Sophos;i="6.07,140,1708416000"; d="scan'208";a="31313469"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2024 08:26:19 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,140,1708416000"; d="scan'208";a="14196231"
-Received: from lkp-server01.sh.intel.com (HELO b21307750695) ([10.239.97.150])
- by orviesa009.jf.intel.com with ESMTP; 20 Mar 2024 08:26:16 -0700
-Received: from kbuild by b21307750695 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rmxpV-000IjG-2i;
- Wed, 20 Mar 2024 15:26:13 +0000
-Date: Wed, 20 Mar 2024 23:25:40 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Linux Memory Management List <linux-mm@kvack.org>,
- amd-gfx@lists.freedesktop.org, bpf@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-omap@vger.kernel.org, linux-usb@vger.kernel.org,
- netdev@vger.kernel.org
-Subject: [linux-next:master] BUILD REGRESSION
- 72fb52fb0ac44b6a1edd9bc390e44bce3acccd26
-Message-ID: <202403202334.iaGPLNCm-lkp@intel.com>
-User-Agent: s-nail v14.9.24
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1124B10F17F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 15:37:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KuGesUbyn8PSq0mkCVMtAZsptOCbg2jq0EILYwAHBK3QzMKotHOm1n5Q+/UwYqmaHF3AxTuDeCi15wyCygRBNIajzpVNAsxaLsRAhOMT/JNqqngZPpOYHHkoHoEo9KcBsQgx0BVp9rvResQ8yyke1akYqPS1/7P8JveCNs1Kei+uxIspQf6DoVpp2mPtwVNTRETKdoXL9eIA4e62AcEzo6U5GzIjhAPncht+tTwu4oVCPEf9Rm42qu+mVWa7+gJWr9P89pV64abhcMOgEuRLiEVR8IIn7Ngy+4vxGDf9WwOuvmknfLnp8ECsyCcvlR+dkKmAHEm05TBtTS75K3uRAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Cxhn1vxshmqhtVHvPfHwJtv6kg7Rrg7nZPFHTG0EVM8=;
+ b=NGLOvb0Dc8Z4gbzup9aZHFVLZukfJiZPnDdoirrFWmTKrykIQl/b1HF2uVmr82zHQXlTV2WNLw5PMCR1dXx3fqYNqsSBOoWEwmesQ1vrmjsYsfHVJVKXwvBZ5lIvONxHf9g7uJHEiV4l/U2zT1fzky1F0VXOxS97JVXKmVQIQIkPgfABoEmWK8kmzHrHhhA5LkbYkMnmYd7LoQieMFCUnlwykgFz+r3UozfB0G2au4cKvZ4yXhzXptj2r7tm9CP8oqY6mkU/7B94mPmQmeP5oTjplo7byPvymK+fBwkVckjJM28Ep03uaPHW93ayjXieTkYh7Hef7D+J6sVZEJgeog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Cxhn1vxshmqhtVHvPfHwJtv6kg7Rrg7nZPFHTG0EVM8=;
+ b=aHJpLs+Vhqx1RfrmTbDQFEMBSGVMeB3FB9vqtVYrks1fap1XsZ6BNag1hu3fGJUP233bK3wzVKp6pyy3VgcaGLg2X++Z/g/NA0ogs+kSAW8VkCY+Cl1J9slVCnGvu2K5OsoyYublI2ULCyhjnK6k3VmfEO+1YZfO3MRZufCxC/E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ CH3PR12MB7763.namprd12.prod.outlook.com (2603:10b6:610:145::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.34; Wed, 20 Mar
+ 2024 15:36:58 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::f349:addf:ae3e:814]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::f349:addf:ae3e:814%5]) with mapi id 15.20.7386.025; Wed, 20 Mar 2024
+ 15:36:58 +0000
+Message-ID: <184fd2ea-edf8-46e4-9e53-05fccc45015c@amd.com>
+Date: Wed, 20 Mar 2024 21:06:50 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Fix format character cut-off issues in
+ amdgpu_vcn_early_init()
+To: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20240320084513.3026222-1-srinivasan.shanmugam@amd.com>
+ <5d46d7bf-d487-4a60-9f73-7146947f989d@amd.com>
+ <db154f26-6af1-41b2-a3ec-a4fd2afe0d5b@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <db154f26-6af1-41b2-a3ec-a4fd2afe0d5b@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0118.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:27::33) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|CH3PR12MB7763:EE_
+X-MS-Office365-Filtering-Correlation-Id: d698700a-fd3d-438a-0be6-08dc48f393fb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: BGCBgl9IHo6CC1yJjEcS3XJ/BEyzqr38Fwm9SyKcRMCSdtsprBvMUrTcbRHqE1EeCgMFhAKA03BlP9yGnic3xNI8L0dh6xffovfWlz2sN51WaYZKt9JZBOUHGOxOiPWWXVCkL9ToCdq4uwnICnodrwHcaSzEnM0HPr9fJKZMJSzGVQJxyRxso93TwpTnwqh2+QCeoalMpDFLsfHPyk7xUM2k4N1/6opXWB0WuaOssfp7FA6WpSZypQkJNIKiUqpXFDHdSvkyketTdjlL0z5e792U/Xw1XhBAQ5qdP5OJyxa9RwSwX4Kn/gLrKe34IVAyz6jYK36XiqNyUDiXV1HREIa3QxQWIg2/y0ye5cX4OzAYE9pbABYIDySPwrckVCzByS7HkRHVR/pwkNEhE+l6Z7wUGwkaNaNPYYY0HnNWEzPH5z79eV7rWGcRD89fZxV0oGO5At3ZgeEuJPfhn+hwCzPj2rNjM7cW5CXTxA3BPbL6u5BEmFm+rcul9/IbS2zD4fHs2w/N+2omJDZHT3RG9jSm1gdhuqN+tHsEhOPMWckPrzPSmRMoqS57VgcHg/KXzKjMSLOHJHKzTqWTDLZH2qj3OEApfFyoXQV9+XBz2IbhgBNaEyTHlCtvr35kWXyabq2XZwOpNI+GsHbcnUDUiev4RqH4wDMIL43Py7sxncs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(366007)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TlA5bDBoazE5Nm9jZlFJejRrSTk1ck9BVzc5Sm9oMkV2VlNmSEgzdFVnazZa?=
+ =?utf-8?B?YzFkWEhLYXNhdkRYbGpVcXhYY21Yd2dEenY3V0VCTm1YYXg2K0p4THV1SThL?=
+ =?utf-8?B?Y2FvNWRZMVQya1l4ejhvTFFmNXpYRGJocWtaM0VFRnA3RTl4VWQ2TGdqVnYy?=
+ =?utf-8?B?VXFweVc5Ky85N2ZqNXdGSW4xK2ovUis2ZjFWUytGSFVGWksyc3ZreTlRWitL?=
+ =?utf-8?B?ZWRKdnkvK1RTMUMrWFVxU2lCOThuaHRRNm1YeE9Ea1RIZ04vWG5lUzl6bG42?=
+ =?utf-8?B?RVl6Y2NFcWJIbnI2ZzFObjJZa0taTysrWWtUM2pqUlQzN0RuQ3FPQXZUclI0?=
+ =?utf-8?B?U1lEYmE5Z0lhbFBSbHZoNm9SWXJlWkZjQzM0YUZJN2R0aDVaMEFJRm1KR1VE?=
+ =?utf-8?B?NXJ5VHBRYWdXbEwrTUJUZTVyaVVZaERjbTAyVXVZai9VWVJyczdqUy9EZVRH?=
+ =?utf-8?B?MkJteks2aExjeU1vUmZsNC9IMWpmZUFXN2NrVlhjd0ZkUEIrV0NBWldwNHRZ?=
+ =?utf-8?B?dUVrN2t3MUREV3FuYnlFY2xCRTFCampoNWFYVTc1VmtFYk1HWllscFU4b1FZ?=
+ =?utf-8?B?VDNCZ2hLTksveWpzTjFoQ25GR011RGkvYkg4MkZHVkxNVXNrWnNJdk80eU9J?=
+ =?utf-8?B?U2FqbStWSmhlVVZJK3B1MmpVdUltLzBwbnRKWEl1Qm1pUEdZbEdyTmhTV2VK?=
+ =?utf-8?B?TmdWZlJ0UnJva0FxQzR3U0tBVm5QMzdZNXlBY0pJbVdVamdnUGk0dndMaW5o?=
+ =?utf-8?B?ajhjZlhpaFlUdUpHbGFWbTk2ejh3NjRuZFF6ZktmMEZqaXlsanBqclRITDdT?=
+ =?utf-8?B?dHV6WWkxME9GQVY0N2xnWHdBYUN0MEd2U1IvSEljd1MxUFRlL3FhTDhvM2ti?=
+ =?utf-8?B?RFBIS3RGMGZHYWlZQ3dNQ212dVZjR2FuVDZqUVFpaVk0aExVWGMrR0hGRnlo?=
+ =?utf-8?B?bm9ET2JFSkJUZkNHSEEvbDlxeVAyamdEdDJYUW9WbVpmTkhrUkRZcnZRNmVq?=
+ =?utf-8?B?RlIrRmMvMnN5UWRqdjhyQm5sL3p4TlB2U2xQRkJ1QVY2Q0w0T3dKSXpBSnBP?=
+ =?utf-8?B?eTZZcmxlaGxwUDV6NGhDNkxqNmRIblJMV05CdmJVdlo1U1JXbWFEaC9lN0wz?=
+ =?utf-8?B?Vk51ZHV4elBsRUY3RGRhTTJpUWJXQ1paOTlqbjdVdklaVU4rd3E4dkJUUjV4?=
+ =?utf-8?B?VUpPNklaRnloVXRYSXdleWNmeklaNEp1SVo5WU5XbUNwd2lDRVpKYUFOMldO?=
+ =?utf-8?B?RTljY0RRNHdNbVdHS3RLWEZpdG1JTkpQN1phWGs2YmRKbitzSmVUL3A2WVll?=
+ =?utf-8?B?NG9CVUZaY0FYaFE2Z2FQTkhKQzV0emdnSHNPSnRZeStJSzFzMWVqNWJqN3Ay?=
+ =?utf-8?B?RGQySCtvWnNpWmNYRXh2U2Nsb1RpSFM4ZzNuUmFzd3locU5ZcTU1SXlZMWJ1?=
+ =?utf-8?B?QS9MQVYrcCtwMnZrNVFCcTBBSnVUSmVKb1lNZUFYbTlza29UeXlrbEZNQk1L?=
+ =?utf-8?B?dUR1SVVVcm9mSFZlbWtzVE1xc0tpbFg3dFhzbG9XYWU5Rlh3ZktNU2xrSWsw?=
+ =?utf-8?B?c2E5OFpidTk1cllXVDY5STBFSFhhUms2NDRZYi9rb0VtSzEzSkp4VHZVVlhF?=
+ =?utf-8?B?bjlNNTRGTDN3c24yVS83aFNRWGg5c3NhQXdkSEV4VHJQUnFKQStvN0FoVmk2?=
+ =?utf-8?B?WEFQRU9CNGxpS0FBcVl1Sm9iUW5pa2g3VXlGR3QzeWdiTzVFakNRd2EvMkxj?=
+ =?utf-8?B?QTNkKzFYampoSytuZnhjNlp2UXBoVzdyWVZwQThrWkNycnpNTURvdjN1Q3hU?=
+ =?utf-8?B?czJQdUdSblB0dGZCVkFFem53dmI5SkxUMlRGOXBQR3ZFdStBN29UNkFlNzhE?=
+ =?utf-8?B?NFQ0RytkU3c2THhtNlR4c054WUlaQzlLSFppZ3hqRzRrdWdqc1JtdlpKenlD?=
+ =?utf-8?B?QzhuNzhGZGRVR3VkL3FuWEY0UDZwRm1TUGhXRmhDaThaeG1Od0daZWIzV3Fz?=
+ =?utf-8?B?RzJSQ0k2SnRkb0dDMlRac3BMZnREYmd6aFR5QXR6bG9SMzFCcExmK2lZTWhs?=
+ =?utf-8?B?bDZCS0t4cFE3emV0R0pkT2RORDE0VjhmOGVSdlVBVEFtV1cyRnVscmJnZTJN?=
+ =?utf-8?Q?W3oKhqy+3WgjGBokFAmxqGmF6?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d698700a-fd3d-438a-0be6-08dc48f393fb
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 15:36:58.1558 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: G1bjarUsx/TV2V4SpfUKUgCcUzwVFcfC9kGth/4d2EDJ11Qmf92GGipO0xr+eYH8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7763
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,368 +133,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 72fb52fb0ac44b6a1edd9bc390e44bce3acccd26  Add linux-next specific files for 20240320
 
-Error/Warning ids grouped by kconfigs:
 
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- arc-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- arc-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- arc-randconfig-002-20240320
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- arm-allmodconfig
-|   |-- arch-arm-mach-omap2-prm33xx.c:warning:expecting-prototype-for-am33xx_prm_global_warm_sw_reset().-Prototype-was-for-am33xx_prm_global_sw_reset()-instead
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- arm-allyesconfig
-|   |-- arch-arm-mach-omap2-prm33xx.c:warning:expecting-prototype-for-am33xx_prm_global_warm_sw_reset().-Prototype-was-for-am33xx_prm_global_sw_reset()-instead
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- arm-randconfig-001-20240320
-|   `-- arch-arm-mach-omap2-prm33xx.c:warning:expecting-prototype-for-am33xx_prm_global_warm_sw_reset().-Prototype-was-for-am33xx_prm_global_sw_reset()-instead
-|-- arm64-defconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- csky-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- csky-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-buildonly-randconfig-002-20240320
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-randconfig-006-20240320
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-randconfig-015-20240320
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- loongarch-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- loongarch-defconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- loongarch-randconfig-002-20240320
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|-- m68k-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- m68k-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- microblaze-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- microblaze-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- mips-allyesconfig
-|   |-- (.ref.text):relocation-truncated-to-fit:R_MIPS_26-against-start_secondary
-|   |-- (.text):relocation-truncated-to-fit:R_MIPS_26-against-kernel_entry
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- nios2-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- nios2-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- nios2-randconfig-002-20240320
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- openrisc-allyesconfig
-|   |-- (.head.text):relocation-truncated-to-fit:R_OR1K_INSN_REL_26-against-no-symbol
-|   |-- (.text):relocation-truncated-to-fit:R_OR1K_INSN_REL_26-against-no-symbol
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|   `-- main.c:(.text):relocation-truncated-to-fit:R_OR1K_INSN_REL_26-against-symbol-__muldi3-defined-in-.text-section-in-..-lib-gcc-or1k-linux-..-libgcc.a(_muldi3.o)
-|-- parisc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- parisc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- parisc-randconfig-001-20240320
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|-- parisc-randconfig-002-20240320
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|-- powerpc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- powerpc-randconfig-001-20240320
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|-- powerpc-randconfig-r132-20240320
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|-- s390-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sh-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sh-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sparc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sparc-randconfig-001-20240320
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sparc64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sparc64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- um-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- x86_64-buildonly-randconfig-005-20240320
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|-- x86_64-randconfig-011-20240320
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-|-- x86_64-randconfig-012-20240320
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-`-- x86_64-randconfig-014-20240320
-    `-- drivers-gpu-drm-amd-amdgpu-amdgpu_vcn.c:warning:.bin-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-clang_recent_errors
-|-- arm-defconfig
-|   |-- arch-arm-mach-omap2-prm33xx.c:warning:expecting-prototype-for-am33xx_prm_global_warm_sw_reset().-Prototype-was-for-am33xx_prm_global_sw_reset()-instead
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- arm64-allmodconfig
-|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- arm64-randconfig-r111-20240320
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- hexagon-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- hexagon-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- hexagon-randconfig-002-20240320
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- hexagon-randconfig-r122-20240320
-|   `-- fs-libfs.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- i386-buildonly-randconfig-001-20240320
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-randconfig-014-20240320
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-randconfig-141-20240320
-|   `-- drivers-usb-typec-tcpm-tcpm.c-tcpm_pd_svdm()-error:uninitialized-symbol-modep_prime-.
-|-- powerpc-allyesconfig
-|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- riscv-allmodconfig
-|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- riscv-allyesconfig
-|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- s390-allmodconfig
-|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- s390-defconfig
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- s390-randconfig-001-20240320
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- x86_64-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- x86_64-randconfig-002-20240320
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- x86_64-randconfig-073-20240320
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- x86_64-randconfig-076-20240320
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- x86_64-randconfig-123-20240320
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-`-- x86_64-randconfig-161-20240320
-    `-- mm-userfaultfd.c-uffd_move_lock()-error:we-previously-assumed-src_vmap-could-be-null-(see-line-)
+On 3/20/2024 8:28 PM, SRINIVASAN SHANMUGAM wrote:
+> 
+> On 3/20/2024 3:12 PM, Lazar, Lijo wrote:
+>>
+>> On 3/20/2024 2:15 PM, Srinivasan Shanmugam wrote:
+>>> The issue was present in the lines where 'fw_name' was being formatted.
+>>> This fix ensures that the output is not truncated
+>>>
+>>> Fixes the below with gcc W=1:
+>>> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c: In function
+>>> ‘amdgpu_vcn_early_init’:
+>>> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:102:66: warning: ‘snprintf’
+>>> output may be truncated before the last format character
+>>> [-Wformat-truncation=]
+>>>    102 |                 snprintf(fw_name, sizeof(fw_name),
+>>> "amdgpu/%s.bin", ucode_prefix);
+>>>       
+>>> |                                                                  ^
+>>> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:102:17: note: ‘snprintf’
+>>> output between 12 and 41 bytes into a destination of size 40
+>>>    102 |                 snprintf(fw_name, sizeof(fw_name),
+>>> "amdgpu/%s.bin", ucode_prefix);
+>>>        |                
+>>> ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:102:66: warning: ‘snprintf’
+>>> output may be truncated before the last format character
+>>> [-Wformat-truncation=]
+>>>    102 |                 snprintf(fw_name, sizeof(fw_name),
+>>> "amdgpu/%s.bin", ucode_prefix);
+>>>       
+>>> |                                                                  ^
+>>> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:102:17: note: ‘snprintf’
+>>> output between 12 and 41 bytes into a destination of size 40
+>>>    102 |                 snprintf(fw_name, sizeof(fw_name),
+>>> "amdgpu/%s.bin", ucode_prefix);
+>>>        |                
+>>> ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:105:73: warning: ‘.bin’
+>>> directive output may be truncated writing 4 bytes into a region of
+>>> size between 2 and 31 [-Wformat-truncation=]
+>>>    105 |                         snprintf(fw_name, sizeof(fw_name),
+>>> "amdgpu/%s_%d.bin", ucode_prefix, i);
+>>>       
+>>> |                                                                         ^~~~
+>>> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:105:25: note: ‘snprintf’
+>>> output between 14 and 43 bytes into a destination of size 40
+>>>    105 |                         snprintf(fw_name, sizeof(fw_name),
+>>> "amdgpu/%s_%d.bin", ucode_prefix, i);
+>>>        |                        
+>>> ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>>
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+>>> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 2 +-
+>>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+>>> index 9c514a606a2f..f994ee6c548d 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+>>> @@ -94,7 +94,7 @@ static void amdgpu_vcn_idle_work_handler(struct
+>>> work_struct *work);
+>>>   int amdgpu_vcn_early_init(struct amdgpu_device *adev)
+>>>   {
+>>>       char ucode_prefix[30];
+>> Hi Srini,
+>>
+>> Sorry, if I miscommunicated. Suggestion was to reduce prefix size to 25
+>> as the max prefix length is possibly length of dimgrey_cavefish_vcn.
+> Hi Lijo,
+> 
+> my mistake, the fw_name size must have been 53.
+> 
+> How 53? -> The size of ucode_prefix is 30, so the maximum length of
+> ucode_prefix is 29 characters (since one character is needed for the
+> null terminator). The maximum number of digits in an integer is 10.
+> Therefore, the maximum possible length of the string written into
+> fw_name is 14 + 29 + 10 = 53 characters.
+> 
+> On the other hand reducing ucode_prefix to 25 from 30:
+> 
+> 1. The length of the string "amdgpu/%s.bin" is 12 characters plus the
+> length of ucode_prefix. The length of the string "amdgpu/%s_%d.bin" is
+> 14 characters plus the length of ucode_prefix and the number of digits
+> in i.
+> 
 
-elapsed time: 738m
+> If ucode_prefix is 25 characters long, the maximum length of the string
+> written into fw_name is 14 + 25 + 1 (for a single digit i) = 40
+> characters, which is exactly the size of fw_name.
+> 
+> Is that this solution assumes that i will not be more than 9 (a single
+> digit)?. If i can be a number with more than one digit, should we need
+> to increase the size of fw_name accordingly.?
+> 
 
-configs tested: 180
-configs skipped: 3
+With 25, fw_name size required is 24 (no null char) + 13 (rest of string
+including null char) + 1 (digit). 'i' is assumed to be a single digit.
+(We don't need to calculate this, that warning already gives this
+calculation).
 
-tested configs:
-alpha                             allnoconfig   gcc  
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-arc                              allmodconfig   gcc  
-arc                               allnoconfig   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                   randconfig-001-20240320   gcc  
-arc                   randconfig-002-20240320   gcc  
-arc                    vdk_hs38_smp_defconfig   gcc  
-arm                              allmodconfig   gcc  
-arm                               allnoconfig   clang
-arm                              allyesconfig   gcc  
-arm                                 defconfig   clang
-arm                         lpc18xx_defconfig   clang
-arm                         mv78xx0_defconfig   clang
-arm                          pxa910_defconfig   gcc  
-arm                   randconfig-001-20240320   gcc  
-arm                   randconfig-002-20240320   gcc  
-arm                   randconfig-003-20240320   gcc  
-arm                   randconfig-004-20240320   gcc  
-arm                         vf610m4_defconfig   gcc  
-arm64                            allmodconfig   clang
-arm64                             allnoconfig   gcc  
-arm64                               defconfig   gcc  
-arm64                 randconfig-001-20240320   clang
-arm64                 randconfig-002-20240320   gcc  
-arm64                 randconfig-003-20240320   clang
-arm64                 randconfig-004-20240320   clang
-csky                             allmodconfig   gcc  
-csky                              allnoconfig   gcc  
-csky                             allyesconfig   gcc  
-csky                                defconfig   gcc  
-csky                  randconfig-001-20240320   gcc  
-csky                  randconfig-002-20240320   gcc  
-hexagon                          allmodconfig   clang
-hexagon                           allnoconfig   clang
-hexagon                          allyesconfig   clang
-hexagon                             defconfig   clang
-hexagon               randconfig-001-20240320   clang
-hexagon               randconfig-002-20240320   clang
-i386                             allmodconfig   gcc  
-i386                              allnoconfig   gcc  
-i386                             allyesconfig   gcc  
-i386         buildonly-randconfig-001-20240320   clang
-i386         buildonly-randconfig-002-20240320   gcc  
-i386         buildonly-randconfig-003-20240320   gcc  
-i386         buildonly-randconfig-004-20240320   clang
-i386         buildonly-randconfig-005-20240320   gcc  
-i386         buildonly-randconfig-006-20240320   gcc  
-i386                                defconfig   clang
-i386                  randconfig-001-20240320   clang
-i386                  randconfig-002-20240320   clang
-i386                  randconfig-003-20240320   clang
-i386                  randconfig-004-20240320   clang
-i386                  randconfig-005-20240320   clang
-i386                  randconfig-006-20240320   gcc  
-i386                  randconfig-011-20240320   clang
-i386                  randconfig-012-20240320   clang
-i386                  randconfig-013-20240320   clang
-i386                  randconfig-014-20240320   clang
-i386                  randconfig-015-20240320   gcc  
-i386                  randconfig-016-20240320   clang
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                           defconfig   gcc  
-loongarch             randconfig-001-20240320   gcc  
-loongarch             randconfig-002-20240320   gcc  
-m68k                             allmodconfig   gcc  
-m68k                              allnoconfig   gcc  
-m68k                             allyesconfig   gcc  
-m68k                                defconfig   gcc  
-m68k                       m5275evb_defconfig   gcc  
-microblaze                       allmodconfig   gcc  
-microblaze                        allnoconfig   gcc  
-microblaze                       allyesconfig   gcc  
-microblaze                          defconfig   gcc  
-microblaze                      mmu_defconfig   gcc  
-mips                              allnoconfig   gcc  
-mips                             allyesconfig   gcc  
-mips                      maltasmvp_defconfig   gcc  
-nios2                         3c120_defconfig   gcc  
-nios2                            allmodconfig   gcc  
-nios2                             allnoconfig   gcc  
-nios2                            allyesconfig   gcc  
-nios2                               defconfig   gcc  
-nios2                 randconfig-001-20240320   gcc  
-nios2                 randconfig-002-20240320   gcc  
-openrisc                          allnoconfig   gcc  
-openrisc                         allyesconfig   gcc  
-openrisc                            defconfig   gcc  
-parisc                           allmodconfig   gcc  
-parisc                            allnoconfig   gcc  
-parisc                           allyesconfig   gcc  
-parisc                              defconfig   gcc  
-parisc                randconfig-001-20240320   gcc  
-parisc                randconfig-002-20240320   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc                          allyesconfig   clang
-powerpc                      chrp32_defconfig   clang
-powerpc                  iss476-smp_defconfig   gcc  
-powerpc               randconfig-001-20240320   gcc  
-powerpc               randconfig-002-20240320   clang
-powerpc               randconfig-003-20240320   gcc  
-powerpc                    sam440ep_defconfig   gcc  
-powerpc                      walnut_defconfig   gcc  
-powerpc64             randconfig-001-20240320   gcc  
-powerpc64             randconfig-002-20240320   gcc  
-powerpc64             randconfig-003-20240320   gcc  
-riscv                            allmodconfig   clang
-riscv                             allnoconfig   gcc  
-riscv                            allyesconfig   clang
-riscv                               defconfig   clang
-riscv                 randconfig-001-20240320   clang
-riscv                 randconfig-002-20240320   gcc  
-s390                             allmodconfig   clang
-s390                              allnoconfig   clang
-s390                             allyesconfig   gcc  
-s390                                defconfig   clang
-s390                  randconfig-001-20240320   clang
-s390                  randconfig-002-20240320   clang
-sh                               allmodconfig   gcc  
-sh                                allnoconfig   gcc  
-sh                               allyesconfig   gcc  
-sh                                  defconfig   gcc  
-sh                               j2_defconfig   gcc  
-sh                    randconfig-001-20240320   gcc  
-sh                    randconfig-002-20240320   gcc  
-sh                          rsk7201_defconfig   gcc  
-sh                        sh7757lcr_defconfig   gcc  
-sparc                            allmodconfig   gcc  
-sparc                             allnoconfig   gcc  
-sparc                               defconfig   gcc  
-sparc64                          allmodconfig   gcc  
-sparc64                          allyesconfig   gcc  
-sparc64                             defconfig   gcc  
-sparc64               randconfig-001-20240320   gcc  
-sparc64               randconfig-002-20240320   gcc  
-um                               allmodconfig   clang
-um                                allnoconfig   clang
-um                               allyesconfig   gcc  
-um                                  defconfig   clang
-um                             i386_defconfig   gcc  
-um                    randconfig-001-20240320   gcc  
-um                    randconfig-002-20240320   gcc  
-um                           x86_64_defconfig   clang
-x86_64                            allnoconfig   clang
-x86_64                           allyesconfig   clang
-x86_64       buildonly-randconfig-001-20240320   gcc  
-x86_64       buildonly-randconfig-002-20240320   clang
-x86_64       buildonly-randconfig-003-20240320   clang
-x86_64       buildonly-randconfig-004-20240320   clang
-x86_64       buildonly-randconfig-005-20240320   gcc  
-x86_64       buildonly-randconfig-006-20240320   clang
-x86_64                              defconfig   gcc  
-x86_64                randconfig-001-20240320   clang
-x86_64                randconfig-002-20240320   clang
-x86_64                randconfig-003-20240320   gcc  
-x86_64                randconfig-004-20240320   clang
-x86_64                randconfig-005-20240320   clang
-x86_64                randconfig-006-20240320   clang
-x86_64                randconfig-011-20240320   gcc  
-x86_64                randconfig-012-20240320   gcc  
-x86_64                randconfig-013-20240320   gcc  
-x86_64                randconfig-014-20240320   gcc  
-x86_64                randconfig-015-20240320   clang
-x86_64                randconfig-016-20240320   gcc  
-x86_64                randconfig-071-20240320   clang
-x86_64                randconfig-072-20240320   gcc  
-x86_64                randconfig-073-20240320   clang
-x86_64                randconfig-074-20240320   gcc  
-x86_64                randconfig-075-20240320   gcc  
-x86_64                randconfig-076-20240320   clang
-x86_64                          rhel-8.3-rust   clang
-xtensa                            allnoconfig   gcc  
-xtensa                       common_defconfig   gcc  
-xtensa                randconfig-001-20240320   gcc  
-xtensa                randconfig-002-20240320   gcc  
+Assumption is we won't be having more than 10 (again, no random number
+usage for suffix, only single digit usage) variants of VCN FW that needs
+to be loaded for a single SOC.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> 2. If you reduce the size of ucode_prefix to 25, it means that it can
+> store a version string of up to 24 characters (since one character is
+> needed for the null terminator).
+> 
+> For example: if tomorrow, if we get something like
+> dimgrey_cavefish_smc_xxxyyyzz - then in this case yyyzz would be lost?
+> is that in "amdgpu_ucode_ip_version_decode " &
+> "amdgpu_ucode_legacy_naming" , is that are we always ensuring that it
+> will never be longer than 24 characters?
+> 
+
+Newer FW naming follow the syntax vcn_xx.yy.zz (IP version), and that is
+not more than 25 chars.
+
+Anyway, you may use 50 for fw_name or adjust prefix size - both are fine.
+
+Thanks,
+Lijo
+
+> Thanks,
+> Srini
+>>
+>> With fw_name[42] also, you may run into 43 bytes (30 prefix + 13 for
+>> others) warning.
+>>
+>> Thanks,
+>> Lijo
+>>
+>>> -    char fw_name[40];
+>>> +    char fw_name[42];
+>>>       int r, i;
+>>>         for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
