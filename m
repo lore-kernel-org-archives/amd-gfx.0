@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B547C54E67
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 06:37:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3502EC54E58
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 06:37:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E787410EE9A;
-	Wed, 20 Mar 2024 06:37:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A192B10E47D;
+	Wed, 20 Mar 2024 06:37:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Gk1320p/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kJu4oTxF";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2048.outbound.protection.outlook.com [40.107.92.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F4F110EE9A
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 06:37:12 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2075.outbound.protection.outlook.com [40.107.220.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 070BB10EE94
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 06:37:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Rmsw63afFppkE9Mkve2IpPh2Af5am+OBWqT1IDEE8H+aa4IkU0bxIVhyqKsEovywhPABnjWK5ft75FDEmKgQqpHJsawxBZZ4LRjKXrp0ShOlsRYORsm8s8hpjnZelS/z/xgSMaS01mDeFA6M4tEQzNf1KQIqyoznVASJr4t/l251uwMeZp8Ppr2rVrReHjF/zRA0RjNdxFWnxGD4YMJrFQinTKCoxCEW4a5siPWDU4pbNmKCVFZ/41oEMS7KDyVSrUy16w5v/exYltrnuyW7wUmICWrJOQuDXqiK+ALdTs4oIqt5Borh/wJtqRbyUXu11CQGyORXP7uDdQl6oHCesg==
+ b=GzM4hyBcysc7IEXeWm2Ixy+IYA9LOcVYzDCzq91ZiYt+Y3klO8to5FwbAr/pJdrl1I0Qq/b5nQJ/sphITXj+lCMRCo3n6rfqcXFPUTTg0EF8UBfGr3zThajwIpzZ1Q7zoCM2GKfuUvsxfXvYWBXdgOAD4kdpBmnSWyQ+31LJ3MK9fiM+lB4+fMOPLVMsjY2eoqM4Xfz3dT2YrzW/29If+h1C4gujIWdC45edtwQEYAhfXkUPVKm8gVsFyTRT0IVxAwlqeIDm/h238o6Ya24fw9/scLS6LCVA080bHBmaCbKYvJyjLTpFsRJnZE2snnXtqSO666OVamTXww7m7efeKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qnDHQ3z/FwKUucn6ULIP/ig8ArxgXCqvICxVnSv/JjI=;
- b=a/lZHvR6YdZRiUUGYAEQDrlzIhJAXvQfnaETBEfyW0HmeGrgSySxBVpowydp8efBgjuK52xpeyEEwaQ+6R1O5UY1K9/6uA7j/o+Iws1tdHNlJVRz3qvXlkLFyPNgvkts5pOi0Icji4SDtcjc9ul6YTgp3F8a/CNpKVviAiu8HiopEeJDn03/m1uiuMQ0kCJJxscAbeFeEfFnnv2jLhxVhPDOIYf5H1zxjsFgU9d2xMYPxvPcLwtr3v3rilvJnct7f6MPeYS33EhXk5LsgdOyA8oL0kbCKc9WNFHzP5inrZfr52YPaVs370npm38XXuKtgfpxRk6GmNeKvQOmk2oE6w==
+ bh=uYboNZkozLMIhj5pPUI0PXQKNUT7xSdnpOnnw4jNPCc=;
+ b=E9HyZi9TfvVtCtHUpCb1WgSdBgXd57vyRM14fIz2O99FPWGHvcS4FMH0iEbPdNrfREE22Wun2jcL+3zew4KsB+bbLOEOS2S2E1CFlLWNsrwJK9uieQBdjcB4yEtJSWQLs/Gki74w2BuQDpLHSDhgDYgIF4eb+nSA3fNXCoM0XU+Pwje9n6R2EXMEKyzb25LoF0k2/OzBAprjqIzLLK36AxlpTvvseA37qFUVbe1hsW3sas8xDzOBD1ZfY+iXxD5gqJgiOBd2gOoU8zvhCT67ju8jW688X7OTHfSO+V7NllBjKN0kOv1hjHI9H0sw6egtOfNKq7pb7Q5XAdC1ZPqM3A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qnDHQ3z/FwKUucn6ULIP/ig8ArxgXCqvICxVnSv/JjI=;
- b=Gk1320p/asuxDjXipEPHENm8dNlc0y9hTi9W0YtpHjLd8U48zQ1YNbF7t/YHjqrBDJdLfx5oVbswj1jdR0221ic4CX2K/6AvXiruwXjQy1Gxs9Te4R8P7wLa2Vl0mOK6e/xVuHq/q5oNtkp+oQ1XzohXMFUGhZ1To46TbDtf0qk=
-Received: from BLAPR05CA0015.namprd05.prod.outlook.com (2603:10b6:208:36e::15)
- by IA1PR12MB6532.namprd12.prod.outlook.com (2603:10b6:208:3a3::12)
+ bh=uYboNZkozLMIhj5pPUI0PXQKNUT7xSdnpOnnw4jNPCc=;
+ b=kJu4oTxFJxLJrkGdyUbCDnxPKRih6pJYK/Cghn1FmSnpBasirJcKVidO2tbbVV5wl2X+O1BAOP5wQeXrN421wC1l7Isa7r1R8Dz0GD3FOQPdohGmLOKm+x+7YLWkNxQt/phfWaMzbE33C1B3swOBWKB1ZZJ/BHAcYrI9s2mWtnU=
+Received: from BLAPR03CA0076.namprd03.prod.outlook.com (2603:10b6:208:329::21)
+ by SN7PR12MB6862.namprd12.prod.outlook.com (2603:10b6:806:265::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.22; Wed, 20 Mar
- 2024 06:37:07 +0000
-Received: from BL6PEPF0001AB73.namprd02.prod.outlook.com
- (2603:10b6:208:36e:cafe::7d) by BLAPR05CA0015.outlook.office365.com
- (2603:10b6:208:36e::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.12 via Frontend
- Transport; Wed, 20 Mar 2024 06:37:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.27; Wed, 20 Mar
+ 2024 06:37:14 +0000
+Received: from BL6PEPF0001AB76.namprd02.prod.outlook.com
+ (2603:10b6:208:329:cafe::d) by BLAPR03CA0076.outlook.office365.com
+ (2603:10b6:208:329::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.27 via Frontend
+ Transport; Wed, 20 Mar 2024 06:37:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,28 +48,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF0001AB73.mail.protection.outlook.com (10.167.242.166) with Microsoft
+ BL6PEPF0001AB76.mail.protection.outlook.com (10.167.242.169) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Wed, 20 Mar 2024 06:37:07 +0000
+ 15.20.7409.10 via Frontend Transport; Wed, 20 Mar 2024 06:37:14 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 20 Mar
- 2024 01:37:05 -0500
+ 2024 01:37:12 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 20 Mar 2024 01:37:03 -0500
+ Transport; Wed, 20 Mar 2024 01:37:10 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Bhawanpreet Lakha
- <bhawanpreet.lakha@amd.com>, Nicholas Kazlauskas
- <nicholas.kazlauskas@amd.com>
-Subject: [PATCH 15/22] drm/amd/display: Allow Z8 when stutter threshold is not
- met for dcn35
-Date: Wed, 20 Mar 2024 14:35:49 +0800
-Message-ID: <20240320063556.1326615-16-chiahsuan.chung@amd.com>
+ <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Sridevi Arvindekar
+ <sridevi.arvindekar@amd.com>, Alvin Lee <alvin.lee2@amd.com>
+Subject: [PATCH 17/22] drm/amd/display: Increase number of hpo dp link encoders
+Date: Wed, 20 Mar 2024 14:35:51 +0800
+Message-ID: <20240320063556.1326615-18-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240320063556.1326615-1-chiahsuan.chung@amd.com>
 References: <20240320063556.1326615-1-chiahsuan.chung@amd.com>
@@ -80,26 +78,26 @@ Received-SPF: None (SATLEXMB03.amd.com: chiahsuan.chung@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB73:EE_|IA1PR12MB6532:EE_
-X-MS-Office365-Filtering-Correlation-Id: e51eb912-7468-407f-4a79-08dc48a829c7
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB76:EE_|SN7PR12MB6862:EE_
+X-MS-Office365-Filtering-Correlation-Id: 08175ac5-642c-4b3a-513a-08dc48a82df5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 89iZ+1fyMcmpzJ9EgCaIrZy+FFwqnASS11x2PMhLt4Tk2/sVeI1zjj3JoLuTDwkh+FSo7O70tDKbNefnqPnwJ55eiivfs8boIK9WzW0bkhJyyuL5FJJHiX2hUfOTjB+nDmlWFAnyKp17mMNWeYbhpK/y+2CwVwwFxNnqO3hk1Mlflm29qBBwSB+vglClPCm5jFyFT29GS1R8R/DVBB4aMDPvj8MAdE05REdyAB5Bg0XOz3X+4C3VAZMqOL1PTBaIYZYfsE915TyX94UwooqHIkLbHWxDVLltC/tpB96kxravYZMHd33fDyDlmuk6MZ5Xkt6SGMDpbcz3RAr3oRWixCvR0sByy6zuHc0r3a1eYbxgEFOh9cNIq/ye4U1MQqqQKumb6K7yTui+1fUGdOvxRsM362NFjTbekHnJz2lrrVsiEKfkhIDJ9EWGKsBAH+RCyS8Lh8Mi/RfGAoSetnwCYa6p4LeB1Nk3YgjumL6OoINmUr0mDnIToWuuNmd1tlovkoYicJnROfULbVABq5fZIqAJVEnY0w8EaFY07LJYRkTN6NlfqsSyDxUAUbfVr/aUHrl/eWx4mm8IxgDoPLqmQDRWfdPHB7crHu2OIvuJSuo12gLPdYrsESVyeHMY9g3JfWh/OQNrcNIaqNEQX+x/dhDbSiMqnEQCF+RwR5D0mxuuBM4migD/jUtHN7UsAXHgXb3+O8b49TibF4ql08Dj+u99CdtbF8T4B7HkJ7LVRBUbDueitM7vxLYu4NQWphDR
+X-Microsoft-Antispam-Message-Info: JAzTi392LYi8YPjRKaUvydLS2MIThXxnGFLDvmGzuCEfhmMLDngs6bd8bhNpIlqXcIuCoALz/+G8wPHS+FqwYAscazB7ypvHbLWPYYOXdowNXRtwwHKBUyaiIuwOuEsxvr71FVaf23pZ9K6nFL0jOcU3fUvKyhAJwBa6/tiNv1fAIm+glh00OWpHsuT9hB8+MHjmIWLnsfaIQYEG4zwV9cAoVCE8stgHkvLSHLIVMhWIXZeLB2gm/kSbHmmnEKG2KHwzvUSPA+sUcoVfEe8RBr1xYN6IneREP3nLDYwUE+36cZWZ1SO1fV6eGGsKwkqMR9/FqPJIHUhiS++siodvRkzx/dI1wnEbnZ9sXrqXFw26LG/bV9V1M7Hy97aCavvMP48rUzu7PfOzU7MrQ/FY20zDfo3hYGkHXjv13rI0uusVVv/exdNgd/crPLzOf6rS17B2o3emDtkIPqZT8yFR1cSXGbQ1xa0oScVkQiTK/UOLMC/+yvByfzwldyqcfPEBw8S7vt9/rYApPPcFaV7OgGF7JRoR5ilQgnpeY8AxEHqgEdpfmF+Bk1VrihHs1bOsw0UWqck1P1Pb/rjyepuDmIvlbGLnTBt1Yk/gJowoGpOdNfGZ4vxH3t28IeDceKwSuDk/siM8q0LZNdG78sc3/F7bTWPf5r78PrmNl6w98VHV9Ilv/U6UvzmMq48IcAuQCcyqqq0Qi5b0Ip8hNDfD5G5X4LUpST3qRadoJKZWsbZm9EgkEiV260MyYCxAUrKX
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(36860700004)(376005)(82310400014); DIR:OUT;
+ SFS:(13230031)(36860700004)(82310400014)(1800799015)(376005); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 06:37:07.1931 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e51eb912-7468-407f-4a79-08dc48a829c7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 06:37:14.2056 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 08175ac5-642c-4b3a-513a-08dc48a82df5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB73.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB76.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6532
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6862
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,61 +112,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+From: Sridevi Arvindekar <sridevi.arvindekar@amd.com>
 
-[Why&How]
-Some panels don't meet the stutter threshold (4k etc), this leads to
-power regressions. Allow z8 for panels that don't meet the threshold
-but support PSR/replay
+[Why]
+Number of hpo dp2 link encoders is increased.
+Instances are changed.
 
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+[How]
+Increased size in resource pool, init for each instance
+
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
 Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Sridevi Arvindekar <sridevi.arvindekar@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c | 2 +-
- drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c   | 9 +++++++++
- 2 files changed, 10 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-index 33ea89f20449..714c2fe03c5f 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-@@ -603,7 +603,7 @@ void dcn35_decide_zstate_support(struct dc *dc, struct dc_state *context)
- 		if (is_pwrseq0 && allow_z10)
- 			support = DCN_ZSTATE_SUPPORT_ALLOW;
- 		else if (is_pwrseq0 && (is_psr || is_replay))
--			support = allow_z8 ? DCN_ZSTATE_SUPPORT_ALLOW_Z8_Z10_ONLY : DCN_ZSTATE_SUPPORT_ALLOW_Z10_ONLY;
-+			support = DCN_ZSTATE_SUPPORT_ALLOW_Z8_Z10_ONLY;
- 		else if (allow_z8)
- 			support = DCN_ZSTATE_SUPPORT_ALLOW_Z8_ONLY;
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
+index dcae23faeee3..c1835ad6550f 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
+@@ -47,7 +47,7 @@
+ #define MAX_DIG_LINK_ENCODERS 7
+ #define MAX_DWB_PIPES	1
+ #define MAX_HPO_DP2_ENCODERS	4
+-#define MAX_HPO_DP2_LINK_ENCODERS	2
++#define MAX_HPO_DP2_LINK_ENCODERS	4
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-index 72cca367062e..e2489eaabb20 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-@@ -570,6 +570,7 @@ static bool dml2_validate_and_build_resource(const struct dc *in_dc, struct dc_s
- 	struct dml2_dcn_clocks out_clks;
- 	unsigned int result = 0;
- 	bool need_recalculation = false;
-+	uint32_t cstate_enter_plus_exit_z8_ns;
- 
- 	if (!context || context->stream_count == 0)
- 		return true;
-@@ -641,6 +642,14 @@ static bool dml2_validate_and_build_resource(const struct dc *in_dc, struct dc_s
- 		dml2_extract_watermark_set(&context->bw_ctx.bw.dcn.watermarks.d, &dml2->v20.dml_core_ctx);
- 		//copy for deciding zstate use
- 		context->bw_ctx.dml.vba.StutterPeriod = context->bw_ctx.dml2->v20.dml_core_ctx.mp.StutterPeriod;
-+
-+		cstate_enter_plus_exit_z8_ns = context->bw_ctx.bw.dcn.watermarks.a.cstate_pstate.cstate_enter_plus_exit_z8_ns;
-+
-+		if (context->bw_ctx.dml.vba.StutterPeriod < in_dc->debug.minimum_z8_residency_time &&
-+				cstate_enter_plus_exit_z8_ns < in_dc->debug.minimum_z8_residency_time * 1000)
-+			cstate_enter_plus_exit_z8_ns = in_dc->debug.minimum_z8_residency_time * 1000;
-+
-+		context->bw_ctx.bw.dcn.watermarks.a.cstate_pstate.cstate_enter_plus_exit_z8_ns = cstate_enter_plus_exit_z8_ns;
- 	}
- 
- 	return result;
+ struct gamma_curve {
+ 	uint32_t offset;
 -- 
 2.34.1
 
