@@ -4,76 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 144B1C54E68
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 09:21:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BF30CD11DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 09:21:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D88BB10E42C;
-	Thu, 21 Mar 2024 09:21:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50D6110E435;
+	Thu, 21 Mar 2024 09:21:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kdN+41f+";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="QVRFc9Y+";
 	dkim-atps=neutral
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAE2010FC8C
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 14:24:46 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-513c8b72b24so7645034e87.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 07:24:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710944685; x=1711549485; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CIpZ81OiK8i/n4RlGngn6tAkU4dlWaxx4D+c6j7SUF8=;
- b=kdN+41f+Rx3qtJlhdM4Vv4tn9cr2iruEHq9QWKXozTRFIZE3CsXuOq4U0rbhAhn+Q9
- JU7KESoG5hGYbj3KyEIVZa/+b9cljbEeU0VFF1hhDvSBRlIeZk8xxVZzNDXnvaMw0PLx
- MCTf2jM8AyNr+g67lo2ATJY5sT3gK9mdMR9+sdLPqgJG6so+2V6e4sz1+AUyLZi6JpPY
- xy9yTes3J0uiJTsyINO/4BbJQOcaE306p0I8uPK6irkHadKvC7JqtD6R3jQx3JLErTXM
- 9hU7qHfUbkueK6MBVOEl5pACIv+RQAJ03qUVl4/UgTKWaD0W9BH/FeYshoAQipoqNV4G
- IB1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710944685; x=1711549485;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CIpZ81OiK8i/n4RlGngn6tAkU4dlWaxx4D+c6j7SUF8=;
- b=DeQP9lo0TMKpmMx+RlSBUVGnCFGJk/GplGgJq+etQBZ3DOuD0PC4QF8G00+sK2acyS
- DJL3oj9xJP/hgczC/3vLPs8BpHlNKE5S7vS7P0F4mutqtVymHOef09gTR+D+LaA6Qocs
- 5XL7F5+EX3XffF2TjYN8oceET9KBqfd5rVDuy+qs07bvdZ8gZ2zNTUtUgVGHMc0wuYo2
- NJn+5dgqCf+40anpj/7ts56RaHz1LOELkjIfHHC4TYFzATc6lMRi2Wlwg62EFKhpwCLC
- dux3EgczAJBaXjhFbKVcndel/5knoTD7fr9FJXwT8zYgfsd/SdWsasvUo+aexor67PZ6
- GJqg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXd/eD1Z7HCK350jmGOnDJ1h5H1X8OH4T0N+eJaLWF+yq/nT4S9i6j5IA9Pq2oO4VAsQ3LOF7d4AfJPVFo3JTYDBpcfqCWhSxm5dt+SKg==
-X-Gm-Message-State: AOJu0YyxjeQwlKYhBhs7xkF2vPICcFDx2ywcHZJ77uO2vVa+kj7VIO/9
- jkJ6YYe/ExA2nMLmVXT1lFtM0NsEUYDSutcU8ubE4d0Li2FuVtFF0PaXjr+TiFpgtxNFoYTdivG
- mPsMEQKQ8DlEPTIdoOm5ql9o8VrQ=
-X-Google-Smtp-Source: AGHT+IHVl3WESMdvzEi8HZi1/YNXm+62QPOhi4JClE5pVRHLw/eQ8y4tjZXPEONUlsuLdoS64AkKKBiywtQhdAnn7N4=
-X-Received: by 2002:a05:6512:472:b0:513:e2bd:6d15 with SMTP id
- x18-20020a056512047200b00513e2bd6d15mr4206157lfd.49.1710944684436; Wed, 20
- Mar 2024 07:24:44 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A76310FD02
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 14:40:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=MRqrs/Qv/bGTR4JHVx8FbBjirTbauAmoznjd/VLfO4k=; b=QVRFc9Y+MRTfCihOnJ3TB/UCVK
+ d/In5jTS4Vk54UaQVrzYBag2RqNqHa+tsG+fYCElJp+ESJ+wa+fCE4wDUAeNe+vXhw6Ulp48x76vn
+ eL8hUgCBXvZi0Cd8JwyZvhZDrqQToSBcaCdKiU36ultyk/x8bw81fkI4u9yPmHIzAu+4P6FBFlHw5
+ aInquurg90NcD9k3QmOPwirhDheqL7u80i8nBL2J2pduqkK0vs7tfOQ+6A8D4ZLb/lPV4MKrscjB+
+ MRw/B09L1XwfaRzNSeXTIk1vnivQhNQZmmnixbEcwDyIIASUkAM5LH/nIyRTorfRO2R20m+7jc+er
+ 1Cmt5twQ==;
+Received: from [84.65.0.132] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1rmx7Z-00CxsW-U5; Wed, 20 Mar 2024 15:40:50 +0100
+From: Tvrtko Ursulin <tursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>, Beyond Wang <Wang.Beyond@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix use after free in trace_amdgpu_bo_move
+Date: Wed, 20 Mar 2024 14:40:38 +0000
+Message-ID: <20240320144038.46706-1-tursulin@igalia.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-References: <20240318065211.11097-1-kkartaltepe@gmail.com>
- <CADnq5_MxfDSaOoD9J2DfdkM2wzX_HfRPkLv8CSSVPzJSKi1aUQ@mail.gmail.com>
- <CACawnnzv5Ro32h3wJ_5EQ=9k=b8mGA4FEGjXbWTUP-jdmWERBg@mail.gmail.com>
- <CADnq5_N4eZ9LbDRLwbAv0NVnmp1GrMwp+cDs4tP0FHwf1r7YRg@mail.gmail.com>
- <CACawnnz17jd4f+VrVhx5oH_DmOSb7jSLGZnmj0PcOZeQ+=UD5A@mail.gmail.com>
- <CADnq5_Mj_9=hBC47K5urr5VLTiaUQsv1Lib0uPTq8-XGSDh-tw@mail.gmail.com>
- <CADnq5_OtProx-8d_0epm9TrYtE_rHLYDhEb6XrK9bgOPi7MicQ@mail.gmail.com>
- <CACawnnx8Z5jbBdzct9Omeq3Y6iJhMDTDy_C3DRPe9irjoHRn+Q@mail.gmail.com>
- <cbc7739a-21c3-4872-bcb0-4fceaf607d32@amd.com>
- <CACawnnwei18rsUPXcPW8iUBXyKBghoOHSzMMy6ndwi64ovF88g@mail.gmail.com>
- <8fcf6836-8c86-4072-b201-e8a62c438e2c@gmail.com>
-In-Reply-To: <8fcf6836-8c86-4072-b201-e8a62c438e2c@gmail.com>
-From: Kurt Kartaltepe <kkartaltepe@gmail.com>
-Date: Wed, 20 Mar 2024 07:24:33 -0700
-Message-ID: <CACawnnxFhzJuy_RLJ7urgwzLW9+2A4En69Sj9SvNPg2YqW92iw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Remove pci address checks from acpi_vfct_bios
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 21 Mar 2024 09:21:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,58 +59,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 20, 2024 at 6:31=E2=80=AFAM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
+From: Tvrtko Ursulin <tursulin@ursulin.net>
 
-> Can you provide the full output of lspci -vvvv. As far as I can see that =
-doesn't looks so invalid to me.
+Pipelined object migration will free up the old bo->resource, meaning
+the tracepoint added in 94aeb4117343 ("drm/amdgpu: fix ftrace event
+amdgpu_bo_move always move on same heap") will trigger an use after free
+when it dereferences the cached old_mem.
 
-I've added the relevant pci probing debug output without assign-busses
-and the lspci -vvvv for a boot with all devices visible.
-https://gist.github.com/kkartaltepe/2f01f33c7e7af33cf0d28678e91f50fb
+Fix it by caching the memory type locally, which is the only thing
+tracepoint wants to know about.
 
-> Well that is just a very very old workaround for a buggy BIOS on 20 year =
-old laptops. The last reference I could find for hardware which actually ne=
-eded it is this:
->
-> commit 8c4b2cf9af9b4ecc29d4f0ec4ecc8e94dc4432d7
-> Author: Bernhard Kaindl <bk@suse.de>
-> Date:   Sat Feb 18 01:36:55 2006 -0800
->
->     [PATCH] PCI: PCI/Cardbus cards hidden, needs pci=3Dassign-busses to f=
-ix
->
->
-> So as far as I know nobody had to use that in ages and I wouldn't expect =
-that this option actually works correctly on any modern hardware.
->
-> Especially not anything PCIe based since it messes up the ACPI to PCIe de=
-vice mappings. That amdgpu doesn't work is just the tip of the iceberg here=
-.
->
-> The bus assignment code in the PCI subsystem is made to support hotplug, =
-not completely re-number the root hubs from scratch. That is just a hack so=
-mebody came up with two decades ago to get some Cardbus slots in laptops wo=
-rking.
->
-> I'm not sure yet what's going wrong with the Thunderbold controller, but =
-completely re-assigning bus numbers is certainly the wrong approach.
+While at it convert the whole function to use the cached memory types for
+consistency.
 
-I was referring to the work outlined in
-https://ostconf.com/system/attachments/files/000/001/698/original/Sergei_Mi=
-roshnichenko_linux_piter_2019_presentation.pdf?1570136708
-for nvme enclosures. Which maybe referncing more the movable BARs than
-the renumbering that occurs with assign-busses, but also on power with
-device trees which may behave differently as it mentions assign-busses
-to get this same renumbering of buses. This makes me think at least
-modern non-x86 devices expect to behave this way, which may not be
-relevant to ACPI/x86 systems but at least this shared pci code should
-be solid.
+Signed-off-by: Tvrtko Ursulin <tursulin@ursulin.net>
+Fixes: 94aeb4117343 ("drm/amdgpu: fix ftrace event amdgpu_bo_move always move on same heap")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3171
+Cc: Beyond Wang <Wang.Beyond@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+---
+Beware this is a speculative fix for now based only on source code
+analysis and backtraces from 3171. It is also a bit on the churny side so
+I am happy to minimize it. But most importantly, given how I don't have
+any experience in amdgpu, I am looking for domain experts to either
+confirm or disprove my analysis.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 47 ++++++++++++-------------
+ 1 file changed, 22 insertions(+), 25 deletions(-)
 
-> I'm not sure yet what's going wrong with the Thunderbold controller, but =
-completely re-assigning bus numbers is certainly the wrong approach.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 8722beba494e..e38d2945dbf3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -452,10 +452,11 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+ 	struct amdgpu_device *adev;
+ 	struct amdgpu_bo *abo;
+ 	struct ttm_resource *old_mem = bo->resource;
++	uint32_t new_mem_type = new_mem->type;
++	uint32_t old_mem_type;
+ 	int r;
+ 
+-	if (new_mem->mem_type == TTM_PL_TT ||
+-	    new_mem->mem_type == AMDGPU_PL_PREEMPT) {
++	if (new_mem_type == TTM_PL_TT || new_mem_type == AMDGPU_PL_PREEMPT) {
+ 		r = amdgpu_ttm_backend_bind(bo->bdev, bo->ttm, new_mem);
+ 		if (r)
+ 			return r;
+@@ -464,20 +465,18 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+ 	abo = ttm_to_amdgpu_bo(bo);
+ 	adev = amdgpu_ttm_adev(bo->bdev);
+ 
+-	if (!old_mem || (old_mem->mem_type == TTM_PL_SYSTEM &&
+-			 bo->ttm == NULL)) {
++	if (!old_mem || (old_mem->mem_type == TTM_PL_SYSTEM && bo->ttm == NULL)) {
+ 		ttm_bo_move_null(bo, new_mem);
+ 		goto out;
+ 	}
+-	if (old_mem->mem_type == TTM_PL_SYSTEM &&
+-	    (new_mem->mem_type == TTM_PL_TT ||
+-	     new_mem->mem_type == AMDGPU_PL_PREEMPT)) {
++	old_mem_type = old_mem->mem_type;
++	if (old_mem_type == TTM_PL_SYSTEM &&
++	    (new_mem_type == TTM_PL_TT || new_mem_type == AMDGPU_PL_PREEMPT)) {
+ 		ttm_bo_move_null(bo, new_mem);
+ 		goto out;
+ 	}
+-	if ((old_mem->mem_type == TTM_PL_TT ||
+-	     old_mem->mem_type == AMDGPU_PL_PREEMPT) &&
+-	    new_mem->mem_type == TTM_PL_SYSTEM) {
++	if ((old_mem_type == TTM_PL_TT || old_mem_type == AMDGPU_PL_PREEMPT) &&
++	    new_mem_type == TTM_PL_SYSTEM) {
+ 		r = ttm_bo_wait_ctx(bo, ctx);
+ 		if (r)
+ 			return r;
+@@ -488,22 +487,22 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+ 		goto out;
+ 	}
+ 
+-	if (old_mem->mem_type == AMDGPU_PL_GDS ||
+-	    old_mem->mem_type == AMDGPU_PL_GWS ||
+-	    old_mem->mem_type == AMDGPU_PL_OA ||
+-	    old_mem->mem_type == AMDGPU_PL_DOORBELL ||
+-	    new_mem->mem_type == AMDGPU_PL_GDS ||
+-	    new_mem->mem_type == AMDGPU_PL_GWS ||
+-	    new_mem->mem_type == AMDGPU_PL_OA ||
+-	    new_mem->mem_type == AMDGPU_PL_DOORBELL) {
++	if (old_mem_type == AMDGPU_PL_GDS ||
++	    old_mem_type == AMDGPU_PL_GWS ||
++	    old_mem_type == AMDGPU_PL_OA ||
++	    old_mem_type == AMDGPU_PL_DOORBELL ||
++	    new_mem_type == AMDGPU_PL_GDS ||
++	    new_mem_type == AMDGPU_PL_GWS ||
++	    new_mem_type == AMDGPU_PL_OA ||
++	    new_mem_type == AMDGPU_PL_DOORBELL) {
+ 		/* Nothing to save here */
+ 		ttm_bo_move_null(bo, new_mem);
+ 		goto out;
+ 	}
+ 
+ 	if (bo->type == ttm_bo_type_device &&
+-	    new_mem->mem_type == TTM_PL_VRAM &&
+-	    old_mem->mem_type != TTM_PL_VRAM) {
++	    new_mem_type == TTM_PL_VRAM &&
++	    old_mem_type != TTM_PL_VRAM) {
+ 		/* amdgpu_bo_fault_reserve_notify will re-set this if the CPU
+ 		 * accesses the BO after it's moved.
+ 		 */
+@@ -511,10 +510,8 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+ 	}
+ 
+ 	if (adev->mman.buffer_funcs_enabled) {
+-		if (((old_mem->mem_type == TTM_PL_SYSTEM &&
+-		      new_mem->mem_type == TTM_PL_VRAM) ||
+-		     (old_mem->mem_type == TTM_PL_VRAM &&
+-		      new_mem->mem_type == TTM_PL_SYSTEM))) {
++		if (((old_mem_type == TTM_PL_SYSTEM && new_mem_type == TTM_PL_VRAM) ||
++		     (old_mem_type == TTM_PL_VRAM && new_mem_type == TTM_PL_SYSTEM))) {
+ 			hop->fpfn = 0;
+ 			hop->lpfn = 0;
+ 			hop->mem_type = TTM_PL_TT;
+@@ -540,7 +537,7 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+ 			return r;
+ 	}
+ 
+-	trace_amdgpu_bo_move(abo, new_mem->mem_type, old_mem->mem_type);
++	trace_amdgpu_bo_move(abo, new_mem_type, old_mem_type);
+ out:
+ 	/* update statistics */
+ 	atomic64_add(bo->base.size, &adev->num_bytes_moved);
+-- 
+2.44.0
 
-I agree, it is just what is currently available in the kernel. A less
-disruptive approach seems needed.
-
---Kurt Kartaltepe
