@@ -4,34 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D80E8C54E58
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 19:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62995C54E58
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 20:10:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 212D510F48D;
-	Wed, 20 Mar 2024 19:44:27 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D86ED10FA66;
- Wed, 20 Mar 2024 19:44:24 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 42KJiJRQ1003386; Thu, 21 Mar 2024 01:14:19 +0530
-Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 42KJiJQH1003379;
- Thu, 21 Mar 2024 01:14:19 +0530
-From: Sunil Khatri <sunil.khatri@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Hawking Zhang <Hawking.Zhang@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH] drm/amdgpu: refactor code to split devcoredump code
-Date: Thu, 21 Mar 2024 01:14:13 +0530
-Message-Id: <20240320194413.1003336-1-sunil.khatri@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDEBF10E11D;
+	Wed, 20 Mar 2024 20:10:26 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0omv+fn7";
+	dkim-atps=neutral
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2080.outbound.protection.outlook.com [40.107.92.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2460C10E1F8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 20:10:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=E81RrHCKXDFg1/XJQN5jrobWuJ5QAHQnf/PwUgey9J0kwVr92j4sj8QXENqzXnBhFXh4FjUGic1/cjc97E0Hfh8JnGd4fAwpAjpOA59gODWDNMKcV8nY5MrtfLGYG7b/L2Han3jL3LQLHgegkAUwJTn7tAQShwMs0vLiO8IOtdvDttIYZ1Gegn3GVj5n/070xeUEMo4U0gJo7hfV+uC6FNMwH+ptm6ZG0Tkvfb895hNb0ILxuvH7yMs9sUBOOvchmaHo928RhumEP+y9ATXH4ebMxCKR34XsOzxCQifwljWoLFy5MnIDpdqEYziZsXjrNv+1TOADl9eLR0fIad7plA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Biv0rTCKFxYMnNzxrheJ9+RNrNdxgT7xj+2d7v3dk8w=;
+ b=FCS9ZbALe47LElsapr6TKEURzWOEAP1rFBK0rqY3GsTHXHTXZP0ZtmNuvuFRxlZpqgZRczGvlON8tQ0j1L0nKsEeu44rLGWiW15/NgFf9doZLrqC2ccOuYAUxGIRcpKsT6YP/pvl61WZ21fFAmsgVR43KJvsLM6QNZGbk4qy5rRyFNzvSSaErXDWBzpzW/ie8XIYPaQMbGxTDB/dxanlcbxVFV/iH8NVN7tCTZmV9nIyvhPxaUIdfH3rY8iEx8i7W5M0RSdQ/UuSJeIGu8fzfiIyJ9KSv+3g45nJJYakvLL79L4ATtPIF5s8wDmsLnTjBI6Be8N5htK62/CVpxyNBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Biv0rTCKFxYMnNzxrheJ9+RNrNdxgT7xj+2d7v3dk8w=;
+ b=0omv+fn7B+8lwarkhX0nIQbjyQ5viwyddkZgQY+2lLK14lkoVwx1f3n1c13eeimXIQ3KLV7YvnLZHzdLNb9At86ol+Bgxv52ra6E3ci3QxhHD5KyC71z6XZMA6SYSLG2auGjoL04j1G9q1wvT7xIs5u9pzOAJGOewHw5cUbtrNI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MW6PR12MB8733.namprd12.prod.outlook.com (2603:10b6:303:24c::8)
+ by BY5PR12MB4097.namprd12.prod.outlook.com (2603:10b6:a03:213::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.34; Wed, 20 Mar
+ 2024 20:10:22 +0000
+Received: from MW6PR12MB8733.namprd12.prod.outlook.com
+ ([fe80::2243:aadd:acd3:3455]) by MW6PR12MB8733.namprd12.prod.outlook.com
+ ([fe80::2243:aadd:acd3:3455%4]) with mapi id 15.20.7386.030; Wed, 20 Mar 2024
+ 20:10:22 +0000
+Message-ID: <4bd6acaa-5114-4a4e-9b8b-1e4166e55fac@amd.com>
+Date: Wed, 20 Mar 2024 14:10:17 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Revert "drm/amd/display: Fix sending VSC (+ colorimetry)
+ packets for DP/eDP displays without PSR"
+Content-Language: en-US
+To: Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20240312152425.171452-1-harry.wentland@amd.com>
+From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20240312152425.171452-1-harry.wentland@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BN0PR03CA0004.namprd03.prod.outlook.com
+ (2603:10b6:408:e6::9) To MW6PR12MB8733.namprd12.prod.outlook.com
+ (2603:10b6:303:24c::8)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW6PR12MB8733:EE_|BY5PR12MB4097:EE_
+X-MS-Office365-Filtering-Correlation-Id: 127b8f5e-bc56-488e-902c-08dc4919c5aa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Ed1ZVA5vvkXx9kTuMFrl14pYuiDDzV1JDHpnL3jyeMUGVReF26STQEXgLTZ+cPFIUUzAfaXPWXmimTGUDDlyWxkl8jQG7Q0b7UH9o3/BmJiSb8LQkOA/0YlfTMpOvyJlJ4DpoqH2AxvuriBoTZdY4mkuZfpkDFDy4UW/6h6GSiu3hcvneioKYUcPu/z/kItjlVHnxXjEgg+tX3HebmKiPfx+QzQFMxpRaK6VO4xwgko+azfqunW/bK9p7zk7DSsbQtcxKwQSWseSXbKlToWlY2OWLRZ32JPv5S2PyqrEIL6qt0UENCp8qLLHBbfbO4KOLQG46jkk7nUnXWxtShxemWXUoXoqAqth6mXWG0cjKk7pzm1sfVdBk1GKkvR0a3KBbysR+OAv3EVEccbgvJ7j93kNzhtZpWJx68BD40JY+zu3s6Tn7GFl0K1AZm6TJ1mY6+L0InKOmQX7wSjiHEh2MHJg2VaB64GeYA1tSJpZ2Y3JjqwT/3H85T1PGEpbcokj/t9tCBDo0jeDE9jN6VPdpgO+TaYV/csg7M3CP6a7a4hy7672vstFM8OZW9uoM/aj16X/LSQKRYPfAk8vi4eNGbHm1znln3g0gIyMMbmUD/nlSBcW1oCso4IYQh7M8P9X
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW6PR12MB8733.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emU4T0pZN3pwdE42bGJCcGtqUThhVVdGd1gyWi80dVp3aThnOW1YVWNYaEpy?=
+ =?utf-8?B?SHNzelBobGdRVFdOZUhOdURYV0ZGeXdjWEVUTXYwemwxNkJSaGlqb3ZzL3Fx?=
+ =?utf-8?B?eVFrbjVZRmFYd3dUckFhVmswaHhKaXR3TFFyRzZwOEEyMmk4Y3RmODRXeXFO?=
+ =?utf-8?B?NEpvOXR4bDRJNTk2Q3VhMEdiOWxwSVZUUnNTQmtPeHhiRnFXSHcxRGQyeUN4?=
+ =?utf-8?B?ald0WWZTcG1XZEloUHFQZ1hodFZVV2lzNTJUM0JGMi8vWFYwNVNIazZCMGF4?=
+ =?utf-8?B?bzNRaXZUb0c2Y0JCZUIzU0ZCWFYvaTVDOEgwd2NiajJwSFpqY2hmbWhYSTZR?=
+ =?utf-8?B?Wmd0Q3QreTVvMlJIK1JYNERrOTBvV2pqbzBHZXh6NWExMkgzSHpGak5aWGJY?=
+ =?utf-8?B?VUdVekhNSXpvcFAybnJQdWpzb1dIU3ZrcFNQTVliQVdDNXAwOGlnSmk5OW1T?=
+ =?utf-8?B?VmVBTit0REVWTHp2SWdzeFhDOUVMcWFldStBSk1YcHJWbjliYURhdnJkV09l?=
+ =?utf-8?B?MTlZei9tbFQrYWsxaHkwUnQyRUlhNStoUXpGM3NZRjNSTHB5dmlDV2JUd092?=
+ =?utf-8?B?ejRISG9IeSt4OHErcFo3dkltNFJ1cm1qRWdoeFFSekV5WmtrSVhXcTN5dk91?=
+ =?utf-8?B?ZVllS2VUQ1QweFMvTXJmUmxacXNRUkczSytWelBETFl2TUp5bGdqdkR2TDZZ?=
+ =?utf-8?B?dDFLaXZHN1FnaXJWc0pMTUdFQTZVVG04SjBONEpWWmRiUjdxQWswYTJNWllY?=
+ =?utf-8?B?OTdBeGNxd3VMOXdweHd2Q2RmNGRsOWhCeTlLVEN5REhMcG13elJTbkdTTWhD?=
+ =?utf-8?B?emFYWmp4N1hKcEllajRNWVpXUFYwM2gwL2xtSVZrM3dadFF3VmdMNWVKSk4z?=
+ =?utf-8?B?OXdRelAxWmdCTS9xQmNicFRHY1pqTE84RzFXbEsycFd4MWQwVkZKejhQS3Ro?=
+ =?utf-8?B?VVFvTDJFR0JNWnJ6Z2J4Q1ZVa3hRbFhBMXExVEhqVnk1Tk5YQkJha0pFaGZ3?=
+ =?utf-8?B?b0I1dXVTZ01lZ3lseGNERU1SRmJna1ZieTZJaXJjSUpzSjYxdHh1YU84SURC?=
+ =?utf-8?B?YkUwSk1DMUZ5b3dGb21LQTRUZDFxUmpQa1o3Yy9hcHpIVlhzdTcrR2NZZURx?=
+ =?utf-8?B?dERON3VyblFNV1lZVDBITWdGK3ZwdnZVZmdkZzZlWWVIT3JiNmxONy9KWDBp?=
+ =?utf-8?B?a2ExWERwY0lWclB5bFhrc25TZ3dlN1FJaHc2eGM0MUwvUHI4djlxZlNDK09M?=
+ =?utf-8?B?cmVZdlNaZEhXTzdLVFdURlc0U1p5VEo0cmFvb3Y4Wkx1bVl5YUFQRnVwZ3FY?=
+ =?utf-8?B?UEUxdHdtQUZBQUlxK0s3bVZKME1jWEtsREFPVlZrRG45WU1pQy9qVlVTOGg4?=
+ =?utf-8?B?RnlLNU8vYkFkaGZmNjV6ZDBqTmVadmdUUjk1ZXMzazFEVk9EdE4xZEpmNkd0?=
+ =?utf-8?B?b04wdlFKYkJheHhZYmFDdVM5SmZTd0dkN0R0K3RPVThpdGVTMlNCWTZMdWVv?=
+ =?utf-8?B?aTVSYlE5N01tNWt0RWxxOUVRR2g1WXVuYUV3aU5oeVlTcUVWcFNXKzFQR0lT?=
+ =?utf-8?B?SDc4Ulo1a3FLYnFDaVdtVG82aStuZERUTVlPLzVrUnJwU2VOdnFSS3llUjRM?=
+ =?utf-8?B?MERmQ2ZkYzhvTHRzek5aaytSU3RSNWVJYjNSbTRRR2ZiSTE5dHdNZHNYMUUx?=
+ =?utf-8?B?bk5abjl0bCs0L3E1YlJPOTdaQmRudmZUVmVUS1lqaTdlNkpid3NuK2FnTG5X?=
+ =?utf-8?B?L24yTzE5N3hqSXFhbUErdVlsUzlPaHcrWjh5cnJFcDRZaXBPRTFsOFZTRzhD?=
+ =?utf-8?B?Nnh1aGJ2d2tVaW5tYUJtSEVnMmVQSE5Gak5XOGQ3ZStIYjdKY1IyYnlDVW92?=
+ =?utf-8?B?NXdNa1dEdjdjREE3VzFTeUQrdHZ2NHlZQkthemJLZ2pmVEw1RldtQjkreWdF?=
+ =?utf-8?B?Y1U4bnp0T0Q3ZUcyaVNJWTlvWTVMSmUrMnVtTW1FQSsrM25OclVRQUkwWFBy?=
+ =?utf-8?B?WURnQ0lMYXloTTRPMUVXMkJkL2QrSGJMZjNVOVR4WitIbXhtcUtFaWFhVUYy?=
+ =?utf-8?B?Nng1QVN6R0ROdHpNeExuQVIrSVZUWVkrMXZpeXNET3g3VUFyb1dQRGZhVHJO?=
+ =?utf-8?Q?W1aDbdy9LiI7Qh49Uq6mBv//N?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 127b8f5e-bc56-488e-902c-08dc4919c5aa
+X-MS-Exchange-CrossTenant-AuthSource: MW6PR12MB8733.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 20:10:22.1071 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KNDAyxf+yH+ZOMhmIhMnKw/4tVqHbo7BA1hP4CE5zzXQLkYOiV2Acbh6lSJ8purQq6fKw+ngwl/Gk7hpaatzYQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4097
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,571 +128,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Refractor devcoredump code into new files since its
-functionality is expanded further and better to slit
-and devcoredump to have its own file.
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 218 ++++++++++++++++++
- .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h  |  46 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   4 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c     | 191 ---------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h     |  16 --
- 6 files changed, 269 insertions(+), 208 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 535e3936cfe0..1f6b56ec99f6 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -81,7 +81,7 @@ amdgpu-y += amdgpu_device.o amdgpu_doorbell_mgr.o amdgpu_kms.o \
- 	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
- 	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
- 	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
--	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o
-+	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o amdgpu_dev_coredump.o
- 
- amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-new file mode 100644
-index 000000000000..f3a0f5857598
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-@@ -0,0 +1,218 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright 2024 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include <generated/utsrelease.h>
-+
-+#ifndef CONFIG_DEV_COREDUMP
-+void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
-+		     struct amdgpu_reset_context *reset_context)
-+{
-+}
-+#else
-+
-+#include <linux/devcoredump.h>
-+#include "amdgpu_dev_coredump.h"
-+
-+const char *hw_ip_names[MAX_HWIP] = {
-+	[GC_HWIP]		= "GC",
-+	[HDP_HWIP]		= "HDP",
-+	[SDMA0_HWIP]		= "SDMA0",
-+	[SDMA1_HWIP]		= "SDMA1",
-+	[SDMA2_HWIP]		= "SDMA2",
-+	[SDMA3_HWIP]		= "SDMA3",
-+	[SDMA4_HWIP]		= "SDMA4",
-+	[SDMA5_HWIP]		= "SDMA5",
-+	[SDMA6_HWIP]		= "SDMA6",
-+	[SDMA7_HWIP]		= "SDMA7",
-+	[LSDMA_HWIP]		= "LSDMA",
-+	[MMHUB_HWIP]		= "MMHUB",
-+	[ATHUB_HWIP]		= "ATHUB",
-+	[NBIO_HWIP]		= "NBIO",
-+	[MP0_HWIP]		= "MP0",
-+	[MP1_HWIP]		= "MP1",
-+	[UVD_HWIP]		= "UVD/JPEG/VCN",
-+	[VCN1_HWIP]		= "VCN1",
-+	[VCE_HWIP]		= "VCE",
-+	[VPE_HWIP]		= "VPE",
-+	[DF_HWIP]		= "DF",
-+	[DCE_HWIP]		= "DCE",
-+	[OSSSYS_HWIP]		= "OSSSYS",
-+	[SMUIO_HWIP]		= "SMUIO",
-+	[PWR_HWIP]		= "PWR",
-+	[NBIF_HWIP]		= "NBIF",
-+	[THM_HWIP]		= "THM",
-+	[CLK_HWIP]		= "CLK",
-+	[UMC_HWIP]		= "UMC",
-+	[RSMU_HWIP]		= "RSMU",
-+	[XGMI_HWIP]		= "XGMI",
-+	[DCI_HWIP]		= "DCI",
-+	[PCIE_HWIP]		= "PCIE",
-+};
-+
-+static ssize_t
-+amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
-+			void *data, size_t datalen)
-+{
-+	struct drm_printer p;
-+	struct amdgpu_coredump_info *coredump = data;
-+	struct drm_print_iterator iter;
-+	struct amdgpu_vm_fault_info *fault_info;
-+	int i, ver;
-+
-+	iter.data = buffer;
-+	iter.offset = 0;
-+	iter.start = offset;
-+	iter.remain = count;
-+
-+	p = drm_coredump_printer(&iter);
-+
-+	drm_printf(&p, "**** AMDGPU Device Coredump ****\n");
-+	drm_printf(&p, "version: " AMDGPU_COREDUMP_VERSION "\n");
-+	drm_printf(&p, "kernel: " UTS_RELEASE "\n");
-+	drm_printf(&p, "module: " KBUILD_MODNAME "\n");
-+	drm_printf(&p, "time: %lld.%09ld\n", coredump->reset_time.tv_sec,
-+			coredump->reset_time.tv_nsec);
-+
-+	if (coredump->reset_task_info.pid)
-+		drm_printf(&p, "process_name: %s PID: %d\n",
-+			   coredump->reset_task_info.process_name,
-+			   coredump->reset_task_info.pid);
-+
-+	/* GPU IP's information of the SOC */
-+	drm_printf(&p, "\nIP Information\n");
-+	drm_printf(&p, "SOC Family: %d\n", coredump->adev->family);
-+	drm_printf(&p, "SOC Revision id: %d\n", coredump->adev->rev_id);
-+	drm_printf(&p, "SOC External Revision id: %d\n", coredump->adev->external_rev_id);
-+
-+	for (int i = 1; i < MAX_HWIP; i++) {
-+		for (int j = 0; j < HWIP_MAX_INSTANCE; j++) {
-+			ver = coredump->adev->ip_versions[i][j];
-+			if (ver)
-+				drm_printf(&p, "HWIP: %s[%d][%d]: v%d.%d.%d.%d.%d\n",
-+					   hw_ip_names[i], i, j,
-+					   IP_VERSION_MAJ(ver),
-+					   IP_VERSION_MIN(ver),
-+					   IP_VERSION_REV(ver),
-+					   IP_VERSION_VARIANT(ver),
-+					   IP_VERSION_SUBREV(ver));
-+		}
-+	}
-+
-+	if (coredump->ring) {
-+		drm_printf(&p, "\nRing timed out details\n");
-+		drm_printf(&p, "IP Type: %d Ring Name: %s\n",
-+			   coredump->ring->funcs->type,
-+			   coredump->ring->name);
-+	}
-+
-+	/* Add page fault information */
-+	fault_info = &coredump->adev->vm_manager.fault_info;
-+	drm_printf(&p, "\n[%s] Page fault observed\n",
-+		   fault_info->vmhub ? "mmhub" : "gfxhub");
-+	drm_printf(&p, "Faulty page starting at address: 0x%016llx\n", fault_info->addr);
-+	drm_printf(&p, "Protection fault status register: 0x%x\n\n", fault_info->status);
-+
-+	/* Add ring buffer information */
-+	drm_printf(&p, "Ring buffer information\n");
-+	for (int i = 0; i < coredump->adev->num_rings; i++) {
-+		int j = 0;
-+		struct amdgpu_ring *ring = coredump->adev->rings[i];
-+
-+		drm_printf(&p, "ring name: %s\n", ring->name);
-+		drm_printf(&p, "Rptr: 0x%llx Wptr: 0x%llx RB mask: %x\n",
-+			   amdgpu_ring_get_rptr(ring),
-+			   amdgpu_ring_get_wptr(ring),
-+			   ring->buf_mask);
-+		drm_printf(&p, "Ring size in dwords: %d\n",
-+			   ring->ring_size / 4);
-+		drm_printf(&p, "Ring contents\n");
-+		drm_printf(&p, "Offset \t Value\n");
-+
-+		while (j < ring->ring_size) {
-+			drm_printf(&p, "0x%x \t 0x%x\n", j, ring->ring[j/4]);
-+			j += 4;
-+		}
-+	}
-+
-+	if (coredump->reset_vram_lost)
-+		drm_printf(&p, "VRAM is lost due to GPU reset!\n");
-+	if (coredump->adev->reset_info.num_regs) {
-+		drm_printf(&p, "AMDGPU register dumps:\nOffset:     Value:\n");
-+
-+		for (i = 0; i < coredump->adev->reset_info.num_regs; i++)
-+			drm_printf(&p, "0x%08x: 0x%08x\n",
-+				   coredump->adev->reset_info.reset_dump_reg_list[i],
-+				   coredump->adev->reset_info.reset_dump_reg_value[i]);
-+	}
-+
-+	return count - iter.remain;
-+}
-+
-+static void amdgpu_devcoredump_free(void *data)
-+{
-+	kfree(data);
-+}
-+
-+void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
-+		     struct amdgpu_reset_context *reset_context)
-+{
-+	struct amdgpu_coredump_info *coredump;
-+	struct drm_device *dev = adev_to_drm(adev);
-+	struct amdgpu_job *job = reset_context->job;
-+	struct drm_sched_job *s_job;
-+
-+	coredump = kzalloc(sizeof(*coredump), GFP_NOWAIT);
-+
-+	if (!coredump) {
-+		DRM_ERROR("%s: failed to allocate memory for coredump\n", __func__);
-+		return;
-+	}
-+
-+	coredump->reset_vram_lost = vram_lost;
-+
-+	if (reset_context->job && reset_context->job->vm) {
-+		struct amdgpu_task_info *ti;
-+		struct amdgpu_vm *vm = reset_context->job->vm;
-+
-+		ti = amdgpu_vm_get_task_info_vm(vm);
-+		if (ti) {
-+			coredump->reset_task_info = *ti;
-+			amdgpu_vm_put_task_info(ti);
-+		}
-+	}
-+
-+	if (job) {
-+		s_job = &job->base;
-+		coredump->ring = to_amdgpu_ring(s_job->sched);
-+	}
-+
-+	coredump->adev = adev;
-+
-+	ktime_get_ts64(&coredump->reset_time);
-+
-+	dev_coredumpm(dev->dev, THIS_MODULE, coredump, 0, GFP_NOWAIT,
-+		      amdgpu_devcoredump_read, amdgpu_devcoredump_free);
-+}
-+#endif
-+
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-new file mode 100644
-index 000000000000..fdb8da73c1f2
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-@@ -0,0 +1,46 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright 2024 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef __AMDGPU_DEV_COREDUMP_H__
-+#define __AMDGPU_DEV_COREDUMP_H__
-+
-+#include "amdgpu.h"
-+#include "amdgpu_reset.h"
-+
-+#ifdef CONFIG_DEV_COREDUMP
-+
-+#define AMDGPU_COREDUMP_VERSION "1"
-+
-+struct amdgpu_coredump_info {
-+	struct amdgpu_device            *adev;
-+	struct amdgpu_task_info         reset_task_info;
-+	struct timespec64               reset_time;
-+	bool                            reset_vram_lost;
-+	struct amdgpu_ring              *ring;
-+};
-+
-+void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
-+		     struct amdgpu_reset_context *reset_context);
-+#endif
-+#endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 3204b8f6edeb..95028f57cb56 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -75,6 +75,10 @@
- #include "amdgpu_reset.h"
- #include "amdgpu_virt.h"
- 
-+#ifdef CONFIG_DEV_COREDUMP
-+#include "amdgpu_dev_coredump.h"
-+#endif
-+
- #include <linux/suspend.h>
- #include <drm/task_barrier.h>
- #include <linux/pm_runtime.h>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-index 3398f2a368d5..ea4873f6ccd1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-@@ -21,50 +21,11 @@
-  *
-  */
- 
--#include <linux/devcoredump.h>
--#include <generated/utsrelease.h>
--
- #include "amdgpu_reset.h"
- #include "aldebaran.h"
- #include "sienna_cichlid.h"
- #include "smu_v13_0_10.h"
- 
--const char *hw_ip_names[MAX_HWIP] = {
--	[GC_HWIP]		= "GC",
--	[HDP_HWIP]		= "HDP",
--	[SDMA0_HWIP]		= "SDMA0",
--	[SDMA1_HWIP]		= "SDMA1",
--	[SDMA2_HWIP]		= "SDMA2",
--	[SDMA3_HWIP]		= "SDMA3",
--	[SDMA4_HWIP]		= "SDMA4",
--	[SDMA5_HWIP]		= "SDMA5",
--	[SDMA6_HWIP]		= "SDMA6",
--	[SDMA7_HWIP]		= "SDMA7",
--	[LSDMA_HWIP]		= "LSDMA",
--	[MMHUB_HWIP]		= "MMHUB",
--	[ATHUB_HWIP]		= "ATHUB",
--	[NBIO_HWIP]		= "NBIO",
--	[MP0_HWIP]		= "MP0",
--	[MP1_HWIP]		= "MP1",
--	[UVD_HWIP]		= "UVD/JPEG/VCN",
--	[VCN1_HWIP]		= "VCN1",
--	[VCE_HWIP]		= "VCE",
--	[VPE_HWIP]		= "VPE",
--	[DF_HWIP]		= "DF",
--	[DCE_HWIP]		= "DCE",
--	[OSSSYS_HWIP]		= "OSSSYS",
--	[SMUIO_HWIP]		= "SMUIO",
--	[PWR_HWIP]		= "PWR",
--	[NBIF_HWIP]		= "NBIF",
--	[THM_HWIP]		= "THM",
--	[CLK_HWIP]		= "CLK",
--	[UMC_HWIP]		= "UMC",
--	[RSMU_HWIP]		= "RSMU",
--	[XGMI_HWIP]		= "XGMI",
--	[DCI_HWIP]		= "DCI",
--	[PCIE_HWIP]		= "PCIE",
--};
--
- int amdgpu_reset_init(struct amdgpu_device *adev)
- {
- 	int ret = 0;
-@@ -197,155 +158,3 @@ void amdgpu_device_unlock_reset_domain(struct amdgpu_reset_domain *reset_domain)
- 	atomic_set(&reset_domain->in_gpu_reset, 0);
- 	up_write(&reset_domain->sem);
- }
--
--#ifndef CONFIG_DEV_COREDUMP
--void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
--		     struct amdgpu_reset_context *reset_context)
--{
--}
--#else
--static ssize_t
--amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
--			void *data, size_t datalen)
--{
--	struct drm_printer p;
--	struct amdgpu_coredump_info *coredump = data;
--	struct drm_print_iterator iter;
--	struct amdgpu_vm_fault_info *fault_info;
--	int i, ver;
--
--	iter.data = buffer;
--	iter.offset = 0;
--	iter.start = offset;
--	iter.remain = count;
--
--	p = drm_coredump_printer(&iter);
--
--	drm_printf(&p, "**** AMDGPU Device Coredump ****\n");
--	drm_printf(&p, "version: " AMDGPU_COREDUMP_VERSION "\n");
--	drm_printf(&p, "kernel: " UTS_RELEASE "\n");
--	drm_printf(&p, "module: " KBUILD_MODNAME "\n");
--	drm_printf(&p, "time: %lld.%09ld\n", coredump->reset_time.tv_sec,
--			coredump->reset_time.tv_nsec);
--
--	if (coredump->reset_task_info.pid)
--		drm_printf(&p, "process_name: %s PID: %d\n",
--			   coredump->reset_task_info.process_name,
--			   coredump->reset_task_info.pid);
--
--	/* GPU IP's information of the SOC */
--	drm_printf(&p, "\nIP Information\n");
--	drm_printf(&p, "SOC Family: %d\n", coredump->adev->family);
--	drm_printf(&p, "SOC Revision id: %d\n", coredump->adev->rev_id);
--	drm_printf(&p, "SOC External Revision id: %d\n", coredump->adev->external_rev_id);
--
--	for (int i = 1; i < MAX_HWIP; i++) {
--		for (int j = 0; j < HWIP_MAX_INSTANCE; j++) {
--			ver = coredump->adev->ip_versions[i][j];
--			if (ver)
--				drm_printf(&p, "HWIP: %s[%d][%d]: v%d.%d.%d.%d.%d\n",
--					   hw_ip_names[i], i, j,
--					   IP_VERSION_MAJ(ver),
--					   IP_VERSION_MIN(ver),
--					   IP_VERSION_REV(ver),
--					   IP_VERSION_VARIANT(ver),
--					   IP_VERSION_SUBREV(ver));
--		}
--	}
--
--	if (coredump->ring) {
--		drm_printf(&p, "\nRing timed out details\n");
--		drm_printf(&p, "IP Type: %d Ring Name: %s\n",
--			   coredump->ring->funcs->type,
--			   coredump->ring->name);
--	}
--
--	/* Add page fault information */
--	fault_info = &coredump->adev->vm_manager.fault_info;
--	drm_printf(&p, "\n[%s] Page fault observed\n",
--		   fault_info->vmhub ? "mmhub" : "gfxhub");
--	drm_printf(&p, "Faulty page starting at address: 0x%016llx\n", fault_info->addr);
--	drm_printf(&p, "Protection fault status register: 0x%x\n\n", fault_info->status);
--
--	/* Add ring buffer information */
--	drm_printf(&p, "Ring buffer information\n");
--	for (int i = 0; i < coredump->adev->num_rings; i++) {
--		int j = 0;
--		struct amdgpu_ring *ring = coredump->adev->rings[i];
--
--		drm_printf(&p, "ring name: %s\n", ring->name);
--		drm_printf(&p, "Rptr: 0x%llx Wptr: 0x%llx RB mask: %x\n",
--			   amdgpu_ring_get_rptr(ring),
--			   amdgpu_ring_get_wptr(ring),
--			   ring->buf_mask);
--		drm_printf(&p, "Ring size in dwords: %d\n",
--			   ring->ring_size / 4);
--		drm_printf(&p, "Ring contents\n");
--		drm_printf(&p, "Offset \t Value\n");
--
--		while (j < ring->ring_size) {
--			drm_printf(&p, "0x%x \t 0x%x\n", j, ring->ring[j/4]);
--			j += 4;
--		}
--	}
--
--	if (coredump->reset_vram_lost)
--		drm_printf(&p, "VRAM is lost due to GPU reset!\n");
--	if (coredump->adev->reset_info.num_regs) {
--		drm_printf(&p, "AMDGPU register dumps:\nOffset:     Value:\n");
--
--		for (i = 0; i < coredump->adev->reset_info.num_regs; i++)
--			drm_printf(&p, "0x%08x: 0x%08x\n",
--				   coredump->adev->reset_info.reset_dump_reg_list[i],
--				   coredump->adev->reset_info.reset_dump_reg_value[i]);
--	}
--
--	return count - iter.remain;
--}
--
--static void amdgpu_devcoredump_free(void *data)
--{
--	kfree(data);
--}
--
--void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
--		     struct amdgpu_reset_context *reset_context)
--{
--	struct amdgpu_coredump_info *coredump;
--	struct drm_device *dev = adev_to_drm(adev);
--	struct amdgpu_job *job = reset_context->job;
--	struct drm_sched_job *s_job;
--
--	coredump = kzalloc(sizeof(*coredump), GFP_NOWAIT);
--
--	if (!coredump) {
--		DRM_ERROR("%s: failed to allocate memory for coredump\n", __func__);
--		return;
--	}
--
--	coredump->reset_vram_lost = vram_lost;
--
--	if (reset_context->job && reset_context->job->vm) {
--		struct amdgpu_task_info *ti;
--		struct amdgpu_vm *vm = reset_context->job->vm;
--
--		ti = amdgpu_vm_get_task_info_vm(vm);
--		if (ti) {
--			coredump->reset_task_info = *ti;
--			amdgpu_vm_put_task_info(ti);
--		}
--	}
--
--	if (job) {
--		s_job = &job->base;
--		coredump->ring = to_amdgpu_ring(s_job->sched);
--	}
--
--	coredump->adev = adev;
--
--	ktime_get_ts64(&coredump->reset_time);
--
--	dev_coredumpm(dev->dev, THIS_MODULE, coredump, 0, GFP_NOWAIT,
--		      amdgpu_devcoredump_read, amdgpu_devcoredump_free);
--}
--#endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-index 60522963aaca..66125d43cf21 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-@@ -88,19 +88,6 @@ struct amdgpu_reset_domain {
- 	atomic_t reset_res;
- };
- 
--#ifdef CONFIG_DEV_COREDUMP
--
--#define AMDGPU_COREDUMP_VERSION "1"
--
--struct amdgpu_coredump_info {
--	struct amdgpu_device		*adev;
--	struct amdgpu_task_info         reset_task_info;
--	struct timespec64               reset_time;
--	bool                            reset_vram_lost;
--	struct amdgpu_ring			*ring;
--};
--#endif
--
- int amdgpu_reset_init(struct amdgpu_device *adev);
- int amdgpu_reset_fini(struct amdgpu_device *adev);
- 
-@@ -141,9 +128,6 @@ void amdgpu_device_lock_reset_domain(struct amdgpu_reset_domain *reset_domain);
- 
- void amdgpu_device_unlock_reset_domain(struct amdgpu_reset_domain *reset_domain);
- 
--void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
--		     struct amdgpu_reset_context *reset_context);
--
- #define for_each_handler(i, handler, reset_ctl)                  \
- 	for (i = 0; (i < AMDGPU_RESET_MAX_HANDLERS) &&           \
- 		    (handler = (*reset_ctl->reset_handlers)[i]); \
--- 
-2.34.1
+On 3/12/24 9:24 AM, Harry Wentland wrote:
+> This causes flicker on a bunch of eDP panels. The info_packet code
+> also caused regressions on other OSes that we haven't' seen on Linux
+> yet, but that is likely due to the fact that we haven't had a chance
+> to test those environments on Linux.
+> 
+> We'll need to revisit this.
+> 
+> This reverts commit bfd4e0b7eb4467f9db5bb37268565afec6cf513e.
+> 
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3207
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3151
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   |  8 +++-----
+>   .../amd/display/modules/info_packet/info_packet.c   | 13 +++++--------
+>   2 files changed, 8 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index cffb2655177c..6a61eb4148ad 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6302,9 +6302,8 @@ create_stream_for_sink(struct drm_connector *connector,
+>   
+>   	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+>   		mod_build_hf_vsif_infopacket(stream, &stream->vsp_infopacket);
+> -	else if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT ||
+> -			 stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST ||
+> -			 stream->signal == SIGNAL_TYPE_EDP) {
+> +
+> +	if (stream->link->psr_settings.psr_feature_enabled || stream->link->replay_settings.replay_feature_enabled) {
+>   		//
+>   		// should decide stream support vsc sdp colorimetry capability
+>   		// before building vsc info packet
+> @@ -6320,9 +6319,8 @@ create_stream_for_sink(struct drm_connector *connector,
+>   		if (stream->out_transfer_func->tf == TRANSFER_FUNCTION_GAMMA22)
+>   			tf = TRANSFER_FUNC_GAMMA_22;
+>   		mod_build_vsc_infopacket(stream, &stream->vsc_infopacket, stream->output_color_space, tf);
+> +		aconnector->psr_skip_count = AMDGPU_DM_PSR_ENTRY_DELAY;
+>   
+> -		if (stream->link->psr_settings.psr_feature_enabled)
+> -			aconnector->psr_skip_count = AMDGPU_DM_PSR_ENTRY_DELAY;
+>   	}
+>   finish:
+>   	dc_sink_release(sink);
+> diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+> index 738ee763f24a..84f9b412a4f1 100644
+> --- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+> +++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+> @@ -147,15 +147,12 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+>   	}
+>   
+>   	/* VSC packet set to 4 for PSR-SU, or 2 for PSR1 */
+> -	if (stream->link->psr_settings.psr_feature_enabled) {
+> -		if (stream->link->psr_settings.psr_version == DC_PSR_VERSION_SU_1)
+> -			vsc_packet_revision = vsc_packet_rev4;
+> -		else if (stream->link->psr_settings.psr_version == DC_PSR_VERSION_1)
+> -			vsc_packet_revision = vsc_packet_rev2;
+> -	}
+> -
+> -	if (stream->link->replay_settings.config.replay_supported)
+> +	if (stream->link->psr_settings.psr_version == DC_PSR_VERSION_SU_1)
+>   		vsc_packet_revision = vsc_packet_rev4;
+> +	else if (stream->link->replay_settings.config.replay_supported)
+> +		vsc_packet_revision = vsc_packet_rev4;
+> +	else if (stream->link->psr_settings.psr_version == DC_PSR_VERSION_1)
+> +		vsc_packet_revision = vsc_packet_rev2;
+>   
+>   	/* Update to revision 5 for extended colorimetry support */
+>   	if (stream->use_vsc_sdp_for_colorimetry)
+
+Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
