@@ -4,118 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B447C6FD1F
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 13:38:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4022C54E58
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 14:58:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED09310E148;
-	Wed, 20 Mar 2024 13:38:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B2F710EEFB;
+	Wed, 20 Mar 2024 14:58:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LXh24zsP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="K/mI1DUj";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A23AD10E148
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 13:38:43 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2076.outbound.protection.outlook.com [40.107.96.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D43EC10EEFB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 14:58:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GhHOcZFHES6O6WdCV8/zBYggK1J7dTYdu8CIsM8bQwLvFOMvW9tqzExZOtav2JsFQxk2xbUQvwrnndEkbiPCazpRCX2P/T9mUPsBtQrzTmLhQawOlT1qUyelyvlT/KsyTD9p43DkOis6DtIF/MoGxSaHeTqyhl0OvLeZo2sgNEAjc2WscB0mbefHCMaVJS+cppap8B51K8qDyjpbcjISYgH0zvl5hx04Ure2aEvMtx2pScExLpRDSo/Mg6rJBOVA5lq917/YrmODpO2Jym77AfMrx0k09Eln9ZERkbTHPC0HMNdfV44QUKUC8TEmEjNYZqooOVMBGqkCN7m7xyqvwQ==
+ b=HyrTJbPBqKXwH4t+Ldrh4+PE1MzYXt2Ax5KWH3cTn9vGMTnu1zKqVo7a+8NFROQ6R302bWR29HTrDJ3tVAqDVW9WGcZtEjTjWeGJo/4rJMUlruXHlPAZ/AForPSHK/CXLZyZIPVSUnog9j3aCX3ZYSHvwPd3dhoGmF1fwC5XYdLVyAhNey/Y+aX3vT0izbcHb0RFkbKR8FmYLZRC3c4ezCOPSDACamxXI7Gut9ZbvHoQHsqrwAapFDhjBLP8xZzhA/aHrrUvZJ7mumcOjY6AcVTx/eiduzRhGlUwHQbuRXJW8JaUdkSHp7R0aRMJCRpD4A0U/pqkprF9rNLSA5bICA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t50QNqHOgk2SQhcQmqDARmNjg8ulRwtGJjJ43fDtPJo=;
- b=aYV60L06uCFVh/QJQQi5mrHPo71AqVwhvm3Qmj9n0pCPhMqRC0DjCCtQD605QN4rJ9Xyxf8ANmrZcjxr/iI/1xYxNpI53TkBo4udxxoC82rCXHg4ofgKhwZE/uC6QRgvvBGEKnPnT+40Sh0rMGCXMIJoa7QpRXjjUsOEQhvSH7SvZVY0yMWSsLJn2LC75guVnNuh9ihpOci9lS7htGTGKauhqy8BQ3e62jQmXtnVpuX5AV9N6tLYHHtVO7KfGM6ChQOl8CpU3t7UkB9ANAZuM8rvAR0cqPHgDPWsTYcmAB4cISspqjVTg7XqItoXk8E3KKXyseZp2dLuVf0DXTq6rw==
+ bh=VVaQ69ixZAJwFNQLaZGcf2CYAdX3eTC5f9kifhQfScE=;
+ b=AAlsZs0ngxYZNAceGuKa7+EuirSQGb0do8p//SC6jJCMwj6elmdj1kng92SbahGheEgn614JKMev6qvS7TrZTps+FbNkeRUG5yMq3grmJFgFtOqGPCOX5w8erf9n016c9N3Nrgb2wQF59Hx/gOGxfR4kk8jvx3nTgj3igdfkJFaKoiVU2oOFVhrZ8w4k3iM80wQu7CKvBWLYHoqamtF7oF3R3pnYfNkEB3bs4c7+PDT3ULRneh0ARBAs+FtapJlzE8Tk7NzTPVd76pgygQz8OonsAs1UM/HOBv9PEodTrmo0TMAnhp68y9AOF8CKU4B5rk2X8BVx6dMSKrENQ+DYeQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t50QNqHOgk2SQhcQmqDARmNjg8ulRwtGJjJ43fDtPJo=;
- b=LXh24zsPnOKebwnJmD9/aC/JBIXRjvQWurgXlHrOvdeGsGk+RWoyjlP2955RokPsgn2GhF65KrPsxohMC9964ZEmLb35ndrNO0AQBV6XEtlGBgRqJ2Ov7EjlN1PPzLOBxzz9Rim4dCHSwE3plD890RaY1ACSCUfo0mvAL9tHXxs=
+ bh=VVaQ69ixZAJwFNQLaZGcf2CYAdX3eTC5f9kifhQfScE=;
+ b=K/mI1DUjGSwu/K/AVmMgv4Hsn4AKrDtIuxfevl/ts4mRx3ElX0Z0uB+sEgVD7KK1/shuo+qtqil23puKbYoFRLyYpel+CoFvaYMXvr270/9QN9rfc1QCubS8RLU6o6psbOqxpkXrvK6lYr0Wwrc7iNkYX7ToK1K3KKfxBJX5O88=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- IA0PR12MB9010.namprd12.prod.outlook.com (2603:10b6:208:48e::20) with
+Received: from MN2PR12MB4128.namprd12.prod.outlook.com (2603:10b6:208:1dd::15)
+ by DS0PR12MB7873.namprd12.prod.outlook.com (2603:10b6:8:142::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.30; Wed, 20 Mar
- 2024 13:38:38 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::f349:addf:ae3e:814]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::f349:addf:ae3e:814%5]) with mapi id 15.20.7386.025; Wed, 20 Mar 2024
- 13:38:38 +0000
-Message-ID: <cefa5729-e523-4d19-bd1e-d399e255eec3@amd.com>
-Date: Wed, 20 Mar 2024 19:08:30 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.27; Wed, 20 Mar
+ 2024 14:58:40 +0000
+Received: from MN2PR12MB4128.namprd12.prod.outlook.com
+ ([fe80::86b2:e267:3bf7:682e]) by MN2PR12MB4128.namprd12.prod.outlook.com
+ ([fe80::86b2:e267:3bf7:682e%4]) with mapi id 15.20.7386.030; Wed, 20 Mar 2024
+ 14:58:40 +0000
+Message-ID: <db154f26-6af1-41b2-a3ec-a4fd2afe0d5b@amd.com>
+Date: Wed, 20 Mar 2024 20:28:33 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Fix the runtime pm mode error
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>, Ma Jun <Jun.Ma2@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- Alexander.Deucher@amd.com
-References: <20240320100926.2614497-1-Jun.Ma2@amd.com>
- <CADnq5_MvSrn6YOgJHrY3rFqZ=ErPKnHm70Sg_n_QWBSLs4Jc_g@mail.gmail.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <CADnq5_MvSrn6YOgJHrY3rFqZ=ErPKnHm70Sg_n_QWBSLs4Jc_g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH] drm/amdgpu: Fix format character cut-off issues in
+ amdgpu_vcn_early_init()
+To: "Lazar, Lijo" <lijo.lazar@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20240320084513.3026222-1-srinivasan.shanmugam@amd.com>
+ <5d46d7bf-d487-4a60-9f73-7146947f989d@amd.com>
+Content-Language: en-GB
+From: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
+In-Reply-To: <5d46d7bf-d487-4a60-9f73-7146947f989d@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0099.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:27::14) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+X-ClientProxiedBy: PN2PR01CA0204.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:e9::14) To MN2PR12MB4128.namprd12.prod.outlook.com
+ (2603:10b6:208:1dd::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|IA0PR12MB9010:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff6569fd-96b1-4403-fdcc-08dc48e30bfc
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4128:EE_|DS0PR12MB7873:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88164adc-fae5-4b3f-71aa-08dc48ee3a96
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bNgLDgix7L4Yyebap9k4GkoArhMpJvbiyUSBt8JaTzNC9nAzzEeBifPEdrz6KPqa0PIwqa6eRwn46veH6ex3YyO65F2o/ut6MBQkSmu07i8w1BfZwKPJuF/aSsxyi9ezqMmq0NJaCGoL9sb/7O83zO3Nl+k2W8SzBv0zypLk/kagWW0mcVahixuD8ZYJV9hBOzBIyV3EJwT6ByP7rU9IhOOxuVsaC6Qc0+H7EP3yDCe9+95glalTrCLt3UVJLxEz5eyhjzEAQuKIn5GGH/HBoK7Gvn3xlsq4VY5dYKmXyuqlk5icHwv8umATiHJQNXCKz4K81X2cX82vf9AzVRBBCaMHboi2pMOhSgB/DoGbMi5txVYpbbOcFMJY1HmBVLr3un1DO2DHZfaslyiwluxB7Yp9TJsl7778scxqHE1TQIEAqjRvdTLsJ6vf2k958KG8sGgdAJAaklVhfk7tbQ7UBVk4d0Q9dO8LJs+2e8ykCtZ9zLs5lmrknPVgXHHECBqGvcEJv0abEbmaMC27oSEoWmOBYjtEzYRmS+4trOHwpz7cEPTxfSMKMr4xXh4OMB/pbFEQJvHygrKfMZbKiYdHh5PY06M+orZvU46SUoy3VPQqsBkaiSkiI5UflLmfqe+Y1VTI1Da/kys92jJ/dWr22OxfbxohooB9LujhzMoGh/g=
+X-Microsoft-Antispam-Message-Info: jP0qGScEktEsRo2/vceWiswQ77rbB0t0+Zmb5PA4KxtX7JRFT5MFw2dFTxXiG9pruHXy1rWMcs26XX0wqxdUp2di0ISZINntHVaHXRGFxBnIz62SWC22sQSiDPD1bufabi5Z/cBP0km1443XsjGLlyOZxuG0QHJXW/AuPNw1tbRuC1oqw+JtQWbvfV8dKj/rjgakN9dg2Wra2qggFBpMbq/LxLujRYMaVfC4QkNwYPu75GobIpICGNkhwsks/uVFswlPzRSuZtT5oVIa7c4vksU2D8ZcYCVf7uDYyINoi6nn/4Yv1J3MPYFQzTU6I1ad3h+xxNIYihydRWSoTy2YhMOTfsR0OwBLdB9GfU5uFrnjtUuGIbfjcefRChvEy+Tbt7UGBHR1TRD5vXz1YAOjMqc/uzTBfVcPEFy5jMvBRSeaox/9DiwVEqcffFmrPH5480hf4lUdoxCTwtdfqiA5i4rBX/UX2V/V21EPFmevlHb3pr9kDlhuuJ3oBYDIBxvuvcDjyOdfOY5T97jzDcqLlC3UWLeatDj6WOP4boSgVPxWXFrqb40HDUGA7k/Qzvuag6nEZ3rCkjpiOpLotyl+UaMpKxwtI51Jsx6Yg85snIOUIJQ3M6MQyVd6hrgTgR7DCCGWmdmdxxyCnVWnQMdCDrko6lR/7aLv4XxP3sdHlnY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(366007)(1800799015); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4128.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cnRoaGdmTlYxN0x3b3dtWnZkbHYvOURDK0pocTg2eU5iVmJEZGthZDJUZ3cw?=
- =?utf-8?B?WXhJeXVWSHJibVJHSXdwOU9TK0Z4UFhmenZ1T3VRTzNHM1ZxdFV2bkU2Vmdr?=
- =?utf-8?B?bTdNd1dXSmJ3MGlhWkN0VUZnbXpGU2U2cFkxc01NTXR5RHBxdGJGOHVKR3c3?=
- =?utf-8?B?ZnM5QVo1WGlwU1NRd0tkWnBjcW96bHRHYjkrbnNFeE5Zcm9lcW03UkNDU3dS?=
- =?utf-8?B?eGtubzBSMEFVODVVYVBqVDFxMG9YaHBiZ3k2a2VuSmVWUG84dVl6WnRXVTlM?=
- =?utf-8?B?UWZrc2N2SHpnZHd6QTA1MGZPb08rb1pPQzNsc05uY0dwU0xBZ1Q4bmUxMEZ6?=
- =?utf-8?B?dVZDTHlNMjlpbm5ONWJSNktMUDFWMy9IS3Z1Wjc0K1IwZXpYMlk0OWRoUG1a?=
- =?utf-8?B?bElQRjUxQVVJeVBRVy8wZTZKOGh5UFVjYTlva0FtekIyOWVzR09RanZ6MW5E?=
- =?utf-8?B?bTh1OEF5a0tHZEpCa3RUVVp2NDI4N2NSYStaTzBxTU1HQXBJT0Eybmw5cmJj?=
- =?utf-8?B?MGx0cnpqTTRBU0ZvdVBhbk8vT0RCam15WTlWSW5oemxOcGRaRnZmUjFManlE?=
- =?utf-8?B?eTY0UlhkeXZMRmtMZ29CR3ZOL2ZMd2lkZDZKTy9uWWhVS1BoQ2Q4MDFFR1U0?=
- =?utf-8?B?TVFOUHdCMGc3YXQwbjI2T05scWpVL0ozcE56RE1xOXN0Q2tJVE1qa0ZJU2lU?=
- =?utf-8?B?WXAySlVTWFYzalE3ekdWcldQRklLdTQ0WkVOM2VHZFJQVW1lZGVJazhtT1VC?=
- =?utf-8?B?RGtWVkxOK1M4dXdQSktWVG5XdWtEbC8vQmRsT2JGQ1NPTm45ekExeC8wSzRS?=
- =?utf-8?B?bDJGQ2FoSFpEdGY4NlhCOWN2cFNKNGphSXUxTlVWNFRRNC9CakVUOEx3dU9x?=
- =?utf-8?B?TGw2ZVRTL3BXeWp0SklCdDFmekxBTkpVZHo3VE9iWmVzTXhOQ1E5VldHd2k3?=
- =?utf-8?B?dHlMMEo2OUtJYzlsZE9VTzNwaWh6Ry8rR29jL2w3T2RPMjJ1Zk5MLzA5K3VX?=
- =?utf-8?B?d2ZmamhPSG51NjI0cWE1VGZUeld1R1grMFJnOFBldCtkQ1MzZ3JncVVoVFNq?=
- =?utf-8?B?N0k4RXJzeE5RVUd0TVdzMVFXRHlZYTJOVGF0ZXZ4TVRnY2dpaExNc08zR0g3?=
- =?utf-8?B?N1dTMWZ5VjlpcUZEckZCQng5UVhDanc5RENndTZCM3JKK0JSR204Ulppd1hs?=
- =?utf-8?B?bmVqWEJYZmlxQVpSU08zUXRaNnFjazNnalRrK3VBMGR4Ny9CTFBRU3NRWVdu?=
- =?utf-8?B?OUVqRHVhdzA4VjdjRmh2cXJCOTlGb3ViSC9RdG93VlZxSm5TQWozb1hIU0JY?=
- =?utf-8?B?azFTOHUrVlB3SG9DMUVjTi9WazF2ZE5kVTBxRWdwM1RwMFJFSWl1MjFPUFda?=
- =?utf-8?B?NkRCMC9VTE1STWF3c01aMVdrT3dwNGxKZ3Y2WUVZTmpNVnNRUDBxYUlaRW9r?=
- =?utf-8?B?VnA1NkZHSFE1V3pKcHNONnFORmd2K0V6NTVoNlBxSklZcWp1bFVkQ05sSTdS?=
- =?utf-8?B?S0pBdHM4ejlQK2JaZDBOUXZ5ejNndENCUmFEcDQzbkNaUC81SDFFQndlKzNw?=
- =?utf-8?B?MlF5YzJPbWZ6WTdOWG1iV210d3drN3puM1ovNmZrQWh3MTV4YWQ2ZjNBdXVy?=
- =?utf-8?B?SnNDdjlDdW50a3RnUVZJUHVEWWtSMjAxRGlyb3RvcUVzelFIOVFqUjk3dXVp?=
- =?utf-8?B?elQ2c0lpSncyQ1BFVFZlaGVPZ1N3eWdoN2ZScDBwb2dob3Y4ZXZMMmVPRFJ2?=
- =?utf-8?B?ekdJdkhlTy95VStVelJYbEVpOUx0NlFUODhkVjFMdjd2Wlk2VmZNdEora2VR?=
- =?utf-8?B?WTJWdndKS2V4SXlhUzFjc3FzOGhDb0tZNnQ0WVNWWHVrMG56cEpIV3FsaGt0?=
- =?utf-8?B?NlFTYVlmdXZCalZIUHRlZVpFUGpsNTRNVVVuaHNGbE9ZdE5lblA2QXV4aFpE?=
- =?utf-8?B?YlVmWjlySGJnNTlGUjZKS2ZBU1pzdEtaQlY4R1d3NUF6VjBKWk5sQ1FCVW1D?=
- =?utf-8?B?TzJFbjJwYlh0bnJPTzlsUnp1Z0owWmw1ajVNY3d5eElzZGpadnBmdzIwV3E3?=
- =?utf-8?B?cHdGSDZ3aEFudmZmZWFuVjlyMlZxSHVuSXVRYWdyVjUzM2FXb1YrUWNkcGFy?=
- =?utf-8?Q?cy66u4ZKDCGzimYCmctaGt7rO?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VHlJWFVINEludU15ajJ1Vy8rV2JwaGE2UlNFT3dPZXZXdjM4SHpodEVVV2tL?=
+ =?utf-8?B?WjJ6YnJvZVU1RGJOSjlsZTRsTk92L2hKL3NTSkdhdlJKSEVSU0xUeXVvKzlE?=
+ =?utf-8?B?MnQxRGE3N1lmc2x6cUMxbExSOFN0bVJTblhZM0FJbk5vQVE1bUlnL0VuS0VV?=
+ =?utf-8?B?MVkveHpqN2VtTDZHUjcxRlhMOVZ1US84NWRMWVpybnMrbkREWXFidkM5TWcr?=
+ =?utf-8?B?U0tqZ01Cblo1N1NwajF4eFl2cUFGM2Z1U2M2eW5NSWMvMkRQRjd4M0pYMFR5?=
+ =?utf-8?B?cU9QSEdtMVgrYWF5SXZGVm9jT3hMYjhtYVI4Y3dLM0M2NENCV1d2OFRhTU9Q?=
+ =?utf-8?B?L2xRVnMvZktiUjhhemVZS0dDMDNtMlpLRXNyRGsxTExHbDVSUHluUmpJSmpD?=
+ =?utf-8?B?M0V2NkJvNm1KWDJKak40NnBpaW5ScE5HOCs5eHlkRXdETU4vcTBUdmp2SS93?=
+ =?utf-8?B?YVRKOHVjd25PbHJ4V0EzWFF0WS9YakZlVjZTc0x2TGVDeUpWdW5CTmxXV3cz?=
+ =?utf-8?B?Vy90TmkrN2FWMmdsUzY2WlJmUDFNY0JnT0FLY3RhVXlvSDdNVnR6MDQ3YXF5?=
+ =?utf-8?B?clZ5TVdncjdKZEoxZUtmT3NqSTJicVZTTUVFVEp2Wm9UNmttY2xyOEROcHR3?=
+ =?utf-8?B?MXNLZkNUV0srWGdSVGhzK29OM0VGTEtzS0kvbnJqUk9ZYjdaWjgvTHVTMlNn?=
+ =?utf-8?B?QnA1NjR0V1Jwb1VGL011Y1ZtVk9jdVpiL01TNVRmTGtRMHc4dHprdmtBeDh0?=
+ =?utf-8?B?S3c2UURiSUh3a2VyZ3RPZkhKWUxrYVMyOFFGZjdIWGJIZ2g4alg2cUphQUVm?=
+ =?utf-8?B?ajJubkJaQURjamloOXF6S2p5Q1pSN1VGd1ZKT3prTXZuY0QxQ1F4ZzV3NG9o?=
+ =?utf-8?B?VWR5eC8zcmJwNzg0bnVqSGN6NjBzRE80VmpKajU4aFhBRTR6Ry9raTlMU0xE?=
+ =?utf-8?B?d1BLUmlNeEM1THplSGJ6dHFsSWdWVk14T01obHAxOEhmaHlCeW04WW14TC9r?=
+ =?utf-8?B?T1M3K2UvRWcvdk1NM1diQW9OVGM5U3dQbkpXeDk1eXprOVpZRmFGaUpXWGhq?=
+ =?utf-8?B?OWZuT1RwVTZ6YmJ4RVdTVG9GZ05DM3k4UCszWm9DRG05SzFRTmhhblNacEJ6?=
+ =?utf-8?B?cTI3TzdCdlh0eGE2cGRMcWc3VjhJUkIvTkRxMjM3QlFxSEJvblNvS2FoQy9k?=
+ =?utf-8?B?SjVtOXo1WGh2Tk15SFQwK3RQd3M5Y0RWMVhUU2F4SGcyK0Y0K2xtNzBzM1ZG?=
+ =?utf-8?B?QnVmWDQ3Tlk5bjJQeWpWaHFlRGwzVHFOL0xlVTg1Tzh2ak84TUtySzhabUN3?=
+ =?utf-8?B?alpIWU9kRStaVFoyMmUxNE5DWlF1YmJueUx2aERjalRXbHJIak10QzBzZXg4?=
+ =?utf-8?B?VGZXakQ5a3IvZEZkQ0NkYWdsZ1FwVUYzT3YvNEtEbHBjZHNVYzRHVmxhWnd4?=
+ =?utf-8?B?Q0hNcGdwSmF5Nm9MeTJuTmFxK0pNenVId1k2aTRPUVpiYmkrNlBxNjlQakFm?=
+ =?utf-8?B?RFBtWWp4QlVuaDlwb1BXNFdBSXB3OVdtdG9TdjhoeE94RFJGZ1BuRjlDeklu?=
+ =?utf-8?B?eTB4S0lGbFpmOTlXUkxCYUFBdHErNTYySFh5U1JnVmVnc1pKUUQrMHpiZjBF?=
+ =?utf-8?B?QVdOdytONWZsS0JiYndHVi9mM2dxZHhFREpkS2VtdW5oTkVHZjFpY1RrT0Vm?=
+ =?utf-8?B?QW1YQmh6aWJsNzUwTG1QQ0ovYkVacDhzc2pGWFFXZkl6SXh1WUlXYnlKYjE3?=
+ =?utf-8?B?bFdndlVtVUNBY3RMTDltZmtybk1iZGNZclBROHR6cDBBa1RUSlFGQmdDdUUv?=
+ =?utf-8?B?WXp4aUVscnVJM0k4eWVyQksycFBhandkZ1QwcDdrNWh2c005dzJVQzdOTW5l?=
+ =?utf-8?B?UVpnYkZVQ2RHR2k2S0JiVTBsRy8vdXFoWitEbzJQQXNuYmpyWDRZZEd5MUFv?=
+ =?utf-8?B?TGV4ZXYwUWRqM2JyOWhPZ0ZUL1Jtbk5PdmJGUTZUZEZtOVR1ckFqM1ZFb2lX?=
+ =?utf-8?B?dUJrTjYwNEtUT1o4VFhxbHArUHBEU1NXaUdPZG1vTjN1MDFtdDhMRnAwNzlM?=
+ =?utf-8?B?dEUxQ09lWWYzZExPaUJqR1ZQalRUWHBQQkVWbEMyUEJKWUt6aWVvTjVKZjI5?=
+ =?utf-8?Q?fQ9UnAEZNM85bN25XdMABMifS?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff6569fd-96b1-4403-fdcc-08dc48e30bfc
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88164adc-fae5-4b3f-71aa-08dc48ee3a96
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4128.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 13:38:37.9364 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 14:58:40.5637 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iaTGDjvANBTWNQOzfek/HZJZaZG0wVPOYewQn31KKlnlDMORuntq4XXiixnTJW1t
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9010
+X-MS-Exchange-CrossTenant-UserPrincipalName: XOAHtvDVJ+cn151rvhe5x7iXDytXqp2jCAXvQlsI7sMAepLhhb1Dw6OKKd8z92hMgFj5OTFdfe84KSHTuuIg+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7873
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,107 +133,98 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-
-On 3/20/2024 6:54 PM, Alex Deucher wrote:
-> On Wed, Mar 20, 2024 at 6:17 AM Ma Jun <Jun.Ma2@amd.com> wrote:
+On 3/20/2024 3:12 PM, Lazar, Lijo wrote:
+>
+> On 3/20/2024 2:15 PM, Srinivasan Shanmugam wrote:
+>> The issue was present in the lines where 'fw_name' was being formatted.
+>> This fix ensures that the output is not truncated
 >>
->> Because of the logic error, Arcturus and vega20 currently
->> use the AMDGPU_RUNPM_NONE for runtime pm even though they
->> support BACO. So, the code is optimized to fix this error.
+>> Fixes the below with gcc W=1:
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c: In function ‘amdgpu_vcn_early_init’:
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:102:66: warning: ‘snprintf’ output may be truncated before the last format character [-Wformat-truncation=]
+>>    102 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
+>>        |                                                                  ^
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:102:17: note: ‘snprintf’ output between 12 and 41 bytes into a destination of size 40
+>>    102 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
+>>        |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:102:66: warning: ‘snprintf’ output may be truncated before the last format character [-Wformat-truncation=]
+>>    102 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
+>>        |                                                                  ^
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:102:17: note: ‘snprintf’ output between 12 and 41 bytes into a destination of size 40
+>>    102 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
+>>        |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:105:73: warning: ‘.bin’ directive output may be truncated writing 4 bytes into a region of size between 2 and 31 [-Wformat-truncation=]
+>>    105 |                         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_%d.bin", ucode_prefix, i);
+>>        |                                                                         ^~~~
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:105:25: note: ‘snprintf’ output between 14 and 43 bytes into a destination of size 40
+>>    105 |                         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_%d.bin", ucode_prefix, i);
+>>        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >>
->> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+>> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 >> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 56 ++++++++++++-------------
->>  1 file changed, 27 insertions(+), 29 deletions(-)
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> index 1f92fb1e7421..70cf2d0c7683 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> @@ -150,42 +150,40 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
->>         }
->>
->>         adev->pm.rpm_mode = AMDGPU_RUNPM_NONE;
->> -       if (amdgpu_device_supports_px(dev) &&
->> -           (amdgpu_runtime_pm != 0)) { /* enable PX as runtime mode */
->> -               adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
->> -               dev_info(adev->dev, "Using ATPX for runtime pm\n");
->> -       } else if (amdgpu_device_supports_boco(dev) &&
->> -                  (amdgpu_runtime_pm != 0)) { /* enable boco as runtime mode */
->> -               adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
->> -               dev_info(adev->dev, "Using BOCO for runtime pm\n");
->> -       } else if (amdgpu_device_supports_baco(dev) &&
->> -                  (amdgpu_runtime_pm != 0)) {
->> -               switch (adev->asic_type) {
->> -               case CHIP_VEGA20:
->> -               case CHIP_ARCTURUS:
->> -                       /* enable BACO as runpm mode if runpm=1 */
->> -                       if (amdgpu_runtime_pm > 0)
->> -                               adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
->> -                       break;
->> -               case CHIP_VEGA10:
->> -                       /* enable BACO as runpm mode if noretry=0 */
->> -                       if (!adev->gmc.noretry)
->> +       if (amdgpu_runtime_pm > 0) {
->> +               adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
->> +               dev_info(adev->dev, "Forcing BACO for runtime pm\n");
-> 
-> Does this need special handling for BAMACO?  Setting
-> amdgpu_runtime_pm=2 is supposed to set BAMACO and 1 is supposed to
-> force BACO.
-> 
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+>> index 9c514a606a2f..f994ee6c548d 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+>> @@ -94,7 +94,7 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work);
+>>   int amdgpu_vcn_early_init(struct amdgpu_device *adev)
+>>   {
+>>   	char ucode_prefix[30];
+> Hi Srini,
+>
+> Sorry, if I miscommunicated. Suggestion was to reduce prefix size to 25
+> as the max prefix length is possibly length of dimgrey_cavefish_vcn.
+Hi Lijo,
 
-Also, based on the comment it appears as if runpm is not intended to be
-enabled by default on Vega20/Arcturus (unless forced by module parameter).
+my mistake, the fw_name size must have been 53.
+
+How 53? -> The size of ucode_prefix is 30, so the maximum length of 
+ucode_prefix is 29 characters (since one character is needed for the 
+null terminator). The maximum number of digits in an integer is 10. 
+Therefore, the maximum possible length of the string written into 
+fw_name is 14 + 29 + 10 = 53 characters.
+
+On the other hand reducing ucode_prefix to 25 from 30:
+
+1. The length of the string "amdgpu/%s.bin" is 12 characters plus the 
+length of ucode_prefix. The length of the string "amdgpu/%s_%d.bin" is 
+14 characters plus the length of ucode_prefix and the number of digits in i.
+
+If ucode_prefix is 25 characters long, the maximum length of the string 
+written into fw_name is 14 + 25 + 1 (for a single digit i) = 40 
+characters, which is exactly the size of fw_name.
+
+Is that this solution assumes that i will not be more than 9 (a single 
+digit)?. If i can be a number with more than one digit, should we need 
+to increase the size of fw_name accordingly.?
+
+2. If you reduce the size of ucode_prefix to 25, it means that it can 
+store a version string of up to 24 characters (since one character is 
+needed for the null terminator).
+
+For example: if tomorrow, if we get something like 
+dimgrey_cavefish_smc_xxxyyyzz - then in this case yyyzz would be lost? 
+is that in "amdgpu_ucode_ip_version_decode " & 
+"amdgpu_ucode_legacy_naming" , is that are we always ensuring that it 
+will never be longer than 24 characters?
 
 Thanks,
-Lijo
-
-> Alex
-> 
->> +       } else if (amdgpu_runtime_pm != 0) {
->> +               if (amdgpu_device_supports_px(dev)) { /* enable PX as runtime mode */
->> +                       adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
->> +                       dev_info(adev->dev, "Using ATPX for runtime pm\n");
->> +               } else if (amdgpu_device_supports_boco(dev)) { /* enable boco as runtime mode */
->> +                       adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
->> +                       dev_info(adev->dev, "Using BOCO for runtime pm\n");
->> +               } else if (amdgpu_device_supports_baco(dev)) {
->> +                       switch (adev->asic_type) {
->> +                       case CHIP_VEGA10:
->> +                               /* enable BACO as runpm mode if noretry=0 */
->> +                               if (!adev->gmc.noretry)
->> +                                       adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
->> +                               break;
->> +                       default:
->> +                               /* enable BACO as runpm mode on CI+ */
->>                                 adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
->> -                       break;
->> -               default:
->> -                       /* enable BACO as runpm mode on CI+ */
->> -                       adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
->> -                       break;
->> -               }
->> +                               break;
->> +                       }
->>
->> -               if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO)
->> -                       dev_info(adev->dev, "Using BACO for runtime pm\n");
->> +                       if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO)
->> +                               dev_info(adev->dev, "Using BACO for runtime pm\n");
->> +               }
->>         }
->>
->> +       if (adev->pm.rpm_mode == AMDGPU_RUNPM_NONE)
->> +               dev_info(adev->dev, "No PM mode for runtime pm\n");
->> +
->>         /* Call ACPI methods: require modeset init
->>          * but failure is not fatal
->>          */
->> -
->>         acpi_status = amdgpu_acpi_init(adev);
->>         if (acpi_status)
->>                 dev_dbg(dev->dev, "Error during ACPI methods call\n");
->> --
->> 2.34.1
->>
+Srini
+>
+> With fw_name[42] also, you may run into 43 bytes (30 prefix + 13 for
+> others) warning.
+>
+> Thanks,
+> Lijo
+>
+>> -	char fw_name[40];
+>> +	char fw_name[42];
+>>   	int r, i;
+>>   
+>>   	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
