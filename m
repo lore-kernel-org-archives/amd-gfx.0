@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50FB2C54E58
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 06:36:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BF93C54E58
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 06:36:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B81B810EC6F;
-	Wed, 20 Mar 2024 06:36:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A02C110EBB7;
+	Wed, 20 Mar 2024 06:36:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2boLSzQq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IBbc1NpU";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2047.outbound.protection.outlook.com [40.107.100.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1516110EC6F
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 06:36:28 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2087.outbound.protection.outlook.com [40.107.93.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAF4F10EBB7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 06:36:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P0RYG2Nb/NEyHgrAFk1tVvVvXDbK2dK2DOBBQiqP37+4m7mDwMeZ1iSJrIQL6eIiu3b27RhZbiMlnmbaFDyKD/U4vpISDKQVl79SZtDGquRGj1JS+rogKZ6bBzKELjRyWeY4cQdRkdMXNpNxIF2u3VizOqG/fBI9XUtCers1eOdLfTy+IJefoAXCOExQDzidaCZJ8Qb6iKll6Cki7y2GcW9fcfLMoJFApT/5jwUkFmivRFmNz+0dd1Ha7GdUQDx0uEKICah5I19hHtag5gTQYaDWeg5W1b/01ZQDdStty0Da+RrKxvovFvqzCU5at9SyFkBusalHM6+aWVCj2kG/eA==
+ b=F6maijHbQHbsNY7nLhftn0pA6bwfFKzFGp4rLmAC7nkQzgUeufmEA0+SbJnAYlM+WwI2+yr0gRfqS7RSmm6DSVQUfxpsTuUTuzEI++PJ819ULRKFsTAfuUsSUtNxGDJjAbN9cKeAWF34gxgi+jsTP7qUd+WqeDmDhF8R3ytXnl73SzBo084SGLIo+TE8yxGKcgtTGUcx5pTX94YV94zg6hPjB+fmFj9y4IBiVvpsCC35dONc9K6XJ4jYl5t61Ob008BpgDEFNgG4MgyJfsEHg2HvBxuZCgMfduS8UsH7cCvr8zYGfgWOi7OBXT/TPmm8R6P8r+bTFnhxvT+R/a7syA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KfMRqxUmVva3xPZAJEqgN/Tp2teAYB9XA9UcjF7NH4Y=;
- b=XFico2BFQBQqcNV9TQMuGYQ7dCbFgeDrzFvxma6XUnZLOVivgH6tONQFedBG3eFCBTK59ArfG7gvH+KQr6Xtn6IXDNP+c7+OIbmmPA0uAPas3AYyCd2PqnS+EAPtwfozJqevxHtkMBuq62WWc4WCSpc3fF+34ql5K9B8nDdQrKjxXUsiRGUOD0dDNqIdsj77xKr6Vh3BnWeq3W/Jn9SPJxlPxwBU5cjdmZdxOZSseBjDlJfC7ABRpR6g404Lq0zxIKi2nj9Rw2nTwvfDPzYHTPutI8CbQPNESDLzudDF/MTgYzRX8+BFqmZj4iGGY3nPCp4TWM15PiBEAP38Jb3YiA==
+ bh=3rHjSNr/bd5NYLZaACLe6iGlTN3yihHooT4UiDQH6uQ=;
+ b=oTgTraX3qqAiiy76bGDupD/ViSf0epXQ+8mp1OJph5ZbJ04E3MPFOzRCHvYXV7x14s5lhkwahMkeyFNxDwpLE9aKXXit5BNIwMwYCDZYnpYG2jXWrtKCK1XNiPENDRrvsFya19fbEFfBjGAc7sQt+BA+kwX1ozYxoC3yYUfFFzRfsQQqUvdfJwhQ9T/2psgT133DKyM994Hk+cH4t7VLzyEVoZLs4dh7GYnm5pB+CipoQsMCqfkF4aS+d5scA96aEpEZl90tgd38NwJTq/rLIZ0cM2adbok4RD4uLaUF1xVXEqQQrqlzhcJ5e60TnudqGPEW+X4VzeWZhZKoSbsERw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KfMRqxUmVva3xPZAJEqgN/Tp2teAYB9XA9UcjF7NH4Y=;
- b=2boLSzQqwfftF4JMm2BocQeOyUtGJaGy3lQ2VjusrhX33yBrWQAGW3vQhWscve9wEq3jlsWz++N5hzPQ31b+Ak/t9wtt3BicAkjAcQRdOnvrmm4iVmN7gLFfXYBRSJ0w79zukJLdy7MPnTV76Z8UWgtLJ2fT7WtMb7LT81QeuAE=
-Received: from BN0PR04CA0044.namprd04.prod.outlook.com (2603:10b6:408:e8::19)
- by MN0PR12MB6269.namprd12.prod.outlook.com (2603:10b6:208:3c3::14)
+ bh=3rHjSNr/bd5NYLZaACLe6iGlTN3yihHooT4UiDQH6uQ=;
+ b=IBbc1NpUhgZ2EQSL1oXOX3EtxXEUBcHmP3Nw5Esgf3h7cFlO+dyWucj0blGpGYGv927lAe2PgUtou1scmLZHzhEeeqxuT4S4dOKKAuB3txVwNUt6w+/2t+IKHAx2oX4SmRQo78WVqjXcQBcwrckAWIZjrVpyExfYa800LfsZxeo=
+Received: from BN9PR03CA0536.namprd03.prod.outlook.com (2603:10b6:408:131::31)
+ by LV3PR12MB9266.namprd12.prod.outlook.com (2603:10b6:408:21b::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.22; Wed, 20 Mar
- 2024 06:36:25 +0000
-Received: from BN2PEPF000044A2.namprd02.prod.outlook.com
- (2603:10b6:408:e8:cafe::4c) by BN0PR04CA0044.outlook.office365.com
- (2603:10b6:408:e8::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.26; Wed, 20 Mar
+ 2024 06:36:29 +0000
+Received: from BN2PEPF0000449E.namprd02.prod.outlook.com
+ (2603:10b6:408:131:cafe::49) by BN9PR03CA0536.outlook.office365.com
+ (2603:10b6:408:131::31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.26 via Frontend
- Transport; Wed, 20 Mar 2024 06:36:25 +0000
+ Transport; Wed, 20 Mar 2024 06:36:29 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF000044A2.mail.protection.outlook.com (10.167.243.153) with Microsoft
+ BN2PEPF0000449E.mail.protection.outlook.com (10.167.243.149) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Wed, 20 Mar 2024 06:36:25 +0000
+ 15.20.7409.10 via Frontend Transport; Wed, 20 Mar 2024 06:36:29 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 20 Mar
- 2024 01:36:24 -0500
+ 2024 01:36:28 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 20 Mar 2024 01:36:21 -0500
+ Transport; Wed, 20 Mar 2024 01:36:25 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
@@ -65,9 +65,9 @@ CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
  <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Dillon Varone
  <dillon.varone@amd.com>, Chaitanya Dhere <chaitanya.dhere@amd.com>
-Subject: [PATCH 05/22] drm/amd/display: Expand DML2 callbacks
-Date: Wed, 20 Mar 2024 14:35:39 +0800
-Message-ID: <20240320063556.1326615-6-chiahsuan.chung@amd.com>
+Subject: [PATCH 06/22] drm/amd/display: Refactor DML2 interfaces
+Date: Wed, 20 Mar 2024 14:35:40 +0800
+Message-ID: <20240320063556.1326615-7-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240320063556.1326615-1-chiahsuan.chung@amd.com>
 References: <20240320063556.1326615-1-chiahsuan.chung@amd.com>
@@ -78,26 +78,26 @@ Received-SPF: None (SATLEXMB04.amd.com: chiahsuan.chung@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A2:EE_|MN0PR12MB6269:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22ee86d1-fca5-44b4-bdb7-08dc48a81100
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449E:EE_|LV3PR12MB9266:EE_
+X-MS-Office365-Filtering-Correlation-Id: b8b591fe-4806-4e47-6c74-08dc48a81312
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fiuReoDjeg/gHGHCQrJ1x+spOmORD5w+cXNetsTZb+5+7KxMSHOkgaZhE/Uv/hSRcbI9LhWtgegugsR/j/qtboAqdf9YnLW7QZcWif5si0J+CqFsWo4QA62t8wpEYYpeerchKPuz1xBTGXsAq6VOg8T4j9gtxfsb8Ym8HmcLN8aqUat4DyEcnQmSzYINmQSBtf1Uu+SEmR8MfxwnEMksGzr6/W1ICZVtj4zIHFbQD41TITcaJ7HtUQXgswOTTDzBbg9dvO2dLzc2ao3hAnQDSFATp69fqij0TAemNf8I5Uv91pFfQACwNwVATJNgDJWK0cRsipL9BddpNyDPDlvsf2j8UzlB+C7MRjp3hkgTSDG+R7znYc1NkHYqrgwYONjdxuDLOrL/ksEcyBKOjihEJ8lfgtU/co4WmHaV3vIpwVWAwuA+rj5GGm/RmEbTyS40ifB9yWAfp83Q5lX1TVAOsTr+ZuJiamodXXR6AHVTgp/bUk0JSEkhOk39S3gwUtmReeeTCQkHeWohJ/H5lNqzLoAeyYPknQm5i2uM9fnayY1VRMkbVn5adPY3IjBrFsddP9d1YA6nQuCzanjZwZntUH6Rlwn1JWhaktKYzej5KK1+kLNCvJq7qqCuMQm+gO8K454FnufUvbCNulOLTEAmbTuAxhwrbinK7yfGr3ISplNyat7o3T8/s4kOkex+v48Bw4u8sabKYG9QRI2IdTw5wSndDIvxzFlXJlK3aiiFlIjNKdhjavuL3z2FS6hK1nnJ
+X-Microsoft-Antispam-Message-Info: 2Pw+SS0MPQVGoRYQX9xw7KWcIJz4iKhXSfvI5CKCQ0ArVCOrob4lf9iTBqjI6iNW2JEDSYxpkXWq/tvThQN2HXqNObTUoQwtQbKK5MO20VopcnSJZ9QwPtgHdcuQ3np7B4+LpxXq0AA6NIklO7MxJ78PeaHQVGVqndexdiuY6uQJXtKdGkVT3VGmXtzruBl5mwBBn4PooP4GTJ0M06ZvBuWg2L8Yh7/Aq2nRGK9707SFL//xmPhD8TvrFpF+tYx85zijA1dKKMNWEgQw0DYRH7Y1yrJPgeQzRCCEjBLE/f+s/O/ngqJS3fF6iGxdyq/4EvfAk0+lKGyUUEX1EREQZpSbUhfWLUFD1w0+gZgoEuDdu70ZvEZOkZi2RW9NCEj8WPKxCKVWKZw3HvbwM5j+eMK1/5Z0/mwzHiMg1Xl9mFlg9a6I8WJJxD5ZXw1PrOs7yz78Zv1vX9tBjXlyWx1eFwV2qL3U5j8vr/W/VX1Y18Q/qRv72k1Gi8VzywlMlHA+5phlqpCu8w/bFhtiYTderhDgRqOLS0IOw/AFMW16EPpUP4EVNxLphGNBOxKSt9AJihx0R4d/qGewcRKIK8ixheVZ2YVA0DeKp7s27HUEyRcMJbXwNidWhrGy/yiTTKU6Fyl0t0KvHL18RN0HkgJwMKHpSBJbSEDR5upEdKJzQUAxIHIQjjd9KFwbg4zbPl8b67gSVedhLS9YeGP00dbx4U4IW6E1fONdzX3IrG4y/fmD+sBdSLsjvIzUA/sQRqWY
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400014)(376005)(36860700004)(1800799015); DIR:OUT;
+ SFS:(13230031)(1800799015)(36860700004)(82310400014)(376005); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 06:36:25.6265 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22ee86d1-fca5-44b4-bdb7-08dc48a81100
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 06:36:29.0979 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8b591fe-4806-4e47-6c74-08dc48a81312
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A2.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6269
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9266
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,457 +114,330 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Dillon Varone <dillon.varone@amd.com>
 
-[Why&How]
-These additional callbacks to DC will be required for the DML2 wrapper. Also
-consolidate common callbacks for projects to a single location for maintenance.
+[Why&How}
+Some interfaces needed changes to support future architectures.
 
 Reviewed-by: Chaitanya Dhere <chaitanya.dhere@amd.com>
 Acked-by: Tom Chung <chiahsuan.chung@amd.com>
 Signed-off-by: Dillon Varone <dillon.varone@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_resource.c | 33 +++++++++++++++
- .../gpu/drm/amd/display/dc/core/dc_state.c    | 17 +++++++-
- drivers/gpu/drm/amd/display/dc/dc_state.h     |  2 +-
- .../gpu/drm/amd/display/dc/dc_state_priv.h    |  2 +
- .../display/dc/dcn32/dcn32_resource_helpers.c | 23 ++---------
+ .../gpu/drm/amd/display/dc/core/dc_state.c    | 14 +++++------
+ .../gpu/drm/amd/display/dc/core/dc_surface.c  |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
+ drivers/gpu/drm/amd/display/dc/dc_plane.h     |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_state.h     |  4 ++--
+ .../gpu/drm/amd/display/dc/dc_state_priv.h    | 10 ++++----
+ .../display/dc/dml2/dml2_dc_resource_mgmt.c   | 23 +++++++++++--------
  .../drm/amd/display/dc/dml2/dml2_wrapper.c    |  2 +-
- .../drm/amd/display/dc/dml2/dml2_wrapper.h    | 24 ++++++++++-
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  4 +-
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  3 ++
- drivers/gpu/drm/amd/display/dc/inc/resource.h |  6 +++
- .../dc/resource/dcn32/dcn32_resource.c        | 41 +++++++++----------
- .../dc/resource/dcn32/dcn32_resource.h        |  6 +--
- .../dc/resource/dcn321/dcn321_resource.c      | 25 ++---------
- .../dc/resource/dcn35/dcn35_resource.c        | 10 +----
- .../dc/resource/dcn351/dcn351_resource.c      | 10 +----
- 15 files changed, 119 insertions(+), 89 deletions(-)
+ .../drm/amd/display/dc/dml2/dml2_wrapper.h    | 12 +++++-----
+ 9 files changed, 37 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 96b4f68ec374..ce56e47cfd0a 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -4993,3 +4993,36 @@ bool check_subvp_sw_cursor_fallback_req(const struct dc *dc, struct dc_stream_st
- 
- 	return false;
- }
-+
-+void resource_init_common_dml2_callbacks(struct dc *dc, struct dml2_configuration_options *dml2_options)
-+{
-+	dml2_options->callbacks.dc = dc;
-+	dml2_options->callbacks.build_scaling_params = &resource_build_scaling_params;
-+	dml2_options->callbacks.acquire_secondary_pipe_for_mpc_odm = &dc_resource_acquire_secondary_pipe_for_mpc_odm_legacy;
-+	dml2_options->callbacks.update_pipes_for_stream_with_slice_count = &resource_update_pipes_for_stream_with_slice_count;
-+	dml2_options->callbacks.update_pipes_for_plane_with_slice_count = &resource_update_pipes_for_plane_with_slice_count;
-+	dml2_options->callbacks.get_mpc_slice_index = &resource_get_mpc_slice_index;
-+	dml2_options->callbacks.get_odm_slice_index = &resource_get_odm_slice_index;
-+	dml2_options->callbacks.get_opp_head = &resource_get_opp_head;
-+	dml2_options->callbacks.get_otg_master_for_stream = &resource_get_otg_master_for_stream;
-+	dml2_options->callbacks.get_opp_heads_for_otg_master = &resource_get_opp_heads_for_otg_master;
-+	dml2_options->callbacks.get_dpp_pipes_for_plane = &resource_get_dpp_pipes_for_plane;
-+	dml2_options->callbacks.get_stream_status = &dc_state_get_stream_status;
-+	dml2_options->callbacks.get_stream_from_id = &dc_state_get_stream_from_id;
-+
-+	dml2_options->svp_pstate.callbacks.dc = dc;
-+	dml2_options->svp_pstate.callbacks.add_phantom_plane = &dc_state_add_phantom_plane;
-+	dml2_options->svp_pstate.callbacks.add_phantom_stream = &dc_state_add_phantom_stream;
-+	dml2_options->svp_pstate.callbacks.build_scaling_params = &resource_build_scaling_params;
-+	dml2_options->svp_pstate.callbacks.create_phantom_plane = &dc_state_create_phantom_plane;
-+	dml2_options->svp_pstate.callbacks.remove_phantom_plane = &dc_state_remove_phantom_plane;
-+	dml2_options->svp_pstate.callbacks.remove_phantom_stream = &dc_state_remove_phantom_stream;
-+	dml2_options->svp_pstate.callbacks.create_phantom_stream = &dc_state_create_phantom_stream;
-+	dml2_options->svp_pstate.callbacks.release_phantom_plane = &dc_state_release_phantom_plane;
-+	dml2_options->svp_pstate.callbacks.release_phantom_stream = &dc_state_release_phantom_stream;
-+	dml2_options->svp_pstate.callbacks.get_pipe_subvp_type = &dc_state_get_pipe_subvp_type;
-+	dml2_options->svp_pstate.callbacks.get_stream_subvp_type = &dc_state_get_stream_subvp_type;
-+	dml2_options->svp_pstate.callbacks.get_paired_subvp_stream = &dc_state_get_paired_subvp_stream;
-+	dml2_options->svp_pstate.callbacks.remove_phantom_streams_and_planes = &dc_state_remove_phantom_streams_and_planes;
-+	dml2_options->svp_pstate.callbacks.release_phantom_streams_and_planes = &dc_state_release_phantom_streams_and_planes;
-+}
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-index cce4e1c465b6..c5c078771b15 100644
+index c5c078771b15..d546ea71026d 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-@@ -585,7 +585,7 @@ bool dc_state_add_all_planes_for_stream(
+@@ -340,7 +340,7 @@ void dc_state_release(struct dc_state *state)
+  * dc_state_add_stream() - Add a new dc_stream_state to a dc_state.
   */
- struct dc_stream_status *dc_state_get_stream_status(
+ enum dc_status dc_state_add_stream(
+-		struct dc *dc,
++		const struct dc *dc,
  		struct dc_state *state,
--		struct dc_stream_state *stream)
-+		const struct dc_stream_state *stream)
+ 		struct dc_stream_state *stream)
  {
- 	uint8_t i;
- 
-@@ -868,3 +868,18 @@ void dc_state_release_phantom_streams_and_planes(
- 	for (i = 0; i < state->phantom_plane_count; i++)
- 		dc_state_release_phantom_plane(dc, state, state->phantom_planes[i]);
+@@ -369,7 +369,7 @@ enum dc_status dc_state_add_stream(
+  * dc_state_remove_stream() - Remove a stream from a dc_state.
+  */
+ enum dc_status dc_state_remove_stream(
+-		struct dc *dc,
++		const struct dc *dc,
+ 		struct dc_state *state,
+ 		struct dc_stream_state *stream)
+ {
+@@ -679,7 +679,7 @@ void dc_state_release_phantom_stream(const struct dc *dc,
+ 	dc_stream_release(phantom_stream);
  }
-+
-+struct dc_stream_state *dc_state_get_stream_from_id(const struct dc_state *state, unsigned int id)
-+{
-+	struct dc_stream_state *stream = NULL;
-+	int i;
-+
-+	for (i = 0; i < state->stream_count; i++) {
-+		if (state->streams[i] && state->streams[i]->stream_id == id) {
-+			stream = state->streams[i];
-+			break;
-+		}
-+	}
-+
-+	return stream;
-+}
+ 
+-struct dc_plane_state *dc_state_create_phantom_plane(struct dc *dc,
++struct dc_plane_state *dc_state_create_phantom_plane(const struct dc *dc,
+ 		struct dc_state *state,
+ 		struct dc_plane_state *main_plane)
+ {
+@@ -715,7 +715,7 @@ void dc_state_release_phantom_plane(const struct dc *dc,
+ }
+ 
+ /* add phantom streams to context and generate correct meta inside dc_state */
+-enum dc_status dc_state_add_phantom_stream(struct dc *dc,
++enum dc_status dc_state_add_phantom_stream(const struct dc *dc,
+ 		struct dc_state *state,
+ 		struct dc_stream_state *phantom_stream,
+ 		struct dc_stream_state *main_stream)
+@@ -741,7 +741,7 @@ enum dc_status dc_state_add_phantom_stream(struct dc *dc,
+ 	return res;
+ }
+ 
+-enum dc_status dc_state_remove_phantom_stream(struct dc *dc,
++enum dc_status dc_state_remove_phantom_stream(const struct dc *dc,
+ 		struct dc_state *state,
+ 		struct dc_stream_state *phantom_stream)
+ {
+@@ -835,7 +835,7 @@ bool dc_state_add_all_phantom_planes_for_stream(
+ }
+ 
+ bool dc_state_remove_phantom_streams_and_planes(
+-	struct dc *dc,
++	const struct dc *dc,
+ 	struct dc_state *state)
+ {
+ 	int i;
+@@ -857,7 +857,7 @@ bool dc_state_remove_phantom_streams_and_planes(
+ }
+ 
+ void dc_state_release_phantom_streams_and_planes(
+-		struct dc *dc,
++		const struct dc *dc,
+ 		struct dc_state *state)
+ {
+ 	int i;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+index 19140fb65787..acc7a8baa169 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+@@ -103,7 +103,7 @@ void enable_surface_flip_reporting(struct dc_plane_state *plane_state,
+ 	/*register_flip_interrupt(surface);*/
+ }
+ 
+-struct dc_plane_state *dc_create_plane_state(struct dc *dc)
++struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
+ {
+ 	struct dc_plane_state *plane_state = kvzalloc(sizeof(*plane_state),
+ 							GFP_KERNEL);
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index e0b44c43e959..52fd2ebdcdbb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -996,6 +996,7 @@ struct dc_debug_options {
+ 	bool enable_idle_reg_checks;
+ 	unsigned int static_screen_wait_frames;
+ 	bool force_chroma_subsampling_1tap;
++	bool disable_422_left_edge_pixel;
+ };
+ 
+ struct gpu_info_soc_bounding_box_v1_0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_plane.h b/drivers/gpu/drm/amd/display/dc/dc_plane.h
+index ef380cae816a..44afcd989224 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_plane.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_plane.h
+@@ -29,7 +29,7 @@
+ #include "dc.h"
+ #include "dc_hw_types.h"
+ 
+-struct dc_plane_state *dc_create_plane_state(struct dc *dc);
++struct dc_plane_state *dc_create_plane_state(const struct dc *dc);
+ const struct dc_plane_status *dc_plane_get_status(
+ 		const struct dc_plane_state *plane_state);
+ void dc_plane_state_retain(struct dc_plane_state *plane_state);
 diff --git a/drivers/gpu/drm/amd/display/dc/dc_state.h b/drivers/gpu/drm/amd/display/dc/dc_state.h
-index d167fdbfa8a9..631d1a57263c 100644
+index 631d1a57263c..a8979c9defe4 100644
 --- a/drivers/gpu/drm/amd/display/dc/dc_state.h
 +++ b/drivers/gpu/drm/amd/display/dc/dc_state.h
-@@ -74,5 +74,5 @@ bool dc_state_add_all_planes_for_stream(
+@@ -39,12 +39,12 @@ void dc_state_destruct(struct dc_state *state);
+ void dc_state_retain(struct dc_state *state);
+ void dc_state_release(struct dc_state *state);
  
- struct dc_stream_status *dc_state_get_stream_status(
- 	struct dc_state *state,
--	struct dc_stream_state *stream);
-+	const struct dc_stream_state *stream);
- #endif /* _DC_STATE_H_ */
+-enum dc_status dc_state_add_stream(struct dc *dc,
++enum dc_status dc_state_add_stream(const struct dc *dc,
+ 				    struct dc_state *state,
+ 				    struct dc_stream_state *stream);
+ 
+ enum dc_status dc_state_remove_stream(
+-		struct dc *dc,
++		const struct dc *dc,
+ 		struct dc_state *state,
+ 		struct dc_stream_state *stream);
+ 
 diff --git a/drivers/gpu/drm/amd/display/dc/dc_state_priv.h b/drivers/gpu/drm/amd/display/dc/dc_state_priv.h
-index c1f44e09a6c1..4da4babf0d18 100644
+index 4da4babf0d18..615086d74d32 100644
 --- a/drivers/gpu/drm/amd/display/dc/dc_state_priv.h
 +++ b/drivers/gpu/drm/amd/display/dc/dc_state_priv.h
-@@ -29,6 +29,8 @@
- #include "dc_state.h"
- #include "dc_stream.h"
+@@ -47,7 +47,7 @@ struct dc_stream_state *dc_state_get_paired_subvp_stream(const struct dc_state *
+ struct dc_stream_state *dc_state_create_phantom_stream(const struct dc *dc,
+ 		struct dc_state *state,
+ 		struct dc_stream_state *main_stream);
+-struct dc_plane_state *dc_state_create_phantom_plane(struct dc *dc,
++struct dc_plane_state *dc_state_create_phantom_plane(const struct dc *dc,
+ 		struct dc_state *state,
+ 		struct dc_plane_state *main_plane);
  
-+struct dc_stream_state *dc_state_get_stream_from_id(const struct dc_state *state, unsigned int id);
-+
- /* Get the type of the provided resource (none, phantom, main) based on the provided
-  * context. If the context is unavailable, determine only if phantom or not.
-  */
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-index f98def6c8c2d..c831f6c69a17 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-@@ -35,25 +35,6 @@ static bool is_dual_plane(enum surface_pixel_format format)
- 	return format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN || format == SURFACE_PIXEL_FORMAT_GRPH_RGBE_ALPHA;
+@@ -60,11 +60,11 @@ void dc_state_release_phantom_plane(const struct dc *dc,
+ 		struct dc_plane_state *phantom_plane);
+ 
+ /* add/remove phantom stream to context and generate subvp meta data */
+-enum dc_status dc_state_add_phantom_stream(struct dc *dc,
++enum dc_status dc_state_add_phantom_stream(const struct dc *dc,
+ 		struct dc_state *state,
+ 		struct dc_stream_state *phantom_stream,
+ 		struct dc_stream_state *main_stream);
+-enum dc_status dc_state_remove_phantom_stream(struct dc *dc,
++enum dc_status dc_state_remove_phantom_stream(const struct dc *dc,
+ 		struct dc_state *state,
+ 		struct dc_stream_state *phantom_stream);
+ 
+@@ -94,11 +94,11 @@ bool dc_state_add_all_phantom_planes_for_stream(
+ 		struct dc_state *state);
+ 
+ bool dc_state_remove_phantom_streams_and_planes(
+-		struct dc *dc,
++		const struct dc *dc,
+ 		struct dc_state *state);
+ 
+ void dc_state_release_phantom_streams_and_planes(
+-		struct dc *dc,
++		const struct dc *dc,
+ 		struct dc_state *state);
+ 
+ #endif /* _DC_STATE_PRIV_H_ */
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
+index a52c594e1ba4..b64e0160d482 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
+@@ -794,7 +794,7 @@ static void map_pipes_for_plane(struct dml2_context *ctx, struct dc_state *state
  }
  
--
--uint32_t dcn32_helper_mall_bytes_to_ways(
--		struct dc *dc,
--		uint32_t total_size_in_mall_bytes)
--{
--	uint32_t cache_lines_used, lines_per_way, total_cache_lines, num_ways;
--
--	/* add 2 lines for worst case alignment */
--	cache_lines_used = total_size_in_mall_bytes / dc->caps.cache_line_size + 2;
--
--	total_cache_lines = dc->caps.max_cab_allocation_bytes / dc->caps.cache_line_size;
--	lines_per_way = total_cache_lines / dc->caps.cache_num_ways;
--	num_ways = cache_lines_used / lines_per_way;
--	if (cache_lines_used % lines_per_way > 0)
--		num_ways++;
--
--	return num_ways;
--}
--
- uint32_t dcn32_helper_calculate_mall_bytes_for_cursor(
- 		struct dc *dc,
- 		struct pipe_ctx *pipe_ctx,
-@@ -112,8 +93,10 @@ uint32_t dcn32_helper_calculate_num_ways_for_subvp(
- 	if (context->bw_ctx.bw.dcn.mall_subvp_size_bytes > 0) {
- 		if (dc->debug.force_subvp_num_ways) {
- 			return dc->debug.force_subvp_num_ways;
-+		} else if (dc->res_pool->funcs->calculate_mall_ways_from_bytes) {
-+			return dc->res_pool->funcs->calculate_mall_ways_from_bytes(dc, context->bw_ctx.bw.dcn.mall_subvp_size_bytes);
- 		} else {
--			return dcn32_helper_mall_bytes_to_ways(dc, context->bw_ctx.bw.dcn.mall_subvp_size_bytes);
-+			return 0;
- 		}
+ static unsigned int get_mpc_factor(struct dml2_context *ctx,
+-		const struct dc_state *state,
++		struct dc_state *state,
+ 		const struct dml_display_cfg_st *disp_cfg,
+ 		struct dml2_dml_to_dc_pipe_mapping *mapping,
+ 		const struct dc_stream_status *status,
+@@ -805,10 +805,10 @@ static unsigned int get_mpc_factor(struct dml2_context *ctx,
+ 	unsigned int cfg_idx;
+ 	unsigned int mpc_factor;
+ 
+-	get_plane_id(ctx, state, status->plane_states[plane_idx],
+-			stream->stream_id, plane_idx, &plane_id);
+-	cfg_idx = find_disp_cfg_idx_by_plane_id(mapping, plane_id);
+ 	if (ctx->architecture == dml2_architecture_20) {
++		get_plane_id(ctx, state, status->plane_states[plane_idx],
++				stream->stream_id, plane_idx, &plane_id);
++		cfg_idx = find_disp_cfg_idx_by_plane_id(mapping, plane_id);
+ 		mpc_factor = (unsigned int)disp_cfg->hw.DPPPerSurface[cfg_idx];
  	} else {
- 		return 0;
+ 		mpc_factor = 1;
+@@ -824,14 +824,16 @@ static unsigned int get_mpc_factor(struct dml2_context *ctx,
+ 
+ static unsigned int get_odm_factor(
+ 		const struct dml2_context *ctx,
++		struct dc_state *state,
+ 		const struct dml_display_cfg_st *disp_cfg,
+ 		struct dml2_dml_to_dc_pipe_mapping *mapping,
+ 		const struct dc_stream_state *stream)
+ {
+-	unsigned int cfg_idx = find_disp_cfg_idx_by_stream_id(
+-			mapping, stream->stream_id);
++	unsigned int cfg_idx;
+ 
+-	if (ctx->architecture == dml2_architecture_20)
++	if (ctx->architecture == dml2_architecture_20) {
++		cfg_idx = find_disp_cfg_idx_by_stream_id(
++				mapping, stream->stream_id);
+ 		switch (disp_cfg->hw.ODMMode[cfg_idx]) {
+ 		case dml_odm_mode_bypass:
+ 			return 1;
+@@ -842,6 +844,7 @@ static unsigned int get_odm_factor(
+ 		default:
+ 			break;
+ 		}
++	}
+ 	ASSERT(false);
+ 	return 1;
+ }
+@@ -850,7 +853,7 @@ static void populate_mpc_factors_for_stream(
+ 		struct dml2_context *ctx,
+ 		const struct dml_display_cfg_st *disp_cfg,
+ 		struct dml2_dml_to_dc_pipe_mapping *mapping,
+-		const struct dc_state *state,
++		struct dc_state *state,
+ 		unsigned int stream_idx,
+ 		unsigned int odm_factor,
+ 		unsigned int mpc_factors[MAX_PIPES])
+@@ -870,14 +873,14 @@ static void populate_mpc_factors_for_stream(
+ static void populate_odm_factors(const struct dml2_context *ctx,
+ 		const struct dml_display_cfg_st *disp_cfg,
+ 		struct dml2_dml_to_dc_pipe_mapping *mapping,
+-		const struct dc_state *state,
++		struct dc_state *state,
+ 		unsigned int odm_factors[MAX_PIPES])
+ {
+ 	int i;
+ 
+ 	for (i = 0; i < state->stream_count; i++)
+ 		odm_factors[i] = get_odm_factor(
+-				ctx, disp_cfg, mapping, state->streams[i]);
++				ctx, state, disp_cfg, mapping, state->streams[i]);
+ }
+ 
+ static bool map_dc_pipes_for_stream(struct dml2_context *ctx,
 diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-index 72cca367062e..018cf97c0251 100644
+index 018cf97c0251..72cca367062e 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
 @@ -681,7 +681,7 @@ static void dml2_apply_debug_options(const struct dc *dc, struct dml2_context *d
  	}
  }
  
--bool dml2_validate(const struct dc *in_dc, struct dc_state *context, bool fast_validate)
-+bool dml2_validate(struct dc *in_dc, struct dc_state *context, bool fast_validate)
+-bool dml2_validate(struct dc *in_dc, struct dc_state *context, bool fast_validate)
++bool dml2_validate(const struct dc *in_dc, struct dc_state *context, bool fast_validate)
  {
  	bool out = false;
  
 diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h
-index cc662d682fd4..800d2ce4856c 100644
+index 800d2ce4856c..6e97337863e0 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h
 +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h
-@@ -88,6 +88,19 @@ struct dml2_dc_callbacks {
- 	int (*get_odm_slice_index)(const struct pipe_ctx *opp_head);
- 	int (*get_mpc_slice_index)(const struct pipe_ctx *dpp_pipe);
- 	struct pipe_ctx *(*get_opp_head)(const struct pipe_ctx *pipe_ctx);
-+	struct pipe_ctx *(*get_otg_master_for_stream)(
-+		struct resource_context *res_ctx,
-+		const struct dc_stream_state *stream);
-+	int (*get_opp_heads_for_otg_master)(const struct pipe_ctx *otg_master,
-+		struct resource_context *res_ctx,
-+		struct pipe_ctx *opp_heads[MAX_PIPES]);
-+	int (*get_dpp_pipes_for_plane)(const struct dc_plane_state *plane,
-+			struct resource_context *res_ctx,
-+			struct pipe_ctx *dpp_pipes[MAX_PIPES]);
-+	struct dc_stream_status *(*get_stream_status)(
-+		struct dc_state *state,
-+		const struct dc_stream_state *stream);
-+	struct dc_stream_state *(*get_stream_from_id)(const struct dc_state *state, unsigned int id);
- };
- 
- struct dml2_dc_svp_callbacks {
-@@ -121,6 +134,15 @@ struct dml2_dc_svp_callbacks {
- 	enum mall_stream_type (*get_pipe_subvp_type)(const struct dc_state *state, const struct pipe_ctx *pipe_ctx);
+@@ -109,10 +109,10 @@ struct dml2_dc_svp_callbacks {
+ 	struct dc_stream_state* (*create_phantom_stream)(const struct dc *dc,
+ 			struct dc_state *state,
+ 			struct dc_stream_state *main_stream);
+-	struct dc_plane_state* (*create_phantom_plane)(struct dc *dc,
++	struct dc_plane_state* (*create_phantom_plane)(const struct dc *dc,
+ 			struct dc_state *state,
+ 			struct dc_plane_state *main_plane);
+-	enum dc_status (*add_phantom_stream)(struct dc *dc,
++	enum dc_status (*add_phantom_stream)(const struct dc *dc,
+ 			struct dc_state *state,
+ 			struct dc_stream_state *phantom_stream,
+ 			struct dc_stream_state *main_stream);
+@@ -121,7 +121,7 @@ struct dml2_dc_svp_callbacks {
+ 			struct dc_stream_state *stream,
+ 			struct dc_plane_state *plane_state,
+ 			struct dc_state *context);
+-	enum dc_status (*remove_phantom_stream)(struct dc *dc,
++	enum dc_status (*remove_phantom_stream)(const struct dc *dc,
+ 			struct dc_state *state,
+ 			struct dc_stream_state *stream);
+ 	void (*release_phantom_plane)(const struct dc *dc,
+@@ -135,10 +135,10 @@ struct dml2_dc_svp_callbacks {
  	enum mall_stream_type (*get_stream_subvp_type)(const struct dc_state *state, const struct dc_stream_state *stream);
  	struct dc_stream_state *(*get_paired_subvp_stream)(const struct dc_state *state, const struct dc_stream_state *stream);
-+	bool (*remove_phantom_streams_and_planes)(
-+			struct dc *dc,
-+			struct dc_state *state);
-+	void (*release_phantom_streams_and_planes)(
-+			struct dc *dc,
-+			struct dc_state *state);
-+	unsigned int (*calculate_mall_ways_from_bytes)(
-+				const struct dc *dc,
-+				unsigned int total_size_in_mall_bytes);
- };
- 
- struct dml2_clks_table_entry {
-@@ -242,7 +264,7 @@ void dml2_reinit(const struct dc *in_dc,
+ 	bool (*remove_phantom_streams_and_planes)(
+-			struct dc *dc,
++			const struct dc *dc,
+ 			struct dc_state *state);
+ 	void (*release_phantom_streams_and_planes)(
+-			struct dc *dc,
++			const struct dc *dc,
+ 			struct dc_state *state);
+ 	unsigned int (*calculate_mall_ways_from_bytes)(
+ 				const struct dc *dc,
+@@ -264,7 +264,7 @@ void dml2_reinit(const struct dc *in_dc,
   *          separate dc_states for validation.
   * Return: True if mode is supported, false otherwise.
   */
--bool dml2_validate(const struct dc *in_dc,
-+bool dml2_validate(struct dc *in_dc,
+-bool dml2_validate(struct dc *in_dc,
++bool dml2_validate(const struct dc *in_dc,
  				   struct dc_state *context,
  				   bool fast_validate);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-index a5e92389615f..367dcaeaf186 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-@@ -239,8 +239,10 @@ static uint32_t dcn32_calculate_cab_allocation(struct dc *dc, struct dc_state *c
- 	// Convert number of cache lines required to number of ways
- 	if (dc->debug.force_mall_ss_num_ways > 0) {
- 		num_ways = dc->debug.force_mall_ss_num_ways;
-+	} else if (dc->res_pool->funcs->calculate_mall_ways_from_bytes) {
-+		num_ways = dc->res_pool->funcs->calculate_mall_ways_from_bytes(dc, mall_ss_size_bytes);
- 	} else {
--		num_ways = dcn32_helper_mall_bytes_to_ways(dc, mall_ss_size_bytes);
-+		num_ways = 0;
- 	}
- 
- 	return num_ways;
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-index 34764094f546..a66676c00c6c 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-@@ -90,6 +90,9 @@ struct resource_funcs {
- 	void (*update_soc_for_wm_a)(
- 				struct dc *dc, struct dc_state *context);
- 
-+	unsigned int (*calculate_mall_ways_from_bytes)(
-+				const struct dc *dc,
-+				unsigned int total_size_in_mall_bytes);
- 	/**
- 	 * @populate_dml_pipes - Populate pipe data struct
- 	 *
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/resource.h b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-index 77a60aa9f27b..d17fa73d72a3 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-@@ -615,4 +615,10 @@ enum dc_status update_dp_encoder_resources_for_test_harness(const struct dc *dc,
- 		struct pipe_ctx *pipe_ctx);
- 
- bool check_subvp_sw_cursor_fallback_req(const struct dc *dc, struct dc_stream_state *stream);
-+
-+/* Setup dc callbacks for dml2
-+ * @dc: the display core structure
-+ * @dml2_options: struct to hold callbacks
-+ */
-+void resource_init_common_dml2_callbacks(struct dc *dc, struct dml2_configuration_options *dml2_options);
- #endif /* DRIVERS_GPU_DRM_AMD_DC_DEV_DC_INC_RESOURCE_H_ */
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-index 1c657fe4a9bb..da15ad845147 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-@@ -1912,6 +1912,22 @@ int dcn32_populate_dml_pipes_from_context(
- 	return pipe_cnt;
- }
- 
-+unsigned int dcn32_calculate_mall_ways_from_bytes(const struct dc *dc, unsigned int total_size_in_mall_bytes)
-+{
-+	uint32_t cache_lines_used, lines_per_way, total_cache_lines, num_ways;
-+
-+	/* add 2 lines for worst case alignment */
-+	cache_lines_used = total_size_in_mall_bytes / dc->caps.cache_line_size + 2;
-+
-+	total_cache_lines = dc->caps.max_cab_allocation_bytes / dc->caps.cache_line_size;
-+	lines_per_way = total_cache_lines / dc->caps.cache_num_ways;
-+	num_ways = cache_lines_used / lines_per_way;
-+	if (cache_lines_used % lines_per_way > 0)
-+		num_ways++;
-+
-+	return num_ways;
-+}
-+
- static struct dc_cap_funcs cap_funcs = {
- 	.get_dcc_compression_cap = dcn20_get_dcc_compression_cap,
- 	.get_subvp_en = dcn32_subvp_in_use,
-@@ -1960,6 +1976,7 @@ static struct resource_funcs dcn32_res_pool_funcs = {
- 	.update_soc_for_wm_a = dcn30_update_soc_for_wm_a,
- 	.add_phantom_pipes = dcn32_add_phantom_pipes,
- 	.build_pipe_pix_clk_params = dcn20_build_pipe_pix_clk_params,
-+	.calculate_mall_ways_from_bytes = dcn32_calculate_mall_ways_from_bytes,
- };
- 
- static uint32_t read_pipe_fuses(struct dc_context *ctx)
-@@ -2363,30 +2380,10 @@ static bool dcn32_resource_construct(
- 	dc->dml2_options.use_native_soc_bb_construction = true;
- 	dc->dml2_options.minimize_dispclk_using_odm = true;
- 
--	dc->dml2_options.callbacks.dc = dc;
--	dc->dml2_options.callbacks.build_scaling_params = &resource_build_scaling_params;
-+	resource_init_common_dml2_callbacks(dc, &dc->dml2_options);
- 	dc->dml2_options.callbacks.can_support_mclk_switch_using_fw_based_vblank_stretch = &dcn30_can_support_mclk_switch_using_fw_based_vblank_stretch;
--	dc->dml2_options.callbacks.acquire_secondary_pipe_for_mpc_odm = &dc_resource_acquire_secondary_pipe_for_mpc_odm_legacy;
--	dc->dml2_options.callbacks.update_pipes_for_stream_with_slice_count = &resource_update_pipes_for_stream_with_slice_count;
--	dc->dml2_options.callbacks.update_pipes_for_plane_with_slice_count = &resource_update_pipes_for_plane_with_slice_count;
--	dc->dml2_options.callbacks.get_mpc_slice_index = &resource_get_mpc_slice_index;
--	dc->dml2_options.callbacks.get_odm_slice_index = &resource_get_odm_slice_index;
--	dc->dml2_options.callbacks.get_opp_head = &resource_get_opp_head;
--
--	dc->dml2_options.svp_pstate.callbacks.dc = dc;
--	dc->dml2_options.svp_pstate.callbacks.add_phantom_plane = &dc_state_add_phantom_plane;
--	dc->dml2_options.svp_pstate.callbacks.add_phantom_stream = &dc_state_add_phantom_stream;
--	dc->dml2_options.svp_pstate.callbacks.build_scaling_params = &resource_build_scaling_params;
--	dc->dml2_options.svp_pstate.callbacks.create_phantom_plane = &dc_state_create_phantom_plane;
--	dc->dml2_options.svp_pstate.callbacks.remove_phantom_plane = &dc_state_remove_phantom_plane;
--	dc->dml2_options.svp_pstate.callbacks.remove_phantom_stream = &dc_state_remove_phantom_stream;
--	dc->dml2_options.svp_pstate.callbacks.create_phantom_stream = &dc_state_create_phantom_stream;
--	dc->dml2_options.svp_pstate.callbacks.release_phantom_plane = &dc_state_release_phantom_plane;
--	dc->dml2_options.svp_pstate.callbacks.release_phantom_stream = &dc_state_release_phantom_stream;
- 	dc->dml2_options.svp_pstate.callbacks.release_dsc = &dcn20_release_dsc;
--	dc->dml2_options.svp_pstate.callbacks.get_pipe_subvp_type = &dc_state_get_pipe_subvp_type;
--	dc->dml2_options.svp_pstate.callbacks.get_stream_subvp_type = &dc_state_get_stream_subvp_type;
--	dc->dml2_options.svp_pstate.callbacks.get_paired_subvp_stream = &dc_state_get_paired_subvp_stream;
-+	dc->dml2_options.svp_pstate.callbacks.calculate_mall_ways_from_bytes = pool->base.funcs->calculate_mall_ways_from_bytes;
- 
- 	dc->dml2_options.svp_pstate.subvp_fw_processing_delay_us = dc->caps.subvp_fw_processing_delay_us;
- 	dc->dml2_options.svp_pstate.subvp_prefetch_end_to_mall_start_us = dc->caps.subvp_prefetch_end_to_mall_start_us;
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-index 2258c5c7212d..286e20ad46ed 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-@@ -113,10 +113,6 @@ void dcn32_calculate_wm_and_dlg(
- 		int pipe_cnt,
- 		int vlevel);
- 
--uint32_t dcn32_helper_mall_bytes_to_ways(
--		struct dc *dc,
--		uint32_t total_size_in_mall_bytes);
--
- uint32_t dcn32_helper_calculate_mall_bytes_for_cursor(
- 		struct dc *dc,
- 		struct pipe_ctx *pipe_ctx,
-@@ -184,6 +180,8 @@ void dcn32_update_dml_pipes_odm_policy_based_on_context(struct dc *dc, struct dc
- 
- void dcn32_override_min_req_dcfclk(struct dc *dc, struct dc_state *context);
- 
-+unsigned int dcn32_calculate_mall_ways_from_bytes(const struct dc *dc, unsigned int total_size_in_mall_bytes);
-+
- /* definitions for run time init of reg offsets */
- 
- /* CLK SRC */
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-index 6c8129734163..f7339b141939 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-@@ -1610,6 +1610,7 @@ static struct resource_funcs dcn321_res_pool_funcs = {
- 	.update_soc_for_wm_a = dcn30_update_soc_for_wm_a,
- 	.add_phantom_pipes = dcn32_add_phantom_pipes,
- 	.build_pipe_pix_clk_params = dcn20_build_pipe_pix_clk_params,
-+	.calculate_mall_ways_from_bytes = dcn32_calculate_mall_ways_from_bytes,
- };
- 
- static uint32_t read_pipe_fuses(struct dc_context *ctx)
-@@ -2000,30 +2001,10 @@ static bool dcn321_resource_construct(
- 	dc->dml2_options.use_native_soc_bb_construction = true;
- 	dc->dml2_options.minimize_dispclk_using_odm = true;
- 
--	dc->dml2_options.callbacks.dc = dc;
--	dc->dml2_options.callbacks.build_scaling_params = &resource_build_scaling_params;
-+	resource_init_common_dml2_callbacks(dc, &dc->dml2_options);
- 	dc->dml2_options.callbacks.can_support_mclk_switch_using_fw_based_vblank_stretch = &dcn30_can_support_mclk_switch_using_fw_based_vblank_stretch;
--	dc->dml2_options.callbacks.acquire_secondary_pipe_for_mpc_odm = &dc_resource_acquire_secondary_pipe_for_mpc_odm_legacy;
--	dc->dml2_options.callbacks.update_pipes_for_stream_with_slice_count = &resource_update_pipes_for_stream_with_slice_count;
--	dc->dml2_options.callbacks.update_pipes_for_plane_with_slice_count = &resource_update_pipes_for_plane_with_slice_count;
--	dc->dml2_options.callbacks.get_mpc_slice_index = &resource_get_mpc_slice_index;
--	dc->dml2_options.callbacks.get_odm_slice_index = &resource_get_odm_slice_index;
--	dc->dml2_options.callbacks.get_opp_head = &resource_get_opp_head;
--
--	dc->dml2_options.svp_pstate.callbacks.dc = dc;
--	dc->dml2_options.svp_pstate.callbacks.add_phantom_plane = &dc_state_add_phantom_plane;
--	dc->dml2_options.svp_pstate.callbacks.add_phantom_stream = &dc_state_add_phantom_stream;
--	dc->dml2_options.svp_pstate.callbacks.build_scaling_params = &resource_build_scaling_params;
--	dc->dml2_options.svp_pstate.callbacks.create_phantom_plane = &dc_state_create_phantom_plane;
--	dc->dml2_options.svp_pstate.callbacks.remove_phantom_plane = &dc_state_remove_phantom_plane;
--	dc->dml2_options.svp_pstate.callbacks.remove_phantom_stream = &dc_state_remove_phantom_stream;
--	dc->dml2_options.svp_pstate.callbacks.create_phantom_stream = &dc_state_create_phantom_stream;
--	dc->dml2_options.svp_pstate.callbacks.release_phantom_plane = &dc_state_release_phantom_plane;
--	dc->dml2_options.svp_pstate.callbacks.release_phantom_stream = &dc_state_release_phantom_stream;
- 	dc->dml2_options.svp_pstate.callbacks.release_dsc = &dcn20_release_dsc;
--	dc->dml2_options.svp_pstate.callbacks.get_pipe_subvp_type = &dc_state_get_pipe_subvp_type;
--	dc->dml2_options.svp_pstate.callbacks.get_stream_subvp_type = &dc_state_get_stream_subvp_type;
--	dc->dml2_options.svp_pstate.callbacks.get_paired_subvp_stream = &dc_state_get_paired_subvp_stream;
-+	dc->dml2_options.svp_pstate.callbacks.calculate_mall_ways_from_bytes = pool->base.funcs->calculate_mall_ways_from_bytes;
- 
- 	dc->dml2_options.svp_pstate.subvp_fw_processing_delay_us = dc->caps.subvp_fw_processing_delay_us;
- 	dc->dml2_options.svp_pstate.subvp_prefetch_end_to_mall_start_us = dc->caps.subvp_prefetch_end_to_mall_start_us;
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-index 49cccf3c0f9c..91c6eff79282 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-@@ -2138,15 +2138,9 @@ static bool dcn35_resource_construct(
- 		dc->dml2_options.minimize_dispclk_using_odm = true;
- 	dc->dml2_options.enable_windowed_mpo_odm = dc->config.enable_windowed_mpo_odm;
- 
--	dc->dml2_options.callbacks.dc = dc;
--	dc->dml2_options.callbacks.build_scaling_params = &resource_build_scaling_params;
-+	resource_init_common_dml2_callbacks(dc, &dc->dml2_options);
- 	dc->dml2_options.callbacks.can_support_mclk_switch_using_fw_based_vblank_stretch = &dcn30_can_support_mclk_switch_using_fw_based_vblank_stretch;
--	dc->dml2_options.callbacks.acquire_secondary_pipe_for_mpc_odm = &dc_resource_acquire_secondary_pipe_for_mpc_odm_legacy;
--	dc->dml2_options.callbacks.update_pipes_for_stream_with_slice_count = &resource_update_pipes_for_stream_with_slice_count;
--	dc->dml2_options.callbacks.update_pipes_for_plane_with_slice_count = &resource_update_pipes_for_plane_with_slice_count;
--	dc->dml2_options.callbacks.get_mpc_slice_index = &resource_get_mpc_slice_index;
--	dc->dml2_options.callbacks.get_odm_slice_index = &resource_get_odm_slice_index;
--	dc->dml2_options.callbacks.get_opp_head = &resource_get_opp_head;
-+
- 	dc->dml2_options.max_segments_per_hubp = 24;
- 
- 	dc->dml2_options.det_segment_size = DCN3_2_DET_SEG_SIZE;/*todo*/
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-index 2dfd73d5f767..a5ebfde56730 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-@@ -2116,15 +2116,9 @@ static bool dcn351_resource_construct(
- 		dc->dml2_options.minimize_dispclk_using_odm = true;
- 	dc->dml2_options.enable_windowed_mpo_odm = dc->config.enable_windowed_mpo_odm;
- 
--	dc->dml2_options.callbacks.dc = dc;
--	dc->dml2_options.callbacks.build_scaling_params = &resource_build_scaling_params;
-+	resource_init_common_dml2_callbacks(dc, &dc->dml2_options);
- 	dc->dml2_options.callbacks.can_support_mclk_switch_using_fw_based_vblank_stretch = &dcn30_can_support_mclk_switch_using_fw_based_vblank_stretch;
--	dc->dml2_options.callbacks.acquire_secondary_pipe_for_mpc_odm = &dc_resource_acquire_secondary_pipe_for_mpc_odm_legacy;
--	dc->dml2_options.callbacks.update_pipes_for_stream_with_slice_count = &resource_update_pipes_for_stream_with_slice_count;
--	dc->dml2_options.callbacks.update_pipes_for_plane_with_slice_count = &resource_update_pipes_for_plane_with_slice_count;
--	dc->dml2_options.callbacks.get_mpc_slice_index = &resource_get_mpc_slice_index;
--	dc->dml2_options.callbacks.get_odm_slice_index = &resource_get_odm_slice_index;
--	dc->dml2_options.callbacks.get_opp_head = &resource_get_opp_head;
-+
- 	dc->dml2_options.max_segments_per_hubp = 24;
- 	dc->dml2_options.det_segment_size = DCN3_2_DET_SEG_SIZE;/*todo*/
  
 -- 
 2.34.1
