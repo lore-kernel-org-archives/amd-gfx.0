@@ -4,81 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D002FC54E58
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 13:31:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B447C6FD1F
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 13:38:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5376C10FBD0;
-	Wed, 20 Mar 2024 13:31:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED09310E148;
+	Wed, 20 Mar 2024 13:38:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VhFBhJiL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LXh24zsP";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE7C810FBB8
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 13:31:53 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-414612cfd82so18382335e9.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 06:31:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710941512; x=1711546312; darn=lists.freedesktop.org;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=X9j2dkiX+YZz5NgrHVxLgVXEb/5SU2coH0Zz/8mikLA=;
- b=VhFBhJiLYw3Mf1InB2FKDUcu1zIBbINeONZ6JkcUIlHTcjEDw8A3FBcnYZkWNnObXC
- ea06CChVtF7D9Mg6Rr/3k5wqUP0OEcPoBSysFANoYkf4EnHibFImKfXTsrY7Og3ARVDx
- T/p1FEEIgvwk6jCZpUVY4hMHOOyOH5dYrJ96icUoZ/julPBAjuXDvrbVT9e0yIpFkrGF
- WXB8Zu2FoA2cIPHd2laIgmpxkLr+1ayMlAjvxwdQLDRvptYixjomZFKF9ikjTipwTf1C
- j8XOpS4oeCjOqyCXQZNSgbCgzRk/2iDXbdpe2EnbaB6VcUgGc8RRLYNqYYm9picQlRU6
- QYHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710941512; x=1711546312;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=X9j2dkiX+YZz5NgrHVxLgVXEb/5SU2coH0Zz/8mikLA=;
- b=OSubkalYuvNQvsNFGsvCfhkvEkSUSb4qLp6cTE0QCu9AqcxnJ4WWnvESe3LXQJMKq7
- JxBi+oK9Q7oS5DN5T3TFJum0St8gL9Px//bkLEQdiCkxUdIuhQEU6v1PXPFwBb3D7fSc
- 5mG8f7BKfAnRKGCHgDUoqgepgpX+Kjq3TQNQnxwuXkzVp7s5hASnGJu1nK8khGzdnv5C
- y13a0q7JLGYfPNjUe8MvPJXfqOOGBvBABn2ucsIx5uUx2UXeCLB+QFIwBPEhB8ziArTl
- 88V/sjdAXPWPDfhMiQEi6LN4B9x7fH4GeXTwSh+I0jPGh8b4dbZdXsp91Z/CqZtF/dNZ
- D3Uw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXCB6D41IdUJRVlRcavfTaCPhktVEytwwmq/lpSq3OoKC4j43v+rnKnQ7+9IGH5XKu+gFMHEk6JSYU0hO+WEdVMKLHoeq9xfefs70qmQA==
-X-Gm-Message-State: AOJu0YxMhINgCGKMEflD0NnYSyRI3nS4IOxmJrh0j706dX9X+eHaaY2E
- 5lq/iNyUkafRjlsr8aOXhRu+Fswe42f/CdLswWJMDMB3EiSeuOsF
-X-Google-Smtp-Source: AGHT+IG5eYbS8s1hbCmZXpOfwQDD5flczfi1ZMJfXmrJkQpXjedwQLjYqbtdAHSWgu3WqmXcNN2A8g==
-X-Received: by 2002:a05:600c:3b24:b0:414:6467:34a4 with SMTP id
- m36-20020a05600c3b2400b00414646734a4mr4235772wms.7.1710941511784; 
- Wed, 20 Mar 2024 06:31:51 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- k36-20020a05600c1ca400b00412f2136793sm2257166wms.44.2024.03.20.06.31.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Mar 2024 06:31:51 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------kNuRSk7kuK5eZsFsmlfpoxEw"
-Message-ID: <8fcf6836-8c86-4072-b201-e8a62c438e2c@gmail.com>
-Date: Wed, 20 Mar 2024 14:31:47 +0100
-MIME-Version: 1.0
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A23AD10E148
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 13:38:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GhHOcZFHES6O6WdCV8/zBYggK1J7dTYdu8CIsM8bQwLvFOMvW9tqzExZOtav2JsFQxk2xbUQvwrnndEkbiPCazpRCX2P/T9mUPsBtQrzTmLhQawOlT1qUyelyvlT/KsyTD9p43DkOis6DtIF/MoGxSaHeTqyhl0OvLeZo2sgNEAjc2WscB0mbefHCMaVJS+cppap8B51K8qDyjpbcjISYgH0zvl5hx04Ure2aEvMtx2pScExLpRDSo/Mg6rJBOVA5lq917/YrmODpO2Jym77AfMrx0k09Eln9ZERkbTHPC0HMNdfV44QUKUC8TEmEjNYZqooOVMBGqkCN7m7xyqvwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t50QNqHOgk2SQhcQmqDARmNjg8ulRwtGJjJ43fDtPJo=;
+ b=aYV60L06uCFVh/QJQQi5mrHPo71AqVwhvm3Qmj9n0pCPhMqRC0DjCCtQD605QN4rJ9Xyxf8ANmrZcjxr/iI/1xYxNpI53TkBo4udxxoC82rCXHg4ofgKhwZE/uC6QRgvvBGEKnPnT+40Sh0rMGCXMIJoa7QpRXjjUsOEQhvSH7SvZVY0yMWSsLJn2LC75guVnNuh9ihpOci9lS7htGTGKauhqy8BQ3e62jQmXtnVpuX5AV9N6tLYHHtVO7KfGM6ChQOl8CpU3t7UkB9ANAZuM8rvAR0cqPHgDPWsTYcmAB4cISspqjVTg7XqItoXk8E3KKXyseZp2dLuVf0DXTq6rw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t50QNqHOgk2SQhcQmqDARmNjg8ulRwtGJjJ43fDtPJo=;
+ b=LXh24zsPnOKebwnJmD9/aC/JBIXRjvQWurgXlHrOvdeGsGk+RWoyjlP2955RokPsgn2GhF65KrPsxohMC9964ZEmLb35ndrNO0AQBV6XEtlGBgRqJ2Ov7EjlN1PPzLOBxzz9Rim4dCHSwE3plD890RaY1ACSCUfo0mvAL9tHXxs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ IA0PR12MB9010.namprd12.prod.outlook.com (2603:10b6:208:48e::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.30; Wed, 20 Mar
+ 2024 13:38:38 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::f349:addf:ae3e:814]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::f349:addf:ae3e:814%5]) with mapi id 15.20.7386.025; Wed, 20 Mar 2024
+ 13:38:38 +0000
+Message-ID: <cefa5729-e523-4d19-bd1e-d399e255eec3@amd.com>
+Date: Wed, 20 Mar 2024 19:08:30 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Remove pci address checks from acpi_vfct_bios
+Subject: Re: [PATCH] drm/amdgpu: Fix the runtime pm mode error
 Content-Language: en-US
-To: Kurt Kartaltepe <kkartaltepe@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20240318065211.11097-1-kkartaltepe@gmail.com>
- <CADnq5_MxfDSaOoD9J2DfdkM2wzX_HfRPkLv8CSSVPzJSKi1aUQ@mail.gmail.com>
- <CACawnnzv5Ro32h3wJ_5EQ=9k=b8mGA4FEGjXbWTUP-jdmWERBg@mail.gmail.com>
- <CADnq5_N4eZ9LbDRLwbAv0NVnmp1GrMwp+cDs4tP0FHwf1r7YRg@mail.gmail.com>
- <CACawnnz17jd4f+VrVhx5oH_DmOSb7jSLGZnmj0PcOZeQ+=UD5A@mail.gmail.com>
- <CADnq5_Mj_9=hBC47K5urr5VLTiaUQsv1Lib0uPTq8-XGSDh-tw@mail.gmail.com>
- <CADnq5_OtProx-8d_0epm9TrYtE_rHLYDhEb6XrK9bgOPi7MicQ@mail.gmail.com>
- <CACawnnx8Z5jbBdzct9Omeq3Y6iJhMDTDy_C3DRPe9irjoHRn+Q@mail.gmail.com>
- <cbc7739a-21c3-4872-bcb0-4fceaf607d32@amd.com>
- <CACawnnwei18rsUPXcPW8iUBXyKBghoOHSzMMy6ndwi64ovF88g@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CACawnnwei18rsUPXcPW8iUBXyKBghoOHSzMMy6ndwi64ovF88g@mail.gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>, Ma Jun <Jun.Ma2@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ Alexander.Deucher@amd.com
+References: <20240320100926.2614497-1-Jun.Ma2@amd.com>
+ <CADnq5_MvSrn6YOgJHrY3rFqZ=ErPKnHm70Sg_n_QWBSLs4Jc_g@mail.gmail.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <CADnq5_MvSrn6YOgJHrY3rFqZ=ErPKnHm70Sg_n_QWBSLs4Jc_g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0099.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:27::14) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|IA0PR12MB9010:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff6569fd-96b1-4403-fdcc-08dc48e30bfc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: bNgLDgix7L4Yyebap9k4GkoArhMpJvbiyUSBt8JaTzNC9nAzzEeBifPEdrz6KPqa0PIwqa6eRwn46veH6ex3YyO65F2o/ut6MBQkSmu07i8w1BfZwKPJuF/aSsxyi9ezqMmq0NJaCGoL9sb/7O83zO3Nl+k2W8SzBv0zypLk/kagWW0mcVahixuD8ZYJV9hBOzBIyV3EJwT6ByP7rU9IhOOxuVsaC6Qc0+H7EP3yDCe9+95glalTrCLt3UVJLxEz5eyhjzEAQuKIn5GGH/HBoK7Gvn3xlsq4VY5dYKmXyuqlk5icHwv8umATiHJQNXCKz4K81X2cX82vf9AzVRBBCaMHboi2pMOhSgB/DoGbMi5txVYpbbOcFMJY1HmBVLr3un1DO2DHZfaslyiwluxB7Yp9TJsl7778scxqHE1TQIEAqjRvdTLsJ6vf2k958KG8sGgdAJAaklVhfk7tbQ7UBVk4d0Q9dO8LJs+2e8ykCtZ9zLs5lmrknPVgXHHECBqGvcEJv0abEbmaMC27oSEoWmOBYjtEzYRmS+4trOHwpz7cEPTxfSMKMr4xXh4OMB/pbFEQJvHygrKfMZbKiYdHh5PY06M+orZvU46SUoy3VPQqsBkaiSkiI5UflLmfqe+Y1VTI1Da/kys92jJ/dWr22OxfbxohooB9LujhzMoGh/g=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(366007)(1800799015); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cnRoaGdmTlYxN0x3b3dtWnZkbHYvOURDK0pocTg2eU5iVmJEZGthZDJUZ3cw?=
+ =?utf-8?B?WXhJeXVWSHJibVJHSXdwOU9TK0Z4UFhmenZ1T3VRTzNHM1ZxdFV2bkU2Vmdr?=
+ =?utf-8?B?bTdNd1dXSmJ3MGlhWkN0VUZnbXpGU2U2cFkxc01NTXR5RHBxdGJGOHVKR3c3?=
+ =?utf-8?B?ZnM5QVo1WGlwU1NRd0tkWnBjcW96bHRHYjkrbnNFeE5Zcm9lcW03UkNDU3dS?=
+ =?utf-8?B?eGtubzBSMEFVODVVYVBqVDFxMG9YaHBiZ3k2a2VuSmVWUG84dVl6WnRXVTlM?=
+ =?utf-8?B?UWZrc2N2SHpnZHd6QTA1MGZPb08rb1pPQzNsc05uY0dwU0xBZ1Q4bmUxMEZ6?=
+ =?utf-8?B?dVZDTHlNMjlpbm5ONWJSNktMUDFWMy9IS3Z1Wjc0K1IwZXpYMlk0OWRoUG1a?=
+ =?utf-8?B?bElQRjUxQVVJeVBRVy8wZTZKOGh5UFVjYTlva0FtekIyOWVzR09RanZ6MW5E?=
+ =?utf-8?B?bTh1OEF5a0tHZEpCa3RUVVp2NDI4N2NSYStaTzBxTU1HQXBJT0Eybmw5cmJj?=
+ =?utf-8?B?MGx0cnpqTTRBU0ZvdVBhbk8vT0RCam15WTlWSW5oemxOcGRaRnZmUjFManlE?=
+ =?utf-8?B?eTY0UlhkeXZMRmtMZ29CR3ZOL2ZMd2lkZDZKTy9uWWhVS1BoQ2Q4MDFFR1U0?=
+ =?utf-8?B?TVFOUHdCMGc3YXQwbjI2T05scWpVL0ozcE56RE1xOXN0Q2tJVE1qa0ZJU2lU?=
+ =?utf-8?B?WXAySlVTWFYzalE3ekdWcldQRklLdTQ0WkVOM2VHZFJQVW1lZGVJazhtT1VC?=
+ =?utf-8?B?RGtWVkxOK1M4dXdQSktWVG5XdWtEbC8vQmRsT2JGQ1NPTm45ekExeC8wSzRS?=
+ =?utf-8?B?bDJGQ2FoSFpEdGY4NlhCOWN2cFNKNGphSXUxTlVWNFRRNC9CakVUOEx3dU9x?=
+ =?utf-8?B?TGw2ZVRTL3BXeWp0SklCdDFmekxBTkpVZHo3VE9iWmVzTXhOQ1E5VldHd2k3?=
+ =?utf-8?B?dHlMMEo2OUtJYzlsZE9VTzNwaWh6Ry8rR29jL2w3T2RPMjJ1Zk5MLzA5K3VX?=
+ =?utf-8?B?d2ZmamhPSG51NjI0cWE1VGZUeld1R1grMFJnOFBldCtkQ1MzZ3JncVVoVFNq?=
+ =?utf-8?B?N0k4RXJzeE5RVUd0TVdzMVFXRHlZYTJOVGF0ZXZ4TVRnY2dpaExNc08zR0g3?=
+ =?utf-8?B?N1dTMWZ5VjlpcUZEckZCQng5UVhDanc5RENndTZCM3JKK0JSR204Ulppd1hs?=
+ =?utf-8?B?bmVqWEJYZmlxQVpSU08zUXRaNnFjazNnalRrK3VBMGR4Ny9CTFBRU3NRWVdu?=
+ =?utf-8?B?OUVqRHVhdzA4VjdjRmh2cXJCOTlGb3ViSC9RdG93VlZxSm5TQWozb1hIU0JY?=
+ =?utf-8?B?azFTOHUrVlB3SG9DMUVjTi9WazF2ZE5kVTBxRWdwM1RwMFJFSWl1MjFPUFda?=
+ =?utf-8?B?NkRCMC9VTE1STWF3c01aMVdrT3dwNGxKZ3Y2WUVZTmpNVnNRUDBxYUlaRW9r?=
+ =?utf-8?B?VnA1NkZHSFE1V3pKcHNONnFORmd2K0V6NTVoNlBxSklZcWp1bFVkQ05sSTdS?=
+ =?utf-8?B?S0pBdHM4ejlQK2JaZDBOUXZ5ejNndENCUmFEcDQzbkNaUC81SDFFQndlKzNw?=
+ =?utf-8?B?MlF5YzJPbWZ6WTdOWG1iV210d3drN3puM1ovNmZrQWh3MTV4YWQ2ZjNBdXVy?=
+ =?utf-8?B?SnNDdjlDdW50a3RnUVZJUHVEWWtSMjAxRGlyb3RvcUVzelFIOVFqUjk3dXVp?=
+ =?utf-8?B?elQ2c0lpSncyQ1BFVFZlaGVPZ1N3eWdoN2ZScDBwb2dob3Y4ZXZMMmVPRFJ2?=
+ =?utf-8?B?ekdJdkhlTy95VStVelJYbEVpOUx0NlFUODhkVjFMdjd2Wlk2VmZNdEora2VR?=
+ =?utf-8?B?WTJWdndKS2V4SXlhUzFjc3FzOGhDb0tZNnQ0WVNWWHVrMG56cEpIV3FsaGt0?=
+ =?utf-8?B?NlFTYVlmdXZCalZIUHRlZVpFUGpsNTRNVVVuaHNGbE9ZdE5lblA2QXV4aFpE?=
+ =?utf-8?B?YlVmWjlySGJnNTlGUjZKS2ZBU1pzdEtaQlY4R1d3NUF6VjBKWk5sQ1FCVW1D?=
+ =?utf-8?B?TzJFbjJwYlh0bnJPTzlsUnp1Z0owWmw1ajVNY3d5eElzZGpadnBmdzIwV3E3?=
+ =?utf-8?B?cHdGSDZ3aEFudmZmZWFuVjlyMlZxSHVuSXVRYWdyVjUzM2FXb1YrUWNkcGFy?=
+ =?utf-8?Q?cy66u4ZKDCGzimYCmctaGt7rO?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff6569fd-96b1-4403-fdcc-08dc48e30bfc
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 13:38:37.9364 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iaTGDjvANBTWNQOzfek/HZJZaZG0wVPOYewQn31KKlnlDMORuntq4XXiixnTJW1t
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9010
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,240 +130,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------kNuRSk7kuK5eZsFsmlfpoxEw
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-Am 19.03.24 um 16:04 schrieb Kurt Kartaltepe:
-> On Tue, Mar 19, 2024 at 2:54 AM Christian König
-> <christian.koenig@amd.com>  wrote:
+
+On 3/20/2024 6:54 PM, Alex Deucher wrote:
+> On Wed, Mar 20, 2024 at 6:17 AM Ma Jun <Jun.Ma2@amd.com> wrote:
 >>
->> Well what problems do you run into? The ACPI and BIOS assignments
->> usually work much better than whatever the Linux PCI subsystem comes up
->> with.
-> Perhaps its easier to show the lspci output for the BIOS assignment
-> and we can agree it's far from helpful
->
->             +-04.1-[64-c3]----00.0-[65-68]--+-01.0-[66]----00.0-[67]----00.0
->   Intel Corporation JHL7540 Thunderbolt 3 USB Controller [Titan Ridge
-> DD 2018]
->             |                               +-02.0-[67]--
->             |                               \-04.0-[68]--
->
-> In this case the bios has assigned the upstream port 65-68, for its 3
-> downstreams 66,67,68, and then assigned the upstream port of the
-> device's own bridge to 67.
->
-> In this case not only did BIOS produce an invalid topology but it also
-> does not provide any space at the first upstream or downstream ports
-> which the current PCI implementation would require to assign bus
-> numbers if I understand it correctly.
-
-Can you provide the full output of lspci -vvvv. As far as I can see that 
-doesn't looks so invalid to me.
-
->> The PCI subsystem in the Linux kernel for example can't handle back to
->> back resources behind multiple downstream bridges.
+>> Because of the logic error, Arcturus and vega20 currently
+>> use the AMDGPU_RUNPM_NONE for runtime pm even though they
+>> support BACO. So, the code is optimized to fix this error.
 >>
->> So when the BIOS fails to assign something it's extremely unlikely that
->> the Linux kernel will do the right thing either.
-> I'm not sure this is still the case, the PCI subsystem with realloc
-> (and assign-busses for x86) deals with enumerating this topology which
-> reports multiple bridges just fine.
+>> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+>> ---
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 56 ++++++++++++-------------
+>>  1 file changed, 27 insertions(+), 29 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>> index 1f92fb1e7421..70cf2d0c7683 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>> @@ -150,42 +150,40 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+>>         }
+>>
+>>         adev->pm.rpm_mode = AMDGPU_RUNPM_NONE;
+>> -       if (amdgpu_device_supports_px(dev) &&
+>> -           (amdgpu_runtime_pm != 0)) { /* enable PX as runtime mode */
+>> -               adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
+>> -               dev_info(adev->dev, "Using ATPX for runtime pm\n");
+>> -       } else if (amdgpu_device_supports_boco(dev) &&
+>> -                  (amdgpu_runtime_pm != 0)) { /* enable boco as runtime mode */
+>> -               adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
+>> -               dev_info(adev->dev, "Using BOCO for runtime pm\n");
+>> -       } else if (amdgpu_device_supports_baco(dev) &&
+>> -                  (amdgpu_runtime_pm != 0)) {
+>> -               switch (adev->asic_type) {
+>> -               case CHIP_VEGA20:
+>> -               case CHIP_ARCTURUS:
+>> -                       /* enable BACO as runpm mode if runpm=1 */
+>> -                       if (amdgpu_runtime_pm > 0)
+>> -                               adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+>> -                       break;
+>> -               case CHIP_VEGA10:
+>> -                       /* enable BACO as runpm mode if noretry=0 */
+>> -                       if (!adev->gmc.noretry)
+>> +       if (amdgpu_runtime_pm > 0) {
+>> +               adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+>> +               dev_info(adev->dev, "Forcing BACO for runtime pm\n");
+> 
+> Does this need special handling for BAMACO?  Setting
+> amdgpu_runtime_pm=2 is supposed to set BAMACO and 1 is supposed to
+> force BACO.
+> 
 
-Well that is just a very very old workaround for a buggy BIOS on 20 year 
-old laptops. The last reference I could find for hardware which actually 
-needed it is this:
+Also, based on the comment it appears as if runpm is not intended to be
+enabled by default on Vega20/Arcturus (unless forced by module parameter).
 
-commit 8c4b2cf9af9b4ecc29d4f0ec4ecc8e94dc4432d7
-Author: Bernhard Kaindl <bk@suse.de>
-Date:   Sat Feb 18 01:36:55 2006 -0800
+Thanks,
+Lijo
 
-     [PATCH] PCI: PCI/Cardbus cards hidden, needs pci=assign-busses to fix
-
-
-So as far as I know nobody had to use that in ages and I wouldn't expect 
-that this option actually works correctly on any modern hardware.
-
-Especially not anything PCIe based since it messes up the ACPI to PCIe 
-device mappings. That amdgpu doesn't work is just the tip of the iceberg 
-here.
-
->   The same configuration as above
-> produces this bus numbering (with hpbussize=20)
->
->             +-04.1-[24-66]----00.0-[25-66]--+-01.0-[26-45]----00.0-[27-29]--+-01.0-[28]----00.0
->   Intel Corporation DG2 [Arc A750]
->             |                               |
->      \-04.0-[29]----00.0  Intel Corporation DG2 Audio Controller
->             |                               +-02.0-[46]----00.0  Intel
-> Corporation JHL7540 Thunderbolt 3 USB Controller [Titan Ridge DD 2018]
->             |                               \-04.0-[47-66]--
->
-> The Linux kernel doesnt do the right thing without these features, and
-> these are not the default. So you may be right that by default it does
-> not recover from the situation of well.
->
->
-> Given the bus allocation at the root port I can imagine a more
-> aggressive than default but less aggressive than `assign-busses`
-> reallocation scheme could deal with both preserving root allocations
-> like the APU and renumbering things behind upstream ports. That might
-> be a better approach than renumbering even the root bus devices.
-
-The bus assignment code in the PCI subsystem is made to support hotplug, 
-not completely re-number the root hubs from scratch. That is just a hack 
-somebody came up with two decades ago to get some Cardbus slots in 
-laptops working.
-
-I'm not sure yet what's going wrong with the Thunderbold controller, but 
-completely re-assigning bus numbers is certainly the wrong approach.
-
-Regards,
-Christian.
-
->
->> Regards,
->> Christian.
-
---------------kNuRSk7kuK5eZsFsmlfpoxEw
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Am 19.03.24 um 16:04 schrieb Kurt Kartaltepe:<br>
-    <blockquote type="cite"
-cite="mid:CACawnnwei18rsUPXcPW8iUBXyKBghoOHSzMMy6ndwi64ovF88g@mail.gmail.com">
-      <pre class="moz-quote-pre" wrap="">On Tue, Mar 19, 2024 at 2:54 AM Christian König
-<a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a> wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-
-Well what problems do you run into? The ACPI and BIOS assignments
-usually work much better than whatever the Linux PCI subsystem comes up
-with.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Perhaps its easier to show the lspci output for the BIOS assignment
-and we can agree it's far from helpful
-
-           +-04.1-[64-c3]----00.0-[65-68]--+-01.0-[66]----00.0-[67]----00.0
- Intel Corporation JHL7540 Thunderbolt 3 USB Controller [Titan Ridge
-DD 2018]
-           |                               +-02.0-[67]--
-           |                               \-04.0-[68]--
-
-In this case the bios has assigned the upstream port 65-68, for its 3
-downstreams 66,67,68, and then assigned the upstream port of the
-device's own bridge to 67.
-
-In this case not only did BIOS produce an invalid topology but it also
-does not provide any space at the first upstream or downstream ports
-which the current PCI implementation would require to assign bus
-numbers if I understand it correctly.</pre>
-    </blockquote>
-    <br>
-    Can you provide the full output of lspci -vvvv. As far as I can see
-    that doesn't looks so invalid to me.<br>
-    <br>
-    <span style="white-space: pre-wrap">
-</span>
-    <blockquote type="cite"
-cite="mid:CACawnnwei18rsUPXcPW8iUBXyKBghoOHSzMMy6ndwi64ovF88g@mail.gmail.com">
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-The PCI subsystem in the Linux kernel for example can't handle back to
-back resources behind multiple downstream bridges.
-
-So when the BIOS fails to assign something it's extremely unlikely that
-the Linux kernel will do the right thing either.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-I'm not sure this is still the case, the PCI subsystem with realloc
-(and assign-busses for x86) deals with enumerating this topology which
-reports multiple bridges just fine.</pre>
-    </blockquote>
-    <br>
-    Well that is just a very very old workaround for a buggy BIOS on 20
-    year old laptops. The last reference I could find for hardware which
-    actually needed it is this:<br>
-    <br>
-    commit 8c4b2cf9af9b4ecc29d4f0ec4ecc8e94dc4432d7<br>
-    Author: Bernhard Kaindl <a class="moz-txt-link-rfc2396E" href="mailto:bk@suse.de">&lt;bk@suse.de&gt;</a><br>
-    Date:   Sat Feb 18 01:36:55 2006 -0800<br>
-    <br>
-        [PATCH] PCI: PCI/Cardbus cards hidden, needs pci=assign-busses
-    to fix<br>
-    <br>
-    <br>
-    So as far as I know nobody had to use that in ages and I wouldn't
-    expect that this option actually works correctly on any modern
-    hardware.<br>
-    <br>
-    Especially not anything PCIe based since it messes up the ACPI to
-    PCIe device mappings. That amdgpu doesn't work is just the tip of
-    the iceberg here.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CACawnnwei18rsUPXcPW8iUBXyKBghoOHSzMMy6ndwi64ovF88g@mail.gmail.com">
-      <pre class="moz-quote-pre" wrap=""> The same configuration as above
-produces this bus numbering (with hpbussize=20)
-
-           +-04.1-[24-66]----00.0-[25-66]--+-01.0-[26-45]----00.0-[27-29]--+-01.0-[28]----00.0
- Intel Corporation DG2 [Arc A750]
-           |                               |
-    \-04.0-[29]----00.0  Intel Corporation DG2 Audio Controller
-           |                               +-02.0-[46]----00.0  Intel
-Corporation JHL7540 Thunderbolt 3 USB Controller [Titan Ridge DD 2018]
-           |                               \-04.0-[47-66]--
-
-The Linux kernel doesnt do the right thing without these features, and
-these are not the default. So you may be right that by default it does
-not recover from the situation of well.
-
-
-Given the bus allocation at the root port I can imagine a more
-aggressive than default but less aggressive than `assign-busses`
-reallocation scheme could deal with both preserving root allocations
-like the APU and renumbering things behind upstream ports. That might
-be a better approach than renumbering even the root bus devices.</pre>
-    </blockquote>
-    <br>
-    The bus assignment code in the PCI subsystem is made to support
-    hotplug, not completely re-number the root hubs from scratch. That
-    is just a hack somebody came up with two decades ago to get some
-    Cardbus slots in laptops working.<br>
-    <br>
-    I'm not sure yet what's going wrong with the Thunderbold controller,
-    but completely re-assigning bus numbers is certainly the wrong
-    approach.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CACawnnwei18rsUPXcPW8iUBXyKBghoOHSzMMy6ndwi64ovF88g@mail.gmail.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-Regards,
-Christian.
-</pre>
-      </blockquote>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------kNuRSk7kuK5eZsFsmlfpoxEw--
+> Alex
+> 
+>> +       } else if (amdgpu_runtime_pm != 0) {
+>> +               if (amdgpu_device_supports_px(dev)) { /* enable PX as runtime mode */
+>> +                       adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
+>> +                       dev_info(adev->dev, "Using ATPX for runtime pm\n");
+>> +               } else if (amdgpu_device_supports_boco(dev)) { /* enable boco as runtime mode */
+>> +                       adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
+>> +                       dev_info(adev->dev, "Using BOCO for runtime pm\n");
+>> +               } else if (amdgpu_device_supports_baco(dev)) {
+>> +                       switch (adev->asic_type) {
+>> +                       case CHIP_VEGA10:
+>> +                               /* enable BACO as runpm mode if noretry=0 */
+>> +                               if (!adev->gmc.noretry)
+>> +                                       adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+>> +                               break;
+>> +                       default:
+>> +                               /* enable BACO as runpm mode on CI+ */
+>>                                 adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+>> -                       break;
+>> -               default:
+>> -                       /* enable BACO as runpm mode on CI+ */
+>> -                       adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+>> -                       break;
+>> -               }
+>> +                               break;
+>> +                       }
+>>
+>> -               if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO)
+>> -                       dev_info(adev->dev, "Using BACO for runtime pm\n");
+>> +                       if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO)
+>> +                               dev_info(adev->dev, "Using BACO for runtime pm\n");
+>> +               }
+>>         }
+>>
+>> +       if (adev->pm.rpm_mode == AMDGPU_RUNPM_NONE)
+>> +               dev_info(adev->dev, "No PM mode for runtime pm\n");
+>> +
+>>         /* Call ACPI methods: require modeset init
+>>          * but failure is not fatal
+>>          */
+>> -
+>>         acpi_status = amdgpu_acpi_init(adev);
+>>         if (acpi_status)
+>>                 dev_dbg(dev->dev, "Error during ACPI methods call\n");
+>> --
+>> 2.34.1
+>>
