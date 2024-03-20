@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93A81C6FD1F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B547C54E67
 	for <amd-gfx@archiver.kernel.org>; Wed, 20 Mar 2024 06:37:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BA1E10EEC6;
-	Wed, 20 Mar 2024 06:37:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E787410EE9A;
+	Wed, 20 Mar 2024 06:37:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2g4k6vTJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Gk1320p/";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2062.outbound.protection.outlook.com [40.107.212.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2182510EE9A
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 06:37:13 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2048.outbound.protection.outlook.com [40.107.92.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F4F110EE9A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Mar 2024 06:37:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aQi+kJEcvar/n3RKpobhtu+mWSsSjHzI4vic01jSAidRym9C2hYU5WMRoTaZQZ4CmSn3Wq/hK1pk9jC3OxOhVKW2G6Fg9y8E92yZAq6Lpr9SzT0e3wvXXv1EmLVz3QaxsgAVIS+A4l+GQbkSohlaumsZS8DZYWxLtiP3jrLC7k1w9MJKrr5vgQKb/w6Hkz5VpLCxSgja8nWybl11Abc7loc/aSKz3u7Ws87qoR9Hv0TRxwvT0CackrQYyYSAOCyGOhdjo9a3KyLiYCEoyy3AZkdkFzzCle/I69HMDus8/P9D17G4/2pJddiN3rL0fc3lvo/0jbQF2t8NmDQrb4lV/A==
+ b=Rmsw63afFppkE9Mkve2IpPh2Af5am+OBWqT1IDEE8H+aa4IkU0bxIVhyqKsEovywhPABnjWK5ft75FDEmKgQqpHJsawxBZZ4LRjKXrp0ShOlsRYORsm8s8hpjnZelS/z/xgSMaS01mDeFA6M4tEQzNf1KQIqyoznVASJr4t/l251uwMeZp8Ppr2rVrReHjF/zRA0RjNdxFWnxGD4YMJrFQinTKCoxCEW4a5siPWDU4pbNmKCVFZ/41oEMS7KDyVSrUy16w5v/exYltrnuyW7wUmICWrJOQuDXqiK+ALdTs4oIqt5Borh/wJtqRbyUXu11CQGyORXP7uDdQl6oHCesg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IhNFdeAPSVgwjfD1QTRhoto2fWxN9IkJZqk6bPVQ2eQ=;
- b=CqgNxy7KOtr6vaulBzYeCfwXwzFeeSrtUdaffZ9/aFQ5snA8TTDGGJ450tO3MZo3qN9jdXJe0aLlPIdcC16kWz5mifzQLWn2DPJFVTP50yuey2vf9/SbOkL0mow06g+rfDX0wP4suco+MXlLMu+bRfLpOF891pgSR/yOtjEROox1dyVqVSzAakESV8Wz1HYScs1muYsxrYQnPFPR+XYSAIciPK3O5OxM7WLVFQuJ5+F+0gS7FP8UM5HJiosL/zakYLYrcNNmnr0HL1/eB4Yjp22CZZUOdf2U0l32hIhKjge6CpEiW1OuTLhETklt1t196gYxQfyzngwhkq1VjTWx3Q==
+ bh=qnDHQ3z/FwKUucn6ULIP/ig8ArxgXCqvICxVnSv/JjI=;
+ b=a/lZHvR6YdZRiUUGYAEQDrlzIhJAXvQfnaETBEfyW0HmeGrgSySxBVpowydp8efBgjuK52xpeyEEwaQ+6R1O5UY1K9/6uA7j/o+Iws1tdHNlJVRz3qvXlkLFyPNgvkts5pOi0Icji4SDtcjc9ul6YTgp3F8a/CNpKVviAiu8HiopEeJDn03/m1uiuMQ0kCJJxscAbeFeEfFnnv2jLhxVhPDOIYf5H1zxjsFgU9d2xMYPxvPcLwtr3v3rilvJnct7f6MPeYS33EhXk5LsgdOyA8oL0kbCKc9WNFHzP5inrZfr52YPaVs370npm38XXuKtgfpxRk6GmNeKvQOmk2oE6w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IhNFdeAPSVgwjfD1QTRhoto2fWxN9IkJZqk6bPVQ2eQ=;
- b=2g4k6vTJBioneXCe2TatGcxja1/C98AzqfzhM2bjuaeDFtEFfrJzPUFrk65rbVTjr5mVk3aePVCK/DJW0+N+J1KWIY+7xULRffRtZzYKlhY+EgloHbCpjwnCKK/tBTF97GtrpEboYCVzHkMc0aLReMdRBrdJBDtej/zpqwprk4Y=
-Received: from BLAPR05CA0021.namprd05.prod.outlook.com (2603:10b6:208:36e::17)
- by CYXPR12MB9279.namprd12.prod.outlook.com (2603:10b6:930:d5::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.30; Wed, 20 Mar
- 2024 06:37:10 +0000
-Received: from BL6PEPF0001AB75.namprd02.prod.outlook.com
- (2603:10b6:208:36e:cafe::7a) by BLAPR05CA0021.outlook.office365.com
- (2603:10b6:208:36e::17) with Microsoft SMTP Server (version=TLS1_2,
+ bh=qnDHQ3z/FwKUucn6ULIP/ig8ArxgXCqvICxVnSv/JjI=;
+ b=Gk1320p/asuxDjXipEPHENm8dNlc0y9hTi9W0YtpHjLd8U48zQ1YNbF7t/YHjqrBDJdLfx5oVbswj1jdR0221ic4CX2K/6AvXiruwXjQy1Gxs9Te4R8P7wLa2Vl0mOK6e/xVuHq/q5oNtkp+oQ1XzohXMFUGhZ1To46TbDtf0qk=
+Received: from BLAPR05CA0015.namprd05.prod.outlook.com (2603:10b6:208:36e::15)
+ by IA1PR12MB6532.namprd12.prod.outlook.com (2603:10b6:208:3a3::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.22; Wed, 20 Mar
+ 2024 06:37:07 +0000
+Received: from BL6PEPF0001AB73.namprd02.prod.outlook.com
+ (2603:10b6:208:36e:cafe::7d) by BLAPR05CA0015.outlook.office365.com
+ (2603:10b6:208:36e::15) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.12 via Frontend
- Transport; Wed, 20 Mar 2024 06:37:10 +0000
+ Transport; Wed, 20 Mar 2024 06:37:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,26 +48,28 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF0001AB75.mail.protection.outlook.com (10.167.242.168) with Microsoft
+ BL6PEPF0001AB73.mail.protection.outlook.com (10.167.242.166) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Wed, 20 Mar 2024 06:37:10 +0000
+ 15.20.7409.10 via Frontend Transport; Wed, 20 Mar 2024 06:37:07 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 20 Mar
- 2024 01:37:09 -0500
+ 2024 01:37:05 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 20 Mar 2024 01:37:07 -0500
+ Transport; Wed, 20 Mar 2024 01:37:03 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Sung Joon Kim <sungkim@amd.com>,
- Xi Liu <xi.liu@amd.com>
-Subject: [PATCH 16/22] drm/amd/display: Increase clock table size
-Date: Wed, 20 Mar 2024 14:35:50 +0800
-Message-ID: <20240320063556.1326615-17-chiahsuan.chung@amd.com>
+ <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Bhawanpreet Lakha
+ <bhawanpreet.lakha@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>
+Subject: [PATCH 15/22] drm/amd/display: Allow Z8 when stutter threshold is not
+ met for dcn35
+Date: Wed, 20 Mar 2024 14:35:49 +0800
+Message-ID: <20240320063556.1326615-16-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240320063556.1326615-1-chiahsuan.chung@amd.com>
 References: <20240320063556.1326615-1-chiahsuan.chung@amd.com>
@@ -78,26 +80,26 @@ Received-SPF: None (SATLEXMB03.amd.com: chiahsuan.chung@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB75:EE_|CYXPR12MB9279:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f592192-027a-4f6d-224a-08dc48a82be0
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB73:EE_|IA1PR12MB6532:EE_
+X-MS-Office365-Filtering-Correlation-Id: e51eb912-7468-407f-4a79-08dc48a829c7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LqhxGD5DpjmQ4Q6DExSc2UryVk/zb9K5pRMKCvkbehlaHz7xLBbK7qThXutt9CZFSy/AHlkWxfZNnXLQV1LCfr8bXI6t3q0OrnI8hSlcMvsLx2e64kx7SKXmUJ0Q2H6JJSihs6NP8irZYglWzcb8+nhqKVmh9GLoWDev7jaVK/Od32yF/JrFIuxtWnLelYCDz735mS2gv9NeF+GxCRR6CkFKHupExwox/g0mVEMCPxBTRcIiJJXCF+06tFXVAhnc2oRULcmoOsMjHgopaViQ7pWvXQwLXUKE2dhAXiaBWMj+zMI+BBndUXDjZAxj0cprh0f/W1VI1dWUyrOnP4+1cOvtR9iv9R3XskKwxQ4netOcpAy/i8gdLx9kvn8JB435Id211TrG/3T0W4mnbAPtEBvTZLYOPsKkGvrRUv5tta5NmF6zFK3PJOaTHgVTJC+RXjcQuKsU0W0CVYReQfk9u6+vxpEWOrvXldc224t2gIRjC60IROyQj8cqaZKCU6MJ8gpG3/Q91kyAb/HZ2WoWb9HDcjWfKO+BgRhHDcqA+fW6FzUCzND+6Ysjc7N7fSkdHo9MZRbKGY2FdJKJhmhvSWAS7KH48Tk08GV8URDNPDeeBBFaMMg9FdVFHDBI/PavUGC9TosZT57/U08DvekoBrHIl7yAfHnlCjBuaj3BP5QQgKvLmpSoo9P8i0TuZc1oN9l5NRjV7evmPGWeXUj+rsBkxO2KkIw4j6RC9/OmR6C37LuA0vMW2pboazB1YSPG
+X-Microsoft-Antispam-Message-Info: 89iZ+1fyMcmpzJ9EgCaIrZy+FFwqnASS11x2PMhLt4Tk2/sVeI1zjj3JoLuTDwkh+FSo7O70tDKbNefnqPnwJ55eiivfs8boIK9WzW0bkhJyyuL5FJJHiX2hUfOTjB+nDmlWFAnyKp17mMNWeYbhpK/y+2CwVwwFxNnqO3hk1Mlflm29qBBwSB+vglClPCm5jFyFT29GS1R8R/DVBB4aMDPvj8MAdE05REdyAB5Bg0XOz3X+4C3VAZMqOL1PTBaIYZYfsE915TyX94UwooqHIkLbHWxDVLltC/tpB96kxravYZMHd33fDyDlmuk6MZ5Xkt6SGMDpbcz3RAr3oRWixCvR0sByy6zuHc0r3a1eYbxgEFOh9cNIq/ye4U1MQqqQKumb6K7yTui+1fUGdOvxRsM362NFjTbekHnJz2lrrVsiEKfkhIDJ9EWGKsBAH+RCyS8Lh8Mi/RfGAoSetnwCYa6p4LeB1Nk3YgjumL6OoINmUr0mDnIToWuuNmd1tlovkoYicJnROfULbVABq5fZIqAJVEnY0w8EaFY07LJYRkTN6NlfqsSyDxUAUbfVr/aUHrl/eWx4mm8IxgDoPLqmQDRWfdPHB7crHu2OIvuJSuo12gLPdYrsESVyeHMY9g3JfWh/OQNrcNIaqNEQX+x/dhDbSiMqnEQCF+RwR5D0mxuuBM4migD/jUtHN7UsAXHgXb3+O8b49TibF4ql08Dj+u99CdtbF8T4B7HkJ7LVRBUbDueitM7vxLYu4NQWphDR
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400014)(36860700004)(1800799015)(376005); DIR:OUT;
+ SFS:(13230031)(1800799015)(36860700004)(376005)(82310400014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 06:37:10.7113 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f592192-027a-4f6d-224a-08dc48a82be0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2024 06:37:07.1931 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e51eb912-7468-407f-4a79-08dc48a829c7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB75.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB73.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9279
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6532
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,61 +114,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sung Joon Kim <sungkim@amd.com>
+From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 
-[why&how]
-To prevent out of bounds error, we need
-to increase the clock table size.
+[Why&How]
+Some panels don't meet the stutter threshold (4k etc), this leads to
+power regressions. Allow z8 for panels that don't meet the threshold
+but support PSR/replay
 
-Reviewed-by: Xi Liu <xi.liu@amd.com>
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Sung Joon Kim <sungkim@amd.com>
+Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 ---
- .../amd/display/dc/dml2/dml2_translation_helper.c  | 14 +++++---------
- 1 file changed, 5 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c   | 9 +++++++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-index 0a4dff45731f..cf98411d0799 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-@@ -29,10 +29,7 @@
- #include "dml2_translation_helper.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
+index 33ea89f20449..714c2fe03c5f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
+@@ -603,7 +603,7 @@ void dcn35_decide_zstate_support(struct dc *dc, struct dc_state *context)
+ 		if (is_pwrseq0 && allow_z10)
+ 			support = DCN_ZSTATE_SUPPORT_ALLOW;
+ 		else if (is_pwrseq0 && (is_psr || is_replay))
+-			support = allow_z8 ? DCN_ZSTATE_SUPPORT_ALLOW_Z8_Z10_ONLY : DCN_ZSTATE_SUPPORT_ALLOW_Z10_ONLY;
++			support = DCN_ZSTATE_SUPPORT_ALLOW_Z8_Z10_ONLY;
+ 		else if (allow_z8)
+ 			support = DCN_ZSTATE_SUPPORT_ALLOW_Z8_ONLY;
  
- #define NUM_DCFCLK_STAS 5
--
--#if defined(CONFIG_DRM_AMD_DC_DCN3_51)
- #define NUM_DCFCLK_STAS_NEW 8
--#endif
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
+index 72cca367062e..e2489eaabb20 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
+@@ -570,6 +570,7 @@ static bool dml2_validate_and_build_resource(const struct dc *in_dc, struct dc_s
+ 	struct dml2_dcn_clocks out_clks;
+ 	unsigned int result = 0;
+ 	bool need_recalculation = false;
++	uint32_t cstate_enter_plus_exit_z8_ns;
  
- void dml2_init_ip_params(struct dml2_context *dml2, const struct dc *in_dc, struct ip_params_st *out)
- {
-@@ -258,21 +255,20 @@ void dml2_init_soc_states(struct dml2_context *dml2, const struct dc *in_dc,
- 	struct dml2_policy_build_synthetic_soc_states_scratch *s = &dml2->v20.scratch.create_scratch.build_synthetic_socbb_scratch;
- 	struct dml2_policy_build_synthetic_soc_states_params *p = &dml2->v20.scratch.build_synthetic_socbb_params;
- 	unsigned int dcfclk_stas_mhz[NUM_DCFCLK_STAS];
--#if defined(CONFIG_DRM_AMD_DC_DCN3_51)
- 	unsigned int dcfclk_stas_mhz_new[NUM_DCFCLK_STAS_NEW];
- 	unsigned int dml_project = dml2->v20.dml_core_ctx.project;
--#endif
+ 	if (!context || context->stream_count == 0)
+ 		return true;
+@@ -641,6 +642,14 @@ static bool dml2_validate_and_build_resource(const struct dc *in_dc, struct dc_s
+ 		dml2_extract_watermark_set(&context->bw_ctx.bw.dcn.watermarks.d, &dml2->v20.dml_core_ctx);
+ 		//copy for deciding zstate use
+ 		context->bw_ctx.dml.vba.StutterPeriod = context->bw_ctx.dml2->v20.dml_core_ctx.mp.StutterPeriod;
 +
- 	unsigned int i = 0;
- 	unsigned int transactions_per_mem_clock = 16; // project specific, depends on used Memory type
- 
--	p->dcfclk_stas_mhz = dcfclk_stas_mhz;
--	p->num_dcfclk_stas = NUM_DCFCLK_STAS;
--#if defined(CONFIG_DRM_AMD_DC_DCN3_51)
- 	if (dml_project == dml_project_dcn351) {
- 		p->dcfclk_stas_mhz = dcfclk_stas_mhz_new;
- 		p->num_dcfclk_stas = NUM_DCFCLK_STAS_NEW;
-+	} else {
-+		p->dcfclk_stas_mhz = dcfclk_stas_mhz;
-+		p->num_dcfclk_stas = NUM_DCFCLK_STAS;
++		cstate_enter_plus_exit_z8_ns = context->bw_ctx.bw.dcn.watermarks.a.cstate_pstate.cstate_enter_plus_exit_z8_ns;
++
++		if (context->bw_ctx.dml.vba.StutterPeriod < in_dc->debug.minimum_z8_residency_time &&
++				cstate_enter_plus_exit_z8_ns < in_dc->debug.minimum_z8_residency_time * 1000)
++			cstate_enter_plus_exit_z8_ns = in_dc->debug.minimum_z8_residency_time * 1000;
++
++		context->bw_ctx.bw.dcn.watermarks.a.cstate_pstate.cstate_enter_plus_exit_z8_ns = cstate_enter_plus_exit_z8_ns;
  	}
--#endif
-+
- 	p->in_bbox = in_bbox;
- 	p->out_states = out;
- 	p->in_states = &dml2->v20.scratch.create_scratch.in_states;
+ 
+ 	return result;
 -- 
 2.34.1
 
