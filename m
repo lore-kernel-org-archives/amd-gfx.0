@@ -4,68 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7BE1C54E58
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 13:03:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41A66C54E58
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 14:13:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E04510E5EC;
-	Thu, 21 Mar 2024 13:03:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DEB110E0AC;
+	Thu, 21 Mar 2024 14:13:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q0VC3f8k";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="tXcPRv2g";
 	dkim-atps=neutral
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
- [209.85.215.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9293410E5EC
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 13:03:30 +0000 (UTC)
-Received: by mail-pg1-f178.google.com with SMTP id
- 41be03b00d2f7-5e8470c1cb7so611329a12.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 06:03:30 -0700 (PDT)
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
+ [209.85.128.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B7D010E0AC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 14:12:59 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id
+ 5b1f17b1804b1-4146a1ac117so6408945e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 07:12:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1711026210; x=1711631010; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GWC89Jnxxmqp6xiPCMAv1K3mOoRsBX8GCoVu2FPgFf0=;
- b=Q0VC3f8kBHNr++54mEBlehGwL0EcadVrNRCmiG9Hb/EZtY6LIASouU84wfLmJxY3IU
- 9av+95Z+POAxbuTnleaGKwqswKq998DkQnYT9rA2ISNmwFYHOhFG5N19c7sqHT88eequ
- WTKbC25nNmQnqQok0hXTa3AfuVgPBUduch+x/tJI5tdO3Pc85DkTVgG7goqiwYKPcJ66
- pEQBJK+bZQSQ4EzVhCKVkkoPp1UO2hRU/eqJVFUit/8VISrT3Qbk8yMjkTVijT4GuJtS
- 5FbZC+ygnX6Gx75SH/5kJpuIF+dhNOs1ucDtUl2udjlrmI7O9fTZmfeGZK/h/7Abqv8X
- /v+g==
+ d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1711030378; x=1711635178;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=CsoKO4/zoKcFb/Zvo/52kZwroa1JRk+kB8SlJIUTJjY=;
+ b=tXcPRv2g169P3Rvts4lln1E3WR8p+OYBqokXMF+3jHsPMuXQAYplcvMDCINKd5CHYI
+ 36JMsq7D89BaOqhqKq2KxP7ggzFex+nayBgPKFWSKyUZMKXD1pw05Fikz6ZtDeKtmeyz
+ uRwRX01xR4MuLSmRrT/MdeliJ+pyxsMxps75ATKnmDBgSXnd3miZXGwcxKc1V5ogGx4X
+ /GCWEUyaLqkghb6/zix9hBKkPIBdbe0FJa0Ce9wKUFHZj3TAkZzfNXYsRVq83IbUNFh7
+ 10vipVG5B7FxplgebM6+z5AYqlsussNglVIQx64EsSu530t2vrzpV7qngjsdpFT71Hn8
+ 7yrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711026210; x=1711631010;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=GWC89Jnxxmqp6xiPCMAv1K3mOoRsBX8GCoVu2FPgFf0=;
- b=d4Yrl/BySI3+DlAMG1nHaYXNbiKrEmaSFwkGoc3K73w9BG40PhDtqHsYWAu59YNmgk
- KOsKnd5Eg6JJdz1GnhK2k7WwtOJ/Lu5+arireP1Tozbb+gzkv26rcGVQIYkSNIRnDy0h
- mEwogFGzrOkO4gfygYhvyHaCuQShNSFat8bAY7xicQUS5Ye90bK9ouAGr2VzyUeK6y64
- 1F8kKus0MEZGw7kO8h3Jf7pCFBwQXLPdwIlNZDMm9VmaM7jejb+nZmBZ2KgdU1uK/DLr
- KKc1Re8/llM9vljgsXSXWk4DZ94OIROK93+sYItxScWJK4O5zCLmFOr07GtdhN8YNuKY
- UJSw==
+ d=1e100.net; s=20230601; t=1711030378; x=1711635178;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=CsoKO4/zoKcFb/Zvo/52kZwroa1JRk+kB8SlJIUTJjY=;
+ b=lemL2rirKKN4ovpmzj1JICdM75VLfzXfVqrE/beXUbxv43IrAZdGhkLtSBmqpzwHtw
+ 7gDRa6KtGqxrnfKVNuiXl4Y6BNiMFl8Tv8DXW4P7DP0xx2B6Yrd4I68JATHcyNxZKFpM
+ kJ3YlODwMX0rvv6sL5ywElkgu7l2arXczsFNLfJkJIDZbgbIglgfEvRbCuBNrSje0u4f
+ REYTK52/3hldg/OkxliN9HQlM6pQkdT1Q6P6a7Ml7nAAMAfb6/IZKjp5ksqe5IYCmS1o
+ 9dhkQgTuFlVaXdrecN0qw7z7zrJS+4d7W+eQ8KvWE05rSSHJpF15AjEVjMZO90Atlob8
+ qx5Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXZ+avV+KEYgOvbBrhn4qWMhAVY/8WbYk5gd/t7tHen96t0PmKX9fyGYio8iLMqljba3yX4y7tDCLAp6eG0XHT5mgayutYeGjVZLWt+bA==
-X-Gm-Message-State: AOJu0YzxUGS97cqrTSGA1tAYEQK5GmRBaobsbE6NUKF5wW14kSYQF9Kb
- 8zTIld9qO7JJaS0KMJSYxAvQuAlX/APGStneYUFrmHM9o//BX3ZrGDl03aYgykSRRIf1p1JUGal
- PznttXfvkPPYiZrk3H748V92d6VQRPDBaz68=
-X-Google-Smtp-Source: AGHT+IE3KcOnsfpsVJdj9PIOBAX4GoeNjbw7I6DrzjyH8WGvACehO3mciz9En0w8/h6bfMbfsI84ncGL4ZhxhSQrnRI=
-X-Received: by 2002:a17:90b:314e:b0:29f:be68:5cf6 with SMTP id
- ip14-20020a17090b314e00b0029fbe685cf6mr8523992pjb.12.1711026209640; Thu, 21
- Mar 2024 06:03:29 -0700 (PDT)
+ AJvYcCV/Z9PXtSmVLqLwDOF2DkwOpu2O/Cn9ZJ0Xz9Qg/wMr0uR4QW/qFFxXTgRXi+ynDIKadOcUdzloGzosoJGQzHrn1WNlLBGV6XtmazSRzA==
+X-Gm-Message-State: AOJu0YwkyqQoQtSDHta5ERNpoTdJ3PnvXumudZDpk5ERi7VB9pUBcJjR
+ XA+jVKeImlTFG8rrljlf31x5A1HVI7N0Im6K7KVM95FFPVgDSjCoX7Rjts6un9U=
+X-Google-Smtp-Source: AGHT+IE9LFAQK0fyjSi6kfJxE83+C1FDg62LLrxRdF4unSPSbtrf/4/0l9bZpwmnASorfZkv9rpqmA==
+X-Received: by 2002:a05:600c:4f10:b0:412:c285:1091 with SMTP id
+ l16-20020a05600c4f1000b00412c2851091mr2596552wmq.7.1711030377864; 
+ Thu, 21 Mar 2024 07:12:57 -0700 (PDT)
+Received: from [192.168.0.101] ([84.65.0.132])
+ by smtp.gmail.com with ESMTPSA id
+ ay18-20020a05600c1e1200b004146d785508sm5136810wmb.0.2024.03.21.07.12.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Mar 2024 07:12:57 -0700 (PDT)
+Message-ID: <fbe52af7-4ebb-490d-9771-d0ee177307e5@ursulin.net>
+Date: Thu, 21 Mar 2024 14:12:56 +0000
 MIME-Version: 1.0
-References: <20240320100926.2614497-1-Jun.Ma2@amd.com>
- <CADnq5_MvSrn6YOgJHrY3rFqZ=ErPKnHm70Sg_n_QWBSLs4Jc_g@mail.gmail.com>
- <dc037723-81ca-4739-8fde-4c82da60b293@amd.com>
-In-Reply-To: <dc037723-81ca-4739-8fde-4c82da60b293@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 21 Mar 2024 09:03:16 -0400
-Message-ID: <CADnq5_MvTjDjbYGH88SNacQH+Rs73vvSNVYJRftY6B4aqdsMKQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix the runtime pm mode error
-To: "Ma, Jun" <majun@amd.com>
-Cc: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org, 
- christian.koenig@amd.com, Alexander.Deucher@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: once more fix the call oder in
+ amdgpu_ttm_move()
+Content-Language: en-GB
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
+References: <20240321124311.2279-1-christian.koenig@amd.com>
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20240321124311.2279-1-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,140 +85,200 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 21, 2024 at 2:52=E2=80=AFAM Ma, Jun <majun@amd.com> wrote:
->
->
->
-> On 3/20/2024 9:24 PM, Alex Deucher wrote:
-> > On Wed, Mar 20, 2024 at 6:17=E2=80=AFAM Ma Jun <Jun.Ma2@amd.com> wrote:
-> >>
-> >> Because of the logic error, Arcturus and vega20 currently
-> >> use the AMDGPU_RUNPM_NONE for runtime pm even though they
-> >> support BACO. So, the code is optimized to fix this error.
-> >>
-> >> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-> >> ---
-> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 56 ++++++++++++------------=
--
-> >>  1 file changed, 27 insertions(+), 29 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_kms.c
-> >> index 1f92fb1e7421..70cf2d0c7683 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> >> @@ -150,42 +150,40 @@ int amdgpu_driver_load_kms(struct amdgpu_device =
-*adev, unsigned long flags)
-> >>         }
-> >>
-> >>         adev->pm.rpm_mode =3D AMDGPU_RUNPM_NONE;
-> >> -       if (amdgpu_device_supports_px(dev) &&
-> >> -           (amdgpu_runtime_pm !=3D 0)) { /* enable PX as runtime mode=
- */
-> >> -               adev->pm.rpm_mode =3D AMDGPU_RUNPM_PX;
-> >> -               dev_info(adev->dev, "Using ATPX for runtime pm\n");
-> >> -       } else if (amdgpu_device_supports_boco(dev) &&
-> >> -                  (amdgpu_runtime_pm !=3D 0)) { /* enable boco as run=
-time mode */
-> >> -               adev->pm.rpm_mode =3D AMDGPU_RUNPM_BOCO;
-> >> -               dev_info(adev->dev, "Using BOCO for runtime pm\n");
-> >> -       } else if (amdgpu_device_supports_baco(dev) &&
-> >> -                  (amdgpu_runtime_pm !=3D 0)) {
-> >> -               switch (adev->asic_type) {
-> >> -               case CHIP_VEGA20:
-> >> -               case CHIP_ARCTURUS:
-> >> -                       /* enable BACO as runpm mode if runpm=3D1 */
-> >> -                       if (amdgpu_runtime_pm > 0)
-> >> -                               adev->pm.rpm_mode =3D AMDGPU_RUNPM_BAC=
-O;
-> >> -                       break;
-> >> -               case CHIP_VEGA10:
-> >> -                       /* enable BACO as runpm mode if noretry=3D0 */
-> >> -                       if (!adev->gmc.noretry)
-> >> +       if (amdgpu_runtime_pm > 0) {
-> >> +               adev->pm.rpm_mode =3D AMDGPU_RUNPM_BACO;
-> >> +               dev_info(adev->dev, "Forcing BACO for runtime pm\n");
-> >
-> > Does this need special handling for BAMACO?  Setting
-> > amdgpu_runtime_pm=3D2 is supposed to set BAMACO and 1 is supposed to
-> > force BACO.
-> >
->
-> BAMACO currently is detected in pptable_funcs->baco_enter() and baco_exit=
- function.
-> We just need to set BACO flag here.
->
-> How about adding a new mode AMDGPU_RUNPM_BAMACO, so we only have to check
-> amdgpu_runtime_pm and detect the PM mode in initialization stage and don'=
-t
-> need to handle it later.
 
-Sure that works, although we still need to verify that it is supported
-on the platform or not so I think we still need to check if BAMACO is
-supported in the baco_enter function and then fall back to BACO if
-BAMACO is not supported.
+On 21/03/2024 12:43, Christian König wrote:
+> This reverts drm/amdgpu: fix ftrace event amdgpu_bo_move always move
+> on same heap. The basic problem here is that after the move the old
+> location is simply not available any more.
+> 
+> Some fixes where suggested, but essentially we should call the move
+> notification before actually moving things because only this way we have
+> the correct order for DMA-buf and VM move notifications as well.
+> 
+> Also rework the statistic handling so that we don't update the eviction
+> counter before the move.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
 
-Alex
+Don't forget:
 
->
-> Regards,
-> Ma Jun
->
-> > Alex
-> >
-> >> +       } else if (amdgpu_runtime_pm !=3D 0) {
-> >> +               if (amdgpu_device_supports_px(dev)) { /* enable PX as =
-runtime mode */
-> >> +                       adev->pm.rpm_mode =3D AMDGPU_RUNPM_PX;
-> >> +                       dev_info(adev->dev, "Using ATPX for runtime pm=
-\n");
-> >> +               } else if (amdgpu_device_supports_boco(dev)) { /* enab=
-le boco as runtime mode */
-> >> +                       adev->pm.rpm_mode =3D AMDGPU_RUNPM_BOCO;
-> >> +                       dev_info(adev->dev, "Using BOCO for runtime pm=
-\n");
-> >> +               } else if (amdgpu_device_supports_baco(dev)) {
-> >> +                       switch (adev->asic_type) {
-> >> +                       case CHIP_VEGA10:
-> >> +                               /* enable BACO as runpm mode if noretr=
-y=3D0 */
-> >> +                               if (!adev->gmc.noretry)
-> >> +                                       adev->pm.rpm_mode =3D AMDGPU_R=
-UNPM_BACO;
-> >> +                               break;
-> >> +                       default:
-> >> +                               /* enable BACO as runpm mode on CI+ */
-> >>                                 adev->pm.rpm_mode =3D AMDGPU_RUNPM_BAC=
-O;
-> >> -                       break;
-> >> -               default:
-> >> -                       /* enable BACO as runpm mode on CI+ */
-> >> -                       adev->pm.rpm_mode =3D AMDGPU_RUNPM_BACO;
-> >> -                       break;
-> >> -               }
-> >> +                               break;
-> >> +                       }
-> >>
-> >> -               if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_BACO)
-> >> -                       dev_info(adev->dev, "Using BACO for runtime pm=
-\n");
-> >> +                       if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_BACO=
-)
-> >> +                               dev_info(adev->dev, "Using BACO for ru=
-ntime pm\n");
-> >> +               }
-> >>         }
-> >>
-> >> +       if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_NONE)
-> >> +               dev_info(adev->dev, "No PM mode for runtime pm\n");
-> >> +
-> >>         /* Call ACPI methods: require modeset init
-> >>          * but failure is not fatal
-> >>          */
-> >> -
-> >>         acpi_status =3D amdgpu_acpi_init(adev);
-> >>         if (acpi_status)
-> >>                 dev_dbg(dev->dev, "Error during ACPI methods call\n");
-> >> --
-> >> 2.34.1
-> >>
+Fixes: 94aeb4117343 ("drm/amdgpu: fix ftrace event amdgpu_bo_move always 
+move on same heap")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3171
+
+;)
+
+Regards,
+
+Tvrtko
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 15 +++----
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  4 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 48 ++++++++++++----------
+>   3 files changed, 37 insertions(+), 30 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index 425cebcc5cbf..eb7d824763b9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -1245,19 +1245,20 @@ int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, void *buffer,
+>    * amdgpu_bo_move_notify - notification about a memory move
+>    * @bo: pointer to a buffer object
+>    * @evict: if this move is evicting the buffer from the graphics address space
+> + * @new_mem: new resource for backing the BO
+>    *
+>    * Marks the corresponding &amdgpu_bo buffer object as invalid, also performs
+>    * bookkeeping.
+>    * TTM driver callback which is called when ttm moves a buffer.
+>    */
+> -void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict)
+> +void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+> +			   bool evict,
+> +			   struct ttm_resource *new_mem)
+>   {
+>   	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
+> +	struct ttm_resource *old_mem = bo->resource;
+>   	struct amdgpu_bo *abo;
+>   
+> -	if (!amdgpu_bo_is_amdgpu_bo(bo))
+> -		return;
+> -
+>   	abo = ttm_to_amdgpu_bo(bo);
+>   	amdgpu_vm_bo_invalidate(adev, abo, evict);
+>   
+> @@ -1267,9 +1268,9 @@ void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict)
+>   	    bo->resource->mem_type != TTM_PL_SYSTEM)
+>   		dma_buf_move_notify(abo->tbo.base.dma_buf);
+>   
+> -	/* remember the eviction */
+> -	if (evict)
+> -		atomic64_inc(&adev->num_evictions);
+> +	/* move_notify is called before move happens */
+> +	trace_amdgpu_bo_move(abo, new_mem ? new_mem->mem_type : -1,
+> +			     old_mem ? old_mem->mem_type : -1);
+>   }
+>   
+>   void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> index a3ea8a82db23..d28e21baef16 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> @@ -344,7 +344,9 @@ int amdgpu_bo_set_metadata (struct amdgpu_bo *bo, void *metadata,
+>   int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, void *buffer,
+>   			   size_t buffer_size, uint32_t *metadata_size,
+>   			   uint64_t *flags);
+> -void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict);
+> +void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+> +			   bool evict,
+> +			   struct ttm_resource *new_mem);
+>   void amdgpu_bo_release_notify(struct ttm_buffer_object *bo);
+>   vm_fault_t amdgpu_bo_fault_reserve_notify(struct ttm_buffer_object *bo);
+>   void amdgpu_bo_fence(struct amdgpu_bo *bo, struct dma_fence *fence,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index a5ceec7820cf..460b23918bfc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -471,14 +471,16 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+>   
+>   	if (!old_mem || (old_mem->mem_type == TTM_PL_SYSTEM &&
+>   			 bo->ttm == NULL)) {
+> +		amdgpu_bo_move_notify(bo, evict, new_mem);
+>   		ttm_bo_move_null(bo, new_mem);
+> -		goto out;
+> +		return 0;
+>   	}
+>   	if (old_mem->mem_type == TTM_PL_SYSTEM &&
+>   	    (new_mem->mem_type == TTM_PL_TT ||
+>   	     new_mem->mem_type == AMDGPU_PL_PREEMPT)) {
+> +		amdgpu_bo_move_notify(bo, evict, new_mem);
+>   		ttm_bo_move_null(bo, new_mem);
+> -		goto out;
+> +		return 0;
+>   	}
+>   	if ((old_mem->mem_type == TTM_PL_TT ||
+>   	     old_mem->mem_type == AMDGPU_PL_PREEMPT) &&
+> @@ -488,9 +490,10 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+>   			return r;
+>   
+>   		amdgpu_ttm_backend_unbind(bo->bdev, bo->ttm);
+> +		amdgpu_bo_move_notify(bo, evict, new_mem);
+>   		ttm_resource_free(bo, &bo->resource);
+>   		ttm_bo_assign_mem(bo, new_mem);
+> -		goto out;
+> +		return 0;
+>   	}
+>   
+>   	if (old_mem->mem_type == AMDGPU_PL_GDS ||
+> @@ -502,8 +505,9 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+>   	    new_mem->mem_type == AMDGPU_PL_OA ||
+>   	    new_mem->mem_type == AMDGPU_PL_DOORBELL) {
+>   		/* Nothing to save here */
+> +		amdgpu_bo_move_notify(bo, evict, new_mem);
+>   		ttm_bo_move_null(bo, new_mem);
+> -		goto out;
+> +		return 0;
+>   	}
+>   
+>   	if (bo->type == ttm_bo_type_device &&
+> @@ -515,22 +519,23 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+>   		abo->flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+>   	}
+>   
+> -	if (adev->mman.buffer_funcs_enabled) {
+> -		if (((old_mem->mem_type == TTM_PL_SYSTEM &&
+> -		      new_mem->mem_type == TTM_PL_VRAM) ||
+> -		     (old_mem->mem_type == TTM_PL_VRAM &&
+> -		      new_mem->mem_type == TTM_PL_SYSTEM))) {
+> -			hop->fpfn = 0;
+> -			hop->lpfn = 0;
+> -			hop->mem_type = TTM_PL_TT;
+> -			hop->flags = TTM_PL_FLAG_TEMPORARY;
+> -			return -EMULTIHOP;
+> -		}
+> +	if (adev->mman.buffer_funcs_enabled &&
+> +	    ((old_mem->mem_type == TTM_PL_SYSTEM &&
+> +	      new_mem->mem_type == TTM_PL_VRAM) ||
+> +	     (old_mem->mem_type == TTM_PL_VRAM &&
+> +	      new_mem->mem_type == TTM_PL_SYSTEM))) {
+> +		hop->fpfn = 0;
+> +		hop->lpfn = 0;
+> +		hop->mem_type = TTM_PL_TT;
+> +		hop->flags = TTM_PL_FLAG_TEMPORARY;
+> +		return -EMULTIHOP;
+> +	}
+>   
+> +	amdgpu_bo_move_notify(bo, evict, new_mem);
+> +	if (adev->mman.buffer_funcs_enabled)
+>   		r = amdgpu_move_blit(bo, evict, new_mem, old_mem);
+> -	} else {
+> +	else
+>   		r = -ENODEV;
+> -	}
+>   
+>   	if (r) {
+>   		/* Check that all memory is CPU accessible */
+> @@ -545,11 +550,10 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+>   			return r;
+>   	}
+>   
+> -	trace_amdgpu_bo_move(abo, new_mem->mem_type, old_mem->mem_type);
+> -out:
+> -	/* update statistics */
+> +	/* update statistics after the move */
+> +	if (evict)
+> +		atomic64_inc(&adev->num_evictions);
+>   	atomic64_add(bo->base.size, &adev->num_bytes_moved);
+> -	amdgpu_bo_move_notify(bo, evict);
+>   	return 0;
+>   }
+>   
+> @@ -1551,7 +1555,7 @@ static int amdgpu_ttm_access_memory(struct ttm_buffer_object *bo,
+>   static void
+>   amdgpu_bo_delete_mem_notify(struct ttm_buffer_object *bo)
+>   {
+> -	amdgpu_bo_move_notify(bo, false);
+> +	amdgpu_bo_move_notify(bo, false, NULL);
+>   }
+>   
+>   static struct ttm_device_funcs amdgpu_bo_driver = {
