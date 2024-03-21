@@ -4,73 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30B79C54E68
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 14:37:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 810BEC54E68
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 16:21:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9158D10EB47;
-	Thu, 21 Mar 2024 14:37:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2513110EF23;
+	Thu, 21 Mar 2024 16:21:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TDgD8ziY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Z1oWdwTE";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09F2510EB49
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 14:37:31 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-41466e01965so7307865e9.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 07:37:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1711031850; x=1711636650; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=LEIQ+H8jRSTnmAYsUWgE1VDJQTUleDHcfiCid/+YBGA=;
- b=TDgD8ziYDYOS+jU3XjsFH7aUP3NB6vCA3kbOdf83lCuS+U+tycj16m9D1RlRSc0fk5
- f73QoayBcdGW15uMGAiehWmqozlwi/GvtWOluYLSvqKugnXwN4nMKLXlOR6mdr3W4zid
- tbpFGvQRIUo0lMP9Y5gFf8JWk45aSYcHkrMeqf+mHKFcLToEG0s6yZPTv2i64llBqoMd
- LA38JTUyVuTxF0TrsxwRIeBzL0NGAotFASS9/+okcYtNFf9YaGwzKSSzAuE+uooyTp4Y
- MIxVG/NjfIe7fI5VM5j6g789Ys+/d/2QrW5GgyCTNxR4MG25Se2s0o3pCM2tRqZDndZW
- N7NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711031850; x=1711636650;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=LEIQ+H8jRSTnmAYsUWgE1VDJQTUleDHcfiCid/+YBGA=;
- b=MOEIyLmj5pnAaVC+XypFwhDWpzAsH0y4fncgmnGB+yeE68CVI3zOUIZqHJ6M1PgQrQ
- wDZ7JHz8wW7mIR4XVAinDsh85PzWtg2nvn2Pq5aFeVIk52hjyzcRi+HX99AkdjC8U9+4
- TSR/etQTqT/9+ZK0yhDCAdkn2ULXG31eoNfs9S6m52JNSrRIiQKwikZOIybGfLnuvhoI
- 9Tg92Fwlwj86BgiDnx33BqHbpHTTO+HBBIaGza9AFDGgClCRtoqd5A63WJyVh0tR+7De
- 8zdLWYDIAJHthmoI+39Twsc8BIAU1S7pssAOpMmreuhnS0f2NUVMdANJYJYFwhHI0AZ+
- FpRQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV79fRVjmmlj6FsY9WpZ/PQjBfdTAKy0F/4sIBv9i9RJ1YWKXlccSch1qvZYlr365ZIw6zD6aMZcMEk0OatsSABbkSl6DYs0uN0qs0GTQ==
-X-Gm-Message-State: AOJu0YwzMamomUb1F6ZzYo4lYjJWj5mFx3ifmHG3RM1uokdzq3GCOZ6h
- 3+brKN1arYy7oCH38Cz7lltAtWE/7jJqZSaTAzjJrV7m94yqHwd4QaXEbmvxQ3U=
-X-Google-Smtp-Source: AGHT+IEs7Vv1SwRI8QvAlYILxhW3e7ffx7zCMsfWer3ywyZnlJO5L4Q64Oy4/PymLW2h5Cx599LyOQ==
-X-Received: by 2002:a05:600c:35c9:b0:414:6a02:ebfa with SMTP id
- r9-20020a05600c35c900b004146a02ebfamr3949628wmq.20.1711031849985; 
- Thu, 21 Mar 2024 07:37:29 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- u17-20020a05600c19d100b0041461a922c2sm5790872wmq.5.2024.03.21.07.37.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Mar 2024 07:37:29 -0700 (PDT)
-Message-ID: <5d237fd2-4af4-4a4a-8c52-224b41f505f9@gmail.com>
-Date: Thu, 21 Mar 2024 15:37:27 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: once more fix the call oder in
- amdgpu_ttm_move()
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2043.outbound.protection.outlook.com [40.107.220.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A2AF10EF23
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 16:21:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kGCin7Q42b5iNQ9ONbUhfS8yynDyYbvZYBLuGQhz3N0AYTHGnrle6v75dWVg1PnU3WzOjIAFEVR9M3CeLzNEgxkxU7yV+fsZy87gJXVGX4YoXh/DvY9CxEgT8WOdVMFeVb/slW5myZwncO3+vXEfZ8bPsWYFEiPzKMNAqiF4LoMLkweZDYppFxXu67mbXg2HLUV6Zg9n/7QCH/tlk9IMf3e3JSFJrIpJEGrfGWntrb5Ozri2ZgBZwnQ6MekIttg3+xtaekSlLZXLi66gOy4K2wKhCTyn7uq8Zhv7i0+Ql/DvwwhK/Y2BNFoHW9F0ZGNuA9sqG8xDq4qdDL5Y/86XXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wkVB02ya557WpttTyz3HDalSeUCeErjLTtnX2bK5sTo=;
+ b=Ahgl1dJ5qpPvnDaAbP50LPVcNg0mliGqFjzJP0sx1qPsDqxblN+ZS9y95YPqWHGexx/XNpgUSuV6LPO+oEA5BS9OJ4reqEjpPTseOwEJg/qJfRGPRPbftDq1CQMqMTOgdw5zSzwNMkTlplIW2CIW+PCMZzpyezsmh7YwU+B1JSsn+iutYo2JlfBvfyFJ6soLDtDkCZ7qU6u9GrN/cqedy66+CnMG43F9f2ulhj92QhbGWDG/4nGK231x/EAsUi/JPvObiMatCLxtlBBXN3zJvFSREbbwfn6D+zMuW7wEs68wAwmZnwxIWop4lQm/2j5gsxnEiPufscjauNA/QsmHMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wkVB02ya557WpttTyz3HDalSeUCeErjLTtnX2bK5sTo=;
+ b=Z1oWdwTEw4/eMV1ZvmOBbaTf6VX5mfuJQWVigfsF+4+PGgvebdBTInwSvvYkiGNopElDe7FK7orAY57t8QLts7UWHhhRZ46Ueqk6ZqEoTXQIhLAJEauQMv+A/h/aYZfWmxh87jT6Xfqw2tnYuUVdYa3uomdtCmhVrAKtLfaq6P4=
+Received: from CY8PR12MB7435.namprd12.prod.outlook.com (2603:10b6:930:51::6)
+ by BL1PR12MB5924.namprd12.prod.outlook.com (2603:10b6:208:39b::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.34; Thu, 21 Mar
+ 2024 16:21:38 +0000
+Received: from CY8PR12MB7435.namprd12.prod.outlook.com
+ ([fe80::e76d:cc32:47ca:b039]) by CY8PR12MB7435.namprd12.prod.outlook.com
+ ([fe80::e76d:cc32:47ca:b039%5]) with mapi id 15.20.7386.025; Thu, 21 Mar 2024
+ 16:21:38 +0000
+From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Huang, JinHuiEric"
+ <JinHuiEric.Huang@amd.com>, "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+Subject: RE: [PATCH] drm/amdkfd: range check cp bad op exception interrupts
+Thread-Topic: [PATCH] drm/amdkfd: range check cp bad op exception interrupts
+Thread-Index: AQHadVG37oMMqEMAx0ChgH8o71aRCLFCbLgw
+Date: Thu, 21 Mar 2024 16:21:38 +0000
+Message-ID: <CY8PR12MB7435372EBCB416DBEB3377C785322@CY8PR12MB7435.namprd12.prod.outlook.com>
+References: <20240313142105.3028030-1-Jonathan.Kim@amd.com>
+In-Reply-To: <20240313142105.3028030-1-Jonathan.Kim@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Tvrtko Ursulin <tursulin@ursulin.net>, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org
-References: <20240321124311.2279-1-christian.koenig@amd.com>
- <fbe52af7-4ebb-490d-9771-d0ee177307e5@ursulin.net>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <fbe52af7-4ebb-490d-9771-d0ee177307e5@ursulin.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=a6c33dc7-fd6a-47cb-8b78-b1d52db52b23;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-03-21T16:20:44Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7435:EE_|BL1PR12MB5924:EE_
+x-ms-office365-filtering-correlation-id: ebb04cfb-d4ae-4945-cc12-08dc49c2fc41
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: D0CxG+kRS3LuDMSy/sw8Lv0CZdLdJFwARC0wvG+gUTLXeQwdopN4zjZZJ7sKWkM5tGdVjOfUV+WK44CAxE6cf9QiWpxrh1tgnMMV5OXoetMbW5XBaLo6pHuKTfmq5oB4UDOrvsOFUajT2KQMobCV06mb910g/17d7UfD1gIGJyvcbFYI7jGyxCrBTqwsoTmmsseaXjkSpnCsp64c1zOafDrmx6O9xtlFOgDvvAjua5eertUxsFbe59gVdFfOlLs3/rLGsB/5D/2eM7L2YDdqv8TaaZ8uHjS8Zxm1vCsPe+UlOKP2Ekt4T+bBK0lWW5uWdLWpmCxhxnf+Rz+V2Rpgq7T2WHOFRiQAMJdGjzHrIXdMNhRGUzDsjvvT0EYF2W2ss1IWcvCsvcH7WDmh/TFDLVhTHgzS/uRyWYUcma4k8MZUAD+cTnWgB/qJFxxJohymdZJMYzdw2BYnq8mrX2Tt2CiGbKwV3ty3v6qLpewwHRhBp24evHU9qLOTMJSiNk9uHlqjRDhtgbPTIXTts18rm7oilusNzAJSj2zkn7AWazyTusrDquQ7nScnrDoWKtmLjxPd3gohMjAp78q/GnXcvpwtQg02KASEm7lHXPX0eRRW4+jtrlr/WyuR4YImX/a7OviBvvBlTqunaHc8VLIjHqdxVfJwIxFZEmQ7WGQNV6w0Pc3RQW5fAjCq0pizAQY7oukcgHADr0hJaDKViQuB68x6hbQ9uPqY0Bn0kptxNeE=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(366007)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?g+hPwhsGulAuA/yehUkYNKHjAM+y18EoXJuzNR4M9HF2/uR9y/7bHoLmyPd5?=
+ =?us-ascii?Q?fBSPbiGvUJ/OLeTMtR6yNM+N+MV3ZnQyZ6Y4yOwyqLZHBuM333Sch1vD5r6p?=
+ =?us-ascii?Q?Rllc8royGD0e0qJLMePLneyCJOsQbUmIRdoCIiXD9doXcCD0q0viUduh8oHz?=
+ =?us-ascii?Q?T3GgPKXs95UHrUx2nCpbUmEJQzUJMmormcXbhk3dO5hmjQOLeKnu7Du1yWpN?=
+ =?us-ascii?Q?yven2IOvxFxHRlD2c4/pNAfzdEWBU+NAJLyygvVRXsZl2wzsTy/SL7nxtc8I?=
+ =?us-ascii?Q?fkL0LlqSlcn0Bo/jZJYdG3h1o4GgdIvL74Vy4MZGS//8gPdcP8da99BDaaju?=
+ =?us-ascii?Q?lJQrOL/igCl5jwF9SWUeA8Etn6OLI/xzwyyLYAoUO83PXOD3hG/sFShEcKUT?=
+ =?us-ascii?Q?wFYlG3Ypv2Yz0ARLV32zMAApaTa4kJ+KGuvTm3iFg2zT+Z86QTV2xVcPCt3O?=
+ =?us-ascii?Q?hWauV4dMsNHjJRZ9F4dOgDnt+AGgR4zq2IZCkDLMrGH+CtdUBxaCzLcI0+Ga?=
+ =?us-ascii?Q?hr/ILtZAlnv3dEfPzrdvP43YRFNafqRaC5Uwb2M0IvtHZybzYNLvBTChYI4z?=
+ =?us-ascii?Q?/bWgGFlC40tzL0/wuC1r4k1m/Sewg9VcFcYdkIkKIXVO61i97TwDhqx5F8la?=
+ =?us-ascii?Q?3Mo8dszC9jGlDOaM9f1Y7kwUjbO3yhv7BSbDKVBI2zf5TVnjlae9peubFJ2M?=
+ =?us-ascii?Q?lMKegNLtDRm824R3mHAF+YTTUoX5vZltu3TqA8rO8JcvDGK8117PqwNfAWJa?=
+ =?us-ascii?Q?Dp1AGiIi8/gTvuEjvPcXG2Xl19YGELDYD9ecwKERBFYPfmyLQakgvH++qXPq?=
+ =?us-ascii?Q?K4XHYVPhoRBFlaNctRghpzyFS7SEFmHrFzyzO2tWrPEa2tiaxwwW3lsD48tx?=
+ =?us-ascii?Q?XAiDBhdje0wFjMtXcTku0B3M/Kh18O6PriLMq1i/qNIRay4A3EqhRTmZ2p5s?=
+ =?us-ascii?Q?lhSoKeE5Et45e5zsT56qAIwH0hVAZrs2rqV99fE/u8M41NCqpB3eIgKL5Uqb?=
+ =?us-ascii?Q?BHqhNY0ErVDkaaqGcZltw+46TG1MVs2GQdDLpuNJ+fgKc2cVVnoXmHvo203u?=
+ =?us-ascii?Q?XmWs2ov2tXxqYrtnnJfKk+/OSY4kmsoISbmrT03Hnhl7EasxM1twDJ7cHexM?=
+ =?us-ascii?Q?U4lcTlxfz0zZDsk2zNarCN36WFUkEnBKjDYA8XMvUSNlC5SU+vWP2m5wtxGL?=
+ =?us-ascii?Q?yw1Alv9Psnwu51PjCz+B8yVQjw26jhVDezUbKDS8J+clB+CWvgGLAvcS0t8J?=
+ =?us-ascii?Q?YDNLL2XXB79mbHmmCiTyFxM8nJAPxY2Dda2EwWOerjC8U594smbl7Md/VJ4/?=
+ =?us-ascii?Q?6J35pV43eln69rjv1hQKkk2d68Zc4LkmqmY7ATQ9VDzlKdBWwl4IfU5Fxb2c?=
+ =?us-ascii?Q?knLQrAx+q2f6NFISMaaZ4J+tHawW/cfulxMcmUSzVwvThZdKnFjvfAVvzKcr?=
+ =?us-ascii?Q?pVzvd6L2cIsFJX3UlplIkUhuDVwLD3X4vBE3beVeVZfdhD2fBvMl6pc7ifRb?=
+ =?us-ascii?Q?2v9c1dSEAg+Ug5iBCSesx12xzTMBQsf9rlW47gWSLkzB0cvoW5zX/XVrUA3+?=
+ =?us-ascii?Q?mr7W6G1HM3ey5vJLATc=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7435.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ebb04cfb-d4ae-4945-cc12-08dc49c2fc41
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Mar 2024 16:21:38.4181 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3HvOducpSe8yV6At6fcOQjy91UWd/3ZHmZgIGASRsscwrAllndbnPNoFL8HvYRTc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5924
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,210 +129,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.03.24 um 15:12 schrieb Tvrtko Ursulin:
->
-> On 21/03/2024 12:43, Christian König wrote:
->> This reverts drm/amdgpu: fix ftrace event amdgpu_bo_move always move
->> on same heap. The basic problem here is that after the move the old
->> location is simply not available any more.
->>
->> Some fixes where suggested, but essentially we should call the move
->> notification before actually moving things because only this way we have
->> the correct order for DMA-buf and VM move notifications as well.
->>
->> Also rework the statistic handling so that we don't update the eviction
->> counter before the move.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->
-> Don't forget:
->
-> Fixes: 94aeb4117343 ("drm/amdgpu: fix ftrace event amdgpu_bo_move 
-> always move on same heap")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3171
+[Public]
 
-Ah, thanks. I already wanted to ask if there is any bug report about 
-that as well.
+Ping for review.
 
-Regards,
-Christian.
+Thanks,
 
+Jon
+
+> -----Original Message-----
+> From: Kim, Jonathan <Jonathan.Kim@amd.com>
+> Sent: Wednesday, March 13, 2024 10:21 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Huang, JinHuiEric
+> <JinHuiEric.Huang@amd.com>; Kim, Jonathan <Jonathan.Kim@amd.com>;
+> Kim, Jonathan <Jonathan.Kim@amd.com>; Zhang, Jesse(Jie)
+> <Jesse.Zhang@amd.com>
+> Subject: [PATCH] drm/amdkfd: range check cp bad op exception interrupts
 >
-> ;)
+> Due to a CP interrupt bug, bad packet garbage exception codes are raised.
+> Do a range check so that the debugger and runtime do not receive garbage
+> codes.
+> Update the user api to guard exception code type checking as well.
 >
-> Regards,
+> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+> Tested-by: Jesse Zhang <jesse.zhang@amd.com>
+> ---
+>  .../gpu/drm/amd/amdkfd/kfd_int_process_v10.c    |  3 ++-
+>  .../gpu/drm/amd/amdkfd/kfd_int_process_v11.c    |  3 ++-
+>  drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c |  3 ++-
+>  include/uapi/linux/kfd_ioctl.h                  | 17 ++++++++++++++---
+>  4 files changed, 20 insertions(+), 6 deletions(-)
 >
-> Tvrtko
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
+> index a8e76287dde0..013d0a073b9b 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
+> @@ -339,7 +339,8 @@ static void event_interrupt_wq_v10(struct kfd_node
+> *dev,
+>                               break;
+>                       }
+>                       kfd_signal_event_interrupt(pasid, context_id0 &
+> 0x7fffff, 23);
+> -             } else if (source_id =3D=3D SOC15_INTSRC_CP_BAD_OPCODE) {
+> +             } else if (source_id =3D=3D SOC15_INTSRC_CP_BAD_OPCODE &&
+> +
+> KFD_DBG_EC_TYPE_IS_PACKET(KFD_DEBUG_CP_BAD_OP_ECODE(context_id
+> 0))) {
+>                       kfd_set_dbg_ev_from_interrupt(dev, pasid,
+>                               KFD_DEBUG_DOORBELL_ID(context_id0),
 >
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 15 +++----
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  4 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 48 ++++++++++++----------
->>   3 files changed, 37 insertions(+), 30 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> index 425cebcc5cbf..eb7d824763b9 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> @@ -1245,19 +1245,20 @@ int amdgpu_bo_get_metadata(struct amdgpu_bo 
->> *bo, void *buffer,
->>    * amdgpu_bo_move_notify - notification about a memory move
->>    * @bo: pointer to a buffer object
->>    * @evict: if this move is evicting the buffer from the graphics 
->> address space
->> + * @new_mem: new resource for backing the BO
->>    *
->>    * Marks the corresponding &amdgpu_bo buffer object as invalid, 
->> also performs
->>    * bookkeeping.
->>    * TTM driver callback which is called when ttm moves a buffer.
->>    */
->> -void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict)
->> +void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
->> +               bool evict,
->> +               struct ttm_resource *new_mem)
->>   {
->>       struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
->> +    struct ttm_resource *old_mem = bo->resource;
->>       struct amdgpu_bo *abo;
->>   -    if (!amdgpu_bo_is_amdgpu_bo(bo))
->> -        return;
->> -
->>       abo = ttm_to_amdgpu_bo(bo);
->>       amdgpu_vm_bo_invalidate(adev, abo, evict);
->>   @@ -1267,9 +1268,9 @@ void amdgpu_bo_move_notify(struct 
->> ttm_buffer_object *bo, bool evict)
->>           bo->resource->mem_type != TTM_PL_SYSTEM)
->>           dma_buf_move_notify(abo->tbo.base.dma_buf);
->>   -    /* remember the eviction */
->> -    if (evict)
->> -        atomic64_inc(&adev->num_evictions);
->> +    /* move_notify is called before move happens */
->> +    trace_amdgpu_bo_move(abo, new_mem ? new_mem->mem_type : -1,
->> +                 old_mem ? old_mem->mem_type : -1);
->>   }
->>     void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->> index a3ea8a82db23..d28e21baef16 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->> @@ -344,7 +344,9 @@ int amdgpu_bo_set_metadata (struct amdgpu_bo *bo, 
->> void *metadata,
->>   int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, void *buffer,
->>                  size_t buffer_size, uint32_t *metadata_size,
->>                  uint64_t *flags);
->> -void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict);
->> +void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
->> +               bool evict,
->> +               struct ttm_resource *new_mem);
->>   void amdgpu_bo_release_notify(struct ttm_buffer_object *bo);
->>   vm_fault_t amdgpu_bo_fault_reserve_notify(struct ttm_buffer_object 
->> *bo);
->>   void amdgpu_bo_fence(struct amdgpu_bo *bo, struct dma_fence *fence,
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index a5ceec7820cf..460b23918bfc 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -471,14 +471,16 @@ static int amdgpu_bo_move(struct 
->> ttm_buffer_object *bo, bool evict,
->>         if (!old_mem || (old_mem->mem_type == TTM_PL_SYSTEM &&
->>                bo->ttm == NULL)) {
->> +        amdgpu_bo_move_notify(bo, evict, new_mem);
->>           ttm_bo_move_null(bo, new_mem);
->> -        goto out;
->> +        return 0;
->>       }
->>       if (old_mem->mem_type == TTM_PL_SYSTEM &&
->>           (new_mem->mem_type == TTM_PL_TT ||
->>            new_mem->mem_type == AMDGPU_PL_PREEMPT)) {
->> +        amdgpu_bo_move_notify(bo, evict, new_mem);
->>           ttm_bo_move_null(bo, new_mem);
->> -        goto out;
->> +        return 0;
->>       }
->>       if ((old_mem->mem_type == TTM_PL_TT ||
->>            old_mem->mem_type == AMDGPU_PL_PREEMPT) &&
->> @@ -488,9 +490,10 @@ static int amdgpu_bo_move(struct 
->> ttm_buffer_object *bo, bool evict,
->>               return r;
->>             amdgpu_ttm_backend_unbind(bo->bdev, bo->ttm);
->> +        amdgpu_bo_move_notify(bo, evict, new_mem);
->>           ttm_resource_free(bo, &bo->resource);
->>           ttm_bo_assign_mem(bo, new_mem);
->> -        goto out;
->> +        return 0;
->>       }
->>         if (old_mem->mem_type == AMDGPU_PL_GDS ||
->> @@ -502,8 +505,9 @@ static int amdgpu_bo_move(struct 
->> ttm_buffer_object *bo, bool evict,
->>           new_mem->mem_type == AMDGPU_PL_OA ||
->>           new_mem->mem_type == AMDGPU_PL_DOORBELL) {
->>           /* Nothing to save here */
->> +        amdgpu_bo_move_notify(bo, evict, new_mem);
->>           ttm_bo_move_null(bo, new_mem);
->> -        goto out;
->> +        return 0;
->>       }
->>         if (bo->type == ttm_bo_type_device &&
->> @@ -515,22 +519,23 @@ static int amdgpu_bo_move(struct 
->> ttm_buffer_object *bo, bool evict,
->>           abo->flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
->>       }
->>   -    if (adev->mman.buffer_funcs_enabled) {
->> -        if (((old_mem->mem_type == TTM_PL_SYSTEM &&
->> -              new_mem->mem_type == TTM_PL_VRAM) ||
->> -             (old_mem->mem_type == TTM_PL_VRAM &&
->> -              new_mem->mem_type == TTM_PL_SYSTEM))) {
->> -            hop->fpfn = 0;
->> -            hop->lpfn = 0;
->> -            hop->mem_type = TTM_PL_TT;
->> -            hop->flags = TTM_PL_FLAG_TEMPORARY;
->> -            return -EMULTIHOP;
->> -        }
->> +    if (adev->mman.buffer_funcs_enabled &&
->> +        ((old_mem->mem_type == TTM_PL_SYSTEM &&
->> +          new_mem->mem_type == TTM_PL_VRAM) ||
->> +         (old_mem->mem_type == TTM_PL_VRAM &&
->> +          new_mem->mem_type == TTM_PL_SYSTEM))) {
->> +        hop->fpfn = 0;
->> +        hop->lpfn = 0;
->> +        hop->mem_type = TTM_PL_TT;
->> +        hop->flags = TTM_PL_FLAG_TEMPORARY;
->> +        return -EMULTIHOP;
->> +    }
->>   +    amdgpu_bo_move_notify(bo, evict, new_mem);
->> +    if (adev->mman.buffer_funcs_enabled)
->>           r = amdgpu_move_blit(bo, evict, new_mem, old_mem);
->> -    } else {
->> +    else
->>           r = -ENODEV;
->> -    }
->>         if (r) {
->>           /* Check that all memory is CPU accessible */
->> @@ -545,11 +550,10 @@ static int amdgpu_bo_move(struct 
->> ttm_buffer_object *bo, bool evict,
->>               return r;
->>       }
->>   -    trace_amdgpu_bo_move(abo, new_mem->mem_type, old_mem->mem_type);
->> -out:
->> -    /* update statistics */
->> +    /* update statistics after the move */
->> +    if (evict)
->> +        atomic64_inc(&adev->num_evictions);
->>       atomic64_add(bo->base.size, &adev->num_bytes_moved);
->> -    amdgpu_bo_move_notify(bo, evict);
->>       return 0;
->>   }
->>   @@ -1551,7 +1555,7 @@ static int amdgpu_ttm_access_memory(struct 
->> ttm_buffer_object *bo,
->>   static void
->>   amdgpu_bo_delete_mem_notify(struct ttm_buffer_object *bo)
->>   {
->> -    amdgpu_bo_move_notify(bo, false);
->> +    amdgpu_bo_move_notify(bo, false, NULL);
->>   }
->>     static struct ttm_device_funcs amdgpu_bo_driver = {
+>       KFD_EC_MASK(KFD_DEBUG_CP_BAD_OP_ECODE(context_id0)),
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
+> index 7e2859736a55..fe2ad0c0de95 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
+> @@ -328,7 +328,8 @@ static void event_interrupt_wq_v11(struct kfd_node
+> *dev,
+>               /* CP */
+>               if (source_id =3D=3D SOC15_INTSRC_CP_END_OF_PIPE)
+>                       kfd_signal_event_interrupt(pasid, context_id0, 32);
+> -             else if (source_id =3D=3D SOC15_INTSRC_CP_BAD_OPCODE)
+> +             else if (source_id =3D=3D SOC15_INTSRC_CP_BAD_OPCODE &&
+> +
+> KFD_DBG_EC_TYPE_IS_PACKET(KFD_CTXID0_CP_BAD_OP_ECODE(context_id
+> 0)))
+>                       kfd_set_dbg_ev_from_interrupt(dev, pasid,
+>                               KFD_CTXID0_DOORBELL_ID(context_id0),
+>
+>       KFD_EC_MASK(KFD_CTXID0_CP_BAD_OP_ECODE(context_id0)),
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> index ff7392336795..5483211c5d3d 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> @@ -388,7 +388,8 @@ static void event_interrupt_wq_v9(struct kfd_node
+> *dev,
+>                               break;
+>                       }
+>                       kfd_signal_event_interrupt(pasid, sq_int_data, 24);
+> -             } else if (source_id =3D=3D SOC15_INTSRC_CP_BAD_OPCODE) {
+> +             } else if (source_id =3D=3D SOC15_INTSRC_CP_BAD_OPCODE &&
+> +
+> KFD_DBG_EC_TYPE_IS_PACKET(KFD_DEBUG_CP_BAD_OP_ECODE(context_id
+> 0))) {
+>                       kfd_set_dbg_ev_from_interrupt(dev, pasid,
+>                               KFD_DEBUG_DOORBELL_ID(context_id0),
+>
+>       KFD_EC_MASK(KFD_DEBUG_CP_BAD_OP_ECODE(context_id0)),
+> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioct=
+l.h
+> index 9ce46edc62a5..2040a470ddb4 100644
+> --- a/include/uapi/linux/kfd_ioctl.h
+> +++ b/include/uapi/linux/kfd_ioctl.h
+> @@ -913,14 +913,25 @@ enum kfd_dbg_trap_exception_code {
+>                                KFD_EC_MASK(EC_DEVICE_NEW))
+>  #define KFD_EC_MASK_PROCESS
+>       (KFD_EC_MASK(EC_PROCESS_RUNTIME) |      \
+>
+> KFD_EC_MASK(EC_PROCESS_DEVICE_REMOVE))
+> +#define KFD_EC_MASK_PACKET
+>       (KFD_EC_MASK(EC_QUEUE_PACKET_DISPATCH_DIM_INVALID) |
+>       \
+> +
+> KFD_EC_MASK(EC_QUEUE_PACKET_DISPATCH_GROUP_SEGMENT_SIZE_INVA
+> LID) |        \
+> +
+> KFD_EC_MASK(EC_QUEUE_PACKET_DISPATCH_CODE_INVALID) |  \
+> +
+> KFD_EC_MASK(EC_QUEUE_PACKET_RESERVED) |       \
+> +
+> KFD_EC_MASK(EC_QUEUE_PACKET_UNSUPPORTED) |    \
+> +
+> KFD_EC_MASK(EC_QUEUE_PACKET_DISPATCH_WORK_GROUP_SIZE_INVALID
+> ) |   \
+> +
+> KFD_EC_MASK(EC_QUEUE_PACKET_DISPATCH_REGISTER_INVALID) |      \
+> +
+> KFD_EC_MASK(EC_QUEUE_PACKET_VENDOR_UNSUPPORTED))
+>
+>  /* Checks for exception code types for KFD search */
+> +#define KFD_DBG_EC_IS_VALID(ecode) (ecode > EC_NONE && ecode <
+> EC_MAX)
+>  #define KFD_DBG_EC_TYPE_IS_QUEUE(ecode)
+>       \
+> -                     (!!(KFD_EC_MASK(ecode) & KFD_EC_MASK_QUEUE))
+> +                     (KFD_DBG_EC_IS_VALID(ecode)
+> && !!(KFD_EC_MASK(ecode) & KFD_EC_MASK_QUEUE))
+>  #define KFD_DBG_EC_TYPE_IS_DEVICE(ecode)                             \
+> -                     (!!(KFD_EC_MASK(ecode) & KFD_EC_MASK_DEVICE))
+> +                     (KFD_DBG_EC_IS_VALID(ecode)
+> && !!(KFD_EC_MASK(ecode) & KFD_EC_MASK_DEVICE))
+>  #define KFD_DBG_EC_TYPE_IS_PROCESS(ecode)
+>       \
+> -                     (!!(KFD_EC_MASK(ecode) &
+> KFD_EC_MASK_PROCESS))
+> +                     (KFD_DBG_EC_IS_VALID(ecode)
+> && !!(KFD_EC_MASK(ecode) & KFD_EC_MASK_PROCESS))
+> +#define KFD_DBG_EC_TYPE_IS_PACKET(ecode)
+>       \
+> +                     (KFD_DBG_EC_IS_VALID(ecode)
+> && !!(KFD_EC_MASK(ecode) & KFD_EC_MASK_PACKET))
+>
+>
+>  /* Runtime enable states */
+> --
+> 2.34.1
 
