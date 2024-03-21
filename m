@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81895CD11C2
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 08:16:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96A04C54E68
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 08:17:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7E4910E22B;
-	Thu, 21 Mar 2024 08:16:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1770D10E211;
+	Thu, 21 Mar 2024 08:17:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QoNRlGk4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gN8TXrAZ";
 	dkim-atps=neutral
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
  (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A29310E211
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 08:16:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 305EE10E211
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 08:17:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QFr0DobLzijVk0tPbkSDqTuE8VQvKOioyLFqllLIPdDrjfBhowJ4/i7H4ZsE9smQwN0a4dDoRjEhEGmhUi3EIt9PuYRXnKYngjz8wuGWtyYAcnwKYSWGYT8bnNLVqgI1ACCa3o5FRXtaPgRAFtUXTwwgmIDqPYBu9g2rDdB7tZ9nFHLXTJChnljjj6PrTX7TilP08jxJ4iQCNvFdRDDofCbUc9lA1ydT7ZgqkroRaMXM6/JjXH5IevW/xdfVnYMh0xhfB2w2NqBXosHtv64qLTqWzmpaObPIZnncnpFA1MTbLvRojn+l6BAPxYJC9QQKdv/bt1V/zwb7OSV6ZekoKg==
+ b=Lo1yf06LS63GMtkFACcSPIBVuLaOH8lAgLZr4GGf6GS2rnWUFgthDoTPbTMk8eePQaiXnCmRHKFqdZMuY0SdCFwXfTjghMrLFTlB7wvfMXlGmilWv84T4Azz9+OyEg6YQsHuov3dNU7CczbD2G1UOP5bWZ1E8JQ+IvPxnOM+BU7zU7tkZp7dk3sAMVuAxDsbBi7WgNt4ox+JzrAWNXR/QWriFBkFJrK72UVbpeRwfTf+GtIpTGakWTYcmdf7W77HaE8bcqvNckiqdRtWqIN/TTTXwCl3LTTiLPavUPe86fUaMLiS1EUiZG2YBB2EVoQVlONh6hDxeMbhJn15bcPNiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LqRzYsSlfnZnrpDIkbAC4cDXtawxqs5gNzGT8iJ04Yo=;
- b=PkmGoDMdiCD0Jt6p2wiU/DI9F4VA7347OuSkjcwAcji5+CdOaOaMr7ARr3ZRfxJOuLrLMRimRXdfZXoQqF2d7jaeVnLN3v86AKgXIXRAHNJB6SiLBnnvRUPgtk0o9/Hnb/YahjgaQyHELzmKfC3/1xUe8B8fxON4liy6uNHi2bSCagpdjxjrQ1zl32OOSTLL4ZZkcsdXaIUCPZxGqZMpxAjrfsNAvHL7zYuBGI6s86UlztmciLQ4ShWc8L0gpSBMX49x/tBLGzB10KTFkbP/MN9+yBKyINjFGjLZaAPx/989ngfuorThByJmtR5b6ddPiD+LRQgVmTdVK7iwmydcHQ==
+ bh=KJsPz2W/L4HqRNsFMoJV7ktAIksZ89Z5koWDXhr88/0=;
+ b=KpuJCFO8EySYjdkcEBlYOR60woh0j0g6QC7uodVLepQ+VXGWRXVqdvoTXvIlFJrgWKtIScQE1n7j1TgkBCUuF7InoaMYm6bu5gq9ujmFOnzi5dd2O7YbWFrgIVypa3JlnNLFzPxssNqGQghnDX6JDqrQkjqyKxRK2sz9+2C8QHJ+n4rjFI/iB0k6/TwKzC6Xmw90Dwrbf7amRNPqPv4Us+CuC3KsKUJWGnq6WteKs4R1eoq8pOK3Zm9eXWfdEtTtCOmPMspcQsg7750Ez+e8u0Czlulq8OTHluw0hRuWfVCNhWO619UkEQ7GulDaoiwi/hRfKsx/57lguJkhGT3eYA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LqRzYsSlfnZnrpDIkbAC4cDXtawxqs5gNzGT8iJ04Yo=;
- b=QoNRlGk4gT4vfmjNOti5Njb+OvhOkJla85BsM2fNEZaCdOQCWHlN62PP4Ofuu/0ORz6oyrDPazYTF2vGnB/IQ9k3HmrPEIQAlvY5us6Ebc2Qgu6FELrC2Is+VC9QCA9zFCGq/OSLYCx/3wvqGCKXFMSDSU3QssT1QM1a1ToP/aQ=
+ bh=KJsPz2W/L4HqRNsFMoJV7ktAIksZ89Z5koWDXhr88/0=;
+ b=gN8TXrAZN2GdmXL04cJRrTGKauOaYG73O7WoTdqtTOX6YPVfs29QjK2KGzZ4TB004HNzd/NUbNvaFyHYRPAthdBl7SJPC87+4K/sP8okhklrg7eftcDiFGioie1kxEY+Gq4dEPW8kwJ7mrno4ooKtB77bwQ9tyrs6ygKvoX6GRg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
  PH8PR12MB6795.namprd12.prod.outlook.com (2603:10b6:510:1c6::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.30; Thu, 21 Mar
- 2024 08:16:16 +0000
+ 2024 08:17:12 +0000
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::f349:addf:ae3e:814]) by DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::f349:addf:ae3e:814%5]) with mapi id 15.20.7386.025; Thu, 21 Mar 2024
- 08:16:16 +0000
-Message-ID: <91e5dfa1-f092-4931-9d21-424c5e5ebd78@amd.com>
-Date: Thu, 21 Mar 2024 13:46:09 +0530
+ 08:17:12 +0000
+Message-ID: <533c79d9-cabe-4fb2-afb2-561aae7b8530@amd.com>
+Date: Thu, 21 Mar 2024 13:47:09 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: Fix format character cut-off issues in
- amdgpu_vcn_early_init()
+Subject: Re: [PATCH] drm/amdgpu: Fix 'fw_name' buffer size to prevent
+ truncations in amdgpu_mes_init_microcode
 Content-Language: en-US
 To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
-References: <20240320084513.3026222-1-srinivasan.shanmugam@amd.com>
- <20240321045932.3444080-1-srinivasan.shanmugam@amd.com>
+References: <20240321054647.3625987-1-srinivasan.shanmugam@amd.com>
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20240321045932.3444080-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20240321054647.3625987-1-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-ClientProxiedBy: PN3PR01CA0107.INDPRD01.PROD.OUTLOOK.COM
@@ -63,60 +62,60 @@ X-ClientProxiedBy: PN3PR01CA0107.INDPRD01.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|PH8PR12MB6795:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ca621e4-60e7-4384-7c45-08dc497f2dc9
+X-MS-Office365-Filtering-Correlation-Id: 63f3b1eb-af47-41b2-d8cb-08dc497f4f20
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YdwcA6t0vC+/z+0YFYRCX0ZxMkbmB9+oxXbQquC9Pmp8hD6WI2i84qKTH75O9jjTSc/rsCS7se9A47Ckfjv5HvQeiFuo9chp0FCpx7uZnH6FDxWv49SXDVBOjTSdoFQ2m2cu7/CN3UoITsElBlVfZhJ+HJHQstf2QHlnQXKqZNQ7RC0ojJWX+kQRjVSIQDZiSAtemy/b1SbhortCKdTAYcwPDhZlxwVtModm3Aq+QpuDDkkrPGBq1ms/TJ8XAhWKdYweqNe06YKnJDv74d416fvoEK8IT0E+ygtg1eMOWZrcO+4Bp9jbsq31FHRU72E18d2rbbCQ8+9hN6Y47Jvhwe5Fnz00+xH0Cx6gDk4c+gx1DcvUv6V1WyKQqqM3ldiSaqjy3JEBImpTwLX63C/IOYvlZCj9MuUvbl/lP0fJbH0EGvkiez3DsMgZDW+IGRy4LKqlNp/hQXlVmWJlD0YwsHHVzUiL3DQq2/+VmjBrfEsAHCgyBQ0E5cHjaE168/vzFQ+gvW13SHNPwBXVVjrqTLpXW+SyP/UwikwPIT3dv9dLLmvVIsG7i5ZVFwHFhb0/Bgpo6zi8SEXCWZ+r68hZ2CGAAF+86caTgzL+YMzFomjc7qjg3R5LXbygNe91U4GVDwdmd2BRwASqP7D0ZCOfG7CkOTnDuG3YVL29RyutflQ=
+X-Microsoft-Antispam-Message-Info: Gegz7hSgQ8MYCbd29gmm5k1iyHCaUYSu3S7eodR8friTmceOXxanA4tAHQbAxybdOn7rYASd6ttipdIcdnbK/lyTVNjzxZHSaaq2UCxgJ08JGBAGLiR/Ccdhvjxv4ljR95FOb/E+UMY1qbLneyVX1NYaX0YYTx1GJLIN34401ZKuxRWe0mt2O/BTLtNwyFAtBErwmOvsjGvHCOz0PXmBvkG7UPMojpgpFbjv87D04qLfCZZa1Q0qzlt8baO7UvFqe5Yfg+9l82YVCCLMY8PgrL4tMRpOpCdBVDsUZzOqmVvyDVKkIjd+TNkE/H27gNkKyRdGp/tcIC9OKRQZczK2xgoj4grLBrb4EKksleAFODY+sSNEoKSbXnK1dUClmq1+TLRDVBP9oYELkdUq9e/sNNkDq4kbsDp8RNOP/WZRUfMfMRMSy4s54y7v6HhJAFFeolRF9kKItrM2CIDzKs9yIt3KjmCrzvmGNQLnAd8a4UGl6M0oSgjjh+yuTuc6LmXR76ubkSu8RlwcuSv9s7EMSM8krbOYU91POtl70MfSHCoD2FxRROlWqTxoP75gawejOQXXl0c9fIhXgBsST1ZkV9hSS/K+Wv64Lj2BDg9a87wlw7vZA0u5Ft81b66y8jSLumin6vQSsEmk+mNqj6OicMe4wm1HqPJe17q+U31scwY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230031)(1800799015)(376005)(366007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MXhmMGFzdzRCRmRMbFhMTUJ1VGpyZHhLeGNxMUt5dVhzQ2dQNG1CUHNnZnJS?=
- =?utf-8?B?dU9VRDhRQ3p0SEZ5WnBLTWVEQk53SHBtRnhOVUY4TU1hazFCWFhaR21HOGt0?=
- =?utf-8?B?eXlWa1pZelhCbldNMTN2RnZnNUYvQWtwYmVoajVua3JoeG4rTHhSbXA0MXYw?=
- =?utf-8?B?aVB4ci9DUFF5S243cTZ5YVVkQVlST1VFUmMyRzhjOHdMWEFvaUE1aEhIWS9G?=
- =?utf-8?B?TUZwRzB4SW1yelJldm92Sk5NWEx4OXFSbWNibllvcjZvaGpvdXBtUXF6TS94?=
- =?utf-8?B?azh2T0pmTy91cTRWdVNUd1FiR1BZOTExNTRHNTVYVXhPQ1BEUk1jSVd6cHJa?=
- =?utf-8?B?TUZwOVNQYjRxTmpGbXJqazdJYmhBUHdyWXpmcXg5dzEvblA2RktCMEVWTUxa?=
- =?utf-8?B?WWtjWFREb3k2ZVZIQTBiS0xkWWx6RXRlRkxXY1ZtYy96NHlFRVFzRkJtb0Rl?=
- =?utf-8?B?OUFzTmxNZDRGOCtjcUlrTHJRYVVybjROUjJOcUkrOW9VU1pZWVkyditzRFRF?=
- =?utf-8?B?c0xkb0tZNkxvRnZRZDhJWHQramV3TnZSQ05DM0pDRTJCeUZhZTRvTEdRck1F?=
- =?utf-8?B?ak05cXo0bFNVdWNNZlU2Wm5LcmJJelVOdkdVUExpM2FtMVh3MDJmcTRld0FR?=
- =?utf-8?B?cmJKQlY5NGVxbzU2S0tzbVFoUmlwOGNLRnZ1VEZOQnlGMmlkRG95Y0ZaUVRZ?=
- =?utf-8?B?V0RSR3IwT1JhUEMyUW8yeTRtRHhYdlpPejdLeWc0VUp4ejUrZ0F2aERmeHNX?=
- =?utf-8?B?V1BseFQ2Nm9KV0hoY05XK2s2WTkzOWhUa0RVTHhOeEcrQ3BQWnd0MjR6THpw?=
- =?utf-8?B?ZDQyWThPakR3RXc2VjNuRDJqd1dWZFZ4UythWjJzUlJqUVY0cmQ1ZEFTaDkz?=
- =?utf-8?B?K0JuV1pPa2xsYXhNbzVvQ3BXZzVMWUJhT3dRRnZmMEVsU21lTUNzZHVSaVZw?=
- =?utf-8?B?Qk94OG8xNGNZdm9ualJlVTNVTlRxTlFnWjQ1UkxNa2JFZFRpQmUzWnlPUjZW?=
- =?utf-8?B?bWgvLzJ4d1c4Sk1ManVBTUxFeTc1VEc0dUFZSUVUNVhVenNkVkdQN2FVUFhs?=
- =?utf-8?B?cDNUS3BQV2N6NjBIYUJYNUpSaSt5RW9SVTFobDJ0MGxjSHh0aWZlVlp2S2tu?=
- =?utf-8?B?TnJkaVI2S3pndmlKYlBxZDNsUFNKbzZrZGhqSkI3clMwT1R2NGxaL2dIYy9E?=
- =?utf-8?B?T1QzUmUvL2d3Zlp0c2lqOXJwcVZpRUwxbmlCYTZkWVgxemdSQ2xDT0dVN2xz?=
- =?utf-8?B?SFdJZTlITGJMSkxIOWF4YWlJd28vUGRURzlRSzdjb2llTWx1NWxhdmpML21Z?=
- =?utf-8?B?SlJQMkJES2NUY0NLZUt2OU9TQWQreC9BaXQycy95RDF5NTYwZkV2SXJsZW9i?=
- =?utf-8?B?U3RTQVRxenJzcVZwa2hTMytabUF6ckU2Sk93bmgyMzJnRENGOUpsZC9GYThM?=
- =?utf-8?B?OHdIMExEL0x2c3RYWWN4eVVBcndPdHZCenpoY0JTMk5hUVdjaEw3ckNPUHBO?=
- =?utf-8?B?VWhlVGd1RnZVSnVJazh4RjBFZmMwVENjYyttYU9WNlMwOTlOeUUwcDhIZ1Y0?=
- =?utf-8?B?NEE5QTdnVG52TzJQRGxjcXFIWjRydlY1T3NCalNCNUt2cDBEU3R6K0FEdTdm?=
- =?utf-8?B?dFJDZkFuNDROOXhYNEk1YWtERmNZbk9pRDYxbkw5UkpBU0wrTEpRdWVINDZN?=
- =?utf-8?B?bktXdUxaNVpTVFR2TlUzQXEyMVVCVHBSbThGZC9pV0ZWNVNoNlA0a2JSRitk?=
- =?utf-8?B?RGJvUE1PN3h4YThLczhhM3UrbGtVSE0rbnVNVmlWdElvaEF6SFBMbFJleUYr?=
- =?utf-8?B?cHdGMTNxZGk0Z0syTmhYMTJEb0ZiNDRHSUQrR3V1Njh6Y1h2cmhDRDJhVEZI?=
- =?utf-8?B?aG54S3MzSU15Zk9HOVZYTysvWkFZRmkxS3piZzJWdXFOdEt5SDVlZEhvNW14?=
- =?utf-8?B?dldEU3hHMjZoaHJReHlTSzRXY1Bqa0l1aGtHUWNzM3FBNU5NRTZSdkJuZlRj?=
- =?utf-8?B?QUxEaEdsL1FLSWU3SXJ5TzQ3V2l2b1Z1UDJuMmdFdDN0THNKY1pPckVJTzBy?=
- =?utf-8?B?L1BhUi9heHlYYTdYeHJtQnk4ZnFaY0hya0hBc3ZsYkJjdzk0MjBqYlJGSmh1?=
- =?utf-8?Q?/mWIplQagKMbFm9v7RyJTLl/B?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Sk43K3RJYk9CUDRXS1EzV0ZNbit4SHRIcnduenpsRDltN2d4ME9ITThmSGZL?=
+ =?utf-8?B?MWsvSHJXc2tFV3F1VGoxa29NUjRHcE42ZzN0Q2FUb0RCNzQ2Y2FGTlNNc01Y?=
+ =?utf-8?B?YUhEZ0ppdGMrUzAwNTB6Q2VDWVR0ZWhVNGwyempPRnF2RVR5Mm91eE82VmxV?=
+ =?utf-8?B?Y0ptcVk3NzlyZnpKeTZRYXk5T2l4V29GRWw3RE1JcTVhZnlFelFORWdVcTA3?=
+ =?utf-8?B?QnVOaHFLMUJlOXgvd2xxcjNXaU5QMXp1S3I0SkU0eWdmN2xINWs3Lzl4U3JB?=
+ =?utf-8?B?YThXUGZyTjc2UHhWdDNFZjFmUlp6MW5TWFpvdDRIQzlpNnQ3SGR2ZnZWYXd0?=
+ =?utf-8?B?RFFGekFpMlRlMHJtY3JVcXZ4eFZsWWpzTmdGZDZ0QndINGhNbFFnRDNRdFZs?=
+ =?utf-8?B?NXhLS29qUC9PckhReUxVRHhISEFiODc2T2t3dDQyTml3R2dQZ055ZTA5emoy?=
+ =?utf-8?B?dFJId3QyYTBLTnBFellGWS9pSUg5VHRxeXRUdTdyUm1TclA0VkFFRnZUQ2h6?=
+ =?utf-8?B?WHhEeDdOcVVyS3NWM2JtN1loQ3U5NnVwTU1BTHRFZU0xWEsrWFY1MVhsRjBw?=
+ =?utf-8?B?ZG5mMXpSMjNPVUZScXdTdnUrcmZOcDcreFpHWnpoWTErNGNTSmNzMXAwOThu?=
+ =?utf-8?B?dnVtTTNpejJPNmgyVlFxQ2FzL3U3UWx1bGp5bTFCWjdpK2NFcHk0b2JSbnBh?=
+ =?utf-8?B?KzZuVGtxZzZIMkJGZHgzWnIrS3orRjJlSXNxWFNjN0hqWno0ZDQ1RU4wM08y?=
+ =?utf-8?B?bnprcEJGYWNiOUV5T2dtZERaanhzMjlQanlCUEN0N3pNcWxiaVhZaTZYREQ2?=
+ =?utf-8?B?QTlpOUc1b0lGTlI5L3U0VHBmNkFxOS9tWVFJQ0dDNWJsV3pEOTVFNjVqeVFE?=
+ =?utf-8?B?bXNUaFgyU2VWTnlwZUxwZUNZNTVCNm5CcWJHajNXUFU5WWkvY05pT2VvcDB0?=
+ =?utf-8?B?aktveCt0Y1drSEx4S2tCZE5ETlJLUzRoYlRrd1BUVHdhUFB0WE8rMW9hdXRs?=
+ =?utf-8?B?Rmw3c0V3RnNXd1lyekdvVlZIQXMwVENaTFc5ekY4RGNXSHhoUWJmVHRCMmFK?=
+ =?utf-8?B?Y2JMczFweEpWdXAyR01RRzY2eXVOdlIycTgxcXorYkVYNnVrUE9sR3JVVWNP?=
+ =?utf-8?B?blUwRWd6WEdBYUdWY2lxM1hXTXdqd0ZOd1BUL3dKRE4rQ3phakJrR09qT1Jx?=
+ =?utf-8?B?TFV4YklXaXZCSDFidWlTbXA5Yk5adEhmcGRTMEM1Rys3V0lNbm90WG4wK0Ey?=
+ =?utf-8?B?MzFEK3g2SXRTd1NFVkd0blE5UzVlQ09GZ2hzeE5BaUc1S3ZrQ3dTaXViZEsr?=
+ =?utf-8?B?UVNId0hTdisxMTZjRlU0RVpjS1l5MkN1VUhZNzcvRWxGSnVuZUFqSC9NK2J5?=
+ =?utf-8?B?SW9rY2NXcXlmY1NtaUVqNlV6bFE4Y0pHeUgyTTBKOXNSV2JwemtFd2hSMFhE?=
+ =?utf-8?B?TUZNbkNOQUVMajBLVkEvWWEyY2JaRk1ub3M5NjV1RmZBTkdwa2V1ZTFLS1pG?=
+ =?utf-8?B?bytYRHRUUnQ3SmYxVVFQUTRGeXdYOGJjWUNsa0dJMmhQdjlPN2RhWmdKVTZp?=
+ =?utf-8?B?THkwZUdrTDFQR0ZOSnlkaUVibFdZUStQbS85d2lVMjA2SlM2R3dGSFI1RWFk?=
+ =?utf-8?B?ZHBnenVKaWtLdE1FUUNQYXhEWjFINlJaMXRSMlg4VVNwUGhpZUJReXh1NE8w?=
+ =?utf-8?B?Tndlam8xVWhJRHN5UEhYUW1pT1U0b1diYXAyZE10Rm96aEI3S29hRUJJWEJI?=
+ =?utf-8?B?ZGtVcmpTaGZUV01VYVh5YkU5U2llWVdLb1JGZ3NTNnpjM1d4aks0NThyNDdk?=
+ =?utf-8?B?MVh4QlFjN2VGZ1QwNGJqdnVSOXkyZWdiUXI2ZnFkek5URU11RlByV2IwS0VB?=
+ =?utf-8?B?b05POEtsU3hnWS9QbktmNExVR2FGUSs0dWpmODZ4b0NVZUYzV2t5QWF2djJM?=
+ =?utf-8?B?OWNTK09JWUMwN3Znbkk1b3pkSjB6NjJBVEVLdHFhMnBZZlA0UTI5QUxha3pQ?=
+ =?utf-8?B?UGNhdmJVc3c3UncvRTNCU2plOWhLaE0vTHowRjNneGVJNGJ0Z25iT0poUnJi?=
+ =?utf-8?B?WXA4OFc0aTR6eDRFUzRiMmJQRWwya1RCb3lDZ3hjbzhZVmoycnFaeUJ1WTJo?=
+ =?utf-8?Q?pee056XL9wPGLvPhMAq2jLSgk?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ca621e4-60e7-4384-7c45-08dc497f2dc9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63f3b1eb-af47-41b2-d8cb-08dc497f4f20
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2024 08:16:16.1263 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2024 08:17:12.0515 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 66wy9kv97SUruTldNF1iHRknwvIfClP5I0OKorWFOdPLQjT2TB0uY1yTD8FUGrQO
+X-MS-Exchange-CrossTenant-UserPrincipalName: XP+r1qiPNUEy6A8OQ43wBnwU796DWl6x8g7CVVZ0fhRJzkGx4VMNc1xh+Q38bY/v
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6795
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -134,31 +133,74 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 3/21/2024 10:29 AM, Srinivasan Shanmugam wrote:
-> Reducing the size of ucode_prefix to 25 in the amdgpu_vcn_early_init
-> function. This would ensure that the total number of characters being
-> written into fw_name does not exceed its size of 40.
+On 3/21/2024 11:16 AM, Srinivasan Shanmugam wrote:
+> The snprintf function is used to write a formatted string into fw_name.
+> The format of the string is "amdgpu/%s_mes%s.bin", where %s is replaced
+> by the string in ucode_prefix and the second %s is replaced by either
+> "_2" or "1" depending on the condition pipe == AMDGPU_MES_SCHED_PIPE.
+> 
+> The length of the string "amdgpu/%s_mes%s.bin" is 16 characters plus the
+> length of ucode_prefix and the length of the string "_2" or "1". The
+> size of ucode_prefix is 30, so the maximum length of ucode_prefix is 29
+> characters (since one character is needed for the null terminator).
+> Therefore, the maximum possible length of the string written into
+> fw_name is 16 + 29 + 2 = 47 characters.
+> 
+> The size of fw_name is 40, so if the length of the string written into
+> fw_name is more than 39 characters (since one character is needed for
+> the null terminator), it will be truncated by the snprintf function, and
+> thus warnings will be seen.
+> 
+> By increasing the size of fw_name to 50, we ensure that fw_name is
+> large enough to hold the maximum possible length of the string, so the
+> snprintf function will not truncate the output.
 > 
 > Fixes the below with gcc W=1:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c: In function ‘amdgpu_vcn_early_init’:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:102:66: warning: ‘snprintf’ output may be truncated before the last format character [-Wformat-truncation=]
->   102 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
->       |                                                                  ^
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:102:17: note: ‘snprintf’ output between 12 and 41 bytes into a destination of size 40
->   102 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
->       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:102:66: warning: ‘snprintf’ output may be truncated before the last format character [-Wformat-truncation=]
->   102 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
->       |                                                                  ^
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:102:17: note: ‘snprintf’ output between 12 and 41 bytes into a destination of size 40
->   102 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
->       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:105:73: warning: ‘.bin’ directive output may be truncated writing 4 bytes into a region of size between 2 and 31 [-Wformat-truncation=]
->   105 |                         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_%d.bin", ucode_prefix, i);
->       |                                                                         ^~~~
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:105:25: note: ‘snprintf’ output between 14 and 43 bytes into a destination of size 40
->   105 |                         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_%d.bin", ucode_prefix, i);
->       |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c: In function ‘amdgpu_mes_init_microcode’:
+> drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c:1482:66: warning: ‘%s’ directive output may be truncated writing up to 1 bytes into a region of size between 0 and 29 [-Wformat-truncation=]
+>  1482 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes%s.bin",
+>       |                                                                  ^~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c:1482:17: note: ‘snprintf’ output between 16 and 46 bytes into a destination of size 40
+>  1482 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes%s.bin",
+>       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>  1483 |                          ucode_prefix,
+>       |                          ~~~~~~~~~~~~~
+>  1484 |                          pipe == AMDGPU_MES_SCHED_PIPE ? "" : "1");
+>       |                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c:1477:66: warning: ‘%s’ directive output may be truncated writing 1 byte into a region of size between 0 and 29 [-Wformat-truncation=]
+>  1477 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes%s.bin",
+>       |                                                                  ^~
+>  1478 |                          ucode_prefix,
+>  1479 |                          pipe == AMDGPU_MES_SCHED_PIPE ? "_2" : "1");
+>       |                                                                 ~~~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c:1477:17: note: ‘snprintf’ output between 17 and 46 bytes into a destination of size 40
+>  1477 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes%s.bin",
+>       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>  1478 |                          ucode_prefix,
+>       |                          ~~~~~~~~~~~~~
+>  1479 |                          pipe == AMDGPU_MES_SCHED_PIPE ? "_2" : "1");
+>       |                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c:1477:66: warning: ‘%s’ directive output may be truncated writing 2 bytes into a region of size between 0 and 29 [-Wformat-truncation=]
+>  1477 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes%s.bin",
+>       |                                                                  ^~
+>  1478 |                          ucode_prefix,
+>  1479 |                          pipe == AMDGPU_MES_SCHED_PIPE ? "_2" : "1");
+>       |                                                          ~~~~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c:1477:17: note: ‘snprintf’ output between 18 and 47 bytes into a destination of size 40
+>  1477 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes%s.bin",
+>       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>  1478 |                          ucode_prefix,
+>       |                          ~~~~~~~~~~~~~
+>  1479 |                          pipe == AMDGPU_MES_SCHED_PIPE ? "_2" : "1");
+>       |                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c:1489:62: warning: ‘_mes.bin’ directive output may be truncated writing 8 bytes into a region of size between 4 and 33 [-Wformat-truncation=]
+>  1489 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes.bin",
+>       |                                                              ^~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c:1489:17: note: ‘snprintf’ output between 16 and 45 bytes into a destination of size 40
+>  1489 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes.bin",
+>       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>  1490 |                          ucode_prefix);
+>       |                          ~~~~~~~~~~~~~
 > 
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Christian König <christian.koenig@amd.com>
@@ -169,25 +211,20 @@ Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 
 Thanks,
 Lijo
-
 > ---
-> v2:
->    - Reduced ucode_prefix instead of changing fw_name (Lijo)
->    - updated commit message
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index 9c514a606a2f..bb85772b1374 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -93,7 +93,7 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work);
->  
->  int amdgpu_vcn_early_init(struct amdgpu_device *adev)
->  {
-> -	char ucode_prefix[30];
-> +	char ucode_prefix[25];
->  	char fw_name[40];
->  	int r, i;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> index bc8906403270..78dfd027dc99 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> @@ -1467,7 +1467,7 @@ int amdgpu_mes_init_microcode(struct amdgpu_device *adev, int pipe)
+>  	const struct mes_firmware_header_v1_0 *mes_hdr;
+>  	struct amdgpu_firmware_info *info;
+>  	char ucode_prefix[30];
+> -	char fw_name[40];
+> +	char fw_name[50];
+>  	bool need_retry = false;
+>  	int r;
 >  
