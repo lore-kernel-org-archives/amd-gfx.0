@@ -4,68 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4246EC54E58
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 19:46:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 140DBC6FD1F
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 21:00:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C64F2112083;
-	Thu, 21 Mar 2024 19:46:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87C9B112135;
+	Thu, 21 Mar 2024 21:00:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iVg96LQu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AkOoMa1n";
 	dkim-atps=neutral
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
- [209.85.210.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74152112083;
- Thu, 21 Mar 2024 19:46:03 +0000 (UTC)
-Received: by mail-pf1-f170.google.com with SMTP id
- d2e1a72fcca58-6ea7ea4770fso263981b3a.1; 
- Thu, 21 Mar 2024 12:46:03 -0700 (PDT)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C65211212E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 21:00:38 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-1e0411c0a52so11247135ad.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 14:00:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1711050363; x=1711655163; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1711054837; x=1711659637; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vba/RjM6pvvbsfl0+e3q074Z+mH/WxL5U5TdVTaBNws=;
- b=iVg96LQuMD1d1qGG/i9akNIBINeLwWkffElfsag7adkK1ImAqaNfXjPO3VQ9dZI9h9
- BVcKh9fLISIxIr0dPTxkQ2G4K3O7Nshm3vnpnThsk1cdq/q70bGqtSi2Lf5f50gcjrZt
- /2+DpmRPvRq8+6StyfCYqX8B6net8DzftHxs27KUMfuF1RrXcHU6XikpJ/DXVt9xYhsO
- 4YEawe5JEbhSnUVmQOQC2vsiQ3noBovwntdvcqj7v5+W23CN4VQ4ev5f4ad+IKS/zi5m
- RSLgZpz9Gpkj+hjf6FDlTZ9BcOW79vmEvgEQoA0w1p2BOH7uWR89Db1wYWBPZivXia3J
- MwzA==
+ bh=p9YVlMNgbJZoCV/cEaIPo5ce6DOi7ImpVzzP5rwySeI=;
+ b=AkOoMa1naVtKPeBNtnWmmJ4aduXsqZrMGwz2NuoyZNPFmLct8PtRptlZXrm+gjQhOb
+ NMtAC2Vtv/1clImZnuofsvmp3rPWyt1tHqkfEdizRe5kBmCtlCcTb+6KHvMzAk4ZHoVf
+ /1J+fYW/BtYd5r/9a74vcIrAyJCZtk1ntNwtIwpm+btUFqGDj4Gl+AnXNB3+To0ueXH9
+ tfCBMU1twg6WsUbcKWXv0XBEKM7MK6z5fwKu0FCW3q1bniDz/SAxnowCaKoOEqkb0UcU
+ 3c6Oayiuo4a1zUnwDdUO8usvNR81o0ui8cG+tkY5k5fYzZqmQux+hZIFCVKmy1/4ZR2J
+ 2/nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711050363; x=1711655163;
+ d=1e100.net; s=20230601; t=1711054837; x=1711659637;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=vba/RjM6pvvbsfl0+e3q074Z+mH/WxL5U5TdVTaBNws=;
- b=OtZ4yk+oYrdt307QCr28mzJb/Wo7NPOU86OLbXWz5eMXB3oddihaqacjS7flxHVkmy
- 18cxJqcgNlvLl52orS9lIUl93ps5m7Q+H3Nb+HlwdslYHbxvwaFJz4oB4/zeg0NbWovT
- sgshFFy+/TDAdUAmSS2c9OHwK3u1dP+5neWCRcsJHiSRF16EUMg65eBLBbKXPB1mHw+F
- /TtzbPvE9Bt0LfouKENsn7p3S79H1yFhQ132ih+0zGqJOCd1B5gyx4VuHSVjCOEQmFby
- Xl1dAlFKvzoSA13hK9DvTUbs3BnGGd0Ct6r5S6CP4WFGILk/1kxJ//umUc/JAunywSSf
- ebwg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUsNClGGsNYgjFmTij7hgR43Hkds5tZH9cdc3T5Xdvm+Inx2WXvtsDubIwtjMpSIKU/K04SeS17h7ypOsymYuT5sUesYN/1aQYhdYXbtasnhEbXZ9/rMcLIvz1qrySqYXLqNTnkZzVXlUps7s5kbQ==
-X-Gm-Message-State: AOJu0YxFysmXCplePvBm3GIRYn0OdjGqbnTDeK6jGFCY8vjjXgUdPHH7
- KbrN/v/EPnHFw/fAJ/xktb1pmX9PAomhzPnFzhxSL5EsxNa7FBVBGoaYQbqqsgVEnzQTAhK4kyR
- cHZH8r3hqSlw1lMKtuA3HOr/PR2k=
-X-Google-Smtp-Source: AGHT+IFzGDqp2c3xNj+jgmU7qMt5VRv/Iw4MyuHnNXDZd7os0Hll4oNTnqrKLXI/Pfvlyo6kM/qOIu0s8HeCrJArY5M=
-X-Received: by 2002:a17:90a:fa0e:b0:29c:6146:6adb with SMTP id
- cm14-20020a17090afa0e00b0029c61466adbmr736759pjb.12.1711050362877; Thu, 21
- Mar 2024 12:46:02 -0700 (PDT)
+ bh=p9YVlMNgbJZoCV/cEaIPo5ce6DOi7ImpVzzP5rwySeI=;
+ b=LOASaP9tY4BVcrv6k6U5Co4ZyDQusj+M67YYmIetzR8mvpzPRy3WNBEMN6YCo0UXgI
+ KBnTDPnQQf/J6NxUGO0uhsyi2idcHB5pPcPVkcvc6W+PAd9rW7N8zYx5GkNlEnAQHdim
+ KEUpPhP+lLAwk02AA8ezpZt6/kJy/MIBD3+4PUAQk8zWarqhfBoU/MZd5C8NnxXf/KDC
+ U+WgUBv4AQni63XlMter46I005X+/0TaZ3AZOv6IotJfE+2eo5UUaFIugvfnR12bNr9F
+ qQuFF0LPbDd6CYMZ+JePqz8W/YRlsDUJL59KHBouswylrqCE4VRDft7s49yFy9qzL/Bi
+ zk7g==
+X-Gm-Message-State: AOJu0YyRm/vWWWN5LLNMN8WZBSpv+++4e/6VWT0mhQxsfgthVkzk9XkJ
+ 2inbYupLSYYio95PeIG/1BViPZidku7maSpxHu8xdenzQw6nvPTtzyonxMw33yT8J00oi6lDAx2
+ 0NA05I/BQX6vKe29y4EVCYN5J95RWGcKl
+X-Google-Smtp-Source: AGHT+IF6wxlt+HUk7EPc0R5J0QDrLr7wwzvudu3PXyTcv4+egl8rEqFyQbPme4bd8FqnuG84YWzNVxHPrZzIIoqpwC0=
+X-Received: by 2002:a05:6a21:a5a2:b0:1a3:6a10:fa3e with SMTP id
+ gd34-20020a056a21a5a200b001a36a10fa3emr840629pzc.10.1711054372839; Thu, 21
+ Mar 2024 13:52:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240321181403.1365947-1-sunil.khatri@amd.com>
-In-Reply-To: <20240321181403.1365947-1-sunil.khatri@amd.com>
+References: <20240320183221.5689-1-superm1@gmail.com>
+In-Reply-To: <20240320183221.5689-1-superm1@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 21 Mar 2024 15:45:50 -0400
-Message-ID: <CADnq5_NbOxav2U-hK8PGnsSymqKn_xjuxGtStjuHzWu_PjfPmA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix function implicit declaration error
-To: Sunil Khatri <sunil.khatri@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Hawking Zhang <Hawking.Zhang@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>
+Date: Thu, 21 Mar 2024 16:52:40 -0400
+Message-ID: <CADnq5_OJVPj_8GYq5VZ3kiiVHWHXi-g3aif18j=QBGXu8pE2qQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Flush GFXOFF requests in prepare stage
+To: Mario Limonciello <superm1@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, 
+ Mario Limonciello <mario.limonciello@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,43 +76,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+On Thu, Mar 21, 2024 at 5:37=E2=80=AFAM Mario Limonciello <superm1@gmail.co=
+m> wrote:
+>
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>
+> If the system hasn't entered GFXOFF when suspend starts it can cause
+> hangs accessing GC and RLC during the suspend stage.
+>
+> Cc: <stable@vger.kernel.org> # 6.1.y: 5095d5418193 ("drm/amd: Evict resou=
+rces during PM ops prepare() callback")
+> Cc: <stable@vger.kernel.org> # 6.1.y: cb11ca3233aa ("drm/amd: Add concept=
+ of running prepare_suspend() sequence for IP blocks")
+> Cc: <stable@vger.kernel.org> # 6.1.y: 2ceec37b0e3d ("drm/amd: Add missing=
+ kernel doc for prepare_suspend()")
+> Cc: <stable@vger.kernel.org> # 6.1.y: 3a9626c816db ("drm/amd: Stop evicti=
+ng resources on APUs in suspend")
+> Cc: <stable@vger.kernel.org> # 6.6.y: 5095d5418193 ("drm/amd: Evict resou=
+rces during PM ops prepare() callback")
+> Cc: <stable@vger.kernel.org> # 6.6.y: cb11ca3233aa ("drm/amd: Add concept=
+ of running prepare_suspend() sequence for IP blocks")
+> Cc: <stable@vger.kernel.org> # 6.6.y: 2ceec37b0e3d ("drm/amd: Add missing=
+ kernel doc for prepare_suspend()")
+> Cc: <stable@vger.kernel.org> # 6.6.y: 3a9626c816db ("drm/amd: Stop evicti=
+ng resources on APUs in suspend")
+> Cc: <stable@vger.kernel.org> # 6.1+
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3132
+> Fixes: ab4750332dbe ("drm/amdgpu/sdma5.2: add begin/end_use ring callback=
+s")
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-On Thu, Mar 21, 2024 at 2:14=E2=80=AFPM Sunil Khatri <sunil.khatri@amd.com>=
- wrote:
->
-> when CONFIG_DEV_COREDUMP is not defined in that case
-> when amdgpu_coredump() is called it does not find it's
-> definition and the build fails.
->
-> This happens as the header is defined without the
-> CONFIG_DEV_COREDUMP ifdef and due to which header isn't
-> enabled.
->
-> Pulling the header out of such ifdef so in both the
-> cases the build does not fail.
->
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
->  1 file changed, 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
+>  1 file changed, 2 insertions(+)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
 /amd/amdgpu/amdgpu_device.c
-> index 95028f57cb56..f771b2042a43 100644
+> index 94bdb5fa6ebc..1fbaf7b81d69 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -74,10 +74,7 @@
->  #include "amdgpu_fru_eeprom.h"
->  #include "amdgpu_reset.h"
->  #include "amdgpu_virt.h"
-> -
-> -#ifdef CONFIG_DEV_COREDUMP
->  #include "amdgpu_dev_coredump.h"
-> -#endif
+> @@ -4524,6 +4524,8 @@ int amdgpu_device_prepare(struct drm_device *dev)
+>         if (r)
+>                 goto unprepare;
 >
->  #include <linux/suspend.h>
->  #include <drm/task_barrier.h>
+> +       flush_delayed_work(&adev->gfx.gfx_off_delay_work);
+> +
+>         for (i =3D 0; i < adev->num_ip_blocks; i++) {
+>                 if (!adev->ip_blocks[i].status.valid)
+>                         continue;
 > --
 > 2.34.1
 >
