@@ -4,127 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54D44C54E67
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 00:17:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74416C54E67
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 00:25:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD29A10E6BC;
-	Thu, 21 Mar 2024 00:17:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0B1A10FAE7;
+	Thu, 21 Mar 2024 00:25:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ptbF0SbF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nVg/ln6L";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2079.outbound.protection.outlook.com [40.107.94.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9A0310E6BC
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 00:17:54 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2060.outbound.protection.outlook.com [40.107.92.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD30910FAE7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 00:25:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FeaFZOpLqSQIyDzqtOIhWHkW2CBiszEzIcAFSR+/dYFNRuPSn0nsne/Cz2RpBhD7sb8+3aHsZl9LqXV0It+2tUQSIHK9Nn6GTN5YHP3r5UjzitKxrKjJ9KK6Rpc/cd03mrS89i+MOUTRUme2K+SUQV77G+hTuqVMtNYri5h4XuN0uLB3/C2jpySWYOEDmtdolr0u1NQtWta7oaE8ZkZpcodzsYPoUnSPcG8OKjiy1npmaLqwcwcvPpzxhL40Qt+LsFKPxtsnG3qtiTJ6K0snc8TI8mzE29Xf/LCqA1izfx44lCwEQPzkW4pgaOIOE7fUZvqQC2wrv4yijypCP57ACA==
+ b=jrKJHCanD2AEdzENUl/iy7/nCr+E3VX99IxPO8gzpQGMTapBlwEr+offMem4cViXvwEcvSPoFsTPP45HmR76UX5GoMF9y9vA+RiF4/wIB6GJ52SmHRk/8p1l8Vb4tdvrgBMkwsZopUsy+1x86ZX5bSRxTPtXhOHgKBNxKQk9u9Bkj4Mfb30AS/xnPoenhd7wFqk37VZxmpDy8bpZHHXAD7ZrZnuyFR+JveN8JTGtDRCZoRCk793PwDmY31sBC7U48nkJF+Cb1z8n0tZJEZd+TiROQ3Ib1d9EkGt5NyLIyZuhBTjblzJ2ZUKpXN07Jo98ovl+NfgKDUrRnmM4MVICoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9rF/c3/prggjpUbTjPvSWzS+RwZK8YCWGwNb4jYQdSE=;
- b=DjMhR8h0HwkrxyjOcTKyLS8fuFCTZ2yLCnVPFqG7sKUt0JeaAI2h4ws53RP8gSmRsp9Q+8ScHMXP8DNjeVQMGsIM6T3cLnhFUl5U7qVbzP/RTWuvRRTJpGR6J9UsSVt6lgctq6g5cHZfp4EK+vZTkATIdKp0uQ/Rd1RsY8qCzGYU/mRcqxHsoo8zeN0wtA46BBOI+G/QPoRrNr8hFJLNyS9RApwp6jBBw1QXqgWN07Fm81iU0vtp82cCj7Ib/oyBTKRTNx088CQBuy+72p9dEzr2eupsIF57IlKBwyeCGm588Mj5dVS9CLFWQdCIm+PLoT9FiqqZPAqPuT3CZnXUmg==
+ bh=dioiRK+VPBhJG+7Bc5eFsfKqpGd6XnKCkmDpvayqVfE=;
+ b=esYS/Q1RFU/bODLPvC00KA9XotJ8U9ZfjIMeRsZv0JTYnCEiituP+GciV9LVEG0ISWdTobVy078JrujyJNgzwIpBs97TIujuV9/iUKodhdAjab376tXQJKSB3uX4j1I2CwJaTp51c8WilIpmEDYkUJzEIx4bwEVUAAVEfw7cXjMpiWalvhUa2lCRlJzEml+AafL1820+NKMoqHhR0lcg+QceOt2osjip3jaP0M7ehccbrgPYylbyF+lGiTTQinxwHA4DjRoqXSs3r/hDrxgNlKwZVj4Y1Y9qQf1hAi3I7HSkOlNjXF/XIPks63J/Mfx9SSaniIfA71b7QnSkkjHTag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9rF/c3/prggjpUbTjPvSWzS+RwZK8YCWGwNb4jYQdSE=;
- b=ptbF0SbF0my+m3FTe9AGftBCS43iPKs59q+iUaKESGTYvNVPrasOIJzYi0+z83OeSbBsOx2EjinrI0KeFNT+F7oj/jYLcnWFOCi2utheif3s1CaC1mHCpkh7xAosWo3gEv4EZBHydWLo6WD9bvpReA5Mm7zixP4X9WPXGlzVvvo=
-Received: from BL3PR12MB6425.namprd12.prod.outlook.com (2603:10b6:208:3b4::7)
- by DM6PR12MB4236.namprd12.prod.outlook.com (2603:10b6:5:212::14) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=dioiRK+VPBhJG+7Bc5eFsfKqpGd6XnKCkmDpvayqVfE=;
+ b=nVg/ln6LpH0bVKHSF5t/ptqMBM1gCSPrRRJmvBGYG6n1jBP8K7O0j7GsgLN6wsBgs9y96LUbGChaAYMmb9oXVrsXmi2KoPp9N1iL9oQ11AcWIcRq4bLJDS652IJ66QUbyEC+6N5PMd8WAoRvOhNymE3q1IfI1VbvXMvCf8sSpTg=
+Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
+ by SJ2PR12MB8941.namprd12.prod.outlook.com (2603:10b6:a03:542::15)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.31; Thu, 21 Mar
- 2024 00:17:50 +0000
-Received: from BL3PR12MB6425.namprd12.prod.outlook.com
- ([fe80::7451:c058:bf5a:aa26]) by BL3PR12MB6425.namprd12.prod.outlook.com
- ([fe80::7451:c058:bf5a:aa26%6]) with mapi id 15.20.7386.025; Thu, 21 Mar 2024
- 00:17:50 +0000
-From: "Joshi, Mukul" <Mukul.Joshi@amd.com>
-To: "Wu, David" <David.Wu3@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 2024 00:25:27 +0000
+Received: from PH7PR12MB5997.namprd12.prod.outlook.com
+ ([fe80::d1a1:5993:ef75:9419]) by PH7PR12MB5997.namprd12.prod.outlook.com
+ ([fe80::d1a1:5993:ef75:9419%6]) with mapi id 15.20.7409.010; Thu, 21 Mar 2024
+ 00:25:27 +0000
+From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdkfd: Check cgroup when returning DMABuf info
-Thread-Topic: [PATCH] drm/amdkfd: Check cgroup when returning DMABuf info
-Thread-Index: AQHadwUjojiieaO15U2Bov9k599SB7E98zWAgAMnMQCAAD2ZAIAABB4g
-Date: Thu, 21 Mar 2024 00:17:49 +0000
-Message-ID: <BL3PR12MB64251A2EFBEAEF410F20BFC5EE322@BL3PR12MB6425.namprd12.prod.outlook.com>
-References: <20240315181756.685335-1-mukul.joshi@amd.com>
- <48148998-5124-4a66-8d1a-767d94f6c284@amd.com>
- <7e4eb11f-feea-46ab-902f-891f1e15e58b@amd.com>
- <5888a34a-eb37-c1ea-54d7-896b0dd6665d@amd.com>
-In-Reply-To: <5888a34a-eb37-c1ea-54d7-896b0dd6665d@amd.com>
-Accept-Language: en-US
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Liu, Shuzhou (Bill)" <Shuzhou.Liu@amd.com>
+Subject: RE: [PATCH v2 1/9] drm/amd/pm: Add support for DPM policies
+Thread-Topic: [PATCH v2 1/9] drm/amd/pm: Add support for DPM policies
+Thread-Index: AQHadgbJBYMjNHVgSUCWP9rnI64BqrFBYAPA
+Date: Thu, 21 Mar 2024 00:25:27 +0000
+Message-ID: <PH7PR12MB599741DFB3D1092411A6A7F882322@PH7PR12MB5997.namprd12.prod.outlook.com>
+References: <20240314115630.682937-1-lijo.lazar@amd.com>
+ <20240314115630.682937-2-lijo.lazar@amd.com>
+In-Reply-To: <20240314115630.682937-2-lijo.lazar@amd.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=d9bb8147-645a-4fed-9b56-cd0a70d10dc9;
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=3bd9d8da-ba9c-4809-8791-b8c78d8c9a85;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-03-21T00:16:53Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-03-21T00:23:44Z;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL3PR12MB6425:EE_|DM6PR12MB4236:EE_
-x-ms-office365-filtering-correlation-id: c7c1a636-c2e1-4c19-f67b-08dc493c57d9
+x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|SJ2PR12MB8941:EE_
+x-ms-office365-filtering-correlation-id: 433f9a57-381a-4d37-8aab-08dc493d687c
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: msmKRK4vIRgaiQNqCrYAj+PXKBp7D15x4Wea0ocdN61q4SnNZFi4dSduInp+NHCgMMk0eYpCBVfYfUIWstoepRDP23pHboYe6mVgCQI65foVnN9Htl5J1z4RyXm3IuDg3V/GIXZe3In8MA7wwBkYP6Mu9egg5ATiZwVONgYM+Dx4gZgw4tHDV2MZYwcsoPdEMJ+/gCq/0ldxZKV3MMkZNyK4MEKhzfajgFx3KH/ofsqRGiWkVcjH02hWodn0nIYITBfDTSr8Ue31dT0s4GZEyeAuTEFcpACqwR8qx2jQFPSAnhK5l5+Nl2gBUw4MGBQPg7F2ll1ToMA1bNvUK3a7/3XCGaWkImueqrShofT9/Xu8qFi/UkYx7zX4xh3Q0WAFn/Hx2rXyuBWRY497QDBkYnxkJIJEnHFFVQlt4d8K9WpH9Od1XGdaFzyNIc7uKELwk9sRIjadsePukKk/q63Gst/sNB6xGYBr0+ReTRXqTTVQhT8/voxkdS1W6T8OZovXmF8+kW2RX/jwI1nNLdH5QGUD+AZzafFp7ACpZmoWnzpw6161bbRFUMEv1Ehlp2eBaH9O1sVM2wQYwxe5LYcmLBN2Wka7rW2rtX/jT9Ge+UD5LLEto1p9G3NWrh+kSh0QSWmBnay5TVgY3O/E3l3byYPWMDhXIwjfd9FzdhjNnmExSOzIfoet3h9wTtgjPcMhTlQFisc7EbEfzytFdGt6/JXUZ2PGJzWiRD+MOKMqGKU=
+x-microsoft-antispam-message-info: mCaad5x7bBEK0ZjDuJWLzauwaFbisYGTbnhjQi0fo8Tkk7Yoztu3dA/wYj4vFZUwYQ31Uvln21WaX9we2m+O/9FuPb/vBE8+UraXdFxvhPpBKc2yfylUjzxYPrMloIax7hi5LHqtbUH3GbP7ZqZbKu1xDCcsojoW8xG6CFIO9fnuCcVhf77wCahcnP0vOMCJ4ROY4pwZYQenChk1ZA9f4YpB/6tZ3k3eG2IizXmyDSdt2HegunucKRmb53HuvatGK8uSuuvLhhAr1xuy0txTJHam3OIEXK0vNa7y6bjkVnD7gVD7JEI+HVI+dAjWkqsrXTy1GvYEvty+nRphZ78e/PRbOsT4YmCEdSCXE5coONTbK9A+Ynoqg6it4j11LokCha4PpYA6J/yBYY7IjSWg57E8/MSTd4BQX/MBxpqhqn6em1udx0VSLMi6XFyURBTA/iTQj1jZLH9jxi/vVzNe0lJ866GOYGKXDBNINCyP85pYYGqCSOQaT77GF0UfHfEGg/FIEwnjBGGXc6+R/KvDuo6dkVBb11nRYjSn+DOg2GmdB6qrPrSh/lZIVRxzaeDBA/HS+XovA43pLElZw4Ux36dQ2Ke3a2bdHR0xx38euCPBP2XdAk8ifFqd1EKjmTDvBW7NyuIeliDbDNzTcdUOFvbnbRmono2Q20tGC7rLZb7SSjWZyTkPsaCls+1dKkbJh2N+lXeqXoBMdSeCN25gGSmC9JWRNq8kY8or6JaG7eE=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL3PR12MB6425.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(366007)(1800799015)(38070700009); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(366007)(38070700009); DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VlJMM2Y5YkI0SVdZdGFzVXExUkN1T2FzRkxGZU1aRUlpRnlyZmFvUzE5MG9n?=
- =?utf-8?B?cDY2YnlwZkJLdUNYbC9BN3JpVzZYeFVwditzL2orWnRkTTJ4ZHBoNExtRzJ3?=
- =?utf-8?B?YTIwS1crRk04T1NQb2dMWERmQXdLblJVSUFlQlo5czR4T1gvNVVSR1dGR0to?=
- =?utf-8?B?NytyN2pmNGZFWEU1Mk5LRnh3Wk1BcklUSnVpeXIraFcwN2gwTVVxTkRnYlNP?=
- =?utf-8?B?bUNIeWU3b1pxZnc4c3Fpak5nMDNHQW5SVVhCM2VISGNzRHBqNjFxMDkvbElH?=
- =?utf-8?B?Q2RxaUN5T0dYcjltWVF3OGVuTWVXaTQzTk11Ymo0NkxUc1NxOGNYeDUydjM1?=
- =?utf-8?B?LzZPRnpIaWF2V0x3bFZlVVJRSTZKUi85MUllZ2RZUXZ4SS9kSjVRNDQ1Z3g1?=
- =?utf-8?B?ZXFvT21IbEx3OENRbll2NWh0Y0JaT3IxeWJLa1lMWEd1RnA5cUZnbG5aVElo?=
- =?utf-8?B?Tmh3NndEcmJpLzc0VzNHTXJMblYwcndoT3lHNWoyVTBlTmJ3Y3RiWDlXZDB0?=
- =?utf-8?B?OTA5VWVzVXhybTliZmdyY1RvSDFKclE3cnZmY1p0b01VK0YyTGNvR0N2cGw0?=
- =?utf-8?B?cmNoNDBDUU9FajRMU0RMQm5Rd0JpandydEVEYWpRK2VNR3JtN1Y2VER5b2ZN?=
- =?utf-8?B?WTJMeGkzSTJIS2I5aHZkcldoQ0p5UWcrMC9FWG1BOFhTQUFqRXJIQUlRVytT?=
- =?utf-8?B?UExNdW9VSjJja0RXYkpBaUNiVDh6bWtiMXBaaCtQaDNZL01RYlhrNEUrZnFB?=
- =?utf-8?B?bzU1cWtDOGZUbE14UzkwYUE1WG9jTVRHR2dxaDhMSGs5aTVUeXhFcUVLY3RD?=
- =?utf-8?B?RnhlMHYySDk5S3Uzcmc2WTJYcS80U0MrbDNlb1J5dlRyRStQZHFkTnBhZENz?=
- =?utf-8?B?eXhWN1o5TGg1NEowK3BWT2FLcUFmbkl3QlQ4L04ySWZjWjVhaTErMEYxWEtu?=
- =?utf-8?B?VzNUVncraCtZMFJVckNMbVVCcUxHME1nRjJFVzhodm9YNm05V1FGN2pDVUpT?=
- =?utf-8?B?OVVYeUwzdzJmanVVT0plelhzbGFETFUzdkhXejhtdUFHMmtuRHdmemt3enZj?=
- =?utf-8?B?WmFHcEdvRzVKRGNrZFpOaDdHb2V2aGR4bnMxNHArMmR4L2drSmM0Wm41cFVJ?=
- =?utf-8?B?MmFMK21QSzlZNnZFUThZU05NZDJCaTJwOVFacU5VdmpRSm11SWVTSnU5Mkhi?=
- =?utf-8?B?MENGOHlxQmNNNlBwb1ZZUGFFMzRtWTJZMW9yUi9Ga1l3bndoU0Fyc3hIQjBC?=
- =?utf-8?B?UksxVTd1YjRKWGhNc3FWU3dCUXVWL2wxNmp0SWQ0RmcxN1R5S1dVZ2J5aWk4?=
- =?utf-8?B?dFhJV3VpMWpCWE5aK1UvelN2bjZSSkZNVzRlVFNvVDNrWEdIMjFiNXRRNnY5?=
- =?utf-8?B?M2hveSs1djJBQkIrNTczVjVHaUYvdlM4VnArZjg1NkdKUUpBTHZqcmg0Sk40?=
- =?utf-8?B?WENFZlZSK0ltWnFwdUJJR2diLzByaW4xVmNvV0VsN1RSdGtSSHh5TmhDOVcv?=
- =?utf-8?B?ZENQOWx2SksrYnB1ZmFsSWpXZzFUT01SdVVvMEdLWGJnWFJkY3ljbStiY3pR?=
- =?utf-8?B?M3ZHWW42TkJWSmRsU2ZmQjJFc1o0MlBVa1pKOHNuM1hGUW95SW5DSWhCRWJG?=
- =?utf-8?B?NTE0SFBtNFVUMzVXZW5YeFRNUTcvNkhHb0FTcHFCajdtNXNiRzNjc1RTay80?=
- =?utf-8?B?Uk83ektQbC9CajBZM0UxT1FQMUpuL016V0Q4d0ZBK3Y0QTdXQmdsOS9PYkZP?=
- =?utf-8?B?ck9WUmV3RkpjMFhIaE5VR0RkVG9OMkp0RW9hQ0wrdmRzVnVabURXRUV6eTJn?=
- =?utf-8?B?bWk0MHJpTCtneDllclpKd3RCWE83a1hqWVg5V0xUbjZaSUppczg1QVRQWGdu?=
- =?utf-8?B?ZTlpekFCdVdiZGpYUWxBQjBseUVqN0I1WGNIMCtBTDVQdEJyd3R3M05Ydmhi?=
- =?utf-8?B?NW5iSEFYMHVJQUNEWGZFVnEzUzRjVG9jdE9Ha1pXNllKMEJFYlZEMzlHclVO?=
- =?utf-8?B?cTFuUWxCazdZdGxtcEVNcmYrSjNBVVUyR2N6Y1d5VXBzWDhyOCtRMkhrTTIy?=
- =?utf-8?B?RnY2Slpnc1NrbjVqTi9KSGVHVW0wOVFMWTlmdGhhSktuTEJ2QUZwOFFNUTBJ?=
- =?utf-8?Q?UKmE=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jxg92xDS8jgKzKYeOavT00n2GfmLM364upTcl8CKpINmKrsyy1H+mz/EKPGV?=
+ =?us-ascii?Q?X+PyXwgqhGEwsYjk1OyM2wUfLurQd8yFNxgjfCLzdxJk4BrCRz+iq7sz5QZ3?=
+ =?us-ascii?Q?9Lkr95zxJTp/GI9YSgmH/B/t5+QTOioyIzpFNK9Wduj3vWUEPKWtD+7lZ+kg?=
+ =?us-ascii?Q?9ZdnrzL9hzVpbWMFaSqgDkbpdi8hrfaHsJeMYpdJCwSaTEZJL+y+H3NR2znT?=
+ =?us-ascii?Q?2H4kFFtE98+9eD95FHd2tZsBkfiiaDI5kVL+6wDuLnx9TJVqsya7MMLxQP8z?=
+ =?us-ascii?Q?MtmiW8u6ss7ISVsr+T2GSULKwdCkCWwiSFR53Ujsf4l+uXQXYnEYNPDpbzoX?=
+ =?us-ascii?Q?8UJgmkoeA4xfYWHvP439gp3btOp8fWUcbZKUIt/JpIrKNUz+m1UltYHJNjAA?=
+ =?us-ascii?Q?qkbifapchOiq8SsjckqZdiz7wTycg04EFz9w8XhSbb82SXonBIXnaTp93lEP?=
+ =?us-ascii?Q?xOL0jpzN/nDRDa7sH7FiyMG68U63q4uw/cVtCdczQ81lXNbktnH2hB6cCtyK?=
+ =?us-ascii?Q?Yms4x7GbfmuiqOICgCdmJIcsfrB2dU6bNNPkijp0p6ra+TorTJo3Z5sW7GaH?=
+ =?us-ascii?Q?Sce1F3MpCKU9+7kCkYdn3Y1dJTVBnaB+GN+FeNyyXOTYH5U9DiCCz0YKCZIi?=
+ =?us-ascii?Q?LFT1cqFP7doO2FXIniCwjLp6JAxxIE5sW+VPPT9ziiysojtaTz60pvH1U0TT?=
+ =?us-ascii?Q?7h3iAWg1TofrhUfm1POb2vTkowr2PJOBrJa3lNP0o5qqT6eRhjb4iI3EDB2V?=
+ =?us-ascii?Q?DqCsframEg/W20hzuELKg6yhINWB+/TsjwI3fYsZb+/LNlB1EhbzeHDg0Uao?=
+ =?us-ascii?Q?LerRs+XQJj1K62dDobNMuFyQ9Qzaee0Q45cn8Go+xAl8McOzWamtRsQG6qlg?=
+ =?us-ascii?Q?1AopmcK+g8m/Olo9/zTs5mlU2ImcirLsa3M0MHi22hAP4C25EIkjN4frxLOR?=
+ =?us-ascii?Q?y5FThyYdwjKmjJFnJpYVmU7EXIF3BoE31/P7pv2S2DYIKSzepe+5O0Hc6CB+?=
+ =?us-ascii?Q?L2hfg4y/k5nGX67AUJXNE6sL8zpSe2QUmKDM6rS1BUv+GVvyzKN4qIGiGtEl?=
+ =?us-ascii?Q?gXZEvEZx1uhL8kmCsxXAv5umf4eRJxFoyGvUIuAIpOFIDGwGnI6cO7UVHYU6?=
+ =?us-ascii?Q?bUAr4dM6W+L36bA6bOlnxCSMuI6fBF+B0jqwiOSf2jkBE1hiLOPUY+DnJe9V?=
+ =?us-ascii?Q?U/pbu5sgXFYkPF6AImDu0zlMy0UAt68r/GF8LoeOwaIv6F8MgPjJxQCVzhSo?=
+ =?us-ascii?Q?Aw1H5iIym73AEEspa3YrxbDqE7Eb2RML7RRqp0Qs8ltkSplD89yBJHNYoynM?=
+ =?us-ascii?Q?95Go1QYFFeHN7CfDkl6OmgQYzgV9eOzcc74TfxUiqZRQ3XpIqcHPkC75pOJ8?=
+ =?us-ascii?Q?7zzEwRoDr4FtpRFjapmDGbZ9cT49B2RbYS0TFNIb7/isgHIfhmz2c9Mp9BFW?=
+ =?us-ascii?Q?2nlNfJdF6nQ5mfLg+9Yp3tZiMF/V1TQD0QSsbuRPOLJZa8F3asVx9spY9beU?=
+ =?us-ascii?Q?CgaWqii5X1AE7EbMQkmFq8lt5S+HTSszEs0hOBpFnVza89IGBuUFkIH6OR2M?=
+ =?us-ascii?Q?hqKzHKQk7qAv8tNdG/g=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL3PR12MB6425.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7c1a636-c2e1-4c19-f67b-08dc493c57d9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Mar 2024 00:17:49.9956 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 433f9a57-381a-4d37-8aab-08dc493d687c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Mar 2024 00:25:27.4189 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OP1k8Oalm/2H36rjTpQ/gIdWq1spqGv6lyoQDPGeNTZUx7FKsBOg3M+jMKbnGtJZyWs+eMyfaXEsHThUVcex2Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4236
+X-MS-Exchange-CrossTenant-userprincipalname: 73Oxu39qg1xl7JjrQJlulyKX5lhJTywqXSs5scmwDz4rVislAJfvbwIF3WZx7svt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8941
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,66 +130,419 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNz
-YWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZz4gT24gQmVoYWxmIE9mIFd1LA0KPiBEYXZpZA0KPiBTZW50OiBXZWRuZXNkYXksIE1h
-cmNoIDIwLCAyMDI0IDg6MDIgUE0NCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRrZmQ6IENoZWNrIGNncm91cCB3aGVuIHJl
-dHVybmluZyBETUFCdWYgaW5mbw0KPg0KPiBDYXV0aW9uOiBUaGlzIG1lc3NhZ2Ugb3JpZ2luYXRl
-ZCBmcm9tIGFuIEV4dGVybmFsIFNvdXJjZS4gVXNlIHByb3BlciBjYXV0aW9uDQo+IHdoZW4gb3Bl
-bmluZyBhdHRhY2htZW50cywgY2xpY2tpbmcgbGlua3MsIG9yIHJlc3BvbmRpbmcuDQo+DQo+DQo+
-IE9uIDMvMjAvMjAyNCA0OjIxIFBNLCBGZWxpeCBLdWVobGluZyB3cm90ZToNCj4gPiBPbiAyMDI0
-LTAzLTE4IDE2OjEyLCBGZWxpeCBLdWVobGluZyB3cm90ZToNCj4gPj4NCj4gPj4gT24gMjAyNC0w
-My0xNSAxNDoxNywgTXVrdWwgSm9zaGkgd3JvdGU6DQo+ID4+PiBDaGVjayBjZ3JvdXAgcGVybWlz
-c2lvbnMgd2hlbiByZXR1cm5pbmcgRE1BLWJ1ZiBpbmZvIGFuZCBiYXNlZCBvbg0KPiA+Pj4gY2dy
-b3VwIGNoZWNrIHJldHVybiB0aGUgaWQgb2YgdGhlIEdQVSB0aGF0IGhhcyBhY2Nlc3MgdG8gdGhl
-IEJPLg0KPiA+Pj4NCj4gPj4+IFNpZ25lZC1vZmYtYnk6IE11a3VsIEpvc2hpIDxtdWt1bC5qb3No
-aUBhbWQuY29tPg0KPiA+Pj4gLS0tDQo+ID4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF9jaGFyZGV2LmMgfCA0ICsrLS0NCj4gPj4+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0
-aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4gPj4+DQo+ID4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYw0KPiA+Pj4gYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jDQo+ID4+PiBpbmRleCBkZmE4YzY5NTMyZDQuLmY5
-NjMxZjRiMWEwMiAxMDA2NDQNCj4gPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF9jaGFyZGV2LmMNCj4gPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
-ZF9jaGFyZGV2LmMNCj4gPj4+IEBAIC0xNTIzLDcgKzE1MjMsNyBAQCBzdGF0aWMgaW50IGtmZF9p
-b2N0bF9nZXRfZG1hYnVmX2luZm8oc3RydWN0DQo+ID4+PiBmaWxlICpmaWxlcCwNCj4gPj4+ICAg
-ICAgICAgLyogRmluZCBhIEtGRCBHUFUgZGV2aWNlIHRoYXQgc3VwcG9ydHMgdGhlIGdldF9kbWFi
-dWZfaW5mbw0KPiA+Pj4gcXVlcnkgKi8NCj4gPj4+ICAgICAgIGZvciAoaSA9IDA7IGtmZF90b3Bv
-bG9neV9lbnVtX2tmZF9kZXZpY2VzKGksICZkZXYpID09IDA7IGkrKykNCj4gPj4+IC0gICAgICAg
-IGlmIChkZXYpDQo+ID4+PiArICAgICAgICBpZiAoZGV2ICYmICFrZmRfZGV2Y2dyb3VwX2NoZWNr
-X3Blcm1pc3Npb24oZGV2KSkNCj4gPj4+ICAgICAgICAgICAgICAgYnJlYWs7DQo+ID4+PiAgICAg
-ICBpZiAoIWRldikNCj4gPj4+ICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsNCj4gPj4+IEBAIC0x
-NTQ1LDcgKzE1NDUsNyBAQCBzdGF0aWMgaW50IGtmZF9pb2N0bF9nZXRfZG1hYnVmX2luZm8oc3Ry
-dWN0DQo+ID4+PiBmaWxlICpmaWxlcCwNCj4gPj4+ICAgICAgIGlmICh4Y3BfaWQgPj0gMCkNCj4g
-Pj4+ICAgICAgICAgICBhcmdzLT5ncHVfaWQgPSBkbWFidWZfYWRldi0+a2ZkLmRldi0+bm9kZXNb
-eGNwX2lkXS0+aWQ7DQo+ID4+PiAgICAgICBlbHNlDQo+ID4+PiAtICAgICAgICBhcmdzLT5ncHVf
-aWQgPSBkbWFidWZfYWRldi0+a2ZkLmRldi0+bm9kZXNbMF0tPmlkOw0KPiA+Pj4gKyAgICAgICAg
-YXJncy0+Z3B1X2lkID0gZGV2LT5pZDsNCj4gPj4NCj4gPj4gSWYgSSByZW1lbWJlciBjb3JyZWN0
-bHksIHRoaXMgd2FzIG1lYW50IGFzIGEgZmFsbGJhY2sgaW4gY2FzZSBmb3IgR1RUDQo+ID4+IEJP
-cyB3aGVyZSB0aGUgZXhwb3J0aW5nIHBhcnRpdGlvbiB3YXNuJ3Qga25vd24gYW5kIHRoZSBhcHBs
-aWNhdGlvbg0KPiA+PiBkaWRuJ3QgaGF2ZSBhY2Nlc3MgdG8gdGhlIGZpcnN0IHBhcnRpdGlvbi4g
-SSB0aGluayB0aGUgd2F5IHlvdSB3cm90ZQ0KPiA+PiB0aGlzLCBpdCBjb3VsZCBhbHNvIGNoYW5n
-ZSB0aGUgYmVoYXZpb3VyIChyZXBvcnQgdGhlIHdyb25nIEdQVSBJRCkgb24NCj4gPj4gc2luZ2xl
-LXBhcnRpdGlvbiBHUFVzLCB3aGljaCBpcyBwcm9iYWJseSBub3QgaW50ZW5kZWQuDQo+ID4NCj4g
-PiBOZXZlciBtaW5kLiBJIGRvdWJsZSBjaGVja2VkOiBPbiBzaW5nbGUtcGFydGl0aW9uIEdQVXMs
-IGJvLT54Y3BfaWQNCj4gPiBhbHdheXMgc2VlbXMgdG8gYmUgMC4gU28geW91ciBjb2RlIHdvbid0
-IGNoYW5nZSB0aGUgYmVoYXZpb3VyIGhlcmUuDQo+ID4gVGhlIHBhdGNoIGlzDQo+IHNob3VsZCBi
-by0+eGNwX2lkIGJlID49IDAgZm9yIGFsbCBjYXNlcz8gaWYgeWVzIHRoZW4gSSB0aGluayBhbGwg
-dGVzdHMgY2FuIGJlDQo+IG1vdmVkLiAobGlrZSBiZWxvdykNCj4gYXJncy0+Z3B1X2lkID0gZG1h
-YnVmX2FkZXYtPmtmZC5kZXYtPm5vZGVzW3hjcF9pZF0tPmlkOw0KPg0KTm8gaXQgY2FuIGJlIC0x
-IG9uIEdQVXMgdGhhdCBzdXBwb3J0IHNwYXRpYWwgcGFydGl0aW9uaW5nLCBlc3BlY2lhbGx5IGZv
-ciBHVFQgQk9zLg0KDQpSZWdhcmRzLA0KTXVrdWwNCg0KPiBEYXZpZA0KPiA+DQo+ID4gUmV2aWV3
-ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxmZWxpeC5rdWVobGluZ0BhbWQuY29tPg0KPiA+DQo+ID4N
-Cj4gPg0KPiA+PiBNYXliZSB0aGlzIHdvdWxkIHByZXNlcnZlIHRoZSBiZWhhdmlvdXIgZm9yIHRo
-YXQgY2FzZToNCj4gPj4NCj4gPj4gICAgIC4uLg0KPiA+PiAtICAgIGVsc2UNCj4gPj4gKyAgICBl
-bHNlIGlmDQo+ID4+ICgha2ZkX2RldmNncm91cF9jaGVja19wZXJtaXNzaW9uKGRtYWJ1Zl9hZGV2
-LT5rZmQuZGV2LT5ub2Rlc1swXSkpDQo+ID4+ICAgICAgICAgIGFyZ3MtPmdwdV9pZCA9IGRtYWJ1
-Zl9hZGV2LT5rZmQuZGV2LT5ub2Rlc1swXS0+aWQ7DQo+ID4+ICsgICAgZWxzZQ0KPiA+PiArICAg
-ICAgICBhcmdzLT5ncHVfaWQgPSBkZXYtPmlkOw0KPiA+Pg0KPiA+PiBPciBtYXliZSBhIG1vcmUg
-Z2VuZXJhbCBzb2x1dGlvbiB3b3VsZCBtYWtlIERNQUJ1ZiBpbXBvcnQgd29yayB3aGVuDQo+ID4+
-IHRoZSBleHBvcnRlciBpcyByZWFsbHkgdW5rbm93biBvciBub3QgZXZlbiBhIEdQVS4gVGhpcyBj
-YW1lIHVwIG5vdCBzbw0KPiA+PiBsb25nIGFnbyBpbiB0aGUgY29udGV4dCBvZiBpbnRlcm9wIHdp
-dGggM3JkLXBhcnR5IGRldmljZXMuIFRoaXMgbWF5DQo+ID4+IHJlcXVpcmUgdXNlciBtb2RlIGNo
-YW5nZXMgYXMgd2VsbC4NCj4gPj4NCj4gPj4gUmVnYXJkcywNCj4gPj4gICBGZWxpeA0KPiA+Pg0K
-PiA+Pg0KPiA+Pj4gICAgICAgYXJncy0+ZmxhZ3MgPSBmbGFnczsNCj4gPj4+ICAgICAgICAgLyog
-Q29weSBtZXRhZGF0YSBidWZmZXIgdG8gdXNlciBtb2RlICovDQoNCg==
+[AMD Official Use Only - General]
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lijo Laz=
+ar
+Sent: Thursday, March 14, 2024 7:56 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>; Liu, Shuzhou (Bill) <Shuzhou.Liu@amd.com>
+Subject: [PATCH v2 1/9] drm/amd/pm: Add support for DPM policies
+
+Add support to set/get information about different DPM policies. The suppor=
+t is only available on SOCs which use swsmu architecture.
+
+A DPM policy type may be defined with different levels. For example, a poli=
+cy may be defined to select Pstate preference and then later a pstate prefe=
+rence may be chosen.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+v2: Add NULL checks before accessing smu_dpm_policy_ctxt
+
+ .../gpu/drm/amd/include/kgd_pp_interface.h    | 16 ++++
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 29 ++++++
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 92 ++++++++++++++++++
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  4 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 95 +++++++++++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 29 ++++++
+ 6 files changed, 265 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
+rm/amd/include/kgd_pp_interface.h
+index afb930b70615..84dd819ccc06 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -273,6 +273,22 @@ enum pp_xgmi_plpd_mode {
+        XGMI_PLPD_COUNT,
+ };
+
++enum pp_pm_policy {
++       PP_PM_POLICY_NONE =3D -1,
++       PP_PM_POLICY_SOC_PSTATE =3D 0,
++       PP_PM_POLICY_NUM,
++};
++
++enum pp_policy_soc_pstate {
++       SOC_PSTATE_DEFAULT =3D 0,
++       SOC_PSTATE_0,
++       SOC_PSTATE_1,
++       SOC_PSTATE_2,
++       SOC_PSTAT_COUNT,
++};
++
++#define PP_POLICY_MAX_LEVELS 5
++
+ #define PP_GROUP_MASK        0xF0000000
+ #define PP_GROUP_SHIFT       28
+
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/a=
+mdgpu_dpm.c
+index f84bfed50681..db3addd07120 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -411,6 +411,35 @@ int amdgpu_dpm_set_xgmi_plpd_mode(struct amdgpu_device=
+ *adev, int mode)
+        return ret;
+ }
+
++ssize_t amdgpu_dpm_get_pm_policy_info(struct amdgpu_device *adev, char
++*buf) {
++       struct smu_context *smu =3D adev->powerplay.pp_handle;
++       int ret =3D -EOPNOTSUPP;
++
++       if (is_support_sw_smu(adev)) {
++               mutex_lock(&adev->pm.mutex);
++               ret =3D smu_get_pm_policy_info(smu, buf);
++               mutex_unlock(&adev->pm.mutex);
++       }
++
++       return ret;
++}
++
++int amdgpu_dpm_set_pm_policy(struct amdgpu_device *adev, int policy_type,
++                            int policy_level)
++{
++       struct smu_context *smu =3D adev->powerplay.pp_handle;
++       int ret =3D -EOPNOTSUPP;
++
++       if (is_support_sw_smu(adev)) {
++               mutex_lock(&adev->pm.mutex);
++               ret =3D smu_set_pm_policy(smu, policy_type, policy_level);
++               mutex_unlock(&adev->pm.mutex);
++       }
++
++       return ret;
++}
++
+ int amdgpu_dpm_enable_mgpu_fan_boost(struct amdgpu_device *adev)  {
+        void *pp_handle =3D adev->powerplay.pp_handle; diff --git a/drivers=
+/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index efc631bddf4a..7ee11c2e3c61 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -2179,6 +2179,96 @@ static ssize_t amdgpu_set_xgmi_plpd_policy(struct de=
+vice *dev,
+        return count;
+ }
+
++static ssize_t amdgpu_get_pm_policy(struct device *dev,
++                                   struct device_attribute *attr, char *bu=
+f) {
++       struct drm_device *ddev =3D dev_get_drvdata(dev);
++       struct amdgpu_device *adev =3D drm_to_adev(ddev);
++
++       if (amdgpu_in_reset(adev))
++               return -EPERM;
++       if (adev->in_suspend && !adev->in_runpm)
++               return -EPERM;
++
++       return amdgpu_dpm_get_pm_policy_info(adev, buf); }
++
++static ssize_t amdgpu_set_pm_policy(struct device *dev,
++                                   struct device_attribute *attr,
++                                   const char *buf, size_t count)
++{
++       struct drm_device *ddev =3D dev_get_drvdata(dev);
++       struct amdgpu_device *adev =3D drm_to_adev(ddev);
++       int policy_type, ret, num_params =3D 0;
++       char delimiter[] =3D " \n\t";
++       char tmp_buf[128];
++       char *tmp, *param;
++       long val;
++
++       if (amdgpu_in_reset(adev))
++               return -EPERM;
++       if (adev->in_suspend && !adev->in_runpm)
++               return -EPERM;
++
++       count =3D min(count, sizeof(tmp_buf));
++       memcpy(tmp_buf, buf, count);
++       tmp_buf[count - 1] =3D '\0';
++       tmp =3D tmp_buf;
++
++       tmp =3D skip_spaces(tmp);
++       if (strncmp(tmp, "soc_pstate", strlen("soc_pstate")) =3D=3D 0) {
+
+[Kevin]:
+It is better to use 'sizeof() - 1' instead of strlen() function to calculat=
+e const string size.
+
+Best Regards,
+Kevin
++               policy_type =3D PP_PM_POLICY_SOC_PSTATE;
++               tmp +=3D strlen("soc_pstate");
++       } else {
++               return -EINVAL;
++       }
++
++       tmp =3D skip_spaces(tmp);
++       while ((param =3D strsep(&tmp, delimiter))) {
++               if (!strlen(param)) {
++                       tmp =3D skip_spaces(tmp);
++                       continue;
++               }
++               ret =3D kstrtol(param, 0, &val);
++               if (ret)
++                       return -EINVAL;
++               num_params++;
++               if (num_params > 1)
++                       return -EINVAL;
++       }
++
++       if (num_params !=3D 1)
++               return -EINVAL;
++
++       ret =3D pm_runtime_get_sync(ddev->dev);
++       if (ret < 0) {
++               pm_runtime_put_autosuspend(ddev->dev);
++               return ret;
++       }
++
++       ret =3D amdgpu_dpm_set_pm_policy(adev, policy_type, val);
++
++       pm_runtime_mark_last_busy(ddev->dev);
++       pm_runtime_put_autosuspend(ddev->dev);
++
++       if (ret)
++               return ret;
++
++       return count;
++}
++
++static int amdgpu_pm_policy_attr_update(struct amdgpu_device *adev,
++                                        struct amdgpu_device_attr *attr,
++                                        uint32_t mask,
++                                        enum amdgpu_device_attr_states *st=
+ates) {
++       if (amdgpu_dpm_get_pm_policy_info(adev, NULL) =3D=3D -EOPNOTSUPP)
++               *states =3D ATTR_STATE_UNSUPPORTED;
++
++       return 0;
++}
++
++
+ static struct amdgpu_device_attr amdgpu_device_attrs[] =3D {
+        AMDGPU_DEVICE_ATTR_RW(power_dpm_state,                          ATT=
+R_FLAG_BASIC|ATTR_FLAG_ONEVF),
+        AMDGPU_DEVICE_ATTR_RW(power_dpm_force_performance_level,        ATT=
+R_FLAG_BASIC|ATTR_FLAG_ONEVF),
+@@ -2218,6 +2308,8 @@ static struct amdgpu_device_attr amdgpu_device_attrs[=
+] =3D {
+        AMDGPU_DEVICE_ATTR_RW(smartshift_bias,                          ATT=
+R_FLAG_BASIC,
+                              .attr_update =3D ss_bias_attr_update),
+        AMDGPU_DEVICE_ATTR_RW(xgmi_plpd_policy,                         ATT=
+R_FLAG_BASIC),
++       AMDGPU_DEVICE_ATTR_RW(pm_policy,                                ATT=
+R_FLAG_BASIC,
++                             .attr_update =3D amdgpu_pm_policy_attr_update=
+),
+        AMDGPU_DEVICE_ATTR_RO(pm_metrics,                               ATT=
+R_FLAG_BASIC,
+                              .attr_update =3D amdgpu_pm_metrics_attr_updat=
+e),  }; diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/=
+drm/amd/pm/inc/amdgpu_dpm.h
+index 621200e0823f..a98d1bda4430 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+@@ -594,4 +594,8 @@ enum pp_smu_status amdgpu_dpm_get_uclk_dpm_states(struc=
+t amdgpu_device *adev,
+                                                  unsigned int *num_states)=
+;
+ int amdgpu_dpm_get_dpm_clock_table(struct amdgpu_device *adev,
+                                   struct dpm_clocks *clock_table);
++int amdgpu_dpm_set_pm_policy(struct amdgpu_device *adev, int policy_type,
++                            int policy_level);
++ssize_t amdgpu_dpm_get_pm_policy_info(struct amdgpu_device *adev, char
++*buf);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
+d/pm/swsmu/amdgpu_smu.c
+index 246b211b1e85..1c23e0985377 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -3465,6 +3465,101 @@ static int smu_get_prv_buffer_details(void *handle,=
+ void **addr, size_t *size)
+        return 0;
+ }
+
++static void smu_print_dpm_policy(struct smu_dpm_policy *policy, char *sysb=
+uf,
++                                size_t *size)
++{
++       size_t offset =3D *size;
++       int level;
++
++       offset +=3D sysfs_emit_at(sysbuf, offset, "%s \n", policy->desc->na=
+me);
++       for_each_set_bit(level, &policy->level_mask, PP_POLICY_MAX_LEVELS) =
+{
++               if (level =3D=3D policy->current_level)
++                       offset +=3D sysfs_emit_at(
++                               sysbuf, offset, "%d : %s*\n", level,
++                               policy->desc->get_desc(policy, level));
++               else
++                       offset +=3D sysfs_emit_at(
++                               sysbuf, offset, "%d : %s\n", level,
++                               policy->desc->get_desc(policy, level));
++       }
++
++       *size =3D offset;
++}
++
++ssize_t smu_get_pm_policy_info(struct smu_context *smu, char *sysbuf) {
++       struct smu_dpm_context *dpm_ctxt =3D &(smu->smu_dpm);
++       struct smu_dpm_policy_ctxt *policy_ctxt;
++       struct smu_dpm_policy *dpm_policy;
++       size_t offset =3D 0;
++       int i;
++
++       policy_ctxt =3D dpm_ctxt->dpm_policies;
++       if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled || !policy_ctxt =
+||
++           !policy_ctxt->policy_mask)
++               return -EOPNOTSUPP;
++
++       if (!sysbuf)
++               return -EINVAL;
++
++       for_each_set_bit(i, &policy_ctxt->policy_mask, PP_PM_POLICY_NUM) {
++               dpm_policy =3D &policy_ctxt->policies[i];
++               if (!dpm_policy->level_mask || !dpm_policy->desc)
++                       continue;
++               smu_print_dpm_policy(dpm_policy, sysbuf, &offset);
++       }
++
++       return offset;
++}
++
++struct smu_dpm_policy *smu_get_pm_policy(struct smu_context *smu,
++                                        enum pp_pm_policy p_type)
++{
++       struct smu_dpm_context *dpm_ctxt =3D &(smu->smu_dpm);
++       struct smu_dpm_policy_ctxt *policy_ctxt;
++       int i;
++
++       policy_ctxt =3D dpm_ctxt->dpm_policies;
++       for_each_set_bit(i, &policy_ctxt->policy_mask, PP_PM_POLICY_NUM) {
++               if (policy_ctxt->policies[i].policy_type =3D=3D p_type)
++                       return &policy_ctxt->policies[i];
++       }
++
++       return NULL;
++}
++
++int smu_set_pm_policy(struct smu_context *smu, enum pp_pm_policy p_type,
++                     int level)
++{
++       struct smu_dpm_context *dpm_ctxt =3D &(smu->smu_dpm);
++       struct smu_dpm_policy *dpm_policy =3D NULL;
++       struct smu_dpm_policy_ctxt *policy_ctxt;
++       int ret =3D -EOPNOTSUPP;
++
++       policy_ctxt =3D dpm_ctxt->dpm_policies;
++       if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled || !policy_ctxt =
+||
++           !policy_ctxt->policy_mask)
++               return ret;
++
++       if (level < 0 || level >=3D PP_POLICY_MAX_LEVELS)
++               return -EINVAL;
++
++       dpm_policy =3D smu_get_pm_policy(smu, p_type);
++
++       if (!dpm_policy || !dpm_policy->level_mask || !dpm_policy->set_poli=
+cy)
++               return ret;
++
++       if (dpm_policy->current_level =3D=3D level)
++               return 0;
++
++       ret =3D dpm_policy->set_policy(smu, level);
++
++       if (!ret)
++               dpm_policy->current_level =3D level;
++
++       return ret;
++}
++
+ int smu_set_xgmi_plpd_mode(struct smu_context *smu,
+                           enum pp_xgmi_plpd_mode mode)
+ {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/dr=
+m/amd/pm/swsmu/inc/amdgpu_smu.h
+index a870bdd49a4e..39405e4ef590 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -362,6 +362,27 @@ struct smu_table_context {
+        void                            *gpu_metrics_table;
+ };
+
++struct smu_context;
++struct smu_dpm_policy;
++
++struct smu_dpm_policy_desc {
++       const char *name;
++       char *(*get_desc)(struct smu_dpm_policy *dpm_policy, int level); };
++
++struct smu_dpm_policy {
++       struct smu_dpm_policy_desc *desc;
++       enum pp_pm_policy policy_type;
++       unsigned long level_mask;
++       int current_level;
++       int (*set_policy)(struct smu_context *ctxt, int level); };
++
++struct smu_dpm_policy_ctxt{
++       struct smu_dpm_policy policies[PP_PM_POLICY_NUM];
++       unsigned long policy_mask;
++};
++
+ struct smu_dpm_context {
+        uint32_t dpm_context_size;
+        void *dpm_context;
+@@ -372,6 +393,7 @@ struct smu_dpm_context {
+        struct smu_power_state *dpm_request_power_state;
+        struct smu_power_state *dpm_current_power_state;
+        struct mclock_latency_table *mclk_latency_table;
++       struct smu_dpm_policy_ctxt *dpm_policies;
+ };
+
+ struct smu_power_gate {
+@@ -1547,6 +1569,9 @@ typedef struct {
+        uint32_t                MmHubPadding[8];
+ } WifiBandEntryTable_t;
+
++struct smu_dpm_policy *smu_get_pm_policy(struct smu_context *smu,
++                                        enum pp_pm_policy p_type);
++
+ #if !defined(SWSMU_CODE_LAYER_L2) && !defined(SWSMU_CODE_LAYER_L3) && !def=
+ined(SWSMU_CODE_LAYER_L4)  int smu_get_power_limit(void *handle,
+                        uint32_t *limit,
+@@ -1594,5 +1619,9 @@ void amdgpu_smu_stb_debug_fs_init(struct amdgpu_devic=
+e *adev);  int smu_send_hbm_bad_pages_num(struct smu_context *smu, uint32_t=
+ size);  int smu_send_hbm_bad_channel_flag(struct smu_context *smu, uint32_=
+t size);  int smu_send_rma_reason(struct smu_context *smu);
++int smu_set_pm_policy(struct smu_context *smu, enum pp_pm_policy p_type,
++                     int level);
++ssize_t smu_get_pm_policy_info(struct smu_context *smu, char *sysbuf);
++
+ #endif
+ #endif
+--
+2.25.1
+
