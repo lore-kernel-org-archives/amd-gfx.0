@@ -4,95 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 875B8C54E58
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 14:36:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30B79C54E68
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Mar 2024 14:37:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1576610EB3B;
-	Thu, 21 Mar 2024 14:36:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9158D10EB47;
+	Thu, 21 Mar 2024 14:37:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e7uYEVdp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TDgD8ziY";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2087.outbound.protection.outlook.com [40.107.102.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67C8F10EB3B
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 14:35:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lh5wobl8ypyw8u+DjVkw5TlPxq6+ZPq5Zdx6W9lC1/K2Qgkqd/eM6ZxxEatTQicwgr4IglT9+CqhaCy6I4ee/qc6C+sag34Ja/2ACOrGmBc7nFINKD46v8gMDOCzcZH24M/Np9ag0iWB6Ti+5z5HSTU1KlsA4AQhb4mC155GDiCLyB/oVdi2fIKOMbTGOgEDCN4FwQv+uKht8SxQwhFOEXSuHIvtewGihCKUOoTtGijJ3ycReBxDWgPRjhh2h8/r8TDvv3RQgVKhHTAxkhXrVRoWD9y/O8JFpvjh+Fi7yxZDkvQo3JE4mD6lncZKYQcITLv6J4YQ+EKoKdn0l6Qz8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gkwnQDYvHoR2SKptd5aU9Xm2ZhyJ2KEQCOUlZje3m84=;
- b=kIylUzY307wfW6G9nCevRFFTdBsM4tQs2upDATawJWxfvT6gZPBv3v/iOL3w9+xqey7PqkGiA5zMpQkjO9OhaUq5WB6EJjBJP2cuNqukzsND6il7wZmnWm0IU61BNbn7neGd+4GKhq/P7f5kPlY4jmGNHuPHMT6qFdcycQX1lcELZgOE7+dcfx18CZQnRaFwVp8SePTe0KyBzt08I32H6xed/z/WXfxLqVkQF4RkmTsaCo1zBUHWaXYxjjg/5PeW+TYdLwEZfabTReXbLXlDh5DYSJwYggagYiXp/wmNoeOH1oSH3un4efSvzc2z4WqP9ZY9doridO6GhzaYotJQ8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gkwnQDYvHoR2SKptd5aU9Xm2ZhyJ2KEQCOUlZje3m84=;
- b=e7uYEVdpbaLvM3M9iWdW9nUOThi7ep405z1orT/j3ifXG4SaJHqb75vZrlwC4Z67EEyrG0XH+lDBx6NfCTDjdLdxqRvoB1H5IWjrT1tcMF5R/3L/CvkzkMmcVVpylbPLRDv6rSMvDTZhiDXytS8tnkC3cnyG33w+E5JmBl80TYA=
-Received: from DM6PR03CA0069.namprd03.prod.outlook.com (2603:10b6:5:100::46)
- by MN0PR12MB6199.namprd12.prod.outlook.com (2603:10b6:208:3c4::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.30; Thu, 21 Mar
- 2024 14:35:55 +0000
-Received: from DS3PEPF000099DB.namprd04.prod.outlook.com
- (2603:10b6:5:100:cafe::85) by DM6PR03CA0069.outlook.office365.com
- (2603:10b6:5:100::46) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.28 via Frontend
- Transport; Thu, 21 Mar 2024 14:35:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099DB.mail.protection.outlook.com (10.167.17.197) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Thu, 21 Mar 2024 14:35:55 +0000
-Received: from MUN-L-SHSHARMA.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 21 Mar
- 2024 09:35:52 -0500
-From: Shashank Sharma <shashank.sharma@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Shashank Sharma <shashank.sharma@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <Christian.Koenig@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-Subject: [PATCH] drm/amdgpu: Add a NULL check for freeing root PT
-Date: Thu, 21 Mar 2024 15:35:25 +0100
-Message-ID: <20240321143525.2123-1-shashank.sharma@amd.com>
-X-Mailer: git-send-email 2.38.0.windows.1
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09F2510EB49
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 14:37:31 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-41466e01965so7307865e9.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Mar 2024 07:37:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1711031850; x=1711636650; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=LEIQ+H8jRSTnmAYsUWgE1VDJQTUleDHcfiCid/+YBGA=;
+ b=TDgD8ziYDYOS+jU3XjsFH7aUP3NB6vCA3kbOdf83lCuS+U+tycj16m9D1RlRSc0fk5
+ f73QoayBcdGW15uMGAiehWmqozlwi/GvtWOluYLSvqKugnXwN4nMKLXlOR6mdr3W4zid
+ tbpFGvQRIUo0lMP9Y5gFf8JWk45aSYcHkrMeqf+mHKFcLToEG0s6yZPTv2i64llBqoMd
+ LA38JTUyVuTxF0TrsxwRIeBzL0NGAotFASS9/+okcYtNFf9YaGwzKSSzAuE+uooyTp4Y
+ MIxVG/NjfIe7fI5VM5j6g789Ys+/d/2QrW5GgyCTNxR4MG25Se2s0o3pCM2tRqZDndZW
+ N7NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711031850; x=1711636650;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=LEIQ+H8jRSTnmAYsUWgE1VDJQTUleDHcfiCid/+YBGA=;
+ b=MOEIyLmj5pnAaVC+XypFwhDWpzAsH0y4fncgmnGB+yeE68CVI3zOUIZqHJ6M1PgQrQ
+ wDZ7JHz8wW7mIR4XVAinDsh85PzWtg2nvn2Pq5aFeVIk52hjyzcRi+HX99AkdjC8U9+4
+ TSR/etQTqT/9+ZK0yhDCAdkn2ULXG31eoNfs9S6m52JNSrRIiQKwikZOIybGfLnuvhoI
+ 9Tg92Fwlwj86BgiDnx33BqHbpHTTO+HBBIaGza9AFDGgClCRtoqd5A63WJyVh0tR+7De
+ 8zdLWYDIAJHthmoI+39Twsc8BIAU1S7pssAOpMmreuhnS0f2NUVMdANJYJYFwhHI0AZ+
+ FpRQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV79fRVjmmlj6FsY9WpZ/PQjBfdTAKy0F/4sIBv9i9RJ1YWKXlccSch1qvZYlr365ZIw6zD6aMZcMEk0OatsSABbkSl6DYs0uN0qs0GTQ==
+X-Gm-Message-State: AOJu0YwzMamomUb1F6ZzYo4lYjJWj5mFx3ifmHG3RM1uokdzq3GCOZ6h
+ 3+brKN1arYy7oCH38Cz7lltAtWE/7jJqZSaTAzjJrV7m94yqHwd4QaXEbmvxQ3U=
+X-Google-Smtp-Source: AGHT+IEs7Vv1SwRI8QvAlYILxhW3e7ffx7zCMsfWer3ywyZnlJO5L4Q64Oy4/PymLW2h5Cx599LyOQ==
+X-Received: by 2002:a05:600c:35c9:b0:414:6a02:ebfa with SMTP id
+ r9-20020a05600c35c900b004146a02ebfamr3949628wmq.20.1711031849985; 
+ Thu, 21 Mar 2024 07:37:29 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ u17-20020a05600c19d100b0041461a922c2sm5790872wmq.5.2024.03.21.07.37.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Mar 2024 07:37:29 -0700 (PDT)
+Message-ID: <5d237fd2-4af4-4a4a-8c52-224b41f505f9@gmail.com>
+Date: Thu, 21 Mar 2024 15:37:27 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: once more fix the call oder in
+ amdgpu_ttm_move()
+Content-Language: en-US
+To: Tvrtko Ursulin <tursulin@ursulin.net>, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org
+References: <20240321124311.2279-1-christian.koenig@amd.com>
+ <fbe52af7-4ebb-490d-9771-d0ee177307e5@ursulin.net>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <fbe52af7-4ebb-490d-9771-d0ee177307e5@ursulin.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DB:EE_|MN0PR12MB6199:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b1eba4e-4d07-4096-5aaf-08dc49b437a7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LUjskQ6T5hSFHSPnN+reBRZsXCyJ6oQqcYHmTmoZtJjU4cbCjt4acAmhlFSRzEH/T6+kbWg1y2ipNuWt3OqVpYk/OrpJAL8AgsUIzHHmPvUBSjWfHffYMKfI5eTx6wb5qlTGHNis3YAx5B9omoBtBJMYcLIrJ7mJHCJ9KvqkUG3Gds0Yo1UMwrf+uns9rKLHUGlBttBxX32vph45EqUAJNDB9iTnb6wqQzXuSpzleiB97Ll1sy407rCK3LZ5MHdRb5W+FXJMQ85TshzOct/miUD1nA08FZ5S9PRdTZ3LpIMUaULTY9Aix0ZcH2dSfHufoOAnM56uwLPOmWLC0AlN5Le4zpT9AxgwUexaUxBMFUFoBATiZdatG/dUBHAz4RJvLCJ7DsHGkh/XVDmuHVcIhnvHi5joLkJuOwfdmPiOy55eVpKfDVwSl06rOA5CCgw+WMxkmdLS6f7cdzJtTWwoNRZYdBFyQswUFZiuNW44ugt2zibBHrPw9tRYxph9AtuSilxf1VzOSJ3KY7mnjtnA3P1CL6kAScUwV44rFTGoRH1mpvz1UCPHD7/KDitz7F4eyMTtGNumRcp3b5kdB6UJ7/mBSARtwPp2boyN0kqZG5vRQcXHVTWrsvESJ2rkj7APy1XkTFRGQpkRZbB3E2dXKrIseFmILqx7JPwVZx/CHmE5xSzUavoqBZXmPiclkpnGxqLOloqL84kE3G0FmOqsMAIUqoFAt/NPaMNVA3dj8CulHBxBFgz/UEQNxU8FwUVK
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(36860700004)(82310400014)(376005); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2024 14:35:55.5642 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b1eba4e-4d07-4096-5aaf-08dc49b437a7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DB.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6199
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,63 +85,210 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch adds a NULL check to fix this crash reported during the
-freeing of root PT entry:
+Am 21.03.24 um 15:12 schrieb Tvrtko Ursulin:
+>
+> On 21/03/2024 12:43, Christian König wrote:
+>> This reverts drm/amdgpu: fix ftrace event amdgpu_bo_move always move
+>> on same heap. The basic problem here is that after the move the old
+>> location is simply not available any more.
+>>
+>> Some fixes where suggested, but essentially we should call the move
+>> notification before actually moving things because only this way we have
+>> the correct order for DMA-buf and VM move notifications as well.
+>>
+>> Also rework the statistic handling so that we don't update the eviction
+>> counter before the move.
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>
+> Don't forget:
+>
+> Fixes: 94aeb4117343 ("drm/amdgpu: fix ftrace event amdgpu_bo_move 
+> always move on same heap")
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3171
 
-[      06:55] BUG: unable to handle page fault for address: ffffc9002d637aa0
-[  +0.007689] #PF: supervisor write access in kernel mode
-[  +0.005833] #PF: error_code(0x0002) - not-present page
-[  +0.005732] PGD 100000067 P4D 100000067 PUD 1001ec067 PMD 4882af067 PTE 0
-[  +0.007579] Oops: 0002 [#1] PREEMPT SMP NOPTI
-[  +0.004861] CPU: 52 PID: 8146 Comm: kworker/52:2 Tainted: G           OE     5.18.2-mi300-build-140423-ubuntu-22.04+ #24
-[  +0.012135] Hardware name: AMD Corporation Sh54p/Sh54p, BIOS WPP4311S 03/11/2024
-[  +0.008254] Workqueue: events delayed_fput
-[  +0.004573] RIP: 0010:amdgpu_vm_pt_free+0x66/0xe0 [amdgpu]
-[  +0.006270] Code: 01 74 6e 48 c7 45 e8 00 00 00 00 31 f6 48 83 c7 58 e8 0e ea 3b ff 48 8b 03 48 8d 78 38 e8 f2 9b 90 c0 48 8b 43 20 48 8b 53 18 <48> 89 42 08 48 89 10 48 b8 00 01 00 00 00 00 ad de 48 89 43 18 48
-[  +0.020954] RSP: 0018:ffffc9002e117c08 EFLAGS: 00010246
-[  +0.005830] RAX: ffff8884867bda20 RBX: ffff8884867bd9a8 RCX: 0000000000000000
-[  +0.007961] RDX: ffffc9002d637a98 RSI: ffff888482845458 RDI: ffffffffc155916e
-[  +0.007958] RBP: ffffc9002e117c20 R08: 0000000000000000 R09: 0000000000000001
-[  +0.007961] R10: ffff888482843000 R11: 0000000141eed000 R12: ffff8884867bd9a8
-[  +0.007959] R13: ffff888471d68098 R14: ffff888471d68098 R15: 00000000c1dab300
-[  +0.007960] FS:  0000000000000000(0000) GS:ffff88e1cf700000(0000) knlGS:0000000000000000
-[  +0.009027] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  +0.006409] CR2: ffffc9002d637aa0 CR3: 0000000006410006 CR4: 0000000000770ee0
-[  +0.007961] PKRU: 55555554
-[  +0.003016] Call Trace:
-[  +0.002726]  <TASK>
-[  +0.002340]  amdgpu_vm_pt_free_root+0x60/0xa0 [amdgpu]
-[  +0.005843]  amdgpu_vm_fini+0x2cb/0x5d0 [amdgpu]
-[  +0.005248]  ? amdgpu_ctx_mgr_entity_fini+0x53/0x1c0 [amdgpu]
-[  +0.006520]  amdgpu_driver_postclose_kms+0x191/0x2d0 [amdgpu]
-[  +0.006520]  drm_file_free.part.0+0x1e5/0x260 [drm]
+Ah, thanks. I already wanted to ask if there is any bug report about 
+that as well.
 
-Cc: Christian König <Christian.Koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Felix Kuehling <felix.kuehling@amd.com>
-Cc: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Regards,
+Christian.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index d904fc96ba0f..a0a5b955a4b4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -688,8 +688,10 @@ void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 	struct amdgpu_vm_pt_cursor cursor;
- 	struct amdgpu_vm_bo_base *entry;
- 
--	for_each_amdgpu_vm_pt_dfs_safe(adev, vm, NULL, cursor, entry)
--		amdgpu_vm_pt_free(entry);
-+	for_each_amdgpu_vm_pt_dfs_safe(adev, vm, NULL, cursor, entry) {
-+		if (entry)
-+			amdgpu_vm_pt_free(entry);
-+	}
- }
- 
- /**
--- 
-2.43.2
+>
+> ;)
+>
+> Regards,
+>
+> Tvrtko
+>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 15 +++----
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  4 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 48 ++++++++++++----------
+>>   3 files changed, 37 insertions(+), 30 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> index 425cebcc5cbf..eb7d824763b9 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> @@ -1245,19 +1245,20 @@ int amdgpu_bo_get_metadata(struct amdgpu_bo 
+>> *bo, void *buffer,
+>>    * amdgpu_bo_move_notify - notification about a memory move
+>>    * @bo: pointer to a buffer object
+>>    * @evict: if this move is evicting the buffer from the graphics 
+>> address space
+>> + * @new_mem: new resource for backing the BO
+>>    *
+>>    * Marks the corresponding &amdgpu_bo buffer object as invalid, 
+>> also performs
+>>    * bookkeeping.
+>>    * TTM driver callback which is called when ttm moves a buffer.
+>>    */
+>> -void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict)
+>> +void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+>> +               bool evict,
+>> +               struct ttm_resource *new_mem)
+>>   {
+>>       struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
+>> +    struct ttm_resource *old_mem = bo->resource;
+>>       struct amdgpu_bo *abo;
+>>   -    if (!amdgpu_bo_is_amdgpu_bo(bo))
+>> -        return;
+>> -
+>>       abo = ttm_to_amdgpu_bo(bo);
+>>       amdgpu_vm_bo_invalidate(adev, abo, evict);
+>>   @@ -1267,9 +1268,9 @@ void amdgpu_bo_move_notify(struct 
+>> ttm_buffer_object *bo, bool evict)
+>>           bo->resource->mem_type != TTM_PL_SYSTEM)
+>>           dma_buf_move_notify(abo->tbo.base.dma_buf);
+>>   -    /* remember the eviction */
+>> -    if (evict)
+>> -        atomic64_inc(&adev->num_evictions);
+>> +    /* move_notify is called before move happens */
+>> +    trace_amdgpu_bo_move(abo, new_mem ? new_mem->mem_type : -1,
+>> +                 old_mem ? old_mem->mem_type : -1);
+>>   }
+>>     void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+>> index a3ea8a82db23..d28e21baef16 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+>> @@ -344,7 +344,9 @@ int amdgpu_bo_set_metadata (struct amdgpu_bo *bo, 
+>> void *metadata,
+>>   int amdgpu_bo_get_metadata(struct amdgpu_bo *bo, void *buffer,
+>>                  size_t buffer_size, uint32_t *metadata_size,
+>>                  uint64_t *flags);
+>> -void amdgpu_bo_move_notify(struct ttm_buffer_object *bo, bool evict);
+>> +void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+>> +               bool evict,
+>> +               struct ttm_resource *new_mem);
+>>   void amdgpu_bo_release_notify(struct ttm_buffer_object *bo);
+>>   vm_fault_t amdgpu_bo_fault_reserve_notify(struct ttm_buffer_object 
+>> *bo);
+>>   void amdgpu_bo_fence(struct amdgpu_bo *bo, struct dma_fence *fence,
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> index a5ceec7820cf..460b23918bfc 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> @@ -471,14 +471,16 @@ static int amdgpu_bo_move(struct 
+>> ttm_buffer_object *bo, bool evict,
+>>         if (!old_mem || (old_mem->mem_type == TTM_PL_SYSTEM &&
+>>                bo->ttm == NULL)) {
+>> +        amdgpu_bo_move_notify(bo, evict, new_mem);
+>>           ttm_bo_move_null(bo, new_mem);
+>> -        goto out;
+>> +        return 0;
+>>       }
+>>       if (old_mem->mem_type == TTM_PL_SYSTEM &&
+>>           (new_mem->mem_type == TTM_PL_TT ||
+>>            new_mem->mem_type == AMDGPU_PL_PREEMPT)) {
+>> +        amdgpu_bo_move_notify(bo, evict, new_mem);
+>>           ttm_bo_move_null(bo, new_mem);
+>> -        goto out;
+>> +        return 0;
+>>       }
+>>       if ((old_mem->mem_type == TTM_PL_TT ||
+>>            old_mem->mem_type == AMDGPU_PL_PREEMPT) &&
+>> @@ -488,9 +490,10 @@ static int amdgpu_bo_move(struct 
+>> ttm_buffer_object *bo, bool evict,
+>>               return r;
+>>             amdgpu_ttm_backend_unbind(bo->bdev, bo->ttm);
+>> +        amdgpu_bo_move_notify(bo, evict, new_mem);
+>>           ttm_resource_free(bo, &bo->resource);
+>>           ttm_bo_assign_mem(bo, new_mem);
+>> -        goto out;
+>> +        return 0;
+>>       }
+>>         if (old_mem->mem_type == AMDGPU_PL_GDS ||
+>> @@ -502,8 +505,9 @@ static int amdgpu_bo_move(struct 
+>> ttm_buffer_object *bo, bool evict,
+>>           new_mem->mem_type == AMDGPU_PL_OA ||
+>>           new_mem->mem_type == AMDGPU_PL_DOORBELL) {
+>>           /* Nothing to save here */
+>> +        amdgpu_bo_move_notify(bo, evict, new_mem);
+>>           ttm_bo_move_null(bo, new_mem);
+>> -        goto out;
+>> +        return 0;
+>>       }
+>>         if (bo->type == ttm_bo_type_device &&
+>> @@ -515,22 +519,23 @@ static int amdgpu_bo_move(struct 
+>> ttm_buffer_object *bo, bool evict,
+>>           abo->flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+>>       }
+>>   -    if (adev->mman.buffer_funcs_enabled) {
+>> -        if (((old_mem->mem_type == TTM_PL_SYSTEM &&
+>> -              new_mem->mem_type == TTM_PL_VRAM) ||
+>> -             (old_mem->mem_type == TTM_PL_VRAM &&
+>> -              new_mem->mem_type == TTM_PL_SYSTEM))) {
+>> -            hop->fpfn = 0;
+>> -            hop->lpfn = 0;
+>> -            hop->mem_type = TTM_PL_TT;
+>> -            hop->flags = TTM_PL_FLAG_TEMPORARY;
+>> -            return -EMULTIHOP;
+>> -        }
+>> +    if (adev->mman.buffer_funcs_enabled &&
+>> +        ((old_mem->mem_type == TTM_PL_SYSTEM &&
+>> +          new_mem->mem_type == TTM_PL_VRAM) ||
+>> +         (old_mem->mem_type == TTM_PL_VRAM &&
+>> +          new_mem->mem_type == TTM_PL_SYSTEM))) {
+>> +        hop->fpfn = 0;
+>> +        hop->lpfn = 0;
+>> +        hop->mem_type = TTM_PL_TT;
+>> +        hop->flags = TTM_PL_FLAG_TEMPORARY;
+>> +        return -EMULTIHOP;
+>> +    }
+>>   +    amdgpu_bo_move_notify(bo, evict, new_mem);
+>> +    if (adev->mman.buffer_funcs_enabled)
+>>           r = amdgpu_move_blit(bo, evict, new_mem, old_mem);
+>> -    } else {
+>> +    else
+>>           r = -ENODEV;
+>> -    }
+>>         if (r) {
+>>           /* Check that all memory is CPU accessible */
+>> @@ -545,11 +550,10 @@ static int amdgpu_bo_move(struct 
+>> ttm_buffer_object *bo, bool evict,
+>>               return r;
+>>       }
+>>   -    trace_amdgpu_bo_move(abo, new_mem->mem_type, old_mem->mem_type);
+>> -out:
+>> -    /* update statistics */
+>> +    /* update statistics after the move */
+>> +    if (evict)
+>> +        atomic64_inc(&adev->num_evictions);
+>>       atomic64_add(bo->base.size, &adev->num_bytes_moved);
+>> -    amdgpu_bo_move_notify(bo, evict);
+>>       return 0;
+>>   }
+>>   @@ -1551,7 +1555,7 @@ static int amdgpu_ttm_access_memory(struct 
+>> ttm_buffer_object *bo,
+>>   static void
+>>   amdgpu_bo_delete_mem_notify(struct ttm_buffer_object *bo)
+>>   {
+>> -    amdgpu_bo_move_notify(bo, false);
+>> +    amdgpu_bo_move_notify(bo, false, NULL);
+>>   }
+>>     static struct ttm_device_funcs amdgpu_bo_driver = {
 
