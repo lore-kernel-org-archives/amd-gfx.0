@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CAC3CD11BF
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Mar 2024 08:04:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE000C54E71
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Mar 2024 08:05:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EC3710F053;
-	Fri, 22 Mar 2024 08:04:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 091FB10F067;
+	Fri, 22 Mar 2024 08:05:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="D1Cq4tRa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RVLiCOFn";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 087EA10F067
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Mar 2024 08:04:20 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2084.outbound.protection.outlook.com [40.107.223.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 506FB10F067
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Mar 2024 08:05:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ncjNqyh5I+MkdPTC0ieGVz5o3lFbO7qUqW+dz4MDZVbmzblllqRfZsz2CBdSq5bAMq641aRoZvis38QdfmIeVdHqrY2E4Dr7+56yejxw1+4LCpSDnonPRRKFVA8YV1ChoFuNB/KuNiYRDoUURCasSUnu9bZWmGCP7xPhvhBmKB+l5cxG8UjqHp5Uw7wsa6JI7mg955LS+fkHR8a++MmGal52TuELvxr5JFz6TAafMUfM71K6q3/S7CPyWXufT/C6zNGpqvorJ6sr18lHR/fbxyw8Xh39b7UKRvOHd04apslaxuh0O4wvcUNfgWrSh5WnDU9xImnHaYAzAOzqNX038A==
+ b=T7r7opicvMxlug1u4SxlxYsd6Y2TdceCmsdMUDnud7mgoZSs0uHL+GoQkuD82R9lREQNdx9kro5h1h+a59ZHgBDTK4Ij4JAteksKDqkbstrJft+HRW2XeDnB3jg2X4STmU9jvZnadaJgjINbFvKui2tquUCU322uGjI0Swld/YItuQ/0gth1i0lQyNIxNTKugpmObyW96Ed0/opiuKCqYEE5ORYX2mG2tD5UufS8Jncuafw5CGrlQlPUMxolqS4ZNp9aFszB85SWgtWHKZ/13Nwy8Iw+SWekcoql6y6K/4F28YNg2YeptVcr0V3+X7rjy8xj7Uk/Vzj6cwWgq6ko/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Axoh1kAU7zCvuVt0yx7Zrtcp24lINqSUOaWoSHtC18s=;
- b=ObRXPCY0+mPUfUgZ2NtHYGVsh6vOxmz6wkp3Vt+1B+AtFzbzOk09zYlsZiGifKnMdUdbYiS77YtTMypYUw0TlfaWK8RsX0ymv25M/6mWk3JCnRUh0xJ2a9Zhn5g6hi8nriHynTNFrw6IoRioIWpQAGBaZiiAV/mPBSOKI/uC6c1sgunVPJLiC1WMqPaVUF8szYLUs//z0mNXFZmY5IwAE3azhdxtYQKkKhHUuYpu+v7ktBfLuUJvOvudgrns8sQjj+1QY/FZL6k4xmeDxwV3Nd7kiNtmyhCrg0rbc75E8MGy+AUtCFTvX/3yNGA/f3UUBRR45LWC3elKpcwuYV7Y/w==
+ bh=EpoKPCFRyo5MVC12A3tbIDGWXcaRT/T5DMqI2PgsTAQ=;
+ b=EChesmWlZ99ZTeMkrdlcOgx1Xa+mkbT1HKrE91eQiRDPnDIz8jE3L9cQ5Nq7QItcMqXzZQwbWOqJuHVrhUJM/I/sCs9h1dn29Zra4ZsgiPPccmyR2FDo0C+Xjw5xIYZwhzgKhgcTQypfspPyvLexlKboXPJDeb2TvYLtr3M9744ubntz77jRHsBM+zWd4K+6JUN1tSNMqHT769PCbjfkg1w0SZycfixTEwkRtbGhTcv/2ukoKTeZClkLhT5nOQyvQgudjhXf/3jWTTsKOLiDUTBNlcfZn/1iQeeAQwWE5keoWjuwK7ER+2CpWJ+KlLzL27PkE2PT8qcN2g5yCI93FA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Axoh1kAU7zCvuVt0yx7Zrtcp24lINqSUOaWoSHtC18s=;
- b=D1Cq4tRawWkkP1WOYAHI3aM2xTXV9SklSduLDEcwH6ab1MMfWV0g/Pg4D3YHnh4V5JFht9TZzZPwIFNlEujdbyNmDWOJD4iCsG9C8k1kspZImZbni/tP/ND0VnWsQ7eDq4G+MPQODS7YL4qUP9nwP/syoRWJDIDGeGuAngsnaI4=
+ bh=EpoKPCFRyo5MVC12A3tbIDGWXcaRT/T5DMqI2PgsTAQ=;
+ b=RVLiCOFnyVdSEP683OKgUL3XABTYxziz0460shi5ZOpQsVEc4OM8U/F7iEEbJwO80lVLJzwcpm8RrQp3YdIPEvFSWjf8brrnvRxYTcpnWFx+RHFQhakENw11CR9ULlaJpbgE9uCvS5PQDKAkPI31oDvAFSQyxLOIAgvjyOH0Ino=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
  CH3PR12MB9021.namprd12.prod.outlook.com (2603:10b6:610:173::7) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7386.34; Fri, 22 Mar 2024 08:04:18 +0000
+ 15.20.7386.34; Fri, 22 Mar 2024 08:05:17 +0000
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::f349:addf:ae3e:814]) by DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::f349:addf:ae3e:814%5]) with mapi id 15.20.7386.025; Fri, 22 Mar 2024
- 08:04:18 +0000
-Message-ID: <17b9783e-c0d6-46c0-8af1-68ff462e07ce@amd.com>
-Date: Fri, 22 Mar 2024 13:34:16 +0530
+ 08:05:17 +0000
+Message-ID: <23bf3388-a0bb-465a-8584-23aa0d33cb18@amd.com>
+Date: Fri, 22 Mar 2024 13:35:15 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Fix truncations in gfx_v11_0_init_microcode()
+Subject: Re: [PATCH] drm/amdgpu: Fix truncation in gfx_v10_0_init_microcode
 Content-Language: en-US
 To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
-References: <20240322063217.4121194-1-srinivasan.shanmugam@amd.com>
+References: <20240322065439.4154847-1-srinivasan.shanmugam@amd.com>
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20240322063217.4121194-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20240322065439.4154847-1-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-ClientProxiedBy: PN3PR01CA0153.INDPRD01.PROD.OUTLOOK.COM
@@ -61,60 +61,60 @@ X-ClientProxiedBy: PN3PR01CA0153.INDPRD01.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|CH3PR12MB9021:EE_
-X-MS-Office365-Filtering-Correlation-Id: c91034f3-cf2f-4607-e95d-08dc4a46ac92
+X-MS-Office365-Filtering-Correlation-Id: 662dac55-8d5f-43a0-52a3-08dc4a46cfa0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lKm0z2UIZAIWyeazniGtJDK/S9Go6oe2bA3hvrlCBE0RpP6avlOLGIAcb8eRRChyeIUG6pVDqNdQh1dRWuxwSvlODFVwPP3abuCQRbs4YUm2V9saIqzyQdrwQuMIg0C93QbG2UxlmiiORL/2tdyBOQGWTFFOLc2ijs4jbXzkkq5kmT6Lx9TMVktsccnAT/q45qCcd6Wl/edIxEtgMVeDXOwFd5FYyZgzFW5DkYbsxA2ARZLSQanhQqd8kuxw4hAF88Uqr+C8SojnBqMUtJ/8cxAPLnhn7XHXvgSVk1LU7y7u4RyxFc/Jkhr2eqVzGhTkXdBphXX/5UJd9ihYYNvJBg3V70fkFS09r8JS7G4uAoTEG8gBzUw2QCTuAnjegB8pgfo/Qz2lg9xIVKnmWIcdlCkwhEuSv6f3wxgb58160rzgMXcb8y9OR4qFkF6ZXJHSghP4x4lamPE+BnqqXi/gnVketmmDcYPVmRLRG99wHbXGA3Ma88yxCBIEb07kXABuARwv/VUzizfebkkd8b7SYFOF+bVWgjK4pmsfyPk8bw/EwO39DjMFttRGUfscEMLXxBSo9mlR0nUG8BpIAyOSnbRMMJadaqcQpCkb+nEMRrS3gPRgfJPiI2ZLAiyP1ypL7uV0zCgfHOBAayHcE858mwCcjXy/DXiKtrjg7UPzVaY=
+X-Microsoft-Antispam-Message-Info: Wopt9/EOkuVMcmzjZbV8x1UBOsrS0a61723rUEhjQqpe9SJwESATu7pf8uDcm5F8U8F/aChphZu++I6gXeiTR7Ro7QajiLxsAwcQI0s4lIc3czcqMBihBLAvlOrhKE1fBNncrJVkNNRrG6fRdJQpJLnZTqhh5JP2nfroh5IxA33QYHh92TTabzKDPl3uQR/TcM9Qp9OY3z5zLU55/XhVNVoKmCOOC/11bvlHCqFF55EOh93lSiIrwyR6b62dppsWC7a87uO+ImFMCWB2+Ez2PpzD/GRBSNiQOsXVxv9E9cf+PBBQkf1HeRFIr5Zzup/iLaKaFtyQWLkPuC2N+E+tCltYCO0bP5pfuXfUYDwwCwr625spEg3g56K0jkaPRCd8h8ojgYwYq5JzzNePxbBucx60QsHA7lMAz3vCRh9AHE2zYZFArxL29g6wWETEn3Mug6cE7m5Rwvo3vIp8z4gjwOeYyPfjPblg5pi/dMWwH/6ke3lcDlovVC51ok38WMlwT6H7X37ihQ/C67g2K4S7sPkr2HPmRZhmCorSiQaHU75gj2SeoCb18H/A2T2YJRZwQXL9E/yYDU7gTfbAoWvY4TUDSpM1/FHqlUxiBQSpsLNW8/BaMsyd1IyilK05FDov7AehQUUCVTzPW8JS+U1bOFyB5DIpqLX38p4XlOX29Mw=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bHNoUTA2V3BFdmFQSWxtYkJmcUNlUmpDWnplTUJMQkdHZGxrMit4UUZ2bkVz?=
- =?utf-8?B?WmhuaWNMWTdQQi82QlE0WXUrL2pNSEFzL3V3RldMUXZzeTZEUk5TQ013bmlX?=
- =?utf-8?B?Zkt4UTVyNXBYNkNqbnZ5MWR5RkJaL1p6K1F3RzdtQVV1anY5WUFqZHAxVDk3?=
- =?utf-8?B?M0VnTXkzOGZwbEU3cURoSGpiYW9FRDlpWG5yV1dsMS9qSzRyUFpLVDBhTDM5?=
- =?utf-8?B?ZWFHaUpzYjdXUkNpYkE3d0FacVlvZVRURnJhREtjOENQRkJrSFhSdk01SERZ?=
- =?utf-8?B?VWdMWndkdkNIY0ZxQWJOaEFuWDIxRWhaNTN5ZE9FL2VEcGcrK3p5YmNWUWJs?=
- =?utf-8?B?eXRjWnJuMFlSeFBzVEFNK2xsQnl5UEJrT21QdkkrYWVqamFHUk9McFg5bU8v?=
- =?utf-8?B?WnlySkZaRzQwQXM0UzU0a1pUemgvSXVHQXFPc2kzbml2SGdhRld1VUFTSW5v?=
- =?utf-8?B?cEkwSnZ1WnJtcmxvcE5aZTFSTk4wSW0ybEpvcVVJRWtyUjY3NDhQY21UVHJG?=
- =?utf-8?B?bEhlNkoydG5BT09tVWN1ZjZ1cG8vMDlPSkk5OTRPYmo0QWZsZk4yL0trYk42?=
- =?utf-8?B?WGFNcWg3SCt6cUVaSDZjZmFGVHRVV2pCeHVPemFvWEFnR29wUEs4WFQ0aVA1?=
- =?utf-8?B?eXJTVk5iUlNyMGNOb1dVUjd4VmtLRUJLTGxMS2ZnbW5BR0puWGQyYUhHdDVD?=
- =?utf-8?B?RTVsYkJaeHErVlNOU1pjZ3kremhUcWNza0F1a0w3QWdiTmVMZU0wZDU2TUc1?=
- =?utf-8?B?ODh2WGs0VlBVNGIrK3lCZ2NONUxSQ2h4S1R5TCs1SmVXNDBWV2RaVXlFWmdK?=
- =?utf-8?B?QTh0c2pjMkJrUG16aWF1L2wyYllGQlNPeURwZFdEMnlYdXVPV2dld2p5V21E?=
- =?utf-8?B?dHJxbW1qYW1lYlpZU0hGZ1grWU9uU0ZHL0laaU1TV3JBa3VKREpWZXdYa055?=
- =?utf-8?B?ZEZRN1p4ODZBb3pjVFlPdWtFejF5Z1RSZnhXRTZFdTRXanpHU2hKT0NlUFli?=
- =?utf-8?B?bDFGUVltQXlwUjh6eTFBbzlzd3ZGZWJyaWtKTDJRZ3E1cFIyYittVDh6eUwr?=
- =?utf-8?B?cnRXTG4vRHZNNGFvMVliTkgxRTFDQjh5NVNVUXdSWlo0djMrTDIzckJHaTg1?=
- =?utf-8?B?a1JxQ0I4UHpldk5idGlBMEI2UmxVVHBkL0tIZTNjZ216VWRJVHZKOEtQQzNY?=
- =?utf-8?B?SEtlRHIxd0dxRW5VV3VmRXZMdHJ0aDFoSFFCNVVkRjE1YlF5Wi8raDZoSTIv?=
- =?utf-8?B?QjRma0ZkN1lkZzVIUWIzSFdDdXIwekVqK1JyVjdjR3ZSL2NYUHZEdEpRZ014?=
- =?utf-8?B?SWVaMTNqdUE2dllCV1NHN0ZicWMzQUpIR1o1Zk9SbUdzVVRyMWMrT1NPZm5n?=
- =?utf-8?B?SE4ycGJmOStaOHpjOTArNmxkSE5DRHRORGhSdUNBMTdKdUdPQXRqOUZrVDRE?=
- =?utf-8?B?TTROa0lQQnFvNWhzMWNGWkp3a1hKWWx5eW9OTVZsWm9kNk9VSlZVd0xsRzhC?=
- =?utf-8?B?S3QyMUltZmdZRkJYNm5zMXlEbWZuYXo3enZnWXR2azVJVk94UnBwQ0Y2ZCs5?=
- =?utf-8?B?bUQyL0lDeHhMdW05UnoxTjFIZ0ovT2tnVjBRcGV6T0xjOHZjTXNUMGUzMjFr?=
- =?utf-8?B?Mk84QXN1V3hKWk5iMUE1KzBWc0dWQ0VOWjVCajlmQXIvNk9XTnZXSTVlckhz?=
- =?utf-8?B?UW5KUkRsN0IxKytzeVNmNDY2UXd1clYvblE5V0orK2UwZkcrL0J6Q3lpSmdw?=
- =?utf-8?B?NlEyNkx6YTEybTE2S3grTlFFMGVNOWU5TndQUUFHM1FNZEowZDNBZG1zQlRa?=
- =?utf-8?B?QllKZDhDWlRNVDFsT25ob0szMDk4cjAyZFV5VkdWWEJkbjRjUU0yMGJmcFVy?=
- =?utf-8?B?V1JwR1AwRS9sMDNROXhTS3RUaW9Oc2RrTkR2QnBjZ096N3A4OVBvTVlSZm5i?=
- =?utf-8?B?dnU3N2R5a2FyU1Yxcmh0NHp5MFNQZThxNzBDeUNZUnMrMlpKR3NSQlFXcG8v?=
- =?utf-8?B?U3UrYWlLQ0ZYaEJBT296NXZubXp1bCtTZjEvRDBUK242aEY4QTdrNFA5N1dH?=
- =?utf-8?B?cUUvdGxaOTZER3FJQnZ5M3hzUEYvUitveUk5aHhJenpIVmJPdGdIVlA2YXJE?=
- =?utf-8?Q?JEcHqHuBNpyFbjLNMt1K2U5f3?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cy80ZjJsWFo1V2JNT1UwNnZ5SmFRVmFnaCtRSVY2enZGQ0hYcDVLWGNldUQ5?=
+ =?utf-8?B?cFJsVjNEUTNCNzBNQ25IbzFXR1NWWGs4UzJiakZzWEtCNU5qaHhuRlZHbW9E?=
+ =?utf-8?B?NVg5d1R3dnlwNys3NXZBV3FTR3EwMTR3QW1ncWdzcEJTQnQ4Q1pkSUl1bmZ1?=
+ =?utf-8?B?N21LUk50VSs3Zno5a2tVelpXM1VvNWFmK1RVTHk3VFcwbVNNWTVHOG1EZUZ6?=
+ =?utf-8?B?MFJ4c1NsS1g2MG1xL2VTcGJqMXJFeHMxTTB1NC85WUNMTFY3b0UwTUVNdnRF?=
+ =?utf-8?B?U3JtYUV2WGxTZTJBSFRsS2hERXZMZ043OTBWc09Ncm1ucUJGQTIrRVhMcm8r?=
+ =?utf-8?B?bUFIVDdyVXJ6M0Vqdmcwd0lkVENhbytkS0xyaVhsUlRjbndwVXZIM2I0eDdP?=
+ =?utf-8?B?TCtya0pDZmpxMzd4Z29VOHRGQUtSUEJMTGIxUnpkcHl1WmNRcGdMa0N6WXVO?=
+ =?utf-8?B?UGRuR1loMHNzbGVtWWV5NCs2WkVYVk0vVCtOczRSTnp3LzI4QWxwa2o5R21V?=
+ =?utf-8?B?QVRtNWhWUWlTRnhNbnZGc2NhU0hlRnJwUXo5ZnNSOWM5NkxGUDBYdUU2Zkxh?=
+ =?utf-8?B?OUI3SytNVzVvUDl6ZCt0TGFPMzczVklvVFV4eXkvY01DTXBLdE1ScnQxczFp?=
+ =?utf-8?B?MlNXVVhLdmc2MEpOK3hDcDZ2cGtHRVEzRzhIbjZrNG5seDNNelpmUWcyR2Nq?=
+ =?utf-8?B?SHB0Y0VEY0l5emdzUVp1Wm1vaTVDcFNaSFpUY0xLVStlUEZiVzFtbCtNdTJr?=
+ =?utf-8?B?ai84Q3hYRVM1OXAyRmt5UUpXWEkwa0JLVmh6eEwxbjhHUTlES3dIZ3dkZk1C?=
+ =?utf-8?B?aVBsTWVIZmgzdlZBS1ZQeXpzNkNYeVlTMXFFcVhkeDcxcU80RDJyVlZZbGpB?=
+ =?utf-8?B?bjFLbXJ1QVQxOVdJSER1Qmg4ZmNNWkFPd1l0ak54S25rMVVYTUIwdEI1K3Ft?=
+ =?utf-8?B?RmRKdEp6K0svUGpoWjJ3akkybHdUczRVMUgvS1dnRXZsbkozRDJFdVpwaGNM?=
+ =?utf-8?B?RVJnYmM1NDJLaGlJVG1xd0xnN2E1RTJxQ2tUNDVDN05kQnVocWpncUhZeWI2?=
+ =?utf-8?B?VG02ekNZanh3WHRwcWlxQzNzMUJSUU5pQzU5aXAyTCtJaGdpZER4YzlORlk0?=
+ =?utf-8?B?YjFPSnN6WWp6VFpvN0NhTXpxVUxCZTBIMGhpb3FJdVNZZGl5RytFNUhQSUI1?=
+ =?utf-8?B?VVRDNEFzR1BZMEZYdGhiSHBoT21xVFRYVVJ6WDhyejR5M1BnM0oxcTNaMkxJ?=
+ =?utf-8?B?MXc0aUNhdkhGemltbnpnd29kbkJ3bStObklqMVVVdTNuUVdFSGNzSi9ZSFN6?=
+ =?utf-8?B?MCtSTjFqbVRtZjMvaDRXeVErcjA3UUZySHdnbklNYktkc0xwR055dUlaNFFm?=
+ =?utf-8?B?UjNVck9YV0J3M1ZNY0NnbmlUK042dnNKaDFQWjBCN095SEduTWZwM2hBLzBE?=
+ =?utf-8?B?d1hURGVLcTJ2UFZaK2hlU3Fpc3dMYm4zM2N5QnFLVGo0MDFJMW1VRWV3bnYx?=
+ =?utf-8?B?LzlhVFVwU3FOcmZtQzBtcmtteHlhUHVMWUxsdUdWcGlFTFo5NzFscmVVN3Nx?=
+ =?utf-8?B?RlkwTThHSjZKYkN3OVlLVEZRYTdSNUtrZWI1UGZ1empYRnZrK1FOcGw3YVhs?=
+ =?utf-8?B?RUZ5MWgya0VjUFQySm5LbnU2cmV2QlEyeDNIUUtoUXJiWXZ1N1M3RHdwbWdS?=
+ =?utf-8?B?dXNab1Qybk8wTnFzT0NPSTUyYkNGTXp4bGkyK2xWQ0pRNjA2OTN2T0dWYkIv?=
+ =?utf-8?B?YjI3NHFaK3VFM09pdHprOU5QZHFlT01aKy91UDA1WkZhTjY5M2gzK1BsRWxh?=
+ =?utf-8?B?N2VVY3BUNjF3Y2NyWXRtV2g4ZWp4b3V5bWFWc3R4dW1ZTmRLbTVPTlhzdFQ5?=
+ =?utf-8?B?TU5QWVhSclZ5elcyMkxjc2x3TXdrSE9JNUdUOGx4TmZuRlNsNlZ1Y0dPTE5T?=
+ =?utf-8?B?QmN5UWRnZXVXNVpnd3BHQXZMc2tKSTZuK2dOeVRoMmFVU2orc1VLeDEzd3B6?=
+ =?utf-8?B?Wlh2NnFBOUZ0RU1jQzJjRDNKMmpDZlpYZEs0cnNtWGREOVp3YlU4UW53Z0o0?=
+ =?utf-8?B?bmNCeWpMRG9idUkwNFdLSTg2aFFLQUFhZjdpd0htNnhRVUd1dUo1dVdtM0FE?=
+ =?utf-8?Q?/DPx3J3JpDA0+ddtMuL2mu/KY?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c91034f3-cf2f-4607-e95d-08dc4a46ac92
+X-MS-Exchange-CrossTenant-Network-Message-Id: 662dac55-8d5f-43a0-52a3-08dc4a46cfa0
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2024 08:04:18.6873 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2024 08:05:17.4982 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: H73nbf/3g8d02K/iH9o2N1ZLISOlPAvQWXapRcvsNgRK/FI/Kr8k6awSRHCMY0p7
+X-MS-Exchange-CrossTenant-UserPrincipalName: bUOZvejqs1eHa5Ya4yy2EDOcKVomNbZ2gi8QAURv8bkxXFau6OnbG3ua9F4HP7FH
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9021
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -132,38 +132,49 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 3/22/2024 12:02 PM, Srinivasan Shanmugam wrote:
-> Reducing the size of ucode_prefix to 25 in the gfx_v11_0_init_microcode
-> function. This would ensure that the total number of characters being
-> written into fw_name does not exceed its size of 40.
+On 3/22/2024 12:24 PM, Srinivasan Shanmugam wrote:
+> The total size of the fw_name buffer is 8 (for "amdgpu/") + 30 (for
+> ucode_prefix) + 5 (for "_pfp") + 5 (for "_wks") + 5 (for ".bin") = 53
+> characters.
 > 
 > Fixes the below with gcc W=1:
-> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c: In function ‘gfx_v11_0_early_init’:
-> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:523:54: warning: ‘_pfp.bin’ directive output may be truncated writing 8 bytes into a region of size between 4 and 33 [-Wformat-truncation=]
->   523 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_pfp.bin", ucode_prefix);
->       |                                                      ^~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:523:9: note: ‘snprintf’ output between 16 and 45 bytes into a destination of size 40
->   523 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_pfp.bin", ucode_prefix);
->       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:540:54: warning: ‘_me.bin’ directive output may be truncated writing 7 bytes into a region of size between 4 and 33 [-Wformat-truncation=]
->   540 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me.bin", ucode_prefix);
->       |                                                      ^~~~~~~
-> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:540:9: note: ‘snprintf’ output between 15 and 44 bytes into a destination of size 40
->   540 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me.bin", ucode_prefix);
->       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:557:70: warning: ‘_rlc.bin’ directive output may be truncated writing 8 bytes into a region of size between 4 and 33 [-Wformat-truncation=]
->   557 |                         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_rlc.bin", ucode_prefix);
->       |                                                                      ^~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:557:25: note: ‘snprintf’ output between 16 and 45 bytes into a destination of size 40
->   557 |                         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_rlc.bin", ucode_prefix);
->       |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:569:54: warning: ‘_mec.bin’ directive output may be truncated writing 8 bytes into a region of size between 4 and 33 [-Wformat-truncation=]
->   569 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec.bin", ucode_prefix);
->       |                                                      ^~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:569:9: note: ‘snprintf’ output between 16 and 45 bytes into a destination of size 40
->   569 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec.bin", ucode_prefix);
->       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   CC [M]  drivers/gpu/drm/amd/amdgpu/../pm/powerplay/hwmgr/smu7_clockpowergating.o
+> drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c: In function ‘gfx_v10_0_early_init’:
+> drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:3982:58: warning: ‘%s’ directive output may be truncated writing up to 4 bytes into a region of size between 0 and 29 [-Wformat-truncation=]
+>  3982 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_pfp%s.bin", ucode_prefix, wks);
+>       |                                                          ^~
+> drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:3982:9: note: ‘snprintf’ output between 16 and 49 bytes into a destination of size 40
+>  3982 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_pfp%s.bin", ucode_prefix, wks);
+>       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:3988:57: warning: ‘%s’ directive output may be truncated writing up to 4 bytes into a region of size between 1 and 30 [-Wformat-truncation=]
+>  3988 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me%s.bin", ucode_prefix, wks);
+>       |                                                         ^~
+> drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:3988:9: note: ‘snprintf’ output between 15 and 48 bytes into a destination of size 40
+>  3988 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me%s.bin", ucode_prefix, wks);
+>       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:3994:57: warning: ‘%s’ directive output may be truncated writing up to 4 bytes into a region of size between 1 and 30 [-Wformat-truncation=]
+>  3994 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ce%s.bin", ucode_prefix, wks);
+>       |                                                         ^~
+> drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:3994:9: note: ‘snprintf’ output between 15 and 48 bytes into a destination of size 40
+>  3994 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ce%s.bin", ucode_prefix, wks);
+>       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:4001:62: warning: ‘_rlc.bin’ directive output may be truncated writing 8 bytes into a region of size between 4 and 33 [-Wformat-truncation=]
+>  4001 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_rlc.bin", ucode_prefix);
+>       |                                                              ^~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:4001:17: note: ‘snprintf’ output between 16 and 45 bytes into a destination of size 40
+>  4001 |                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_rlc.bin", ucode_prefix);
+>       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:4017:58: warning: ‘%s’ directive output may be truncated writing up to 4 bytes into a region of size between 0 and 29 [-Wformat-truncation=]
+>  4017 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec%s.bin", ucode_prefix, wks);
+>       |                                                          ^~
+> drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:4017:9: note: ‘snprintf’ output between 16 and 49 bytes into a destination of size 40
+>  4017 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec%s.bin", ucode_prefix, wks);
+>       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:4024:54: warning: ‘_mec2’ directive output may be truncated writing 5 bytes into a region of size between 4 and 33 [-Wformat-truncation=]
+>  4024 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec2%s.bin", ucode_prefix, wks);
+>       |                                                      ^~~~~
+> drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:4024:9: note: ‘snprintf’ output between 17 and 50 bytes into a destination of size 40
+>  4024 |         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec2%s.bin", ucode_prefix, wks);
+>       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Christian König <christian.koenig@amd.com>
@@ -174,21 +185,20 @@ Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 
 Thanks,
 Lijo
-
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index 1770e496c1b7..7a906318e451 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -510,7 +510,7 @@ static void gfx_v11_0_check_fw_cp_gfx_shadow(struct amdgpu_device *adev)
->  static int gfx_v11_0_init_microcode(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index f90905ef32c7..d524f1a353ed 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -3964,7 +3964,7 @@ static void gfx_v10_0_check_gfxoff_flag(struct amdgpu_device *adev)
+>  
+>  static int gfx_v10_0_init_microcode(struct amdgpu_device *adev)
 >  {
->  	char fw_name[40];
-> -	char ucode_prefix[30];
-> +	char ucode_prefix[25];
+> -	char fw_name[40];
+> +	char fw_name[53];
+>  	char ucode_prefix[30];
+>  	const char *wks = "";
 >  	int err;
->  	const struct rlc_firmware_header_v2_0 *rlc_hdr;
->  	uint16_t version_major;
