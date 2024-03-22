@@ -4,142 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B362EC47DD9
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Mar 2024 15:29:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C42B9C54E71
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Mar 2024 15:46:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37D6D1122B4;
-	Fri, 22 Mar 2024 15:29:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23D3A112588;
+	Fri, 22 Mar 2024 15:46:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eGBiKjsJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xWfQ9ak6";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18CE21122B4;
- Fri, 22 Mar 2024 15:29:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711121369; x=1742657369;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=I6yqTmlispY4Lim6SXOVOu60Cc5v2wth++1l6pNbO/s=;
- b=eGBiKjsJeG5v6Bh96C4kPn6pD8JkKeqgUTknxelE2+UNKa4X4xLEaJ3Q
- lAslONeC/XDk7vRfXSNj6O1Oe08BLX4Ujn8lJYkdk+ObN1biVuFmXJCTf
- aFaWr4yIPIPHCjZRq2kMGWMPM0TtqNs9uEA2xHCdnuj0tHfEqPjSUp1ox
- rZetkITKvSACK6nPhoJhyTDMHIcZtRz9EF6g71U27eZ+S0+wi+mP6JRGn
- lXkpFt2G9CR2+Y2MBLdfkfuXTjTHvsLBISWav5Ji5gNSg/A/8lvMUXk3n
- P7RUkrGIKUYya4bqhD3r12fZH1odgyguzUOx5xWMDsPHORnqTCWOHHZF5 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11020"; a="16721833"
-X-IronPort-AV: E=Sophos;i="6.07,146,1708416000"; d="scan'208";a="16721833"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2024 08:29:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,146,1708416000"; d="scan'208";a="14971518"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by fmviesa009.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 22 Mar 2024 08:29:28 -0700
-Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Fri, 22 Mar 2024 08:29:27 -0700
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35 via Frontend Transport; Fri, 22 Mar 2024 08:29:27 -0700
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com (104.47.74.40) by
- edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Fri, 22 Mar 2024 08:29:27 -0700
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2050.outbound.protection.outlook.com [40.107.101.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7B81112588
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Mar 2024 15:46:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XyAso9KWDuXOp4ZCWN3neryeFoLd6DTrOHOvnfL9XwalKM0Zxm20dh4H4SvwAT77VNdgkkN8xbD6yZ2YH0RQUeyqoeNggCIAv80JO7KJm0pK4iiLpRHCNX08cjkX4cJ0AcPGOvFQzque3Xj4Hzn7WmBhmHdL/O+avfncRwEfN5UgwFDflMXqmmfjHWYxx1fVxQw570ZEYTSG0xIjiGtlsEfxZgmBqNh3i8qnF46WhZ/cpJRuHDjlS8nGEVQgNIjMuPio80yjR8cvcYxgklKQmhYmwh2C2YBg9ToOWYt9BPoWHY92iQHWLEJqpFMeyDg5grtmKmkhkhGvYI0J9hXHDA==
+ b=asf+MVvhTNGX5DCDmU5vDTBYoaKlfa00wxUJgeZ7FMxfSNRnAnGwZahfUjqknAEd/WZBSZVlwPLlRMdE76qIXJ2lN6crPBYvWLvNw3kEur2XEsoUVTvvxTAqXUlyLzyLEOKQlwWNFCaUZdFBsUn04omN3JctH9HxxfsAlF7M0Ky+rzv9nXjollXfqJBA6KNRjftWgp5AajuiX5Dru2NwCPRlWq4ZmYFMBfCh/FGU4g77VACJID47ok6imuR5GNygZbvUCspKiSATNv2Jgbh0KFXVy1D2gHWz19bjioWf3cThxSmYlpfV6gU1xsgTQEMyPgFpznUEaooc5K0uUm+xGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cs57EiqXwUXVmqXS8JhKcz53Kt4MoUSIaPjz2eo9XIQ=;
- b=giiW74Hs16MzayNESRJG7S7+6SWZzJTLx5ZcNrLxRUNRTpWM9/zbz3A+ITlMge0vvry7F41IAjMZmDvPCW8tM176xsHqfvH8+uiJYXrCmN06avUbe5DiGbAV8juvL0r3or8hjKpnHhd+0unm5QgpdNd1d7F3h4PrUo3O1ER0il+QtCcYCGD4LPUMmXFtWoWXFRaY9r5OAEELxUJsJJN7+X+FIyavcYN0vtxD2jdJ6++SE1ysa/mC4/po+m1yVeSLz9WMJ3JE/uaUtx1duDrQaQiUfb9eZrF5WNt8pu+p+LaWGe/KT+1WVuDEcdhOrZQgckjlqQimrzpk6WtVMK0jkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DS0PR11MB6424.namprd11.prod.outlook.com (2603:10b6:8:c4::8) by
- DS0PR11MB8049.namprd11.prod.outlook.com (2603:10b6:8:116::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7409.24; Fri, 22 Mar 2024 15:29:25 +0000
-Received: from DS0PR11MB6424.namprd11.prod.outlook.com
- ([fe80::63e8:fe69:d457:851b]) by DS0PR11MB6424.namprd11.prod.outlook.com
- ([fe80::63e8:fe69:d457:851b%7]) with mapi id 15.20.7409.010; Fri, 22 Mar 2024
- 15:29:25 +0000
-From: "Ruhl, Michael J" <michael.j.ruhl@intel.com>
-To: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-CC: "felix.kuehling@amd.com" <felix.kuehling@amd.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>, Joe Greathouse
- <joseph.greathouse@amd.com>
-Subject: RE: [PATCH] drm/ttm: Implement strict NUMA pool allocations
-Thread-Topic: [PATCH] drm/ttm: Implement strict NUMA pool allocations
-Thread-Index: AQHafCfKARlTn+sjzU+zWWzAzP8eJbFD2U5w
-Date: Fri, 22 Mar 2024 15:29:25 +0000
-Message-ID: <DS0PR11MB6424E8F84BC34DD6EBB6279DC1312@DS0PR11MB6424.namprd11.prod.outlook.com>
-References: <20240322070753.69324-1-rajneesh.bhardwaj@amd.com>
-In-Reply-To: <20240322070753.69324-1-rajneesh.bhardwaj@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR11MB6424:EE_|DS0PR11MB8049:EE_
-x-ms-office365-filtering-correlation-id: b209eba5-b88b-42cd-360d-08dc4a84db67
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: A1HZ2iYTZGu9LzckktCkjxgPlFB+qOMnk/h+D8AjhJrqOet/4PEE6Nsc/YfXVlu0LPIPX7cBI3I0TH06nfsUeJsAx4aTivjnTGnCq8iAIavJgv6Pm2QBL/ujYDxyIp8A5wJs4IKErX6nuMqersxX2cNjxK2SgAuhp3PzuRMpl0dFkLnmOj6nMXO7sBNDv+KaSTg/lU44GFgPDAJPMKMv9KWr/KueL5L5pS6n2U7mDgOxvmrZoSwo13n8qtvUuWsCOQv0hwfPYqYGaDL9ORz8ZoTL3iSyW7c1Iv6blIO3jCW/Z9mIdbxJ2khjZRNwXa748XmiKNZKAjMhP+GWPLQupEyP1u7ZSBe/42q6ZQFgCWu9h7cmp71gfZFKxENFmiaQ1H9SrZjRv2sjO3+aVQqScPOjyuIM6LwvqA7Sjtz13hIJ5fuAX84W/LOlAWAo7Gs2bmCwGeG71BL6d9rbY7vPGIzRul4q/kQWIDsdy34HrBjhmGvEw68Zvc+Xuj7w2ItHlpxhU0M8AzyiR0rKINWUL96kg92u4NiQa47YygbMW66tFaAtCL/6EidQ0BiNxDEbaHb1A8HzZZltl5Row2Jlx6rVzFTh06G5PjiT8SDijUCHFPWq4K7E+wJoMkZM7vHrbphq3VT2NF3jOgWXVKadKP8zUqbPIsxQnZk46H5qnHzd+E34sT0m0s9aXSgxw8DRFPa8H0I8r2Jvf6LvO5Mv2AkTW+jPuDej5WHtZlyXouM=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB6424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?1ezlAiAnpEZ6zMfMibYV9dGTxMZlYF9vbWvL3GR4Pz35IATYGgi5JasmgyUj?=
- =?us-ascii?Q?zipA7dq9ZAAd4udA/QhXveGkhINzYiFugtig1PdLnhF9d8DE+7DBfHX0WlF7?=
- =?us-ascii?Q?u0YkeJ3mA17EHLhYLxdJLvYupjPufeOfuIWIUhhI9YKi9v7HOMlANhuJWFFN?=
- =?us-ascii?Q?YW8K75E4c5bIaHTBuD3qe41D3UTmbBSKFoRWoMygRQCPg+mEamyBV5dYdSjX?=
- =?us-ascii?Q?nfh/QtbIxPO+r/gd3w5nl3DCf6EJSWfAtwIA45LmRcaBtkmc7lKf/lUdXgo+?=
- =?us-ascii?Q?N8cSiC2b+w65OoL5gVF+BromXLfcYG7O+R9xG3mtWdAzdRmqJPlvWxPw5LRi?=
- =?us-ascii?Q?unNPsg6EWbXdet6fdmpTdPGX34LYn/rfrp/XVZq3FAn80/gtsLCQ7AwPiucj?=
- =?us-ascii?Q?qxb5dAsPBBfZp4kJABwKyVEcCOUiB6M4JIq5La/VW+yPEMp/IO8O3F4zH6if?=
- =?us-ascii?Q?8xOo0eReYJzW9BXOWVxV2+7yByadI5h/2BX2eAGQTAATtm8mLCHAZ0OJ1nmv?=
- =?us-ascii?Q?ROjxRAGLfYiBBIru2xKEKzCJwGjDL84iDe4gELJY6owDx0nRqXEOPTam/+R3?=
- =?us-ascii?Q?WZ+McMmVq9j0PugHwWAxbjxixg4YbnPmxO4opcJKTi6OfyJ654ciHRxxmy4U?=
- =?us-ascii?Q?gtv+8lJlkfnCoSdYLUKDRp48DGFYrYmtWFzLCLMx8nxIJObt0O5dMSjG4kOY?=
- =?us-ascii?Q?kHjKK01EY70gjx3h1tQF79EEUijFQ4PtpTaiZZG+t6UOFz2moOqnMz5TfQBP?=
- =?us-ascii?Q?L/fBFgpG3H0Jvo23coWvBmCyGrkoFWh3qU0Nb3EAsfY33T1E7AtVUQ9xWZF6?=
- =?us-ascii?Q?mBJu9FGY/ezJdmActpkmdUq4+h9zNde76G51Nt9dqgYnmWiE9TdAsaZFf+ds?=
- =?us-ascii?Q?OGjT5DrMmiCr2hJfZk5jCWvliH8i3HFYBnx1tbXMN6KSOvetbqd4pHurMDq6?=
- =?us-ascii?Q?N49rC6zFIFeITAh8aodg/wU1fz1aVXlDNJBvnBHcPn/ZcKuT4UO4R/8ZjJMg?=
- =?us-ascii?Q?xoB39POgd0szPLrvOnKP2vVkKXmLKhyAQ9xUBHquM5UqJNeX1R9THCb0uCn+?=
- =?us-ascii?Q?poS0BNRIzQltSroWS0Y9hKKWH/kJLZam0cu/9X0qKHmULnwFzgS71a5lSmiX?=
- =?us-ascii?Q?/zmRbTaAWSIVArWS9PoPrPf0RBjoivsBEHkpFvLYyFgT/VZKg8Hw64tRFez7?=
- =?us-ascii?Q?l+pEt+zRxqCGB9xWl1QCEZDtipUkH6B+gJBX8D1cnBB/zRXNUkoAa25Y78hD?=
- =?us-ascii?Q?L4IfS5/kX6bhzw3s+wHBO0eZzkTvi1d83TiZhrj0B3xEIhkt9dxdUVsw+POr?=
- =?us-ascii?Q?1mAbNH6gMj5P8zK9H0+nRCdp3zgfe2XNNrYmeTCr9rqMy9xosaNJ8yDi+joi?=
- =?us-ascii?Q?/8DOqj+Ox8UoMUSTPySk+qA/A0asbqcohdJOmMPWfH6ONZ8D98r/Xu+ACBGo?=
- =?us-ascii?Q?2K3Tlbg08SUNiCIAVGstbhtld+Yo1pMA7Vb42xE0SqMmoidFVkBntXWamGQX?=
- =?us-ascii?Q?t0+jcveRevFQKrYQrstCNBRLaCTp4HzJLnx7rORV4wiEURM4j7VN6EbiZLJV?=
- =?us-ascii?Q?1yshmGdz1PXGrWLvk/CxDs7FeFCHInsX72bUjAO6?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=wsKCSQ41rU8aIqOtLDWMnqpe049tumADW0FmcgM3w30=;
+ b=JjMwSbXtdxez/8kaGw2vb6SiFkA4tH+akiJecidlFTbM+0IXOMQyEbVvhdp1vSm50eH+Dif+EIRKzoJKOibZWPtJPq0d0tj3WSGCamvgNyVlCZqsTbFy4dk3izzNqurW1+v5PuUZ1flMVKcv382gw9tFFGhA7JjrZ5mSwPg6pa1iJpjdV6XFPcENtfN4IDq0qRAG5Rc/oPk/8hlkOyRfEfyLrzzhYME0Z3yr+mIgHbPm8wg2c0EmGc3lCw30UtKIwonJasi987xhp9RO7h/oFODc0NdHpG+lvbB1h94JW4zsVw0tmcrqKvcaAbubMPSh2RoUP63I/JelPjTyp6CUAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wsKCSQ41rU8aIqOtLDWMnqpe049tumADW0FmcgM3w30=;
+ b=xWfQ9ak67zG2zaaYfCNIPLXDT8cHzqipa+jOBzGnHZPnWlCTtdgP7Far+u3VXbPlUwFYqk9xYkVoJXPB33V1gCLqIYFmc2/plm4xNDeKaI4p/OAgAuyY5X38VLwtYQKE+iC31Z9FxXzI3k2V4y9j6zXMcE5BuZ+pzq20lOo/yV4=
+Received: from BL1PR13CA0301.namprd13.prod.outlook.com (2603:10b6:208:2c1::6)
+ by SA1PR12MB8699.namprd12.prod.outlook.com (2603:10b6:806:389::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.24; Fri, 22 Mar
+ 2024 15:46:45 +0000
+Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
+ (2603:10b6:208:2c1:cafe::61) by BL1PR13CA0301.outlook.office365.com
+ (2603:10b6:208:2c1::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.11 via Frontend
+ Transport; Fri, 22 Mar 2024 15:46:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7409.10 via Frontend Transport; Fri, 22 Mar 2024 15:46:45 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 22 Mar
+ 2024 10:46:44 -0500
+Received: from roma-lnx-dev.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Fri, 22 Mar 2024 10:46:43 -0500
+From: <Roman.Li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
+ <mario.limonciello@amd.com>, <Yifan1.Zhang@amd.com>
+CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
+ <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
+ <wayne.lin@amd.com>, <hamza.mahfooz@amd.com>, <chiahsuan.chung@amd.com>,
+ <xiliu102@amd.com>, Sung Joon Kim <sungkim@amd.com>
+Subject: [PATCH IP-REVIEW] drm/amd/display: Update dcn351 to latest dcn35
+ config
+Date: Fri, 22 Mar 2024 11:46:30 -0400
+Message-ID: <1711122390-12109-1-git-send-email-Roman.Li@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b209eba5-b88b-42cd-360d-08dc4a84db67
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Mar 2024 15:29:25.6654 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TvsxkVtZVU8Qn31NoSQjgiJJC/7Gx2eHsUHpBYMhULIPthKsiMfdgyUeTPnbIL748gDJ4C/pRV73FbpbFdOyy0XHNz/vNsm5x8vHJAlXdI8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB8049
-X-OriginatorOrg: intel.com
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: Roman.Li@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|SA1PR12MB8699:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b1788ea-c76e-468d-5cf0-08dc4a874730
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: i3rIcIBdSyA6BkbhvgC28+YFhq1F/04dDlhfQ2K8lfcoZXn0yrkBis8ze7UhriXx0SJPIpiZK1532Y6q069tW+EtCn2LWLsLUqcxXN/qPg9kZvLx39b+QccIizMmhqUkTil5UyERh7ExbRkriWD0wAQZAxcyt4ph0YfhHJbLZ0JTpXOE/6sempmy1knKKfDdU3lilDG/y83e94V7weRaiwt56YWuV52H+k8BCyE8B+umt1BiANlZrWFGTjQAgRawDgAadVJrvEfVz72kBVQkt5q9A+w1BbqjpwWtw4ICdWVbnwhGBNB91VBs17Vghip/+3/CqWiwGinl/NbxDez+WMj6655WzSAsBQCew9GHDZSwHON8rmXkMYBUr9CM/tEhR8/umr9wTPiZny1hLuD4hWqf50oi0NKgzIkNWLOIQAsyHegvJB2Ci4z8JaYbqPxUjWLeT7Zju89bIRfLUnHzTfC6i+KOzdqKEUQZmbGysHd0TDG3e76qBW6U//kEMoHtwh8R/Q+7xax/CvRb/ap353rTJs8Nc4lwnf2E0BDktWwH6sSHg5ihYE621PyruiQ4dxBZ9P4YlNZrbxkirFsNlQt/gUGuYKPP3TEwHuF6SgGilL85w0mtgkJVPgFkpQ5ruJsFb625FJiH1N84tIKV+6FjJBVdsulHMR0bZFIK26m+NYfR6SH98EKOvvFMOwMT/2Daj6wIe4Tep73zXAy4NwVk0ua6pXJe0v7xrKKoyoSn94KK8BQHQUvxCIYV08K4
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(82310400014)(376005)(36860700004)(1800799015); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2024 15:46:45.2816 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b1788ea-c76e-468d-5cf0-08dc4a874730
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8699
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,301 +110,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Sung Joon Kim <sungkim@amd.com>
 
->-----Original Message-----
->From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of
->Rajneesh Bhardwaj
->Sent: Friday, March 22, 2024 3:08 AM
->To: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
->Cc: felix.kuehling@amd.com; alexander.deucher@amd.com;
->christian.koenig@amd.com; Rajneesh Bhardwaj
-><rajneesh.bhardwaj@amd.com>; Joe Greathouse
-><joseph.greathouse@amd.com>
->Subject: [PATCH] drm/ttm: Implement strict NUMA pool allocations
->
->This change allows TTM to be flexible to honor NUMA localized
->allocations which can result in significant performance improvement on a
->multi socket NUMA system. On GFXIP 9.4.3 based AMD APUs, we see
->manyfold benefits of this change resulting not only in ~10% performance
->improvement in certain benchmarks but also generating more consistent
->and less sporadic results specially when the NUMA balancing is not
->explecitely disabled. In certain scenarios, workloads show a run-to-run
->variability e.g. HPL would show a ~10x performance drop after running
->back to back 4-5 times and would recover later on a subsequent run. This
->is seen with memory intensive other workloads too. It was seen that when
->CPU caches were dropped e.g. sudo sysctl -w vm.drop_caches=3D1, the
->variability reduced but the performance was still well below a good run.
->
->Use of __GFP_THISNODE flag ensures that during memory allocation, kernel
->prioritizes memory allocations from the local or closest NUMA node
->thereby reducing memory access latency. When memory is allocated using
->__GFP_THISNODE flag, memory allocations will predominantly be done on
->the local node, consequency, the shrinkers may priotitize reclaiming
->memory from caches assocoated with local node to maintain memory
->locality and minimize latency, thereby provide better shinker targeting.
->
->Reduced memory pressure on remote nodes, can also indirectly influence
->shrinker behavior by potentially reducing the frequency and intensity of
->memory reclamation operation on remote nodes and could provide improved
->overall system performance.
->
->While this change could be more beneficial in general, i.e., without the
->use of a module parameter, but in absence of widespread testing, limit
->it to the AMD GFXIP 9.4.3 based ttm pool initializations only.
->
->
->Cc: Joe Greathouse <joseph.greathouse@amd.com>
->Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
->---
-> drivers/gpu/drm/amd/amdgpu/amdgpu.h       |  1 +
-> drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   |  8 ++++++++
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c   |  7 ++++++-
-> drivers/gpu/drm/ttm/tests/ttm_pool_test.c | 10 +++++-----
-> drivers/gpu/drm/ttm/ttm_device.c          |  2 +-
-> drivers/gpu/drm/ttm/ttm_pool.c            |  7 ++++++-
-> include/drm/ttm/ttm_pool.h                |  4 +++-
-> 7 files changed, 30 insertions(+), 9 deletions(-)
->
->diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->index 9c62552bec34..96532cfc6230 100644
->--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->@@ -253,6 +253,7 @@ extern int amdgpu_user_partt_mode;
-> extern int amdgpu_agp;
->
-> extern int amdgpu_wbrf;
->+extern bool strict_numa_alloc;
->
-> #define AMDGPU_VM_MAX_NUM_CTX			4096
-> #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
->diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->index 80b9642f2bc4..a183a6b4493d 100644
->--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->@@ -781,6 +781,14 @@ int queue_preemption_timeout_ms =3D 9000;
-> module_param(queue_preemption_timeout_ms, int, 0644);
-> MODULE_PARM_DESC(queue_preemption_timeout_ms, "queue preemption
->timeout in ms (1 =3D Minimum, 9000 =3D default)");
->
->+/**
->+ * DOC: strict_numa_alloc(bool)
->+ * Policy to force NUMA allocation requests from the proximity NUMA domai=
-n
->only.
->+ */
->+bool strict_numa_alloc;
->+module_param(strict_numa_alloc, bool, 0444);
->+MODULE_PARM_DESC(strict_numa_alloc, "Force NUMA allocation requests
->to be satisfied from the closest node only (false =3D default)");
->+
-> /**
->  * DOC: debug_evictions(bool)
->  * Enable extra debug messages to help determine the cause of evictions
->diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->index b0ed10f4de60..a9f78f85e28c 100644
->--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->@@ -1768,6 +1768,7 @@ static int amdgpu_ttm_reserve_tmr(struct
->amdgpu_device *adev)
->
-> static int amdgpu_ttm_pools_init(struct amdgpu_device *adev)
-> {
->+	bool policy =3D true;
-> 	int i;
->
-> 	if (!adev->gmc.is_app_apu || !adev->gmc.num_mem_partitions)
->@@ -1779,11 +1780,15 @@ static int amdgpu_ttm_pools_init(struct
->amdgpu_device *adev)
-> 	if (!adev->mman.ttm_pools)
-> 		return -ENOMEM;
->
->+	/* Policy not only depends on the module param but also on the ASIC
->+	 * setting use_strict_numa_alloc as well.
->+	 */
-> 	for (i =3D 0; i < adev->gmc.num_mem_partitions; i++) {
-> 		ttm_pool_init(&adev->mman.ttm_pools[i], adev->dev,
-> 			      adev->gmc.mem_partitions[i].numa.node,
->-			      false, false);
->+			      false, false, policy && strict_numa_alloc);
+[why & how]
+There were some fixes in dcn35 that need
+to be ported over to dcn351 to prevent any
+regression.
 
-why not just 'strict_numa_alloc'?
+Signed-off-by: Sung Joon Kim <sungkim@amd.com>
+Reviewed-by: Liu, Xi (Alex) <xiliu102@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c        |  9 ++++++---
+ drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c      |  2 +-
+ .../gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c  | 11 ++++++++---
+ 3 files changed, 15 insertions(+), 7 deletions(-)
 
-Is 'policy' used somewhere else?  Not sure this adds clarity...
-
-> 	}
->+
-> 	return 0;
-> }
->
->diff --git a/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
->b/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
->index 2d9cae8cd984..6ff47aac570a 100644
->--- a/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
->+++ b/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
->@@ -87,7 +87,7 @@ static struct ttm_pool *ttm_pool_pre_populated(struct
->kunit *test,
-> 	pool =3D kunit_kzalloc(test, sizeof(*pool), GFP_KERNEL);
-> 	KUNIT_ASSERT_NOT_NULL(test, pool);
->
->-	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, true, false);
->+	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, true, false, false);
-
-Is this really an acceptable interface (three non-named Booleans in a row)?
-
-I have no idea what "true, false, false" means.
-
-Would having a "flags" parameter and then
-
-USE_DMA_ALLOC 	BIT(0)
-USE_DMA32		BIT(1)
-USE_STRICT_NUMA	BIT(2)
-
-Make this more readable?
-
-Or define your Booleans:
-
-USE_DMA_ALLOC 	true
-USE_DMA32		true
-USE_STRICT_NUMA	true
-
-NO_DMA_ALLOC	false
-NO_DMA32		false
-NO_STRICT_NUMA	false
-
-So at a minimum, we might know what these parameters are?
-
-What is the relationship between this feature and the nid value?
-
-Is this value used for the allocations?
-
-If this is not NUMA_NO_NODE, would this do the same thing?
-(or is the STRICT flag the only way?)
-
-Just some thoughts,
-
-Mike
-
->
-> 	err =3D ttm_pool_alloc(pool, tt, &simple_ctx);
-> 	KUNIT_ASSERT_EQ(test, err, 0);
->@@ -152,7 +152,7 @@ static void ttm_pool_alloc_basic(struct kunit *test)
-> 	KUNIT_ASSERT_NOT_NULL(test, pool);
->
-> 	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, params-
->>use_dma_alloc,
->-		      false);
->+		      false, false);
->
-> 	KUNIT_ASSERT_PTR_EQ(test, pool->dev, devs->dev);
-> 	KUNIT_ASSERT_EQ(test, pool->nid, NUMA_NO_NODE);
->@@ -219,7 +219,7 @@ static void ttm_pool_alloc_basic_dma_addr(struct
->kunit *test)
-> 	pool =3D kunit_kzalloc(test, sizeof(*pool), GFP_KERNEL);
-> 	KUNIT_ASSERT_NOT_NULL(test, pool);
->
->-	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, true, false);
->+	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, true, false, false);
->
-> 	err =3D ttm_pool_alloc(pool, tt, &simple_ctx);
-> 	KUNIT_ASSERT_EQ(test, err, 0);
->@@ -349,7 +349,7 @@ static void ttm_pool_free_dma_alloc(struct kunit
->*test)
-> 	pool =3D kunit_kzalloc(test, sizeof(*pool), GFP_KERNEL);
-> 	KUNIT_ASSERT_NOT_NULL(test, pool);
->
->-	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, true, false);
->+	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, true, false, false);
-> 	ttm_pool_alloc(pool, tt, &simple_ctx);
->
-> 	pt =3D &pool->caching[caching].orders[order];
->@@ -380,7 +380,7 @@ static void ttm_pool_free_no_dma_alloc(struct kunit
->*test)
-> 	pool =3D kunit_kzalloc(test, sizeof(*pool), GFP_KERNEL);
-> 	KUNIT_ASSERT_NOT_NULL(test, pool);
->
->-	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, false, false);
->+	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, false, false, false);
-> 	ttm_pool_alloc(pool, tt, &simple_ctx);
->
-> 	pt =3D &pool->caching[caching].orders[order];
->diff --git a/drivers/gpu/drm/ttm/ttm_device.c
->b/drivers/gpu/drm/ttm/ttm_device.c
->index f5187b384ae9..540e8a44f015 100644
->--- a/drivers/gpu/drm/ttm/ttm_device.c
->+++ b/drivers/gpu/drm/ttm/ttm_device.c
->@@ -215,7 +215,7 @@ int ttm_device_init(struct ttm_device *bdev, const
->struct ttm_device_funcs *func
->
-> 	ttm_sys_man_init(bdev);
->
->-	ttm_pool_init(&bdev->pool, dev, dev_to_node(dev), use_dma_alloc,
->use_dma32);
->+	ttm_pool_init(&bdev->pool, dev, dev_to_node(dev), use_dma_alloc,
->use_dma32, false);
->
-> 	bdev->vma_manager =3D vma_manager;
-> 	spin_lock_init(&bdev->lru_lock);
->diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
->b/drivers/gpu/drm/ttm/ttm_pool.c
->index dbc96984d331..73aafd06c361 100644
->--- a/drivers/gpu/drm/ttm/ttm_pool.c
->+++ b/drivers/gpu/drm/ttm/ttm_pool.c
->@@ -447,6 +447,9 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct
->ttm_tt *tt,
-> 	else
-> 		gfp_flags |=3D GFP_HIGHUSER;
->
->+	if (pool->use_strict_numa_alloc)
->+		gfp_flags |=3D __GFP_THISNODE;
->+
-> 	for (order =3D min_t(unsigned int, MAX_ORDER, __fls(num_pages));
-> 	     num_pages;
-> 	     order =3D min_t(unsigned int, order, __fls(num_pages))) {
->@@ -555,7 +558,8 @@ EXPORT_SYMBOL(ttm_pool_free);
->  * Initialize the pool and its pool types.
->  */
-> void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
->-		   int nid, bool use_dma_alloc, bool use_dma32)
->+		   int nid, bool use_dma_alloc, bool use_dma32,
->+		   bool use_strict_numa_alloc)
-> {
-> 	unsigned int i, j;
->
->@@ -565,6 +569,7 @@ void ttm_pool_init(struct ttm_pool *pool, struct
->device *dev,
-> 	pool->nid =3D nid;
-> 	pool->use_dma_alloc =3D use_dma_alloc;
-> 	pool->use_dma32 =3D use_dma32;
->+	pool->use_strict_numa_alloc =3D use_strict_numa_alloc;
->
-> 	if (use_dma_alloc || nid !=3D NUMA_NO_NODE) {
-> 		for (i =3D 0; i < TTM_NUM_CACHING_TYPES; ++i)
->diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
->index 30a347e5aa11..6b7bdc952466 100644
->--- a/include/drm/ttm/ttm_pool.h
->+++ b/include/drm/ttm/ttm_pool.h
->@@ -72,6 +72,7 @@ struct ttm_pool {
->
-> 	bool use_dma_alloc;
-> 	bool use_dma32;
->+	bool use_strict_numa_alloc;
->
-> 	struct {
-> 		struct ttm_pool_type orders[MAX_ORDER + 1];
->@@ -83,7 +84,8 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt
->*tt,
-> void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
->
-> void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
->-		   int nid, bool use_dma_alloc, bool use_dma32);
->+		   int nid, bool use_dma_alloc, bool use_dma32,
->+		   bool use_strict_numa_alloc);
-> void ttm_pool_fini(struct ttm_pool *pool);
->
-> int ttm_pool_debugfs(struct ttm_pool *pool, struct seq_file *m);
->--
->2.34.1
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
+index b624640..b3ffab7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
+@@ -402,6 +402,8 @@ void dcn351_update_bw_bounding_box_fpu(struct dc *dc,
+ 				clock_limits[i].socclk_mhz;
+ 			dc->dml2_options.bbox_overrides.clks_table.clk_entries[i].memclk_mhz =
+ 				clk_table->entries[i].memclk_mhz * clk_table->entries[i].wck_ratio;
++			dc->dml2_options.bbox_overrides.clks_table.clk_entries[i].dtbclk_mhz =
++				clock_limits[i].dtbclk_mhz;
+ 			dc->dml2_options.bbox_overrides.clks_table.num_entries_per_clk.num_dcfclk_levels =
+ 				clk_table->num_entries;
+ 			dc->dml2_options.bbox_overrides.clks_table.num_entries_per_clk.num_fclk_levels =
+@@ -414,6 +416,8 @@ void dcn351_update_bw_bounding_box_fpu(struct dc *dc,
+ 				clk_table->num_entries;
+ 			dc->dml2_options.bbox_overrides.clks_table.num_entries_per_clk.num_memclk_levels =
+ 				clk_table->num_entries;
++			dc->dml2_options.bbox_overrides.clks_table.num_entries_per_clk.num_dtbclk_levels =
++				clk_table->num_entries;
+ 		}
+ 	}
+ 
+@@ -613,6 +617,7 @@ void dcn351_decide_zstate_support(struct dc *dc, struct dc_state *context)
+ 		if (context->res_ctx.pipe_ctx[i].plane_state)
+ 			plane_count++;
+ 	}
++
+ 	/*dcn351 does not support z9/z10*/
+ 	if (context->stream_count == 0 || plane_count == 0) {
+ 		support = DCN_ZSTATE_SUPPORT_ALLOW_Z8_ONLY;
+@@ -626,11 +631,9 @@ void dcn351_decide_zstate_support(struct dc *dc, struct dc_state *context)
+ 			dc->debug.minimum_z8_residency_time > 0 ? dc->debug.minimum_z8_residency_time : 1000;
+ 		bool allow_z8 = context->bw_ctx.dml.vba.StutterPeriod > (double)minmum_z8_residency;
+ 
+-
+ 		/*for psr1/psr-su, we allow z8 and z10 based on latency, for replay with IPS enabled, it will enter ips2*/
+-		 if (is_pwrseq0 && (is_psr || is_replay))
++		if (is_pwrseq0 && (is_psr || is_replay))
+ 			support = allow_z8 ? allow_z8 : DCN_ZSTATE_SUPPORT_DISALLOW;
+-
+ 	}
+ 	context->bw_ctx.bw.dcn.clk.zstate_support = support;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
+index ab17fa1..670255c 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
+@@ -67,7 +67,7 @@ static const struct hw_sequencer_funcs dcn351_funcs = {
+ 	.prepare_bandwidth = dcn35_prepare_bandwidth,
+ 	.optimize_bandwidth = dcn35_optimize_bandwidth,
+ 	.update_bandwidth = dcn20_update_bandwidth,
+-	.set_drr = dcn10_set_drr,
++	.set_drr = dcn35_set_drr,
+ 	.get_position = dcn10_get_position,
+ 	.set_static_screen_control = dcn35_set_static_screen_control,
+ 	.setup_stereo = dcn10_setup_stereo,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+index 2dfd73d..fe13c89 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+@@ -700,6 +700,8 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_dcc = DCC_ENABLE,
+ 	.disable_dpp_power_gate = true,
+ 	.disable_hubp_power_gate = true,
++	.disable_optc_power_gate = true, /*should the same as above two*/
++	.disable_hpo_power_gate = true, /*dmubfw force domain25 on*/
+ 	.disable_clock_gate = false,
+ 	.disable_dsc_power_gate = true,
+ 	.vsr_support = true,
+@@ -742,12 +744,13 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	},
+ 	.seamless_boot_odm_combine = DML_FAIL_SOURCE_PIXEL_FORMAT,
+ 	.enable_z9_disable_interface = true, /* Allow support for the PMFW interface for disable Z9*/
++	.minimum_z8_residency_time = 2100,
+ 	.using_dml2 = true,
+ 	.support_eDP1_5 = true,
+ 	.enable_hpo_pg_support = false,
+ 	.enable_legacy_fast_update = true,
+ 	.enable_single_display_2to1_odm_policy = true,
+-	.disable_idle_power_optimizations = true,
++	.disable_idle_power_optimizations = false,
+ 	.dmcub_emulation = false,
+ 	.disable_boot_optimizations = false,
+ 	.disable_unbounded_requesting = false,
+@@ -758,8 +761,10 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_z10 = true,
+ 	.ignore_pg = true,
+ 	.psp_disabled_wa = true,
+-	.ips2_eval_delay_us = 200,
+-	.ips2_entry_delay_us = 400
++	.ips2_eval_delay_us = 2000,
++	.ips2_entry_delay_us = 800,
++	.disable_dmub_reallow_idle = true,
++	.static_screen_wait_frames = 2,
+ };
+ 
+ static const struct dc_panel_config panel_config_defaults = {
+-- 
+2.7.4
 
