@@ -4,92 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B7D7C54E67
-	for <amd-gfx@archiver.kernel.org>; Sun, 24 Mar 2024 00:52:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29084CD11BF
+	for <amd-gfx@archiver.kernel.org>; Sun, 24 Mar 2024 10:16:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5D3C10E320;
-	Sun, 24 Mar 2024 00:52:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9087310E0D3;
+	Sun, 24 Mar 2024 10:16:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ib+BeZ0T";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="ZTfbJXAC";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2045.outbound.protection.outlook.com [40.107.223.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D1B810E320
- for <amd-gfx@lists.freedesktop.org>; Sun, 24 Mar 2024 00:52:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OkXHj2o7QQ18xH5RDvKx5NLSgkQBPG8R794cTZt4txlr+L1I0FZZXJAUAGXSid8ueokr3ig/W98UXoWumZgZglenrHNdHlZZmGakzzIj/adh+7Xxft2MIoUKuoEjFNuJHKKmMQQSnNjDUOmAKg8RUm3seVSQ7opoGgSONQEwIm8LW3S3ARA9+F29VdgXu+B1IFmp/1MXIkrlX+tCuAehOK/DWMu+Db5ex7ZoMth9O1xv+xNCqHdK9DTG7SxzNV6tU9AoKDrBVmfU6w43MwJ+CDeSR503j2f30EDr6ORndHjUaa56t6xyuLhwgzGfgd2nX5WNn0AfHYmWq+a2I9fLjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zoq69cJlqyILQpsahJhOz9w2IgxBA2BNBkavljvRkCE=;
- b=leHm7OTxC/8/HgvG1H+/9LWBlFeZlLwkt9yTiE5mzLAwVe3Kp54zyKzu2aDu62ZYe54e5cPyxmT5l+tG3AHXoUX3bpdLIMGS/eMNVKheL3bKLrRyQ0pA35SwtORJJcj3+9d+VBU/UNysAMSI5qNzPbOWyE8i/X96lPyrR1V8kfNnbNjVWYHYqabxMc9/YKIApp99UslNXnp9ZpSQcu+3/Q771m06qQPOHXxFZIEL8D4NkWtuFCau/aXyMa49GkkGpCwcse3Szxsa/mf0bPHE7kc7aQks10wA/MP6kG6fIB1rkpmb+gw9sc/s/H+J67OegmOsvSci4AF/MgR/n6JSeQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zoq69cJlqyILQpsahJhOz9w2IgxBA2BNBkavljvRkCE=;
- b=ib+BeZ0TA8vXNTWCb7Vdvb93LK1YcuPh46ppdKDVbG8/PMC5g/7PgjTOZ9OV85FVUyxHmQbtFztyoRxOnGssb+Yd6lkXh++/CiT5nay3Dl5UISaP7YRaeJ2Q9S0Ku+f0TwSC2w7019ZiIWMgFLqDxOrD2T4Od7sXVstyid1Oj5s=
-Received: from MN2PR05CA0058.namprd05.prod.outlook.com (2603:10b6:208:236::27)
- by SA1PR12MB7368.namprd12.prod.outlook.com (2603:10b6:806:2b7::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.26; Sun, 24 Mar
- 2024 00:52:52 +0000
-Received: from BL02EPF0001A0FF.namprd03.prod.outlook.com
- (2603:10b6:208:236:cafe::9a) by MN2PR05CA0058.outlook.office365.com
- (2603:10b6:208:236::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.12 via Frontend
- Transport; Sun, 24 Mar 2024 00:52:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A0FF.mail.protection.outlook.com (10.167.242.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Sun, 24 Mar 2024 00:52:51 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sat, 23 Mar
- 2024 19:52:51 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: always force full reset for SOC21
-Date: Sat, 23 Mar 2024 20:52:20 -0400
-Message-ID: <20240324005220.2649840-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.44.0
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 861D010E0D3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 24 Mar 2024 10:16:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1711275406; x=1711880206; i=friedrich.vock@gmx.de;
+ bh=Uv2xrSKLBWumOo0xmtFmjYxfCZKunA5KsNLFy+qRAU8=;
+ h=X-UI-Sender-Class:Date:From:Subject:To:References:In-Reply-To;
+ b=ZTfbJXACVXZCxxCshJ8UKNvAUfQ1b+xrG4zDRtxSF1s5CCQ7VlBFGJd2tstEMcOj
+ X/YL8YVmwXeeUFhpI92IDYI52TdcAX2Wz0vwDYJOfVfhz05SJJtE3ymV0gjIBsbJq
+ 4ulS6uVcRK+qGB23I+rbNPoiaOrY5lyR+C2Cf5cFQ9/x9RtdZgjlBL67rQpUZ6gBV
+ 0mGsqrwCsteoNyNantHeIX1Vl8fErUr8pVY/0KV3BU9gfR3DnK0Uz6YByEeFw6O+C
+ NLMyPmJ1YlBLA1RP9vw03LgXbMyOlXY6GP0pFiyoBVIa9xuHWVigzi0oZtb5mavnQ
+ 2IhTZwhTyeWfkTkJ4A==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.177.3] ([213.152.118.97]) by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MBDnI-1rbdrc2ph8-00CfL2; Sun, 24
+ Mar 2024 11:16:46 +0100
+Message-ID: <7eefc428-16b7-4f88-a99b-510203a244f9@gmx.de>
+Date: Sun, 24 Mar 2024 11:16:46 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FF:EE_|SA1PR12MB7368:EE_
-X-MS-Office365-Filtering-Correlation-Id: be51c729-50d7-4892-59eb-08dc4b9cbc00
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YfEVxY39Aq3sAfffpRwhglRhWyE3TCE3nvLTnw+WX2TZm/DYbXG6ltif+5sjPgayXgn6GAi9NBSkkQaqYHP+i+Hwja1Ov6j5ch8iFCT31r1hxwO3OE6v/sMeL2RLiewXrco1TT2MzpAiHQOn+mZLVUVVQbebzSJWfAP8Al5XKP43drCvd/zhUGYtaponAifQI+mVvJqURX5M27vsnx0z45PlBS/vkTt4/IM/fOYS+oGi5y/1NxM7MFJeceESuXBaIphwi7UYn8IUIkrbAAIdsIOxyLock6ZVIkJx6g8mB/jzi+ZF5L+akYtgMwI+EV+x2jKk/ZRrE8KGXbQQUA09mNtJStPtKxQ6gDaH2aHAvbpxx3RgEvGCbOLjbqt8WcpnSyDAb7lki1uM5da151WJhzfBOFKcuFatiWYnFQugYYXALk5lesq7ACgiFopxfT1u/1G+7o8p/dHdqXMnevzb/yHUJowQBl+C1BFpJqMxFol2rUgln8eOgQUWTpBqkWM6dSMZhMB2QVEZnCIjjFrzUyU/6wPwljP8JrRC2JXdDaL3krCp4N/Sq0IZs/zkYv9tNTcke83tyR3mt789zeYhFfhUW1u1AlssW0tfCsW8KwNLMD2ImAzWPWLblNRveA2OFYez+AvXau6K1ofr9R52imTCQyWGWo2+sFDojzbJSQjwCM22tS4xTqM89ms+48M11TLqhErt7VPMPpja4vL1btBOmbrVHzQCgPes0gNSHV9h7NQryGaHXWJ4dGBeGp9M
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(376005)(82310400014)(36860700004); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2024 00:52:51.9638 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: be51c729-50d7-4892-59eb-08dc4b9cbc00
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FF.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7368
+User-Agent: Mozilla Thunderbird
+From: Friedrich Vock <friedrich.vock@gmx.de>
+Subject: Re: [PATCH] drm/amdgpu: always force full reset for SOC21
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20240324005220.2649840-1-alexander.deucher@amd.com>
+Content-Language: en-US
+Autocrypt: addr=friedrich.vock@gmx.de; keydata=
+ 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
+ f7+xmX0X3AMtWz/15Y+7cPO2
+In-Reply-To: <20240324005220.2649840-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:4iqelcZzFFmOLavcE4bMr4uHAhpmowq3A/qGggG/Bf3aUY9o93U
+ 5k49nlQTZjBu8KL88FSgQXRZsaRnfgC5DCHUzSinaq+v1kAyr25z5bbJ672PiAMtnboKbae
+ zHy/gXRS1yrAVpNuO9huEH6fEX8C0Lqey+WX16J/4aiHoCcVRgALbVpx8EqUyvoNaf4hrYx
+ PWiG/NFFmg4pbZO2Dk2bg==
+UI-OutboundReport: notjunk:1;M01:P0:1r0UFarRzM0=;p9h98voZcDIpfoG96GtgsWqjITN
+ vosKXNT/6ConNRbKDSk6dBukJZ3wNFJpucFKlSBq3zwFsh7HhvCX4viCnjFOauj89biD7XMiu
+ iT3web2hpvDeuL4QnHnVV/APvRAyuZ/Fj472ANuI2H13ev2T7B2irM8GdVi5leR9U4im+vS6i
+ vKqkpV4CJHh6pHikq5Vh71+cYqq5MSR6Ni/qguzdw9C4afH9A+bjfHSuLKCA4uAHq3FjJ0UZE
+ 5naG7A7ncwXXBQ0oH/2eV2ckBMSDJLHYp/jAPM0wDR2d8VCKfvscuZp7g2FVmZjlsSy0z6hTC
+ HBNRXCjVNxdykOLIan+9LvgXWnZo/4ylapspz0WanJWjYfNVltIWCKa1BSOoqhp0wn6hNhEJ1
+ QO9HumMnkP1ak0epMc8GB5uVk5fHHcw2ARna8FZnOm09wTk+NGjtXuwGX5qaX8JgbeJEPClpa
+ b2apOfIpsbk+X1LipEIF5zAFMOSq675MLyMVnLITzWjIzNH8l7Kfna/KwlHU6PihtAbsQJ818
+ 8LLrsKPLd4bccqF0rCH62o9bn4wkdpMh1arCpUQOVxzceFBLnLMLjwXaNHeQHS2flhrwwMy7C
+ 9vfyBN2c6c6dBBiN72CEdW59QhCImpufoQ4XSboSoTDQCgd+cmmoCrfQLbSu/woFze9CHIS8o
+ aN2nf3oks1AV2j1sqtpvOdf80xtQKyADSvmi15iuuhZTLSPmARzdrMQ/owFjJvYx0KMU/z1S0
+ J7Rgm/5nh6cgbyAg7SsBQsIb9d+2q0n8aCMhgF028raipXU/rzAy12Ud5ac6Li9AJokqP8Qqr
+ kRbXlqq7f0Sa8mps4Cl3c3Ht0fy9dccWWJoDdjlSUbaBI=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,29 +106,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are cases where soft reset seems to succeed, but
-does not, so always use mode1/2 for now.
+On 24.03.24 01:52, Alex Deucher wrote:
+> There are cases where soft reset seems to succeed, but
+> does not, so always use mode1/2 for now.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/soc21.c | 2 --
- 1 file changed, 2 deletions(-)
+Does "for now" mean that a proper fix is being worked on/will appear later=
+?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index 581a3bd11481..8526282f4da1 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -457,10 +457,8 @@ static bool soc21_need_full_reset(struct amdgpu_device *adev)
- {
- 	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
- 	case IP_VERSION(11, 0, 0):
--		return amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC);
- 	case IP_VERSION(11, 0, 2):
- 	case IP_VERSION(11, 0, 3):
--		return false;
- 	default:
- 		return true;
- 	}
--- 
-2.44.0
+Immediately falling back to full resets is a really bad experience, and
+it's especially catastrophic when only MODE1 is available.
 
+Of course, soft resets succeeding but leaving the GPU in a faulty state
+isn't acceptable either, but I think it's pretty important to keep the
+ability to do soft resets if at all possible.
+
+If it's not possible to wait with this until the proper fix is
+available, I hope that at least it can be reverted soon.
+
+Thanks,
+Friedrich
+
+> Signed-off-by: Alex Deucher<alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/soc21.c | 2 --
+>   1 file changed, 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/am=
+dgpu/soc21.c
+> index 581a3bd11481..8526282f4da1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> @@ -457,10 +457,8 @@ static bool soc21_need_full_reset(struct amdgpu_dev=
+ice *adev)
+>   {
+>   	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+>   	case IP_VERSION(11, 0, 0):
+> -		return amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC);
+>   	case IP_VERSION(11, 0, 2):
+>   	case IP_VERSION(11, 0, 3):
+> -		return false;
+>   	default:
+>   		return true;
+>   	}
