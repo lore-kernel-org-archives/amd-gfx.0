@@ -4,73 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AD72C54E58
-	for <amd-gfx@archiver.kernel.org>; Sun, 24 Mar 2024 23:23:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA4D6C54E58
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Mar 2024 05:36:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0338410E463;
-	Sun, 24 Mar 2024 23:23:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EB9610E512;
+	Mon, 25 Mar 2024 05:36:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HFEDC3/9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FRVOF4T/";
 	dkim-atps=neutral
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1340710E463;
- Sun, 24 Mar 2024 23:23:58 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-6e6bee809b8so3249962b3a.1; 
- Sun, 24 Mar 2024 16:23:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1711322637; x=1711927437; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Yr2Cf82o25fp9daEntXPX2qWzpAZqJg/jLy0faLOqfo=;
- b=HFEDC3/9BgvlkXygkRFkm6t8qjQ8BnzxydUfjvDBX/vD5G0Kj2wpq8hUJh2Rp4zHo/
- lA+WiQbPpwR0GJ1YIiysw5Mwht6cQYZgEfDKj9u6vbqz5EMc4vI9N44Chqv6k0NbX57R
- WTZr/kpMjHNvne2L4cA4sRt59O6ECCkCu6wHi/8x7OUpwMDg7u/csEjLfC7SNKJtgOMa
- IZJsGP4EChj5Wo8v8RfxLCBliTAfIci+uhyyJhvYghj5PxtL+ADDS8+LYygS6ODrAySD
- Zx8vcsoOrQZmhTG6jTHOMzzfMiZvMYPgPDZ3euojvee0wsKLytos89zOplOeyVutg5Hm
- INbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711322637; x=1711927437;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Yr2Cf82o25fp9daEntXPX2qWzpAZqJg/jLy0faLOqfo=;
- b=NeBOrrZbs+qA2PyHHa/8cXwiinWFdhMBvPjRCDzHKLiYof/V/gXBNzikvGqy6IskVs
- UV0OPGXXCOtSSiWNfmYC4Y1/JGWa6U04AV6mlQfSfBoHbHgSwFcQ5aJwP2yLHEkV5AvK
- kpF5Zn074TauLaQhoKCSzZz1cFwwEksgB/e+d3n5qiwUUDx3NF5SBtZW7xk8KXs4YSW+
- Bg9iIgMVJ8MM5whL2bmAygMt4kLQFr4ayC89RnpQ5yw5tUx8DoHmBj7pni+2IHnpFqHI
- CwWEUvCLrPc5W6fiZb2S9baJQeGn6jFi1HXHAebI9F0cjIgC9/4fQ0Rsa3dEDqeggW6W
- McYw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW3BqNtlIc6mD7VBl1Ayy1BbeAUUu2shLn10wVtodnhxCd8yXD6eIiV8+pTtpH1D/Z2BwKQNl8LR7vIk3GdpI3JhTuXErJWkPPZLvuCn2r23YfRYLpB1+PVDr4SZnRVOVJcze840ZXSD4Cy+aQNiw==
-X-Gm-Message-State: AOJu0YyfnNqgS0db0KWXTUDj8XEg6du2Pbyk04ltnFSvic8XSxq59Lu6
- zTsm+EUVTVV6dsiKhZpAmH6PC/9IWMY7+r5SbLObCmOdwupUdJMMO9gDng91XkapmhnVTHpm3ht
- s7s3G1vRnZHMa02YYplnNcMunv6j+ge28
-X-Google-Smtp-Source: AGHT+IFMOMfeUxQyKzPFnUMoVWDwkbdGKmRMYPWEC+HKw+YXJ9EhRRfrd0ilgf+Tk07qVbRcktkVNSKiwlufFCxvaZ0=
-X-Received: by 2002:a05:6a20:8ca7:b0:1a3:40e3:318a with SMTP id
- k39-20020a056a208ca700b001a340e3318amr5663622pzh.60.1711322637106; Sun, 24
- Mar 2024 16:23:57 -0700 (PDT)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2054.outbound.protection.outlook.com [40.107.92.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 003CC10E512
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Mar 2024 05:36:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iIgvR64cQf2sZu8GHp8t9dlhaZ8jYEEhM2EXU8c0I6yhgN5tGLVCSGRAMHAV8N7h6N4nHoqda4yChlRVjuPdhUj+0WDBp//oTlAyb7k7r0gNkQeaLABT7vJGc1N15BBu8k3NzBoQAjjuvrVpyhsm+joNUoWndBgNrIbUuA2Or5BJ18lEpj8JAflMG9O3IHzQv05p31uTRO84ndo01QdsKWfNpA8q0M4aP5Z942NML07qXLt8r/+VPkQl8NgnY0MLfUf+kXkrYbXum6t2Y196ZnVWCSJVOYTIXeSCDg/klWLNR3DtkAINGauFnTkxAyD6VLEp+hMmsaLPKbyXw7bqMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2ZQOR9/oVSaRc3a/dn5IdZa7PoheAHfooHCThTzczcI=;
+ b=jXshWYZx4sIzhKA//MR4hWsLM/GP4nFWTXgDQngH2/5f93tgWZ9YZ2zVTPiKUv2uUfzg+5akQeDOzJQyzIGvaj4i0YEAt9B8cAqXrmsrpHAX1RZ3X+Dz4oJ68DXF0CRGe03x9MJPFZ/MWj2xHfTJMDSwa/ZX6zSYqa9dYUT0yn7IeiMdUvWfFqGFwHdlKbUpkbtUu3SiFPWc7dBIgI4SssDeR0LGwuYbHywOGUwnvaE8+zpS1M5P4L7H5D1rNqt9bbL23gXxEOqYdRh4OrymlGvkROYJFQvz3t4P7RnUZRy5u8sFCH8DUNV3kvQsXs5eS9X+JV0BlM6nE3gh2wIqAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2ZQOR9/oVSaRc3a/dn5IdZa7PoheAHfooHCThTzczcI=;
+ b=FRVOF4T/2ExTrBvzKtFHvz5xWerAZeNRXXyFfktrOOgO9dgaTVaHZHZEZxr9RKN1VMMS8GHyBhTtBdU9YRzoSo4jkpLJFp01fgLsUupyINaBhjNaqVDt88JUF69pCqYRvdmg4xfMGUnbuwGRU6PokxTwyCQibbnm1AMwj3rGmJA=
+Received: from BN8PR07CA0011.namprd07.prod.outlook.com (2603:10b6:408:ac::24)
+ by PH0PR12MB7792.namprd12.prod.outlook.com (2603:10b6:510:281::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.24; Mon, 25 Mar
+ 2024 05:36:13 +0000
+Received: from BN2PEPF000044A9.namprd04.prod.outlook.com
+ (2603:10b6:408:ac:cafe::a8) by BN8PR07CA0011.outlook.office365.com
+ (2603:10b6:408:ac::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
+ Transport; Mon, 25 Mar 2024 05:36:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF000044A9.mail.protection.outlook.com (10.167.243.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7409.10 via Frontend Transport; Mon, 25 Mar 2024 05:36:12 +0000
+Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 25 Mar
+ 2024 00:36:10 -0500
+From: Lang Yu <Lang.Yu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Christian Koenig
+ <christian.koenig@amd.com>, Lang Yu <Lang.Yu@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: use CPU to update VM during GPU reset
+Date: Mon, 25 Mar 2024 13:35:58 +0800
+Message-ID: <20240325053558.3183164-1-Lang.Yu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20240307221609.7651-1-hannes@cmpxchg.org>
- <c411dce6-faaf-46c3-8bb6-8c4db871e598@gmail.com>
- <20240314170948.GA581298@cmpxchg.org> <20240323145247.GC448621@cmpxchg.org>
- <c8efae98-3cf8-c21c-bfa4-d5998ab92a0e@amd.com>
-In-Reply-To: <c8efae98-3cf8-c21c-bfa4-d5998ab92a0e@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Sun, 24 Mar 2024 19:23:44 -0400
-Message-ID: <CADnq5_OGSLpLLEJqh86_SAZcqv-Cv6AmZJRZyaFtSmTHJ8ybxg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix deadlock while reading mqd from debugfs
-To: "Sharma, Shashank" <shashank.sharma@amd.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A9:EE_|PH0PR12MB7792:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75fd9045-3de2-48fe-259f-08dc4c8d7b9e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: pn6ntyS1q6IOGgtXJxa0lE7JYYRsYhfynXyYPT9hKt52sI6ai6ED+0XMBKOBrP4I9Ie9DAGZoNm6aIDmPTrXz4WzsIj5uF2GK3ADIxXQ2HZ15Trv8N0GHBzD01rXozcsGK7HGl9Fd6RzoorTYCgx8WgoPdxIQA59Vk963kidKtwn2WpQAkK8G/4fBJFLazqAi8YoGmra4btpBU5qaE2z1EISaCfbtCVSGgrCe8LSnkv6AKJtDsZcK4qK/bAYG+vpGnwnsLtDba5AcOjK8plRFF/g20uujUb1fnyZ2aS0HTGDcMPp5aIUVBbr7942rBEdVVH0kEHW+sSEmnh4Ty7wfcAyqDPqR/VnWVF7SU4IpBgwQPezrKCGzFbdyrqascGNbHsLqx8YhIPqNklSthYqiE4ivxdjxUnADvym2OZdl2+O9cOL6N45T9pqf4w95/SAUKGsF0Ev+/yQdVyNv6VsQ7M28IyUBDUj7bb8WmLeKavrZvGD8TUFu0rV0/GCaT9FfBMa+0vTExdMNmpkJFmqu0hysWXvNhyxTiN6noca8GXKPtTDQFYiXE33pSq+9vwoglv0ce9EKD5ivN5+x2Q27XEWKU++SBY8z1DWwjnOzAGeB633wXbRw1q7/ff9ld/dtL2ElLlyCggJxfzcLMTAX5CkGgegVSp2e/eEDATqxVb5sc/dOYHxq5FUGIrsV7lI2h3gbi+yPYDLSFCD7rhcaFb8OrvYOsh7h3kBB446Kb0KCLfskWvwj8SFgzKllQNa
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(376005)(36860700004)(82310400014)(1800799015); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2024 05:36:12.7360 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75fd9045-3de2-48fe-259f-08dc4c8d7b9e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A9.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7792
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,51 +105,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Mar 23, 2024 at 4:47=E2=80=AFPM Sharma, Shashank
-<shashank.sharma@amd.com> wrote:
->
->
-> On 23/03/2024 15:52, Johannes Weiner wrote:
-> > On Thu, Mar 14, 2024 at 01:09:57PM -0400, Johannes Weiner wrote:
-> >> Hello,
-> >>
-> >> On Fri, Mar 08, 2024 at 12:32:33PM +0100, Christian K=C3=B6nig wrote:
-> >>> Am 07.03.24 um 23:07 schrieb Johannes Weiner:
-> >>>> Lastly I went with an open loop instead of a memcpy() as I wasn't
-> >>>> sure if that memory is safe to address a byte at at time.
-> >> Shashank pointed out to me in private that byte access would indeed be
-> >> safe. However, after actually trying it it won't work because memcpy()
-> >> doesn't play nice with mqd being volatile:
-> >>
-> >> /home/hannes/src/linux/linux/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:=
- In function 'amdgpu_debugfs_mqd_read':
-> >> /home/hannes/src/linux/linux/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:=
-550:22: warning: passing argument 1 of '__builtin_dynamic_object_size' disc=
-ards 'volatil' qualifier from pointer target type [-Wdiscarded-qualifiers]
-> >>    550 |         memcpy(kbuf, mqd, ring->mqd_size);
-> >>
-> >> So I would propose leaving the patch as-is. Shashank, does that sound
-> >> good to you?
-> > Friendly ping :)
-> >
-> > Shashank, is your Reviewed-by still good for this patch, given the
-> > above?
->
-> Ah, sorry I missed this due to some parallel work, and just realized the
-> memcpy/volatile limitation.
->
-> I also feel the need of protecting MQD read under a lock to avoid
-> parallel change in MQD while we do byte-by-byte copy, but I will add
-> that in my to-do list.
->
-> Please feel free to use my R-b.
+drm sched is stopped and SDMA mode is not available,
+while CPU mode worked well in such a case.
 
-Shashank, if the patch looks good, can you pick it up and apply it?
+Use case,
+amdgpu_do_asic_reset
+amdgpu_device_ip_late_init
+umsch_mm_late_init
+umsch_mm_test
+amdgpu_vm_init
 
-Alex
+Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 8af3f0fd3073..af53f9cfcc40 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2404,8 +2404,8 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 
+ 	vm->is_compute_context = false;
+ 
+-	vm->use_cpu_for_update = !!(adev->vm_manager.vm_update_mode &
+-				    AMDGPU_VM_USE_CPU_FOR_GFX);
++	vm->use_cpu_for_update = !!(amdgpu_in_reset(adev) ||
++		adev->vm_manager.vm_update_mode & AMDGPU_VM_USE_CPU_FOR_GFX);
+ 
+ 	DRM_DEBUG_DRIVER("VM update mode is %s\n",
+ 			 vm->use_cpu_for_update ? "CPU" : "SDMA");
+-- 
+2.25.1
 
->
-> - Shashank
->
-> > Thanks
