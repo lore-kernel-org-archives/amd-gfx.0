@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23AC9C54E64
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Mar 2024 10:16:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7707C54E58
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Mar 2024 10:16:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95BC510E70A;
-	Mon, 25 Mar 2024 10:16:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FB3510E70E;
+	Mon, 25 Mar 2024 10:16:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wtS6gXsB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rwCt5l2X";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2084.outbound.protection.outlook.com [40.107.244.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C999C10E70A
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Mar 2024 10:16:29 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2057.outbound.protection.outlook.com [40.107.243.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AA4F10E70D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Mar 2024 10:16:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UGxc9E8mICKguphOej9kJGC0Op9yG7SufrxWzf3Pw7mwk34pR3Rrathk4wnfuY/BzUbJAsEqAn75ecWittlADRiSXX2ohJebEb8hGxp091hYMOYAfviy1B2dEBRmwps2pkP265RW9BcXFLS7dGblo06T6TDrgg4KmV20yKrXSVoCe487TvJVlBQRR8z64mMQIBGoDd3U569aZ7lP6J0D2hmvLxrauVMuKQwgJMt73jsJJNDvggRvQHk73WwXAYH9A/9AooKatGh1u1qWJ95c3ctLvglFPjV6+LNtBvOt/veb2z9G8yn0kyhb8m091fjt89R+eS+jjMs2+4EWIz1ubA==
+ b=DMnKyMNe2Ff5MgHKyR4FtDIA3EOVtBU/LT6d7BOALsLSimNLVlPj0AtWLc1OCToFCOzHKWplczEECDDAxHXm6+Kb++mOM93pLhCKXSsoaPBfSQdhRBQlLbEEMkmkDkOIT8JhBftqMUhOX2439osQekxbx5VbFm2f9YRoKzOTqNycPTxKVQttiN7RAu15wBy/6G7n8m3Stp3nF9p5AqPlJvmWFo30ZiVe+sUQqdvLVVfihZt7ufoWvU0k2Uhy3BryXehWIH2DcBTLE6J4nBZXUVacGqj24EmAiqL6ngJj2jA+oddMBg+YEpKTlNOqReSChk4s1f/N0fl+5ZqWcY4iPA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a4+qMwOHEhucO3IvK7DdlGZ1ecoO26fm66yUAwLt01Y=;
- b=lm+2PQDmBzQtVXPbiEDCSzvB1crr5St8YJBwLi880FXM20MhYbtLM+YnXgx8wG2TsnxEg90kD5egttRFPiy1Jw742cCLcKQUcNyqZIVVmKh9pRgLSJQLUbkZTni5MvSjdYkGJ5R8pYMY9eEfCmv1SV1DxeTGer+OFBblPyXVMp3bkdYnypPIuwR5d6/L7+YCKxKle5Dvd/NOFZd5k9RnNWUEBYTGE+YWaLtstrzp6ZysK0wf1OQlehFCiawTadWK/xepaUyMH6IGK+1T5X3CCKcCkzATR+ZK8MVk/Aaz68mBUgS6XfFRthg/37UPCLIHIRmf5i2kjUhyZ/JaY1MgeA==
+ bh=M34Ya4SOi0lmAXXxpDvxsUPplURysAQoCEv0YgyH2W8=;
+ b=i2eg3RxmMRlVO0GSpmiEacWkqNTR5AahhYliQ7iceEL1UKqq8LAuDK1TLrxLDSHpxxYccElVJqULRZ+w1dYIlFOotPSFYwz7QplTU3qeiypfkO2MzGX+HAbfXeUC5FVimTvEU19nO2zEgqyvsllUzwZcJACprpTSpA9c1O1X+ZjUo/O9/eDvUkqnxUqIqMN5CCeYbaKtq3flyJBRAvTAzcbYqZcm3UNTjGCplqG4BhcaXJ2nahNmvkz3vzuj2YQC55OalxV5bk5QZggnYP8AEqL/b9GPY+iHSvuGfyejESmz+bbAZI4+QtK1Km3UKWZvQl9Wcn2SFByvZzJcL0VQJQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a4+qMwOHEhucO3IvK7DdlGZ1ecoO26fm66yUAwLt01Y=;
- b=wtS6gXsBz0I+M44gFKoxgicrKt+nllgFueEOVbMWQqMSWh+ZQH9litX4Dtp4kQe8qdKsLc7Bvkdkhbjakn1G2MYJ5kFwgvuiiDtH9qD/MMq2nlD0sYr3IzmlJOfe7bVKIVclReqetHQIKrGqfK07LRVCXo9ngJ3fMRtQpYvlVuE=
-Received: from BYAPR06CA0022.namprd06.prod.outlook.com (2603:10b6:a03:d4::35)
- by BL3PR12MB6401.namprd12.prod.outlook.com (2603:10b6:208:3b1::8)
+ bh=M34Ya4SOi0lmAXXxpDvxsUPplURysAQoCEv0YgyH2W8=;
+ b=rwCt5l2XEPDfEPB2MbZEJtjnEvSsWyyGGX16nH1veiAH9A0hNgY64VWU3/3dvzYnJsMNvrOJuvjRRlTcWv1+GNFH+ZvYYaQalgUIqJJik3OlHVBQsRNh+pKIjLbTVdiUHS5pK/Zd1RjEQFN+ykauqEyHyLsRjtQ2Sw9h6U4VuMI=
+Received: from BYAPR06CA0032.namprd06.prod.outlook.com (2603:10b6:a03:d4::45)
+ by CH3PR12MB7643.namprd12.prod.outlook.com (2603:10b6:610:152::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.26; Mon, 25 Mar
- 2024 10:16:27 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.32; Mon, 25 Mar
+ 2024 10:16:30 +0000
 Received: from CO1PEPF000042A7.namprd03.prod.outlook.com
- (2603:10b6:a03:d4:cafe::aa) by BYAPR06CA0022.outlook.office365.com
- (2603:10b6:a03:d4::35) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:a03:d4:cafe::c7) by BYAPR06CA0032.outlook.office365.com
+ (2603:10b6:a03:d4::45) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
- Transport; Mon, 25 Mar 2024 10:16:26 +0000
+ Transport; Mon, 25 Mar 2024 10:16:30 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,19 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1PEPF000042A7.mail.protection.outlook.com (10.167.243.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Mon, 25 Mar 2024 10:16:25 +0000
+ 15.20.7409.10 via Frontend Transport; Mon, 25 Mar 2024 10:16:30 +0000
 Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 25 Mar
- 2024 05:16:23 -0500
+ 2024 05:16:27 -0500
 From: Ma Jun <Jun.Ma2@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Kenneth.Feng@amd.com>, <Alexander.Deucher@amd.com>,
  <kevinyang.wang@amd.com>, Ma Jun <Jun.Ma2@amd.com>
-Subject: [PATCH 2/5] drm/amdgpu/pm: Change the member function name of
- pp_hwmgr_func
-Date: Mon, 25 Mar 2024 18:15:56 +0800
-Message-ID: <20240325101559.2807629-2-Jun.Ma2@amd.com>
+Subject: [PATCH 4/5] drm/amdgpu: Add support for BAMACO mode checking
+Date: Mon, 25 Mar 2024 18:15:58 +0800
+Message-ID: <20240325101559.2807629-4-Jun.Ma2@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240325101559.2807629-1-Jun.Ma2@amd.com>
 References: <20240325101559.2807629-1-Jun.Ma2@amd.com>
@@ -74,26 +73,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042A7:EE_|BL3PR12MB6401:EE_
-X-MS-Office365-Filtering-Correlation-Id: a2b9ef62-21aa-4cb7-67b9-08dc4cb4a12d
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042A7:EE_|CH3PR12MB7643:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d27aa98-5ad8-47f0-47d7-08dc4cb4a3d7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: T+VtdpxZDqvvzve7O78Y0IEwBp0+zi/sXDC9xBzxEEIVy1l619BVCe6Q+IUAl76AZ3GpROGVp1UrC7kJQ8HyAXN/JX3/rs8ixi1nW7SEAFREVX2exwySzZSYNvqzQz8YoO5pjXVRFT4jgtZBcIRtNl2C8RMwryS6zFAikRIn+7viuZRj8ALpU8pvV2rH4mgwPjWr6P3J5iiXLak6itCB9Yp3b+dVBxe8vBifYUGDRgWrSG4a70JPgGHI0fXM5sGJwX4gHpGt6rW+I2aROHDAlQPvia1cZf/edWuJEfQJKSPXQB7YqFpUtvBB11erhY2ANdxDXgmYQz6rNmK4z+zLDAzh3fI5hy3PlmJEf3pzIrFFYa2Ca1I8uQpfZ9mZFnG7lhDS8Ht1R9061VWzMHSqfrC8cRnOCe3jBsqc+BTqDpjIWPJi0fISzmHKmhFTR6yMWxeg/WtTLLweLek5rwdJLhtnmZp4SmYD2dilNa/gB2B1twk7BbVhEnz9EZ5lZzZHpR5ESZDvdL9s0MmJpQWbbEx5B08J52x6e+8MrQj+HrkhTTertprkZmrOrkDr14GT3lPTRQzMGFHV6HA1WUPwLLiJHK8NHlxtiqeyukp16yqswYmk+rLe3JcxgKljJiOrKDBr3ZS+lX6rIHseY94bGk/GE8HRM6RrjkB5byLX0U+VVWaSylVmHPshg+CYwv7XWUsoFa8dr5WIb9TdxpwYK49eBDkWJ8kFoCI49OSVnRrFqsIEi7LtbwJKhMSFw3eH
+X-Microsoft-Antispam-Message-Info: lh96yfmLRwvF7TDEZxY1d/WET3WMCbnyN3W4Y5VeDGdMUaSMF+Yzo8NAKIX1yf39/6pwNEK1vMVXHRQb6z2brxov9y9mSTbIEQK2BTr7aPsOhrDrflHAREq4d/x9uF+IhNvg1oAN7118w5mAGJsaH4t61TPWnlDARsqjEBGe9wK0MUlunuF9aKANTqGLGIhXRlty3yIYqkcK04xD9oDMO3oWSfhyqDOqXET+HfpmoPqds+QLElH2X7GPwbSekYeND08bcqLJsy6jS/97a2wJTMlEOONn+lStNyjQe7BQqX1v69Bb9X1enn6izf+7ZM+zaRch4LXsjJM8A1gkennE/fDtqtFqc1qCIowEOFsaXE2MbHxx8Pk3YmE8orzTjTIWPp56W7t7KlG8NB06Sr/s8AphG96FlDdrTn3f0D1mlk/cSyJLr1o0Np2WzeisI0cEEKi1FClxsynQqk9dFcPYAtFFXoe/qARJHDcEHgr8QidCDDORyAoY2/yoLOzSKRoFnxhmToIONubxF/Vf3gvCIZ7+3kDIyde3E+5UBulkzuhb7dfjIWzjMZH0qe7kOBO97rybFaC0rYLnzGzYJsGjbD+9njIUATECExrgkuO+JNufbj1eIGpI+3Mg68Xe/zSgriS8zyW84dMcIDJ9qfIL684mwKYyZ9DUig13oxO98pM0+wWBKCx03Ld6Hqm/wPfNdToAA/+iDR+5aYIJNLkc/87YyftV1+6RLZM/3bz65SB8e8iQa50O2Gy90SrXRAlN
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(82310400014)(36860700004)(1800799015); DIR:OUT;
+ SFS:(13230031)(1800799015)(36860700004)(376005)(82310400014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2024 10:16:25.9980 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2b9ef62-21aa-4cb7-67b9-08dc4cb4a12d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2024 10:16:30.4668 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d27aa98-5ad8-47f0-47d7-08dc4cb4a3d7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042A7.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6401
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7643
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,185 +107,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Change the member function name of pp_hwmgr_func to
-keep consistent with the function in pptable_funcs
+Optimize the code to add support for BAMACO mode checking
 
 Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
 ---
- drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c      | 4 ++--
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c    | 2 +-
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h    | 2 +-
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 2 +-
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c    | 2 +-
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h    | 2 +-
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 2 +-
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c | 2 +-
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c  | 2 +-
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h  | 2 +-
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c | 2 +-
- drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h          | 2 +-
- 12 files changed, 13 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 74 +++++++++++++++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c |  4 +-
+ 3 files changed, 50 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index aed0e2cefbf9..fafd4e0b7908 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -1379,10 +1379,10 @@ static bool pp_get_asic_baco_capability(void *handle)
- 		return false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 80b9642f2bc4..e267ac032a1c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2734,7 +2734,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 		drm_dev->switch_power_state = DRM_SWITCH_POWER_DYNAMIC_OFF;
+ 	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO) {
+ 		/* nothing to do */
+-	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
++	} else if (adev->pm.rpm_mode >= AMDGPU_RUNPM_BACO) {
+ 		amdgpu_device_baco_enter(drm_dev);
+ 	}
  
- 	if (!(hwmgr->not_vf && amdgpu_dpm) ||
--		!hwmgr->hwmgr_func->get_asic_baco_capability)
-+		!hwmgr->hwmgr_func->baco_is_support)
- 		return false;
- 
--	return hwmgr->hwmgr_func->get_asic_baco_capability(hwmgr);
-+	return hwmgr->hwmgr_func->baco_is_support(hwmgr);
- }
- 
- static int pp_get_asic_baco_state(void *handle, int *state)
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c
-index e8a9471c1898..1ab4fbfe0cde 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c
-@@ -33,7 +33,7 @@
- #include "smu/smu_7_1_2_d.h"
- #include "smu/smu_7_1_2_sh_mask.h"
- 
--bool smu7_baco_get_capability(struct pp_hwmgr *hwmgr)
-+bool smu7_baco_is_support(struct pp_hwmgr *hwmgr)
+@@ -2774,7 +2774,7 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+ 		 * PCI core handles it for _PR3.
+ 		 */
+ 		pci_set_master(pdev);
+-	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
++	} else if (adev->pm.rpm_mode >= AMDGPU_RUNPM_BACO) {
+ 		amdgpu_device_baco_exit(drm_dev);
+ 	}
+ 	ret = amdgpu_device_resume(drm_dev, false);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index a66d47865e3b..81bb0a2c8227 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -133,6 +133,7 @@ void amdgpu_register_gpu_instance(struct amdgpu_device *adev)
+ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
  {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
- 	uint32_t reg;
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h
-index 73a773f4ce2e..df142c2eec8e 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h
-@@ -25,7 +25,7 @@
- #include "hwmgr.h"
- #include "common_baco.h"
+ 	struct drm_device *dev;
++	int bamaco_support = 0;
+ 	int r, acpi_status;
  
--extern bool smu7_baco_get_capability(struct pp_hwmgr *hwmgr);
-+extern bool smu7_baco_is_support(struct pp_hwmgr *hwmgr);
- extern int smu7_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state);
- extern int smu7_baco_set_state(struct pp_hwmgr *hwmgr, enum BACO_STATE state);
+ 	dev = adev_to_drm(adev);
+@@ -150,38 +151,55 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+ 	}
  
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index aa91730e4eaf..ae7032d43169 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -5791,7 +5791,7 @@ static const struct pp_hwmgr_func smu7_hwmgr_funcs = {
- 	.get_power_profile_mode = smu7_get_power_profile_mode,
- 	.set_power_profile_mode = smu7_set_power_profile_mode,
- 	.get_performance_level = smu7_get_performance_level,
--	.get_asic_baco_capability = smu7_baco_get_capability,
-+	.baco_is_support = smu7_baco_is_support,
- 	.get_asic_baco_state = smu7_baco_get_state,
- 	.set_asic_baco_state = smu7_baco_set_state,
- 	.power_off_asic = smu7_power_off_asic,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c
-index c66ef9741535..687cd80ebad8 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c
-@@ -28,7 +28,7 @@
- #include "vega10_inc.h"
- #include "smu9_baco.h"
+ 	adev->pm.rpm_mode = AMDGPU_RUNPM_NONE;
+-	if (amdgpu_device_supports_px(dev) &&
+-	    (amdgpu_runtime_pm != 0)) { /* enable PX as runtime mode */
+-		adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
+-		dev_info(adev->dev, "Using ATPX for runtime pm\n");
+-	} else if (amdgpu_device_supports_boco(dev) &&
+-		   (amdgpu_runtime_pm != 0)) { /* enable boco as runtime mode */
+-		adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
+-		dev_info(adev->dev, "Using BOCO for runtime pm\n");
+-	} else if (amdgpu_device_supports_baco(dev) &&
+-		   (amdgpu_runtime_pm != 0)) {
+-		switch (adev->asic_type) {
+-		case CHIP_VEGA20:
+-		case CHIP_ARCTURUS:
+-			/* enable BACO as runpm mode if runpm=1 */
+-			if (amdgpu_runtime_pm > 0)
+-				adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+-			break;
+-		case CHIP_VEGA10:
+-			/* enable BACO as runpm mode if noretry=0 */
+-			if (!adev->gmc.noretry)
++	if (amdgpu_runtime_pm == 2) {
++		adev->pm.rpm_mode = AMDGPU_RUNPM_BAMACO;
++		dev_info(adev->dev, "Forcing BAMACO for runtime pm\n");
++	} else if (amdgpu_runtime_pm == 1) {
++		adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
++		dev_info(adev->dev, "Forcing BACO for runtime pm\n");
++	} else if (amdgpu_runtime_pm != 0) {
++		if (amdgpu_device_supports_px(dev)) { /* enable PX as runtime mode */
++			adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
++			dev_info(adev->dev, "Using ATPX for runtime pm\n");
++		} else if (amdgpu_device_supports_boco(dev)) { /* enable boco as runtime mode */
++			adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
++			dev_info(adev->dev, "Using BOCO for runtime pm\n");
++		} else {
++			bamaco_support = amdgpu_device_supports_baco(dev);
++
++			if (!bamaco_support)
++				goto no_runtime_pm;
++
++			switch (adev->asic_type) {
++			case CHIP_VEGA20:
++			case CHIP_ARCTURUS:
++				/* vega20 and arcturus don't support runtime pm */
++				break;
++			case CHIP_VEGA10:
++				/* enable BACO as runpm mode if noretry=0 */
++				if (!adev->gmc.noretry)
++					adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
++				break;
++			default:
++				/* enable BACO as runpm mode on CI+ */
+ 				adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+-			break;
+-		default:
+-			/* enable BACO as runpm mode on CI+ */
+-			adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+-			break;
++				break;
++			}
++			if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
++				if (bamaco_support & MACO_SUPPORT) {
++					adev->pm.rpm_mode = AMDGPU_RUNPM_BAMACO;
++					dev_info(adev->dev, "Using BAMACO for runtime pm\n");
++				} else {
++					dev_info(adev->dev, "Using BACO for runtime pm\n");
++				}
++			}
+ 		}
+-
+-		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO)
+-			dev_info(adev->dev, "Using BACO for runtime pm\n");
+ 	}
  
--bool smu9_baco_get_capability(struct pp_hwmgr *hwmgr)
-+bool smu9_baco_is_support(struct pp_hwmgr *hwmgr)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
- 	uint32_t reg, data;
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h
-index 9ff7c2ea1b58..24461f1e3b01 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h
-@@ -25,7 +25,7 @@
- #include "hwmgr.h"
- #include "common_baco.h"
++no_runtime_pm:
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_NONE)
++		dev_info(adev->dev, "NO pm mode for runtime pm\n");
++
+ 	/* Call ACPI methods: require modeset init
+ 	 * but failure is not fatal
+ 	 */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 94b310fdb719..b4702a7961ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -2617,7 +2617,7 @@ static int psp_load_p2s_table(struct psp_context *psp)
+ 	struct amdgpu_firmware_info *ucode =
+ 		&adev->firmware.ucode[AMDGPU_UCODE_ID_P2S_TABLE];
  
--extern bool smu9_baco_get_capability(struct pp_hwmgr *hwmgr);
-+extern bool smu9_baco_is_support(struct pp_hwmgr *hwmgr);
- extern int smu9_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state);
+-	if (adev->in_runpm && (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO))
++	if (adev->in_runpm && (adev->pm.rpm_mode >= AMDGPU_RUNPM_BACO))
+ 		return 0;
  
- #endif
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-index 6d6bc6a380b3..e86f27b06f23 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-@@ -5756,7 +5756,7 @@ static const struct pp_hwmgr_func vega10_hwmgr_funcs = {
- 	.set_power_limit = vega10_set_power_limit,
- 	.odn_edit_dpm_table = vega10_odn_edit_dpm_table,
- 	.get_performance_level = vega10_get_performance_level,
--	.get_asic_baco_capability = smu9_baco_get_capability,
-+	.baco_is_support = smu9_baco_is_support,
- 	.get_asic_baco_state = smu9_baco_get_state,
- 	.set_asic_baco_state = vega10_baco_set_state,
- 	.enable_mgpu_fan_boost = vega10_enable_mgpu_fan_boost,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-index 460067933de2..386c1d7f52d5 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-@@ -2966,7 +2966,7 @@ static const struct pp_hwmgr_func vega12_hwmgr_funcs = {
- 	.start_thermal_controller = vega12_start_thermal_controller,
- 	.powergate_gfx = vega12_gfx_off_control,
- 	.get_performance_level = vega12_get_performance_level,
--	.get_asic_baco_capability = smu9_baco_get_capability,
-+	.baco_is_support = smu9_baco_is_support,
- 	.get_asic_baco_state = smu9_baco_get_state,
- 	.set_asic_baco_state = vega12_baco_set_state,
- 	.get_ppfeature_status = vega12_get_ppfeature_status,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
-index dad4c80aee58..bc0ff417921b 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
-@@ -36,7 +36,7 @@ static const struct soc15_baco_cmd_entry clean_baco_tbl[] = {
- 	{CMD_WRITE, SOC15_REG_ENTRY(NBIF, 0, mmBIOS_SCRATCH_7), 0, 0, 0, 0},
- };
+ 	if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6)) {
+@@ -2647,7 +2647,7 @@ static int psp_load_smu_fw(struct psp_context *psp)
+ 	 * Skip SMU FW reloading in case of using BACO for runpm only,
+ 	 * as SMU is always alive.
+ 	 */
+-	if (adev->in_runpm && (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO))
++	if (adev->in_runpm && (adev->pm.rpm_mode >= AMDGPU_RUNPM_BACO))
+ 		return 0;
  
--bool vega20_baco_get_capability(struct pp_hwmgr *hwmgr)
-+bool vega20_baco_is_support(struct pp_hwmgr *hwmgr)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
- 	uint32_t reg;
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h
-index bdad9c915631..006eb6633ce8 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h
-@@ -25,7 +25,7 @@
- #include "hwmgr.h"
- #include "common_baco.h"
- 
--extern bool vega20_baco_get_capability(struct pp_hwmgr *hwmgr);
-+extern bool vega20_baco_is_support(struct pp_hwmgr *hwmgr);
- extern int vega20_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state);
- extern int vega20_baco_set_state(struct pp_hwmgr *hwmgr, enum BACO_STATE state);
- extern int vega20_baco_apply_vdci_flush_workaround(struct pp_hwmgr *hwmgr);
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-index 3b33af30eb0f..bfecff6afc24 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-@@ -4422,7 +4422,7 @@ static const struct pp_hwmgr_func vega20_hwmgr_funcs = {
- 	.notify_cac_buffer_info = vega20_notify_cac_buffer_info,
- 	.enable_mgpu_fan_boost = vega20_enable_mgpu_fan_boost,
- 	/* BACO related */
--	.get_asic_baco_capability = vega20_baco_get_capability,
-+	.baco_is_support = vega20_baco_is_support,
- 	.get_asic_baco_state = vega20_baco_get_state,
- 	.set_asic_baco_state = vega20_baco_set_state,
- 	.set_mp1_state = vega20_set_mp1_state,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-index 6f536159df4d..83f903d8e994 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-@@ -351,7 +351,7 @@ struct pp_hwmgr_func {
- 	int (*set_hard_min_fclk_by_freq)(struct pp_hwmgr *hwmgr, uint32_t clock);
- 	int (*set_hard_min_gfxclk_by_freq)(struct pp_hwmgr *hwmgr, uint32_t clock);
- 	int (*set_soft_max_gfxclk_by_freq)(struct pp_hwmgr *hwmgr, uint32_t clock);
--	bool (*get_asic_baco_capability)(struct pp_hwmgr *hwmgr);
-+	bool (*baco_is_support)(struct pp_hwmgr *hwmgr);
- 	int (*get_asic_baco_state)(struct pp_hwmgr *hwmgr, enum BACO_STATE *state);
- 	int (*set_asic_baco_state)(struct pp_hwmgr *hwmgr, enum BACO_STATE state);
- 	int (*get_ppfeature_status)(struct pp_hwmgr *hwmgr, char *buf);
+ 	if (!ucode->fw || amdgpu_sriov_vf(psp->adev))
 -- 
 2.34.1
 
