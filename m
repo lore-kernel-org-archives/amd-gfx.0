@@ -4,49 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3E39CD11DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Mar 2024 08:18:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4FBEC54E67
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Mar 2024 08:18:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD73A10EDBE;
-	Tue, 26 Mar 2024 08:18:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7318B10EDC1;
+	Tue, 26 Mar 2024 08:18:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cornelisnetworks.com header.i=@cornelisnetworks.com header.b="GmuOPr8a";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VxJ6Aqwj";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2128.outbound.protection.outlook.com [40.107.220.128])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEEA110E8CA
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Mar 2024 13:47:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RAd831rZwBlK+Nb5AHmIs1ML3uhZeRW/iv6ish8XAMns3u8y145+gvLT8daRUCRHsQY4ob29QyCly0mATER4ZOoN8zbGjsQgmDhjZ+g3xmh19W/C8P0zCHqLbGQDR3vyzvqz0mWCAlgO909zEtv0pQS003QXt7mew4Qv4nPVfR+mr+ucjluzz0RgHfM2PaECbFtkegXFHRXyBMEih6CCUdXkrt7rOojeK/91Uqxw7kgK2qlowtfmQVP3iizWXGGSpxvkVKxXzSe4Kv0BK7lw3dX8j51w3omDB/ncFEjNoIfttn5N6f4h4GICq6MO3jTG+irHqJk9KYDKpOFtmkTLvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EtKTjqfzBfJ/mUo5n+Ev3i9rSz1iq25WuXMTngbMyoY=;
- b=fFDtPPFYKbD14mOLHgJQsyqUvaVeboQwE3Whhhx6Xx+3OzQ3ipKxijAZvV8NLU+jaV4uFfn2835KJAtGxakYy2ThEvSETkqSVXx8O8CAD7xZz8OJYDpZ3x0Opg85W66o+UTfNGTHc6zKGyz7LmZJk1h7i1y7gsowDamCDbEgmP4pRtlmsfi2W0c2ZrIxlF/PLjksIvseOaxSQjfVY6uh8xDaDcfX4WvzFggfJYG+JfYC5D1mxjf+skFbSplBoNTvdwvV2+gL86f7KBvX7ZIQKmrNw7yeroDqYpHfTeB07ImRGkAmWY1xujxVfjDqJk9i3t07BjvYzSSZuLF/fPYL9Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cornelisnetworks.com; dmarc=pass action=none
- header.from=cornelisnetworks.com; dkim=pass header.d=cornelisnetworks.com;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cornelisnetworks.com; 
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EtKTjqfzBfJ/mUo5n+Ev3i9rSz1iq25WuXMTngbMyoY=;
- b=GmuOPr8ad8xws6G49w1uMUE7Z+Gp98dHen+AtMNXEji6auXF46zhGKUaNQ1RX861AWPALnCsDiBrCM2v9fHpqbTyYCp3n0ZA12KbVD92jAkynxb7eUmB+JD+PU5UWdgHACmnHDcmNI+iKXtWHSw7dOlHEVlcuCt/u2LTCyiZ5fvFQy/uyq+SxWRua9etBGuAwW/087iCvncTudKie759wQYNeDLJAnvplmqzib2FW2SrUJGSzKwv17KTpeFnbf4055xgrD1+QeMEKEArzL+RF8bpozxlWYwVSEybHf/xx+JNZdarE6OJuDFZb0jYi63jj8BoMoEuxHCaVJqN8VNwSQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cornelisnetworks.com;
-Received: from SJ0PR01MB6158.prod.exchangelabs.com (2603:10b6:a03:2a0::15) by
- PH0PR01MB8071.prod.exchangelabs.com (2603:10b6:510:29a::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7409.32; Mon, 25 Mar 2024 13:47:00 +0000
-Received: from SJ0PR01MB6158.prod.exchangelabs.com
- ([fe80::82ae:ed8b:de46:cff2]) by SJ0PR01MB6158.prod.exchangelabs.com
- ([fe80::82ae:ed8b:de46:cff2%4]) with mapi id 15.20.7409.028; Mon, 25 Mar 2024
- 13:47:00 +0000
-Message-ID: <16813060-e834-4cb8-bfc2-0a3cbb45420a@cornelisnetworks.com>
-Date: Mon, 25 Mar 2024 09:46:53 -0400
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53DF210E9E8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Mar 2024 21:19:45 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-56bf60ddc71so1268086a12.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Mar 2024 14:19:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1711401583; x=1712006383; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=PoSfbikonTDSBOuLxdHwiEiP9ZejpGDsNbVllGW8OsA=;
+ b=VxJ6AqwjAwHQR7idJ7zz9Q/D03AjNb11AXNN0LTS+qjXzbBZSRZ+QTTP/aLk2SolF4
+ yytjZt6rTMrKuM71pTGVkDqWly6nlkJbKDKQxs8rva+0VUNv0+6Z6GsaZhOdT84XoU//
+ OSxQdasbDt7qAFmg39Ycquaq1yF7JbNgLtQFODLBXJcg+zPhAYTwz1FB9LAeFWHqu2UI
+ nj4LB9t1JfCL+RVhbw7Im5oNrAjXqlJY1mylcDXIm8nzHx3bISsCBiGFVnXQi+sBKMBI
+ VW/9NxSvxiWSpubE1XQvuaqgLA00teazRF+b1WPUoMWClCkhcsh7Jm/C5vvDLqR3uROH
+ YmNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711401583; x=1712006383;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=PoSfbikonTDSBOuLxdHwiEiP9ZejpGDsNbVllGW8OsA=;
+ b=iDxLsREJUIJ+fd53L3QntuCnSe1Hs7xkfTlvGXFVmaAT/WIKIt8BDFQIa2QufMYDK8
+ zt4g7dfzMa8v4rgQ9J0Wlv5BC7cFMxchqwtc037DmyEu97VLsQwbg6BUqSG6bnTsTuHM
+ hj0DZQp2gDBgoSW/C148wNBJmpAIHe0XqsAKTDtimknbIyXKoOd24BKJENVScMkN+rnP
+ PrqxxPBAbzQOW8dvC35KPgWzxKJNu5tjv3uNh1MXWJWBCWMbBN0kF68P5VrCes5zEXA0
+ FCWQuyH0IaY4lC1zI5hMK/OgxbRCzRUNy5qyUb2i0K2n+GHKvDw08OAN8oV4Ccn/5l+i
+ rpOg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUC+QTbtYZQx81eaM51dcqSfery80jBhuPiCP63zALbTZaB8chCcvUs5vCmyHJJpCH0XmBo0yKr7C1BeWVrzaNkswf+K+pjp3ygmksHLg==
+X-Gm-Message-State: AOJu0Yy10UrhY1fkBiB6TSrDvmIEx06AKEGQZ8W4YmTWApV0U9HQa/vP
+ TvQLLZFwtGLnD/i1b1t2dTpUa/FAhRPVyBogG9n6VFCzjY60/j90
+X-Google-Smtp-Source: AGHT+IHJM612MMOX224WqDpitSB3ppYid8xqsHidMYKffDXHZGIA2IVK0z2qzCKVX3AunTfuBNsM1Q==
+X-Received: by 2002:a50:8d14:0:b0:568:a752:5fb3 with SMTP id
+ s20-20020a508d14000000b00568a7525fb3mr7779537eds.15.1711401583242; 
+ Mon, 25 Mar 2024 14:19:43 -0700 (PDT)
+Received: from ?IPV6:2a01:c22:7a49:5100:f87e:9160:36e9:a3bd?
+ (dynamic-2a01-0c22-7a49-5100-f87e-9160-36e9-a3bd.c22.pool.telefonica.de.
+ [2a01:c22:7a49:5100:f87e:9160:36e9:a3bd])
+ by smtp.googlemail.com with ESMTPSA id
+ ck5-20020a0564021c0500b0056c1bf78a3asm736491edb.28.2024.03.25.14.19.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Mar 2024 14:19:42 -0700 (PDT)
+Message-ID: <3376d9e8-7841-43b6-846a-45c75975fbb1@gmail.com>
+Date: Mon, 25 Mar 2024 22:19:41 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/28] infiniband: qib: Use PCI_IRQ_INTX
+Subject: Re: [PATCH 17/28] net: realtek: r8169: Use PCI_IRQ_INTX
 To: Damien Le Moal <dlemoal@kernel.org>, linux-pci@vger.kernel.org,
  Bjorn Helgaas <bhelgaas@google.com>,
  Manivannan Sadhasivami <manivannan.sadhasivam@linaro.org>,
@@ -62,76 +79,55 @@ To: Damien Le Moal <dlemoal@kernel.org>, linux-pci@vger.kernel.org,
  Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20240325070944.3600338-1-dlemoal@kernel.org>
- <20240325070944.3600338-12-dlemoal@kernel.org>
+ <20240325070944.3600338-18-dlemoal@kernel.org>
 Content-Language: en-US
-From: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>
-In-Reply-To: <20240325070944.3600338-12-dlemoal@kernel.org>
+From: Heiner Kallweit <hkallweit1@gmail.com>
+Autocrypt: addr=hkallweit1@gmail.com; keydata=
+ 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
+In-Reply-To: <20240325070944.3600338-18-dlemoal@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BLAPR05CA0031.namprd05.prod.outlook.com
- (2603:10b6:208:335::12) To SJ0PR01MB6158.prod.exchangelabs.com
- (2603:10b6:a03:2a0::15)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR01MB6158:EE_|PH0PR01MB8071:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42ae3e1e-fceb-42cf-81fc-08dc4cd20b7b
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NkdFG2JtQIPC2noGgsf3qA3K2S3VQ6ZTduSZrbsO5FfDV2KGzUjx7uW93Qbn8N/nPfL20kikHzvoJ6pdKyi5l+jOuhGO8O2tDGlrswreJw8D96/C9WFDnEdj7ZQmB9qCczjUtwCrm5rCfvJX7/84i1u6YmqdGeSrK9FHNwHXbQJ8v1AdMaxUluLQYQa3Y+RS8w+raygaGtzEkBdtMEuZ7jpCNNeZaMbqaZ54vDCv7tNfENR/V1d57gRebGgkIvLh2z4W/I0WWK+ncQnLLYND1URfKUt7GuMhskaatFaO/QiwAS7NpdSgjRX3EoicQpmeiMx5SPZkJhHk/tR4eIUEymEgR9mEuo+M1/Ym9hu8kOaQuF2DtIhZa4+sdl0ULi5lyaPMQRRdM3Y4j2ayr8F0O7SW1qXvoI31xMTIEH2c8aQkK64tFcE9NnKMyssuPV4FOvPe9GY0Vr+yFkwVV6/gc3N6MlXgismrn54GqlgcCb04ZELAj7gvpYsqdZHwUdD1XljSpSbnd0Z5kfAY1mSEMxDQMhdJF3Ox7yh/fuPpNMdyED1OfhbQ0abj5pUua+0AWfnrX5pAYHxiY1+LaJXHyFxxWieoKR4VUAdG62lAJl3jtWtAuk2+/MXFLsTOeWzSW3k8Oi6UUrV8jJ2Z75qWAD3+8Vp76yJbhGBHYmLkXLlZXxaETp1Uj6/AIxiGkwI5HqPm1Fjak4NGVZnAubOx4mlgERlQfzvWA1bAm9My1O4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR01MB6158.prod.exchangelabs.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(52116005)(7416005)(376005)(1800799015)(38350700005)(921011);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RHkzMUlYMWswaGs5b1o1TDJUa0NvZWdXWlBYRTlVSDQ2cVgrUmQwNzRTWVJy?=
- =?utf-8?B?RXZXU0FIMytIcStzNHpYcWtnUTZyM1lEWFpscmNLUHRzUkJMT0VxUVJwZnI0?=
- =?utf-8?B?eUh6L2NpeWhtK1Q2U05vUVZZaVF6VjlEMCs5QkFaTDVqU200Rkw0MU53WmFS?=
- =?utf-8?B?RVpkUmFDKzdaalB4b3lUazhFNHpUWW4vOFFlVmVKQTdGMURKY2NQVXpRTDZN?=
- =?utf-8?B?UzJGODlUbjQrSGFLLzVOMTBnQjBKOG1LcHBOZTMxdUxnRnRqRWtvUVNxUWtn?=
- =?utf-8?B?UFFLblhzU1FXU09QNUNhbDlEUFV4ZmlFMFQ4MmVRa1NpWkVyYkt4S3FiSDFj?=
- =?utf-8?B?VS9XcE5RaU1YVDdPVnRkMHBmSUdvT1ErL2ZjTzJNSG1hNmQrQWs3ZkM4QVZP?=
- =?utf-8?B?c0NlVC9kdWVDaGo0UGdoWjR0OUJ6S2VFU3c1ZC9oLzBmOC9XbCszdXRyYy9B?=
- =?utf-8?B?N1hGZ3JtYjdXcHNwQ3YvZGFYazdvejJRWlk1WkdPSzBsN3dkMjBjUGc3eGFP?=
- =?utf-8?B?UEFJQXB3eXN0RW9TeGdpWFNSRm1GaUs3NFk4TWtRM1hUVnV3eHJ4SkdmU1Rh?=
- =?utf-8?B?TkZ3OFo4aHNsSHp1aE02TXRkcExZSHJnd0x3eEszRG5XdW42ZXY4b0V3VU9j?=
- =?utf-8?B?Q3NlRkQxZjZTZ25Fb2NEL2RCeDFjaVJhODdUQmpybFFud3hCUVVlRG1JVUxB?=
- =?utf-8?B?RlZDYWpiUlZWRWVLN0VseDQwUkJLM1dzbmhtT3dQVDlYK1QyRlAxMVBXUkFv?=
- =?utf-8?B?cWRxU0VscElWTlBRSjBqbnpiVmx3QjZxUWZnajJMTkQvT0Z0STAwZFd3M3Ju?=
- =?utf-8?B?aUNBYXRLZVlVbnQ1ZVJWV0VSVkJodzFURS95S1NjaGtlRElqZjVmNnYzZkp5?=
- =?utf-8?B?TzRsZTFBaEUrblFEOEUzTHBETEc3UFYra2MxZVVWdzdITFh0SElwWXMrSHRC?=
- =?utf-8?B?dTl3dlZWMWpNS2ovYnB6VVZYa0J0K3lOSDgvU2pyR1J6cTZPYmEzNWxzM3l4?=
- =?utf-8?B?amdhSWNZNlVicklJTm9Kb3ZRMHZFYWVyWlh3UzU4WUx1N0xaQTNYRGRrQTFC?=
- =?utf-8?B?TzllWlFMU0dhanQ0SUNLWWN1VGVUdlRWUVBrbVNrNlRXZ2xDZzRpODJmL2pP?=
- =?utf-8?B?NWJvSGN3WkM2S1JFK2gydW9FTmQ3cnd5QU9lOW9VbUJNZjB4NEE1Q25SS01N?=
- =?utf-8?B?YkFCMEJMa3F2VVBJd1MzZ1hlWisrSDgxVFBvSGdRMEpUYlBRVnFQZUVDbERE?=
- =?utf-8?B?YW0wOTdpK2E5RnNOM2UvMVBjaUQ3YWgzNHdlWktzUmc4a1dqaGx3c3QzYkJz?=
- =?utf-8?B?T3V4eXRoTitmZjUyTXhsMzdlU0szOHlXSVdrS1dEUFJpVHp0dk5rV091WXB4?=
- =?utf-8?B?MTJORnNodHNna05ST0tONVloRldpSHAvL1JrcnJUMkhOUy8zU000TTQzem9P?=
- =?utf-8?B?NE10SlJsaDZYZ01jTENjRyt2WE1rWWRadk5XVXp1cE9mWmE1YVdTb2xDRHJZ?=
- =?utf-8?B?N29wSkhSb0VmUXdHWjY0L2xNQU1lbDd1VjNzYkEvOEQyZUY1TFhxVTNZWUx5?=
- =?utf-8?B?UTRXRlNUSmtIaTdYQzMwQlQvdW8zNjdHTTdZaXVVbjVZeWg3N21WSGVwOXNC?=
- =?utf-8?B?OVhvbFc5QVhvYVYyNmtNbkh3K2hudGczL0RUM2hkcXlQeWVMYU1qSXVMTG5R?=
- =?utf-8?B?U01mN1N1d0lwYkI0TFdwR25SM3NPSkdMdzJ3YjlDbzNJUFdiMkdWeFRjc2Vq?=
- =?utf-8?B?R1B3MGNLUHVsTmE3M0VSTjg1dW0wMjh3WHp4WHJVd0FpcmczMjlyRnowUDJD?=
- =?utf-8?B?ZUFiWTJmWkNUc1lpV1V6eVdwWG9oMWVrMU1UaExlYUlIV0R6dmNoMk9kVTNO?=
- =?utf-8?B?L0FwZFVCUld5cHdIS0c4QmpDYUwxSE1YbC9QV3RIQzdHR2J3YitiMzdiU1Np?=
- =?utf-8?B?SGx5SElPY3hWUGEybTgxTU8zYysxVWhLU2FpZ1RXQXl2bVMvaEdBQ252Q2E3?=
- =?utf-8?B?OFZRYUY5TFpTMUxJSm5tbTcwYVRZYjBvSy9VcGxmZ3RCV2daYmJVTzdGcG01?=
- =?utf-8?B?bmtjcDFWdmJqQVZXbzhBZjA1MjZwT2NnelhPSldQNlkxUC93RUtZV2ZYRkEv?=
- =?utf-8?B?eFNFUzI5aVFvZERyc3owTkRqVDRKYzRlSUhYaVhrUkx5dlgzaUtGeVFrZlkv?=
- =?utf-8?Q?+4xMh1KdZq/OddTOpQzB7oM=3D?=
-X-OriginatorOrg: cornelisnetworks.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42ae3e1e-fceb-42cf-81fc-08dc4cd20b7b
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR01MB6158.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2024 13:47:00.1417 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4dbdb7da-74ee-4b45-8747-ef5ce5ebe68a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sqZwRkWUtVGu0ChU6OBr/yiUAaKxJRx4qWvv1S3q66D4Gp4TguQjV33ceWB18OvdVcQfPL2njTbR4mOjMdntI4DB4T6rhRGXtYC8Zd5VcAOC0AVHG9Oam4lowIB5EWVM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR01MB8071
 X-Mailman-Approved-At: Tue, 26 Mar 2024 08:18:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -147,69 +143,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 3/25/24 3:09 AM, Damien Le Moal wrote:
+On 25.03.2024 08:09, Damien Le Moal wrote:
 > Use the macro PCI_IRQ_INTX instead of the deprecated PCI_IRQ_LEGACY
 > macro.
 > 
 > Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
 > ---
->  drivers/infiniband/hw/qib/qib_iba7220.c | 2 +-
->  drivers/infiniband/hw/qib/qib_iba7322.c | 5 ++---
->  drivers/infiniband/hw/qib/qib_pcie.c    | 2 +-
->  3 files changed, 4 insertions(+), 5 deletions(-)
+>  drivers/net/ethernet/realtek/r8169_main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/infiniband/hw/qib/qib_iba7220.c b/drivers/infiniband/hw/qib/qib_iba7220.c
-> index 6af57067c32e..78dfe98ebcf7 100644
-> --- a/drivers/infiniband/hw/qib/qib_iba7220.c
-> +++ b/drivers/infiniband/hw/qib/qib_iba7220.c
-> @@ -3281,7 +3281,7 @@ static int qib_7220_intr_fallback(struct qib_devdata *dd)
->  
->  	qib_free_irq(dd);
->  	dd->msi_lo = 0;
-> -	if (pci_alloc_irq_vectors(dd->pcidev, 1, 1, PCI_IRQ_LEGACY) < 0)
-> +	if (pci_alloc_irq_vectors(dd->pcidev, 1, 1, PCI_IRQ_INTX) < 0)
->  		qib_dev_err(dd, "Failed to enable INTx\n");
->  	qib_setup_7220_interrupt(dd);
->  	return 1;
-> diff --git a/drivers/infiniband/hw/qib/qib_iba7322.c b/drivers/infiniband/hw/qib/qib_iba7322.c
-> index f93906d8fc09..9db29916e35a 100644
-> --- a/drivers/infiniband/hw/qib/qib_iba7322.c
-> +++ b/drivers/infiniband/hw/qib/qib_iba7322.c
-> @@ -3471,8 +3471,7 @@ static void qib_setup_7322_interrupt(struct qib_devdata *dd, int clearpend)
->  				    pci_irq_vector(dd->pcidev, msixnum),
->  				    ret);
->  			qib_7322_free_irq(dd);
-> -			pci_alloc_irq_vectors(dd->pcidev, 1, 1,
-> -					      PCI_IRQ_LEGACY);
-> +			pci_alloc_irq_vectors(dd->pcidev, 1, 1, PCI_IRQ_INTX);
->  			goto try_intx;
->  		}
->  		dd->cspec->msix_entries[msixnum].arg = arg;
-> @@ -5143,7 +5142,7 @@ static int qib_7322_intr_fallback(struct qib_devdata *dd)
->  	qib_devinfo(dd->pcidev,
->  		"MSIx interrupt not detected, trying INTx interrupts\n");
->  	qib_7322_free_irq(dd);
-> -	if (pci_alloc_irq_vectors(dd->pcidev, 1, 1, PCI_IRQ_LEGACY) < 0)
-> +	if (pci_alloc_irq_vectors(dd->pcidev, 1, 1, PCI_IRQ_INTX) < 0)
->  		qib_dev_err(dd, "Failed to enable INTx\n");
->  	qib_setup_7322_interrupt(dd, 0);
->  	return 1;
-> diff --git a/drivers/infiniband/hw/qib/qib_pcie.c b/drivers/infiniband/hw/qib/qib_pcie.c
-> index 47bf64ace05c..58c1d62d341b 100644
-> --- a/drivers/infiniband/hw/qib/qib_pcie.c
-> +++ b/drivers/infiniband/hw/qib/qib_pcie.c
-> @@ -210,7 +210,7 @@ int qib_pcie_params(struct qib_devdata *dd, u32 minw, u32 *nent)
->  	}
->  
->  	if (dd->flags & QIB_HAS_INTX)
-> -		flags |= PCI_IRQ_LEGACY;
-> +		flags |= PCI_IRQ_INTX;
->  	maxvec = (nent && *nent) ? *nent : 1;
->  	nvec = pci_alloc_irq_vectors(dd->pcidev, 1, maxvec, flags);
->  	if (nvec < 0)
+> diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
+> index 5c879a5c86d7..7288afcc8c94 100644
+> --- a/drivers/net/ethernet/realtek/r8169_main.c
+> +++ b/drivers/net/ethernet/realtek/r8169_main.c
+> @@ -5076,7 +5076,7 @@ static int rtl_alloc_irq(struct rtl8169_private *tp)
+>  		rtl_lock_config_regs(tp);
+>  		fallthrough;
+>  	case RTL_GIGA_MAC_VER_07 ... RTL_GIGA_MAC_VER_17:
+> -		flags = PCI_IRQ_LEGACY;
+> +		flags = PCI_IRQ_INTX;
+>  		break;
+>  	default:
+>  		flags = PCI_IRQ_ALL_TYPES;
 
-No problems here.
-
-Acked-by: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>
+Acked-by: Heiner Kallweit <hkallweit1@gmail.com>
 
