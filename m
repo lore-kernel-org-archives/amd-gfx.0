@@ -4,66 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DFC5C54E64
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Mar 2024 15:01:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B08C2C54E64
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Mar 2024 15:18:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C54C810E1EA;
-	Mon, 25 Mar 2024 15:01:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 196C010E97B;
+	Mon, 25 Mar 2024 15:18:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DR6Doe2b";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DE4utPPN";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B31A410E1EA
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Mar 2024 15:01:18 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-29c14800a7fso3167610a91.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Mar 2024 08:01:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1711378878; x=1711983678; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qRKaB5iUS0CbZnXclByI8JNrm3ewlTvie87HnzvPrGE=;
- b=DR6Doe2b6aai5OpU1OIMudiOlgj3XjRDZsKWOPmS56jsY1/neEZMuR2vlxcQmWtNw4
- jLTHLYrX9KRS2DpoJn5QtDCsQtW0A0H9G3+YLpnbLCPIjTk3Lps1FT+2/VLJVjbLwa7R
- piF1V4J7f68vu6z9E6a2YcnjxljoSqEJS7sVJ+u6SpgvPec01UT/306E7n0WY4BLWXgs
- usgSAcU1xDFVmE3hRcbucSkO9WrE4aKHP4W32WjQst6x8g6+9TJDFsZPVGVcBoqiKpMN
- KQ7zAf/fJNeE580g+AvnWzcnJ0OivOuKV45wNFHmhvxZG2qb05K2FptqlR/7Nx5WP+f/
- xGiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711378878; x=1711983678;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qRKaB5iUS0CbZnXclByI8JNrm3ewlTvie87HnzvPrGE=;
- b=SAIZrRbWI8FcUKda+0S/unv/JqbfbKv8e21+2NVZQd0YSH5ytEckqVn/W0ylipBjyc
- fJYdFFZBGMYSwvvZaTc6piHS2f1BGDjS8Hat1f5UXGrLVmQ2PVOlTGV37TPbjp1O7j0H
- WsNlXNIwkoBfMmMaktGJWYfTwH4JupkOUrrrfWDm1lO3ztz9Ty3z84JPDZvYlXUNVXBW
- 9RuP73RWtCQbvdUM6FK1Q982yIFXcWSB4zzkA1Paj/HOFf2YCRUAjBnwCGsnAaZpu6Vq
- oT8G8BVF9wGmMeI0qmEtg7iWamPZiAhJ9lxBIXBUUOHptxOPfx+K7NcwZ1Rj6PpXg88g
- xObg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVYuZTOgK9UJdIvRspo9fyxaglMONGjHEExj6c6n0slaiGLf2KZfx57CNBSOxMyOTkPIk4pTbzQbgqQOEchCnNCAG076T1NxBmRE7CKEA==
-X-Gm-Message-State: AOJu0YzGEMdvpwitweU4QnNECvz8XbrdQvqrRwKR5vqrWHqYkyIUiQMj
- kgwRbs4FGmQCm8VWyj5gQ+4TzqUUjiHXpNPyWMRIJ+1DfH0eaxwLsT4aoE8owD6uboXACrudn5Q
- IgSx3rWUbCG75DITvrROmN2vspoI=
-X-Google-Smtp-Source: AGHT+IHN2+QJIEv9Rbkm8NqxssEEZNu+kfA8e7f7Yk5FHbLW57xZsm8DvBJewq92SaiwWi9J6cR0vhrenNBVvObR540=
-X-Received: by 2002:a17:90a:6343:b0:29f:66e2:d2a6 with SMTP id
- v3-20020a17090a634300b0029f66e2d2a6mr5241989pjs.26.1711378877869; Mon, 25 Mar
- 2024 08:01:17 -0700 (PDT)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 024D010E0F7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Mar 2024 15:18:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oUW/0/Ng23i61qA27or1QIHx1Hy39DCR9h1jHFLfkbF5LDM9WGMSK2vX3WycMq5IxflqhrydUmW5EdPyQMmWjJaaxF/nzJbxsZ3Rwb992W36B/LFKAVOZoiIl2+gO9f+yJN9SMlEgqJvvKlhVU49MxgpUHjdP33kN0g1hY66AIRbmLg0d9E8jlHy71KyT4HwQhtGIw27//pSjNmCaFICM2n7TwuLvewvEpKBWOkZ3Rddxp52ZohQrlevlC4EcyZeQpcyq3naHnckF63bTcGFDjhJshMxJqmrrkZmTzX5DL7EiGkQzYowLMEDGInwWmUB8BR61jerJjn6ReU3kAdDRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OK77LuNRmt17coyORECXjsO8T64xyAyRlzgUuKwwPy8=;
+ b=TovZI6mcw/y3lWByvnfIkQo1pgo2h5irh4U7AyGvYGNYEwfbvzPBMjqdLKTffgfmf7OzW/dAvwPzCggJqub6JmTr7rKKTlS7EcI3uDbhLROM6WK4MZHrj+001ioxXthdR9pEraARLGuT+lRGcwBE0pj76OE75iS8cZ5vS4y8rRrDJZX7tUOeIw+DULOXGbXEgBtgl5bGTZ4LVqGzIYhMZvh7vqjtYmO+wVN8KHPkVnaQKJtmPBUWKP6euzM++wyZB7jTvmBSRNBMsbvb3JrRaiehmTlZi3Y+mKO/SitElnWAyVbKiPKBbxV8HPEKO7/WSPTgCSodajZQaT8KFxAwxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OK77LuNRmt17coyORECXjsO8T64xyAyRlzgUuKwwPy8=;
+ b=DE4utPPNBmHD66xeDYmJ+hn6ky1zqnLB21pyJrBn47gm0gK0th9KqWUaNjGkVVIpAyvZY7xYZUDU9ks8aAY8t5ZsgDDrjwXP3t01Ot32ZiIcFsyqNFKHx0wTcDcCwFoL3h4lWNalaTuIQwIRakLnpZ/TWqT5xs5Z1v690bD0SsM=
+Received: from SJ0P220CA0002.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::10)
+ by SA1PR12MB7128.namprd12.prod.outlook.com (2603:10b6:806:29c::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.31; Mon, 25 Mar
+ 2024 15:18:21 +0000
+Received: from SJ5PEPF000001D4.namprd05.prod.outlook.com
+ (2603:10b6:a03:41b:cafe::15) by SJ0P220CA0002.outlook.office365.com
+ (2603:10b6:a03:41b::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
+ Transport; Mon, 25 Mar 2024 15:18:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001D4.mail.protection.outlook.com (10.167.242.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7409.10 via Frontend Transport; Mon, 25 Mar 2024 15:18:20 +0000
+Received: from MKM-L1-ZHLUO987.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 25 Mar
+ 2024 10:18:18 -0500
+From: Zhigang Luo <Zhigang.Luo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Sashank.Saye@amd.com>, <Jeffrey.Chan@amd.com>,
+ <philip.yang@amd.com>, <lijo.lazar@amd.com>, Zhigang Luo
+ <Zhigang.Luo@amd.com>
+Subject: [PATCH 1/3] amd/amdkfd: add a function to wait no process running in
+ kfd
+Date: Mon, 25 Mar 2024 11:18:03 -0400
+Message-ID: <20240325151805.6379-1-Zhigang.Luo@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20240324005220.2649840-1-alexander.deucher@amd.com>
- <7eefc428-16b7-4f88-a99b-510203a244f9@gmx.de>
-In-Reply-To: <7eefc428-16b7-4f88-a99b-510203a244f9@gmx.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 25 Mar 2024 11:01:05 -0400
-Message-ID: <CADnq5_O6Vu3bh_P6vt2sOSxuwh0OoZqXdtLtzMehbnQv=uYo9w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: always force full reset for SOC21
-To: Friedrich Vock <friedrich.vock@gmx.de>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D4:EE_|SA1PR12MB7128:EE_
+X-MS-Office365-Filtering-Correlation-Id: 330aaf0a-94e4-441a-8322-08dc4cdece48
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: meB2Jnmif1oOlU9fj9ELhuCvDevJpInzsxjnouljeCqTuUuDln2dCRnkPP6hhJpcjLIzw3YkVjGGOdHDM/Ah+24qOjABNOl/P93xCEmeLq7s64ua5xIk9OJRD0t3+W8w2oNlizMQ92Rzj+ssBCaxL0LA0iKBCtGfQlpZfVsYgeLCA9yN7FHTxdObyaELFkWbBlJjbE94fB/emr+UaPQ1VeM6rQhn5yndGMcGl5Oi6oo+w+BxUixLVgXvGDmgClcuWelprqsfcvVBEYjkG2/ZjO+jAtb0f5m/hYRlOcCX+Fj0yLpcslDOtKcS0ehtxa359J53JB0rz50kXYRldonP+sHsx4WRiVi1nh/mpdDAAO1JFqCTBnS/ZpcO5z9niNceIFd8fEIqeP8EbYdnP24eiMilErU0TijnovJTgazFH5550wLFHpqkixIhLedYxbVoX1uPCwkpvwu1v8QpscPRfCtF7ty98B7MxgJPIUy1YvS7U6insRc1q0AhFjseHn/ewBQ3CUO2lRwvVxC0Bpo87/x0S6qC6Dj4zO3weW8S8p9zPWZEKzMqfOlFLWU/jO1xerbHYGQtsFO22Hi7fs6P+wrEVIm3VQT3DaESRrzUx27ipg4wFkqZOxXJOaJPR9Heq3EA+Fo4Yu694XkucWdofvxRyQ01DOqbS8Mngo9AyboLuBgQqiFKvFYTfscq3lfz0KBxAS5ht46ttXiBdU/6TTUiOh/qAGM4ofjewtRn1ZWkRRaKLXWwrtsZo1ceh4dX
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(82310400014)(376005)(1800799015); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2024 15:18:20.4420 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 330aaf0a-94e4-441a-8322-08dc4cdece48
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7128
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,54 +107,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Mar 24, 2024 at 6:42=E2=80=AFAM Friedrich Vock <friedrich.vock@gmx.=
-de> wrote:
->
-> On 24.03.24 01:52, Alex Deucher wrote:
-> > There are cases where soft reset seems to succeed, but
-> > does not, so always use mode1/2 for now.
->
-> Does "for now" mean that a proper fix is being worked on/will appear late=
-r?
->
-> Immediately falling back to full resets is a really bad experience, and
-> it's especially catastrophic when only MODE1 is available.
->
-> Of course, soft resets succeeding but leaving the GPU in a faulty state
-> isn't acceptable either, but I think it's pretty important to keep the
-> ability to do soft resets if at all possible.
->
-> If it's not possible to wait with this until the proper fix is
-> available, I hope that at least it can be reverted soon.
+Signed-off-by: Zhigang Luo <Zhigang.Luo@amd.com>
+Change-Id: I2a98d513c26107ac76ecf20e951c188afbc7ede6
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 20 ++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h | 10 +++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c    | 11 +++++++++++
+ 3 files changed, 40 insertions(+), 1 deletion(-)
 
-Yes, it's being actively debugged.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index d5fde8adf19b..e02bfcec608b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -261,6 +261,26 @@ int amdgpu_amdkfd_resume(struct amdgpu_device *adev, bool run_pm)
+ 	return r;
+ }
+ 
++int amdgpu_amdkfd_wait_no_process_running(struct amdgpu_device *adev)
++{
++	unsigned long end_jiffies;
++
++	if (!adev->kfd.dev)
++		return 0;
++
++	end_jiffies = msecs_to_jiffies(AMDKFD_WAIT_NO_PROCESS_RUNNING_TIMEOUT_MS) + jiffies;
++	while (!kgd2kfd_is_processes_table_empty(adev->kfd.dev)) {
++		if (time_after(jiffies, end_jiffies)) {
++			dev_err(adev->dev, "wait no process running timeout\n");
++
++			return -ETIME;
++		}
++		schedule();
++	}
++
++	return 0;
++}
++
+ int amdgpu_amdkfd_pre_reset(struct amdgpu_device *adev)
+ {
+ 	int r = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index caee36e52a09..d46dccc5bbf7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -38,6 +38,8 @@
+ #include "amdgpu_vm.h"
+ #include "amdgpu_xcp.h"
+ 
++#define AMDKFD_WAIT_NO_PROCESS_RUNNING_TIMEOUT_MS 10000
++
+ extern uint64_t amdgpu_amdkfd_total_mem_size;
+ 
+ enum TLB_FLUSH_TYPE {
+@@ -169,7 +171,7 @@ void amdgpu_amdkfd_set_compute_idle(struct amdgpu_device *adev, bool idle);
+ bool amdgpu_amdkfd_have_atomics_support(struct amdgpu_device *adev);
+ 
+ bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32 vmid);
+-
++int amdgpu_amdkfd_wait_no_process_running(struct amdgpu_device *adev);
+ int amdgpu_amdkfd_pre_reset(struct amdgpu_device *adev);
+ 
+ int amdgpu_amdkfd_post_reset(struct amdgpu_device *adev);
+@@ -411,6 +413,7 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+ void kgd2kfd_device_exit(struct kfd_dev *kfd);
+ void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm);
+ int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm);
++bool kgd2kfd_is_processes_table_empty(struct kfd_dev *kfd);
+ int kgd2kfd_pre_reset(struct kfd_dev *kfd);
+ int kgd2kfd_post_reset(struct kfd_dev *kfd);
+ void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry);
+@@ -454,6 +457,11 @@ static inline int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm)
+ 	return 0;
+ }
+ 
++static inline bool kgd2kfd_is_processes_table_empty(struct kfd_dev *kfd)
++{
++	return true;
++}
++
+ static inline int kgd2kfd_pre_reset(struct kfd_dev *kfd)
+ {
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 041ec3de55e7..2bec79e0c721 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -894,6 +894,17 @@ void kgd2kfd_device_exit(struct kfd_dev *kfd)
+ 	kfree(kfd);
+ }
+ 
++bool kgd2kfd_is_processes_table_empty(struct kfd_dev *kfd)
++{
++	bool is_empty;
++
++	mutex_lock(&kfd_processes_mutex);
++	is_empty = hash_empty(kfd_processes_table);
++	mutex_unlock(&kfd_processes_mutex);
++
++	return is_empty;
++}
++
+ int kgd2kfd_pre_reset(struct kfd_dev *kfd)
+ {
+ 	struct kfd_node *node;
+-- 
+2.25.1
 
-Alex
-
->
-> Thanks,
-> Friedrich
->
-> > Signed-off-by: Alex Deucher<alexander.deucher@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/soc21.c | 2 --
-> >   1 file changed, 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/a=
-mdgpu/soc21.c
-> > index 581a3bd11481..8526282f4da1 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> > @@ -457,10 +457,8 @@ static bool soc21_need_full_reset(struct amdgpu_de=
-vice *adev)
-> >   {
-> >       switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
-> >       case IP_VERSION(11, 0, 0):
-> > -             return amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UM=
-C);
-> >       case IP_VERSION(11, 0, 2):
-> >       case IP_VERSION(11, 0, 3):
-> > -             return false;
-> >       default:
-> >               return true;
-> >       }
