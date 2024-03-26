@@ -4,66 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F2D5C6FD1F
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Mar 2024 13:39:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 849B1CD11DD
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Mar 2024 13:44:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D96410E5A8;
-	Tue, 26 Mar 2024 13:39:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1011B10EF97;
+	Tue, 26 Mar 2024 13:44:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aeRZ16FP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KtRfRjOf";
 	dkim-atps=neutral
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E64C10E5A8;
- Tue, 26 Mar 2024 13:39:01 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-5dc949f998fso3237529a12.3; 
- Tue, 26 Mar 2024 06:39:01 -0700 (PDT)
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
+ [209.85.215.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D06310EF97
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Mar 2024 13:44:55 +0000 (UTC)
+Received: by mail-pg1-f170.google.com with SMTP id
+ 41be03b00d2f7-5dbf7b74402so3123861a12.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Mar 2024 06:44:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1711460341; x=1712065141; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1711460695; x=1712065495; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=LuF9x0QvKoTv+P2jof+FpXs+eBhr+sIjiKluwPhSCoo=;
- b=aeRZ16FPjjAxTq5cvn4YASVuk0hY+7lhGrvfGRsoE04L9ZGDtqVug4WFV+vEJdkLfN
- 029SWFuG6HlsoL4k9IOP7ivOe9E8ZEXKprGQ9rpyuVcDfsDcklCKdHspdry0WVbAOXQO
- Nwr00rF1114POAJlB5gVvI4NlTwCAsNB/I7AA9uZXKapOkEPYGbZCD1oN4ShxKCZFiTX
- B5834PfMRj008j9rDC0Xb5465kjEYnd3ym+C3H8sllbJmMi2rglIKbRHJalMYnuhC9rd
- 3Vq+d41iyqZAMjtmO5WIohUocXhlEEU3mWyZgV3QLMXeyXGjtZlGefkl0CmvQnMLJLyN
- y13w==
+ bh=eaViRZdTz1pe7K5Ve+A+jDi4rEh6BzJpbuDAry0oTGU=;
+ b=KtRfRjOf/LbCWLdtaeK1Re3AGVxqCX/W+qxc5exGUfVLvl0GavO/aOrsejIy2TilW8
+ aH7uC9dOBwrvju9P7F2rQAJexqFl1OFm3qIakYwnsL8l3DafvaQJfmhPUV1A7HLGgggZ
+ MNQ/WKLhwQUQV82expA5hHQUxIyIzt/6uuJCcnx5ciS1mAZlO7OBvG0hX0DnUy7rYTWA
+ 0YQ8l8Os2XciULRkeDQe8K33/7Ft+GyaL8dl4JHek6QsppQwwyPZfvxAJymTmc+e9NwH
+ QJwsaVSXVGiovkACD2UYOVlp+ZhYnRqFVKiHHRJPDsucE2ZAIm+ukXz+mjqExVbOrtLv
+ Nz4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711460341; x=1712065141;
+ d=1e100.net; s=20230601; t=1711460695; x=1712065495;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=LuF9x0QvKoTv+P2jof+FpXs+eBhr+sIjiKluwPhSCoo=;
- b=pQH9yicUyMX9Te82ktO/BbENSBJnBUhZ+znG65kU8Z8+kOSq4mEki2rm0VuPklodvV
- 6Ve30jdvcKsoQlr+DnVrMFbGr55oSKznDLM80bYk8JB+YMBAkwY/rkxoNguOv7mjUkOM
- a6ObHTfEsp/UUGx1B5lJM+OS5KXf1P3zTkLJrqxHNcps6nK4AKFsdkX7btNqP9y657uu
- 8R8EG9can0NQ250VPb2qCXOd8OQAtKsn8RKfhgOMLxZMgyJtMeH4IMOGx0M+V8R5UFkq
- s1ddkDfVcBn0SnQPvxCmc6X4KrI5FlSIueHXlzWxUfj+vc7aN2L3UtR1dZ6aKamNfe8s
- e23g==
+ bh=eaViRZdTz1pe7K5Ve+A+jDi4rEh6BzJpbuDAry0oTGU=;
+ b=tSwzP8JGdGEUXH15/PVKYQ9ms42zS1zA9Y5yZgWh329zvCqUqSg6R7e5KYbH2rMPVK
+ JapnjbVaN5QzJfVUBPIyRMRVI/LnSJxbMnYEiPJ5BcKLwz6h3LUF6PHF4RD7m0+Vdn7p
+ XsInj5nQ9S2mXcwELQOzWlU/3gaN9j8ylWr9F7z9GaOQRVScicXGjCRWKLkZVBEn8C7K
+ jlaUs40wMwolwCOzsmHB5i/YxCIvw+1UT7xSQqcAyvtwQ8sUuyHirCj8IsxN/svOe4Y8
+ wBI0xSCAyqxOir3iWv8sRRh7vnVh95JLzlga2nyKtiEYQ9vHF3Y2V2QL9Rsw0dMxKpGl
+ dWIA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWfjaqKvCifxYNbvptyGOgEJ7PKTtl5icWKQ+RqdGWcynnKiHX+H1/tMIvrxKHP/WqFA13abqC56XtEhqqkNU1wA+up/Oc4Qhx4HBVQ7A==
-X-Gm-Message-State: AOJu0YynQnX45ePThz/w7ZFa41WmjlylrJWEkr/ak8NVVDCeioMoijwy
- xVbQ4YpKJyD/g7mWVXYcTbLq1HdGnUqOSBzr/XkEwImCt29tIdxWm4bl3wcE2GSDfx3iPw16KyX
- M4q6Dz5pyygvHHAt9QmgEsPqxEEk=
-X-Google-Smtp-Source: AGHT+IFWN4tqY/oZrFSwz58LQBVEfScmW4+UsX+QTyKvhZBaSCQmGubq0bVQkbr2qeH7LjGClI1u0Ra4NTx9nbjlNks=
-X-Received: by 2002:a17:90a:4404:b0:29d:fb03:48b0 with SMTP id
- s4-20020a17090a440400b0029dfb0348b0mr6974120pjg.44.1711460340668; Tue, 26 Mar
- 2024 06:39:00 -0700 (PDT)
+ AJvYcCWNTudzoiF6JGRNqmsTBW0SgMPNcRF2uZIUy6jcM0VsOQV4XdUSNVSTIybEXddp+WuzxehLZQ++HDZbBXoTmzBlQxP86dmS1eie98Jjeg==
+X-Gm-Message-State: AOJu0YxE+QtHHgTM7igc4j/YUUL5RlBCaqRpgtmVQpUzztpeayWrO1as
+ 7Olkkgdcv0Ixz1Q9O3MjHttGP9+fdCiCmu4jui40aCfGmuLLkfpm9qHf068nT9fmnqKxLX42PrQ
+ Ij1IKUt3bDr4Qe6+la3XbPtS14II=
+X-Google-Smtp-Source: AGHT+IFXkM0o9adu14F0TEdcrjqFLjcEnAF0/6YnSKgfNLWihCbmfX9gFfCTTGzqqQX5wyNfk+jdgOj0eF+m2ePnqjI=
+X-Received: by 2002:a17:90a:12ce:b0:29d:9c46:a6aa with SMTP id
+ b14-20020a17090a12ce00b0029d9c46a6aamr2528388pjg.17.1711460695347; Tue, 26
+ Mar 2024 06:44:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240318214058.2014-1-Arunpravin.PaneerSelvam@amd.com>
- <20240318214058.2014-2-Arunpravin.PaneerSelvam@amd.com>
-In-Reply-To: <20240318214058.2014-2-Arunpravin.PaneerSelvam@amd.com>
+References: <20240322164956.167498-1-shaoyun.liu@amd.com>
+ <1d3c4b3a-733e-4820-ba8f-0466cb26a45c@amd.com>
+ <CH0PR12MB5372C29628094DCF2C51D2BBF4362@CH0PR12MB5372.namprd12.prod.outlook.com>
+In-Reply-To: <CH0PR12MB5372C29628094DCF2C51D2BBF4362@CH0PR12MB5372.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 Mar 2024 09:38:48 -0400
-Message-ID: <CADnq5_OOV49X-ctq-V6B9rGun43_BnWJixkbzAGRO1g0fzACxA@mail.gmail.com>
-Subject: Re: [PATCH v9 2/3] drm/amdgpu: Enable clear page functionality
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- christian.koenig@amd.com, alexander.deucher@amd.com, matthew.auld@intel.com, 
- mario.limonciello@amd.com, felix.kuehling@amd.com
+Date: Tue, 26 Mar 2024 09:44:43 -0400
+Message-ID: <CADnq5_OVp-31BUV2T78d4h9PEnSG7z_yhLFf3WsXpy3sRx_i4Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu : Increase the mes log buffer size as per new
+ MES FW version
+To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,320 +81,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 18, 2024 at 5:47=E2=80=AFPM Arunpravin Paneer Selvam
-<Arunpravin.PaneerSelvam@amd.com> wrote:
+On Mon, Mar 25, 2024 at 7:52=E2=80=AFPM Liu, Shaoyun <Shaoyun.Liu@amd.com> =
+wrote:
 >
-> Add clear page support in vram memory region.
+> [AMD Official Use Only - General]
 >
-> v1(Christian):
->   - Dont handle clear page as TTM flag since when moving the BO back
->     in from GTT again we don't need that.
->   - Make a specialized version of amdgpu_fill_buffer() which only
->     clears the VRAM areas which are not already cleared
->   - Drop the TTM_PL_FLAG_WIPE_ON_RELEASE check in
->     amdgpu_object.c
->
-> v2:
->   - Modify the function name amdgpu_ttm_* (Alex)
->   - Drop the delayed parameter (Christian)
->   - handle amdgpu_res_cleared(&cursor) just above the size
->     calculation (Christian)
->   - Use AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE for clearing the buffers
->     in the free path to properly wait for fences etc.. (Christian)
->
-> v3(Christian):
->   - Remove buffer clear code in VRAM manager instead change the
->     AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE handling to set
->     the DRM_BUDDY_CLEARED flag.
->   - Remove ! from amdgpu_res_cleared(&cursor) check.
->
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Acked-by: Felix Kuehling <felix.kuehling@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 22 ++++---
->  .../gpu/drm/amd/amdgpu/amdgpu_res_cursor.h    | 25 ++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 61 ++++++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  5 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c  |  6 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h  |  5 ++
->  6 files changed, 111 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_object.c
-> index 8bc79924d171..c92d92b28a57 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -39,6 +39,7 @@
->  #include "amdgpu.h"
->  #include "amdgpu_trace.h"
->  #include "amdgpu_amdkfd.h"
-> +#include "amdgpu_vram_mgr.h"
->
->  /**
->   * DOC: amdgpu_object
-> @@ -601,8 +602,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
->         if (!amdgpu_bo_support_uswc(bo->flags))
->                 bo->flags &=3D ~AMDGPU_GEM_CREATE_CPU_GTT_USWC;
->
-> -       if (adev->ras_enabled)
-> -               bo->flags |=3D AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
-> +       bo->flags |=3D AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
->
->         bo->tbo.bdev =3D &adev->mman.bdev;
->         if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA |
-> @@ -632,15 +632,17 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
->
->         if (bp->flags & AMDGPU_GEM_CREATE_VRAM_CLEARED &&
->             bo->tbo.resource->mem_type =3D=3D TTM_PL_VRAM) {
-> -               struct dma_fence *fence;
-> +               struct dma_fence *fence =3D NULL;
->
-> -               r =3D amdgpu_fill_buffer(bo, 0, bo->tbo.base.resv, &fence=
-, true);
-> +               r =3D amdgpu_ttm_clear_buffer(bo, bo->tbo.base.resv, &fen=
-ce);
->                 if (unlikely(r))
->                         goto fail_unreserve;
->
-> -               dma_resv_add_fence(bo->tbo.base.resv, fence,
-> -                                  DMA_RESV_USAGE_KERNEL);
-> -               dma_fence_put(fence);
-> +               if (fence) {
-> +                       dma_resv_add_fence(bo->tbo.base.resv, fence,
-> +                                          DMA_RESV_USAGE_KERNEL);
-> +                       dma_fence_put(fence);
-> +               }
->         }
->         if (!bp->resv)
->                 amdgpu_bo_unreserve(bo);
-> @@ -1365,8 +1367,12 @@ void amdgpu_bo_release_notify(struct ttm_buffer_ob=
-ject *bo)
->         if (WARN_ON_ONCE(!dma_resv_trylock(bo->base.resv)))
->                 return;
->
-> -       r =3D amdgpu_fill_buffer(abo, AMDGPU_POISON, bo->base.resv, &fenc=
-e, true);
-> +       r =3D amdgpu_fill_buffer(abo, 0, bo->base.resv, &fence, true);
->         if (!WARN_ON(r)) {
-> +               struct amdgpu_vram_mgr_resource *vres;
-> +
-> +               vres =3D to_amdgpu_vram_mgr_resource(bo->resource);
-> +               vres->flags |=3D DRM_BUDDY_CLEARED;
->                 amdgpu_bo_fence(abo, fence, false);
->                 dma_fence_put(fence);
->         }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_res_cursor.h
-> index 381101d2bf05..50fcd86e1033 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
-> @@ -164,4 +164,29 @@ static inline void amdgpu_res_next(struct amdgpu_res=
-_cursor *cur, uint64_t size)
->         }
->  }
->
-> +/**
-> + * amdgpu_res_cleared - check if blocks are cleared
-> + *
-> + * @cur: the cursor to extract the block
-> + *
-> + * Check if the @cur block is cleared
-> + */
-> +static inline bool amdgpu_res_cleared(struct amdgpu_res_cursor *cur)
-> +{
-> +       struct drm_buddy_block *block;
-> +
-> +       switch (cur->mem_type) {
-> +       case TTM_PL_VRAM:
-> +               block =3D cur->node;
-> +
-> +               if (!amdgpu_vram_mgr_is_cleared(block))
-> +                       return false;
-> +               break;
-> +       default:
-> +               return false;
-> +       }
-> +
-> +       return true;
-> +}
-> +
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index 8722beba494e..bcbffe909b47 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -378,11 +378,15 @@ static int amdgpu_move_blit(struct ttm_buffer_objec=
-t *bo,
->             (abo->flags & AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE)) {
->                 struct dma_fence *wipe_fence =3D NULL;
->
-> -               r =3D amdgpu_fill_buffer(abo, AMDGPU_POISON, NULL, &wipe_=
-fence,
-> -                                       false);
-> +               r =3D amdgpu_fill_buffer(abo, 0, NULL, &wipe_fence,
-> +                                      false);
->                 if (r) {
->                         goto error;
->                 } else if (wipe_fence) {
-> +                       struct amdgpu_vram_mgr_resource *vres;
-> +
-> +                       vres =3D to_amdgpu_vram_mgr_resource(bo->resource=
-);
-> +                       vres->flags |=3D DRM_BUDDY_CLEARED;
->                         dma_fence_put(fence);
->                         fence =3D wipe_fence;
->                 }
-> @@ -2214,6 +2218,59 @@ static int amdgpu_ttm_fill_mem(struct amdgpu_ring =
-*ring, uint32_t src_data,
->         return 0;
->  }
->
-> +int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
-> +                           struct dma_resv *resv,
-> +                           struct dma_fence **fence)
-> +{
-> +       struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
-> +       struct amdgpu_ring *ring =3D adev->mman.buffer_funcs_ring;
-> +       struct amdgpu_res_cursor cursor;
-> +       struct dma_fence *f =3D NULL;
-> +       u64 addr;
-> +       int r;
-> +
-> +       if (!adev->mman.buffer_funcs_enabled)
-> +               return -EINVAL;
-> +
-> +       amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &cursor=
-);
-> +
-> +       mutex_lock(&adev->mman.gtt_window_lock);
-> +       while (cursor.remaining) {
-> +               struct dma_fence *next =3D NULL;
-> +               u64 size;
-> +
-> +               if (amdgpu_res_cleared(&cursor)) {
-> +                       amdgpu_res_next(&cursor, cursor.size);
-> +                       continue;
-> +               }
-> +
-> +               /* Never clear more than 256MiB at once to avoid timeouts=
- */
-> +               size =3D min(cursor.size, 256ULL << 20);
-> +
-> +               r =3D amdgpu_ttm_map_buffer(&bo->tbo, bo->tbo.resource, &=
-cursor,
-> +                                         1, ring, false, &size, &addr);
-> +               if (r)
-> +                       goto err;
-> +
-> +               r =3D amdgpu_ttm_fill_mem(ring, 0, addr, size, resv,
-> +                                       &next, true, true);
-> +               if (r)
-> +                       goto err;
-> +
-> +               dma_fence_put(f);
-> +               f =3D next;
-> +
-> +               amdgpu_res_next(&cursor, size);
-> +       }
-> +err:
-> +       mutex_unlock(&adev->mman.gtt_window_lock);
-> +       if (fence)
-> +               *fence =3D dma_fence_get(f);
-> +       dma_fence_put(f);
-> +
-> +       return r;
-> +}
-> +
->  int amdgpu_fill_buffer(struct amdgpu_bo *bo,
->                         uint32_t src_data,
->                         struct dma_resv *resv,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.h
-> index 65ec82141a8e..b404d89d52e5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -38,8 +38,6 @@
->  #define AMDGPU_GTT_MAX_TRANSFER_SIZE   512
->  #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS        2
->
-> -#define AMDGPU_POISON  0xd0bed0be
-> -
->  extern const struct attribute_group amdgpu_vram_mgr_attr_group;
->  extern const struct attribute_group amdgpu_gtt_mgr_attr_group;
->
-> @@ -155,6 +153,9 @@ int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *=
-adev,
->                                uint64_t size, bool tmz,
->                                struct dma_resv *resv,
->                                struct dma_fence **f);
-> +int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
-> +                           struct dma_resv *resv,
-> +                           struct dma_fence **fence);
->  int amdgpu_fill_buffer(struct amdgpu_bo *bo,
->                         uint32_t src_data,
->                         struct dma_resv *resv,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_vram_mgr.c
-> index c0c851409241..e494f5bf136a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -450,6 +450,7 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_ma=
-nager *man,
->  {
->         struct amdgpu_vram_mgr *mgr =3D to_vram_mgr(man);
->         struct amdgpu_device *adev =3D to_amdgpu_device(mgr);
-> +       struct amdgpu_bo *bo =3D ttm_to_amdgpu_bo(tbo);
->         u64 vis_usage =3D 0, max_bytes, min_block_size;
->         struct amdgpu_vram_mgr_resource *vres;
->         u64 size, remaining_size, lpfn, fpfn;
-> @@ -501,6 +502,9 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_ma=
-nager *man,
->         if (place->flags & TTM_PL_FLAG_CONTIGUOUS)
->                 vres->flags |=3D DRM_BUDDY_CONTIGUOUS_ALLOCATION;
->
-> +       if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CLEARED)
-> +               vres->flags |=3D DRM_BUDDY_CLEAR_ALLOCATION;
+> It can  cause page fault  when the  log size exceed the  page size .
 
-Is there any reason to not always do this?
+I think we should make sure this patch goes back to stable for all
+kernel versions where the logging is enabled.
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 Alex
 
 
-> +
->         if (fpfn || lpfn !=3D mgr->mm.size)
->                 /* Allocate blocks in desired range */
->                 vres->flags |=3D DRM_BUDDY_RANGE_ALLOCATION;
-> @@ -604,7 +608,7 @@ static void amdgpu_vram_mgr_del(struct ttm_resource_m=
-anager *man,
 >
->         amdgpu_vram_mgr_do_reserve(man);
+> -----Original Message-----
+> From: Kuehling, Felix <Felix.Kuehling@amd.com>
+> Sent: Monday, March 25, 2024 2:58 PM
+> To: Liu, Shaoyun <Shaoyun.Liu@amd.com>; amd-gfx@lists.freedesktop.org
+> Subject: Re: [PATCH] drm/amdgpu : Increase the mes log buffer size as per=
+ new MES FW version
 >
-> -       drm_buddy_free_list(mm, &vres->blocks, 0);
-> +       drm_buddy_free_list(mm, &vres->blocks, vres->flags);
->         mutex_unlock(&mgr->lock);
 >
->         atomic64_sub(vis_usage, &mgr->vis_usage);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_vram_mgr.h
-> index 0e04e42cf809..8478522d7366 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> @@ -53,6 +53,11 @@ static inline u64 amdgpu_vram_mgr_block_size(struct dr=
-m_buddy_block *block)
->         return (u64)PAGE_SIZE << drm_buddy_block_order(block);
->  }
+> On 2024-03-22 12:49, shaoyunl wrote:
+> >  From MES version 0x54, the log entry increased and require the log
+> > buffer size to be increased. The 16k is maximum size agreed
 >
-> +static inline bool amdgpu_vram_mgr_is_cleared(struct drm_buddy_block *bl=
-ock)
-> +{
-> +       return drm_buddy_block_is_clear(block);
-> +}
-> +
->  static inline struct amdgpu_vram_mgr_resource *
->  to_amdgpu_vram_mgr_resource(struct ttm_resource *res)
->  {
-> --
-> 2.25.1
+> What happens when you run the new firmware on an old kernel that only all=
+ocates 4KB?
 >
+> Regards,
+>    Felix
+>
+>
+> >
+> > Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 5 ++---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 1 +
+> >   2 files changed, 3 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> > index 9ace848e174c..78e4f88f5134 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> > @@ -103,7 +103,7 @@ static int amdgpu_mes_event_log_init(struct amdgpu_=
+device *adev)
+> >       if (!amdgpu_mes_log_enable)
+> >               return 0;
+> >
+> > -     r =3D amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
+> > +     r =3D amdgpu_bo_create_kernel(adev, AMDGPU_MES_LOG_BUFFER_SIZE,
+> > +PAGE_SIZE,
+> >                                   AMDGPU_GEM_DOMAIN_GTT,
+> >                                   &adev->mes.event_log_gpu_obj,
+> >                                   &adev->mes.event_log_gpu_addr, @@ -15=
+48,12 +1548,11 @@
+> > static int amdgpu_debugfs_mes_event_log_show(struct seq_file *m, void *=
+unused)
+> >       uint32_t *mem =3D (uint32_t *)(adev->mes.event_log_cpu_addr);
+> >
+> >       seq_hex_dump(m, "", DUMP_PREFIX_OFFSET, 32, 4,
+> > -                  mem, PAGE_SIZE, false);
+> > +                  mem, AMDGPU_MES_LOG_BUFFER_SIZE, false);
+> >
+> >       return 0;
+> >   }
+> >
+> > -
+> >   DEFINE_SHOW_ATTRIBUTE(amdgpu_debugfs_mes_event_log);
+> >
+> >   #endif
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> > index 7d4f93fea937..4c8fc3117ef8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> > @@ -52,6 +52,7 @@ enum amdgpu_mes_priority_level {
+> >
+> >   #define AMDGPU_MES_PROC_CTX_SIZE 0x1000 /* one page area */
+> >   #define AMDGPU_MES_GANG_CTX_SIZE 0x1000 /* one page area */
+> > +#define AMDGPU_MES_LOG_BUFFER_SIZE 0x4000 /* Maximu log buffer size
+> > +for MES */
+> >
+> >   struct amdgpu_mes_funcs;
+> >
