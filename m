@@ -4,117 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60655C6FD1F
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Mar 2024 16:34:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 359EDC54E67
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Mar 2024 16:50:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B766510EC84;
-	Tue, 26 Mar 2024 16:34:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81C7010EF53;
+	Tue, 26 Mar 2024 16:50:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fPhSvwb5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VUZc1KSt";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2118.outbound.protection.outlook.com [40.107.223.118])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9202310EC84
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Mar 2024 16:34:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Na+lKttYciqxwcIz5f+TQVDxCxTf1iQBdWqcdXhDOy2SaDLh6FZV0HeSrwU3QcPHHmeZxGu+xe0K1yVfJWgrPMru68KOFTJFAP9Kt5N7DviPIEDly0e0ySE59mySD0Lm8EKEblwhvgVAmAopM9dbbhjzSSmZBaYwBMrPBNzKGIwLXgVdhprU2XONtSP8xe9dLbSURy5qiiYxrix3pH+kbW5BM6i+ogDy3r8bKywldjSao7IagoxAT0UgNB3Gq0msMFCFN3Aw4Yubd04f/kDJuKif8+ABNFPKYpz+nX7SEcHjT5W0DxHEn/U9cg1lNdOEDOcuiTYJWl9Ffz6/fHdCNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2gv5NtqLJIy6vx+9L0V9Qet1hW/BYa6C/ykJvVumldg=;
- b=L5DL4ZhkpOHX9V5804Vw4g+gXYwfrXlhR++i6DZlRwS5tscMb0TbaqQgNZbcvPYZO3pExrlPC9xr5eXkdScahb9BlzThQw5gXIAr46/Q5AwduErc7L7iLi7Y96Xzdv6aoJp1qVHP3FDe7mthhjWitIJQ1lubruoIN6pLrnI9UV4zHtvnNUBvu0jqcossF3Jjecm4zDwm7gyzreAocSDoYLYUW/8vqyTib3ofTcw3cna8/kCdX3eVU5IbM6lpwEcT2QauQPmO36pKihbCFOOxeCGh85TH/+woq1qiDsjbmF1MBi0RDdshKvezbXAoO3i+ns+aP8KIyugRR3f6QZrwmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2gv5NtqLJIy6vx+9L0V9Qet1hW/BYa6C/ykJvVumldg=;
- b=fPhSvwb5a/RVn5kXyELTyjaFsKhkestKt2SfOx5S/A7qsTJ3aIL48PAqnaVQf+LJM7+Cc45v2b7Yh8DGjfMkJwUp6pPzUxPxWZXHgu6i+kPYk6+g9rw2pPipiWAyCXKffhbXWV7mTBCnnwK2g0qmlOeCXT7ajGk1c/sFRbU7kkE=
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CH2PR12MB4085.namprd12.prod.outlook.com (2603:10b6:610:79::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.33; Tue, 26 Mar
- 2024 16:34:46 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::8099:8c89:7b48:beed]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::8099:8c89:7b48:beed%7]) with mapi id 15.20.7409.031; Tue, 26 Mar 2024
- 16:34:46 +0000
-Content-Type: multipart/alternative;
- boundary="------------New1LBWGmTQvfDcOVdU96LLi"
-Message-ID: <67735439-e3d1-4c25-ba85-1d6a195b589d@amd.com>
-Date: Tue, 26 Mar 2024 12:34:44 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/amdgpu: Enable IH Retry CAM by register read
-Content-Language: en-US
-To: "Alam, Dewan" <Dewan.Alam@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Zhang, Zhaochen" <Zhaochen.Zhang@amd.com>
-Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-References: <20240313174344.2580-1-dewan.alam@amd.com>
- <c0c126f3-c379-4a68-bb89-2c4aa505679b@amd.com>
- <SA3PR12MB790204F7976709B88A9302BF8B352@SA3PR12MB7902.namprd12.prod.outlook.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <SA3PR12MB790204F7976709B88A9302BF8B352@SA3PR12MB7902.namprd12.prod.outlook.com>
-X-ClientProxiedBy: YT4P288CA0013.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d4::18) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D57E10EF48
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Mar 2024 16:50:27 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-29f69710cbbso3835300a91.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Mar 2024 09:50:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1711471826; x=1712076626; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DSt+vGeOge/2tqP3rBqb92pKjhNfSiBah7lywrR2jbo=;
+ b=VUZc1KSteJnIfcfaE2YitdYib9/QDXijSnKLUSoBfnbJUp99dztEiZYeubNPfrTV0M
+ w4u02Nj8Cic1/pJeAwo1HqqiIOnxR3SDw/APUizynAIrkBgmfIEI84yKlShj1zkmH+6R
+ mEV0zridQ1A6GLK9ZWMwjIaKkYIXB9HATM9rFR1FxtRCtTaMlRzrD30IPkZMxnh0honA
+ nEX8heyt0EF6AvDeM6aYtvb4ak8yTK4nq9KAw2XxrCVvnZ/od/OV19WW29dtv7HPwxlZ
+ ZgcQk5aErgxOpuzD6bq1TlnIpbk0mKhZBdFOF/3NmwPweY6z7UznNGSdDWUwpqaM1hJ8
+ 50rQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711471826; x=1712076626;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=DSt+vGeOge/2tqP3rBqb92pKjhNfSiBah7lywrR2jbo=;
+ b=HL24OVrb4F5sNMMn4PIZCyaxO2I3fTgo6a2uI2G7VqIBI2ZTmuTr9alenhkCN3Lszg
+ iwwash721qcUYlQD+zC8JB5ggfVPsujLcYRkD8riN7Bxx8EH/9FqWg9aex+sO4bzQD4G
+ Pnu7kplaSpOEcZGc+g2INi4W/6ArnTRxn/IZ3TGohuDdwoqxMRA8UDh976sgYn4QOBW2
+ c6nJrzf4pCRjuPCnTsOMuplEqBKE35E+EWYkN2DY5PaQ3VtklbAThauCOhdh0V0qlrw2
+ QNVqj13x+hjNU6b44myiuio9HsQ/yWzVP4yd6Kp89IHZaZTGKZi6cvNPp68QuKua1+h4
+ pfzQ==
+X-Gm-Message-State: AOJu0Yy5oisapK08tNuhtAXyaA2y9ppHS8WR0i5pachxRnWuX/Bm7i2C
+ 32pV/2jVHC7XwdPRHTFrwwcAdTSgmUD0fyyT/mXrN5C/eqERv8a5MNvZj0ccGaSBGhLj96++iL/
+ Y0MHT1zekhYouxobj/UkW4fqNSh6MBAr2
+X-Google-Smtp-Source: AGHT+IGihOMWcOmNda9fd3FfDMCat3f9reZobov0roc9MHtZg0JPE02/xmveQ3kj60UN7ou6U2efXoHsARWs9uG5q+A=
+X-Received: by 2002:a17:90b:4b8f:b0:2a0:7e08:ea49 with SMTP id
+ lr15-20020a17090b4b8f00b002a07e08ea49mr3021172pjb.5.1711471826276; Tue, 26
+ Mar 2024 09:50:26 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH2PR12MB4085:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: j43uqIOhzNaedpLwCooRdIgPmw5pExuVW+3Rqg5R4Rg130ocmGbPlLp9Oi3aeBdgby7exCK64qbmKwcPlmXDiXoUJmynbdcdYD0O4L8o0x4QKdZNhgJq+NiPktBLC1b+jSqCy/VA6hgkUY5ji+wm05pyK+XJuW28q9ydQTH/Hxyc/EYCDmoVODfYS+duNY+NcKELAKrNMpMYq37TRcerIXNqsXKvB9x86HLDaG0snDnpGYwxPfplYQ9wNaeoK/3juqsUiFj0COmZ4bA6xJfdQ3o2dj7ctgiBu8BmJkArR7Q9/3SxhECmd++bpnZ5raJFlPQPONBZOFw+Cku5hLGalECkSiSIoXkfBW8Q5CGknOPExa43Ok3z1SnsJ+iDoO9uhvPIpzOmjE1LMsPyQ28pnqU++OLBn7RyfKJundxvxBxgrPut0S7P3ZzHiivWOwCLu+QF+2D/bLyerJr3hPOvfqGRDlinpcylDZhYiSB0khYC7ZkoH0Qf3oy6j4ywiheKfduREup/FDSO+8U2LRPEv5BmBGLWdq5Z9aRzcoKSv+QB3q8kbemmqHtj4HAh/6s6qv09do6V+3YXMX+IAYLzHuuGETeS7ukHXunU/TzojFT0Fb32L8Dtq+P+OgI+3JpMCnTJa3AXPwW0rSXBaqU/bN2hzJxVKIjN4a6mGlTZLEk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?akVIMmpjd1FTbjJiaVhIZC9Wd2pDNkhZaGNSRzI3UlFYNTJ4WDAxOU1rdUFK?=
- =?utf-8?B?ZDJtUityR3lndmNZQm5HL2VKQnVuSitjRXRSM3VuN0cxcEJJR1VKcERoeDVo?=
- =?utf-8?B?bmFJZzRyU1I5VkxGWTZMNmYwZXNsMkErWXFlNG9FSjliSTBNL1ZDS0tFck9a?=
- =?utf-8?B?L3BzVE5kWlF1RXVNMUFFa0o2TFNiVlg3R1VCY3Nadm1PSStzS1YzTTVjWGhI?=
- =?utf-8?B?Y3NWWEdraHRHVm1YWmxVME5LeGNQV3MwdkxiVUNKYWozdXlERWNCSTJXWDJl?=
- =?utf-8?B?WWFyeXpobFZIZkxXRzBjZ3BOdGFwLzB5bHRtSlVCUFNZa0RQYmxwb1J1RXZO?=
- =?utf-8?B?aVdRTUJiN3phMnUwaTArc1FQUkpvdVZyWXQyQ0Q1V2xRS2pwZWQyakNLcFQ5?=
- =?utf-8?B?cGx6Q09QMG81U3N2bElKRmlMZVpVUCtWODhZa3JVcDRWd3dINVhNcFBaNkI3?=
- =?utf-8?B?bEZlNWUvbkZiazRMbHYrQXpFRUN6dzgxS1ZEc0x2SFBDcUZhd0xOMDQ3QVVD?=
- =?utf-8?B?Vis3a1o3ckhNNldMcFdJbFQ1TmgvR2x1TGZId3RDZ3VnMURFT1IzRCtkc0kz?=
- =?utf-8?B?OEpLblNoYWhZdnplSHQ0dlpob2dzQk9pRGYzMnZJRFY0aE5yT2MvdVp2cFlw?=
- =?utf-8?B?ZFdYR1NDeFZrTWdzcFFjLy9hTzhkQnlFQ1RTdmwyTWkrY1QwbkFKelNLaTl3?=
- =?utf-8?B?aU9xQjF5Y0lwN2kzOEp1MWRoV0NPNW90Z3FCT2VVZjZNcWlUNzJVa2NTUmsx?=
- =?utf-8?B?MmFqZ2tXanNOa01yZ0ZlaDBWZ0tIVTNEZEh6MGpSZzRSdlNEa2trVkNNMEhL?=
- =?utf-8?B?d1RsNEd6NFNsMmJKY2Rvb0xNbDd6NnMwRXpyVjh1UmEweWZTcWhTWGJQbjJQ?=
- =?utf-8?B?N1EwVzN5Q1hhOUowcWE0ckIrTEFjNnErc3ZSM2lPNURKN2w2K1hLRm8rbVhB?=
- =?utf-8?B?YUlwWGRaVWtUR2xzYmMvbGQ4TGd4b0QwS1RnRkNPL1krN1d3U2ZraDdoc3lL?=
- =?utf-8?B?aDI4dVJxQms2bDlKcHhBOEk0ejBPOGZMTXlVV3prY05ONzk4L3oxNHZycURz?=
- =?utf-8?B?aU5sZDh2Yk1BL2dPcVMxakxuT1lRRVJEdTBEMmg5cXhWR2VlR2dvM2xKMFJQ?=
- =?utf-8?B?eElMdDZsb25JbUx5bm9BcTNXSmRuaFQzMUpoZkQwY1JBVWp5MHRkYWNWSXJ5?=
- =?utf-8?B?QzFHWVEzT0svUDVENFBWOVZYUENVakQvZVJlT1BmV2dwSjZkSzZSRDhmSGxl?=
- =?utf-8?B?K0tQQlB3YkxBNWRYM2tmWUdhOTdGOXJza1d4TFFvNWZKVFVjR2haZ1Rja0Vq?=
- =?utf-8?B?WFBCZFpScXMrVTY2VFhzZ2pOMVlZdzhyRjdrUThFRlB1RVM5aHV3anNwdFEw?=
- =?utf-8?B?NnFHNlgvN1phTjkzaTV2dFh0QjBGNlZCRjlyYmxsNUFhb2tJZmhiUnRpRWx6?=
- =?utf-8?B?bW9IbTVGUHpiNUNwMmdlclQvbVM2eitxWXVwUS84L1d5WHZvTlF6UDlQd1Ju?=
- =?utf-8?B?VzBzNW85RHgvYXJ4VEVFdVVueDU5eGVscnUrc0cwTnBhd2JIY3NpSGJQa0xI?=
- =?utf-8?B?YmNJeUJBYUd5eDA3N1FhWDBiSXJSZmg2ZWQra2pRMm05eGxVY0ZXWXhlL0tv?=
- =?utf-8?B?WDY3dDUrM1AzUmh1dGV4Vkx6LzRya3JKQ1hWTU5Dc3hPN3gwd0NhSXkvaFZM?=
- =?utf-8?B?U3RGckgzeTBKaEJPUGR2dHRzQTJ2TU5sMnNieE1YQUtkU1FvazJDNmViYThE?=
- =?utf-8?B?L0dDWXVET1prNU5YSXEzczdPdGVLTnNoM2paTVBxcXRzZjl2cnRtS3hlVFIx?=
- =?utf-8?B?TlZ1UzRqWk5aVk9YU3ZDR1ZPK1VKY2pBRWMxWE1hQ3B3UVFLdjJrZ0FaR3l1?=
- =?utf-8?B?S25CKy8yR2dvaXN4SUFHUkQyY202RHZ2UkdSRy82VzFYZnRPRVYzSzFvYWlk?=
- =?utf-8?B?WEFyOTlSZ09ieXBrOCtJQzc4azhUOW93eGpFai94T2JSd3dXNmx6RkRaR21O?=
- =?utf-8?B?TDgweWMrcEVieVd4emFLaWc1ZUtqbDZ2N25HZUFYbE0rR0k0OFhnRlU2bU9Y?=
- =?utf-8?B?UEZkVXBLakNjeUhhbDZJZS8zc2ZhVTdBdHFYNzJFenkyaXBucExMdjFENFd5?=
- =?utf-8?Q?jVitHbBN38PA4XT4A/UhGSa+b?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 857e73fa-91aa-41b0-ff07-08dc4db2a5e0
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2024 16:34:46.3362 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z4HOlKe6HfjC6/f/8B20qfv/zQKqDSyJhr0RA88ounfyn0qYWDS0rLC5vB0DMKNivm0WXtU/8MWQP2m0yw6v8w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4085
+References: <20240322180021.391680-1-shaoyun.liu@amd.com>
+ <CH0PR12MB53727B34030F966B79075C51F4362@CH0PR12MB5372.namprd12.prod.outlook.com>
+ <CH0PR12MB53728065D73B07D089A9AB6AF4352@CH0PR12MB5372.namprd12.prod.outlook.com>
+In-Reply-To: <CH0PR12MB53728065D73B07D089A9AB6AF4352@CH0PR12MB5372.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 26 Mar 2024 12:50:13 -0400
+Message-ID: <CADnq5_NxMGhFYxs9_aztY2KAy+UqLF3gCVhWQmnhm7rirHDpVg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu : Add mes_log_enable to control mes log feature
+To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,208 +77,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------New1LBWGmTQvfDcOVdU96LLi
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-On 2024-03-26 12:04, Alam, Dewan wrote:
+On Tue, Mar 26, 2024 at 11:51=E2=80=AFAM Liu, Shaoyun <Shaoyun.Liu@amd.com>=
+ wrote:
+>
 > [AMD Official Use Only - General]
 >
-> Looping in +@Zhang, Zhaochen
 >
-> CAM control register can only be written by PF. VF can only read the register. In SRIOV VF, the write won't work.
-> In SRIOV case, CAM's enablement is controlled by the host. Hence, we think the enablement status should be decided by the register reading.
+> ping
 
-Thank you for clarifying that. With that in mind, I would suggest 
-changes to the commit headline and description to avoid confusion:
+Maybe we'd want to make this something we could dynamically enable via
+debugfs?  Not sure how much of a pain it would be to change this at
+runtime.  Something we can think about for the future.
 
-drm/amdgpu: Confirm IH retry CAM enablement by reading the register
-
-Under SRIOV, the IH CAM cannot be enabled by the guest. The host controls
-this register. In the guest driver, read the register to confirm whether
-the CAM was enabled.
-
-Regards,
-   Felix
-
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 >
-> Thanks,
-> Dewan
->
-> -----Original Message-----
-> From: Kuehling, Felix<Felix.Kuehling@amd.com>
-> Sent: Wednesday, March 13, 2024 3:46 PM
-> To: Alam, Dewan<Dewan.Alam@amd.com>;amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking<Hawking.Zhang@amd.com>
-> Subject: Re: [PATCH] drm/amd/amdgpu: Enable IH Retry CAM by register read
->
-> On 2024-03-13 13:43, Dewan Alam wrote:
->> IH Retry CAM should be enabled by register reads instead of always being set to true.
-> This explanation sounds odd. Your code is still writing the register first. What's the reason for reading back the register? I assume it's not needed for enabling the CAM, but to check whether it was enabled successfully. What are the configurations where it cannot be enabled successfully?
->
-> Two more nit-picks inline ...
 >
 >
->> Signed-off-by: Dewan Alam<dewan.alam@amd.com>
->> ---
->>    drivers/gpu/drm/amd/amdgpu/vega20_ih.c | 15 +++++++++++----
->>    1 file changed, 11 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
->> b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
->> index b9e785846637..c330f5a88a06 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
->> @@ -337,13 +337,20 @@ static int vega20_ih_irq_init(struct
->> amdgpu_device *adev)
->>
->>        /* Enable IH Retry CAM */
->>        if (amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(4, 4, 0) ||
->> -         amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(4, 4, 2))
->> +         amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(4, 4, 2))
->> +{
->>                WREG32_FIELD15(OSSSYS, 0, IH_RETRY_INT_CAM_CNTL_ALDEBARAN,
->>                               ENABLE, 1);
->> -     else
->> +             adev->irq.retry_cam_enabled = REG_GET_FIELD(
->> +                     RREG32_SOC15(OSSSYS, 0,
->> +                             mmIH_RETRY_INT_CAM_CNTL_ALDEBARAN),
->> +                             IH_RETRY_INT_CAM_CNTL_ALDEBARAN, ENABLE);
->> +             } else {
-> Indentation looks wrong here.
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Liu, S=
+haoyun
+> Sent: Monday, March 25, 2024 8:51 AM
+> To: amd-gfx@lists.freedesktop.org
+> Subject: Re: [PATCH] drm/amdgpu : Add mes_log_enable to control mes log f=
+eature
 >
->>                WREG32_FIELD15(OSSSYS, 0, IH_RETRY_INT_CAM_CNTL, ENABLE, 1);
->> -
->> -     adev->irq.retry_cam_enabled = true;
->> +             adev->irq.retry_cam_enabled = REG_GET_FIELD(
->> +                     RREG32_SOC15(OSSSYS, 0,
->> +                             mmIH_RETRY_INT_CAM_CNTL),
->> +                             IH_RETRY_INT_CAM_CNTL, ENABLE);
->> +             }
-> Wrong indentation.
 >
-> Regards,
->     Felix
 >
->>        /* enable interrupts */
->>        ret = vega20_ih_toggle_interrupts(adev, true);
---------------New1LBWGmTQvfDcOVdU96LLi
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 2024-03-26 12:04, Alam, Dewan wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:SA3PR12MB790204F7976709B88A9302BF8B352@SA3PR12MB7902.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">[AMD Official Use Only - General]
-
-Looping in +@Zhang, Zhaochen
-
-CAM control register can only be written by PF. VF can only read the register. In SRIOV VF, the write won't work.
-In SRIOV case, CAM's enablement is controlled by the host. Hence, we think the enablement status should be decided by the register reading.</pre>
-    </blockquote>
-    <p>Thank you for clarifying that. With that in mind, I would suggest
-      changes to the commit headline and description to avoid confusion:</p>
-    <pre>drm/amdgpu: Confirm IH retry CAM enablement by reading the register
-
-Under SRIOV, the IH CAM cannot be enabled by the guest. The host controls
-this register. In the guest driver, read the register to confirm whether
-the CAM was enabled.
-</pre>
-    <p>Regards,<br>
-      &nbsp; Felix<br>
-    </p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:SA3PR12MB790204F7976709B88A9302BF8B352@SA3PR12MB7902.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-Thanks,
-Dewan
-
------Original Message-----
-From: Kuehling, Felix <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
-Sent: Wednesday, March 13, 2024 3:46 PM
-To: Alam, Dewan <a class="moz-txt-link-rfc2396E" href="mailto:Dewan.Alam@amd.com">&lt;Dewan.Alam@amd.com&gt;</a>; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-Cc: Zhang, Hawking <a class="moz-txt-link-rfc2396E" href="mailto:Hawking.Zhang@amd.com">&lt;Hawking.Zhang@amd.com&gt;</a>
-Subject: Re: [PATCH] drm/amd/amdgpu: Enable IH Retry CAM by register read
-
-On 2024-03-13 13:43, Dewan Alam wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">IH Retry CAM should be enabled by register reads instead of always being set to true.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">This explanation sounds odd. Your code is still writing the register first. What's the reason for reading back the register? I assume it's not needed for enabling the CAM, but to check whether it was enabled successfully. What are the configurations where it cannot be enabled successfully?
-
-Two more nit-picks inline ...
-
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-Signed-off-by: Dewan Alam <a class="moz-txt-link-rfc2396E" href="mailto:dewan.alam@amd.com">&lt;dewan.alam@amd.com&gt;</a>
----
-  drivers/gpu/drm/amd/amdgpu/vega20_ih.c | 15 +++++++++++----
-  1 file changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-index b9e785846637..c330f5a88a06 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-@@ -337,13 +337,20 @@ static int vega20_ih_irq_init(struct
-amdgpu_device *adev)
-
-      /* Enable IH Retry CAM */
-      if (amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(4, 4, 0) ||
--         amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(4, 4, 2))
-+         amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(4, 4, 2))
-+{
-              WREG32_FIELD15(OSSSYS, 0, IH_RETRY_INT_CAM_CNTL_ALDEBARAN,
-                             ENABLE, 1);
--     else
-+             adev-&gt;irq.retry_cam_enabled = REG_GET_FIELD(
-+                     RREG32_SOC15(OSSSYS, 0,
-+                             mmIH_RETRY_INT_CAM_CNTL_ALDEBARAN),
-+                             IH_RETRY_INT_CAM_CNTL_ALDEBARAN, ENABLE);
-+             } else {
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Indentation looks wrong here.
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">              WREG32_FIELD15(OSSSYS, 0, IH_RETRY_INT_CAM_CNTL, ENABLE, 1);
--
--     adev-&gt;irq.retry_cam_enabled = true;
-+             adev-&gt;irq.retry_cam_enabled = REG_GET_FIELD(
-+                     RREG32_SOC15(OSSSYS, 0,
-+                             mmIH_RETRY_INT_CAM_CNTL),
-+                             IH_RETRY_INT_CAM_CNTL, ENABLE);
-+             }
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Wrong indentation.
-
-Regards,
-   Felix
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-      /* enable interrupts */
-      ret = vega20_ih_toggle_interrupts(adev, true);
-</pre>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------New1LBWGmTQvfDcOVdU96LLi--
+> [AMD Official Use Only - General]
+>
+>
+>
+> [AMD Official Use Only - General]
+>
+>
+>
+> Ping
+>
+>
+>
+> Get Outlook for iOS
+>
+> ________________________________
+>
+> From: Liu, Shaoyun <Shaoyun.Liu@amd.com>
+> Sent: Friday, March 22, 2024 2:00:21 PM
+> To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+> Cc: Liu, Shaoyun <Shaoyun.Liu@amd.com>
+> Subject: [PATCH] drm/amdgpu : Add mes_log_enable to control mes log featu=
+re
+>
+>
+>
+> The MES log might slow down the performance for extra step of log the dat=
+a,
+> disable it by default and introduce a parameter can enable it when necess=
+ary
+>
+> Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 10 ++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c |  5 ++++-
+>  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  |  7 +++++--
+>  4 files changed, 20 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index 9c62552bec34..b3b84647207e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -210,6 +210,7 @@ extern int amdgpu_async_gfx_ring;
+>  extern int amdgpu_mcbp;
+>  extern int amdgpu_discovery;
+>  extern int amdgpu_mes;
+> +extern int amdgpu_mes_log_enable;
+>  extern int amdgpu_mes_kiq;
+>  extern int amdgpu_noretry;
+>  extern int amdgpu_force_asic_type;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index 80b9642f2bc4..e4277298cf1a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -195,6 +195,7 @@ int amdgpu_async_gfx_ring =3D 1;
+>  int amdgpu_mcbp =3D -1;
+>  int amdgpu_discovery =3D -1;
+>  int amdgpu_mes;
+> +int amdgpu_mes_log_enable =3D 0;
+>  int amdgpu_mes_kiq;
+>  int amdgpu_noretry =3D -1;
+>  int amdgpu_force_asic_type =3D -1;
+> @@ -667,6 +668,15 @@ MODULE_PARM_DESC(mes,
+>          "Enable Micro Engine Scheduler (0 =3D disabled (default), 1 =3D =
+enabled)");
+>  module_param_named(mes, amdgpu_mes, int, 0444);
+>
+> +/**
+> + * DOC: mes_log_enable (int)
+> + * Enable Micro Engine Scheduler log. This is used to enable/disable MES=
+ internal log.
+> + * (0 =3D disabled (default), 1 =3D enabled)
+> + */
+> +MODULE_PARM_DESC(mes_log_enable,
+> +       "Enable Micro Engine Scheduler log (0 =3D disabled (default), 1 =
+=3D enabled)");
+> +module_param_named(mes_log_enable, amdgpu_mes_log_enable, int, 0444);
+> +
+>  /**
+>   * DOC: mes_kiq (int)
+>   * Enable Micro Engine Scheduler KIQ. This is a new engine pipe for kiq.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_mes.c
+> index 78dfd027dc99..9ace848e174c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> @@ -100,6 +100,9 @@ static int amdgpu_mes_event_log_init(struct amdgpu_de=
+vice *adev)
+>  {
+>          int r;
+>
+> +       if (!amdgpu_mes_log_enable)
+> +               return 0;
+> +
+>          r =3D amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
+>                                      AMDGPU_GEM_DOMAIN_GTT,
+>                                      &adev->mes.event_log_gpu_obj,
+> @@ -1561,7 +1564,7 @@ void amdgpu_debugfs_mes_event_log_init(struct amdgp=
+u_device *adev)
+>  #if defined(CONFIG_DEBUG_FS)
+>          struct drm_minor *minor =3D adev_to_drm(adev)->primary;
+>          struct dentry *root =3D minor->debugfs_root;
+> -       if (adev->enable_mes)
+> +       if (adev->enable_mes && amdgpu_mes_log_enable)
+>                  debugfs_create_file("amdgpu_mes_event_log", 0444, root,
+>                                      adev, &amdgpu_debugfs_mes_event_log_=
+fops);
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/mes_v11_0.c
+> index 072c478665ad..63f281a9984d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -411,8 +411,11 @@ static int mes_v11_0_set_hw_resources(struct amdgpu_=
+mes *mes)
+>          mes_set_hw_res_pkt.enable_reg_active_poll =3D 1;
+>          mes_set_hw_res_pkt.enable_level_process_quantum_check =3D 1;
+>          mes_set_hw_res_pkt.oversubscription_timer =3D 50;
+> -       mes_set_hw_res_pkt.enable_mes_event_int_logging =3D 1;
+> -       mes_set_hw_res_pkt.event_intr_history_gpu_mc_ptr =3D mes->event_l=
+og_gpu_addr;
+> +       if (amdgpu_mes_log_enable) {
+> +               mes_set_hw_res_pkt.enable_mes_event_int_logging =3D 1;
+> +               mes_set_hw_res_pkt.event_intr_history_gpu_mc_ptr =3D
+> +                                       mes->event_log_gpu_addr;
+> +       }
+>
+>          return mes_v11_0_submit_pkt_and_poll_completion(mes,
+>                          &mes_set_hw_res_pkt, sizeof(mes_set_hw_res_pkt),
+> --
+> 2.34.1
