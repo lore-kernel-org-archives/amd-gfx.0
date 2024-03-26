@@ -4,115 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3C4CC6FD1F
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Mar 2024 09:34:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF563CD11DD
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Mar 2024 12:28:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7548010E3D9;
-	Tue, 26 Mar 2024 09:34:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5138710E745;
+	Tue, 26 Mar 2024 12:28:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RO4i7qRS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="G1tcb1RU";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2134.outbound.protection.outlook.com [40.107.220.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D949610E3D9
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Mar 2024 09:34:36 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2106.outbound.protection.outlook.com [40.107.101.106])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF71E10E81E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Mar 2024 12:28:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JiO4O9gx0qhfopMIn47RvOKBtfvhMjbzkC+ymgjZpuV8JHowCIPXFh/iroNMRnxy2LyKmKbpdbq6D6MAduPANw4sJdoPlpwNd0SAYAFHnpC6zK1hh7nRqebf5+BceHGTQ69f1AvzlW3+3xjsML9gY0Zyol6A6OUwfNm8Op0O1vmEFfY0r4dtsaILnlqpVcXpPleK5n8bsjFGNZJYmycQcxVz3cNX+DOHgRU+KWY6SyCoWFTLAMGpME+q8N0P3qnKw+36lAu58t7c+EdQAOppABd94mP34RNmoRKzI2lQ+DV3dfGPo6zeVbeO9jlPUQ1zVPwDNbvOldXD6DioF7m+1g==
+ b=lrIzGvyaPdnb8dVKADFrD/KvSyIFwS6krKFHaZpTLbRG4qgYMFqUg+2eddCaPiYI7Sx7l6M/ETS5naT2S7nXuMuJBcNJsIO8cB1zY3RHzUO3scjnf0AylDgnkjdlbWrHYEx9nQoB8HanR5Hh1WJekWa/wt1CQkyavb0PhsQwqIQXjv3yu9vQGW7mocX9TwGnrbfT2I+Lr4GXYrry4p7JUjEveR5COFjUar5itcd3ZKXdqC55asM/TMxF5wkP9rVeWCou86ynLu4/0ANbhfD8MpPTOHPv/iKJ+l/eQWZjtSIJ90MmmqDVM1F2gWhqQ3lK1Z4rxcx3OQapX0lAQkCGTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bO2QylHAzpPxHK68OTBhBGtXzWP1ZJtcIKbDiVeAfSM=;
- b=Wqw2kcCBLsU+2Vfos9GyXEtaFFM8IkmmHlb3J/XVlLE15mQp0S7OmbWolw/7pMSXWF//5GZNAzq88zwgfIXR9T+4AjxYw6VPegrY5ozgTm/qcCxixjOHKA1+TB8fKnUGMQA8Dk8/khwbbY4s2Jb8YYrLHbOpE2DWy83bbSqbC46dOS1Ejn99lohV34iw7eF3FsVqPj1qo/8BQv1EdFBorWK+xH5tb86Wi1voYQsvUbJkArP5yNIx4Kjv2NpE2kt7Wr2MWQoz8oEhU8+mdttCAkYcK04I3QZaFgq8FaFO7Jg5T1g4ocjfIL5+HGxCGwpnZHuXkf1g1l1ZulO2HXqD6A==
+ bh=S9hOAl+iXOFpCMoJLOpiSNX2NkFm1AbQPVuXMpFzUDM=;
+ b=ixJ0M5ZxBJ1kKuJQ199n/Qc3w6tAmxGJM4Dn3TXHZZ9lx9L0UI7GrRvzJyrJKIRfvltCFoIghqRpZ3rvxU/9YUSxTwR7wVKnWcEy41hDTZY2qnNCW/4XPcCfxmXuskS384YCN5xu8BEEf3VDqIBImcvTfTG3s9I+ww84biObrWWFsSI3ch1J3M3tlX8JRBEarPJ+c7Xjb7LHoDFbXyx07TuGHyw7Bh579ex5XaUiG13Ttksso7MuPpFzoM96gY8Hgh8lrLtDVvOgmr2SMvAvk/DAPQ3smUKWGGtpN39VjE5nSrcXbgRPZzu7A4dnaJJ6qDmQ9AkjdrXfUoorJNSzJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bO2QylHAzpPxHK68OTBhBGtXzWP1ZJtcIKbDiVeAfSM=;
- b=RO4i7qRSIA+4Z4r/vT6yNGgyD23/owNtX/8F2asDQdpW64hmd+CPoLjPo8PDd7odUqwwI5PaU5t3qhd5dHPjX/HFlikNUCW44ZsXS79SnnJdyhNe40AZmZTWOEEIYPVAtTrDP6XziRRHr92fbbvuQmNQmLxiFgY2HpMegaVS2wY=
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- BY5PR12MB4291.namprd12.prod.outlook.com (2603:10b6:a03:20c::22) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=S9hOAl+iXOFpCMoJLOpiSNX2NkFm1AbQPVuXMpFzUDM=;
+ b=G1tcb1RUoEb1vdXB2QI1pCiGcnsSTFBiNC3pCChoXpDS0QjhZOCvbu1uw6FdeRTUuPja/X/FJKtEiGnzR127ddq3zfCJvFegGl5IG6wHJv+qpMxFits7yOYGVa15jPCOv1dM0cA+x0gGiH/PMI5omAPmxNBnNe47UAvCS+pyAks=
+Received: from SA1PR12MB6680.namprd12.prod.outlook.com (2603:10b6:806:253::14)
+ by IA1PR12MB8222.namprd12.prod.outlook.com (2603:10b6:208:3f2::11)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.33; Tue, 26 Mar
- 2024 09:34:32 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::f349:addf:ae3e:814]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::f349:addf:ae3e:814%5]) with mapi id 15.20.7409.028; Tue, 26 Mar 2024
- 09:34:32 +0000
-Message-ID: <a0aa97c7-9cda-4521-a6cc-18afcb6af7f4@amd.com>
-Date: Tue, 26 Mar 2024 15:04:24 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] drm/amdgpu: Add support for BAMACO mode checking
+ 2024 12:28:19 +0000
+Received: from SA1PR12MB6680.namprd12.prod.outlook.com
+ ([fe80::43e8:58fd:8ed7:2bd7]) by SA1PR12MB6680.namprd12.prod.outlook.com
+ ([fe80::43e8:58fd:8ed7:2bd7%3]) with mapi id 15.20.7409.023; Tue, 26 Mar 2024
+ 12:28:19 +0000
+From: "Yin, ZhenGuo (Chris)" <ZhenGuo.Yin@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "mdaenzer@redhat.com" <mdaenzer@redhat.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Paneer Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>, "Deng, Emily"
+ <Emily.Deng@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>
+Subject: RE: [PATCH] drm/amd/amdgpu: add pipe1 hardware support
+Thread-Topic: [PATCH] drm/amd/amdgpu: add pipe1 hardware support
+Thread-Index: AQHadp/IwvLxLJiFEk+8jYNWxsoidrFKBG1g
+Date: Tue, 26 Mar 2024 12:28:19 +0000
+Message-ID: <SA1PR12MB6680EAC544D653060504DE83E9352@SA1PR12MB6680.namprd12.prod.outlook.com>
+References: <20240315061226.1691633-1-zhenguo.yin@amd.com>
+In-Reply-To: <20240315061226.1691633-1-zhenguo.yin@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Kenneth.Feng@amd.com, Alexander.Deucher@amd.com, kevinyang.wang@amd.com
-References: <20240325101559.2807629-1-Jun.Ma2@amd.com>
- <20240325101559.2807629-4-Jun.Ma2@amd.com>
- <2456ff9c-8e83-4b16-98bb-fb2f366dbd73@amd.com>
-In-Reply-To: <2456ff9c-8e83-4b16-98bb-fb2f366dbd73@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0104.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:27::19) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=afa8d89d-5fcb-472a-9fd4-44e94f06567f;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-03-26T12:26:33Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR12MB6680:EE_|IA1PR12MB8222:EE_
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: F5By14Z7BCWvf9IwcO5AOurrICtiaaMULguUhWYCaWAREkQKZNNgU7MxDw7TV3Mdo13smJFKk07hd2ffgVAa0aPN/N677Q4dTEbPaentGgqmCChMIA72lahty6Qz0pjqomyycDT5VPA91CEiUwgFPdsfpNlPZwCEBjNusub03eaH2gA7UTRD0GijI34hXJbGsgYGFgu7fpZ2iJgII3qpqBHZx3z6ziegx4KsADmLgAfMvfnPUmXS4fsh9+Co5IPoAPnqKk66Iq0MoN6eioDlyP7suSIPBVhCp90XEzpSv8FFUWJrStq5LmhGVih5gYlxeyXR3rwn/ZF7zstnFncmrZeE8/WjOaMjc8y3TFb4AIcqulhchFXqBuCMA47Z2cNCyoLoyQb9vNhV93ToI9DPgpb0cV1E5tPm8MS7V4D0xSqyB/djkd8TM0MJuG7pkJNIVtqIow/RWGVep2DJdEIlWOBnzC2JOdgO7Vp7MiCrfGyvbMEh0Uleh8Bbe0zjUJp3CpnG4Ar9b2wLLM6WerQK0C3klvGttbYeSTNr7ChEK3EmDpazMjCiE3UBs7devrrPEKXV1y0y4FLcj05gYiT3HomnpOtRPu9WNAUDOoCIjcI=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR12MB6680.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(366007)(1800799015); DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?khyqjDYL1rTUHvxeZ2hWypEdTh7nm4Y2jMM4FDVlgzGqQC+Yrd5XAVzlWhVX?=
+ =?us-ascii?Q?K5qmIzkYJp2D2vJ7vcVKf0ovwps/N5TngiuUrrwthZ320D8TswKb39csDTJa?=
+ =?us-ascii?Q?TVk4tmepJMXcgo06k+lQVdgRI4YlA1ssrFUkAHjK4u0jh5jtnZTjlRG3cHUe?=
+ =?us-ascii?Q?6L7BBE/apmBKDetxNvwCrtOvVwLZypZR1v4FW7fOZOOouV+APe0nc3KqyIes?=
+ =?us-ascii?Q?4ktb9BlRNAr+NaVmMglo8xj+ml1ueonrP7PedS50uT+kYtk3I3GH431lxHQw?=
+ =?us-ascii?Q?ReMv3/27se1dtblnEGSknDlhXAy4OEyXvZlGPCUEG/1+RVySiOnehf816I8w?=
+ =?us-ascii?Q?rMBLPX1qF806/iUQcGrycU/vXm7ouSSkrdKDY8JrD774rRKDHXY5W+U4LFKp?=
+ =?us-ascii?Q?0RLDkinH+uLUujaftGfxdYTx6ECM0xOgo9lgeRNzb9asdiwDbFkQYV0l2U0w?=
+ =?us-ascii?Q?MhCbeMmsREJsjVm8orfDDJvJ5GE8VFyPvyoPpUXC/iomdiBsucG5K4V81h5o?=
+ =?us-ascii?Q?5Ig1+8cD+MtOqhIzUxr7WEFIVU6YR57mPEsem5PU5/Kk305SLD5sYocNQG5l?=
+ =?us-ascii?Q?qEidDFNo2PNdeFU79yA4MsBM0CIyiCzmbmY1+IzPvZWGrx33CVxJVp7xcxse?=
+ =?us-ascii?Q?LRV+QhI/QkXlpJYf5BW8f0oElHd6BTgrA//2P+SF0gAaY/78jrj0kIKCURPY?=
+ =?us-ascii?Q?dw11zMNtuh97PUfBxRy4l51qItJEum+biNwcOJiiYI/qW9hq7lJ6GiYE/aeg?=
+ =?us-ascii?Q?lJOktg3M7h5hypl5qOsOhiEGLeCYE6CDQPggVpXGvu6R1n5gFfJlhHADfzRt?=
+ =?us-ascii?Q?LYkQ3xvL7mNeIPM7V5wOdx0mWkFqqy6BK4ZUNvuj4WThFYp5L86oqtVXyLVi?=
+ =?us-ascii?Q?19ZESnjeNPktBnJZQlciE6t6epfItoyYE4MM3k2/bd8TeZnNXo5m/JI4+yfX?=
+ =?us-ascii?Q?DR3cl4E4KuojeF6e2j5i/S4h6L0YCtg12mySAa00qzBqDIS6ccZolorkLINc?=
+ =?us-ascii?Q?IDJ74sHHHx1w31FHbuU2y/PM5x6NyGtFUyC2TDnw43BjTPq2v2LJXRLmEFZ7?=
+ =?us-ascii?Q?dFs045Nyc+tOVGpc/0VCfotYblzUna6Ai1Q04kGmteOXbszBho4SJyTmVWxr?=
+ =?us-ascii?Q?Dm7YqjDwRRFo4+MJQgGxm43LnYLOc/VshuhEJ58eLUbNXoZ/co+O13uU+Gpe?=
+ =?us-ascii?Q?AJiBXum3i4aT+vv8G3S9Wr2qtVgud9SINjKiqWDtmaDsBJI5irlGNfS7ACio?=
+ =?us-ascii?Q?7NERf6kdyZbiL6Ty1GC83VvxH8ocKXwOuTSmX7GNJDf97yaAuKnXaBkUyQ7t?=
+ =?us-ascii?Q?0h5oN2jd/UbJgZTJi2j1GOTfy8eNOPFhRsvl8yjC03bAhe6QdMs2cqsQiLAQ?=
+ =?us-ascii?Q?l+5PKwzIbFg2SmM12OoMbJmXU53L3RAyTWelQnni74gjY5NzjUC13Sy3VgGm?=
+ =?us-ascii?Q?uP4//Q6L4nP1tnvzzL1Z3JlO3kekPyK/4msCMwvVQkkIYLIXMNhav+Y/MCR0?=
+ =?us-ascii?Q?25v11PMLiSzErn4vYqRYmND+A0D6otWRzG3KD/LFCqHVmxnQYsK8bt2Rp5Gp?=
+ =?us-ascii?Q?ZGpEAC6hRTo6k56xDEU=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|BY5PR12MB4291:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: edkjzgNgixKtQF1xQ3GU4CmisWzzhoXWjwDzWt8yq0YDOVInP1v55z8ZPXEU89HE3E/cXDR8j7kdvRnTFa+rywcbXufWwJLMRLmrFSxJ5dHgkwPFI9iA8f482kinMSvlCVkoBBsHIH5S5mzpAL50wq5BQOVirqYNKphtljN2/2mC4tsxlKTLnZdTYmtHqvGzdRdrs7c7N0gULnEZDM8xp6+5rcgkrpLDYeUtIhx1VRb1+geHy9IzZGKUETWInIMoOf42wDG4t9dIiHzQFJxS6xmBsRvEEenlTtmQ2w0V+R9qgh381Z8Zqs1WNDat0Sb0iVFGU2O2/V1/eGTnM2s05O/xEdR9o4G8EfVQtj9VKhYT0H4b8pSQej5W/x2KW3lF7FY6aek4G7jUFwgBdG8XAB/u/P3ft/GCjEDQfCyI7YL+TN/XtvbbMLuEl+0bQEDp3EDpsuLvMCDY/bVGN61pqDfloiQLDO4q8YlmV4jRb0MWKSNu9sjlDnrpPA3v5EzYGSn4/12rO+47NmGE3eVcXhesbWQu7nKnBcVKRLa15Tdbk/IXQkbf3U2hroFEsIemJQefoepmR7x9KfNyjfFQBNua9kNeMXhk3KigDjVuw+Sks/hgRblTRJAI7SCn6/mrF/GCeSwIPjY+XtmqQuuVx54vlrItixvcFAxp34iNZdg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N3VaNDZGQkN3V3Zidkc2S1NINE1EcFIzcTM4RUlFRnY1TXZkdkNlaEN2MTh4?=
- =?utf-8?B?NkVHU1FJNC80M1FtOElUZ3RDWEJUemwxeEdjWW1NekF6WldVcVZCa2kvaHg0?=
- =?utf-8?B?UUNkbjlhOVFwbUY2ZU1jNlR6UXAwQzREbHNkWHEvOW05cmhUMlhHV09Lc25z?=
- =?utf-8?B?L0VPSEhONzRLS05XejdKTXkxdmdHZEI0YSttWkM1SVZYMzF6TzBuYTlFQnNI?=
- =?utf-8?B?VnAxWjZUdmc2RVpYUjh2Z2NmaWtXRDU5dUpHMHFrMDBPRGl2alpraHBRaDR3?=
- =?utf-8?B?MWdHUU1mUVFHY3BHRWZDc2VTTHF3V013Q2pieFlGUEVWZWphWU1BMDl1NFQz?=
- =?utf-8?B?Q2N3ejJNSE04UVFab3NJUVg5eCttY1BGQmFIcWlhZU43Q0ljY0dRaUpvK1dl?=
- =?utf-8?B?eFRHbEtVZ1VZaHhVN1ZJWEtGc0tIUkcvcU96ZVhCZHBYbUZVRnhrTXFBakJz?=
- =?utf-8?B?anJVaWJnbHROdEdNSXNQTWwwanJVU0FDMnhVZWhRUG9ueW1qSS9DVmkrNVBm?=
- =?utf-8?B?eFJuZ0RpelNYa2pRa0IwdldnKy90SFU1dlkxSjREZld4NkZhL2grblpvM0s2?=
- =?utf-8?B?VzVNdm1sQ2txSnNnNzg2SW56dTFHOXlJNnFUM1FyNEtYWUt1Y1oyZXdOemVQ?=
- =?utf-8?B?cyt3UVBFMkgvUzY1Qzh1R1FKSzdNeVhTOTdWU1ZwU1pDczUyeWlVWXNHbzRo?=
- =?utf-8?B?cUJub0ZySHFOa3VBNXBkNmQ1d2RBd2JnNnYwMGFHMWk1Rjk5L3FnS1M0Ykh5?=
- =?utf-8?B?ZzBvZ1VsNmlxaHkzaDdTVTM3clo5RWFKV1drY2ptdG41dEMxT2lzY1ZFR0lu?=
- =?utf-8?B?WHAybFlCTVdpcmFXVmpiSEpwVXA1YUMvc2t3VWdaMFdGL0hJaW16dEdKVmRm?=
- =?utf-8?B?dEJQQ0RZVld0OXgyaEo2WTBqSnJXV0xmWUNqS2hUc2d0cXdIZ1RweHJzb0pG?=
- =?utf-8?B?eStuclFpU0NFcktxT0JCT1NsTTRpNG5zaXZWVnkvRlFxTDlsYkJpWUIzS3pK?=
- =?utf-8?B?ZDV1UmpjWVZvVlBNeHlWSTFqV1ltUjNkbm5HUmpnVGM0dUZBcGxsUytSZy9F?=
- =?utf-8?B?a1NOVVF3T2gwNHdPNUg1SWVNYVRpa3U1ZFp1S1lZeVhzZnQ1dXZ0bXZ0MVN2?=
- =?utf-8?B?UWpWV1VieElVTkJyOVFSd1c1ZmZnZ0dTZUU1QUMwMjBXMVhySGl4cXQ1THpY?=
- =?utf-8?B?aGVlOGxaUXBmKy80VE5OMTZvc3hXakVaQTE0ajFJUkQweHBjL1lEcWhWNlIw?=
- =?utf-8?B?QkwzbjZhLzBXZjBKc2l1bmtvQ0ZCT3N2WkEwaGVmd083bEdOclFKak5yajhR?=
- =?utf-8?B?U0FhVXJSWmtKUkRXQ0s2VWpQRXd5WTZmSGtGM2lWb2Rsa1VCSCtzQk12Z01C?=
- =?utf-8?B?K1F6SVFtcGFxVU9wYTgzSmdwb015VEZaNXNBU3NNdXpSUnlYMC9DWjhlNTg4?=
- =?utf-8?B?V2RrTXBpbElURFFDelYwU1FDUXRadDZSalpCRDd0NkVjM0ZzNVRoRUtIOTdC?=
- =?utf-8?B?YVFpWTQralZXNS9SVGNBcmFDOUJvVG4yM3FTSW9ZNUw0YndDSWhCamhSN3pv?=
- =?utf-8?B?UlVNd3NFd1AzRGM0UytpeTArWWpWclgweE1JTkNFWWY1WGo1akZSRGt2RzdH?=
- =?utf-8?B?dFB6SXBkTDZOSGtEZnVaRVh1UDlWWC83MmsvbkdWU1JkNks2VWdXSUk4SDlI?=
- =?utf-8?B?S0xtU0p2Zk9GeEdrQ0VBYXdiYnljTjFtaThCQld3TVQvLzZMc3pHNzE5dHVl?=
- =?utf-8?B?M0VTVGtndTJJRGRYLzliRmppNnFOcHhsLytLRmVoZWk3NlgyM1JwR3RPazhE?=
- =?utf-8?B?U20rRCtYd1pvVHUwZ1YvSTkyN3puRjd4YW5zNndyNE5ocXQ3ZklGV0tNNUJY?=
- =?utf-8?B?bjZaSXphUkxkSlpvOG51SDhsTVc4NnVCb25xNHZtenVqZnFpVTUxMlYrZFo0?=
- =?utf-8?B?c1JRaXJweitUQ3VOMTE0clJiSjFNUjNqRjcrazF2cDNKSzF0bG5TRUFYTUtX?=
- =?utf-8?B?bDVjTmk1MlNjbnEzY3JWVDJhME5uY1NteWFXOFRJZmZGN2RlRGxXd0huYVM1?=
- =?utf-8?B?M2xMYkR1WVMxbFpSSTRPeFlRT2hVUXBQRFhzZS9aRGVGQjV0LzYxYUE2QXY0?=
- =?utf-8?Q?5gFBfQa9WgWeWEJn/9Ltc0i3R?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 006ebca5-f411-40d4-ff25-08dc4d77f101
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2024 09:34:32.3250 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wh87TxaQ+SYwpPka5FyAOTap18IYodYEDZJxtCf6ibCrr/hf7q/7ydHbvwDBrnFH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4291
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB6680.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c92d610e-d04f-4298-fb6d-08dc4d903837
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Mar 2024 12:28:19.3249 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rhlNFXE+GadSXtghIJ2xyRi+/q04YI/1UIdsEIM6nogl0GCRRWhgoFkMuMXnBJ1V6DHFM/sSL3/WmZO2Cm8Mqg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8222
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,184 +127,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - General]
 
+Hi, Alex
 
-On 3/26/2024 2:59 PM, Lazar, Lijo wrote:
-> 
-> 
-> On 3/25/2024 3:45 PM, Ma Jun wrote:
->> Optimize the code to add support for BAMACO mode checking
->>
->> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  4 +-
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 74 +++++++++++++++----------
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c |  4 +-
->>  3 files changed, 50 insertions(+), 32 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> index 80b9642f2bc4..e267ac032a1c 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> @@ -2734,7 +2734,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
->>  		drm_dev->switch_power_state = DRM_SWITCH_POWER_DYNAMIC_OFF;
->>  	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO) {
->>  		/* nothing to do */
->> -	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
->> +	} else if (adev->pm.rpm_mode >= AMDGPU_RUNPM_BACO) {
-> 
-> This kind of checking doesn't work well if we have to add new RPM modes.
-> Instead use || or a wrapper.
-> 
+Could you please help to review this patch?
+This should fix the bug: https://gitlab.freedesktop.org/drm/amd/-/issues/21=
+17.
 
-A few more comments below.
+Thx.
 
-> Thanks,
-> Lijo
-> 
->>  		amdgpu_device_baco_enter(drm_dev);
->>  	}
->>  
->> @@ -2774,7 +2774,7 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
->>  		 * PCI core handles it for _PR3.
->>  		 */
->>  		pci_set_master(pdev);
->> -	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
->> +	} else if (adev->pm.rpm_mode >= AMDGPU_RUNPM_BACO) {
->>  		amdgpu_device_baco_exit(drm_dev);
->>  	}
->>  	ret = amdgpu_device_resume(drm_dev, false);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> index a66d47865e3b..81bb0a2c8227 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> @@ -133,6 +133,7 @@ void amdgpu_register_gpu_instance(struct amdgpu_device *adev)
->>  int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
->>  {
->>  	struct drm_device *dev;
->> +	int bamaco_support = 0;
->>  	int r, acpi_status;
->>  
->>  	dev = adev_to_drm(adev);
->> @@ -150,38 +151,55 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
->>  	}
->>  
->>  	adev->pm.rpm_mode = AMDGPU_RUNPM_NONE;
->> -	if (amdgpu_device_supports_px(dev) &&
->> -	    (amdgpu_runtime_pm != 0)) { /* enable PX as runtime mode */
->> -		adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
->> -		dev_info(adev->dev, "Using ATPX for runtime pm\n");
->> -	} else if (amdgpu_device_supports_boco(dev) &&
->> -		   (amdgpu_runtime_pm != 0)) { /* enable boco as runtime mode */
->> -		adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
->> -		dev_info(adev->dev, "Using BOCO for runtime pm\n");
->> -	} else if (amdgpu_device_supports_baco(dev) &&
->> -		   (amdgpu_runtime_pm != 0)) {
->> -		switch (adev->asic_type) {
->> -		case CHIP_VEGA20:
->> -		case CHIP_ARCTURUS:
->> -			/* enable BACO as runpm mode if runpm=1 */
->> -			if (amdgpu_runtime_pm > 0)
->> -				adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
->> -			break;
->> -		case CHIP_VEGA10:
->> -			/* enable BACO as runpm mode if noretry=0 */
->> -			if (!adev->gmc.noretry)
->> +	if (amdgpu_runtime_pm == 2) {
->> +		adev->pm.rpm_mode = AMDGPU_RUNPM_BAMACO;
->> +		dev_info(adev->dev, "Forcing BAMACO for runtime pm\n");
->> +	} else if (amdgpu_runtime_pm == 1) {
->> +		adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
->> +		dev_info(adev->dev, "Forcing BACO for runtime pm\n");
+Best,
+Zhenguo
+Cloud-GPU Core team, SRDC
 
-The above two don't work if SOC itself doesn't have the support. The
-option should be considered as what to choose for runtime pm when both
-BACO/BAMACO are supported rather than forcing irrespective of SOC
-feature support.
+-----Original Message-----
+From: Yin, ZhenGuo (Chris) <ZhenGuo.Yin@amd.com>
+Sent: Friday, March 15, 2024 2:12 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: mdaenzer@redhat.com; Deucher, Alexander <Alexander.Deucher@amd.com>; Ko=
+enig, Christian <Christian.Koenig@amd.com>; Paneer Selvam, Arunpravin <Arun=
+pravin.PaneerSelvam@amd.com>; Deng, Emily <Emily.Deng@amd.com>; Liu, Monk <=
+Monk.Liu@amd.com>; Yin, ZhenGuo (Chris) <ZhenGuo.Yin@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: add pipe1 hardware support
 
-If the forced mode is not supported, driver may decide to fallback to
-auto mode or drop runpm altogether.
+Enable pipe1 support starting from SIENNA CICHLID asic.
+Need to use correct ref/mask for pipe1 hdp flush.
 
->> +	} else if (amdgpu_runtime_pm != 0) {
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2117
+Fixes: 085292c3d780 ("Revert "drm/amd/amdgpu: add pipe1 hardware support"")
+Signed-off-by: ZhenGuo Yin <zhenguo.yin@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Since it's refactored, explicitly do a check here for AUTO MODE instead
-of any non-zero value.
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v10_0.c
+index f90905ef32c7..5eb6f189920b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4518,7 +4518,7 @@ static int gfx_v10_0_sw_init(void *handle)
+        case IP_VERSION(10, 3, 3):
+        case IP_VERSION(10, 3, 7):
+                adev->gfx.me.num_me =3D 1;
+-               adev->gfx.me.num_pipe_per_me =3D 1;
++               adev->gfx.me.num_pipe_per_me =3D 2;
+                adev->gfx.me.num_queue_per_pipe =3D 1;
+                adev->gfx.mec.num_mec =3D 2;
+                adev->gfx.mec.num_pipe_per_mec =3D 4;
+@@ -8317,7 +8317,7 @@ static void gfx_v10_0_ring_emit_hdp_flush(struct amdg=
+pu_ring *ring)
+                }
+                reg_mem_engine =3D 0;
+        } else {
+-               ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0;
++               ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0 << ring->pip=
+e;
+                reg_mem_engine =3D 1; /* pfp */
+        }
 
-Thanks,
-Lijo
+--
+2.35.1
 
->> +		if (amdgpu_device_supports_px(dev)) { /* enable PX as runtime mode */
->> +			adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
->> +			dev_info(adev->dev, "Using ATPX for runtime pm\n");
->> +		} else if (amdgpu_device_supports_boco(dev)) { /* enable boco as runtime mode */
->> +			adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
->> +			dev_info(adev->dev, "Using BOCO for runtime pm\n");
->> +		} else {
->> +			bamaco_support = amdgpu_device_supports_baco(dev);
->> +
->> +			if (!bamaco_support)
->> +				goto no_runtime_pm;
->> +
->> +			switch (adev->asic_type) {
->> +			case CHIP_VEGA20:
->> +			case CHIP_ARCTURUS:
->> +				/* vega20 and arcturus don't support runtime pm */
->> +				break;
->> +			case CHIP_VEGA10:
->> +				/* enable BACO as runpm mode if noretry=0 */
->> +				if (!adev->gmc.noretry)
->> +					adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
->> +				break;
->> +			default:
->> +				/* enable BACO as runpm mode on CI+ */
->>  				adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
->> -			break;
->> -		default:
->> -			/* enable BACO as runpm mode on CI+ */
->> -			adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
->> -			break;
->> +				break;
->> +			}
->> +			if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
->> +				if (bamaco_support & MACO_SUPPORT) {
->> +					adev->pm.rpm_mode = AMDGPU_RUNPM_BAMACO;
->> +					dev_info(adev->dev, "Using BAMACO for runtime pm\n");
->> +				} else {
->> +					dev_info(adev->dev, "Using BACO for runtime pm\n");
->> +				}
->> +			}
->>  		}
->> -
->> -		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO)
->> -			dev_info(adev->dev, "Using BACO for runtime pm\n");
->>  	}
->>  
->> +no_runtime_pm:
->> +	if (adev->pm.rpm_mode == AMDGPU_RUNPM_NONE)
->> +		dev_info(adev->dev, "NO pm mode for runtime pm\n");
->> +
->>  	/* Call ACPI methods: require modeset init
->>  	 * but failure is not fatal
->>  	 */
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
->> index 94b310fdb719..b4702a7961ec 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
->> @@ -2617,7 +2617,7 @@ static int psp_load_p2s_table(struct psp_context *psp)
->>  	struct amdgpu_firmware_info *ucode =
->>  		&adev->firmware.ucode[AMDGPU_UCODE_ID_P2S_TABLE];
->>  
->> -	if (adev->in_runpm && (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO))
->> +	if (adev->in_runpm && (adev->pm.rpm_mode >= AMDGPU_RUNPM_BACO))
->>  		return 0;
->>  
->>  	if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6)) {
->> @@ -2647,7 +2647,7 @@ static int psp_load_smu_fw(struct psp_context *psp)
->>  	 * Skip SMU FW reloading in case of using BACO for runpm only,
->>  	 * as SMU is always alive.
->>  	 */
->> -	if (adev->in_runpm && (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO))
->> +	if (adev->in_runpm && (adev->pm.rpm_mode >= AMDGPU_RUNPM_BACO))
->>  		return 0;
->>  
->>  	if (!ucode->fw || amdgpu_sriov_vf(psp->adev))
