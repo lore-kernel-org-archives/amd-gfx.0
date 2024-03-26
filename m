@@ -4,113 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E435CD11DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Mar 2024 09:26:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 758B8C6FD1F
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Mar 2024 09:29:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 904E110E3F8;
-	Tue, 26 Mar 2024 09:26:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CEF110E40E;
+	Tue, 26 Mar 2024 09:29:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ghcp1GOL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zwPdHf+f";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2134.outbound.protection.outlook.com [40.107.96.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C53110E3F8
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Mar 2024 09:26:17 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2102.outbound.protection.outlook.com [40.107.244.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A0B510E40E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Mar 2024 09:29:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oHjA5/dGbzoFF7Rnpxg3i9J0tUQhDa1s7Sdm+hLlXf+3CSvIn/RAHMas6p350B67leFT09tQojUkCkgR7dP9QtQyEuiVpTKw8oty4a6K2xUzFJboVqlYtreszrMiUfuwkuoYxW491xAuCl7E8t/HUVtu1tbcaSonGU4E4na4cghb9DVcljnKVbuKs6PNLDkKAFQCy/RLTCF9NMFA8O7AZzaYdLW5WTjLNQ49RGZqrO6hhVqxv/zFz+GnAJeEI8nlnrcnRyzaxaZyZv+/t8dfrP1dR/NYecBeDIRo+oA70GOtVUtj8IUDbz1GrbSjyRXtnq/CNCdj/9zuAopXcR79Xg==
+ b=G4SKoPWderCBQpuSbRcbJUQ1nRG3Jp5F3aeBOnE6x2jN9FB9VSO8S/K5oGiK5RW47mGvNUCK3ojGwBBcR4DZbUGOZoXqeTIy2GWzO3qbq9ZN6GrrxLlQPCxb30+96/oRRigaJMbEJJgXmPH+x/f5fzXvKWKFTja2NYmLqJ+McyWE6Lm/aLG53rri/NWj4o9VPg2XLu+2pA0yfPosq8vXE63TY2B1lRnwmfl5+Rys8ZUerAmvIklG1JiUGuOs59WzC1+5CHZ8NA4/CC1sVcXbJHKm4ZoPHoWufpn7Ue+fCo7jA/i/7t5kQHMtfJKn8mUf1vf3X3oqY3fikVFzUi8wzw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cklyOwcC0wKBboxuhgqfTLDxRp9KXu0oKxMavz8NfZc=;
- b=YwI5CO5oJWeg2IP2/z6/Ipy3DJnx7FlSDxS2pN3edcCd6eKzoFaNf/9tLu3WAuDeNqq6CAE2ZuLARO4a63MCPRxy4RM/HEEKZRujpnP8Wjrn64V8XB9rPPzhAQYUeYKdddMc92hZX1pTdiKVHYNhSvh05eWV3p3wBU6ZnnC9wMVFqL57WovHC0Kc3EBvkr+cqxQmHDotMLsW4ZNUii4HFw6o87/7uTgBvAKScAkFIs1LJlaykGhtiE7/4I+3aM5t9kILwNX6XezXuHEV6RJyMa0gIj9z1nwSLTuE2KxTC9q4g9aol3ZseXx2SMR8XuoEE/SGb5gLxGwdxYVAApJSeQ==
+ bh=LhJyr4DeDXOPTBx/lZ7ylegElpZWGZ2RKm82KdVsuUQ=;
+ b=ia+YggsbBRaoUfJSSvPqTWwZbLN08Gtlzy+LIzrUusT7JN0TINcDe9TctA2qC5gk0uVlCDWd/l26SVoZJ70mZqPAt3UvtnL/1+V7wtjhCDHPFguCvjzcYwebF8OYuVorJCffV6Nxv0fGZ0nU3ML7t7SHiFW5sHPbPBA5ML3F46UrCCgcGaEoPAAadD2sCd+nZ1/zmgaXXlozVvzAXUWJnIad+zaCkY+myKObwNQhMd2yHcraONP2ZHYcx/CRMp4nnEP9R87IbosQYopjAP1hPBmj5odNljyphGeoAgu8kyAoLQSxt8OhJCWOu9o3mtGMXOzKFGumWsYYsalFf066/w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cklyOwcC0wKBboxuhgqfTLDxRp9KXu0oKxMavz8NfZc=;
- b=ghcp1GOLPLpw50MXXsWWMUfVRrFP/xTYHorJ9/sUnbA66fFbjgtIHvrgJOQzVIoEpIPLxTPZeZOHERm6WqYVLiXRxIzUmmsk5tQJon44N98rwtSQphXar+irfZIbCpc0LpexD5p5fxZwwYJp7rMClKo7BZwU9b4qzPDukJY7D+k=
+ bh=LhJyr4DeDXOPTBx/lZ7ylegElpZWGZ2RKm82KdVsuUQ=;
+ b=zwPdHf+fuqIaSk5TIBnhsUEu3SD3PDGrMlgLQMEhJtk17w6cTG0KEMFSqyb3XNIbFmSObbmR8DQAuUG+9XHCDJgztENX9As529y3HZXSCjly+71AZKAMs290joLYBH8bJ879Jy1rYfgpwoCl4OLzskeRXs8cVah5eilsT2U8lx0=
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- DM4PR12MB6254.namprd12.prod.outlook.com (2603:10b6:8:a5::17) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7409.33; Tue, 26 Mar 2024 09:26:16 +0000
+ BY5PR12MB4291.namprd12.prod.outlook.com (2603:10b6:a03:20c::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.33; Tue, 26 Mar
+ 2024 09:29:13 +0000
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::f349:addf:ae3e:814]) by DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::f349:addf:ae3e:814%5]) with mapi id 15.20.7409.028; Tue, 26 Mar 2024
- 09:26:16 +0000
-Message-ID: <1dab012d-a9a9-4d62-a542-5e4589140d17@amd.com>
-Date: Tue, 26 Mar 2024 14:56:07 +0530
+ 09:29:13 +0000
+Message-ID: <2456ff9c-8e83-4b16-98bb-fb2f366dbd73@amd.com>
+Date: Tue, 26 Mar 2024 14:59:04 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] drm/amdgpu/pm: Add support for MACO flag checking
+Subject: Re: [PATCH 4/5] drm/amdgpu: Add support for BAMACO mode checking
 Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org
+To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Kenneth.Feng@amd.com, Alexander.Deucher@amd.com, kevinyang.wang@amd.com
 References: <20240325101559.2807629-1-Jun.Ma2@amd.com>
- <20240325101559.2807629-3-Jun.Ma2@amd.com>
+ <20240325101559.2807629-4-Jun.Ma2@amd.com>
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20240325101559.2807629-3-Jun.Ma2@amd.com>
+In-Reply-To: <20240325101559.2807629-4-Jun.Ma2@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BMXP287CA0015.INDP287.PROD.OUTLOOK.COM
- (2603:1096:b00:2c::32) To DS0PR12MB7804.namprd12.prod.outlook.com
+X-ClientProxiedBy: BM1P287CA0004.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:b00:40::19) To DS0PR12MB7804.namprd12.prod.outlook.com
  (2603:10b6:8:142::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|DM4PR12MB6254:EE_
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|BY5PR12MB4291:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: S7N14V611/Rv5l+aYNWw8fnY+edapMDSWeK7niXXgAtcdi2Ya1aykBzc8q1c001xJ6Br2lX8QHBgiV33o7+BD/LiftrpKCIpcp4HCONKBAvNRhCTSURljiKgnchGr+bUtt1ZsJRAIcXHH4Wcy/9n9jOnNA3fcQhFEeiNf4LMDSaWd75o9hzAMIlvLyJVyKuQP8A/DnzX7eXJQyPptGbOshybIg4qO2UucPVuEiy4uIW4SYK7GwLu+He4xHq17fFfi/brdTf9NjYagdRQEoJ2t6gMoJeLyrQ8USO1ddIFRMycv5wsLovWFyzTm7OwL/tnsjGoAZeuWRandbz23ODe2YZT+b0069ZYRsr9FL+OZuKolYNl0pru8WYBh0PWZCaDxUx2RMPmaBtn0063UAVhvRvugZqkTZt+51s/pI+VsHhrfdNL0Z9ObgMXv/FXOVNdSP7FaJkbBGpsapuqQqKfX4tSTTcM0b5GugPdDlKmHZr9wCMo9ezAVXjjcCQ29jzRxR82vFDRUba9PEPBTJk49RTc73bu0YVxMMEQ4VTAM2SD09EAEDh+dikdzh7RDYxpNjAo40ZR0rjYa9d/rFjTI8GSxXIEC2rE0Hs90IM7xFK12cgdRCQxD0UC0C9oyQd63IPw8gj0tWZOnHECvlfCnDuBnQTBQq2BCcaBE8H6Qw4=
+X-Microsoft-Antispam-Message-Info: 9236uJ+qUQGllzbDPVm/9QbcrHp8kFoormvWDRw2ymn+zY+Y2yW9uA3gYtQzAvfiXYDto/yLdgncKgTfX3hYR2gqjXIN9kAsWfQ7wQNQqfSfWqfsReStq3dy+5BZ0feU9QQYOePwqnQYJzC4zmW1wMTyWMkRIqbGP2fNP82TP5NeT4e73pBKg8q3u3T4h3AinReoCrb1RokIz+QcLNnkR8orulveY0cm2P5i628UdVR5MsmlcnhBvhdOXgD7oVUiEDqPgeUcJiHKzcVyRRvv690o5NOrgu3UU0lodAOXoTP/7Vd4TunX3v8acW2Sp+uh3Nc9JDUcKaJ2mHHHN529npQyteIx9KMkU28epJR3kyEMDkSMb60FZSyd+rKQ8yVhQovCRwBOwiJErkR9CpuQEr9/vxoy5P7QIIVjnuUxdBMaPoaA7jur8u73wiedf1d8eUKtfXdIaBARjVsGMjUpbOEbQVuJRwIw73ulxgJrcxDy0qmS6Ek/v5AigGH8JT/OYn97mC4dO6q0k4N055F++pY4xWtrFmYBiVQoUR17BS9A0V6d2FXkjO+2EkeFjTCT2EQ3g2Op8/KLhAHZlc4W3VcHkktNLhZo+930DR5AIgkTgmL2Id4WJ4Lz9ejNRe8BfiEIreiDJrprqq/sy0DYmx1ERzI/u0Kdt8g3aTO/xXA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(376005)(366007); DIR:OUT; SFP:1102; 
+ SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YXUzcEMxVlAwc01QQzZIZ2kwRmxJRjk5SHZULzBMT1ErVk5sZHQyTnNmNmRk?=
- =?utf-8?B?YVFmT0NGdXpQSzBRRWRkZUNmTjNCWTRweFBETXlNYit2eWlkQ2ttdUZqalgx?=
- =?utf-8?B?UGl4eFpPdnhSckRicHFuNDEyUGRic2kxK0pGS1REUnRKK3FmZUVEVmladEUv?=
- =?utf-8?B?QW50WW9QNGNNNG1zTmZSQkQvdDBQeURpSzR1MFFDOGVPUERqR1ZwQUQxK2ww?=
- =?utf-8?B?TDhnRlBtZFQ4VWZnblJFN3ViSVlVZThxWThzc29JRVlyKzJKZlBRUTM0RFRP?=
- =?utf-8?B?cHNuQzcrdVRPamFXUmRPUFRPSXQ4UmNEV01sU0x4RnIxRmUreXQrNW5qam0y?=
- =?utf-8?B?UU5Zc21VUTZNa0tUb3FnS0E2TjNoZ1F2S3NtbjMxY05ZZ1ZOOWpDaWdYMjFo?=
- =?utf-8?B?Mmp5eGRvdG8wR2ZmYlM3NGwvMkVDOUFNc3VMOGtkLzF5Qk5zRDE0bFN2akNu?=
- =?utf-8?B?cHVybi83WTV4eWJkeUFDVmZ2emhReU8yMnltN09aSFBaZEtJdUZVY3M4WURn?=
- =?utf-8?B?dWVDNTNzbVpaNjc2U2x0Y0JjdFJvME5IVmhIanRTM2xSWk1mWXhEQ0o2ZjJ6?=
- =?utf-8?B?N2ZMUitQd21NU1o2TVREaFAzNHh1b3d0K3dOTlBpMnI5TWdmNkJ3V29SNmI4?=
- =?utf-8?B?MmMrM2tjVW9KdXh0cmZqVTgxMkhVaitCeHgvNG82OVlpd0dUNUxINTJoTGhh?=
- =?utf-8?B?V21PYkZFSElRbWlDcmV4SU9pa1JHKzJTbExpR0I0ZUVETWRtVVQzNGFqTHRC?=
- =?utf-8?B?c1F2Y3pQUXJmTG5LaUtuZndlZDlKMDQyU21LblVaWXhieWhuOFJFTk56dHRO?=
- =?utf-8?B?WTl4cWxpWkVqSW9wVTBPL1k0UmU5Q1BmeVd4bTlZZGVYSlFKd0pzWWF2R0xZ?=
- =?utf-8?B?VndaY1FWVmFoTFdXTzc1ek5GUFJnb1dZVDB6b3hHR3hWN3l1cWRIZUczenFv?=
- =?utf-8?B?RCsvUGY5cHZWWitPUkhwNDVsRnkvczhPQ2J4S3BnSVQ3cUJQUWpDdE43ZU9P?=
- =?utf-8?B?SXUwY0V1VjdaUVpxQktnQXlLVGhoZy9TR2x1N0dSbm5sdHBiMTJORWw1ODBG?=
- =?utf-8?B?ek9iU01TTlRiWklvSG9wUXpsQWd1aHE3aEhlYnd5MERobVZjZ2Q3eGROeE9O?=
- =?utf-8?B?ZmJHcHprK29odStmdkZXT3VWa2lLRmtqcmw4Z2dydVMzTFJSRWFKclhoNTFi?=
- =?utf-8?B?am00OVdPRlNGQ1Q2V3k2WUJqdTZyZ3ZnZ0Qva3o4elZrL0twTDdpbVR0WEI2?=
- =?utf-8?B?OFA3OFoyRzFxODFwTnhndU5TbU1XN1BRUEIyL3NFeXd6MGtPRUp6ZVdBWnZZ?=
- =?utf-8?B?SDJPSUpQZForKzBCNSs2YThoalpQTDFqT3kyOHdBeGZybWNXMXZBV0lGdHZs?=
- =?utf-8?B?d2dKTHNMTHB6dG00Ny83ZldWN0hUM21FZmI5U00zeVN5eVJpMzRxVE5DUmc0?=
- =?utf-8?B?bWJaTUVvVTJsWEQ0dlVhVk1IVkt4TTdhQnJYcnZRNGZmbnBNbFo5WGN6VEdr?=
- =?utf-8?B?WWNlMWduOXdac0pucHd5SGpGVDhXdVVqYTR1Z2J6RGQ0MlZuTE5yU3c1Y0V2?=
- =?utf-8?B?NGFZZEpZeGZaaHZTTmNQcURZZHRwQmc4dWllemptZ0U4ODF3d3VEc1VlTzJj?=
- =?utf-8?B?NWNCSXU5Y0xFZE01RTB6ZE1vUXY1MkRpWmpDbi9NZ0RMd1ozL0NMT0paVXhN?=
- =?utf-8?B?QjJmbXhOS2ZkQ1RqdkErMzBmYVB3NVFvR0JUS09BakRUY04xeTVRUW5NSDZC?=
- =?utf-8?B?bE5uSTA0dFNtOUREcGhQWmpwbmxYa0hxS0xhdHpnQVR1U1RyRXd5U21pYzF0?=
- =?utf-8?B?bEt3dHJSZysrTW5RcHFIV3E4dXVNMGI2TmRPQWJ3WStKbTRIR0k0SmJKL1dq?=
- =?utf-8?B?c2xqdnY0dkZLd1ZGQ1Bmb1BvYmFQSkNpQjQvR3hSR2J5Wm9td1Njc00zeE1I?=
- =?utf-8?B?RkdiMjdDZG1aWDMxTmVUU2gybmlRYldvYkU2RU5nenJWQ2J3VHh0MmVGTGFB?=
- =?utf-8?B?VVdmQy9qeXZlYW5ndEM2N1Vxdkk1dFdFNm93WUtYYXowRGdoUmtlNTRxdHI5?=
- =?utf-8?B?ZHFXV2xpbEVua2F2WUtKdTBkK3BtRkZaVlNGS1ZTcXAxMWR2L0srMWdLVUhX?=
- =?utf-8?Q?M4NkOGlCI68N0pKsbOrG2cpZF?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aWxFRW45andvR21rVjFqUW9idzlBaXlqL1d4YkxnV3VQUy83NjBiTFQ4cHJG?=
+ =?utf-8?B?NDgxT3hkdnpWdWFIQnhHckRTSzVEQlcxalNQUFdqYU5jcHhTdEMraGlmVzF0?=
+ =?utf-8?B?eDY0VTFrWXVhMHhGV2trREZtczNGcnowSHBXMXFGUDg3NzdrYkJCUy9MSmRE?=
+ =?utf-8?B?UDIyeGVlL0ttbEhpekJJV3RyMDRUWDA4dUQ1SXFXcldmTjlXQkZJVkZ0WTNI?=
+ =?utf-8?B?WDNuQTEvMnBESTk4WmVLNUZaUzBxVGJURjI1YnZkVGZhcUg5N0t1VXpJa0E4?=
+ =?utf-8?B?RVA2VnhjaENCcFNoZTI1TTJxcjJxL015cXZPaWxITWNZWGlmTU5Jb1p3eXgw?=
+ =?utf-8?B?M2JXZE1tR3RpbUY2SE5GQXNjQkhpRU1ITHZlSHdmV1B2RHhaQzBBLzZJdnVx?=
+ =?utf-8?B?VVhCdTJRODVIbDJoQkRBN2s4RjZMRENkazA3L21XQzlkTUZPVHVXc3NWSmhD?=
+ =?utf-8?B?bGpaaUlMVWJwRnFNZkJVNFpkclZmekdzL0ZYZTFKQU9UMmVqVFE3VThtcThk?=
+ =?utf-8?B?b0x2RkE3Z1FlSDBzNEtabWVsbml3d3FMVHFUN2xKaURJR0pidlkzL01IQzA0?=
+ =?utf-8?B?azRlZ1BQdHVGYXplMzFCRGd3NXBMRFdZS2tRMEJhcnRkS05ZNXoxbENFWndN?=
+ =?utf-8?B?REJQWmFicTVUdExFeUdSQkhPamFwbVV3RS9OdUZRSDh4MGFWRGhPdllENHdk?=
+ =?utf-8?B?eitUZWZTTFVOZmhEVkVXMUdnUFZtMEpzbVQ2MWUwU2loUVV5cDlWK0EyUU1E?=
+ =?utf-8?B?aTIxMmRXRXR1SEYxRXk4TzUvRE5aa0dVak9GSHJVQlF5RGlCYmpLcXZqUFN3?=
+ =?utf-8?B?YUV2SWd5Y1V3eXE3a1VvOURKMkFnWHJ2TCs1Q3VHUFZvVWZWaUdUc1p4eVdp?=
+ =?utf-8?B?R005Wmg0a3RmcmtsdGFpT25leTlDZnNuSGpSQzBFVFlNUVlwTDF0T0lTUWll?=
+ =?utf-8?B?WXR0S2l3d0QrSTZod2dyWjQvSW1aRldPZEs0anhTbkVkL1hPckpmdWNGeTlQ?=
+ =?utf-8?B?aWd1dzAxNkJWWHk0SGVWbzh5cHRMNnpDN2p5a0MzSXd5aHpkbTJ0dENyU3ls?=
+ =?utf-8?B?dzd0cEZucWpUZjJDZGpsZTdsSVlVa0FPWXJTRmNieHVodjEzNUZ3NmpzSk9h?=
+ =?utf-8?B?UkdwdVplOG9HZ2RWUHNrQk82QS9JdU1CNXFoNzg1cE1uU1hiOUlXYzlyOUxY?=
+ =?utf-8?B?MWcyTktuYVAvL1R3YTRoaW5OeVNqZTlmMXRkME0rTjdFRHZCTERqOFFVMHJp?=
+ =?utf-8?B?NzJGeC83SWZiYWIzUjZLekV0WWtna002L3R1aEx6NWxhYkNIcTR5YUwwK1Ju?=
+ =?utf-8?B?eWNnbVozaFUvUnN1Q3NlNGZJb1VkUWVKYW5MUnRldUFZNXZLWTNmT0V3dlhW?=
+ =?utf-8?B?cDlrbXhpYlFKMEtOME5ycDNpYU1ybHR1bDRhTVZrZHkzcUMrY24zNjMrMDE4?=
+ =?utf-8?B?N2N1L2dIUnR0Z013dkJLc2ltY3gwNU5WLzZCMldROWR4N3VtV2V0OHJwRXlR?=
+ =?utf-8?B?WXcza3ozNFJYL0hwTCtaUjY5MmpwUFVmSUNOeTN0c2RSaThaL2dTclJNUHZ0?=
+ =?utf-8?B?K3FueXUvaFlobWhXSFArcnZWWFNoT3A3WkZKY3lRS0hLMXl1Smg1SnR0T0Nr?=
+ =?utf-8?B?WjFjWkR0bHJpdjlGa0xOazd0NVZRUjBYVlNHT296MWxyeG5zeGY0Q2RoaGFY?=
+ =?utf-8?B?N080UnY1ZlR3S3MzQWN3Wm5WM0JONzgvdkJ3Y2JNd0oycHNYQXJEcmxyMGFD?=
+ =?utf-8?B?UDVlYTdNN1ZpQjZDYXk0VVpiWlk3S2puM21YS1J3eW92Tld6L2pTZzFuODlZ?=
+ =?utf-8?B?R2w1Vlc2UEF5M29jZXY0ZERlMHZhYmlGVzZoSjZLZXAzd3ZNdGUrM2RNMmU5?=
+ =?utf-8?B?aU40N2UycmhDWlBmOFprLzFwZW5KQXI5N2pDalNibVNCKzFsMHBTelIzVWkz?=
+ =?utf-8?B?V1Q3ZCtuQkt3bTBPNUV4Rmp4WDc1OC9kUEkxVXZtWmpEeWNiN0pXRHJrU2Ra?=
+ =?utf-8?B?MmVRTW9HZnpQUzdyWDI4dlRUcUNDSk4yQ3MxQlpWWExneWt2UlgzQU5VV05P?=
+ =?utf-8?B?SU5Ga3JFUExwTGl5amNPdjNLOEl2c0NYQUttcmt3NmZaUzBnTy8rME5KUVh6?=
+ =?utf-8?Q?J/YC9MzOsikdv8gGDpP1GaoC1?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a828d7ae-373e-42b9-c45d-08dc4d76c92e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90e71b55-7166-452a-6fa0-08dc4d773320
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2024 09:26:16.0480 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2024 09:29:13.7555 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z6Gk1uP/3OsPDx0ugXeQDUmhq6X8C2FgDC9WI8JLlx2bCzTd3kgESBE4bODSAB4b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6254
+X-MS-Exchange-CrossTenant-UserPrincipalName: W6KLKDP+B66+ysMv12LGxsVrRZ6+FiemHhQ1yJYLiprULh1kyRL0Pom0JkCX7B0h
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4291
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,625 +129,159 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 3/25/2024 3:45 PM, Ma Jun wrote:
-> Add support for MACO flag checking.
-> MACO mode only works if BACO is supported.
+> Optimize the code to add support for BAMACO mode checking
 > 
 > Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  4 ++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  2 +-
->  drivers/gpu/drm/amd/amdgpu/cik.c                   |  4 ++--
->  drivers/gpu/drm/amd/amdgpu/si.c                    |  4 ++--
->  drivers/gpu/drm/amd/amdgpu/soc15.c                 | 10 +++++-----
->  drivers/gpu/drm/amd/amdgpu/vi.c                    |  8 ++++----
->  drivers/gpu/drm/amd/include/kgd_pp_interface.h     |  2 +-
->  drivers/gpu/drm/amd/pm/amdgpu_dpm.c                |  8 ++++----
->  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h            |  2 +-
->  drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c   |  2 +-
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c |  6 +++---
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h |  2 +-
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c |  8 ++++----
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h |  2 +-
->  .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c   |  8 ++++----
->  .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h   |  2 +-
->  drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h       |  2 +-
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  2 +-
->  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |  2 +-
->  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h       |  2 +-
->  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h       |  2 +-
->  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h       |  2 +-
->  drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c     | 14 +++++++++-----
->  drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c |  4 ++--
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c     | 14 +++++++++-----
->  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  4 ++--
->  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c     | 14 +++++++++-----
->  27 files changed, 74 insertions(+), 62 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  4 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 74 +++++++++++++++----------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c |  4 +-
+>  3 files changed, 50 insertions(+), 32 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 9c62552bec34..3723235f5818 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -605,7 +605,7 @@ struct amdgpu_asic_funcs {
->  	/* PCIe replay counter */
->  	uint64_t (*get_pcie_replay_count)(struct amdgpu_device *adev);
->  	/* device supports BACO */
-> -	bool (*supports_baco)(struct amdgpu_device *adev);
-> +	int (*supports_baco)(struct amdgpu_device *adev);
->  	/* pre asic_init quirks */
->  	void (*pre_asic_init)(struct amdgpu_device *adev);
->  	/* enter/exit umd stable pstate */
-> @@ -1407,7 +1407,7 @@ bool amdgpu_device_supports_atpx(struct drm_device *dev);
->  bool amdgpu_device_supports_px(struct drm_device *dev);
->  bool amdgpu_device_supports_boco(struct drm_device *dev);
->  bool amdgpu_device_supports_smart_shift(struct drm_device *dev);
-> -bool amdgpu_device_supports_baco(struct drm_device *dev);
-> +int amdgpu_device_supports_baco(struct drm_device *dev);
->  bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
->  				      struct amdgpu_device *peer_adev);
->  int amdgpu_device_baco_enter(struct drm_device *dev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 12dc71a6b5db..aecb55d6963a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -341,7 +341,7 @@ bool amdgpu_device_supports_boco(struct drm_device *dev)
->   * Returns true if the device supporte BACO,
->   * otherwise return false.
->   */
-> -bool amdgpu_device_supports_baco(struct drm_device *dev)
-> +int amdgpu_device_supports_baco(struct drm_device *dev)
->  {
->  	struct amdgpu_device *adev = drm_to_adev(dev);
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
-> index a3a643254d7a..fdbc26346b54 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cik.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-> @@ -1375,14 +1375,14 @@ static int cik_asic_pci_config_reset(struct amdgpu_device *adev)
->  	return r;
->  }
->  
-> -static bool cik_asic_supports_baco(struct amdgpu_device *adev)
-> +static int cik_asic_supports_baco(struct amdgpu_device *adev)
->  {
->  	switch (adev->asic_type) {
->  	case CHIP_BONAIRE:
->  	case CHIP_HAWAII:
->  		return amdgpu_dpm_is_baco_supported(adev);
->  	default:
-> -		return false;
-> +		return 0;
->  	}
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-> index 23e4ef4fff7c..67e179c7e347 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
-> @@ -1409,9 +1409,9 @@ static int si_gpu_pci_config_reset(struct amdgpu_device *adev)
->  	return r;
->  }
->  
-> -static bool si_asic_supports_baco(struct amdgpu_device *adev)
-> +static int si_asic_supports_baco(struct amdgpu_device *adev)
->  {
-> -	return false;
-> +	return 0;
->  }
->  
->  static enum amd_reset_method
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index dec81ccf6240..c8abbf5da736 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -502,7 +502,7 @@ static int soc15_asic_baco_reset(struct amdgpu_device *adev)
->  static enum amd_reset_method
->  soc15_asic_reset_method(struct amdgpu_device *adev)
->  {
-> -	bool baco_reset = false;
-> +	int baco_reset = 0;
->  	bool connected_to_cpu = false;
->  	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
->  
-> @@ -540,7 +540,7 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
->  			 */
->  			if (ras && adev->ras_enabled &&
->  			    adev->pm.fw_version <= 0x283400)
-> -				baco_reset = false;
-> +				baco_reset = 0;
->  		} else {
->  			baco_reset = amdgpu_dpm_is_baco_supported(adev);
->  		}
-> @@ -620,7 +620,7 @@ static int soc15_asic_reset(struct amdgpu_device *adev)
->  	}
->  }
->  
-> -static bool soc15_supports_baco(struct amdgpu_device *adev)
-> +static int soc15_supports_baco(struct amdgpu_device *adev)
->  {
->  	switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
->  	case IP_VERSION(9, 0, 0):
-> @@ -628,13 +628,13 @@ static bool soc15_supports_baco(struct amdgpu_device *adev)
->  		if (adev->asic_type == CHIP_VEGA20) {
->  			if (adev->psp.sos.fw_version >= 0x80067)
->  				return amdgpu_dpm_is_baco_supported(adev);
-> -			return false;
-> +			return 0;
->  		} else {
->  			return amdgpu_dpm_is_baco_supported(adev);
->  		}
->  		break;
->  	default:
-> -		return false;
-> +		return 0;
->  	}
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-> index 1a98812981f4..2415355b037c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-> @@ -897,7 +897,7 @@ static int vi_asic_pci_config_reset(struct amdgpu_device *adev)
->  	return r;
->  }
->  
-> -static bool vi_asic_supports_baco(struct amdgpu_device *adev)
-> +static int vi_asic_supports_baco(struct amdgpu_device *adev)
->  {
->  	switch (adev->asic_type) {
->  	case CHIP_FIJI:
-> @@ -908,14 +908,14 @@ static bool vi_asic_supports_baco(struct amdgpu_device *adev)
->  	case CHIP_TOPAZ:
->  		return amdgpu_dpm_is_baco_supported(adev);
->  	default:
-> -		return false;
-> +		return 0;
->  	}
->  }
->  
->  static enum amd_reset_method
->  vi_asic_reset_method(struct amdgpu_device *adev)
->  {
-> -	bool baco_reset;
-> +	int baco_reset;
->  
->  	if (amdgpu_reset_method == AMD_RESET_METHOD_LEGACY ||
->  	    amdgpu_reset_method == AMD_RESET_METHOD_BACO)
-> @@ -935,7 +935,7 @@ vi_asic_reset_method(struct amdgpu_device *adev)
->  		baco_reset = amdgpu_dpm_is_baco_supported(adev);
->  		break;
->  	default:
-> -		baco_reset = false;
-> +		baco_reset = 0;
->  		break;
->  	}
->  
-> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> index afb930b70615..805c9d37a2b4 100644
-> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> @@ -421,7 +421,7 @@ struct amd_pm_funcs {
->  	int (*set_hard_min_dcefclk_by_freq)(void *handle, uint32_t clock);
->  	int (*set_hard_min_fclk_by_freq)(void *handle, uint32_t clock);
->  	int (*set_min_deep_sleep_dcefclk)(void *handle, uint32_t clock);
-> -	bool (*get_asic_baco_capability)(void *handle);
-> +	int (*get_asic_baco_capability)(void *handle);
->  	int (*get_asic_baco_state)(void *handle, int *state);
->  	int (*set_asic_baco_state)(void *handle, int state);
->  	int (*get_ppfeature_status)(void *handle, char *buf);
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> index f84bfed50681..eee919577b44 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> @@ -199,14 +199,14 @@ int amdgpu_dpm_notify_rlc_state(struct amdgpu_device *adev, bool en)
->  	return ret;
->  }
->  
-> -bool amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev)
-> +int amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev)
->  {
->  	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
->  	void *pp_handle = adev->powerplay.pp_handle;
-> -	bool ret;
-> +	int ret;
->  
->  	if (!pp_funcs || !pp_funcs->get_asic_baco_capability)
-> -		return false;
-> +		return 0;
->  	/* Don't use baco for reset in S3.
->  	 * This is a workaround for some platforms
->  	 * where entering BACO during suspend
-> @@ -217,7 +217,7 @@ bool amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev)
->  	 * devices.  Needs more investigation.
->  	 */
->  	if (adev->in_s3)
-> -		return false;
-> +		return 0;
->  
->  	mutex_lock(&adev->pm.mutex);
->  
-> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> index e6cad9f7aaeb..501f8c726e8d 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> @@ -411,7 +411,7 @@ int amdgpu_dpm_baco_reset(struct amdgpu_device *adev);
->  int amdgpu_dpm_mode2_reset(struct amdgpu_device *adev);
->  int amdgpu_dpm_enable_gfx_features(struct amdgpu_device *adev);
->  
-> -bool amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev);
-> +int amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev);
->  
->  bool amdgpu_dpm_is_mode1_reset_supported(struct amdgpu_device *adev);
->  int amdgpu_dpm_mode1_reset(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> index fafd4e0b7908..d4b7a80c649a 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> @@ -1371,7 +1371,7 @@ static int pp_set_active_display_count(void *handle, uint32_t count)
->  	return phm_set_active_display_count(hwmgr, count);
->  }
->  
-> -static bool pp_get_asic_baco_capability(void *handle)
-> +static int pp_get_asic_baco_capability(void *handle)
->  {
->  	struct pp_hwmgr *hwmgr = handle;
->  
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c
-> index 1ab4fbfe0cde..4ce068c08cb8 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.c
-> @@ -33,7 +33,7 @@
->  #include "smu/smu_7_1_2_d.h"
->  #include "smu/smu_7_1_2_sh_mask.h"
->  
-> -bool smu7_baco_is_support(struct pp_hwmgr *hwmgr)
-> +int smu7_baco_is_support(struct pp_hwmgr *hwmgr)
->  {
->  	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
->  	uint32_t reg;
-> @@ -44,9 +44,9 @@ bool smu7_baco_is_support(struct pp_hwmgr *hwmgr)
->  	reg = RREG32(mmCC_BIF_BX_FUSESTRAP0);
->  
->  	if (reg & CC_BIF_BX_FUSESTRAP0__STRAP_BIF_PX_CAPABLE_MASK)
-> -		return true;
-> +		return BACO_SUPPORT;
->  
-> -	return false;
-> +	return 0;
->  }
->  
->  int smu7_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state)
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h
-> index df142c2eec8e..a2d6b71789f8 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_baco.h
-> @@ -25,7 +25,7 @@
->  #include "hwmgr.h"
->  #include "common_baco.h"
->  
-> -extern bool smu7_baco_is_support(struct pp_hwmgr *hwmgr);
-> +extern int smu7_baco_is_support(struct pp_hwmgr *hwmgr);
->  extern int smu7_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state);
->  extern int smu7_baco_set_state(struct pp_hwmgr *hwmgr, enum BACO_STATE state);
->  
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c
-> index 687cd80ebad8..3684bca772bb 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.c
-> @@ -28,13 +28,13 @@
->  #include "vega10_inc.h"
->  #include "smu9_baco.h"
->  
-> -bool smu9_baco_is_support(struct pp_hwmgr *hwmgr)
-> +int smu9_baco_is_support(struct pp_hwmgr *hwmgr)
->  {
->  	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
->  	uint32_t reg, data;
->  
->  	if (!phm_cap_enabled(hwmgr->platform_descriptor.platformCaps, PHM_PlatformCaps_BACO))
-> -		return false;
-> +		return 0;
->  
->  	WREG32(0x12074, 0xFFF0003B);
->  	data = RREG32(0x12075);
-> @@ -43,10 +43,10 @@ bool smu9_baco_is_support(struct pp_hwmgr *hwmgr)
->  		reg = RREG32_SOC15(NBIF, 0, mmRCC_BIF_STRAP0);
->  
->  		if (reg & RCC_BIF_STRAP0__STRAP_PX_CAPABLE_MASK)
-> -			return true;
-> +			return BACO_SUPPORT;
->  	}
->  
-> -	return false;
-> +	return 0;
->  }
->  
->  int smu9_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state)
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h
-> index 24461f1e3b01..2decf7d549d5 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu9_baco.h
-> @@ -25,7 +25,7 @@
->  #include "hwmgr.h"
->  #include "common_baco.h"
->  
-> -extern bool smu9_baco_is_support(struct pp_hwmgr *hwmgr);
-> +extern int smu9_baco_is_support(struct pp_hwmgr *hwmgr);
->  extern int smu9_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state);
->  
->  #endif
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
-> index bc0ff417921b..934d530a9cce 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
-> @@ -36,22 +36,22 @@ static const struct soc15_baco_cmd_entry clean_baco_tbl[] = {
->  	{CMD_WRITE, SOC15_REG_ENTRY(NBIF, 0, mmBIOS_SCRATCH_7), 0, 0, 0, 0},
->  };
->  
-> -bool vega20_baco_is_support(struct pp_hwmgr *hwmgr)
-> +int vega20_baco_is_support(struct pp_hwmgr *hwmgr)
->  {
->  	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
->  	uint32_t reg;
->  
->  	if (!phm_cap_enabled(hwmgr->platform_descriptor.platformCaps, PHM_PlatformCaps_BACO))
-> -		return false;
-> +		return 0;
->  
->  	if (((RREG32(0x17569) & 0x20000000) >> 29) == 0x1) {
->  		reg = RREG32_SOC15(NBIF, 0, mmRCC_BIF_STRAP0);
->  
->  		if (reg & RCC_BIF_STRAP0__STRAP_PX_CAPABLE_MASK)
-> -			return true;
-> +			return BACO_SUPPORT;
->  	}
->  
-> -	return false;
-> +	return 0;
->  }
->  
->  int vega20_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state)
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h
-> index 006eb6633ce8..13eef042ec42 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.h
-> @@ -25,7 +25,7 @@
->  #include "hwmgr.h"
->  #include "common_baco.h"
->  
-> -extern bool vega20_baco_is_support(struct pp_hwmgr *hwmgr);
-> +extern int vega20_baco_is_support(struct pp_hwmgr *hwmgr);
->  extern int vega20_baco_get_state(struct pp_hwmgr *hwmgr, enum BACO_STATE *state);
->  extern int vega20_baco_set_state(struct pp_hwmgr *hwmgr, enum BACO_STATE state);
->  extern int vega20_baco_apply_vdci_flush_workaround(struct pp_hwmgr *hwmgr);
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-> index 83f903d8e994..bee0eedc2b3f 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-> @@ -351,7 +351,7 @@ struct pp_hwmgr_func {
->  	int (*set_hard_min_fclk_by_freq)(struct pp_hwmgr *hwmgr, uint32_t clock);
->  	int (*set_hard_min_gfxclk_by_freq)(struct pp_hwmgr *hwmgr, uint32_t clock);
->  	int (*set_soft_max_gfxclk_by_freq)(struct pp_hwmgr *hwmgr, uint32_t clock);
-> -	bool (*baco_is_support)(struct pp_hwmgr *hwmgr);
-> +	int (*baco_is_support)(struct pp_hwmgr *hwmgr);
->  	int (*get_asic_baco_state)(struct pp_hwmgr *hwmgr, enum BACO_STATE *state);
->  	int (*set_asic_baco_state)(struct pp_hwmgr *hwmgr, enum BACO_STATE state);
->  	int (*get_ppfeature_status)(struct pp_hwmgr *hwmgr, char *buf);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index 246b211b1e85..1f0a34251b9c 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -3200,7 +3200,7 @@ static int smu_set_xgmi_pstate(void *handle,
->  	return ret;
->  }
->  
-> -static bool smu_get_baco_capability(void *handle)
-> +static int smu_get_baco_capability(void *handle)
->  {
->  	struct smu_context *smu = handle;
->  
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index a870bdd49a4e..dad43894cab2 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -1175,7 +1175,7 @@ struct pptable_funcs {
->  	/**
->  	 * @baco_is_support: Check if GPU supports BACO (Bus Active, Chip Off).
->  	 */
-> -	bool (*baco_is_support)(struct smu_context *smu);
-> +	int (*baco_is_support)(struct smu_context *smu);
->  
->  	/**
->  	 * @baco_get_state: Get the current BACO state.
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-> index a0e5ad0381d6..7cd991069a79 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-> @@ -237,7 +237,7 @@ int smu_v11_0_set_azalia_d3_pme(struct smu_context *smu);
->  int smu_v11_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
->  		struct pp_smu_nv_clock_table *max_clocks);
->  
-> -bool smu_v11_0_baco_is_support(struct smu_context *smu);
-> +int smu_v11_0_baco_is_support(struct smu_context *smu);
->  
->  enum smu_baco_state smu_v11_0_baco_get_state(struct smu_context *smu);
->  
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> index fbd57fa1a004..b81aa9c521e0 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> @@ -210,7 +210,7 @@ int smu_v13_0_set_azalia_d3_pme(struct smu_context *smu);
->  int smu_v13_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
->  					       struct pp_smu_nv_clock_table *max_clocks);
->  
-> -bool smu_v13_0_baco_is_support(struct smu_context *smu);
-> +int smu_v13_0_baco_is_support(struct smu_context *smu);
->  
->  int smu_v13_0_baco_enter(struct smu_context *smu);
->  int smu_v13_0_baco_exit(struct smu_context *smu);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-> index 3f7463c1c1a9..5e887f551b3e 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-> @@ -159,7 +159,7 @@ int smu_v14_0_register_irq_handler(struct smu_context *smu);
->  int smu_v14_0_baco_set_armd3_sequence(struct smu_context *smu,
->  				      enum smu_baco_seq baco_seq);
->  
-> -bool smu_v14_0_baco_is_support(struct smu_context *smu);
-> +int smu_v14_0_baco_is_support(struct smu_context *smu);
->  
->  enum smu_baco_state smu_v14_0_baco_get_state(struct smu_context *smu);
->  
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> index 5e5da9b16718..d0c6dad24458 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> @@ -1557,23 +1557,27 @@ int smu_v11_0_baco_set_armd3_sequence(struct smu_context *smu,
->  	return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_ArmD3, baco_seq, NULL);
->  }
->  
-> -bool smu_v11_0_baco_is_support(struct smu_context *smu)
-> +int smu_v11_0_baco_is_support(struct smu_context *smu)
->  {
->  	struct smu_baco_context *smu_baco = &smu->smu_baco;
-> +	int bamaco_support = 0;
->  
->  	if (amdgpu_sriov_vf(smu->adev) || !smu_baco->platform_support)
-> -		return false;
-> +		return 0;
-> +
-> +	if (smu_baco->maco_support)
-> +		bamaco_support |= MACO_SUPPORT;
->  
->  	/* return true if ASIC is in BACO state already */
->  	if (smu_v11_0_baco_get_state(smu) == SMU_BACO_STATE_ENTER)
-> -		return true;
-> +		return bamaco_support |= BACO_SUPPORT;
->  
->  	/* Arcturus does not support this bit mask */
->  	if (smu_cmn_feature_is_supported(smu, SMU_FEATURE_BACO_BIT) &&
->  	   !smu_cmn_feature_is_enabled(smu, SMU_FEATURE_BACO_BIT))
-> -		return false;
-> +		return 0;
->  
-> -	return true;
-> +	return (bamaco_support |= BACO_SUPPORT);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 80b9642f2bc4..e267ac032a1c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2734,7 +2734,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+>  		drm_dev->switch_power_state = DRM_SWITCH_POWER_DYNAMIC_OFF;
+>  	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO) {
+>  		/* nothing to do */
+> -	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
+> +	} else if (adev->pm.rpm_mode >= AMDGPU_RUNPM_BACO) {
 
-If this is to report a set of flags instead of bool, better rename the
-ppt function to get_bxco_support() or similar. That name aligns better
-with the return value (flags representing BACO/BAMACO etc.)
+This kind of checking doesn't work well if we have to add new RPM modes.
+Instead use || or a wrapper.
 
 Thanks,
 Lijo
 
->  }
+>  		amdgpu_device_baco_enter(drm_dev);
+>  	}
 >  
->  enum smu_baco_state smu_v11_0_baco_get_state(struct smu_context *smu)
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> index 0467864a1aa8..33da5347880a 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> @@ -1582,11 +1582,11 @@ static void aldebaran_get_unique_id(struct smu_context *smu)
->  	adev->unique_id = ((uint64_t)upper32 << 32) | lower32;
->  }
->  
-> -static bool aldebaran_is_baco_supported(struct smu_context *smu)
-> +static int aldebaran_is_baco_supported(struct smu_context *smu)
+> @@ -2774,7 +2774,7 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+>  		 * PCI core handles it for _PR3.
+>  		 */
+>  		pci_set_master(pdev);
+> -	} else if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
+> +	} else if (adev->pm.rpm_mode >= AMDGPU_RUNPM_BACO) {
+>  		amdgpu_device_baco_exit(drm_dev);
+>  	}
+>  	ret = amdgpu_device_resume(drm_dev, false);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index a66d47865e3b..81bb0a2c8227 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -133,6 +133,7 @@ void amdgpu_register_gpu_instance(struct amdgpu_device *adev)
+>  int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
 >  {
->  	/* aldebaran is not support baco */
->  
-> -	return false;
-> +	return 0;
->  }
->  
->  static int aldebaran_set_df_cstate(struct smu_context *smu,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> index ce16f2a08a47..a65877eeaa8d 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> @@ -2268,22 +2268,26 @@ static int smu_v13_0_baco_set_state(struct smu_context *smu,
->  	return ret;
->  }
->  
-> -bool smu_v13_0_baco_is_support(struct smu_context *smu)
-> +int smu_v13_0_baco_is_support(struct smu_context *smu)
->  {
->  	struct smu_baco_context *smu_baco = &smu->smu_baco;
+>  	struct drm_device *dev;
 > +	int bamaco_support = 0;
+>  	int r, acpi_status;
 >  
->  	if (amdgpu_sriov_vf(smu->adev) || !smu_baco->platform_support)
-> -		return false;
-> +		return 0;
+>  	dev = adev_to_drm(adev);
+> @@ -150,38 +151,55 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+>  	}
+>  
+>  	adev->pm.rpm_mode = AMDGPU_RUNPM_NONE;
+> -	if (amdgpu_device_supports_px(dev) &&
+> -	    (amdgpu_runtime_pm != 0)) { /* enable PX as runtime mode */
+> -		adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
+> -		dev_info(adev->dev, "Using ATPX for runtime pm\n");
+> -	} else if (amdgpu_device_supports_boco(dev) &&
+> -		   (amdgpu_runtime_pm != 0)) { /* enable boco as runtime mode */
+> -		adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
+> -		dev_info(adev->dev, "Using BOCO for runtime pm\n");
+> -	} else if (amdgpu_device_supports_baco(dev) &&
+> -		   (amdgpu_runtime_pm != 0)) {
+> -		switch (adev->asic_type) {
+> -		case CHIP_VEGA20:
+> -		case CHIP_ARCTURUS:
+> -			/* enable BACO as runpm mode if runpm=1 */
+> -			if (amdgpu_runtime_pm > 0)
+> -				adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+> -			break;
+> -		case CHIP_VEGA10:
+> -			/* enable BACO as runpm mode if noretry=0 */
+> -			if (!adev->gmc.noretry)
+> +	if (amdgpu_runtime_pm == 2) {
+> +		adev->pm.rpm_mode = AMDGPU_RUNPM_BAMACO;
+> +		dev_info(adev->dev, "Forcing BAMACO for runtime pm\n");
+> +	} else if (amdgpu_runtime_pm == 1) {
+> +		adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+> +		dev_info(adev->dev, "Forcing BACO for runtime pm\n");
+> +	} else if (amdgpu_runtime_pm != 0) {
+> +		if (amdgpu_device_supports_px(dev)) { /* enable PX as runtime mode */
+> +			adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
+> +			dev_info(adev->dev, "Using ATPX for runtime pm\n");
+> +		} else if (amdgpu_device_supports_boco(dev)) { /* enable boco as runtime mode */
+> +			adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
+> +			dev_info(adev->dev, "Using BOCO for runtime pm\n");
+> +		} else {
+> +			bamaco_support = amdgpu_device_supports_baco(dev);
 > +
-> +	if (smu_baco->maco_support)
-> +		bamaco_support |= MACO_SUPPORT;
->  
->  	/* return true if ASIC is in BACO state already */
->  	if (smu_v13_0_baco_get_state(smu) == SMU_BACO_STATE_ENTER)
-> -		return true;
-> +		return bamaco_support |= BACO_SUPPORT;
->  
->  	if (smu_cmn_feature_is_supported(smu, SMU_FEATURE_BACO_BIT) &&
->  	    !smu_cmn_feature_is_enabled(smu, SMU_FEATURE_BACO_BIT))
-> -		return false;
-> +		return 0;
->  
-> -	return true;
-> +	return (bamaco_support |= BACO_SUPPORT);
->  }
->  
->  int smu_v13_0_baco_enter(struct smu_context *smu)
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> index 443233563a52..02b098d81ebf 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> @@ -2078,11 +2078,11 @@ static void smu_v13_0_6_get_unique_id(struct smu_context *smu)
->  	adev->unique_id = pptable->PublicSerialNumber_AID;
->  }
->  
-> -static bool smu_v13_0_6_is_baco_supported(struct smu_context *smu)
-> +static int smu_v13_0_6_is_baco_supported(struct smu_context *smu)
->  {
->  	/* smu_13_0_6 does not support baco */
->  
-> -	return false;
-> +	return 0;
->  }
->  
->  static const char *const throttling_logging_label[] = {
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-> index 9e39f99154f9..cc7cc2a6d871 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-> @@ -1590,23 +1590,27 @@ int smu_v14_0_baco_set_armd3_sequence(struct smu_context *smu,
->  	return 0;
->  }
->  
-> -bool smu_v14_0_baco_is_support(struct smu_context *smu)
-> +int smu_v14_0_baco_is_support(struct smu_context *smu)
->  {
->  	struct smu_baco_context *smu_baco = &smu->smu_baco;
-> +	int bamaco_support = 0;
->  
->  	if (amdgpu_sriov_vf(smu->adev) ||
->  	    !smu_baco->platform_support)
-> -		return false;
-> +		return 0;
+> +			if (!bamaco_support)
+> +				goto no_runtime_pm;
 > +
-> +	if (smu_baco->maco_support)
-> +		bamaco_support |= MACO_SUPPORT;
+> +			switch (adev->asic_type) {
+> +			case CHIP_VEGA20:
+> +			case CHIP_ARCTURUS:
+> +				/* vega20 and arcturus don't support runtime pm */
+> +				break;
+> +			case CHIP_VEGA10:
+> +				/* enable BACO as runpm mode if noretry=0 */
+> +				if (!adev->gmc.noretry)
+> +					adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+> +				break;
+> +			default:
+> +				/* enable BACO as runpm mode on CI+ */
+>  				adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+> -			break;
+> -		default:
+> -			/* enable BACO as runpm mode on CI+ */
+> -			adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+> -			break;
+> +				break;
+> +			}
+> +			if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
+> +				if (bamaco_support & MACO_SUPPORT) {
+> +					adev->pm.rpm_mode = AMDGPU_RUNPM_BAMACO;
+> +					dev_info(adev->dev, "Using BAMACO for runtime pm\n");
+> +				} else {
+> +					dev_info(adev->dev, "Using BACO for runtime pm\n");
+> +				}
+> +			}
+>  		}
+> -
+> -		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO)
+> -			dev_info(adev->dev, "Using BACO for runtime pm\n");
+>  	}
 >  
->  	/* return true if ASIC is in BACO state already */
->  	if (smu_v14_0_baco_get_state(smu) == SMU_BACO_STATE_ENTER)
-> -		return true;
-> +		return (bamaco_support |= BACO_SUPPORT);
+> +no_runtime_pm:
+> +	if (adev->pm.rpm_mode == AMDGPU_RUNPM_NONE)
+> +		dev_info(adev->dev, "NO pm mode for runtime pm\n");
+> +
+>  	/* Call ACPI methods: require modeset init
+>  	 * but failure is not fatal
+>  	 */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index 94b310fdb719..b4702a7961ec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -2617,7 +2617,7 @@ static int psp_load_p2s_table(struct psp_context *psp)
+>  	struct amdgpu_firmware_info *ucode =
+>  		&adev->firmware.ucode[AMDGPU_UCODE_ID_P2S_TABLE];
 >  
->  	if (smu_cmn_feature_is_supported(smu, SMU_FEATURE_BACO_BIT) &&
->  	    !smu_cmn_feature_is_enabled(smu, SMU_FEATURE_BACO_BIT))
-> -		return false;
-> +		return 0;
+> -	if (adev->in_runpm && (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO))
+> +	if (adev->in_runpm && (adev->pm.rpm_mode >= AMDGPU_RUNPM_BACO))
+>  		return 0;
 >  
-> -	return true;
-> +	return (bamaco_support |= BACO_SUPPORT);
->  }
+>  	if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6)) {
+> @@ -2647,7 +2647,7 @@ static int psp_load_smu_fw(struct psp_context *psp)
+>  	 * Skip SMU FW reloading in case of using BACO for runpm only,
+>  	 * as SMU is always alive.
+>  	 */
+> -	if (adev->in_runpm && (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO))
+> +	if (adev->in_runpm && (adev->pm.rpm_mode >= AMDGPU_RUNPM_BACO))
+>  		return 0;
 >  
->  enum smu_baco_state smu_v14_0_baco_get_state(struct smu_context *smu)
+>  	if (!ucode->fw || amdgpu_sriov_vf(psp->adev))
