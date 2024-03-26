@@ -4,54 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77D5BCD11DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Mar 2024 17:41:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5E68C54E67
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Mar 2024 17:47:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C263D10EDA0;
-	Tue, 26 Mar 2024 17:41:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5748B10F18C;
+	Tue, 26 Mar 2024 17:47:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="N69W0eRX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DIgo3dZY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3488110EDA0
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Mar 2024 17:40:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91CFF10F190;
+ Tue, 26 Mar 2024 17:47:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711474860; x=1743010860;
- h=date:from:to:cc:subject:message-id;
- bh=/6DrgiCaeg2lqB9BM8kSyjY3mWhXjSXchC9AzN26R8w=;
- b=N69W0eRX/BTlBkG4+h9AROlKap8I1b8a5PqOqiB1PBAwKO7GKsPLS9ut
- TqwGvUkjX+0tpvhDS4DKZqFoH9eKV4to2n51DNFyIidk8Ze6JJWOgC7ha
- F+DQ157k9/7lJAG2iGgnqiYAMCzqJyut3Y13liXLExXz024ROI6mKUPL5
- mFVOFYjZccxv+43k7KCu1NjIXu9WFZuegTmLiCwbmB9FKLmH6Ua+KmM+V
- kGZsv+sooyobHHvd1QoIKW05wVDNgYs8TBdPKeuC4yCalfqoex46IeKdH
- eNrg3B34ksZaCFuzVYwyE4/riq56exYQ1Z7ChHR5i5f+aM1LCLYKjwqlD g==;
-X-CSE-ConnectionGUID: 56lfgdwaRD6MbIWTOcA/uw==
-X-CSE-MsgGUID: pkOqp0niRTy/oYKamR7BEw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11025"; a="17927961"
-X-IronPort-AV: E=Sophos;i="6.07,156,1708416000"; d="scan'208";a="17927961"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2024 10:40:59 -0700
+ t=1711475230; x=1743011230;
+ h=message-id:date:mime-version:from:subject:to:cc:
+ references:in-reply-to:content-transfer-encoding;
+ bh=rKBF7AufZh5+n13raPhJxVltRhoyL+tmHyicIqdVe1E=;
+ b=DIgo3dZYgJeUIdebUq69a8KGGjK+Lv+uqWbtB7qJZER9K2+9JnGNIicx
+ QjS7rFL9UiMK6TtA2E35RMh7FVPsalvPeJGxUwDp4hzScT3m6cycKv0TP
+ mh5h4/XTijIa2/hTFW4VexvJYeKFA9aWnwLxRcqJjSxCwx+jPz0eLGDwR
+ zgUUgib9eN661cbJzgzfpb9du81bmJqbm29Mfny+ULkYTGKV6nikNX44/
+ rwCdZNGlGJEsQCWoAatcF30/uq8A3GCO8FauJo5d2pQ4RAOD7AI79HXds
+ u97+bw0qGBp6fXFvJ2OZMv6mcfXonHLoR6s+EyE6eXyytGp0z4Ko0mcbW g==;
+X-CSE-ConnectionGUID: e3tAeDMcRgieePku9xv2iQ==
+X-CSE-MsgGUID: XUqsGj3xQj6TmoYDaKdrxQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11025"; a="17091346"
+X-IronPort-AV: E=Sophos;i="6.07,156,1708416000"; d="scan'208";a="17091346"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2024 10:47:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,156,1708416000"; d="scan'208";a="47045286"
-Received: from lkp-server01.sh.intel.com (HELO be39aa325d23) ([10.239.97.150])
- by orviesa002.jf.intel.com with ESMTP; 26 Mar 2024 10:40:57 -0700
-Received: from kbuild by be39aa325d23 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rpAn7-0000Ho-0V;
- Tue, 26 Mar 2024 17:40:53 +0000
-Date: Wed, 27 Mar 2024 01:39:55 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Linux Memory Management List <linux-mm@kvack.org>,
- amd-gfx@lists.freedesktop.org, bpf@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mtd@lists.infradead.org,
- linux-omap@vger.kernel.org, linux-sunxi@lists.linux.dev,
- netdev@vger.kernel.org
-Subject: [linux-next:master] BUILD REGRESSION
- 084c8e315db34b59d38d06e684b1a0dd07d30287
-Message-ID: <202403270145.LVTWaRaz-lkp@intel.com>
-User-Agent: s-nail v14.9.24
+X-IronPort-AV: E=Sophos;i="6.07,156,1708416000"; d="scan'208";a="20755932"
+Received: from unknown (HELO [10.245.245.97]) ([10.245.245.97])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2024 10:47:01 -0700
+Message-ID: <7936855e-f4f4-4b60-a2ff-146782607b16@intel.com>
+Date: Tue, 26 Mar 2024 17:46:58 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Matthew Auld <matthew.auld@intel.com>
+Subject: Re: [PATCH v9 3/3] drm/tests: Add a test case for drm buddy clear
+ allocation
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
+ mario.limonciello@amd.com, felix.kuehling@amd.com
+References: <20240318214058.2014-1-Arunpravin.PaneerSelvam@amd.com>
+ <20240318214058.2014-3-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-GB
+In-Reply-To: <20240318214058.2014-3-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,388 +70,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 084c8e315db34b59d38d06e684b1a0dd07d30287  Add linux-next specific files for 20240326
+On 18/03/2024 21:40, Arunpravin Paneer Selvam wrote:
+> Add a new test case for the drm buddy clear and dirty
+> allocation.
+> 
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Suggested-by: Matthew Auld <matthew.auld@intel.com>
+> ---
+>   drivers/gpu/drm/tests/drm_buddy_test.c | 127 +++++++++++++++++++++++++
+>   1 file changed, 127 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/tests/drm_buddy_test.c b/drivers/gpu/drm/tests/drm_buddy_test.c
+> index 454ad9952f56..d355a6e61893 100644
+> --- a/drivers/gpu/drm/tests/drm_buddy_test.c
+> +++ b/drivers/gpu/drm/tests/drm_buddy_test.c
+> @@ -19,6 +19,132 @@ static inline u64 get_size(int order, u64 chunk_size)
+>   	return (1 << order) * chunk_size;
+>   }
+>   
+> +static void drm_test_buddy_alloc_clear(struct kunit *test)
+> +{
+> +	unsigned long n_pages, total, i = 0;
+> +	const unsigned long ps = SZ_4K;
+> +	struct drm_buddy_block *block;
+> +	const int max_order = 12;
+> +	LIST_HEAD(allocated);
+> +	struct drm_buddy mm;
+> +	unsigned int order;
+> +	u64 mm_size, size;
 
-Error/Warning: (recently discovered and may have been fixed)
+Maybe just make these two u32 or unsigned long. That should be big 
+enough, plus avoids any kind of 32b compilation bugs below.
 
-ERROR: modpost: "memcpy" [crypto/cast6_generic.ko] undefined!
-ERROR: modpost: "memcpy" [crypto/ccm.ko] undefined!
-ERROR: modpost: "memcpy" [crypto/ecdsa_generic.ko] undefined!
-ERROR: modpost: "memcpy" [crypto/md5.ko] undefined!
-ERROR: modpost: "memcpy" [crypto/nhpoly1305.ko] undefined!
-ERROR: modpost: "memcpy" [crypto/poly1305_generic.ko] undefined!
-ERROR: modpost: "memcpy" [crypto/rmd160.ko] undefined!
-ERROR: modpost: "memcpy" [fs/bfs/bfs.ko] undefined!
-ERROR: modpost: "memcpy" [fs/coda/coda.ko] undefined!
-ERROR: modpost: "memcpy" [fs/dlm/dlm.ko] undefined!
-ERROR: modpost: "memcpy" [fs/ecryptfs/ecryptfs.ko] undefined!
-ERROR: modpost: "memcpy" [fs/exfat/exfat.ko] undefined!
-ERROR: modpost: "memcpy" [fs/fat/fat.ko] undefined!
-ERROR: modpost: "memcpy" [fs/minix/minix.ko] undefined!
-ERROR: modpost: "memcpy" [fs/overlayfs/overlay.ko] undefined!
-ERROR: modpost: "memcpy" [fs/pstore/pstore.ko] undefined!
-ERROR: modpost: "memcpy" [fs/pstore/ramoops.ko] undefined!
+> +	LIST_HEAD(dirty);
+> +	LIST_HEAD(clean);
+> +
+> +	mm_size = PAGE_SIZE << max_order;
 
-Unverified Error/Warning (likely false positive, please contact us if interested):
+s/PAGE_SIZE/SZ_4K/ below also.
 
-drivers/dma/sun6i-dma.c:777 sun6i_dma_prep_slave_sg() error: dereferencing freed memory 'v_lli'
-drivers/dma/sun6i-dma.c:848 sun6i_dma_prep_dma_cyclic() error: dereferencing freed memory 'v_lli'
-drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c:400:42-43: WARNING opportunity for min()
-drivers/gpu/drm/amd/display/dc/dpp/dcn20/dcn20_dpp.c:269:42-43: WARNING opportunity for min()
-drivers/gpu/drm/amd/display/dc/dpp/dcn32/dcn32_dpp.c:43:42-43: WARNING opportunity for min()
+> +	KUNIT_EXPECT_FALSE(test, drm_buddy_init(&mm, mm_size, ps));
+> +
+> +	KUNIT_EXPECT_EQ(test, mm.max_order, max_order);
+> +
+> +	/**
 
-Error/Warning ids grouped by kconfigs:
+Drop the extra *, since is not actual kernel-doc. Below also.
 
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- alpha-randconfig-r002-20220208
-|   |-- ERROR:memcpy-crypto-ecdsa_generic.ko-undefined
-|   |-- ERROR:memcpy-crypto-md5.ko-undefined
-|   |-- ERROR:memcpy-crypto-rmd160.ko-undefined
-|   |-- ERROR:memcpy-fs-dlm-dlm.ko-undefined
-|   |-- ERROR:memcpy-fs-ecryptfs-ecryptfs.ko-undefined
-|   |-- ERROR:memcpy-fs-overlayfs-overlay.ko-undefined
-|   |-- ERROR:memcpy-fs-pstore-pstore.ko-undefined
-|   `-- ERROR:memcpy-fs-pstore-ramoops.ko-undefined
-|-- alpha-randconfig-r034-20211016
-|   |-- ERROR:memcpy-fs-bfs-bfs.ko-undefined
-|   |-- ERROR:memcpy-fs-coda-coda.ko-undefined
-|   |-- ERROR:memcpy-fs-exfat-exfat.ko-undefined
-|   |-- ERROR:memcpy-fs-fat-fat.ko-undefined
-|   `-- ERROR:memcpy-fs-minix-minix.ko-undefined
-|-- alpha-randconfig-r036-20211224
-|   |-- ERROR:memcpy-crypto-cast6_generic.ko-undefined
-|   |-- ERROR:memcpy-crypto-ccm.ko-undefined
-|   |-- ERROR:memcpy-crypto-nhpoly1305.ko-undefined
-|   `-- ERROR:memcpy-crypto-poly1305_generic.ko-undefined
-|-- arc-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- arc-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- arm-allmodconfig
-|   |-- arch-arm-mach-omap2-prm33xx.c:warning:expecting-prototype-for-am33xx_prm_global_warm_sw_reset().-Prototype-was-for-am33xx_prm_global_sw_reset()-instead
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- arm-allyesconfig
-|   |-- arch-arm-mach-omap2-prm33xx.c:warning:expecting-prototype-for-am33xx_prm_global_warm_sw_reset().-Prototype-was-for-am33xx_prm_global_sw_reset()-instead
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- arm-randconfig-003-20240326
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- arm64-defconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- csky-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- csky-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-buildonly-randconfig-004-20240326
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-buildonly-randconfig-006-20240326
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-randconfig-051-20240326
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- loongarch-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- loongarch-defconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- loongarch-randconfig-r062-20240326
-|   `-- drivers-firmware-arm_scmi-raw_mode.c:WARNING:scmi_dbg_raw_mode_reset_fops:write()-has-stream-semantic-safe-to-change-nonseekable_open-stream_open.
-|-- m68k-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- m68k-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- m68k-randconfig-r071-20240326
-|   |-- drivers-dma-sun6i-dma.c-sun6i_dma_prep_dma_cyclic()-error:dereferencing-freed-memory-v_lli
-|   `-- drivers-dma-sun6i-dma.c-sun6i_dma_prep_slave_sg()-error:dereferencing-freed-memory-v_lli
-|-- microblaze-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- microblaze-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- mips-allyesconfig
-|   |-- (.ref.text):relocation-truncated-to-fit:R_MIPS_26-against-start_secondary
-|   |-- (.text):relocation-truncated-to-fit:R_MIPS_26-against-kernel_entry
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- nios2-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- nios2-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- openrisc-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- parisc-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- parisc-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- powerpc-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- powerpc64-randconfig-001-20240326
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- powerpc64-randconfig-r064-20240326
-|   `-- drivers-firmware-arm_scmi-raw_mode.c:WARNING:scmi_dbg_raw_mode_reset_fops:write()-has-stream-semantic-safe-to-change-nonseekable_open-stream_open.
-|-- s390-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sh-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sh-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sh-randconfig-002-20240326
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sparc-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sparc-randconfig-r051-20240326
-|   |-- drivers-firmware-arm_scmi-raw_mode.c:WARNING:scmi_dbg_raw_mode_reset_fops:write()-has-stream-semantic-safe-to-change-nonseekable_open-stream_open.
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sparc64-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sparc64-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- um-allyesconfig
-|   |-- collect2:error:ld-returned-exit-status
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- um-i386_defconfig
-|   `-- collect2:error:ld-returned-exit-status
-|-- um-randconfig-002-20240326
-|   `-- collect2:error:ld-returned-exit-status
-|-- x86_64-buildonly-randconfig-004-20240326
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- x86_64-buildonly-randconfig-005-20240326
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- x86_64-randconfig-002-20240326
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-`-- x86_64-randconfig-102-20240326
-    |-- drivers-gpu-drm-amd-display-dc-dpp-dcn10-dcn10_dpp_dscl.c:WARNING-opportunity-for-min()
-    |-- drivers-gpu-drm-amd-display-dc-dpp-dcn20-dcn20_dpp.c:WARNING-opportunity-for-min()
-    `-- drivers-gpu-drm-amd-display-dc-dpp-dcn32-dcn32_dpp.c:WARNING-opportunity-for-min()
-clang_recent_errors
-|-- arm-defconfig
-|   |-- arch-arm-mach-omap2-prm33xx.c:warning:expecting-prototype-for-am33xx_prm_global_warm_sw_reset().-Prototype-was-for-am33xx_prm_global_sw_reset()-instead
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- arm64-allmodconfig
-|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- arm64-randconfig-004-20240326
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- hexagon-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- hexagon-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-randconfig-006-20240326
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-randconfig-061-20240327
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- mips-randconfig-r061-20240326
-|   `-- drivers-firmware-arm_scmi-raw_mode.c:WARNING:scmi_dbg_raw_mode_reset_fops:write()-has-stream-semantic-safe-to-change-nonseekable_open-stream_open.
-|-- powerpc-allyesconfig
-|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- riscv-allmodconfig
-|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- riscv-allyesconfig
-|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- s390-allmodconfig
-|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- s390-defconfig
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- s390-randconfig-002-20240326
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- x86_64-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-`-- x86_64-randconfig-016-20240326
-    `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+> +	 * Idea is to allocate and free some random portion of the address space,
+> +	 * returning those pages as non-dirty and randomly alternate between
+> +	 * requesting dirty and non-dirty pages (not going over the limit
+> +	 * we freed as non-dirty), putting that into two separate lists.
+> +	 * Loop over both lists at the end checking that the dirty list
+> +	 * is indeed all dirty pages and vice versa. Free it all again,
+> +	 * keeping the dirty/clear status.
+> +	 */
+> +	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
+> +							    5 * ps, ps, &allocated,
+> +							    DRM_BUDDY_TOPDOWN_ALLOCATION),
+> +				"buddy_alloc hit an error size=%u\n", 5 * ps);
+> +	drm_buddy_free_list(&mm, &allocated, DRM_BUDDY_CLEARED);
+> +
+> +	n_pages = 10;
+> +	do {
+> +		unsigned long flags;
+> +		struct list_head *list;
+> +		int slot = i % 2;
+> +
+> +		if (slot == 0) {
+> +			list = &dirty;
+> +			flags = 0;
+> +		} else if (slot == 1) {
 
-elapsed time: 733m
+Could just be else {
 
-configs tested: 180
-configs skipped: 3
+> +			list = &clean;
+> +			flags = DRM_BUDDY_CLEAR_ALLOCATION;
+> +		}
+> +
+> +		KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
+> +								    ps, ps, list,
+> +								    flags),
+> +					"buddy_alloc hit an error size=%u\n", ps);
+> +	} while (++i < n_pages);
+> +
+> +	list_for_each_entry(block, &clean, link)
+> +		KUNIT_EXPECT_EQ(test, drm_buddy_block_is_clear(block), true);
+> +
+> +	list_for_each_entry(block, &dirty, link)
+> +		KUNIT_EXPECT_EQ(test, drm_buddy_block_is_clear(block), false);
+> +
+> +	drm_buddy_free_list(&mm, &clean, DRM_BUDDY_CLEARED);
+> +
+> +	/**
+> +	 * Trying to go over the clear limit for some allocation.
+> +	 * The allocation should never fail with reasonable page-size.
+> +	 */
+> +	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
+> +							    10 * ps, ps, &clean,
+> +							    DRM_BUDDY_CLEAR_ALLOCATION),
+> +				"buddy_alloc hit an error size=%u\n", 10 * ps);
+> +
+> +	drm_buddy_free_list(&mm, &clean, DRM_BUDDY_CLEARED);
+> +	drm_buddy_free_list(&mm, &dirty, 0);
+> +	drm_buddy_fini(&mm);
+> +
+> +	KUNIT_EXPECT_FALSE(test, drm_buddy_init(&mm, mm_size, ps));
+> +
+> +	/**
+> +	 * Create a new mm. Intentionally fragment the address space by creating
+> +	 * two alternating lists. Free both lists, one as dirty the other as clean.
+> +	 * Try to allocate double the previous size with matching min_page_size. The
+> +	 * allocation should never fail as it calls the force_merge. Also check that
+> +	 * the page is always dirty after force_merge. Free the page as dirty, then
+> +	 * repeat the whole thing, increment the order until we hit the max_order.
+> +	 */
+> +
+> +	order = 1;
+> +	do {
+> +		size = PAGE_SIZE << order;
+> +		i = 0;
+> +		n_pages = mm_size / ps;
+> +		do {
+> +			struct list_head *list;
+> +			int slot = i % 2;
+> +
+> +			if (slot == 0)
+> +				list = &dirty;
+> +			else if (slot == 1)
 
-tested configs:
-alpha                             allnoconfig   gcc  
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-arc                              allmodconfig   gcc  
-arc                               allnoconfig   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                   randconfig-001-20240326   gcc  
-arc                   randconfig-002-20240326   gcc  
-arm                              allmodconfig   gcc  
-arm                               allnoconfig   clang
-arm                              allyesconfig   gcc  
-arm                                 defconfig   clang
-arm                   randconfig-001-20240326   gcc  
-arm                   randconfig-002-20240326   gcc  
-arm                   randconfig-003-20240326   gcc  
-arm                   randconfig-004-20240326   gcc  
-arm                         s3c6400_defconfig   gcc  
-arm64                            allmodconfig   clang
-arm64                             allnoconfig   gcc  
-arm64                               defconfig   gcc  
-arm64                 randconfig-001-20240326   clang
-arm64                 randconfig-002-20240326   clang
-arm64                 randconfig-003-20240326   gcc  
-arm64                 randconfig-004-20240326   clang
-csky                             allmodconfig   gcc  
-csky                              allnoconfig   gcc  
-csky                             allyesconfig   gcc  
-csky                                defconfig   gcc  
-csky                  randconfig-001-20240326   gcc  
-csky                  randconfig-002-20240326   gcc  
-hexagon                          allmodconfig   clang
-hexagon                           allnoconfig   clang
-hexagon                          allyesconfig   clang
-hexagon                             defconfig   clang
-hexagon               randconfig-001-20240326   clang
-hexagon               randconfig-002-20240326   clang
-i386                             allmodconfig   gcc  
-i386                              allnoconfig   gcc  
-i386                             allyesconfig   gcc  
-i386         buildonly-randconfig-001-20240326   gcc  
-i386         buildonly-randconfig-002-20240326   clang
-i386         buildonly-randconfig-003-20240326   clang
-i386         buildonly-randconfig-004-20240326   gcc  
-i386         buildonly-randconfig-005-20240326   gcc  
-i386         buildonly-randconfig-006-20240326   gcc  
-i386                                defconfig   clang
-i386                  randconfig-001-20240326   gcc  
-i386                  randconfig-002-20240326   gcc  
-i386                  randconfig-003-20240326   gcc  
-i386                  randconfig-004-20240326   clang
-i386                  randconfig-005-20240326   gcc  
-i386                  randconfig-006-20240326   clang
-i386                  randconfig-011-20240326   clang
-i386                  randconfig-012-20240326   gcc  
-i386                  randconfig-013-20240326   clang
-i386                  randconfig-014-20240326   clang
-i386                  randconfig-015-20240326   clang
-i386                  randconfig-016-20240326   clang
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                           defconfig   gcc  
-loongarch             randconfig-001-20240326   gcc  
-loongarch             randconfig-002-20240326   gcc  
-m68k                             allmodconfig   gcc  
-m68k                              allnoconfig   gcc  
-m68k                             allyesconfig   gcc  
-m68k                                defconfig   gcc  
-m68k                        mvme147_defconfig   gcc  
-m68k                           sun3_defconfig   gcc  
-microblaze                       allmodconfig   gcc  
-microblaze                        allnoconfig   gcc  
-microblaze                       allyesconfig   gcc  
-microblaze                          defconfig   gcc  
-mips                              allnoconfig   gcc  
-mips                             allyesconfig   gcc  
-mips                 decstation_r4k_defconfig   gcc  
-mips                      fuloong2e_defconfig   gcc  
-mips                          malta_defconfig   gcc  
-mips                malta_qemu_32r6_defconfig   gcc  
-mips                         rt305x_defconfig   clang
-mips                        vocore2_defconfig   clang
-nios2                            allmodconfig   gcc  
-nios2                             allnoconfig   gcc  
-nios2                            allyesconfig   gcc  
-nios2                               defconfig   gcc  
-nios2                 randconfig-001-20240326   gcc  
-nios2                 randconfig-002-20240326   gcc  
-openrisc                          allnoconfig   gcc  
-openrisc                         allyesconfig   gcc  
-openrisc                            defconfig   gcc  
-parisc                           alldefconfig   gcc  
-parisc                           allmodconfig   gcc  
-parisc                            allnoconfig   gcc  
-parisc                           allyesconfig   gcc  
-parisc                              defconfig   gcc  
-parisc                randconfig-001-20240326   gcc  
-parisc                randconfig-002-20240326   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc                          allyesconfig   clang
-powerpc                   microwatt_defconfig   gcc  
-powerpc               randconfig-001-20240326   clang
-powerpc               randconfig-002-20240326   gcc  
-powerpc               randconfig-003-20240326   clang
-powerpc                      walnut_defconfig   gcc  
-powerpc64             randconfig-001-20240326   gcc  
-powerpc64             randconfig-002-20240326   gcc  
-powerpc64             randconfig-003-20240326   gcc  
-riscv                            allmodconfig   clang
-riscv                             allnoconfig   gcc  
-riscv                            allyesconfig   clang
-riscv                               defconfig   clang
-riscv             nommu_k210_sdcard_defconfig   gcc  
-riscv                 randconfig-001-20240326   gcc  
-riscv                 randconfig-002-20240326   clang
-s390                             allmodconfig   clang
-s390                              allnoconfig   clang
-s390                             allyesconfig   gcc  
-s390                                defconfig   clang
-s390                  randconfig-001-20240326   clang
-s390                  randconfig-002-20240326   clang
-sh                               allmodconfig   gcc  
-sh                                allnoconfig   gcc  
-sh                               allyesconfig   gcc  
-sh                                  defconfig   gcc  
-sh                          lboxre2_defconfig   gcc  
-sh                          polaris_defconfig   gcc  
-sh                    randconfig-001-20240326   gcc  
-sh                    randconfig-002-20240326   gcc  
-sh                          rsk7269_defconfig   gcc  
-sh                             shx3_defconfig   gcc  
-sparc                            allmodconfig   gcc  
-sparc                             allnoconfig   gcc  
-sparc                               defconfig   gcc  
-sparc64                          allmodconfig   gcc  
-sparc64                          allyesconfig   gcc  
-sparc64                             defconfig   gcc  
-sparc64               randconfig-001-20240326   gcc  
-sparc64               randconfig-002-20240326   gcc  
-um                               allmodconfig   clang
-um                                allnoconfig   clang
-um                               allyesconfig   gcc  
-um                                  defconfig   clang
-um                             i386_defconfig   gcc  
-um                    randconfig-001-20240326   gcc  
-um                    randconfig-002-20240326   gcc  
-um                           x86_64_defconfig   clang
-x86_64                            allnoconfig   clang
-x86_64                           allyesconfig   clang
-x86_64       buildonly-randconfig-001-20240326   clang
-x86_64       buildonly-randconfig-002-20240326   gcc  
-x86_64       buildonly-randconfig-003-20240326   clang
-x86_64       buildonly-randconfig-004-20240326   gcc  
-x86_64       buildonly-randconfig-005-20240326   gcc  
-x86_64       buildonly-randconfig-006-20240326   gcc  
-x86_64                              defconfig   gcc  
-x86_64                randconfig-001-20240326   gcc  
-x86_64                randconfig-002-20240326   gcc  
-x86_64                randconfig-003-20240326   gcc  
-x86_64                randconfig-004-20240326   clang
-x86_64                randconfig-005-20240326   gcc  
-x86_64                randconfig-006-20240326   clang
-x86_64                randconfig-011-20240326   gcc  
-x86_64                randconfig-012-20240326   clang
-x86_64                randconfig-013-20240326   gcc  
-x86_64                randconfig-014-20240326   gcc  
-x86_64                randconfig-015-20240326   clang
-x86_64                randconfig-016-20240326   clang
-x86_64                randconfig-071-20240326   clang
-x86_64                randconfig-072-20240326   gcc  
-x86_64                randconfig-073-20240326   gcc  
-x86_64                randconfig-074-20240326   gcc  
-x86_64                randconfig-075-20240326   gcc  
-x86_64                randconfig-076-20240326   gcc  
-x86_64                          rhel-8.3-rust   clang
-xtensa                            allnoconfig   gcc  
-xtensa                randconfig-001-20240326   gcc  
-xtensa                randconfig-002-20240326   gcc  
+else
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> +				list = &clean;
+> +
+> +			KUNIT_ASSERT_FALSE_MSG(test,
+> +					       drm_buddy_alloc_blocks(&mm, 0, mm_size,
+> +								      ps, ps, list, 0),
+> +					       "buddy_alloc hit an error size=%u\n",
+> +					       ps);
+> +		} while (++i < n_pages);
+
+I think we only need to do this once at the beginning, and then just 
+loop over each order starting from one? Otherwise on the first iteration 
+here we fragment the entire address space, but then only allocate single 
+order=1. And then we repeat the whole fragmentation again, which seems 
+unnecessary.
+
+> +
+> +		drm_buddy_free_list(&mm, &clean, DRM_BUDDY_CLEARED);
+> +		drm_buddy_free_list(&mm, &dirty, 0);
+> +
+> +		KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
+> +								    size, size, &allocated,
+> +								    DRM_BUDDY_CLEAR_ALLOCATION),
+> +					"buddy_alloc hit an error size=%u\n", size);
+
+size=%llu or better just make size u32.
+
+> +		total = 0;
+> +		list_for_each_entry(block, &allocated, link) {
+> +			KUNIT_EXPECT_EQ(test, drm_buddy_block_is_clear(block), false);
+> +			total += drm_buddy_block_size(&mm, block);
+> +		}
+> +		KUNIT_EXPECT_EQ(test, total, size);
+> +
+> +		drm_buddy_free_list(&mm, &allocated, 0);
+> +	} while (++order <= max_order);
+
+I think would be good to also do some non-power-of-two mm size. Just to 
+ensure we get some coverage for the multi-root force_merge during fini. 
+Something simple like create new mm here, allocate random size, free as 
+cleared, then call fini.
+
+Looks good otherwise.
+
+> +
+> +	drm_buddy_fini(&mm);
+> +}
+> +
+>   static void drm_test_buddy_alloc_contiguous(struct kunit *test)
+>   {
+>   	const unsigned long ps = SZ_4K, mm_size = 16 * 3 * SZ_4K;
+> @@ -368,6 +494,7 @@ static struct kunit_case drm_buddy_tests[] = {
+>   	KUNIT_CASE(drm_test_buddy_alloc_pessimistic),
+>   	KUNIT_CASE(drm_test_buddy_alloc_pathological),
+>   	KUNIT_CASE(drm_test_buddy_alloc_contiguous),
+> +	KUNIT_CASE(drm_test_buddy_alloc_clear),
+>   	{}
+>   };
+>   
