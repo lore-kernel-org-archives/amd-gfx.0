@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68E44CD1284
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:10:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80814C54E67
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:10:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C117010FACF;
-	Wed, 27 Mar 2024 12:10:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5D6910FAD7;
+	Wed, 27 Mar 2024 12:10:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Se37dmrr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ay/TNkWb";
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B42D610FADB;
- Wed, 27 Mar 2024 12:10:01 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7E2810FABE;
+ Wed, 27 Mar 2024 12:10:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id A1C29CE178E;
- Wed, 27 Mar 2024 12:09:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3819C433F1;
- Wed, 27 Mar 2024 12:09:57 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 44E5C61507;
+ Wed, 27 Mar 2024 12:10:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A60E3C433C7;
+ Wed, 27 Mar 2024 12:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711541398;
- bh=rxwMib3+tOXikktoaWgCIrfR1l/T8AWUfxw3mFkVN60=;
+ s=k20201202; t=1711541407;
+ bh=9qfTXJZO+HAIhcdp/1hyiuYc3mV3HlWI7xfDbQw8HYc=;
  h=From:To:Cc:Subject:Date:From;
- b=Se37dmrrSK9NCKE6M10q4w4NrcfZ3ZBtUscKPrL1w+NkvsCdKfjAl+3ok8fw0BONi
- TxBvERcxMnTJnlH6rONS32TQJ8MF2D/3rA9ZvdjlpiM0NzIlfUo3OVhHdPRESxm2hN
- F2E58/yLFz+gm/K/fdTtS6ZyF3hIYk6cvfdyBdsC7u2mQ4X7MXaZR6QYQERgQOP+5M
- WZhlfaya4DnX7WqdLyNN0fX0QMbtbUuOauqjkyA9jcfTTXLdpR65l8cM03oBu0Eh4+
- Tow/xqV7lYD1uBetKurxEG2c8haKpgnnvA+4Dx7Y2In69FD8IswLShWmCXCtOkCQ/f
- 2RNw5BahPztug==
+ b=ay/TNkWb1gBshbJ2cBRCHOSzFOJOG5GyvZXnXjxIj/3DvvYLtwW2dgHJf3bfouGP7
+ 89QoMelKumrYQ8cImV4rioTA3acnMHEd8vgr5zLI9SW/6H1nPnXeRwMNDBwQX31IDf
+ oI2TfpY/+EiyoZouC6v23M9EqyizLwbBCKEf1HUKmL5TfA9zG4D5o9jUJ12RhwgStf
+ Xel5HV/oPG0IchrZV3/NhSNu1shX3EfITE++soW1kjcgYwRTUa7BgTPDXLiI4WmCzk
+ YVAzMTu0g9P3U5c7hdZwUrWX3+SodY3l8rVbqNruD1gtwCn6t9jSMjruzXTSs+ETIH
+ IHJbJP/YnK1Dw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	roman.li@amd.com
+	wenjing.liu@amd.com
 Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: FAILED: Patch "drm/amd/display: Fix array-index-out-of-bounds in
- dcn35_clkmgr" failed to apply to 6.6-stable tree
-Date: Wed, 27 Mar 2024 08:09:56 -0400
-Message-ID: <20240327120956.2827462-1-sashal@kernel.org>
+ Alex Deucher <alexander.deucher@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: FAILED: Patch "drm/amd/display: Lock all enabled otg pipes even with
+ no planes" failed to apply to 6.6-stable tree
+Date: Wed, 27 Mar 2024 08:10:05 -0400
+Message-ID: <20240327121005.2827579-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -72,75 +71,92 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a8edc9cc0b14e3769bbc9b82d00e5e5fc6b5ff0a Mon Sep 17 00:00:00 2001
-From: Roman Li <roman.li@amd.com>
-Date: Tue, 30 Jan 2024 18:07:24 -0500
-Subject: [PATCH] drm/amd/display: Fix array-index-out-of-bounds in
- dcn35_clkmgr
+From 94040c2cbb1a872ff779da06bf034ccfee0f9cba Mon Sep 17 00:00:00 2001
+From: Wenjing Liu <wenjing.liu@amd.com>
+Date: Fri, 23 Feb 2024 15:17:39 -0500
+Subject: [PATCH] drm/amd/display: Lock all enabled otg pipes even with no
+ planes
 
-[Why]
-There is a potential memory access violation while
-iterating through array of dcn35 clks.
+[WHY]
+On DCN32 we support dynamic ODM even when OTG is blanked. When ODM
+configuration is dynamically changed and the OTG is on blank pattern,
+we will need to reprogram OPP's test pattern based on new ODM
+configuration. Therefore we need to lock the OTG pipe to avoid temporary
+corruption when we are reprogramming OPP blank patterns.
 
-[How]
-Limit iteration per array size.
+[HOW]
+Add a new interdependent update lock implementation to lock all enabled
+OTG pipes even when there is no plane on the OTG for DCN32.
 
 Cc: Mario Limonciello <mario.limonciello@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: stable@vger.kernel.org
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Roman Li <roman.li@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Acked-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 23 +++++++++++++++++++
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.h   |  2 ++
+ .../amd/display/dc/hwss/dcn32/dcn32_init.c    |  2 +-
+ 3 files changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-index 36e5bb611fb10..c378b879c76d8 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-@@ -658,10 +658,13 @@ static void dcn35_clk_mgr_helper_populate_bw_params(struct clk_mgr_internal *clk
- 	struct clk_limit_table_entry def_max = bw_params->clk_table.entries[bw_params->clk_table.num_entries - 1];
- 	uint32_t max_fclk = 0, min_pstate = 0, max_dispclk = 0, max_dppclk = 0;
- 	uint32_t max_pstate = 0, max_dram_speed_mts = 0, min_dram_speed_mts = 0;
-+	uint32_t num_memps, num_fclk, num_dcfclk;
- 	int i;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+index b890db0bfc46b..c0b526cf17865 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+@@ -1785,3 +1785,26 @@ void dcn32_prepare_bandwidth(struct dc *dc,
+ 		context->bw_ctx.bw.dcn.clk.p_state_change_support = p_state_change_support;
+ 	}
+ }
++
++void dcn32_interdependent_update_lock(struct dc *dc,
++		struct dc_state *context, bool lock)
++{
++	unsigned int i;
++	struct pipe_ctx *pipe;
++	struct timing_generator *tg;
++
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++		pipe = &context->res_ctx.pipe_ctx[i];
++		tg = pipe->stream_res.tg;
++
++		if (!resource_is_pipe_type(pipe, OTG_MASTER) ||
++				!tg->funcs->is_tg_enabled(tg) ||
++				dc_state_get_pipe_subvp_type(context, pipe) == SUBVP_PHANTOM)
++			continue;
++
++		if (lock)
++			dc->hwss.pipe_control_lock(dc, pipe, true);
++		else
++			dc->hwss.pipe_control_lock(dc, pipe, false);
++	}
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.h
+index 069e20bc87c0a..f55c11fc56ec7 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.h
+@@ -129,4 +129,6 @@ bool dcn32_is_pipe_topology_transition_seamless(struct dc *dc,
+ void dcn32_prepare_bandwidth(struct dc *dc,
+ 	struct dc_state *context);
  
- 	/* Determine min/max p-state values. */
--	for (i = 0; i < clock_table->NumMemPstatesEnabled; i++) {
-+	num_memps = (clock_table->NumMemPstatesEnabled > NUM_MEM_PSTATE_LEVELS) ? NUM_MEM_PSTATE_LEVELS :
-+		clock_table->NumMemPstatesEnabled;
-+	for (i = 0; i < num_memps; i++) {
- 		uint32_t dram_speed_mts = calc_dram_speed_mts(&clock_table->MemPstateTable[i]);
- 
- 		if (is_valid_clock_value(dram_speed_mts) && dram_speed_mts > max_dram_speed_mts) {
-@@ -673,7 +676,7 @@ static void dcn35_clk_mgr_helper_populate_bw_params(struct clk_mgr_internal *clk
- 	min_dram_speed_mts = max_dram_speed_mts;
- 	min_pstate = max_pstate;
- 
--	for (i = 0; i < clock_table->NumMemPstatesEnabled; i++) {
-+	for (i = 0; i < num_memps; i++) {
- 		uint32_t dram_speed_mts = calc_dram_speed_mts(&clock_table->MemPstateTable[i]);
- 
- 		if (is_valid_clock_value(dram_speed_mts) && dram_speed_mts < min_dram_speed_mts) {
-@@ -702,9 +705,13 @@ static void dcn35_clk_mgr_helper_populate_bw_params(struct clk_mgr_internal *clk
- 	/* Base the clock table on dcfclk, need at least one entry regardless of pmfw table */
- 	ASSERT(clock_table->NumDcfClkLevelsEnabled > 0);
- 
--	max_fclk = find_max_clk_value(clock_table->FclkClocks_Freq, clock_table->NumFclkLevelsEnabled);
-+	num_fclk = (clock_table->NumFclkLevelsEnabled > NUM_FCLK_DPM_LEVELS) ? NUM_FCLK_DPM_LEVELS :
-+		clock_table->NumFclkLevelsEnabled;
-+	max_fclk = find_max_clk_value(clock_table->FclkClocks_Freq, num_fclk);
- 
--	for (i = 0; i < clock_table->NumDcfClkLevelsEnabled; i++) {
-+	num_dcfclk = (clock_table->NumFclkLevelsEnabled > NUM_DCFCLK_DPM_LEVELS) ? NUM_DCFCLK_DPM_LEVELS :
-+		clock_table->NumDcfClkLevelsEnabled;
-+	for (i = 0; i < num_dcfclk; i++) {
- 		int j;
- 
- 		/* First search defaults for the clocks we don't read using closest lower or equal default dcfclk */
++void dcn32_interdependent_update_lock(struct dc *dc,
++		struct dc_state *context, bool lock);
+ #endif /* __DC_HWSS_DCN32_H__ */
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
+index 2b073123d3ede..67d661dbd5b7c 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
+@@ -58,7 +58,7 @@ static const struct hw_sequencer_funcs dcn32_funcs = {
+ 	.disable_plane = dcn20_disable_plane,
+ 	.disable_pixel_data = dcn20_disable_pixel_data,
+ 	.pipe_control_lock = dcn20_pipe_control_lock,
+-	.interdependent_update_lock = dcn10_lock_all_pipes,
++	.interdependent_update_lock = dcn32_interdependent_update_lock,
+ 	.cursor_lock = dcn10_cursor_lock,
+ 	.prepare_bandwidth = dcn32_prepare_bandwidth,
+ 	.optimize_bandwidth = dcn20_optimize_bandwidth,
 -- 
 2.43.0
 
