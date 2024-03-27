@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DC06C47DD9
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:20:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21B63C47DD9
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:20:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBD1310FBF4;
-	Wed, 27 Mar 2024 12:20:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28A6F10FBFA;
+	Wed, 27 Mar 2024 12:20:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oYf7irH6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MxxqL9uu";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB66B10FBF4;
- Wed, 27 Mar 2024 12:20:40 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91B7410FBFA;
+ Wed, 27 Mar 2024 12:20:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 34EDD614E2;
- Wed, 27 Mar 2024 12:20:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC613C433C7;
- Wed, 27 Mar 2024 12:20:38 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 972ACCE0E36;
+ Wed, 27 Mar 2024 12:20:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D81FC433C7;
+ Wed, 27 Mar 2024 12:20:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711542039;
- bh=YjlmFgL1wRu2w2PgjIIiHqNf7JbJuwD/bCtZgF1EcoE=;
+ s=k20201202; t=1711542044;
+ bh=X8oIdoNsjR3YFrCpIAQrYxfqYNjTusb6ZfjjQyR+dzM=;
  h=From:To:Cc:Subject:Date:From;
- b=oYf7irH6hprsBTv8v0l3s+0n+PhuHzp+BOcYjNskZujO2OHS0I3VkOvyZvFMmMsbH
- 5cDtiSTDD/GW+laD14uXOV69I3sRYlyrobTNX46adBA9vnbx76I2L6iO3orlFMCfQD
- SGJzC0m5/xXTkbkPG9ZmeMJpaL0+c7aS/B+E0uVZVcs/tskJl4TD0yn2C4Ooza1sjo
- UrpRGy8syPDN4hobJUTzzIR8rkCmAsmy6uXxPAILc06aXcjaJxHNjqTySbZcwscUcP
- NKJm5XXUYCr3e+sLf3I0e7pujEEHZg3mwU+0bu/aMsd9XnQIJ5T7YpWsAy/Mn4DN6o
- by6G2+I0v/pMg==
+ b=MxxqL9uuqw/33QfOnwv8iBw3cKmFRDDUHHfm1NHhxdm9HsipkU5vqIHl0yLaNYLhT
+ 4YKD2Lnp/WjGcotopm8fmMcbH2SZH9njs/F4ro4a63TcTsyoZb67lpN/OgZ8A6XfXc
+ 48T372FuiV9Yr99/1SwrpDWqiSMCXAjjx5687TglrrM+SOGbBjugVfjvzhy7CwSi+p
+ QbXDN0I53fTVj9Rml8TL8YntQ90dEZufPNerBKp6E8pm4haH8gPKkEFiz/EDOIgWkT
+ G55YKE93Ct/wDRnYEaYhglDlmxeslaBdPGy+oMNHeJLXr5uvc5atb4G8FUOXJiaemG
+ 6ZbXpa1fkr33A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	josip.pavic@amd.com
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Anthony Koo <anthony.koo@amd.com>, Alex Hung <alex.hung@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
+	Philip.Yang@amd.com
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: FAILED: Patch "drm/amd/display: Allow dirty rects to be sent to dmub
- when abm is active" failed to apply to 5.10-stable tree
-Date: Wed, 27 Mar 2024 08:20:37 -0400
-Message-ID: <20240327122038.2836192-1-sashal@kernel.org>
+Subject: FAILED: Patch "drm/amdgpu: amdgpu_ttm_gart_bind set gtt bound flag"
+ failed to apply to 5.10-stable tree
+Date: Wed, 27 Mar 2024 08:20:42 -0400
+Message-ID: <20240327122043.2836266-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
 X-stable: review
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,45 +70,40 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7fb19d9510937121a1f285894cffd30bc96572e3 Mon Sep 17 00:00:00 2001
-From: Josip Pavic <josip.pavic@amd.com>
-Date: Fri, 9 Feb 2024 16:05:18 -0500
-Subject: [PATCH] drm/amd/display: Allow dirty rects to be sent to dmub when
- abm is active
+From 6c6064cbe58b43533e3451ad6a8ba9736c109ac3 Mon Sep 17 00:00:00 2001
+From: Philip Yang <Philip.Yang@amd.com>
+Date: Mon, 11 Mar 2024 18:07:34 -0400
+Subject: [PATCH] drm/amdgpu: amdgpu_ttm_gart_bind set gtt bound flag
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-[WHY]
-It's beneficial for ABM to know when new frame data are available.
+Otherwise after the GTT bo is released, the GTT and gart space is freed
+but amdgpu_ttm_backend_unbind will not clear the gart page table entry
+and leave valid mapping entry pointing to the stale system page. Then
+if GPU access the gart address mistakely, it will read undefined value
+instead page fault, harder to debug and reproduce the real issue.
 
-[HOW]
-Add new condition to allow dirty rects to be sent to DMUB when ABM is
-active. ABM will use this as a signal that a new frame has arrived.
-
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: stable@vger.kernel.org
-Reviewed-by: Anthony Koo <anthony.koo@amd.com>
-Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Josip Pavic <josip.pavic@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 5211c1c0f3c0c..613d09c42f3b9 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3270,6 +3270,9 @@ static bool dc_dmub_should_send_dirty_rect_cmd(struct dc *dc, struct dc_stream_s
- 	if (stream->link->replay_settings.config.replay_supported)
- 		return true;
- 
-+	if (stream->ctx->dce_version >= DCN_VERSION_3_5 && stream->abm_level)
-+		return true;
-+
- 	return false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 8722beba494e5..fc418e670fdae 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -864,6 +864,7 @@ static void amdgpu_ttm_gart_bind(struct amdgpu_device *adev,
+ 		amdgpu_gart_bind(adev, gtt->offset, ttm->num_pages,
+ 				 gtt->ttm.dma_address, flags);
+ 	}
++	gtt->bound = true;
  }
  
+ /*
 -- 
 2.43.0
 
