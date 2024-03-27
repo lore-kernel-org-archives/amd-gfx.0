@@ -4,45 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29284C54E67
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:07:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB29DC47DD9
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:07:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AEDD10FA71;
-	Wed, 27 Mar 2024 12:07:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3585C10FA76;
+	Wed, 27 Mar 2024 12:07:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cEvvA7vz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kusuduHC";
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94F7E10FA71;
- Wed, 27 Mar 2024 12:07:06 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2414D10FA76;
+ Wed, 27 Mar 2024 12:07:13 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id AE124CE262F;
- Wed, 27 Mar 2024 12:07:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5604C43601;
- Wed, 27 Mar 2024 12:07:02 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7C5A1614DE;
+ Wed, 27 Mar 2024 12:07:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369F2C433F1;
+ Wed, 27 Mar 2024 12:07:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711541223;
- bh=R0VrPnh+VS2XJImnPmtExks6ORgQkapYPGiFs59gnbo=;
+ s=k20201202; t=1711541232;
+ bh=CoSnL3qPQEJOccnboM8Yx9diAo3ePi4BoTAGB2yAXic=;
  h=From:To:Cc:Subject:Date:From;
- b=cEvvA7vzJjbWecFRbNCKBtRgfjXLSKCCZpuO2KY4w11vwWwu/TEA2JJ5YPKkIJHVb
- Pwvj4nXFvVEZSz3ozbJPMAJkJSviR8vpQfNjrRiVncbj1B//mlpiSTJRFyWq/xlZWy
- nquc7p63OJWUf+zvb8z3aFQA4kBc/YeU3bRfPMbkLgUV0f+STYyfoFXPTPTebq8o/s
- /OwWC1CeCpcMz/anTOFv5sViqUtQZxJG8dAKri5Z3ZCk71CJDRpQqw2DH1f9bzktyG
- QSLwJtrtnZelkirh6fUzAol/aOkjJjUmXd9rI1C9Y/H/+LGDpf88MDXZRjCIbbJGGq
- yA07l+C/Pn1qw==
+ b=kusuduHCFxJ2UTor5ojALVKldcK3CkkUOAGYBHYYY5APRWeU5S2a0qni1b11ZM9VQ
+ arBY6xHXhA9nZlPabBJhR9QTNMbRFLAu0oZcY+S6Zn5qbjOHxAmRTWN4aoB/tQPkp/
+ /N5RQBgCNwNBcHjjmRi/qHLg7gTG8+Yb1mjb3OPj+dARjNoT0tYNpIgceiVMhz19Jx
+ cgTM9SHzReK+iOLkgoqBs59PWHbZiCUAOaDDqJojmXWoZg8gy6k+M0nLKBn+Ovt6GC
+ VMJLplhH/QjcbpglpVlnNpqQxkjovhRVAy1iZfocGPLuFUO8vt8lcGJPnpSmUM/GLK
+ 7SX1tdzRbbJyA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	roman.li@amd.com
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: FAILED: Patch "drm/amd/display: Fix array-index-out-of-bounds in
- dcn35_clkmgr" failed to apply to 6.8-stable tree
-Date: Wed, 27 Mar 2024 08:07:01 -0400
-Message-ID: <20240327120702.2825041-1-sashal@kernel.org>
+	nathan@kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev
+Subject: FAILED: Patch "drm/amd/display: Increase frame-larger-than for all
+ display_mode_vba files" failed to apply to 6.8-stable tree
+Date: Wed, 27 Mar 2024 08:07:10 -0400
+Message-ID: <20240327120710.2825195-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -72,75 +69,68 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a8edc9cc0b14e3769bbc9b82d00e5e5fc6b5ff0a Mon Sep 17 00:00:00 2001
-From: Roman Li <roman.li@amd.com>
-Date: Tue, 30 Jan 2024 18:07:24 -0500
-Subject: [PATCH] drm/amd/display: Fix array-index-out-of-bounds in
- dcn35_clkmgr
+From 321036db915bc647d04750337eb002022c912857 Mon Sep 17 00:00:00 2001
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Mon, 5 Feb 2024 14:54:05 -0700
+Subject: [PATCH] drm/amd/display: Increase frame-larger-than for all
+ display_mode_vba files
 
-[Why]
-There is a potential memory access violation while
-iterating through array of dcn35 clks.
+After a recent change in LLVM, allmodconfig (which has CONFIG_KCSAN=y
+and CONFIG_WERROR=y enabled) has a few new instances of
+-Wframe-larger-than for the mode support and system configuration
+functions:
 
-[How]
-Limit iteration per array size.
+  drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20v2.c:3393:6: error: stack frame size (2144) exceeds limit (2048) in 'dml20v2_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
+   3393 | void dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+        |      ^
+  1 error generated.
 
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+  drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn21/display_mode_vba_21.c:3520:6: error: stack frame size (2192) exceeds limit (2048) in 'dml21_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
+   3520 | void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+        |      ^
+  1 error generated.
+
+  drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c:3286:6: error: stack frame size (2128) exceeds limit (2048) in 'dml20_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
+   3286 | void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+        |      ^
+  1 error generated.
+
+Without the sanitizers enabled, there are no warnings.
+
+This was the catalyst for commit 6740ec97bcdb ("drm/amd/display:
+Increase frame warning limit with KASAN or KCSAN in dml2") and that same
+change was made to dml in commit 5b750b22530f ("drm/amd/display:
+Increase frame warning limit with KASAN or KCSAN in dml") but the
+frame_warn_flag variable was not applied to all files. Do so now to
+clear up the warnings and make all these files consistent.
+
 Cc: stable@vger.kernel.org
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Roman Li <roman.li@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Closes: https://github.com/ClangBuiltLinux/linux/issue/1990
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml/Makefile | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-index 36e5bb611fb10..c378b879c76d8 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-@@ -658,10 +658,13 @@ static void dcn35_clk_mgr_helper_populate_bw_params(struct clk_mgr_internal *clk
- 	struct clk_limit_table_entry def_max = bw_params->clk_table.entries[bw_params->clk_table.num_entries - 1];
- 	uint32_t max_fclk = 0, min_pstate = 0, max_dispclk = 0, max_dppclk = 0;
- 	uint32_t max_pstate = 0, max_dram_speed_mts = 0, min_dram_speed_mts = 0;
-+	uint32_t num_memps, num_fclk, num_dcfclk;
- 	int i;
- 
- 	/* Determine min/max p-state values. */
--	for (i = 0; i < clock_table->NumMemPstatesEnabled; i++) {
-+	num_memps = (clock_table->NumMemPstatesEnabled > NUM_MEM_PSTATE_LEVELS) ? NUM_MEM_PSTATE_LEVELS :
-+		clock_table->NumMemPstatesEnabled;
-+	for (i = 0; i < num_memps; i++) {
- 		uint32_t dram_speed_mts = calc_dram_speed_mts(&clock_table->MemPstateTable[i]);
- 
- 		if (is_valid_clock_value(dram_speed_mts) && dram_speed_mts > max_dram_speed_mts) {
-@@ -673,7 +676,7 @@ static void dcn35_clk_mgr_helper_populate_bw_params(struct clk_mgr_internal *clk
- 	min_dram_speed_mts = max_dram_speed_mts;
- 	min_pstate = max_pstate;
- 
--	for (i = 0; i < clock_table->NumMemPstatesEnabled; i++) {
-+	for (i = 0; i < num_memps; i++) {
- 		uint32_t dram_speed_mts = calc_dram_speed_mts(&clock_table->MemPstateTable[i]);
- 
- 		if (is_valid_clock_value(dram_speed_mts) && dram_speed_mts < min_dram_speed_mts) {
-@@ -702,9 +705,13 @@ static void dcn35_clk_mgr_helper_populate_bw_params(struct clk_mgr_internal *clk
- 	/* Base the clock table on dcfclk, need at least one entry regardless of pmfw table */
- 	ASSERT(clock_table->NumDcfClkLevelsEnabled > 0);
- 
--	max_fclk = find_max_clk_value(clock_table->FclkClocks_Freq, clock_table->NumFclkLevelsEnabled);
-+	num_fclk = (clock_table->NumFclkLevelsEnabled > NUM_FCLK_DPM_LEVELS) ? NUM_FCLK_DPM_LEVELS :
-+		clock_table->NumFclkLevelsEnabled;
-+	max_fclk = find_max_clk_value(clock_table->FclkClocks_Freq, num_fclk);
- 
--	for (i = 0; i < clock_table->NumDcfClkLevelsEnabled; i++) {
-+	num_dcfclk = (clock_table->NumFclkLevelsEnabled > NUM_DCFCLK_DPM_LEVELS) ? NUM_DCFCLK_DPM_LEVELS :
-+		clock_table->NumDcfClkLevelsEnabled;
-+	for (i = 0; i < num_dcfclk; i++) {
- 		int j;
- 
- 		/* First search defaults for the clocks we don't read using closest lower or equal default dcfclk */
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index 6042a5a6a44f8..59ade76ffb18d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -72,11 +72,11 @@ CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn10/dcn10_fpu.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/dcn20_fpu.o := $(dml_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_ccflags)
++CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_ccflags) $(frame_warn_flag)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_ccflags)
++CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_ccflags) $(frame_warn_flag)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_ccflags)
++CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_ccflags) $(frame_warn_flag)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_ccflags) $(frame_warn_flag)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_ccflags)
 -- 
 2.43.0
 
