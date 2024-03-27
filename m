@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25803C54E67
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:12:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B798CD1289
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:12:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70BB410FB04;
-	Wed, 27 Mar 2024 12:12:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A08D710FB13;
+	Wed, 27 Mar 2024 12:12:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TK4pXMuu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SVKR3mTZ";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA07D10FB13;
- Wed, 27 Mar 2024 12:12:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29C8510E107;
+ Wed, 27 Mar 2024 12:12:25 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2380861507;
- Wed, 27 Mar 2024 12:12:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD5F5C433F1;
- Wed, 27 Mar 2024 12:12:08 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 82A4661515;
+ Wed, 27 Mar 2024 12:12:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF4DEC433F1;
+ Wed, 27 Mar 2024 12:12:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711541529;
- bh=83YOMDbkkPBQAbQ8+fXA0SSs3bJHl9mseQE6IHwOxFI=;
+ s=k20201202; t=1711541544;
+ bh=xEQD51Y4r4BVDeyhKRxVKu1oI02w3mbL6BBkIsiHqjA=;
  h=From:To:Cc:Subject:Date:From;
- b=TK4pXMuuomoUoM65F3w3OZL9fe32V0idJV90GCAs6oCt8N+cKWVB9pGdwg0m+6lbI
- 2Yq0ckBgQXDCPqTTBzck4NudEEzGb0IKRlGKND9dfnI/ZDCg3ArbNVSQk1xMqilOD4
- IlGUDOfnpH3LvITomvibhSl/X2vg5LOdPRHLQlQBZT2VKTZZ54FZQqE6Fe7h7uthyq
- nJANOfNH0T0HVUlBlstz9y6mXvkLGFF+k/oDzesq2ZQLo9oVrWttQQjW3hB6o7UD44
- LxKdxpV7wI3El3x+irbrCtJZJM/2ZPt6aJNg3HAVcwTjeqDC52HqAZIRcFTt1KbqZI
- 7Yx3rQjjN64pg==
+ b=SVKR3mTZGtpfG57liVyd5jNCw5VwT3jReXKy3boUBkayDCL5qQxjFJnoesT/BKI9O
+ cK9GLrr2Nyd9ivnPAKe16nfoso/x7wZpEUVcrOl2fpHhKb/4ZfSQ3xhACKurUfDevC
+ ySSVDd6odeEVzDA6U+B674pHNcn4rFt/UR8VzaRaqXfO3kKl8iYOnvRjUz8V6pfgFi
+ VWHpCcD1rqNKOITCtR6HO+7s7cI7NuwjmVGyA9yJ+3tZA0QwJVvXB43lroLN7HwAXo
+ +mmd1Vr2mMqka74dwFYgc2JBRu1/2WQ5+fYax+QkRaNy1qYl+SbPobD2b9idpKlIob
+ x8Au4bACcMboA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	wayne.lin@amd.com
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
+	srinivasan.shanmugam@amd.com
+Cc: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: FAILED: Patch "drm/amd/display: adjust few initialization order in
- dm" failed to apply to 6.1-stable tree
-Date: Wed, 27 Mar 2024 08:12:07 -0400
-Message-ID: <20240327121207.2829277-1-sashal@kernel.org>
+Subject: FAILED: Patch "drm/amd/display: Drop 'acrtc' and add 'new_crtc_state'
+ NULL check for writeback requests." failed to apply to 6.1-stable tree
+Date: Wed, 27 Mar 2024 08:12:21 -0400
+Message-ID: <20240327121222.2829467-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -71,110 +71,52 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c9aef4f6c6d7cdc92a64ffe761c6921ec85157ae Mon Sep 17 00:00:00 2001
-From: Wayne Lin <wayne.lin@amd.com>
-Date: Fri, 2 Feb 2024 17:34:11 +0800
-Subject: [PATCH] drm/amd/display: adjust few initialization order in dm
+From b2f26f49e84bea03dddb5f37ff137c97b165107b Mon Sep 17 00:00:00 2001
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Date: Sat, 13 Jan 2024 14:32:27 +0530
+Subject: [PATCH] drm/amd/display: Drop 'acrtc' and add 'new_crtc_state' NULL
+ check for writeback requests.
 
-[Why]
-Observe error message "Can't retrieve aconnector in hpd_rx_irq_offload_work"
-when boot up with a mst tbt4 dock connected. After analyzing, there are few
-parts needed to be adjusted:
+Return value of 'to_amdgpu_crtc' which is container_of(...) can't be
+null, so it's null check 'acrtc' is dropped.
 
-1. hpd_rx_offload_wq[].aconnector is not initialzed before the dmub outbox
-hpd_irq handler get registered which causes the error message.
+Fixing the below:
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9302 amdgpu_dm_atomic_commit_tail() error: we previously assumed 'acrtc' could be null (see line 9299)
 
-2. registeration of hpd and hpd_rx_irq event for usb4 dp tunneling is not
-aligned with legacy interface sequence
+Added 'new_crtc_state' NULL check for function
+'drm_atomic_get_new_crtc_state' that retrieves the new state for a CRTC,
+while enabling writeback requests.
 
-[How]
-Put DMUB_NOTIFICATION_HPD and DMUB_NOTIFICATION_HPD_IRQ handler
-registration into register_hpd_handlers() to align other interfaces and
-get hpd_rx_offload_wq[].aconnector initialized earlier than that.
-
-Leave DMUB_NOTIFICATION_AUX_REPLY registered as it was since we need that
-while calling dc_link_detect(). USB4 connection status will be proactively
-detected by dc_link_detect_connection_type() in amdgpu_dm_initialize_drm_device()
-
-Cc: Stable <stable@vger.kernel.org>
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Wayne Lin <wayne.lin@amd.com>
+Cc: stable@vger.kernel.org
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 37 +++++++++----------
- 1 file changed, 18 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 985137b51372d..8b13cb334b366 100644
+index 36af104e7663c..8623722e954f9 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1844,21 +1844,12 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 			DRM_ERROR("amdgpu: fail to register dmub aux callback");
- 			goto error;
- 		}
--		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD, dmub_hpd_callback, true)) {
--			DRM_ERROR("amdgpu: fail to register dmub hpd callback");
--			goto error;
--		}
--		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD_IRQ, dmub_hpd_callback, true)) {
--			DRM_ERROR("amdgpu: fail to register dmub hpd callback");
--			goto error;
--		}
--	}
--
--	/* Enable outbox notification only after IRQ handlers are registered and DMUB is alive.
--	 * It is expected that DMUB will resend any pending notifications at this point, for
--	 * example HPD from DPIA.
--	 */
--	if (dc_is_dmub_outbox_supported(adev->dm.dc)) {
-+		/* Enable outbox notification only after IRQ handlers are registered and DMUB is alive.
-+		 * It is expected that DMUB will resend any pending notifications at this point. Note
-+		 * that hpd and hpd_irq handler registration are deferred to register_hpd_handlers() to
-+		 * align legacy interface initialization sequence. Connection status will be proactivly
-+		 * detected once in the amdgpu_dm_initialize_drm_device.
-+		 */
- 		dc_enable_dmub_outbox(adev->dm.dc);
+@@ -9327,10 +9327,10 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 		if (!new_con_state->writeback_job)
+ 			continue;
  
- 		/* DPIA trace goes to dmesg logs only if outbox is enabled */
-@@ -3547,6 +3538,14 @@ static void register_hpd_handlers(struct amdgpu_device *adev)
- 	int_params.requested_polarity = INTERRUPT_POLARITY_DEFAULT;
- 	int_params.current_polarity = INTERRUPT_POLARITY_DEFAULT;
+-		new_crtc_state = NULL;
++		new_crtc_state = drm_atomic_get_new_crtc_state(state, &acrtc->base);
  
-+	if (dc_is_dmub_outbox_supported(adev->dm.dc)) {
-+		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD, dmub_hpd_callback, true))
-+			DRM_ERROR("amdgpu: fail to register dmub hpd callback");
-+
-+		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD_IRQ, dmub_hpd_callback, true))
-+			DRM_ERROR("amdgpu: fail to register dmub hpd callback");
-+	}
-+
- 	list_for_each_entry(connector,
- 			&dev->mode_config.connector_list, head)	{
+-		if (acrtc)
+-			new_crtc_state = drm_atomic_get_new_crtc_state(state, &acrtc->base);
++		if (!new_crtc_state)
++			continue;
  
-@@ -3575,10 +3574,6 @@ static void register_hpd_handlers(struct amdgpu_device *adev)
- 					handle_hpd_rx_irq,
- 					(void *) aconnector);
- 		}
--
--		if (adev->dm.hpd_rx_offload_wq)
--			adev->dm.hpd_rx_offload_wq[connector->index].aconnector =
--				aconnector;
- 	}
- }
- 
-@@ -4590,6 +4585,10 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 			goto fail;
- 		}
- 
-+		if (dm->hpd_rx_offload_wq)
-+			dm->hpd_rx_offload_wq[aconnector->base.index].aconnector =
-+				aconnector;
-+
- 		if (!dc_link_detect_connection_type(link, &new_connection_type))
- 			DRM_ERROR("KMS: Failed to detect connector\n");
- 
+ 		if (acrtc->wb_enabled)
+ 			continue;
 -- 
 2.43.0
 
