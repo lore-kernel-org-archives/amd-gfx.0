@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD14ECD1284
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:08:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23236C47DD9
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51E9410FA94;
-	Wed, 27 Mar 2024 12:08:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5603B10FA9A;
+	Wed, 27 Mar 2024 12:08:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j/w80+RU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IwkUgrmG";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7207C10FA92;
- Wed, 27 Mar 2024 12:08:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FA6E10FA9A;
+ Wed, 27 Mar 2024 12:08:10 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C5EB661517;
- Wed, 27 Mar 2024 12:08:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36ED2C433C7;
- Wed, 27 Mar 2024 12:08:02 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id CD029614CD;
+ Wed, 27 Mar 2024 12:08:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21342C433F1;
+ Wed, 27 Mar 2024 12:08:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711541283;
- bh=LQJvW/5F5pb6y3BD3VeOnlXzajsSx47no9m9Wu8BeVE=;
+ s=k20201202; t=1711541289;
+ bh=bdkaNm3Hf0PN2eOyxC0BSth1SDHmvN0juC3U7GklOWc=;
  h=From:To:Cc:Subject:Date:From;
- b=j/w80+RUeIjw1xFQWgMvXPruO13CrBfnrhsRETmDXQgH2K0hM3TLh7EVB5fjNgzZd
- i48QDoCMhZ2hQnxpeVFfY7aN3piUMUElE/kNd4HToSmtPUA9Ly4QwCnmob0iiV5eRI
- O+SRe8AEgdA30WTuS0LWcYan/WCJovKLxpgtxkSQz3LnIid+fCtOoTn53SkWpdzQH1
- WBvHjST+XEffysP3PgvxI8ZxyDe21y2MhadPti4o7jBoh0NtJlt/UFeTZofSxp+EFD
- e9eP0jVt6mQPzXKN9FEBwlQQhAmWafuxP4m23/JQMSZIpg4rHVl9bdh92HNGKtgNfl
- mhRARjF7+QjVA==
+ b=IwkUgrmGiBElP/NhLyUYTDhvY/etxyi9D6d1gaOuUM0OTovCV2aCZbdijtx14XyiP
+ d3lkKCXoClcAPFQD6tOu90MR0vG1ONeYBSuQ8tmXxmJaPCloryTOOWqlXY0UzN1CD8
+ Xb9cce62I+qFxNeZreJMNNA+BKpY0A/qIPg0QjBXJg07p9OA+D1Ap4pK23VEOhtK14
+ TXWIh5wIStFaVIJUuhGY2B19VUh+lwrSDYl1SF65gKhUTzoyUal4NDA6bisAfXXCg7
+ Gen8yqqMwdkQpqKImOG3Ar1cYbXLgnu6G3Hx+4cse3kmRyAvzoe8vimXRO9pQsHY91
+ dks56OO/0H6Uw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	tsung-hua.lin@amd.com
+	gabe.teeger@amd.com
 Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Chris Chi <moukong.chi@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Ovidiu Bunea <ovidiu.bunea@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
  Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: FAILED: Patch "drm/amd/display: Add monitor patch for specific eDP"
- failed to apply to 6.8-stable tree
-Date: Wed, 27 Mar 2024 08:08:01 -0400
-Message-ID: <20240327120801.2825878-1-sashal@kernel.org>
+Subject: FAILED: Patch "Revert "drm/amd/display: Send DTBCLK disable message
+ on first commit"" failed to apply to 6.8-stable tree
+Date: Wed, 27 Mar 2024 08:08:07 -0400
+Message-ID: <20240327120807.2825952-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -71,64 +72,41 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 04a59c54757567f19dff4571ff7338476ec0f604 Mon Sep 17 00:00:00 2001
-From: Ryan Lin <tsung-hua.lin@amd.com>
-Date: Wed, 21 Feb 2024 19:10:27 +0800
-Subject: [PATCH] drm/amd/display: Add monitor patch for specific eDP
+From 3a6a32b31a111f6e66526fb2d3cb13a876465076 Mon Sep 17 00:00:00 2001
+From: Gabe Teeger <gabe.teeger@amd.com>
+Date: Mon, 29 Jan 2024 13:31:44 -0500
+Subject: [PATCH] Revert "drm/amd/display: Send DTBCLK disable message on first
+ commit"
 
-[WHY]
-Some eDP panels' ext caps don't write initial values. The value of
-dpcd_addr (0x317) can be random and the backlight control interface
-will be incorrect.
+This reverts commit f341055b10bd8be55c3c995dff5f770b236b8ca9.
 
-[HOW]
-Add new panel patches to remove sink ext caps.
+System hang observed, this commit is thought to be the
+regression point.
 
 Cc: Mario Limonciello <mario.limonciello@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org # 6.5.x
-Cc: Tsung-hua Lin <tsung-hua.lin@amd.com>
-Cc: Chris Chi <moukong.chi@amd.com>
-Reviewed-by: Wayne Lin <wayne.lin@amd.com>
-Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Ryan Lin <tsung-hua.lin@amd.com>
+Cc: stable@vger.kernel.org
+Reviewed-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
+Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Gabe Teeger <gabe.teeger@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 85b7f58a7f35a..c27063305a134 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -67,6 +67,8 @@ static void apply_edid_quirks(struct edid *edid, struct dc_edid_caps *edid_caps)
- 	/* Workaround for some monitors that do not clear DPCD 0x317 if FreeSync is unsupported */
- 	case drm_edid_encode_panel_id('A', 'U', 'O', 0xA7AB):
- 	case drm_edid_encode_panel_id('A', 'U', 'O', 0xE69B):
-+	case drm_edid_encode_panel_id('B', 'O', 'E', 0x092A):
-+	case drm_edid_encode_panel_id('L', 'G', 'D', 0x06D1):
- 		DRM_DEBUG_DRIVER("Clearing DPCD 0x317 on monitor with panel id %X\n", panel_id);
- 		edid_caps->panel_patch.remove_sink_ext_caps = true;
- 		break;
-@@ -120,6 +122,8 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+index 06edca50a8fa1..36e5bb611fb10 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+@@ -414,7 +414,6 @@ static void init_clk_states(struct clk_mgr *clk_mgr)
+ 	uint32_t ref_dtbclk = clk_mgr->clks.ref_dtbclk_khz;
+ 	memset(&(clk_mgr->clks), 0, sizeof(struct dc_clocks));
  
- 	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
- 
-+	apply_edid_quirks(edid_buf, edid_caps);
-+
- 	sad_count = drm_edid_to_sad((struct edid *) edid->raw_edid, &sads);
- 	if (sad_count <= 0)
- 		return result;
-@@ -146,8 +150,6 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 	else
- 		edid_caps->speaker_flags = DEFAULT_SPEAKER_LOCATION;
- 
--	apply_edid_quirks(edid_buf, edid_caps);
--
- 	kfree(sads);
- 	kfree(sadb);
- 
+-	clk_mgr->clks.dtbclk_en = true;
+ 	clk_mgr->clks.ref_dtbclk_khz = ref_dtbclk;	// restore ref_dtbclk
+ 	clk_mgr->clks.p_state_change_support = true;
+ 	clk_mgr->clks.prev_p_state_change_support = true;
 -- 
 2.43.0
 
