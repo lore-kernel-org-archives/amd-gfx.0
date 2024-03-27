@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B798CD1289
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC036CD128A
 	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:12:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A08D710FB13;
-	Wed, 27 Mar 2024 12:12:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FE8210FB14;
+	Wed, 27 Mar 2024 12:12:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SVKR3mTZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PLyw89DU";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29C8510E107;
- Wed, 27 Mar 2024 12:12:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFBE310E107;
+ Wed, 27 Mar 2024 12:12:21 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 82A4661515;
- Wed, 27 Mar 2024 12:12:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF4DEC433F1;
- Wed, 27 Mar 2024 12:12:22 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 6355461517;
+ Wed, 27 Mar 2024 12:12:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F086BC43399;
+ Wed, 27 Mar 2024 12:12:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711541544;
- bh=xEQD51Y4r4BVDeyhKRxVKu1oI02w3mbL6BBkIsiHqjA=;
+ s=k20201202; t=1711541541;
+ bh=0hjkE2z8/y6K8PgS9Nz0BLaJVsYcwRj4GO9+J12z3bs=;
  h=From:To:Cc:Subject:Date:From;
- b=SVKR3mTZGtpfG57liVyd5jNCw5VwT3jReXKy3boUBkayDCL5qQxjFJnoesT/BKI9O
- cK9GLrr2Nyd9ivnPAKe16nfoso/x7wZpEUVcrOl2fpHhKb/4ZfSQ3xhACKurUfDevC
- ySSVDd6odeEVzDA6U+B674pHNcn4rFt/UR8VzaRaqXfO3kKl8iYOnvRjUz8V6pfgFi
- VWHpCcD1rqNKOITCtR6HO+7s7cI7NuwjmVGyA9yJ+3tZA0QwJVvXB43lroLN7HwAXo
- +mmd1Vr2mMqka74dwFYgc2JBRu1/2WQ5+fYax+QkRaNy1qYl+SbPobD2b9idpKlIob
- x8Au4bACcMboA==
+ b=PLyw89DUEogmhOgH8ZjNHvwX2RillZbO2RDnJmVt/y2nSk/8BCTcdCr+V/ZI2bgSw
+ DKfZtLKGr8/c2yeR0ThZUIlud0yc6totB4xGeIH8KCTwVODmUPFWgaeeNLSwREXCd9
+ YKzMWpuZIggeYdCtu1OzNU+bYdWXer+8rL/tZspM+UKwzkK0AJYotfJFnIGds4hRfE
+ e3QatLgHYxAPNbzjO1Fv6U9vtJv6vGfKlQhfwdcu9wKgabw4N6oAb6GAdP74tCJ0dt
+ S18oR4k9Ed0pBA4TQVO1kcORy92tSMuh9PGlEPOcK8e/0sh4lU+7coTHMbe+KK4P+V
+ YZnxCDAw0hKRQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	srinivasan.shanmugam@amd.com
-Cc: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+	ilya.bakoulin@amd.com
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Charlene Liu <charlene.liu@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: FAILED: Patch "drm/amd/display: Drop 'acrtc' and add 'new_crtc_state'
- NULL check for writeback requests." failed to apply to 6.1-stable tree
-Date: Wed, 27 Mar 2024 08:12:21 -0400
-Message-ID: <20240327121222.2829467-1-sashal@kernel.org>
+Subject: FAILED: Patch "drm/amd/display: Clear OPTC mem select on disable"
+ failed to apply to 6.1-stable tree
+Date: Wed, 27 Mar 2024 08:12:18 -0400
+Message-ID: <20240327121219.2829427-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -71,52 +71,60 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b2f26f49e84bea03dddb5f37ff137c97b165107b Mon Sep 17 00:00:00 2001
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Date: Sat, 13 Jan 2024 14:32:27 +0530
-Subject: [PATCH] drm/amd/display: Drop 'acrtc' and add 'new_crtc_state' NULL
- check for writeback requests.
+From b4e05bb1dec53fe28c3c88425aded824498666e5 Mon Sep 17 00:00:00 2001
+From: Ilya Bakoulin <ilya.bakoulin@amd.com>
+Date: Wed, 3 Jan 2024 09:42:04 -0500
+Subject: [PATCH] drm/amd/display: Clear OPTC mem select on disable
 
-Return value of 'to_amdgpu_crtc' which is container_of(...) can't be
-null, so it's null check 'acrtc' is dropped.
+[Why]
+Not clearing the memory select bits prior to OPTC disable can cause DSC
+corruption issues when attempting to reuse a memory instance for another
+OPTC that enables ODM.
 
-Fixing the below:
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9302 amdgpu_dm_atomic_commit_tail() error: we previously assumed 'acrtc' could be null (see line 9299)
+[How]
+Clear the memory select bits prior to disabling an OPTC.
 
-Added 'new_crtc_state' NULL check for function
-'drm_atomic_get_new_crtc_state' that retrieves the new state for a CRTC,
-while enabling writeback requests.
-
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: stable@vger.kernel.org
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Acked-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Ilya Bakoulin <ilya.bakoulin@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c | 3 +++
+ drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c | 3 +++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 36af104e7663c..8623722e954f9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9327,10 +9327,10 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 		if (!new_con_state->writeback_job)
- 			continue;
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
+index 1788eb29474b4..8234935433254 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
+@@ -173,6 +173,9 @@ static bool optc32_disable_crtc(struct timing_generator *optc)
+ 			OPTC_SEG3_SRC_SEL, 0xf,
+ 			OPTC_NUM_OF_INPUT_SEGMENT, 0);
  
--		new_crtc_state = NULL;
-+		new_crtc_state = drm_atomic_get_new_crtc_state(state, &acrtc->base);
++	REG_UPDATE(OPTC_MEMORY_CONFIG,
++			OPTC_MEM_SEL, 0);
++
+ 	/* disable otg request until end of the first line
+ 	 * in the vertical blank region
+ 	 */
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
+index 3d6c1b2c2b4d6..5b15475088503 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
+@@ -145,6 +145,9 @@ static bool optc35_disable_crtc(struct timing_generator *optc)
+ 			OPTC_SEG3_SRC_SEL, 0xf,
+ 			OPTC_NUM_OF_INPUT_SEGMENT, 0);
  
--		if (acrtc)
--			new_crtc_state = drm_atomic_get_new_crtc_state(state, &acrtc->base);
-+		if (!new_crtc_state)
-+			continue;
- 
- 		if (acrtc->wb_enabled)
- 			continue;
++	REG_UPDATE(OPTC_MEMORY_CONFIG,
++			OPTC_MEM_SEL, 0);
++
+ 	/* disable otg request until end of the first line
+ 	 * in the vertical blank region
+ 	 */
 -- 
 2.43.0
 
