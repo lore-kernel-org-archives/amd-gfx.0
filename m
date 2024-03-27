@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F9A0CD1287
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:27:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CBCECD11DD
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:27:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92BF010FCB7;
-	Wed, 27 Mar 2024 12:27:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43B5C10FCB9;
+	Wed, 27 Mar 2024 12:27:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="by9o3Smu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sGF3IypU";
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C2A910E0A2;
- Wed, 27 Mar 2024 12:27:33 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD8AA10E0A2;
+ Wed, 27 Mar 2024 12:27:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 83D52CE25AC;
- Wed, 27 Mar 2024 12:27:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE786C433C7;
- Wed, 27 Mar 2024 12:27:29 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 330B561503;
+ Wed, 27 Mar 2024 12:27:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64E09C433F1;
+ Wed, 27 Mar 2024 12:27:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711542450;
- bh=wxaTPbvAWrf9yYuQ1ekZQE7q/1C2BtptWNQrvqRKQeI=;
+ s=k20201202; t=1711542445;
+ bh=yn0aTDdP02jM88MgcpTARrsUtQJAyJ/5kXyVFFvvuHw=;
  h=From:To:Cc:Subject:Date:From;
- b=by9o3Smuido+YPCGi2zPtOzXHkZd9sYzkiSkIoHbtgriwjKYD+2ryUzBZ2OSUXvli
- NQBXLYWAdmVsgRHb8Taj2NEt2XnIYAUt13KhqaQR09WmWjkXwp/L4xbEug86FVXnPV
- 7WtVrU6XnEH8/sfdabFj1O3hxCZsmtdRO/Sg0CbOg7Q6XS0xIWNtGeLKEhEoOhgxCj
- 142nmkgCILa5GYAALZT+rFhrRvMxb8D+wxjnxOhujwsd7Qzx53K6lJMNWouLUNTw4W
- hl5iPJrNrywEAL/2+KSNBjUIS2MNnz4plr2sSg2Z/911JBrKLP95PKuyMvmLb2dzzU
- tqtnhiUa9C5rA==
+ b=sGF3IypU87tFF7F71xGyO52TbOiKeT1Zl646PAojaeke+WC/6EI1N7avORA72+vHn
+ TZVbRAlfFTok5FX0SQaqR39E03buJgz/fcIWF4qlxCl4KQHGRJ0LbJglMLNrj1I0zT
+ R9L5+iPYRN54FHmI/lGeZz2p6iRjwrUbES2DS1yfBc2IpSlVL4OaxAFU5PJThMh070
+ c++VTqq8AInSqRbk4dkE6UMqfDGUztTLLzI9fMLmWteti0r+g/2b38BZiOtFcu/6gW
+ nL7epg7wxxKz1d3tnGeHZyphwnJ9YksLsbkyWTj+3Afwk8dh40LQo9+MwKFI7zzNcx
+ BXib/wcyBrLVg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	wenjing.liu@amd.com
+	sohaib.nadeem@amd.com
 Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Dillon Varone <dillon.varone@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
  Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: FAILED: Patch "drm/amd/display: Update odm when ODM combine is
- changed on an otg master pipe with no plane" failed to apply to 4.19-stable
- tree
-Date: Wed, 27 Mar 2024 08:27:28 -0400
-Message-ID: <20240327122728.2841948-1-sashal@kernel.org>
+Subject: FAILED: Patch "Revert "drm/amd/display: increased min_dcfclk_mhz and
+ min_fclk_mhz"" failed to apply to 4.19-stable tree
+Date: Wed, 27 Mar 2024 08:27:23 -0400
+Message-ID: <20240327122723.2841874-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -72,152 +71,42 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 86e9523fb0efce27095d3086473c739cce720d01 Mon Sep 17 00:00:00 2001
-From: Wenjing Liu <wenjing.liu@amd.com>
-Date: Wed, 21 Feb 2024 16:55:04 -0500
-Subject: [PATCH] drm/amd/display: Update odm when ODM combine is changed on an
- otg master pipe with no plane
+From 194bef0cc1f5ce5e2ca84d366c74be2bd9736aa3 Mon Sep 17 00:00:00 2001
+From: Sohaib Nadeem <sohaib.nadeem@amd.com>
+Date: Mon, 29 Jan 2024 17:33:40 -0500
+Subject: [PATCH] Revert "drm/amd/display: increased min_dcfclk_mhz and
+ min_fclk_mhz"
 
-[WHY]
-When committing an update with ODM combine change when the plane is
-removing or already removed, we fail to detect odm change in pipe
-update flags. This has caused mismatch between new dc state and the
-actual hardware state, because we missed odm programming.
+[why]:
+This reverts commit 2ff33c759a4247c84ec0b7815f1f223e155ba82a.
 
-[HOW]
-- Detect odm change even for otg master pipe without a plane.
-- Update odm config before calling program pipes for pipe with planes.
-
-The commit also updates blank pattern programming when odm is changed
-without plane. This is because number of OPP is changed when ODM
-combine is changed. Blank pattern is per OPP so we will need to
-reprogram OPP based on the new pipe topology.
+The commit caused corruption when running some applications in fullscreen
 
 Cc: Mario Limonciello <mario.limonciello@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: stable@vger.kernel.org
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Sohaib Nadeem <sohaib.nadeem@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 41 ++++++++++---------
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  7 ++++
- 2 files changed, 28 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index c55d5155ecb9c..40098d9f70cbc 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -1498,6 +1498,11 @@ static void dcn20_detect_pipe_changes(struct dc_state *old_state,
- 		return;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index ba76dd4a2ce29..a0a65e0991041 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -2760,7 +2760,7 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
+ 	struct _vcs_dpi_voltage_scaling_st entry = {0};
+ 	struct clk_limit_table_entry max_clk_data = {0};
  
-+	if (resource_is_pipe_type(new_pipe, OTG_MASTER) &&
-+			resource_is_odm_topology_changed(new_pipe, old_pipe))
-+		/* Detect odm changes */
-+		new_pipe->update_flags.bits.odm = 1;
-+
- 	/* Exit on unchanged, unused pipe */
- 	if (!old_pipe->plane_state && !new_pipe->plane_state)
- 		return;
-@@ -1551,10 +1556,6 @@ static void dcn20_detect_pipe_changes(struct dc_state *old_state,
+-	unsigned int min_dcfclk_mhz = 399, min_fclk_mhz = 599;
++	unsigned int min_dcfclk_mhz = 199, min_fclk_mhz = 299;
  
- 	/* Detect top pipe only changes */
- 	if (resource_is_pipe_type(new_pipe, OTG_MASTER)) {
--		/* Detect odm changes */
--		if (resource_is_odm_topology_changed(new_pipe, old_pipe))
--			new_pipe->update_flags.bits.odm = 1;
--
- 		/* Detect global sync changes */
- 		if (old_pipe->pipe_dlg_param.vready_offset != new_pipe->pipe_dlg_param.vready_offset
- 				|| old_pipe->pipe_dlg_param.vstartup_start != new_pipe->pipe_dlg_param.vstartup_start
-@@ -1999,19 +2000,20 @@ void dcn20_program_front_end_for_ctx(
- 	DC_LOGGER_INIT(dc->ctx->logger);
- 	unsigned int prev_hubp_count = 0;
- 	unsigned int hubp_count = 0;
-+	struct pipe_ctx *pipe;
- 
- 	if (resource_is_pipe_topology_changed(dc->current_state, context))
- 		resource_log_pipe_topology_update(dc, context);
- 
- 	if (dc->hwss.program_triplebuffer != NULL && dc->debug.enable_tri_buf) {
- 		for (i = 0; i < dc->res_pool->pipe_count; i++) {
--			struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
-+			pipe = &context->res_ctx.pipe_ctx[i];
- 
--			if (!pipe_ctx->top_pipe && !pipe_ctx->prev_odm_pipe && pipe_ctx->plane_state) {
--				ASSERT(!pipe_ctx->plane_state->triplebuffer_flips);
-+			if (!pipe->top_pipe && !pipe->prev_odm_pipe && pipe->plane_state) {
-+				ASSERT(!pipe->plane_state->triplebuffer_flips);
- 				/*turn off triple buffer for full update*/
- 				dc->hwss.program_triplebuffer(
--						dc, pipe_ctx, pipe_ctx->plane_state->triplebuffer_flips);
-+						dc, pipe, pipe->plane_state->triplebuffer_flips);
- 			}
- 		}
- 	}
-@@ -2085,12 +2087,22 @@ void dcn20_program_front_end_for_ctx(
- 			DC_LOG_DC("Reset mpcc for pipe %d\n", dc->current_state->res_ctx.pipe_ctx[i].pipe_idx);
- 		}
- 
-+	/* update ODM for blanked OTG master pipes */
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		pipe = &context->res_ctx.pipe_ctx[i];
-+		if (resource_is_pipe_type(pipe, OTG_MASTER) &&
-+				!resource_is_pipe_type(pipe, DPP_PIPE) &&
-+				pipe->update_flags.bits.odm &&
-+				hws->funcs.update_odm)
-+			hws->funcs.update_odm(dc, context, pipe);
-+	}
-+
- 	/*
- 	 * Program all updated pipes, order matters for mpcc setup. Start with
- 	 * top pipe and program all pipes that follow in order
- 	 */
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
--		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
-+		pipe = &context->res_ctx.pipe_ctx[i];
- 
- 		if (pipe->plane_state && !pipe->top_pipe) {
- 			while (pipe) {
-@@ -2129,17 +2141,6 @@ void dcn20_program_front_end_for_ctx(
- 			context->stream_status[0].plane_count > 1) {
- 			pipe->plane_res.hubp->funcs->hubp_wait_pipe_read_start(pipe->plane_res.hubp);
- 		}
--
--		/* when dynamic ODM is active, pipes must be reconfigured when all planes are
--		 * disabled, as some transitions will leave software and hardware state
--		 * mismatched.
--		 */
--		if (dc->debug.enable_single_display_2to1_odm_policy &&
--			pipe->stream &&
--			pipe->update_flags.bits.disable &&
--			!pipe->prev_odm_pipe &&
--			hws->funcs.update_odm)
--			hws->funcs.update_odm(dc, context, pipe);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-index aa36d7a56ca8c..b890db0bfc46b 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-@@ -1156,6 +1156,13 @@ void dcn32_update_odm(struct dc *dc, struct dc_state *context, struct pipe_ctx *
- 			dsc->funcs->dsc_disconnect(dsc);
- 		}
- 	}
-+
-+	if (!resource_is_pipe_type(pipe_ctx, DPP_PIPE))
-+		/*
-+		 * blank pattern is generated by OPP, reprogram blank pattern
-+		 * due to OPP count change
-+		 */
-+		dc->hwseq->funcs.blank_pixel_data(dc, pipe_ctx, true);
- }
- 
- unsigned int dcn32_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsigned int *k1_div, unsigned int *k2_div)
+ 	static const unsigned int num_dcfclk_stas = 5;
+ 	unsigned int dcfclk_sta_targets[DC__VOLTAGE_STATES] = {199, 615, 906, 1324, 1564};
 -- 
 2.43.0
 
