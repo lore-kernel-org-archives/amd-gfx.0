@@ -4,76 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0FEBC54E67
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 13:32:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89271C54E64
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 13:32:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16DD1112424;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3347B112426;
 	Thu, 28 Mar 2024 13:32:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=sifive.com header.i=@sifive.com header.b="hlrmxI9i";
+	dkim=pass (2048-bit key; unprotected) header.d=sifive.com header.i=@sifive.com header.b="MbKRLy8k";
 	dkim-atps=neutral
-Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
- [209.85.166.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 157B410F1E8
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Mar 2024 22:08:26 +0000 (UTC)
-Received: by mail-io1-f41.google.com with SMTP id
- ca18e2360f4ac-7c7f3f66d17so9788339f.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Mar 2024 15:08:26 -0700 (PDT)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A28310FFA7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Mar 2024 20:02:03 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-1def59b537cso1590265ad.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Mar 2024 13:02:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1711577306; x=1712182106; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Bmkqc/3aYewIsupa3aI44uZjMZk6uVE6sk1O51xM5oE=;
- b=hlrmxI9iEYRCs3Z0fXC0Op4APDVt0ozcK8QeVDT5hXU0k1pWMEkgqMRljWxos8d7+s
- UuxrbO5N5DtkJdhTcxdeUd0RauvPcDp6AVaDCTSoxaA/gbid2eVzOeH6zEDREvUi7CNQ
- kdLDbsyUj7xbRflyeJK+UHHjlwOeSRknDTRcy5fpSDUv2jbQaGtce7i4EyUemGOZLCh2
- Sv5fyRXsZL3n0bOhitXGBzBaEBdYycpGSQ5a0lo+FvyvWjA0p2X6gt362D5NuyolmEwn
- dHMR6gI8XHMeGNvnptynxWoRBtB2fQuq+Xu8vm6zbe0Cz0jiheY6tbnPk6ozrxrvFm9a
- 5vow==
+ d=sifive.com; s=google; t=1711569723; x=1712174523; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=z3VQJildZHY1Bgj6r2iljFMqpw+vWq4Si7He8vtNBY4=;
+ b=MbKRLy8kFG5ZbHju8H8dUJN+co/St9HsallG3Ne4hEP1lUB84kus6lUztdFhVv80ug
+ EvesmGcDhfLMjr/qMSCYgQEhuGkTjK5WWUCyGk3TNcrXgyKtN6uVtPGH+94EmNf19lNC
+ 9/vYwSpCxER6eKulXivcj7l/HEeTzFCOuEUHWOOctwf9G24PSknWUfQ6/l9SGKDsA4gP
+ DOZufmvBl0AY6M6+pON6Lz4CLmHg+it9anyw+1vLeqSzeXMFtUNn0Rb4hTE8v0uYp5rb
+ gS31uhw9yx0jUIjTPtMvrQ6/yE2Q9OTGwHNXhZnUZRRVzVJanYK3+wifqN19PThFYPtO
+ pcbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711577306; x=1712182106;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Bmkqc/3aYewIsupa3aI44uZjMZk6uVE6sk1O51xM5oE=;
- b=IdON3SsJiRpp7VqnX4dcDFv7vlB+GEqmUiYJyZzBRtoBVTOVa5EkBBwHVm9rF/mEu/
- Df+lIBkU9EbY1v7yKyTsGqtjvvRMUFR4CnE6G0shbpK9i6Ih1mW7j5d/4qhcKHlxNTwH
- AzS+Ndbu86HwjgiKHncfGYe0hhdYWI63S9SD5pSPlCwia2zUrv9Xecac3quvd+/u7m1Z
- GErea2mMGKlZA10zNytnNwbMMC9qB71GdCMNTipcDdkc6j+qLYRKF0G40ZzvngOD5Dpm
- uo1wwbo7zWPoS59C1j+pwkWNLHaQyW6MnjTBpNb+1nD0AVA2LxzeFtaCxLFb+fk+Tzxb
- 7eJw==
+ d=1e100.net; s=20230601; t=1711569723; x=1712174523;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=z3VQJildZHY1Bgj6r2iljFMqpw+vWq4Si7He8vtNBY4=;
+ b=jJcUSz6AAdFSQhc8OmQzmIpagSyOByCocdcTeJj1vmQjK5KeGlXIfooMFIOPTKlbcC
+ QXg+h7K58vXJEydcRjs+l9SLk7T8h+mniRiVh+M7RYwjeLivcsbH1Slsml1SGOxv20hO
+ aMYRoJkmcL8OxR77GmzygcQK6XH+YaMNFZSba8ElIO1pVJ+dB1prJ1Om6OTxbgFWVh/k
+ g8kee+SFnUcf8xz2CP8tA6/WpaOUnG1UDJ9sa4JyDnea971mHgx3rN35ZgZJ3dbyDWjo
+ Q4eaZ/Q2+QmnoKVdTOeJxlbqsT9JNQ4eSG/XacumHl/YifMICgfGSxDZj6wUmA2lIn4B
+ ZgKA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVDV8WO+TZxiDPa+DUcNF4a0f1Nm3t3WFSqxAOU2WRjRXxgoh/yWii8Eq6aqG8UX3jswBiOykslN7ctcFeP7KmNI1IhkUlctG/7XnCwzQ==
-X-Gm-Message-State: AOJu0Yz1lOVLg0fGFNE3kq9f+jsBqJez5BTVsc/HCPzvuGdre96VgsSj
- Ptf/6pQlZdrZbEM/gomnY0xDVcCZLP2ccfYqNKvWSYQZDPA1Pd3j93vsH1KRPn4=
-X-Google-Smtp-Source: AGHT+IGUYm3Y8wBDca1kE2cHOU4Wfjx7H338gBLx60QGaDb6jbN+3GFHHCGUs0OMGF33wA7wIsUyRw==
-X-Received: by 2002:a6b:f919:0:b0:7cb:ffd8:1546 with SMTP id
- j25-20020a6bf919000000b007cbffd81546mr1424618iog.19.1711577305709; 
- Wed, 27 Mar 2024 15:08:25 -0700 (PDT)
-Received: from [100.64.0.1] ([170.85.6.190]) by smtp.gmail.com with ESMTPSA id
- f12-20020a056638118c00b0047bea529fddsm2373jas.104.2024.03.27.15.08.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Mar 2024 15:08:25 -0700 (PDT)
-Message-ID: <4d9633cd-15c4-4cc1-ac67-2592e9fc7880@sifive.com>
-Date: Wed, 27 Mar 2024 17:08:23 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/14] drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-arm-kernel@lists.infradead.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+ AJvYcCU31xTQPNYBlnPNRh7gncZimRnuY2wP6CartKI/g3VyJC4GqxsybEMAV0ih+fUOlJS4hHupPQf4dLKk3RrGlyIzvaCpL5L46XZZg3uw3Q==
+X-Gm-Message-State: AOJu0Yy3JIZWbpadPBaXBnH5LICviK8X8EyQonZb2Vu+JlUaJ87bq3B/
+ I4uBWiYyaeeFDw4kfIIyWW/dDgnr1yKhtx+CB87kLcB/cxpzX/D8AnjN2/Ui9E4=
+X-Google-Smtp-Source: AGHT+IHYrCNFuZi7JM5PzLehk0tocOhYuLDObxCk9XIqMJvg9sySawc5MBuX1NvDT7qWP/3i+9Szlw==
+X-Received: by 2002:a17:902:cece:b0:1dd:c7ea:81f3 with SMTP id
+ d14-20020a170902cece00b001ddc7ea81f3mr964085plg.1.1711569722972; 
+ Wed, 27 Mar 2024 13:02:02 -0700 (PDT)
+Received: from sw06.internal.sifive.com ([4.53.31.132])
+ by smtp.gmail.com with ESMTPSA id
+ u4-20020a170902e5c400b001dd0d0d26a4sm9446459plf.147.2024.03.27.13.02.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Mar 2024 13:02:02 -0700 (PDT)
+From: Samuel Holland <samuel.holland@sifive.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+ linux-arm-kernel@lists.infradead.org, x86@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
  Christoph Hellwig <hch@lst.de>, loongarch@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+ amd-gfx@lists.freedesktop.org, Samuel Holland <samuel.holland@sifive.com>,
+ Russell King <linux@armlinux.org.uk>
+Subject: [PATCH v3 03/14] ARM: crypto: Use CC_FLAGS_FPU for NEON CFLAGS
+Date: Wed, 27 Mar 2024 13:00:34 -0700
+Message-ID: <20240327200157.1097089-4-samuel.holland@sifive.com>
+X-Mailer: git-send-email 2.43.1
+In-Reply-To: <20240327200157.1097089-1-samuel.holland@sifive.com>
 References: <20240327200157.1097089-1-samuel.holland@sifive.com>
- <20240327200157.1097089-13-samuel.holland@sifive.com>
- <20240327142516.e4b1f9ba6e2ec7bc300e4d58@linux-foundation.org>
-Content-Language: en-US
-From: Samuel Holland <samuel.holland@sifive.com>
-In-Reply-To: <20240327142516.e4b1f9ba6e2ec7bc300e4d58@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 28 Mar 2024 13:32:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,57 +87,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2024-03-27 4:25 PM, Andrew Morton wrote:
-> On Wed, 27 Mar 2024 13:00:43 -0700 Samuel Holland <samuel.holland@sifive.com> wrote:
-> 
->> Now that all previously-supported architectures select
->> ARCH_HAS_KERNEL_FPU_SUPPORT, this code can depend on that symbol instead
->> of the existing list of architectures. It can also take advantage of the
->> common kernel-mode FPU API and method of adjusting CFLAGS.
->>
->> ...
->>
->> @@ -87,16 +78,9 @@ void dc_fpu_begin(const char *function_name, const int line)
->>  	WARN_ON_ONCE(!in_task());
->>  	preempt_disable();
->>  	depth = __this_cpu_inc_return(fpu_recursion_depth);
->> -
->>  	if (depth == 1) {
->> -#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
->> +		BUG_ON(!kernel_fpu_available());
->>  		kernel_fpu_begin();
-> 
-> For some reason kernel_fpu_available() was undefined in my x86_64
-> allmodconfig build.  I just removed the statement.
+Now that CC_FLAGS_FPU is exported and can be used anywhere in the source
+tree, use it instead of duplicating the flags here.
 
-This is because the include guard in asm/fpu.h conflicts with the existing one
-in asm/fpu/types.h (which doesn't match its filename), so the definition of
-kernel_fpu_available() is not seen. I can fix up the include guard in
-asm/fpu/types.h in the next version:
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+---
 
-diff --git a/arch/x86/include/asm/fpu/types.h b/arch/x86/include/asm/fpu/types.h
-index ace9aa3b78a3..75a3910d867a 100644
---- a/arch/x86/include/asm/fpu/types.h
-+++ b/arch/x86/include/asm/fpu/types.h
-@@ -2,8 +2,8 @@
- /*
-  * FPU data structures:
-  */
--#ifndef _ASM_X86_FPU_H
--#define _ASM_X86_FPU_H
-+#ifndef _ASM_X86_FPU_TYPES_H
-+#define _ASM_X86_FPU_TYPES_H
+(no changes since v1)
 
- #include <asm/page_types.h>
+ arch/arm/lib/Makefile | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-@@ -596,4 +596,4 @@ struct fpu_state_config {
- /* FPU state configuration information */
- extern struct fpu_state_config fpu_kernel_cfg, fpu_user_cfg;
-
--#endif /* _ASM_X86_FPU_H */
-+#endif /* _ASM_X86_FPU_TY{ES_H */
-
-
-Regards,
-Samuel
+diff --git a/arch/arm/lib/Makefile b/arch/arm/lib/Makefile
+index 650404be6768..0ca5aae1bcc3 100644
+--- a/arch/arm/lib/Makefile
++++ b/arch/arm/lib/Makefile
+@@ -40,8 +40,7 @@ $(obj)/csumpartialcopy.o:	$(obj)/csumpartialcopygeneric.S
+ $(obj)/csumpartialcopyuser.o:	$(obj)/csumpartialcopygeneric.S
+ 
+ ifeq ($(CONFIG_KERNEL_MODE_NEON),y)
+-  NEON_FLAGS			:= -march=armv7-a -mfloat-abi=softfp -mfpu=neon
+-  CFLAGS_xor-neon.o		+= $(NEON_FLAGS)
++  CFLAGS_xor-neon.o		+= $(CC_FLAGS_FPU)
+   obj-$(CONFIG_XOR_BLOCKS)	+= xor-neon.o
+ endif
+ 
+-- 
+2.43.1
 
