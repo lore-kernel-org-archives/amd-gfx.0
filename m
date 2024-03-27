@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89271C54E64
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 13:32:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0A9CC54E67
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 13:32:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3347B112426;
-	Thu, 28 Mar 2024 13:32:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DAB7112431;
+	Thu, 28 Mar 2024 13:32:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=sifive.com header.i=@sifive.com header.b="MbKRLy8k";
+	dkim=pass (2048-bit key; unprotected) header.d=sifive.com header.i=@sifive.com header.b="IOYd9Vos";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A28310FFA7
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Mar 2024 20:02:03 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-1def59b537cso1590265ad.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Mar 2024 13:02:03 -0700 (PDT)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E191110FFA7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Mar 2024 20:02:08 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-1dee5ef2a7bso1955035ad.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Mar 2024 13:02:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1711569723; x=1712174523; darn=lists.freedesktop.org;
+ d=sifive.com; s=google; t=1711569728; x=1712174528; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=z3VQJildZHY1Bgj6r2iljFMqpw+vWq4Si7He8vtNBY4=;
- b=MbKRLy8kFG5ZbHju8H8dUJN+co/St9HsallG3Ne4hEP1lUB84kus6lUztdFhVv80ug
- EvesmGcDhfLMjr/qMSCYgQEhuGkTjK5WWUCyGk3TNcrXgyKtN6uVtPGH+94EmNf19lNC
- 9/vYwSpCxER6eKulXivcj7l/HEeTzFCOuEUHWOOctwf9G24PSknWUfQ6/l9SGKDsA4gP
- DOZufmvBl0AY6M6+pON6Lz4CLmHg+it9anyw+1vLeqSzeXMFtUNn0Rb4hTE8v0uYp5rb
- gS31uhw9yx0jUIjTPtMvrQ6/yE2Q9OTGwHNXhZnUZRRVzVJanYK3+wifqN19PThFYPtO
- pcbA==
+ bh=CZE0ell9od5iMx/niXSnkXHAkP7o0Zji40W4vIuo5Ic=;
+ b=IOYd9VosoM7br3UMzBIl/vo2SHHvIsLM6qkB+lSfH9o6Itl0iN2asZobTWd1B3rEX8
+ grfNZYW8mOmjs2GTjc4lsWKpdRxUGSEwPm0JSs7nQ1mbyQmudm3DtijMZ2O/Lfb2cYP/
+ 1HpTZDCTKiALgNoT6huAEf7sTIW8+KBjx2Mb3u6Q9y1TPzaSCfC9umHBtpVlHldsbQCB
+ jKMMRAS54RXpVQfNSLtL/c41oybv52JO4Cpqw6usNMczkBDq/aFWrhW6kpAGJ0qHisDJ
+ oc2lRd4rYR+H2AmikMS8kc2JVJ1eWh5MCtsKvkcK4zAG15xMFyPiPTWXoGjNt8woyakx
+ qoAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711569723; x=1712174523;
+ d=1e100.net; s=20230601; t=1711569728; x=1712174528;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=z3VQJildZHY1Bgj6r2iljFMqpw+vWq4Si7He8vtNBY4=;
- b=jJcUSz6AAdFSQhc8OmQzmIpagSyOByCocdcTeJj1vmQjK5KeGlXIfooMFIOPTKlbcC
- QXg+h7K58vXJEydcRjs+l9SLk7T8h+mniRiVh+M7RYwjeLivcsbH1Slsml1SGOxv20hO
- aMYRoJkmcL8OxR77GmzygcQK6XH+YaMNFZSba8ElIO1pVJ+dB1prJ1Om6OTxbgFWVh/k
- g8kee+SFnUcf8xz2CP8tA6/WpaOUnG1UDJ9sa4JyDnea971mHgx3rN35ZgZJ3dbyDWjo
- Q4eaZ/Q2+QmnoKVdTOeJxlbqsT9JNQ4eSG/XacumHl/YifMICgfGSxDZj6wUmA2lIn4B
- ZgKA==
+ bh=CZE0ell9od5iMx/niXSnkXHAkP7o0Zji40W4vIuo5Ic=;
+ b=va3irI68QBDINE6L9wg0ehNnP+COXYFk659hPZ+XGBeChT9A+d3o7fnRT5Eljt6ukl
+ I9sAmPx9jmCWsWUfd0HTHz+nBb0C3ZT7F6T/u4t6IT3dPT8rMqqgAKw88lv+hMQczyrb
+ Slvq3vdLiYSvcPAvKypBPOAMIOQaJsv4VbWbN5f1ORLG+W1YnUTAL+XQQyBNydEJuchW
+ O8edWY+F61W5rkl5QV0JPpmEL9hczFOgZvb2WbcUP6f/vEQ+Ml/AjufSzm5VdyLZk328
+ WE5neaIPA/kNK1BXa60UeaEGfbTZtHIBuKwJYZ6CQUrlXirSxVTZV+GPzD7b76RSIMGw
+ AGDA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU31xTQPNYBlnPNRh7gncZimRnuY2wP6CartKI/g3VyJC4GqxsybEMAV0ih+fUOlJS4hHupPQf4dLKk3RrGlyIzvaCpL5L46XZZg3uw3Q==
-X-Gm-Message-State: AOJu0Yy3JIZWbpadPBaXBnH5LICviK8X8EyQonZb2Vu+JlUaJ87bq3B/
- I4uBWiYyaeeFDw4kfIIyWW/dDgnr1yKhtx+CB87kLcB/cxpzX/D8AnjN2/Ui9E4=
-X-Google-Smtp-Source: AGHT+IHYrCNFuZi7JM5PzLehk0tocOhYuLDObxCk9XIqMJvg9sySawc5MBuX1NvDT7qWP/3i+9Szlw==
-X-Received: by 2002:a17:902:cece:b0:1dd:c7ea:81f3 with SMTP id
- d14-20020a170902cece00b001ddc7ea81f3mr964085plg.1.1711569722972; 
- Wed, 27 Mar 2024 13:02:02 -0700 (PDT)
+ AJvYcCXv3xpux7NCgQGWdYXKicg16dQUwSLmsdGzrFwMO54ORe6MlSDkjKKr9bFoFNhYr68IcYzl3ETkujueGocLgWf+NfiOaqrlIwCRcYG5RQ==
+X-Gm-Message-State: AOJu0YxrExEFvwjv6jZOLjCSZbrZdxpa39Ho/lWpIzL+MCmC1ZTfd5e+
+ uzgkNdtm4gbh2/f1eaLayE1lAFRlPfDWLFmUFHSNDFKtWZR8aen0JPEINLzJnWg=
+X-Google-Smtp-Source: AGHT+IGM9v2q1Bg0jHlsJFItc73WPBzqi9soPcoc57OB2ZggdclEbNRISa4ohk9keY4487ms+Vhuaw==
+X-Received: by 2002:a17:902:d4d0:b0:1de:fbc2:99f0 with SMTP id
+ o16-20020a170902d4d000b001defbc299f0mr957547plg.2.1711569728307; 
+ Wed, 27 Mar 2024 13:02:08 -0700 (PDT)
 Received: from sw06.internal.sifive.com ([4.53.31.132])
  by smtp.gmail.com with ESMTPSA id
- u4-20020a170902e5c400b001dd0d0d26a4sm9446459plf.147.2024.03.27.13.02.02
+ u4-20020a170902e5c400b001dd0d0d26a4sm9446459plf.147.2024.03.27.13.02.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Mar 2024 13:02:02 -0700 (PDT)
+ Wed, 27 Mar 2024 13:02:07 -0700 (PDT)
 From: Samuel Holland <samuel.holland@sifive.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
  linux-arm-kernel@lists.infradead.org, x86@kernel.org
@@ -63,10 +63,10 @@ Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
  Christoph Hellwig <hch@lst.de>, loongarch@lists.linux.dev,
  amd-gfx@lists.freedesktop.org, Samuel Holland <samuel.holland@sifive.com>,
- Russell King <linux@armlinux.org.uk>
-Subject: [PATCH v3 03/14] ARM: crypto: Use CC_FLAGS_FPU for NEON CFLAGS
-Date: Wed, 27 Mar 2024 13:00:34 -0700
-Message-ID: <20240327200157.1097089-4-samuel.holland@sifive.com>
+ WANG Xuerui <git@xen0n.name>, Huacai Chen <chenhuacai@kernel.org>
+Subject: [PATCH v3 07/14] LoongArch: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+Date: Wed, 27 Mar 2024 13:00:38 -0700
+Message-ID: <20240327200157.1097089-8-samuel.holland@sifive.com>
 X-Mailer: git-send-email 2.43.1
 In-Reply-To: <20240327200157.1097089-1-samuel.holland@sifive.com>
 References: <20240327200157.1097089-1-samuel.holland@sifive.com>
@@ -87,31 +87,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that CC_FLAGS_FPU is exported and can be used anywhere in the source
-tree, use it instead of duplicating the flags here.
+LoongArch already provides kernel_fpu_begin() and kernel_fpu_end() in
+asm/fpu.h, so it only needs to add kernel_fpu_available() and export
+the CFLAGS adjustments.
 
+Acked-by: WANG Xuerui <git@xen0n.name>
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
 ---
 
-(no changes since v1)
+Changes in v3:
+ - Rebase on v6.9-rc1
 
- arch/arm/lib/Makefile | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ arch/loongarch/Kconfig           | 1 +
+ arch/loongarch/Makefile          | 5 ++++-
+ arch/loongarch/include/asm/fpu.h | 1 +
+ 3 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/lib/Makefile b/arch/arm/lib/Makefile
-index 650404be6768..0ca5aae1bcc3 100644
---- a/arch/arm/lib/Makefile
-+++ b/arch/arm/lib/Makefile
-@@ -40,8 +40,7 @@ $(obj)/csumpartialcopy.o:	$(obj)/csumpartialcopygeneric.S
- $(obj)/csumpartialcopyuser.o:	$(obj)/csumpartialcopygeneric.S
+diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
+index a5f300ec6f28..2266c6c41c38 100644
+--- a/arch/loongarch/Kconfig
++++ b/arch/loongarch/Kconfig
+@@ -18,6 +18,7 @@ config LOONGARCH
+ 	select ARCH_HAS_CURRENT_STACK_POINTER
+ 	select ARCH_HAS_FORTIFY_SOURCE
+ 	select ARCH_HAS_KCOV
++	select ARCH_HAS_KERNEL_FPU_SUPPORT if CPU_HAS_FPU
+ 	select ARCH_HAS_NMI_SAFE_THIS_CPU_OPS
+ 	select ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE
+ 	select ARCH_HAS_PTE_SPECIAL
+diff --git a/arch/loongarch/Makefile b/arch/loongarch/Makefile
+index df6caf79537a..efb5440a43ec 100644
+--- a/arch/loongarch/Makefile
++++ b/arch/loongarch/Makefile
+@@ -26,6 +26,9 @@ endif
+ 32bit-emul		= elf32loongarch
+ 64bit-emul		= elf64loongarch
  
- ifeq ($(CONFIG_KERNEL_MODE_NEON),y)
--  NEON_FLAGS			:= -march=armv7-a -mfloat-abi=softfp -mfpu=neon
--  CFLAGS_xor-neon.o		+= $(NEON_FLAGS)
-+  CFLAGS_xor-neon.o		+= $(CC_FLAGS_FPU)
-   obj-$(CONFIG_XOR_BLOCKS)	+= xor-neon.o
++CC_FLAGS_FPU		:= -mfpu=64
++CC_FLAGS_NO_FPU		:= -msoft-float
++
+ ifdef CONFIG_UNWINDER_ORC
+ orc_hash_h := arch/$(SRCARCH)/include/generated/asm/orc_hash.h
+ orc_hash_sh := $(srctree)/scripts/orc_hash.sh
+@@ -59,7 +62,7 @@ ld-emul			= $(64bit-emul)
+ cflags-y		+= -mabi=lp64s
  endif
+ 
+-cflags-y			+= -pipe -msoft-float
++cflags-y			+= -pipe $(CC_FLAGS_NO_FPU)
+ LDFLAGS_vmlinux			+= -static -n -nostdlib
+ 
+ # When the assembler supports explicit relocation hint, we must use it.
+diff --git a/arch/loongarch/include/asm/fpu.h b/arch/loongarch/include/asm/fpu.h
+index c2d8962fda00..3177674228f8 100644
+--- a/arch/loongarch/include/asm/fpu.h
++++ b/arch/loongarch/include/asm/fpu.h
+@@ -21,6 +21,7 @@
+ 
+ struct sigcontext;
+ 
++#define kernel_fpu_available() cpu_has_fpu
+ extern void kernel_fpu_begin(void);
+ extern void kernel_fpu_end(void);
  
 -- 
 2.43.1
