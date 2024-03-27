@@ -4,42 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 715B0CD1287
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:07:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F803C47DD9
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:07:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A026310FA81;
-	Wed, 27 Mar 2024 12:07:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65A8B10FA7E;
+	Wed, 27 Mar 2024 12:07:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ht5WjYyh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZvVLnc36";
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A98710FA7E;
- Wed, 27 Mar 2024 12:07:27 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E10010FA87;
+ Wed, 27 Mar 2024 12:07:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id B1BB4CE2632;
- Wed, 27 Mar 2024 12:07:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411D7C43390;
- Wed, 27 Mar 2024 12:07:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id B6C4461516;
+ Wed, 27 Mar 2024 12:07:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F481C43330;
+ Wed, 27 Mar 2024 12:07:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711541244;
- bh=uzpbAgzkcpuAXG9dO+IUM9J+PeeWa0CoBAnw2tUCoQA=;
+ s=k20201202; t=1711541252;
+ bh=ElQjemkTy+4VYzAjeaa9PAkt1zZ5MmKXVbhrRMyOGr8=;
  h=From:To:Cc:Subject:Date:From;
- b=ht5WjYyh2zoDMLIre6QQqxXdRoFeDH1OnqEwvCiU9Gt3by43t7/7eYE+0s+r86Npy
- VMA9QrozO/hrIB+h6G1oz+HUBSMq/FzdMILkFouOl3ZK9nJ8s172/ytZEjRGxq1bIb
- fT0Tbr4H7Qj9CgRSSMblDIxfq4QyY3Rk1SaRrZX9lDY6x0+V41MwDRInLXq7WAOkPd
- hDjHBDhodeJJCgrWSBl6BUwbRtsa5nnnNUWMdsJpWA+YExsaZ5MpbmWpKJXMAynmQl
- Q/MggaE5t0pCX9eIy4yfC+YDfjTLItKGgY/3VWhcKpKp4PUJU2MlQiWJo0lMj9GwLf
- Vsc12wNCnfz5A==
+ b=ZvVLnc36m5OAUbarFrIwUmPmyjaMBtdv5WsetpgRJOzE2C8TNA8X/hl0FbOyg0Rgb
+ U+xBw8DfrE1KN26n0lVGO8XiIQN8WUh86ZQpezhpKr6hpykxhoA5UasiFtphfptZZn
+ Fw52kCgFsNQVG3CAp4QFLZwtt0qtZV4kKtVlhc2rQ7ayXh+CZ1JbaHskxQiqy89S5Z
+ mpCf4Rb0ZIlC0jdHWykKoeDKyFEg6bnn8BKYX1miLyijqLa30vrXjKnib7YRvZYTrS
+ 4mLf/QvtH4YiRx1sk7+udeGg/5bWB7z10zEclpgVL9BIOBWC2GVWc/6S15+1SdyeOr
+ nCTMU8JyuwG0Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	mario.limonciello@amd.com
-Cc: Kenneth Feng <kenneth.feng@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+	sohaib.nadeem@amd.com
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Josip Pavic <josip.pavic@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: FAILED: Patch "Revert "drm/amd/pm: fix the high voltage and
- temperature issue"" failed to apply to 6.8-stable tree
-Date: Wed, 27 Mar 2024 08:07:21 -0400
-Message-ID: <20240327120722.2825357-1-sashal@kernel.org>
+Subject: FAILED: Patch "drm/amd/display: fixed integer types and null check
+ locations" failed to apply to 6.8-stable tree
+Date: Wed, 27 Mar 2024 08:07:30 -0400
+Message-ID: <20240327120730.2825491-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -69,177 +72,112 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7055c5856aa10a7f2d687557c50751a72080e4c8 Mon Sep 17 00:00:00 2001
-From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Fri, 19 Jan 2024 03:08:37 -0600
-Subject: [PATCH] Revert "drm/amd/pm: fix the high voltage and temperature
- issue"
+From 616b39467e816851335277d817ec98b7a9b92758 Mon Sep 17 00:00:00 2001
+From: Sohaib Nadeem <sohaib.nadeem@amd.com>
+Date: Wed, 31 Jan 2024 16:40:37 -0500
+Subject: [PATCH] drm/amd/display: fixed integer types and null check locations
 
-This reverts commit 5f38ac54e60562323ea4abb1bfb37d043ee23357.
-This causes issues with rebooting and the 7800XT.
+[why]:
+issues fixed:
+- comparison with wider integer type in loop condition which can cause
+infinite loops
+- pointer dereference before null check
 
-Cc: Kenneth Feng <kenneth.feng@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: stable@vger.kernel.org
-Fixes: 5f38ac54e605 ("drm/amd/pm: fix the high voltage and temperature issue")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3062
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Josip Pavic <josip.pavic@amd.com>
+Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Sohaib Nadeem <sohaib.nadeem@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 24 ++++----------
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 33 ++-----------------
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  1 -
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  8 +----
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  8 +----
- 5 files changed, 11 insertions(+), 63 deletions(-)
+ .../gpu/drm/amd/display/dc/bios/bios_parser2.c   | 16 ++++++++++------
+ .../drm/amd/display/dc/link/link_validation.c    |  2 +-
+ 2 files changed, 11 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 2df14f0e79d80..1a04ccba9542a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4140,23 +4140,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 				}
- 			}
- 		} else {
--			switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
--			case IP_VERSION(13, 0, 0):
--			case IP_VERSION(13, 0, 7):
--			case IP_VERSION(13, 0, 10):
--				r = psp_gpu_reset(adev);
--				break;
--			default:
--				tmp = amdgpu_reset_method;
--				/* It should do a default reset when loading or reloading the driver,
--				 * regardless of the module parameter reset_method.
--				 */
--				amdgpu_reset_method = AMD_RESET_METHOD_NONE;
--				r = amdgpu_asic_reset(adev);
--				amdgpu_reset_method = tmp;
--				break;
--			}
--
-+			tmp = amdgpu_reset_method;
-+			/* It should do a default reset when loading or reloading the driver,
-+			 * regardless of the module parameter reset_method.
-+			 */
-+			amdgpu_reset_method = AMD_RESET_METHOD_NONE;
-+			r = amdgpu_asic_reset(adev);
-+			amdgpu_reset_method = tmp;
- 			if (r) {
- 				dev_err(adev->dev, "asic reset on init failed\n");
- 				goto failed;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index a54663f2e2ab9..13223fbaf3faa 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -734,7 +734,7 @@ static int smu_early_init(void *handle)
- 	smu->adev = adev;
- 	smu->pm_enabled = !!amdgpu_dpm;
- 	smu->is_apu = false;
--	smu->smu_baco.state = SMU_BACO_STATE_NONE;
-+	smu->smu_baco.state = SMU_BACO_STATE_EXIT;
- 	smu->smu_baco.platform_support = false;
- 	smu->user_dpm_profile.fan_mode = -1;
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index 960c4b4f6ddf3..05f392501c0ae 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -1850,19 +1850,21 @@ static enum bp_result get_firmware_info_v3_2(
+ 		/* Vega12 */
+ 		smu_info_v3_2 = GET_IMAGE(struct atom_smu_info_v3_2,
+ 							DATA_TABLES(smu_info));
+-		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_2->gpuclk_ss_percentage);
+ 		if (!smu_info_v3_2)
+ 			return BP_RESULT_BADBIOSTABLE;
  
-@@ -1954,31 +1954,10 @@ static int smu_smc_hw_cleanup(struct smu_context *smu)
- 	return 0;
- }
++		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_2->gpuclk_ss_percentage);
++
+ 		info->default_engine_clk = smu_info_v3_2->bootup_dcefclk_10khz * 10;
+ 	} else if (revision.minor == 3) {
+ 		/* Vega20 */
+ 		smu_info_v3_3 = GET_IMAGE(struct atom_smu_info_v3_3,
+ 							DATA_TABLES(smu_info));
+-		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_3->gpuclk_ss_percentage);
+ 		if (!smu_info_v3_3)
+ 			return BP_RESULT_BADBIOSTABLE;
  
--static int smu_reset_mp1_state(struct smu_context *smu)
--{
--	struct amdgpu_device *adev = smu->adev;
--	int ret = 0;
--
--	if ((!adev->in_runpm) && (!adev->in_suspend) &&
--		(!amdgpu_in_reset(adev)))
--		switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
--		case IP_VERSION(13, 0, 0):
--		case IP_VERSION(13, 0, 7):
--		case IP_VERSION(13, 0, 10):
--			ret = smu_set_mp1_state(smu, PP_MP1_STATE_UNLOAD);
--			break;
--		default:
--			break;
--		}
--
--	return ret;
--}
--
- static int smu_hw_fini(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	struct smu_context *smu = adev->powerplay.pp_handle;
--	int ret;
++		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_3->gpuclk_ss_percentage);
++
+ 		info->default_engine_clk = smu_info_v3_3->bootup_dcefclk_10khz * 10;
+ 	}
  
- 	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
- 		return 0;
-@@ -1996,15 +1975,7 @@ static int smu_hw_fini(void *handle)
+@@ -2422,10 +2424,11 @@ static enum bp_result get_integrated_info_v11(
+ 	info_v11 = GET_IMAGE(struct atom_integrated_system_info_v1_11,
+ 					DATA_TABLES(integratedsysteminfo));
  
- 	adev->pm.dpm_enabled = false;
+-	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v11->gpuclk_ss_percentage);
+ 	if (info_v11 == NULL)
+ 		return BP_RESULT_BADBIOSTABLE;
  
--	ret = smu_smc_hw_cleanup(smu);
--	if (ret)
--		return ret;
--
--	ret = smu_reset_mp1_state(smu);
--	if (ret)
--		return ret;
--
--	return 0;
-+	return smu_smc_hw_cleanup(smu);
- }
++	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v11->gpuclk_ss_percentage);
++
+ 	info->gpu_cap_info =
+ 	le32_to_cpu(info_v11->gpucapinfo);
+ 	/*
+@@ -2637,11 +2640,12 @@ static enum bp_result get_integrated_info_v2_1(
  
- static void smu_late_fini(void *handle)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index 2aa4fea873147..66e84defd0b6e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -424,7 +424,6 @@ enum smu_reset_mode {
- enum smu_baco_state {
- 	SMU_BACO_STATE_ENTER = 0,
- 	SMU_BACO_STATE_EXIT,
--	SMU_BACO_STATE_NONE,
- };
+ 	info_v2_1 = GET_IMAGE(struct atom_integrated_system_info_v2_1,
+ 					DATA_TABLES(integratedsysteminfo));
+-	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_1->gpuclk_ss_percentage);
  
- struct smu_baco_context {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index e769adb8da2cb..462a0e6aa53e3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -2749,13 +2749,7 @@ static int smu_v13_0_0_set_mp1_state(struct smu_context *smu,
+ 	if (info_v2_1 == NULL)
+ 		return BP_RESULT_BADBIOSTABLE;
  
- 	switch (mp1_state) {
- 	case PP_MP1_STATE_UNLOAD:
--		ret = smu_cmn_send_smc_msg_with_param(smu,
--											  SMU_MSG_PrepareMp1ForUnload,
--											  0x55, NULL);
--
--		if (!ret && smu->smu_baco.state == SMU_BACO_STATE_EXIT)
--			ret = smu_v13_0_disable_pmfw_state(smu);
--
-+		ret = smu_cmn_set_mp1_state(smu, mp1_state);
- 		break;
- 	default:
- 		/* Ignore others */
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 7c3e162e2d818..0ffdb58af74e6 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -2505,13 +2505,7 @@ static int smu_v13_0_7_set_mp1_state(struct smu_context *smu,
++	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_1->gpuclk_ss_percentage);
++
+ 	info->gpu_cap_info =
+ 	le32_to_cpu(info_v2_1->gpucapinfo);
+ 	/*
+@@ -2799,11 +2803,11 @@ static enum bp_result get_integrated_info_v2_2(
+ 	info_v2_2 = GET_IMAGE(struct atom_integrated_system_info_v2_2,
+ 					DATA_TABLES(integratedsysteminfo));
  
- 	switch (mp1_state) {
- 	case PP_MP1_STATE_UNLOAD:
--		ret = smu_cmn_send_smc_msg_with_param(smu,
--											  SMU_MSG_PrepareMp1ForUnload,
--											  0x55, NULL);
+-	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_2->gpuclk_ss_percentage);
 -
--		if (!ret && smu->smu_baco.state == SMU_BACO_STATE_EXIT)
--			ret = smu_v13_0_disable_pmfw_state(smu);
--
-+		ret = smu_cmn_set_mp1_state(smu, mp1_state);
- 		break;
- 	default:
- 		/* Ignore others */
+ 	if (info_v2_2 == NULL)
+ 		return BP_RESULT_BADBIOSTABLE;
+ 
++	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_2->gpuclk_ss_percentage);
++
+ 	info->gpu_cap_info =
+ 	le32_to_cpu(info_v2_2->gpucapinfo);
+ 	/*
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_validation.c b/drivers/gpu/drm/amd/display/dc/link/link_validation.c
+index 1c038e2a527b3..1aed55b0ab6a0 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_validation.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_validation.c
+@@ -359,7 +359,7 @@ bool link_validate_dpia_bandwidth(const struct dc_stream_state *stream, const un
+ 	struct dc_link *dpia_link[MAX_DPIA_NUM] = {0};
+ 	int num_dpias = 0;
+ 
+-	for (uint8_t i = 0; i < num_streams; ++i) {
++	for (unsigned int i = 0; i < num_streams; ++i) {
+ 		if (stream[i].signal == SIGNAL_TYPE_DISPLAY_PORT) {
+ 			/* new dpia sst stream, check whether it exceeds max dpia */
+ 			if (num_dpias >= MAX_DPIA_NUM)
 -- 
 2.43.0
 
