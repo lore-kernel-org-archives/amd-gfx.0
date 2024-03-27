@@ -4,52 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78E2FC54E67
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 21:50:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D3A1C54E67
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 23:24:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F5721120B0;
-	Wed, 27 Mar 2024 21:50:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B900210FF32;
+	Wed, 27 Mar 2024 23:24:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="IigA34ew";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oHbFDpxI";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 327E01120B0;
- Wed, 27 Mar 2024 21:50:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Rb47TC+5s1SseXZclT0xe/2fdBd19Pjj6gVCBAYVCco=; b=IigA34ew0AWz3FCtmQLFcevTVa
- EffvGrTjjJ3CP0wLFRpIUiIBFgwMiJhM4/nYBFsra8pKy0XPwk653355zZ4xtFle0kchqUVmQ8Ncz
- 2YT1mEDPxPzZZPKmQXMHXV6odyHYxNFlxjdEdpXb4h+3clV6YvNBseTMII77qg8K6uFpfWgalW6hU
- p+kRExHisbb89t3/DGVGK13NrNKnZn6bpbHjbppWFuRNUWGaQRZtWZ6BtcWtVC2ixqSdvbCl/SeXH
- 0BbvsS1qFeqUt00nSLUqneVMrlrSm0ZwDfhReVBr1m0MauKtyQqSew1YbRC3Kx0AkQUM4a59sIjUM
- /+Mbd4OA==;
-Received: from [189.6.17.125] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1rpbAJ-00G1qx-4A; Wed, 27 Mar 2024 22:50:35 +0100
-From: Melissa Wen <mwen@igalia.com>
-To: Harry Wentland <harry.wentland@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, Alex Hung <alex.hung@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, airlied@gmail.com,
- daniel@ffwll.ch
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Subject: [RFC PATCH v3 6/6] drm/amd/display: remove redundant freesync parser
- for DP
-Date: Wed, 27 Mar 2024 18:44:07 -0300
-Message-ID: <20240327214953.367126-7-mwen@igalia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240327214953.367126-1-mwen@igalia.com>
-References: <20240327214953.367126-1-mwen@igalia.com>
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2089.outbound.protection.outlook.com [40.107.93.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2300710FF32
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Mar 2024 23:24:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bn4Nj9tjh/kgVuq3Pe20yg8GHqcPhZEiChTRUltQuJxXla/Nemt6uwB5jwufRMFZB5p2qscd8vLtqMYepueHxTJLCZ2FOiR22qX6aZ81Cpgx0dzjfPZv9xmquEDAPudN+E6/Eoh2K5nplUfdOh7xfqyvkUK8n9PdFO53PLbX4WBUTOfAEa8NqFP4pxICp5kwpjhTkRJM+wkTR7LaslgpT1XtZ5nd577wGgjxlbg3KwH+RHvXUOGW1VH2tlo/azW7DyLYkkRn7klBBQHD+fpikic9uMnZo48t531gfRA2/8ob8QJnN6rrKBBpx8vsKFilklt5OFzh0qFmpQNiunyjKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JOu/7Llp75qamSWcTeBLsoUTCbstC8QnVamEPrHMNz4=;
+ b=a3L0qDK7XgdxJpG4a77Msu8E+0LRqOxPLPR8KqUqxAvwsikfcZe+dBVjoJ9hyMDFOBbOsbVjlu2K+747oYBMNdz1IDnFjGn9WqqKckENOOllljORcajRF7hvi5rdkmhg5iUcc7IYBGAwPtVoiCWoZO5zETtxq376pL9I6q0zTmxsUsM1elv+D07bU9nqT3g/VcxhUA8jKTU1jrSUNq0ZJ4ej21PH4PA3av7BWtZvWwHOZWJ6d+KoqefrA0gPQsAFjY8Spmp+pT0dSTvDSovPrc0Ntufc37RTbIYQzJgK0GRzs+t5oAy8XN+Jk7vGvsCM0LIqV+P3qh9boBKS+B02mQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JOu/7Llp75qamSWcTeBLsoUTCbstC8QnVamEPrHMNz4=;
+ b=oHbFDpxIw00uoXqBXbe4I7cIbV31g5vnrAPYrY4YNM75oLsJ5HgmTF+l00gumitVoWOCSo237chM1tZvjDYoRZX8W7OaZWwM4x3gzdT/bSA3WqYJOgdAMwoxDubRr7i7yUzPQWNjtVDraxnglCPDdBl1WqwQ5AcJGQrrnKBErOs=
+Received: from SN7PR04CA0065.namprd04.prod.outlook.com (2603:10b6:806:121::10)
+ by CY5PR12MB6298.namprd12.prod.outlook.com (2603:10b6:930:21::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.32; Wed, 27 Mar
+ 2024 23:24:47 +0000
+Received: from SN1PEPF00026369.namprd02.prod.outlook.com
+ (2603:10b6:806:121:cafe::f3) by SN7PR04CA0065.outlook.office365.com
+ (2603:10b6:806:121::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
+ Transport; Wed, 27 Mar 2024 23:24:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF00026369.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7409.10 via Frontend Transport; Wed, 27 Mar 2024 23:24:46 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 27 Mar
+ 2024 18:24:46 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 27 Mar
+ 2024 18:24:45 -0500
+Received: from sriov-SERVER4.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Wed, 27 Mar 2024 18:24:45 -0500
+From: Danijel Slivka <danijel.slivka@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Danijel Slivka <danijel.slivka@amd.com>
+Subject: [PATCH] drm/amdgpu: set vm_update_mode=0 as default for NV32 in SRIOV
+ case
+Date: Thu, 28 Mar 2024 00:34:52 +0100
+Message-ID: <20240327233452.811939-1-danijel.slivka@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00026369:EE_|CY5PR12MB6298:EE_
+X-MS-Office365-Filtering-Correlation-Id: 197060d6-9deb-4055-0010-08dc4eb5174c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: U1iLvgOcBIKC8PBB9Ar0XglBnNaeSt+ShVfKNoy8dk9AMAR4fPu9ntZtKLmcElsCEK4lBF/S1AVnfO1bN7v3OAMofrlG1ooIFJsT/aTnS1JzOlWL7gnPwPgh9veBvIgxTaHdvtrnHrn5U6JWUN/RZlamQsHLoAtYWCgiyi8mA6XBaJf5bWLAzUPFO2fYcpLg+fOOodbD72xE7jP9hrQQKWN46YeBReO41DfgcW8ggbXQSYOQWW7W4Fl/ecSbVWAHLrLQYREY0kVYR10lpygsLksbzB6g/CqfJNinNibsccMVkK28zB0R4o/z4wMiXxOY2jrpWEZNAFNiHqVyUa55lgYaL5/jxpjJ+BQUNvRkddXRkU0wRXPzyqvDq7wnweZZDcajx6F/9rnyBLRGgwdTt1nneSWKNeV2Wc4DVHWlLH/VBGQyFF5IE1uwpVhLBjvqUW9I9OsYNhP8d+bajm3GUkp+/7U2j1l+EEH8SRqbCT5VZzYSes/kE04sZsBpkG2+XeuQrTpnNRReA19EbiADBGTM87SFMKphD3ChO31HCtIW4kUDfiP1Szz4Spm/pbuzzmt2l1wGcocLVqKFLYHp+3XFNrC10uaT5SkgoakcTJP2ZWVZhbM5xMuU1YFj7LHBXzhNGNf9w0CEZvn2xVPWxMFBrHj4DIoKAJII4vliyrFFJOf61XzBioH3Mwv1KaT0/6GX7Uhg7tzgyXJexpu5N+XjSwJae23Yx7Ejk9k235qjYjcUT1Xt24U2UBKEJJ/g
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(1800799015)(82310400014)(36860700004)(376005); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2024 23:24:46.6046 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 197060d6-9deb-4055-0010-08dc4eb5174c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026369.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6298
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,141 +109,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When updating connector under drm_edid infrastructure, many calculations
-and validations are already done and become redundant inside AMD driver.
-Remove those driver-specific code in favor of the DRM common code.
+For asic with VF MMIO access protection avoid using CPU for VM table updates.
+CPU pagetable updates have issues with HDP flush as VF MMIO access protection
+blocks write to BIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL register
+during sriov runtime.
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+Signed-off-by: Danijel Slivka <danijel.slivka@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 86 +------------------
- 1 file changed, 4 insertions(+), 82 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index b3c396d626e9..7e0f93de27e6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10994,24 +10994,6 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index aed60aaf1a55..a3012c9aa92b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -724,7 +724,8 @@ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+ 			adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
+ 	}
  
--static bool is_dp_capable_without_timing_msa(struct dc *dc,
--					     struct amdgpu_dm_connector *amdgpu_dm_connector)
--{
--	u8 dpcd_data;
--	bool capable = false;
--
--	if (amdgpu_dm_connector->dc_link &&
--		dm_helpers_dp_read_dpcd(
--				NULL,
--				amdgpu_dm_connector->dc_link,
--				DP_DOWN_STREAM_PORT_COUNT,
--				&dpcd_data,
--				sizeof(dpcd_data))) {
--		capable = (dpcd_data & DP_MSA_TIMING_PAR_IGNORED) ? true:false;
--	}
--
--	return capable;
--}
- 
- static bool dm_edid_parser_send_cea(struct amdgpu_display_manager *dm,
- 		unsigned int offset,
-@@ -11225,9 +11207,6 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 				    const struct drm_edid *drm_edid)
- {
- 	int i = 0;
--	const struct detailed_timing *timing;
--	const struct detailed_non_pixel *data;
--	const struct detailed_data_monitor_range *range;
- 	struct amdgpu_dm_connector *amdgpu_dm_connector =
- 			to_amdgpu_dm_connector(connector);
- 	struct dm_connector_state *dm_con_state = NULL;
-@@ -11254,8 +11233,6 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 
- 		amdgpu_dm_connector->min_vfreq = 0;
- 		amdgpu_dm_connector->max_vfreq = 0;
--		connector->display_info.monitor_range.min_vfreq = 0;
--		connector->display_info.monitor_range.max_vfreq = 0;
- 		freesync_capable = false;
- 
- 		goto update;
-@@ -11269,65 +11246,11 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
- 	if (edid && (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
- 		     sink->sink_signal == SIGNAL_TYPE_EDP)) {
--		bool edid_check_required = false;
-+		amdgpu_dm_connector->min_vfreq = connector->display_info.monitor_range.min_vfreq;
-+		amdgpu_dm_connector->max_vfreq = connector->display_info.monitor_range.max_vfreq;
-+		if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
-+			freesync_capable = true;
- 
--		if (is_dp_capable_without_timing_msa(adev->dm.dc,
--						     amdgpu_dm_connector)) {
--			if (edid->features & DRM_EDID_FEATURE_CONTINUOUS_FREQ) {
--				freesync_capable = true;
--				amdgpu_dm_connector->min_vfreq = connector->display_info.monitor_range.min_vfreq;
--				amdgpu_dm_connector->max_vfreq = connector->display_info.monitor_range.max_vfreq;
--			} else {
--				edid_check_required = edid->version > 1 ||
--						      (edid->version == 1 &&
--						       edid->revision > 1);
--			}
--		}
--
--		if (edid_check_required) {
--			for (i = 0; i < 4; i++) {
--
--				timing	= &edid->detailed_timings[i];
--				data	= &timing->data.other_data;
--				range	= &data->data.range;
--				/*
--				 * Check if monitor has continuous frequency mode
--				 */
--				if (data->type != EDID_DETAIL_MONITOR_RANGE)
--					continue;
--				/*
--				 * Check for flag range limits only. If flag == 1 then
--				 * no additional timing information provided.
--				 * Default GTF, GTF Secondary curve and CVT are not
--				 * supported
--				 */
--				if (range->flags != 1)
--					continue;
--
--				connector->display_info.monitor_range.min_vfreq = range->min_vfreq;
--				connector->display_info.monitor_range.max_vfreq = range->max_vfreq;
--
--				if (edid->revision >= 4) {
--					if (data->pad2 & DRM_EDID_RANGE_OFFSET_MIN_VFREQ)
--						connector->display_info.monitor_range.min_vfreq += 255;
--					if (data->pad2 & DRM_EDID_RANGE_OFFSET_MAX_VFREQ)
--						connector->display_info.monitor_range.max_vfreq += 255;
--				}
--
--				amdgpu_dm_connector->min_vfreq =
--					connector->display_info.monitor_range.min_vfreq;
--				amdgpu_dm_connector->max_vfreq =
--					connector->display_info.monitor_range.max_vfreq;
--
--				break;
--			}
--
--			if (amdgpu_dm_connector->max_vfreq -
--			    amdgpu_dm_connector->min_vfreq > 10) {
--
--				freesync_capable = true;
--			}
--		}
- 		parse_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
- 
- 		if (vsdb_info.replay_mode) {
-@@ -11335,7 +11258,6 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 			amdgpu_dm_connector->vsdb_info.amd_vsdb_version = vsdb_info.amd_vsdb_version;
- 			amdgpu_dm_connector->as_type = ADAPTIVE_SYNC_TYPE_EDP;
- 		}
--
- 	} else if (drm_edid && sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A) {
- 		i = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
- 		if (i >= 0 && vsdb_info.freesync_supported) {
+-	if (amdgpu_sriov_vf(adev) && adev->asic_type == CHIP_SIENNA_CICHLID)
++	if ((amdgpu_sriov_vf(adev) && adev->asic_type == CHIP_SIENNA_CICHLID) ||
++		adev->pdev->device == 0x7461)
+ 		/* VF MMIO access (except mailbox range) from CPU
+ 		 * will be blocked during sriov runtime
+ 		 */
 -- 
-2.43.0
+2.25.1
 
