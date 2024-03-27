@@ -4,41 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F844CD1287
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E9F2C54E67
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:21:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47C9110FC11;
-	Wed, 27 Mar 2024 12:21:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 048D510FC0E;
+	Wed, 27 Mar 2024 12:21:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oG1e2Cso";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bjYMh4SX";
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B88310FC10;
- Wed, 27 Mar 2024 12:21:24 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A9C910FC0E;
+ Wed, 27 Mar 2024 12:21:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 9DAF2CE0E36;
- Wed, 27 Mar 2024 12:21:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B00BC433F1;
- Wed, 27 Mar 2024 12:21:21 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id A1955614BA;
+ Wed, 27 Mar 2024 12:21:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51F13C433C7;
+ Wed, 27 Mar 2024 12:21:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711542081;
- bh=pM5VrG/QjiTFoQxqIbmJmqFrXIt3s8YHfV9nSWyJWnY=;
+ s=k20201202; t=1711542092;
+ bh=WzAts3itri9Y1SLbajroPBQOpKguEKCub9D1jDLTxAs=;
  h=From:To:Cc:Subject:Date:From;
- b=oG1e2CsoMOuX/ryNLLUuf8Kdlga2aDYqPWXIZAvDQSWDtuj+Ghde1+s4JGYjyhWRW
- NXjWlDdc0sGcVViWkmbfN5pzRMIjExfXWfaBz7t7rdtY4ZS/Kf04WE78A+/LtD0WL1
- uVzkSCpkopE3zoRbcR9lSlv4mX6coaHaYP1YthzFUfLPOEvkqaJ3XSWxa5wQBI5fKv
- TuRmyJ7MMYe/Y29BPnXfODS1hKgeQy9BaCyHSgvNwRu9EuL/YbBeMkTArf3YLmoGjt
- mnvFXs2QJMQ/fJ5vtsYpQlX2mvWdj9dEtrVewC10BiZaXFbiGSfMqieliQYieyp63c
- tLIXM31xK0YjA==
+ b=bjYMh4SXd1o68I9slhavTa9OsBX3obzVJM4M6/4R/7EVPHx1sGs/WXXny4yrnfunL
+ iiJEyzTNZy1rfuuiDVcfXsYZRVW4FcXGseViTVT3xG3f2BSbQUsxDDeM7Fde4olxY1
+ YMLUqJhR2t0lQM/dKgm1YqzhbbNPaJX4gKQ9urywCMRq95PtOcl448k2/uyu2XatTx
+ JNT2eGxoEvocetYoNBX3HPxEXWhubf6POOR823SICBxpcfgiJZjq7Qn4GQGEQRv+OE
+ GyLFMOMwK2m+LaGI8JWaFZBqRQCqvWOhp7pMP/gMWYjFtYirAZhzGHQFoeJFDcuMnp
+ CJeakzAZzcfAg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	alexander.deucher@amd.com
-Cc: Feifei Xu <Feifei.Xu@amd.com>, amd-gfx@lists.freedesktop.org,
+	Rodrigo.Siqueira@amd.com
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: FAILED: Patch "drm/amdgpu/gfx11: set UNORD_DISPATCH in compute MQDs"
+Subject: FAILED: Patch "drm/amd/display: Return the correct HDCP error code"
  failed to apply to 5.4-stable tree
-Date: Wed, 27 Mar 2024 08:21:19 -0400
-Message-ID: <20240327122120.2836754-1-sashal@kernel.org>
+Date: Wed, 27 Mar 2024 08:21:30 -0400
+Message-ID: <20240327122130.2836906-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -68,50 +70,40 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From fc8f5a29d4cf0979ac4019282c3ca5cb246969f9 Mon Sep 17 00:00:00 2001
-From: Alex Deucher <alexander.deucher@amd.com>
-Date: Fri, 19 Jan 2024 12:32:59 -0500
-Subject: [PATCH] drm/amdgpu/gfx11: set UNORD_DISPATCH in compute MQDs
+From e64b3f55e458ce7e2087a0051f47edabf74545e7 Mon Sep 17 00:00:00 2001
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Date: Wed, 14 Feb 2024 13:29:51 -0700
+Subject: [PATCH] drm/amd/display: Return the correct HDCP error code
 
-This needs to be set to 1 to avoid a potential deadlock in
-the GC 10.x and newer.  On GC 9.x and older, this needs
-to be set to 0. This can lead to hangs in some mixed
-graphics and compute workloads. Updated firmware is also
-required for AQL.
+[WHY & HOW]
+If the display is null when creating an HDCP session, return a proper
+error code.
 
-Reviewed-by: Feifei Xu <Feifei.Xu@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: stable@vger.kernel.org
+Acked-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c           | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 043eff309100f..c1e0000107608 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -3846,7 +3846,7 @@ static int gfx_v11_0_compute_mqd_init(struct amdgpu_device *adev, void *m,
- 			    (order_base_2(prop->queue_size / 4) - 1));
- 	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, RPTR_BLOCK_SIZE,
- 			    (order_base_2(AMDGPU_GPU_PAGE_SIZE / 4) - 1));
--	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, UNORD_DISPATCH, 0);
-+	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, UNORD_DISPATCH, 1);
- 	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, TUNNEL_DISPATCH,
- 			    prop->allow_tunneling);
- 	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, PRIV_STATE, 1);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-index 15277f1d5cf0a..d722cbd317834 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-@@ -224,6 +224,7 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
- 	m->cp_hqd_pq_control = 5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT;
- 	m->cp_hqd_pq_control |=
- 			ffs(q->queue_size / sizeof(unsigned int)) - 1 - 1;
-+	m->cp_hqd_pq_control |= CP_HQD_PQ_CONTROL__UNORD_DISPATCH_MASK;
- 	pr_debug("cp_hqd_pq_control 0x%x\n", m->cp_hqd_pq_control);
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
+index 8c137d7c032e1..7c9805705fd38 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
+@@ -513,6 +513,9 @@ enum mod_hdcp_status mod_hdcp_hdcp2_create_session(struct mod_hdcp *hdcp)
+ 	hdcp_cmd = (struct ta_hdcp_shared_memory *)psp->hdcp_context.context.mem_context.shared_buf;
+ 	memset(hdcp_cmd, 0, sizeof(struct ta_hdcp_shared_memory));
  
- 	m->cp_hqd_pq_base_lo = lower_32_bits((uint64_t)q->queue_address >> 8);
++	if (!display)
++		return MOD_HDCP_STATUS_DISPLAY_NOT_FOUND;
++
+ 	hdcp_cmd->in_msg.hdcp2_create_session_v2.display_handle = display->index;
+ 
+ 	if (hdcp->connection.link.adjust.hdcp2.force_type == MOD_HDCP_FORCE_TYPE_0)
 -- 
 2.43.0
 
