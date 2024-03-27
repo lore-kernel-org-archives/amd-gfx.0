@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C46A5CD11DD
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:10:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B43EC54E67
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:10:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFCAB10FAE7;
-	Wed, 27 Mar 2024 12:10:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93B8710FAE3;
+	Wed, 27 Mar 2024 12:10:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E818UR3W";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ai+Ntd+S";
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 752E210FADC;
- Wed, 27 Mar 2024 12:10:36 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3929E10FADF;
+ Wed, 27 Mar 2024 12:10:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 9148FCE2630;
- Wed, 27 Mar 2024 12:10:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0FCCC433F1;
- Wed, 27 Mar 2024 12:10:32 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9381461516;
+ Wed, 27 Mar 2024 12:10:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEC2BC43390;
+ Wed, 27 Mar 2024 12:10:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711541433;
- bh=kVGztSXoCNM2CtcsNjAj4RJwr8crHwTY7PMb9c3CMrk=;
+ s=k20201202; t=1711541446;
+ bh=K2PVQU4TqWEZirqo8n6sE/o/4af9Vnjw4M8jG2nVK0w=;
  h=From:To:Cc:Subject:Date:From;
- b=E818UR3WRS6CLxoyn/SF1ebWzpNUemJeO/upFlTlkZUrK7sMFTwiYKjPFc81qyl+E
- Wb6LUqdiDXtSH7p7bxLJ9mAM5bKwpF5uh8X0skJAD5szsav+XKDOyAyn6GLW1KMr0j
- cPMYXeNAeyYjOeiQ8LLcgz+i0J5ROkM2SdUxsva5ad4ngfW/zN2kIC672+Wn3pEr3i
- 3DHiaVLuR88+ZZw3GJX5N+i6orrwoEihOmRMyZjC4rsws5e7rCL6+0Zq/D26dwP+ny
- zItoAIsoKAn2/34/O34aDThrqLbcupSRz3fW2EXoN1bwzBIqOnKPhcN/Qbt/qYgwf6
- 5JanMXC78+NPA==
+ b=Ai+Ntd+SyHQLoP+D3uP6xSijfEfmQ/Ck8Sl0tImqeIT4oizsQROlUGfPZG0djS8pr
+ DBOXf73LXGLoz7L1/PawdXQwyooiaUssVoKFnX4WFtBPq0qo6wP6CZ55AdPdXiwIQW
+ u0R2Ul+fz6QlCrWVaXbVdhX75xGstWj3Zs0qZYEPvqEZSwHHLWRSioXS8UiPZOL2Et
+ zfPi9M3KN6f3j07oqErO4BFx0Z0NohjkYPb48NpS9goA2hntvIDzLh7fuieMyewodo
+ AP4HJlEBY48gpVrLvajN/ypVG2NmjS1tOOJ5bJ/gHPl37/jkgfQCM5um7vPa4Q3nA8
+ qbnxqBAo1pK0g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	swapnil.patel@amd.com
+	charlene.liu@amd.com
 Cc: Mario Limonciello <mario.limonciello@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Chaitanya Dhere <chaitanya.dhere@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Sung joon Kim <sungjoon.kim@amd.com>, Alex Hung <alex.hung@amd.com>,
  Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: FAILED: Patch "drm/amd/display: Change default size for dummy plane
- in DML2" failed to apply to 6.6-stable tree
-Date: Wed, 27 Mar 2024 08:10:31 -0400
-Message-ID: <20240327121031.2828024-1-sashal@kernel.org>
+Subject: FAILED: Patch "drm/amd/display: Add logging resource checks" failed
+ to apply to 6.6-stable tree
+Date: Wed, 27 Mar 2024 08:10:43 -0400
+Message-ID: <20240327121044.2828208-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -71,70 +71,81 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 75eb8f7df65c5e6eb22a5aff8deb60ce0b65de1a Mon Sep 17 00:00:00 2001
-From: Swapnil Patel <swapnil.patel@amd.com>
-Date: Tue, 13 Feb 2024 08:09:48 -0500
-Subject: [PATCH] drm/amd/display: Change default size for dummy plane in DML2
+From 012fe0674af0753e71424b638960adbfb7f3db5a Mon Sep 17 00:00:00 2001
+From: Charlene Liu <charlene.liu@amd.com>
+Date: Thu, 28 Dec 2023 13:19:33 -0500
+Subject: [PATCH] drm/amd/display: Add logging resource checks
 
-[WHY & HOW]
-Currently, to map dc states into dml_display_cfg,
-We create a dummy plane if the stream doesn't have any planes
-attached to it. This dummy plane uses max addersable width height.
-This results in certain mode validations failing when they shouldn't.
+[Why]
+When mapping resources, resources could be unavailable.
 
 Cc: Mario Limonciello <mario.limonciello@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: stable@vger.kernel.org
-Reviewed-by: Chaitanya Dhere <chaitanya.dhere@amd.com>
+Reviewed-by: Sung joon Kim <sungjoon.kim@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Swapnil Patel <swapnil.patel@amd.com>
+Signed-off-by: Charlene Liu <charlene.liu@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../display/dc/dml2/dml2_translation_helper.c  | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c          | 4 +++-
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 4 ++++
+ drivers/gpu/drm/amd/display/dc/core/dc_state.c    | 5 +++--
+ 3 files changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-index 1ba6933d2b361..17a58f41fc6a8 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-@@ -824,13 +824,25 @@ static struct scaler_data get_scaler_data_for_plane(const struct dc_plane_state
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 69e726630241d..aa7c02ba948e9 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3522,7 +3522,7 @@ static void commit_planes_for_stream(struct dc *dc,
+ 	top_pipe_to_program = resource_get_otg_master_for_stream(
+ 				&context->res_ctx,
+ 				stream);
+-
++	ASSERT(top_pipe_to_program != NULL);
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+ 		struct pipe_ctx *old_pipe = &dc->current_state->res_ctx.pipe_ctx[i];
  
- static void populate_dummy_dml_plane_cfg(struct dml_plane_cfg_st *out, unsigned int location, const struct dc_stream_state *in)
- {
-+	dml_uint_t width, height;
-+
-+	if (in->timing.h_addressable > 3840)
-+		width = 3840;
-+	else
-+		width = in->timing.h_addressable;	// 4K max
-+
-+	if (in->timing.v_addressable > 2160)
-+		height = 2160;
-+	else
-+		height = in->timing.v_addressable;	// 4K max
-+
- 	out->CursorBPP[location] = dml_cur_32bit;
- 	out->CursorWidth[location] = 256;
+@@ -4345,6 +4345,8 @@ static bool should_commit_minimal_transition_for_windowed_mpo_odm(struct dc *dc,
  
- 	out->GPUVMMinPageSizeKBytes[location] = 256;
+ 	cur_pipe = resource_get_otg_master_for_stream(&dc->current_state->res_ctx, stream);
+ 	new_pipe = resource_get_otg_master_for_stream(&context->res_ctx, stream);
++	if (!cur_pipe || !new_pipe)
++		return false;
+ 	cur_is_odm_in_use = resource_get_odm_slice_count(cur_pipe) > 1;
+ 	new_is_odm_in_use = resource_get_odm_slice_count(new_pipe) > 1;
+ 	if (cur_is_odm_in_use == new_is_odm_in_use)
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index f2abc1096ffb6..9fbdb09697fd5 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -2194,6 +2194,10 @@ void resource_log_pipe_topology_update(struct dc *dc, struct dc_state *state)
+ 	for (stream_idx = 0; stream_idx < state->stream_count; stream_idx++) {
+ 		otg_master = resource_get_otg_master_for_stream(
+ 				&state->res_ctx, state->streams[stream_idx]);
++		if (!otg_master	|| otg_master->stream_res.tg == NULL) {
++			DC_LOG_DC("topology update: otg_master NULL stream_idx %d!\n", stream_idx);
++			return;
++		}
+ 		slice_count = resource_get_opp_heads_for_otg_master(otg_master,
+ 				&state->res_ctx, opp_heads);
+ 		for (slice_idx = 0; slice_idx < slice_count; slice_idx++) {
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+index 56feee0ff01b1..88c6436b28b69 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+@@ -434,8 +434,9 @@ bool dc_state_add_plane(
  
--	out->ViewportWidth[location] = in->timing.h_addressable;
--	out->ViewportHeight[location] = in->timing.v_addressable;
-+	out->ViewportWidth[location] = width;
-+	out->ViewportHeight[location] = height;
- 	out->ViewportStationary[location] = false;
- 	out->ViewportWidthChroma[location] = 0;
- 	out->ViewportHeightChroma[location] = 0;
-@@ -849,7 +861,7 @@ static void populate_dummy_dml_plane_cfg(struct dml_plane_cfg_st *out, unsigned
- 	out->HTapsChroma[location] = 0;
- 	out->VTapsChroma[location] = 0;
- 	out->SourceScan[location] = dml_rotation_0;
--	out->ScalerRecoutWidth[location] = in->timing.h_addressable;
-+	out->ScalerRecoutWidth[location] = width;
+ 	otg_master_pipe = resource_get_otg_master_for_stream(
+ 			&state->res_ctx, stream);
+-	added = resource_append_dpp_pipes_for_plane_composition(state,
+-			dc->current_state, pool, otg_master_pipe, plane_state);
++	if (otg_master_pipe)
++		added = resource_append_dpp_pipes_for_plane_composition(state,
++				dc->current_state, pool, otg_master_pipe, plane_state);
  
- 	out->LBBitPerPixel[location] = 57;
- 
+ 	if (added) {
+ 		stream_status->plane_states[stream_status->plane_count] =
 -- 
 2.43.0
 
