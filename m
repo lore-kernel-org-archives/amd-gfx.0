@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8CCCCD11DD
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:20:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22CC2C54E67
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:20:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77FF210FBE1;
-	Wed, 27 Mar 2024 12:20:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF37110FBEB;
+	Wed, 27 Mar 2024 12:20:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mD5o7IBR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dgEQfiG0";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E39410FBDA;
- Wed, 27 Mar 2024 12:20:02 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 338DD10FBEE;
+ Wed, 27 Mar 2024 12:20:17 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E1CD361503;
- Wed, 27 Mar 2024 12:20:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A28EC433F1;
- Wed, 27 Mar 2024 12:20:00 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 6FD76CE2542;
+ Wed, 27 Mar 2024 12:20:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 997C1C433F1;
+ Wed, 27 Mar 2024 12:20:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711542001;
- bh=6gZT4HgYtFq+V6iRSGqnCI8CZr+cZt3dyxLpxUOKvIM=;
+ s=k20201202; t=1711542014;
+ bh=YXy/tf3aHvUqjRRUhHyVb1RYNw+R7DCxhMDOO613Od0=;
  h=From:To:Cc:Subject:Date:From;
- b=mD5o7IBRU6l3kQ28WPDTRzcLSNmhXen0FcJvo2Wp8cwT9aeKOEgkd9imR0lwPkIj1
- b/z3cCEJVc64ZfBl0os7DKqSawLgtd2KKHD+IKe+zDglkivVjTCNEk7JCI4jmoBClg
- 6a/HtNCRfYPUPHPD5PKO8ijzFLEE73tOqMF1mUHr9wQ1GR3Z94NWYMOd2rll/vgu/9
- IhOxLl0t+W0du7LeJ4/04Zx1Q9Ujy6lRvYgKYyp8/dQrTLSfyOQIirvH5cpolArpsn
- rUWdXhvXhGueEJsY4Yt1JcELqvdIJwEIfEsAhAbgIDpNHL6bn84rz4Q0sVG3erjZIQ
- 62kV7vAyLu2ZA==
+ b=dgEQfiG0kwy92C+W87Uv1UHuRkhlC0kF5eNQD6oLiUYOayOO6rItYwogEIAuSwoaN
+ 3n2KkCga/7WltU1DEUFDriz8qVAjZY5SWrubkDYBvNAgONx2uFxvNnkPqwvL2/gfHV
+ 7p4MeTLe5lvtynnUdRDYSotuya1eNJT5jeqVqRa+8TX8e0ZXKRJn/ffUpaeyeDwrZS
+ D+jDSZTynuSR1sDfgJh4Gs6vhX2jlPvrVKW9IZi4sAqX20ZJ9Rgq20pBvoAWeDgQPu
+ te531pYtLC+UzLcbEg3eFZWvBdysFgMm8agvs+I2/FlEWHNVqTWd7tg8BeoparBqhs
+ /K8eaKfjqFeKg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	chiahsuan.chung@amd.com
+	sohaib.nadeem@amd.com
 Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: FAILED: Patch "drm/amd/display: Preserve original aspect ratio in
- create stream" failed to apply to 5.10-stable tree
-Date: Wed, 27 Mar 2024 08:19:59 -0400
-Message-ID: <20240327121959.2835648-1-sashal@kernel.org>
+ Alex Deucher <alexander.deucher@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: FAILED: Patch "drm/amd/display: Override min required DCFCLK in
+ dml1_validate" failed to apply to 5.10-stable tree
+Date: Wed, 27 Mar 2024 08:20:12 -0400
+Message-ID: <20240327122012.2835839-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -71,47 +71,81 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 79f3e38f60e5b2416ba99804d83d22e69ae592a3 Mon Sep 17 00:00:00 2001
-From: Tom Chung <chiahsuan.chung@amd.com>
-Date: Tue, 30 Jan 2024 15:34:08 +0800
-Subject: [PATCH] drm/amd/display: Preserve original aspect ratio in create
- stream
+From 26fbcb3da77efc77bd7327b7916338d773cca484 Mon Sep 17 00:00:00 2001
+From: Sohaib Nadeem <sohaib.nadeem@amd.com>
+Date: Wed, 14 Feb 2024 13:51:16 -0500
+Subject: [PATCH] drm/amd/display: Override min required DCFCLK in
+ dml1_validate
 
-[Why]
-The original picture aspect ratio in mode struct may have chance be
-overwritten with wrong aspect ratio data in create_stream_for_sink().
-It will create a different VIC output and cause HDMI compliance test
-failed.
+[WHY]:
+Increasing min DCFCLK addresses underflow issues that occur when phantom
+pipe is turned on for some Sub-Viewport configs
 
-[How]
-Preserve the original picture aspect ratio data during create the
-stream.
+[HOW]:
+dcn32_override_min_req_dcfclk is added to override DCFCLK value in
+dml1_validate when subviewport is being used.
 
 Cc: Mario Limonciello <mario.limonciello@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: stable@vger.kernel.org
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Acked-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Sohaib Nadeem <sohaib.nadeem@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c   | 6 ++++++
+ .../gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c  | 1 +
+ .../gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h  | 3 +++
+ 3 files changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a2220d4787fb3..4fd07c60a2ad7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6232,7 +6232,9 @@ create_stream_for_sink(struct drm_connector *connector,
- 		if (recalculate_timing) {
- 			freesync_mode = get_highest_refresh_rate_mode(aconnector, false);
- 			drm_mode_copy(&saved_mode, &mode);
-+			saved_mode.picture_aspect_ratio = mode.picture_aspect_ratio;
- 			drm_mode_copy(&mode, freesync_mode);
-+			mode.picture_aspect_ratio = saved_mode.picture_aspect_ratio;
- 		} else {
- 			decide_crtc_timing_for_drm_display_mode(
- 					&mode, preferred_mode, scale);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
+index 87760600e154d..f98def6c8c2d2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
+@@ -782,3 +782,9 @@ void dcn32_update_dml_pipes_odm_policy_based_on_context(struct dc *dc, struct dc
+ 		pipe_cnt++;
+ 	}
+ }
++
++void dcn32_override_min_req_dcfclk(struct dc *dc, struct dc_state *context)
++{
++	if (dcn32_subvp_in_use(dc, context) && context->bw_ctx.bw.dcn.clk.dcfclk_khz <= MIN_SUBVP_DCFCLK_KHZ)
++		context->bw_ctx.bw.dcn.clk.dcfclk_khz = MIN_SUBVP_DCFCLK_KHZ;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index 3f3951f3ba983..f844f57ecc49b 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -1771,6 +1771,7 @@ static bool dml1_validate(struct dc *dc, struct dc_state *context, bool fast_val
+ 	dc->res_pool->funcs->calculate_wm_and_dlg(dc, context, pipes, pipe_cnt, vlevel);
+ 
+ 	dcn32_override_min_req_memclk(dc, context);
++	dcn32_override_min_req_dcfclk(dc, context);
+ 
+ 	BW_VAL_TRACE_END_WATERMARKS();
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+index 0c87b0fabba7d..2258c5c7212d8 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+@@ -42,6 +42,7 @@
+ #define SUBVP_ACTIVE_MARGIN_LIST_LEN 2
+ #define DCN3_2_MAX_SUBVP_PIXEL_RATE_MHZ 1800
+ #define DCN3_2_VMIN_DISPCLK_HZ 717000000
++#define MIN_SUBVP_DCFCLK_KHZ 400000
+ 
+ #define TO_DCN32_RES_POOL(pool)\
+ 	container_of(pool, struct dcn32_resource_pool, base)
+@@ -181,6 +182,8 @@ bool dcn32_subvp_vblank_admissable(struct dc *dc, struct dc_state *context, int
+ 
+ void dcn32_update_dml_pipes_odm_policy_based_on_context(struct dc *dc, struct dc_state *context, display_e2e_pipe_params_st *pipes);
+ 
++void dcn32_override_min_req_dcfclk(struct dc *dc, struct dc_state *context);
++
+ /* definitions for run time init of reg offsets */
+ 
+ /* CLK SRC */
 -- 
 2.43.0
 
