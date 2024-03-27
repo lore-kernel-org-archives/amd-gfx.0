@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA114C54E67
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:11:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 787D5CD1284
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:11:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25AA710FB07;
-	Wed, 27 Mar 2024 12:11:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F6F110FB05;
+	Wed, 27 Mar 2024 12:11:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oo5uskiv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YfRjn+jr";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E998510FB01;
- Wed, 27 Mar 2024 12:11:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E873C10FB0D;
+ Wed, 27 Mar 2024 12:11:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5C3D061511;
- Wed, 27 Mar 2024 12:11:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0806C433F1;
- Wed, 27 Mar 2024 12:11:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 510FE61511;
+ Wed, 27 Mar 2024 12:11:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59971C433C7;
+ Wed, 27 Mar 2024 12:11:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711541500;
- bh=gMYwWobqy8coGOowPhH7NA8Z4A0urp5lALc/rB6YK34=;
+ s=k20201202; t=1711541512;
+ bh=2Kr8PTdAZyAl58wBKC1+WWzJyamt4mSFZhFb+FpEWKI=;
  h=From:To:Cc:Subject:Date:From;
- b=oo5uskiv8pGSW5CS2qXUsv9zrjYPLiHqKc7oa8I1xEb0G3ofvuGRmbEeuooeyTrca
- 14g+KDWaeOm8+Bp1KPrY8VLHJLdcuiKn+p0aCxfvR54nRMiNub4Vf1IY2DNT085C3Z
- isICq+ALRdnmucoR8Z601kpAd1Qc7wm79T6vV2uovCdpWnnZJ7OsmdAM1yYl98h96y
- JgX3dXp2wVBX+vTPSt43+0OnSEGgEswEGBqEc++BrNU/Ip/VYMm3QRQM3MSfZHyTcL
- y9pQwiuQIlLraVK+04nc3G7e6kngHWiD85uwf/RBQc2JpdmLStPloBtDYtLnO0mBAb
- gzNsMR6YyFNUg==
+ b=YfRjn+jrmTR5PgZG5ojtgO2Sk9HLJ/pNWc1xlMVxMQ+0IQXt4Wqf7YM2YZaEIKGE1
+ S30WJIOB29xAckDIMF4wPCyIJxbGlV8genrEHtM1vcOm3f8q1+1NUkI9u39kv7p3Jw
+ x0BE/raI8h/s7nGjbtL8gpx2GVFUYmUi4mLKFxLhV3E2bt6k7RxQZ5nMS/qTbJV2yi
+ EKNyncfXNmhm5sQ6W1WMZtbdnLVWVo2/XKvzVhg3XPvY/DN5YNkFP2SJVb1R0O+S0N
+ JkkOcCYq7bfJp0xaewkPbxz9o6hpznYmmyPMQ6iaNRgU/21VGpx0zhVgLAvIuQh8xl
+ vkLypcrfk5Kpw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	george.shen@amd.com
+	wenjing.liu@amd.com
 Cc: Mario Limonciello <mario.limonciello@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Martin Leung <martin.leung@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Chaitanya Dhere <chaitanya.dhere@amd.com>,
+ Martin Leung <martin.leung@amd.com>, Wayne Lin <wayne.lin@amd.com>,
  Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: FAILED: Patch "Revert "drm/amd/display: Add left edge pixel for
- YCbCr422/420 + ODM pipe split"" failed to apply to 6.1-stable tree
-Date: Wed, 27 Mar 2024 08:11:38 -0400
-Message-ID: <20240327121138.2828893-1-sashal@kernel.org>
+Subject: FAILED: Patch "drm/amd/display: Revert Remove pixle rate limit for
+ subvp" failed to apply to 6.1-stable tree
+Date: Wed, 27 Mar 2024 08:11:50 -0400
+Message-ID: <20240327121150.2829047-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -72,168 +72,46 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e9e1abb397e550aec86a6d9eb7c6f8ed4271d742 Mon Sep 17 00:00:00 2001
-From: George Shen <george.shen@amd.com>
-Date: Fri, 2 Feb 2024 17:45:32 -0500
-Subject: [PATCH] Revert "drm/amd/display: Add left edge pixel for YCbCr422/420
- + ODM pipe split"
+From cf8c498694a443e28dc1222f3ab94677114a4724 Mon Sep 17 00:00:00 2001
+From: Wenjing Liu <wenjing.liu@amd.com>
+Date: Mon, 4 Mar 2024 11:20:27 -0500
+Subject: [PATCH] drm/amd/display: Revert Remove pixle rate limit for subvp
 
-[Why/How]
-A regression was identified with the change to add left edge pixel for
-YCbCr422/420 + ODM combine cases.
+This reverts commit 340383c734f8 ("drm/amd/display: Remove pixle rate
+limit for subvp")
 
-This reverts commit 288c0254a0b0c9980dba9df7d5afadf27280b99c
+[why]
+The original commit causes a regression when subvp is applied
+on ODM required 8k60hz timing. The display shows black screen
+on boot. The issue can be recovered with hotplug. It also causes
+MPO to fail. We will temprarily revert this commit and investigate
+the root cause further.
 
 Cc: Mario Limonciello <mario.limonciello@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: stable@vger.kernel.org
+Reviewed-by: Chaitanya Dhere <chaitanya.dhere@amd.com>
 Reviewed-by: Martin Leung <martin.leung@amd.com>
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: George Shen <george.shen@amd.com>
+Acked-by: Wayne Lin <wayne.lin@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  4 --
- .../gpu/drm/amd/display/dc/core/dc_resource.c | 37 -------------------
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  7 +---
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  2 -
- drivers/gpu/drm/amd/display/dc/inc/resource.h |  4 --
- 5 files changed, 1 insertion(+), 53 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 1d0fd69cc7bd1..4d5194293dbd5 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3098,10 +3098,6 @@ static bool update_planes_and_stream_state(struct dc *dc,
- 
- 			if (otg_master && otg_master->stream->test_pattern.type != DP_TEST_PATTERN_VIDEO_MODE)
- 				resource_build_test_pattern_params(&context->res_ctx, otg_master);
--
--			if (otg_master && (otg_master->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR422 ||
--					otg_master->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR420))
--				resource_build_subsampling_params(&context->res_ctx, otg_master);
- 		}
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 96ea283bd1690..1b7765bc5e5ef 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -822,16 +822,6 @@ static struct rect calculate_odm_slice_in_timing_active(struct pipe_ctx *pipe_ct
- 			stream->timing.v_border_bottom +
- 			stream->timing.v_border_top;
- 
--	/* Recout for ODM slices after the first slice need one extra left edge pixel
--	 * for 3-tap chroma subsampling.
--	 */
--	if (odm_slice_idx > 0 &&
--			(pipe_ctx->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR422 ||
--				pipe_ctx->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR420)) {
--		odm_rec.x -= 1;
--		odm_rec.width += 1;
--	}
--
- 	return odm_rec;
- }
- 
-@@ -1448,7 +1438,6 @@ void resource_build_test_pattern_params(struct resource_context *res_ctx,
- 	enum controller_dp_test_pattern controller_test_pattern;
- 	enum controller_dp_color_space controller_color_space;
- 	enum dc_color_depth color_depth = otg_master->stream->timing.display_color_depth;
--	enum dc_pixel_encoding pixel_encoding = otg_master->stream->timing.pixel_encoding;
- 	int h_active = otg_master->stream->timing.h_addressable +
- 		otg_master->stream->timing.h_border_left +
- 		otg_master->stream->timing.h_border_right;
-@@ -1480,36 +1469,10 @@ void resource_build_test_pattern_params(struct resource_context *res_ctx,
- 		else
- 			params->width = last_odm_slice_width;
- 
--		/* Extra left edge pixel is required for 3-tap chroma subsampling. */
--		if (i != 0 && (pixel_encoding == PIXEL_ENCODING_YCBCR422 ||
--				pixel_encoding == PIXEL_ENCODING_YCBCR420)) {
--			params->offset -= 1;
--			params->width += 1;
--		}
--
- 		offset += odm_slice_width;
- 	}
- }
- 
--void resource_build_subsampling_params(struct resource_context *res_ctx,
--	struct pipe_ctx *otg_master)
--{
--	struct pipe_ctx *opp_heads[MAX_PIPES];
--	int odm_cnt = 1;
--	int i;
--
--	odm_cnt = resource_get_opp_heads_for_otg_master(otg_master, res_ctx, opp_heads);
--
--	/* For ODM slices after the first slice, extra left edge pixel is required
--	 * for 3-tap chroma subsampling.
--	 */
--	if (otg_master->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR422 ||
--			otg_master->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR420) {
--		for (i = 0; i < odm_cnt; i++)
--			opp_heads[i]->stream_res.left_edge_extra_pixel = (i == 0) ? false : true;
--	}
--}
--
- bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
- {
- 	const struct dc_plane_state *plane_state = pipe_ctx->plane_state;
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index f15ba7335336a..c55d5155ecb9c 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -1573,8 +1573,7 @@ static void dcn20_detect_pipe_changes(struct dc_state *old_state,
- 	 * makes this assumption at the moment with how hubp reset is matched to
- 	 * same index mpcc reset.
- 	 */
--	if (old_pipe->stream_res.opp != new_pipe->stream_res.opp ||
--			old_pipe->stream_res.left_edge_extra_pixel != new_pipe->stream_res.left_edge_extra_pixel)
-+	if (old_pipe->stream_res.opp != new_pipe->stream_res.opp)
- 		new_pipe->update_flags.bits.opp_changed = 1;
- 	if (old_pipe->stream_res.tg != new_pipe->stream_res.tg)
- 		new_pipe->update_flags.bits.tg_changed = 1;
-@@ -1962,10 +1961,6 @@ static void dcn20_program_pipe(
- 			pipe_ctx->stream_res.opp,
- 			&pipe_ctx->stream->bit_depth_params,
- 			&pipe_ctx->stream->clamping);
--
--		pipe_ctx->stream_res.opp->funcs->opp_program_left_edge_extra_pixel(
--			pipe_ctx->stream_res.opp,
--			pipe_ctx->stream_res.left_edge_extra_pixel);
- 	}
- 
- 	/* Set ABM pipe after other pipe configurations done */
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-index ebb659c327e06..3a6bf77a68732 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-@@ -333,8 +333,6 @@ struct stream_resource {
- 	uint8_t gsl_group;
- 
- 	struct test_pattern_params test_pattern_params;
--
--	bool left_edge_extra_pixel;
- };
- 
- struct plane_resource {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/resource.h b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-index b14d52e52fa2f..77a60aa9f27bb 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-@@ -107,10 +107,6 @@ void resource_build_test_pattern_params(
- 		struct resource_context *res_ctx,
- 		struct pipe_ctx *pipe_ctx);
- 
--void resource_build_subsampling_params(
--		struct resource_context *res_ctx,
--		struct pipe_ctx *pipe_ctx);
--
- bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx);
- 
- enum dc_status resource_build_scaling_params_for_context(
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index b49e1dc9d8ba5..a0a65e0991041 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -623,6 +623,7 @@ static bool dcn32_assign_subvp_pipe(struct dc *dc,
+ 		 * - Not TMZ surface
+ 		 */
+ 		if (pipe->plane_state && !pipe->top_pipe && !dcn32_is_center_timing(pipe) &&
++				!(pipe->stream->timing.pix_clk_100hz / 10000 > DCN3_2_MAX_SUBVP_PIXEL_RATE_MHZ) &&
+ 				(!dcn32_is_psr_capable(pipe) || (context->stream_count == 1 && dc->caps.dmub_caps.subvp_psr)) &&
+ 				dc_state_get_pipe_subvp_type(context, pipe) == SUBVP_NONE &&
+ 				(refresh_rate < 120 || dcn32_allow_subvp_high_refresh_rate(dc, context, pipe)) &&
 -- 
 2.43.0
 
