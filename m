@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F2D0CD1287
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:07:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CE85CD11DD
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:07:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95F5B10FA6D;
-	Wed, 27 Mar 2024 12:07:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA9AA10FA6F;
+	Wed, 27 Mar 2024 12:07:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hlhbx/M9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aSDP+Z5v";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5846110FA6A;
- Wed, 27 Mar 2024 12:06:56 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BF9C10FA6F;
+ Wed, 27 Mar 2024 12:07:04 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C98B861529;
- Wed, 27 Mar 2024 12:06:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8205FC43390;
- Wed, 27 Mar 2024 12:06:54 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 75BFBCE2634;
+ Wed, 27 Mar 2024 12:07:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C0ADC433F1;
+ Wed, 27 Mar 2024 12:06:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711541215;
- bh=+J7ERlUOqwzi8/rVnchw03P5BC09HJILEOn2wX+hlzc=;
+ s=k20201202; t=1711541221;
+ bh=h6ROyy+3C/ljEpDwwrz81uL4PDbd3s4mq+D18gXSBMY=;
  h=From:To:Cc:Subject:Date:From;
- b=hlhbx/M9AVnSW+gQHForzSHGIEoK+QxP1Me/6Bo5HK6saz9NgaXJxxsIF2f+FUwZO
- NNsniJjlY8Z/AT/ULn6rv6QX8w0TCNv9Vj0DPRs/HOBijQYxVOcuSftvmY2LEwalfV
- Oeav1fTmuUzRVRLjMcoHcnvct65/juDoxLIkFE7qqxAzCSYShmudIYkdcdFP9JiLIV
- A5XA5Jjj8m0ybY31bgafg8SCspTOP54JPE40BpLz6HzSkxjPmKlwewjbjQP6bCQpu3
- KZ17cPyM1bfWjiSYfAch5M682FF6dQ+ZAFmocaFsETSrMm9sZEEvuxjm4A6yk7l+4h
- c4pzq/3/xITCw==
+ b=aSDP+Z5vOVSOpW/f6yGXoPhi74gnQ8gxcNKyPTmZm6F8MO2RbFXv9eCUEJFk6yYlf
+ G2AvD/3bYQpeUP1K3GZwLmR58GVQH9b+B6PpgTrmf/rLOmBKDaWMG9d3vkMNIFpkoF
+ 8K6ppmV9IIffGv7tls9idyGfCLPBNsZ5Woo/w5CGXz+gEBqBAtcHb4j4cLyug+cLly
+ cGvZQfxuTiYGHA2370CoGk7Hm/Cn8tHLkBSToFc4Reahqe6t2sSCnKm2DflpZNfbBv
+ qDdjL5tPg10Zcw7VklGiU5qSdNEEOcus+3kW6j1Bu0rGY9bEqBfgrOrlXtYqp+abvZ
+ 3ERqidaqbBlMA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	corngood@gmail.com
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
+	srinivasan.shanmugam@amd.com
+Cc: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: FAILED: Patch "drm/amd: Don't init MEC2 firmware when it fails to
- load" failed to apply to 6.8-stable tree
-Date: Wed, 27 Mar 2024 08:06:53 -0400
-Message-ID: <20240327120653.2824861-1-sashal@kernel.org>
+Subject: FAILED: Patch "drm/amd/display: Drop 'acrtc' and add 'new_crtc_state'
+ NULL check for writeback requests." failed to apply to 6.8-stable tree
+Date: Wed, 27 Mar 2024 08:06:58 -0400
+Message-ID: <20240327120659.2824939-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -69,36 +71,52 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c3ec8c4f9a470c026066ac7b2e4bac898bc7ff02 Mon Sep 17 00:00:00 2001
-From: David McFarland <corngood@gmail.com>
-Date: Mon, 29 Jan 2024 18:18:22 -0400
-Subject: [PATCH] drm/amd: Don't init MEC2 firmware when it fails to load
+From b2f26f49e84bea03dddb5f37ff137c97b165107b Mon Sep 17 00:00:00 2001
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Date: Sat, 13 Jan 2024 14:32:27 +0530
+Subject: [PATCH] drm/amd/display: Drop 'acrtc' and add 'new_crtc_state' NULL
+ check for writeback requests.
 
-The same calls are made directly above, but conditional on the firmware
-loading and validating successfully.
+Return value of 'to_amdgpu_crtc' which is container_of(...) can't be
+null, so it's null check 'acrtc' is dropped.
+
+Fixing the below:
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9302 amdgpu_dm_atomic_commit_tail() error: we previously assumed 'acrtc' could be null (see line 9299)
+
+Added 'new_crtc_state' NULL check for function
+'drm_atomic_get_new_crtc_state' that retrieves the new state for a CRTC,
+while enabling writeback requests.
 
 Cc: stable@vger.kernel.org
-Fixes: 9931b67690cf ("drm/amd: Load GFX10 microcode during early_init")
-Signed-off-by: David McFarland <corngood@gmail.com>
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index be4d5c1e826f3..b02d63328f1cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4027,8 +4027,6 @@ static int gfx_v10_0_init_microcode(struct amdgpu_device *adev)
- 		err = 0;
- 		adev->gfx.mec2_fw = NULL;
- 	}
--	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_MEC2);
--	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_MEC2_JT);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 36af104e7663c..8623722e954f9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9327,10 +9327,10 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 		if (!new_con_state->writeback_job)
+ 			continue;
  
- 	gfx_v10_0_check_fw_write_wait(adev);
- out:
+-		new_crtc_state = NULL;
++		new_crtc_state = drm_atomic_get_new_crtc_state(state, &acrtc->base);
+ 
+-		if (acrtc)
+-			new_crtc_state = drm_atomic_get_new_crtc_state(state, &acrtc->base);
++		if (!new_crtc_state)
++			continue;
+ 
+ 		if (acrtc->wb_enabled)
+ 			continue;
 -- 
 2.43.0
 
