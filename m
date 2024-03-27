@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5708CD11DD
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:17:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E037CD11DD
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Mar 2024 12:17:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1967010FB96;
-	Wed, 27 Mar 2024 12:17:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC87610FB97;
+	Wed, 27 Mar 2024 12:17:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P+5qNYYQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bWC/lsPQ";
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B6C410FB95;
- Wed, 27 Mar 2024 12:17:20 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 757FB10FB97;
+ Wed, 27 Mar 2024 12:17:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 3F3E4CE17F8;
- Wed, 27 Mar 2024 12:17:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64BEBC433C7;
- Wed, 27 Mar 2024 12:17:16 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id E922761507;
+ Wed, 27 Mar 2024 12:17:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25B6C433F1;
+ Wed, 27 Mar 2024 12:17:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711541837;
- bh=6zVzj5OBYXkKDTcJNIOwo1u+s56nZB0tUZnWbm39TyQ=;
+ s=k20201202; t=1711541842;
+ bh=PHf8wlZRQC26DVlRvQiL2FXSBkxXak4B92Bmy54w5kM=;
  h=From:To:Cc:Subject:Date:From;
- b=P+5qNYYQQZnYjYkHXUYFH7wtGlwMqCL/fBq79W4g1vpQ0Ec9ykNqfY+QE+8zToaYd
- B6bbjMqBYHw9Pb6SOv0P4Mvs+D+x6jV+YTpHeqkdVvIK2HA4qHEzjSJODz+a2xzdRs
- 6xYdpbjybUsds1WG9VHgaZG7EjZkkVUD9OtvGnMC0yiHZrIwBCBdct62ehux63oFeY
- fuV7XueFyD7cVvpwCVMjcSQue/bzxhr1aDcz2hnmI3yi757uvTvDOwq1z8HQTqMRX5
- YhprlKll1BnD/xm2RCJKqzYWJfJ81WbRmEOtwhvJeRzwYFYL6DnFO6PaWcA/kPI20s
- 8M9AAbsKp9khw==
+ b=bWC/lsPQstFas2N/xtPEHRY+C3O3a7Le9Pp3xl2DmvXe06RaPQnVllMeS/SLDNJ1H
+ z9oCOtHEDApSNrk4XHs/MxXwxqSuZ+nTnM+YJsdkQJdoFaKcqMQQwuicSfTNN3n0Jj
+ qXPOYeY48Gb9chPVjRhJiVGFMD2lrVSRfH12ntR5jvml28Dj3LlZenCHAIxmjz2abX
+ Xg9nKAU0uRdgyaR+yCCkc1UxdCoSW4W845PXIVlNzDHB0wBDGwnPPZI39HtZREqxEG
+ 5xB8MRPlEdOpyjBJSK5R6YNwylEZqx+w6dfsX4ugXFho7uuhItH3xBFF3YvEEYSGOQ
+ Wu5owoPMxvJZg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	josip.pavic@amd.com
+	nicholas.kazlauskas@amd.com
 Cc: Mario Limonciello <mario.limonciello@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Anthony Koo <anthony.koo@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Charlene Liu <charlene.liu@amd.com>, Alex Hung <alex.hung@amd.com>,
  Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: FAILED: Patch "drm/amd/display: Allow dirty rects to be sent to dmub
- when abm is active" failed to apply to 5.15-stable tree
-Date: Wed, 27 Mar 2024 08:17:15 -0400
-Message-ID: <20240327121715.2833395-1-sashal@kernel.org>
+Subject: FAILED: Patch "drm/amd/display: Port DENTIST hang and TDR fixes to
+ OTG disable W/A" failed to apply to 5.15-stable tree
+Date: Wed, 27 Mar 2024 08:17:20 -0400
+Message-ID: <20240327121720.2833470-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -71,45 +71,87 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7fb19d9510937121a1f285894cffd30bc96572e3 Mon Sep 17 00:00:00 2001
-From: Josip Pavic <josip.pavic@amd.com>
-Date: Fri, 9 Feb 2024 16:05:18 -0500
-Subject: [PATCH] drm/amd/display: Allow dirty rects to be sent to dmub when
- abm is active
+From 6c605f44086af24d7ac1867245aa10bb3360c5bf Mon Sep 17 00:00:00 2001
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Date: Fri, 15 Dec 2023 11:01:42 -0500
+Subject: [PATCH] drm/amd/display: Port DENTIST hang and TDR fixes to OTG
+ disable W/A
 
-[WHY]
-It's beneficial for ABM to know when new frame data are available.
+[Why]
+We can experience DENTIST hangs during optimize_bandwidth or TDRs if
+FIFO is toggled and hangs.
 
-[HOW]
-Add new condition to allow dirty rects to be sent to DMUB when ABM is
-active. ABM will use this as a signal that a new frame has arrived.
+[How]
+Port the DCN35 fixes to DCN314.
 
 Cc: Mario Limonciello <mario.limonciello@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: stable@vger.kernel.org
-Reviewed-by: Anthony Koo <anthony.koo@amd.com>
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Josip Pavic <josip.pavic@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 3 +++
- 1 file changed, 3 insertions(+)
+ .../dc/clk_mgr/dcn314/dcn314_clk_mgr.c        | 21 ++++++++-----------
+ 1 file changed, 9 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 5211c1c0f3c0c..613d09c42f3b9 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3270,6 +3270,9 @@ static bool dc_dmub_should_send_dirty_rect_cmd(struct dc *dc, struct dc_stream_s
- 	if (stream->link->replay_settings.config.replay_supported)
- 		return true;
- 
-+	if (stream->ctx->dce_version >= DCN_VERSION_3_5 && stream->abm_level)
-+		return true;
-+
- 	return false;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
+index 878c0e7b78abd..a84f1e376dee4 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
+@@ -145,30 +145,27 @@ static int dcn314_get_active_display_cnt_wa(
+ 	return display_count;
  }
  
+-static void dcn314_disable_otg_wa(struct clk_mgr *clk_mgr_base, struct dc_state *context, bool disable)
++static void dcn314_disable_otg_wa(struct clk_mgr *clk_mgr_base, struct dc_state *context,
++				  bool safe_to_lower, bool disable)
+ {
+ 	struct dc *dc = clk_mgr_base->ctx->dc;
+ 	int i;
+ 
+ 	for (i = 0; i < dc->res_pool->pipe_count; ++i) {
+-		struct pipe_ctx *pipe = &dc->current_state->res_ctx.pipe_ctx[i];
++		struct pipe_ctx *pipe = safe_to_lower
++			? &context->res_ctx.pipe_ctx[i]
++			: &dc->current_state->res_ctx.pipe_ctx[i];
+ 
+ 		if (pipe->top_pipe || pipe->prev_odm_pipe)
+ 			continue;
+ 		if (pipe->stream && (pipe->stream->dpms_off || dc_is_virtual_signal(pipe->stream->signal))) {
+-			struct stream_encoder *stream_enc = pipe->stream_res.stream_enc;
+-
+ 			if (disable) {
+-				if (stream_enc && stream_enc->funcs->disable_fifo)
+-					pipe->stream_res.stream_enc->funcs->disable_fifo(stream_enc);
++				if (pipe->stream_res.tg && pipe->stream_res.tg->funcs->immediate_disable_crtc)
++					pipe->stream_res.tg->funcs->immediate_disable_crtc(pipe->stream_res.tg);
+ 
+-				pipe->stream_res.tg->funcs->immediate_disable_crtc(pipe->stream_res.tg);
+ 				reset_sync_context_for_pipe(dc, context, i);
+ 			} else {
+ 				pipe->stream_res.tg->funcs->enable_crtc(pipe->stream_res.tg);
+-
+-				if (stream_enc && stream_enc->funcs->enable_fifo)
+-					pipe->stream_res.stream_enc->funcs->enable_fifo(stream_enc);
+ 			}
+ 		}
+ 	}
+@@ -297,11 +294,11 @@ void dcn314_update_clocks(struct clk_mgr *clk_mgr_base,
+ 	}
+ 
+ 	if (should_set_clock(safe_to_lower, new_clocks->dispclk_khz, clk_mgr_base->clks.dispclk_khz)) {
+-		dcn314_disable_otg_wa(clk_mgr_base, context, true);
++		dcn314_disable_otg_wa(clk_mgr_base, context, safe_to_lower, true);
+ 
+ 		clk_mgr_base->clks.dispclk_khz = new_clocks->dispclk_khz;
+ 		dcn314_smu_set_dispclk(clk_mgr, clk_mgr_base->clks.dispclk_khz);
+-		dcn314_disable_otg_wa(clk_mgr_base, context, false);
++		dcn314_disable_otg_wa(clk_mgr_base, context, safe_to_lower, false);
+ 
+ 		update_dispclk = true;
+ 	}
 -- 
 2.43.0
 
