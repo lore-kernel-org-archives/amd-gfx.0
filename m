@@ -4,76 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3699CD128D
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 11:32:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A61DC6FD1F
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 11:32:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC5611267B;
-	Fri, 29 Mar 2024 11:32:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E0BE11267C;
+	Fri, 29 Mar 2024 11:32:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=sifive.com header.i=@sifive.com header.b="OwwW5mnl";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="a5Q0K7+N";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F149112446
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Mar 2024 07:26:04 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-2a215582617so160329a91.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Mar 2024 00:26:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1711697104; x=1712301904; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bxmfK/dV9iwtkx63gHffuqsF2FQECTKGikC6K6RCS1A=;
- b=OwwW5mnlGBlPe9aPzzhbBJjdzohZTDl+7kpOzESZsjaj4DOdVPEzyMfOUjbEnk43Hy
- eB6k098xj5SfLz8aknmEdxY2iFlCnAbYNYXeaHQiCIX2mwlglwSVJqnHqN9uH3WxWo1Y
- 29QoHPCINBBLXBYP6q/jsQwm21pjSLwDUVcjexb+m/rZ81EOwFXIr+rcrUBV95JkwNLp
- +0Aa8c2BukTCKVOJSo8IHziq0UlrxrMFSMB/AeJ6KTeCC7dmqNMFkso39dzKZAfyX9b4
- 7svR0jF0yOFR1IkXTPTeelqgdO0aG49I6/uQXQXd0SW5Rk+dmOiNmjykpFSBNlSYnYkD
- TXxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711697104; x=1712301904;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=bxmfK/dV9iwtkx63gHffuqsF2FQECTKGikC6K6RCS1A=;
- b=QDXDgR8clpJ6ne+g/0tYXFg31TDRoXRVUkCXBP1WVONfOuXUGzZwCQ4sBjRcawHh81
- kBj24FJAQpk0/04uIY7RxQkhHHkARvdcHG36cQ+bO1p5uUJw2Djry6crXQXRkb1lDsVV
- iswllZJSJsfWEKDEK/24aKYARXi+MPR45Fw8h5gmhB1/Q66W1vpZphz3Z7HAXTQXTXNY
- SYFzEdjqdQ72faLLexwLEAySMmF+SirnE8hduQUNQ0Xh8UWwW26gcpCp2G3lDVYys1Yn
- ZoMzmn7l2RIqsfJCzJ6LR84vc1GHjaT9kqyVbBZ1cIWZdjHrCIMUzFemvSChZlRII1wb
- Td2A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW4ZIPWgrkb5AnDjwL+nfV0xSYoF4KODb5xF/cI31kWDVgwDsYuOls9Lxyf0tPeNWx3NKS5jtAE99UIvNGAiuG1aa62LMF1hfgxgBGtNw==
-X-Gm-Message-State: AOJu0YyofLjODLlsHKmE7G92dUaXWqi4oblG/VsqPuXnmUi0uxPb0ntP
- 1fwqYN0CMxdvEMZUfnKt0DQ95PDvLwteakBRL4BRV+bUuBDGjgJxrP5Zkpd7fg8=
-X-Google-Smtp-Source: AGHT+IHpeVerdLnkB6vVIrwuNmVNMPefUfPXpMCtetpMqAC6/YKtxmEHNVWfJReDkAcL5lZnKsQNnw==
-X-Received: by 2002:a17:90a:ff15:b0:2a0:4a22:3740 with SMTP id
- ce21-20020a17090aff1500b002a04a223740mr1338180pjb.49.1711697104041; 
- Fri, 29 Mar 2024 00:25:04 -0700 (PDT)
-Received: from sw06.internal.sifive.com ([4.53.31.132])
- by smtp.gmail.com with ESMTPSA id
- b8-20020a17090a010800b0029ddac03effsm4971798pjb.11.2024.03.29.00.25.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Mar 2024 00:25:03 -0700 (PDT)
-From: Samuel Holland <samuel.holland@sifive.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
- linux-arm-kernel@lists.infradead.org, x86@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
- Christoph Hellwig <hch@lst.de>, loongarch@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, Michael Ellerman <mpe@ellerman.id.au>,
- Alex Deucher <alexander.deucher@amd.com>,
- Samuel Holland <samuel.holland@sifive.com>
-Subject: [PATCH v4 12/15] drm/amd/display: Only use hard-float,
- not altivec on powerpc
-Date: Fri, 29 Mar 2024 00:18:27 -0700
-Message-ID: <20240329072441.591471-13-samuel.holland@sifive.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240329072441.591471-1-samuel.holland@sifive.com>
-References: <20240329072441.591471-1-samuel.holland@sifive.com>
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF68011248D;
+ Thu, 28 Mar 2024 15:17:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1711639020;
+ bh=ev5Hj4kowoGeYRtU8OOEaZGkDO3TmD/BhMPV2cKhGRY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=a5Q0K7+NKN/FtkW1jhlg4mmKBDgzGHyvIdLnGMXbqASDHtQV5XYHKHNI29FmkwPGs
+ KeXZBDXPe3BJBa9C/V5MuMgX5lIX1BTXFgIkh/cHPX4Q4RfLws8YFc2mLbe9Psn2AM
+ 6NQc1+5XLNdz7q5YFOFCVyRVaCa5hT1CW0/Uzt9RpWtp3tRH+Ky8u7N5SDEemZm87W
+ fifGhXzJ2hvbRv82p05p38XDgFVGd1IBeeWdIIkE6ZHaV/348hTf22M4kEjGrQV6SU
+ 2o7vnXuIzT7GPraqgLZPnahhODQziqXVvqX3r7//OtzXAd8nKhch6IB7bX23Uq1JEx
+ 2yiFs4P1L4AWg==
+Received: from eldfell (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id C4468378211C;
+ Thu, 28 Mar 2024 15:16:59 +0000 (UTC)
+Date: Thu, 28 Mar 2024 17:16:58 +0200
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: <sunpeng.li@amd.com>
+Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ Joshua Ashton <joshua@froggi.es>, Michel =?UTF-8?B?RMOkbnplcg==?=
+ <mdaenzer@redhat.com>, Chao Guo <chao.guo@nxp.com>, Xaver Hugl
+ <xaver.hugl@gmail.com>, Vikas Korjani <Vikas.Korjani@amd.com>, Robert Mader
+ <robert.mader@posteo.de>, "Sean Paul" <sean@poorly.run>, Simon Ser
+ <contact@emersion.fr>, Shashank Sharma <shashank.sharma@amd.com>, Harry
+ Wentland <harry.wentland@amd.com>, "Sebastian Wick"
+ <sebastian.wick@redhat.com>
+Subject: Re: [PATCH 1/2] drm/amd/display: Introduce overlay cursor mode
+Message-ID: <20240328171658.25b1ffaf.pekka.paalanen@collabora.com>
+In-Reply-To: <20240315170959.165505-2-sunpeng.li@amd.com>
+References: <20240315170959.165505-1-sunpeng.li@amd.com>
+ <20240315170959.165505-2-sunpeng.li@amd.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="Sig_/=DZ=rnPVIjFG3hhH3Oi+MHL";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Fri, 29 Mar 2024 11:32:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,85 +68,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michael Ellerman <mpe@ellerman.id.au>
+--Sig_/=DZ=rnPVIjFG3hhH3Oi+MHL
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-The compiler flags enable altivec, but that is not required; hard-float
-is sufficient for the code to build and function.
+On Fri, 15 Mar 2024 13:09:57 -0400
+<sunpeng.li@amd.com> wrote:
 
-Drop altivec from the compiler flags and adjust the enable/disable code
-to only enable FPU use.
+> From: Leo Li <sunpeng.li@amd.com>
+>=20
+> [Why]
+>=20
+> DCN is the display hardware for amdgpu. DRM planes are backed by DCN
+> hardware pipes, which carry pixel data from one end (memory), to the
+> other (output encoder).
+>=20
+> Each DCN pipe has the ability to blend in a cursor early on in the
+> pipeline. In other words, there are no dedicated cursor planes in DCN,
+> which makes cursor behavior somewhat unintuitive for compositors.
+>=20
+> For example, if the cursor is in RGB format, but the top-most DRM plane
+> is in YUV format, DCN will not be able to blend them. Because of this,
+> amdgpu_dm rejects all configurations where a cursor needs to be enabled
+> on top of a YUV formatted plane.
+>=20
+> From a compositor's perspective, when computing an allocation for
+> hardware plane offloading, this cursor-on-yuv configuration result in an
+> atomic test failure. Since the failure reason is not obvious at all,
+> compositors will likely fall back to full rendering, which is not ideal.
+>=20
+> Instead, amdgpu_dm can try to accommodate the cursor-on-yuv
+> configuration by opportunistically reserving a separate DCN pipe just
+> for the cursor. We can refer to this as "overlay cursor mode". It is
+> contrasted with "native cursor mode", where the native DCN per-pipe
+> cursor is used.
 
-Signed-off-by: Michael Ellerman <mpe@ellerman.id.au>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
----
+I can't comment on the code, but this explanation sounds like a really
+good move!
 
-(no changes since v2)
 
-Changes in v2:
- - New patch for v2
+Thanks,
+pq
 
- drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c | 12 ++----------
- drivers/gpu/drm/amd/display/dc/dml/Makefile    |  2 +-
- drivers/gpu/drm/amd/display/dc/dml2/Makefile   |  2 +-
- 3 files changed, 4 insertions(+), 12 deletions(-)
+> [How]
+>=20
+> On each crtc, compute whether the cursor plane should be enabled in
+> overlay mode (which currently, is iff the immediate plane below has a
+> YUV format). If it is, mark the CRTC as requesting overlay cursor mode.
+>=20
+> During DC validation, attempt to enable a separate DCN pipe for the
+> cursor if it's in overlay mode. If that fails, or if no overlay mode is
+> requested, then fallback to native mode.
+>=20
+> Signed-off-by: Leo Li <sunpeng.li@amd.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 309 +++++++++++++++---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   7 +
+>  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   1 +
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  13 +-
+>  4 files changed, 288 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-index 4ae4720535a5..0de16796466b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-@@ -92,11 +92,7 @@ void dc_fpu_begin(const char *function_name, const int line)
- #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
- 		kernel_fpu_begin();
- #elif defined(CONFIG_PPC64)
--		if (cpu_has_feature(CPU_FTR_VSX_COMP))
--			enable_kernel_vsx();
--		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
--			enable_kernel_altivec();
--		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
-+		if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
- 			enable_kernel_fp();
- #elif defined(CONFIG_ARM64)
- 		kernel_neon_begin();
-@@ -125,11 +121,7 @@ void dc_fpu_end(const char *function_name, const int line)
- #if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
- 		kernel_fpu_end();
- #elif defined(CONFIG_PPC64)
--		if (cpu_has_feature(CPU_FTR_VSX_COMP))
--			disable_kernel_vsx();
--		else if (cpu_has_feature(CPU_FTR_ALTIVEC_COMP))
--			disable_kernel_altivec();
--		else if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
-+		if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
- 			disable_kernel_fp();
- #elif defined(CONFIG_ARM64)
- 		kernel_neon_end();
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-index c4a5efd2dda5..59d3972341d2 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@ -31,7 +31,7 @@ dml_ccflags := $(dml_ccflags-y) -msse
- endif
- 
- ifdef CONFIG_PPC64
--dml_ccflags := -mhard-float -maltivec
-+dml_ccflags := -mhard-float
- endif
- 
- ifdef CONFIG_ARM64
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-index acff3449b8d7..7b51364084b5 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-@@ -30,7 +30,7 @@ dml2_ccflags := $(dml2_ccflags-y) -msse
- endif
- 
- ifdef CONFIG_PPC64
--dml2_ccflags := -mhard-float -maltivec
-+dml2_ccflags := -mhard-float
- endif
- 
- ifdef CONFIG_ARM64
--- 
-2.44.0
+--Sig_/=DZ=rnPVIjFG3hhH3Oi+MHL
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmYFieoACgkQI1/ltBGq
+qqcwBxAAk97QZfBlHlsDuYDhMeAkq/kUmUXdkgvypTAxJndMZXA7fYiNOSAeqrwZ
+XgXfQJF43uIwu+Yhf7R6YW+MK7FB2qdbwXd5gsLBmbdBq0n1j9p1BX6Bg3E4zaaX
+9cw9RuzPvGJ3odvcdpEPFe75bS+d78T6/5S2GG2kTTKC8IMRofLODCARs2AxrpqN
+4qGNqZzjgA462dpP8AJiHUOfDhXX7+nng9fPa5BCpkZYqav20yG9cjGNZZk9ilJ/
+SqPRidpgedZ/8jCgSIFdBUhuT8ht80vWqlkmcQhdS0eTMd/mACq+HuNiDe8aVVDC
+4riOzFoBKpzyjVCrHTSuKoO3yuevfggjZqJVKxOEultSyg7FpDB1B+8YUyU1zYKL
+h4EZO+cCDyIfbl/qeXwcnqazWMPAomsvZaIx7UMH9BwSzR+f/IU9eIWe09dbOIwL
+8gGC0tK+usmMBdMIM6oPFdqB3D377h8x/coQ5rJH2k5c6JJnNeZYel+y01MlHbqp
+6yJOcBW3RU3qV+o7lf1+hsO9ElutneVHiXuiAka8xZcRbO5GxryqhzGR5CbqVhZw
+iHRJBQhwSl55JLkMh4hcE4wUZMrVRFHoY3deNJNLAivIukfsjSz/WqdgZPg2/paE
+xKXBvu8S2vk6f6ohYrmdaEB3wY48CDvmtsYsyFzxC13N7f2P0EM=
+=XkHL
+-----END PGP SIGNATURE-----
+
+--Sig_/=DZ=rnPVIjFG3hhH3Oi+MHL--
