@@ -4,92 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EE25C47DD9
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 03:08:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF1D7C54E67
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 03:08:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 222D610E4E7;
-	Thu, 28 Mar 2024 03:08:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F4A510E606;
+	Thu, 28 Mar 2024 03:08:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oJv1ng+2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VNG0sAA9";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2048.outbound.protection.outlook.com [40.107.93.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 662ED10E4E7
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Mar 2024 03:08:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F9/iAXzzJImzpVLhY8st+2xTBR7NSExIusklz8OMHA7YOLNZ++StIxRSQ/NXDuYOl0c3BIjfRaTb4lRIFS6eCxafaDlH7w65nh+/tPqB1b2CSYc2fcM0KcpwTi4tvJB/VWVNSYNAHGjo/cZ1YGcovTKZYwXkRRJXF6QjshfksfDXFMCcPw6ArVIimsAcNSCYELLcaNp5zz7k9pyeUvhfM+yADcsBg8+h2bskRRZ1/FlGwcVoqU8wWyS3sppwJRbJvL71yMloxCaXCYzfE/GLadNXsclbaTjA1xq6nZr4mz6fuKSzkDEiyRI6a072JDBv/JKp48mcSg8hstQ6UgB6Iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B36lW4q0txlqrJKuS4p0w9x2e37X40rB1wmnlP8hsiI=;
- b=Yc5g8tQfwZR7gTdWFLfwzaN7O/6zS5jOEuonZlHuheHb8uX2hSmfX6CeI1hI6faz1p3C2i5+zIknCNpjqBgXr8HF2t/8yCyKkqC2Og8dVrmTj0NNBpSDk+Ad6eEABVhKiuHQSrGUcLxwm27H1Q1QPEZ0JJUAqOpSa/h1GjNFP4GlpwxUTP/0qabPqaHH+8hlK/mTzpBLCsNkQyLmWHpz2tTV1UcdKrmwrz8aZkGYVLHgZzaRFFxPU4mijfHQu/9iUJ7T6TyGPRBGIpWOADDaKNLTmWT+fT7Rz7I3BinkuOTyMHeD8a+JepOi23w04nVwL+8YRkPt606/yuqlGAjYfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B36lW4q0txlqrJKuS4p0w9x2e37X40rB1wmnlP8hsiI=;
- b=oJv1ng+2wM74cq9SI1o1SoTU82I9Lr29CsrJ/YKwyaQLhY4NMo+akNod/xRKiP/zI9kCLbDMzA1DQ3i83HoJcJzy/TrXyT9AYoTL8Ho0xeo6vgg6D/JAgWFW0KV3Gv1oj8IxoUB5rUvsik8V5O4I8/4FDm6/ZrxQme9juug0eio=
-Received: from SJ0PR13CA0098.namprd13.prod.outlook.com (2603:10b6:a03:2c5::13)
- by SN7PR12MB7179.namprd12.prod.outlook.com (2603:10b6:806:2a7::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.33; Thu, 28 Mar
- 2024 03:08:08 +0000
-Received: from SJ1PEPF00001CDF.namprd05.prod.outlook.com
- (2603:10b6:a03:2c5:cafe::1) by SJ0PR13CA0098.outlook.office365.com
- (2603:10b6:a03:2c5::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.12 via Frontend
- Transport; Thu, 28 Mar 2024 03:08:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00001CDF.mail.protection.outlook.com (10.167.242.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Thu, 28 Mar 2024 03:08:07 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 27 Mar
- 2024 22:07:36 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Reset dGPU if suspend got aborted
-Date: Thu, 28 Mar 2024 08:36:29 +0530
-Message-ID: <20240328030629.820663-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
+ [209.85.215.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91D9E10E54B;
+ Thu, 28 Mar 2024 03:08:57 +0000 (UTC)
+Received: by mail-pg1-f180.google.com with SMTP id
+ 41be03b00d2f7-5bdbe2de25fso326390a12.3; 
+ Wed, 27 Mar 2024 20:08:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1711595337; x=1712200137; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3JbUg1/8W4lnY9jEOzWjcb9pipkJTBqtEMv41Xz2F04=;
+ b=VNG0sAA9UsusEqD0LuSEJTGMOsBMeLy9YZhUvJgKZpztJ0cVQ+8x1ohcdrrz68Ej4U
+ Lp9fBG+I2EI6CfEYXg9EBsdQZSSYhbtZvAOTr9z0XUC4BGhnGI4Av/rfiGciTz8HLxny
+ hU7Jd6ImJHRV+tMZ0hcn1jMbIh8ohhtINCx0Xj/eOINs0TGWKYEAaIUyp0q8LzWCVDxi
+ ZkYhYO6Z/u4PM1sT0Cno1WE2MQfBZ56dkJrdQyzoBL0NlwRHekINCPwWJzdNjw6Ngqty
+ c14vyXYJWU2Zr2lin1fk9eS+wFt/aRzYZeB/WplS9HNZspVhcMRpMUjltgieSRz96nV1
+ 7CVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711595337; x=1712200137;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3JbUg1/8W4lnY9jEOzWjcb9pipkJTBqtEMv41Xz2F04=;
+ b=RIWNFfdVy82JUxcb5qLHMqYKA05ByGsQLuhqqdAonz8zgpTEnGOP+rkq2ABmQHT/mU
+ 9JlREX8g4hxiL1Dr5ZCll3ZWSDquJKYPqAS4tU6hz3/1W5EJtZWW0QKK5IoLH/x7lYb8
+ 5A0zetG9jRST0rPX6DVaHkpLVZSPBiqwAX0pJft8p4CTKi3nPW86dVWhWV9vXh0E8oMb
+ eF+Qecw3sqzNcedL6x7WdcVIT3y2J/V2yFG8xDRKaP9UY2+xXvRo5vY2Yoa03GdDKceh
+ RkPb8/sk4pRRQZCZ3aKyqnmAD3CM4fICoV+Pm1lbbNv2NaT94nv9yVZFtEv5cYOMMCcN
+ 2pwQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXVERVqLMxiE6SDFmz0f7bYGFTpzoU1UYaKG87Lt1QlJAJ5h8NbMH3gT32xmACMvDoDoFO6fp8kw5sXluP3k5xbFVjYN+xT4AJiKtKfW9mMGDg4dKY+yn7ygcFqOorbrKMhWhnq6G0J3v10fxWLTg==
+X-Gm-Message-State: AOJu0Yyw6EUiH25bWMwN8rOK8HqVz7SxAerfl22nJhfyCDtgZXh7vewj
+ n/FPBbNWyaYT7EVZe4HMCpV5CFc3LSlobk1TV08GWhWTqa+PoUakQKbyLDsfz7rRYbg3FyKtn0P
+ 70b0KuOgSR1gOAwcc1dcTLZwEnrmkFJnL6Qg=
+X-Google-Smtp-Source: AGHT+IHW70Qvi9bbhqfYQ9h2KqQnuqI6cgGc6j0/u2kopPAqC7d7T1Ny9gjijWM9ZiyLmlsj8kVmX+XN7k5SA1XrcJA=
+X-Received: by 2002:a05:6a20:5498:b0:1a5:6a16:f6c3 with SMTP id
+ i24-20020a056a20549800b001a56a16f6c3mr1663466pzk.38.1711595336575; Wed, 27
+ Mar 2024 20:08:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDF:EE_|SN7PR12MB7179:EE_
-X-MS-Office365-Filtering-Correlation-Id: da0a7b98-ff96-41d1-1971-08dc4ed44b12
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zBRuwvovzB61Bb7ylipTPpTh6CRZTBkACo5pKW4UGTY4s6s0oUTb9XtxytsxlklbX0zZigXQC9M0OpqA+LxQP3Q38Mi44w1p9RBbP4pRspvNbEGFPv4sFSEU0ODD2AFGXvU+Z5oEv8Q3t3RQUE/hXB7R05RMr0HLomseohdkwdxxZiQoL5A0KRKxy1AJyJ+uipeSACOO1VQUgM+Tw5TIzNcBH+Yj9imXMAFHaiRBO04+sFGEdTLE4onBe6FyMsQzG/GuV5EPQtTOASXWvm6JaOuHdcrAWCB/FKJePnFworR4rPOtr+1LaPvu6Q46m9joZQWn8B6M3UsEuC5JXk1c/yo7Ow7h39qubnd9FDCC0pt78hPE06QOyz7x9rLeQMU94guhfDtjop/++nfhiN060CMlkAJMjyMPxb/zuHMPAVJDMY18TvcEAAGY2XR0RinbeoDNynp7EC4OdtLB18Zb9r9yITIM7lHkLyuLDKGSt9cNOk9rMy2xg9caCySpZqCGeDHLIdL3Ybr+Dq/mMAlr3H/Rx/FK/6yGCONIampmp9OmEi54LjqZ6n9pvaH5GdS4gLgcQKLpqJjQfrGio7kc5af+VI/5P4x3ZgG9T8rkfqe/qx61QW//vAgthitg9dRf+/hN+2QYYLuGZ/Ld2hU6+PkJ1qH0pwmyO1ZdPBaYSB/xRXdsHwj/03rOTIyMNjMoT3DTwRjpBygT7ArFJXaGTFbX1GMDoVM+DCE3k9UX8vnjSypyGc9OxXS2SKvD2Exz
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(82310400014)(36860700004)(1800799015); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2024 03:08:07.7872 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: da0a7b98-ff96-41d1-1971-08dc4ed44b12
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7179
+References: <20240326173142.2324624-1-sunil.khatri@amd.com>
+In-Reply-To: <20240326173142.2324624-1-sunil.khatri@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 27 Mar 2024 23:08:44 -0400
+Message-ID: <CADnq5_ONivR7io0w6vkHsQSSMnNCRJU=XdDD6D6SQZ8t9o3FAA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: add IP's FW information to devcoredump
+To: Sunil Khatri <sunil.khatri@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Hawking Zhang <Hawking.Zhang@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,57 +82,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For SOC21 ASICs, there is an issue in re-enabling PM features if a
-suspend got aborted. In such cases, reset the device during resume
-phase. This is a workaround till a proper solution is finalized.
+On Tue, Mar 26, 2024 at 1:31=E2=80=AFPM Sunil Khatri <sunil.khatri@amd.com>=
+ wrote:
+>
+> Add FW information of all the IP's in the devcoredump.
+>
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/soc21.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+Might want to include the vbios version info as well, e.g.,
+atom_context->name
+atom_context->vbios_pn
+atom_context->vbios_ver_str
+atom_context->date
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index 8526282f4da1..a5305ce9b4bb 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -867,10 +867,37 @@ static int soc21_common_suspend(void *handle)
- 	return soc21_common_hw_fini(adev);
- }
- 
-+static bool soc21_need_reset_on_resume(struct amdgpu_device *adev)
-+{
-+	u32 sol_reg1, sol_reg2;
-+	bool sos_alive;
-+
-+	sol_reg1 = RREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_81);
-+	msleep(100);
-+	sol_reg2 = RREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_81);
-+	sos_alive = (sol_reg1 != sol_reg2);
-+
-+	/* Will reset for the following suspend abort cases.
-+	 * 1) Only reset dGPU side.
-+	 * 2) S3 suspend abort and TOS already launched.
-+	 */
-+	if (!(adev->flags & AMD_IS_APU) && adev->in_s3 &&
-+	    !adev->suspend_complete && sos_alive)
-+		return true;
-+
-+	return false;
-+}
-+
- static int soc21_common_resume(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
-+	if (soc21_need_reset_on_resume(adev)) {
-+		dev_info(adev->dev,
-+			 "S3 suspend abort case, let's reset ASIC.\n");
-+		soc21_asic_reset(adev);
-+	}
-+
- 	return soc21_common_hw_init(adev);
- }
- 
--- 
-2.25.1
+Either way,
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
+> ---
+>  .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 122 ++++++++++++++++++
+>  1 file changed, 122 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> index 44c5da8aa9ce..d598b6520ec9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> @@ -69,6 +69,124 @@ const char *hw_ip_names[MAX_HWIP] =3D {
+>         [PCIE_HWIP]             =3D "PCIE",
+>  };
+>
+> +static void amdgpu_devcoredump_fw_info(struct amdgpu_device *adev,
+> +                                      struct drm_printer *p)
+> +{
+> +       uint32_t version;
+> +       uint32_t feature;
+> +       uint8_t smu_program, smu_major, smu_minor, smu_debug;
+> +
+> +       drm_printf(p, "VCE feature version: %u, fw version: 0x%08x\n",
+> +                  adev->vce.fb_version, adev->vce.fw_version);
+> +       drm_printf(p, "UVD feature version: %u, fw version: 0x%08x\n", 0,
+> +                  adev->uvd.fw_version);
+> +       drm_printf(p, "GMC feature version: %u, fw version: 0x%08x\n", 0,
+> +                  adev->gmc.fw_version);
+> +       drm_printf(p, "ME feature version: %u, fw version: 0x%08x\n",
+> +                  adev->gfx.me_feature_version, adev->gfx.me_fw_version)=
+;
+> +       drm_printf(p, "PFP feature version: %u, fw version: 0x%08x\n",
+> +                  adev->gfx.pfp_feature_version, adev->gfx.pfp_fw_versio=
+n);
+> +       drm_printf(p, "CE feature version: %u, fw version: 0x%08x\n",
+> +                  adev->gfx.ce_feature_version, adev->gfx.ce_fw_version)=
+;
+> +       drm_printf(p, "RLC feature version: %u, fw version: 0x%08x\n",
+> +                  adev->gfx.rlc_feature_version, adev->gfx.rlc_fw_versio=
+n);
+> +
+> +       drm_printf(p, "RLC SRLC feature version: %u, fw version: 0x%08x\n=
+",
+> +                  adev->gfx.rlc_srlc_feature_version,
+> +                  adev->gfx.rlc_srlc_fw_version);
+> +       drm_printf(p, "RLC SRLG feature version: %u, fw version: 0x%08x\n=
+",
+> +                  adev->gfx.rlc_srlg_feature_version,
+> +                  adev->gfx.rlc_srlg_fw_version);
+> +       drm_printf(p, "RLC SRLS feature version: %u, fw version: 0x%08x\n=
+",
+> +                  adev->gfx.rlc_srls_feature_version,
+> +                  adev->gfx.rlc_srls_fw_version);
+> +       drm_printf(p, "RLCP feature version: %u, fw version: 0x%08x\n",
+> +                  adev->gfx.rlcp_ucode_feature_version,
+> +                  adev->gfx.rlcp_ucode_version);
+> +       drm_printf(p, "RLCV feature version: %u, fw version: 0x%08x\n",
+> +                  adev->gfx.rlcv_ucode_feature_version,
+> +                  adev->gfx.rlcv_ucode_version);
+> +       drm_printf(p, "MEC feature version: %u, fw version: 0x%08x\n",
+> +                  adev->gfx.mec_feature_version, adev->gfx.mec_fw_versio=
+n);
+> +
+> +       if (adev->gfx.mec2_fw)
+> +               drm_printf(p, "MEC2 feature version: %u, fw version: 0x%0=
+8x\n",
+> +                          adev->gfx.mec2_feature_version,
+> +                          adev->gfx.mec2_fw_version);
+> +
+> +       drm_printf(p, "IMU feature version: %u, fw version: 0x%08x\n", 0,
+> +                  adev->gfx.imu_fw_version);
+> +       drm_printf(p, "PSP SOS feature version: %u, fw version: 0x%08x\n"=
+,
+> +                  adev->psp.sos.feature_version, adev->psp.sos.fw_versio=
+n);
+> +       drm_printf(p, "PSP ASD feature version: %u, fw version: 0x%08x\n"=
+,
+> +                  adev->psp.asd_context.bin_desc.feature_version,
+> +                  adev->psp.asd_context.bin_desc.fw_version);
+> +
+> +       drm_printf(p, "TA XGMI feature version: 0x%08x, fw version: 0x%08=
+x\n",
+> +                  adev->psp.xgmi_context.context.bin_desc.feature_versio=
+n,
+> +                  adev->psp.xgmi_context.context.bin_desc.fw_version);
+> +       drm_printf(p, "TA RAS feature version: 0x%08x, fw version: 0x%08x=
+\n",
+> +                  adev->psp.ras_context.context.bin_desc.feature_version=
+,
+> +                  adev->psp.ras_context.context.bin_desc.fw_version);
+> +       drm_printf(p, "TA HDCP feature version: 0x%08x, fw version: 0x%08=
+x\n",
+> +                  adev->psp.hdcp_context.context.bin_desc.feature_versio=
+n,
+> +                  adev->psp.hdcp_context.context.bin_desc.fw_version);
+> +       drm_printf(p, "TA DTM feature version: 0x%08x, fw version: 0x%08x=
+\n",
+> +                  adev->psp.dtm_context.context.bin_desc.feature_version=
+,
+> +                  adev->psp.dtm_context.context.bin_desc.fw_version);
+> +       drm_printf(p, "TA RAP feature version: 0x%08x, fw version: 0x%08x=
+\n",
+> +                  adev->psp.rap_context.context.bin_desc.feature_version=
+,
+> +                  adev->psp.rap_context.context.bin_desc.fw_version);
+> +       drm_printf(
+> +               p,
+> +               "TA SECURE DISPLAY feature version: 0x%08x, fw version: 0=
+x%08x\n",
+> +               adev->psp.securedisplay_context.context.bin_desc.feature_=
+version,
+> +               adev->psp.securedisplay_context.context.bin_desc.fw_versi=
+on);
+> +
+> +       /* SMC firmware */
+> +       version =3D adev->pm.fw_version;
+> +
+> +       smu_program =3D (version >> 24) & 0xff;
+> +       smu_major =3D (version >> 16) & 0xff;
+> +       smu_minor =3D (version >> 8) & 0xff;
+> +       smu_debug =3D (version >> 0) & 0xff;
+> +       drm_printf(p,
+> +                  "SMC feature version: %u, program: %d, fw version: 0x%=
+08x (%d.%d.%d)\n",
+> +                  0, smu_program, version, smu_major, smu_minor, smu_deb=
+ug);
+> +
+> +       /* SDMA firmware */
+> +       for (int i =3D 0; i < adev->sdma.num_instances; i++) {
+> +               drm_printf(p,
+> +                          "SDMA%d feature version: %u, firmware version:=
+ 0x%08x\n",
+> +                          i, adev->sdma.instance[i].feature_version,
+> +                          adev->sdma.instance[i].fw_version);
+> +       }
+> +
+> +       drm_printf(p, "VCN feature version: %u, fw version: 0x%08x\n", 0,
+> +                  adev->vcn.fw_version);
+> +       drm_printf(p, "DMCU feature version: %u, fw version: 0x%08x\n", 0=
+,
+> +                  adev->dm.dmcu_fw_version);
+> +       drm_printf(p, "DMCUB feature version: %u, fw version: 0x%08x\n", =
+0,
+> +                  adev->dm.dmcub_fw_version);
+> +       drm_printf(p, "PSP TOC feature version: %u, fw version: 0x%08x\n"=
+,
+> +                  adev->psp.toc.feature_version, adev->psp.toc.fw_versio=
+n);
+> +
+> +       version =3D adev->mes.kiq_version & AMDGPU_MES_VERSION_MASK;
+> +       feature =3D (adev->mes.kiq_version & AMDGPU_MES_FEAT_VERSION_MASK=
+) >>
+> +                 AMDGPU_MES_FEAT_VERSION_SHIFT;
+> +       drm_printf(p, "MES_KIQ feature version: %u, fw version: 0x%08x\n"=
+,
+> +                  feature, version);
+> +
+> +       version =3D adev->mes.sched_version & AMDGPU_MES_VERSION_MASK;
+> +       feature =3D (adev->mes.sched_version & AMDGPU_MES_FEAT_VERSION_MA=
+SK) >>
+> +                 AMDGPU_MES_FEAT_VERSION_SHIFT;
+> +       drm_printf(p, "MES feature version: %u, fw version: 0x%08x\n", fe=
+ature,
+> +                  version);
+> +
+> +       drm_printf(p, "VPE feature version: %u, fw version: 0x%08x\n",
+> +                  adev->vpe.feature_version, adev->vpe.fw_version);
+> +}
+> +
+>  static ssize_t
+>  amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
+>                         void *data, size_t datalen)
+> @@ -118,6 +236,10 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset,=
+ size_t count,
+>                 }
+>         }
+>
+> +       /* IP firmware information */
+> +       drm_printf(&p, "\nIP Firmwares\n");
+> +       amdgpu_devcoredump_fw_info(coredump->adev, &p);
+> +
+>         if (coredump->ring) {
+>                 drm_printf(&p, "\nRing timed out details\n");
+>                 drm_printf(&p, "IP Type: %d Ring Name: %s\n",
+> --
+> 2.34.1
+>
