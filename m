@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38FA4C47DD9
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 02:06:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD1CBC54E67
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 02:36:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9E991122AB;
-	Thu, 28 Mar 2024 02:06:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2D8C1122B7;
+	Thu, 28 Mar 2024 02:36:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GhqccBKq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SH3q4e5v";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2086.outbound.protection.outlook.com [40.107.220.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DDA71122AB
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Mar 2024 02:06:22 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2046.outbound.protection.outlook.com [40.107.243.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0D611122B7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Mar 2024 02:36:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n7kXzWEGDTObaruaTXDSBcjXTq+ISFpsKPS/WwRBj5me9XarhUzZ9kLwi0fcawbCvPBrB7RhL5wjA5TWJ1vPOCToiEwe6EP/wPdz6q/1TG9P3GCOIhoaT2YEncCKEM/6ZIDkUA2q50+tdc1UU9K633tRahXcJcGQYYf9EZmrJpuPWvOmKmUnKtdf3JrGZcwQOfhH4koU0ZVR0SLmMPzNGd26K42zmVnGSKxzbJyTBB9DsZA4PF6BqaDuzCK7wCVaAy7g4ck+7OQoypOmOYDLlvuw3+T7XobdLEJvIOmJW1T1avyQTdmTb1gq7TJUTaPbVD/vkIjoFkrimoXScHnhKA==
+ b=mJD1zKEj6G8xVFErI4dg7Tr27/AZMNwE4p90itACw96Q4VfcRmgWsUnnatFPsPQbiFgfm2cNItH83qPZSKQw4w8aS5B8RmA0xLXqEZjAZ277tdM2aa3UCTh8VZa/p95FhjkTxApgZY3NEhzxNT228ejWhXCDgi81WCTlK7f4XxNrhcxRaFKrC5P3b4C/3hADUkw0unqXy5wN/ugiI/rWT4LQ4wnYj7chXqI+ylnpyIYB+e5AaZZWdaZQh0NQgLCvCaNySMAThy4lfLhRknMTt6QGe7fDpS1Kn/UtyyvQhrv/2QL2OXyKd7P7QlAW4fspuVpAQTnhAqKM3cqJr8KR7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QsMLo+gomWza/oeT9CoSWVF+zQ3qaSAY4rF3tZGwzdQ=;
- b=QtVtQ8DEKMeNx8jz28XzmNStMZrSVENeDDEGAMQ65TAxwFTEPQenJ/uSKnVLU7QgRXjX3sDg39yriuh+hpaYUf5mngO+EIXypBNCw026AUHjxv+SUVVilKfSBRd2RL2vvzN5rVrsk/Tq4MApA6Z1HnGf1RZ9KXMGU5gwDVQNgzFrywq+hYQM2VyGA5qe3T89zgkyq2ovqyNNa1BTkOrUq6S9HmALbH6YepI1JlGFYSwfk+CxYeOReE4prpseu0pvjpT9LI6iMvxcMtG9dvKjYLSMIcq3dv4OB8cYZk+k7T0A2RItfJkEVjWKMQbNRjYdzsUvfYYjtdJQI91JGefupw==
+ bh=HfyAdnNI/dwhPMeMI51mv3x3am5kZFh6CS6WjMj3QGk=;
+ b=gM57iL+SgrK/iqn1RwrIuER9IKf/4gIwZUJUcn8pazsQPyaqB3TUESXTQZPQTpFPqEfj2U0aGYXaHD9M5mGZoeOSbKVygHzH+4/8NjAhY7SitEgBOD0EzCyLPSqeeI8h80JIkaxKiGkBiwFKrQoLB4U7NVNeUvMPX4kNHsRe3jfRgJacWlff7HDfoPzxQ88hatO9I/0vRPKP1crLACZTB42wrsgU2bqwc39/awK21VZVcgIj47jeAdcO19e0TPHT6kGVXLsizT+C3EF5OjjORbWOyRrrd4cH6DFDkVGIJlYOutupABhu5KGLwwo+w94hgN4948nomn0A3LBWlwDZRg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QsMLo+gomWza/oeT9CoSWVF+zQ3qaSAY4rF3tZGwzdQ=;
- b=GhqccBKq+BgRdyoqXEDNbRjqVArYKf7/mYcJtdsnUCqu7S4UzBm9QWgPw/cKwuOArTxCHTgHGoE1dpFeGPBtkzaJJh5MfJ32UIdGc9nQ9dJwVCmVchHNFmowUDtewsypbexbxaYoQm+jSjSUaG7H1RtBDpVLQxEYG4jLhi9L7y0=
-Received: from CH0PR03CA0425.namprd03.prod.outlook.com (2603:10b6:610:10e::27)
- by SA1PR12MB6773.namprd12.prod.outlook.com (2603:10b6:806:258::16)
+ bh=HfyAdnNI/dwhPMeMI51mv3x3am5kZFh6CS6WjMj3QGk=;
+ b=SH3q4e5vHLP7/M/pbNOqrdapPFwiX7fn6/Aj/f3ddPP7B+Zl47SgxLvgPXXFpeSjUHa/5Qhyntg8wRoI8vdrSeC5aag1xWShdf/e275K/znNn0vRz8tAt1AcaSTHWWschDCSghzWKE3TWIpKnaqsVjIfyGlZ2nqrFm0AaGykKHs=
+Received: from BN1PR10CA0008.namprd10.prod.outlook.com (2603:10b6:408:e0::13)
+ by CH3PR12MB9022.namprd12.prod.outlook.com (2603:10b6:610:171::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.32; Thu, 28 Mar
- 2024 02:06:20 +0000
-Received: from CH1PEPF0000AD75.namprd04.prod.outlook.com
- (2603:10b6:610:10e:cafe::93) by CH0PR03CA0425.outlook.office365.com
- (2603:10b6:610:10e::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7386.20 via Frontend
- Transport; Thu, 28 Mar 2024 02:06:20 +0000
+ 2024 02:36:08 +0000
+Received: from BN2PEPF000044A9.namprd04.prod.outlook.com
+ (2603:10b6:408:e0:cafe::7) by BN1PR10CA0008.outlook.office365.com
+ (2603:10b6:408:e0::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
+ Transport; Thu, 28 Mar 2024 02:36:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000AD75.mail.protection.outlook.com (10.167.244.54) with Microsoft
+ BN2PEPF000044A9.mail.protection.outlook.com (10.167.243.103) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Thu, 28 Mar 2024 02:06:19 +0000
+ 15.20.7409.10 via Frontend Transport; Thu, 28 Mar 2024 02:36:07 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 27 Mar
- 2024 21:06:17 -0500
+ 2024 21:36:02 -0500
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, James Zhu
- <James.Zhu@amd.com>, Asad Kamal <asad.kamal@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix VCN allocation in CPX partition
-Date: Thu, 28 Mar 2024 07:35:59 +0530
-Message-ID: <20240328020559.812603-1-lijo.lazar@amd.com>
+CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
+ <kevinyang.wang@amd.com>
+Subject: [PATCH v2 1/4] drm/amdgpu: Set fatal errror detected flag earlier
+Date: Thu, 28 Mar 2024 08:05:41 +0530
+Message-ID: <20240328023544.820248-1-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -71,26 +71,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD75:EE_|SA1PR12MB6773:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01e0620b-594e-4b9b-f26d-08dc4ecba8f9
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A9:EE_|CH3PR12MB9022:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51ec908e-a0d3-4e8a-d149-08dc4ecfd28d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4kvT6nql7nR2s5b8rCKz+IEqBNLe20Vu4F78ysgBSAxTNoHUgzAWGgAs9+uVRyjnTnQlt7fu/A6u8mWZxxyLR3JO5IvHmnDXUccKuVRodra+L6/Yf/GQIxBmiruYYhyD36aOIV1p5Aors0HBL6dQU4LN9UvTKGhFxIZ7i0/x0rELjo14pYdcJI++8sFb9Znn2aoiHnw7e+gEgp8/WNP3yLlkR9tAMflxjval1oN8AOFFodRENdPPOBgHo9oQqvCIMfQL5Ox3sSmyeNSPQMMp3UIf3ZzPnB6ut4Hw/nMHZaEBvAlvNS+YKpbZ2hZxuKsNmAAHcXALmu9lMapI3lxSDzvhIaALtJDrCMdpyuCUOoSTt7R+3Fk2OQzuw1/thjzsubk5ZGX5AYCwS7nswAlyONEQpwqT+BDAQXo7pTyfj0s5ZVWfHJg2MYZKQWA5xdEed809iwQ5EhX+xvsPBG3VPAu3ANMqrhIU8PWDZl11EAri7z9KJW6lciv3/LhrVhtVa1ADaWP7ILpdki3J1w62N76t4WjgQJNgPQWhY2WViYFRfSjpjLtU+MBoh1itstIBssN1HJnSIQuvbQ7a/VvEpz+mWubo0bBa81qhvM49S5NT/cq+6CiZ3XmyQz4xA4BejMiMJMAytb83ej/9gH4XGtIVbCagx6fhwBBSphCW5+Gy53uQlwXyyWXzZH+5agy8QDKNqaYDXwNh+Y/TgMPD4ap0HQKsM1SHH/IJZ+yuTuBlSi/7yLa7dnD6i8rKJFS3
+X-Microsoft-Antispam-Message-Info: UpZ0iw3N2ZcxCnmFEikLL9QclgfMb7ITU1+bpYlyjQoyddhMrBwMJdFHzUSLAuz3hNKCt9Kn6kDExEDvK8uIeGqWAhtv/AbFGn2WDUauwGulU5PUYRMfJuqOhEuQACVLSA7hT4P3dTFdpYPeQ5BdZGZ28qx3jtBC7AkNH1RlJWHpQiATCx84ZNt4cnJXkY0i0fyRmjIFquffscbzKNBdKyebBIz93UBxDXih40o+LVvm1e49+PGmhK1jq8Wjip6ITM6dq+gIAeRU05qVDQib6JQVnEanGzFcXSpkIXOlqe04vcKD7QBpIbhfbFbkHvtyXZ0s7zCaphUvABwcPSqhG4HJeVC20Oo76eOtae5pRUvRV7ytFBycreG9NsFcoXMYdpENmjX/cDcWZtF+K5uyDtp6SmYimmB0qs6feXzZezjS66lE743H6o5it7dc1Sr8DXTFw549fL65pzKc33RN4TMzG8UprUxDXscN4OCizdp3CsAAUAA2Yl7vVuepcuS39meecad0fiJAxoo8lcUAUbx4nxKCvD4xP3RPxJmgJzp26j1zXK5MSGx3+boccgGWQUl2nPopV5lDFuwSR0+fpaSTe/vQJC3zE2javCJyw4uslyuhQz2Ti85oRDFYLLkZn9piiFf5SPgwqRkLE7Ov0B2aCppxE6xbE/rBVfpfv2/2jHNHBWHniS1N7UGSnRsv/iNXhmWH/reHU1jR4Q7oeA1Rj9qjIyutiFAevenRUt7tBYrKf83W0HOFK3w3eXBO
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(36860700004)(376005)(82310400014); DIR:OUT;
+ SFS:(13230031)(36860700004)(1800799015)(376005)(82310400014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2024 02:06:19.9423 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01e0620b-594e-4b9b-f26d-08dc4ecba8f9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2024 02:36:07.7005 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51ec908e-a0d3-4e8a-d149-08dc4ecfd28d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD75.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A9.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6773
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9022
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,58 +105,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VCN need not be shared in CPX mode always for all GFX 9.4.3 SOC SKUs. In
-certain configs, VCN instance can be exclusively allocated to a
-partition even under CPX mode.
+In case of fatal errors, set FED status when interrupt is received. Set
+the flag on other devices in the hive before RAS recovery work.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: James Zhu <James.Zhu@amd.com>
-Reviewed-by: Asad Kamal <asad.kamal@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+v2: Avoid accessing hive in interrupt handler as it may take mutex path (Kevin)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-index d6f808acfb17..fbb43ae7624f 100644
---- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-+++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-@@ -62,6 +62,11 @@ void aqua_vanjaram_doorbell_index_init(struct amdgpu_device *adev)
- 	adev->doorbell_index.max_assignment = AMDGPU_DOORBELL_LAYOUT1_MAX_ASSIGNMENT << 1;
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 41 +++++++++++++++++--------
+ 1 file changed, 28 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index b8c7d0bf8fb1..352ce16a0963 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2399,6 +2399,19 @@ static int amdgpu_ras_badpages_read(struct amdgpu_device *adev,
+ 	return ret;
  }
  
-+static bool aqua_vanjaram_xcp_vcn_shared(struct amdgpu_device *adev)
++static void amdgpu_ras_set_fed_all(struct amdgpu_device *adev,
++				   struct amdgpu_hive_info *hive, bool status)
 +{
-+	return (adev->xcp_mgr->num_xcps > adev->vcn.num_vcn_inst);
++	struct amdgpu_device *tmp_adev;
++
++	if (hive) {
++		list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head)
++			amdgpu_ras_set_fed(tmp_adev, status);
++	} else {
++		amdgpu_ras_set_fed(adev, status);
++	}
 +}
 +
- static void aqua_vanjaram_set_xcp_id(struct amdgpu_device *adev,
- 			     uint32_t inst_idx, struct amdgpu_ring *ring)
+ static void amdgpu_ras_do_recovery(struct work_struct *work)
  {
-@@ -87,7 +92,7 @@ static void aqua_vanjaram_set_xcp_id(struct amdgpu_device *adev,
- 	case AMDGPU_RING_TYPE_VCN_ENC:
- 	case AMDGPU_RING_TYPE_VCN_JPEG:
- 		ip_blk = AMDGPU_XCP_VCN;
--		if (adev->xcp_mgr->mode == AMDGPU_CPX_PARTITION_MODE)
-+		if (aqua_vanjaram_xcp_vcn_shared(adev))
- 			inst_mask = 1 << (inst_idx * 2);
- 		break;
- 	default:
-@@ -140,10 +145,12 @@ static int aqua_vanjaram_xcp_sched_list_update(
+ 	struct amdgpu_ras *ras =
+@@ -2408,8 +2421,21 @@ static void amdgpu_ras_do_recovery(struct work_struct *work)
+ 	struct list_head device_list, *device_list_handle =  NULL;
+ 	struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev);
  
- 		aqua_vanjaram_xcp_gpu_sched_update(adev, ring, ring->xcp_id);
- 
--		/* VCN is shared by two partitions under CPX MODE */
-+		/* VCN may be shared by two partitions under CPX MODE in certain
-+		 * configs.
+-	if (hive)
++	if (hive) {
+ 		atomic_set(&hive->ras_recovery, 1);
++
++		/* If any device which is part of the hive received RAS fatal
++		 * error interrupt, set fatal error status on all. This
++		 * condition will need a recovery, and flag will be cleared
++		 * as part of recovery.
 +		 */
- 		if ((ring->funcs->type == AMDGPU_RING_TYPE_VCN_ENC ||
--			ring->funcs->type == AMDGPU_RING_TYPE_VCN_JPEG) &&
--			adev->xcp_mgr->mode == AMDGPU_CPX_PARTITION_MODE)
-+		     ring->funcs->type == AMDGPU_RING_TYPE_VCN_JPEG) &&
-+		    aqua_vanjaram_xcp_vcn_shared(adev))
- 			aqua_vanjaram_xcp_gpu_sched_update(adev, ring, ring->xcp_id + 1);
- 	}
++		list_for_each_entry(remote_adev, &hive->device_list,
++				    gmc.xgmi.head)
++			if (amdgpu_ras_get_fed_status(remote_adev)) {
++				amdgpu_ras_set_fed_all(adev, hive, true);
++				break;
++			}
++	}
+ 	if (!ras->disable_ras_err_cnt_harvest) {
  
+ 		/* Build list of devices to query RAS related errors */
+@@ -2454,18 +2480,6 @@ static void amdgpu_ras_do_recovery(struct work_struct *work)
+ 				ras->gpu_reset_flags &= ~AMDGPU_RAS_GPU_RESET_MODE1_RESET;
+ 				set_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
+ 
+-				/* For any RAS error that needs a full reset to
+-				 * recover, set the fatal error status
+-				 */
+-				if (hive) {
+-					list_for_each_entry(remote_adev,
+-							    &hive->device_list,
+-							    gmc.xgmi.head)
+-						amdgpu_ras_set_fed(remote_adev,
+-								   true);
+-				} else {
+-					amdgpu_ras_set_fed(adev, true);
+-				}
+ 				psp_fatal_error_recovery_quirk(&adev->psp);
+ 			}
+ 		}
+@@ -3550,6 +3564,7 @@ void amdgpu_ras_global_ras_isr(struct amdgpu_device *adev)
+ 		RAS_EVENT_LOG(adev, event_id, "uncorrectable hardware error"
+ 			      "(ERREVENT_ATHUB_INTERRUPT) detected!\n");
+ 
++		amdgpu_ras_set_fed(adev, true);
+ 		ras->gpu_reset_flags |= AMDGPU_RAS_GPU_RESET_MODE1_RESET;
+ 		amdgpu_ras_reset_gpu(adev);
+ 	}
 -- 
 2.25.1
 
