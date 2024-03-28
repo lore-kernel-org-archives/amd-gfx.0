@@ -4,115 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50F91C54E67
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 04:23:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E9EEC54E67
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 04:27:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B62BF11228A;
-	Thu, 28 Mar 2024 04:23:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93F0D1122D0;
+	Thu, 28 Mar 2024 04:27:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cr+QVpYY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T5W9HlFu";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2560411228A
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Mar 2024 04:23:26 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2056.outbound.protection.outlook.com [40.107.237.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 561CD1122D0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Mar 2024 04:27:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ca2SDouuICJqFVOYdJQZqRMBVCXGbM7BCpqNy/+lpX3k5QLM/pzaZ2gNBZ9Sqtzjyz0UQE3O9WtwK2PfxOfy652uYnlG7m2Y1M3xEEefPeijRctXJeR8rTxIRaQ8fLwQvPzyUQSoMN3Z6nD2zln77H282Kq7BpL/6yAIhaxU/3Fm3uzLk88KbHtulwkjfqhjE0TbQZhfBYHHVvzydXh7R631z4Qs9cWurdQ3mfTnHDhtt2VfmMUNHkeiAuTXRA4Hzfl9Z9vpcOE3RiNFLs1gs4blfI5FlztmNGvwVCApZGXEcFB66fZTbhX1zPPoN+JS8+t7oLZOllG2m2GsRFaT/g==
+ b=LcbESDi8Y47E97k6BHA2e/oxGimvCFaNKicWr441r9tiwGUOMbhfqbk2jk+cDF4WAW6POEggqZ00Tw4jd+MtkJ/5O9LdJLxLP6vRzR3MfKZ0xRvtqftJi9fw4ya9DI23gqfzLa/+eo9F4rTXONHtO0yeBcFAEMdTEVGal4IYMzkwWcz2MpTJhXJ216/+0/uV216lzFoZY9XPnLM+3Lp50AqwWKu3dpO5JhAc+/JqQPpoIuolStE3JQziXhcuh6M1tsCUc/NPeBCBI3/gZrGqQW/AD7tHpK8Er4sqHpj0OHLxNrIwcJLfC6X7v4jA65QJiCJgbUpXBsYlV74Z35Pffw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JoRXhu9pIJ7UdwqBZz5PW6FJ0Ka4UPsNB7lD5hkb6iY=;
- b=AY9i7j+8IIV2kza3bd8TXn42TuxVAIYZ/bX1FcwFJgUbylu2RooCegCFpzo60Tjb+o6aJVjZYZTWEC0P6L9jZQEIG9XBYjlASbnqVM31JkDmLay99gICmeNoZ89iwlfKmzMY0h1fXb67498pZW5zmG/jGd7GnOaANsamy51rL0pXAdYdrks3HDzJNdiHEWcDdqA72+GdFsWBLaVK/cGdVzoeIfXlWgVGUgFl9zVS1WYt05E4OgVSqYYQTZlfBHgZqsWQVpSk1rO+Ov6gzDcm5bkZSpckYDi/5ZvVDIzV2ObApEsBuZUbXuAICkFeJCYCf/fe1ByU+U82uQaItnFsTQ==
+ bh=+Aclc6J5iqgteLPstbP7uYxqvNBBa4uQpno9C/ESgbE=;
+ b=SFkpl/hcXl0vp8UFmdfqMc95zY+hpAocf0A6n7nkOwbM93F/26aiEE2bhhKkecYKdlIsqky3xb5Kq0imMN+p1Ebp87Oy0M2n3Zs8nMnGHpRxloENHh85div50roEAL5Wtwb3YnIY2Ym0H2WRgGPHBhnXrDvS2ZxnVxCY7tI2Mu915gEfFfpQpp5PdtIDRGJB+Ju08PBqHgQZsrGViVjCYXGwD06I2Nl6zZLZCVujIZXx3roud6jJtdveSr5CuxycVWc59UTIbBSFKC/SWGX5fziO228Z08rvyv27PRKX+SxUhJ+SMiy2ogOpn9yuA4YcmlAfwIs3+7dCnWbEwgtJ3g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JoRXhu9pIJ7UdwqBZz5PW6FJ0Ka4UPsNB7lD5hkb6iY=;
- b=cr+QVpYYJK4FBAcOmW1MsEUtt4SJ9lUAvM5ztjjypv5Ik7PxhzT5FidHOlrNLdpiWr5kHtu1FdDAnKvilwZtDamS7qCHsup92+GLkVnH+ADhftajv8KaA96yvZEzzLl0T8GmeE+6ePhut2gpYrwfaZ4MeA+bLz4KKm5AKv9eT1I=
+ bh=+Aclc6J5iqgteLPstbP7uYxqvNBBa4uQpno9C/ESgbE=;
+ b=T5W9HlFumdpw9RFoSwI36gagGbTeUHhCwaiV4SMznIlNjKTRd4Ts4dldnry9J5EUlkZo5m4Av3iF/RWSZFGZLJL6+Zu3nQCxczAXB6FCWn0/WPQ8+Oh3cmulyZ88dsWYeflhOVHd54Vj0YoG1w9JHILuHhI5faYZCLKJhSBCJ9k=
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by SA1PR12MB7295.namprd12.prod.outlook.com (2603:10b6:806:2b6::15)
+ by IA1PR12MB6483.namprd12.prod.outlook.com (2603:10b6:208:3a8::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.33; Thu, 28 Mar
- 2024 04:23:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.32; Thu, 28 Mar
+ 2024 04:27:08 +0000
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::b001:1430:f089:47ae]) by BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::b001:1430:f089:47ae%7]) with mapi id 15.20.7409.031; Thu, 28 Mar 2024
- 04:23:22 +0000
+ 04:27:08 +0000
 From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Huang, Tim" <Tim.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
-Subject: Re: [PATCH] drm/amd/pm: fixes a random hang in S4 for SMU v13.0.4/11
-Thread-Topic: [PATCH] drm/amd/pm: fixes a random hang in S4 for SMU v13.0.4/11
-Thread-Index: AQHagMb1dwCgOF8Xe0WuNmRIadfyDLFMjbau
-Date: Thu, 28 Mar 2024 04:23:22 +0000
-Message-ID: <BL1PR12MB5144DCC97AE1E0F4A355FC10F73B2@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20240328041720.276684-1-tim.huang@amd.com>
-In-Reply-To: <20240328041720.276684-1-tim.huang@amd.com>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Wang, Yang(Kevin)"
+ <KevinYang.Wang@amd.com>
+Subject: RE: [PATCH v2] drm/amdgpu: Reset dGPU if suspend got aborted
+Thread-Topic: [PATCH v2] drm/amdgpu: Reset dGPU if suspend got aborted
+Thread-Index: AQHagMc9KhIEcXeHMU+V9MVY0PLyF7FMjksQ
+Date: Thu, 28 Mar 2024 04:27:08 +0000
+Message-ID: <BL1PR12MB5144F81CBEF359727559F869F73B2@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20240328041936.825960-1-lijo.lazar@amd.com>
+In-Reply-To: <20240328041936.825960-1-lijo.lazar@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-03-28T04:23:21.704Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=a4fe41df-52de-4af5-b368-db903748690a;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-03-28T04:26:43Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SA1PR12MB7295:EE_
-x-ms-office365-filtering-correlation-id: e20335c1-5e13-44cd-db3c-08dc4edecdb1
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|IA1PR12MB6483:EE_
+x-ms-office365-filtering-correlation-id: a4ac0fa1-59c9-46e7-6f5d-08dc4edf548f
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: aWI1kM9J6xnwOG3Tr8vQ3fM/naEZSxkR/5pfGxj5zNRLkcYFBufzaOdCVKf+q+x0G2I1OWkwcF5TAu78G/wuX9feY4xHw+YCVs7xu1/sKYKe2N2vjWNjKUk60QbZaX8+mWQKfEtoYy8ivPua73QJSbBoZ/yuEHHnljzxEves9sb4dQWMPKSERKXJpgIYgU7oCy4AZf4MGYNrzgSHAF1QTzRyWDw7gJvMTJ6fWtCJjx+ivLcc4rFyAx+N1A3hw4Tm8/fb+6z9X0PDlsDJXOwDIFOE3mw59640T10elnZUZHthRmUwFZnNusc1RfuyIuHxhIFWAyyRxoICpOjQnmPWbBP3b6BXON77Wj8PgHE5kMt0Xxt2od/jgOCwDr/6rONYi3e+JwNY9tllpV6krhVirbElrkfBSoyRuCb1S1IfpmxNWeTXYTaUi1/KSXalx1WpUybf1uWQfyGIwaE8iYC6sqZhbjk76Z8Upun8kMbnn6TQks3Vux0iXDyX+ZsrEmOn4ZXg5KZACU33a4a3uwS8XEnHyY/qzNRk/KzBx8d7M3aqEbNV7RH5TfE9zoawyblOrkdXauEeBQtfK1emlXI7l8daTWEYxIf61tkkAoOn2XgQ6Asm71EW2e9PILk+nFYhE3Wx+G8DFt3kmQwD6ffMduSuQE2X6ZwHF5dfyscmuzNH+deZs5xaUR44v1SUjPDSqNaD02yWUqtWkfxI/5H8xyUjy+udjXWOjgrQFm9vOwE=
+x-microsoft-antispam-message-info: YzfvAHdX9rh8R68BYJxxO8gZ49+7veWJYIr6LlrabKg8RcGVaG5Bn1A5sONcM+HdLpZXqnTssbD4JU5Y51/R4SNDwnU2NTUAn+ITP4Vv0g8aSqakd+pUibqb7MeoA2LNkFxZTbQFP0+4tViwukxLwPajpIWcFs6AO+c9ifttC/tlifmb7cdMhHpL+Cnw2fBZVZciADNKTVbiVi0WucN/z7i3jHZTYU8YUdtEAvTbbeom6ou34XnZ7KpRSuIP3bUtPbZ4YKNbnQxxkhDKl+/N9+j5r02HRnMGLZo935VzgpFaACvVIW5EnFx9yNQm1vgBNUI/7MfFjookAUbfCvAW1yGOa0QO93ThVEGcPjWGVQgnwv8M7nohvHH2ukWxjS1viHJpgEFQde3Lmg2rPqsEnmqgCpyE4dXZOAeXJSt3J1kZ0Ljc4YvPEmVsn7PrIY++HbodCylc6hXo+riNEzuIrZVRljQVJWc0pQEICbLgm4WkyZ13DaktISvKcEK51BgPbSCP65F73xdhA4BUx0S5FowWgbccx5L+NkvJNenaMuvC2Ma+lIOpyBgbrvKOxa92VyHqHkn6P8MiZO7xNBa+Pig51XVqyeEAdiLhgDkHk7Y8ErAlEwhaOIzcvisGkb/TvqGWPhpn2I5wYzJpZlnfKC5faUk93uAAjp1peGd/IUmavOhEPmaHYWNK5Zomkjm8/B0KEyz3KESo60ErP4YvE4rqklVrQOykek1uD6/X4Es=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(366007)(38070700009); DIR:OUT; SFP:1101; 
+ SFS:(13230031)(366007)(376005)(1800799015)(38070700009); DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XqgOiZ6Vme8FahsRbJJhqq42TFG6PWiSDf2Iee70FORBSuZL32p+t42Ze+mN?=
- =?us-ascii?Q?insALQdzqxfT5tkV/RBtozaw5D5SfQk12sipx0awdywXeHXh0fLRc02dXSSi?=
- =?us-ascii?Q?IJp+TeryvjcVop8PQbJc+M+GnB+mD4Kl0AbRKEkJgiVSMegdb7rC2kURCWCH?=
- =?us-ascii?Q?SlA8HzQDA7LMdJ0gMa+1heQS2CFkG/XV1dxxRYfNtwj7I9zKxHYdAhC/y5tT?=
- =?us-ascii?Q?myDZEz02tvdEj0ktaEhRkmUofrU5D9aZrdM/vTzbicfx1LPfI0OGFR7EbdTC?=
- =?us-ascii?Q?kqPwQMgKEWd5NbdEVO3QVDj2GF885TmwfKKYEIYOI/udEpu8QiZWfvuAuCmw?=
- =?us-ascii?Q?ZM1xeEp9zIyjWuSXU4PmGLCUBsJzqmdGtoGHCXqreMRiO09ggoVs+jSIIVmY?=
- =?us-ascii?Q?a6Wrl6238Z7E6O2fO7Y5/fppUV0snvZFXl2xYUkXGrDfiQ0KH4+rIVxeuDmx?=
- =?us-ascii?Q?25hU2y9jHrb6CURvd5I4BURQLtw1rY8L56TZ0AIE3XmhWym+ThWYCK9kvxnh?=
- =?us-ascii?Q?OxT3MICpFW06HAG34MVEyYW/XWM83+SgDURoiB+kHmvAJEchTr4T4cALBIZ3?=
- =?us-ascii?Q?uz0wUpxMxzjwcyNlGkkpWsfRtGpCLvMOxZAvednG5+6P+WeG8piThTlBv0jN?=
- =?us-ascii?Q?eunQNFW1nR1Ip/5q/w55AQelDClPRYd8Upy06UbA/wOf2Q7WQMi5Lf9qSx+D?=
- =?us-ascii?Q?A8rpgy/0zEG8+XRGtfnMI/hg96cODUtEqhfj81h1kX926kWVzLUDRup7tCkS?=
- =?us-ascii?Q?6hTxlANTHjDMKXoBCqo28P1CyFLbccyVtPV3q4YVuP6tGthIJiVmSb1/BZ55?=
- =?us-ascii?Q?hIW/4qp3mns50GUCGRgxTUmoPmHUJZnJdH2bpkG9MA1P1EOLzOv5+BNjLvLl?=
- =?us-ascii?Q?fKYIbzflx/LVODyvkv7iWOd8gwT+CI+cGoiOaqVLmq9m3eabvzCKcmqQwT9v?=
- =?us-ascii?Q?RX7xGADEjOIRFZxG/8naltSxEN+3Okhrt+DQaKqnDHVysH1rjo8NM/0s5yQy?=
- =?us-ascii?Q?aIG2/4ALJQJhtYfq7Ap7hPoRxwWx/bZYOa3aZPgjjIliQsLLyOv8ViiJScuC?=
- =?us-ascii?Q?ciujID133tJiPeX1cYTP1zsjkAWTZqCDFDZibnBDZgJKIChQiKeiXIfIflaM?=
- =?us-ascii?Q?htifMROBh8XFVNgkmtKAwbgeYUMqrJwm2Fj8kmRStAGGAG8ehWdFXsDI+eJ9?=
- =?us-ascii?Q?r9i5CIRqXTx6cDeMCpsq/WG5Og7Zd5u8s8fZqCcQ09hgIqfiqCxwUk2b7BWm?=
- =?us-ascii?Q?Wh89TCrkofc0tXAAG7kypDqP/9XzydW/na5kcePJQJYsMD9Ef2ebFqM2QLCn?=
- =?us-ascii?Q?D0az7W/A767XAypjkyYd0BiWf/tkrTroP18i2dbOj0+l8HbDvQEiEyK1ETl+?=
- =?us-ascii?Q?focuuhYdjPm/587bFGGMKc1+7WLJSXIiozoR3pjopT1Dtid/9lAYZ4Z3mxKz?=
- =?us-ascii?Q?7HQqziQt8hMsaWo5S3QnAfApGXHSULW12jJuEuY6h0nHrzipkGkI0xGN2tHB?=
- =?us-ascii?Q?jjQvH7ICJLY/bKHceKSyJSMcGGTHcs9rzMPI1a15GdYw04U3hDa9INJn0sPL?=
- =?us-ascii?Q?ZpxGzltvnCx08F6fFVE=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144DCC97AE1E0F4A355FC10F73B2BL1PR12MB5144namp_"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?HENf6sRsZfEYS2m0quvg+gfxcdTDG/KpMdzPWpgw/uAX426m+NUaQo7UhS2h?=
+ =?us-ascii?Q?xZHE1WQdLLizrHxcvMWeCj6S0dHGG2fuyZRKjkkCYTfD/pPa+nVTSLWA0oka?=
+ =?us-ascii?Q?2EFdcNWJpfw4ru2OS9olpBTygHom8/PvghKX4XjwrzWoVxNi01AA5ZKoy97S?=
+ =?us-ascii?Q?kgj9h1SeP2T+orZljBJZ/0gseGWB/lYzdppHLahQRINMwiYH1iLrn8ejEpUp?=
+ =?us-ascii?Q?dwsJ9L8QYIIiS7fGQbezNama7aNpSNlnt/HrDZnR6zrz3V/i1QEBMUSNlYwp?=
+ =?us-ascii?Q?4BeMQPRrKtoKgSWGYhRr28I77dLbaelMjLmcwJPbCjIyGEx8bvS+sEs74mKk?=
+ =?us-ascii?Q?Ifky6/eVN+GpNyjTjKaWG1J5y3Ulf2QsrP5UZXaPVKum+ZUckdsErDyFam4+?=
+ =?us-ascii?Q?oVxOHLtdxSJRpILY8i8Zy2GcHnhAmsCI9xZP0xYRG4We8dmAcJkioq0egi22?=
+ =?us-ascii?Q?CyFjuyDqqGebm3c99bNdLzdNEZC9N5y78dDMayHFxAYQDb3iTFvYTpByMKXq?=
+ =?us-ascii?Q?s6pcyzPgyfeeno0+MPkisqdaE+fVln+RFYyndQ4cMM2dRe2OI0kU+sw4oa/p?=
+ =?us-ascii?Q?g7B9aBX5+BZGeI07KpGxMJW1z+uX4tu8DsQ2UBjkOgp4okY80p5pMiU9KWSL?=
+ =?us-ascii?Q?REqySJOmRYZYXEHqvGdqAH6/wgYzaJQ24kQjAUrpicMkzqs5m1uJrm0vHrMx?=
+ =?us-ascii?Q?aHH/4MFn3YjQeLtTxgbKA7kfeZJGhy3tWySq7x+rwF7elBQdHwykr+DGlNea?=
+ =?us-ascii?Q?ikb8pQLLjSGMfchVf4e5oFOhjX0YMtyCe9p3Yu+dP86TU0iFZ6VK/AjjFCPG?=
+ =?us-ascii?Q?njrQxDZ7tg2yMJQWMZY1iyG9Gvv5S2I83Ky/2tEL7KRsbVLq7lWTFd/pkXuK?=
+ =?us-ascii?Q?H/B0BQtmO4+1LR97E+2GsUOOak89wyzpMXGTo3GSiYuAjIkydAsmpbsD5aGu?=
+ =?us-ascii?Q?LDiHGKsNTSHhBRAEAOipMyJzPMJe7i9gozquG03GkTRTOLOaCsvxxD6nn9hU?=
+ =?us-ascii?Q?LfC4PacGY6WFv+X8cpMOSyMjfvT5tA0oCJRTOLAcHypoPKoMqoAtNifOeCBb?=
+ =?us-ascii?Q?gBeNhas0l0VGHsU/Csvxj2Un8Ea4kZvz7qY+UEa+ajdT6+bvoiWO6JYZ0WWj?=
+ =?us-ascii?Q?SgT0VDv7tBN4qlSeNjty2uASPngcJlwm2AuGQQj1KNY2IKElLsQL70PDt+/8?=
+ =?us-ascii?Q?3v9k3+j7PWnuAm1kexUNOIdN/1z70ctp6DQ/vly0pB5TZuq26oo/3tLWRb/+?=
+ =?us-ascii?Q?Mt5n1ZhL80+V10cIHbPIUvepCrWtF26f29JDXAarZNPi47/qAQMWEz3to8wr?=
+ =?us-ascii?Q?IcBgNSe5xHe2+UhPd2J0UBcpmEPIYAGwIAnkdMRu3CLwP8Ih59erufUd+L7q?=
+ =?us-ascii?Q?YgAA5fOfERyyuV8Ky1aLEygtM1XQhE5kSswlJ1nP844y4p5CxQWfpPGOL+TH?=
+ =?us-ascii?Q?z6TO7Tq6FOe7B6l93+f2fN/oySuLfEG4nuGZCEJdaJvUXh+Fy+TbVQE8YwJR?=
+ =?us-ascii?Q?wLYiDnnP80DoLMeCrb7QWYdIUHxRybg/8SmuxFrneSZBEtdRSn2cGmlF0oxc?=
+ =?us-ascii?Q?9WzB53/U+7HdnMflvcg=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e20335c1-5e13-44cd-db3c-08dc4edecdb1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Mar 2024 04:23:22.0394 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4ac0fa1-59c9-46e7-6f5d-08dc4edf548f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Mar 2024 04:27:08.3101 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XJO8eD0qddD5wY9D0LBoPFWDH62jOGjcnUeoj0eTodN+Id0IfSevD5hkjwBveIrdGC4pqUYJvmYT1xaOto5uCg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7295
+X-MS-Exchange-CrossTenant-userprincipalname: jsYsjWLSsJVbgO+S8f8+vFjwrwvcaN0kag8+3m/fKapsPyajpwW4g14ZCBzxHUDyaR6uYz0WPMiFR/MDiaZj8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6483
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,170 +130,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144DCC97AE1E0F4A355FC10F73B2BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+[Public]
 
-[AMD Official Use Only - General]
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Huang, Tim <Tim.Huang@amd.com>
-Sent: Thursday, March 28, 2024 12:17 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Yifan <Yifan1.Zh=
-ang@amd.com>; Huang, Tim <Tim.Huang@amd.com>
-Subject: [PATCH] drm/amd/pm: fixes a random hang in S4 for SMU v13.0.4/11
-
-From: Tim Huang <Tim.Huang@amd.com>
-
-While doing multiple S4 stress tests, GC/RLC/PMFW get into
-an invalid state resulting into hard hangs.
-
-Adding a GFX reset as workaround just before sending the
-MP1_UNLOAD message avoids this failure.
-
-Signed-off-by: Tim Huang <Tim.Huang@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-index e8119918ef6b..88f1a0d878f3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-@@ -226,8 +226,18 @@ static int smu_v13_0_4_system_features_control(struct =
-smu_context *smu, bool en)
-         struct amdgpu_device *adev =3D smu->adev;
-         int ret =3D 0;
-
--       if (!en && !adev->in_s0ix)
-+       if (!en && !adev->in_s0ix) {
-+               /* Adds a GFX reset as workaround just before sending the
-+                * MP1_UNLOAD message to prevent GC/RLC/PMFW from entering
-+                * an invalid state.
-+                */
-+               ret =3D smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GfxDev=
-iceDriverReset,
-+                                                     SMU_RESET_MODE_2, NUL=
-L);
-+               if (ret)
-+                       return ret;
-+
-                 ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_PrepareMp1ForUnl=
-oad, NULL);
-+       }
-
-         return ret;
- }
---
-2.39.2
-
-
---_000_BL1PR12MB5144DCC97AE1E0F4A355FC10F73B2BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lijo
+> Lazar
+> Sent: Thursday, March 28, 2024 12:20 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
+> <Alexander.Deucher@amd.com>; Wang, Yang(Kevin)
+> <KevinYang.Wang@amd.com>
+> Subject: [PATCH v2] drm/amdgpu: Reset dGPU if suspend got aborted
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Huang, Tim &lt;Tim.Hu=
-ang@amd.com&gt;<br>
-<b>Sent:</b> Thursday, March 28, 2024 12:17 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Yif=
-an &lt;Yifan1.Zhang@amd.com&gt;; Huang, Tim &lt;Tim.Huang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/pm: fixes a random hang in S4 for SMU v13.0=
-.4/11</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Tim Huang &lt;Tim.Huang@amd.com&gt;<br>
-<br>
-While doing multiple S4 stress tests, GC/RLC/PMFW get into<br>
-an invalid state resulting into hard hangs.<br>
-<br>
-Adding a GFX reset as workaround just before sending the<br>
-MP1_UNLOAD message avoids this failure.<br>
-<br>
-Signed-off-by: Tim Huang &lt;Tim.Huang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c | 12 +++++++++++=
--<br>
-&nbsp;1 file changed, 11 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c<br>
-index e8119918ef6b..88f1a0d878f3 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c<br>
-@@ -226,8 +226,18 @@ static int smu_v13_0_4_system_features_control(struct =
-smu_context *smu, bool en)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D smu-&gt;adev;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!en &amp;&amp; !adev-&gt;in_s0ix)=
-<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!en &amp;&amp; !adev-&gt;in_s0ix)=
- {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* Adds a GFX reset as workaround just before sending the<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * MP1_UNLOAD message to prevent GC/RLC/PMFW from entering<=
-br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * an invalid state.<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GfxDeviceDr=
-iverReset,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; SMU_RESET_MODE_2, NULL);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_PrepareMp1F=
-orUnload, NULL);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<br>
--- <br>
-2.39.2<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> For SOC21 ASICs, there is an issue in re-enabling PM features if a suspen=
+d got
+> aborted. In such cases, reset the device during resume phase. This is a
+> workaround till a proper solution is finalized.
+>
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 
---_000_BL1PR12MB5144DCC97AE1E0F4A355FC10F73B2BL1PR12MB5144namp_--
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+> v2: Read TOS status only if required (Kevin).
+>     Refine log message.
+>
+>  drivers/gpu/drm/amd/amdgpu/soc21.c | 25
+> +++++++++++++++++++++++++
+>  1 file changed, 25 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> index 8526282f4da1..abe319b0f063 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> @@ -867,10 +867,35 @@ static int soc21_common_suspend(void *handle)
+>       return soc21_common_hw_fini(adev);
+>  }
+>
+> +static bool soc21_need_reset_on_resume(struct amdgpu_device *adev) {
+> +     u32 sol_reg1, sol_reg2;
+> +
+> +     /* Will reset for the following suspend abort cases.
+> +      * 1) Only reset dGPU side.
+> +      * 2) S3 suspend got aborted and TOS is active.
+> +      */
+> +     if (!(adev->flags & AMD_IS_APU) && adev->in_s3 &&
+> +         !adev->suspend_complete) {
+> +             sol_reg1 =3D RREG32_SOC15(MP0, 0,
+> regMP0_SMN_C2PMSG_81);
+> +             msleep(100);
+> +             sol_reg2 =3D RREG32_SOC15(MP0, 0,
+> regMP0_SMN_C2PMSG_81);
+> +
+> +             return (sol_reg1 !=3D sol_reg2);
+> +     }
+> +
+> +     return false;
+> +}
+> +
+>  static int soc21_common_resume(void *handle)  {
+>       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+>
+> +     if (soc21_need_reset_on_resume(adev)) {
+> +             dev_info(adev->dev, "S3 suspend aborted, resetting...");
+> +             soc21_asic_reset(adev);
+> +     }
+> +
+>       return soc21_common_hw_init(adev);
+>  }
+>
+> --
+> 2.25.1
+
