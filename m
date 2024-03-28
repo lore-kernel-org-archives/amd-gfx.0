@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CCD9CD11DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 19:51:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A10ECD11DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 19:51:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAFD410E677;
-	Thu, 28 Mar 2024 19:51:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBE5E10E9C8;
+	Thu, 28 Mar 2024 19:51:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AFJDXyCq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hP49LTQl";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2069.outbound.protection.outlook.com [40.107.220.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ABBD10E4F0
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Mar 2024 19:51:30 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2066.outbound.protection.outlook.com [40.107.243.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64B4C10E516
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Mar 2024 19:51:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cDTLrdel3qVQNZVMTvkMjB8n251upW5Oxj8F4y8iFNQFlVFSpQOjeThey4CLbBudPWB54PrnrHU6CR8k59mGUgP0UL2v7nZJgd/v5ZjBOhbIYl/a7P4EtpjSGDYxPqVW5aAcOT27cPyh4DqQohEkdJJMnETsrWe3uq1qIPbFwjt18+BZsz+ugU9FRNoye1kvXIGa01tIjXLS1rqCtVJLaGwjU5P09HIsIhU9WeipnmzKfm52mFM/eodMAivma5wPR+Z9P56eF6+awPyRtBMH9ZqwuCKPK8EkYF0WDtSlG19QRt+LYQlJg3ypWrBe7XccFCe4fwl9hK6c6LMOM0URnw==
+ b=cGEY5YLtsgqjLlFzFYzrhiIHLg+LPSNuP7OjqdK5m7Bm92jcbq+0MnaSnKwxut+UJa9PXtxO61UGnHOBccqyfzOWyvce534wCXJtVwnr/qqY8ZsIVVbop6VPj6bDmvbzluJH71eGwhgXU4Ng4IcKDATmdGvuUsimI3BJRQl7+U9m+VBNfBIDPCe5j1Fk7FgQE1gLbiuI31Msgmr+fmmsuyIZcxGG0YWBtEJucse/oaZrs43o2i1r9aU4ZaN1uLZrLFF0ufSs3N6TT24wx3HsF8NgWd4l/4gHUI3JL9i7cyHRc9rDMrMZA12Ehrn2C2nvgvqi+AoYoKbP4BJptpod8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AxB1EY8pYMiKDhC1OgQ2aHegbOdJ+Zj74nU4NBiJGpY=;
- b=bC1DA/hXC84R+wpKsdTWH4ic7AC14iC2I+DlswUrpzPkGJiCMAyuHjHbf6/KK6GEuvGuTegGfd8RB2kUgGDH50g4JM22JpgURFTR4i+YFKFyzFATkB/toFryOW4qyrisF8AIFUZns0ThQlfu8NSCYjkUSWXIZKcZGWc8lD2J0ToVqd86x6WDPsQxWATkjU93+a+IlCr3Hvz2ShgcobeoSG2hh4+uCBgRA7Nak99c1Z+KcP0kzGB1dm+ElhIF0OuhtrShTWzlUTTLWqBGO6TFACOnx5fz7SrkKk6Aks8t0lzFuMaluhaJAtRdltyOihmzh/O+R5gxAMvFSNsTddLkyg==
+ bh=IZbawp6CqrMUWD+03p9TDFfZbKOneOjLlr9ruIMsVjM=;
+ b=ndu6Txjh6P9hNwERdS9wR2xZIjHsAZpLxxPrAm1ADh1JXWn9F3wh6NPA4yCF1ew1EsirGc/b4syCXKMZqIUJjkzGJ4A2HCMaO/dMzJOxWaTZynKVQJZEuS4MIFKka0XsKXnLSyaaDrk0yynK9Dgl7mJzvNhUFzBy/KL48xy1FpBPH5zhAlIqIVnaHqwaPulaYg0LpmjtueLPIjf401Xz43qOiXXl0XJGCgVSQyjz/0isjDKdYUlEbPBL1hMsVD74X7POfBZIiwFUbHtuDOaBNlRtD/k0Ld7DvPNQa7whmirMX0hE8DdKHsVlT2tjMmil/j5ON8sNwLaZurO6Jfh0YA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AxB1EY8pYMiKDhC1OgQ2aHegbOdJ+Zj74nU4NBiJGpY=;
- b=AFJDXyCqWfnCEIc9Nswh3Wil+4ED1AhZIWbXAAu80S0h6J+M9SjbI18M5Y6cWJWHOhJIe13XXLWmleWRQmYoyxEIBTMGXuLYQdI3KBFxJVWIPRvHHqmcSFaJKmXu+6hVLdmQXuDZOG2TB5GxpANjBnsewZ9QsInozfnzZhtOIZA=
-Received: from CH2PR14CA0052.namprd14.prod.outlook.com (2603:10b6:610:56::32)
- by PH8PR12MB7112.namprd12.prod.outlook.com (2603:10b6:510:22c::15)
+ bh=IZbawp6CqrMUWD+03p9TDFfZbKOneOjLlr9ruIMsVjM=;
+ b=hP49LTQlCEPfx37TRnAJzvDJ5RFunxUsNeo04oKp6TMLHPABzON7KbMi5a+OPl3AF+DFfmPN2bS4necRNHyoLXosZeAjzsEDhQTDYgS6JxNZmrJiJKTWWV33U4abhR+za3YcndG9uHbFfKKIknrJrAomUUzX9I2Ig10MFElXLJA=
+Received: from CH2PR14CA0056.namprd14.prod.outlook.com (2603:10b6:610:56::36)
+ by SJ2PR12MB8134.namprd12.prod.outlook.com (2603:10b6:a03:4fa::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.31; Thu, 28 Mar
- 2024 19:51:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.32; Thu, 28 Mar
+ 2024 19:51:29 +0000
 Received: from CH1PEPF0000AD7A.namprd04.prod.outlook.com
- (2603:10b6:610:56:cafe::62) by CH2PR14CA0052.outlook.office365.com
- (2603:10b6:610:56::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.34 via Frontend
- Transport; Thu, 28 Mar 2024 19:51:27 +0000
+ (2603:10b6:610:56:cafe::2d) by CH2PR14CA0056.outlook.office365.com
+ (2603:10b6:610:56::36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.27 via Frontend
+ Transport; Thu, 28 Mar 2024 19:51:29 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,59 +50,55 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CH1PEPF0000AD7A.mail.protection.outlook.com (10.167.244.59) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Thu, 28 Mar 2024 19:51:27 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ 15.20.7409.10 via Frontend Transport; Thu, 28 Mar 2024 19:51:28 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 28 Mar
- 2024 14:51:26 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 28 Mar
- 2024 14:51:26 -0500
+ 2024 14:51:27 -0500
 Received: from roman-vdev.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Thu, 28 Mar 2024 14:51:25 -0500
+ Transport; Thu, 28 Mar 2024 14:51:27 -0500
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Daniel Wheeler <daniel.wheeler@amd.com>, <Harry.Wentland@amd.com>,
  <Sunpeng.Li@amd.com>, <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, 
  <roman.li@amd.com>, <wayne.lin@amd.com>, <solomon.chiu@amd.com>,
- <agustin.gutierrez@amd.com>, <hamza.mahfooz@amd.com>, Hersen Wu
- <hersenxs.wu@amd.com>
-Subject: [PATCH 02/43] drm/amd/display: Add timing pixel encoding for mst mode
- validation
-Date: Thu, 28 Mar 2024 15:50:06 -0400
-Message-ID: <20240328195047.2843715-3-Roman.Li@amd.com>
+ <agustin.gutierrez@amd.com>, <hamza.mahfooz@amd.com>, Wenjing Liu
+ <wenjing.liu@amd.com>, Dillon Varone <dillon.varone@amd.com>
+Subject: [PATCH 04/43] drm/amd/display: optimize dml2 pipe resource allocation
+ order
+Date: Thu, 28 Mar 2024 15:50:08 -0400
+Message-ID: <20240328195047.2843715-5-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240328195047.2843715-1-Roman.Li@amd.com>
 References: <20240328195047.2843715-1-Roman.Li@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: Roman.Li@amd.com does not designate
+Received-SPF: None (SATLEXMB04.amd.com: Roman.Li@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|PH8PR12MB7112:EE_
-X-MS-Office365-Filtering-Correlation-Id: d628bd9a-ddbf-4935-5ce6-08dc4f6074ef
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|SJ2PR12MB8134:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b856c47-eb3c-43cf-ee5d-08dc4f6075e4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WKHROZFL28xNZxjbtzkhsXS7sjX+VsW/SkBvyTT9YbsjydaWaYzTcrINydmmlO9UbSjRGjVrIzFmcskcAMKgJHB4fxdyVQn/3IXpc4IJZCtQrI2altry4325IkmV8rj2OnL98whkzRiVstlmhEVWNjfN/D13hKJUX8mKFnKutaWsHI7Gf98TQSQoCfHpTRIMqytT1lXCH9VUkHKuM73aZZwE8CB2Jx35G2KMAUiE0qiJjsQswjcOFXDwDMcK7L1a63MhnuJIn0An9f0jNTJQuP8OG7oWkRaYe4VrmXCbjrJXUP+mbmJ5jYUG8Y9rDgjSeHIHvoHc6snWUh0PSIWngtGaAuxQIFmCi6ATr3ImcELUHwowBFY+YZIG0waj15ts35I82VDDXlHHt+LKRrd8V0d/ITtG9Q/KBaK/yYiBPeYZVR67GDndOQXR1GhKzpY434DCU/xuAj92Xcfbk52VfmXhaRqnFoMc0sJEs6CEzZ5+9XNMxf6oVRiXuk7smzvslrDpyjywq++OfxZ2AgpCVRaFDRajtlV1U1u3kOLt+ypummf5SMfgyJgoYEpHzHshhWg9EsR/e0jjv30GDT3XpEte24cMGDvHCrDFVzvSilWMcSoXldSiehGnaGnL2fArQKCYzYH7o1g3ZaC8fbNXdzwvTVeQQ/3iMomEGmHqE2feSpOQ+NFzlUGsa9bKVdx31U9hW8gg5I+37hYPuQnt1wI3wY0ojXmnfmCuBfqAwzdSS6hxgpxJSXJw4O0IHQyy
+X-Microsoft-Antispam-Message-Info: azF09BV30vh3v0Ik8rzVnqcEL00rsnugDYBHIFPgc4w740UDCNPr1lcjWqZO6G1oVnpg3/T1lKlDjM4AiFix7qgan1WN9O5Wqyb6qeX//xK4E0bj4IcTYasMskRRqjFSGJbCAhTAB67H6YwkpfFfxokGeEONQ+rnbyZ2iYHFNZBZCTDZmQCLPLAlue43iajKmR9YAZAxhjsVSAe6wWc4wNEMPoMvaQTMpq9MbCzrXVhPgH6cIYYtoCK5TStQSMuXaOo9QPDni9Jk0k53JInruRdB2B3pioUjKcX4l0sLZC2NRgIjWczk3jf4FcKy3Dmbvdg+skIUjL/tPFnu8V03oJVX7O6uO4aI80cY960YxHhotPSUUR/t8rUMx3v/DwTg50z9UNRCiG1rN4eCslHG2aCbUqq5gYjGYt21u+EEvO0xXN5NeJoLbp9Zqc8S6QI7yYn2XBKH6C6Z8PXgW6aYWIxhAMEFVxgL96KFZIhSVY/CDALi2AjTGeO3JhVXvnrb9G2flFHKPFexLEP5Xn6CFXo2mVkqxIcW58YdQFZJvqAJwm1wN6AT2bifVBULG3xbn59Tcqa3d4GdvHVPSE5y70lI66ITVbtPNeU0BAaNskk0aLD+dMKyKq+mbTjETpHo4xjjF7pjB+usDg0tDFV7Z1gU1S6m8gh35+t4ixyutGaomKzuJHqh19Rf3HyrKfhXMX5NZDLqihRwLFvo2UBreLRptWz3BFQ8BVILDvZMl0fJL7u6AewZXRO2nvUShtdo
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400014)(376005)(1800799015)(36860700004); DIR:OUT;
+ SFS:(13230031)(1800799015)(82310400014)(36860700004)(376005); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2024 19:51:27.5660 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d628bd9a-ddbf-4935-5ce6-08dc4f6074ef
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2024 19:51:28.7066 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b856c47-eb3c-43cf-ee5d-08dc4f6075e4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7A.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7112
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8134
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,76 +113,282 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hersen Wu <hersenxs.wu@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
-[Why] Mode pbn is not calculated correctly because timing pixel encoding is
-not checked within convert_dc_color_depth_into_bpc.
+[why]
+There could be cases that we are transition from MPC to ODM combine.
+In this case if we map pipes before unmapping MPC pipes, we might
+temporarly run out of pipes. The change reorders pipe resource
+allocation. So we unmapping pipes before mapping new pipes.
 
-[How] Get mode kbps from dc_bandwidth_in_kbps_from_timing, then calculate
-pbn by kbps_to_peak_pbn.
-
-Reviewed-by: Wayne Lin <wayne.lin@amd.com>
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
 Acked-by: Roman Li <roman.li@amd.com>
-Signed-off-by: Hersen Wu <hersenxs.wu@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 ---
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 35 ++++++++++++++++---
- 1 file changed, 30 insertions(+), 5 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |   2 +
+ .../display/dc/dml2/dml2_dc_resource_mgmt.c   | 126 ++++++++++++------
+ .../amd/display/dc/dml2/dml2_internal_types.h |  11 ++
+ .../drm/amd/display/dc/dml2/dml2_wrapper.h    |   2 +
+ 4 files changed, 97 insertions(+), 44 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 941e96f100f4..ad3170b72a47 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -1601,7 +1601,7 @@ enum dc_status dm_dp_mst_is_port_support_mode(
- 	struct amdgpu_dm_connector *aconnector,
- 	struct dc_stream_state *stream)
- {
--	int bpp, pbn, branch_max_throughput_mps = 0;
-+	int pbn, branch_max_throughput_mps = 0;
- 	struct dc_link_settings cur_link_settings;
- 	unsigned int end_to_end_bw_in_kbps = 0;
- 	unsigned int upper_link_bw_in_kbps = 0, down_link_bw_in_kbps = 0;
-@@ -1651,11 +1651,36 @@ enum dc_status dm_dp_mst_is_port_support_mode(
- 			}
- 		}
- 	} else {
--		/* check if mode could be supported within full_pbn */
--		bpp = convert_dc_color_depth_into_bpc(stream->timing.display_color_depth) * 3;
--		pbn = drm_dp_calc_pbn_mode(stream->timing.pix_clk_100hz / 10, bpp << 4);
--		if (pbn > aconnector->mst_output_port->full_pbn)
-+		/* Check if mode could be supported within max slot
-+		 * number of current mst link and full_pbn of mst links.
-+		 */
-+		int pbn_div, slot_num, max_slot_num;
-+		enum dc_link_encoding_format link_encoding;
-+		uint16_t fec_overhead_multiplier_x1000 =
-+			get_fec_overhead_multiplier(stream->link);
-+		uint32_t stream_kbps =
-+			dc_bandwidth_in_kbps_from_timing(&stream->timing,
-+				dc_link_get_highest_encoding_format(stream->link));
-+
-+		pbn = kbps_to_peak_pbn(stream_kbps, fec_overhead_multiplier_x1000);
-+		pbn_div = dm_mst_get_pbn_divider(stream->link);
-+		slot_num = DIV_ROUND_UP(pbn, pbn_div);
-+
-+		link_encoding = dc_link_get_highest_encoding_format(stream->link);
-+		if (link_encoding == DC_LINK_ENCODING_DP_8b_10b)
-+			max_slot_num = 63;
-+		else if (link_encoding == DC_LINK_ENCODING_DP_128b_132b)
-+			max_slot_num = 64;
-+		else {
-+			DRM_DEBUG_DRIVER("Invalid link encoding format\n");
- 			return DC_FAIL_BANDWIDTH_VALIDATE;
-+		}
-+
-+		if (slot_num > max_slot_num ||
-+			pbn > aconnector->mst_output_port->full_pbn) {
-+			DRM_DEBUG_DRIVER("Mode can not be supported within mst links!");
-+			return DC_FAIL_BANDWIDTH_VALIDATE;
-+		}
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index dd0428024173..601af21b2df9 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -5052,7 +5052,9 @@ void resource_init_common_dml2_callbacks(struct dc *dc, struct dml2_configuratio
+ 	dml2_options->callbacks.update_pipes_for_stream_with_slice_count = &resource_update_pipes_for_stream_with_slice_count;
+ 	dml2_options->callbacks.update_pipes_for_plane_with_slice_count = &resource_update_pipes_for_plane_with_slice_count;
+ 	dml2_options->callbacks.get_mpc_slice_index = &resource_get_mpc_slice_index;
++	dml2_options->callbacks.get_mpc_slice_count = &resource_get_mpc_slice_count;
+ 	dml2_options->callbacks.get_odm_slice_index = &resource_get_odm_slice_index;
++	dml2_options->callbacks.get_odm_slice_count = &resource_get_odm_slice_count;
+ 	dml2_options->callbacks.get_opp_head = &resource_get_opp_head;
+ 	dml2_options->callbacks.get_otg_master_for_stream = &resource_get_otg_master_for_stream;
+ 	dml2_options->callbacks.get_opp_heads_for_otg_master = &resource_get_opp_heads_for_otg_master;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
+index b64e0160d482..27d9da8ad7c1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
+@@ -793,7 +793,7 @@ static void map_pipes_for_plane(struct dml2_context *ctx, struct dc_state *state
+ 	free_unused_pipes_for_plane(ctx, state, plane, &scratch->pipe_pool, stream->stream_id, plane_index);
+ }
  
- 	/* check is mst dsc output bandwidth branch_overall_throughput_0_mps */
+-static unsigned int get_mpc_factor(struct dml2_context *ctx,
++static unsigned int get_target_mpc_factor(struct dml2_context *ctx,
+ 		struct dc_state *state,
+ 		const struct dml_display_cfg_st *disp_cfg,
+ 		struct dml2_dml_to_dc_pipe_mapping *mapping,
+@@ -822,7 +822,7 @@ static unsigned int get_mpc_factor(struct dml2_context *ctx,
+ 	return mpc_factor;
+ }
+ 
+-static unsigned int get_odm_factor(
++static unsigned int get_target_odm_factor(
+ 		const struct dml2_context *ctx,
+ 		struct dc_state *state,
+ 		const struct dml_display_cfg_st *disp_cfg,
+@@ -849,79 +849,117 @@ static unsigned int get_odm_factor(
+ 	return 1;
+ }
+ 
++static unsigned int get_source_odm_factor(const struct dml2_context *ctx,
++		struct dc_state *state,
++		const struct dc_stream_state *stream)
++{
++	struct pipe_ctx *otg_master = ctx->config.callbacks.get_otg_master_for_stream(&state->res_ctx, stream);
++
++	return ctx->config.callbacks.get_odm_slice_count(otg_master);
++}
++
++static unsigned int get_source_mpc_factor(const struct dml2_context *ctx,
++		struct dc_state *state,
++		const struct dc_plane_state *plane)
++{
++	struct pipe_ctx *dpp_pipes[MAX_PIPES];
++	int dpp_pipe_count = ctx->config.callbacks.get_dpp_pipes_for_plane(plane,
++			&state->res_ctx, dpp_pipes);
++
++	ASSERT(dpp_pipe_count > 0);
++	return ctx->config.callbacks.get_mpc_slice_count(dpp_pipes[0]);
++}
++
++
+ static void populate_mpc_factors_for_stream(
+ 		struct dml2_context *ctx,
+ 		const struct dml_display_cfg_st *disp_cfg,
+ 		struct dml2_dml_to_dc_pipe_mapping *mapping,
+ 		struct dc_state *state,
+ 		unsigned int stream_idx,
+-		unsigned int odm_factor,
+-		unsigned int mpc_factors[MAX_PIPES])
++		struct dml2_pipe_combine_factor odm_factor,
++		struct dml2_pipe_combine_factor mpc_factors[MAX_PIPES])
+ {
+ 	const struct dc_stream_status *status = &state->stream_status[stream_idx];
+ 	int i;
+ 
+-	for (i = 0; i < status->plane_count; i++)
+-		if (odm_factor == 1)
+-			mpc_factors[i] = get_mpc_factor(
+-					ctx, state, disp_cfg, mapping, status,
+-					state->streams[stream_idx], i);
+-		else
+-			mpc_factors[i] = 1;
++	for (i = 0; i < status->plane_count; i++) {
++		mpc_factors[i].source = get_source_mpc_factor(ctx, state, status->plane_states[i]);
++		mpc_factors[i].target = (odm_factor.target == 1) ?
++				get_target_mpc_factor(ctx, state, disp_cfg, mapping, status, state->streams[stream_idx], i) : 1;
++	}
+ }
+ 
+ static void populate_odm_factors(const struct dml2_context *ctx,
+ 		const struct dml_display_cfg_st *disp_cfg,
+ 		struct dml2_dml_to_dc_pipe_mapping *mapping,
+ 		struct dc_state *state,
+-		unsigned int odm_factors[MAX_PIPES])
++		struct dml2_pipe_combine_factor odm_factors[MAX_PIPES])
+ {
+ 	int i;
+ 
+-	for (i = 0; i < state->stream_count; i++)
+-		odm_factors[i] = get_odm_factor(
++	for (i = 0; i < state->stream_count; i++) {
++		odm_factors[i].source = get_source_odm_factor(ctx, state, state->streams[i]);
++		odm_factors[i].target = get_target_odm_factor(
+ 				ctx, state, disp_cfg, mapping, state->streams[i]);
++	}
+ }
+ 
+-static bool map_dc_pipes_for_stream(struct dml2_context *ctx,
++static bool unmap_dc_pipes_for_stream(struct dml2_context *ctx,
+ 		struct dc_state *state,
+ 		const struct dc_state *existing_state,
+ 		const struct dc_stream_state *stream,
+ 		const struct dc_stream_status *status,
+-		unsigned int odm_factor,
+-		unsigned int mpc_factors[MAX_PIPES])
++		struct dml2_pipe_combine_factor odm_factor,
++		struct dml2_pipe_combine_factor mpc_factors[MAX_PIPES])
+ {
+ 	int plane_idx;
+ 	bool result = true;
+ 
+-	if (odm_factor == 1)
+-		/*
+-		 * ODM and MPC combines are by DML design mutually exclusive.
+-		 * ODM factor of 1 means MPC factors may be greater than 1.
+-		 * In this case, we want to set ODM factor to 1 first to free up
+-		 * pipe resources from previous ODM configuration before setting
+-		 * up MPC combine to acquire more pipe resources.
+-		 */
++	for (plane_idx = 0; plane_idx < status->plane_count; plane_idx++)
++		if (mpc_factors[plane_idx].target < mpc_factors[plane_idx].source)
++			result &= ctx->config.callbacks.update_pipes_for_plane_with_slice_count(
++					state,
++					existing_state,
++					ctx->config.callbacks.dc->res_pool,
++					status->plane_states[plane_idx],
++					mpc_factors[plane_idx].target);
++	if (odm_factor.target < odm_factor.source)
+ 		result &= ctx->config.callbacks.update_pipes_for_stream_with_slice_count(
+ 				state,
+ 				existing_state,
+ 				ctx->config.callbacks.dc->res_pool,
+ 				stream,
+-				odm_factor);
++				odm_factor.target);
++	return result;
++}
++
++static bool map_dc_pipes_for_stream(struct dml2_context *ctx,
++		struct dc_state *state,
++		const struct dc_state *existing_state,
++		const struct dc_stream_state *stream,
++		const struct dc_stream_status *status,
++		struct dml2_pipe_combine_factor odm_factor,
++		struct dml2_pipe_combine_factor mpc_factors[MAX_PIPES])
++{
++	int plane_idx;
++	bool result = true;
++
+ 	for (plane_idx = 0; plane_idx < status->plane_count; plane_idx++)
+-		result &= ctx->config.callbacks.update_pipes_for_plane_with_slice_count(
+-				state,
+-				existing_state,
+-				ctx->config.callbacks.dc->res_pool,
+-				status->plane_states[plane_idx],
+-				mpc_factors[plane_idx]);
+-	if (odm_factor > 1)
++		if (mpc_factors[plane_idx].target > mpc_factors[plane_idx].source)
++			result &= ctx->config.callbacks.update_pipes_for_plane_with_slice_count(
++					state,
++					existing_state,
++					ctx->config.callbacks.dc->res_pool,
++					status->plane_states[plane_idx],
++					mpc_factors[plane_idx].target);
++	if (odm_factor.target > odm_factor.source)
+ 		result &= ctx->config.callbacks.update_pipes_for_stream_with_slice_count(
+ 				state,
+ 				existing_state,
+ 				ctx->config.callbacks.dc->res_pool,
+ 				stream,
+-				odm_factor);
++				odm_factor.target);
+ 	return result;
+ }
+ 
+@@ -931,20 +969,20 @@ static bool map_dc_pipes_with_callbacks(struct dml2_context *ctx,
+ 		struct dml2_dml_to_dc_pipe_mapping *mapping,
+ 		const struct dc_state *existing_state)
+ {
+-	unsigned int odm_factors[MAX_PIPES];
+-	unsigned int mpc_factors_for_stream[MAX_PIPES];
+ 	int i;
+ 	bool result = true;
+ 
+-	populate_odm_factors(ctx, disp_cfg, mapping, state, odm_factors);
+-	for (i = 0; i < state->stream_count; i++) {
++	populate_odm_factors(ctx, disp_cfg, mapping, state, ctx->pipe_combine_scratch.odm_factors);
++	for (i = 0; i < state->stream_count; i++)
+ 		populate_mpc_factors_for_stream(ctx, disp_cfg, mapping, state,
+-				i, odm_factors[i], mpc_factors_for_stream);
+-		result &= map_dc_pipes_for_stream(ctx, state, existing_state,
+-				state->streams[i],
+-				&state->stream_status[i],
+-				odm_factors[i], mpc_factors_for_stream);
+-	}
++				i, ctx->pipe_combine_scratch.odm_factors[i], ctx->pipe_combine_scratch.mpc_factors[i]);
++	for (i = 0; i < state->stream_count; i++)
++		result &= unmap_dc_pipes_for_stream(ctx, state, existing_state, state->streams[i],
++				&state->stream_status[i], ctx->pipe_combine_scratch.odm_factors[i], ctx->pipe_combine_scratch.mpc_factors[i]);
++	for (i = 0; i < state->stream_count; i++)
++		result &= map_dc_pipes_for_stream(ctx, state, existing_state, state->streams[i],
++				&state->stream_status[i], ctx->pipe_combine_scratch.odm_factors[i], ctx->pipe_combine_scratch.mpc_factors[i]);
++
+ 	return result;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_internal_types.h b/drivers/gpu/drm/amd/display/dc/dml2/dml2_internal_types.h
+index 1cf8a884c0fb..9dab4e43c511 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_internal_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_internal_types.h
+@@ -109,10 +109,21 @@ enum dml2_architecture {
+ 	dml2_architecture_20,
+ };
+ 
++struct dml2_pipe_combine_factor {
++	unsigned int source;
++	unsigned int target;
++};
++
++struct dml2_pipe_combine_scratch {
++	struct dml2_pipe_combine_factor odm_factors[MAX_PIPES];
++	struct dml2_pipe_combine_factor mpc_factors[MAX_PIPES][MAX_PIPES];
++};
++
+ struct dml2_context {
+ 	enum dml2_architecture architecture;
+ 	struct dml2_configuration_options config;
+ 	struct dml2_helper_det_policy_scratch det_helper_scratch;
++	struct dml2_pipe_combine_scratch pipe_combine_scratch;
+ 	union {
+ 		struct {
+ 			struct display_mode_lib_st dml_core_ctx;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h
+index 6e97337863e0..54aff9beb73a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h
+@@ -86,7 +86,9 @@ struct dml2_dc_callbacks {
+ 			const struct dc_plane_state *plane,
+ 			int slice_count);
+ 	int (*get_odm_slice_index)(const struct pipe_ctx *opp_head);
++	int (*get_odm_slice_count)(const struct pipe_ctx *opp_head);
+ 	int (*get_mpc_slice_index)(const struct pipe_ctx *dpp_pipe);
++	int (*get_mpc_slice_count)(const struct pipe_ctx *dpp_pipe);
+ 	struct pipe_ctx *(*get_opp_head)(const struct pipe_ctx *pipe_ctx);
+ 	struct pipe_ctx *(*get_otg_master_for_stream)(
+ 		struct resource_context *res_ctx,
 -- 
 2.34.1
 
