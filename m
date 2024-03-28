@@ -4,92 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F2B9C54E67
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 04:18:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07EA0C54E67
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Mar 2024 04:18:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3EA210FE89;
-	Thu, 28 Mar 2024 04:18:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE20110FF0A;
+	Thu, 28 Mar 2024 04:18:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0ktLmwuM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TtGLV67C";
 	dkim-atps=neutral
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2052.outbound.protection.outlook.com [40.107.237.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0272F10EBD2
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Mar 2024 04:18:13 +0000 (UTC)
+ (mail-bn8nam12on2070.outbound.protection.outlook.com [40.107.237.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEE2C10EBD2;
+ Thu, 28 Mar 2024 04:18:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aUE4J13g2EP7v+lbyL6HdLWObFrU9xMf21mFiYKIdvVYRryoKuOEcZQU0qCt3FjYWHaDSMi7xX9cRx50Tlxw0goSlmt8MVnwRh8gJ7a60qCr7yRDhkBnwaPtqTnd4Nu8GmZv1xBgSyZD8A0zqy2Gkmd/B8yXyfZI7cdHk9lN5RdPEIs0UeTyoksxwRjXjb7p2kRShlewtW+MDk7v5t5Xn4p/GqPCRmndoWy4ruOy3uTDyx1fKvPC7P3bjNQlt1d9mBL22VaZZCo9alkOthl2GGQPUBUyR6azHLLz1gzgPiAmZejYunEDGnpHiroUNcVJjzTw4fk4tLZk4jdX102ABQ==
+ b=iMq/aHwZQnjDA1QmoDn00R8SW2uDPRut/5G4WLTMy3XYdTRjj7ZTGsJjLDMHOzi8B+1ypl+cL7gm00LBhXK8xQk8Dv+p9RO+V/mpd2L3Vip9hf7glBrIBRmzPiYmT32YU8hK2l+tqv8Cwocn2BICdjVBR1q81mfC/KIKfTsPuneoKR96f1lycehw/YUe92nO2t/Mz8KTeO4AzwJOpqvj8zmVNCkmRwSKADA4rB+W2lpMK+7KdPmY32ZLKYp1FY86oOlvtJBNGGNSAoG4x/ATmJNJjk07w+nsrnpD0lKBe5s76nLt1R83qPHyHOzF9wnnWgXPBeCGzemUP9Qfr0G0Rg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IijEUp8KBNFH+RRn5tNTtBVWfQhKoRh4JU+Ekr7XgRM=;
- b=ddao7h6T1M6Qre3iMj8qQWutnnrI0mtbnuVvidjmxH/fb7ncXJ6OVWcZstJBD2/t/s3TxGQt181N7Slpaiz71WKoTEwiEEktQrRCSMKoABMoZldf+FsDmBRYcveUEnVdaQNA9Y3z96SOnNpqpwsY7LDaPBprxF0lmlStnCsybSsZpnoNkfPGSX4PHbiMI9fK4WU6w2OQ5hHpjB8tvBJ0ro//hbNK8HKeBAzJCcvrqWihSIQHwRA/JnT2lIhlWE3WnaGsIwopaju5417SwCH1u5KUMRsHgJTp2bmX52adAdZoz9E5uN06B0CP8zD65O5b026sl/9JMF9R5aLL0GyIjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=CRyp0gvdjPJzFOP2ppgNmmenCRv/rv5wKT0Wc8Ld0YY=;
+ b=lCPptV8VfFHIPCNqH6Ss2s9WjFGfGgsl0exx97AM67nZacpJmF9eYqbJJBVDVE9UEOWBoT5CXJ0gnO4evRZOOzF0JdMpfDcl/A6PpvaPyThu0G8MfVBT3l0HjQSvU9/WkHpRGueLirIWUj0PCiD90UDzFFbvttKEl5ZRq05LOsE++Rp8u8V/DpxHpIXxsrLOzuRgwrrXGzZDCdmzzi1bE3+8BYqR0RJoWP85/AXXov2wU71GD7KtRfb5dZH7G3JAFhFGGpKbCBUf+n39hVVLUJ0hs+1lp+D3h9xFYYvGUwVFtoesK9ePK6Q2t0tCeJBgDQZK0fXfXKVn3nX/i2G+hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IijEUp8KBNFH+RRn5tNTtBVWfQhKoRh4JU+Ekr7XgRM=;
- b=0ktLmwuM9NoF628WPPdApZ4SDsZaI82sSrQEHjBT2XhdIb+J1GHCJRO5j6TkdY5fNc+yGP0E2enhQC7yh77rwN4lFDOqgubu7KQmgg3Jp7+9H4mKHHtw/x6KfZ0wRp7fg9BjtNowDCwXG9zPW/dAosyQX7mvmwo+jz378ersakk=
-Received: from BYAPR01CA0038.prod.exchangelabs.com (2603:10b6:a03:94::15) by
- DM6PR12MB4330.namprd12.prod.outlook.com (2603:10b6:5:21d::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7409.32; Thu, 28 Mar 2024 04:18:11 +0000
-Received: from CO1PEPF000066E8.namprd05.prod.outlook.com
- (2603:10b6:a03:94:cafe::c5) by BYAPR01CA0038.outlook.office365.com
- (2603:10b6:a03:94::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
- Transport; Thu, 28 Mar 2024 04:18:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000066E8.mail.protection.outlook.com (10.167.249.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Thu, 28 Mar 2024 04:18:10 +0000
-Received: from ldev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 27 Mar
- 2024 23:18:08 -0500
-From: Tim Huang <tim.huang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Yifan1.zhang@amd.com>, Tim Huang
- <Tim.Huang@amd.com>
-Subject: [PATCH] drm/amd/pm: fixes a random hang in S4 for SMU v13.0.4/11
-Date: Thu, 28 Mar 2024 12:17:20 +0800
-Message-ID: <20240328041720.276684-1-tim.huang@amd.com>
-X-Mailer: git-send-email 2.39.2
-MIME-Version: 1.0
+ bh=CRyp0gvdjPJzFOP2ppgNmmenCRv/rv5wKT0Wc8Ld0YY=;
+ b=TtGLV67C81NjPBzXUvWQKjjT4irQ2a7gKLBSNDT2vylZg/smL7SE1khI0hb4s3XE5e+xdAQSYDtEzxlKAUO59oSXbLZiFcLsgdBxwp6NsNme6KIxIi6/awRIWxt9dC2RlEhE3YYkFZKSzZ+NZjYuQPRTKEoU3gP451VIanThtww=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13)
+ by MN0PR12MB5882.namprd12.prod.outlook.com (2603:10b6:208:37a::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.32; Thu, 28 Mar
+ 2024 04:18:28 +0000
+Received: from PH7PR12MB5596.namprd12.prod.outlook.com
+ ([fe80::6974:3875:ed0:7033]) by PH7PR12MB5596.namprd12.prod.outlook.com
+ ([fe80::6974:3875:ed0:7033%3]) with mapi id 15.20.7409.028; Thu, 28 Mar 2024
+ 04:18:27 +0000
+Message-ID: <c41d7f3c-c717-43b7-86e5-c74532e4a2ec@amd.com>
+Date: Thu, 28 Mar 2024 09:48:18 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: add IP's FW information to devcoredump
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>, Sunil Khatri <sunil.khatri@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Hawking Zhang <Hawking.Zhang@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
+References: <20240326173142.2324624-1-sunil.khatri@amd.com>
+ <CADnq5_ONivR7io0w6vkHsQSSMnNCRJU=XdDD6D6SQZ8t9o3FAA@mail.gmail.com>
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <CADnq5_ONivR7io0w6vkHsQSSMnNCRJU=XdDD6D6SQZ8t9o3FAA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: PN3PR01CA0035.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:97::14) To PH7PR12MB5596.namprd12.prod.outlook.com
+ (2603:10b6:510:136::13)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066E8:EE_|DM6PR12MB4330:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6c6701a5-74b2-4cf9-4920-08dc4ede1413
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5596:EE_|MN0PR12MB5882:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ba2729e-52ff-4601-8fed-08dc4ede1e18
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SPE6sUm+6QeSgk8QvJgRg0TN3e06Kmm6qdIci2soK6e3QW6D/jyKi9hCNE6gkbyDxfwvmNiMdRuYW9FTsxMfbDMHnwz/geBMWz+bF86ZWrImZOMwQpZpOReCu7artOMmeDuoHYKhN8Fbgk9sCDM3O7l7Qf1OeQ+n7CXfVifpM6J2EF881mYbB4qWCzlc3P+7P8YDTHe2j2jfFoHOI47hO96Ge2EZxyAmfLnvHct3Z2b3hF1VcZ3A5X8EsgCkJ+BW9l5gqIquyZLG5wL9rPslYHwJ3vVzFcEibD/l8KHDvXEF06bCqfg3X7t6YoeYd1gcTuhoi3J+Kx35pNj1YH/5UXz0qVikHaQTD29sbQZMPCIHtkivOPY9zo7BSUfoaAiMucsgBD4r7LAPfzXbPb6QuXNp2U6/JXjmlsVwwSFwzEq2B6BArqW47gLeQ3bqys+IMrdAKtg27we78dPnarLkCltAwkfmdOLS5AwdlXSmf3Jtz0a0Jde9nmyt/slvnrV2XiJjTbvnBiBMKxBoKbc6tRKIpJtpb8hKrHURdyU5K38TB3B9ka3oOVxE09f1S3ZOmaNXk3gnHbEAF7EZWcWjMGh+CdeDcD8rT8NNNyHiWeAhoESZ+1gnu5KC32J2w9W4FHHLnzr8Aa6lt749r+4IycXdzit71fN53m5KDIUxKY/nqq3TJHe9SYkxDO3Jgz92vgnco0jfI8zS2/2ISWHF3ScaUemVSE+rUF923PlOQj7ZVaaOk85QQauuRc7kuMPh
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(36860700004)(82310400014); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam-Message-Info: ilsKgfERnK0GyO7MOOm5wmU5sgEKnIRNcb5xoGkXhpRs6bzlOGQYFUhNs90D9Zrp9CDMoiOSqhr33LQ/u4rygDyg4kLFJbsiutVwCiCGBK8jk9yI3eq1awxqMvnqj4wC8Z2ftgRHB8Gt1TGraN4ByJMd+4d4yBPRYaERMQO0mOPEBLlj7aACONJrocvPiQXkEjRwb/4slchIi4FWWG2yUOmnAJ+Uls+EW+FJFVLhqzDHkiRkQkORuoaflRmVqQq6l+WDbMVUNBtlcoCFkq+4X5FVBjc1idZ6a/IXO3gxOVbsbHo+PrJymEK8eSc6Xd9xpNYELX6NWhzLupxHJ+AfjC3Fd5ugFhycqREow9ufBgT/XqbKs7qgAHWCN54fhHH3HDSG+EZnFatlEUdCMBIj9bxBlNDcwgiPAMaMFPPSNcjbg2UN8jPZ+tyKwgsGRg2zJWKtcPqjg4r/djEoW4A1JAXrK3dSNJeBG95biHAfhKbg4Ecbdqo11QMfQdAa/+5vadNq1o9jDvA6dbXhLEBW3npbNyBanIXWl+f2B861l+nnVufTJqAdWPhCysxfIbAgGhxbYm+qtsKqPHEPrvOA/XtemQAl32oi/Odto9PBO8m/iV2pqzRSWcSyALn9GJEHyCWFJzNQW2lGnZJrQP2sSnjPF90Bj7juHIPIFkyyRL4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5596.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MXB5dDFkQ0RHV2JsS1l1Vk41b1NoKzllbVBYN0J6ZHA5MDZlaFFOc0hGTWlp?=
+ =?utf-8?B?c2NBSzg4NUhPVmRxYzlMTzNlRnc0Y2h4dHljL2R0YnJWcUQ2dGtqYWFianVq?=
+ =?utf-8?B?MXNUd3pudEsvUUhEd2UyamRZRjROdXNLem42bzF2bTBaMkVKVmJ4MURENVhU?=
+ =?utf-8?B?QUpzaUliMU82K201VllHT2dnSVB1dkdnbC9PQ05kQjZOZy80aktmWTdBdEtE?=
+ =?utf-8?B?UHlmaXZnNEZZRTJGbFZMSTE4RGN4b3VXUmZ2OVREaSs4SXJNTFozMmZodVJj?=
+ =?utf-8?B?aXpoTFVJNnlSZERGbWlLLzhSR1RCWVhFUEpIMG9ta1ZHNWg4VVNuSEREK21F?=
+ =?utf-8?B?ejdQUUk4RGN1WWJpL1hzRzNGSzB5SkdXcmNlTVFhZ2Z0TlpINVZqUXMzMFVa?=
+ =?utf-8?B?K0lGZDVTbUlBSDFNSFhvaVE5d21sTGJqRTl2Z0ZwVFhrNTU0cE5yWldWYkUx?=
+ =?utf-8?B?Sll0V3Y5S2Z6dWVhZ01YZkxqb0g4Wjh3V1pjYWNZQ3R4UTVGeDRGcDZUbkpr?=
+ =?utf-8?B?S28yb0lIMm1pQ2RCNUx4Y2FBVzY4em0zekducWxPTEt3ZHhmd1htN09yWUZE?=
+ =?utf-8?B?WmNPSWp3S0l6ci9BYXk1S1d5eDZ1amU0TTdBUmRGbzhsVnNQU2NIeFU0UDd6?=
+ =?utf-8?B?Y2ZUbHlsVURDZ3JLb1R6eCtmRlRUTkd6RWZWcUtvK3FyTmNFcUUzSWlCb043?=
+ =?utf-8?B?ZTZ3M0lyNDJoMDZLQWlydWwva0FkOTJZa2wzeWlVSUtmcE5mN2JuSzJaU1Bu?=
+ =?utf-8?B?b01XR1N0MTROK0dpTmhxK1U4MHNhTUh0NEFTQXJOeFlqOUNxS2ZISTh0Zm9v?=
+ =?utf-8?B?NVBneUFxQVc5amh5MFpIWjRWcFA0SmpsUU5GMDVNSktOZmZ0R1ZabUlJWGJV?=
+ =?utf-8?B?YThDWTY4c3Noc0drSVFVRVhrek5RV0NPMTh2VEJmMkxCcnYxQVArL0FIR2lH?=
+ =?utf-8?B?azdwaVROVUZOM29MS3VQUkhtYXk5Q2x5ZFpCYk4ramc4b1NQMTZsSVRmOW9W?=
+ =?utf-8?B?TlBVTXVTS2FVRVBZZndMd0t4NGpJYjlZMFh6U1BMRWdaejhTZmJGMENZdVVh?=
+ =?utf-8?B?YzAxTTEvYU1KQlpXSUtSY3ZmcCtRKzA2bGQ1eDI1RE5Ia0FwNytPaFBYdUNs?=
+ =?utf-8?B?RXArVUJueVI0TVZsV0ZkLy9LUWFTN0xhMGRWemVlalBLcENLOGZyVlh0SkEy?=
+ =?utf-8?B?RkhCNVZhV0tEVXgyY29VbVpiejRWb0pzc1A3T0NaeE9NWUoxNWtPK0o1V2gr?=
+ =?utf-8?B?aXRDcVIrSHlxNTNySXNjMjRZZUdTcDVSNG11M2lCL1FaQWZEOWRYRUNCMEM2?=
+ =?utf-8?B?YmpVK2hLR0tvVlRXWFBORHZpQVNpZkQ0anIyaFYzTXQxSXo3WFhrSC94bkU3?=
+ =?utf-8?B?SnovR0taa0xCcmVlNGp4WW9qdmk5NHUyWXBLRWVrblllT1BCSlZIN00xcWJZ?=
+ =?utf-8?B?emRuTzc1bGFBTDFHWG9BQS9sOStzVVhkWTBEMEhES25KOC8wT1Y1OGF2a3NI?=
+ =?utf-8?B?ZXlUTEh4Y2RqQkFnalBLWkhOQkxHV3hNR0JxUUNVZ1dYQ2Zia3o3UEcxSjBu?=
+ =?utf-8?B?T0ExdmRHWHdIOTR1M3BwRXN0OFIyTW5EQkFCZWxUS3hkKy9KWlcvaDdGM0Zo?=
+ =?utf-8?B?azliRm80MzNPNTFCQklwaStBRXlxcmZSek9HLytQa1gvNnRIZXpUK2xqdlZN?=
+ =?utf-8?B?QWVkK2JoaksvcjNsdHhJVExMbFJnUkVVTzlhRFNDY3dIUnRMM1FOUkdjRkl4?=
+ =?utf-8?B?c0pjSWJXTjZkeUk3cEh4Qld2Sm4zUnBqYmg5dFZoa09RQStHR0VrWEQrV21w?=
+ =?utf-8?B?SklEc0JadVBqZkFjcVA2cXNUU2V5cC9ZOTdlVHJwV0VEd0d5Sy9nR1dXVDdu?=
+ =?utf-8?B?U1NZeWk0OXJwWFlJQzhUU1J0SlRWR0RsNHRNTGdCdytkazFpWFhTSWVISlJN?=
+ =?utf-8?B?RHIvTUl0NnRMYy9wdjZOdU1veHNGam1wQTFpVDBtdEQ1RjFLWTR1bno1N05H?=
+ =?utf-8?B?L3VTNUI2bCtLSDlGUVI5cHpnUWE2cGI2OFNvbXU1WEVZK2pMV3dXZDJ1Yk1i?=
+ =?utf-8?B?eFlRZW03TjB6eTR6S09XQ21TRUVNWTB1dTArcEQrbmhtTndNRm55K0pIcTRn?=
+ =?utf-8?Q?qxJpWLlPhNoyiZlcWQdB8vAFm?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2024 04:18:10.4719 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c6701a5-74b2-4cf9-4920-08dc4ede1413
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ba2729e-52ff-4601-8fed-08dc4ede1e18
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5596.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2024 04:18:27.7751 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000066E8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4330
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7Mp4I7Hu9PEaaTxftXxBvSSkvSPvoFRAnPcQJZnvNURY52TD2fwRxmrUWR1Ik1fBI74i9o/RjxZcLPiya5zoKA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5882
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,43 +134,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tim Huang <Tim.Huang@amd.com>
 
-While doing multiple S4 stress tests, GC/RLC/PMFW get into
-an invalid state resulting into hard hangs.
+On 3/28/2024 8:38 AM, Alex Deucher wrote:
+> On Tue, Mar 26, 2024 at 1:31 PM Sunil Khatri <sunil.khatri@amd.com> wrote:
+>> Add FW information of all the IP's in the devcoredump.
+>>
+>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> Might want to include the vbios version info as well, e.g.,
+> atom_context->name
+> atom_context->vbios_pn
+> atom_context->vbios_ver_str
+> atom_context->date
 
-Adding a GFX reset as workaround just before sending the
-MP1_UNLOAD message avoids this failure.
+Sure i will add those parameters too.
 
-Signed-off-by: Tim Huang <Tim.Huang@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+Regards
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-index e8119918ef6b..88f1a0d878f3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-@@ -226,8 +226,18 @@ static int smu_v13_0_4_system_features_control(struct smu_context *smu, bool en)
- 	struct amdgpu_device *adev = smu->adev;
- 	int ret = 0;
- 
--	if (!en && !adev->in_s0ix)
-+	if (!en && !adev->in_s0ix) {
-+		/* Adds a GFX reset as workaround just before sending the
-+		 * MP1_UNLOAD message to prevent GC/RLC/PMFW from entering
-+		 * an invalid state.
-+		 */
-+		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GfxDeviceDriverReset,
-+						      SMU_RESET_MODE_2, NULL);
-+		if (ret)
-+			return ret;
-+
- 		ret = smu_cmn_send_smc_msg(smu, SMU_MSG_PrepareMp1ForUnload, NULL);
-+	}
- 
- 	return ret;
- }
--- 
-2.39.2
+Sunil
 
+> Either way,
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+>
+>> ---
+>>   .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 122 ++++++++++++++++++
+>>   1 file changed, 122 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+>> index 44c5da8aa9ce..d598b6520ec9 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+>> @@ -69,6 +69,124 @@ const char *hw_ip_names[MAX_HWIP] = {
+>>          [PCIE_HWIP]             = "PCIE",
+>>   };
+>>
+>> +static void amdgpu_devcoredump_fw_info(struct amdgpu_device *adev,
+>> +                                      struct drm_printer *p)
+>> +{
+>> +       uint32_t version;
+>> +       uint32_t feature;
+>> +       uint8_t smu_program, smu_major, smu_minor, smu_debug;
+>> +
+>> +       drm_printf(p, "VCE feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->vce.fb_version, adev->vce.fw_version);
+>> +       drm_printf(p, "UVD feature version: %u, fw version: 0x%08x\n", 0,
+>> +                  adev->uvd.fw_version);
+>> +       drm_printf(p, "GMC feature version: %u, fw version: 0x%08x\n", 0,
+>> +                  adev->gmc.fw_version);
+>> +       drm_printf(p, "ME feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.me_feature_version, adev->gfx.me_fw_version);
+>> +       drm_printf(p, "PFP feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.pfp_feature_version, adev->gfx.pfp_fw_version);
+>> +       drm_printf(p, "CE feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.ce_feature_version, adev->gfx.ce_fw_version);
+>> +       drm_printf(p, "RLC feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.rlc_feature_version, adev->gfx.rlc_fw_version);
+>> +
+>> +       drm_printf(p, "RLC SRLC feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.rlc_srlc_feature_version,
+>> +                  adev->gfx.rlc_srlc_fw_version);
+>> +       drm_printf(p, "RLC SRLG feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.rlc_srlg_feature_version,
+>> +                  adev->gfx.rlc_srlg_fw_version);
+>> +       drm_printf(p, "RLC SRLS feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.rlc_srls_feature_version,
+>> +                  adev->gfx.rlc_srls_fw_version);
+>> +       drm_printf(p, "RLCP feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.rlcp_ucode_feature_version,
+>> +                  adev->gfx.rlcp_ucode_version);
+>> +       drm_printf(p, "RLCV feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.rlcv_ucode_feature_version,
+>> +                  adev->gfx.rlcv_ucode_version);
+>> +       drm_printf(p, "MEC feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->gfx.mec_feature_version, adev->gfx.mec_fw_version);
+>> +
+>> +       if (adev->gfx.mec2_fw)
+>> +               drm_printf(p, "MEC2 feature version: %u, fw version: 0x%08x\n",
+>> +                          adev->gfx.mec2_feature_version,
+>> +                          adev->gfx.mec2_fw_version);
+>> +
+>> +       drm_printf(p, "IMU feature version: %u, fw version: 0x%08x\n", 0,
+>> +                  adev->gfx.imu_fw_version);
+>> +       drm_printf(p, "PSP SOS feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->psp.sos.feature_version, adev->psp.sos.fw_version);
+>> +       drm_printf(p, "PSP ASD feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->psp.asd_context.bin_desc.feature_version,
+>> +                  adev->psp.asd_context.bin_desc.fw_version);
+>> +
+>> +       drm_printf(p, "TA XGMI feature version: 0x%08x, fw version: 0x%08x\n",
+>> +                  adev->psp.xgmi_context.context.bin_desc.feature_version,
+>> +                  adev->psp.xgmi_context.context.bin_desc.fw_version);
+>> +       drm_printf(p, "TA RAS feature version: 0x%08x, fw version: 0x%08x\n",
+>> +                  adev->psp.ras_context.context.bin_desc.feature_version,
+>> +                  adev->psp.ras_context.context.bin_desc.fw_version);
+>> +       drm_printf(p, "TA HDCP feature version: 0x%08x, fw version: 0x%08x\n",
+>> +                  adev->psp.hdcp_context.context.bin_desc.feature_version,
+>> +                  adev->psp.hdcp_context.context.bin_desc.fw_version);
+>> +       drm_printf(p, "TA DTM feature version: 0x%08x, fw version: 0x%08x\n",
+>> +                  adev->psp.dtm_context.context.bin_desc.feature_version,
+>> +                  adev->psp.dtm_context.context.bin_desc.fw_version);
+>> +       drm_printf(p, "TA RAP feature version: 0x%08x, fw version: 0x%08x\n",
+>> +                  adev->psp.rap_context.context.bin_desc.feature_version,
+>> +                  adev->psp.rap_context.context.bin_desc.fw_version);
+>> +       drm_printf(
+>> +               p,
+>> +               "TA SECURE DISPLAY feature version: 0x%08x, fw version: 0x%08x\n",
+>> +               adev->psp.securedisplay_context.context.bin_desc.feature_version,
+>> +               adev->psp.securedisplay_context.context.bin_desc.fw_version);
+>> +
+>> +       /* SMC firmware */
+>> +       version = adev->pm.fw_version;
+>> +
+>> +       smu_program = (version >> 24) & 0xff;
+>> +       smu_major = (version >> 16) & 0xff;
+>> +       smu_minor = (version >> 8) & 0xff;
+>> +       smu_debug = (version >> 0) & 0xff;
+>> +       drm_printf(p,
+>> +                  "SMC feature version: %u, program: %d, fw version: 0x%08x (%d.%d.%d)\n",
+>> +                  0, smu_program, version, smu_major, smu_minor, smu_debug);
+>> +
+>> +       /* SDMA firmware */
+>> +       for (int i = 0; i < adev->sdma.num_instances; i++) {
+>> +               drm_printf(p,
+>> +                          "SDMA%d feature version: %u, firmware version: 0x%08x\n",
+>> +                          i, adev->sdma.instance[i].feature_version,
+>> +                          adev->sdma.instance[i].fw_version);
+>> +       }
+>> +
+>> +       drm_printf(p, "VCN feature version: %u, fw version: 0x%08x\n", 0,
+>> +                  adev->vcn.fw_version);
+>> +       drm_printf(p, "DMCU feature version: %u, fw version: 0x%08x\n", 0,
+>> +                  adev->dm.dmcu_fw_version);
+>> +       drm_printf(p, "DMCUB feature version: %u, fw version: 0x%08x\n", 0,
+>> +                  adev->dm.dmcub_fw_version);
+>> +       drm_printf(p, "PSP TOC feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->psp.toc.feature_version, adev->psp.toc.fw_version);
+>> +
+>> +       version = adev->mes.kiq_version & AMDGPU_MES_VERSION_MASK;
+>> +       feature = (adev->mes.kiq_version & AMDGPU_MES_FEAT_VERSION_MASK) >>
+>> +                 AMDGPU_MES_FEAT_VERSION_SHIFT;
+>> +       drm_printf(p, "MES_KIQ feature version: %u, fw version: 0x%08x\n",
+>> +                  feature, version);
+>> +
+>> +       version = adev->mes.sched_version & AMDGPU_MES_VERSION_MASK;
+>> +       feature = (adev->mes.sched_version & AMDGPU_MES_FEAT_VERSION_MASK) >>
+>> +                 AMDGPU_MES_FEAT_VERSION_SHIFT;
+>> +       drm_printf(p, "MES feature version: %u, fw version: 0x%08x\n", feature,
+>> +                  version);
+>> +
+>> +       drm_printf(p, "VPE feature version: %u, fw version: 0x%08x\n",
+>> +                  adev->vpe.feature_version, adev->vpe.fw_version);
+>> +}
+>> +
+>>   static ssize_t
+>>   amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
+>>                          void *data, size_t datalen)
+>> @@ -118,6 +236,10 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
+>>                  }
+>>          }
+>>
+>> +       /* IP firmware information */
+>> +       drm_printf(&p, "\nIP Firmwares\n");
+>> +       amdgpu_devcoredump_fw_info(coredump->adev, &p);
+>> +
+>>          if (coredump->ring) {
+>>                  drm_printf(&p, "\nRing timed out details\n");
+>>                  drm_printf(&p, "IP Type: %d Ring Name: %s\n",
+>> --
+>> 2.34.1
+>>
