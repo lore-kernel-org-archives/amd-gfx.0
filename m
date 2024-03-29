@@ -4,115 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46E50CD11DD
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 11:15:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E2D4CD11DD
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 11:32:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B14A112131;
-	Fri, 29 Mar 2024 11:15:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE6A41120B9;
+	Fri, 29 Mar 2024 11:32:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="r5YsriSp";
+	dkim=pass (2048-bit key; unprotected) header.d=sifive.com header.i=@sifive.com header.b="P93OUhhj";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2138.outbound.protection.outlook.com [40.107.93.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB79411265E;
- Fri, 29 Mar 2024 11:15:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EkMeNenO/r5cqtn1olNlOBkJq1Ym42C5lG+qg+NyRYZ1vJixWl3pT/8ZrlTNnjLqlmiOyrebnlB1QH/mT5bvoghUXbSNsva7HDBSRP+PBW2LZquJJWK01MRSwdAwpCqo5LTk9qj8dY/yHrFWmu9RzNGXhYhTwLS+56Hif0YQA7FsIRUIBQQqoxUGUWljOIrNA/n95UQgLUCKOkVtSap/eDcEM54gcirz+f0/fzORlu9ZzDyv5UtThHk2o8+HaV0Jt2MhhxieUSf+xPXuRAEEyh8G8EWT91exPc4uGS7Ktvpp1D+gVBtt8Da67O43Jxjhu57LTbDU3/lyBRExlaJRng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ltjyCfUStfIrGkVhqmASdl40r8uHaBEysnD8cOfIGXM=;
- b=n7ouWIKkjC97iEYbCy3w1dOlPIkbqEhb5giKqQcK2vxlj64NvYvzeXswAd9NBstC6wSWYAdHmzfTlna2ZcYjf7nxPriiusB/nPf1Qn6LsFP14obnJfMvOT32LXbKC86SeusLbXH6XLwffpEaXjrjHifcNQToEvfU5y2Kw3QcruoyfFXy49DcJjExdlOgheqs/GnxZ/02gaZ5rTI+3lmKgk7OJHslrQJZOL8REInxChcvnvFMiPk8QuVNkb07ddlxvYG3xHCmx3N6jLkk+EfszTtA7yPlXXKY4tGCHG6b1oR38ur2077GMulXJ5EywQw8ik6nYeaCTk+exS65f4urCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ltjyCfUStfIrGkVhqmASdl40r8uHaBEysnD8cOfIGXM=;
- b=r5YsriSpWsmwe3aG/9Njlc7LJjdQIdZ7qJ9VCYfH71+/UvZ8A60/LRN+dN9EtEi9ldEWRIxjGskj7P1zZlN+4gI1EEkxhN9HsmSi6znIjdVpP8dc7zOCGAo3ejlTdjB7HsA+EOQhXePeYl4US3azp7M5OeaqzqyT8t3Mzo2w+SM=
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB9077.namprd12.prod.outlook.com (2603:10b6:610:1a2::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.33; Fri, 29 Mar
- 2024 11:15:17 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::f2b6:1034:76e8:f15a]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::f2b6:1034:76e8:f15a%6]) with mapi id 15.20.7409.031; Fri, 29 Mar 2024
- 11:15:17 +0000
-Message-ID: <f4c04ec4-b385-4cd7-af7f-000282443246@amd.com>
-Date: Fri, 29 Mar 2024 12:15:11 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/ttm: remove unused paramter
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-To: Jesse Zhang <jesse.zhang@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>
-References: <20240325074540.2426476-1-jesse.zhang@amd.com>
- <f497b2d6-171a-46ec-84a7-cc148b39b992@amd.com>
-Content-Language: en-US
-In-Reply-To: <f497b2d6-171a-46ec-84a7-cc148b39b992@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0120.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BE3D112331
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Mar 2024 07:25:49 +0000 (UTC)
+Received: by mail-pf1-f169.google.com with SMTP id
+ d2e1a72fcca58-6e7425a6714so1502160b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Mar 2024 00:25:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=sifive.com; s=google; t=1711697088; x=1712301888; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BaG/5r11zMVVbJK9XMgdhlmzZC0nXZGHxxAlEP5YrDw=;
+ b=P93OUhhjM1V6PPlyhK+QbpY50BHPcf55psAyH4JW77Igl2K8/qzDR79tdJpQ6hqhZf
+ 7+WL/0T6bLaXEE2oayqReEYFvijt5uOQ1gPu85z1P/m2gQjK7e8fIQE8h/lImnT+ejR6
+ TojG3m0jyWqlhEItiZSKqEKJIxffppK7fNkxbrMLX50rJBuJXh107xSHVSCZrLefPmpH
+ 6L8QbUYJzlqcnBEc8IzP9IJn9nYJU58+TMaPF5NaHiuLt2nmFOQUER/YkIv9DsvCxaKI
+ 7YjZ3pHYOMvQZyOhr/ycEOLIyAlOoisv2A3KgJfIhE7rgZ3ei4jkMbiDGySDfmSdqSnI
+ AIdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711697088; x=1712301888;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=BaG/5r11zMVVbJK9XMgdhlmzZC0nXZGHxxAlEP5YrDw=;
+ b=StEJGmGuo18qd/n5HA46ut6IHpuAXO3z5/YoSp3gyA18Olgc+Fcmvx+jbNGm5WcNbI
+ 4HA+Vy6A+JMYgqCbL0ywLngK7XjkLESgqV7f8gqFcp+6jFBcuxOvC0Zn3F2i3gYP5kd6
+ z1/Pt2xXfGRqvDy5PQTKyva1wgjPjP+qiWC/5wQgtaX4zDy/6Q84kjltCSyill+6Nw6e
+ iiCDzzPevsoMy7bN37pqvpnFbWJBXtL7GGYrGGZY9WjtB+snATj5MKXFo26YdU2XcSc6
+ VWOtntZ27n7rkWxcivonfSbfj3yQtoluuYNsDu0gvE8cxb3xXE7+349YbximaEbsqEsg
+ niYA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX/k19zgTaFbZcfc/scu/oo4b9Vr9Qdhn2xiGhLW5zsqeBzJtlYH+yCTZELQo6p9kICBz6T3N1detfFNVvLx5tCTG8OpRtr8v0OFi5yyA==
+X-Gm-Message-State: AOJu0YzpleGdXTZM5tlQpCGnwtDyvYARC1RFlXEzjyHAmjMmzkQiEPgr
+ C1xInY0Wh0NWmrJsRAMhVvKpoCE8Z3gE+HQNCn+F9aTu/v7Cc3fVoBDn1mTCs7Q=
+X-Google-Smtp-Source: AGHT+IHyYuok2TNfdiOcE/l5igRa3fLGWQKdU9IqGK1Jb+NsKkae7YWqfCeB+c37aWtPbJ/1sA02qQ==
+X-Received: by 2002:a05:6a21:6d9f:b0:1a3:55d2:1489 with SMTP id
+ wl31-20020a056a216d9f00b001a355d21489mr1432790pzb.7.1711697088383; 
+ Fri, 29 Mar 2024 00:24:48 -0700 (PDT)
+Received: from sw06.internal.sifive.com ([4.53.31.132])
+ by smtp.gmail.com with ESMTPSA id
+ b8-20020a17090a010800b0029ddac03effsm4971798pjb.11.2024.03.29.00.24.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 Mar 2024 00:24:48 -0700 (PDT)
+From: Samuel Holland <samuel.holland@sifive.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+ linux-arm-kernel@lists.infradead.org, x86@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+ Christoph Hellwig <hch@lst.de>, loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, Samuel Holland <samuel.holland@sifive.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Subject: [PATCH v4 04/15] arm64: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+Date: Fri, 29 Mar 2024 00:18:19 -0700
+Message-ID: <20240329072441.591471-5-samuel.holland@sifive.com>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240329072441.591471-1-samuel.holland@sifive.com>
+References: <20240329072441.591471-1-samuel.holland@sifive.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB9077:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YT6maHFvWxxS1UZqbr2JhXjOB3kR0c63uF3y8m4fEVVyqsL8qCAbogNFMPoe3CEhRuVzoKoPm97HQvcfr8pCCWIuzOXNz7i41d+XVfqCR83lUDn2FsoIFbgDMH/TxlQFrZomAtoziFEhoI76S3EsZztc0RDhQLbMHikIvDg7Np2Udk9EPuXmxOUisG+Zvb+m+jRZYxcWI9dJEOWpJAX1kYu5vQ9gBJ2IMHVd7jHu1OhzHALF8gL7W6jFzGjCY6olmHsV5gM6+SkZb+l6/kmc7Cp83Xkd2y3XgdLrxC0OSCIt6bjBn4jmcvYdPOgww+1xnV4Z72kxv0JNsaB0WjB/htzQAcCBPTfYIQm/h5hm/45OrYU0h+fgehqKPNzJ7HVW38IvVlnZcyro4XilyCDoV/o3TuXFxKAHbSvTWEQGE615z7SS8lm9p9i3I0njjOPP/qy8IQ1jPHblZkOAJL43ie8MHz3fv3NUsXd+QaQP5nd93i+RQe6CUMib0GFLcBbCSpnawl4JhZxgXE8PMIZZrIk8pngDhvimTvZ2iSBl2xW9BXFLOuIFlOhU25NRpST12xkQAa6hgjxFstd5I/aDDyQL/VYvHAoAljcZUoysKbaspIVkyZi2Nz/dwe6Z9xcuNKPnmU/vXg452mb0fqnWFXoGeKZ30wYQ5Msx8wXgzHk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K3NGZ2ZsdU5JdFlKUkNYRmxoc3hVVFdqZC9GRUx6S2ZkZW1Eam54d01TbnRy?=
- =?utf-8?B?STEwbThwbmt0NExhR1I1TUN3aW16ZFNic09HWXlFUHBYTk1YTFp0cktXblJF?=
- =?utf-8?B?WnltVXVDTGgxTzNNSWZjeXNzNm9DMXNWcDk2UlpMc0dnM0Z4TmJoMXJEbVh5?=
- =?utf-8?B?Snd0eDBZTEFuTHRsbnF4SjVqeG4zWXczblYyc1lXUTNCc3NBNWszRE5xVGFK?=
- =?utf-8?B?VitGVE9jaGI5c3BCNzk0ZGlHWTFkQVlVRlAzZVZPM0FXQnhmVTdSaVhyeCs3?=
- =?utf-8?B?ZEJXMEpXVE1WNVhYR1RWWGxPVndzaDNRUzN3czRFSFVWeFFMK2xFVHZJVlNk?=
- =?utf-8?B?SkVvTlp5TWJ5czZzR0pKRStneUExUmw4OEpENmlMdm0zRTNLQ2plZFVmZ0Zs?=
- =?utf-8?B?aWE1Tk80akFQaFlOT3R4RngzeEhaT1dTMzJzbVowOU93YUszSW5XeVZUeDdG?=
- =?utf-8?B?ck5rbE52ZnhaZEliNjY3aUJ4VjBwcEl1bHNrd2lqR2dUYnJyc2FPb2NHNjNM?=
- =?utf-8?B?dWhHQmhiYUtNdHIyM0RRNi9Sb1NRMkFwbWNybTRwWUdJMVRIS0s5UjBkTVI1?=
- =?utf-8?B?cW9FTDIvV0R3VUlXVENFNmhrbjZ0TXhicEQvZXhCLzNHbThxTDJ0MFJGTVNV?=
- =?utf-8?B?WDBSelFVYk0rR1JkZ3h3eHFIQ1lHZS84ck9lNXREZnB4QjB1Vzk5MUp2N3RB?=
- =?utf-8?B?RWxORXVMMEtIbXY2ZE5ycURDV0V6RmpPeVIzWWtmRkIxV04yVTJPSU92RDhY?=
- =?utf-8?B?ditJWEJwRFd1LzVwdUYwSC96OG00ZCtpcEV1TndiV1ZESHdNQXNtMFpvWFBZ?=
- =?utf-8?B?QWJyNWVsRzFadXpyUnlRc2xLcEZzZ1hVOTRobllyWUErQjYrV1k3eE9uS3hK?=
- =?utf-8?B?ZW5GQ09mcW92eWROR3k2SEpDY0phbXUvb0x5L2o0OHZZTjRqcjRZTFFGeDl5?=
- =?utf-8?B?WVdUeVhZUksvc1JyRDZ5MjJaV0FoY2d6ZXNuOUtWTXczcjQzdjRjaWcyNWNk?=
- =?utf-8?B?WGpXeEFmbXdnQlU2VytiUGlUWmR6MWltQkhKZUhaaUEvT2h1eWdGeXpUdlk4?=
- =?utf-8?B?aDZjcHhUQ2RKK2pGbDJEWmR6SXQxL0prTXBYbjBYTk5ubk9SYUtmN0RYZmNY?=
- =?utf-8?B?QTFSaTBaWjBkS0Z1WGtFOGJTcHJhVDdHTHl1QXJJYUFVdGhHNWl6bnZ3bEhs?=
- =?utf-8?B?UmRuWFVRc2ZWaytEdGFhRFdJRFpaT1BoeXNpZm5NdGdKSTlsVndaTXlQNy9D?=
- =?utf-8?B?QThMdFpvOHpTcDhZU3hwQjhKUVFBWWJ5WkVoLzZaUXlKT0p6NVpnZC9ZaW1C?=
- =?utf-8?B?bVdXYkN5MWoyZ2VMRzQrV3BQaFIwemhueDhSMk5UcWo0L2RrMU9OOVJ2WHl4?=
- =?utf-8?B?VGl2blFFckYwYWV6YjVnWWhoVzlsSHRjTHU1aTdyMFJJVkEvUnFZUDJCWG9T?=
- =?utf-8?B?Z2lzYTJTVm1kdElCQVpHQzZnMVhJdU40MVBOb0EzRnJIR0hzU3NhdUptM1RO?=
- =?utf-8?B?L3R3bGxpWEZnSmpkbE5jZi9Uc2NBVUtjeUo1Lzh0eXZGZG9IQUJPbVFnOU1V?=
- =?utf-8?B?VEJOKzNwYnFMUVdmeFhGQURCVVQ0c1VWUHk3TUMvVXdOZ0JCTUU0eG1jUnVw?=
- =?utf-8?B?UzdsMHNtL2RHMit5UWt2Smt4b3gwQU4rNm9Ha1pFallHN09ZdXdUaG15cG1Y?=
- =?utf-8?B?dk9RRUcrd0QyeGlYeERLRWxZemcyaEhicDhBMFN3OTNKWUpWK2hvOElkZDV1?=
- =?utf-8?B?V1BHay9IWmRsbEtRZDR6bDBRVHJ6VDM4TzZTd2hZZGw5TFRQQTNnemlRVGxp?=
- =?utf-8?B?SkU2QWNKekNOeHRUZTIzZUs3a21pNkk3emNHakg5RndGL0hWeWhadSs1MEpV?=
- =?utf-8?B?MFFzMTZFZVQ2bm1MM0NseFhsMCtzUzJaZTNGa2xnQ1pXR2NDcGxMWm1tZHRU?=
- =?utf-8?B?NVdvUnRRWFYyS3k5VWFuNUQ0cFV5L2dUbWdmYUxqRHVDc2VSYkEwY000V3Yw?=
- =?utf-8?B?bmExNlJvWnY0TnBmVmVvRTNSWVRkMHNxbWFWZ3MyVEdFQUE4b1VxQ3dFcS8z?=
- =?utf-8?B?RG9wNU9yQUc4NHN4VW9oNStHK29yZEQ2bGtFQys4TzFDR2pjaEdmeWcyeFFG?=
- =?utf-8?Q?JGfkU9B/MmjSHEWtZdEYbw3BW?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e60907f-9a53-4712-5bad-08dc4fe18370
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2024 11:15:17.3192 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: guvWHAUvmaNT8y6+3dnjwCIcIGBAF8PjAfp5/cN9S6iobzTKL9AT2cZX7pqaQXXN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9077
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 29 Mar 2024 11:32:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,80 +87,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 29.03.24 um 12:10 schrieb Christian König:
-> Am 25.03.24 um 08:45 schrieb Jesse Zhang:
->> remove the unsed the paramter in the function
->> ttm_bo_bounce_temp_buffer and ttm_bo_add_move_fence.
->>
->> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
->
-> Good catch, Reviewed-by: Christian König <christian.koenig@amd.com>
+arm64 provides an equivalent to the common kernel-mode FPU API, but in a
+different header and using different function names. Add a wrapper
+header, and export CFLAGS adjustments as found in lib/raid6/Makefile.
 
-Please rebase that patch on top of drm-misc-next.
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+---
 
-Regards,
-Christian.
+(no changes since v2)
 
->
-> Regards,
-> Christian.
->
->> ---
->>   drivers/gpu/drm/ttm/ttm_bo.c | 10 ++++------
->>   1 file changed, 4 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
->> index edf10618fe2b..7f08787687a7 100644
->> --- a/drivers/gpu/drm/ttm/ttm_bo.c
->> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
->> @@ -402,7 +402,6 @@ void ttm_bo_put(struct ttm_buffer_object *bo)
->>   EXPORT_SYMBOL(ttm_bo_put);
->>     static int ttm_bo_bounce_temp_buffer(struct ttm_buffer_object *bo,
->> -                     struct ttm_resource **mem,
->>                        struct ttm_operation_ctx *ctx,
->>                        struct ttm_place *hop)
->>   {
->> @@ -470,7 +469,7 @@ static int ttm_bo_evict(struct ttm_buffer_object 
->> *bo,
->>           if (ret != -EMULTIHOP)
->>               break;
->>   -        ret = ttm_bo_bounce_temp_buffer(bo, &evict_mem, ctx, &hop);
->> +        ret = ttm_bo_bounce_temp_buffer(bo, ctx, &hop);
->>       } while (!ret);
->>         if (ret) {
->> @@ -699,7 +698,6 @@ EXPORT_SYMBOL(ttm_bo_unpin);
->>    */
->>   static int ttm_bo_add_move_fence(struct ttm_buffer_object *bo,
->>                    struct ttm_resource_manager *man,
->> -                 struct ttm_resource *mem,
->>                    bool no_wait_gpu)
->>   {
->>       struct dma_fence *fence;
->> @@ -753,7 +751,7 @@ static int ttm_bo_mem_force_space(struct 
->> ttm_buffer_object *bo,
->>               return ret;
->>       } while (1);
->>   -    return ttm_bo_add_move_fence(bo, man, *mem, ctx->no_wait_gpu);
->> +    return ttm_bo_add_move_fence(bo, man, ctx->no_wait_gpu);
->>   }
->>     /**
->> @@ -802,7 +800,7 @@ int ttm_bo_mem_space(struct ttm_buffer_object *bo,
->>           if (unlikely(ret))
->>               goto error;
->>   -        ret = ttm_bo_add_move_fence(bo, man, *mem, ctx->no_wait_gpu);
->> +        ret = ttm_bo_add_move_fence(bo, man, ctx->no_wait_gpu);
->>           if (unlikely(ret)) {
->>               ttm_resource_free(bo, mem);
->>               if (ret == -EBUSY)
->> @@ -866,7 +864,7 @@ static int ttm_bo_move_buffer(struct 
->> ttm_buffer_object *bo,
->>   bounce:
->>       ret = ttm_bo_handle_move_mem(bo, mem, false, ctx, &hop);
->>       if (ret == -EMULTIHOP) {
->> -        ret = ttm_bo_bounce_temp_buffer(bo, &mem, ctx, &hop);
->> +        ret = ttm_bo_bounce_temp_buffer(bo, ctx, &hop);
->>           if (ret)
->>               goto out;
->>           /* try and move to final place now. */
->
+Changes in v2:
+ - Remove file name from header comment
+
+ arch/arm64/Kconfig           |  1 +
+ arch/arm64/Makefile          |  9 ++++++++-
+ arch/arm64/include/asm/fpu.h | 15 +++++++++++++++
+ 3 files changed, 24 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/include/asm/fpu.h
+
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index 7b11c98b3e84..67f0d3b5b7df 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -30,6 +30,7 @@ config ARM64
+ 	select ARCH_HAS_GCOV_PROFILE_ALL
+ 	select ARCH_HAS_GIGANTIC_PAGE
+ 	select ARCH_HAS_KCOV
++	select ARCH_HAS_KERNEL_FPU_SUPPORT if KERNEL_MODE_NEON
+ 	select ARCH_HAS_KEEPINITRD
+ 	select ARCH_HAS_MEMBARRIER_SYNC_CORE
+ 	select ARCH_HAS_NMI_SAFE_THIS_CPU_OPS
+diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
+index 0e075d3c546b..3e863e5b0169 100644
+--- a/arch/arm64/Makefile
++++ b/arch/arm64/Makefile
+@@ -36,7 +36,14 @@ ifeq ($(CONFIG_BROKEN_GAS_INST),y)
+ $(warning Detected assembler with broken .inst; disassembly will be unreliable)
+ endif
+ 
+-KBUILD_CFLAGS	+= -mgeneral-regs-only	\
++# The GCC option -ffreestanding is required in order to compile code containing
++# ARM/NEON intrinsics in a non C99-compliant environment (such as the kernel)
++CC_FLAGS_FPU	:= -ffreestanding
++# Enable <arm_neon.h>
++CC_FLAGS_FPU	+= -isystem $(shell $(CC) -print-file-name=include)
++CC_FLAGS_NO_FPU	:= -mgeneral-regs-only
++
++KBUILD_CFLAGS	+= $(CC_FLAGS_NO_FPU) \
+ 		   $(compat_vdso) $(cc_has_k_constraint)
+ KBUILD_CFLAGS	+= $(call cc-disable-warning, psabi)
+ KBUILD_AFLAGS	+= $(compat_vdso)
+diff --git a/arch/arm64/include/asm/fpu.h b/arch/arm64/include/asm/fpu.h
+new file mode 100644
+index 000000000000..2ae50bdce59b
+--- /dev/null
++++ b/arch/arm64/include/asm/fpu.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2023 SiFive
++ */
++
++#ifndef __ASM_FPU_H
++#define __ASM_FPU_H
++
++#include <asm/neon.h>
++
++#define kernel_fpu_available()	cpu_has_neon()
++#define kernel_fpu_begin()	kernel_neon_begin()
++#define kernel_fpu_end()	kernel_neon_end()
++
++#endif /* ! __ASM_FPU_H */
+-- 
+2.44.0
 
