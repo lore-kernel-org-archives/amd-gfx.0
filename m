@@ -4,53 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32729CD11DD
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 12:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25CAECD1283
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 17:16:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6DE81126F5;
-	Fri, 29 Mar 2024 12:51:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 742711127E2;
+	Fri, 29 Mar 2024 17:16:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iKDS5tOc";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HVt73RC9";
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2EE91126F1;
- Fri, 29 Mar 2024 12:51:19 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id D8C1CCE2E0D;
- Fri, 29 Mar 2024 12:51:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61388C43390;
- Fri, 29 Mar 2024 12:51:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711716677;
- bh=vWrJHpNpvv/pTjRBRuxyQkmES6YQhamOMA0mHriCXKE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=iKDS5tOc4EPvFLBxavTNAdt+K+XHv5nFnOVeGXuuFOC4BqmG+VdL/6nW20TrHg0gN
- x8iOR2q5sCnioojchnkWyvlK+fAqfQJMnv2kDHzLr12+8sZOBda9C7c+QaIpw9A9Fp
- eOw9jBs08NVjoI+cyD9W/rEXVEqULUPMMWdkUpRtL+3px47FVt3rHXcHHPTe0Yhcxe
- e69Vh5hO788NrAH0mlnfmrB1n90ha80QLWQ0L+crMKZnQYuhJMom6+wlR3fwETzoaZ
- tXeN26gr7RfvvNFXYTMQRbPy5KJUiQIqJw1gW4FsqzIq5faD/+WC6bMq01vI9b6q1k
- SP18Klecuf2XA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Aric Cyr <aric.cyr@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
- dillon.varone@amd.com, aurabindo.pillai@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 4.19 08/19] drm/amd/display: Fix nanosec stat overflow
-Date: Fri, 29 Mar 2024 08:50:40 -0400
-Message-ID: <20240329125100.3094358-8-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240329125100.3094358-1-sashal@kernel.org>
-References: <20240329125100.3094358-1-sashal@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 965401127E2;
+ Fri, 29 Mar 2024 17:16:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1711732604; x=1743268604;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=3cDebFPhfpcNOYa1nrqJnGUfaFo9yHWPr4HlWxb0MNU=;
+ b=HVt73RC9TwrROZ528x3YvnxOHmzt2fZGF1Jrq+SiJ8CyOQk3qJkls4fy
+ peDStsYEqLgrx16V4tXvvz6WMeKxXj7swuaGdE5sZsybE6Ba+K3tvb9tA
+ HB/fN6lVx/mP5mkOFeIM0Ne2hu6k6vsoOwyuiQebjZs4rtDFf1XkSselz
+ lVhH1UXzKdn7Oc0gbYt6bwLYoJFbw1FJGqEWeP65+fHuTHDK3xRjXW+CP
+ ITftCjzxIwmkYM9yecpK/b/DBkpFMUX5yASFoB0Wf0YX2JdewsJcVIM8p
+ V2ikTugEkuXVvGyoDDorvfMbX6gF2N8gl824We7DD3l6jIZuSKJIIle3g w==;
+X-CSE-ConnectionGUID: 48/96p+PR1y/sVHaB39RqQ==
+X-CSE-MsgGUID: 1QE6uyzaQF2nhEMo4MnpqQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11028"; a="6865274"
+X-IronPort-AV: E=Sophos;i="6.07,165,1708416000"; 
+   d="scan'208";a="6865274"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2024 10:16:42 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,165,1708416000"; d="scan'208";a="21740222"
+Received: from unknown (HELO intel.com) ([10.247.118.231])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2024 10:16:11 -0700
+Date: Fri, 29 Mar 2024 18:16:05 +0100
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Easwar Hariharan <eahariha@linux.microsoft.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-15?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Evan Quan <evan.quan@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>,
+ Candice Li <candice.li@amd.com>, Ran Sun <sunran001@208suo.com>,
+ Alexander Richards <electrodeyt@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Ruan Jinjie <ruanjinjie@huawei.com>, Alan Liu <haoping.liu@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Samson Tam <samson.tam@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ Sohaib Nadeem <sohaib.nadeem@amd.com>, Lewis Huang <lewis.huang@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ George Shen <george.shen@amd.com>, Aric Cyr <aric.cyr@amd.com>,
+ Jun Lei <jun.lei@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, Le Ma <Le.Ma@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Asad kamal <asad.kamal@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>, Darren Powell <darren.powell@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, 
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, 
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>
+Subject: Re: [PATCH v0 02/14] drm/amdgpu,drm/radeon: Make I2C terminology
+ more inclusive
+Message-ID: <Zgb3VYsgLjhJ2HKs@ashyti-mobl2.lan>
+References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
+ <20240329170038.3863998-3-eahariha@linux.microsoft.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 4.19.311
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240329170038.3863998-3-eahariha@linux.microsoft.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,43 +112,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aric Cyr <aric.cyr@amd.com>
+Hi Easwar,
 
-[ Upstream commit 14d68acfd04b39f34eea7bea65dda652e6db5bf6 ]
+On Fri, Mar 29, 2024 at 05:00:26PM +0000, Easwar Hariharan wrote:
+> I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
 
-[Why]
-Nanosec stats can overflow on long running systems potentially causing
-statistic logging issues.
+I don't understand why we forget that i3c is 1.1.1 :-)
 
-[How]
-Use 64bit types for nanosec stats to ensure no overflow.
+> with more appropriate terms. Inspired by and following on to Wolfram's
+> series to fix drivers/i2c/[1], fix the terminology for users of
+> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+> in the specification.
 
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Aric Cyr <aric.cyr@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/modules/inc/mod_stats.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+The specification talks about:
 
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_stats.h b/drivers/gpu/drm/amd/display/modules/inc/mod_stats.h
-index 3812094b52e8f..88b312c3eb43a 100644
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_stats.h
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_stats.h
-@@ -51,10 +51,10 @@ void mod_stats_update_event(struct mod_stats *mod_stats,
- 		unsigned int length);
- 
- void mod_stats_update_flip(struct mod_stats *mod_stats,
--		unsigned long timestamp_in_ns);
-+		unsigned long long timestamp_in_ns);
- 
- void mod_stats_update_vupdate(struct mod_stats *mod_stats,
--		unsigned long timestamp_in_ns);
-+		unsigned long long timestamp_in_ns);
- 
- void mod_stats_update_freesync(struct mod_stats *mod_stats,
- 		unsigned int v_total_min,
--- 
-2.43.0
+ - master -> controller
+ - slave -> target (and not client)
 
+But both you and Wolfram have used client. I'd like to reach
+some more consistency here.
+
+Thanks,
+Andi
