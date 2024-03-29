@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5FB6CD1288
-	for <amd-gfx@archiver.kernel.org>; Sat, 30 Mar 2024 13:31:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54586CD128E
+	for <amd-gfx@archiver.kernel.org>; Sat, 30 Mar 2024 13:31:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68B2F10E7AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3B0710E7AC;
 	Sat, 30 Mar 2024 13:31:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="MamCsWkS";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="b+Tl2nhY";
 	dkim-atps=neutral
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 026421127D3;
- Fri, 29 Mar 2024 17:02:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9EBA710E88E;
+ Fri, 29 Mar 2024 17:02:20 +0000 (UTC)
 Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.147.137])
- by linux.microsoft.com (Postfix) with ESMTPSA id 3927120E6F4C;
- Fri, 29 Mar 2024 10:02:25 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3927120E6F4C
+ by linux.microsoft.com (Postfix) with ESMTPSA id EE6F520E6F4C;
+ Fri, 29 Mar 2024 10:02:19 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com EE6F520E6F4C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1711731745;
- bh=Qwmeem4B9Er90dGhL6Lz2R55/4URZeEt+O0fc3RlyyM=;
+ s=default; t=1711731740;
+ bh=t49SSijH5qcn8ATNHvvOtx0aTbYoWILOcpPZfTIIf5A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MamCsWkSG1A8wjsPWLRC6O+cRsXcTXtSmo33DRenRj2SdRGUCn2XjFQAoKhRfxK1U
- iLrIpepTKnR67z5VbnSZwrZDp8t6ZrW9tERhbZzQqL7j9/VaOxMLl9WUeK3zcCRdAb
- Rw/T2kNc4a0kXs69OY24H4edkMV2Vnk5WlEXOO1k=
+ b=b+Tl2nhYCHS6FtKRbxbOukN4V4yufNBRXQxXpxjRy4FT1iMF4FHj0kmCEY9/iOGP9
+ 810vjByH634Jjyhi4F8eZTuQ50mz0N6b170peelO1xcWydhYP8ZJSDBDr3oRMLSwXY
+ TfEm2CpowjnlO3jIW88+wusfcxhSkotAZmFp6RhQ=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Easwar Hariharan <eahariha@linux.microsoft.com>,
@@ -43,15 +43,15 @@ Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
  GPUS), linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
  linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
  linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER)
-Subject: [PATCH v0 09/14] media: cx23885: Make I2C terminology more inclusive
-Date: Fri, 29 Mar 2024 17:00:33 +0000
-Message-Id: <20240329170038.3863998-10-eahariha@linux.microsoft.com>
+Subject: [PATCH v0 07/14] media: cx25821: Make I2C terminology more inclusive
+Date: Fri, 29 Mar 2024 17:00:31 +0000
+Message-Id: <20240329170038.3863998-8-eahariha@linux.microsoft.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
 References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 30 Mar 2024 13:31:09 +0000
+X-Mailman-Approved-At: Sat, 30 Mar 2024 13:31:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,68 +78,40 @@ Compile tested, no functionality changes intended
 
 Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 ---
- drivers/media/pci/cx23885/cx23885-f300.c | 8 ++++----
- drivers/media/pci/cx23885/cx23885-i2c.c  | 6 +++---
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/media/pci/cx25821/cx25821-i2c.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/pci/cx23885/cx23885-f300.c b/drivers/media/pci/cx23885/cx23885-f300.c
-index ac1c434e8e24..5f937c281793 100644
---- a/drivers/media/pci/cx23885/cx23885-f300.c
-+++ b/drivers/media/pci/cx23885/cx23885-f300.c
-@@ -92,7 +92,7 @@ static u8 f300_xfer(struct dvb_frontend *fe, u8 *buf)
- 	f300_set_line(dev, F300_RESET, 0);/* begin to send data */
- 	msleep(1);
- 
--	f300_send_byte(dev, 0xe0);/* the slave address is 0xe0, write */
-+	f300_send_byte(dev, 0xe0);/* the client address is 0xe0, write */
- 	msleep(1);
- 
- 	temp = buf[0];
-@@ -112,10 +112,10 @@ static u8 f300_xfer(struct dvb_frontend *fe, u8 *buf)
- 	}
- 
- 	if (i > 7) {
--		pr_err("%s: timeout, the slave no response\n",
-+		pr_err("%s: timeout, the client no response\n",
- 								__func__);
--		ret = 1; /* timeout, the slave no response */
--	} else { /* the slave not busy, prepare for getting data */
-+		ret = 1; /* timeout, the client no response */
-+	} else { /* the client not busy, prepare for getting data */
- 		f300_set_line(dev, F300_RESET, 0);/*ready...*/
- 		msleep(1);
- 		f300_send_byte(dev, 0xe1);/* 0xe1 is Read */
-diff --git a/drivers/media/pci/cx23885/cx23885-i2c.c b/drivers/media/pci/cx23885/cx23885-i2c.c
-index f51fad33dc04..385af2a893b4 100644
---- a/drivers/media/pci/cx23885/cx23885-i2c.c
-+++ b/drivers/media/pci/cx23885/cx23885-i2c.c
-@@ -34,7 +34,7 @@ MODULE_PARM_DESC(i2c_scan, "scan i2c bus at insmod time");
+diff --git a/drivers/media/pci/cx25821/cx25821-i2c.c b/drivers/media/pci/cx25821/cx25821-i2c.c
+index 0ef4cd6528a0..bad8fb9f5319 100644
+--- a/drivers/media/pci/cx25821/cx25821-i2c.c
++++ b/drivers/media/pci/cx25821/cx25821-i2c.c
+@@ -33,7 +33,7 @@ do {									\
  #define I2C_EXTEND  (1 << 3)
  #define I2C_NOSTOP  (1 << 4)
  
 -static inline int i2c_slave_did_ack(struct i2c_adapter *i2c_adap)
 +static inline int i2c_client_did_ack(struct i2c_adapter *i2c_adap)
  {
- 	struct cx23885_i2c *bus = i2c_adap->algo_data;
- 	struct cx23885_dev *dev = bus->dev;
-@@ -84,7 +84,7 @@ static int i2c_sendbytes(struct i2c_adapter *i2c_adap,
- 		cx_write(bus->reg_ctrl, bus->i2c_period | (1 << 2));
+ 	struct cx25821_i2c *bus = i2c_adap->algo_data;
+ 	struct cx25821_dev *dev = bus->dev;
+@@ -85,7 +85,7 @@ static int i2c_sendbytes(struct i2c_adapter *i2c_adap,
  		if (!i2c_wait_done(i2c_adap))
  			return -EIO;
+ 
 -		if (!i2c_slave_did_ack(i2c_adap))
 +		if (!i2c_client_did_ack(i2c_adap))
- 			return -ENXIO;
+ 			return -EIO;
  
- 		dprintk(1, "%s() returns 0\n", __func__);
-@@ -163,7 +163,7 @@ static int i2c_readbytes(struct i2c_adapter *i2c_adap,
+ 		dprintk(1, "%s(): returns 0\n", __func__);
+@@ -174,7 +174,7 @@ static int i2c_readbytes(struct i2c_adapter *i2c_adap,
  		cx_write(bus->reg_ctrl, bus->i2c_period | (1 << 2) | 1);
  		if (!i2c_wait_done(i2c_adap))
  			return -EIO;
 -		if (!i2c_slave_did_ack(i2c_adap))
 +		if (!i2c_client_did_ack(i2c_adap))
- 			return -ENXIO;
+ 			return -EIO;
  
- 
+ 		dprintk(1, "%s(): returns 0\n", __func__);
 -- 
 2.34.1
 
