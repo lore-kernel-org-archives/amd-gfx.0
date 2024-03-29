@@ -4,32 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88053CD1292
-	for <amd-gfx@archiver.kernel.org>; Sat, 30 Mar 2024 13:31:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C4F6CD1291
+	for <amd-gfx@archiver.kernel.org>; Sat, 30 Mar 2024 13:31:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8B5810E7B9;
-	Sat, 30 Mar 2024 13:31:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 748E110E7BC;
+	Sat, 30 Mar 2024 13:31:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="V9EU/QtD";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="HXt1rRSU";
 	dkim-atps=neutral
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8F32310F71B;
- Fri, 29 Mar 2024 17:02:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3ABA31127D5;
+ Fri, 29 Mar 2024 17:02:28 +0000 (UTC)
 Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.147.137])
- by linux.microsoft.com (Postfix) with ESMTPSA id 139CD20E6F4C;
- Fri, 29 Mar 2024 10:02:16 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 139CD20E6F4C
+ by linux.microsoft.com (Postfix) with ESMTPSA id E709B20E6F50;
+ Fri, 29 Mar 2024 10:02:27 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E709B20E6F50
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1711731736;
- bh=10QUIiHAlv9I6vQcGTCyRQwtIGq1JOGHzw/GbEWkjZ8=;
+ s=default; t=1711731748;
+ bh=FBEap9UriasmuWH1luz/pYU8Vj/ov3W7GcXI5HcE8Oc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=V9EU/QtD7YjVWs7Rf1Y6NCTvJ90Erzdt3jGzDOOOJxaMRNV6JDsb7FyeIUH+qxPRB
- ae/egRfHYWa45J1dFxqs39V87C2GGQmXtnkcs6DAPy4TkNM0nzv2DR5NN2FqEfSrr7
- fM4ULK4Qq6R9xLTgWgp8saHdjd260GfyiGqcmbT4=
+ b=HXt1rRSU2n8RHfjdj+dQSPpD5mqqmQZS2xo1RoJb1Tx7aw63Shmx6szGeIXPbhjJ9
+ KCJAEVxyAoSUBA0s8+2FYyT4zuT5SAC4MIJ9rIwYY/l4JyWAWCSaJhyxH+uk29eM4h
+ Z+uxKwMTyQKbiiWtAXBnNEC7siWDf+GZGFaxGqY8=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
-To: Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-media@vger.kernel.org (open list:COBALT MEDIA DRIVER),
+To: Edward Cree <ecree.xilinx@gmail.com>,
+ Martin Habets <habetsm.xilinx@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Easwar Hariharan <eahariha@linux.microsoft.com>,
+ netdev@vger.kernel.org (open list:SFC NETWORK DRIVER),
+ linux-net-drivers@amd.com (open list:SFC NETWORK DRIVER),
  linux-kernel@vger.kernel.org (open list)
 Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
  amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
@@ -42,17 +47,16 @@ Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
  nouveau@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO
  GPUS), linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
  linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
- linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER),
- Easwar Hariharan <eahariha@linux.microsoft.com>
-Subject: [PATCH v0 05/14] media: cobalt: Make I2C terminology more inclusive
-Date: Fri, 29 Mar 2024 17:00:29 +0000
-Message-Id: <20240329170038.3863998-6-eahariha@linux.microsoft.com>
+ linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER)
+Subject: [PATCH v0 10/14] sfc: falcon: Make I2C terminology more inclusive
+Date: Fri, 29 Mar 2024 17:00:34 +0000
+Message-Id: <20240329170038.3863998-11-eahariha@linux.microsoft.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
 References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 30 Mar 2024 13:31:08 +0000
+X-Mailman-Approved-At: Sat, 30 Mar 2024 13:31:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,35 +83,22 @@ Compile tested, no functionality changes intended
 
 Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 ---
- drivers/media/pci/cobalt/cobalt-i2c.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/sfc/falcon/falcon.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/cobalt/cobalt-i2c.c b/drivers/media/pci/cobalt/cobalt-i2c.c
-index 10c9ee33f73e..d2963370f949 100644
---- a/drivers/media/pci/cobalt/cobalt-i2c.c
-+++ b/drivers/media/pci/cobalt/cobalt-i2c.c
-@@ -45,10 +45,10 @@ struct cobalt_i2c_regs {
- /* I2C stop condition */
- #define M00018_CR_BITMAP_STO_MSK	(1 << 6)
+diff --git a/drivers/net/ethernet/sfc/falcon/falcon.c b/drivers/net/ethernet/sfc/falcon/falcon.c
+index 7a1c9337081b..147e7c8e3c02 100644
+--- a/drivers/net/ethernet/sfc/falcon/falcon.c
++++ b/drivers/net/ethernet/sfc/falcon/falcon.c
+@@ -367,7 +367,7 @@ static const struct i2c_algo_bit_data falcon_i2c_bit_operations = {
+ 	.getsda		= falcon_getsda,
+ 	.getscl		= falcon_getscl,
+ 	.udelay		= 5,
+-	/* Wait up to 50 ms for slave to let us pull SCL high */
++	/* Wait up to 50 ms for client to let us pull SCL high */
+ 	.timeout	= DIV_ROUND_UP(HZ, 20),
+ };
  
--/* I2C read from slave */
-+/* I2C read from client */
- #define M00018_CR_BITMAP_RD_MSK		(1 << 5)
- 
--/* I2C write to slave */
-+/* I2C write to client */
- #define M00018_CR_BITMAP_WR_MSK		(1 << 4)
- 
- /* I2C ack */
-@@ -59,7 +59,7 @@ struct cobalt_i2c_regs {
- 
- /* SR[7:0] - Status register */
- 
--/* Receive acknowledge from slave */
-+/* Receive acknowledge from client */
- #define M00018_SR_BITMAP_RXACK_MSK	(1 << 7)
- 
- /* Busy, I2C bus busy (as defined by start / stop bits) */
 -- 
 2.34.1
 
