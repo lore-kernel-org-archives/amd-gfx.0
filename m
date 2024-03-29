@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 010ACCD11DD
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 10:20:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5BF0CD11DD
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 10:20:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64DE710FF0D;
-	Fri, 29 Mar 2024 10:20:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DFF911262F;
+	Fri, 29 Mar 2024 10:20:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="A2Rar9E+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pz/BkEOU";
 	dkim-atps=neutral
 Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2061.outbound.protection.outlook.com [40.107.96.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 019FD10E418
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Mar 2024 10:20:43 +0000 (UTC)
+ (mail-sn1nam02on2081.outbound.protection.outlook.com [40.107.96.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 030E110E418
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Mar 2024 10:20:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Eus74/mIff0ggZitmG+K2VOtkLd4cxp0FdekoV71YcPJX/l9ahsDdo2KI0wYZCPu3PRxTywvQVVIPEM0LRRQnDye2vsZlvhxYx57trfg1tQORdmIn843Xwzfi+U/+jqJvcSGFy+t18pGd6HIczFkQnvJfeqwN+Y50M4ljfoJ6UT4IYEJukSHGT/4QfHhSrV6AkQDQduVAlNkYkvtAidA3uwQow81F+KKLnv5hjSMoZ9AaqeEAM7F34kaRrx2p4m+BLUao4hlwohtM1I/x1mUPrup1rFZRAOc5R7+cmIq1wd+klk3cW7Aa5/QI7TGUIxoIFhQDFdZRbL27KDC2OvjXg==
+ b=QKjzluLh0foS2bWpRn7Z4rIiXfH2y+hoQ/vICaEO9M4a+w6kqhCOMRwWk9GQ9Fdb2NMfUo0gmS23fHnJ4AaTaTyiAhAaeS70LerZiEsU6Ti+3VkVmiFC2H8uSRyBurCta6RYM7GHEjRdnpaVHjWE6i83+k20VKjtY4Lo7UpgMDj5zDXpdoTkU8ymcFnsYaql1hSTp1FBG36ZnpgsDFwow8cmpP2IdbC51jAHupyn6TXnGpfNgJHE74HZz5v18QDfGbNB6DrxHWIiJuV8x6KoPyGwoKbQH7yuk3o6aT4FYVBBfieDnZxL8xBjDguVVmCTseVZvIfX0s0ATXe9l3eXcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RvjjjDDuZmiN85pj+qDKq/4Ok9b2Ort2dI6pn7bJ3PU=;
- b=UKSmhUnKMdQjHncoorcdOG+j37/aD1DkZRHlA/0ervmzZ44OTZC9/2V9CzDkB9RbKSLYsNi83G2Np/PPsrEYImJAtLF1x5fpgnAcsbQYMXiLcUnZTkrw7P+yt4Uqgqib5pDmepF4sZ25feEddGTZUL7fSIgvc3oqAKMew8LN2lgsFFdi+U7vwwm8BoJgeGJwV3796tXMJCzUPo065RoIFH+EsSnAoIupLeZh9To9YyQFTrDa8MD6KNrAgfKF55ibJIJVzfhgVgsZcytzo+GrePrQjC9q7FfNWQUo2yqOhWa6yz3+2J1GCa+NV7OnqXW1OuqtTQY76IuSB8rE+NpPCQ==
+ bh=Fc7UdcUVTLJVRTRY8weuIohIfZf7f7agvFfM9QMRwAo=;
+ b=Acll9BCNxqcZt4t7gBCUGlZzqE/naI8tSSCt2ki0wGaw7OraU+rVFyAW4CHgyoIFo5aogFoN/gvZKVGfyUhY44A3dm+XaWJqGkfjnVNbgvVtCL/dCyxECygy3UlfrGymui5lu8+SIJ0P69hGKKcwCR9gnHLISFVdiEWhL8APqjuvhP3AgmN+R60bpF/v9c9pLm8OHSrKzYd6THPv15SLaMwQKmANNEh7JHRLc3fDpl6cBqlygcd518peY8YoSDKKkUqMPLiXfzdzAZ9YzJkzszzgj9i6kKotGgGQA0ZE9NQRLB5PhnEXcqNp2ZeJSz/KfZ4XQmfoVpAmYaqnR7cmoQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RvjjjDDuZmiN85pj+qDKq/4Ok9b2Ort2dI6pn7bJ3PU=;
- b=A2Rar9E+r59UTLHOtW0mM3q1hb8qByo4mSMpzKYnO5bxgtfGqcrOrcD3Fn0aB1JiGssLMcfjsfwsLsXbGrmkyXRIKa2Byv/U1rPiCjkw1jW7NegLMRKPNYXaxSmT5Hqi+gKpNEudMD4nV18jA/LxAC0HjdfJCQFApDdvpcXTVAQ=
-Received: from BYAPR07CA0108.namprd07.prod.outlook.com (2603:10b6:a03:12b::49)
- by SA3PR12MB7976.namprd12.prod.outlook.com (2603:10b6:806:312::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.31; Fri, 29 Mar
- 2024 10:20:37 +0000
-Received: from SJ1PEPF00001CDE.namprd05.prod.outlook.com
- (2603:10b6:a03:12b:cafe::f0) by BYAPR07CA0108.outlook.office365.com
- (2603:10b6:a03:12b::49) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.40 via Frontend
- Transport; Fri, 29 Mar 2024 10:20:37 +0000
+ bh=Fc7UdcUVTLJVRTRY8weuIohIfZf7f7agvFfM9QMRwAo=;
+ b=pz/BkEOUqgQmkD6BF7l/Anf3F1HBQZIyonUlAbcTflVTB3/dPTXER0v7O739JpK8DaWq8BNBdNpxgVASi2swoGxB9A+H1A/zTuUsLuEqJlFz9MW74KsSU/pqo/ORVWWxN5huWbjFlRvAGbAUjXKk+gt26Dn6AmLxAE3XyR6aZjA=
+Received: from BY5PR16CA0030.namprd16.prod.outlook.com (2603:10b6:a03:1a0::43)
+ by DM4PR12MB5915.namprd12.prod.outlook.com (2603:10b6:8:68::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.38; Fri, 29 Mar
+ 2024 10:20:42 +0000
+Received: from SJ1PEPF00001CDD.namprd05.prod.outlook.com
+ (2603:10b6:a03:1a0:cafe::b5) by BY5PR16CA0030.outlook.office365.com
+ (2603:10b6:a03:1a0::43) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.41 via Frontend
+ Transport; Fri, 29 Mar 2024 10:20:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,52 +48,52 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00001CDE.mail.protection.outlook.com (10.167.242.6) with Microsoft
+ SJ1PEPF00001CDD.mail.protection.outlook.com (10.167.242.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Fri, 29 Mar 2024 10:20:37 +0000
+ 15.20.7409.10 via Frontend Transport; Fri, 29 Mar 2024 10:20:42 +0000
 Received: from jenkins-mali-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 29 Mar
- 2024 05:20:34 -0500
+ 2024 05:20:39 -0500
 From: Li Ma <li.ma@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <alexander.deucher@amd.com>, <richard.gong@amd.com>,
- <yifan1.zhang@amd.com>, Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, "Shyam
+ <yifan1.zhang@amd.com>, Basavaraj Natikar <Basavaraj.Natikar@amd.com>, "Shyam
  Sundar S K" <Shyam-sundar.S-k@amd.com>, Jiri Kosina <jkosina@suse.com>
-Subject: [PATCH 1/8] HID: amd_sfh: rename float_to_int() to
- amd_sfh_float_to_int()
-Date: Fri, 29 Mar 2024 18:17:43 +0800
-Message-ID: <20240329101748.3961982-1-li.ma@amd.com>
+Subject: [PATCH 2/8] HID: amd_sfh: Add a new interface for exporting HPD data
+Date: Fri, 29 Mar 2024 18:17:44 +0800
+Message-ID: <20240329101748.3961982-2-li.ma@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240329101748.3961982-1-li.ma@amd.com>
+References: <20240329101748.3961982-1-li.ma@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDE:EE_|SA3PR12MB7976:EE_
-X-MS-Office365-Filtering-Correlation-Id: 490150ad-1940-42f2-136f-08dc4fd9e0a3
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDD:EE_|DM4PR12MB5915:EE_
+X-MS-Office365-Filtering-Correlation-Id: 16b38b8c-eb19-4a0b-8c7a-08dc4fd9e374
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: u5iTsSRQevE6cEjqR/80oM40aLf+79sJbcVfeehMvidNvDZAxkgAfdSfl1rNyIHarye78GLQ16EpDwGMoAkVIbAk+dL2k+KTllM2vA6zF3yml72NA0sEA3DgLIwScHEcgc+NF9pfLxKTfOyeKYlwu0DpO5I58UhOjqE9vJCQnRydaGaQbmJYhrnSm6jH4hcAHxxVzCw7w2pQH9Um0Pm/LrFg8Lsr0U/btIvCqqPlObffCtTJk/Zi7muC8wNcPX4vaGXZyQsZJ2P5uPz9yMF9EWdVCFKU1nXu5lMxDcqTlnMUDXuGK+dEDpO9GVdqg8sDBWH8DJqq7lDod6Femmjjy2i8M716lxlqPccqkK4NmG0ZX2/hMBSk6vywrNCMGBoLqZVH2v9LZohkA/Nv8QLYpakzpSvcPRyf2t1z8DKWa4NbKl3lMvJnRcTS9N7knSjtxoU3uCCcx8st6hpqA5HU/rgb6G/GgRYByRUx0C2XY78rjCWgtzzi32qo2a13zCc7VS6AOB+DCHSysA13OZHSCtP68czu1WntipSCaTi3REWQ6mTZxaAxsLMcVPGN9IECgLT567kKBB/JCyJCsa3UICogy0Pa2H9Ia/eASWWgG3wcNLLdmLgRslmLJbB8y5U1hlx2lFuyMxhsHRc0okRvGhXdRc3+9OK5lFr6/uMHC5tLaCPiUEw9qj6z/9XYibzoadzpRuOxErABEKAY4cpepw==
+X-Microsoft-Antispam-Message-Info: cYpfZDRh8AOvsTlROOxrz9nHWrHlxxqDiaYgAa/bGgYz8sA+6BKUyA+CKjXdbMR1aYztG8nzMGjqd67Q1uSl5uaWfY0RCncEJEu1jPoBTmSJijyqvEiKkYMnvpCyINnWQXnYOSryHUXquLum0lclqTiAPY+TeHy7EJxrFeXwgbX4uKCP7zP98oOaf6v4wHMnq8sBU2uocAix1KpxDhYMD3l51b0gsRiJj4q16aTSSs5xKqHpGw7mUkn/y0hqHhbYcvutnsJSje0wbGUSl8BCdA6csesI2P8lA5nZBGSxpRJFNU8o20MgxZivL71mbrvLiknCPIzzx9/PUUvM6FalUXft21HbQRySpMdJCzDfC6VmezcNU1Kkr5QNbRgCtc1oPuflCIORgfXjtPlc9HAWKabQBM15GXBI7gzVoxTILLkLGLJWG+rDWHKD5f/587Pa18HjneMUQDTxQl7Pya18L83LKoUQPVcGkCTrSF48CXPZRdfhtGOyBUoKv5yyMtNoqnSOha7aj10aAd6CIArEHPqSS4gJA033qPlZb/v3l5uiWZY492degdRAop9zl1zretXRI7JUNwBiIFEEvW+kLWg00EpkikiY7TTL3y9HwEjU2xt/bIYuSleqB8FOGQDzV68ypq81pU9CywoQ+GV3CDciRfRsug9jMeRQiThlk8XdHxh722FZlwcw5GqW50WFzWE+6+gzSl4D8vDCsQjMiQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400014)(36860700004)(1800799015)(376005); DIR:OUT;
+ SFS:(13230031)(376005)(1800799015)(82310400014)(36860700004); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2024 10:20:37.3955 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 490150ad-1940-42f2-136f-08dc4fd9e0a3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2024 10:20:42.1081 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16b38b8c-eb19-4a0b-8c7a-08dc4fd9e374
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDD.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7976
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5915
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,109 +110,227 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
 
-[Backport]: to fix amd_sfh init fail issue in ASDN
+AMDSFH has information about the User presence information via the Human
+Presence Detection (HPD) sensor which is part of the AMD sensor fusion hub.
 
-Current amd_sfh driver has float_to_int() to convert units from
-float to int. This is fine until this function gets called outside of
-the current scope of file.
-
-Add a prefix "amd_sfh" to float_to_int() so that function represents
-the driver name. This function will be called by multiple callers in the
-next patch.
+Add a new interface to export this information, where other drivers like
+PMF can use this information to enhance user experiences.
 
 Link: https://lore.kernel.org/all/ad064333-48a4-4cfa-9428-69e8a7c44667@redhat.com/
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Co-developed-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
 Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
 Signed-off-by: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
-(cherry picked from commit 4e71d262899d7bab1f0c65936a2e639afeb83e4d)
+(cherry picked from commit b5b0774d53bb81bddbf8c609b3f183d4af6e91da)
 ---
- drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_desc.c | 28 ++++++++++---------
+ drivers/hid/amd-sfh-hid/amd_sfh_common.h      |  5 ++
+ drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c | 14 ++++++
+ .../amd-sfh-hid/sfh1_1/amd_sfh_interface.c    | 37 +++++++++++++++
  .../amd-sfh-hid/sfh1_1/amd_sfh_interface.h    |  1 +
- 2 files changed, 16 insertions(+), 13 deletions(-)
+ include/linux/amd-pmf-io.h                    | 46 +++++++++++++++++++
+ 5 files changed, 103 insertions(+)
+ create mode 100644 include/linux/amd-pmf-io.h
 
-diff --git a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_desc.c b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_desc.c
-index 8a037de08e92..33fbdde8aff0 100644
---- a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_desc.c
-+++ b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_desc.c
-@@ -132,7 +132,7 @@ static void get_common_inputs(struct common_input_property *common, int report_i
- 	common->event_type = HID_USAGE_SENSOR_EVENT_DATA_UPDATED_ENUM;
- }
+diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_common.h b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
+index 2643bb14fee2..cd57037bf217 100644
+--- a/drivers/hid/amd-sfh-hid/amd_sfh_common.h
++++ b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
+@@ -37,6 +37,10 @@ struct amd_mp2_sensor_info {
+ 	dma_addr_t dma_address;
+ };
  
--static int float_to_int(u32 flt32_val)
-+int amd_sfh_float_to_int(u32 flt32_val)
- {
- 	int fraction, shift, mantissa, sign, exp, zeropre;
++struct sfh_dev_status {
++	bool is_hpd_present;
++};
++
+ struct amd_mp2_dev {
+ 	struct pci_dev *pdev;
+ 	struct amdtp_cl_data *cl_data;
+@@ -47,6 +51,7 @@ struct amd_mp2_dev {
+ 	struct amd_input_data in_data;
+ 	/* mp2 active control status */
+ 	u32 mp2_acs;
++	struct sfh_dev_status dev_en;
+ };
  
-@@ -201,9 +201,9 @@ static u8 get_input_rep(u8 current_index, int sensor_idx, int report_id,
- 			     OFFSET_SENSOR_DATA_DEFAULT;
- 		memcpy_fromio(&accel_data, sensoraddr, sizeof(struct sfh_accel_data));
- 		get_common_inputs(&acc_input.common_property, report_id);
--		acc_input.in_accel_x_value = float_to_int(accel_data.acceldata.x) / 100;
--		acc_input.in_accel_y_value = float_to_int(accel_data.acceldata.y) / 100;
--		acc_input.in_accel_z_value = float_to_int(accel_data.acceldata.z) / 100;
-+		acc_input.in_accel_x_value = amd_sfh_float_to_int(accel_data.acceldata.x) / 100;
-+		acc_input.in_accel_y_value = amd_sfh_float_to_int(accel_data.acceldata.y) / 100;
-+		acc_input.in_accel_z_value = amd_sfh_float_to_int(accel_data.acceldata.z) / 100;
- 		memcpy(input_report, &acc_input, sizeof(acc_input));
- 		report_size = sizeof(acc_input);
- 		break;
-@@ -212,9 +212,9 @@ static u8 get_input_rep(u8 current_index, int sensor_idx, int report_id,
- 			     OFFSET_SENSOR_DATA_DEFAULT;
- 		memcpy_fromio(&gyro_data, sensoraddr, sizeof(struct sfh_gyro_data));
- 		get_common_inputs(&gyro_input.common_property, report_id);
--		gyro_input.in_angel_x_value = float_to_int(gyro_data.gyrodata.x) / 1000;
--		gyro_input.in_angel_y_value = float_to_int(gyro_data.gyrodata.y) / 1000;
--		gyro_input.in_angel_z_value = float_to_int(gyro_data.gyrodata.z) / 1000;
-+		gyro_input.in_angel_x_value = amd_sfh_float_to_int(gyro_data.gyrodata.x) / 1000;
-+		gyro_input.in_angel_y_value = amd_sfh_float_to_int(gyro_data.gyrodata.y) / 1000;
-+		gyro_input.in_angel_z_value = amd_sfh_float_to_int(gyro_data.gyrodata.z) / 1000;
- 		memcpy(input_report, &gyro_input, sizeof(gyro_input));
- 		report_size = sizeof(gyro_input);
- 		break;
-@@ -223,9 +223,9 @@ static u8 get_input_rep(u8 current_index, int sensor_idx, int report_id,
- 			     OFFSET_SENSOR_DATA_DEFAULT;
- 		memcpy_fromio(&mag_data, sensoraddr, sizeof(struct sfh_mag_data));
- 		get_common_inputs(&magno_input.common_property, report_id);
--		magno_input.in_magno_x = float_to_int(mag_data.magdata.x) / 100;
--		magno_input.in_magno_y = float_to_int(mag_data.magdata.y) / 100;
--		magno_input.in_magno_z = float_to_int(mag_data.magdata.z) / 100;
-+		magno_input.in_magno_x = amd_sfh_float_to_int(mag_data.magdata.x) / 100;
-+		magno_input.in_magno_y = amd_sfh_float_to_int(mag_data.magdata.y) / 100;
-+		magno_input.in_magno_z = amd_sfh_float_to_int(mag_data.magdata.z) / 100;
- 		magno_input.in_magno_accuracy = mag_data.accuracy / 100;
- 		memcpy(input_report, &magno_input, sizeof(magno_input));
- 		report_size = sizeof(magno_input);
-@@ -235,13 +235,15 @@ static u8 get_input_rep(u8 current_index, int sensor_idx, int report_id,
- 			     OFFSET_SENSOR_DATA_DEFAULT;
- 		memcpy_fromio(&als_data, sensoraddr, sizeof(struct sfh_als_data));
- 		get_common_inputs(&als_input.common_property, report_id);
--		als_input.illuminance_value = float_to_int(als_data.lux);
-+		als_input.illuminance_value = amd_sfh_float_to_int(als_data.lux);
+ struct amd_mp2_ops {
+diff --git a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c
+index e9c6413af24a..0351b0fd394a 100644
+--- a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c
++++ b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c
+@@ -73,6 +73,12 @@ static int amd_sfh_hid_client_deinit(struct amd_mp2_dev *privdata)
+ 	int i, status;
  
- 		memcpy_fromio(&binfo, mp2->vsbase, sizeof(struct sfh_base_info));
- 		if (binfo.sbase.s_prop[ALS_IDX].sf.feat & 0x2) {
- 			als_input.light_color_temp = als_data.light_color_temp;
--			als_input.chromaticity_x_value = float_to_int(als_data.chromaticity_x);
--			als_input.chromaticity_y_value = float_to_int(als_data.chromaticity_y);
-+			als_input.chromaticity_x_value =
-+				amd_sfh_float_to_int(als_data.chromaticity_x);
-+			als_input.chromaticity_y_value =
-+				amd_sfh_float_to_int(als_data.chromaticity_y);
+ 	for (i = 0; i < cl_data->num_hid_devices; i++) {
++		switch (cl_data->sensor_idx[i]) {
++		case HPD_IDX:
++			privdata->dev_en.is_hpd_present = false;
++			break;
++		}
++
+ 		if (cl_data->sensor_sts[i] == SENSOR_ENABLED) {
+ 			privdata->mp2_ops->stop(privdata, cl_data->sensor_idx[i]);
+ 			status = amd_sfh_wait_for_response
+@@ -178,6 +184,11 @@ static int amd_sfh1_1_hid_client_init(struct amd_mp2_dev *privdata)
+ 			rc = amdtp_hid_probe(i, cl_data);
+ 			if (rc)
+ 				goto cleanup;
++			switch (cl_data->sensor_idx[i]) {
++			case HPD_IDX:
++				privdata->dev_en.is_hpd_present = true;
++				break;
++			}
  		}
+ 		dev_dbg(dev, "sid 0x%x (%s) status 0x%x\n",
+ 			cl_data->sensor_idx[i], get_sensor_name(cl_data->sensor_idx[i]),
+@@ -259,6 +270,7 @@ static void amd_mp2_pci_remove(void *privdata)
+ {
+ 	struct amd_mp2_dev *mp2 = privdata;
  
- 		report_size = sizeof(als_input);
++	sfh_deinit_emp2();
+ 	amd_sfh_hid_client_deinit(privdata);
+ 	mp2->mp2_ops->stop_all(mp2);
+ 	pci_intx(mp2->pdev, false);
+@@ -311,12 +323,14 @@ int amd_sfh1_1_init(struct amd_mp2_dev *mp2)
+ 
+ 	rc = amd_sfh_irq_init(mp2);
+ 	if (rc) {
++		sfh_deinit_emp2();
+ 		dev_err(dev, "amd_sfh_irq_init failed\n");
+ 		return rc;
+ 	}
+ 
+ 	rc = amd_sfh1_1_hid_client_init(mp2);
+ 	if (rc) {
++		sfh_deinit_emp2();
+ 		dev_err(dev, "amd_sfh1_1_hid_client_init failed\n");
+ 		return rc;
+ 	}
+diff --git a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c
+index 4f81ef2d4f56..197b828fc6a0 100644
+--- a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c
++++ b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c
+@@ -7,11 +7,14 @@
+  *
+  * Author: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
+  */
++#include <linux/amd-pmf-io.h>
+ #include <linux/io-64-nonatomic-lo-hi.h>
+ #include <linux/iopoll.h>
+ 
+ #include "amd_sfh_interface.h"
+ 
++static struct amd_mp2_dev *emp2;
++
+ static int amd_sfh_wait_response(struct amd_mp2_dev *mp2, u8 sid, u32 cmd_id)
+ {
+ 	struct sfh_cmd_response cmd_resp;
+@@ -73,7 +76,41 @@ static struct amd_mp2_ops amd_sfh_ops = {
+ 	.response = amd_sfh_wait_response,
+ };
+ 
++void sfh_deinit_emp2(void)
++{
++	emp2 = NULL;
++}
++
+ void sfh_interface_init(struct amd_mp2_dev *mp2)
+ {
+ 	mp2->mp2_ops = &amd_sfh_ops;
++	emp2 = mp2;
++}
++
++static int amd_sfh_hpd_info(u8 *user_present)
++{
++	struct hpd_status hpdstatus;
++
++	if (!user_present)
++		return -EINVAL;
++
++	if (!emp2 || !emp2->dev_en.is_hpd_present)
++		return -ENODEV;
++
++	hpdstatus.val = readl(emp2->mmio + AMD_C2P_MSG(4));
++	*user_present = hpdstatus.shpd.presence;
++
++	return 0;
++}
++
++int amd_get_sfh_info(struct amd_sfh_info *sfh_info, enum sfh_message_type op)
++{
++	if (sfh_info) {
++		switch (op) {
++		case MT_HPD:
++			return amd_sfh_hpd_info(&sfh_info->user_present);
++		}
++	}
++	return -EINVAL;
+ }
++EXPORT_SYMBOL_GPL(amd_get_sfh_info);
 diff --git a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.h b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.h
-index 656c3e95ef8c..75267b0fec70 100644
+index 75267b0fec70..2c211d28764d 100644
 --- a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.h
 +++ b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.h
-@@ -166,4 +166,5 @@ struct hpd_status {
+@@ -165,6 +165,7 @@ struct hpd_status {
+ };
  
  void sfh_interface_init(struct amd_mp2_dev *mp2);
++void sfh_deinit_emp2(void);
  void amd_sfh1_1_set_desc_ops(struct amd_mp2_ops *mp2_ops);
-+int amd_sfh_float_to_int(u32 flt32_val);
+ int amd_sfh_float_to_int(u32 flt32_val);
  #endif
+diff --git a/include/linux/amd-pmf-io.h b/include/linux/amd-pmf-io.h
+new file mode 100644
+index 000000000000..5b6d29d36922
+--- /dev/null
++++ b/include/linux/amd-pmf-io.h
+@@ -0,0 +1,46 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * AMD Platform Management Framework Interface
++ *
++ * Copyright (c) 2023, Advanced Micro Devices, Inc.
++ * All Rights Reserved.
++ *
++ * Authors: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
++ *          Basavaraj Natikar <Basavaraj.Natikar@amd.com>
++ */
++
++#ifndef AMD_PMF_IO_H
++#define AMD_PMF_IO_H
++
++#include <linux/types.h>
++
++/**
++ * enum sfh_message_type - Query the SFH message type
++ * @MT_HPD: Message ID to know the Human presence info from MP2 FW
++ */
++enum sfh_message_type {
++	MT_HPD,
++};
++
++/**
++ * enum sfh_hpd_info - Query the Human presence information
++ * @SFH_NOT_DETECTED: Check the HPD connection information from MP2 FW
++ * @SFH_USER_PRESENT: Check if the user is present from HPD sensor
++ * @SFH_USER_AWAY: Check if the user is away from HPD sensor
++ */
++enum sfh_hpd_info {
++	SFH_NOT_DETECTED,
++	SFH_USER_PRESENT,
++	SFH_USER_AWAY,
++};
++
++/**
++ * struct amd_sfh_info - get HPD sensor info from MP2 FW
++ * @user_present: Populates the user presence information
++ */
++struct amd_sfh_info {
++	u8 user_present;
++};
++
++int amd_get_sfh_info(struct amd_sfh_info *sfh_info, enum sfh_message_type op);
++#endif
 -- 
 2.25.1
 
