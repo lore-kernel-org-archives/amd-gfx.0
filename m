@@ -4,77 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F6BCC6FD1F
-	for <amd-gfx@archiver.kernel.org>; Sat, 30 Mar 2024 13:31:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95843CD1288
+	for <amd-gfx@archiver.kernel.org>; Sat, 30 Mar 2024 13:31:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E13DF10E7D0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79F5210E7CD;
 	Sat, 30 Mar 2024 13:31:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=sifive.com header.i=@sifive.com header.b="XEaDS774";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="cX2kQ6f7";
 	dkim-atps=neutral
-Received: from mail-il1-f171.google.com (mail-il1-f171.google.com
- [209.85.166.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C21610E164
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Mar 2024 18:04:01 +0000 (UTC)
-Received: by mail-il1-f171.google.com with SMTP id
- e9e14a558f8ab-368a67fb5eeso6961995ab.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Mar 2024 11:04:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1711735379; x=1712340179; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=QdcMw9p8wYMiyXmXvRCHMMbWNQHaQ3aY6vG2uVIiJB8=;
- b=XEaDS774gYmqABsnlTNVIt7xEEvoegQGi6Qkjzu3N8EbwvGszwStqE5ePuEsWSh/gX
- OcTtZXfFhgpuJfpkQteP8gKJmypftJYPd9plC+0F+i9pIqdqvbriIq8sF+9w1xP6Tgb6
- GRA4dZAoroHAh1CKbjXAu8S8evD2S7cn+b8HysDmokmAHtCIDKyjB76BXJ2CAzJ8+4lJ
- aExSEPEgAxZk4T2sZkXdsTLXFhEIc6lyGZKhAtxo4WdIeGIfMmZ8uvIz9rBrWIP7gZQq
- r0jMWLSriaVoITsk5do8uzBEVm+f7HZ/B+HpLX83TgUC0O1V07M3M0oPA/JxO0wtMV1T
- CP+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711735379; x=1712340179;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=QdcMw9p8wYMiyXmXvRCHMMbWNQHaQ3aY6vG2uVIiJB8=;
- b=gPgIiWHbPxGIGbsEnfDyXzUXwML9yTkTslnjVybAhsFXnPdQm9bNaf0/uZ7EBZ0uoP
- f4JyMhp7/HCL4b1DGEF6aBE01p5UhTff4DktfVBaunh3Bki5irxCa/ihKZlDBeC5ncId
- 7uyj8+jPxT1ISuh2s1ncjLPO190u9TNsasoToaUDgG1ocotiXjYM6RHjiBBCTbtPLnOA
- a7IYtAanrWDzGuX5AJwhOhIAmW1xoHFVm0CunUwFYVYmsinjXSzX4u9mHjflMZqsjJ3f
- 7xtH1cWpRNxcYmlj6lfoGPRYzi0cU7KzPz2adxC7KpAFrO2w9ocWuHPuKL6mjGJhdHCy
- Dz8A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWcHLtHtMg1OyWuHPD5E8a4U/nGQQkRzhRgF2D+vfNIilxrqp5V0mCPUODbrXHtq0dsJzBTG0eEc41+4gdo8njEPo++jPn+pMT8vj2Dbg==
-X-Gm-Message-State: AOJu0YxKbu/I2+RMAgOt2LqU959MYMbb6p/bW1Z2gMXFKX7SJEWlk8Fj
- Pg3FWlmc6xmdimdl6cWKyXwK0objif9tldpo6ZFADtySItHAsNw7Dn9FDNmEqXR9jEtD745woio
- w
-X-Google-Smtp-Source: AGHT+IFqMNmDL2GVO2cyYm+vIEEaj43NPiUKo2CRXyyGfQmLknY9TtLFDSxdZDVwWotlePg1wJz6nw==
-X-Received: by 2002:a92:ca4e:0:b0:366:ab6f:f6a with SMTP id
- q14-20020a92ca4e000000b00366ab6f0f6amr3003624ilo.24.1711735379197; 
- Fri, 29 Mar 2024 11:02:59 -0700 (PDT)
-Received: from [100.64.0.1] ([170.85.6.190]) by smtp.gmail.com with ESMTPSA id
- k4-20020a056e021a8400b003689a9e5017sm1217549ilv.47.2024.03.29.11.02.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Mar 2024 11:02:58 -0700 (PDT)
-Message-ID: <0319d84e-ec4c-45a6-9edd-a606809371d8@sifive.com>
-Date: Fri, 29 Mar 2024 13:02:56 -0500
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1737410E37A;
+ Fri, 29 Mar 2024 17:38:29 +0000 (UTC)
+Received: from [100.64.128.229] (unknown [20.29.225.195])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 8A372201F16E;
+ Fri, 29 Mar 2024 10:38:24 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8A372201F16E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1711733906;
+ bh=8tbmpJNBNI1k4VwDOIxfkmsXDU989tyOYol27bNqXbk=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=cX2kQ6f74T2I03q55Vd7kF3+Ls664raID5hfw7D0UiNwgBbbYkRGavQTlFAnCbM9L
+ kqCM/BoF10ug6vQ7GnbaoopFkzr692jiKyEuH/t4hii+FxMUY4ZI5aXzomIEuN7X2P
+ bcPCAeq2cVRN3AzaLSxywZzWIrVSy1L+jsCYyD5A=
+Message-ID: <5181b1e8-032d-473b-92f3-0402bebad1b4@linux.microsoft.com>
+Date: Fri, 29 Mar 2024 10:38:23 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 10/15] x86: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
-To: Dave Hansen <dave.hansen@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, x86@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
- Christoph Hellwig <hch@lst.de>, loongarch@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
- Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org
-References: <20240329072441.591471-1-samuel.holland@sifive.com>
- <20240329072441.591471-11-samuel.holland@sifive.com>
- <d2c3cd78-cdc6-4a39-9804-4f30402751b1@intel.com>
-From: Samuel Holland <samuel.holland@sifive.com>
-Content-Language: en-US
-In-Reply-To: <d2c3cd78-cdc6-4a39-9804-4f30402751b1@intel.com>
+Subject: Re: [PATCH v0 02/14] drm/amdgpu, drm/radeon: Make I2C terminology more
+ inclusive
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+To: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Evan Quan <evan.quan@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Candice Li <candice.li@amd.com>, Ran Sun <sunran001@208suo.com>,
+ Alexander Richards <electrodeyt@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Hamza Mahfooz
+ <hamza.mahfooz@amd.com>, Ruan Jinjie <ruanjinjie@huawei.com>,
+ Alan Liu <haoping.liu@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Samson Tam <samson.tam@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ Sohaib Nadeem <sohaib.nadeem@amd.com>, Lewis Huang <lewis.huang@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ George Shen <george.shen@amd.com>, Aric Cyr <aric.cyr@amd.com>,
+ Jun Lei <jun.lei@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, Le Ma <Le.Ma@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Asad kamal <asad.kamal@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>, Darren Powell <darren.powell@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>,
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>
+References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
+ <20240329170038.3863998-3-eahariha@linux.microsoft.com>
+ <Zgb3VYsgLjhJ2HKs@ashyti-mobl2.lan>
+ <ceeaafe1-49d5-4602-8251-eed63a1be2b6@linux.microsoft.com>
+Content-Language: en-CA
+In-Reply-To: <ceeaafe1-49d5-4602-8251-eed63a1be2b6@linux.microsoft.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Sat, 30 Mar 2024 13:31:09 +0000
@@ -92,37 +99,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2024-03-29 12:28 PM, Dave Hansen wrote:
-> On 3/29/24 00:18, Samuel Holland wrote:
->> +#
->> +# CFLAGS for compiling floating point code inside the kernel.
->> +#
->> +CC_FLAGS_FPU := -msse -msse2
->> +ifdef CONFIG_CC_IS_GCC
->> +# Stack alignment mismatch, proceed with caution.
->> +# GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
->> +# (8B stack alignment).
->> +# See https://gcc.gnu.org/bugzilla/show_bug.cgi?id=53383
->> +#
->> +# The "-msse" in the first argument is there so that the
->> +# -mpreferred-stack-boundary=3 build error:
->> +#
->> +#  -mpreferred-stack-boundary=3 is not between 4 and 12
->> +#
->> +# can be triggered. Otherwise gcc doesn't complain.
->> +CC_FLAGS_FPU += -mhard-float
->> +CC_FLAGS_FPU += $(call cc-option,-msse -mpreferred-stack-boundary=3,-mpreferred-stack-boundary=4)
->> +endif
+On 3/29/2024 10:28 AM, Easwar Hariharan wrote:
+> On 3/29/2024 10:16 AM, Andi Shyti wrote:
+>> Hi Easwar,
+>>
+
+<snip>
+
+>>
+>> The specification talks about:
+>>
+>>  - master -> controller
+>>  - slave -> target (and not client)
+>>
+>> But both you and Wolfram have used client. I'd like to reach
+>> some more consistency here.
 > 
-> I was expecting to see this (now duplicate) hunk come _out_ of
-> lib/Makefile somewhere in the series.
+> I had the impression that remote targets (i.e external to the device) were to be called clients,
+> e.g. the QSFP FRUs in drivers/infiniband, and internal ones targets.
+> I chose the terminology according to that understanding, but now I can't find where I got that
+> information.
 > 
-> Did I miss that, or is there something keeping the duplicate there?
+> Thanks,
+> Easwar
 
-This hunk is removed in patch 15/15, after the conversion of lib/test_fpu.c:
+Ah, it was in Wolfram's individual commit messages "They are also more specific because we distinguish now between a remote
+entity ("client") and a local one ("target")."
 
-https://lore.kernel.org/linux-kernel/20240329072441.591471-16-samuel.holland@sifive.com/
-
-Regards,
-Samuel
-
+Thanks,
+Easwar
