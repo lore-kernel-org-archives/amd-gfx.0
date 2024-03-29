@@ -4,55 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B333FCD1288
-	for <amd-gfx@archiver.kernel.org>; Sat, 30 Mar 2024 13:31:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD426CD1291
+	for <amd-gfx@archiver.kernel.org>; Sat, 30 Mar 2024 13:31:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA9E010E7F7;
-	Sat, 30 Mar 2024 13:31:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D2FA10E7F8;
+	Sat, 30 Mar 2024 13:31:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Ohxy/Tpi";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="XrEkKJJt";
 	dkim-atps=neutral
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id D690F11275A;
- Fri, 29 Mar 2024 17:02:17 +0000 (UTC)
-Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.147.137])
- by linux.microsoft.com (Postfix) with ESMTPSA id 6B14020E6F42;
- Fri, 29 Mar 2024 10:02:17 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6B14020E6F42
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7A07810E179;
+ Fri, 29 Mar 2024 17:28:18 +0000 (UTC)
+Received: from [100.64.128.229] (unknown [20.29.225.195])
+ by linux.microsoft.com (Postfix) with ESMTPSA id F025F20E6F42;
+ Fri, 29 Mar 2024 10:28:15 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com F025F20E6F42
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1711731737;
- bh=1xAt8oLDivBzcFZmj4k6LuWQeVtOX6JrcyzssXeZ3pU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Ohxy/Tpis4rcZr+HmqqXLQ1kevTdDNaAjl+/S10lEH84ShVaJTi7yoXPaEoRlh1Ia
- MyYKE35gS8u9NTdAgaEBLovHzzoDvWALpXM6LFWrBAzoFK88d9+Qat5qDC4ednKXPl
- Kh6ndPQtI1OXBTVsPtSRnotMhgVWfK4FheWQeEeo=
-From: Easwar Hariharan <eahariha@linux.microsoft.com>
-To: Andy Walls <awalls@md.metrocast.net>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-media@vger.kernel.org (open list:CX18 VIDEO4LINUX DRIVER),
- linux-kernel@vger.kernel.org (open list)
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list),
- intel-gfx@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
- DRIVERS), 
- intel-xe@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
- DRIVERS), 
- nouveau@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO
- GPUS), linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
- linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
- linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER),
- Easwar Hariharan <eahariha@linux.microsoft.com>
-Subject: [PATCH v0 06/14] media: cx18: Make I2C terminology more inclusive
-Date: Fri, 29 Mar 2024 17:00:30 +0000
-Message-Id: <20240329170038.3863998-7-eahariha@linux.microsoft.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
-References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
+ s=default; t=1711733297;
+ bh=hch/u335H6D65pAq1bDA626o2AaqkCTmqwNWGWUzaXQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=XrEkKJJt6g8HyXm3jZAF8E57Do87RTxZglc6cC0o43MP2NX5o9fCXJHTExY/dAQ/f
+ f2qf//hgOJoYeQz3kWbMxVUQtZEgvE6g4GwBWadhhokiIrZHjqHT8byECFNEk5rKZ/
+ NBwIhYPs8iqVP/jGZMjSxiobOhdcZIdQ4D7M2vdM=
+Message-ID: <ceeaafe1-49d5-4602-8251-eed63a1be2b6@linux.microsoft.com>
+Date: Fri, 29 Mar 2024 10:28:14 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 30 Mar 2024 13:31:08 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v0 02/14] drm/amdgpu, drm/radeon: Make I2C terminology more
+ inclusive
+To: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Evan Quan <evan.quan@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Candice Li <candice.li@amd.com>, Ran Sun <sunran001@208suo.com>,
+ Alexander Richards <electrodeyt@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Hamza Mahfooz
+ <hamza.mahfooz@amd.com>, Ruan Jinjie <ruanjinjie@huawei.com>,
+ Alan Liu <haoping.liu@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Samson Tam <samson.tam@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ Sohaib Nadeem <sohaib.nadeem@amd.com>, Lewis Huang <lewis.huang@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ George Shen <george.shen@amd.com>, Aric Cyr <aric.cyr@amd.com>,
+ Jun Lei <jun.lei@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, Le Ma <Le.Ma@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Asad kamal <asad.kamal@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>, Darren Powell <darren.powell@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>,
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>
+References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
+ <20240329170038.3863998-3-eahariha@linux.microsoft.com>
+ <Zgb3VYsgLjhJ2HKs@ashyti-mobl2.lan>
+Content-Language: en-CA
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+In-Reply-To: <Zgb3VYsgLjhJ2HKs@ashyti-mobl2.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Sat, 30 Mar 2024 13:31:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,137 +98,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
-with more appropriate terms. Inspired by and following on to Wolfram's
-series to fix drivers/i2c/[1], fix the terminology for users of
-I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
-in the specification.
+On 3/29/2024 10:16 AM, Andi Shyti wrote:
+> Hi Easwar,
+> 
+> On Fri, Mar 29, 2024 at 05:00:26PM +0000, Easwar Hariharan wrote:
+>> I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
+> 
+> I don't understand why we forget that i3c is 1.1.1 :-)
 
-I2S specification has also updated the terms in v.3 to use "controller"
-and "target" respectively. Make those changes in the relevant spaces as
-well.
+That's because it's a copy-paste error from Wolfram's cover letter. :) I'll update
+next go-around.
 
-Compile tested, no functionality changes intended
+> 
+>> with more appropriate terms. Inspired by and following on to Wolfram's
+>> series to fix drivers/i2c/[1], fix the terminology for users of
+>> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+>> in the specification.
+> 
+> The specification talks about:
+> 
+>  - master -> controller
+>  - slave -> target (and not client)
+> 
+> But both you and Wolfram have used client. I'd like to reach
+> some more consistency here.
 
-[1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
+I had the impression that remote targets (i.e external to the device) were to be called clients,
+e.g. the QSFP FRUs in drivers/infiniband, and internal ones targets.
+I chose the terminology according to that understanding, but now I can't find where I got that
+information.
 
-Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
----
- drivers/media/pci/cx18/cx18-av-firmware.c | 8 ++++----
- drivers/media/pci/cx18/cx18-cards.c       | 6 +++---
- drivers/media/pci/cx18/cx18-cards.h       | 4 ++--
- drivers/media/pci/cx18/cx18-gpio.c        | 6 +++---
- 4 files changed, 12 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/media/pci/cx18/cx18-av-firmware.c b/drivers/media/pci/cx18/cx18-av-firmware.c
-index 61aeb8c9af7f..906e0b33cffc 100644
---- a/drivers/media/pci/cx18/cx18-av-firmware.c
-+++ b/drivers/media/pci/cx18/cx18-av-firmware.c
-@@ -140,22 +140,22 @@ int cx18_av_loadfw(struct cx18 *cx)
- 	cx18_av_and_or4(cx, CXADEC_PIN_CTRL1, ~0, 0x78000);
- 
- 	/* Audio input control 1 set to Sony mode */
--	/* Audio output input 2 is 0 for slave operation input */
-+	/* Audio output input 2 is 0 for target operation input */
- 	/* 0xC4000914[5]: 0 = left sample on WS=0, 1 = left sample on WS=1 */
- 	/* 0xC4000914[7]: 0 = Philips mode, 1 = Sony mode (1st SCK rising edge
- 	   after WS transition for first bit of audio word. */
- 	cx18_av_write4(cx, CXADEC_I2S_IN_CTL, 0x000000A0);
- 
- 	/* Audio output control 1 is set to Sony mode */
--	/* Audio output control 2 is set to 1 for master mode */
-+	/* Audio output control 2 is set to 1 for controller mode */
- 	/* 0xC4000918[5]: 0 = left sample on WS=0, 1 = left sample on WS=1 */
- 	/* 0xC4000918[7]: 0 = Philips mode, 1 = Sony mode (1st SCK rising edge
- 	   after WS transition for first bit of audio word. */
--	/* 0xC4000918[8]: 0 = slave operation, 1 = master (SCK_OUT and WS_OUT
-+	/* 0xC4000918[8]: 0 = target operation, 1 = controller (SCK_OUT and WS_OUT
- 	   are generated) */
- 	cx18_av_write4(cx, CXADEC_I2S_OUT_CTL, 0x000001A0);
- 
--	/* set alt I2s master clock to /0x16 and enable alt divider i2s
-+	/* set alt I2s controller clock to /0x16 and enable alt divider i2s
- 	   passthrough */
- 	cx18_av_write4(cx, CXADEC_PIN_CFG3, 0x5600B687);
- 
-diff --git a/drivers/media/pci/cx18/cx18-cards.c b/drivers/media/pci/cx18/cx18-cards.c
-index f5a30959a367..d9b859ee4b1b 100644
---- a/drivers/media/pci/cx18/cx18-cards.c
-+++ b/drivers/media/pci/cx18/cx18-cards.c
-@@ -82,7 +82,7 @@ static const struct cx18_card cx18_card_hvr1600_esmt = {
- 	},
- 	.gpio_init.initial_value = 0x3001,
- 	.gpio_init.direction = 0x3001,
--	.gpio_i2c_slave_reset = {
-+	.gpio_i2c_client_reset = {
- 		.active_lo_mask = 0x3001,
- 		.msecs_asserted = 10,
- 		.msecs_recovery = 40,
-@@ -129,7 +129,7 @@ static const struct cx18_card cx18_card_hvr1600_s5h1411 = {
- 	},
- 	.gpio_init.initial_value = 0x3801,
- 	.gpio_init.direction = 0x3801,
--	.gpio_i2c_slave_reset = {
-+	.gpio_i2c_client_reset = {
- 		.active_lo_mask = 0x3801,
- 		.msecs_asserted = 10,
- 		.msecs_recovery = 40,
-@@ -176,7 +176,7 @@ static const struct cx18_card cx18_card_hvr1600_samsung = {
- 	},
- 	.gpio_init.initial_value = 0x3001,
- 	.gpio_init.direction = 0x3001,
--	.gpio_i2c_slave_reset = {
-+	.gpio_i2c_client_reset = {
- 		.active_lo_mask = 0x3001,
- 		.msecs_asserted = 10,
- 		.msecs_recovery = 40,
-diff --git a/drivers/media/pci/cx18/cx18-cards.h b/drivers/media/pci/cx18/cx18-cards.h
-index ae9cf5bfdd59..86f41ec6ca2f 100644
---- a/drivers/media/pci/cx18/cx18-cards.h
-+++ b/drivers/media/pci/cx18/cx18-cards.h
-@@ -69,7 +69,7 @@ struct cx18_gpio_init { /* set initial GPIO DIR and OUT values */
- 	u32 initial_value;
- };
- 
--struct cx18_gpio_i2c_slave_reset {
-+struct cx18_gpio_i2c_client_reset {
- 	u32 active_lo_mask; /* GPIO outputs that reset i2c chips when low */
- 	u32 active_hi_mask; /* GPIO outputs that reset i2c chips when high */
- 	int msecs_asserted; /* time period reset must remain asserted */
-@@ -121,7 +121,7 @@ struct cx18_card {
- 	/* GPIO card-specific settings */
- 	u8 xceive_pin;		/* XCeive tuner GPIO reset pin */
- 	struct cx18_gpio_init		 gpio_init;
--	struct cx18_gpio_i2c_slave_reset gpio_i2c_slave_reset;
-+	struct cx18_gpio_i2c_client_reset gpio_i2c_client_reset;
- 	struct cx18_gpio_audio_input    gpio_audio_input;
- 
- 	struct cx18_card_tuner tuners[CX18_CARD_MAX_TUNERS];
-diff --git a/drivers/media/pci/cx18/cx18-gpio.c b/drivers/media/pci/cx18/cx18-gpio.c
-index c85eb8d25837..82c9104b9e85 100644
---- a/drivers/media/pci/cx18/cx18-gpio.c
-+++ b/drivers/media/pci/cx18/cx18-gpio.c
-@@ -204,9 +204,9 @@ static int resetctrl_log_status(struct v4l2_subdev *sd)
- static int resetctrl_reset(struct v4l2_subdev *sd, u32 val)
- {
- 	struct cx18 *cx = v4l2_get_subdevdata(sd);
--	const struct cx18_gpio_i2c_slave_reset *p;
-+	const struct cx18_gpio_i2c_client_reset *p;
- 
--	p = &cx->card->gpio_i2c_slave_reset;
-+	p = &cx->card->gpio_i2c_client_reset;
- 	switch (val) {
- 	case CX18_GPIO_RESET_I2C:
- 		gpio_reset_seq(cx, p->active_lo_mask, p->active_hi_mask,
-@@ -309,7 +309,7 @@ void cx18_reset_ir_gpio(void *data)
- {
- 	struct cx18 *cx = to_cx18(data);
- 
--	if (cx->card->gpio_i2c_slave_reset.ir_reset_mask == 0)
-+	if (cx->card->gpio_i2c_client_reset.ir_reset_mask == 0)
- 		return;
- 
- 	CX18_DEBUG_INFO("Resetting IR microcontroller\n");
--- 
-2.34.1
-
+Thanks,
+Easwar
