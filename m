@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1B2EC6FD1F
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 12:48:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DC80C6FD1F
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 12:49:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14A401126E7;
-	Fri, 29 Mar 2024 12:48:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C397C1126EF;
+	Fri, 29 Mar 2024 12:49:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DHRK2dhJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uSoV2WQq";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFAF91126DF;
- Fri, 29 Mar 2024 12:48:20 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E93A1126EF;
+ Fri, 29 Mar 2024 12:49:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3FEEE6192E;
- Fri, 29 Mar 2024 12:48:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32399C43390;
- Fri, 29 Mar 2024 12:48:18 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id C780DCE2FA5;
+ Fri, 29 Mar 2024 12:49:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DE6AC433F1;
+ Fri, 29 Mar 2024 12:49:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711716499;
+ s=k20201202; t=1711716569;
  bh=aiYW0yw5E+HOidbqciMe7uHQZ7wj+DvE0N4dRycpisI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DHRK2dhJZkcJKNAWf/BFhJy+SylX4zcnvQ/1i8SJs32mVA+z8CVr2fj7o+YVDjAr2
- V570dNpDBEt6hTatldcRBNoB1Qab1iCgCrbKBz2vlAcVyBdwACv5TNP957dgOXtVoe
- kDCXZV6XnnECYMHl7s5nyiQI9vLJH4b3l6cDil3Y5Px1Re2DtG+ZGGuCrdU/ffalZ8
- nCKSc3bK+qFG9oKGEf2ms5YPMGZU3x9VTZ2q/4o9mgiqWEC87ZZ5wxWHk8nQuszdU6
- H420lvdlZMDCiBK8o6ca2ZcoEBtNVrMzMkBiXol9eWpLQvuA92zowGqsHl5i4dqux9
- VD19vtWbbOe0g==
+ b=uSoV2WQq0hKksk6Y8x17z8V0nA8vBF4vgckqxrnHw4Nr4h+fJ3rkUo6RssBo20sPf
+ KY9Uahe5mGAqql2kn6dxHT0WAVgIPk4deNz34wpUY1cmhE/Wdipe8ACcx6FpScD37Q
+ zXqhbRi8S/7l4FMFb8RGYWN24MuyiIbGGhXXo2ysLTLmnXn7HrJDHLd0dDSJSXUfUA
+ Fn/WjgpC42dCZB8m8foZroqVSjd4fmZtRZj8GlsbcntyqoYBB6o9oFS1cXsXlPHlPY
+ vIgg3PQEesToqbsEFU1tmSa19cJ/9isXExjsrQVP2pYt/R88KyOQePEyYCBa7R0j4P
+ whDC+XWbQ9cOQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -40,16 +40,16 @@ Cc: Aric Cyr <aric.cyr@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
  dillon.varone@amd.com, aurabindo.pillai@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 5.15 16/34] drm/amd/display: Fix nanosec stat overflow
-Date: Fri, 29 Mar 2024 08:47:17 -0400
-Message-ID: <20240329124750.3092394-16-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 14/31] drm/amd/display: Fix nanosec stat overflow
+Date: Fri, 29 Mar 2024 08:48:31 -0400
+Message-ID: <20240329124903.3093161-14-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240329124750.3092394-1-sashal@kernel.org>
-References: <20240329124750.3092394-1-sashal@kernel.org>
+In-Reply-To: <20240329124903.3093161-1-sashal@kernel.org>
+References: <20240329124903.3093161-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.15.153
+X-stable-base: Linux 5.10.214
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
