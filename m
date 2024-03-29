@@ -4,55 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0F42C6FD1F
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 11:32:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B81C9CD1290
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Mar 2024 11:32:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C144112667;
-	Fri, 29 Mar 2024 11:32:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEFC811266B;
+	Fri, 29 Mar 2024 11:32:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="qTiIO0Hy";
+	dkim=pass (2048-bit key; unprotected) header.d=sifive.com header.i=@sifive.com header.b="hX5tL9js";
 	dkim-atps=neutral
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF57310F369;
- Thu, 28 Mar 2024 15:20:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1711639229;
- bh=5Xaxy/AFj7BsBxQjcw6JFkf4riFKNt7BsRomirQ/Jqw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=qTiIO0HyIneMSPtetjarqDXvUFv975k6KGbIBkqo8O+DTneEk/tc7mxIppJzVoAY8
- nMloXKUK5cdDyub9AGXpHHSICNqN+w7kysfyqI+gp6SAqfX41xB+eIQk+hThRDrMCW
- 6J6FnkogEWQC9ATq88D2boOv4S/2Apg74FdoPWEMKDq4WEhV/LGN1zrRQk+8+Gi8p9
- MC5cX9VOa4P2TzYqyGvKZkzAxrvAWMUCmCy+1uJXYQEfwlx6nTxUu5h6yMaQ7ijTog
- pjJBHnNEwqwpN9hXGVPS+LOpvRkaGReyTB5oGgDA/L4jiMBVCACu0bI/HI22VXsMke
- z87zLHMCEIfOg==
-Received: from eldfell (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id A547E3780C39;
- Thu, 28 Mar 2024 15:20:28 +0000 (UTC)
-Date: Thu, 28 Mar 2024 17:20:27 +0200
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: <sunpeng.li@amd.com>
-Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- Joshua Ashton <joshua@froggi.es>, Michel =?UTF-8?B?RMOkbnplcg==?=
- <mdaenzer@redhat.com>, Chao Guo <chao.guo@nxp.com>, Xaver Hugl
- <xaver.hugl@gmail.com>, Vikas Korjani <Vikas.Korjani@amd.com>, Robert Mader
- <robert.mader@posteo.de>, "Sean Paul" <sean@poorly.run>, Simon Ser
- <contact@emersion.fr>, Shashank Sharma <shashank.sharma@amd.com>, Harry
- Wentland <harry.wentland@amd.com>, "Sebastian Wick"
- <sebastian.wick@redhat.com>
-Subject: Re: [PATCH 2/2] drm/amd/display: Move PRIMARY plane zpos higher
-Message-ID: <20240328172027.46d0c4ae.pekka.paalanen@collabora.com>
-In-Reply-To: <20240315170959.165505-3-sunpeng.li@amd.com>
-References: <20240315170959.165505-1-sunpeng.li@amd.com>
- <20240315170959.165505-3-sunpeng.li@amd.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 307A3112446
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Mar 2024 07:26:03 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-29de4c33441so1386554a91.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Mar 2024 00:26:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=sifive.com; s=google; t=1711697103; x=1712301903; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Z4EVp4FPE+/jeIRBNmVRsUyItk8Ntjq2i9UEb5o+3e0=;
+ b=hX5tL9jsl5YDBKdfQLaOnU3lESY9wELeXYva39jWxpwavdtHgUddFsdHS/r9DkTXbl
+ zj6B75CO4LJ/K4oOeHb2nRr4Eg+UQlTLGv/wM6jTV+mgyigKDyxZ2UTz1CPF2Rvfv692
+ p7JhZ/in99x8i8/Pf+YaSgmeHIlTYREhouKJyZleKXXbvK5O3wlJeqfHpqFC9yZXMk2E
+ +UI5M6khwlqWmCnqWiWLT5Ybla7rJSgqlkWPFhwEDCsTDswDvWH5Y2xfk6LteGT/eqVB
+ 7RBWNBGdLMSuxRGbh96IRtvhWsYMGsE4a6Qf0w5BP6FIwW2YZ6UKNhgO2/jhnWl35JgH
+ UYWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711697103; x=1712301903;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Z4EVp4FPE+/jeIRBNmVRsUyItk8Ntjq2i9UEb5o+3e0=;
+ b=LEenYZu9yaMtCUAZJTEAN+jUNH0ldmYmWGruxu7S6TepZLNNEEUslQ6PPuhsrsCaCc
+ wRQWCSSCq3eSPC1WwNaSeUwJqd/ttmjdE5uLChyTb7dV9gniMEDFIXREnQPKva/xPJho
+ plTotjjqf/oExQwlhHXHF4VKGXCljBhpsseqACjcXunFHepvSCQYflGyzElEQ2jma0Dv
+ 74F9lNgJxN2Ed/USVSgdBV+ZLkd30yhn3jYybeNMAOZLS0QLLHLS0FZUBu0VlPO3UGBu
+ b7JkRzGahEDKLBwQ3a4xqkzOeUA6K9q0Pgk9WQnXhHnvdvQEGOyIN3wX2RwzVcOF34BA
+ f+2w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXzyYmnk9bPSJlwPsUS1FDG8oIEPhQh568jO3IPrBLoD1JHi26NkCH6EMedf5iUUbTBCZM0M225hj2AP46LAQvq3dVX52EuFpaMIcJE2A==
+X-Gm-Message-State: AOJu0YxlslikQUhMUyCDTfjYUkZejc6aJookAFuPtbh8XihNgO+oQe5o
+ RWCFEqsEgTA81lWxIcblP0+yyknodmtgrBRSJ0R4AHXeQNcgkV/Vqqcwq2sHuGU=
+X-Google-Smtp-Source: AGHT+IHObpmsfqDnVzwffSCR0G9zA2Nzm55W89HV7TW/i69TFVB/o13/9rds5tWd/Fn8feEYN1IDow==
+X-Received: by 2002:a17:90a:f2ce:b0:29f:cbd8:ea11 with SMTP id
+ gt14-20020a17090af2ce00b0029fcbd8ea11mr1691675pjb.15.1711697102774; 
+ Fri, 29 Mar 2024 00:25:02 -0700 (PDT)
+Received: from sw06.internal.sifive.com ([4.53.31.132])
+ by smtp.gmail.com with ESMTPSA id
+ b8-20020a17090a010800b0029ddac03effsm4971798pjb.11.2024.03.29.00.25.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 Mar 2024 00:25:02 -0700 (PDT)
+From: Samuel Holland <samuel.holland@sifive.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+ linux-arm-kernel@lists.infradead.org, x86@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+ Christoph Hellwig <hch@lst.de>, loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, Samuel Holland <samuel.holland@sifive.com>,
+ Palmer Dabbelt <palmer@rivosinc.com>
+Subject: [PATCH v4 11/15] riscv: Add support for kernel-mode FPU
+Date: Fri, 29 Mar 2024 00:18:26 -0700
+Message-ID: <20240329072441.591471-12-samuel.holland@sifive.com>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240329072441.591471-1-samuel.holland@sifive.com>
+References: <20240329072441.591471-1-samuel.holland@sifive.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/Rj2ooB6ahdetqGvxcKDNYFm";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 29 Mar 2024 11:32:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,73 +87,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/Rj2ooB6ahdetqGvxcKDNYFm
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+This is motivated by the amdgpu DRM driver, which needs floating-point
+code to support recent hardware. That code is not performance-critical,
+so only provide a minimal non-preemptible implementation for now.
 
-On Fri, 15 Mar 2024 13:09:58 -0400
-<sunpeng.li@amd.com> wrote:
+Support is limited to riscv64 because riscv32 requires runtime (libgcc)
+assistance to convert between doubles and 64-bit integers.
 
-> From: Leo Li <sunpeng.li@amd.com>
->=20
-> [Why]
->=20
-> Compositors have different ways of assigning surfaces to DRM planes for
-> render offloading. It may decide between various strategies: overlay,
-> underlay, or a mix of both
->=20
-> One way for compositors to implement the underlay strategy is to assign
-> a higher zpos to the DRM_PRIMARY plane than the DRM_OVERLAY planes,
-> effectively turning the DRM_OVERLAY plane into an underlay plane.
->=20
-> Today, amdgpu attaches an immutable zpos of 0 to the DRM_PRIMARY plane.
-> This however, is an arbitrary restriction. DCN pipes are general
-> purpose, and can be arranged in any z-order. To support compositors
-> using this allocation scheme, we can set a non-zero immutable zpos for
-> the PRIMARY, allowing the placement of OVERLAYS (mutable zpos range
-> 0-254) beneath the PRIMARY.
->=20
-> [How]
->=20
-> Assign a zpos =3D #no of OVERLAY planes to the PRIMARY plane. Then, clean
-> up any assumptions in the driver of PRIMARY plane having the lowest
-> zpos.
+Acked-by: Palmer Dabbelt <palmer@rivosinc.com>
+Reviewed-by: Palmer Dabbelt <palmer@rivosinc.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+---
 
-This sounds good to me too. I suppose that means
+(no changes since v3)
 
-Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+Changes in v3:
+ - Limit riscv ARCH_HAS_KERNEL_FPU_SUPPORT to 64BIT
 
-for both patches. Or at least for their intentions. :-)
+Changes in v2:
+ - Remove RISC-V architecture-specific preprocessor check
 
+ arch/riscv/Kconfig                  |  1 +
+ arch/riscv/Makefile                 |  3 +++
+ arch/riscv/include/asm/fpu.h        | 16 ++++++++++++++++
+ arch/riscv/kernel/Makefile          |  1 +
+ arch/riscv/kernel/kernel_mode_fpu.c | 28 ++++++++++++++++++++++++++++
+ 5 files changed, 49 insertions(+)
+ create mode 100644 arch/riscv/include/asm/fpu.h
+ create mode 100644 arch/riscv/kernel/kernel_mode_fpu.c
 
-Thanks,
-pq
+diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+index be09c8836d56..3bcd0d250810 100644
+--- a/arch/riscv/Kconfig
++++ b/arch/riscv/Kconfig
+@@ -27,6 +27,7 @@ config RISCV
+ 	select ARCH_HAS_GCOV_PROFILE_ALL
+ 	select ARCH_HAS_GIGANTIC_PAGE
+ 	select ARCH_HAS_KCOV
++	select ARCH_HAS_KERNEL_FPU_SUPPORT if 64BIT && FPU
+ 	select ARCH_HAS_MEMBARRIER_CALLBACKS
+ 	select ARCH_HAS_MEMBARRIER_SYNC_CORE
+ 	select ARCH_HAS_MMIOWB
+diff --git a/arch/riscv/Makefile b/arch/riscv/Makefile
+index 252d63942f34..76ff4033c854 100644
+--- a/arch/riscv/Makefile
++++ b/arch/riscv/Makefile
+@@ -84,6 +84,9 @@ KBUILD_CFLAGS += -march=$(shell echo $(riscv-march-y) | sed -E 's/(rv32ima|rv64i
+ 
+ KBUILD_AFLAGS += -march=$(riscv-march-y)
+ 
++# For C code built with floating-point support, exclude V but keep F and D.
++CC_FLAGS_FPU  := -march=$(shell echo $(riscv-march-y) | sed -E 's/(rv32ima|rv64ima)([^v_]*)v?/\1\2/')
++
+ KBUILD_CFLAGS += -mno-save-restore
+ KBUILD_CFLAGS += -DCONFIG_PAGE_OFFSET=$(CONFIG_PAGE_OFFSET)
+ 
+diff --git a/arch/riscv/include/asm/fpu.h b/arch/riscv/include/asm/fpu.h
+new file mode 100644
+index 000000000000..91c04c244e12
+--- /dev/null
++++ b/arch/riscv/include/asm/fpu.h
+@@ -0,0 +1,16 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2023 SiFive
++ */
++
++#ifndef _ASM_RISCV_FPU_H
++#define _ASM_RISCV_FPU_H
++
++#include <asm/switch_to.h>
++
++#define kernel_fpu_available()	has_fpu()
++
++void kernel_fpu_begin(void);
++void kernel_fpu_end(void);
++
++#endif /* ! _ASM_RISCV_FPU_H */
+diff --git a/arch/riscv/kernel/Makefile b/arch/riscv/kernel/Makefile
+index 81d94a8ee10f..5b243d46f4b1 100644
+--- a/arch/riscv/kernel/Makefile
++++ b/arch/riscv/kernel/Makefile
+@@ -67,6 +67,7 @@ obj-$(CONFIG_RISCV_MISALIGNED)	+= unaligned_access_speed.o
+ obj-$(CONFIG_RISCV_PROBE_UNALIGNED_ACCESS)	+= copy-unaligned.o
+ 
+ obj-$(CONFIG_FPU)		+= fpu.o
++obj-$(CONFIG_FPU)		+= kernel_mode_fpu.o
+ obj-$(CONFIG_RISCV_ISA_V)	+= vector.o
+ obj-$(CONFIG_RISCV_ISA_V)	+= kernel_mode_vector.o
+ obj-$(CONFIG_SMP)		+= smpboot.o
+diff --git a/arch/riscv/kernel/kernel_mode_fpu.c b/arch/riscv/kernel/kernel_mode_fpu.c
+new file mode 100644
+index 000000000000..0ac8348876c4
+--- /dev/null
++++ b/arch/riscv/kernel/kernel_mode_fpu.c
+@@ -0,0 +1,28 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2023 SiFive
++ */
++
++#include <linux/export.h>
++#include <linux/preempt.h>
++
++#include <asm/csr.h>
++#include <asm/fpu.h>
++#include <asm/processor.h>
++#include <asm/switch_to.h>
++
++void kernel_fpu_begin(void)
++{
++	preempt_disable();
++	fstate_save(current, task_pt_regs(current));
++	csr_set(CSR_SSTATUS, SR_FS);
++}
++EXPORT_SYMBOL_GPL(kernel_fpu_begin);
++
++void kernel_fpu_end(void)
++{
++	csr_clear(CSR_SSTATUS, SR_FS);
++	fstate_restore(current, task_pt_regs(current));
++	preempt_enable();
++}
++EXPORT_SYMBOL_GPL(kernel_fpu_end);
+-- 
+2.44.0
 
-> Signed-off-by: Leo Li <sunpeng.li@amd.com>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 96 ++++++++++++++++++-
->  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 17 +++-
->  2 files changed, 104 insertions(+), 9 deletions(-)
-
---Sig_/Rj2ooB6ahdetqGvxcKDNYFm
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmYFirsACgkQI1/ltBGq
-qqdxwRAAqCgdUxtUmFYDquNnfW+PEIli+07SPtCteKbwirDOYx/3+SF4QOetX7KG
-aIMpkIhcI+Z2ATgEnv3eW5zfUCVKJMtSkKFsfh4EsIRwsAAtQuy277SDeX9TNK83
-aleRWUJX5iECxg+V/Fle//fxNfOaKh1cNEpSs73mh3OWgeQEq9R8r4Ednb2Szgoj
-vGrAseQ92NL6YHf12Y5I7WQTC+G5MuWlwo8PSNyfQbwGHW5vn1lZ6dCtL+tAdR+H
-/3nyySmC1zDxoLw47nBW014ekA4dQUOwGT2Xn7uQpsSdTUGBm7stdrI1ubHcu8NE
-Z/j1nPI+Z8FRD4sOhevWB5trR/Mli68YdzM9G5l/965v9UebXiesYtsMZxjI4Ijc
-kBahWcyl7QZ+e2sRQPXiIbIWtFtI6wNLslgIDHytnj+c0GMgiRNBvum1wGGx7LeL
-SpED4okPv3iM6P95OmsfnyAYf6XWlen5UgPpHQ8elr/cI+gj7E6LvR3mqErsKo3r
-7fuU83JjouGGHY7xNhzpqahaiO4gMRvzv0wCUIXWme76/xphcbjD3ywPCOcldQeE
-SZpjUjBVT056MQivf7wcItYf1O/Lp1u9NP73g4Avj9l81UI4FasX86jylBPmQl3+
-PvQr4SbVappnUsFVW7isVAAzscw1e5VtgLBj4ex80z4qxGvFYto=
-=63RC
------END PGP SIGNATURE-----
-
---Sig_/Rj2ooB6ahdetqGvxcKDNYFm--
