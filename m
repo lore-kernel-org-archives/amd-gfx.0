@@ -4,97 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B649AC6FD1F
-	for <amd-gfx@archiver.kernel.org>; Sat, 30 Mar 2024 13:31:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFFBFCD1288
+	for <amd-gfx@archiver.kernel.org>; Sat, 30 Mar 2024 13:31:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 079D610E7A5;
-	Sat, 30 Mar 2024 13:31:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6757E10E7B3;
+	Sat, 30 Mar 2024 13:31:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=math.uni-bielefeld.de header.i=@math.uni-bielefeld.de header.b="x5tk8xFW";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="nyFQ5eHK";
 	dkim-atps=neutral
-Received: from smtp1.math.uni-bielefeld.de (smtp1.math.uni-bielefeld.de
- [129.70.45.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1C34112771;
- Fri, 29 Mar 2024 15:08:15 +0000 (UTC)
-Received: from [192.168.0.100]
- (dslb-088-068-075-039.088.068.pools.vodafone-ip.de [88.68.75.39])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- by smtp1.math.uni-bielefeld.de (Postfix) with ESMTPSA id 8B44860613;
- Fri, 29 Mar 2024 16:08:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=math.uni-bielefeld.de; s=default; t=1711724885;
- bh=kyo1Ad43BuOTHxWe5GQYqSLm6b3RV5mvNXTMTY5jNjg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=x5tk8xFWVOxpyM+tom2a5qJURqK5k0iyba7xZAEMqnkyGvMfgGDyGa9ChvkzpFn1C
- tcB4hxgfFnjd485lw27m/yCQunGjkFRbUgGQxRhuOA5LNJyAV6S0pFoZEv7CTtFshz
- wJvDuTziUK57qnqPHv74qZ/xtiYX69tJfHiimJVGB9YRmA7Ud6R/aECmr2UWcjhVNJ
- 4pD6+DD0vgz7h/d34lUqFIUk+NuAd82f7M1P0CfUePc0tuBwFb/WhBg/74BTA2Ni2o
- WCLMHWmXkzhqLwfDuSRM/JqCewrHHSiBqgzT8lRkUCQg+IjoHpg8m94W+OBAHzi/Zs
- STFzgRCaWDIRw==
-Message-ID: <ced3a1dc-4e09-467a-a8f8-0747f707b68f@math.uni-bielefeld.de>
-Date: Fri, 29 Mar 2024 16:07:59 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Add MSF panel to DPCD 0x317 patch list
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C8FD61127DB;
+ Fri, 29 Mar 2024 17:03:01 +0000 (UTC)
+Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.147.137])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 2105A20E6F57;
+ Fri, 29 Mar 2024 10:03:01 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 2105A20E6F57
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1711731781;
+ bh=b92hXveSFquyQbhxtaUmHSPsbW+5D4vpPR3tMHWATcA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=nyFQ5eHK3F9Gs99IX1KCpNgMhRVkTp5UR6tHOjJ+WR/EM+3MCGspplT+DT3anDTJx
+ Bfdg4HRBGfvUBJtRwgoMJ0MDwJbEYbn5uVLTta84glTQxdYPHE/X5MemjHvfA2A8Ai
+ Nl4Y2RtFlnGVpD6Qr7tJUwG+bdSxUE1t/oRsjUvQ=
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20240309014732.722139-1-tjakobi@math.uni-bielefeld.de>
-Content-Language: en-US
-From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
-Autocrypt: addr=tjakobi@math.uni-bielefeld.de; keydata=
- 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
- JRHWPGCL3BhOxQ==
-In-Reply-To: <20240309014732.722139-1-tjakobi@math.uni-bielefeld.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Daniel Vetter <daniel@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Karol Herbst <kherbst@redhat.com>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@redhat.com>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Andy Walls <awalls@md.metrocast.net>, Helge Deller <deller@gmx.de>,
+ Easwar Hariharan <eahariha@linux.microsoft.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Wolfram Sang <wsa@kernel.org>,
+ Zheng Wang <zyytlz.wz@163.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list),
+ intel-gfx@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
+ DRIVERS), 
+ intel-xe@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
+ DRIVERS), 
+ nouveau@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO
+ GPUS), linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
+ linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
+ linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER)
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list),
+ intel-gfx@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
+ DRIVERS), 
+ intel-xe@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
+ DRIVERS), 
+ nouveau@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO
+ GPUS), linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
+ linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
+ linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER)
+Subject: [PATCH v0 14/14] i2c and treewide: Make I2C terminology more inclusive
+Date: Fri, 29 Mar 2024 17:00:38 +0000
+Message-Id: <20240329170038.3863998-15-eahariha@linux.microsoft.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
+References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 30 Mar 2024 13:31:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -111,46 +94,385 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/9/24 02:47, tjakobi@math.uni-bielefeld.de wrote:
+I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
+with more appropriate terms. Inspired by and following on to Wolfram's
+series to fix drivers/i2c[1], fix the terminology for users of
+I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+in the specification.
 
-> From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
->
-> This 8.4 inch panel is integrated in the Ayaneo Kun handheld
-> device. The panel resolution is 2560×1600, i.e. it has
-> portrait dimensions.
->
-> Decoding the EDID shows:
-> Manufacturer: MSF
-> Model: 4099
-> Display Product Name: 'TV080WUM-NL0 '
->
-> Judging from the product name this might be a clone of a
-> BOE panel, but with larger dimensions.
->
-> Panel frequently shows non-functional backlight control. Adding
-> some debug prints to update_connector_ext_caps() shows that
-> something the OLED bit of ext_caps is set, and then the driver
-> assumes that backlight is controlled via AUX.
->
-> Forcing backlight control to PWM via amdgpu.backlight=0 restores
-> backlight operation.
->
-> Signed-off-by: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index 7a09a72e182f..5a017ba94e3c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -68,6 +68,7 @@ static void apply_edid_quirks(struct edid *edid, struct dc_edid_caps *edid_caps)
->   	case drm_edid_encode_panel_id('A', 'U', 'O', 0xE69B):
->   	case drm_edid_encode_panel_id('B', 'O', 'E', 0x092A):
->   	case drm_edid_encode_panel_id('L', 'G', 'D', 0x06D1):
-> +	case drm_edid_encode_panel_id('M', 'S', 'F', 0x1003):
->   		DRM_DEBUG_DRIVER("Clearing DPCD 0x317 on monitor with panel id %X\n", panel_id);
->   		edid_caps->panel_patch.remove_sink_ext_caps = true;
->   		break;
-Gentle ping...
+Compile tested, no functionality changes intended
+
+[1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
+
+Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c    |  2 +-
+ drivers/gpu/drm/gma500/cdv_intel_dp.c         |  2 +-
+ drivers/gpu/drm/gma500/intel_gmbus.c          |  4 ++--
+ drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c    |  2 +-
+ drivers/gpu/drm/gma500/psb_intel_sdvo.c       |  2 +-
+ drivers/gpu/drm/i915/display/intel_gmbus.c    |  4 ++--
+ drivers/gpu/drm/i915/display/intel_sdvo.c     |  4 ++--
+ drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c |  2 +-
+ drivers/gpu/drm/nouveau/nvkm/subdev/i2c/bus.c |  2 +-
+ drivers/gpu/drm/radeon/radeon_i2c.c           |  4 ++--
+ drivers/i2c/algos/i2c-algo-bit.c              | 12 ++++++------
+ drivers/media/pci/bt8xx/bttv-i2c.c            |  2 +-
+ drivers/media/pci/cobalt/cobalt-i2c.c         |  2 +-
+ drivers/media/pci/cx23885/cx23885-i2c.c       |  2 +-
+ drivers/media/pci/cx25821/cx25821-i2c.c       |  2 +-
+ drivers/media/pci/dm1105/dm1105.c             |  2 +-
+ drivers/media/pci/ivtv/ivtv-i2c.c             |  2 +-
+ drivers/media/pci/saa7164/saa7164-i2c.c       |  2 +-
+ drivers/media/usb/au0828/au0828-i2c.c         |  2 +-
+ drivers/video/fbdev/mb862xx/mb862xx-i2c.c     |  2 +-
+ 21 files changed, 30 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
+index a34626882b67..75793e493df6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
+@@ -154,7 +154,7 @@ static void amdgpu_i2c_set_data(void *i2c_priv, int data)
+ }
+ 
+ static const struct i2c_algorithm amdgpu_atombios_i2c_algo = {
+-	.master_xfer = amdgpu_atombios_i2c_xfer,
++	.xfer          = amdgpu_atombios_i2c_xfer,
+ 	.functionality = amdgpu_atombios_i2c_func,
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
+index f2fc96d1cd7b..1d909d33cd15 100644
+--- a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
++++ b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
+@@ -714,7 +714,7 @@ static u32 smu_v11_0_i2c_func(struct i2c_adapter *adap)
+ }
+ 
+ static const struct i2c_algorithm smu_v11_0_i2c_algo = {
+-	.master_xfer = smu_v11_0_i2c_xfer,
++	.xfer          = smu_v11_0_i2c_xfer,
+ 	.functionality = smu_v11_0_i2c_func,
+ };
+ 
+diff --git a/drivers/gpu/drm/gma500/cdv_intel_dp.c b/drivers/gpu/drm/gma500/cdv_intel_dp.c
+index dd1eb7e9877d..d6f3c3bc169f 100644
+--- a/drivers/gpu/drm/gma500/cdv_intel_dp.c
++++ b/drivers/gpu/drm/gma500/cdv_intel_dp.c
+@@ -194,7 +194,7 @@ i2c_algo_dp_aux_functionality(struct i2c_adapter *adapter)
+ }
+ 
+ static const struct i2c_algorithm i2c_dp_aux_algo = {
+-	.master_xfer	= i2c_algo_dp_aux_xfer,
++	.xfer		= i2c_algo_dp_aux_xfer,
+ 	.functionality	= i2c_algo_dp_aux_functionality,
+ };
+ 
+diff --git a/drivers/gpu/drm/gma500/intel_gmbus.c b/drivers/gpu/drm/gma500/intel_gmbus.c
+index 94cf854b1d3d..90c83cae04d9 100644
+--- a/drivers/gpu/drm/gma500/intel_gmbus.c
++++ b/drivers/gpu/drm/gma500/intel_gmbus.c
+@@ -233,7 +233,7 @@ intel_i2c_quirk_xfer(struct drm_psb_private *dev_priv,
+ 	set_clock(gpio, 1);
+ 	udelay(I2C_RISEFALL_TIME);
+ 
+-	ret = adapter->algo->master_xfer(adapter, msgs, num);
++	ret = adapter->algo->xfer(adapter, msgs, num);
+ 
+ 	set_data(gpio, 1);
+ 	set_clock(gpio, 1);
+@@ -374,7 +374,7 @@ static u32 gmbus_func(struct i2c_adapter *adapter)
+ }
+ 
+ static const struct i2c_algorithm gmbus_algorithm = {
+-	.master_xfer	= gmbus_xfer,
++	.xfer		= gmbus_xfer,
+ 	.functionality	= gmbus_func
+ };
+ 
+diff --git a/drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c b/drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c
+index 6daa6669ed23..a93e61208a84 100644
+--- a/drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c
++++ b/drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c
+@@ -160,7 +160,7 @@ static u32 oaktrail_hdmi_i2c_func(struct i2c_adapter *adapter)
+ }
+ 
+ static const struct i2c_algorithm oaktrail_hdmi_i2c_algorithm = {
+-	.master_xfer	= oaktrail_hdmi_i2c_access,
++	.xfer		= oaktrail_hdmi_i2c_access,
+ 	.functionality  = oaktrail_hdmi_i2c_func,
+ };
+ 
+diff --git a/drivers/gpu/drm/gma500/psb_intel_sdvo.c b/drivers/gpu/drm/gma500/psb_intel_sdvo.c
+index 39a3b696efc5..ad274c8410ca 100644
+--- a/drivers/gpu/drm/gma500/psb_intel_sdvo.c
++++ b/drivers/gpu/drm/gma500/psb_intel_sdvo.c
+@@ -2417,7 +2417,7 @@ static u32 psb_intel_sdvo_ddc_proxy_func(struct i2c_adapter *adapter)
+ }
+ 
+ static const struct i2c_algorithm psb_intel_sdvo_ddc_proxy = {
+-	.master_xfer	= psb_intel_sdvo_ddc_proxy_xfer,
++	.xfer		= psb_intel_sdvo_ddc_proxy_xfer,
+ 	.functionality	= psb_intel_sdvo_ddc_proxy_func
+ };
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
+index cbbdd84b4641..d97fe8f03a5d 100644
+--- a/drivers/gpu/drm/i915/display/intel_gmbus.c
++++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+@@ -759,7 +759,7 @@ gmbus_xfer(struct i2c_adapter *adapter, struct i2c_msg *msgs, int num)
+ 	wakeref = intel_display_power_get(i915, POWER_DOMAIN_GMBUS);
+ 
+ 	if (bus->force_bit) {
+-		ret = i2c_bit_algo.master_xfer(adapter, msgs, num);
++		ret = i2c_bit_algo.xfer(adapter, msgs, num);
+ 		if (ret < 0)
+ 			bus->force_bit &= ~GMBUS_FORCE_BIT_RETRY;
+ 	} else {
+@@ -822,7 +822,7 @@ static u32 gmbus_func(struct i2c_adapter *adapter)
+ }
+ 
+ static const struct i2c_algorithm gmbus_algorithm = {
+-	.master_xfer	= gmbus_xfer,
++	.xfer		= gmbus_xfer,
+ 	.functionality	= gmbus_func
+ };
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
+index 126493c662c5..0764aaf8fbec 100644
+--- a/drivers/gpu/drm/i915/display/intel_sdvo.c
++++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
+@@ -3299,7 +3299,7 @@ static int intel_sdvo_ddc_proxy_xfer(struct i2c_adapter *adapter,
+ 	if (!__intel_sdvo_set_control_bus_switch(sdvo, 1 << ddc->ddc_bus))
+ 		return -EIO;
+ 
+-	return sdvo->i2c->algo->master_xfer(sdvo->i2c, msgs, num);
++	return sdvo->i2c->algo->xfer(sdvo->i2c, msgs, num);
+ }
+ 
+ static u32 intel_sdvo_ddc_proxy_func(struct i2c_adapter *adapter)
+@@ -3311,7 +3311,7 @@ static u32 intel_sdvo_ddc_proxy_func(struct i2c_adapter *adapter)
+ }
+ 
+ static const struct i2c_algorithm intel_sdvo_ddc_proxy = {
+-	.master_xfer	= intel_sdvo_ddc_proxy_xfer,
++	.xfer		= intel_sdvo_ddc_proxy_xfer,
+ 	.functionality	= intel_sdvo_ddc_proxy_func
+ };
+ 
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c b/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
+index d063d0dc13c5..55d45aba8467 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
+@@ -89,7 +89,7 @@ nvkm_i2c_aux_i2c_func(struct i2c_adapter *adap)
+ 
+ static const struct i2c_algorithm
+ nvkm_i2c_aux_i2c_algo = {
+-	.master_xfer = nvkm_i2c_aux_i2c_xfer,
++	.xfer          = nvkm_i2c_aux_i2c_xfer,
+ 	.functionality = nvkm_i2c_aux_i2c_func
+ };
+ 
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/bus.c b/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/bus.c
+index ed50cc3736b9..10c7bc68a278 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/bus.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/bus.c
+@@ -97,7 +97,7 @@ nvkm_i2c_bus_func(struct i2c_adapter *adap)
+ 
+ static const struct i2c_algorithm
+ nvkm_i2c_bus_algo = {
+-	.master_xfer = nvkm_i2c_bus_xfer,
++	.xfer          = nvkm_i2c_bus_xfer,
+ 	.functionality = nvkm_i2c_bus_func,
+ };
+ 
+diff --git a/drivers/gpu/drm/radeon/radeon_i2c.c b/drivers/gpu/drm/radeon/radeon_i2c.c
+index 565d59536e9a..95912cce6aef 100644
+--- a/drivers/gpu/drm/radeon/radeon_i2c.c
++++ b/drivers/gpu/drm/radeon/radeon_i2c.c
+@@ -891,12 +891,12 @@ static u32 radeon_hw_i2c_func(struct i2c_adapter *adap)
+ }
+ 
+ static const struct i2c_algorithm radeon_i2c_algo = {
+-	.master_xfer = radeon_hw_i2c_xfer,
++	.xfer          = radeon_hw_i2c_xfer,
+ 	.functionality = radeon_hw_i2c_func,
+ };
+ 
+ static const struct i2c_algorithm radeon_atom_i2c_algo = {
+-	.master_xfer = radeon_atom_hw_i2c_xfer,
++	.xfer          = radeon_atom_hw_i2c_xfer,
+ 	.functionality = radeon_atom_hw_i2c_func,
+ };
+ 
+diff --git a/drivers/i2c/algos/i2c-algo-bit.c b/drivers/i2c/algos/i2c-algo-bit.c
+index eddf25b90ca8..de3b41f7d02d 100644
+--- a/drivers/i2c/algos/i2c-algo-bit.c
++++ b/drivers/i2c/algos/i2c-algo-bit.c
+@@ -143,7 +143,7 @@ static void i2c_stop(struct i2c_algo_bit_data *adap)
+ 
+ 
+ /* send a byte without start cond., look for arbitration,
+-   check ackn. from slave */
++   check ackn. from client */
+ /* returns:
+  * 1 if the device acknowledged
+  * 0 if the device did not ack
+@@ -182,7 +182,7 @@ static int i2c_outb(struct i2c_adapter *i2c_adap, unsigned char c)
+ 		return -ETIMEDOUT;
+ 	}
+ 
+-	/* read ack: SDA should be pulled down by slave, or it may
++	/* read ack: SDA should be pulled down by client, or it may
+ 	 * NAK (usually to report problems with the data we wrote).
+ 	 * Always report ACK if SDA is write-only.
+ 	 */
+@@ -358,7 +358,7 @@ static int sendbytes(struct i2c_adapter *i2c_adap, struct i2c_msg *msg)
+ 			temp++;
+ 			wrcount++;
+ 
+-		/* A slave NAKing the master means the slave didn't like
++		/* A client NAKing the host means the client didn't like
+ 		 * something about the data it saw.  For example, maybe
+ 		 * the SMBus PEC was wrong.
+ 		 */
+@@ -369,7 +369,7 @@ static int sendbytes(struct i2c_adapter *i2c_adap, struct i2c_msg *msg)
+ 		/* Timeout; or (someday) lost arbitration
+ 		 *
+ 		 * FIXME Lost ARB implies retrying the transaction from
+-		 * the first message, after the "winning" master issues
++		 * the first message, after the "winning" host issues
+ 		 * its STOP.  As a rule, upper layer code has no reason
+ 		 * to know or care about this ... it is *NOT* an error.
+ 		 */
+@@ -619,8 +619,8 @@ static u32 bit_func(struct i2c_adapter *adap)
+ /* -----exported algorithm data: -------------------------------------	*/
+ 
+ const struct i2c_algorithm i2c_bit_algo = {
+-	.master_xfer = bit_xfer,
+-	.master_xfer_atomic = bit_xfer_atomic,
++	.xfer = bit_xfer,
++	.xfer_atomic = bit_xfer_atomic,
+ 	.functionality = bit_func,
+ };
+ EXPORT_SYMBOL(i2c_bit_algo);
+diff --git a/drivers/media/pci/bt8xx/bttv-i2c.c b/drivers/media/pci/bt8xx/bttv-i2c.c
+index 4a8a3f80c6db..285b2bd21278 100644
+--- a/drivers/media/pci/bt8xx/bttv-i2c.c
++++ b/drivers/media/pci/bt8xx/bttv-i2c.c
+@@ -248,7 +248,7 @@ static int bttv_i2c_xfer(struct i2c_adapter *i2c_adap, struct i2c_msg *msgs, int
+ }
+ 
+ static const struct i2c_algorithm bttv_algo = {
+-	.master_xfer   = bttv_i2c_xfer,
++	.xfer          = bttv_i2c_xfer,
+ 	.functionality = functionality,
+ };
+ 
+diff --git a/drivers/media/pci/cobalt/cobalt-i2c.c b/drivers/media/pci/cobalt/cobalt-i2c.c
+index d2963370f949..b70e89669bc7 100644
+--- a/drivers/media/pci/cobalt/cobalt-i2c.c
++++ b/drivers/media/pci/cobalt/cobalt-i2c.c
+@@ -297,7 +297,7 @@ static const struct i2c_adapter cobalt_i2c_adap_template = {
+ };
+ 
+ static const struct i2c_algorithm cobalt_algo = {
+-	.master_xfer	= cobalt_xfer,
++	.xfer		= cobalt_xfer,
+ 	.functionality	= cobalt_func,
+ };
+ 
+diff --git a/drivers/media/pci/cx23885/cx23885-i2c.c b/drivers/media/pci/cx23885/cx23885-i2c.c
+index 385af2a893b4..1e5d0ecde5a3 100644
+--- a/drivers/media/pci/cx23885/cx23885-i2c.c
++++ b/drivers/media/pci/cx23885/cx23885-i2c.c
+@@ -247,7 +247,7 @@ static u32 cx23885_functionality(struct i2c_adapter *adap)
+ }
+ 
+ static const struct i2c_algorithm cx23885_i2c_algo_template = {
+-	.master_xfer	= i2c_xfer,
++	.xfer		= i2c_xfer,
+ 	.functionality	= cx23885_functionality,
+ };
+ 
+diff --git a/drivers/media/pci/cx25821/cx25821-i2c.c b/drivers/media/pci/cx25821/cx25821-i2c.c
+index bad8fb9f5319..ffcdce4971c4 100644
+--- a/drivers/media/pci/cx25821/cx25821-i2c.c
++++ b/drivers/media/pci/cx25821/cx25821-i2c.c
+@@ -268,7 +268,7 @@ static u32 cx25821_functionality(struct i2c_adapter *adap)
+ }
+ 
+ static const struct i2c_algorithm cx25821_i2c_algo_template = {
+-	.master_xfer = i2c_xfer,
++	.xfer          = i2c_xfer,
+ 	.functionality = cx25821_functionality,
+ #ifdef NEED_ALGO_CONTROL
+ 	.algo_control = dummy_algo_control,
+diff --git a/drivers/media/pci/dm1105/dm1105.c b/drivers/media/pci/dm1105/dm1105.c
+index 9e9c7c071acc..d9b8614e8f0b 100644
+--- a/drivers/media/pci/dm1105/dm1105.c
++++ b/drivers/media/pci/dm1105/dm1105.c
+@@ -561,7 +561,7 @@ static u32 functionality(struct i2c_adapter *adap)
+ }
+ 
+ static const struct i2c_algorithm dm1105_algo = {
+-	.master_xfer   = dm1105_i2c_xfer,
++	.xfer          = dm1105_i2c_xfer,
+ 	.functionality = functionality,
+ };
+ 
+diff --git a/drivers/media/pci/ivtv/ivtv-i2c.c b/drivers/media/pci/ivtv/ivtv-i2c.c
+index 967e6a025020..86735f42c23c 100644
+--- a/drivers/media/pci/ivtv/ivtv-i2c.c
++++ b/drivers/media/pci/ivtv/ivtv-i2c.c
+@@ -610,7 +610,7 @@ static u32 ivtv_functionality(struct i2c_adapter *adap)
+ }
+ 
+ static const struct i2c_algorithm ivtv_algo = {
+-	.master_xfer   = ivtv_xfer,
++	.xfer          = ivtv_xfer,
+ 	.functionality = ivtv_functionality,
+ };
+ 
+diff --git a/drivers/media/pci/saa7164/saa7164-i2c.c b/drivers/media/pci/saa7164/saa7164-i2c.c
+index 3b11bf8899a0..aa7d989c1cb4 100644
+--- a/drivers/media/pci/saa7164/saa7164-i2c.c
++++ b/drivers/media/pci/saa7164/saa7164-i2c.c
+@@ -62,7 +62,7 @@ static u32 saa7164_functionality(struct i2c_adapter *adap)
+ }
+ 
+ static const struct i2c_algorithm saa7164_i2c_algo_template = {
+-	.master_xfer	= i2c_xfer,
++	.xfer		= i2c_xfer,
+ 	.functionality	= saa7164_functionality,
+ };
+ 
+diff --git a/drivers/media/usb/au0828/au0828-i2c.c b/drivers/media/usb/au0828/au0828-i2c.c
+index 3e66d42bf134..585fe86f8ed7 100644
+--- a/drivers/media/usb/au0828/au0828-i2c.c
++++ b/drivers/media/usb/au0828/au0828-i2c.c
+@@ -313,7 +313,7 @@ static u32 au0828_functionality(struct i2c_adapter *adap)
+ }
+ 
+ static const struct i2c_algorithm au0828_i2c_algo_template = {
+-	.master_xfer	= i2c_xfer,
++	.xfer		= i2c_xfer,
+ 	.functionality	= au0828_functionality,
+ };
+ 
+diff --git a/drivers/video/fbdev/mb862xx/mb862xx-i2c.c b/drivers/video/fbdev/mb862xx/mb862xx-i2c.c
+index ffdb1597d303..55fe554a0818 100644
+--- a/drivers/video/fbdev/mb862xx/mb862xx-i2c.c
++++ b/drivers/video/fbdev/mb862xx/mb862xx-i2c.c
+@@ -141,7 +141,7 @@ static u32 mb862xx_func(struct i2c_adapter *adap)
+ }
+ 
+ static const struct i2c_algorithm mb862xx_algo = {
+-	.master_xfer	= mb862xx_xfer,
++	.xfer		= mb862xx_xfer,
+ 	.functionality	= mb862xx_func,
+ };
+ 
+-- 
+2.34.1
 
