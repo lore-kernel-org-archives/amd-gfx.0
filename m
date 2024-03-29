@@ -4,37 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD74FC6FD1F
-	for <amd-gfx@archiver.kernel.org>; Sat, 30 Mar 2024 13:31:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5FB6CD1288
+	for <amd-gfx@archiver.kernel.org>; Sat, 30 Mar 2024 13:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C256010E79E;
-	Sat, 30 Mar 2024 13:31:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68B2F10E7AB;
+	Sat, 30 Mar 2024 13:31:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="WVloCqZL";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="MamCsWkS";
 	dkim-atps=neutral
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1D97A1127DF;
- Fri, 29 Mar 2024 17:02:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 026421127D3;
+ Fri, 29 Mar 2024 17:02:27 +0000 (UTC)
 Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.147.137])
- by linux.microsoft.com (Postfix) with ESMTPSA id CBAD220E6F3E;
- Fri, 29 Mar 2024 10:02:35 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com CBAD220E6F3E
+ by linux.microsoft.com (Postfix) with ESMTPSA id 3927120E6F4C;
+ Fri, 29 Mar 2024 10:02:25 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3927120E6F4C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1711731756;
- bh=gRW86ANHtbye+7f91W3f5Kays+kZ9CFcrEWE6EnDd+E=;
+ s=default; t=1711731745;
+ bh=Qwmeem4B9Er90dGhL6Lz2R55/4URZeEt+O0fc3RlyyM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WVloCqZLiu74exUfSs0XMEzoaCWC9C9N6JvLyKKMKD2Kmz1sc75LLvxjn3VzSKcYW
- 6WcPltpIu1npZG5Sudjj/8kw9TeQESGEXoM1GUjTyxO1aWsnlcr5i2F4RlfMRXMPHe
- UdTHCmDUiPzWuTXD8LA5Q3ssvEzSHH54ZXFwfvjQ=
+ b=MamCsWkSG1A8wjsPWLRC6O+cRsXcTXtSmo33DRenRj2SdRGUCn2XjFQAoKhRfxK1U
+ iLrIpepTKnR67z5VbnSZwrZDp8t6ZrW9tERhbZzQqL7j9/VaOxMLl9WUeK3zcCRdAb
+ Rw/T2kNc4a0kXs69OY24H4edkMV2Vnk5WlEXOO1k=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
-To: Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@redhat.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Easwar Hariharan <eahariha@linux.microsoft.com>,
- dri-devel@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA
- GEFORCE/QUADRO GPUS), 
- nouveau@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO
- GPUS), linux-kernel@vger.kernel.org (open list)
+ linux-media@vger.kernel.org (open list:MEDIA INPUT INFRASTRUCTURE (V4L/DVB)), 
+ linux-kernel@vger.kernel.org (open list)
 Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
  amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
  dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
@@ -47,15 +43,15 @@ Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
  GPUS), linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
  linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
  linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER)
-Subject: [PATCH v0 13/14] drm/nouveau: Make I2C terminology more inclusive
-Date: Fri, 29 Mar 2024 17:00:37 +0000
-Message-Id: <20240329170038.3863998-14-eahariha@linux.microsoft.com>
+Subject: [PATCH v0 09/14] media: cx23885: Make I2C terminology more inclusive
+Date: Fri, 29 Mar 2024 17:00:33 +0000
+Message-Id: <20240329170038.3863998-10-eahariha@linux.microsoft.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
 References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 30 Mar 2024 13:31:08 +0000
+X-Mailman-Approved-At: Sat, 30 Mar 2024 13:31:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,107 +78,68 @@ Compile tested, no functionality changes intended
 
 Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 ---
- drivers/gpu/drm/nouveau/dispnv04/dfp.c             | 14 +++++++-------
- .../gpu/drm/nouveau/include/nvkm/subdev/bios/dcb.h |  2 +-
- drivers/gpu/drm/nouveau/nouveau_bios.c             |  4 ++--
- 3 files changed, 10 insertions(+), 10 deletions(-)
+ drivers/media/pci/cx23885/cx23885-f300.c | 8 ++++----
+ drivers/media/pci/cx23885/cx23885-i2c.c  | 6 +++---
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/dfp.c b/drivers/gpu/drm/nouveau/dispnv04/dfp.c
-index d5b129dc623b..65b791006b19 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/dfp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/dfp.c
-@@ -149,7 +149,7 @@ void nv04_dfp_update_fp_control(struct drm_encoder *encoder, int mode)
- 	}
- }
+diff --git a/drivers/media/pci/cx23885/cx23885-f300.c b/drivers/media/pci/cx23885/cx23885-f300.c
+index ac1c434e8e24..5f937c281793 100644
+--- a/drivers/media/pci/cx23885/cx23885-f300.c
++++ b/drivers/media/pci/cx23885/cx23885-f300.c
+@@ -92,7 +92,7 @@ static u8 f300_xfer(struct dvb_frontend *fe, u8 *buf)
+ 	f300_set_line(dev, F300_RESET, 0);/* begin to send data */
+ 	msleep(1);
  
--static struct drm_encoder *get_tmds_slave(struct drm_encoder *encoder)
-+static struct drm_encoder *get_tmds_client(struct drm_encoder *encoder)
- {
- 	struct drm_device *dev = encoder->dev;
- 	struct dcb_output *dcb = nouveau_encoder(encoder)->dcb;
-@@ -172,7 +172,7 @@ static struct drm_encoder *get_tmds_slave(struct drm_encoder *encoder)
- 		struct dcb_output *slave_dcb = nouveau_encoder(slave)->dcb;
+-	f300_send_byte(dev, 0xe0);/* the slave address is 0xe0, write */
++	f300_send_byte(dev, 0xe0);/* the client address is 0xe0, write */
+ 	msleep(1);
  
- 		if (slave_dcb->type == DCB_OUTPUT_TMDS && get_slave_funcs(slave) &&
--		    slave_dcb->tmdsconf.slave_addr == dcb->tmdsconf.slave_addr)
-+		    slave_dcb->tmdsconf.client_addr == dcb->tmdsconf.client_addr)
- 			return slave;
+ 	temp = buf[0];
+@@ -112,10 +112,10 @@ static u8 f300_xfer(struct dvb_frontend *fe, u8 *buf)
  	}
  
-@@ -471,7 +471,7 @@ static void nv04_dfp_commit(struct drm_encoder *encoder)
- 		NVWriteRAMDAC(dev, 0, NV_PRAMDAC_TEST_CONTROL + nv04_dac_output_offset(encoder), 0x00100000);
+ 	if (i > 7) {
+-		pr_err("%s: timeout, the slave no response\n",
++		pr_err("%s: timeout, the client no response\n",
+ 								__func__);
+-		ret = 1; /* timeout, the slave no response */
+-	} else { /* the slave not busy, prepare for getting data */
++		ret = 1; /* timeout, the client no response */
++	} else { /* the client not busy, prepare for getting data */
+ 		f300_set_line(dev, F300_RESET, 0);/*ready...*/
+ 		msleep(1);
+ 		f300_send_byte(dev, 0xe1);/* 0xe1 is Read */
+diff --git a/drivers/media/pci/cx23885/cx23885-i2c.c b/drivers/media/pci/cx23885/cx23885-i2c.c
+index f51fad33dc04..385af2a893b4 100644
+--- a/drivers/media/pci/cx23885/cx23885-i2c.c
++++ b/drivers/media/pci/cx23885/cx23885-i2c.c
+@@ -34,7 +34,7 @@ MODULE_PARM_DESC(i2c_scan, "scan i2c bus at insmod time");
+ #define I2C_EXTEND  (1 << 3)
+ #define I2C_NOSTOP  (1 << 4)
  
- 	/* Init external transmitters */
--	slave_encoder = get_tmds_slave(encoder);
-+	slave_encoder = get_tmds_client(encoder);
- 	if (slave_encoder)
- 		get_slave_funcs(slave_encoder)->mode_set(
- 			slave_encoder, &nv_encoder->mode, &nv_encoder->mode);
-@@ -621,7 +621,7 @@ static void nv04_dfp_destroy(struct drm_encoder *encoder)
- 	kfree(nv_encoder);
- }
- 
--static void nv04_tmds_slave_init(struct drm_encoder *encoder)
-+static void nv04_tmds_client_init(struct drm_encoder *encoder)
+-static inline int i2c_slave_did_ack(struct i2c_adapter *i2c_adap)
++static inline int i2c_client_did_ack(struct i2c_adapter *i2c_adap)
  {
- 	struct drm_device *dev = encoder->dev;
- 	struct dcb_output *dcb = nouveau_encoder(encoder)->dcb;
-@@ -632,7 +632,7 @@ static void nv04_tmds_slave_init(struct drm_encoder *encoder)
- 		{
- 		    {
- 		        .type = "sil164",
--		        .addr = (dcb->tmdsconf.slave_addr == 0x7 ? 0x3a : 0x38),
-+		        .addr = (dcb->tmdsconf.client_addr == 0x7 ? 0x3a : 0x38),
- 		        .platform_data = &(struct sil164_encoder_params) {
- 		            SIL164_INPUT_EDGE_RISING
- 		         }
-@@ -642,7 +642,7 @@ static void nv04_tmds_slave_init(struct drm_encoder *encoder)
- 	};
- 	int type;
+ 	struct cx23885_i2c *bus = i2c_adap->algo_data;
+ 	struct cx23885_dev *dev = bus->dev;
+@@ -84,7 +84,7 @@ static int i2c_sendbytes(struct i2c_adapter *i2c_adap,
+ 		cx_write(bus->reg_ctrl, bus->i2c_period | (1 << 2));
+ 		if (!i2c_wait_done(i2c_adap))
+ 			return -EIO;
+-		if (!i2c_slave_did_ack(i2c_adap))
++		if (!i2c_client_did_ack(i2c_adap))
+ 			return -ENXIO;
  
--	if (!nv_gf4_disp_arch(dev) || !bus || get_tmds_slave(encoder))
-+	if (!nv_gf4_disp_arch(dev) || !bus || get_tmds_client(encoder))
- 		return;
+ 		dprintk(1, "%s() returns 0\n", __func__);
+@@ -163,7 +163,7 @@ static int i2c_readbytes(struct i2c_adapter *i2c_adap,
+ 		cx_write(bus->reg_ctrl, bus->i2c_period | (1 << 2) | 1);
+ 		if (!i2c_wait_done(i2c_adap))
+ 			return -EIO;
+-		if (!i2c_slave_did_ack(i2c_adap))
++		if (!i2c_client_did_ack(i2c_adap))
+ 			return -ENXIO;
  
- 	type = nvkm_i2c_bus_probe(bus, "TMDS transmitter", info, NULL, NULL);
-@@ -716,7 +716,7 @@ nv04_dfp_create(struct drm_connector *connector, struct dcb_output *entry)
  
- 	if (entry->type == DCB_OUTPUT_TMDS &&
- 	    entry->location != DCB_LOC_ON_CHIP)
--		nv04_tmds_slave_init(encoder);
-+		nv04_tmds_client_init(encoder);
- 
- 	drm_connector_attach_encoder(connector, encoder);
- 	return 0;
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/bios/dcb.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/bios/dcb.h
-index 73f9d9947e7e..5da40cf74b1a 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/bios/dcb.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/bios/dcb.h
-@@ -50,7 +50,7 @@ struct dcb_output {
- 		} dpconf;
- 		struct {
- 			struct sor_conf sor;
--			int slave_addr;
-+			int client_addr;
- 		} tmdsconf;
- 	};
- 	bool i2c_upper_default;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_bios.c b/drivers/gpu/drm/nouveau/nouveau_bios.c
-index 479effcf607e..a91a5d3df3ca 100644
---- a/drivers/gpu/drm/nouveau/nouveau_bios.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_bios.c
-@@ -1511,9 +1511,9 @@ parse_dcb20_entry(struct drm_device *dev, struct dcb_table *dcb,
- 			link = entry->tmdsconf.sor.link;
- 		}
- 		else if (dcb->version >= 0x30)
--			entry->tmdsconf.slave_addr = (conf & 0x00000700) >> 8;
-+			entry->tmdsconf.client_addr = (conf & 0x00000700) >> 8;
- 		else if (dcb->version >= 0x22)
--			entry->tmdsconf.slave_addr = (conf & 0x00000070) >> 4;
-+			entry->tmdsconf.client_addr = (conf & 0x00000070) >> 4;
- 		break;
- 	case DCB_OUTPUT_EOL:
- 		/* weird g80 mobile type that "nv" treats as a terminator */
 -- 
 2.34.1
 
