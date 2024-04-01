@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7B4ACD1292
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Apr 2024 13:30:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BE47CD1292
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Apr 2024 13:40:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6601210EC08;
-	Mon,  1 Apr 2024 13:30:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A341E10F185;
+	Mon,  1 Apr 2024 13:40:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="AQnDpqls";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="eIUio/pl";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 076B210EC08
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Apr 2024 13:30:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC23410F185
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Apr 2024 13:40:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,31 +22,32 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=QZv1amQOp8f7KnFdpMcke/x/WRK2zxctpzEg29hlUR0=; b=AQnDpqlsKdMcFRDfT7eMq1S+PH
- 9CRSZ1KvM4ogEGfErptvmy+zRANE2HslFVrCMXxTUOK1mNbdTa4eNHpNrj6+t5SVAcessiIs61Rij
- H8ctozi+5C9iJ1Qq1LKZsbMtithOFtDdb+wk5K26wE3o0sYuCNE7/4DKlUH6r0zO3etBdLdrmuA22
- YzGNzL/MheBYUHLd8QkNKJTXbuBCWiMNuczh92yIihb4EHuH/H4KFvn8agkkg3kc8eg8Rp8kcdffh
- ljDNCigsS7ZX8VibAs8A5OOkqQydXpgQpmyy5Mqz8bo+XKepnW08Eh9gXz4WoCyusEFu8td24VvKL
- FvjPZimQ==;
+ bh=qm5vtlAPIJEkkxho84UyBuaddXJmfwLH1FpD1AboF98=; b=eIUio/pl1BE8TkGy4B17rhIVnd
+ 5vXfodpAswc94t+e/hK6F7XBANtRCzllaSPAa9zIyB/j1626tgodtJzBIQEHaL9Q7sFpZ39pyF3Gp
+ ENTI3vi68vAspBo67VG1BK+ydOiWrCe7brEgJDQemCfkurVrxuWl8t+lwngyFfQT6KhsGrNEic1tp
+ lgs1Uw1uhuDBzU7Ly4ijarYdMIPLxxYaX1nhHXqS79TTkIDcTrfDJvP9TbwaINGBr7nVOWzHmdOvG
+ 0/TX8VJmNren3o9ycz5YOKKCELdVAtYSzhGbIRB4Oy2DOvrSrzBzzd2QpiRRIeKaNl7KJWzLyKdLe
+ ouxaJX1A==;
 Received: from [189.6.17.125] (helo=[192.168.0.55])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1rrHkU-0001hG-FN; Mon, 01 Apr 2024 15:30:54 +0200
-Message-ID: <33db3d69-df86-463a-b72d-1c1a50a03906@igalia.com>
-Date: Mon, 1 Apr 2024 10:30:45 -0300
+ id 1rrHti-0001py-7m; Mon, 01 Apr 2024 15:40:26 +0200
+Message-ID: <e39bd7f4-827a-44cf-8759-f6967ee24f49@igalia.com>
+Date: Mon, 1 Apr 2024 10:40:19 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 38/43] drm/amd/display: Fix MPCC DTN logging
+Subject: Re: [PATCH 30/43] drm/amd/display: Enable cur_rom_en even if cursor
+ degamma is not enabled
+Content-Language: en-US
 To: Roman.Li@amd.com, amd-gfx@lists.freedesktop.org
 Cc: Daniel Wheeler <daniel.wheeler@amd.com>, Harry.Wentland@amd.com,
  Sunpeng.Li@amd.com, Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com,
  wayne.lin@amd.com, solomon.chiu@amd.com, agustin.gutierrez@amd.com,
- hamza.mahfooz@amd.com, Eric Bernstein <eric.bernstein@amd.com>
+ hamza.mahfooz@amd.com
 References: <20240328195047.2843715-1-Roman.Li@amd.com>
- <20240328195047.2843715-39-Roman.Li@amd.com>
-Content-Language: en-US
+ <20240328195047.2843715-31-Roman.Li@amd.com>
 From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <20240328195047.2843715-39-Roman.Li@amd.com>
+In-Reply-To: <20240328195047.2843715-31-Roman.Li@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -66,47 +67,37 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 28/03/2024 16:50, Roman.Li@amd.com wrote:
-> From: Eric Bernstein <eric.bernstein@amd.com>
+> From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 >
-> [Why]
-> DTN only logs 'pipe_count' instances of MPCC.
-> However in some cases there are different number of
-> MPCC than DPP (pipe_count).
+> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+> ---
+>   drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
 >
-> [How]
-> Add mpcc_count parameter to resource_pool and set it
-> during pool construction and use it for DTN logging of
-> MPCC state.
-Should we do the same in dcn*_log_color_state() for the loop of 
-`pool->mpx->funcs->read_mpcc_state()` there?
+> diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
+> index f8c0cee34080..ed1e2f65f5b5 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
+> @@ -395,9 +395,7 @@ void dpp3_set_cursor_attributes(
+>   
+>   	if (color_format == CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA ||
+>   		color_format == CURSOR_MODE_COLOR_UN_PRE_MULTIPLIED_ALPHA) {
+> -		if (cursor_attributes->attribute_flags.bits.ENABLE_CURSOR_DEGAMMA) {
+> -			cur_rom_en = 1;
+> -		}
+> +		cur_rom_en = 1;
+ugh. At first glance, I think it will cause a regression with legacy gamma.
 
-It affects the following files:
-drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+For references:
+- https://gitlab.freedesktop.org/drm/amd/-/issues/1513
+- https://lore.kernel.org/amd-gfx/20230731083505.1500965-1-mwen@igalia.com/
+- https://lore.kernel.org/amd-gfx/20230824133810.10627-1-mwen@igalia.com/
 
 BR,
 
 Melissa
->
-> Signed-off-by: Eric Bernstein <eric.bernstein@amd.com>
-> Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-> ---
->   drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
-> index 9033b39e0e0c..c51b717e5622 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
-> @@ -392,7 +392,7 @@ static unsigned int dcn10_get_mpcc_states(struct dc *dc, char *pBuf, unsigned in
->   	remaining_buffer -= chars_printed;
->   	pBuf += chars_printed;
+>   	}
 >   
-> -	for (i = 0; i < pool->pipe_count; i++) {
-> +	for (i = 0; i < pool->mpcc_count; i++) {
->   		struct mpcc_state s = {0};
->   
->   		pool->mpc->funcs->read_mpcc_state(pool->mpc, i, &s);
+>   	REG_UPDATE_3(CURSOR0_CONTROL,
 
