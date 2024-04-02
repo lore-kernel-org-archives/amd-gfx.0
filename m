@@ -4,94 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 759C3CD1288
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 07:07:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7322FCD1288
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 07:11:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D892911257B;
-	Wed,  3 Apr 2024 07:07:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF8451125B5;
+	Wed,  3 Apr 2024 07:11:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PxGtfgmB";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Rj3Ojj+f";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2064.outbound.protection.outlook.com [40.107.244.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DFBA10FFA8
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 07:07:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=agLjrv6QX/tFexGNxsG7pKsn3hf4c4Pd10z/KSC5vRcKNno71CH9M7XkhTpv/y80YhPozWi59GjbIxrlF88wmZmrCU8iOFkCIPKnja0o57IgE9mL9QiCf7Rsih97vdzniV+726G+HUiRKnoewH0Ns/bx2BvQUwB8ugpA5PLrG/wjP7LO/6DkZAML3sWxjX6hiaHvOhn4dNMin2pKzXS6RDGRI+JUrGRxB2vOS2xz2dpTQMZCKLkeNhzGQBmszdgE39uNaFKqdXDw8OFAtqMN1QFpD+SQ+5uhjSITvw1o3Z+WfbS71/omVoqDc1OaBNItqrCNlr6+G21SERAxYqk99g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bPQXYwLRxyGbNJv4D6A1P+v6vNTJRyAqVdOJZTSuktQ=;
- b=IvWqgLKKqV0KvyMCr4X77sYq5QP1XwJqONDaOH/jaAVz3tHUwR45Bh3ZMzghyemPQNiJeEwtp8c/8QJhm7nJo01sPjAx4efqOpeCC6hznCRFmINOV8ZJ4hlmSaxY0PvNfIE1/o77wh9V822Jo4HhkmNs79/oTZyQrEvyg5cQtlgzMImcy/w4qHtA6x2HPCwxZvmGrdPfqU2T9U8q6ww38cPvzycdm3VyeyFM7pK4rk53naCH4c8humjllcVpoPI1AsqvCR1t/C+q8QcRHGJ7EuBu5jlPsXI3QkskBUjGWIzaf+Q37CF/dQxAsd2cU4WS7mBPaFmm6TWBiAxUOvj+cg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bPQXYwLRxyGbNJv4D6A1P+v6vNTJRyAqVdOJZTSuktQ=;
- b=PxGtfgmBULPR2TvokuhjukXDFkTbKGbOnjSJfUdAzLFVebOXd5PzOwlfu8315UFemsz1SM1vkUxe5T1ISyAnzpyWpL46XjR01m6ElfnhESMo580l0EydIPY9c9EBy17JjYA/VRPADmPJhDoz+pF709ml/3RN1+X3vCcISoKNDsQ=
-Received: from BN0PR04CA0089.namprd04.prod.outlook.com (2603:10b6:408:ea::34)
- by PH0PR12MB8151.namprd12.prod.outlook.com (2603:10b6:510:299::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Wed, 3 Apr
- 2024 07:07:23 +0000
-Received: from BN3PEPF0000B36D.namprd21.prod.outlook.com
- (2603:10b6:408:ea:cafe::21) by BN0PR04CA0089.outlook.office365.com
- (2603:10b6:408:ea::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46 via Frontend
- Transport; Wed, 3 Apr 2024 07:07:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN3PEPF0000B36D.mail.protection.outlook.com (10.167.243.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7472.0 via Frontend Transport; Wed, 3 Apr 2024 07:07:22 +0000
-Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Apr
- 2024 02:07:20 -0500
-From: YiPeng Chai <YiPeng.Chai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <yipechai@amd.com>, <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>,
- <Candice.Li@amd.com>, <KevinYang.Wang@amd.com>, <Stanley.Yang@amd.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix incorrect return value
-Date: Wed, 3 Apr 2024 15:06:49 +0800
-Message-ID: <20240403070649.685497-1-YiPeng.Chai@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 34F6C10FE3E;
+ Tue,  2 Apr 2024 16:20:36 +0000 (UTC)
+Received: from [100.64.232.220] (unknown [20.29.225.195])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 90A6D20E8BEB;
+ Tue,  2 Apr 2024 09:20:34 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 90A6D20E8BEB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1712074835;
+ bh=diMLxdSPqVbdaJFyTeRrOWtjesbV9nks1RgdOComYig=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Rj3Ojj+f8L4oLg5jPxJITV4lljtaNQ1MZ7dSIzWZF5J+LfZs3X5diAKiUWhTUVFe0
+ FUnY9QuJZFaj3I6g90zBj9Bl1fU2tfaf4JxF0B4epu6O6DxnLXUVrTwkNb92FpwqlH
+ y1p3X2h3VTCj1AN7QMru6U7yC6w74c0lVL9oSGbg=
+Message-ID: <fde7a0da-1981-48db-95e2-96d45655c11c@linux.microsoft.com>
+Date: Tue, 2 Apr 2024 09:20:33 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36D:EE_|PH0PR12MB8151:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29152214-814f-419b-4198-08dc53acb5db
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nG8Et97XB9YRy6RexJNYyRBM7upQ67DjunU6s/8WAKHUXJPfUI75l5vI7BtXj5QoOOwQwm3dLFPmuMvcdCFDmyojQq98rMinodrwfNji7I0FtXxL4Nw9af8sqBOrWoO0fG6rqdvz+HWXh7fCYqP669dUOsSmncQ59RiYeRNDzxlcCRe6abXQ9lOKqtKJi/sj6mw/R5dbYtUgcy0XgOQ+q+Hhl3dhlCA2p7tVc71ZiwZOJhHxorJjN9OS3fRS42/Uof+aeSpD2Cf+Tvkqt0y9cjUjf2SYTaBA1qYEpPDZ1oKszuAuaXzKKiy9eDerSF64yI8m8/oyrG4GfikxxJfXopZ8julidBdoYzC2B/Lml8m7iGYGZKLqIv3Jyqd87BUYxYAl9WL6UuRu14K8/IEPJPct33UmBoFKy+aha40HD6nt3zWkCfcbysZMck8RgqGLpniaevDlrMXIYVWWldj3VGF03he13A8Smwmvkn9UWzvxGnrW2GblkihRPNDhkJcL8usUW5pTF2OPROBjyRcKxpsm7rJCfn1Lqhd06hIbCbwUv9oqaFCU4zf5udtjS0GrecJ/IvIoG6ZoKcZM/SarHV7mPGGYINoTX+nM1O2T+L5j8cDUCjSiBjc7VwN8MltTfkoaZPCIF208YuT88uh3FjzSEdA9Nfhw4EwfAwwEHFZC/SqMepTSNNkq//VQCzGh9kxxchBhcxXh6FPw7ZG2Q7wQD7pt/dCa9vt0nt6vcq8Z01bdF4K9VGFjV1itB/Pj
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(82310400014)(1800799015)(376005); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 07:07:22.9824 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29152214-814f-419b-4198-08dc53acb5db
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36D.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8151
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v0 03/14] drm/gma500,drm/i915: Make I2C terminology more
+ inclusive
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Zhenyu Wang
+ <zhenyuw@linux.intel.com>, Zhi Wang <zhi.wang.linux@gmail.com>,
+ dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>,
+ "open list:INTEL GVT-g DRIVERS (Intel GPU Virtualization)"
+ <intel-gvt-dev@lists.freedesktop.org>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>,
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
+References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
+ <20240329170038.3863998-4-eahariha@linux.microsoft.com>
+ <87a5mcfbms.fsf@intel.com>
+ <7d5e6ed0-ffe9-46c2-b3b4-a4a47c09532e@linux.microsoft.com>
+ <87ttkjesx8.fsf@intel.com>
+Content-Language: en-CA
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+In-Reply-To: <87ttkjesx8.fsf@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 03 Apr 2024 07:11:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,80 +80,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-  After calling amdgpu_vram_mgr_reserve_range
-multiple times with the same address, calling
-amdgpu_vram_mgr_query_page_status will always
-return -EBUSY.
-  From the second call to amdgpu_vram_mgr_reserve_range,
-the same address will be added to the reservations_pending
-list again and is never moved to the reserved_pages list
-because the address had been reserved.
+On 4/2/2024 7:32 AM, Jani Nikula wrote:
+> On Tue, 02 Apr 2024, Easwar Hariharan <eahariha@linux.microsoft.com> wrote:
+>> On 4/2/2024 12:48 AM, Jani Nikula wrote:
+>>> On Fri, 29 Mar 2024, Easwar Hariharan <eahariha@linux.microsoft.com> wrote:
+>>>> I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
+>>>> with more appropriate terms. Inspired by and following on to Wolfram's
+>>>> series to fix drivers/i2c/[1], fix the terminology for users of
+>>>> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+>>>> in the specification.
+>>>
+>>> gma500 and i915 changes should be split. See MAINTAINERS.
+>>>
+>>> Might also split the i915 changes to smaller pieces, it's kind of
+>>> random. And the changes here are not strictly related to I2C AFAICT, so
+>>> the commit message should be updated.
+>>>
+>>> BR,
+>>> Jani.
+>>>
+>>>
+>>
+>> <snip>
+>>
+>> I will split gma500 and i915 into their respective patches if possible in v2.
+>>
+>> Can you say more about the changes being "not strictly related to I2C"? My
+>> heuristic was to grep for master/slave, and look in the surrounding context for
+>> i2c-related terminology (i2c_pin, 7-bit address, struct i2c_adapter, i2c_bus, etc)
+>> to confirm that they are i2c-related, then following the references around to
+>> make the compiler happy. For e.g., I did not change the many references to bigjoiner
+>> master and slave because I understood from context they were not i2c references.
+>>
+>> A couple examples would help me restrict the changes to I2C, since as mentioned in the
+>> discussion on Wolfram's thread, there are places where migrating away from master/slave
+>> terms in the code would conflict with the original technical manuals and reduce correlation
+>> and understanding of the code.
+> 
+> I guess I was looking at the VBT changes in intel_bios.c. Granted, they
+> do end up being used as i2c addresses. No big deal.
+> 
+> I think I'd expect the treewide i2c adapter changes to land first, via
+> i2c, and subsequent cleanups to happen next, via individual driver
+> trees. There's quite a bit of conflict potential merging this outside of
+> drm-intel-next, and there's really no need for that.
+> 
+> BR,
+> Jani.
+> 
 
-[How]
-  First add the address status check before calling
-amdgpu_vram_mgr_do_reserve, if the address is already
-reserved, do nothing; If the address is already in the
-reservations_pending list, directly reserve memory;
-only add new nodes for the addresses that are not in the
-reserved_pages list and reservations_pending list.
+Great! Just so I'm clear, do you still want the i915 changes split up more, along with them being
+split off from gma500?
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 28 +++++++++++++-------
- 1 file changed, 19 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 1e36c428d254..0bf3f4092900 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -317,7 +317,6 @@ static void amdgpu_vram_mgr_do_reserve(struct ttm_resource_manager *man)
- 
- 		dev_dbg(adev->dev, "Reservation 0x%llx - %lld, Succeeded\n",
- 			rsv->start, rsv->size);
--
- 		vis_usage = amdgpu_vram_mgr_vis_size(adev, block);
- 		atomic64_add(vis_usage, &mgr->vis_usage);
- 		spin_lock(&man->bdev->lru_lock);
-@@ -340,19 +339,30 @@ int amdgpu_vram_mgr_reserve_range(struct amdgpu_vram_mgr *mgr,
- 				  uint64_t start, uint64_t size)
- {
- 	struct amdgpu_vram_reservation *rsv;
-+	int ret = 0;
- 
--	rsv = kzalloc(sizeof(*rsv), GFP_KERNEL);
--	if (!rsv)
--		return -ENOMEM;
-+	ret = amdgpu_vram_mgr_query_page_status(mgr, start);
-+	if (!ret)
-+		return 0;
-+
-+	if (ret == -ENOENT) {
-+		rsv = kzalloc(sizeof(*rsv), GFP_KERNEL);
-+		if (!rsv)
-+			return -ENOMEM;
- 
--	INIT_LIST_HEAD(&rsv->allocated);
--	INIT_LIST_HEAD(&rsv->blocks);
-+		INIT_LIST_HEAD(&rsv->allocated);
-+		INIT_LIST_HEAD(&rsv->blocks);
- 
--	rsv->start = start;
--	rsv->size = size;
-+		rsv->start = start;
-+		rsv->size = size;
-+
-+		mutex_lock(&mgr->lock);
-+		list_add_tail(&rsv->blocks, &mgr->reservations_pending);
-+		mutex_unlock(&mgr->lock);
-+
-+	}
- 
- 	mutex_lock(&mgr->lock);
--	list_add_tail(&rsv->blocks, &mgr->reservations_pending);
- 	amdgpu_vram_mgr_do_reserve(&mgr->manager);
- 	mutex_unlock(&mgr->lock);
- 
--- 
-2.34.1
-
+Thanks,
+Easwar
