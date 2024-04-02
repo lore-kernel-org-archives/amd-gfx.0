@@ -4,123 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E2C2CD1284
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Apr 2024 08:47:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBF20CD1284
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Apr 2024 08:51:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C415A10E6D5;
-	Tue,  2 Apr 2024 08:47:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37AE910FB74;
+	Tue,  2 Apr 2024 08:51:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JZC/dYyP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nzZ176HL";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2100.outbound.protection.outlook.com [40.107.243.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3805210E6D5
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Apr 2024 08:47:50 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2088.outbound.protection.outlook.com [40.107.244.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E72D10FB74
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Apr 2024 08:51:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FTNJc78p74A7rOm2p/LiVr+54tfSAHzEhkW4aj49NHPnFx42Xp1U3GFzShD1uLlc+6uAKCoHW7BKIzvpB0FzreJ6On6JLyYLGTSoELk+u5EIxUGX+V9r0NgQtIJkffdbZb9FhzAEGyMlt4OPQ3d9nHQokjpGA6LJgqionOZyutlef3ywLBzyDpekEvoFVz+SxJBp2959qR4GZzWhR2slEOwW96P1poz5tlF7wzwlA8/grHDvJQ+e9PB7mjqgMeNdd61w255w25h1B1AZYBL35u3VMf79/leIWxCGUyAk+ZDImJHA2IswJmMw3LvjSWL13rnpfpMN7PsoFJSgfdusew==
+ b=IEQt7EP6oF3lRSZWWIbsu5fdh5fhiNiaDA7HxLUvQ9AuE1AmUBstv/aoHMnRctyOcmZOZZDCXeBtPBWKFOLka8U18+TfvpZQgvI3zkAq8PmVGI5E0ImO11vc4nvbJiujfHjHljk2JMNc2b+r/gT9IiSmiHE61iOLSafo65KkSfxWkTKg+sSkUgJo8I6qIfEwMlp8h9jynq8mtDgBJo3jX71REnIa8LwiWiHhmJzXWKQ+lgTlUd/GIsbbZkhQawDVYNl0gmaacoIxcZTvHDP04Mu3gm3+1oomddEwKaRbtt/p9cGWvhPuYl+3SEIsZf/xIAaUHckQ21RyKE16ZfUQuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5sQKRxje2o39UsvQ9BCbi+xWXmNyGpkKO4h9OVl8O3M=;
- b=fTW0EB+V+ggtt1PGl0iUA6X7dwzpO8juD4Sy6luH6oau4CPvghL8S9RWHZwkcszCz/jUCKb0n8pONfv37SF8IUuOHaBIl5WD7Wvpjp3kN01hNvjWSHpLWKVOyEE+4BkKF/F+RNUeEWDP0tBmYjbjU5wFJplsqBWxZugv7L1DEnGGrI75oChNiNVdxBflykzhkejTYkuHiuhd6K7u+IbgeGuDwm9VYvtFNKothj0/MiHXcscOXhUPWERrs69Oh7TIxe2kCD4Ss7nhRSSFmID9GC8b3dQKOACd+oCkLjlcQUJuUJMTg/8Z2VJ9iQbqWxNuuLQbrFYSc0fd2oy6VNsqig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=GlWSdE2a6o5LnYF1sbZ9pjYdNTK+hf4XI/PYwnXDxXI=;
+ b=Egw0kSSLsUGLpY7UFGwRvtqywYYF9e09GuGtoQ27pewMtfxwc7q2dFmafN+IfHz6PyjxkjpKYPE2mOccEj6W9atP4k253/2j3qQowDFnrKwVQA5ozym3mx9856mVQolC2lX1aixLxEAJQvoivX6h6MhLl+yi/SgO4GLjQVffWSfSjbfrzAHF90IqIh68HCj4E6/6ESCUqXlZKu+KrGzlwzbw3y3UzpRPZEQOCxh/f1NtgPkl53IzPmR9xx6wVVasMz23mKsH0IQSJzP1PQ60hit3Wph3JAgZI4vadqRK8xtDmWwxFGCIkTRfVAg5Hr3YqujDBcU/OWxfVv6BTv4uMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5sQKRxje2o39UsvQ9BCbi+xWXmNyGpkKO4h9OVl8O3M=;
- b=JZC/dYyP6FHsX+/9HXCPnWM8KPxYOpxorXfd7JiXdwceMWzz+ot8tSTzsGQJljBiJDIR2CHdTrLuqdaHNsXFJW2xeh4V1nI1wY8WFmQacdNWqK8uilv5BHRgIpt6Nzlhdgrpib23ia0eTOkRKtHU2ZWgLovvZ0PXwaQN2qc7Cdc=
-Received: from MW6PR12MB8898.namprd12.prod.outlook.com (2603:10b6:303:246::8)
- by DM4PR12MB6088.namprd12.prod.outlook.com (2603:10b6:8:af::18) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=GlWSdE2a6o5LnYF1sbZ9pjYdNTK+hf4XI/PYwnXDxXI=;
+ b=nzZ176HL2lQ06mahhLgCrtQZSQcJApBY9qG5EhVU/Dnds/wGoSr3TpWafWl8P1DFQzEWSw6rNOBvOqSwh5aqUgw2LnnnmCzDO3orvu/3BxhazPnDKCODo5sVgDauzLS0fHXoREB/CJWxOg73F5gQYwxvYLRfIRPmqZ0ov7VR90w=
+Received: from BLAPR05CA0043.namprd05.prod.outlook.com (2603:10b6:208:335::23)
+ by SJ1PR12MB6316.namprd12.prod.outlook.com (2603:10b6:a03:455::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Tue, 2 Apr
- 2024 08:47:45 +0000
-Received: from MW6PR12MB8898.namprd12.prod.outlook.com
- ([fe80::d6a1:3931:bca2:6f07]) by MW6PR12MB8898.namprd12.prod.outlook.com
- ([fe80::d6a1:3931:bca2:6f07%6]) with mapi id 15.20.7409.042; Tue, 2 Apr 2024
- 08:47:45 +0000
-From: "Yu, Lang" <Lang.Yu@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH 1/2] drm/amdgpu: use CPU to update VM during GPU reset
-Thread-Topic: [PATCH 1/2] drm/amdgpu: use CPU to update VM during GPU reset
-Thread-Index: AQHafnZaYy9vPlgMtUCqNy+8gjtPO7FOlcwAgAYhECA=
-Date: Tue, 2 Apr 2024 08:47:45 +0000
-Message-ID: <MW6PR12MB88985692468C5B0EC00BC55FFB3E2@MW6PR12MB8898.namprd12.prod.outlook.com>
-References: <20240325053558.3183164-1-Lang.Yu@amd.com>
- <30c0f3a4-6705-4d25-aad6-6c72310b493e@amd.com>
-In-Reply-To: <30c0f3a4-6705-4d25-aad6-6c72310b493e@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=bf8e77bb-2bdf-4a04-9b3e-aa34fe4ff4d3;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-04-02T08:43:53Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW6PR12MB8898:EE_|DM4PR12MB6088:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Z0Nw5D/IdIUq4KT1Z+vVULlz0T74BwCX4h9DnGAflcFEza4KtrACizME/8EDLCyD6zDzxzquWtXeCyjLjWoxAxOp8dFaX90v+bVMi/7kEillMBMTGaglk6h3nPX88Cip1L2FIQ+egjtspS9oV4n8d9+wJmZXBSl/zm1njaxUCU7bNeZDaQ/FbsXLQOL2cDtZUFkEc/Hc6EXx67HfBfpf32EeEcW20Ib5PYTJdPWqmXvV0B8o/BFQ/MTSlARFnJsegI3EzAfNNlRxho3+2HBcjx8HGMaYsLHyhYRA/UQ3deq3XsJJCqTtg45rpQkeAcMmp9gIpiGd8jWKkIvtktmniONBawuBoQ35bZlBkPki5t0B9vNiEPqVLKDDdYuq3u9IOoIcuxK+OVV2FKb6KLXonN3rNoVfoJ8Jl10+3Fsi8IR4XYAUTHqAIeWGLofl/qupazgEWYNlU9dJvEXmOmgHLnEX3P2MvBtlrpq0c3aUxSP0cjrCtzZ7g6Gba3IXEDN3zrj2Cw59RpQTBChve5Y2Vshir++AUbPLXj6yD+SRmEsoxI12BlCn+vizm5hMeYishInrp7Pg2+VFF4T5oREEQK6YrDseAyE91PB4SCdhRoD8cRcnjJ1Q3c0goysztrSXcydPvFfqyb87zYVMORjcvTxwhvzxuXRL5ZkXIF+2KsE=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW6PR12MB8898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?clBFMFpuQkdxMnlPU2J1djU3Sm1FN3gzdm1tdzRwb00yU0xWbmlWdGFmRzZ5?=
- =?utf-8?B?NnY4SDlCSlVzRithY2NtNVMyNGRvOXJia2JvZG9JOGRTZ3p5bmVaS0piemVh?=
- =?utf-8?B?QU4zcm9XSE8yeVhrZ2ZkL0RwalZ5V3llcjRYeTBCZmx2TUU5RGRIYW41dnJw?=
- =?utf-8?B?L24yaGdYSlRKUVRJbEExNU4rV0ZsSmFGYUE3b1k2Zk1FYktlaUhqTW9jVCsx?=
- =?utf-8?B?QUt3bGRkSjlubklwTkdjNUcrcGpFSU04RlpKRG1aSnVoWmdjV1d1bnlZemRZ?=
- =?utf-8?B?VFdER3pYMFBlMW9SelR2K004WGpha0ZhVTNGVmhDQUMxdHEvY2dzd0M2Wjcx?=
- =?utf-8?B?RFhFNHZuQTF4K3cyVjRqZVMxckM3M3hGWGlibkIxV3I4Z0c5TWJLM24zN0po?=
- =?utf-8?B?RTFMQzd2RE1RK2RkUFZqSEx5TXZ3NFdBUEF2RElKbFlKZ2VrTWJETUkrV3h2?=
- =?utf-8?B?enhCcTQyUkZ2VDg4dlI1U0dvK3I0eU1rSFhlWktRc1pHZEtPZXZPcHMxTklx?=
- =?utf-8?B?eVFtcU1XT040eG42eGZFSjdTdFp4WUZ5dExwdU1XV2RnSy9rMWVKcXhiLytD?=
- =?utf-8?B?aUtTRFlDVUZCbndlTUN1WUo3VFpCcEhhR2xxTERTS05PVFNRUDJBaVk1ZU54?=
- =?utf-8?B?TVgxUWFTVjEyWUxnM0pLai8zam9uM2RMZHBqNkxXSjFJM0tvR3g0TXBzc0lp?=
- =?utf-8?B?N2k0cmJFTENaRStwYXNYUVZESkJJdWRVTEVGdzQ0QjYzcDZLSHRQVXcySEd3?=
- =?utf-8?B?ZnY2YXlVbzA4L2t0dm5xMDhuL3JaWlA2cTlVZkttVFVYUFgvUVc5NDRQbWJP?=
- =?utf-8?B?RUkzMUNmSkJST3h6czl1WG44d0pXUUJxUW1xVnQ2N1MwaFdYNnozWEU2ME1C?=
- =?utf-8?B?VUtZQmdjZk5kZlF5WGxnRnEyd0kxUE8xTWY4UHBKaUY4SEFqcjZFTXp3cUs2?=
- =?utf-8?B?ZUpROTMwRXJlTU9sZUx0TFlpNFVPSWx2aTd4ZTBreDAxY0NNcGdHcnlDQnkr?=
- =?utf-8?B?ZXBCTmJINldtVy9Tc1l1ZS91QXFhRkNOWW5sNzlTUm9FcWEwaEFLdFFFeHRZ?=
- =?utf-8?B?eFhKZ0dHZHZXYWVFcFRBREFGZ0ExRmNhb05BWE5STi9kaDZ0UTNvNitmaEc2?=
- =?utf-8?B?SENxajRzOGpJYU9Ceko2QjVyVVdsMnFwU29GcTlKc0t0ZTNWNElPUjRhSS83?=
- =?utf-8?B?M2dlQmJwY2R5SnQ2LzhnNlpKT1RKc0hKcjR1L1gyaUJPNDJLUEJCMWZyTW1t?=
- =?utf-8?B?MTZzVTFpRWVVMXFXTDBlOGdNQUpVK21qaUZ0TSt4a3VPMWFOODY5YkxFbGRG?=
- =?utf-8?B?b29BbEp5WXJsTE9XenA4NVFVU1FoUjhycGY2dHFrS3lXbVVHdHp6RmdqR1Ir?=
- =?utf-8?B?Q1ZUQmVmRW5SSjh0V2laM3BEV1NnTDVOSkV1ZTduaEtTeEJtcUNudkRiSUY2?=
- =?utf-8?B?cFVnOWlxNXp5SlRIa1ZIaDV1OWxYcUxob1NLMW96aC9LNVoyWkVSNmVTYVhG?=
- =?utf-8?B?c3pEVUpIVVRPNkZVc2lvVGVGbFl1bnJOdDQxc3R0S25FZ2lxYkF4bHcwSVI4?=
- =?utf-8?B?alBXZEoyekxJWEFSbS9wOEVlZmlNVkNvb3ZFU3hrejArNExjWmlxejZuckxt?=
- =?utf-8?B?cjE4U2UyeFhxKzRwY2YwYzd2dDZSZzBicUgxQzdZZEZ4UXBhZHZ6VjZ6NXdY?=
- =?utf-8?B?SFVUZjBpVlV2U1VxZ25HakRoTkg0cjNWZUFLN0Y0NWFybVRXMU13TWQyR0g0?=
- =?utf-8?B?T1JRREZVTDNFMDRMV05aRHZCV3JicnFvQjc3K0h2NVUveHNWQ08zSVNuY2Yr?=
- =?utf-8?B?TmpleEtsZ3p0UUlyMWxBcnRqRkVVUnZKZTFHdFZBNmhhR3IwLzM5VTFidDBj?=
- =?utf-8?B?a29LOWk2S1pTNnFjS0Z5N0tkbThaZkpvRXVZVEgvcUJzRnorWU9sWlNaVVo1?=
- =?utf-8?B?Wnp3NHZsVExjR1E1ZXVoSkNLTUxiRW9jeWcvdmNzd3V2dXRDS3M2eURVbU5H?=
- =?utf-8?B?aHk3UE1Wa1lrTUxYYU15L2JEU25iMWFQZ2UxV3pyU3lXZjd0MWErT1VEazBn?=
- =?utf-8?B?ZFNBTGtYWE10OUMxWnJiQWRJZTFaSnFWSS92b1FkdWpnRldzaENmemhtTmwy?=
- =?utf-8?Q?3NXU=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ 2024 08:51:01 +0000
+Received: from MN1PEPF0000ECD8.namprd02.prod.outlook.com
+ (2603:10b6:208:335:cafe::d2) by BLAPR05CA0043.outlook.office365.com
+ (2603:10b6:208:335::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.26 via Frontend
+ Transport; Tue, 2 Apr 2024 08:51:00 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000ECD8.mail.protection.outlook.com (10.167.242.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Tue, 2 Apr 2024 08:51:00 +0000
+Received: from tao-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 2 Apr
+ 2024 03:50:59 -0500
+From: Tao Zhou <tao.zhou1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Tao Zhou <tao.zhou1@amd.com>
+Subject: [PATCH] drm/amdgpu: retire UMC v12 mca_addr_to_pa
+Date: Tue, 2 Apr 2024 16:50:50 +0800
+Message-ID: <20240402085050.372402-1-tao.zhou1@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD8:EE_|SJ1PR12MB6316:EE_
+X-MS-Office365-Filtering-Correlation-Id: 59ebbec1-5042-4872-a4ea-08dc52f20553
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +SA3a47x6P6kmd6rS6uUrjkEbeQybYI2bcMa53FNM/EP1w4sBxNcvIlYhi4wcRkKO2oETZPEun2lIwg0bA6aC2ZU8E/zDL4cd//vFH8WpyqdwTq6gS3LVL98PizaxDI+gnrLemjam/+LsBFdzUZ1rGfNU6V7aHS2oSL1p8vwfTmnQzGXYgI5Ne2Qg0hj8jO5b5yOfU2JehJKvEPvx4W/2iEr308WVnNj0kwPoWaGm5yAtgfq/0Q3N7siWLCQh26Hmh/s9xV9Ntipza4WdgWxkKKAgIfqBJbNl71vDtfdjUAzbdlVFzmp7EBpthtsxVxMY0SkzD9Vu092r9IvHGBnnr0IgIJKQ3iDbhSRMUnFkW0ajrE6WD+CRoyv12Gmu1iB2bjNSz/FmS845Qp8UrwxhHMlbkN8UZWs32V5+M+hz9F926okGtLyuUXP4jNZQlzNztHadn30fFqkZ9PYdmo89F9VMfLzZYfvGkHbY1r7D6ECxajxjfl2lbfot/toG/MzfvUy5xwYXqOsSEUmHGjOHWVQxtnlAaV6yTwUEaMUqJBHN79Pg+RgCPYwUB81phNG553jAVa5ksFFWOwKqZ+G/6dahKzfBOAcvzqamTs30LZxWMAiCLwp4OMe+ti4XAtSHrMNwatUZNqE0WwtZf/S6rLmN8UYRwiop/o8U2Drp2RkamIkIqHPqSNyAitSGXadaZCDivzipEJbauG8uHO2cCl6EJxzyFbVButXPIO5d20cfNI/md9pWqY3q5gVv4xE
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(376005)(82310400014)(1800799015); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW6PR12MB8898.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d84ef5e-bbf1-48e9-f632-08dc52f19138
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Apr 2024 08:47:45.6243 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XNIrz9JqOInigKILE9GyR0B3ZwG3oMvXxBlK/InRJGt9JlzERfOS3PH9m9vxIOfeyw6VWtUSxR1k1qIlThqXmQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6088
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2024 08:51:00.4073 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59ebbec1-5042-4872-a4ea-08dc52f20553
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6316
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,44 +104,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCj4tLS0tLU9yaWdpbmFsIE1lc3Nh
-Z2UtLS0tLQ0KPkZyb206IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5j
-b20+DQo+U2VudDogRnJpZGF5LCBNYXJjaCAyOSwgMjAyNCA3OjA4IFBNDQo+VG86IFl1LCBMYW5n
-IDxMYW5nLll1QGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPkNjOiBE
-ZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+DQo+U3ViamVjdDog
-UmU6IFtQQVRDSCAxLzJdIGRybS9hbWRncHU6IHVzZSBDUFUgdG8gdXBkYXRlIFZNIGR1cmluZyBH
-UFUNCj5yZXNldA0KPg0KPkFtIDI1LjAzLjI0IHVtIDA2OjM1IHNjaHJpZWIgTGFuZyBZdToNCj4+
-IGRybSBzY2hlZCBpcyBzdG9wcGVkIGFuZCBTRE1BIG1vZGUgaXMgbm90IGF2YWlsYWJsZSwgd2hp
-bGUgQ1BVIG1vZGUNCj4+IHdvcmtlZCB3ZWxsIGluIHN1Y2ggYSBjYXNlLg0KPj4NCj4+IFVzZSBj
-YXNlLA0KPj4gYW1kZ3B1X2RvX2FzaWNfcmVzZXQNCj4+IGFtZGdwdV9kZXZpY2VfaXBfbGF0ZV9p
-bml0DQo+PiB1bXNjaF9tbV9sYXRlX2luaXQNCj4+IHVtc2NoX21tX3Rlc3QNCj4+IGFtZGdwdV92
-bV9pbml0DQo+DQo+V2VsbCBiaWcgTkFLIHRvIHRoYXQuDQo+DQo+VGhlIFZNIHVwZGF0ZXMgc2hv
-dWxkIGp1c3QgYmUgc2NoZWR1bGVkIGFuZCBhcHBsaWVkIGFzIHNvb24gYXMgdGhlIEdQVQ0KPnJl
-c2V0IGlzIGNvbXBsZXRlZC4NCj4NCj5UaGUgcHJvYmxlbSBpcyByYXRoZXIgdGhhdCBhIEdQVSBy
-ZXNldCBzaG91bGQgKm5ldmVyKiBjcmVhdGUgYSBWTSB0byBkbyBhDQo+dGVzdC4gRHVyaW5nIEdQ
-VSByZXNldCBubyBtZW1vcnkgYWxsb2NhdGlvbiB3aGF0c29ldmVyIGlzIGFsbG93ZWQuDQoNCkJ1
-dCB1c2VyIHNwYWNlIGNhbiBzdGlsbCBjcmVhdGUgYSBWTSB2aWEgb3BlbigiL2Rldi9kcmkvY2Fy
-ZDAiLCAuLi4pIGR1cmluZyBHUFUgcmVzZXQsDQpkcml2ZXIgZG9lc24ndCBwcmV2ZW50IHVzZXIg
-c3BhY2UgZnJvbSBkb2luZyB0aGF0LiBTbyBpcyB0aGlzIHJlYXNvbmFibGU/IFRoYW5rcy4NCg0K
-UmVnYXJkcywNCkxhbmcNCg0KPlRoYXQncyB3aHkgd2Ugb25seSBkbyBJQiBhbmQgcmluZyB0ZXN0
-cyB3aXRoIGEgcHJlLWFsbG9jYXRlZCBtZW1vcnkgcG9vbA0KPmR1cmluZyBhIEdQVSByZXNldC4N
-Cj4NCj5JZiB0aGUgdW1zY2hfbW1fdGVzdCBhYnVzZXMgdGhlIFZNIHRlc3RzIGxpa2UgdGhpcyB0
-aGVuIHBsZWFzZSByZW1vdmUgdGhhdA0KPmNvZGUgaW1tZWRpYXRlbHkuDQo+DQo+UmVnYXJkcywN
-Cj5DaHJpc3RpYW4uDQo+DQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogTGFuZyBZdSA8TGFuZy5ZdUBh
-bWQuY29tPg0KPj4gLS0tDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
-bS5jIHwgNCArKy0tDQo+PiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVs
-ZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV92bS5jDQo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5j
-DQo+PiBpbmRleCA4YWYzZjBmZDMwNzMuLmFmNTNmOWNmY2M0MCAxMDA2NDQNCj4+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+PiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPj4gQEAgLTI0MDQsOCArMjQwNCw4IEBAIGlu
-dCBhbWRncHVfdm1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZQ0KPiphZGV2LA0KPj4gc3RydWN0
-IGFtZGdwdV92bSAqdm0sDQo+Pg0KPj4gICAgICB2bS0+aXNfY29tcHV0ZV9jb250ZXh0ID0gZmFs
-c2U7DQo+Pg0KPj4gLSAgICB2bS0+dXNlX2NwdV9mb3JfdXBkYXRlID0gISEoYWRldi0+dm1fbWFu
-YWdlci52bV91cGRhdGVfbW9kZQ0KPiYNCj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIEFNREdQVV9WTV9VU0VfQ1BVX0ZPUl9HRlgpOw0KPj4gKyAgICB2bS0+dXNlX2NwdV9mb3Jf
-dXBkYXRlID0gISEoYW1kZ3B1X2luX3Jlc2V0KGFkZXYpIHx8DQo+PiArICAgICAgICAgICAgYWRl
-di0+dm1fbWFuYWdlci52bV91cGRhdGVfbW9kZSAmDQo+QU1ER1BVX1ZNX1VTRV9DUFVfRk9SX0dG
-WCk7DQo+Pg0KPj4gICAgICBEUk1fREVCVUdfRFJJVkVSKCJWTSB1cGRhdGUgbW9kZSBpcyAlc1xu
-IiwNCj4+ICAgICAgICAgICAgICAgICAgICAgICB2bS0+dXNlX2NwdV9mb3JfdXBkYXRlID8gIkNQ
-VSIgOiAiU0RNQSIpOw0KDQo=
+RAS TA will handle it, the interface is useless.
+
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  |   1 -
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 105 ++-----------------------
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.h |  62 +--------------
+ 3 files changed, 7 insertions(+), 161 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 4ba26d7e52bd..afae497cbf40 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1460,7 +1460,6 @@ static void gmc_v9_0_set_umc_funcs(struct amdgpu_device *adev)
+ 		adev->umc.channel_offs = UMC_V12_0_PER_CHANNEL_OFFSET;
+ 		adev->umc.active_mask = adev->aid_mask;
+ 		adev->umc.retire_unit = UMC_V12_0_BAD_PAGE_NUM_PER_CHANNEL;
+-		adev->umc.channel_idx_tbl = &umc_v12_0_channel_idx_tbl[0][0][0];
+ 		if (!adev->gmc.xgmi.connected_to_cpu && !adev->gmc.is_app_apu)
+ 			adev->umc.ras = &umc_v12_0_ras;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+index f46a176f9b55..a0122b22eda4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+@@ -28,28 +28,6 @@
+ #include "umc/umc_12_0_0_sh_mask.h"
+ #include "mp/mp_13_0_6_sh_mask.h"
+ 
+-const uint32_t
+-	umc_v12_0_channel_idx_tbl[]
+-			[UMC_V12_0_UMC_INSTANCE_NUM]
+-			[UMC_V12_0_CHANNEL_INSTANCE_NUM] = {
+-		{{3,   7,   11,  15,  2,   6,   10,  14},  {1,   5,   9,   13,  0,   4,   8,   12},
+-		 {19,  23,  27,  31,  18,  22,  26,  30},  {17,  21,  25,  29,  16,  20,  24,  28}},
+-		{{47,  43,  39,  35,  46,  42,  38,  34},  {45,  41,  37,  33,  44,  40,  36,  32},
+-		 {63,  59,  55,  51,  62,  58,  54,  50},  {61,  57,  53,  49,  60,  56,  52,  48}},
+-		{{79,  75,  71,  67,  78,  74,  70,  66},  {77,  73,  69,  65,  76,  72,  68,  64},
+-		 {95,  91,  87,  83,  94,  90,  86,  82},  {93,  89,  85,  81,  92,  88,  84,  80}},
+-		{{99,  103, 107, 111, 98,  102, 106, 110}, {97,  101, 105, 109, 96,  100, 104, 108},
+-		 {115, 119, 123, 127, 114, 118, 122, 126}, {113, 117, 121, 125, 112, 116, 120, 124}}
+-	};
+-
+-/* mapping of MCA error address to normalized address */
+-static const uint32_t umc_v12_0_ma2na_mapping[] = {
+-	0,  5,  6,  8,  9,  14, 12, 13,
+-	10, 11, 15, 16, 17, 18, 19, 20,
+-	21, 22, 23, 24, 25, 26, 27, 28,
+-	24, 7,  29, 30,
+-};
+-
+ static inline uint64_t get_umc_v12_0_reg_offset(struct amdgpu_device *adev,
+ 					    uint32_t node_inst,
+ 					    uint32_t umc_inst,
+@@ -192,79 +170,6 @@ static void umc_v12_0_query_ras_error_count(struct amdgpu_device *adev,
+ 	umc_v12_0_reset_error_count(adev);
+ }
+ 
+-static bool umc_v12_0_bit_wise_xor(uint32_t val)
+-{
+-	bool result = 0;
+-	int i;
+-
+-	for (i = 0; i < 32; i++)
+-		result = result ^ ((val >> i) & 0x1);
+-
+-	return result;
+-}
+-
+-static void umc_v12_0_mca_addr_to_pa(struct amdgpu_device *adev,
+-					uint64_t err_addr, uint32_t ch_inst, uint32_t umc_inst,
+-					uint32_t node_inst,
+-					struct ta_ras_query_address_output *addr_out)
+-{
+-	uint32_t channel_index, i;
+-	uint64_t na, soc_pa;
+-	uint32_t bank_hash0, bank_hash1, bank_hash2, bank_hash3, col, row;
+-	uint32_t bank0, bank1, bank2, bank3, bank;
+-
+-	bank_hash0 = (err_addr >> UMC_V12_0_MCA_B0_BIT) & 0x1ULL;
+-	bank_hash1 = (err_addr >> UMC_V12_0_MCA_B1_BIT) & 0x1ULL;
+-	bank_hash2 = (err_addr >> UMC_V12_0_MCA_B2_BIT) & 0x1ULL;
+-	bank_hash3 = (err_addr >> UMC_V12_0_MCA_B3_BIT) & 0x1ULL;
+-	col = (err_addr >> 1) & 0x1fULL;
+-	row = (err_addr >> 10) & 0x3fffULL;
+-
+-	/* apply bank hash algorithm */
+-	bank0 =
+-		bank_hash0 ^ (UMC_V12_0_XOR_EN0 &
+-		(umc_v12_0_bit_wise_xor(col & UMC_V12_0_COL_XOR0) ^
+-		(umc_v12_0_bit_wise_xor(row & UMC_V12_0_ROW_XOR0))));
+-	bank1 =
+-		bank_hash1 ^ (UMC_V12_0_XOR_EN1 &
+-		(umc_v12_0_bit_wise_xor(col & UMC_V12_0_COL_XOR1) ^
+-		(umc_v12_0_bit_wise_xor(row & UMC_V12_0_ROW_XOR1))));
+-	bank2 =
+-		bank_hash2 ^ (UMC_V12_0_XOR_EN2 &
+-		(umc_v12_0_bit_wise_xor(col & UMC_V12_0_COL_XOR2) ^
+-		(umc_v12_0_bit_wise_xor(row & UMC_V12_0_ROW_XOR2))));
+-	bank3 =
+-		bank_hash3 ^ (UMC_V12_0_XOR_EN3 &
+-		(umc_v12_0_bit_wise_xor(col & UMC_V12_0_COL_XOR3) ^
+-		(umc_v12_0_bit_wise_xor(row & UMC_V12_0_ROW_XOR3))));
+-
+-	bank = bank0 | (bank1 << 1) | (bank2 << 2) | (bank3 << 3);
+-	err_addr &= ~0x3c0ULL;
+-	err_addr |= (bank << UMC_V12_0_MCA_B0_BIT);
+-
+-	na = 0x0;
+-	/* convert mca error address to normalized address */
+-	for (i = 1; i < ARRAY_SIZE(umc_v12_0_ma2na_mapping); i++)
+-		na |= ((err_addr >> i) & 0x1ULL) << umc_v12_0_ma2na_mapping[i];
+-
+-	channel_index =
+-		adev->umc.channel_idx_tbl[node_inst * adev->umc.umc_inst_num *
+-			adev->umc.channel_inst_num +
+-			umc_inst * adev->umc.channel_inst_num +
+-			ch_inst];
+-	/* translate umc channel address to soc pa, 3 parts are included */
+-	soc_pa = ADDR_OF_32KB_BLOCK(na) |
+-		ADDR_OF_256B_BLOCK(channel_index) |
+-		OFFSET_IN_256B_BLOCK(na);
+-
+-	/* the umc channel bits are not original values, they are hashed */
+-	UMC_V12_0_SET_CHANNEL_HASH(channel_index, soc_pa);
+-
+-	addr_out->pa.pa = soc_pa;
+-	addr_out->pa.bank = bank;
+-	addr_out->pa.channel_idx = channel_index;
+-}
+-
+ static void umc_v12_0_convert_error_address(struct amdgpu_device *adev,
+ 					struct ras_err_data *err_data,
+ 					struct ta_ras_query_address_input *addr_in)
+@@ -275,10 +180,12 @@ static void umc_v12_0_convert_error_address(struct amdgpu_device *adev,
+ 
+ 	err_addr = addr_in->ma.err_addr;
+ 	addr_in->addr_type = TA_RAS_MCA_TO_PA;
+-	if (psp_ras_query_address(&adev->psp, addr_in, &addr_out))
+-		/* fallback to old path if fail to get pa from psp */
+-		umc_v12_0_mca_addr_to_pa(adev, err_addr, addr_in->ma.ch_inst,
+-				addr_in->ma.umc_inst, addr_in->ma.node_inst, &addr_out);
++	if (psp_ras_query_address(&adev->psp, addr_in, &addr_out)) {
++		dev_warn(adev->dev, "Failed to query RAS physical address for 0x%llx",
++			err_addr);
++
++		return;
++	}
+ 
+ 	soc_pa = addr_out.pa.pa;
+ 	bank = addr_out.pa.bank;
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h
+index 5973bfb14fce..1d5f44dcffdd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h
+@@ -55,67 +55,12 @@
+ #define UMC_V12_0_NA_MAP_PA_NUM        8
+ /* R13 bit shift should be considered, double the number */
+ #define UMC_V12_0_BAD_PAGE_NUM_PER_CHANNEL (UMC_V12_0_NA_MAP_PA_NUM * 2)
+-/* bank bits in MCA error address */
+-#define UMC_V12_0_MCA_B0_BIT 6
+-#define UMC_V12_0_MCA_B1_BIT 7
+-#define UMC_V12_0_MCA_B2_BIT 8
+-#define UMC_V12_0_MCA_B3_BIT 9
++
+ /* column bits in SOC physical address */
+ #define UMC_V12_0_PA_C2_BIT 15
+ #define UMC_V12_0_PA_C4_BIT 21
+ /* row bits in SOC physical address */
+ #define UMC_V12_0_PA_R13_BIT 35
+-/* channel index bits in SOC physical address */
+-#define UMC_V12_0_PA_CH4_BIT 12
+-#define UMC_V12_0_PA_CH5_BIT 13
+-#define UMC_V12_0_PA_CH6_BIT 14
+-
+-/* bank hash settings */
+-#define UMC_V12_0_XOR_EN0 1
+-#define UMC_V12_0_XOR_EN1 1
+-#define UMC_V12_0_XOR_EN2 1
+-#define UMC_V12_0_XOR_EN3 1
+-#define UMC_V12_0_COL_XOR0 0x0
+-#define UMC_V12_0_COL_XOR1 0x0
+-#define UMC_V12_0_COL_XOR2 0x800
+-#define UMC_V12_0_COL_XOR3 0x1000
+-#define UMC_V12_0_ROW_XOR0 0x11111
+-#define UMC_V12_0_ROW_XOR1 0x22222
+-#define UMC_V12_0_ROW_XOR2 0x4444
+-#define UMC_V12_0_ROW_XOR3 0x8888
+-
+-/* channel hash settings */
+-#define UMC_V12_0_HASH_4K 0
+-#define UMC_V12_0_HASH_64K 1
+-#define UMC_V12_0_HASH_2M 1
+-#define UMC_V12_0_HASH_1G 1
+-#define UMC_V12_0_HASH_1T 1
+-
+-/* XOR some bits of PA into CH4~CH6 bits (bits 12~14 of PA),
+- * hash bit is only effective when related setting is enabled
+- */
+-#define UMC_V12_0_CHANNEL_HASH_CH4(channel_idx, pa) ((((channel_idx) >> 5) & 0x1) ^ \
+-				(((pa)  >> 20) & 0x1ULL & UMC_V12_0_HASH_64K) ^ \
+-				(((pa)  >> 27) & 0x1ULL & UMC_V12_0_HASH_2M) ^ \
+-				(((pa)  >> 34) & 0x1ULL & UMC_V12_0_HASH_1G) ^ \
+-				(((pa)  >> 41) & 0x1ULL & UMC_V12_0_HASH_1T))
+-#define UMC_V12_0_CHANNEL_HASH_CH5(channel_idx, pa) ((((channel_idx) >> 6) & 0x1) ^ \
+-				(((pa)  >> 21) & 0x1ULL & UMC_V12_0_HASH_64K) ^ \
+-				(((pa)  >> 28) & 0x1ULL & UMC_V12_0_HASH_2M) ^ \
+-				(((pa)  >> 35) & 0x1ULL & UMC_V12_0_HASH_1G) ^ \
+-				(((pa)  >> 42) & 0x1ULL & UMC_V12_0_HASH_1T))
+-#define UMC_V12_0_CHANNEL_HASH_CH6(channel_idx, pa) ((((channel_idx) >> 4) & 0x1) ^ \
+-				(((pa)  >> 19) & 0x1ULL & UMC_V12_0_HASH_64K) ^ \
+-				(((pa)  >> 26) & 0x1ULL & UMC_V12_0_HASH_2M) ^ \
+-				(((pa)  >> 33) & 0x1ULL & UMC_V12_0_HASH_1G) ^ \
+-				(((pa)  >> 40) & 0x1ULL & UMC_V12_0_HASH_1T) ^ \
+-				(((pa)  >> 47) & 0x1ULL & UMC_V12_0_HASH_4K))
+-#define UMC_V12_0_SET_CHANNEL_HASH(channel_idx, pa) do { \
+-		(pa) &= ~(0x7ULL << UMC_V12_0_PA_CH4_BIT); \
+-		(pa) |= (UMC_V12_0_CHANNEL_HASH_CH4(channel_idx, pa) << UMC_V12_0_PA_CH4_BIT); \
+-		(pa) |= (UMC_V12_0_CHANNEL_HASH_CH5(channel_idx, pa) << UMC_V12_0_PA_CH5_BIT); \
+-		(pa) |= (UMC_V12_0_CHANNEL_HASH_CH6(channel_idx, pa) << UMC_V12_0_PA_CH6_BIT); \
+-	} while (0)
+ 
+ #define MCA_IPID_LO_2_UMC_CH(_ipid_lo) (((((_ipid_lo) >> 20) & 0x1) * 4) + \
+ 			(((_ipid_lo) >> 12) & 0xF))
+@@ -127,11 +72,6 @@ bool umc_v12_0_is_correctable_error(struct amdgpu_device *adev, uint64_t mc_umc_
+ 
+ typedef bool (*check_error_type_func)(struct amdgpu_device *adev, uint64_t mc_umc_status);
+ 
+-extern const uint32_t
+-	umc_v12_0_channel_idx_tbl[]
+-			[UMC_V12_0_UMC_INSTANCE_NUM]
+-			[UMC_V12_0_CHANNEL_INSTANCE_NUM];
+-
+ extern struct amdgpu_umc_ras umc_v12_0_ras;
+ 
+ #endif
+-- 
+2.34.1
+
