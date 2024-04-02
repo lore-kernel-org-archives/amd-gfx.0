@@ -4,93 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A5F8CD1284
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Apr 2024 06:37:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3180CD1293
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Apr 2024 07:46:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A182710FA84;
-	Tue,  2 Apr 2024 06:37:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31CD510FAED;
+	Tue,  2 Apr 2024 07:46:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3kAre4yX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LZSOGHQA";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2072.outbound.protection.outlook.com [40.107.92.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29E1610FA84
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Apr 2024 06:37:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TlLe5CoixeOpZpw/iXDwkeX/XC9nShrtECeLXNjfavuRCa27e6raseWDZBzMPC90iSqVI4ccWCXzdqCGtL9uj7MFN+yqMe/oMbFp0G/ruXdJn3GcEFG1MTI96GpcrjISFnbHyqbSgtx3cmKIuse56MjqHrLF/67f/6nUu2sITGlXrlJcqJZGJvGHqkRmkyC1fV6TYjlrAaZ7FFfVd9hrQpYqBiQEShjuqDgWhUnjFlsNk5sXuRpPa+INfbkeIzVVL1tKtFlz17YbUzBV3MUMwFu8SA84roLfCkGrMibTnQqa4OI5dGL4tO+XL7OQIPhBRdpaO/NTMQHMscivyrIXvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tv9MRdn2qCkUHEgKua6eJu6VNCGZ7cJ1VsNNdLgin6o=;
- b=ZcOqYdk3gHUCzouk+bj5IgJcnA7Eaxnz2pG22952sqyqBybHPVsbu9Sg14AignFib0/qVFsetKHNLNvZ4bBcRGxePfLhTsu78HY9K7Cksq2wB4RQUpy/1jiOV/pLCXiZyVzHoqWa8YrxdQIjBKctyuNur6tCSxRiyBQye4MA7lXXwqhLJhkqBnGw1R/IZfbYnc3077jaOdo7RrlS72kCccgaThalgAEjSTat2Z9OohcVm0ILDX4nnJ6H2JqlwJh5J9QUaUFO3tWy+hJ18Q5i8nqX3g4g4RvMBYJmP/iYEiAU1oXCTa3EKrRL31S5ehyRfFMEm8dZr9iz5MUHhHE4Hw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tv9MRdn2qCkUHEgKua6eJu6VNCGZ7cJ1VsNNdLgin6o=;
- b=3kAre4yXTp1Ky6sFr4p8HXqkRVe0v8r6/yGLU/C8I/IBq8mTUsfE3OtggIKSyjMItlifFD6xdkiVIhwFCNQmKt1wQHGCENuu6JK2otNJDtvMxapKfNYX2JFQ/SUXGdQXp8el+4rCgs2n9fit3FNYH+gVufHt+U3sOW2XfbxCwik=
-Received: from DS7PR03CA0302.namprd03.prod.outlook.com (2603:10b6:8:2b::11) by
- IA1PR12MB7613.namprd12.prod.outlook.com (2603:10b6:208:42a::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Tue, 2 Apr
- 2024 06:37:49 +0000
-Received: from DS1PEPF00017094.namprd03.prod.outlook.com
- (2603:10b6:8:2b:cafe::67) by DS7PR03CA0302.outlook.office365.com
- (2603:10b6:8:2b::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46 via Frontend
- Transport; Tue, 2 Apr 2024 06:37:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017094.mail.protection.outlook.com (10.167.17.137) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Tue, 2 Apr 2024 06:37:48 +0000
-Received: from amdoffice.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 2 Apr
- 2024 01:37:46 -0500
-From: ZhenGuo Yin <zhenguo.yin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>, ZhenGuo Yin
- <zhenguo.yin@amd.com>
-Subject: [PATCH] drm/amdgpu: clear set_q_mode_offs when VM changed
-Date: Tue, 2 Apr 2024 14:37:37 +0800
-Message-ID: <20240402063737.2935698-1-zhenguo.yin@amd.com>
-X-Mailer: git-send-email 2.35.1
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF2F110F8FB;
+ Tue,  2 Apr 2024 07:46:23 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-515d49a6b92so2025145e87.3; 
+ Tue, 02 Apr 2024 00:46:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1712043982; x=1712648782; darn=lists.freedesktop.org;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=taIVd+GK795OjgeG9kSZtx5xbeqa5chcM/860KbJ/J4=;
+ b=LZSOGHQAtE65jLe6D1h4ZPV8DNLJ83zMvozcXR2y9eD70tmNvkIY5aCP8atW1DTUJB
+ izloZKnML94+bUJhTIYt7H7pZbuu6dVRuCkJoTmUcU9Dt6VPiYfnY3gNWUviPqd/0M0n
+ NC6ocv83tZVNd1Oy+a4L9wVCoKJe+dHyyQh5XDGsajZszjKEnq8wZBq+7D3qarSKBjWX
+ ATM7cAgy/Zwg4fvOxcPdtUtaKIrZ35cWPQ9EK0XbL/wx6+H+mcs4hg+w+vxUA0rdd+7r
+ wRw0QP8pnXFFax0C8jTVT24EbK3GCwOObx3zkRLTfXlTjeMCE7JZBZoo2QIdhkQ5o3mA
+ AOEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712043982; x=1712648782;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=taIVd+GK795OjgeG9kSZtx5xbeqa5chcM/860KbJ/J4=;
+ b=Rj5XHKzABQyy0L09YXArRVehadqMfcJ+wuuRIUwBc2wc6wOOZMuvds/TMHCx+b3IHn
+ cMBVg8c6wDR+MWpTPCf7s8zCx/dPzinc48SV9Dw31p63S4/6qhkinad/aa7ERGmWcWB3
+ 1hNhrPPb2Z9PVRPaO0KHexLo6AEf2ws53CWcuKlqcM16J5rUu70fMAwgRDJO9GTDZlYs
+ cpuIlQnUDT06Ze77t0fuNw3O/5meNTUF8WPEoOkCvOCDF9x10wk7PPI9nAGn+g5Frbh/
+ SW+brP+eafMPo0VWB+4p/xRfzLdk3MhtAGgX+h/NCET7nQ2vWQoJMLuTHttSH4+BK+EI
+ DHLQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVirYMSYHsneup1OBNpMmrmsv7hC4ytIQ+Nz4ybXxpCRCmYC9ytpjAgD58bRccfBu1vu3J1kiQ4EsscFdRRbAwPPUl5WUR4TJWpo0UH+V/ny8vuoL75ZaqubTK9Wiai3UkWkSx3RfXR3L9h257faXITWeE1Qn+lh+L1PLM4ryGUTsDHDYhVTvZMqMlNpDQ+9rmbG2JNKlbegtX2QmAJ3+ia1IJJmGgFiVjCtgtRWNMm7ds9beght7gqFFxHx6i73reKWTjzUv0XW8sbjMPsRdvfsmkTIZS1zN/hWb0mOJSvERE5Hu2R2dkiL/CoWHiArIyNS6zH0oeSwAiPSue17gSqOw2hxrgKj3tI4Upfs2m9vc+36uLOu4jsVngSZ5EPKOipKbBfSpk7eIXi90XxhOnna3zP5y8NpsiztxJbl4s0kIlc/69emqkmudB9e73eJw==
+X-Gm-Message-State: AOJu0Yy9Armo7Uh1ofUo8aVa9n+zESxjJKYKES2e40fDFILc5Vyc8eTy
+ O/bvcveLwzJ3iaCTh6zhMWUaZa1vY9nPesLhwydxI5reWEqD1oXP
+X-Google-Smtp-Source: AGHT+IFxhMLlt5HXgwY6+iG/dDw5dmfT+G01y7F3wTcuXP0RpaiyYX7Mjsf/JJM6iaeXeg29GPoyzw==
+X-Received: by 2002:a05:6512:3ca9:b0:515:a417:331 with SMTP id
+ h41-20020a0565123ca900b00515a4170331mr8977857lfv.9.1712043981316; 
+ Tue, 02 Apr 2024 00:46:21 -0700 (PDT)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ u2-20020ac258c2000000b005134b126f0asm1661430lfo.110.2024.04.02.00.46.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Apr 2024 00:46:20 -0700 (PDT)
+Date: Tue, 2 Apr 2024 10:46:08 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Christopher Michael <cmichael@igalia.com>
+Cc: events@lists.x.org, xorg-devel@lists.x.org,
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ libre-soc-dev@lists.libre-soc.org, elections@x.org, members@x.org,
+ xorg@lists.freedesktop.org
+Subject: Re: 2024 X.Org Foundation Membership deadline for voting in the
+ election
+Message-ID: <20240402104608.6f6a9121@eldfell>
+In-Reply-To: <57dd238b-2b94-4b46-a8be-c53b2f985e46@igalia.com>
+References: <0efcdfe3-ea9e-43e5-ab07-6d69dca2c04a@igalia.com>
+ <57dd238b-2b94-4b46-a8be-c53b2f985e46@igalia.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017094:EE_|IA1PR12MB7613:EE_
-X-MS-Office365-Filtering-Correlation-Id: 492c2ad6-9124-44f4-90c5-08dc52df69f4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5h/ycnZSVzaIX01dAugdMl3gmnIsjKtmSfpJAc/Q4UgClPqGr1L4pHIr8Kh1clSy48801IQ4jeemd733HBa0wftA3IF3uGZM4Of7JR/LLOs2k0POgRXQkrsmATb/WfeiOmLmBn+rjqgxYXtpnp/Ld+PcnrRpq11U3Mq9nKXjqrQNTyaN5HKiMxHMLtOUwyITtt4XzWqPv/7sX8v8DlRBZYmmx07hXVrfHVgqB4R+mh349mRZYQOl0RyCoHnZuvkWXhCkIfWLxZvRJPdEWKgwv7YSzgI3rvnjPqnPxuB458R3fmR7p7bzm3ZLk/VuNoNKq6Vg5nflK7+6/e3E0HfZ6dmVgxHZu4jzQHsDfIe+f1dXAhpiLiF8chFkfTTGbIC6dkZSZe0bBW2l+IG9mN3IVZ7ImYm0WuU2CTurkiBEqcsoan4rqt1tt3v0UPt1Ne07m495uOhPC1OhKJjGlT8cHLCUeVTUCUTilXgTE0cj9ZEBYZSUC9rAv0nTF7euOcJTZSMgpOfxmJ4oOXwf7pxZi7otI3+XuG/BH/OoyRpympRXREzwg4+UO4vKDouztx7yDYc2YedP9aOh7sNxyFLxRWe0sXyaXRv5vjdIb3X4damY6o10RtsI0S7L7D0mwE/7ls4DJIItZVc/qAckF9kW65OLfUov6eP5dTdgqiKoe3jnpgUgEPl9dNGI3y87PEtLp2dv0/KlUYq5FIXX2wKbKv2apUq1WxExWsoYP/OE891cyQajcRgV4DpWcOHfM2qM
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(82310400014)(1800799015)(376005); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2024 06:37:48.7650 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 492c2ad6-9124-44f4-90c5-08dc52df69f4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017094.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7613
+Content-Type: multipart/signed; boundary="Sig_/hnrm2UtMP0gSYd7p5vJ2Svs";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,32 +87,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-set_q_mode_offs don't get cleared after GPU reset, nexting SET_Q_MODE
-packet to init shadow memory will be skiped, hence there has a page fault.
+--Sig_/hnrm2UtMP0gSYd7p5vJ2Svs
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-[How]
-VM flush is needed after GPU reset, clear set_q_mode_offs when
-emitting VM flush.
+On Tue, 26 Mar 2024 11:42:48 -0400
+Christopher Michael <cmichael@igalia.com> wrote:
 
-Fixes: 8dad9c062355 ("drm/amdgpu: workaround to avoid SET_Q_MODE packets v2")
-Signed-off-by: ZhenGuo Yin <zhenguo.yin@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 1 +
- 1 file changed, 1 insertion(+)
+> The 2024 X.Org Foundation membership renewal period has been extended=20
+> one additional week and elections will start the following week on 01=20
+> April 2024.
+>=20
+> Please note that only current members can vote in the upcoming election,=
+=20
+> and that the deadline for new memberships or renewals to vote in the=20
+> upcoming election is 01 April 2024 at 23:59 UTC.
+>=20
+> If you are interested in joining the X.Org Foundation or in renewing=20
+> your membership, please visit the membership system site at:=20
+> https://members.x.org/
+>=20
+> Christopher Michael, on behalf of the X.Org elections committee
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 7a906318e451..c11c6299711e 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -5465,6 +5465,7 @@ static void gfx_v11_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
- 	/* Make sure that we can't skip the SET_Q_MODE packets when the VM
- 	 * changed in any way.
- 	 */
-+	ring->set_q_mode_offs = 0;
- 	ring->set_q_mode_ptr = NULL;
- }
- 
--- 
-2.35.1
+Hi everyone,
 
+given that the year's first email reminding everyone to renew their
+memberships was sent on Feb 7 when the renewal was NOT open yet, I
+wonder how many people thought they had already renewed and are now
+thinking they don't need to do anything?
+
+I fell for that: On Feb 7, I went to members.x.org to check my status,
+it said I was registered for "2023-2024" and there was no button to
+renew, so I closed the page confident that I was a member for 2024.
+After all, it said 2024. This was a mistake I realised only after being
+personally poked to renew. I know for sure of one other person falling
+for the same.
+
+Now, the members page for this year says "Application for the period:
+02/2024-02/2025". Thanks to the people adding the month to reduce
+confusion.
+
+
+Thanks,
+pq
+
+--Sig_/hnrm2UtMP0gSYd7p5vJ2Svs
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmYLt8AACgkQI1/ltBGq
+qqe21A/+KxWOfCsyLUHk8qlW8Tx3oH1Jzt0vDySQ0L8A3WxA0v6rp+bSrK5zeDaH
+T7xGuivb3MJThnCZQgilHz1K3LT/tawhyuSe/D07yNvfVDLBoduyKV4nVB4toVXG
+j/a647wS8yLpNwhnEF1bIfi5yZRi3RyUferr8EyITomb+Yy8KFqpGSz8ikvKujC7
++snP6w988lJ5xf2BSRfaNGZ0Aq9MoVFWTe5z+VGw7aoza6OCN+CGpuFEMxozkOuu
+1GoPBMm3mMSSkQ1ImLVrIaoSuUiaRvFCG8NXkUmJzocWVV0uMXJ0BzCb8utWnDlf
+L7P99IwIk/2e86IXoqff+D0l2KtAShqhDd8QAx0NA+yVvI/YF22xdlAimrhaSxlC
+p7TQlMZY8ViFS8NGb3Qc4evQkYcP63Pd+FwsBLvQKi2RDHEMiptsItdIfCAFV7ug
+zp5GAqnBdB90AgcXBMNh3WgM7ea7FAWxFcsE5ef9CBnuKqtoQQUAkA0g4Av01XrU
+ibbYTBFcAWQps+p4gWMyyW5n2XoTrd2jgiaG63p3py1LL5C952j8bJHcR46sZ1Z1
+PoQI2OVtWXp1WEYn0jYl5aHMBb1Pm3fSsu7AaUdLgLZcEAf2ys3r0ngcPgVpwjF+
+na9kYe5s5SJYZfCMxjcB2/FwKHsxVPoPulpCC9cKGhKnMWYnps8=
+=mTjt
+-----END PGP SIGNATURE-----
+
+--Sig_/hnrm2UtMP0gSYd7p5vJ2Svs--
