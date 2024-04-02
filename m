@@ -4,116 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DC4ACD1284
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Apr 2024 11:40:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BF89CD128D
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Apr 2024 11:56:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF97A10FC87;
-	Tue,  2 Apr 2024 11:40:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C90210FC9A;
+	Tue,  2 Apr 2024 11:56:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="F05vDk2F";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="O8DiYC84";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2095.outbound.protection.outlook.com [40.107.243.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B23E910FC8A
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Apr 2024 11:40:06 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2134.outbound.protection.outlook.com [40.107.92.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55EEA10FC9A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Apr 2024 11:56:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C1I1LBpTPBEkMdbydqSY/yqKMo7wgSWuxKTslJZZZGwDZUvXR9yLaEeOpGcOZoIUmYpnyA7Be2wumQQ0sMho81PlqL+Zyp5Vs49pHiX63KK4AqEEyEEZROQ5rh40k15EWl+bwWptTnr0JKIFSffZIpuLABjmuuq02+1iIHbaqrnCUy/SCKhaOSbeeJcw4GXE6p1Q0MKzhOlCsgVz4O/uHj0rkhaYqeKybslAtgE4I/sU2ODYlXUHPircam3puhkfuaeX1O9nHm96Xkwx9zCs3uq1ximJCiet86xJ5Ph4T62JzEF6K98NCVqs7DggHPlMqTnAqbiCdx9hk6/hCF4Apg==
+ b=PdmVTqiNx2iB5TZrAI6QmjPVYk4aq4jLDp81sItCcsOV8NGjO+i7aiC9vg2qUdY0t8q+vg4WLiaaKrOd346laojDQRle1J6SOwfnGXy/wUuQl2rokV+JRoWKhSd1n9TlrfEHTy+GzKZCp+eXDtEB4JiOe7Hx5YYhek3hTTcPM7/tCTQ5oN4GTIhxBlubxdkzBZnqC9FCEbjQoDjofvVMyW1pe5I2kCXQ5tIEX9sENCxHwBlcGDNXpBHTnVS4B1OxmP2hkrMUaOYx0MgLEeuqXxTmmocS1lqz5tDwq4JnhdLWLGgl8q0EaO5Hqk3ZfIUqrOVEErA0IDy3GkF0UTylbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5YuKkOczKjtwzgebKxFOV7fInpHL/2o/RBV5v+DR7aE=;
- b=FnU3xQROiErl1Hc2lffDtQ4XTuikjX8p5w3sV2cwxwcDO7FgrV51DnN0nmAOm5PWwsxucJJxw9MKMhw9yA1Npi7Y1ymX20OnpbQhNY8gkxENFJbNd0F9nyJH3ujyVRytIeCVabtFXjTgf7Z6m8YRtuLZ6IWNFOksJg8Gkg/3gf26uxS8Dp9M+IIu1ei5owgXeQp5yliHih3zW0UfVyr9pXKZslTpqU97o9DgkimsspnOKclXdExYD3d2Rdnfw5QnufUR4pJ19ZZBMnQ/m9bfBiB2qXGz3SjfvRtHqRLRbOKZ0hQS6eZ0jNGOGvSmzTaaeA4jA09uQOKRnYOhNsaVcg==
+ bh=VkyooXTnZUGv+KYI9Q3hOdGRt+QWQgFvGT6CtYxskes=;
+ b=GjIQNfQNE3sLX61M4LofIL5ueAvJXhXWeEju6ddtP2PWQRCNN7XjcC8pK7OkQWjTRf/W0+j13ojzoKaS0I+ksmu+ugmMnyCW+pBN6bzPlbEkMBit6l12FSfH1v6JX9ymhbWkS2wFeXYnDVL5ztQcLGKO87eYiEfYDSRSr3FbdPNhKbmGcd1lNSX92KDcDWzyXMp7uB73phwk4jmtLKsCnzrQrv7y7UE4al3Rp4QDk7ahf2Q8+9ZGUfnWSU6hAu/tA0GpEYVaCGVgniav1uS2hEp7S7fVe62Wxd0CZ9ak/h5JkCDtUhKJ0++h3bTPBP/gB9jAo+LiX/9dTiy6kL/T0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5YuKkOczKjtwzgebKxFOV7fInpHL/2o/RBV5v+DR7aE=;
- b=F05vDk2FaPWPSxbLD9Q1XNDUEdv+ziSultQBSCscICQG8S1x27M1A2bPdoUCtS6o9p+7dMRT9dtJ2LlDPoJUsz2gwkm68sL9Qc+fvQ+Riia6mBSWgy5rpNHuLfxjODcpY2LE0TQCakJQD039ACMJMWH2ve/N+lWHokX4G0nhFd0=
+ bh=VkyooXTnZUGv+KYI9Q3hOdGRt+QWQgFvGT6CtYxskes=;
+ b=O8DiYC84vMWGl8fWwLvRNDHKrTmRF1XMKaKPVd7IS+F/DkgjSpCOISMzlg5Bb+YQRPrHW/LfaiL3059o8XvbeB5kfwJ/CIm4gYR9buV11Ch+v7pVTxDiJ6Mu30tuK2JhwltKZoSRjxbuvB9R6/lMz5Zr4s1HI18oTDX4SVrqCcs=
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB7745.namprd12.prod.outlook.com (2603:10b6:8:13c::8) with
+ by DS0PR12MB6438.namprd12.prod.outlook.com (2603:10b6:8:ca::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Tue, 2 Apr
- 2024 11:40:04 +0000
+ 2024 11:55:59 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::f2b6:1034:76e8:f15a]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::f2b6:1034:76e8:f15a%6]) with mapi id 15.20.7409.042; Tue, 2 Apr 2024
- 11:40:04 +0000
-Message-ID: <b33a7e1f-ad28-4f81-821f-be6b34bed876@amd.com>
-Date: Tue, 2 Apr 2024 13:40:00 +0200
+ 11:55:58 +0000
+Message-ID: <635b5592-c3fd-49f5-b9ea-402a01f70ee0@amd.com>
+Date: Tue, 2 Apr 2024 13:55:53 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: use CPU to update VM during GPU reset
-To: "Yu, Lang" <Lang.Yu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20240325053558.3183164-1-Lang.Yu@amd.com>
- <30c0f3a4-6705-4d25-aad6-6c72310b493e@amd.com>
- <MW6PR12MB88985692468C5B0EC00BC55FFB3E2@MW6PR12MB8898.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Fix discovery initialization failure
+ during pci rescan
+To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alexander.Deucher@amd.com, Hawking.Zhang@amd.com
+References: <20240402100552.3164095-1-Jun.Ma2@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <MW6PR12MB88985692468C5B0EC00BC55FFB3E2@MW6PR12MB8898.namprd12.prod.outlook.com>
+In-Reply-To: <20240402100552.3164095-1-Jun.Ma2@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0055.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cc::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0208.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a5::18) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB7745:EE_
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB6438:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CwHt/T0jGmMa1o3RAHZx8lJ37HOYIx/7o+SZluJLHeK4y+ldb2bf37Z9snVzUiO0PVohoWv4Ik3cvT8flhwbfRj5Fv+fwolyl4dFII6pVDMhIkwnTkTY3uW20bLb6DtIf7Bv4I247HZfEXgnFpVtmh6eoKw/8H8e+/14yAo3yvac6RmV5MixsT/igGJow1gru1cxuth8dSFyfs02z6WR1Zqd6KcaHUBCE0sV/lDmsz3zu4sE1c1mcMpKJmthrY+u+uwROOP7J2oxwaxffQgVYp2veVQWOtFYmRcL3MGIJqQUJ4X6iCsJIa83yEdXNbVDTn1Af96F0+OSpI4hfSlrH4k8BK9zKFJjOo1E2XltLMJZy4BTCfHAJOBOlRLBzx7DwanpZXi9F3zevEijqMliz9ji6RWHCfWt81XUzEahMkFa5sIeJjdaxd6YY0K4s1t23/k4w1Zn3IHsPxUNiqas5tFR+yY/AgzloPRzdomzgg1sRMwxWWxJAOaZ+I4GpXumFpSaRgwIIg3woBto7pKF5/Yc7I0H0XdpRWdwV3ibKvCX9HZuoPv3AHbpyKwo4bdFI2sS8bm/wsgggEp4mSuOWgMrv3CQbXGX3EWJOCx0bENe7FFNNeD4nEtW205Ms8UvgmkudWLhTz6pJPplp8VBbJEvyLPdC+qB5Ne7GnkbR/4=
+X-Microsoft-Antispam-Message-Info: aIYMuzvosJOOPJhiybMWsG1+ulMzDZe0fFh+/gSzjkFPo+wKTB70mi0khM7ZTmMJzeJJ04pCWm3pq6dryIC3AYTH7eLGRST80F5UZGJA6i3RT0geFaLtvwI0AaWW9RV6inHL/xZ1yK6opOmen7K5WmG00VgeSvXAD58PnesKrJerr+78f+Qx2MYUIVgm5xRbqhLAa4zZdqMgHfVVxfNy23uefxu//KGUwmR/y4PJZphNKUb6scQG4UEe+ewXh4eEghRoMSWdwSDncaNvK5iVqYB1R35s97ma2TM+UG8sHJdC2gyz+h+zaSRy5LI5yTslloVl651JKidXP7NiUBoPiCVlBmuXHyRGS/VvYI4ltqdedz7frFTHwr6zWlKvfJx/BsL+0h2tzQFJz8pMV8Oq7hvmngKbogzvzXJnAOJFN4xCFoQE3mPa+hifeocrbCi09stYSt9cpKPAh0/qaJAWfKW9OdWBVXnLmg43hgWDAPVg3Dww19XjmSgSAfuPdmWOOvmNxV7gnPUh/nVGFDgtokhBeNvKuReoHhGqWK7oqmybnXigMpK6+E4yC62OgP0mNCo8IQjhc0vAfzOqnYVigwFJuIOj5eknlp4XBZTZxR7jHCoCagkOOQvJNaDrwWHcO/qFwhmgutbotUZDyQVhsHE8o4X3Oe4el6gjZVE3BzY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1102; 
+ SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WU40eUNkY0ZmeDk1QzNuZS9KWGJtS3gvUnE4TlRsNTBld216N0ZNcU5iNGtO?=
- =?utf-8?B?alZSeUoxaURub2ZMd2c1aWNZeGM5TUpjNHJnS01CUUdSdVFsNTdEZi8vTUpU?=
- =?utf-8?B?MllIVnFPaVZIbEc0c3c3cVU3SkRTc2dMWjNpeXRyZDJ5S0F1VlVVWVM0ZXJI?=
- =?utf-8?B?YjVocXhNcTZocXFFTERBb1RpcGNaYmdweVJ2bWZQUUlRMzNwUEZXQVRaVEVH?=
- =?utf-8?B?MmJxWkxxT2JOM2dpVlJVWWpLVUppc2xUZ2xDckhmeEZaQ1ZOUlc3ZkNXazla?=
- =?utf-8?B?MGhKbUl4dDJmRUZydFRyZHNSYUlQWDlhY0dQZEJndmkxTnpjRUZEZThhd2JT?=
- =?utf-8?B?VmRYMmJWbzdNZ2cxMnNCc09uVFpkZXQ0Nis1aDd6MFI5WnRMOXFhRVNGd244?=
- =?utf-8?B?Y2Qxd1Q3TjJkYmdBR2diUE92Q2pjNUgwVHE2WkI5NlZwY2FTcGU2bjZsWGFs?=
- =?utf-8?B?MStHNWllYXF2cTlrL01oc2hFNHlEdEhCSjJrNHU3bmdxSlFoWFpCelhmazE1?=
- =?utf-8?B?eDBsWGJlb1Q3anJ1bGJIZW1BSFlTeDhHNGZITnpnM1FYbkx2aGlxcVkzOVFq?=
- =?utf-8?B?enpsZW9RVzJpVTdyN0ovamc2UXVmU2drNkZiVEJxQzJTMW02N1pPd1VSOVJR?=
- =?utf-8?B?c1pOSTNBVVFmMnV4VVhPOW1xZ3lUYnltLzMzOVRkbXgwUHh1ekwvVloyU3JC?=
- =?utf-8?B?eGNldU1veW1NVjRMQ3NYMW5iaGltTUNkMzhQaFhpOThJTi9wdjdpZlpsUk92?=
- =?utf-8?B?RkRRTWx3elpaZnVzMjdhT1FLVTgwdnRITUlYQ1ozd0Zhb2lObEFaanRhbG9w?=
- =?utf-8?B?UFZpTlR3eE1uOSs0clJrcFhTNnhWWFFwVFlJWTVHQWpSbFpzQnoyTVV5dXdB?=
- =?utf-8?B?ZnU2MzlBTVdjUUdhZ3doakkrY3VTamp3djdkdGhkWmFLNW10bm5WVWxYRjYv?=
- =?utf-8?B?aS83RENLbHVuSzRYWkVoR0RvRUJxaDNGdEw0K0ozUFQ4MVJGNi9tcXREcDd1?=
- =?utf-8?B?eGRmV0xXNmxDMkFvbmZML2JHMXJCUkNCeGVRWjFIVnRwZVZaSW9tTVRDTitv?=
- =?utf-8?B?eG10ZlFzeUtWWXAzZ1ZGZ2pWK0V3endNUWxkZ3BNbTFlalVNRW1SMzRaRFZM?=
- =?utf-8?B?dHdENG9DM0lqME5DZG1TVDlwMEhzUE16TGFTelFqWnl1TnNaZlpGaHF3VUxG?=
- =?utf-8?B?aGptTnZCUVNsT1h3TTJubW5OaVFNYTdXSTBwY3A4aFUvMTMzamFjbFE0aith?=
- =?utf-8?B?V25UckR4WHpYVVBBeDYvMHkwR1NRV2t5VmpFN1ZjaFdLblREb2kzYkRuNFUy?=
- =?utf-8?B?Vy9XRlZYdCtNRzVuOVEwNUNGV0lxN3pSMkZHa0cxYlFPeU95dGEzUWtPcG1G?=
- =?utf-8?B?ckpDbVZ4ZjVLK1JmdVV0WWtiemZQdW42a01YUllpNWxqakxzbnVwcUYyYXlK?=
- =?utf-8?B?dFAvRFlxQmkzOFF0M3JsRk9wT2U5SFNwK3JmK1I4bjlqb2dhMG1yTFNlT29P?=
- =?utf-8?B?ZWFoVEdoWjJDMVdlaitudnhCenhhdUhwR1FFellVY0diZEVqVVE4N2lkeTVY?=
- =?utf-8?B?M0pXVGx3YTZwLzFKTjhFZDFVN0dsTWRlT09iZFVFcStwWnp3SlJldkhHZDI0?=
- =?utf-8?B?QlZ1SDJmMUxTYnZta3l4OXkwaEN3cjAwcUdraTNsbkNaSW1yRmFrQ25Ea3Jh?=
- =?utf-8?B?bndvaE83RExPalJnUDBxWW8vU3hSWnkyWTNyMnRrbThuUkJMQmluQWUrbUxY?=
- =?utf-8?B?Nmlwa0t2RGRUVHd4V29EZ3F4OXBxcGUwMUxHaTFkNzNqVkdNRGNuNllleXI4?=
- =?utf-8?B?TmkwVDRCNFNaT1g4ZDFZalZzZWZTaWNZTkxqUnBZYlQ4U2dTaG9ITnpiSnd2?=
- =?utf-8?B?dGJvSjRzSmV1cld1ZnRNUkxJV3dSak1ENVB3N0cvTmFJZG9OVHBncHU1b0dw?=
- =?utf-8?B?YUIvaE1rbmladEtLeEdlemhvUjk5WnNRL0prOGNsSm1EZmpuN3BtR2p6Rk9i?=
- =?utf-8?B?WWVveGtmMXMvbnBhMWNxMStsVWtKejI4Q2haWTN2YTJLdUVUTU1JNEE3WElI?=
- =?utf-8?B?aUpFRktQa29kbUZYcEdoVTdJVCsyenk1Q3RDNXFBOGJzc1ZRU0RKMTArNFJU?=
- =?utf-8?Q?jJbeivUVaGUnGArq+4vmpa/8h?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WHdBU3E1Mm9oVUluc2Z5cWMyNW1qSFl1eGxBRWpwSCtzUUdOVXZ2eXl2WUxi?=
+ =?utf-8?B?NU4yQjJNdzlNdGY0WU5SR21hY1B1dG1wWExDTHZsNi9rL0poZUhxM3UzRDJW?=
+ =?utf-8?B?WWh2ZEh1TDRuMWJJVlNkd1R6MGtaMEZaTGVvZ0pGR205Tko5SUdBLzFuU0dI?=
+ =?utf-8?B?MkpQNDRoZ3ZkT3pBOVU5R3I2UUI3OFlNZ0l2SEN4cTJmbFVCNE1HRCtaaU5B?=
+ =?utf-8?B?bUUzcXpqTzVObHhXL2IwR3FNejFtbVZ4ejc1eCtTVC9GUmkwTWowRlh0aW9V?=
+ =?utf-8?B?ZzNNejl3L0Y4ak5Lc1B0UGhCeFFrbS9GUFhFWGZyRGlHVW05RUxjWFZ1Y2oz?=
+ =?utf-8?B?bjZBdENwM0dvUWFNWDZaVmo1VGpHYW1kNURVVE9xSFU2VXYxQnRFeUc4cjVC?=
+ =?utf-8?B?Y3ZESzR5eXdxWmJVb3ZRM0Jlelp3VXc0Y2JFdDI1R053L2JYS2V5dnRpa2JO?=
+ =?utf-8?B?RmJzSHBXWDdaWmJDZWcyb2FQdEFrd1M2YzZkQktpZGxZSzlyMGt1MjRpK1Vw?=
+ =?utf-8?B?T3E1MFlnWFZsYkR0aUJ5VDNkSitoR1gyMWRtcnIwd0Y5U3hMa1RjKzQvRnJV?=
+ =?utf-8?B?d3ZlRWFlczVvUEZTYmlYb0QyTGlwVlFSTUR4bCtxck1oTzJzT09zSm15bENq?=
+ =?utf-8?B?SHpTa3QzdEpRbjlRWVpCNEhQWktyK1R2TXlETlNTVWJ2N1ZXNjNXbDZ0QWlB?=
+ =?utf-8?B?YTNVTzRXd0o4Z05zRXNvYlQ5bWw2SCs3NitiZlBJdlNLSVJ1UGVLaGVSVDZD?=
+ =?utf-8?B?RlVtMmpkSk8za2JDMUxBS2VqZVRjNVF3QWJtQ3JCMk0xdEdiUXIwK3QzQUZL?=
+ =?utf-8?B?bm0wSU4vOHhDVTZEOUhDTmJhaENkbUEyVVJsdExLWU4yUk00eUJVUC9SWUhu?=
+ =?utf-8?B?aXUwcmV1L0RlNldheDY4NHFJdG05ZWJmMFZSTkJhZGExbEt1VXY3YW80WWpO?=
+ =?utf-8?B?V2xmOHhJZTE1S1lZWUppazdDQWpSMHA0SWdUaWpkTE52N2tsRnd1bkRrZG15?=
+ =?utf-8?B?Qlk2bUJkUCtXNVg3cFRVWnQ3U09pdGt2SE1vYTNEVXVLeDBKaVJUVU1pTDB5?=
+ =?utf-8?B?Wms0VnR1a0xqeUorSDBqcXFqZmtpREdBM01aT1dKMVU1dEF6bGJpQ1RsdWtV?=
+ =?utf-8?B?WHdJM3FvOXFvWU9xVWNBZEhicUJtak8rVFJWbG9lcU52YWttSEpNRG1ZVU1i?=
+ =?utf-8?B?LzF4VHNCOWVhYVZ3WlFYTS96cklueEc0eUFEdmtHT0dtTXpEdEZFZ2tJN3RW?=
+ =?utf-8?B?eDZqaWNGdjZ5ak4wYVVkcEJXOWpsSEJDcHZubzdVcm8wVmF6V21yclhFaVRC?=
+ =?utf-8?B?U1UxTUE4Y0JNOGF6ZFhSaU01cUV1dU9OM1BFbDNNQ05NR1U3VlVnRCt5dnJM?=
+ =?utf-8?B?TTVlczN3ZGQ2VjFoZmdOWFh6MXAyQXBodDJrUlQzS2xucTdoQUh3VU5TWW9X?=
+ =?utf-8?B?MGZ2RGdraWVuaEhTZDk2bWRNU0ZOQ2Rwd0RjcGM0cWJBUDAvc2dVVGdSRHB2?=
+ =?utf-8?B?cnNTYVlXRFNZK0lhZWkzU2YzQ2tTb2xvZ1VvNVBjbDRDQ2JEQkNzQVdrYjdu?=
+ =?utf-8?B?QWRLQmNzdFUvL3g0T1EzZDJjc2E0WDJxUnpjWjFwbFNjSXExdFZuaER3aUQw?=
+ =?utf-8?B?WDlFRmxMWkZvUFBKVk1zK1dnTzM1TS9BTllsMU5zZGx4dWI5U1dpQmFleFFZ?=
+ =?utf-8?B?ZkRjRnVZeFZsUncvKy9qL1QxRlVPSERlQUhSM2NKaURUSDJTaEFRSSt5NFE2?=
+ =?utf-8?B?UDJLbEgySEtyL0pCcFo5MnFNOTlBeDNRMUV3VGdPWXBFK1NISU1wNnhsbzYx?=
+ =?utf-8?B?YWhyMks5Sk1MbytsOERPNVNZQVN4SXczMnBzY1BHaUMweFJkQU0rQ0w5dUJ2?=
+ =?utf-8?B?UDNya0NzZHg1STNQNkk2Uy8rc0p0amFtZEs2aHoyTkhtZG1CT0xwVzNIdlN2?=
+ =?utf-8?B?ZnZjVXVPTVQ1VER3alpLcS9JY1lNQVBEcTFaaWNWOEpoYlJieDZGS29ZbC9M?=
+ =?utf-8?B?NEd5azJCbVkrODZNZ2xFWFF0NWovTitpRS8wUUljdUEzYWNrOWJXMUR1RHB5?=
+ =?utf-8?B?ZDZpbURWQVAwNjFodzVpOXNvdHpUbWhkYTZoa1hKTUVEZ3ZWaEtOQVJBTHFE?=
+ =?utf-8?Q?akSlYDFRDV7p7uYZ4BjuVwJix?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b164abf6-1d5f-43dc-6c22-08dc5309a39a
+X-MS-Exchange-CrossTenant-Network-Message-Id: df3562f9-3c66-4824-f013-08dc530bdbf6
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2024 11:40:04.5316 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2024 11:55:58.1141 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: njz+Ti10nDgOAc7//dW9u6nrJzOO/6HpruQR+N/sAb4a4a7Gzkv+2PitkIRWRcF4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7745
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4w5D71xIKzIsSoqfQEmleHqLL2k66cf4ixsAlv6cpQ2oFwMjHarKd+wVkavqP4iT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6438
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,81 +126,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 02.04.24 um 10:47 schrieb Yu, Lang:
-> [AMD Official Use Only - General]
+Am 02.04.24 um 12:05 schrieb Ma Jun:
+> Waiting for system ready to fix the discovery initialization
+> failure issue. This failure usually occurs when dGPU is removed
+> and then rescanned via command line.
+> It's caused by following two errors:
+> [1] vram size is 0
+> [2] wrong binary signature
 >
->> -----Original Message-----
->> From: Koenig, Christian <Christian.Koenig@amd.com>
->> Sent: Friday, March 29, 2024 7:08 PM
->> To: Yu, Lang <Lang.Yu@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
->> Subject: Re: [PATCH 1/2] drm/amdgpu: use CPU to update VM during GPU
->> reset
->>
->> Am 25.03.24 um 06:35 schrieb Lang Yu:
->>> drm sched is stopped and SDMA mode is not available, while CPU mode
->>> worked well in such a case.
->>>
->>> Use case,
->>> amdgpu_do_asic_reset
->>> amdgpu_device_ip_late_init
->>> umsch_mm_late_init
->>> umsch_mm_test
->>> amdgpu_vm_init
->> Well big NAK to that.
->>
->> The VM updates should just be scheduled and applied as soon as the GPU
->> reset is completed.
->>
->> The problem is rather that a GPU reset should *never* create a VM to do a
->> test. During GPU reset no memory allocation whatsoever is allowed.
-> But user space can still create a VM via open("/dev/dri/card0", ...) during GPU reset,
-> driver doesn't prevent user space from doing that. So is this reasonable? Thanks.
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
 
-Yes the UMD can still create VMs during reset, but this is completely 
-unproblematic since all submissions will wait till after the reset 
-before they start executing.
+I'm not an expert for that stuff, but using dev_is_removable() indeed 
+seems to be incorrect here.
 
-This includes both VM updates as well as userspace submissions.
+Feel free to add an Acked-by: Christian König 
+<christian.koenig@amd.com>, but I would rather wait for Alex to come 
+back from vacation and take a look as well.
+
+Might be that I missed something why the dev_is_removable() check is 
+mandatory or something like that.
 
 Regards,
 Christian.
 
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 17 ++++++-----------
+>   1 file changed, 6 insertions(+), 11 deletions(-)
 >
-> Regards,
-> Lang
->
->> That's why we only do IB and ring tests with a pre-allocated memory pool
->> during a GPU reset.
->>
->> If the umsch_mm_test abuses the VM tests like this then please remove that
->> code immediately.
->>
->> Regards,
->> Christian.
->>
->>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
->>>    1 file changed, 2 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> index 8af3f0fd3073..af53f9cfcc40 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> @@ -2404,8 +2404,8 @@ int amdgpu_vm_init(struct amdgpu_device
->> *adev,
->>> struct amdgpu_vm *vm,
->>>
->>>       vm->is_compute_context = false;
->>>
->>> -    vm->use_cpu_for_update = !!(adev->vm_manager.vm_update_mode
->> &
->>> -                                AMDGPU_VM_USE_CPU_FOR_GFX);
->>> +    vm->use_cpu_for_update = !!(amdgpu_in_reset(adev) ||
->>> +            adev->vm_manager.vm_update_mode &
->> AMDGPU_VM_USE_CPU_FOR_GFX);
->>>       DRM_DEBUG_DRIVER("VM update mode is %s\n",
->>>                        vm->use_cpu_for_update ? "CPU" : "SDMA");
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index 07c5fca06178..90735e966318 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -255,7 +255,6 @@ static int amdgpu_discovery_read_binary_from_mem(struct amdgpu_device *adev,
+>   	uint64_t vram_size;
+>   	u32 msg;
+>   	int i, ret = 0;
+> -	int ip_discovery_ver = 0;
+>   
+>   	/* It can take up to a second for IFWI init to complete on some dGPUs,
+>   	 * but generally it should be in the 60-100ms range.  Normally this starts
+> @@ -265,17 +264,13 @@ static int amdgpu_discovery_read_binary_from_mem(struct amdgpu_device *adev,
+>   	 * continue.
+>   	 */
+>   
+> -	ip_discovery_ver = RREG32(mmIP_DISCOVERY_VERSION);
+> -	if ((dev_is_removable(&adev->pdev->dev)) ||
+> -	    (ip_discovery_ver == IP_DISCOVERY_V2) ||
+> -	    (ip_discovery_ver == IP_DISCOVERY_V4)) {
+> -		for (i = 0; i < 1000; i++) {
+> -			msg = RREG32(mmMP0_SMN_C2PMSG_33);
+> -			if (msg & 0x80000000)
+> -				break;
+> -			msleep(1);
+> -		}
+> +	for (i = 0; i < 1000; i++) {
+> +		msg = RREG32(mmMP0_SMN_C2PMSG_33);
+> +		if (msg & 0x80000000)
+> +			break;
+> +		usleep_range(1000, 1100);
+>   	}
+> +
+>   	vram_size = (uint64_t)RREG32(mmRCC_CONFIG_MEMSIZE) << 20;
+>   
+>   	if (vram_size) {
 
