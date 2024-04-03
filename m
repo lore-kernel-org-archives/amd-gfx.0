@@ -4,151 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78086CD128A
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 14:27:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18530CD1288
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 14:36:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03FDE112B72;
-	Wed,  3 Apr 2024 14:27:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A47FD112B80;
+	Wed,  3 Apr 2024 14:36:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JndjP0Aw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ChIAYVi9";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2107.outbound.protection.outlook.com [40.107.93.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 230C3112B72;
- Wed,  3 Apr 2024 14:27:02 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2079.outbound.protection.outlook.com [40.107.220.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C700F112B80
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 14:36:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BVBO/ywu4J3LfKkM9zYnvfdR81K+rlohb2YjToQvyjROe22vN6fvLgtbgRlDUSjSQdhB0GLATecX0onZPMOwI6dfoEpUiB4Kz1PHWk3rUJYqzPXGT0iqJgtlefGVNpHPydA4cciNCcuUdzY2UD6dE/m8/+5XtferCvIMWSHpcBWxAgHPMU4sbESj+Y5C545uwLPwRMBR0YccfZ2isIYFbnF8IY67LMfb8OrMqQjIYOL9Y0yQvPcG1IBihmF41K1mR9+wwfiYNuadpdlrNgo7qo/s4RECZPalMssKLZhJx7im9qSWGcwmXlHScAHgZBzfoTUQABSbfCXK46j6qP5q8w==
+ b=V3830BayA83x401QjV+gQXG7zFVjBGe1WNM6CapOs8+Xa1M0Vkm2gX6yGficFYAJ0Op5KVM/vVAbEO5rgiDl2SmG8k64O8rUDOKvQwK77ERObo80JvAmG3EGd8wj3mknUIzwH92aK7cANVfR6l48OUc+TBJHr8sZ9sQwqhAtRifzZENncVZOLeKacd3fKiE3KEkx8Y3M09+UtCM9gepLreLTBcvtcTyV/t7DkAbcJ4ZrOUYrRiVbPbqR6S20BNgmVL3IhdIia1cMFB/JnZ6bf44xW7+3OF4fhKUFMOa5zXwvyfTQrvfI7zv3zH8xpxtn1DUwE6fVHMv46mochpOozA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZlfLAZIJp09mkpStccyb8rB1wQixxLxcTVybXjAT+sE=;
- b=N/GA0BrnzkHZZ7pSA7NToNwLHgQfJndvLMjEt6k1uqv4CdUQrKRlyUHSqD21BhrJa7QkeQiC+hTlEK3UxD1rV6Pa5joa+SFbJOMyGZUhZDoC1yYEGNOnmaMQpkeiqrkwTRFKZawH5mFVwCBBPTbIFdcU5oT6F4xuFeDDp6CxQZdby5Gc9mOtmyK+3Mbvpcue03NRoWwoQqIn5MuNMlQMLrFjP6S4WYhhpZwNX2quhPn9zrIviHPMwxFf8uCsGu4X7M+Dz9YJ+wojeyTbJxS/bz4TTlyz5SIwcUBisLapHH8dskRKXfzXhZWuspWCudJjPoy3RkBXW+qVe7WcxTQ/uA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=ebPO2hDfna9tY74GXPeEtZjjuK/3wNous/mOG3JAJGU=;
+ b=R8uR06PH9MSMqu0gQwKxba4WPMWMS3BD8bNMvD1U5Vb8GDHKwL+UygR7TWrrF/KVGePFy4U8QRb6XPPa8/ifqLedI3NmhCerNMx3jvY+zAPjx2/+pVxtiuQmFBtC6MPFKE9cXcJp6c9m+WBxQus0g2mj1IXRjCIi16j+/N69dElkqZpRTSLJAfU7sx38dHhGBJ3/pHZSntT5PRYjtUmR/lwTd2vFWhHZrZtfv1YkHjByRLjpS15NT3OvGB+tWrRMVH/z7crZqkhl8ey0eH3IXweichSu5bjrQEb0zyD1/SHd1WNol6V8CBKbUwqYLb/pte+/sE/nHoh1TyL/S9CCdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZlfLAZIJp09mkpStccyb8rB1wQixxLxcTVybXjAT+sE=;
- b=JndjP0AwytpKQgcZOFqE23xuvo4db96MKieDyRwY5dE2kV0jptesrNuxyNZ7pA+H1JSw6Nsp47XHV9uW3AQRcMjHSmzpCkGbkCtsqfKOsCJF8Ia26p0/hOIYUSGoZpJa8XnLEqwfiCYQ2Tc3HwleIZVcne+aPWzBmqSmxS7qExk=
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB9038.namprd12.prod.outlook.com (2603:10b6:8:f2::20) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=ebPO2hDfna9tY74GXPeEtZjjuK/3wNous/mOG3JAJGU=;
+ b=ChIAYVi97GyFByO20CUetpFl6XiSaDwNHDeKYHnLknSL8+ncH35oRmKl5TLJYC5E3IhBNMavXQcWYiZkPe72GPApVM1aoFFJMyp9pFjUWeC9jCQnjLFOzsk8S7pvYVQqwGCtQygozGq8U0Uh/B3oWq83Fe1kGyplQnEh0EY1qD8=
+Received: from MW2PR2101CA0003.namprd21.prod.outlook.com (2603:10b6:302:1::16)
+ by SA1PR12MB8987.namprd12.prod.outlook.com (2603:10b6:806:386::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Wed, 3 Apr
- 2024 14:27:00 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::f2b6:1034:76e8:f15a]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::f2b6:1034:76e8:f15a%6]) with mapi id 15.20.7409.042; Wed, 3 Apr 2024
- 14:27:00 +0000
-Message-ID: <53f3afba-4759-4ea1-b408-8a929b26280c@amd.com>
-Date: Wed, 3 Apr 2024 16:26:44 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v0 02/14] drm/amdgpu, drm/radeon: Make I2C terminology more
- inclusive
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>
-Cc: Easwar Hariharan <eahariha@linux.microsoft.com>,
- Alex Deucher <alexander.deucher@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Evan Quan <evan.quan@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Candice Li <candice.li@amd.com>, Ran Sun <sunran001@208suo.com>,
- Alexander Richards <electrodeyt@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Heiner Kallweit <hkallweit1@gmail.com>, Hamza Mahfooz
- <hamza.mahfooz@amd.com>, Ruan Jinjie <ruanjinjie@huawei.com>,
- Alan Liu <haoping.liu@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Samson Tam <samson.tam@amd.com>,
- Alvin Lee <alvin.lee2@amd.com>, Charlene Liu <charlene.liu@amd.com>,
- Sohaib Nadeem <sohaib.nadeem@amd.com>, Lewis Huang <lewis.huang@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- George Shen <george.shen@amd.com>, Aric Cyr <aric.cyr@amd.com>,
- Jun Lei <jun.lei@amd.com>, Nicholas Kazlauskas
- <nicholas.kazlauskas@amd.com>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
- Dillon Varone <dillon.varone@amd.com>, Le Ma <Le.Ma@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Asad kamal <asad.kamal@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Yang Wang <kevinyang.wang@amd.com>, Darren Powell <darren.powell@amd.com>,
- Yifan Zhang <yifan1.zhang@amd.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>, Wolfram Sang <wsa@kernel.org>
-References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
- <20240329170038.3863998-3-eahariha@linux.microsoft.com>
- <Zgb3VYsgLjhJ2HKs@ashyti-mobl2.lan>
- <ceeaafe1-49d5-4602-8251-eed63a1be2b6@linux.microsoft.com>
- <Zgb8gieDzZtZmg2q@ashyti-mobl2.lan> <Zg1NW0jqwFn4lvEP@intel.com>
- <87sf02d1zf.fsf@intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <87sf02d1zf.fsf@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: VI1PR0902CA0035.eurprd09.prod.outlook.com
- (2603:10a6:802:1::24) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ 2024 14:36:41 +0000
+Received: from MWH0EPF000A6732.namprd04.prod.outlook.com
+ (2603:10b6:302:1:cafe::46) by MW2PR2101CA0003.outlook.office365.com
+ (2603:10b6:302:1::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.10 via Frontend
+ Transport; Wed, 3 Apr 2024 14:36:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000A6732.mail.protection.outlook.com (10.167.249.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Wed, 3 Apr 2024 14:36:41 +0000
+Received: from MKM-L1-ZHLUO987.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Apr
+ 2024 09:36:38 -0500
+From: Zhigang Luo <Zhigang.Luo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Sashank.Saye@amd.com>, <Jeffrey.Chan@amd.com>,
+ <philip.yang@amd.com>, <lijo.lazar@amd.com>, <felix.kuehling@amd.com>,
+ Zhigang Luo <Zhigang.Luo@amd.com>
+Subject: [PATCH 1/2] amd/amdkfd: sync all devices to wait all processes being
+ evicted
+Date: Wed, 3 Apr 2024 10:36:23 -0400
+Message-ID: <20240403143624.5160-1-Zhigang.Luo@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB9038:EE_
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6732:EE_|SA1PR12MB8987:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7654b8c-b162-4aef-b4aa-08dc53eb7a4d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JKTi7FgZqau3yIko/NzpfJBC9GXNsLV9HkP53TKAVzIViaaMBbZjEyPiCB3SRn0Yc3UWfWD5DyHtfmbnCGSJvP9Dt5Zu8tfiTg0wYzGeggc/crNd9+IVCYGl1d3CjZzqfYPH5XfoUFqDO1QDD6MBUQk+zuN1DCPiceL9DQjpvSRL7pcU8O+zAB0alwZuj++4njSD3KrDnK0GE4m9cSQoTMoCMSF+cZDkYjFAOh2+LjpGTrLVPUnxFR1NF+uNUdZrBqqUovvWUlcL20gPyjeW3kq5yDNUp56JI/BLZsGfXL8NXyB8foBVv9eLeoTVCZ2RcdwoqHIFhRLrdPsoUiR+RYkcvNhKmJYaV0+xJqEXrpUyNl26ZkRSX3uiBvz7ao+qAsXztVtEL7wkJLa/pTs2zL0QKxi2ec4WH8/WW5fzE7WgLhpBwmAG2TUV7ByZlxvNx+CG6bkKC7cGF1RfFpOyGfsU3IDFv7tzJpEzbw1IT5WfGy9MsCtmxNAUtZIQYvGgMUc4AI50nnxoLyci8IEkJs8aVdt02rabLDIpFLLIQccmaJZgbx3HKC8Sdo7R20xaG2n9kW2bwode0t8xemQpT3xVd9Rxi/TS9SDaVQJip6Jb39KaJl3LO4gO4+aWkEEyl71Josr26/ly60Ab2cHD5j+UanvrNfp91C+W01jN/QA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(376005)(7416005)(366007); DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Slc5M2U1cW10REpWVnJrdzlDb2REdG5pV1RudS9oNlZ1TGkvSzNjUFNabkVU?=
- =?utf-8?B?REwvQnpJaVhEdkRRcTk3TUY5SVZWRkhrNERsWnFjeWtiSXpwTUF0d1czVUMw?=
- =?utf-8?B?ZXIyRlp6RDlnZmNqelB0Z0ZkcERzN3RpbGVucmMvdW51Mm5VNTVmTzkyT0Yz?=
- =?utf-8?B?SVdEcWdUK0dQdnV4YmVtVDFreUtkbGZMVTlpc2orSEptcGsvY2QxeTFqMHVW?=
- =?utf-8?B?dkNIMDZyZ2pOVzN5RUNCeElyNVlOMXNWTkQvWWYrSzVKczhXYmUrck1VeUpj?=
- =?utf-8?B?c2ZhUVpDOFkraWgwUnEvWSsxUnBEVGFhRnR2OGt6UmZxSWpQZmNNWFRPVndV?=
- =?utf-8?B?Uk90S2p4MHZZcHFMZ2lxT0ZtMUhSTkYxQlgvY1ZGODFkVjZHU2djL2h3YnZM?=
- =?utf-8?B?WTdibGJUU2pKcHVZWi91bDNUS2pwR1BBS3ZtMWl4MmpTOU1JTVN3SHVBS3F2?=
- =?utf-8?B?R1JNZEtQZHVRVXhIeWF5V1FxODhoRmJIa2hsaEhxaVpDYnNSMEp3TFFZVTBY?=
- =?utf-8?B?amFLU2F1eWtsMTdvYW5ITmpzT0Q4NVhoNlJyS2VaQjJsSXhxS2JySXVNMDRK?=
- =?utf-8?B?cmo5ei9RTkJKMWJqcjd6Z21na3FSRHNYT3FaVkxtWWNYU3VBVDBTMXp3NXJi?=
- =?utf-8?B?UEorYU5GSVBqV011THB5MkVMUnhVUGx5a3cva0J4ZTRsMStQZ0svVGN6SWJU?=
- =?utf-8?B?TnlVelFrcHcwYjcwQXUxOW5rL2VQRjh5RkJ0dUhEL3Y2TjZkZ09GaWJzbHJI?=
- =?utf-8?B?L2E4dUxBSk84d2NTSmdoQkdQVjNVUFJtTXlJYlpXSXBLZXU4VHdLTE5lejk0?=
- =?utf-8?B?OHAyMG9pU0orT2djclFSeFBsZkNaM0ZyMVFzRDE5K0tldEl1Zm1PbmUrY0Zu?=
- =?utf-8?B?WUYwdXpEajE1V2VDNHNqOENXSGRWcnBzQ3ExK0c5VlFHOHJMTkJ5czZYWEpv?=
- =?utf-8?B?aytwbE8yUHhSMlhXYisrakVhTy9aMVhtOWRSZ2QyaUJkQzNiR09vZjFEWkxN?=
- =?utf-8?B?cjMvbHNJTEV2MjYwY3ByMFJ1eU03dU9RN2Nqdy9VcTJZT29DTnc3ZUtldFNP?=
- =?utf-8?B?cDdleWN1Yis1a0xJQlVwU0pNK1JsWERvUGdYcEEzNjJPeUhTQU1wUEdlT2hG?=
- =?utf-8?B?aC9nUCtVMmdtd0xSV3BkRmg5RTQzRXoyTXZnRFdackpZd0tkR1dyQnI0UXRI?=
- =?utf-8?B?UFQzVldHRE5SMzJTZVJnYXA5amxVM1J6R3pETFVqRjVsWncwL2dBb3J1M3BO?=
- =?utf-8?B?YWpjaEovQWN0eWgwUnZxdmpiNkt4K1o4YXNYUVhSSFFTZGlJVncxb293eUZV?=
- =?utf-8?B?U1FJUGFkR2g3Z3FsV0hsT1BtOEtEQW5kNG1XcDZ6S1plOFArSFplSDdvekl2?=
- =?utf-8?B?a1JERzl6Z1hCWWVWeVF6WlRDcjBLQ1lFeTdFczFkb3ArUWN6dzdqUjVQWS9l?=
- =?utf-8?B?V1JvZWRUNkRjMFlkV0Z3dGtKeUQvWkZjK093azhLNTVnQk96anNxaUt5Y0VE?=
- =?utf-8?B?TzN5UWNDZ3M4b2FadHFDQVdaenRUVVp4MXZocjVNbmJNZ1plTnc4MmhQK0pS?=
- =?utf-8?B?OURFT3VvNFFBbTM3ZytaYWpqTEozaXlrd0t5UVlPOGRCR0lRQ1NQcGtlb1p5?=
- =?utf-8?B?dTZCNno0RTFWbHFydW85VlhMNVh2NllNSHQ4bloybWxpNDdoNXJSVmJNdmFz?=
- =?utf-8?B?ZUlHb2U0UUlkTVZwaWd0MXRqTUFhcHBicUZCYW9sSUlTaHhCNEp6ZXhBVFBp?=
- =?utf-8?B?dHBxZ1ZEUTN0UUZwTGxEdjZnUkFoTWNlNEJuSVladzVJNHdjdjl4SWdLR1hD?=
- =?utf-8?B?OHlTcm96cExseUhYd05WOU15cEhyRXQwdEUrUGdzdk44US9LL2hHYTdyY0tZ?=
- =?utf-8?B?Ym1qeGVJK1g0RnNCa1U3VFd3bXg3Uzl5eCtldkc1dU5KL2JrTXh4dUdmaStt?=
- =?utf-8?B?M25BR1h6c1dKYVZ1TjNJZVRsRktUcUhxRlo3WjRSZXk5c3VyYW1FVmVLOVFU?=
- =?utf-8?B?R1ArblFFeVczVTB5d254elY0UWdiRXNxeTRhYi9CMkhSeUZaNVM1TmxCM0ds?=
- =?utf-8?B?NjNhSnQzVVNGTi9kN1NBd1pBZjErSmhlRzhYZDJrODlIYnlBVnY2NVl4QlZY?=
- =?utf-8?Q?zvyY05yUsYD69l1J7CU+Myylz?=
+X-Microsoft-Antispam-Message-Info: nTjkbk8CdLr7+UfAhyEuizPEK1mKEjNULym0D8yzD4x4YBcQEFzXvAzwBWb99P4FAGkyNSx0KTM8B8P5W/WUK/MqhU4f46imIXBblSuL/ozMhBuTJRQRm0fRTtKEfprDkBjB++B8UEphYXM5BGxR9ZyFPdomyLf8LQiMwmVYHsys/nm/R8YdUrnzqwEgl0fxF6l1OdKikfYuRzbAFYAkW9TXs+TGD5JQEzF+x2kgEjlxKb4XLJHDbu0UeWEH5qKU+4+BvZQ70l9hgHwmk+P6RyOVE6/Tup/A1wUtVB6ujxAnxyHuGisjut+CrHmT7tfq4p130g6+A1M/bW+/nEl6NooNc1YmdsnZegJ4UdhqK7oDbxNhR89SO7fYz6Nk+tDdDkjvJ3B6SWZt0yri9FNZpocyF/5nO81ejYFsRgtbRmTHdREZBhfDtWn3Xkh+/MAsdlKV5xVbHzKJPUxrsJ3CtWDRPVmYcTGi2+NwAzuI1YehhN7/QhQFRz+k3O2Sz3Sy3iK/G2wBmQb8kYyKkxwQB6JNQ1T67Z42H2rDd5/zd6wS/PgVbWTRJYtlcRT2ZxeGzd1tC2MEd5DIec7iovnXmNh/cnXs3clG5DlyRkFeY6SH9QEkpGz5EDI9B3bmeSw6EZhvZPS7pMssMYir0ds2xdGdYkSzKDvxYWirkS1VXKbvFo6OpspOnrKSKiYjiUEVlVKDO/ui4PJf4BImtM8K2kYXn9m/rxK+CfLZolU6+74UM2vU4qSe9qmE+5L0TvWi
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(1800799015)(82310400014)(376005); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6756c8b5-902d-488c-db44-08dc53ea1f98
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 14:26:59.9222 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 14:36:41.1131 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7654b8c-b162-4aef-b4aa-08dc53eb7a4d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rreBfafSxtVurBuIAA4q31122OzlMWG7bk2mmpgKWjuEjKR33b0iRxLPB+UY9o9a
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9038
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6732.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8987
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,84 +107,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 03.04.24 um 15:12 schrieb Jani Nikula:
-> On Wed, 03 Apr 2024, Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
->> On Fri, Mar 29, 2024 at 06:38:10PM +0100, Andi Shyti wrote:
->>> Hi,
->>>
->>> On Fri, Mar 29, 2024 at 10:28:14AM -0700, Easwar Hariharan wrote:
->>>> On 3/29/2024 10:16 AM, Andi Shyti wrote:
->>>>> Hi Easwar,
->>>>>
->>>>> On Fri, Mar 29, 2024 at 05:00:26PM +0000, Easwar Hariharan wrote:
->>>>>> I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
->>>>> I don't understand why we forget that i3c is 1.1.1 :-)
->>>> That's because it's a copy-paste error from Wolfram's cover letter. :) I'll update
->>>> next go-around.
->>> not a binding comment, though. Just for completeness, because we
->>> are giving the version to the i2c and smbus, but not i3c.
->>>
->>>>>> with more appropriate terms. Inspired by and following on to Wolfram's
->>>>>> series to fix drivers/i2c/[1], fix the terminology for users of
->>>>>> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
->>>>>> in the specification.
->>>>> The specification talks about:
->>>>>
->>>>>   - master -> controller
->>>>>   - slave -> target (and not client)
->>>>>
->>>>> But both you and Wolfram have used client. I'd like to reach
->>>>> some more consistency here.
->>>> I had the impression that remote targets (i.e external to the device) were to be called clients,
->>>> e.g. the QSFP FRUs in drivers/infiniband, and internal ones targets.
->>>> I chose the terminology according to that understanding, but now I can't find where I got that
->>>> information.
->>> The word "client" does not even appear in the documentation (only
->>> one instance in the i3c document), so that the change is not
->>> related to the document as stated in the commit log. Unless, of
->>> course, I am missing something.
->>>
->>> I'm OK with choosing a "customized" naming, but we need to reach
->>> an agreement.
->>>
->>> I raised the same question to Wolfram.
->> I don't know where that discussion happened, but my opinion
->> is NAK to "client". Life is already confusing enough with
->> these renames, so let's not make it even more confusing by
->> inventing new names nowhere to be found in the spec.
->>
->> And let's especially not invent names that don't even fit
->> the purpose. "Client" makes me think of "client/server" or
->> some real world analogy. Neither of which seem to have any
->> resemblence to how the term would be used for i2c.
-> Agreed.
->
-> I2C 7.0, I3C 1.1.1, and SMBus 3.2 have all switched to controller/target
-> terminology. The SMBus spec has additionally converted generic host
-> references to controller.
->
-> At least for i915 where I have some say in the matter, controller/target
-> it shall be.
+If there are more than one device doing reset in parallel, the first
+device will call kfd_suspend_all_processes() to evict all processes
+on all devices, this call takes time to finish. other device will
+start reset and recover without waiting. if the process has not been
+evicted before doing recover, it will be restored, then caused page
+fault.
 
-+1 for using the same vocabulary in amdgpu as in the specifications.
+Signed-off-by: Zhigang Luo <Zhigang.Luo@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c | 15 +++++----------
+ 1 file changed, 5 insertions(+), 10 deletions(-)
 
-My personal opinion is that master/slave was actually a pretty good 
-description of the relationship.
-
-The "slave" or rather target of the communication is forced into 
-operation, can't speak back and potentially won't get any payment for 
-the serving.
-
-If we remove the word slave from our vocabulary society will just sooner 
-or later start to forget the meaning, and that is probably not a good thing.
-
-Regards,
-Christian.
-
->
->
-> BR,
-> Jani.
->
->
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 041ec3de55e7..cc9ac32182a6 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -960,7 +960,6 @@ void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
+ {
+ 	struct kfd_node *node;
+ 	int i;
+-	int count;
+ 
+ 	if (!kfd->init_complete)
+ 		return;
+@@ -968,12 +967,10 @@ void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
+ 	/* for runtime suspend, skip locking kfd */
+ 	if (!run_pm) {
+ 		mutex_lock(&kfd_processes_mutex);
+-		count = ++kfd_locked;
+-		mutex_unlock(&kfd_processes_mutex);
+-
+ 		/* For first KFD device suspend all the KFD processes */
+-		if (count == 1)
++		if (++kfd_locked == 1)
+ 			kfd_suspend_all_processes();
++		mutex_unlock(&kfd_processes_mutex);
+ 	}
+ 
+ 	for (i = 0; i < kfd->num_nodes; i++) {
+@@ -984,7 +981,7 @@ void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
+ 
+ int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm)
+ {
+-	int ret, count, i;
++	int ret, i;
+ 
+ 	if (!kfd->init_complete)
+ 		return 0;
+@@ -998,12 +995,10 @@ int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm)
+ 	/* for runtime resume, skip unlocking kfd */
+ 	if (!run_pm) {
+ 		mutex_lock(&kfd_processes_mutex);
+-		count = --kfd_locked;
+-		mutex_unlock(&kfd_processes_mutex);
+-
+ 		WARN_ONCE(count < 0, "KFD suspend / resume ref. error");
+-		if (count == 0)
++		if (--kfd_locked == 0)
+ 			ret = kfd_resume_all_processes();
++		mutex_unlock(&kfd_processes_mutex);
+ 	}
+ 
+ 	return ret;
+-- 
+2.25.1
 
