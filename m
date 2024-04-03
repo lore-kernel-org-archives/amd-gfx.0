@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 214EBCD1294
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 19:52:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8C2CCD129A
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 19:52:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34238112E8A;
-	Wed,  3 Apr 2024 19:52:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56634112E97;
+	Wed,  3 Apr 2024 19:52:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kTqwqoIN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KDFN2Fhl";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2081.outbound.protection.outlook.com [40.107.92.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50135112E7A
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 19:51:59 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2074.outbound.protection.outlook.com [40.107.93.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CBEA112E8C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 19:51:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bmxFlY+UZ5k05PqF7EBwhr1k9FQkwn8UhyltsdMlRyDit4y2BOI/rx8XhKBTj/7Aks8UHXJPo4XVNOPFg/CkcB4QSJFJML62Z183hGyoiXQFvwouEMT5Ju/SunBtSYTo5h2tFSsq6WQXF4EjjNXgigu7Sm+4qFFR28sl4kGX/4gFkzaonGyAGOVaq9LGARHgcFNWJA18X19iZqGj1n67GcKyTL1Gpf25P37v9qlMAoFmDuYua957lcx0y7iHwPFZAWeAS8wbmvVAonbg8fjLdDGl/eUq7/JWwdGC5E4a1G5ZjSbV2KFyIeQUDD4Fbt8oDrsG/2bZU3brcnZIr+5WbQ==
+ b=nRirMCP8a78g6OfoIJ9pdYy/cZCOudmfYodrHdtVeJaP2f6NGFzOXlPNgKRXIfSLtXWYJ8cmpzu7KuOdbU9eMx0e0UcxjZuBtswaI0nlC1JNjAsU5qvNMUMrd+AbJNo+8AWOD1NBmCAOboS37+UYRgIIUM5DtZfyfTMuh/pR5oabZaGI6FNga+/dF0Excv77QXNoIMUr0JRYhuNoe7XtUAeB6ItfS/K5OACyI43oQh93aFpj3/Ij2tz5L4LM4k3x/nImvazmUTlTr/JQGZVHS61wgd2ecIBEXgSvFO6fIdydMyIVXfkr1WI+aMWgzFlBx/61eRIM47lCFqxEAlAJWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jH1s5j/QMKJpPhLikUmjPzVA0z97uNk7PcNYzg/4iDE=;
- b=UocQTg2bB94yuY/Or6Dp16v3wGRVMji5I3nC8nCbp81IZX+hhWzgPiGH1NREX9CUJJojuEw82kn0E9uWYfid8qpgku9/mwh6rhACD3Ycuhnck385yVcAVsyn32IlFL9inJxociu3svGLEM9oIMLVTldAgvvBVduMsjHuPU4uunQfS3qMTUE0LOwK8qWVDZhxGjtraRemCa2wtByyFc2sRj7ThzB9RqUk1UFA2ZLDjcjhL1dW+LbHDeTpyOhbx52KNiUOmygtv0Z81SWnaiLXrTzVqlrkqSojYpBLGOp2RSwdp1ozb5LlP+1ExirQm0kYzfvVqAb8lKEvnzMh5hMJCQ==
+ bh=WAwHNKo1J43x9GTnb+V/pY5+nc3anffjDmeqkFyj0PA=;
+ b=R28a0BN8faDd4TmAmW+sB8py7oU3JtTw+JlHh+EI45XeDOeyWidShH6H7cZCpJUYb5yRrK0IePjc5V90W7+gYFgRtLQPKlWlIDcm5mc3Me5N/rZIgkr4NxwkxWUWfULnA8wd5wEE3uf+rOU7H/549+SoNfSRYSuMsAwYj1DzAkmG68jQjPwvy/ToO8OdjrpBEdPTYoZluNxkGml3RfplE9H2h+V/kF7VK6UyDJQNAZs7kLdL8KrYURJW8u2lt6mLZNHHrtrQth9kXjfobexC7T0aKpQHL4fBonpB5oNBC4l5auF4NInhn4iBAlyPyJnauL+/fdxqzjSSFvtq5O0D1A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jH1s5j/QMKJpPhLikUmjPzVA0z97uNk7PcNYzg/4iDE=;
- b=kTqwqoINnWTP2DJNDQ7XcGItIyCPaZQqrzj75LUOAYktALJBIwK9DQzwgLxGDiDhAigTu6B5x6Bq7LGReRf6DRAy36W5rI21IiCVifbnxqAJXkV2FKXS9NRDjQsAqCCNPvccdRT76Acv9neurai4FbYJEKCcC6/lBmZLPvNwEiU=
-Received: from CH2PR07CA0011.namprd07.prod.outlook.com (2603:10b6:610:20::24)
- by LV8PR12MB9110.namprd12.prod.outlook.com (2603:10b6:408:18b::18)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=WAwHNKo1J43x9GTnb+V/pY5+nc3anffjDmeqkFyj0PA=;
+ b=KDFN2FhlKhi/OPAKhb43y2ay86xqhfppe1adBDSJACrJvouOgY2prMInXAOO+DjrW3yVd9/pKjYMMvbThOsoWduynTv2b3TPvLDyzy0x5lN8XusNNOP4CP/A8nAgO85MFRN6VcqgloS/y8V1oPZR+hC4YxP9bzx/vqyQ9oydA7U=
+Received: from CH2PR07CA0033.namprd07.prod.outlook.com (2603:10b6:610:20::46)
+ by DM4PR12MB6495.namprd12.prod.outlook.com (2603:10b6:8:bc::19) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Wed, 3 Apr
- 2024 19:51:54 +0000
+ 2024 19:51:53 +0000
 Received: from CH1PEPF0000AD78.namprd04.prod.outlook.com
- (2603:10b6:610:20:cafe::d6) by CH2PR07CA0011.outlook.office365.com
- (2603:10b6:610:20::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46 via Frontend
+ (2603:10b6:610:20:cafe::64) by CH2PR07CA0033.outlook.office365.com
+ (2603:10b6:610:20::46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.38 via Frontend
  Transport; Wed, 3 Apr 2024 19:51:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -54,18 +54,17 @@ Received: from SATLEXMB04.amd.com (165.204.84.17) by
 Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Apr
- 2024 14:51:52 -0500
+ 2024 14:51:49 -0500
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Hamza Mahfooz
- <hamza.mahfooz@amd.com>
-Subject: [PATCH 25/28] drm/amd/display: Add fallback configuration for set DRR
- in DCN10
-Date: Wed, 3 Apr 2024 15:49:15 -0400
-Message-ID: <20240403195116.25221-26-hamza.mahfooz@amd.com>
+ <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Figo Wang
+ <shen-hong.wang@amd.com>
+Subject: [PATCH 22/28] drm/amd/display: Disable P010 Support of DCN 1.0
+Date: Wed, 3 Apr 2024 15:49:12 -0400
+Message-ID: <20240403195116.25221-23-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240403195116.25221-1-hamza.mahfooz@amd.com>
 References: <20240403195116.25221-1-hamza.mahfooz@amd.com>
@@ -77,26 +76,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD78:EE_|LV8PR12MB9110:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99c2cfae-82f1-44cc-b02c-08dc54178309
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD78:EE_|DM4PR12MB6495:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6acf4109-3e28-4e67-5097-08dc541782c9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: G5/8umfyfMjqdi2H3agApfd6JcJyfwIpCTH++pEPV0DZ9fAFUtcs7RPEqcCqRy0L7X5W1IbKSBLL6CSE7yKs8clKeZusocsHnJ1LGOo1OOia4GfwhDpGpkoIrhCZfLWk7e1fktgJHNBAOC9JprBbsfV0xSzjSPQ87vhsPf4bHftTJm7bDzmSkyX6/2pMpcMmQZESvHAEkorbriVdIUykN6DfOTUUnJji3DJVOXikpEUZMTBkjzbLFJlnQv+yqSlZp0aqH4DX1EpdTeimXssfoxu+vW4qmLsxvEjfdtljDg5twk5uRlsDbhmcwHfcjst/Kb+qgc7BnMGzWegtBLkzfiJmDeWzhIkAwxZWEiCZSzyUTURM2XKaA2BJZhAebpe17GksSV7XmPo/LAaJQB8Gevui8rzP4l6v/7D/vnyhbKq74HGnGUn3viX6hV7qm15J7aNjcmkeWHaYM8Vlm/m8/z2u3NFxgtdRkEpwqea+0fP8VJzr5fFEUoKpjmDwxDOl4eZqI5duA7yVPcf9DGqadeycUWeq+WkiSGvQq2zVgsrDsBF8rs8vwKPETyRkL4eqS1bdkvWgN1eZ/y/JtRKVT0at8Gh9vAYgr2cwvSWTxsBuqJj68VIHMtZ5iF8JVBEETWxebsyGh/cU40t/Cx1jX6aKBXd0Rp7Kwai0Kqrt59Tg9nxiQ4NtWmggHBZPgzEZRbn20/TH/RJ1QfnNo0v4WBWzGh4hfsHmZMrlYnn0Nd2mvgsY1UjvVmv11VO6YJAc
+X-Microsoft-Antispam-Message-Info: IYwyvcCaUGcNbyJIFD1K1RrQTtAleRJOtWTt4JKMrr2VDrn/1jnkMoHBXgHYUNwkN4MZ04DcMi21I9K913TqcQp4//2mOKh+hDuGSGUjYX+YG12fDTYeNzymrkzdXp9vKjcuYfvZerZV/yx0wZwEQgtjmpoYJJNdJMaaIufqU5q7Ab4uohFReDfoGPwn81+BdO8OqSHL6fBqUaDDjI/2IbvyXSLASzwz9wuEXZCklxk/4oiJRTuSRgE+twFV6R7zdOnudhgdmHMv2gn15GgoytbKRLxCsw6fCOkIERBUboa+LRAloiqmNQ4o5v9dWkiiUrrz9oSb8NaZDSRSGinYhAUTGWgcR3FLttYy6kISf8MNRc5j/6ciqT13bEXJFPkjRgnnT0sPqJRzNQb8aDZ6hBjNBIuUT1V8hs5Mgic22MPQAROmUj9nVNd2v+XrFq3870nZHOnXsI2a63KEYKpr+4fqybv50P/OphFBQmx3hpTHpL4CUpitrv2nGILEKbPMjhzXAbMKG5ppxd198l18E5ZthGGGVJpqoX1W0F+dz7iU00o7PDCjQFoZrN5cxFLMVVDKDd2Z61Z0ePOXf1BNEk8L5xXExavzRrDvgukUZHkP1Z2LBr9qRQK8vvjUjVcxR60EreyfIAiqAoxI8oPwXtgFic7X8Ob9lG+6+dxDjEf2y9Y0ouNwAJ1WZr4wYWmUAO6kXyQtm4fpqvvUp6/sbyx/CrKTh6Emorx2LMFKzCSouoJHz6d3kg8fnA0Lf2qC
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(82310400014)(376005)(1800799015); DIR:OUT;
+ SFS:(13230031)(82310400014)(376005)(36860700004)(1800799015); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 19:51:53.8417 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99c2cfae-82f1-44cc-b02c-08dc54178309
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 19:51:53.4355 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6acf4109-3e28-4e67-5097-08dc541782c9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD78.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9110
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6495
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,41 +112,33 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-Set OTG/OPTC parameters to 0 if something goes wrong on DCN10.
+[WHY]
+DCN 1.0 is not ready for the P010 support.
 
-Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+[HOW]
+1. Set the P010 plan_cap of DCN 1.0 to be false.
+2. Let the DM do the plan cap initialization of DCN 1.0.
+
+Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Figo Wang <shen-hong.wang@amd.com>
 Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../drm/amd/display/dc/optc/dcn10/dcn10_optc.c    | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
-index f109a101d84f..5574bc628053 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
-@@ -945,10 +945,19 @@ void optc1_set_drr(
- 				OTG_FORCE_LOCK_ON_EVENT, 0,
- 				OTG_SET_V_TOTAL_MIN_MASK_EN, 0,
- 				OTG_SET_V_TOTAL_MIN_MASK, 0);
--	}
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c
+index d08d10969251..81fa2ac781f9 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c
+@@ -513,7 +513,7 @@ static const struct dc_plane_cap plane_cap = {
+ 			.argb8888 = true,
+ 			.nv12 = true,
+ 			.fp16 = true,
+-			.p010 = true
++			.p010 = false
+ 	},
  
--	// Setup manual flow control for EOF via TRIG_A
--	optc->funcs->setup_manual_trigger(optc);
-+		// Setup manual flow control for EOF via TRIG_A
-+		optc->funcs->setup_manual_trigger(optc);
-+
-+	} else {
-+		REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
-+				OTG_SET_V_TOTAL_MIN_MASK, 0,
-+				OTG_V_TOTAL_MIN_SEL, 0,
-+				OTG_V_TOTAL_MAX_SEL, 0,
-+				OTG_FORCE_LOCK_ON_EVENT, 0);
-+
-+		optc->funcs->set_vtotal_min_max(optc, 0, 0);
-+	}
- }
- 
- void optc1_set_vtotal_min_max(struct timing_generator *optc, int vtotal_min, int vtotal_max)
+ 	.max_upscale_factor = {
 -- 
 2.44.0
 
