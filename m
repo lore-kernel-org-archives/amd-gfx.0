@@ -4,76 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62A5ECD1288
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 09:40:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0580DCD128A
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 10:19:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9ADF112605;
-	Wed,  3 Apr 2024 09:40:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87B5B11261D;
+	Wed,  3 Apr 2024 10:19:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CtXq4JAb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CmHXd4Uu";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 603FB112605
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 09:40:18 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-415515178ceso32832595e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 03 Apr 2024 02:40:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1712137216; x=1712742016; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=K5f3ULQtJjYK8EJmVGGoY63z2cMpeoM9oOlFlczEqj4=;
- b=CtXq4JAbZ/gOf6wNPqD/2xOflW3R7G3KCyW70XhMRNwDWkVbhuf4Sp6NoZebfd/2ZG
- 1U2bi9ZnYrnQST+CfKDJeLJTFghN1gLSl9/3JxKPKtTqr/xp2v2NeWEtpf1HZ07ApRYh
- TTaqr9kCSnrzEj/xnFOAxBribHWRQtral+FPuLxPpveMFxaLRteozuRu+TFSB7Ghf0Q4
- mlXG/sQVVpBz3C/YlWMeIvVzejN1N9dyglYf+vQ7FJESjBLmQmiHZcOh4+Du8wPhPw64
- UFW39ImdRlOb8TJu0FJxUvK0gMTYnxeIJs++yb8V4prURi2ktaspaezzAxiioBdCamDO
- 06dQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712137216; x=1712742016;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=K5f3ULQtJjYK8EJmVGGoY63z2cMpeoM9oOlFlczEqj4=;
- b=IAcHDIF70kFNxgJeatZWQRfSaFOdC/lhbl5cwOaWrQKrUrUcwUi1c44GMUeDbV8k93
- U2lwEQggbA/xagwGyRIYJ/R2IHdTl3T3QxFZADmNslxb6Da2XEhs0pMOtijH9oK91CKo
- wRvwzJRTJEugWcyxGvT6ltukYSq+If50+Tfrw388awoCgyXdWKLFvYCYRcC3HX7esqLg
- m+rwPdGEp7vZHZuENpdWQljl/A8dP2jChGFCFAUU5+NBQ4UrK322WpwxeaytHsUPwnGD
- fmgcacPzPAgODUOTjFnfzyBG6lXZ6qhwLut6VYaj6XftcMtf9j5eUXKkFKZSCbDoKCIP
- Gf6g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVRtS0kOLAwrhogiDUXMOfnFDCJqZHHM9LroVQ7AGNdcFLD636z71lG4JA2PGSPWFb1u8tL44DWtkB0sCC19Xu7Msn0QKl+caWwgypyiw==
-X-Gm-Message-State: AOJu0YzfDK26lgFp14Slmq2LDyaX8TnwrwMiSIEO6NjvEyEFI4MRs7VC
- khbZ/xg1E0xtJZJSBo59dQQ4W7DstD6bXsvBarkvg9Y6UbxR1pKP
-X-Google-Smtp-Source: AGHT+IFJNjo4DPxM2jaXQPotD/5JVE216vgrMV36Py5pIcWf/ALWotkWtNaqMveCfjbb3qDb19Sjfg==
-X-Received: by 2002:a05:600c:1ca2:b0:416:1d2e:62f1 with SMTP id
- k34-20020a05600c1ca200b004161d2e62f1mr2563848wms.5.1712137216289; 
- Wed, 03 Apr 2024 02:40:16 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- r14-20020a05600c458e00b00413e79344b7sm20871150wmo.19.2024.04.03.02.40.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Apr 2024 02:40:15 -0700 (PDT)
-Message-ID: <2ce227ed-43b4-4da4-a6dc-8ab56736d6bd@gmail.com>
-Date: Wed, 3 Apr 2024 11:40:09 +0200
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2041.outbound.protection.outlook.com [40.107.223.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27C5511261D
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 10:19:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VvqfduaTqBGF+6RXdXC07c+zx6dKBYZYoZ3a/8K8mcm10jVt8jt1H+6TVofv8HWXuSkAQUkpgJmxgdon5H7Wnyuj91nlvRO1ItQZiTcUcMK+VXrmgp2rY47lDeITtd5huHUC7qc4OL/LEV3OgVeGEVgLJRKhnBfAULDQqYbOvhH/IXW6wlnraT8a++H9YnICmT+QZaVP6SwsWHCLDROt/c3427kx9fyiH0otoNy4bBuiuhQMDC7rVc/DqnIEV/SXdOrTo/w/MWsjdJmJS0xLtpjonbACs85oYxDGNKM8d/V7OusTexc5m2Uamvh4GsVhqHU/gakngHIsV6VcKDD9ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oGszFZsckHYog5M3SXgsoUXJ9aPV383WF0WhVm5QohE=;
+ b=GyRQMO1EmZ/wp3lkudCWquLcUje/CIJQYHLc+fawSCcUSooG5BoiA0bi/n+OGpvSDY1WboVnr08I20LLlQ8TC3EF18AqekWw4W4IX8845+9cSeqyi9i8h4AodyA5E7mkKDyfYLAFRXpooyw08hDTSLv9cFd/8aAj2yqO0o3paphLdJomsAnB+NfFcBCVyt+du+mhCbZwOQxsnPs93szPXQpyQ2RC3ZgIQYw815tByP0j+yy6E8xBhTKOieeSGLZcXDKCfkUEpxIftObmYILMb7Nll+XDAIlKwCZYhY4dsWRnR5+h8VGKxdHz0+92cJU31aLBgDwag8k0+2sNRqyloA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oGszFZsckHYog5M3SXgsoUXJ9aPV383WF0WhVm5QohE=;
+ b=CmHXd4UuMs/gYs3u3gpoGQnlDnpun+BPhRU7F3QglN9okp+/gayEp09kw/d6voPYtVf2Kb6lzhIzQKj8ZO8kjDjQ9VstE0LVmztlelo6OcaJn921SntV1X3SwYcKoCfMqqLtsvUHvbtLFAYF82cysX3xMfbzApmGymK/a4F8A10=
+Received: from SA0PR11CA0051.namprd11.prod.outlook.com (2603:10b6:806:d0::26)
+ by BL3PR12MB6427.namprd12.prod.outlook.com (2603:10b6:208:3b6::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Wed, 3 Apr
+ 2024 10:19:39 +0000
+Received: from SN1PEPF0002BA50.namprd03.prod.outlook.com
+ (2603:10b6:806:d0:cafe::c4) by SA0PR11CA0051.outlook.office365.com
+ (2603:10b6:806:d0::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46 via Frontend
+ Transport; Wed, 3 Apr 2024 10:19:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002BA50.mail.protection.outlook.com (10.167.242.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Wed, 3 Apr 2024 10:19:38 +0000
+Received: from ldev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Apr
+ 2024 05:19:35 -0500
+From: Tim Huang <tim.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Yifan1.zhang@amd.com>,
+ <Hawking.Zhang@amd.com>, Tim Huang <Tim.Huang@amd.com>
+Subject: [PATCH] drm/amdgpu: fix incorrect number of active RBs for gfx11
+Date: Wed, 3 Apr 2024 18:17:47 +0800
+Message-ID: <20240403101747.420602-1-tim.huang@amd.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: add post reset IP callback
-To: "Yu, Lang" <Lang.Yu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Sharma, Shashank" <Shashank.Sharma@amd.com>
-References: <20240328044014.3278891-1-Lang.Yu@amd.com>
- <d3581afc-4bc4-4e42-a4f5-5b4be5f10ed3@gmail.com>
- <MW6PR12MB88988E7D5DB5D5E9C4ED1A45FB3D2@MW6PR12MB8898.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <MW6PR12MB88988E7D5DB5D5E9C4ED1A45FB3D2@MW6PR12MB8898.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA50:EE_|BL3PR12MB6427:EE_
+X-MS-Office365-Filtering-Correlation-Id: dbe2bde6-73c9-47f1-3550-08dc53c791dd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: J0VygTLZaPsdsnlfhpk08WIoFns0BmgW2aeugPl1qyLcs7riG0h899JA2bdVivNrigsfu1HM2mFs3H/CZXznaPIEzGEosIq+6/7oUWFA5sUatgeOMmB9FcCPmBQbJCK63J2w4XSOpUK2vtd5/m5O0C7raywhnP40eBBiy7fq0kp4/Xx7jcZrb2An6CyXsiaQZRaT+Shsjzb9xdflXjdZN11vdvb1Ns/w/EbGPyA5/UFXssaopTg1osAU6xaLflCheNx5xoBDzllEBlhS2UOgUpRyr317u7u51450wfH9fuZAF2Ll04ul9QHsrxP3zU5nHp16jT8SIrpeTaAjMF/tzHWHsR1pTf5JGVt46hL+QdN5cQwvpCwX+vkUZnhFT6qqr2F5Qc2OQMEYfOuCvIwHf8wGtG6/VGbPbFZ3/PjIPc1JRyAxK58QCe/+Mn+uZE0Cnu0SUFbAXPPkKkjR3GMTf4VjKSQUABBVrO4ps2ScmX2PeejJpPSEBwpi0AvyumeqqT8rLF2dMZSD4XeV2VI+bDGftkHHTIDczAI+G0hGDZPq+ijS8UOrI5n4P9dKCKoR/wGR0r+GJxR9L2v01cXgKlItBXLeFVGCLnyzoMUsEMDqe6gP+Of+79ignMfmFkvBwa+r1zk7v9tQFKRHupWnOFfhMEN5/MGui/rMssmh3zposC8X4MITkfAUqHYvB9CAQVUa92rKlb0NCGiSsmtdHKQhNZ6/Pc9GIxygJdJQZv4F46hUyXTmm1Lz59OpmkxM
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(376005)(82310400014)(36860700004)(1800799015); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 10:19:38.8058 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbe2bde6-73c9-47f1-3550-08dc53c791dd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA50.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6427
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,154 +105,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 03.04.24 um 08:51 schrieb Yu, Lang:
-> [AMD Official Use Only - General]
->
->> -----Original Message-----
->> From: Christian König <ckoenig.leichtzumerken@gmail.com>
->> Sent: Tuesday, April 2, 2024 9:38 PM
->> To: Yu, Lang <Lang.Yu@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
->> <Christian.Koenig@amd.com>; Sharma, Shashank
->> <Shashank.Sharma@amd.com>
->> Subject: Re: [PATCH] drm/amdgpu: add post reset IP callback
->>
->> Am 28.03.24 um 05:40 schrieb Lang Yu:
->>> There are use cases which need full GPU functionality (e.g., VM
->>> update, TLB inavildate) when doing a GPU reset.
->>>
->>> Especially, the mes/umsch self tests which help validate the hw state
->>> after hw init like ring/ib tests.
->> I noted that before but just to repeat it once more: We can't do any MES or
->> UMSCH validation while doing a GPU reset!
-> Yes, we can just easily disable it if it doesn't work well.
-> But it doesn't take too much effort to make it work.
+From: Tim Huang <Tim.Huang@amd.com>
 
-No, that is a completely false assumption. This is a fundamental problem.
+The RB bitmap should be global active RB bitmap &
+active RB bitmap based on active SA.
 
-Neither the MES test nor the UMSCH test will ever work correctly under a 
-GPU reset.
+Signed-off-by: Tim Huang <Tim.Huang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> It can expose issues as soon as possible and is useful for debugging purpose.
->
->> The ring and IB tests use some pre-allocated memory we put aside for the
->> task during driver load and so can execute during GPU reset as well.
-> If user space can create a VM and allocate memory during GPU reset,
-> it makes no sense to prevent kernel space from doing that.
-
-Yes it does. The GPU reset must re-start the hardware as soon as 
-possible because memory management might wait on it.
-
-You can create a VM and allocate memory, but this must be independent of 
-the GPU reset.
-
-And when you do this it is not valuable any more since we can't say that 
-the GPU reset hasn't worked later on.
-
->
->> But for the MES/UMSCH we need a full blown environment with VM and
->> submission infrastructure and setting that up isn't possible here.
-> At least for UMSCH test, it only uses VM mapping functionality
-> (if we can create a VM with cpu update mode, that's enough),
-> it doesn't use other submission functionality.
-> It is actually a compute context.
-
-Nope, that doesn't even remotely work correctly.
-
-Regards,
-Christian.
-
->
->
-> Regards,
-> Lang
->
->> Adding Shashank as well, but I think we should probably just completely
->> remove those from the kernel.
->>
->> Regards,
->> Christian.
->>
->>> Add a post reset IP callback to handle such use cases which will be
->>> executed after GPU reset succeeds.
->>>
->>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 24
->> ++++++++++++++++++++++
->>>    drivers/gpu/drm/amd/include/amd_shared.h   |  3 +++
->>>    2 files changed, 27 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> index 12dc71a6b5db..feeab9397aab 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> @@ -5556,6 +5556,27 @@ static int amdgpu_device_health_check(struct
->> list_head *device_list_handle)
->>>       return ret;
->>>    }
->>>
->>> +static int amdgpu_device_ip_post_reset(struct amdgpu_device *adev) {
->>> +    uint32_t i;
->>> +    int r;
->>> +
->>> +    for (i = 0; i < adev->num_ip_blocks; i++) {
->>> +            if (!adev->ip_blocks[i].status.valid ||
->>> +                !adev->ip_blocks[i].version->funcs->post_reset)
->>> +                    continue;
->>> +
->>> +            r = adev->ip_blocks[i].version->funcs->post_reset(adev);
->>> +            if (r) {
->>> +                    DRM_ERROR("post reset of IP block <%s>
->> failed %d\n",
->>> +                              adev->ip_blocks[i].version->funcs->name, r);
->>> +                    return r;
->>> +            }
->>> +    }
->>> +
->>> +    return r;
->>> +}
->>> +
->>>    /**
->>>     * amdgpu_device_gpu_recover - reset the asic and recover scheduler
->>>     *
->>> @@ -5805,6 +5826,9 @@ int amdgpu_device_gpu_recover(struct
->> amdgpu_device *adev,
->>>               amdgpu_put_xgmi_hive(hive);
->>>       }
->>>
->>> +    if (!r && !job_signaled)
->>> +            r = amdgpu_device_ip_post_reset(adev);
->>> +
->>>       if (r)
->>>               dev_info(adev->dev, "GPU reset end with ret = %d\n", r);
->>>
->>> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h
->>> b/drivers/gpu/drm/amd/include/amd_shared.h
->>> index b0a6256e89f4..33ce30a8e3ab 100644
->>> --- a/drivers/gpu/drm/amd/include/amd_shared.h
->>> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
->>> @@ -287,6 +287,7 @@ enum amd_dpm_forced_level;
->>>     * @pre_soft_reset: pre soft reset the IP block
->>>     * @soft_reset: soft reset the IP block
->>>     * @post_soft_reset: post soft reset the IP block
->>> + * @post_reset: handles IP specific post reset stuff(e.g., self test)
->>>     * @set_clockgating_state: enable/disable cg for the IP block
->>>     * @set_powergating_state: enable/disable pg for the IP block
->>>     * @get_clockgating_state: get current clockgating status @@ -316,11
->>> +317,13 @@ struct amd_ip_funcs {
->>>       int (*pre_soft_reset)(void *handle);
->>>       int (*soft_reset)(void *handle);
->>>       int (*post_soft_reset)(void *handle);
->>> +    int (*post_reset)(void *handle);
->>>       int (*set_clockgating_state)(void *handle,
->>>                                    enum amd_clockgating_state state);
->>>       int (*set_powergating_state)(void *handle,
->>>                                    enum amd_powergating_state state);
->>>       void (*get_clockgating_state)(void *handle, u64 *flags);
->>> +
->>>    };
->>>
->>>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 7a906318e451..07cdeef9d44a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -1635,7 +1635,7 @@ static void gfx_v11_0_setup_rb(struct amdgpu_device *adev)
+ 			active_rb_bitmap |= (0x3 << (i * rb_bitmap_width_per_sa));
+ 	}
+ 
+-	active_rb_bitmap |= global_active_rb_bitmap;
++	active_rb_bitmap &= global_active_rb_bitmap;
+ 	adev->gfx.config.backend_enable_mask = active_rb_bitmap;
+ 	adev->gfx.config.num_rbs = hweight32(active_rb_bitmap);
+ }
+-- 
+2.39.2
 
