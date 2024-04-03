@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3371CD128A
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 19:52:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 214EBCD1294
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 19:52:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C88E112E8C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34238112E8A;
 	Wed,  3 Apr 2024 19:52:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4d7fDyff";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kTqwqoIN";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2043.outbound.protection.outlook.com [40.107.237.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 037D1112E85
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 19:51:56 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2081.outbound.protection.outlook.com [40.107.92.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50135112E7A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 19:51:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PyJnU85Ahxu7wKOYq/Ywj3aJ6tmrIC0cb7QHZP6HRC3A1pfudsR4Xd+eE9bJhzxCK1+nSD/4hVwuS3poDuQt1cxZWTNWG40GjpKrYYNuwrf4K1R2y19XYZeeYJm8pxTO9P93WZD76i+gDeMjfsVjpgZA23wxysxNSH7c4CNDppCM4t/4vwi4dQu6OEpIRXFP1Vfnpvk6W5/YpPdxmz1mBL8UGitu4+ap5RlhLx85O+Iqh2B412KFbnxtvZSweEi63OxipHC4LowH13pt1onFeG3Ipn9/mZ8TpyhynCkEWUCvmz4+WSDKzxpqmuhyVsPmcfSGos8qjec+qavArKuMEw==
+ b=bmxFlY+UZ5k05PqF7EBwhr1k9FQkwn8UhyltsdMlRyDit4y2BOI/rx8XhKBTj/7Aks8UHXJPo4XVNOPFg/CkcB4QSJFJML62Z183hGyoiXQFvwouEMT5Ju/SunBtSYTo5h2tFSsq6WQXF4EjjNXgigu7Sm+4qFFR28sl4kGX/4gFkzaonGyAGOVaq9LGARHgcFNWJA18X19iZqGj1n67GcKyTL1Gpf25P37v9qlMAoFmDuYua957lcx0y7iHwPFZAWeAS8wbmvVAonbg8fjLdDGl/eUq7/JWwdGC5E4a1G5ZjSbV2KFyIeQUDD4Fbt8oDrsG/2bZU3brcnZIr+5WbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LvRLT2fU/yU3fhfwhrVLzAskC17AiE62BKOP/kPDvqw=;
- b=e/OTTIW46kOQZTGIOr97+qW25x0t/nPiZMrHgy+tI9vKx/dYAX6Z7nS58yW2axvSIZGcco/fYR88q7LUr+zCcFjMaIgmj28QNLfrPo7aTnOqJudE+HmUBDFxKmbtp3c/MXHR1JPrcGjdTMBjAqtRAILFPQbQhRnvZeIbDuziM0+MGYOp6m5ulH9oBMjcMh0KgRQZ9yMUxDi2cLpKP3+1m5KmZMQSrp6yrv/dLHofn4VtSZiqeAqj31WwQl9qvjfODK4w7Vp+2lpwpQ2w4ExTdpCTYN6dmyxfb9yGYg3DDl54EF7A8ePCnhlXufhdI3TLxvVIlQax6xBVF9ASG7Fgxw==
+ bh=jH1s5j/QMKJpPhLikUmjPzVA0z97uNk7PcNYzg/4iDE=;
+ b=UocQTg2bB94yuY/Or6Dp16v3wGRVMji5I3nC8nCbp81IZX+hhWzgPiGH1NREX9CUJJojuEw82kn0E9uWYfid8qpgku9/mwh6rhACD3Ycuhnck385yVcAVsyn32IlFL9inJxociu3svGLEM9oIMLVTldAgvvBVduMsjHuPU4uunQfS3qMTUE0LOwK8qWVDZhxGjtraRemCa2wtByyFc2sRj7ThzB9RqUk1UFA2ZLDjcjhL1dW+LbHDeTpyOhbx52KNiUOmygtv0Z81SWnaiLXrTzVqlrkqSojYpBLGOp2RSwdp1ozb5LlP+1ExirQm0kYzfvVqAb8lKEvnzMh5hMJCQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LvRLT2fU/yU3fhfwhrVLzAskC17AiE62BKOP/kPDvqw=;
- b=4d7fDyff3ykymbSrzxPXqwojn7v3boxTApuNBj7GyhBdL/glbwyCoNQjCjM/R6KBQLpEVg6yfj2Wqufb4Zi95dtkMaO2CJhMgb3j54hRu8c5tyWSgham/xl48RS1dE/ZyIAYJPa7TiNHnVVRh6u35xNRXYybIdYUAhsON8eJuT8=
-Received: from CH2PR07CA0006.namprd07.prod.outlook.com (2603:10b6:610:20::19)
- by MN2PR12MB4048.namprd12.prod.outlook.com (2603:10b6:208:1d5::8)
+ bh=jH1s5j/QMKJpPhLikUmjPzVA0z97uNk7PcNYzg/4iDE=;
+ b=kTqwqoINnWTP2DJNDQ7XcGItIyCPaZQqrzj75LUOAYktALJBIwK9DQzwgLxGDiDhAigTu6B5x6Bq7LGReRf6DRAy36W5rI21IiCVifbnxqAJXkV2FKXS9NRDjQsAqCCNPvccdRT76Acv9neurai4FbYJEKCcC6/lBmZLPvNwEiU=
+Received: from CH2PR07CA0011.namprd07.prod.outlook.com (2603:10b6:610:20::24)
+ by LV8PR12MB9110.namprd12.prod.outlook.com (2603:10b6:408:18b::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Wed, 3 Apr
- 2024 19:51:52 +0000
+ 2024 19:51:54 +0000
 Received: from CH1PEPF0000AD78.namprd04.prod.outlook.com
- (2603:10b6:610:20:cafe::bc) by CH2PR07CA0006.outlook.office365.com
- (2603:10b6:610:20::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
- Transport; Wed, 3 Apr 2024 19:51:52 +0000
+ (2603:10b6:610:20:cafe::d6) by CH2PR07CA0011.outlook.office365.com
+ (2603:10b6:610:20::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46 via Frontend
+ Transport; Wed, 3 Apr 2024 19:51:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CH1PEPF0000AD78.mail.protection.outlook.com (10.167.244.56) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Wed, 3 Apr 2024 19:51:52 +0000
+ 15.20.7452.22 via Frontend Transport; Wed, 3 Apr 2024 19:51:53 +0000
 Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Apr
- 2024 14:51:47 -0500
+ 2024 14:51:52 -0500
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
@@ -62,9 +62,10 @@ CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
  <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Hamza Mahfooz
  <hamza.mahfooz@amd.com>
-Subject: [PATCH 19/28] drm/amd/display: Adjust some includes used by display
-Date: Wed, 3 Apr 2024 15:49:09 -0400
-Message-ID: <20240403195116.25221-20-hamza.mahfooz@amd.com>
+Subject: [PATCH 25/28] drm/amd/display: Add fallback configuration for set DRR
+ in DCN10
+Date: Wed, 3 Apr 2024 15:49:15 -0400
+Message-ID: <20240403195116.25221-26-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240403195116.25221-1-hamza.mahfooz@amd.com>
 References: <20240403195116.25221-1-hamza.mahfooz@amd.com>
@@ -76,26 +77,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD78:EE_|MN2PR12MB4048:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef6aa779-9a58-40d7-cc8e-08dc54178243
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD78:EE_|LV8PR12MB9110:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99c2cfae-82f1-44cc-b02c-08dc54178309
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FEOjJvyT+ZZ/F0YoLmFfYZaEfBVfEpSmoiYoFVvlQnrAgI+x3FnbnBH7/7DFrzcjn65NCJ17DFBFklU3RhCRMmv320L41sZYmYPAV+LQkUvUwM/tbG1X6VAb+QOZCd/uIxQ35D/+cO5XdlLEppUdUSYg/MBcDOASdhFp7t92indNfJmZw1OgQztomEvOwM9BYEVZQ0JXHXL6Jlka1r9LZhg8j3eBKOdGBSp4QE4alAoB88qIW0zwWQT5ePvTxTb/iriKvaOZGx13iyVSorFoWZpd2wTM+kmkC4f+pbi/fyX6SZU/zJaZP62uvvtghYzaW5pII+m3FfDq/smlPXWdCuFUSJak7JA/GmUMfFolBealw42e+aeWuw4iBi7WfDvZPdnN/2KGQ6niWIYiwdhfY4tRAX9oGTaRitcZjxAgQ+B/vXCCw2l9UcxBy6HbNX0jb1lotG52Ymb2wKqC+RRIUupPzHO9OF30TgTBRW8kPfRUKmYL0O1WlKa4BnZyQU/3NtBJDNWaoQv3Fz/oqGCoPhen/JzbjamUUG6np03qjNqFuH32VTQ4CxmvBgMY5YcRR2oiuybdCICCu5vcP/7KKgAJjH8h2j0V7Q8uJtio9i5cpth6kOyQ7NOJTJBey4xuastHsazPXs8Biot9OKbpKEEbhPTXlwVVuIY+Y7XHGuy+1UVVpMb1E5V1/1cjrgcP1f63/9O8gNvOKSZWt6g4VqUWBQy5LvkBqxjPgoLNxUu4hWl7lFlAj73JbzODh/sH
+X-Microsoft-Antispam-Message-Info: G5/8umfyfMjqdi2H3agApfd6JcJyfwIpCTH++pEPV0DZ9fAFUtcs7RPEqcCqRy0L7X5W1IbKSBLL6CSE7yKs8clKeZusocsHnJ1LGOo1OOia4GfwhDpGpkoIrhCZfLWk7e1fktgJHNBAOC9JprBbsfV0xSzjSPQ87vhsPf4bHftTJm7bDzmSkyX6/2pMpcMmQZESvHAEkorbriVdIUykN6DfOTUUnJji3DJVOXikpEUZMTBkjzbLFJlnQv+yqSlZp0aqH4DX1EpdTeimXssfoxu+vW4qmLsxvEjfdtljDg5twk5uRlsDbhmcwHfcjst/Kb+qgc7BnMGzWegtBLkzfiJmDeWzhIkAwxZWEiCZSzyUTURM2XKaA2BJZhAebpe17GksSV7XmPo/LAaJQB8Gevui8rzP4l6v/7D/vnyhbKq74HGnGUn3viX6hV7qm15J7aNjcmkeWHaYM8Vlm/m8/z2u3NFxgtdRkEpwqea+0fP8VJzr5fFEUoKpjmDwxDOl4eZqI5duA7yVPcf9DGqadeycUWeq+WkiSGvQq2zVgsrDsBF8rs8vwKPETyRkL4eqS1bdkvWgN1eZ/y/JtRKVT0at8Gh9vAYgr2cwvSWTxsBuqJj68VIHMtZ5iF8JVBEETWxebsyGh/cU40t/Cx1jX6aKBXd0Rp7Kwai0Kqrt59Tg9nxiQ4NtWmggHBZPgzEZRbn20/TH/RJ1QfnNo0v4WBWzGh4hfsHmZMrlYnn0Nd2mvgsY1UjvVmv11VO6YJAc
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(82310400014)(376005)(36860700004); DIR:OUT;
+ SFS:(13230031)(36860700004)(82310400014)(376005)(1800799015); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 19:51:52.5605 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef6aa779-9a58-40d7-cc8e-08dc54178243
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 19:51:53.8417 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99c2cfae-82f1-44cc-b02c-08dc54178309
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD78.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4048
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9110
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,113 +113,41 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-Some of the includes used in the DC can be removed and others need to be
-update. This commit adjusts some of those headers in the display code.
+Set OTG/OPTC parameters to 0 if something goes wrong on DCN10.
 
 Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c      | 1 -
- .../drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c    | 1 -
- .../drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c    | 1 -
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c        | 1 -
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c      | 2 +-
- drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_trace.c | 1 -
- .../gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c    | 1 -
- 7 files changed, 1 insertion(+), 7 deletions(-)
+ .../drm/amd/display/dc/optc/dcn10/dcn10_optc.c    | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
-index 2a74e2d74909..369421e46c52 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
-@@ -23,7 +23,6 @@
-  *
-  */
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
+index f109a101d84f..5574bc628053 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
+@@ -945,10 +945,19 @@ void optc1_set_drr(
+ 				OTG_FORCE_LOCK_ON_EVENT, 0,
+ 				OTG_SET_V_TOTAL_MIN_MASK_EN, 0,
+ 				OTG_SET_V_TOTAL_MIN_MASK, 0);
+-	}
  
--#include "reg_helper.h"
- #include "core_types.h"
- #include "clk_mgr_internal.h"
- #include "rv1_clk_mgr.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c
-index 89b79dd39628..19897fa52e7e 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c
-@@ -26,7 +26,6 @@
- #include "core_types.h"
- #include "clk_mgr_internal.h"
- #include "reg_helper.h"
--#include <linux/delay.h>
+-	// Setup manual flow control for EOF via TRIG_A
+-	optc->funcs->setup_manual_trigger(optc);
++		// Setup manual flow control for EOF via TRIG_A
++		optc->funcs->setup_manual_trigger(optc);
++
++	} else {
++		REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
++				OTG_SET_V_TOTAL_MIN_MASK, 0,
++				OTG_V_TOTAL_MIN_SEL, 0,
++				OTG_V_TOTAL_MAX_SEL, 0,
++				OTG_FORCE_LOCK_ON_EVENT, 0);
++
++		optc->funcs->set_vtotal_min_max(optc, 0, 0);
++	}
+ }
  
- #include "rv1_clk_mgr_vbios_smu.h"
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c
-index 64c2b88dfc9f..3253115a153d 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c
-@@ -23,7 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
- #include "dcn30_clk_mgr_smu_msg.h"
- 
- #include "clk_mgr_internal.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
-index 6904e95113c1..f201628e4e98 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
-@@ -23,7 +23,6 @@
-  *
-  */
- 
--#include <linux/delay.h>
- #include "core_types.h"
- #include "clk_mgr_internal.h"
- #include "reg_helper.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-index 879f1494c4cd..2d14346b680e 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-@@ -29,6 +29,7 @@
- #include "dm_helpers.h"
- #include "dcn315_smu.h"
- #include "mp/mp_13_0_5_offset.h"
-+#include "logger_types.h"
- 
- #define MAX_INSTANCE                                        6
- #define MAX_SEGMENT                                         6
-@@ -69,7 +70,6 @@ static const struct IP_BASE NBIO_BASE = { { { { 0x00000000, 0x00000014, 0x00000D
- #define REG_NBIO(reg_name) \
- 	(NBIO_BASE.instance[0].segment[regBIF_BX_PF2_ ## reg_name ## _BASE_IDX] + regBIF_BX_PF2_ ## reg_name)
- 
--#include "logger_types.h"
- #undef DC_LOGGER
- #define DC_LOGGER \
- 	CTX->logger
-diff --git a/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_trace.c b/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_trace.c
-index fbcd8fb58ea8..c8c55f196f8d 100644
---- a/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_trace.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_trace.c
-@@ -24,7 +24,6 @@
-  */
- #include "link_dp_trace.h"
- #include "link/protocols/link_dpcd.h"
--#include "link.h"
- 
- void dp_trace_init(struct dc_link *link)
- {
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
-index 0d2974c9c823..bc65f82b111d 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
-@@ -55,7 +55,6 @@
- #include "dce110/dce110_resource.h"
- #include "dce/dce_aux.h"
- #include "dce/dce_i2c.h"
--#include "dcn201/dcn201_hubbub.h"
- #include "dcn10/dcn10_resource.h"
- 
- #include "cyan_skillfish_ip_offset.h"
+ void optc1_set_vtotal_min_max(struct timing_generator *optc, int vtotal_min, int vtotal_max)
 -- 
 2.44.0
 
