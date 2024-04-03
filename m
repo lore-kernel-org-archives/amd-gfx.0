@@ -4,115 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA1C8C6FD1F
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 01:31:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1CE5C6FD1F
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Apr 2024 02:57:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA7171122B9;
-	Wed,  3 Apr 2024 01:31:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 641D410E8D3;
+	Wed,  3 Apr 2024 02:57:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wM3r1h7z";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="h2BLAWgv";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2092.outbound.protection.outlook.com [40.107.92.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A01BC1122B9
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 01:31:19 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2074.outbound.protection.outlook.com [40.107.93.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E63710E8D3
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 02:57:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bAGdVyuokwNWjSb76rphKTqpzbFauca+KUtT9/v9LaghAaV0HEOp8XkzvafsGWyuVaA1rKtN3GwzNVcGHPncAYhvNX2jF0zCps4EVUNfq+DWYq4WAX435mQ5W3A12fmOcrEcW7UXqOOhFEwhTpFn/9ePJ8A2EeVZ/uzquzdDTbgpJUxWKlvfz6HaPM9zgxFD8rmtFK/+ltfxZhGt4+C6YPUrsmd7ZdRr1dOWillCxqOgnCxQqc2EGAFkbhjakRaC8RAF7mAGW/WS4Ehj5R6rA7yvPcVpRROvVNSfCnC6lp7qH9hYSg848MwIMH/kve/YTtY/VuXyAejJd9oeci3GHQ==
+ b=W9YwMzvJ8n5SxsCw3LCYOexgwHlGqs7+KeIg4fAcd0THe0nWexT289ZW/G8/tisFU13WTVcBh1nZ78bTgoE9JOITIoVc3DxATDmkZbu/6i3W+2mi3kaCkCH+MKtvun0dTn/P+rCdRVxNjtPOUIIe6koySfCt40rDyia4W7bOLPTFuj7zbeJ/iKLxTiG44r/YM6Fl762o6cpY+nBrVduVnSihrqcJhumy7v7OBeNAtRbC/WOUzzV8yuvvFqza2OXKeVaSUztvzxa9UGqCEQjk/Py+00P4hQfRwG8rUbGW6G84JbLxZ27OtFA6Wn6LDj0nJQeg+lKwS0sDdmQf68px6w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DO04MUuurQYkeAJQfzxTm9EUAVGaI3suDcAZ6Cnin0w=;
- b=TCETtTy1QOVWKdtclNNn8NV6Q+oq3+kzJZpL0MWz6/LG/1QkVVGqkeJcpiVC3+4YtpKyWzzK4+A9Vu1CApKe/7MFhYKdfcwyIEzvbBjjoM/J/pSS/mKpadC5iKjKglEkeUApnFJLLvJEsMbGaVtR4+BqvHOKEA9kGpaQNqb3s7GnQwAohy77XgkF+oN/ZKteRl8ohcLYc7YoEn4UwPo+M/o7pDdoT+dHSzKq2Iy5VXeK71OMYHgAOP94Scg9Uofh4L9J4fh+n3CXuynarBt16T81YzzNirKEcfBMn/oIoVNdnV8rp6PDTeQwx/s8srMhyqjxi8hE0+nKUuFUPV/sog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=M7en3ZJKGiBehKsjgMYldaGBQPi60fLVDAvHj78r1XE=;
+ b=lDKtKc+edwEXtXz/tjbQBuRI77is5eASyagaFlUVICBRZC0yZRXNsMke4w33f0SnMmuovAd1IOQNCDtu3lKsIUuQuiqxLYBHWTuDOdoNDCf0lQI6GFIWQ7k5GP89ktUd/0C16YpUus6NFbE/HXEJea3Gmh2G7RVGxVMjzk8645Rr5frFLJn+Ou8inPsrmKax+3AADOIJO/5DD1IxbkN+C1eJLEkdDcK288nUvgXmGHCiyEXANZD2Se6OXFEAu+ufjSbHEUHC9IuiJvZPd56uX+Ijk6BAxRZLV2QCggKyMk0Vvi0HJFL0PTlDU/ZI+ewKpasB1zjPU3HLIu1FtQuNKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DO04MUuurQYkeAJQfzxTm9EUAVGaI3suDcAZ6Cnin0w=;
- b=wM3r1h7zbRhUMSPtce5o11fgKpqYgKJr1PXetxU2QAL4jK9PsHAM++CSxJuHRuIOC/387mksjPhObdU+s/9WwtVX67qXoBBp6HwDGKLYGE9y2qDOUUkYSoDwyRpyfCnRqMBkPQvc5Uz+o0aDneWI2wr2PpkMHG8Xz6auQaBqEr0=
-Received: from DM6PR12MB2602.namprd12.prod.outlook.com (2603:10b6:5:4a::11) by
- IA1PR12MB6532.namprd12.prod.outlook.com (2603:10b6:208:3a3::12) with
+ bh=M7en3ZJKGiBehKsjgMYldaGBQPi60fLVDAvHj78r1XE=;
+ b=h2BLAWgvrudhFRe/mfdAkuuQFbE6Qs21SQVT6Hzb5+4WpHDwYezXLiqqLFWZluFlsZ73MgKOBKNPz22xCvyOIn3wZnbLRNCr3xtSfu8Mdles4/tNBZdOtd4yTUsnnSIC2jLa3th828x0RrfRFm3OFAkjAtdgWjenCZ13kzT1E1g=
+Received: from BN0PR03CA0053.namprd03.prod.outlook.com (2603:10b6:408:e7::28)
+ by DM4PR12MB6088.namprd12.prod.outlook.com (2603:10b6:8:af::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Wed, 3 Apr
- 2024 01:31:17 +0000
-Received: from DM6PR12MB2602.namprd12.prod.outlook.com
- ([fe80::3c94:963b:9aa0:78c8]) by DM6PR12MB2602.namprd12.prod.outlook.com
- ([fe80::3c94:963b:9aa0:78c8%3]) with mapi id 15.20.7409.042; Wed, 3 Apr 2024
- 01:31:16 +0000
-Message-ID: <de774146-0253-485b-8572-0c5cee1ceef0@amd.com>
-Date: Tue, 2 Apr 2024 20:31:14 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] amd/amdkfd: sync all devices to wait all processes
- being evicted
-Content-Language: en-CA
-To: Zhigang Luo <Zhigang.Luo@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Hawking.Zhang@amd.com, Sashank.Saye@amd.com, Jeffrey.Chan@amd.com,
- philip.yang@amd.com, lijo.lazar@amd.com, felix.kuehling@amd.com
-References: <20240401215349.23361-1-Zhigang.Luo@amd.com>
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <20240401215349.23361-1-Zhigang.Luo@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN7PR04CA0237.namprd04.prod.outlook.com
- (2603:10b6:806:127::32) To DM6PR12MB2602.namprd12.prod.outlook.com
- (2603:10b6:5:4a::11)
+ 2024 02:57:45 +0000
+Received: from BN1PEPF0000468D.namprd05.prod.outlook.com
+ (2603:10b6:408:e7:cafe::af) by BN0PR03CA0053.outlook.office365.com
+ (2603:10b6:408:e7::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46 via Frontend
+ Transport; Wed, 3 Apr 2024 02:57:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF0000468D.mail.protection.outlook.com (10.167.243.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Wed, 3 Apr 2024 02:57:44 +0000
+Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 2 Apr
+ 2024 21:57:42 -0500
+From: Ma Jun <Jun.Ma2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Kenneth.Feng@amd.com>, <Alexander.Deucher@amd.com>,
+ <kevinyang.wang@amd.com>, <lijo.lazar@amd.com>, Ma Jun <Jun.Ma2@amd.com>
+Subject: [PATCH v2] drm/amdgpu: refactoring the runtime pm mode detection code
+Date: Wed, 3 Apr 2024 10:57:26 +0800
+Message-ID: <20240403025726.3198006-1-Jun.Ma2@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2602:EE_|IA1PR12MB6532:EE_
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468D:EE_|DM4PR12MB6088:EE_
+X-MS-Office365-Filtering-Correlation-Id: b78513db-77b1-4c57-7bad-08dc5389d63a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0XD5MQXlVom1AvLbt0cA71WBzdHlS6DPzXIhHpPq2J9/XCbt0/NwYlRH8A8sR9Ik3TeBPqnLI0V+BRxtlM9tJVSmyzObV3RsfcU9zCWTZ9wy3WyEKImAAshlfoPTAkroRWhYjy1bCxKABEnLtCsiVAY8C8N2xq3SOuiF9rUpqcA9/GCIrqYw7fH7OSzpj+Ba6NUGKrXoRoz09ukyJlB/2z1lfoTcpOKBQjzyBGmzDcm83A8RbDr48KJjnGGu0JCNl/l0jq0OERh7Oojd3BvAF3Qjy6dmpLoXCZKfaImkK4MacaLNzWcjITRuB/Rc8yZa3wcfOJYlF9lIkaKxL+vuw0F7M2YZN6Q5ID+n8V9kTBkbXY2Sk+2VIQYt586/UOD0by9j+W09e3BEHauYxU/x5KpjZyVpj120teTv8zPsbTo4c6QBuaRUANXq6Kohw/r4cxfs26Pfwi2umNiOV2o6Jrep9BLPLQYzT1GfB8jXXy5uNUKg5zY+sIRWv/Y5CPNTbyTngQaUUU1b6B/ctG+nOj4iX3OaiFB5QUtYzl5EY5cpPFpcHC0Tpp4ylSEf70KZvBeuKnBm8URpwQTVJb7rnoTgwinbVif/HH6GVDToux17CVfE83O5z/ULBGYu6cEELbooU0eCAvYSqdoYL92w++MH2lqfdKXwTPjhw4HCApc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2602.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?empzVGs2RXlKZUVNQW5lN3ZIbUhJNFQrQUJIMzVDeElDZkpGcjlFOTBwWXRn?=
- =?utf-8?B?L3pETHRMYUlaa3FtNU9UMER1MGFrb21wQW8rSU9RT1lCelFwU3FLcjkwcm9G?=
- =?utf-8?B?dEJqZjBRNkNMMGlIendkY1NQUk1GZTNtc2tnVFhJbUNlN25lKzZ0ZHI3N1Mv?=
- =?utf-8?B?dzVuZDR1bDRmOU9EakZqT29xclFmSDlUSXFEYVFrQ3hmemV4a25DRDlsZGhp?=
- =?utf-8?B?VktLbDJ4N25ML1gzNU43WnB5VDFJVGd0TGdLTkRvZitqMnZYNG9UbE9Yekps?=
- =?utf-8?B?cGZCYU9tREpHVmhLTFhaNnNrRjBMa01QSXQ4b1NpU1hBTGt5ZVpWWHhzTjJY?=
- =?utf-8?B?Nms4ZzFYci9JWEl0WFF3QjhrU2E1NitScG9oOFBaWUlRMm1XeWxUVUVOUmJG?=
- =?utf-8?B?b3FONGN5R1JJWk5LdDdwakY3dmdVTTRsR01peE1qVmExMEQ3WWVCSzhTdFdI?=
- =?utf-8?B?bXVlUDNVZmdSUTJRdWNXSHVZa1E0ZVBVenUrcUFwU1ZJRjFOdW5mUkhQOWo5?=
- =?utf-8?B?OUkyTDhSc2tUemhYdEJqZXVBQ2l1b1RaZW1XWlVSRldwN2RRZks0REM3eThm?=
- =?utf-8?B?ak5uMWVKZm82V29ERm4zQXBPNnQ2d0NreE1mQ1ZjVGlFN3A4OVp4eGdBVW96?=
- =?utf-8?B?azFXbkRib1BYWmNlaHpHR1hxSitMazRsT0ppbFNZem1KZVYvcTMyTXhYYUs5?=
- =?utf-8?B?aXlnZ01vSjlCeW5hMndCdWV5bUtlVmtGT1I4ZEQ4T2lhdkZsVWxhRjU5bkpX?=
- =?utf-8?B?TW1NcnBWQmFkZDQxem92RGZGTWpocTVVU2l5SERJd3l1SFhiTlZCNXdtOEJT?=
- =?utf-8?B?eFZOTytxRTYzUGtOVDV0Y1pVdUJkN3I3YnRvZU1naU9EYTdXQUIxcE5Xb1Zp?=
- =?utf-8?B?dXM0WGNkbWlRbDFHN3hFc2ZIb1BVS2NzTVlYLzMycHg1QkprTGpYa0MvUmd0?=
- =?utf-8?B?RHdBUW1FYnliUzI4ZURuRnh5ZStZN3dVRjMzOVZrMXphTytGODZmUWpOMzhE?=
- =?utf-8?B?T05Id0NWS3Q3cFRkRUliWGdzMlV3WXdWNU9ZWVVDRlRqdTR4OGNOK3R0dVhB?=
- =?utf-8?B?aGxIeWtiTkdZYWhHeUtmM0I3c21iZUd6ZW1qRndHTTFiMkhnNGwycjVFbmJs?=
- =?utf-8?B?ZDc1MVdDSGtXN3hEZ3ZWd1pCSmpyTTIxUk1ETjlxYm4ybVc3OVlwUTRaeHNZ?=
- =?utf-8?B?VVl0Y08xWkFsdHAzSFkyUks3QlgyZnZZSHZMOGFJdWVyeC95OWZUZHNsOWc3?=
- =?utf-8?B?dzJNSXNtUDlxMjlERjJzN0RBTHJpQ0R5SU5CaExUYWROUFpJRkpnTTVKZ1ZD?=
- =?utf-8?B?Wmo5MjJzaVc1bldvcWhsMG1MYVpabEpqWS9EQjFpa1JtWW1jckYxTHRZblRQ?=
- =?utf-8?B?L09yZnpkNmxxSVB0YlZFdE1IZzJNRHdNeGdhSzFMYlNRQ3lYbEJhRGFoRHYv?=
- =?utf-8?B?OFJhTUU1ZzVsaTc3anhiRUdWQ3p3SWVNZ0JabGRadUpkd2FTU1Bvd3dBWFJN?=
- =?utf-8?B?Z2x0cWN1bzVyRm42a0JwZWx0Zk82MS9KWXJ1QzBCbXR1a3R4b0g3UnM4K2Mr?=
- =?utf-8?B?aWZ2VjFlM1I5cWEwcW1nM0xMM0ppbkI0UzJpcVlKR3R1OXY5bmFqWS9kamlQ?=
- =?utf-8?B?eFhlaERaRTRrL3k0cC92bVFJNkxERldJa3JxdXpJR3B2LzdjUXhuaWVVRStH?=
- =?utf-8?B?UmJudDNBY2VTR1ltbkIvYTAxRm9jMTE3UW1nUi9sQXNQRTRBeCtzUmlWNFpC?=
- =?utf-8?B?RHRaTEEyaWRDM0xaK3lzY0ppWGhXSC9kWUNMMHpvTTNOaXJQQ2xDdnZOU000?=
- =?utf-8?B?ajJvL1JNWnZQS2wyRWNFNHJHN3l1ZDdXWFQwRGFHbVJReE44S3NTR3YwanhG?=
- =?utf-8?B?MnJZT3IwMHJwZyszY0ZNcnVwQVYwYnB1S0hqZlF0UUZCT0U0aGJHWXFwKzNS?=
- =?utf-8?B?SVJrdWo3K0EyUUdrTnZlUWJxTGl4SmtnV0dHbTV0b1FyMXMzLzFJY2lZZjVq?=
- =?utf-8?B?K1dBTEdLcXc4K2lRejJ1MkUrTW9EZEF2MUNQYkhTcy9uTEU0QlgrNS9ZRUV3?=
- =?utf-8?B?UjJaZmZvQWFtb2VSNElPdENrTzJ6SjZIRnRLdmpTWHlvaEpheUE1NzZ4U2hX?=
- =?utf-8?Q?45hQ=3D?=
+X-Microsoft-Antispam-Message-Info: qfz6NK51qfvRrB6rVQnY3neA0xXGCYgOVF+/ajG4Byti1dFwRs1bYODYGF2unmVWhYzVT9i0ANMaUQL9yVF2AxwTvkUDpbSLNya25B5n1ltS9agjeijLHSrt/V6GCACqRcDDIihErvqi2OBsACaDcz13SO5V9HP/2d24ps4fjg8YujK3WnIPpSMTB/0O98uUtWEFCcXBTTg41Z0Zglc8M27DhEJrjOVY/V3OikYY/jjJ8fI5loLO2fDp0Maz4yQEewu+jG6lJ4/4Vak+b1mou8XK5irOe6r7d/3xjhtGYVqjoVCccu7fqkz+/1MxNISUUypG8boy6hZcAzxl1h30Mcez/wa21D/5tSV21QG1b3PFOf+a5SKE7LpvJlKQZZGuxUqcIXxelexR2zhs4o9pagcmp+eLrYR/owljWiR9XB6RR4dq+fdUFKC8Pv4CHEj53SQJb38u/em0r/2V+Ht5JYRumwBuVAUgd51Vu5hvFcf+Tb8WKYznxyObu9H6T815TyjxkNq9htLFWwrBvCbNMcHxi+LWmyx68L9BJFC2BXbs2PasIpBoc6dDw5rcJXZD3hTroWwMscHlanIIhdXJWZvSIjb+CIDtOrUjHprAguQnneK+TQFsy67b4EpDhLgCYOao2z7NUSE4LB4KvxP8NObFo1FKnDy/gHe2vRTyd7iAQPZwKEBnHLhvrm25b6lXhBL3Y+LuG9OJpBKa3JAToS3xmyuozt1tntydbGcdAq44rJRM5olvIcHOOfRui8vK
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(82310400014)(1800799015)(376005); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b9de179-48f4-4b7a-1dc2-08dc537dc1c6
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2602.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 01:31:16.8326 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2024 02:57:44.9081 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b78513db-77b1-4c57-7bad-08dc5389d63a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7C7V87jA6s4on8xsrAPWO9zbkpsRFrtNZA7hmHfytKmYUQ7ZqdaSS9785UI8As5D
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6532
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6088
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,52 +105,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+refactor the code of runtime pm mode detection to support
+amdgpu_runtime_pm =2 and 1 two cases
 
-On 4/1/2024 4:53 PM, Zhigang Luo wrote:
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
->
->
-> If there are more than one device doing reset in parallel, the first
-> device will call kfd_suspend_all_processes() to evict all processes
-> on all devices, this call takes time to finish. other device will
-> start reset and recover without waiting. if the process has not been
-> evicted before doing recover, it will be restored, then caused page
-> fault.
->
-> Signed-off-by: Zhigang Luo <Zhigang.Luo@amd.com>
-> Change-Id: Ib1eddb56b69ecd41fe703abd169944154f48b0cd
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_device.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index 041ec3de55e7..55f89c858c7a 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -969,11 +969,11 @@ void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
->          if (!run_pm) {
->                  mutex_lock(&kfd_processes_mutex);
->                  count = ++kfd_locked;
-> -               mutex_unlock(&kfd_processes_mutex);
->
->                  /* For first KFD device suspend all the KFD processes */
->                  if (count == 1)
->                          kfd_suspend_all_processes();
-> +               mutex_unlock(&kfd_processes_mutex);
->          }
+Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+---
+v1->v2:
+- Fix logic and output info (Lijo)
+- Fix code style (Kevin)
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 75 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 48 +-------------
+ 3 files changed, 77 insertions(+), 47 deletions(-)
 
-I do not understand why use kfd_lock here. You want evict all processes 
-when first device got suspended. The kfd_lock indicates if all kfd 
-driver functions got locked. It is not same meaning as device suspend. 
-That is not your patch issue, but I think using different flag to record 
-device suspend is better. ex, if kfd_lock got set for some other 
-reasons, we would skip evicting processes here.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 65c17c59c152..e0d7f4ee7e16 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1409,6 +1409,7 @@ bool amdgpu_device_supports_px(struct drm_device *dev);
+ bool amdgpu_device_supports_boco(struct drm_device *dev);
+ bool amdgpu_device_supports_smart_shift(struct drm_device *dev);
+ int amdgpu_device_supports_baco(struct drm_device *dev);
++void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev);
+ bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
+ 				      struct amdgpu_device *peer_adev);
+ int amdgpu_device_baco_enter(struct drm_device *dev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index f830024cffca..2ea1f47df79c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -350,6 +350,81 @@ int amdgpu_device_supports_baco(struct drm_device *dev)
+ 	return amdgpu_asic_supports_baco(adev);
+ }
+ 
++void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev)
++{
++	struct drm_device *dev;
++	int bamaco_support;
++
++	dev = adev_to_drm(adev);
++
++	adev->pm.rpm_mode = AMDGPU_RUNPM_NONE;
++	bamaco_support = amdgpu_device_supports_baco(dev);
++
++	switch (amdgpu_runtime_pm) {
++	case 2:
++		if (bamaco_support & MACO_SUPPORT) {
++			adev->pm.rpm_mode = AMDGPU_RUNPM_BAMACO;
++			dev_info(adev->dev, "Forcing BAMACO for runtime pm\n");
++		} else if (bamaco_support == BACO_SUPPORT) {
++			adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
++			dev_info(adev->dev, "Requested mode BAMACO not available,fallback to use BACO\n");
++		}
++		break;
++	case 1:
++		if (bamaco_support & BACO_SUPPORT) {
++			adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
++			dev_info(adev->dev, "Forcing BACO for runtime pm\n");
++		}
++		break;
++	case -1:
++	case -2:
++		if (amdgpu_device_supports_px(dev)) { /* enable PX as runtime mode */
++			adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
++			dev_info(adev->dev, "Using ATPX for runtime pm\n");
++		} else if (amdgpu_device_supports_boco(dev)) { /* enable boco as runtime mode */
++			adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
++			dev_info(adev->dev, "Using BOCO for runtime pm\n");
++		} else {
++			if (!bamaco_support)
++				goto no_runtime_pm;
++
++			switch (adev->asic_type) {
++			case CHIP_VEGA20:
++			case CHIP_ARCTURUS:
++				/* BACO are not supported on vega20 and arctrus */
++				break;
++			case CHIP_VEGA10:
++				/* enable BACO as runpm mode if noretry=0 */
++				if (!adev->gmc.noretry)
++					adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
++				break;
++			default:
++				/* enable BACO as runpm mode on CI+ */
++				adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
++				break;
++			}
++
++			if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
++				if (bamaco_support & MACO_SUPPORT) {
++					adev->pm.rpm_mode = AMDGPU_RUNPM_BAMACO;
++					dev_info(adev->dev, "Using BAMACO for runtime pm\n");
++				} else {
++					dev_info(adev->dev, "Using BACO for runtime pm\n");
++				}
++			}
++		}
++		break;
++	case 0:
++		dev_info(adev->dev, "runtime pm is manually disabled\n");
++		break;
++	default:
++		break;
++	}
++
++no_runtime_pm:
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_NONE)
++		dev_info(adev->dev, "Runtime PM not available\n");
++}
+ /**
+  * amdgpu_device_supports_smart_shift - Is the device dGPU with
+  * smart shift support
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 5d1b084eb631..924baf58e322 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -133,7 +133,6 @@ void amdgpu_register_gpu_instance(struct amdgpu_device *adev)
+ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+ {
+ 	struct drm_device *dev;
+-	int bamaco_support = 0;
+ 	int r, acpi_status;
+ 
+ 	dev = adev_to_drm(adev);
+@@ -150,52 +149,7 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+ 		goto out;
+ 	}
+ 
+-	adev->pm.rpm_mode = AMDGPU_RUNPM_NONE;
+-	if (amdgpu_device_supports_px(dev) &&
+-	    (amdgpu_runtime_pm != 0)) { /* enable PX as runtime mode */
+-		adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
+-		dev_info(adev->dev, "Using ATPX for runtime pm\n");
+-	} else if (amdgpu_device_supports_boco(dev) &&
+-		   (amdgpu_runtime_pm != 0)) { /* enable boco as runtime mode */
+-		adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
+-		dev_info(adev->dev, "Using BOCO for runtime pm\n");
+-	} else if (amdgpu_runtime_pm != 0) {
+-		bamaco_support = amdgpu_device_supports_baco(dev);
+-
+-		if (!bamaco_support)
+-			goto no_runtime_pm;
+-
+-		switch (adev->asic_type) {
+-		case CHIP_VEGA20:
+-		case CHIP_ARCTURUS:
+-			/* enable BACO as runpm mode if runpm=1 */
+-			if (amdgpu_runtime_pm > 0)
+-				adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+-			break;
+-		case CHIP_VEGA10:
+-			/* enable BACO as runpm mode if noretry=0 */
+-			if (!adev->gmc.noretry)
+-				adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+-			break;
+-		default:
+-			/* enable BACO as runpm mode on CI+ */
+-			adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+-			break;
+-		}
+-
+-		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
+-			if (bamaco_support & MACO_SUPPORT) {
+-				adev->pm.rpm_mode = AMDGPU_RUNPM_BAMACO;
+-				dev_info(adev->dev, "Using BAMACO for runtime pm\n");
+-			} else {
+-				dev_info(adev->dev, "Using BACO for runtime pm\n");
+-			}
+-		}
+-	}
+-
+-no_runtime_pm:
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_NONE)
+-		dev_info(adev->dev, "NO pm mode for runtime pm\n");
++	amdgpu_device_detect_runtime_pm_mode(adev);
+ 
+ 	/* Call ACPI methods: require modeset init
+ 	 * but failure is not fatal
+-- 
+2.34.1
 
-Regards
-
-Xiaogang
-
->          for (i = 0; i < kfd->num_nodes; i++) {
-> --
-> 2.25.1
->
