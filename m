@@ -4,73 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 882E4CD1284
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Apr 2024 10:31:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A3C1CD1292
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Apr 2024 10:31:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E17911B384;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE4C11B37E;
 	Thu,  4 Apr 2024 10:31:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="Zu7UAbkB";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="F7zOCAhq";
 	dkim-atps=neutral
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17613112A7E
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Apr 2024 12:11:51 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-a45f257b81fso678454266b.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 03 Apr 2024 05:11:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1712146310; x=1712751110; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:user-agent:references
- :message-id:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=GSa+lE+eQAjqGBMhpo2IZGzrJi4XTjtSb1roD3a7SZ0=;
- b=Zu7UAbkB1t71g6BiXghDSFS+3uLhOM4c/2XnuhaqBHCMRJXsYIp3C0kg2k0ODHd/wn
- vo7u4dUv7XUfXojzG4fy7xwamq9BQSfv7L3t76WcCZxL/L9NmT8KtRCxen1mCWzzV1vO
- 2mqjCcvu6jKH428cUkUYysjeKmV/iJPfZdjMWU5/OMvqrcFY1799oxQWSvPhA1xHg/jF
- Eupny92//1fcC6WtyQSOlXtCJzhFjFZtOGOvzcRlDwtYD9bn+BRxwgfuRyJ14G4mQ2Ro
- o9wh+oVM+6MdgNHpcXTjQ3LtAbLDK6Ym1RlDMe/1kT2xQY9xKyD0q2CdPfP07gjbHF4t
- Xz9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712146310; x=1712751110;
- h=content-transfer-encoding:mime-version:user-agent:references
- :message-id:in-reply-to:subject:cc:to:from:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=GSa+lE+eQAjqGBMhpo2IZGzrJi4XTjtSb1roD3a7SZ0=;
- b=Ta8g2b2ZAVRyNlFYsX7dgORcbvSzwa38Z5Xei+mXPEDl4mmyqLfwEKYgb5zDykXOKt
- +CCRnYPYebfjFRn5ZIazEEi8Fv6We/sbIV8rLLvpfhwqOLSZlBnCTaGVWM25MvQ6LJ5X
- v+qawtxX09CnjGiz/eVQa9FtRnf7vlzztRQBltsE2/ameeL6HcKhgiXPDx1BexWrEyFO
- g/wt1uCK1XKb+TA5+qcOVB5YdXlRrt0uTmAd9JLPXsCUOWFkpKjcSpMKet388TB5kbvz
- NzSF2huxr0a22o2op0QfHXrRZ1zaV+4U8hZPgH3nYO1aQTaIRyDQd7eXyzRX5IhvCnUh
- tMow==
-X-Gm-Message-State: AOJu0YwS78MwsLvUbKeM+pV8dgBDteD7+5u2E4eLqph952h6y4MBzGtB
- dqWVoes++Db6RjY+6GvEsYVvLVvTPuY6EzLG3DhATsapl/g7fs7kQ9ZiAys8ctU=
-X-Google-Smtp-Source: AGHT+IEenrhww/1YtDRsup4vgQa1dwYsyDmSOe2UJixnfKDN3x+SdGjt3O5dR7s4h9bw9IA6743mZQ==
-X-Received: by 2002:a17:907:7652:b0:a4e:7301:eddc with SMTP id
- kj18-20020a170907765200b00a4e7301eddcmr6110111ejc.4.1712146309958; 
- Wed, 03 Apr 2024 05:11:49 -0700 (PDT)
-Received: from localhost (nat2.prg.suse.com. [195.250.132.146])
- by smtp.gmail.com with ESMTPSA id
- qu20-20020a170907111400b00a46e2f89a9csm7649968ejb.32.2024.04.03.05.11.49
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 03 Apr 2024 05:11:49 -0700 (PDT)
-Date: Wed, 3 Apr 2024 14:11:49 +0200 (CEST)
-From: Jiri Kosina <jkosina@suse.com>
-To: Li Ma <li.ma@amd.com>
-cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- richard.gong@amd.com, yifan1.zhang@amd.com, 
- Basavaraj Natikar <Basavaraj.Natikar@amd.com>, 
- =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Subject: Re: [PATCH 1/8] HID: amd_sfh: rename float_to_int() to
- amd_sfh_float_to_int()
-In-Reply-To: <20240329101748.3961982-1-li.ma@amd.com>
-Message-ID: <nycvar.YFH.7.76.2404031411160.20263@cbobk.fhfr.pm>
-References: <20240329101748.3961982-1-li.ma@amd.com>
-User-Agent: Alpine 2.21 (LSU 202 2017-01-01)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 142A210FDF7;
+ Wed,  3 Apr 2024 16:42:29 +0000 (UTC)
+Received: from [100.64.216.231] (unknown [20.29.225.195])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 769C820E8CB1;
+ Wed,  3 Apr 2024 09:42:27 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 769C820E8CB1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1712162549;
+ bh=vqt9SWYA+DonVFY3bwxfhND2wn3sK4WmMeoT1wrpVFg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=F7zOCAhqFjnPTo0KQRYeE5uaIvqcIJyPOzLq2iBWdr4/iS1BFOtgydlTfhGdni/uY
+ iQe+halaQkCqhosXfjF16IdtmPqtyPh6IScEcHIn0jn1nl91AmmtdwdUuMD5wYIr47
+ D+BmC3oQaJFSpLyY4kMKD5trvQTBtQmMygvY8AiA=
+Message-ID: <8f475409-d56d-45b4-8310-4c2122a43eb7@linux.microsoft.com>
+Date: Wed, 3 Apr 2024 09:42:25 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v0 02/14] drm/amdgpu, drm/radeon: Make I2C terminology more
+ inclusive
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Evan Quan <evan.quan@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Candice Li <candice.li@amd.com>, Ran Sun <sunran001@208suo.com>,
+ Alexander Richards <electrodeyt@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Hamza Mahfooz
+ <hamza.mahfooz@amd.com>, Ruan Jinjie <ruanjinjie@huawei.com>,
+ Alan Liu <haoping.liu@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Samson Tam <samson.tam@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ Sohaib Nadeem <sohaib.nadeem@amd.com>, Lewis Huang <lewis.huang@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ George Shen <george.shen@amd.com>, Aric Cyr <aric.cyr@amd.com>,
+ Jun Lei <jun.lei@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, Le Ma <Le.Ma@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Asad kamal <asad.kamal@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>, Darren Powell <darren.powell@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>, Wolfram Sang <wsa@kernel.org>
+References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
+ <20240329170038.3863998-3-eahariha@linux.microsoft.com>
+ <Zgb3VYsgLjhJ2HKs@ashyti-mobl2.lan>
+ <ceeaafe1-49d5-4602-8251-eed63a1be2b6@linux.microsoft.com>
+ <Zgb8gieDzZtZmg2q@ashyti-mobl2.lan> <Zg1NW0jqwFn4lvEP@intel.com>
+ <87sf02d1zf.fsf@intel.com>
+Content-Language: en-CA
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+In-Reply-To: <87sf02d1zf.fsf@intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 04 Apr 2024 10:31:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,32 +92,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 29 Mar 2024, Li Ma wrote:
+On 4/3/2024 6:12 AM, Jani Nikula wrote:
+> On Wed, 03 Apr 2024, Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+>> On Fri, Mar 29, 2024 at 06:38:10PM +0100, Andi Shyti wrote:
+>>> Hi,
+>>>
+>>> On Fri, Mar 29, 2024 at 10:28:14AM -0700, Easwar Hariharan wrote:
+>>>> On 3/29/2024 10:16 AM, Andi Shyti wrote:
+>>>>> Hi Easwar,
+>>>>>
+>>>>> On Fri, Mar 29, 2024 at 05:00:26PM +0000, Easwar Hariharan wrote:
+>>>>>> I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
+>>>>>
+>>>>> I don't understand why we forget that i3c is 1.1.1 :-)
+>>>>
+>>>> That's because it's a copy-paste error from Wolfram's cover letter. :) I'll update
+>>>> next go-around.
+>>>
+>>> not a binding comment, though. Just for completeness, because we
+>>> are giving the version to the i2c and smbus, but not i3c.
+>>>
+>>>>>> with more appropriate terms. Inspired by and following on to Wolfram's
+>>>>>> series to fix drivers/i2c/[1], fix the terminology for users of
+>>>>>> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+>>>>>> in the specification.
+>>>>>
+>>>>> The specification talks about:
+>>>>>
+>>>>>  - master -> controller
+>>>>>  - slave -> target (and not client)
+>>>>>
+>>>>> But both you and Wolfram have used client. I'd like to reach
+>>>>> some more consistency here.
+>>>>
+>>>> I had the impression that remote targets (i.e external to the device) were to be called clients,
+>>>> e.g. the QSFP FRUs in drivers/infiniband, and internal ones targets.
+>>>> I chose the terminology according to that understanding, but now I can't find where I got that
+>>>> information.
+>>>
+>>> The word "client" does not even appear in the documentation (only
+>>> one instance in the i3c document), so that the change is not
+>>> related to the document as stated in the commit log. Unless, of
+>>> course, I am missing something.
+>>>
+>>> I'm OK with choosing a "customized" naming, but we need to reach
+>>> an agreement.
+>>>
+>>> I raised the same question to Wolfram.
+>>
+>> I don't know where that discussion happened, but my opinion
+>> is NAK to "client". Life is already confusing enough with
+>> these renames, so let's not make it even more confusing by
+>> inventing new names nowhere to be found in the spec.
+>>
+>> And let's especially not invent names that don't even fit
+>> the purpose. "Client" makes me think of "client/server" or
+>> some real world analogy. Neither of which seem to have any
+>> resemblence to how the term would be used for i2c.
+> 
+> Agreed.
+> 
+> I2C 7.0, I3C 1.1.1, and SMBus 3.2 have all switched to controller/target
+> terminology. The SMBus spec has additionally converted generic host
+> references to controller.
+> 
+> At least for i915 where I have some say in the matter, controller/target
+> it shall be.
+> 
+> 
+> BR,
+> Jani.
+> 
+> 
 
-> From: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
->=20
-> [Backport]: to fix amd_sfh init fail issue in ASDN
->=20
-> Current amd_sfh driver has float_to_int() to convert units from
-> float to int. This is fine until this function gets called outside of
-> the current scope of file.
->=20
-> Add a prefix "amd_sfh" to float_to_int() so that function represents
-> the driver name. This function will be called by multiple callers in the
-> next patch.
->=20
-> Link: https://lore.kernel.org/all/ad064333-48a4-4cfa-9428-69e8a7c44667@re=
-dhat.com/
-> Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-> Co-developed-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-> Signed-off-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-> Signed-off-by: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
-> Signed-off-by: Jiri Kosina <jkosina@suse.com>
-> (cherry picked from commit 4e71d262899d7bab1f0c65936a2e639afeb83e4d)
+Will do in v1. Thanks for the review, Jani and Ville.
 
-What am I supposed to do with this? All of this code has already been=20
-upstreamed.
-
---=20
-Jiri Kosina
-SUSE Labs
+Thanks,
+Easwar
