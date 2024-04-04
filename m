@@ -4,114 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F3F5CD1284
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Apr 2024 07:35:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34E01CD1284
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Apr 2024 10:02:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99431112CE6;
-	Thu,  4 Apr 2024 07:35:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6578811B2D0;
+	Thu,  4 Apr 2024 10:02:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IHWWcsIb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Lt3twPIs";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2125.outbound.protection.outlook.com [40.107.92.125])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DB4F112CE6
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Apr 2024 07:35:46 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2121.outbound.protection.outlook.com [40.107.220.121])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1041811B2BB
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Apr 2024 10:02:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YfzpAqOxqJeuAgaHvmUSADOGBrCEFVvXq441PDCVEFzQxEYmIKbNbBHb/BQcLaCQ295M+SvDq26TVoXpLfvTZLfau/enyHcWvVz2wXKv8ahzqvD9uUXq4zzFPG8yjpspLfsCxXKEKNQC/qBBP/ogxTdvdZECJtL7q4tWyN6RZ8aAuzCRpZFeRye+y247luaUne7dJhGN8yLBCSZfHW9PlBpWAEMUg28zMHUgmdRSOCYVC2IVL3roLMTmTW+2fCwoYnyZ/jLq40ox7O7xvp09T3fKxwO9D7NN/aA7FMIJJTG9nqoYV7Dlq+Wyzm4TlWA0c7LTIhwqUQ8CIlyGuXJ5YQ==
+ b=L8IoE/PK8Rn7t0hVH5zT8eZU9QVaegPXkBQtBO80qCgSVhUTaHX9kv/9WGozK0mInuuDBEKdR4mVKDdRQKE0+z0uaEBcOfSoO8oY732Jkk6zpGB6NDIktB+WpRIwXvarwpy6iu5HRL0HQhUcSOYGWJ8gO1WEkefwVHIX8dBPXRuv6CiViKPKLo8QkpWSnoKQaFDguOCD8zc+K/dthkO44blCitJDOd54cNgCPSz/sfySaKSoxG/Xn7q60tB0hUba8sWV1Pix8mNVtnP4F8kyLAjWV7B+X3YLdYGNSTJX88zuR84y73YmnJMhUDBu9YVIQmeSmIp7RYLP1D1T0Kpz1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G5kSK/pBqjXHr4SY0+C5Ak8xoFdzmON5CkGT/osVnaQ=;
- b=JTrmvNUPt7SxNxsfN6EkAPzkKFxn/YMTvfvl23QFUhSNDEAWJqAzK5Xv96TZkGKlwCJA1X3mRDJt6OsssRkCH1m7kl+tWaTt3cx2SR+/zdOKdvRM5g4fft//1rXFMCYaqZuCaR52h6+3Vz94eAjutU96ahu9Y/LGaxS35HSw6QR9R1brN8j+5hy1yC6JbsmkeDXH17TDT2lM6r4FTswjUR1LwNOm7YSuc+TVm0WQ1Fh9yvWmhnuOjt5mmw6b4bNNbHx/F0UH5a6gVyPW9WFVT5FyDXZyzQ36Hi/r4XnbHqrf3M6sbr6Q7eLX8JA0vPExGmSWotnbSM628uLHfNYUsw==
+ bh=oaGgFw8keUvX4tHUd6Yo9IChUe00qnAlFmVQxF5CA+M=;
+ b=cLKoXSsoRfTjP4u/t/BMXBocfpQdhW8CN0BeIYTEAvtfoT8tGHwGwvScTiZ1ucev4VnSdiNcAMqZHCqOKnkRaPVponUoNXMnqD5UzJLsHOccKWF0P/yBu/Rh/y4eXaE6XRehbQjy5+tlc6PBa+9AU384d6ShQu5qlGjISFY65aB5ZRA5JBLvpqOn1BPl09ED7y5qMsu/v0oaZDtrVBN1kDl6yMgCJjzQo0zErgL/W+VlHeWtc+FY78M4doeDzI58GN6JNn2d7fqwPie5LT4HCw3QPvgDnRrqz3pMbvx93KYQmxToAQSV8HajixUVuXssOY7a7e/AFvKFc6GXoUQtzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G5kSK/pBqjXHr4SY0+C5Ak8xoFdzmON5CkGT/osVnaQ=;
- b=IHWWcsIbvCOxT0hHuEqf2QL8hFj4JBCZiE9IOLgBaCbEtuiRA+lB4/Pqa9bFLZms4I8PV5rDkHbfydBh82fwXNpUkx4+62KObYOh8Sd91A6BHAiJu/psm5K+9TwV79BTb2QUTI6gGO70keb3Zp9q+QWdwRvEVChxYsCzaKeebvg=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by PH8PR12MB8606.namprd12.prod.outlook.com (2603:10b6:510:1ce::10)
+ bh=oaGgFw8keUvX4tHUd6Yo9IChUe00qnAlFmVQxF5CA+M=;
+ b=Lt3twPIsOe+9LntfMvcUk9KAZktJiWguVMw3U7ItVDPfroniIv646Lx32Y4Plc63V3AO1HljPKP9ZgET6X4RgGMgSOgSewueD82V/tQ4q0McbenVmZeKJTUL/UT74cpuMFI7LKHvL4XBcVEW/mY7qGRkXov7pwUCoS2+FgTBpUw=
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
+ by SA1PR12MB8888.namprd12.prod.outlook.com (2603:10b6:806:38a::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Thu, 4 Apr
- 2024 07:35:41 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::74e4:f50f:79af:c996]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::74e4:f50f:79af:c996%7]) with mapi id 15.20.7409.042; Thu, 4 Apr 2024
- 07:35:41 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kamal, Asad"
- <Asad.Kamal@amd.com>, "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: Allow setting soft max frequency in VF
-Thread-Topic: [PATCH] drm/amd/pm: Allow setting soft max frequency in VF
-Thread-Index: AQHahlzFFWRbTuk+NkyN0rOiIuQWt7FXuJNQ
-Date: Thu, 4 Apr 2024 07:35:41 +0000
-Message-ID: <BN9PR12MB5257EBCB74313881B250C607FC3C2@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20240404065256.47765-1-lijo.lazar@amd.com>
-In-Reply-To: <20240404065256.47765-1-lijo.lazar@amd.com>
-Accept-Language: en-US
+ 2024 10:02:11 +0000
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::966b:7f50:4f07:3c8b]) by MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::966b:7f50:4f07:3c8b%5]) with mapi id 15.20.7409.042; Thu, 4 Apr 2024
+ 10:02:11 +0000
+Message-ID: <c2cc3d0a-ff24-4d39-64e6-78ea45c5726b@amd.com>
+Date: Thu, 4 Apr 2024 12:02:06 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH] drm/amdgpu/mes11: print MES opcodes rather than numbers
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=9fd72544-f3b6-4695-8ce0-c86567aee17a;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-04-04T07:35:21Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|PH8PR12MB8606:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: +GQLVwhK7mWb7wHsucjnNJjwq5Zu9pk4lO4r75CtmvdrRheV7rMU0ib/bwv67Ih6DSxt+yLlndPIln7D3N9Ar3ZmyBJ/Evt3UQBjG6c6ymUP7zadzlOk7SLpCnS6KsZ294JkkaE43ZonYTErLN5e9wuiXvJX47B3sDWra8x5ySXymVA/hdmRvdHagExFgT3lhrbxCYMS7aDHpenban1067/p933ygTdPy6ZOJfKZaiyulR2YTtiIUlj0UazRC7Hlp/9uEbOAl7elEPW+XCa1XpEEo223W5ylUaJlpSeF/8+I/1t6BReC9b5lYCEda/jumFCNEPVZp/n7pR9p/4CYsvQwQSbNVLNBdeOunvk4iUGIjMwQUcBjNLgl01Hu7X9WTeGDs7hLpL44evxg3X+kq5u2j+q3bvfnm9Ae+rZjRmpKYt+O1CJybaYp+HIw9nYaSqLAK5Ri2iZd8UaWqmxET78FiwVJrTrV1gmgDb93U1WotDSqb7LbJhNMArACsRsN3KlTEvt7pP2PQEuKpQukGSKgE29pTnFnX0HmFNjYP+dS/gldVny5I+X6nI86fKW9VKb47Tw92YEOd34vijWoXDJVCP1m0ATpYCmLZm399tYMujL/s4bVlkCQqOQYGN3Wn8FSRQdrJNwFqI1P5UbCJLl1liwcaCkpDuslGcob41o=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mpYWeoUG7+SJPPfxoOwD0F7r1ikkdC/3G02E1R5TB2OJu3ZMzdsmWkqkUxVk?=
- =?us-ascii?Q?kt3jBTDPiStEecaCFAoMOHwZUyFbF3OyXwvxz6n1EEsiGS2E1s1YqSuDWscj?=
- =?us-ascii?Q?s/RsIpiDAvzMYWFgN0ZktVBjz18nfuaVUD5k+VpvHHSUpzUgXTwcIvd1JGIT?=
- =?us-ascii?Q?UMvIW/MzC4pixifmOJIBuIn1HW4Mm2G8X5EUYJhIxa99KPkIktcKNB5pYhB7?=
- =?us-ascii?Q?nHZSvC2kN6YKCbqEfgo2MwL/+Z5Aku0HxDtEC8QVQip1fgAswGzmeVDzayvV?=
- =?us-ascii?Q?3537UI90OSnScay1UoiclRC9gffownFBOZN9HGvi3Fvx6Ob7iYuYjBIT0Et2?=
- =?us-ascii?Q?fLfEpRQDhl8jdpIUaJleQhobVNVpT/rouYDwqv8TKHdyfyEGL1ibC5Ov2NHs?=
- =?us-ascii?Q?P4gfXYVJv73UlNyeOi2BJwwkIvOCxPYEP2WZqK7GtbUP8ZnW0AM4kUxxLQUp?=
- =?us-ascii?Q?7GXzLs43YX2OHN/7mavpU1vXLOZT9jXaAsdfnCRNLnMu7/IGtt64OCY2k99W?=
- =?us-ascii?Q?Yb/t173i7YWqprykCCbsZss1pqW46enBkwsFbEZkTKI7j050x8VWWAOmFiYj?=
- =?us-ascii?Q?a1rWHn2oJtieTyN+EI55Y20Fd00GAO9nTOwz15fweApoMlX1XZF/hjA2Ol8I?=
- =?us-ascii?Q?OyWnQaPaExBbOGkOKluaZXUGA7BW027soTufPQhSGK7v+6n6Aq3whLjenASB?=
- =?us-ascii?Q?NTRJC5E6+SzIvVhKEM0Mx/pwF40mrbyeXnKxG9k+E5d31y4iNNofp3VWFE8G?=
- =?us-ascii?Q?pSNfVniZvclCnBMNqaFqo9OZJYIjcVDphpgHKcG6q5XmmF6u8l8WYUqSackV?=
- =?us-ascii?Q?ir6G336yaXr1pdodGdHRjbWHnNXJF1+s2bKWMFelVdzThN3DHTlS234yqD3/?=
- =?us-ascii?Q?GiDKiMcDqEQNeXy5TlCeuajfaV2hYIpgFCHi+0KBI0Agu/Nb93fX5raPwEfH?=
- =?us-ascii?Q?YJmPq8JwRMPBy4Pm0GXMs9JBiMZQEQSN6uqxXK6BdTkkjWwyoemXOTszYId4?=
- =?us-ascii?Q?OrLSp0VM5joW8OWoOZ/XUh5qt5U0yDdLH+6F7tSGc/2GYAB7OESDptqITt9f?=
- =?us-ascii?Q?FrZJjOcSh6CbdPMEtXptxNYlXN4+uRsTG9On1YV5EGchF/mkQI13Mp2uAQge?=
- =?us-ascii?Q?IkRQDWbZPudfspWnpw5yjeGBQ9v5Q/AnqV7qlougnWiIDw2jNY73PLKEMiy/?=
- =?us-ascii?Q?qHnIfeCGMPtwsaKIKZyG8NZX4/90gwYCpk1mDjwZwf/zKE1AmWJxLkPzDG10?=
- =?us-ascii?Q?7JWpPS8waKyUh47oz1fjEWgYxYn9Dktc6PEE2FYRhsD3uChydceJiiXIeyOa?=
- =?us-ascii?Q?ymM+Wg4vBHU1vMrKJFAuIJ91cDa10UH5Ga14m0I3g+o4nV6vMS5HWvt76uXf?=
- =?us-ascii?Q?ssfmo3v81eBoQ+UhgD/Hzeq2UeXt7hryENlF+CP44VjISRmnPeyCj1Ws+a9v?=
- =?us-ascii?Q?yGZwJNGv/+SDdOwqbYwZBJrNEPdS1wcRtfzuMycwwr/s/Q9QtHHtecrddHAO?=
- =?us-ascii?Q?q3q9H1S8T2sdEriOMfK8ICrcIm+tP2AnsBp2qsZTQMBRtXX/MG0BPWKw8Pyk?=
- =?us-ascii?Q?P062mRi4dfTkivwYEz5PzjrwjyfuhHRe2HVabs6G?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20240330140129.18824-1-alexander.deucher@amd.com>
+ <CH0PR12MB53727F41E0D147A9EEAF23A2F43E2@CH0PR12MB5372.namprd12.prod.outlook.com>
+From: "Sharma, Shashank" <shashank.sharma@amd.com>
+In-Reply-To: <CH0PR12MB53727F41E0D147A9EEAF23A2F43E2@CH0PR12MB5372.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0246.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:af::11) To MW4PR12MB5667.namprd12.prod.outlook.com
+ (2603:10b6:303:18a::10)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|SA1PR12MB8888:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: pnIN+NBJtNyfgRC90dCYoXbWpniF13bFyeU6hPEPNXcO1+ai7flxIrQpmDSV3q616WVii3sJa4YGSbegzjDvBnpHpXhIDUgxqu+x15gLsJcM1AdzRr7i7l+Culfmt4Nul+INi3Z6vBaO924qYeXE6u518ZZ2ZRALIXz1auPGOLR7Yt8rym5iqwPOdlng92MiOalXMsJzi5f60SJ4fmjIg10OoPN9Q2SLDk9emkPSj/+YO38X/GRqlW7+/q4AscPvQh3PDOir1QifgxEM2Do2bJc/cqCf4L5DoUv55UHPn7C9b9rLLDgJzaPxfsu9AZnIFQta/IoyaQjKwLh1LN8bnEwHGkZlWdWQbQXm8pOEnrI5DUkxppraYEtChBPW97YaZpx/EOJGXZ4E/bT2UmY5SSemlUtsh20YDy3d7r04A94o6uaNv1eRyksepYlGr6BtW8RSkL9M+jThIYeJEwOnT/Bz+y12dhj4Bx7z2m8fe25ljwNObQeqjPMgvgFqLLipAbErcESIMxno5C31rFldCva/2wiQGCcSg8VDXeGUeJ5TNzUOywo9mFlz5s3O4sw99KuO59K1zhpnfz/3o1lWIKcW8byCgRZ1ZzD2mhM/gS80RclkuJfyueEKfx0a3CMrGIq2MJKgD70ILIzjoqKBqpij9pRw6vBLTif2OOiHYAk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(366007)(1800799015); DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b0RoMk9pUU0rSm5QYWdOcUpIVERDT1JtZnVqUHphRFFRekdSUUxiNkw3MTdF?=
+ =?utf-8?B?ODlnLzFRS2lvOFpVK2pZY3ZiM3B6d1RjUzhkTjZKZ0VkVDFqbXlkZlRRSFRP?=
+ =?utf-8?B?b0NhWVZ5YkNvU0lsVnVaZVF3ODlzK0M1YnNGN0F3SGtuT0U2ZVordFQ0SnFr?=
+ =?utf-8?B?b0RoZkVtdG1meGQ2c1lUSW8wSFRMQVpaOGhFNDZwUkFvZkpIRWkwUUlKWVZi?=
+ =?utf-8?B?WUd6V1g0TDkzRURLM2FtTTgwa3hMT1RMUno0dWFPNi9OVllnbXc4MVJBN2hB?=
+ =?utf-8?B?RGN3ZXpybEVUQy9ndG1ycXRLaDRKWlNjMzN0TUVWREhQZ2ZxS0w4SVVsN1ZE?=
+ =?utf-8?B?dGI5RGVBaEtidFAwa0M5eHFjZ29WMld1SXVBSXlGSmJIaTJ2T2U5YXg0UjIv?=
+ =?utf-8?B?cjFoQm5WbEVTRzd6dVZHSHpiUzdUeXZ6K2paMHZrelBrQTVnWWh2cGsza3Qv?=
+ =?utf-8?B?eWxmM3FSYm1VZ2RIbXlINGFEdTg1cnd5Z0JyNStCYm5YSzNWSFRNN20wb25T?=
+ =?utf-8?B?aWplN2g1TFJwY2t4djc4TndjclZtYjN5OVFyeEliVHRFaDFmR05RVkg5aWlX?=
+ =?utf-8?B?Rkdrdm84aHZZNlltdUlBNEJ3MEo2anVVVHZ0NThyRWE4eGl4aTFHSzNPM2RO?=
+ =?utf-8?B?QjQxcG9scXlQWEpvYldldjI1VUNXcW1WUDU0R1QvdFNBeDhmcnJVYWpWbzEy?=
+ =?utf-8?B?bTVzOW40NktUNGJUNDJvV3h5MEdseDdsa3JvaTJWMDF1ek85S1VoOGNodUkv?=
+ =?utf-8?B?UXlrTmJ0a2JvQ0hONHdsTjdYaGtFOVhoZnZqSVFDTHJZYkd1NWNEVmVyT3dU?=
+ =?utf-8?B?bDEycE55Ujl6UjZhRzIwUk1BQkZPeWs4eVNHN1lHa0FzMCtqcjdHYnBVVDBk?=
+ =?utf-8?B?MVp1VHhqRGY1SzNuV25BNFpwa05NVG5vMnVDVmlrWHRqSlpLUHFBcmVsdTNq?=
+ =?utf-8?B?SlBmdFNiZjc4eG9PaXo3ZWd4Y3NqVXZPVnFNc1A4ZTI0OVRvbWovVmFzNWU5?=
+ =?utf-8?B?SEs1bEJERTdZN2J3eFMwakE0QmhjeHg1aXcvVFdiZzgzOElyYi9RaFBUVmxQ?=
+ =?utf-8?B?NTRnOXgzQk5CaFJaeXhPbzVueVFJY2xsNnZpekFjNFZwNnFDckIyUDBTL3dF?=
+ =?utf-8?B?cG8zenp0YlpLRllkYW9tck1Td3VYeW95Yzh6Z3lubjk0Q2puT3IrUFBZYks3?=
+ =?utf-8?B?OThqS0VzMWtrSHJvQWdaSy9vOXhxbzQyclpiWmZSK0hrOUtFVVB0bkJRVTg4?=
+ =?utf-8?B?Q2wxMFoyR2FTQTFMK0VTSnBmOEZMdkUrcml4azdVOFdEeStkV21sUWZ2NFVk?=
+ =?utf-8?B?R0xyWEhpdFQxcWZrV2JaYnA0RjdBcUFRcHVUWnRGczJOeDNWNC9JbTgxaFd4?=
+ =?utf-8?B?Y04vcG42N3pXOU1xQmVLUWpkcExWME5kYi8vU2hUV2VqZlQvd0dDWFpxUW1q?=
+ =?utf-8?B?NnExbGZUSmRoTUtnemhvQW1ibmVHNWtCWVgybjZIVnYwUStvdDdMeXZVT1ZR?=
+ =?utf-8?B?SEVSeEV6VWN0WEpRcWNPVUdCeUhSS3YySk5zdWVmbkNsYnVCSzhRSDhVYVZx?=
+ =?utf-8?B?ZktjQ1k3cWE3NXo2YUFyOWxTOFVCTy9RSkw1Q1RlWVR1Q3UwWGNqVW8rcWJI?=
+ =?utf-8?B?aTVNaUN2SlFpUUt2TlFxdllJSk0wU2k0S1NwUW1HZlFSZzdLcTFRRzRjNzZ1?=
+ =?utf-8?B?aklOZ282M2orSm9GeGV0K2MzMWpBOTJaN3BXQ2tTSDVzRy9lNWFobDZ3NURM?=
+ =?utf-8?B?UVgzdnlzR1RRSG0wQ3BwNlNJdmVJV0FtbmV0aVd4OWd5ZHYxL2tmbEVBYXJ3?=
+ =?utf-8?B?VWp6ZW9tOTFJT2oxajRXcGdEOUZZZklzZHMzYkV6SU9KajFOelZwYmdMQ3pI?=
+ =?utf-8?B?cjlweVdVZFRqL2hjK2QzZExJc1JVTktJNjNwdlBVOUgyVXpXWHVDb2NtMFY3?=
+ =?utf-8?B?NlBrR0lCS3NXSjlOQTQvZWNpaTVWOGtBRUIxdmNSbEhRRlEzOHdGRW04eG9j?=
+ =?utf-8?B?MnRGUmpjNHdVMFFUYk16Zys1aFFVODcwM2ZyclMxcE5EL1M1aEdlY0dmSFFw?=
+ =?utf-8?B?L1MxblhIY3hPSmxydkM3UFdCZGtseGp1VjR4bE5DVnVYUTdGY0ZlenFCdXh6?=
+ =?utf-8?Q?qboTLSBHjuwipHy7DLqxmKS2p?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90e9f128-ce6d-4096-8c11-08dc548e4b60
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 214af686-5cc2-47d7-44d2-08dc5479d4b0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Apr 2024 07:35:41.5262 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: T/wQ8Z+IohnwzD8Vvp5fPyInNtccXVAhSJ/a6a7+g2WlPUXLstIbskXURuAKp5NVmJ+WwtpNqP9eYjjCcQZUqg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB8606
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2024 10:02:10.9307 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: E5J1FXIQWULBx0cdpaK09YkCLqcwMzxl2FExivqAfuCqGSS1k0O1cgORSFqMl7aiF9bIcrrd8GD/yw9k61P5bg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8888
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,66 +128,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Hi Alex,
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+On 02/04/2024 02:42, Liu, Shaoyun wrote:
+> [AMD Official Use Only - General]
+>
+> [AMD Official Use Only - General]
+>
+> Comments inline
+>
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deucher
+> Sent: Saturday, March 30, 2024 10:01 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH] drm/amdgpu/mes11: print MES opcodes rather than numbers
+>
+> Makes it easier to review the logs when there are MES errors.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 65 ++++++++++++++++++++++++--
+>   1 file changed, 61 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> index 072c478665ade..73a4bb0f5ba0f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -100,19 +100,51 @@ static const struct amdgpu_ring_funcs mes_v11_0_ring_funcs = {
+>          .insert_nop = amdgpu_ring_insert_nop,
+>   };
+>
+> +static const char *mes_v11_0_opcodes[] = {
+> +       "MES_SCH_API_SET_HW_RSRC",
+> +       "MES_SCH_API_SET_SCHEDULING_CONFIG",
+> +       "MES_SCH_API_ADD_QUEUE"
+> +       "MES_SCH_API_REMOVE_QUEUE"
+> +       "MES_SCH_API_PERFORM_YIELD"
+> +       "MES_SCH_API_SET_GANG_PRIORITY_LEVEL"
+> +       "MES_SCH_API_SUSPEND"
+> +       "MES_SCH_API_RESUME"
+> +       "MES_SCH_API_RESET"
+> +       "MES_SCH_API_SET_LOG_BUFFER"
+> +       "MES_SCH_API_CHANGE_GANG_PRORITY"
+> +       "MES_SCH_API_QUERY_SCHEDULER_STATUS"
+> +       "MES_SCH_API_PROGRAM_GDS"
+> +       "MES_SCH_API_SET_DEBUG_VMID"
+> +       "MES_SCH_API_MISC"
+> +       "MES_SCH_API_UPDATE_ROOT_PAGE_TABLE"
+> +       "MES_SCH_API_AMD_LOG"
+> +};
+> +
+> +static const char *mes_v11_0_misc_opcodes[] = {
+> +       "MESAPI_MISC__WRITE_REG",
+> +       "MESAPI_MISC__INV_GART",
+> +       "MESAPI_MISC__QUERY_STATUS",
+> +       "MESAPI_MISC__READ_REG",
+> +       "MESAPI_MISC__WAIT_REG_MEM",
+> +       "MESAPI_MISC__SET_SHADER_DEBUGGER",
+> +};
+> +
+>   static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>                                                      void *pkt, int size,
+>                                                      int api_status_off)
+>   {
+>          int ndw = size / 4;
+>          signed long r;
+> -       union MESAPI__ADD_QUEUE *x_pkt = pkt;
+> +       union MESAPI__MISC *x_pkt = pkt;
+>          struct MES_API_STATUS *api_status;
+>          struct amdgpu_device *adev = mes->adev;
+>          struct amdgpu_ring *ring = &mes->ring;
+>          unsigned long flags;
+>          signed long timeout = adev->usec_timeout;
+>
+> +       if (x_pkt->header.opcode >= MES_SCH_API_MAX)
+> +               return -EINVAL;
+> +
+>          if (amdgpu_emu_mode) {
+>                  timeout *= 100;
+>          } else if (amdgpu_sriov_vf(adev)) {
+> @@ -135,13 +167,38 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>          amdgpu_ring_commit(ring);
+>          spin_unlock_irqrestore(&mes->ring_lock, fl
+> -       DRM_DEBUG("MES msg=%d was emitted\n", x_pkt->header.opcode);
+> +       if (x_pkt->header.opcode == MES_SCH_API_MISC) {
+> +               if (x_pkt->opcode <= ARRAY_SIZE(mes_v11_0_misc_opcodes))
+> +                       dev_err(adev->dev, "MES msg=%s (%s) was emitted\n",
+>
+> [shaoyunl]  Shouldn't  we  use DRM_DEBUG  for valid  condition ?
+>
+> Regards
+> Shaoyun.liu
+>
+> +                               mes_v11_0_opcodes[x_pkt->header.opcode],
+> +                               mes_v11_0_misc_opcodes[x_pkt->opcode]);
+> +               else
+> +                       dev_err(adev->dev, "MES msg=%s (%d) was emitted\n",
+> +                               mes_v11_0_opcodes[x_pkt->header.opcode],
+> +                               x_pkt->opcode);
+> +       } else if (x_pkt->header.opcode < ARRAY_SIZE(mes_v11_0_opcodes))
+> +               dev_err(adev->dev, "MES msg=%s was emitted\n",
+> +                       mes_v11_0_opcodes[x_pkt->header.opcode]);
+> +       else
+> +               dev_err(adev->dev, "MES msg=%d was emitted\n", x_pkt->header.opcode);
+>
+>          r = amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq,
+>                        timeout);
+>          if (r < 1) {
+> -               DRM_ERROR("MES failed to response msg=%d\n",
+> -                         x_pkt->header.opcode);
+> +               if (x_pkt->header.opcode == MES_SCH_API_MISC) {
+> +                       if (x_pkt->opcode <= ARRAY_SIZE(mes_v11_0_misc_opcodes))
+> +                               dev_err(adev->dev, "MES failed to response msg=%s (%s)\n",
+> +                                       mes_v11_0_opcodes[x_pkt->header.opcode],
+> +                                       mes_v11_0_misc_opcodes[x_pkt->opcode]);
+> +                       else
+> +                               dev_err(adev->dev, "MES failed to response msg=%s (%d)\n",
+> +                                       mes_v11_0_opcodes[x_pkt->header.opcode], x_pkt->opcode);
+> +               } else if (x_pkt->header.opcode < ARRAY_SIZE(mes_v11_0_opcodes))
+> +                       dev_err(adev->dev, "MES failed to response msg=%s\n",
+> +                               mes_v11_0_opcodes[x_pkt->header.opcode]);
+> +               else
+> +                       dev_err(adev->dev, "MES failed to response msg=%d\n",
+> +                               x_pkt->header.opcode);
 
-Regards,
-Hawking
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Thursday, April 4, 2024 14:53
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; Wang, Yang(Kevin) <Kevin=
-Yang.Wang@amd.com>
-Subject: [PATCH] drm/amd/pm: Allow setting soft max frequency in VF
+Please consider this small reformatting here for better readability:
 
-Setting soft max frequency for MCLK is allowed in 1VF mode in SMUv13.0.6 SO=
-Cs.
+static const char *
+amdgpu_mes_find_op_name(union MESAPI__MISC *x_pkt)
+{
+         const char *op_name = NULL;
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+         if (x_pkt->header.opcode == MES_SCH_API_MISC) {
+                 if (x_pkt->opcode <= ARRAY_SIZE(mes_v11_0_misc_opcodes))
+                         op_name = mes_v11_0_misc_opcodes[x_pkt->opcode];
+         } else {
+                 if (x_pkt->header.opcode < ARRAY_SIZE(mes_v11_0_opcodes))
+                         op_name = mes_v11_0_opcodes[x_pkt->header.opcode];
+         }
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index a09c89b3db96..d6d5be26e222 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -138,7 +138,7 @@ static const struct cmn2asic_msg_mapping smu_v13_0_6_me=
-ssage_map[SMU_MSG_MAX_COU
-        MSG_MAP(SetToolsDramAddrHigh,                PPSMC_MSG_SetToolsDram=
-AddrHigh,            0),
-        MSG_MAP(SetToolsDramAddrLow,                 PPSMC_MSG_SetToolsDram=
-AddrLow,             0),
-        MSG_MAP(SetSoftMinByFreq,                    PPSMC_MSG_SetSoftMinBy=
-Freq,                0),
--       MSG_MAP(SetSoftMaxByFreq,                    PPSMC_MSG_SetSoftMaxBy=
-Freq,                0),
-+       MSG_MAP(SetSoftMaxByFreq,                    PPSMC_MSG_SetSoftMaxBy=
-Freq,                1),
-        MSG_MAP(GetMinDpmFreq,                       PPSMC_MSG_GetMinDpmFre=
-q,                   1),
-        MSG_MAP(GetMaxDpmFreq,                       PPSMC_MSG_GetMaxDpmFre=
-q,                   1),
-        MSG_MAP(GetDpmFreqByIndex,                   PPSMC_MSG_GetDpmFreqBy=
-Index,               1),
-@@ -1676,6 +1676,11 @@ static int smu_v13_0_6_set_soft_freq_limited_range(s=
-truct smu_context *smu,
-                if (clk_type =3D=3D SMU_UCLK) {
-                        if (max =3D=3D pstate_table->uclk_pstate.curr.max)
-                                return 0;
-+                       /* For VF, only allowed in FW versions 85.102 or gr=
-eater */
-+                       if (amdgpu_sriov_vf(adev) &&
-+                           ((smu->smc_fw_version < 0x556600) ||
-+                            (adev->flags & AMD_IS_APU)))
-+                               return -EOPNOTSUPP;
-                        /* Only max clock limiting is allowed for UCLK */
-                        ret =3D smu_v13_0_set_soft_freq_limited_range(
-                                smu, SMU_UCLK, 0, max);
---
-2.25.1
+         return op_name;
+}
 
+op_name = amdgpu_mes_find_op_name(x_pkt)
+if (op_name)
+         DRM_DEBUG_DRIVER("MES msg=%s was emitted\n", op_name);
+else
+         DRM_DEBUG_DRIVER("MES msg=%d was emitted\n", x_pkt->header.opcode);
+
+r = amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq, timeout);
+if (r < 1) {
+         if (op_name)
+                 dev_err("MES failed to response msg=%s \n", op_name);
+         else
+                 dev_err(adev->dev, "MES failed to response msg=%d\n",
+                         x_pkt->header.opcode);
+}
+
+- Shashank
+
+>                  while (halt_if_hws_hang)
+>                          schedule();
+> --
+> 2.44.0
+>
