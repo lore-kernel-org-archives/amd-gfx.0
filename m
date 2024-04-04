@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA30DCD1284
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Apr 2024 12:04:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22258CD1292
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Apr 2024 12:19:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19AE211B52C;
-	Thu,  4 Apr 2024 12:04:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7075210E703;
+	Thu,  4 Apr 2024 12:19:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jVCPnnOL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eY7o2nWQ";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36D6911B52C
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Apr 2024 12:04:31 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4162c11acf7so1442135e9.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Apr 2024 05:04:31 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DB0E10E703
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Apr 2024 12:19:01 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4155819f710so6700635e9.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Apr 2024 05:19:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1712232269; x=1712837069; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1712233139; x=1712837939; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id:from
  :to:cc:subject:date:message-id:reply-to;
- bh=namCL66X4oR0xq35PvgczgV0Ic4oQ2SP639TUCJR9VA=;
- b=jVCPnnOLk32zj/iB8Ct28/u7V/UF0LY0AC+aOqoU2wESaGTB/2nHDd3881KZN5Shlm
- E4ShbyaPOi8sVABnb5Q+vcvS7GiGzY4fbhcbAc06TH2U+aZJY10HJyskIXu1a0h1uOl9
- 4El61+Ng+bK8T6k1x7VCbtFX1fXRn86Dpjlj/o0/nMZDHW8TUhokbmfWqxuREAGq0f0Q
- h8fIuRQsHckYfVA6ccBJYFKcN1ySMGGsz7Ql4RiTf5L545R6MLYX+pZtPJDJGJ6hGiaf
- jWA7zFz0nN15PaHEBQzmtpiRyCbrSh3+VX6NaqayIwRqP22oY4A+AvA8qstrG9OjyFIk
- b1qw==
+ bh=dv4Xn4Vjg/JRg8HjtEdPuYFR8hLkbT20nM0P57wSYQ4=;
+ b=eY7o2nWQ48aoxeEv8bjbptYQDLQ8MqOSk8hejv0oOxGwdNh+iGgW7OAuuhcgnG9Ata
+ uPhorH/YtLZh57GIIACPyDZn/yAQVzfKdzM8jafbG70KkWQAEddF6XzUtaf94J5Cap4E
+ 6CTMVHWEa+gkacsNksYAfA7/yBvecv6PcszNUy2IDhDbfkEoKFhvEfplZZ2rLrV7LcmH
+ jKltziIi/2qiZP8OKWtxKCQjl/qCIKkc5Y7nA4NsVxuxXAJzs+npgr/tFDeMYWlLQL/t
+ M2LJrrKQJEmrh7AWeD6sGjc42a0H0M/qdvDXoAL02e74SlnwtKL9s4nYtp/9wdt1t90O
+ J1BA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712232269; x=1712837069;
+ d=1e100.net; s=20230601; t=1712233139; x=1712837939;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=namCL66X4oR0xq35PvgczgV0Ic4oQ2SP639TUCJR9VA=;
- b=pOGuF5UHZ2swqd+7QTdHA/7GqMemngIaiv5fVzJDB7nChjx4MpWitENKFoIYxDteih
- iKvVRevssDHYGG3uWYbE9NvCnWqJd2tucFpTesSuUHyzwZ2dAFf1jVSsMtRXc3X0ZNQx
- N32l5a5rzhqvnd17H4hhMdjldo4k4hY5EjSVDKqkmX7TtptvBXkP4ddG7gjWVwIX31qc
- iLIG5eJCKu0H90DN6BE9MFLP7lgd68Nn3kkv6KIRCnyOd/E0+YT7qIcwM4QD+08egSaN
- apFUwHtswjhqqHnKaoFd0T5x0VMnXG61stlqdbw2GRmHdX+LezTpFqyUaGP++AXLBWzA
- eH1w==
+ bh=dv4Xn4Vjg/JRg8HjtEdPuYFR8hLkbT20nM0P57wSYQ4=;
+ b=w3lymnJhts7pEpFNo4tVeOJJFpS6KkacYPG63m/5ZtUMEtecUBAaDUgCAyfcdtJi7d
+ z/VI6yPTDnrHU9RiMgbj/0Rb3yb6h6FEgzMzEjIgF0EwswzxVi2ZCZd/CLN+4NaCVAN4
+ /Zp2KbqJhn3OIKgZN/EAHhjLrHSudm4vpzOs5waeDws1UbSbbNACBu8BTcT/Jtlsu/ZM
+ vv4j7NDPChgMv/GpFoHfupJec549OTuQKslxZZJo0cgTuUwVmIjynm50koTtNO9lp6Vl
+ AbHfzKEIVuwIaFpA4OkxU526cGzN+5v3f8ECWuoL1RvKg2gSHznCzaDRFjAuZq/HXL1H
+ hN6g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXDR/2eBvRA8om+8ITISJZgiO6jEsdc84j3UUMbtZXlLqOYVivh49pcahvm6lkWrgkmzi+QVNei6bbBarB7ciKWQPQTyghDMrOtk7dSuA==
-X-Gm-Message-State: AOJu0YycdGI9Xc0S3CEu8JJDTd11YfzDCBpB3LkULWpHZQ8UPiQpbRH7
- aikCbR017ZojChMmnuVJEBVb3XpNzbpCS3UWNKIAXkerEobgwmcB
-X-Google-Smtp-Source: AGHT+IFRbSvJFnLs0mjjozv4GJcO9kAWzeIWWc8yw8ZP9DMsOc+T98XyWurTetv55dYmqQpQyjyfTQ==
-X-Received: by 2002:a05:600c:c6:b0:413:f4d1:199e with SMTP id
- u6-20020a05600c00c600b00413f4d1199emr2096435wmm.31.1712232269173; 
- Thu, 04 Apr 2024 05:04:29 -0700 (PDT)
+ AJvYcCUEufEwiT2xoeRFN8IiyrjaG2cmDT+eicOIeMZkJzXDA7ZaTca2D/2V450vuXI6Z7qzQo7KtkWBE4cYeJLQN/m28ES2FyRJxUjnNsmj0Q==
+X-Gm-Message-State: AOJu0YxShrVD8MtckW5U6keeYLfLHX5jPKZ78YrItLXnpnXAb67INS5K
+ 4swcSeRXBFzdSscqEPUZHifvoDCKznAoXaw8rachAurvktngB9522tKlF4sxAFc=
+X-Google-Smtp-Source: AGHT+IFfjqE8fCIQM0gxJgkcPu9adLJuyWLVz+sRAQAmM10k/8DxfaP4yO/e9ptYNJS8lOOXG6YFcQ==
+X-Received: by 2002:a05:600c:4188:b0:414:726:87d9 with SMTP id
+ p8-20020a05600c418800b00414072687d9mr2067650wmh.12.1712233139451; 
+ Thu, 04 Apr 2024 05:18:59 -0700 (PDT)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- e21-20020a05600c4e5500b0041629a68b12sm2318928wmq.25.2024.04.04.05.04.27
+ fc7-20020a05600c524700b004156b689edfsm2540040wmb.33.2024.04.04.05.18.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Apr 2024 05:04:28 -0700 (PDT)
-Message-ID: <ed22e5f9-6197-4ef2-af25-b5ec81fb35b4@gmail.com>
-Date: Thu, 4 Apr 2024 14:04:27 +0200
+ Thu, 04 Apr 2024 05:18:59 -0700 (PDT)
+Message-ID: <971bc7db-dec4-420c-bcf8-3c2bd8287d1f@gmail.com>
+Date: Thu, 4 Apr 2024 14:18:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Bypass asd if display hw is not available
-To: Hawking Zhang <Hawking.Zhang@amd.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
-References: <20240329094913.32185-1-Hawking.Zhang@amd.com>
+Subject: Re: [PATCH] drm/radeon: silence UBSAN warning
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20240323213901.2638700-1-alexander.deucher@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240329094913.32185-1-Hawking.Zhang@amd.com>
+In-Reply-To: <20240323213901.2638700-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,39 +82,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 29.03.24 um 10:49 schrieb Hawking Zhang:
-> ASD is not needed by headless GPU.
-
-Oh, that's actually not correct.
-
-We have some hw workarounds in the ASD firmware which are necessary even 
-if the actual functionality of the fw isn't needed.
-
-Only when the fw binary isn't provided at all we should skip this.
-
-Regards,
-Christian.
-
+Am 23.03.24 um 22:39 schrieb Alex Deucher:
+> Convert a variable sized array from [1] to [].
 >
-> Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+Acked-by: Christian König <christian.koenig@amd.com>
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 5 +++++
->   1 file changed, 5 insertions(+)
+>   drivers/gpu/drm/radeon/pptable.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index 94b310fdb719d..063203865bbe2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -1053,6 +1053,11 @@ static int psp_asd_initialize(struct psp_context *psp)
->   	if (amdgpu_sriov_vf(psp->adev) || !psp->asd_context.bin_desc.size_bytes)
->   		return 0;
+> diff --git a/drivers/gpu/drm/radeon/pptable.h b/drivers/gpu/drm/radeon/pptable.h
+> index 94947229888b..a7f9553b648b 100644
+> --- a/drivers/gpu/drm/radeon/pptable.h
+> +++ b/drivers/gpu/drm/radeon/pptable.h
+> @@ -432,7 +432,7 @@ typedef struct _ATOM_PPLIB_STATE_V2
+>         /**
+>         * Driver will read the first ucNumDPMLevels in this array
+>         */
+> -      UCHAR clockInfoIndex[1];
+> +      UCHAR clockInfoIndex[];
+>   } ATOM_PPLIB_STATE_V2;
 >   
-> +	/* bypass asd if display hardware is not available */
-> +	if (!amdgpu_device_has_display_hardware(psp->adev) &&
-> +	    amdgpu_ip_version(adev, MP0_HWIP, 0) >= IP_VERSION(13, 0, 10))
-> +		return 0;
-> +
->   	psp->asd_context.mem_context.shared_mc_addr  = 0;
->   	psp->asd_context.mem_context.shared_mem_size = PSP_ASD_SHARED_MEM_SIZE;
->   	psp->asd_context.ta_load_type                = GFX_CMD_ID_LOAD_ASD;
+>   typedef struct _StateArray{
 
