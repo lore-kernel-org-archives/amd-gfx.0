@@ -4,61 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A7A5CD1284
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Apr 2024 10:31:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA30DCD1284
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Apr 2024 12:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6982111B37C;
-	Thu,  4 Apr 2024 10:31:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19AE211B52C;
+	Thu,  4 Apr 2024 12:04:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="enc6td2/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jVCPnnOL";
 	dkim-atps=neutral
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6B8EB112D4B;
- Wed,  3 Apr 2024 16:44:26 +0000 (UTC)
-Received: from [100.64.216.231] (unknown [20.29.225.195])
- by linux.microsoft.com (Postfix) with ESMTPSA id DEC6420E8CB1;
- Wed,  3 Apr 2024 09:44:25 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com DEC6420E8CB1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1712162666;
- bh=JXwsd2AxoIuTbqYYBsm2eaH2T3RMwYhW+EuWf51ajaI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=enc6td2/9wYk/5AJ75GJ+d2KStC4HCCxos5X3NVTZDD2/oIurKS5e5aSfxG20NTAn
- i6QoaGybHsOcc9F8ukHIPO521Uu8BoKDrrjEMr1X1WvCtk0DqcVkd5bYcJVQCFeQeI
- efLmLz3IHfJYxowLOTc8KrIggtvkr42zcNpYJ/Ys=
-Message-ID: <2d2a22a5-25cf-4b15-904e-7928a92d6ff5@linux.microsoft.com>
-Date: Wed, 3 Apr 2024 09:44:24 -0700
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36D6911B52C
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Apr 2024 12:04:31 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4162c11acf7so1442135e9.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Apr 2024 05:04:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1712232269; x=1712837069; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=namCL66X4oR0xq35PvgczgV0Ic4oQ2SP639TUCJR9VA=;
+ b=jVCPnnOLk32zj/iB8Ct28/u7V/UF0LY0AC+aOqoU2wESaGTB/2nHDd3881KZN5Shlm
+ E4ShbyaPOi8sVABnb5Q+vcvS7GiGzY4fbhcbAc06TH2U+aZJY10HJyskIXu1a0h1uOl9
+ 4El61+Ng+bK8T6k1x7VCbtFX1fXRn86Dpjlj/o0/nMZDHW8TUhokbmfWqxuREAGq0f0Q
+ h8fIuRQsHckYfVA6ccBJYFKcN1ySMGGsz7Ql4RiTf5L545R6MLYX+pZtPJDJGJ6hGiaf
+ jWA7zFz0nN15PaHEBQzmtpiRyCbrSh3+VX6NaqayIwRqP22oY4A+AvA8qstrG9OjyFIk
+ b1qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712232269; x=1712837069;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=namCL66X4oR0xq35PvgczgV0Ic4oQ2SP639TUCJR9VA=;
+ b=pOGuF5UHZ2swqd+7QTdHA/7GqMemngIaiv5fVzJDB7nChjx4MpWitENKFoIYxDteih
+ iKvVRevssDHYGG3uWYbE9NvCnWqJd2tucFpTesSuUHyzwZ2dAFf1jVSsMtRXc3X0ZNQx
+ N32l5a5rzhqvnd17H4hhMdjldo4k4hY5EjSVDKqkmX7TtptvBXkP4ddG7gjWVwIX31qc
+ iLIG5eJCKu0H90DN6BE9MFLP7lgd68Nn3kkv6KIRCnyOd/E0+YT7qIcwM4QD+08egSaN
+ apFUwHtswjhqqHnKaoFd0T5x0VMnXG61stlqdbw2GRmHdX+LezTpFqyUaGP++AXLBWzA
+ eH1w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXDR/2eBvRA8om+8ITISJZgiO6jEsdc84j3UUMbtZXlLqOYVivh49pcahvm6lkWrgkmzi+QVNei6bbBarB7ciKWQPQTyghDMrOtk7dSuA==
+X-Gm-Message-State: AOJu0YycdGI9Xc0S3CEu8JJDTd11YfzDCBpB3LkULWpHZQ8UPiQpbRH7
+ aikCbR017ZojChMmnuVJEBVb3XpNzbpCS3UWNKIAXkerEobgwmcB
+X-Google-Smtp-Source: AGHT+IFRbSvJFnLs0mjjozv4GJcO9kAWzeIWWc8yw8ZP9DMsOc+T98XyWurTetv55dYmqQpQyjyfTQ==
+X-Received: by 2002:a05:600c:c6:b0:413:f4d1:199e with SMTP id
+ u6-20020a05600c00c600b00413f4d1199emr2096435wmm.31.1712232269173; 
+ Thu, 04 Apr 2024 05:04:29 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ e21-20020a05600c4e5500b0041629a68b12sm2318928wmq.25.2024.04.04.05.04.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Apr 2024 05:04:28 -0700 (PDT)
+Message-ID: <ed22e5f9-6197-4ef2-af25-b5ec81fb35b4@gmail.com>
+Date: Thu, 4 Apr 2024 14:04:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v0 01/14] IB/hfi1, IB/qib: Make I2C terminology more
- inclusive
-To: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Leon Romanovsky <leon@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
- "open list:HFI1 DRIVER" <linux-rdma@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>,
- "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
- "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
- "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
-References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
- <20240329170038.3863998-2-eahariha@linux.microsoft.com>
- <20240403083025.GT11187@unreal>
- <0214214a-73c4-46b4-a099-189036954aa1@cornelisnetworks.com>
-Content-Language: en-CA
-From: Easwar Hariharan <eahariha@linux.microsoft.com>
-In-Reply-To: <0214214a-73c4-46b4-a099-189036954aa1@cornelisnetworks.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH] drm/amdgpu: Bypass asd if display hw is not available
+To: Hawking Zhang <Hawking.Zhang@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
+References: <20240329094913.32185-1-Hawking.Zhang@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240329094913.32185-1-Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 04 Apr 2024 10:31:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,40 +83,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 4/3/2024 8:54 AM, Dennis Dalessandro wrote:
-> 
-> On 4/3/24 4:30 AM, Leon Romanovsky wrote:
->> On Fri, Mar 29, 2024 at 05:00:25PM +0000, Easwar Hariharan wrote:
->>> I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
->>> with more appropriate terms. Inspired by and following on to Wolfram's series
->>> to fix drivers/i2c[1], fix the terminology where I had a role to play, now that
->>> the approved verbiage exists in the specification.
->>>
->>> Compile tested, no functionality changes intended
->>>
->>> [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
->>>
->>> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
->>> ---
->>>  drivers/infiniband/hw/hfi1/chip.c           |  6 ++--
->>>  drivers/infiniband/hw/hfi1/chip.h           |  2 +-
->>>  drivers/infiniband/hw/hfi1/chip_registers.h |  2 +-
->>>  drivers/infiniband/hw/hfi1/file_ops.c       |  2 +-
->>>  drivers/infiniband/hw/hfi1/firmware.c       | 22 ++++++-------
->>>  drivers/infiniband/hw/hfi1/pcie.c           |  2 +-
->>>  drivers/infiniband/hw/hfi1/qsfp.c           | 36 ++++++++++-----------
->>>  drivers/infiniband/hw/hfi1/user_exp_rcv.c   |  2 +-
->>>  drivers/infiniband/hw/qib/qib_twsi.c        |  6 ++--
->>>  9 files changed, 40 insertions(+), 40 deletions(-)
->>
->> hfi1 and qib work perfectly fine with the current terminology. There is
->> no need to change old code just for the sake of change.
->>
->> Let's drop this patch.
-> 
-> Agreed.
+Am 29.03.24 um 10:49 schrieb Hawking Zhang:
+> ASD is not needed by headless GPU.
 
-Will drop in v1.
+Oh, that's actually not correct.
 
-Thanks,
-Easwar
+We have some hw workarounds in the ASD firmware which are necessary even 
+if the actual functionality of the fw isn't needed.
+
+Only when the fw binary isn't provided at all we should skip this.
+
+Regards,
+Christian.
+
+>
+> Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index 94b310fdb719d..063203865bbe2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -1053,6 +1053,11 @@ static int psp_asd_initialize(struct psp_context *psp)
+>   	if (amdgpu_sriov_vf(psp->adev) || !psp->asd_context.bin_desc.size_bytes)
+>   		return 0;
+>   
+> +	/* bypass asd if display hardware is not available */
+> +	if (!amdgpu_device_has_display_hardware(psp->adev) &&
+> +	    amdgpu_ip_version(adev, MP0_HWIP, 0) >= IP_VERSION(13, 0, 10))
+> +		return 0;
+> +
+>   	psp->asd_context.mem_context.shared_mc_addr  = 0;
+>   	psp->asd_context.mem_context.shared_mem_size = PSP_ASD_SHARED_MEM_SIZE;
+>   	psp->asd_context.ta_load_type                = GFX_CMD_ID_LOAD_ASD;
+
