@@ -4,114 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1281ECD128A
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 06:42:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E8B2CD1292
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 07:46:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3135E112142;
-	Mon,  8 Apr 2024 06:42:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E6E71121DC;
+	Mon,  8 Apr 2024 07:46:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n40rP9Q3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VifUXvR5";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2101.outbound.protection.outlook.com [40.107.223.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 997B9112142
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Apr 2024 06:42:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OIlmrUhycuAlQW1NhcirKj7jivcH6xm2Natb1OnoZHVeCXCeMcqlgb9ZgtwPq7A5y7zsw0WKEGHrhTTcfq2VDrxz8isjXimFasx8nK4+DiXMxZizBtQje09UnHMdU2MaJ1imtxnx+3aHips9jkgN1iD/at4msTjMiFO3NHfF6QnmaxeJPqeaqT4NwgB1oCcLpnEBoU4EQIcvTYucMsTrzzt4ONC511/1uC87pgfUTHkiV8eTz3knguAvSywi1h/fQ/Q1yEjIsYo/MjjokH7bs9K4gNvD512rNRqng/qgPXOBNtf2rud55SB0wC3p7fS2+1QeaEOJJqyX5LOvEFX/KA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2bJmYcFbXM+f+v/CKqrL3Z94vDA86SAhMkTzCTABoTk=;
- b=Nyn/YqnXYHvJ2c6QhzTomwy/X0slpuhUROjL/bD0P8j82V7EdXaSvquVSAX7onQYoOJNj0AYVJM7B2rp3ZGmE4pz9/h0GuDsHlpGtFIzSD4A0AZ3thSKygIykgiEKyIQUmG9so9PJp6U5BHYRBLe5ElmJTtO6u/vPDQb7DDFCQR6SXsEZoS2ETBPnNmTa+nlOcBi82XgySAIXKbWe9NXI0u3HWK8qC1/q2g3cAu9TVT/aA1wwb2FkNvCI+10YXiV/8x1C5K9BpYWNkqetPJXPXIJbTm1/AeniKkzvD5wcpQimfLz9bz+RKLjvUpXEWbpib0esZSyDgDf3QFjriHZag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2bJmYcFbXM+f+v/CKqrL3Z94vDA86SAhMkTzCTABoTk=;
- b=n40rP9Q336Th/MtlpDg6B6e8e/D+9ZNuX5NvbE5+0YjKluindZ6GulBFQvaYE0V6m/VvJ0j/V3Q4uoDrabCt0/tcpI/77gq3W5EbUhi7WMqIS+vh2fFXj/78jSkxsknsmsBXF0dnb/WBLmo13t9G4sY2V7p7J7ZgxJdbFH77ZOg=
-Received: from CH3PR12MB8074.namprd12.prod.outlook.com (2603:10b6:610:12b::9)
- by MN2PR12MB4222.namprd12.prod.outlook.com (2603:10b6:208:19a::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Mon, 8 Apr
- 2024 06:42:16 +0000
-Received: from CH3PR12MB8074.namprd12.prod.outlook.com
- ([fe80::7224:9db3:7279:9439]) by CH3PR12MB8074.namprd12.prod.outlook.com
- ([fe80::7224:9db3:7279:9439%7]) with mapi id 15.20.7409.053; Mon, 8 Apr 2024
- 06:42:16 +0000
-From: "Huang, Tim" <Tim.Huang@amd.com>
-To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Ma, Li" <Li.Ma@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: differentiate exteranl rev id for gfx 11.5.0
-Thread-Topic: [PATCH] drm/amdgpu: differentiate exteranl rev id for gfx 11.5.0
-Thread-Index: AQHaiPVdpwiifSCel0K0m5KclSzacrFd7EzA
-Date: Mon, 8 Apr 2024 06:42:16 +0000
-Message-ID: <CH3PR12MB80747285EB10724986FAA061F6002@CH3PR12MB8074.namprd12.prod.outlook.com>
-References: <20240407141017.3831131-1-yifan1.zhang@amd.com>
-In-Reply-To: <20240407141017.3831131-1-yifan1.zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=5d4e85fc-1fa4-4359-8a98-7106a5218e9e;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-04-08T06:38:47Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH3PR12MB8074:EE_|MN2PR12MB4222:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: pUCCzSCyLuK1IOsLwH7jUr2/6hRjb4hNGGZEL36JiKbBc2GpCMW7qLoeEM9AlGpj+obviVewZWabAgHq1tWkFV9rkGrlegh5rlUqjXvSaU5GmE8kcJsLXJP1pQslstxUi0bwgh/tsUs/wiHfcIAuTUuYuCUIyRrXrARaMBYAiqZia/DUhQSsK3KM3PXIgFT5liCBcF8r/A8sGbP+oee5zM/zNLp/Q2loc4Y2Py8napu8ntbndjLsaIwXSXBVobaEBqkZvCq2+HEfcyP91H0jGbeTJbPMh2JE+Za8j+7KA5mvyhbpm/81zAHZd/qUckL8rvjnsOzhtrx6v+Bhk9fSzWUhusnNxDZ+iDL7/RnZ4Va1GqmQBAEd/+2tV/u92iRkHDTAJ50pIAehX8xSuUVRuHw2RRU9z/SVp+ta7Rfexcop/0aAdLa2soc/djKBtZa5GrmP5xmiPj6KeD16nJ9iiWLWwpjHnwpJNmCbOvOsvtreTFqOXegiWr7hk/Ts2xLiJzN+SvPKZBsLbQg6qMNYQfMsLIxQTIXbGPkvk4pLDKptt8oMe2/0WMNLDxde47FI5BoVQxZoxTFp6xtMK7BjP9Qv1fvxRCoUWPQ3rh33hX0RW+WHXiCnfJu5Ia6mojN6dxwD7J9Lk6MLWblObp33qdEWhZXvi6dSoRBTNMi5zv8=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH3PR12MB8074.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mYUX512qY+oqJpQNXkEDmFXtvqSuJz1vpIM++gS6/7t1mjSCchl/AhKdg5NX?=
- =?us-ascii?Q?SFhnvDZIBfPr6qZU8gmANPQfRAK1fOKnMqjE5bzIht91M2G4odcKiS48mKDI?=
- =?us-ascii?Q?Pp+KvAoZZzepv3jaFZLefDFn0c0w4i1PILUm3+sFOobXyzCoDJoZ4Jniinfi?=
- =?us-ascii?Q?JWa0DTBn43euM0EWohq1IG25tZGkwRFwEW4NxbJ5Br0Z/Qwb2nL+P0b5Djoz?=
- =?us-ascii?Q?HoWd+BFistEeGd8gOjxj6iYqAgKPRK8tvQnZ+r+zw8NiQzEsQYg22K+y7KBm?=
- =?us-ascii?Q?c1WEzDepw5iS01WFVEwruh9xpEBFV9ASaZx5EHIwA2kL+bFoF5WbCX7CVwLf?=
- =?us-ascii?Q?Ia5t2BAXHKFARHl6chx3OB9W86dO4seOoOtgEPz8WoDxLXhu1QU/WwKkOLe9?=
- =?us-ascii?Q?qgOlwcCT37B8NF0ltjMCzbadlSx0LASmtW4LwFKwNC/Sa+eHqHKxeu5QRIQq?=
- =?us-ascii?Q?BF+9IgjUI6uAFhh3GZPrnEfRAb3d66pxxzoy04jotL/lXx4qKf/7A87X9Ls6?=
- =?us-ascii?Q?2jp1nqtqmbqWaknyzI21no6oXEYowg9puZnwrjzeQ9bZR5EQO0C1HwAKkBEM?=
- =?us-ascii?Q?cmMNBmH2kIfd5aLcaxYmC74Yy3g9QSk/CM6+d0gpwzSgLteofVIWxIZIzcM5?=
- =?us-ascii?Q?0D+J7bRdKPM1bVz+GGfGkBHQeB4Ng2A1P1w5RjovlwBsM2GNU2Zc6K7D4H9m?=
- =?us-ascii?Q?ZuNUGuN6E8isxQQwgIbFGtNHtfuhVTPwnOs6nj3KRAbGX1bT4L12lMPm7RbM?=
- =?us-ascii?Q?W2ieR0GEmsZxmZ+468ylyA1l98JGC8WrdnrO8SmUz0rZ2ogel8svCIYTDa9r?=
- =?us-ascii?Q?WVj/GhAdEBWYIkCK0V+PulwpVXZV1gWPtKOF+4WnKiiFt0cUL0NY/z1EFprv?=
- =?us-ascii?Q?DQ65kidJMStiIgj+oMN8NPRxjUDzFJmdGELKJfw0dYWiY+A9M85ZlbNXlUWt?=
- =?us-ascii?Q?/jbngnLtxoCIWF3j3d5D16vFQeO9NcdLuLrcL0ZbkK1JDBEYHsIKwioxd9G9?=
- =?us-ascii?Q?KKT7+l/ezCEyjnggzzXvLPEj7FEe6CTuDfK4CM59fCDDmWAN7oEw6ky3aNsL?=
- =?us-ascii?Q?AczV1lwSvCV04B+Fxk7f+5Haxcs7p84tB7ck6pFA0gGXpNAbjqb9NfL2MLOO?=
- =?us-ascii?Q?zLA3CgKdmZC2/JkyhZPDJo3i+vd0RWDbfKa5wnKM24g9j4KhevcNY+j4Vr3v?=
- =?us-ascii?Q?AGFGFq5FpBaIxyLg64kqkZALuGQRjyRdyF96yYT/7rPkUtnWOSJIkYt3Qbkj?=
- =?us-ascii?Q?Q6iifhAWy/uxXc7cKxwvXtvwEg4F7SLubEmA/WRPzpPCIwXkBV5nlw+p6Lfv?=
- =?us-ascii?Q?sDsgm/YuN+3Z3JZTeaSiqy1wRjraW8ybnwR/fk173yqmRayKikUZ65AxxXy2?=
- =?us-ascii?Q?rgnjaIw3QbCYr+ADIUPBdvX1+t7iqc5tIt6I2Zx9Kbf4GJ9Wqh7XAmQUD40G?=
- =?us-ascii?Q?W2hA3HB+OMkGaVfzZrgrid6OnwyczDrVCjuwjw7VIIUmQixgqt+trWLnx4G+?=
- =?us-ascii?Q?PDVGWE5tjWxMKADsulJ6yO0r4zh80rpai3YyDBL6BizA55Iy283SBda6bf5y?=
- =?us-ascii?Q?+9Q/MXldmHxTzoFBlFc=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93AC710EB8F;
+ Fri,  5 Apr 2024 15:41:15 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4162f7ea50cso6399805e9.3; 
+ Fri, 05 Apr 2024 08:41:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1712331674; x=1712936474; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vWae/TQVR4lDMRxTHKpFB8Vkf/PIFo/hlHy1KJVttno=;
+ b=VifUXvR5xab+VNxBPzVH1apw0GqirSUqXD0sW3jSflJBrW/2p25OiPqBq1PbwzARcS
+ Ymc3xY1B4epIghvMYz0JnoF3GOdI4dBc94WOnwcLClR8Q1TgBwyByIxv+gcDMqirJs4w
+ 0pgb/hI4/xotFmFfedNgpr9TuZ6kDxeQz1JZ9fCFGTZzwsw2cah14pJWttC48nSMNIHl
+ FRgK5n6W/Cec1MOAciuJIsjKp+qB7pWSqmQKocVI0s7smR5delKR9OoQFYR+6159yOBo
+ 8lIBXTU13JXaesECFVWQUq1nBOLT5rpu20GP23nPWnCIldT3XZd7+OqGdfi2wpIQynpb
+ df4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712331674; x=1712936474;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=vWae/TQVR4lDMRxTHKpFB8Vkf/PIFo/hlHy1KJVttno=;
+ b=h60hl/zBR5uFjL1ebOYuYURoA8NB5+0fW/s+Y5XMnNkKyqhgzxv8w4Qeg/1qMSrHU7
+ HT6/JuLx0bNpHAgr10dG2gNbi2wV1SHnrPogSrI1xhV1Ay9M75y3LLMByqiW4uITXBTI
+ FlQTmIkvTrcS4ibTUxR/H+2vl+916NT7celmRYZ6ab3AKBmnSnahiTJD2wiXAbZCocIM
+ jMuW3OrVecBoX6xm3SCwaZIEr5tecoaJQQC9RFhtTJQcIvcLjUN/nf/UCuF3HZJSPWP9
+ OwfN46qUeTVPzbhP8yTdyT6jYNVrkoM1KHL9t8su1er0h49/IOqOB70B3XYcEBq+2mZp
+ r1qQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWudLql74iYGov2MbtDDP5IscQfKF32dEKNBDhc4qfDg5wd4t5u2pulf5VVBq96TbXYcKi4GtC0GYSLm6/awharU4ey9CeEQOptTTUyPtS3GDudmx6L91izC7BctwjrneAJltFSG9aUgR4zO5CFCJKnUHdl2gRbLXiprRIL+y66GFJrw1xjbhE5cmi1xpkx94TgEP3vKLkWtAhJ9GXomDAL6/5j2/pdpyvH/9vdyeLuHz8UFTw/j+zQ3kQrhILQVVDfKVMfBMDGF6xaj70Ymq/WLJlq5lVxDB2vllW5miJCUvbCDwPI60W3vLfiAJExzYhZhjl3Xos2sMXxfMbIJ/QTcAcUcYI68cXpIr8=
+X-Gm-Message-State: AOJu0YyHJwq2DT2IFV+MfrA6O5v/mo9EbIP7oj8EQugjUizIKqDxcp0f
+ 3omusJV61gqUP1SHVI0YTTLAoow9HSB4eb8dHq3mydAFDYRS/GqehUMF5kqhZwN6UHPIqEauFuQ
+ MzyuSbUHpTvajRExWRLd0welb/Fo=
+X-Google-Smtp-Source: AGHT+IEH9WiGdwQmFDR3UUpRkcaEXiGYsc+rbm05qeGkTnAd0VuAIEH5g2EodOENEkeRm+TdhthkOlf3f027HucPkCY=
+X-Received: by 2002:a05:600c:19cd:b0:416:2bef:ce81 with SMTP id
+ u13-20020a05600c19cd00b004162befce81mr1484706wmq.1.1712331657141; Fri, 05 Apr
+ 2024 08:40:57 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8074.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: adceca72-beee-4ae4-f846-08dc579707d8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Apr 2024 06:42:16.2849 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TPWqpa5nKOQeqeEm3laUQjObm+f7zdC4asSArvS0dadQCv453UNmWxmMlml8lELnirOK6EYOzcABVfn9HEGZSg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4222
+References: <202404052349.lQch9J7G-lkp@intel.com>
+In-Reply-To: <202404052349.lQch9J7G-lkp@intel.com>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Fri, 5 Apr 2024 08:40:45 -0700
+Message-ID: <CAADnVQJXq1bSe20FgBN=BL1E5d8qOfLv_Ettq+724h5QfRuuKg@mail.gmail.com>
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ 8568bb2ccc278f344e6ac44af6ed010a90aa88dc
+To: kernel test robot <lkp@intel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Linux Memory Management List <linux-mm@kvack.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ bpf <bpf@vger.kernel.org>, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, lima@lists.freedesktop.org, 
+ linux-arch <linux-arch@vger.kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ linux-pwm@vger.kernel.org, Linux-Renesas <linux-renesas-soc@vger.kernel.org>, 
+ nouveau@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 08 Apr 2024 07:46:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,46 +88,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On Fri, Apr 5, 2024 at 8:37=E2=80=AFAM kernel test robot <lkp@intel.com> wr=
+ote:
+>
+> tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-n=
+ext.git master
+> branch HEAD: 8568bb2ccc278f344e6ac44af6ed010a90aa88dc  Add linux-next spe=
+cific files for 20240405
+>
+> Error/Warning reports:
+>
+> https://lore.kernel.org/oe-kbuild-all/202404051333.7und7PPW-lkp@intel.com
+> https://lore.kernel.org/oe-kbuild-all/202404051423.eiaXLwhX-lkp@intel.com
+> https://lore.kernel.org/oe-kbuild-all/202404051659.aawUkGUQ-lkp@intel.com
+> https://lore.kernel.org/oe-kbuild-all/202404052022.Cwf2ilBp-lkp@intel.com
+>
+> Error/Warning: (recently discovered and may have been fixed)
+>
+> aarch64-linux-ld: kernel/bpf/verifier.c:20223:(.text+0xdbb4): undefined r=
+eference to `__SCK__perf_snapshot_branch_stack'
+> aarch64-linux-ld: verifier.c:(.text+0x17c3c): undefined reference to `__S=
+CK__perf_snapshot_branch_stack'
+> drivers/i2c/busses/i2c-i801.c:1407:(.text+0x1d2ef4a): undefined reference=
+ to `i2c_root_adapter'
+> kernel/bpf/verifier.c:20223:(.text+0xdba4): dangerous relocation: unsuppo=
+rted relocation
+> loongarch64-linux-ld: kernel/bpf/verifier.c:20223:(.text+0xa818): undefin=
+ed reference to `__SCK__perf_snapshot_branch_stack'
+> loongarch64-linux-ld: verifier.c:(.text+0xa964): undefined reference to `=
+__SCK__perf_snapshot_branch_stack'
+> mips64el-linux-ld: verifier.c:(.text.do_misc_fixups+0xd9c): undefined ref=
+erence to `__SCK__perf_snapshot_branch_stack'
+> riscv32-linux-ld: section .data LMA [00369000,00907967] overlaps section =
+.text LMA [0007899c,01a6a6af]
+> s390-linux-ld: verifier.c:(.text+0x13038): undefined reference to `__SCK_=
+_perf_snapshot_branch_stack'
+> verifier.c:(.text+0x17c14): relocation truncated to fit: R_AARCH64_ADR_PR=
+EL_PG_HI21 against undefined symbol `__SCK__perf_snapshot_branch_stack'
+> verifier.c:(.text+0xa960): undefined reference to `__SCK__perf_snapshot_b=
+ranch_stack'
+> verifier.c:(.text+0xadd0): dangerous relocation: unsupported relocation
+> verifier.c:(.text.do_misc_fixups+0xd98): undefined reference to `__SCK__p=
+erf_snapshot_branch_stack'
 
-Hi Yifan,
-
------Original Message-----
-From: Zhang, Yifan <Yifan1.Zhang@amd.com>
-Sent: Sunday, April 7, 2024 10:10 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Tim <Tim.Huang@a=
-md.com>; Ma, Li <Li.Ma@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: differentiate exteranl rev id for gfx 11.5.0
-
-> This patch to differentiate exteranl rev id for gfx 11.5.0.
-
-With the typo " exteranl " fixed, this patch is
-
-Reviewed-by: Tim Huang <Tim.Huang@amd.com>
-
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/soc21.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgp=
-u/soc21.c
-index abe319b0f063..43ca63fe85ac 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -720,7 +720,10 @@ static int soc21_common_early_init(void *handle)
-                        AMD_PG_SUPPORT_VCN |
-                        AMD_PG_SUPPORT_JPEG |
-                        AMD_PG_SUPPORT_GFX_PG;
--               adev->external_rev_id =3D adev->rev_id + 0x1;
-+               if (adev->rev_id =3D=3D 0)
-+                       adev->external_rev_id =3D 0x1;
-+               else
-+                       adev->external_rev_id =3D adev->rev_id + 0x10;
-                break;
-        case IP_VERSION(11, 5, 1):
-                adev->cg_flags =3D
---
-2.37.3
-
+Fixed in bpf-next with commit:
+https://lore.kernel.org/all/20240405142637.577046-1-arnd@kernel.org/
