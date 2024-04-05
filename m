@@ -4,58 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39B83CD129A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 873A7CD129C
 	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 07:46:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 425371121E5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E03F1121E6;
 	Mon,  8 Apr 2024 07:46:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="DvATwmVZ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="kPvxaac6";
 	dkim-atps=neutral
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7EBB410E782;
- Fri,  5 Apr 2024 16:30:15 +0000 (UTC)
-Received: from [100.64.217.16] (unknown [20.29.225.195])
- by linux.microsoft.com (Postfix) with ESMTPSA id 6099820E98B9;
- Fri,  5 Apr 2024 09:30:14 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6099820E98B9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1712334614;
- bh=w130JaeBPpS+L9M4QU8ZQXXwRcANcq5ZUO69X1bKRmU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=DvATwmVZCnu2mWeOkHNjSOn3NP+uGroDac1iSpu2wd+v3d//PQw85B2Bdx0Po6Lvd
- ZjMGVuaZ73P4XTz+rG7byN35W0KUrpl5gZ3alXfZ8frHGqOGX4PxPO84VA9eudZIJk
- 732o/mFjv1LuWV0m4a0o7Gs9Fy/VV5ERgAzWEo3E=
-Message-ID: <e6b04b76-c695-47b4-9432-f2316e174585@linux.microsoft.com>
-Date: Fri, 5 Apr 2024 09:30:13 -0700
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 083EE113AB9
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Apr 2024 10:10:15 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-516cbf3fd3dso2135387e87.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 05 Apr 2024 03:10:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1712311814; x=1712916614; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=pMVxpj5jrCWY4wGNABtVWwiGTGunJDyEHWKpz3twrCI=;
+ b=kPvxaac6um2RsgR20vDH7jlByWlpp8L65SUHvFRvGSkB5m+iptwlvVcSr3oLDeJuUY
+ 8cg3N+K1w2X5N/yqblryNBOcNg5XQp1GF/XplvgmSL7HN6ZnkqjaCkCvqCKFmxHEPadI
+ v71047ndROVWNxaiHdGrTnKDPAXIMX8gBSc2+GdX1OuLDFd5pKa/VPlBLh2Rv0YD/nyP
+ OPUG+SiEvKCSf1DfuFy5ZBIq6qpx4PsolEd6IgVA4EjTvksQHq+g8ZZaAWFtxe78oePJ
+ j0OIn0R4hseKMu33tEBA3r4sETt+oveKbTR0NZyQQMXwlNzGUgafESCYZbxkO36N+ChO
+ jZ3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712311814; x=1712916614;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=pMVxpj5jrCWY4wGNABtVWwiGTGunJDyEHWKpz3twrCI=;
+ b=BYzqCvdcv8+sHo3oXb7qFz1s5nnwxn2nLnbWG4YffTC1rBW6MDFxY1cDYGhtDjpf8g
+ Wge/B3RQdL3Hd+GfgcNsmN1+DUkbW+uBTkfjmehH2cVTqsT3hn30HhgxbjyqQXx6cBHo
+ dec8eXgiHBV34ff5lvw8EqVzIAcTd6cq3eD6nDOtBgqXprsTu/kFuuK6N8Y31ABgZYY0
+ XDsAInLhoOg8p3BNLOMv9SUkG5EJEVO0/4Qi09EHySgYFwBdMZe2LFfzI7ij0Ca+u3/k
+ G9FoSeg/oUdxxKmEMU3JGIGiEE2MaYfuYsKJ5gR+CA7cKmHgFzBw5aUKVcn9hgsPOGLs
+ J3Tg==
+X-Gm-Message-State: AOJu0YxGTbB/r50UKorDID8L7DdEBWcNT4bAn+l4sE9js+JO6YnVsTrd
+ lDA7CSejy3mm2+4dxslltjh90+HapiqnGn0x9RBn+3GeISU+XhsAvGDmraMh5XZs9pE3f+yS8w/
+ O
+X-Google-Smtp-Source: AGHT+IF8onUpvsNtjzwoZWQTlEbe6Ezvt1hwQZRyGt0118r/S2n4JBcqJBoX7auLjlWuvR9oMhCLoQ==
+X-Received: by 2002:a19:2d5b:0:b0:515:920e:eedb with SMTP id
+ t27-20020a192d5b000000b00515920eeedbmr501937lft.39.1712311813673; 
+ Fri, 05 Apr 2024 03:10:13 -0700 (PDT)
+Received: from localhost ([102.222.70.76]) by smtp.gmail.com with ESMTPSA id
+ kn6-20020a170906aa4600b00a4e238e46edsm655856ejb.223.2024.04.05.03.10.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Apr 2024 03:10:13 -0700 (PDT)
+Date: Fri, 5 Apr 2024 13:10:03 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: bhawanpreet.lakha@amd.com
+Cc: amd-gfx@lists.freedesktop.org
+Subject: [bug report] drm/amd/display: Allow Z8 when stutter threshold is not
+ met
+Message-ID: <b4d8af9b-1014-4682-a573-15847b81ef49@moroto.mountain>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v0 13/14] drm/nouveau: Make I2C terminology more inclusive
-To: Danilo Krummrich <dakr@redhat.com>, Karol Herbst <kherbst@redhat.com>,
- Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <dri-devel@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>,
- "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
- "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
- "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
-References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
- <20240329170038.3863998-14-eahariha@linux.microsoft.com>
- <4dc6fb16-3d85-4a7f-85f9-ed249da0df1a@redhat.com>
-Content-Language: en-CA
-From: Easwar Hariharan <eahariha@linux.microsoft.com>
-In-Reply-To: <4dc6fb16-3d85-4a7f-85f9-ed249da0df1a@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 08 Apr 2024 07:46:22 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Mon, 08 Apr 2024 07:46:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,59 +77,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 4/5/2024 9:15 AM, Danilo Krummrich wrote:
-> Hi Easwar,
-> 
-> On 3/29/24 18:00, Easwar Hariharan wrote:
->> I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
->> with more appropriate terms. Inspired by and following on to Wolfram's
->> series to fix drivers/i2c/[1], fix the terminology for users of
->> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
->> in the specification.
->>
->> Compile tested, no functionality changes intended
->>
->> [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
->>
->> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
->> ---
->>   drivers/gpu/drm/nouveau/dispnv04/dfp.c             | 14 +++++++-------
->>   .../gpu/drm/nouveau/include/nvkm/subdev/bios/dcb.h |  2 +-
->>   drivers/gpu/drm/nouveau/nouveau_bios.c             |  4 ++--
->>   3 files changed, 10 insertions(+), 10 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/nouveau/dispnv04/dfp.c b/drivers/gpu/drm/nouveau/dispnv04/dfp.c
->> index d5b129dc623b..65b791006b19 100644
->> --- a/drivers/gpu/drm/nouveau/dispnv04/dfp.c
->> +++ b/drivers/gpu/drm/nouveau/dispnv04/dfp.c
->> @@ -149,7 +149,7 @@ void nv04_dfp_update_fp_control(struct drm_encoder *encoder, int mode)
->>       }
->>   }
->>   -static struct drm_encoder *get_tmds_slave(struct drm_encoder *encoder)
->> +static struct drm_encoder *get_tmds_client(struct drm_encoder *encoder)
->>   {
->>       struct drm_device *dev = encoder->dev;
->>       struct dcb_output *dcb = nouveau_encoder(encoder)->dcb;
->> @@ -172,7 +172,7 @@ static struct drm_encoder *get_tmds_slave(struct drm_encoder *encoder)
->>           struct dcb_output *slave_dcb = nouveau_encoder(slave)->dcb;
->>             if (slave_dcb->type == DCB_OUTPUT_TMDS && get_slave_funcs(slave) &&
->> -            slave_dcb->tmdsconf.slave_addr == dcb->tmdsconf.slave_addr)
->> +            slave_dcb->tmdsconf.client_addr == dcb->tmdsconf.client_addr)
->>               return slave;
-> 
-> While, personally, I think master/slave was well suiting for the device relationship
-> on those busses, I think that if we change it up to conform with the change in
-> specification, we should make sure to update drivers consistently.
-> 
-> We should make sure to also change the names of the sourrounding structures and variable
-> names, otherwise we just make this code harder to read.
-> 
-> - Danilo
-> 
+Hello Bhawanpreet Lakha,
 
-Thanks for the review, and for the appetite to go further! So we are on the same page, you would prefer
-renaming to controller/target like the feedback on other drm drivers (i915, gma500, radeon)?
+This is a semi-automatic email about new static checker warnings.
 
-Thanks,
-Easwar
+Commit e9a09a198bfe ("drm/amd/display: Allow Z8 when stutter
+threshold is not met") from Mar 13, 2024, leads to the following
+Smatch complaint:
 
+    drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/dcn20_fpu.c:1088 decide_zstate_support()
+    warn: variable dereferenced before check 'link' (see line 1087)
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/dcn20_fpu.c
+  1086			bool allow_z8 = context->bw_ctx.dml.vba.StutterPeriod > (double)minmum_z8_residency;
+  1087			bool is_pwrseq0 = link->link_index == 0;
+                                          ^^^^^^^^^^^^^^^^
+The existing code assumes link isn't NULL
+
+  1088			bool is_psr = (link && (link->psr_settings.psr_version == DC_PSR_VERSION_1 ||
+                                       ^^^^
+  1089							link->psr_settings.psr_version == DC_PSR_VERSION_SU_1) && !link->panel_config.psr.disable_psr);
+  1090			bool is_replay = link && link->replay_settings.replay_feature_enabled;
+                                         ^^^^
+but the patch assumes link can be NULL.  Somebody is wrong.
+
+regards,
+dan carpenter
