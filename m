@@ -4,75 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E8B2CD1292
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 07:46:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C917CD1296
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 07:46:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E6E71121DC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACA771121E3;
 	Mon,  8 Apr 2024 07:46:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VifUXvR5";
+	dkim=pass (2048-bit key; secure) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="TbhXudkY";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93AC710EB8F;
- Fri,  5 Apr 2024 15:41:15 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-4162f7ea50cso6399805e9.3; 
- Fri, 05 Apr 2024 08:41:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1712331674; x=1712936474; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vWae/TQVR4lDMRxTHKpFB8Vkf/PIFo/hlHy1KJVttno=;
- b=VifUXvR5xab+VNxBPzVH1apw0GqirSUqXD0sW3jSflJBrW/2p25OiPqBq1PbwzARcS
- Ymc3xY1B4epIghvMYz0JnoF3GOdI4dBc94WOnwcLClR8Q1TgBwyByIxv+gcDMqirJs4w
- 0pgb/hI4/xotFmFfedNgpr9TuZ6kDxeQz1JZ9fCFGTZzwsw2cah14pJWttC48nSMNIHl
- FRgK5n6W/Cec1MOAciuJIsjKp+qB7pWSqmQKocVI0s7smR5delKR9OoQFYR+6159yOBo
- 8lIBXTU13JXaesECFVWQUq1nBOLT5rpu20GP23nPWnCIldT3XZd7+OqGdfi2wpIQynpb
- df4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712331674; x=1712936474;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=vWae/TQVR4lDMRxTHKpFB8Vkf/PIFo/hlHy1KJVttno=;
- b=h60hl/zBR5uFjL1ebOYuYURoA8NB5+0fW/s+Y5XMnNkKyqhgzxv8w4Qeg/1qMSrHU7
- HT6/JuLx0bNpHAgr10dG2gNbi2wV1SHnrPogSrI1xhV1Ay9M75y3LLMByqiW4uITXBTI
- FlQTmIkvTrcS4ibTUxR/H+2vl+916NT7celmRYZ6ab3AKBmnSnahiTJD2wiXAbZCocIM
- jMuW3OrVecBoX6xm3SCwaZIEr5tecoaJQQC9RFhtTJQcIvcLjUN/nf/UCuF3HZJSPWP9
- OwfN46qUeTVPzbhP8yTdyT6jYNVrkoM1KHL9t8su1er0h49/IOqOB70B3XYcEBq+2mZp
- r1qQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWudLql74iYGov2MbtDDP5IscQfKF32dEKNBDhc4qfDg5wd4t5u2pulf5VVBq96TbXYcKi4GtC0GYSLm6/awharU4ey9CeEQOptTTUyPtS3GDudmx6L91izC7BctwjrneAJltFSG9aUgR4zO5CFCJKnUHdl2gRbLXiprRIL+y66GFJrw1xjbhE5cmi1xpkx94TgEP3vKLkWtAhJ9GXomDAL6/5j2/pdpyvH/9vdyeLuHz8UFTw/j+zQ3kQrhILQVVDfKVMfBMDGF6xaj70Ymq/WLJlq5lVxDB2vllW5miJCUvbCDwPI60W3vLfiAJExzYhZhjl3Xos2sMXxfMbIJ/QTcAcUcYI68cXpIr8=
-X-Gm-Message-State: AOJu0YyHJwq2DT2IFV+MfrA6O5v/mo9EbIP7oj8EQugjUizIKqDxcp0f
- 3omusJV61gqUP1SHVI0YTTLAoow9HSB4eb8dHq3mydAFDYRS/GqehUMF5kqhZwN6UHPIqEauFuQ
- MzyuSbUHpTvajRExWRLd0welb/Fo=
-X-Google-Smtp-Source: AGHT+IEH9WiGdwQmFDR3UUpRkcaEXiGYsc+rbm05qeGkTnAd0VuAIEH5g2EodOENEkeRm+TdhthkOlf3f027HucPkCY=
-X-Received: by 2002:a05:600c:19cd:b0:416:2bef:ce81 with SMTP id
- u13-20020a05600c19cd00b004162befce81mr1484706wmq.1.1712331657141; Fri, 05 Apr
- 2024 08:40:57 -0700 (PDT)
+X-Greylist: delayed 400 seconds by postgrey-1.36 at gabe;
+ Fri, 05 Apr 2024 10:25:20 UTC
+Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CCFF113AD7
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Apr 2024 10:25:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ sang-engineering.com; h=date:from:to:cc:subject:message-id
+ :references:mime-version:content-type:in-reply-to; s=k1; bh=XRZ/
+ 7f9TpBVm+EqkcIlzKupPDZE9c/6S0MGx+T9aWhU=; b=TbhXudkYnme5n6iHh1a7
+ RBdhDu2GT6+9PAy8ABhR4DJ4AFeu9vn7KF9NnItdIjxg3lODlyxOWMQzmHvBjUuV
+ 6C2iJlxx9lPXa2C8k2zkTkCSAQ80w4ipFFE24BRkYFzXyEK7FP0vMNw5j1O2wMwt
+ rY3DTBf3ZIZFcTyDbCkD+x2BtRIlE2QfpykSPGqfi0fAa4E69G+hgGGV7l0hOuGb
+ eRpF0U2crVKhUWxUBjAZhcKkAmkgy6/e5eOeLvTbIQriGrx9zqcvXZvr+o3oYemF
+ ZV3lsTAHA9m7SGPcs05kwS6QKI/86ISnt7+jeteV6CxjkYrq8U88Su9gL7GEhrTR
+ qA==
+Received: (qmail 4072572 invoked from network); 5 Apr 2024 12:18:37 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 5 Apr 2024 12:18:37 +0200
+X-UD-Smtp-Session: l3s3148p1@a0Brx1YVfIUgAwDPXwEGAANOsN0UmmrN
+Date: Fri, 5 Apr 2024 12:18:37 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Easwar Hariharan <eahariha@linux.microsoft.com>
+Cc: "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, 
+ open list <linux-kernel@vger.kernel.org>, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, 
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, 
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>, 
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH v0 00/14] Make I2C terminology more inclusive for I2C
+ Algobit and consumers
+Message-ID: <ffumcagmzdstcf3qcn3f26555pnu7i6azjppciyd4zvcoit7pv@vu262tsfnqyr>
+Mail-Followup-To: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+ Easwar Hariharan <eahariha@linux.microsoft.com>, 
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, 
+ open list <linux-kernel@vger.kernel.org>, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, 
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, 
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>, 
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
+References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
 MIME-Version: 1.0
-References: <202404052349.lQch9J7G-lkp@intel.com>
-In-Reply-To: <202404052349.lQch9J7G-lkp@intel.com>
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date: Fri, 5 Apr 2024 08:40:45 -0700
-Message-ID: <CAADnVQJXq1bSe20FgBN=BL1E5d8qOfLv_Ettq+724h5QfRuuKg@mail.gmail.com>
-Subject: Re: [linux-next:master] BUILD REGRESSION
- 8568bb2ccc278f344e6ac44af6ed010a90aa88dc
-To: kernel test robot <lkp@intel.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Linux Memory Management List <linux-mm@kvack.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- bpf <bpf@vger.kernel.org>, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, lima@lists.freedesktop.org, 
- linux-arch <linux-arch@vger.kernel.org>, linux-arm-msm@vger.kernel.org, 
- linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
- linux-pwm@vger.kernel.org, Linux-Renesas <linux-renesas-soc@vger.kernel.org>, 
- nouveau@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="wrrai2fidezv42rs"
+Content-Disposition: inline
+In-Reply-To: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
 X-Mailman-Approved-At: Mon, 08 Apr 2024 07:46:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,48 +84,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 5, 2024 at 8:37=E2=80=AFAM kernel test robot <lkp@intel.com> wr=
-ote:
->
-> tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-n=
-ext.git master
-> branch HEAD: 8568bb2ccc278f344e6ac44af6ed010a90aa88dc  Add linux-next spe=
-cific files for 20240405
->
-> Error/Warning reports:
->
-> https://lore.kernel.org/oe-kbuild-all/202404051333.7und7PPW-lkp@intel.com
-> https://lore.kernel.org/oe-kbuild-all/202404051423.eiaXLwhX-lkp@intel.com
-> https://lore.kernel.org/oe-kbuild-all/202404051659.aawUkGUQ-lkp@intel.com
-> https://lore.kernel.org/oe-kbuild-all/202404052022.Cwf2ilBp-lkp@intel.com
->
-> Error/Warning: (recently discovered and may have been fixed)
->
-> aarch64-linux-ld: kernel/bpf/verifier.c:20223:(.text+0xdbb4): undefined r=
-eference to `__SCK__perf_snapshot_branch_stack'
-> aarch64-linux-ld: verifier.c:(.text+0x17c3c): undefined reference to `__S=
-CK__perf_snapshot_branch_stack'
-> drivers/i2c/busses/i2c-i801.c:1407:(.text+0x1d2ef4a): undefined reference=
- to `i2c_root_adapter'
-> kernel/bpf/verifier.c:20223:(.text+0xdba4): dangerous relocation: unsuppo=
-rted relocation
-> loongarch64-linux-ld: kernel/bpf/verifier.c:20223:(.text+0xa818): undefin=
-ed reference to `__SCK__perf_snapshot_branch_stack'
-> loongarch64-linux-ld: verifier.c:(.text+0xa964): undefined reference to `=
-__SCK__perf_snapshot_branch_stack'
-> mips64el-linux-ld: verifier.c:(.text.do_misc_fixups+0xd9c): undefined ref=
-erence to `__SCK__perf_snapshot_branch_stack'
-> riscv32-linux-ld: section .data LMA [00369000,00907967] overlaps section =
-.text LMA [0007899c,01a6a6af]
-> s390-linux-ld: verifier.c:(.text+0x13038): undefined reference to `__SCK_=
-_perf_snapshot_branch_stack'
-> verifier.c:(.text+0x17c14): relocation truncated to fit: R_AARCH64_ADR_PR=
-EL_PG_HI21 against undefined symbol `__SCK__perf_snapshot_branch_stack'
-> verifier.c:(.text+0xa960): undefined reference to `__SCK__perf_snapshot_b=
-ranch_stack'
-> verifier.c:(.text+0xadd0): dangerous relocation: unsupported relocation
-> verifier.c:(.text.do_misc_fixups+0xd98): undefined reference to `__SCK__p=
-erf_snapshot_branch_stack'
 
-Fixed in bpf-next with commit:
-https://lore.kernel.org/all/20240405142637.577046-1-arnd@kernel.org/
+--wrrai2fidezv42rs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hello Easwar,
+
+On Fri, Mar 29, 2024 at 05:00:24PM +0000, Easwar Hariharan wrote:
+> I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
+> with more appropriate terms. Inspired by and following on to Wolfram's
+> series to fix drivers/i2c/[1], fix the terminology for users of the
+> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+> in the specification.
+
+I really appreciate that you want to assist in this task to improve the
+I2C core. I do. I am afraid, however, that you took the second step
+before the first one, though. As I mentioned in my original cover
+letter, this is not only about renaming but also improving the I2C API
+(splitting up header files...). So, drivers are not a priority right
+now. They can be better fixed once the core is ready.
+
+It is true that I changed quite some controller drivers within the i2c
+realm. I did this to gain experience. As you also noticed quite some
+questions came up. We need to agree on answers first. And once we are
+happy with the answers we found, then IMO we can go outside of the i2c
+realm and send patches to other subsystems referencing agreed
+precedence. I intentionally did not go outside i2c yet. Since your
+patches are already there, you probably want to foster them until they
+are ready for inclusion. Yet, regarding further patches, my suggestion
+is to wait until the core is ready. That might take a while, though.
+However, there is enough to discuss until the core is ready. So, your
+collaboration there is highly appreciated!
+
+> The last patch updating the .master_xfer method to .xfer depends on
+> patch 1 of Wolfram's series below, but the series is otherwise
+> independent. It may make sense for the last patch to go in with
+
+Please drop the last patch from this series. It will nicely remove the
+dependency. Also, like above, I first want to gain experience with i2c
+before going to other subsystems. That was intended.
+
+All the best and happy hacking,
+
+   Wolfram
+
+
+--wrrai2fidezv42rs
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmYPz/kACgkQFA3kzBSg
+Kbb2khAArgkbDpks50YTmBYCaMaPYcuR0VEc60/+z8tRAlS4IKaYIXzw2LEXG7Lz
+vJE8MMcWs6lGZjapOyfhFrB/U9Zu8Ffpg1qataFG3ZnRZG6BYb8i2cCTCwK9h4Vk
+KfijUXjmqXMGKRcaUcIYL/IxYZYRP0Y9yYGfBibDtxV7hnMakp6+XXbfM8FVCj1g
+iW3ORBfLYR32dJxnI4unFt15e2aXFDQkJDLqBJ4WGynGPaGr0lmfQpWQDP2aYlN0
+Dyormc+6tCEOAN6PBG0cssZbMUj4ABQYOxxNhQ8hP6gAqkMuqqC1+nHAH3PNQjkf
+VHMYFPogE0LGrCOOVKzgeU3QIfF9MABirrNB8bx+K3tl1te0EWse1u4CXIKrmBZ7
+VS1fVRMUdS25YnzNM5cfZQTGv2JxgebrXUqN1bneFpKmISO66p2hF3/8lsaPO8Rw
+6QOTRpcHay1sESrreLn9gAj/NeddgU7XhI3oGqk6PQyYQrE5LbTh0wuZil02rwjJ
+ea29MTkK7muy5fQT9dDHOk38fjG0jk48Oyk5NBVMboeLKlvPy6OTiXG6Z1lifGga
+xZe0cBBoH5gHPY6ZIVh4HaHfbmzt5jGIpzf8Sx9E9n03K6Njewqu+Wxm24AMr/OR
+79BvBK0rlCVMmck+ZJiW969Q/G9JKFieQnUDqHlMc5nIAHMB0Lw=
+=T3F5
+-----END PGP SIGNATURE-----
+
+--wrrai2fidezv42rs--
