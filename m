@@ -4,107 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 703B7CD11C2
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Apr 2024 18:37:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA0A8C67861
+	for <amd-gfx@archiver.kernel.org>; Sat,  6 Apr 2024 15:43:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8324E113CAB;
-	Fri,  5 Apr 2024 18:37:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE3710F218;
+	Sat,  6 Apr 2024 15:43:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="bkmLIHuX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ONOYr+zK";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A47B113CAF
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Apr 2024 18:36:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1712342218;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=qvKsrMsm5amCXrkHqNf0dwZRvuZponfYbk9G0oYCwa0=;
- b=bkmLIHuXHWylDHV3WzY3VGR5Ih99VfMb+b8oggnFECST0sWagWeL3urNqjAQnlyCm3vXDX
- ZoBeOGp94qADvpKVLLeifSWsvCVUerTo2AgPjTob6VX+GN24b+LkzUOJdLXyRJZjmpVloP
- eov2PjZSdAnpLKnFLcb1Sup67WKkt2E=
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-164-DpKj949XNfm9MQcx_AQUeQ-1; Fri, 05 Apr 2024 14:36:57 -0400
-X-MC-Unique: DpKj949XNfm9MQcx_AQUeQ-1
-Received: by mail-ot1-f70.google.com with SMTP id
- 46e09a7af769-6e8ad7f1224so2761724a34.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 05 Apr 2024 11:36:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712342216; x=1712947016;
- h=mime-version:user-agent:content-transfer-encoding:organization
- :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qvKsrMsm5amCXrkHqNf0dwZRvuZponfYbk9G0oYCwa0=;
- b=TnT+ItwmzerMK3PYbAEavrsXY8OC/HZcO/RpPqYBWvuqV7OCxUI796Oy7ndnXSRfB/
- jRrxiJrb+6Du0geDjHPIxeVSubvY8132HvN+OKQT0R+g5hySsyztFgeSB1fGpEbmjxv5
- lTqDpqSIBn6KlqwqYsN0fsd3ntG8PRCCayg5g0BvTDQmy0ruyhfZKAdx8LTq6T3gHtM+
- VHZoLLByqDOj6Arw1SSZSZYHL32HP2EQ8d+XMTrC1RJ3lv5voLCFquQRSRU8ocujAKdt
- eLknJmHP6sZnyfupNDfn1lcHvVK1XWK85lQd2HBMFgT+1d5eDuzgcFlFAJkZYZ1VQgYP
- ofew==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW3PvFK9wAr7XUrgu7l5U0WKgGVOl02QXhg5uFuYejynym8XXZ96oqtda4wjbMelzRl+MxkNLbi2wklHvQWlOlCjnLWmPXfiOa0cD1vlQ==
-X-Gm-Message-State: AOJu0Yw9YSPLVBGrgHArjXFtxECLuBodfgDgRhXNEtblLYC45lo4eOYr
- wSXP7QYZAxEen3sSiyXlIjG9JNgy94aopByG+LTx5i8M23W9lm7sSFQhd9bDMBxYulCCCjpAKQ3
- G/hTEOg1SZQfiJzn4HZBUMI3IIUYjbPXrY050TJkTcBU8m1yxNzZg36HQRVMcEXs=
-X-Received: by 2002:a9d:6755:0:b0:6e9:e829:2c77 with SMTP id
- w21-20020a9d6755000000b006e9e8292c77mr2188590otm.27.1712342216553; 
- Fri, 05 Apr 2024 11:36:56 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFt+D771XMHHFySTD83Ks6yYhCqZ6qH+nHPbjpQmLbCiVM6E3jPPssFvgzLpd4PouzY8zRNoQ==
-X-Received: by 2002:a9d:6755:0:b0:6e9:e829:2c77 with SMTP id
- w21-20020a9d6755000000b006e9e8292c77mr2188569otm.27.1712342216298; 
- Fri, 05 Apr 2024 11:36:56 -0700 (PDT)
-Received: from ?IPv6:2600:4040:5c6c:a300::789? ([2600:4040:5c6c:a300::789])
- by smtp.gmail.com with ESMTPSA id
- qr2-20020a05620a390200b00789e2805f85sm854603qkn.21.2024.04.05.11.36.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Apr 2024 11:36:55 -0700 (PDT)
-Message-ID: <190fda6f12aa77170631fb12e505779ce33d1c64.camel@redhat.com>
-Subject: Re: [PATCH v0 13/14] drm/nouveau: Make I2C terminology more inclusive
-From: Lyude Paul <lyude@redhat.com>
-To: Easwar Hariharan <eahariha@linux.microsoft.com>, Danilo Krummrich
- <dakr@redhat.com>, Karol Herbst <kherbst@redhat.com>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "open list:DRM DRIVER
- FOR NVIDIA GEFORCE/QUADRO GPUS" <dri-devel@lists.freedesktop.org>, "open
- list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, "open list:RADEON and
- AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, "open list:INTEL DRM
- DISPLAY FOR XE AND I915 DRIVERS" <intel-gfx@lists.freedesktop.org>, "open
- list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, "open list:I2C SUBSYSTEM HOST DRIVERS"
- <linux-i2c@vger.kernel.org>, "open list:BTTV VIDEO4LINUX DRIVER"
- <linux-media@vger.kernel.org>, "open list:FRAMEBUFFER LAYER"
- <linux-fbdev@vger.kernel.org>
-Date: Fri, 05 Apr 2024 14:36:54 -0400
-In-Reply-To: <e6b04b76-c695-47b4-9432-f2316e174585@linux.microsoft.com>
-References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
- <20240329170038.3863998-14-eahariha@linux.microsoft.com>
- <4dc6fb16-3d85-4a7f-85f9-ed249da0df1a@redhat.com>
- <e6b04b76-c695-47b4-9432-f2316e174585@linux.microsoft.com>
-Autocrypt: addr=lyude@redhat.com; prefer-encrypt=mutual;
- keydata=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
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.50.4 (3.50.4-1.fc39)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0479110E9C3
+ for <amd-gfx@lists.freedesktop.org>; Sat,  6 Apr 2024 15:43:12 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 29907CE19FD;
+ Sat,  6 Apr 2024 15:43:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD9BC433C7;
+ Sat,  6 Apr 2024 15:43:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1712418189;
+ bh=KlnonV88efemHIAcJauLyXmI35h5Ofb30ye+h1O5iv8=;
+ h=From:Date:Subject:To:Cc:From;
+ b=ONOYr+zKX7FB4VAtyh2UVVDuuwqYFLnMyYfj9VKM/+6G9A7gFE8mjLRPg3eNaBgKA
+ qVRge+5eW0R4BKKivukxrgMifZ5+zZQohVSAqsRSe2+NJqreQsctTWTHQTBSEFsqVt
+ Ahl345RG4CKnYGMjjFbTqGrhltdGDBh/wckSOFdCLRrm/VDM150fLT73hxC0kqbfRt
+ A3uJ4BZhYiNBiIghQuRLj782yXY5j0uUrvVe0wuZwR4qhEuj4Ph6eXPyohLnKF/qnW
+ cdj5jIEWvs6+fmtperyHZIm7x6wCY3qZvPw/NNDfljU24laEEImUVpBmOiNH/k6S7i
+ 1LX7y84zE6Z6A==
+From: Simon Horman <horms@kernel.org>
+Date: Sat, 06 Apr 2024 16:43:02 +0100
+Subject: [PATCH] Documentation/gpu: correct path of reference
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20240406-doc-gpu-v1-1-fe0ad057ac7e@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAIVtEWYC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIxMDEwMz3ZT8ZN30glJdYyPLNMPkFANTo2RDJaDqgqLUtMwKsEnRsbW1AKQ
+ g3oVZAAAA
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>
+Cc: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Maxime Ripard <mripard@kernel.org>, 
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org
+X-Mailer: b4 0.12.3
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,23 +64,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2024-04-05 at 09:30 -0700, Easwar Hariharan wrote:
->=20
-> Thanks for the review, and for the appetite to go further! So we are
-> on the same page, you would prefer
-> renaming to controller/target like the feedback on other drm drivers
-> (i915, gma500, radeon)?
+The path to GPU documentation is Documentation/gpu
+rather than Documentation/GPU
 
-FWIW I'm in support of this as well! As long as we make sure it gets
-renamed everywhere :)
+This appears to have been introduced by commit ba162ae749a5
+("Documentation/gpu: Introduce a simple contribution list for display code")
 
->=20
-> Thanks,
-> Easwar
->=20
+Flagged by make htmldocs.
 
---=20
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
+Signed-off-by: Simon Horman <horms@kernel.org>
+---
+ Documentation/gpu/amdgpu/display/display-contributing.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Documentation/gpu/amdgpu/display/display-contributing.rst b/Documentation/gpu/amdgpu/display/display-contributing.rst
+index fdb2bea01d53..36f3077eee00 100644
+--- a/Documentation/gpu/amdgpu/display/display-contributing.rst
++++ b/Documentation/gpu/amdgpu/display/display-contributing.rst
+@@ -135,7 +135,7 @@ Enable underlay
+ ---------------
+ 
+ AMD display has this feature called underlay (which you can read more about at
+-'Documentation/GPU/amdgpu/display/mpo-overview.rst') which is intended to
++'Documentation/gpu/amdgpu/display/mpo-overview.rst') which is intended to
+ save power when playing a video. The basic idea is to put a video in the
+ underlay plane at the bottom and the desktop in the plane above it with a hole
+ in the video area. This feature is enabled in ChromeOS, and from our data
 
