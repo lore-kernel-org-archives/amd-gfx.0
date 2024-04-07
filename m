@@ -4,26 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CBA9CD129D
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 07:46:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83D2DCD129E
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 07:46:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 659741121E9;
-	Mon,  8 Apr 2024 07:46:27 +0000 (UTC)
-X-Greylist: delayed 1022 seconds by postgrey-1.36 at gabe;
- Sun, 07 Apr 2024 09:20:34 UTC
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69C9110F0F6;
- Sun,  7 Apr 2024 09:20:34 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.88.105])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4VC5mK5xgtztRtG;
- Sun,  7 Apr 2024 17:00:49 +0800 (CST)
-Received: from canpemm500010.china.huawei.com (unknown [7.192.105.118])
- by mail.maildlp.com (Postfix) with ESMTPS id 4B09414010C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0328A1121EA;
+	Mon,  8 Apr 2024 07:46:28 +0000 (UTC)
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46B1410F440;
+ Sun,  7 Apr 2024 09:21:38 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.163.44])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4VC5m80dHSz1h5qx;
+ Sun,  7 Apr 2024 17:00:40 +0800 (CST)
+Received: from canpemm100010.china.huawei.com (unknown [7.192.104.38])
+ by mail.maildlp.com (Postfix) with ESMTPS id 1BB80140412;
  Sun,  7 Apr 2024 17:03:29 +0800 (CST)
 Received: from canpemm500004.china.huawei.com (7.192.104.92) by
- canpemm500010.china.huawei.com (7.192.105.118) with Microsoft SMTP Server
+ canpemm100010.china.huawei.com (7.192.104.38) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Sun, 7 Apr 2024 17:03:29 +0800
+ 15.1.2507.35; Sun, 7 Apr 2024 17:03:28 +0800
 Received: from huawei.com (10.67.174.111) by canpemm500004.china.huawei.com
  (7.192.104.92) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.35; Sun, 7 Apr
@@ -35,11 +33,9 @@ CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <xiangyang3@huawei.com>
 Subject: [PATCH -next] drm/amd/display: delete the redundant initialization in
  dcn3_51_soc
-Date: Sun, 7 Apr 2024 17:01:31 +0800
-Message-ID: <20240407090131.269287-2-xiangyang3@huawei.com>
+Date: Sun, 7 Apr 2024 17:01:30 +0800
+Message-ID: <20240407090131.269287-1-xiangyang3@huawei.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240407090131.269287-1-xiangyang3@huawei.com>
-References: <20240407090131.269287-1-xiangyang3@huawei.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
