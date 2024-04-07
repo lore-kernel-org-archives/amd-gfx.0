@@ -4,65 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E2B2CD11C2
-	for <amd-gfx@archiver.kernel.org>; Sun,  7 Apr 2024 08:49:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E04BECD11C2
+	for <amd-gfx@archiver.kernel.org>; Sun,  7 Apr 2024 13:12:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AEC010FA6B;
-	Sun,  7 Apr 2024 08:49:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C92610E2EA;
+	Sun,  7 Apr 2024 13:12:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SsYhQ30R";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I962Q8yr";
 	dkim-atps=neutral
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0AF510FA6D;
- Sun,  7 Apr 2024 08:49:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65FFC10E1A6;
+ Sun,  7 Apr 2024 13:12:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 76F7ECE0303;
- Sun,  7 Apr 2024 08:49:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B894CC433F1;
- Sun,  7 Apr 2024 08:49:32 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 42164CE0A47;
+ Sun,  7 Apr 2024 13:12:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28208C433F1;
+ Sun,  7 Apr 2024 13:12:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1712479777;
- bh=9GexqZRzYwWDDWeEy+/lg6I4B9teFNss+7Iws8stJWo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SsYhQ30RiNQ08UMek5dA4CNyvVWLNNLOpkEsyduifmK1Tj4XpLRA7LVTj2YkBDZXm
- N7VzP2/DszZcWNJWdLmA2CqdSWEXTAzNUlTq/TSjEANRYJ434Df6+129CUqRDVP7DN
- eBOQTNlDk9lZRGjvjHo3mMxetTDsvzrvfl8qiJ2t5enPne6X3kTA5g9tJCFUIAEElV
- d1W9EScb9v5p2WyGdUSWR27nfRbEus4VWc/L5Dn5ww2OmyxQpNBk77r/x9HroCKCu8
- HJrvhoBs1p93fhFJek+k3PGtGkmy8k13ooNYdNqrwGRCebsszSc95EsJ0gTn4Z5ycQ
- tOkkQIJjbsJxQ==
-Date: Sun, 7 Apr 2024 09:49:29 +0100
-From: Simon Horman <horms@kernel.org>
-To: Easwar Hariharan <eahariha@linux.microsoft.com>
-Cc: Edward Cree <ecree.xilinx@gmail.com>,
- Martin Habets <habetsm.xilinx@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "open list:SFC NETWORK DRIVER" <netdev@vger.kernel.org>,
- "open list:SFC NETWORK DRIVER" <linux-net-drivers@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, 
- "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
- "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
- "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
-Subject: Re: [PATCH v0 10/14] sfc: falcon: Make I2C terminology more inclusive
-Message-ID: <20240407084929.GX26556@kernel.org>
-References: <20240329170038.3863998-1-eahariha@linux.microsoft.com>
- <20240329170038.3863998-11-eahariha@linux.microsoft.com>
- <20240402082951.GG26556@kernel.org>
- <cd983b4d-70dc-47b8-96cd-55bba39eb892@linux.microsoft.com>
+ s=k20201202; t=1712495525;
+ bh=dRchvoO2syoNRVVAjgj+vST9WW44gcdsEwYNqJsk+Cs=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=I962Q8yr79kAQb89XjSGhPpDZwFWEq9P4Z5U4Sp/XGaTiLd0WA2w38G4quBx4cSNG
+ YtUxLNibKlgm8nZ4CTW9s050mzqb9XuNbQ106tHiUBqDyGN9Wxk73Ucg7je1n3TUzz
+ oHtb2oNTTn84F/Esr3pfU5GuLpA2VJjnPVhTVUWceHQnditcQul4AZIzz/kW2Hyi9m
+ 8nrCovWNgMi4R1vhISGJVhMEDvO1fFi+jHp1iKvfjrGBWy74uKg59hMR58y4fKv1Oj
+ RkI8GrcDECxLpl4+14Qt9Lu23kF0cF77JDD9jO4N/8Xs2xlItpfRtg3GSvuY2g29GR
+ nx/dmYzNlOx2g==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.8 20/25] drm/amdkfd: Check cgroup when returning
+ DMABuf info
+Date: Sun,  7 Apr 2024 09:11:08 -0400
+Message-ID: <20240407131130.1050321-20-sashal@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240407131130.1050321-1-sashal@kernel.org>
+References: <20240407131130.1050321-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cd983b4d-70dc-47b8-96cd-55bba39eb892@linux.microsoft.com>
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.8.4
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,28 +64,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 04, 2024 at 12:17:26PM -0700, Easwar Hariharan wrote:
-> On 4/2/2024 1:29 AM, Simon Horman wrote:
-> > On Fri, Mar 29, 2024 at 05:00:34PM +0000, Easwar Hariharan wrote:
-> >> I2C v7, SMBus 3.2, and I3C specifications have replaced "master/slave"
-> >> with more appropriate terms. Inspired by and following on to Wolfram's
-> >> series to fix drivers/i2c/[1], fix the terminology for users of
-> >> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
-> >> in the specification.
-> >>
-> >> Compile tested, no functionality changes intended
-> >>
-> >> [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
-> >>
-> >> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
-> > 
-> > Reviewed-by: Simon Horman <horms@kernel.org>
-> 
-> 
-> Thank you, Simon, for reviewing. I believe that we are settling on controller/target
-> terminology from feedback on the other drivers in this series. Would you want to re-review
-> v1 with that change, or should I add you R-B in v1 despite the change?
+From: Mukul Joshi <mukul.joshi@amd.com>
 
-Thanks for asking,
+[ Upstream commit 9d7993a7ab9651afd5fb295a4992e511b2b727aa ]
 
-either way is fine by me.
+Check cgroup permissions when returning DMA-buf info and
+based on cgroup info return the GPU id of the GPU that have
+access to the BO.
+
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 80e90fdef291d..9a88b35cd8966 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1522,7 +1522,7 @@ static int kfd_ioctl_get_dmabuf_info(struct file *filep,
+ 
+ 	/* Find a KFD GPU device that supports the get_dmabuf_info query */
+ 	for (i = 0; kfd_topology_enum_kfd_devices(i, &dev) == 0; i++)
+-		if (dev)
++		if (dev && !kfd_devcgroup_check_permission(dev))
+ 			break;
+ 	if (!dev)
+ 		return -EINVAL;
+@@ -1544,7 +1544,7 @@ static int kfd_ioctl_get_dmabuf_info(struct file *filep,
+ 	if (xcp_id >= 0)
+ 		args->gpu_id = dmabuf_adev->kfd.dev->nodes[xcp_id]->id;
+ 	else
+-		args->gpu_id = dmabuf_adev->kfd.dev->nodes[0]->id;
++		args->gpu_id = dev->id;
+ 	args->flags = flags;
+ 
+ 	/* Copy metadata buffer to user mode */
+-- 
+2.43.0
+
