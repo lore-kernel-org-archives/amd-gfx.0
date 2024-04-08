@@ -4,57 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F3BDC67861
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 19:06:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55FEEC67861
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 20:06:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD7871127EF;
-	Mon,  8 Apr 2024 19:06:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E26B11285E;
+	Mon,  8 Apr 2024 20:05:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EfAX9tTs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N74Cd/iy";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B59010F874;
- Mon,  8 Apr 2024 19:06:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712603178; x=1744139178;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=MFba2qgmd8y+SWGIDFsnPJlx7DAyfbeTQu2+viNDZnE=;
- b=EfAX9tTs5ywimcyOxwwgT52297HACqKEwZzlD8bD4jbkl8kgxroAnPxe
- il16ixVpG79EtQ2sg1RGTLG3WdTCfD/SGQ6UR9ROYYkxUgkklZ5+fRolM
- WsqZV972jeOZh5YTY7QhHY/tdxpStvcSnpxzyUz4P7xOtXwYGKXBS2XdJ
- PJ6bzPVyjudl+hjhEtR+CnKZdNSn3ttg+tj1OCybLobsco26ixQAvloVw
- BAnUIC/NKQ16JeHI/+5OKNmKxdzKpr4G3gJkL0yxfrCeusjss/dKDukLp
- C8FdcOw7nveWcdmkEwg6PnlLa5zJynF4QjDGEGOZpiHvGkNoFaftVmOPE w==;
-X-CSE-ConnectionGUID: olxluasMQ8y/xLBJ1pi4mg==
-X-CSE-MsgGUID: DAf8Fi4qQGeUd3aRcUJONQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11038"; a="19278631"
-X-IronPort-AV: E=Sophos;i="6.07,187,1708416000"; d="scan'208";a="19278631"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2024 12:06:18 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11038"; a="827792377"
-X-IronPort-AV: E=Sophos;i="6.07,187,1708416000"; d="scan'208";a="827792377"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by orsmga001.jf.intel.com with SMTP; 08 Apr 2024 12:06:15 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 08 Apr 2024 22:06:14 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/5] drm/amdgpu: Use drm_crtc_vblank_crtc()
-Date: Mon,  8 Apr 2024 22:06:08 +0300
-Message-ID: <20240408190611.24914-2-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.43.2
-In-Reply-To: <20240408190611.24914-1-ville.syrjala@linux.intel.com>
-References: <20240408190611.24914-1-ville.syrjala@linux.intel.com>
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59EE511285A;
+ Mon,  8 Apr 2024 20:05:56 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-2a5595eecdaso449401a91.3; 
+ Mon, 08 Apr 2024 13:05:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1712606756; x=1713211556; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NUqdZE6kzzC+YTBzuDMEGCl6gVl6Zy5qnlm5WmWCMEw=;
+ b=N74Cd/iy7BhMAVXheYyUwzR7qEzkm4h4Ln49BYh+6bG7TzlVuAvfK21WjxxbmoTvQH
+ wPmkkzpLceby8zB37KFDsEDC8p1hAlIu8091eGwi349uV+adwXCJgMhNvZemPc2zOE5O
+ jPicrSIp25ZfofXJOhWKKKxvMti54hP+HzXjWCgy3oz209pOowFdKmU0JRvZdkHWKpV5
+ lGJnoFVT/jjoaYMDzr89t+7Ad42ivDoeu9vxPXqBqFstKi5S9eYTnJH7Oc0e2IeIXQ61
+ O9EeXVOUOH5YrnQe3DjXn6ULAF081lmCP/a+On6iZzHIe/ypLXUb1A3e0873T1CBO/rf
+ bVBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712606756; x=1713211556;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=NUqdZE6kzzC+YTBzuDMEGCl6gVl6Zy5qnlm5WmWCMEw=;
+ b=QTzqBVQLpKtupIJ7Wz6rZgAB/Iy1PEXd98Lxfyi8JUbonysLBcYMvnhWH3n/P9udJy
+ G1zV/CsZgFnv7FbY+LdYVT9aM4S/G+5ZaEnIGywh3OEP5Kc2oavSYUed6GWZYUfxMcH2
+ O67Wt+1oCIQBKQ675gHnDHqF92RzhB2IFO+4Yn1lwnkTnL0Qtq3ULz4wiNywdl6byohC
+ +av7hZUGCcmrfxxkdpMqhKjdICxY9xMtRF2qaXAPBkv2AM8a3JAdLokDacskLtTF343d
+ X60RNlx6pGPQz+NYDf/IaKT2HL/ZqmKVpXdPKAFlYq1NHwzFLJOa8sqEmQG7jJjCgPng
+ grAQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU5DMKC41UFRP/s8w9CYL0oJq/PojpJ3EY68PMw1plv3CalRa6fJgkKn1b5SH0YKdo5r20CdpT0xoSjIrn0dCrvYFIKimMXVWtQZ84ygIUmeLPXwTeyXTevXrTxt/YCTh8u7GSXvEwQHEY3e8t/Zw==
+X-Gm-Message-State: AOJu0YzHDkCXB64RAdl8o24Q9W8ioIo/tG7mZvyewbebP1p3KFhZETih
+ Htan1H6B3gD7R+7w5soGkxOA+TKskythyBlSuidPceICP1Pm92Wpl+4HEfvyWG4oPy6PpLWpgsW
+ JsQ4R8acz9+z5FbCVR85JdVtbIbA=
+X-Google-Smtp-Source: AGHT+IFAsAW5Q31/Vc72tX8MYJxjAXGXGJkMw6FDJT5agkQzF72ip3OaPkCp8oywDbR6fsOAlW6JqIPz8LjboQowH2U=
+X-Received: by 2002:a17:90a:a38a:b0:2a2:7693:399e with SMTP id
+ x10-20020a17090aa38a00b002a27693399emr7380737pjp.4.1712606755689; Mon, 08 Apr
+ 2024 13:05:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <AS8PR02MB723799AFF24E7524364F66708B392@AS8PR02MB7237.eurprd02.prod.outlook.com>
+ <c2182ac1-368c-441b-b6ed-b5d15a8f9f38@amd.com>
+In-Reply-To: <c2182ac1-368c-441b-b6ed-b5d15a8f9f38@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 8 Apr 2024 16:05:43 -0400
+Message-ID: <CADnq5_OsJ+VxY9z_iqOscvWAoRqK2hZ0thUOHtBzhfo3De4EoA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/radeon/radeon_display: Decrease the size of
+ allocated memory
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Erick Archer <erick.archer@outlook.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Kees Cook <keescook@chromium.org>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,61 +86,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Mon, Apr 1, 2024 at 8:35=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
+ig@amd.com> wrote:
+>
+> Am 30.03.24 um 17:34 schrieb Erick Archer:
+> > This is an effort to get rid of all multiplications from allocation
+> > functions in order to prevent integer overflows [1] [2].
+> >
+> > In this case, the memory allocated to store RADEONFB_CONN_LIMIT pointer=
+s
+> > to "drm_connector" structures can be avoided. This is because this
+> > memory area is never accessed.
+> >
+> > Also, in the kzalloc function, it is preferred to use sizeof(*pointer)
+> > instead of sizeof(type) due to the type of the variable can change and
+> > one needs not change the former (unlike the latter).
+> >
+> > At the same time take advantage to remove the "#if 0" block, the code
+> > where the removed memory area was accessed, and the RADEONFB_CONN_LIMIT
+> > constant due to now is never used.
+> >
+> > Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#op=
+en-coded-arithmetic-in-allocator-arguments [1]
+> > Link: https://github.com/KSPP/linux/issues/160 [2]
+> > Signed-off-by: Erick Archer <erick.archer@outlook.com>
+>
+> Well in general we don't do any new feature development any more for the
+> radeon driver.
+>
+> But this cleanup looks so straight forward that the risk of breaking
+> something is probably very low.
+>
+> Acked-by from my side, but Alex should probably take a look as well.
 
-Replace the open coded drm_crtc_vblank_crtc() with the real
-thing.
+I can't remember why that was done that way.  Maybe some leftover from
+the early KMS days before we finalized the fbdev interactions?
+Anyway, patch applied.  Thanks.
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c          | 8 ++------
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 2 files changed, 3 insertions(+), 7 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index 8baa2e0935cc..258703145161 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -65,9 +65,7 @@ static enum hrtimer_restart amdgpu_vkms_vblank_simulate(struct hrtimer *timer)
- 
- static int amdgpu_vkms_enable_vblank(struct drm_crtc *crtc)
- {
--	struct drm_device *dev = crtc->dev;
--	unsigned int pipe = drm_crtc_index(crtc);
--	struct drm_vblank_crtc *vblank = &dev->vblank[pipe];
-+	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
- 	struct amdgpu_vkms_output *out = drm_crtc_to_amdgpu_vkms_output(crtc);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 
-@@ -91,10 +89,8 @@ static bool amdgpu_vkms_get_vblank_timestamp(struct drm_crtc *crtc,
- 					     ktime_t *vblank_time,
- 					     bool in_vblank_irq)
- {
--	struct drm_device *dev = crtc->dev;
--	unsigned int pipe = crtc->index;
- 	struct amdgpu_vkms_output *output = drm_crtc_to_amdgpu_vkms_output(crtc);
--	struct drm_vblank_crtc *vblank = &dev->vblank[pipe];
-+	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 
- 	if (!READ_ONCE(vblank->enabled)) {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 71d2d44681b2..662d2d83473b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -528,7 +528,7 @@ static void dm_vupdate_high_irq(void *interrupt_params)
- 	if (acrtc) {
- 		vrr_active = amdgpu_dm_crtc_vrr_active_irq(acrtc);
- 		drm_dev = acrtc->base.dev;
--		vblank = &drm_dev->vblank[acrtc->base.index];
-+		vblank = drm_crtc_vblank_crtc(&acrtc->base);
- 		previous_timestamp = atomic64_read(&irq_params->previous_timestamp);
- 		frame_duration_ns = vblank->time - previous_timestamp;
- 
--- 
-2.43.2
-
+>
+> Regards,
+> Christian.
+>
+> > ---
+> > Changes in v2:
+> > - Rebase against linux-next.
+> >
+> > Previous versions:
+> > v1 -> https://lore.kernel.org/linux-hardening/20240222180431.7451-1-eri=
+ck.archer@gmx.com/
+> >
+> > Hi everyone,
+> >
+> > Any comments would be greatly appreciated. The first version was
+> > not commented.
+> >
+> > Thanks,
+> > Erick
+> > ---
+> >   drivers/gpu/drm/radeon/radeon.h         | 1 -
+> >   drivers/gpu/drm/radeon/radeon_display.c | 8 +-------
+> >   2 files changed, 1 insertion(+), 8 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/r=
+adeon.h
+> > index 3e5ff17e3caf..0999c8eaae94 100644
+> > --- a/drivers/gpu/drm/radeon/radeon.h
+> > +++ b/drivers/gpu/drm/radeon/radeon.h
+> > @@ -132,7 +132,6 @@ extern int radeon_cik_support;
+> >   /* RADEON_IB_POOL_SIZE must be a power of 2 */
+> >   #define RADEON_IB_POOL_SIZE                 16
+> >   #define RADEON_DEBUGFS_MAX_COMPONENTS               32
+> > -#define RADEONFB_CONN_LIMIT                  4
+> >   #define RADEON_BIOS_NUM_SCRATCH                     8
+> >
+> >   /* internal ring indices */
+> > diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/=
+radeon/radeon_display.c
+> > index efd18c8d84c8..5f1d24d3120c 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_display.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_display.c
+> > @@ -683,7 +683,7 @@ static void radeon_crtc_init(struct drm_device *dev=
+, int index)
+> >       struct radeon_device *rdev =3D dev->dev_private;
+> >       struct radeon_crtc *radeon_crtc;
+> >
+> > -     radeon_crtc =3D kzalloc(sizeof(struct radeon_crtc) + (RADEONFB_CO=
+NN_LIMIT * sizeof(struct drm_connector *)), GFP_KERNEL);
+> > +     radeon_crtc =3D kzalloc(sizeof(*radeon_crtc), GFP_KERNEL);
+> >       if (radeon_crtc =3D=3D NULL)
+> >               return;
+> >
+> > @@ -709,12 +709,6 @@ static void radeon_crtc_init(struct drm_device *de=
+v, int index)
+> >       dev->mode_config.cursor_width =3D radeon_crtc->max_cursor_width;
+> >       dev->mode_config.cursor_height =3D radeon_crtc->max_cursor_height=
+;
+> >
+> > -#if 0
+> > -     radeon_crtc->mode_set.crtc =3D &radeon_crtc->base;
+> > -     radeon_crtc->mode_set.connectors =3D (struct drm_connector **)(ra=
+deon_crtc + 1);
+> > -     radeon_crtc->mode_set.num_connectors =3D 0;
+> > -#endif
+> > -
+> >       if (rdev->is_atom_bios && (ASIC_IS_AVIVO(rdev) || radeon_r4xx_ato=
+m))
+> >               radeon_atombios_init_crtc(dev, radeon_crtc);
+> >       else
+>
