@@ -4,93 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 112A0CD1292
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 17:49:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 524B4C67861
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 18:06:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20403112922;
-	Mon,  8 Apr 2024 17:49:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCFFB10FD3A;
+	Mon,  8 Apr 2024 18:06:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="A4evjKDL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jx9A4F50";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2073.outbound.protection.outlook.com [40.107.92.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88568112922;
- Mon,  8 Apr 2024 17:49:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b9JJ0HJwiQdCPPp/AEIAfGs5J3RlTWJpqB2KysRs9D6vlW11KdPWI6gibOhIVmywLdtfdYzrbkBgf/np1ZPz6JbFcO88vRZdQQkqF3y4IM2NM2QY3IHzxo1ZmnPiKFjyCkpJOZocnaykUZDZFEd8oQwptdXF61ax6fLejFmk6ZrwlTNK/1r0BR7gnC5LEGJW4Ddsrl0n2fRX+9R6EpQTt3iMbgTl0PW0CmGE4wIShco4UNzyxyquCAlYzRKcJRHi3e6bNzvNelW+ocJn7twHLdrlINlVgmjoLMBSdxxn1Vpi2Y3swVe8jrQ3qotNztiS43ZNkVuCmq/DjE+U5sRHaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rj+rbfm8CdKBqDjcRocV4M68vtQSM1usYukysJjwTqc=;
- b=l5pMR1hx+1tHIUkHrQIEurbs385okisn3aNX/7lf9aDIrNRpnznPsiMg4C/Xjo+ArHXM831NY34mA9lp8pD5bwfAoTPTRPlrVe2bA+8FcWoQolmiwqmLaC/JhL6FrKqvWEPxJnGMVql812VtIQZqD1t/GP0glcSGtAMD0yvw3BQaaU70Bu7UFcF8RK/XtRDUtVyYpTeFcYkGGJcwiCJxsHYqCK563aM8alHmn0d/yqynF4NhG9ZJJVWf2jcHyPXZhUoZIJxs9DqrIifmlCsxq36EN8EsRmAwkxHaY1BxWiJ1k7rNFMQq8IbE7rrhozUsYRm5R+ASK3JVPm6VfaOEEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rj+rbfm8CdKBqDjcRocV4M68vtQSM1usYukysJjwTqc=;
- b=A4evjKDLnooni+kfMQ2jTmkXPjfuPzWfsep/BNnf9il+VLmSqDKungFShNlhvAneboiPaLG+6HsTab29yONkEWeU9ryf5RcNmKpx/A/PFP9KcGk/EO4/ODKrNdKdJfsfM2ud2Atnsp9ICFumLHon1UO5v2Lj8JZ4T36vlyYYOOc=
-Received: from MW4PR03CA0116.namprd03.prod.outlook.com (2603:10b6:303:b7::31)
- by MW4PR12MB7014.namprd12.prod.outlook.com (2603:10b6:303:218::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Mon, 8 Apr
- 2024 17:49:47 +0000
-Received: from MWH0EPF000971E5.namprd02.prod.outlook.com
- (2603:10b6:303:b7:cafe::16) by MW4PR03CA0116.outlook.office365.com
- (2603:10b6:303:b7::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.35 via Frontend
- Transport; Mon, 8 Apr 2024 17:49:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000971E5.mail.protection.outlook.com (10.167.243.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Mon, 8 Apr 2024 17:49:46 +0000
-Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 8 Apr
- 2024 12:49:44 -0500
-From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-CC: <felix.kuehling@amd.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-Subject: [PATCH] drm/ttm: Make ttm shrinkers NUMA aware
-Date: Mon, 8 Apr 2024 13:49:32 -0400
-Message-ID: <20240408174932.1546519-1-rajneesh.bhardwaj@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62EAE10FD3A;
+ Mon,  8 Apr 2024 18:06:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1712599613; x=1744135613;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=o7PRP4CSBoHLJcwklDmSp0l5qaAgKxnPAFK7SlWjBCQ=;
+ b=jx9A4F50ZirGtHtZPjRxR5eQ13LstEnvZPNmfVLG+kPhOAyOsvcQNU2I
+ NSf57hbd24JFjkidZItrC1K/SYqGU7QvDpMR1c1ACRVuNAF7tuhqE7+U/
+ 0WwURxIbHdwd5Usb6ejGoutTfDvV0LlMwc0fCEIOgiNg9MTflHVl93qS+
+ WLjYdEgu5QlYIgN6LgIFthLNy6WXRcU1XaqagnpuEv062IkL9oBuDurkI
+ F3yYf1u6SXLOXJPxatHcQSkLMvC+evo7plPrQmEW2U30UHxLZh1r+sA10
+ fmFor4McWyzKxIkfjSzc5bSwl1kGtUm4Mpmnh6XLOucF/1Ut7FzppNFZO g==;
+X-CSE-ConnectionGUID: jBAuBmEuS7+hi8aDQ892kg==
+X-CSE-MsgGUID: pFD00f+gQJSgv/OrrXyF2w==
+X-IronPort-AV: E=McAfee;i="6600,9927,11038"; a="19038292"
+X-IronPort-AV: E=Sophos;i="6.07,187,1708416000"; d="scan'208";a="19038292"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2024 11:06:52 -0700
+X-CSE-ConnectionGUID: sCV1sE+uSkCE0KGtmN9uEQ==
+X-CSE-MsgGUID: 7y0P/VQhTyWNTKt2PoTdhg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,187,1708416000"; d="scan'208";a="43144113"
+Received: from unknown (HELO [10.245.245.223]) ([10.245.245.223])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2024 11:06:50 -0700
+Message-ID: <025f993b-0ce8-4977-b43a-454563509034@intel.com>
+Date: Mon, 8 Apr 2024 19:06:48 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E5:EE_|MW4PR12MB7014:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa1648fa-91e5-4967-9604-08dc57f447f3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: n1YYG8ZN3d2zdhCV8yWwJLENkY5k63rA2zYw7TGrg75CgZOXvlwLFhomkIG8Az/0cZd/g5FRldJeMxts0o9EIniuUQT94OH2oKAcHNrtcIYO3vWPV6sh/FFGMRxjWhGuW8RhcjbWSSx0XBnLJKIIYRZsUXaKqhlydReVc63pAFyVdbLrRK7GX/4hLk8BBgh1zv53U4J3vR1ENwW9iqNi6OmHTe4j8XsJROj7LsfVk+WMfeMRVSqYmDyQx/spp+j4Wc7vV8NfTxgY1a2U3F3D+hkoWCgzm7TgXQsKmzmuxo5mjCvvCVV8XOYu1g8WuqYx9t4MPT22XC4L6lpxJsg/HDIUDuoWjkVtVe2frwvifpb8j68J0HTtRkVxmaQMEnCVzdWWFPqLErzHrnRvuwdiTLQdYwaHqVOcgnUoJysV6TJWLsMwpNiDnMW85/1RFtzCLM+DxjaR1rMx9DfjEz2oFn5zhzUd1NRDNyu1bu988sVMRZrZvvFi6xgeeLKmhNFJVAEHStzwJQYYg2XffxRh53W8gftxxqwht36TtztpvsWRBM9wnEG/V0frhZbHHc+hNcuS3Rb4P34GbFlLHj4LjjNB+gNxALBAOJv/LvbC7mvyp8JF+LKCps8duJj0LbfQqYLdWLtq7jFHYYh9XQa5mVkYGGc5BGeA+lVoRK9B/LgcPGeUT3pkq3kLxNWWxradLjtJJGEzrkEQQwh0HhVsHRe0ElbNJIbl03IrSuYLH1EfasV2s6E84evHJBnkMyen
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(82310400014)(36860700004); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2024 17:49:46.7581 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa1648fa-91e5-4967-9604-08dc57f447f3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E5.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7014
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 3/3] drm/tests: Add a test case for drm buddy clear
+ allocation
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
+ mario.limonciello@amd.com, felix.kuehling@amd.com
+References: <20240408151620.528163-1-Arunpravin.PaneerSelvam@amd.com>
+ <20240408151620.528163-3-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20240408151620.528163-3-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,27 +72,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Otherwise the nid is always passed as 0 during memory reclaim so
-make TTM shrinkers NUMA aware.
+On 08/04/2024 16:16, Arunpravin Paneer Selvam wrote:
+> Add a new test case for the drm buddy clear and dirty
+> allocation.
+> 
+> v2:(Matthew)
+>    - make size as u32
+>    - rename PAGE_SIZE with SZ_4K
+>    - dont fragment the address space for all the order allocation
+>      iterations. we can do it once and just increment and allocate
+>      the size.
+>    - create new mm with non power-of-two size to ensure the multi-root
+>      force_merge during fini.
+> 
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Suggested-by: Matthew Auld <matthew.auld@intel.com>
+> ---
+>   drivers/gpu/drm/tests/drm_buddy_test.c | 141 +++++++++++++++++++++++++
+>   1 file changed, 141 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/tests/drm_buddy_test.c b/drivers/gpu/drm/tests/drm_buddy_test.c
+> index 4621a860cb05..b07f132f2835 100644
+> --- a/drivers/gpu/drm/tests/drm_buddy_test.c
+> +++ b/drivers/gpu/drm/tests/drm_buddy_test.c
+> @@ -224,6 +224,146 @@ static void drm_test_buddy_alloc_range_bias(struct kunit *test)
+>   	drm_buddy_fini(&mm);
+>   }
+>   
+> +static void drm_test_buddy_alloc_clear(struct kunit *test)
+> +{
+> +	unsigned long n_pages, total, i = 0;
+> +	const unsigned long ps = SZ_4K;
+> +	struct drm_buddy_block *block;
+> +	const int max_order = 12;
+> +	LIST_HEAD(allocated);
+> +	struct drm_buddy mm;
+> +	unsigned int order;
+> +	u32 mm_size, size;
+> +	LIST_HEAD(dirty);
+> +	LIST_HEAD(clean);
+> +
+> +	mm_size = SZ_4K << max_order;
+> +	KUNIT_EXPECT_FALSE(test, drm_buddy_init(&mm, mm_size, ps));
+> +
+> +	KUNIT_EXPECT_EQ(test, mm.max_order, max_order);
+> +
+> +	/*
+> +	 * Idea is to allocate and free some random portion of the address space,
+> +	 * returning those pages as non-dirty and randomly alternate between
+> +	 * requesting dirty and non-dirty pages (not going over the limit
+> +	 * we freed as non-dirty), putting that into two separate lists.
+> +	 * Loop over both lists at the end checking that the dirty list
+> +	 * is indeed all dirty pages and vice versa. Free it all again,
+> +	 * keeping the dirty/clear status.
+> +	 */
+> +	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
+> +							    5 * ps, ps, &allocated,
+> +							    DRM_BUDDY_TOPDOWN_ALLOCATION),
+> +				"buddy_alloc hit an error size=%lu\n", 5 * ps);
+> +	drm_buddy_free_list(&mm, &allocated, DRM_BUDDY_CLEARED);
+> +
+> +	n_pages = 10;
+> +	do {
+> +		unsigned long flags;
+> +		struct list_head *list;
+> +		int slot = i % 2;
+> +
+> +		if (slot == 0) {
+> +			list = &dirty;
+> +			flags = 0;
+> +		} else {
+> +			list = &clean;
+> +			flags = DRM_BUDDY_CLEAR_ALLOCATION;
+> +		}
+> +
+> +		KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
+> +								    ps, ps, list,
+> +								    flags),
+> +					"buddy_alloc hit an error size=%lu\n", ps);
+> +	} while (++i < n_pages);
+> +
+> +	list_for_each_entry(block, &clean, link)
+> +		KUNIT_EXPECT_EQ(test, drm_buddy_block_is_clear(block), true);
+> +
+> +	list_for_each_entry(block, &dirty, link)
+> +		KUNIT_EXPECT_EQ(test, drm_buddy_block_is_clear(block), false);
+> +
+> +	drm_buddy_free_list(&mm, &clean, DRM_BUDDY_CLEARED);
+> +
+> +	/*
+> +	 * Trying to go over the clear limit for some allocation.
+> +	 * The allocation should never fail with reasonable page-size.
+> +	 */
+> +	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
+> +							    10 * ps, ps, &clean,
+> +							    DRM_BUDDY_CLEAR_ALLOCATION),
+> +				"buddy_alloc hit an error size=%lu\n", 10 * ps);
+> +
+> +	drm_buddy_free_list(&mm, &clean, DRM_BUDDY_CLEARED);
+> +	drm_buddy_free_list(&mm, &dirty, 0);
+> +	drm_buddy_fini(&mm);
+> +
+> +	KUNIT_EXPECT_FALSE(test, drm_buddy_init(&mm, mm_size, ps));
+> +
+> +	/*
+> +	 * Create a new mm. Intentionally fragment the address space by creating
+> +	 * two alternating lists. Free both lists, one as dirty the other as clean.
+> +	 * Try to allocate double the previous size with matching min_page_size. The
+> +	 * allocation should never fail as it calls the force_merge. Also check that
+> +	 * the page is always dirty after force_merge. Free the page as dirty, then
+> +	 * repeat the whole thing, increment the order until we hit the max_order.
+> +	 */
+> +
+> +	i = 0;
+> +	n_pages = mm_size / ps;
+> +	do {
+> +		struct list_head *list;
+> +		int slot = i % 2;
+> +
+> +		if (slot == 0)
+> +			list = &dirty;
+> +		else
+> +			list = &clean;
+> +
+> +		KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
+> +								    ps, ps, list, 0),
+> +					"buddy_alloc hit an error size=%lu\n", ps);
+> +	} while (++i < n_pages);
+> +
+> +	drm_buddy_free_list(&mm, &clean, DRM_BUDDY_CLEARED);
+> +	drm_buddy_free_list(&mm, &dirty, 0);
+> +
+> +	order = 1;
+> +	do {
+> +		size = SZ_4K << order;
+> +
+> +		KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
+> +								    size, size, &allocated,
+> +								    DRM_BUDDY_CLEAR_ALLOCATION),
+> +					"buddy_alloc hit an error size=%u\n", size);
+> +		total = 0;
+> +		list_for_each_entry(block, &allocated, link) {
+> +			if (size != mm_size)
+> +				KUNIT_EXPECT_EQ(test, drm_buddy_block_is_clear(block), false);
+> +			total += drm_buddy_block_size(&mm, block);
+> +		}
+> +		KUNIT_EXPECT_EQ(test, total, size);
+> +
+> +		drm_buddy_free_list(&mm, &allocated, 0);
+> +	} while (++order <= max_order);
+> +
+> +	drm_buddy_fini(&mm);
+> +
+> +	/*
+> +	 * Create a new mm with a non power-of-two size. Allocate a random size, free as
+> +	 * cleared and then call fini. This will ensure the multi-root force merge during
+> +	 * fini.
+> +	 */
+> +	mm_size = 12 * SZ_4K;
 
-Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
----
- drivers/gpu/drm/ttm/ttm_pool.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I don't see any randomness? Maybe something like:
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index dbc96984d331..514261f44b78 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -794,7 +794,7 @@ int ttm_pool_mgr_init(unsigned long num_pages)
- 			    &ttm_pool_debugfs_shrink_fops);
- #endif
- 
--	mm_shrinker = shrinker_alloc(0, "drm-ttm_pool");
-+	mm_shrinker = shrinker_alloc(SHRINKER_NUMA_AWARE, "drm-ttm_pool");
- 	if (!mm_shrinker)
- 		return -ENOMEM;
- 
--- 
-2.34.1
+size = max(round_up(prandom_u32_state(&prng) % mm_size, ps), ps);
 
+Otherwise,
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+
+> +	KUNIT_EXPECT_FALSE(test, drm_buddy_init(&mm, mm_size, ps));
+> +	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
+> +							    4 * ps, ps, &allocated,
+> +							    DRM_BUDDY_TOPDOWN_ALLOCATION),
+> +				"buddy_alloc hit an error size=%lu\n", 4 * ps);
+> +	drm_buddy_free_list(&mm, &allocated, DRM_BUDDY_CLEARED);
+> +	drm_buddy_fini(&mm);
+> +}
+> +
+>   static void drm_test_buddy_alloc_contiguous(struct kunit *test)
+>   {
+>   	const unsigned long ps = SZ_4K, mm_size = 16 * 3 * SZ_4K;
+> @@ -584,6 +724,7 @@ static struct kunit_case drm_buddy_tests[] = {
+>   	KUNIT_CASE(drm_test_buddy_alloc_pessimistic),
+>   	KUNIT_CASE(drm_test_buddy_alloc_pathological),
+>   	KUNIT_CASE(drm_test_buddy_alloc_contiguous),
+> +	KUNIT_CASE(drm_test_buddy_alloc_clear),
+>   	KUNIT_CASE(drm_test_buddy_alloc_range_bias),
+>   	{}
+>   };
