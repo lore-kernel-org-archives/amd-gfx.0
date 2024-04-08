@@ -4,66 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D39B7CD1292
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 18:21:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73906C67861
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 18:25:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AA641127C7;
-	Mon,  8 Apr 2024 18:21:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ACA610E54D;
+	Mon,  8 Apr 2024 18:25:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UXn5DJkt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KL1/Cv9F";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E09EF1127C7
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Apr 2024 18:20:57 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-2a2d248a2e1so3057741a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 08 Apr 2024 11:20:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1712600457; x=1713205257; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uX7sG8JWG6dFbv/M6R9CJkVPTQJ1s4LFxw13x/J0CQ0=;
- b=UXn5DJktfjcTh1NDzfMC0fN25U040LzHUo+G3lHt+E9TSmwEgLiDsHvZZVg098Kx5A
- b1lV4586dWuL3GXAGtPFSvDf5d8m4WT3SoZileM5TDSv1ZBYDXCQTtRDDi0ZftKZtFFp
- sk5w0+wzSGHsYePejKAjVNX3Xpo75PtLywzxO/VdZQAi5hqEEmN3Lu7dPn3D6I7XpGzr
- Sj3F/wFBNCLeU10rMKd2CqRoqYbybyrY4ZNQgOdg4k0P6Qn7eOpT5xKZ9F5gVdIAvqk7
- /MhYwIgdPNygDWjLn7x4oEQIglMyz3d3WOkoW55gNyMgn2Agw1A1MJfCpj1M+wwvgMKI
- feQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712600457; x=1713205257;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uX7sG8JWG6dFbv/M6R9CJkVPTQJ1s4LFxw13x/J0CQ0=;
- b=wY9j45Ul1TkAZ7snd994MerzjG9uymoGiMdDhxwojzkBAz+QzrdH3/8dK4D/mYxmXy
- eMOfxryH4Tx2jr2WW/GqTz9kTjj9Z1DyJ0k7CP6K+g0xHcGLsSNxc/L5gf0Ld8uApGj/
- 39UXEfbHwk5BBsRmpjt4PvBAbKT9ePyvY6pbvL6chcranw7UnnjH5o6LCUEl/skIXWxX
- ed5EXpHWFwMdjO1S9qDu5zC/z1p6yI92MIgIwJEiKS1rUZRIbPHIQt4TpFPqzaU4yfs1
- bHInCZ3b0ODwsOkvVbh1K+9EwG+wG/rIV5vb6kYabWDX8Ub4Q9zu8VxOvXBYJ++sR0Ov
- oekw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVHYvfK9vl6O4plTbpG/BfgIElqzSzJFTGGpbY/81NBFysyZHPvzphJhmPnGMYcKrQQ60Tf9LvTA1TtesxQrkmm73T36DVSTUtELqCYRw==
-X-Gm-Message-State: AOJu0Ywy7P1j3qIlAx0sPlR1n03ebFvZNN/NnEak6/fwle+3utvW9eH8
- asMn4HnoKugWeZYZ+ty4oeWhvH4M4rSp3hfwPp6DKFcGGk+2lx2WvrYIwB3gK0DPkNbOGgLLrXb
- VtJpIdNlx6j1s53919LXF/g35Fs8=
-X-Google-Smtp-Source: AGHT+IFhE1gheJLOzDV+51urrL93ze9VwN3DQuPhahlBS6f+jB7m4+exSDFTnYXuSnL2JlmB9Bbu+D0cZd73SF6dG3I=
-X-Received: by 2002:a17:90a:db02:b0:2a2:6244:32b5 with SMTP id
- g2-20020a17090adb0200b002a2624432b5mr644686pjv.11.1712600455662; Mon, 08 Apr
- 2024 11:20:55 -0700 (PDT)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2051.outbound.protection.outlook.com [40.107.236.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C5CC10E54D
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Apr 2024 18:25:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VyR4GrvqRkEPREI/bHtcmtFRo87R0Ix/GYUwDmepXWpp11v3JOwbOAbDk6rlOPSIbnvy7aSzCBwnX47uNfvc4yr5+IGVJz5pASHEsywTEH3Dm41JBpNRR41+gY1++4rrDCjOibhtxmqag2u2+9qwVmqlYJM95+TjV42DeGPypY0+coXbqiN4zcvyDj0i02kkWlOwhFNggzvSkFIHCZUYc5WqcAujGuig74dH8Kvd/2WZQp02RBhExyQsa3pYunV7gYukAt/4j9Tmm0rzfi2QWA0brbq19gi9VsWpHzO3Jrsf9typCl5OZ7z7Hn5rb3phZ0stKjCw1UnDazXmz+pP2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nUtmjV332cp4BKbXV0CL3utJ7a3bzMrpG9GUkVqa744=;
+ b=ntlRlfmf0FaIFZtX9PzHPLoIPTKhzm+VX2ZBX79uxwE+y1Iw9zr5Cm/Xy6gwKbT5hMx2NcuG94DTyaiP5gpQvziF3sLq+oEYEPLzNZH8jjE2vWMnMlu92YwlRw1Mke0H0PCWe//Cr8Q/xV/a3d62FcwfSX2qvtEEyuDyU2w/ritcWYabkzSU//gMEgymUdEMwY9uH5hN1i80kDmzdIi8ef7kUMno2llS1dV3MKwEb92QDAMrR9cDcYcDdNS635OwN0eZ+CCIG63N6oIuDsc5J3z9L4RDQ2XhVhlZGPP32LsaXCxRzIV2yXLM6VmZZ9FSVibGDyupZev1KSdlfe7ZYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nUtmjV332cp4BKbXV0CL3utJ7a3bzMrpG9GUkVqa744=;
+ b=KL1/Cv9F91b9R/NrR8h0RB7hs32yqZU4wmnGiRR5Bq84GF20wsYEsSHamk3cBLAAd7KkqHNwb23HEGxicbKDhwaArxIWHHRPpMiiAfH8jOvC8y5hdLAx8aK0WD5nKVFqQF6iL0S94X1Nr5dfmczywsKnvXyIZ5S/4adgz7bs/Vg=
+Received: from CH2PR07CA0007.namprd07.prod.outlook.com (2603:10b6:610:20::20)
+ by CH3PR12MB8534.namprd12.prod.outlook.com (2603:10b6:610:15a::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Mon, 8 Apr
+ 2024 18:25:18 +0000
+Received: from CH2PEPF0000013E.namprd02.prod.outlook.com
+ (2603:10b6:610:20:cafe::b7) by CH2PR07CA0007.outlook.office365.com
+ (2603:10b6:610:20::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
+ Transport; Mon, 8 Apr 2024 18:25:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH2PEPF0000013E.mail.protection.outlook.com (10.167.244.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Mon, 8 Apr 2024 18:25:17 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 8 Apr
+ 2024 13:25:16 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu/mes11: print MES opcodes rather than numbers
+Date: Mon, 8 Apr 2024 14:25:03 -0400
+Message-ID: <20240408182503.364555-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-References: <20240405075027.2252-1-christian.koenig@amd.com>
-In-Reply-To: <20240405075027.2252-1-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 8 Apr 2024 14:20:44 -0400
-Message-ID: <CADnq5_MQ+HQmEJ6EXO0d2wh=WKNPSsZB1F2D9ecFwaRD_v6maw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix visible VRAM handling during faults
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: Amaranath.Somalapuram@amd.com, xenia.ragiadakou@amd.com, 
- pierre-eric.pelloux-prayer@amd.com, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000013E:EE_|CH3PR12MB8534:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1fd373c-aafa-498b-6061-08dc57f93e24
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MtAz/PF4TwIftj+uxK+pUtvSKQlqR+sME2UFXMxKqAvxhb+rVy5lI7h4KCFFKVIHbUl+8243lldxqFXV8XnkK6RTh59WMjJ3vEzk3GoYzyXJa0h5UhuO9xzF8cWa1nb/Hbo5XPc8eATNlO/L4qyClf3bU/ugUDvl0ybgZuallCLORkWh/0m2aC27b0dMH2gmIXCKKb7HCCodQfF7enL7gcmyZehAhkJI0QtK6j88PPBNVLbchvEBudjVsEPc6QEECZF4cmw1kgu65mQfiruCBsGQjTqMUks0AQ+r6BT5pA+tufM8tilcAvtixfIcRPajfF662MX7/i7CCcbDsdDcT/UnmY4UHBInlAUYJOwPsX56Yv0uc36re/feyw8muP+FuzkE/tF6sOFsL7KeUsq2CIJUpyU/VXIyM2nr38fEUAmzizSJYQ5X2OS/Osw/+ViY4tEGfmnQEdQR6bTGCcaqMvARVWi4DLBDP1oxTVeTgFmoSTW/y+woY6L3981sxIx27GretOAGpXB0cCkMXr/eLPoSXEBAeaavf2KvlHgqeEK/xY8BYzGAHrj6oj0Dx9TTtZ0IE5ScQYRJ12V+6HzzxL9obbSc+VrdcPMi8BYQA9jEOofSXy5hsJc/77tG+K03dURZq73s/+/jUrEkbaMYSyw38aIawaV7RbvBo8aPjLZTgemOQYMfUuEaT27vsqf4+Nal8lULaSzNj0+7cB/1NEvbHMVbpmmMcrBk1oj06Yt49Rp7dW2i/9eFNELH1kw7
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(82310400014)(36860700004)(376005)(1800799015); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2024 18:25:17.8468 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1fd373c-aafa-498b-6061-08dc57f93e24
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8534
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,305 +104,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 5, 2024 at 3:57=E2=80=AFAM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> When we removed the hacky start code check we actually didn't took into
-> account that *all* VRAM pages needs to be CPU accessible.
->
-> Clean up the code and unify the handling into a single helper which
-> checks if the whole resource is CPU accessible.
->
-> The only place where a partial check would make sense is during
-> eviction, but that is neglitible.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Fixes: aed01a68047b ("drm/amdgpu: Remove TTM resource->start visible VRAM=
- condition v2")
+Makes it easier to review the logs when there are MES
+errors.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+v2: use dbg for emitted, add helpers for fetching strings
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 22 ++++----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h | 22 --------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 61 ++++++++++++++--------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |  3 ++
->  5 files changed, 53 insertions(+), 57 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_cs.c
-> index bbbd8ad0171f..e9168677ef0a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -819,7 +819,7 @@ static int amdgpu_cs_bo_validate(void *param, struct =
-amdgpu_bo *bo)
->
->         p->bytes_moved +=3D ctx.bytes_moved;
->         if (!amdgpu_gmc_vram_full_visible(&adev->gmc) &&
-> -           amdgpu_bo_in_cpu_visible_vram(bo))
-> +           amdgpu_res_cpu_visible(adev, bo->tbo.resource))
->                 p->bytes_moved_vis +=3D ctx.bytes_moved;
->
->         if (unlikely(r =3D=3D -ENOMEM) && domain !=3D bo->allowed_domains=
-) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_object.c
-> index eb7d824763b9..eff3f9fceada 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -620,8 +620,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
->                 return r;
->
->         if (!amdgpu_gmc_vram_full_visible(&adev->gmc) &&
-> -           bo->tbo.resource->mem_type =3D=3D TTM_PL_VRAM &&
-> -           amdgpu_bo_in_cpu_visible_vram(bo))
-> +           amdgpu_res_cpu_visible(adev, bo->tbo.resource))
->                 amdgpu_cs_report_moved_bytes(adev, ctx.bytes_moved,
->                                              ctx.bytes_moved);
->         else
-> @@ -1276,18 +1275,20 @@ void amdgpu_bo_move_notify(struct ttm_buffer_obje=
-ct *bo,
->  void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
->                           struct amdgpu_mem_stats *stats)
->  {
-> +       struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
-> +       struct ttm_resource *res =3D bo->tbo.resource;
->         uint64_t size =3D amdgpu_bo_size(bo);
->         unsigned int domain;
->
->         /* Abort if the BO doesn't currently have a backing store */
-> -       if (!bo->tbo.resource)
-> +       if (!res)
->                 return;
->
-> -       domain =3D amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
-> +       domain =3D amdgpu_mem_type_to_domain(res->mem_type);
->         switch (domain) {
->         case AMDGPU_GEM_DOMAIN_VRAM:
->                 stats->vram +=3D size;
-> -               if (amdgpu_bo_in_cpu_visible_vram(bo))
-> +               if (amdgpu_res_cpu_visible(adev, bo->tbo.resource))
->                         stats->visible_vram +=3D size;
->                 break;
->         case AMDGPU_GEM_DOMAIN_GTT:
-> @@ -1382,10 +1383,7 @@ vm_fault_t amdgpu_bo_fault_reserve_notify(struct t=
-tm_buffer_object *bo)
->         /* Remember that this BO was accessed by the CPU */
->         abo->flags |=3D AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
->
-> -       if (bo->resource->mem_type !=3D TTM_PL_VRAM)
-> -               return 0;
-> -
-> -       if (amdgpu_bo_in_cpu_visible_vram(abo))
-> +       if (amdgpu_res_cpu_visible(adev, bo->resource))
->                 return 0;
->
->         /* Can't move a pinned BO to visible VRAM */
-> @@ -1409,7 +1407,7 @@ vm_fault_t amdgpu_bo_fault_reserve_notify(struct tt=
-m_buffer_object *bo)
->
->         /* this should never happen */
->         if (bo->resource->mem_type =3D=3D TTM_PL_VRAM &&
-> -           !amdgpu_bo_in_cpu_visible_vram(abo))
-> +           !amdgpu_res_cpu_visible(adev, bo->resource))
->                 return VM_FAULT_SIGBUS;
->
->         ttm_bo_move_to_lru_tail_unlocked(bo);
-> @@ -1573,6 +1571,7 @@ uint32_t amdgpu_bo_get_preferred_domain(struct amdg=
-pu_device *adev,
->   */
->  u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *=
-m)
->  {
-> +       struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
->         struct dma_buf_attachment *attachment;
->         struct dma_buf *dma_buf;
->         const char *placement;
-> @@ -1581,10 +1580,11 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo=
- *bo, struct seq_file *m)
->
->         if (dma_resv_trylock(bo->tbo.base.resv)) {
->                 unsigned int domain;
-> +
->                 domain =3D amdgpu_mem_type_to_domain(bo->tbo.resource->me=
-m_type);
->                 switch (domain) {
->                 case AMDGPU_GEM_DOMAIN_VRAM:
-> -                       if (amdgpu_bo_in_cpu_visible_vram(bo))
-> +                       if (amdgpu_res_cpu_visible(adev, bo->tbo.resource=
-))
->                                 placement =3D "VRAM VISIBLE";
->                         else
->                                 placement =3D "VRAM";
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_object.h
-> index d28e21baef16..f8982404da93 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> @@ -244,28 +244,6 @@ static inline u64 amdgpu_bo_mmap_offset(struct amdgp=
-u_bo *bo)
->         return drm_vma_node_offset_addr(&bo->tbo.base.vma_node);
->  }
->
-> -/**
-> - * amdgpu_bo_in_cpu_visible_vram - check if BO is (partly) in visible VR=
-AM
-> - */
-> -static inline bool amdgpu_bo_in_cpu_visible_vram(struct amdgpu_bo *bo)
-> -{
-> -       struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
-> -       struct amdgpu_res_cursor cursor;
-> -
-> -       if (!bo->tbo.resource || bo->tbo.resource->mem_type !=3D TTM_PL_V=
-RAM)
-> -               return false;
-> -
-> -       amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &cursor=
-);
-> -       while (cursor.remaining) {
-> -               if (cursor.start < adev->gmc.visible_vram_size)
-> -                       return true;
-> -
-> -               amdgpu_res_next(&cursor, cursor.size);
-> -       }
-> -
-> -       return false;
-> -}
-> -
->  /**
->   * amdgpu_bo_explicit_sync - return whether the bo is explicitly synced
->   */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index 460b23918bfc..6f0cfe66613e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -137,7 +137,7 @@ static void amdgpu_evict_flags(struct ttm_buffer_obje=
-ct *bo,
->                         amdgpu_bo_placement_from_domain(abo, AMDGPU_GEM_D=
-OMAIN_CPU);
->                 } else if (!amdgpu_gmc_vram_full_visible(&adev->gmc) &&
->                            !(abo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_RE=
-QUIRED) &&
-> -                          amdgpu_bo_in_cpu_visible_vram(abo)) {
-> +                          amdgpu_res_cpu_visible(adev, bo->resource)) {
->
->                         /* Try evicting to the CPU inaccessible part of V=
-RAM
->                          * first, but only set GTT as busy placement, so =
-this
-> @@ -408,40 +408,55 @@ static int amdgpu_move_blit(struct ttm_buffer_objec=
-t *bo,
->         return r;
->  }
->
-> -/*
-> - * amdgpu_mem_visible - Check that memory can be accessed by ttm_bo_move=
-_memcpy
-> +/**
-> + * amdgpu_res_cpu_visible - Check that resource can be accessed by CPU
-> + * @adev: amdgpu device
-> + * @res: the resource to check
->   *
-> - * Called by amdgpu_bo_move()
-> + * Returns: true if the full resource is CPU visible, false otherwise.
->   */
-> -static bool amdgpu_mem_visible(struct amdgpu_device *adev,
-> -                              struct ttm_resource *mem)
-> +bool amdgpu_res_cpu_visible(struct amdgpu_device *adev,
-> +                           struct ttm_resource *res)
->  {
-> -       u64 mem_size =3D (u64)mem->size;
->         struct amdgpu_res_cursor cursor;
-> -       u64 end;
->
-> -       if (mem->mem_type =3D=3D TTM_PL_SYSTEM ||
-> -           mem->mem_type =3D=3D TTM_PL_TT)
-> +       if (!res)
-> +               return false;
-> +
-> +       if (res->mem_type =3D=3D TTM_PL_SYSTEM || res->mem_type =3D=3D TT=
-M_PL_TT ||
-> +           res->mem_type =3D=3D AMDGPU_PL_PREEMPT)
->                 return true;
-> -       if (mem->mem_type !=3D TTM_PL_VRAM)
-> +
-> +       if (res->mem_type !=3D TTM_PL_VRAM)
->                 return false;
->
-> -       amdgpu_res_first(mem, 0, mem_size, &cursor);
-> -       end =3D cursor.start + cursor.size;
-> +       amdgpu_res_first(res, 0, res->size, &cursor);
->         while (cursor.remaining) {
-> +               if ((cursor.start + cursor.size) >=3D adev->gmc.visible_v=
-ram_size)
-> +                       return false;
->                 amdgpu_res_next(&cursor, cursor.size);
-> +       }
->
-> -               if (!cursor.remaining)
-> -                       break;
-> +       return true;
-> +}
->
-> -               /* ttm_resource_ioremap only supports contiguous memory *=
-/
-> -               if (end !=3D cursor.start)
-> -                       return false;
-> +/*
-> + * amdgpu_res_copyable - Check that memory can be accessed by ttm_bo_mov=
-e_memcpy
-> + *
-> + * Called by amdgpu_bo_move()
-> + */
-> +static bool amdgpu_res_copyable(struct amdgpu_device *adev,
-> +                               struct ttm_resource *mem)
-> +{
-> +       if (!amdgpu_res_cpu_visible(adev, mem))
-> +               return false;
->
-> -               end =3D cursor.start + cursor.size;
-> -       }
-> +       /* ttm_resource_ioremap only supports contiguous memory */
-> +       if (mem->mem_type =3D=3D TTM_PL_VRAM &&
-> +           !(mem->placement & TTM_PL_FLAG_CONTIGUOUS))
-> +               return false;
->
-> -       return end <=3D adev->gmc.visible_vram_size;
-> +       return true;
->  }
->
->  /*
-> @@ -539,8 +554,8 @@ static int amdgpu_bo_move(struct ttm_buffer_object *b=
-o, bool evict,
->
->         if (r) {
->                 /* Check that all memory is CPU accessible */
-> -               if (!amdgpu_mem_visible(adev, old_mem) ||
-> -                   !amdgpu_mem_visible(adev, new_mem)) {
-> +               if (!amdgpu_res_copyable(adev, old_mem) ||
-> +                   !amdgpu_res_copyable(adev, new_mem)) {
->                         pr_err("Move buffer fallback to memcpy unavailabl=
-e\n");
->                         return r;
->                 }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.h
-> index 65ec82141a8e..32cf6b6f6efd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -139,6 +139,9 @@ int amdgpu_vram_mgr_reserve_range(struct amdgpu_vram_=
-mgr *mgr,
->  int amdgpu_vram_mgr_query_page_status(struct amdgpu_vram_mgr *mgr,
->                                       uint64_t start);
->
-> +bool amdgpu_res_cpu_visible(struct amdgpu_device *adev,
-> +                           struct ttm_resource *res);
-> +
->  int amdgpu_ttm_init(struct amdgpu_device *adev);
->  void amdgpu_ttm_fini(struct amdgpu_device *adev);
->  void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev,
-> --
-> 2.34.1
->
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 78 ++++++++++++++++++++++++--
+ 1 file changed, 74 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index 072c478665ade..69d39ba726e12 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -100,18 +100,72 @@ static const struct amdgpu_ring_funcs mes_v11_0_ring_funcs = {
+ 	.insert_nop = amdgpu_ring_insert_nop,
+ };
+ 
++static const char *mes_v11_0_opcodes[] = {
++	"MES_SCH_API_SET_HW_RSRC",
++	"MES_SCH_API_SET_SCHEDULING_CONFIG",
++	"MES_SCH_API_ADD_QUEUE"
++	"MES_SCH_API_REMOVE_QUEUE"
++	"MES_SCH_API_PERFORM_YIELD"
++	"MES_SCH_API_SET_GANG_PRIORITY_LEVEL"
++	"MES_SCH_API_SUSPEND"
++	"MES_SCH_API_RESUME"
++	"MES_SCH_API_RESET"
++	"MES_SCH_API_SET_LOG_BUFFER"
++	"MES_SCH_API_CHANGE_GANG_PRORITY"
++	"MES_SCH_API_QUERY_SCHEDULER_STATUS"
++	"MES_SCH_API_PROGRAM_GDS"
++	"MES_SCH_API_SET_DEBUG_VMID"
++	"MES_SCH_API_MISC"
++	"MES_SCH_API_UPDATE_ROOT_PAGE_TABLE"
++	"MES_SCH_API_AMD_LOG"
++};
++
++static const char *mes_v11_0_misc_opcodes[] = {
++	"MESAPI_MISC__WRITE_REG",
++	"MESAPI_MISC__INV_GART",
++	"MESAPI_MISC__QUERY_STATUS",
++	"MESAPI_MISC__READ_REG",
++	"MESAPI_MISC__WAIT_REG_MEM",
++	"MESAPI_MISC__SET_SHADER_DEBUGGER",
++};
++
++static const char *mes_v11_0_get_op_string(union MESAPI__MISC *x_pkt)
++{
++	const char *op_str = NULL;
++
++	if (x_pkt->header.opcode < ARRAY_SIZE(mes_v11_0_opcodes))
++		op_str = mes_v11_0_opcodes[x_pkt->header.opcode];
++
++	return op_str;
++}
++
++static const char *mes_v11_0_get_misc_op_string(union MESAPI__MISC *x_pkt)
++{
++	const char *op_str = NULL;
++
++	if ((x_pkt->header.opcode == MES_SCH_API_MISC) &&
++	    (x_pkt->opcode <= ARRAY_SIZE(mes_v11_0_misc_opcodes)))
++		op_str = mes_v11_0_misc_opcodes[x_pkt->opcode];
++
++	return op_str;
++}
++
+ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+ 						    void *pkt, int size,
+ 						    int api_status_off)
+ {
+ 	int ndw = size / 4;
+ 	signed long r;
+-	union MESAPI__ADD_QUEUE *x_pkt = pkt;
++	union MESAPI__MISC *x_pkt = pkt;
+ 	struct MES_API_STATUS *api_status;
+ 	struct amdgpu_device *adev = mes->adev;
+ 	struct amdgpu_ring *ring = &mes->ring;
+ 	unsigned long flags;
+ 	signed long timeout = adev->usec_timeout;
++	const char *op_str, *misc_op_str;
++
++	if (x_pkt->header.opcode >= MES_SCH_API_MAX)
++		return -EINVAL;
+ 
+ 	if (amdgpu_emu_mode) {
+ 		timeout *= 100;
+@@ -135,13 +189,29 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+ 	amdgpu_ring_commit(ring);
+ 	spin_unlock_irqrestore(&mes->ring_lock, flags);
+ 
+-	DRM_DEBUG("MES msg=%d was emitted\n", x_pkt->header.opcode);
++	op_str = mes_v11_0_get_op_string(x_pkt);
++	misc_op_str = mes_v11_0_get_misc_op_string(x_pkt);
++
++	if (misc_op_str)
++		dev_dbg(adev->dev, "MES msg=%s (%s) was emitted\n", op_str, misc_op_str);
++	else if (op_str)
++		dev_dbg(adev->dev, "MES msg=%s was emitted\n", op_str);
++	else
++		dev_dbg(adev->dev, "MES msg=%d was emitted\n", x_pkt->header.opcode);
+ 
+ 	r = amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq,
+ 		      timeout);
+ 	if (r < 1) {
+-		DRM_ERROR("MES failed to response msg=%d\n",
+-			  x_pkt->header.opcode);
++
++		if (misc_op_str)
++			dev_err(adev->dev, "MES failed to respond to msg=%s (%s)\n",
++				op_str, misc_op_str);
++		else if (op_str)
++			dev_err(adev->dev, "MES failed to respond to msg=%s\n",
++				op_str);
++		else
++			dev_err(adev->dev, "MES failed to respond to msg=%d\n",
++				x_pkt->header.opcode);
+ 
+ 		while (halt_if_hws_hang)
+ 			schedule();
+-- 
+2.44.0
+
