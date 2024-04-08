@@ -4,92 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73906C67861
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 18:25:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F6B5C67861
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 18:47:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9ACA610E54D;
-	Mon,  8 Apr 2024 18:25:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61D3A10E4A8;
+	Mon,  8 Apr 2024 18:47:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KL1/Cv9F";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E3JNSkx6";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2051.outbound.protection.outlook.com [40.107.236.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C5CC10E54D
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Apr 2024 18:25:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VyR4GrvqRkEPREI/bHtcmtFRo87R0Ix/GYUwDmepXWpp11v3JOwbOAbDk6rlOPSIbnvy7aSzCBwnX47uNfvc4yr5+IGVJz5pASHEsywTEH3Dm41JBpNRR41+gY1++4rrDCjOibhtxmqag2u2+9qwVmqlYJM95+TjV42DeGPypY0+coXbqiN4zcvyDj0i02kkWlOwhFNggzvSkFIHCZUYc5WqcAujGuig74dH8Kvd/2WZQp02RBhExyQsa3pYunV7gYukAt/4j9Tmm0rzfi2QWA0brbq19gi9VsWpHzO3Jrsf9typCl5OZ7z7Hn5rb3phZ0stKjCw1UnDazXmz+pP2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nUtmjV332cp4BKbXV0CL3utJ7a3bzMrpG9GUkVqa744=;
- b=ntlRlfmf0FaIFZtX9PzHPLoIPTKhzm+VX2ZBX79uxwE+y1Iw9zr5Cm/Xy6gwKbT5hMx2NcuG94DTyaiP5gpQvziF3sLq+oEYEPLzNZH8jjE2vWMnMlu92YwlRw1Mke0H0PCWe//Cr8Q/xV/a3d62FcwfSX2qvtEEyuDyU2w/ritcWYabkzSU//gMEgymUdEMwY9uH5hN1i80kDmzdIi8ef7kUMno2llS1dV3MKwEb92QDAMrR9cDcYcDdNS635OwN0eZ+CCIG63N6oIuDsc5J3z9L4RDQ2XhVhlZGPP32LsaXCxRzIV2yXLM6VmZZ9FSVibGDyupZev1KSdlfe7ZYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nUtmjV332cp4BKbXV0CL3utJ7a3bzMrpG9GUkVqa744=;
- b=KL1/Cv9F91b9R/NrR8h0RB7hs32yqZU4wmnGiRR5Bq84GF20wsYEsSHamk3cBLAAd7KkqHNwb23HEGxicbKDhwaArxIWHHRPpMiiAfH8jOvC8y5hdLAx8aK0WD5nKVFqQF6iL0S94X1Nr5dfmczywsKnvXyIZ5S/4adgz7bs/Vg=
-Received: from CH2PR07CA0007.namprd07.prod.outlook.com (2603:10b6:610:20::20)
- by CH3PR12MB8534.namprd12.prod.outlook.com (2603:10b6:610:15a::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Mon, 8 Apr
- 2024 18:25:18 +0000
-Received: from CH2PEPF0000013E.namprd02.prod.outlook.com
- (2603:10b6:610:20:cafe::b7) by CH2PR07CA0007.outlook.office365.com
- (2603:10b6:610:20::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
- Transport; Mon, 8 Apr 2024 18:25:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF0000013E.mail.protection.outlook.com (10.167.244.70) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Mon, 8 Apr 2024 18:25:17 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 8 Apr
- 2024 13:25:16 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu/mes11: print MES opcodes rather than numbers
-Date: Mon, 8 Apr 2024 14:25:03 -0400
-Message-ID: <20240408182503.364555-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.44.0
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46EDF10E4A8
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Apr 2024 18:47:34 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-2a484f772e2so2001800a91.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 08 Apr 2024 11:47:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1712602053; x=1713206853; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3FUVVyqGdRb9Z6aeYHNxueLd+IiyHZrC75WeSdU84Ao=;
+ b=E3JNSkx6kOwJat2btr4pYNgGvBRGVlHJsTmzlfz+xJiS1YM2OEClEP6zoEVc1UFtNY
+ 30FyULi5ozqljaeao6G1Oq53ucMK6oRKVR6Me8pW0WxH7o/LRB7rIOdGh8hTUGORDdrC
+ DrY4xT7gP5tOmSbHiSrAiR4kFBCPPNICwEwHN+T/Epl8BLL5E94SM3jUk3mN9AfPUF8x
+ xR7k28gbFeu+HP0k1T0oABzmA2oOBqDjDgiMFfkAg+47Q9ABXkO4yhClvAfBXVOghNBX
+ zXm6aA9Zua+ZOKyQIQdHwkLHm91QlBiB8Qel7IUaQqx26+d6DDmeEu3tfZkNdlU4yMY1
+ c8CQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712602053; x=1713206853;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3FUVVyqGdRb9Z6aeYHNxueLd+IiyHZrC75WeSdU84Ao=;
+ b=FDgHxNb89xOMEmMFQPQcu12nMQfRJpL3wORFgM5j8cH3ML9lGNDGGryPR2VuoQwzB9
+ yjuGOX8iRPogy0s+cTAx8ADVmck5mVSc/+l9vdmuye+o+7s7yuyT/rTgB9xhtHuTf5M2
+ i/qcsE0XlI7S0HzRVwEyGCyO9wGmBCbUDCKcd6iQ4edlSUud1M4NECHg0+zFUTOAjaBC
+ je1jb5imKgwpnPNXkMpRLWUCRabxlew/7wxse0WPoIfBsJjulY/6lVZk9FLXesBAu3eT
+ oRqOwhM+Wtclq0k+fpEjVxunK1Jk60uVwZqoMO74UGKl7VwgX2WlBhjSlg6XrJU+mqA4
+ bLdg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUEpi4CdLyLIlgchjG+O51PR16PyWXxoXGnEcy3DDUl/2/73KsIF+ACrjLrvdPNmgPEuUJ2mpSXJIvUoys2pT2PXlAacacFPtjwFpoCKg==
+X-Gm-Message-State: AOJu0YwEzgaELhLLsVa4A7OcldxNi7H78tE0BRaYrhkqJdDdogatN0wE
+ hU5Qoni/G/85G8kJqI7gy3zlh9/J+FQ7TDzvipKGlJwal1jVnSCt42qQzw+Kgoe6dc9tl2SoWCo
+ 8stSBQyNlmHqEReDyMEJ2XyUbjFq6bLjM
+X-Google-Smtp-Source: AGHT+IFXFXUex1UBxJkm4LDZTiSRV1gsOtPvK5sT3l2B9b5BChbsVp5bXqMtLLbAGFjXb1ad25M8euT4oENIqq6iSBM=
+X-Received: by 2002:a17:90b:4f83:b0:2a5:37cc:cc4e with SMTP id
+ qe3-20020a17090b4f8300b002a537cccc4emr2269413pjb.32.1712602053557; Mon, 08
+ Apr 2024 11:47:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013E:EE_|CH3PR12MB8534:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1fd373c-aafa-498b-6061-08dc57f93e24
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MtAz/PF4TwIftj+uxK+pUtvSKQlqR+sME2UFXMxKqAvxhb+rVy5lI7h4KCFFKVIHbUl+8243lldxqFXV8XnkK6RTh59WMjJ3vEzk3GoYzyXJa0h5UhuO9xzF8cWa1nb/Hbo5XPc8eATNlO/L4qyClf3bU/ugUDvl0ybgZuallCLORkWh/0m2aC27b0dMH2gmIXCKKb7HCCodQfF7enL7gcmyZehAhkJI0QtK6j88PPBNVLbchvEBudjVsEPc6QEECZF4cmw1kgu65mQfiruCBsGQjTqMUks0AQ+r6BT5pA+tufM8tilcAvtixfIcRPajfF662MX7/i7CCcbDsdDcT/UnmY4UHBInlAUYJOwPsX56Yv0uc36re/feyw8muP+FuzkE/tF6sOFsL7KeUsq2CIJUpyU/VXIyM2nr38fEUAmzizSJYQ5X2OS/Osw/+ViY4tEGfmnQEdQR6bTGCcaqMvARVWi4DLBDP1oxTVeTgFmoSTW/y+woY6L3981sxIx27GretOAGpXB0cCkMXr/eLPoSXEBAeaavf2KvlHgqeEK/xY8BYzGAHrj6oj0Dx9TTtZ0IE5ScQYRJ12V+6HzzxL9obbSc+VrdcPMi8BYQA9jEOofSXy5hsJc/77tG+K03dURZq73s/+/jUrEkbaMYSyw38aIawaV7RbvBo8aPjLZTgemOQYMfUuEaT27vsqf4+Nal8lULaSzNj0+7cB/1NEvbHMVbpmmMcrBk1oj06Yt49Rp7dW2i/9eFNELH1kw7
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400014)(36860700004)(376005)(1800799015); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2024 18:25:17.8468 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1fd373c-aafa-498b-6061-08dc57f93e24
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8534
+References: <20240402100552.3164095-1-Jun.Ma2@amd.com>
+ <635b5592-c3fd-49f5-b9ea-402a01f70ee0@amd.com>
+In-Reply-To: <635b5592-c3fd-49f5-b9ea-402a01f70ee0@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 8 Apr 2024 14:47:21 -0400
+Message-ID: <CADnq5_NYvfkpFzj1F+uEt7nMEc+gNDR192O2wqqbz3sp0KYyoA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Fix discovery initialization failure
+ during pci rescan
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Alexander.Deucher@amd.com, Hawking.Zhang@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,127 +80,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Makes it easier to review the logs when there are MES
-errors.
+On Tue, Apr 2, 2024 at 7:56=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
+ig@amd.com> wrote:
+>
+> Am 02.04.24 um 12:05 schrieb Ma Jun:
+> > Waiting for system ready to fix the discovery initialization
+> > failure issue. This failure usually occurs when dGPU is removed
+> > and then rescanned via command line.
+> > It's caused by following two errors:
+> > [1] vram size is 0
+> > [2] wrong binary signature
+> >
+> > Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+>
+> I'm not an expert for that stuff, but using dev_is_removable() indeed
+> seems to be incorrect here.
+>
+> Feel free to add an Acked-by: Christian K=C3=B6nig
+> <christian.koenig@amd.com>, but I would rather wait for Alex to come
+> back from vacation and take a look as well.
+>
+> Might be that I missed something why the dev_is_removable() check is
+> mandatory or something like that.
 
-v2: use dbg for emitted, add helpers for fetching strings
+I added it originally for USB4/thunderbolt connected devices (hence
+the removable check) and didn't want to add the extra latency all the
+time, but I hadn't considered the rescan case.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 78 ++++++++++++++++++++++++--
- 1 file changed, 74 insertions(+), 4 deletions(-)
+Patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 072c478665ade..69d39ba726e12 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -100,18 +100,72 @@ static const struct amdgpu_ring_funcs mes_v11_0_ring_funcs = {
- 	.insert_nop = amdgpu_ring_insert_nop,
- };
- 
-+static const char *mes_v11_0_opcodes[] = {
-+	"MES_SCH_API_SET_HW_RSRC",
-+	"MES_SCH_API_SET_SCHEDULING_CONFIG",
-+	"MES_SCH_API_ADD_QUEUE"
-+	"MES_SCH_API_REMOVE_QUEUE"
-+	"MES_SCH_API_PERFORM_YIELD"
-+	"MES_SCH_API_SET_GANG_PRIORITY_LEVEL"
-+	"MES_SCH_API_SUSPEND"
-+	"MES_SCH_API_RESUME"
-+	"MES_SCH_API_RESET"
-+	"MES_SCH_API_SET_LOG_BUFFER"
-+	"MES_SCH_API_CHANGE_GANG_PRORITY"
-+	"MES_SCH_API_QUERY_SCHEDULER_STATUS"
-+	"MES_SCH_API_PROGRAM_GDS"
-+	"MES_SCH_API_SET_DEBUG_VMID"
-+	"MES_SCH_API_MISC"
-+	"MES_SCH_API_UPDATE_ROOT_PAGE_TABLE"
-+	"MES_SCH_API_AMD_LOG"
-+};
-+
-+static const char *mes_v11_0_misc_opcodes[] = {
-+	"MESAPI_MISC__WRITE_REG",
-+	"MESAPI_MISC__INV_GART",
-+	"MESAPI_MISC__QUERY_STATUS",
-+	"MESAPI_MISC__READ_REG",
-+	"MESAPI_MISC__WAIT_REG_MEM",
-+	"MESAPI_MISC__SET_SHADER_DEBUGGER",
-+};
-+
-+static const char *mes_v11_0_get_op_string(union MESAPI__MISC *x_pkt)
-+{
-+	const char *op_str = NULL;
-+
-+	if (x_pkt->header.opcode < ARRAY_SIZE(mes_v11_0_opcodes))
-+		op_str = mes_v11_0_opcodes[x_pkt->header.opcode];
-+
-+	return op_str;
-+}
-+
-+static const char *mes_v11_0_get_misc_op_string(union MESAPI__MISC *x_pkt)
-+{
-+	const char *op_str = NULL;
-+
-+	if ((x_pkt->header.opcode == MES_SCH_API_MISC) &&
-+	    (x_pkt->opcode <= ARRAY_SIZE(mes_v11_0_misc_opcodes)))
-+		op_str = mes_v11_0_misc_opcodes[x_pkt->opcode];
-+
-+	return op_str;
-+}
-+
- static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 						    void *pkt, int size,
- 						    int api_status_off)
- {
- 	int ndw = size / 4;
- 	signed long r;
--	union MESAPI__ADD_QUEUE *x_pkt = pkt;
-+	union MESAPI__MISC *x_pkt = pkt;
- 	struct MES_API_STATUS *api_status;
- 	struct amdgpu_device *adev = mes->adev;
- 	struct amdgpu_ring *ring = &mes->ring;
- 	unsigned long flags;
- 	signed long timeout = adev->usec_timeout;
-+	const char *op_str, *misc_op_str;
-+
-+	if (x_pkt->header.opcode >= MES_SCH_API_MAX)
-+		return -EINVAL;
- 
- 	if (amdgpu_emu_mode) {
- 		timeout *= 100;
-@@ -135,13 +189,29 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 	amdgpu_ring_commit(ring);
- 	spin_unlock_irqrestore(&mes->ring_lock, flags);
- 
--	DRM_DEBUG("MES msg=%d was emitted\n", x_pkt->header.opcode);
-+	op_str = mes_v11_0_get_op_string(x_pkt);
-+	misc_op_str = mes_v11_0_get_misc_op_string(x_pkt);
-+
-+	if (misc_op_str)
-+		dev_dbg(adev->dev, "MES msg=%s (%s) was emitted\n", op_str, misc_op_str);
-+	else if (op_str)
-+		dev_dbg(adev->dev, "MES msg=%s was emitted\n", op_str);
-+	else
-+		dev_dbg(adev->dev, "MES msg=%d was emitted\n", x_pkt->header.opcode);
- 
- 	r = amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq,
- 		      timeout);
- 	if (r < 1) {
--		DRM_ERROR("MES failed to response msg=%d\n",
--			  x_pkt->header.opcode);
-+
-+		if (misc_op_str)
-+			dev_err(adev->dev, "MES failed to respond to msg=%s (%s)\n",
-+				op_str, misc_op_str);
-+		else if (op_str)
-+			dev_err(adev->dev, "MES failed to respond to msg=%s\n",
-+				op_str);
-+		else
-+			dev_err(adev->dev, "MES failed to respond to msg=%d\n",
-+				x_pkt->header.opcode);
- 
- 		while (halt_if_hws_hang)
- 			schedule();
--- 
-2.44.0
+Alex
 
+
+>
+> Regards,
+> Christian.
+>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 17 ++++++-----------
+> >   1 file changed, 6 insertions(+), 11 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_discovery.c
+> > index 07c5fca06178..90735e966318 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> > @@ -255,7 +255,6 @@ static int amdgpu_discovery_read_binary_from_mem(st=
+ruct amdgpu_device *adev,
+> >       uint64_t vram_size;
+> >       u32 msg;
+> >       int i, ret =3D 0;
+> > -     int ip_discovery_ver =3D 0;
+> >
+> >       /* It can take up to a second for IFWI init to complete on some d=
+GPUs,
+> >        * but generally it should be in the 60-100ms range.  Normally th=
+is starts
+> > @@ -265,17 +264,13 @@ static int amdgpu_discovery_read_binary_from_mem(=
+struct amdgpu_device *adev,
+> >        * continue.
+> >        */
+> >
+> > -     ip_discovery_ver =3D RREG32(mmIP_DISCOVERY_VERSION);
+> > -     if ((dev_is_removable(&adev->pdev->dev)) ||
+> > -         (ip_discovery_ver =3D=3D IP_DISCOVERY_V2) ||
+> > -         (ip_discovery_ver =3D=3D IP_DISCOVERY_V4)) {
+> > -             for (i =3D 0; i < 1000; i++) {
+> > -                     msg =3D RREG32(mmMP0_SMN_C2PMSG_33);
+> > -                     if (msg & 0x80000000)
+> > -                             break;
+> > -                     msleep(1);
+> > -             }
+> > +     for (i =3D 0; i < 1000; i++) {
+> > +             msg =3D RREG32(mmMP0_SMN_C2PMSG_33);
+> > +             if (msg & 0x80000000)
+> > +                     break;
+> > +             usleep_range(1000, 1100);
+> >       }
+> > +
+> >       vram_size =3D (uint64_t)RREG32(mmRCC_CONFIG_MEMSIZE) << 20;
+> >
+> >       if (vram_size) {
+>
