@@ -4,67 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F152ACD1292
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 20:18:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1426CD1292
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 22:53:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3734110E741;
-	Mon,  8 Apr 2024 20:18:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DA0810EFC8;
+	Mon,  8 Apr 2024 22:53:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C5wBo34i";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LREPEZkf";
 	dkim-atps=neutral
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A37410E741;
- Mon,  8 Apr 2024 20:18:25 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-6ed2170d89fso1084855b3a.1; 
- Mon, 08 Apr 2024 13:18:25 -0700 (PDT)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EFEC10EFC8
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Apr 2024 22:53:00 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-6ed691fb83eso644180b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 08 Apr 2024 15:53:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1712607505; x=1713212305; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1712616780; x=1713221580; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=IjywxhKqwhdxKvwBJv3ojTQEEiN0ox1Lv386oTrVMHU=;
- b=C5wBo34iRyQaWuI4N9UhjSF9PPxyJptXHbz+dQfP12kUvL/Yzhq5AyhIG532N/d3gP
- IKRkbGWwy7+x51tqMjQ/4l0D5vLHvU+EkSrMymektZArAOkGN+G6HLYFg4BjjVqAj5lm
- sMrdrIZIpSYd9QHpTlivou7S00zxf8eV8/Bjh3As7aUpY/ZyhzIdf3xMX27e/pAk/iHS
- a20LqRXN92mfAwAsElOxoLTnikvPDSIsEg+7PAeoA65nToV1rmiTcEsNITpEOkINIKBn
- /y2C7cZrswxCtGc4yhNXIXnWyKzY+3bsyNzq77XLZc+e74TL+quL8/nTHzQ5Pq3+2iWU
- 2YYA==
+ bh=yfJh8d387N7rSSjcIMDr9KOCrpACJYFzOd9e4x1vZA0=;
+ b=LREPEZkfv/4OZvR5bhIESQkXs64KZPg/pZScxt2NX0QSpvAmm1xnYt5gbQNQaNqmdJ
+ +2j58ZoDA4H6ximUrdHXFt2JASIMh4fCl0rI2ovjGPhA4gY6dV6uOdtftqY4Ryxr3Hd2
+ 4joS4rK5qxwLzvDr6StEJuVqQ0GRSQLQ+CxxRMxtamGAcWLqqb0L0igVpi+0BqKxI4Uh
+ mXpihYJnHeyzC0Fy1ZwSZG2g5/OoVS/BFnpjZkJxlWZ84URJgt6FThWGTpvOIalSy21I
+ 3diPQwOgyysST2Gc+RwN7mPlqM7k2NNdzMhgeEELoDTyJfbS/GwWsUu8OXRKFrc9EOo2
+ fD2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712607505; x=1713212305;
+ d=1e100.net; s=20230601; t=1712616780; x=1713221580;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IjywxhKqwhdxKvwBJv3ojTQEEiN0ox1Lv386oTrVMHU=;
- b=MrgLf/3Wdf9L6ylqh85QBrhGA/Vtrx2xfPCCUH9eA0OOy2lUf4nx+cHhC8s5sXj9YD
- ZxegiS6/GU95Nzm+BxGgMJH1Z7t9myGzk07zY558XFpMLvJ0SAw5GF2p1w5AmwIHqqXA
- f+SPm+0UQHRjMKhjRC8SAiFfMfPPcLUlQNFaxuzo3YgsVAK9YVgsLgX1rkkEAkuIVytJ
- hvdlaIXpLnF+bBnfZch84TUCHUrN2DWh79E1LMkLCJNLbLlN6V3T/VSbrr1a2b0PUQsf
- mHHGcmz2ZZ1Jt6ouOoXXbJg5Xu1lFUB324/XP3lvkuyuqHpJU+k2bTT1J2LmfSGgo9Nf
- U1+w==
+ bh=yfJh8d387N7rSSjcIMDr9KOCrpACJYFzOd9e4x1vZA0=;
+ b=w9MME5bxm3DWk6Rxq7XCmnhO1rYEjMkHsQEOSfnl3R9qYWUX5Qt6auNlvybMa11RiD
+ 4+3nXiRbF78HuSXIGe/HqZVnxm7A5EtJiY0+C67kQs5icQ77Ydx7kCnT+fjZvMQsU4rF
+ gfgaHGBCTHI0wE/SnVWm/gqcKJ3T8yUVBE2Y6X556BlIVGZiltcja9Bv/4LvtbNFg/n0
+ 3g4uYnUf3jLfTIV5m8mUpWSld8HJvljHJXnaBEogwKTpoIjocngDo2X2VlJgQ0CBLMSo
+ LEraXG0qYLhX78WaRC8NwWKkX4/nzywLxCIOZLbarjZrP9vATwJnw1NWUWeXt9e7rNdo
+ axKA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVvQUQ4TokPpFYWzVBZL69H8vv8qZpxi37IgZx7Ncm6/mFZuXJMNkCu2SBOzcyknoHkumGYO5RgHzOhg2yQAUVo8cLaUAowGMT7p3UA/Hrdn3QRKVInkw193flaNeE5jGjk6pADQ2jnIUGPV/jZ8g==
-X-Gm-Message-State: AOJu0YxwWTwjdMmUXU9BtxwZSIysROsFrxpr5UkFv6w2mJ6+BEwdlFzK
- aesgljiB2b9VdGZIsDFANoGqpH6EcmDIddFCjgbf0wKhE9rG010SgbywvYHhc9qUYukXkmifGn+
- DQ5dC2ySOJ6KdbB2ucokj1uS0H94=
-X-Google-Smtp-Source: AGHT+IEU/gLpnTbGMR0cEp+1ByYalelfaGmw8RRspkrV99DF0W6hc4XtNjXpCOlWW/B8O+P2F8gR0jLeeo3r95NydEw=
-X-Received: by 2002:a17:90a:d249:b0:2a4:b04b:d204 with SMTP id
- o9-20020a17090ad24900b002a4b04bd204mr1043588pjw.7.1712607504932; Mon, 08 Apr
- 2024 13:18:24 -0700 (PDT)
+ AJvYcCXNcYLROjsU8wr0EMdMtKkKqH510foWXO9VTxBuE9RbGD2pqzKmaXY4q3upWnn8KqUlgmXCeciyQ8ANBoRGD4UQW6quFwHDBi7MfJAokA==
+X-Gm-Message-State: AOJu0YxdTXOr1tAgeQhsLoTy0ZptLHAqjnzjkVGcWz6ArDufiN5e1tl4
+ PZN6bB1JL56wHFSwM0PGhoCPBDiJqzMArybTWCF4G1OG76LTfPUdD2HVCsufsVqBDv71k5yV12u
+ cxbvywlv+AZ895yAX+wEEE7E6wx4=
+X-Google-Smtp-Source: AGHT+IF/qCwCMXstJyhBYi2r/FOGdr+2OEy0jlCB7RA5oy8mD8/vMM6IqVY5tFC55wdoyhY6OL596/NJR44k2FaGzns=
+X-Received: by 2002:a05:6a20:6f8a:b0:1a7:48dd:3737 with SMTP id
+ gv10-20020a056a206f8a00b001a748dd3737mr9780283pzb.41.1712616779625; Mon, 08
+ Apr 2024 15:52:59 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240407090131.269287-1-xiangyang3@huawei.com>
- <20240407090131.269287-2-xiangyang3@huawei.com>
-In-Reply-To: <20240407090131.269287-2-xiangyang3@huawei.com>
+References: <20240406-doc-gpu-v1-1-fe0ad057ac7e@kernel.org>
+In-Reply-To: <20240406-doc-gpu-v1-1-fe0ad057ac7e@kernel.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 8 Apr 2024 16:18:13 -0400
-Message-ID: <CADnq5_OVWQDpzsDum1QAtAWAP7oS+CmrXOcdWV26+LN=qk9bnA@mail.gmail.com>
-Subject: Re: [PATCH -next] drm/amd/display: delete the redundant
- initialization in dcn3_51_soc
-To: Xiang Yang <xiangyang3@huawei.com>
-Cc: airlied@gmail.com, daniel@ffwll.ch, swapnil.patel@amd.com, 
- wayne.lin@amd.com, xi.liu@amd.com, alexander.deucher@amd.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Date: Mon, 8 Apr 2024 18:52:47 -0400
+Message-ID: <CADnq5_NcJppSveEKAEWFQ5WJmKu4QwZYff=LN8Rvxd9MfzMN5g@mail.gmail.com>
+Subject: Re: [PATCH] Documentation/gpu: correct path of reference
+To: Simon Horman <horms@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Maxime Ripard <mripard@kernel.org>, 
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ amd-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,38 +85,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-Applied.
-
-Thanks,
+Applied.  Thanks!
 
 Alex
 
-On Mon, Apr 8, 2024 at 3:45=E2=80=AFAM Xiang Yang <xiangyang3@huawei.com> w=
-rote:
+On Sat, Apr 6, 2024 at 11:52=E2=80=AFAM Simon Horman <horms@kernel.org> wro=
+te:
 >
-> the dram_clock_change_latency_us in dcn3_51_soc is initialized twice, so
-> delete one of them.
+> The path to GPU documentation is Documentation/gpu
+> rather than Documentation/GPU
 >
-> Signed-off-by: Xiang Yang <xiangyang3@huawei.com>
+> This appears to have been introduced by commit ba162ae749a5
+> ("Documentation/gpu: Introduce a simple contribution list for display cod=
+e")
+>
+> Flagged by make htmldocs.
+>
+> Signed-off-by: Simon Horman <horms@kernel.org>
 > ---
->  drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c | 1 -
->  1 file changed, 1 deletion(-)
+>  Documentation/gpu/amdgpu/display/display-contributing.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c b/dri=
-vers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
-> index b3ffab77cf88..f1c0d5b77f1b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
-> @@ -237,7 +237,6 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_51_soc =3D {
->         .urgent_latency_adjustment_fabric_clock_component_us =3D 0,
->         .urgent_latency_adjustment_fabric_clock_reference_mhz =3D 0,
->         .num_chans =3D 4,
-> -       .dram_clock_change_latency_us =3D 11.72,
->         .dispclk_dppclk_vco_speed_mhz =3D 2400.0,
->  };
+> diff --git a/Documentation/gpu/amdgpu/display/display-contributing.rst b/=
+Documentation/gpu/amdgpu/display/display-contributing.rst
+> index fdb2bea01d53..36f3077eee00 100644
+> --- a/Documentation/gpu/amdgpu/display/display-contributing.rst
+> +++ b/Documentation/gpu/amdgpu/display/display-contributing.rst
+> @@ -135,7 +135,7 @@ Enable underlay
+>  ---------------
 >
-> --
-> 2.34.1
+>  AMD display has this feature called underlay (which you can read more ab=
+out at
+> -'Documentation/GPU/amdgpu/display/mpo-overview.rst') which is intended t=
+o
+> +'Documentation/gpu/amdgpu/display/mpo-overview.rst') which is intended t=
+o
+>  save power when playing a video. The basic idea is to put a video in the
+>  underlay plane at the bottom and the desktop in the plane above it with =
+a hole
+>  in the video area. This feature is enabled in ChromeOS, and from our dat=
+a
 >
