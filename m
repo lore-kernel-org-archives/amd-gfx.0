@@ -4,113 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E94CC67861
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 06:17:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1281ECD128A
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 06:42:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04726112111;
-	Mon,  8 Apr 2024 06:17:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3135E112142;
+	Mon,  8 Apr 2024 06:42:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jYiqC9uX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n40rP9Q3";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2115.outbound.protection.outlook.com [40.107.237.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA8C5112111
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Apr 2024 06:17:53 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2101.outbound.protection.outlook.com [40.107.223.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 997B9112142
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Apr 2024 06:42:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d9vAfrugQrMWnDqkFkQ+DrOxUVXQOrjq8yOqE1LjRjW6cn61W1kbORYKjnTPJRWe3i4+nKLUD4yFdXkhmCAzFtUBmxaxb6C+t+Fim/zyu3S1O6fEg9/wAQNIfCavpQFE7sRKYUTndAoySGNjwvl+4Ooo78cb5N0nRb8D1VlikBxekGId3v2LRTXAfgkP7OEdobDJbiruUcXfIlb2Br1W70qZtrXbuOpk0bmYVKzsg+lB0JkKMzoE72bi2xeYgBTo9H+0ObVFcJ9VZe/5vgJrBKfd4H3e2yG0UWbG7x3w/hQ65Ex/u1+eYP1gkg4FCvqbMTG4X3Sj6VVHdS7a92YxOw==
+ b=OIlmrUhycuAlQW1NhcirKj7jivcH6xm2Natb1OnoZHVeCXCeMcqlgb9ZgtwPq7A5y7zsw0WKEGHrhTTcfq2VDrxz8isjXimFasx8nK4+DiXMxZizBtQje09UnHMdU2MaJ1imtxnx+3aHips9jkgN1iD/at4msTjMiFO3NHfF6QnmaxeJPqeaqT4NwgB1oCcLpnEBoU4EQIcvTYucMsTrzzt4ONC511/1uC87pgfUTHkiV8eTz3knguAvSywi1h/fQ/Q1yEjIsYo/MjjokH7bs9K4gNvD512rNRqng/qgPXOBNtf2rud55SB0wC3p7fS2+1QeaEOJJqyX5LOvEFX/KA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZI/QWTejM1b6soXgMU1ZRj6ll926G34OPm505ci/qO4=;
- b=ddc8D3EemrF+YlK8YOoSwCLgURzXSS154pzHDVQN+OiwrAKneo/yBE4vQeC8OMLz1ktgjvg8eHbaD9CAS5ztGb5KzhNuhYWgEeHPlajLDj5qjvew3HmD7kcfTVcY/5pMY2n+bqk/Um+bd6KMW3f7zMQ/IkaZfQAvdfxPDBHfmuTjqhwUCgQCanU5V/CQD576zoNMdvWklokz0Yedc+zizR9vZCJKBFYvQbg7GY5Ko9RuEPNxqTvNAMXknBvsPC/6lyY9PToPKMWQPry82/eqfLT2tNZe3wVoy+ZlUQhCwv/4HpDVDBgkT0qBs62zBBNRGHDjDceoqNdsaaik39h19A==
+ bh=2bJmYcFbXM+f+v/CKqrL3Z94vDA86SAhMkTzCTABoTk=;
+ b=Nyn/YqnXYHvJ2c6QhzTomwy/X0slpuhUROjL/bD0P8j82V7EdXaSvquVSAX7onQYoOJNj0AYVJM7B2rp3ZGmE4pz9/h0GuDsHlpGtFIzSD4A0AZ3thSKygIykgiEKyIQUmG9so9PJp6U5BHYRBLe5ElmJTtO6u/vPDQb7DDFCQR6SXsEZoS2ETBPnNmTa+nlOcBi82XgySAIXKbWe9NXI0u3HWK8qC1/q2g3cAu9TVT/aA1wwb2FkNvCI+10YXiV/8x1C5K9BpYWNkqetPJXPXIJbTm1/AeniKkzvD5wcpQimfLz9bz+RKLjvUpXEWbpib0esZSyDgDf3QFjriHZag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZI/QWTejM1b6soXgMU1ZRj6ll926G34OPm505ci/qO4=;
- b=jYiqC9uXE8JhULVGI/guPd837A6LZ3B4c1jVX89h6r1sP5uKScXdXVAa1tYSJ8UjugnxtCjn+MTCld41ef+F5zD1/wMv8MjQN/shHn0gN4KKIbmqjBfHBtGas+5uNLwW/Y7s+7EnHdrjwyuco8HYmvfbuvzq6d8tULnd/xyBx7U=
-Received: from DM4PR12MB5165.namprd12.prod.outlook.com (2603:10b6:5:394::9) by
- PH8PR12MB6842.namprd12.prod.outlook.com (2603:10b6:510:1c9::10) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=2bJmYcFbXM+f+v/CKqrL3Z94vDA86SAhMkTzCTABoTk=;
+ b=n40rP9Q336Th/MtlpDg6B6e8e/D+9ZNuX5NvbE5+0YjKluindZ6GulBFQvaYE0V6m/VvJ0j/V3Q4uoDrabCt0/tcpI/77gq3W5EbUhi7WMqIS+vh2fFXj/78jSkxsknsmsBXF0dnb/WBLmo13t9G4sY2V7p7J7ZgxJdbFH77ZOg=
+Received: from CH3PR12MB8074.namprd12.prod.outlook.com (2603:10b6:610:12b::9)
+ by MN2PR12MB4222.namprd12.prod.outlook.com (2603:10b6:208:19a::21)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Mon, 8 Apr
- 2024 06:17:50 +0000
-Received: from DM4PR12MB5165.namprd12.prod.outlook.com
- ([fe80::b088:86ad:44e7:a075]) by DM4PR12MB5165.namprd12.prod.outlook.com
- ([fe80::b088:86ad:44e7:a075%7]) with mapi id 15.20.7409.053; Mon, 8 Apr 2024
- 06:17:47 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Xiao, Jack" <Jack.Xiao@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Process bif doorbell event
-Thread-Topic: [PATCH] drm/amdgpu: Process bif doorbell event
-Thread-Index: AQHahCXoN7HjiptXOU+fo2MqE11FObFd8IUA
-Date: Mon, 8 Apr 2024 06:17:47 +0000
-Message-ID: <DM4PR12MB51653E0DB94186B87774EE308E002@DM4PR12MB5165.namprd12.prod.outlook.com>
-References: <20240401111510.14573-1-Hawking.Zhang@amd.com>
-In-Reply-To: <20240401111510.14573-1-Hawking.Zhang@amd.com>
-Accept-Language: zh-CN, en-US
+ 2024 06:42:16 +0000
+Received: from CH3PR12MB8074.namprd12.prod.outlook.com
+ ([fe80::7224:9db3:7279:9439]) by CH3PR12MB8074.namprd12.prod.outlook.com
+ ([fe80::7224:9db3:7279:9439%7]) with mapi id 15.20.7409.053; Mon, 8 Apr 2024
+ 06:42:16 +0000
+From: "Huang, Tim" <Tim.Huang@amd.com>
+To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Ma, Li" <Li.Ma@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: differentiate exteranl rev id for gfx 11.5.0
+Thread-Topic: [PATCH] drm/amdgpu: differentiate exteranl rev id for gfx 11.5.0
+Thread-Index: AQHaiPVdpwiifSCel0K0m5KclSzacrFd7EzA
+Date: Mon, 8 Apr 2024 06:42:16 +0000
+Message-ID: <CH3PR12MB80747285EB10724986FAA061F6002@CH3PR12MB8074.namprd12.prod.outlook.com>
+References: <20240407141017.3831131-1-yifan1.zhang@amd.com>
+In-Reply-To: <20240407141017.3831131-1-yifan1.zhang@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=6f269c14-7da3-4fc3-99dd-bae7b9047fac;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-04-08T06:17:18Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=5d4e85fc-1fa4-4359-8a98-7106a5218e9e;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-04-08T06:38:47Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5165:EE_|PH8PR12MB6842:EE_
+x-ms-traffictypediagnostic: CH3PR12MB8074:EE_|MN2PR12MB4222:EE_
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: HH3Cg6QdYofU1Syz2LbTgP7p4GdugiBqtwzioTWyGZ7iQ2yvcQvG4cu9J3VIuWqF+TfZ5memjlAjLBVU3jN9Y38bzPnPjHRqkVIslkBOS3m+vucaiVMjpxeRY8u8vTp9wjxD5wBY6KUwkiB/Vx3VoQdOaC363YFPeBRzsaLwdkFariKZj7fHwvY4Gyh3sRjBf1t+rLBYQXGhOWwxDhbiavp1088w1B+crdN0qqHLgqDFNHPA2dxNeD/lrWoPEZr1CzRCWuNF4zLdwJgdRRnJia83Q5HPKp4UuWcNmRoSleOY7hl+Ob70pvoRaA/4976uUeY2ilCisTmxc91gJegK1FxlGDfmJtYgQmHLmVyz2CXpm7KbP2zGhoyNro7QhbHHG36ahU7UQoJdH3X1PtrXxDAc2YeAR72ocF8E6eCdXAk5aRK6mQQRz7CDlKIWK8ZZ2qa5b3XmWMgcWaSr4UcUDkjWaaGog01sMefpmcgXIKE2/zXafOdgCFM+lQ85eeP3+6oZmexEm8gCiNerfFARr5KsHxc/qoyqY7MSTxQBSq2NsZ3vzq+BycJfk6t2d3KM5O88Mu0rH7e3QZ3xdHqUCWV+EKTOak90biylN/FUns3G4jqBtBv4ZljYwOrgl9NfQMQMWbggwr9T+LnHC49mKPzI/vBGrGzyLSnBUYMOhSY=
+x-microsoft-antispam-message-info: pUCCzSCyLuK1IOsLwH7jUr2/6hRjb4hNGGZEL36JiKbBc2GpCMW7qLoeEM9AlGpj+obviVewZWabAgHq1tWkFV9rkGrlegh5rlUqjXvSaU5GmE8kcJsLXJP1pQslstxUi0bwgh/tsUs/wiHfcIAuTUuYuCUIyRrXrARaMBYAiqZia/DUhQSsK3KM3PXIgFT5liCBcF8r/A8sGbP+oee5zM/zNLp/Q2loc4Y2Py8napu8ntbndjLsaIwXSXBVobaEBqkZvCq2+HEfcyP91H0jGbeTJbPMh2JE+Za8j+7KA5mvyhbpm/81zAHZd/qUckL8rvjnsOzhtrx6v+Bhk9fSzWUhusnNxDZ+iDL7/RnZ4Va1GqmQBAEd/+2tV/u92iRkHDTAJ50pIAehX8xSuUVRuHw2RRU9z/SVp+ta7Rfexcop/0aAdLa2soc/djKBtZa5GrmP5xmiPj6KeD16nJ9iiWLWwpjHnwpJNmCbOvOsvtreTFqOXegiWr7hk/Ts2xLiJzN+SvPKZBsLbQg6qMNYQfMsLIxQTIXbGPkvk4pLDKptt8oMe2/0WMNLDxde47FI5BoVQxZoxTFp6xtMK7BjP9Qv1fvxRCoUWPQ3rh33hX0RW+WHXiCnfJu5Ia6mojN6dxwD7J9Lk6MLWblObp33qdEWhZXvi6dSoRBTNMi5zv8=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5165.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1102; 
+ IPV:NLI; SFV:NSPM; H:CH3PR12MB8074.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1102; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?TysEA7YDVBsvuY7x4PR9g1RmsksQrIJWylGfwQ0knxNfL4rlq4Mg2vPJQBlh?=
- =?us-ascii?Q?8tXMoASb3GKZltelQSAKYYAx7kwpefixwNHcCx5oJ/Aobt4Wfk3NoR38Jh+Q?=
- =?us-ascii?Q?zv41CebrLQz2kACofyLARuOx2q4jp+qMVWOMk7WYHl8MOt5jcgICZkr2W/99?=
- =?us-ascii?Q?Xp3aEBoZaX0w7wfVS+bRfD/DN8CXlBSaooYHaRRT1nYdS0jBVh0uihptb8Bp?=
- =?us-ascii?Q?JwRKMywWcXUaIz0MDfFbO4nwfvxP5+kZ00Bul68Vc5ZJ6wsodECqUGP+h/Ry?=
- =?us-ascii?Q?uvgdE8FacNhvDRT+U0ZFVPohDF2xk9LaPrvcxBO9vviugcLJb0ElQX8wvht9?=
- =?us-ascii?Q?oMJ4MAiABcU5OmLqXsT+NXEJs4K0tLrPlrzQNm7wR14rZmIovaBxa+TQt/N+?=
- =?us-ascii?Q?7O6cXhZyMWKzwCmnqnCNRn8INOtCpGK17H1M55QD3lICsqJEH4LPd6w6R5L4?=
- =?us-ascii?Q?UGiJkPF5UnHcM8QG7lrtXgTpwCTLksgtelVJgrJbS4l1CG2hm2KQqGuRIqMt?=
- =?us-ascii?Q?9kmwFJz6lzi9byexvd23fXbg9E8pQ5nTqCdEPmcJ/95hT1qNN5LuaQ9ZtVvO?=
- =?us-ascii?Q?f6R/8rWtbo6FslV+NAhIRgICUPfivb9uF0Wa5823DG2dzjgtKFHMVfLqPwtS?=
- =?us-ascii?Q?bPB07FiTAqHsRHzomISO2HeD5Gb6BDbrxIL4IChnMPMpMbu79zNdvPvuHMKl?=
- =?us-ascii?Q?voiSDd7LCUGBX66kdNTvH9yUBWlQ8aS4ytxDSZqb3Gr26kIpjlvMjwuQ16PJ?=
- =?us-ascii?Q?SWYMcA2izOpKYz0MbC5UNcK1D3/xk9mdkzAxZRN0bxq1BA1JY0bv/2K+CSpN?=
- =?us-ascii?Q?+z8u5/fkjZT1toOl0ryhgi0eCBV5uXZgalOwr2f3xK3UTGcmmPZBqRelWS21?=
- =?us-ascii?Q?7rYGGEKpfT9T1puuL0PR++TdHlwLKyF+AaaxL1MAm433uEsJR9nK5AwYmQAn?=
- =?us-ascii?Q?yjna7d8mUfkTroe7E0BngQUywfTyTQ+wqsBeqwjgvEx3LZgzgmOiogbSBnxm?=
- =?us-ascii?Q?HjOLloqDKvIztNr4OpwURtlDVfwdLuj6V88H/5i+CnewIhMe2ghrDgvrzzdo?=
- =?us-ascii?Q?jG9iFQD+kcbSc+bwkfGRzDNo9g5ojJCnQh2oRM2OZlhGItrtvz4fTcB1uzZN?=
- =?us-ascii?Q?8AouEhQs3gd9/+Afg+/GpNzEOBconQS+KQbWEOGs0AU2SMLl81xSKB1XPwIY?=
- =?us-ascii?Q?agGrVeasgXcKZy++4LK9jgnPTTXae8Grb/ammo37nL2A7fvQ0LxgPv8N9j16?=
- =?us-ascii?Q?ZkrXkrypb/OLgYS6q/nZrSOYQkqXDjrR7BNmsxdlHMOAX8fh8II9Whhg12dX?=
- =?us-ascii?Q?SuGPAB3EezY9TsgvVl8kX8A0kGiG5phaY4bpi8I7k80GkwSLYOIbOfL3gVmF?=
- =?us-ascii?Q?+tm0bNkpEiHoPFd13Tc4WSBqdqWtUbg8EYjoLaH8AwF1+LLRHQQ3xAnhaXo+?=
- =?us-ascii?Q?sAxGfS6YBynwJWZU6Bt/LKTMWfUxY9kdi6t+ma5p0MHS8q/H7AAlAV10av3/?=
- =?us-ascii?Q?Oyz6XAzh45zQ7Eauoi4xaAWEN0yuHA4hkmYc5MUTAmPi5aBefXS+Cqk30ttQ?=
- =?us-ascii?Q?8pMxQfccYPc7+J7SqpE=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mYUX512qY+oqJpQNXkEDmFXtvqSuJz1vpIM++gS6/7t1mjSCchl/AhKdg5NX?=
+ =?us-ascii?Q?SFhnvDZIBfPr6qZU8gmANPQfRAK1fOKnMqjE5bzIht91M2G4odcKiS48mKDI?=
+ =?us-ascii?Q?Pp+KvAoZZzepv3jaFZLefDFn0c0w4i1PILUm3+sFOobXyzCoDJoZ4Jniinfi?=
+ =?us-ascii?Q?JWa0DTBn43euM0EWohq1IG25tZGkwRFwEW4NxbJ5Br0Z/Qwb2nL+P0b5Djoz?=
+ =?us-ascii?Q?HoWd+BFistEeGd8gOjxj6iYqAgKPRK8tvQnZ+r+zw8NiQzEsQYg22K+y7KBm?=
+ =?us-ascii?Q?c1WEzDepw5iS01WFVEwruh9xpEBFV9ASaZx5EHIwA2kL+bFoF5WbCX7CVwLf?=
+ =?us-ascii?Q?Ia5t2BAXHKFARHl6chx3OB9W86dO4seOoOtgEPz8WoDxLXhu1QU/WwKkOLe9?=
+ =?us-ascii?Q?qgOlwcCT37B8NF0ltjMCzbadlSx0LASmtW4LwFKwNC/Sa+eHqHKxeu5QRIQq?=
+ =?us-ascii?Q?BF+9IgjUI6uAFhh3GZPrnEfRAb3d66pxxzoy04jotL/lXx4qKf/7A87X9Ls6?=
+ =?us-ascii?Q?2jp1nqtqmbqWaknyzI21no6oXEYowg9puZnwrjzeQ9bZR5EQO0C1HwAKkBEM?=
+ =?us-ascii?Q?cmMNBmH2kIfd5aLcaxYmC74Yy3g9QSk/CM6+d0gpwzSgLteofVIWxIZIzcM5?=
+ =?us-ascii?Q?0D+J7bRdKPM1bVz+GGfGkBHQeB4Ng2A1P1w5RjovlwBsM2GNU2Zc6K7D4H9m?=
+ =?us-ascii?Q?ZuNUGuN6E8isxQQwgIbFGtNHtfuhVTPwnOs6nj3KRAbGX1bT4L12lMPm7RbM?=
+ =?us-ascii?Q?W2ieR0GEmsZxmZ+468ylyA1l98JGC8WrdnrO8SmUz0rZ2ogel8svCIYTDa9r?=
+ =?us-ascii?Q?WVj/GhAdEBWYIkCK0V+PulwpVXZV1gWPtKOF+4WnKiiFt0cUL0NY/z1EFprv?=
+ =?us-ascii?Q?DQ65kidJMStiIgj+oMN8NPRxjUDzFJmdGELKJfw0dYWiY+A9M85ZlbNXlUWt?=
+ =?us-ascii?Q?/jbngnLtxoCIWF3j3d5D16vFQeO9NcdLuLrcL0ZbkK1JDBEYHsIKwioxd9G9?=
+ =?us-ascii?Q?KKT7+l/ezCEyjnggzzXvLPEj7FEe6CTuDfK4CM59fCDDmWAN7oEw6ky3aNsL?=
+ =?us-ascii?Q?AczV1lwSvCV04B+Fxk7f+5Haxcs7p84tB7ck6pFA0gGXpNAbjqb9NfL2MLOO?=
+ =?us-ascii?Q?zLA3CgKdmZC2/JkyhZPDJo3i+vd0RWDbfKa5wnKM24g9j4KhevcNY+j4Vr3v?=
+ =?us-ascii?Q?AGFGFq5FpBaIxyLg64kqkZALuGQRjyRdyF96yYT/7rPkUtnWOSJIkYt3Qbkj?=
+ =?us-ascii?Q?Q6iifhAWy/uxXc7cKxwvXtvwEg4F7SLubEmA/WRPzpPCIwXkBV5nlw+p6Lfv?=
+ =?us-ascii?Q?sDsgm/YuN+3Z3JZTeaSiqy1wRjraW8ybnwR/fk173yqmRayKikUZ65AxxXy2?=
+ =?us-ascii?Q?rgnjaIw3QbCYr+ADIUPBdvX1+t7iqc5tIt6I2Zx9Kbf4GJ9Wqh7XAmQUD40G?=
+ =?us-ascii?Q?W2hA3HB+OMkGaVfzZrgrid6OnwyczDrVCjuwjw7VIIUmQixgqt+trWLnx4G+?=
+ =?us-ascii?Q?PDVGWE5tjWxMKADsulJ6yO0r4zh80rpai3YyDBL6BizA55Iy283SBda6bf5y?=
+ =?us-ascii?Q?+9Q/MXldmHxTzoFBlFc=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5165.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de5332dc-ca8d-44b0-0696-08dc57939c8d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Apr 2024 06:17:47.7479 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8074.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: adceca72-beee-4ae4-f846-08dc579707d8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Apr 2024 06:42:16.2849 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1GvMQJnUs91ReYeYTFeVn12QJCv3GunK641KB0iKVYy8jaEiMAPimsFxbpBTYFD9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6842
+X-MS-Exchange-CrossTenant-userprincipalname: TPWqpa5nKOQeqeEm3laUQjObm+f7zdC4asSArvS0dadQCv453UNmWxmMlml8lELnirOK6EYOzcABVfn9HEGZSg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4222
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,178 +126,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+[Public]
 
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
-
+Hi Yifan,
 
 -----Original Message-----
-From: Zhang, Hawking <Hawking.Zhang@amd.com>
-Sent: Monday, April 1, 2024 7:15 PM
-To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@am=
-d.com>; Feng, Kenneth <Kenneth.Feng@amd.com>; Xiao, Jack <Jack.Xiao@amd.com=
->
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: Process bif doorbell event
+From: Zhang, Yifan <Yifan1.Zhang@amd.com>
+Sent: Sunday, April 7, 2024 10:10 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Tim <Tim.Huang@a=
+md.com>; Ma, Li <Li.Ma@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: differentiate exteranl rev id for gfx 11.5.0
 
-When BACO exit is triggered by doorbell transaction, firmware will config b=
-if to issue msi interrupt to indicate doorbell transaction. If bif ring is =
-not enabled in such case, driver needs to ack the interrupt by clearing the=
- interrupt status.
+> This patch to differentiate exteranl rev id for gfx 11.5.0.
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+With the typo " exteranl " fixed, this patch is
+
+Reviewed-by: Tim Huang <Tim.Huang@amd.com>
+
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h |  2 +
- drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c   | 56 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/soc21.c       | 14 +++++-
- 3 files changed, 71 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_nbio.h
-index 7b8c03be1d9e..db341921cfc1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-@@ -102,6 +102,7 @@ struct amdgpu_nbio_funcs {
-        u32 (*get_memory_partition_mode)(struct amdgpu_device *adev,
-                                         u32 *supp_modes);
-        u64 (*get_pcie_replay_count)(struct amdgpu_device *adev);
-+       u32 (*init_bif_doorbell_event)(struct amdgpu_device *adev);
- };
-
- struct amdgpu_nbio {
-@@ -111,6 +112,7 @@ struct amdgpu_nbio {
-        struct ras_common_if *ras_if;
-        const struct amdgpu_nbio_funcs *funcs;
-        struct amdgpu_nbio_ras  *ras;
-+       struct amdgpu_irq_src bif_doorbell_irq;
- };
-
- int amdgpu_nbio_ras_sw_init(struct amdgpu_device *adev); diff --git a/driv=
-ers/gpu/drm/amd/amdgpu/nbio_v4_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-index 7f88a298ac5f..e5a331b6eee9 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-@@ -477,6 +477,61 @@ static void nbio_v4_3_program_aspm(struct amdgpu_devic=
-e *adev)  #endif  }
-
-+static int nbio_v4_3_set_bif_doorbell_irq_state(struct amdgpu_device *adev=
-,
-+                                               struct amdgpu_irq_src *src,
-+                                               unsigned type,
-+                                               enum amdgpu_interrupt_state=
- state) {
-+        /*let firmware to config bif doorbell irq state */
-+        return 0;
-+}
-+
-+static int nbio_v4_3_process_bif_doorbell_irq(struct amdgpu_device *adev,
-+                                             struct amdgpu_irq_src *source=
-,
-+                                             struct amdgpu_iv_entry *entry=
-) {
-+       /* pmfw will config bif doorbell irq to host if baco exit
-+        * is triggered by doorbell transaction. In such case, driver
-+        * needs to clear the interrupt status */
-+
-+       uint32_t reg_data;
-+
-+       reg_data =3D RREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_RB_CNTL);
-+
-+       /* if bif ring is enabled, do nothing */
-+       if (REG_GET_FIELD(reg_data, BIF_BX0_BIF_RB_CNTL, RB_ENABLE))
-+               return 0;
-+
-+       /* write 1 to clear doorbell interrupt */
-+       reg_data =3D RREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL=
-);
-+       if (REG_GET_FIELD(reg_data, BIF_BX0_BIF_DOORBELL_INT_CNTL, DOORBELL=
-_INTERRUPT_STATUS)) {
-+               reg_data =3D REG_SET_FIELD(reg_data,
-+                                        BIF_BX0_BIF_DOORBELL_INT_CNTL,
-+                                        DOORBELL_INTERRUPT_CLEAR, 1);
-+               WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, reg=
-_data);
-+       }
-+
-+       return 0;
-+}
-+
-+static const struct amdgpu_irq_src_funcs nbio_v4_3_bif_doorbell_irq_funcs =
-=3D {
-+       .set =3D nbio_v4_3_set_bif_doorbell_irq_state,
-+       .process =3D nbio_v4_3_process_bif_doorbell_irq,
-+};
-+
-+static u32 nbio_v4_3_init_bif_doorbell_event(struct amdgpu_device
-+*adev) {
-+       u32 r;
-+
-+       adev->nbio.bif_doorbell_irq.funcs =3D &nbio_v4_3_bif_doorbell_irq_f=
-uncs;
-+       adev->nbio.bif_doorbell_irq.num_types =3D 1;
-+
-+       r =3D amdgpu_irq_add_id(adev, SOC21_IH_CLIENTID_BIF,
-+                             NBIF_7_4__SRCID__DOORBELL_INTERRUPT,
-+                             &adev->nbio.bif_doorbell_irq);
-+       return r;
-+}
-+
- const struct amdgpu_nbio_funcs nbio_v4_3_funcs =3D {
-        .get_hdp_flush_req_offset =3D nbio_v4_3_get_hdp_flush_req_offset,
-        .get_hdp_flush_done_offset =3D nbio_v4_3_get_hdp_flush_done_offset,
-@@ -499,6 +554,7 @@ const struct amdgpu_nbio_funcs nbio_v4_3_funcs =3D {
-        .remap_hdp_registers =3D nbio_v4_3_remap_hdp_registers,
-        .get_rom_offset =3D nbio_v4_3_get_rom_offset,
-        .program_aspm =3D nbio_v4_3_program_aspm,
-+       .init_bif_doorbell_event =3D nbio_v4_3_init_bif_doorbell_event,
- };
-
+ drivers/gpu/drm/amd/amdgpu/soc21.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgp=
 u/soc21.c
-index abe319b0f063..ee6d810589c0 100644
+index abe319b0f063..43ca63fe85ac 100644
 --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
 +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -792,6 +792,9 @@ static int soc21_common_late_init(void *handle)
-                         * nbio v4_3 only support fatal error hanlding
-                         * just enable the interrupt directly */
-                        amdgpu_irq_get(adev, &adev->nbio.ras_err_event_athu=
-b_irq, 0);
-+               if (adev->nbio.bif_doorbell_irq.funcs &&
-+                   adev->nbio.funcs && adev->nbio.funcs->init_bif_doorbell=
-_event)
-+                       amdgpu_irq_get(adev, &adev->nbio.bif_doorbell_irq, =
-0);
-        }
-
-        /* Enable selfring doorbell aperture late because doorbell BAR @@ -=
-806,8 +809,12 @@ static int soc21_common_sw_init(void *handle)  {
-        struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-
--       if (amdgpu_sriov_vf(adev))
-+       if (amdgpu_sriov_vf(adev)) {
-                xgpu_nv_mailbox_add_irq_id(adev);
-+       } else if (adev->nbio.funcs &&
-+                  adev->nbio.funcs->init_bif_doorbell_event) {
-+               adev->nbio.funcs->init_bif_doorbell_event(adev);
-+       }
-
-        return 0;
- }
-@@ -855,6 +862,11 @@ static int soc21_common_hw_fini(void *handle)
-                if (adev->nbio.ras &&
-                    adev->nbio.ras_err_event_athub_irq.funcs)
-                        amdgpu_irq_put(adev, &adev->nbio.ras_err_event_athu=
-b_irq, 0);
-+
-+               if (adev->nbio.funcs &&
-+                   adev->nbio.funcs->init_bif_doorbell_event &&
-+                   adev->nbio.bif_doorbell_irq.funcs)
-+                       amdgpu_irq_put(adev, &adev->nbio.bif_doorbell_irq, =
-0);
-        }
-
-        return 0;
+@@ -720,7 +720,10 @@ static int soc21_common_early_init(void *handle)
+                        AMD_PG_SUPPORT_VCN |
+                        AMD_PG_SUPPORT_JPEG |
+                        AMD_PG_SUPPORT_GFX_PG;
+-               adev->external_rev_id =3D adev->rev_id + 0x1;
++               if (adev->rev_id =3D=3D 0)
++                       adev->external_rev_id =3D 0x1;
++               else
++                       adev->external_rev_id =3D adev->rev_id + 0x10;
+                break;
+        case IP_VERSION(11, 5, 1):
+                adev->cg_flags =3D
 --
-2.17.1
+2.37.3
 
