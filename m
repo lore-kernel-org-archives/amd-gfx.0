@@ -4,68 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F6B5C67861
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 18:47:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F3BDC67861
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Apr 2024 19:06:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61D3A10E4A8;
-	Mon,  8 Apr 2024 18:47:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD7871127EF;
+	Mon,  8 Apr 2024 19:06:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E3JNSkx6";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EfAX9tTs";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46EDF10E4A8
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Apr 2024 18:47:34 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-2a484f772e2so2001800a91.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 08 Apr 2024 11:47:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1712602053; x=1713206853; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3FUVVyqGdRb9Z6aeYHNxueLd+IiyHZrC75WeSdU84Ao=;
- b=E3JNSkx6kOwJat2btr4pYNgGvBRGVlHJsTmzlfz+xJiS1YM2OEClEP6zoEVc1UFtNY
- 30FyULi5ozqljaeao6G1Oq53ucMK6oRKVR6Me8pW0WxH7o/LRB7rIOdGh8hTUGORDdrC
- DrY4xT7gP5tOmSbHiSrAiR4kFBCPPNICwEwHN+T/Epl8BLL5E94SM3jUk3mN9AfPUF8x
- xR7k28gbFeu+HP0k1T0oABzmA2oOBqDjDgiMFfkAg+47Q9ABXkO4yhClvAfBXVOghNBX
- zXm6aA9Zua+ZOKyQIQdHwkLHm91QlBiB8Qel7IUaQqx26+d6DDmeEu3tfZkNdlU4yMY1
- c8CQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712602053; x=1713206853;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=3FUVVyqGdRb9Z6aeYHNxueLd+IiyHZrC75WeSdU84Ao=;
- b=FDgHxNb89xOMEmMFQPQcu12nMQfRJpL3wORFgM5j8cH3ML9lGNDGGryPR2VuoQwzB9
- yjuGOX8iRPogy0s+cTAx8ADVmck5mVSc/+l9vdmuye+o+7s7yuyT/rTgB9xhtHuTf5M2
- i/qcsE0XlI7S0HzRVwEyGCyO9wGmBCbUDCKcd6iQ4edlSUud1M4NECHg0+zFUTOAjaBC
- je1jb5imKgwpnPNXkMpRLWUCRabxlew/7wxse0WPoIfBsJjulY/6lVZk9FLXesBAu3eT
- oRqOwhM+Wtclq0k+fpEjVxunK1Jk60uVwZqoMO74UGKl7VwgX2WlBhjSlg6XrJU+mqA4
- bLdg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUEpi4CdLyLIlgchjG+O51PR16PyWXxoXGnEcy3DDUl/2/73KsIF+ACrjLrvdPNmgPEuUJ2mpSXJIvUoys2pT2PXlAacacFPtjwFpoCKg==
-X-Gm-Message-State: AOJu0YwEzgaELhLLsVa4A7OcldxNi7H78tE0BRaYrhkqJdDdogatN0wE
- hU5Qoni/G/85G8kJqI7gy3zlh9/J+FQ7TDzvipKGlJwal1jVnSCt42qQzw+Kgoe6dc9tl2SoWCo
- 8stSBQyNlmHqEReDyMEJ2XyUbjFq6bLjM
-X-Google-Smtp-Source: AGHT+IFXFXUex1UBxJkm4LDZTiSRV1gsOtPvK5sT3l2B9b5BChbsVp5bXqMtLLbAGFjXb1ad25M8euT4oENIqq6iSBM=
-X-Received: by 2002:a17:90b:4f83:b0:2a5:37cc:cc4e with SMTP id
- qe3-20020a17090b4f8300b002a537cccc4emr2269413pjb.32.1712602053557; Mon, 08
- Apr 2024 11:47:33 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B59010F874;
+ Mon,  8 Apr 2024 19:06:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1712603178; x=1744139178;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=MFba2qgmd8y+SWGIDFsnPJlx7DAyfbeTQu2+viNDZnE=;
+ b=EfAX9tTs5ywimcyOxwwgT52297HACqKEwZzlD8bD4jbkl8kgxroAnPxe
+ il16ixVpG79EtQ2sg1RGTLG3WdTCfD/SGQ6UR9ROYYkxUgkklZ5+fRolM
+ WsqZV972jeOZh5YTY7QhHY/tdxpStvcSnpxzyUz4P7xOtXwYGKXBS2XdJ
+ PJ6bzPVyjudl+hjhEtR+CnKZdNSn3ttg+tj1OCybLobsco26ixQAvloVw
+ BAnUIC/NKQ16JeHI/+5OKNmKxdzKpr4G3gJkL0yxfrCeusjss/dKDukLp
+ C8FdcOw7nveWcdmkEwg6PnlLa5zJynF4QjDGEGOZpiHvGkNoFaftVmOPE w==;
+X-CSE-ConnectionGUID: olxluasMQ8y/xLBJ1pi4mg==
+X-CSE-MsgGUID: DAf8Fi4qQGeUd3aRcUJONQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11038"; a="19278631"
+X-IronPort-AV: E=Sophos;i="6.07,187,1708416000"; d="scan'208";a="19278631"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2024 12:06:18 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,11038"; a="827792377"
+X-IronPort-AV: E=Sophos;i="6.07,187,1708416000"; d="scan'208";a="827792377"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by orsmga001.jf.intel.com with SMTP; 08 Apr 2024 12:06:15 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 08 Apr 2024 22:06:14 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org
+Subject: [PATCH 2/5] drm/amdgpu: Use drm_crtc_vblank_crtc()
+Date: Mon,  8 Apr 2024 22:06:08 +0300
+Message-ID: <20240408190611.24914-2-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.43.2
+In-Reply-To: <20240408190611.24914-1-ville.syrjala@linux.intel.com>
+References: <20240408190611.24914-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-References: <20240402100552.3164095-1-Jun.Ma2@amd.com>
- <635b5592-c3fd-49f5-b9ea-402a01f70ee0@amd.com>
-In-Reply-To: <635b5592-c3fd-49f5-b9ea-402a01f70ee0@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 8 Apr 2024 14:47:21 -0400
-Message-ID: <CADnq5_NYvfkpFzj1F+uEt7nMEc+gNDR192O2wqqbz3sp0KYyoA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: Fix discovery initialization failure
- during pci rescan
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org, 
- Alexander.Deucher@amd.com, Hawking.Zhang@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,86 +69,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 2, 2024 at 7:56=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
-ig@amd.com> wrote:
->
-> Am 02.04.24 um 12:05 schrieb Ma Jun:
-> > Waiting for system ready to fix the discovery initialization
-> > failure issue. This failure usually occurs when dGPU is removed
-> > and then rescanned via command line.
-> > It's caused by following two errors:
-> > [1] vram size is 0
-> > [2] wrong binary signature
-> >
-> > Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
->
-> I'm not an expert for that stuff, but using dev_is_removable() indeed
-> seems to be incorrect here.
->
-> Feel free to add an Acked-by: Christian K=C3=B6nig
-> <christian.koenig@amd.com>, but I would rather wait for Alex to come
-> back from vacation and take a look as well.
->
-> Might be that I missed something why the dev_is_removable() check is
-> mandatory or something like that.
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-I added it originally for USB4/thunderbolt connected devices (hence
-the removable check) and didn't want to add the extra latency all the
-time, but I hadn't considered the rescan case.
+Replace the open coded drm_crtc_vblank_crtc() with the real
+thing.
 
-Patch is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c          | 8 ++------
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 2 files changed, 3 insertions(+), 7 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+index 8baa2e0935cc..258703145161 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -65,9 +65,7 @@ static enum hrtimer_restart amdgpu_vkms_vblank_simulate(struct hrtimer *timer)
+ 
+ static int amdgpu_vkms_enable_vblank(struct drm_crtc *crtc)
+ {
+-	struct drm_device *dev = crtc->dev;
+-	unsigned int pipe = drm_crtc_index(crtc);
+-	struct drm_vblank_crtc *vblank = &dev->vblank[pipe];
++	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+ 	struct amdgpu_vkms_output *out = drm_crtc_to_amdgpu_vkms_output(crtc);
+ 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
+ 
+@@ -91,10 +89,8 @@ static bool amdgpu_vkms_get_vblank_timestamp(struct drm_crtc *crtc,
+ 					     ktime_t *vblank_time,
+ 					     bool in_vblank_irq)
+ {
+-	struct drm_device *dev = crtc->dev;
+-	unsigned int pipe = crtc->index;
+ 	struct amdgpu_vkms_output *output = drm_crtc_to_amdgpu_vkms_output(crtc);
+-	struct drm_vblank_crtc *vblank = &dev->vblank[pipe];
++	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+ 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
+ 
+ 	if (!READ_ONCE(vblank->enabled)) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 71d2d44681b2..662d2d83473b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -528,7 +528,7 @@ static void dm_vupdate_high_irq(void *interrupt_params)
+ 	if (acrtc) {
+ 		vrr_active = amdgpu_dm_crtc_vrr_active_irq(acrtc);
+ 		drm_dev = acrtc->base.dev;
+-		vblank = &drm_dev->vblank[acrtc->base.index];
++		vblank = drm_crtc_vblank_crtc(&acrtc->base);
+ 		previous_timestamp = atomic64_read(&irq_params->previous_timestamp);
+ 		frame_duration_ns = vblank->time - previous_timestamp;
+ 
+-- 
+2.43.2
 
-
->
-> Regards,
-> Christian.
->
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 17 ++++++-----------
-> >   1 file changed, 6 insertions(+), 11 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_discovery.c
-> > index 07c5fca06178..90735e966318 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> > @@ -255,7 +255,6 @@ static int amdgpu_discovery_read_binary_from_mem(st=
-ruct amdgpu_device *adev,
-> >       uint64_t vram_size;
-> >       u32 msg;
-> >       int i, ret =3D 0;
-> > -     int ip_discovery_ver =3D 0;
-> >
-> >       /* It can take up to a second for IFWI init to complete on some d=
-GPUs,
-> >        * but generally it should be in the 60-100ms range.  Normally th=
-is starts
-> > @@ -265,17 +264,13 @@ static int amdgpu_discovery_read_binary_from_mem(=
-struct amdgpu_device *adev,
-> >        * continue.
-> >        */
-> >
-> > -     ip_discovery_ver =3D RREG32(mmIP_DISCOVERY_VERSION);
-> > -     if ((dev_is_removable(&adev->pdev->dev)) ||
-> > -         (ip_discovery_ver =3D=3D IP_DISCOVERY_V2) ||
-> > -         (ip_discovery_ver =3D=3D IP_DISCOVERY_V4)) {
-> > -             for (i =3D 0; i < 1000; i++) {
-> > -                     msg =3D RREG32(mmMP0_SMN_C2PMSG_33);
-> > -                     if (msg & 0x80000000)
-> > -                             break;
-> > -                     msleep(1);
-> > -             }
-> > +     for (i =3D 0; i < 1000; i++) {
-> > +             msg =3D RREG32(mmMP0_SMN_C2PMSG_33);
-> > +             if (msg & 0x80000000)
-> > +                     break;
-> > +             usleep_range(1000, 1100);
-> >       }
-> > +
-> >       vram_size =3D (uint64_t)RREG32(mmRCC_CONFIG_MEMSIZE) << 20;
-> >
-> >       if (vram_size) {
->
