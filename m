@@ -4,50 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEE96CD129A
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Apr 2024 07:20:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A015ECD1284
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Apr 2024 07:20:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D133112834;
-	Tue,  9 Apr 2024 07:20:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83AC8112B34;
+	Tue,  9 Apr 2024 07:20:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="N1fl7M9E";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Pd3cV1vU";
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84015112624
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Apr 2024 14:02:57 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 6D408CE12B3;
- Mon,  8 Apr 2024 14:02:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAB6EC433C7;
- Mon,  8 Apr 2024 14:02:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1712584973;
- bh=/TYVNtY1C1XGsRQZaaMq1IsN3METX0rWkMa2HOSKdX0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=N1fl7M9EgXO2373a4h86f0lYcFZo3OpzLyMoQy8Tg00eTifgqYOuk5/gKmytydNvJ
- xmjNLMPdMQWFVOayh8ZySScohCxTho09UHWml9G8Ne6+3geEMw+OYjOqd/bZKgNEkU
- DZwfnWAZiswfuVfP4zXefsoBvbMcfjF8rOT4bYuE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 579/690] drm/amdgpu: Use drm_mode_copy()
-Date: Mon,  8 Apr 2024 14:57:25 +0200
-Message-ID: <20240408125420.579306553@linuxfoundation.org>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240408125359.506372836@linuxfoundation.org>
-References: <20240408125359.506372836@linuxfoundation.org>
-User-Agent: quilt/0.67
-X-stable: review
-X-Patchwork-Hint: ignore
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 284551129F3
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Apr 2024 00:45:56 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 4390Hnsk017506; Tue, 9 Apr 2024 00:45:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=Ci/G+DjtccXLqpS0mdh4EggoGuJdJseglyZfUDBAC5s=; b=Pd
+ 3cV1vUcGAhe6M7LlEdKsdWgGp/7aqTyoYNqq1IT2UgaY8AP6G1K/1rUbexKAz4RC
+ zRGGtNtg0mZIahhhQe9AiFfV8JnrKzNun3NQJDHkxXJ52/AtJy0xnfG7mmDs6q5x
+ +256vAcWcgCe7+cy0X+sTM9HWVwZiJSmTIROPnwZthSDYVi4plqATlUsyNFbMj+O
+ BIqOOmawUIuOC7yH1w7mZOedDbYrhrDCkF/EF4lEKMJRRr1Y5bMAyyrBrzlk31F7
+ 8YmBmR0Eg0D4FuPR9lYPE7V+BYAwk88fpBmUmtJYXxqZ+UbVbLDqVAGtklhO6LcH
+ E0PbUU+vWCIIwWeR5mjw==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xcbg02469-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 09 Apr 2024 00:45:53 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 4390jqVS010198
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 9 Apr 2024 00:45:52 GMT
+Received: from [10.81.24.74] (10.49.16.6) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Mon, 8 Apr 2024
+ 17:45:52 -0700
+Message-ID: <a619df03-e0cb-48f7-840a-970b7a6f6037@quicinc.com>
+Date: Mon, 8 Apr 2024 17:45:29 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 09 Apr 2024 07:20:21 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: 6.5.5: UBSAN: radeon_atombios.c: index 1 is out of range for type
+ 'UCHAR [1]'
+To: Justin Piszcz <jpiszcz@lucidpixels.com>, Bagas Sanjaya
+ <bagasdotme@gmail.com>
+CC: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>,
+ Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Kees Cook
+ <keescook@chromium.org>
+References: <CAO9zADy4b1XkD_ZaEF+XkDCXePJLD4Lev3g7HAEGYsCHgeM+KQ@mail.gmail.com>
+ <ZRoIGhMesKtmNkAM@debian.me>
+ <CAO9zADyfaLRWB-0rdojnbFD6SUsqX+zb9JZSZUkgTC7VJN=c1A@mail.gmail.com>
+Content-Language: en-US
+From: Jeff Johnson <quic_jjohnson@quicinc.com>
+In-Reply-To: <CAO9zADyfaLRWB-0rdojnbFD6SUsqX+zb9JZSZUkgTC7VJN=c1A@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: blc3Mmi9aDJCgomrOI8OBCekisTS5QXk
+X-Proofpoint-ORIG-GUID: blc3Mmi9aDJCgomrOI8OBCekisTS5QXk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-04-08_19,2024-04-05_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 mlxscore=0
+ lowpriorityscore=0 phishscore=0 priorityscore=1501 bulkscore=0
+ impostorscore=0 mlxlogscore=999 suspectscore=0 adultscore=0 malwarescore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2404010003 definitions=main-2404090000
+X-Mailman-Approved-At: Tue, 09 Apr 2024 07:20:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,133 +97,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+On 10/1/23 17:12, Justin Piszcz wrote:
+>>> ================================================================================
+>>> [Sun Oct  1 15:59:04 2023] UBSAN: array-index-out-of-bounds in
+>>> drivers/gpu/drm/radeon/radeon_atombios.c:2620:43
+>>> [Sun Oct  1 15:59:04 2023] index 1 is out of range for type 'UCHAR [1]'
+>>> [Sun Oct  1 15:59:04 2023] CPU: 5 PID: 1 Comm: swapper/0 Tainted: G
+>>>              T  6.5.5 #13 55df8de52754ef95effc50a55e9206abdea304ac
+>>> [Sun Oct  1 15:59:04 2023] Hardware name: Supermicro X9SRL-F/X9SRL-F,
+>>> BIOS 3.3 11/13/2018
+>>> [Sun Oct  1 15:59:04 2023] Call Trace:
+>>> [Sun Oct  1 15:59:04 2023]  <TASK>
+>>> [Sun Oct  1 15:59:04 2023]  dump_stack_lvl+0x36/0x50
+>>> [Sun Oct  1 15:59:04 2023]  __ubsan_handle_out_of_bounds+0xc7/0x110
+>>> [Sun Oct  1 15:59:04 2023]  radeon_atombios_get_power_modes+0x87a/0x8f0
+>>> [Sun Oct  1 15:59:04 2023]  radeon_pm_init+0x13a/0x7e0
+>>> [Sun Oct  1 15:59:04 2023]  evergreen_init+0x13d/0x3d0
+>>> [Sun Oct  1 15:59:04 2023]  radeon_device_init+0x60a/0xbf0
+>>> [Sun Oct  1 15:59:04 2023]  radeon_driver_load_kms+0xb1/0x250
+>>> [Sun Oct  1 15:59:04 2023]  drm_dev_register+0xfc/0x250
+>>> [Sun Oct  1 15:59:04 2023]  radeon_pci_probe+0xd0/0x150
+>>> [Sun Oct  1 15:59:04 2023]  pci_device_probe+0x97/0x130
+>>> [Sun Oct  1 15:59:04 2023]  really_probe+0xbe/0x2f0
+>>> [Sun Oct  1 15:59:04 2023]  ? __pfx___driver_attach+0x10/0x10
+>>> [Sun Oct  1 15:59:04 2023]  __driver_probe_device+0x6e/0x120
+>>> [Sun Oct  1 15:59:04 2023]  driver_probe_device+0x1a/0x90
+>>> [Sun Oct  1 15:59:04 2023]  __driver_attach+0xd4/0x170
+>>> [Sun Oct  1 15:59:04 2023]  bus_for_each_dev+0x87/0xe0
+>>> [Sun Oct  1 15:59:04 2023]  bus_add_driver+0xf3/0x1f0
+>>> [Sun Oct  1 15:59:04 2023]  driver_register+0x58/0x120
+>>> [Sun Oct  1 15:59:04 2023]  ? __pfx_radeon_module_init+0x10/0x10
+>>> [Sun Oct  1 15:59:04 2023]  do_one_initcall+0x93/0x4a0
+>>> [Sun Oct  1 15:59:04 2023]  kernel_init_freeable+0x301/0x580
+>>> [Sun Oct  1 15:59:04 2023]  ? __pfx_kernel_init+0x10/0x10
+>>> [Sun Oct  1 15:59:04 2023]  kernel_init+0x15/0x1b0
+>>> [Sun Oct  1 15:59:04 2023]  ret_from_fork+0x2f/0x50
+>>> [Sun Oct  1 15:59:04 2023]  ? __pfx_kernel_init+0x10/0x10
+>>> [Sun Oct  1 15:59:04 2023]  ret_from_fork_asm+0x1b/0x30
+>>> [Sun Oct  1 15:59:04 2023]  </TASK>
+>>> [Sun Oct  1 15:59:04 2023]
+>>> ================================================================================
+>>> [Sun Oct  1 15:59:04 2023] [drm] radeon: dpm initialized
+>>> [Sun Oct  1 15:59:04 2023] [drm] GART: num cpu pages 262144, num gpu
+>>> pages 262144
+>>> [Sun Oct  1 15:59:04 2023] [drm] enabling PCIE gen 2 link speeds,
+>>> disable with radeon.pcie_gen2=0
+>>> [Sun Oct  1 15:59:04 2023] [drm] PCIE GART of 1024M enabled (table at
+>>> 0x000000000014C000).
+>>> [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: WB enabled
+>>> [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: fence driver on ring 0
+>>> use gpu addr 0x0000000040000c00
+>>> [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: fence driver on ring 3
+>>> use gpu addr 0x0000000040000c0c
+>>> [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: fence driver on ring 5
+>>> use gpu addr 0x000000000005c418
+>>> [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: radeon: MSI limited to 32-bit
+>>> [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: radeon: using MSI.
+>>> [Sun Oct  1 15:59:04 2023] [drm] radeon: irq initialized.
+>>>
+>>
+>> Please also open an issue on freedesktop tracker [1].
+>>
+>> Thanks.
+>>
+>> [1]: https://gitlab.freedesktop.org/drm/amd/-/issues
+> 
+> Issue opened: https://gitlab.freedesktop.org/drm/amd/-/issues/2894
+> 
+> Regards,
+> Justin
 
-------------------
++Kees since I've worked with him on several of these flexible array issues.
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+I just happened to look at kernel logs today for my ath1*k driver 
+maintenance and see the subject issue is present on my device, running 
+6.9.0-rc1. The freedesktop issue tracker says the issue is closed, but 
+any fix has not landed in the upstream kernel. Is there a -next patch 
+somewhere?
 
-[ Upstream commit 426c89aa203bcec9d9cf6eea36735eafa1b1f099 ]
+[   12.105270] UBSAN: array-index-out-of-bounds in 
+drivers/gpu/drm/radeon/radeon_atombios.c:2718:34
+[   12.105272] index 48 is out of range for type 'UCHAR [1]'
+[
 
-struct drm_display_mode embeds a list head, so overwriting
-the full struct with another one will corrupt the list
-(if the destination mode is on a list). Use drm_mode_copy()
-instead which explicitly preserves the list head of
-the destination mode.
+If there isn't really an upstream fix, I can probably supply one.
 
-Even if we know the destination mode is not on any list
-using drm_mode_copy() seems decent as it sets a good
-example. Bad examples of not using it might eventually
-get copied into code where preserving the list head
-actually matters.
-
-Obviously one case not covered here is when the mode
-itself is embedded in a larger structure and the whole
-structure is copied. But if we are careful when copying
-into modes embedded in structures I think we can be a
-little more reassured that bogus list heads haven't been
-propagated in.
-
-@is_mode_copy@
-@@
-drm_mode_copy(...)
-{
-...
-}
-
-@depends on !is_mode_copy@
-struct drm_display_mode *mode;
-expression E, S;
-@@
-(
-- *mode = E
-+ drm_mode_copy(mode, &E)
-|
-- memcpy(mode, E, S)
-+ drm_mode_copy(mode, E)
-)
-
-@depends on !is_mode_copy@
-struct drm_display_mode mode;
-expression E;
-@@
-(
-- mode = E
-+ drm_mode_copy(&mode, &E)
-|
-- memcpy(&mode, E, S)
-+ drm_mode_copy(&mode, E)
-)
-
-@@
-struct drm_display_mode *mode;
-@@
-- &*mode
-+ mode
-
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Stable-dep-of: 79f3e38f60e5 ("drm/amd/display: Preserve original aspect ratio in create stream")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 4 ++--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++---
- 2 files changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-index c777aff164b76..654f99f4107ea 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-@@ -625,7 +625,7 @@ amdgpu_connector_fixup_lcd_native_mode(struct drm_encoder *encoder,
- 		if (mode->type & DRM_MODE_TYPE_PREFERRED) {
- 			if (mode->hdisplay != native_mode->hdisplay ||
- 			    mode->vdisplay != native_mode->vdisplay)
--				memcpy(native_mode, mode, sizeof(*mode));
-+				drm_mode_copy(native_mode, mode);
- 		}
- 	}
- 
-@@ -634,7 +634,7 @@ amdgpu_connector_fixup_lcd_native_mode(struct drm_encoder *encoder,
- 		list_for_each_entry_safe(mode, t, &connector->probed_modes, head) {
- 			if (mode->hdisplay == native_mode->hdisplay &&
- 			    mode->vdisplay == native_mode->vdisplay) {
--				*native_mode = *mode;
-+				drm_mode_copy(native_mode, mode);
- 				drm_mode_set_crtcinfo(native_mode, CRTC_INTERLACE_HALVE_V);
- 				DRM_DEBUG_KMS("Determined LVDS native mode details from EDID\n");
- 				break;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 7385efe699f88..9356decd14513 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6219,7 +6219,7 @@ get_highest_refresh_rate_mode(struct amdgpu_dm_connector *aconnector,
- 		}
- 	}
- 
--	aconnector->freesync_vid_base = *m_pref;
-+	drm_mode_copy(&aconnector->freesync_vid_base, m_pref);
- 	return m_pref;
- }
- 
-@@ -6333,8 +6333,8 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
- 				 is_freesync_video_mode(&mode, aconnector);
- 		if (recalculate_timing) {
- 			freesync_mode = get_highest_refresh_rate_mode(aconnector, false);
--			saved_mode = mode;
--			mode = *freesync_mode;
-+			drm_mode_copy(&saved_mode, &mode);
-+			drm_mode_copy(&mode, freesync_mode);
- 		} else {
- 			decide_crtc_timing_for_drm_display_mode(
- 				&mode, preferred_mode, scale);
--- 
-2.43.0
-
-
-
+/jeff
