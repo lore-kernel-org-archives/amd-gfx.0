@@ -4,98 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2072CD1284
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 21:28:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 750D4CD11C2
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 22:28:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 680281125FA;
-	Wed, 10 Apr 2024 21:28:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1F2D10E947;
+	Wed, 10 Apr 2024 22:28:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cy2O3v/g";
+	dkim=pass (1024-bit key; unprotected) header.d=froggi.es header.i=joshua@froggi.es header.b="XgKe7PCN";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2058.outbound.protection.outlook.com [40.107.223.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A12110FAAC
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Apr 2024 21:28:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RVOb3LHDyut0oLomHa3P5ULl7kd4KoxIj9WaFI4SAvCmg9c+Grn7GNkVWBWrlAaFJE8uMCq4pN/kNWINpNDvFIk90dRix2c3ZVvwxitNzSi9pdwhsW9J7Q66x2pSCU+F1ON3gNTFrdMzmMquG/h+tz/PYkg3LDlTMER1Brca8yqoLjISFNDfWL4W2LbFDCN9nIa7DQjzU3CXnUy0NjHF8I1LRpBpmK9XcQ9XTQ/cyj2h0ClTeifERNpm9b3rboeBLarWKByl7mN3o4PACmblz8kdDrMJtLrjsEY+bEYxBsW9P2GjOX8GJEB+OxtmraNhQTkRmB+gdnAGOOaZUngQ+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G+JKGE61rj6AxX+5sPK2q/PkPkJnPv621viCShHNlyg=;
- b=ED1vh9S1G+MaNRYvuuaUsC1muQugtYEhbv0cZY4v++/Hs023Kb2Fq/K57DenCFiIn7W1J/MOouKavy/0B8T3oD0Pk3n9pOEzHWAqJJdXgNqeu88QGQ/a9Zx+Iz34odm/0sTCI0JEgPMXg5v4ZLhZYXdCMXseS3swvDvUwVJYxGRVHPHbh26qfsHUcxDhPX9YJGf72KDlnC7ILHiVH1BrsN0QBO75e/EZrEDy1q7f5VFV7TjG1rnCdxsIEl4U8yFc572A0Ti2xPo9BcBCaJyIetSSHKQG6ERgpsD4BhBjX+gj8Cn+/gaFJmQpXEkuSC3Az0gL+G3J2jh94Eh5IbI9sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G+JKGE61rj6AxX+5sPK2q/PkPkJnPv621viCShHNlyg=;
- b=cy2O3v/gtLvmPZKa6Jx67HWNRGYoDkNDDlZWcnu7rP1jcdzbvCZ0pRmJzV+QaZFAwAkLR47MrWi5qcou0BnSXLaF5WJzsxV5c3ulARhebgOWxUUE5j3h6iLBMR2C4L6Sie11FBwTW7wJM5U22/MjCn6i3wbs5qFNL3v/tuFGv0A=
-Received: from BN9PR03CA0136.namprd03.prod.outlook.com (2603:10b6:408:fe::21)
- by DS7PR12MB6213.namprd12.prod.outlook.com (2603:10b6:8:97::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Wed, 10 Apr
- 2024 21:28:24 +0000
-Received: from BN2PEPF000044AA.namprd04.prod.outlook.com
- (2603:10b6:408:fe:cafe::eb) by BN9PR03CA0136.outlook.office365.com
- (2603:10b6:408:fe::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.36 via Frontend
- Transport; Wed, 10 Apr 2024 21:28:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF000044AA.mail.protection.outlook.com (10.167.243.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Wed, 10 Apr 2024 21:28:24 +0000
-Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 10 Apr
- 2024 16:28:22 -0500
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
- <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
- <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>
-Subject: [PATCH 21/25] drm/amd/display: Move REG sequence from program ogam to
- idle before connect
-Date: Wed, 10 Apr 2024 15:26:10 -0600
-Message-ID: <20240410212726.1312989-22-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240410212726.1312989-1-Rodrigo.Siqueira@amd.com>
-References: <20240410212726.1312989-1-Rodrigo.Siqueira@amd.com>
+X-Greylist: delayed 902 seconds by postgrey-1.36 at gabe;
+ Wed, 10 Apr 2024 22:28:50 UTC
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com
+ [136.143.188.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE36610F31C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Apr 2024 22:28:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1712787222; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=NIme88Y99u/o7KXtbjhENTFxzC9hG4Ph8OscvnsySAJhhIWBi6DMrJqECiei8oAwKIqLVDHg8KeUPyHSAIkUGoG/oIjdLFwF3Jvmn6LdpWdx361NVG0Z0JYE28AcPUwui3Olm4rQqGoMa1GdGC39H35/AsVvKxGD5lyq9EQ4pZY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1712787222;
+ h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=NYQHue/l0O5zHnjuKrtBVQRTxpu30Oo0fhaRaFOjCk4=; 
+ b=NA/qAdzagyNe9Mv73TZEPZXb2zISUXb5gT+bKIWD6jJmFG0qYoi32ELrIBRKCN5HbJnq6Zh//oIS3j41TQw+saOSArFzUNgURxtUfNTD2WbkXnkGoOuuQz0riGkOSEOjXt52lGoTnjh0lXXbb+rb/zzX4pOO6Ni96TF2u6ov1/Y=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=froggi.es;
+ spf=pass  smtp.mailfrom=joshua@froggi.es;
+ dmarc=pass header.from=<joshua@froggi.es>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712787222; 
+ s=mail; d=froggi.es; i=joshua@froggi.es;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=NYQHue/l0O5zHnjuKrtBVQRTxpu30Oo0fhaRaFOjCk4=;
+ b=XgKe7PCN0ixSQuJmApZ4zJ83QDJf/YCn0W88JnTTiYyB4nYdCXCCvcs3TkvnEUcV
+ Qc9uuf5wwTuUVeC5SXJqRiGbi+SsrjcxNu7XJ9F7hbxW0rjl6chDU4AR1XjbMRZrZBv
+ J2YgBx50xc+SMOyrnaLh88sc7HLJq4Uga4zxEdks=
+Received: by mx.zohomail.com with SMTPS id 1712787220750896.7568469994259;
+ Wed, 10 Apr 2024 15:13:40 -0700 (PDT)
+From: Joshua Ashton <joshua@froggi.es>
+To: amd-gfx@lists.freedesktop.org
+Cc: Joshua Ashton <joshua@froggi.es>, Harry Wentland <harry.wentland@amd.com>,
+ Xaver Hugl <xaver.hugl@gmail.com>, Melissa Wen <mwen@igalia.com>,
+ Ethan Lee <flibitijibibo@gmail.com>
+Subject: [PATCH] drm/amd/display: Enable ogam_ram for dcn32+dcn35+dcn351
+Date: Wed, 10 Apr 2024 23:13:22 +0100
+Message-ID: <20240410221336.34627-1-joshua@froggi.es>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044AA:EE_|DS7PR12MB6213:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d3cd6b3-dea6-4839-cf24-08dc59a52750
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wkCrcENIf4LHgiLW895gjnAVOJ63T1HCroMbxmadHfTFWENO4CciTnGJVjf02E+3p8gRS83zq6YbROwg5AJ/mdOxCn0kIJWppozU28+0uwYGu/EtfQSfmuU0mMdI1JC0y7iOB3lzbtR3oxK2NLKLZA8awufo1zK0YMW6rEjLFfpp/KVs5vT7Yo0D7TvFyWOqokxZjXoqx6x6xqNSq+Xb4inoOP6Gwgj85mqyJuwZ56AvVIA1wT8WYGXMnnIQ1DtnsqC3Tp2+6w6XceJYXonXCa3thUq+H5kauaAbGzxYYOBF+xolhYjw5K36h17Tz+dLeddtZH2eXDHJ8kRJz5YCasKTDGZOVk7FwkHJIdvAfwz0XBOTqaYD6At97/ZOUxmd/TbUDpt8cCGFOhWDMVSi+3NjvbwAZZaZyon7g2l5oTxvgdVyjZidqMWx84wb9lLeZjkACdIeUD7Jud7xFoRblnhJ6BkVBF6ev28jKbyzwM1XxTbo5pxOh7saCW5cWkEVT7YIX42NgRTASGV/FyM1HHakqfq8Fg1rQ0qwTAl1HbIoHvV3hImLKhrkiTMRldpoMWr8bUcNQpDd7qLoT3jg1DXfrfYHOrl35QGT2JF313cAOdIbdDSUKhcHDjYFBgvzdXs6UNPUrh7Ac5mMlJa49aCpvVvDsAjCXJq0xzFiKCNtXA1U6Xs0UyJtD9HODvBVDVfwr+Xm29ZS0rcXDU3x6IWgaLJTYuiVTjar6fq5//byDp5mCXnZNDJCQBoENQxI
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(36860700004)(82310400014)(1800799015); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2024 21:28:24.2601 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d3cd6b3-dea6-4839-cf24-08dc59a52750
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044AA.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6213
+X-ZohoMailClient: External
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,43 +65,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fill ring buffer before offload.
+The comment here states "no OGAM in DPP since DCN1", yet that is not
+true.
 
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Testing on an RX 7900XTX (dcn32), it actually does exist in hardware and
+works fine.
+My best guess is the comment is confused with OGAM ROM for DPP, rather
+than OGAM RAM.
+
+I did not test dcn35/351 as I do not have that hardware, but I assume
+the same follows there given the seemingly erroneous comment.
+Someone at AMD should check that before merging this commit.
+
+Signed-off-by: Joshua Ashton <joshua@froggi.es>
+
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>
+Cc: Melissa Wen <mwen@igalia.com>
+Cc: Ethan Lee <flibitijibibo@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c  | 2 +-
+ drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c  | 2 +-
+ .../gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c    | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
-index 16b5ff208d14..ea73473b970a 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
-@@ -395,9 +395,12 @@ static void mpc20_program_ogam_pwl(
- 				MPCC_OGAM_LUT_DATA, rgb[i].delta_green_reg);
- 		REG_SET(MPCC_OGAM_LUT_DATA[mpcc_id], 0,
- 				MPCC_OGAM_LUT_DATA, rgb[i].delta_blue_reg);
--
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index 9aa39bd25be9..94f5d2b5aadf 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -2182,7 +2182,7 @@ static bool dcn32_resource_construct(
+ 	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
  
-+	REG_SEQ_SUBMIT();
-+	PERF_TRACE();
-+	REG_SEQ_WAIT_DONE();
-+	PERF_TRACE();
- }
+ 	dc->caps.color.dpp.hw_3d_lut = 1;
+-	dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
++	dc->caps.color.dpp.ogam_ram = 1;
+ 	// no OGAM ROM on DCN2 and later ASICs
+ 	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
+ 	dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+index 25ac450944e7..708d63cc3f7f 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+@@ -1861,7 +1861,7 @@ static bool dcn35_resource_construct(
+ 	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
  
- static void apply_DEDCN20_305_wa(struct mpc *mpc, int mpcc_id,
-@@ -501,11 +504,6 @@ void mpc2_assert_mpcc_idle_before_connect(struct mpc *mpc, int mpcc_id)
- 		ASSERT(!mpc_disabled);
- 		ASSERT(!mpc_idle);
- 	}
--
--	REG_SEQ_SUBMIT();
--	PERF_TRACE();
--	REG_SEQ_WAIT_DONE();
--	PERF_TRACE();
- }
+ 	dc->caps.color.dpp.hw_3d_lut = 1;
+-	dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
++	dc->caps.color.dpp.ogam_ram = 1;
+ 	// no OGAM ROM on DCN301
+ 	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
+ 	dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+index 8a57adb27264..053e8ec6d1ef 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+@@ -1841,7 +1841,7 @@ static bool dcn351_resource_construct(
+ 	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
  
- static void mpc2_init_mpcc(struct mpcc *mpcc, int mpcc_inst)
+ 	dc->caps.color.dpp.hw_3d_lut = 1;
+-	dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
++	dc->caps.color.dpp.ogam_ram = 1;
+ 	// no OGAM ROM on DCN301
+ 	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
+ 	dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
 -- 
-2.43.0
+2.44.0
 
