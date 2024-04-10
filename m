@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41A16CD11C2
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 21:28:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B184CD128A
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 21:28:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A524E10EA5B;
-	Wed, 10 Apr 2024 21:28:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AEFE10EA61;
+	Wed, 10 Apr 2024 21:28:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qux6FV2D";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ktG1ZlwT";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5732410EA44
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2069.outbound.protection.outlook.com [40.107.243.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBD1B10EA5B
  for <amd-gfx@lists.freedesktop.org>; Wed, 10 Apr 2024 21:28:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FDF0W29Eol5gtsq/JFmpcsRMIequmj9dQdKbVFhdFhkgUk4YVsOqJtl3jcpvE/ZYLfQpA6BgUQVM8Vx4yUZeAh9+2aaA8lXFFgy1ftjIRx1WeZJOJK9vEVpG5JJxluAZe3NDmEapDMkQmdYEG37ERQBoS5KY6/gjjYv1IQNp1ObyKF4dDtwlPcN3e8+6tlBiIsqPTeicXFthhd86Fz0iDwvzP21g0NAyoMBB3NYIGqXRQxjZKPAVDlO0WW2jAVMn6RGX7xCYStEuRMHdBcOT2srHphI0o90segGNP2lmFGykNvlrBSPrc6N9aJhY7MImrZ5gLVGGePSrou2FgOWASw==
+ b=YdYzVbFqvgyv8h+asi2pYoN9068KeuFyzEdmP8ehk3aiFlwRWu79r5xt+oMKiihuh+Jc6xShJsimbHa7MfcUFKPRavvYtgWUvsS5bUluEPOLp4/2Lr7xLhMjl0oMdIRTh7k1e3qUk+cFtKIwqEp6Fr+lSThirBMww9n2eE6nV25l1lthej88/Ugt67l9JSSoT3g23M/xp+BS5qqFIW5B0Jg3saRJ/tqkH0oTwvVvOjIrip9nBi7bAizb4rs0R/poDqKWp/+05wlzK1uJxY7ueH/bcuobRlVVnbxZa9NAw9OrbtmbuAArffnWsklXAr4D70/GpUJRyCsSZn+RJeedmQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P+1dhmodlqZkdQWhsUoyi7bd+EP7YOT5g0H7lm0xE2I=;
- b=TstsnD6IgYvNmb3sjpJ/pUP+8RjJMpctSyk5A+BCqb9UfEOjRWlMhpKg9vfVUKZxG0+QvA8YP5oAczbcZKakpm52/oZuo+xBtrEpSxLncbl58jAFlPJSSUdhY5ndmnN6YkyqDo1hExg8BqZxPk1xmHJOn+3z+azDykAPQj++MKwJt5itZzWgAodqrrd1tOkBcITIkySHFUKq08DNpO5cnsH5I3o2DzTsY6S/Id5LGJSue6LdUGU23zpYEcMWbSZIKjSpBJqjnw3Xcurvh9NAKyGFgG4fuh3RTr5KUshXuomiHfs+klvBrT5Buisfmt6kTnyGJQudjnu5yLejXJ3zwQ==
+ bh=ETtZbLHKowvE+tLL+8rQ2MnrrP60q5lXwhvMgwydqYI=;
+ b=dBbe+Inz8m9Lr8TxeClZqeYCnrFoWfrxv/X93mGWkpFkgf9rRo7vbhtzZ8HM7oagEkNIQqozkpQ6aAPBiUeOjH9pxz1ZVzGnvtNXM9gkFJS8zUCWCo1b/Br+btdn0CD+A1kqKLYha9Dz6QulBYEfEQewTxlSJcVFFkbbUyFq2WYkxB4BKybK8iEIiUH0UTNXYjoM+UWMxKGyjWsK94dFuwX83kRznelc5HwSp9IFdUvlYv/o3oJKM0DJ4VRX8J+p/q3062mIxqyC059FIK3qBu1Gvf6FxDZdQyOmugGWSo0Hwedzyou0TcYlyCfSCzfQFDg9TQYtR9gm/e5FvGDuAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P+1dhmodlqZkdQWhsUoyi7bd+EP7YOT5g0H7lm0xE2I=;
- b=qux6FV2DoZMQhDHxVhIwTxeUWQEX3Ki0PU+YXIwGCxFK+BC9ya2e6LDpe+aVjH+75Dhoi3uezvY2KRh2+1KBM4M7zDurVhsRQim4BoHi3dOkf7Cc0KrYTajUzlrhF2hLfrd9tyGIWSC4XOOcf9glV+7Rrf7eCOKwJdGEJbtSIWQ=
-Received: from BN0PR04CA0141.namprd04.prod.outlook.com (2603:10b6:408:ed::26)
- by DS0PR12MB8503.namprd12.prod.outlook.com (2603:10b6:8:15a::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.54; Wed, 10 Apr
- 2024 21:27:56 +0000
-Received: from BN2PEPF000044A7.namprd04.prod.outlook.com
- (2603:10b6:408:ed:cafe::97) by BN0PR04CA0141.outlook.office365.com
- (2603:10b6:408:ed::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.19 via Frontend
- Transport; Wed, 10 Apr 2024 21:27:56 +0000
+ bh=ETtZbLHKowvE+tLL+8rQ2MnrrP60q5lXwhvMgwydqYI=;
+ b=ktG1ZlwTDn1BOAiiikb1kAuZescXJ7AZgWKVga7SHOGIl0S//iiZFKuZbkvx3HKlBuGn2EtOhye0yDRZgXu1eNrhfKA49pyYIqx8Ph2nfw2jDRN0R1zoi5NkR4Igxku6hZ3X5Ybh+sGfaFDLDnyBC1pNysDzADtcyxZIcHWpyD0=
+Received: from BN9PR03CA0136.namprd03.prod.outlook.com (2603:10b6:408:fe::21)
+ by SN7PR12MB8059.namprd12.prod.outlook.com (2603:10b6:806:32b::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Wed, 10 Apr
+ 2024 21:27:55 +0000
+Received: from BN2PEPF000044AA.namprd04.prod.outlook.com
+ (2603:10b6:408:fe:cafe::2f) by BN9PR03CA0136.outlook.office365.com
+ (2603:10b6:408:fe::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.36 via Frontend
+ Transport; Wed, 10 Apr 2024 21:27:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,24 +48,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF000044A7.mail.protection.outlook.com (10.167.243.101) with Microsoft
+ BN2PEPF000044AA.mail.protection.outlook.com (10.167.243.105) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Wed, 10 Apr 2024 21:27:56 +0000
+ 15.20.7452.22 via Frontend Transport; Wed, 10 Apr 2024 21:27:54 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 10 Apr
- 2024 16:27:54 -0500
+ 2024 16:27:52 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Sung Joon Kim
- <sungjoon.kim@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Rodrigo Siqueira
+ <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Chris Park <chris.park@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, Rodrigo Siqueira
  <rodrigo.siqueira@amd.com>
-Subject: [PATCH 03/25] drm/amd/display: Modify resource allocation logic
-Date: Wed, 10 Apr 2024 15:25:52 -0600
-Message-ID: <20240410212726.1312989-4-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 02/25] drm/amd/display: Add a function for checking tmds mode
+Date: Wed, 10 Apr 2024 15:25:51 -0600
+Message-ID: <20240410212726.1312989-3-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240410212726.1312989-1-Rodrigo.Siqueira@amd.com>
 References: <20240410212726.1312989-1-Rodrigo.Siqueira@amd.com>
@@ -77,26 +77,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A7:EE_|DS0PR12MB8503:EE_
-X-MS-Office365-Filtering-Correlation-Id: c538e624-9001-45f7-7627-08dc59a516d6
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044AA:EE_|SN7PR12MB8059:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c1db539-d985-4d9c-7a05-08dc59a515da
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2alMgiqv2QslCYIu1tsJFk6JTGyz4/Ux9qmZPwxdX/mb/ZT4eJcyPBlEIINdG9b3g7q27jABMfPjaO5g1DKZPy8GXJxQgCUrxDW/fRKkVwWk9Loug7W6/etFTHfkfCkmI0cbMbbqmTvuAjo4XVWdeOafZI5JSAlWkAO0WBbzbwUfpPe0h3PU/kIwV2zMzFub1hv9GTxnurtRtd4kar+6d0ZB5WF0hO7FTO+MYUQCmh5mWQbzUONE0LeDrvdE4yRyLfsO4wFz73ROAo1hBYwrd/TNqyTP3mrvlshB+OiJ2dF9+SUrwdzcJmGg5iTif3uKJ+raEjv3xYpb/wMZXuONuBssoGC0uvfhHheVoQy8Txecs/uJrOdWb597B+rBjw42cs/UwoJ/mJIBe31tHbbtfHw02gF3Dxe5RSfs8gQdJgewDG8AQ4K3IOMWiUiz5SVua1HjcYVl+0X46r/eQsE1ud3Dr1U4M+fTji3Z7/VVEignBqs8I+7Nq1mcOnPZI7TrC2pAq1z8M7YHIVzBULCu+V3raoAqLD27DgsQ1ZEUCp6dyCzoG0Qu8rP/QP5Qo3X/GNoGw5cyT7LywhPCJP/TL7ggJFFJU0f7G8UChuiZ2YE8ucq32MAbFBENhtBIaqNaWJbPpRBEf7EulbAbMAJERLdxQrNRZduVTSm4lnM50h9so9XrsfPJWm93Pq2xOE38y2/7+PHkSVdVbaZOOatu+ddrF4fIASScvKpgRg6unj0DihUAzvtAgPxR1JRbbA9T
+X-Microsoft-Antispam-Message-Info: iv+um2iUZ2QZ5CKgmFm+uaXoslQL/SwMAX+hmFd+u9mTz06QQ8Uzc4Vuz3sqaaUDMM6DqRUcKo6Lpm8zZfKl3POtTgHJdNRLNGKcrdKh/1YrBr5AckDhtU1qlNQXvxmn/GjWrYNG9qCraT8IDmi65r4O26B96yGSVMSnUMsfzGRfeg6fHk6lwK27MrJqwT63vQA8WUjfAziobs7Vz29a6EBDNMDewubuT52YLf/ANV1vccguYyu0O7W2NF6hTfNkDQJWR5FcbJYesrCm81kspvsRRw6SKTQ94cZsV7mEKosKSjwqDav6FXmYFc70rvSWVgGbfVQYGVpBgiCr9zZGTyUXQa7rDi5/lGvc0Fah11Bt+iXzA09yBubPFLgMnWjANiOJD93lKIHGsqDzo/7dXWwbUpjS2KZnfJY05lUoUjVPTAZqvKb6bicy09OkCIBYJBC71BG5OSKul5RYCpaJUHoApMhA/JfoakRRlPLPhjLe9DFqJdslUL4+b3G2nCE8IjdXEXb7Io8UUgZw0aS68guCq8kc0blyB2eHHPFqKdkGbPH+H15zUNy08uPV1gsXQlWytod2yJtKZUvunS/JCo9Uh2NSTWTen8qx/xcRzxpyAQdwmSYoIcuTIMuwO9MdTVd7LOvw3Ha48yRYV1y9ZFJY7+wDAYA3MMLLrxkmrWcI3SklpLTKn0kF74oIzWsl1xjVR6FNdA8MAhMYFbNEkFSsfP/sgyaKOGFZVC6vxurVLftlIYTB4tDbBop4WHnM
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(36860700004)(1800799015)(82310400014); DIR:OUT;
+ SFS:(13230031)(82310400014)(36860700004)(376005)(1800799015); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2024 21:27:56.6616 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c538e624-9001-45f7-7627-08dc59a516d6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2024 21:27:54.9633 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c1db539-d985-4d9c-7a05-08dc59a515da
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A7.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044AA.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8503
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8059
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,136 +111,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sung Joon Kim <sungjoon.kim@amd.com>
+From: Chris Park <chris.park@amd.com>
 
-To reduce the complexity of pipe resource allocation for different
-use-cases, now we search for any free pipe sequentially rather than from
-bottom up.
+[Why]
+DVI is TMDS signal like HDMI but without audio.  Current signal check
+does not correctly reflect DVI clock programming.
 
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+[How]
+Define a new signal check for TMDS that includes DVI to HDMI TMDS
+programming.
+
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
 Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Signed-off-by: Sung Joon Kim <sungjoon.kim@amd.com>
+Signed-off-by: Chris Park <chris.park@amd.com>
 ---
- .../dc/resource/dcn32/dcn32_resource.c        |  4 +--
- .../dc/resource/dcn32/dcn32_resource.h        |  6 ++++
- .../dc/resource/dcn351/dcn351_resource.c      | 35 ++++++++++++++++++-
- .../dc/resource/dcn351/dcn351_resource.h      |  6 ++++
- 4 files changed, 48 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/include/signal_types.h | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-index 9aa39bd25be9..c16e915686fc 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-@@ -2547,7 +2547,7 @@ struct resource_pool *dcn32_create_resource_pool(
-  * full update which delays the flip for 1 frame. If we use the original pipe
-  * we don't have to toggle its power. So we can flip faster.
-  */
--static int find_optimal_free_pipe_as_secondary_dpp_pipe(
-+int dcn32_find_optimal_free_pipe_as_secondary_dpp_pipe(
- 		const struct resource_context *cur_res_ctx,
- 		struct resource_context *new_res_ctx,
- 		const struct resource_pool *pool,
-@@ -2730,7 +2730,7 @@ struct pipe_ctx *dcn32_acquire_free_pipe_as_secondary_dpp_pipe(
- 		return dcn32_acquire_idle_pipe_for_head_pipe_in_layer(
- 				new_ctx, pool, opp_head_pipe->stream, opp_head_pipe);
- 
--	free_pipe_idx = find_optimal_free_pipe_as_secondary_dpp_pipe(
-+	free_pipe_idx = dcn32_find_optimal_free_pipe_as_secondary_dpp_pipe(
- 					&cur_ctx->res_ctx, &new_ctx->res_ctx,
- 					pool, opp_head_pipe);
- 	if (free_pipe_idx >= 0) {
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-index 286e20ad46ed..fee67fbab8e2 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
-@@ -137,6 +137,12 @@ bool dcn32_any_surfaces_rotated(struct dc *dc, struct dc_state *context);
- bool dcn32_is_center_timing(struct pipe_ctx *pipe);
- bool dcn32_is_psr_capable(struct pipe_ctx *pipe);
- 
-+int dcn32_find_optimal_free_pipe_as_secondary_dpp_pipe(
-+		const struct resource_context *cur_res_ctx,
-+		struct resource_context *new_res_ctx,
-+		const struct resource_pool *pool,
-+		const struct pipe_ctx *new_opp_head);
-+
- struct pipe_ctx *dcn32_acquire_free_pipe_as_secondary_dpp_pipe(
- 		const struct dc_state *cur_ctx,
- 		struct dc_state *new_ctx,
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-index 8a57adb27264..cc1a44a890b5 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-@@ -1728,6 +1728,37 @@ static bool dcn351_validate_bandwidth(struct dc *dc,
- 	return out;
+diff --git a/drivers/gpu/drm/amd/display/include/signal_types.h b/drivers/gpu/drm/amd/display/include/signal_types.h
+index 1b14b17a79c7..a10d6b988aab 100644
+--- a/drivers/gpu/drm/amd/display/include/signal_types.h
++++ b/drivers/gpu/drm/amd/display/include/signal_types.h
+@@ -118,6 +118,19 @@ static inline bool dc_is_dvi_signal(enum signal_type signal)
+ 	}
  }
  
-+struct pipe_ctx *dcn351_acquire_free_pipe_as_secondary_dpp_pipe(
-+		const struct dc_state *cur_ctx,
-+		struct dc_state *new_ctx,
-+		const struct resource_pool *pool,
-+		const struct pipe_ctx *opp_head_pipe)
++static inline bool dc_is_tmds_signal(enum signal_type signal)
 +{
-+	int free_pipe_idx;
-+	struct pipe_ctx *free_pipe;
-+
-+	free_pipe_idx = dcn32_find_optimal_free_pipe_as_secondary_dpp_pipe(
-+					&cur_ctx->res_ctx, &new_ctx->res_ctx,
-+					pool, opp_head_pipe);
-+	if (free_pipe_idx >= 0) {
-+		free_pipe = &new_ctx->res_ctx.pipe_ctx[free_pipe_idx];
-+		free_pipe->pipe_idx = free_pipe_idx;
-+		free_pipe->stream = opp_head_pipe->stream;
-+		free_pipe->stream_res.tg = opp_head_pipe->stream_res.tg;
-+		free_pipe->stream_res.opp = opp_head_pipe->stream_res.opp;
-+
-+		free_pipe->plane_res.hubp = pool->hubps[free_pipe->pipe_idx];
-+		free_pipe->plane_res.ipp = pool->ipps[free_pipe->pipe_idx];
-+		free_pipe->plane_res.dpp = pool->dpps[free_pipe->pipe_idx];
-+		free_pipe->plane_res.mpcc_inst =
-+				pool->dpps[free_pipe->pipe_idx]->inst;
-+	} else {
-+		ASSERT(opp_head_pipe);
-+		free_pipe = NULL;
++	switch (signal) {
++	case SIGNAL_TYPE_DVI_SINGLE_LINK:
++	case SIGNAL_TYPE_DVI_DUAL_LINK:
++	case SIGNAL_TYPE_HDMI_TYPE_A:
++		return true;
++	break;
++	default:
++		return false;
 +	}
-+
-+	return free_pipe;
 +}
- 
- static struct resource_funcs dcn351_res_pool_funcs = {
- 	.destroy = dcn351_destroy_resource_pool,
-@@ -1740,7 +1771,8 @@ static struct resource_funcs dcn351_res_pool_funcs = {
- 	.calculate_wm_and_dlg = NULL,
- 	.update_soc_for_wm_a = dcn31_update_soc_for_wm_a,
- 	.populate_dml_pipes = dcn351_populate_dml_pipes_from_context_fpu,
--	.acquire_free_pipe_as_secondary_dpp_pipe = dcn20_acquire_free_pipe_for_layer,
-+	.acquire_free_pipe_as_secondary_dpp_pipe = dcn351_acquire_free_pipe_as_secondary_dpp_pipe,
-+	.acquire_free_pipe_as_secondary_opp_head = dcn32_acquire_free_pipe_as_secondary_opp_head,
- 	.release_pipe = dcn20_release_pipe,
- 	.add_stream_to_ctx = dcn30_add_stream_to_ctx,
- 	.add_dsc_to_stream_resource = dcn20_add_dsc_to_stream_resource,
-@@ -2130,6 +2162,7 @@ static bool dcn351_resource_construct(
- 
- 	dc->dml2_options.max_segments_per_hubp = 24;
- 	dc->dml2_options.det_segment_size = DCN3_2_DET_SEG_SIZE;/*todo*/
-+	dc->dml2_options.map_dc_pipes_with_callbacks = true;
- 
- 	if (dc->config.sdpif_request_limit_words_per_umc == 0)
- 		dc->config.sdpif_request_limit_words_per_umc = 16;/*todo*/
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.h
-index f3e045777a3d..e4553c5100f8 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.h
-@@ -20,4 +20,10 @@ struct resource_pool *dcn351_create_resource_pool(
- 		const struct dc_init_data *init_data,
- 		struct dc *dc);
- 
-+struct pipe_ctx *dcn351_acquire_free_pipe_as_secondary_dpp_pipe(
-+		const struct dc_state *cur_ctx,
-+		struct dc_state *new_ctx,
-+		const struct resource_pool *pool,
-+		const struct pipe_ctx *opp_head_pipe);
 +
- #endif /* _DCN351_RESOURCE_H_ */
+ static inline bool dc_is_dvi_single_link_signal(enum signal_type signal)
+ {
+ 	return (signal == SIGNAL_TYPE_DVI_SINGLE_LINK);
 -- 
 2.43.0
 
