@@ -4,71 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DDFCCD129F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5323CD129E
 	for <amd-gfx@archiver.kernel.org>; Thu, 11 Apr 2024 07:41:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EA8210F269;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0043F10F272;
 	Thu, 11 Apr 2024 07:41:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="evxYk03k";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="TkHwlgg1";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73C561133B8;
- Wed, 10 Apr 2024 14:14:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712758494; x=1744294494;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=PuC/jGIS+CY3zc7hImaEM42ALmC2vmq1uEJW9Mb8+qw=;
- b=evxYk03kOuY7UxuUBgHXTlEBPq+gVBv83TpF8SL5S9I3WEy55ccBzI/N
- Eba1lixYTE8LH8hP7WdE/xZgLMrJhO+/HAkE/psb3RR+FxEUC7+V43K/g
- UsDOh+jw6v35+eGNjgAhMcpVKFG8d8nhNbMCHETpXs+jNk4932mQde7G4
- STNSyG+sIJRh+geXMisK1/xFOcmMayp8B1HqwfC1jM4h4RqwPDgRRvVc8
- EpxHwUlGpe4+BLT40S3PxxEdwZ39163EyhRAZcn8db/2td8b1zODsU40h
- l/VNT4YKnUtBX7ojei/W/jn7nWg9ZR6gkIsyrKZOfGTBSpZcPg7YLZe4l g==;
-X-CSE-ConnectionGUID: M3iqFH64QsKsaRFtB2cN3A==
-X-CSE-MsgGUID: KArQD4N5S/updcqQRr3NjA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="8247763"
-X-IronPort-AV: E=Sophos;i="6.07,190,1708416000"; 
-   d="scan'208";a="8247763"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2024 07:14:47 -0700
-X-CSE-ConnectionGUID: igmPb98LTqGTrrTTkkdaHQ==
-X-CSE-MsgGUID: HrL9u9CBToOJ4sdiaQyNZw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,190,1708416000"; d="scan'208";a="25345138"
-Received: from oakasatk-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.60.54])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2024 07:14:40 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Jani Nikula <jani.nikula@intel.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Huang Rui <ray.huang@amd.com>,
- nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/print: drop include debugfs.h and include where needed
-Date: Wed, 10 Apr 2024 17:14:33 +0300
-Message-Id: <20240410141434.157908-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57919112773
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Apr 2024 22:21:42 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-1e4149e7695so29262835ad.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Apr 2024 15:21:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1712787702; x=1713392502; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UQ9C1Cr3AvASEU86K/hlf2OO0iCRrNUVuyjVHdlWHE4=;
+ b=TkHwlgg1Xm2iq3gfnylt1e3JG/+Y5cLmIreCelKvXvZsv7JrBRDfIBnfk6BMq4zvjT
+ IAvSYIN4azM4+90dgDXTNjISggQj3+9p/koF/Yuz8CnOFjGQe+K/CX7FeHabpMKT+6IG
+ qgoKQ/XuOWYNjOUkAI+esWbbeL52+V3QsqzlA0Tk6yMqYQgbC/qMDIX9IYUKjp9lmD2j
+ ZrMGNGeNvwQHa2HMZvBKrectKSrlsuloFAANAedrY7nuqxyPEVtO8j82QHgvrsqEO+Fo
+ skyJqnGuFqG7VdKz4441zyvtZUxIba8ueU5hOVxFnDzGABsJMoIfThld2yDwBbq2nK+u
+ oz1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712787702; x=1713392502;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=UQ9C1Cr3AvASEU86K/hlf2OO0iCRrNUVuyjVHdlWHE4=;
+ b=fi2QayRZaFeF2onkpKLQrkE6SV/A/ki7Pox/qTCmzGwxB0+0nBeosTUP2pMxygV9qL
+ a3RArEXx7yOQ8qR+duDEGFMqgTI11dCRgqxFouD8YqiQihqIH31+JbUOjS4KFs5lPjRz
+ 2A8GJ+J29ygbyGonAUKXvlY8KlYw9b5nRh3bRnEVDhNuD14uK6kdgDLmAT2xuy0QWMWP
+ 2DtVKDRpxRijvL9PXyBcbBQkyzdZWSKA0CBQj5E2yewicsy/+SvoLY/3Qaev3REl3GTi
+ T0d1kjcwIDwS5X7I9Tan82AYL2sWIJh+zJXKJwZXZ/Bv+VLx7EK5E/aAEZf2Zd8GQDMh
+ duAg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW5kR3VNWBOeeWW6PWMkalbGJ3lzhaU6M+I0ImUNyXQlpJfyO2RgslAcEaNCEEUO6nTYK+la7vtyii7L0jntzJ2HVGcAxw4VAQnZhkFNg==
+X-Gm-Message-State: AOJu0Yyx4wEiiUE77pinOEeoWii0dpF+hFCd5ub0ONCdKGb63zpNhXUy
+ 2i7/y/q3pp8kpPf9H3U02xUXhUo/0mwkuETBK4aDxX3a/C1jLe85WJQaoYnzbTOq9QHiqB4HmjY
+ d80E=
+X-Google-Smtp-Source: AGHT+IEyXjz5iWD+JzMbxman4f15iRJH7qvrzDvYbxC6J1pXkyjcclFUtxHEFXG2Dt+UzEnUxH7BCA==
+X-Received: by 2002:a17:902:e810:b0:1e3:e081:e7f5 with SMTP id
+ u16-20020a170902e81000b001e3e081e7f5mr5334384plg.66.1712787701595; 
+ Wed, 10 Apr 2024 15:21:41 -0700 (PDT)
+Received: from localhost ([2804:214:8686:5e16:705e:67c9:b3ef:a558])
+ by smtp.gmail.com with ESMTPSA id
+ q8-20020a170902b10800b001e107222eb5sm39198plr.191.2024.04.10.15.21.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Apr 2024 15:21:41 -0700 (PDT)
+From: Thiago Jung Bauermann <thiago.bauermann@linaro.org>
+To: Samuel Holland <samuel.holland@sifive.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ linux-arm-kernel@lists.infradead.org,  x86@kernel.org,
+ linux-kernel@vger.kernel.org,  linux-arch@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org,  linux-riscv@lists.infradead.org,
+ Christoph Hellwig <hch@lst.de>,  loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org,  Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: [PATCH v4 13/15] drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
+In-Reply-To: <20240329072441.591471-14-samuel.holland@sifive.com> (Samuel
+ Holland's message of "Fri, 29 Mar 2024 00:18:28 -0700")
+References: <20240329072441.591471-1-samuel.holland@sifive.com>
+ <20240329072441.591471-14-samuel.holland@sifive.com>
+User-Agent: mu4e 1.12.2; emacs 29.3
+Date: Wed, 10 Apr 2024 19:21:37 -0300
+Message-ID: <87wmp4oo3y.fsf@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 11 Apr 2024 07:41:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,332 +91,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Surprisingly many places depend on debugfs.h to be included via
-drm_print.h. Fix them.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Hello,
 
----
+Samuel Holland <samuel.holland@sifive.com> writes:
 
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Robert Foss <rfoss@kernel.org>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-Cc: Jonas Karlman <jonas@kwiboo.se>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Karol Herbst <kherbst@redhat.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Danilo Krummrich <dakr@redhat.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: nouveau@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
----
- drivers/gpu/drm/bridge/panel.c           | 2 ++
- drivers/gpu/drm/drm_print.c              | 6 +++---
- drivers/gpu/drm/i915/display/intel_dmc.c | 1 +
- drivers/gpu/drm/nouveau/dispnv50/crc.c   | 2 ++
- drivers/gpu/drm/radeon/r100.c            | 1 +
- drivers/gpu/drm/radeon/r300.c            | 1 +
- drivers/gpu/drm/radeon/r420.c            | 1 +
- drivers/gpu/drm/radeon/r600.c            | 3 ++-
- drivers/gpu/drm/radeon/radeon_fence.c    | 1 +
- drivers/gpu/drm/radeon/radeon_gem.c      | 1 +
- drivers/gpu/drm/radeon/radeon_ib.c       | 2 ++
- drivers/gpu/drm/radeon/radeon_pm.c       | 1 +
- drivers/gpu/drm/radeon/radeon_ring.c     | 2 ++
- drivers/gpu/drm/radeon/radeon_ttm.c      | 1 +
- drivers/gpu/drm/radeon/rs400.c           | 1 +
- drivers/gpu/drm/radeon/rv515.c           | 1 +
- drivers/gpu/drm/ttm/ttm_device.c         | 1 +
- drivers/gpu/drm/ttm/ttm_resource.c       | 3 ++-
- drivers/gpu/drm/ttm/ttm_tt.c             | 5 +++--
- include/drm/drm_print.h                  | 2 +-
- 20 files changed, 30 insertions(+), 8 deletions(-)
+> Now that all previously-supported architectures select
+> ARCH_HAS_KERNEL_FPU_SUPPORT, this code can depend on that symbol instead
+> of the existing list of architectures. It can also take advantage of the
+> common kernel-mode FPU API and method of adjusting CFLAGS.
+>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
 
-diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
-index 7f41525f7a6e..32506524d9a2 100644
---- a/drivers/gpu/drm/bridge/panel.c
-+++ b/drivers/gpu/drm/bridge/panel.c
-@@ -4,6 +4,8 @@
-  * Copyright (C) 2017 Broadcom
-  */
- 
-+#include <linux/debugfs.h>
-+
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_connector.h>
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 699b7dbffd7b..cf2efb44722c 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -23,13 +23,13 @@
-  * Rob Clark <robdclark@gmail.com>
-  */
- 
--#include <linux/stdarg.h>
--
-+#include <linux/debugfs.h>
-+#include <linux/dynamic_debug.h>
- #include <linux/io.h>
- #include <linux/moduleparam.h>
- #include <linux/seq_file.h>
- #include <linux/slab.h>
--#include <linux/dynamic_debug.h>
-+#include <linux/stdarg.h>
- 
- #include <drm/drm.h>
- #include <drm/drm_drv.h>
-diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index e61e9c1b8947..84748add186a 100644
---- a/drivers/gpu/drm/i915/display/intel_dmc.c
-+++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -22,6 +22,7 @@
-  *
-  */
- 
-+#include <linux/debugfs.h>
- #include <linux/firmware.h>
- 
- #include "i915_drv.h"
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/crc.c b/drivers/gpu/drm/nouveau/dispnv50/crc.c
-index 9c942fbd836d..5936b6b3b15d 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/crc.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/crc.c
-@@ -1,5 +1,7 @@
- // SPDX-License-Identifier: MIT
-+#include <linux/debugfs.h>
- #include <linux/string.h>
-+
- #include <drm/drm_crtc.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_vblank.h>
-diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r100.c
-index 86b8b770af19..0b1e19345f43 100644
---- a/drivers/gpu/drm/radeon/r100.c
-+++ b/drivers/gpu/drm/radeon/r100.c
-@@ -26,6 +26,7 @@
-  *          Jerome Glisse
-  */
- 
-+#include <linux/debugfs.h>
- #include <linux/firmware.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-diff --git a/drivers/gpu/drm/radeon/r300.c b/drivers/gpu/drm/radeon/r300.c
-index 25201b9a5aae..1620f534f55f 100644
---- a/drivers/gpu/drm/radeon/r300.c
-+++ b/drivers/gpu/drm/radeon/r300.c
-@@ -26,6 +26,7 @@
-  *          Jerome Glisse
-  */
- 
-+#include <linux/debugfs.h>
- #include <linux/pci.h>
- #include <linux/seq_file.h>
- #include <linux/slab.h>
-diff --git a/drivers/gpu/drm/radeon/r420.c b/drivers/gpu/drm/radeon/r420.c
-index eae8a6389f5e..a979662eaa73 100644
---- a/drivers/gpu/drm/radeon/r420.c
-+++ b/drivers/gpu/drm/radeon/r420.c
-@@ -26,6 +26,7 @@
-  *          Jerome Glisse
-  */
- 
-+#include <linux/debugfs.h>
- #include <linux/pci.h>
- #include <linux/seq_file.h>
- #include <linux/slab.h>
-diff --git a/drivers/gpu/drm/radeon/r600.c b/drivers/gpu/drm/radeon/r600.c
-index b5e97d95a19f..087d41e370fd 100644
---- a/drivers/gpu/drm/radeon/r600.c
-+++ b/drivers/gpu/drm/radeon/r600.c
-@@ -26,11 +26,12 @@
-  *          Jerome Glisse
-  */
- 
-+#include <linux/debugfs.h>
- #include <linux/firmware.h>
- #include <linux/module.h>
- #include <linux/pci.h>
--#include <linux/slab.h>
- #include <linux/seq_file.h>
-+#include <linux/slab.h>
- 
- #include <drm/drm_device.h>
- #include <drm/drm_vblank.h>
-diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/radeon/radeon_fence.c
-index 9ebe4a0b9a6c..4fb780d96f32 100644
---- a/drivers/gpu/drm/radeon/radeon_fence.c
-+++ b/drivers/gpu/drm/radeon/radeon_fence.c
-@@ -30,6 +30,7 @@
-  */
- 
- #include <linux/atomic.h>
-+#include <linux/debugfs.h>
- #include <linux/firmware.h>
- #include <linux/kref.h>
- #include <linux/sched/signal.h>
-diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
-index 3fec3acdaf28..2ef201a072f1 100644
---- a/drivers/gpu/drm/radeon/radeon_gem.c
-+++ b/drivers/gpu/drm/radeon/radeon_gem.c
-@@ -26,6 +26,7 @@
-  *          Jerome Glisse
-  */
- 
-+#include <linux/debugfs.h>
- #include <linux/iosys-map.h>
- #include <linux/pci.h>
- 
-diff --git a/drivers/gpu/drm/radeon/radeon_ib.c b/drivers/gpu/drm/radeon/radeon_ib.c
-index fb9ecf5dbe2b..63d914f3414d 100644
---- a/drivers/gpu/drm/radeon/radeon_ib.c
-+++ b/drivers/gpu/drm/radeon/radeon_ib.c
-@@ -27,6 +27,8 @@
-  *          Christian König
-  */
- 
-+#include <linux/debugfs.h>
-+
- #include <drm/drm_file.h>
- 
- #include "radeon.h"
-diff --git a/drivers/gpu/drm/radeon/radeon_pm.c b/drivers/gpu/drm/radeon/radeon_pm.c
-index 4482c8c5f5ce..2d9d9f46f243 100644
---- a/drivers/gpu/drm/radeon/radeon_pm.c
-+++ b/drivers/gpu/drm/radeon/radeon_pm.c
-@@ -21,6 +21,7 @@
-  *          Alex Deucher <alexdeucher@gmail.com>
-  */
- 
-+#include <linux/debugfs.h>
- #include <linux/hwmon-sysfs.h>
- #include <linux/hwmon.h>
- #include <linux/pci.h>
-diff --git a/drivers/gpu/drm/radeon/radeon_ring.c b/drivers/gpu/drm/radeon/radeon_ring.c
-index 38048593bb4a..8d1d458286a8 100644
---- a/drivers/gpu/drm/radeon/radeon_ring.c
-+++ b/drivers/gpu/drm/radeon/radeon_ring.c
-@@ -27,6 +27,8 @@
-  *          Christian König
-  */
- 
-+#include <linux/debugfs.h>
-+
- #include <drm/drm_device.h>
- #include <drm/drm_file.h>
- 
-diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
-index 2078b0000e22..5c65b6dfb99a 100644
---- a/drivers/gpu/drm/radeon/radeon_ttm.c
-+++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-@@ -30,6 +30,7 @@
-  *    Dave Airlie
-  */
- 
-+#include <linux/debugfs.h>
- #include <linux/dma-mapping.h>
- #include <linux/pagemap.h>
- #include <linux/pci.h>
-diff --git a/drivers/gpu/drm/radeon/rs400.c b/drivers/gpu/drm/radeon/rs400.c
-index d7f552d441ab..d4d1501e6576 100644
---- a/drivers/gpu/drm/radeon/rs400.c
-+++ b/drivers/gpu/drm/radeon/rs400.c
-@@ -26,6 +26,7 @@
-  *          Jerome Glisse
-  */
- 
-+#include <linux/debugfs.h>
- #include <linux/seq_file.h>
- #include <linux/slab.h>
- 
-diff --git a/drivers/gpu/drm/radeon/rv515.c b/drivers/gpu/drm/radeon/rv515.c
-index 79709d26d983..bbc6ccabf788 100644
---- a/drivers/gpu/drm/radeon/rv515.c
-+++ b/drivers/gpu/drm/radeon/rv515.c
-@@ -26,6 +26,7 @@
-  *          Jerome Glisse
-  */
- 
-+#include <linux/debugfs.h>
- #include <linux/seq_file.h>
- #include <linux/slab.h>
- 
-diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
-index 76027960054f..434cf0258000 100644
---- a/drivers/gpu/drm/ttm/ttm_device.c
-+++ b/drivers/gpu/drm/ttm/ttm_device.c
-@@ -27,6 +27,7 @@
- 
- #define pr_fmt(fmt) "[TTM DEVICE] " fmt
- 
-+#include <linux/debugfs.h>
- #include <linux/mm.h>
- 
- #include <drm/ttm/ttm_bo.h>
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index be8d286513f9..4a66b851b67d 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -22,8 +22,9 @@
-  * Authors: Christian König
-  */
- 
--#include <linux/iosys-map.h>
-+#include <linux/debugfs.h>
- #include <linux/io-mapping.h>
-+#include <linux/iosys-map.h>
- #include <linux/scatterlist.h>
- 
- #include <drm/ttm/ttm_bo.h>
-diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
-index 578a7c37f00b..474fe7aad2a0 100644
---- a/drivers/gpu/drm/ttm/ttm_tt.c
-+++ b/drivers/gpu/drm/ttm/ttm_tt.c
-@@ -32,10 +32,11 @@
- #define pr_fmt(fmt) "[TTM] " fmt
- 
- #include <linux/cc_platform.h>
--#include <linux/sched.h>
--#include <linux/shmem_fs.h>
-+#include <linux/debugfs.h>
- #include <linux/file.h>
- #include <linux/module.h>
-+#include <linux/sched.h>
-+#include <linux/shmem_fs.h>
- #include <drm/drm_cache.h>
- #include <drm/drm_device.h>
- #include <drm/drm_util.h>
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 9cc473e5d353..561c3b96b6fd 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -30,11 +30,11 @@
- #include <linux/printk.h>
- #include <linux/seq_file.h>
- #include <linux/device.h>
--#include <linux/debugfs.h>
- #include <linux/dynamic_debug.h>
- 
- #include <drm/drm.h>
- 
-+struct debugfs_regset32;
- struct drm_device;
- 
- /* Do *not* use outside of drm_print.[ch]! */
--- 
-2.39.2
+Unfortunately this patch causes build failures on arm with allyesconfig
+and allmodconfig. Tested with next-20240410.
 
+Error with allyesconfig:
+
+$ make -j 8 \
+    O=3D$HOME/.cache/builds/linux-cross-arm \
+    ARCH=3Darm \
+    CROSS_COMPILE=3Darm-linux-gnueabihf-
+make[1]: Entering directory '/home/bauermann/.cache/builds/linux-cross-arm'
+    =E2=8B=AE
+arm-linux-gnueabihf-ld: drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.=
+o: in function `dcn20_populate_dml_pipes_from_context':
+dcn20_fpu.c:(.text+0x20f4): undefined reference to `__aeabi_l2d'
+arm-linux-gnueabihf-ld: dcn20_fpu.c:(.text+0x210c): undefined reference to =
+`__aeabi_l2d'
+arm-linux-gnueabihf-ld: dcn20_fpu.c:(.text+0x2124): undefined reference to =
+`__aeabi_l2d'
+arm-linux-gnueabihf-ld: dcn20_fpu.c:(.text+0x213c): undefined reference to =
+`__aeabi_l2d'
+arm-linux-gnueabihf-ld: drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.=
+o: in function `pipe_ctx_to_e2e_pipe_params':
+dcn_calcs.c:(.text+0x390): undefined reference to `__aeabi_l2d'
+arm-linux-gnueabihf-ld: drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.=
+o:dcn_calcs.c:(.text+0x3a4): more undefined references to `__aeabi_l2d' fol=
+low
+arm-linux-gnueabihf-ld: drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.o:=
+ in function `optimize_configuration':
+dml2_wrapper.c:(.text+0xcbc): undefined reference to `__aeabi_d2ulz'
+arm-linux-gnueabihf-ld: drivers/gpu/drm/amd/display/dc/dml2/dml2_translatio=
+n_helper.o: in function `populate_dml_plane_cfg_from_plane_state':
+dml2_translation_helper.c:(.text+0x9e4): undefined reference to `__aeabi_l2=
+d'
+arm-linux-gnueabihf-ld: dml2_translation_helper.c:(.text+0xa20): undefined =
+reference to `__aeabi_l2d'
+arm-linux-gnueabihf-ld: dml2_translation_helper.c:(.text+0xa58): undefined =
+reference to `__aeabi_l2d'
+arm-linux-gnueabihf-ld: dml2_translation_helper.c:(.text+0xa90): undefined =
+reference to `__aeabi_l2d'
+make[3]: *** [/home/bauermann/src/linux/scripts/Makefile.vmlinux:37: vmlinu=
+x] Error 1
+make[2]: *** [/home/bauermann/src/linux/Makefile:1165: vmlinux] Error 2
+make[1]: *** [/home/bauermann/src/linux/Makefile:240: __sub-make] Error 2
+make[1]: Leaving directory '/home/bauermann/.cache/builds/linux-cross-arm'
+make: *** [Makefile:240: __sub-make] Error 2
+
+The error with allmodconfig is slightly different:
+
+$ make -j 8 \
+    O=3D$HOME/.cache/builds/linux-cross-arm \
+    ARCH=3Darm \
+    CROSS_COMPILE=3Darm-linux-gnueabihf-
+make[1]: Entering directory '/home/bauermann/.cache/builds/linux-cross-arm'
+    =E2=8B=AE
+ERROR: modpost: "__aeabi_d2ulz" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] unde=
+fined!
+ERROR: modpost: "__aeabi_l2d" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefi=
+ned!
+make[3]: *** [/home/bauermann/src/linux/scripts/Makefile.modpost:145: Modul=
+e.symvers] Error 1
+make[2]: *** [/home/bauermann/src/linux/Makefile:1876: modpost] Error 2
+make[1]: *** [/home/bauermann/src/linux/Makefile:240: __sub-make] Error 2
+make[1]: Leaving directory '/home/bauermann/.cache/builds/linux-cross-arm'
+make: *** [Makefile:240: __sub-make] Error 2
+
+--
+Thiago
