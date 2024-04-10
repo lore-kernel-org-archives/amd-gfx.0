@@ -4,87 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EEB0CD1296
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 07:12:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76B17CD129A
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 07:13:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC21211320B;
-	Wed, 10 Apr 2024 07:12:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC1CF113204;
+	Wed, 10 Apr 2024 07:12:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="KtkJA6bh";
+	dkim=pass (1024-bit key; unprotected) header.d=netflix.com header.i=@netflix.com header.b="lLKaljID";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEED710E17F
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Apr 2024 15:39:25 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 439CppUs017838; Tue, 9 Apr 2024 15:39:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=BVya2MLIf3T+ay0p5m5Dy3OvncV3HoHy2h8QweebvPk=; b=Kt
- kJA6bhYIkRC4MZLI1LGmOfLeWO1DAgDad2jo7KMtyNYLPZZoBT16faQIgcrECgso
- uho+kGsHmTj+j03mF4sk+Tj67rvzDvEv5P65XlEpKhzoYQ723lz+eFXq/ieHk29c
- dIPNHSbCr/YssNqPMd/fxt/sv23fosG2q+AQ4axlxDChD3/z9C2D6Xpp+H9hnm/y
- 58TZKFu9K4Oj62ub7r3YRdyjw/YexEmOqzGOgM7sk3hJbpFyQ5Idupg0jpYqlaOr
- rVHIYVaWEKXnHO4ooXxxAsLGXtvdSHuOJMGGhbV3b6aGsXyt0iMvfc6CTQcsKeeQ
- 9VxAKmFibhcVPVY8phCA==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xcv3khhnr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 09 Apr 2024 15:39:19 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 439FdIfx026011
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 9 Apr 2024 15:39:18 GMT
-Received: from [10.110.80.194] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Tue, 9 Apr 2024
- 08:39:17 -0700
-Message-ID: <4a29d0b8-d9b6-4229-b5de-b4f378328cf4@quicinc.com>
-Date: Tue, 9 Apr 2024 08:39:16 -0700
+Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
+ [209.85.166.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF9010E384
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Apr 2024 04:34:46 +0000 (UTC)
+Received: by mail-il1-f181.google.com with SMTP id
+ e9e14a558f8ab-36a38c13550so3731395ab.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 09 Apr 2024 21:34:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=netflix.com; s=google; t=1712723685; x=1713328485; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=a/JPFUxV2ArWkhwNnn1v7zuWOs9XoBJjsryMcg9Mcoo=;
+ b=lLKaljIDk9OkiyVqqIs2eKQk6F1VyxX8qixJiln01CrrjMAzun1SL1tDBnmcEsactF
+ /BIXZzme7douP7BtXndvjyucb4R21nXwjdzyGZahxLZtHyBBZQdehShkpggiWimIGKOg
+ vpJHVwGiVj05CTuJ7N5XGGqhyN3vgEFmDHvbw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712723685; x=1713328485;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=a/JPFUxV2ArWkhwNnn1v7zuWOs9XoBJjsryMcg9Mcoo=;
+ b=bUb1mu/Cjo3xWh7iLf7Mb6RoT2HDAIhd1NymIE+lUdy3DcAywFzirUZ+imkJFayEDd
+ MzeTqIO2Ccm/WpugrrmYh6suKNT39IB9YTcOLQkg66o/r+TMc/mbOgHjIP9F0U94vtMu
+ vPTLgfejCqS3MM2Ib+GTYjVpiCNwuKIhB6/EX542MA2cicwMHGAgQjEpognWMfjtK5FV
+ J1a8Ku7Wh/X427z12NXt40RYS5xUyFVKpcXu2cw2Qyi8oywlkFdRS77tL2J6oX+TKSRB
+ KEBVAaUpT+GDwsrEe5SONbR0Ii6JUiiWvs76XaksfoMk7cFEOLqYr3BpF9aEAkvwuE7W
+ jGeQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX0xWeVcxFh3B9VB6BSQ67DJROB2BWMDBDfIU17NSeLaf10LQoBzarvvuW+02HhhCDYESmqIHYiOhkBIWd3hhTtxrYKsj2JQpy3K3EIaQ==
+X-Gm-Message-State: AOJu0YzplJ/HoV26JFSF6W79+reggBDDyEhb1+p8RGXssC40G1dmi7zd
+ Yw/6NCdkudPXWWumw7toI/4gR0SFG+YopXa3uF6OwFEXXhXEJOI9/fV2otjLMXI=
+X-Google-Smtp-Source: AGHT+IFILeN96Xd9wtsGDWKumJLAOJAbRVY+isMe2Tofq8xMm3T+C68RphVpIWdR/vNbrvujRnChCQ==
+X-Received: by 2002:a05:6e02:1607:b0:369:ed5b:dd56 with SMTP id
+ t7-20020a056e02160700b00369ed5bdd56mr2350659ilu.17.1712723685172; 
+ Tue, 09 Apr 2024 21:34:45 -0700 (PDT)
+Received: from localhost ([2601:285:8700:8f20:fa81:e682:614d:196f])
+ by smtp.gmail.com with UTF8SMTPSA id
+ hb2-20020a0566386c0200b0048290482c7bsm2023528jab.54.2024.04.09.21.34.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Apr 2024 21:34:44 -0700 (PDT)
+From: Jose Fernandez <josef@netflix.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Wenjing Liu <wenjing.liu@amd.com>,
+ Alan Liu <haoping.liu@amd.com>, George Shen <george.shen@amd.com>,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+ Ilya Bakoulin <ilya.bakoulin@amd.com>, Nasir Osman <nasir.osman@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
+ Leo Ma <hanghong.ma@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org,
+	Jose Fernandez <josef@netflix.com>
+Subject: [PATCH] drm/amd/display: Fix division by zero in setup_dsc_config
+Date: Tue,  9 Apr 2024 22:34:33 -0600
+Message-Id: <20240410043433.12854-1-josef@netflix.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: 6.5.5: UBSAN: radeon_atombios.c: index 1 is out of range for type
- 'UCHAR [1]'
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>, Kees Cook <kees@kernel.org>
-CC: Justin Piszcz <jpiszcz@lucidpixels.com>, Bagas Sanjaya
- <bagasdotme@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, Linux Kernel
- Mailing List <linux-kernel@vger.kernel.org>, Linux AMDGPU
- <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>,
- Dave Airlie <airlied@redhat.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Kees Cook <keescook@chromium.org>
-References: <CAO9zADy4b1XkD_ZaEF+XkDCXePJLD4Lev3g7HAEGYsCHgeM+KQ@mail.gmail.com>
- <ZRoIGhMesKtmNkAM@debian.me>
- <CAO9zADyfaLRWB-0rdojnbFD6SUsqX+zb9JZSZUkgTC7VJN=c1A@mail.gmail.com>
- <a619df03-e0cb-48f7-840a-970b7a6f6037@quicinc.com>
- <CA212FEF-E0BB-483C-86CC-6986D4FBE168@kernel.org>
- <CADnq5_PKoX9G8jD=m1WnX3nxd_+GL_xi03_Dgq8HK6Diw3=JsQ@mail.gmail.com>
-From: Jeff Johnson <quic_jjohnson@quicinc.com>
-In-Reply-To: <CADnq5_PKoX9G8jD=m1WnX3nxd_+GL_xi03_Dgq8HK6Diw3=JsQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: c1qwXR0YvDTneK_1PZhMy5ER1dO-JAhs
-X-Proofpoint-GUID: c1qwXR0YvDTneK_1PZhMy5ER1dO-JAhs
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-09_11,2024-04-09_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0
- clxscore=1011 priorityscore=1501 impostorscore=0 mlxscore=0
- mlxlogscore=999 adultscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2404010003 definitions=main-2404090102
-X-Mailman-Approved-At: Wed, 10 Apr 2024 07:12:48 +0000
+X-Mailman-Approved-At: Wed, 10 Apr 2024 07:12:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,101 +87,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 4/8/2024 9:23 PM, Alex Deucher wrote:
-> On Mon, Apr 8, 2024 at 9:45 PM Kees Cook <kees@kernel.org> wrote:
->>
->>
->>
->> On April 8, 2024 5:45:29 PM PDT, Jeff Johnson <quic_jjohnson@quicinc.com> wrote:
->>> On 10/1/23 17:12, Justin Piszcz wrote:
->>>>>> ================================================================================
->>>>>> [Sun Oct  1 15:59:04 2023] UBSAN: array-index-out-of-bounds in
->>>>>> drivers/gpu/drm/radeon/radeon_atombios.c:2620:43
->>>>>> [Sun Oct  1 15:59:04 2023] index 1 is out of range for type 'UCHAR [1]'
->>>>>> [Sun Oct  1 15:59:04 2023] CPU: 5 PID: 1 Comm: swapper/0 Tainted: G
->>>>>>              T  6.5.5 #13 55df8de52754ef95effc50a55e9206abdea304ac
->>>>>> [Sun Oct  1 15:59:04 2023] Hardware name: Supermicro X9SRL-F/X9SRL-F,
->>>>>> BIOS 3.3 11/13/2018
->>>>>> [Sun Oct  1 15:59:04 2023] Call Trace:
->>>>>> [Sun Oct  1 15:59:04 2023]  <TASK>
->>>>>> [Sun Oct  1 15:59:04 2023]  dump_stack_lvl+0x36/0x50
->>>>>> [Sun Oct  1 15:59:04 2023]  __ubsan_handle_out_of_bounds+0xc7/0x110
->>>>>> [Sun Oct  1 15:59:04 2023]  radeon_atombios_get_power_modes+0x87a/0x8f0
->>>>>> [Sun Oct  1 15:59:04 2023]  radeon_pm_init+0x13a/0x7e0
->>>>>> [Sun Oct  1 15:59:04 2023]  evergreen_init+0x13d/0x3d0
->>>>>> [Sun Oct  1 15:59:04 2023]  radeon_device_init+0x60a/0xbf0
->>>>>> [Sun Oct  1 15:59:04 2023]  radeon_driver_load_kms+0xb1/0x250
->>>>>> [Sun Oct  1 15:59:04 2023]  drm_dev_register+0xfc/0x250
->>>>>> [Sun Oct  1 15:59:04 2023]  radeon_pci_probe+0xd0/0x150
->>>>>> [Sun Oct  1 15:59:04 2023]  pci_device_probe+0x97/0x130
->>>>>> [Sun Oct  1 15:59:04 2023]  really_probe+0xbe/0x2f0
->>>>>> [Sun Oct  1 15:59:04 2023]  ? __pfx___driver_attach+0x10/0x10
->>>>>> [Sun Oct  1 15:59:04 2023]  __driver_probe_device+0x6e/0x120
->>>>>> [Sun Oct  1 15:59:04 2023]  driver_probe_device+0x1a/0x90
->>>>>> [Sun Oct  1 15:59:04 2023]  __driver_attach+0xd4/0x170
->>>>>> [Sun Oct  1 15:59:04 2023]  bus_for_each_dev+0x87/0xe0
->>>>>> [Sun Oct  1 15:59:04 2023]  bus_add_driver+0xf3/0x1f0
->>>>>> [Sun Oct  1 15:59:04 2023]  driver_register+0x58/0x120
->>>>>> [Sun Oct  1 15:59:04 2023]  ? __pfx_radeon_module_init+0x10/0x10
->>>>>> [Sun Oct  1 15:59:04 2023]  do_one_initcall+0x93/0x4a0
->>>>>> [Sun Oct  1 15:59:04 2023]  kernel_init_freeable+0x301/0x580
->>>>>> [Sun Oct  1 15:59:04 2023]  ? __pfx_kernel_init+0x10/0x10
->>>>>> [Sun Oct  1 15:59:04 2023]  kernel_init+0x15/0x1b0
->>>>>> [Sun Oct  1 15:59:04 2023]  ret_from_fork+0x2f/0x50
->>>>>> [Sun Oct  1 15:59:04 2023]  ? __pfx_kernel_init+0x10/0x10
->>>>>> [Sun Oct  1 15:59:04 2023]  ret_from_fork_asm+0x1b/0x30
->>>>>> [Sun Oct  1 15:59:04 2023]  </TASK>
->>>>>> [Sun Oct  1 15:59:04 2023]
->>>>>> ================================================================================
->>>>>> [Sun Oct  1 15:59:04 2023] [drm] radeon: dpm initialized
->>>>>> [Sun Oct  1 15:59:04 2023] [drm] GART: num cpu pages 262144, num gpu
->>>>>> pages 262144
->>>>>> [Sun Oct  1 15:59:04 2023] [drm] enabling PCIE gen 2 link speeds,
->>>>>> disable with radeon.pcie_gen2=0
->>>>>> [Sun Oct  1 15:59:04 2023] [drm] PCIE GART of 1024M enabled (table at
->>>>>> 0x000000000014C000).
->>>>>> [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: WB enabled
->>>>>> [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: fence driver on ring 0
->>>>>> use gpu addr 0x0000000040000c00
->>>>>> [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: fence driver on ring 3
->>>>>> use gpu addr 0x0000000040000c0c
->>>>>> [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: fence driver on ring 5
->>>>>> use gpu addr 0x000000000005c418
->>>>>> [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: radeon: MSI limited to 32-bit
->>>>>> [Sun Oct  1 15:59:04 2023] radeon 0000:03:00.0: radeon: using MSI.
->>>>>> [Sun Oct  1 15:59:04 2023] [drm] radeon: irq initialized.
->>>>>>
->>>>>
->>>>> Please also open an issue on freedesktop tracker [1].
->>>>>
->>>>> Thanks.
->>>>>
->>>>> [1]: https://gitlab.freedesktop.org/drm/amd/-/issues
->>>>
->>>> Issue opened: https://gitlab.freedesktop.org/drm/amd/-/issues/2894
->>>>
->>>> Regards,
->>>> Justin
->>>
->>> +Kees since I've worked with him on several of these flexible array issues.
->>>
->>> I just happened to look at kernel logs today for my ath1*k driver maintenance and see the subject issue is present on my device, running 6.9.0-rc1. The freedesktop issue tracker says the issue is closed, but any fix has not landed in the upstream kernel. Is there a -next patch somewhere?
->>>
->>> [   12.105270] UBSAN: array-index-out-of-bounds in drivers/gpu/drm/radeon/radeon_atombios.c:2718:34
->>> [   12.105272] index 48 is out of range for type 'UCHAR [1]'
->>> [
->>>
->>> If there isn't really an upstream fix, I can probably supply one.
->>
->> I would expect this to have fixed it:
->> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/drivers/gpu/drm/radeon/pptable.h?id=c63079c61177ba1b17fa05c6875699a36924fe39
->>
->> If not, there must be something else happening?
-> 
-> This patch should silence it I think:
-> https://patchwork.freedesktop.org/patch/588305/
+When slice_height is 0, the division by slice_height in the calculation
+of the number of slices will cause a division by zero driver crash. This
+leaves the kernel in a state that requires a reboot. This patch adds a
+check to avoid the division by zero.
 
-I can confirm that my issues are resolved with that patch
-Tested-by: Jeff Johnson <quic_jjohnson@quicinc.com>
+The stack trace below is for the 6.8.4 Kernel. I reproduced the issue on
+a Z16 Gen 2 Lenovo Thinkpad with a Apple Studio Display monitor
+connected via Thunderbolt. The amdgpu driver crashed with this exception
+when I rebooted the system with the monitor connected.
 
+kernel: ? die (arch/x86/kernel/dumpstack.c:421 arch/x86/kernel/dumpstack.c:434 arch/x86/kernel/dumpstack.c:447)
+kernel: ? do_trap (arch/x86/kernel/traps.c:113 arch/x86/kernel/traps.c:154)
+kernel: ? setup_dsc_config (drivers/gpu/drm/amd/amdgpu/../display/dc/dsc/dc_dsc.c:1053) amdgpu
+kernel: ? do_error_trap (./arch/x86/include/asm/traps.h:58 arch/x86/kernel/traps.c:175)
+kernel: ? setup_dsc_config (drivers/gpu/drm/amd/amdgpu/../display/dc/dsc/dc_dsc.c:1053) amdgpu
+kernel: ? exc_divide_error (arch/x86/kernel/traps.c:194 (discriminator 2))
+kernel: ? setup_dsc_config (drivers/gpu/drm/amd/amdgpu/../display/dc/dsc/dc_dsc.c:1053) amdgpu
+kernel: ? asm_exc_divide_error (./arch/x86/include/asm/idtentry.h:548)
+kernel: ? setup_dsc_config (drivers/gpu/drm/amd/amdgpu/../display/dc/dsc/dc_dsc.c:1053) amdgpu
+kernel: dc_dsc_compute_config (drivers/gpu/drm/amd/amdgpu/../display/dc/dsc/dc_dsc.c:1109) amdgpu
+
+After applying this patch, the driver no longer crashes when the monitor
+is connected and the system is rebooted. I believe this is the same
+issue reported for 3113.
+
+Signed-off-by: Jose Fernandez <josef@netflix.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3113
+---
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+index ac41f9c0a283..597d5425d6cb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+@@ -1055,7 +1055,12 @@ static bool setup_dsc_config(
+ 	if (!is_dsc_possible)
+ 		goto done;
+ 
+-	dsc_cfg->num_slices_v = pic_height/slice_height;
++	if (slice_height > 0)
++		dsc_cfg->num_slices_v = pic_height/slice_height;
++	else {
++		is_dsc_possible = false;
++		goto done;
++	}
+ 
+ 	if (target_bandwidth_kbps > 0) {
+ 		is_dsc_possible = decide_dsc_target_bpp_x16(
+-- 
+2.44.0
 
