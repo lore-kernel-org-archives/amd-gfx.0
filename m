@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C2C0CD1296
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 21:28:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B281CD128A
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 21:28:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BCED10EA62;
-	Wed, 10 Apr 2024 21:28:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC81210EA44;
+	Wed, 10 Apr 2024 21:28:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RoGwszjT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5nrzbBgp";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2040.outbound.protection.outlook.com [40.107.212.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96E6110EA5B
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Apr 2024 21:28:02 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2081.outbound.protection.outlook.com [40.107.244.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4257A10EA62
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Apr 2024 21:28:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mDBRcx6JPWgaz0NXt4knZZhqivYbmsTFsII5Zretg1im+BAWdISUqV6jk1x74UWTnAgPwk6JPnCMT905XLF226+Efv2T2w9pPekAu8DfO3mwXPSg+bn95rfDTaN6iCGOlJq6QEOnrqK7BRGPJZYYrmV/nUsZPoqMrZ4CrsrgQrF468ES/iMe75yapYoAdoTc5giIqG/dostzuqbQD2AXUoCtqKvtMK+HUqpehr2MzgkoP3NWmAdpfgZEIQIjTJzc33i3wmhmbu+jTTqOSMiGNXhFR+TNlNHbz1aR7eFx4ADIsOvuICpYRQ8Dfr/23T++RvVyz8GmUJTfVmTGynuFkw==
+ b=IhCzhmjCK91IEGx5MvSMXpNYFYmsE5u6vjB8uvjTzZz94LfTYKJvPj8w5QEvqlQ37YoErhMYFowRhBHAS1t5ZFnwTl3/yQy92PwwXJlT3HSKYTyQRsTm6qJMWf0HXecmw+RGVA+tp6zZS6u94aEqUsTeVdMln4ThsaPR6VYH6cfdITqyZwJs5LzH75Eg999ZqGuHGl2dqcsd0dOJljqhsU3gYnG4hS1s3XeM64ZXSLVKZMzpNgL7H9EC4RoHwJrsZpRpY/ZRFQ58yiAMru/dUgy7+K8c4zmNWIrH4X6Vm91vAxgc7Pt53de/GU6LaXIIJYAzBfEkywgzSFwTe8flvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ugG4s1V7J8R27QS2G6YhtlO/sm+qg89KSXsq+UAVPoY=;
- b=WDHb4wDk2OUBtRKg6676cGZppVWFua/zE2ZU92EDmlnI04zDz6MgcR4Lv7ix2e/zBBqnpxCGkzh98YjsrdmpR8KkHG4K3seOQ1hyjMuC/KEUxFjNX4mUnVlio6OKAyRr1+eMFaIhFzAqmKrcMcMXqXa5jJxGw0T4T6VJEwx2MT5jkCzhOhoeyoknDgBLeoWw85bZMf2eV3lluadlD2+E2LxO/Z2773vHqPaMEnJkO0yDtFntdgjV2oXUJS746zPrmMLXGXYXkDh/0cxTVPjf8L0hTNvR8c96sK59/2TFcWnY/QfrwSIz8y7Es0GCpcTNnMDcAD7MPrvKy9Spqq87cQ==
+ bh=KqrTz3WCkfz6PcP31g8Bv+hK4o56eFFEpDcgLiik5BQ=;
+ b=np+XIbNSNXtqsDtIo1h5nWXbmSuwaiC2fLd0eM6BH8d8VHWJmOHhcWnNxAlb2L0aIY4PvSTiMxQWOl2htFU8LIUWcTIPeyOyUClGo/4FeZjaElVyf8JciVBdMq8/SqYpHTBlD3ThW87SMEg9WXyE7VjL3KaqVWCFsJtijg5iRb0PR2p5XsneKs1Cmz6JHLldNRLrEvxcgAgwjomHqWpH/fpjqaE+tqI0CWWjgHY/14677g6kLB1O/qMkxKRIjnEuRyucZDrKt6DDgqFOJiSZPo1mPHOTY7ZYWpwhgvfuT3bA06ZX1Bpkuddtmgu2kFv0SrbPAFlsgtbeMrf5vXtuNA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ugG4s1V7J8R27QS2G6YhtlO/sm+qg89KSXsq+UAVPoY=;
- b=RoGwszjTRYHCGNqsLGS2h4CgQ+hstLL/ATz00ywJ0xRKkJ61klAgXCgYPfR6iHSRkWyUQ1aMV1b0pWa7Yswdw5Z7tEeJg/U3AHf9oVjrSuUDxX0ouXqMhJvnJs+qMS1Zc775K9BAqjXcWWzF1xMJXhkV0n/K/rDFBOLXAOR8cBY=
-Received: from BN9PR03CA0258.namprd03.prod.outlook.com (2603:10b6:408:ff::23)
- by LV3PR12MB9095.namprd12.prod.outlook.com (2603:10b6:408:1a6::22)
+ bh=KqrTz3WCkfz6PcP31g8Bv+hK4o56eFFEpDcgLiik5BQ=;
+ b=5nrzbBgpUmrFTfoWOdDW9J5I/cYd9F3ClhXuPFhq1Ev/CUdw7l/rs7d7W5o2C893rZBM2rdDxYXVpuqIpJ2MAL90aO2ZNY98ezjB+aAoaPBjHZxXXTTUOLbupdv1FAqWZiTB9HHGoxlFLPNw/i8VPosBcgiDJA2AEm7wduFYYKk=
+Received: from BN9PR03CA0262.namprd03.prod.outlook.com (2603:10b6:408:ff::27)
+ by CY8PR12MB7660.namprd12.prod.outlook.com (2603:10b6:930:84::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Wed, 10 Apr
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Wed, 10 Apr
  2024 21:27:59 +0000
 Received: from BN2PEPF000044A6.namprd04.prod.outlook.com
- (2603:10b6:408:ff:cafe::89) by BN9PR03CA0258.outlook.office365.com
- (2603:10b6:408:ff::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.35 via Frontend
- Transport; Wed, 10 Apr 2024 21:27:59 +0000
+ (2603:10b6:408:ff:cafe::db) by BN9PR03CA0262.outlook.office365.com
+ (2603:10b6:408:ff::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.19 via Frontend
+ Transport; Wed, 10 Apr 2024 21:27:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,21 +50,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN2PEPF000044A6.mail.protection.outlook.com (10.167.243.100) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Wed, 10 Apr 2024 21:27:59 +0000
+ 15.20.7452.22 via Frontend Transport; Wed, 10 Apr 2024 21:27:58 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 10 Apr
- 2024 16:27:57 -0500
+ 2024 16:27:56 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Samson Tam <samson.tam@amd.com>,
- Jun Lei <jun.lei@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Subject: [PATCH 05/25] drm/amd/display: add support for chroma offset
-Date: Wed, 10 Apr 2024 15:25:54 -0600
-Message-ID: <20240410212726.1312989-6-Rodrigo.Siqueira@amd.com>
+ <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Charlene Liu
+ <charlene.liu@amd.com>, Chris Park <chris.park@amd.com>, Rodrigo Siqueira
+ <rodrigo.siqueira@amd.com>
+Subject: [PATCH 04/25] drm/amd/display: limit the code change to ips enabled
+ asic
+Date: Wed, 10 Apr 2024 15:25:53 -0600
+Message-ID: <20240410212726.1312989-5-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240410212726.1312989-1-Rodrigo.Siqueira@amd.com>
 References: <20240410212726.1312989-1-Rodrigo.Siqueira@amd.com>
@@ -76,26 +78,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A6:EE_|LV3PR12MB9095:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d93c7f0-deed-406a-022a-08dc59a518b4
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A6:EE_|CY8PR12MB7660:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e54afcf-a01a-4cbb-bcb2-08dc59a517eb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: amxjyqczvpGLaxoHbmt+PSWlh3oc862qCMFmhNcp4SZVO8IH6KdgflBMxrmRsdB23vvZILoTuzGMJSF3IAA3PsMXARl9aDRO88KxGKbtVNbXnS7MkeFLUn7JGyUa2K2Zq7HDQSb/fidbBtW61f+veSGgv8amFSb38glqGsq6Zcq6GeL67bulGOpIXWGUKLoZ0YQkIzkLpjwcZseXsJnTjm/2n5KJ2hXsCFUkEED66lrPfhiXXU3CSQZQZZmMUQK+7R5DkhREy1LeUW3pQatf+gf8OkyrHmM2Ya8G5b3zvyKnUJZCNgvejsJbheYGf2OprSSwHsFwa5gH97tK4jFcgl6eb02U2voKFMxArO7TpVATIPcxpoE1VnBGSNj1aiLHNNwClnstuR+TAcrHKlCbpvS12qs6uNFNwcyp5OgoRuyVaC5BVD2dWlqeHsVX4kH0EG1slgsi8+1pQpIfnnbz9zA+rTXr5gGiVM/hn6A+d0yHgPLCNMriLPl58tyMVkiTwl1YMQpS5AVSCDJWle6y7glB78WIGgXffqF6DNEdVAEw6jcgeNNVn6leeDo0WULClXgsodLLCLvcStgWebyDplDHAyhjOeWXgTiX5a0jiFlrNPiU/SLZuu5XfiUxvFeWcQgrUwFJI82uhz+6FMtRuOZac8yYCqxJYw98bfmTFz6+kjogt2ddRQMIk8MXZuQ8fQ3kDL0EIXUpU5itE+flOZ/NrUu5mHBWvfgLVT2LELQ0r/SCoj2sR9RZ8G+HRkQp
+X-Microsoft-Antispam-Message-Info: IITfCNiydzWGhfyFWba9sTZGsgagNRxPfBdxK9Qzx6VG0TGFfvGqaE5zRZf/LIA2OQs6dZkSaUOs/W5PDPazXNE8ECTtLuY9ebrRJQITiFuTs80I8mPXpoobsEns7VlzcII1vZLHdtKKVdWphN4vamxlgE/JZeZ1R3DOGFnCGUh4tgWBSeG8vBwPuTfVPeQz8vEekA7sqJUiNEu8B3DVIJoS/693frqGXlVvBdkTMmNDZ2rGe2/PfDss00Kgi9tRiyn2lHiU7LybSifuHWyAMIHVrS8yhSrdUQXwcxASxSoba/cHgbnyOD7hIRWdPlZqwGAyVJjKMI0IO64htr7YzxVPG3voSI32taz4Z3ZdJhROGFTL3uNPwl7bQmM3ZX3XyW1tCZRL6HU/DZbZ6VY/2XNerCUU27xyF4FOt6ryRWEiSCkeLTc/+rL16l5y+nvCr38tqTpR9gWJO1ayCzH/u/l4Ey02IMOT17eKTNAgBCD647zn+JYihh1qA8j5NvKTd70KstHTfh6r6dVDr6R8GWu5aGRHV/1laGaPu6/U1ru+hAYh2+hmAo32mQB//t7zGMU6+ebsTC9wUsHsEmdatAsOsT+sJGrLrY9+O80qwNwnfM+O1EBCQ6iVNVeGrR6VR0W8NidBPEy7Y17DTF2PdXp06WohTJ7XJr+5Hg+DlyO46DxJZ9ztm/QqTKjZ6KlJ1kRLN33FAspvAu+R9HYG9a/FfoU0M8BXY4ocmxF0be676KjGBbdqO5HapeT57r/r
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(1800799015)(82310400014)(376005); DIR:OUT;
+ SFS:(13230031)(82310400014)(1800799015)(376005)(36860700004); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2024 21:27:59.7443 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d93c7f0-deed-406a-022a-08dc59a518b4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2024 21:27:58.4475 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e54afcf-a01a-4cbb-bcb2-08dc59a517eb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A6.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9095
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7660
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,72 +112,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Samson Tam <samson.tam@amd.com>
+From: Charlene Liu <charlene.liu@amd.com>
 
-[Why]
-Adding support for chroma subsampling offset (cositing) in scaler
-calculations to adjust reference point where we determine post-scaling
-chroma value in YUV420 surfaces.
+Limit the code change for ips enable to reduce the impact for now. Also
+exit_ips first before dc_power_down to avoid 0x9f.
 
-[How]
-Add support for cositing options: NONE, LEFT and TOPLEFT Add debug
-option force_cositing and set default to TOPLEFT to maintain same
-behaviour as without offset support.
-
-Reviewed-by: Jun Lei <jun.lei@amd.com>
+Reviewed-by: Chris Park <chris.park@amd.com>
 Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Signed-off-by: Samson Tam <samson.tam@amd.com>
+Signed-off-by: Charlene Liu <charlene.liu@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h          | 3 +++
- drivers/gpu/drm/amd/display/dc/dc_hw_types.h | 7 +++++++
- 2 files changed, 10 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 54534df73e83..188f2d401124 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1003,6 +1003,7 @@ struct dc_debug_options {
- 	unsigned int static_screen_wait_frames;
- 	bool force_chroma_subsampling_1tap;
- 	bool disable_422_left_edge_pixel;
-+	unsigned int force_cositing;
- };
- 
- struct gpu_info_soc_bounding_box_v1_0;
-@@ -1285,6 +1286,7 @@ struct dc_plane_state {
- 	struct tg_color visual_confirm_color;
- 
- 	bool is_statically_allocated;
-+	enum chroma_cositing cositing;
- };
- 
- struct dc_plane_info {
-@@ -1303,6 +1305,7 @@ struct dc_plane_info {
- 	int  global_alpha_value;
- 	bool input_csc_enabled;
- 	int layer_index;
-+	enum chroma_cositing cositing;
- };
- 
- #include "dc_stream.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-index 465e15f57f93..2ad7f60805f5 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-@@ -738,6 +738,13 @@ enum scanning_type {
- 	SCANNING_TYPE_UNDEFINED
- };
- 
-+enum chroma_cositing {
-+	CHROMA_COSITING_NONE,
-+	CHROMA_COSITING_LEFT,
-+	CHROMA_COSITING_TOPLEFT,
-+	CHROMA_COSITING_COUNT
-+};
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 145cdab92ca0..01c75b66e8f1 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -5042,8 +5042,13 @@ void dc_interrupt_ack(struct dc *dc, enum dc_irq_source src)
+ void dc_power_down_on_boot(struct dc *dc)
+ {
+ 	if (dc->ctx->dce_environment != DCE_ENV_VIRTUAL_HW &&
+-			dc->hwss.power_down_on_boot)
++			dc->hwss.power_down_on_boot) {
 +
- struct dc_crtc_timing_flags {
- 	uint32_t INTERLACE :1;
- 	uint32_t HSYNC_POSITIVE_POLARITY :1; /* when set to 1,
++			if (dc->caps.ips_support)
++				dc_exit_ips_for_hw_access(dc);
++
+ 		dc->hwss.power_down_on_boot(dc);
++	}
+ }
+ 
+ void dc_set_power_state(
 -- 
 2.43.0
 
