@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A7DACD128A
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 21:28:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41A16CD11C2
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Apr 2024 21:28:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78D4210EA50;
-	Wed, 10 Apr 2024 21:28:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A524E10EA5B;
+	Wed, 10 Apr 2024 21:28:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hWHk2iD0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qux6FV2D";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2064.outbound.protection.outlook.com [40.107.237.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66C2810EA44
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Apr 2024 21:27:58 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5732410EA44
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Apr 2024 21:28:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lD/m1E0X7BIBbyrgfMiYEKBVL8LtSZDU3DzVPPtPz44aoKgFDmHt+8OvDYuXrdCD40rMTulB61/7+eqdvkbpDzINK+yDnJBTln6QAf2lkNV6nEELRM7oQwC2lTsYJ6PmgP4UnTFdKzJajUzbYP9BbLMaqvbhCsRylpN8jRO9TmypXk0IvEWMe/WXcWopB7JF9ew8o4n/lPn0Dm5P9RE7gGitLktS94AfflUuy5ek6z4HDJKBYkfehyBTprzMQ/ZASn1CewLp2E7gGpQouV7BJy4SIW8/9syhAOSxTB1ZxJUIS4Ws/xRKossDncnb0Xa0lwlE9p1/ecCJUNU00dfRsw==
+ b=FDF0W29Eol5gtsq/JFmpcsRMIequmj9dQdKbVFhdFhkgUk4YVsOqJtl3jcpvE/ZYLfQpA6BgUQVM8Vx4yUZeAh9+2aaA8lXFFgy1ftjIRx1WeZJOJK9vEVpG5JJxluAZe3NDmEapDMkQmdYEG37ERQBoS5KY6/gjjYv1IQNp1ObyKF4dDtwlPcN3e8+6tlBiIsqPTeicXFthhd86Fz0iDwvzP21g0NAyoMBB3NYIGqXRQxjZKPAVDlO0WW2jAVMn6RGX7xCYStEuRMHdBcOT2srHphI0o90segGNP2lmFGykNvlrBSPrc6N9aJhY7MImrZ5gLVGGePSrou2FgOWASw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kf1YgynAg4+im+i7x4O65Ijn6r7XyDhkMo26vn1bt7o=;
- b=A4nLgY6eyhYNBLat6Itn9FSAK4oftcICDdu7rosVjK25EO0h7XMUYr3Ak8JaX6Hzga5LrD7ulVt4s073OS0wfWOiZh75E4T/qFgzAPqNh88emq02soZCmBK3Mpc7v0hRjSF1lF+JY+4EuvmLNRdXiGglYTPuwVcSl8bFBTXVACeAShikk7wMH+HsNFWl/CHRbSn9MfJZJr8wdpPsyLcQjIXP9PjY7YeY21K+mj3/KiFIU0mMYALpxmmDhc1+gCAijBxQ7nYeEGlhH/mVOXtgwof1JkSqFE3rcTSikeD7H0ilJ59zFS38n2MdyXqmcEw1NlZ09f98g10Fp82hcG5eQg==
+ bh=P+1dhmodlqZkdQWhsUoyi7bd+EP7YOT5g0H7lm0xE2I=;
+ b=TstsnD6IgYvNmb3sjpJ/pUP+8RjJMpctSyk5A+BCqb9UfEOjRWlMhpKg9vfVUKZxG0+QvA8YP5oAczbcZKakpm52/oZuo+xBtrEpSxLncbl58jAFlPJSSUdhY5ndmnN6YkyqDo1hExg8BqZxPk1xmHJOn+3z+azDykAPQj++MKwJt5itZzWgAodqrrd1tOkBcITIkySHFUKq08DNpO5cnsH5I3o2DzTsY6S/Id5LGJSue6LdUGU23zpYEcMWbSZIKjSpBJqjnw3Xcurvh9NAKyGFgG4fuh3RTr5KUshXuomiHfs+klvBrT5Buisfmt6kTnyGJQudjnu5yLejXJ3zwQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kf1YgynAg4+im+i7x4O65Ijn6r7XyDhkMo26vn1bt7o=;
- b=hWHk2iD0ABiGwWTbz+V9s0PozX0Zl1IhyDk39JDQfhQWEw0DIp5YxQT7GcpkNczmM8aZ8HybZheprx8yo3G4tGg7j4LOKsTqlZ4FEb1/K2Ap1uDD07Yf2EbRNNlxm4RJdzfJM20/Ajp3cEYAqqcvlWR01D+1tEhXO+R9k8T9/8Y=
-Received: from BN9PR03CA0136.namprd03.prod.outlook.com (2603:10b6:408:fe::21)
- by CH3PR12MB8880.namprd12.prod.outlook.com (2603:10b6:610:17b::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Wed, 10 Apr
- 2024 21:27:53 +0000
-Received: from BN2PEPF000044AA.namprd04.prod.outlook.com
- (2603:10b6:408:fe:cafe::c2) by BN9PR03CA0136.outlook.office365.com
- (2603:10b6:408:fe::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.36 via Frontend
- Transport; Wed, 10 Apr 2024 21:27:53 +0000
+ bh=P+1dhmodlqZkdQWhsUoyi7bd+EP7YOT5g0H7lm0xE2I=;
+ b=qux6FV2DoZMQhDHxVhIwTxeUWQEX3Ki0PU+YXIwGCxFK+BC9ya2e6LDpe+aVjH+75Dhoi3uezvY2KRh2+1KBM4M7zDurVhsRQim4BoHi3dOkf7Cc0KrYTajUzlrhF2hLfrd9tyGIWSC4XOOcf9glV+7Rrf7eCOKwJdGEJbtSIWQ=
+Received: from BN0PR04CA0141.namprd04.prod.outlook.com (2603:10b6:408:ed::26)
+ by DS0PR12MB8503.namprd12.prod.outlook.com (2603:10b6:8:15a::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.54; Wed, 10 Apr
+ 2024 21:27:56 +0000
+Received: from BN2PEPF000044A7.namprd04.prod.outlook.com
+ (2603:10b6:408:ed:cafe::97) by BN0PR04CA0141.outlook.office365.com
+ (2603:10b6:408:ed::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.19 via Frontend
+ Transport; Wed, 10 Apr 2024 21:27:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,24 +48,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF000044AA.mail.protection.outlook.com (10.167.243.105) with Microsoft
+ BN2PEPF000044A7.mail.protection.outlook.com (10.167.243.101) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Wed, 10 Apr 2024 21:27:53 +0000
+ 15.20.7452.22 via Frontend Transport; Wed, 10 Apr 2024 21:27:56 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 10 Apr
- 2024 16:27:51 -0500
+ 2024 16:27:54 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
  <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Sung Joon Kim
- <sungjoon.kim@amd.com>, Duncan Ma <duncan.ma@amd.com>, Rodrigo Siqueira
+ <sungjoon.kim@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Rodrigo Siqueira
  <rodrigo.siqueira@amd.com>
-Subject: [PATCH 01/25] drm/amd/display: Modify power sequence
-Date: Wed, 10 Apr 2024 15:25:50 -0600
-Message-ID: <20240410212726.1312989-2-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 03/25] drm/amd/display: Modify resource allocation logic
+Date: Wed, 10 Apr 2024 15:25:52 -0600
+Message-ID: <20240410212726.1312989-4-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240410212726.1312989-1-Rodrigo.Siqueira@amd.com>
 References: <20240410212726.1312989-1-Rodrigo.Siqueira@amd.com>
@@ -77,26 +77,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044AA:EE_|CH3PR12MB8880:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0ddd7374-6a1d-4b33-24c2-08dc59a514c1
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A7:EE_|DS0PR12MB8503:EE_
+X-MS-Office365-Filtering-Correlation-Id: c538e624-9001-45f7-7627-08dc59a516d6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aQMsu77yCvsP2171IKpG2ZUxq7AZxH035siOV83wPaO20uFkUBbgA1NiVQZdxIu768t2ql6ml4qwcGUBNl0nhflFoPwfNyaT6+XajF+2SscuP/cMvF4IZ2WfyjOodutZm/iqjT3/JSWjFAOMgyYKf1s1NqcU+GZU0vBSed8KqKmi++BUs97LoBRSZJ/NiP3qrKkG6A4tYW2hrvQoZoEXyVlRfHqSH4LyPx2p5Nb07sQICBovJj1p/fgmUl+UcRz76xwKTAl+v1I02g/HFzi90sivHlOT37ra7HmVndBtDO1imESi7/AtsX2YrU3fwADkVxRToqpbZxMwqSCBlC8OP8oqvmOi+Cl0IRFiQmJ/gMdPi+BkYQcV9Kg8XAy4EBPTWadlbulpgP2rwsGKDetw28OQJfFh+0AdTIrYM8bS0hp3Add3UffKtzfroLH/AzuUk+e4MtcPT7mNufuHJMRcAGGYmt4bBXom7kffkkoFDAaOfAxOo2a6OkV+gnrV2bIIsW2hXazNLd7Mlx4RV9C7/pu7eSOvve6DhtQGXHIDr3ZD17wfPQ92c/BYE1JfFzLNthmxKOFgiXbrkn/fkokKyaczs+Ye+I7wHfkdh7/ssckeH9WGbe41co9qGehJMyXWXjFHy+8NiAXtI+oz3si2msJJ2qeUY7vZj4wMQlmgz/FadJAYO3OP+07HRvGb4lrJwFnraO7ODs7xYrZDUSc/WqkwATAyk+XO8qfnelbA2Di8RNu68wep3bXBYLOpXcPC
+X-Microsoft-Antispam-Message-Info: 2alMgiqv2QslCYIu1tsJFk6JTGyz4/Ux9qmZPwxdX/mb/ZT4eJcyPBlEIINdG9b3g7q27jABMfPjaO5g1DKZPy8GXJxQgCUrxDW/fRKkVwWk9Loug7W6/etFTHfkfCkmI0cbMbbqmTvuAjo4XVWdeOafZI5JSAlWkAO0WBbzbwUfpPe0h3PU/kIwV2zMzFub1hv9GTxnurtRtd4kar+6d0ZB5WF0hO7FTO+MYUQCmh5mWQbzUONE0LeDrvdE4yRyLfsO4wFz73ROAo1hBYwrd/TNqyTP3mrvlshB+OiJ2dF9+SUrwdzcJmGg5iTif3uKJ+raEjv3xYpb/wMZXuONuBssoGC0uvfhHheVoQy8Txecs/uJrOdWb597B+rBjw42cs/UwoJ/mJIBe31tHbbtfHw02gF3Dxe5RSfs8gQdJgewDG8AQ4K3IOMWiUiz5SVua1HjcYVl+0X46r/eQsE1ud3Dr1U4M+fTji3Z7/VVEignBqs8I+7Nq1mcOnPZI7TrC2pAq1z8M7YHIVzBULCu+V3raoAqLD27DgsQ1ZEUCp6dyCzoG0Qu8rP/QP5Qo3X/GNoGw5cyT7LywhPCJP/TL7ggJFFJU0f7G8UChuiZ2YE8ucq32MAbFBENhtBIaqNaWJbPpRBEf7EulbAbMAJERLdxQrNRZduVTSm4lnM50h9so9XrsfPJWm93Pq2xOE38y2/7+PHkSVdVbaZOOatu+ddrF4fIASScvKpgRg6unj0DihUAzvtAgPxR1JRbbA9T
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400014)(36860700004)(376005)(1800799015); DIR:OUT;
+ SFS:(13230031)(376005)(36860700004)(1800799015)(82310400014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2024 21:27:53.1820 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ddd7374-6a1d-4b33-24c2-08dc59a514c1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2024 21:27:56.6616 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c538e624-9001-45f7-7627-08dc59a516d6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044AA.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A7.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8880
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8503
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,336 +113,134 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Sung Joon Kim <sungjoon.kim@amd.com>
 
-Need to update the power sequence to help prevent potential issues like
-multi-display or multi-plane.
+To reduce the complexity of pipe resource allocation for different
+use-cases, now we search for any free pipe sequentially rather than from
+bottom up.
 
-Reviewed-by: Duncan Ma <duncan.ma@amd.com>
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
 Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
 Signed-off-by: Sung Joon Kim <sungjoon.kim@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/Makefile  |   2 +-
- .../drm/amd/display/dc/hwss/dcn351/Makefile   |  25 ++-
- .../amd/display/dc/hwss/dcn351/dcn351_hwseq.c | 182 ++++++++++++++++++
- .../amd/display/dc/hwss/dcn351/dcn351_hwseq.h |  41 ++++
- .../amd/display/dc/hwss/dcn351/dcn351_init.c  |   9 +-
- 5 files changed, 247 insertions(+), 12 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_hwseq.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_hwseq.h
+ .../dc/resource/dcn32/dcn32_resource.c        |  4 +--
+ .../dc/resource/dcn32/dcn32_resource.h        |  6 ++++
+ .../dc/resource/dcn351/dcn351_resource.c      | 35 ++++++++++++++++++-
+ .../dc/resource/dcn351/dcn351_resource.h      |  6 ++++
+ 4 files changed, 48 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/Makefile b/drivers/gpu/drm/amd/display/dc/hwss/Makefile
-index 9e8e9de51a92..cf8aa23b4415 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/Makefile
-@@ -180,7 +180,7 @@ AMD_DISPLAY_FILES += $(AMD_DAL_HWSS_DCN35)
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index 9aa39bd25be9..c16e915686fc 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -2547,7 +2547,7 @@ struct resource_pool *dcn32_create_resource_pool(
+  * full update which delays the flip for 1 frame. If we use the original pipe
+  * we don't have to toggle its power. So we can flip faster.
+  */
+-static int find_optimal_free_pipe_as_secondary_dpp_pipe(
++int dcn32_find_optimal_free_pipe_as_secondary_dpp_pipe(
+ 		const struct resource_context *cur_res_ctx,
+ 		struct resource_context *new_res_ctx,
+ 		const struct resource_pool *pool,
+@@ -2730,7 +2730,7 @@ struct pipe_ctx *dcn32_acquire_free_pipe_as_secondary_dpp_pipe(
+ 		return dcn32_acquire_idle_pipe_for_head_pipe_in_layer(
+ 				new_ctx, pool, opp_head_pipe->stream, opp_head_pipe);
  
- ###############################################################################
+-	free_pipe_idx = find_optimal_free_pipe_as_secondary_dpp_pipe(
++	free_pipe_idx = dcn32_find_optimal_free_pipe_as_secondary_dpp_pipe(
+ 					&cur_ctx->res_ctx, &new_ctx->res_ctx,
+ 					pool, opp_head_pipe);
+ 	if (free_pipe_idx >= 0) {
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+index 286e20ad46ed..fee67fbab8e2 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+@@ -137,6 +137,12 @@ bool dcn32_any_surfaces_rotated(struct dc *dc, struct dc_state *context);
+ bool dcn32_is_center_timing(struct pipe_ctx *pipe);
+ bool dcn32_is_psr_capable(struct pipe_ctx *pipe);
  
--HWSS_DCN351 = dcn351_init.o
-+HWSS_DCN351 = dcn351_hwseq.o dcn351_init.o
- 
- AMD_DAL_HWSS_DCN351 = $(addprefix $(AMDDALPATH)/dc/hwss/dcn351/,$(HWSS_DCN351))
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/Makefile b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/Makefile
-index b24ad27fe6ef..a4b3c1e99ec6 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/Makefile
-@@ -1,16 +1,27 @@
- #
--# (c) Copyright 2022 Advanced Micro Devices, Inc. All the rights reserved
-+# Copyright (c) 2022-2024 Advanced Micro Devices, Inc.
- #
--#  All rights reserved.  This notice is intended as a precaution against
--#  inadvertent publication and does not imply publication or any waiver
--#  of confidentiality.  The year included in the foregoing notice is the
--#  year of creation of the work.
-+# Permission is hereby granted, free of charge, to any person obtaining a
-+# copy of this software and associated documentation files (the "Software"),
-+# to deal in the Software without restriction, including without limitation
-+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+# and/or sell copies of the Software, and to permit persons to whom the
-+# Software is furnished to do so, subject to the following conditions:
- #
--#  Authors: AMD
-+# The above copyright notice and this permission notice shall be included in
-+# all copies or substantial portions of the Software.
-+#
-+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+# THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+# OTHER DEALINGS IN THE SOFTWARE.
- #
- # Makefile for DCN351.
- 
--DCN351 = dcn351_init.o
-+DCN351 = dcn351_hwseq.o dcn351_init.o
- 
- AMD_DAL_DCN351 = $(addprefix $(AMDDALPATH)/dc/dcn351/,$(DCN351))
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_hwseq.c
-new file mode 100644
-index 000000000000..93fe5b262a3d
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_hwseq.c
-@@ -0,0 +1,182 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright 2024 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
++int dcn32_find_optimal_free_pipe_as_secondary_dpp_pipe(
++		const struct resource_context *cur_res_ctx,
++		struct resource_context *new_res_ctx,
++		const struct resource_pool *pool,
++		const struct pipe_ctx *new_opp_head);
 +
-+#include "core_types.h"
-+#include "resource.h"
-+#include "dcn351_hwseq.h"
-+#include "dcn35/dcn35_hwseq.h"
-+
-+#define DC_LOGGER_INIT(logger) \
-+	struct dal_logger *dc_logger = logger
-+
-+#define DC_LOGGER \
-+	dc_logger
-+
-+void dcn351_calc_blocks_to_gate(struct dc *dc, struct dc_state *context,
-+	struct pg_block_update *update_state)
+ struct pipe_ctx *dcn32_acquire_free_pipe_as_secondary_dpp_pipe(
+ 		const struct dc_state *cur_ctx,
+ 		struct dc_state *new_ctx,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+index 8a57adb27264..cc1a44a890b5 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+@@ -1728,6 +1728,37 @@ static bool dcn351_validate_bandwidth(struct dc *dc,
+ 	return out;
+ }
+ 
++struct pipe_ctx *dcn351_acquire_free_pipe_as_secondary_dpp_pipe(
++		const struct dc_state *cur_ctx,
++		struct dc_state *new_ctx,
++		const struct resource_pool *pool,
++		const struct pipe_ctx *opp_head_pipe)
 +{
-+	int i, j;
++	int free_pipe_idx;
++	struct pipe_ctx *free_pipe;
 +
-+	dcn35_calc_blocks_to_gate(dc, context, update_state);
++	free_pipe_idx = dcn32_find_optimal_free_pipe_as_secondary_dpp_pipe(
++					&cur_ctx->res_ctx, &new_ctx->res_ctx,
++					pool, opp_head_pipe);
++	if (free_pipe_idx >= 0) {
++		free_pipe = &new_ctx->res_ctx.pipe_ctx[free_pipe_idx];
++		free_pipe->pipe_idx = free_pipe_idx;
++		free_pipe->stream = opp_head_pipe->stream;
++		free_pipe->stream_res.tg = opp_head_pipe->stream_res.tg;
++		free_pipe->stream_res.opp = opp_head_pipe->stream_res.opp;
 +
-+	for (i = dc->res_pool->pipe_count - 1; i >= 0; i--) {
-+		if (!update_state->pg_pipe_res_update[PG_HUBP][i] &&
-+			!update_state->pg_pipe_res_update[PG_DPP][i]) {
-+			for (j = i - 1; j >= 0; j--) {
-+				update_state->pg_pipe_res_update[PG_HUBP][j] = false;
-+				update_state->pg_pipe_res_update[PG_DPP][j] = false;
-+			}
-+
-+			break;
-+		}
-+	}
-+}
-+
-+void dcn351_calc_blocks_to_ungate(struct dc *dc, struct dc_state *context,
-+	struct pg_block_update *update_state)
-+{
-+	int i, j;
-+
-+	dcn35_calc_blocks_to_ungate(dc, context, update_state);
-+
-+	for (i = dc->res_pool->pipe_count - 1; i >= 0; i--) {
-+		if (update_state->pg_pipe_res_update[PG_HUBP][i] &&
-+			update_state->pg_pipe_res_update[PG_DPP][i]) {
-+			for (j = i - 1; j >= 0; j--) {
-+				update_state->pg_pipe_res_update[PG_HUBP][j] = true;
-+				update_state->pg_pipe_res_update[PG_DPP][j] = true;
-+			}
-+
-+			break;
-+		}
-+	}
-+}
-+
-+/**
-+ * dcn351_hw_block_power_down() - power down sequence
-+ *
-+ * The following sequence describes the ON-OFF (ONO) for power down:
-+ *
-+ *	ONO Region 11, DCPG 19: dsc3
-+ *	ONO Region 10, DCPG 3: dchubp3, dpp3
-+ *	ONO Region 9, DCPG 18: dsc2
-+ *	ONO Region 8, DCPG 2: dchubp2, dpp2
-+ *	ONO Region 7, DCPG 17: dsc1
-+ *	ONO Region 6, DCPG 1: dchubp1, dpp1
-+ *	ONO Region 5, DCPG 16: dsc0
-+ *	ONO Region 4, DCPG 0: dchubp0, dpp0
-+ *	ONO Region 3, DCPG 25: hpo - SKIPPED. Should be kept on
-+ *	ONO Region 2, DCPG 24: mpc opp optc dwb
-+ *	ONO Region 1, DCPG 23: dchubbub dchvm dchubbubmem - SKIPPED. PMFW will pwr dwn at IPS2 entry
-+ *	ONO Region 0, DCPG 22: dccg dio dcio - SKIPPED. will be pwr dwn after lono timer is armed
-+ *
-+ * @dc: Current DC state
-+ * @update_state: update PG sequence states for HW block
-+ */
-+void dcn351_hw_block_power_down(struct dc *dc,
-+	struct pg_block_update *update_state)
-+{
-+	int i = 0;
-+	struct pg_cntl *pg_cntl = dc->res_pool->pg_cntl;
-+
-+	if (!pg_cntl || dc->debug.ignore_pg)
-+		return;
-+
-+	for (i = dc->res_pool->pipe_count - 1; i >= 0; i--) {
-+		if (update_state->pg_pipe_res_update[PG_DSC][i]) {
-+			if (pg_cntl->funcs->dsc_pg_control)
-+				pg_cntl->funcs->dsc_pg_control(pg_cntl, i, false);
-+		}
-+
-+		if (update_state->pg_pipe_res_update[PG_HUBP][i] &&
-+			update_state->pg_pipe_res_update[PG_DPP][i]) {
-+			if (pg_cntl->funcs->hubp_dpp_pg_control)
-+				pg_cntl->funcs->hubp_dpp_pg_control(pg_cntl, i, false);
-+		}
++		free_pipe->plane_res.hubp = pool->hubps[free_pipe->pipe_idx];
++		free_pipe->plane_res.ipp = pool->ipps[free_pipe->pipe_idx];
++		free_pipe->plane_res.dpp = pool->dpps[free_pipe->pipe_idx];
++		free_pipe->plane_res.mpcc_inst =
++				pool->dpps[free_pipe->pipe_idx]->inst;
++	} else {
++		ASSERT(opp_head_pipe);
++		free_pipe = NULL;
 +	}
 +
-+	// domain25 currently always on.
-+
-+	/* this will need all the clients to unregister optc interrupts, let dmubfw handle this */
-+	if (pg_cntl->funcs->plane_otg_pg_control)
-+		pg_cntl->funcs->plane_otg_pg_control(pg_cntl, false);
-+
-+	// domain23 currently always on.
-+	// domain22 currently always on.
++	return free_pipe;
 +}
-+
-+/**
-+ * dcn351_hw_block_power_up() - power up sequence
-+ *
-+ * The following sequence describes the ON-OFF (ONO) for power up:
-+ *
-+ *	ONO Region 0, DCPG 22: dccg dio dcio - SKIPPED
-+ *	ONO Region 1, DCPG 23: dchubbub dchvm dchubbubmem - SKIPPED. PMFW will power up at IPS2 exit
-+ *	ONO Region 2, DCPG 24: mpc opp optc dwb
-+ *	ONO Region 3, DCPG 25: hpo - SKIPPED
-+ *	ONO Region 4, DCPG 0: dchubp0, dpp0
-+ *	ONO Region 5, DCPG 16: dsc0
-+ *	ONO Region 6, DCPG 1: dchubp1, dpp1
-+ *	ONO Region 7, DCPG 17: dsc1
-+ *	ONO Region 8, DCPG 2: dchubp2, dpp2
-+ *	ONO Region 9, DCPG 18: dsc2
-+ *	ONO Region 10, DCPG 3: dchubp3, dpp3
-+ *	ONO Region 11, DCPG 19: dsc3
-+ *
-+ * @dc: Current DC state
-+ * @update_state: update PG sequence states for HW block
-+ */
-+void dcn351_hw_block_power_up(struct dc *dc,
-+	struct pg_block_update *update_state)
-+{
-+	int i = 0;
-+	struct pg_cntl *pg_cntl = dc->res_pool->pg_cntl;
-+
-+	if (!pg_cntl || dc->debug.ignore_pg)
-+		return;
-+
-+	// domain22 currently always on.
-+	// domain23 currently always on.
-+
-+	/* this will need all the clients to unregister optc interrupts, let dmubfw handle this */
-+	if (pg_cntl->funcs->plane_otg_pg_control)
-+		pg_cntl->funcs->plane_otg_pg_control(pg_cntl, true);
-+
-+	// domain25 currently always on.
-+
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		if (update_state->pg_pipe_res_update[PG_HUBP][i] &&
-+			update_state->pg_pipe_res_update[PG_DPP][i]) {
-+			if (pg_cntl->funcs->hubp_dpp_pg_control)
-+				pg_cntl->funcs->hubp_dpp_pg_control(pg_cntl, i, true);
-+		}
-+
-+		if (update_state->pg_pipe_res_update[PG_DSC][i]) {
-+			if (pg_cntl->funcs->dsc_pg_control)
-+				pg_cntl->funcs->dsc_pg_control(pg_cntl, i, true);
-+		}
-+	}
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_hwseq.h
-new file mode 100644
-index 000000000000..6d8f3bfb668e
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_hwseq.h
-@@ -0,0 +1,41 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright 2024 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+#ifndef __DC_HWSS_DCN351_H__
-+#define __DC_HWSS_DCN351_H__
-+
-+#include "hw_sequencer_private.h"
-+
-+void dcn351_calc_blocks_to_gate(struct dc *dc, struct dc_state *context,
-+	struct pg_block_update *update_state);
-+void dcn351_calc_blocks_to_ungate(struct dc *dc, struct dc_state *context,
-+	struct pg_block_update *update_state);
-+void dcn351_hw_block_power_up(struct dc *dc,
-+	struct pg_block_update *update_state);
-+void dcn351_hw_block_power_down(struct dc *dc,
-+	struct pg_block_update *update_state);
-+
-+#endif /* __DC_HWSS_DCN351_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-index c54f3518c947..c4944478ed91 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-@@ -32,6 +32,7 @@
- #include "dcn31/dcn31_hwseq.h"
- #include "dcn32/dcn32_hwseq.h"
- #include "dcn35/dcn35_hwseq.h"
-+#include "dcn351/dcn351_hwseq.h"
  
- #include "dcn351_init.h"
+ static struct resource_funcs dcn351_res_pool_funcs = {
+ 	.destroy = dcn351_destroy_resource_pool,
+@@ -1740,7 +1771,8 @@ static struct resource_funcs dcn351_res_pool_funcs = {
+ 	.calculate_wm_and_dlg = NULL,
+ 	.update_soc_for_wm_a = dcn31_update_soc_for_wm_a,
+ 	.populate_dml_pipes = dcn351_populate_dml_pipes_from_context_fpu,
+-	.acquire_free_pipe_as_secondary_dpp_pipe = dcn20_acquire_free_pipe_for_layer,
++	.acquire_free_pipe_as_secondary_dpp_pipe = dcn351_acquire_free_pipe_as_secondary_dpp_pipe,
++	.acquire_free_pipe_as_secondary_opp_head = dcn32_acquire_free_pipe_as_secondary_opp_head,
+ 	.release_pipe = dcn20_release_pipe,
+ 	.add_stream_to_ctx = dcn30_add_stream_to_ctx,
+ 	.add_dsc_to_stream_resource = dcn20_add_dsc_to_stream_resource,
+@@ -2130,6 +2162,7 @@ static bool dcn351_resource_construct(
  
-@@ -115,10 +116,10 @@ static const struct hw_sequencer_funcs dcn351_funcs = {
- 	.update_visual_confirm_color = dcn10_update_visual_confirm_color,
- 	.apply_idle_power_optimizations = dcn35_apply_idle_power_optimizations,
- 	.update_dsc_pg = dcn32_update_dsc_pg,
--	.calc_blocks_to_gate = dcn35_calc_blocks_to_gate,
--	.calc_blocks_to_ungate = dcn35_calc_blocks_to_ungate,
--	.hw_block_power_up = dcn35_hw_block_power_up,
--	.hw_block_power_down = dcn35_hw_block_power_down,
-+	.calc_blocks_to_gate = dcn351_calc_blocks_to_gate,
-+	.calc_blocks_to_ungate = dcn351_calc_blocks_to_ungate,
-+	.hw_block_power_up = dcn351_hw_block_power_up,
-+	.hw_block_power_down = dcn351_hw_block_power_down,
- 	.root_clock_control = dcn35_root_clock_control,
- };
+ 	dc->dml2_options.max_segments_per_hubp = 24;
+ 	dc->dml2_options.det_segment_size = DCN3_2_DET_SEG_SIZE;/*todo*/
++	dc->dml2_options.map_dc_pipes_with_callbacks = true;
  
+ 	if (dc->config.sdpif_request_limit_words_per_umc == 0)
+ 		dc->config.sdpif_request_limit_words_per_umc = 16;/*todo*/
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.h
+index f3e045777a3d..e4553c5100f8 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.h
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.h
+@@ -20,4 +20,10 @@ struct resource_pool *dcn351_create_resource_pool(
+ 		const struct dc_init_data *init_data,
+ 		struct dc *dc);
+ 
++struct pipe_ctx *dcn351_acquire_free_pipe_as_secondary_dpp_pipe(
++		const struct dc_state *cur_ctx,
++		struct dc_state *new_ctx,
++		const struct resource_pool *pool,
++		const struct pipe_ctx *opp_head_pipe);
++
+ #endif /* _DCN351_RESOURCE_H_ */
 -- 
 2.43.0
 
