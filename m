@@ -4,129 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12678C001CC
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Apr 2024 20:34:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 084ACC4345F
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Apr 2024 21:49:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB1BA10EFAF;
-	Thu, 11 Apr 2024 20:34:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 738AF10E921;
+	Thu, 11 Apr 2024 21:49:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xYElF3J5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fFKOQvne";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2046.outbound.protection.outlook.com [40.107.243.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60F5B10EF0A;
- Thu, 11 Apr 2024 20:34:02 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2060.outbound.protection.outlook.com [40.107.96.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEF8810E921
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Apr 2024 21:49:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=moVyW9hkdkAFV8DCvnA8BqnyFHrQBE6+okndec8RJUziYnkLVqu25ltKjlo6AblD2xwE7tajaBiBGCOYyF/ppMX4uohE3P4NghinZKJwOPHfP6WQgqTS983Tc8dBd7vL3YjuZJtwHCO1Z1Ontv716/yTodxezXIBsY1WUm94/bZsmrI6eeOpgB6dq/d8i525umCntVxjsyRGWWFYx4KBsVBpyjR6A6akjQeSjSlW5KyZLhUGNDCEo5ZYqNgiz3eBXOtKt39QMpG3SnyZ9D064E6Awp2O9WJvJbpp8j3mafT7+DizvCzmbKFQ1nfmt+9QNq6fGUGOLhDpKDgFjoBRCw==
+ b=h01dTYECG7IF4Qrx7sQMNraXR2s2jc/XvJZhTbaQCAUQe57XpmOxdT+eLLXhD7dcGnf+z/XFRsmsoilTzDrQnQqa7An2m1eUzwJmaDD1Ycsev2BX94KMZ39nAqCEPoEPvgzhM9MCpyeiwrfEmTJQoi/1KtvkpLB+uDjGDdIw+6z9tZVS/UjvRiXvwLg2kb4t6goJvdxMrrC8Tv6Xs5qKFBFkVJbOo1DtqpKFs72qi+7+vWhsxI11sqeZI9atJKnbUL787s2ybC2wtSTHH4s340hE1RU+m49qIMu/KEZ+TGj37XUiPmOjymx8zYPD61XzF5dicEESxGpNDNvQW7h/WQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gUdGPEyCVhD7/LAClnVhhvwccKpsTjzEPWe4E2Qq6pI=;
- b=Ct9ru8/DgpwH8fs8T33ve1dBt5OYBi2KlO+8vfPNu3H7F8hxHZWlDlAuhogkpwpHrnlun0h6ZLaLST1e8sYooat6qNs9bfNGzJeFludLL57YRHTdXVzWXbVhX7J9HSIEUCWE2CBjd+6WVq39T97p+Lwbbn8NUko6h3WcEzIFxiY0QtUqPfBzQ944um5WKF8+vUBqeBmzh28U1+Kz/W2sLTn4VRR3YluUg8erBBbYMpfQsqk0PrVlhJefJKJgy6/WmQvng1YR3rOkiQNe+1+JKcRD0NYMrxGJJ9Y55qODuRwcPaHfWw6d7qraXZR/OBQpWrIGMUFxy6yhGlF1XwGZqA==
+ bh=EpX6OVgMm7yTaN9BEBPobjMn64WEvI6LbtO3Ub412g0=;
+ b=auB0msht2Q5KwHA1Y0vuI2zOpyoTcYBZZdVTFIkq5vWtjGO7g81HWD6BOGsUuINuKuOn3FS+cbXfsZRwbkHc2kXstXjdcZQoWwUYX+VPjdGQRYf2Orllunz6Vtisc/hWMQaHWMFlUZuoBbh0JYIdcS64Wru/GLTZzIADAChZmkA8UtzUXjvZ1jzkarnEHCSh+PP4ZHqejEZip8kdwGYeiY6NcsGHy1RqOmBzIxbzEKBEpo3hYCMUxo7nIoMNNMyqEtihfAEE2Ucep10Lsk98U6+BiToYKZHfU10irJ+cvk228P40q/FPwz5V+7+tyt0Krz9sjCYKc++9Q4PBFQ9L5A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gUdGPEyCVhD7/LAClnVhhvwccKpsTjzEPWe4E2Qq6pI=;
- b=xYElF3J59MML0yyVkLghjwuw5z/PYkHhIdyNCFK28BM4wsoVyetLhvoBhl3xkGl3fVDg8Xvlsszy1Y279DCx2L14RJKyy3P4qbgPIZB10MFf8GWX0t4qCrlPHL51z0DJZhSCtoLxkIw7cIPfnqyg38pw3yBdqk4q6hrGoncY8ag=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5311.namprd12.prod.outlook.com (2603:10b6:5:39f::7) by
- MW6PR12MB8898.namprd12.prod.outlook.com (2603:10b6:303:246::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7409.55; Thu, 11 Apr 2024 20:33:59 +0000
-Received: from DM4PR12MB5311.namprd12.prod.outlook.com
- ([fe80::f86e:7f84:27b2:f80]) by DM4PR12MB5311.namprd12.prod.outlook.com
- ([fe80::f86e:7f84:27b2:f80%7]) with mapi id 15.20.7409.053; Thu, 11 Apr 2024
- 20:33:59 +0000
-Message-ID: <46968a40-e0e5-4af9-b859-8a41d5992863@amd.com>
-Date: Thu, 11 Apr 2024 16:33:57 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] drm/amdgpu/display: Make multi-plane configurations
- more flexible
-To: Marius Vlad <marius.vlad@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>
-Cc: Pekka Paalanen <pekka.paalanen@collabora.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Joshua Ashton <joshua@froggi.es>, =?UTF-8?Q?Michel_D=C3=A4nzer?=
- <mdaenzer@redhat.com>, Chao Guo <chao.guo@nxp.com>,
- Xaver Hugl <xaver.hugl@gmail.com>, Vikas Korjani <Vikas.Korjani@amd.com>,
- Robert Mader <robert.mader@posteo.de>, Sean Paul <sean@poorly.run>,
- Simon Ser <contact@emersion.fr>, Shashank Sharma <shashank.sharma@amd.com>,
- Sebastian Wick <sebastian.wick@redhat.com>
-References: <20240315170959.165505-1-sunpeng.li@amd.com>
- <20240328163311.34b58b39.pekka.paalanen@collabora.com>
- <1ca9c55b-2358-4357-a337-c0bf5e3e2118@amd.com>
- <20240404132411.5bb5cb53.pekka.paalanen@collabora.com>
- <b1613277-567d-47db-af84-74dfad2e9cf2@amd.com> <Zg63qvnHgutUARrh@xpredator>
+ bh=EpX6OVgMm7yTaN9BEBPobjMn64WEvI6LbtO3Ub412g0=;
+ b=fFKOQvneJR4dagSzrqvCpM2H5Q9ui2YL9A5/xiIhQnp+FgwTSzV6zH1BMaFAOanIU9ejkRSrVH5Tx2/MMJPutpP9FPG/rQLISUdswZOcthoUfGRkwfBWDrBwA7HXL5JOieQBaFTgUq4uJBim1vGMt0ARglWuIsoWY70JUGhOpn0=
+Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
+ by IA0PR12MB8206.namprd12.prod.outlook.com (2603:10b6:208:403::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Thu, 11 Apr
+ 2024 21:49:04 +0000
+Received: from BN9PR12MB5146.namprd12.prod.outlook.com
+ ([fe80::b7dd:b7c4:6179:18a6]) by BN9PR12MB5146.namprd12.prod.outlook.com
+ ([fe80::b7dd:b7c4:6179:18a6%4]) with mapi id 15.20.7409.053; Thu, 11 Apr 2024
+ 21:49:04 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Kim, Jonathan" <Jonathan.Kim@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Joshi, Mukul" <Mukul.Joshi@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: increase mes submission timeout
+Thread-Topic: [PATCH] drm/amdgpu: increase mes submission timeout
+Thread-Index: AQHajEMFJb+6SkiIZ0q9gydXbrwrh7Fjm4n7
+Date: Thu, 11 Apr 2024 21:49:04 +0000
+Message-ID: <BN9PR12MB514671676E697926A1F216C5F7052@BN9PR12MB5146.namprd12.prod.outlook.com>
+References: <20240411190344.1148610-1-Jonathan.Kim@amd.com>
+In-Reply-To: <20240411190344.1148610-1-Jonathan.Kim@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <Zg63qvnHgutUARrh@xpredator>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0146.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:ac::14) To DM4PR12MB5311.namprd12.prod.outlook.com
- (2603:10b6:5:39f::7)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-04-11T21:49:03.761Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|IA0PR12MB8206:EE_
+x-ms-office365-filtering-correlation-id: bc3a9641-9318-44b4-da42-08dc5a7134ba
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: wgPwVE/sx8jWGR8GQ/pDoBCdpNvNSzHNyOcJDV69Fo8/109bUYFvie6NsVEZAJI7rtxGZX2JU6wynPdRnAftHTFqLS50ra7w9NliMnSdFauYTdIXLhGEIFGPszGWp587QzaIA0NDFS3SBp3KGd21kE+UH6G3ujlx/09grJ5BTx5PscdMo7uHUlnfdgbyAnSTS7kWmnkmsD93guJ3xajGVXskopmS5UcedqbIcnUoOt6S0/CHwrt3bn3yRXlIOOO0LSzuwjCfRdxq4lAuInIMJQxWva75f3Ktx3ERfw8lED9V5NVf+gtSzBrNzqgYxb48s2M+rirCRl9ikthkXIuEmPRoVb2ZKtJI69G39j+uhs29BJQ6I8OnQeEjCXFI9YtcHcsID4KK26nYgezsKCp4S9H7pEfg4mEv4dJyMKTI0CtDHmDBFO6pe2bR68FTb6+UqZWYY5qQo8dIqKeaBzOr3ljhNVQhQ04dPwhcrWGSRX2MydX/i5EOl5LtVjaowfAr+SAaWnyEVNznjNaiOCxYFehMKBcOHhTFSNcew5S5gLnBFIl8M3zaghJYJ7dyTD4b+Fs6ChkGFHTTR2tiUbvz7PTy/9O6ogDi8aAd1WfwvEu5Y1RnB2mTi7u8CHUGAQy5OY6ljn9XupGmJWW1FN9jDNQs8P02urGT33zWTHKehM0g1uA16HHo2PAop4pTYCdFrRqmzXR9VpAcdrlMYXPSxQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(366007)(376005)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?6KXMiHAyvySUDg+8TfFFNOyu76g/Cyiu7e4J8wyADjI9IhyYX7BWQd4g2kL2?=
+ =?us-ascii?Q?5DYzKulpTZWOcuDrBzT52BDr14Dv2IX/PQZrkJR5LHuc4e9ftIxdubkGSqgA?=
+ =?us-ascii?Q?bwBTuNyDCAT1BgHmCaAX6O3VoGZRDtOObeY4VG2yrmo4WAdTg7uyhEqHOdlr?=
+ =?us-ascii?Q?5KizdhvpqoCQyNmqeTf7ovUw+DqmHkv1D2p/i7s3NDQNhZgOkwVO7zsgXDG/?=
+ =?us-ascii?Q?yasisBusuT45i12t1rvZNWa5eZT8GiKqyKaSi8R1WNgA4guE/iXBe2x9A8Q7?=
+ =?us-ascii?Q?Jimn1Ei4YlXl+VhLflrAbjWcuTkCioPyBPbSHD4vFP6w67nI2kyn8nptqvXM?=
+ =?us-ascii?Q?wRTxJ+g/wmg+eOhaGf2W4KTE/mB4MMhuWyazMgie1xNb3mBMixhcduXlTA63?=
+ =?us-ascii?Q?/4ZMb+YeCW3vaiMrmrSVRXnf3aahjUs1we20rQC/XBjXHFzJyfxHNIGECeAr?=
+ =?us-ascii?Q?t96+RvXBnbgFgqw7yafo6CfPWM/lNGZDw51M7gTO6XonJFdvG0RPlwNZc7K7?=
+ =?us-ascii?Q?8vljpxjQ6R7M+TWHIF87JHjN50IdEArYjJMJ3zkV2HJUoZT1EKmh7oonp7fq?=
+ =?us-ascii?Q?QWZo+AptLvPbU89eQ+RtwQxNipCRRQOy8FD15lNW6ad/wqoEjT2TKVN6z/TG?=
+ =?us-ascii?Q?YYBVSwhgRvgcfukJT+cCtIiHiDJt5VaPL9NRzM6tx4bqVn+/c5o3q8XBSERJ?=
+ =?us-ascii?Q?PVY+nzrJfOjOe9LC2+G7YKVNiqlE2lt7sFni0ho4zDMFt6ULPM70u47L5Cly?=
+ =?us-ascii?Q?qNyt0Xn8Czi43gdzsuC4oOYz+SRj+u0lHQz9e+M2Elcjq5xWI29GtNRlg74+?=
+ =?us-ascii?Q?m7dwDkEGJ8YAXydo6hZ6lvlTm0ypOm7Y+EIq4MpdeaVNXLCXiEzNXXO8OX0h?=
+ =?us-ascii?Q?z02PXorxOtZh7qDNt6DuBr5Lp0R33ryqjG0SsjBwTzrgRA0RRztyq+rPUXbN?=
+ =?us-ascii?Q?ahLrANOUe/Y3GYEU0CGcDNFnM5vSvhTxWyLPXo3Z3H+9Okx8eh2NgJupAn+Z?=
+ =?us-ascii?Q?IPHBJWpQXjIkxZEDlzKOTi3jtliaRjVoBkrgi+BX3f7Ee/DwYsM56R9D2b20?=
+ =?us-ascii?Q?zEjaXvrVvzFZiwC50Z7PP2ukWvxx/o/A0RVHGWpKujKaQZEqBjqlH/GMscFM?=
+ =?us-ascii?Q?AmoCD/S1WcUnC+3eBxtPqGvfTqdSRrtX+wFHiMxD1Hx7dhHeGBxBx7mVV4eu?=
+ =?us-ascii?Q?cbruzbd3l3fN9N2zPna+qUGLi9Hi7u2BzbBwRsVrJa6vok5eLqh4qcVvWSSb?=
+ =?us-ascii?Q?PK6BaAmNu/RHtX/8t3Fg5wZ7U9GT8A7ZGMHZ2NPRkAs19qYZZLKpZWaAtT50?=
+ =?us-ascii?Q?MF7tkCZXSG/c2KKeDRlMzbisNSFmuarVZQhrBmqdVIZkEQRciNCRJsfOMPSy?=
+ =?us-ascii?Q?HfoP/grgE0CmEW+qZK1oq9w7Zpfuaz7zH4wBudztesiynbeYbYahPcRm4hr7?=
+ =?us-ascii?Q?cDtT13uRGUtr5Pmg2FvlC/4Ga+5h9SQJzyO3nvHgKDA0nk3xZdwzKvvv2JL8?=
+ =?us-ascii?Q?WJ504RDcWtnGv+xB1txH2ECqEFRfPYsq+zk7AUJDfbNdDzzISr/IYjxKYNvu?=
+ =?us-ascii?Q?y+YnukjjcqAIHZHfabc=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BN9PR12MB514671676E697926A1F216C5F7052BN9PR12MB5146namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5311:EE_|MW6PR12MB8898:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0a2febc2-dc6d-4126-96ed-08dc5a66b7ad
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3ajTPhw5HI9ZBfRWS9QUX9NNjmZqkUQCwJfzORmOUPDqb4VkF57EzLoCs1CwKUxEIKLftvXZ6g7mSKLMQKhWKGO/2hRhWzcjGeHwUN+OBqdlOlsur/A1/84BOTvbhMYUhl/jRdOiPZQRGXG6dafP/msxdFfhIxz0H21PSOhuR2ssuds4jC498oS3iIj0IvKOeMZpolVq8xeLNXAhwY4+1zB4wH7x8PVfbcUG3GfDKoY64u6BAyDgdb0S4V1mm56Wm9rhYNmAalSgK5fKyfHBvyKYBPo058XPneVvRIMSwOnuNW/+ZyAzbVIC7tdG4MH70YdNb6vwCzoY+0nw+eZi+Zf1yykC56J2kg36uXIg8dnWJPXUe2k8QqaUnsDd6Z6VDXYrkfv37DhA7vpGZJW/DN18GPj9qgkVr7c54mK40UFxSE5M2hOe3Uej0t+sxf24U3f5suDU/ahTz44wBTrvbvQpzBmOAwF7QsinvsdXz98ENMX2KD4cEe9ILGdc3XmxXxFWzVc0IBefzSmtDqi/4kfiotRtaXW0iDWAy96SO3ft3SCn20jCfyBGyu2AQT+scsB+V/udTZBIItqkQEhsPVzzFvZkIw+buKEgOJVWMXsL7uTSVpJpyOZgbDvQRQLk
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5311.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(7416005)(376005)(1800799015)(366007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Mmp2aDM5ZUFqRm04SDFkMXU0cVJiT0F5TWxEZEFEcldCQnlRNlMrVFAxd0Y2?=
- =?utf-8?B?a0kvandCNWE4SU9VdHRIN0hRQTNsWndxd3NWK1JWK0NXUFBaWjBHUHFhZ3NQ?=
- =?utf-8?B?UmhFSnBjMzArcFpmeXg4YlVCL0hleVFhTHJESnlrSU5Ua3BMbjlXVDM1cEFi?=
- =?utf-8?B?ekxvdkQ3aFFkUDF6WFdycnNOcHB3dmhsMVJMMHQrSlRqbFUwNlRXbFVsYnkw?=
- =?utf-8?B?U2ZQZEVLR09QTkJTeGtkOERNeUF6bmN2MHFLem5kN0tudStZTGViQmN4eXdM?=
- =?utf-8?B?NTM3b2pKb2Q3MDFDMmMwWnJDeVY4LzlYTmlQR21TLzhCUTZRZXljQmJUTVZy?=
- =?utf-8?B?M1lQUHExVWZXdkpETTVPb1pFK1ZuVVRvZDdUdnNWUTE2ZTYyQmVpc20vYmdm?=
- =?utf-8?B?NUFtS25LZURKRTQ2a1huVkFDTlJ5emdxZmZjRytSV0hDZXFZZzZaRUxEVEFF?=
- =?utf-8?B?NHZ0VFZtNlcxSlV0NWdheU8wdTBzRUFhYldscWFRV1VpUW05aDdzNEpSNU5a?=
- =?utf-8?B?K3hJOFdOL2hEamVzS2c4ZWFpY24yMU9vK1hvQndjVnJTUDNjTnRKZmhJSFFo?=
- =?utf-8?B?ZzY0b3J3aHVQL3JXR0Vhb0NFLzZ1cVl6aUJqbzhzRkJLbUJYYkF6dVR0TGhk?=
- =?utf-8?B?Q2ZTZ1k1Wks0Rnh3UHBEWEpYNnc0dWR6bUJ2YkZFb2dRMkZGcEhOR3o0RmQw?=
- =?utf-8?B?a0lCUjJMQ2VKd3hoTXZSMk9qTCtQS0phUUpnUTRWQlN4dStwNElvcTlieThn?=
- =?utf-8?B?MEI2eDlidkY2VXBxbi9IUGMyVTV2SSs5RHQ5TUd1d0lJdzJRVDZ0S1Nrd3M2?=
- =?utf-8?B?aHByTEZycFllUjh1T2U3eUlVWE5WdnA5ZnlJQk4yNm8xVkxGTWZieVhJZzJT?=
- =?utf-8?B?YUNoWTdNbjl3b0N2NlRadlo3dFExeVFHaE5ZUW5zeDNPMjR4c3hPeGJYMXM0?=
- =?utf-8?B?VExKS0VEOEF2MHUxbUhsWTJsSUFZRzg5NjJFQ2JCYVhxdWZNR2JFQ2xEQ1hG?=
- =?utf-8?B?NnY5T3Q5Ymc0a3IvTFpGaHBucGo0RVZtVGQzUDVwa0RhZ0xjWThrUVE2V2xC?=
- =?utf-8?B?TDBwNmtxN25BZnZhM1lCTjg5NnVzZmtmWWZJRlpEWTBCa2g4dFBSTFlEZG9t?=
- =?utf-8?B?ZTI1MTBrQkRWbmR3enpxdFluVCtwWFhjUzhINzk3UUR1TEdURkxaN2loRzJL?=
- =?utf-8?B?L3pnclVXUmJ0SlJMaVNDdzd6c1VwczFGNFdvZVZKUzNrRktUeS9lK2FqUDBr?=
- =?utf-8?B?T3hGUlh4QU5KdldPSDNtdi8rekUvZEZ3aEl5WjdFSHN1enp1dzZhUExkS21M?=
- =?utf-8?B?T2JWcTR6OFdYVXRlUmlkK3pkRTNZeXh0S0RWZDdsc1poTmY2SkdRY2dBU0VY?=
- =?utf-8?B?TmNUOHJwZ2h2YkxzT2JHcXkwKzVJd1ZySUNFNk10SEJibjlHOThpZFJtUnI0?=
- =?utf-8?B?NlF6bGQzQW9xbmY2NiswL1kxZWlYOStETWFkUHlCZTBjcm1YbHovRGpCWlRF?=
- =?utf-8?B?UDduOVg3VUptRjJkejZzcW9lSlRxUVE4cWxDZHpNRGZXZHRLOEMwTE9US1Fh?=
- =?utf-8?B?NENad2hxbWlUNWlJM01pWW1JSnRJdFNvL1FOb3VUcWxaU3pOVGl6MnNMRnVk?=
- =?utf-8?B?bERpbUpKbk03WklpbzZlcStMWGZGVkVlQlFJVnQ2Y25RTmFEQ1c1YVVWaHJI?=
- =?utf-8?B?V2lUYmEvSzlpcG9UOWwvaWtRUTA0bm5kS3RhL1pZRUVIdWJUbG9sMFl0WUdF?=
- =?utf-8?B?ZzRDbkhIZzN2YkdEWWhoeHBGeVNFVE41bHNKNGtMTlluZWh5RFhHSHR5Mkxy?=
- =?utf-8?B?MHpXWjc3c1JSampXQzhWdXJPenRpeVdycG5oaXRLQUJRSmNZaTArNXEvZTJ5?=
- =?utf-8?B?c2NxUG5MT0JpYzloVmQ5anNmbkVBTFkzc25oaFhKQW56RmNBdmVkNmtzb283?=
- =?utf-8?B?MVhqelF3TUM3UXpjWktGWmduRnY0YTVrbURyd0N6WExXL1ltMGJwOWRyOFNB?=
- =?utf-8?B?bEtvcjF6TC9RNkNZRkozVVdiOWlTZTErdC9ZeG5DaDNFenI0S3VqaUxseVgr?=
- =?utf-8?B?d2VHZlozUEVBWXl2WFRlc1EyZ0JnZmVEczlHZ3B3aGdhUkpVbUFpcnZMbWY2?=
- =?utf-8?Q?vUdBOPXK7v6+Z19OmhpTH3FMu?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a2febc2-dc6d-4126-96ed-08dc5a66b7ad
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5311.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2024 20:33:59.6024 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z1kts54tvr64PmZvrT12ShopYZTo1XgjoMI1UBsPHYlq6ySUFcZB0kPwrrLMAAxK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8898
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc3a9641-9318-44b4-da42-08dc5a7134ba
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Apr 2024 21:49:04.2006 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6oZ3bL/KltlO4VxDLD5c+F9J4pPU2qaXTBjaKICdHKR77b5YGsnXagn19B1If5hzKtvn4ddQSvfunXi2pELfqw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8206
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,202 +127,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_BN9PR12MB514671676E697926A1F216C5F7052BN9PR12MB5146namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - General]
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: Kim, Jonathan <Jonathan.Kim@amd.com>
+Sent: Thursday, April 11, 2024 3:03 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Joshi, Mukul <Mukul.Jos=
+hi@amd.com>; Kim, Jonathan <Jonathan.Kim@amd.com>; Kim, Jonathan <Jonathan.=
+Kim@amd.com>
+Subject: [PATCH] drm/amdgpu: increase mes submission timeout
+
+MES internally has a timeout allowance of 2 seconds.
+Increase driver timeout to 3 seconds to be safe.
+
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v11_0.c
+index e5230078a4cd..81833395324a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -111,7 +111,7 @@ static int mes_v11_0_submit_pkt_and_poll_completion(str=
+uct amdgpu_mes *mes,
+         struct amdgpu_device *adev =3D mes->adev;
+         struct amdgpu_ring *ring =3D &mes->ring;
+         unsigned long flags;
+-       signed long timeout =3D adev->usec_timeout;
++       signed long timeout =3D 3000000; /* 3000 ms */
+
+         if (amdgpu_emu_mode) {
+                 timeout *=3D 100;
+--
+2.34.1
 
 
+--_000_BN9PR12MB514671676E697926A1F216C5F7052BN9PR12MB5146namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 2024-04-04 10:22, Marius Vlad wrote:
-> On Thu, Apr 04, 2024 at 09:59:03AM -0400, Harry Wentland wrote:
->>
-> Hi all,
->>
->> On 2024-04-04 06:24, Pekka Paalanen wrote:
->>> On Wed, 3 Apr 2024 17:32:46 -0400
->>> Leo Li <sunpeng.li@amd.com> wrote:
->>>
->>>> On 2024-03-28 10:33, Pekka Paalanen wrote:
->>>>> On Fri, 15 Mar 2024 13:09:56 -0400
->>>>> <sunpeng.li@amd.com> wrote:
->>>>>    
->>>>>> From: Leo Li <sunpeng.li@amd.com>
->>>>>>
->>>>>> These patches aim to make the amdgpgu KMS driver play nicer with compositors
->>>>>> when building multi-plane scanout configurations. They do so by:
->>>>>>
->>>>>> 1. Making cursor behavior more sensible.
->>>>>> 2. Allowing placement of DRM OVERLAY planes underneath the PRIMARY plane for
->>>>>>      'underlay' configurations (perhaps more of a RFC, see below).
->>>>>>
->>>>>> Please see the commit messages for details.
->>>>>>
->>>>>>
->>>>>> For #2, the simplest way to accomplish this was to increase the value of the
->>>>>> immutable zpos property for the PRIMARY plane. This allowed OVERLAY planes with
->>>>>> a mutable zpos range of (0-254) to be positioned underneath the PRIMARY for an
->>>>>> underlay scanout configuration.
->>>>>>
->>>>>> Technically speaking, DCN hardware does not have a concept of primary or overlay
->>>>>> planes - there are simply 4 general purpose hardware pipes that can be maped in
->>>>>> any configuration. So the immutable zpos restriction on the PRIMARY plane is
->>>>>> kind of arbitrary; it can have a mutable range of (0-254) just like the
->>>>>> OVERLAYs. The distinction between PRIMARY and OVERLAY planes is also somewhat
->>>>>> arbitrary. We can interpret PRIMARY as the first plane that should be enabled on
->>>>>> a CRTC, but beyond that, it doesn't mean much for amdgpu.
->>>>>>
->>>>>> Therefore, I'm curious about how compositors devs understand KMS planes and
->>>>>> their zpos properties, and how we would like to use them. It isn't clear to me
->>>>>> how compositors wish to interpret and use the DRM zpos property, or
->>>>>> differentiate between OVERLAY and PRIMARY planes, when it comes to setting up
->>>>>> multi-plane scanout.
->>>>>
->>>>> You already quoted me on the Weston link, so I don't think I have
->>>>> anything to add. Sounds fine to me, and we don't have a standard plane
->>>>> arrangement algorithm that the kernel could optimize zpos ranges
->>>>> against, yet.
->>>>>    
->>>>>> Ultimately, what I'd like to answer is "What can we do on the KMS driver and DRM
->>>>>> plane API side, that can make building multi-plane scanout configurations easier
->>>>>> for compositors?" I'm hoping we can converge on something, whether that be
->>>>>> updating the existing documentation to better define the usage, or update the
->>>>>> API to provide support for something that is lacking.
->>>>>
->>>>> I think there probably should be a standardised plane arrangement
->>>>> algorithm in userspace, because the search space suffers from
->>>>> permutational explosion. Either there needs to be very few planes (max
->>>>> 4 or 5 at-all-possible per CRTC, including shareable ones) for an
->>>>> exhaustive search to be feasible, or all planes should be more or less
->>>>> equal in capabilities and userspace employs some simplified or
->>>>> heuristic search.
->>>>>
->>>>> If the search algorithm is fixed, then drivers could optimize zpos
->>>>> ranges to have the algorithm find a solution faster.
->>>>>
->>>>> My worry is that userspace already has heuristic search algorithms that
->>>>> may start failing if drivers later change their zpos ranges to be more
->>>>> optimal for another algorithm.
->>>>>
->>>>> OTOH, as long as exhaustive search is feasible, then it does not matter
->>>>> how DRM drivers set up the zpos ranges.
->>>>>
->>>>> In any case, the zpos ranges should try to allow all possible plane
->>>>> arrangements while minimizing the number of arrangements that won't
->>>>> work. The absolute values of zpos are pretty much irrelevant, so I
->>>>> think setting one plane to have an immutable zpos is a good idea, even
->>>>> if it's not necessary by the driver. That is one less moving part, and
->>>>> only the relative ordering between the planes matters.
->>>>>
->>>>>
->>>>> Thanks,
->>>>> pq
->>>>
->>>> Right, thanks for your thoughts! I agree that there should be a common plane
->>>> arrangement algorithm. I think libliftoff is the most obvious candidate here. It
->>>> only handles overlay arrangements currently, but mixed-mode arrangements is
->>>> something I've been trying to look at.
->>>>
->>>> Taking the driver's reported zpos into account could narrow down the search
->>>> space for mixed arrangements. We could tell whether underlay, or overlay, or
->>>> both, is supported by looking at the allowed zpos ranges.
->>>>
->>>> I also wonder if it'll make underlay assignments easier. libliftoff has an
->>>> assumption that the PRIMARY plane has the lowest zpos (which now I realize, is
->>>> not always true). Therefore, the underlay buffer has to be placed on the
->>>> PRIMARY, with the render buffer on a higher OVERLAY. Swapping buffers between
->>>> planes when testing mixed-arrangements is kind of awkward, and simply setting
->>>> the OVERLAY's zpos to be lower or higher than the PRIMARY's sounds simpler.
->>>>
->>>> Currently only gamescope makes use of libliftoff, but I'm curious if patches
->>>> hooking it up to Weston would be welcomed? If there are other ways to have a
->>>> common arrangement algorithm, I'd be happy to hear that as well.
->>>
->>> A natural thing would be to document such an algorithm with the KMS
->>> UAPI.
->>>
->>> I don't know libliftoff well enough to say how welcome it would be in
->>> Weston. I have no fundamental or policy reason to keep an independent
->>> implementation in Weston though, so it's plausible at least.
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
+style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kim, Jonathan &lt;Jon=
+athan.Kim@amd.com&gt;<br>
+<b>Sent:</b> Thursday, April 11, 2024 3:03 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Joshi, Muk=
+ul &lt;Mukul.Joshi@amd.com&gt;; Kim, Jonathan &lt;Jonathan.Kim@amd.com&gt;;=
+ Kim, Jonathan &lt;Jonathan.Kim@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: increase mes submission timeout</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">MES internally has a timeout allowance of 2 second=
+s.<br>
+Increase driver timeout to 3 seconds to be safe.<br>
+<br>
+Signed-off-by: Jonathan Kim &lt;jonathan.kim@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-<br>
+&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v11_0.c<br>
+index e5230078a4cd..81833395324a 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
+@@ -111,7 +111,7 @@ static int mes_v11_0_submit_pkt_and_poll_completion(str=
+uct amdgpu_mes *mes,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D mes-&gt;adev;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =
+=3D &amp;mes-&gt;ring;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long flags;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; signed long timeout =3D adev-&gt;usec=
+_timeout;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; signed long timeout =3D 3000000; /* 3=
+000 ms */<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_emu_mode) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; timeout *=3D 100;<br>
+-- <br>
+2.34.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
-Is it the case that different compositors may want different plane arrangement
-behaviors? Like selecting which surfaces to offload, for example? It occurred to
-me that prescribing an allocation algorithm via something like libliftoff might
-be too restrictive. In which case, documenting the parts that can be nailed down
-would be better.
-
-That begs the question of what can be nailed down and what can left to
-independent implementation. I guess things like which plane should be enabled
-first (PRIMARY), and how zpos should be interpreted (overlay, underlay, mixed)
-can be defined. How to handle atomic test failures could be as well.
-
-I can start working on a draft for this. If anything, as a spark for discussions
-for the display hackfest.
-
->>>
->>> It would need investigation, and perhaps also extending Weston test
->>> suite a lot more towards VKMS to verify plane assignments. Currently
->>> all plane assignment testing is manual on real hardware.
->>>
->>
->> It looks like VKMS doesn't have explicit zpos yet, so someone would
->> probably need to add that.
->>
->> https://drmdb.emersion.fr/properties/4008636142/zpos
-> Yes. If we look into adding that, maybe it should be done using with
-> ConfigFS: https://patchwork.freedesktop.org/series/122618/
-> 
-> With that in and with zpos support, we could then run a batch of tests that
-> can dynamically exercise on-the-fly all possible combinations.
-
-Using vkms to come up with a bunch of different hw plane configurations is a
-good idea. It may come in handy for testing other compositors too. Thanks for
-the suggestions.
-
-- Leo
-
-
->>
->> Harry
->>
->>>> Note that libliftoff's algorithm is more complex than weston, since it searches
->>>> harder, and suffers from that permutational explosion. But it solves that by
->>>> trying high benefit arrangements first (offloading surfaces that update
->>>> frequently), and bailing out once the search reaches a hard-coded deadline.
->>>> Since it's currently overlay-only, the goal could be to "simply" have no
->>>> regressions.
->>>
->>> Ensuring no regressions would indeed need to be taken care of by
->>> extending the VKMS-based automated testing.
->>>
->>>
->>> Thanks,
->>> pq
->>>
->>>>>    
->>>>>> Some links to provide context and details:
->>>>>> * What is underlay?: https://gitlab.freedesktop.org/emersion/libliftoff/-/issues/76
->>>>>> * Discussion on how to implement underlay on Weston: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1258#note_2325164
->>>>>>
->>>>>> Cc: Joshua Ashton <joshua@froggi.es>
->>>>>> Cc: Michel Dänzer <mdaenzer@redhat.com>
->>>>>> Cc: Chao Guo <chao.guo@nxp.com>
->>>>>> Cc: Xaver Hugl <xaver.hugl@gmail.com>
->>>>>> Cc: Vikas Korjani <Vikas.Korjani@amd.com>
->>>>>> Cc: Robert Mader <robert.mader@posteo.de>
->>>>>> Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
->>>>>> Cc: Sean Paul <sean@poorly.run>
->>>>>> Cc: Simon Ser <contact@emersion.fr>
->>>>>> Cc: Shashank Sharma <shashank.sharma@amd.com>
->>>>>> Cc: Harry Wentland <harry.wentland@amd.com>
->>>>>> Cc: Sebastian Wick <sebastian.wick@redhat.com>
->>>>>>
->>>>>> Leo Li (2):
->>>>>>     drm/amd/display: Introduce overlay cursor mode
->>>>>>     drm/amd/display: Move PRIMARY plane zpos higher
->>>>>>
->>>>>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 405 ++++++++++++++++--
->>>>>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   7 +
->>>>>>    .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   1 +
->>>>>>    .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  28 +-
->>>>>>    4 files changed, 391 insertions(+), 50 deletions(-)
->>>>>>   
->>>>>    
->>>
->>
+--_000_BN9PR12MB514671676E697926A1F216C5F7052BN9PR12MB5146namp_--
