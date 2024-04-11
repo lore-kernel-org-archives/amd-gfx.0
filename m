@@ -4,64 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7445ACD1292
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Apr 2024 07:41:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54CA1CD128A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Apr 2024 07:41:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7123F10F208;
-	Thu, 11 Apr 2024 07:41:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23E6210F23A;
+	Thu, 11 Apr 2024 07:41:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D5rK2RAO";
+	dkim=pass (2048-bit key; unprotected) header.d=sifive.com header.i=@sifive.com header.b="hwK+xfHh";
 	dkim-atps=neutral
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
- [209.85.128.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34FD210EC4F
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Apr 2024 01:46:56 +0000 (UTC)
-Received: by mail-yw1-f179.google.com with SMTP id
- 00721157ae682-617cd7bd929so68327597b3.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Apr 2024 18:46:56 -0700 (PDT)
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com
+ [209.85.161.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7779310EBD9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Apr 2024 01:11:07 +0000 (UTC)
+Received: by mail-oo1-f52.google.com with SMTP id
+ 006d021491bc7-5aa1bf6cb40so2410745eaf.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Apr 2024 18:11:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1712800015; x=1713404815; darn=lists.freedesktop.org;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PFi8Oz0YV2woPJ+NOuQqliHLzn8T7fbeMzO2MlMmb4k=;
- b=D5rK2RAO0gBCGgI87MSLwOPalSPBQ0Rzn2UyMlB5UIv7e9Ghm763V1dqQBxuK36u4d
- qWz1l6d5vc0Jz6G16pFoJ0NNSDqZEOfv3KE8kw3enVQFnXVxxmXWyR6RxlFVw+eNcr9c
- Nm+7x6qbt8vSbXtiwGHPGd1K4EkcwzDa7lRmYJAVPTfA0mFORBODBHoYfRWABwc9gHQ0
- RkrFIv7zQ+nubWBlm+EoCdvcFiVkNsJj3FHQ8ZkYNnB1EUE6/eGbRZgHbKEMTAT6XDQp
- pYqVol9RreGv4Snh4+SWPX1k2bOx/P8xXAWtylRCp5n9idEmoCPFvQnLaR5/BoqmNtzf
- FwzQ==
+ d=sifive.com; s=google; t=1712797866; x=1713402666; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=K7z1/Srv4eZ2vooDSDvwwBej5oDKDz5itKY0SDj8VoQ=;
+ b=hwK+xfHhhHlcxfr4VCLveLGcqKS7aWzZyf0pV0RRPkb4OU13FQn8tA6qgM+zWwdyRC
+ FvPb26HfIsmN9sdzoc23PDk6rfTHDvPo0GoniCgWq2AiGxqnOAZFBHufCQDuT3G9fy9K
+ 32FI78XIC9uIGC644fLAJM1PlvA9YTU/RLORFRTmKbh40PGzqaWS/UsmU3rq1GbJAbrU
+ JbXIr2CTyHxb3snvb54As8RC4ZwkkXqHaNyx5tiiJiIWijGIJGPsk00/Jc7l36OEnHrB
+ xIETgRoEQehHMpPYp4BaTYBR3ASzgCLz/+l0DezteRZLpyfoGR0BY11ZLe09QoiATd+z
+ Sq2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712800015; x=1713404815;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=PFi8Oz0YV2woPJ+NOuQqliHLzn8T7fbeMzO2MlMmb4k=;
- b=PSsXVkTa0bpiwL3cUu+w2PHCKYNfdkOp2NH5ePGj/J8UY/4Cg80mS50bUxCeM+UX4R
- c4Z1UQTzAmEXPeCyheS0qyXqlMrZdY6kx3ZKiBhSk0FCM0fpbD0LNg6bGPE/bisPAim/
- 3Ia0vamAXVO0xC/KbkBsWQk5tbT1NVoREXhtAE6OZDlk4W/yAmChyJ/g0gwesd3ydPgq
- MUa9HE1ayhHSkor46rQSH4Ug2h5MccvL4PXFFei0fpgNc5Q2wZmKJJ/LIWQz7donIQVJ
- 1wjMXVbSy5Q7xWtAP9pbcKsJHz0kng6bVX07kJruWvQHzGRkbj6dhvyy/Nrdx/gOCluJ
- yYSw==
+ d=1e100.net; s=20230601; t=1712797866; x=1713402666;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=K7z1/Srv4eZ2vooDSDvwwBej5oDKDz5itKY0SDj8VoQ=;
+ b=DCTxfw1QKvAeFbxPi7u1Iwm6V3H13ey9LeX5satQOak65wjc5i/BjEpZoS6jpGrMfS
+ OHRIFYHUH6FW1zEvmVggA9HhxEMgZi08DbJKvMzErfCeUgHby3PyZBDjW982UXxi5iHI
+ BO3+GWBpL0PBgPry+wbN0ntf+UWF2jfW5k6xkLYj4wqvPW/i1g9DQpn7znAgIkr6to8Y
+ VKHWMlqMstFkwgMQCgJOEA4N/BARxg2BLqQ//fYdLWOCkcR8DqpnssPxbSH1zLMoNz6L
+ RjF/5tU0kpt0sTB+efkZ6ywp3ZEOG55B/UngR9PeHrTLy1wvNGetUWtimFmMUEGEuT+g
+ 9Snw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUrD3jAXNOG6zpAufgY43Fb3zB8NzvMHz6FlD6yEz+uez/Yjrw1HThp9f2QCqIBTkkb5EODxFct4gGGkhaHpsQCvEYLZACzy00I1hHadg==
-X-Gm-Message-State: AOJu0Yw/BpWrDwmfqzF0F8rtyJz5iDzCCO/zIUVp1x+X7Pb1NeUrGiP0
- +kd7hhFC6OXsdR/ajOhChNhlICo96BDVWczFdHmT3PTF4fyaXbdJqxilEY1GwMMvuPxxeV0E6rm
- p4XB+yK83lHCr6+PKK6I+Z7+I/X8LEQ==
-X-Google-Smtp-Source: AGHT+IFKvk63eyCkqrSk3c+YyxDoW1TJqHPcSFxuEq8130cnSxRADMGuY7h7sKUBR39b3X8Gpu2A7b+EZDh1tmUKvaI=
-X-Received: by 2002:a25:848d:0:b0:dca:a3e8:a25a with SMTP id
- v13-20020a25848d000000b00dcaa3e8a25amr4428485ybk.62.1712800015000; Wed, 10
- Apr 2024 18:46:55 -0700 (PDT)
+ AJvYcCVjts9n1LeU3Z53928YgFSUauUSX7voFndwu0g75fF5AM6wHbJXF5opH2B2+PzjRYzITwi8QlEOJvQHJCgqoyWY6JlBwVjAqqL8BgpU4A==
+X-Gm-Message-State: AOJu0YwOmdV/8pv/SWXtsLedUvLAeRuplMch9BtgruhsTAAJ8Ut4Ra8c
+ vic9woXI8R2sXftllv/Zo+1SmBLB+RG6Ns1pMJSoHI2/eaB8JRUHfpqG3US0690=
+X-Google-Smtp-Source: AGHT+IFvdAWGolMk2tEZ8bM2BAlC1TsYZtb/fNUYXyTQY+hWEfuiEC430lr0paNhGs3so4u/3MehIA==
+X-Received: by 2002:a4a:e9f3:0:b0:5aa:6a28:27ea with SMTP id
+ w19-20020a4ae9f3000000b005aa6a2827eamr3725829ooc.6.1712797866523; 
+ Wed, 10 Apr 2024 18:11:06 -0700 (PDT)
+Received: from [100.64.0.1] ([170.85.8.167]) by smtp.gmail.com with ESMTPSA id
+ db1-20020a056820270100b005a4bc907f0asm113158oob.15.2024.04.10.18.11.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Apr 2024 18:11:06 -0700 (PDT)
+Message-ID: <4c8e63d6-ba33-47fe-8150-59eba8babf2d@sifive.com>
+Date: Wed, 10 Apr 2024 20:11:04 -0500
 MIME-Version: 1.0
-References: <20240410221336.34627-1-joshua@froggi.es>
-In-Reply-To: <20240410221336.34627-1-joshua@froggi.es>
-From: Ethan Lee <flibitijibibo@gmail.com>
-Date: Wed, 10 Apr 2024 21:46:43 -0400
-Message-ID: <CAGLTkm7vvmnAs3xs7KASPBcCYtPw2EaSyR27S-NBQzmgP7+czw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Enable ogam_ram for dcn32+dcn35+dcn351
-To: Joshua Ashton <joshua@froggi.es>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 13/15] drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
+To: Thiago Jung Bauermann <thiago.bauermann@linaro.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ linux-arm-kernel@lists.infradead.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+ Christoph Hellwig <hch@lst.de>, loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+References: <20240329072441.591471-1-samuel.holland@sifive.com>
+ <20240329072441.591471-14-samuel.holland@sifive.com>
+ <87wmp4oo3y.fsf@linaro.org> <75a37a4b-f516-40a3-b6b5-4aa1636f9b60@sifive.com>
+ <87wmp4ogoe.fsf@linaro.org>
+Content-Language: en-US
+From: Samuel Holland <samuel.holland@sifive.com>
+In-Reply-To: <87wmp4ogoe.fsf@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 11 Apr 2024 07:41:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,82 +91,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 10, 2024 at 6:13=E2=80=AFPM Joshua Ashton <joshua@froggi.es> wr=
-ote:
->
-> The comment here states "no OGAM in DPP since DCN1", yet that is not
-> true.
->
-> Testing on an RX 7900XTX (dcn32), it actually does exist in hardware and
-> works fine.
-> My best guess is the comment is confused with OGAM ROM for DPP, rather
-> than OGAM RAM.
->
-> I did not test dcn35/351 as I do not have that hardware, but I assume
-> the same follows there given the seemingly erroneous comment.
-> Someone at AMD should check that before merging this commit.
->
-> Signed-off-by: Joshua Ashton <joshua@froggi.es>
->
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Xaver Hugl <xaver.hugl@gmail.com>
-> Cc: Melissa Wen <mwen@igalia.com>
-> Cc: Ethan Lee <flibitijibibo@gmail.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c  | 2 +-
->  drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c  | 2 +-
->  .../gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c    | 2 +-
->  3 files changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> index 9aa39bd25be9..94f5d2b5aadf 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> @@ -2182,7 +2182,7 @@ static bool dcn32_resource_construct(
->         dc->caps.color.dpp.dgam_rom_for_yuv =3D 0;
->
->         dc->caps.color.dpp.hw_3d_lut =3D 1;
-> -       dc->caps.color.dpp.ogam_ram =3D 0;  // no OGAM in DPP since DCN1
-> +       dc->caps.color.dpp.ogam_ram =3D 1;
->         // no OGAM ROM on DCN2 and later ASICs
->         dc->caps.color.dpp.ogam_rom_caps.srgb =3D 0;
->         dc->caps.color.dpp.ogam_rom_caps.bt2020 =3D 0;
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> index 25ac450944e7..708d63cc3f7f 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> @@ -1861,7 +1861,7 @@ static bool dcn35_resource_construct(
->         dc->caps.color.dpp.dgam_rom_for_yuv =3D 0;
->
->         dc->caps.color.dpp.hw_3d_lut =3D 1;
-> -       dc->caps.color.dpp.ogam_ram =3D 0;  // no OGAM in DPP since DCN1
-> +       dc->caps.color.dpp.ogam_ram =3D 1;
->         // no OGAM ROM on DCN301
->         dc->caps.color.dpp.ogam_rom_caps.srgb =3D 0;
->         dc->caps.color.dpp.ogam_rom_caps.bt2020 =3D 0;
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resour=
-ce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-> index 8a57adb27264..053e8ec6d1ef 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-> @@ -1841,7 +1841,7 @@ static bool dcn351_resource_construct(
->         dc->caps.color.dpp.dgam_rom_for_yuv =3D 0;
->
->         dc->caps.color.dpp.hw_3d_lut =3D 1;
-> -       dc->caps.color.dpp.ogam_ram =3D 0;  // no OGAM in DPP since DCN1
-> +       dc->caps.color.dpp.ogam_ram =3D 1;
->         // no OGAM ROM on DCN301
->         dc->caps.color.dpp.ogam_rom_caps.srgb =3D 0;
->         dc->caps.color.dpp.ogam_rom_caps.bt2020 =3D 0;
-> --
-> 2.44.0
->
+Hi Thiago,
 
-Tested dcn32 on a 7900XTX, applied against kernel 6.8.5, confirmed
-working with gamescope compositor.
+On 2024-04-10 8:02 PM, Thiago Jung Bauermann wrote:
+> Samuel Holland <samuel.holland@sifive.com> writes:
+>> On 2024-04-10 5:21 PM, Thiago Jung Bauermann wrote:
+>>>
+>>> Unfortunately this patch causes build failures on arm with allyesconfig
+>>> and allmodconfig. Tested with next-20240410.
+> 
+> <snip>
+> 
+>> In both cases, the issue is that the toolchain requires runtime support to
+>> convert between `unsigned long long` and `double`, even when hardware FP is
+>> enabled. There was some past discussion about GCC inlining some of these
+>> conversions[1], but that did not get implemented.
+> 
+> Thank you for the explanation and the bugzilla reference. I added a
+> comment there mentioning that the problem came up again with this patch
+> series.
+> 
+>> The short-term fix would be to drop the `select ARCH_HAS_KERNEL_FPU_SUPPORT` for
+>> 32-bit arm until we can provide these runtime library functions.
+> 
+> Does this mean that patch 2 in this series:
+> 
+> [PATCH v4 02/15] ARM: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+> 
+> will be dropped?
 
-Tested-by: Ethan Lee <flibitijibibo@gmail.com>
+No, because later patches in the series (3, 6) depend on the definition of
+CC_FLAGS_FPU from that patch. I will need to send a fixup patch unless I can
+find a GPL-2 compatible implementation of the runtime library functions.
 
--Ethan
+Regards,
+Samuel
+
