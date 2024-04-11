@@ -4,74 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8307CD128A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Apr 2024 11:55:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE76DCD128A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Apr 2024 13:14:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C4F410F052;
-	Thu, 11 Apr 2024 11:55:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A2EA10F091;
+	Thu, 11 Apr 2024 13:14:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hy0t8yd/";
+	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="fAFRq2a4";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="DzSFGGOr";
 	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23E3A10F052
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Apr 2024 11:55:13 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-33edbc5932bso5812484f8f.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Apr 2024 04:55:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1712836511; x=1713441311; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :to:from:subject:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to;
- bh=z56sJvp+oDHrQwDI7v3e4peMMc5UbVtKnSpQ930PbWA=;
- b=Hy0t8yd/bA9PW5Q5vXVmOFZ7k/C8lJheo7yswbzkJE5mh7XnrFXTW5123gRTY+ql1C
- kOcbIUoBDz3rBaVkg1HKF/tepzcmwNQSL6+RHh1j8v6dVH30+FWT2w0PL+vlKjLN2TVF
- IpnHWYhRBEEaOOQPxFFff58vrzEVHRDuEVGaPmlp+7h4a0C5qmWo/ubQd59A1wvv0ooF
- +GNmOf5AnAVyTTeERA6m4Kc4Bw7XqxJPhKRPB9t8HvNmiU/dImuleVvPYk2hrdk3al0z
- HxKcOurEWfKBFrZ816wvFsuopU+PAKePBqf0DB2DCadc8gqNMqIvbL5hghzgTXswknq4
- sDDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712836511; x=1713441311;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :to:from:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=z56sJvp+oDHrQwDI7v3e4peMMc5UbVtKnSpQ930PbWA=;
- b=pCk2O0axvCbgVqKHMotS/afPqHGzyRMZvrbQmpCz2i66HS6gtdeb24UTgWBBGcJtx2
- S3Vrm4L4fa/15cs7VEB/nTU+bVPH3rUTjDQMZ4naGSEJVAVO27BGZP0NUZrNs/tKfoh+
- O0gATsDApXfxUJih8GE5KmCa3Lp2X2pK3LVE9yj+pqIUOShYQwE6LtUBCZ/+s/2szme3
- AsUi7tQBxGJ0MiyPTZJieqc7NuGGCKH2QpvR9yxhi791AYnPQ8iL0g6GPUZKwO8pkQdC
- tvyXhfWlvmf1PozVoo3gbqsfqn1xKI5SfFTHqZIZ9WxHMWY0f0Pd2+BTWwUFDC/P0rXc
- bnGg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUJehOWtYSj8ebOdWpZuqdOXEPoQlBA5nK/yQjpoQZqPb+GXoR20Ls08o7dPpe1JlsnW0aITYrPdJJOyObwB8rCPxPPcLQ9LlD3jjMyrQ==
-X-Gm-Message-State: AOJu0Ywo55zCGe2q60Z8A1Ro9iwiHi5gcalnxLbKFfUlf09AmvgXqGDs
- v4b2kSrhXwRjHxJQn7uyWnkWE32G/fLs2b6GJIcQ48hi6CswnlNyoN9vTe2H
-X-Google-Smtp-Source: AGHT+IGmirDmo9nEiFlgjC83sWKZnAZLTRr+VT+9fIOzxUZdTCg0JahBbrUWE7+OZKxqkhjn+Pvpfw==
-X-Received: by 2002:a05:6000:144e:b0:346:afab:9702 with SMTP id
- v14-20020a056000144e00b00346afab9702mr1609054wrx.13.1712836511066; 
- Thu, 11 Apr 2024 04:55:11 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- o2-20020a5d6842000000b00343c9ce4b50sm1607653wrw.53.2024.04.11.04.55.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Apr 2024 04:55:10 -0700 (PDT)
-Message-ID: <30ebebef-12ed-44c8-96ec-a80963905602@gmail.com>
-Date: Thu, 11 Apr 2024 13:55:09 +0200
+X-Greylist: delayed 564 seconds by postgrey-1.36 at gabe;
+ Thu, 11 Apr 2024 07:41:15 UTC
+Received: from wfhigh5-smtp.messagingengine.com
+ (wfhigh5-smtp.messagingengine.com [64.147.123.156])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B81FD10F107
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Apr 2024 07:41:15 +0000 (UTC)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailfhigh.west.internal (Postfix) with ESMTP id 81E2218000CB;
+ Thu, 11 Apr 2024 03:31:48 -0400 (EDT)
+Received: from imap51 ([10.202.2.101])
+ by compute5.internal (MEProxy); Thu, 11 Apr 2024 03:31:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm2; t=1712820708; x=1712907108; bh=ss9obh18Sk
+ iQHEXzh7qcLFdvdlxpa80B0Z7MJyyJWOs=; b=fAFRq2a4RR5m0uoGjxvbSDZhhg
+ XBLt22beIqBHO1PhCVLZIYorAfbGnpIs6i0KjnrNMag6CtHF8mAtIX4+g4JkM/y4
+ oNakw3qvrAtMITJTRe3dP5XCRbSlUNRMtgb+FJogTSdTceTcdRzappHrax+eWmGC
+ C48KZTiW2+745Tpmz56zPJgFu5sXmnDOXQgOHhBxECqtppJaW42Os3TNEDRkpPfI
+ 7xKy28dP14Q+rdv1IglqoN1MM2Wo71oJ88dpxu76wssTF5yL3dssA5ZNSuq2aEsa
+ sQ7EBo/MLbjI9e+DTEeltLlDImftLLOUzlWPomQgt5r5GI+C7bz29lbepBoQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; t=1712820708; x=1712907108; bh=ss9obh18SkiQHEXzh7qcLFdvdlxp
+ a80B0Z7MJyyJWOs=; b=DzSFGGOr+zqR4sfSmeOxAZvA6tvMP0LGFanC2+BgYdJy
+ +4hbOwbt0daWkKElaJ7hw1qTgNt7659JrHfKx7+c2NRv2nXqcVlsOuvhc37YXOZ6
+ /5MKG6iTFCQ6aufnWu+0iv1mQHtdHJ4K9QX9ZNac5sLfv829dYcU7OrtBhvzAPeJ
+ qvI5fpyEZjo1rJqt0In+B4EMVZTz3BIN6xIPeqBy76lVWIdHpPj7mI1hWq7dyIWT
+ CnWqJQpCHMCE2NVdUfy2AgXYjJNlhFvPsLF/BoiRix4BR68kBN/e6viA7DoExAkP
+ 1lsK1ob4cyEjdsraiMT0hwoBXzOe78DNkW/8wTm9dg==
+X-ME-Sender: <xms:45EXZr7T_OnGStrr7SKzpEUpju9NZAoJ-lpF9Idxf_AAZawFa25PqQ>
+ <xme:45EXZg74AAZ239bjRLX7EeRcHaT8wGi_jFHosNYQYKIaCYvcpDRxLFrBw8T1Wh8fR
+ jo4RGsgbbTYIfp5aDQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrudehjedguddujecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpefofgggkfgjfhffhffvvefutgesthdtredtreertdenucfhrhhomhepfdet
+ rhhnugcuuegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrg
+ htthgvrhhnpeffheeugeetiefhgeethfejgfdtuefggeejleehjeeutefhfeeggefhkedt
+ keetffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ grrhhnugesrghrnhgusgdruggv
+X-ME-Proxy: <xmx:45EXZieKjjVog6Wf67CQD8NJtTers1M6KFeWe75e-UlBkt2QP7uJXg>
+ <xmx:45EXZsJIp1DUMatuZM3plg1HZpaO63G81PNWgtOVl7mQ4q3U6QDMgA>
+ <xmx:45EXZvIKtC1NGjybHKKb-88n2S8h7w1gUs0XzOcd8JC5HH3wCWVBpA>
+ <xmx:45EXZlyxfKvoW4q6bfCKoSeKRYfJBEypsh0ZQzt4uZT200LeFEQ3Rw>
+ <xmx:45EXZuaOX9x1nVPc-UnZtz-zaIuHLseO3kmjE2oKiQEaEOt4QcV-JewM>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 5E761B60092; Thu, 11 Apr 2024 03:31:47 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.11.0-alpha0-379-gabd37849b7-fm-20240408.001-gabd37849
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH Review 1/1] drm/amdgpu: Support setting recover method
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-To: "Yang, Stanley" <Stanley.Yang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20240411111108.3571355-1-Stanley.Yang@amd.com>
- <743be31c-0edc-4fb5-ae4f-694de64481c6@gmail.com>
- <PH7PR12MB79881B8A7769C065A41CD8179A052@PH7PR12MB7988.namprd12.prod.outlook.com>
- <e102c106-d47e-43ad-b57d-2c51ce1cfda3@gmail.com>
-Content-Language: en-US
-In-Reply-To: <e102c106-d47e-43ad-b57d-2c51ce1cfda3@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Message-Id: <c0e170f7-5498-40ed-ba35-2ac392c2dd2a@app.fastmail.com>
+In-Reply-To: <CAMj1kXGW5XQxXrYaPhT6sCjH7s0EwqzNjWies3b8UWnUBW5Ngw@mail.gmail.com>
+References: <20240329072441.591471-1-samuel.holland@sifive.com>
+ <20240329072441.591471-14-samuel.holland@sifive.com>
+ <87wmp4oo3y.fsf@linaro.org> <75a37a4b-f516-40a3-b6b5-4aa1636f9b60@sifive.com>
+ <87wmp4ogoe.fsf@linaro.org> <4c8e63d6-ba33-47fe-8150-59eba8babf2d@sifive.com>
+ <CAMj1kXGW5XQxXrYaPhT6sCjH7s0EwqzNjWies3b8UWnUBW5Ngw@mail.gmail.com>
+Date: Thu, 11 Apr 2024 09:31:27 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Ard Biesheuvel" <ardb@kernel.org>,
+ "Samuel Holland" <samuel.holland@sifive.com>
+Cc: "Thiago Jung Bauermann" <thiago.bauermann@linaro.org>,
+ "Andrew Morton" <akpm@linux-foundation.org>,
+ linux-arm-kernel@lists.infradead.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, Linux-Arch <linux-arch@vger.kernel.org>,
+ linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+ "Christoph Hellwig" <hch@lst.de>, loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, "Alex Deucher" <alexander.deucher@amd.com>
+Subject: Re: [PATCH v4 13/15] drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
+Content-Type: text/plain
+X-Mailman-Approved-At: Thu, 11 Apr 2024 13:14:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,165 +103,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 11.04.24 um 13:49 schrieb Christian König:
-> Am 11.04.24 um 13:30 schrieb Yang, Stanley:
->> [AMD Official Use Only - General]
+On Thu, Apr 11, 2024, at 09:15, Ard Biesheuvel wrote:
+> On Thu, 11 Apr 2024 at 03:11, Samuel Holland <samuel.holland@sifive.com> wrote:
+>> On 2024-04-10 8:02 PM, Thiago Jung Bauermann wrote:
+>> > Samuel Holland <samuel.holland@sifive.com> writes:
 >>
->>> -----Original Message-----
->>> From: Christian König <ckoenig.leichtzumerken@gmail.com>
->>> Sent: Thursday, April 11, 2024 7:17 PM
->>> To: Yang, Stanley <Stanley.Yang@amd.com>; amd-gfx@lists.freedesktop.org
->>> Subject: Re: [PATCH Review 1/1] drm/amdgpu: Support setting recover 
->>> method
->>>
->>> Am 11.04.24 um 13:11 schrieb Stanley.Yang:
->>>> Don't modify amdgpu gpu recover get operation, add amdgpu gpu recover
->>>> set operation to select reset method, only support mode1 and mode2
->>>> currently.
->>> Well I don't think setting this from userspace is valid.
->>>
->>> The reset method to use is determined by the hardware and 
->>> environment (e.g.
->>> SRIOV, passthrough, whatever) and can't be chosen simply.
->> [Stanley]: Agree, the setting is invalid for some devices not 
->> supported setting method and devices still reset with default method,
->> but it's valid for those devices supported setting reset method, user 
->> can conduct combination testing like mode1 test then mode2 test without
->> re-modprobe driver.
->
-> Well and the user could also shoot himself into the foot.
->
-> I really don't think that this is a valuable functionality.
-
-To make clear what I mean: What you could do is to make the module 
-parameter writeable.
-
-In this case the hardware code still decides which reset method to use 
-based on the module parameter in the moment the reset is requested.
-
-That would also avoid re-loading the driver.
-
-Regards,
-Christian.
-
->
-> Regards,
-> Christian.
->
+>> >> The short-term fix would be to drop the `select ARCH_HAS_KERNEL_FPU_SUPPORT` for
+>> >> 32-bit arm until we can provide these runtime library functions.
+>> >
+>> > Does this mean that patch 2 in this series:
+>> >
+>> > [PATCH v4 02/15] ARM: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+>> >
+>> > will be dropped?
 >>
->> Regards,
->> Stanley
->>> Regards,
->>> Christian.
->>>
->>>> Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 ++
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  1 +
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 37
->>> +++++++++++++++++++---
->>>>    3 files changed, 37 insertions(+), 4 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>> index 9c62552bec34..c82976b2b977 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>> @@ -1151,6 +1151,9 @@ struct amdgpu_device {
->>>>      bool                            debug_largebar;
->>>>      bool debug_disable_soft_recovery;
->>>>      bool                            debug_use_vram_fw_buf;
->>>> +
->>>> +   /* Used to set gpu reset method */
->>>> +   int                             recover_method;
->>>>    };
->>>>
->>>>    static inline uint32_t amdgpu_ip_version(const struct amdgpu_device
->>>> *adev, diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> index 3204b8f6edeb..8411a793be18 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> @@ -3908,6 +3908,7 @@ int amdgpu_device_init(struct amdgpu_device
->>> *adev,
->>>>      else
->>>>              adev->asic_type = flags & AMD_ASIC_MASK;
->>>>
->>>> +   adev->recover_method = AMD_RESET_METHOD_NONE;
->>>>      adev->usec_timeout = AMDGPU_MAX_USEC_TIMEOUT;
->>>>      if (amdgpu_emu_mode == 1)
->>>>              adev->usec_timeout *= 10;
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>> index 10832b470448..e388a50d11d9 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>> @@ -965,9 +965,37 @@ static int gpu_recover_get(void *data, u64 *val)
->>>>      return 0;
->>>>    }
->>>>
->>>> +static int gpu_recover_set(void *data, u64 val) {
->>>> +   struct amdgpu_device *adev = (struct amdgpu_device *)data;
->>>> +   struct drm_device *dev = adev_to_drm(adev);
->>>> +   int r;
->>>> +
->>>> +   /* TODO: support mode1 and mode2 currently */
->>>> +   if (val == AMD_RESET_METHOD_MODE1 ||
->>>> +           val == AMD_RESET_METHOD_MODE2)
->>>> +           adev->recover_method = val;
->>>> +   else
->>>> +           adev->recover_method = AMD_RESET_METHOD_NONE;
->>>> +
->>>> +   r = pm_runtime_get_sync(dev->dev);
->>>> +   if (r < 0) {
->>>> +           pm_runtime_put_autosuspend(dev->dev);
->>>> +           return 0;
->>>> +   }
->>>> +
->>>> +   if (amdgpu_reset_domain_schedule(adev->reset_domain, &adev-
->>>> reset_work))
->>>> +           flush_work(&adev->reset_work);
->>>> +
->>>> +   pm_runtime_mark_last_busy(dev->dev);
->>>> +   pm_runtime_put_autosuspend(dev->dev);
->>>> +
->>>> +   return 0;
->>>> +}
->>>> +
->>>>    DEFINE_SHOW_ATTRIBUTE(amdgpu_debugfs_fence_info);
->>>> -DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_debugfs_gpu_recover_fops,
->>> gpu_recover_get, NULL,
->>>> -                    "%lld\n");
->>>> +DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_debugfs_gpu_recover_fops,
->>> gpu_recover_get,
->>>> +                    gpu_recover_set, "%lld\n");
->>>>
->>>>    static void amdgpu_debugfs_reset_work(struct work_struct *work)
->>>>    {
->>>> @@ -978,9 +1006,10 @@ static void amdgpu_debugfs_reset_work(struct
->>>> work_struct *work)
->>>>
->>>>      memset(&reset_context, 0, sizeof(reset_context));
->>>>
->>>> -   reset_context.method = AMD_RESET_METHOD_NONE;
->>>> +   reset_context.method = adev->recover_method;
->>>>      reset_context.reset_req_dev = adev;
->>>>      set_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
->>>> +   adev->recover_method = AMD_RESET_METHOD_NONE;
->>>>
->>>>      amdgpu_device_gpu_recover(adev, NULL, &reset_context);
->>>>    }
->>>> @@ -999,7 +1028,7 @@ void amdgpu_debugfs_fence_init(struct
->>> amdgpu_device *adev)
->>>>      if (!amdgpu_sriov_vf(adev)) {
->>>>
->>>>              INIT_WORK(&adev->reset_work, amdgpu_debugfs_reset_work);
->>>> -           debugfs_create_file("amdgpu_gpu_recover", 0444, root, 
->>>> adev,
->>>> +           debugfs_create_file("amdgpu_gpu_recover", 0666, root, 
->>>> adev,
->>>> &amdgpu_debugfs_gpu_recover_fops);
->>>>      }
->>>>    #endif
+>> No, because later patches in the series (3, 6) depend on the definition of
+>> CC_FLAGS_FPU from that patch. I will need to send a fixup patch unless I can
+>> find a GPL-2 compatible implementation of the runtime library functions.
+>>
 >
+> Is there really a point to doing that? Do 32-bit ARM systems even have
+> enough address space to the map the BARs of the AMD GPUs that need
+> this support?
+>
+> Given that this was not enabled before, I don't think the upshot of
+> this series should be that we enable support for something on 32-bit
+> ARM that may cause headaches down the road without any benefit.
+>
+> So I'd prefer a fixup patch that opts ARM out of this over adding
+> support code for 64-bit conversions.
 
+I have not found any dts file for a 32-bit platform with support
+for a 64-bit prefetchable BAR, and there are very few that even
+have a pcie slot (as opposed on on-board devices) you could
+plug a card into.
+
+That said, I also don't think we should encourage the use of
+floating-point code in random device drivers. There is really
+no excuse for the amdgpu driver to use floating point math
+here, and we should get AMD to fix their driver instead.
+
+     Arnd
