@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F2C8C4345F
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 20:13:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B0B3C00A94
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 20:13:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8243F10F850;
-	Fri, 12 Apr 2024 20:13:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 626CE10F851;
+	Fri, 12 Apr 2024 20:13:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m7s8maIH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1mj366ay";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2053.outbound.protection.outlook.com [40.107.220.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC6F410F850
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Apr 2024 20:13:44 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2050.outbound.protection.outlook.com [40.107.236.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B725E10F850
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Apr 2024 20:13:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EWY3IyhvELj0CFk++ZjS0nXU4jKEokZPs33gtMY9trFVUd9O98Z/0Tw3HNH9ghjrpoGGvQKZoI1w6/CKfhV/ki1mHTi5p0H19dzOYOGm58jX+NCMwH/QOvyRfLCZ51upji555eWxaW04HaR2kepqul/ZLA//KHCDSSKiIp4/SuPB+rn2dMNDNCA0w80peCew4r2m+M/+veJgzXgZCQJ7Xp1t5GgjqzdLGjTO0CAtW9NRjb/KRpfATphwjlwEEvtd6DquqyVwrpqx19uLNPo/vOFq3cgJCbUbFsMzFx1mK/aOrhUXFXsGs5X9P9fJ5SrsmkkZgEm+MgXnNmBw9pSDVA==
+ b=NxuCLvvKWjRuc5NBy9QHRG53+QBqveNT1kuFXKiZITZeKZpTx6AbdVS/nIjSApyYY43P2EaZ+QOHshflO49KaU07YSGs/sqEN5+28Bbn7pr4tBHhA+1ELY8Y3CWXgUVnhVQrJYXZOSBkR3tw9KFXwLe2WFGNe+MhR7MvGhAlxzb2uxu+IniO8mm1U/i1eSS7+R+r/MPNvltQTXOxgP2P35Qm8B+ZvencSPDtTAqDc7psnHIOX90XTpL8blEW7Kl5CbBC2eDc0TglQ6uQRbSHibOvoawsyMlur8p+PO5v1QEJ/UPybIgizlJ7bAsVWU8H8vw0u+5cu5ZyG5ZlHX6yeA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i421Q5HGxmzXc8IqY0QDFrhhyxUa5wqDuMvd0H7wkPQ=;
- b=Fg1p33zwfn9TWjLUUrM0edowk7BZL1VAuETPhpjgMYX/voH0SukvL0PSEbgJODZM379SklyQmdgQDuf+sprA8ei1ci7gnJPSZkoDy/Gg/4cN+GYy54+EdhCrYCsK3xmbSUtKVhmBd0ZmR/j3/BuqZMoaBZx6sREvDZKoD9mwiGMgNtzlTObbmjp51DEFSrjnH1jA3ImbXIJXDIgNIqhrp1FQXTAxHOEr617ugIpT8mCM4wT0UsT7+xyPWQM2EC0xx7DUsm4G7OLqcsXaXIf0iBG3/o8lfDV1hhIJL4tcOygov4yIxc0goFTo2Md3QUrlNkRfTVLvLa1KrDWkBozo3g==
+ bh=yvSbrn0Q21TpJ3OuzyDwEQ5OK2dcWliMSB4wuO8sexg=;
+ b=ONAF5mvzWsCAemxO73XvV2YMN9vrwX68z5jNkK5iWVvZJFP8zlmKEhriAqtDtaC+GGd9TnW7jlhprGZwWZiLnOAa6q07IkRAogmeyp4j4Avx80ZiYjDEVbC+ko47OH/YMOA2MlJ4jSUimdr6uKxjf13oyVvfXmA6TGgQzinIkRF3md2CiLUxr9q6fxX/DaPuFbAVAAAgVm/ULtkd6l+3jPedge92Uf+2NRasNS7aQxdsfBmK7rrb5+hY1Cy/cJoQwtapc9tcGqcfwIBJf50iz/pQkUCs2C/sZOcI7Hec1nY9xNO3FTid/9hMHrV2YFXifciUxY2tyGgwiIhG4Ex1nQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i421Q5HGxmzXc8IqY0QDFrhhyxUa5wqDuMvd0H7wkPQ=;
- b=m7s8maIHisiDnNCiEkFTr4ADUEMgJ40nCWjLp28Wl8rJadsA3kpUEESGJy6mKHwHek2BdqWTkALt2dIDnXW054dUca/3Y5RRqXNxKAGcX8J8Q+RQQx6EygDWV9IOsdnMAgCh/yDWdVzcMGYb1y8DMZrWVeerd6X/yGM7UNYz8oU=
-Received: from BY5PR04CA0017.namprd04.prod.outlook.com (2603:10b6:a03:1d0::27)
- by SJ2PR12MB7893.namprd12.prod.outlook.com (2603:10b6:a03:4cc::6)
+ bh=yvSbrn0Q21TpJ3OuzyDwEQ5OK2dcWliMSB4wuO8sexg=;
+ b=1mj366ayUUVc0TU+vgNRhdiAT8pGI9DyrpchEgXU/PgIhVpDj8B7WCaGzJME5jm5WvcIHXC95cqv5EImw4Aw23906KCwSn5H68NdzRaTT2pdIRlXvg2QpoWh1SA73/mTZrDvvlVnPrvme8Ve7LzChpNo6SyOu9QgpU1rAg+to28=
+Received: from BY5PR04CA0005.namprd04.prod.outlook.com (2603:10b6:a03:1d0::15)
+ by SJ2PR12MB9008.namprd12.prod.outlook.com (2603:10b6:a03:543::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Fri, 12 Apr
  2024 20:13:42 +0000
 Received: from CO1PEPF000042AA.namprd03.prod.outlook.com
- (2603:10b6:a03:1d0:cafe::d6) by BY5PR04CA0017.outlook.office365.com
- (2603:10b6:a03:1d0::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.26 via Frontend
+ (2603:10b6:a03:1d0:cafe::97) by BY5PR04CA0005.outlook.office365.com
+ (2603:10b6:a03:1d0::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.27 via Frontend
  Transport; Fri, 12 Apr 2024 20:13:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -50,7 +50,7 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1PEPF000042AA.mail.protection.outlook.com (10.167.243.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Fri, 12 Apr 2024 20:13:41 +0000
+ 15.20.7452.22 via Frontend Transport; Fri, 12 Apr 2024 20:13:42 +0000
 Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 12 Apr
@@ -59,9 +59,9 @@ From: Philip Yang <Philip.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Felix.Kuehling@amd.com>, <christian.koenig@amd.com>,
  <Arunpravin.PaneerSelvam@amd.com>, Philip Yang <Philip.Yang@amd.com>
-Subject: [PATCH 3/6] drm/amdkfd: Evict BO itself for contiguous allocation
-Date: Fri, 12 Apr 2024 16:12:58 -0400
-Message-ID: <20240412201301.14154-4-Philip.Yang@amd.com>
+Subject: [PATCH 4/6] drm/amdkfd: Increase KFD bo restore wait time
+Date: Fri, 12 Apr 2024 16:12:59 -0400
+Message-ID: <20240412201301.14154-5-Philip.Yang@amd.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240412201301.14154-1-Philip.Yang@amd.com>
 References: <20240412201301.14154-1-Philip.Yang@amd.com>
@@ -73,26 +73,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AA:EE_|SJ2PR12MB7893:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f5a6c40-438b-48df-01f6-08dc5b2d0c76
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AA:EE_|SJ2PR12MB9008:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3603d853-f800-446d-fd7b-08dc5b2d0cd2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IEPiFBT5uGdyPMxkjX7MOPhr+Z2BG7noaTBLhmOF4TqceGoAHHu/TkrL/QX5HaLoDzqBSHyuilwgpLNn5ZKrnMnhaNtlN1ErnPbAkcG4hEnLj4RN6220aeOtlwnTs0yJ8VtgNJqsYpMlUsYbPWoPHxo7UXJ2e10r7nHMtv6zIhn5sGaw0s12WurghxRxrMgX0DjVEoBbs3PAL+K3K0CLO35SBSvyAH+a3dimfPFTTgoTFrSes0809bW1AF3pWIwwG1uLbDjZlfQ1CpBNSwPm9KRtjV6aJNsAN1OqBYMsKSzXLssCjEnt36pBsiBugDlsdeXzobf1m28S4FMmNAmhQy0nXc9Lr9FIGtz11XNKPLBYoqlWnTm2spRmivDhQoWPqh/uDngHGeF50kEGEagQRWTUQP2Xfqls4l3xLsHGYV2cjA2aOvrtW3qUVBqZJmdDHkeK8XakECyDIxVhkQmy1zefV0V+Ed2utydoB5xFeLBJ8MVyLcUaSPycINt0Dp5r2VoYpcA4Iy2n6lY7/184IBWih7NpZMsfcwq+lqiUq1xKI9jjqXActZx6i7Ry2S568pB8aK45lqjZEwO7F7hrfbK+DbDE2lCeMx8vnnRxvb9qw1NoLnyNMJ+VXPc1JYD3Rr83q+9htAczZzKg5OW16Y8mToo8Fe1KSEw1u6rJA4oxo1ANnXWEqecVGKwR1SLTnoY18dOSjWmOADDRQwTuwrjOwHOYBLb4rlHXUfrxfM4LBPqBwwGPMFVl2Gd9WKXE
+X-Microsoft-Antispam-Message-Info: UmrT6xT+yz2F1zmAjIlBCKom0jie2yikZ528myLpHrOthuZ8uqq9BsCoBI+qI71vei53izIuT/s9R0IJ+o5FJ3xKFzzcLFyHyA7yAwKtPz1ey9qNhy5Zcd5nyLEaxQU9EL1nmCIFDvmadB0hy4ZZ9rzSCGkc7Zryv0wt2hLMFNyju4ZLQy16LMsjNgnK18obvL7wP+41rV3NUKysBESZZN9E3+k5yLnOH1jcnBZuh6DnEpiztapiSoE1u+R+VccExAVf4C1UcoDL+KOdK76gHvBUDNYRYUUAq2dN2nNJdHCujTy6FVtiabwyPvfqYd4E3tBS0HTNsS7oa8sd3yqff4JwdDyZCJ75yV2KsRX/iPUEU2V/DQB8WrS5i7BST1sJwelNz6SWudT1L/laHQh8AMl9Q0fAbtcFgvvzuJTRMB7pGQHN5OKkg6rEknu+OUBO8aDz2BjIMIfXgcmHjLBV3/vfH98umafYcT3WiF0mxiiVDKZILcbwPxKe50PxHd2lm5O38DJlwGldjZQbq2nyGORKNrjC4Ys5HNR63h3A14EOT5bccpdPmhuK0/nS+pzg8ksIXvzAubQLsskQbeCGgP6wWEv5YIludcJfymg02zwXMLJTXJIXRb8X3PhP9iUaGHe5MYq5PkK/KY1jJWh9YrNNsBMKNVcdqs8XvGiYyCn1FFha0J8WTSGssgov2PrSSdTjm5eGe8gsxoi6xSZ99yS1aln3uPkUa4eXBnZfyKWSP+2bOso4Dcmirl5cghGY
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(82310400014)(376005)(1800799015); DIR:OUT;
+ SFS:(13230031)(1800799015)(376005)(36860700004)(82310400014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2024 20:13:41.9077 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f5a6c40-438b-48df-01f6-08dc5b2d0c76
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2024 20:13:42.5171 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3603d853-f800-446d-fd7b-08dc5b2d0cd2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AA.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7893
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9008
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,42 +107,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If the BO pages pinned for RDMA is not contiguous on VRAM, evict it to
-system memory first to free the VRAM space, then allocate contiguous
-VRAM and then move it from system memory back to VRAM.
+TTM allocate contiguous VRAM may takes more than 1 second to evict BOs
+for larger size RDMA buffer. Because KFD restore bo worker reserves all
+KFD BOs, then TTM cannot hold the remainning KFD BOs lock to evict them,
+this may causes TTM failed to alloc contiguous VRAM.
+
+Increase the KFD restore BO wait time to 2 seconds, long enough for RDMA
+pin BO to finish the contiguous VRAM allocation.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 3523b91f8add..9506de1094ec 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1470,8 +1470,21 @@ static int amdgpu_amdkfd_gpuvm_pin_bo(struct amdgpu_bo *bo, u32 domain)
- 	if (unlikely(ret))
- 		return ret;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index a81ef232fdef..c205e2d3acf9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -698,7 +698,7 @@ struct qcm_process_device {
+ /* KFD Memory Eviction */
  
--	if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS_BEST_EFFORT)
-+	if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS_BEST_EFFORT) {
-+		/*
-+		 * If bo is not contiguous on VRAM, move to system memory first to ensure
-+		 * we can get contiguous VRAM space after evicting other BOs.
-+		 */
-+		if (!(bo->tbo.resource->placement & TTM_PL_FLAG_CONTIGUOUS)) {
-+			ret = amdgpu_amdkfd_bo_validate(bo, AMDGPU_GEM_DOMAIN_GTT, false);
-+			if (unlikely(ret)) {
-+				pr_debug("validate bo 0x%p to GTT failed %d\n", &bo->tbo, ret);
-+				return ret;
-+			}
-+		}
-+
- 		bo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
-+	}
- 
- 	ret = amdgpu_bo_pin_restricted(bo, domain, 0, 0);
- 	if (ret)
+ /* Approx. wait time before attempting to restore evicted BOs */
+-#define PROCESS_RESTORE_TIME_MS 100
++#define PROCESS_RESTORE_TIME_MS 2000
+ /* Approx. back off time if restore fails due to lack of memory */
+ #define PROCESS_BACK_OFF_TIME_MS 100
+ /* Approx. time before evicting the process again */
 -- 
 2.43.2
 
