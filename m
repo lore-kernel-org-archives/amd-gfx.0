@@ -4,55 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 198C1C4345F
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 01:01:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91A51C4345F
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 01:54:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6975910E649;
-	Fri, 12 Apr 2024 01:01:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7F5A10EE6D;
+	Fri, 12 Apr 2024 01:54:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=froggi.es header.i=joshua@froggi.es header.b="skCAsg1N";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M0v6I6BB";
 	dkim-atps=neutral
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com
- [136.143.188.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B29810F41E
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Apr 2024 01:01:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1712883665; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=aGTi4VgkeJp20YGplwnAiwD7E3bMFOqsKM9euv3wGRuwnXhnXjCH9CJcBLdQkAnamXUnp3TLEVSa1u3CQoJKR/q6xoZyQuzy5xGa1Xs357/MdqcL2nmfI3XhPABZ/1JoNfqrUwiO2LpCxbXmR8cTbN3q8R8M8y4/ZisbhlpanFU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1712883665;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=LsmTqGHIwyZNuX3T5T9ZB8GSCUrsFtT4/M3Qldu3qzg=; 
- b=gzUl1KLY1Y6iVXJoEpfa9eK4PXnXEBz9AQSNsU4nKmKBbwF4gSuLRd6qdVnBFxDZ2H0QN+4Tt0L0XgVwGrSuQTEFaa2b/vBlD2fQ/S75FYN7/0+MVwiJVBGj01LUDUy2JHxSxy8BQUylhZS9rjQcsiMrb27+LRVGI4PptmWepHY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=froggi.es;
- spf=pass  smtp.mailfrom=joshua@froggi.es;
- dmarc=pass header.from=<joshua@froggi.es>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1712883665; 
- s=mail; d=froggi.es; i=joshua@froggi.es;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=LsmTqGHIwyZNuX3T5T9ZB8GSCUrsFtT4/M3Qldu3qzg=;
- b=skCAsg1Npkhb3pes3rgeslFxWkuMWpoV2w1E3jIHlHAetUPlcM4oLgRHh8dUfKPa
- B/xldPT+HcakCTfEt4IBrizQAEPPzjrsXbi4c3s+FJGsi9iPqqTH6fhh4pRQt2ccvVu
- q4uTtgIhb/6s7n0a3nMZOo8RVViowX/HA1ZjAOR8=
-Received: by mx.zohomail.com with SMTPS id 171288366208516.212918945980732;
- Thu, 11 Apr 2024 18:01:02 -0700 (PDT)
-Message-ID: <d607ffb8-aca6-44c8-ab0f-e7bf8d3bed0d@froggi.es>
-Date: Fri, 12 Apr 2024 02:00:59 +0100
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A0E510EE6D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Apr 2024 01:54:38 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-346b94fa7ecso371113f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Apr 2024 18:54:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1712886876; x=1713491676; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=y4vlt8TB9yDjErxa7aoPppj34TQs7XIg9OjF7nGdMbk=;
+ b=M0v6I6BBs3WA+7t4O85TYnQkkqgBqpl3FTBj+VHxMrdAMg+b7ExeB0jjl9NOBs7ZYh
+ uSHuW1jPaKa2LVMj7DiAwyQm68Pp5uJ33qjd31Xz6GyLqcjTrGzPNNUo3AIXmMRYV9nY
+ U7y+dYTIHEraLtda5ULcASb6k3TLCcTb4hWSGAAA9lKrv+6No+eoHBNzLuBXfVPX1dt/
+ XqCDJxDEmctKhNRpasHnpOQ1Wqb+8pvl5InV4I0M2T6fLiMXjmjlKZq71lv8y0Hhgds2
+ Xyl+gzMVX5G9zETqbhT37Dl982D42R3VTbBR1FZvS4iK88SCSVLtAg7r0HM3k/zsvVxb
+ daAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712886876; x=1713491676;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=y4vlt8TB9yDjErxa7aoPppj34TQs7XIg9OjF7nGdMbk=;
+ b=N6YqUv0fQiDhM26CkEea1gKzf5XoGE22j3EY5hhr2gb7VkCELN2qeYf4EI4+MgYmHN
+ /GwDTwjVf80y4RiyQnJPRUq7HkKupwRpQBiY1sRwPkacNf9tGY/oA/GJmOzmDXsYxnnn
+ NRqRoYl0NwxIIMZoRYNIENQHmzmVZkIrRy5gnDHh2vqJhYUg5E+jpEdTy7z2Rld98L7+
+ kSbTEMQI9dEbDgBcYfkWUgH8BSK04BLX3HIjFMXwEXMF4wpJOqH14HwGPEXGgCGyucto
+ yV4J3SuFLBz0QQKGR86PycnGVwxwnde0B/+RSLwGZYQrq8xVho2T/FpIhDSjA4/8bvVC
+ H9wQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXoe0BGelYeT+UT9VQfK4y6Af5/73Fv3lnmGq5RxFsB2FCmaBfXmwCqEmRZm91Er0BbSEea91Quv8kyBN4BtyDg82HEEf0AGCt4ibaaMA==
+X-Gm-Message-State: AOJu0YxzKmHVxbQDMKE4jOjmtRhAj1jBFIVEM+F+7SGJtwBj77z+uQgp
+ 3cTCwfdfE63yGoGIv6PpDMc1fUl+7ELUvhdhwRbhWwtG1XrelN95fvsP0uDjkURzeR2SRCXVMlQ
+ a3q9UixO6sklkXjpmPV58tnhQpos=
+X-Google-Smtp-Source: AGHT+IH+PR4h3oVtQ8Ez0cRs6zyDvlUxECTYXxWqfVRSac34W79R5yeA3Zq4bIaDyQbovOeeCgfyqRUJHwPOnRqGQX0=
+X-Received: by 2002:a5d:474f:0:b0:33e:ca28:bb59 with SMTP id
+ o15-20020a5d474f000000b0033eca28bb59mr856430wrs.57.1712886876424; Thu, 11 Apr
+ 2024 18:54:36 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Enable ogam_ram for dcn32+dcn35+dcn351
-To: Melissa Wen <mwen@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Xaver Hugl <xaver.hugl@gmail.com>, Ethan Lee <flibitijibibo@gmail.com>
-References: <20240410221336.34627-1-joshua@froggi.es>
- <nhr535ncnm6n5btn7o6kkmblppnywvvnni6i4y3v6fmiazbopz@v5wo7kqarrlv>
-Content-Language: en-US
-From: Joshua Ashton <joshua@froggi.es>
-In-Reply-To: <nhr535ncnm6n5btn7o6kkmblppnywvvnni6i4y3v6fmiazbopz@v5wo7kqarrlv>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+References: <20240329072441.591471-1-samuel.holland@sifive.com>
+ <20240329072441.591471-14-samuel.holland@sifive.com>
+ <87wmp4oo3y.fsf@linaro.org>
+ <75a37a4b-f516-40a3-b6b5-4aa1636f9b60@sifive.com> <87wmp4ogoe.fsf@linaro.org>
+ <4c8e63d6-ba33-47fe-8150-59eba8babf2d@sifive.com>
+ <CAMj1kXGW5XQxXrYaPhT6sCjH7s0EwqzNjWies3b8UWnUBW5Ngw@mail.gmail.com>
+ <c0e170f7-5498-40ed-ba35-2ac392c2dd2a@app.fastmail.com>
+In-Reply-To: <c0e170f7-5498-40ed-ba35-2ac392c2dd2a@app.fastmail.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Fri, 12 Apr 2024 11:54:25 +1000
+Message-ID: <CAPM=9ty_9yKEk+cS6oJ8gD_UiB_K4X3P4mLv2RmKixLaq-1RfQ@mail.gmail.com>
+Subject: Re: [PATCH v4 13/15] drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Ard Biesheuvel <ardb@kernel.org>,
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ linux-arm-kernel@lists.infradead.org, x86@kernel.org, 
+ linux-kernel@vger.kernel.org, Linux-Arch <linux-arch@vger.kernel.org>, 
+ linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
+ Christoph Hellwig <hch@lst.de>, loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,99 +89,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Thu, 11 Apr 2024 at 17:32, Arnd Bergmann <arnd@arndb.de> wrote:
+>
+> On Thu, Apr 11, 2024, at 09:15, Ard Biesheuvel wrote:
+> > On Thu, 11 Apr 2024 at 03:11, Samuel Holland <samuel.holland@sifive.com> wrote:
+> >> On 2024-04-10 8:02 PM, Thiago Jung Bauermann wrote:
+> >> > Samuel Holland <samuel.holland@sifive.com> writes:
+> >>
+> >> >> The short-term fix would be to drop the `select ARCH_HAS_KERNEL_FPU_SUPPORT` for
+> >> >> 32-bit arm until we can provide these runtime library functions.
+> >> >
+> >> > Does this mean that patch 2 in this series:
+> >> >
+> >> > [PATCH v4 02/15] ARM: Implement ARCH_HAS_KERNEL_FPU_SUPPORT
+> >> >
+> >> > will be dropped?
+> >>
+> >> No, because later patches in the series (3, 6) depend on the definition of
+> >> CC_FLAGS_FPU from that patch. I will need to send a fixup patch unless I can
+> >> find a GPL-2 compatible implementation of the runtime library functions.
+> >>
+> >
+> > Is there really a point to doing that? Do 32-bit ARM systems even have
+> > enough address space to the map the BARs of the AMD GPUs that need
+> > this support?
+> >
+> > Given that this was not enabled before, I don't think the upshot of
+> > this series should be that we enable support for something on 32-bit
+> > ARM that may cause headaches down the road without any benefit.
+> >
+> > So I'd prefer a fixup patch that opts ARM out of this over adding
+> > support code for 64-bit conversions.
+>
+> I have not found any dts file for a 32-bit platform with support
+> for a 64-bit prefetchable BAR, and there are very few that even
+> have a pcie slot (as opposed on on-board devices) you could
+> plug a card into.
+>
+> That said, I also don't think we should encourage the use of
+> floating-point code in random device drivers. There is really
+> no excuse for the amdgpu driver to use floating point math
+> here, and we should get AMD to fix their driver instead.
 
+That would be nice, but it won't happen, there are many reasons for
+that code to exist like it does, unless someone can write an automated
+converter to fixed point and validate it produces the same results for
+a long series of input values, it isn't really something that will get
+"fixed".
 
-On 4/11/24 3:26 PM, Melissa Wen wrote:
-> On 04/10, Joshua Ashton wrote:
->> The comment here states "no OGAM in DPP since DCN1", yet that is not
->> true.
->>
->> Testing on an RX 7900XTX (dcn32), it actually does exist in hardware and
->> works fine.
->> My best guess is the comment is confused with OGAM ROM for DPP, rather
->> than OGAM RAM.
->>
->> I did not test dcn35/351 as I do not have that hardware, but I assume
->> the same follows there given the seemingly erroneous comment.
->> Someone at AMD should check that before merging this commit.
-> 
-> hmm... I don't have any of these hw versions, but AFAIU if there is
-> ogam/blend lut block in dcn32, the helper implementation for programming
-> it properly (i.e. dpp_program_blnd_lut) is also missing here:
-> - https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/drivers/gpu/drm/amd/display/dc/dpp/dcn32/dcn32_dpp.c#L125
-> right? So, it's good if AMD people can check it too.
-> 
-> Melissa
+AMD's hardware team produces the calculations, and will only look into
+hardware problems in that area if the driver is using the calculations
+they produce and validate.
 
-Hmm, yes. But, see dcn32_set_mcm_luts, that seems to handle per-plane 
-blend + shaper + 3D LUT state which is equivalent to what existed before?
+If you've looked at the calculation complexity you'd understand this
+isn't a trivial use of float-point for no reason.
 
-Therefore, I think I am actually wrong with enabling the ogam_ram in DPP 
-cap here, and the right solution is to change the check for exposing the 
-property to account for these LUTs being available per-plane with mcm.
-
-(what is mcm btw...? lots of acronyms and stuff moving around in hw hehe)
-
-What's a good way for us to check for that? Seems like the caps don't 
-help much there. We could check for the literal function ptr I guess...?
-
-What are your thoughts, Harry and Melissa?
-
-- Joshie 🐸✨
-
-> 
->>
->> Signed-off-by: Joshua Ashton <joshua@froggi.es>
->>
->> Cc: Harry Wentland <harry.wentland@amd.com>
->> Cc: Xaver Hugl <xaver.hugl@gmail.com>
->> Cc: Melissa Wen <mwen@igalia.com>
->> Cc: Ethan Lee <flibitijibibo@gmail.com>
->> ---
->>   drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c  | 2 +-
->>   drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c  | 2 +-
->>   .../gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c    | 2 +-
->>   3 files changed, 3 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
->> index 9aa39bd25be9..94f5d2b5aadf 100644
->> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
->> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
->> @@ -2182,7 +2182,7 @@ static bool dcn32_resource_construct(
->>   	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
->>   
->>   	dc->caps.color.dpp.hw_3d_lut = 1;
->> -	dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
->> +	dc->caps.color.dpp.ogam_ram = 1;
->>   	// no OGAM ROM on DCN2 and later ASICs
->>   	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
->>   	dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
->> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
->> index 25ac450944e7..708d63cc3f7f 100644
->> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
->> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
->> @@ -1861,7 +1861,7 @@ static bool dcn35_resource_construct(
->>   	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
->>   
->>   	dc->caps.color.dpp.hw_3d_lut = 1;
->> -	dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
->> +	dc->caps.color.dpp.ogam_ram = 1;
->>   	// no OGAM ROM on DCN301
->>   	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
->>   	dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
->> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
->> index 8a57adb27264..053e8ec6d1ef 100644
->> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
->> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
->> @@ -1841,7 +1841,7 @@ static bool dcn351_resource_construct(
->>   	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
->>   
->>   	dc->caps.color.dpp.hw_3d_lut = 1;
->> -	dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
->> +	dc->caps.color.dpp.ogam_ram = 1;
->>   	// no OGAM ROM on DCN301
->>   	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
->>   	dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
->> -- 
->> 2.44.0
->>
+Dave.
