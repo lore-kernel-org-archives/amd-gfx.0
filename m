@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CC11C4345F
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 20:13:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B956C4345F
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 20:13:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71A7B10F84F;
-	Fri, 12 Apr 2024 20:13:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7180E10F853;
+	Fri, 12 Apr 2024 20:13:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oC2Owi/N";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sIwzwffK";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2077.outbound.protection.outlook.com [40.107.244.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84B8010F851
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Apr 2024 20:13:49 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2052.outbound.protection.outlook.com [40.107.101.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9DF410F84F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Apr 2024 20:13:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h/dWwFOjsdzav4snEiaz/Y+9U0VJLdQK1M2mWejI/ZX9f3rtzyvPDABv3OG36VLTDa5hltlJrvfzMIoxGER5AqUccY7bmJd45iGBxoYDuVTG6btmfphn+sqBNjmuG2oiC4y1mG9D6nOWjy+wc1Op5lyubkalmzU0JchL9KbTXfzuXP4PTZfHw0s8K4W+RBqvghUFJG3iXCXA3zrIrvjMm32K3E+Pphxq88sfCDGZFtEE7jXYNa6XkVkfa6hj77TwH0SZIFdCVr0YHyiFiTO9aZSRvKi5UoQR68epHlA5eKD3Z4TjM5TPy31i5wNOGDRXxNYypZOYRqxLhrkJplfEIQ==
+ b=NwqzwrLQEGOzriKxx6gIOCgXT1Zw9FiH+5tgvCOY2IwrbuOYNtCPatlv4cp5Xrr/sBxG3/vNu3fk1+83FjGAhWOztbrL+3YRBrt8WbpkOCD75s3Px4W0pWoa3HhpRuPmrhGBEzJU8icWndb26PKi3Fdn6MmRbP1mVw5G4O9IVaXWMsQAXzC3RD+BqWl6WTzTlFVnOpTD0K06gUlK9MJBCvHPSURAYDVztVRo5o+jK6RX3V9+71l7oF/5vHxMaXnJLW84nsPw0wD8yZaSMwG1hyl7SwX6zmIIHy8IaCfd2vZwc4p7LoFGz+xoGUJCYhezK9nVRdDE5oqDIZkwmY9OCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wHeH5v/BfvbWUywyd1Irv2fzuXiKXtF/VG3+Ikd6htw=;
- b=B+Sh+O9dmIUSsqu/d+BfukLKq+B59nPaq3SxoNigHp6VDE0krtDClDKpvR010l1D+6eFW+K4Nh6erEX9NyllqgK/ag9CPsaIiKMPPqeXSh+Z0HLQazrN06zgTvNAzWWyLlhugizQBR8aL83FrTWivYVvjAZz6eEW9PvgccdymuDfu/vMFSr67Hrz/VSZfNiHNKu1T+dl+PsqshuXsf4gJAcqoYGUXq7lkDiMjW0msrct01yuh948Hb+RdTRu5pTR1CSjUILGU4ZTvw0U6wBZUk5ClSUbjlgWvqRgze4mfWdKib26P0jpR2Hl6KmM1e53W3pxE+dKadMAEmCZc9ZZFA==
+ bh=12brV5sxRqL7W4lmjvJab0oqA9fm6y7lJaPZQEeFOG8=;
+ b=OVQq6LogRjj7gw33jprhsL/Bw+eVp0GqrbjfKzavJIo6wMh7AN+yNsGjfEuH6stxvYsqlL1bhiE6xblAkeiA/OGOlltD5Y5DrSfVOy6wovDO1p4xYRKXzlS9fSnsAhdyew5qsi1jfgJvaUAEsVKBMT2B2p/y6y7BYsDZlR83Fx+N8JgUulm34ovNTbNtvOEZwKkWp2YVOxv30+GkJzsGfcGtiitQqGIYojxqMFdQSjcckFq9vAIV0+FAsw9sweWFApZ4OJq4SfvPdzGfXWQA/hAdTh+kCxTNn6kx6mWDxgusnMNrlzIM4Yixis+zuIIMOguzXR5Na1vF5LbDdakHCw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wHeH5v/BfvbWUywyd1Irv2fzuXiKXtF/VG3+Ikd6htw=;
- b=oC2Owi/NIIiJAZSfKZIZBW09H/lOorlMdWc0+jugh5YQ2eTGq8bZzlYpUs4uXs+8eOHV6SHs6/kwWSDQkOGJc0tJmHG7se4lULxrL3sblYWIWuQ9gWzspms6yaq0sXslZdUstVTjwN85dG06Ell0ACjLG81NF8BghYjVQ4Kw0Nw=
-Received: from BY5PR04CA0019.namprd04.prod.outlook.com (2603:10b6:a03:1d0::29)
- by MW6PR12MB9017.namprd12.prod.outlook.com (2603:10b6:303:23b::6)
+ bh=12brV5sxRqL7W4lmjvJab0oqA9fm6y7lJaPZQEeFOG8=;
+ b=sIwzwffKPZc96S1VfhjoF5LnsgsxUyT0hfIDv7lkrskqu5/8ch8jLbEF5D5EJReOKwjBbxgvNc60qb1wzalXVVo0KIetQjUPMGOK+MgP12oOvJf3YQbfE1VMhjoC1+NXK6KcmsPpV3yA2Pm12m3kI5AJQDndYn7Tj2qPhwU2Gas=
+Received: from BY5PR04CA0005.namprd04.prod.outlook.com (2603:10b6:a03:1d0::15)
+ by SN7PR12MB6959.namprd12.prod.outlook.com (2603:10b6:806:261::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Fri, 12 Apr
- 2024 20:13:47 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Fri, 12 Apr
+ 2024 20:13:41 +0000
 Received: from CO1PEPF000042AA.namprd03.prod.outlook.com
- (2603:10b6:a03:1d0:cafe::dc) by BY5PR04CA0019.outlook.office365.com
- (2603:10b6:a03:1d0::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.26 via Frontend
- Transport; Fri, 12 Apr 2024 20:13:47 +0000
+ (2603:10b6:a03:1d0:cafe::97) by BY5PR04CA0005.outlook.office365.com
+ (2603:10b6:a03:1d0::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.27 via Frontend
+ Transport; Fri, 12 Apr 2024 20:13:41 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,19 +50,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1PEPF000042AA.mail.protection.outlook.com (10.167.243.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Fri, 12 Apr 2024 20:13:47 +0000
+ 15.20.7452.22 via Frontend Transport; Fri, 12 Apr 2024 20:13:41 +0000
 Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 12 Apr
- 2024 15:13:40 -0500
+ 2024 15:13:39 -0500
 From: Philip Yang <Philip.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Felix.Kuehling@amd.com>, <christian.koenig@amd.com>,
  <Arunpravin.PaneerSelvam@amd.com>, Philip Yang <Philip.Yang@amd.com>
-Subject: [PATCH 6/6] drm/amdkfd: Bump kfd version for contiguous VRAM
+Subject: [PATCH 2/6] drm/amdgpu: Evict BOs from same process for contiguous
  allocation
-Date: Fri, 12 Apr 2024 16:13:01 -0400
-Message-ID: <20240412201301.14154-7-Philip.Yang@amd.com>
+Date: Fri, 12 Apr 2024 16:12:57 -0400
+Message-ID: <20240412201301.14154-3-Philip.Yang@amd.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240412201301.14154-1-Philip.Yang@amd.com>
 References: <20240412201301.14154-1-Philip.Yang@amd.com>
@@ -74,26 +74,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AA:EE_|MW6PR12MB9017:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0fa6673d-2a7b-4231-5266-08dc5b2d0fd0
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AA:EE_|SN7PR12MB6959:EE_
+X-MS-Office365-Filtering-Correlation-Id: c515af96-c143-4272-a49c-08dc5b2d0bf7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: A4bzXRXV7dA4CbwABVSQ2CfF6wpQuxhIg/GP5vbKhxbRPnsZ85JSAeo3m52Xl9tf103g62WFiRVIJrYjJBZ/wRgPDzIeZXb6FdC6CXWTEJ66YVj1q97XZhOWHNnWy9jal42UBm8rV+u4bTpgY1ab4nd+8DIuknbMr4NOXKoMRUtOSoGK7toKLYXnEdRGMrn0+A7+SLiDyujqNEThcDMKDiPH1F7BmI02bNCLDTkPsxktstjhXIAKBRqnTWXaxHGH4loG5lgx+Xl8PaTTkIbsI1kOdUug/VuxVCO/Qkua7U6H5jc5dobLOsjYg+j26IPPtIxP+dUn0BwNW083ixlwRDDZoVxstAEkT4jfXeKLN0pdwkRXwnMacy8XO6AzaOeiJnRY5rLmwk7mZxhs23mX8M++iVWLPk30u1MHwWTH1ADnXGnIEikwuluHas30tZZ7w+nwu1KZMQDHOMQhxP3ug/NNutRVDiZEK0jIJFOKTzUKc1l9ew85RytzuH3K7Y5z726899/pHkal1iXmmOXMbBn0cGnnh3xWStXOpZZGdDGGkEd2nxV26W8NioDbOJrnK23XMh/yb8W/3ZSYuk90xupIx8D5wZVSLIHw5ouXER65icl5ZuMDqdZUXBMsNtIMfUPP9pnYJupy7BQXTzLK6HBDAaeR1AIybyjssza7G/EXKEA9k6PpvwRYZg3TJOdFjQx27ZO4x3bQiDUK4aSatX0hFyKoEm6mBWHfn9GZILFfGfmWJxQvziFLXx2PP8NJ
+X-Microsoft-Antispam-Message-Info: OJ6nSygYUCYyusN9MvbxxezDnk/Dt0lr+myi+AiptH66Qj6nA29Fn4RAmlfNbiyswa2ZPWPB34Vo0cSvKud9wwYLecNgQni0OWE+raZNr+H1XGZuG92Z34rYSp7QY5DlxvDGlb1ljnxgzDVnwDS+CMCvRMBgUQw1fxKr4Ih0NBLVUF5LbJaJX21QLCZyOtjZ1URrtsaPY/q1dQiBWSiDhb0V47PP0yGzMIN9q/Zdt1SFh+Tnj5hyDDwAIfB3zzvQDvepCw3i3A+EnLMGvVYNs8YHWkyBRW+kEYtuUnDpjFwN4NP7J3awdgAQ94Ey4AyYWSYQC40Z6sSK0sSsQHpGx2OmfMtIe2RaaNQpQVCaf5fQZmS/yL+W8kKHCVpnAkInz2RVUC4DXTOzUykop3NId1oikirmQZBS3ZXY92LTfLklU1TW1ZSJ2TgAFgxJybECHOuT2xIMWLBcsN35Ioyd3GVJkb1Tx40M/LFYJfk3w0eeWliVeII4m/lAQM0dMWI5B3mqsH7YHas4GoE1ndWaFxiGMq4BMZztmhwShY/fnNqCrRXFFoO/fbdCdOG+8MA5obQ3ey2JomIrOHEQ4j2ITEqKxmBWt2leVJdd3SLj+LD+YAhsxHqNtbPn3MKOWq+AmbJ0phFheqzA/6rxm3JokC44skSVJXTtE6XRhzZUo90HlgRlFoykDdmtdGcuOszMCvBgPGGHP7z9FbKUiWsTooXb4d8NA/acT0tr5H+jwQNPk/eMXQM0u66E9TlT8Y+T
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230031)(376005)(82310400014)(1800799015)(36860700004); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2024 20:13:47.5328 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0fa6673d-2a7b-4231-5266-08dc5b2d0fd0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2024 20:13:41.0796 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c515af96-c143-4272-a49c-08dc5b2d0bf7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AA.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9017
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6959
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,30 +108,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Bump the kfd ioctl minor version to delcare the contiguous VRAM
-allocation flag support.
+When TTM failed to alloc VRAM, TTM evict BOs from VRAM to system memory
+then retry the allocation, this currently skips the KFD BOs from the
+same process because KFD requires all BOs are resident for user queues.
+
+If TTM BO with TTM_PL_FLAG_CONTIGUOUS flag to alloc contiguous VRAM,
+allow TTM evict KFD BOs from the same process, this will evict the user
+queues first, and restore the queues later after contiguous VRAM
+allocation.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 ---
- include/uapi/linux/kfd_ioctl.h | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-index c1394c162d4e..a0af2ef696ea 100644
---- a/include/uapi/linux/kfd_ioctl.h
-+++ b/include/uapi/linux/kfd_ioctl.h
-@@ -41,9 +41,10 @@
-  * - 1.13 - Add debugger API
-  * - 1.14 - Update kfd_event_data
-  * - 1.15 - Enable managing mappings in compute VMs with GEM_VA ioctl
-+ * - 1.16 - Add contiguous VRAM allocation flag for RDMA
-  */
- #define KFD_IOCTL_MAJOR_VERSION 1
--#define KFD_IOCTL_MINOR_VERSION 15
-+#define KFD_IOCTL_MINOR_VERSION 16
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index a5ceec7820cf..00b8603d73e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1383,7 +1383,8 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 	 */
+ 	dma_resv_for_each_fence(&resv_cursor, bo->base.resv,
+ 				DMA_RESV_USAGE_BOOKKEEP, f) {
+-		if (amdkfd_fence_check_mm(f, current->mm))
++		if (amdkfd_fence_check_mm(f, current->mm) &&
++		    !(place->flags & TTM_PL_FLAG_CONTIGUOUS))
+ 			return false;
+ 	}
  
- struct kfd_ioctl_get_version_args {
- 	__u32 major_version;	/* from KFD */
 -- 
 2.43.2
 
