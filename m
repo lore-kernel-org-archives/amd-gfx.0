@@ -4,35 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 815DAC4345F
-	for <amd-gfx@archiver.kernel.org>; Sat, 13 Apr 2024 14:50:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D30A0C4345F
+	for <amd-gfx@archiver.kernel.org>; Sat, 13 Apr 2024 14:50:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C39FE10F984;
-	Sat, 13 Apr 2024 14:50:39 +0000 (UTC)
-X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
- Sat, 13 Apr 2024 08:56:15 UTC
-Received: from irl.hu (irl.hu [95.85.9.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CB5E10FA62;
- Sat, 13 Apr 2024 08:56:15 +0000 (UTC)
-Received: from [192.168.2.4] (51b68488.dsl.pool.telekom.hu
- [::ffff:81.182.132.136]) (AUTH: CRAM-MD5 soyer@irl.hu, )
- by irl.hu with ESMTPSA
- id 000000000006F759.00000000661A477C.002702C7; Sat, 13 Apr 2024 10:51:08 +0200
-Message-ID: <8b2aef9a51b97ca69cd5bc590f9fa535da5af4e4.camel@irl.hu>
-Subject: Re: [PATCH] drm/amd: Only allow one entity to control ABM
-From: Gergo Koteles <soyer@irl.hu>
-To: harry.wentland@amd.com
-Cc: Hamza.Mahfooz@amd.com, Sunpeng.Li@amd.com,
- amd-gfx@lists.freedesktop.org, ckoenig.leichtzumerken@gmail.com,
- dri-devel@lists.freedesktop.org, mario.limonciello@amd.com
-Date: Sat, 13 Apr 2024 10:51:07 +0200
-In-Reply-To: <20361f26-2c83-4619-8f9e-ec8788b8280f@amd.com>
-Autocrypt: addr=soyer@irl.hu; prefer-encrypt=mutual;
- keydata=mDMEZgeDQBYJKwYBBAHaRw8BAQdAD5oxV6MHkjzSfQL2O8VsPW3rSUeCHfbx/a6Yfj3NUnS0HEdlcmdvIEtvdGVsZXMgPHNveWVyQGlybC5odT6ImQQTFgoAQRYhBLSYvEYEgjzzEMQCqgtEJzXf/1IRBQJmB4NAAhsDBQkFo5qABQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheAAAoJEAtEJzXf/1IRmdYA/0bE1BX7zOGKBgCa1DwzH2UHXawSKLpptADvI/ao6OOtAP4+wYgpR0kWR28lhmkRTpzG/+8GiMWsT60SV2bz9B7sCbg4BGYHg0ASCisGAQQBl1UBBQEBB0CPo8ow/E97WYtaek9EsLXvsvwpBsjWLq5mMOgJL/ukCwMBCAeIfgQYFgoAJhYhBLSYvEYEgjzzEMQCqgtEJzXf/1IRBQJmB4NAAhsMBQkFo5qAAAoJEAtEJzXf/1IRklEA/ipTfAI/onzNwZIp9sCdnt0bLhR5Oz8RD/FpbrJV1v7eAP0c/C6NQPDPWbQpobBR0pf1eTjWXjjr1fj2jxSvWbMRCw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.4 (3.50.4-1.fc39) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B32A10E326;
+	Sat, 13 Apr 2024 14:50:42 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="J6bk5vfY";
+	dkim-atps=neutral
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5848410F6BB;
+ Fri, 12 Apr 2024 15:07:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1712934471;
+ bh=IW6AQvznYrnhRPvTFuJqYmQOTv7jMaxpPwrtDKRdbZY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=J6bk5vfYipmTuRYM08fDsRVTuJ/2EcUJpoqSaYQKgI9r6AkKcnWo4YfJzPBCWkJ+7
+ NC572ifCvMqbBaSxGp/q7cBTkeHwdBl0qAUG7yPUCtVXLUMnwLOuTvgRQt07HIVIU8
+ 8KSBAb7dn2QgnZKhCRY31AuJZ+1U18wqBUu+VuFnkeyGKrTW1hlCWneMqnKX+YjmPZ
+ snzlplLvdHTXtkNp8zY2vQWyvCCvreSA0P8NRTo/Hm/7WfLXL/6D7w0vfOiJHIVeru
+ yzKhlouTefOZAKN39R8rDzGZjcLcnwNdu0nOH3qkzQJyANZ5iKocsCqrl07i+iVQkx
+ qfndRQjBE656Q==
+Received: from eldfell (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id A7F483781182;
+ Fri, 12 Apr 2024 15:07:50 +0000 (UTC)
+Date: Fri, 12 Apr 2024 18:07:41 +0300
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Leo Li <sunpeng.li@amd.com>
+Cc: Marius Vlad <marius.vlad@collabora.com>, Harry Wentland
+ <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>, Michel
+ =?UTF-8?B?RMOkbnplcg==?= <mdaenzer@redhat.com>, Chao Guo
+ <chao.guo@nxp.com>, Xaver Hugl <xaver.hugl@gmail.com>, Vikas Korjani
+ <Vikas.Korjani@amd.com>, Robert Mader <robert.mader@posteo.de>, Sean Paul
+ <sean@poorly.run>, Simon Ser <contact@emersion.fr>, Shashank Sharma
+ <shashank.sharma@amd.com>, Sebastian Wick <sebastian.wick@redhat.com>
+Subject: Re: [PATCH 0/2] drm/amdgpu/display: Make multi-plane configurations
+ more flexible
+Message-ID: <20240412180741.360d8c2b.pekka.paalanen@collabora.com>
+In-Reply-To: <7d04e345-b319-4e2f-a1d3-378cc1881144@amd.com>
+References: <20240315170959.165505-1-sunpeng.li@amd.com>
+ <20240328163311.34b58b39.pekka.paalanen@collabora.com>
+ <1ca9c55b-2358-4357-a337-c0bf5e3e2118@amd.com>
+ <20240404132411.5bb5cb53.pekka.paalanen@collabora.com>
+ <b1613277-567d-47db-af84-74dfad2e9cf2@amd.com>
+ <Zg63qvnHgutUARrh@xpredator>
+ <46968a40-e0e5-4af9-b859-8a41d5992863@amd.com>
+ <20240412110325.4afa29ca.pekka.paalanen@collabora.com>
+ <7d04e345-b319-4e2f-a1d3-378cc1881144@amd.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="Sig_/o_e/7KQK5s/kg6/LwH+g+/s";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Sat, 13 Apr 2024 14:50:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -48,18 +76,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi>=20
+--Sig_/o_e/7KQK5s/kg6/LwH+g+/s
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-> ABM will reduce the backlight and compensate by adjusting brightness and =
-contrast of the image. It has 5 levels: 0, 1, 2, 3, 4. 0 means off. 4 means=
- maximum backlight reduction. IMO, 1 and 2 look okay. 3 and 4 can be quite =
-impactful, both to power and visual fidelity.
+On Fri, 12 Apr 2024 10:28:52 -0400
+Leo Li <sunpeng.li@amd.com> wrote:
 
-I tried this with 6.9 and it looks weird with an OLED panel used with
-dark UI settings.
-The dark is no longer dark, everything is brighter.
-I turned this feature off with amdgpu.abmlevel=3D0.
+> On 2024-04-12 04:03, Pekka Paalanen wrote:
+> > On Thu, 11 Apr 2024 16:33:57 -0400
+> > Leo Li <sunpeng.li@amd.com> wrote:
+> >  =20
 
-Best regards,
-Gergo
+...
 
+> >> That begs the question of what can be nailed down and what can left to
+> >> independent implementation. I guess things like which plane should be =
+enabled
+> >> first (PRIMARY), and how zpos should be interpreted (overlay, underlay=
+, mixed)
+> >> can be defined. How to handle atomic test failures could be as well. =
+=20
+> >=20
+> > What room is there for the interpretation of zpos values?
+> >=20
+> > I thought they are unambiguous already: only the relative numerical
+> > order matters, and that uniquely defines the KMS plane ordering. =20
+>=20
+> The zpos value of the PRIMARY plane relative to OVERLAYS, for example, as=
+ a way
+> for vendors to communicate overlay, underlay, or mixed-arrangement suppor=
+t. I
+> don't think allowing OVERLAYs to be placed under the PRIMARY is currently
+> documented as a way to support underlay.
+
+I always thought it's obvious that the zpos numbers dictate the plane
+order without any other rules. After all, we have the universal planes
+concept, where the plane type is only informational to aid heuristics
+rather than defining anything.
+
+Only if the zpos property does not exist, the plane types would come
+into play.
+
+Of course, if there actually exists userspace that fails if zpos allows
+an overlay type plane to be placed below primary, or fails if primary
+zpos is not zero, then DRM needs a new client cap.
+
+> libliftoff for example, assumes that the PRIMARY has the lowest zpos. So
+> underlay arrangements will use an OVERLAY for the scanout plane, and the =
+PRIMARY
+> for the underlay view.
+
+That's totally ok. It works, right? Plane type does not matter if the
+KMS driver accepts the configuration.
+
+What is a "scanout plane"? Aren't all KMS planes by definition scanout
+planes?
+
+IOW, if the KMS client understands zpos and can do a proper KMS
+configuration search, and all planes have zpos property, then there is
+no need to look at the plane type at all. That is the goal of the
+universal planes feature.
+
+
+Thanks,
+pq
+
+--Sig_/o_e/7KQK5s/kg6/LwH+g+/s
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmYZTj0ACgkQI1/ltBGq
+qqddaQ/+Jp49giz91ctWjXIY60zOJN6SP/zBlsC/nSu3xml2plN6mJa9GmOZR86K
+L86vln3DplokPaJ/MssKd0dPz1qKf6qKXGHfN+yW/S+THe7lTBB0YMtd16W+mtLt
++xuLCkT/G0EAbxr3tVTU4Mq8OKrGXzpIofJnRNwYV23gXqrL9/uNARUh3X0Fo5yU
+1ucBbayEExlz3Y3KSev0kWJY1NWY3GEOSPlgjXG1iB2PI90PsAJujtdMJs7Owm7b
+4NK3si6U6+9wcgQwZPQ19m/IofhRBKj9BucTQyic6AuTfClrWZ4gi24IJSwXEKru
+p89Iy0TDAObE3ecqOh8ywThh6NwKk3jsA6PVpa/8CUGF53/exgWgSGrm2uAIhghh
+lMCULTPFp8NZVb+8hl3A7Ig+EhcDcFhmncb895VIUSad4bXyvcfgTxS76Pv06btB
+Ba+lacl5M9QNLqbfvxqQnxPr4L7IVVIubuQ8oe/7IShuHo4Shh2UrOUoFwbRMEjn
+g3Ki6hWcGJ7ProzwzgIF3KmwG2ta/spVEZ6BrGuBCCU6XlP7qtDQsRTER4CsClaS
+0sUqvYNrmH38M7qq2mWBBX225uhPNM6w4rVitM2jOc0j9s5Uq3hfHm0NesFDU0Gb
+hTBOEwVjYCqmiAwR5HVjR8ox1Y1kG7KmQ3xrM4ZL+m2NyQlzPXs=
+=E2zH
+-----END PGP SIGNATURE-----
+
+--Sig_/o_e/7KQK5s/kg6/LwH+g+/s--
