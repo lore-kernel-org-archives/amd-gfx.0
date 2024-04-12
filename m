@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33181C4345F
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 09:00:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 050C2C4345F
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 09:00:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACF6410F2A1;
-	Fri, 12 Apr 2024 09:00:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55F5010F280;
+	Fri, 12 Apr 2024 09:00:55 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B82F710F2A1
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Apr 2024 09:00:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0BF210F280
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Apr 2024 09:00:52 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 43C90fW5011110; Fri, 12 Apr 2024 14:30:41 +0530
+ 43C90gw4011121; Fri, 12 Apr 2024 14:30:42 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 43C90fUU011109;
- Fri, 12 Apr 2024 14:30:41 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 43C90gog011120;
+ Fri, 12 Apr 2024 14:30:42 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH 1/2] drm:amdgpu: Enable IH RING1 for IH v6.0
-Date: Fri, 12 Apr 2024 14:30:15 +0530
-Message-Id: <20240412090016.10897-5-sunil.khatri@amd.com>
+Subject: [PATCH 2/2] drm:amdgpu: Enable IH RING1 for IH v6.1
+Date: Fri, 12 Apr 2024 14:30:16 +0530
+Message-Id: <20240412090016.10897-6-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240412090016.10897-1-sunil.khatri@amd.com>
 References: <20240412090016.10897-1-sunil.khatri@amd.com>
@@ -50,14 +50,14 @@ ring for specific usecases.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/ih_v6_0.c | 8 ++++++--
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c | 8 ++++++--
  1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-index ad4ad39f128f..3796d965e123 100644
---- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-@@ -549,8 +549,12 @@ static int ih_v6_0_sw_init(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+index b8da0fc29378..d3ce1b809550 100644
+--- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+@@ -550,8 +550,12 @@ static int ih_v6_1_sw_init(void *handle)
  	adev->irq.ih.use_doorbell = true;
  	adev->irq.ih.doorbell_index = adev->doorbell_index.ih << 1;
  
@@ -71,7 +71,7 @@ index ad4ad39f128f..3796d965e123 100644
 +	adev->irq.ih1.doorbell_index = (adev->doorbell_index.ih + 1) << 1;
  
  	/* initialize ih control register offset */
- 	ih_v6_0_init_register_offset(adev);
+ 	ih_v6_1_init_register_offset(adev);
 -- 
 2.34.1
 
