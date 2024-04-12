@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA3C7C4345F
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 13:17:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C031EC04FF9
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Apr 2024 13:17:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 520D610F63B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF33F10F63C;
 	Fri, 12 Apr 2024 13:17:19 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D6D310F63C
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Apr 2024 13:17:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 753AF10F639
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Apr 2024 13:17:15 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 43CDH9Qu036184; Fri, 12 Apr 2024 18:47:09 +0530
+ 43CDHAeY036195; Fri, 12 Apr 2024 18:47:10 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 43CDH9Tr036183;
- Fri, 12 Apr 2024 18:47:09 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 43CDHAev036194;
+ Fri, 12 Apr 2024 18:47:10 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v2 4/5] drm/amdgpu: Enable redirection of irq's for IH V6.0
-Date: Fri, 12 Apr 2024 18:46:44 +0530
-Message-Id: <20240412131645.35990-4-sunil.khatri@amd.com>
+Subject: [PATCH v2 5/5] drm/amdgpu: Enable redirection of irq's for IH V6.1
+Date: Fri, 12 Apr 2024 18:46:45 +0530
+Message-Id: <20240412131645.35990-5-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240412131645.35990-1-sunil.khatri@amd.com>
 References: <20240412131645.35990-1-sunil.khatri@amd.com>
@@ -52,14 +52,14 @@ i.e ring1 where only these interrupts are processed.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/ih_v6_0.c | 14 ++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c | 14 ++++++++++++++
  1 file changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-index 3796d965e123..d0049b65f02e 100644
---- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-@@ -346,6 +346,20 @@ static int ih_v6_0_irq_init(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+index d3ce1b809550..b31c3fe0d90d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+@@ -346,6 +346,20 @@ static int ih_v6_1_irq_init(struct amdgpu_device *adev)
  			    DELAY, 3);
  	WREG32_SOC15(OSSSYS, 0, regIH_MSI_STORM_CTRL, tmp);
  
