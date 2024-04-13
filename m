@@ -4,64 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D30A0C4345F
-	for <amd-gfx@archiver.kernel.org>; Sat, 13 Apr 2024 14:50:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D3C4C4345F
+	for <amd-gfx@archiver.kernel.org>; Sat, 13 Apr 2024 18:07:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B32A10E326;
-	Sat, 13 Apr 2024 14:50:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA3E610E3A5;
+	Sat, 13 Apr 2024 18:07:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="J6bk5vfY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="brHNpSgq";
 	dkim-atps=neutral
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5848410F6BB;
- Fri, 12 Apr 2024 15:07:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1712934471;
- bh=IW6AQvznYrnhRPvTFuJqYmQOTv7jMaxpPwrtDKRdbZY=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=J6bk5vfYipmTuRYM08fDsRVTuJ/2EcUJpoqSaYQKgI9r6AkKcnWo4YfJzPBCWkJ+7
- NC572ifCvMqbBaSxGp/q7cBTkeHwdBl0qAUG7yPUCtVXLUMnwLOuTvgRQt07HIVIU8
- 8KSBAb7dn2QgnZKhCRY31AuJZ+1U18wqBUu+VuFnkeyGKrTW1hlCWneMqnKX+YjmPZ
- snzlplLvdHTXtkNp8zY2vQWyvCCvreSA0P8NRTo/Hm/7WfLXL/6D7w0vfOiJHIVeru
- yzKhlouTefOZAKN39R8rDzGZjcLcnwNdu0nOH3qkzQJyANZ5iKocsCqrl07i+iVQkx
- qfndRQjBE656Q==
-Received: from eldfell (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id A7F483781182;
- Fri, 12 Apr 2024 15:07:50 +0000 (UTC)
-Date: Fri, 12 Apr 2024 18:07:41 +0300
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Leo Li <sunpeng.li@amd.com>
-Cc: Marius Vlad <marius.vlad@collabora.com>, Harry Wentland
- <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>, Michel
- =?UTF-8?B?RMOkbnplcg==?= <mdaenzer@redhat.com>, Chao Guo
- <chao.guo@nxp.com>, Xaver Hugl <xaver.hugl@gmail.com>, Vikas Korjani
- <Vikas.Korjani@amd.com>, Robert Mader <robert.mader@posteo.de>, Sean Paul
- <sean@poorly.run>, Simon Ser <contact@emersion.fr>, Shashank Sharma
- <shashank.sharma@amd.com>, Sebastian Wick <sebastian.wick@redhat.com>
-Subject: Re: [PATCH 0/2] drm/amdgpu/display: Make multi-plane configurations
- more flexible
-Message-ID: <20240412180741.360d8c2b.pekka.paalanen@collabora.com>
-In-Reply-To: <7d04e345-b319-4e2f-a1d3-378cc1881144@amd.com>
-References: <20240315170959.165505-1-sunpeng.li@amd.com>
- <20240328163311.34b58b39.pekka.paalanen@collabora.com>
- <1ca9c55b-2358-4357-a337-c0bf5e3e2118@amd.com>
- <20240404132411.5bb5cb53.pekka.paalanen@collabora.com>
- <b1613277-567d-47db-af84-74dfad2e9cf2@amd.com>
- <Zg63qvnHgutUARrh@xpredator>
- <46968a40-e0e5-4af9-b859-8a41d5992863@amd.com>
- <20240412110325.4afa29ca.pekka.paalanen@collabora.com>
- <7d04e345-b319-4e2f-a1d3-378cc1881144@amd.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2072.outbound.protection.outlook.com [40.107.102.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A59F10E10A;
+ Sat, 13 Apr 2024 18:07:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OeOYYfO5VQE7wTehqw0ntu9fG16XSA0ZpJpZ0WKh5Igw8O5UFdA8XVg3WdxmYbGjQaAa2z66JcV45DpBldA5P3wDhJltmWAgkbC9uoIhXuHUB+xw8Mjgo3g9tvpgeCbnRbxM2bHmWZQ+mzE8yCosGUeftbPn7iMU9uVSwBV2gLiqQ+L8GRNLsruq8ZalpwA4N+ak/0uY/Rl9aT6Z/4QLTwZq2zttJSxm1k9ddVekNVmOVfeWcnFkbPrTgpDWogpuNx/I0NWD3djIZh3+N4lKb69zfaTBpW1gPE1QNA+30S5Jcbr19E3/t33XzV5By/X8AHu1w58BkL6vfQbodiEw7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2nRY74qpWw05NuY7WmQxDeK9krWlp4Jjt2eyqOHcmOA=;
+ b=Lp+HKS98PAK4NUzcuAUzjuNa0H9KUk7YsrT1Yb47sP/SR/jQ7QSF9/6/deg6uUdP4T0++CS9mKBg1kNZ/Xzi4qgQI114sAMHGi05YlL6s48YO0coXsxPZgTLFgBpoV4VgO85c6dY/qtyOZ8fy8Es8dp4snRd4P0jz6BmukdYcOxsxZAbcIODdrb4o2jfUq8S70QizAeq0sB55nmb2lGzy8fJKhhb6EUwO7WfS6o/ru6r0GgLFMa0AsAR6xmXMm3jm0cflizSJ5TG4jwCQADcdObk99crr6KOsg0rTOul1NOhhcsnTg8hX1Qx2433nYKMW91xdLKQ300IeXmra+x2Ag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2nRY74qpWw05NuY7WmQxDeK9krWlp4Jjt2eyqOHcmOA=;
+ b=brHNpSgqnKrquZy7taGZhBA6VkDjtzvobB8+MHEq7pv9Az/tVkkyWG6kjs3pqDm7kJRLii44fbTjafHL+lDu9RZ/lP2LJaqJpncLoP1Oy7Zk/q5v0DdCn1V3X9pSt9gvawX26HWAhwXe/FLgbj4zFr36PFKy8aH+rHaonOcz7n0=
+Received: from MN2PR16CA0033.namprd16.prod.outlook.com (2603:10b6:208:134::46)
+ by PH7PR12MB7113.namprd12.prod.outlook.com (2603:10b6:510:1ec::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Sat, 13 Apr
+ 2024 18:07:21 +0000
+Received: from MN1PEPF0000F0DE.namprd04.prod.outlook.com
+ (2603:10b6:208:134:cafe::20) by MN2PR16CA0033.outlook.office365.com
+ (2603:10b6:208:134::46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.31 via Frontend
+ Transport; Sat, 13 Apr 2024 18:07:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MN1PEPF0000F0DE.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Sat, 13 Apr 2024 18:07:21 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sat, 13 Apr
+ 2024 13:07:21 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sat, 13 Apr
+ 2024 13:07:20 -0500
+Received: from desktop-host.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Sat, 13 Apr 2024 13:07:20 -0500
+From: <vitaly.prosyak@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <alexander.deucher@amd.com>
+CC: Vitaly Prosyak <vitaly.prosyak@amd.com>, Christian Koenig
+ <christian.koenig@amd.com>, Xiaogang Chen <xiaogang.chen@amd.com>, "Felix
+ Kuehling" <felix.kuehling@amd.com>
+Subject: [PATCH] drm/amdkfd: fix NULL pointer dereference
+Date: Sat, 13 Apr 2024 14:07:06 -0400
+Message-ID: <20240413180706.232041-1-vitaly.prosyak@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/o_e/7KQK5s/kg6/LwH+g+/s";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-X-Mailman-Approved-At: Sat, 13 Apr 2024 14:50:33 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DE:EE_|PH7PR12MB7113:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e035ce0-b261-446d-b87d-08dc5be4908f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: gxl9qT4vVwckxo1WF03vsMDqjSuLn2wxUzwC0THNHpF7FY4OlkNxSz0o+EMBJzw74QCQddMHYrDuEk4SaKetAGko9G3Ayqq+WKlmvcLTdkOMZ3DREPSzejM5uSJ9sH5xFIQJMiZ4t7OLq26uX6B3DvwyXSN5LCHvQS+qIqk605Y/UxeEewAp6ZmRK8nVBgzm42To35+8aqOceTbCzjTWTdUqsDfDpeQ16IQ7iGmPJcBNP5Gaq8c96RfAl3P78fx/Q0vPFztsN1mxC7gpF2XD8guuWXpDEhYQhmjL/P22xfyocnBV+wOKADawwAESEzRFnuXqeDJJrf2reMQg0mMgAl9HBuQnTRKkFWMvzrvIvwqm0Qn2xWAbZiM/I5h5UjelwdvWptY5CnQLJeF7rUytY7v2b+oIOfT+bkzvspLO7P3RpdK6fS01BQOHUjG90ggslg5CUVOWXPwU9M5Xe5qF67/ajYdiX7xCRAwHB8a78Ackt0VJRmN24rG9JSQSV4Fwhfqx8qkDuT/P0fOoZuDLn/Aa15DVvvT9+RZMoTSLim70Zp3MHTKRVTUKxeaUz4LyTf+bspXe7iaJ2pdAO4F9AUxNTcQzT8nszc7JbEVhBp3gSs0ZZgt1ZKzswaFWCqqqdHLc4HGWzfLghnwyIzpGd9qfYoUmT76OHW3IQQGt/p/8ARKGDM3+6Ug1D8ZRhJWsqWLGjMQI/7f7bdKI/pF+p+3QWOuPwuQbdeJi/Zjym6kFOxemOtHkPPPpTeTl8A1w
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(1800799015)(82310400014)(376005)(36860700004); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2024 18:07:21.5308 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e035ce0-b261-446d-b87d-08dc5be4908f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DE.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7113
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,91 +111,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/o_e/7KQK5s/kg6/LwH+g+/s
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 
-On Fri, 12 Apr 2024 10:28:52 -0400
-Leo Li <sunpeng.li@amd.com> wrote:
+[  +0.006038] BUG: kernel NULL pointer dereference, address: 0000000000000028
+[  +0.006969] #PF: supervisor read access in kernel mode
+[  +0.005139] #PF: error_code(0x0000) - not-present page
+[  +0.005139] PGD 0 P4D 0
+[  +0.002530] Oops: 0000 [#1] PREEMPT SMP NOPTI
+[  +0.004356] CPU: 11 PID: 12625 Comm: kworker/11:0 Tainted: G        W          6.7.0+ #2
+[  +0.008097] Hardware name: ASUS System Product Name/Pro WS WRX80E-SAGE SE WIFI II, BIOS 1302 12/08/2023
+[  +0.009398] Workqueue: events evict_process_worker [amdgpu]
+[  +0.005750] RIP: 0010:evict_process_worker+0x2f/0x460 [amdgpu]
+[  +0.005991] Code: 55 48 89 e5 41 57 41 56 4c 8d b7 a8 fc ff ff 41 55 41 54 53 48 89 fb 48 83 ec 10 0f 1f 44 00 00 48 8b 43 f8 8b 93 b0 00 00 00 <48> 3b 50 28 0f 85 50 03 00 00 48 8d 7b 58 e8 ee be cb bf 48 8b 05
+[  +0.018791] RSP: 0018:ffffc90009a2be10 EFLAGS: 00010282
+[  +0.005226] RAX: 0000000000000000 RBX: ffff888197ffc358 RCX: 0000000000000000
+[  +0.007140] RDX: 0000000000000a1b RSI: 0000000000000000 RDI: ffff888197ffc358
+[  +0.007139] RBP: ffffc90009a2be48 R08: 0000000000000000 R09: 0000000000000000
+[  +0.007139] R10: 0000000000000000 R11: 0000000000000000 R12: ffff888197ffc358
+[  +0.007139] R13: ffff888100153a00 R14: ffff888197ffc000 R15: ffff888100153a05
+[  +0.007137] FS:  0000000000000000(0000) GS:ffff889facac0000(0000) knlGS:0000000000000000
+[  +0.008094] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  +0.005747] CR2: 0000000000000028 CR3: 000000010d1fc001 CR4: 0000000000770ef0
+[  +0.007138] PKRU: 55555554
+[  +0.002702] Call Trace:
+[  +0.002443]  <TASK>
+[  +0.002096]  ? show_regs+0x72/0x90
+[  +0.003402]  ? __die+0x25/0x80
+[  +0.003052]  ? page_fault_oops+0x154/0x4c0
+[  +0.004099]  ? do_user_addr_fault+0x30e/0x6e0
+[  +0.004357]  ? psi_group_change+0x237/0x520
+[  +0.004185]  ? exc_page_fault+0x84/0x1b0
+[  +0.003926]  ? asm_exc_page_fault+0x27/0x30
+[  +0.004187]  ? evict_process_worker+0x2f/0x460 [amdgpu]
+[  +0.005377]  process_one_work+0x17b/0x360
+[  +0.004011]  ? __pfx_worker_thread+0x10/0x10
+[  +0.004269]  worker_thread+0x307/0x430
+[  +0.003748]  ? __pfx_worker_thread+0x10/0x10
+[  +0.004268]  kthread+0xf7/0x130
+[  +0.003142]  ? __pfx_kthread+0x10/0x10
+[  +0.003749]  ret_from_fork+0x46/0x70
+[  +0.003573]  ? __pfx_kthread+0x10/0x10
+[  +0.003747]  ret_from_fork_asm+0x1b/0x30
+[  +0.003924]  </TASK>
 
-> On 2024-04-12 04:03, Pekka Paalanen wrote:
-> > On Thu, 11 Apr 2024 16:33:57 -0400
-> > Leo Li <sunpeng.li@amd.com> wrote:
-> >  =20
+When we run stressful tests, the eviction fence could be zero and not match
+to last_eviction_seqno.
 
-...
+Avoid calling dma_fence_signal and dma_fence_put with zero fences to rely
+on checking parameters in DMA API.
 
-> >> That begs the question of what can be nailed down and what can left to
-> >> independent implementation. I guess things like which plane should be =
-enabled
-> >> first (PRIMARY), and how zpos should be interpreted (overlay, underlay=
-, mixed)
-> >> can be defined. How to handle atomic test failures could be as well. =
-=20
-> >=20
-> > What room is there for the interpretation of zpos values?
-> >=20
-> > I thought they are unambiguous already: only the relative numerical
-> > order matters, and that uniquely defines the KMS plane ordering. =20
->=20
-> The zpos value of the PRIMARY plane relative to OVERLAYS, for example, as=
- a way
-> for vendors to communicate overlay, underlay, or mixed-arrangement suppor=
-t. I
-> don't think allowing OVERLAYs to be placed under the PRIMARY is currently
-> documented as a way to support underlay.
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Xiaogang Chen <xiaogang.chen@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-I always thought it's obvious that the zpos numbers dictate the plane
-order without any other rules. After all, we have the universal planes
-concept, where the plane type is only informational to aid heuristics
-rather than defining anything.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index eb380296017d..a15fae1c398a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -2118,7 +2118,7 @@ static void evict_process_worker(struct work_struct *work)
+ 	 */
+ 	p = container_of(dwork, struct kfd_process, eviction_work);
+ 	trace_kfd_evict_process_worker_start(p);
+-	WARN_ONCE(p->last_eviction_seqno != p->ef->seqno,
++	WARN_ONCE(p->ef && p->last_eviction_seqno != p->ef->seqno,
+ 		  "Eviction fence mismatch\n");
+ 
+ 	/* Narrow window of overlap between restore and evict work
+@@ -2134,9 +2134,11 @@ static void evict_process_worker(struct work_struct *work)
+ 	pr_debug("Started evicting pasid 0x%x\n", p->pasid);
+ 	ret = kfd_process_evict_queues(p, false, KFD_QUEUE_EVICTION_TRIGGER_TTM);
+ 	if (!ret) {
+-		dma_fence_signal(p->ef);
+-		dma_fence_put(p->ef);
+-		p->ef = NULL;
++		if (p->ef) {
++			dma_fence_signal(p->ef);
++			dma_fence_put(p->ef);
++			p->ef = NULL;
++		}
+ 
+ 		if (!kfd_process_unmap_doorbells_if_idle(p))
+ 			kfd_process_schedule_restore(p);
+-- 
+2.25.1
 
-Only if the zpos property does not exist, the plane types would come
-into play.
-
-Of course, if there actually exists userspace that fails if zpos allows
-an overlay type plane to be placed below primary, or fails if primary
-zpos is not zero, then DRM needs a new client cap.
-
-> libliftoff for example, assumes that the PRIMARY has the lowest zpos. So
-> underlay arrangements will use an OVERLAY for the scanout plane, and the =
-PRIMARY
-> for the underlay view.
-
-That's totally ok. It works, right? Plane type does not matter if the
-KMS driver accepts the configuration.
-
-What is a "scanout plane"? Aren't all KMS planes by definition scanout
-planes?
-
-IOW, if the KMS client understands zpos and can do a proper KMS
-configuration search, and all planes have zpos property, then there is
-no need to look at the plane type at all. That is the goal of the
-universal planes feature.
-
-
-Thanks,
-pq
-
---Sig_/o_e/7KQK5s/kg6/LwH+g+/s
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmYZTj0ACgkQI1/ltBGq
-qqddaQ/+Jp49giz91ctWjXIY60zOJN6SP/zBlsC/nSu3xml2plN6mJa9GmOZR86K
-L86vln3DplokPaJ/MssKd0dPz1qKf6qKXGHfN+yW/S+THe7lTBB0YMtd16W+mtLt
-+xuLCkT/G0EAbxr3tVTU4Mq8OKrGXzpIofJnRNwYV23gXqrL9/uNARUh3X0Fo5yU
-1ucBbayEExlz3Y3KSev0kWJY1NWY3GEOSPlgjXG1iB2PI90PsAJujtdMJs7Owm7b
-4NK3si6U6+9wcgQwZPQ19m/IofhRBKj9BucTQyic6AuTfClrWZ4gi24IJSwXEKru
-p89Iy0TDAObE3ecqOh8ywThh6NwKk3jsA6PVpa/8CUGF53/exgWgSGrm2uAIhghh
-lMCULTPFp8NZVb+8hl3A7Ig+EhcDcFhmncb895VIUSad4bXyvcfgTxS76Pv06btB
-Ba+lacl5M9QNLqbfvxqQnxPr4L7IVVIubuQ8oe/7IShuHo4Shh2UrOUoFwbRMEjn
-g3Ki6hWcGJ7ProzwzgIF3KmwG2ta/spVEZ6BrGuBCCU6XlP7qtDQsRTER4CsClaS
-0sUqvYNrmH38M7qq2mWBBX225uhPNM6w4rVitM2jOc0j9s5Uq3hfHm0NesFDU0Gb
-hTBOEwVjYCqmiAwR5HVjR8ox1Y1kG7KmQ3xrM4ZL+m2NyQlzPXs=
-=E2zH
------END PGP SIGNATURE-----
-
---Sig_/o_e/7KQK5s/kg6/LwH+g+/s--
