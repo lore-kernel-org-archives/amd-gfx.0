@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F589C04FF8
-	for <amd-gfx@archiver.kernel.org>; Sat, 13 Apr 2024 23:40:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF998C04FF6
+	for <amd-gfx@archiver.kernel.org>; Sat, 13 Apr 2024 23:40:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D250D10F515;
-	Sat, 13 Apr 2024 23:40:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA85A10F56B;
+	Sat, 13 Apr 2024 23:40:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QQyFDVSN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3jrqJLb0";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2080.outbound.protection.outlook.com [40.107.237.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45F0B10F4FD
- for <amd-gfx@lists.freedesktop.org>; Sat, 13 Apr 2024 23:40:28 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 522F510F50B
+ for <amd-gfx@lists.freedesktop.org>; Sat, 13 Apr 2024 23:40:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z41nF2RKRt56bsnhYjUHp7tmltu8xjjiOyKYHxW2CbkQfqPtRGlU4LOfZlDM7wK79OYkLq2PaPwYn5zPb8F9/UGowYNm7lwqVD17k6qffhesScamgGBSBueAf/RQLf6rEiGcDNCZLt2WsKu6IDCslKyxrinuztTb9EmiR10lDjy5xaMXx8rXk5jZkkagS5fdKQY0k8wY8Glga37FbO6ei21jqXO0RhqCMEI/jGd3LYh1urAUflOO6ffPHABaK2j2wNXX6s0utu1Gdbie45xS4UKzu9EFytkiEo/CtDouJT1saUPSaXG9rn9bL0k2bENULWkiax4bb2lM7/L3w7x4uA==
+ b=Is/E+FoHJA61xo+i/l1CSla3smOQTQSxW0yUQAgG++E00JLdu+N0RB4ks+r/Cfae0H66voEJE80nK06loeoxq9+jbJMcprwFLoNpkToN1IM+oBKZH2mWToiHq7xEIQ5TP0qLA26telHshA2oF9XqIxINa1u3v1HV1EYVffsDAF7BAubNjOvSM2gDUU/jT63zvxxD0vv/BCsXRLZ3NGQmhj2olsyEYhaT9Q3otzDuRqcBW/0cQSWb57VOdDWsD8m1LF+V5zs4kEVXgfPC5xJkJUcRz6q11xyzizOBYxgLChQoLXnKlFXfV/F7fyeNykVqViXrj4/9xnMVT4RW7BFAkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L4EBi8v+sMi2Uc6QOrYjo2vUL7TFN7k6yUoHsFemtLk=;
- b=n8oeuL7Luaifmimh3BkiUI3M9AHrF6KVD+FNhJr6MtaPYi7NJSXf5/IKjFBxydpoaF5aTK8Txb8joMNeJdVuQycWve7wfMjqCnTfOmdeJdqBeZC4nxQ2uf7eH+p7K9q4HuZgLIi9OOyNYUVquBJPUPa5a3pBdNTiyLD0v2+FFF374L8W+UhQw13dBBUYRrzIIoNguFka7zljeRmn8mvJsVmBTzxBO5pwQub7YoALHBCF/qYN0N6kmG5se8vD9n8zD8Y9IbFhoCoUUat/wpcSg0LhK7SW01o8w8Ap4/7UAE1dNTyRV5V8Mz1j3DWlHIZMfHdRKAPqaQr8UXIE2ydCZg==
+ bh=j1lDSU7YaT9/bZ+hNaKWprq3vN/QP9ZfKmsG+P/2Zbs=;
+ b=gKSdyQVtOMgKHKsa4oZ23mIiHx3Av7+TYn4KlKCF5ew5Coz0bmOouzxK2yI2f7+zCxoCuNJPyMYiAsNfuUpf/nIyPD5c/VjmC8EYLTH+pr/E2XJMMcU9sCYmao6s90VFIlQBZ9HeyDPaOJItbXrG0MhVZmCOSWO2KOZgHrDmhGsH9E8LnDogrnex7cu41nFUaj/e2Deo+kSknlrglpLGbl+MNN1eMXZ7gLypZIkYunf6pW1vMdQjFfnui2gZav2ZL+VcHoUctMpxJYkGaKPHXiCVjT6/AYQ19UKhCScrw/3cT77mwLmp2oNueUe8Yiz0a8ht7UcTNhS7FJsfJ7pjRg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L4EBi8v+sMi2Uc6QOrYjo2vUL7TFN7k6yUoHsFemtLk=;
- b=QQyFDVSNkaoLjLm1M5vAP9Yt4yW5xxAtnQ6DjrK182mGixWyXHvnRN/SfyelZGn2eHv81Qp0jeN/LUw2B92joLOalyi1SNNIbbpOO9B7wtLKTCjdQD8ZStnyf6p1yPYbFDDQKmwI0a6WDGDyrZbveeLw1/OKVd4sOCtvo3eSHos=
-Received: from BY5PR04CA0012.namprd04.prod.outlook.com (2603:10b6:a03:1d0::22)
- by DM6PR12MB4140.namprd12.prod.outlook.com (2603:10b6:5:221::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Sat, 13 Apr
- 2024 23:40:21 +0000
+ bh=j1lDSU7YaT9/bZ+hNaKWprq3vN/QP9ZfKmsG+P/2Zbs=;
+ b=3jrqJLb0oSSpun4sNXsUp23Cc+IctcX3JyEX/+Hkr3lFRUZqRhrqHD2NB+i+2fQzLCwBbb9o5eIbY+heN8E5A9fwBXd5vYTRwq9sSMScSQu/Uhygipd56l9Y70RRWbQzWYzJ1z8HXvn3kwIcjngzDjfDKZPcRz2NYIB5dKDZcnM=
+Received: from BY5PR04CA0019.namprd04.prod.outlook.com (2603:10b6:a03:1d0::29)
+ by SN7PR12MB8792.namprd12.prod.outlook.com (2603:10b6:806:341::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Sat, 13 Apr
+ 2024 23:40:23 +0000
 Received: from SJ5PEPF000001D5.namprd05.prod.outlook.com
- (2603:10b6:a03:1d0:cafe::ba) by BY5PR04CA0012.outlook.office365.com
- (2603:10b6:a03:1d0::22) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:a03:1d0:cafe::62) by BY5PR04CA0019.outlook.office365.com
+ (2603:10b6:a03:1d0::29) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.31 via Frontend
- Transport; Sat, 13 Apr 2024 23:40:21 +0000
+ Transport; Sat, 13 Apr 2024 23:40:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SJ5PEPF000001D5.mail.protection.outlook.com (10.167.242.57) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Sat, 13 Apr 2024 23:40:21 +0000
+ 15.20.7452.22 via Frontend Transport; Sat, 13 Apr 2024 23:40:23 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sat, 13 Apr
- 2024 18:40:19 -0500
+ 2024 18:40:21 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Kenneth Feng <kenneth.feng@amd.com>, Likun Gao <Likun.Gao@amd.com>, "Alex
+CC: Likun Gao <Likun.Gao@amd.com>, Kenneth Feng <kenneth.feng@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH 2/7] drm/amd/swsmu: add smu14 driver if file
-Date: Sat, 13 Apr 2024 19:39:40 -0400
-Message-ID: <20240413233945.4002886-2-alexander.deucher@amd.com>
+Subject: [PATCH 5/7] drm/amd/swsmu: add smu v14_0_2 support
+Date: Sat, 13 Apr 2024 19:39:43 -0400
+Message-ID: <20240413233945.4002886-5-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240413233945.4002886-1-alexander.deucher@amd.com>
 References: <20240413233945.4002886-1-alexander.deucher@amd.com>
@@ -73,26 +73,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|DM6PR12MB4140:EE_
-X-MS-Office365-Filtering-Correlation-Id: a804c965-1a3e-41eb-87e9-08dc5c13156e
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|SN7PR12MB8792:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2fb660de-15d5-499e-3c17-08dc5c1316c8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RkCN33OCTwpXsRMbrndRgDI96x+jr8uFhu7bT5DWwQk/gtn9a5/yFDcQ+w92LVvb6yXmoRv1mMiOCj5hQAWRIw7iTc6l5Jf3INvo64bk8SIBTtKMFkKf7fhhGU7W2HnM0hRz3a62nONQDy9zRf+7rgjmIFdzeQnXZd8wr4IGZgSQEq4sSvHZ2H+YNozVajAfnQHSuCQMxKIkBJhKO09sEyOqCkb+PI555tJAryj0df7f0IFILSe4YKEYZZ73hrK/OT9ZswlioYkP8OrCimzwl0vWEnA1YhgCmSdS7frcPZmEL2wILbzxOA+jJfpYfBh6r6X+GKtJD7CheASXgutI/xmrEkxKuuPQPlVM+rXNcfo+l3xu2d3bJPPd0D5b2dB0sFqdQQpa117sd1Ky/0nkGSm84iN8xKCb14kQDrglbn3T+5aRWNBudLZkC7kpGuMGERXKzXUd+N/BkHL0inbpGAzy3jwF23yeYeD9WFy4fz+cvWBMC1T0ZsjfpO8dEgYn0IpGXoedVH/uGr+CcDMPenpv8g+6Ip/b3lU13KxHixBvnTtxZmlGa0kM1ejKAe9GtwPEXrUDWYDHFW6shTWEVZAfrTnHeMdn02YtUvier3hMCH8xAr1dDmptf9Zd5I8TcKM4EHV1h3grIhubCPftLYodqg09lgHTjBLJ82WfdpGVIXcxV6NZl8+cwsuXTM9EeB+I9RWHUzwRJcC5G5zHCnvlb7kyzyZ9O//fNtrebQtAitfOJqwFF7tc0cg8DEyD
+X-Microsoft-Antispam-Message-Info: iGWW+q7Yv2pEkV8w8FRSIPytcBIHLTo1W9dWOC31h3G0/jz+uWmgju8AManXV+1zIBIJnRiQANw/xezYK2fBlaqE8wcVYoM8ISGz4N7x/YqXETIkAI//i24lEnNnyKe2CvRY1xSRdkooQHW8RMo7NhFFx5u6iEdSmdoy+W4wiwj4hUZH47aoYgD85pPsxm67Ec9evtfqzNF21xHrwEGny+R4lnduryKEiEIud6AbvVkFu8W8oI44nFbL4yvxTciCY3i9rFanR0XrHEl1lyoj0IRL/4RMLMT/6pYYwxyvrV8pHcxr1i2g8fbFIe8nk/TERFEE0RfUf9aMhh9xgcQtsi24FiEqPV5l8N6tvrKNymj3YRPv5sE0xbyGMyMDKaoEieq3oJJt1tImVvkSihC1pCTV+BuUAWPDfR6Om8nqJSfTa3NBVjvaH19aBEQndusSI81zysdmNh5I5m7jNLfeGfPUzKdSj/ZTl15pmXGvLZJ7umw7XbL5D6zdkCMOJuDAHYK0rA1ZmZRr7sVQHXywW6gQypnLAaOq6jmFZbl7xEjfD1mowQTOqFiY/+ZTaDDeupTEG1KDrPNciZiFjBIFhDgTGI+gRdWMTmNYndYhXplbHIPWp4DGFFJh77t4KsexvFMUNCdnLXjNjwkBdfOoV1fb+eaHNe0yXrm4iunrM0ZFEnXwwc8yLo2tgvi7dlrL6dYP5ehC6lDBdOlF2plufhqynoUYbUrMtefv6q4aRI4Dzk3P1ZmlRSXF8ni2DiEE
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(82310400014)(36860700004); DIR:OUT;
+ SFS:(13230031)(1800799015)(376005)(36860700004)(82310400014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2024 23:40:21.2373 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a804c965-1a3e-41eb-87e9-08dc5c13156e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2024 23:40:23.4873 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2fb660de-15d5-499e-3c17-08dc5c1316c8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D5.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4140
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8792
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,28 +107,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Kenneth Feng <kenneth.feng@amd.com>
+From: Likun Gao <Likun.Gao@amd.com>
 
-Add initial smu14 driver if file
+Add initial support for smu v14_0_2.
 
-v2: squash in updates (Alex)
-v3: squash in updates (Alex)
-v4: squash in updates (Alex)
+v2: fix warnings (Alex)
+v3: squash in various fixes (Alex)
+v4: squash in various fixes (Alex)
+v5: remove hardcoded pptable id (Alex)
+v6: update fw version (Alex)
+v7: squash in more updates (Alex)
+v8: rebase, squash in pptable override updates,
+    combo table updates, SW CTF support (Alex)
 
 Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Likun Gao <Likun.Gao@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h | 1836 +++++++++++++++++
- 1 file changed, 1836 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h  |    2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu14/Makefile   |    2 +-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c    |   40 +-
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 1796 +++++++++++++++++
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.h  |   28 +
+ 5 files changed, 1864 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+ create mode 100644 drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.h
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
+index be5b24d3dabdb..1fc4557e6fb44 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
+@@ -28,7 +28,7 @@
+ #define SMU14_DRIVER_IF_VERSION_INV 0xFFFFFFFF
+ #define SMU14_DRIVER_IF_VERSION_SMU_V14_0_0 0x7
+ #define SMU14_DRIVER_IF_VERSION_SMU_V14_0_1 0x6
+-#define SMU14_DRIVER_IF_VERSION_SMU_V14_0_2 0x1
++#define SMU14_DRIVER_IF_VERSION_SMU_V14_0_2 0x25
+ 
+ #define FEATURE_MASK(feature) (1ULL << feature)
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/Makefile b/drivers/gpu/drm/amd/pm/swsmu/smu14/Makefile
+index ddbac5c655f76..4593e29e8ff80 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/Makefile
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/Makefile
+@@ -23,7 +23,7 @@
+ # Makefile for the 'smu manager' sub-component of powerplay.
+ # It provides the smu management services for the driver.
+ 
+-SMU14_MGR = smu_v14_0.o smu_v14_0_0_ppt.o
++SMU14_MGR = smu_v14_0.o smu_v14_0_0_ppt.o smu_v14_0_2_ppt.o
+ 
+ AMD_SWSMU_SMU14MGR = $(addprefix $(AMD_SWSMU_PATH)/smu14/,$(SMU14_MGR))
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+index 33fc0331fac2d..3bc9662fbd283 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+@@ -172,6 +172,10 @@ int smu_v14_0_init_pptable_microcode(struct smu_context *smu)
+ 	if (!adev->scpm_enabled)
+ 		return 0;
+ 
++	if ((amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 2)) ||
++	    (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 3)))
++		return 0;
++
+ 	/* override pptable_id from driver parameter */
+ 	if (amdgpu_smu_pptable_id >= 0) {
+ 		pptable_id = amdgpu_smu_pptable_id;
+@@ -245,6 +249,7 @@ int smu_v14_0_check_fw_version(struct smu_context *smu)
+ 		smu->smc_driver_if_version = SMU14_DRIVER_IF_VERSION_SMU_V14_0_1;
+ 		break;
+ 	case IP_VERSION(14, 0, 2):
++	case IP_VERSION(14, 0, 3):
+ 		smu->smc_driver_if_version = SMU14_DRIVER_IF_VERSION_SMU_V14_0_2;
+ 		break;
+ 	default:
+@@ -895,11 +900,32 @@ static int smu_v14_0_set_irq_state(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
++#define THM_11_0__SRCID__THM_DIG_THERM_L2H		0		/* ASIC_TEMP > CG_THERMAL_INT.DIG_THERM_INTH  */
++#define THM_11_0__SRCID__THM_DIG_THERM_H2L		1		/* ASIC_TEMP < CG_THERMAL_INT.DIG_THERM_INTL  */
++
+ static int smu_v14_0_irq_process(struct amdgpu_device *adev,
+ 				 struct amdgpu_irq_src *source,
+ 				 struct amdgpu_iv_entry *entry)
+ {
+-	// TODO
++	struct smu_context *smu = adev->powerplay.pp_handle;
++	uint32_t client_id = entry->client_id;
++	uint32_t src_id = entry->src_id;
++
++	if (client_id == SOC15_IH_CLIENTID_THM) {
++		switch (src_id) {
++		case THM_11_0__SRCID__THM_DIG_THERM_L2H:
++			schedule_delayed_work(&smu->swctf_delayed_work,
++					      msecs_to_jiffies(AMDGPU_SWCTF_EXTRA_DELAY));
++			break;
++		case THM_11_0__SRCID__THM_DIG_THERM_H2L:
++			dev_emerg(adev->dev, "ERROR: GPU under temperature range detected\n");
++			break;
++		default:
++			dev_emerg(adev->dev, "ERROR: GPU under temperature range unknown src id (%d)\n",
++				  src_id);
++			break;
++		}
++	}
+ 
+ 	return 0;
+ }
+@@ -921,7 +947,17 @@ int smu_v14_0_register_irq_handler(struct smu_context *smu)
+ 	irq_src->num_types = 1;
+ 	irq_src->funcs = &smu_v14_0_irq_funcs;
+ 
+-	// TODO: THM related
++	ret = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_THM,
++				THM_11_0__SRCID__THM_DIG_THERM_L2H,
++				irq_src);
++	if (ret)
++		return ret;
++
++	ret = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_THM,
++				THM_11_0__SRCID__THM_DIG_THERM_H2L,
++				irq_src);
++	if (ret)
++		return ret;
+ 
+ 	ret = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP1,
+ 				SMU_IH_INTERRUPT_ID_TO_DRIVER,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
 new file mode 100644
-index 0000000000000..97a29b80fb133
+index 0000000000000..706265220292a
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h
-@@ -0,0 +1,1836 @@
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -0,0 +1,1796 @@
 +/*
 + * Copyright 2023 Advanced Micro Devices, Inc.
 + *
@@ -152,1817 +265,1811 @@ index 0000000000000..97a29b80fb133
 + *
 + */
 +
-+#ifndef SMU14_DRIVER_IF_V14_0_H
-+#define SMU14_DRIVER_IF_V14_0_H
-+
-+//Increment this version if SkuTable_t or BoardTable_t change
-+#define PPTABLE_VERSION 0x18
-+
-+#define NUM_GFXCLK_DPM_LEVELS    16
-+#define NUM_SOCCLK_DPM_LEVELS    8
-+#define NUM_MP0CLK_DPM_LEVELS    2
-+#define NUM_DCLK_DPM_LEVELS      8
-+#define NUM_VCLK_DPM_LEVELS      8
-+#define NUM_DISPCLK_DPM_LEVELS   8
-+#define NUM_DPPCLK_DPM_LEVELS    8
-+#define NUM_DPREFCLK_DPM_LEVELS  8
-+#define NUM_DCFCLK_DPM_LEVELS    8
-+#define NUM_DTBCLK_DPM_LEVELS    8
-+#define NUM_UCLK_DPM_LEVELS      6
-+#define NUM_LINK_LEVELS          3
-+#define NUM_FCLK_DPM_LEVELS      8
-+#define NUM_OD_FAN_MAX_POINTS    6
-+
-+// Feature Control Defines
-+#define FEATURE_FW_DATA_READ_BIT              0
-+#define FEATURE_DPM_GFXCLK_BIT                1
-+#define FEATURE_DPM_GFX_POWER_OPTIMIZER_BIT   2
-+#define FEATURE_DPM_UCLK_BIT                  3
-+#define FEATURE_DPM_FCLK_BIT                  4
-+#define FEATURE_DPM_SOCCLK_BIT                5
-+#define FEATURE_DPM_LINK_BIT                  6
-+#define FEATURE_DPM_DCN_BIT                   7
-+#define FEATURE_VMEMP_SCALING_BIT             8
-+#define FEATURE_VDDIO_MEM_SCALING_BIT         9
-+#define FEATURE_DS_GFXCLK_BIT                 10
-+#define FEATURE_DS_SOCCLK_BIT                 11
-+#define FEATURE_DS_FCLK_BIT                   12
-+#define FEATURE_DS_LCLK_BIT                   13
-+#define FEATURE_DS_DCFCLK_BIT                 14
-+#define FEATURE_DS_UCLK_BIT                   15
-+#define FEATURE_GFX_ULV_BIT                   16
-+#define FEATURE_FW_DSTATE_BIT                 17
-+#define FEATURE_GFXOFF_BIT                    18
-+#define FEATURE_BACO_BIT                      19
-+#define FEATURE_MM_DPM_BIT                    20
-+#define FEATURE_SOC_MPCLK_DS_BIT              21
-+#define FEATURE_BACO_MPCLK_DS_BIT             22
-+#define FEATURE_THROTTLERS_BIT                23
-+#define FEATURE_SMARTSHIFT_BIT                24
-+#define FEATURE_GTHR_BIT                      25
-+#define FEATURE_ACDC_BIT                      26
-+#define FEATURE_VR0HOT_BIT                    27
-+#define FEATURE_FW_CTF_BIT                    28
-+#define FEATURE_FAN_CONTROL_BIT               29
-+#define FEATURE_GFX_DCS_BIT                   30
-+#define FEATURE_GFX_READ_MARGIN_BIT           31
-+#define FEATURE_LED_DISPLAY_BIT               32
-+#define FEATURE_GFXCLK_SPREAD_SPECTRUM_BIT    33
-+#define FEATURE_OUT_OF_BAND_MONITOR_BIT       34
-+#define FEATURE_OPTIMIZED_VMIN_BIT            35
-+#define FEATURE_GFX_IMU_BIT                   36
-+#define FEATURE_BOOT_TIME_CAL_BIT             37
-+#define FEATURE_GFX_PCC_DFLL_BIT              38
-+#define FEATURE_SOC_CG_BIT                    39
-+#define FEATURE_DF_CSTATE_BIT                 40
-+#define FEATURE_GFX_EDC_BIT                   41
-+#define FEATURE_BOOT_POWER_OPT_BIT            42
-+#define FEATURE_CLOCK_POWER_DOWN_BYPASS_BIT   43
-+#define FEATURE_DS_VCN_BIT                    44
-+#define FEATURE_BACO_CG_BIT                   45
-+#define FEATURE_MEM_TEMP_READ_BIT             46
-+#define FEATURE_ATHUB_MMHUB_PG_BIT            47
-+#define FEATURE_SOC_PCC_BIT                   48
-+#define FEATURE_EDC_PWRBRK_BIT                49
-+#define FEATURE_SOC_EDC_XVMIN_BIT             50
-+#define FEATURE_GFX_PSM_DIDT_BIT              51
-+#define FEATURE_APT_ALL_ENABLE_BIT            52
-+#define FEATURE_APT_SQ_THROTTLE_BIT           53
-+#define FEATURE_APT_PF_DCS_BIT                54
-+#define FEATURE_GFX_EDC_XVMIN_BIT             55
-+#define FEATURE_GFX_DIDT_XVMIN_BIT            56
-+#define FEATURE_FAN_ABNORMAL_BIT              57
-+#define FEATURE_CLOCK_STRETCH_COMPENSATOR     58
-+#define FEATURE_SPARE_59_BIT                  59
-+#define FEATURE_SPARE_60_BIT                  60
-+#define FEATURE_SPARE_61_BIT                  61
-+#define FEATURE_SPARE_62_BIT                  62
-+#define FEATURE_SPARE_63_BIT                  63
-+#define NUM_FEATURES                          64
-+
-+#define ALLOWED_FEATURE_CTRL_DEFAULT 0xFFFFFFFFFFFFFFFFULL
-+#define ALLOWED_FEATURE_CTRL_SCPM        (1 << FEATURE_DPM_GFXCLK_BIT) | \
-+                                         (1 << FEATURE_DPM_GFX_POWER_OPTIMIZER_BIT) | \
-+                                         (1 << FEATURE_DPM_UCLK_BIT) | \
-+                                         (1 << FEATURE_DPM_FCLK_BIT) | \
-+                                         (1 << FEATURE_DPM_SOCCLK_BIT) | \
-+                                         (1 << FEATURE_DPM_LINK_BIT) | \
-+                                         (1 << FEATURE_DPM_DCN_BIT) | \
-+                                         (1 << FEATURE_DS_GFXCLK_BIT) | \
-+                                         (1 << FEATURE_DS_SOCCLK_BIT) | \
-+                                         (1 << FEATURE_DS_FCLK_BIT) | \
-+                                         (1 << FEATURE_DS_LCLK_BIT) | \
-+                                         (1 << FEATURE_DS_DCFCLK_BIT) | \
-+                                         (1 << FEATURE_DS_UCLK_BIT) | \
-+                                         (1ULL << FEATURE_DS_VCN_BIT)
-+
-+
-+//For use with feature control messages
-+typedef enum {
-+  FEATURE_PWR_ALL,
-+  FEATURE_PWR_S5,
-+  FEATURE_PWR_BACO,
-+  FEATURE_PWR_SOC,
-+  FEATURE_PWR_GFX,
-+  FEATURE_PWR_DOMAIN_COUNT,
-+} FEATURE_PWR_DOMAIN_e;
-+
-+//For use with feature control + BTC save restore
-+typedef enum {
-+  FEATURE_BTC_NOP,
-+  FEATURE_BTC_SAVE,
-+  FEATURE_BTC_RESTORE,
-+  FEATURE_BTC_COUNT,
-+} FEATURE_BTC_e;
-+
-+// Debug Overrides Bitmask
-+#define DEBUG_OVERRIDE_DISABLE_VOLT_LINK_VCN_FCLK      0x00000001
-+#define DEBUG_OVERRIDE_DISABLE_VOLT_LINK_DCN_FCLK      0x00000002
-+#define DEBUG_OVERRIDE_DISABLE_VOLT_LINK_MP0_FCLK      0x00000004
-+#define DEBUG_OVERRIDE_DISABLE_VOLT_LINK_VCN_DCFCLK    0x00000008
-+#define DEBUG_OVERRIDE_DISABLE_FAST_FCLK_TIMER         0x00000010
-+#define DEBUG_OVERRIDE_DISABLE_VCN_PG                  0x00000020
-+#define DEBUG_OVERRIDE_DISABLE_FMAX_VMAX               0x00000040
-+#define DEBUG_OVERRIDE_DISABLE_IMU_FW_CHECKS           0x00000080
-+#define DEBUG_OVERRIDE_DISABLE_D0i2_REENTRY_HSR_TIMER_CHECK 0x00000100
-+#define DEBUG_OVERRIDE_DISABLE_DFLL                    0x00000200
-+#define DEBUG_OVERRIDE_ENABLE_RLC_VF_BRINGUP_MODE      0x00000400
-+#define DEBUG_OVERRIDE_DFLL_MASTER_MODE                0x00000800
-+#define DEBUG_OVERRIDE_ENABLE_PROFILING_MODE           0x00001000
-+#define DEBUG_OVERRIDE_ENABLE_SOC_VF_BRINGUP_MODE      0x00002000
-+#define DEBUG_OVERRIDE_ENABLE_PER_WGP_RESIENCY         0x00004000
-+#define DEBUG_OVERRIDE_DISABLE_MEMORY_VOLTAGE_SCALING  0x00008000
-+
-+// VR Mapping Bit Defines
-+#define VR_MAPPING_VR_SELECT_MASK  0x01
-+#define VR_MAPPING_VR_SELECT_SHIFT 0x00
-+
-+#define VR_MAPPING_PLANE_SELECT_MASK  0x02
-+#define VR_MAPPING_PLANE_SELECT_SHIFT 0x01
-+
-+// PSI Bit Defines
-+#define PSI_SEL_VR0_PLANE0_PSI0  0x01
-+#define PSI_SEL_VR0_PLANE0_PSI1  0x02
-+#define PSI_SEL_VR0_PLANE1_PSI0  0x04
-+#define PSI_SEL_VR0_PLANE1_PSI1  0x08
-+#define PSI_SEL_VR1_PLANE0_PSI0  0x10
-+#define PSI_SEL_VR1_PLANE0_PSI1  0x20
-+#define PSI_SEL_VR1_PLANE1_PSI0  0x40
-+#define PSI_SEL_VR1_PLANE1_PSI1  0x80
-+
-+typedef enum {
-+  SVI_PSI_0, // Full phase count (default)
-+  SVI_PSI_1, // Phase count 1st level
-+  SVI_PSI_2, // Phase count 2nd level
-+  SVI_PSI_3, // Single phase operation + active diode emulation
-+  SVI_PSI_4, // Single phase operation + passive diode emulation *optional*
-+  SVI_PSI_5, // Reserved
-+  SVI_PSI_6, // Power down to 0V (voltage regulation disabled)
-+  SVI_PSI_7, // Automated phase shedding and diode emulation
-+} SVI_PSI_e;
-+
-+// Throttler Control/Status Bits
-+#define THROTTLER_TEMP_EDGE_BIT        0
-+#define THROTTLER_TEMP_HOTSPOT_BIT     1
-+#define THROTTLER_TEMP_HOTSPOT_GFX_BIT 2
-+#define THROTTLER_TEMP_HOTSPOT_SOC_BIT 3
-+#define THROTTLER_TEMP_MEM_BIT         4
-+#define THROTTLER_TEMP_VR_GFX_BIT      5
-+#define THROTTLER_TEMP_VR_SOC_BIT      6
-+#define THROTTLER_TEMP_VR_MEM0_BIT     7
-+#define THROTTLER_TEMP_VR_MEM1_BIT     8
-+#define THROTTLER_TEMP_LIQUID0_BIT     9
-+#define THROTTLER_TEMP_LIQUID1_BIT     10
-+#define THROTTLER_TEMP_PLX_BIT         11
-+#define THROTTLER_TDC_GFX_BIT          12
-+#define THROTTLER_TDC_SOC_BIT          13
-+#define THROTTLER_PPT0_BIT             14
-+#define THROTTLER_PPT1_BIT             15
-+#define THROTTLER_PPT2_BIT             16
-+#define THROTTLER_PPT3_BIT             17
-+#define THROTTLER_FIT_BIT              18
-+#define THROTTLER_GFX_APCC_PLUS_BIT    19
-+#define THROTTLER_GFX_DVO_BIT          20
-+#define THROTTLER_COUNT                21
-+
-+// FW DState Features Control Bits
-+#define FW_DSTATE_SOC_ULV_BIT               0
-+#define FW_DSTATE_G6_HSR_BIT                1
-+#define FW_DSTATE_G6_PHY_VMEMP_OFF_BIT      2
-+#define FW_DSTATE_SMN_DS_BIT                3
-+#define FW_DSTATE_MP1_WHISPER_MODE_BIT      4
-+#define FW_DSTATE_SOC_LIV_MIN_BIT           5
-+#define FW_DSTATE_SOC_PLL_PWRDN_BIT         6
-+#define FW_DSTATE_MEM_PLL_PWRDN_BIT         7
-+#define FW_DSTATE_MALL_ALLOC_BIT            8
-+#define FW_DSTATE_MEM_PSI_BIT               9
-+#define FW_DSTATE_HSR_NON_STROBE_BIT        10
-+#define FW_DSTATE_MP0_ENTER_WFI_BIT         11
-+#define FW_DSTATE_MALL_FLUSH_BIT            12
-+#define FW_DSTATE_SOC_PSI_BIT               13
-+#define FW_DSTATE_MMHUB_INTERLOCK_BIT       14
-+#define FW_DSTATE_D0i3_2_QUIET_FW_BIT       15
-+#define FW_DSTATE_CLDO_PRG_BIT              16
-+#define FW_DSTATE_DF_PLL_PWRDN_BIT          17
-+
-+//LED Display Mask & Control Bits
-+#define LED_DISPLAY_GFX_DPM_BIT            0
-+#define LED_DISPLAY_PCIE_BIT               1
-+#define LED_DISPLAY_ERROR_BIT              2
-+
-+
-+#define MEM_TEMP_READ_OUT_OF_BAND_BIT          0
-+#define MEM_TEMP_READ_IN_BAND_REFRESH_BIT      1
-+#define MEM_TEMP_READ_IN_BAND_DUMMY_PSTATE_BIT 2
-+
-+typedef enum {
-+  SMARTSHIFT_VERSION_1,
-+  SMARTSHIFT_VERSION_2,
-+  SMARTSHIFT_VERSION_3,
-+} SMARTSHIFT_VERSION_e;
-+
-+typedef enum {
-+  FOPT_CALC_AC_CALC_DC,
-+  FOPT_PPTABLE_AC_CALC_DC,
-+  FOPT_CALC_AC_PPTABLE_DC,
-+  FOPT_PPTABLE_AC_PPTABLE_DC,
-+} FOPT_CALC_e;
-+
-+typedef enum {
-+  DRAM_BIT_WIDTH_DISABLED = 0,
-+  DRAM_BIT_WIDTH_X_8 = 8,
-+  DRAM_BIT_WIDTH_X_16 = 16,
-+  DRAM_BIT_WIDTH_X_32 = 32,
-+  DRAM_BIT_WIDTH_X_64 = 64,
-+  DRAM_BIT_WIDTH_X_128 = 128,
-+  DRAM_BIT_WIDTH_COUNT,
-+} DRAM_BIT_WIDTH_TYPE_e;
-+
-+//I2C Interface
-+#define NUM_I2C_CONTROLLERS                8
-+
-+#define I2C_CONTROLLER_ENABLED             1
-+#define I2C_CONTROLLER_DISABLED            0
-+
-+#define MAX_SW_I2C_COMMANDS                24
-+
-+typedef enum {
-+  I2C_CONTROLLER_PORT_0 = 0,  //CKSVII2C0
-+  I2C_CONTROLLER_PORT_1 = 1,  //CKSVII2C1
-+  I2C_CONTROLLER_PORT_COUNT,
-+} I2cControllerPort_e;
-+
-+typedef enum {
-+  I2C_CONTROLLER_NAME_VR_GFX = 0,
-+  I2C_CONTROLLER_NAME_VR_SOC,
-+  I2C_CONTROLLER_NAME_VR_VMEMP,
-+  I2C_CONTROLLER_NAME_VR_VDDIO,
-+  I2C_CONTROLLER_NAME_LIQUID0,
-+  I2C_CONTROLLER_NAME_LIQUID1,
-+  I2C_CONTROLLER_NAME_PLX,
-+  I2C_CONTROLLER_NAME_FAN_INTAKE,
-+  I2C_CONTROLLER_NAME_COUNT,
-+} I2cControllerName_e;
-+
-+typedef enum {
-+  I2C_CONTROLLER_THROTTLER_TYPE_NONE = 0,
-+  I2C_CONTROLLER_THROTTLER_VR_GFX,
-+  I2C_CONTROLLER_THROTTLER_VR_SOC,
-+  I2C_CONTROLLER_THROTTLER_VR_VMEMP,
-+  I2C_CONTROLLER_THROTTLER_VR_VDDIO,
-+  I2C_CONTROLLER_THROTTLER_LIQUID0,
-+  I2C_CONTROLLER_THROTTLER_LIQUID1,
-+  I2C_CONTROLLER_THROTTLER_PLX,
-+  I2C_CONTROLLER_THROTTLER_FAN_INTAKE,
-+  I2C_CONTROLLER_THROTTLER_INA3221,
-+  I2C_CONTROLLER_THROTTLER_COUNT,
-+} I2cControllerThrottler_e;
-+
-+typedef enum {
-+  I2C_CONTROLLER_PROTOCOL_VR_XPDE132G5,
-+  I2C_CONTROLLER_PROTOCOL_VR_IR35217,
-+  I2C_CONTROLLER_PROTOCOL_TMP_MAX31875,
-+  I2C_CONTROLLER_PROTOCOL_INA3221,
-+  I2C_CONTROLLER_PROTOCOL_TMP_MAX6604,
-+  I2C_CONTROLLER_PROTOCOL_COUNT,
-+} I2cControllerProtocol_e;
-+
-+typedef struct {
-+  uint8_t   Enabled;
-+  uint8_t   Speed;
-+  uint8_t   SlaveAddress;
-+  uint8_t   ControllerPort;
-+  uint8_t   ControllerName;
-+  uint8_t   ThermalThrotter;
-+  uint8_t   I2cProtocol;
-+  uint8_t   PaddingConfig;
-+} I2cControllerConfig_t;
-+
-+typedef enum {
-+  I2C_PORT_SVD_SCL = 0,
-+  I2C_PORT_GPIO,
-+} I2cPort_e;
-+
-+typedef enum {
-+  I2C_SPEED_FAST_50K = 0,      //50  Kbits/s
-+  I2C_SPEED_FAST_100K,         //100 Kbits/s
-+  I2C_SPEED_FAST_400K,         //400 Kbits/s
-+  I2C_SPEED_FAST_PLUS_1M,      //1   Mbits/s (in fast mode)
-+  I2C_SPEED_HIGH_1M,           //1   Mbits/s (in high speed mode)
-+  I2C_SPEED_HIGH_2M,           //2.3 Mbits/s
-+  I2C_SPEED_COUNT,
-+} I2cSpeed_e;
-+
-+typedef enum {
-+  I2C_CMD_READ = 0,
-+  I2C_CMD_WRITE,
-+  I2C_CMD_COUNT,
-+} I2cCmdType_e;
-+
-+#define CMDCONFIG_STOP_BIT             0
-+#define CMDCONFIG_RESTART_BIT          1
-+#define CMDCONFIG_READWRITE_BIT        2 //bit should be 0 for read, 1 for write
-+
-+#define CMDCONFIG_STOP_MASK           (1 << CMDCONFIG_STOP_BIT)
-+#define CMDCONFIG_RESTART_MASK        (1 << CMDCONFIG_RESTART_BIT)
-+#define CMDCONFIG_READWRITE_MASK      (1 << CMDCONFIG_READWRITE_BIT)
-+
-+typedef struct {
-+  uint8_t ReadWriteData;  //Return data for read. Data to send for write
-+  uint8_t CmdConfig; //Includes whether associated command should have a stop or restart command, and is a read or write
-+} SwI2cCmd_t; //SW I2C Command Table
-+
-+typedef struct {
-+  uint8_t     I2CcontrollerPort; //CKSVII2C0(0) or //CKSVII2C1(1)
-+  uint8_t     I2CSpeed;          //Use I2cSpeed_e to indicate speed to select
-+  uint8_t     SlaveAddress;      //Slave address of device
-+  uint8_t     NumCmds;           //Number of commands
-+
-+  SwI2cCmd_t  SwI2cCmds[MAX_SW_I2C_COMMANDS];
-+} SwI2cRequest_t; // SW I2C Request Table
-+
-+typedef struct {
-+  SwI2cRequest_t SwI2cRequest;
-+
-+  uint32_t Spare[8];
-+  uint32_t MmHubPadding[8]; // SMU internal use
-+} SwI2cRequestExternal_t;
-+
-+typedef struct {
-+  uint64_t mca_umc_status;
-+  uint64_t mca_umc_addr;
-+
-+  uint16_t ce_count_lo_chip;
-+  uint16_t ce_count_hi_chip;
-+
-+  uint32_t eccPadding;
-+} EccInfo_t;
-+
-+typedef struct {
-+  EccInfo_t  EccInfo[24];
-+} EccInfoTable_t;
-+
-+//D3HOT sequences
-+typedef enum {
-+  BACO_SEQUENCE,
-+  MSR_SEQUENCE,
-+  BAMACO_SEQUENCE,
-+  ULPS_SEQUENCE,
-+  D3HOT_SEQUENCE_COUNT,
-+} D3HOTSequence_e;
-+
-+//This is aligned with RSMU PGFSM Register Mapping
-+typedef enum {
-+  PG_DYNAMIC_MODE = 0,
-+  PG_STATIC_MODE,
-+} PowerGatingMode_e;
-+
-+//This is aligned with RSMU PGFSM Register Mapping
-+typedef enum {
-+  PG_POWER_DOWN = 0,
-+  PG_POWER_UP,
-+} PowerGatingSettings_e;
-+
-+typedef struct {
-+  uint32_t a;  // store in IEEE float format in this variable
-+  uint32_t b;  // store in IEEE float format in this variable
-+  uint32_t c;  // store in IEEE float format in this variable
-+} QuadraticInt_t;
-+
-+typedef struct {
-+  uint32_t m;  // store in IEEE float format in this variable
-+  uint32_t b;  // store in IEEE float format in this variable
-+} LinearInt_t;
-+
-+typedef struct {
-+  uint32_t a;  // store in IEEE float format in this variable
-+  uint32_t b;  // store in IEEE float format in this variable
-+  uint32_t c;  // store in IEEE float format in this variable
-+} DroopInt_t;
-+
-+typedef enum {
-+  DCS_ARCH_DISABLED,
-+  DCS_ARCH_FADCS,
-+  DCS_ARCH_ASYNC,
-+} DCS_ARCH_e;
-+
-+//Only Clks that have DPM descriptors are listed here
-+typedef enum {
-+  PPCLK_GFXCLK = 0,
-+  PPCLK_SOCCLK,
-+  PPCLK_UCLK,
-+  PPCLK_FCLK,
-+  PPCLK_DCLK_0,
-+  PPCLK_VCLK_0,
-+  PPCLK_DISPCLK,
-+  PPCLK_DPPCLK,
-+  PPCLK_DPREFCLK,
-+  PPCLK_DCFCLK,
-+  PPCLK_DTBCLK,
-+  PPCLK_COUNT,
-+} PPCLK_e;
-+
-+typedef enum {
-+  VOLTAGE_MODE_PPTABLE = 0,
-+  VOLTAGE_MODE_FUSES,
-+  VOLTAGE_MODE_COUNT,
-+} VOLTAGE_MODE_e;
-+
-+typedef enum {
-+  AVFS_VOLTAGE_GFX = 0,
-+  AVFS_VOLTAGE_SOC,
-+  AVFS_VOLTAGE_COUNT,
-+} AVFS_VOLTAGE_TYPE_e;
-+
-+typedef enum {
-+  AVFS_TEMP_COLD = 0,
-+  AVFS_TEMP_HOT,
-+  AVFS_TEMP_COUNT,
-+} AVFS_TEMP_e;
-+
-+typedef enum {
-+  AVFS_D_G,
-+  AVFS_D_COUNT,
-+} AVFS_D_e;
-+
-+
-+typedef enum {
-+  UCLK_DIV_BY_1 = 0,
-+  UCLK_DIV_BY_2,
-+  UCLK_DIV_BY_4,
-+  UCLK_DIV_BY_8,
-+} UCLK_DIV_e;
-+
-+typedef enum {
-+  GPIO_INT_POLARITY_ACTIVE_LOW = 0,
-+  GPIO_INT_POLARITY_ACTIVE_HIGH,
-+} GpioIntPolarity_e;
-+
-+typedef enum {
-+  PWR_CONFIG_TDP = 0,
-+  PWR_CONFIG_TGP,
-+  PWR_CONFIG_TCP_ESTIMATED,
-+  PWR_CONFIG_TCP_MEASURED,
-+  PWR_CONFIG_TBP_DESKTOP,
-+  PWR_CONFIG_TBP_MOBILE,
-+} PwrConfig_e;
-+
-+typedef struct {
-+  uint8_t        Padding;
-+  uint8_t        SnapToDiscrete;      // 0 - Fine grained DPM, 1 - Discrete DPM
-+  uint8_t        NumDiscreteLevels;   // Set to 2 (Fmin, Fmax) when using fine grained DPM, otherwise set to # discrete levels used
-+  uint8_t        CalculateFopt;       // Indication whether FW should calculate Fopt or use values below. Reference FOPT_CALC_e
-+  LinearInt_t    ConversionToAvfsClk; // Transfer function to AVFS Clock (GHz->GHz)
-+  uint32_t       Padding3[3];
-+  uint16_t       Padding4;
-+  uint16_t       FoptimalDc;          //Foptimal frequency in DC power mode.
-+  uint16_t       FoptimalAc;          //Foptimal frequency in AC power mode.
-+  uint16_t       Padding2;
-+} DpmDescriptor_t;
-+
-+typedef enum  {
-+  PPT_THROTTLER_PPT0,
-+  PPT_THROTTLER_PPT1,
-+  PPT_THROTTLER_PPT2,
-+  PPT_THROTTLER_PPT3,
-+  PPT_THROTTLER_COUNT
-+} PPT_THROTTLER_e;
-+
-+typedef enum  {
-+  TEMP_EDGE,
-+  TEMP_HOTSPOT,
-+  TEMP_HOTSPOT_GFX,
-+  TEMP_HOTSPOT_SOC,
-+  TEMP_MEM,
-+  TEMP_VR_GFX,
-+  TEMP_VR_SOC,
-+  TEMP_VR_MEM0,
-+  TEMP_VR_MEM1,
-+  TEMP_LIQUID0,
-+  TEMP_LIQUID1,
-+  TEMP_PLX,
-+  TEMP_COUNT,
-+} TEMP_e;
-+
-+typedef enum {
-+  TDC_THROTTLER_GFX,
-+  TDC_THROTTLER_SOC,
-+  TDC_THROTTLER_COUNT
-+} TDC_THROTTLER_e;
-+
-+typedef enum {
-+  SVI_PLANE_VDD_GFX,
-+  SVI_PLANE_VDD_SOC,
-+  SVI_PLANE_VDDCI_MEM,
-+  SVI_PLANE_VDDIO_MEM,
-+  SVI_PLANE_COUNT,
-+} SVI_PLANE_e;
-+
-+typedef enum {
-+  PMFW_VOLT_PLANE_GFX,
-+  PMFW_VOLT_PLANE_SOC,
-+  PMFW_VOLT_PLANE_COUNT
-+} PMFW_VOLT_PLANE_e;
-+
-+typedef enum {
-+  CUSTOMER_VARIANT_ROW,
-+  CUSTOMER_VARIANT_FALCON,
-+  CUSTOMER_VARIANT_COUNT,
-+} CUSTOMER_VARIANT_e;
-+
-+typedef enum {
-+  POWER_SOURCE_AC,
-+  POWER_SOURCE_DC,
-+  POWER_SOURCE_COUNT,
-+} POWER_SOURCE_e;
-+
-+typedef enum {
-+  MEM_VENDOR_PLACEHOLDER0,  // 0
-+  MEM_VENDOR_SAMSUNG,       // 1
-+  MEM_VENDOR_INFINEON,      // 2
-+  MEM_VENDOR_ELPIDA,        // 3
-+  MEM_VENDOR_ETRON,         // 4
-+  MEM_VENDOR_NANYA,         // 5
-+  MEM_VENDOR_HYNIX,         // 6
-+  MEM_VENDOR_MOSEL,         // 7
-+  MEM_VENDOR_WINBOND,       // 8
-+  MEM_VENDOR_ESMT,          // 9
-+  MEM_VENDOR_PLACEHOLDER1,  // 10
-+  MEM_VENDOR_PLACEHOLDER2,  // 11
-+  MEM_VENDOR_PLACEHOLDER3,  // 12
-+  MEM_VENDOR_PLACEHOLDER4,  // 13
-+  MEM_VENDOR_PLACEHOLDER5,  // 14
-+  MEM_VENDOR_MICRON,        // 15
-+  MEM_VENDOR_COUNT,
-+} MEM_VENDOR_e;
-+
-+typedef enum {
-+  PP_GRTAVFS_HW_CPO_CTL_ZONE0,
-+  PP_GRTAVFS_HW_CPO_CTL_ZONE1,
-+  PP_GRTAVFS_HW_CPO_CTL_ZONE2,
-+  PP_GRTAVFS_HW_CPO_CTL_ZONE3,
-+  PP_GRTAVFS_HW_CPO_CTL_ZONE4,
-+  PP_GRTAVFS_HW_CPO_EN_0_31_ZONE0,
-+  PP_GRTAVFS_HW_CPO_EN_32_63_ZONE0,
-+  PP_GRTAVFS_HW_CPO_EN_0_31_ZONE1,
-+  PP_GRTAVFS_HW_CPO_EN_32_63_ZONE1,
-+  PP_GRTAVFS_HW_CPO_EN_0_31_ZONE2,
-+  PP_GRTAVFS_HW_CPO_EN_32_63_ZONE2,
-+  PP_GRTAVFS_HW_CPO_EN_0_31_ZONE3,
-+  PP_GRTAVFS_HW_CPO_EN_32_63_ZONE3,
-+  PP_GRTAVFS_HW_CPO_EN_0_31_ZONE4,
-+  PP_GRTAVFS_HW_CPO_EN_32_63_ZONE4,
-+  PP_GRTAVFS_HW_ZONE0_VF,
-+  PP_GRTAVFS_HW_ZONE1_VF1,
-+  PP_GRTAVFS_HW_ZONE2_VF2,
-+  PP_GRTAVFS_HW_ZONE3_VF3,
-+  PP_GRTAVFS_HW_VOLTAGE_GB,
-+  PP_GRTAVFS_HW_CPOSCALINGCTRL_ZONE0,
-+  PP_GRTAVFS_HW_CPOSCALINGCTRL_ZONE1,
-+  PP_GRTAVFS_HW_CPOSCALINGCTRL_ZONE2,
-+  PP_GRTAVFS_HW_CPOSCALINGCTRL_ZONE3,
-+  PP_GRTAVFS_HW_CPOSCALINGCTRL_ZONE4,
-+  PP_GRTAVFS_HW_RESERVED_0,
-+  PP_GRTAVFS_HW_RESERVED_1,
-+  PP_GRTAVFS_HW_RESERVED_2,
-+  PP_GRTAVFS_HW_RESERVED_3,
-+  PP_GRTAVFS_HW_RESERVED_4,
-+  PP_GRTAVFS_HW_RESERVED_5,
-+  PP_GRTAVFS_HW_RESERVED_6,
-+  PP_GRTAVFS_HW_FUSE_COUNT,
-+} PP_GRTAVFS_HW_FUSE_e;
-+
-+typedef enum {
-+  PP_GRTAVFS_FW_COMMON_PPVMIN_Z1_HOT_T0,
-+  PP_GRTAVFS_FW_COMMON_PPVMIN_Z1_COLD_T0,
-+  PP_GRTAVFS_FW_COMMON_PPVMIN_Z2_HOT_T0,
-+  PP_GRTAVFS_FW_COMMON_PPVMIN_Z2_COLD_T0,
-+  PP_GRTAVFS_FW_COMMON_PPVMIN_Z3_HOT_T0,
-+  PP_GRTAVFS_FW_COMMON_PPVMIN_Z3_COLD_T0,
-+  PP_GRTAVFS_FW_COMMON_PPVMIN_Z4_HOT_T0,
-+  PP_GRTAVFS_FW_COMMON_PPVMIN_Z4_COLD_T0,
-+  PP_GRTAVFS_FW_COMMON_SRAM_RM_Z0,
-+  PP_GRTAVFS_FW_COMMON_SRAM_RM_Z1,
-+  PP_GRTAVFS_FW_COMMON_SRAM_RM_Z2,
-+  PP_GRTAVFS_FW_COMMON_SRAM_RM_Z3,
-+  PP_GRTAVFS_FW_COMMON_SRAM_RM_Z4,
-+  PP_GRTAVFS_FW_COMMON_FUSE_COUNT,
-+} PP_GRTAVFS_FW_COMMON_FUSE_e;
-+
-+typedef enum {
-+  PP_GRTAVFS_FW_SEP_FUSE_GB1_PWL_VOLTAGE_NEG_1,
-+  PP_GRTAVFS_FW_SEP_FUSE_GB1_PWL_VOLTAGE_0,
-+  PP_GRTAVFS_FW_SEP_FUSE_GB1_PWL_VOLTAGE_1,
-+  PP_GRTAVFS_FW_SEP_FUSE_GB1_PWL_VOLTAGE_2,
-+  PP_GRTAVFS_FW_SEP_FUSE_GB1_PWL_VOLTAGE_3,
-+  PP_GRTAVFS_FW_SEP_FUSE_GB1_PWL_VOLTAGE_4,
-+  PP_GRTAVFS_FW_SEP_FUSE_GB2_PWL_VOLTAGE_NEG_1,
-+  PP_GRTAVFS_FW_SEP_FUSE_GB2_PWL_VOLTAGE_0,
-+  PP_GRTAVFS_FW_SEP_FUSE_GB2_PWL_VOLTAGE_1,
-+  PP_GRTAVFS_FW_SEP_FUSE_GB2_PWL_VOLTAGE_2,
-+  PP_GRTAVFS_FW_SEP_FUSE_GB2_PWL_VOLTAGE_3,
-+  PP_GRTAVFS_FW_SEP_FUSE_GB2_PWL_VOLTAGE_4,
-+  PP_GRTAVFS_FW_SEP_FUSE_VF_NEG_1_FREQUENCY,
-+  PP_GRTAVFS_FW_SEP_FUSE_VF4_FREQUENCY,
-+  PP_GRTAVFS_FW_SEP_FUSE_FREQUENCY_TO_COUNT_SCALER_0,
-+  PP_GRTAVFS_FW_SEP_FUSE_FREQUENCY_TO_COUNT_SCALER_1,
-+  PP_GRTAVFS_FW_SEP_FUSE_FREQUENCY_TO_COUNT_SCALER_2,
-+  PP_GRTAVFS_FW_SEP_FUSE_FREQUENCY_TO_COUNT_SCALER_3,
-+  PP_GRTAVFS_FW_SEP_FUSE_FREQUENCY_TO_COUNT_SCALER_4,
-+  PP_GRTAVFS_FW_SEP_FUSE_COUNT,
-+} PP_GRTAVFS_FW_SEP_FUSE_e;
-+
-+#define PP_NUM_RTAVFS_PWL_ZONES 5
-+
-+
-+// VBIOS or PPLIB configures telemetry slope and offset. Only slope expected to be set for SVI3
-+// Slope Q1.7, Offset Q1.2
-+typedef struct {
-+  int8_t   Offset; // in Amps
-+  uint8_t  Padding;
-+  uint16_t MaxCurrent; // in Amps
-+} SviTelemetryScale_t;
-+
-+#define PP_NUM_OD_VF_CURVE_POINTS PP_NUM_RTAVFS_PWL_ZONES + 1
-+
-+#define PP_OD_FEATURE_GFX_VF_CURVE_BIT       0
-+#define PP_OD_FEATURE_GFX_VMAX_BIT           1
-+#define PP_OD_FEATURE_SOC_VMAX_BIT           2
-+#define PP_OD_FEATURE_PPT_BIT                3
-+#define PP_OD_FEATURE_FAN_CURVE_BIT          4
-+#define PP_OD_FEATURE_FAN_LEGACY_BIT         5
-+#define PP_OD_FEATURE_FULL_CTRL_BIT          6
-+#define PP_OD_FEATURE_TDC_BIT                7
-+#define PP_OD_FEATURE_GFXCLK_BIT             8
-+#define PP_OD_FEATURE_UCLK_BIT               9
-+#define PP_OD_FEATURE_FCLK_BIT               10
-+#define PP_OD_FEATURE_ZERO_FAN_BIT           11
-+#define PP_OD_FEATURE_TEMPERATURE_BIT        12
-+#define PP_OD_FEATURE_EDC_BIT                13
-+#define PP_OD_FEATURE_COUNT                  14
-+
-+typedef enum {
-+  PP_OD_POWER_FEATURE_ALWAYS_ENABLED,
-+  PP_OD_POWER_FEATURE_DISABLED_WHILE_GAMING,
-+  PP_OD_POWER_FEATURE_ALWAYS_DISABLED,
-+} PP_OD_POWER_FEATURE_e;
-+
-+typedef enum {
-+  FAN_MODE_AUTO = 0,
-+  FAN_MODE_MANUAL_LINEAR,
-+} FanMode_e;
-+
-+typedef enum {
-+  OD_NO_ERROR,
-+  OD_REQUEST_ADVANCED_NOT_SUPPORTED,
-+  OD_UNSUPPORTED_FEATURE,
-+  OD_INVALID_FEATURE_COMBO_ERROR,
-+  OD_GFXCLK_VF_CURVE_OFFSET_ERROR,
-+  OD_VDD_GFX_VMAX_ERROR,
-+  OD_VDD_SOC_VMAX_ERROR,
-+  OD_PPT_ERROR,
-+  OD_FAN_MIN_PWM_ERROR,
-+  OD_FAN_ACOUSTIC_TARGET_ERROR,
-+  OD_FAN_ACOUSTIC_LIMIT_ERROR,
-+  OD_FAN_TARGET_TEMP_ERROR,
-+  OD_FAN_ZERO_RPM_STOP_TEMP_ERROR,
-+  OD_FAN_CURVE_PWM_ERROR,
-+  OD_FAN_CURVE_TEMP_ERROR,
-+  OD_FULL_CTRL_GFXCLK_ERROR,
-+  OD_FULL_CTRL_UCLK_ERROR,
-+  OD_FULL_CTRL_FCLK_ERROR,
-+  OD_FULL_CTRL_VDD_GFX_ERROR,
-+  OD_FULL_CTRL_VDD_SOC_ERROR,
-+  OD_TDC_ERROR,
-+  OD_GFXCLK_ERROR,
-+  OD_UCLK_ERROR,
-+  OD_FCLK_ERROR,
-+  OD_OP_TEMP_ERROR,
-+  OD_OP_GFX_EDC_ERROR,
-+  OD_OP_GFX_PCC_ERROR,
-+  OD_POWER_FEATURE_CTRL_ERROR,
-+} OD_FAIL_e;
-+
-+typedef struct {
-+  uint32_t               FeatureCtrlMask;
-+
-+  //Voltage control
-+  int16_t                VoltageOffsetPerZoneBoundary[PP_NUM_OD_VF_CURVE_POINTS];
-+
-+  uint16_t               VddGfxVmax;         // in mV
-+  uint16_t               VddSocVmax;
-+
-+  uint8_t                IdlePwrSavingFeaturesCtrl;
-+  uint8_t                RuntimePwrSavingFeaturesCtrl;
-+  uint16_t               Padding;
-+
-+  //Frequency changes
-+  int16_t                GfxclkFmin;           // MHz
-+  int16_t                GfxclkFmax;           // MHz
-+  uint16_t               UclkFmin;             // MHz
-+  uint16_t               UclkFmax;             // MHz
-+  uint16_t               FclkFmin;
-+  uint16_t               FclkFmax;
-+
-+  //PPT
-+  int16_t                Ppt;         // %
-+  int16_t                Tdc;
-+
-+  //Fan control
-+  uint8_t                FanLinearPwmPoints[NUM_OD_FAN_MAX_POINTS];
-+  uint8_t                FanLinearTempPoints[NUM_OD_FAN_MAX_POINTS];
-+  uint16_t               FanMinimumPwm;
-+  uint16_t               AcousticTargetRpmThreshold;
-+  uint16_t               AcousticLimitRpmThreshold;
-+  uint16_t               FanTargetTemperature; // Degree Celcius
-+  uint8_t                FanZeroRpmEnable;
-+  uint8_t                FanZeroRpmStopTemp;
-+  uint8_t                FanMode;
-+  uint8_t                MaxOpTemp;
-+
-+  uint8_t                AdvancedOdModeEnabled;
-+  uint8_t                Padding1[3];
-+
-+  uint16_t               GfxVoltageFullCtrlMode;
-+  uint16_t               SocVoltageFullCtrlMode;
-+  uint16_t               GfxclkFullCtrlMode;
-+  uint16_t               UclkFullCtrlMode;
-+  uint16_t               FclkFullCtrlMode;
-+  uint16_t               Padding2;
-+
-+  int16_t                GfxEdc;
-+  int16_t                GfxPccLimitControl;
-+
-+  uint32_t               Spare[10];
-+  uint32_t               MmHubPadding[8]; // SMU internal use. Adding here instead of external as a workaround
-+} OverDriveTable_t;
-+
-+typedef struct {
-+  OverDriveTable_t OverDriveTable;
-+
-+} OverDriveTableExternal_t;
-+
-+typedef struct {
-+  uint32_t               FeatureCtrlMask;
-+
-+  //Gfx Vf Curve
-+  int16_t                VoltageOffsetPerZoneBoundary[PP_NUM_OD_VF_CURVE_POINTS];
-+  //gfx Vmax
-+  uint16_t               VddGfxVmax;         // in mV
-+  //soc Vmax
-+  uint16_t               VddSocVmax;
-+
-+  //gfxclk
-+  int16_t                GfxclkFmin;           // MHz
-+  int16_t                GfxclkFmax;           // MHz
-+  //uclk
-+  uint16_t               UclkFmin;             // MHz
-+  uint16_t               UclkFmax;             // MHz
-+  //fclk
-+  uint16_t               FclkFmin;
-+  uint16_t               FclkFmax;
-+
-+  //PPT
-+  int16_t                Ppt;         // %
-+  //TDC
-+  int16_t                Tdc;
-+
-+  //Fan Curve
-+  uint8_t                FanLinearPwmPoints[NUM_OD_FAN_MAX_POINTS];
-+  uint8_t                FanLinearTempPoints[NUM_OD_FAN_MAX_POINTS];
-+  //Fan Legacy
-+  uint16_t               FanMinimumPwm;
-+  uint16_t               AcousticTargetRpmThreshold;
-+  uint16_t               AcousticLimitRpmThreshold;
-+  uint16_t               FanTargetTemperature; // Degree Celcius
-+  //zero fan
-+  uint8_t                FanZeroRpmEnable;
-+  //temperature
-+  uint8_t                MaxOpTemp;
-+  uint8_t                Padding[2];
-+
-+  //Full Ctrl
-+  uint16_t               GfxVoltageFullCtrlMode;
-+  uint16_t               SocVoltageFullCtrlMode;
-+  uint16_t               GfxclkFullCtrlMode;
-+  uint16_t               UclkFullCtrlMode;
-+  uint16_t               FclkFullCtrlMode;
-+  //EDC
-+  int16_t                GfxEdc;
-+  int16_t                GfxPccLimitControl;
-+  int16_t                Padding1;
-+
-+  uint32_t               Spare[5];
-+} OverDriveLimits_t;
-+
-+typedef enum {
-+  BOARD_GPIO_SMUIO_0,
-+  BOARD_GPIO_SMUIO_1,
-+  BOARD_GPIO_SMUIO_2,
-+  BOARD_GPIO_SMUIO_3,
-+  BOARD_GPIO_SMUIO_4,
-+  BOARD_GPIO_SMUIO_5,
-+  BOARD_GPIO_SMUIO_6,
-+  BOARD_GPIO_SMUIO_7,
-+  BOARD_GPIO_SMUIO_8,
-+  BOARD_GPIO_SMUIO_9,
-+  BOARD_GPIO_SMUIO_10,
-+  BOARD_GPIO_SMUIO_11,
-+  BOARD_GPIO_SMUIO_12,
-+  BOARD_GPIO_SMUIO_13,
-+  BOARD_GPIO_SMUIO_14,
-+  BOARD_GPIO_SMUIO_15,
-+  BOARD_GPIO_SMUIO_16,
-+  BOARD_GPIO_SMUIO_17,
-+  BOARD_GPIO_SMUIO_18,
-+  BOARD_GPIO_SMUIO_19,
-+  BOARD_GPIO_SMUIO_20,
-+  BOARD_GPIO_SMUIO_21,
-+  BOARD_GPIO_SMUIO_22,
-+  BOARD_GPIO_SMUIO_23,
-+  BOARD_GPIO_SMUIO_24,
-+  BOARD_GPIO_SMUIO_25,
-+  BOARD_GPIO_SMUIO_26,
-+  BOARD_GPIO_SMUIO_27,
-+  BOARD_GPIO_SMUIO_28,
-+  BOARD_GPIO_SMUIO_29,
-+  BOARD_GPIO_SMUIO_30,
-+  BOARD_GPIO_SMUIO_31,
-+  MAX_BOARD_GPIO_SMUIO_NUM,
-+  BOARD_GPIO_DC_GEN_A,
-+  BOARD_GPIO_DC_GEN_B,
-+  BOARD_GPIO_DC_GEN_C,
-+  BOARD_GPIO_DC_GEN_D,
-+  BOARD_GPIO_DC_GEN_E,
-+  BOARD_GPIO_DC_GEN_F,
-+  BOARD_GPIO_DC_GEN_G,
-+  BOARD_GPIO_DC_GENLK_CLK,
-+  BOARD_GPIO_DC_GENLK_VSYNC,
-+  BOARD_GPIO_DC_SWAPLOCK_A,
-+  BOARD_GPIO_DC_SWAPLOCK_B,
-+  MAX_BOARD_DC_GPIO_NUM,
-+  BOARD_GPIO_LV_EN,
-+} BOARD_GPIO_TYPE_e;
-+
-+#define INVALID_BOARD_GPIO 0xFF
-+
-+
-+typedef struct {
-+  //PLL 0
-+  uint16_t InitImuClk;
-+  uint16_t InitSocclk;
-+  uint16_t InitMpioclk;
-+  uint16_t InitSmnclk;
-+  //PLL 1
-+  uint16_t InitDispClk;
-+  uint16_t InitDppClk;
-+  uint16_t InitDprefclk;
-+  uint16_t InitDcfclk;
-+  uint16_t InitDtbclk;
-+  uint16_t InitDbguSocClk;
-+  //PLL 2
-+  uint16_t InitGfxclk_bypass;
-+  uint16_t InitMp1clk;
-+  uint16_t InitLclk;
-+  uint16_t InitDbguBacoClk;
-+  uint16_t InitBaco400clk;
-+  uint16_t InitBaco1200clk_bypass;
-+  uint16_t InitBaco700clk_bypass;
-+  uint16_t InitBaco500clk;
-+  // PLL 3
-+  uint16_t InitDclk0;
-+  uint16_t InitVclk0;
-+  // PLL 4
-+  uint16_t InitFclk;
-+  uint16_t Padding1;
-+  // PLL 5
-+  //UCLK clocks, assumed all UCLK instances will be the same.
-+  uint8_t InitUclkLevel;    // =0,1,2,3,4,5 frequency from FreqTableUclk
-+
-+  uint8_t Padding[3];
-+
-+  uint32_t InitVcoFreqPll0; //smu_socclk_t
-+  uint32_t InitVcoFreqPll1; //smu_displayclk_t
-+  uint32_t InitVcoFreqPll2; //smu_nbioclk_t
-+  uint32_t InitVcoFreqPll3; //smu_vcnclk_t
-+  uint32_t InitVcoFreqPll4; //smu_fclk_t
-+  uint32_t InitVcoFreqPll5; //smu_uclk_01_t
-+  uint32_t InitVcoFreqPll6; //smu_uclk_23_t
-+  uint32_t InitVcoFreqPll7; //smu_uclk_45_t
-+  uint32_t InitVcoFreqPll8; //smu_uclk_67_t
-+
-+  //encoding will be SVI3
-+  uint16_t InitGfx;       // In mV(Q2) ,  should be 0?
-+  uint16_t InitSoc;       // In mV(Q2)
-+  uint16_t InitVddIoMem;  // In mV(Q2) MemVdd
-+  uint16_t InitVddCiMem;  // In mV(Q2) VMemP
-+
-+  //uint16_t Padding2;
-+
-+  uint32_t Spare[8];
-+} BootValues_t;
-+
-+typedef struct {
-+   uint16_t Power[PPT_THROTTLER_COUNT][POWER_SOURCE_COUNT]; // Watts
-+  uint16_t Tdc[TDC_THROTTLER_COUNT];             // Amps
-+
-+  uint16_t Temperature[TEMP_COUNT]; // Celsius
-+
-+  uint8_t  PwmLimitMin;
-+  uint8_t  PwmLimitMax;
-+  uint8_t  FanTargetTemperature;
-+  uint8_t  Spare1[1];
-+
-+  uint16_t AcousticTargetRpmThresholdMin;
-+  uint16_t AcousticTargetRpmThresholdMax;
-+
-+  uint16_t AcousticLimitRpmThresholdMin;
-+  uint16_t AcousticLimitRpmThresholdMax;
-+
-+  uint16_t  PccLimitMin;
-+  uint16_t  PccLimitMax;
-+
-+  uint16_t  FanStopTempMin;
-+  uint16_t  FanStopTempMax;
-+  uint16_t  FanStartTempMin;
-+  uint16_t  FanStartTempMax;
-+
-+  uint16_t  PowerMinPpt0[POWER_SOURCE_COUNT];
-+  uint32_t  Spare[11];
-+} MsgLimits_t;
-+
-+typedef struct {
-+  uint16_t BaseClockAc;
-+  uint16_t GameClockAc;
-+  uint16_t BoostClockAc;
-+  uint16_t BaseClockDc;
-+  uint16_t GameClockDc;
-+  uint16_t BoostClockDc;
-+
-+  uint32_t Reserved[4];
-+} DriverReportedClocks_t;
-+
-+typedef struct {
-+  uint8_t           DcBtcEnabled;
-+  uint8_t           Padding[3];
-+
-+  uint16_t          DcTol;            // mV Q2
-+  uint16_t          DcBtcGb;       // mV Q2
-+
-+  uint16_t          DcBtcMin;       // mV Q2
-+  uint16_t          DcBtcMax;       // mV Q2
-+
-+  LinearInt_t       DcBtcGbScalar;
-+} AvfsDcBtcParams_t;
-+
-+typedef struct {
-+  uint16_t       AvfsTemp[AVFS_TEMP_COUNT]; //in degrees C
-+  uint16_t      VftFMin;  // in MHz
-+  uint16_t      VInversion; // in mV Q2
-+  QuadraticInt_t qVft[AVFS_TEMP_COUNT];
-+  QuadraticInt_t qAvfsGb;
-+  QuadraticInt_t qAvfsGb2;
-+} AvfsFuseOverride_t;
-+
-+//all settings maintained by PFE team
-+typedef struct {
-+  uint8_t      Version;
-+  uint8_t      Spare8[3];
-+  // SECTION: Feature Control
-+  uint32_t     FeaturesToRun[NUM_FEATURES / 32]; // Features that PMFW will attempt to enable. Use FEATURE_*_BIT as mapping
-+  // SECTION: FW DSTATE Settings
-+  uint32_t     FwDStateMask;           // See FW_DSTATE_*_BIT for mapping
-+  // SECTION: Advanced Options
-+  uint32_t     DebugOverrides;
-+
-+  uint32_t     Spare[2];
-+} PFE_Settings_t;
-+
-+typedef struct {
-+  // SECTION: Version
-+  uint32_t Version; // should be unique to each SKU(i.e if any value changes in below structure then this value must be different)
-+
-+  // SECTION: Miscellaneous Configuration
-+  uint8_t      TotalPowerConfig;    // Determines how PMFW calculates the power. Use defines from PwrConfig_e
-+  uint8_t      CustomerVariant; //To specify if this PPTable is intended for a particular customer. Use defines from CUSTOMER_VARIANT_e
-+  uint8_t      MemoryTemperatureTypeMask; // Bit mapping indicating which methods of memory temperature reading are enabled. Use defines from MEM_TEMP_*BIT
-+  uint8_t      SmartShiftVersion; // Determine what SmartShift feature version is supported Use defines from SMARTSHIFT_VERSION_e
-+
-+  // SECTION: Infrastructure Limits
-+  uint8_t  SocketPowerLimitSpare[10];
-+
-+  //if set to 1, SocketPowerLimitAc and SocketPowerLimitDc will be interpreted as legacy programs(i.e absolute power). If 0, all except index 0 will be scalars
-+  //relative index 0
-+  uint8_t  EnableLegacyPptLimit;
-+  uint8_t  UseInputTelemetry; //applicable to SVI3 only and only to be set if VRs support
-+
-+  uint8_t  SmartShiftMinReportedPptinDcs; //minimum possible active power consumption for this SKU. Used for SmartShift power reporting
-+
-+  uint8_t  PaddingPpt[7];
-+
-+  uint16_t HwCtfTempLimit; // In degrees Celsius. Temperature above which HW will trigger CTF. Consumed by VBIOS only
-+
-+  uint16_t PaddingInfra;
-+
-+  // Per year normalized Vmax state failure rates (sum of the two domains divided by life time in years)
-+  uint32_t FitControllerFailureRateLimit; //in IEEE float
-+  //Expected GFX Duty Cycle at Vmax.
-+  uint32_t FitControllerGfxDutyCycle; // in IEEE float
-+  //Expected SOC Duty Cycle at Vmax.
-+  uint32_t FitControllerSocDutyCycle; // in IEEE float
-+
-+  //This offset will be deducted from the controller output to before it goes through the SOC Vset limiter block.
-+  uint32_t FitControllerSocOffset;  //in IEEE float
-+
-+  uint32_t     GfxApccPlusResidencyLimit; // Percentage value. Used by APCC+ controller to control PCC residency to some value
-+
-+  // SECTION: Throttler settings
-+  uint32_t ThrottlerControlMask;   // See THROTTLER_*_BIT for mapping
-+
-+
-+  // SECTION: Voltage Control Parameters
-+  uint16_t  UlvVoltageOffset[PMFW_VOLT_PLANE_COUNT]; // In mV(Q2). ULV offset used in either GFX_ULV or SOC_ULV(part of FW_DSTATE)
-+
-+  uint8_t      Padding[2];
-+  uint16_t     DeepUlvVoltageOffsetSoc;        // In mV(Q2)  Long Idle Vmin (deep ULV), for VDD_SOC as part of FW_DSTATE
-+
-+  // Voltage Limits
-+  uint16_t     DefaultMaxVoltage[PMFW_VOLT_PLANE_COUNT]; // In mV(Q2) Maximum voltage without FIT controller enabled
-+  uint16_t     BoostMaxVoltage[PMFW_VOLT_PLANE_COUNT]; // In mV(Q2) Maximum voltage with FIT controller enabled
-+
-+  //Vmin Optimizations
-+  int16_t         VminTempHystersis[PMFW_VOLT_PLANE_COUNT]; // Celsius Temperature hysteresis for switching between low/high temperature values for Vmin
-+  int16_t         VminTempThreshold[PMFW_VOLT_PLANE_COUNT]; // Celsius Temperature threshold for switching between low/high temperature values for Vmin
-+  uint16_t        Vmin_Hot_T0[PMFW_VOLT_PLANE_COUNT];            //In mV(Q2) Initial (pre-aging) Vset to be used at hot.
-+  uint16_t        Vmin_Cold_T0[PMFW_VOLT_PLANE_COUNT];           //In mV(Q2) Initial (pre-aging) Vset to be used at cold.
-+  uint16_t        Vmin_Hot_Eol[PMFW_VOLT_PLANE_COUNT];           //In mV(Q2) End-of-life Vset to be used at hot.
-+  uint16_t        Vmin_Cold_Eol[PMFW_VOLT_PLANE_COUNT];          //In mV(Q2) End-of-life Vset to be used at cold.
-+  uint16_t        Vmin_Aging_Offset[PMFW_VOLT_PLANE_COUNT];      //In mV(Q2) Worst-case aging margin
-+  uint16_t        Spare_Vmin_Plat_Offset_Hot[PMFW_VOLT_PLANE_COUNT];   //In mV(Q2) Platform offset apply to T0 Hot
-+  uint16_t        Spare_Vmin_Plat_Offset_Cold[PMFW_VOLT_PLANE_COUNT];  //In mV(Q2) Platform offset apply to T0 Cold
-+
-+  //This is a fixed/minimum VMIN aging degradation offset which is applied at T0. This reflects the minimum amount of aging already accounted for.
-+  uint16_t        VcBtcFixedVminAgingOffset[PMFW_VOLT_PLANE_COUNT];
-+  //Linear offset or GB term to account for mis-correlation between PSM and Vmin shift trends across parts.
-+  uint16_t        VcBtcVmin2PsmDegrationGb[PMFW_VOLT_PLANE_COUNT];
-+  //Scalar coefficient of the PSM aging degradation function
-+  uint32_t        VcBtcPsmA[PMFW_VOLT_PLANE_COUNT];                   // A_PSM
-+  //Exponential coefficient of the PSM aging degradation function
-+  uint32_t        VcBtcPsmB[PMFW_VOLT_PLANE_COUNT];                   // B_PSM
-+  //Scalar coefficient of the VMIN aging degradation function. Specified as worst case between hot and cold.
-+  uint32_t        VcBtcVminA[PMFW_VOLT_PLANE_COUNT];                  // A_VMIN
-+  //Exponential coefficient of the VMIN aging degradation function. Specified as worst case between hot and cold.
-+  uint32_t        VcBtcVminB[PMFW_VOLT_PLANE_COUNT];                  // B_VMIN
-+
-+  uint8_t         PerPartVminEnabled[PMFW_VOLT_PLANE_COUNT];
-+  uint8_t         VcBtcEnabled[PMFW_VOLT_PLANE_COUNT];
-+
-+  uint16_t        SocketPowerLimitAcTau[PPT_THROTTLER_COUNT]; // Time constant of LPF in ms
-+  uint16_t        SocketPowerLimitDcTau[PPT_THROTTLER_COUNT]; // Time constant of LPF in ms
-+
-+  QuadraticInt_t  Gfx_Vmin_droop;
-+  QuadraticInt_t  Soc_Vmin_droop;
-+  uint32_t        SpareVmin[6];
-+
-+  //SECTION: DPM Configuration 1
-+  DpmDescriptor_t DpmDescriptor[PPCLK_COUNT];
-+
-+  uint16_t      FreqTableGfx        [NUM_GFXCLK_DPM_LEVELS  ];     // In MHz
-+  uint16_t      FreqTableVclk       [NUM_VCLK_DPM_LEVELS    ];     // In MHz
-+  uint16_t      FreqTableDclk       [NUM_DCLK_DPM_LEVELS    ];     // In MHz
-+  uint16_t      FreqTableSocclk     [NUM_SOCCLK_DPM_LEVELS  ];     // In MHz
-+  uint16_t      FreqTableUclk       [NUM_UCLK_DPM_LEVELS    ];     // In MHz
-+  uint16_t      FreqTableShadowUclk [NUM_UCLK_DPM_LEVELS    ];     // In MHz
-+  uint16_t      FreqTableDispclk    [NUM_DISPCLK_DPM_LEVELS ];     // In MHz
-+  uint16_t      FreqTableDppClk     [NUM_DPPCLK_DPM_LEVELS  ];     // In MHz
-+  uint16_t      FreqTableDprefclk   [NUM_DPREFCLK_DPM_LEVELS];     // In MHz
-+  uint16_t      FreqTableDcfclk     [NUM_DCFCLK_DPM_LEVELS  ];     // In MHz
-+  uint16_t      FreqTableDtbclk     [NUM_DTBCLK_DPM_LEVELS  ];     // In MHz
-+  uint16_t      FreqTableFclk       [NUM_FCLK_DPM_LEVELS    ];     // In MHz
-+
-+  uint32_t      DcModeMaxFreq     [PPCLK_COUNT            ];     // In MHz
-+
-+  uint16_t      GfxclkAibFmax;
-+  uint16_t      GfxclkFreqCap;
-+
-+  //GFX Idle Power Settings
-+  uint16_t      GfxclkFgfxoffEntry;   // Entry in RLC stage (PLL), in Mhz
-+  uint16_t      GfxclkFgfxoffExitImu; // Exit/Entry in IMU stage (BYPASS), in Mhz
-+  uint16_t      GfxclkFgfxoffExitRlc; // Exit in RLC stage (PLL), in Mhz
-+  uint16_t      GfxclkThrottleClock;  //Used primarily in DCS
-+  uint8_t       EnableGfxPowerStagesGpio; //Genlk_vsync GPIO flag used to control gfx power stages
-+  uint8_t       GfxIdlePadding;
-+
-+  uint8_t       SmsRepairWRCKClkDivEn;
-+  uint8_t       SmsRepairWRCKClkDivVal;
-+  uint8_t       GfxOffEntryEarlyMGCGEn;
-+  uint8_t       GfxOffEntryForceCGCGEn;
-+  uint8_t       GfxOffEntryForceCGCGDelayEn;
-+  uint8_t       GfxOffEntryForceCGCGDelayVal; // in microseconds
-+
-+  uint16_t      GfxclkFreqGfxUlv; // in MHz
-+  uint8_t       GfxIdlePadding2[2];
-+  uint32_t      GfxOffEntryHysteresis; //For RLC to count after it enters CGCG, and before triggers GFXOFF entry
-+  uint32_t      GfxoffSpare[15];
-+
-+  // DFLL
-+  uint16_t      DfllMstrOscConfigA; //Used for voltage sensitivity slope tuning: 0 = (en_leaker << 9) | (en_vint1_reduce << 8) | (gain_code << 6) | (bias_code << 3) | (vint1_code << 1) | en_bias
-+  uint16_t      DfllSlvOscConfigA; //Used for voltage sensitivity slope tuning: 0 = (en_leaker << 9) | (en_vint1_reduce << 8) | (gain_code << 6) | (bias_code << 3) | (vint1_code << 1) | en_bias
-+  uint32_t      DfllBtcMasterScalerM;
-+  int32_t       DfllBtcMasterScalerB;
-+  uint32_t      DfllBtcSlaveScalerM;
-+  int32_t       DfllBtcSlaveScalerB;
-+
-+  uint32_t      DfllPccAsWaitCtrl; //GDFLL_AS_WAIT_CTRL_PCC register value to be passed to RLC msg
-+  uint32_t      DfllPccAsStepCtrl; //GDFLL_AS_STEP_CTRL_PCC register value to be passed to RLC msg
-+  uint32_t      GfxDfllSpare[9];
-+
-+  // DVO
-+  uint32_t        DvoPsmDownThresholdVoltage; //Voltage float
-+  uint32_t        DvoPsmUpThresholdVoltage; //Voltage float
-+  uint32_t        DvoFmaxLowScaler; //Unitless float
-+
-+  // GFX DCS
-+  uint16_t      DcsGfxOffVoltage;     //Voltage in mV(Q2) applied to VDDGFX when entering DCS GFXOFF phase
-+  uint16_t      PaddingDcs;
-+
-+  uint16_t      DcsMinGfxOffTime;     //Minimum amount of time PMFW shuts GFX OFF as part of GFX DCS phase
-+  uint16_t      DcsMaxGfxOffTime;      //Maximum amount of time PMFW can shut GFX OFF as part of GFX DCS phase at a stretch.
-+
-+  uint32_t      DcsMinCreditAccum;    //Min amount of positive credit accumulation before waking GFX up as part of DCS.
-+
-+  uint16_t      DcsExitHysteresis;    //The min amount of time power credit accumulator should have a value > 0 before SMU exits the DCS throttling phase.
-+  uint16_t      DcsTimeout;           //This is the amount of time SMU FW waits for RLC to put GFX into GFXOFF before reverting to the fallback mechanism of throttling GFXCLK to Fmin.
-+
-+  uint32_t      DcsPfGfxFopt;         //Default to GFX FMIN
-+  uint32_t      DcsPfUclkFopt;        //Default to UCLK FMIN
-+
-+  uint8_t       FoptEnabled;
-+  uint8_t       DcsSpare2[3];
-+  uint32_t      DcsFoptM;             //Tuning paramters to shift Fopt calculation, IEEE754 float
-+  uint32_t      DcsFoptB;             //Tuning paramters to shift Fopt calculation, IEEE754 float
-+  uint32_t      DcsSpare[9];
-+
-+  // UCLK section
-+  uint8_t       UseStrobeModeOptimizations; //Set to indicate that FW should use strobe mode optimizations
-+  uint8_t       PaddingMem[3];
-+
-+  uint8_t       UclkDpmPstates             [NUM_UCLK_DPM_LEVELS];     // 6 Primary SW DPM states (6 + 6 Shadow)
-+  uint8_t       UclkDpmShadowPstates       [NUM_UCLK_DPM_LEVELS];      // 6 Shadow SW DPM states (6 + 6 Shadow)
-+  uint8_t       FreqTableUclkDiv           [NUM_UCLK_DPM_LEVELS];     // 0:Div-1, 1:Div-1/2, 2:Div-1/4, 3:Div-1/8
-+  uint8_t       FreqTableShadowUclkDiv     [NUM_UCLK_DPM_LEVELS];     // 0:Div-1, 1:Div-1/2, 2:Div-1/4, 3:Div-1/8
-+  uint16_t      MemVmempVoltage            [NUM_UCLK_DPM_LEVELS];     // mV(Q2)
-+  uint16_t      MemVddioVoltage            [NUM_UCLK_DPM_LEVELS];     // mV(Q2)
-+  uint16_t      DalDcModeMaxUclkFreq;
-+  uint8_t       PaddingsMem[2];
-+  //FCLK Section
-+  uint16_t      FclkDpmDisallowPstateFreq;  //Frequency which FW will target when indicated that display config cannot support P-state. Set to 0 use FW calculated value
-+  uint16_t      PaddingFclk;
-+
-+  // Link DPM Settings
-+  uint8_t       PcieGenSpeed[NUM_LINK_LEVELS];           ///< 0:PciE-gen1 1:PciE-gen2 2:PciE-gen3 3:PciE-gen4 4:PciE-gen5
-+  uint8_t       PcieLaneCount[NUM_LINK_LEVELS];          ///< 1=x1, 2=x2, 3=x4, 4=x8, 5=x12, 6=x16
-+  uint16_t      LclkFreq[NUM_LINK_LEVELS];
-+
-+  // SECTION: VDD_GFX AVFS
-+  uint8_t       OverrideGfxAvfsFuses;
-+  uint8_t       GfxAvfsPadding[3];
-+
-+  uint32_t      SocHwRtAvfsFuses[PP_GRTAVFS_HW_FUSE_COUNT];   //new added for Soc domain
-+  uint32_t      GfxL2HwRtAvfsFuses[PP_GRTAVFS_HW_FUSE_COUNT]; //see fusedoc for encoding
-+  //uint32_t      GfxSeHwRtAvfsFuses[PP_GRTAVFS_HW_FUSE_COUNT];
-+  uint32_t      spare_HwRtAvfsFuses[PP_GRTAVFS_HW_FUSE_COUNT];
-+
-+  uint32_t      SocCommonRtAvfs[PP_GRTAVFS_FW_COMMON_FUSE_COUNT];
-+  uint32_t      GfxCommonRtAvfs[PP_GRTAVFS_FW_COMMON_FUSE_COUNT];
-+
-+  uint32_t      SocFwRtAvfsFuses[PP_GRTAVFS_FW_SEP_FUSE_COUNT];
-+  uint32_t      GfxL2FwRtAvfsFuses[PP_GRTAVFS_FW_SEP_FUSE_COUNT];
-+  //uint32_t      GfxSeFwRtAvfsFuses[PP_GRTAVFS_FW_SEP_FUSE_COUNT];
-+  uint32_t      spare_FwRtAvfsFuses[PP_GRTAVFS_FW_SEP_FUSE_COUNT];
-+
-+  uint32_t      Soc_Droop_PWL_F[PP_NUM_RTAVFS_PWL_ZONES];
-+  uint32_t      Soc_Droop_PWL_a[PP_NUM_RTAVFS_PWL_ZONES];
-+  uint32_t      Soc_Droop_PWL_b[PP_NUM_RTAVFS_PWL_ZONES];
-+  uint32_t      Soc_Droop_PWL_c[PP_NUM_RTAVFS_PWL_ZONES];
-+
-+  uint32_t      Gfx_Droop_PWL_F[PP_NUM_RTAVFS_PWL_ZONES];
-+  uint32_t      Gfx_Droop_PWL_a[PP_NUM_RTAVFS_PWL_ZONES];
-+  uint32_t      Gfx_Droop_PWL_b[PP_NUM_RTAVFS_PWL_ZONES];
-+  uint32_t      Gfx_Droop_PWL_c[PP_NUM_RTAVFS_PWL_ZONES];
-+
-+  uint32_t      Gfx_Static_PWL_Offset[PP_NUM_RTAVFS_PWL_ZONES];
-+  uint32_t      Soc_Static_PWL_Offset[PP_NUM_RTAVFS_PWL_ZONES];
-+
-+  uint32_t      dGbV_dT_vmin;
-+  uint32_t      dGbV_dT_vmax;
-+
-+  //Unused: PMFW-9370
-+  uint32_t      V2F_vmin_range_low;
-+  uint32_t      V2F_vmin_range_high;
-+  uint32_t      V2F_vmax_range_low;
-+  uint32_t      V2F_vmax_range_high;
-+
-+  AvfsDcBtcParams_t DcBtcGfxParams;
-+  QuadraticInt_t    SSCurve_GFX;
-+  uint32_t   GfxAvfsSpare[29];
-+
-+  //SECTION: VDD_SOC AVFS
-+  uint8_t      OverrideSocAvfsFuses;
-+  uint8_t      MinSocAvfsRevision;
-+  uint8_t      SocAvfsPadding[2];
-+
-+  AvfsFuseOverride_t SocAvfsFuseOverride[AVFS_D_COUNT];
-+
-+  DroopInt_t        dBtcGbSoc[AVFS_D_COUNT];            // GHz->V BtcGb
-+
-+  LinearInt_t       qAgingGb[AVFS_D_COUNT];          // GHz->V
-+
-+  QuadraticInt_t    qStaticVoltageOffset[AVFS_D_COUNT]; // GHz->V
-+
-+  AvfsDcBtcParams_t DcBtcSocParams[AVFS_D_COUNT];
-+
-+  QuadraticInt_t    SSCurve_SOC;
-+  uint32_t   SocAvfsSpare[29];
-+
-+  //SECTION: Boot clock and voltage values
-+  BootValues_t BootValues;
-+
-+  //SECTION: Driver Reported Clocks
-+  DriverReportedClocks_t DriverReportedClocks;
-+
-+  //SECTION: Message Limits
-+  MsgLimits_t MsgLimits;
-+
-+  //SECTION: OverDrive Limits
-+  OverDriveLimits_t OverDriveLimitsBasicMin;
-+  OverDriveLimits_t OverDriveLimitsBasicMax;
-+  OverDriveLimits_t OverDriveLimitsAdvancedMin;
-+  OverDriveLimits_t OverDriveLimitsAdvancedMax;
-+
-+  // Section: Total Board Power idle vs active coefficients
-+  uint8_t     TotalBoardPowerSupport;
-+  uint8_t     TotalBoardPowerPadding[1];
-+  uint16_t    TotalBoardPowerRoc;
-+
-+  //PMFW-11158
-+  QuadraticInt_t qFeffCoeffGameClock[POWER_SOURCE_COUNT];
-+  QuadraticInt_t qFeffCoeffBaseClock[POWER_SOURCE_COUNT];
-+  QuadraticInt_t qFeffCoeffBoostClock[POWER_SOURCE_COUNT];
-+
-+  // APT GFX to UCLK mapping
-+  int32_t     AptUclkGfxclkLookup[POWER_SOURCE_COUNT][6];
-+  uint32_t    AptUclkGfxclkLookupHyst[POWER_SOURCE_COUNT][6];
-+  uint32_t    AptPadding;
-+
-+  // Xvmin didt
-+  QuadraticInt_t  GfxXvminDidtDroopThresh;
-+  uint32_t        GfxXvminDidtResetDDWait;
-+  uint32_t        GfxXvminDidtClkStopWait;
-+  uint32_t        GfxXvminDidtFcsStepCtrl;
-+  uint32_t        GfxXvminDidtFcsWaitCtrl;
-+
-+  // PSM based didt controller
-+  uint32_t        PsmModeEnabled; //0: all disabled 1: static mode only 2: dynamic mode only 3:static + dynamic mode
-+  uint32_t        P2v_a; // floating point in U32 format
-+  uint32_t        P2v_b;
-+  uint32_t        P2v_c;
-+  uint32_t        T2p_a;
-+  uint32_t        T2p_b;
-+  uint32_t        T2p_c;
-+  uint32_t        P2vTemp;
-+  QuadraticInt_t  PsmDidtStaticSettings;
-+  QuadraticInt_t  PsmDidtDynamicSettings;
-+  uint8_t         PsmDidtAvgDiv;
-+  uint8_t         PsmDidtForceStall;
-+  uint16_t        PsmDidtReleaseTimer;
-+  uint32_t        PsmDidtStallPattern; //Will be written to both pattern 1 and didt_static_level_prog
-+  // CAC EDC
-+  uint32_t        Leakage_C0; // in IEEE float
-+  uint32_t        Leakage_C1; // in IEEE float
-+  uint32_t        Leakage_C2; // in IEEE float
-+  uint32_t        Leakage_C3; // in IEEE float
-+  uint32_t        Leakage_C4; // in IEEE float
-+  uint32_t        Leakage_C5; // in IEEE float
-+  uint32_t        GFX_CLK_SCALAR; // in IEEE float
-+  uint32_t        GFX_CLK_INTERCEPT; // in IEEE float
-+  uint32_t        GFX_CAC_M; // in IEEE float
-+  uint32_t        GFX_CAC_B; // in IEEE float
-+  uint32_t        VDD_GFX_CurrentLimitGuardband; // in IEEE float
-+  uint32_t        DynToTotalCacScalar; // in IEEE
-+  // GFX EDC XVMIN
-+  uint32_t        XVmin_Gfx_EdcThreshScalar;
-+  uint32_t        XVmin_Gfx_EdcEnableFreq;
-+  uint32_t        XVmin_Gfx_EdcPccAsStepCtrl;
-+  uint32_t        XVmin_Gfx_EdcPccAsWaitCtrl;
-+  uint16_t        XVmin_Gfx_EdcThreshold;
-+  uint16_t        XVmin_Gfx_EdcFiltHysWaitCtrl;
-+  // SOC EDC XVMIN
-+  uint32_t        XVmin_Soc_EdcThreshScalar;
-+  uint32_t        XVmin_Soc_EdcEnableFreq;
-+  uint32_t        XVmin_Soc_EdcThreshold; // LPF: number of cycles Xvmin_trig_filt will react.
-+  uint16_t        XVmin_Soc_EdcStepUpTime; // 10 bit, refclk count to step up throttle when PCC remains asserted.
-+  uint16_t        XVmin_Soc_EdcStepDownTime;// 10 bit, refclk count to step down throttle when PCC remains asserted.
-+  uint8_t         XVmin_Soc_EdcInitPccStep; // 3 bit, First Pcc Step number that will applied when PCC asserts.
-+  uint8_t         PaddingSocEdc[3];
-+
-+  // Fuse Override for SOC and GFX XVMIN
-+  uint8_t         GfxXvminFuseOverride;
-+  uint8_t         SocXvminFuseOverride;
-+  uint8_t         PaddingXvminFuseOverride[2];
-+  uint8_t         GfxXvminFddTempLow;  // bit 7: sign, bit 0-6: ABS value
-+  uint8_t         GfxXvminFddTempHigh; // bit 7: sign, bit 0-6: ABS value
-+  uint8_t         SocXvminFddTempLow;  // bit 7: sign, bit 0-6: ABS value
-+  uint8_t         SocXvminFddTempHigh; // bit 7: sign, bit 0-6: ABS value
-+
-+
-+  uint16_t        GfxXvminFddVolt0;    // low voltage, in VID
-+  uint16_t        GfxXvminFddVolt1;    // mid voltage, in VID
-+  uint16_t        GfxXvminFddVolt2;    // high voltage, in VID
-+  uint16_t        SocXvminFddVolt0;    // low voltage, in VID
-+  uint16_t        SocXvminFddVolt1;    // mid voltage, in VID
-+  uint16_t        SocXvminFddVolt2;    // high voltage, in VID
-+  uint16_t        GfxXvminDsFddDsm[6]; // XVMIN DS, same organization with fuse
-+  uint16_t        GfxXvminEdcFddDsm[6];// XVMIN GFX EDC, same organization with fuse
-+  uint16_t        SocXvminEdcFddDsm[6];// XVMIN SOC EDC, same organization with fuse
-+
-+  // SECTION: Sku Reserved
-+  uint32_t        Spare;
-+
-+  // Padding for MMHUB - do not modify this
-+  uint32_t     MmHubPadding[8];
-+} SkuTable_t;
-+
-+typedef struct {
-+  uint8_t SlewRateConditions;
-+  uint8_t LoadLineAdjust;
-+  uint8_t VoutOffset;
-+  uint8_t VidMax;
-+  uint8_t VidMin;
-+  uint8_t TenBitTelEn;
-+  uint8_t SixteenBitTelEn;
-+  uint8_t OcpThresh;
-+  uint8_t OcpWarnThresh;
-+  uint8_t OcpSettings;
-+  uint8_t VrhotThresh;
-+  uint8_t OtpThresh;
-+  uint8_t UvpOvpDeltaRef;
-+  uint8_t PhaseShed;
-+  uint8_t Padding[10];
-+  uint32_t SettingOverrideMask;
-+} Svi3RegulatorSettings_t;
-+
-+typedef struct {
-+  // SECTION: Version
-+  uint32_t    Version; //should be unique to each board type
-+
-+  // SECTION: I2C Control
-+  I2cControllerConfig_t  I2cControllers[NUM_I2C_CONTROLLERS];
-+
-+  //SECTION SVI3 Board Parameters
-+  uint8_t      SlaveAddrMapping[SVI_PLANE_COUNT];
-+  uint8_t      VrPsiSupport[SVI_PLANE_COUNT];
-+
-+  uint32_t     Svi3SvcSpeed;
-+  uint8_t      EnablePsi6[SVI_PLANE_COUNT];       // only applicable in SVI3
-+
-+  // SECTION: Voltage Regulator Settings
-+  Svi3RegulatorSettings_t  Svi3RegSettings[SVI_PLANE_COUNT];
-+
-+  // SECTION: GPIO Settings
-+  uint8_t      LedOffGpio;
-+  uint8_t      FanOffGpio;
-+  uint8_t      GfxVrPowerStageOffGpio;
-+
-+  uint8_t      AcDcGpio;        // GPIO pin configured for AC/DC switching
-+  uint8_t      AcDcPolarity;    // GPIO polarity for AC/DC switching
-+  uint8_t      VR0HotGpio;      // GPIO pin configured for VR0 HOT event
-+  uint8_t      VR0HotPolarity;  // GPIO polarity for VR0 HOT event
-+
-+  uint8_t      GthrGpio;        // GPIO pin configured for GTHR Event
-+  uint8_t      GthrPolarity;    // replace GPIO polarity for GTHR
-+
-+  // LED Display Settings
-+  uint8_t      LedPin0;         // GPIO number for LedPin[0]
-+  uint8_t      LedPin1;         // GPIO number for LedPin[1]
-+  uint8_t      LedPin2;         // GPIO number for LedPin[2]
-+  uint8_t      LedEnableMask;
-+
-+  uint8_t      LedPcie;        // GPIO number for PCIE results
-+  uint8_t      LedError;       // GPIO number for Error Cases
-+  uint8_t      PaddingLed;
-+
-+  // SECTION: Clock Spread Spectrum
-+
-+  // UCLK Spread Spectrum
-+  uint8_t      UclkTrainingModeSpreadPercent; // Q4.4
-+  uint8_t      UclkSpreadPadding;
-+  uint16_t     UclkSpreadFreq;      // kHz
-+
-+  // UCLK Spread Spectrum
-+  uint8_t      UclkSpreadPercent[MEM_VENDOR_COUNT];
-+
-+  // DFLL Spread Spectrum
-+  uint8_t      GfxclkSpreadEnable;
-+
-+  // FCLK Spread Spectrum
-+  uint8_t      FclkSpreadPercent;   // Q4.4
-+  uint16_t     FclkSpreadFreq;      // kHz
-+
-+  // Section: Memory Config
-+  uint8_t      DramWidth; // Width of interface to the channel for each DRAM module. See DRAM_BIT_WIDTH_TYPE_e
-+  uint8_t      PaddingMem1[7];
-+
-+  // SECTION: UMC feature flags
-+  uint8_t      HsrEnabled;
-+  uint8_t      VddqOffEnabled;
-+  uint8_t      PaddingUmcFlags[2];
-+
-+  uint32_t    PostVoltageSetBacoDelay; // in microseconds. Amount of time FW will wait after power good is established or PSI0 command is issued
-+  uint32_t    BacoEntryDelay; // in milliseconds. Amount of time FW will wait to trigger BACO entry after receiving entry notification from OS
-+
-+  uint8_t     FuseWritePowerMuxPresent;
-+  uint8_t     FuseWritePadding[3];
-+
-+  // SECTION: EDC Params
-+  uint32_t    LoadlineGfx;
-+  uint32_t    LoadlineSoc;
-+  uint32_t    GfxEdcLimit;
-+  uint32_t    SocEdcLimit;
-+
-+  uint32_t    RestBoardPower;         //power consumed by board that is not captured by the SVI3 input telemetry
-+  uint32_t    ConnectorsImpedance;   // impedance of the input ATX power connectors
-+
-+  uint8_t      EpcsSens0;       //GPIO number for External Power Connector Support Sense0
-+  uint8_t      EpcsSens1;       //GPIO Number for External Power Connector Support Sense1
-+  uint8_t      PaddingEpcs[2];
-+
-+  // SECTION: Board Reserved
-+  uint32_t    BoardSpare[52];
-+
-+  // SECTION: Structure Padding
-+
-+  // Padding for MMHUB - do not modify this
-+  uint32_t     MmHubPadding[8];
-+} BoardTable_t;
-+
-+typedef struct {
-+  // SECTION: Infrastructure Limits
-+  uint16_t    SocketPowerLimitAc[PPT_THROTTLER_COUNT]; // In Watts. Power limit that PMFW attempts to control to in AC mode. Multiple limits supported
-+
-+  uint16_t    VrTdcLimit[TDC_THROTTLER_COUNT];         // In Amperes. Current limit associated with VR regulator maximum temperature
-+
-+  int16_t     TotalIdleBoardPowerM;
-+  int16_t     TotalIdleBoardPowerB;
-+  int16_t     TotalBoardPowerM;
-+  int16_t     TotalBoardPowerB;
-+
-+  uint16_t    TemperatureLimit[TEMP_COUNT]; // In degrees Celsius. Temperature limit associated with each input
-+
-+  // SECTION: Fan Control
-+  uint16_t    FanStopTemp[TEMP_COUNT];          //Celsius
-+  uint16_t    FanStartTemp[TEMP_COUNT];         //Celsius
-+
-+  uint16_t    FanGain[TEMP_COUNT];
-+
-+  uint16_t    FanPwmMin;
-+  uint16_t    AcousticTargetRpmThreshold;
-+  uint16_t    AcousticLimitRpmThreshold;
-+  uint16_t    FanMaximumRpm;
-+  uint16_t    MGpuAcousticLimitRpmThreshold;
-+  uint16_t    FanTargetGfxclk;
-+  uint32_t    TempInputSelectMask;
-+  uint8_t     FanZeroRpmEnable;
-+  uint8_t     FanTachEdgePerRev;
-+  uint16_t    FanPadding;
-+  uint16_t    FanTargetTemperature[TEMP_COUNT];
-+
-+  // The following are AFC override parameters. Leave at 0 to use FW defaults.
-+  int16_t     FuzzyFan_ErrorSetDelta;
-+  int16_t     FuzzyFan_ErrorRateSetDelta;
-+  int16_t     FuzzyFan_PwmSetDelta;
-+  uint16_t    FuzzyFan_Reserved;
-+
-+  uint16_t    FwCtfLimit[TEMP_COUNT];
-+
-+  uint16_t    IntakeTempEnableRPM;
-+  int16_t     IntakeTempOffsetTemp;
-+  uint16_t    IntakeTempReleaseTemp;
-+  uint16_t    IntakeTempHighIntakeAcousticLimit;
-+
-+  uint16_t    IntakeTempAcouticLimitReleaseRate;
-+  int16_t     FanAbnormalTempLimitOffset;    // FanStalledTempLimitOffset
-+  uint16_t    FanStalledTriggerRpm;          //
-+  uint16_t    FanAbnormalTriggerRpmCoeff;    // FanAbnormalTriggerRpm
-+
-+  uint16_t    FanSpare[1];
-+  uint8_t     FanIntakeSensorSupport;
-+  uint8_t     FanIntakePadding;
-+  uint32_t    FanAmbientPerfBoostThreshold;
-+  uint32_t    FanSpare2[12];
-+
-+  uint16_t TemperatureLimit_Hynix; // In degrees Celsius. Memory temperature limit associated with Hynix
-+  uint16_t TemperatureLimit_Micron; // In degrees Celsius. Memory temperature limit associated with Micron
-+  uint16_t TemperatureFwCtfLimit_Hynix;
-+  uint16_t TemperatureFwCtfLimit_Micron;
-+
-+  // SECTION: Board Reserved
-+  uint16_t    PlatformTdcLimit[TDC_THROTTLER_COUNT];             // In Amperes. Current limit associated with platform maximum temperature per VR current rail
-+  uint16_t    SocketPowerLimitDc[PPT_THROTTLER_COUNT];  // In Watts. Power limit that PMFW attempts to control to in DC mode. Multiple limits supported
-+  uint16_t    SocketPowerLimitSmartShift2; // In Watts. Power limit used SmartShift
-+  uint16_t    CustomSkuSpare16b;
-+  uint32_t    CustomSkuSpare32b[10];
-+
-+  // SECTION: Structure Padding
-+
-+  // Padding for MMHUB - do not modify this
-+  uint32_t    MmHubPadding[8];
-+} CustomSkuTable_t;
-+
-+typedef struct {
-+  PFE_Settings_t PFE_Settings;
-+  SkuTable_t SkuTable;
-+  CustomSkuTable_t CustomSkuTable;
-+  BoardTable_t BoardTable;
-+} PPTable_t;
-+
-+typedef struct {
-+  // Time constant parameters for clock averages in ms
-+  uint16_t     GfxclkAverageLpfTau;
-+  uint16_t     FclkAverageLpfTau;
-+  uint16_t     UclkAverageLpfTau;
-+  uint16_t     GfxActivityLpfTau;
-+  uint16_t     UclkActivityLpfTau;
-+  uint16_t     UclkMaxActivityLpfTau;
-+  uint16_t     SocketPowerLpfTau;
-+  uint16_t     VcnClkAverageLpfTau;
-+  uint16_t     VcnUsageAverageLpfTau;
-+  uint16_t     PcieActivityLpTau;
-+} DriverSmuConfig_t;
-+
-+typedef struct {
-+  DriverSmuConfig_t DriverSmuConfig;
-+
-+  uint32_t     Spare[8];
-+  // Padding - ignore
-+  uint32_t     MmHubPadding[8]; // SMU internal use
-+} DriverSmuConfigExternal_t;
-+
-+
-+typedef struct {
-+
-+  uint16_t       FreqTableGfx      [NUM_GFXCLK_DPM_LEVELS  ];     // In MHz
-+  uint16_t       FreqTableVclk     [NUM_VCLK_DPM_LEVELS    ];     // In MHz
-+  uint16_t       FreqTableDclk     [NUM_DCLK_DPM_LEVELS    ];     // In MHz
-+  uint16_t       FreqTableSocclk   [NUM_SOCCLK_DPM_LEVELS  ];     // In MHz
-+  uint16_t       FreqTableUclk     [NUM_UCLK_DPM_LEVELS    ];     // In MHz
-+  uint16_t       FreqTableDispclk  [NUM_DISPCLK_DPM_LEVELS ];     // In MHz
-+  uint16_t       FreqTableDppClk   [NUM_DPPCLK_DPM_LEVELS  ];     // In MHz
-+  uint16_t       FreqTableDprefclk [NUM_DPREFCLK_DPM_LEVELS];     // In MHz
-+  uint16_t       FreqTableDcfclk   [NUM_DCFCLK_DPM_LEVELS  ];     // In MHz
-+  uint16_t       FreqTableDtbclk   [NUM_DTBCLK_DPM_LEVELS  ];     // In MHz
-+  uint16_t       FreqTableFclk     [NUM_FCLK_DPM_LEVELS    ];     // In MHz
-+
-+  uint16_t       DcModeMaxFreq     [PPCLK_COUNT            ];     // In MHz
-+
-+  uint16_t       Padding;
-+
-+  uint32_t Spare[32];
-+
-+  // Padding - ignore
-+  uint32_t     MmHubPadding[8]; // SMU internal use
-+
-+} DriverInfoTable_t;
-+
-+typedef struct {
-+  uint32_t CurrClock[PPCLK_COUNT];
-+
-+  uint16_t AverageGfxclkFrequencyTarget;
-+  uint16_t AverageGfxclkFrequencyPreDs;
-+  uint16_t AverageGfxclkFrequencyPostDs;
-+  uint16_t AverageFclkFrequencyPreDs;
-+  uint16_t AverageFclkFrequencyPostDs;
-+  uint16_t AverageMemclkFrequencyPreDs  ; // this is scaled to actual memory clock
-+  uint16_t AverageMemclkFrequencyPostDs  ; // this is scaled to actual memory clock
-+  uint16_t AverageVclk0Frequency  ;
-+  uint16_t AverageDclk0Frequency  ;
-+  uint16_t AverageVclk1Frequency  ;
-+  uint16_t AverageDclk1Frequency  ;
-+  uint16_t PCIeBusy               ;
-+  uint16_t dGPU_W_MAX             ;
-+  uint16_t padding                ;
-+
-+  uint32_t MetricsCounter         ;
-+
-+  uint16_t AvgVoltage[SVI_PLANE_COUNT];
-+  uint16_t AvgCurrent[SVI_PLANE_COUNT];
-+
-+  uint16_t AverageGfxActivity    ;
-+  uint16_t AverageUclkActivity   ;
-+  uint16_t Vcn0ActivityPercentage  ;
-+  uint16_t Vcn1ActivityPercentage  ;
-+
-+  uint32_t EnergyAccumulator;
-+  uint16_t AverageSocketPower;
-+  uint16_t AverageTotalBoardPower;
-+
-+  uint16_t AvgTemperature[TEMP_COUNT];
-+  uint16_t AvgTemperatureFanIntake;
-+
-+  uint8_t  PcieRate               ;
-+  uint8_t  PcieWidth              ;
-+
-+  uint8_t  AvgFanPwm;
-+  uint8_t  Padding[1];
-+  uint16_t AvgFanRpm;
-+
-+
-+  uint8_t  ThrottlingPercentage[THROTTLER_COUNT];
-+  uint8_t  padding1[3];
-+
-+  //metrics for D3hot entry/exit and driver ARM msgs
-+  uint32_t D3HotEntryCountPerMode[D3HOT_SEQUENCE_COUNT];
-+  uint32_t D3HotExitCountPerMode[D3HOT_SEQUENCE_COUNT];
-+  uint32_t ArmMsgReceivedCountPerMode[D3HOT_SEQUENCE_COUNT];
-+
-+  uint16_t ApuSTAPMSmartShiftLimit;
-+  uint16_t ApuSTAPMLimit;
-+  uint16_t AvgApuSocketPower;
-+
-+  uint16_t AverageUclkActivity_MAX;
-+
-+  uint32_t PublicSerialNumberLower;
-+  uint32_t PublicSerialNumberUpper;
-+
-+} SmuMetrics_t;
-+
-+typedef struct {
-+  SmuMetrics_t SmuMetrics;
-+  uint32_t Spare[30];
-+
-+  // Padding - ignore
-+  uint32_t     MmHubPadding[8]; // SMU internal use
-+} SmuMetricsExternal_t;
-+
-+typedef struct {
-+  uint8_t  WmSetting;
-+  uint8_t  Flags;
-+  uint8_t  Padding[2];
-+
-+} WatermarkRowGeneric_t;
-+
-+#define NUM_WM_RANGES 4
-+
-+typedef enum {
-+  WATERMARKS_CLOCK_RANGE = 0,
-+  WATERMARKS_DUMMY_PSTATE,
-+  WATERMARKS_MALL,
-+  WATERMARKS_COUNT,
-+} WATERMARKS_FLAGS_e;
-+
-+typedef struct {
-+  // Watermarks
-+  WatermarkRowGeneric_t WatermarkRow[NUM_WM_RANGES];
-+} Watermarks_t;
-+
-+typedef struct {
-+  Watermarks_t Watermarks;
-+  uint32_t  Spare[16];
-+
-+  uint32_t     MmHubPadding[8]; // SMU internal use
-+} WatermarksExternal_t;
-+
-+typedef struct {
-+  uint16_t avgPsmCount[76];
-+  uint16_t minPsmCount[76];
-+  uint16_t maxPsmCount[76];
-+  float    avgPsmVoltage[76];
-+  float    minPsmVoltage[76];
-+  float    maxPsmVoltage[76];
-+} AvfsDebugTable_t;
-+
-+typedef struct {
-+  AvfsDebugTable_t AvfsDebugTable;
-+
-+  uint32_t     MmHubPadding[8]; // SMU internal use
-+} AvfsDebugTableExternal_t;
-+
-+
-+typedef struct {
-+  uint8_t   Gfx_ActiveHystLimit;
-+  uint8_t   Gfx_IdleHystLimit;
-+  uint8_t   Gfx_FPS;
-+  uint8_t   Gfx_MinActiveFreqType;
-+  uint8_t   Gfx_BoosterFreqType;
-+  uint8_t   PaddingGfx;
-+  uint16_t  Gfx_MinActiveFreq;              // MHz
-+  uint16_t  Gfx_BoosterFreq;                // MHz
-+  uint16_t  Gfx_PD_Data_time_constant;      // Time constant of PD controller in ms
-+  uint32_t  Gfx_PD_Data_limit_a;            // Q16
-+  uint32_t  Gfx_PD_Data_limit_b;            // Q16
-+  uint32_t  Gfx_PD_Data_limit_c;            // Q16
-+  uint32_t  Gfx_PD_Data_error_coeff;        // Q16
-+  uint32_t  Gfx_PD_Data_error_rate_coeff;   // Q16
-+
-+  uint8_t   Fclk_ActiveHystLimit;
-+  uint8_t   Fclk_IdleHystLimit;
-+  uint8_t   Fclk_FPS;
-+  uint8_t   Fclk_MinActiveFreqType;
-+  uint8_t   Fclk_BoosterFreqType;
-+  uint8_t   PaddingFclk;
-+  uint16_t  Fclk_MinActiveFreq;              // MHz
-+  uint16_t  Fclk_BoosterFreq;                // MHz
-+  uint16_t  Fclk_PD_Data_time_constant;      // Time constant of PD controller in ms
-+  uint32_t  Fclk_PD_Data_limit_a;            // Q16
-+  uint32_t  Fclk_PD_Data_limit_b;            // Q16
-+  uint32_t  Fclk_PD_Data_limit_c;            // Q16
-+  uint32_t  Fclk_PD_Data_error_coeff;        // Q16
-+  uint32_t  Fclk_PD_Data_error_rate_coeff;   // Q16
-+
-+  uint32_t  Mem_UpThreshold_Limit[NUM_UCLK_DPM_LEVELS];          // Q16
-+  uint8_t   Mem_UpHystLimit[NUM_UCLK_DPM_LEVELS];
-+  uint16_t  Mem_DownHystLimit[NUM_UCLK_DPM_LEVELS];
-+  uint16_t  Mem_Fps;
-+
-+} DpmActivityMonitorCoeffInt_t;
-+
-+
-+typedef struct {
-+  DpmActivityMonitorCoeffInt_t DpmActivityMonitorCoeffInt;
-+  uint32_t     MmHubPadding[8]; // SMU internal use
-+} DpmActivityMonitorCoeffIntExternal_t;
-+
-+
-+
-+// Workload bits
-+#define WORKLOAD_PPLIB_DEFAULT_BIT        0
-+#define WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT 1
-+#define WORKLOAD_PPLIB_POWER_SAVING_BIT   2
-+#define WORKLOAD_PPLIB_VIDEO_BIT          3
-+#define WORKLOAD_PPLIB_VR_BIT             4
-+#define WORKLOAD_PPLIB_COMPUTE_BIT        5
-+#define WORKLOAD_PPLIB_CUSTOM_BIT         6
-+#define WORKLOAD_PPLIB_WINDOW_3D_BIT      7
-+#define WORKLOAD_PPLIB_DIRECT_ML_BIT      8
-+#define WORKLOAD_PPLIB_CGVDI_BIT          9
-+#define WORKLOAD_PPLIB_COUNT              10
-+
-+
-+// These defines are used with the following messages:
-+// SMC_MSG_TransferTableDram2Smu
-+// SMC_MSG_TransferTableSmu2Dram
-+
-+// Table transfer status
-+#define TABLE_TRANSFER_OK         0x0
-+#define TABLE_TRANSFER_FAILED     0xFF
-+#define TABLE_TRANSFER_PENDING    0xAB
-+
-+// Table types
-+#define TABLE_PPTABLE            0
-+#define TABLE_COMBO_PPTABLE           1
-+#define TABLE_WATERMARKS              2
-+#define TABLE_AVFS_PSM_DEBUG          3
-+#define TABLE_PMSTATUSLOG             4
-+#define TABLE_SMU_METRICS             5
-+#define TABLE_DRIVER_SMU_CONFIG       6
-+#define TABLE_ACTIVITY_MONITOR_COEFF  7
-+#define TABLE_OVERDRIVE               8
-+#define TABLE_I2C_COMMANDS            9
-+#define TABLE_DRIVER_INFO             10
-+#define TABLE_ECCINFO                 11
-+#define TABLE_CUSTOM_SKUTABLE         12
-+#define TABLE_COUNT                   13
-+
-+//IH Interupt ID
-+#define IH_INTERRUPT_ID_TO_DRIVER                   0xFE
-+#define IH_INTERRUPT_CONTEXT_ID_BACO                0x2
-+#define IH_INTERRUPT_CONTEXT_ID_AC                  0x3
-+#define IH_INTERRUPT_CONTEXT_ID_DC                  0x4
-+#define IH_INTERRUPT_CONTEXT_ID_AUDIO_D0            0x5
-+#define IH_INTERRUPT_CONTEXT_ID_AUDIO_D3            0x6
-+#define IH_INTERRUPT_CONTEXT_ID_THERMAL_THROTTLING  0x7
-+#define IH_INTERRUPT_CONTEXT_ID_FAN_ABNORMAL        0x8
-+#define IH_INTERRUPT_CONTEXT_ID_FAN_RECOVERY        0x9
++#define SWSMU_CODE_LAYER_L2
++
++#include <linux/firmware.h>
++#include <linux/pci.h>
++#include <linux/i2c.h>
++#include "amdgpu.h"
++#include "amdgpu_smu.h"
++#include "atomfirmware.h"
++#include "amdgpu_atomfirmware.h"
++#include "amdgpu_atombios.h"
++#include "smu_v14_0.h"
++#include "smu14_driver_if_v14_0.h"
++#include "soc15_common.h"
++#include "atom.h"
++#include "smu_v14_0_2_ppt.h"
++#include "smu_v14_0_2_pptable.h"
++#include "smu_v14_0_2_ppsmc.h"
++#include "mp/mp_14_0_2_offset.h"
++#include "mp/mp_14_0_2_sh_mask.h"
++
++#include "smu_cmn.h"
++#include "amdgpu_ras.h"
++
++/*
++ * DO NOT use these for err/warn/info/debug messages.
++ * Use dev_err, dev_warn, dev_info and dev_dbg instead.
++ * They are more MGPU friendly.
++ */
++#undef pr_err
++#undef pr_warn
++#undef pr_info
++#undef pr_debug
++
++#define to_amdgpu_device(x) (container_of(x, struct amdgpu_device, pm.smu_i2c))
++
++#define FEATURE_MASK(feature) (1ULL << feature)
++#define SMC_DPM_FEATURE ( \
++	FEATURE_MASK(FEATURE_DPM_GFXCLK_BIT)     | \
++	FEATURE_MASK(FEATURE_DPM_UCLK_BIT)	 | \
++	FEATURE_MASK(FEATURE_DPM_LINK_BIT)       | \
++	FEATURE_MASK(FEATURE_DPM_SOCCLK_BIT)     | \
++	FEATURE_MASK(FEATURE_DPM_FCLK_BIT))
++
++#define MP0_MP1_DATA_REGION_SIZE_COMBOPPTABLE	0x4000
++
++static struct cmn2asic_msg_mapping smu_v14_0_2_message_map[SMU_MSG_MAX_COUNT] = {
++	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,                 1),
++	MSG_MAP(GetSmuVersion,			PPSMC_MSG_GetSmuVersion,               1),
++	MSG_MAP(GetDriverIfVersion,		PPSMC_MSG_GetDriverIfVersion,          1),
++	MSG_MAP(SetAllowedFeaturesMaskLow,	PPSMC_MSG_SetAllowedFeaturesMaskLow,   0),
++	MSG_MAP(SetAllowedFeaturesMaskHigh,	PPSMC_MSG_SetAllowedFeaturesMaskHigh,  0),
++	MSG_MAP(EnableAllSmuFeatures,		PPSMC_MSG_EnableAllSmuFeatures,        0),
++	MSG_MAP(DisableAllSmuFeatures,		PPSMC_MSG_DisableAllSmuFeatures,       0),
++	MSG_MAP(EnableSmuFeaturesLow,		PPSMC_MSG_EnableSmuFeaturesLow,        1),
++	MSG_MAP(EnableSmuFeaturesHigh,		PPSMC_MSG_EnableSmuFeaturesHigh,       1),
++	MSG_MAP(DisableSmuFeaturesLow,		PPSMC_MSG_DisableSmuFeaturesLow,       1),
++	MSG_MAP(DisableSmuFeaturesHigh,		PPSMC_MSG_DisableSmuFeaturesHigh,      1),
++	MSG_MAP(GetEnabledSmuFeaturesLow,       PPSMC_MSG_GetRunningSmuFeaturesLow,    1),
++	MSG_MAP(GetEnabledSmuFeaturesHigh,	PPSMC_MSG_GetRunningSmuFeaturesHigh,   1),
++	MSG_MAP(SetWorkloadMask,		PPSMC_MSG_SetWorkloadMask,             1),
++	MSG_MAP(SetPptLimit,			PPSMC_MSG_SetPptLimit,                 0),
++	MSG_MAP(SetDriverDramAddrHigh,		PPSMC_MSG_SetDriverDramAddrHigh,       1),
++	MSG_MAP(SetDriverDramAddrLow,		PPSMC_MSG_SetDriverDramAddrLow,        1),
++	MSG_MAP(SetToolsDramAddrHigh,		PPSMC_MSG_SetToolsDramAddrHigh,        0),
++	MSG_MAP(SetToolsDramAddrLow,		PPSMC_MSG_SetToolsDramAddrLow,         0),
++	MSG_MAP(TransferTableSmu2Dram,		PPSMC_MSG_TransferTableSmu2Dram,       1),
++	MSG_MAP(TransferTableDram2Smu,		PPSMC_MSG_TransferTableDram2Smu,       0),
++	MSG_MAP(UseDefaultPPTable,		PPSMC_MSG_UseDefaultPPTable,           0),
++	MSG_MAP(RunDcBtc,			PPSMC_MSG_RunDcBtc,                    0),
++	MSG_MAP(EnterBaco,			PPSMC_MSG_EnterBaco,                   0),
++	MSG_MAP(ExitBaco,			PPSMC_MSG_ExitBaco,                    0),
++	MSG_MAP(SetSoftMinByFreq,		PPSMC_MSG_SetSoftMinByFreq,            1),
++	MSG_MAP(SetSoftMaxByFreq,		PPSMC_MSG_SetSoftMaxByFreq,            1),
++	MSG_MAP(SetHardMinByFreq,		PPSMC_MSG_SetHardMinByFreq,            1),
++	MSG_MAP(SetHardMaxByFreq,		PPSMC_MSG_SetHardMaxByFreq,            0),
++	MSG_MAP(GetMinDpmFreq,			PPSMC_MSG_GetMinDpmFreq,               1),
++	MSG_MAP(GetMaxDpmFreq,			PPSMC_MSG_GetMaxDpmFreq,               1),
++	MSG_MAP(GetDpmFreqByIndex,		PPSMC_MSG_GetDpmFreqByIndex,           1),
++	MSG_MAP(PowerUpVcn,			PPSMC_MSG_PowerUpVcn,                  0),
++	MSG_MAP(PowerDownVcn,			PPSMC_MSG_PowerDownVcn,                0),
++	MSG_MAP(PowerUpJpeg,			PPSMC_MSG_PowerUpJpeg,                 0),
++	MSG_MAP(PowerDownJpeg,			PPSMC_MSG_PowerDownJpeg,               0),
++	MSG_MAP(GetDcModeMaxDpmFreq,		PPSMC_MSG_GetDcModeMaxDpmFreq,         1),
++	MSG_MAP(OverridePcieParameters,		PPSMC_MSG_OverridePcieParameters,      0),
++	MSG_MAP(DramLogSetDramAddrHigh,		PPSMC_MSG_DramLogSetDramAddrHigh,      0),
++	MSG_MAP(DramLogSetDramAddrLow,		PPSMC_MSG_DramLogSetDramAddrLow,       0),
++	MSG_MAP(DramLogSetDramSize,		PPSMC_MSG_DramLogSetDramSize,          0),
++	MSG_MAP(AllowGfxOff,			PPSMC_MSG_AllowGfxOff,                 0),
++	MSG_MAP(DisallowGfxOff,			PPSMC_MSG_DisallowGfxOff,              0),
++	MSG_MAP(SetMGpuFanBoostLimitRpm,	PPSMC_MSG_SetMGpuFanBoostLimitRpm,     0),
++	MSG_MAP(GetPptLimit,			PPSMC_MSG_GetPptLimit,                 0),
++	MSG_MAP(NotifyPowerSource,		PPSMC_MSG_NotifyPowerSource,           0),
++	MSG_MAP(Mode1Reset,			PPSMC_MSG_Mode1Reset,                  0),
++	MSG_MAP(PrepareMp1ForUnload,		PPSMC_MSG_PrepareMp1ForUnload,         0),
++	MSG_MAP(DFCstateControl,		PPSMC_MSG_SetExternalClientDfCstateAllow, 0),
++	MSG_MAP(ArmD3,				PPSMC_MSG_ArmD3,                       0),
++	MSG_MAP(SetNumBadMemoryPagesRetired,	PPSMC_MSG_SetNumBadMemoryPagesRetired,   0),
++	MSG_MAP(SetBadMemoryPagesRetiredFlagsPerChannel,
++			    PPSMC_MSG_SetBadMemoryPagesRetiredFlagsPerChannel,   0),
++	MSG_MAP(AllowIHHostInterrupt,		PPSMC_MSG_AllowIHHostInterrupt,       0),
++	MSG_MAP(ReenableAcDcInterrupt,		PPSMC_MSG_ReenableAcDcInterrupt,       0),
++};
++
++static struct cmn2asic_mapping smu_v14_0_2_clk_map[SMU_CLK_COUNT] = {
++	CLK_MAP(GFXCLK,		PPCLK_GFXCLK),
++	CLK_MAP(SCLK,		PPCLK_GFXCLK),
++	CLK_MAP(SOCCLK,		PPCLK_SOCCLK),
++	CLK_MAP(FCLK,		PPCLK_FCLK),
++	CLK_MAP(UCLK,		PPCLK_UCLK),
++	CLK_MAP(MCLK,		PPCLK_UCLK),
++	CLK_MAP(VCLK,		PPCLK_VCLK_0),
++	CLK_MAP(DCLK,		PPCLK_DCLK_0),
++};
++
++static struct cmn2asic_mapping smu_v14_0_2_feature_mask_map[SMU_FEATURE_COUNT] = {
++	FEA_MAP(FW_DATA_READ),
++	FEA_MAP(DPM_GFXCLK),
++	FEA_MAP(DPM_GFX_POWER_OPTIMIZER),
++	FEA_MAP(DPM_UCLK),
++	FEA_MAP(DPM_FCLK),
++	FEA_MAP(DPM_SOCCLK),
++	FEA_MAP(DPM_LINK),
++	FEA_MAP(DPM_DCN),
++	FEA_MAP(VMEMP_SCALING),
++	FEA_MAP(VDDIO_MEM_SCALING),
++	FEA_MAP(DS_GFXCLK),
++	FEA_MAP(DS_SOCCLK),
++	FEA_MAP(DS_FCLK),
++	FEA_MAP(DS_LCLK),
++	FEA_MAP(DS_DCFCLK),
++	FEA_MAP(DS_UCLK),
++	FEA_MAP(GFX_ULV),
++	FEA_MAP(FW_DSTATE),
++	FEA_MAP(GFXOFF),
++	FEA_MAP(BACO),
++	FEA_MAP(MM_DPM),
++	FEA_MAP(SOC_MPCLK_DS),
++	FEA_MAP(BACO_MPCLK_DS),
++	FEA_MAP(THROTTLERS),
++	FEA_MAP(SMARTSHIFT),
++	FEA_MAP(GTHR),
++	FEA_MAP(ACDC),
++	FEA_MAP(VR0HOT),
++	FEA_MAP(FW_CTF),
++	FEA_MAP(FAN_CONTROL),
++	FEA_MAP(GFX_DCS),
++	FEA_MAP(GFX_READ_MARGIN),
++	FEA_MAP(LED_DISPLAY),
++	FEA_MAP(GFXCLK_SPREAD_SPECTRUM),
++	FEA_MAP(OUT_OF_BAND_MONITOR),
++	FEA_MAP(OPTIMIZED_VMIN),
++	FEA_MAP(GFX_IMU),
++	FEA_MAP(BOOT_TIME_CAL),
++	FEA_MAP(GFX_PCC_DFLL),
++	FEA_MAP(SOC_CG),
++	FEA_MAP(DF_CSTATE),
++	FEA_MAP(GFX_EDC),
++	FEA_MAP(BOOT_POWER_OPT),
++	FEA_MAP(CLOCK_POWER_DOWN_BYPASS),
++	FEA_MAP(DS_VCN),
++	FEA_MAP(BACO_CG),
++	FEA_MAP(MEM_TEMP_READ),
++	FEA_MAP(ATHUB_MMHUB_PG),
++	FEA_MAP(SOC_PCC),
++	[SMU_FEATURE_DPM_VCLK_BIT] = {1, FEATURE_MM_DPM_BIT},
++	[SMU_FEATURE_DPM_DCLK_BIT] = {1, FEATURE_MM_DPM_BIT},
++	[SMU_FEATURE_PPT_BIT] = {1, FEATURE_THROTTLERS_BIT},
++};
++
++static struct cmn2asic_mapping smu_v14_0_2_table_map[SMU_TABLE_COUNT] = {
++	TAB_MAP(PPTABLE),
++	TAB_MAP(WATERMARKS),
++	TAB_MAP(AVFS_PSM_DEBUG),
++	TAB_MAP(PMSTATUSLOG),
++	TAB_MAP(SMU_METRICS),
++	TAB_MAP(DRIVER_SMU_CONFIG),
++	TAB_MAP(ACTIVITY_MONITOR_COEFF),
++	[SMU_TABLE_COMBO_PPTABLE] = {1, TABLE_COMBO_PPTABLE},
++	TAB_MAP(I2C_COMMANDS),
++	TAB_MAP(ECCINFO),
++};
++
++static struct cmn2asic_mapping smu_v14_0_2_pwr_src_map[SMU_POWER_SOURCE_COUNT] = {
++	PWR_MAP(AC),
++	PWR_MAP(DC),
++};
++
++static struct cmn2asic_mapping smu_v14_0_2_workload_map[PP_SMC_POWER_PROFILE_COUNT] = {
++	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT,	WORKLOAD_PPLIB_DEFAULT_BIT),
++	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_FULLSCREEN3D,		WORKLOAD_PPLIB_FULL_SCREEN_3D_BIT),
++	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_POWERSAVING,		WORKLOAD_PPLIB_POWER_SAVING_BIT),
++	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_VIDEO,		WORKLOAD_PPLIB_VIDEO_BIT),
++	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_VR,			WORKLOAD_PPLIB_VR_BIT),
++	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_COMPUTE,		WORKLOAD_PPLIB_COMPUTE_BIT),
++	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_CUSTOM,		WORKLOAD_PPLIB_CUSTOM_BIT),
++	WORKLOAD_MAP(PP_SMC_POWER_PROFILE_WINDOW3D,		WORKLOAD_PPLIB_WINDOW_3D_BIT),
++};
++
++#if 0
++static const uint8_t smu_v14_0_2_throttler_map[] = {
++	[THROTTLER_PPT0_BIT]		= (SMU_THROTTLER_PPT0_BIT),
++	[THROTTLER_PPT1_BIT]		= (SMU_THROTTLER_PPT1_BIT),
++	[THROTTLER_PPT2_BIT]		= (SMU_THROTTLER_PPT2_BIT),
++	[THROTTLER_PPT3_BIT]		= (SMU_THROTTLER_PPT3_BIT),
++	[THROTTLER_TDC_GFX_BIT]		= (SMU_THROTTLER_TDC_GFX_BIT),
++	[THROTTLER_TDC_SOC_BIT]		= (SMU_THROTTLER_TDC_SOC_BIT),
++	[THROTTLER_TEMP_EDGE_BIT]	= (SMU_THROTTLER_TEMP_EDGE_BIT),
++	[THROTTLER_TEMP_HOTSPOT_BIT]	= (SMU_THROTTLER_TEMP_HOTSPOT_BIT),
++	[THROTTLER_TEMP_MEM_BIT]	= (SMU_THROTTLER_TEMP_MEM_BIT),
++	[THROTTLER_TEMP_VR_GFX_BIT]	= (SMU_THROTTLER_TEMP_VR_GFX_BIT),
++	[THROTTLER_TEMP_VR_SOC_BIT]	= (SMU_THROTTLER_TEMP_VR_SOC_BIT),
++	[THROTTLER_TEMP_VR_MEM0_BIT]	= (SMU_THROTTLER_TEMP_VR_MEM0_BIT),
++	[THROTTLER_TEMP_VR_MEM1_BIT]	= (SMU_THROTTLER_TEMP_VR_MEM1_BIT),
++	[THROTTLER_TEMP_LIQUID0_BIT]	= (SMU_THROTTLER_TEMP_LIQUID0_BIT),
++	[THROTTLER_TEMP_LIQUID1_BIT]	= (SMU_THROTTLER_TEMP_LIQUID1_BIT),
++	[THROTTLER_GFX_APCC_PLUS_BIT]	= (SMU_THROTTLER_APCC_BIT),
++	[THROTTLER_FIT_BIT]		= (SMU_THROTTLER_FIT_BIT),
++};
++#endif
++
++static int
++smu_v14_0_2_get_allowed_feature_mask(struct smu_context *smu,
++				  uint32_t *feature_mask, uint32_t num)
++{
++	struct amdgpu_device *adev = smu->adev;
++	/*u32 smu_version;*/
++
++	if (num > 2)
++		return -EINVAL;
++
++	memset(feature_mask, 0xff, sizeof(uint32_t) * num);
++
++	if (adev->pm.pp_feature & PP_SCLK_DPM_MASK) {
++		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_GFXCLK_BIT);
++		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_GFX_IMU_BIT);
++	}
++#if 0
++	if (!(adev->pg_flags & AMD_PG_SUPPORT_ATHUB) ||
++	    !(adev->pg_flags & AMD_PG_SUPPORT_MMHUB))
++		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_ATHUB_MMHUB_PG_BIT);
++
++	if (!(adev->pm.pp_feature & PP_SOCCLK_DPM_MASK))
++		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_DPM_SOCCLK_BIT);
++
++	/* PMFW 78.58 contains a critical fix for gfxoff feature */
++	smu_cmn_get_smc_version(smu, NULL, &smu_version);
++	if ((smu_version < 0x004e3a00) ||
++	     !(adev->pm.pp_feature & PP_GFXOFF_MASK))
++		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_GFXOFF_BIT);
++
++	if (!(adev->pm.pp_feature & PP_MCLK_DPM_MASK)) {
++		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_DPM_UCLK_BIT);
++		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_VMEMP_SCALING_BIT);
++		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_VDDIO_MEM_SCALING_BIT);
++	}
++
++	if (!(adev->pm.pp_feature & PP_SCLK_DEEP_SLEEP_MASK))
++		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_DS_GFXCLK_BIT);
++
++	if (!(adev->pm.pp_feature & PP_PCIE_DPM_MASK)) {
++		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_DPM_LINK_BIT);
++		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_DS_LCLK_BIT);
++	}
++
++	if (!(adev->pm.pp_feature & PP_ULV_MASK))
++		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_GFX_ULV_BIT);
++#endif
++
++	return 0;
++}
++
++static int smu_v14_0_2_check_powerplay_table(struct smu_context *smu)
++{
++	struct smu_table_context *table_context = &smu->smu_table;
++	struct smu_14_0_2_powerplay_table *powerplay_table =
++		table_context->power_play_table;
++	struct smu_baco_context *smu_baco = &smu->smu_baco;
++	PPTable_t *pptable = smu->smu_table.driver_pptable;
++	const OverDriveLimits_t * const overdrive_upperlimits =
++				&pptable->SkuTable.OverDriveLimitsBasicMax;
++	const OverDriveLimits_t * const overdrive_lowerlimits =
++				&pptable->SkuTable.OverDriveLimitsBasicMin;
++
++	if (powerplay_table->platform_caps & SMU_14_0_2_PP_PLATFORM_CAP_HARDWAREDC)
++		smu->dc_controlled_by_gpio = true;
++
++	if (powerplay_table->platform_caps & SMU_14_0_2_PP_PLATFORM_CAP_BACO) {
++		smu_baco->platform_support = true;
++
++		if (powerplay_table->platform_caps & SMU_14_0_2_PP_PLATFORM_CAP_MACO)
++			smu_baco->maco_support = true;
++	}
++
++	if (!overdrive_lowerlimits->FeatureCtrlMask ||
++	    !overdrive_upperlimits->FeatureCtrlMask)
++		smu->od_enabled = false;
++
++	table_context->thermal_controller_type =
++		powerplay_table->thermal_controller_type;
++
++	/*
++	 * Instead of having its own buffer space and get overdrive_table copied,
++	 * smu->od_settings just points to the actual overdrive_table
++	 */
++	smu->od_settings = &powerplay_table->overdrive_table;
++
++	smu->adev->pm.no_fan =
++		!(pptable->PFE_Settings.FeaturesToRun[0] & (1 << FEATURE_FAN_CONTROL_BIT));
++
++	return 0;
++}
++
++static int smu_v14_0_2_store_powerplay_table(struct smu_context *smu)
++{
++	struct smu_table_context *table_context = &smu->smu_table;
++	struct smu_14_0_2_powerplay_table *powerplay_table =
++		table_context->power_play_table;
++
++	memcpy(table_context->driver_pptable, &powerplay_table->smc_pptable,
++	       sizeof(PPTable_t));
++
++	return 0;
++}
++
++#ifndef atom_smc_dpm_info_table_14_0_0
++struct atom_smc_dpm_info_table_14_0_0 {
++	struct atom_common_table_header table_header;
++	BoardTable_t BoardTable;
++};
++#endif
++
++static int smu_v14_0_2_append_powerplay_table(struct smu_context *smu)
++{
++	struct smu_table_context *table_context = &smu->smu_table;
++	PPTable_t *smc_pptable = table_context->driver_pptable;
++	struct atom_smc_dpm_info_table_14_0_0 *smc_dpm_table;
++	BoardTable_t *BoardTable = &smc_pptable->BoardTable;
++	int index, ret;
++
++	index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
++					    smc_dpm_info);
++
++	ret = amdgpu_atombios_get_data_table(smu->adev, index, NULL, NULL, NULL,
++					     (uint8_t **)&smc_dpm_table);
++	if (ret)
++		return ret;
++
++	memcpy(BoardTable, &smc_dpm_table->BoardTable, sizeof(BoardTable_t));
++
++	return 0;
++}
++
++#if 0
++static int smu_v14_0_2_get_pptable_from_pmfw(struct smu_context *smu,
++					     void **table,
++					     uint32_t *size)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++	void *combo_pptable = smu_table->combo_pptable;
++	int ret = 0;
++
++	ret = smu_cmn_get_combo_pptable(smu);
++	if (ret)
++		return ret;
++
++	*table = combo_pptable;
++	*size = sizeof(struct smu_14_0_powerplay_table);
++
++	return 0;
++}
++#endif
++
++static int smu_v14_0_2_get_pptable_from_pmfw(struct smu_context *smu,
++					     void **table,
++					     uint32_t *size)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++	void *combo_pptable = smu_table->combo_pptable;
++	int ret = 0;
++
++	ret = smu_cmn_get_combo_pptable(smu);
++	if (ret)
++		return ret;
++
++	*table = combo_pptable;
++	*size = sizeof(struct smu_14_0_2_powerplay_table);
++
++	return 0;
++}
++
++static int smu_v14_0_2_setup_pptable(struct smu_context *smu)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++	struct amdgpu_device *adev = smu->adev;
++	int ret = 0;
++
++	if (amdgpu_sriov_vf(smu->adev))
++		return 0;
++
++	if (!adev->scpm_enabled)
++		ret = smu_v14_0_setup_pptable(smu);
++	else
++		ret = smu_v14_0_2_get_pptable_from_pmfw(smu,
++							&smu_table->power_play_table,
++							&smu_table->power_play_table_size);
++	if (ret)
++		return ret;
++
++	ret = smu_v14_0_2_store_powerplay_table(smu);
++	if (ret)
++		return ret;
++
++	/*
++	 * With SCPM enabled, the operation below will be handled
++	 * by PSP. Driver involvment is unnecessary and useless.
++	 */
++	if (!adev->scpm_enabled) {
++		ret = smu_v14_0_2_append_powerplay_table(smu);
++		if (ret)
++			return ret;
++	}
++
++	ret = smu_v14_0_2_check_powerplay_table(smu);
++	if (ret)
++		return ret;
++
++	return ret;
++}
++
++static int smu_v14_0_2_tables_init(struct smu_context *smu)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++	struct smu_table *tables = smu_table->tables;
++
++	SMU_TABLE_INIT(tables, SMU_TABLE_PPTABLE, sizeof(PPTable_t),
++		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
++	SMU_TABLE_INIT(tables, SMU_TABLE_WATERMARKS, sizeof(Watermarks_t),
++		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
++	SMU_TABLE_INIT(tables, SMU_TABLE_SMU_METRICS, sizeof(SmuMetricsExternal_t),
++		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
++	SMU_TABLE_INIT(tables, SMU_TABLE_I2C_COMMANDS, sizeof(SwI2cRequest_t),
++		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
++	SMU_TABLE_INIT(tables, SMU_TABLE_OVERDRIVE, sizeof(OverDriveTable_t),
++		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
++	SMU_TABLE_INIT(tables, SMU_TABLE_ACTIVITY_MONITOR_COEFF,
++		       sizeof(DpmActivityMonitorCoeffIntExternal_t), PAGE_SIZE,
++		       AMDGPU_GEM_DOMAIN_VRAM);
++	SMU_TABLE_INIT(tables, SMU_TABLE_COMBO_PPTABLE, MP0_MP1_DATA_REGION_SIZE_COMBOPPTABLE,
++			PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
++	SMU_TABLE_INIT(tables, SMU_TABLE_ECCINFO, sizeof(EccInfoTable_t),
++			PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
++
++	smu_table->metrics_table = kzalloc(sizeof(SmuMetricsExternal_t), GFP_KERNEL);
++	if (!smu_table->metrics_table)
++		goto err0_out;
++	smu_table->metrics_time = 0;
++
++	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_3);
++	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
++	if (!smu_table->gpu_metrics_table)
++		goto err1_out;
++
++	smu_table->watermarks_table = kzalloc(sizeof(Watermarks_t), GFP_KERNEL);
++	if (!smu_table->watermarks_table)
++		goto err2_out;
++
++	smu_table->ecc_table = kzalloc(tables[SMU_TABLE_ECCINFO].size, GFP_KERNEL);
++	if (!smu_table->ecc_table)
++		goto err3_out;
++
++	return 0;
++
++err3_out:
++	kfree(smu_table->watermarks_table);
++err2_out:
++	kfree(smu_table->gpu_metrics_table);
++err1_out:
++	kfree(smu_table->metrics_table);
++err0_out:
++	return -ENOMEM;
++}
++
++static int smu_v14_0_2_allocate_dpm_context(struct smu_context *smu)
++{
++	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
++
++	smu_dpm->dpm_context = kzalloc(sizeof(struct smu_14_0_dpm_context),
++				       GFP_KERNEL);
++	if (!smu_dpm->dpm_context)
++		return -ENOMEM;
++
++	smu_dpm->dpm_context_size = sizeof(struct smu_14_0_dpm_context);
++
++	return 0;
++}
++
++static int smu_v14_0_2_init_smc_tables(struct smu_context *smu)
++{
++	int ret = 0;
++
++	ret = smu_v14_0_2_tables_init(smu);
++	if (ret)
++		return ret;
++
++	ret = smu_v14_0_2_allocate_dpm_context(smu);
++	if (ret)
++		return ret;
++
++	return smu_v14_0_init_smc_tables(smu);
++}
++
++static int smu_v14_0_2_set_default_dpm_table(struct smu_context *smu)
++{
++	struct smu_14_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
++	struct smu_table_context *table_context = &smu->smu_table;
++	PPTable_t *pptable = table_context->driver_pptable;
++	SkuTable_t *skutable = &pptable->SkuTable;
++	struct smu_14_0_dpm_table *dpm_table;
++	struct smu_14_0_pcie_table *pcie_table;
++	uint32_t link_level;
++	int ret = 0;
++
++	/* socclk dpm table setup */
++	dpm_table = &dpm_context->dpm_tables.soc_table;
++	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_SOCCLK_BIT)) {
++		ret = smu_v14_0_set_single_dpm_table(smu,
++						     SMU_SOCCLK,
++						     dpm_table);
++		if (ret)
++			return ret;
++	} else {
++		dpm_table->count = 1;
++		dpm_table->dpm_levels[0].value = smu->smu_table.boot_values.socclk / 100;
++		dpm_table->dpm_levels[0].enabled = true;
++		dpm_table->min = dpm_table->dpm_levels[0].value;
++		dpm_table->max = dpm_table->dpm_levels[0].value;
++	}
++
++	/* gfxclk dpm table setup */
++	dpm_table = &dpm_context->dpm_tables.gfx_table;
++	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_GFXCLK_BIT)) {
++		ret = smu_v14_0_set_single_dpm_table(smu,
++						     SMU_GFXCLK,
++						     dpm_table);
++		if (ret)
++			return ret;
++
++		/*
++		 * Update the reported maximum shader clock to the value
++		 * which can be guarded to be achieved on all cards. This
++		 * is aligned with Window setting. And considering that value
++		 * might be not the peak frequency the card can achieve, it
++		 * is normal some real-time clock frequency can overtake this
++		 * labelled maximum clock frequency(for example in pp_dpm_sclk
++		 * sysfs output).
++		 */
++		if (skutable->DriverReportedClocks.GameClockAc &&
++		    (dpm_table->dpm_levels[dpm_table->count - 1].value >
++		    skutable->DriverReportedClocks.GameClockAc)) {
++			dpm_table->dpm_levels[dpm_table->count - 1].value =
++				skutable->DriverReportedClocks.GameClockAc;
++			dpm_table->max = skutable->DriverReportedClocks.GameClockAc;
++		}
++	} else {
++		dpm_table->count = 1;
++		dpm_table->dpm_levels[0].value = smu->smu_table.boot_values.gfxclk / 100;
++		dpm_table->dpm_levels[0].enabled = true;
++		dpm_table->min = dpm_table->dpm_levels[0].value;
++		dpm_table->max = dpm_table->dpm_levels[0].value;
++	}
++
++	/* uclk dpm table setup */
++	dpm_table = &dpm_context->dpm_tables.uclk_table;
++	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT)) {
++		ret = smu_v14_0_set_single_dpm_table(smu,
++						     SMU_UCLK,
++						     dpm_table);
++		if (ret)
++			return ret;
++	} else {
++		dpm_table->count = 1;
++		dpm_table->dpm_levels[0].value = smu->smu_table.boot_values.uclk / 100;
++		dpm_table->dpm_levels[0].enabled = true;
++		dpm_table->min = dpm_table->dpm_levels[0].value;
++		dpm_table->max = dpm_table->dpm_levels[0].value;
++	}
++
++	/* fclk dpm table setup */
++	dpm_table = &dpm_context->dpm_tables.fclk_table;
++	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_FCLK_BIT)) {
++		ret = smu_v14_0_set_single_dpm_table(smu,
++						     SMU_FCLK,
++						     dpm_table);
++		if (ret)
++			return ret;
++	} else {
++		dpm_table->count = 1;
++		dpm_table->dpm_levels[0].value = smu->smu_table.boot_values.fclk / 100;
++		dpm_table->dpm_levels[0].enabled = true;
++		dpm_table->min = dpm_table->dpm_levels[0].value;
++		dpm_table->max = dpm_table->dpm_levels[0].value;
++	}
++
++	/* vclk dpm table setup */
++	dpm_table = &dpm_context->dpm_tables.vclk_table;
++	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_VCLK_BIT)) {
++		ret = smu_v14_0_set_single_dpm_table(smu,
++						     SMU_VCLK,
++						     dpm_table);
++		if (ret)
++			return ret;
++	} else {
++		dpm_table->count = 1;
++		dpm_table->dpm_levels[0].value = smu->smu_table.boot_values.vclk / 100;
++		dpm_table->dpm_levels[0].enabled = true;
++		dpm_table->min = dpm_table->dpm_levels[0].value;
++		dpm_table->max = dpm_table->dpm_levels[0].value;
++	}
++
++	/* dclk dpm table setup */
++	dpm_table = &dpm_context->dpm_tables.dclk_table;
++	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_DCLK_BIT)) {
++		ret = smu_v14_0_set_single_dpm_table(smu,
++						     SMU_DCLK,
++						     dpm_table);
++		if (ret)
++			return ret;
++	} else {
++		dpm_table->count = 1;
++		dpm_table->dpm_levels[0].value = smu->smu_table.boot_values.dclk / 100;
++		dpm_table->dpm_levels[0].enabled = true;
++		dpm_table->min = dpm_table->dpm_levels[0].value;
++		dpm_table->max = dpm_table->dpm_levels[0].value;
++	}
++
++	/* lclk dpm table setup */
++	pcie_table = &dpm_context->dpm_tables.pcie_table;
++	pcie_table->num_of_link_levels = 0;
++	for (link_level = 0; link_level < NUM_LINK_LEVELS; link_level++) {
++		if (!skutable->PcieGenSpeed[link_level] &&
++		    !skutable->PcieLaneCount[link_level] &&
++		    !skutable->LclkFreq[link_level])
++			continue;
++
++		pcie_table->pcie_gen[pcie_table->num_of_link_levels] =
++					skutable->PcieGenSpeed[link_level];
++		pcie_table->pcie_lane[pcie_table->num_of_link_levels] =
++					skutable->PcieLaneCount[link_level];
++		pcie_table->clk_freq[pcie_table->num_of_link_levels] =
++					skutable->LclkFreq[link_level];
++		pcie_table->num_of_link_levels++;
++	}
++
++	return 0;
++}
++
++static bool smu_v14_0_2_is_dpm_running(struct smu_context *smu)
++{
++	int ret = 0;
++	uint64_t feature_enabled;
++
++	ret = smu_cmn_get_enabled_mask(smu, &feature_enabled);
++	if (ret)
++		return false;
++
++	return !!(feature_enabled & SMC_DPM_FEATURE);
++}
++
++static void smu_v14_0_2_dump_pptable(struct smu_context *smu)
++{
++       struct smu_table_context *table_context = &smu->smu_table;
++       PPTable_t *pptable = table_context->driver_pptable;
++       PFE_Settings_t *PFEsettings = &pptable->PFE_Settings;
++
++       dev_info(smu->adev->dev, "Dumped PPTable:\n");
++
++       dev_info(smu->adev->dev, "Version = 0x%08x\n", PFEsettings->Version);
++       dev_info(smu->adev->dev, "FeaturesToRun[0] = 0x%08x\n", PFEsettings->FeaturesToRun[0]);
++       dev_info(smu->adev->dev, "FeaturesToRun[1] = 0x%08x\n", PFEsettings->FeaturesToRun[1]);
++}
++
++static uint32_t smu_v14_0_2_get_throttler_status(SmuMetrics_t *metrics)
++{
++	uint32_t throttler_status = 0;
++	int i;
++
++	for (i = 0; i < THROTTLER_COUNT; i++)
++		throttler_status |=
++			(metrics->ThrottlingPercentage[i] ? 1U << i : 0);
++
++	return throttler_status;
++}
++
++#define SMU_14_0_2_BUSY_THRESHOLD	5
++static int smu_v14_0_2_get_smu_metrics_data(struct smu_context *smu,
++					    MetricsMember_t member,
++					    uint32_t *value)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++	SmuMetrics_t *metrics =
++		&(((SmuMetricsExternal_t *)(smu_table->metrics_table))->SmuMetrics);
++	int ret = 0;
++
++	ret = smu_cmn_get_metrics_table(smu,
++					NULL,
++					false);
++	if (ret)
++		return ret;
++
++	switch (member) {
++	case METRICS_CURR_GFXCLK:
++		*value = metrics->CurrClock[PPCLK_GFXCLK];
++		break;
++	case METRICS_CURR_SOCCLK:
++		*value = metrics->CurrClock[PPCLK_SOCCLK];
++		break;
++	case METRICS_CURR_UCLK:
++		*value = metrics->CurrClock[PPCLK_UCLK];
++		break;
++	case METRICS_CURR_VCLK:
++		*value = metrics->CurrClock[PPCLK_VCLK_0];
++		break;
++	case METRICS_CURR_DCLK:
++		*value = metrics->CurrClock[PPCLK_DCLK_0];
++		break;
++	case METRICS_CURR_FCLK:
++		*value = metrics->CurrClock[PPCLK_FCLK];
++		break;
++	case METRICS_CURR_DCEFCLK:
++		*value = metrics->CurrClock[PPCLK_DCFCLK];
++		break;
++	case METRICS_AVERAGE_GFXCLK:
++		if (metrics->AverageGfxActivity <= SMU_14_0_2_BUSY_THRESHOLD)
++			*value = metrics->AverageGfxclkFrequencyPostDs;
++		else
++			*value = metrics->AverageGfxclkFrequencyPreDs;
++		break;
++	case METRICS_AVERAGE_FCLK:
++		if (metrics->AverageUclkActivity <= SMU_14_0_2_BUSY_THRESHOLD)
++			*value = metrics->AverageFclkFrequencyPostDs;
++		else
++			*value = metrics->AverageFclkFrequencyPreDs;
++		break;
++	case METRICS_AVERAGE_UCLK:
++		if (metrics->AverageUclkActivity <= SMU_14_0_2_BUSY_THRESHOLD)
++			*value = metrics->AverageMemclkFrequencyPostDs;
++		else
++			*value = metrics->AverageMemclkFrequencyPreDs;
++		break;
++	case METRICS_AVERAGE_VCLK:
++		*value = metrics->AverageVclk0Frequency;
++		break;
++	case METRICS_AVERAGE_DCLK:
++		*value = metrics->AverageDclk0Frequency;
++		break;
++	case METRICS_AVERAGE_VCLK1:
++		*value = metrics->AverageVclk1Frequency;
++		break;
++	case METRICS_AVERAGE_DCLK1:
++		*value = metrics->AverageDclk1Frequency;
++		break;
++	case METRICS_AVERAGE_GFXACTIVITY:
++		*value = metrics->AverageGfxActivity;
++		break;
++	case METRICS_AVERAGE_MEMACTIVITY:
++		*value = metrics->AverageUclkActivity;
++		break;
++	case METRICS_AVERAGE_SOCKETPOWER:
++		*value = metrics->AverageSocketPower << 8;
++		break;
++	case METRICS_TEMPERATURE_EDGE:
++		*value = metrics->AvgTemperature[TEMP_EDGE] *
++			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++		break;
++	case METRICS_TEMPERATURE_HOTSPOT:
++		*value = metrics->AvgTemperature[TEMP_HOTSPOT] *
++			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++		break;
++	case METRICS_TEMPERATURE_MEM:
++		*value = metrics->AvgTemperature[TEMP_MEM] *
++			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++		break;
++	case METRICS_TEMPERATURE_VRGFX:
++		*value = metrics->AvgTemperature[TEMP_VR_GFX] *
++			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++		break;
++	case METRICS_TEMPERATURE_VRSOC:
++		*value = metrics->AvgTemperature[TEMP_VR_SOC] *
++			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++		break;
++	case METRICS_THROTTLER_STATUS:
++		*value = smu_v14_0_2_get_throttler_status(metrics);
++		break;
++	case METRICS_CURR_FANSPEED:
++		*value = metrics->AvgFanRpm;
++		break;
++	case METRICS_CURR_FANPWM:
++		*value = metrics->AvgFanPwm;
++		break;
++	case METRICS_VOLTAGE_VDDGFX:
++		*value = metrics->AvgVoltage[SVI_PLANE_VDD_GFX];
++		break;
++	case METRICS_PCIE_RATE:
++		*value = metrics->PcieRate;
++		break;
++	case METRICS_PCIE_WIDTH:
++		*value = metrics->PcieWidth;
++		break;
++	default:
++		*value = UINT_MAX;
++		break;
++	}
++
++	return ret;
++}
++
++static int smu_v14_0_2_get_dpm_ultimate_freq(struct smu_context *smu,
++					     enum smu_clk_type clk_type,
++					     uint32_t *min,
++					     uint32_t *max)
++{
++	struct smu_14_0_dpm_context *dpm_context =
++		smu->smu_dpm.dpm_context;
++	struct smu_14_0_dpm_table *dpm_table;
++
++	switch (clk_type) {
++	case SMU_MCLK:
++	case SMU_UCLK:
++		/* uclk dpm table */
++		dpm_table = &dpm_context->dpm_tables.uclk_table;
++		break;
++	case SMU_GFXCLK:
++	case SMU_SCLK:
++		/* gfxclk dpm table */
++		dpm_table = &dpm_context->dpm_tables.gfx_table;
++		break;
++	case SMU_SOCCLK:
++		/* socclk dpm table */
++		dpm_table = &dpm_context->dpm_tables.soc_table;
++		break;
++	case SMU_FCLK:
++		/* fclk dpm table */
++		dpm_table = &dpm_context->dpm_tables.fclk_table;
++		break;
++	case SMU_VCLK:
++	case SMU_VCLK1:
++		/* vclk dpm table */
++		dpm_table = &dpm_context->dpm_tables.vclk_table;
++		break;
++	case SMU_DCLK:
++	case SMU_DCLK1:
++		/* dclk dpm table */
++		dpm_table = &dpm_context->dpm_tables.dclk_table;
++		break;
++	default:
++		dev_err(smu->adev->dev, "Unsupported clock type!\n");
++		return -EINVAL;
++	}
++
++	if (min)
++		*min = dpm_table->min;
++	if (max)
++		*max = dpm_table->max;
++
++	return 0;
++}
++
++static int smu_v14_0_2_read_sensor(struct smu_context *smu,
++				   enum amd_pp_sensors sensor,
++				   void *data,
++				   uint32_t *size)
++{
++	struct smu_table_context *table_context = &smu->smu_table;
++	PPTable_t *smc_pptable = table_context->driver_pptable;
++	int ret = 0;
++
++	switch (sensor) {
++	case AMDGPU_PP_SENSOR_MAX_FAN_RPM:
++		*(uint16_t *)data = smc_pptable->CustomSkuTable.FanMaximumRpm;
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_MEM_LOAD:
++		ret = smu_v14_0_2_get_smu_metrics_data(smu,
++						       METRICS_AVERAGE_MEMACTIVITY,
++						       (uint32_t *)data);
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_GPU_LOAD:
++		ret = smu_v14_0_2_get_smu_metrics_data(smu,
++						       METRICS_AVERAGE_GFXACTIVITY,
++						       (uint32_t *)data);
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
++		ret = smu_v14_0_2_get_smu_metrics_data(smu,
++						       METRICS_AVERAGE_SOCKETPOWER,
++						       (uint32_t *)data);
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
++		ret = smu_v14_0_2_get_smu_metrics_data(smu,
++						       METRICS_TEMPERATURE_HOTSPOT,
++						       (uint32_t *)data);
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_EDGE_TEMP:
++		ret = smu_v14_0_2_get_smu_metrics_data(smu,
++						       METRICS_TEMPERATURE_EDGE,
++						       (uint32_t *)data);
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_MEM_TEMP:
++		ret = smu_v14_0_2_get_smu_metrics_data(smu,
++						       METRICS_TEMPERATURE_MEM,
++						       (uint32_t *)data);
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_GFX_MCLK:
++		ret = smu_v14_0_2_get_smu_metrics_data(smu,
++						       METRICS_CURR_UCLK,
++						       (uint32_t *)data);
++		*(uint32_t *)data *= 100;
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_GFX_SCLK:
++		ret = smu_v14_0_2_get_smu_metrics_data(smu,
++						       METRICS_AVERAGE_GFXCLK,
++						       (uint32_t *)data);
++		*(uint32_t *)data *= 100;
++		*size = 4;
++		break;
++	case AMDGPU_PP_SENSOR_VDDGFX:
++		ret = smu_v14_0_2_get_smu_metrics_data(smu,
++						       METRICS_VOLTAGE_VDDGFX,
++						       (uint32_t *)data);
++		*size = 4;
++		break;
++	default:
++		ret = -EOPNOTSUPP;
++		break;
++	}
++
++	return ret;
++}
++
++static int smu_v14_0_2_get_current_clk_freq_by_table(struct smu_context *smu,
++						     enum smu_clk_type clk_type,
++						     uint32_t *value)
++{
++	MetricsMember_t member_type;
++	int clk_id = 0;
++
++	clk_id = smu_cmn_to_asic_specific_index(smu,
++						CMN2ASIC_MAPPING_CLK,
++						clk_type);
++	if (clk_id < 0)
++		return -EINVAL;
++
++	switch (clk_id) {
++	case PPCLK_GFXCLK:
++		member_type = METRICS_AVERAGE_GFXCLK;
++		break;
++	case PPCLK_UCLK:
++		member_type = METRICS_CURR_UCLK;
++		break;
++	case PPCLK_FCLK:
++		member_type = METRICS_CURR_FCLK;
++		break;
++	case PPCLK_SOCCLK:
++		member_type = METRICS_CURR_SOCCLK;
++		break;
++	case PPCLK_VCLK_0:
++		member_type = METRICS_AVERAGE_VCLK;
++		break;
++	case PPCLK_DCLK_0:
++		member_type = METRICS_AVERAGE_DCLK;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return smu_v14_0_2_get_smu_metrics_data(smu,
++						member_type,
++						value);
++}
++
++static int smu_v14_0_2_print_clk_levels(struct smu_context *smu,
++					enum smu_clk_type clk_type,
++					char *buf)
++{
++	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
++	struct smu_14_0_dpm_context *dpm_context = smu_dpm->dpm_context;
++	struct smu_14_0_dpm_table *single_dpm_table;
++	int i, curr_freq, size = 0;
++	int ret = 0;
++
++	smu_cmn_get_sysfs_buf(&buf, &size);
++
++	if (amdgpu_ras_intr_triggered()) {
++		size += sysfs_emit_at(buf, size, "unavailable\n");
++		return size;
++	}
++
++	switch (clk_type) {
++	case SMU_SCLK:
++		single_dpm_table = &(dpm_context->dpm_tables.gfx_table);
++		break;
++	case SMU_MCLK:
++		single_dpm_table = &(dpm_context->dpm_tables.uclk_table);
++		break;
++	case SMU_SOCCLK:
++		single_dpm_table = &(dpm_context->dpm_tables.soc_table);
++		break;
++	case SMU_FCLK:
++		single_dpm_table = &(dpm_context->dpm_tables.fclk_table);
++		break;
++	case SMU_VCLK:
++	case SMU_VCLK1:
++		single_dpm_table = &(dpm_context->dpm_tables.vclk_table);
++		break;
++	case SMU_DCLK:
++	case SMU_DCLK1:
++		single_dpm_table = &(dpm_context->dpm_tables.dclk_table);
++		break;
++	default:
++		break;
++	}
++
++	switch (clk_type) {
++	case SMU_SCLK:
++	case SMU_MCLK:
++	case SMU_SOCCLK:
++	case SMU_FCLK:
++	case SMU_VCLK:
++	case SMU_VCLK1:
++	case SMU_DCLK:
++	case SMU_DCLK1:
++		ret = smu_v14_0_2_get_current_clk_freq_by_table(smu, clk_type, &curr_freq);
++		if (ret) {
++			dev_err(smu->adev->dev, "Failed to get current clock freq!");
++			return ret;
++		}
++
++		if (single_dpm_table->is_fine_grained) {
++			/*
++			 * For fine grained dpms, there are only two dpm levels:
++			 *   - level 0 -> min clock freq
++			 *   - level 1 -> max clock freq
++			 * And the current clock frequency can be any value between them.
++			 * So, if the current clock frequency is not at level 0 or level 1,
++			 * we will fake it as three dpm levels:
++			 *   - level 0 -> min clock freq
++			 *   - level 1 -> current actual clock freq
++			 *   - level 2 -> max clock freq
++			 */
++			if ((single_dpm_table->dpm_levels[0].value != curr_freq) &&
++			     (single_dpm_table->dpm_levels[1].value != curr_freq)) {
++				size += sysfs_emit_at(buf, size, "0: %uMhz\n",
++						single_dpm_table->dpm_levels[0].value);
++				size += sysfs_emit_at(buf, size, "1: %uMhz *\n",
++						curr_freq);
++				size += sysfs_emit_at(buf, size, "2: %uMhz\n",
++						single_dpm_table->dpm_levels[1].value);
++			} else {
++				size += sysfs_emit_at(buf, size, "0: %uMhz %s\n",
++						single_dpm_table->dpm_levels[0].value,
++						single_dpm_table->dpm_levels[0].value == curr_freq ? "*" : "");
++				size += sysfs_emit_at(buf, size, "1: %uMhz %s\n",
++						single_dpm_table->dpm_levels[1].value,
++						single_dpm_table->dpm_levels[1].value == curr_freq ? "*" : "");
++			}
++		} else {
++			for (i = 0; i < single_dpm_table->count; i++)
++				size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++						i, single_dpm_table->dpm_levels[i].value,
++						single_dpm_table->dpm_levels[i].value == curr_freq ? "*" : "");
++		}
++		break;
++	case SMU_PCIE:
++		// TODO
++		break;
++
++	default:
++		break;
++	}
++
++	return size;
++}
++
++static int smu_v14_0_2_force_clk_levels(struct smu_context *smu,
++					enum smu_clk_type clk_type,
++					uint32_t mask)
++{
++	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
++	struct smu_14_0_dpm_context *dpm_context = smu_dpm->dpm_context;
++	struct smu_14_0_dpm_table *single_dpm_table;
++	uint32_t soft_min_level, soft_max_level;
++	uint32_t min_freq, max_freq;
++	int ret = 0;
++
++	soft_min_level = mask ? (ffs(mask) - 1) : 0;
++	soft_max_level = mask ? (fls(mask) - 1) : 0;
++
++	switch (clk_type) {
++	case SMU_GFXCLK:
++	case SMU_SCLK:
++		single_dpm_table = &(dpm_context->dpm_tables.gfx_table);
++		break;
++	case SMU_MCLK:
++	case SMU_UCLK:
++		single_dpm_table = &(dpm_context->dpm_tables.uclk_table);
++		break;
++	case SMU_SOCCLK:
++		single_dpm_table = &(dpm_context->dpm_tables.soc_table);
++		break;
++	case SMU_FCLK:
++		single_dpm_table = &(dpm_context->dpm_tables.fclk_table);
++		break;
++	case SMU_VCLK:
++	case SMU_VCLK1:
++		single_dpm_table = &(dpm_context->dpm_tables.vclk_table);
++		break;
++	case SMU_DCLK:
++	case SMU_DCLK1:
++		single_dpm_table = &(dpm_context->dpm_tables.dclk_table);
++		break;
++	default:
++		break;
++	}
++
++	switch (clk_type) {
++	case SMU_GFXCLK:
++	case SMU_SCLK:
++	case SMU_MCLK:
++	case SMU_UCLK:
++	case SMU_SOCCLK:
++	case SMU_FCLK:
++	case SMU_VCLK:
++	case SMU_VCLK1:
++	case SMU_DCLK:
++	case SMU_DCLK1:
++		if (single_dpm_table->is_fine_grained) {
++			/* There is only 2 levels for fine grained DPM */
++			soft_max_level = (soft_max_level >= 1 ? 1 : 0);
++			soft_min_level = (soft_min_level >= 1 ? 1 : 0);
++		} else {
++			if ((soft_max_level >= single_dpm_table->count) ||
++			    (soft_min_level >= single_dpm_table->count))
++				return -EINVAL;
++		}
++
++		min_freq = single_dpm_table->dpm_levels[soft_min_level].value;
++		max_freq = single_dpm_table->dpm_levels[soft_max_level].value;
++
++		ret = smu_v14_0_set_soft_freq_limited_range(smu,
++							    clk_type,
++							    min_freq,
++							    max_freq);
++		break;
++	case SMU_DCEFCLK:
++	case SMU_PCIE:
++	default:
++		break;
++	}
++
++	return ret;
++}
++
++static int smu_v14_0_2_update_pcie_parameters(struct smu_context *smu,
++					      uint8_t pcie_gen_cap,
++					      uint8_t pcie_width_cap)
++{
++	struct smu_14_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
++	struct smu_14_0_pcie_table *pcie_table =
++				&dpm_context->dpm_tables.pcie_table;
++	uint32_t smu_pcie_arg;
++	int ret, i;
++
++	for (i = 0; i < pcie_table->num_of_link_levels; i++) {
++		if (pcie_table->pcie_gen[i] > pcie_gen_cap)
++			pcie_table->pcie_gen[i] = pcie_gen_cap;
++		if (pcie_table->pcie_lane[i] > pcie_width_cap)
++			pcie_table->pcie_lane[i] = pcie_width_cap;
++
++		smu_pcie_arg = i << 16;
++		smu_pcie_arg |= pcie_table->pcie_gen[i] << 8;
++		smu_pcie_arg |= pcie_table->pcie_lane[i];
++
++		ret = smu_cmn_send_smc_msg_with_param(smu,
++						      SMU_MSG_OverridePcieParameters,
++						      smu_pcie_arg,
++						      NULL);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++static int smu_v14_0_2_get_thermal_temperature_range(struct smu_context *smu,
++						     struct smu_temperature_range *range)
++{
++	// TODO
++
++	return 0;
++}
++
++static int smu_v14_0_2_populate_umd_state_clk(struct smu_context *smu)
++{
++	// TODO
++
++	return 0;
++}
++
++static void smu_v14_0_2_get_unique_id(struct smu_context *smu)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++	SmuMetrics_t *metrics =
++		&(((SmuMetricsExternal_t *)(smu_table->metrics_table))->SmuMetrics);
++	struct amdgpu_device *adev = smu->adev;
++	uint32_t upper32 = 0, lower32 = 0;
++	int ret;
++
++	ret = smu_cmn_get_metrics_table(smu, NULL, false);
++	if (ret)
++		goto out;
++
++	upper32 = metrics->PublicSerialNumberUpper;
++	lower32 = metrics->PublicSerialNumberLower;
++
++out:
++	adev->unique_id = ((uint64_t)upper32 << 32) | lower32;
++}
++
++static int smu_v14_0_2_get_power_limit(struct smu_context *smu,
++				       uint32_t *current_power_limit,
++				       uint32_t *default_power_limit,
++				       uint32_t *max_power_limit,
++				       uint32_t *min_power_limit)
++{
++	// TODO
++
++	return 0;
++}
++
++static int smu_v14_0_2_get_power_profile_mode(struct smu_context *smu,
++					      char *buf)
++{
++	DpmActivityMonitorCoeffIntExternal_t activity_monitor_external;
++	DpmActivityMonitorCoeffInt_t *activity_monitor =
++		&(activity_monitor_external.DpmActivityMonitorCoeffInt);
++	static const char *title[] = {
++			"PROFILE_INDEX(NAME)",
++			"CLOCK_TYPE(NAME)",
++			"FPS",
++			"MinActiveFreqType",
++			"MinActiveFreq",
++			"BoosterFreqType",
++			"BoosterFreq",
++			"PD_Data_limit_c",
++			"PD_Data_error_coeff",
++			"PD_Data_error_rate_coeff"};
++	int16_t workload_type = 0;
++	uint32_t i, size = 0;
++	int result = 0;
++
++	if (!buf)
++		return -EINVAL;
++
++	size += sysfs_emit_at(buf, size, "%16s %s %s %s %s %s %s %s %s %s\n",
++			title[0], title[1], title[2], title[3], title[4], title[5],
++			title[6], title[7], title[8], title[9]);
++
++	for (i = 0; i < PP_SMC_POWER_PROFILE_COUNT; i++) {
++		/* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
++		workload_type = smu_cmn_to_asic_specific_index(smu,
++							       CMN2ASIC_MAPPING_WORKLOAD,
++							       i);
++		if (workload_type == -ENOTSUPP)
++			continue;
++		else if (workload_type < 0)
++			return -EINVAL;
++
++		result = smu_cmn_update_table(smu,
++					      SMU_TABLE_ACTIVITY_MONITOR_COEFF,
++					      workload_type,
++					      (void *)(&activity_monitor_external),
++					      false);
++		if (result) {
++			dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
++			return result;
++		}
++
++		size += sysfs_emit_at(buf, size, "%2d %14s%s:\n",
++			i, amdgpu_pp_profile_name[i], (i == smu->power_profile_mode) ? "*" : " ");
++
++		size += sysfs_emit_at(buf, size, "%19s %d(%13s) %7d %7d %7d %7d %7d %7d %7d %7d\n",
++			" ",
++			0,
++			"GFXCLK",
++			activity_monitor->Gfx_FPS,
++			activity_monitor->Gfx_MinActiveFreqType,
++			activity_monitor->Gfx_MinActiveFreq,
++			activity_monitor->Gfx_BoosterFreqType,
++			activity_monitor->Gfx_BoosterFreq,
++			activity_monitor->Gfx_PD_Data_limit_c,
++			activity_monitor->Gfx_PD_Data_error_coeff,
++			activity_monitor->Gfx_PD_Data_error_rate_coeff);
++
++		size += sysfs_emit_at(buf, size, "%19s %d(%13s) %7d %7d %7d %7d %7d %7d %7d %7d\n",
++			" ",
++			1,
++			"FCLK",
++			activity_monitor->Fclk_FPS,
++			activity_monitor->Fclk_MinActiveFreqType,
++			activity_monitor->Fclk_MinActiveFreq,
++			activity_monitor->Fclk_BoosterFreqType,
++			activity_monitor->Fclk_BoosterFreq,
++			activity_monitor->Fclk_PD_Data_limit_c,
++			activity_monitor->Fclk_PD_Data_error_coeff,
++			activity_monitor->Fclk_PD_Data_error_rate_coeff);
++	}
++
++	return size;
++}
++
++static int smu_v14_0_2_set_power_profile_mode(struct smu_context *smu,
++					      long *input,
++					      uint32_t size)
++{
++	DpmActivityMonitorCoeffIntExternal_t activity_monitor_external;
++	DpmActivityMonitorCoeffInt_t *activity_monitor =
++		&(activity_monitor_external.DpmActivityMonitorCoeffInt);
++	int workload_type, ret = 0;
++
++	smu->power_profile_mode = input[size];
++
++	if (smu->power_profile_mode >= PP_SMC_POWER_PROFILE_COUNT) {
++		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", smu->power_profile_mode);
++		return -EINVAL;
++	}
++
++	if (smu->power_profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
++		ret = smu_cmn_update_table(smu,
++					   SMU_TABLE_ACTIVITY_MONITOR_COEFF,
++					   WORKLOAD_PPLIB_CUSTOM_BIT,
++					   (void *)(&activity_monitor_external),
++					   false);
++		if (ret) {
++			dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
++			return ret;
++		}
++
++		switch (input[0]) {
++		case 0: /* Gfxclk */
++			activity_monitor->Gfx_FPS = input[1];
++			activity_monitor->Gfx_MinActiveFreqType = input[2];
++			activity_monitor->Gfx_MinActiveFreq = input[3];
++			activity_monitor->Gfx_BoosterFreqType = input[4];
++			activity_monitor->Gfx_BoosterFreq = input[5];
++			activity_monitor->Gfx_PD_Data_limit_c = input[6];
++			activity_monitor->Gfx_PD_Data_error_coeff = input[7];
++			activity_monitor->Gfx_PD_Data_error_rate_coeff = input[8];
++			break;
++		case 1: /* Fclk */
++			activity_monitor->Fclk_FPS = input[1];
++			activity_monitor->Fclk_MinActiveFreqType = input[2];
++			activity_monitor->Fclk_MinActiveFreq = input[3];
++			activity_monitor->Fclk_BoosterFreqType = input[4];
++			activity_monitor->Fclk_BoosterFreq = input[5];
++			activity_monitor->Fclk_PD_Data_limit_c = input[6];
++			activity_monitor->Fclk_PD_Data_error_coeff = input[7];
++			activity_monitor->Fclk_PD_Data_error_rate_coeff = input[8];
++			break;
++		}
++
++		ret = smu_cmn_update_table(smu,
++					   SMU_TABLE_ACTIVITY_MONITOR_COEFF,
++					   WORKLOAD_PPLIB_CUSTOM_BIT,
++					   (void *)(&activity_monitor_external),
++					   true);
++		if (ret) {
++			dev_err(smu->adev->dev, "[%s] Failed to set activity monitor!", __func__);
++			return ret;
++		}
++	}
++
++	/* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
++	workload_type = smu_cmn_to_asic_specific_index(smu,
++						       CMN2ASIC_MAPPING_WORKLOAD,
++						       smu->power_profile_mode);
++	if (workload_type < 0)
++		return -EINVAL;
++
++	return smu_cmn_send_smc_msg_with_param(smu,
++					       SMU_MSG_SetWorkloadMask,
++					       1 << workload_type,
++					       NULL);
++}
++
++static int smu_v14_0_2_baco_enter(struct smu_context *smu)
++{
++	struct smu_baco_context *smu_baco = &smu->smu_baco;
++	struct amdgpu_device *adev = smu->adev;
++
++	if (adev->in_runpm && smu_cmn_is_audio_func_enabled(adev))
++		return smu_v14_0_baco_set_armd3_sequence(smu,
++				smu_baco->maco_support ? BACO_SEQ_BAMACO : BACO_SEQ_BACO);
++	else
++		return smu_v14_0_baco_enter(smu);
++}
++
++static int smu_v14_0_2_baco_exit(struct smu_context *smu)
++{
++	struct amdgpu_device *adev = smu->adev;
++
++	if (adev->in_runpm && smu_cmn_is_audio_func_enabled(adev)) {
++		/* Wait for PMFW handling for the Dstate change */
++		usleep_range(10000, 11000);
++		return smu_v14_0_baco_set_armd3_sequence(smu, BACO_SEQ_ULPS);
++	} else {
++		return smu_v14_0_baco_exit(smu);
++	}
++}
++
++static bool smu_v14_0_2_is_mode1_reset_supported(struct smu_context *smu)
++{
++	// TODO
++
++	return true;
++}
++
++static int smu_v14_0_2_i2c_xfer(struct i2c_adapter *i2c_adap,
++				   struct i2c_msg *msg, int num_msgs)
++{
++	struct amdgpu_smu_i2c_bus *smu_i2c = i2c_get_adapdata(i2c_adap);
++	struct amdgpu_device *adev = smu_i2c->adev;
++	struct smu_context *smu = adev->powerplay.pp_handle;
++	struct smu_table_context *smu_table = &smu->smu_table;
++	struct smu_table *table = &smu_table->driver_table;
++	SwI2cRequest_t *req, *res = (SwI2cRequest_t *)table->cpu_addr;
++	int i, j, r, c;
++	u16 dir;
++
++	if (!adev->pm.dpm_enabled)
++		return -EBUSY;
++
++	req = kzalloc(sizeof(*req), GFP_KERNEL);
++	if (!req)
++		return -ENOMEM;
++
++	req->I2CcontrollerPort = smu_i2c->port;
++	req->I2CSpeed = I2C_SPEED_FAST_400K;
++	req->SlaveAddress = msg[0].addr << 1; /* wants an 8-bit address */
++	dir = msg[0].flags & I2C_M_RD;
++
++	for (c = i = 0; i < num_msgs; i++) {
++		for (j = 0; j < msg[i].len; j++, c++) {
++			SwI2cCmd_t *cmd = &req->SwI2cCmds[c];
++
++			if (!(msg[i].flags & I2C_M_RD)) {
++				/* write */
++				cmd->CmdConfig |= CMDCONFIG_READWRITE_MASK;
++				cmd->ReadWriteData = msg[i].buf[j];
++			}
++
++			if ((dir ^ msg[i].flags) & I2C_M_RD) {
++				/* The direction changes.
++				 */
++				dir = msg[i].flags & I2C_M_RD;
++				cmd->CmdConfig |= CMDCONFIG_RESTART_MASK;
++			}
++
++			req->NumCmds++;
++
++			/*
++			 * Insert STOP if we are at the last byte of either last
++			 * message for the transaction or the client explicitly
++			 * requires a STOP at this particular message.
++			 */
++			if ((j == msg[i].len - 1) &&
++			    ((i == num_msgs - 1) || (msg[i].flags & I2C_M_STOP))) {
++				cmd->CmdConfig &= ~CMDCONFIG_RESTART_MASK;
++				cmd->CmdConfig |= CMDCONFIG_STOP_MASK;
++			}
++		}
++	}
++	mutex_lock(&adev->pm.mutex);
++	r = smu_cmn_update_table(smu, SMU_TABLE_I2C_COMMANDS, 0, req, true);
++	mutex_unlock(&adev->pm.mutex);
++	if (r)
++		goto fail;
++
++	for (c = i = 0; i < num_msgs; i++) {
++		if (!(msg[i].flags & I2C_M_RD)) {
++			c += msg[i].len;
++			continue;
++		}
++		for (j = 0; j < msg[i].len; j++, c++) {
++			SwI2cCmd_t *cmd = &res->SwI2cCmds[c];
++
++			msg[i].buf[j] = cmd->ReadWriteData;
++		}
++	}
++	r = num_msgs;
++fail:
++	kfree(req);
++	return r;
++}
++
++static u32 smu_v14_0_2_i2c_func(struct i2c_adapter *adap)
++{
++	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL;
++}
++
++static const struct i2c_algorithm smu_v14_0_2_i2c_algo = {
++	.master_xfer = smu_v14_0_2_i2c_xfer,
++	.functionality = smu_v14_0_2_i2c_func,
++};
++
++static const struct i2c_adapter_quirks smu_v14_0_2_i2c_control_quirks = {
++	.flags = I2C_AQ_COMB | I2C_AQ_COMB_SAME_ADDR | I2C_AQ_NO_ZERO_LEN,
++	.max_read_len  = MAX_SW_I2C_COMMANDS,
++	.max_write_len = MAX_SW_I2C_COMMANDS,
++	.max_comb_1st_msg_len = 2,
++	.max_comb_2nd_msg_len = MAX_SW_I2C_COMMANDS - 2,
++};
++
++static int smu_v14_0_2_i2c_control_init(struct smu_context *smu)
++{
++	struct amdgpu_device *adev = smu->adev;
++	int res, i;
++
++	for (i = 0; i < MAX_SMU_I2C_BUSES; i++) {
++		struct amdgpu_smu_i2c_bus *smu_i2c = &adev->pm.smu_i2c[i];
++		struct i2c_adapter *control = &smu_i2c->adapter;
++
++		smu_i2c->adev = adev;
++		smu_i2c->port = i;
++		mutex_init(&smu_i2c->mutex);
++		control->owner = THIS_MODULE;
++		control->class = I2C_CLASS_SPD;
++		control->dev.parent = &adev->pdev->dev;
++		control->algo = &smu_v14_0_2_i2c_algo;
++		snprintf(control->name, sizeof(control->name), "AMDGPU SMU %d", i);
++		control->quirks = &smu_v14_0_2_i2c_control_quirks;
++		i2c_set_adapdata(control, smu_i2c);
++
++		res = i2c_add_adapter(control);
++		if (res) {
++			DRM_ERROR("Failed to register hw i2c, err: %d\n", res);
++			goto Out_err;
++		}
++	}
++
++	/* assign the buses used for the FRU EEPROM and RAS EEPROM */
++	/* XXX ideally this would be something in a vbios data table */
++	adev->pm.ras_eeprom_i2c_bus = &adev->pm.smu_i2c[1].adapter;
++	adev->pm.fru_eeprom_i2c_bus = &adev->pm.smu_i2c[0].adapter;
++
++	return 0;
++Out_err:
++	for ( ; i >= 0; i--) {
++		struct amdgpu_smu_i2c_bus *smu_i2c = &adev->pm.smu_i2c[i];
++		struct i2c_adapter *control = &smu_i2c->adapter;
++
++		i2c_del_adapter(control);
++	}
++	return res;
++}
++
++static void smu_v14_0_2_i2c_control_fini(struct smu_context *smu)
++{
++	struct amdgpu_device *adev = smu->adev;
++	int i;
++
++	for (i = 0; i < MAX_SMU_I2C_BUSES; i++) {
++		struct amdgpu_smu_i2c_bus *smu_i2c = &adev->pm.smu_i2c[i];
++		struct i2c_adapter *control = &smu_i2c->adapter;
++
++		i2c_del_adapter(control);
++	}
++	adev->pm.ras_eeprom_i2c_bus = NULL;
++	adev->pm.fru_eeprom_i2c_bus = NULL;
++}
++
++static int smu_v14_0_2_set_mp1_state(struct smu_context *smu,
++				     enum pp_mp1_state mp1_state)
++{
++	int ret;
++
++	switch (mp1_state) {
++	case PP_MP1_STATE_UNLOAD:
++		ret = smu_cmn_set_mp1_state(smu, mp1_state);
++		break;
++	default:
++		/* Ignore others */
++		ret = 0;
++	}
++
++	return ret;
++}
++
++static int smu_v14_0_2_set_df_cstate(struct smu_context *smu,
++				     enum pp_df_cstate state)
++{
++	return smu_cmn_send_smc_msg_with_param(smu,
++					       SMU_MSG_DFCstateControl,
++					       state,
++					       NULL);
++}
++
++static int smu_v14_0_2_mode1_reset(struct smu_context *smu)
++{
++	int ret = 0;
++
++	// TODO
++
++	return ret;
++}
++
++static int smu_v14_0_2_mode2_reset(struct smu_context *smu)
++{
++	int ret = 0;
++
++	// TODO
++
++	return ret;
++}
++
++static int smu_v14_0_2_enable_gfx_features(struct smu_context *smu)
++{
++	struct amdgpu_device *adev = smu->adev;
++
++	if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(14, 0, 2))
++		return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_EnableAllSmuFeatures,
++										   FEATURE_PWR_GFX, NULL);
++	else
++		return -EOPNOTSUPP;
++}
++
++static void smu_v14_0_2_set_smu_mailbox_registers(struct smu_context *smu)
++{
++	struct amdgpu_device *adev = smu->adev;
++
++	smu->param_reg = SOC15_REG_OFFSET(MP1, 0, regMP1_SMN_C2PMSG_82);
++	smu->msg_reg = SOC15_REG_OFFSET(MP1, 0, regMP1_SMN_C2PMSG_66);
++	smu->resp_reg = SOC15_REG_OFFSET(MP1, 0, regMP1_SMN_C2PMSG_90);
++}
++
++static int smu_v14_0_2_smu_send_bad_mem_page_num(struct smu_context *smu,
++		uint32_t size)
++{
++	int ret = 0;
++
++	/* message SMU to update the bad page number on SMUBUS */
++	ret = smu_cmn_send_smc_msg_with_param(smu,
++					  SMU_MSG_SetNumBadMemoryPagesRetired,
++					  size, NULL);
++	if (ret)
++		dev_err(smu->adev->dev,
++			  "[%s] failed to message SMU to update bad memory pages number\n",
++			  __func__);
++
++	return ret;
++}
++
++static int smu_v14_0_2_send_bad_mem_channel_flag(struct smu_context *smu,
++		uint32_t size)
++{
++	int ret = 0;
++
++	/* message SMU to update the bad channel info on SMUBUS */
++	ret = smu_cmn_send_smc_msg_with_param(smu,
++				  SMU_MSG_SetBadMemoryPagesRetiredFlagsPerChannel,
++				  size, NULL);
++	if (ret)
++		dev_err(smu->adev->dev,
++			  "[%s] failed to message SMU to update bad memory pages channel info\n",
++			  __func__);
++
++	return ret;
++}
++
++static ssize_t smu_v14_0_2_get_ecc_info(struct smu_context *smu,
++					void *table)
++{
++	int ret = 0;
++
++	// TODO
++
++	return ret;
++}
++
++static const struct pptable_funcs smu_v14_0_2_ppt_funcs = {
++	.get_allowed_feature_mask = smu_v14_0_2_get_allowed_feature_mask,
++	.set_default_dpm_table = smu_v14_0_2_set_default_dpm_table,
++	.i2c_init = smu_v14_0_2_i2c_control_init,
++	.i2c_fini = smu_v14_0_2_i2c_control_fini,
++	.is_dpm_running = smu_v14_0_2_is_dpm_running,
++	.dump_pptable = smu_v14_0_2_dump_pptable,
++	.init_microcode = smu_v14_0_init_microcode,
++	.load_microcode = smu_v14_0_load_microcode,
++	.fini_microcode = smu_v14_0_fini_microcode,
++	.init_smc_tables = smu_v14_0_2_init_smc_tables,
++	.fini_smc_tables = smu_v14_0_fini_smc_tables,
++	.init_power = smu_v14_0_init_power,
++	.fini_power = smu_v14_0_fini_power,
++	.check_fw_status = smu_v14_0_check_fw_status,
++	.setup_pptable = smu_v14_0_2_setup_pptable,
++	.check_fw_version = smu_v14_0_check_fw_version,
++	.write_pptable = smu_cmn_write_pptable,
++	.set_driver_table_location = smu_v14_0_set_driver_table_location,
++	.system_features_control = smu_v14_0_system_features_control,
++	.set_allowed_mask = smu_v14_0_set_allowed_mask,
++	.get_enabled_mask = smu_cmn_get_enabled_mask,
++	.dpm_set_vcn_enable = smu_v14_0_set_vcn_enable,
++	.dpm_set_jpeg_enable = smu_v14_0_set_jpeg_enable,
++	.get_dpm_ultimate_freq = smu_v14_0_2_get_dpm_ultimate_freq,
++	.get_vbios_bootup_values = smu_v14_0_get_vbios_bootup_values,
++	.read_sensor = smu_v14_0_2_read_sensor,
++	.feature_is_enabled = smu_cmn_feature_is_enabled,
++	.print_clk_levels = smu_v14_0_2_print_clk_levels,
++	.force_clk_levels = smu_v14_0_2_force_clk_levels,
++	.update_pcie_parameters = smu_v14_0_2_update_pcie_parameters,
++	.get_thermal_temperature_range = smu_v14_0_2_get_thermal_temperature_range,
++	.register_irq_handler = smu_v14_0_register_irq_handler,
++	.notify_memory_pool_location = smu_v14_0_notify_memory_pool_location,
++	.set_soft_freq_limited_range = smu_v14_0_set_soft_freq_limited_range,
++	.init_pptable_microcode = smu_v14_0_init_pptable_microcode,
++	.populate_umd_state_clk = smu_v14_0_2_populate_umd_state_clk,
++	.set_performance_level = smu_v14_0_set_performance_level,
++	.gfx_off_control = smu_v14_0_gfx_off_control,
++	.get_unique_id = smu_v14_0_2_get_unique_id,
++	.get_power_limit = smu_v14_0_2_get_power_limit,
++	.set_power_limit = smu_v14_0_set_power_limit,
++	.set_power_source = smu_v14_0_set_power_source,
++	.get_power_profile_mode = smu_v14_0_2_get_power_profile_mode,
++	.set_power_profile_mode = smu_v14_0_2_set_power_profile_mode,
++	.run_btc = smu_v14_0_run_btc,
++	.get_pp_feature_mask = smu_cmn_get_pp_feature_mask,
++	.set_pp_feature_mask = smu_cmn_set_pp_feature_mask,
++	.set_tool_table_location = smu_v14_0_set_tool_table_location,
++	.deep_sleep_control = smu_v14_0_deep_sleep_control,
++	.gfx_ulv_control = smu_v14_0_gfx_ulv_control,
++	.get_bamaco_support = smu_v14_0_get_bamaco_support,
++	.baco_get_state = smu_v14_0_baco_get_state,
++	.baco_set_state = smu_v14_0_baco_set_state,
++	.baco_enter = smu_v14_0_2_baco_enter,
++	.baco_exit = smu_v14_0_2_baco_exit,
++	.mode1_reset_is_support = smu_v14_0_2_is_mode1_reset_supported,
++	.mode1_reset = smu_v14_0_2_mode1_reset,
++	.mode2_reset = smu_v14_0_2_mode2_reset,
++	.enable_gfx_features = smu_v14_0_2_enable_gfx_features,
++	.set_mp1_state = smu_v14_0_2_set_mp1_state,
++	.set_df_cstate = smu_v14_0_2_set_df_cstate,
++	.send_hbm_bad_pages_num = smu_v14_0_2_smu_send_bad_mem_page_num,
++	.send_hbm_bad_channel_flag = smu_v14_0_2_send_bad_mem_channel_flag,
++	.gpo_control = smu_v14_0_gpo_control,
++	.get_ecc_info = smu_v14_0_2_get_ecc_info,
++};
++
++void smu_v14_0_2_set_ppt_funcs(struct smu_context *smu)
++{
++	smu->ppt_funcs = &smu_v14_0_2_ppt_funcs;
++	smu->message_map = smu_v14_0_2_message_map;
++	smu->clock_map = smu_v14_0_2_clk_map;
++	smu->feature_map = smu_v14_0_2_feature_mask_map;
++	smu->table_map = smu_v14_0_2_table_map;
++	smu->pwr_src_map = smu_v14_0_2_pwr_src_map;
++	smu->workload_map = smu_v14_0_2_workload_map;
++	smu_v14_0_2_set_smu_mailbox_registers(smu);
++}
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.h
+new file mode 100644
+index 0000000000000..b83729e5d6f96
+--- /dev/null
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.h
+@@ -0,0 +1,28 @@
++/*
++ * Copyright 2023 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#ifndef __SMU_V14_0_2_PPT_H__
++#define __SMU_V14_0_2_PPT_H__
++
++extern void smu_v14_0_2_set_ppt_funcs(struct smu_context *smu);
 +
 +#endif
 -- 
