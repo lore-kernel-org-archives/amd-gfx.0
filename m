@@ -4,93 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE443C4345F
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Apr 2024 04:43:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA636C4345F
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Apr 2024 08:40:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60E46112114;
-	Mon, 15 Apr 2024 04:43:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D06D10FAB5;
+	Mon, 15 Apr 2024 08:40:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3VJqxNox";
+	dkim=pass (2048-bit key; unprotected) header.d=toblux-com.20230601.gappssmtp.com header.i=@toblux-com.20230601.gappssmtp.com header.b="fz6VLLod";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2080.outbound.protection.outlook.com [40.107.237.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AAD5112114
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Apr 2024 04:43:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E+AFRVCbNYBjFFWdZxrb+suk5enT/Zvaasbw/x32gjIvbagJNru7595e5KqrN8ygSRVoe3sWUK8U+gLx+xQMUSSjPm98W4OZ3hfs723dJHMcxlWi1EoSTBr9P/sxdKJVEoypFhgaHGb3FH8k4Zcd4eB25iBmKq9D0AkEeMwhJHqGAknfScqO7ATewhR/HaFTrdOaMCbvBut7Cn+vXj31d3wFAFL9qbZ1ZVnf7tBVlCPGJaY7mWzhrv3d7aG3T3TjeZB3YI1/d0CiQtC/ErfRyFcVL/k+D2j3MqbswWJvZ+vmymITVCJfqqiHZql1CD2hReSMkqKZMivMFXokpLzdwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cAIYJA487McnSWzNYpx93bZW+48ZgHWD7BjyeMuBKkE=;
- b=ik/THBc7xBV1XAd/6Sy9/6D/AYt6jvtjvPOee9HUPp0Wxc40iGDeISTXki4eYFrWHRIZyDMT50UUiLu+pYtZfOOvDah7Z2eNAiHV5TrU/QVKYh/YFm4dBijFxBuwimou9f2COUSYT4QA4Ow5CommJUcv0Qn4o6rMyAAbxE3wJcyS8AaKgWDiBDMQjKgsA1AchjMk60du572jH7epV4yMZ6PCRPzxbZk1eD/yBvdY/dHdHuFyspZL7iLlL7Shrwui/UBI9mpfZoOJR9ScJAFQHteRgEt7UVTH3uS1ZrstJAhy+xqj1FeEzqLlHIUfSJq346lowg4mRfrEKfxyIm/Krw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cAIYJA487McnSWzNYpx93bZW+48ZgHWD7BjyeMuBKkE=;
- b=3VJqxNoxFDZnRlwBQAnNlfpt13l4Jhl9IkUFWDKkOccT2X1D0BOIy/F/fNKvrpXj+2Ff4QhqBzv7Omy4LnxkK9rvM6KaGXIu8d0Whh1XrWQukjRQvCuKq9XLbnSBeARBkfSCiV1PjXG1wBkLtpLfYRWP82ziBSMXjl5c2nsb240=
-Received: from SJ0PR13CA0191.namprd13.prod.outlook.com (2603:10b6:a03:2c3::16)
- by BY5PR12MB4226.namprd12.prod.outlook.com (2603:10b6:a03:203::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.50; Mon, 15 Apr
- 2024 04:42:56 +0000
-Received: from SJ5PEPF000001D2.namprd05.prod.outlook.com
- (2603:10b6:a03:2c3:cafe::f2) by SJ0PR13CA0191.outlook.office365.com
- (2603:10b6:a03:2c3::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.17 via Frontend
- Transport; Mon, 15 Apr 2024 04:42:56 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001D2.mail.protection.outlook.com (10.167.242.54) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Mon, 15 Apr 2024 04:42:56 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sun, 14 Apr
- 2024 23:42:53 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
- <Asad.Kamal@amd.com>, Asad Kamal <asad.kamal@amd.com>
-Subject: [PATCH] drm/amdgpu: Change AID detection logic
-Date: Mon, 15 Apr 2024 10:12:36 +0530
-Message-ID: <20240415044236.142024-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF1AB10E795
+ for <amd-gfx@lists.freedesktop.org>; Sun, 14 Apr 2024 23:39:38 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-56c5d05128dso2496322a12.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 14 Apr 2024 16:39:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=toblux-com.20230601.gappssmtp.com; s=20230601; t=1713137977; x=1713742777;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=QT+4H6LMJlz+8DH7pQ8tCzWtRow/zNF+rdLqCVP9iDo=;
+ b=fz6VLLodRvtrWGC2zn7YaIEBPFK92Ux/4ojP+dlOhmT102DUgwjixxhbzD/d+m2J7a
+ mppX0Txv/UuDQ5DwisWHOXSo6HTn5bJql9e8zbzvAeRlch5hieo2Ai0aMNKnFBGH/Abb
+ +edrYpPmY1R7OGzBE3tICLC2e4C6Yu+PA7XGE51rSjreOrhPSj+A8/4TJLaCKi5rzOnq
+ D1ufCw12Z91IRnNQw1vN+6N0tBKJPx4ktRBoSYqGd1d+iSB8Evwc1USYtzYFgtxondDK
+ U2eLe+Nt/3d/jbNA2pW5bu8IL/8ZHm2eMhesYNIhH9jQVUzBuUOhFpBWwsgAo9MaqDvN
+ h0Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1713137977; x=1713742777;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QT+4H6LMJlz+8DH7pQ8tCzWtRow/zNF+rdLqCVP9iDo=;
+ b=N+PrEtJuRTtxikoCz9i868FYmjpYMfL9wpVq5/rvs4xJ972G6ndWPAz4kMVCqW6fyq
+ pVfhrJbIQGCUvmIdlO5NWIuuiPrxgc+mQKM/rHDoMG+8jCUicNWxOWHpeyLv76fto7dM
+ kXd2pDrkpwWUpNisvwCk5hVsWrMjg0EFUJ2F9G8L5PZtiBNUo/13ANpmXWHpSrCM3+Ot
+ JkuzQxoCYvZCuR5BewNO8FBczjgu1dll8ewdRJ2xoYnm7MiZbmWKxeAP2gWBQM4b+Hmv
+ dlmVEDpVybi0DIF/YfGy2TzNc0PdUCmZjZQZuX5Y66oV/yydRpRmemtlQs9eFW08y/we
+ Tjrg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVlqPSIW51gJScLe4d1IQqLQ8aFqkqbu/qHvYwvirn7U6FqCWucFa98DHW+RcC/wx0c0PwowzKf2MqRrZUFfZdcjBLBRpHqk1IGpsfOVA==
+X-Gm-Message-State: AOJu0YyIVqGsOCNM55ZqM7VUuoxUgBZIpvtrxThzKvRnJeNcGMsqBbJR
+ ulpNsE+VueQROZb0JXxy0OCQ+0AHOFtQajPECehM1+0xwRr5P64yisyVo6reFlg=
+X-Google-Smtp-Source: AGHT+IFb2HPMbxbzo+Z0wMa+oIFoQ5KEgnlxWzihlJ20RFpTeq9w5TDvQeaOwMubtpEelzwV72ysew==
+X-Received: by 2002:a50:d7d6:0:b0:56e:e76:6478 with SMTP id
+ m22-20020a50d7d6000000b0056e0e766478mr5380764edj.31.1713137976751; 
+ Sun, 14 Apr 2024 16:39:36 -0700 (PDT)
+Received: from debian.fritz.box. (aftr-82-135-80-212.dynamic.mnet-online.de.
+ [82.135.80.212]) by smtp.gmail.com with ESMTPSA id
+ d24-20020a056402401800b0057009a23d4dsm2495701eda.95.2024.04.14.16.39.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 14 Apr 2024 16:39:36 -0700 (PDT)
+From: Thorsten Blum <thorsten.blum@toblux.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Thorsten Blum <thorsten.blum@toblux.com>
+Subject: [PATCH] drm/amdgpu: Add missing space to DRM_WARN() message
+Date: Mon, 15 Apr 2024 01:38:39 +0200
+Message-Id: <20240414233838.359190-1-thorsten.blum@toblux.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D2:EE_|BY5PR12MB4226:EE_
-X-MS-Office365-Filtering-Correlation-Id: a892ac42-43b0-4dd1-4318-08dc5d068500
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: apZxGoXgr2Op9vF4ltucenkfXeBp31DIpqAlPV7hJzi7QLIP1JfN7bTTbFrfRri3HGWOOCypT46BLaOgGFlA9vTcomxiYIxWkpHESN3CpuyihU1crn2OCsKfsNZ4DE2Lj2TN0aYEFzKl5NLNnu6lW5Fg8iGLjJX0wDZd4haljbqQPoBGCzYbJ+uZhP1qZF6/3uXQXnHXhkLLqfsMymGQinaCSgeaQu3bH7NyLTgEQ6thm0wF2vmL5gDQ8UJmpvhcbiAsREFmvbwpTigrzZycFJU1e2AK3yhQBCGjsHkRsO1x62RU031OG0Mn3dfJg3HdQKIkVCYK31ZD5Pr+H6LXLJmnquLfX6BTX4bx5XK11aYFWvZk+Ae8IPg6L3fHuPCYzeG52IiSOnlmVCmkAVZ9nY8BeYxVS2S8crDBprdJE3w5XOod4pfX32hbbh3QdnsEhFeP4JMjJ5WkSae0S5cNpKPM2rP6pHpgV66LQWNMG4EvA/yF5BPrVf9qHD5PQaYl5L0Vm2MCN+OsYNWjSvXT4IzjNi8SxfylAesSSL8lEVI2QWbFWdVeYaUaCTHJx2bMuKN2NMSOCzEqO1U4PCfHBoMiO8I82IBI2Lf099DXNosGZh3+stvIBvVb0+yrK0xvSxx3V82zePvI/P6RveMT+kZpNKxj+/6UXWg8exzVBGxfYSYQHugV+jwr+X/PMIM8ixu5BNZqon/LFCDjQptdvsnYqV+utJD8JSXyvRMagiG9wV6Dqdw/ArC0EPUzfPc+
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(36860700004)(82310400014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2024 04:42:56.0935 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a892ac42-43b0-4dd1-4318-08dc5d068500
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4226
+X-Mailman-Approved-At: Mon, 15 Apr 2024 08:40:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,40 +86,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On GFX 9.4.3 SOCs, only 2 SDMA instances need to be available to be
-considered as a valid AID.
+s/,please/, please/
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+Signed-off-by: Thorsten Blum <thorsten.blum@toblux.com>
 ---
- drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-index fbf5f65ab091..bdab65bc3105 100644
---- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-+++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-@@ -649,7 +649,7 @@ static void aqua_vanjaram_down_config(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7753a2e64d41..3cba0e196ca8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1455,7 +1455,7 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
  
- int aqua_vanjaram_init_soc_config(struct amdgpu_device *adev)
- {
--	u32 mask, inst_mask = adev->sdma.sdma_mask, sdma_pres;
-+	u32 mask, avail_inst, inst_mask = adev->sdma.sdma_mask;
- 	int ret, i;
+ 	/* PCI_EXT_CAP_ID_VNDR extended capability is located at 0x100 */
+ 	if (!pci_find_ext_capability(adev->pdev, PCI_EXT_CAP_ID_VNDR))
+-		DRM_WARN("System can't access extended configuration space,please check!!\n");
++		DRM_WARN("System can't access extended configuration space, please check!!\n");
  
- 	aqua_vanjaram_down_config(adev);
-@@ -662,8 +662,9 @@ int aqua_vanjaram_init_soc_config(struct amdgpu_device *adev)
- 
- 	for (mask = (1 << adev->sdma.num_inst_per_aid) - 1; inst_mask;
- 	     inst_mask >>= adev->sdma.num_inst_per_aid, ++i) {
--		sdma_pres = inst_mask & mask;
--		if (sdma_pres == mask || sdma_pres == 0x3 || sdma_pres == 0xc)
-+		avail_inst = inst_mask & mask;
-+		if (avail_inst == mask || avail_inst == 0x3 ||
-+		    avail_inst == 0xc)
- 			adev->aid_mask |= (1 << i);
- 	}
- 
+ 	/* skip if the bios has already enabled large BAR */
+ 	if (adev->gmc.real_vram_size &&
 -- 
-2.25.1
+2.39.2
 
