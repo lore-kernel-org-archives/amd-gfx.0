@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8975AC04FF8
-	for <amd-gfx@archiver.kernel.org>; Sat, 13 Apr 2024 23:40:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA70FC4345F
+	for <amd-gfx@archiver.kernel.org>; Sun, 14 Apr 2024 14:58:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7DFE10F5A6;
-	Sat, 13 Apr 2024 23:40:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1926810E84F;
+	Sun, 14 Apr 2024 14:58:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ffzooqXd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lXhB4O2k";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2081.outbound.protection.outlook.com [40.107.220.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 338FD10F50B
- for <amd-gfx@lists.freedesktop.org>; Sat, 13 Apr 2024 23:40:29 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2057.outbound.protection.outlook.com [40.107.93.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FAEC10E0EC
+ for <amd-gfx@lists.freedesktop.org>; Sun, 14 Apr 2024 14:58:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FL4hMdoWcyML0zMvLUnzqyb/XSAtVL49Q32s0p8fdSpZi0mMmmBFVaMChxj4PKbBUIlG3CZNzXk0amRiIGwO+/eavNmWkVpczQDbeh63t8RCpJqDelsDYobxkzkfAEGv2KRDyDsch5uERgzuBavW/F0KcliuQWce6VkRv8UUw3FEomjs5j8nuHuIOdmYLDkukE4MGwlBei+s3DOkiwpzth4tMETDbMwFWdThAYm7U5UXksV1Wic1EkK8JpdhHJOPTpriz5N92Dr4lhRrHuU836+S85uLt+iz/1CQLqa6Kgseajw1hQLK/qL9zWMNWEAdOunGQNjT8GYQVvsssJQTVg==
+ b=bbKiZz8fdG+z7EWoIw0lh6lXGhzxgsgyyeudjPkEscnIF760v0Tz/guVAfQZZWApWZdTRxuojNg2orC3PpUYsxCcIZ6BAoY7VQ9hipJY5Eoto0xq93HVpKFDPUPnYvAHZuKUFg5+gDavpVFkQsPNIPBAPWMNzZacRwF/fO0yfuc2D49UyB1/QRO6YzzYP6AINBByOKwLrMI97h7Uz2NSWzcJfFhH1T0g787fYyqnSqQZgBGk6GrX7vo+6/TIkTvcpgOBOcI+/9D6UoFnvNmvzKUopjTg6XvNiv8XCyw4Bg5iMpm7NWG7KuaC4cNRjGbpulKA/dTl97m5Xb88+XGhdg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+k9ySoe45kgQcc8iQTm2E0MNXTeNBLNldbBDkd+xqSg=;
- b=FFsj4xDUkc4feegQsrwEV3zh49O/I+dgCmOOpJgkBykJx9EXs2QJtgKOorssxH4R+X71O0yDxTqVNWQx9Nx5yhRXQQ3Fx0RTVYFy+5RgMbzZNv7JA9VUz6v0zjZNfBXspnYmS9E6hrx0zOkU66EqoKZ+BE2BkX8AAHo+H7yF10D/+dYcHtBB44+7q5u3VGROSk5Nt/AnJYh+d2KMRa1xPjHJMpRyXZ+D4eEWZ4oJBgUzKxYeXlTVCd1fF4JnkYPH+kqvEyx9ZWkdHDLEUyfvphroudy0q/K1qLaudFx6/5Jz07zLoTda+eSWuScDDxZCwdzaeYrkPQxNEcHtmzcvVA==
+ bh=v+LHkBi6obpmsep2xvqU4M5E3ieC0RN2zfI7EDe4AZk=;
+ b=BWqHDlaogI8fyc3/nug4p50sY3WRN7dsfDVetVIHG/2a7QDeDxqPC6ncARLjqzAIY5Eq50VxatXhJw5pJH1L0g2oJseXrfxwGfyq+WXyBQA3MODjcsqS6/s6THPSwYw8JJM2y4qIHoFSbRzQyGtl0PaDzgitRs/MQ/3C7HN4Ark/u9k5KX8MXsmAotChjb4bp3i1/4V5zBn+8ltjD2kyM46vXfO89iJxZvJqAz3QXkAlikqJLgCjx8GJ6dgijk6h7sa/zZ//fxdjNhluhT/z8GFGUwmMaePXjhW4uoE36rQQFYRXvkyKBC/RueTuA1+gm+5znVIRz0O14hUVXjk9vw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+k9ySoe45kgQcc8iQTm2E0MNXTeNBLNldbBDkd+xqSg=;
- b=ffzooqXdUr0xdXv79hCP+ssUFZKBvEoArmh2oR8+QfPHzquQ74NUEW/WDwMDB5AwiHqZs+JYzkXVcYhgEPgN41qVZPm47UDcV61gd7F47mseyOUulJaD0IcZ3SbXCRTw3a+zTe8mOhjGUs+GhRrXZOnYpvhdt3gIOgwkZ2hH2+I=
-Received: from BY5PR04CA0003.namprd04.prod.outlook.com (2603:10b6:a03:1d0::13)
- by CH3PR12MB7547.namprd12.prod.outlook.com (2603:10b6:610:147::5)
+ bh=v+LHkBi6obpmsep2xvqU4M5E3ieC0RN2zfI7EDe4AZk=;
+ b=lXhB4O2kpXZNMSPBdu8K3RzCqw3he/yEVVInOW3+uaAYwM7Ln+KaobMQ7r0sEOSggdzxr+d1aBzJJHLcFzoJ7oAxUjSCXrYUT8MTipd02RSh2L5P/YkhT987141CKPKlvsV1JWaDvaoaJB726ALyKPPwTrEbwKsZv/hbeL1OE4Y=
+Received: from MN2PR10CA0016.namprd10.prod.outlook.com (2603:10b6:208:120::29)
+ by SA0PR12MB7004.namprd12.prod.outlook.com (2603:10b6:806:2c0::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.56; Sat, 13 Apr
- 2024 23:40:23 +0000
-Received: from SJ5PEPF000001D5.namprd05.prod.outlook.com
- (2603:10b6:a03:1d0:cafe::2d) by BY5PR04CA0003.outlook.office365.com
- (2603:10b6:a03:1d0::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.49; Sun, 14 Apr
+ 2024 14:58:09 +0000
+Received: from BL02EPF00021F6A.namprd02.prod.outlook.com
+ (2603:10b6:208:120:cafe::ca) by MN2PR10CA0016.outlook.office365.com
+ (2603:10b6:208:120::29) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.32 via Frontend
- Transport; Sat, 13 Apr 2024 23:40:22 +0000
+ Transport; Sun, 14 Apr 2024 14:58:08 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,51 +48,50 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001D5.mail.protection.outlook.com (10.167.242.57) with Microsoft
+ BL02EPF00021F6A.mail.protection.outlook.com (10.167.249.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Sat, 13 Apr 2024 23:40:22 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sat, 13 Apr
- 2024 18:40:20 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
+ 15.20.7452.22 via Frontend Transport; Sun, 14 Apr 2024 14:58:08 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Sun, 14 Apr 2024 09:58:06 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Likun Gao <Likun.Gao@amd.com>, Kenneth Feng <kenneth.feng@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH 4/7] drm/amd/swsmu: add pptable header for smu v14_0_2
-Date: Sat, 13 Apr 2024 19:39:42 -0400
-Message-ID: <20240413233945.4002886-4-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240413233945.4002886-1-alexander.deucher@amd.com>
-References: <20240413233945.4002886-1-alexander.deucher@amd.com>
+CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
+ <felix.kuehling@amd.com>, <philip.yang@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH] drm/amdgpu: Modify the contiguous flags behaviour
+Date: Sun, 14 Apr 2024 20:27:31 +0530
+Message-ID: <20240414145731.1829-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|CH3PR12MB7547:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad34c30a-d43d-4911-083d-08dc5c131632
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6A:EE_|SA0PR12MB7004:EE_
+X-MS-Office365-Filtering-Correlation-Id: 360533ac-333b-4b01-abd8-08dc5c934c27
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jO6j4CRsTlze3JsOYzJU8RF+ajdzKQKb82MO4JdWkUSfiPmPFaOCu7b/F9y0EYgWjOdilmWyQ3GVqHVyrwB+f9IYuZEF7fvg1QYUskIgJvPRR+uP40E1g/JY3LUEYZMt1O20rIHaGjGWe1avJjHBGVclRXOtzsPtsbiF8lMbASTw5YTAXvLceTBskOmN2NPnMuy6iGZbAyrP3wRqolcGzuciv74xkpeu0MKa/E2WXL4cOMIzZ4ufuGa8cngROz1woFtDbWsohJPQW/xjZgDRaJHRBZ/NIaG80PwS5BnAbFcjdFgAhiMWBwuXJcWmRwLpE+9gF51MSQ7VHTtjewqm92yFUcWIf14V3rIKuDlgnNHd0JMjm7B+Gv5EqpiQ+gGVLfFsaSy1S01TePpqnccByyWyv+Ep2RNgOe6dXeumNCJPGf4bNyYxjjeD+0Mytw8icb0xzBJSmHFZnplynGUxuj5Pp7AZWfTCzv/LUfMr1KctyjNu4rlOIYJKIjpstZ2xEPeTa2Zl88graiOyNmE5pG6fyBO38yLb8i15eHdmXb5om8cr0i1+3gQuD8fixsIl2DvBHUCEO2ZtSzGYxNLNQSEldZkDUHCHDRMu4JSE+HatF4x5H70P6SWQNkcPV+VNjOXgO2qm+6Z27v95xnk8dCNcmLvwra9Gqb4QiRnobMeZ0sRsoiqj29lmOlgkdSCVzeCtea5ExQ+xpKYwlM5NGGaYFJF50Byn96j12K7nqgNUCZ1ME3tUgZtD0fDvo45q
+X-Microsoft-Antispam-Message-Info: XWGNCmNGpsHNy2NxtrQ4hvtUME/7yOcjM8gzp16e3qIGjElrAGYEGAXJ7IrPyGY5opNI8k02vaGbnaVMVWRqh7XqRf/npsLVwZHu8ilJNESnntnm5gL35QcKuD3wL40xcI3Ppz44dzhfDOKADOQR18ZVCfuBC39liVtbBZ6yqyRRNhEFnFHv682LWcKDqXt33bzEwnzgj20syxh6Nl7plgcIP0q1FXqu0RWf23b+c9Rn49Md0FS5tQhj8YZLHvaTZVtDRE4p228pgxEiXixQ+QoRVzopcy//0x4YKMd1rEuoHCXPl2BG29fJOOZPHL5ChgFmT9EWZkGYnjp/h3W5KJNe086MzurXZtuCH0GpiqeoPXxFxUDP1tSUZGKOfRYZCKCs6L5sPScuqR09gaaHa5ggqJVYnQbfCXEOlW26vpLaAwYR6W1D5tXTVmc9Wqc/Oh4Hji9Gh/jQrkII7lfuZoNWGAG19XGL6yjbBvfw4wp+52wHtVpkwpEmqBAGXcRsqZfDsbc3S9ba8nAz/Z0MKLf9W4ZISxVLi3WXDvQHhquWBeZ2DkbOcPyWjj0WHktgRCyrNBu2Y2P2r2PvKLk51vrPlA8+7tw03M50SJtwEYatye5Q1d6L4+dq04rxofpprZnuSF7OpGjDYZd11U9LHVgLnQVKBWUs7NzeJFzMsvIr0KfCS7vAt2VB8/C623jiKgHJEXgIP7FZWqcMK/ItJh6jl0UIBwGHfCiefx1FKUu1Adqq/9eP3vy2tgHZCcC4
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(36860700004)(82310400014)(1800799015); DIR:OUT;
+ SFS:(13230031)(1800799015)(376005)(82310400014)(36860700004); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2024 23:40:22.5185 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad34c30a-d43d-4911-083d-08dc5c131632
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2024 14:58:08.6915 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 360533ac-333b-4b01-abd8-08dc5c934c27
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D5.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6A.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7547
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7004
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,188 +106,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Likun Gao <Likun.Gao@amd.com>
+Now we have two flags for contiguous VRAM buffer allocation.
+If the application request for AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS,
+it would set the ttm place TTM_PL_FLAG_CONTIGUOUS flag in the
+buffer's placement function.
 
-Add pptable header for smu v14_0_2.
+This patch will change the default behaviour of the two flags.
 
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+When we set AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS
+- This means contiguous is not mandatory.
+- we will try to allocate the contiguous buffer. Say if the
+  allocation fails, we fallback to allocate the individual pages.
+
+When we setTTM_PL_FLAG_CONTIGUOUS
+- This means contiguous allocation is mandatory.
+- we are setting this in amdgpu_bo_pin_restricted() before bo validation
+  and check this flag in the vram manager file.
+- if this is set, we should allocate the buffer pages contiguously.
+  the allocation fails, we return -ENOSPC.
+
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
 ---
- .../amd/pm/swsmu/inc/smu_v14_0_2_pptable.h    | 164 ++++++++++++++++++
- 1 file changed, 164 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0_2_pptable.h
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c   | 14 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 57 +++++++++++++++-----
+ 2 files changed, 49 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0_2_pptable.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0_2_pptable.h
-new file mode 100644
-index 0000000000000..4a3fde89aed73
---- /dev/null
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0_2_pptable.h
-@@ -0,0 +1,164 @@
-+/*
-+ * Copyright 2023 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 8bc79924d171..41926d631563 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -153,8 +153,6 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
+ 		else
+ 			places[c].flags |= TTM_PL_FLAG_TOPDOWN;
+ 
+-		if (flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS)
+-			places[c].flags |= TTM_PL_FLAG_CONTIGUOUS;
+ 		c++;
+ 	}
+ 
+@@ -899,6 +897,8 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+ {
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+ 	struct ttm_operation_ctx ctx = { false, false };
++	struct ttm_place *places = bo->placements;
++	u32 c = 0;
+ 	int r, i;
+ 
+ 	if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm))
+@@ -921,16 +921,10 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+ 
+ 	if (bo->tbo.pin_count) {
+ 		uint32_t mem_type = bo->tbo.resource->mem_type;
+-		uint32_t mem_flags = bo->tbo.resource->placement;
+ 
+ 		if (!(domain & amdgpu_mem_type_to_domain(mem_type)))
+ 			return -EINVAL;
+ 
+-		if ((mem_type == TTM_PL_VRAM) &&
+-		    (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS) &&
+-		    !(mem_flags & TTM_PL_FLAG_CONTIGUOUS))
+-			return -EINVAL;
+-
+ 		ttm_bo_pin(&bo->tbo);
+ 
+ 		if (max_offset != 0) {
+@@ -968,6 +962,10 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+ 			bo->placements[i].lpfn = lpfn;
+ 	}
+ 
++	if (domain & AMDGPU_GEM_DOMAIN_VRAM &&
++	    !WARN_ON(places[c].mem_type != TTM_PL_VRAM))
++		places[c].flags |= TTM_PL_FLAG_CONTIGUOUS;
 +
-+#ifndef SMU_14_0_2_PPTABLE_H
-+#define SMU_14_0_2_PPTABLE_H
-+
-+
-+#pragma pack(push, 1)
-+
-+#define SMU_14_0_2_TABLE_FORMAT_REVISION 3
-+
-+// POWERPLAYTABLE::ulPlatformCaps
-+#define SMU_14_0_2_PP_PLATFORM_CAP_POWERPLAY        0x1     // This cap indicates whether CCC need to show Powerplay page.
-+#define SMU_14_0_2_PP_PLATFORM_CAP_SBIOSPOWERSOURCE 0x2     // This cap indicates whether power source notificaiton is done by SBIOS instead of OS.
-+#define SMU_14_0_2_PP_PLATFORM_CAP_HARDWAREDC       0x4     // This cap indicates whether DC mode notificaiton is done by GPIO pin directly.
-+#define SMU_14_0_2_PP_PLATFORM_CAP_BACO             0x8     // This cap indicates whether board supports the BACO circuitry.
-+#define SMU_14_0_2_PP_PLATFORM_CAP_MACO             0x10    // This cap indicates whether board supports the MACO circuitry.
-+#define SMU_14_0_2_PP_PLATFORM_CAP_SHADOWPSTATE     0x20    // This cap indicates whether board supports the Shadow Pstate.
-+#define SMU_14_0_2_PP_PLATFORM_CAP_LEDSUPPORTED     0x40    // This cap indicates whether board supports the LED.
-+#define SMU_14_0_2_PP_PLATFORM_CAP_MOBILEOVERDRIVE  0x80    // This cap indicates whether board supports the Mobile Overdrive.
-+
-+// SMU_14_0_2_PP_THERMALCONTROLLER - Thermal Controller Type
-+#define SMU_14_0_2_PP_THERMALCONTROLLER_NONE        0
-+
-+#define SMU_14_0_2_PP_OVERDRIVE_VERSION             0x1     // TODO: FIX OverDrive Version TBD
-+#define SMU_14_0_2_PP_POWERSAVINGCLOCK_VERSION      0x01    // Power Saving Clock Table Version 1.00
-+
-+enum SMU_14_0_2_OD_SW_FEATURE_CAP
+ 	r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+ 	if (unlikely(r)) {
+ 		dev_err(adev->dev, "%p pin failed\n", bo);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+index 8db880244324..ddbf302878f6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+@@ -88,6 +88,30 @@ static inline u64 amdgpu_vram_mgr_blocks_size(struct list_head *head)
+ 	return size;
+ }
+ 
++static inline unsigned long
++amdgpu_vram_find_pages_per_block(struct ttm_buffer_object *tbo,
++				 const struct ttm_place *place,
++				 unsigned long bo_flags)
 +{
-+    SMU_14_0_2_ODCAP_AUTO_FAN_ACOUSTIC_LIMIT        = 0,
-+    SMU_14_0_2_ODCAP_POWER_MODE                     = 1,
-+    SMU_14_0_2_ODCAP_AUTO_UV_ENGINE                 = 2,
-+    SMU_14_0_2_ODCAP_AUTO_OC_ENGINE                 = 3,
-+    SMU_14_0_2_ODCAP_AUTO_OC_MEMORY                 = 4,
-+    SMU_14_0_2_ODCAP_MEMORY_TIMING_TUNE             = 5,
-+    SMU_14_0_2_ODCAP_MANUAL_AC_TIMING               = 6,
-+    SMU_14_0_2_ODCAP_AUTO_VF_CURVE_OPTIMIZER        = 7,
-+    SMU_14_0_2_ODCAP_AUTO_SOC_UV                    = 8,
-+    SMU_14_0_2_ODCAP_COUNT                          = 9,
-+};
++	unsigned long pages_per_block;
 +
-+enum SMU_14_0_2_OD_SW_FEATURE_ID
-+{
-+    SMU_14_0_2_ODFEATURE_AUTO_FAN_ACOUSTIC_LIMIT      = 1 << SMU_14_0_2_ODCAP_AUTO_FAN_ACOUSTIC_LIMIT,      // Auto Fan Acoustic RPM
-+    SMU_14_0_2_ODFEATURE_POWER_MODE                   = 1 << SMU_14_0_2_ODCAP_POWER_MODE,                   // Optimized GPU Power Mode
-+    SMU_14_0_2_ODFEATURE_AUTO_UV_ENGINE               = 1 << SMU_14_0_2_ODCAP_AUTO_UV_ENGINE,               // Auto Under Volt GFXCLK
-+    SMU_14_0_2_ODFEATURE_AUTO_OC_ENGINE               = 1 << SMU_14_0_2_ODCAP_AUTO_OC_ENGINE,               // Auto Over Clock GFXCLK
-+    SMU_14_0_2_ODFEATURE_AUTO_OC_MEMORY               = 1 << SMU_14_0_2_ODCAP_AUTO_OC_MEMORY,               // Auto Over Clock MCLK
-+    SMU_14_0_2_ODFEATURE_MEMORY_TIMING_TUNE           = 1 << SMU_14_0_2_ODCAP_MEMORY_TIMING_TUNE,           // Auto AC Timing Tuning
-+    SMU_14_0_2_ODFEATURE_MANUAL_AC_TIMING             = 1 << SMU_14_0_2_ODCAP_MANUAL_AC_TIMING,             // Manual fine grain AC Timing tuning
-+    SMU_14_0_2_ODFEATURE_AUTO_VF_CURVE_OPTIMIZER      = 1 << SMU_14_0_2_ODCAP_AUTO_VF_CURVE_OPTIMIZER,      // Fine grain auto VF curve tuning
-+    SMU_14_0_2_ODFEATURE_AUTO_SOC_UV                  = 1 << SMU_14_0_2_ODCAP_AUTO_SOC_UV,                  // Auto Unver Volt VDDSOC
-+};
-+
-+#define SMU_14_0_2_MAX_ODFEATURE 32 // Maximum Number of OD Features
-+
-+enum SMU_14_0_2_OD_SW_FEATURE_SETTING_ID
-+{
-+    SMU_14_0_2_ODSETTING_AUTO_FAN_ACOUSTIC_LIMIT    = 0,
-+    SMU_14_0_2_ODSETTING_POWER_MODE                 = 1,
-+    SMU_14_0_2_ODSETTING_AUTOUVENGINE               = 2,
-+    SMU_14_0_2_ODSETTING_AUTOOCENGINE               = 3,
-+    SMU_14_0_2_ODSETTING_AUTOOCMEMORY               = 4,
-+    SMU_14_0_2_ODSETTING_ACTIMING                   = 5,
-+    SMU_14_0_2_ODSETTING_MANUAL_AC_TIMING           = 6,
-+    SMU_14_0_2_ODSETTING_AUTO_VF_CURVE_OPTIMIZER    = 7,
-+    SMU_14_0_2_ODSETTING_AUTO_SOC_UV                = 8,
-+    SMU_14_0_2_ODSETTING_COUNT                      = 9,
-+};
-+#define SMU_14_0_2_MAX_ODSETTING 64 // Maximum Number of ODSettings
-+
-+enum SMU_14_0_2_PWRMODE_SETTING
-+{
-+    SMU_14_0_2_PMSETTING_POWER_LIMIT_QUIET = 0,
-+    SMU_14_0_2_PMSETTING_POWER_LIMIT_BALANCE,
-+    SMU_14_0_2_PMSETTING_POWER_LIMIT_TURBO,
-+    SMU_14_0_2_PMSETTING_POWER_LIMIT_RAGE,
-+    SMU_14_0_2_PMSETTING_ACOUSTIC_TEMP_QUIET,
-+    SMU_14_0_2_PMSETTING_ACOUSTIC_TEMP_BALANCE,
-+    SMU_14_0_2_PMSETTING_ACOUSTIC_TEMP_TURBO,
-+    SMU_14_0_2_PMSETTING_ACOUSTIC_TEMP_RAGE,
-+    SMU_14_0_2_PMSETTING_ACOUSTIC_TARGET_RPM_QUIET,
-+    SMU_14_0_2_PMSETTING_ACOUSTIC_TARGET_RPM_BALANCE,
-+    SMU_14_0_2_PMSETTING_ACOUSTIC_TARGET_RPM_TURBO,
-+    SMU_14_0_2_PMSETTING_ACOUSTIC_TARGET_RPM_RAGE,
-+    SMU_14_0_2_PMSETTING_ACOUSTIC_LIMIT_RPM_QUIET,
-+    SMU_14_0_2_PMSETTING_ACOUSTIC_LIMIT_RPM_BALANCE,
-+    SMU_14_0_2_PMSETTING_ACOUSTIC_LIMIT_RPM_TURBO,
-+    SMU_14_0_2_PMSETTING_ACOUSTIC_LIMIT_RPM_RAGE,
-+};
-+#define SMU_14_0_2_MAX_PMSETTING 32 // Maximum Number of PowerMode Settings
-+
-+enum SMU_14_0_2_overdrive_table_id
-+{
-+    SMU_14_0_2_OVERDRIVE_TABLE_BASIC    = 0,
-+    SMU_14_0_2_OVERDRIVE_TABLE_ADVANCED = 1,
-+    SMU_14_0_2_OVERDRIVE_TABLE_COUNT    = 2,
-+};
-+
-+struct smu_14_0_2_overdrive_table
-+{
-+    uint8_t revision;                                                           // Revision = SMU_14_0_2_PP_OVERDRIVE_VERSION
-+    uint8_t reserve[3];                                                         // Zero filled field reserved for future use
-+    uint8_t cap[SMU_14_0_2_OVERDRIVE_TABLE_COUNT][SMU_14_0_2_MAX_ODFEATURE];    // OD feature support flags
-+    int32_t max[SMU_14_0_2_OVERDRIVE_TABLE_COUNT][SMU_14_0_2_MAX_ODSETTING];    // maximum settings
-+    int32_t min[SMU_14_0_2_OVERDRIVE_TABLE_COUNT][SMU_14_0_2_MAX_ODSETTING];    // minimum settings
-+    int16_t pm_setting[SMU_14_0_2_MAX_PMSETTING];                               // Optimized power mode feature settings
-+};
-+
-+struct smu_14_0_2_powerplay_table
-+{
-+    struct atom_common_table_header header;                 // header.format_revision = 3 (HAS TO MATCH SMU_14_0_2_TABLE_FORMAT_REVISION), header.content_revision = ? structuresize is calculated by PPGen.
-+    uint8_t table_revision;                                 // PPGen use only: table_revision = 3
-+    uint8_t padding;                                        // Padding 1 byte to align table_size offset to 6 bytes (pmfw_start_offset, for PMFW to know the starting offset of PPTable_t).
-+    uint16_t pmfw_pptable_start_offset;                     // The start offset of the pmfw portion. i.e. start of PPTable_t (start of SkuTable_t)
-+    uint16_t pmfw_pptable_size;                             // The total size of pmfw_pptable, i.e PPTable_t.
-+    uint16_t pmfw_pfe_table_start_offset;                   // The start offset of the PFE_Settings_t within pmfw_pptable.
-+    uint16_t pmfw_pfe_table_size;                           // The size of PFE_Settings_t.
-+    uint16_t pmfw_board_table_start_offset;                 // The start offset of the BoardTable_t within pmfw_pptable.
-+    uint16_t pmfw_board_table_size;                         // The size of BoardTable_t.
-+    uint16_t pmfw_custom_sku_table_start_offset;            // The start offset of the CustomSkuTable_t within pmfw_pptable.
-+    uint16_t pmfw_custom_sku_table_size;                    // The size of the CustomSkuTable_t.
-+    uint32_t golden_pp_id;                                  // PPGen use only: PP Table ID on the Golden Data Base
-+    uint32_t golden_revision;                               // PPGen use only: PP Table Revision on the Golden Data Base
-+    uint16_t format_id;                                     // PPGen use only: PPTable for different ASICs.
-+    uint32_t platform_caps;                                 // POWERPLAYTABLE::ulPlatformCaps
-+
-+    uint8_t thermal_controller_type;                        // one of smu_14_0_2_PP_THERMALCONTROLLER
-+
-+    uint16_t small_power_limit1;
-+    uint16_t small_power_limit2;
-+    uint16_t boost_power_limit;                             // For Gemini Board, when the slave adapter is in BACO mode, the master adapter will use this boost power limit instead of the default power limit to boost the power limit.
-+    uint16_t software_shutdown_temp;
-+
-+    uint8_t reserve[143];                                   // Zero filled field reserved for future use
-+
-+    struct smu_14_0_2_overdrive_table overdrive_table;
-+
-+    PPTable_t smc_pptable;                          // PPTable_t in driver_if.h -- as requested by PMFW, this offset should start at a 32-byte boundary, and the table_size above should remain at offset=6 bytes
-+};
-+
-+#pragma pack(pop)
-+
++	if (bo_flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS ||
++	    place->flags & TTM_PL_FLAG_CONTIGUOUS) {
++		pages_per_block = ~0ul;
++	} else {
++#ifdef CONFIG_TRANSPARENT_HUGEPAGE
++		pages_per_block = HPAGE_PMD_NR;
++#else
++		/* default to 2MB */
++		pages_per_block = 2UL << (20UL - PAGE_SHIFT);
 +#endif
++		pages_per_block = max_t(uint32_t, pages_per_block,
++					tbo->page_alignment);
++	}
++
++	return pages_per_block;
++}
++
+ /**
+  * DOC: mem_info_vram_total
+  *
+@@ -451,8 +475,10 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+ 	struct amdgpu_vram_mgr *mgr = to_vram_mgr(man);
+ 	struct amdgpu_device *adev = to_amdgpu_device(mgr);
+ 	u64 vis_usage = 0, max_bytes, min_block_size;
++	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
+ 	struct amdgpu_vram_mgr_resource *vres;
+ 	u64 size, remaining_size, lpfn, fpfn;
++	unsigned long bo_flags = bo->flags;
+ 	struct drm_buddy *mm = &mgr->mm;
+ 	struct drm_buddy_block *block;
+ 	unsigned long pages_per_block;
+@@ -468,18 +494,8 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+ 	if (tbo->type != ttm_bo_type_kernel)
+ 		max_bytes -= AMDGPU_VM_RESERVED_VRAM;
+ 
+-	if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+-		pages_per_block = ~0ul;
+-	} else {
+-#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-		pages_per_block = HPAGE_PMD_NR;
+-#else
+-		/* default to 2MB */
+-		pages_per_block = 2UL << (20UL - PAGE_SHIFT);
+-#endif
+-		pages_per_block = max_t(uint32_t, pages_per_block,
+-					tbo->page_alignment);
+-	}
++	pages_per_block =
++		amdgpu_vram_find_pages_per_block(tbo, place, bo_flags);
+ 
+ 	vres = kzalloc(sizeof(*vres), GFP_KERNEL);
+ 	if (!vres)
+@@ -498,7 +514,8 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+ 	if (place->flags & TTM_PL_FLAG_TOPDOWN)
+ 		vres->flags |= DRM_BUDDY_TOPDOWN_ALLOCATION;
+ 
+-	if (place->flags & TTM_PL_FLAG_CONTIGUOUS)
++	if (bo_flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS ||
++	    place->flags & TTM_PL_FLAG_CONTIGUOUS)
+ 		vres->flags |= DRM_BUDDY_CONTIGUOUS_ALLOCATION;
+ 
+ 	if (fpfn || lpfn != mgr->mm.size)
+@@ -529,8 +546,20 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+ 					   min_block_size,
+ 					   &vres->blocks,
+ 					   vres->flags);
+-		if (unlikely(r))
++		if (unlikely(r)) {
++			if (bo_flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS) {
++				/* Fallback to non contiguous allocation */
++				vres->flags &= ~DRM_BUDDY_CONTIGUOUS_ALLOCATION;
++				bo_flags &= ~AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
++
++				pages_per_block =
++					amdgpu_vram_find_pages_per_block(tbo,
++									 place,
++									 bo_flags);
++				continue;
++			}
+ 			goto error_free_blocks;
++		}
+ 
+ 		if (size > remaining_size)
+ 			remaining_size = 0;
 -- 
-2.44.0
+2.25.1
 
