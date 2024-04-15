@@ -4,71 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF8DCC4345F
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Apr 2024 14:56:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70C3EC4345F
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Apr 2024 15:28:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55DA9112649;
-	Mon, 15 Apr 2024 14:56:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE6F810EDC8;
+	Mon, 15 Apr 2024 15:28:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X5xXLGio";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PgTcf4vF";
 	dkim-atps=neutral
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5B62112649
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Apr 2024 14:56:01 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2d717603aa5so40770581fa.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Apr 2024 07:56:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1713192960; x=1713797760; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=jdIwsXxGNqtT98SB0ef9KbxX4P0pfLsecpKbDJNJYNE=;
- b=X5xXLGio/M2A83ZXGwdrIdJPebs0XBxgk9j0F0CVXUkaxabuk5EfdE05+5K/tpFcbg
- J50WOY9w+Ns7hsrD8Xwy3Opy7LrLqGOjX+xUcS2kHS2ne6XBFTsTOQoJE1Vr2E5jpzjQ
- Deg1WEL/QdoAYPm6WPsfQyCt3gEbwh8o2KS4QKyoQcNZZIrlJwz7vwt2xdxtpQElvua0
- GzHuMg92oSaozedFvjzX3MEO4S+mOWHzEZfAAXVVqxDNeJGVzeuLZgmEynbSC4I6UTRg
- rFfjDNxrRRtcVmo+L2tNFpy/S3obJ0jUfT2pi1XteOpyq9aaO3l27VGvEEjDc96qXq4H
- oJ/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713192960; x=1713797760;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=jdIwsXxGNqtT98SB0ef9KbxX4P0pfLsecpKbDJNJYNE=;
- b=X8ql8rHqzrYxTJcMJsK4X0H9wgeYE0x4z3c/i/7O+uWPLLD2q+zmjGnjquJBhwJUeI
- 9cnpMaPBxWPpJ1OSrlOwMV35yVq/1mD9V1FpbUY9Vn9U9T4hca+4C60hoqWZ3yzOYy1s
- nBlNYxgeqlUM8GKpEHi4BytpGSFDU4UquTSibYh2W4yHR3lWT3A4RU9vsGJy6Tx85FrF
- JT5mjf7PjEY/7K+LXgSG/rdEiiOLXXJAEz8HHHJQME9lGmccTBAPYtVpGJA30PbKjOGS
- Gkidb5TV/Zr5GuQVfeyC+/DWjTlTkHfb2ktYQzo15mRe8eMLYAZT9mQzbm9iUCgq+zA2
- DRUQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWS67ntHf6VnRQ0ASUwFKwrVe58p6WuaXWSwMf8cTP3VWb5LZ2z8u8pHw3Ig9S4vd7NPuhXfBE33QFc+ErJnmYLkp9qS6WgvCPuV0TR8Q==
-X-Gm-Message-State: AOJu0YwuexUD2oHSdCSOEu6hV0SCKhiPntU6+WwHJeMRrjsCIkygVabZ
- 8C70w0QwMk1Jvf468E2kJ/jZ1fl/Iuu7PjXKUJJS4U+fOxTy6Egw
-X-Google-Smtp-Source: AGHT+IFehFPkDVuScA1kX6gZv+bCMNqDB3mELbK71UjH2RidSFqW1/5J1SBBisK3oUCQnTpkuIWohQ==
-X-Received: by 2002:a05:651c:b09:b0:2d8:274a:db16 with SMTP id
- b9-20020a05651c0b0900b002d8274adb16mr7720705ljr.17.1713192959543; 
- Mon, 15 Apr 2024 07:55:59 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- p12-20020a05600c1d8c00b0041884675767sm318555wms.42.2024.04.15.07.55.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Apr 2024 07:55:59 -0700 (PDT)
-Message-ID: <c2e4d05a-b245-4a33-acf8-54f650616d07@gmail.com>
-Date: Mon, 15 Apr 2024 16:55:57 +0200
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EBA710EDC8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Apr 2024 15:28:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=xaVI4nnyhMR/IR990rT4h/wfXSiILD07NB0LUwD4Z+E=; b=PgTcf4vFiroqT3mrwsbZd6Uh7i
+ P0yCEbNndvdh96TtSmwivHTut3HgPNiWpHya5uA/pxs8mB8GNbf1pPjCw2PiMag9o0NhFw5hJcIdH
+ Qrgakn7fDjEMs+XWF3Kgzl4TUTd/GN9M8ej03sO8ZSf+NxnWv6raL5Xb8Degqf5rhDqLlqDc1oy3o
+ 6vAOc5sVOLETCc0ij/t9uWi7jMx9JgmZYRnQjEE3y9jszSj95j0l7VJwRjRH9pL0AY1jK7IQdMKkb
+ 18s+pUmYEhwD1zB2TmnZiBJb4phdVwXWuaRL8CbvytxIPahtBQnrZUVdkIgcbr8x57ZMmGKzkRzCX
+ HSUW3MuQ==;
+Received: from [189.6.17.125] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1rwOFn-004oXw-RP; Mon, 15 Apr 2024 17:28:20 +0200
+Date: Mon, 15 Apr 2024 12:27:40 -0300
+From: Melissa Wen <mwen@igalia.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Joshua Ashton <joshua@froggi.es>, amd-gfx@lists.freedesktop.org, 
+ Xaver Hugl <xaver.hugl@gmail.com>, Ethan Lee <flibitijibibo@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Enable ogam_ram for dcn32+dcn35+dcn351
+Message-ID: <o23hy6szj4ikxixrizjth7w6cdg7z5r74c77gi6lucpqhba6sr@xurztpq6uiml>
+References: <20240410221336.34627-1-joshua@froggi.es>
+ <nhr535ncnm6n5btn7o6kkmblppnywvvnni6i4y3v6fmiazbopz@v5wo7kqarrlv>
+ <d607ffb8-aca6-44c8-ab0f-e7bf8d3bed0d@froggi.es>
+ <ql7dvtd4pa7plrk5e6xdtfs55wfkrsx5nv2bfxtnzfl5l7knek@kbcd2je5o7a2>
+ <0d87bcf4-7ce5-407f-bba0-b6ba45ac36f9@amd.com>
+ <c8635e5a-111d-4991-a89b-a40c9f64e376@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/radeon: make -fstrict-flex-arrays=3 happy
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Kees Cook <keescook@chromium.org>
-References: <20240415133816.1053794-1-alexander.deucher@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240415133816.1053794-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <c8635e5a-111d-4991-a89b-a40c9f64e376@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,45 +64,201 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.04.24 um 15:38 schrieb Alex Deucher:
-> The driver parses a union where the layout up through the first
-> array is the same, however, the array has different sizes
-> depending on the elements in the union.  Be explicit to
-> fix the UBSAN checker.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3323
-> Fixes: df8fc4e934c1 ("kbuild: Enable -fstrict-flex-arrays=3")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Kees Cook <keescook@chromium.org>
+On 04/12, Harry Wentland wrote:
+> 
+> 
+> On 2024-04-12 16:22, Harry Wentland wrote:
+> > 
+> > 
+> > On 2024-04-12 12:26, Melissa Wen wrote:
+> >> On 04/12, Joshua Ashton wrote:
+> >>>
+> >>>
+> >>> On 4/11/24 3:26 PM, Melissa Wen wrote:
+> >>>> On 04/10, Joshua Ashton wrote:
+> >>>>> The comment here states "no OGAM in DPP since DCN1", yet that is not
+> >>>>> true.
+> >>>>>
+> >>>>> Testing on an RX 7900XTX (dcn32), it actually does exist in hardware and
+> >>>>> works fine.
+> >>>>> My best guess is the comment is confused with OGAM ROM for DPP, rather
+> >>>>> than OGAM RAM.
+> >>>>>
+> >>>>> I did not test dcn35/351 as I do not have that hardware, but I assume
+> >>>>> the same follows there given the seemingly erroneous comment.
+> >>>>> Someone at AMD should check that before merging this commit.
+> >>>>
+> >>>> hmm... I don't have any of these hw versions, but AFAIU if there is
+> >>>> ogam/blend lut block in dcn32, the helper implementation for programming
+> >>>> it properly (i.e. dpp_program_blnd_lut) is also missing here:
+> >>>> - https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/drivers/gpu/drm/amd/display/dc/dpp/dcn32/dcn32_dpp.c#L125
+> >>>> right? So, it's good if AMD people can check it too.
+> >>>>
+> >>>> Melissa
+> >>>
+> >>> Hmm, yes. But, see dcn32_set_mcm_luts, that seems to handle per-plane blend
+> >>> + shaper + 3D LUT state which is equivalent to what existed before?
+> >>
+> >> oh, cool! nice finding. blnd_lut is set on plane state, but programmed
+> >> on MPC now.
+> >>
+> >> But I see the color pipeline changed in many stages from this version:
+> >> - shaper + 3dlut before **or** after blending, but not before **and** after?
+> >> - where post-blending gamut_remap_matrix is located now in this
+> >>   pipeline with mpcc postblend_1dlut and shaper+3dlut with mutable
+> >>   position?
+> >>   I guess something like:
+> >>   - [shaper -> 3dlut -> blnd_lut] -> ctm -> regamma ??
+> > 
+> > [1dlut -> 3dlut -> 1dlut] is now a movable block, called Movable CM
+> > (color management), or MCM for short. It can occur before blending or
+> > after. Because of that it moved to MPC (multi-plane combiner).
+> > 
+> > If it's positioned for pre-blending it looks like this:
+> > 
+> > DPP -> MCM -> BLND -> Blending -> Gamut Remap -> Out Gam -> OPP -> ...
+> > 
+> > If it's positioned for post-blending it looks like this:
+> > 
+> > DPP -> BLND -> Blending -> MCM -> Gamut Remap -> Out Gam -> OPP
+> > 
+> > This is the case since DCN 3.2.
+> > 
+> > Because of that you don't have an ogam_ram in dpp anymore for DCN 3.2
+> > and newer.
+> > 
+> >>>
+> >>> Therefore, I think I am actually wrong with enabling the ogam_ram in DPP cap
+> >>> here, and the right solution is to change the check for exposing the
+> >>> property to account for these LUTs being available per-plane with mcm.
+> >>>
+> >>> (what is mcm btw...? lots of acronyms and stuff moving around in hw hehe)
+> >>
+> >> yes, shaper, 3dlut, blend_lut don't seem DPP caps anymore. MCM looks
+> >> like a component of MPC, so I think we need new mpc.color caps to
+> >> describe them properly (?)
+> >>
+> >> I also didn't find in the Linux/AMD glossary or code comment that
+> >> describe what MCM is...
+> >>
+> >>>
+> >>> What's a good way for us to check for that? Seems like the caps don't help
+> >>> much there. We could check for the literal function ptr I guess...?
+> >>>
+> >>> What are your thoughts, Harry and Melissa?
+> >>
+> > 
+> > I wonder if it makes sense to add an mcm cap to mpc_color_caps. Will need to
+> > chat with some people about that.
+> > 
+> 
+> I dug through the code a bit and talked with our resident expert. It looks
+> like all the programming for in_shaper_func, lut_3d_func, and blend_tf should
+> still work and assume a fixed pre-blending mcm, which is what we want.
 
-Acked-by: Christian König <christian.koenig@amd.com>
+Hi Harry,
 
-But I have a bad feeling messing with that old code.
+Thank you for explaning the latest changes in the color pipeline.
+Since MCM is fixed pre-blending in the current dcn32 driver:
 
-Regards,
-Christian.
+1. I understand that the implementation for post-blending shaper/3dlut
+isn't available in the current dcn32 driver, right?
 
-> ---
->   drivers/gpu/drm/radeon/radeon_atombios.c | 8 ++++++--
->   1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
-> index bb1f0a3371ab5..10793a433bf58 100644
-> --- a/drivers/gpu/drm/radeon/radeon_atombios.c
-> +++ b/drivers/gpu/drm/radeon/radeon_atombios.c
-> @@ -923,8 +923,12 @@ bool radeon_get_atom_connector_info_from_supported_devices_table(struct
->   		max_device = ATOM_MAX_SUPPORTED_DEVICE_INFO;
->   
->   	for (i = 0; i < max_device; i++) {
-> -		ATOM_CONNECTOR_INFO_I2C ci =
-> -		    supported_devices->info.asConnInfo[i];
-> +		ATOM_CONNECTOR_INFO_I2C ci;
-> +
-> +		if (frev > 1)
-> +			ci = supported_devices->info_2d1.asConnInfo[i];
-> +		else
-> +			ci = supported_devices->info.asConnInfo[i];
->   
->   		bios_connectors[i].valid = false;
->   
+2. Does the dcn32 hardware itself support the configuration of both pre-
+and post-blending shaper/3dlut at the same time? Or, for example, dcn32
+will advertise two color pipelines: one with pre-blending 3dlut and no
+post-blending, and another without pre-blending and only post-blending
+3dlut? 
 
+Melissa
+
+> 
+> Caps don't really reflect MCM very well yet. We could either add an mcm
+> flag to mpc_color_caps or simply check that DCN is 3.2 or newer:
+> 	amdgpu_ip_version(adev, DCE_HWIP, 0) >= IP_VERSION(3, 2, 0)
+> 
+> Harry
+> 
+> > Harry
+> > 
+> >> yeah, AFAIK color caps values are manually set and may contain
+> >> misleading information. I'm unsure that using function ptr would solve
+> >> the issue of having undocumented caps introduced to the color pipeline,
+> >> such as MCM, but your suggestion seems more reliable.
+> >>
+> >> Anyway, the timing where the color pipeline was merged didn't help, but
+> >> if new caps and functions are not documented and the DM handles are not
+> >> updated accordingly, we will have the same issue in the future. 
+> >> For example, I see two new ptrs were introduced and implemented here:
+> >> - https://gitlab.freedesktop.org/agd5f/linux/-/commit/a820190204aef
+> >> - https://gitlab.freedesktop.org/agd5f/linux/-/commit/90f33674a0756
+> >> and we would need to update the DM color mgmt anyway to check these
+> >> new/unknown functions.
+> >>
+> >> Seems okay if we check program_1dlut instead of ogam_ram caps, but what
+> >> should we do for dpp/mpc shaper+3d lut in set_mcm_luts? I mean, should
+> >> we enable plane or CRTC shaper+3dlut on DM? x_X
+> >>
+> >> Anyway, thanks for all these findings!
+> >>
+> >> I would like to hear more from AMD too.
+> >>
+> >> Melissa
+> >>
+> >>>
+> >>> - Joshie 🐸✨
+> >>>
+> >>>>
+> >>>>>
+> >>>>> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+> >>>>>
+> >>>>> Cc: Harry Wentland <harry.wentland@amd.com>
+> >>>>> Cc: Xaver Hugl <xaver.hugl@gmail.com>
+> >>>>> Cc: Melissa Wen <mwen@igalia.com>
+> >>>>> Cc: Ethan Lee <flibitijibibo@gmail.com>
+> >>>>> ---
+> >>>>>   drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c  | 2 +-
+> >>>>>   drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c  | 2 +-
+> >>>>>   .../gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c    | 2 +-
+> >>>>>   3 files changed, 3 insertions(+), 3 deletions(-)
+> >>>>>
+> >>>>> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+> >>>>> index 9aa39bd25be9..94f5d2b5aadf 100644
+> >>>>> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+> >>>>> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+> >>>>> @@ -2182,7 +2182,7 @@ static bool dcn32_resource_construct(
+> >>>>>   	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
+> >>>>>   	dc->caps.color.dpp.hw_3d_lut = 1;
+> >>>>> -	dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
+> >>>>> +	dc->caps.color.dpp.ogam_ram = 1;
+> >>>>>   	// no OGAM ROM on DCN2 and later ASICs
+> >>>>>   	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
+> >>>>>   	dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
+> >>>>> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+> >>>>> index 25ac450944e7..708d63cc3f7f 100644
+> >>>>> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+> >>>>> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+> >>>>> @@ -1861,7 +1861,7 @@ static bool dcn35_resource_construct(
+> >>>>>   	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
+> >>>>>   	dc->caps.color.dpp.hw_3d_lut = 1;
+> >>>>> -	dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
+> >>>>> +	dc->caps.color.dpp.ogam_ram = 1;
+> >>>>>   	// no OGAM ROM on DCN301
+> >>>>>   	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
+> >>>>>   	dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
+> >>>>> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+> >>>>> index 8a57adb27264..053e8ec6d1ef 100644
+> >>>>> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+> >>>>> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+> >>>>> @@ -1841,7 +1841,7 @@ static bool dcn351_resource_construct(
+> >>>>>   	dc->caps.color.dpp.dgam_rom_for_yuv = 0;
+> >>>>>   	dc->caps.color.dpp.hw_3d_lut = 1;
+> >>>>> -	dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
+> >>>>> +	dc->caps.color.dpp.ogam_ram = 1;
+> >>>>>   	// no OGAM ROM on DCN301
+> >>>>>   	dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
+> >>>>>   	dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
+> >>>>> -- 
+> >>>>> 2.44.0
+> >>>>>
+> 
