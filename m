@@ -4,74 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA636C4345F
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Apr 2024 08:40:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0B74C00A94
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Apr 2024 08:56:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D06D10FAB5;
-	Mon, 15 Apr 2024 08:40:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29BF811201E;
+	Mon, 15 Apr 2024 08:56:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=toblux-com.20230601.gappssmtp.com header.i=@toblux-com.20230601.gappssmtp.com header.b="fz6VLLod";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ealxVQk/";
 	dkim-atps=neutral
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
- [209.85.208.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF1AB10E795
- for <amd-gfx@lists.freedesktop.org>; Sun, 14 Apr 2024 23:39:38 +0000 (UTC)
-Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-56c5d05128dso2496322a12.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 14 Apr 2024 16:39:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=toblux-com.20230601.gappssmtp.com; s=20230601; t=1713137977; x=1713742777;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=QT+4H6LMJlz+8DH7pQ8tCzWtRow/zNF+rdLqCVP9iDo=;
- b=fz6VLLodRvtrWGC2zn7YaIEBPFK92Ux/4ojP+dlOhmT102DUgwjixxhbzD/d+m2J7a
- mppX0Txv/UuDQ5DwisWHOXSo6HTn5bJql9e8zbzvAeRlch5hieo2Ai0aMNKnFBGH/Abb
- +edrYpPmY1R7OGzBE3tICLC2e4C6Yu+PA7XGE51rSjreOrhPSj+A8/4TJLaCKi5rzOnq
- D1ufCw12Z91IRnNQw1vN+6N0tBKJPx4ktRBoSYqGd1d+iSB8Evwc1USYtzYFgtxondDK
- U2eLe+Nt/3d/jbNA2pW5bu8IL/8ZHm2eMhesYNIhH9jQVUzBuUOhFpBWwsgAo9MaqDvN
- h0Jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713137977; x=1713742777;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=QT+4H6LMJlz+8DH7pQ8tCzWtRow/zNF+rdLqCVP9iDo=;
- b=N+PrEtJuRTtxikoCz9i868FYmjpYMfL9wpVq5/rvs4xJ972G6ndWPAz4kMVCqW6fyq
- pVfhrJbIQGCUvmIdlO5NWIuuiPrxgc+mQKM/rHDoMG+8jCUicNWxOWHpeyLv76fto7dM
- kXd2pDrkpwWUpNisvwCk5hVsWrMjg0EFUJ2F9G8L5PZtiBNUo/13ANpmXWHpSrCM3+Ot
- JkuzQxoCYvZCuR5BewNO8FBczjgu1dll8ewdRJ2xoYnm7MiZbmWKxeAP2gWBQM4b+Hmv
- dlmVEDpVybi0DIF/YfGy2TzNc0PdUCmZjZQZuX5Y66oV/yydRpRmemtlQs9eFW08y/we
- Tjrg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVlqPSIW51gJScLe4d1IQqLQ8aFqkqbu/qHvYwvirn7U6FqCWucFa98DHW+RcC/wx0c0PwowzKf2MqRrZUFfZdcjBLBRpHqk1IGpsfOVA==
-X-Gm-Message-State: AOJu0YyIVqGsOCNM55ZqM7VUuoxUgBZIpvtrxThzKvRnJeNcGMsqBbJR
- ulpNsE+VueQROZb0JXxy0OCQ+0AHOFtQajPECehM1+0xwRr5P64yisyVo6reFlg=
-X-Google-Smtp-Source: AGHT+IFb2HPMbxbzo+Z0wMa+oIFoQ5KEgnlxWzihlJ20RFpTeq9w5TDvQeaOwMubtpEelzwV72ysew==
-X-Received: by 2002:a50:d7d6:0:b0:56e:e76:6478 with SMTP id
- m22-20020a50d7d6000000b0056e0e766478mr5380764edj.31.1713137976751; 
- Sun, 14 Apr 2024 16:39:36 -0700 (PDT)
-Received: from debian.fritz.box. (aftr-82-135-80-212.dynamic.mnet-online.de.
- [82.135.80.212]) by smtp.gmail.com with ESMTPSA id
- d24-20020a056402401800b0057009a23d4dsm2495701eda.95.2024.04.14.16.39.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Apr 2024 16:39:36 -0700 (PDT)
-From: Thorsten Blum <thorsten.blum@toblux.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Thorsten Blum <thorsten.blum@toblux.com>
-Subject: [PATCH] drm/amdgpu: Add missing space to DRM_WARN() message
-Date: Mon, 15 Apr 2024 01:38:39 +0200
-Message-Id: <20240414233838.359190-1-thorsten.blum@toblux.com>
-X-Mailer: git-send-email 2.39.2
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2064.outbound.protection.outlook.com [40.107.236.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFA1111201E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Apr 2024 08:56:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WvtQ5qRia579GliYsBtYViiA3WTHSC0u0BpnmxyacYceuY/FSO4DVCbxdqGAEfbXWPOwuHOHG9q4BQfTMl6vjJ/AA0VU8CC1BxwpBiQdue5K0gx3BeEp+EzPCR0jRGRGNEbM8Hf+svuBwX1Bvab2MlA3zu7lPVW0gRDYbjFd3IgalZ860KgPF9heDdLqp3NArAdExugkHVwc+hLfuvsmS4GcPJ0y2uEEHBp6+EATilWpuH/AWT3SD7Kbgxc8oS16w3KYPNZbpbGQtR3dWAF9tmM22cc2bSUH/mlTjp6taNsYD/YF8qUcyTqW2+38U8wKqYpr4Z2ptxkAdEeD5EqsRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3YQk03lD6nuiCnriCbfrRmnSdF4hXINVsyGuijrIwNI=;
+ b=XJcTPQhpCKClb903jO9QNER06xson9EuHRJMav7/y19fllMRrKTv0H1Ry2p9fFQ78CzQ/s2c7YBQp8qHAvfCrcofoofGpln9pocEXv860c/EmixsWF34tdwVZgXpM7hByHzgfcj3FSPvvogjUzcTFhWcpcQR6N3/0UjhfCj+JOeTm6UOQNLQWYODpMuC/Do5i8dYYDNtwHPI80nL5mqMP+iNTa258F06yWJCX3NFI5RFUFexs77cyy0maFSqvLwi/pNKTc2C/uj5/cezXY1tWUMXjTtRibk8CYXr6s0lF3gCEMvA5flSjMQIDLxq7xWLzRKyKktssRms5+pb9tvFGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3YQk03lD6nuiCnriCbfrRmnSdF4hXINVsyGuijrIwNI=;
+ b=ealxVQk/QJQWxKnTXPn0PLkM2BGU4P9cyH1941WkzarMb3RD57CGJ5azdSXC/YTbsi0B25uclEwVE8AUZRNcW4Xt5XwulH7oJ6r1pExp2WNpS2VO2oHfEohTefYeyZ00wDYkDqvSvBJY4zHReeuGbSQgn6rf4aEEgNmcGhe1ExY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ SA3PR12MB9228.namprd12.prod.outlook.com (2603:10b6:806:39c::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7452.43; Mon, 15 Apr 2024 08:56:44 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.7452.049; Mon, 15 Apr 2024
+ 08:56:43 +0000
+Message-ID: <00caf6ce-e610-42f9-bb75-023982dd4b16@amd.com>
+Date: Mon, 15 Apr 2024 14:26:35 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: refactoring the runtime pm mode detection
+ code
+To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Kenneth.Feng@amd.com, Alexander.Deucher@amd.com, kevinyang.wang@amd.com
+References: <20240403025726.3198006-1-Jun.Ma2@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20240403025726.3198006-1-Jun.Ma2@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0146.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:6::31) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 15 Apr 2024 08:40:08 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|SA3PR12MB9228:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf6d83e5-4def-4be1-5352-08dc5d29f91f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: bF3G4M7lLgNRJOJdfPuWcLE+XUmGGqmrK+xAUDtrMgnfQmmKEzJgOk6gH2m1XhoRe15RblUG/L4X5ZVXiDe2TLFeVm0fCrNAcrsSMP+XZQdDW2zUswdX8pkTYcvxlw3old/IyWwKEVC31ahemR9FWxG0cbqeeJ1EliJtu/l2ECIqH6gBe2RDtan1GTSkslwURuAy68JFoiz6to6X+m2Ll1vK9Tf43o2Z0KIRWHBaWpxZ90Dy/GBMDdrfI3oxYw0ev6LjoFAla+FCqhLnWRoUqFbf9DBEyQyoFLS0n6TpP+i2zAyfztsJkqUzw1jYS6VT+x8EvN2gIXKTfT8fGMxidzVqecbwG795xJem2NH2qBCLLWtJqsJGE6UddAyXMWQ5208uZUMiwdak1w6Cww6VRnWJdpkGclwPHedwD4WAt9QQ7f4h4tCXI4FS5LsnRG8O5w2CqiauNlAwea2VK7/8oW9b1v088YkHV4P3JhvXyGYlYtxo24RqYW0ElHs3DsAwZEd34AtzLYQ6jE1ZOWYD57p00DkeOYmxTXZAOyZ6lYepjlwcUr8T6xDw4075JmeQZ+Z2K64SwVzioImcwPi2DnOtLlXsJdcnVw7HIbUbmDPNLSQgzUjiParvtDKYsj4FNKUm+3RwxD6jgU3ZfzVzdaUDCBMPmgFI4LOFsestpEU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dWRtdnczeVFzVTVFKzhDQ0IvOWZjeTB1WFhudlJXOFdSR29RMzh6U3JoWTQv?=
+ =?utf-8?B?bmtKcTEweDJ3NDNFN0tEbjhmcmJqdVRLRUVxdEZvY1c5Sm5EbEpGeG16WFJT?=
+ =?utf-8?B?VHgyVEp1Z3MxdTA5VkhYeE50YkFIQ1ZQekZjaGN2UktIL2U1S1plTnI3QnYz?=
+ =?utf-8?B?YnU1akpvOXdldUF2dUxrOUJDTUE5aXFXK1p0d3lWbUVtdWpPbm9UZHlOaVNI?=
+ =?utf-8?B?aHNTWDg3bXh0bTdaV2puUTlWbG9wTTh6SXorRTNEanAwMEwyWDdMN1Mzeklv?=
+ =?utf-8?B?SW1UZ2xBcW1GeEE2Tjc3YTFsK2NRVWpkb3dFSjhOc3dkbEVPK0I2NDBJRjJH?=
+ =?utf-8?B?R28rS0JjVVltZlhaODR1VlNNN3kya1JPWmVDaURmY1YvTllLdHlEYWxLaWEz?=
+ =?utf-8?B?empRWHJldG5Sbk84cU5USW9JTGtMUnJHYXRhV3VyVHhuTW4zWHdFU2RMaGhE?=
+ =?utf-8?B?Z1M1ZlZzYkxhWWp2K1FhdEZQSElhd0puNnBSZGl0QmtCZEZUa1F5UFNzVFFl?=
+ =?utf-8?B?M1BZSmF4azArTlQ3Z28yZlVBR2hLc0tiWlc4QXNra1NzbjMxNDhBeGxYa1BH?=
+ =?utf-8?B?SDdPY0FOVHNWbkQ0R1B6Y1BZMTV3NWMrZjZzZDB6WDYzUkZBWWtCTmRxL3p0?=
+ =?utf-8?B?WlFBL0hWMmlra1JlWlcxSk04YktXZzdYcmJCY3dja3R3aWtnT3NUeXNPa1NX?=
+ =?utf-8?B?WEVKcGZRNUxKeGZOWlRsbDhpYUNMVmI3WXNIUVlMSWNFd1BDZTFqeEZCUnBn?=
+ =?utf-8?B?MHlpL2ZhdTdWUnB2SlVSLzYvMnExTlVIZW5lMjk5SlY1ck9iYnluaW9aY2V5?=
+ =?utf-8?B?Z1czUU5Eb3NDS0NXZmxmaE9ZLzNpUDY3U1NOeGRDNUF2bzliOTM1S0kzNTJn?=
+ =?utf-8?B?cE1TWFRMNWpiYnhpUG5OMUw4bzZ0T0pRVU1wbng4eXA5Q293UnZrYTJ6dGtU?=
+ =?utf-8?B?dnRURVRmL1hNdkVNbW1LWmR2K25wQTl1cWxvT0RteU1IZm5ybkpTUHNCY21Y?=
+ =?utf-8?B?YmlXZ3A2Qk1YT2RCcnRQdTYzS1gwcUN2MUwvM3BMMmZVM0tSYlBhdjgrNlNB?=
+ =?utf-8?B?REFOWXh4RXZaeUxzRzFLUCt3QnExY1pPREZJUzBZaUpVcjdmUDRaTWltUmFS?=
+ =?utf-8?B?Q1RlNmpHOFRUSWxKUzRZd2ljenVSRHBuSDhHNlFRTS85VXg5bkZxNjFkcHZY?=
+ =?utf-8?B?cmlQY3dHOUp3K2c1eU9mZGFLR0hSdElmeElURm1OcGRkRmR2R21XWld0L0VX?=
+ =?utf-8?B?RWVwbjRzNkp6dTRUSkY1NGcxT0JQVHhWb1d6ak5jZTVPT2ZrcWlhUTNtRGlI?=
+ =?utf-8?B?ZlJ6VWJBSFZUdjh0dkJKU1g4RU1PUjdPOSttc29VV1grK0tETHNZbldFRHVu?=
+ =?utf-8?B?dzNSd1k4c1dzU3I0SDh4MnUzWlYydDUzcDNYTnhMSy9TeXdMNDY4QmYreUpR?=
+ =?utf-8?B?KzZjZ29RSUU0clFWb0ZKc1cxVEdPUSs2NzZGaHcvRVlhUEtZNmljZlhGdGFG?=
+ =?utf-8?B?S3hYQVgrVXo3MTFVZHVKN0ZNVm1CT0NoSkVQT0JpdVdEd3hSWmFmcWNWcVhH?=
+ =?utf-8?B?L1NLSWc4M1dnMDNCdzVYVGlzcDBJSjBId1JqUmpqWndxVjZucnNBekxxTFdL?=
+ =?utf-8?B?WVI0alBnZ0dIUjVJRGlBOThOcitVSlhoVWY5QzFuejVwbXM4M2pUbS9KYUxm?=
+ =?utf-8?B?V2xTbWJ5T25OZ2o2YjNzc3R4cTlKNzhGMnlHZWxGRzI4WWRZQUhsU0ZXMjlG?=
+ =?utf-8?B?Z2QxWlVpVkUxb2NuYktDbG5na3RXUUNZZFVxNjBYb1pXaTZBVzhGOFh4aG9n?=
+ =?utf-8?B?LytUbWt6V2J0Z0lUTUdNK1Fkdjc4aFpXQ09OZXRqeHN1Wk9aSW5VdlJXd0k2?=
+ =?utf-8?B?bitIbXJJTkdOK0hoa3JEbTAxTEtGd0hrRDJoVWppbFhYQjlTbi9DaVFkWWw5?=
+ =?utf-8?B?eGxLNGtZUlRvWFk2Mnk4WmFoaVN4a2hZeDRwSmhRak1SdWVJWXhabWZRSitP?=
+ =?utf-8?B?aVY2U2ZBUXRWMVkyVFpNdmlKeHRVM2FrSUZ0SVpESjNhSFhkNmFhb21kTmlo?=
+ =?utf-8?B?MjhaOWUycVU0ekQ0M3h2N084bkVydzRhUDVFWUEwNmVKeXhucHJIL3AwR1BS?=
+ =?utf-8?Q?ymlVjRYYj+T7xvTQuY+2yts8T?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf6d83e5-4def-4be1-5352-08dc5d29f91f
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2024 08:56:43.8105 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ATDL7rA35VDkfnML965v8Ny7u31ZzjYvs8FM57LWe/scDedAgvyJ7WLfsEUQQ/s4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9228
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,26 +129,191 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-s/,please/, please/
 
-Signed-off-by: Thorsten Blum <thorsten.blum@toblux.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 7753a2e64d41..3cba0e196ca8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1455,7 +1455,7 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
- 
- 	/* PCI_EXT_CAP_ID_VNDR extended capability is located at 0x100 */
- 	if (!pci_find_ext_capability(adev->pdev, PCI_EXT_CAP_ID_VNDR))
--		DRM_WARN("System can't access extended configuration space,please check!!\n");
-+		DRM_WARN("System can't access extended configuration space, please check!!\n");
- 
- 	/* skip if the bios has already enabled large BAR */
- 	if (adev->gmc.real_vram_size &&
--- 
-2.39.2
+On 4/3/2024 8:27 AM, Ma Jun wrote:
+> refactor the code of runtime pm mode detection to support
+> amdgpu_runtime_pm =2 and 1 two cases
+> 
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+> Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
 
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+
+Thanks,
+Lijo
+
+> ---
+> v1->v2:
+> - Fix logic and output info (Lijo)
+> - Fix code style (Kevin)
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 75 ++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 48 +-------------
+>  3 files changed, 77 insertions(+), 47 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 65c17c59c152..e0d7f4ee7e16 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1409,6 +1409,7 @@ bool amdgpu_device_supports_px(struct drm_device *dev);
+>  bool amdgpu_device_supports_boco(struct drm_device *dev);
+>  bool amdgpu_device_supports_smart_shift(struct drm_device *dev);
+>  int amdgpu_device_supports_baco(struct drm_device *dev);
+> +void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev);
+>  bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
+>  				      struct amdgpu_device *peer_adev);
+>  int amdgpu_device_baco_enter(struct drm_device *dev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index f830024cffca..2ea1f47df79c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -350,6 +350,81 @@ int amdgpu_device_supports_baco(struct drm_device *dev)
+>  	return amdgpu_asic_supports_baco(adev);
+>  }
+>  
+> +void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev)
+> +{
+> +	struct drm_device *dev;
+> +	int bamaco_support;
+> +
+> +	dev = adev_to_drm(adev);
+> +
+> +	adev->pm.rpm_mode = AMDGPU_RUNPM_NONE;
+> +	bamaco_support = amdgpu_device_supports_baco(dev);
+> +
+> +	switch (amdgpu_runtime_pm) {
+> +	case 2:
+> +		if (bamaco_support & MACO_SUPPORT) {
+> +			adev->pm.rpm_mode = AMDGPU_RUNPM_BAMACO;
+> +			dev_info(adev->dev, "Forcing BAMACO for runtime pm\n");
+> +		} else if (bamaco_support == BACO_SUPPORT) {
+> +			adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+> +			dev_info(adev->dev, "Requested mode BAMACO not available,fallback to use BACO\n");
+> +		}
+> +		break;
+> +	case 1:
+> +		if (bamaco_support & BACO_SUPPORT) {
+> +			adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+> +			dev_info(adev->dev, "Forcing BACO for runtime pm\n");
+> +		}
+> +		break;
+> +	case -1:
+> +	case -2:
+> +		if (amdgpu_device_supports_px(dev)) { /* enable PX as runtime mode */
+> +			adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
+> +			dev_info(adev->dev, "Using ATPX for runtime pm\n");
+> +		} else if (amdgpu_device_supports_boco(dev)) { /* enable boco as runtime mode */
+> +			adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
+> +			dev_info(adev->dev, "Using BOCO for runtime pm\n");
+> +		} else {
+> +			if (!bamaco_support)
+> +				goto no_runtime_pm;
+> +
+> +			switch (adev->asic_type) {
+> +			case CHIP_VEGA20:
+> +			case CHIP_ARCTURUS:
+> +				/* BACO are not supported on vega20 and arctrus */
+> +				break;
+> +			case CHIP_VEGA10:
+> +				/* enable BACO as runpm mode if noretry=0 */
+> +				if (!adev->gmc.noretry)
+> +					adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+> +				break;
+> +			default:
+> +				/* enable BACO as runpm mode on CI+ */
+> +				adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+> +				break;
+> +			}
+> +
+> +			if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
+> +				if (bamaco_support & MACO_SUPPORT) {
+> +					adev->pm.rpm_mode = AMDGPU_RUNPM_BAMACO;
+> +					dev_info(adev->dev, "Using BAMACO for runtime pm\n");
+> +				} else {
+> +					dev_info(adev->dev, "Using BACO for runtime pm\n");
+> +				}
+> +			}
+> +		}
+> +		break;
+> +	case 0:
+> +		dev_info(adev->dev, "runtime pm is manually disabled\n");
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +no_runtime_pm:
+> +	if (adev->pm.rpm_mode == AMDGPU_RUNPM_NONE)
+> +		dev_info(adev->dev, "Runtime PM not available\n");
+> +}
+>  /**
+>   * amdgpu_device_supports_smart_shift - Is the device dGPU with
+>   * smart shift support
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 5d1b084eb631..924baf58e322 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -133,7 +133,6 @@ void amdgpu_register_gpu_instance(struct amdgpu_device *adev)
+>  int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+>  {
+>  	struct drm_device *dev;
+> -	int bamaco_support = 0;
+>  	int r, acpi_status;
+>  
+>  	dev = adev_to_drm(adev);
+> @@ -150,52 +149,7 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+>  		goto out;
+>  	}
+>  
+> -	adev->pm.rpm_mode = AMDGPU_RUNPM_NONE;
+> -	if (amdgpu_device_supports_px(dev) &&
+> -	    (amdgpu_runtime_pm != 0)) { /* enable PX as runtime mode */
+> -		adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
+> -		dev_info(adev->dev, "Using ATPX for runtime pm\n");
+> -	} else if (amdgpu_device_supports_boco(dev) &&
+> -		   (amdgpu_runtime_pm != 0)) { /* enable boco as runtime mode */
+> -		adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
+> -		dev_info(adev->dev, "Using BOCO for runtime pm\n");
+> -	} else if (amdgpu_runtime_pm != 0) {
+> -		bamaco_support = amdgpu_device_supports_baco(dev);
+> -
+> -		if (!bamaco_support)
+> -			goto no_runtime_pm;
+> -
+> -		switch (adev->asic_type) {
+> -		case CHIP_VEGA20:
+> -		case CHIP_ARCTURUS:
+> -			/* enable BACO as runpm mode if runpm=1 */
+> -			if (amdgpu_runtime_pm > 0)
+> -				adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+> -			break;
+> -		case CHIP_VEGA10:
+> -			/* enable BACO as runpm mode if noretry=0 */
+> -			if (!adev->gmc.noretry)
+> -				adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+> -			break;
+> -		default:
+> -			/* enable BACO as runpm mode on CI+ */
+> -			adev->pm.rpm_mode = AMDGPU_RUNPM_BACO;
+> -			break;
+> -		}
+> -
+> -		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO) {
+> -			if (bamaco_support & MACO_SUPPORT) {
+> -				adev->pm.rpm_mode = AMDGPU_RUNPM_BAMACO;
+> -				dev_info(adev->dev, "Using BAMACO for runtime pm\n");
+> -			} else {
+> -				dev_info(adev->dev, "Using BACO for runtime pm\n");
+> -			}
+> -		}
+> -	}
+> -
+> -no_runtime_pm:
+> -	if (adev->pm.rpm_mode == AMDGPU_RUNPM_NONE)
+> -		dev_info(adev->dev, "NO pm mode for runtime pm\n");
+> +	amdgpu_device_detect_runtime_pm_mode(adev);
+>  
+>  	/* Call ACPI methods: require modeset init
+>  	 * but failure is not fatal
