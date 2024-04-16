@@ -4,70 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B0C7C4345F
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 09:05:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F9C3C4345F
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 09:07:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 567D010E663;
-	Tue, 16 Apr 2024 09:05:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0462210EB8C;
+	Tue, 16 Apr 2024 09:07:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i9YxSaBr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jnxvPuE7";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E73710E663
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 09:05:04 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-3481bb34e7dso389386f8f.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 02:05:04 -0700 (PDT)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62FF310EB95
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 09:07:50 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-2da84f93c99so19809491fa.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 02:07:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1713258302; x=1713863102; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1713258468; x=1713863268; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=ERDESXdourK6FWFdcwXqd9Ks4cdjRteeFDLNIJpYIYs=;
- b=i9YxSaBr1ErFCwMbT4OqXWX+ukeKixY/pxMbVbpYDBGBnNtBexKYAhNHXFKJKI5TNb
- bAqaCiLRuqLWKj7HP085poHxlMVDVt1aImIeld51J8M/LNaJHkBDG/zkCdcbCrK0iicY
- v0zI6Iav9yKcMMz1G0r6I0RtxK5HP6zP/rz1G84mS0tp+QVBBB7u8x7IDF+sAM21qNnm
- gGVW454WvT5xKqyh3RlNSeDp4AxzJe6LVbXB9Em5hRkv7nJPVpzT0CkTlIKPW0hQn8w4
- FYiXfTv2vCC3KHhNrHiCedS/BQvjGiZRn2WNek55iPy3S9ZQjm3THuq6TcAOYnXPelmZ
- mJsw==
+ bh=z2X3Vtvl0lWH/Wjr+3KDeywV6qXeUA1pkGg9bkg59RU=;
+ b=jnxvPuE7/7/s36bOUFJ7i22Z60MbWpkKFO2yJs+dAx1lvbfxeKsb8Pg5UuFi0cCdme
+ jFh7QYV8e0z+ZpVJYxDvrmr4YdjP5Q0owuN+DEFimBMbqOnOKF7WCNk6gdV+bju0ZTCt
+ Aw/ZXwlHWVkITjPHwSO+hX9qFBlkeStedzT03ShAhetDTVB9EWd5DVpYc5HD63pRNFcC
+ 3Oi8Yatu63BR6/g2kmrcwphFUCcVgS76E3D6s/cW2PkVViIhGjp6w+DsGt4dwGLj8nxk
+ oSh8KasR6wlSIrOGN9MXuBirtI4T6x+vQurcFpuyTbOeGSa8zEy0BDz4hE/RnSSbfSLu
+ CAoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713258302; x=1713863102;
+ d=1e100.net; s=20230601; t=1713258468; x=1713863268;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ERDESXdourK6FWFdcwXqd9Ks4cdjRteeFDLNIJpYIYs=;
- b=dD9+dAPXQ19U8To4Orca6YXHbWUltMbIwxQkSnqS88TXm9A017aHI7VLWkVF8iggcg
- Dl7fMMll7uJ/UH0+wJEWvweNnAuDRgaPzsZ915AV4tz6GLTSRH7H8GAb6Nmczh+cDzow
- zYnNzaSpuzsdIgCC0rqnUcUcB6v9vVlinWb5+lSh7oqxSLm3xrI+N2uMefRMMlNwueHv
- fEA4yxNCuoHWFYMLVkhkumqH1cveTTtdBhQCSaPoAfmxWN4+IMmOH0fH4np9oGpREerO
- 1wNjU2Utn906diyZfTsCuUpjvMCvNvSh2uhyK06aJuDwhwqE5kKCr9KuACI+SzvotsCR
- OvWg==
+ bh=z2X3Vtvl0lWH/Wjr+3KDeywV6qXeUA1pkGg9bkg59RU=;
+ b=qaAyUyMpC95now5kEGh2OXjC5oJOVTOoHhIGJE2NgPEYOIAgzLHczaf15G9Nhppl9A
+ aAme1YeoH+U1j3zPM4B8YDp0sUJ69+xhijzqpDF2SvSoRu5Nf2IUuoJ+HdWEoUyl5r+8
+ GNO++8BsQlZa0xR5XvYmXnDYRU4MxSi6kFm0QZ1sb8peWQ+ovunb5Jyp1y7bQ8g9NyX2
+ 2IrxDueU8RSPDoku3AA0GdByY/DTERs7mh3plfp3LD/oolmEhhgpeeRHbXGSURwGp/vY
+ 2tbwNT7F14MgTfN1GDbIQpROGvW7EfcqLHUEOEOcnKZDSGKkdd2djsrpoOidpmx3oiOp
+ ru/A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWpOlS1fxh5HJ6WyzjDW/ymcHEdFA3+0YVKIYgmnAnl/eKF7R32to8erk7HRmdoY3IvNiKT1mYKgMAdj6a02RyQKswbEfHvcX46gPGJig==
-X-Gm-Message-State: AOJu0Yz9DeUIk+OYnXelSvLvxxQTIrX4JtxFEQz2N+P1KGZu27yFO+Xm
- FKXEtflr4Jtx0S2osiDN0tRwAoS9ak2vCd0kprGRxl1BbrBnNHyJ
-X-Google-Smtp-Source: AGHT+IEAxyRqOdlFwMo/m7B0iYmoEXeD8g+q3Hn5LQwhkB2KdQEEHCzacOj8r2BbroBYq4ndHHzKCw==
-X-Received: by 2002:a5d:6106:0:b0:343:9b68:d9a3 with SMTP id
- v6-20020a5d6106000000b003439b68d9a3mr8106130wrt.64.1713258302365; 
- Tue, 16 Apr 2024 02:05:02 -0700 (PDT)
+ AJvYcCWKxYIubpjJhQiwmoqUKQmobKfUhE0vPQs22WO2IbGCdbQs3FjzGBJT8PuHqOn9Rlodo0V8ompzR5xAjreomI2tx1+EVTgZxbOtZbrTzA==
+X-Gm-Message-State: AOJu0Yy+dKeOZfmzN2Bbj3LjarIdx2DTGHHX2psxBRcNiqIia6b/z9et
+ xMvKqcEBeaaQq7tZyjF3tw+CkzWAPOf8NRHEiEOzGtTEEVgkM+HO
+X-Google-Smtp-Source: AGHT+IHeP8ete9PGshfYMDPRdV1LVoXfTduDVkJMn/XtZ1VqpTqoQoAJ9zi0JqQ3aVxbHV+ujIXjow==
+X-Received: by 2002:a2e:9b1a:0:b0:2d8:5e8b:7de4 with SMTP id
+ u26-20020a2e9b1a000000b002d85e8b7de4mr9442164lji.6.1713258468308; 
+ Tue, 16 Apr 2024 02:07:48 -0700 (PDT)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- t7-20020adfe447000000b00343eac2acc4sm14297595wrm.111.2024.04.16.02.05.01
+ c12-20020a05600c0a4c00b00416770871f7sm22581159wmq.25.2024.04.16.02.07.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Apr 2024 02:05:02 -0700 (PDT)
-Message-ID: <662576a5-4597-4a3e-bead-4b80852eb19c@gmail.com>
-Date: Tue, 16 Apr 2024 11:05:00 +0200
+ Tue, 16 Apr 2024 02:07:47 -0700 (PDT)
+Message-ID: <32368a9a-171a-449b-a743-834bfc24c2ac@gmail.com>
+Date: Tue, 16 Apr 2024 11:07:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: clear seq64 memory on free
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com
-References: <20240415184837.299965-1-Arunpravin.PaneerSelvam@amd.com>
+Subject: Re: [PATCH v2] drm/amdkfd: make sure VM is ready for updating
+ operations
+To: "Yu, Lang" <Lang.Yu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>
+References: <20240411081101.3883715-1-Lang.Yu@amd.com>
+ <MW6PR12MB8898F0B4C9E26188E8FE69D5FB082@MW6PR12MB8898.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240415184837.299965-1-Arunpravin.PaneerSelvam@amd.com>
+In-Reply-To: <MW6PR12MB8898F0B4C9E26188E8FE69D5FB082@MW6PR12MB8898.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -84,47 +87,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.04.24 um 20:48 schrieb Arunpravin Paneer Selvam:
-> We should clear the memory on free. Otherwise,
-> there is a chance that we will access the previous
-> application data and this would leads to an abnormal
-> behaviour in the current application.
+Looks valid to me of hand, but it's really Felix who needs to judge this.
 
-Mhm, I would strongly expect that we initialize the seq number after 
-allocation.
+On the other hand if it blocks any CI feel free to add my acked-by and 
+submit it.
 
-It could be that we also have situations were the correct start value is 
-0xffffffff or something like that instead.
-
-Why does this matter?
-
-Regards,
 Christian.
 
+Am 16.04.24 um 04:05 schrieb Yu, Lang:
+> [Public]
 >
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
+> ping
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-> index 4b9afc4df031..9613992c9804 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-> @@ -189,10 +189,14 @@ int amdgpu_seq64_alloc(struct amdgpu_device *adev, u64 *va, u64 **cpu_addr)
->   void amdgpu_seq64_free(struct amdgpu_device *adev, u64 va)
->   {
->   	unsigned long bit_pos;
-> +	u64 *cpu_addr;
->   
->   	bit_pos = (va - amdgpu_seq64_get_va_base(adev)) / sizeof(u64);
-> -	if (bit_pos < adev->seq64.num_sem)
-> +	if (bit_pos < adev->seq64.num_sem) {
-> +		cpu_addr = bit_pos + adev->seq64.cpu_base_addr;
-> +		memset(cpu_addr, 0, sizeof(u64));
->   		__clear_bit(bit_pos, adev->seq64.used);
-> +	}
->   }
->   
->   /**
+>> -----Original Message-----
+>> From: Yu, Lang <Lang.Yu@amd.com>
+>> Sent: Thursday, April 11, 2024 4:11 PM
+>> To: amd-gfx@lists.freedesktop.org
+>> Cc: Koenig, Christian <Christian.Koenig@amd.com>; Kuehling, Felix
+>> <Felix.Kuehling@amd.com>; Yu, Lang <Lang.Yu@amd.com>
+>> Subject: [PATCH v2] drm/amdkfd: make sure VM is ready for updating
+>> operations
+>>
+>> When page table BOs were evicted but not validated before updating page
+>> tables, VM is still in evicting state, amdgpu_vm_update_range returns -EBUSY
+>> and restore_process_worker runs into a dead loop.
+>>
+>> v2: Split the BO validation and page table update into two separate loops in
+>> amdgpu_amdkfd_restore_process_bos. (Felix)
+>>   1.Validate BOs
+>>   2.Validate VM (and DMABuf attachments)
+>>   3.Update page tables for the BOs validated above
+>>
+>> Fixes: 2fdba514ad5a ("drm/amdgpu: Auto-validate DMABuf imports in
+>> compute VMs")
+>>
+>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+>> ---
+>> .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 34 +++++++++++----
+>> ----
+>> 1 file changed, 20 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> index 0ae9fd844623..e2c9e6ddb1d1 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> @@ -2900,13 +2900,12 @@ int
+>> amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence
+>> __rcu *
+>>
+>>        amdgpu_sync_create(&sync_obj);
+>>
+>> -      /* Validate BOs and map them to GPUVM (update VM page tables).
+>> */
+>> +      /* Validate BOs managed by KFD */
+>>        list_for_each_entry(mem, &process_info->kfd_bo_list,
+>>                            validate_list) {
+>>
+>>                struct amdgpu_bo *bo = mem->bo;
+>>                uint32_t domain = mem->domain;
+>> -              struct kfd_mem_attachment *attachment;
+>>                struct dma_resv_iter cursor;
+>>                struct dma_fence *fence;
+>>
+>> @@ -2931,6 +2930,25 @@ int
+>> amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence
+>> __rcu *
+>>                                goto validate_map_fail;
+>>                        }
+>>                }
+>> +      }
+>> +
+>> +      if (failed_size)
+>> +              pr_debug("0x%lx/0x%lx in system\n", failed_size, total_size);
+>> +
+>> +      /* Validate PDs, PTs and evicted DMABuf imports last. Otherwise BO
+>> +       * validations above would invalidate DMABuf imports again.
+>> +       */
+>> +      ret = process_validate_vms(process_info, &exec.ticket);
+>> +      if (ret) {
+>> +              pr_debug("Validating VMs failed, ret: %d\n", ret);
+>> +              goto validate_map_fail;
+>> +      }
+>> +
+>> +      /* Update mappings managed by KFD. */
+>> +      list_for_each_entry(mem, &process_info->kfd_bo_list,
+>> +                          validate_list) {
+>> +              struct kfd_mem_attachment *attachment;
+>> +
+>>                list_for_each_entry(attachment, &mem->attachments, list) {
+>>                        if (!attachment->is_mapped)
+>>                                continue;
+>> @@ -2947,18 +2965,6 @@ int
+>> amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence
+>> __rcu *
+>>                }
+>>        }
+>>
+>> -      if (failed_size)
+>> -              pr_debug("0x%lx/0x%lx in system\n", failed_size, total_size);
+>> -
+>> -      /* Validate PDs, PTs and evicted DMABuf imports last. Otherwise BO
+>> -       * validations above would invalidate DMABuf imports again.
+>> -       */
+>> -      ret = process_validate_vms(process_info, &exec.ticket);
+>> -      if (ret) {
+>> -              pr_debug("Validating VMs failed, ret: %d\n", ret);
+>> -              goto validate_map_fail;
+>> -      }
+>> -
+>>        /* Update mappings not managed by KFD */
+>>        list_for_each_entry(peer_vm, &process_info->vm_list_head,
+>>                        vm_list_node) {
+>> --
+>> 2.25.1
 
