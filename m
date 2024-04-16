@@ -4,42 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD19BC04FF9
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 12:58:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1DFFC04FF6
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 12:58:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4DFB10ED59;
-	Tue, 16 Apr 2024 12:58:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5932F10EBE2;
+	Tue, 16 Apr 2024 12:58:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=posteo.ee header.i=@posteo.ee header.b="S0OoXcdR";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=posteo.ee header.i=@posteo.ee header.b="cFguDdm3";
 	dkim-atps=neutral
-X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
- Tue, 16 Apr 2024 11:43:54 UTC
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3FA1112BD9
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 11:43:54 +0000 (UTC)
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73471112A4F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 12:03:45 +0000 (UTC)
 Received: from submission (posteo.de [185.67.36.169]) 
- by mout01.posteo.de (Postfix) with ESMTPS id 21EAD24002B
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 13:37:45 +0200 (CEST)
+ by mout02.posteo.de (Postfix) with ESMTPS id DBE6C240101
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 14:03:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.ee; s=2017;
- t=1713267466; bh=UbQ7pMSl+oz+jYtpxN4R4e2250IxviMZLgyDIe4kiIY=;
- h=Content-Type:Message-ID:Date:MIME-Version:To:Cc:From:Autocrypt:
- Subject:From;
- b=S0OoXcdR9fM8r1UndboquiCXbx+GtTE7k8BYaf5kkyaez5BGrue2IUFeEOxhPBlTk
- IXyROW3k3mySOG2JFB1q3m5nkFzzOfG9lmtweBJXVGsJ8VExt2uUObaGWcg9+zznmJ
- YXLgVw3MbPMPim2ZQtioicOD8aJ0obK3Rhn1oEsySMwPdDTGqC+T3pGhqBntzssJzy
- Wsur/ai9jyLq96zPNqQdMmqjUClykoPKT9y6+Fm3JHZ3eDjL1z9HfvSu6APmW5FIBg
- Z8ku21IGMGuPBt3si/C/vlw6zIDKBMmyQF6Son3XoTKz5NY4G/QuqTpwqgENql8BqB
- 6BQ9e+imo8ixA==
+ t=1713269023; bh=EgyKmRZ2muKbxTXD2KUk6zXBaDDSz6XuTme7NY5Il30=;
+ h=Content-Type:Message-ID:Date:MIME-Version:Subject:From:Autocrypt:
+ To:Cc:From;
+ b=cFguDdm3zkgBR3Z2vm3Eqp73QMmA0+7lZoeQjL2Eq6I3r2EwDaNxJItuElQdt94Gt
+ 1t4cgtWtx51WIYSvgg+LpkEdeYv0i92+cI1aXfzmdso6GwNopyGYb3gmMwy23I0DRm
+ JnPA+Drljcz8Ykhb8Jyf6Lo7XviOuM2NfC43pw2uDD2VlP4Ao/LRYW+b6JTBS2JJyN
+ WSq1xqq1gyJxUuZK3yBXeKNnRP5H2zbjZYnKoxPdj/rlAsWtdsq5RyxGiwgQH4nf+v
+ OXWXANYWxPokcW7jRCJKIYq/M0O8f7i3b/Cl0Fdcv1OX5nHZxx/WluwtV3oIbuH/Qk
+ hzMuwuT/0CiGw==
 Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4VJhqC1T5Qz6txb;
- Tue, 16 Apr 2024 13:37:42 +0200 (CEST)
-Content-Type: multipart/mixed; boundary="------------eXoxud0PMc84WIHuNiPm1AjX"
-Message-ID: <d1193e53-be14-401d-9f85-61e7e9143408@posteo.ee>
-Date: Tue, 16 Apr 2024 17:31:46 +0000
+ by submission (posteo.de) with ESMTPSA id 4VJjP95sXgz6txl;
+ Tue, 16 Apr 2024 14:03:41 +0200 (CEST)
+Content-Type: multipart/mixed; boundary="------------FKFP0eX410Sgl9wcoIo9QsXh"
+Message-ID: <14f16ca5-9070-4c8c-a344-85f4b06a8d4e@posteo.ee>
+Date: Tue, 16 Apr 2024 17:57:44 +0000
 MIME-Version: 1.0
+Subject: reportbug-linux-image-6.1.0-20-amd64-20240416120723-rsdr2h84
 Content-Language: en-US
-To: submit@bugs.debian.org
-Cc: dri-devel@lists.freedesktop.org
+References: <d1193e53-be14-401d-9f85-61e7e9143408@posteo.ee>
 From: lv.oats-soap@posteo.ee
 Autocrypt: addr=lv.oats-soap@posteo.ee; keydata=
  xjMEZfuxJRYJKwYBBAHaRw8BAQdALhfx1G1ekGnRUaY3nG8vn+jB3R9XJjcuGBwCCOnSKJLN
@@ -50,7 +48,10 @@ Autocrypt: addr=lv.oats-soap@posteo.ee; keydata=
  BTlHO0AXa7ESAwEIB8J+BBgWCAAmFiEEl+Q9qUkg8pgn+2Xs900DRNxDX9oFAmX7sSUFCQAn
  jQACGwwACgkQ900DRNxDX9o20QEA1JccRG0CFsd1ZScxCUFcN5p2QvlUgxveFJiBH5J+ZnIA
  /2vlcLVHn61yz0ahJeK2kM7KARh83pDK0McLV9+opwQG
-Subject: AMD-Scatter-Gather-Re-Enabled(phoronix)
+To: submit@bugs.debian.org
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <d1193e53-be14-401d-9f85-61e7e9143408@posteo.ee>
+X-Forwarded-Message-Id: <d1193e53-be14-401d-9f85-61e7e9143408@posteo.ee>
 X-Mailman-Approved-At: Tue, 16 Apr 2024 12:58:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,13 +68,16 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 This is a multi-part message in MIME format.
---------------eXoxud0PMc84WIHuNiPm1AjX
+--------------FKFP0eX410Sgl9wcoIo9QsXh
 Content-Type: multipart/alternative;
- boundary="------------w0FH0Ekcr8mxaEKDmakYpWnm"
+ boundary="------------9of10kOyYY7RqfdR3wfvrSTf"
 
---------------w0FH0Ekcr8mxaEKDmakYpWnm
+--------------9of10kOyYY7RqfdR3wfvrSTf
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+
+reportbug-linux-image-6.1.0-20-amd64-20240416120723-rsdr2h84
+
 
 Hi Daniel, Alexander, Bug Team
 
@@ -118,7 +122,7 @@ file attached.
 Our public key is changed monthly to be found updated on : vks://keys.openpgp.org
 Notre clef est publique changee mensuellement et mise a jour pour vous etre disponible depuis : vks://keys.openpgp.org
 
---------------w0FH0Ekcr8mxaEKDmakYpWnm
+--------------9of10kOyYY7RqfdR3wfvrSTf
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -129,57 +133,62 @@ Content-Transfer-Encoding: 7bit
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   </head>
   <body>
-    <p><font size="2">Hi Daniel, Alexander, Bug Team<br>
-        <br>
-        I am very humble to reporting this same (from YOU) BUG that has
-        killed a new ROG16" within hours of a 1st Debian Install (some
-        glitches I believe already from the install Menue),</font></p>
-    <p><font size="2">here this also has appearently destroyed my
-        internal HARDWARE / BIOS graphics (Glitches now occur at boot)
-        on a slow lenovo.<br>
-        <br>
-        External Display is ok for now. The Laptop giving up
-        proportionately to its own capabilities: the ROG dies way faster
-        that this 4cpu 12GBram lenovo, <br>
-        is this issue falling within the scope of :</font></p>
-    <p><font size="2">BUGs that redundantly prevents the owner to read
-        what they type on a terminal in root mode, and end up leaving
-        them in the unknown with no display when a hacker could be
-        taking the hand remotely. <br>
-      </font></p>
-    <p><font size="2"><br>
-      </font></p>
-    <p><font size="2">I see no progress coming up on 6.2, some have
-        quoted progress on 6.5 (articles mentioned and links) and fedora
-        38 yet they are contradicted by other in this being a solution.
-        <br>
-      </font></p>
-    <p><font size="2">reportbug -r
-        /tmp/reportbug-linux-image-6.1.0-20-amd64-20240416120723-rsdr2h84</font></p>
-    <p><font size="2"><br>
-      </font></p>
-    <p><font size="2">I take this opportunity to express my gratitude
-        for being there and reporting first what gives me hope Debian
-        and AMD will eventually understand the danger this poses to the
-        announced wave of ryzen7, 9, into the market. <br>
-      </font></p>
-    <p><font size="2">Have a lovely Day!<br>
-      </font></p>
-    <p><font size="2">file attached.<br>
-      </font></p>
-    <p><font size="2">(PS: would you update / implement PGPs?)<br>
-      </font></p>
-    <p><font size="2"><br>
-      </font></p>
-    <pre class="moz-signature" cols="72">-- 
+    <font size="2">reportbug-linux-image-6.1.0-20-amd64-20240416120723-rsdr2h84</font>
+    <div class="moz-forward-container">
+      <p><font size="2"><br>
+        </font></p>
+      <p><font size="2">Hi Daniel, Alexander, Bug Team<br>
+          <br>
+          I am very humble to reporting this same (from YOU) BUG that
+          has killed a new ROG16" within hours of a 1st Debian Install
+          (some glitches I believe already from the install Menue),</font></p>
+      <p><font size="2">here this also has appearently destroyed my
+          internal HARDWARE / BIOS graphics (Glitches now occur at boot)
+          on a slow lenovo.<br>
+          <br>
+          External Display is ok for now. The Laptop giving up
+          proportionately to its own capabilities: the ROG dies way
+          faster that this 4cpu 12GBram lenovo, <br>
+          is this issue falling within the scope of :</font></p>
+      <p><font size="2">BUGs that redundantly prevents the owner to read
+          what they type on a terminal in root mode, and end up leaving
+          them in the unknown with no display when a hacker could be
+          taking the hand remotely. <br>
+        </font></p>
+      <p><font size="2"><br>
+        </font></p>
+      <p><font size="2">I see no progress coming up on 6.2, some have
+          quoted progress on 6.5 (articles mentioned and links) and
+          fedora 38 yet they are contradicted by other in this being a
+          solution. <br>
+        </font></p>
+      <p><font size="2">reportbug -r
+          /tmp/reportbug-linux-image-6.1.0-20-amd64-20240416120723-rsdr2h84</font></p>
+      <p><font size="2"><br>
+        </font></p>
+      <p><font size="2">I take this opportunity to express my gratitude
+          for being there and reporting first what gives me hope Debian
+          and AMD will eventually understand the danger this poses to
+          the announced wave of ryzen7, 9, into the market. <br>
+        </font></p>
+      <p><font size="2">Have a lovely Day!<br>
+        </font></p>
+      <p><font size="2">file attached.<br>
+        </font></p>
+      <p><font size="2">(PS: would you update / implement PGPs?)<br>
+        </font></p>
+      <p><font size="2"><br>
+        </font></p>
+      <pre class="moz-signature" cols="72">-- 
 Our public key is changed monthly to be found updated on : vks://keys.openpgp.org
 Notre clef est publique changee mensuellement et mise a jour pour vous etre disponible depuis : vks://keys.openpgp.org</pre>
+    </div>
   </body>
 </html>
 
---------------w0FH0Ekcr8mxaEKDmakYpWnm--
+--------------9of10kOyYY7RqfdR3wfvrSTf--
 
---------------eXoxud0PMc84WIHuNiPm1AjX
+--------------FKFP0eX410Sgl9wcoIo9QsXh
 Content-Type: text/plain; charset=UTF-8; name="BUGreport.txt"
 Content-Disposition: attachment; filename="BUGreport.txt"
 Content-Transfer-Encoding: base64
@@ -1524,7 +1533,7 @@ ICAgICAgICAyMDIzMDIxMC01CnBuICBmaXJtd2FyZS1zYW1zdW5nICAgICAgICAgIDxub25l
 PgpwbiAgZmlybXdhcmUtc2lhbm8gICAgICAgICAgICA8bm9uZT4KcG4gIGZpcm13YXJlLXRp
 LWNvbm5lY3Rpdml0eSAgPG5vbmU+CnBuICB4ZW4taHlwZXJ2aXNvciAgICAgICAgICAgIDxu
 b25lPgoKLS0gbm8gZGViY29uZiBpbmZvcm1hdGlvbgo=
---------------eXoxud0PMc84WIHuNiPm1AjX
+--------------FKFP0eX410Sgl9wcoIo9QsXh
 Content-Type: image/png; name="Screenshot from 2024-04-16 13-25-56.png"
 Content-Disposition: attachment; filename="Screenshot from 2024-04-16
  13-25-56.png"
@@ -2133,5 +2142,5 @@ JgjCt+2beB3d6+pVGtSrJ4KYIHynvolAdv6SJ1aWzb90MwRB+EKKfCCLio7m4cOHNM/naaUg
 CN+HIp8OrqK+PudOnfjSzRAE4QvKMyLLzs7+Eu0QBEEoNLlAZmxsTGBgoAhmgiAUKf8DavSx
 osCeS0gAAAAASUVORK5CYII=
 
---------------eXoxud0PMc84WIHuNiPm1AjX--
+--------------FKFP0eX410Sgl9wcoIo9QsXh--
 
