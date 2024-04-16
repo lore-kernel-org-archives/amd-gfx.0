@@ -4,120 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3462C04FF6
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 12:17:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 304DAC4345F
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 12:34:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6880710F077;
-	Tue, 16 Apr 2024 12:17:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD68B112C2E;
+	Tue, 16 Apr 2024 12:34:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hEhfP8UY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vRZH9akg";
 	dkim-atps=neutral
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2087.outbound.protection.outlook.com [40.107.94.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A571510F077
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 12:17:49 +0000 (UTC)
+ (mail-mw2nam10on2053.outbound.protection.outlook.com [40.107.94.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B1BD112C2E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 12:34:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EsjJ9sE7OiQ/181W2eKOMlSt6GRTVRONgDuzCtl50c3qeM81ZI0rJrS4OZTdefcaJ+Lr4a+hH57x1fVaR6pRG4n+/PaYUWz7wAVPsAd6Kdl4c08JKUzN2tKg9PzfUVVTZ8b+6bbWrszP0xemos2z2zVTQhccoqb8I5jzg0t25fFgNnXmIFYaEHXpTVAGUgy9R96J2ZKQ7m/q3wnvhyrkanm+AON99ta4H3eON8b69yLCP51ThhYRdl4mzWdAUiGrj4m5cvg3b8SzD9/hsKtMk+cnaFS2naDcU/WPWNc+hR1MpgInpvZZKuj5qZdVSu97ViB6LZdf9lDEKBoZxrBBUw==
+ b=b1OPPUqtNSyupa+DK66RhycGOIs36FklyJBKgSIODn8VTeSE7uPXYX+aSh7mnr9Hnf1Ov3+7SVz3ccYuBwv88dlS0jDzW6dptvAoTdFkccWlGaBCSIUYlnllwg5FOPsOCkmC6Qf2aEvs3KUFmkmydoauUNYH9vj6y99BpYrrdzCaLzYLW8+eBoVr0bZ9z/3tvKX1v5Q2CEBD4o1c71no/Wbp1gG9a6HUyHdDLZVMc3FWOIfcJXWsB7bx/Bk3CM+BKp7+zz+heh9s1NfrJWYxuSw7OXCTS9bAbpVB3SFBI3LvMgRZ7aFFKpLRSw9xwgut9lKQ4MFroi3apbKhw9nAbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pN+AngNp9GfFCm9NeQ02YMDwyAKTjaVXheW03an+uSg=;
- b=bdWC8JrPqOcCfILmXVNg+MsQFuerNjvQek8YMPU4uSR6IXol70anlZ0m0nXX2+TIAK+nrPOc2O6MsmsYHDZgfbqNe/+wbFTM6ObjrSuc0o6flcH+eHMyvWVVqyPbIQyo9Ss81WKExRY4pBNsn/BtnADOD2++GOUl2HGeujdD5f4Cx3JanMiOsfkvVLO2GCLxQ32uNvBL/bz1leFDUhEUkP0gc2s/wstTOtBpVvpv6dApLtPG15ZAmgljNMeRKZ7Pa1R4ViJRkG7aVkMs6A/vMDH1ttDyopgy74RtZ8vCGY+PZNkndl8HbEbTRVpP2J79MNhSQVLfY/A6InUuI7pF1Q==
+ bh=19LJ5WxQsSg8KqI/cnU5rfgVy0S6mYuPyZpUzt8vz5k=;
+ b=UksU5PBsAL4r+7Rl52A9spsSbn3vV4lHnlI4HkIhKnZENjP3nX6aeOwncRbfYOgbGIA3xC/CQm1D9v3QzqYRN1mXRnss4fqTKxkeZTVk/B8JWllR/Z3wQgc7Ht9/jFmXnMDeNXz4OC7Jr7jhTt8FGf+y/RXvAk6eUBQkqniH1U3VEp6tJVguESKqV1gWHwD6RjqMoIj2l6HqwOagPevAqDVftFAG2Q9z2eeglCpfLP+Nc1Et+SeI9e/j8BLMBLpfmE378Dr6eddwiEyh7FqVdsQnGjvoMjISkNxYBIxw0UKN5qNcqM8By1EL8VjsIHajzW6+vTcAS2jIQGJwFB/m3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pN+AngNp9GfFCm9NeQ02YMDwyAKTjaVXheW03an+uSg=;
- b=hEhfP8UYA9RVjzkpTa8LMIg2TLrTyqKlH353xN1SQA2S2wcCjVrvsjxsBs6m+HzlgpfR+NCN713A0V4Mb3wwnFUPrDSv9pDiOiitDiAUboSecqTg1vhpCSRea54zq9yyMACXM9oA4C5BbTbG4N510T2mtDO4yrRu+K5zbEMGjgY=
+ bh=19LJ5WxQsSg8KqI/cnU5rfgVy0S6mYuPyZpUzt8vz5k=;
+ b=vRZH9akgoiTkYDINNxEh0ho64QOMBGgbjl2y54YjEh12TZCkbk6c29dRFeVM1nz0fg+1woUb/FUhbzYxeUfUvLCpSaysKwFsxwdd9TwLCZQwBHU+kNUn4nEhiqSbqQGSVyA2z+o+z52e3uv248fHB1HRY4azzqLj6DeCygpGQPE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB7671.namprd12.prod.outlook.com (2603:10b6:8:104::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.50; Tue, 16 Apr
- 2024 12:17:46 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::f2b6:1034:76e8:f15a]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::f2b6:1034:76e8:f15a%6]) with mapi id 15.20.7452.049; Tue, 16 Apr 2024
- 12:17:46 +0000
-Message-ID: <7e532341-cf37-42c9-97e3-41d10e7871e5@amd.com>
-Date: Tue, 16 Apr 2024 14:17:41 +0200
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+ by DS7PR12MB6048.namprd12.prod.outlook.com (2603:10b6:8:9f::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7409.46; Tue, 16 Apr 2024 12:34:34 +0000
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::c55f:19e:6896:cf3]) by MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::c55f:19e:6896:cf3%5]) with mapi id 15.20.7452.049; Tue, 16 Apr 2024
+ 12:34:34 +0000
+Message-ID: <616481ae-9a79-4800-ab98-d45c7fbc3731@amd.com>
+Date: Tue, 16 Apr 2024 18:04:25 +0530
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/amdgpu: clear seq64 memory on free
-To: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>,
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com
 References: <20240415184837.299965-1-Arunpravin.PaneerSelvam@amd.com>
  <662576a5-4597-4a3e-bead-4b80852eb19c@gmail.com>
  <5383bac8-c097-4975-8022-181d1d2f0877@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <5383bac8-c097-4975-8022-181d1d2f0877@amd.com>
+ <7e532341-cf37-42c9-97e3-41d10e7871e5@amd.com>
+From: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <7e532341-cf37-42c9-97e3-41d10e7871e5@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: VI1PR07CA0295.eurprd07.prod.outlook.com
- (2603:10a6:800:130::23) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-ClientProxiedBy: PN2P287CA0004.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:21b::6) To MN2PR12MB4342.namprd12.prod.outlook.com
+ (2603:10b6:208:264::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB7671:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2bb843b1-c252-4928-81ab-08dc5e0f39b1
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|DS7PR12MB6048:EE_
+X-MS-Office365-Filtering-Correlation-Id: 09736236-df62-4f40-913d-08dc5e119288
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: usEJYPkpMGiFjthTqE2sqFE17bzrKdHDWGjTXp4p8o2QhG2kzNHM7YwwhKQMMAPd1OA6gd4xHz1wurhkL5d2bCzyT5u2EGA22/FwGAGRxIjcynWKScEiyaYLcUW06Ah0nambO30II1c7IJJPFVVeV4TWMf54nt3d3QN6ZzrI2NdxNptETfREXgPwBVL4RHWJPxpLuXBiuD/SMGI/CBAFUPVmea3Xzyn2rPZ+7+rAbr5ZRTRMndkEe8YK+DX0YqvnjgzWAGSng1GlePGqMsnXaiU6hA+HgTktfwVN41kwxArAFpMoC6ohb40HoVZBTOF5xzjgrCxSYp+U1OHPBDIHgUpwbKA8qxCMvrqrPVGoai9Xwzee+Lk1eZby15gi+yBq4EIVcXSa7QUbHEfb3+pw5e2e/8EUhEdvqYQ0nrbFWzSRVNjX+oCbDFlgzHqcTOiDBhLtV7Szd0CJt7zKefvQt5+mchHoy+AJXMKXGn40X7QDEXI42+L/Vs4/99S4XGMy9XHMwryABVpN3qjp5IW+MZOtHoZNl3T2U6NSy9g2uE0NclBnC2J+v8wxtKT2Jmnmy12VXIg227jg/B/m3XdNA9aTUhL+gEQGo+/0YmmFfSjMX/Gen2KKNNP0aadkUnfbso9MXlKzl3o0Yhu2kkl3MEjyaVUCFNCruD6qL5tfKyY=
+X-Microsoft-Antispam-Message-Info: kttf3dKQMW/h2PddPKt+anqg2Uq+yT5M1hTWAFfiuRc7b87vL8ZV5U3bjDF++BlkcdhAkl5pTa3ZktHCYZVhbsbFh9fCVO1u63L7S2ikVxzwDXOkEhK+l0LvrcMrDjHn8O4gbbpwscVxt7fBqf3wp+1tv0eIrOZNPRw9YrPNhLtEXmOd5aBsvCj492cwQGr+JnxbOjO4OTQwLhEaMjuPA0gUUW+83hwYMUOEYfzlqZaDaS+Em40i76cNSeOIOhZQRpBttSvrvq+5RRMCRPpyevCEX3ltWKx5WPe/pSSxLD8NLLcfxjptP2YiWGRTR54bju+RyGU+6t5OybgiSpUcJT9JDjfwdXvX/b7Vx2ht9EeISj7z8JaPWkT2ewChcQwBKu2+yFHAAQN9kcGz2U3rtH4cDdVxtLTHlnX+Kk9K6J1mp1TZ8cbffk5y0B9BVlzkoH0WLNH59/kJ1LZjoUjwzTS0m3gob1LVk/efYp3eQy13R9T4STAni/56Z/Zlu1QDeA/6MMfksR29PSQHH4x/jiA1XdSDHddycrVuFoeRZKKVdNmhWtJkygYmlXdnwDi5ReZuCX8TnzxTWg2yurU1C+QlL8R5QJ/gVpF16l1Er9qAx47yt6VvZliT38DuzATr0RFWFx1phIH/fq1koiiW9u1Lb5zFQ1dR7pY8G3lxfe8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?czRZbzF3ZXlBZUt2Vm5Qa3VBelNDZnc1b2Z3bnV6Z0Z1QTROckZKeVFITitW?=
- =?utf-8?B?SEJMdEMzWWlLSS9rYlRiRUc1bEM5NW1kTHZKenVnN2gyam9aVVg1ZHhGQ3Jj?=
- =?utf-8?B?eWduL3dSb0luMHljZ0x3SGRvbnNJZWFHZTZWMkJ0cTJiaW12dW9obGlJNXE2?=
- =?utf-8?B?MDgwRjdSaGMvUkdJc21ra0FlTHB4MHgybmEvT0dWeExPZkorQXJwTmtONUhC?=
- =?utf-8?B?UXpRVkNQNDlIaHhQQ1kxRExDb0NHZlVSMHlzRk5MRnd4cG9vZFhjd2JGelND?=
- =?utf-8?B?TjlFdWRPY05jaXp3SitlNVNVNWt1dG9yV0RHYmhDUzlPL3ZnZm1aRGp5MFhC?=
- =?utf-8?B?R2lLckw1WEcwbTd3QXE5YW9WQnhEQlJMRXYyNE1hNVpKSFk5K0U1YTFGaUF6?=
- =?utf-8?B?Z3RtMW1WeVJMeFZiejc2RGlIak9WRHp5U2ZVWjg4elJ5dDhld0pxMGM5alJY?=
- =?utf-8?B?Z0JSbmxYUVBUbUlFQWV2SGl6aUdGOEFMZllKbDZSTWVTRUJlOExBSzBXL2VR?=
- =?utf-8?B?YkhKS211cVlsZWFVMDI3YkY1dXFLQnZvU0thYjk3V3kvMGgzU0JaaWRaV3hV?=
- =?utf-8?B?eVFCM3VXZVJzYklRUXAzbDE0amdWS2ZycHIrZDJuK3FqTStJZTJYLy9tN2xt?=
- =?utf-8?B?a3I3V3ZKdW9DWnJtWGc4ckwzNGszbkpoTnlEZVIvMlFqWVVpRERjL0lCallo?=
- =?utf-8?B?a0VlVGpOMEhaNFJsRlluem1IRXVHSXAzOGJIMk1QQmMzbHdjeUI1a0dtOVF6?=
- =?utf-8?B?WWV4ZUhINnFDME9lUmREN25YYUtsRXlwU2lYY0NnZE00SEpTSmFEc1lGVlRk?=
- =?utf-8?B?ZVZDUXZWbjR2eDhFQjNmU2xuZUh2b0JsaEFPNExDSk1mYXNkUlRrOG8vbFJo?=
- =?utf-8?B?YTE5R1d5eEJoZXNzT3lqZ0tEcHQ1OWhNK21rZjVCOW1IVTF3TVg0ME1DQjN6?=
- =?utf-8?B?R1paNE9KL3hVZlVPUXk5bXlFUGFScExLb0xENTNpby9uY1gvK2NVUkNuS3lo?=
- =?utf-8?B?MXJpb1A3YWc1RHByeGc3UzRjZERXRjhzT3gwazA5MHZWeHZsZkFhZmYwT1pq?=
- =?utf-8?B?b2l4cFUyWHJqL0s1SHNNa29YSUdFbjI2ZmdMTnRmU2xva2pFNVZjNUJkeDI3?=
- =?utf-8?B?K1RIaitNUTFYY3M3dXVLdk5XY2N5Y2JyNzVncHFYOHV4K0JOV210L2tGY2Va?=
- =?utf-8?B?WkZ2Z1ZPdDZvbTQrWVR0dHAzTVBGazNxZ0ZsZm0xSno0MVJ4Syt0dlJ2eGxW?=
- =?utf-8?B?YkJ1QnBLWUx6aHlmMURneXlkODB3T1J0WTZVVnl4c1dtM2g1TnNEUFVNZURz?=
- =?utf-8?B?ZTUydkdTeGRXRmFadjBVdHZpUTJnMis2Q3d3dmkzZjU0VUQzbTV3N0dtbHgz?=
- =?utf-8?B?S2tLeVlPbG1hT1RHWjZ2bTIwdDllSzhwd05uQXNDWFRVSndkY1NJY24wd2Qy?=
- =?utf-8?B?MG5pUXVuRER0L3JCTlAvK085VGY4YXF1OVpleVdnU1JoOHhTZ2V3TEM5R3o0?=
- =?utf-8?B?NHpQYkU2ak9TSkxzaEsycmdPSHBhNEhBNFp2ZnhLOFJaMzg2YlE5WGR5Nk5F?=
- =?utf-8?B?N2FuMGJmM085NXZmRFNlQStEeTRPd2xJaVdJcXhBVEJZbnV2c3ZXazVKSFNk?=
- =?utf-8?B?RERnNVpJeWxYZWtwNjROMzVsSmd5NVFCVXBZL0NqV3pMaDZWRlpYR2luVnhH?=
- =?utf-8?B?Y3BDY28wZzdTM2VBUEQwZklKSlhPZ0dUN3hPRlBMNlF4YXgrVWtlM1IxeUhE?=
- =?utf-8?B?c0JBS0FSd1dNUHMvemFZT3gwNUpzYTJjVlBCWTF0cTNNKzlTR3RmanFYak10?=
- =?utf-8?B?MXlNK3EvNjlZd0YyWWYvRVQzdkw5UUkwTkZQR3p3MTFDZUpxeG5peTIzQTE4?=
- =?utf-8?B?OXdNMEpvZlNOZFZQemVDNTlDckhMcmhhR095UmZWdENQcWRqQ2cyTnl4YmlO?=
- =?utf-8?B?UnZOcnM4UWdkcEhxQVc4QTNWWkdkR0JiNFNxQzZqUjFJbmFTWThHaUowcXdL?=
- =?utf-8?B?bkFHSkZ6c2lOSjlROWRKc2JIK2cyWGFra2FOVlZmdGRzdW5pTG1kYnM3R283?=
- =?utf-8?B?SFZwYUk4dFJ2ZzZOS3dSaWZaelJ5RnFDeW1hcmhZb0V1UDBseS9tMFNLSXNk?=
- =?utf-8?Q?paTYtnpXR+hYESMbN3drbbu7T?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXFGOVpBWUxXUXNRa1ZVYmtENHRmSWdkQmsxSGRUNnJUNkFBSkZGajVndlBz?=
+ =?utf-8?B?NVc1K2tTK0RubE5VR0gzTS9Xb2NtY3VtREJHWFNEK3hkelRjL1JFQjRZYXVY?=
+ =?utf-8?B?RllJLzhjTjlTNlZ5RmIreG1wNjVDaWhiSFViQ0FWdXpqaC9TMGx3MGQrdkdU?=
+ =?utf-8?B?R080a2xaOGU1d04xWk5tU2xmVENRQmc2ZlVzcmhxNHdYSldkZUxkcEd6VkxV?=
+ =?utf-8?B?STlraThMOGNFK3RSV1N6Z0kwWjlVbENSUTZVWTl2MW9ReHlFUmFQUWtlOFRu?=
+ =?utf-8?B?MmNkS2pzQ2J1VU9CNHhOU2g4NWRhSW1wMjFocnJpeGNScUJ3bzJ6SWR1b2tK?=
+ =?utf-8?B?b1ZMNS9GUFIwRzJteXJPb1YxZnZxMjFqeXNEMG1kT2l3VW5vNXQxblhxSXgy?=
+ =?utf-8?B?UzhsdjUyakRkZmc3ZkRzSXNPb24vQlVrZUxWdnM2VThUYWx1b3dVMVRwZ2xI?=
+ =?utf-8?B?ZERVZ1ZOMkoyZ0lCdG1kT3BjTlNPNHVTWnp0TFpGcGVZSXdpclVpWmUvRXVH?=
+ =?utf-8?B?Q3orOXNFK3R1V25Bc21Ec1dwSkVMampVQkxtZ1BnTHAvZXpJUG5nRTlEVDdQ?=
+ =?utf-8?B?ckJkUlhMWUIxM21EOHpQSVFHTk5jbWVkZWQ0blppdVBYSW9TdWFPS0pjSDUr?=
+ =?utf-8?B?bHVEakpHcjNjVUVYT0E5QmRwQ3RrTmd6RFZld083UVBVNnQ5ZGhSUlY5alZR?=
+ =?utf-8?B?aHA0aUM0eHg4VGQvN3k1VVdxYWRBRE9iLzlVZVBtVXZMSU1TL0VPejNrcGxS?=
+ =?utf-8?B?blpXSXdvREJuMmpBSXUyYjhid2w4SHA4NzZ3S2kzOHR4SU1LSGFhT2hEeFJB?=
+ =?utf-8?B?V2lkYjlOVGVJNWFlK3pjcGIvQm5FOTBpZi9RMXh4UFlSZ1ZtZXhVdUtrSG5s?=
+ =?utf-8?B?ejhIQ1VtME5BdHZqTjhSOXl0YStmMFJ2ZE9sV3JTS0VhdG9CcDBQTGNiKy9E?=
+ =?utf-8?B?UDRFUkVpalVLMFZYa29oRzlzMDdEWTF4STFKeXVQMm9UR2lrdGl3V2Z6MlVN?=
+ =?utf-8?B?US84WDc2Z1JQWTF0SzUvWWp1SWpPNGp5SDlaTm4wQW4vamZkVTlLb0ZtZThx?=
+ =?utf-8?B?TEl4Vm5FL2V6N2Jvb2duaW5XRVpwOUlGZ1FCeDNJMGFyTWl0Qk0wZ1NxMllO?=
+ =?utf-8?B?V0hjVnE3Mi9qUzQyWFJyYm9tL3JRZkE4MDQvUFFYc0ptMDlkZit3dXg2V2tY?=
+ =?utf-8?B?MFJzeUVlaTlRRFRUWWNXd2lyK1g4ejd4TEdlcDNtQTN6M2ppbDNLelpjUldV?=
+ =?utf-8?B?dk84dlc0bHVpcllqQmxZMFAzeENDYWVYVkZxbXVPTVp2cjJBbm9sbC9kbm9t?=
+ =?utf-8?B?a1I1b2IvVGdLbXp5STR5M25CMmxzcHFIUmZqcHR3OEM5VG9hWHVTTnhicHk5?=
+ =?utf-8?B?N3lZd0NSYkRycWI1cVFZc0xpVDV0WXZyS1plWEtTdjJ4bklDOHlteEVDUWVL?=
+ =?utf-8?B?bk91ZjRYQjcvRlhaTE5YTktCSkpVS3NlcDZCMC9xK0VWWERkLzI4bnk1eWwz?=
+ =?utf-8?B?TlZGVmlpdEJwbGJEWHFNaGZyVnZ6c1FDdzJTSEJFeWhEWEQwZThMYi9La3U3?=
+ =?utf-8?B?Sms2MXpYdWN6V2ZPb204Wnh0cm01K1NOVlhnUGEvNWdJTEprS1hxcyt0WXNs?=
+ =?utf-8?B?MXVDdGViYXJZVk1QWFlENkZ1K3MzU1NMN2hTS3pEYkVpbFl5VVZkckdheThR?=
+ =?utf-8?B?dktLNGdLbVpLYzEybUlIbDd0bGIwc1BXUGpURlVodldNVGJLMkJLWUZRdGVy?=
+ =?utf-8?B?SEFEWVBxVVJEUjYzdFVBRHZyNnAyOGZDV2xSTG8xUHk1eE1OSlRNcURRejNp?=
+ =?utf-8?B?VFh3MEVXTDZWSThJY1BzQTVsbzNqTmpGTWdWNHNPWWpBTHJVZTM5bVlkU0Js?=
+ =?utf-8?B?VDlmd2s0K1ZtZnNMVmVkdDhRaUtsOC9ucERaQW1HVFRiNkhjcVNPZlRicWQx?=
+ =?utf-8?B?M3FFTS9aaFdya2Y5cFE5MDVrZG1pdEY4dlRmb1RHR2JwZGh5MG9CcytxYnFJ?=
+ =?utf-8?B?Y0RTV096MTZsR0hHbi9jWGtQQWlneWQ5NG9vSzdFZTdUaWlpZFZkZTFwMVdL?=
+ =?utf-8?B?VVdIQ1oyb0I0bGVxajRRamlRVFVUczZTc2ptNUR4L1hIQjlFd1Vyc2xJc29J?=
+ =?utf-8?Q?zFGo/4SqhqSTZPOEVUAmBXuIe?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bb843b1-c252-4928-81ab-08dc5e0f39b1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09736236-df62-4f40-913d-08dc5e119288
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2024 12:17:46.7657 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2024 12:34:34.6848 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: egvvNsByCqqnHR11xkhtQvs2njhUXJ4+UJHyjh/ce7Ju5CFXOFlJl8F26XzRSNA2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7671
+X-MS-Exchange-CrossTenant-UserPrincipalName: LcZraquAIMG9CibmfEYkTyktl1LpdUv/0mVqaL+L7mdn0gUOx2NF7Rt2EB/5zCPp7z3GddLLBQK7FSOs7riudg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6048
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,77 +133,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 16.04.24 um 14:16 schrieb Paneer Selvam, Arunpravin:
-> Hi Christian,
->
-> On 4/16/2024 2:35 PM, Christian König wrote:
->> Am 15.04.24 um 20:48 schrieb Arunpravin Paneer Selvam:
->>> We should clear the memory on free. Otherwise,
->>> there is a chance that we will access the previous
->>> application data and this would leads to an abnormal
->>> behaviour in the current application.
->>
->> Mhm, I would strongly expect that we initialize the seq number after 
->> allocation.
->>
->> It could be that we also have situations were the correct start value 
->> is 0xffffffff or something like that instead.
->>
->> Why does this matter?
-> when the user queue A's u64 address (fence address) is allocated to 
-> the newly created user queue B, we see a problem.
-> User queue B calls the signal IOCTL which creates a new fence having 
-> the wptr as the seq number, in
-> amdgpu_userq_fence_create function we have a check where we are 
-> comparing the rptr and wptr value (rptr >= wptr).
-> since the rptr value is read from the u64 address which has the user 
-> queue A's wptr data, this rptr >= wptr condition
-> gets satisfied and we are dropping the reference before the actual 
-> command gets processed in the hardware.
-> If we clear this u64 value on free, we dont see this problem.
+Hi Christian,
 
-Yeah, but that doesn't belongs into the seq64 handling.
-
-Instead the code which allocates the seq64 during userqueue created 
-needs to clear it to 0.
-
-Regards,
-Christian.
-
->
-> Thanks,
-> Arun.
+On 4/16/2024 5:47 PM, Christian König wrote:
+> Am 16.04.24 um 14:16 schrieb Paneer Selvam, Arunpravin:
+>> Hi Christian,
 >>
->> Regards,
->> Christian.
->>
+>> On 4/16/2024 2:35 PM, Christian König wrote:
+>>> Am 15.04.24 um 20:48 schrieb Arunpravin Paneer Selvam:
+>>>> We should clear the memory on free. Otherwise,
+>>>> there is a chance that we will access the previous
+>>>> application data and this would leads to an abnormal
+>>>> behaviour in the current application.
 >>>
->>> Signed-off-by: Arunpravin Paneer Selvam 
->>> <Arunpravin.PaneerSelvam@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c | 6 +++++-
->>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>> Mhm, I would strongly expect that we initialize the seq number after 
+>>> allocation.
 >>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
->>> index 4b9afc4df031..9613992c9804 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
->>> @@ -189,10 +189,14 @@ int amdgpu_seq64_alloc(struct amdgpu_device 
->>> *adev, u64 *va, u64 **cpu_addr)
->>>   void amdgpu_seq64_free(struct amdgpu_device *adev, u64 va)
->>>   {
->>>       unsigned long bit_pos;
->>> +    u64 *cpu_addr;
->>>         bit_pos = (va - amdgpu_seq64_get_va_base(adev)) / sizeof(u64);
->>> -    if (bit_pos < adev->seq64.num_sem)
->>> +    if (bit_pos < adev->seq64.num_sem) {
->>> +        cpu_addr = bit_pos + adev->seq64.cpu_base_addr;
->>> +        memset(cpu_addr, 0, sizeof(u64));
->>>           __clear_bit(bit_pos, adev->seq64.used);
->>> +    }
->>>   }
->>>     /**
+>>> It could be that we also have situations were the correct start 
+>>> value is 0xffffffff or something like that instead.
+>>>
+>>> Why does this matter?
+>> when the user queue A's u64 address (fence address) is allocated to 
+>> the newly created user queue B, we see a problem.
+>> User queue B calls the signal IOCTL which creates a new fence having 
+>> the wptr as the seq number, in
+>> amdgpu_userq_fence_create function we have a check where we are 
+>> comparing the rptr and wptr value (rptr >= wptr).
+>> since the rptr value is read from the u64 address which has the user 
+>> queue A's wptr data, this rptr >= wptr condition
+>> gets satisfied and we are dropping the reference before the actual 
+>> command gets processed in the hardware.
+>> If we clear this u64 value on free, we dont see this problem.
+>
+> Yeah, but that doesn't belongs into the seq64 handling.
+>
+> Instead the code which allocates the seq64 during userqueue created 
+> needs to clear it to 0.
+sure, got it.
+
+Thanks,
+Arun.
+>
+> Regards,
+> Christian.
+>
+>>
+>> Thanks,
+>> Arun.
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>>
+>>>> Signed-off-by: Arunpravin Paneer Selvam 
+>>>> <Arunpravin.PaneerSelvam@amd.com>
+>>>> ---
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c | 6 +++++-
+>>>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
+>>>> index 4b9afc4df031..9613992c9804 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
+>>>> @@ -189,10 +189,14 @@ int amdgpu_seq64_alloc(struct amdgpu_device 
+>>>> *adev, u64 *va, u64 **cpu_addr)
+>>>>   void amdgpu_seq64_free(struct amdgpu_device *adev, u64 va)
+>>>>   {
+>>>>       unsigned long bit_pos;
+>>>> +    u64 *cpu_addr;
+>>>>         bit_pos = (va - amdgpu_seq64_get_va_base(adev)) / sizeof(u64);
+>>>> -    if (bit_pos < adev->seq64.num_sem)
+>>>> +    if (bit_pos < adev->seq64.num_sem) {
+>>>> +        cpu_addr = bit_pos + adev->seq64.cpu_base_addr;
+>>>> +        memset(cpu_addr, 0, sizeof(u64));
+>>>>           __clear_bit(bit_pos, adev->seq64.used);
+>>>> +    }
+>>>>   }
+>>>>     /**
+>>>
 >>
 >
 
