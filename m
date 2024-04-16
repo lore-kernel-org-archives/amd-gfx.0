@@ -4,137 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A794DC4345F
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Apr 2024 22:33:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEB74C4345F
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 01:58:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E35BF10EA77;
-	Mon, 15 Apr 2024 22:33:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34EE710EC58;
+	Tue, 16 Apr 2024 01:58:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B/5GOacn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="d/2m2YJM";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2045.outbound.protection.outlook.com [40.107.94.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1769710EA73;
- Mon, 15 Apr 2024 22:33:45 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2043.outbound.protection.outlook.com [40.107.100.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7319B10EC38;
+ Tue, 16 Apr 2024 01:58:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VQ+T2jegHsdyoXQEyFw1EVsQDJbPIGD4wUy0diwEBF4W44+I0CkdZzUwoHbP+8yzElR8OO6anoD2IxyqfPLLga02wgdl7GEMiyvZrwgrw2WPnMp6hz5CcT7xlXBqKeI0bULamgwvO/2uexqkFRuqEuiKBSQRi3xLgzPUxgwjn8szsemOIFPjip1+FwzNx/ug1MUedWiQSxv3PV2UWKJp00JYekx0QAD5jTSObFH4Es20Q5Fat7/GL2CDs3AgsbSf/Ool3Wo4EbeqPHoLcLJvQ/zT2Tmxb5A3jfnNxSSL822jBULXXJvn/io1ilmsNa21pbh7DdllE2Z01dWG1YTe+g==
+ b=ReGr3vuJ0d5qHQySdUKgl1u90aK4KbEj3COrcgE9W/5U0Phm78ToB2PFnxMDbBm3nKOfZqBEHFPgGnRMqjOTL5wbq1y+Z9T8cSn7aLubfLMOKK+v3a/aXD2a/7LAq7CvSo0O30df3Hp5nci4uwFSiKYZKsQy8TztHxJGYTDslNxljqOAibTfV9M4PcHkU/sEfQj40k4QRXQpnSlbba1OF+oF7A5f2yWmoPZNAR6YezF3ed84gjcvcZC1B85gbHETqIJKYQidXuPnSzQHbLhOdjjWS617LP+0NNspibkqBz1yzk2kq6CsRmCwR/idFlScVNEk4BDBpWAoVP6He4O57g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iDUxEgBin3U11XJCq2LQ/P0zEa9HfdYtT6vP0YyF75U=;
- b=bXO5URHqg5+2Oe2XvE4Yt8HtTnIYYX/DOwoSyzfe/EDfHKqyAV/xWFoVBy6ytNH3MIHnv3Mhxm7cQNYzNiSCjYW+E7fngKxairvo18j/vgTr24lzvolNldfmCNXGbWz7BTSh0IJ8IY9U0Yk1evN6pulO4kc6FfO6K+9IEANLDHW9BTjycnwWMonqORyAUd8fuSrevV1JX7FLaP+B/LGVlsruOLjdqYu4B6eFPJbalQVWTIQ4FAEttyVL4i5pUvsJ99k6q9juDslLYl3XqJ2lLnAA46Pym0RiR6eJQi3WjzEiBvD/j458vw9RPiZ3kPXwQgg2L9/qg6rbOrkIfEuzFw==
+ bh=j9RjKYMhkZNASBefEEHqgtsvgwirSIFMxzy/5NArRhQ=;
+ b=KvXAeRsqUsU34PXMjSw90CAKHWcQ3Cor4MsnRrr7Ow+jxlIwGA9FVhrwimbr3V6ab0bafhWqHbB7VosMKbV8EmZL1wrFDb1uvVYo7j6/Q21uSdIV40Rsaqu7wBa0hoIkVcOs/eN7wYeypAHA1pjl7NQS3rLCqP2nTA80EgaRmPoH2FCnr75hv4VizQsu/PjzSQM6E4fBdSJWlJP73vvFrdf/Nsvm6Nc9U2JZ26FBwzxPeAqnA4dF0ed+NMu3KgoSMHST/gh3biLDBRzu4ihNEPQgMeSkL4T5ckrIL18ktQVeg6Ez6KCHjZsSR0LU9KsQ+m3ApnDlD5P2b0sRWRbMTA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iDUxEgBin3U11XJCq2LQ/P0zEa9HfdYtT6vP0YyF75U=;
- b=B/5GOacnzRMQit1/DxiHuihznohWi0bZtxNX9BwfnGl8MWnFizlVMSRVDwjUsC2ZnpT9+ng6Yz2Ag1lPKXsCJD6PEoBLRoT7ALmZUWiB/m1yyl1QIMsmqg3n3cohgcb+BLYB4NYARpT0PO4vcMaC7vMToBonZ+aap2BP6FJ9+dQ=
+ bh=j9RjKYMhkZNASBefEEHqgtsvgwirSIFMxzy/5NArRhQ=;
+ b=d/2m2YJMQVgmmAi004EcVyCRhXJ797awm0l69QPvDDzK/J7LEQMJNucWgtmkfyJVRfs7To2unMBonK9gfk8b8iweMeorsR93aA5bKk5l0cMxRTOFJ15uR1mNhcy/Z60w2v+BVEkpq7nRJC7eu/SBolNH34RuM/ekaEYidrk5bNo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5311.namprd12.prod.outlook.com (2603:10b6:5:39f::7) by
- CH3PR12MB8993.namprd12.prod.outlook.com (2603:10b6:610:17b::16) with
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DM4PR12MB5985.namprd12.prod.outlook.com (2603:10b6:8:68::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.50; Mon, 15 Apr
- 2024 22:33:42 +0000
-Received: from DM4PR12MB5311.namprd12.prod.outlook.com
- ([fe80::43dd:8fc3:fa6f:e54]) by DM4PR12MB5311.namprd12.prod.outlook.com
- ([fe80::43dd:8fc3:fa6f:e54%6]) with mapi id 15.20.7452.049; Mon, 15 Apr 2024
- 22:33:42 +0000
-Message-ID: <8f0a48da-3efc-4742-9539-d852fb92ebfd@amd.com>
-Date: Mon, 15 Apr 2024 18:33:39 -0400
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Tue, 16 Apr
+ 2024 01:58:36 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::d895:b707:1189:dfd7]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::d895:b707:1189:dfd7%3]) with mapi id 15.20.7452.049; Tue, 16 Apr 2024
+ 01:58:36 +0000
+Message-ID: <26d0c683-88d5-432d-9fc1-2caa74793ba1@amd.com>
+Date: Mon, 15 Apr 2024 21:58:33 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] drm/amdgpu/display: Make multi-plane configurations
- more flexible
-To: Pekka Paalanen <pekka.paalanen@collabora.com>
-Cc: Alex Deucher <alexdeucher@gmail.com>,
- Marius Vlad <marius.vlad@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Chao Guo <chao.guo@nxp.com>, Xaver Hugl <xaver.hugl@gmail.com>,
- Vikas Korjani <Vikas.Korjani@amd.com>, Robert Mader
- <robert.mader@posteo.de>, Sean Paul <sean@poorly.run>,
- Simon Ser <contact@emersion.fr>, Shashank Sharma <shashank.sharma@amd.com>,
- Sebastian Wick <sebastian.wick@redhat.com>
-References: <20240315170959.165505-1-sunpeng.li@amd.com>
- <20240328163311.34b58b39.pekka.paalanen@collabora.com>
- <1ca9c55b-2358-4357-a337-c0bf5e3e2118@amd.com>
- <20240404132411.5bb5cb53.pekka.paalanen@collabora.com>
- <b1613277-567d-47db-af84-74dfad2e9cf2@amd.com> <Zg63qvnHgutUARrh@xpredator>
- <46968a40-e0e5-4af9-b859-8a41d5992863@amd.com>
- <20240412110325.4afa29ca.pekka.paalanen@collabora.com>
- <7d04e345-b319-4e2f-a1d3-378cc1881144@amd.com>
- <20240412180741.360d8c2b.pekka.paalanen@collabora.com>
- <CADnq5_MD4EBm4kGuK3fa0azKsMimEnTM3tm-Hy8CN-NNtom3Kw@mail.gmail.com>
- <75f2b674-4ad5-4d36-9708-0eea9a9bba6a@amd.com>
- <20240415111953.04b65a53.pekka.paalanen@collabora.com>
+Subject: Re: [PATCH] drm/amdkfd: fix NULL pointer dereference
+To: vitaly.prosyak@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, alexander.deucher@amd.com
+Cc: Christian Koenig <christian.koenig@amd.com>,
+ Xiaogang Chen <xiaogang.chen@amd.com>
+References: <20240413180706.232041-1-vitaly.prosyak@amd.com>
 Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <20240415111953.04b65a53.pekka.paalanen@collabora.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20240413180706.232041-1-vitaly.prosyak@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0162.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:e::35) To DM4PR12MB5311.namprd12.prod.outlook.com
- (2603:10b6:5:39f::7)
+X-ClientProxiedBy: YQBP288CA0015.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6a::12) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5311:EE_|CH3PR12MB8993:EE_
-X-MS-Office365-Filtering-Correlation-Id: b16bd415-1216-4edf-d915-08dc5d9c1a56
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM4PR12MB5985:EE_
+X-MS-Office365-Filtering-Correlation-Id: 292545db-d109-420e-6e24-08dc5db8ba46
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tZ9A2C0a6Q6EKh1oLF3uBOnfD5NuW4PfU75Y9aPGQ9t0ihWG9eODg6wGkRDh8Vy417ISqFR8ExvY/jpx5fAfnqDYxhfU/0fr6YIyxJysGkLgwegsycHPRyFXF1MMwzVQ/f3wiuGC1NhrO7qtOn/AreNsycOHHncuYLysUYvIVR74karlQ6H2oalOODmagUjD0UAIaIsReQucC1YK40d2RnPYueErnxjC/9/jjQbFr0MdtP6oUPLECeKH8cKrbRxua08itM3oxeYdq3BrVoslJIZMlMTGiIa7oufqRtnb6/MmV4zCoq6wb7fQI7N5nv5kz2ge3NOaJelJac5vig1rPyHR2pUX3KvOLWFqnupYTqO3YTmCRrE5az/TJgL3MQ/l2V7MludvgeegUPRennOGFbLc0yugK6BTUPH7QgcPEg0s6k1WEB9F80lojeYT9m2ZyzFfFFSML0/Hd7eQmyAi/EvHtRSeBpTenYzOY2QaO/Qd5jrWTcLLP2A/3DnoE8oeZ2/Bxg7KckQqlfjJUyzXsUDaSD1f0pKjbS0NDKjKuVFNSQ86QQuobqslQsl54zMG5CGk0siM7D5tw7F60pn45hkptdzVecIWtlf5InObEjU=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?dnova3JoQ0V5N1FKQ0JPcWNGNUt0ZGNPWC9DdGxpbmZKeHg5QVBmQTVaVzdY?=
+ =?utf-8?B?QkJwdGRPZWt3RWptRkNpVUFIMktTZnZnSTZTM0ZkQ2VOb1phSk0wdlY3ZFl5?=
+ =?utf-8?B?MzU2RExYUEMwemF6Uk1XcE92cEQzZHNGQjd3T2QxTURsMSt4ZEphOWU3cFBi?=
+ =?utf-8?B?dHNQVDk3cGt5STdUaFJvU0JhVHpxUW5WRW5FZmFiTHdJTFFTYlRYZkdDV3dG?=
+ =?utf-8?B?empFazI3VVRzU3RuZTVGR2lpdm9oYzlCWGpHdW1JV2xFOCtMMnBiQjZHUGhM?=
+ =?utf-8?B?bDVsRHhVZnVNUlNRZ0dyUXhZYyt3M2pxL0NGTDFzd1dMaFJUVERyWHF3WThz?=
+ =?utf-8?B?d2k0RlJtK2UveXRMYUZ2VkNMMEswOUZETU1QQkJleTBlSG02YjhDUWR2QS9V?=
+ =?utf-8?B?R0xEN29MaUhhR1hBcHliU2dwWGxMbDk5Yjd0aks3WTRPMDdiRkNreE1FTGZV?=
+ =?utf-8?B?Unk3RkZCWWVMK2pzZXRvbHA0Ujd2cmN1RTF6Z005aTV3NldvTzVsTjgzL3Yz?=
+ =?utf-8?B?dkdNWnBvSFFpREJTU0Jta1AwUmVsdFZIWEhYZDY4SHNGVHFveVcralBHcDdP?=
+ =?utf-8?B?YUxub1FKYllvcmhmNzFtZFFWWXZoTHlzZ2RhdzZyM214bW9Ud1cvSjVLWUIz?=
+ =?utf-8?B?bWJ4S3VVSmdyVUJ1SE1EYUFacW02b3Nkb0RudTRIQ3UxLzNDSXZQcVV1Z0I5?=
+ =?utf-8?B?VkQya2ZCdFRoUHYzSUtqZ0pEMDkrRWhZTWZYWmNIdTYxcmorMXhwbzRQbmM4?=
+ =?utf-8?B?MkxGaWJRcXEvc1kxTjYxN2ppVjlwTks3eVppcSs5NzdYYjNsZHpUM3hVMTc4?=
+ =?utf-8?B?K2ZJWU9DNmZxbGRFcC9MNHdyY2pra0ZCSURSd1hzSWtBdmtvbzd1SXB4ZFBE?=
+ =?utf-8?B?R2l5Z1k2M0NrQjQ2Y016Uk15TGRYL3RWWG54Y1VvUmd1TFpUWU5PVng5NkNN?=
+ =?utf-8?B?RURjSlE2Vlc5emRZU3dkbnpwdzlxdWl3akRhNDgvU0VwRkFPdjN3Z2wzSStT?=
+ =?utf-8?B?NEliTjhUUURHaVV1U2o5MUxJd2dZRExTdllQUUlYV0lkYmpjU09CbU9qNFVG?=
+ =?utf-8?B?U2c5dmJabTE3WnhzcDVIS0hjL2xSL0g3YVB6ZGJHWHRMUWlWZnZkeHFIV3g4?=
+ =?utf-8?B?S0Nxb2FpeTE2Rk9LdzRMUkFMWTBnbWY1NStJSjJnd0s2eHRIOGN5VStScnBH?=
+ =?utf-8?B?dkZpMG1DRTBtcjFTSDFxWHNvNGdOWjFCK3REdXdHUXVvNFBSUEZkV21mTFR5?=
+ =?utf-8?B?WkpVc1lGUzMwMzF5a292NFlNNG1CWDh3cXJ2dXVTVHhISGpPMTNGOU5iQ0lS?=
+ =?utf-8?B?clViZnFTMjQ3VVZSaGNxdy9Ja1JzYjlSL2Z5NWtFMFNiZkhPRGJDNDE3aU5U?=
+ =?utf-8?B?Ujh5aG5YR204RTNiZlMvelZrbDNVUjlTWENBNDlHQUtIWlg4ZFJrSFBmaFZL?=
+ =?utf-8?B?ZWxNakR4czBSakZ1TGY0MmRCMWdsMnNDeE9MaGFpbG9wR0RsR3VIRUJzREox?=
+ =?utf-8?B?NGFxMUZWbFp3ZEppUGJxOElhampzS0ZEQ1ZaMXF4QzdoWU9uaUZ0c05HdFhM?=
+ =?utf-8?B?dHNYVytWYW5Pekd0KzZzMTE2eW00ZnhiRWZKSmZlaDNJV2xmT2RqTTU1Mlpl?=
+ =?utf-8?B?ek5EQlZRQk82Yjd6VE9OY3czTWRQdWp5TXU2Y3NXa0FIZGZEZmxEQmRFUnh2?=
+ =?utf-8?B?UW1hU2tRUFFmUkM5TGd4U3dwdVROMUtKRUYxVForWVFIVWtUQVhpa3NBPT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5311.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(7416005)(376005)(366007); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aFYvc2Vvc0RYRG9LK2RIN1JlNWFaMjMwcTFRL1kyM2FSOG40Q2ZwSWR0dm9S?=
- =?utf-8?B?dTRXN0tYd0d0RU1aS0szbHkrY1BnZHVIWkY4VlVua09GdTV0WkV5d3pDRWxu?=
- =?utf-8?B?aU1BQ1V3UW1YQnF3VytBUGdkNjRYYTFxYTU3NmkxbVhYdFM2TGNMOXFWUVg1?=
- =?utf-8?B?WTNkVGd5SEZSUUlJa3RDMGlWSXBhbzYzL0xhUVJ6NUxNVU5lR015ZEdoK2xW?=
- =?utf-8?B?S1daeGR3Qm9ZcENzaythaHQ5R3F3NUc5WXZCbmJrcnRlZ0lIUEQya2JPS0FU?=
- =?utf-8?B?OWRablZVVGgxNEJ6Tmg0YmdmMFlUdnhxOU5GZ1JWbURZeldpeW9MV2pTMFJD?=
- =?utf-8?B?dVJIeTA2bmhlTXNDK1hhL2FnN3lNeUxHdmlLeXdJRHBIbmNtWDhpT3pJQ3FD?=
- =?utf-8?B?akwwNDN0azNTSzVwMHMvaXZCY3V5Z1NzUkhRNlZKMFB0cXVLVFQ1OEZuU0VM?=
- =?utf-8?B?SmJsdi8xSGRVU2duZGJWT1B1TFNkYXRVeUJIZ1pGNFhBZVVHWlNqR2RISWp2?=
- =?utf-8?B?bzhvM0ZKMS95OHFmbzhyNmZwMEdEeDAvbll0RkowOTlIZHlpVTI1RXRRWjNq?=
- =?utf-8?B?OTZOTXFxakQyY1MvQ0k4V1MrUzljV05jQVdZSnhBaWw1eWhxQjBVa2hpQ1pV?=
- =?utf-8?B?SEZXWkU1STVETnJrZjhEN1FIL0dEc05LcW5KMWJjMnJBMmh3RGsvbHAxYVly?=
- =?utf-8?B?RkgyVTBQNGQ0ZlV5Q0t3cWlSL1lkNURjVHFjRnA0TmdURkFXbUhZTGE4ME9z?=
- =?utf-8?B?QVV6dFlINTB5VzBrOTVhVTh6NU1sVmRGTEU4MVVVdHlScFhNSkxubUtmWTdH?=
- =?utf-8?B?Y1FqNDhITEZhM01mRmlNSVZiZ3Q4MlRFVHZycjBBNzRGTWFJTjhGWDZnd2hn?=
- =?utf-8?B?aFIxRnFTL2tTTTJTalQ4NXEzaDBWZ0UyOFFoTFRSOUxRR2YwVjg4VnExMFZZ?=
- =?utf-8?B?b0hPcnpuODlzS1Z3dWhDTVYwRGJqZjh5N1BSakphcVFnRzEvUUhBd0FOMHdv?=
- =?utf-8?B?TE1wT1RBbUpXUGJ2a3dDTW9qUHFmbVUwMkxOcFhIc2t0YUVqRWtYTG1vazlt?=
- =?utf-8?B?UjFRbnRLQzc1N25kL3ZhcFhZMG5LRWUvWDZPOEhkQmtUbmRGSHlnOGV3NlVP?=
- =?utf-8?B?OGhJb0RYWjNsb2VMMXNEaytWQU1iQ3MwdjNjTWRJdDlYZVRvaHA4WHJUTU13?=
- =?utf-8?B?UGZOVEVZRWZISWZpcktnV0FhSkRmNGpqYVdLc051NHBHbVZ2a2xqU0g4ZDJU?=
- =?utf-8?B?TTZKdGxmU1RkWmdmUjhSMGpORWl3MHNMeFd6djBXcFhpbEczUjRwemEwaTJY?=
- =?utf-8?B?YkN1NzJDbG1xc3FHVER4SXVFRUJlRXIzRUwrSlFtRXNFZ2dqTmRGOEpCS1Bw?=
- =?utf-8?B?SkorMDNMa245ZU11OGN0dzlxdnRVZmRwNzN1TEd5YUl4S1BRb3Jsb0U3OFZG?=
- =?utf-8?B?bGhwUWVsSHhNNW1VKzFldER0YUFPVFkxODBNT1N1OVc0eDEzWGhTVzZYRFdT?=
- =?utf-8?B?azZPdzBpTlBjckF1N2lHQmlKN0pOSXJ3V3pyNVBWRkpRS1FsT0liME9tTEtm?=
- =?utf-8?B?aXdDQzdvREl5OWhxdzdnRUNsQ25hZnljNGo5UE0rUmxBQ2Y0QktwNzE2aW9m?=
- =?utf-8?B?NnNWaXBnQmFGaUVSeDFRMmpjZlcyYk1tRlB4dGR2a2JNVjNqUnNqbzhYbDJY?=
- =?utf-8?B?elk2eS9SNXlxd1UzSEVQTW5uTWFHZWZtazNMcGVUZ1d1VEVBTkIwWFZ2MWQ2?=
- =?utf-8?B?U0ppTW1NU25Lb1ZQV0puUkNWK3RpK1ViWTV2VDkyYnNNeDBqMEgxUHlRa3R1?=
- =?utf-8?B?cXRzNnExMjFYN0hTVG45VS9JNUJpM3lEcWQzS08yWHJhYjA0THdldXFJS0Vl?=
- =?utf-8?B?N2M4OWtEWFJpUk5iVDl2dW1lblZrektTak0xQlE1aTN5OGF5cmdDVkxMcmN4?=
- =?utf-8?B?eVBmQ1g2ZytMNmpzamxzOUlaODB3VS9LRysyWWkwQjhqcEtQNWpqR2FYekc2?=
- =?utf-8?B?TW9yVmk4a2Q0ZEpCaGVtQ1NSaWc5T1NyUHJMVnZ2WUNkaUdvSFVMS01zWVNn?=
- =?utf-8?B?eFY3SDNxbUhnREM1MW9HNW1mVEhtNTJUNjl3bVRUYmo3YWlLeWxkczNFOGVG?=
- =?utf-8?Q?xXfQoNymS0nsCJPj8EADJo8FC?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UmEyU2gvQW53Q0ptdzZPNm1JUG5oQS9LanVoVU1BWDBMYUMrSXVUdVZRbFdX?=
+ =?utf-8?B?VkR5UzBJSSsrNGdWbzd3OWJUOWRXUGFLbmwrUDZSdVJia3dZV0xuWWRML3E5?=
+ =?utf-8?B?a3p4aTZJcndSN2NsVVEvajI2TFlrSC9yT051d2pMVVFibFgrd2VmdkJuK3JJ?=
+ =?utf-8?B?U1dqOVIvUGVITURTdmJVb3VGYkRUUnZWTmJOblp0RmRvY1VWVWduQ0FZYUxM?=
+ =?utf-8?B?cUM4czZnQnVFUWtuOXdjTkZMWGM0d0lUaFFJSmJ4eml5ZXlvajBnUHo4aVRj?=
+ =?utf-8?B?V0ZGS3ZyOERML3I4QnlzaDFJU0dsQ09vbHVtUmNhd1Aya0FCSks0L2VmdWlw?=
+ =?utf-8?B?aDN0NkFZbU0yRTg3aTJ2R0IrMkFNa25MemJGb0gwUGZkY1d2VE93VXBhV1Bk?=
+ =?utf-8?B?ME55elJoY1M3QjFzclFhd3ZlWGFlZ3ovSHF2dTNxYk9mZTNKQk9iam9BbjJM?=
+ =?utf-8?B?eXlFK2F3MGFSSENjZ09JRnJQWnRSa3lLRjhGSXVtOFBPM0ZSQThleWdPTW9l?=
+ =?utf-8?B?K1ZRcjd4Yy9zMW9PSHBEZFZhUmQ1WGZsSjAwNUpJOUdta1QwWDFkVWxucnNO?=
+ =?utf-8?B?MWpUZFo0LzV4VXhtMmtSTnNaYXNrUlg3eEd6QSs4Y21TVlhHcFlmTUpDVmcr?=
+ =?utf-8?B?dWY5cWNyeTdlZkVSdmxkbllzbjgxKzd5ZS81U3I4Y09JRmlKSXQ0R3NIOXJS?=
+ =?utf-8?B?N0NzWHloY0JVQkRvS05TNVJ3UHVxRnBJTW9UNGJmeitFTWl5RXhPOFUwaUZC?=
+ =?utf-8?B?RysxVmFUd3JSTWsrTGVDUWJWU2w2aWUzdEJ3eFp3UmR2cCs0ck9kRHMrRUV2?=
+ =?utf-8?B?M05GMUE4RlU3UU5qaUhnNzVHMHZWTkJvNTdiYWZNc1M0UmFFajZxVy9oWmlp?=
+ =?utf-8?B?Yk9SOFcvVXJjM1FwbzFJZ2xYY1Z3TUNHSXVCc3FBZ0Fnd3p1NWkrUE5wQ3V5?=
+ =?utf-8?B?N2NsT3BTVSttMFdyazlaUFdpN2NxMFV2TmJXMHhyUGZKOGhJQ3pzKzdEbW1X?=
+ =?utf-8?B?RXV0N2x6RWN3MVNQejBwZkExMjczV1p3RXJob2VsQkRxamY4eWlUcEpNNldi?=
+ =?utf-8?B?ZExUWjNUUWxMVjlhT2FYTmVRWWVMbzZjR3R3QU1QL3Zac0FXODZLZU9uelZW?=
+ =?utf-8?B?MkxjN3dxTnVyRDA4alhKWkRMdmEvYzh1NDE5NlhYcW9wZ0cvbFdzOEZNTmth?=
+ =?utf-8?B?RGhDNG03MDVFaFlZem5ISzhWNFZ5TnR4b29LcFhHSy82REhRdEVmWWt2dTI5?=
+ =?utf-8?B?QWZIdDFUSjdtRXM0MnRlRTNLRFJrak5qSms0NldiK1FuVWQ0WHlCT1poelJx?=
+ =?utf-8?B?OGlkZmZ5YWlpcHBxbnlVc29YYWxjdW52d29SMWVLK0ZLdS9memxod1hsVzZF?=
+ =?utf-8?B?bDN5RndMMnlpQTFjUkQ4MXF5RnFqRk5IYVJsci9RNGZXVU03ZDZDdU1MU051?=
+ =?utf-8?B?Z1M0YXdpZnRnSGJLTlpZZk9pQkx4Snk0ZDAxSlJrbjhZSU5sanhaQTdIaVYx?=
+ =?utf-8?B?Y0c1bW1QMVlmWDN6d2dxUGhVTVhOaDR4dllRVi9Sb25jV2pKOWVjaHhIbVVu?=
+ =?utf-8?B?allHWGtFSmk1QjlGSk5VUTJ0WFF4ZGRtVXM3c21OZlY3bGN4QlBFWTB2SWho?=
+ =?utf-8?B?RHI5RER4a1pjTDRlemdiazlMSFg4WlUrTkVpTCtJcm9Ia3AvYmZ1SW5LaHlv?=
+ =?utf-8?B?SFdKcERkSnEzQmtPRUNRaHp6THMrVTNZZHBER08wVzVrQU1qUjBmbkl4UVJi?=
+ =?utf-8?B?MS8rWnJIVnJZdlZSQ1lzczVEdUxiZFplb0tvTG9yQW9tTHhSNGRIZ1FteUdt?=
+ =?utf-8?B?VTd0cmVuWnErd2ZLb2w0L1dyUVIyRmh1bC9QZXVXVk9wZjBSUnhYK0JnZ0NJ?=
+ =?utf-8?B?R2ZPcGE2a3FoUHI5YmJyclJPVzRGWkRJdElLa2wxcFM0eHY4MG01eFdJWmVB?=
+ =?utf-8?B?SjJ3YUthTDRacSsrU25kdFpHK0UxbnpTZmtpdVB4MXBsRGRwTktEY2dKVEFN?=
+ =?utf-8?B?RVVjMWhSWXJRc3JzZlRXQVVLOGpLLzN3UmFSSXNtd3RLeVdDWTVvUWk5WWZt?=
+ =?utf-8?B?amtQNElaR2Iwa1NPR3BEdlpjSXBXR0VJUTZBbVVpaVRsWG4ycHcvRzBxZkwv?=
+ =?utf-8?Q?Iztq0g8byJSHRFmjxkaAE5Coe?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b16bd415-1216-4edf-d915-08dc5d9c1a56
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5311.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 292545db-d109-420e-6e24-08dc5db8ba46
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2024 22:33:41.9990 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2024 01:58:36.1782 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4AHSgoO1YA8V9IxVFRsUpE6DF/81pCsPfnYyK06qh7sA7RpjKAJPHhPmMLZ0wTpg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8993
+X-MS-Exchange-CrossTenant-UserPrincipalName: a0JqU4LdSIF2AwLX/z7w96u8rwLyrQhKlJTdhy+J2qHbLuufzn0YKFs+4qe+DGT4MU6JBH53cK+PWLisdXK9hQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5985
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,197 +158,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This patch does not apply to amd-staging-drm-next. This is against a 
+DKMS branch and should be reviewed on our internal mailing list.
 
+However, I suspect that part of the problem is, that the DKMS branch has 
+diverged quite a bit in this area, and is missing at least one patch 
+from me that was reverted, probably because of an improper port. The 
+proper solution should involve getting the DKMS branch back in sync with 
+upstream. I'll look into that.
 
+Regards,
+   Felix
 
-On 2024-04-15 04:19, Pekka Paalanen wrote:
-> On Fri, 12 Apr 2024 16:14:28 -0400
-> Leo Li <sunpeng.li@amd.com> wrote:
-> 
->> On 2024-04-12 11:31, Alex Deucher wrote:
->>> On Fri, Apr 12, 2024 at 11:08 AM Pekka Paalanen
->>> <pekka.paalanen@collabora.com> wrote:
->>>>
->>>> On Fri, 12 Apr 2024 10:28:52 -0400
->>>> Leo Li <sunpeng.li@amd.com> wrote:
->>>>   
->>>>> On 2024-04-12 04:03, Pekka Paalanen wrote:
->>>>>> On Thu, 11 Apr 2024 16:33:57 -0400
->>>>>> Leo Li <sunpeng.li@amd.com> wrote:
->>>>>>   
->>>>
->>>> ...
->>>>   
->>>>>>> That begs the question of what can be nailed down and what can left to
->>>>>>> independent implementation. I guess things like which plane should be enabled
->>>>>>> first (PRIMARY), and how zpos should be interpreted (overlay, underlay, mixed)
->>>>>>> can be defined. How to handle atomic test failures could be as well.
->>>>>>
->>>>>> What room is there for the interpretation of zpos values?
->>>>>>
->>>>>> I thought they are unambiguous already: only the relative numerical
->>>>>> order matters, and that uniquely defines the KMS plane ordering.
->>>>>
->>>>> The zpos value of the PRIMARY plane relative to OVERLAYS, for example, as a way
->>>>> for vendors to communicate overlay, underlay, or mixed-arrangement support. I
->>>>> don't think allowing OVERLAYs to be placed under the PRIMARY is currently
->>>>> documented as a way to support underlay.
->>>>
->>>> I always thought it's obvious that the zpos numbers dictate the plane
->>>> order without any other rules. After all, we have the universal planes
->>>> concept, where the plane type is only informational to aid heuristics
->>>> rather than defining anything.
->>>>
->>>> Only if the zpos property does not exist, the plane types would come
->>>> into play.
->>>>
->>>> Of course, if there actually exists userspace that fails if zpos allows
->>>> an overlay type plane to be placed below primary, or fails if primary
->>>> zpos is not zero, then DRM needs a new client cap.
->>
->> Right, it wasn't immediately clear to me that the API allowed placement of
->> things beneath the PRIMARY. But reading the docs for drm_plane_create_zpos*,
->> there's nothing that forbids it.
->>
->>>>   
->>>>> libliftoff for example, assumes that the PRIMARY has the lowest zpos. So
->>>>> underlay arrangements will use an OVERLAY for the scanout plane, and the PRIMARY
->>>>> for the underlay view.
->>>>
->>>> That's totally ok. It works, right? Plane type does not matter if the
->>>> KMS driver accepts the configuration.
->>>>
->>>> What is a "scanout plane"? Aren't all KMS planes by definition scanout
->>>> planes?
->>
->> Pardon my terminology, I thought the scanout plane was where weston rendered
->> non-offloadable surfaces to. I guess it's more correct to call it the "render
->> plane". On weston, it seems to be always assigned to the PRIMARY.
->>
-> 
-> The assignment restriction is just technical design debt. It is
-> limiting. There is no other good reason for it, than when lighting
-> up a CRTC for the first time, Weston should do it with the renderer FB
-> only, on the plane that is most likely to succeed i.e. PRIMARY. After
-> the CRTC is lit, there should be no built-in limitations in what can go
-> where.
-> 
-> The reason for this is that if a CRTC can be activated, it must always
-> be able to show the renderer FB without incurring a modeset. This is
-> important for ensuring that the fallback compositing (renderer) is
-> always possible. So we start with that configuration, and everything
-> else is optional bonus.
-
-Genuinely curious - What exactly is limiting with keeping the renderer FB on
-PRIMARY? IOW, what is the additional benefit of placing the renderer FB on
-something other than PRIMARY?
-
-> 
->>
->> For libliftoff, using OVERLAYs as the render plane and PRIMARY as the underlay
->> plane would work. But I think keeping the render plane on PRIMARY (a la weston)
->> makes underlay arrangements easier to allocate, and would be nice to incorporate
->> into a shared algorithm.
-> 
-> If zpos exists, I don't think such limitation is a good idea. It will
-> just limit the possible configurations for no reason.
-> 
-> With zpos, the KMS plane type should be irrelevant for their
-> z-ordering. Underlay vs. overlay completely loses its meaning at the
-> KMS level.
-
-Right, the plane types loose their meanings. But at least with the way
-libliftoff builds the plane arrangement, where we first allocate the renderer fb
-matters.
-
-libliftoff incrementally builds the atomic state by adding a single plane to the
-atomic state, then testing it. It essentially does a depth-first-search of all
-possible arrangements, pruning the search on atomic test fail. The state that
-offloads the most number of FBs will be the arrangement used.
-
-Of course, it's unlikely that the entire DFS tree will traversed in time for a
-frame. So the key is to search the most probable and high-benefit branches
-first, while minimizing the # of atomic tests needed, before a hard-coded
-deadline is hit.
-
-Following this algorithm, the PRIMARY needs to be enabled first, followed by all
-the secondary planes. After a plane is enabled, it's not preferred to change
-it's assigned FB, since that can cause the state to be rejected (in actuality,
-not just the FB, but also any color and transformation stuffs associated with
-the surface). It is preferable to build on the state by enabling another
-fb->plane. This is where changing a plane's zpos to be above/below the PRIMARY
-is advantageous, rather than changing the FBs assigned, to accommodate
-overlay/underlay arrangements.
-
-I imagine that any algorithm which incrementally builds up the plane arrangement
-will have a similar preference. Of course, it's entirely possible that such an
-algorithm isn't the best, I admittedly have not thought much about other
-possibilities, yet...
-
-Thanks,
-Leo
-
-> 
->> In an underlay arrangement, pushing down an OVERLAY's zpos below the PRIMARY's
->> zpos is simpler than swapping their surfaces. If such an arrangement fails
->> atomic_test, we won't have to worry about swapping the surfaces back. Of course,
->> it's not that we can't keep track of that in the algorithm, but I think it does
->> make things easier.
-> 
-> There is no "swapping" or "swapping back". The tentative configuration
-> is created as a new object that contains the complete CRTC+connector
-> state, and if it doesn't work, it's simply destroyed. In Weston at
-> least, I don't know of libliftoff.
-> 
-> One surface could also be assigned to multiple KMS planes for different
-> CRTCs, so there should be no 1:1 association in the first place.
-> 
->> It may help with reducing the amount of atomic tests. Assuming that the same DRM
->> plane provides the same format/color management/transformation support
->> regardless of it's zpos,
-> 
-> I would definitely expect so.
-> 
->> we should be able to reasonably expect that changing
->> it's z-ordering will not cause atomic_test failures (or at least, expect less
->> causes for failure). In other words, swapping the render plane from the PRIMARY
->> to an OVERLAY might have more causes for an atomic_test fail, versus changing
->> their z-ordering. The driver might have to do more things under-the-hood to
->> provide this consistent behavior, but I think that's the right place for it.
->> After all, drivers should know more about their hardware's behavior.
-> 
-> Indeed.
-> 
->> The assumption that the PRIMARY has the lowest zpos isn't always true. I
->> was made aware that the imx8mq platform places all of their OVERLAYS beneath the
->> PRIMARY. Granted, the KMS code for enabling OVERLAYS is not upstream yet, but it
->> is available from this thread:
->> https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1258#note_2319898
->> . I guess this is more of a bad assumption that should be fixed in libliftoff.
-> 
-> Weston needs fixing too, at least in case a renderer FB is used on the
-> CRTC. Weston has two problems: renderer FB is always on PRIMARY plane,
-> and renderer FB is always completely opaque.
-> 
-> 
-> Thanks,
-> pq
-> 
->>>>
->>>> IOW, if the KMS client understands zpos and can do a proper KMS
->>>> configuration search, and all planes have zpos property, then there is
->>>> no need to look at the plane type at all. That is the goal of the
->>>> universal planes feature.
->>>
->>> The optimal configuration with DCN hardware is using underlays.  E.g.,
->>> the desktop plane would be at the top and would have holes cut out of
->>> it for videos or windows that want their own plane.  If you do it the
->>> other way around, there are lots of limitations.
->>>
->>> Alex
->>
->> Right, patch 1/2 tries to work around one of these limitations (cursor-on-yuv).
->> Others have mentioned we can do the same for scaling.
->>
->> Thanks,
->> Leo
+On 2024-04-13 14:07, vitaly.prosyak@amd.com wrote:
+> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
+>
+> [  +0.006038] BUG: kernel NULL pointer dereference, address: 0000000000000028
+> [  +0.006969] #PF: supervisor read access in kernel mode
+> [  +0.005139] #PF: error_code(0x0000) - not-present page
+> [  +0.005139] PGD 0 P4D 0
+> [  +0.002530] Oops: 0000 [#1] PREEMPT SMP NOPTI
+> [  +0.004356] CPU: 11 PID: 12625 Comm: kworker/11:0 Tainted: G        W          6.7.0+ #2
+> [  +0.008097] Hardware name: ASUS System Product Name/Pro WS WRX80E-SAGE SE WIFI II, BIOS 1302 12/08/2023
+> [  +0.009398] Workqueue: events evict_process_worker [amdgpu]
+> [  +0.005750] RIP: 0010:evict_process_worker+0x2f/0x460 [amdgpu]
+> [  +0.005991] Code: 55 48 89 e5 41 57 41 56 4c 8d b7 a8 fc ff ff 41 55 41 54 53 48 89 fb 48 83 ec 10 0f 1f 44 00 00 48 8b 43 f8 8b 93 b0 00 00 00 <48> 3b 50 28 0f 85 50 03 00 00 48 8d 7b 58 e8 ee be cb bf 48 8b 05
+> [  +0.018791] RSP: 0018:ffffc90009a2be10 EFLAGS: 00010282
+> [  +0.005226] RAX: 0000000000000000 RBX: ffff888197ffc358 RCX: 0000000000000000
+> [  +0.007140] RDX: 0000000000000a1b RSI: 0000000000000000 RDI: ffff888197ffc358
+> [  +0.007139] RBP: ffffc90009a2be48 R08: 0000000000000000 R09: 0000000000000000
+> [  +0.007139] R10: 0000000000000000 R11: 0000000000000000 R12: ffff888197ffc358
+> [  +0.007139] R13: ffff888100153a00 R14: ffff888197ffc000 R15: ffff888100153a05
+> [  +0.007137] FS:  0000000000000000(0000) GS:ffff889facac0000(0000) knlGS:0000000000000000
+> [  +0.008094] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  +0.005747] CR2: 0000000000000028 CR3: 000000010d1fc001 CR4: 0000000000770ef0
+> [  +0.007138] PKRU: 55555554
+> [  +0.002702] Call Trace:
+> [  +0.002443]  <TASK>
+> [  +0.002096]  ? show_regs+0x72/0x90
+> [  +0.003402]  ? __die+0x25/0x80
+> [  +0.003052]  ? page_fault_oops+0x154/0x4c0
+> [  +0.004099]  ? do_user_addr_fault+0x30e/0x6e0
+> [  +0.004357]  ? psi_group_change+0x237/0x520
+> [  +0.004185]  ? exc_page_fault+0x84/0x1b0
+> [  +0.003926]  ? asm_exc_page_fault+0x27/0x30
+> [  +0.004187]  ? evict_process_worker+0x2f/0x460 [amdgpu]
+> [  +0.005377]  process_one_work+0x17b/0x360
+> [  +0.004011]  ? __pfx_worker_thread+0x10/0x10
+> [  +0.004269]  worker_thread+0x307/0x430
+> [  +0.003748]  ? __pfx_worker_thread+0x10/0x10
+> [  +0.004268]  kthread+0xf7/0x130
+> [  +0.003142]  ? __pfx_kthread+0x10/0x10
+> [  +0.003749]  ret_from_fork+0x46/0x70
+> [  +0.003573]  ? __pfx_kthread+0x10/0x10
+> [  +0.003747]  ret_from_fork_asm+0x1b/0x30
+> [  +0.003924]  </TASK>
+>
+> When we run stressful tests, the eviction fence could be zero and not match
+> to last_eviction_seqno.
+>
+> Avoid calling dma_fence_signal and dma_fence_put with zero fences to rely
+> on checking parameters in DMA API.
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Cc: Xiaogang Chen <xiaogang.chen@amd.com>
+> Cc: Felix Kuehling <felix.kuehling@amd.com>
+> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 10 ++++++----
+>   1 file changed, 6 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index eb380296017d..a15fae1c398a 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -2118,7 +2118,7 @@ static void evict_process_worker(struct work_struct *work)
+>   	 */
+>   	p = container_of(dwork, struct kfd_process, eviction_work);
+>   	trace_kfd_evict_process_worker_start(p);
+> -	WARN_ONCE(p->last_eviction_seqno != p->ef->seqno,
+> +	WARN_ONCE(p->ef && p->last_eviction_seqno != p->ef->seqno,
+>   		  "Eviction fence mismatch\n");
+>   
+>   	/* Narrow window of overlap between restore and evict work
+> @@ -2134,9 +2134,11 @@ static void evict_process_worker(struct work_struct *work)
+>   	pr_debug("Started evicting pasid 0x%x\n", p->pasid);
+>   	ret = kfd_process_evict_queues(p, false, KFD_QUEUE_EVICTION_TRIGGER_TTM);
+>   	if (!ret) {
+> -		dma_fence_signal(p->ef);
+> -		dma_fence_put(p->ef);
+> -		p->ef = NULL;
+> +		if (p->ef) {
+> +			dma_fence_signal(p->ef);
+> +			dma_fence_put(p->ef);
+> +			p->ef = NULL;
+> +		}
+>   
+>   		if (!kfd_process_unmap_doorbells_if_idle(p))
+>   			kfd_process_schedule_restore(p);
