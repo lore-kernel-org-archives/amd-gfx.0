@@ -4,117 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B281C4345F
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 06:26:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 682B0C4345F
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 06:50:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31716112A60;
-	Tue, 16 Apr 2024 06:26:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA939112A88;
+	Tue, 16 Apr 2024 06:50:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="47CWJNp/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2GdHegDB";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 691EB112A60
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 06:26:18 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2040.outbound.protection.outlook.com [40.107.102.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92CB0112A88
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 06:50:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YwSLM0u06O3L+nak5WJfFwWIwYLcp/DSjgUJhvF5p+SDHlkUg6J1iP63Yo/ZiUGLtV9lc/cc/7GGUqovsYadIBcvqxJfZEMk1hCnEXzrX1ntWeeqdVLArQDyfIgAbbcLNmHmSHJFpFh5ME9D43qCDeJAtGG3O8GFHrA89/SJAw4e2FsNb5uMdWM+kXFRwprZqr6Cq5MtMciRQ2W/eQuo97gMYwYbk2yLx6Z1R0wWd6Hln9KxoLpMMqaz4cX48CNDb7wt0njFTplR/yNTT3Q6rMHOxrEWYuHdgqWHnE0aLQLHyxy3HKgPyGKfXRxedfLGISRW0Q/Q7muLrQhtskiGDQ==
+ b=VHx8jmms8vffd12ytEzT6nghTUFuJiPGdyn4g/0lH70wfcM6hWnL0pt9FX8M1Fjldr3JiKVudJRCcxAT5ayPmWbmbGkQU2NkYnroUSq1n0vqizF1QHlZin55vrp83+5V52hnnA8gWfevQp9SbcdYadBbgDcSA6Ljor0t2bz1LIYN6J0+tuB4Dyv/YNNiMCTh7rruk/pd1Sfh3s3ff2rPIFja1uv+/CF7RIfT2mUG4aiayshjVnD4+WECziT02/UCKDpgXn4vYZOmR++FltywN+VnSOdJcurqBgFJR+g5+1hE6WtvCLt1UmlCY4LRHBp0aTyMBqIg+hAZqxk9660nGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4GBvJ9Jcl3CeqVNnEUg8UIXvnDv73H+8IxXEA+VrnBs=;
- b=NyNR9r7/D9/VdT3hp1kPH8I49d+mJGb3v7sLCKQ8T7Dfr77sZ9EZn6qUolK4tWv3vdEAsz2MYipVNuJTp2dslWqH9ntBh7y1v+ZGmB8WET5styf1ZV8SQ5AbwodXXk96B+jcLrajru/ODe/+/8n2m47Aucmnt8KpDuQOM5JfnK3peTqJXdm+Tp92KMCPCsfhLcjixSg4qLqsb63HUczqk3oNzMT9mx9+AkIh88RxHFouhwMXIobMALJJ50e8RmZfxiV/1WgM1p9yXXk3IOzpCib2XLUqW3FCR0PFmnNHcIjZEZS9FlApfWeugAchR6bGOZqSO1Nuj1f0sv+QH0DQMQ==
+ bh=8/W/EqHIwFV0T62HSE8xi3CFnqDP2mdrlZBk25/LAq8=;
+ b=nLgxMzaHLfBe2Uc13SflXBVZNBU3v39++Ge0aIRSSxow56VsRmM5DODq/UyzkpSbkscEUrbkhE8cPg1rtAlrijLy9S6CSITJbKWS2yHCUYOsuJzhwAKo5e4cFVtV9b6YcMOcyysyyQZKKQCACLDlVqhJOwaoJYoShxoVaaTLjZlcwM2qJIiy82wjdnysauqfdqt9eacmliUqatH0KZozmlO434iVUvf/f6nDuEgmm4j0fSgp1OydgbIabN/Cb+P7jJOyDf7tVfyWdALZN3DMAprlUbRHip084Dp0uxJgpW+uYKYlLaEhrt1JaWcGvFEjYm0MkSgS6KP7aZjo9qdZPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4GBvJ9Jcl3CeqVNnEUg8UIXvnDv73H+8IxXEA+VrnBs=;
- b=47CWJNp/VeuNrXPmGk2uFJYSCi+ECq+u+UU422Tky4vjmyornghHmO85dQevpyAWd8wegYB0yz1mEdLIo0xV/0WG43ugTbE+h+K+wRLiCJ4B57WgYA3lbdAtICcwfcjxH8PtoKH3+Hoj0JqGhiY4i2hjjlC1k2ubXk9b+IjQ1IY=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by IA1PR12MB6649.namprd12.prod.outlook.com (2603:10b6:208:3a2::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.50; Tue, 16 Apr
- 2024 06:26:16 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::74e4:f50f:79af:c996]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::74e4:f50f:79af:c996%7]) with mapi id 15.20.7452.049; Tue, 16 Apr 2024
- 06:26:16 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Zhou1, Tao" <Tao.Zhou1@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Use driver mode reset for data poison
-Thread-Topic: [PATCH] drm/amdgpu: Use driver mode reset for data poison
-Thread-Index: AQHaj8WkpT0aAr/f7EeWJ5CbT0uHd7Fqbd2AgAAAg9A=
-Date: Tue, 16 Apr 2024 06:26:16 +0000
-Message-ID: <BN9PR12MB5257A0CCEE8D2D943276F7ACFC082@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20240416061625.2557-1-Hawking.Zhang@amd.com>
- <DS0PR12MB7804392670933AF4F1AEDB6297082@DS0PR12MB7804.namprd12.prod.outlook.com>
-In-Reply-To: <DS0PR12MB7804392670933AF4F1AEDB6297082@DS0PR12MB7804.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=cd8467a2-65be-4eec-a9b4-34611cedf248;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-04-16T06:24:07Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=8/W/EqHIwFV0T62HSE8xi3CFnqDP2mdrlZBk25/LAq8=;
+ b=2GdHegDB7DeRgOaSFcQR8DPIjgEUH30zLgh6dollmG29XU1orMDgK8UnYEw2wXPMyZ8gVttPSMh7L/rR+c8Afg3MJ12196HlnS9tqIatSV+61kJpgIMhEA7szT9j7p+42hMOncDz0rnhkVCya2/ZZ8V7vjkfE5HB2MqXarb1hos=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|IA1PR12MB6649:EE_
-x-ms-office365-filtering-correlation-id: 05eab0b5-4688-44a3-6f88-08dc5dde1f14
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: YPOr4J8e0aeQb2S8BLm9ooVCwDjSC5BLNtHDd/mQivkcPgc1W8MhcjoNj1yOygYNRD209L4bR0w36t4yQL2OT+BbcKpUWIkNfomqFuPu7ZAiH1SF3tM+tESthQIdZVudZH0+qfXGdEg1GiKL1PuFKrekCh7sBfC8X6J5H7fA2cormpWmXALNGq5TqH6aYXiHWDSusBE9qJknYEFbV15VA8bgBvaGx1MQ8n8NkBi9U7fIJ+kP2TgP7l2xFQG5qFB/C4VPzcHSc6L66q9nFiPZt9yijEbtITDwn3bBDeN0eKVWfeai+/4RxzWclrPiW1qDY5FvloeXO8/eBq1Lgf1OfkJeV4Qphm/0y8cbTPznX+F8WOlvGtN8g4cXLuN2yzb6+zllBrHWqwRQCGYaKDJX6yW+Jg8AEeLUpzUICPyDl8xDfjPxiuEZTw5ItW8AIZhVyaLDjbdpfwWUSnuT59vwO/CaX1MYbyVhduC2CLRFEkt4/FU36okqSrCqjP7dY47YVmGGMV+eWmlCbQYmrevtsEnCPokSuw3GKiuutwsvskby0Kbt+/OTULtDY0rShJmNNDpBBLQJNfa8Ec/jcjRufhNtIH8UYCgDG/Hio7XfcoXLxqCfbLux/X0zafnlw1ATw33OE+XDitGVDqqSAiqZ5blFTknCtMcwdJqIR1Q7O9BqZC/iQ4YHLgMgW+8k6YerYnEEYJtb5LDANWhmg3tGBg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(366007)(376005)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?FhH5ooqc7E9GkId0qR0rw3PkY1fOhsk0yZMEQmdK12VTh/dKsIbNANKRrOq9?=
- =?us-ascii?Q?kowsfVHiQUMbhzCA/WwPVJR5WfKUTJ+uz7zWSF3JzfOfpglC16JpETsR3UIZ?=
- =?us-ascii?Q?H8J06aXbKqQP6NhRE6ghKexBI451veMsHRmNsVLRrQa+lyb8FFmhOXPoH1P9?=
- =?us-ascii?Q?eaLQz53lOJ43GrJ9KWWdhlLCFLLIIFYJdijAqODuvXc3DtUqaUPVI93HMazZ?=
- =?us-ascii?Q?HhsABnbQBSyXHSg+7AKzpFCmW3wDGxR/RsZ5EcISM1avpAaiheYnxHanTdN2?=
- =?us-ascii?Q?lBce2vYpzDf8LShZFvMn+3GC/I+Pyes0xKEjuV9SNb5D5ywCPnmHX7KnK20n?=
- =?us-ascii?Q?ARzYjYUo/0EPXzHBUUDHktRQ5H6u7H3ITw95zWCAsDLnDjIOvmDAo4Q50SPN?=
- =?us-ascii?Q?9yMrYu84dOGPDwqBBKoT+OPOw4/d8+s9SuqJxWMpem/MoJ6YNtoKEDszIx77?=
- =?us-ascii?Q?gyCgPP/+/ItTXKB2JiYImRY1A2Dn+f2JX6Ieli7RPbe7u1YbdsDVL7AkkV7Y?=
- =?us-ascii?Q?MAnjLBEswZcIxf7dHGXId1oKEWPvD0t3anOqQJ6imfIXJTMH9/dqXSCiThr3?=
- =?us-ascii?Q?2NhFjBwDcFZ4rjSYvvziYmvs/20eR9QhS4SInV918Vfqq4a1bX1Kxb1rUHQE?=
- =?us-ascii?Q?B3S1yfKrQwLNvxS1iofJnBdauzyPNrTHDN/xxtxTUffkYULtH+In0k5bl1zN?=
- =?us-ascii?Q?bXwrgHS5+K42M2ahRSxUZZqeXVroc6gdQGzKe+RIjTTmAVBg5i0Xwr3IBzj1?=
- =?us-ascii?Q?2h1Uqnr070Vucg3Wdsd3mPtpVz6jJqP3imABo+VdyazvoYlEXAp8tnibWjg5?=
- =?us-ascii?Q?c0sTDEaVsIp0EWO7H2MgAtJwvBhVy0KHYNs98ahng68VAt3fVrt9E+pmK2O4?=
- =?us-ascii?Q?jYuEfxjXQ02zuJTYPNnQK6VTMaGQP6GKX5z/Ewt5UH96qzNpKK4l5INPaBtv?=
- =?us-ascii?Q?LsCllMqzH1jRD9dOJglKtjRhJEVyiJD1X3oVQl0STjAggd3r26KzTWIJZuGg?=
- =?us-ascii?Q?H0jhhmwfdQKtz4znYVb4R7xqm752RtCzTJkrFlo6mdCK0iTVzwW5Mk4ea8hN?=
- =?us-ascii?Q?p6Q+cz5k0Xx4Qhc8ucWA7fU6T8U96EOpedpT9E7YW7pf9jJoCMmoE0zp+Iwk?=
- =?us-ascii?Q?ANh2k3yH9Zdd37M8gwKxqzjhCSvv0C5WGyy6M7nv6ceMFm5UfBSlFxDdSsuI?=
- =?us-ascii?Q?mPmcUcGJJzE6S10NhL+FXBqESX/8FRuXIa3jKVflA1DgY61nlap6GPZYa8dB?=
- =?us-ascii?Q?k2XjGi3bbv7GJ2en0CxQxVg/nD9q0c2K+t/KmfRMfMcr3koEWAL9+mZFviJi?=
- =?us-ascii?Q?ih7SgI3suOijhihzy9S5V8GeMrv0WqVq5ZMjshnjIWTmXhOlFcqi9FAKdwTi?=
- =?us-ascii?Q?/RBdjPMtHkwMs7rQyMj54x0a1jEaSh/3BedzfbkpZP/JF3RushzczEVwJ72e?=
- =?us-ascii?Q?La+xgZ2ny0tQ+24b4FX0M2sC2i0zLr9k3dan0Effh1VIVspPXlYnQC+Jr/h3?=
- =?us-ascii?Q?xr6z81uFWyUgpn35g4/vQqkaEmnj2AZLJ9zgtFk5WKWXt/WqDyzdFN6p0Z9l?=
- =?us-ascii?Q?ZA9GwRjb/xUZmxbJi1p+rpqaXuX5nfwM26g9QAXV?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+ by DM6PR12MB4186.namprd12.prod.outlook.com (2603:10b6:5:21b::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.50; Tue, 16 Apr
+ 2024 06:50:19 +0000
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::c55f:19e:6896:cf3]) by MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::c55f:19e:6896:cf3%5]) with mapi id 15.20.7452.049; Tue, 16 Apr 2024
+ 06:50:19 +0000
+Message-ID: <a8fd7808-a4ae-4e1e-8aae-be22bd4fd3b1@amd.com>
+Date: Tue, 16 Apr 2024 12:20:05 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Modify the contiguous flags behaviour
+Content-Language: en-US
+To: Philip Yang <yangp@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
+ felix.kuehling@amd.com, philip.yang@amd.com
+References: <20240414145731.1829-1-Arunpravin.PaneerSelvam@amd.com>
+ <01b794f2-1f9f-e8ac-1c0f-1acd199e09ea@amd.com>
+From: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <01b794f2-1f9f-e8ac-1c0f-1acd199e09ea@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR01CA0016.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::20) To MN2PR12MB4342.namprd12.prod.outlook.com
+ (2603:10b6:208:264::7)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|DM6PR12MB4186:EE_
+X-MS-Office365-Filtering-Correlation-Id: d13acee1-f834-4e03-aaea-08dc5de17aa7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RpJr5Zj4gvz/PdNBYHgld6obQBRylsjHJFto/70Xl2t72nfYVOydyB0ew9WrbtmuNYpV1d810q8fkqHSf7GyVNtwgKALXtst8vbBNvffELVeDv2AhpUQ/tHG54QPtvCBcgLNNV5Z54W3yUXm+lR6cpXy8ju61U2+xy/0XtkpX6cBm9/OOizRpO4GhvVN6Xg0957yTzrqRRO3lkJPl6JfN+kYhKFQhAd+LNvXsuWJCD2e8m8rBo4tR+6UULatnzrFNtHnC0JrjJ5rAbwucRJwDvRBfwq2SJkmY9cPXJQbZa33wie4gLdamGd+U1dtYKw/od/YiAN0pUXgUUJv+sx/DLP47zMZ58YXv1333vIx4A3nw1FsSJFWqP/Tkbd8SrVMR3tw4LS1jywSRrbja94pDa1qChz3hPThuytjj6Dl+3/OQ6SgoFKM+FYJfjDe1xyx+ZeB/oqBlXD3dN98QiQIGxN6Q0XVyRwf2x+AFYFXXvj5TW78ZCuC9VitbdZsJ1yptwbESP4/KxnqBdAc1N273XQNtr+VCXfnLzfamNwemyXvMaF8HSvUD1UxIcwbuda83JvMEcWG1Wc6arGGxRKpERr3sNiv+PDhEg/zPvsizvTJzB8/uiRjvN/+oIrvq0vnK3OTrZ/U5BKjwLROGImBgi74w+xeWk+hN3SgR8GspeI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c2dXODFVSGRrMk01VGd3NHFMYTVZSGJtMWxnbE9tZlBsMkJwM0ZCbVYzSGhW?=
+ =?utf-8?B?S1BlTXc3RDJYUmhHeW90MXNNbGhpVkVqTkxraU9FcXgwa0ZDeEhkaFF6U2VW?=
+ =?utf-8?B?eHJjRGN3ZFkxenh3U1Y4ZjdYeVZFNFZqVTA2T3lXVGlnYW5tTGdIMkNNb0hN?=
+ =?utf-8?B?UW55aGNyRm1mUlFuRmxlY1UrRTloY0NMMDYzdDdkeUhHTm1VWFpnY0hPYmwx?=
+ =?utf-8?B?SXAyeHNCMkpKeTREOXIwbHljamFzZzl5L05ubW5vZlVCSzk2alpYK0IwSmpG?=
+ =?utf-8?B?OW1LVjJyenNTMWdyV2dEbEFqQXVuTDNoMzZ6YUpWMU85anRPMjhRNmJJSmhP?=
+ =?utf-8?B?ZmNMYklVT29uK3F5MkRwM2lYTmc5YktXcTFKb1BacUVsTzB6OFdyREhzSThw?=
+ =?utf-8?B?OWVudW9vaUdoYnVXQWkvZXE1aTdya3hEMGpPcG5rQ0VWQnovY0JsRW51dDk2?=
+ =?utf-8?B?azFhSERyZnVmbjZGUzRLa04vNVhpOUpwWWVXdmtseEpYbW9ZdVhSNVlTNHF3?=
+ =?utf-8?B?TDdpMjB2R2JrZ21Fb2phNDQzRTlCS1E2Q3JLVERIWU85QzhzaHlwZUo4ekhx?=
+ =?utf-8?B?dXFGc3kvdmJPMnpmeURnQ2NLallmVnA5aGpaaVlSRHFWRUw1NFNoNDNRcXhi?=
+ =?utf-8?B?bmEvWDhYVHdFYllKV1lUclZTb3ZEWHE2L2F4R0Z1WVlJZk5vQU0yaDlmdytq?=
+ =?utf-8?B?NC96cE1QTnVuNEVhc1hHZUc3ZGVaQitLdmM5VGY1RlY1TUNIZXU4UGIzbDI4?=
+ =?utf-8?B?bWkzcnJUdWFkSCt5MW9ZYmFvQVk3U2tReWRtVXplV0ozYzNRcXFWZnBMa0lQ?=
+ =?utf-8?B?TzFRNGFILzlnS2ZIbGtmSVkrWnNITXNOMjVDaktsbFV2WjR6cSs5cHIyS3hZ?=
+ =?utf-8?B?WGtmTTQ2ZVVObWRUNXR6VkRWWHp4NUdnZGVlSVIzbVFUREJRem4rUGtoSGFn?=
+ =?utf-8?B?V2xkam5GZXFEUHhMR2dPSUh2VkY0V21nZWQ1K2szNmZLL3ByVytJUVAydnJL?=
+ =?utf-8?B?QVV4cDN1UWlOaUZtdDRZWnFMUkc4dmhhRUtxV3BBNThUUStiN0RqTXF5NVc1?=
+ =?utf-8?B?RHA0am5vYlNFVzUxTWd6cFlXNjJ0U1ZBQTd2UDlkUXIzTTB3SnhITExrdTBQ?=
+ =?utf-8?B?TDJKalBBZHd5cEdOQXA5TTlXWElFS1FmdVlxM1JLb2c3RnEzWUI3R2Y2T3BO?=
+ =?utf-8?B?UGtWQUNsc0JuV1ZpWFg1MDZQUERpUTdjZHVEM3F5eEdKbkpCLyt3NUsyZUFm?=
+ =?utf-8?B?bllRcUFKSnB0REU3TE9XYVkvSWJaUXJsUDV6YU9zalNYY2NNMjlOSjQ2WTdn?=
+ =?utf-8?B?K3BCd3dyWERkRVNkbHZoUXEvTXIzSmFvZnhBbTZQR2d5NnZzbGxEL2NKRFZY?=
+ =?utf-8?B?TTBrNHFQMng1QVhwRGs2bXVNd2toYkFDbktsUjIrdms5dmNYNThHdlp5bzVT?=
+ =?utf-8?B?cStGbzc2andyUS95OHhaU2x6YkZCYUJYUWhvMG9pT0ZZZ0xFQ3RCOHdoL2Q1?=
+ =?utf-8?B?Z1VOQ0NGVXROdmtqQUpKRUZxOVN0aUhCWmZmMHdaeUs1MWJDNjZwQnowdzh0?=
+ =?utf-8?B?Q1Nyc3oydmpDaFJCY1BTakxFQTVGVCt2cTk1bTNud0YzT3VxS21OSlBsSnNl?=
+ =?utf-8?B?amM4WlFWeTQ0dS9oR0dzMWlWY0w2NjR6bnZxcENJQVpRYjZHekovRnFmZitz?=
+ =?utf-8?B?YWsvYWRZYzkxcnl0enc5emlZODkvbDBFMERLeHRLOGU3Y3JqbGpndzBQeDVZ?=
+ =?utf-8?B?S2FFenlMVU56RmJETU5RTUhvVWdsdlpRelRUYkYwaDU1aEdZQ3lGbGh6Znl4?=
+ =?utf-8?B?cmVYZnRaQ0pwbkpRaGFBODIrM2FPek5mcjZkSU5WdlBVVUw4bit2Uzgyb0Ex?=
+ =?utf-8?B?SDJIbTJ4VTB1Y0RWUCtUWGlwVDZLVlBaS2dZNFdGRS9Qc2dLMHJBUEFvTEo5?=
+ =?utf-8?B?Z1l0V2VUbFR5bGxhaWFpSWtZbFRrL0NLTmE0TG1TRWk0SlZBaGwycEh3QlVL?=
+ =?utf-8?B?N3JVYnV5WWp4QStubFkycDQ5ei9KS21adms5anN0THJTY3FxNDBSakNPQTJk?=
+ =?utf-8?B?ZURoRk9SMHd4MzJWV09Ya1BxNmxZVkwyUitES0VJQXBkd2w2eTlUcG1rNlh1?=
+ =?utf-8?Q?b1Pq3DRFqjrhEfc3D/cgfc/ML?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d13acee1-f834-4e03-aaea-08dc5de17aa7
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05eab0b5-4688-44a3-6f88-08dc5dde1f14
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Apr 2024 06:26:16.4884 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4DpKVar6MMpuXSd5bEcgQaAcJMzguI7DKNk2hjRkbkyobDkPygMNvLAOlfzx8/10ZCu+D90b9o9XNCeE3BHrJA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6649
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2024 06:50:18.9714 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DS81DScLHhFL6J3Gx51tK5Pw5SJxaYaTXRkdJDpwALN2PEob138gOmJCV0IA3MHexizBn2B+USb8SZt2vDnOdA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4186
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,110 +130,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
 
-Yes, the same strategy
 
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Tuesday, April 16, 2024 02:24
-To: Zhang, Hawking <Hawking.Zhang@amd.com>; amd-gfx@lists.freedesktop.org; =
-Zhou1, Tao <Tao.Zhou1@amd.com>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Use driver mode reset for data poison
-
-[Public]
-
-Is this applicable for aldebaran also?
-
-Thanks,
-Lijo
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Hawking =
-Zhang
-Sent: Tuesday, April 16, 2024 11:46 AM
-To: amd-gfx@lists.freedesktop.org; Zhou1, Tao <Tao.Zhou1@amd.com>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: Use driver mode reset for data poison
-
-mode-2 reset is the only reliable method that can get GC/SDMA back when poi=
-son is consumed. mmhub requires
-mode-1 reset.
-
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
----
- .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   | 27 ++++++-------------
- 1 file changed, 8 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/=
-drm/amd/amdkfd/kfd_int_process_v9.c
-index c368c70df3f4a..c3beb872adf8d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-@@ -144,7 +144,7 @@ static void event_interrupt_poison_consumption_v9(struc=
-t kfd_node *dev,
-                                uint16_t pasid, uint16_t client_id)  {
-        enum amdgpu_ras_block block =3D 0;
--       int old_poison, ret =3D -EINVAL;
-+       int old_poison;
-        uint32_t reset =3D 0;
-        struct kfd_process *p =3D kfd_lookup_process_by_pasid(pasid);
-
-@@ -163,17 +163,13 @@ static void event_interrupt_poison_consumption_v9(str=
-uct kfd_node *dev,
-        case SOC15_IH_CLIENTID_SE2SH:
-        case SOC15_IH_CLIENTID_SE3SH:
-        case SOC15_IH_CLIENTID_UTCL2:
--               ret =3D kfd_dqm_evict_pasid(dev->dqm, pasid);
-                block =3D AMDGPU_RAS_BLOCK__GFX;
--               if (ret)
--                       reset =3D AMDGPU_RAS_GPU_RESET_MODE2_RESET;
-+               reset =3D AMDGPU_RAS_GPU_RESET_MODE2_RESET;
-                break;
-        case SOC15_IH_CLIENTID_VMC:
-        case SOC15_IH_CLIENTID_VMC1:
--               ret =3D kfd_dqm_evict_pasid(dev->dqm, pasid);
-                block =3D AMDGPU_RAS_BLOCK__MMHUB;
--               if (ret)
--                       reset =3D AMDGPU_RAS_GPU_RESET_MODE1_RESET;
-+               reset =3D AMDGPU_RAS_GPU_RESET_MODE1_RESET;
-                break;
-        case SOC15_IH_CLIENTID_SDMA0:
-        case SOC15_IH_CLIENTID_SDMA1:
-@@ -184,22 +180,15 @@ static void event_interrupt_poison_consumption_v9(str=
-uct kfd_node *dev,
-                reset =3D AMDGPU_RAS_GPU_RESET_MODE2_RESET;
-                break;
-        default:
--               break;
-+               dev_warn(dev->adev->dev,
-+                        "client %d does not support poison consumption\n",=
- client_id);
-+               return;
-        }
-
-        kfd_signal_poison_consumed_event(dev, pasid);
-
--       /* resetting queue passes, do page retirement without gpu reset
--        * resetting queue fails, fallback to gpu reset solution
--        */
--       if (!ret)
--               dev_warn(dev->adev->dev,
--                       "RAS poison consumption, unmap queue flow succeeded=
-: client id %d\n",
--                       client_id);
--       else
--               dev_warn(dev->adev->dev,
--                       "RAS poison consumption, fall back to gpu reset flo=
-w: client id %d\n",
--                       client_id);
-+       dev_warn(dev->adev->dev,
-+                "poison is consumed by client %d, kick off gpu reset
-+flow\n", client_id);
-
-        amdgpu_amdkfd_ras_poison_consumption_handler(dev->adev, block, rese=
-t);  }
---
-2.17.1
-
+On 4/16/2024 3:32 AM, Philip Yang wrote:
+>
+>
+> On 2024-04-14 10:57, Arunpravin Paneer Selvam wrote:
+>> Now we have two flags for contiguous VRAM buffer allocation.
+>> If the application request for AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS,
+>> it would set the ttm place TTM_PL_FLAG_CONTIGUOUS flag in the
+>> buffer's placement function.
+>>
+>> This patch will change the default behaviour of the two flags.
+> This change will simplify the KFD best effort contiguous VRAM 
+> allocation, because KFD doesn't need set new GEM_ flag.
+>> When we set AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS
+>> - This means contiguous is not mandatory.
+>
+> AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS used in couple of places. For page 
+> table BO, it is fine as BO size is page size 4K. For 64KB reserved BOs 
+> and F/W size related BOs, do all allocation happen at driver 
+> initialization before the VRAM is fragmented?
+>
+>> - we will try to allocate the contiguous buffer. Say if the
+>>    allocation fails, we fallback to allocate the individual pages.
+>>
+>> When we setTTM_PL_FLAG_CONTIGUOUS
+>> - This means contiguous allocation is mandatory.
+>> - we are setting this in amdgpu_bo_pin_restricted() before bo validation
+>>    and check this flag in the vram manager file.
+>> - if this is set, we should allocate the buffer pages contiguously.
+>>    the allocation fails, we return -ENOSPC.
+>>
+>> Signed-off-by: Arunpravin Paneer Selvam<Arunpravin.PaneerSelvam@amd.com>
+>> Suggested-by: Christian König<christian.koenig@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c   | 14 +++--
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 57 +++++++++++++++-----
+>>   2 files changed, 49 insertions(+), 22 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> index 8bc79924d171..41926d631563 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> @@ -153,8 +153,6 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
+>>   		else
+>>   			places[c].flags |= TTM_PL_FLAG_TOPDOWN;
+>>   
+>> -		if (flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS)
+>> -			places[c].flags |= TTM_PL_FLAG_CONTIGUOUS;
+>>   		c++;
+>>   	}
+>>   
+>> @@ -899,6 +897,8 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+>>   {
+>>   	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+>>   	struct ttm_operation_ctx ctx = { false, false };
+>> +	struct ttm_place *places = bo->placements;
+>> +	u32 c = 0;
+>>   	int r, i;
+>>   
+>>   	if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm))
+>> @@ -921,16 +921,10 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+>>   
+>>   	if (bo->tbo.pin_count) {
+>>   		uint32_t mem_type = bo->tbo.resource->mem_type;
+>> -		uint32_t mem_flags = bo->tbo.resource->placement;
+>>   
+>>   		if (!(domain & amdgpu_mem_type_to_domain(mem_type)))
+>>   			return -EINVAL;
+>>   
+>> -		if ((mem_type == TTM_PL_VRAM) &&
+>> -		    (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS) &&
+>> -		    !(mem_flags & TTM_PL_FLAG_CONTIGUOUS))
+>> -			return -EINVAL;
+>> -
+> This looks like a bug before, but with this patch, the check makes 
+> sense and is needed.
+>>   		ttm_bo_pin(&bo->tbo);
+>>   
+>>   		if (max_offset != 0) {
+>> @@ -968,6 +962,10 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+>>   			bo->placements[i].lpfn = lpfn;
+>>   	}
+>>   
+>> +	if (domain & AMDGPU_GEM_DOMAIN_VRAM &&
+>> +	    !WARN_ON(places[c].mem_type != TTM_PL_VRAM))
+>> +		places[c].flags |= TTM_PL_FLAG_CONTIGUOUS;
+>> +
+>
+> If BO pinned is not allocated with AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS, 
+> should pin and return scattered pages because the RDMA support 
+> scattered dmabuf. Christian also pointed this out.
+>
+> If (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS &&
+>
+>     bo->placements[i].mem_type == TTM_PL_VRAM)
+>         o->placements[i].flags |= TTM_PL_FLAG_CONTIGUOUS;
+>>   	r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+>>   	if (unlikely(r)) {
+>>   		dev_err(adev->dev, "%p pin failed\n", bo);
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>> index 8db880244324..ddbf302878f6 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>> @@ -88,6 +88,30 @@ static inline u64 amdgpu_vram_mgr_blocks_size(struct list_head *head)
+>>   	return size;
+>>   }
+>>   
+>> +static inline unsigned long
+>> +amdgpu_vram_find_pages_per_block(struct ttm_buffer_object *tbo,
+>> +				 const struct ttm_place *place,
+>> +				 unsigned long bo_flags)
+>> +{
+>> +	unsigned long pages_per_block;
+>> +
+>> +	if (bo_flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS ||
+>> +	    place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+>> +		pages_per_block = ~0ul;
+>> +	} else {
+>> +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+>> +		pages_per_block = HPAGE_PMD_NR;
+>> +#else
+>> +		/* default to 2MB */
+>> +		pages_per_block = 2UL << (20UL - PAGE_SHIFT);
+>> +#endif
+>> +		pages_per_block = max_t(uint32_t, pages_per_block,
+>> +					tbo->page_alignment);
+>> +	}
+>> +
+>> +	return pages_per_block;
+>> +}
+>> +
+>>   /**
+>>    * DOC: mem_info_vram_total
+>>    *
+>> @@ -451,8 +475,10 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>>   	struct amdgpu_vram_mgr *mgr = to_vram_mgr(man);
+>>   	struct amdgpu_device *adev = to_amdgpu_device(mgr);
+>>   	u64 vis_usage = 0, max_bytes, min_block_size;
+>> +	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
+>>   	struct amdgpu_vram_mgr_resource *vres;
+>>   	u64 size, remaining_size, lpfn, fpfn;
+>> +	unsigned long bo_flags = bo->flags;
+>>   	struct drm_buddy *mm = &mgr->mm;
+>>   	struct drm_buddy_block *block;
+>>   	unsigned long pages_per_block;
+>> @@ -468,18 +494,8 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>>   	if (tbo->type != ttm_bo_type_kernel)
+>>   		max_bytes -= AMDGPU_VM_RESERVED_VRAM;
+>>   
+>> -	if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+>> -		pages_per_block = ~0ul;
+>> -	} else {
+>> -#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+>> -		pages_per_block = HPAGE_PMD_NR;
+>> -#else
+>> -		/* default to 2MB */
+>> -		pages_per_block = 2UL << (20UL - PAGE_SHIFT);
+>> -#endif
+>> -		pages_per_block = max_t(uint32_t, pages_per_block,
+>> -					tbo->page_alignment);
+>> -	}
+>> +	pages_per_block =
+>> +		amdgpu_vram_find_pages_per_block(tbo, place, bo_flags);
+>>   
+>>   	vres = kzalloc(sizeof(*vres), GFP_KERNEL);
+>>   	if (!vres)
+>> @@ -498,7 +514,8 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>>   	if (place->flags & TTM_PL_FLAG_TOPDOWN)
+>>   		vres->flags |= DRM_BUDDY_TOPDOWN_ALLOCATION;
+>>   
+>> -	if (place->flags & TTM_PL_FLAG_CONTIGUOUS)
+>> +	if (bo_flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS ||
+>> +	    place->flags & TTM_PL_FLAG_CONTIGUOUS)
+>>   		vres->flags |= DRM_BUDDY_CONTIGUOUS_ALLOCATION;
+>>   
+>>   	if (fpfn || lpfn != mgr->mm.size)
+>> @@ -529,8 +546,20 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>>   					   min_block_size,
+>>   					   &vres->blocks,
+>>   					   vres->flags);
+>> -		if (unlikely(r))
+>> +		if (unlikely(r)) {
+>
+> If pin BO failed to allocate contiguous VRAM, this should return 
+> failure to application, as RDMA cannot work with scattered VRAM pages.
+>
+here we can return -ENOSPC when the BO is pinned (i.e 
+TTM_PL_FLAG_CONTIGUOUS is set). Please find the below modified condition,
+if (bo_flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS &&
+     !(place->flags & TTM_PL_FLAG_CONTIGUOUS)
+Hence if the TTM_PL_FLAG_CONTIGUOUS flag is set, we don't proceed for 
+allocating individual pages.
+>
+> Regards,
+>
+> Philip
+>
+>> +			if (bo_flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS) {
+>> +				/* Fallback to non contiguous allocation */
+>> +				vres->flags &= ~DRM_BUDDY_CONTIGUOUS_ALLOCATION;
+>> +				bo_flags &= ~AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+>> +
+>> +				pages_per_block =
+>> +					amdgpu_vram_find_pages_per_block(tbo,
+>> +									 place,
+>> +									 bo_flags);
+>> +				continue;
+>> +			}
+>>   			goto error_free_blocks;
+>> +		}
+>>   
+>>   		if (size > remaining_size)
+>>   			remaining_size = 0;
 
