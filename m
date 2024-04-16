@@ -4,67 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66801C04FFF
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 12:58:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B72BC4345F
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 12:58:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61737112C56;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86864112C57;
 	Tue, 16 Apr 2024 12:58:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="Yb1Ujhf+";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YcXIAjWD";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A11910EC67
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Apr 2024 18:01:57 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-1e5715a9ebdso27853585ad.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Apr 2024 11:01:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1713204117; x=1713808917;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=MCdwh+b+sTwlfsv4su7NDJ4AdE7tSofK6h9u578+8Wk=;
- b=Yb1Ujhf+l/zU+FZ2Shi80O1zfYTKFEwkiuSRMUr2KT7y7LQ2JrXmLCnCoX7DRCSYMp
- HUR422nHrtAXkQwimzoHKKJd3SpO6n8E/w4wjcDzDnjGBjpZ00DNW9+xT6lzCixwqCyw
- abNBjdd1u1S22boaK4rp2UIKlT8VIvtGel8VY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713204117; x=1713808917;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MCdwh+b+sTwlfsv4su7NDJ4AdE7tSofK6h9u578+8Wk=;
- b=FS6BOxEgEqfo+tHcqE/c2oaZt0DzOEqAN03JWswhiWh92t5P5NLV5hPOla9QGBGb6B
- g/sjGxUGqSDnUPmGX7/021+KDXCGv1S+uTIA40zbFWuLD6AR+u+zBahrYeNbWx5cB9U4
- qGbYFAB4U3I3yALTFH7g7THeBTFnU/o/Qw7RIy/I+nxOEZGCnBeZBubbr5uvV8LGVbDe
- DYZi935fOOVuga7DuUGqjygjsnVo/Y3mgCHWoRi70vQxTVdEp/B/mXCp+6d8f+OJbGun
- wmz8Tk6Usa2LEhlIiomYdVp0nAGYhTryvgJPK+I6/k4DVeJgPfuuwux22+2u04zKP4Kd
- GWHg==
-X-Gm-Message-State: AOJu0YzKW+AsimDO8gI4/GYqFnMPWWT7n9DfafS+agToBO1fAx7atZuG
- 1lBTwqGmLtUgDCOt1aukC9AYMz4/H7zYLDV8i79VeeaUKWoydLhsDhqoEG3/GQ==
-X-Google-Smtp-Source: AGHT+IFGzDyoZdSg2A8MIcoveXzFtSf0Fxn8dMSNyPaudXml1Tt1lYQnYXvRfuZ9e08nQ2q6RxfSIQ==
-X-Received: by 2002:a17:903:2289:b0:1e3:c7ea:e435 with SMTP id
- b9-20020a170903228900b001e3c7eae435mr12569113plh.44.1713204117322; 
- Mon, 15 Apr 2024 11:01:57 -0700 (PDT)
-Received: from www.outflux.net ([198.0.35.241])
- by smtp.gmail.com with ESMTPSA id
- m17-20020a170902db1100b001ddb4df7f70sm8253082plx.304.2024.04.15.11.01.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Apr 2024 11:01:57 -0700 (PDT)
-Date: Mon, 15 Apr 2024 11:01:56 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Jeff Johnson <quic_jjohnson@quicinc.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH] drm/radeon: silence UBSAN warning (v3)
-Message-ID: <202404151101.709E5A6AB@keescook>
-References: <20240412142819.2379934-1-alexander.deucher@amd.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 738A010E891;
+ Tue, 16 Apr 2024 04:49:00 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 572C461087;
+ Tue, 16 Apr 2024 04:48:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12580C113CE;
+ Tue, 16 Apr 2024 04:48:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1713242939;
+ bh=zFIazubz9lAZhK0n9voQjFdUXkFSTdqVGc2opJfNIlI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=YcXIAjWD2zpfdoqqsN2r8BNAEA1fCmQpcrJOgojFttpa7Go/szfmanB00V6Yo+8UK
+ PxHshPolYQSGuSecdepA9aDANpskzfe9tIRpUKDK2fIGsSR9wO+MnNJcp+qrwKQ/FR
+ OHPwzQ5c/7WHpPx6AEaIP0iAqHlDICAtAu0OjDk4=
+Date: Tue, 16 Apr 2024 06:48:53 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Zhu Wang <wangzhu9@huawei.com>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ sanglipeng1@jd.com, sashal@kernel.org, wayne.lin@amd.com,
+ joshua@froggi.es, hongao@uniontech.com, cssk@net-c.es,
+ nicholas.kazlauskas@amd.com, chiahsuan.chung@amd.com,
+ mwen@igalia.com, roman.li@amd.com, aurabindo.pillai@amd.com,
+ hansen.dsouza@amd.com, Rodrigo.Siqueira@amd.com,
+ konstantin.meskhidze@huawei.com, aric.cyr@amd.com,
+ zhangjialin11@huawei.com, jaehyun.chung@amd.com,
+ mario.limonciello@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5.10] drm/amd/display: Wake DMCUB before executing GPINT
+ commands
+Message-ID: <2024041633-breath-unfiled-86c1@gregkh>
+References: <20240416024347.2446403-1-wangzhu9@huawei.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240412142819.2379934-1-alexander.deucher@amd.com>
+In-Reply-To: <20240416024347.2446403-1-wangzhu9@huawei.com>
 X-Mailman-Approved-At: Tue, 16 Apr 2024 12:58:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,19 +64,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 12, 2024 at 10:28:19AM -0400, Alex Deucher wrote:
-> Convert a variable sized array from [1] to [].
+On Tue, Apr 16, 2024 at 02:43:47AM +0000, Zhu Wang wrote:
+> From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 > 
-> v2: fix up a few more.
-> v3: integrate comments from Kees.
+> stable inclusion
+> from stable-v6.7.3
+> commit 	2ef98c6d753a7 ("drm/amd/display: Wake DMCUB before executing GPINT commands")
+> category: bugfix
+> bugzilla: https://gitee.com/src-openeuler/kernel/issues/I9BV4C
+> CVE: CVE-2023-52624
 > 
-> Tested-by: Jeff Johnson <quic_jjohnson@quicinc.com>
-> Acked-by: Christian König <christian.koenig@amd.com> (v1)
+> Reference: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=2ef98c6d753a744e333b7e34b9cf687040fba57d
+> 
+> --------------------------------
+> 
+> [ Upstream commit e5ffd1263dd5b ("drm/amd/display: Wake DMCUB before executing GPINT commands") ]
+> 
+> [Why]
+> DMCUB can be in idle when we attempt to interface with the HW through
+> the GPINT mailbox resulting in a system hang.
+> 
+> [How]
+> Add dc_wake_and_execute_gpint() to wrap the wake, execute, sleep
+> sequence.
+> 
+> If the GPINT executes successfully then DMCUB will be put back into
+> sleep after the optional response is returned.
+> 
+> It functions similar to the inbox command interface.
+> 
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Hansen Dsouza <hansen.dsouza@amd.com>
+> Acked-by: Wayne Lin <wayne.lin@amd.com>
+> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> 
+> This patch comes from following commits:
+> 
+>  115c7e7f0501 ("drm/amd/display: Add psr get_state call")
+>  1d496907f1c5 ("drm/amd/display: Engage PSR synchronously")
+>  34ba432c946d ("drm/amd/display: [FW Promotion] Release 0.0.44")
+>  672251b223c1 ("drm/amd/display: [FW Promotion] Release 0.0.40")
+>  04f3c88f0955 ("drm/amd/display: Retry getting PSR state if command times out")
+>  b30eda8d416c ("drm/amd/display: Add ETW log to dmub_psr_get_state")
+>  f59a66c1915e ("drm/amd/display: use do-while-0 for DC_TRACE_LEVEL_MESSAGE()")
+>  e97cc04fe0fb ("drm/amd/display: refactor dmub commands into single function")
+>  522b9a5d5852 ("drm/amd/display: drain dmub inbox if queue is full")
+>  9dce8c2a5f1b ("drm/amd/display: [FW Promotion] Release 0.0.161.0")
+>  276641775848 ("drm/amd/display: [FW Promotion] Release 0.0.162.0")
+>  8774029f76b9 ("drm/amd/display: Add DCN35 CLK_MGR")
+>  65138eb72e1f ("drm/amd/display: Add DCN35 DMUB")
+>  dc01c4b79bfe ("drm/amd/display: Update driver and IPS interop")
+>  5b7954272ae9 ("drm/amd/display: [FW Promotion] Release 0.0.183.0")
+>  da2d16fcdda3 ("drm/amd/display: Fix IPS handshake for idle optimizations")
+>  5e8a0d3598b4 ("drm/amd/display: Negate IPS allow and commit bits")
+>  820c3870c491 ("drm/amd/display: Refactor DMCUB enter/exit idle interface")
+>  2ef98c6d753a ("drm/amd/display: Wake DMCUB before executing GPINT commands")
+> 
+> Signed-off-by: Zhu Wang <wangzhu9@huawei.com>
 
-LGTM! :)
+I'm confused, what are we supposed to do with this?
 
-Reviewed-by: Kees Cook <keescook@chromium.org>
-
--- 
-Kees Cook
+greg k-h
