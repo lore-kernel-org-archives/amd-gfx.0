@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC391C04FFF
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 13:34:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C99C6C04FF6
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 13:34:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F57D10F0B0;
-	Tue, 16 Apr 2024 13:34:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5826F10F0A5;
+	Tue, 16 Apr 2024 13:34:37 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89CE110F0A5
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 13:34:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2A6310F0A5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 13:34:34 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 43GDYQjG003391; Tue, 16 Apr 2024 19:04:26 +0530
+ 43GDYTLs003433; Tue, 16 Apr 2024 19:04:29 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 43GDYQZE003390;
- Tue, 16 Apr 2024 19:04:26 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 43GDYT9L003432;
+ Tue, 16 Apr 2024 19:04:29 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v3 2/5] drm:amdgpu: Enable IH ring1 for IH v6.1
-Date: Tue, 16 Apr 2024 19:04:20 +0530
-Message-Id: <20240416133423.3346-2-sunil.khatri@amd.com>
+Subject: [PATCH v3 5/5] drm/amdgpu: enable redirection of irq's for IH V6.1
+Date: Tue, 16 Apr 2024 19:04:23 +0530
+Message-Id: <20240416133423.3346-5-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240416133423.3346-1-sunil.khatri@amd.com>
 References: <20240416133423.3346-1-sunil.khatri@amd.com>
@@ -44,37 +44,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We need IH ring1 for handling the pagefault
-interrupts which over flow in default
-ring for specific usecases.
+Enable redirection of irq for pagefaults for specific
+clients to avoid overflow without dropping interrupts.
+
+So here we redirect the interrupts to another IH ring
+i.e ring1 where only these interrupts are processed.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/ih_v6_1.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-index b8da0fc29378..73dba180fabd 100644
+index 73dba180fabd..29ed78798070 100644
 --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
 +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-@@ -550,8 +550,15 @@ static int ih_v6_1_sw_init(void *handle)
- 	adev->irq.ih.use_doorbell = true;
- 	adev->irq.ih.doorbell_index = adev->doorbell_index.ih << 1;
+@@ -346,6 +346,21 @@ static int ih_v6_1_irq_init(struct amdgpu_device *adev)
+ 			    DELAY, 3);
+ 	WREG32_SOC15(OSSSYS, 0, regIH_MSI_STORM_CTRL, tmp);
  
--	adev->irq.ih1.ring_size = 0;
--	adev->irq.ih2.ring_size = 0;
-+	if (!(adev->flags & AMD_IS_APU)) {
-+		r = amdgpu_ih_ring_init(adev, &adev->irq.ih1, IH_RING_SIZE,
-+					use_bus_addr);
-+		if (r)
-+			return r;
++	/* Redirect the interrupts to IH RB1 for dGPU */
++	if (adev->irq.ih1.ring_size) {
++		tmp = RREG32_SOC15(OSSSYS, 0, regIH_RING1_CLIENT_CFG_INDEX);
++		tmp = REG_SET_FIELD(tmp, IH_RING1_CLIENT_CFG_INDEX, INDEX, 0);
++		WREG32_SOC15(OSSSYS, 0, regIH_RING1_CLIENT_CFG_INDEX, tmp);
 +
-+		adev->irq.ih1.use_doorbell = true;
-+		adev->irq.ih1.doorbell_index = (adev->doorbell_index.ih + 1) << 1;
++		tmp = RREG32_SOC15(OSSSYS, 0, regIH_RING1_CLIENT_CFG_DATA);
++		tmp = REG_SET_FIELD(tmp, IH_RING1_CLIENT_CFG_DATA, CLIENT_ID, 0xa);
++		tmp = REG_SET_FIELD(tmp, IH_RING1_CLIENT_CFG_DATA, SOURCE_ID, 0x0);
++		tmp = REG_SET_FIELD(tmp, IH_RING1_CLIENT_CFG_DATA,
++				    SOURCE_ID_MATCH_ENABLE, 0x1);
++
++		WREG32_SOC15(OSSSYS, 0, regIH_RING1_CLIENT_CFG_DATA, tmp);
 +	}
++
+ 	pci_set_master(adev->pdev);
  
- 	/* initialize ih control register offset */
- 	ih_v6_1_init_register_offset(adev);
+ 	/* enable interrupts */
 -- 
 2.34.1
 
