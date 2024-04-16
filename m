@@ -4,66 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46B53C04FFF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1BA7C04FF6
 	for <amd-gfx@archiver.kernel.org>; Tue, 16 Apr 2024 12:58:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E51A5112C5D;
-	Tue, 16 Apr 2024 12:58:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B567112C5E;
+	Tue, 16 Apr 2024 12:58:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="D7clTNir";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="G2q4r1pm";
 	dkim-atps=neutral
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0878C112BBB
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 10:59:54 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-56e5174ffc2so9609a12.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Apr 2024 03:59:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1713265193; x=1713869993;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=N2UKnSt+Ra3Khe460qU7BpUfj0krwGdar8WNFFeRSsk=;
- b=D7clTNirqbIQvLpp9v5NHLEo5TXp1YsLzr3NyDRxywzZ5O+sFsLZJqyrACBI994SZw
- +yMhMlHw0YVeXksWPeF0iePi+oQHQxc5kPx4738E1LBqessN2tfINMZOhNnADfhHn1ZK
- SS51fqXk+F2g95WqAnpR/nWU4tiY3Tl77/BvKW/fpobfoP6lrcYnsTRkVbYpvocIumyQ
- 7n5elmb6UKu7JbmOTo9W7VHZW1QVHbaJVPZqFlhRjat7ZZlPjr3Rx3C+P/T0kDjmVNLn
- UhHNF+hA4I+rBsSR/VZf87d/JfWGa4sL3VFKRfKBdD9zzaN4FSVpUQHC7w5CjAs5Iavd
- hhAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713265193; x=1713869993;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=N2UKnSt+Ra3Khe460qU7BpUfj0krwGdar8WNFFeRSsk=;
- b=iyn6UmbEns4FoPqOknRG/6t9PxUXUf3XGKgtRUFZ381zJfqHgtpGzjQPDaS86twfFK
- LsbyJ7mXSyRfgGRd5XSyCRFK9AiAF1/X392KoZlkur32I2GC2BBuo1Pi+Y4GXpEsEh9k
- wblUdgQqbUyHeQfoNMI1K3K2VOy3WVuQbyTjLMVQA35TVLZAtq77H/BDgka/NXhoD8cY
- JrFjUxMVUA2P00+HGSdJM++leb/o/LvFk9rrg5G+DMjbU4OJvRyp6INBAZZV47KCKTLH
- hX6fJVyumhM5NhsOwtCUL0ruhN259nr4eDQnyNAlDXPH25Yr2se7l9a14pgD96a1dAFe
- cu1Q==
-X-Gm-Message-State: AOJu0Yw+V+gqXsRbeNgyATwpkViN2Z8ZSa02a0MySCFKBaPhhD2onzs5
- CVvKNA8J2bMQgB6VEa2zmdBiBrLZd/MBSkFpYxQA50XPwCSCIEji3qHvKYSb8jfxgTECHB4VLGa
- a4iASIxmG4s+Gl1zUZbTYGcRSV8a71aH5zeFw
-X-Google-Smtp-Source: AGHT+IEsnkTZ4tRTKb8xdTMzjrb5hQabnQvJuGETU6XSXxHy6+cdCEWGRrFD60VBm50jDApquNZqfgPjxkpFLd9J3AQ=
-X-Received: by 2002:a05:6402:6c6:b0:570:49e3:60a8 with SMTP id
- n6-20020a05640206c600b0057049e360a8mr40697edy.7.1713265193034; Tue, 16 Apr
- 2024 03:59:53 -0700 (PDT)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96551112A0F;
+ Tue, 16 Apr 2024 04:54:32 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 47594CE0E2B;
+ Tue, 16 Apr 2024 04:54:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8F3FC113CE;
+ Tue, 16 Apr 2024 04:54:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1713243268;
+ bh=4mVUVKHx9nj8ZHZlaWZQT0qownR6pzR8jt+FmiNQdqs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=G2q4r1pmu9VPBzRvK/6mDyTN5QQimtClS+cP4iELVIe6Y4myQPCgMFjgVMiZld322
+ 2Tow4i5UBsZlahkQCJW33cFjHq9zK4S2v9ag+per8mcSrlM3evXSofCP+ROR8gXR4R
+ c6PbZwKUZgDQlkW4+YsnfDlrCFK95OV835/UR1XA=
+Date: Tue, 16 Apr 2024 06:54:23 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Zhu Wang <wangzhu9@huawei.com>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, qingqing.zhuo@amd.com,
+ stylon.wang@amd.com, Josip.Pavic@amd.com, trix@redhat.com,
+ cruise.hung@amd.com, Eric.Yang2@amd.com, mario.limonciello@amd.com,
+ alvin.lee2@amd.com, jun.lei@amd.com, austin.zheng@amd.com,
+ sunglee@amd.com, paul.hsieh@amd.com, hanghong.ma@amd.com,
+ JinZe.Xu@amd.com, lewis.huang@amd.com, zhengzengkai@huawei.com,
+ alex.hung@amd.com, syed.hassan@amd.com, wayne.lin@amd.com,
+ nicholas.kazlauskas@amd.com, chiahsuan.chung@amd.com,
+ aurabindo.pillai@amd.com, aric.cyr@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6.6] drm/amd/display: Wake DMCUB before executing GPINT
+ commands
+Message-ID: <2024041658-imagines-unlatch-a9b6@gregkh>
+References: <20240416035240.2450127-1-wangzhu9@huawei.com>
 MIME-Version: 1.0
-References: <20240412073544.10008-1-xinhui.pan@amd.com>
-In-Reply-To: <20240412073544.10008-1-xinhui.pan@amd.com>
-From: Jann Horn <jannh@google.com>
-Date: Tue, 16 Apr 2024 12:59:15 +0200
-Message-ID: <CAG48ez2vqxbyepVTTCEYxSmBEH+c9vLUc77DCKPgNvb6LA1Z3A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: validate the parameters of bo mapping
- operations more clearly
-To: xinhui pan <xinhui.pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- christian.koenig@amd.com, Vlad Stolyarov <hexed@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240416035240.2450127-1-wangzhu9@huawei.com>
 X-Mailman-Approved-At: Tue, 16 Apr 2024 12:58:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,16 +66,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 12, 2024 at 9:36=E2=80=AFAM xinhui pan <xinhui.pan@amd.com> wro=
-te:
-> Verify the parameters of
-> amdgpu_vm_bo_(map/replace_map/clearing_mappings) in one common place.
->
-> Reported-by: Vlad Stolyarov <hexed@google.com>
-> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+On Tue, Apr 16, 2024 at 03:52:40AM +0000, Zhu Wang wrote:
+> From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> 
+> stable inclusion
+> from stable-v6.7.3
+> commit 2ef98c6d753a744e333b7e34b9cf687040fba57d
+> category: bugfix
+> bugzilla: https://gitee.com/src-openeuler/kernel/issues/I9BV4C
+> CVE: CVE-2023-52624
+> 
+> Reference: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=2ef98c6d753a744e333b7e34b9cf687040fba57d
+> 
+> --------------------------------
+> 
+> [ Upstream commit e5ffd1263dd5b44929c676171802e7b6af483f21 ]
+> 
+> [Why]
+> DMCUB can be in idle when we attempt to interface with the HW through
+> the GPINT mailbox resulting in a system hang.
+> 
+> [How]
+> Add dc_wake_and_execute_gpint() to wrap the wake, execute, sleep
+> sequence.
+> 
+> If the GPINT executes successfully then DMCUB will be put back into
+> sleep after the optional response is returned.
+> 
+> It functions similar to the inbox command interface.
+> 
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Hansen Dsouza <hansen.dsouza@amd.com>
+> Acked-by: Wayne Lin <wayne.lin@amd.com>
+> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> 
+> This commit comes from following commits:
+> 
+>  8774029f76b9 ("drm/amd/display: Add DCN35 CLK_MGR")
+>  65138eb72e1f ("drm/amd/display: Add DCN35 DMUB")
+>  dc01c4b79bfe ("drm/amd/display: Update driver and IPS interop")
+>  820c3870c491 ("drm/amd/display: Refactor DMCUB enter/exit idle interface")
+>  2ef98c6d753a ("drm/amd/display: Wake DMCUB before executing GPINT commands")
 
-Please add something like this when committing the fix:
+Why are you putting multiple commits together and not just submitting
+the individual ones?  And what is this for?
 
-Fixes: dc54d3d1744d ("drm/amdgpu: implement AMDGPU_VA_OP_CLEAR v2")
-Cc: stable@vger.kernel.org
+confused,
+
+greg k-h
