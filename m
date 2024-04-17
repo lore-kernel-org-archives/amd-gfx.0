@@ -4,77 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E78CEC4345F
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Apr 2024 19:21:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6310AC04FFE
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Apr 2024 19:50:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57AC1113789;
-	Wed, 17 Apr 2024 19:21:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B802113797;
+	Wed, 17 Apr 2024 19:50:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g8rISK62";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0GqPdzku";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B877113789
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Apr 2024 19:21:56 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-2a78c2e253aso109590a91.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Apr 2024 12:21:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1713381716; x=1713986516; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SZi6MVDSPkJ85fRAl743Rai/MoC06ZJQe7afDiHiBR8=;
- b=g8rISK62xPDgTvh33cBicuxWJ9+un3p7LkuLIQE020WvHC24r/eTYG6JvdJfmDt9Cn
- vQulQ2vh9lAsFmpY2C8EJO+b1/60dmgQVPB+j8YzbdvyZ4MfR8K7+83mV+UEzz9V97qT
- h9lfythXcrQW23AMjGigJex53nWr8mA28RwiS70GbgFSZl/oQuYYZzhB37Vo+cvdNNd5
- FqKA/cSHs8ieAbSLtQiYCQnhokVZu2yExzGhE6Sh2Lg7AJlCQr3r4v5aNia2osCQh+QQ
- U3IsCxtWnqVQfkHCP7ixdHtXwq497goOkUwqZEAQHnU6pJiHpWgoy8PaEQ+a3JsFVOMD
- NtrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713381716; x=1713986516;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=SZi6MVDSPkJ85fRAl743Rai/MoC06ZJQe7afDiHiBR8=;
- b=giHYI0lt6Fytri/HIjKpBsOLlWcCnqGb+WKS7Zkr88v6DbdhoKO2h1QO9rDxgRQ91i
- vEnKXJ4eXevoxEhoE3y4WPkd3wB+LTDQT1y4xKksEEVLUURuFDOY37J3XEMmF7g5VG1t
- b+pZjyd9XwAa6Wt4dZaEeFz+CI8HBzY0jvaJx2zkdhyS1IicNXJoR24zIB07tNBTeYph
- dRFB5RwJpWfVmW9D4Tpb0Q6R9SE5ZpbVtUDZASQoRuPbF9pSFR/njiLSToQrYrBLzug1
- x2R5DlaxmS2vTJPD27HQruNpzwS+wT+MUMDArI8NInINBmTrUjgkn6sqIRc3YsZs6CTY
- 0cDA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX+7tDVbuVEPeSXGpQknG8FGi1SaZfA81FDL08zUTrxiiNlY7UMKmlyA65Ir9rlmDSgVZLD+Y1LOGbbb79kshRd5g+IV2JR+9+SEjFy5Q==
-X-Gm-Message-State: AOJu0YwAJ659h8B5T8g+dMlYMBEP6bc/tKv6L5o2WYENt8gAtUgfvp2/
- LvMClOoecRFZvM3St9G0miZpgGt6s6L9mkykqAxxnuHQAOtTs/OQBqXBDbT8JnHEMS41B/RscBm
- Mf9SPg8kA8Kn/sJI/iyID5Q+ja0M=
-X-Google-Smtp-Source: AGHT+IGpSXqL6W4XlmbWDJ+eH2T4x614ju0n4nuNRQy28bxp+ixSwAyJs+wIK0CEU41rkGIyFrmh40fJ0ybRIgRJBdk=
-X-Received: by 2002:a17:90b:3902:b0:2a2:a243:478f with SMTP id
- ob2-20020a17090b390200b002a2a243478fmr384826pjb.1.1713381715648; Wed, 17 Apr
- 2024 12:21:55 -0700 (PDT)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2052.outbound.protection.outlook.com [40.107.237.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F7E711379A;
+ Wed, 17 Apr 2024 19:50:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GeecMf2zmL/P6eRcte2pqSuAuU1cGCNVyK1BraevSGcpOQxL0RHfVnfuIjnBf8kbJYt6v0LeA/P1hz6GqqmASqY0rIZG80z3tMvT29esA/5x2+w42xbiH5EOQQqKrqrsy8Vipch/XCuBetW9HtpUXe8PQGw1o7Hz0pvgZwuaZgWoZuwbMbwsmPkzNUBZeJS1HBsztdjVVrareN6IA5e9gVrOl4ZWh0BKBlu36Kyp5w/++lKeuQTuXYKjXHXLwDMa2ltKIx+5qSkdlM9NlxeVh+MwHkHHFf69puV0mB5ekaL/YqOlYveIfGIG+yNZAWVV/9sU5RTkylp6hKEbY8mobg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=67q39aSWmU9j3RtewW+wIquZJbHYfzyNd/oz493OlxU=;
+ b=WUFvw6Q/Z5pIqXnAdMcRPy2v6yFABm7bGX/K2b1ZvcypoFTC4Ckkky9z+x3WuELMiJ7CvDxqsyrB8nxELSSNNW87Tp1A01XXmTVgmrWvU2TVVFyniKnOidbcTA+MjKtr1LiBSw8mXoJFzaDiU/3M7p/TUFHvTE/W8liH5j9ANjuVKFvRTTpGm/gS1/MdGgP29bzbDr+fh6o+tC/zaQNkz+J5FGrl/f4Iu3ca/7hnIUtschGj5v1F9JVPhsWWy4aiKka6puAdypURAoSzaNcuDmCQGwWMhmlamOqX8MfKxO4DyJqeD/XSiUq2LniCmsR5JWJjG5XNfHhATa6bcj2ALQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=67q39aSWmU9j3RtewW+wIquZJbHYfzyNd/oz493OlxU=;
+ b=0GqPdzkuGRcEq18916uduWmcOqLayrg1qxsNH+NJAdZo71/hWXW0M18b4wbhzXwUzNs00O1aNINxGfEgsafv9JRfNdbIk9oZimKs8+NibwD7JEiASo9TbVtIyd3w3OqaLqxW0ZZo9x61uXNIx5Vs1YcYxJsLhyiXRpqkjXeheDk=
+Received: from BL1PR13CA0064.namprd13.prod.outlook.com (2603:10b6:208:2b8::9)
+ by SJ0PR12MB8613.namprd12.prod.outlook.com (2603:10b6:a03:44d::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.50; Wed, 17 Apr
+ 2024 19:50:20 +0000
+Received: from MN1PEPF0000ECD5.namprd02.prod.outlook.com
+ (2603:10b6:208:2b8:cafe::3b) by BL1PR13CA0064.outlook.office365.com
+ (2603:10b6:208:2b8::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.20 via Frontend
+ Transport; Wed, 17 Apr 2024 19:50:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000ECD5.mail.protection.outlook.com (10.167.242.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Wed, 17 Apr 2024 19:50:15 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 17 Apr
+ 2024 14:50:13 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd, radeon drm-fixes-6.9
+Date: Wed, 17 Apr 2024 15:49:59 -0400
+Message-ID: <20240417194959.3716998-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-References: <20240417113025.2886905-1-horace.chen@amd.com>
- <20240417113025.2886905-3-horace.chen@amd.com>
- <8997494d-4b4e-4522-acbe-af44a8320c3d@amd.com>
- <CH0PR12MB53727853A2173DA703452EF5F40F2@CH0PR12MB5372.namprd12.prod.outlook.com>
-In-Reply-To: <CH0PR12MB53727853A2173DA703452EF5F40F2@CH0PR12MB5372.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 17 Apr 2024 15:21:43 -0400
-Message-ID: <CADnq5_MJJk=wW4tDKtOCCVPk9HeK8as75jxgkaHU3LmXb8ezxg@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amdgpu/mes11: make fence waits synchronous
-To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, "Chen,
- Horace" <Horace.Chen@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Xiao,
- Jack" <Jack.Xiao@amd.com>, 
- "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>, 
- "Xu, Feifei" <Feifei.Xu@amd.com>, "Chang, HaiJun" <HaiJun.Chang@amd.com>,
- Leo Liu <leo.liiu@amd.com>, "Liu, Jenny (Jing)" <Jenny-Jing.Liu@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD5:EE_|SJ0PR12MB8613:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73ccd57d-c342-4a3a-51bf-08dc5f179a03
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Nxju0Wk7nrNPF3J3CDaQvxCJG4OmJ7xto79iVBw2NJT/l6H/L5ZcZsSgebutqmAK/ZUQdUsyquSml67xn3aF+YpgALw2xJNxi/tEnI6pnKTnjeBpBw6pOYFa3+mgiMWVaDRzfCAyurTw2gVsOW0MrDj+KDCgrgimqSgm8LrhzKc7r9MkNxGXG6XToj8pYSgs7ErmGFTJpk7czGPFWXGpXWVljzEMlIoleGTw3Vl6TrwI6sqwvZGxoui94splweBBto71JxLNCw7n9oonslwnTAfghBJAHIuYFYdHkLYdlrYo1nWNJUjc5Nv/lqqRvA6m8o/EprCu8UOOGt6a98qQ+3zItWlGTfT8yv4jtjUiPD4J39sk0bbn6T2zyler8t6ODpRgEsgYXH3tLN5ngmEI8qvhO2/OH6tX6vxWdw9bnpiXpw19gyRyX0OHkDs0uQ02S8MZj7OlCK3tpXCYJnIH2RZOKyp7wzdGMBp4kE8uH38uN6Knd3cuv7SN1EuES6tRSUYVIqC1Smm2sB2N+Ue2cMFw6epIGdb4MOIL+99CMq0qFpHwsgHvOR250Ufp/IlMQD4nYfmIb8nYtKOepI0FeYnKsyU+0ioLBoTz1EX00064C7sBcdBthFDCQyEz/1aUSTVJd2cGaFRPc9BGCgWYQjIF56U6kdROxwE3MD2SwQAp4L+hGiBrzRRlTMyzaQTCIfAMV1MoDbrBDMzCKD8QrQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(82310400014)(1800799015)(376005); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2024 19:50:15.2250 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73ccd57d-c342-4a3a-51bf-08dc5f179a03
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD5.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8613
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,165 +105,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 17, 2024 at 3:17=E2=80=AFPM Liu, Shaoyun <Shaoyun.Liu@amd.com> =
-wrote:
->
-> [AMD Official Use Only - General]
->
-> I have  a discussion with Christian about this before .  The conclusion i=
-s that driver should prevent multiple process from using  the  MES ring at =
-the same time . Also for current MES  ring usage ,driver doesn't have the  =
-logic to prevent the ring  been  overflowed and we doesn't hit the issue be=
-cause MES will wait polling for each MES submission . If we want to change =
-the MES to work asynchronously , we need to consider a way to avoid this (s=
-imilar to add the limit in the fence handling we use for kiq and  HMM pagin=
-g)
->
+Hi Dave, Sima,
 
-I think we need a separate fence (different GPU address and seq
-number) per request.  Then each caller can wait independently.
+Fixes for 6.9.
 
-Alex
+The following changes since commit 0bbac3facb5d6cc0171c45c9873a2dc96bea9680:
 
-> Regards
-> Shaoyun.liu
->
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Christ=
-ian K=C3=B6nig
-> Sent: Wednesday, April 17, 2024 8:49 AM
-> To: Chen, Horace <Horace.Chen@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>; Kuehling, Felix <Felix=
-.Kuehling@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Xiao, J=
-ack <Jack.Xiao@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Liu, Monk =
-<Monk.Liu@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; Chang, HaiJun <HaiJun.C=
-hang@amd.com>; Leo Liu <leo.liiu@amd.com>; Liu, Jenny (Jing) <Jenny-Jing.Li=
-u@amd.com>
-> Subject: Re: [PATCH 3/3] drm/amdgpu/mes11: make fence waits synchronous
->
-> Am 17.04.24 um 13:30 schrieb Horace Chen:
-> > The MES firmware expects synchronous operation with the driver.  For
-> > this to work asynchronously, each caller would need to provide its own
-> > fence location and sequence number.
->
-> Well that's certainly not correct. The seqno takes care that we can wait =
-async for the submission to complete.
->
-> So clear NAK for that patch here.
->
-> Regards,
-> Christian.
->
-> >
-> > For now, add a mutex lock to serialize the MES submission.
-> > For SR-IOV long-wait case, break the long-wait to separated part to
-> > prevent this wait from impacting reset sequence.
-> >
-> > Signed-off-by: Horace Chen <horace.chen@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c |  3 +++
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  1 +
-> >   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 18 ++++++++++++++----
-> >   3 files changed, 18 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> > index 78e4f88f5134..8896be95b2c8 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> > @@ -137,6 +137,7 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
-> >       spin_lock_init(&adev->mes.queue_id_lock);
-> >       spin_lock_init(&adev->mes.ring_lock);
-> >       mutex_init(&adev->mes.mutex_hidden);
-> > +     mutex_init(&adev->mes.submission_lock);
-> >
-> >       adev->mes.total_max_queue =3D AMDGPU_FENCE_MES_QUEUE_ID_MASK;
-> >       adev->mes.vmid_mask_mmhub =3D 0xffffff00; @@ -221,6 +222,7 @@ int
-> > amdgpu_mes_init(struct amdgpu_device *adev)
-> >       idr_destroy(&adev->mes.queue_id_idr);
-> >       ida_destroy(&adev->mes.doorbell_ida);
-> >       mutex_destroy(&adev->mes.mutex_hidden);
-> > +     mutex_destroy(&adev->mes.submission_lock);
-> >       return r;
-> >   }
-> >
-> > @@ -240,6 +242,7 @@ void amdgpu_mes_fini(struct amdgpu_device *adev)
-> >       idr_destroy(&adev->mes.queue_id_idr);
-> >       ida_destroy(&adev->mes.doorbell_ida);
-> >       mutex_destroy(&adev->mes.mutex_hidden);
-> > +     mutex_destroy(&adev->mes.submission_lock);
-> >   }
-> >
-> >   static void amdgpu_mes_queue_free_mqd(struct amdgpu_mes_queue *q)
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> > index 6b3e1844eac5..90af935cc889 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> > @@ -85,6 +85,7 @@ struct amdgpu_mes {
-> >
-> >       struct amdgpu_ring              ring;
-> >       spinlock_t                      ring_lock;
-> > +     struct mutex                    submission_lock;
-> >
-> >       const struct firmware           *fw[AMDGPU_MAX_MES_PIPES];
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> > index e40d00afd4f5..0a609a5b8835 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> > @@ -162,6 +162,7 @@ static int mes_v11_0_submit_pkt_and_poll_completion=
-(struct amdgpu_mes *mes,
-> >       struct amdgpu_ring *ring =3D &mes->ring;
-> >       unsigned long flags;
-> >       signed long timeout =3D adev->usec_timeout;
-> > +     signed long retry_count =3D 1;
-> >       const char *op_str, *misc_op_str;
-> >
-> >       if (x_pkt->header.opcode >=3D MES_SCH_API_MAX) @@ -169,15 +170,19=
- @@
-> > static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes
-> > *mes,
-> >
-> >       if (amdgpu_emu_mode) {
-> >               timeout *=3D 100;
-> > -     } else if (amdgpu_sriov_vf(adev)) {
-> > +     }
-> > +
-> > +     if (amdgpu_sriov_vf(adev) && timeout > 0) {
-> >               /* Worst case in sriov where all other 15 VF timeout, eac=
-h VF needs about 600ms */
-> > -             timeout =3D 15 * 600 * 1000;
-> > +             retry_count =3D (15 * 600 * 1000) / timeout;
-> >       }
-> >       BUG_ON(size % 4 !=3D 0);
-> >
-> > +     mutex_lock(&mes->submission_lock);
-> >       spin_lock_irqsave(&mes->ring_lock, flags);
-> >       if (amdgpu_ring_alloc(ring, ndw)) {
-> >               spin_unlock_irqrestore(&mes->ring_lock, flags);
-> > +             mutex_unlock(&mes->submission_lock);
-> >               return -ENOMEM;
-> >       }
-> >
-> > @@ -199,8 +204,13 @@ static int mes_v11_0_submit_pkt_and_poll_completio=
-n(struct amdgpu_mes *mes,
-> >       else
-> >               dev_dbg(adev->dev, "MES msg=3D%d was emitted\n",
-> > x_pkt->header.opcode);
-> >
-> > -     r =3D amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq,
-> > -                   timeout);
-> > +     do {
-> > +             r =3D amdgpu_fence_wait_polling(ring, ring->fence_drv.syn=
-c_seq,
-> > +                             timeout);
-> > +             retry_count--;
-> > +     } while (retry_count > 0 && !amdgpu_in_reset(adev));
-> > +
-> > +     mutex_unlock(&mes->submission_lock);
-> >       if (r < 1) {
-> >
-> >               if (misc_op_str)
->
+  Linux 6.9-rc4 (2024-04-14 13:38:39 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.9-2024-04-17
+
+for you to fetch changes up to 781d41fed19caf900c8405064676813dc9921d32:
+
+  drm/radeon: silence UBSAN warning (v3) (2024-04-17 11:50:43 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.9-2024-04-17:
+
+amdgpu:
+- Fix invalid resource->start check
+- USB-C DSC fix
+- Fix a potential UAF in VA IOCTL
+- Fix visible VRAM handling during faults
+
+amdkfd:
+- Fix memory leak in create_process failure
+
+radeon:
+- Silence UBSAN warnings from variable sized arrays
+
+----------------------------------------------------------------
+Alex Deucher (3):
+      Revert "drm/amd/display: fix USB-C flag update after enc10 feature init"
+      drm/radeon: make -fstrict-flex-arrays=3 happy
+      drm/radeon: silence UBSAN warning (v3)
+
+Christian König (2):
+      drm/amdgpu: remove invalid resource->start check v2
+      drm/amdgpu: fix visible VRAM handling during faults
+
+Felix Kuehling (1):
+      drm/amdkfd: Fix memory leak in create_process failure
+
+xinhui pan (1):
+      drm/amdgpu: validate the parameters of bo mapping operations more clearly
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         | 22 +++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h         | 22 -------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            | 65 +++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h            |  3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             | 72 ++++++++++++++--------
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c           |  4 +-
+ .../amd/display/dc/dcn32/dcn32_dio_link_encoder.c  |  8 +--
+ .../amd/display/dc/dcn35/dcn35_dio_link_encoder.c  |  4 +-
+ drivers/gpu/drm/radeon/pptable.h                   | 10 +--
+ drivers/gpu/drm/radeon/radeon_atombios.c           |  8 ++-
+ 11 files changed, 117 insertions(+), 103 deletions(-)
