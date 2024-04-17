@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55F6CC04FFE
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Apr 2024 09:38:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CB6DC4345F
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Apr 2024 09:38:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F48810F550;
-	Wed, 17 Apr 2024 09:38:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0D8910F56A;
+	Wed, 17 Apr 2024 09:38:25 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4C9410EE68
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Apr 2024 09:38:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F5A010F550
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Apr 2024 09:38:20 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 43H9cEsM168071; Wed, 17 Apr 2024 15:08:14 +0530
+ 43H9cFxc168087; Wed, 17 Apr 2024 15:08:15 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 43H9cE1X168070;
- Wed, 17 Apr 2024 15:08:14 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 43H9cFRA168086;
+ Wed, 17 Apr 2024 15:08:15 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v5 4/6] drm/amdgpu: add support for gfx v10 print
-Date: Wed, 17 Apr 2024 15:08:07 +0530
-Message-Id: <20240417093809.168002-4-sunil.khatri@amd.com>
+Subject: [PATCH v5 6/6] drm/amdgpu: add ip dump for each ip in devcoredump
+Date: Wed, 17 Apr 2024 15:08:09 +0530
+Message-Id: <20240417093809.168002-6-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240417093809.168002-1-sunil.khatri@amd.com>
 References: <20240417093809.168002-1-sunil.khatri@amd.com>
@@ -44,50 +44,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add support to print ip information to be
-used to print registers in devcoredump
-buffer.
+Add ip dump for each ip of the asic in the
+devcoredump for all the ips where a callback
+is registered for register dump.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index ceeeafef668c..9b0b8ce5f5e5 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -9267,6 +9267,21 @@ static void gfx_v10_0_emit_mem_sync(struct amdgpu_ring *ring)
- 	amdgpu_ring_write(ring, gcr_cntl); /* GCR_CNTL */
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+index 64fe564b8036..c1cb62683695 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+@@ -262,6 +262,20 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
+ 	drm_printf(&p, "Faulty page starting at address: 0x%016llx\n", fault_info->addr);
+ 	drm_printf(&p, "Protection fault status register: 0x%x\n\n", fault_info->status);
  
-+static void gfx_v10_ip_print(void *handle, struct drm_printer *p)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	uint32_t i;
-+	uint32_t reg_count = ARRAY_SIZE(gc_reg_list_10_1);
++	/* dump the ip state for each ip */
++	drm_printf(&p, "IP Dump\n");
++	for (int i = 0; i < coredump->adev->num_ip_blocks; i++) {
++		if (coredump->adev->ip_blocks[i].version->funcs->print_ip_state) {
++			drm_printf(&p, "IP: %s\n",
++				   coredump->adev->ip_blocks[i]
++					   .version->funcs->name);
++			coredump->adev->ip_blocks[i]
++				.version->funcs->print_ip_state(
++					(void *)coredump->adev, &p);
++			drm_printf(&p, "\n");
++		}
++	}
 +
-+	if (!adev->gfx.ip_dump)
-+		return;
-+
-+	for (i = 0; i < reg_count; i++)
-+		drm_printf(p, "%-50s \t 0x%08x\n",
-+			   gc_reg_list_10_1[i].reg_name,
-+			   adev->gfx.ip_dump[i]);
-+}
-+
- static void gfx_v10_ip_dump(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-@@ -9299,7 +9314,7 @@ static const struct amd_ip_funcs gfx_v10_0_ip_funcs = {
- 	.set_powergating_state = gfx_v10_0_set_powergating_state,
- 	.get_clockgating_state = gfx_v10_0_get_clockgating_state,
- 	.dump_ip_state = gfx_v10_ip_dump,
--	.print_ip_state = NULL,
-+	.print_ip_state = gfx_v10_ip_print,
- };
- 
- static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_gfx = {
+ 	/* Add ring buffer information */
+ 	drm_printf(&p, "Ring buffer information\n");
+ 	for (int i = 0; i < coredump->adev->num_rings; i++) {
 -- 
 2.34.1
 
