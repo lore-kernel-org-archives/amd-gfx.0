@@ -4,120 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84A92C4345F
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Apr 2024 08:24:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 153BEC4345F
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Apr 2024 08:45:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09A1210EF9C;
-	Wed, 17 Apr 2024 08:24:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9072C10F4ED;
+	Wed, 17 Apr 2024 08:45:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3/kgdwxX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yhfzEmYZ";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2054.outbound.protection.outlook.com [40.107.96.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74D0310EF9C
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Apr 2024 08:24:53 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2085.outbound.protection.outlook.com [40.107.220.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99D8F10F4ED
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Apr 2024 08:45:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fiYtJtfHjWIKbpZLEitUxkAfspP4OrV8UW/kuggqp6itH0Nuhb3h3/GXxVlKkn/+4rsNP4e8OeYvAxFQPJ43YRQN3EeN3mU9kHdekYhnTYdRye5PbkyFfaUhLjrslKEmBctZ8r5gEcRO7EhexJIvTahzq3p6SUSRuV9VnpFMLodUycMbJGV3EHxj+bGMoFCfeJlA5Sj6zESiBRzdhMwhRJYbKi/i92B5Sd/u/vxB9C7xKWTYyZTxi3B9YPKRpWMEelsn0OhkG+SoRLdprMdgPB4C/iPKJuYYzJNbVX3kOOuT5P9OWj+qD4aX3+t0azSEJqsigDFU4OKuE7zWG8+6Vw==
+ b=csA7WDkxWsSFl8KP40UJHnQzOfoTJyJNAyR/t61xZpsGilUVitl1lExUGPC0IHT65GMYVA00blxSM09vCklIzDE8GDbdXCp68A9xhB+14NaTA0yW8Yj530wPXzSkYxZXsZ+fSdlSU6SIhixqc4Qfk0uD+oOk9LwjYYKqVGNvbR1FGLy3kC/l6Xw0sQnhm4iJIiUkLFlhe1sASC4+9RwbrmSC2qbLPNvLjdl46vFRBMpC3y1j6NbjBRDmkNAoYv2OuuFoKETNESTcyqw04E72QV6/PlG47WQCP432Rg8ytHsteQiiumTfqMpIDdtdyWafV2ZxsnhKiUX/Pl+6AIiK1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N1UhVC4Ww0JS8s2970FdLefobrQMlsq4NLOZScS6B+I=;
- b=ArJxs3gE3M9CQhTDDIkm3LmILMggXEkZBZX6+yEU/giWhtaFIAFDhRIN6zeMpoRc0sRtHdd4DWoOGk/KPew6GP1UF/ZHGnP/DlJWz6U44YchJjd4r4fBtazhBYs1hNEw7LHUvk9sUPBodOwQ0+DeIp7w1dB9XxM57vg7r+Ygy/uBPQLfGjQKRiI+cfVdNajG6vLTk+LGgNE3qBO1m0u5DFa+wwH0r2DxcVqDqOmBP9uL0zyc431VXlqzybst2F9ZpCEM+QyDRTrzDbhyhEH/Wb8vSasfZu3AWPTiblxdMSb+BPbGGH36C7XhBXPdKljogNK5O3tiNAA1ROPu81QxlA==
+ bh=MXygFrx2APOvXZaghIUCj7QAaFYNZH7Fhye2LlwEqWY=;
+ b=XIG+5++iGDQdjN+aht6eFDplXSQnGQp4lvZu67hKSogLlt/iJJ0ufX/X2IRjBjKlTRHjJ6UkhyKDJGNF9BgNDLas6k9SOEhQyQ4juXOlZplgyt6RNGQldVB47VljPxxwT4pDMOmZXDpOjuJcx4bx4W5YOMNCwrAtVGr8gsbNoqlsOj4DU/UauKf7dlOTK7tZ3jjTttIrXtkE5kUt2C+ED23YpZTq+s6LxDpOeG6LmNIgoSI2cEQnAp2HJbrpARypzBHYaX+0DE9rDaTKSfkQJhC2uSiD61bWvqQdO+NAqiQsxO1Rq1hUvmtqJkI2/r0wqF5h7E0cEegXyyGMOHxdgA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N1UhVC4Ww0JS8s2970FdLefobrQMlsq4NLOZScS6B+I=;
- b=3/kgdwxXlH+KiAemYOE7JAoK8nW6d61RXfiSUjxzYmp3yDrR3TKBxiM7gMSMgwiZopiiU+Pcitk+apxL5c36Ciyow6/xUGNoPxIMbCLeUncsEvvs4eXeIaw5UbE69fxz8XnVDaBGZk9iFl124vRwGFzVAlgQEC1hzJybq8/gLIk=
+ bh=MXygFrx2APOvXZaghIUCj7QAaFYNZH7Fhye2LlwEqWY=;
+ b=yhfzEmYZ6HyaEtPc3IQ2Hy3CD2c7QIHaTqMnc148NBOf2SrmFJZH7CSfuDPKRd4FbhhUEZBJkEaicb5fBqQljmZaWN9Oglh28vnCTmK2xK5OriU/JmxisVW/JTxA2mYWz8i89Swgv6ujZ+QHQSZRCmtmo2/8blo55iWWaf6GRbc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13)
- by DM4PR12MB6565.namprd12.prod.outlook.com (2603:10b6:8:8c::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.50; Wed, 17 Apr
- 2024 08:24:51 +0000
-Received: from PH7PR12MB5596.namprd12.prod.outlook.com
- ([fe80::6974:3875:ed0:7033]) by PH7PR12MB5596.namprd12.prod.outlook.com
- ([fe80::6974:3875:ed0:7033%3]) with mapi id 15.20.7452.049; Wed, 17 Apr 2024
- 08:24:51 +0000
-Message-ID: <de4452e5-5e67-42ea-9712-db48c9bc87c2@amd.com>
-Date: Wed, 17 Apr 2024 13:54:43 +0530
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
+ by MW4PR12MB6922.namprd12.prod.outlook.com (2603:10b6:303:207::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.37; Wed, 17 Apr
+ 2024 08:45:23 +0000
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::f7eb:b717:d637:dcf7]) by SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::f7eb:b717:d637:dcf7%6]) with mapi id 15.20.7452.049; Wed, 17 Apr 2024
+ 08:45:23 +0000
+Message-ID: <75237de6-635f-4a08-96e5-492882b2eb33@amd.com>
+Date: Wed, 17 Apr 2024 10:45:17 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: Skip the coredump collection on reset
- during driver reload
+Subject: Re: [PATCH v4 2/6] drm/amdgpu: add support of gfx10 register dump
+To: Sunil Khatri <sunil.khatri@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20240417081844.111259-1-sunil.khatri@amd.com>
+ <20240417081844.111259-2-sunil.khatri@amd.com>
 Content-Language: en-US
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, Ahmad Rehman <Ahmad.Rehman@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20240417041336.65366-1-Ahmad.Rehman@amd.com>
- <26c0e7b8-e0a6-495f-877d-2fe522b2249b@amd.com>
- <be82827f-93e8-4053-a301-7e6bc8fed5c5@amd.com>
- <399498b0-6674-4a81-9382-f6f3946298be@amd.com>
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <399498b0-6674-4a81-9382-f6f3946298be@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240417081844.111259-2-sunil.khatri@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0023.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:97::13) To PH7PR12MB5596.namprd12.prod.outlook.com
- (2603:10b6:510:136::13)
+X-ClientProxiedBy: FR3P281CA0128.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::10) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5596:EE_|DM4PR12MB6565:EE_
-X-MS-Office365-Filtering-Correlation-Id: faa66c09-9cc3-4db2-d76f-08dc5eb7d9d1
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|MW4PR12MB6922:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7db57029-560b-490f-3e03-08dc5ebab84d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nfy8nX/9pi3qFXrT2BIBoYAkUVJDrr71D32d9WetJnwA//wYoRPVMir4Ur1JER1QLLQmM4JKPZMpWrlO9c6mhaDG+hhjC7yR0/KayQzRQ/JQ7oztOHIYV0NN/+cWPNqDe3cvqSYSFVOPC4hitAiFED17X2Bcyl7x5mAr7XzAFDNZLBXSfGV6h/w+i5D1svkcCnaJIM7bVA1MWkHd1zp8dRHY7hVqFh06bHEFPcRF5twBfp4M/vWjJ5o2ht/1nGtdDx1rl9vbCupDRfRsNsSMV0Jc5dbh86tqfzZwW8lQKfNeWHUm2tU4qOshCfNtvzSwbBoZ6oeem0V3cfXIlLjXXUI1bUlYLSwBdjubCQlmwx7P5Vtxg13pI+o2wRuU0nWUAiT6R7hqJez81B6bn2BaHUkQjPVf6pzWiS6twMenCERMz/VrYIAIcyZoC+yeQL8LlPupUIlYBz6RDaw1Eh8dXBYpDmOpEHL2htJLl/jeN0LgzPv8rdWWyUcUM7wsae+3Ip8JpFPaQdn/ldOXq2ZbQr23noC8+fD0vAD6TthgCeTZfiZv/aM4og7xRwiRO/7NmuNAGNQh5g3DgvVoJIQeEGyvBBH58xnt5CkBBeYFWFgF7iOXuXO1R3mMn/LG5a2Zs0UQ0bgWPyTRqAWE14/V6w==
+X-Microsoft-Antispam-Message-Info: RptHh5XfVROxs/g5tCLllkJqRRJCqbyuCITctd/E3HT82fpISdd7bj7nb/s9dyWLzjCXzKJj7SjKYxJUh46sI/1CBjlhg3MD20UXRQqkLqWs5ZHmLSqXHCOy59bJSSzWqDbh7Bn0NAyR18H0BbteyvEF71gRc2SXJ9b9suKDkOud6meNqgGe8O+GrDzcLRCzA7zoE5wAXieWUXbidz1FOApys89eLhdkRbtMxbofC3vog+d5ZxVCIJslPPJhTFPs+6uQ1TsjieU7s60FBgUVA4/iXVOjx8XB2fq52xWIafZoIdig+/MGAKyobwAKsziFh08CoLwCZfexvr/8wYJMpXNws4FdAaxFfejyMekaBE/9MJYCpzWpcmbFq85CGUQLBQepouVF4fwN39yo26hmXbMlx8cfsjfDj32no0Ovv0u4jmMCPdD1BUe/fxPhMLVOYJ15xbHr0V5giO1mAPoPXfs+JjQLdFVZqC/Sd4d9gjtwYd3Dt52JcPKJOWmC3wGiDFLmB/ZLnFZaCNzsbJrzv6yhnXLti3XPXNpH6/2n2bNAPHZkviGtkAnWCVPFo8aL+WsUDfAqyreLApm5Q4l6Du9MOqIJ42W/iJz17WuN2KI1PPuxXdLKUb77BRAbJ38zsovgiGxcB0us8fNhCMe7Cu5eKXotmkwwHnbeUNsnQ1k=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5596.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(366007)(376005); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ti9URHpWbWpFbWt6SERxa3o3NWpWNjI2ZXIzVTZEdzIrV1JIV3gzYno5VXBF?=
- =?utf-8?B?N016TXN1cmlNUmpsMmZIODd6OGJTMkF0amhWVTFoaUlwdGsxaVZrS2w2dkdC?=
- =?utf-8?B?MnFKOHJKcE9NZU10OWt2R0N0bVFzb2Q0ZnFsZmR6eVRVVUZnTDcrQkZaeVBU?=
- =?utf-8?B?Q2V4T1hnSFg3NCsyckxMSXNRUzNLdSszcTVlRTF4UXhBNGJtY3YwWEFFNFk0?=
- =?utf-8?B?MXl2QUNVeEFyNXFZUFFiamhuYkQ2WExyQ3hIdkJFUzBFU1BHZzNJb2VDLy9D?=
- =?utf-8?B?YVpHaFdJWEt0eTJGOUc5eGxHc3pJY0Z6WlJGRWtxYktIVFRoSmlCWktBbmlQ?=
- =?utf-8?B?YzYxQWtSbDRPRkhYRGYwdm05MDEzcGVleFplb1lpWVM2OUpZK2NLR2xNY1FJ?=
- =?utf-8?B?OUlCUlRYWno4eXArRXRQY0VIZjBEQXR5VjFvVTFLa3I4M1pPUmdnTDFaR2hx?=
- =?utf-8?B?eEZOTUtZdy9lbGNDSkJLWTRJYjBQNmVFK05BemxMMUVYRisvb2NUempqa1Iw?=
- =?utf-8?B?dnV0eXRwZFk3cG5mRU9FakIxSzZtbDMwRGNPSGplSnlOZEc0Q05yOGZlRU9p?=
- =?utf-8?B?L2ZObmNHU3NYRDVheitpZHFhMjA2eE92OERNMmtNclFWMXN0UFh5ejA2S01U?=
- =?utf-8?B?RFZCVW0ydHd1Z1pXUmZoY1psWEdQRlY2cW43Q3FGdk8xME0yaDNENlJGU3hw?=
- =?utf-8?B?Q3A5OHE5OHBUanBDUmhBc3hhZlZiYjJQb0tNcXo4blF1aDRxVS8yQnBjTWxF?=
- =?utf-8?B?dDNOeHFPUjlVY0kxa1JnRXdWZlN0Rmp0c3pKZG4rdnFEQUNROEJFbDE4NTdW?=
- =?utf-8?B?UEx1KzM5b2hrY09OM2tzNFZqSmdDeXkwUlJMdUJtcko4RTJHZjc5dWdzMndM?=
- =?utf-8?B?dEcxakpXR0l0c0xqZUJGUEp3SzN5RWxTZnUrUGIvMzVXdEgxaXF3MDgzN0cv?=
- =?utf-8?B?eGlhNUFGRTZLZFVPZWpZMlhRT25xckxsKzlNUjNjWUx5ODVFR1NIZkprQXJB?=
- =?utf-8?B?MWhMakZOcGllRGVlME1DV1ZVNm1MMC90SXc5dUtYYmNPT0VHZmRtMksxV3pw?=
- =?utf-8?B?RHQ4cUFZWDZsQmdyVENYbEUwa3dmR1lUWTNKdCtoZGlQdW9VR3hXRFVrRTVR?=
- =?utf-8?B?S2loWjA2a1NsRjFwVE44Qno5dEFkWmF3c2ZDeHJFa2hlWHgxdlZlaW50ejRO?=
- =?utf-8?B?bjgrbHFkZ3lXMkhFVCtwQlRMYnVNKzluOXVEZVBvOEh6RTlGZnJveDhrbFB1?=
- =?utf-8?B?dkpNSkp0NlJUWGhuUWJHRTBaWTNkQTh5bko3Z2VoZVBNUHlKdWNoOUVoNnNS?=
- =?utf-8?B?VDkvVURiQVdDQm1mSUMrUEdlblVwdkJPKzdXanJWZnpXRlpZdjNEelpDU1o3?=
- =?utf-8?B?MDZSWUdjakY5REV5L0FtR1NtOWxONnRRbGFRdC92K1Z6bFZNM3FiQkRoTDlT?=
- =?utf-8?B?WHVOdmFHWnVFN2NWQ0tpRVc4elQwdkI3b0VoVTN2MW5YdWlaZW5PdWNJdTB5?=
- =?utf-8?B?bzh4SldvTzhrWVYxOWoyWjBLd0dhY2ZJSzhHUW1ldXdReVgydnYxUGR5S1lz?=
- =?utf-8?B?RGQrQnRyZ0ZINDJiOEljUG56Y09LSnFVOXd4dksxVW8zUUNxdTJRLzJyRmhD?=
- =?utf-8?B?MkN0NUg1aG5iWitVZThyckY0SjZwKzlBbjdZZ0xwRlZDc1R3QzhaaEIzZXh0?=
- =?utf-8?B?bW9xVnVSUVA5WlZTVXYvVnRDMVpuWG1QaXl6RnNKVWtrTTRjVmVNQzluV2V2?=
- =?utf-8?B?UTQwb1NxZXpKUmdpWEFZaDdGSmRWeUV1eUNaQnkxR1FKOU9Wa3RJa1M0dzho?=
- =?utf-8?B?RWVzY01KQjR2dXZhZXRyakQ5bG4vc0Z2WmNnMEZpVTFYQWVRd3ZFOVp1cHF5?=
- =?utf-8?B?U3RMVHBqSzJZQzAwWlhkM2JpZnhxYnZwUkVCZElIbENGZlovcVFNL2dzVzV6?=
- =?utf-8?B?OUlFYUJnS0FlekVqNFhZSER0SllPTnQ0WnVwUnpneS9mYnpiaXhUNGY0bURm?=
- =?utf-8?B?TGkwbnNEZWV6WDNsVFRyNVM1MW9sQWgwYmk1ZVc0M1hyZCs2ZCtxWEtSNkZN?=
- =?utf-8?B?bG5hMnB6SC9LV2VVYmpTcHBuKzVMOTdLV0grdytXaERhZGpab0w0QXRIWHlR?=
- =?utf-8?Q?vRMaHAM9lFDsnVPHJF16SU99O?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?REk0UjBJZVovdVhCb24vd29PZmRDMFpFOGhFMVZSelZuTXNoakxLQnhJUGFq?=
+ =?utf-8?B?ejdSOExwSEhnLzViSEhkQW9QN3dGanFPQmhLRDczM0MvMXMzOTFZQUwxMkpV?=
+ =?utf-8?B?YlpCRHVvc2h5T2dTTU5Vd2hmVjkzOTY1VzIxeGxhaEd6OXlDRWxuRU9JcVUy?=
+ =?utf-8?B?WTgwYU8yNnhLQnlxVzhnMFJIcmVIRWM2QWJWaXF1YWlPMkpkQk5MSmprRUxD?=
+ =?utf-8?B?ZGMvd2hkeGR2TlZjOVlwWWFsSmp6bVU5T2hWUk5GNE1LMXEzTXUxbkV3cGUx?=
+ =?utf-8?B?Nld5ZEQ5YVl0RXFCUTVLUm1MQkRjcHpYbzlrSUR6L0NKMHFFcUVXcndTRHR2?=
+ =?utf-8?B?KzNOclNRU1Vmc25oYWVMQXRmbGFRc2s4RmJrWjZzNDBIemxJa3Evb2NhWEdG?=
+ =?utf-8?B?eXJwOGZzUHozOGE0U2VrNk9nREY3QXlLcHVFRkppbU1jczc3UlQ3OGtNRDJS?=
+ =?utf-8?B?TUpZY2lVWTRNYXZxWUlMR0Urck51WFNMUnVSc3kvV09BUUR2RUN4a0dLbzg5?=
+ =?utf-8?B?S3A2b3pjdmMwcVpiUGtVWTg4UXRNNnN2d1lKNjJ0U1NqSGZIM1lZTVZrS3Fp?=
+ =?utf-8?B?SzFvUFU5RGV6ZFdrOTFzNGprZVovdUh6em9WbG9lbDdkYjRUSlFCOWxvRkRN?=
+ =?utf-8?B?cU9NZ1pPNFB3emxpQ3FmUG92R0I4TDA0ZDRESUZjQUdvMHhSWjRqeFVnWWw3?=
+ =?utf-8?B?cWE5ZW8wVWMvSjVKckpHcW00Uk9FVVphQktEQzBaS3dJdFhIRXQrRTZ6eUpK?=
+ =?utf-8?B?QlRMQzIwc09NZnBybUZJM2FTK2xPaXlqc21xNFdhZzNTamRYcm83WE5uWEhn?=
+ =?utf-8?B?d3NYK1F2OEdPaURTOTNpZnlWT28vMnlVcERjUTRNUFUzemNaN2lOUUxWck85?=
+ =?utf-8?B?UDhyUGVxVFRxVmUxNVIvVldQc3Q3eFhiVnVXVW5VK3hndlpoL0VyVG5vRjZC?=
+ =?utf-8?B?cktSOFRYamlsNnpmYWxrd0twQjdlb0Z2bjJ4L0lKa1VTUFhJRHVYK3dUTWo0?=
+ =?utf-8?B?U3RHSlJJdWdIK3JSdTQ5dzgxMjVFb2lZTDJkYmtESmozUHRkVW1neHZKS1d2?=
+ =?utf-8?B?bHc2WmRYTms5b2JiaDAzR2hYK00wVkVoSEw0cmVzaGdzOXEzRlorOWFZV1gx?=
+ =?utf-8?B?ZWtZQ080bFN1VEFhNHFrYXhRS0pmVzJrNWZjWjFlNVcwR3VxRi9Pck4rK3Ir?=
+ =?utf-8?B?cUZLcGV1RUVUenlsMVVvTGFWWHNQVGZOVFlXVEZvQUJwWGFzNTIrQm4ybVo2?=
+ =?utf-8?B?T0plT2l3RHNVaW55UFlsSjRXWFhPWjR4SWc2V2h3ZHNBQUxSczNHRDc4MEJV?=
+ =?utf-8?B?Y3c3L3hoNmhvUjJ4RjZzZE5RRzU0MDJuWEx1OGRvcTdnQ1J3Mk11aVBYNUp1?=
+ =?utf-8?B?VldrSmFJWGhwaFFlREF6cERlalFOZ0pmTXJOb2IzcnFLS1B2anFXaE9JUlJo?=
+ =?utf-8?B?ZjNXcjJSck5ZbXpHbmZxK1JHRUFpVUVxVTJmbUZBUlBQUkp6T3Y1UDRMbTYr?=
+ =?utf-8?B?ZlpvTUEwR0hLMXJNUHN1NHVDZFROTmJ6VnJYY2NtK0VBWmRIQ3l4NG1XaXdm?=
+ =?utf-8?B?UVZFZXFpSTlaRWI1b05JWnY0Rk8wVDFic2ZEMG15dGVoRWt0d01ValljRjNL?=
+ =?utf-8?B?TXB2dTN1KzBicnRKZkgrNjcrUVpUQXZqRGU3cldOVk5Jd2J0SmZ5bXRSOE05?=
+ =?utf-8?B?OXJ5RjVZdnYxNmUzMGVoUHZYTGFTT0psemxzdEJDUVBIdzE3MVdMRjEvUGNM?=
+ =?utf-8?B?Sy95aUQ0OFB3UG9lcElaVDYwSm95ajFMWElwOTU5YmRpNmVOSjdFU0Zla0Rk?=
+ =?utf-8?B?bUZNSVZ6WkN3blNhanBoUnVIMVVnRFY2R1FoL2FwNXp3cDVWTjRXV1U5cXBa?=
+ =?utf-8?B?L0p4WE1rRmhRdnlPNjlWMFFkTGxtN1AwNitpRUNvSlMvTXB1RUxvTDZURGQy?=
+ =?utf-8?B?SWNmVlV5RjE5SXova0hFNE9SZ3pjd1F0NmVYV0ZsdEQ4VWJaa0x0c3lKUDRB?=
+ =?utf-8?B?cWRwbkg4NTVSeEpMRkJYYUVxVkhENGRIdEduRUN0OS9YYVRpVmpMc3E0MFVM?=
+ =?utf-8?B?MU1zZ1h5M1hGZkNtdVRWMFFRUUdlc0g3bFIwdFJkQzZnYjZKWHR3V1FiWktB?=
+ =?utf-8?Q?X0pSRyc3GWswx+A1me8TN1ZD+?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: faa66c09-9cc3-4db2-d76f-08dc5eb7d9d1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5596.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7db57029-560b-490f-3e03-08dc5ebab84d
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2024 08:24:50.9399 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2024 08:45:23.2068 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V/jphXw6lbekJQzG6SGNtFa2NI8OEmOPIf2nLXRnV7yuRFjQS9wbYny7XrAxOafOk0OtQ20iOkp3gbajPvs6Dw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6565
+X-MS-Exchange-CrossTenant-UserPrincipalName: 59v6mPUTo3f547YujMBFK+76sQqnQqvOUe1Sy53MK5TAEjZxskdciLuid9l91Ccx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6922
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,106 +131,311 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 4/17/2024 1:19 PM, Lazar, Lijo wrote:
+
+Am 17.04.24 um 10:18 schrieb Sunil Khatri:
+> Adding gfx10 gc registers to be used for register
+> dump via devcoredump during a gpu reset.
 >
-> On 4/17/2024 1:14 PM, Khatri, Sunil wrote:
->> On 4/17/2024 1:06 PM, Khatri, Sunil wrote:
->>> devcoredump is used to debug gpu hangs/resets. So in normal process
->>> when there is a hang due to ring timeout or page fault we are doing a
->>> hard reset as soft reset fail in those cases. How are we making sure
->>> that the devcoredump is triggered in those cases and captured?
->>>
->>> Regards
->>> Sunil Khatri
->>>
->>> On 4/17/2024 9:43 AM, Ahmad Rehman wrote:
->>>> In passthrough environment, the driver triggers the mode-1 reset on
->>>> reload. The reset causes the core dump collection which is delayed task
->>>> and prevents driver from unloading until it is completed. Since we do
->>>> not need to collect data on "reset on reload" case, we can skip core
->>>> dump collection.
->>>>
->>>> v2: Use the same flag to avoid calling amdgpu_reset_reg_dumps as well.
->>>>
->>>> Signed-off-by: Ahmad Rehman <Ahmad.Rehman@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++--
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 1 +
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h  | 1 +
->>>>    3 files changed, 7 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> index 1b2e177bc2d6..c718982cffa8 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> @@ -5357,7 +5357,9 @@ int amdgpu_do_asic_reset(struct list_head
->>>> *device_list_handle,
->>>>        /* Try reset handler method first */
->>>>        tmp_adev = list_first_entry(device_list_handle, struct
->>>> amdgpu_device,
->>>>                        reset_list);
->>>> -    amdgpu_reset_reg_dumps(tmp_adev);
->>>> +
->>>> +    if (!test_bit(AMDGPU_SKIP_COREDUMP, &reset_context->flags))
->>>> +        amdgpu_reset_reg_dumps(tmp_adev);
->>>>          reset_context->reset_device_list = device_list_handle;
->>>>        r = amdgpu_reset_perform_reset(tmp_adev, reset_context);
->>>> @@ -5430,7 +5432,8 @@ int amdgpu_do_asic_reset(struct list_head
->>>> *device_list_handle,
->>>>                      vram_lost = amdgpu_device_check_vram_lost(tmp_adev);
->>>>    -                amdgpu_coredump(tmp_adev, vram_lost, reset_context);
->>>> +                if (!test_bit(AMDGPU_SKIP_COREDUMP,
->>>> &reset_context->flags))
->>>> +                    amdgpu_coredump(tmp_adev, vram_lost,
->>>> reset_context);
->>>>                      if (vram_lost) {
->>>>                        DRM_INFO("VRAM is lost due to GPU reset!\n");
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> index 6ea893ad9a36..c512f70b8272 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> @@ -2481,6 +2481,7 @@ static void
->>>> amdgpu_drv_delayed_reset_work_handler(struct work_struct *work)
->>>>          /* Use a common context, just need to make sure full reset is
->>>> done */
->>>>        set_bit(AMDGPU_SKIP_HW_RESET, &reset_context.flags);
->>>> +    set_bit(AMDGPU_SKIP_COREDUMP, &reset_context.flags);
->> If this is used for guests only can we better have a flag like
->> amdgpu_sriov_vf  for setting the skip coredump flag ??
->>
-> A reset is not always triggered just because of hang. There are other
-> cases like we want to do a reset after a suspend/resume cycle so that
-> the device starts from a clean state. Those are intentionally triggered
-> by driver. Also, there are case like RAS errors where we reset and that
-> also really doesn't need a core dump. In all such cases, this flag is
-> required, and this is one such case (this patch only addresses passthrough).
-
-
-Thanks Lijo
-Able to verify that in normal hangs dump is working.
-
-Regards
-Sunil
-
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   8 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |   4 +
+>   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 130 +++++++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/soc15.h            |   2 +
+>   .../include/asic_reg/gc/gc_10_1_0_offset.h    |  12 ++
+>   5 files changed, 155 insertions(+), 1 deletion(-)
 >
-> Thanks,
-> Lijo
->
->> Regards
->> Sunil khatri
->>
->>>>        r = amdgpu_do_asic_reset(&device_list, &reset_context);
->>>>          if (r) {
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
->>>> index 66125d43cf21..b11d190ece53 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
->>>> @@ -32,6 +32,7 @@ enum AMDGPU_RESET_FLAGS {
->>>>          AMDGPU_NEED_FULL_RESET = 0,
->>>>        AMDGPU_SKIP_HW_RESET = 1,
->>>> +    AMDGPU_SKIP_COREDUMP = 2,
->>>>    };
->>>>      struct amdgpu_reset_context {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index e0d7f4ee7e16..210af65a744c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -139,6 +139,14 @@ enum amdgpu_ss {
+>   	AMDGPU_SS_DRV_UNLOAD
+>   };
+>   
+> +struct amdgpu_hwip_reg_entry {
+> +	u32	hwip;
+> +	u32	inst;
+> +	u32	seg;
+> +	u32	reg_offset;
+
+> +	char	reg_name[50];
+
+Make that a const char *. Otherwise it bloats up the final binary 
+because the compiler has to add zeros at the end.
+
+> +};
+> +
+>   struct amdgpu_watchdog_timer {
+>   	bool timeout_fatal_disable;
+>   	uint32_t period; /* maxCycles = (1 << period), the number of cycles before a timeout */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> index 04a86dff71e6..64f197bbc866 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -433,6 +433,10 @@ struct amdgpu_gfx {
+>   	uint32_t			num_xcc_per_xcp;
+>   	struct mutex			partition_mutex;
+>   	bool				mcbp; /* mid command buffer preemption */
+> +
+> +	/* IP reg dump */
+> +	uint32_t			*ip_dump;
+> +	uint32_t			reg_count;
+>   };
+>   
+>   struct amdgpu_gfx_ras_reg_entry {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index a0bc4196ff8b..4a54161f4837 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -276,6 +276,99 @@ MODULE_FIRMWARE("amdgpu/gc_10_3_7_mec.bin");
+>   MODULE_FIRMWARE("amdgpu/gc_10_3_7_mec2.bin");
+>   MODULE_FIRMWARE("amdgpu/gc_10_3_7_rlc.bin");
+>   
+> +static const struct amdgpu_hwip_reg_entry gc_reg_list_10_1[] = {
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS2),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS3),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_STALLED_STAT1),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_STALLED_STAT2),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPC_STALLED_STAT1),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPF_STALLED_STAT1),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_BUSY_STAT),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPC_BUSY_STAT),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPF_BUSY_STAT),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPC_BUSY_STAT2),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPF_BUSY_STAT2),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPF_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_GFX_ERROR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_GFX_HPD_STATUS0),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB_BASE),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB_RPTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB_WPTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB0_BASE),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB0_RPTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB0_WPTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB1_BASE),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB1_RPTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB1_WPTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB2_BASE),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB2_WPTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB2_WPTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB1_CMD_BUFSZ),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB2_CMD_BUFSZ),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB1_CMD_BUFSZ),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB2_CMD_BUFSZ),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB1_BASE_LO),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB1_BASE_HI),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB1_BUFSZ),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB2_BASE_LO),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB2_BASE_HI),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB2_BUFSZ),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB1_BASE_LO),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB1_BASE_HI),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB1_BUFSZ),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB2_BASE_LO),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB2_BASE_HI),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB2_BUFSZ),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCPF_UTCL1_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCPC_UTCL1_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCPG_UTCL1_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmGDS_PROTECTION_FAULT),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmGDS_VM_PROTECTION_FAULT),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmIA_UTCL1_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmIA_UTCL1_STATUS_2),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmPA_CL_CNTL_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_UTCL1_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRMI_UTCL1_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmSQC_DCACHE_UTCL0_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmSQC_ICACHE_UTCL0_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmSQG_UTCL0_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmTCP_UTCL0_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmWD_UTCL1_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmGCVM_L2_PROTECTION_FAULT_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_DEBUG),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_CNTL),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MES_CNTL),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_INSTR_PNTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC1_INSTR_PNTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC2_INSTR_PNTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MES_DEBUG_INTERRUPT_INSTR_PNTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_MES_INSTR_PNTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_INSTR_PNTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_INSTR_PNTR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPC_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_STAT),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_COMMAND),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_MESSAGE),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_ARGUMENT_1),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_ARGUMENT_2),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_ARGUMENT_3),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_ARGUMENT_4),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmSMU_RLC_RESPONSE),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SAFE_MODE),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_SAFE_MODE),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_RLCS_GPM_STAT_2),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SPP_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_RLCS_BOOTLOAD_STATUS),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_INT_STAT),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_GPM_GENERAL_6),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_GPM_DEBUG_INST_A),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_GPM_DEBUG_INST_B),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_GPM_DEBUG_INST_ADDR),
+> +	SOC15_REG_ENTRY_STR(GC, 0, mmRLC_LX6_CORE_PDEBUG_INST)
+> +};
+> +
+>   static const struct soc15_reg_golden golden_settings_gc_10_1[] = {
+>   	SOC15_REG_GOLDEN_VALUE(GC, 0, mmCB_HW_CONTROL_4, 0xffffffff, 0x00400014),
+>   	SOC15_REG_GOLDEN_VALUE(GC, 0, mmCGTT_CPF_CLK_CTRL, 0xfcff8fff, 0xf8000100),
+> @@ -4490,6 +4583,22 @@ static int gfx_v10_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
+>   			     hw_prio, NULL);
+>   }
+>   
+> +static void gfx_v10_0_alloc_dump_mem(struct amdgpu_device *adev)
+> +{
+> +	uint32_t reg_count = ARRAY_SIZE(gc_reg_list_10_1);
+> +	uint32_t *ptr;
+> +
+> +	ptr = kcalloc(reg_count, sizeof(uint32_t), GFP_KERNEL);
+> +	if (ptr == NULL) {
+> +		DRM_ERROR("Failed to allocate memory for IP Dump\n");
+> +		adev->gfx.ip_dump = NULL;
+> +		adev->gfx.reg_count = 0;
+> +	} else {
+> +		adev->gfx.ip_dump = ptr;
+> +		adev->gfx.reg_count = reg_count;
+> +	}
+> +}
+> +
+>   static int gfx_v10_0_sw_init(void *handle)
+>   {
+>   	int i, j, k, r, ring_id = 0;
+> @@ -4642,6 +4751,8 @@ static int gfx_v10_0_sw_init(void *handle)
+>   
+>   	gfx_v10_0_gpu_early_init(adev);
+>   
+> +	gfx_v10_0_alloc_dump_mem(adev);
+> +
+>   	return 0;
+>   }
+>   
+> @@ -4694,6 +4805,8 @@ static int gfx_v10_0_sw_fini(void *handle)
+>   
+>   	gfx_v10_0_free_microcode(adev);
+>   
+> +	kfree(adev->gfx.ip_dump);
+> +
+>   	return 0;
+>   }
+>   
+> @@ -9154,6 +9267,21 @@ static void gfx_v10_0_emit_mem_sync(struct amdgpu_ring *ring)
+>   	amdgpu_ring_write(ring, gcr_cntl); /* GCR_CNTL */
+>   }
+>   
+> +static void gfx_v10_ip_dump(void *handle)
+> +{
+> +	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	uint32_t i;
+> +	uint32_t reg_count = ARRAY_SIZE(gc_reg_list_10_1);
+> +
+> +	if (!adev->gfx.ip_dump)
+> +		return;
+> +
+> +	amdgpu_gfx_off_ctrl(adev, false);
+> +	for (i = 0; i < reg_count; i++)
+> +		adev->gfx.ip_dump[i] = RREG32(SOC15_REG_ENTRY_OFFSET(gc_reg_list_10_1[i]));
+> +	amdgpu_gfx_off_ctrl(adev, true);
+> +}
+> +
+>   static const struct amd_ip_funcs gfx_v10_0_ip_funcs = {
+>   	.name = "gfx_v10_0",
+>   	.early_init = gfx_v10_0_early_init,
+> @@ -9170,7 +9298,7 @@ static const struct amd_ip_funcs gfx_v10_0_ip_funcs = {
+>   	.set_clockgating_state = gfx_v10_0_set_clockgating_state,
+>   	.set_powergating_state = gfx_v10_0_set_powergating_state,
+>   	.get_clockgating_state = gfx_v10_0_get_clockgating_state,
+> -	.dump_ip_state = NULL,
+> +	.dump_ip_state = gfx_v10_ip_dump,
+>   };
+>   
+>   static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_gfx = {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.h b/drivers/gpu/drm/amd/amdgpu/soc15.h
+> index 1444b7765e4b..282584a48be0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.h
+> @@ -88,6 +88,8 @@ struct soc15_ras_field_entry {
+>   };
+>   
+>   #define SOC15_REG_ENTRY(ip, inst, reg)	ip##_HWIP, inst, reg##_BASE_IDX, reg
+> +#define SOC15_REG_ENTRY_STR(ip, inst, reg) \
+> +	{ ip##_HWIP, inst, reg##_BASE_IDX, reg, #reg }
+
+Mhm, do you still get the warning that we should use ()?
+
+In general named initializers would be better. E.g. something like this
+
+{
+     .hwip = (ip##_HWIP),
+     .inst = (inst),
+...
+}
+
+But you need to give the parameters unique names for that. "inst" for 
+example won't work like this.
+
+Apart from this looks good to me,
+Christian.
+
+>   
+>   #define SOC15_REG_ENTRY_OFFSET(entry)	(adev->reg_offset[entry.hwip][entry.inst][entry.seg] + entry.reg_offset)
+>   
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
+> index 4908044f7409..4c8e7fdb6976 100644
+> --- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
+> @@ -4830,6 +4830,8 @@
+>   #define mmCP_ECC_FIRSTOCCURRENCE_RING2_BASE_IDX                                                        0
+>   #define mmGB_EDC_MODE                                                                                  0x1e1e
+>   #define mmGB_EDC_MODE_BASE_IDX                                                                         0
+> +#define mmCP_DEBUG                                                                                     0x1e1f
+> +#define mmCP_DEBUG_BASE_IDX                                                                            0
+>   #define mmCP_FETCHER_SOURCE                                                                            0x1e22
+>   #define mmCP_FETCHER_SOURCE_BASE_IDX                                                                   0
+>   #define mmCP_PQ_WPTR_POLL_CNTL                                                                         0x1e23
+> @@ -7778,6 +7780,8 @@
+>   #define mmCP_MES_DOORBELL_CONTROL5_BASE_IDX                                                            1
+>   #define mmCP_MES_DOORBELL_CONTROL6                                                                     0x2841
+>   #define mmCP_MES_DOORBELL_CONTROL6_BASE_IDX                                                            1
+> +#define mmCP_MES_DEBUG_INTERRUPT_INSTR_PNTR                                                            0x2842
+> +#define mmCP_MES_DEBUG_INTERRUPT_INSTR_PNTR_BASE_IDX                                                   1
+>   #define mmCP_MES_GP0_LO                                                                                0x2843
+>   #define mmCP_MES_GP0_LO_BASE_IDX                                                                       1
+>   #define mmCP_MES_GP0_HI                                                                                0x2844
+> @@ -9332,10 +9336,16 @@
+>   #define mmRLC_LB_CNTR_INIT_1_BASE_IDX                                                                  1
+>   #define mmRLC_LB_CNTR_1                                                                                0x4c1c
+>   #define mmRLC_LB_CNTR_1_BASE_IDX                                                                       1
+> +#define mmRLC_GPM_DEBUG_INST_ADDR                                                                      0x4c1d
+> +#define mmRLC_GPM_DEBUG_INST_ADDR_BASE_IDX                                                             1
+>   #define mmRLC_JUMP_TABLE_RESTORE                                                                       0x4c1e
+>   #define mmRLC_JUMP_TABLE_RESTORE_BASE_IDX                                                              1
+>   #define mmRLC_PG_DELAY_2                                                                               0x4c1f
+>   #define mmRLC_PG_DELAY_2_BASE_IDX                                                                      1
+> +#define mmRLC_GPM_DEBUG_INST_A                                                                         0x4c22
+> +#define mmRLC_GPM_DEBUG_INST_A_BASE_IDX                                                                1
+> +#define mmRLC_GPM_DEBUG_INST_B                                                                         0x4c23
+> +#define mmRLC_GPM_DEBUG_INST_B_BASE_IDX                                                                1
+>   #define mmRLC_GPU_CLOCK_COUNT_LSB                                                                      0x4c24
+>   #define mmRLC_GPU_CLOCK_COUNT_LSB_BASE_IDX                                                             1
+>   #define mmRLC_GPU_CLOCK_COUNT_MSB                                                                      0x4c25
+> @@ -9720,6 +9730,8 @@
+>   #define mmRLC_SPM_THREAD_TRACE_CTRL_BASE_IDX                                                           1
+>   #define mmRLC_LB_CNTR_2                                                                                0x4de7
+>   #define mmRLC_LB_CNTR_2_BASE_IDX                                                                       1
+> +#define mmRLC_LX6_CORE_PDEBUG_INST                                                                     0x4deb
+> +#define mmRLC_LX6_CORE_PDEBUG_INST_BASE_IDX                                                            1
+>   #define mmRLC_CPAXI_DOORBELL_MON_CTRL                                                                  0x4df1
+>   #define mmRLC_CPAXI_DOORBELL_MON_CTRL_BASE_IDX                                                         1
+>   #define mmRLC_CPAXI_DOORBELL_MON_STAT                                                                  0x4df2
+
