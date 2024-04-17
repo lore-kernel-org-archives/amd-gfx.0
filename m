@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21480C4345F
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Apr 2024 15:48:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8CBCC4345F
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Apr 2024 15:51:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1AD6112792;
-	Wed, 17 Apr 2024 15:48:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49D59113656;
+	Wed, 17 Apr 2024 15:51:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IGxAcOs+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SJHNz0HO";
 	dkim-atps=neutral
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
- [209.85.215.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B638210F80D
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Apr 2024 15:48:48 +0000 (UTC)
-Received: by mail-pg1-f178.google.com with SMTP id
- 41be03b00d2f7-5e42b4bbfa4so3431186a12.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Apr 2024 08:48:48 -0700 (PDT)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD307113656
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Apr 2024 15:51:49 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-2a5215314a4so3575939a91.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Apr 2024 08:51:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1713368928; x=1713973728; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1713369109; x=1713973909; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3izMF1WSBjz/EHPwoQ+mMzdM5w/tDyckQvY5tHKfE+c=;
- b=IGxAcOs+BPDP5AbzDXsB1iWaONCLOlrZpQfmSGacJ5aS+cAQ1TlIxKEzCMKGG7asec
- zy8ftN3db7xIxNfHjWRjNC1E0NZbUZf2H9fCVoRlA733/5lNLe6hLbooxhbRVhFl/ebg
- AcV4yISQQzpZ45VtD7P7CHGdNV6J2zm1Pue0cQTs5yL6bz9Zz1ZoO8f08eIrdHYdRH9m
- 7SpQOVpj+oK/JsFqqj/zHfKoBJenqB/yQ5G3rsG4A8sRyFeV8dxROkoOQrjCFseGScCI
- Ry/MghAkQpHgVxmuSeAPkspjnUIAHFG6hF4SLD4sBaHwHlHUIVpQmERfJ8yYy0ZpWTka
- cK9g==
+ bh=Vv9k3VjzmVKZeNfJwtlbZLVZqyxxbNOYbk0zFKG0aeY=;
+ b=SJHNz0HOcep+AO1yZOO9DL8cUv2bZMzLP27QYpA9lgFz2LzoHGh2HI8cbxN1c17Tl8
+ DadkjV1qU8vX7eVqtNDYhswE1Uj/7VBDeS6FY7MigJnN7YGNz1MXDbt+Yf2qnFjlb3XI
+ NZOYdbHpM7oFz+1rRguG+k4YNpWjUY2hoghSqCPHqwI7HTHOtz4jrVBdOqQKt21wR1Nh
+ tk/l5w7+arMNSLOTEuVdAVBhZjU+1E5NjTOv3dTbS8dmmSfalJAsHT9/dluiOJ2cwY2V
+ +qTnCL/ZUqsk2fh+vFZhBJIgxkyc5qsRKLYPAua/vdwmtjWyAiW5Fe4rM5qeOlAE3bFr
+ Lebw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713368928; x=1713973728;
+ d=1e100.net; s=20230601; t=1713369109; x=1713973909;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3izMF1WSBjz/EHPwoQ+mMzdM5w/tDyckQvY5tHKfE+c=;
- b=bJln99/2/o+82OmqRPJaX6t0KUaf6YxmchDG1YGgfdgo7OKAo7Cs61U4zJ2/T+8j2m
- BgKXDt7J2MRAZ3ReTWD412081ddnnFjWZxb46okvB5AwwOKfNlg1GO4VDetNUPJ+L8Nu
- rRRSTSFTXyYAb4AzZmrbdXGD9xleYjDtM+nMFB+DdVYOLE5UQ9ME59gH/R3WdDHgelKK
- TGCo8X1t/T6bWZZYS/TLFAT077k6IIVFRs51c+1xUDxpWzaXDvfkZC8/R8xeGNPE1bCG
- 2fD5QecHz2Ae0j1RNd1qLmyLItqRggm3xUrymP1WggOdRv+sqt3Fgn2AeGCl97louiv7
- pfAg==
+ bh=Vv9k3VjzmVKZeNfJwtlbZLVZqyxxbNOYbk0zFKG0aeY=;
+ b=OUBtAJgHlC2Ym42Z4bh6xJ6cEHhJ9w0txzIBEEK0PQNK8WmG5573qppofEVHLX4Ag5
+ VX/6v+67Yg2JC3lPbsJP8+khnRP1AMl2SpUqMXJzhRJa6XtexQahB/2OVkiL77osgPyz
+ 1nSaAfR9vAGNlKDEFmPml6+EPo+VMN+E75ROodcFmkpr1Z1EKNuyw4yZ/KqSEso83BYN
+ T0Hw7ODtjffSm9czX/Y4FiPOQtlopwWdtqAN5Uq3qbEXpZjSE4s/sUNBlNB7rl8klkKQ
+ sppLaJquLzgXt7/7ct5UmvInhCs4WMCtoZFjNciSomt+NLlO0sbAoqeUypW+oth5HpIY
+ y2gQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVzV6Ix+1UijZ2Lr6nSZlzvKRC4kYR2HG2x+U56XGRBsG/3QeidNq2H5uQ93X7YAbNAAve9Eva/IaQE+XBSGRpwLjc/LLthlgfIh4Lz3Q==
-X-Gm-Message-State: AOJu0YyElMNXV9lXbCSf6XUSTrowHT9T7bmnaOugtJemWEzRCryDDfrW
- yhjn3EYbWwziwC90OHjuautPFKBYSRnKkIcpfz8hhq7WysNi3lglZKKFxZZ7o6OVEqtkcHciFR/
- tEsv8OTF7VTMkbgy1Q3eA4NrcOjA=
-X-Google-Smtp-Source: AGHT+IGsqBj60Fcxm+AWMPn2s01MT6pQIn1k9QiUwJ5ptEU91gmrI8hvwYWOQyCOPIKnD820MJx97gUudT3Dlo3Q+7w=
-X-Received: by 2002:a17:90b:78d:b0:2a7:a774:ba7f with SMTP id
- l13-20020a17090b078d00b002a7a774ba7fmr10741867pjz.32.1713368927329; Wed, 17
- Apr 2024 08:48:47 -0700 (PDT)
+ AJvYcCVVoqAULOW6s4Th71nQGtmTzpOAV5pyJjWnnJj52pvcFSyjgZY+Ai3fHYsdPzAUjWeRGHCIrQZVu/hUQxK1udqKw56bYhWeqcGQRExDKQ==
+X-Gm-Message-State: AOJu0Yw974cABsqCeYmKIQ0aK7hnXGVZqAbuTtlJMNy4xLZAY0WsRzaB
+ ttHUAPLUFM9l+NFXb5MyF7bgVMwRiZRqqsKDKO1r/VICNC3BjyR2pw2Bb3JQq7S3RV2wrbjwmsh
+ bx1JsJajrHjLujljA/+p/h6wYNmo=
+X-Google-Smtp-Source: AGHT+IHiGH9u81mggHtXg1gIGg9jHEOdZbn5MQaCVG1P8AjLHAbrlyJS2xdetjgVwUbtr1xK40v8DvbpqXT5WQNL6uE=
+X-Received: by 2002:a17:90a:e57:b0:2a5:badb:2f6b with SMTP id
+ p23-20020a17090a0e5700b002a5badb2f6bmr17016780pja.26.1713369108702; Wed, 17
+ Apr 2024 08:51:48 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240417093809.168002-1-sunil.khatri@amd.com>
- <20240417093809.168002-3-sunil.khatri@amd.com>
-In-Reply-To: <20240417093809.168002-3-sunil.khatri@amd.com>
+ <20240417093809.168002-2-sunil.khatri@amd.com>
+In-Reply-To: <20240417093809.168002-2-sunil.khatri@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 17 Apr 2024 11:48:36 -0400
-Message-ID: <CADnq5_N-q3RXAQeqsg0NCS-dpqGOixB4NysuXzir2s_KG9ASHA@mail.gmail.com>
-Subject: Re: [PATCH v5 3/6] drm/amdgpu: add protype for print ip state
+Date: Wed, 17 Apr 2024 11:51:37 -0400
+Message-ID: <CADnq5_MkYKO5Z3LBRdJsTO0+Wf+YWVgUONTt5Y1Lrm+6SXJfTQ@mail.gmail.com>
+Subject: Re: [PATCH v5 2/6] drm/amdgpu: add support of gfx10 register dump
 To: Sunil Khatri <sunil.khatri@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
@@ -83,997 +83,347 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Wed, Apr 17, 2024 at 5:38=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.com>=
  wrote:
 >
-> Add the protoype for print ip state to be used
-> to print the registers in devcoredump during
-> a gpu reset.
+> Adding gfx10 gc registers to be used for register
+> dump via devcoredump during a gpu reset.
 >
 > Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c           | 1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c      | 1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c          | 1 +
->  drivers/gpu/drm/amd/amdgpu/cik.c                  | 1 +
->  drivers/gpu/drm/amd/amdgpu/cik_ih.c               | 1 +
->  drivers/gpu/drm/amd/amdgpu/cik_sdma.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/cz_ih.c                | 1 +
->  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c            | 1 +
->  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c            | 1 +
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c            | 1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c            | 1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c           | 1 +
->  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/iceland_ih.c           | 1 +
->  drivers/gpu/drm/amd/amdgpu/ih_v6_0.c              | 1 +
->  drivers/gpu/drm/amd/amdgpu/ih_v6_1.c              | 1 +
->  drivers/gpu/drm/amd/amdgpu/ih_v7_0.c              | 1 +
->  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c            | 1 +
->  drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c            | 2 ++
->  drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c            | 1 +
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c            | 1 +
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c          | 1 +
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c          | 1 +
->  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c          | 1 +
->  drivers/gpu/drm/amd/amdgpu/mes_v10_1.c            | 1 +
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c            | 1 +
->  drivers/gpu/drm/amd/amdgpu/navi10_ih.c            | 1 +
->  drivers/gpu/drm/amd/amdgpu/nv.c                   | 1 +
->  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c            | 1 +
->  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c            | 1 +
->  drivers/gpu/drm/amd/amdgpu/si.c                   | 1 +
->  drivers/gpu/drm/amd/amdgpu/si_dma.c               | 1 +
->  drivers/gpu/drm/amd/amdgpu/si_ih.c                | 1 +
->  drivers/gpu/drm/amd/amdgpu/soc15.c                | 1 +
->  drivers/gpu/drm/amd/amdgpu/soc21.c                | 1 +
->  drivers/gpu/drm/amd/amdgpu/tonga_ih.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/vce_v2_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/vce_v3_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c             | 2 ++
->  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c             | 1 +
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c           | 1 +
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c           | 1 +
->  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c           | 1 +
->  drivers/gpu/drm/amd/amdgpu/vi.c                   | 1 +
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
->  drivers/gpu/drm/amd/include/amd_shared.h          | 2 ++
->  drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c        | 1 +
->  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c        | 1 +
->  drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 1 +
->  64 files changed, 67 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   8 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |   4 +
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 130 +++++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/soc15.h            |   2 +
+>  .../include/asic_reg/gc/gc_10_1_0_offset.h    |  12 ++
+>  5 files changed, 155 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_acp.c
-> index 34a62033a388..bf6c4a0d0525 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-> @@ -638,6 +638,7 @@ static const struct amd_ip_funcs acp_ip_funcs =3D {
->         .set_clockgating_state =3D acp_set_clockgating_state,
->         .set_powergating_state =3D acp_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
-
-Same comment as patch 1.  Either way,
-Reviewed-by: Alex Duecher <alexander.deucher@amd.com>
-
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index e0d7f4ee7e16..cac0ca64367b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -139,6 +139,14 @@ enum amdgpu_ss {
+>         AMDGPU_SS_DRV_UNLOAD
 >  };
 >
->  const struct amdgpu_ip_block_version acp_ip_block =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_umsch_mm.c
-> index 5bb9e0dacbf3..06ad68714172 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
-> @@ -876,6 +876,7 @@ static const struct amd_ip_funcs umsch_mm_v4_0_ip_fun=
-cs =3D {
->         .suspend =3D umsch_mm_suspend,
->         .resume =3D umsch_mm_resume,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
+> +struct amdgpu_hwip_reg_entry {
+> +       u32             hwip;
+> +       u32             inst;
+> +       u32             seg;
+> +       u32             reg_offset;
+> +       const char      *reg_name;
+> +};
+> +
+>  struct amdgpu_watchdog_timer {
+>         bool timeout_fatal_disable;
+>         uint32_t period; /* maxCycles =3D (1 << period), the number of cy=
+cles before a timeout */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.h
+> index 04a86dff71e6..64f197bbc866 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -433,6 +433,10 @@ struct amdgpu_gfx {
+>         uint32_t                        num_xcc_per_xcp;
+>         struct mutex                    partition_mutex;
+>         bool                            mcbp; /* mid command buffer preem=
+ption */
+> +
+> +       /* IP reg dump */
+> +       uint32_t                        *ip_dump;
+> +       uint32_t                        reg_count;
 >  };
 >
->  const struct amdgpu_ip_block_version umsch_mm_v4_0_ip_block =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vkms.c
-> index d1dc91009c0e..e30eecd02ae1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> @@ -659,6 +659,7 @@ static const struct amd_ip_funcs amdgpu_vkms_ip_funcs=
- =3D {
->         .set_clockgating_state =3D amdgpu_vkms_set_clockgating_state,
->         .set_powergating_state =3D amdgpu_vkms_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  const struct amdgpu_ip_block_version amdgpu_vkms_ip_block =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgp=
-u/cik.c
-> index 884de42553a6..cf1d5d462b67 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cik.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-> @@ -2211,6 +2211,7 @@ static const struct amd_ip_funcs cik_common_ip_func=
-s =3D {
->         .set_clockgating_state =3D cik_common_set_clockgating_state,
->         .set_powergating_state =3D cik_common_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ip_block_version cik_common_ip_block =3D
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_ih.c b/drivers/gpu/drm/amd/am=
-dgpu/cik_ih.c
-> index 676f3f612fde..576baa9dbb0e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-> @@ -436,6 +436,7 @@ static const struct amd_ip_funcs cik_ih_ip_funcs =3D =
-{
->         .set_clockgating_state =3D cik_ih_set_clockgating_state,
->         .set_powergating_state =3D cik_ih_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ih_funcs cik_ih_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/=
-amdgpu/cik_sdma.c
-> index d797b1fbbffc..555f763077cc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-> @@ -1229,6 +1229,7 @@ static const struct amd_ip_funcs cik_sdma_ip_funcs =
-=3D {
->         .set_clockgating_state =3D cik_sdma_set_clockgating_state,
->         .set_powergating_state =3D cik_sdma_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs cik_sdma_ring_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cz_ih.c b/drivers/gpu/drm/amd/amd=
-gpu/cz_ih.c
-> index 958c84a6af7e..072643787384 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> @@ -434,6 +434,7 @@ static const struct amd_ip_funcs cz_ih_ip_funcs =3D {
->         .set_clockgating_state =3D cz_ih_set_clockgating_state,
->         .set_powergating_state =3D cz_ih_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ih_funcs cz_ih_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd=
-/amdgpu/dce_v10_0.c
-> index 7a32ca7d6fc4..b44fce44c066 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> @@ -3334,6 +3334,7 @@ static const struct amd_ip_funcs dce_v10_0_ip_funcs=
- =3D {
->         .set_clockgating_state =3D dce_v10_0_set_clockgating_state,
->         .set_powergating_state =3D dce_v10_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static void
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/dce_v11_0.c
-> index 67c01e137fac..80b2e7f79acf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> @@ -3465,6 +3465,7 @@ static const struct amd_ip_funcs dce_v11_0_ip_funcs=
- =3D {
->         .set_clockgating_state =3D dce_v11_0_set_clockgating_state,
->         .set_powergating_state =3D dce_v11_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static void
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v6_0.c
-> index 209cd44bbcec..db20012600f5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -3155,6 +3155,7 @@ static const struct amd_ip_funcs dce_v6_0_ip_funcs =
-=3D {
->         .set_clockgating_state =3D dce_v6_0_set_clockgating_state,
->         .set_powergating_state =3D dce_v6_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static void
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v8_0.c
-> index fff7f4f766b2..5b56100ec902 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> @@ -3243,6 +3243,7 @@ static const struct amd_ip_funcs dce_v8_0_ip_funcs =
-=3D {
->         .set_clockgating_state =3D dce_v8_0_set_clockgating_state,
->         .set_powergating_state =3D dce_v8_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static void
+>  struct amdgpu_gfx_ras_reg_entry {
 > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd=
 /amdgpu/gfx_v10_0.c
-> index 4a54161f4837..ceeeafef668c 100644
+> index a0bc4196ff8b..4a54161f4837 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -9299,6 +9299,7 @@ static const struct amd_ip_funcs gfx_v10_0_ip_funcs=
+> @@ -276,6 +276,99 @@ MODULE_FIRMWARE("amdgpu/gc_10_3_7_mec.bin");
+>  MODULE_FIRMWARE("amdgpu/gc_10_3_7_mec2.bin");
+>  MODULE_FIRMWARE("amdgpu/gc_10_3_7_rlc.bin");
+>
+> +static const struct amdgpu_hwip_reg_entry gc_reg_list_10_1[] =3D {
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS2),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS3),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_STALLED_STAT1),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_STALLED_STAT2),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPC_STALLED_STAT1),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPF_STALLED_STAT1),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_BUSY_STAT),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPC_BUSY_STAT),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPF_BUSY_STAT),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPC_BUSY_STAT2),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPF_BUSY_STAT2),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPF_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_GFX_ERROR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_GFX_HPD_STATUS0),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB_BASE),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB_RPTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB_WPTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB0_BASE),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB0_RPTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB0_WPTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB1_BASE),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB1_RPTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB1_WPTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB2_BASE),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB2_WPTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB2_WPTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB1_CMD_BUFSZ),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB2_CMD_BUFSZ),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB1_CMD_BUFSZ),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB2_CMD_BUFSZ),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB1_BASE_LO),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB1_BASE_HI),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB1_BUFSZ),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB2_BASE_LO),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB2_BASE_HI),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB2_BUFSZ),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB1_BASE_LO),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB1_BASE_HI),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB1_BUFSZ),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB2_BASE_LO),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB2_BASE_HI),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB2_BUFSZ),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCPF_UTCL1_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCPC_UTCL1_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCPG_UTCL1_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmGDS_PROTECTION_FAULT),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmGDS_VM_PROTECTION_FAULT),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmIA_UTCL1_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmIA_UTCL1_STATUS_2),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmPA_CL_CNTL_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_UTCL1_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRMI_UTCL1_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmSQC_DCACHE_UTCL0_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmSQC_ICACHE_UTCL0_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmSQG_UTCL0_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmTCP_UTCL0_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmWD_UTCL1_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmGCVM_L2_PROTECTION_FAULT_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_DEBUG),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_CNTL),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_MES_CNTL),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_INSTR_PNTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC1_INSTR_PNTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC2_INSTR_PNTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_MES_DEBUG_INTERRUPT_INSTR_PNTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_MES_INSTR_PNTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_INSTR_PNTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_INSTR_PNTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPC_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_STAT),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_COMMAND),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_MESSAGE),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_ARGUMENT_1),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_ARGUMENT_2),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_ARGUMENT_3),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_ARGUMENT_4),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmSMU_RLC_RESPONSE),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SAFE_MODE),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_SAFE_MODE),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_RLCS_GPM_STAT_2),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SPP_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_RLCS_BOOTLOAD_STATUS),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_INT_STAT),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_GPM_GENERAL_6),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_GPM_DEBUG_INST_A),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_GPM_DEBUG_INST_B),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_GPM_DEBUG_INST_ADDR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_LX6_CORE_PDEBUG_INST)
+> +};
+> +
+>  static const struct soc15_reg_golden golden_settings_gc_10_1[] =3D {
+>         SOC15_REG_GOLDEN_VALUE(GC, 0, mmCB_HW_CONTROL_4, 0xffffffff, 0x00=
+400014),
+>         SOC15_REG_GOLDEN_VALUE(GC, 0, mmCGTT_CPF_CLK_CTRL, 0xfcff8fff, 0x=
+f8000100),
+> @@ -4490,6 +4583,22 @@ static int gfx_v10_0_compute_ring_init(struct amdg=
+pu_device *adev, int ring_id,
+>                              hw_prio, NULL);
+>  }
+>
+> +static void gfx_v10_0_alloc_dump_mem(struct amdgpu_device *adev)
+> +{
+> +       uint32_t reg_count =3D ARRAY_SIZE(gc_reg_list_10_1);
+> +       uint32_t *ptr;
+> +
+> +       ptr =3D kcalloc(reg_count, sizeof(uint32_t), GFP_KERNEL);
+> +       if (ptr =3D=3D NULL) {
+> +               DRM_ERROR("Failed to allocate memory for IP Dump\n");
+> +               adev->gfx.ip_dump =3D NULL;
+> +               adev->gfx.reg_count =3D 0;
+> +       } else {
+> +               adev->gfx.ip_dump =3D ptr;
+> +               adev->gfx.reg_count =3D reg_count;
+> +       }
+> +}
+> +
+>  static int gfx_v10_0_sw_init(void *handle)
+>  {
+>         int i, j, k, r, ring_id =3D 0;
+> @@ -4642,6 +4751,8 @@ static int gfx_v10_0_sw_init(void *handle)
+>
+>         gfx_v10_0_gpu_early_init(adev);
+>
+> +       gfx_v10_0_alloc_dump_mem(adev);
+> +
+>         return 0;
+>  }
+>
+> @@ -4694,6 +4805,8 @@ static int gfx_v10_0_sw_fini(void *handle)
+>
+>         gfx_v10_0_free_microcode(adev);
+>
+> +       kfree(adev->gfx.ip_dump);
+> +
+>         return 0;
+>  }
+>
+> @@ -9154,6 +9267,21 @@ static void gfx_v10_0_emit_mem_sync(struct amdgpu_=
+ring *ring)
+>         amdgpu_ring_write(ring, gcr_cntl); /* GCR_CNTL */
+>  }
+>
+> +static void gfx_v10_ip_dump(void *handle)
+> +{
+> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> +       uint32_t i;
+> +       uint32_t reg_count =3D ARRAY_SIZE(gc_reg_list_10_1);
+> +
+> +       if (!adev->gfx.ip_dump)
+> +               return;
+> +
+> +       amdgpu_gfx_off_ctrl(adev, false);
+> +       for (i =3D 0; i < reg_count; i++)
+> +               adev->gfx.ip_dump[i] =3D RREG32(SOC15_REG_ENTRY_OFFSET(gc=
+_reg_list_10_1[i]));
+> +       amdgpu_gfx_off_ctrl(adev, true);
+> +}
+> +
+>  static const struct amd_ip_funcs gfx_v10_0_ip_funcs =3D {
+>         .name =3D "gfx_v10_0",
+>         .early_init =3D gfx_v10_0_early_init,
+> @@ -9170,7 +9298,7 @@ static const struct amd_ip_funcs gfx_v10_0_ip_funcs=
  =3D {
+>         .set_clockgating_state =3D gfx_v10_0_set_clockgating_state,
 >         .set_powergating_state =3D gfx_v10_0_set_powergating_state,
 >         .get_clockgating_state =3D gfx_v10_0_get_clockgating_state,
->         .dump_ip_state =3D gfx_v10_ip_dump,
-> +       .print_ip_state =3D NULL,
+> -       .dump_ip_state =3D NULL,
+> +       .dump_ip_state =3D gfx_v10_ip_dump,
 >  };
 >
 >  static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_gfx =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index fec076c90fd2..45f655c2b03d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -6170,6 +6170,7 @@ static const struct amd_ip_funcs gfx_v11_0_ip_funcs=
- =3D {
->         .set_powergating_state =3D gfx_v11_0_set_powergating_state,
->         .get_clockgating_state =3D gfx_v11_0_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.h b/drivers/gpu/drm/amd/amd=
+gpu/soc15.h
+> index 1444b7765e4b..282584a48be0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.h
+> @@ -88,6 +88,8 @@ struct soc15_ras_field_entry {
 >  };
 >
->  static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_gfx =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v6_0.c
-> index 559250c8a147..d0992ce9fb47 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> @@ -3458,6 +3458,7 @@ static const struct amd_ip_funcs gfx_v6_0_ip_funcs =
-=3D {
->         .set_clockgating_state =3D gfx_v6_0_set_clockgating_state,
->         .set_powergating_state =3D gfx_v6_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
+>  #define SOC15_REG_ENTRY(ip, inst, reg) ip##_HWIP, inst, reg##_BASE_IDX, =
+reg
+> +#define SOC15_REG_ENTRY_STR(ip, inst, reg) \
+> +       { ip##_HWIP, inst, reg##_BASE_IDX, reg, #reg }
 >
->  static const struct amdgpu_ring_funcs gfx_v6_0_ring_funcs_gfx =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v7_0.c
-> index 81f7ab0dc135..541dbd70d8c7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -4978,6 +4978,7 @@ static const struct amd_ip_funcs gfx_v7_0_ip_funcs =
-=3D {
->         .set_clockgating_state =3D gfx_v7_0_set_clockgating_state,
->         .set_powergating_state =3D gfx_v7_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
+>  #define SOC15_REG_ENTRY_OFFSET(entry)  (adev->reg_offset[entry.hwip][ent=
+ry.inst][entry.seg] + entry.reg_offset)
 >
->  static const struct amdgpu_ring_funcs gfx_v7_0_ring_funcs_gfx =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v8_0.c
-> index 522cbd45dd46..2f0e72caee1a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -6879,6 +6879,7 @@ static const struct amd_ip_funcs gfx_v8_0_ip_funcs =
-=3D {
->         .set_powergating_state =3D gfx_v8_0_set_powergating_state,
->         .get_clockgating_state =3D gfx_v8_0_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_gfx =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_0.c
-> index ff4229b005dc..75ea7c9e9c4d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -6857,6 +6857,7 @@ static const struct amd_ip_funcs gfx_v9_0_ip_funcs =
-=3D {
->         .set_powergating_state =3D gfx_v9_0_set_powergating_state,
->         .get_clockgating_state =3D gfx_v9_0_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_gfx =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v9_4_3.c
-> index 16881e9345c8..835004187a58 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -4017,6 +4017,7 @@ static const struct amd_ip_funcs gfx_v9_4_3_ip_func=
-s =3D {
->         .set_powergating_state =3D gfx_v9_4_3_set_powergating_state,
->         .get_clockgating_state =3D gfx_v9_4_3_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs gfx_v9_4_3_ring_funcs_compute =3D =
-{
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v6_0.c
-> index 060e54b8ffff..3e38d8bfcb69 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> @@ -1116,6 +1116,7 @@ static const struct amd_ip_funcs gmc_v6_0_ip_funcs =
-=3D {
->         .set_clockgating_state =3D gmc_v6_0_set_clockgating_state,
->         .set_powergating_state =3D gmc_v6_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_gmc_funcs gmc_v6_0_gmc_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v7_0.c
-> index 534825022ddd..85df8fc81065 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -1355,6 +1355,7 @@ static const struct amd_ip_funcs gmc_v7_0_ip_funcs =
-=3D {
->         .set_clockgating_state =3D gmc_v7_0_set_clockgating_state,
->         .set_powergating_state =3D gmc_v7_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_gmc_funcs gmc_v7_0_gmc_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v8_0.c
-> index aba787e1386a..fc97757e33d9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -1718,6 +1718,7 @@ static const struct amd_ip_funcs gmc_v8_0_ip_funcs =
-=3D {
->         .set_powergating_state =3D gmc_v8_0_set_powergating_state,
->         .get_clockgating_state =3D gmc_v8_0_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_gmc_funcs gmc_v8_0_gmc_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c b/drivers/gpu/drm/am=
-d/amdgpu/iceland_ih.c
-> index 2d6f969266b8..07984f7c3ae7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-> @@ -426,6 +426,7 @@ static const struct amd_ip_funcs iceland_ih_ip_funcs =
-=3D {
->         .set_clockgating_state =3D iceland_ih_set_clockgating_state,
->         .set_powergating_state =3D iceland_ih_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ih_funcs iceland_ih_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/ih_v6_0.c
-> index 77b5068b7be5..3cb64c8f7175 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-> @@ -771,6 +771,7 @@ static const struct amd_ip_funcs ih_v6_0_ip_funcs =3D=
- {
->         .set_powergating_state =3D ih_v6_0_set_powergating_state,
->         .get_clockgating_state =3D ih_v6_0_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ih_funcs ih_v6_0_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/a=
-mdgpu/ih_v6_1.c
-> index fc2c27a199c6..0fbf5fa7b0f8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-> @@ -776,6 +776,7 @@ static const struct amd_ip_funcs ih_v6_1_ip_funcs =3D=
- {
->         .set_powergating_state =3D ih_v6_1_set_powergating_state,
->         .get_clockgating_state =3D ih_v6_1_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ih_funcs ih_v6_1_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/ih_v7_0.c
-> index 31ed5030169b..aa6235dd4f2b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-> @@ -750,6 +750,7 @@ static const struct amd_ip_funcs ih_v7_0_ip_funcs =3D=
- {
->         .set_powergating_state =3D ih_v7_0_set_powergating_state,
->         .get_clockgating_state =3D ih_v7_0_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ih_funcs ih_v7_0_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd=
-/amdgpu/jpeg_v2_0.c
-> index 698c5d4b7484..ef3e42f6b841 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-> @@ -760,6 +760,7 @@ static const struct amd_ip_funcs jpeg_v2_0_ip_funcs =
-=3D {
->         .set_clockgating_state =3D jpeg_v2_0_set_clockgating_state,
->         .set_powergating_state =3D jpeg_v2_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs jpeg_v2_0_dec_ring_vm_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd=
-/amdgpu/jpeg_v2_5.c
-> index 0a9a2d58e3ee..afeaf3c64e27 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-> @@ -633,6 +633,7 @@ static const struct amd_ip_funcs jpeg_v2_5_ip_funcs =
-=3D {
->         .set_clockgating_state =3D jpeg_v2_5_set_clockgating_state,
->         .set_powergating_state =3D jpeg_v2_5_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amd_ip_funcs jpeg_v2_6_ip_funcs =3D {
-> @@ -654,6 +655,7 @@ static const struct amd_ip_funcs jpeg_v2_6_ip_funcs =
-=3D {
->         .set_clockgating_state =3D jpeg_v2_5_set_clockgating_state,
->         .set_powergating_state =3D jpeg_v2_5_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs jpeg_v2_5_dec_ring_vm_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd=
-/amdgpu/jpeg_v3_0.c
-> index e03d46151ae3..1c7cf4800bf7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-> @@ -558,6 +558,7 @@ static const struct amd_ip_funcs jpeg_v3_0_ip_funcs =
-=3D {
->         .set_clockgating_state =3D jpeg_v3_0_set_clockgating_state,
->         .set_powergating_state =3D jpeg_v3_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs jpeg_v3_0_dec_ring_vm_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/amd=
-/amdgpu/jpeg_v4_0.c
-> index f142cb200552..237fe5df5a8f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-> @@ -720,6 +720,7 @@ static const struct amd_ip_funcs jpeg_v4_0_ip_funcs =
-=3D {
->         .set_clockgating_state =3D jpeg_v4_0_set_clockgating_state,
->         .set_powergating_state =3D jpeg_v4_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs jpeg_v4_0_dec_ring_vm_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/a=
-md/amdgpu/jpeg_v4_0_3.c
-> index bc3a6f16f4bf..d66af11aa66c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> @@ -1054,6 +1054,7 @@ static const struct amd_ip_funcs jpeg_v4_0_3_ip_fun=
-cs =3D {
->         .set_clockgating_state =3D jpeg_v4_0_3_set_clockgating_state,
->         .set_powergating_state =3D jpeg_v4_0_3_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs jpeg_v4_0_3_dec_ring_vm_funcs =3D =
-{
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c b/drivers/gpu/drm/a=
-md/amdgpu/jpeg_v4_0_5.c
-> index ee29c97721ec..da6bb9022b80 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-> @@ -763,6 +763,7 @@ static const struct amd_ip_funcs jpeg_v4_0_5_ip_funcs=
- =3D {
->         .set_clockgating_state =3D jpeg_v4_0_5_set_clockgating_state,
->         .set_powergating_state =3D jpeg_v4_0_5_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs jpeg_v4_0_5_dec_ring_vm_funcs =3D =
-{
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/a=
-md/amdgpu/jpeg_v5_0_0.c
-> index f5664c92d10d..64c856bfe0cb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-> @@ -514,6 +514,7 @@ static const struct amd_ip_funcs jpeg_v5_0_0_ip_funcs=
- =3D {
->         .set_clockgating_state =3D jpeg_v5_0_0_set_clockgating_state,
->         .set_powergating_state =3D jpeg_v5_0_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs jpeg_v5_0_0_dec_ring_vm_funcs =3D =
-{
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v10_1.c
-> index 4ed0429cf4f7..a626bf904926 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-> @@ -1177,6 +1177,7 @@ static const struct amd_ip_funcs mes_v10_1_ip_funcs=
- =3D {
->         .suspend =3D mes_v10_1_suspend,
->         .resume =3D mes_v10_1_resume,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  const struct amdgpu_ip_block_version mes_v10_1_ip_block =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index 57f17c699d80..515938961629 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -1335,6 +1335,7 @@ static const struct amd_ip_funcs mes_v11_0_ip_funcs=
- =3D {
->         .suspend =3D mes_v11_0_suspend,
->         .resume =3D mes_v11_0_resume,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  const struct amdgpu_ip_block_version mes_v11_0_ip_block =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd=
-/amdgpu/navi10_ih.c
-> index 550c5ca4ea03..b281462093f1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> @@ -714,6 +714,7 @@ static const struct amd_ip_funcs navi10_ih_ip_funcs =
-=3D {
->         .set_powergating_state =3D navi10_ih_set_powergating_state,
->         .get_clockgating_state =3D navi10_ih_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ih_funcs navi10_ih_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu=
-/nv.c
-> index d7d3b972392b..b5303cd3cb53 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -1132,4 +1132,5 @@ static const struct amd_ip_funcs nv_common_ip_funcs=
- =3D {
->         .set_powergating_state =3D nv_common_set_powergating_state,
->         .get_clockgating_state =3D nv_common_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd=
-/amdgpu/sdma_v2_4.c
-> index 5c67c8a5c35f..3c67bd35302d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-> @@ -1114,6 +1114,7 @@ static const struct amd_ip_funcs sdma_v2_4_ip_funcs=
- =3D {
->         .set_clockgating_state =3D sdma_v2_4_set_clockgating_state,
->         .set_powergating_state =3D sdma_v2_4_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs sdma_v2_4_ring_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd=
-/amdgpu/sdma_v3_0.c
-> index 4fad06daa9c9..060798bf04db 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> @@ -1554,6 +1554,7 @@ static const struct amd_ip_funcs sdma_v3_0_ip_funcs=
- =3D {
->         .set_powergating_state =3D sdma_v3_0_set_powergating_state,
->         .get_clockgating_state =3D sdma_v3_0_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs sdma_v3_0_ring_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu=
-/si.c
-> index b5b15dba9a76..85235470e872 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
-> @@ -2707,6 +2707,7 @@ static const struct amd_ip_funcs si_common_ip_funcs=
- =3D {
->         .set_clockgating_state =3D si_common_set_clockgating_state,
->         .set_powergating_state =3D si_common_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ip_block_version si_common_ip_block =3D
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si_dma.c b/drivers/gpu/drm/amd/am=
-dgpu/si_dma.c
-> index f969e5cc2a5e..c23d85542cfb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si_dma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/si_dma.c
-> @@ -709,6 +709,7 @@ static const struct amd_ip_funcs si_dma_ip_funcs =3D =
-{
->         .set_clockgating_state =3D si_dma_set_clockgating_state,
->         .set_powergating_state =3D si_dma_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs si_dma_ring_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amd=
-gpu/si_ih.c
-> index 3b7427f5a6c9..5237395e4fab 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> @@ -297,6 +297,7 @@ static const struct amd_ip_funcs si_ih_ip_funcs =3D {
->         .set_clockgating_state =3D si_ih_set_clockgating_state,
->         .set_powergating_state =3D si_ih_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ih_funcs si_ih_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amd=
-gpu/soc15.c
-> index 6ba6c96c91c8..a5d3c66b5868 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -1502,4 +1502,5 @@ static const struct amd_ip_funcs soc15_common_ip_fu=
-ncs =3D {
->         .set_powergating_state =3D soc15_common_set_powergating_state,
->         .get_clockgating_state=3D soc15_common_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amd=
-gpu/soc21.c
-> index 40e7ab0716cd..27c26e42120e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> @@ -986,4 +986,5 @@ static const struct amd_ip_funcs soc21_common_ip_func=
-s =3D {
->         .set_powergating_state =3D soc21_common_set_powergating_state,
->         .get_clockgating_state =3D soc21_common_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
-> diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/=
-amdgpu/tonga_ih.c
-> index 794a1f7bc2ca..24d49d813607 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> @@ -487,6 +487,7 @@ static const struct amd_ip_funcs tonga_ih_ip_funcs =
-=3D {
->         .set_clockgating_state =3D tonga_ih_set_clockgating_state,
->         .set_powergating_state =3D tonga_ih_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ih_funcs tonga_ih_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/=
-amdgpu/uvd_v3_1.c
-> index 1e232ed23102..805d6662c88b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> @@ -820,6 +820,7 @@ static const struct amd_ip_funcs uvd_v3_1_ip_funcs =
-=3D {
->         .set_clockgating_state =3D uvd_v3_1_set_clockgating_state,
->         .set_powergating_state =3D uvd_v3_1_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  const struct amdgpu_ip_block_version uvd_v3_1_ip_block =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/=
-amdgpu/uvd_v4_2.c
-> index 48bcf41e5558..3f19c606f4de 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-> @@ -770,6 +770,7 @@ static const struct amd_ip_funcs uvd_v4_2_ip_funcs =
-=3D {
->         .set_clockgating_state =3D uvd_v4_2_set_clockgating_state,
->         .set_powergating_state =3D uvd_v4_2_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs uvd_v4_2_ring_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/=
-amdgpu/uvd_v5_0.c
-> index 838b7d720c52..efd903c21d48 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-> @@ -878,6 +878,7 @@ static const struct amd_ip_funcs uvd_v5_0_ip_funcs =
-=3D {
->         .set_powergating_state =3D uvd_v5_0_set_powergating_state,
->         .get_clockgating_state =3D uvd_v5_0_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs uvd_v5_0_ring_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/uvd_v6_0.c
-> index 036378f5f53f..495de5068455 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> @@ -1546,6 +1546,7 @@ static const struct amd_ip_funcs uvd_v6_0_ip_funcs =
-=3D {
->         .set_powergating_state =3D uvd_v6_0_set_powergating_state,
->         .get_clockgating_state =3D uvd_v6_0_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs uvd_v6_0_ring_phys_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c b/drivers/gpu/drm/amd/=
-amdgpu/vce_v2_0.c
-> index 2178cf5a27b7..66fada199bda 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-> @@ -627,6 +627,7 @@ static const struct amd_ip_funcs vce_v2_0_ip_funcs =
-=3D {
->         .set_clockgating_state =3D vce_v2_0_set_clockgating_state,
->         .set_powergating_state =3D vce_v2_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs vce_v2_0_ring_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/=
-amdgpu/vce_v3_0.c
-> index 0f0d4b0d50cb..32517c364cf7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-> @@ -914,6 +914,7 @@ static const struct amd_ip_funcs vce_v3_0_ip_funcs =
-=3D {
->         .set_powergating_state =3D vce_v3_0_set_powergating_state,
->         .get_clockgating_state =3D vce_v3_0_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs vce_v3_0_ring_phys_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/=
-amdgpu/vcn_v1_0.c
-> index 7ff5d0574454..cb253bd3a2a2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> @@ -1903,6 +1903,7 @@ static const struct amd_ip_funcs vcn_v1_0_ip_funcs =
-=3D {
->         .set_clockgating_state =3D vcn_v1_0_set_clockgating_state,
->         .set_powergating_state =3D vcn_v1_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  /*
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/=
-amdgpu/vcn_v2_0.c
-> index 4df1b75f971a..f18fd61c435e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> @@ -2009,6 +2009,7 @@ static const struct amd_ip_funcs vcn_v2_0_ip_funcs =
-=3D {
->         .set_clockgating_state =3D vcn_v2_0_set_clockgating_state,
->         .set_powergating_state =3D vcn_v2_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ring_funcs vcn_v2_0_dec_ring_vm_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/=
-amdgpu/vcn_v2_5.c
-> index d91c3154641b..baec14bde2a2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> @@ -1902,6 +1902,7 @@ static const struct amd_ip_funcs vcn_v2_5_ip_funcs =
-=3D {
->         .set_clockgating_state =3D vcn_v2_5_set_clockgating_state,
->         .set_powergating_state =3D vcn_v2_5_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amd_ip_funcs vcn_v2_6_ip_funcs =3D {
-> @@ -1923,6 +1924,7 @@ static const struct amd_ip_funcs vcn_v2_6_ip_funcs =
-=3D {
->          .set_clockgating_state =3D vcn_v2_5_set_clockgating_state,
->          .set_powergating_state =3D vcn_v2_5_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  const struct amdgpu_ip_block_version vcn_v2_5_ip_block =3D
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/=
-amdgpu/vcn_v3_0.c
-> index e64af339e924..91bfad1ef1a9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> @@ -2231,6 +2231,7 @@ static const struct amd_ip_funcs vcn_v3_0_ip_funcs =
-=3D {
->         .set_clockgating_state =3D vcn_v3_0_set_clockgating_state,
->         .set_powergating_state =3D vcn_v3_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  const struct amdgpu_ip_block_version vcn_v3_0_ip_block =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/=
-amdgpu/vcn_v4_0.c
-> index efaad53e2ffe..92478b1c0dc8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> @@ -2131,6 +2131,7 @@ static const struct amd_ip_funcs vcn_v4_0_ip_funcs =
-=3D {
->         .set_clockgating_state =3D vcn_v4_0_set_clockgating_state,
->         .set_powergating_state =3D vcn_v4_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  const struct amdgpu_ip_block_version vcn_v4_0_ip_block =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/am=
-d/amdgpu/vcn_v4_0_3.c
-> index 599b6466183e..2279d8fce03d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> @@ -1661,6 +1661,7 @@ static const struct amd_ip_funcs vcn_v4_0_3_ip_func=
-s =3D {
->         .set_clockgating_state =3D vcn_v4_0_3_set_clockgating_state,
->         .set_powergating_state =3D vcn_v4_0_3_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  const struct amdgpu_ip_block_version vcn_v4_0_3_ip_block =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/am=
-d/amdgpu/vcn_v4_0_5.c
-> index c649fa2c19e8..874b780ee09c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> @@ -1753,6 +1753,7 @@ static const struct amd_ip_funcs vcn_v4_0_5_ip_func=
-s =3D {
->         .set_clockgating_state =3D vcn_v4_0_5_set_clockgating_state,
->         .set_powergating_state =3D vcn_v4_0_5_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  const struct amdgpu_ip_block_version vcn_v4_0_5_ip_block =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/am=
-d/amdgpu/vcn_v5_0_0.c
-> index 9d0d1efd1acc..cfd351e22c14 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> @@ -1329,6 +1329,7 @@ static const struct amd_ip_funcs vcn_v5_0_0_ip_func=
-s =3D {
->         .set_clockgating_state =3D vcn_v5_0_0_set_clockgating_state,
->         .set_powergating_state =3D vcn_v5_0_0_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  const struct amdgpu_ip_block_version vcn_v5_0_0_ip_block =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu=
-/vi.c
-> index a04aa6833fc5..d39c670f6220 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-> @@ -2059,6 +2059,7 @@ static const struct amd_ip_funcs vi_common_ip_funcs=
- =3D {
->         .set_powergating_state =3D vi_common_set_powergating_state,
->         .get_clockgating_state =3D vi_common_get_clockgating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  static const struct amdgpu_ip_block_version vi_common_ip_block =3D
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 8bd8bd77b9be..af1685090246 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3121,6 +3121,7 @@ static const struct amd_ip_funcs amdgpu_dm_funcs =
-=3D {
->         .set_clockgating_state =3D dm_set_clockgating_state,
->         .set_powergating_state =3D dm_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  const struct amdgpu_ip_block_version dm_ip_block =3D {
-> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/a=
-md/include/amd_shared.h
-> index 9884f6c48a7d..7536c173a546 100644
-> --- a/drivers/gpu/drm/amd/include/amd_shared.h
-> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
-> @@ -24,6 +24,7 @@
->  #define __AMD_SHARED_H__
->
->  #include <drm/amd_asic_type.h>
-> +#include <drm/drm_print.h>
->
->
->  #define AMD_MAX_USEC_TIMEOUT           1000000  /* 1000 ms */
-> @@ -322,6 +323,7 @@ struct amd_ip_funcs {
->                                      enum amd_powergating_state state);
->         void (*get_clockgating_state)(void *handle, u64 *flags);
->         void (*dump_ip_state)(void *handle);
-> +       void (*print_ip_state)(void *handle, struct drm_printer *p);
->  };
->
->
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm=
-/amd/pm/legacy-dpm/kv_dpm.c
-> index 8c07f8c7f3ab..6bb42d04b247 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> @@ -3317,6 +3317,7 @@ static const struct amd_ip_funcs kv_dpm_ip_funcs =
-=3D {
->         .set_clockgating_state =3D kv_dpm_set_clockgating_state,
->         .set_powergating_state =3D kv_dpm_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  const struct amdgpu_ip_block_version kv_smu_ip_block =3D {
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm=
-/amd/pm/legacy-dpm/si_dpm.c
-> index c312b9332326..f245fc0bc6d3 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> @@ -8061,6 +8061,7 @@ static const struct amd_ip_funcs si_dpm_ip_funcs =
-=3D {
->         .set_clockgating_state =3D si_dpm_set_clockgating_state,
->         .set_powergating_state =3D si_dpm_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  const struct amdgpu_ip_block_version si_smu_ip_block =3D
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/g=
-pu/drm/amd/pm/powerplay/amd_powerplay.c
-> index c63474ee17a7..5fb21a0508cd 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> @@ -303,6 +303,7 @@ static const struct amd_ip_funcs pp_ip_funcs =3D {
->         .set_clockgating_state =3D pp_set_clockgating_state,
->         .set_powergating_state =3D pp_set_powergating_state,
->         .dump_ip_state =3D NULL,
-> +       .print_ip_state =3D NULL,
->  };
->
->  const struct amdgpu_ip_block_version pp_smu_ip_block =3D
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h b=
+/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
+> index 4908044f7409..4c8e7fdb6976 100644
+> --- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
+> @@ -4830,6 +4830,8 @@
+>  #define mmCP_ECC_FIRSTOCCURRENCE_RING2_BASE_IDX                         =
+                               0
+>  #define mmGB_EDC_MODE                                                   =
+                               0x1e1e
+>  #define mmGB_EDC_MODE_BASE_IDX                                          =
+                               0
+> +#define mmCP_DEBUG                                                      =
+                               0x1e1f
+> +#define mmCP_DEBUG_BASE_IDX                                             =
+                               0
+>  #define mmCP_FETCHER_SOURCE                                             =
+                               0x1e22
+>  #define mmCP_FETCHER_SOURCE_BASE_IDX                                    =
+                               0
+>  #define mmCP_PQ_WPTR_POLL_CNTL                                          =
+                               0x1e23
+> @@ -7778,6 +7780,8 @@
+>  #define mmCP_MES_DOORBELL_CONTROL5_BASE_IDX                             =
+                               1
+>  #define mmCP_MES_DOORBELL_CONTROL6                                      =
+                               0x2841
+>  #define mmCP_MES_DOORBELL_CONTROL6_BASE_IDX                             =
+                               1
+> +#define mmCP_MES_DEBUG_INTERRUPT_INSTR_PNTR                             =
+                               0x2842
+> +#define mmCP_MES_DEBUG_INTERRUPT_INSTR_PNTR_BASE_IDX                    =
+                               1
+>  #define mmCP_MES_GP0_LO                                                 =
+                               0x2843
+>  #define mmCP_MES_GP0_LO_BASE_IDX                                        =
+                               1
+>  #define mmCP_MES_GP0_HI                                                 =
+                               0x2844
+> @@ -9332,10 +9336,16 @@
+>  #define mmRLC_LB_CNTR_INIT_1_BASE_IDX                                   =
+                               1
+>  #define mmRLC_LB_CNTR_1                                                 =
+                               0x4c1c
+>  #define mmRLC_LB_CNTR_1_BASE_IDX                                        =
+                               1
+> +#define mmRLC_GPM_DEBUG_INST_ADDR                                       =
+                               0x4c1d
+> +#define mmRLC_GPM_DEBUG_INST_ADDR_BASE_IDX                              =
+                               1
+>  #define mmRLC_JUMP_TABLE_RESTORE                                        =
+                               0x4c1e
+>  #define mmRLC_JUMP_TABLE_RESTORE_BASE_IDX                               =
+                               1
+>  #define mmRLC_PG_DELAY_2                                                =
+                               0x4c1f
+>  #define mmRLC_PG_DELAY_2_BASE_IDX                                       =
+                               1
+> +#define mmRLC_GPM_DEBUG_INST_A                                          =
+                               0x4c22
+> +#define mmRLC_GPM_DEBUG_INST_A_BASE_IDX                                 =
+                               1
+> +#define mmRLC_GPM_DEBUG_INST_B                                          =
+                               0x4c23
+> +#define mmRLC_GPM_DEBUG_INST_B_BASE_IDX                                 =
+                               1
+>  #define mmRLC_GPU_CLOCK_COUNT_LSB                                       =
+                               0x4c24
+>  #define mmRLC_GPU_CLOCK_COUNT_LSB_BASE_IDX                              =
+                               1
+>  #define mmRLC_GPU_CLOCK_COUNT_MSB                                       =
+                               0x4c25
+> @@ -9720,6 +9730,8 @@
+>  #define mmRLC_SPM_THREAD_TRACE_CTRL_BASE_IDX                            =
+                               1
+>  #define mmRLC_LB_CNTR_2                                                 =
+                               0x4de7
+>  #define mmRLC_LB_CNTR_2_BASE_IDX                                        =
+                               1
+> +#define mmRLC_LX6_CORE_PDEBUG_INST                                      =
+                               0x4deb
+> +#define mmRLC_LX6_CORE_PDEBUG_INST_BASE_IDX                             =
+                               1
+>  #define mmRLC_CPAXI_DOORBELL_MON_CTRL                                   =
+                               0x4df1
+>  #define mmRLC_CPAXI_DOORBELL_MON_CTRL_BASE_IDX                          =
+                               1
+>  #define mmRLC_CPAXI_DOORBELL_MON_STAT                                   =
+                               0x4df2
 > --
 > 2.34.1
 >
