@@ -4,82 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E13E2C4345F
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Apr 2024 06:12:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F24C8C4345F
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Apr 2024 08:03:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 315F3113A1A;
-	Thu, 18 Apr 2024 06:12:15 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i7vIj8ai";
-	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23D9A113A19
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Apr 2024 06:12:13 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-418e4cd2196so1894695e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Apr 2024 23:12:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1713420731; x=1714025531; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=gqIHnEwqGHXdgfu572gJyBdtBmb8U/W8oVL+SeWxpO4=;
- b=i7vIj8ai6sEzteF6wokZnctVIh5k0GCukSzPLZ/ecBrYNtzFA/MF9/ckz0QG+BFhrz
- 28rup2TStNbrYtVixNZ0AvJvgv1EIOOdnM960ikZ62D6zW2gzUHf1Z3F61G8s7QKjZ7X
- fh7BgEkN2oFGMDQ4PtcoE58hPSb2oEHbFDRdh6879yXijMLC0gvD2uriMapn3iJ5mA/a
- lf4RRF3Wg+oqkzLVGMfb5s9yGiEX8gutWsQG67wE/4QTt5YuzyafkG1D6PTkd5My99qv
- 2xAYDa0Ttf2YNDkMCErzZ8NI6vQGnlosnXFxBYdMDadU5S1f4K5z+vsd5thZLpNMRZ1X
- pj7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713420731; x=1714025531;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=gqIHnEwqGHXdgfu572gJyBdtBmb8U/W8oVL+SeWxpO4=;
- b=sSpcroqkq/D3P7q2WpACxBkwm0/nRt/2R/AuNYrHzyhxsEdmJAMIcrK4g7OCPkFmE2
- 5Jjm3ayh5NKuB2BamWKoz/1KZ0N1ZQzhTdhNJN1HCxPqBEnhdcTlcswAEbYRbVBgnrvq
- tp2aqDkzm7ysZ9b3zn5YzemqooVCZY8kvEgANNy9k77bti9LgeWztp6zZ/GvipYZvPTa
- TeNGjJaW13vPdhz4T7d+/1TWNibcSl5bBM3jyZRss5datKaDUSZ4fCBEnsxBeIZJwUwQ
- vtfae4PtChN6AdTZIYmKOHl6FQHZkMkNjHP7FZDAa8NAajp7PghV08C0qhhExKUv/nnr
- sEwQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVHIBJzHsd8QhKxxyhqRFP6eBLO15t7/lC0e5v5IkGT5mJiLu4TmMuSXVDusXgmlgI73ZuJqBHqa3Gyt/waQ08b1vD51T130ZBbLSymuw==
-X-Gm-Message-State: AOJu0YyE5CCnd8P3sBw5YXoc5hYreX+Ay/HLFxS1+5dd9UosIALZWU60
- Au2Mhk1DMP/tinrpYhGpALMwhqElBYjfS1AGEbE9tZvywSv67dXy
-X-Google-Smtp-Source: AGHT+IEv+8r0TYW4PNgbnphxJSZhZgzVMmDE57Tz1vMH8kAwUPPRwzeOiqw4UbZfI1Ieq+AwbLWhhw==
-X-Received: by 2002:a05:600c:1ca7:b0:416:7b2c:df04 with SMTP id
- k39-20020a05600c1ca700b004167b2cdf04mr1166782wms.1.1713420730737; 
- Wed, 17 Apr 2024 23:12:10 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- fj4-20020a05600c0c8400b004163321790esm1433926wmb.19.2024.04.17.23.12.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Apr 2024 23:12:10 -0700 (PDT)
-Message-ID: <d7547fff-8873-4194-87ee-13a1c64ea363@gmail.com>
-Date: Thu, 18 Apr 2024 08:12:08 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A06310F9CE;
+	Thu, 18 Apr 2024 08:03:32 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D92AC1128BA;
+ Thu, 18 Apr 2024 01:51:39 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.163.252])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4VKghl6jVGzYdll;
+ Thu, 18 Apr 2024 09:50:31 +0800 (CST)
+Received: from dggpeml500026.china.huawei.com (unknown [7.185.36.106])
+ by mail.maildlp.com (Postfix) with ESMTPS id 8B50E18006B;
+ Thu, 18 Apr 2024 09:51:33 +0800 (CST)
+Received: from dggpeml500025.china.huawei.com (7.185.36.35) by
+ dggpeml500026.china.huawei.com (7.185.36.106) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Thu, 18 Apr 2024 09:51:33 +0800
+Received: from dggpeml500025.china.huawei.com ([7.185.36.35]) by
+ dggpeml500025.china.huawei.com ([7.185.36.35]) with mapi id 15.01.2507.035;
+ Thu, 18 Apr 2024 09:51:33 +0800
+From: wangzhu <wangzhu9@huawei.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+CC: "harry.wentland@amd.com" <harry.wentland@amd.com>, "sunpeng.li@amd.com"
+ <sunpeng.li@amd.com>, "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>, "airlied@linux.ie"
+ <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "qingqing.zhuo@amd.com" <qingqing.zhuo@amd.com>, "stylon.wang@amd.com"
+ <stylon.wang@amd.com>, "Josip.Pavic@amd.com" <Josip.Pavic@amd.com>,
+ "trix@redhat.com" <trix@redhat.com>, "cruise.hung@amd.com"
+ <cruise.hung@amd.com>, "Eric.Yang2@amd.com" <Eric.Yang2@amd.com>,
+ "mario.limonciello@amd.com" <mario.limonciello@amd.com>, "alvin.lee2@amd.com"
+ <alvin.lee2@amd.com>, "jun.lei@amd.com" <jun.lei@amd.com>,
+ "austin.zheng@amd.com" <austin.zheng@amd.com>, "sunglee@amd.com"
+ <sunglee@amd.com>, "paul.hsieh@amd.com" <paul.hsieh@amd.com>,
+ "hanghong.ma@amd.com" <hanghong.ma@amd.com>, "JinZe.Xu@amd.com"
+ <JinZe.Xu@amd.com>, "lewis.huang@amd.com" <lewis.huang@amd.com>, Zhengzengkai
+ <zhengzengkai@huawei.com>, "alex.hung@amd.com" <alex.hung@amd.com>,
+ "syed.hassan@amd.com" <syed.hassan@amd.com>, "wayne.lin@amd.com"
+ <wayne.lin@amd.com>, "nicholas.kazlauskas@amd.com"
+ <nicholas.kazlauskas@amd.com>, "chiahsuan.chung@amd.com"
+ <chiahsuan.chung@amd.com>, "aurabindo.pillai@amd.com"
+ <aurabindo.pillai@amd.com>, "aric.cyr@amd.com" <aric.cyr@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: =?gb2312?B?tPC4tDogW1BBVENIIHY2LjZdIGRybS9hbWQvZGlzcGxheTogV2FrZSBETUNV?=
+ =?gb2312?Q?B_before_executing_GPINT_commands?=
+Thread-Topic: [PATCH v6.6] drm/amd/display: Wake DMCUB before executing GPINT
+ commands
+Thread-Index: AQHaj7JoVDAN/0mP/Uu5GFZtNQKS9LFpzsuAgANwVPA=
+Date: Thu, 18 Apr 2024 01:51:33 +0000
+Message-ID: <036c3371d3a64ef8881260197ce37dbc@huawei.com>
+References: <20240416035240.2450127-1-wangzhu9@huawei.com>
+ <2024041658-imagines-unlatch-a9b6@gregkh>
+In-Reply-To: <2024041658-imagines-unlatch-a9b6@gregkh>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.67.110.142]
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/6] drm/amdgpu: add support of gfx10 register dump
-To: Alex Deucher <alexdeucher@gmail.com>, "Khatri, Sunil" <sukhatri@amd.com>
-Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Khatri, Sunil"
- <Sunil.Khatri@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20240417093809.168002-1-sunil.khatri@amd.com>
- <20240417093809.168002-2-sunil.khatri@amd.com>
- <CADnq5_MkYKO5Z3LBRdJsTO0+Wf+YWVgUONTt5Y1Lrm+6SXJfTQ@mail.gmail.com>
- <fbf4f592-77db-4087-9dcb-3d9a49302164@amd.com>
- <07e86900-125f-457f-95b0-1f6d4a6e9598@amd.com>
- <DS0PR12MB7804D33979E4F1CF29AC8722970F2@DS0PR12MB7804.namprd12.prod.outlook.com>
- <CADnq5_MQuZiRvTumvQVw6HxM7ZxQ25DPQbOc2aEu7Mxvm2RgNA@mail.gmail.com>
- <83a9afb6-6a2a-40e4-a86b-4a0d373a0cfa@amd.com>
- <CADnq5_NpDU8usDe=G1VmaFKQOgOGB5AkbGO47sC38CvHAR_68A@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CADnq5_NpDU8usDe=G1VmaFKQOgOGB5AkbGO47sC38CvHAR_68A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 18 Apr 2024 08:03:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,368 +84,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.04.24 um 19:30 schrieb Alex Deucher:
-> On Wed, Apr 17, 2024 at 1:01 PM Khatri, Sunil <sukhatri@amd.com> wrote:
->>
->> On 4/17/2024 10:21 PM, Alex Deucher wrote:
->>> On Wed, Apr 17, 2024 at 12:24 PM Lazar, Lijo <Lijo.Lazar@amd.com> wrote:
->>>> [AMD Official Use Only - General]
->>>>
->>>> Yes, right now that API doesn't return anything. What I meant is to add that check as well as coredump API is essentially used in hang situations.
->>>>
->>>> Old times, access to registers while in GFXOFF resulted in system hang (basically it won't go beyond this point). If that happens, then the purpose of the patch - to get the context of a device hang - is lost. We may not even get a proper dmesg log.
->>> Maybe add a call to amdgpu_get_gfx_off_status(), but unfortunately,
->>> it's not implemented on every chip yet.
->> So we need both the things do gfx_off and then try status and then read
->> reg and enable gfx_off again.
-> RIght, but first we need to implement the get_gfxoff_status smu
-> callback for all of the chips that are missing it.
-
-The question is if it's save to query the status and disable it while 
-the GPU is in a hung state?
-
-I mean most of unrecoverable hungs are caused by the GFX block or the 
-memory interface getting into a state where it can't get out again.
-
-Regards,
-Christian.
-
->
-> Alex
->
->>    amdgpu_gfx_off_ctrl(adev, false);
->>    r= amdgpu_get_gfx_off_status
->>    if (!r) {
->>
->>          for (i = 0; i < reg_count; i++)
->>                  adev->gfx.ip_dump[i] =
->>                  RREG32(SOC15_REG_ENTRY_OFFSET(gc_reg_list_10_1[i]));
->> }
->> amdgpu_gfx_off_ctrl(adev, true);
->>
->> Sunil
->>
->>> Alex
->>>
->>>> Thanks,
->>>> Lijo
->>>> -----Original Message-----
->>>> From: Khatri, Sunil <Sunil.Khatri@amd.com>
->>>> Sent: Wednesday, April 17, 2024 9:42 PM
->>>> To: Lazar, Lijo <Lijo.Lazar@amd.com>; Alex Deucher <alexdeucher@gmail.com>; Khatri, Sunil <Sunil.Khatri@amd.com>
->>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
->>>> Subject: Re: [PATCH v5 2/6] drm/amdgpu: add support of gfx10 register dump
->>>>
->>>>
->>>> On 4/17/2024 9:31 PM, Lazar, Lijo wrote:
->>>>> On 4/17/2024 9:21 PM, Alex Deucher wrote:
->>>>>> On Wed, Apr 17, 2024 at 5:38 AM Sunil Khatri <sunil.khatri@amd.com> wrote:
->>>>>>> Adding gfx10 gc registers to be used for register dump via
->>>>>>> devcoredump during a gpu reset.
->>>>>>>
->>>>>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->>>>>> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->>>>>>
->>>>>>> ---
->>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   8 ++
->>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |   4 +
->>>>>>>     drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 130 +++++++++++++++++-
->>>>>>>     drivers/gpu/drm/amd/amdgpu/soc15.h            |   2 +
->>>>>>>     .../include/asic_reg/gc/gc_10_1_0_offset.h    |  12 ++
->>>>>>>     5 files changed, 155 insertions(+), 1 deletion(-)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>>>> index e0d7f4ee7e16..cac0ca64367b 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>>>> @@ -139,6 +139,14 @@ enum amdgpu_ss {
->>>>>>>            AMDGPU_SS_DRV_UNLOAD
->>>>>>>     };
->>>>>>>
->>>>>>> +struct amdgpu_hwip_reg_entry {
->>>>>>> +       u32             hwip;
->>>>>>> +       u32             inst;
->>>>>>> +       u32             seg;
->>>>>>> +       u32             reg_offset;
->>>>>>> +       const char      *reg_name;
->>>>>>> +};
->>>>>>> +
->>>>>>>     struct amdgpu_watchdog_timer {
->>>>>>>            bool timeout_fatal_disable;
->>>>>>>            uint32_t period; /* maxCycles = (1 << period), the number
->>>>>>> of cycles before a timeout */ diff --git
->>>>>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->>>>>>> index 04a86dff71e6..64f197bbc866 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->>>>>>> @@ -433,6 +433,10 @@ struct amdgpu_gfx {
->>>>>>>            uint32_t                        num_xcc_per_xcp;
->>>>>>>            struct mutex                    partition_mutex;
->>>>>>>            bool                            mcbp; /* mid command buffer preemption */
->>>>>>> +
->>>>>>> +       /* IP reg dump */
->>>>>>> +       uint32_t                        *ip_dump;
->>>>>>> +       uint32_t                        reg_count;
->>>>>>>     };
->>>>>>>
->>>>>>>     struct amdgpu_gfx_ras_reg_entry {
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
->>>>>>> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
->>>>>>> index a0bc4196ff8b..4a54161f4837 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
->>>>>>> @@ -276,6 +276,99 @@ MODULE_FIRMWARE("amdgpu/gc_10_3_7_mec.bin");
->>>>>>>     MODULE_FIRMWARE("amdgpu/gc_10_3_7_mec2.bin");
->>>>>>>     MODULE_FIRMWARE("amdgpu/gc_10_3_7_rlc.bin");
->>>>>>>
->>>>>>> +static const struct amdgpu_hwip_reg_entry gc_reg_list_10_1[] = {
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS2),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS3),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_STALLED_STAT1),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_STALLED_STAT2),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPC_STALLED_STAT1),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPF_STALLED_STAT1),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_BUSY_STAT),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPC_BUSY_STAT),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPF_BUSY_STAT),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPC_BUSY_STAT2),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPF_BUSY_STAT2),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPF_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_GFX_ERROR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_GFX_HPD_STATUS0),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB_BASE),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB_RPTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB_WPTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB0_BASE),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB0_RPTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB0_WPTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB1_BASE),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB1_RPTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB1_WPTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB2_BASE),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB2_WPTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_RB2_WPTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB1_CMD_BUFSZ),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB2_CMD_BUFSZ),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB1_CMD_BUFSZ),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB2_CMD_BUFSZ),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB1_BASE_LO),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB1_BASE_HI),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB1_BUFSZ),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB2_BASE_LO),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB2_BASE_HI),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_IB2_BUFSZ),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB1_BASE_LO),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB1_BASE_HI),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB1_BUFSZ),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB2_BASE_LO),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB2_BASE_HI),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_IB2_BUFSZ),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCPF_UTCL1_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCPC_UTCL1_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCPG_UTCL1_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmGDS_PROTECTION_FAULT),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmGDS_VM_PROTECTION_FAULT),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmIA_UTCL1_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmIA_UTCL1_STATUS_2),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmPA_CL_CNTL_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_UTCL1_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRMI_UTCL1_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmSQC_DCACHE_UTCL0_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmSQC_ICACHE_UTCL0_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmSQG_UTCL0_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmTCP_UTCL0_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmWD_UTCL1_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmGCVM_L2_PROTECTION_FAULT_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_DEBUG),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC_CNTL),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_MES_CNTL),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CE_INSTR_PNTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC1_INSTR_PNTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_MEC2_INSTR_PNTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_MES_DEBUG_INTERRUPT_INSTR_PNTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_MES_INSTR_PNTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_ME_INSTR_PNTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_PFP_INSTR_PNTR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_CPC_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_STAT),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_COMMAND),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_MESSAGE),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_ARGUMENT_1),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_ARGUMENT_2),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_ARGUMENT_3),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_ARGUMENT_4),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmSMU_RLC_RESPONSE),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SAFE_MODE),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SMU_SAFE_MODE),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_RLCS_GPM_STAT_2),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_SPP_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_RLCS_BOOTLOAD_STATUS),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_INT_STAT),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_GPM_GENERAL_6),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_GPM_DEBUG_INST_A),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_GPM_DEBUG_INST_B),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_GPM_DEBUG_INST_ADDR),
->>>>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmRLC_LX6_CORE_PDEBUG_INST) };
->>>>>>> +
->>>>>>>     static const struct soc15_reg_golden golden_settings_gc_10_1[] = {
->>>>>>>            SOC15_REG_GOLDEN_VALUE(GC, 0, mmCB_HW_CONTROL_4, 0xffffffff, 0x00400014),
->>>>>>>            SOC15_REG_GOLDEN_VALUE(GC, 0, mmCGTT_CPF_CLK_CTRL,
->>>>>>> 0xfcff8fff, 0xf8000100), @@ -4490,6 +4583,22 @@ static int gfx_v10_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
->>>>>>>                                 hw_prio, NULL);
->>>>>>>     }
->>>>>>>
->>>>>>> +static void gfx_v10_0_alloc_dump_mem(struct amdgpu_device *adev) {
->>>>>>> +       uint32_t reg_count = ARRAY_SIZE(gc_reg_list_10_1);
->>>>>>> +       uint32_t *ptr;
->>>>>>> +
->>>>>>> +       ptr = kcalloc(reg_count, sizeof(uint32_t), GFP_KERNEL);
->>>>>>> +       if (ptr == NULL) {
->>>>>>> +               DRM_ERROR("Failed to allocate memory for IP Dump\n");
->>>>>>> +               adev->gfx.ip_dump = NULL;
->>>>>>> +               adev->gfx.reg_count = 0;
->>>>>>> +       } else {
->>>>>>> +               adev->gfx.ip_dump = ptr;
->>>>>>> +               adev->gfx.reg_count = reg_count;
->>>>>>> +       }
->>>>>>> +}
->>>>>>> +
->>>>>>>     static int gfx_v10_0_sw_init(void *handle)
->>>>>>>     {
->>>>>>>            int i, j, k, r, ring_id = 0; @@ -4642,6 +4751,8 @@ static
->>>>>>> int gfx_v10_0_sw_init(void *handle)
->>>>>>>
->>>>>>>            gfx_v10_0_gpu_early_init(adev);
->>>>>>>
->>>>>>> +       gfx_v10_0_alloc_dump_mem(adev);
->>>>>>> +
->>>>>>>            return 0;
->>>>>>>     }
->>>>>>>
->>>>>>> @@ -4694,6 +4805,8 @@ static int gfx_v10_0_sw_fini(void *handle)
->>>>>>>
->>>>>>>            gfx_v10_0_free_microcode(adev);
->>>>>>>
->>>>>>> +       kfree(adev->gfx.ip_dump);
->>>>>>> +
->>>>>>>            return 0;
->>>>>>>     }
->>>>>>>
->>>>>>> @@ -9154,6 +9267,21 @@ static void gfx_v10_0_emit_mem_sync(struct amdgpu_ring *ring)
->>>>>>>            amdgpu_ring_write(ring, gcr_cntl); /* GCR_CNTL */
->>>>>>>     }
->>>>>>>
->>>>>>> +static void gfx_v10_ip_dump(void *handle) {
->>>>>>> +       struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>>>>>> +       uint32_t i;
->>>>>>> +       uint32_t reg_count = ARRAY_SIZE(gc_reg_list_10_1);
->>>>>>> +
->>>>>>> +       if (!adev->gfx.ip_dump)
->>>>>>> +               return;
->>>>>>> +
->>>>>>> +       amdgpu_gfx_off_ctrl(adev, false);
->>>>>>> +       for (i = 0; i < reg_count; i++)
->>>>>>> +               adev->gfx.ip_dump[i] =
->>>>>>> + RREG32(SOC15_REG_ENTRY_OFFSET(gc_reg_list_10_1[i]));
->>>>> This may cause a bigger hang, if PMFW is already hung (in that case
->>>>> reset also won't work, but a dump is still useful). To be on the safer
->>>>> side, there should be some sort of return value for gfx_off which
->>>>> should be checked.
->>>> amdgpu_gfx_off_ctrl doesnt return any value to confirm if it worked or not else would have checked return value.
->>>> I guess assumption is that it will work until there is a bigger hang as you  mentioned and i guess in that case nothing will work and needs a reset only.
->>>>
->>>> Regards
->>>> Sunil Khatri
->>>>
->>>>> Thanks,
->>>>> Lijo
->>>>>
->>>>>>> +       amdgpu_gfx_off_ctrl(adev, true); }
->>>>>>> +
->>>>>>>     static const struct amd_ip_funcs gfx_v10_0_ip_funcs = {
->>>>>>>            .name = "gfx_v10_0",
->>>>>>>            .early_init = gfx_v10_0_early_init, @@ -9170,7 +9298,7 @@
->>>>>>> static const struct amd_ip_funcs gfx_v10_0_ip_funcs = {
->>>>>>>            .set_clockgating_state = gfx_v10_0_set_clockgating_state,
->>>>>>>            .set_powergating_state = gfx_v10_0_set_powergating_state,
->>>>>>>            .get_clockgating_state = gfx_v10_0_get_clockgating_state,
->>>>>>> -       .dump_ip_state = NULL,
->>>>>>> +       .dump_ip_state = gfx_v10_ip_dump,
->>>>>>>     };
->>>>>>>
->>>>>>>     static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_gfx = {
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.h
->>>>>>> b/drivers/gpu/drm/amd/amdgpu/soc15.h
->>>>>>> index 1444b7765e4b..282584a48be0 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc15.h
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.h
->>>>>>> @@ -88,6 +88,8 @@ struct soc15_ras_field_entry {
->>>>>>>     };
->>>>>>>
->>>>>>>     #define SOC15_REG_ENTRY(ip, inst, reg) ip##_HWIP, inst,
->>>>>>> reg##_BASE_IDX, reg
->>>>>>> +#define SOC15_REG_ENTRY_STR(ip, inst, reg) \
->>>>>>> +       { ip##_HWIP, inst, reg##_BASE_IDX, reg, #reg }
->>>>>>>
->>>>>>>     #define SOC15_REG_ENTRY_OFFSET(entry)
->>>>>>> (adev->reg_offset[entry.hwip][entry.inst][entry.seg] +
->>>>>>> entry.reg_offset)
->>>>>>>
->>>>>>> diff --git
->>>>>>> a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
->>>>>>> b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
->>>>>>> index 4908044f7409..4c8e7fdb6976 100644
->>>>>>> --- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
->>>>>>> +++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
->>>>>>> @@ -4830,6 +4830,8 @@
->>>>>>>     #define mmCP_ECC_FIRSTOCCURRENCE_RING2_BASE_IDX                                                        0
->>>>>>>     #define mmGB_EDC_MODE                                                                                  0x1e1e
->>>>>>>     #define mmGB_EDC_MODE_BASE_IDX                                                                         0
->>>>>>> +#define mmCP_DEBUG                                                                                     0x1e1f
->>>>>>> +#define mmCP_DEBUG_BASE_IDX                                                                            0
->>>>>>>     #define mmCP_FETCHER_SOURCE                                                                            0x1e22
->>>>>>>     #define mmCP_FETCHER_SOURCE_BASE_IDX                                                                   0
->>>>>>>     #define mmCP_PQ_WPTR_POLL_CNTL                                                                         0x1e23
->>>>>>> @@ -7778,6 +7780,8 @@
->>>>>>>     #define mmCP_MES_DOORBELL_CONTROL5_BASE_IDX                                                            1
->>>>>>>     #define mmCP_MES_DOORBELL_CONTROL6                                                                     0x2841
->>>>>>>     #define mmCP_MES_DOORBELL_CONTROL6_BASE_IDX                                                            1
->>>>>>> +#define mmCP_MES_DEBUG_INTERRUPT_INSTR_PNTR                                                            0x2842
->>>>>>> +#define mmCP_MES_DEBUG_INTERRUPT_INSTR_PNTR_BASE_IDX                                                   1
->>>>>>>     #define mmCP_MES_GP0_LO                                                                                0x2843
->>>>>>>     #define mmCP_MES_GP0_LO_BASE_IDX                                                                       1
->>>>>>>     #define mmCP_MES_GP0_HI                                                                                0x2844
->>>>>>> @@ -9332,10 +9336,16 @@
->>>>>>>     #define mmRLC_LB_CNTR_INIT_1_BASE_IDX                                                                  1
->>>>>>>     #define mmRLC_LB_CNTR_1                                                                                0x4c1c
->>>>>>>     #define mmRLC_LB_CNTR_1_BASE_IDX                                                                       1
->>>>>>> +#define mmRLC_GPM_DEBUG_INST_ADDR                                                                      0x4c1d
->>>>>>> +#define mmRLC_GPM_DEBUG_INST_ADDR_BASE_IDX                                                             1
->>>>>>>     #define mmRLC_JUMP_TABLE_RESTORE                                                                       0x4c1e
->>>>>>>     #define mmRLC_JUMP_TABLE_RESTORE_BASE_IDX                                                              1
->>>>>>>     #define mmRLC_PG_DELAY_2                                                                               0x4c1f
->>>>>>>     #define mmRLC_PG_DELAY_2_BASE_IDX                                                                      1
->>>>>>> +#define mmRLC_GPM_DEBUG_INST_A                                                                         0x4c22
->>>>>>> +#define mmRLC_GPM_DEBUG_INST_A_BASE_IDX                                                                1
->>>>>>> +#define mmRLC_GPM_DEBUG_INST_B                                                                         0x4c23
->>>>>>> +#define mmRLC_GPM_DEBUG_INST_B_BASE_IDX                                                                1
->>>>>>>     #define mmRLC_GPU_CLOCK_COUNT_LSB                                                                      0x4c24
->>>>>>>     #define mmRLC_GPU_CLOCK_COUNT_LSB_BASE_IDX                                                             1
->>>>>>>     #define mmRLC_GPU_CLOCK_COUNT_MSB                                                                      0x4c25
->>>>>>> @@ -9720,6 +9730,8 @@
->>>>>>>     #define mmRLC_SPM_THREAD_TRACE_CTRL_BASE_IDX                                                           1
->>>>>>>     #define mmRLC_LB_CNTR_2                                                                                0x4de7
->>>>>>>     #define mmRLC_LB_CNTR_2_BASE_IDX                                                                       1
->>>>>>> +#define mmRLC_LX6_CORE_PDEBUG_INST                                                                     0x4deb
->>>>>>> +#define mmRLC_LX6_CORE_PDEBUG_INST_BASE_IDX                                                            1
->>>>>>>     #define mmRLC_CPAXI_DOORBELL_MON_CTRL                                                                  0x4df1
->>>>>>>     #define mmRLC_CPAXI_DOORBELL_MON_CTRL_BASE_IDX                                                         1
->>>>>>>     #define mmRLC_CPAXI_DOORBELL_MON_STAT                                                                  0x4df2
->>>>>>> --
->>>>>>> 2.34.1
->>>>>>>
-
+SGkgR3JlZywgdGhhbmtzIGZvciB5b3VyIHJlcGx5LiBTaW5jZSB0aGVyZSBpcyBubyBwYXRjaCB0
+byBmaXggQ1ZFLTIwMjMtNTI2MjQgaW4gbGludXgtNS4xMCwgdGhlcmUgaXMgYSBwYXRjaCBpbiB0
+aGUgbGludXgtNi43IGJyYW5jaCwgaXRzIGNvbW1pdCBpcyAyZWY5OGM2ZDc1M2E3NDRlMzMzYjdl
+MzRiOWNmNjg3MDQwZmJhNTdkICgiZHJtL2FtZC9kaXNwbGF5OiBXYWtlIERNQ1VCIGJlZm9yZSBl
+eGVjdXRpbmcgR1BJTlQgY29tbWFuZHMiKS4gV2hlbiB3ZSBhcHBseSB0aGlzIHBhdGNoIHRvIGxp
+bnV4LTUuMTAsIHRoZXJlIGFyZSBsb3RzIG9mIGNvbmZsaWN0cywgYW5kIHdlIGZvdW5kIHRoZXJl
+IGFyZSBsb3RzIG9mIGRlcGVuZGVudCBwYXRjaGVzLCBhbmQgbG90cyBvZiBwYXRjaGVzIGFyZSBu
+b3QgcHJvcG9zZWQgdG8gZml4IHRoZSBjdmUsIHRoZXkgYXJlIHByZXNlbnRlZCB0byBhZGQgbmV3
+IGZ1bmN0aW9ucyBvZiB0aGUga2VybmVsLg0KDQpNeSBjb21taXQgY29tZXMgZnJvbSBuZWFybHkg
+MjAgcGF0Y2hlcy4gRm9yIGVhY2ggcGF0Y2gsIG5vdCBhbGwgb2YgaXRzIGNvbnRlbnQgaXMgbWVh
+bnQgdG8gZml4IHRoZSBjdmUsIHNvIEkganVzdCBnZXQgdGhlIHBhcnQgd2hpY2ggaXMgaGVscGZ1
+bCB0byBmaXguIEl0IGlzIHdoeSBJIGRvbid0IHByZXNlbnQgdGhlIHBhdGNoZXMgb25lIGJ5IG9u
+ZSBpbnN0ZWFkIG9mIG1lcmdpbmcgdGhlbSBpbnRvIG9uZSBiaWcgcGF0Y2guDQoNCg0KLS0tLS3T
+yrz+1K28/i0tLS0tDQq3orz+yMs6IEdyZWcgS0ggW21haWx0bzpncmVna2hAbGludXhmb3VuZGF0
+aW9uLm9yZ10gDQq3osvNyrG85DogMjAyNMTqNNTCMTbI1SAxMjo1NA0KytW8/sjLOiB3YW5nemh1
+IDx3YW5nemh1OUBodWF3ZWkuY29tPg0Ks63LzTogaGFycnkud2VudGxhbmRAYW1kLmNvbTsgc3Vu
+cGVuZy5saUBhbWQuY29tOyBSb2RyaWdvLlNpcXVlaXJhQGFtZC5jb207IGFsZXhhbmRlci5kZXVj
+aGVyQGFtZC5jb207IGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbTsgYWlybGllZEBsaW51eC5pZTsg
+ZGFuaWVsQGZmd2xsLmNoOyBxaW5ncWluZy56aHVvQGFtZC5jb207IHN0eWxvbi53YW5nQGFtZC5j
+b207IEpvc2lwLlBhdmljQGFtZC5jb207IHRyaXhAcmVkaGF0LmNvbTsgY3J1aXNlLmh1bmdAYW1k
+LmNvbTsgRXJpYy5ZYW5nMkBhbWQuY29tOyBtYXJpby5saW1vbmNpZWxsb0BhbWQuY29tOyBhbHZp
+bi5sZWUyQGFtZC5jb207IGp1bi5sZWlAYW1kLmNvbTsgYXVzdGluLnpoZW5nQGFtZC5jb207IHN1
+bmdsZWVAYW1kLmNvbTsgcGF1bC5oc2llaEBhbWQuY29tOyBoYW5naG9uZy5tYUBhbWQuY29tOyBK
+aW5aZS5YdUBhbWQuY29tOyBsZXdpcy5odWFuZ0BhbWQuY29tOyBaaGVuZ3plbmdrYWkgPHpoZW5n
+emVuZ2thaUBodWF3ZWkuY29tPjsgYWxleC5odW5nQGFtZC5jb207IHN5ZWQuaGFzc2FuQGFtZC5j
+b207IHdheW5lLmxpbkBhbWQuY29tOyBuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb207IGNoaWFo
+c3Vhbi5jaHVuZ0BhbWQuY29tOyBhdXJhYmluZG8ucGlsbGFpQGFtZC5jb207IGFyaWMuY3lyQGFt
+ZC5jb207IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBkcmktZGV2ZWxAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnDQrW98ziOiBSZTogW1BB
+VENIIHY2LjZdIGRybS9hbWQvZGlzcGxheTogV2FrZSBETUNVQiBiZWZvcmUgZXhlY3V0aW5nIEdQ
+SU5UIGNvbW1hbmRzDQoNCk9uIFR1ZSwgQXByIDE2LCAyMDI0IGF0IDAzOjUyOjQwQU0gKzAwMDAs
+IFpodSBXYW5nIHdyb3RlOg0KPiBGcm9tOiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5r
+YXpsYXVza2FzQGFtZC5jb20+DQo+IA0KPiBzdGFibGUgaW5jbHVzaW9uDQo+IGZyb20gc3RhYmxl
+LXY2LjcuMw0KPiBjb21taXQgMmVmOThjNmQ3NTNhNzQ0ZTMzM2I3ZTM0YjljZjY4NzA0MGZiYTU3
+ZA0KPiBjYXRlZ29yeTogYnVnZml4DQo+IGJ1Z3ppbGxhOiBodHRwczovL2dpdGVlLmNvbS9zcmMt
+b3BlbmV1bGVyL2tlcm5lbC9pc3N1ZXMvSTlCVjRDDQo+IENWRTogQ1ZFLTIwMjMtNTI2MjQNCj4g
+DQo+IFJlZmVyZW5jZTogDQo+IGh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9r
+ZXJuZWwvZ2l0L3RvcnZhbGRzL2xpbnV4LmdpdC9jb20NCj4gbWl0Lz9pZD0yZWY5OGM2ZDc1M2E3
+NDRlMzMzYjdlMzRiOWNmNjg3MDQwZmJhNTdkDQo+IA0KPiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLQ0KPiANCj4gWyBVcHN0cmVhbSBjb21taXQgZTVmZmQxMjYzZGQ1YjQ0OTI5YzY3
+NjE3MTgwMmU3YjZhZjQ4M2YyMSBdDQo+IA0KPiBbV2h5XQ0KPiBETUNVQiBjYW4gYmUgaW4gaWRs
+ZSB3aGVuIHdlIGF0dGVtcHQgdG8gaW50ZXJmYWNlIHdpdGggdGhlIEhXIHRocm91Z2ggDQo+IHRo
+ZSBHUElOVCBtYWlsYm94IHJlc3VsdGluZyBpbiBhIHN5c3RlbSBoYW5nLg0KPiANCj4gW0hvd10N
+Cj4gQWRkIGRjX3dha2VfYW5kX2V4ZWN1dGVfZ3BpbnQoKSB0byB3cmFwIHRoZSB3YWtlLCBleGVj
+dXRlLCBzbGVlcCANCj4gc2VxdWVuY2UuDQo+IA0KPiBJZiB0aGUgR1BJTlQgZXhlY3V0ZXMgc3Vj
+Y2Vzc2Z1bGx5IHRoZW4gRE1DVUIgd2lsbCBiZSBwdXQgYmFjayBpbnRvIA0KPiBzbGVlcCBhZnRl
+ciB0aGUgb3B0aW9uYWwgcmVzcG9uc2UgaXMgcmV0dXJuZWQuDQo+IA0KPiBJdCBmdW5jdGlvbnMg
+c2ltaWxhciB0byB0aGUgaW5ib3ggY29tbWFuZCBpbnRlcmZhY2UuDQo+IA0KPiBDYzogTWFyaW8g
+TGltb25jaWVsbG8gPG1hcmlvLmxpbW9uY2llbGxvQGFtZC5jb20+DQo+IENjOiBBbGV4IERldWNo
+ZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+IENjOiBzdGFibGVAdmdlci5rZXJuZWwu
+b3JnDQo+IFJldmlld2VkLWJ5OiBIYW5zZW4gRHNvdXphIDxoYW5zZW4uZHNvdXphQGFtZC5jb20+
+DQo+IEFja2VkLWJ5OiBXYXluZSBMaW4gPHdheW5lLmxpbkBhbWQuY29tPg0KPiBTaWduZWQtb2Zm
+LWJ5OiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+DQo+
+IFRlc3RlZC1ieTogRGFuaWVsIFdoZWVsZXIgPGRhbmllbC53aGVlbGVyQGFtZC5jb20+DQo+IFNp
+Z25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCj4g
+DQo+IFRoaXMgY29tbWl0IGNvbWVzIGZyb20gZm9sbG93aW5nIGNvbW1pdHM6DQo+IA0KPiAgODc3
+NDAyOWY3NmI5ICgiZHJtL2FtZC9kaXNwbGF5OiBBZGQgRENOMzUgQ0xLX01HUiIpICA2NTEzOGVi
+NzJlMWYgDQo+ICgiZHJtL2FtZC9kaXNwbGF5OiBBZGQgRENOMzUgRE1VQiIpICBkYzAxYzRiNzli
+ZmUgKCJkcm0vYW1kL2Rpc3BsYXk6IA0KPiBVcGRhdGUgZHJpdmVyIGFuZCBJUFMgaW50ZXJvcCIp
+DQo+ICA4MjBjMzg3MGM0OTEgKCJkcm0vYW1kL2Rpc3BsYXk6IFJlZmFjdG9yIERNQ1VCIGVudGVy
+L2V4aXQgaWRsZSANCj4gaW50ZXJmYWNlIikgIDJlZjk4YzZkNzUzYSAoImRybS9hbWQvZGlzcGxh
+eTogV2FrZSBETUNVQiBiZWZvcmUgDQo+IGV4ZWN1dGluZyBHUElOVCBjb21tYW5kcyIpDQoNCldo
+eSBhcmUgeW91IHB1dHRpbmcgbXVsdGlwbGUgY29tbWl0cyB0b2dldGhlciBhbmQgbm90IGp1c3Qg
+c3VibWl0dGluZyB0aGUgaW5kaXZpZHVhbCBvbmVzPyAgQW5kIHdoYXQgaXMgdGhpcyBmb3I/DQoN
+CmNvbmZ1c2VkLA0KDQpncmVnIGstaA0K
