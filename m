@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01348C05023
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Apr 2024 03:01:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 857E8C4345F
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Apr 2024 03:01:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46D3D113940;
-	Thu, 18 Apr 2024 03:01:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26C28113942;
+	Thu, 18 Apr 2024 03:01:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XpfnK58b";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zFO8QPs/";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2056.outbound.protection.outlook.com [40.107.93.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF170113940
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Apr 2024 03:01:29 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2085.outbound.protection.outlook.com [40.107.236.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6481E113942
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Apr 2024 03:01:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PWAqXYfwANDWUBfqJu78aUC6HIwbMt5boLqQlcTx53dNUbSJr9EV1jHKvC/jC9Bn/seNhwWRRmm6fN+50zT/rX/b+QSe1Yp2Me/f9u4y/ye0Zo4aiIqP1wOhDCGFqiSKpDmj7GNLZh5vBzvU+WbuReNoyBBvC2DVBgViTY9ZmKmMeRKkxgv83oFI7DyoCbSRgkKOnxBxBn/sVPIy7UXgZL1pmkawLdp1UZaAGIOIjnkHWehcSzN+p7kOohUp3FCI8d6YZV6aEjbeL30OM+vPENWxaOmmaJcyc7mxRFn+6Leo3RKHaFFEU4/E9b7JuZLIJ3QzqnkJ1d8g2mLyGHxRmA==
+ b=KGcupMQF8KqxR92p7H4nD4VJaBK/oMehoQ0X+tRcqLkOAj+nLlkhMuIWAPnaO8GapR9NQXtTIguj7YZBJ38w7AIKKJXElzl/mF50edBiQB0TlnAV39P5MEeWZLc+F98vLEfBAETgHumRAsiwXcoTRp761lJN6SuIAe5pQ6/0+0MBaq1LP7jzNJxH5y0WwL2eX0VXY2mXhGzWPMIBXh4w9ypwZwUoW6FX5QfQllyralwQmDRPaDMQMlTo/DANJSWFgocseGVn7HWGsC7ZNy3cP6POd/83Vy1QgioCnWSLrF6C4QMvIpk+2gHXmAdKeiKSyHa5YBE7KNzeg8a+lp9GjQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lSgLkkIqoUsA3frXDXdHtWdgIALPdn6jgcEfhkrNa8U=;
- b=DKj4l825eOMRDDQCqZhAMct00MI6gC9qZRTqJFbgSqa7k/aDNgMED6yD+WS8Kc1i9bDtudNqrSeGHQnZxKAwhKs159EwNZcvwsnZT4ntn6a86133tVV0D20FY3UZEhTdmU4PmQjOBqu3cz+IBBNfWWDV8Tw3daN6tehiDHXjMbwi9c+p9bQ/ogmuBjze+/coM2pfowEPDZsqtVyYpT4VPcm5eAfZuINTqnSwOa+vSciWsuRMlL89lhnWurwe2ozrUAZjKBbsVlDIBjaTj7mBUZbgoVKQwxFTeY7gq62Kq+MiAXmEbgq5r/fzs1BKBX18t8/PSU6ZF0YHfPjJTp/xzA==
+ bh=LwIuVUhchDCQWGWfX3O/Ppr+VZ1Mx0a5UBW8zfNLZR4=;
+ b=jhi4g4kJ0LV5xQL8TTmY/2ndd/3hVmk8+SgxVdbK8N44WRUYtfvoAlg1zajqVg5uV/uJM9eWowESUpkb83gykjlIX3N/JT7jaIJmF9VdQM+F7YSx4bwEwX0vwFjpBiB4clxwSmq8miqiTL78jkoDDVKXZVUVkFVYBJWNKIwZfzMdE3HrD/Qo8vhbAes3y90o7/2TDdc6VPgTFwgTDIHOIsFWbg9/QfdwCD1+N99TcdzD6NpbFt5OVGxs0nbDNJC5QEW9Nd15AjyqeaoBG4LGgbSF/GuuF+YeeBPnR5TzWEr5GbZtvqK/xvRKFNu1Z9N9Trekj8E8GMASXgv/W1CfeA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lSgLkkIqoUsA3frXDXdHtWdgIALPdn6jgcEfhkrNa8U=;
- b=XpfnK58by6wnkx9EjJmrNAVj7n2i34rgI5zWQz1GNp9pBohpfjM1CnbSJy9hlHa9PDn9LaSgzB3o6G2r/BMOO5EtpIzw+tVZKZOaPNBEgib4YlMbX7h9WdeKG/zsCySLZUEWuVyS/ig5mWliUA3D1/3PQV6mOx6ItxP0zlbZiHg=
-Received: from BL0PR0102CA0021.prod.exchangelabs.com (2603:10b6:207:18::34) by
- MW4PR12MB7286.namprd12.prod.outlook.com (2603:10b6:303:22f::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7409.55; Thu, 18 Apr 2024 03:01:26 +0000
-Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
- (2603:10b6:207:18:cafe::e4) by BL0PR0102CA0021.outlook.office365.com
- (2603:10b6:207:18::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.26 via Frontend
- Transport; Thu, 18 Apr 2024 03:01:26 +0000
+ bh=LwIuVUhchDCQWGWfX3O/Ppr+VZ1Mx0a5UBW8zfNLZR4=;
+ b=zFO8QPs/iNWVATitg94/c1kRLc/BUEw7mm/XO30GIg3iUx0d7xJNR9k9YjWCMe/A+yjSSOlNu7vZJxDGkEPbzN1IBVzwCgD4vPPfsGGlHOxNwaDGjjxxZoseYWMf/JVCh4uQkU0bp/4fCpGq182Ixb5YPH2Sr2tm/2Z3NwTAfIM=
+Received: from MN2PR05CA0011.namprd05.prod.outlook.com (2603:10b6:208:c0::24)
+ by LV3PR12MB9267.namprd12.prod.outlook.com (2603:10b6:408:211::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.50; Thu, 18 Apr
+ 2024 03:01:28 +0000
+Received: from MN1PEPF0000ECD7.namprd02.prod.outlook.com
+ (2603:10b6:208:c0:cafe::d) by MN2PR05CA0011.outlook.office365.com
+ (2603:10b6:208:c0::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.11 via Frontend
+ Transport; Thu, 18 Apr 2024 03:01:28 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
+ MN1PEPF0000ECD7.mail.protection.outlook.com (10.167.242.136) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Thu, 18 Apr 2024 03:01:26 +0000
+ 15.20.7452.22 via Frontend Transport; Thu, 18 Apr 2024 03:01:28 +0000
 Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 17 Apr
- 2024 22:01:23 -0500
+ 2024 22:01:25 -0500
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <yipechai@amd.com>, <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>,
  <Candice.Li@amd.com>, <KevinYang.Wang@amd.com>, <Stanley.Yang@amd.com>,
  YiPeng Chai <YiPeng.Chai@amd.com>
-Subject: [PATCH 03/15] drm/amdgpu: prepare for logging ecc errors
-Date: Thu, 18 Apr 2024 10:58:24 +0800
-Message-ID: <20240418025836.170106-3-YiPeng.Chai@amd.com>
+Subject: [PATCH 04/15] drm/amdgpu: add poison creation handler
+Date: Thu, 18 Apr 2024 10:58:25 +0800
+Message-ID: <20240418025836.170106-4-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240418025836.170106-1-YiPeng.Chai@amd.com>
 References: <20240418025836.170106-1-YiPeng.Chai@amd.com>
@@ -74,26 +74,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|MW4PR12MB7286:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc4023df-6449-43ef-0f99-08dc5f53d660
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD7:EE_|LV3PR12MB9267:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e1d08e0-68a8-4849-fa01-08dc5f53d7d0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VY55zXTJSYl8qyFZagiB7lyzDN5pkDWg90skx9ASkSQb1Nw9pggK+Bo2zMnmfMHiv9RFXiVdw3IHpdJEs2kdjAsH6xe4UrIxayCIwuGkxBKj6DfAiwIFlVy8AmjNV0scYwNA8WiFaWP2Tk1OXmFqaWyn+PisHslu7pD6Ge5x0sfej8O/eGW3ozFSpHiWuGsB/AXBqen+IIpIG/uCCzPf/i7E1iL0WG3OQJ3yO6jdu3dRKouxkw6rVg65Wtt1CSjISo84u0kkTNUJdewJKt4Ng/On/U3kktkHziTODbdfQxlHk4gfo5De/XCxrAOfFhgapolsRnSGYoL3ipfnefDcgT/SHsCMJTGCSX9C+7H/iCGGITTMhl9djIkkrwQnVKu1Gh8YL8U9LRCFcvszpVjTD5pppvZsJxkqOlsX9JrgQ4QcKBs7fA2a2JVsAabBTFoQ/KJiNockeAt/MEn+ItlIc7cZ6sifwqORGu1wifcGzLRfKJNq/SmUaXKhTVSEi04ZNJeeZnJ04lkTkHgMJpK7gQIKIzqyHvPDIbVC/HrNr71C/RkpvK33V0HdnyCJ1t4Ro4jjoKkEXgr6JGtJuL7DLfViktzNkj2mVFgVVeIX05tAtWB3gHxg17HvE5A/obgoKycn3LmzwYNX83LlJlJeRqv5/gWj+tJA+vCoePMilkACpZnemEeLNYMq31AjHRFfZw5QuRgMl22qtl+kDlHjDe5jT3FtX2m1VpM8TRYFw00LP6KnPUsB/6wDvgAQyO1B
+X-Microsoft-Antispam-Message-Info: b8qK4mY5il8jgz4UadjVjezXwrTXiZC16BCXDf5hIfhdscjY7LE7BYYjTwu5Le3D3wh1q1icupgQYx90dwpKpgBpmJswUadvm3JrOhjk7tAHbCDBqJWzv1WOoWvL75t4g9QJY2HdFR9JbufhA/YJTQsuldFpwP2P1Thk52U8XUuvVO8weMUquCF9q4XrZ7/ysjjkzf/tQ/NALe4AjypUABjpOBZ0NDnZLhjyZ8vUgjLDGO/HCN8YlZPGvNQvFhbSxSV97JKxCkYs2sEIYCIbimN3Y6eS/RdCIK2WoHoA0kI4+8LXfwYiOQoE9Et4XACxpE6HZViVO5xkEGWpAbnOLbMfoTEU3Z6gvynAQklcsBQk+JMY5fZ5YxtTriIKQbU7b303Rf0sqxYWuiTZf1uENzYMZNPWuqrYM/DP+UD5wHfqk0uUpW55i2rd2RpSJiq7jpZRP265XCVYIhEIGtLRe5lVVjmKmOPSnx5txNzan5N+nUv0fQHEHZSsxh4fxC8H5VLrhcw5dCJsI2j+9sqqw04Gcfc1YXrrSJS/RFbnK7tfD7KUEVCPYE9DsgyTumiCb97I4G3ev84sqyVSjd+yTxS9j7zkB4GheKyS4HXeRffD1m0f/pWH+y0zXfr1bhPoVfRscIWk/3ZsnTn1V9HAOCk1vhfj99Xf2DRBpS6iuEW497pddlYRcI2iD1xA3jCJ5A7sQeyLTIgVcfSFNhEnagl7BktuGihKcnlFinFO9+vP/q7skuAbbtrw8Dm/gbtc
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(82310400014)(36860700004); DIR:OUT;
+ SFS:(13230031)(376005)(36860700004)(82310400014)(1800799015); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2024 03:01:26.0811 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc4023df-6449-43ef-0f99-08dc5f53d660
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2024 03:01:28.7020 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e1d08e0-68a8-4849-fa01-08dc5f53d7d0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD7.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7286
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9267
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,120 +108,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prepare for logging ecc errors.
+Add poison creation handler.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 33 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h | 23 +++++++++++++++++
- 2 files changed, 56 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 74 +++++++++++++++++++++++--
+ 1 file changed, 69 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 0de5a22e7126..64e6e20c6de7 100644
+index 64e6e20c6de7..126616eaeec1 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2724,6 +2724,36 @@ static int amdgpu_ras_get_poison_req(struct amdgpu_device *adev,
+@@ -2080,6 +2080,17 @@ static void amdgpu_ras_interrupt_poison_creation_handler(struct ras_manager *obj
+ {
+ 	dev_info(obj->adev->dev,
+ 		"Poison is created\n");
++
++	if (amdgpu_ip_version(obj->adev, UMC_HWIP, 0) >= IP_VERSION(12, 0, 0)) {
++		struct amdgpu_ras *con = amdgpu_ras_get_context(obj->adev);
++
++		amdgpu_ras_put_poison_req(obj->adev,
++			AMDGPU_RAS_BLOCK__UMC, 0, NULL, NULL, false);
++
++		atomic_inc(&con->page_retirement_req_cnt);
++
++		wake_up(&con->page_retirement_wq);
++	}
+ }
  
- 	return kfifo_get(&con->poison_fifo, poison_msg);
+ static void amdgpu_ras_interrupt_umc_handler(struct ras_manager *obj,
+@@ -2754,10 +2765,54 @@ static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_info *ecc_log)
+ 	mutex_destroy(&ecc_log->lock);
+ 	ecc_log->de_updated = false;
  }
 +
-+static void amdgpu_ras_ecc_log_init(struct ras_ecc_log_info *ecc_log)
++static int amdgpu_ras_query_ecc_status(struct amdgpu_device *adev,
++			enum amdgpu_ras_block ras_block, uint32_t timeout_ms)
 +{
-+	mutex_init(&ecc_log->lock);
++	int ret = 0;
++	struct ras_ecc_log_info *ecc_log;
++	struct ras_query_if info;
++	uint32_t timeout = timeout_ms;
++	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
 +
-+	/* Set any value as siphash key */
-+	memset(&ecc_log->ecc_key, 0xad, sizeof(ecc_log->ecc_key));
++	memset(&info, 0, sizeof(info));
++	info.head.block = ras_block;
 +
-+	INIT_RADIX_TREE(&ecc_log->de_page_tree, GFP_KERNEL);
++	ecc_log = &ras->umc_ecc_log;
 +	ecc_log->de_updated = false;
-+}
++	do {
++		ret = amdgpu_ras_query_error_status(adev, &info);
++		if (ret) {
++			dev_err(adev->dev, "Failed to query ras error! ret:%d\n", ret);
++			return ret;
++		}
 +
-+static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_info *ecc_log)
-+{
-+	struct radix_tree_iter iter;
-+	void __rcu **slot;
-+	struct ras_ecc_err *ecc_err;
++		if (timeout && !ecc_log->de_updated) {
++			msleep(1);
++			timeout--;
++		}
++	} while (timeout && !ecc_log->de_updated);
 +
-+	mutex_lock(&ecc_log->lock);
-+	radix_tree_for_each_slot(slot, &ecc_log->de_page_tree, &iter, 0) {
-+		ecc_err = radix_tree_deref_slot(slot);
-+		kfree(ecc_err->err_pages.pfn);
-+		kfree(ecc_err);
-+		radix_tree_iter_delete(&ecc_log->de_page_tree, &iter, slot);
++	if (timeout_ms && !timeout) {
++		dev_warn(adev->dev, "Can't find deferred error\n");
++		return -ETIMEDOUT;
 +	}
-+	mutex_unlock(&ecc_log->lock);
 +
-+	mutex_destroy(&ecc_log->lock);
-+	ecc_log->de_updated = false;
++	return 0;
 +}
++
++static void amdgpu_ras_poison_creation_handler(struct amdgpu_device *adev,
++					uint32_t timeout)
++{
++	amdgpu_ras_query_ecc_status(adev, AMDGPU_RAS_BLOCK__UMC, timeout);
++}
++
  static int amdgpu_ras_page_retirement_thread(void *param)
  {
  	struct amdgpu_device *adev = (struct amdgpu_device *)param;
-@@ -2825,6 +2855,7 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
- 		dev_warn(adev->dev, "Failed to create umc_page_retirement thread!!!\n");
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++	struct ras_poison_msg poison_msg;
++	enum amdgpu_ras_block ras_block;
+ 
+ 	while (!kthread_should_stop()) {
+ 
+@@ -2768,13 +2823,22 @@ static int amdgpu_ras_page_retirement_thread(void *param)
+ 		if (kthread_should_stop())
+ 			break;
+ 
+-		dev_info(adev->dev, "Start processing page retirement. request:%d\n",
+-			atomic_read(&con->page_retirement_req_cnt));
+-
+ 		atomic_dec(&con->page_retirement_req_cnt);
+ 
+-		amdgpu_umc_bad_page_polling_timeout(adev,
+-				0, MAX_UMC_POISON_POLLING_TIME_ASYNC);
++		if (!amdgpu_ras_get_poison_req(adev, &poison_msg))
++			continue;
++
++		ras_block = poison_msg.block;
++
++		dev_info(adev->dev, "Start processing ras block %s(%d)\n",
++				ras_block_str(ras_block), ras_block);
++
++		if (ras_block == AMDGPU_RAS_BLOCK__UMC)
++			amdgpu_ras_poison_creation_handler(adev,
++				MAX_UMC_POISON_POLLING_TIME_ASYNC);
++		else
++			amdgpu_umc_bad_page_polling_timeout(adev,
++				false, MAX_UMC_POISON_POLLING_TIME_ASYNC);
  	}
  
-+	amdgpu_ras_ecc_log_init(&con->umc_ecc_log);
- #ifdef CONFIG_X86_MCE_AMD
- #ifdef HAVE_SMCA_UMC_V2
- 	if ((adev->asic_type == CHIP_ALDEBARAN) &&
-@@ -2872,6 +2903,8 @@ static int amdgpu_ras_recovery_fini(struct amdgpu_device *adev)
- 
- 	cancel_work_sync(&con->recovery_work);
- 
-+	amdgpu_ras_ecc_log_fini(&con->umc_ecc_log);
-+
- 	mutex_lock(&con->recovery_lock);
- 	con->eh_data = NULL;
- 	kfree(data->bps);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index 2b15996f1ede..634654cf2634 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -27,6 +27,8 @@
- #include <linux/debugfs.h>
- #include <linux/list.h>
- #include <linux/kfifo.h>
-+#include <linux/radix-tree.h>
-+#include <linux/siphash.h>
- #include "ta_ras_if.h"
- #include "amdgpu_ras_eeprom.h"
- #include "amdgpu_smuio.h"
-@@ -454,6 +456,26 @@ struct ras_poison_msg {
- 	void *data;
- };
- 
-+struct ras_err_pages {
-+	uint32_t count;
-+	uint64_t *pfn;
-+};
-+
-+struct ras_ecc_err {
-+	u64 hash_index;
-+	uint64_t status;
-+	uint64_t ipid;
-+	uint64_t addr;
-+	struct ras_err_pages err_pages;
-+};
-+
-+struct ras_ecc_log_info {
-+	struct mutex lock;
-+	siphash_key_t ecc_key;
-+	struct radix_tree_root de_page_tree;
-+	bool	de_updated;
-+};
-+
- struct amdgpu_ras {
- 	/* ras infrastructure */
- 	/* for ras itself. */
-@@ -514,6 +536,7 @@ struct amdgpu_ras {
- 	atomic_t page_retirement_req_cnt;
- 	struct mutex page_rsv_lock;
- 	DECLARE_KFIFO(poison_fifo, struct ras_poison_msg, 128);
-+	struct ras_ecc_log_info  umc_ecc_log;
- 
- 	/* Fatal error detected flag */
- 	atomic_t fed;
+ 	return 0;
 -- 
 2.34.1
 
