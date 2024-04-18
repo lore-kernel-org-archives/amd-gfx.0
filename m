@@ -4,101 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF851C4345F
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Apr 2024 14:16:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AAB4C4345F
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Apr 2024 14:38:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A834113CCB;
-	Thu, 18 Apr 2024 14:16:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B41E510FCB6;
+	Thu, 18 Apr 2024 14:38:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f/4aFP1J";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="miNPxCca";
 	dkim-atps=neutral
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03D9F113CCA;
- Thu, 18 Apr 2024 14:16:06 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-5c66b093b86so1465551a12.0; 
- Thu, 18 Apr 2024 07:16:06 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABEB210FCB6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Apr 2024 14:38:03 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-418c979ddf3so7546845e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Apr 2024 07:38:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1713449766; x=1714054566; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=moo2/Q0I4e+0pVWR8KV3lFeGCDDdXA9IltM3T9wFqic=;
- b=f/4aFP1Jskl0ao65PmP6cRqzT68zpr9wHYPjYPIwCDbmHrjE1X4/C8ge5AnxebEJQk
- sK8R3oTOu2mOq2l3WRyVkdEFJdCFus72tXhr27QwDmYYKxi3TegOfhXD0bCGXBIOIk0V
- aWZ8JB2eDs0pTJZSYc9OFW9+lvIiyqxsUV3A7a+FOBUTQi+FUDLLLH1M8h8dpwwmc9ZT
- Tm4AyFubRQUvHZ7+L8zLfSgR/cemM80BrTz3t1BZYDDKW2UK9PaoPxxmdhLXAMZ6maMJ
- AzquTnj1wHpq8GCEia/ULhUQ11+1z0O5vss/tKTNIRfO2smvuMqRHYUMzEfnPepsQKxu
- ayeQ==
+ d=gmail.com; s=20230601; t=1713451082; x=1714055882; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Ad94529QpCZZbAEpgDhN8WlgdJcXjtKHvISQDvLJdKM=;
+ b=miNPxCcaaHO4ovtDeA27KdeupyKVgLTc2q0WbjOJIbQe++5yU3mnnnfcNBbbP2nKTR
+ Wtqb1duKXdAeYWLk1Ogd8QWpVN0r0Q82zWDiHo/1R+XSkU+/WgL1k3lIzKUmyrNCS0K2
+ Lbjc3jKSJ5hqAsZfmFLe8Y41rx7t7e8Gx7m72ewyMaiHR7S5dzlAYd6Pd+v6mwh8z8G0
+ 74iJ3sLNBFBOPMdXMfOfElwB1Q7VORmwFd+QLSrBfxGGDKbgfMGJPb6a6O2NjK/lxbfR
+ HE7gek7RA1o32moknlzRWnH+yDNB0dsmjEykA5QhVJsF+nvrxPV2b3msDSqmOeEW/q7H
+ ysvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713449766; x=1714054566;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=moo2/Q0I4e+0pVWR8KV3lFeGCDDdXA9IltM3T9wFqic=;
- b=XvLEECZ7l5NO1xXQ3+C/ko7EdOlwAWZXlGP9Cjb396mndnRpScU0T0la04ypJTmc28
- 6xFGhi2a7uzeiuXe+/55lT40FrQfNTFP5oF2osgwDz0/gcpQxUp0is+38GfqpAPfPMB7
- xW11JKAtgZEIY2UR0yT/JyAk+GRTX8+VsYZzN1a9zdIXlXuTvGs92Ro7T2pfsskO+lb0
- o099NbWrkG2oGVJ3BbN1osqbQIZ0QvtF8dcpN5ukp5USFbBoM+pMUYHsM3/YewZ2t2Ma
- L+g3GlRDL5aijTN8WDQk3EBHXJC3cUu8L9Bji4G7CGpJsdGxBme0Dq4b6LWoHL5dxhTj
- wrPQ==
+ d=1e100.net; s=20230601; t=1713451082; x=1714055882;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ad94529QpCZZbAEpgDhN8WlgdJcXjtKHvISQDvLJdKM=;
+ b=h32zmZnlW5pjT4KK/s5Hbm0rmti4j5xejZucVh1R8cmpFz1T85tNVZFz4AG/90kKit
+ /CxtSKhhR0qtTkFvzhDGroArRfdmxLzTpRM53xQL3JvL9p8qwDSHgWtWvES+B9mI+7pz
+ 6AhRNqBFrn3RvuGhTgvIcyY2JeUJl9H9vOjY1Fne9Fg0eE6mTVqeRxJvF3di3Zo+sKGr
+ oHWy6FkTn6wG5Aecayf/C81XHIVX8Vou2Q6Mc09hAH32bXqjGuOU51jie9SyyqJ/76tU
+ p1FQmeR37GHyw4BykKdklNB/n2/5Vd5TqUi7sSkJfNUYwSxq0xIySqEc52f/3c59lPYV
+ 7WYg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW374CaljkpaToIQ/2NXWqoDG41bt/Nsx7X4qcgBlJOqDzxpWUKTmK8suVBdpk5oTl18sN4alWShQBZWN1Cv1xHZUY8CFXIaN90xRtXO/603CTlMJqW8+9BAht9C/12mooDLgEuV2aAYic0mkkZkA==
-X-Gm-Message-State: AOJu0Yz1lS7jUq2n4nhgVM13ymHRG3bLJTphufmE8tUBB08RB/XkL9mf
- Z83s87905MeDOv+ElbeAVWN0aUiQutpBIcl7QDe06RDXcOI/PnDqIVaHS8vfakPfKB6ApAsN0TG
- cRwn6PARZQChm/hxp5ctWLxU3YvU=
-X-Google-Smtp-Source: AGHT+IEdyd0JATd51DcGbv6THoQN/0K3QOYQ7h6+Uta4jclpsLKEG8cNeixgOGO2GEKCzQBJTjF5GXxvDkfsBPD0c2s=
-X-Received: by 2002:a17:90b:1090:b0:2aa:c389:c9f0 with SMTP id
- gj16-20020a17090b109000b002aac389c9f0mr3770698pjb.12.1713449766156; Thu, 18
- Apr 2024 07:16:06 -0700 (PDT)
+ AJvYcCWbytpPrzliv+vE/bTP6H7z8KccJwQdvcPRkJ6iPhpihraGHW/CBFHo47AkpVD4XyyXX6R9tyHYSqg+hn6+op6E2j1jW7/0T4rxyEWzkQ==
+X-Gm-Message-State: AOJu0YzRtkO0BUySIBchjaNW2iRZYBdDz12G1+H2bDtuANijtKxEAiVE
+ V/PfVTpg1KBpQEDfr2CEig46Z883HBkyLGMTJCMKu6U95EByvUtPopbGM7eF
+X-Google-Smtp-Source: AGHT+IGeU/2AFD/DH322uJOdarzMMpwIGI4vmw+iTDyJe57EDDFtz/Mhc4aWLtFNmo4IIc71N1jLbg==
+X-Received: by 2002:adf:fc0c:0:b0:343:74c9:51a8 with SMTP id
+ i12-20020adffc0c000000b0034374c951a8mr1621587wrr.68.1713451081777; 
+ Thu, 18 Apr 2024 07:38:01 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ g30-20020adfa49e000000b00343f662327bsm2000457wrb.77.2024.04.18.07.38.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Apr 2024 07:38:01 -0700 (PDT)
+Message-ID: <dbc3534e-dc5c-42bb-8e83-66d047481f9a@gmail.com>
+Date: Thu, 18 Apr 2024 16:37:57 +0200
 MIME-Version: 1.0
-References: <20240416035240.2450127-1-wangzhu9@huawei.com>
- <2024041658-imagines-unlatch-a9b6@gregkh>
- <036c3371d3a64ef8881260197ce37dbc@huawei.com>
- <CADnq5_NML_BiqQx2UmwH86d3qv57D3tFRL--dro1qA99r0Qr5w@mail.gmail.com>
- <b9ab29ad37f94dfa81da3aa88c6456c2@huawei.com>
-In-Reply-To: <b9ab29ad37f94dfa81da3aa88c6456c2@huawei.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 18 Apr 2024 10:15:53 -0400
-Message-ID: <CADnq5_PF=hynw-Fdt6JGxULXjBSCh1bM8dOgSbpeR4nAjh1pUw@mail.gmail.com>
-Subject: Re: [PATCH v6.6] drm/amd/display: Wake DMCUB before executing GPINT
- commands
-To: wangzhu <wangzhu9@huawei.com>
-Cc: Greg KH <gregkh@linuxfoundation.org>, 
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>, 
- "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>, 
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>, 
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@linux.ie" <airlied@linux.ie>, 
- "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "qingqing.zhuo@amd.com" <qingqing.zhuo@amd.com>, 
- "stylon.wang@amd.com" <stylon.wang@amd.com>,
- "Josip.Pavic@amd.com" <Josip.Pavic@amd.com>, 
- "trix@redhat.com" <trix@redhat.com>,
- "cruise.hung@amd.com" <cruise.hung@amd.com>, 
- "Eric.Yang2@amd.com" <Eric.Yang2@amd.com>, 
- "mario.limonciello@amd.com" <mario.limonciello@amd.com>,
- "alvin.lee2@amd.com" <alvin.lee2@amd.com>, 
- "jun.lei@amd.com" <jun.lei@amd.com>,
- "austin.zheng@amd.com" <austin.zheng@amd.com>, 
- "sunglee@amd.com" <sunglee@amd.com>, "paul.hsieh@amd.com" <paul.hsieh@amd.com>,
- "hanghong.ma@amd.com" <hanghong.ma@amd.com>,
- "JinZe.Xu@amd.com" <JinZe.Xu@amd.com>, 
- "lewis.huang@amd.com" <lewis.huang@amd.com>,
- "alex.hung@amd.com" <alex.hung@amd.com>, 
- "syed.hassan@amd.com" <syed.hassan@amd.com>,
- "wayne.lin@amd.com" <wayne.lin@amd.com>, 
- "nicholas.kazlauskas@amd.com" <nicholas.kazlauskas@amd.com>, 
- "chiahsuan.chung@amd.com" <chiahsuan.chung@amd.com>, 
- "aurabindo.pillai@amd.com" <aurabindo.pillai@amd.com>,
- "aric.cyr@amd.com" <aric.cyr@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] drm/amdgpu: Support contiguous VRAM allocation
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com, christian.koenig@amd.com,
+ Arunpravin.PaneerSelvam@amd.com
+References: <20240418135803.17365-1-Philip.Yang@amd.com>
+ <20240418135803.17365-2-Philip.Yang@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240418135803.17365-2-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,136 +85,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 17, 2024 at 11:14=E2=80=AFPM wangzhu <wangzhu9@huawei.com> wrot=
-e:
->
-> The CVE-2023-52624 is fixed in linux-6.7 stable, while it is not fixed in=
- 6.6, this commit is presented to fix it in linux-6.6 stable.
-
-Why is there a CVE in the first place?  Is this actually an issue you
-have seen?  It seems like you just picked a random patch and opened a
-CVE.
-
-Alex
 
 
+Am 18.04.24 um 15:57 schrieb Philip Yang:
+> RDMA device with limited scatter-gather ability requires contiguous VRAM
+> buffer allocation for RDMA peer direct support.
 >
-> -----=E9=82=AE=E4=BB=B6=E5=8E=9F=E4=BB=B6-----
-> =E5=8F=91=E4=BB=B6=E4=BA=BA: Alex Deucher [mailto:alexdeucher@gmail.com]
-> =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2024=E5=B9=B44=E6=9C=8818=E6=97=A5 =
-9:58
-> =E6=94=B6=E4=BB=B6=E4=BA=BA: wangzhu <wangzhu9@huawei.com>
-> =E6=8A=84=E9=80=81: Greg KH <gregkh@linuxfoundation.org>; harry.wentland@=
-amd.com; sunpeng.li@amd.com; Rodrigo.Siqueira@amd.com; alexander.deucher@am=
-d.com; christian.koenig@amd.com; airlied@linux.ie; daniel@ffwll.ch; qingqin=
-g.zhuo@amd.com; stylon.wang@amd.com; Josip.Pavic@amd.com; trix@redhat.com; =
-cruise.hung@amd.com; Eric.Yang2@amd.com; mario.limonciello@amd.com; alvin.l=
-ee2@amd.com; jun.lei@amd.com; austin.zheng@amd.com; sunglee@amd.com; paul.h=
-sieh@amd.com; hanghong.ma@amd.com; JinZe.Xu@amd.com; lewis.huang@amd.com; Z=
-hengzengkai <zhengzengkai@huawei.com>; alex.hung@amd.com; syed.hassan@amd.c=
-om; wayne.lin@amd.com; nicholas.kazlauskas@amd.com; chiahsuan.chung@amd.com=
-; aurabindo.pillai@amd.com; aric.cyr@amd.com; amd-gfx@lists.freedesktop.org=
-; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org
-> =E4=B8=BB=E9=A2=98: Re: [PATCH v6.6] drm/amd/display: Wake DMCUB before e=
-xecuting GPINT commands
+> Add a new KFD alloc memory flag and store as bo alloc flag
+> AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS. When pin this bo to export for RDMA
+> peerdirect access, this will set TTM_PL_FLAG_CONTIFUOUS flag, and ask
+> VRAM buddy allocator to get contiguous VRAM.
 >
-> On Wed, Apr 17, 2024 at 9:51=E2=80=AFPM wangzhu <wangzhu9@huawei.com> wro=
-te:
-> >
-> > Hi Greg, thanks for your reply. Since there is no patch to fix CVE-2023=
--52624 in linux-5.10, there is a patch in the linux-6.7 branch, its commit =
-is 2ef98c6d753a744e333b7e34b9cf687040fba57d ("drm/amd/display: Wake DMCUB b=
-efore executing GPINT commands"). When we apply this patch to linux-5.10, t=
-here are lots of conflicts, and we found there are lots of dependent patche=
-s, and lots of patches are not proposed to fix the cve, they are presented =
-to add new functions of the kernel.
-> >
+> Remove the 2GB max memory block size limit for contiguous allocation.
 >
-> Why is there a CVE?  Have you uncovered some specific issue?
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c     | 9 +++++++--
+>   include/uapi/linux/kfd_ioctl.h                   | 1 +
+>   3 files changed, 12 insertions(+), 2 deletions(-)
 >
-> Alex
->
-> > My commit comes from nearly 20 patches. For each patch, not all of its =
-content is meant to fix the cve, so I just get the part which is helpful to=
- fix. It is why I don't present the patches one by one instead of merging t=
-hem into one big patch.
-> >
-> >
-> > -----=E9=82=AE=E4=BB=B6=E5=8E=9F=E4=BB=B6-----
-> > =E5=8F=91=E4=BB=B6=E4=BA=BA: Greg KH [mailto:gregkh@linuxfoundation.org=
-]
-> > =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2024=E5=B9=B44=E6=9C=8816=E6=97=
-=A5 12:54
-> > =E6=94=B6=E4=BB=B6=E4=BA=BA: wangzhu <wangzhu9@huawei.com>
-> > =E6=8A=84=E9=80=81: harry.wentland@amd.com; sunpeng.li@amd.com;
-> > Rodrigo.Siqueira@amd.com; alexander.deucher@amd.com;
-> > christian.koenig@amd.com; airlied@linux.ie; daniel@ffwll.ch;
-> > qingqing.zhuo@amd.com; stylon.wang@amd.com; Josip.Pavic@amd.com;
-> > trix@redhat.com; cruise.hung@amd.com; Eric.Yang2@amd.com;
-> > mario.limonciello@amd.com; alvin.lee2@amd.com; jun.lei@amd.com;
-> > austin.zheng@amd.com; sunglee@amd.com; paul.hsieh@amd.com;
-> > hanghong.ma@amd.com; JinZe.Xu@amd.com; lewis.huang@amd.com;
-> > Zhengzengkai <zhengzengkai@huawei.com>; alex.hung@amd.com;
-> > syed.hassan@amd.com; wayne.lin@amd.com; nicholas.kazlauskas@amd.com;
-> > chiahsuan.chung@amd.com; aurabindo.pillai@amd.com; aric.cyr@amd.com;
-> > amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org;
-> > linux-kernel@vger.kernel.org
-> > =E4=B8=BB=E9=A2=98: Re: [PATCH v6.6] drm/amd/display: Wake DMCUB before=
- executing
-> > GPINT commands
-> >
-> > On Tue, Apr 16, 2024 at 03:52:40AM +0000, Zhu Wang wrote:
-> > > From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> > >
-> > > stable inclusion
-> > > from stable-v6.7.3
-> > > commit 2ef98c6d753a744e333b7e34b9cf687040fba57d
-> > > category: bugfix
-> > > bugzilla: https://gitee.com/src-openeuler/kernel/issues/I9BV4C
-> > > CVE: CVE-2023-52624
-> > >
-> > > Reference:
-> > > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/c
-> > > om mit/?id=3D2ef98c6d753a744e333b7e34b9cf687040fba57d
-> > >
-> > > --------------------------------
-> > >
-> > > [ Upstream commit e5ffd1263dd5b44929c676171802e7b6af483f21 ]
-> > >
-> > > [Why]
-> > > DMCUB can be in idle when we attempt to interface with the HW
-> > > through the GPINT mailbox resulting in a system hang.
-> > >
-> > > [How]
-> > > Add dc_wake_and_execute_gpint() to wrap the wake, execute, sleep
-> > > sequence.
-> > >
-> > > If the GPINT executes successfully then DMCUB will be put back into
-> > > sleep after the optional response is returned.
-> > >
-> > > It functions similar to the inbox command interface.
-> > >
-> > > Cc: Mario Limonciello <mario.limonciello@amd.com>
-> > > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > > Cc: stable@vger.kernel.org
-> > > Reviewed-by: Hansen Dsouza <hansen.dsouza@amd.com>
-> > > Acked-by: Wayne Lin <wayne.lin@amd.com>
-> > > Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> > > Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > >
-> > > This commit comes from following commits:
-> > >
-> > >  8774029f76b9 ("drm/amd/display: Add DCN35 CLK_MGR")  65138eb72e1f
-> > > ("drm/amd/display: Add DCN35 DMUB")  dc01c4b79bfe ("drm/amd/display:
-> > > Update driver and IPS interop")
-> > >  820c3870c491 ("drm/amd/display: Refactor DMCUB enter/exit idle
-> > > interface")  2ef98c6d753a ("drm/amd/display: Wake DMCUB before
-> > > executing GPINT commands")
-> >
-> > Why are you putting multiple commits together and not just submitting t=
-he individual ones?  And what is this for?
-> >
-> > confused,
-> >
-> > greg k-h
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 0ae9fd844623..ef9154043757 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -1712,6 +1712,10 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+>   			alloc_flags = AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
+>   			alloc_flags |= (flags & KFD_IOC_ALLOC_MEM_FLAGS_PUBLIC) ?
+>   			AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED : 0;
+> +
+> +			/* For contiguous VRAM allocation */
+> +			if (flags & KFD_IOC_ALLOC_MEM_FLAGS_CONTIGUOUS_BEST_EFFORT)
+> +				alloc_flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+>   		}
+>   		xcp_id = fpriv->xcp_id == AMDGPU_XCP_NO_PARTITION ?
+>   					0 : fpriv->xcp_id;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> index 4be8b091099a..2f2ae7177771 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> @@ -532,8 +532,13 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>   
+>   		BUG_ON(min_block_size < mm->chunk_size);
+>   
+> -		/* Limit maximum size to 2GiB due to SG table limitations */
+> -		size = min(remaining_size, 2ULL << 30);
+> +		if (place->flags & TTM_PL_FLAG_CONTIGUOUS)
+> +			size = remaining_size;
+> +		else
+> +			/* Limit maximum size to 2GiB due to SG table limitations
+> +			 * for no contiguous allocation.
+> +			 */
+> +			size = min(remaining_size, 2ULL << 30);
+
+Oh, I totally missed this in the first review. That won't work like that 
+the sg table limit is still there even if the BO is contiguous.
+
+We could only fix up the VRAM P2P support to use multiple segments in 
+the sg table.
+
+Regards,
+Christian.
+
+>   
+>   		if ((size >= (u64)pages_per_block << PAGE_SHIFT) &&
+>   				!(size & (((u64)pages_per_block << PAGE_SHIFT) - 1)))
+> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+> index 2040a470ddb4..c1394c162d4e 100644
+> --- a/include/uapi/linux/kfd_ioctl.h
+> +++ b/include/uapi/linux/kfd_ioctl.h
+> @@ -407,6 +407,7 @@ struct kfd_ioctl_acquire_vm_args {
+>   #define KFD_IOC_ALLOC_MEM_FLAGS_COHERENT	(1 << 26)
+>   #define KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED	(1 << 25)
+>   #define KFD_IOC_ALLOC_MEM_FLAGS_EXT_COHERENT	(1 << 24)
+> +#define KFD_IOC_ALLOC_MEM_FLAGS_CONTIGUOUS_BEST_EFFORT	(1 << 23)
+>   
+>   /* Allocate memory for later SVM (shared virtual memory) mapping.
+>    *
+
