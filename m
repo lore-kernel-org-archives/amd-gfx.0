@@ -4,119 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A53CC4345F
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Apr 2024 01:21:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D028DC4345F
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Apr 2024 01:58:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD95110FD45;
-	Thu, 18 Apr 2024 01:21:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EB8E10E259;
+	Thu, 18 Apr 2024 01:58:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aicUEXsW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ceQNNBji";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2058.outbound.protection.outlook.com [40.107.95.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D2BE10FD45
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Apr 2024 01:21:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZU8kZiQfpBRbMFgMnBOjaUnTsEL+bXylyu/GnmDvi6ZmkGunHBvJZdKfaGB1iTNrIYRMDKxcL83B9Tjg1g754f41+2YwhFQ2i7MrTjolL+pP8k1AzwJPvsy9imCFPLGpX5uC+PLbIMnmrKWFby7Ia8OrNPfrSm7W154z63KPjGZ9dwi5n8G5XRXTzwoT62sZ/8xXSPIoixjtJuDQwfvqeASenIXt/SX5W7BtvgdQ1v9wVuOESIfpgi/kzmsGe8UEMipiU4J7g0akwT6ZUYt5H3N0LYgoU1UQREYU1mgjFQchPJP3p4dF9TIUbxXwlGuPtqVRynPiA1YIhpIs43NSvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OsEAT7WkQrr0pkfIsqjoPLmp8IdYi/eHqonGjyNGs1U=;
- b=er/YOs527NYBZL7/67WbSPZzmELNaeKUaE1WBwaffs3A7T69heU647y38BAGmfIshr2/dpO7j4aTkjr3v0wDme/vrYQyS8M1kIRCCUWltlMLisYjDOwpQ7vn5BaywOmgbhW/btFbNZXNpKGEVqWxsZeTN5gIhFF5+gdMSI2KOO684kvtj5QiDCzT61uwg0TNM5TdvxnGmWR6A2NJ7CkwBi2tBnjELdEEG94nMHefnzXrLvHjAd8nEG+TkGmHH4PR0oCVHETejm0nn2scWwVyHVlBV/2y493nPno/pt60nxqZzNyPyVCogqQeGoQ+94woXu1tMIfZGwBgAxXZcJ+3xA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OsEAT7WkQrr0pkfIsqjoPLmp8IdYi/eHqonGjyNGs1U=;
- b=aicUEXsWG6M3lIUvH6blFarcpSD9BuigXc6m+qyeGRfz1e0oTRX1uFbpmNuxdLCCqD/Ddxzs/T6dckPCfFeCa+gAszUvhSQYVGM0CEYD3s7Mhe0MrTKpaJOtjRYQToCUOX+DxxrQ877xD51i5tMwo272rBNCk4vB7oeWnxVdVW4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6351.namprd12.prod.outlook.com (2603:10b6:8:a2::6) by
- SA1PR12MB6701.namprd12.prod.outlook.com (2603:10b6:806:251::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.37; Thu, 18 Apr
- 2024 01:21:17 +0000
-Received: from DM4PR12MB6351.namprd12.prod.outlook.com
- ([fe80::5f41:ecf0:e301:fc2e]) by DM4PR12MB6351.namprd12.prod.outlook.com
- ([fe80::5f41:ecf0:e301:fc2e%5]) with mapi id 15.20.7472.037; Thu, 18 Apr 2024
- 01:21:17 +0000
-Message-ID: <94e7176c-4a3a-4a09-b49c-65d45005a9bd@amd.com>
-Date: Thu, 18 Apr 2024 09:21:08 +0800
-User-Agent: Mozilla Thunderbird
-Cc: majun@amd.com, Kenneth.Feng@amd.com, Alexander.Deucher@amd.com,
- kevinyang.wang@amd.com
-Subject: Re: [PATCH] drm/amdgpu/pm: Remove gpu_od if it's an empty directory
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20240417055335.118441-1-Jun.Ma2@amd.com>
- <add8419f-a691-4b4f-af93-4d6b47ffc375@amd.com>
-Content-Language: en-US
-From: "Ma, Jun" <majun@amd.com>
-In-Reply-To: <add8419f-a691-4b4f-af93-4d6b47ffc375@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR06CA0008.apcprd06.prod.outlook.com
- (2603:1096:4:186::23) To DM4PR12MB6351.namprd12.prod.outlook.com
- (2603:10b6:8:a2::6)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EC1310EDC2;
+ Thu, 18 Apr 2024 01:58:34 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-1e2b1cd446fso3128235ad.3; 
+ Wed, 17 Apr 2024 18:58:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1713405513; x=1714010313; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0BQbZH8V6AkArNU8C8n3UT3FZgYZm8SuVNBisdoq2hc=;
+ b=ceQNNBjiSWhhjopWDlcsXj9AmRIGxcY0iReXEppOkWOKh5gy6fC2B27HQnKAPdLrkb
+ ReND37ZUKmM71jiNhzjLAPHsOEDpagrkJiFdhkroRS77j50lSnejdblP/JhPJKiqnEY6
+ Ka1QuBX18y9t5Hh/kMxMPNt2J4COUzGQzCEWbWyhPtAXgEsIN0DLfA5LVnSHfkbD477k
+ PaL5JGNlBoXrWw9m88Z05SSQfvcLkgeXQ7VnQpRinP2eXOeqM2p0XCKNfH2qGbTUsj3o
+ FDb3D8GGoZD2k+mG3emXoiJ7i18/UAiLgj5J5OEF45l0tKKqR6QFFsnVTHs4nxjIbo4n
+ XQiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1713405513; x=1714010313;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=0BQbZH8V6AkArNU8C8n3UT3FZgYZm8SuVNBisdoq2hc=;
+ b=lS/2Htb6/ROnsxXzbp/5fsH0syp3hDp18fOKeO53BXNNIFdoTIf0bwgKuABHhk5bG9
+ eyQowVX6Fx1xbQDTxp71sDQhKlehr8sPIFRRqFf9VuJp+NiQlEkB6AlIQwfd/lyLep2L
+ A5HddgiTFNredr6XXSysCynskqKPOyJogyXzfIMudkQNQdjWpkhDrVmXUSSh3zPJqoqv
+ mlgX27k/27FtwWYkXWuFXmkVWzkam+Q2rzSYRRs0lYeaiFnoJ9BAzYPR8Pl4xOs05gfm
+ 0ixopIZ2rtOvqxZ/i+9qdZxHcMOTLF8X0CQYt5TCEy1qAR8V7b0g+C9idc1zvG9zfhNk
+ egnA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW/Vfm8nBkwk8/c/5G5Z4r8j/tCXk/xQVglhtSAvP8QmxuDVBr5wyHfVjqxuRUbf/nz44sKn40L9dLYx2++qeldYiW5zE3bqWA5CgLP/jnqXx63pQFiqsVntbTCFHKbgWWTqP6ZuQ+MUzktNsJ2yQ==
+X-Gm-Message-State: AOJu0Yw5exMbSj2gPytSPYP8VgOZihwpFoGUudEbgNF0BuVY/xPcw5up
+ YELKfGnQyNfi+uMAI5jt65ra+WAQOArYkXgVefc6TwTR33DnqcOqJwQ1hqDVwYdbPBL7ceK0+7U
+ F6qVIpC3ToTGAq1xGzs0EPDaOQ70=
+X-Google-Smtp-Source: AGHT+IEc8km59dil+ryu0/tDjq9YKqCypfeAJvhe0wIcQMkHNXop508QC5grarMl1sc9xlttfoS7xQUePdznnHJVMSo=
+X-Received: by 2002:a17:90a:f40f:b0:2a5:d0cf:43b with SMTP id
+ ch15-20020a17090af40f00b002a5d0cf043bmr1286536pjb.21.1713405513517; Wed, 17
+ Apr 2024 18:58:33 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6351:EE_|SA1PR12MB6701:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f0119d8-a1a5-440d-ffe1-08dc5f45d895
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6YZaTrTfgA7S+Ov24KK3et5RKVS4w/nTrnFD/Boowg5p7mDQbWHdqXFyfJW+S1tLZEGsYj2v0Lbo7EhogVDiTFcJPEcEoPpgyytST+aYI78HSIeopPEAoenOB3rnI59JDP5LqF+S+xLuIeHG6Mq1uV2WzDIcaXC6ETdrLnK4MHWAMeFxFnmomZXv6HYAZr5bD3l6MV17cDHM2CpgpQTr83Y/kIDiiTd1VMHqFL1C01pKKYWvvAnLWoZauSivLiZxe0LSVemymyn/d/Yv1QD/5lmuM7SXcfjLzI6vAeFqdR2Y7Y3InDgIIP/s+TppV92HAfYXLXxjXPwg0oudgzyeSGepLrk39hYLVKWYnbvmFNjw9fD19MENaThkYPP1IXIcuSaYMxEujQ9zeGHCXwmip457jwZ3Po0/dXwmGdTj/JOMUy1dFVwkbx58nLpuORkeX4udbRePJ4wOkUDdZ38+NiRNYIfXs8/LcwtIsSqxh5+9G7ALC1XGCygsTdgB1q+T8+wwQHFMfwB/jvlzsHSXiSMD6X+6hLnREPtofy8Da5hLw4jjowauAtXipbM6ZBKnfnT8uN/rbTd3zbzF99Z7Zh6GwXYV1xa3OrMEuxY9H6NaNV7Y/GhkcS8cR8TCel2JlNJBXEnHGItQ1LQ6iGfXOG2vCA+ZnbJsEexVOn9Hs08=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6351.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(366007)(1800799015); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RXdTKy9UK3lLU1B3S3RiNXMyWk9DSmZNdEsxM00vUVM4T0FuZkVWckhUWFhP?=
- =?utf-8?B?OW1Sa0c4OXRiNVU4VVIwMGMva0xxN1N3RHF4aFV0YmlSRXRIZ2NWWitVWXEr?=
- =?utf-8?B?QzJUa0VPM3VXeU05WHpEWmxIRmpzbWZLdFlQY3A1RU1UR2k4d3JwVnhwWkN2?=
- =?utf-8?B?SlFUdFY4T2RIT1JXdy9IYXNNYTdRbXlMTDJjSTYxcFUvU2pqUzBpRytpdVJU?=
- =?utf-8?B?NVRjQzVJa1Q3SWF0T1NhdHhKcHZWMXp4Nm1FTURxdjdYWjZNWk5IQ2JlblR3?=
- =?utf-8?B?VnVhR3MvZ25pVE9uUEhxRkpMTWhyNzlzaTNlK0J2WXczUmNRRnd3L0VzT1hQ?=
- =?utf-8?B?UjNyMDl2SFJHNkxYdm9pL3VBWmRSM0prM2lpZHprSVVFdG1oVGVaSDJMN3g4?=
- =?utf-8?B?NlJKQy9BMUliMXpCWW5Uc0tCZDc5V2x5Wm9MOWxlWjM2NXB5alFtc1FVeHRr?=
- =?utf-8?B?Zi9aZ3pabkFmMFlhZkdRR3dteDJnOWlMUFVIeElDTmhOckVmTnNvZDI0R3Vj?=
- =?utf-8?B?ZVU3emtGQzA3UXdtRFRZT1k4VTNSakMyTERwalhsTkNiYm1HTGN2Z0E2VTBq?=
- =?utf-8?B?U0F2U1hiQnZ0Q1F6WGVycXZ3NXRGWEF6M3dLR2lSMXRjSmYvOExTSTBTbjRR?=
- =?utf-8?B?UHZVajZvMVNMbk1MdE81clZxdk0rWjIrSUZSeHFQaDlSaWlPZ0ZZZEd3Q1g4?=
- =?utf-8?B?WEJwYVlSN0FVU0dtTlZqZEIvMTd1NXBtSXFKRzExb0RGZmlQcDBMNUo0V2NM?=
- =?utf-8?B?OWJTRnducUFpcTJvN0hqekxkMWg0eXdYZ1cyOXVvOXZ6bTAwdTNJMmRXaXBq?=
- =?utf-8?B?eFcrdTROYzJuSXRMb2QyQmRISTI5VmFkTlBCWFR3b252ditQOWoyWjZSSGVF?=
- =?utf-8?B?c3RIVU5UY0dPb3dpUEY3dFk3Qzg2WExTUWVaTXdZdS93RzQ0d1oybXBDdHBB?=
- =?utf-8?B?eG11YVpYWlFiNTJ5MXJ6UWUzNUtONmJJQ0NFQVYyVUdqYjN3WWRDK0lKZS9P?=
- =?utf-8?B?VmpTOTBHS3d5QVBRWnVUOElmR2Znck9ERXlLbkprOWFlUTJGYkhlTGdTTUV1?=
- =?utf-8?B?U0pwcWs1OHJKVEpxTzRhYVBCeXZzck5kVHpTRkRSeGZlVzJYQnpabUtpV0lR?=
- =?utf-8?B?N0htYVdDelZOVTdOemhoYTI4YmxqbnlBUW94TTllWGRnellOb2pzbFM5RGMy?=
- =?utf-8?B?Qkc2SDBWRmMwRzF6RFJCK1RQa2pzNVpqWUVKRjBNaXdQOVdGcDlmdzVtR3Js?=
- =?utf-8?B?OTJyZ0h2N0VIS0dsa1Y5Zk9xczBES0pMaTM1WUFzcXZUQmh4TSt4YUtsVzgz?=
- =?utf-8?B?K29VRGcxUmw0d21XckMvaEFDZHBTT3gxVk8rN1o1M2FBVSszTEljQllhd2k1?=
- =?utf-8?B?MStqYXI2WEZpaHp1K1IxTVZUMzJyc3psZFlIbUpmaVNSYUNCc0JKek5vc0hi?=
- =?utf-8?B?dDZSczFReFI5NStYNW1nWXREeGlTc1E0THhha3NBYTg1ejVDVjRUTks3U0Vw?=
- =?utf-8?B?bHBSWUhRMGZ2M216ditvbmtub3RMbGYxN25CalJ2Zmc2UGpMMnErS3IvNm1B?=
- =?utf-8?B?MEFNQUY2eEFFVVFsWE5zQ05keE4vNis4aERBRXBKY3A0MHNwV2x1cjVxQ1o4?=
- =?utf-8?B?cDh4aGJFQ0JFbDZrY0IvenJvWFNkdndsUnBZZTBHODZ3ZFVRVG5OSWU5TFo3?=
- =?utf-8?B?Z2hTY3h5cklUTzFWWUowek9PYzJWMitFQTFUQnFqbG5aeUp2bjgvRzcycys0?=
- =?utf-8?B?QTV2bmhWMkZ6QlhEbGVXUERYbGtEUzNMVVZnV0RUK3NCVUh0dndoazZLZVZO?=
- =?utf-8?B?TzdwWDVvRzZQcWdneEEwZDE5cGJHbVBLRzFWNUJrcTBvcmtuTGgxN3hPcEtL?=
- =?utf-8?B?Y3pHdUNPTTREb3J1VGp3YmJBRFZFM25QbENqRHZ1OC9kVk5kQ01Id3J0Tjdl?=
- =?utf-8?B?bGFDK3ovRWNNMzRYOTJaR3hxandoS1dmWFZmb3ZCRXF1bEtBVWhRODJ2NnNs?=
- =?utf-8?B?UWkzVm1NTHVHNENDQ3FiYzkwV2tFL2JHOVEvNk9ZOGVqNkhGc0NDOHhKK082?=
- =?utf-8?B?UkdKTDVaRlJqR3VaSy82dTA1TVh4WUFPOHhxTHRwQTltVkJoeURIdzFPQjY2?=
- =?utf-8?Q?jJcQZywfqpvvmyO8vo8Mk9O83?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f0119d8-a1a5-440d-ffe1-08dc5f45d895
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6351.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2024 01:21:17.4076 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +GJGNNMPPXOBntr/7Yq9pfgPCJEaCyngUbOAtmQ/GrCxcen+onjPOQHticuGADvE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6701
+References: <20240416035240.2450127-1-wangzhu9@huawei.com>
+ <2024041658-imagines-unlatch-a9b6@gregkh>
+ <036c3371d3a64ef8881260197ce37dbc@huawei.com>
+In-Reply-To: <036c3371d3a64ef8881260197ce37dbc@huawei.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 17 Apr 2024 21:58:20 -0400
+Message-ID: <CADnq5_NML_BiqQx2UmwH86d3qv57D3tFRL--dro1qA99r0Qr5w@mail.gmail.com>
+Subject: Re: [PATCH v6.6] drm/amd/display: Wake DMCUB before executing GPINT
+ commands
+To: wangzhu <wangzhu9@huawei.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>, 
+ "harry.wentland@amd.com" <harry.wentland@amd.com>,
+ "sunpeng.li@amd.com" <sunpeng.li@amd.com>, 
+ "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>, 
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>, 
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "airlied@linux.ie" <airlied@linux.ie>, 
+ "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "qingqing.zhuo@amd.com" <qingqing.zhuo@amd.com>, 
+ "stylon.wang@amd.com" <stylon.wang@amd.com>,
+ "Josip.Pavic@amd.com" <Josip.Pavic@amd.com>, 
+ "trix@redhat.com" <trix@redhat.com>,
+ "cruise.hung@amd.com" <cruise.hung@amd.com>, 
+ "Eric.Yang2@amd.com" <Eric.Yang2@amd.com>, 
+ "mario.limonciello@amd.com" <mario.limonciello@amd.com>,
+ "alvin.lee2@amd.com" <alvin.lee2@amd.com>, 
+ "jun.lei@amd.com" <jun.lei@amd.com>,
+ "austin.zheng@amd.com" <austin.zheng@amd.com>, 
+ "sunglee@amd.com" <sunglee@amd.com>, "paul.hsieh@amd.com" <paul.hsieh@amd.com>,
+ "hanghong.ma@amd.com" <hanghong.ma@amd.com>,
+ "JinZe.Xu@amd.com" <JinZe.Xu@amd.com>, 
+ "lewis.huang@amd.com" <lewis.huang@amd.com>,
+ Zhengzengkai <zhengzengkai@huawei.com>, 
+ "alex.hung@amd.com" <alex.hung@amd.com>,
+ "syed.hassan@amd.com" <syed.hassan@amd.com>, 
+ "wayne.lin@amd.com" <wayne.lin@amd.com>, 
+ "nicholas.kazlauskas@amd.com" <nicholas.kazlauskas@amd.com>, 
+ "chiahsuan.chung@amd.com" <chiahsuan.chung@amd.com>, 
+ "aurabindo.pillai@amd.com" <aurabindo.pillai@amd.com>,
+ "aric.cyr@amd.com" <aric.cyr@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,45 +112,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Wed, Apr 17, 2024 at 9:51=E2=80=AFPM wangzhu <wangzhu9@huawei.com> wrote=
+:
+>
+> Hi Greg, thanks for your reply. Since there is no patch to fix CVE-2023-5=
+2624 in linux-5.10, there is a patch in the linux-6.7 branch, its commit is=
+ 2ef98c6d753a744e333b7e34b9cf687040fba57d ("drm/amd/display: Wake DMCUB bef=
+ore executing GPINT commands"). When we apply this patch to linux-5.10, the=
+re are lots of conflicts, and we found there are lots of dependent patches,=
+ and lots of patches are not proposed to fix the cve, they are presented to=
+ add new functions of the kernel.
+>
 
+Why is there a CVE?  Have you uncovered some specific issue?
 
-On 4/17/2024 7:52 PM, Lazar, Lijo wrote:
-> 
-> 
-> On 4/17/2024 11:23 AM, Ma Jun wrote:
->> gpu_od should be removed if it's an empty directory
->>
->> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
->> Reported-by: Yang Wang <kevinyang.wang@amd.com>
->> ---
->>  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 7 +++++++
->>  1 file changed, 7 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> index a20e03e69d38..0c13e5520e77 100644
->> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> @@ -4338,6 +4338,13 @@ static int amdgpu_od_set_init(struct amdgpu_device *adev)
->>  		}
->>  	}
->>  
->> +	/*
->> +	 * If gpu_od is the first member in the list, that means gpu_od is an
->> +	 * empty directory, so remove it.
->> +	 */
->> +	if (list_is_first(&top_set->entry, &adev->pm.od_kobj_list))
-> 
-> Instead of assuming any order, what about using "list_is_singular" - if
-> this is the only entry in the list?
-> 
-Thanks, will update it when push.
+Alex
 
-Regards,
-Ma Jun
-> Thanks,
-> Lijo
->> +		goto err_out;
->> +
->>  	return 0;
->>  
->>  err_out:
+> My commit comes from nearly 20 patches. For each patch, not all of its co=
+ntent is meant to fix the cve, so I just get the part which is helpful to f=
+ix. It is why I don't present the patches one by one instead of merging the=
+m into one big patch.
+>
+>
+> -----=E9=82=AE=E4=BB=B6=E5=8E=9F=E4=BB=B6-----
+> =E5=8F=91=E4=BB=B6=E4=BA=BA: Greg KH [mailto:gregkh@linuxfoundation.org]
+> =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2024=E5=B9=B44=E6=9C=8816=E6=97=A5 =
+12:54
+> =E6=94=B6=E4=BB=B6=E4=BA=BA: wangzhu <wangzhu9@huawei.com>
+> =E6=8A=84=E9=80=81: harry.wentland@amd.com; sunpeng.li@amd.com; Rodrigo.S=
+iqueira@amd.com; alexander.deucher@amd.com; christian.koenig@amd.com; airli=
+ed@linux.ie; daniel@ffwll.ch; qingqing.zhuo@amd.com; stylon.wang@amd.com; J=
+osip.Pavic@amd.com; trix@redhat.com; cruise.hung@amd.com; Eric.Yang2@amd.co=
+m; mario.limonciello@amd.com; alvin.lee2@amd.com; jun.lei@amd.com; austin.z=
+heng@amd.com; sunglee@amd.com; paul.hsieh@amd.com; hanghong.ma@amd.com; Jin=
+Ze.Xu@amd.com; lewis.huang@amd.com; Zhengzengkai <zhengzengkai@huawei.com>;=
+ alex.hung@amd.com; syed.hassan@amd.com; wayne.lin@amd.com; nicholas.kazlau=
+skas@amd.com; chiahsuan.chung@amd.com; aurabindo.pillai@amd.com; aric.cyr@a=
+md.com; amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; lin=
+ux-kernel@vger.kernel.org
+> =E4=B8=BB=E9=A2=98: Re: [PATCH v6.6] drm/amd/display: Wake DMCUB before e=
+xecuting GPINT commands
+>
+> On Tue, Apr 16, 2024 at 03:52:40AM +0000, Zhu Wang wrote:
+> > From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> >
+> > stable inclusion
+> > from stable-v6.7.3
+> > commit 2ef98c6d753a744e333b7e34b9cf687040fba57d
+> > category: bugfix
+> > bugzilla: https://gitee.com/src-openeuler/kernel/issues/I9BV4C
+> > CVE: CVE-2023-52624
+> >
+> > Reference:
+> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/com
+> > mit/?id=3D2ef98c6d753a744e333b7e34b9cf687040fba57d
+> >
+> > --------------------------------
+> >
+> > [ Upstream commit e5ffd1263dd5b44929c676171802e7b6af483f21 ]
+> >
+> > [Why]
+> > DMCUB can be in idle when we attempt to interface with the HW through
+> > the GPINT mailbox resulting in a system hang.
+> >
+> > [How]
+> > Add dc_wake_and_execute_gpint() to wrap the wake, execute, sleep
+> > sequence.
+> >
+> > If the GPINT executes successfully then DMCUB will be put back into
+> > sleep after the optional response is returned.
+> >
+> > It functions similar to the inbox command interface.
+> >
+> > Cc: Mario Limonciello <mario.limonciello@amd.com>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: stable@vger.kernel.org
+> > Reviewed-by: Hansen Dsouza <hansen.dsouza@amd.com>
+> > Acked-by: Wayne Lin <wayne.lin@amd.com>
+> > Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> > Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >
+> > This commit comes from following commits:
+> >
+> >  8774029f76b9 ("drm/amd/display: Add DCN35 CLK_MGR")  65138eb72e1f
+> > ("drm/amd/display: Add DCN35 DMUB")  dc01c4b79bfe ("drm/amd/display:
+> > Update driver and IPS interop")
+> >  820c3870c491 ("drm/amd/display: Refactor DMCUB enter/exit idle
+> > interface")  2ef98c6d753a ("drm/amd/display: Wake DMCUB before
+> > executing GPINT commands")
+>
+> Why are you putting multiple commits together and not just submitting the=
+ individual ones?  And what is this for?
+>
+> confused,
+>
+> greg k-h
