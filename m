@@ -4,120 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2E3AC04FF8
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Apr 2024 19:43:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16370C4345F
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Apr 2024 20:50:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80531113F68;
-	Thu, 18 Apr 2024 19:43:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99563113FE0;
+	Thu, 18 Apr 2024 20:50:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qEYkmnur";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lcgN3kqY";
 	dkim-atps=neutral
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2044.outbound.protection.outlook.com [40.107.243.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90D61113F68;
- Thu, 18 Apr 2024 19:43:57 +0000 (UTC)
+ (mail-dm6nam12on2069.outbound.protection.outlook.com [40.107.243.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3F00113FE0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Apr 2024 20:50:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EG3TCRqjdwF+PY5hRI9+vLpN6XA6/L/CgGJmmBkKEu8gSTOK4hfrjduYjEAVAFUZcKdBQUAxaV+MRHm/PkX1Ob/sEM3yCmnpLTy4iv2p3iR6OueYIojJ3CyAt0ybclRrjqCxFm1MIM+jTAwgnmgBhtDZDCmj5OSajCBHqD6ET910zdTUsYtt8LcRh64TZdqTMrTtFLFBZa4cNPynZaAhl3s51cA2oHOskict2YlBMylBzFf48VkvwG4NNStpUd2Q9nWdKwRN1hEnmJqeJcECo+VGf3W+oKlIeLkqtYE4GpLpfqv+wJvObPYgdld4LOwKSxkcg5JXXeu+JrBYZxIpLA==
+ b=FccInkp1eCK72w3gkb5WPyti7xvfepOoPA+YrIK1N4Uw2fsFbhxAZ7jIFUz3HrFm3JiSA6RilXKNF/7ls4VuO3nlolpSH1IjjVSl+XoHC6mFvtdbt9MxQ0SuNSmPjn4N+8LT5ILj2X9EjX1lm1u+IXLvjgX0NIfYe3XyF872aUo0h1HLo5jKDgmN9l0AcT6g7gEvUSswWdeHIXbl+f3vJHni9YZ0tRqzZv9zdNnhemdJB0ie2aDgkEg6m0+iwXoMTSH++ZYt8p3z+M22hWM75217x7Blj//CkkUO9EpIdhqVXDuUV5p9UpTvdSJKrS6iQvXMfu0Y7xYCgnZECgRN3w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M3dU7MV7NIAPioE9LeDvqOQCDHJyG5Y9hSOHMXkoH+4=;
- b=HmeeG4uSHN3fU0H1lcVbvxSMzAK5Rwsb9y0bN3FmAVrlfCPesc3jutJLawNL8t03IOqUoYAF4UX2QYcragTcpR1Zo0GjoOgA8JomDlIfGVzt3II+fxuf/DvFWXyyVmHI+ZYWdSBnwzKzI7Rnrfu/zEaXFzTSLqL5uJFTzt7fXeh8uq4i6hfuVE6OcMPJfTCiMU1vz2KmRyLBgFN5LbzwXFB9YFCqUuWMG2X5LDHg6S+THDIxxx9qjRIK345bHgK2ck6ImdtUW2WHm95RGL+md4rNJlqbHWAshwiDHY1pISc3ge7ZpSqQFcBmz+Yids3sJMnY2+e2+vBprIprJviHMg==
+ bh=tKAbkbqS5OTUCU97mVKarUN4F9BCCQLAsezXFzc2U24=;
+ b=BQ1oKSllCDlnsawDehGHsgqr+UH4+YO3ghb+RqvYxZ+p05I45yDdvQpNU5tolzs4K84VgOKbYhh9QhwAk4gNDHWCTEjwpIBoBxJX/eDyAzO4sQ4495cXDU00lUkydInW0ZnaVdHoh5RWiEMB7DW1yEn8qcOzf9mvckJQvxE7mk+Bi1qYoej+ljYc5YAbpV0legOUXAhtP36tjGxbHSGsTpJNqsRzknR2gWry1wa1b+bt6AUucTxjs6prz+Q1dVF3FuzqCKSUswxw54oNNdGakHdhZMYJKW+A+8Qv9CR0YNfniMVwWWNtZtZV01fd9eim2sayzbn9gZ4Y18km076vbg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M3dU7MV7NIAPioE9LeDvqOQCDHJyG5Y9hSOHMXkoH+4=;
- b=qEYkmnurs59tooEzp2FH6DYWb5dwCZOPW6mkZuz52g50uJakeSZSNvUM1dKWqHVmWUhIF9jLBMMC7yD7MoZDJqN3MOSKDR+QcarEInPLHMyfizvmXgvzQdKdR03BLwkuz6osOSFSQTjo5kd7WsJpF7TSlaeHxTmI0If1JAPjCwA=
+ bh=tKAbkbqS5OTUCU97mVKarUN4F9BCCQLAsezXFzc2U24=;
+ b=lcgN3kqYwF1zyFleS3NWJgS8N1QJV2WaRxWvLHr24ul8AQ2u0C7pdbGOtAFzxbPtQdSRUDq51uJTbbyIuND8rcj0UbO8LSABpL8viKUsdlwZcUFewaqOOIzDJzeCnTuX5cFwRZNPiuzjk7e2hwdDml3GjO6Me/IzoIk+0xWIoas=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by DM4PR12MB5940.namprd12.prod.outlook.com (2603:10b6:8:6b::10) with
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by PH8PR12MB6819.namprd12.prod.outlook.com (2603:10b6:510:1ca::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.39; Thu, 18 Apr
- 2024 19:43:54 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062%5]) with mapi id 15.20.7452.049; Thu, 18 Apr 2024
- 19:43:54 +0000
-Message-ID: <0847dc03-c7db-47d7-998b-bda2e82ed442@amd.com>
-Date: Thu, 18 Apr 2024 15:43:50 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/mst: Fix NULL pointer dereference at
- drm_dp_add_payload_part2
-To: Wayne Lin <Wayne.Lin@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Cc: lyude@redhat.com, imre.deak@intel.com,
- =?UTF-8?Q?Leon_Wei=C3=9F?= <leon.weiss@ruhr-uni-bochum.de>,
- stable@vger.kernel.org, regressions@lists.linux.dev
-References: <20240307062957.2323620-1-Wayne.Lin@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.50; Thu, 18 Apr
+ 2024 20:50:19 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::9494:43c8:64df:6c1a]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::9494:43c8:64df:6c1a%5]) with mapi id 15.20.7472.037; Thu, 18 Apr 2024
+ 20:50:19 +0000
+Message-ID: <47fd1f92-e592-00bd-2298-3fe476e9bffc@amd.com>
+Date: Thu, 18 Apr 2024 16:50:16 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2 1/6] drm/amdgpu: Support contiguous VRAM allocation
 Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20240307062957.2323620-1-Wayne.Lin@amd.com>
-Content-Type: text/plain; charset=UTF-8
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com, christian.koenig@amd.com,
+ Arunpravin.PaneerSelvam@amd.com
+References: <20240418135803.17365-1-Philip.Yang@amd.com>
+ <20240418135803.17365-2-Philip.Yang@amd.com>
+ <dbc3534e-dc5c-42bb-8e83-66d047481f9a@gmail.com>
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <dbc3534e-dc5c-42bb-8e83-66d047481f9a@gmail.com>
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0024.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::21) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+X-ClientProxiedBy: YQBPR0101CA0037.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:1::14) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|DM4PR12MB5940:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ca3cebe-8704-4504-0f7a-08dc5fdfe199
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|PH8PR12MB6819:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ec4c4b7-058f-4845-ac34-08dc5fe92876
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KnBAlGFELnMU//Nx9vnChoRNaplOi3q/dhCmIcUyW5Gr/Y6V4mGaEabLTQQ5HkX5C53dUrv5xYNulrxWxrEMs+gaKn8ZMtiJgEqZWQZqVRopLa8nIOm0aaV3xw1aZtfUaIqEWKy1ciGa33Wf5Z1LD3CnWo6gI1Vp8FGRZWMdIaj072YM8gPjvnT2/Jcux6r5KnfyMfwywm4bwriqZ/+KDXNNYR6zV1DuuqBfcjYJQs+xO+ggQ8CML0Ruim2wYd2r1fpWXKa+s0CShLNr0tFgNlS1v7aD/qmaS6Ud3zJDXbEfZ9it/dIwQJn9jLFjcuhAIOTXyrj+vPUyA0C/meIyeJ8KHA4jgrE7qxzVJQkpg8KlD/ia8BWJxxtvLbIw4IQCRp1XvH4XQXnF19dB51ufjgE3xHckEVCFE0tNBKdQf+gt9v2aSAC3tbYxp/rnO7kv6s1upfgvfHd5yoWnyydUHBN43ThkUC6nYd7CKmagQKslmpul9UF3lnhEXwgGUxEOU6BaO4bUC6eQUi4nF6dIA739z+dQoVVQ5R9Q6ePhhTBXHVygLUjf3KVWMUnc7jpuvmcbuYLTNqz8o9CbSwu69KZD6tRASB/hgkzqQu3SxBrv+//RcGwCqTEPC6gJ7THJdGvmake5ERr5lLb+i9A2Sm4kjKT/R5DUXKbHhiXE0cU=
+X-Microsoft-Antispam-Message-Info: 5fB9l1P/6C0JzuzFMT6sFhKQp9Il7eXce3shFaFxZ9U6qQ0Yylg2SqX/NCxPtL/te0MPq996slw2TTtgVLULOkwo9zpkGPMheTBS6BHWLKBsjUthujGKrywppt72RHGEhREOnrQIY1AL3hEoc+IOcm/SEj47sgTAyPH0o3wK0r4OyKYbWk8uVdHDYEPz44yDNaxIkCN5GiZsXG6GyNC9eLlXQB6+E5whCIBvqpGkXAH60n7efDt231ENWSOhm6I1Lw9KdL2uTnnIo88GRQqysNltHUlAnF3TQ0dYUryymGhm16F5onuMMq6nKhglpCP+RYUGnNxNTycQGywcs9o3c6SWpfKNHKJWrxqSF3qpdeJyCEJcRa6u16wPdr3B6Hpfeha5wF62M9r4rKaQHII4gi2xNJrE9XsEw8isa0kfnsT2iDHB+gmEPmlF9eWC9aC+NqPPG00iKB3JsmWjtXZpk6H69QtirNtCITjWd8tu/ljrZEl4X4epqxUo9roxY72tGRU9iaOr/Yhf/EVgrTfF3lQXpMS3ljrMShgK5/Z0hSjiof8muDhycQoKErc57IPDrogGAlt0hEhxqPTHXwNq2Mn5kSQUD74bkkv2NxRwvd8IiXxwBatMDt7u8qUQiNRxBBVjeLka+VgeGMmF2034BIVn4xe5oXysz3jdOjFgtqo=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(376005)(366007); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TzlrcnJnQXIvSW8rVVByN1pFQ0ppTlFWK2xuZUVUVFVmOVZ2YXA5MDFjNHRE?=
- =?utf-8?B?OTNLd2ZmVFAxcHpaNy9rYU5xWkRBRjBwTlZacGorTWtycU9BQ0hPUTRRa0Q2?=
- =?utf-8?B?NU8vZWtNOEZYWWJhQ0lUS3Z2VEEvcTBzSTVINkFva2p4aDJHUm94WEpHbTZO?=
- =?utf-8?B?RHBTUnAwZnF0R2p4NDMxN2toWXZrMWFHWkQwc2d2VjBFNlZ0dE9LSXNoL3pn?=
- =?utf-8?B?RFZJaEpxMzE5am9teXVHTVUwL1J1aUNSOEJ4QXBhSUMxZlNpWWlNNTh3VDQ0?=
- =?utf-8?B?Mk9XSFB5VmczU1NnVldjU1NDUlR0SDNrTEJCN1VjYlR1ckhQMzk0cW51a2hD?=
- =?utf-8?B?NkhHYTNzWDRBeWpIa0pIZHNHZ1AralU0ekpzTVVPK0hZc2NzUWNxY3h3Szk2?=
- =?utf-8?B?dmdMTk5zalVzZGJiSDlRTmxnUkVoa3pUcEV2TFFXckZpR1lxcUZCci9ZVnhK?=
- =?utf-8?B?cmhDUkxXc3ZCZGdDSXFZdmhCa0NwcHpPd2ViVU9YMXhoeFNCbklhYkVPSzN6?=
- =?utf-8?B?ZEdXZmVNWGlLYWVCRWRob2I5ejd2QXRTNnJZcU1LTDlFRGJWVC9wcnlHTmFJ?=
- =?utf-8?B?YmhzaUlsQXdFdW1XdnBsQU5aMSsvbFgwbW42aDl4SEFtaVJoQkEwOG9nVGZH?=
- =?utf-8?B?b3c3a3FycnpWWXMzaXZjQkwra1pQR00vTyswWU8wZ2RmQXhIOU9JYlRKL0Fn?=
- =?utf-8?B?Q0t2TUxLRG1hRWNjUjcwYVY3SXdxU2xpcURiQlVJT3BMTnNxL04zTW9Md2Zi?=
- =?utf-8?B?b0ZqTXlUczBsbjM3OGNMK3g2S1lNUWprSDQ5bkFCR1dwaGpLeW1PMkVTZm1O?=
- =?utf-8?B?T1pvS0ZGQXpzZTdIdkJFMEFmL1Y0eTVUSTMxbmFzV0d6MGZRQ0lIZE10aXR1?=
- =?utf-8?B?RDRENUVZbVZpQVFUWkF4c1QvL0s0Z1FKeFgwZmppdVFFT2RIamlod3hOWHph?=
- =?utf-8?B?ZDIySEVoUk53SnBlRGtWcEY2NTY1RW9rczh6RTNHNmQyUnJkbk5CbFNEa2kr?=
- =?utf-8?B?N1ZQQ1lYdllwVGRLVjZpeTljZmk1NXpvdVBNOXFSZzVZa21VRWZneDJNZFZs?=
- =?utf-8?B?QSs0T3FDRlZieHNuMXRycnppTXg0dE1zRGJPOGlod2FiNzB2QldNTXAxbXhv?=
- =?utf-8?B?emRVL0hDamQvZk5ZT3lnaUxRenpCdWsrdjRabXc4SXRZd1ZSTTR0d2pObHU4?=
- =?utf-8?B?Sk1ENTZ4MzJ1VWtiZGl0VVVrRStUYW1wd2hYdHZTNnRXTXo5UnNEVW1XUnRm?=
- =?utf-8?B?a2cwVlVrSkhUNE5vTUhWaTBlTkRmYUNyOW45OWZnVm1UTXdvdG9wNXdFcXo3?=
- =?utf-8?B?MzQrQ3FZOEZ3Z3RCdVdpb3ZYM3EwMmdxZSs5MHVSWVJWZDE1UHZRQmpxeXNi?=
- =?utf-8?B?RlZwOGVwWmlWWkU3SHEvUE9RQVdoQ3J5TGVUV1o2MThYSjdHay93aFdkbzUz?=
- =?utf-8?B?d01mU3JoWVVnOHFXajZBRW52WC91bUp4dDQzbUV2YXB6OEo5aFVGWUpROC84?=
- =?utf-8?B?Z3VLOVZjZi9oajFSUTI2T3lMb2EyT3dDSVBhdmVid0tlTlNqQXhIcWRyWnIv?=
- =?utf-8?B?Nlc3bTFJTnVBT2NqWnVYOFBUOEZITEdCcGgzcDhrUU5jaFJkVEhaV25aT3Nu?=
- =?utf-8?B?MGdwWTVCV3ZtbjFjQllWK3c4UjZudXJRanhwN3pMTzNlMUxsY2dCOEhDbjEz?=
- =?utf-8?B?MXk3QUQ0T3ZDM1VXSnpkYkR6bjUwYnhydTRFRmdzV1dlMnF3NTh6T3NIM3dm?=
- =?utf-8?B?YlF5T1lZOWIrR08yZndZb1BtUjZBUll0S2w3b2ZGY092MFlzRDZMamtXVTZZ?=
- =?utf-8?B?dHNtN3lKZ3ZlbnlMZk0yc0xOaEx5QlZpemFLTncwdDJoZmx3NlNyYndoNUtx?=
- =?utf-8?B?T0NodzlxWjlESFdNaGFLbDVEUE54SmRUUEJ3WEhjeVY4OHBTdTY1RUNUanFk?=
- =?utf-8?B?OTZwdmkyNEV3YUlrQkFNR014d0wyWWxZNHNHSEkzeEhYdFM0WWVoUGxmWTBW?=
- =?utf-8?B?Y1Y2QmlOeFBIWEt1MkFlekNjc25DRGRGL3diSmVwNUR1bi9RNndyd0ZKMTJw?=
- =?utf-8?B?M01ibk54dXI3RmNEdmFwUkJmdzlUT1FNTU83TEd5dmd3c1hNcWtiZnY4eExP?=
- =?utf-8?Q?f3AW1w1EyJ/9AyHO7zzMqRfsV?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZUdxR3luUlRXTC9YT0plYXJkK3grL01NenI1ZUQ1WlZaU3N6bEMvaFVKV3hZ?=
+ =?utf-8?B?ZkJpclVJazZRa0o4YlpFbThxTnY4eFpYeTVGbTRURlh6N2RYTzNyeGNmTVA3?=
+ =?utf-8?B?UStGam5INGVUQWZXRzI1Sk5MRlE0anpzTFZjT3FnSDE5MW9haUZBSkNaNmhl?=
+ =?utf-8?B?a29maFc1QVdieVU1MkVERFBCc1NCVzdYVHhtVkJwdG5HVHRmUVhGWVZxRm9B?=
+ =?utf-8?B?YXJLRkJhL3NiVis1MlQ0NU9FQ0Zaa3ltb3Z4MVlzc3FXZ3U3cytZM29uT2RH?=
+ =?utf-8?B?N2p6bkxzV1lmb2x6ZWMzWERKY2NTazRSU0x4Yjh3UnUzZFVvdDU4bXMydk5H?=
+ =?utf-8?B?TC9RcjlkTkFjU0Z1REZhWXhpcGpuUjEwVDN6eHBSZkoybHBNNndPRFRYek9G?=
+ =?utf-8?B?QWU3cFZEam1wTndRL0VGK2lnd3I0cmJnZWtPYWN1NitUTUhVZ3lzMXNLWEFx?=
+ =?utf-8?B?SDc4bzMyZnJ4dlFIOHJOcW1wWWovV0RoYW9CRTdNdi8xN29XMENlY3ZlazRE?=
+ =?utf-8?B?WmhlZWxaVEhTVWgxTWd3OFRXSkFHOW54c2taTmtyT3dCdnF1U2crbDJxdlBy?=
+ =?utf-8?B?UnRGZHVFZWRWUHhXd3lmZUlKU1pOdVp6ZlVpVjRQSTFJc044TTIyYnRIQlBZ?=
+ =?utf-8?B?UTRCaTdacWpmckhQRHg1aFd4cTk0S3k3WWNmd2xKUmRWN3BOUk9mSFhXR0dB?=
+ =?utf-8?B?cVFkL2M4d055MkRMY1p1ajJUWGxvMXZieXVpeDlDRmg1UVVJSUtvUWxwalRv?=
+ =?utf-8?B?UVRweXFHcFlvblB1dS9zbTA1QlpqN2MvVjNLclpvYmZJdWk0SXhjZWR6aGVs?=
+ =?utf-8?B?TENVT043bUkwTXZmemY2QWMwUStLbEhSb3FNVXd3dW1XalZHdk92VkRDZk9T?=
+ =?utf-8?B?V1hUTURDd282ekc1aDhieDBYQzFRMDNuZTE1UnduY29zY09qdDY0OU1MMDUw?=
+ =?utf-8?B?eUhOS1NvdGg4emlIM21NZHNKdHZMM2dKRUtxTzZZOWF2dTBoN0J3eEQ2bGNH?=
+ =?utf-8?B?Nlo3RXYyVjlKaFNBWU50WjZsU3NYaUsrNDRLUVF5QWx6WGtOTk1ObUMzZXBM?=
+ =?utf-8?B?a2lKaUdrLy9rcGdKL3VkaWRONVI1ajBvRG5xMExtWHNVWWtCV0tKOENDZjAy?=
+ =?utf-8?B?d3NNVm5DdjJ0cDVOZEVNTCtrZXpvOVlNNFk5bUxRbVczNVduaFFzdTBocEhr?=
+ =?utf-8?B?bEVrMFpKaWFrOWNBT1NsMUl3SzBYM3FIcWdmZ3c1RFlBQ2pKM1ZoUkM3VEsy?=
+ =?utf-8?B?LzlWQUIyMEl5VitDTjAwMk9vNGZMaEJTajdxZkdPT3BNSVdvNDcxUWR4QnhJ?=
+ =?utf-8?B?L3ZOWE9CUTF4TW1DeHhIb0VRNkdpaFRhYWljUjRRSC9QV1JmT1gydUtST0pB?=
+ =?utf-8?B?Zm9Ia3padHlEN0xGRDJneUViVXhSeDhMYk14WGVMUDVFRWhTT3BZbEpldHBk?=
+ =?utf-8?B?VERWelJOelV2SCsraDFVVTVJZlc4NEFsU2ZreSttRzRRdXIvRENDWURIWGVI?=
+ =?utf-8?B?UWo2UGV0WmxObzlGQ25pUHM0NHVPbVlIaGNuY2FGSFZvK2ZhSVJPVGh4TGNx?=
+ =?utf-8?B?QmNxNDVybm1zTUJoUWhRWUpKVU5seFJjSnhLT3l1RmI4STh4OTdTdXFvaktZ?=
+ =?utf-8?B?MVhkTmdjVisyR3ROQ0s5bEVucGZyNndaT3BiTnUxMFk0b0RwMEdXd1RWVjlU?=
+ =?utf-8?B?ejJZdlcyYlI2N0t3SExSTTJzQUEzVjVGclRVSllDZEprQnE0VFRNOFEralhM?=
+ =?utf-8?B?VlhrdStVTjg3WWJnQmU0OWZaQ29QRDkwZFNaK3RMRnFERldDWFM2dUtIL1Bx?=
+ =?utf-8?B?V3NSSlZUOTllTnZGRmpYeWxkVXl2cSt6LzFtdm00RXQyY09oYlVnWWFlOFQz?=
+ =?utf-8?B?UEhiTlNnYjlOaDl3blZHbXRUbnRGQXROYlptNDJxYUZzNW1HZEMvZkx1T2xv?=
+ =?utf-8?B?SllWSGF1VnQvQVNmTGhIVkhLem9ucHlVdS96RmFzUTdRUWg5VmE3ZHhjdUpF?=
+ =?utf-8?B?d0MrR1lVRHBQL2Z3RGhKcG9rRUx5QmtrWi9Qd01QWkhQa2ppTGJpaUQ5VGl2?=
+ =?utf-8?B?RTAzbWJQU1p3UHU1bzh1Zkhobmczd3VKMzFFQmdmMTNuNkxFT1NBNDFMWUFi?=
+ =?utf-8?Q?b53E=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ca3cebe-8704-4504-0f7a-08dc5fdfe199
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ec4c4b7-058f-4845-ac34-08dc5fe92876
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2024 19:43:54.8198 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2024 20:50:19.1958 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GCt2HhIEenntXKoCH8ofhM3/D4af0d6cs0ctlX9gFD8Yoedmu84tVI8ZchlPd8AYQxXq+EsunvQwsAxvudz3Qg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5940
+X-MS-Exchange-CrossTenant-UserPrincipalName: GfAL1DVSC/g8J0PyDsK1c+brXk8hbwqTrUB2v2wgPVuOUMW/AU2YMDWja86XZJEf
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6819
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,121 +133,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 2024-03-07 01:29, Wayne Lin wrote:
-> [Why]
-> Commit:
-> - commit 5aa1dfcdf0a4 ("drm/mst: Refactor the flow for payload allocation/removement")
-> accidently overwrite the commit
-> - commit 54d217406afe ("drm: use mgr->dev in drm_dbg_kms in drm_dp_add_payload_part2")
-> which cause regression.
-> 
-> [How]
-> Recover the original NULL fix and remove the unnecessary input parameter 'state' for
-> drm_dp_add_payload_part2().
-> 
-> Fixes: 5aa1dfcdf0a4 ("drm/mst: Refactor the flow for payload allocation/removement")
-> Reported-by: Leon Weiß <leon.weiss@ruhr-uni-bochum.de>
-> Link: https://lore.kernel.org/r/38c253ea42072cc825dc969ac4e6b9b600371cc8.camel@ruhr-uni-bochum.de/
-> Cc: lyude@redhat.com
-> Cc: imre.deak@intel.com
-> Cc: stable@vger.kernel.org
-> Cc: regressions@lists.linux.dev
-> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
-
-I haven't been deep in MST code in a while but this all looks
-pretty straightforward and good.
-
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-
-Harry
-
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 +-
->  drivers/gpu/drm/display/drm_dp_mst_topology.c             | 4 +---
->  drivers/gpu/drm/i915/display/intel_dp_mst.c               | 2 +-
->  drivers/gpu/drm/nouveau/dispnv50/disp.c                   | 2 +-
->  include/drm/display/drm_dp_mst_helper.h                   | 1 -
->  5 files changed, 4 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index c27063305a13..2c36f3d00ca2 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -363,7 +363,7 @@ void dm_helpers_dp_mst_send_payload_allocation(
->  	mst_state = to_drm_dp_mst_topology_state(mst_mgr->base.state);
->  	new_payload = drm_atomic_get_mst_payload_state(mst_state, aconnector->mst_output_port);
->  
-> -	ret = drm_dp_add_payload_part2(mst_mgr, mst_state->base.state, new_payload);
-> +	ret = drm_dp_add_payload_part2(mst_mgr, new_payload);
->  
->  	if (ret) {
->  		amdgpu_dm_set_mst_status(&aconnector->mst_status,
-> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> index 03d528209426..95fd18f24e94 100644
-> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> @@ -3421,7 +3421,6 @@ EXPORT_SYMBOL(drm_dp_remove_payload_part2);
->  /**
->   * drm_dp_add_payload_part2() - Execute payload update part 2
->   * @mgr: Manager to use.
-> - * @state: The global atomic state
->   * @payload: The payload to update
->   *
->   * If @payload was successfully assigned a starting time slot by drm_dp_add_payload_part1(), this
-> @@ -3430,14 +3429,13 @@ EXPORT_SYMBOL(drm_dp_remove_payload_part2);
->   * Returns: 0 on success, negative error code on failure.
->   */
->  int drm_dp_add_payload_part2(struct drm_dp_mst_topology_mgr *mgr,
-> -			     struct drm_atomic_state *state,
->  			     struct drm_dp_mst_atomic_payload *payload)
->  {
->  	int ret = 0;
->  
->  	/* Skip failed payloads */
->  	if (payload->payload_allocation_status != DRM_DP_MST_PAYLOAD_ALLOCATION_DFP) {
-> -		drm_dbg_kms(state->dev, "Part 1 of payload creation for %s failed, skipping part 2\n",
-> +		drm_dbg_kms(mgr->dev, "Part 1 of payload creation for %s failed, skipping part 2\n",
->  			    payload->port->connector->name);
->  		return -EIO;
->  	}
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> index 53aec023ce92..2fba66aec038 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -1160,7 +1160,7 @@ static void intel_mst_enable_dp(struct intel_atomic_state *state,
->  	if (first_mst_stream)
->  		intel_ddi_wait_for_fec_status(encoder, pipe_config, true);
->  
-> -	drm_dp_add_payload_part2(&intel_dp->mst_mgr, &state->base,
-> +	drm_dp_add_payload_part2(&intel_dp->mst_mgr,
->  				 drm_atomic_get_mst_payload_state(mst_state, connector->port));
->  
->  	if (DISPLAY_VER(dev_priv) >= 12)
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> index 0c3d88ad0b0e..88728a0b2c25 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> @@ -915,7 +915,7 @@ nv50_msto_cleanup(struct drm_atomic_state *state,
->  		msto->disabled = false;
->  		drm_dp_remove_payload_part2(mgr, new_mst_state, old_payload, new_payload);
->  	} else if (msto->enabled) {
-> -		drm_dp_add_payload_part2(mgr, state, new_payload);
-> +		drm_dp_add_payload_part2(mgr, new_payload);
->  		msto->enabled = false;
->  	}
->  }
-> diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
-> index 9b19d8bd520a..6c9145abc7e2 100644
-> --- a/include/drm/display/drm_dp_mst_helper.h
-> +++ b/include/drm/display/drm_dp_mst_helper.h
-> @@ -851,7 +851,6 @@ int drm_dp_add_payload_part1(struct drm_dp_mst_topology_mgr *mgr,
->  			     struct drm_dp_mst_topology_state *mst_state,
->  			     struct drm_dp_mst_atomic_payload *payload);
->  int drm_dp_add_payload_part2(struct drm_dp_mst_topology_mgr *mgr,
-> -			     struct drm_atomic_state *state,
->  			     struct drm_dp_mst_atomic_payload *payload);
->  void drm_dp_remove_payload_part1(struct drm_dp_mst_topology_mgr *mgr,
->  				 struct drm_dp_mst_topology_state *mst_state,
-
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2024-04-18 10:37, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:dbc3534e-dc5c-42bb-8e83-66d047481f9a@gmail.com">
+      <br>
+      <br>
+      Am 18.04.24 um 15:57 schrieb Philip Yang:
+      <br>
+      <blockquote type="cite">RDMA device with limited scatter-gather
+        ability requires contiguous VRAM
+        <br>
+        buffer allocation for RDMA peer direct support.
+        <br>
+        <br>
+        Add a new KFD alloc memory flag and store as bo alloc flag
+        <br>
+        AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS. When pin this bo to export
+        for RDMA
+        <br>
+        peerdirect access, this will set TTM_PL_FLAG_CONTIFUOUS flag,
+        and ask
+        <br>
+        VRAM buddy allocator to get contiguous VRAM.
+        <br>
+        <br>
+        Remove the 2GB max memory block size limit for contiguous
+        allocation.
+        <br>
+        <br>
+        Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+        <br>
+        ---
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++++
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c&nbsp;&nbsp;&nbsp;&nbsp; | 9 +++++++--
+        <br>
+        &nbsp; include/uapi/linux/kfd_ioctl.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 1 +
+        <br>
+        &nbsp; 3 files changed, 12 insertions(+), 2 deletions(-)
+        <br>
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+        b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+        <br>
+        index 0ae9fd844623..ef9154043757 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+        <br>
+        @@ -1712,6 +1712,10 @@ int
+        amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alloc_flags =
+        AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alloc_flags |= (flags &amp;
+        KFD_IOC_ALLOC_MEM_FLAGS_PUBLIC) ?
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED : 0;
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* For contiguous VRAM allocation */
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (flags &amp;
+        KFD_IOC_ALLOC_MEM_FLAGS_CONTIGUOUS_BEST_EFFORT)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alloc_flags |=
+        AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xcp_id = fpriv-&gt;xcp_id == AMDGPU_XCP_NO_PARTITION ?
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 : fpriv-&gt;xcp_id;
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+        b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+        <br>
+        index 4be8b091099a..2f2ae7177771 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+        <br>
+        @@ -532,8 +532,13 @@ static int amdgpu_vram_mgr_new(struct
+        ttm_resource_manager *man,
+        <br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUG_ON(min_block_size &lt; mm-&gt;chunk_size);
+        <br>
+        &nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Limit maximum size to 2GiB due to SG table
+        limitations */
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size = min(remaining_size, 2ULL &lt;&lt; 30);
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (place-&gt;flags &amp; TTM_PL_FLAG_CONTIGUOUS)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size = remaining_size;
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Limit maximum size to 2GiB due to SG table
+        limitations
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * for no contiguous allocation.
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size = min(remaining_size, 2ULL &lt;&lt; 30);
+        <br>
+      </blockquote>
+      <br>
+      Oh, I totally missed this in the first review. That won't work
+      like that the sg table limit is still there even if the BO is
+      contiguous.
+      <br>
+      <br>
+      We could only fix up the VRAM P2P support to use multiple segments
+      in the sg table.
+      <br>
+    </blockquote>
+    <p>yes, you are right, I didn't test with buffer size &gt; 4GB,
+      struct scatterlist-&gt;offset, length is unsigned int, this limits
+      each sg_table entry size &lt; 4GB.</p>
+    <p>I will do more testing, we should still get &gt;4GB contiguous
+      VRAM, will add another patch to fix it inside
+      amdgpu_vram_mgr_alloc_sgt, to split it into&nbsp; multiple sg_table
+      entries, and RDMA peerdirect app should be able to handle this
+      case based on sg_table-&gt;nents.</p>
+    <p>Regards,</p>
+    <p>Philip<br>
+    </p>
+    <blockquote type="cite" cite="mid:dbc3534e-dc5c-42bb-8e83-66d047481f9a@gmail.com">
+      <br>
+      Regards,
+      <br>
+      Christian.
+      <br>
+      <br>
+      <blockquote type="cite">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((size &gt;=
+        (u64)pages_per_block &lt;&lt; PAGE_SHIFT) &amp;&amp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !(size &amp; (((u64)pages_per_block &lt;&lt;
+        PAGE_SHIFT) - 1)))
+        <br>
+        diff --git a/include/uapi/linux/kfd_ioctl.h
+        b/include/uapi/linux/kfd_ioctl.h
+        <br>
+        index 2040a470ddb4..c1394c162d4e 100644
+        <br>
+        --- a/include/uapi/linux/kfd_ioctl.h
+        <br>
+        +++ b/include/uapi/linux/kfd_ioctl.h
+        <br>
+        @@ -407,6 +407,7 @@ struct kfd_ioctl_acquire_vm_args {
+        <br>
+        &nbsp; #define KFD_IOC_ALLOC_MEM_FLAGS_COHERENT&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 26)
+        <br>
+        &nbsp; #define KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 25)
+        <br>
+        &nbsp; #define KFD_IOC_ALLOC_MEM_FLAGS_EXT_COHERENT&nbsp;&nbsp;&nbsp; (1 &lt;&lt;
+        24)
+        <br>
+        +#define KFD_IOC_ALLOC_MEM_FLAGS_CONTIGUOUS_BEST_EFFORT&nbsp;&nbsp;&nbsp; (1
+        &lt;&lt; 23)
+        <br>
+        &nbsp; &nbsp; /* Allocate memory for later SVM (shared virtual memory)
+        mapping.
+        <br>
+        &nbsp;&nbsp; *
+        <br>
+      </blockquote>
+      <br>
+    </blockquote>
+  </body>
+</html>
