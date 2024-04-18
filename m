@@ -4,78 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53D4EC04FF8
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Apr 2024 08:03:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A74C1C071DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Apr 2024 08:03:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C711511370B;
-	Thu, 18 Apr 2024 08:03:32 +0000 (UTC)
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F7B0113584;
- Wed, 17 Apr 2024 14:18:24 +0000 (UTC)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-61af74a010aso17307027b3.0; 
- Wed, 17 Apr 2024 07:18:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713363503; x=1713968303;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=avO898yqsUcNC4lZWFklgBAuRw3SczTcgwrfOeGT8Mg=;
- b=uCQDGeMh2jM68QrA5gHFfbiZk2PTSwdjJIVUAy9GlBSiben9wz0jD2cK5hrmWmdfDK
- Er12E+b2hb0TDuUZqz8IRrl9XtTE0ek0+s1g8nLQ4ccZrKExBEvw4syjcCFP/FiQekhQ
- vvHSs/OY/B576xCPNUyL+GdGnL65bE5K5UGMHYYFoSzRaZnQxTvjm2UP7pbFYyTtP3dV
- JJMASwGu3Wg9vnpgTmPdzYPFzxh2iZLgY1MBTvkejet9ge+sTUthDt4zvLp9wFrZlITp
- e1p1eoebiawmvc3VWBA5dkS0pbqalZdAv6Lqh74n/gFzmzKNTA45z0ERwEg6IQavwa7e
- wIHA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCViXRy2gz6d/vC0H3krmGQE3xWYcDf0aOtyPaoUA4Zp+ylLQQzE42SUYgU9o7Etjwa/zDAAeQG+mJP7Yyxq0JjNeKVkSRDvXmGT5se7XmSrJEcfEl/B4tV5b1hqnYzsb0qVwtIzcOwrCLjuKNu72YxqhEmZ4ef1psitVt/7jp3JmJk/lp4rIRptSc0p0b78VHxJ874KIa3/9/QCyG1oE0nSprgHzZ2kVI0i4kgOjTnasa6qXHIB72wqLpmChVaOs9SHgRAcznJ8HrI93BJLzQ==
-X-Gm-Message-State: AOJu0YzNCn8i8ZtckcQd0qIXxU1dEEK9a1HqOWMH6kjokz6MvfXnbWF9
- PoHB7p/Tgzy98fAMevkZhat7Ln9SfkAY45tUECoDvfs4r+Q5gvIU39aVJV09QHY=
-X-Google-Smtp-Source: AGHT+IHNr3Y9g+ZtnN7PahGTnEtFh//WgVu8UE3NsI6VGdBemEXwbokZFIgjtw57xq91gTMej6XB6Q==
-X-Received: by 2002:a05:690c:dca:b0:61b:f21:1fb with SMTP id
- db10-20020a05690c0dca00b0061b0f2101fbmr1829655ywb.1.1713363502958; 
- Wed, 17 Apr 2024 07:18:22 -0700 (PDT)
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com.
- [209.85.128.172]) by smtp.gmail.com with ESMTPSA id
- v30-20020a81b71e000000b0061abd7e611asm1588625ywh.103.2024.04.17.07.18.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Apr 2024 07:18:22 -0700 (PDT)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-615019cd427so42311337b3.3; 
- Wed, 17 Apr 2024 07:18:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCUSs3a2k+0pBM3lIpXkpcHMwDvWvLEp/4sCA7k9pZq6nHmbrdj6jCaW7yTXnsALKT0VV/jrDrEM7ImvfUORy/KGoTvGbLB6QnnnVKxb6hovwgkXH2tkQPmk11R3VzEzLJrxWpB951rNKN3I0PlLMuWAQx37GtGo4KJuH0PpVL+Y37ZTrWllZVnEZ81/CXQIf3FHMBwn6NH+Ai7yD6oDj4jrhh/49BuhYnEdQPXwyWO+Ia6C963cuihG1upfp6wrjTPyGz+Go9dPcyDgvg8wag==
-X-Received: by 2002:a81:ff02:0:b0:618:94a6:6ca1 with SMTP id
- k2-20020a81ff02000000b0061894a66ca1mr10536616ywn.27.1713363502402; Wed, 17
- Apr 2024 07:18:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A1EE113AAC;
+	Thu, 18 Apr 2024 08:03:33 +0000 (UTC)
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C231510FA0C;
+ Thu, 18 Apr 2024 03:14:33 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.88.234])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4VKjXZ6T5Xz1HBjL;
+ Thu, 18 Apr 2024 11:13:34 +0800 (CST)
+Received: from dggpeml100025.china.huawei.com (unknown [7.185.36.37])
+ by mail.maildlp.com (Postfix) with ESMTPS id 5DDBB1402C7;
+ Thu, 18 Apr 2024 11:14:29 +0800 (CST)
+Received: from dggpeml500025.china.huawei.com (7.185.36.35) by
+ dggpeml100025.china.huawei.com (7.185.36.37) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Thu, 18 Apr 2024 11:14:29 +0800
+Received: from dggpeml500025.china.huawei.com ([7.185.36.35]) by
+ dggpeml500025.china.huawei.com ([7.185.36.35]) with mapi id 15.01.2507.035;
+ Thu, 18 Apr 2024 11:14:29 +0800
+From: wangzhu <wangzhu9@huawei.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+CC: Greg KH <gregkh@linuxfoundation.org>, "harry.wentland@amd.com"
+ <harry.wentland@amd.com>, "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
+ "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>, "airlied@linux.ie"
+ <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "qingqing.zhuo@amd.com" <qingqing.zhuo@amd.com>, "stylon.wang@amd.com"
+ <stylon.wang@amd.com>, "Josip.Pavic@amd.com" <Josip.Pavic@amd.com>,
+ "trix@redhat.com" <trix@redhat.com>, "cruise.hung@amd.com"
+ <cruise.hung@amd.com>, "Eric.Yang2@amd.com" <Eric.Yang2@amd.com>,
+ "mario.limonciello@amd.com" <mario.limonciello@amd.com>, "alvin.lee2@amd.com"
+ <alvin.lee2@amd.com>, "jun.lei@amd.com" <jun.lei@amd.com>,
+ "austin.zheng@amd.com" <austin.zheng@amd.com>, "sunglee@amd.com"
+ <sunglee@amd.com>, "paul.hsieh@amd.com" <paul.hsieh@amd.com>,
+ "hanghong.ma@amd.com" <hanghong.ma@amd.com>, "JinZe.Xu@amd.com"
+ <JinZe.Xu@amd.com>, "lewis.huang@amd.com" <lewis.huang@amd.com>,
+ "alex.hung@amd.com" <alex.hung@amd.com>, "syed.hassan@amd.com"
+ <syed.hassan@amd.com>, "wayne.lin@amd.com" <wayne.lin@amd.com>,
+ "nicholas.kazlauskas@amd.com" <nicholas.kazlauskas@amd.com>,
+ "chiahsuan.chung@amd.com" <chiahsuan.chung@amd.com>,
+ "aurabindo.pillai@amd.com" <aurabindo.pillai@amd.com>, "aric.cyr@amd.com"
+ <aric.cyr@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Subject: =?utf-8?B?562U5aSNOiBbUEFUQ0ggdjYuNl0gZHJtL2FtZC9kaXNwbGF5OiBXYWtlIERN?=
+ =?utf-8?Q?CUB_before_executing_GPINT_commands?=
+Thread-Topic: [PATCH v6.6] drm/amd/display: Wake DMCUB before executing GPINT
+ commands
+Thread-Index: AQHaj7JoVDAN/0mP/Uu5GFZtNQKS9LFpzsuAgANwVPD//4MmAIAAmn4A
+Date: Thu, 18 Apr 2024 03:14:28 +0000
+Message-ID: <b9ab29ad37f94dfa81da3aa88c6456c2@huawei.com>
+References: <20240416035240.2450127-1-wangzhu9@huawei.com>
+ <2024041658-imagines-unlatch-a9b6@gregkh>
+ <036c3371d3a64ef8881260197ce37dbc@huawei.com>
+ <CADnq5_NML_BiqQx2UmwH86d3qv57D3tFRL--dro1qA99r0Qr5w@mail.gmail.com>
+In-Reply-To: <CADnq5_NML_BiqQx2UmwH86d3qv57D3tFRL--dro1qA99r0Qr5w@mail.gmail.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.67.110.142]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20240214215756.6530-1-mario.limonciello@amd.com>
- <20240214215756.6530-4-mario.limonciello@amd.com> <Zc1JEg5mC0ww_BeU@intel.com>
- <9831e9bc-d55f-4a72-950a-684a757af59c@amd.com> <Zc5cPjpNZydqKeS8@intel.com>
- <ecbaadf9-dfa1-46af-9a7e-cfd7aa1120be@amd.com>
-In-Reply-To: <ecbaadf9-dfa1-46af-9a7e-cfd7aa1120be@amd.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 17 Apr 2024 16:18:10 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdV1XYpu3JeP3W-dZpO8kmN75XckuPRnw2zLW-ZqD4634g@mail.gmail.com>
-Message-ID: <CAMuHMdV1XYpu3JeP3W-dZpO8kmN75XckuPRnw2zLW-ZqD4634g@mail.gmail.com>
-Subject: Re: [PATCH v6 3/5] drm: Add support to get EDID from ACPI
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>, Hans de Goede <hdegoede@redhat.com>, 
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- amd-gfx@lists.freedesktop.org, 
- "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
- linux-fbdev@vger.kernel.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- platform-driver-x86@vger.kernel.org, intel-xe@lists.freedesktop.org, 
- linux-renesas-soc@vger.kernel.org, 
- "open list:ACPI" <linux-acpi@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, 
- Melissa Wen <mwen@igalia.com>, Mark Pearson <mpearson-lenovo@squebb.ca>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 18 Apr 2024 08:03:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,56 +87,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mario,
-
-On Thu, Feb 15, 2024 at 8:04=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
-> On 2/15/2024 12:47, Ville Syrj=C3=A4l=C3=A4 wrote:
-> > On Thu, Feb 15, 2024 at 12:20:56PM -0600, Mario Limonciello wrote:
-> >> On 2/14/2024 17:13, Ville Syrj=C3=A4l=C3=A4 wrote:
-> >>> On Wed, Feb 14, 2024 at 03:57:54PM -0600, Mario Limonciello wrote:
-> >>>> --- a/include/drm/drm_connector.h
-> >>>> +++ b/include/drm/drm_connector.h
-> >>>> @@ -1886,6 +1886,12 @@ struct drm_connector {
-> >>>>
-> >>>>            /** @hdr_sink_metadata: HDR Metadata Information read fro=
-m sink */
-> >>>>            struct hdr_sink_metadata hdr_sink_metadata;
-> >>>> +
-> >>>> +  /**
-> >>>> +   * @acpi_edid_allowed: Get the EDID from the BIOS, if available.
-> >>>> +   * This is only applicable to eDP and LVDS displays.
-> >>>> +   */
-> >>>> +  bool acpi_edid_allowed;
-> >>>
-> >>> Aren't there other bools/small stuff in there for tighter packing?
-> >>
-> >> Does the compiler automatically do the packing if you put bools nearby
-> >> in a struct?  If so; TIL.
-> >
-> > Yes. Well, depends on the types and their alignment requirements
-> > of course, and/or whether you specified __packed or not.
-> >
-> > You can use 'pahole' to find the holes in structures.
->
-> Thanks!  I don't see a __packed attribute on struct drm_connector, but
-> I'll put it near by other bools in case that changes in the future.
-
-FTR, don't add __packed unless you have a very good reason to do so.
-With __packed, the compiler will emit multiple byte-accesses to
-access multi-byte integrals on platforms that do not support unaligned
-memory access.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+VGhlIENWRS0yMDIzLTUyNjI0IGlzIGZpeGVkIGluIGxpbnV4LTYuNyBzdGFibGUsIHdoaWxlIGl0
+IGlzIG5vdCBmaXhlZCBpbiA2LjYsIHRoaXMgY29tbWl0IGlzIHByZXNlbnRlZCB0byBmaXggaXQg
+aW4gbGludXgtNi42IHN0YWJsZS4NCg0KLS0tLS3pgq7ku7bljp/ku7YtLS0tLQ0K5Y+R5Lu25Lq6
+OiBBbGV4IERldWNoZXIgW21haWx0bzphbGV4ZGV1Y2hlckBnbWFpbC5jb21dIA0K5Y+R6YCB5pe2
+6Ze0OiAyMDI05bm0NOaciDE45pelIDk6NTgNCuaUtuS7tuS6ujogd2FuZ3podSA8d2FuZ3podTlA
+aHVhd2VpLmNvbT4NCuaKhOmAgTogR3JlZyBLSCA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+
+OyBoYXJyeS53ZW50bGFuZEBhbWQuY29tOyBzdW5wZW5nLmxpQGFtZC5jb207IFJvZHJpZ28uU2lx
+dWVpcmFAYW1kLmNvbTsgYWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbTsgY2hyaXN0aWFuLmtvZW5p
+Z0BhbWQuY29tOyBhaXJsaWVkQGxpbnV4LmllOyBkYW5pZWxAZmZ3bGwuY2g7IHFpbmdxaW5nLnpo
+dW9AYW1kLmNvbTsgc3R5bG9uLndhbmdAYW1kLmNvbTsgSm9zaXAuUGF2aWNAYW1kLmNvbTsgdHJp
+eEByZWRoYXQuY29tOyBjcnVpc2UuaHVuZ0BhbWQuY29tOyBFcmljLllhbmcyQGFtZC5jb207IG1h
+cmlvLmxpbW9uY2llbGxvQGFtZC5jb207IGFsdmluLmxlZTJAYW1kLmNvbTsganVuLmxlaUBhbWQu
+Y29tOyBhdXN0aW4uemhlbmdAYW1kLmNvbTsgc3VuZ2xlZUBhbWQuY29tOyBwYXVsLmhzaWVoQGFt
+ZC5jb207IGhhbmdob25nLm1hQGFtZC5jb207IEppblplLlh1QGFtZC5jb207IGxld2lzLmh1YW5n
+QGFtZC5jb207IFpoZW5nemVuZ2thaSA8emhlbmd6ZW5na2FpQGh1YXdlaS5jb20+OyBhbGV4Lmh1
+bmdAYW1kLmNvbTsgc3llZC5oYXNzYW5AYW1kLmNvbTsgd2F5bmUubGluQGFtZC5jb207IG5pY2hv
+bGFzLmthemxhdXNrYXNAYW1kLmNvbTsgY2hpYWhzdWFuLmNodW5nQGFtZC5jb207IGF1cmFiaW5k
+by5waWxsYWlAYW1kLmNvbTsgYXJpYy5jeXJAYW1kLmNvbTsgYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmc7IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGxpbnV4LWtlcm5lbEB2
+Z2VyLmtlcm5lbC5vcmcNCuS4u+mimDogUmU6IFtQQVRDSCB2Ni42XSBkcm0vYW1kL2Rpc3BsYXk6
+IFdha2UgRE1DVUIgYmVmb3JlIGV4ZWN1dGluZyBHUElOVCBjb21tYW5kcw0KDQpPbiBXZWQsIEFw
+ciAxNywgMjAyNCBhdCA5OjUx4oCvUE0gd2FuZ3podSA8d2FuZ3podTlAaHVhd2VpLmNvbT4gd3Jv
+dGU6DQo+DQo+IEhpIEdyZWcsIHRoYW5rcyBmb3IgeW91ciByZXBseS4gU2luY2UgdGhlcmUgaXMg
+bm8gcGF0Y2ggdG8gZml4IENWRS0yMDIzLTUyNjI0IGluIGxpbnV4LTUuMTAsIHRoZXJlIGlzIGEg
+cGF0Y2ggaW4gdGhlIGxpbnV4LTYuNyBicmFuY2gsIGl0cyBjb21taXQgaXMgMmVmOThjNmQ3NTNh
+NzQ0ZTMzM2I3ZTM0YjljZjY4NzA0MGZiYTU3ZCAoImRybS9hbWQvZGlzcGxheTogV2FrZSBETUNV
+QiBiZWZvcmUgZXhlY3V0aW5nIEdQSU5UIGNvbW1hbmRzIikuIFdoZW4gd2UgYXBwbHkgdGhpcyBw
+YXRjaCB0byBsaW51eC01LjEwLCB0aGVyZSBhcmUgbG90cyBvZiBjb25mbGljdHMsIGFuZCB3ZSBm
+b3VuZCB0aGVyZSBhcmUgbG90cyBvZiBkZXBlbmRlbnQgcGF0Y2hlcywgYW5kIGxvdHMgb2YgcGF0
+Y2hlcyBhcmUgbm90IHByb3Bvc2VkIHRvIGZpeCB0aGUgY3ZlLCB0aGV5IGFyZSBwcmVzZW50ZWQg
+dG8gYWRkIG5ldyBmdW5jdGlvbnMgb2YgdGhlIGtlcm5lbC4NCj4NCg0KV2h5IGlzIHRoZXJlIGEg
+Q1ZFPyAgSGF2ZSB5b3UgdW5jb3ZlcmVkIHNvbWUgc3BlY2lmaWMgaXNzdWU/DQoNCkFsZXgNCg0K
+PiBNeSBjb21taXQgY29tZXMgZnJvbSBuZWFybHkgMjAgcGF0Y2hlcy4gRm9yIGVhY2ggcGF0Y2gs
+IG5vdCBhbGwgb2YgaXRzIGNvbnRlbnQgaXMgbWVhbnQgdG8gZml4IHRoZSBjdmUsIHNvIEkganVz
+dCBnZXQgdGhlIHBhcnQgd2hpY2ggaXMgaGVscGZ1bCB0byBmaXguIEl0IGlzIHdoeSBJIGRvbid0
+IHByZXNlbnQgdGhlIHBhdGNoZXMgb25lIGJ5IG9uZSBpbnN0ZWFkIG9mIG1lcmdpbmcgdGhlbSBp
+bnRvIG9uZSBiaWcgcGF0Y2guDQo+DQo+DQo+IC0tLS0t6YKu5Lu25Y6f5Lu2LS0tLS0NCj4g5Y+R
+5Lu25Lq6OiBHcmVnIEtIIFttYWlsdG86Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmddDQo+IOWP
+kemAgeaXtumXtDogMjAyNOW5tDTmnIgxNuaXpSAxMjo1NA0KPiDmlLbku7bkuro6IHdhbmd6aHUg
+PHdhbmd6aHU5QGh1YXdlaS5jb20+DQo+IOaKhOmAgTogaGFycnkud2VudGxhbmRAYW1kLmNvbTsg
+c3VucGVuZy5saUBhbWQuY29tOyANCj4gUm9kcmlnby5TaXF1ZWlyYUBhbWQuY29tOyBhbGV4YW5k
+ZXIuZGV1Y2hlckBhbWQuY29tOyANCj4gY2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tOyBhaXJsaWVk
+QGxpbnV4LmllOyBkYW5pZWxAZmZ3bGwuY2g7IA0KPiBxaW5ncWluZy56aHVvQGFtZC5jb207IHN0
+eWxvbi53YW5nQGFtZC5jb207IEpvc2lwLlBhdmljQGFtZC5jb207IA0KPiB0cml4QHJlZGhhdC5j
+b207IGNydWlzZS5odW5nQGFtZC5jb207IEVyaWMuWWFuZzJAYW1kLmNvbTsgDQo+IG1hcmlvLmxp
+bW9uY2llbGxvQGFtZC5jb207IGFsdmluLmxlZTJAYW1kLmNvbTsganVuLmxlaUBhbWQuY29tOyAN
+Cj4gYXVzdGluLnpoZW5nQGFtZC5jb207IHN1bmdsZWVAYW1kLmNvbTsgcGF1bC5oc2llaEBhbWQu
+Y29tOyANCj4gaGFuZ2hvbmcubWFAYW1kLmNvbTsgSmluWmUuWHVAYW1kLmNvbTsgbGV3aXMuaHVh
+bmdAYW1kLmNvbTsgDQo+IFpoZW5nemVuZ2thaSA8emhlbmd6ZW5na2FpQGh1YXdlaS5jb20+OyBh
+bGV4Lmh1bmdAYW1kLmNvbTsgDQo+IHN5ZWQuaGFzc2FuQGFtZC5jb207IHdheW5lLmxpbkBhbWQu
+Y29tOyBuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb207IA0KPiBjaGlhaHN1YW4uY2h1bmdAYW1k
+LmNvbTsgYXVyYWJpbmRvLnBpbGxhaUBhbWQuY29tOyBhcmljLmN5ckBhbWQuY29tOyANCj4gYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmc7IA0KPiBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnDQo+IOS4u+mimDogUmU6IFtQQVRD
+SCB2Ni42XSBkcm0vYW1kL2Rpc3BsYXk6IFdha2UgRE1DVUIgYmVmb3JlIGV4ZWN1dGluZyANCj4g
+R1BJTlQgY29tbWFuZHMNCj4NCj4gT24gVHVlLCBBcHIgMTYsIDIwMjQgYXQgMDM6NTI6NDBBTSAr
+MDAwMCwgWmh1IFdhbmcgd3JvdGU6DQo+ID4gRnJvbTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmlj
+aG9sYXMua2F6bGF1c2thc0BhbWQuY29tPg0KPiA+DQo+ID4gc3RhYmxlIGluY2x1c2lvbg0KPiA+
+IGZyb20gc3RhYmxlLXY2LjcuMw0KPiA+IGNvbW1pdCAyZWY5OGM2ZDc1M2E3NDRlMzMzYjdlMzRi
+OWNmNjg3MDQwZmJhNTdkDQo+ID4gY2F0ZWdvcnk6IGJ1Z2ZpeA0KPiA+IGJ1Z3ppbGxhOiBodHRw
+czovL2dpdGVlLmNvbS9zcmMtb3BlbmV1bGVyL2tlcm5lbC9pc3N1ZXMvSTlCVjRDDQo+ID4gQ1ZF
+OiBDVkUtMjAyMy01MjYyNA0KPiA+DQo+ID4gUmVmZXJlbmNlOg0KPiA+IGh0dHBzOi8vZ2l0Lmtl
+cm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3RvcnZhbGRzL2xpbnV4LmdpdC9jDQo+
+ID4gb20gbWl0Lz9pZD0yZWY5OGM2ZDc1M2E3NDRlMzMzYjdlMzRiOWNmNjg3MDQwZmJhNTdkDQo+
+ID4NCj4gPiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPiA+DQo+ID4gWyBVcHN0
+cmVhbSBjb21taXQgZTVmZmQxMjYzZGQ1YjQ0OTI5YzY3NjE3MTgwMmU3YjZhZjQ4M2YyMSBdDQo+
+ID4NCj4gPiBbV2h5XQ0KPiA+IERNQ1VCIGNhbiBiZSBpbiBpZGxlIHdoZW4gd2UgYXR0ZW1wdCB0
+byBpbnRlcmZhY2Ugd2l0aCB0aGUgSFcgDQo+ID4gdGhyb3VnaCB0aGUgR1BJTlQgbWFpbGJveCBy
+ZXN1bHRpbmcgaW4gYSBzeXN0ZW0gaGFuZy4NCj4gPg0KPiA+IFtIb3ddDQo+ID4gQWRkIGRjX3dh
+a2VfYW5kX2V4ZWN1dGVfZ3BpbnQoKSB0byB3cmFwIHRoZSB3YWtlLCBleGVjdXRlLCBzbGVlcCAN
+Cj4gPiBzZXF1ZW5jZS4NCj4gPg0KPiA+IElmIHRoZSBHUElOVCBleGVjdXRlcyBzdWNjZXNzZnVs
+bHkgdGhlbiBETUNVQiB3aWxsIGJlIHB1dCBiYWNrIGludG8gDQo+ID4gc2xlZXAgYWZ0ZXIgdGhl
+IG9wdGlvbmFsIHJlc3BvbnNlIGlzIHJldHVybmVkLg0KPiA+DQo+ID4gSXQgZnVuY3Rpb25zIHNp
+bWlsYXIgdG8gdGhlIGluYm94IGNvbW1hbmQgaW50ZXJmYWNlLg0KPiA+DQo+ID4gQ2M6IE1hcmlv
+IExpbW9uY2llbGxvIDxtYXJpby5saW1vbmNpZWxsb0BhbWQuY29tPg0KPiA+IENjOiBBbGV4IERl
+dWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+ID4gQ2M6IHN0YWJsZUB2Z2VyLmtl
+cm5lbC5vcmcNCj4gPiBSZXZpZXdlZC1ieTogSGFuc2VuIERzb3V6YSA8aGFuc2VuLmRzb3V6YUBh
+bWQuY29tPg0KPiA+IEFja2VkLWJ5OiBXYXluZSBMaW4gPHdheW5lLmxpbkBhbWQuY29tPg0KPiA+
+IFNpZ25lZC1vZmYtYnk6IE5pY2hvbGFzIEthemxhdXNrYXMgPG5pY2hvbGFzLmthemxhdXNrYXNA
+YW1kLmNvbT4NCj4gPiBUZXN0ZWQtYnk6IERhbmllbCBXaGVlbGVyIDxkYW5pZWwud2hlZWxlckBh
+bWQuY29tPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNo
+ZXJAYW1kLmNvbT4NCj4gPg0KPiA+IFRoaXMgY29tbWl0IGNvbWVzIGZyb20gZm9sbG93aW5nIGNv
+bW1pdHM6DQo+ID4NCj4gPiAgODc3NDAyOWY3NmI5ICgiZHJtL2FtZC9kaXNwbGF5OiBBZGQgRENO
+MzUgQ0xLX01HUiIpICA2NTEzOGViNzJlMWYNCj4gPiAoImRybS9hbWQvZGlzcGxheTogQWRkIERD
+TjM1IERNVUIiKSAgZGMwMWM0Yjc5YmZlICgiZHJtL2FtZC9kaXNwbGF5Og0KPiA+IFVwZGF0ZSBk
+cml2ZXIgYW5kIElQUyBpbnRlcm9wIikNCj4gPiAgODIwYzM4NzBjNDkxICgiZHJtL2FtZC9kaXNw
+bGF5OiBSZWZhY3RvciBETUNVQiBlbnRlci9leGl0IGlkbGUNCj4gPiBpbnRlcmZhY2UiKSAgMmVm
+OThjNmQ3NTNhICgiZHJtL2FtZC9kaXNwbGF5OiBXYWtlIERNQ1VCIGJlZm9yZSANCj4gPiBleGVj
+dXRpbmcgR1BJTlQgY29tbWFuZHMiKQ0KPg0KPiBXaHkgYXJlIHlvdSBwdXR0aW5nIG11bHRpcGxl
+IGNvbW1pdHMgdG9nZXRoZXIgYW5kIG5vdCBqdXN0IHN1Ym1pdHRpbmcgdGhlIGluZGl2aWR1YWwg
+b25lcz8gIEFuZCB3aGF0IGlzIHRoaXMgZm9yPw0KPg0KPiBjb25mdXNlZCwNCj4NCj4gZ3JlZyBr
+LWgNCg==
