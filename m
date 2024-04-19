@@ -4,74 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9B88C4345F
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Apr 2024 07:18:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF4FDC4345F
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Apr 2024 07:18:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 459B910E32C;
-	Fri, 19 Apr 2024 07:18:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70E9C10F802;
+	Fri, 19 Apr 2024 07:18:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QmY7Jq8j";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="bZB58PU/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C728A10FA4D;
- Thu, 18 Apr 2024 14:47:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1713451647; x=1744987647;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=l1HIy3FJpQ3J5hbmOiUwQefqWzbiC86Fv5XfCvkeVdE=;
- b=QmY7Jq8jDdzYw4zZpcTakUsoCTHhE0G+XkibM9ZVjyeS7OH9a05DOPER
- XpWPDzmyvsvRWBQCM7zJoAVHbp0TpTNZV0uN3DafS+TjIEm3WcRISAIp0
- gZhkXm2l+G2pfFaL7Tw+HontnBBHa5NS5nPwIS41m+l2qWJmge4kuxkP0
- Djp6Hv3SEKG1ZTM0u2x2BOahv0Alt/SEhJMEwLdlHf5g4EwK2AcjeeaIb
- 8YdSnceK0pYUDnlaG31O5HGa1YfDI9pxzJxvGXRq5kBnX4UBAHQuN2w9q
- tu1R+rF/aJGGLbEQqU2yktj2FNEP/xKrNEC/oy/CqF3GmuEMsF7uzVdBh Q==;
-X-CSE-ConnectionGUID: +CaYqlR+QB2Ru+y+AOQvpw==
-X-CSE-MsgGUID: 8HEqFWhMR6KEgo38njxDpQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11047"; a="19562198"
-X-IronPort-AV: E=Sophos;i="6.07,212,1708416000"; d="scan'208";a="19562198"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Apr 2024 07:47:26 -0700
-X-CSE-ConnectionGUID: EznitMQjRJCox3ECFus2MQ==
-X-CSE-MsgGUID: nerWkFksSva5bR4W+AuhGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,212,1708416000"; d="scan'208";a="23050115"
-Received: from unknown (HELO localhost) ([10.237.66.160])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Apr 2024 07:47:18 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Robert Foss <rfoss@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, Andrzej Hajda
- <andrzej.hajda@intel.com>, Maxime Ripard <mripard@kernel.org>, Jacek
- Lawrynowicz <jacek.lawrynowicz@linux.intel.com>, Stanislaw Gruszka
- <stanislaw.gruszka@linux.intel.com>, Oded Gabbay <ogabbay@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Daniel Vetter
- <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, Danilo
- Krummrich <dakr@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, Huang Rui <ray.huang@amd.com>, Zack Rusin
- <zack.rusin@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v2 1/2] drm/print: drop include debugfs.h and include
- where needed
-In-Reply-To: <CAN6tsi5PEc+KOQV9zNLZ_3c-8XyjEtx8+EkSHkB8epu4N_aMZg@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240418101247.2642864-1-jani.nikula@intel.com>
- <CAN6tsi5PEc+KOQV9zNLZ_3c-8XyjEtx8+EkSHkB8epu4N_aMZg@mail.gmail.com>
-Date: Thu, 18 Apr 2024 17:47:15 +0300
-Message-ID: <87ttjywwwc.fsf@intel.com>
+Received: from out30-98.freemail.mail.aliyun.com
+ (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4DED10F8BE;
+ Fri, 19 Apr 2024 02:19:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux.alibaba.com; s=default;
+ t=1713493157; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=Td7V3A43ySEiCBw4iP8fzhTEsH+umasH6SY05GOKao8=;
+ b=bZB58PU/CnVpMifMPE7Q/z6+uZ7sKGrMu0WyWXb4UcIaDKjTBWxl/MuleBYZU44vABt7awgmR0KZgUyL8rRDetwWa4YGtdn1MRkdwqo9UFDR0TB3SGW9OiKN/288unhTQMnK+UbmLHTjJsO+cG+JoR23radn656trqo1enYvnS4=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046060;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
+ TI=SMTPD_---0W4qBpQY_1713493129; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0W4qBpQY_1713493129) by smtp.aliyun-inc.com;
+ Fri, 19 Apr 2024 10:19:16 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: harry.wentland@amd.com
+Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Abaci Robot <abaci@linux.alibaba.com>
+Subject: [PATCH] drm/amd/display: Remove duplicate dcn32/dcn32_clk_mgr.h header
+Date: Fri, 19 Apr 2024 10:18:47 +0800
+Message-Id: <20240419021847.16585-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 19 Apr 2024 07:17:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,15 +57,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 18 Apr 2024, Robert Foss <rfoss@kernel.org> wrote:
-> I'm seeing build errors for drivers/gpu/drm/bridge/ite-it6505.c, is
-> this expected?
+./drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c: dcn32/dcn32_clk_mgr.h is included more than once.
 
-No, but it's possible my configs didn't catch all configs. :(
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=8789
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-BR,
-Jani.
-
-
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+index 7eecb3403f74..d7bbb0891398 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+@@ -41,7 +41,6 @@
+ #include "dcn/dcn_3_2_0_offset.h"
+ #include "dcn/dcn_3_2_0_sh_mask.h"
+ 
+-#include "dcn32/dcn32_clk_mgr.h"
+ #include "dml/dcn32/dcn32_fpu.h"
+ 
+ #define DCN_BASE__INST0_SEG1                       0x000000C0
 -- 
-Jani Nikula, Intel
+2.20.1.7.g153144c
+
