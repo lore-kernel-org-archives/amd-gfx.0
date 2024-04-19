@@ -4,71 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E141C4345F
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Apr 2024 11:50:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B3FAC4345F
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Apr 2024 13:48:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C88810FE60;
-	Fri, 19 Apr 2024 11:50:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE87710E47D;
+	Fri, 19 Apr 2024 13:48:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GYGtOFR8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bRkbvc7S";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AE0B10FDE1
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Apr 2024 11:50:46 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-3481bb34e7dso1089014f8f.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Apr 2024 04:50:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1713527445; x=1714132245; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Nq1voOokD+Oot35V3UlI7xSeWJVN7ko+8jRQJ06IWwA=;
- b=GYGtOFR8xiLw6i5czoQzTlKDBipQUwCddAaB9rnuiFiWFQs6cWCkrfcKwBSWIOuKSt
- 9Rdgg2VsnOF5yTJ9nhF6yeBDsspmUC2PMu7jYOK3cJsomZtc+UbRuMplynYKbOtdu+A1
- Dr+ukv51kjO7OrrIL0jTHPM4hTQHaRz4aTs8tZ6PqrJaYuWMkv55iQ5OHWxDWPL/XoT+
- aoYCy02x7iOonWQdOd6mrsy8i98eXRJpXLLqkj0qz6VCtuFl5gtzbTBnWce8peupPXZY
- VC9zuvDuaVy67pxV3RtSc7ilNuUq2YFxFgyHuxfL8U+jtAat4hpoKmchO211g04Z5iPJ
- nlBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713527445; x=1714132245;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Nq1voOokD+Oot35V3UlI7xSeWJVN7ko+8jRQJ06IWwA=;
- b=QEbbWSvzz1xm84JUWkv0NHkAAV9IxKQKCMEqZZIaYJB9LVzW/H+Z+umrVUn6X6r2CA
- N2K0mXpIxWptP98KJJZ8xMW1VGqrZigYWLx6l66XVkcuqvhYVF4eLbGRg1AHrA+Qi1nJ
- I9FnIISUBgHm3gupueV//1DB8g+XgUJRiIYkVPzTLHa3jPBXbsPu7MQDOTVH3A+SEAhF
- j3tmdR03WZ/C1z9O0JPVvnARuSLu1WQj4vvfZIojZ8xTHyATGDEJJR1AgTo/qZWWTGEJ
- y7CH6veWxHvUxhd3NHBClzpx4U8BXTj/8rj3S0mC6DvszIRV8vu5bh2ZG2qm3GA0GFHR
- 7mpQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVEIyFZIRIkd5OXylXo9EHRc7nVKx6Jl/1OtPb9xv9InTSytEwz+PMENneXRFjI5TFH1ot5NUKUmMjNgTc6YvKF0Uknht0OtVhTkj8nSA==
-X-Gm-Message-State: AOJu0Yy62JPI0kAa8JGzLjC9usdaTjHWumfnnp3sEEoqxzAv0Ua/Hb5c
- Y3uoENFdBQ2Rs2rqXWrDrmCBJXKrYZ4ZtX6oK1+kBjBqA9ThCPuT
-X-Google-Smtp-Source: AGHT+IEDNPAWEV0esIgkJQ4WyCYreTy++fj4ve1SvbAUK7UFbr9qaTabsWPBNgMG9nCRbVq1+J9T7w==
-X-Received: by 2002:a5d:6988:0:b0:349:cbdc:eb6b with SMTP id
- g8-20020a5d6988000000b00349cbdceb6bmr1195633wru.38.1713527444443; 
- Fri, 19 Apr 2024 04:50:44 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- bl28-20020adfe25c000000b00346bb778e8bsm4305781wrb.5.2024.04.19.04.50.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Apr 2024 04:50:43 -0700 (PDT)
-Message-ID: <850a9976-ff7e-4ae3-98bf-7394687fe299@gmail.com>
-Date: Fri, 19 Apr 2024 13:50:40 +0200
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2074.outbound.protection.outlook.com [40.107.92.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8097310E47D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Apr 2024 13:48:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jnYeFC4lmyZ3xzU4GbCyHTVhSpPRIhNPDOj0nmdHrhgr1qRFJOEICu2fxnZ4wLPnV0lscvp4Me/pzbkFLabxfHCeNbRJW0FDiq2x97DgR6lOxOpYXqIk4SOxysGDa6kIqAOfQBcYYbadyzgm06ltyZiYmnStWdYOnHsu6GPzDg7X97aTww6HGxHJti5X0MOrB7PNkm3AXKfS2G3NThT7N2oW0sWdPyN2IMtVLOg2QIatl/AIIWP60DIvLHFINeua7IO6IXtoJxIFHYT/WKvxXmlEIBn2c46VnWJGBwKt6pzL9rjoJzltrbm7x/ev+TqAwDjt3cF1RV/o3wzFVUmUCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cuvyCNUVdAN6TlAfPnG4jiPx59ACAm9zmrY5Fyr3bEc=;
+ b=Gy2A230rO31GL6csQigWFVb9fbtxC2DSRYxmJ6CoyMAfuDVXRrkazrSpZcONYCfxbNugS6pOG9OCY3XkQbXciK/wcAcX6RSnb/6PzrQuIlzBMc9xR9JwSH0gmztuNoTPzt/4RzW463gvDvRYXQQHGNfww6tdc/H22QhFmoYf4kdj/KIzPfuG3ps9bdgSLJq36rp9S8Tghehno++Qcdi2aZHMZfIpLO2/CkcgVxX/L14VKGcIWJAH4k41yElcK9LrsRUWLFimXUgjKFmQcztMAGT04YXobV6eeiILX4SqFk4PANTe5MA6WRRKvWKLt99gnn1VFLssi8qLUGGMcXQnzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cuvyCNUVdAN6TlAfPnG4jiPx59ACAm9zmrY5Fyr3bEc=;
+ b=bRkbvc7SAcR9cQJnURbRi9guM2o8JymoO5LTJj4wWCJ6GJPQBKSSN3jCqMnywJgRtXz0y3RN+efy12LfI7DMMMjgz+m3hMrMmmdidZsTwfn95mdbZd+qcfcSMzW2U7K1bVcZH8bAa4ZB7iKf/mmx8/i0Iz+RjUzV3sYvbiCEDm8=
+Received: from BL1PR13CA0351.namprd13.prod.outlook.com (2603:10b6:208:2c6::26)
+ by SJ0PR12MB6944.namprd12.prod.outlook.com (2603:10b6:a03:47b::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.44; Fri, 19 Apr
+ 2024 13:48:15 +0000
+Received: from BL6PEPF00020E63.namprd04.prod.outlook.com
+ (2603:10b6:208:2c6:cafe::23) by BL1PR13CA0351.outlook.office365.com
+ (2603:10b6:208:2c6::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.12 via Frontend
+ Transport; Fri, 19 Apr 2024 13:48:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF00020E63.mail.protection.outlook.com (10.167.249.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Fri, 19 Apr 2024 13:48:15 +0000
+Received: from patedamande.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 19 Apr
+ 2024 08:48:13 -0500
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
+ <alexander.deucher@amd.com>
+CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Subject: [PATCH v2] drm/amdgpu/vcn: fix unitialized variable warnings
+Date: Fri, 19 Apr 2024 15:45:37 +0200
+Message-ID: <20240419134802.302539-1-pierre-eric.pelloux-prayer@amd.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/vcn: fix unitialized variable warnings
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
-References: <20240418180807.240782-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240418180807.240782-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E63:EE_|SJ0PR12MB6944:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ee7b0a9-153e-4ba1-ac29-08dc60775ce6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 8QGnVHAIPG6l3ldInGVtmnot6oSuebAU2J373xE04U2Cepb6VpYf4KgVv0d51ySKVvtVKT1Y3w3WmPk6k9u2s+jmh8kKyV06M4cmta4NSeMK0pZqdQuZAcoeU5DqVA8hDETZ+mID7CzNz+tugyMF7iqcf31uHAqA1TIVQOyB4N3OLb/v1nmLGfWJSW9rAvPNj86DpBcGc69a0/1v2jeTEcNaUJc8mS+ti4E3z9Jn/MD72yCorETomG0G2zDbj1+6a3UTBvhr1lHRAsV8HAy1Q7bZpDr8OuYE8o7Wp2uQgUECAdrMslMbE8Cae1v0BD2Vvu/BAXcwtpJXhgr+DAffMbi99oCUQo8xX0hhBcD3u9hwo39/GDUahrr7hZACdO+qn/0i3CGoSasMhVzhS/aJ+s2Hw95moXuFDi1kkoJPVwf2//92ZIBIVKgc7LcaiEMZ61hmzxZVGz5InXcSjl9XAJcRZt0kfWCHbv2LHYwMD+xxHrRP4fsz8VV2PIuhfyhdPdhaM1sNbe33IcV2dyu9nXP4s99rdLPLfkJo+CAZdhdpM473pF+pzPSJGBfSroaqLod4ISlIjf6iYsdNc9ZIdYvY2NNCvgUUjFvIOlYW0hfnlXCZjiRDYlfcbi/ATLdy+hx7+BQkK0/YeSszvumqxzU9+6rQCrfA/7Q4U7YRdJcBuM5L24SPKZTj+ivRsywMhyccgvY6+yUU+hLIvvTDZrWJ3MWIJUMDYqdlsTbhH5jcbjvcjpnTTbUgs6C77EgZ
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(36860700004)(82310400014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2024 13:48:15.4670 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ee7b0a9-153e-4ba1-ac29-08dc60775ce6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E63.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6944
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,79 +105,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.04.24 um 20:07 schrieb Pierre-Eric Pelloux-Prayer:
-> Init r to 0 to avoid returning an uninitialized value if we never
-> enter the loop. This case should never be hit in practive, but
-> returning 0 doesn't hurt.
->
-> The same fix is applied to the 4 places using the same pattern.
->
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 2 +-
->   drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 2 +-
->   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 2 +-
->   drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 2 +-
->   4 files changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> index 8f82fb887e9c..724445545563 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> @@ -298,7 +298,7 @@ static int vcn_v3_0_hw_init(void *handle)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   	struct amdgpu_ring *ring;
-> -	int i, j, r;
-> +	int i, j, r = 0;
+Avoid returning an uninitialized value if we never enter the loop.
+This case should never be hit in practice, but returning 0 doesn't
+hurt.
 
-That is usually considered bad coding style.
+The same fix is applied to the 4 places using the same pattern.
 
-Better insert a "return 0;" directly before the done label.
+v2: - fixed typos in commit message (Alex)
+    - use "return 0;" before the done label instead of initializing
+      r to 0
 
-Regards,
-Christian.
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 1 +
+ 4 files changed, 4 insertions(+)
 
->   
->   	if (amdgpu_sriov_vf(adev)) {
->   		r = vcn_v3_0_start_sriov(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> index 832d15f7b5f6..9be7ae7af4b1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> @@ -253,7 +253,7 @@ static int vcn_v4_0_hw_init(void *handle)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   	struct amdgpu_ring *ring;
-> -	int i, r;
-> +	int i, r = 0;
->   
->   	if (amdgpu_sriov_vf(adev)) {
->   		r = vcn_v4_0_start_sriov(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> index 501e53e69f2a..593c64e4b8ef 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> @@ -221,7 +221,7 @@ static int vcn_v4_0_5_hw_init(void *handle)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   	struct amdgpu_ring *ring;
-> -	int i, r;
-> +	int i, r = 0;
->   
->   	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
->   		if (adev->vcn.harvest_config & (1 << i))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> index bc60c554eb32..246f967e2e7d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> @@ -187,7 +187,7 @@ static int vcn_v5_0_0_hw_init(void *handle)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   	struct amdgpu_ring *ring;
-> -	int i, r;
-> +	int i, r = 0;
->   
->   	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
->   		if (adev->vcn.harvest_config & (1 << i))
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 8f82fb887e9c..26e63f01250a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -359,6 +359,7 @@ static int vcn_v3_0_hw_init(void *handle)
+ 		}
+ 	}
+ 
++	return 0;
+ done:
+ 	if (!r)
+ 		DRM_INFO("VCN decode and encode initialized successfully(under %s).\n",
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 832d15f7b5f6..aff1a4d8d393 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -288,6 +288,7 @@ static int vcn_v4_0_hw_init(void *handle)
+ 		}
+ 	}
+ 
++	return 0;
+ done:
+ 	if (!r)
+ 		DRM_INFO("VCN decode and encode initialized successfully(under %s).\n",
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+index 501e53e69f2a..8f2bcce13339 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+@@ -237,6 +237,7 @@ static int vcn_v4_0_5_hw_init(void *handle)
+ 			goto done;
+ 	}
+ 
++	return 0;
+ done:
+ 	if (!r)
+ 		DRM_INFO("VCN decode and encode initialized successfully(under %s).\n",
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+index bc60c554eb32..b226306164bc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+@@ -203,6 +203,7 @@ static int vcn_v5_0_0_hw_init(void *handle)
+ 			goto done;
+ 	}
+ 
++	return 0;
+ done:
+ 	if (!r)
+ 		DRM_INFO("VCN decode and encode initialized successfully(under %s).\n",
+-- 
+2.41.0
 
