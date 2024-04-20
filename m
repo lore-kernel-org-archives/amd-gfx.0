@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 640E6C4345F
-	for <amd-gfx@archiver.kernel.org>; Sat, 20 Apr 2024 18:50:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76B9FC4345F
+	for <amd-gfx@archiver.kernel.org>; Sat, 20 Apr 2024 18:50:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E304210E267;
-	Sat, 20 Apr 2024 18:50:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0590C10E332;
+	Sat, 20 Apr 2024 18:50:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="zoVJhBOb";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="tMfcQv6S";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFB5110E267
- for <amd-gfx@lists.freedesktop.org>; Sat, 20 Apr 2024 18:50:47 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-1e51398cc4eso28291235ad.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 20 Apr 2024 11:50:47 -0700 (PDT)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B9A410E332
+ for <amd-gfx@lists.freedesktop.org>; Sat, 20 Apr 2024 18:50:55 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-2a2da57ab3aso2389295a91.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 20 Apr 2024 11:50:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1713639047; x=1714243847; darn=lists.freedesktop.org;
+ d=usp.br; s=usp-google; t=1713639054; x=1714243854; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=VQjFYwxXugp5kZIt490GmWy6VzHRTTztx48u5ltsIaI=;
- b=zoVJhBObPfeOGDqtIWkaj0HlbvdR1UjYQh6k4GLCCFlTR6aKJ3OSXeDbaKRqW6wkjc
- eH9Ac5Y0f2zmhSXipDxG2JPfjk2RXwR++weZp019MlAcTMDUMdyLmII6DZQnGv76WszL
- kiJ4dfsIlzv/roGbQQ0NsUNz8gz6kBMEG+X0SWAnb9vbRuO3jaTtCRmIQNlYCF1ZMN27
- /qMbXbXUJJ0UxWSBkYTYJxO7GYxhkvH+QlqrlrbjBwaXI9lRUiv/9STP5Johh3AAoABt
- IiQNh0oM7jk34bI2o0Hfx9ID884Gnm02BS5OQhpsyA/9v0SEPuYglfdrvO52wjz5dy9z
- 6DpQ==
+ bh=I1sf1nvfz3ifThSFMeOGabi7Qw/QWhFE4nU3ybk98Qw=;
+ b=tMfcQv6SzG3lCVDC6Vrqc61UhlMugBal0ka1e/3heyX5uz6D5SP2JvGx0yXzJaQmWd
+ oFCMXdi/z2XxvfaotEgqsVoOfLi7N/KIJmM7h+16vIk0QoXBh2L0GneDSpNW3JqHxYt7
+ Sa7JXxCSalrXbmfFtTDw/FTW/3XrJ3Sy4NJfSHNpC8UY+H3+i5JEBElWg0mH4k3ClzRz
+ uROJhnMevC5lVI4e+gSVC35hoMiWpbMx93dLbVSU4OKpB4qQxKMfJUpn2JKFcJNq4rzw
+ JfHIWOKcrF8HRAOoisC3NQviyIAFQO+o8FOJ9l9sxlfvVChBsA/ewUXazTjlF/BWMgcs
+ OQ1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713639047; x=1714243847;
+ d=1e100.net; s=20230601; t=1713639054; x=1714243854;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=VQjFYwxXugp5kZIt490GmWy6VzHRTTztx48u5ltsIaI=;
- b=s1UWUFebbB2Sx4pIBpbV2sncD04g5u59cfitIgltY83xKqA3PaNoOSrHPzfXOIsdF0
- G2aucw5CV6tpB0BmppKr2m22NE3cvOPglUgoCBfCI0ctIyZSzG/+1AR7CLAeb6aA7aaf
- JYCRuJ8U7CrMvlDIMcu+h6yuoHeKRak7Y69cW7nCLNmafeWNw74GST2HB1tpvI4TPxea
- yDSihmKtSDiOnUc406MzJdScJEMY00S5WJefYjzKpRZCrYcrcMBe1ag+pyKf7ogIakoE
- Vu6vztyDtUFNMbWLhH6kCv0TakUkdRj9UytDZvyrQtouulO98iOMmSQVtnvWlREMALzS
- 33Nw==
+ bh=I1sf1nvfz3ifThSFMeOGabi7Qw/QWhFE4nU3ybk98Qw=;
+ b=s4yahSjgw7zdZEaTpAZryGAP1FlVx2qrM0ryMs/R2zVbfj5pLj17245bxE9EX4y2So
+ ZFidHRpEzsMIWA0aGbGlksToDI+ZRdcQL5fC5X1ySyGpIWxp9CmPRPBUk5Tz4NdYVTIZ
+ 8Tg8l+vqxalDLzSt4i0wfPlHN0pNJz51VOtwBPfST9qPTeUfbmJ4cAiZY9MAc80eX580
+ tpmGwB3PvKhM1W4eXBLFvMa0bpFAZ95XUPlbHgQ9RgHIKvmq+CgT4quKuH0srU18O5w2
+ OZ+UFe/6+rie+1UrigINjmcCiHa2lfHjLg5qBsmvnGm0S5pr6Cd1x9+KkFhPmkprl0CJ
+ Kubg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXJsDKsGgV+irF1ytk018muj3IbdknvmOHDhgR30kDMxtXVQT64z4YXFTI9qy2MYSqpAaN7LzfzHcE4JRxDlsdBZqjQ+OEr+bPOAA46Sw==
-X-Gm-Message-State: AOJu0YyTWfGPczOnZ+/sSh8uUjLVfX//sd+41lGGMWideYWpxhW3K6ze
- 9+trxSpOiSqtxz6o5+U4edpWtycawNBcFF9gkjGLRhSL/xqSoxgXl/MiRFK8vQ==
-X-Google-Smtp-Source: AGHT+IHH4/m+EBY2e4cPGddiRdYGqBEbkiiJFT9yYcnFl8IC8VOHlIKkMncZx2O2K29kEMQSVBhUBw==
-X-Received: by 2002:a17:902:e807:b0:1e5:d021:cf58 with SMTP id
- u7-20020a170902e80700b001e5d021cf58mr8150095plg.36.1713639047490; 
- Sat, 20 Apr 2024 11:50:47 -0700 (PDT)
+ AJvYcCV0LibAuVoVxOCJv9vIe/YLy4G800QYJzEZPNtCK+N+TWsy+Gv+6aNgAABRZXeznMtbD6/r11oiy8Yhs2QWu5DXtz1gbvEP66TCKvjTlA==
+X-Gm-Message-State: AOJu0YzTH24NrD0qTalI5YBzZCANjDOHT6Zjnsn7MNg3I/J7eV1p/VX/
+ eD2AGuKoBKzFV1LY4ZPFttq7tV3wc3D+QZ8ubtPltn/yOKxnsyNHjTfuaF43xQ==
+X-Google-Smtp-Source: AGHT+IGzl1CCAsssd/zVs54CpXRnh9dqBRX/qaai4shXGSmvCwo4Y777rzhz0iAAq2gNp7o278i00w==
+X-Received: by 2002:a17:902:b40a:b0:1e8:6729:5146 with SMTP id
+ x10-20020a170902b40a00b001e867295146mr5676662plr.57.1713639054524; 
+ Sat, 20 Apr 2024 11:50:54 -0700 (PDT)
 Received: from fedora.. ([2804:14c:71:5fb7::1001])
  by smtp.gmail.com with ESMTPSA id
- l5-20020a170902d34500b001dd578121d4sm5321995plk.204.2024.04.20.11.50.40
+ l5-20020a170902d34500b001dd578121d4sm5321995plk.204.2024.04.20.11.50.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 Apr 2024 11:50:47 -0700 (PDT)
+ Sat, 20 Apr 2024 11:50:54 -0700 (PDT)
 From: Joao Paulo Pereira da Silva <jppaulo11@usp.br>
 To: rodrigo.siqueira@amd.com
 Cc: paulormm@ime.usp.br, Xinhui.Pan@amd.com, airlied@linux.ie,
@@ -69,10 +69,10 @@ Cc: paulormm@ime.usp.br, Xinhui.Pan@amd.com, airlied@linux.ie,
  nicholas.choi@amd.com, sunpeng.li@amd.com, tales.aparecida@gmail.com,
  twoerner@gmail.com, tzimmermann@suse.de,
  Joao Paulo Pereira da Silva <jppaulo11@usp.br>
-Subject: [PATCH 3/4] drm/amd/display/test: Optimize kunit test suite
- dml_dcn20_fpu_dcn21_update_bw_bounding_box_test
-Date: Sat, 20 Apr 2024 15:48:18 -0300
-Message-ID: <20240420184929.97854-4-jppaulo11@usp.br>
+Subject: [PATCH 4/4] Documentation/gpu: Update AMD Display Core Unit Test
+ documentation
+Date: Sat, 20 Apr 2024 15:48:19 -0300
+Message-ID: <20240420184929.97854-5-jppaulo11@usp.br>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240420184929.97854-1-jppaulo11@usp.br>
 References: <20240222155811.44096-1-Rodrigo.Siqueira@amd.com>
@@ -93,43 +93,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The KUnit init function of the suite
-dml_dcn20_fpu_dcn21_update_bw_bounding_box_test does not need to be executed
-before every test, but only once before the test suite, since it's just
-used to store backup copies of DCN global structures.
-So, turn it into a suite_init.
+Display Core unit tests documentation is a bit outdated, therefore
+update it to follow current configuration.
 
 Signed-off-by: Joao Paulo Pereira da Silva <jppaulo11@usp.br>
 ---
- .../amd/display/test/kunit/dc/dml/dcn20/dcn20_fpu_test.c    | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ .../gpu/amdgpu/display/display-test.rst       | 20 +++++++++----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/test/kunit/dc/dml/dcn20/dcn20_fpu_test.c b/drivers/gpu/drm/amd/display/test/kunit/dc/dml/dcn20/dcn20_fpu_test.c
-index c51a0afbe518..b13a952e0227 100644
---- a/drivers/gpu/drm/amd/display/test/kunit/dc/dml/dcn20/dcn20_fpu_test.c
-+++ b/drivers/gpu/drm/amd/display/test/kunit/dc/dml/dcn20/dcn20_fpu_test.c
-@@ -449,10 +449,10 @@ static struct _vcs_dpi_soc_bounding_box_st original_dcn2_1_soc;
- static struct _vcs_dpi_ip_params_st original_dcn2_1_ip;
+diff --git a/Documentation/gpu/amdgpu/display/display-test.rst b/Documentation/gpu/amdgpu/display/display-test.rst
+index a8c136ce87b7..a9fddf0adae7 100644
+--- a/Documentation/gpu/amdgpu/display/display-test.rst
++++ b/Documentation/gpu/amdgpu/display/display-test.rst
+@@ -15,14 +15,14 @@ How to run the tests?
+ =====================
  
- /**
-- * dcn20_fpu_dcn21_update_bw_bounding_box_test_init - Store backup copies of DCN global structures
-+ * dcn20_fpu_dcn21_update_bw_bounding_box_test_suite_init - Store backup copies of DCN global structures
-  * @test: represents a running instance of a test.
-  */
--static int dcn20_fpu_dcn21_update_bw_bounding_box_test_init(struct kunit *test)
-+static int dcn20_fpu_dcn21_update_bw_bounding_box_test_suite_init(struct kunit_suite *suite)
- {
- 	memcpy(&original_dcn2_1_soc, &dcn2_1_soc, sizeof(struct _vcs_dpi_soc_bounding_box_st));
- 	memcpy(&original_dcn2_1_ip, &dcn2_1_ip, sizeof(struct _vcs_dpi_ip_params_st));
-@@ -553,7 +553,7 @@ static struct kunit_case dcn20_fpu_dcn21_update_bw_bounding_box_test_cases[] = {
+ In order to facilitate running the test suite, a configuration file is present
+-in ``drivers/gpu/drm/amd/display/tests/dc/.kunitconfig``. This configuration file
++in ``drivers/gpu/drm/amd/display/test/kunit/.kunitconfig``. This configuration file
+ can be used to run the kunit_tool, a Python script (``tools/testing/kunit/kunit.py``)
+ used to configure, build, exec, parse and run tests.
  
- static struct kunit_suite dcn21_update_bw_bounding_box_test_suite = {
- 	.name = "dml_dcn20_fpu_dcn21_update_bw_bounding_box_test",
--	.init = dcn20_fpu_dcn21_update_bw_bounding_box_test_init,
-+	.suite_init = dcn20_fpu_dcn21_update_bw_bounding_box_test_suite_init,
- 	.exit = dcn20_fpu_dcn21_update_bw_bounding_box_test_exit,
- 	.test_cases = dcn20_fpu_dcn21_update_bw_bounding_box_test_cases,
- };
+ .. code-block:: bash
+ 
+-	$ ./tools/testing/kunit/kunit.py run --arch=x86_64 \
+-	    --kunitconfig=drivers/gpu/drm/amd/display/tests
++    $ ./tools/testing/kunit/kunit.py run --arch=x86_64 \
++        --kunitconfig=drivers/gpu/drm/amd/display/test/kunit
+ 
+ Currently, the Display Core Unit Tests are only supported on x86_64.
+ 
+@@ -34,10 +34,9 @@ you might add the following config options to your ``.config``:
+ 
+ 	CONFIG_KUNIT=y
+ 	CONFIG_AMDGPU=m
+-	CONFIG_AMD_DC_BASICS_KUNIT_TEST=y
+-	CONFIG_AMD_DC_KUNIT_TEST=y
+-	CONFIG_DCE_KUNIT_TEST=y
+-	CONFIG_DML_KUNIT_TEST=y
++	CONFIG_DRM_AMD_DC_BASICS_KUNIT_TEST=y
++	CONFIG_DRM_AMD_DC_KUNIT_TEST=y
++	CONFIG_DRM_AMD_DC_DML_KUNIT_TEST=y
+ 
+ Once the kernel is built and installed, you can load the ``amdgpu`` module
+ to run all tests available.
+@@ -49,10 +48,9 @@ following config options to your ``.config``:
+ 
+ 	CONFIG_KUNIT=y
+ 	CONFIG_AMDGPU=y
+-	CONFIG_AMD_DC_BASICS_KUNIT_TEST=y
+-	CONFIG_AMD_DC_KUNIT_TEST=y
+-	CONFIG_DCE_KUNIT_TEST=y
+-	CONFIG_DML_KUNIT_TEST=y
++	CONFIG_DRM_AMD_DC_BASICS_KUNIT_TEST=y
++	CONFIG_DRM_AMD_DC_KUNIT_TEST=y
++	CONFIG_DRM_AMD_DC_DML_KUNIT_TEST=y
+ 
+ In order to run specific tests, you can check the filter options from KUnit on
+ Documentation/dev-tools/kunit/kunit-tool.rst.
 -- 
 2.44.0
 
