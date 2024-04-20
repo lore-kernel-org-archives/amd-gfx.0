@@ -4,77 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57912C4345F
-	for <amd-gfx@archiver.kernel.org>; Sat, 20 Apr 2024 18:50:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C9A6C4345F
+	for <amd-gfx@archiver.kernel.org>; Sat, 20 Apr 2024 18:50:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A88B110E0C4;
-	Sat, 20 Apr 2024 18:50:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A14610E0D4;
+	Sat, 20 Apr 2024 18:50:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="Kf56nHIO";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="fr/LFBwC";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5977910E0C4
- for <amd-gfx@lists.freedesktop.org>; Sat, 20 Apr 2024 18:50:26 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-1e3e84a302eso22040865ad.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 20 Apr 2024 11:50:26 -0700 (PDT)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E518710E0D4
+ for <amd-gfx@lists.freedesktop.org>; Sat, 20 Apr 2024 18:50:33 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-1e4f341330fso26730625ad.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 20 Apr 2024 11:50:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1713639026; x=1714243826; darn=lists.freedesktop.org;
+ d=usp.br; s=usp-google; t=1713639033; x=1714243833; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=69d0O+5fM8Yt3nBud30EjYozGnnBdHocwTktgDdGO/c=;
- b=Kf56nHIOaKqYh8mrUNcb04x7tZ5s/L6kjSszHtX6jKJ/f468spxPe/QOC3boLjalp6
- Te0lanktw++9uqPvtC2IGnFzhnENzJRda5JD3nQI/R9YzjXP2XabsLNR1kmon+pdQK3m
- diva0i/vQQfEcdv9i75/bO4zYMpBTcMnohPF4JcU0s/mTkUY3fMkE8ty2NCDaZ5q6Se3
- +hW8ck0Pa8zJJHAAW4Le1Qx9bU3VuKaMtbgtRNfvex6Ty+y45QK5Sio9DJKDc3hPJeeX
- rg2ZjxLT5ArR9YvUQKzSRuT2QVxI10Q3+qcTEjDGELEcnfm6JWHaKIIu8XRZp8boZr/4
- yKyw==
+ bh=PieGTUoeUoPUyJ/WAcCyTEgeTw+KTCl8GBwssHjdTQc=;
+ b=fr/LFBwCpMzLAaKV7b8pXxWYpNq4W++rHRGTzHH8yLDMnJQfWwWtYTozFSHuvtCxiK
+ EA58DpkY/IHUh4ksls4bMJCJtvLleum2AEQxpS8g+i5gNKgcWwurKMMBIk9AwtbioSS5
+ rZamFZIROXunyS+LH8ngyzGx7LpGPVjcORTnGwXJlCzj7/yoQ90Gri6oa6YeKIzsW2DW
+ Xht03Tm9JGAYD9Mq6JuhCDVpvSz4iVSeD50cNwBgSBKA/ACzVeQr9W1rlQlsNNRfgebO
+ qu0OJUevBzlEcC6oScJGE7uQQSw5FbgSfw9Gcf8jsek9kzjrhBIHIJ7/lA9x5VWQw/zM
+ oFAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713639026; x=1714243826;
+ d=1e100.net; s=20230601; t=1713639033; x=1714243833;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=69d0O+5fM8Yt3nBud30EjYozGnnBdHocwTktgDdGO/c=;
- b=N7UcaPoqv6/p3CBHDcJ60/Q5iIVecOFRmw9ORfxJHRpZ7vyvteZhC7wUihdT/ox1AY
- yQg+qU0SweUWrWLtHz+BOmHv2kd+O2gMwE6M9jXFWnPv/k54MfHCON3QvuFCcyCTgppp
- Hn82/X1YldVH2DvUourqX2Pay/g8BOiQ3IKkhuevnAEGQVgTGUNkVhP4zdaiYDRI6oIb
- 6e/Ds10HgeE8vErOnKrIED6FAkMWDvFBqYoemuLTIKFdVa+sRz19W63crgR4ha9IdBJc
- TS+gWG0OfIvii3zjP7c+uEPHTxD+c/l59IZ9L7StlhQEnoqbytxWUTKfGyqea/+Qh/a8
- mIig==
+ bh=PieGTUoeUoPUyJ/WAcCyTEgeTw+KTCl8GBwssHjdTQc=;
+ b=Pzj5UmrvVRVGrLtjz0bJCJHLjGR1C2zas7byfNhoME1zLb/6molRzdmXi5twL0sLtj
+ xqJEtmkqTzZ3lAt3NKnKwX8QzGwwsT/sQ0hrn/qMW07o0zwAa4Hl+PK1jL1TDKB+nvH7
+ 0M3X+Bmkw84sGqMQHXvGuLAz1aBvu+rcShuqbTQY8uoWOhErYVXE3Wq0crJ0qpOnYK1r
+ k1w+GwGSXdt95yaGzwOhRpfzxhvAzOMecb1uXYkEyp9CK1+ux0F0TCk74CrEjBEWB5m8
+ x1nhIGmz/Vs1MjjePD4pqyn+KtF2NfCD+39K7D4hHuE3VUO1BNyVnSbspRbPbJWBu3M+
+ OJxA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUdkUEwUzBTo4cc0KeECLD65KNEn4OqGan2ml2RdqCFskhtFj2EKq5C+cl/wf54XKhbiFIc9UEwl8Kma+Uqo33uKCgKq1j4tpd8a9YgDQ==
-X-Gm-Message-State: AOJu0YzKIJ+J/vlZ5V5GrDsbKzIia6ZlFLapi0ewuj2XNRO8Tgtvr1zL
- 4resG80m3ALsJJh1ECqmRjNjSLhM04BQ/HhbQYY3ZqDNH9KSH7CbaLxrLjAU/A==
-X-Google-Smtp-Source: AGHT+IG7wdpD31V/mV9SZ9Z9bEhieOqV6SqkRO2QWssC+nP2fRjbcc/5NQPLDZMSiwwhJKYxFzsQ8g==
-X-Received: by 2002:a17:902:c952:b0:1e2:7356:aa36 with SMTP id
- i18-20020a170902c95200b001e27356aa36mr7754665pla.42.1713639026179; 
- Sat, 20 Apr 2024 11:50:26 -0700 (PDT)
+ AJvYcCXVFzUj0J7rBIf3ZfB1AAY/fxUxIs8K1YFnXwU/Kh+7VE4Aqza9T97DeNvVhS4rQTuqVeV2uARWv76U1XFjuUeNEamAoUjTAe35Q54cmA==
+X-Gm-Message-State: AOJu0YwBPg5GxFCEFkuka9xf0yNbOOPpPZlNrZUXk8caVhLC/AeeoTc+
+ ZY7tguvDQpKtRj7Cl1dFaK2aQOh2zK+Eqxtw6tH547KTM009dKttPVqHWshCew==
+X-Google-Smtp-Source: AGHT+IF10OVWcIxXR+/jI2HaoOasu5Km/LkS4jGDpfYyt2YIipuAwCog32t23cw71qSjx6QKDtKGoQ==
+X-Received: by 2002:a17:903:244e:b0:1e5:870a:b2c0 with SMTP id
+ l14-20020a170903244e00b001e5870ab2c0mr8267848pls.14.1713639033291; 
+ Sat, 20 Apr 2024 11:50:33 -0700 (PDT)
 Received: from fedora.. ([2804:14c:71:5fb7::1001])
  by smtp.gmail.com with ESMTPSA id
- l5-20020a170902d34500b001dd578121d4sm5321995plk.204.2024.04.20.11.50.18
+ l5-20020a170902d34500b001dd578121d4sm5321995plk.204.2024.04.20.11.50.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 Apr 2024 11:50:25 -0700 (PDT)
+ Sat, 20 Apr 2024 11:50:32 -0700 (PDT)
 From: Joao Paulo Pereira da Silva <jppaulo11@usp.br>
-To: rodrigo.siqueira@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, corbet@lwn.net, daniel@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- Xinhui.Pan@amd.com
-Cc: paulormm@ime.usp.br, airlied@linux.ie, amd-gfx@lists.freedesktop.org,
- andrealmeid@riseup.net, davidgow@google.com, dlatypov@google.com,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- hersenxs.wu@amd.com, isabbasso@riseup.net, javierm@redhat.com,
- kunit-dev@googlegroups.com, magalilemes00@gmail.com, mairacanal@riseup.net,
- mwen@igalia.com, nicholas.choi@amd.com, sunpeng.li@amd.com,
- tales.aparecida@gmail.com, twoerner@gmail.com,
- Joao Paulo Pereira da Silva <jppaulo11@usp.br>, linux-doc@vger.kernel.org
-Subject: [PATCH 0/4] drm/amd/display: Update Display Core unit tests
-Date: Sat, 20 Apr 2024 15:48:15 -0300
-Message-ID: <20240420184929.97854-1-jppaulo11@usp.br>
+To: rodrigo.siqueira@amd.com
+Cc: paulormm@ime.usp.br, Xinhui.Pan@amd.com, airlied@linux.ie,
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ andrealmeid@riseup.net, christian.koenig@amd.com, daniel@ffwll.ch,
+ davidgow@google.com, dlatypov@google.com, dri-devel@lists.freedesktop.org,
+ harry.wentland@amd.com, hersenxs.wu@amd.com, isabbasso@riseup.net,
+ javierm@redhat.com, kunit-dev@googlegroups.com,
+ maarten.lankhorst@linux.intel.com, magalilemes00@gmail.com,
+ mairacanal@riseup.net, mripard@kernel.org, mwen@igalia.com,
+ nicholas.choi@amd.com, sunpeng.li@amd.com, tales.aparecida@gmail.com,
+ twoerner@gmail.com, tzimmermann@suse.de,
+ Joao Paulo Pereira da Silva <jppaulo11@usp.br>
+Subject: [PATCH 1/4] drm/amd/display: Refactor AMD display KUnit tests configs
+Date: Sat, 20 Apr 2024 15:48:16 -0300
+Message-ID: <20240420184929.97854-2-jppaulo11@usp.br>
 X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240222155811.44096-1-Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20240420184929.97854-1-jppaulo11@usp.br>
 References: <20240222155811.44096-1-Rodrigo.Siqueira@amd.com>
+ <20240420184929.97854-1-jppaulo11@usp.br>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,83 +92,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hey, I'm interested in contributing for display tests from this patch-set.
-I've noticed potential updates related to both refactoring and optimization.
-This patch-set applies these suggestions.
+Configs in AMD display KUnit tests can be clarified. Remove unnecessary
+configs, rename configs to follow a pattern, and update config Help
+blocks.
 
-
-[WHY]
-
-1.	The single test suite in the file
-	test/kunit/dc/dml/calcs/bw_fixed_test.c, which tests some static
-	functions defined in the dc/basics/bpw_fixed.c, is not being run.
-	According to kunit documentation
-	(https://www.kernel.org/doc/html/latest/dev-tools/kunit/usage.html#testing-static-functions),
-	there are two strategies for testing
-	static functions, but none of them seem to be configured. Additionally,
-	it appears that the Config DCE_KUNIT_TEST should be associated with this
-	test, since it was introduced in the same patch of the test
-	(https://lore.kernel.org/amd-gfx/20240222155811.44096-3-Rodrigo.Siqueira@amd.com/),
-	but it is not being used anywhere in the display driver.
-
-2.	Also, according to the documentation, "The display/tests folder replicates
-	the folder hierarchy of the display folder". However, note that this test file
-	(test/kunit/dc/dml/calcs/bw_fixed_test.c) has a conflicting path with the file
-	that is being tested (dc/basics/bw_fixed.c).
-
-3.	Config Names and Helps are a bit misleading and don't follow a strict
-	pattern. For example, the config DML_KUNIT_TEST indicates that it is used
-	to activate tests for the Display Core Engine, but instead activates tests
-	for the Display Core Next. Also, note the different name patterns in
-	DML_KUNIT_TEST and AMD_DC_BASICS_KUNIT_TEST.
-
-4.	The test suite dcn21_update_bw_bounding_box_test_suite configures an init
-	function that doesn't need to be executed before every test, but only once
-	before the suite runs.
-
-5.	There are some not updated info in the Documentation, such as the
-	recommended command to run the tests:
-	$ ./tools/testing/kunit/kunit.py run --arch=x86_64 \
-	--kunitconfig=drivers/gpu/drm/amd/display/tests
-	(it doesn't work since there is no .kunitconfig in
-	drivers/gpu/drm/amd/display/tests)
-
-
-[HOW]
-
-1. Revise Config names and Help blocks.
-
-2.	Change the path of the test file bw_fixed_test from
-	test/kunit/dc/dml/calcs/bw_fixed_test.c to test/kunit/dc/basics/bw_fixed_test.c
-	to make it consistent with the Documentation and the other display driver
-	tests. Make this same test file run by importing it conditionally in the file
-	dc/basics/bw_fixed_test.c.
-
-3.	Turn the test init function of the suite
-	dcn21_update_bw_bounding_box_test_suite into a suite init.
-
-4.	Update Documentation
-
-Joao Paulo Pereira da Silva (4):
-  drm/amd/display: Refactor AMD display KUnit tests configs
-  drm/amd/display/test: Fix kunit test that is not running
-  drm/amd/display/test: Optimize kunit test suite
-    dml_dcn20_fpu_dcn21_update_bw_bounding_box_test
-  Documentation/gpu: Update AMD Display Core Unit Test documentation
-
- .../gpu/amdgpu/display/display-test.rst       | 20 ++++++------
+Signed-off-by: Joao Paulo Pereira da Silva <jppaulo11@usp.br>
+---
  drivers/gpu/drm/amd/display/Kconfig           | 31 ++++++-------------
- .../gpu/drm/amd/display/dc/basics/bw_fixed.c  |  3 ++
  drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  2 +-
  .../dc/dml/dcn20/display_mode_vba_20.c        |  2 +-
  .../dc/dml/dcn20/display_rq_dlg_calc_20.c     |  2 +-
  .../drm/amd/display/test/kunit/.kunitconfig   |  7 ++---
  .../gpu/drm/amd/display/test/kunit/Makefile   |  4 +--
- .../dc/{dml/calcs => basics}/bw_fixed_test.c  |  0
- .../test/kunit/dc/dml/dcn20/dcn20_fpu_test.c  |  6 ++--
- 10 files changed, 32 insertions(+), 45 deletions(-)
- rename drivers/gpu/drm/amd/display/test/kunit/dc/{dml/calcs => basics}/bw_fixed_test.c (100%)
+ 6 files changed, 17 insertions(+), 31 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+index 11b0e54262f3..b2760adb3da9 100644
+--- a/drivers/gpu/drm/amd/display/Kconfig
++++ b/drivers/gpu/drm/amd/display/Kconfig
+@@ -51,25 +51,25 @@ config DRM_AMD_SECURE_DISPLAY
+ 	  This option enables the calculation of crc of specific region via
+ 	  debugfs. Cooperate with specific DMCU FW.
+ 
+-config DCE_KUNIT_TEST
+-	bool "Run all KUnit tests for DCE" if !KUNIT_ALL_TESTS
++config DRM_AMD_DC_KUNIT_TEST
++	bool "Enable KUnit tests for the root of DC" if !KUNIT_ALL_TESTS
+ 	depends on DRM_AMD_DC && KUNIT
+ 	default KUNIT_ALL_TESTS
+ 	help
+-		Enables unit tests for the Display Controller Engine. Only useful for kernel
+-		devs running KUnit.
++		Enables unit tests for files in the root of the Display Core directory.
++		Only useful for kernel devs running KUnit.
+ 
+ 		For more information on KUnit and unit tests in general please refer to
+ 		the KUnit documentation in Documentation/dev-tools/kunit/.
+ 
+ 		If unsure, say N.
+ 
+-config DML_KUNIT_TEST
++config DRM_AMD_DC_DML_KUNIT_TEST
+ 	bool "Run all KUnit tests for DML" if !KUNIT_ALL_TESTS
+ 	depends on DRM_AMD_DC_FP && KUNIT
+ 	default KUNIT_ALL_TESTS
+ 	help
+-		Enables unit tests for the Display Controller Engine. Only useful for kernel
++		Enables unit tests for the Display Controller Next. Only useful for kernel
+ 		devs running KUnit.
+ 
+ 		For more information on KUnit and unit tests in general please refer to
+@@ -77,26 +77,13 @@ config DML_KUNIT_TEST
+ 
+ 		If unsure, say N.
+ 
+-config AMD_DC_BASICS_KUNIT_TEST
++config DRM_AMD_DC_BASICS_KUNIT_TEST
+ 	bool "Enable KUnit tests for the 'basics' sub-component of DAL" if !KUNIT_ALL_TESTS
+ 	depends on DRM_AMD_DC && KUNIT
+ 	default KUNIT_ALL_TESTS
+ 	help
+-		Enables unit tests for the Display Core. Only useful for kernel
+-		devs running KUnit.
+-
+-		For more information on KUnit and unit tests in general please refer to
+-		the KUnit documentation in Documentation/dev-tools/kunit/.
+-
+-		If unsure, say N.
+-
+-config AMD_DC_KUNIT_TEST
+-	bool "Enable KUnit tests for the 'utils' sub-component of DAL" if !KUNIT_ALL_TESTS
+-	depends on DRM_AMD_DC && KUNIT
+-	default KUNIT_ALL_TESTS
+-	help
+-		Enables unit tests for the basics folder of Display Core. Only useful for
+-		kernel devs running KUnit.
++		Enables unit tests for the basics folder of the Display Core. Only useful
++		for kernel devs running KUnit.
+ 
+ 		For more information on KUnit and unit tests in general please refer to
+ 		the KUnit documentation in Documentation/dev-tools/kunit/.
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index 7aafdfeac60e..7efd4768b0d7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -1439,6 +1439,6 @@ bool dc_wake_and_execute_gpint(const struct dc_context *ctx, enum dmub_gpint_com
+ 	return result;
+ }
+ 
+-#if IS_ENABLED(CONFIG_AMD_DC_KUNIT_TEST)
++#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
+ #include "../test/kunit/dc/dc_dmub_srv_test.c"
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+index aea6e29fd6e5..5c5be75c08e0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+@@ -5117,6 +5117,6 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 	}
+ }
+ 
+-#if IS_ENABLED(CONFIG_DML_KUNIT_TEST)
++#if IS_ENABLED(CONFIG_DRM_AMD_DC_DML_KUNIT_TEST)
+ #include "../../test/kunit/dc/dml/dcn20/display_mode_vba_20_test.c"
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+index 45f75a7f84c7..aab34156e9ae 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+@@ -1684,6 +1684,6 @@ static void calculate_ttu_cursor(struct display_mode_lib *mode_lib,
+ 	}
+ }
+ 
+-#if IS_ENABLED(CONFIG_DML_KUNIT_TEST)
++#if IS_ENABLED(CONFIG_DRM_AMD_DC_DML_KUNIT_TEST)
+ #include "../../../test/kunit/dc/dml/dcn20/display_rq_dlg_calc_20_test.c"
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/test/kunit/.kunitconfig b/drivers/gpu/drm/amd/display/test/kunit/.kunitconfig
+index 4c5861ad58bd..1dede9da74d3 100644
+--- a/drivers/gpu/drm/amd/display/test/kunit/.kunitconfig
++++ b/drivers/gpu/drm/amd/display/test/kunit/.kunitconfig
+@@ -3,7 +3,6 @@ CONFIG_PCI=y
+ CONFIG_DRM=y
+ CONFIG_DRM_AMDGPU=y
+ CONFIG_DRM_AMD_DC=y
+-CONFIG_AMD_DC_BASICS_KUNIT_TEST=y
+-CONFIG_AMD_DC_KUNIT_TEST=y
+-CONFIG_DCE_KUNIT_TEST=y
+-CONFIG_DML_KUNIT_TEST=y
++CONFIG_DRM_AMD_DC_BASICS_KUNIT_TEST=y
++CONFIG_DRM_AMD_DC_KUNIT_TEST=y
++CONFIG_DRM_AMD_DC_DML_KUNIT_TEST=y
+diff --git a/drivers/gpu/drm/amd/display/test/kunit/Makefile b/drivers/gpu/drm/amd/display/test/kunit/Makefile
+index a6ad449f9885..4eb08477d6dc 100644
+--- a/drivers/gpu/drm/amd/display/test/kunit/Makefile
++++ b/drivers/gpu/drm/amd/display/test/kunit/Makefile
+@@ -3,11 +3,11 @@
+ # Makefile for the KUnit Tests for DC
+ #
+ 
+-ifdef CONFIG_AMD_DC_BASICS_KUNIT_TEST
++ifdef CONFIG_DRM_AMD_DC_BASICS_KUNIT_TEST
+ 	DC_TESTS += dc/basics/fixpt31_32_test.o
+ endif
+ 
+-ifdef CONFIG_DML_KUNIT_TEST
++ifdef CONFIG_DRM_AMD_DC_DML_KUNIT_TEST
+ 	CFLAGS_$(AMDDALPATH)/test/kunit/dc/dml/display_mode_vba_test.o := $(dml_ccflags)
+ 	CFLAGS_$(AMDDALPATH)/test/kunit/dc/dml/dcn20/dcn20_fpu_test.o := $(dml_ccflags)
+ 	DC_TESTS += dc/dml/display_mode_vba_test.o dc/dml/dcn20/dcn20_fpu_test.o
 -- 
 2.44.0
 
