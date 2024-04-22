@@ -4,75 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B702C4345F
-	for <amd-gfx@archiver.kernel.org>; Sun, 21 Apr 2024 01:36:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FFCCC4345F
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Apr 2024 01:12:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23B5310FDE5;
-	Sun, 21 Apr 2024 01:36:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2C9610E173;
+	Mon, 22 Apr 2024 01:12:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UZhxndhy";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HyMfFBHU";
 	dkim-atps=neutral
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
- [209.85.167.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DCD210FDD2;
- Sun, 21 Apr 2024 01:36:06 +0000 (UTC)
-Received: by mail-oi1-f175.google.com with SMTP id
- 5614622812f47-3c749aa444fso1264324b6e.0; 
- Sat, 20 Apr 2024 18:36:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1713663365; x=1714268165; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=FvPFBsNaoZ1H9tXzQ7l5Efl5qiniTP5oTQ2Kk1YN9Z4=;
- b=UZhxndhyAcPYDxPPAkBCHT2UPKO0VCj/EWNV+OzO+tbnqJJqqs1aKraz+F20j/LhsY
- It2JmSnfdFib26fBUrZRPy8AsS0ZskRq3WyFP1Ev3OEVZiKg0MyFc49njidVKGkYjyUp
- 3fQTwUiH5wntQQGURzuM3b5SSIn+wPl2NTD+0oO/aKVASQzynIVRgwFCRoNClCf/6jKQ
- FUjN8Rb5h/IlkxDdHmRdS4eCizvJAb3wW7TDeNZdfnXzgLqYN6w1YhtqLkJ+wd4JpA45
- SXKKJpY8InPWZKCgpdhabUI+9LQJYfsuc1uKpfGhyZoUNNzJB5hwja8rY9JObWhGE7U9
- 8uoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713663365; x=1714268165;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=FvPFBsNaoZ1H9tXzQ7l5Efl5qiniTP5oTQ2Kk1YN9Z4=;
- b=jGgTvfzLaksMc5uDuUExn68+XrRwaKzXkD8m7IOp6k+clQ7nO4RvrESkO09c+Ya62N
- 2ENG+LfoZvYG0zaNrAQ6hf+hnpEXpHuQm3lj+z7xEs82tVRXqEzN3JkMYBh3vz5s9x8i
- hlsjEgZ+ImFBc1beG3K6PicSf4WgHY26MJ9oeD25HQxcv/EMi3iVdLBMsly9nekfQV6J
- GgG5zbySmirKfvdcYT14hE/nnDBIf9WViiUxwnkJKGNn7F10MMwpV9iBplrTzFMMcMVL
- ubrUzsrmfyH5Nm4TDD2OK67MzBHFyT7nixSHuwZnCcRcu2FSpq9moYvXIbF8+nPmWxsY
- NDaQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWu0OtCNrM7/fRs1tfusz4G6s9NxlVy0y6/e09rwuLfKHGXBCS4H1u9UKXSjKzjeGXZBhzpgq6XqYHSQCCM7VEv08U3ieTSZy3zzil0L8AerOJ6vKCwm8cy0drVfNed4bT01ncM/kttfnjHokpckg==
-X-Gm-Message-State: AOJu0YxTVBtLzlM4uht3eUVv9WZH5aoxqbLvz+XKWUCN4QU1mJaP8aRA
- Zy0fveNsXZXU+ggPTXVbrWh2rgnKh75s2bBLg632jZafOBcckh53aeb+CiJRLPWzlkUJxnQcET9
- Cj/kBacJ2JwEms13terF7GWmR3n0=
-X-Google-Smtp-Source: AGHT+IFkyNsm4CrTyqXtqeNnnXaWtM3d85vgw+7Flih8SIL+lQ+nvAR4sw2pWcV0cfw8r5+XjtFntMOiXCgwJhS8K+c=
-X-Received: by 2002:a05:6808:1a8f:b0:3c6:f7b1:b228 with SMTP id
- bm15-20020a0568081a8f00b003c6f7b1b228mr5853968oib.31.1713663365360; Sat, 20
- Apr 2024 18:36:05 -0700 (PDT)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2079.outbound.protection.outlook.com [40.107.244.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AAA810E173
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Apr 2024 01:12:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=b7cvC3QJrKlREFzFT4AvC/MWSL2SPMNQnPqSQqnc3F3iIuAyCY/i7QoGbuYV8jeOpYOn7NHiStFreThi6+UuLbDfZOh1IKiXO8MTNsszIWNiPxnS6f5Nm6CybwGxU2Cb7E7mZ7Jqr7IO2gebl9tjwZl36WlFvSx8ZPueyIbIffBUXqlDw67bMVYwIWn+eB5x/JlXjEZhcoP1M0FGclzhmXKekV23QR+2HJ6EJBUT/tRHOvs1msjTDrCXR7UPS3ckjbH9KYSSf9B3cl512ewCwlUkwpUEKVZZaD+991FF30hazvHHH8dxRMtrI1/s5qEf09Fe5tiW1uto3iiqPqYAHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KHEnsVbL/yzRAqNVqf8vApW95qGz3Jlb33jWVKZ2PbQ=;
+ b=FN/zGPxGgmsQtH/SpBheTDkZXMQZNtcJBiOn2iud7V4vpmmZU8ZYX/J3wTrNWrz7vRnAciqWTLZrnEiNVgwpMOJdqXFOcQrbsyOJqDagEu1GZzwzFr5MXS1wvk8m6D/gJu+mMiMq14JTpaC177ynuRiPJgqB7UyS40x21GE3XpN9gyinSMoxmAM4Pw38Zm+zTiscEEq7FUup6lxMowuLhIL8PVrlEizGaaeaRXTlB1IV8lPnSVreYfpTn0bwJpSu7xWr1AhM5aAM0mM+9qGVNjz6B9tzf93yPMK1LEsUMh9akmtL2aFnnDyo4atBUnRveOmdEp+sTmQc8l2CJQ8q8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KHEnsVbL/yzRAqNVqf8vApW95qGz3Jlb33jWVKZ2PbQ=;
+ b=HyMfFBHUJfxOmePnJZDNFqSEHZdUJjve2+NPc+3EXEiYGpCX10KuGSv9cQ+fuQf1eLr1xA/t6xVo7OqFYVGF4tbVlbxpYo5IFiqj4IzUfExNDjXCM+qgNAcF2DHSGERGK5nt6j0I4jOf+lUXrJqlwNkv89lNXFpfhW4lWRdWDHo=
+Received: from CH0PR04CA0084.namprd04.prod.outlook.com (2603:10b6:610:74::29)
+ by LV3PR12MB9236.namprd12.prod.outlook.com (2603:10b6:408:1a5::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.44; Mon, 22 Apr
+ 2024 01:12:30 +0000
+Received: from DS3PEPF0000C381.namprd04.prod.outlook.com
+ (2603:10b6:610:74:cafe::c0) by CH0PR04CA0084.outlook.office365.com
+ (2603:10b6:610:74::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.33 via Frontend
+ Transport; Mon, 22 Apr 2024 01:12:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS3PEPF0000C381.mail.protection.outlook.com (10.167.23.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7519.19 via Frontend Transport; Mon, 22 Apr 2024 01:12:29 +0000
+Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sun, 21 Apr
+ 2024 20:12:20 -0500
+From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <felix.kuehling@amd.com>, <alexander.deucher@amd.com>,
+ <lijo.lazar@amd.com>, Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+Subject: [PATCH] drm/amdgpu: Update CGCG settings for GFXIP 9.4.3
+Date: Sun, 21 Apr 2024 21:12:03 -0400
+Message-ID: <20240422011203.2140619-1-rajneesh.bhardwaj@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240222155811.44096-1-Rodrigo.Siqueira@amd.com>
- <20240420184929.97854-1-jppaulo11@usp.br>
-In-Reply-To: <20240420184929.97854-1-jppaulo11@usp.br>
-From: Tales <tales.aparecida@gmail.com>
-Date: Sat, 20 Apr 2024 22:36:58 -0300
-Message-ID: <CAGVoLp5W0DT-RZbUvjoh6+=oNAi6A9V3P2syBMMVPXtiUY9K0A@mail.gmail.com>
-Subject: Re: [PATCH 0/4] drm/amd/display: Update Display Core unit tests
-To: Joao Paulo Pereira da Silva <jppaulo11@usp.br>
-Cc: rodrigo.siqueira@amd.com, airlied@gmail.com, alexander.deucher@amd.com, 
- christian.koenig@amd.com, corbet@lwn.net, daniel@ffwll.ch, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
- Xinhui.Pan@amd.com, paulormm@ime.usp.br, airlied@linux.ie, 
- amd-gfx@lists.freedesktop.org, andrealmeid@riseup.net, davidgow@google.com, 
- dlatypov@google.com, dri-devel@lists.freedesktop.org, harry.wentland@amd.com, 
- hersenxs.wu@amd.com, isabbasso@riseup.net, javierm@redhat.com, 
- kunit-dev@googlegroups.com, magalilemes00@gmail.com, mairacanal@riseup.net, 
- mwen@igalia.com, nicholas.choi@amd.com, sunpeng.li@amd.com, 
- twoerner@gmail.com, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C381:EE_|LV3PR12MB9236:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7403e2f-2d62-46fc-b305-08dc626947d4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?DuXjTMDCjsDp4R13Of3WqTOmfy4NFtQdp6N3YMfxqQIpOM/bIiSPK8ALELxm?=
+ =?us-ascii?Q?DDWEGFsMEaFKWOF2Y339nOOBXDTgN1uqAlxxfMnpl7Dney+Y4BR+JGSviVZl?=
+ =?us-ascii?Q?ynShMIdK/gTZCtZN+7y6G6uB/qAWa3keBVFeI+aEyIGWVrI83/uSCwkvt6qT?=
+ =?us-ascii?Q?79csuCKuheZvIHjJ7PCisfPtJX4v9S8IeL7+B3DuAAHIH8KCkwMKW7n+2bYK?=
+ =?us-ascii?Q?2Ae7qidgLdUe6ST3e4r+v9dUMOpCgZKx8SC4m85e/CCGYQcrIvBmZwwZ54yx?=
+ =?us-ascii?Q?PMC5H6DRlpKXdyWnfxHw2UgQsa35mxuWoETczLHxYO9xaHKM9/D3iIJzWxxF?=
+ =?us-ascii?Q?6h/YEFsSzIVQHoFYd48BDSymPrPItAmbBddjynELMu9sAFc4QKHfBY5ESVgh?=
+ =?us-ascii?Q?cVx7BzgmuVkmQjn2ddTs9355bLoAiFU1D0dn8+i4aWX9YkKkxMtREp9ZaOhG?=
+ =?us-ascii?Q?vQSgN1xTRzFFkm68Vm5rJnAHGv1OjvxU5RGp4v0glkkBGsyPmO5UVDdwUJnX?=
+ =?us-ascii?Q?ck632LfXjvxaMRHaKBr0nvgaPZKtzUavlgJVcRDoAQtySx5aLjLyoXUD/pvo?=
+ =?us-ascii?Q?ce4YF53MGQVYj+PIEHHD+NQSeD4NqJNXy2LXlbB0nyVRzEor4tzHA7d/87U0?=
+ =?us-ascii?Q?DXGw6VmdgDNtsIYv+lKV6tjXTDy5C9Kq7nL1Cj1Q4SjO+LYXbriYb265DUG4?=
+ =?us-ascii?Q?mrXlhuqX+9UveMYyEo2Rct/MSXU3Ax7mnPDPJC+MyWfxmiarzMX042u4rIAR?=
+ =?us-ascii?Q?cLDNuWfDDExRLemZDVNNaP5SerEj6OE87lkIGmT1enM7Hrgz1B++29ph54cw?=
+ =?us-ascii?Q?xbtTUXRv3yL+xw/koVrSfA2zRf+9jHqQqvjyVNURpQg/3SLlYyAnHcEbpsf6?=
+ =?us-ascii?Q?hKbpVRaJeoR9GW8LIrLE9bFGeuNgxc7ku3pWF+gaLE7xIbrjcUnizYGPgNRJ?=
+ =?us-ascii?Q?fYkQV1uaXrIuPRdhHik3bznm+2bGysVjXayRMBEHFuetxz33Sktv5+ZNOTSj?=
+ =?us-ascii?Q?nMIQ7DISonkadqOUk2/l2Mt0ZLSwWfcbI+BYvd87PN/w7UbEhXdKa28DVBsy?=
+ =?us-ascii?Q?YcPQJL5lpqU0DtQdtwajWQukkqO+N2g5P+SYlN0nTctQgLpVjnVmJiCFXhkf?=
+ =?us-ascii?Q?AQMrqsM6yrqZA86ARtEZV30NX2MIo9SlpeyZSqCIilyS9pVZGACJU6B4XtoT?=
+ =?us-ascii?Q?qWme1oS0fU2yOEvDwy6SkGoFuqdf2rZ9p+G/EXltp+F2MbDFS8t1LZi1CGQT?=
+ =?us-ascii?Q?mH1opo8imf06LFDQLgmDICwgX9JQCiPVSg+VFUeOj5m9WjsDvIZruQYTDria?=
+ =?us-ascii?Q?P6MiOGtk4pwTeskYocaURsv8dWh+77/Yk5CLLXm4PC2LXqK/iw9Ae2b3rI71?=
+ =?us-ascii?Q?bcB1upRKT2mE8cX5sz3XgaQP/Bxj?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(1800799015)(376005)(82310400014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2024 01:12:29.5040 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7403e2f-2d62-46fc-b305-08dc626947d4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C381.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9236
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,128 +128,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Em s=C3=A1b., 20 de abr. de 2024 =C3=A0s 15:50, Joao Paulo Pereira da Silva
-<jppaulo11@usp.br> escreveu:
->
-> Hey, I'm interested in contributing for display tests from this patch-set=
-.
-> I've noticed potential updates related to both refactoring and optimizati=
-on.
-> This patch-set applies these suggestions.
->
+Tune coarse grain clock gating idle threshold and rlc idle timeout to
+achieve better kernel launch latency.
 
-Hi,
+Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-It's great to see this moving forward!
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index 835004187a58..813528fb4f2a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -2404,10 +2404,10 @@ gfx_v9_4_3_xcc_update_coarse_grain_clock_gating(struct amdgpu_device *adev,
+ 		if (def != data)
+ 			WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE, data);
+ 
+-		/* enable cgcg FSM(0x0000363F) */
++		/* CGCG Hysteresis: 400us */
+ 		def = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGCG_CGLS_CTRL);
+ 
+-		data = (0x36
++		data = (0x2710
+ 			<< RLC_CGCG_CGLS_CTRL__CGCG_GFX_IDLE_THRESHOLD__SHIFT) |
+ 		       RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
+ 		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGLS)
+@@ -2416,10 +2416,10 @@ gfx_v9_4_3_xcc_update_coarse_grain_clock_gating(struct amdgpu_device *adev,
+ 		if (def != data)
+ 			WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGCG_CGLS_CTRL, data);
+ 
+-		/* set IDLE_POLL_COUNT(0x00900100) */
++		/* set IDLE_POLL_COUNT(0x33450100)*/
+ 		def = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_RB_WPTR_POLL_CNTL);
+ 		data = (0x0100 << CP_RB_WPTR_POLL_CNTL__POLL_FREQUENCY__SHIFT) |
+-			(0x0090 << CP_RB_WPTR_POLL_CNTL__IDLE_POLL_COUNT__SHIFT);
++			(0x3345 << CP_RB_WPTR_POLL_CNTL__IDLE_POLL_COUNT__SHIFT);
+ 		if (def != data)
+ 			WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_RB_WPTR_POLL_CNTL, data);
+ 	} else {
+-- 
+2.34.1
 
-Overall the suggested changes make sense to me, and honestly I already don'=
-t
-remember the discussions that went behind some of them. The only thing that
-I would like to raise for you, and anyone else reviewing this, is that
-apparently
-there are now stronger feeling towards the "preferred way"[1] to handle tes=
-ts in
-static functions, using EXPORT_SYMBOL_IF_KUNIT (or EXPORT_SYMBOL_FOR_TESTS_=
-ONLY
-in the case of DRM), so they might be more adequate to work on
-refactoring this code.
-
-[1]: https://lore.kernel.org/all/5z66ivuhfrzrnuzt6lwjfm5fuozxlgqsco3qb5rfzy=
-f6mil5ms@2svqtlcncyjj/
-
-Kind regards,
-Tales
-
->
-> [WHY]
->
-> 1.      The single test suite in the file
->         test/kunit/dc/dml/calcs/bw_fixed_test.c, which tests some static
->         functions defined in the dc/basics/bpw_fixed.c, is not being run.
->         According to kunit documentation
->         (https://www.kernel.org/doc/html/latest/dev-tools/kunit/usage.htm=
-l#testing-static-functions),
->         there are two strategies for testing
->         static functions, but none of them seem to be configured. Additio=
-nally,
->         it appears that the Config DCE_KUNIT_TEST should be associated wi=
-th this
->         test, since it was introduced in the same patch of the test
->         (https://lore.kernel.org/amd-gfx/20240222155811.44096-3-Rodrigo.S=
-iqueira@amd.com/),
->         but it is not being used anywhere in the display driver.
->
-> 2.      Also, according to the documentation, "The display/tests folder r=
-eplicates
->         the folder hierarchy of the display folder". However, note that t=
-his test file
->         (test/kunit/dc/dml/calcs/bw_fixed_test.c) has a conflicting path =
-with the file
->         that is being tested (dc/basics/bw_fixed.c).
->
-> 3.      Config Names and Helps are a bit misleading and don't follow a st=
-rict
->         pattern. For example, the config DML_KUNIT_TEST indicates that it=
- is used
->         to activate tests for the Display Core Engine, but instead activa=
-tes tests
->         for the Display Core Next. Also, note the different name patterns=
- in
->         DML_KUNIT_TEST and AMD_DC_BASICS_KUNIT_TEST.
->
-> 4.      The test suite dcn21_update_bw_bounding_box_test_suite configures=
- an init
->         function that doesn't need to be executed before every test, but =
-only once
->         before the suite runs.
->
-> 5.      There are some not updated info in the Documentation, such as the
->         recommended command to run the tests:
->         $ ./tools/testing/kunit/kunit.py run --arch=3Dx86_64 \
->         --kunitconfig=3Ddrivers/gpu/drm/amd/display/tests
->         (it doesn't work since there is no .kunitconfig in
->         drivers/gpu/drm/amd/display/tests)
->
->
-> [HOW]
->
-> 1. Revise Config names and Help blocks.
->
-> 2.      Change the path of the test file bw_fixed_test from
->         test/kunit/dc/dml/calcs/bw_fixed_test.c to test/kunit/dc/basics/b=
-w_fixed_test.c
->         to make it consistent with the Documentation and the other displa=
-y driver
->         tests. Make this same test file run by importing it conditionally=
- in the file
->         dc/basics/bw_fixed_test.c.
->
-> 3.      Turn the test init function of the suite
->         dcn21_update_bw_bounding_box_test_suite into a suite init.
->
-> 4.      Update Documentation
->
-> Joao Paulo Pereira da Silva (4):
->   drm/amd/display: Refactor AMD display KUnit tests configs
->   drm/amd/display/test: Fix kunit test that is not running
->   drm/amd/display/test: Optimize kunit test suite
->     dml_dcn20_fpu_dcn21_update_bw_bounding_box_test
->   Documentation/gpu: Update AMD Display Core Unit Test documentation
->
->  .../gpu/amdgpu/display/display-test.rst       | 20 ++++++------
->  drivers/gpu/drm/amd/display/Kconfig           | 31 ++++++-------------
->  .../gpu/drm/amd/display/dc/basics/bw_fixed.c  |  3 ++
->  drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  2 +-
->  .../dc/dml/dcn20/display_mode_vba_20.c        |  2 +-
->  .../dc/dml/dcn20/display_rq_dlg_calc_20.c     |  2 +-
->  .../drm/amd/display/test/kunit/.kunitconfig   |  7 ++---
->  .../gpu/drm/amd/display/test/kunit/Makefile   |  4 +--
->  .../dc/{dml/calcs =3D> basics}/bw_fixed_test.c  |  0
->  .../test/kunit/dc/dml/dcn20/dcn20_fpu_test.c  |  6 ++--
->  10 files changed, 32 insertions(+), 45 deletions(-)
->  rename drivers/gpu/drm/amd/display/test/kunit/dc/{dml/calcs =3D> basics}=
-/bw_fixed_test.c (100%)
->
-> --
-> 2.44.0
->
