@@ -4,48 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB260C07E8E
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Apr 2024 23:55:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 088BAC07E8E
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Apr 2024 23:55:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31737112E70;
-	Mon, 22 Apr 2024 23:55:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB92112E71;
+	Mon, 22 Apr 2024 23:55:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZnrazFPv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a7iazVTH";
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A57CA112E6C;
- Mon, 22 Apr 2024 23:55:23 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB65112E71;
+ Mon, 22 Apr 2024 23:55:28 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 9A939CE0A54;
- Mon, 22 Apr 2024 23:55:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE4E6C113CC;
- Mon, 22 Apr 2024 23:55:17 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id E1E6B61207;
+ Mon, 22 Apr 2024 23:55:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD96AC4AF07;
+ Mon, 22 Apr 2024 23:55:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1713830120;
- bh=HU6IAQdN+D177Fv3zjaYNVS7BDYUDxIjgSmSosmwUiw=;
+ s=k20201202; t=1713830127;
+ bh=Thz1QMoJ49mQ5FBVVdAHFumjxd2hBOeSF8CzaMI3W4U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZnrazFPvJZmblu3r0b1mM+HevuQgThx7UNopafdWQSbggU8Vz9KWuZeXhFZR7BkHT
- Ui94L91uyTb+Q8eXl8LDtWiArKk9s/Fv86EqeRzLLcXgA5dJ9dvG/d9VAUWYxEVmz9
- oZ2va73XGH0LxQGJX3iDbUYaA/NYSgfewnP4Jkh394mzlPKDvhzTaSOwYPz9KAp0nx
- 0dRX7hSH7wRzAJAGJbiq8ifPBvwqUYetr/K/9vBYDzwT31OAtjvIo+tYSlkVDMsI0v
- Ck8InQf8bu2FOtKhuUS6EjQhbxDRB0bmwVnm4lA9hrwo1aHsX9hbcZ4VaJf5NVwtvl
- A7BUhwY1X39nQ==
+ b=a7iazVTHO/iw4xgBSabABXDOB4XMq6o4UWoRPjlFoqAWP9mYHkIGO3+3dWAGnW4gP
+ GxDEFHZOvz/WUIisb3Hxq0So0AiZcxiYQnj3CPUIpqiEx8ONlMrdLVkJ47eAHVTg8H
+ vOlqwUNORcMVEs/Ad+sE6QBU9JH2vWuYp9DklQ9B4kmUHjEn0ED8Z6CrY8uvwsY9N2
+ CPE9NUJhP+AD5MMvWok4C61ysIfNrXHxqsBampemEd4et+ahXdH7Kt/UgVgUJEe0G1
+ lhKFk27F8iGkVzbvrhhqMee4fhf7ckB8WvOeUkZHMyTJDfvluQ1Y1Aj0M8I8A+nfL5
+ 6Ek0CDWrfqM2Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Kenneth Feng <kenneth.feng@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+Cc: Zhigang Luo <Zhigang.Luo@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, evan.quan@amd.com, mario.limonciello@amd.com,
- lijo.lazar@amd.com, candice.li@amd.com, le.ma@amd.com,
- victorchengchi.lu@amd.com, shashank.sharma@amd.com, andrealmeid@igalia.com,
- hamza.mahfooz@amd.com, Jun.Ma2@amd.com, Tim.Huang@amd.com, lang.yu@amd.com,
- sunran001@208suo.com, li.ma@amd.com, bokun.zhang@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.8 31/43] drm/amd/pm: fix the high voltage issue
- after unload
-Date: Mon, 22 Apr 2024 19:14:17 -0400
-Message-ID: <20240422231521.1592991-31-sashal@kernel.org>
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.8 33/43] amd/amdkfd: sync all devices to wait all
+ processes being evicted
+Date: Mon, 22 Apr 2024 19:14:19 -0400
+Message-ID: <20240422231521.1592991-33-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240422231521.1592991-1-sashal@kernel.org>
 References: <20240422231521.1592991-1-sashal@kernel.org>
@@ -68,148 +64,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Kenneth Feng <kenneth.feng@amd.com>
+From: Zhigang Luo <Zhigang.Luo@amd.com>
 
-[ Upstream commit 3818708e9c9712e2ba4006bc23502ee7b031bd3f ]
+[ Upstream commit d06af584be5a769d124b7302b32a033e9559761d ]
 
-fix the high voltage issue after unload on smu 13.0.10
+If there are more than one device doing reset in parallel, the first
+device will call kfd_suspend_all_processes() to evict all processes
+on all devices, this call takes time to finish. other device will
+start reset and recover without waiting. if the process has not been
+evicted before doing recover, it will be restored, then caused page
+fault.
 
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Zhigang Luo <Zhigang.Luo@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 26 ++++++++++--------
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 27 +++++++++++++++++--
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  1 +
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  8 +++++-
- 4 files changed, 48 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c | 17 ++++++-----------
+ 1 file changed, 6 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index d0afb9ba3789c..14d878675586a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4120,18 +4120,22 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 					adev->ip_blocks[i].status.hw = true;
- 				}
- 			}
-+		} else if (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 10) &&
-+				   !amdgpu_device_has_display_hardware(adev)) {
-+					r = psp_gpu_reset(adev);
- 		} else {
--			tmp = amdgpu_reset_method;
--			/* It should do a default reset when loading or reloading the driver,
--			 * regardless of the module parameter reset_method.
--			 */
--			amdgpu_reset_method = AMD_RESET_METHOD_NONE;
--			r = amdgpu_asic_reset(adev);
--			amdgpu_reset_method = tmp;
--			if (r) {
--				dev_err(adev->dev, "asic reset on init failed\n");
--				goto failed;
--			}
-+				tmp = amdgpu_reset_method;
-+				/* It should do a default reset when loading or reloading the driver,
-+				 * regardless of the module parameter reset_method.
-+				 */
-+				amdgpu_reset_method = AMD_RESET_METHOD_NONE;
-+				r = amdgpu_asic_reset(adev);
-+				amdgpu_reset_method = tmp;
-+		}
-+
-+		if (r) {
-+		  dev_err(adev->dev, "asic reset on init failed\n");
-+		  goto failed;
- 		}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 0a9cf9dfc2243..fcf6558d019e5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -944,7 +944,6 @@ void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
+ {
+ 	struct kfd_node *node;
+ 	int i;
+-	int count;
+ 
+ 	if (!kfd->init_complete)
+ 		return;
+@@ -952,12 +951,10 @@ void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
+ 	/* for runtime suspend, skip locking kfd */
+ 	if (!run_pm) {
+ 		mutex_lock(&kfd_processes_mutex);
+-		count = ++kfd_locked;
+-		mutex_unlock(&kfd_processes_mutex);
+-
+ 		/* For first KFD device suspend all the KFD processes */
+-		if (count == 1)
++		if (++kfd_locked == 1)
+ 			kfd_suspend_all_processes();
++		mutex_unlock(&kfd_processes_mutex);
  	}
  
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 0ad947df777ab..ba1597b01a970 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -734,7 +734,7 @@ static int smu_early_init(void *handle)
- 	smu->adev = adev;
- 	smu->pm_enabled = !!amdgpu_dpm;
- 	smu->is_apu = false;
--	smu->smu_baco.state = SMU_BACO_STATE_EXIT;
-+	smu->smu_baco.state = SMU_BACO_STATE_NONE;
- 	smu->smu_baco.platform_support = false;
- 	smu->user_dpm_profile.fan_mode = -1;
+ 	for (i = 0; i < kfd->num_nodes; i++) {
+@@ -968,7 +965,7 @@ void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
  
-@@ -1954,10 +1954,25 @@ static int smu_smc_hw_cleanup(struct smu_context *smu)
- 	return 0;
- }
- 
-+static int smu_reset_mp1_state(struct smu_context *smu)
-+{
-+	struct amdgpu_device *adev = smu->adev;
-+	int ret = 0;
-+
-+	if ((!adev->in_runpm) && (!adev->in_suspend) &&
-+		(!amdgpu_in_reset(adev)) && amdgpu_ip_version(adev, MP1_HWIP, 0) ==
-+									IP_VERSION(13, 0, 10) &&
-+		!amdgpu_device_has_display_hardware(adev))
-+		ret = smu_set_mp1_state(smu, PP_MP1_STATE_UNLOAD);
-+
-+	return ret;
-+}
-+
- static int smu_hw_fini(void *handle)
+ int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm)
  {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	struct smu_context *smu = adev->powerplay.pp_handle;
-+	int ret;
+-	int ret, count, i;
++	int ret, i;
  
- 	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
+ 	if (!kfd->init_complete)
  		return 0;
-@@ -1975,7 +1990,15 @@ static int smu_hw_fini(void *handle)
+@@ -982,12 +979,10 @@ int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm)
+ 	/* for runtime resume, skip unlocking kfd */
+ 	if (!run_pm) {
+ 		mutex_lock(&kfd_processes_mutex);
+-		count = --kfd_locked;
+-		mutex_unlock(&kfd_processes_mutex);
+-
+-		WARN_ONCE(count < 0, "KFD suspend / resume ref. error");
+-		if (count == 0)
++		if (--kfd_locked == 0)
+ 			ret = kfd_resume_all_processes();
++		WARN_ONCE(kfd_locked < 0, "KFD suspend / resume ref. error");
++		mutex_unlock(&kfd_processes_mutex);
+ 	}
  
- 	adev->pm.dpm_enabled = false;
- 
--	return smu_smc_hw_cleanup(smu);
-+	ret = smu_smc_hw_cleanup(smu);
-+	if (ret)
-+		return ret;
-+
-+	ret = smu_reset_mp1_state(smu);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
- }
- 
- static void smu_late_fini(void *handle)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index 66e84defd0b6e..2aa4fea873147 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -424,6 +424,7 @@ enum smu_reset_mode {
- enum smu_baco_state {
- 	SMU_BACO_STATE_ENTER = 0,
- 	SMU_BACO_STATE_EXIT,
-+	SMU_BACO_STATE_NONE,
- };
- 
- struct smu_baco_context {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index 9c03296f92cdd..67117ced7c6ae 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -2751,7 +2751,13 @@ static int smu_v13_0_0_set_mp1_state(struct smu_context *smu,
- 
- 	switch (mp1_state) {
- 	case PP_MP1_STATE_UNLOAD:
--		ret = smu_cmn_set_mp1_state(smu, mp1_state);
-+		ret = smu_cmn_send_smc_msg_with_param(smu,
-+											  SMU_MSG_PrepareMp1ForUnload,
-+											  0x55, NULL);
-+
-+		if (!ret && smu->smu_baco.state == SMU_BACO_STATE_EXIT)
-+			ret = smu_v13_0_disable_pmfw_state(smu);
-+
- 		break;
- 	default:
- 		/* Ignore others */
+ 	return ret;
 -- 
 2.43.0
 
