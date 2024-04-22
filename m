@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0833AC07E8E
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Apr 2024 23:57:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9D10C07E8E
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Apr 2024 23:57:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C1FC112E89;
-	Mon, 22 Apr 2024 23:57:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18B6A10F954;
+	Mon, 22 Apr 2024 23:57:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ICIJlkTZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W0o37QWh";
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAA62112E89;
- Mon, 22 Apr 2024 23:57:01 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CFD210E587;
+ Mon, 22 Apr 2024 23:57:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id D93AECE0EB9;
- Mon, 22 Apr 2024 23:56:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5585C3277B;
- Mon, 22 Apr 2024 23:56:57 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 75228611F6;
+ Mon, 22 Apr 2024 23:57:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93EFCC2BD11;
+ Mon, 22 Apr 2024 23:57:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1713830219;
- bh=EXCJ+V8SmdEPBMqU6mG4n8sBBWp3gDKxqrjHcoHQGeI=;
+ s=k20201202; t=1713830275;
+ bh=olWAD/AHfkUfx+xA4BMO+g6lwzQlr5Y47Z07jul84sY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ICIJlkTZAHiaFlIf7jJNeVExAnK/V7O8x8NBOblaXt9RAehnYdjBB7jcFQMK1lVJ1
- NnqMInHkUCxVxviUlMX/Z7pJzLBqXRgKaxFLnN0jbZLWQ74LY0Jx7az6gbw2LtBguX
- DN/3cfZnY7sCNdvnlQSaPRUKDZ1su14OnZ+FX4JjO50XvKHfWjAxDtsxiiSmGer7ex
- tGLfFM0Y3osEGZ81nBN5zGsT1lAt1eRzLedtgEPwFCuvZbgQw+3UomEWsDnu1Iv8gu
- OAkWD5WLOQWj4fnvQsy/BuDpJEXJpk5PBOr0bDWG/EtculgiQ2+k74PIwBwq6RbiAt
- j64AEotj+knVQ==
+ b=W0o37QWhPsUGsMY86tFU6Ld3ObtM4OodHSTnm6hG8tRV8oNFOlZR4nXbHwR+JJ+Tg
+ wolFmc4vqf/GBvPTiOo5T0NNzNYmoER6sfARIJVOxmmRUlTNNIoA/k17cdxpFJYkc6
+ iIUuXoeHeRAqEd8lsFzY/wpRCPbxym1v///151uFp2xWcKzg1KMH2vyaLCa61Hmu9Y
+ ZJRGVOYj9KzyL/vZBfwl0ycs1M6hub4gojbq/WUp72eNWzLGDsi9B72jFlpw6ZN6Tx
+ HqvwEM4GhfcHIcz5KMoklskXmf6X6FcMDr/EgtJRfIcbOHp8xhCCj6xNgJ/G171Vu9
+ 63+/BsFm0oTvQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Zhigang Luo <Zhigang.Luo@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.6 21/29] amd/amdkfd: sync all devices to wait all
- processes being evicted
-Date: Mon, 22 Apr 2024 19:17:02 -0400
-Message-ID: <20240422231730.1601976-21-sashal@kernel.org>
+Cc: Lijo Lazar <lijo.lazar@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Asad Kamal <asad.kamal@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, ltuikov89@gmail.com, dakr@redhat.com, zhenguo.yin@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.1 14/19] drm/amdgpu: Refine IB schedule error logging
+Date: Mon, 22 Apr 2024 19:18:28 -0400
+Message-ID: <20240422231845.1607921-14-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240422231730.1601976-1-sashal@kernel.org>
-References: <20240422231730.1601976-1-sashal@kernel.org>
+In-Reply-To: <20240422231845.1607921-1-sashal@kernel.org>
+References: <20240422231845.1607921-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.28
+X-stable-base: Linux 6.1.87
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,77 +65,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Zhigang Luo <Zhigang.Luo@amd.com>
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-[ Upstream commit d06af584be5a769d124b7302b32a033e9559761d ]
+[ Upstream commit 4b18a91faf1752f9bd69a4ed3aed2c8f6e5b0528 ]
 
-If there are more than one device doing reset in parallel, the first
-device will call kfd_suspend_all_processes() to evict all processes
-on all devices, this call takes time to finish. other device will
-start reset and recover without waiting. if the process has not been
-evicted before doing recover, it will be restored, then caused page
-fault.
+Downgrade to debug information when IBs are skipped. Also, use dev_* to
+identify the device.
 
-Signed-off-by: Zhigang Luo <Zhigang.Luo@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 17 ++++++-----------
- 1 file changed, 6 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 93ce181eb3baa..913c70a0ef44f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -935,7 +935,6 @@ void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
- {
- 	struct kfd_node *node;
- 	int i;
--	int count;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 3bf0e893c07df..f34bc9bb7045a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -301,12 +301,15 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
+ 		dma_fence_set_error(finished, -ECANCELED);
  
- 	if (!kfd->init_complete)
- 		return;
-@@ -943,12 +942,10 @@ void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
- 	/* for runtime suspend, skip locking kfd */
- 	if (!run_pm) {
- 		mutex_lock(&kfd_processes_mutex);
--		count = ++kfd_locked;
--		mutex_unlock(&kfd_processes_mutex);
--
- 		/* For first KFD device suspend all the KFD processes */
--		if (count == 1)
-+		if (++kfd_locked == 1)
- 			kfd_suspend_all_processes();
-+		mutex_unlock(&kfd_processes_mutex);
+ 	if (finished->error < 0) {
+-		DRM_INFO("Skip scheduling IBs!\n");
++		dev_dbg(adev->dev, "Skip scheduling IBs in ring(%s)",
++			ring->name);
+ 	} else {
+ 		r = amdgpu_ib_schedule(ring, job->num_ibs, job->ibs, job,
+ 				       &fence);
+ 		if (r)
+-			DRM_ERROR("Error scheduling IBs (%d)\n", r);
++			dev_err(adev->dev,
++				"Error scheduling IBs (%d) in ring(%s)", r,
++				ring->name);
  	}
  
- 	for (i = 0; i < kfd->num_nodes; i++) {
-@@ -959,7 +956,7 @@ void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
- 
- int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm)
- {
--	int ret, count, i;
-+	int ret, i;
- 
- 	if (!kfd->init_complete)
- 		return 0;
-@@ -973,12 +970,10 @@ int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm)
- 	/* for runtime resume, skip unlocking kfd */
- 	if (!run_pm) {
- 		mutex_lock(&kfd_processes_mutex);
--		count = --kfd_locked;
--		mutex_unlock(&kfd_processes_mutex);
--
--		WARN_ONCE(count < 0, "KFD suspend / resume ref. error");
--		if (count == 0)
-+		if (--kfd_locked == 0)
- 			ret = kfd_resume_all_processes();
-+		WARN_ONCE(kfd_locked < 0, "KFD suspend / resume ref. error");
-+		mutex_unlock(&kfd_processes_mutex);
- 	}
- 
- 	return ret;
+ 	job->job_run_counter++;
 -- 
 2.43.0
 
