@@ -4,49 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE444C4345F
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Apr 2024 13:03:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 619C0C4345F
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Apr 2024 13:28:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D79210F5CA;
-	Mon, 22 Apr 2024 13:03:42 +0000 (UTC)
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.73.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F137112A7E;
- Mon, 22 Apr 2024 12:41:54 +0000 (UTC)
-X-QQ-mid: bizesmtp78t1713789213twu623c6
-X-QQ-Originating-IP: SgAL1Fy0MsgGKP0Q72PwOFeCfZvjOSyZkPnWSd2RTOc=
-Received: from john-PC ( [123.114.60.34]) by bizesmtp.qq.com (ESMTP) with 
- id ; Mon, 22 Apr 2024 20:33:31 +0800 (CST)
-X-QQ-SSF: 01400000000000E0L000000A0000000
-X-QQ-FEAT: qO3Ke1AXI6FiX0mGox2a5JZ77O06KnVfxkdt7WtRNjoT1WRzGh5l1fnB0ZwWu
- CdROfDylGJoUzIMN80a1mSt3qhH4vbxVy8ODa3oAv79JlhAhl8aROUnVD47efmI2SLS1Lua
- 3yAquli3UAvvvQvTlZ+/XfNZwK5cbQfZErFg3LXaD4oVu035s5PhflGhnhJP3yJKjSP0Hvu
- fHdv+9OnNJIt9B2YAoWxO/JbtzLR2FsLgIde47bINZO0UkIwpjvVs+lepIdXLmTjnpqSU5j
- y+tdONxLDd38Dv3OfFGenyYvjQAzPSlt7Rf2ijMIctPuXxzAKGh7cP380S0I5iRryoadHgi
- WL9UvsQ/w5tf7OJJv+0OKfdoYkyqkUSfKPQhDXUIPcFTjyw4Fqh/9N8ovpwzuZOeic4XqyY
- bYAyUFOm7rZjNCxga892TYmsBl/gAz3S
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 13358882969841256668
-Date: Mon, 22 Apr 2024 20:33:29 +0800
-From: Qiang Ma <maqianga@uniontech.com>
-To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, srinivasan.shanmugam@amd.com,
- Arunpravin.PaneerSelvam@amd.com, le.ma@amd.com, Felix.Kuehling@amd.com,
- mukul.joshi@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/amdgpu: Fixup bad vram size on gmc v6 and v7
-Message-ID: <D94775003178862D+20240422203329.49844e71@john-PC>
-In-Reply-To: <68f02c5c-5591-4d6f-9926-b0fc6f9f6287@amd.com>
-References: <20240422052608.5297-1-maqianga@uniontech.com>
- <68f02c5c-5591-4d6f-9926-b0fc6f9f6287@amd.com>
-Organization: UOS
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5591D112ACC;
+	Mon, 22 Apr 2024 13:28:11 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="b+2JGUpF";
+	dkim-atps=neutral
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B68EF112ACC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Apr 2024 13:28:09 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-51ae315bb20so2481224e87.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Apr 2024 06:28:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1713792487; x=1714397287; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=XX6Rj3ViyKFJRZt9TUxrdPILzpKRJIFwxHEizIAbiXA=;
+ b=b+2JGUpFt4d3khN0bL4mLbRNfUD8rBzya7I+hxNfSNxkvMcxRb/2y0RRi5ctvQ3iqU
+ m4+bF7dDVGjYCEI9h211rouC4PZ2NMcQtFsXIWtC+BEKOPlg882GqThmPSfIePzZ+6TP
+ M6JgfpT2gZpgubu7c+0JWx/WjUUZTZS5E8lDteSuBYp9EXQcRoGSmJ+oJoRHl1VX9/2o
+ iux7HTNytGJnMCvN5st5bapJxRQrATt2+2CjiZQhrfcHs/LkkE+BqRtWAkU2a22J2GTY
+ 2sg9WL9UAXJ6A5Cy8gwhyi3wr0+AHKGxQKCwNMvvo+/Ght4Pw4T0YERJBiVYl97Z0ccX
+ rCTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1713792487; x=1714397287;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=XX6Rj3ViyKFJRZt9TUxrdPILzpKRJIFwxHEizIAbiXA=;
+ b=tSFsIKlTNBxn1cTfExUixSwkKXgfkQRzVdNpkMWcrgT52/SmwUCM54W7v/0psMJNBh
+ 0N9Jk+hJVUfem+sog4KD3u+1lPPRse8ZNdS8hL+g1y/VPwobE4nLYMYUr6Vc7MsyhzT+
+ YXemiQ4OIPUGcKthsFrMS4dRIK2rlovt2/gkp1xTTt5Q6ijBjSNQ1aqhnqtTfhsoebVc
+ kdMlFZL2Hm+57O9MeL8V/aSRfBYbgzIf+ZQxOPXFCAVimpCNBVNw0fxvCSL+kG1dVvou
+ C3Xfb3Q+Nj4JMmN3kA6YmPStPEqCynOwX/eE24K6y8wdMlbGzXd3L7O36y64vJrEMdM0
+ j51Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX6n+RljkluSyKGM0lvF4SMJM7haBG6PGnat5MM4WSAUoPXBgZaO9i4o6Emi2Ans0WFQXC3mVsmyxvBakb9aa5XOgooebgVnuIQqle8CQ==
+X-Gm-Message-State: AOJu0Ywvau54dA3ObrjxJvBd7sZCCJNsirPc9F2D/ATgGOkQCh9xtnIX
+ 7jfdAsuJiQG/6ZvLjcqk4JmCohoO7XqX1jb6/S1o+qfGZsmlYtsapZb+lYBNp1c=
+X-Google-Smtp-Source: AGHT+IGDPvlMItNcQnL6SP1fEpUFzqwGmerZ0Fb6TEO3t0LlL1yYrvPrZIwoPE4t255l4aDeVBBZUQ==
+X-Received: by 2002:ac2:4182:0:b0:519:5acc:b114 with SMTP id
+ z2-20020ac24182000000b005195accb114mr5630645lfh.45.1713792487411; 
+ Mon, 22 Apr 2024 06:28:07 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ y22-20020a0565123f1600b0051b64136e0esm136932lfa.52.2024.04.22.06.28.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Apr 2024 06:28:07 -0700 (PDT)
+Date: Mon, 22 Apr 2024 16:28:05 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: dri-devel@lists.freedesktop.org, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>,
+ Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>, 
+ Oded Gabbay <ogabbay@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Frank Binns <frank.binns@imgtec.com>, 
+ Matt Coster <matt.coster@imgtec.com>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, 
+ Alain Volmat <alain.volmat@foss.st.com>, Huang Rui <ray.huang@amd.com>, 
+ Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 1/2] drm/print: drop include debugfs.h and include where
+ needed
+Message-ID: <dgx4grz65pbvne6nt7o5fvklbs6igup7xj4g7ksd6wrsy6hdhn@bunxrngdaq6j>
+References: <20240422121011.4133236-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4a-0
-X-Mailman-Approved-At: Mon, 22 Apr 2024 13:03:36 +0000
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240422121011.4133236-1-jani.nikula@intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,113 +114,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 22 Apr 2024 11:40:26 +0200
-Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
+On Mon, Apr 22, 2024 at 03:10:10PM +0300, Jani Nikula wrote:
+> Surprisingly many places depend on debugfs.h to be included via
+> drm_print.h. Fix them.
+> 
+> v3: Also fix armada, ite-it6505, imagination, msm, sti, vc4, and xe
+> 
+> v2: Also fix ivpu and vmwgfx
+> 
+> Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
+> Acked-by: Maxime Ripard <mripard@kernel.org>
+> Link: https://patchwork.freedesktop.org/patch/msgid/20240410141434.157908-1-jani.nikula@intel.com
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> 
+> ---
+> 
+> Cc: Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>
+> Cc: Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
+> Cc: Oded Gabbay <ogabbay@kernel.org>
+> Cc: Russell King <linux@armlinux.org.uk>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Cc: Robert Foss <rfoss@kernel.org>
+> Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+> Cc: Jonas Karlman <jonas@kwiboo.se>
+> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+> Cc: Frank Binns <frank.binns@imgtec.com>
+> Cc: Matt Coster <matt.coster@imgtec.com>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: Marijn Suijten <marijn.suijten@somainline.org>
+> Cc: Karol Herbst <kherbst@redhat.com>
+> Cc: Lyude Paul <lyude@redhat.com>
+> Cc: Danilo Krummrich <dakr@redhat.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Christian König" <christian.koenig@amd.com>
+> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> Cc: Alain Volmat <alain.volmat@foss.st.com>
+> Cc: Huang Rui <ray.huang@amd.com>
+> Cc: Zack Rusin <zack.rusin@broadcom.com>
+> Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+> Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: intel-gfx@lists.freedesktop.org
+> Cc: intel-xe@lists.freedesktop.org
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: freedreno@lists.freedesktop.org
+> Cc: nouveau@lists.freedesktop.org
+> Cc: amd-gfx@lists.freedesktop.org
+> ---
+>  drivers/accel/ivpu/ivpu_debugfs.c           | 2 ++
+>  drivers/gpu/drm/armada/armada_debugfs.c     | 1 +
+>  drivers/gpu/drm/bridge/ite-it6505.c         | 1 +
+>  drivers/gpu/drm/bridge/panel.c              | 2 ++
+>  drivers/gpu/drm/drm_print.c                 | 6 +++---
+>  drivers/gpu/drm/i915/display/intel_dmc.c    | 1 +
+>  drivers/gpu/drm/imagination/pvr_fw_trace.c  | 1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 2 ++
 
-> Am 22.04.24 um 07:26 schrieb Qiang Ma:
-> > Some boards(like Oland PRO: 0x1002:0x6613) seem to have
-> > garbage in the upper 16 bits of the vram size register,
-> > kern log as follows:
-> >
-> > [    6.000000] [drm] Detected VRAM RAM=3D2256537600M, BAR=3D256M
-> > [    6.007812] [drm] RAM width 64bits GDDR5
-> > [    6.031250] [drm] amdgpu: 2256537600M of VRAM memory ready
-> >
-> > This is obviously not true, check for this and clamp the size
-> > properly. Fixes boards reporting bogus amounts of vram,
-> > kern log as follows:
-> >
-> > [    2.789062] [drm] Probable bad vram size: 0x86800800
-> > [    2.789062] [drm] Detected VRAM RAM=3D2048M, BAR=3D256M
-> > [    2.789062] [drm] RAM width 64bits GDDR5
-> > [    2.789062] [drm] amdgpu: 2048M of VRAM memory ready =20
->=20
-> Well we had patches like this one here before and so far we always=20
-> rejected them.
->=20
-> When the mmCONFIG_MEMSIZE register isn't properly initialized then
-> there is something wrong with your hardware.
->=20
-> Working around that in the software driver is not going to fly.
->=20
-> Regards,
-> Christian.
->=20
-Hi Christian:
-I see that two patches for this issue have been merged, and the
-patches are as follows:
+Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # drm/msm
 
-11544d77e397 drm/amdgpu: fixup bad vram size on gmc v8
-0ca223b029a2 drm/radeon: fixup bad vram size on SI
+>  drivers/gpu/drm/nouveau/dispnv50/crc.c      | 2 ++
+>  drivers/gpu/drm/radeon/r100.c               | 1 +
+>  drivers/gpu/drm/radeon/r300.c               | 1 +
+>  drivers/gpu/drm/radeon/r420.c               | 1 +
+>  drivers/gpu/drm/radeon/r600.c               | 3 ++-
+>  drivers/gpu/drm/radeon/radeon_fence.c       | 1 +
+>  drivers/gpu/drm/radeon/radeon_gem.c         | 1 +
+>  drivers/gpu/drm/radeon/radeon_ib.c          | 2 ++
+>  drivers/gpu/drm/radeon/radeon_pm.c          | 1 +
+>  drivers/gpu/drm/radeon/radeon_ring.c        | 2 ++
+>  drivers/gpu/drm/radeon/radeon_ttm.c         | 1 +
+>  drivers/gpu/drm/radeon/rs400.c              | 1 +
+>  drivers/gpu/drm/radeon/rv515.c              | 1 +
+>  drivers/gpu/drm/sti/sti_drv.c               | 1 +
+>  drivers/gpu/drm/ttm/ttm_device.c            | 1 +
+>  drivers/gpu/drm/ttm/ttm_resource.c          | 3 ++-
+>  drivers/gpu/drm/ttm/ttm_tt.c                | 5 +++--
+>  drivers/gpu/drm/vc4/vc4_drv.h               | 1 +
+>  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c         | 2 ++
+>  drivers/gpu/drm/xe/xe_debugfs.c             | 1 +
+>  drivers/gpu/drm/xe/xe_gt_debugfs.c          | 2 ++
+>  drivers/gpu/drm/xe/xe_uc_debugfs.c          | 2 ++
+>  include/drm/drm_print.h                     | 2 +-
+>  31 files changed, 46 insertions(+), 8 deletions(-)
 
-Qiang Ma
-
-> > Signed-off-by: Qiang Ma <maqianga@uniontech.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 11 +++++++++--
-> >   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 13 ++++++++++---
-> >   2 files changed, 19 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c index
-> > 23b478639921..3703695f7789 100644 ---
-> > a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c +++
-> > b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c @@ -309,8 +309,15 @@ static
-> > int gmc_v6_0_mc_init(struct amdgpu_device *adev) }
-> >   	adev->gmc.vram_width =3D numchan * chansize;
-> >   	/* size in MB on si */
-> > -	adev->gmc.mc_vram_size =3D RREG32(mmCONFIG_MEMSIZE) *
-> > 1024ULL * 1024ULL;
-> > -	adev->gmc.real_vram_size =3D RREG32(mmCONFIG_MEMSIZE) *
-> > 1024ULL * 1024ULL;
-> > +	tmp =3D RREG32(mmCONFIG_MEMSIZE);
-> > +	/* some boards may have garbage in the upper 16 bits */
-> > +	if (tmp & 0xffff0000) {
-> > +		DRM_INFO("Probable bad vram size: 0x%08x\n", tmp);
-> > +		if (tmp & 0xffff)
-> > +			tmp &=3D 0xffff;
-> > +	}
-> > +	adev->gmc.mc_vram_size =3D tmp * 1024ULL * 1024ULL;
-> > +	adev->gmc.real_vram_size =3D adev->gmc.mc_vram_size;
-> >  =20
-> >   	if (!(adev->flags & AMD_IS_APU)) {
-> >   		r =3D amdgpu_device_resize_fb_bar(adev);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c index
-> > 3da7b6a2b00d..1df1fc578ff6 100644 ---
-> > a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c +++
-> > b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c @@ -316,10 +316,10 @@
-> > static void gmc_v7_0_mc_program(struct amdgpu_device *adev) static
-> > int gmc_v7_0_mc_init(struct amdgpu_device *adev) {
-> >   	int r;
-> > +	u32 tmp;
-> >  =20
-> >   	adev->gmc.vram_width =3D
-> > amdgpu_atombios_get_vram_width(adev); if (!adev->gmc.vram_width) {
-> > -		u32 tmp;
-> >   		int chansize, numchan;
-> >  =20
-> >   		/* Get VRAM informations */
-> > @@ -363,8 +363,15 @@ static int gmc_v7_0_mc_init(struct
-> > amdgpu_device *adev) adev->gmc.vram_width =3D numchan * chansize;
-> >   	}
-> >   	/* size in MB on si */
-> > -	adev->gmc.mc_vram_size =3D RREG32(mmCONFIG_MEMSIZE) *
-> > 1024ULL * 1024ULL;
-> > -	adev->gmc.real_vram_size =3D RREG32(mmCONFIG_MEMSIZE) *
-> > 1024ULL * 1024ULL;
-> > +	tmp =3D RREG32(mmCONFIG_MEMSIZE);
-> > +	/* some boards may have garbage in the upper 16 bits */
-> > +	if (tmp & 0xffff0000) {
-> > +		DRM_INFO("Probable bad vram size: 0x%08x\n", tmp);
-> > +		if (tmp & 0xffff)
-> > +			tmp &=3D 0xffff;
-> > +	}
-> > +	adev->gmc.mc_vram_size =3D tmp * 1024ULL * 1024ULL;
-> > +	adev->gmc.real_vram_size =3D adev->gmc.mc_vram_size;
-> >  =20
-> >   	if (!(adev->flags & AMD_IS_APU)) {
-> >   		r =3D amdgpu_device_resize_fb_bar(adev); =20
->=20
->=20
-
+-- 
+With best wishes
+Dmitry
