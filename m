@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1609AC07E8E
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Apr 2024 15:30:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 620CEC4345F
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Apr 2024 15:30:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A698112BF9;
-	Mon, 22 Apr 2024 15:30:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D88B2112BFD;
+	Mon, 22 Apr 2024 15:30:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="txQM0EgS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="damVAmY4";
 	dkim-atps=neutral
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33A1E112BFA
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Apr 2024 15:30:29 +0000 (UTC)
+ (mail-co1nam11on2080.outbound.protection.outlook.com [40.107.220.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20F07112BFC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Apr 2024 15:30:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Yl6ch0QPoCqonks/Wz60NrhgSgI2lGj7KgYQRIXHtlHdFXPx4YT/gAEuWhjlRPj/EtUMnv/y8r8XvjD8PlqyoSfCAZsym5AIFE5YqeoBJsk/cgstnqAlBWCDlF61dZlWYM6RosYKl5F3Vx3NIbh+hvSef2330ab+UEEiy/fHAwwZTCFFFoyrxAP/BC1uf5h5s7og9EGyfG1PPxpCDCEN1topSKzeBzV0RGfEQWjVKSx7fCu4AxuPp+s6cQlfdi7Ev2WdkdLjdySe67gO/54po2oJkb+wADuCv1gDH4YEJ5dvu/c0E6Zx0dMcgBte+gvg2g1JzOqEVgFa7uTJDdZBpA==
+ b=QHkmIccgqxICOu9fxueRKgf7+aNp00/aWE0ldGs/fZI7jlR3+djoyhYfwkazHj+Pb+nVCw+rqs3T5BOiRSymSaZlVv2fArC8SNTnHp+VuIWyREouIVHPEqWGYweeQrkF3BuPt5/qCBQU1F082fTIJZt4MOzZcGe2FEYjmvpz03d5Gmiig/ipsj1yqesKodfNFlE3gbWSlGffcDcZ6dxUhfePK17HDTLEiUHnqmyDSCQ7eEJYYOErf7GjwpTc9lqoeOwF+I0z+GJlCkJUFLm1IyN+Icx0G+14Jyi3fd9jHzHjyo6TdsrKIVbDES801l0BZ3rZ8h35/OM2boL5Gbwv8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mNuA0H6SaqnL/aqi0+JXv6WIjcG916udUb7+hJhBdnM=;
- b=MO1bpD3WrmCJYfBju2ygaP6dl8fdImw11B00Swvhw3idgqlt43cThPGvxRJt5DEUv57C1EpBQ6xxtScYPbASV+6sR1eiTGbi6s532dqYfvD9RspBLQNlwvLFTTklNJmUmc37Ka9U/D6GKzlzNVUHScldmUEWv94PkVm/13KmNhwdyT/4BowvvMNjbkK9QLi0KdLd1dH62/7qVSovAfd7FgivvvglatBo7dF1ETTCt4IDBjP0qDi6ReIiz00PYanhzZBQnDl7XGOMjuRPMZQhKlLWILGG1CMevgdJ9ammHZtC/WDi5HcZGNlvKf9OS0gCamwlNgB+VZrNBH+pxC+qpg==
+ bh=ACgUbfaiyGW5ctEzRB5rzB9/lj+mnztjhfcxV88mZK8=;
+ b=ONc5gWfbPtVJfXRqYi6hRF2RWcjrgRzDONhF4RkqjtNoqqHzGsYj1u4ocY7WnRT+5qklVCvaYUGx0lJq204XdbQmUWIoTjchP42/bJMGUnFw2Z9kNppr1fiUYWOeezphdkoeOAiwjZpx+Otq3lurnIS3OFm+/djdikuZh6Rq3Q1VUDaD6VvrMapgkMOhpErEqoT9BJytPZNMKA7xau1i6kQpX4HXgOYso1jalssB7dEWGxxLZOhvIoPem0gCCbuIUmoAqvvrozRFIJ/Xw19ZhybAuNQva6T/fqRvN62nXXtgPLkr8kG6LJxUpeHetFCpK+hAAxlF9Q9Hwxh8bNxZFQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mNuA0H6SaqnL/aqi0+JXv6WIjcG916udUb7+hJhBdnM=;
- b=txQM0EgSYoH4ACfQRexihTl3RSD0gKUkb72Wa0RBx3Gr8Z4Vo99WfUR1vmCY1z1YHi4RzeukZuDFAd6LMjfwMSsSktSFnnJfAQL2ogJqIcW3excea+3gxcvoohIi7A/xr1c4x9PaEWZX0YMvnGrlHqThYF9QFRXWHMtyJGpmYt0=
-Received: from CH0PR03CA0067.namprd03.prod.outlook.com (2603:10b6:610:cc::12)
- by DS0PR12MB8320.namprd12.prod.outlook.com (2603:10b6:8:f8::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.44; Mon, 22 Apr
- 2024 15:30:25 +0000
-Received: from CH1PEPF0000A34A.namprd04.prod.outlook.com
- (2603:10b6:610:cc:cafe::48) by CH0PR03CA0067.outlook.office365.com
- (2603:10b6:610:cc::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.31 via Frontend
- Transport; Mon, 22 Apr 2024 15:30:25 +0000
+ bh=ACgUbfaiyGW5ctEzRB5rzB9/lj+mnztjhfcxV88mZK8=;
+ b=damVAmY4oNVtrzzlZRnwEOk+tQeoLSgA3IKEnzbaBRNuUGjQD7Yk4jmDa/EQDV00MLsAyTNMAe+j4xH3b0kNfzzt4tMtXezXQ8rTeZvfHAUaEcWCRMMM6ndl8NaEzHnqsjfqEPgh20FGVkGQP/rC+B6rMgBDzlB1mFY1qtxpEf4=
+Received: from DS7PR06CA0023.namprd06.prod.outlook.com (2603:10b6:8:2a::14) by
+ IA1PR12MB8467.namprd12.prod.outlook.com (2603:10b6:208:448::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7472.44; Mon, 22 Apr 2024 15:30:31 +0000
+Received: from CH1PEPF0000A345.namprd04.prod.outlook.com
+ (2603:10b6:8:2a:cafe::71) by DS7PR06CA0023.outlook.office365.com
+ (2603:10b6:8:2a::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.34 via Frontend
+ Transport; Mon, 22 Apr 2024 15:30:31 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,32 +48,31 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000A34A.mail.protection.outlook.com (10.167.244.5) with Microsoft
+ CH1PEPF0000A345.mail.protection.outlook.com (10.167.244.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7519.19 via Frontend Transport; Mon, 22 Apr 2024 15:30:24 +0000
+ 15.20.7519.19 via Frontend Transport; Mon, 22 Apr 2024 15:30:31 +0000
 Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 22 Apr
- 2024 10:30:24 -0500
+ 2024 10:30:30 -0500
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
  (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 22 Apr
- 2024 08:30:24 -0700
+ 2024 08:30:29 -0700
 Received: from aaurabin-suse.king-squeaker.ts.net (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35
- via Frontend Transport; Mon, 22 Apr 2024 10:30:18 -0500
+ via Frontend Transport; Mon, 22 Apr 2024 10:30:24 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, George Shen
- <george.shen@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Aurabindo Pillai
+ <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Ethan Bitnun <etbitnun@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, Aurabindo Pillai
  <aurabindo.pillai@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>
-Subject: [PATCH 22/37] drm/amd/display: Skip SST ACT polling when sink_count
- is 0
-Date: Mon, 22 Apr 2024 11:27:31 -0400
-Message-ID: <20240422152817.2765349-23-aurabindo.pillai@amd.com>
+Subject: [PATCH 23/37] drm/amd/display: Block FPO According to Luminance Delta
+Date: Mon, 22 Apr 2024 11:27:32 -0400
+Message-ID: <20240422152817.2765349-24-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240422152817.2765349-1-aurabindo.pillai@amd.com>
 References: <20240422152817.2765349-1-aurabindo.pillai@amd.com>
@@ -82,49 +81,49 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34A:EE_|DS0PR12MB8320:EE_
-X-MS-Office365-Filtering-Correlation-Id: 521641ea-d8ba-4e35-9c37-08dc62e12176
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A345:EE_|IA1PR12MB8467:EE_
+X-MS-Office365-Filtering-Correlation-Id: a90d1fe0-f7a3-4ddc-88d7-08dc62e12536
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?DRe2b00qlgVGSMWNucOobZHtu543tiQlKwaEIvLyAhQ7arhrbongJZEsH/kG?=
- =?us-ascii?Q?DyP8uFQjPkT9iYrfCdbdhAnVRnGr0R+G2ICJ97kmxuCfsYw73CIKhl7uQiIj?=
- =?us-ascii?Q?jWuKuADQraacF+Wiwr9Qk4PraQUJe8NIO3sPH0I9kKQnvczsdoxxUIRCu+dw?=
- =?us-ascii?Q?qf0nYFRQX5j7Vfs/jHyAeU7HGAszFZlve9y1caXb8kne8wXMTJXIdFOhWd6d?=
- =?us-ascii?Q?TDBr//iaUuKCr1iRMgln6W+9lDrqTye6IlFBpwAFcAHRCSQAhOyR/qVBhX8f?=
- =?us-ascii?Q?R2kKxlZhBJt4+j4051EaDGAl9QhKWq/xpa6dqe5KlYyjtkQiztK/iZSAkmBN?=
- =?us-ascii?Q?oYl/N0AbkRCY/opivgpA5XVGR0MFSU1Dsk6I7G9ykpU2WkfgnxIRcjMQPN/Q?=
- =?us-ascii?Q?w5Qo+7YV2ztbELs3tqjrH2cSbxnV+jYtVtuWknMArmr9LNFiN/v6R84GA6la?=
- =?us-ascii?Q?gIO+uIUMaG6BeNhRG4TOQbGYn8KLZG8UDA/hiDPGpLBKfjMQrICJ8TWZFPfs?=
- =?us-ascii?Q?FEZpWmmxMqtOG4I5deQmBWVVMF+BYD0hllrcr2hPwwzZiJz3RPq+/5Q+S/Qi?=
- =?us-ascii?Q?dq5Hqr5vmv8Tn6PTiBHIiVLWyMF7TSAPk72PniA8+HMQFzv2f3PU6YhN33Xw?=
- =?us-ascii?Q?ysmSwuKrj0vfXQszPpnanC4MCxVAl2eb5y/xgQM7xI+3jPGml/c7o4oWGQFr?=
- =?us-ascii?Q?6l2HCXiK9BID+pxZoXrOBguwR+NYzlwiSpJYKHSw2DoCvEDdTQHDr3rRYk5A?=
- =?us-ascii?Q?ZuA1Gm+FwABtgQPlpo3DmNWxn8e+EYP9qr8nqhXV6mAnx1IN8xzCBIQ1d16S?=
- =?us-ascii?Q?oGC4r0fgLmhidpwDA7ddWlWAyXOZG95C02D9EeALIpYwiS8r4+JYtwYbiVQU?=
- =?us-ascii?Q?nNvx5kmJc5YPauoHSoq6399FXzEvi22YqJhdSFZjfTm4d6iAnaljpRKqKIYT?=
- =?us-ascii?Q?EPiSllzV+7tHwpOcNYcGsR+WGiO4t1HcLjyrascMu3cojt8W53pn0Ajmbrsy?=
- =?us-ascii?Q?+GSdSuu2CjYJPPRHRZ5bC31lxkQ8IzJjAJpKCLvYdaVrT6okIYtzCEcwcukU?=
- =?us-ascii?Q?WiCO7gqGYiQy98g2uPBDN135gbN+3eMgk6YEdjCi+gGIPQFfb6+iuDDrehjO?=
- =?us-ascii?Q?3g6zZGp4WC+IobiZxxrqNVrt4D2Y/us75HB6XRvKPM/QS7XKwQVmWt/QcPiA?=
- =?us-ascii?Q?qyrR7ZOeGhHCcqqDOBG6MeCyQExrEMXzZebGjMc8gfYPtVY+kkmIvY/rn5oc?=
- =?us-ascii?Q?9IZowkMxocNPIkq0NQ712kg3FwODVWVlfhjKdTHLh792GUpkw8EX8iJfOtU5?=
- =?us-ascii?Q?461S0ttz0gb5S8gBR5gNLrLvvJIyLNeojCpiZXEcCAqOVyFwSkuGtRsFQgDe?=
- =?us-ascii?Q?TfYfsEQFi48zHk2E/FqQAz7pVhJH?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?pPnCHliJnaT+iF8pC9Z58tGbw8+Y5cXxEq7A1JZc9ZdOzP9WapjaOerFgZX/?=
+ =?us-ascii?Q?0AeDZMIsco/JLrOM3Gu+d3+6SS/NwCuhyZAY0/1s626dOcuaZbO1ESU3875f?=
+ =?us-ascii?Q?z7AR3JsSaOn32PjpDsaftpUi0SlJfSePRPc1WabKoCn6She98bA/cjr2Yifx?=
+ =?us-ascii?Q?spYcz8OVRdm+QEZu8JeivmdYwJ3EaaNKGQkf3h8oesfIK/+fztVaTHFBmQx1?=
+ =?us-ascii?Q?VzFGU3qIzDG69haOmjI86TpU2WqHs9WbiqIzmOrHDfT1ikORtMdnvPwrMLNy?=
+ =?us-ascii?Q?H6qGt+rRKlsn1+bid9gBQjhKUaGOSKltSReB1PZ5eWdKazxv6a5nHsTYy7uc?=
+ =?us-ascii?Q?ghKd24VAUl+y8ocOZjPoiafc3B9uYDzJRLWJbhcatuBMGj7+eIMgDA9IC4l2?=
+ =?us-ascii?Q?9gAc1N5L6nF/ZLYKgK/B7Dpshc/jHZmwC05Ds+nkguL1sI3tVcurJz0ipg9P?=
+ =?us-ascii?Q?irmTKG1Itz0uEl7yerNVEpw5+DRJeM8NfGtKLEIzbpxL+wV195UiiGH3eJg1?=
+ =?us-ascii?Q?vL/hbCHjZJx9YnDtKwEQeH+LdNT6LJCoKOyrcKWkG/IwkDYAYC1g5vYAZ4IF?=
+ =?us-ascii?Q?2uv/v1C3aCZDK2OFC2xqP0UvA9+vtbReeSYbl6Qta3jgUvYO+J7z3tZrHPpO?=
+ =?us-ascii?Q?U2+9P69YStcWFiUDjkYBnkN5FFaxL9tjfvJuAH2p+9sma1yEuh24qayzKA/B?=
+ =?us-ascii?Q?k+nTVdIFe522b105W6vTePryDCymmW+gArgy0+7XvUwbn5u1Jc5cpm6NM6Sg?=
+ =?us-ascii?Q?xaCARG5AiBcltkv7BPaP+0lflmgQdIMg3pKXVyGFS2PSnc4CFDuHcZ+Y1FIH?=
+ =?us-ascii?Q?/pWIkc5fMGmotoEEtfpbnL3oTpSAiTqkPqq+xpTS+5z4KkMdpfTbffHochWo?=
+ =?us-ascii?Q?Q9u1Velc63KKYHRntOSYwkzRXA1t6Ak+iWt4Qpl84eROhTz41K92oz5YW1VG?=
+ =?us-ascii?Q?PgmMO4j75U2ET8eS/fofclaK/Kdi8SbVqPSLMsm3qoTjKpa6xeBh2B5P4FTo?=
+ =?us-ascii?Q?mXnsPDFGvrp3qyk8Y4H+OOprokBpA21FnYZ5gHkQ4Zxn9GR75fOUChs7YCR2?=
+ =?us-ascii?Q?pAtm7Ad6Soom2tayqzTU6jWL9XPwsvMVeEwTor4zWGUwdhFL5ks7vQJ3I3Bj?=
+ =?us-ascii?Q?PWnIb70uyamVI+lzQ/YYgrbBoHr6Z4nwoLqatROnmEjiyEgxXMNVBet64+89?=
+ =?us-ascii?Q?UCdhKOuXQE7KM4h0XD2SfduwvNadrZM0jlsDb0hydpzgMz1H91hkLKVsVAYc?=
+ =?us-ascii?Q?Z0lJb8fn9McSP00BwiqtmN/Ths0oa8QFl6T6UDcFRz149E5uhoCKo80/Ezs/?=
+ =?us-ascii?Q?lyxuhH5yYFSqZlon5ni84E8DgfMiYdgJsMcRwbT9kv5yON+MDDP9C5Vn2jyh?=
+ =?us-ascii?Q?oqefeG7boNsMXzWTbwubcxvtI2IQ?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(82310400014)(1800799015)(36860700004); DIR:OUT;
+ SFS:(13230031)(36860700004)(376005)(82310400014)(1800799015); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2024 15:30:24.7727 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 521641ea-d8ba-4e35-9c37-08dc62e12176
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2024 15:30:31.0168 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a90d1fe0-f7a3-4ddc-88d7-08dc62e12536
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A34A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A345.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8320
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8467
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,59 +138,392 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: George Shen <george.shen@amd.com>
+From: Ethan Bitnun <etbitnun@amd.com>
 
-[Why]
-Upon disconnecting a UHBR SST display, the disconnection and the
-SetTimings to disable the display can occur such that link_set_dpms_off
-occurs after the disconnection has already processed
-(link->type is dc_connection_none). Thus, the AUX related
-operations should be skipped when clearing the payload allocation table.
+[Description]
+ - Block FPO if the max stretch refresh rate is low enough
+   to cause a flicker by storing the maximum safe refresh
+   decrease from nominal in stream.
+ - Brought over various Freesync Luminance functions to dc. Use these
+   new functions to block fpo if we will flicker.
+ - Generalized increase/reduce dependent functions to reduce code clutter
+   and allow for easier use.
+ - Added a debug option to enable the feature. Disabled by default.
 
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Co-authored-by: Ethan Bitnun <etbitnun@amd.com>
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
 Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: George Shen <george.shen@amd.com>
+Signed-off-by: Ethan Bitnun <etbitnun@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_stream.c   | 228 ++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dc.h           |   1 +
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  14 ++
+ .../gpu/drm/amd/display/dc/dc_stream_priv.h   |  24 ++
+ .../display/dc/dcn32/dcn32_resource_helpers.c |   9 +-
+ 5 files changed, 274 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-index 938421e02770..087423be3151 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-@@ -1158,12 +1158,13 @@ static bool poll_for_allocation_change_trigger(struct dc_link *link)
- 	int i;
- 	const int act_retries = 30;
- 	enum act_return_status result = ACT_FAILED;
-+	enum dc_connection_type display_connected = (link->type != dc_connection_none);
- 	union payload_table_update_status update_status = {0};
- 	union lane_status dpcd_lane_status[LANE_COUNT_DP_MAX];
- 	union lane_align_status_updated lane_status_updated;
- 	DC_LOGGER_INIT(link->ctx->logger);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+index 5c7e4884cac2..d3201b0b3a09 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -35,6 +35,8 @@
+ #include "dc_stream_priv.h"
  
--	if (link->aux_access_disabled)
-+	if (!display_connected || link->aux_access_disabled)
- 		return true;
- 	for (i = 0; i < act_retries; i++) {
- 		get_lane_status(link, link->cur_link_settings.lane_count, dpcd_lane_status, &lane_status_updated);
-@@ -1512,6 +1513,7 @@ static bool write_128b_132b_sst_payload_allocation_table(
- 	union payload_table_update_status update_status = { 0 };
- 	const uint32_t max_retries = 30;
- 	uint32_t retries = 0;
-+	enum dc_connection_type display_connected = (link->type != dc_connection_none);
- 	DC_LOGGER_INIT(link->ctx->logger);
+ #define DC_LOGGER dc->ctx->logger
++#define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
++#define MAX(x, y) ((x > y) ? x : y)
  
- 	if (allocate)	{
-@@ -1529,7 +1531,7 @@ static bool write_128b_132b_sst_payload_allocation_table(
- 	proposed_table->stream_allocations[0].slot_count = req_slot_count;
- 	proposed_table->stream_allocations[0].vcp_id = vc_id;
+ /*******************************************************************************
+  * Private functions
+@@ -781,3 +783,229 @@ void dc_stream_log(const struct dc *dc, const struct dc_stream_state *stream)
+ 	}
+ }
  
--	if (link->aux_access_disabled)
-+	if (!display_connected || link->aux_access_disabled)
- 		return true;
++/*
++ * Finds the greatest index in refresh_rate_hz that contains a value <= refresh
++ */
++static int dc_stream_get_nearest_smallest_index(struct dc_stream_state *stream, int refresh)
++{
++	for (int i = 0; i < (LUMINANCE_DATA_TABLE_SIZE - 1); ++i) {
++		if ((stream->lumin_data.refresh_rate_hz[i] <= refresh) && (refresh < stream->lumin_data.refresh_rate_hz[i + 1])) {
++			return i;
++		}
++	}
++	return 9;
++}
++
++/*
++ * Finds a corresponding brightness for a given refresh rate between 2 given indices, where index1 < index2
++ */
++static int dc_stream_get_brightness_millinits_linear_interpolation (struct dc_stream_state *stream,
++								     int index1,
++								     int index2,
++								     int refresh_hz)
++{
++	int slope = 0;
++	if (stream->lumin_data.refresh_rate_hz[index2] != stream->lumin_data.refresh_rate_hz[index1]) {
++		slope = (stream->lumin_data.luminance_millinits[index2] - stream->lumin_data.luminance_millinits[index1]) /
++			    (stream->lumin_data.refresh_rate_hz[index2] - stream->lumin_data.refresh_rate_hz[index1]);
++	}
++
++	int y_intercept = stream->lumin_data.luminance_millinits[index2] - slope * stream->lumin_data.refresh_rate_hz[index2];
++
++	return (y_intercept + refresh_hz * slope);
++}
++
++/*
++ * Finds a corresponding refresh rate for a given brightness between 2 given indices, where index1 < index2
++ */
++static int dc_stream_get_refresh_hz_linear_interpolation (struct dc_stream_state *stream,
++							   int index1,
++							   int index2,
++							   int brightness_millinits)
++{
++	int slope = 1;
++	if (stream->lumin_data.refresh_rate_hz[index2] != stream->lumin_data.refresh_rate_hz[index1]) {
++		slope = (stream->lumin_data.luminance_millinits[index2] - stream->lumin_data.luminance_millinits[index1]) /
++				(stream->lumin_data.refresh_rate_hz[index2] - stream->lumin_data.refresh_rate_hz[index1]);
++	}
++
++	int y_intercept = stream->lumin_data.luminance_millinits[index2] - slope * stream->lumin_data.refresh_rate_hz[index2];
++
++	return ((brightness_millinits - y_intercept) / slope);
++}
++
++/*
++ * Finds the current brightness in millinits given a refresh rate
++ */
++static int dc_stream_get_brightness_millinits_from_refresh (struct dc_stream_state *stream, int refresh_hz)
++{
++	int nearest_smallest_index = dc_stream_get_nearest_smallest_index(stream, refresh_hz);
++	int nearest_smallest_value = stream->lumin_data.refresh_rate_hz[nearest_smallest_index];
++
++	if (nearest_smallest_value == refresh_hz)
++		return stream->lumin_data.luminance_millinits[nearest_smallest_index];
++
++	if (nearest_smallest_index >= 9)
++		return dc_stream_get_brightness_millinits_linear_interpolation(stream, nearest_smallest_index - 1, nearest_smallest_index, refresh_hz);
++
++	if (nearest_smallest_value == stream->lumin_data.refresh_rate_hz[nearest_smallest_index + 1])
++		return stream->lumin_data.luminance_millinits[nearest_smallest_index];
++
++	return dc_stream_get_brightness_millinits_linear_interpolation(stream, nearest_smallest_index, nearest_smallest_index + 1, refresh_hz);
++}
++
++/*
++ * Finds the lowest refresh rate that can be achieved
++ * from starting_refresh_hz while staying within flicker criteria
++ */
++static int dc_stream_calculate_flickerless_refresh_rate(struct dc_stream_state *stream,
++							 int current_brightness,
++							 int starting_refresh_hz,
++							 bool is_gaming,
++							 bool search_for_max_increase)
++{
++	int nearest_smallest_index = dc_stream_get_nearest_smallest_index(stream, starting_refresh_hz);
++
++	int flicker_criteria_millinits = is_gaming ?
++					 stream->lumin_data.flicker_criteria_milli_nits_GAMING :
++					 stream->lumin_data.flicker_criteria_milli_nits_STATIC;
++
++	int safe_upper_bound = current_brightness + flicker_criteria_millinits;
++	int safe_lower_bound = current_brightness - flicker_criteria_millinits;
++	int lumin_millinits_temp = 0;
++
++	int offset = -1;
++	if (search_for_max_increase) {
++		offset = 1;
++	}
++
++	/*
++	 * Increments up or down by 1 depending on search_for_max_increase
++	 */
++	for (int i = nearest_smallest_index; (i > 0 && !search_for_max_increase) || (i < (LUMINANCE_DATA_TABLE_SIZE - 1) && search_for_max_increase); i += offset) {
++
++		lumin_millinits_temp = stream->lumin_data.luminance_millinits[i + offset];
++
++		if ((lumin_millinits_temp >= safe_upper_bound) || (lumin_millinits_temp <= safe_lower_bound)) {
++
++			if (stream->lumin_data.refresh_rate_hz[i + offset] == stream->lumin_data.refresh_rate_hz[i])
++				return stream->lumin_data.refresh_rate_hz[i];
++
++			int target_brightness = (stream->lumin_data.luminance_millinits[i + offset] >= (current_brightness + flicker_criteria_millinits)) ?
++											current_brightness + flicker_criteria_millinits :
++											current_brightness - flicker_criteria_millinits;
++
++			int refresh = 0;
++
++			/*
++			 * Need the second input to be < third input for dc_stream_get_refresh_hz_linear_interpolation
++			 */
++			if (search_for_max_increase)
++				refresh = dc_stream_get_refresh_hz_linear_interpolation(stream, i, i + offset, target_brightness);
++			else
++				refresh = dc_stream_get_refresh_hz_linear_interpolation(stream, i + offset, i, target_brightness);
++
++			if (refresh == stream->lumin_data.refresh_rate_hz[i + offset])
++				return stream->lumin_data.refresh_rate_hz[i + offset];
++
++			return refresh;
++		}
++	}
++
++	if (search_for_max_increase)
++		return stream->lumin_data.refresh_rate_hz[LUMINANCE_DATA_TABLE_SIZE - 1];
++	else
++		return stream->lumin_data.refresh_rate_hz[0];
++}
++
++/*
++ * Gets the max delta luminance within a specified refresh range
++ */
++static int dc_stream_get_max_delta_lumin_millinits(struct dc_stream_state *stream, int hz1, int hz2, bool isGaming)
++{
++	int lower_refresh_brightness = dc_stream_get_brightness_millinits_from_refresh (stream, hz1);
++	int higher_refresh_brightness = dc_stream_get_brightness_millinits_from_refresh (stream, hz2);
++
++	int min = lower_refresh_brightness;
++	int max = higher_refresh_brightness;
++
++	/*
++	 * Static screen, therefore no need to scan through array
++	 */
++	if (!isGaming) {
++		if (lower_refresh_brightness >= higher_refresh_brightness) {
++			return lower_refresh_brightness - higher_refresh_brightness;
++		}
++		return higher_refresh_brightness - lower_refresh_brightness;
++	}
++
++	min = MIN(lower_refresh_brightness, higher_refresh_brightness);
++	max = MAX(lower_refresh_brightness, higher_refresh_brightness);
++
++	int nearest_smallest_index = dc_stream_get_nearest_smallest_index(stream, hz1);
++
++	for (; nearest_smallest_index < (LUMINANCE_DATA_TABLE_SIZE - 1) &&
++			stream->lumin_data.refresh_rate_hz[nearest_smallest_index + 1] <= hz2 ; nearest_smallest_index++) {
++		min = MIN(min, stream->lumin_data.luminance_millinits[nearest_smallest_index + 1]);
++		max = MAX(max, stream->lumin_data.luminance_millinits[nearest_smallest_index + 1]);
++	}
++
++	return (max - min);
++}
++
++/*
++ * Finds the highest refresh rate that can be achieved
++ * from starting_refresh_hz while staying within flicker criteria
++ */
++int dc_stream_calculate_max_flickerless_refresh_rate(struct dc_stream_state *stream, int starting_refresh_hz, bool is_gaming)
++{
++	if (!stream->lumin_data.is_valid)
++		return 0;
++
++	int current_brightness = dc_stream_get_brightness_millinits_from_refresh(stream, starting_refresh_hz);
++
++	return dc_stream_calculate_flickerless_refresh_rate(stream,
++							    current_brightness,
++							    starting_refresh_hz,
++							    is_gaming,
++							    true);
++}
++
++/*
++ * Finds the lowest refresh rate that can be achieved
++ * from starting_refresh_hz while staying within flicker criteria
++ */
++int dc_stream_calculate_min_flickerless_refresh_rate(struct dc_stream_state *stream, int starting_refresh_hz, bool is_gaming)
++{
++	if (!stream->lumin_data.is_valid)
++			return 0;
++
++	int current_brightness = dc_stream_get_brightness_millinits_from_refresh(stream, starting_refresh_hz);
++
++	return dc_stream_calculate_flickerless_refresh_rate(stream,
++							    current_brightness,
++							    starting_refresh_hz,
++							    is_gaming,
++							    false);
++}
++
++/*
++ * Determines if there will be a flicker when moving between 2 refresh rates
++ */
++bool dc_stream_is_refresh_rate_range_flickerless(struct dc_stream_state *stream, int hz1, int hz2, bool is_gaming)
++{
++
++	/*
++	 * Assume that we wont flicker if there is invalid data
++	 */
++	if (!stream->lumin_data.is_valid)
++		return false;
++
++	int dl = dc_stream_get_max_delta_lumin_millinits(stream, hz1, hz2, is_gaming);
++
++	int flicker_criteria_millinits = (is_gaming) ?
++					  stream->lumin_data.flicker_criteria_milli_nits_GAMING :
++					  stream->lumin_data.flicker_criteria_milli_nits_STATIC;
++
++	return (dl <= flicker_criteria_millinits);
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 9d235fc3525d..1e28a36a76e6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -456,6 +456,7 @@ struct dc_config {
+ 	bool allow_0_dtb_clk;
+ 	bool use_assr_psp_message;
+ 	bool support_edp0_on_dp1;
++	unsigned int enable_fpo_flicker_detection;
+ };
  
- 	/// Write DPCD 2C0 = 1 to start updating
+ enum visual_confirm {
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index e5dbbc6089a5..3d0adf8838ca 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -160,6 +160,18 @@ struct dc_stream_debug_options {
+ 	char force_odm_combine_segments;
+ };
+ 
++#define LUMINANCE_DATA_TABLE_SIZE 10
++
++struct luminance_data {
++	bool is_valid;
++	int refresh_rate_hz[LUMINANCE_DATA_TABLE_SIZE];
++	int luminance_millinits[LUMINANCE_DATA_TABLE_SIZE];
++	int flicker_criteria_milli_nits_GAMING;
++	int flicker_criteria_milli_nits_STATIC;
++	int nominal_refresh_rate;
++	int dm_max_decrease_from_nominal;
++};
++
+ struct dc_stream_state {
+ 	// sink is deprecated, new code should not reference
+ 	// this pointer
+@@ -286,6 +298,8 @@ struct dc_stream_state {
+ 	bool vblank_synchronized;
+ 	bool fpo_in_use;
+ 	bool is_phantom;
++
++	struct luminance_data lumin_data;
+ };
+ 
+ #define ABM_LEVEL_IMMEDIATE_DISABLE 255
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream_priv.h b/drivers/gpu/drm/amd/display/dc/dc_stream_priv.h
+index 7476fd52ce2b..ea13804f7b14 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream_priv.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream_priv.h
+@@ -34,4 +34,28 @@ void dc_stream_destruct(struct dc_stream_state *stream);
+ 
+ void dc_stream_assign_stream_id(struct dc_stream_state *stream);
+ 
++/*
++ * Finds the highest refresh rate that can be achieved
++ * from starting_freq while staying within flicker criteria
++ */
++int dc_stream_calculate_max_flickerless_refresh_rate(struct dc_stream_state *stream,
++						      int starting_refresh_hz,
++						      bool is_gaming);
++
++/*
++ * Finds the lowest refresh rate that can be achieved
++ * from starting_freq while staying within flicker criteria
++ */
++int dc_stream_calculate_min_flickerless_refresh_rate(struct dc_stream_state *stream,
++						      int starting_refresh_hz,
++						      bool is_gaming);
++
++/*
++ * Determines if there will be a flicker when moving between 2 refresh rates
++ */
++bool dc_stream_is_refresh_rate_range_flickerless(struct dc_stream_state *stream,
++						  int hz1,
++						  int hz2,
++						  bool is_gaming);
++
+ #endif // _DC_STREAM_PRIV_H_
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
+index fbcd6f7bc993..6472da2c361e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
+@@ -29,6 +29,7 @@
+ #include "dml/dcn32/display_mode_vba_util_32.h"
+ #include "dml/dcn32/dcn32_fpu.h"
+ #include "dc_state_priv.h"
++#include "dc_stream_priv.h"
+ 
+ static bool is_dual_plane(enum surface_pixel_format format)
+ {
+@@ -459,7 +460,7 @@ static int get_frame_rate_at_max_stretch_100hz(
+ }
+ 
+ static bool is_refresh_rate_support_mclk_switch_using_fw_based_vblank_stretch(
+-		struct dc_stream_state *fpo_candidate_stream, uint32_t fpo_vactive_margin_us)
++		struct dc_stream_state *fpo_candidate_stream, uint32_t fpo_vactive_margin_us, int current_refresh_rate)
+ {
+ 	int refresh_rate_max_stretch_100hz;
+ 	int min_refresh_100hz;
+@@ -473,6 +474,10 @@ static bool is_refresh_rate_support_mclk_switch_using_fw_based_vblank_stretch(
+ 	if (refresh_rate_max_stretch_100hz < min_refresh_100hz)
+ 		return false;
+ 
++	if (fpo_candidate_stream->ctx->dc->config.enable_fpo_flicker_detection > 0 &&
++			!dc_stream_is_refresh_rate_range_flickerless(fpo_candidate_stream, (refresh_rate_max_stretch_100hz / 100), current_refresh_rate, false))
++		return false;
++
+ 	return true;
+ }
+ 
+@@ -569,7 +574,7 @@ struct dc_stream_state *dcn32_can_support_mclk_switch_using_fw_based_vblank_stre
+ 		return NULL;
+ 
+ 	fpo_vactive_margin_us = is_fpo_vactive ? dc->debug.fpo_vactive_margin_us : 0; // For now hardcode the FPO + Vactive stretch margin to be 2000us
+-	if (!is_refresh_rate_support_mclk_switch_using_fw_based_vblank_stretch(fpo_candidate_stream, fpo_vactive_margin_us))
++	if (!is_refresh_rate_support_mclk_switch_using_fw_based_vblank_stretch(fpo_candidate_stream, fpo_vactive_margin_us, refresh_rate))
+ 		return NULL;
+ 
+ 	if (!fpo_candidate_stream->allow_freesync)
 -- 
 2.44.0
 
