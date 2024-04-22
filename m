@@ -4,75 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD4BFC10F15
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Apr 2024 07:43:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AEE5C04FF8
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Apr 2024 07:43:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D2751131EF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02F101131EE;
 	Tue, 23 Apr 2024 07:43:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=netflix.com header.i=@netflix.com header.b="nslx70Ka";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="iv8b04yn";
 	dkim-atps=neutral
-Received: from mail-io1-f44.google.com (mail-io1-f44.google.com
- [209.85.166.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5417B112B83
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Apr 2024 14:35:57 +0000 (UTC)
-Received: by mail-io1-f44.google.com with SMTP id
- ca18e2360f4ac-7da04b08b82so146353639f.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Apr 2024 07:35:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=netflix.com; s=google; t=1713796556; x=1714401356; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=a/JPFUxV2ArWkhwNnn1v7zuWOs9XoBJjsryMcg9Mcoo=;
- b=nslx70KarQ4HhxXGyp2t1E6v16EEd5ZT54unFmRWNKHae6THD8Z6h501lFS4+Dkprv
- 8KbxJw2txgECTG4hd3EVQIOna/x7Bl25AIXxhNsdK18BgHfklXdACCnnwE8uPLHAUQ2k
- XGplYxmFSwBeFH8rys6v6QB6aJORBC6122yI4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713796556; x=1714401356;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=a/JPFUxV2ArWkhwNnn1v7zuWOs9XoBJjsryMcg9Mcoo=;
- b=i69fTS1+ybo2t0I20aAtIm+vHiv0L7mtuWcocQS793BfDnm1f32RoaQeVOQQEcrMdf
- 3F4HC6LQdFIJ5aUa7OE4JZoQFo70cJAol0rIMMkaHy15hJTe2ThuNa64RUyrB+4JvJMA
- KzzSnL9fbGHGbAuOi85j8VYaCcsE1fo2KLfcBM9hzsB4trC4/B0vYzvvEnwvLqZaRfIq
- 4SQRuFD531repUXIZ3DVKKxd8YlF8TUtZZbtqhbn2PmcyWZvmwrO/3K4HeoGMj8bF3J6
- osQRpzD/qMZ127RLyGSeNY66rNFQHDZOtpFHuUhvggjB6AX4RvP2lbqMaVhz1yy6U/bx
- zY6Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUM9fX9rsaUo41to4xySq7dfEzgIykXR+KK9guCoOy2vPXWJlOzVNG6wdY7l31QErMqvsNuwZO0ZM0cyOqNnn1b8Pw7Dh0/NAn+13UpkA==
-X-Gm-Message-State: AOJu0Yx3jVwvKDVSwTb3hH1KwvluDki/UAicl1LM0NvDC6oFWRbaCMa/
- MQ2H1RfCg4uq61kcUi7ARTMUhf9/L1tCwK0iWdoi4KRxX6eGTsBLCrDJWjzrCXQ=
-X-Google-Smtp-Source: AGHT+IGDHc8HUrs0iww/TdL2zMyyadTokjPSQhWtaZ8TbB4GbBiQ8FO8zM77jN0fCSdoCB79InX/Ew==
-X-Received: by 2002:a05:6602:1b92:b0:7cb:ffe6:b320 with SMTP id
- dq18-20020a0566021b9200b007cbffe6b320mr11608580iob.5.1713796555960; 
- Mon, 22 Apr 2024 07:35:55 -0700 (PDT)
-Received: from localhost ([2601:285:8700:8f20:e98c:6f5c:74a4:9a12])
- by smtp.gmail.com with UTF8SMTPSA id
- dv10-20020a056638608a00b00482f7427748sm2849642jab.135.2024.04.22.07.35.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Apr 2024 07:35:55 -0700 (PDT)
-From: Jose Fernandez <josef@netflix.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Wenjing Liu <wenjing.liu@amd.com>,
- Alan Liu <haoping.liu@amd.com>, George Shen <george.shen@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- Ilya Bakoulin <ilya.bakoulin@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
- Leo Ma <hanghong.ma@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org,
-	Jose Fernandez <josef@netflix.com>
-Subject: [PATCH RESEND] drm/amd/display: Fix division by zero in
- setup_dsc_config
-Date: Mon, 22 Apr 2024 08:35:44 -0600
-Message-Id: <20240422143544.20481-1-josef@netflix.com>
-X-Mailer: git-send-email 2.34.1
+X-Greylist: delayed 323 seconds by postgrey-1.36 at gabe;
+ Mon, 22 Apr 2024 15:44:23 UTC
+Received: from mout.web.de (mout.web.de [212.227.15.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6EA410F663
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Apr 2024 15:44:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1713800661; x=1714405461; i=markus.elfring@web.de;
+ bh=PvxrtFdGZmRXnr/yFq+g2FFB8EV93GFvYY78jv7kXYQ=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+ Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=iv8b04ynPFs0hBG5NgM5IlvKdg3qpPwgXxgy+IbWMeqP9TBLJdWqtkLvV3yDeV4Y
+ fzqMflNuVRs31iLh2R6hFWwrqWtiyLsP4Ag28AhxMsncQddl2lcNJUaGQf2gOkw67
+ XTypeMbToO1The1wmZ9njNCuBn0RQBmrnftS/BqKEgeHX2xHiogjrZZCZXihlbBaq
+ naQvIXS5d3Uxx43sj4geOz0T3js2wm9NVYwR37lvB+nYCqHmq6+9SCEpzwa92Bwua
+ pFAtcaD0SDApPOuIfkFTKsp1RNKMzVMOZPcDm1WpjlN4d51c+vkTThknNTiTie5rd
+ d3tQKrBcf0DIcxfLTw==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.85.95]) by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MumNL-1spO180rnH-00tQ77; Mon, 22
+ Apr 2024 17:38:53 +0200
+Message-ID: <964c9987-ea86-4167-899d-3bd3442ebfdb@web.de>
+Date: Mon, 22 Apr 2024 17:38:43 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: Jose Fernandez <josef@netflix.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
+ Alan Liu <haoping.liu@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Fangzhi Zuo <jerry.zuo@amd.com>, George Shen <george.shen@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Ilya Bakoulin <ilya.bakoulin@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Leo Ma <hanghong.ma@amd.com>, Nasir Osman <nasir.osman@amd.com>,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: LKML <linux-kernel@vger.kernel.org>
+References: <20240410043433.12854-1-josef@netflix.com>
+Subject: Re: [PATCH] drm/amd/display: Fix division by zero in setup_dsc_config
+Content-Language: en-GB
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20240410043433.12854-1-josef@netflix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:ImWj6NNFf54sdIU5jTB8RmmUgnJSM4ABxpBdpnbmrgQZxjocuvw
+ xKz8NFS87E2HoZuS5ACRStYdZEpf3LwT7Ayfbgi511rH7Jqm1wmew0+1L2n6Ryy8tnv3mgh
+ 9OgnL+aZNfBvVRhTOuVYL4kuPl8JiHNVjHBwfbsO4u2o0NOuns/wGgkqKmxeYhxxjIILqVa
+ XIBI1QPzz+XcsrdIu//bw==
+UI-OutboundReport: notjunk:1;M01:P0:aIFVfHCB9VA=;j7wZvXuvtWhN95CsBas9t/SCf0c
+ zCPYw1TgfYSjxSPuRQnkB7XjMoeP3umhFpqlRKqrcIVxYR6+DKuL5keMMhzEfZtlr5vfCkS7D
+ HmmlZ+mBiDWo/DvNqlGlujSSYc2eX7R3vh3zD7b8GhGez1cbstpYjKxZ1qc4KGmWL1J3Ft7iB
+ n2qVQ2E0t/6ZVboL/y+PLCwDa87qQX+zL7l2KA+27mn2EO21wDznnFyyv/Jaopd6CQl/lTJnD
+ hPc3ilmIgcNKHaBhJibnRVAYGO3OZws3QyMxm3arRiyfcJykx2RE/xfellzgQcZ7iFOoaldLW
+ AgDDHcLKAdd63raCBiHlWkORX2gMrR1EZqs6plThGxydfikqFBfjSmMIiv6sTRXQzbjRnXZKz
+ dP4D9B1K9g5d05T0naVHvWxyvWQP7/dKSj6nGfPLd48OceCsB+V6FePYgmWSvrAb9H52yx1Gg
+ Z2t+NCeprsDwZWGV9cGczT6J4aH3WcB/r0HQfnb969AI/y1As+r5i3jf4NnmnnnDqoHhvMtSO
+ DFxXeZEYe9sW63Oqg+MwLy4kto6towr8+tzlRWA3pxwDhyB+rJQK2BTrmmi2D4OIWKxnzRoZX
+ laBoo1nFnRqzwMHyTuWOENX71mf1hOA189sE0J+k5AZj0s7ICB1eS/vsPfYe6yWKgkYN8Lq7q
+ GaJ308nZOTF288tG+ZZYZJs/7oJT8id3djH0umu9nvv9gAQI+RN0u2KHEIyqAU2+kFbLqC+bk
+ 4Ap4K85hZjKwgrd/WmfXtmtOBod8ID51Fujc778FMyVZC7FTOx2wzsg5r/7tdKS8y7KmBl9y3
+ mxcxTT26nKZjMYDs0JGxHqdd4ejRj9OeCFhMGOkS/+ur4=
 X-Mailman-Approved-At: Tue, 23 Apr 2024 07:43:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,55 +91,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When slice_height is 0, the division by slice_height in the calculation
-of the number of slices will cause a division by zero driver crash. This
-leaves the kernel in a state that requires a reboot. This patch adds a
-check to avoid the division by zero.
+=E2=80=A6
+> +++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+> @@ -1055,7 +1055,12 @@ static bool setup_dsc_config(
+>  	if (!is_dsc_possible)
+>  		goto done;
+>
+> -	dsc_cfg->num_slices_v =3D pic_height/slice_height;
+> +	if (slice_height > 0)
+> +		dsc_cfg->num_slices_v =3D pic_height/slice_height;
+> +	else {
+> +		is_dsc_possible =3D false;
+> +		goto done;
+> +	}
+>
+>  	if (target_bandwidth_kbps > 0) {
+>  		is_dsc_possible =3D decide_dsc_target_bpp_x16(
 
-The stack trace below is for the 6.8.4 Kernel. I reproduced the issue on
-a Z16 Gen 2 Lenovo Thinkpad with a Apple Studio Display monitor
-connected via Thunderbolt. The amdgpu driver crashed with this exception
-when I rebooted the system with the monitor connected.
+I suggest to take another coding style concern into account.
+Please use curly brackets for both if branches.
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/coding-style.rst?h=3Dv6.9-rc5#n213
 
-kernel: ? die (arch/x86/kernel/dumpstack.c:421 arch/x86/kernel/dumpstack.c:434 arch/x86/kernel/dumpstack.c:447)
-kernel: ? do_trap (arch/x86/kernel/traps.c:113 arch/x86/kernel/traps.c:154)
-kernel: ? setup_dsc_config (drivers/gpu/drm/amd/amdgpu/../display/dc/dsc/dc_dsc.c:1053) amdgpu
-kernel: ? do_error_trap (./arch/x86/include/asm/traps.h:58 arch/x86/kernel/traps.c:175)
-kernel: ? setup_dsc_config (drivers/gpu/drm/amd/amdgpu/../display/dc/dsc/dc_dsc.c:1053) amdgpu
-kernel: ? exc_divide_error (arch/x86/kernel/traps.c:194 (discriminator 2))
-kernel: ? setup_dsc_config (drivers/gpu/drm/amd/amdgpu/../display/dc/dsc/dc_dsc.c:1053) amdgpu
-kernel: ? asm_exc_divide_error (./arch/x86/include/asm/idtentry.h:548)
-kernel: ? setup_dsc_config (drivers/gpu/drm/amd/amdgpu/../display/dc/dsc/dc_dsc.c:1053) amdgpu
-kernel: dc_dsc_compute_config (drivers/gpu/drm/amd/amdgpu/../display/dc/dsc/dc_dsc.c:1109) amdgpu
-
-After applying this patch, the driver no longer crashes when the monitor
-is connected and the system is rebooted. I believe this is the same
-issue reported for 3113.
-
-Signed-off-by: Jose Fernandez <josef@netflix.com>
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3113
----
- drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-index ac41f9c0a283..597d5425d6cb 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-@@ -1055,7 +1055,12 @@ static bool setup_dsc_config(
- 	if (!is_dsc_possible)
- 		goto done;
- 
--	dsc_cfg->num_slices_v = pic_height/slice_height;
-+	if (slice_height > 0)
-+		dsc_cfg->num_slices_v = pic_height/slice_height;
-+	else {
-+		is_dsc_possible = false;
-+		goto done;
-+	}
- 
- 	if (target_bandwidth_kbps > 0) {
- 		is_dsc_possible = decide_dsc_target_bpp_x16(
--- 
-2.44.0
-
+Regards,
+Markus
