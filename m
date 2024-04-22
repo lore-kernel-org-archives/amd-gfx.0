@@ -4,117 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28CAAC07E8E
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Apr 2024 14:38:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB828C4345F
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Apr 2024 14:41:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98E4F112B75;
-	Mon, 22 Apr 2024 14:38:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22291112B84;
+	Mon, 22 Apr 2024 14:41:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vbAWF1Fp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZseN3s+a";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2072.outbound.protection.outlook.com [40.107.236.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B26F7112B75
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Apr 2024 14:38:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UYwKGYaPCnCpgGtfAESet+gGdYcZpWrSDOEz9xmS7L8VWiqNrL7tHzxo1tPdue2McIVS/M69zRWj46ukbe9oUpIPh4cs3RnFcDCFx8nam0xxhVNEVaXWsz/OLJa7AeTxXjvY6jzT6TAtZTaYjk2Rs12pYw4v+tTuVXF+wnTFDqIumpZfQVcV2ZJn3BJx90bTN2aY1Z8+RVV8UNG0A2lqQNdO/GYOUqSruq9vnId/pIJlCsYE0UEvN4Vrh78H9HPm1dFOcj2saHXo6L6MmkRi7bNd2URnZZy2Oas2BUIFiSy0hNhRtKqxMZYOi6f73f2WBt9WkzteNIdB9X5v7W88Bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KaTrPv0ydCWz26qee47XlSHsRkbLOvmPuY8FXSRXozI=;
- b=WJJ7SWA71+Bl5HyRk7EI6w/efZ4UqTbQ0TzrO7GX5kw5zKRLY/6tOyX6YFzrgHui/cbvweVj+P5gNirobfXMpWeVQqc6S0tBYFgNQx3J4lEaftry7V14Y6hXgcY7OFrGoGbWwycu2+RZzXqZPSvzwobdLzziFqrb4EPkZM89Bgz5v2vBP3/kVw7eqSGJNvxflxJCdm6qWtJTqQ7YPO+/Rq/Y1zKE2IiwVY3lc7Cs0iFox6zBGsJ8sFLiPl3wAq+T80qpJ0GuG/qivWp7mFbhonqpcHwoOfosDfkhxSxR/xV0Z18XSeN5oFqR9gCnkntKLdfPzh5XMH4MysZhoQV8aQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KaTrPv0ydCWz26qee47XlSHsRkbLOvmPuY8FXSRXozI=;
- b=vbAWF1FpCRMMHYXmAQ26eawUULzoc7XInt2g1GLMCgVpeAcYjJqD6I9xvrWsWIyek00Vi51ckewcw9J/ZQJGebAMVe5Xw2fQqeOu7agLFOAEMSoawAJFQ0m6WL3VV3UeqgZZ2nbtRgHkvqS8OJZ25FCanAj+rtO1gqRnBE765nA=
-Received: from MN2PR20CA0046.namprd20.prod.outlook.com (2603:10b6:208:235::15)
- by SA0PR12MB4413.namprd12.prod.outlook.com (2603:10b6:806:9e::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.44; Mon, 22 Apr
- 2024 14:38:01 +0000
-Received: from MN1PEPF0000F0E5.namprd04.prod.outlook.com
- (2603:10b6:208:235:cafe::f8) by MN2PR20CA0046.outlook.office365.com
- (2603:10b6:208:235::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.33 via Frontend
- Transport; Mon, 22 Apr 2024 14:38:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000F0E5.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7519.19 via Frontend Transport; Mon, 22 Apr 2024 14:38:01 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 22 Apr
- 2024 09:37:54 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu/mes11: Use a separate fence per transaction
-Date: Mon, 22 Apr 2024 10:37:38 -0400
-Message-ID: <20240422143738.322710-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240422143738.322710-1-alexander.deucher@amd.com>
-References: <20240422143738.322710-1-alexander.deucher@amd.com>
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
+ [209.85.215.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3808112B84;
+ Mon, 22 Apr 2024 14:41:01 +0000 (UTC)
+Received: by mail-pg1-f170.google.com with SMTP id
+ 41be03b00d2f7-5dcc4076c13so3041206a12.0; 
+ Mon, 22 Apr 2024 07:41:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1713796861; x=1714401661; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=R9LOOxnp6uDCj3fmcKccLPiFpdOHLZ+RePrbPeCtdEE=;
+ b=ZseN3s+a4AEar6Sh8QxsJggbR3oaj627Gxa8zn9UBZvwHX059pbSSzhf0Lu+ukueJ1
+ Os1tnghs4vfAwgV1wrGn4mI4OCSteiYzPMzzNbetRMWGrMR14307OeGWtPco+eB28uad
+ HSFMCJCxuMjnVu10AiinqrxODpb5BhGyDNSRT/NTksYoO4yjqu4LtPEGumskILI6Lmk6
+ NZJn1tBBM+UctduZ3bYprEHzN5JXrFZKMqQ37dwqgaEbLjQwrKTX21bMOVZ/PZsfpkQX
+ AG1kbZVV/OA39f6nWgxZyfJlJSSi5qvdqSEFKJ+kmPHcn/OByGZnzvghf/Iu2omJlK4h
+ orkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1713796861; x=1714401661;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=R9LOOxnp6uDCj3fmcKccLPiFpdOHLZ+RePrbPeCtdEE=;
+ b=igHgmOAa7NGstcgW6Eut/eXcpwEFtOs3d9qZmKrGoWXdGkyVkwo2qyZiuFM6G+R3z8
+ JVi9aeWig1/BDFXZ6YwYYYabM+yf0nYzquBdnDG7Gv2SKejWMKwy2uEpW2hIYprjujxy
+ 63GhMLLk2QP9IdmPtuB7DBBM6atrAN/GyybDGNwMAtKzSdasDX9+en9HU11FYdON9wd1
+ os4ZdnJ8ttuefLJpnbDslllpNq2sqS1u0KtWqVRSU3u1+NT40j7cl89O/Z2Yd/fsBI/T
+ KCJ1dQcawLds9uYz/fNCwTTNwumvPfCfWyX2WWK3RAU84DXBp5L4Yi1HCCateh7vkK4r
+ AJ9g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXfRDSE2KoE9eOcdnb9BCHnkdkrfNzgKYvE+0bUQ045zxL6ErvT/VKCCAifxNc/OQqFfmpzHpZEG2YeuCCq0dJsBQDyx2LksB9HIY62pBZuhT4qs5YlUMfcMKqMB3VXX03KEnREH7Hw+HPoibam0w==
+X-Gm-Message-State: AOJu0Ywjm+s4kQrNzJuy4Niz2Kzms/BS0H1E4wc7hE9f9Tt9Ffxm5x0L
+ acpXldvkf8ZHFDz7PY3+0Rl/WIDB8bd2OzA+42/ziD49JHdtKTJjuO0AvbHVRMMJMT3JXo568Tx
+ nrcaafcLkIu/FTFWkhjSAjbzAZdU=
+X-Google-Smtp-Source: AGHT+IEgc0XiwfDp8RVTyTAd5lS2sDXiuF3v9HjTRhVsGc5NIcwymNn2hdprUQwLiFncA8Ojla8Wfuwk9H/w2el4HR8=
+X-Received: by 2002:a17:90b:4aca:b0:29b:c31:1fe1 with SMTP id
+ mh10-20020a17090b4aca00b0029b0c311fe1mr14464782pjb.10.1713796861204; Mon, 22
+ Apr 2024 07:41:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E5:EE_|SA0PR12MB4413:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa0f42c6-86db-40ce-7670-08dc62d9cfba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?VJNkTEonyPEoOwMlIRgi1SrWmVzSHQpMplPjv2lUZSZ85WvbykTXCVSHU0MI?=
- =?us-ascii?Q?Jvc3exEpVgJHAI9A+NYA4HWmBMtnd4otVzuqwojv5ezg3qIYApuu2pFAvwmw?=
- =?us-ascii?Q?V+8FQutE3tng5pynjiWd8Jwc25BW/8mPo6jq+CB8AbG/qzXiNVqtfG6SmnKu?=
- =?us-ascii?Q?HYe61Bu+eZOyfpO+of4NS7bFkFTJ+yNdVekVi42LFJyQuH4ynLAp5/GYkPeB?=
- =?us-ascii?Q?jMInFK+SJGRY60N91BLDxmI69mM4l3YewKKmqlY2MSSnJNxYD1poYdk7McR4?=
- =?us-ascii?Q?hQT6TIoseHYGAS7uk3/fkyhvVJcTCEQFNfHfyS0v/EmS/zGVUHkfx+6DnFa8?=
- =?us-ascii?Q?ux9gyc0dx74TvRR59tj4He0hsH/Ier3CelQ0qq1GR5Ei3sGnQW9NywLO+eFB?=
- =?us-ascii?Q?j0Z05ghitGvT0LPbZ0UlRkGsg0yIF7kNAqX5tCNSPMn/5spgRrkEdFRDo2Nl?=
- =?us-ascii?Q?QwiotwqtbZGoOx6wpBHObDxB726UrZG+taQSA1AZs9/40Wa+hPdIdhaQWHWn?=
- =?us-ascii?Q?BgaYcZOiV2VGVNXqCY5rAAQUg1NDUyaov32H07bM4gTLnoRUX5VuHC8NJdnZ?=
- =?us-ascii?Q?mTP0IAtn1pd/lU4TjHPMUGVMSlngY+a+cMlsIZ+T2DE4E2vF8u9tTuScbFM+?=
- =?us-ascii?Q?ZNYom5x1c3e+3yVmcb0oVk/PvYM4ru7oIol+pRVZTHInt1e5I7Qia6kRfDOW?=
- =?us-ascii?Q?2aOi0FRSgoXaURmd0FaCibYcDPVzgXnD3pO94Xh+3dnvPEDpuCdLpI9385AL?=
- =?us-ascii?Q?nlnPQ1nFEhCpfUJ5aTwnvfTu1ywfUpnIJjYpj7ie0SR2aTcqvOQ5mTey+YQn?=
- =?us-ascii?Q?57dnntVP+3RSv5qoR1KzmpRRDP9mAYYMBwLLFKyRXa/U3ksqlgzcK2/nbQY5?=
- =?us-ascii?Q?k5Z0QtIBbCrI57DPX+KPLPRxMNcIpva/q8DtyBfxCeCrX4NMfrTtOImf6dA4?=
- =?us-ascii?Q?a9WHrGxSdiMKzuBHzNpZDeFZW9Nu8SMwhagAAqtknFapc3QnU+uc3S2FZUuD?=
- =?us-ascii?Q?N8QpLWonyBrfauahBIvCbBL5E2zFI+03vDrXw+j+YhF8wUH9dmkBgPptaY0v?=
- =?us-ascii?Q?A11mwAgpOpmXAHFa/6d+/z0yIJ3g2kXjaQsS1DdYKmauVa1DRZ3Q/UQyUbT0?=
- =?us-ascii?Q?bIOyWCw2zFUFevHSOLPD6WltnL0hKkQm5PcDThgseSpPNg8x9f8wDNB+fCRM?=
- =?us-ascii?Q?DcS31g4QCVEWlRbtHG2I2eUpTetXVR91Ry3fmQgrBHVVjguAtJXxBabUCvJ2?=
- =?us-ascii?Q?JpEwJkcHKhEKASjpKD3Cv1qEB++yaHhz5Ie8qnmA5Pho5xjmgv/n663En7gd?=
- =?us-ascii?Q?BxVpWNyTTo0i136EbY94qZGWSVipnMdb/n8I2W04tHKczi0Kn83VQdIpmcOa?=
- =?us-ascii?Q?xdQAHt0pHVru/thd7nib+HrAXL+X?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400014)(376005)(36860700004)(1800799015); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2024 14:38:01.1828 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa0f42c6-86db-40ce-7670-08dc62d9cfba
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E5.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4413
+References: <20240422052608.5297-1-maqianga@uniontech.com>
+ <68f02c5c-5591-4d6f-9926-b0fc6f9f6287@amd.com>
+ <D94775003178862D+20240422203329.49844e71@john-PC>
+ <bde48eef-4d8a-4cfa-b824-6de88c0f87fd@amd.com>
+In-Reply-To: <bde48eef-4d8a-4cfa-b824-6de88c0f87fd@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 22 Apr 2024 10:40:48 -0400
+Message-ID: <CADnq5_PQ67J9ytb89-DqOgDw5V-s98TOyVjT5BGfkWMYv5sMQg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fixup bad vram size on gmc v6 and v7
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Qiang Ma <maqianga@uniontech.com>, alexander.deucher@amd.com,
+ Xinhui.Pan@amd.com, 
+ airlied@gmail.com, daniel@ffwll.ch, srinivasan.shanmugam@amd.com, 
+ Arunpravin.PaneerSelvam@amd.com, le.ma@amd.com, Felix.Kuehling@amd.com, 
+ mukul.joshi@amd.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,107 +85,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We can't use a shared fence location because each transaction
-should be considered independently.
+On Mon, Apr 22, 2024 at 9:00=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 22.04.24 um 14:33 schrieb Qiang Ma:
+> > On Mon, 22 Apr 2024 11:40:26 +0200
+> > Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
+> >
+> >> Am 22.04.24 um 07:26 schrieb Qiang Ma:
+> >>> Some boards(like Oland PRO: 0x1002:0x6613) seem to have
+> >>> garbage in the upper 16 bits of the vram size register,
+> >>> kern log as follows:
+> >>>
+> >>> [    6.000000] [drm] Detected VRAM RAM=3D2256537600M, BAR=3D256M
+> >>> [    6.007812] [drm] RAM width 64bits GDDR5
+> >>> [    6.031250] [drm] amdgpu: 2256537600M of VRAM memory ready
+> >>>
+> >>> This is obviously not true, check for this and clamp the size
+> >>> properly. Fixes boards reporting bogus amounts of vram,
+> >>> kern log as follows:
+> >>>
+> >>> [    2.789062] [drm] Probable bad vram size: 0x86800800
+> >>> [    2.789062] [drm] Detected VRAM RAM=3D2048M, BAR=3D256M
+> >>> [    2.789062] [drm] RAM width 64bits GDDR5
+> >>> [    2.789062] [drm] amdgpu: 2048M of VRAM memory ready
+> >> Well we had patches like this one here before and so far we always
+> >> rejected them.
+> >>
+> >> When the mmCONFIG_MEMSIZE register isn't properly initialized then
+> >> there is something wrong with your hardware.
+> >>
+> >> Working around that in the software driver is not going to fly.
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> > Hi Christian:
+> > I see that two patches for this issue have been merged, and the
+> > patches are as follows:
+> >
+> > 11544d77e397 drm/amdgpu: fixup bad vram size on gmc v8
+> > 0ca223b029a2 drm/radeon: fixup bad vram size on SI
+>
+> Mhm, I remember that we discussed reverting those but it looks like that
+> never happened. I need to ask around internally.
+>
+> Question is do you see any other problems with the board? E.g. incorrect
+> connector or harvesting configuration?
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 12 ++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  4 ++++
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 21 +++++++++++++++++----
- 3 files changed, 33 insertions(+), 4 deletions(-)
+I'll need to dig up the past discussion again, but IIRC, the issue was
+only seen on some non-x86 platforms.  Maybe something specific to MMIO
+on those?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 78e4f88f5134..92c6fae780f1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -32,6 +32,18 @@
- #define AMDGPU_MES_MAX_NUM_OF_QUEUES_PER_PROCESS 1024
- #define AMDGPU_ONE_DOORBELL_SIZE 8
- 
-+signed long amdgpu_mes_fence_wait_polling(u64 *fence,
-+					  u64 wait_seq,
-+					  signed long timeout)
-+{
-+
-+	while ((s64)(wait_seq - *fence) > 0 && timeout > 0) {
-+		udelay(2);
-+		timeout -= 2;
-+	}
-+	return timeout > 0 ? timeout : 0;
-+}
-+
- int amdgpu_mes_doorbell_process_slice(struct amdgpu_device *adev)
- {
- 	return roundup(AMDGPU_ONE_DOORBELL_SIZE *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index 6b3e1844eac5..b99a2b3cffe3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -340,6 +340,10 @@ struct amdgpu_mes_funcs {
- #define amdgpu_mes_kiq_hw_init(adev) (adev)->mes.kiq_hw_init((adev))
- #define amdgpu_mes_kiq_hw_fini(adev) (adev)->mes.kiq_hw_fini((adev))
- 
-+signed long amdgpu_mes_fence_wait_polling(u64 *fence,
-+					  u64 wait_seq,
-+					  signed long timeout);
-+
- int amdgpu_mes_ctx_get_offs(struct amdgpu_ring *ring, unsigned int id_offs);
- 
- int amdgpu_mes_init_microcode(struct amdgpu_device *adev, int pipe);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index eb25af46622e..09193aee71c7 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -163,6 +163,10 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 	unsigned long flags;
- 	signed long timeout = 3000000; /* 3000 ms */
- 	const char *op_str, *misc_op_str;
-+	u32 fence_offset;
-+	u64 fence_gpu_addr;
-+	u64 *fence_ptr;
-+	int ret;
- 
- 	if (x_pkt->header.opcode >= MES_SCH_API_MAX)
- 		return -EINVAL;
-@@ -175,15 +179,24 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 	}
- 	BUG_ON(size % 4 != 0);
- 
-+	ret = amdgpu_device_wb_get(adev, &fence_offset);
-+	if (ret)
-+		return ret;
-+	fence_gpu_addr =
-+		adev->wb.gpu_addr + (fence_offset * 4);
-+	fence_ptr = (u64 *)&adev->wb.wb[fence_offset];
-+	*fence_ptr = 0;
-+
- 	spin_lock_irqsave(&mes->ring_lock, flags);
- 	if (amdgpu_ring_alloc(ring, ndw)) {
- 		spin_unlock_irqrestore(&mes->ring_lock, flags);
-+		amdgpu_device_wb_free(adev, fence_offset);
- 		return -ENOMEM;
- 	}
- 
- 	api_status = (struct MES_API_STATUS *)((char *)pkt + api_status_off);
--	api_status->api_completion_fence_addr = mes->ring.fence_drv.gpu_addr;
--	api_status->api_completion_fence_value = ++mes->ring.fence_drv.sync_seq;
-+	api_status->api_completion_fence_addr = fence_gpu_addr;
-+	api_status->api_completion_fence_value = 1;
- 
- 	amdgpu_ring_write_multiple(ring, pkt, ndw);
- 	amdgpu_ring_commit(ring);
-@@ -199,8 +212,8 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 	else
- 		dev_dbg(adev->dev, "MES msg=%d was emitted\n", x_pkt->header.opcode);
- 
--	r = amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq,
--		      timeout);
-+	r = amdgpu_mes_fence_wait_polling(fence_ptr, (u64)1, timeout);
-+	amdgpu_device_wb_free(adev, fence_offset);
- 	if (r < 1) {
- 
- 		if (misc_op_str)
--- 
-2.44.0
+Alex
 
+
+>
+> Regards,
+> Christian.
+>
+> >
+> > Qiang Ma
+> >
+> >>> Signed-off-by: Qiang Ma <maqianga@uniontech.com>
+> >>> ---
+> >>>    drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 11 +++++++++--
+> >>>    drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 13 ++++++++++---
+> >>>    2 files changed, 19 insertions(+), 5 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> >>> b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c index
+> >>> 23b478639921..3703695f7789 100644 ---
+> >>> a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c +++
+> >>> b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c @@ -309,8 +309,15 @@ static
+> >>> int gmc_v6_0_mc_init(struct amdgpu_device *adev) }
+> >>>     adev->gmc.vram_width =3D numchan * chansize;
+> >>>     /* size in MB on si */
+> >>> -   adev->gmc.mc_vram_size =3D RREG32(mmCONFIG_MEMSIZE) *
+> >>> 1024ULL * 1024ULL;
+> >>> -   adev->gmc.real_vram_size =3D RREG32(mmCONFIG_MEMSIZE) *
+> >>> 1024ULL * 1024ULL;
+> >>> +   tmp =3D RREG32(mmCONFIG_MEMSIZE);
+> >>> +   /* some boards may have garbage in the upper 16 bits */
+> >>> +   if (tmp & 0xffff0000) {
+> >>> +           DRM_INFO("Probable bad vram size: 0x%08x\n", tmp);
+> >>> +           if (tmp & 0xffff)
+> >>> +                   tmp &=3D 0xffff;
+> >>> +   }
+> >>> +   adev->gmc.mc_vram_size =3D tmp * 1024ULL * 1024ULL;
+> >>> +   adev->gmc.real_vram_size =3D adev->gmc.mc_vram_size;
+> >>>
+> >>>     if (!(adev->flags & AMD_IS_APU)) {
+> >>>             r =3D amdgpu_device_resize_fb_bar(adev);
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> >>> b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c index
+> >>> 3da7b6a2b00d..1df1fc578ff6 100644 ---
+> >>> a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c +++
+> >>> b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c @@ -316,10 +316,10 @@
+> >>> static void gmc_v7_0_mc_program(struct amdgpu_device *adev) static
+> >>> int gmc_v7_0_mc_init(struct amdgpu_device *adev) {
+> >>>     int r;
+> >>> +   u32 tmp;
+> >>>
+> >>>     adev->gmc.vram_width =3D
+> >>> amdgpu_atombios_get_vram_width(adev); if (!adev->gmc.vram_width) {
+> >>> -           u32 tmp;
+> >>>             int chansize, numchan;
+> >>>
+> >>>             /* Get VRAM informations */
+> >>> @@ -363,8 +363,15 @@ static int gmc_v7_0_mc_init(struct
+> >>> amdgpu_device *adev) adev->gmc.vram_width =3D numchan * chansize;
+> >>>     }
+> >>>     /* size in MB on si */
+> >>> -   adev->gmc.mc_vram_size =3D RREG32(mmCONFIG_MEMSIZE) *
+> >>> 1024ULL * 1024ULL;
+> >>> -   adev->gmc.real_vram_size =3D RREG32(mmCONFIG_MEMSIZE) *
+> >>> 1024ULL * 1024ULL;
+> >>> +   tmp =3D RREG32(mmCONFIG_MEMSIZE);
+> >>> +   /* some boards may have garbage in the upper 16 bits */
+> >>> +   if (tmp & 0xffff0000) {
+> >>> +           DRM_INFO("Probable bad vram size: 0x%08x\n", tmp);
+> >>> +           if (tmp & 0xffff)
+> >>> +                   tmp &=3D 0xffff;
+> >>> +   }
+> >>> +   adev->gmc.mc_vram_size =3D tmp * 1024ULL * 1024ULL;
+> >>> +   adev->gmc.real_vram_size =3D adev->gmc.mc_vram_size;
+> >>>
+> >>>     if (!(adev->flags & AMD_IS_APU)) {
+> >>>             r =3D amdgpu_device_resize_fb_bar(adev);
+> >>
+>
