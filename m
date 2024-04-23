@@ -4,74 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1727EC4345F
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Apr 2024 06:09:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F98FC4345F
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Apr 2024 06:12:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6429C113121;
-	Tue, 23 Apr 2024 06:09:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00F5710F7DB;
+	Tue, 23 Apr 2024 06:12:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mcZMBo7r";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q1qypKum";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC0E6113121
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Apr 2024 06:09:41 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-417e327773cso33868735e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Apr 2024 23:09:41 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EEE010FAC8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Apr 2024 06:12:34 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-34b66f0500aso440928f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Apr 2024 23:12:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1713852580; x=1714457380; darn=lists.freedesktop.org;
- h=in-reply-to:from:content-language:references:to:subject:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=DgxZASb/Oi7AKcLkPgCin4plhQSzAWZ0lIdTIfT6oEg=;
- b=mcZMBo7rl1OP2NFYDD5ikIvcHewN9Ze23S8v5rKS8V7LUG6hPmpGGxABVZjuqW5C5p
- tmqk6AknEFPuBKe9kb6t4P9jpKAl2smt3ZicCZcXkK4zz+vx0PaWrnCMu3UytjEt0YXb
- nSkX10DbTeem2meO6Hn4Xn2IZQbjzWl7LADI1z5K5fK1fPy+m3RXrHK5IfqtfRHBv4aR
- Ip1VtdnFY60CaEIqUqnXUx3kgkF6syMY//tvLa33IRYtzIr7M3kZ2NC1ff95slmO/r6O
- dmvzH9bRoVq0cyS6MTryE4BOP4q1h5PHbMfzdLYzts5V+Vo21p0fpeI7rRWwJtLrfXLd
- +SkA==
+ d=gmail.com; s=20230601; t=1713852752; x=1714457552; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=uBTc6iWNx7Zd2dmMuSaV9L6yCuW3+rnUpn4T6qTnsvg=;
+ b=Q1qypKumosMcUZTqh+w6tbQ6beAoo+dc2i6TEKo+6xYu/aMNkA/FKlKYcr5EX2F4ww
+ 7N+ZAGzMpvr2pq7fXQwDYB259M2paQfSZjOQpezqGeRsDMCdAQTb2g35rShP/QVRWAjM
+ pfWojgRMW8j2ifG6KmdURWHmyeuNiSL8gPG/pYRkKJ4JcTnbLro0PoYXHXn4PrSa2D6l
+ 4kU7a6OBGdymZ4zcQRT+PhNeypNq9NmVVS1LvXFUSNBeu3TvhKsB062QvhuTVsZcAMO8
+ 9juOVNH8R7/oG4Hh9aO1VW2n5i7r2jlelmYE8Py2VE6c95LHWt1J+FRZPqfEQ6k8AEqW
+ lpXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713852580; x=1714457380;
- h=in-reply-to:from:content-language:references:to:subject:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=DgxZASb/Oi7AKcLkPgCin4plhQSzAWZ0lIdTIfT6oEg=;
- b=OuXcFCSSGN6+PRV8Z3ARHa0iHL7kq9+mKvhVwzx4lj0qPZbrSZ7zuzN1IES0k5LZmV
- kAC7v7tZ7Y6d4LvHMnbvHG35LNbZJkW/GHRTLxiqzQqQnTjAByM7wogANFSXYyoRbUVZ
- s+KOHylL4Nxitjzu+rQANKDGNOB7CuJgiXoCNS2v8C93/B06bpD+oczUl5ehNkC7TCIb
- WCQQITUvKNcmwyd9bXEwjC+gY4VwNfhgmqiBVEImdCycI68meZxqhANNGUzmIMeKeEY2
- Gv2LB6+Bs5Eq08rqJg3oAWteF1hh+gph8Ejt9xFajp1a+dwuqfYeSWffErTYjGebcFw5
- Ozew==
+ d=1e100.net; s=20230601; t=1713852752; x=1714457552;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=uBTc6iWNx7Zd2dmMuSaV9L6yCuW3+rnUpn4T6qTnsvg=;
+ b=IZ/JY9h3K9Oper2v3LAEPkYUbovSCxNl3Y71iVLqDl+buZbXglov3rwH8V3qUE44xm
+ sZWM5/pczIeXk+VOW0wpcskCrko0WQutRx48R5BaRGUmx4M7xJvURhp3c3kt/IWbuDPh
+ Rug8ZPRzNUXW4DacIm1kxT6eLW37xL/4M2IojqRhLNBmAGDjepN90lx7eDaNy7TH/xlJ
+ aEuNmv1/GIuq+BayfgEhHePv8o3ck9UGq64Pn2L5LfRsticIa3AOHeJHVaiLFvvsrtbp
+ AHMak+3Az/WXTi9C5kClfQa5X9xP+XHdwmlUjRrBo4D3i9O9hhrcSD9ESkPbHPU+zmPJ
+ MoTw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXH4gy2mG+g0K3kzo0rCTpNddDHw7qZyjYHx9YhYS0/e5oq65buwmuo7U0Uj36geLfu5KArJsy+Q1/ATzpT6Cn+KJf5IPDviq8w5ysfkQ==
-X-Gm-Message-State: AOJu0YxjsJDiFcMWlP1x0hfnYUVGlehBDeT8iImiq09kUvD8cjqGbBBK
- 4cIWLKGFr+YzoI6DSY5mvQeqedtaOFt12d9wScg7TNu93g2oDpCA
-X-Google-Smtp-Source: AGHT+IHnCokuP6hQ00TwBrCPVi2SNx7ZMb95uNNu09WJpmD5YTIc0JMNkQoAEXggAnVwfDsrdLTF0g==
-X-Received: by 2002:a05:600c:1f0b:b0:418:fd17:26a6 with SMTP id
- bd11-20020a05600c1f0b00b00418fd1726a6mr1073818wmb.0.1713852579896; 
- Mon, 22 Apr 2024 23:09:39 -0700 (PDT)
+ AJvYcCXKdTb1bZ5gSk00QWWX4ZQR+AjUB19IhTjiNGGnt2vXsNphbTuQ6SEsbCeXn4B4fXYxp4DJupafrqtHS9S6sKWf8mk7mn9UoAxxX3p8vQ==
+X-Gm-Message-State: AOJu0YxyD9wrGZugw/jgJVThwdFmu2wux2wDmKUleCyeaMg8ZrPg35I9
+ AD910c7PJXxXkz+spthBUxqQvvasRAGQ460f5yF4hr1NzbfwxnOZ
+X-Google-Smtp-Source: AGHT+IFAYWOyxLMevVoDfMmVGC0BMe19exoZkyLxusvyHJRIcnD7X6mua4VrkJUKsA0vwtCbeeeyEg==
+X-Received: by 2002:adf:ef12:0:b0:347:3a0d:c665 with SMTP id
+ e18-20020adfef12000000b003473a0dc665mr8170148wro.67.1713852751857; 
+ Mon, 22 Apr 2024 23:12:31 -0700 (PDT)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- g9-20020a05600c310900b0041aa79f27a0sm1766074wmo.38.2024.04.22.23.09.38
+ t18-20020a5d6912000000b0034997769ae4sm13699093wru.15.2024.04.22.23.12.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Apr 2024 23:09:39 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------RbAlE3kEpHs0rT5brpmzu3XX"
-Message-ID: <35970d62-692c-4e4c-919f-094a6f06490e@gmail.com>
-Date: Tue, 23 Apr 2024 08:09:35 +0200
+ Mon, 22 Apr 2024 23:12:31 -0700 (PDT)
+Message-ID: <959d6fe8-b5e4-4ffe-918c-cbd29a2342e1@gmail.com>
+Date: Tue, 23 Apr 2024 08:12:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/amdgpu: Fix Uninitialized scalar variable warning
-To: "Ma, Jun" <majun@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com
-References: <20240422094908.537208-1-Jun.Ma2@amd.com>
- <20240422094908.537208-3-Jun.Ma2@amd.com>
- <3303e24e-d423-47f7-aa01-62fb7a1bed87@amd.com>
- <1cae725a-412d-4b28-b5a1-705e55157983@amd.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: add a spinlock to wb allocation
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20240422143738.322710-1-alexander.deucher@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <1cae725a-412d-4b28-b5a1-705e55157983@amd.com>
+In-Reply-To: <20240422143738.322710-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,169 +82,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------RbAlE3kEpHs0rT5brpmzu3XX
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Am 22.04.24 um 16:37 schrieb Alex Deucher:
+> As we use wb slots more dynamically, we need to lock
+> access to avoid racing on allocation or free.
 
-Am 23.04.24 um 04:53 schrieb Ma, Jun:
->>>    	unsigned int client_id, src_id;
->>>    	struct amdgpu_irq_src *src;
->>>    	bool handled = false;
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>> index 924baf58e322..f0a63d084b4d 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>> @@ -1559,7 +1559,7 @@ static int amdgpu_debugfs_firmware_info_show(struct seq_file *m, void *unused)
->>>    {
->>>    	struct amdgpu_device *adev = m->private;
->>>    	struct drm_amdgpu_info_firmware fw_info;
->>> -	struct drm_amdgpu_query_fw query_fw;
->>> +	struct drm_amdgpu_query_fw query_fw = {0};
-> Coverity warning:
-> uninit_use_in_call Using uninitialized value query_fw.index when calling amdgpu_firmware_info
->
-> Even though qeuery_fw.index was assigned a value before it's used, there is still an coverity warning.
-> We need to initialize query_fw when declare it.
+Wait a second. Why are we using the wb slots dynamically?
 
-But initializing it to zero doesn't sounds correct either.
-
-The amdgpu_firmware_info() function is designed to return the FW info 
-for a specific block, if the block isn't specified than coverity is 
-right that we have a coding error here.
-
-Just initializing the value silences coverity but is most likely not the 
-right thing to do.
+The number of slots made available is statically calculated, when this 
+is suddenly used dynamically we have quite a bug here.
 
 Regards,
 Christian.
 
 >
->>>    	struct atom_context *ctx = adev->mode_info.atom_context;
->>>    	uint8_t smu_program, smu_major, smu_minor, smu_debug;
->>>    	int ret, i;
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
->>> index 2b99eed5ba19..41ac3319108b 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
->>> @@ -120,7 +120,7 @@ static void __amdgpu_xcp_add_block(struct amdgpu_xcp_mgr *xcp_mgr, int xcp_id,
->>>    int amdgpu_xcp_init(struct amdgpu_xcp_mgr *xcp_mgr, int num_xcps, int mode)
->>>    {
->>>    	struct amdgpu_device *adev = xcp_mgr->adev;
->>> -	struct amdgpu_xcp_ip ip;
->>> +	struct amdgpu_xcp_ip ip = {0};
-> Coverity Warning:
-> Using uninitialized value ip. Field ip.valid is uninitialized when calling __amdgpu_xcp_add_block
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 ++++++++++-
+>   2 files changed, 11 insertions(+), 1 deletion(-)
 >
-> The code is ok. We just need to initialize the variable ip.
->
-> Regards,
-> Ma Jun
->
->
->>>    	uint8_t mem_id;
->>>    	int i, j, ret;
->>>    
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index cac0ca64367b..f87d53e183c3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -502,6 +502,7 @@ struct amdgpu_wb {
+>   	uint64_t		gpu_addr;
+>   	u32			num_wb;	/* Number of wb slots actually reserved for amdgpu. */
+>   	unsigned long		used[DIV_ROUND_UP(AMDGPU_MAX_WB, BITS_PER_LONG)];
+> +	spinlock_t		lock;
+>   };
+>   
+>   int amdgpu_device_wb_get(struct amdgpu_device *adev, u32 *wb);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index f8a34db5d9e3..869256394136 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1482,13 +1482,17 @@ static int amdgpu_device_wb_init(struct amdgpu_device *adev)
+>    */
+>   int amdgpu_device_wb_get(struct amdgpu_device *adev, u32 *wb)
+>   {
+> -	unsigned long offset = find_first_zero_bit(adev->wb.used, adev->wb.num_wb);
+> +	unsigned long flags, offset;
+>   
+> +	spin_lock_irqsave(&adev->wb.lock, flags);
+> +	offset = find_first_zero_bit(adev->wb.used, adev->wb.num_wb);
+>   	if (offset < adev->wb.num_wb) {
+>   		__set_bit(offset, adev->wb.used);
+> +		spin_unlock_irqrestore(&adev->wb.lock, flags);
+>   		*wb = offset << 3; /* convert to dw offset */
+>   		return 0;
+>   	} else {
+> +		spin_unlock_irqrestore(&adev->wb.lock, flags);
+>   		return -EINVAL;
+>   	}
+>   }
+> @@ -1503,9 +1507,13 @@ int amdgpu_device_wb_get(struct amdgpu_device *adev, u32 *wb)
+>    */
+>   void amdgpu_device_wb_free(struct amdgpu_device *adev, u32 wb)
+>   {
+> +	unsigned long flags;
+> +
+>   	wb >>= 3;
+> +	spin_lock_irqsave(&adev->wb.lock, flags);
+>   	if (wb < adev->wb.num_wb)
+>   		__clear_bit(wb, adev->wb.used);
+> +	spin_unlock_irqrestore(&adev->wb.lock, flags);
+>   }
+>   
+>   /**
+> @@ -4061,6 +4069,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>   	spin_lock_init(&adev->se_cac_idx_lock);
+>   	spin_lock_init(&adev->audio_endpt_idx_lock);
+>   	spin_lock_init(&adev->mm_stats.lock);
+> +	spin_lock_init(&adev->wb.lock);
+>   
+>   	INIT_LIST_HEAD(&adev->shadow_list);
+>   	mutex_init(&adev->shadow_list_lock);
 
---------------RbAlE3kEpHs0rT5brpmzu3XX
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Am 23.04.24 um 04:53 schrieb Ma, Jun:<br>
-    <blockquote type="cite"
-      cite="mid:1cae725a-412d-4b28-b5a1-705e55157983@amd.com"><span
-      style="white-space: pre-wrap">
-</span>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">  	unsigned int client_id, src_id;
-  	struct amdgpu_irq_src *src;
-  	bool handled = false;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 924baf58e322..f0a63d084b4d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1559,7 +1559,7 @@ static int amdgpu_debugfs_firmware_info_show(struct seq_file *m, void *unused)
-  {
-  	struct amdgpu_device *adev = m-&gt;private;
-  	struct drm_amdgpu_info_firmware fw_info;
--	struct drm_amdgpu_query_fw query_fw;
-+	struct drm_amdgpu_query_fw query_fw = {0};
-</pre>
-        </blockquote>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Coverity warning:
-uninit_use_in_call Using uninitialized value query_fw.index when calling amdgpu_firmware_info
-
-Even though qeuery_fw.index was assigned a value before it's used, there is still an coverity warning.
-We need to initialize query_fw when declare it.</pre>
-    </blockquote>
-    <br>
-    But initializing it to zero doesn't sounds correct either.<br>
-    <br>
-    The amdgpu_firmware_info() function is designed to return the FW
-    info for a specific block, if the block isn't specified than
-    coverity is right that we have a coding error here.<br>
-    <br>
-    Just initializing the value silences coverity but is most likely not
-    the right thing to do.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:1cae725a-412d-4b28-b5a1-705e55157983@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">  	struct atom_context *ctx = adev-&gt;mode_info.atom_context;
-  	uint8_t smu_program, smu_major, smu_minor, smu_debug;
-  	int ret, i;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-index 2b99eed5ba19..41ac3319108b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-@@ -120,7 +120,7 @@ static void __amdgpu_xcp_add_block(struct amdgpu_xcp_mgr *xcp_mgr, int xcp_id,
-  int amdgpu_xcp_init(struct amdgpu_xcp_mgr *xcp_mgr, int num_xcps, int mode)
-  {
-  	struct amdgpu_device *adev = xcp_mgr-&gt;adev;
--	struct amdgpu_xcp_ip ip;
-+	struct amdgpu_xcp_ip ip = {0};
-</pre>
-        </blockquote>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">Coverity Warning:
-Using uninitialized value ip. Field ip.valid is uninitialized when calling __amdgpu_xcp_add_block
-
-The code is ok. We just need to initialize the variable ip.
-
-Regards,
-Ma Jun
-
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">  	uint8_t mem_id;
-  	int i, j, ret;
-  
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-</pre>
-      </blockquote>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------RbAlE3kEpHs0rT5brpmzu3XX--
