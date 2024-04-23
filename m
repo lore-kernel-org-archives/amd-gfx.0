@@ -4,215 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F4201C10F1A
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Apr 2024 14:19:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AB44C4345F
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Apr 2024 14:23:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8120810FC8B;
-	Tue, 23 Apr 2024 14:19:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2BA610E196;
+	Tue, 23 Apr 2024 14:23:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="OqlZUDbN";
-	dkim=pass (1024-bit key; unprotected) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.b="Padl8vfC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RffB2h1e";
 	dkim-atps=neutral
-X-Greylist: delayed 912 seconds by postgrey-1.36 at gabe;
- Tue, 23 Apr 2024 14:19:01 UTC
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28BAB10FC8C;
- Tue, 23 Apr 2024 14:19:00 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 43N5VuoK027304;
- Tue, 23 Apr 2024 15:02:40 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=
- from:to:cc:subject:date:message-id:references:in-reply-to
- :content-type:mime-version; s=dk201812; bh=rDYvfZ2PiFxMYx3aRJFY2
- O1VmY5HHcBwaJWRi8wh2V0=; b=OqlZUDbN2+TQdt9DYkgz9IN5ljVyrJc+2m2Qw
- 3Ew9R5RRPFAZfdLvWnxc8HWYR3dOdx9KZb/GzMRNFgNrED9AZuiBgrUr3KSaFxnh
- lPPnKNlR/ReBVTOIjAjcLIfPhfrliV35IBYKWb9P1o34S5/mj00zPNW78MOoXVIX
- AAn44j+BXorioM+AtqndQJNatsvPpcpKRLKy8cxG0rasWkq9YaxwHbsVrfE1nmrP
- 4C08HYLXUA118kT3Ok9UdFMYh6qcauewLwi0t2oph4Yc7ptF9+BJmgoJEkl80/K/
- 46QkNU6jo4MHeH7sjmAFMl1EJ1iuc5rLnDczRoI5gs/2QK1sw==
-Received: from hhmail05.hh.imgtec.org ([217.156.249.195])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 3xm5ssktg9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 23 Apr 2024 15:02:39 +0100 (BST)
-Received: from HHMAIL05.hh.imgtec.org (10.100.10.120) by
- HHMAIL05.hh.imgtec.org (10.100.10.120) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.37; Tue, 23 Apr 2024 15:02:38 +0100
-Received: from GBR01-LO4-obe.outbound.protection.outlook.com (104.47.85.104)
- by email.imgtec.com (10.100.10.121) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.37 via Frontend Transport; Tue, 23 Apr 2024 15:02:38 +0100
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2073.outbound.protection.outlook.com [40.107.95.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DD0410E196
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Apr 2024 14:23:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GtXlDU0qhW6HFKotiskgQM+geGMj9+MZuVkDaGxdLFg4iwOOCBPGPXbXQLSmfvd5LNZAuhqQY0xGWuKEjonhEXNtfJwHmqX+VDCeN7Vg5W6V9Rs2SkLRWqwuU6K4mii9B7aDV9DdUmPUE7fXFhqoiBqOHyYlqUCb6B9VPRCBN0dxmfjHGfSXO8IIp9WMVT9e/wqvF/q2iOeqA22gym9RunLrTB3E0PTMvF+TufNyxPakAme5bIL9y0deqAbw5FfMn3y70HF2FrpuPPB9z16SQKF7zcl0qoIlDK63faanoX8U3aaEoqt1+MlUFl1eu4+fMIj+YwT1OoYMBarhn9J+aw==
+ b=ihWMhsUX6CoFF5Kk/merdkuRGmzZyms4bcEbBSdak8Abi4tE1kRqcXCJHLkr5tZOX/bePq8cRBmBWpHcHhLs6UKkaCP8dN2wYUhovhrDc4VqtkHQqJAnMakQc1qjLGxPNwU/t/5qzEb+EX5Gb0fxmC7WxdDunCcaAm2Mh3QdkdDExX55nPAwE6qwH05BPYry1fsuQ+SKJ1oFWJP5XRDYszzchDd5aKZvfCoaZ1nGS35QLkcs5pZ3V2WuaFDOzrh5UnwpqropRthD/jB1sPDEKLuIBZY6180FsgBPd//859lZWdr1L4tEJeXGMZPHe97/bMFx92tTgMF9fNtwLbKoLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rDYvfZ2PiFxMYx3aRJFY2O1VmY5HHcBwaJWRi8wh2V0=;
- b=iWebxUuqcnYY3SPid48Tx9PLrvbqGKWNEp84EQTeltoi+3VB29zmdao2ZwRRZ4rtMwUWw+HQMhxRR1ZLXiag3L/CNcpLsQptsX7ddVUnOThb2ql2GDr4oVvLcgRaW4taTcFqsIBf5h3jmrxvnyt+04hlKoPE3VdWTFrt/600mGlRg5sy8iJhyKi+4EHEZ5GbCVRB67tHwVZlrdijmL8zU2XTKB7gnkpdTKXVf4wC8ezujZO/yhajxjyJawnCcFVdmlp/z5hfqUMuQyeKZBo34OAyxHELninTV69J32o66JzqUY9rSZFeEJGxvLXYlEvOLbmSqOYbT6/QjIkqZQykKA==
+ bh=PFag+CO0+Dja6mdMOY/PVKLHPYccYtuxtvZUOVELPf0=;
+ b=S67krhrbgOyPKu6rWIV/+HQBaR3dol/ixINhXZ9hPauCp2aXCqmh04FE3V5QkXGrzujtVYWSQrZtA0x2S7H+Xm+F522QMRhp21jtU5Nbw9qgxkgHGn8W2rYaiI/NKr6ebM2hVExLlk098PC4AFYaQw9TQfQpErA11HjrCXGbZLcVs5JBqoLabC7neiVx8GGqKWkNi26/81RqNStYUzUqoHjudS8bOhW/J+kavyUNU2K9yjgfhaR/pPpSr7e2umMQX7kHdrZ3UAflY12HDfYRudqsJHBO3bx2zOfNJ0R4TvLwxbPvFBC82nbCzh5QpXJMsD2WXzQZs7cNex+0lL7H/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
- dkim=pass header.d=imgtec.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rDYvfZ2PiFxMYx3aRJFY2O1VmY5HHcBwaJWRi8wh2V0=;
- b=Padl8vfClckeQX9QRLLUNzwjJmuSV9Uo7wdvnH8K/8KgN6llpYrRUWH12snlZ9gvthL8ZviKdCkIZhSTvhRU1eGPDS1P+lCoEFbHcXJAXHaauTn8SesUvkQIPzdmpXZHqsBgB2swn1ipfbCI+v53Vj+0mF8j6D7Lro4pP2OO3vA=
-Received: from CWXP265MB3397.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:e7::8) by
- LO0P265MB6243.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:24e::13) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7472.44; Tue, 23 Apr 2024 14:02:36 +0000
-Received: from CWXP265MB3397.GBRP265.PROD.OUTLOOK.COM
- ([fe80::8e9d:6b2f:9881:1e15]) by CWXP265MB3397.GBRP265.PROD.OUTLOOK.COM
- ([fe80::8e9d:6b2f:9881:1e15%6]) with mapi id 15.20.7472.044; Tue, 23 Apr 2024
- 14:02:36 +0000
-From: Matt Coster <Matt.Coster@imgtec.com>
-To: Jani Nikula <jani.nikula@intel.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>
-CC: Andrzej Hajda <andrzej.hajda@intel.com>, Maxime Ripard
- <mripard@kernel.org>,
- Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>,
- Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>, Oded Gabbay
- <ogabbay@kernel.org>, Russell King <linux@armlinux.org.uk>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Neil Armstrong
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Frank Binns <Frank.Binns@imgtec.com>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>, Karol Herbst
- <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, Danilo Krummrich
- <dakr@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Alain Volmat <alain.volmat@foss.st.com>,
- "Huang Rui" <ray.huang@amd.com>, Zack Rusin <zack.rusin@broadcom.com>,
- "bcm-kernel-feedback-list@broadcom.com"
- <bcm-kernel-feedback-list@broadcom.com>, Lucas De Marchi
- <lucas.demarchi@intel.com>, =?utf-8?B?VGhvbWFzIEhlbGxzdHLDtm0=?=
- <thomas.hellstrom@linux.intel.com>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
- <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
- <nouveau@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 1/2] drm/print: drop include debugfs.h and include where
- needed
-Thread-Topic: [PATCH 1/2] drm/print: drop include debugfs.h and include where
- needed
-Thread-Index: AQHalYbkozT6WAMDO0iNRHXY6G8YNg==
-Date: Tue, 23 Apr 2024 14:02:35 +0000
-Message-ID: <1e44ed70-52ed-4213-83c1-b5e409579080@imgtec.com>
-References: <20240422121011.4133236-1-jani.nikula@intel.com>
-In-Reply-To: <20240422121011.4133236-1-jani.nikula@intel.com>
-Accept-Language: en-GB, en-US
+ bh=PFag+CO0+Dja6mdMOY/PVKLHPYccYtuxtvZUOVELPf0=;
+ b=RffB2h1el/gbprwX3q831ALWBoyLdat4zK5ey7pzLHbcu2xH9w/6kEEt12a+0gq85HbHvMSjplqmarOcTPKypAs4F8mdQIbD0n19ttpDkkVXjfBLnE2r5sAGvPWKd3gmqkHU7dev6DmqYw7fj7wiK61TqpZ/lDjpHUXrDIsv0dw=
+Received: from CH3PR12MB8074.namprd12.prod.outlook.com (2603:10b6:610:12b::9)
+ by PH8PR12MB6985.namprd12.prod.outlook.com (2603:10b6:510:1bc::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.44; Tue, 23 Apr
+ 2024 14:23:30 +0000
+Received: from CH3PR12MB8074.namprd12.prod.outlook.com
+ ([fe80::7f58:8648:262d:89e9]) by CH3PR12MB8074.namprd12.prod.outlook.com
+ ([fe80::7f58:8648:262d:89e9%6]) with mapi id 15.20.7472.044; Tue, 23 Apr 2024
+ 14:23:30 +0000
+From: "Huang, Tim" <Tim.Huang@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH v2] drm/amdgpu: fix uninitialized scalar variable warning
+Thread-Topic: [PATCH v2] drm/amdgpu: fix uninitialized scalar variable warning
+Thread-Index: AQHalVpxpJeH45TQUEOTy2uy21iYgrF1uGEAgAAvRpA=
+Date: Tue, 23 Apr 2024 14:23:30 +0000
+Message-ID: <CH3PR12MB8074E73316E499688053D956F6112@CH3PR12MB8074.namprd12.prod.outlook.com>
+References: <20240423084358.1285658-1-tim.huang@amd.com>
+ <e53548e9-6c51-4dc7-9155-201161b372c9@amd.com>
+In-Reply-To: <e53548e9-6c51-4dc7-9155-201161b372c9@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-MS-Has-Attach: yes
+X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=ffc2ce96-8f3c-41f2-aaf5-89c86dc17740;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-04-23T14:18:57Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CWXP265MB3397:EE_|LO0P265MB6243:EE_
-x-ms-office365-filtering-correlation-id: 19547198-93d5-43f3-4f4e-08dc639e0759
+x-ms-traffictypediagnostic: CH3PR12MB8074:EE_|PH8PR12MB6985:EE_
+x-ms-office365-filtering-correlation-id: ffc67e95-b1f0-48cb-13d7-08dc63a0f2f1
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: =?utf-8?B?S1hoM0hrUXh3VG04a0g1aFZ0Ri8xdFNzRjRUcWg5aFpCLzRVTldOREpuNUZC?=
- =?utf-8?B?V2RmTHVNZlJFV0RiZ0ZvVkVzaVo1NDd0dlVKRjEwWmZReFBKcHB5dUYwWVdX?=
- =?utf-8?B?Ty9PS0pSVWh6S2hTSEswSzlTMXR2dDlEK2xtemg1SndmSExSdEQ1VkRRRktJ?=
- =?utf-8?B?Zy9VMHp2RWlkNjV6OEpTTXU1OXNZZU94Y0xvcEZyeVdLTzBqam5sUWJlaHRp?=
- =?utf-8?B?VnhMVUJUWndmdzdSUnJycnl6dEFwUzdqRmFlRWQ3eXhTVnpTbURISVAyK1d2?=
- =?utf-8?B?QjV0bjZ2OXhaRFVXQm1BeVl3OFBMeHVKVzhzdnQyYzdiVjRPOXlxTlYzcXhm?=
- =?utf-8?B?TW5hZkRpdmZLVDVTZW1mdjQ2dXJtKzF1dWZxdzNNTnBiZm1yYmd5OFAxY3BN?=
- =?utf-8?B?SDJIbC9UVFZOU2RCSXc1R2UwZFgySWp5SVBOZ2ZRTzBMRkliUXR1Sm5qeDJS?=
- =?utf-8?B?VDRxdmFwUERmMWlqS0gvUTZkeEJtRGVTSmNLMnJqaXVBdlNCSWlsakRDdU56?=
- =?utf-8?B?b3ZZdWw1L2VWTlAvY1lENmJIa0lqazM1ejJOWlY2U21vdklEeStEMlRXYTIw?=
- =?utf-8?B?UStRSHVrYWNtN2JPc1lKejROSjJXa3RJM29IbWNzak5kL2FrYlExN1k5S2w2?=
- =?utf-8?B?bW41VFZzS3dCOVlOQXNJeFI3a3FlWFpZd2VzOUJrRzJUSnAva0I2NEJzUDNp?=
- =?utf-8?B?ZEt6bkJWamJIU0pnTytkQU83SXk1RHlUVldaM2txT3Jmd2Y2dUZOYkQyVWdY?=
- =?utf-8?B?QnMvcHp2eGIrS3Y3b1E0eEZaK0huVFZQMXZwSmpSV0Z2U3d2aW43c09qbWtL?=
- =?utf-8?B?eGI5RDVWSVhZem5TYnFld1c1VDRBeHRPTWNiZkJzdk9ZUHZodThRWFpGUDk0?=
- =?utf-8?B?SzMrdjJaVG9uR1hrK1dLa1VRYmdmVFpHUVF0NUtoT1F3TlN4Ni83blEzREUw?=
- =?utf-8?B?L1BXNFh5TVhxUDZFaFNWK2s5OTU0ZTU1UUdUVUYzbmFLVkJURVU4eDJMNmhp?=
- =?utf-8?B?Vng5aEZocnZTR2VEQlV2Zml4T1BuRVhqU3k5TW5IazRPYm9QN0JUdFhxalVq?=
- =?utf-8?B?U0NqamVmaEtBcU9LeWFzSmN4M1NWajhOWFN2VlhxeTVacmNCMFZ1YXNBL2ZX?=
- =?utf-8?B?QUxpZGpxekhjamhsYlBLSTR2ZjFVR0Fpb0h1alFxcytwMmpNQVZ1OXdMQUpv?=
- =?utf-8?B?MmJYNXF4RzRQazJMWDBXMkJObG1UUFJhTXUrOTUwczIxNmV2K24ydnRVNEIz?=
- =?utf-8?B?MXF3cUxjbmNiNjVNMFM4Q2Q5OGxnN0VVeG1xcHo4UlhvNk53bER4VVZ2Y1Z2?=
- =?utf-8?B?Y2lJWVgzeEoxK0ZtU3ZPUmo2dlFZQnVmUkVHTldvU2F1NkF0d2Y0R0xqNGdz?=
- =?utf-8?B?SlRZNy92RUgzd2Y0VUh1M2dleUtCdE1HcllJUXZmSmk3YUVrd21hSnF3OTNi?=
- =?utf-8?B?NmU5RktpeEFMNkRLZkd4bG9RSTVFVUVFa2xLZUx6b2hCWUhsWEd6WDZBcUNB?=
- =?utf-8?B?ZDhRdER6dGJ2ZFhJMXFFMU1XdXBHUUdSMXU2cGhGM00xdWJSS0wwcWwreG5Z?=
- =?utf-8?B?YXNNc3BnSW55cWpmTUkzcWg5eSt3S04yZXZxTVA5ZlhUS2VLdlNaTFc2Y2hI?=
- =?utf-8?B?bzNObC9OUW1rWWF6QXQwbGtZMDVlNWlhSWJyZHVUMjBoSGtVdHpjZzN5TCti?=
- =?utf-8?B?U2h2REptU1JGVEU3dlExN3pQUWNYdHlXcjA2Vm1rRXRkM2IrUSszQzVnPT0=?=
+x-microsoft-antispam-message-info: =?utf-8?B?Y21CNDhwSlljN2ViejFwY3kzSWFuN1NxTTNVaFQ4a3lleFVncjFpMHE0WGNM?=
+ =?utf-8?B?UVkzRytSaDVQcG5WVWdaT1ZOY01lTnhUQkxmZEMwMmNWT05rMlFCWkswLzBx?=
+ =?utf-8?B?UUlpTGdzSHo4UWg2a3ZGUGcwcjQ5dWFFTVA5Q2Jndnd4VUNvaldNVWNNK2Fr?=
+ =?utf-8?B?a3A2VFk5UmhnZis2LzZJV0duSzdlWGFGZFEzNjY3a3JTQW0yaUxSZmsxaEVZ?=
+ =?utf-8?B?SzNUYjhJa2Y3UzF5citYTVVQRW5CeE42Um9qRnMxb3ZxVEdpNmo5QWFMWjA5?=
+ =?utf-8?B?Zy9DU20zQU5ObHdQY3VFNTU2aDNUNDhIM3Zxc1ZTUlJBUlE1RU1uSDV2K05z?=
+ =?utf-8?B?YzhsRjI2UnFvRlF2dTJUeC9TN2tXTUEwa3J4R2Zuck1LMFBldHZ0b1R6TzFv?=
+ =?utf-8?B?bStTaHd5bWxQelIzMEE4Uy9hcStwcjdXQlNqdVAwQk9sTUlVUC9WemlQbmhn?=
+ =?utf-8?B?ZzR4QzIzVXppcDc3cW9oUWkzekIyM1pqc01uRytTd1ZjM3psY2hoUEV1dGM4?=
+ =?utf-8?B?OGplZXRZMGpzTFh1ZFZ1SUp6bm1rWGtPdFh4N0JtSWovZFpxcU5xMjVGY1ZK?=
+ =?utf-8?B?OUkrdHVMcGhpU0lQMEZLMkMrcFFCYnVKSlovbHg3UDdUSVV1UDZRbTZRN3c0?=
+ =?utf-8?B?dCtjbVNZMmZES0VIUDRaNGkzbUJtTHM0eWRDa1NWeThmdnlYcCtKUFdjNDJr?=
+ =?utf-8?B?L0NNREZ5L0pvVEdOWEE5NkpNUk5qblFDV3V1bWJaTmRINlhQWTdYUkVmbkR2?=
+ =?utf-8?B?dU02WFk4U2hKd3lxb2liMlFMTUJic2NyYnZzd01XTlpHdStYWDdHSmY4eDEr?=
+ =?utf-8?B?amQ5ZXg2N2orRGpjSFhNcFNaNXpWR1NjTE9Jb09uK3c1cmRxekFWZU5QdTJE?=
+ =?utf-8?B?dWtrUmFFb3cwTTVMbEZYMkpYM1JSN3BmZkptWFYzRDZnOU5aUHBUV0xzNWFu?=
+ =?utf-8?B?UkpBVlFZOVpZL3VBYldoYmFQUHgvbHpNbjViNW9vUU9iNlUyT0liRUhpb2xO?=
+ =?utf-8?B?MmdFbFdCSUlBMmw3R1F2ME5QRVdIWnpIb0xBYU8zUzV3dDRnUVNmK1IrY0M0?=
+ =?utf-8?B?MVdzSnVDZGl0QnNDSFBJQ1pRSXo3Z3NxOUNLOVBnSkpodFhrMW9YM3VVTi9j?=
+ =?utf-8?B?K2ZSa2p2QVVaVHY4U0ovNlBQSTB6MHpDUWxIb2tFTDc1czd0dUdaRW0vVHdp?=
+ =?utf-8?B?SlpWYUFaNmRvZWxtRnhnRmFOK1IzOThYcVAwWklRK0s1alpMYURGR1ZFeTVt?=
+ =?utf-8?B?VzIwZUorZURDSlBZRFZROHFwODdOQXYzTUxwYk5qaHNPUytDOHFScVpLcm1M?=
+ =?utf-8?B?Wml6bWxDV1VZbllnam56UVRIUVIvRlNvenNUM1U5UTBBZmRDcmV5Z0VYUFV4?=
+ =?utf-8?B?Q3JYRUNpYUR1c3RnRlN1WUNXTTZ2TDBEeTJWTGYvL2JWYVJyZnFZeEI1czJU?=
+ =?utf-8?B?L1ErWXdJUnArWElhY3h0ZTE1RS80SGJWc2JvaG5iRUlhb2JQME5zMzRiQkth?=
+ =?utf-8?B?WHVTTzB2ZU55WGlIMUJSaTRRSHh4WkhXeUpmK1lHOWNhNEtrVHJCNFNqWUZi?=
+ =?utf-8?B?Mzhoc3RVdVFPaWJ5NHN2b2ZzZ216Qm52amNkREdHMUJlbDdQZUhxbTlLSUhs?=
+ =?utf-8?B?dkllMENwa3VneTJJUkdpYm9zL2NPNHpGV21tYnc5WUd6cElPVFFwMHpaa0xT?=
+ =?utf-8?B?akEveUJodDZyUWoxZFU1OFR0WGxTOEZaMVVvR2pEWi92Nkp4QnovUWM4UkNz?=
+ =?utf-8?B?QVlOVjNNRGVzWWlmRHhlTC94eURuOUVlNWJkak1GRzBRV2ZQV3ExWE02WTQ1?=
+ =?utf-8?B?MmRGUG5FUmhLbjJwcXh1Zz09?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CWXP265MB3397.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(7416005)(366007)(38070700009); DIR:OUT;
- SFP:1102; 
+ IPV:NLI; SFV:NSPM; H:CH3PR12MB8074.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(366007)(38070700009); DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?R2ZyakVVT2Z4WGFqQy9mZFlwL3pUSlMrUDNlc3ZQRlRtUFVpQkZmSm12YjFn?=
- =?utf-8?B?ZG5FV2NTZWhFWGFzeWNORUZOeFAyVHVhSGZPWVRlV2M3VmF6VERGMmoycEsv?=
- =?utf-8?B?MGloZzNmWXVoL2Z2Q1VFaVVjUG1vMXFxU2VyYTZ6NFBRajUxaDhiMFA1ZmFP?=
- =?utf-8?B?RzBtZ1ZZR0hMdEFNWTRQRnpzQ0dKQS9DT1FQTTRpcnl2dWpGQTNTc3FJdXhr?=
- =?utf-8?B?Ynh6cDMwaEMydzRmazhqWDNzQVJpSG5SVnovNENralVUWkVoZjZPbFNBaENP?=
- =?utf-8?B?WFhOQ3dXL2RXZDNPaHJkL3hFMTMvRXhFdGNydW5hS001cUdyb0dUV2dTSDRJ?=
- =?utf-8?B?UXNJcVBkT3YrNWNERGRIMGhzVFVuMkhEVmpUTU5qRzlPdTVsN0NXN25WZm1L?=
- =?utf-8?B?Mks5TnF1eFV0RkpiaFcvcVVaeWFqcEkvUmpUYkdTQWFZUGI5VHF0VFM5VVpP?=
- =?utf-8?B?cVhqT2xRWkYzSVhUeVoxaVhJWWxpRXB3ajVzOTRSWGZxTDN1bUZyVmxITGJX?=
- =?utf-8?B?QWpsQ1VpQmtVUWNRNXVXOGVZZFVFMVlscnJHL2hXaDdjWmxpcFVQWkZRZFlM?=
- =?utf-8?B?bXRTcnYwWFNkYkRIYThPem54Z1M3VFFOWG5tNW5SMXhLOXdTRVNqRzZlV0ZK?=
- =?utf-8?B?dWR3UTY2RzJiL1BiOGxYY3dLT3g5Zkc0bFNQNUdyZ21FbWVPVXMxZWlEZENx?=
- =?utf-8?B?ME80WWo5c0p2RXhrSVhkRGxtOXhreWJTSlVpczJsc0tocXBXZ2pUYzI0V2JZ?=
- =?utf-8?B?WllYeFhGYm5iQUZlTGFXMjhuUlV4NVNmdGpKM3RXTi96VXN4bFU1M0JqdUs5?=
- =?utf-8?B?Tm1vbWdHSnUrN01yQkMzR05DVWJrSWUwTVRCbGV0bHV0OHV3REU0QjNsallQ?=
- =?utf-8?B?VEdTci9rbkFrcW0rRXBuWFlYMXNSaGZTWEdGUDlNSWdyTjJIMlpiYUxYSHFi?=
- =?utf-8?B?RHlhZ0thTHZMaDFwYlkwL3Y2ZWYxcHpnVk14SmxDYURqeVg3VVQ1Uk9PREJt?=
- =?utf-8?B?Skl4ZDRBUHRncWNwMkFzMjRob0ZCcFhKWDRBdzdIUlpEb21vSVhOeWprdER1?=
- =?utf-8?B?OXBEVlROM1ExeCtCMDdOMTJvTWk1S3VpNlBnR3pJZk1UMEYwdVVTWXFGOFRn?=
- =?utf-8?B?eWhSSGZhek9Wall0RUg4M2twSmZ3ZjQ0QXNhSzRTRVBYS0Nvdkd3LytOc3RF?=
- =?utf-8?B?SmhiejhtcFhKVWJpWlVIdXFaM1FXbDR5eUliUnhYaHA3UUxzMndPMS9HSjhL?=
- =?utf-8?B?YmRGNTlIdUJORUpsdXBLNEw0Wm80anNGRWVkWmR4MUtNZHh4aTQwVFhLRkxS?=
- =?utf-8?B?MStCOU16Um9DaWZSd25rN2w3TE1DT0Uxem9SNXpOV0d5cUl4MWFRVEFmWWhz?=
- =?utf-8?B?SmxMNUtFN3ZBVGFtQ0pCNDlNSkxXTzU5Ly8yMktCdVpXTXpxMTR2UTUwaFNK?=
- =?utf-8?B?aTNyWFpzRjRUdzFOdlB4TzNpRDdEcTE5cFZ2M3B1TmlESDBGRG9mRWpUb05q?=
- =?utf-8?B?YnVPU0l0dlhVbkl5dklVU25iNHE3dkl2RDlJRC9TV1pVWnA0MTFicmxsVnhz?=
- =?utf-8?B?NDJUNVBUZHV4aHhEamNYTmlwSmgxbzNCZnpBOWFqb1NldmRhS3E4bGoydHpn?=
- =?utf-8?B?dlhlbTJQQXd5WmJId1U5TjJaY1NxTUIrR3Z3RWJJQVptbTY4V0dUdTlGWjIr?=
- =?utf-8?B?VyswQS9OZzdjYnZpM2tDcCtPVUpnY2NKUzd4cGFJS3lRZDk4UDB1eVBXRVkw?=
- =?utf-8?B?NFZ3K1FicktZNVZCMnNEb0Q2TkZCbDlPeXFRWEEvT2w0Vkg3Sk96UURlRGtU?=
- =?utf-8?B?SjNHd0NLOFkvQWJiZGJESWhjMWpiVTVIa1QzLzhZS0dwUnNHa0gxL3dpK2xC?=
- =?utf-8?B?cFpaMGZGaGc4VkFBUmVMWE42MlJaaUJJVGRuYzVXWkl4bFBmK2JpQnAwa1cz?=
- =?utf-8?B?K25rMnpGR3NLYkh2VXljVytpL09XZ1JwOC9wRE5zNXd6NVpUTTR0WE5WSzBW?=
- =?utf-8?B?VU5Mb0pQdTExTG1HZGRwOWI4dFYyL3JmTmg2NE1laThXQUx1QUhBZlMxWmVj?=
- =?utf-8?B?SUQvTWM4S1ZnbHgzcXA4OG1kSFZRL25XdnU1NWNhdk9vbVV0b2JPTHF5bU1i?=
- =?utf-8?B?S0x0TmRKdXFsMDF2c2hNdmUxSTJxV2kxSUg3eTZJeGVkZzhFT09hMHFjanE3?=
- =?utf-8?B?UFE9PQ==?=
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------EvvbMU0wKNEpCX7ZY0AzBDk8"
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OUtjUlI2YVlUZUpicDQ0anlvUVdGSUwrYkRMOXVTalFDdWM3dWZVV2xneGJB?=
+ =?utf-8?B?MXJUZDFZQ1B3a0JSWmE0ckFNaTUwY0kyTHhzbUtidWE0elhQRnQ1cFNkN1VX?=
+ =?utf-8?B?TU8wZUt1OFY0VzA4eUN0T3VTMktYZ1JtRmMraitwUjhEdFBaZlQwdXhORnho?=
+ =?utf-8?B?NXI0MjZmYkkxVjRIRTh0UzdIbXh4QUx4Y21mYk1kejVRcjFLNkdDUVQzUURa?=
+ =?utf-8?B?bDdjK0owV3JEd3lKZ3RFN1hublhKSFNLSkhPNnFCOGFSS2lpVlZaaHBDb1BJ?=
+ =?utf-8?B?MFBDN3k1VTIvY3hXZGZ5VkFGVGw4UDBJc0l3SGw0TWErU2U3TDhFWDZMU0N6?=
+ =?utf-8?B?c3dyMWorVnZVV1FLZEZ4TzUwcWxZSmRwNk1yN2NwR1J3WFlXVzF2RWlrMGRa?=
+ =?utf-8?B?UmN6eWZGcmcyS3ZKbVFsYUpwazRCOTE4aGJWa2lmeHAyV2VqZitzb3J5OWpP?=
+ =?utf-8?B?eUt2NWZ2aDh1Nk1uVnBySEl3K2pvdStFZTNBb3d0YzlJMWlaMDFucC96YXIv?=
+ =?utf-8?B?TlBTOTZHcTd0eE0rOWl3SmMvVDlzTnF1Nk1URUNEeGM1MEd3MlZubzZZR2Jk?=
+ =?utf-8?B?eXRFais2Mm1NWGJyYWhHWHNBRlVZeTZxVStNSkgvRTJWR1JSM0V6SHBLelNB?=
+ =?utf-8?B?RTdPRlhxbGNoTWJzR0ZTMmg2NHRwaVZpeitDQWNkYWthbmo5cC9kNWVXeW0z?=
+ =?utf-8?B?R1lHUUxVU0dZU1JIYVp4M0w3OVdRUFB2azF5UUs4M0tjZEhrYWlSbmdWV2I4?=
+ =?utf-8?B?K0d5YXY3aEhLcnUxeFFFdVhVYnhDUTRDREdXTlRhS1FjVFk5RlQ3NzNFYXFI?=
+ =?utf-8?B?b0x3TUlwYU83dlROdkQ1b3djejdZRXg0aDhHVEZHcllILytYT0RaNDZiODNH?=
+ =?utf-8?B?WUhjd2FDdUROTG1oSTdKQXNpYUpRVTJ1OVk1enNYOUQ4akF2UERMeERadSsr?=
+ =?utf-8?B?MDNsNVlDYVhTcWdWcEw3TWhNVDVUeEhuZmREemZoK1VjcmI1bzkxSVVhcnMx?=
+ =?utf-8?B?ZHM3aDhLd29NWFMveWplNDY1OEhjWGpUNVBzT3c5Ym8vNlY0R0xXbFFyMGdU?=
+ =?utf-8?B?Y0FkaXVwZHAwdzFINVNSTVp5cnk4V0l2S05pSHhnL1FsT3ZZcE9oYzdTSHBJ?=
+ =?utf-8?B?MFdmQ3MxS2N4MWRrdmNXVnRpRUFldWZ4UXE0M0ZJVmp3VmZVdWJKb0w4YTd4?=
+ =?utf-8?B?KzZwbmFCS25OMDZuRVdIajFuZTd5OUlZUHV1VVZlakg2bW9rNzVQcnRCbnBX?=
+ =?utf-8?B?QzFid1pDd3dlVURxUEs5VzQrRzZRdDRFOFdiM0xqQjNjb1A0aXJXWTJKY2hr?=
+ =?utf-8?B?cytzV2s4YmZYNGxlMWxhTTBrai9kcXhTQTdVRW9mQ05kZTNhN1RncGw1QVlr?=
+ =?utf-8?B?ZmZWME1IUVVHMURJK0o5MEt0MFBRMUVGbFNYRVhoOXJxcHl1bWNVQ0ZhOG5J?=
+ =?utf-8?B?bFRGcDdqVlRWY0gvWlV6M3dwRHFjMmNKeWUwZHZkbTRvam9MbVlUVTBCU3l2?=
+ =?utf-8?B?cWR1aFZscThYeTF3OTFvb3dRNk95bnQvWFNZSkNPQThHRlZhM0kvYjRIZ1pZ?=
+ =?utf-8?B?N0YyK0Q1WFpCRlAyaGNOalRXSTlrdDRiNW1XdDMvNkNSUzB4Qm5jNEdBQTRY?=
+ =?utf-8?B?RS9ZTU4yOGY3YnB5OTJKMDlQNC9sUzgvRFVweHhITEVTVithUVZubEdPSlpX?=
+ =?utf-8?B?MEpjcWxiWnVhU2VFUWRpVVBGSHhRSlludUxqeEpBakdoQ2JJK2pwWDB2VHVY?=
+ =?utf-8?B?anNlelZKWjMrVUZOU1I4UkJJOUkvMUF3eForeTdUcm1wZ0dGQkFYMTVNZy93?=
+ =?utf-8?B?c2tGNjRiZGZOUDR6YW95VzAxVW5tUVBqektFR25LY0dhWThhUWVmRm01ZWVu?=
+ =?utf-8?B?RVBiQ0RBekxrSDc2NHVrUERoTGJhdWltbkFFcFZjK1ZJa2Z3RUxDd2NudEp4?=
+ =?utf-8?B?eDE1VUI1aHFiQytXandybGhyQ1FrS3hvY1NIZDcrZytDNWpmZlEwS3B0QXZ3?=
+ =?utf-8?B?aDBnMmtxbmQyejR5RFQ2WGc4RkhzM3FtTEhjSXl3Y1VjMWRRNXcrVFJOYStY?=
+ =?utf-8?B?SDJCVVBxYlZXRTR6SXE4NUpPOE1VcEhZVjRKM2NxUE9oWVhBbHZDZ0F5V2dR?=
+ =?utf-8?Q?o7mI=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CWXP265MB3397.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19547198-93d5-43f3-4f4e-08dc639e0759
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Apr 2024 14:02:35.8740 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8074.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ffc67e95-b1f0-48cb-13d7-08dc63a0f2f1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Apr 2024 14:23:30.1354 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6V8dSFtJG3iIFu7U4XWBVglN35u68new26JbcJefy9qXSaP9gl1q4ELs9XHps3V8ZHJ9J1ghGhJiEz3O3+IqTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB6243
-X-OriginatorOrg: imgtec.com
-X-EXCLAIMER-MD-CONFIG: 15a78312-3e47-46eb-9010-2e54d84a9631
-X-Proofpoint-ORIG-GUID: 7FonBuaezhRqePCUIYlzF9BWd34AWXYe
-X-Proofpoint-GUID: 7FonBuaezhRqePCUIYlzF9BWd34AWXYe
+X-MS-Exchange-CrossTenant-userprincipalname: iqj+TMh+tUruG1Ss8TvZIWSze5DWYeABRKAdb9MlxiqgG4kD/FwvKdTUWGNYJnPqAwdQVXwv8yL+4905h+eqKw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6985
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -227,605 +168,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------EvvbMU0wKNEpCX7ZY0AzBDk8
-Content-Type: multipart/mixed; boundary="------------IkV14jgvWKund52SsSkpbYsR";
- protected-headers="v1"
-From: Matt Coster <matt.coster@imgtec.com>
-To: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>,
- Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, Russell King <linux@armlinux.org.uk>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Frank Binns <frank.binns@imgtec.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@redhat.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Alain Volmat <alain.volmat@foss.st.com>, Huang Rui <ray.huang@amd.com>,
- Zack Rusin <zack.rusin@broadcom.com>, bcm-kernel-feedback-list@broadcom.com,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Message-ID: <1e44ed70-52ed-4213-83c1-b5e409579080@imgtec.com>
-Subject: Re: [PATCH 1/2] drm/print: drop include debugfs.h and include where
- needed
-References: <20240422121011.4133236-1-jani.nikula@intel.com>
-In-Reply-To: <20240422121011.4133236-1-jani.nikula@intel.com>
-
---------------IkV14jgvWKund52SsSkpbYsR
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On 22/04/2024 13:10, Jani Nikula wrote:
-> Surprisingly many places depend on debugfs.h to be included via
-> drm_print.h. Fix them.
->=20
-> v3: Also fix armada, ite-it6505, imagination, msm, sti, vc4, and xe
->=20
-> v2: Also fix ivpu and vmwgfx
->=20
-> Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
-> Acked-by: Maxime Ripard <mripard@kernel.org>
-> Link: https://patchwork.freedesktop.org/patch/msgid/20240410141434.1579=
-08-1-jani.nikula@intel.com
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->=20
-> ---
->=20
-> Cc: Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>
-> Cc: Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
-> Cc: Oded Gabbay <ogabbay@kernel.org>
-> Cc: Russell King <linux@armlinux.org.uk>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Cc: Robert Foss <rfoss@kernel.org>
-> Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-> Cc: Jonas Karlman <jonas@kwiboo.se>
-> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-> Cc: Frank Binns <frank.binns@imgtec.com>
-> Cc: Matt Coster <matt.coster@imgtec.com>
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Marijn Suijten <marijn.suijten@somainline.org>
-> Cc: Karol Herbst <kherbst@redhat.com>
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: Danilo Krummrich <dakr@redhat.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
-> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-> Cc: Alain Volmat <alain.volmat@foss.st.com>
-> Cc: Huang Rui <ray.huang@amd.com>
-> Cc: Zack Rusin <zack.rusin@broadcom.com>
-> Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broa=
-dcom.com>
-> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-> Cc: "Thomas Hellstr=C3=B6m" <thomas.hellstrom@linux.intel.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: intel-gfx@lists.freedesktop.org
-> Cc: intel-xe@lists.freedesktop.org
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: freedreno@lists.freedesktop.org
-> Cc: nouveau@lists.freedesktop.org
-> Cc: amd-gfx@lists.freedesktop.org
-> ---
->  drivers/accel/ivpu/ivpu_debugfs.c           | 2 ++
->  drivers/gpu/drm/armada/armada_debugfs.c     | 1 +
->  drivers/gpu/drm/bridge/ite-it6505.c         | 1 +
->  drivers/gpu/drm/bridge/panel.c              | 2 ++
->  drivers/gpu/drm/drm_print.c                 | 6 +++---
->  drivers/gpu/drm/i915/display/intel_dmc.c    | 1 +
->  drivers/gpu/drm/imagination/pvr_fw_trace.c  | 1 +
-
-Acked-by: Matt Coster <matt.coster@imgtec.com> # drm/imagination
-
-Cheers,
-Matt
-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 2 ++
->  drivers/gpu/drm/nouveau/dispnv50/crc.c      | 2 ++
->  drivers/gpu/drm/radeon/r100.c               | 1 +
->  drivers/gpu/drm/radeon/r300.c               | 1 +
->  drivers/gpu/drm/radeon/r420.c               | 1 +
->  drivers/gpu/drm/radeon/r600.c               | 3 ++-
->  drivers/gpu/drm/radeon/radeon_fence.c       | 1 +
->  drivers/gpu/drm/radeon/radeon_gem.c         | 1 +
->  drivers/gpu/drm/radeon/radeon_ib.c          | 2 ++
->  drivers/gpu/drm/radeon/radeon_pm.c          | 1 +
->  drivers/gpu/drm/radeon/radeon_ring.c        | 2 ++
->  drivers/gpu/drm/radeon/radeon_ttm.c         | 1 +
->  drivers/gpu/drm/radeon/rs400.c              | 1 +
->  drivers/gpu/drm/radeon/rv515.c              | 1 +
->  drivers/gpu/drm/sti/sti_drv.c               | 1 +
->  drivers/gpu/drm/ttm/ttm_device.c            | 1 +
->  drivers/gpu/drm/ttm/ttm_resource.c          | 3 ++-
->  drivers/gpu/drm/ttm/ttm_tt.c                | 5 +++--
->  drivers/gpu/drm/vc4/vc4_drv.h               | 1 +
->  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c         | 2 ++
->  drivers/gpu/drm/xe/xe_debugfs.c             | 1 +
->  drivers/gpu/drm/xe/xe_gt_debugfs.c          | 2 ++
->  drivers/gpu/drm/xe/xe_uc_debugfs.c          | 2 ++
->  include/drm/drm_print.h                     | 2 +-
->  31 files changed, 46 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/accel/ivpu/ivpu_debugfs.c b/drivers/accel/ivpu/ivp=
-u_debugfs.c
-> index d09d29775b3f..e07e447d08d1 100644
-> --- a/drivers/accel/ivpu/ivpu_debugfs.c
-> +++ b/drivers/accel/ivpu/ivpu_debugfs.c
-> @@ -3,6 +3,8 @@
->   * Copyright (C) 2020-2023 Intel Corporation
->   */
-> =20
-> +#include <linux/debugfs.h>
-> +
->  #include <drm/drm_debugfs.h>
->  #include <drm/drm_file.h>
->  #include <drm/drm_print.h>
-> diff --git a/drivers/gpu/drm/armada/armada_debugfs.c b/drivers/gpu/drm/=
-armada/armada_debugfs.c
-> index 29f4b52e3c8d..a763349dd89f 100644
-> --- a/drivers/gpu/drm/armada/armada_debugfs.c
-> +++ b/drivers/gpu/drm/armada/armada_debugfs.c
-> @@ -5,6 +5,7 @@
->   */
-> =20
->  #include <linux/ctype.h>
-> +#include <linux/debugfs.h>
->  #include <linux/module.h>
->  #include <linux/seq_file.h>
->  #include <linux/uaccess.h>
-> diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/brid=
-ge/ite-it6505.c
-> index 27334173e911..3f68c82888c2 100644
-> --- a/drivers/gpu/drm/bridge/ite-it6505.c
-> +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-> @@ -3,6 +3,7 @@
->   * Copyright (c) 2020, The Linux Foundation. All rights reserved.
->   */
->  #include <linux/bits.h>
-> +#include <linux/debugfs.h>
->  #include <linux/delay.h>
->  #include <linux/device.h>
->  #include <linux/err.h>
-> diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/pa=
-nel.c
-> index 7f41525f7a6e..32506524d9a2 100644
-> --- a/drivers/gpu/drm/bridge/panel.c
-> +++ b/drivers/gpu/drm/bridge/panel.c
-> @@ -4,6 +4,8 @@
->   * Copyright (C) 2017 Broadcom
->   */
-> =20
-> +#include <linux/debugfs.h>
-> +
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_bridge.h>
->  #include <drm/drm_connector.h>
-> diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-> index 699b7dbffd7b..cf2efb44722c 100644
-> --- a/drivers/gpu/drm/drm_print.c
-> +++ b/drivers/gpu/drm/drm_print.c
-> @@ -23,13 +23,13 @@
->   * Rob Clark <robdclark@gmail.com>
->   */
-> =20
-> -#include <linux/stdarg.h>
-> -
-> +#include <linux/debugfs.h>
-> +#include <linux/dynamic_debug.h>
->  #include <linux/io.h>
->  #include <linux/moduleparam.h>
->  #include <linux/seq_file.h>
->  #include <linux/slab.h>
-> -#include <linux/dynamic_debug.h>
-> +#include <linux/stdarg.h>
-> =20
->  #include <drm/drm.h>
->  #include <drm/drm_drv.h>
-> diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm=
-/i915/display/intel_dmc.c
-> index 3697a02b51b6..09346afd1f0e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dmc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-> @@ -22,6 +22,7 @@
->   *
->   */
-> =20
-> +#include <linux/debugfs.h>
->  #include <linux/firmware.h>
-> =20
->  #include "i915_drv.h"
-> diff --git a/drivers/gpu/drm/imagination/pvr_fw_trace.c b/drivers/gpu/d=
-rm/imagination/pvr_fw_trace.c
-> index 31199e45b72e..73707daa4e52 100644
-> --- a/drivers/gpu/drm/imagination/pvr_fw_trace.c
-> +++ b/drivers/gpu/drm/imagination/pvr_fw_trace.c
-> @@ -12,6 +12,7 @@
-> =20
->  #include <linux/build_bug.h>
->  #include <linux/dcache.h>
-> +#include <linux/debugfs.h>
->  #include <linux/sysfs.h>
->  #include <linux/types.h>
-> =20
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/=
-drm/msm/disp/dpu1/dpu_hw_sspp.c
-> index 0bf8a83e8df3..8586f2761782 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> @@ -2,6 +2,8 @@
->  /* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.=
-
->   */
-> =20
-> +#include <linux/debugfs.h>
-> +
->  #include "dpu_hwio.h"
->  #include "dpu_hw_catalog.h"
->  #include "dpu_hw_lm.h"
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/crc.c b/drivers/gpu/drm/n=
-ouveau/dispnv50/crc.c
-> index 9c942fbd836d..5936b6b3b15d 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/crc.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/crc.c
-> @@ -1,5 +1,7 @@
->  // SPDX-License-Identifier: MIT
-> +#include <linux/debugfs.h>
->  #include <linux/string.h>
-> +
->  #include <drm/drm_crtc.h>
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_vblank.h>
-> diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r10=
-0.c
-> index 86b8b770af19..0b1e19345f43 100644
-> --- a/drivers/gpu/drm/radeon/r100.c
-> +++ b/drivers/gpu/drm/radeon/r100.c
-> @@ -26,6 +26,7 @@
->   *          Jerome Glisse
->   */
-> =20
-> +#include <linux/debugfs.h>
->  #include <linux/firmware.h>
->  #include <linux/module.h>
->  #include <linux/pci.h>
-> diff --git a/drivers/gpu/drm/radeon/r300.c b/drivers/gpu/drm/radeon/r30=
-0.c
-> index 25201b9a5aae..1620f534f55f 100644
-> --- a/drivers/gpu/drm/radeon/r300.c
-> +++ b/drivers/gpu/drm/radeon/r300.c
-> @@ -26,6 +26,7 @@
->   *          Jerome Glisse
->   */
-> =20
-> +#include <linux/debugfs.h>
->  #include <linux/pci.h>
->  #include <linux/seq_file.h>
->  #include <linux/slab.h>
-> diff --git a/drivers/gpu/drm/radeon/r420.c b/drivers/gpu/drm/radeon/r42=
-0.c
-> index eae8a6389f5e..a979662eaa73 100644
-> --- a/drivers/gpu/drm/radeon/r420.c
-> +++ b/drivers/gpu/drm/radeon/r420.c
-> @@ -26,6 +26,7 @@
->   *          Jerome Glisse
->   */
-> =20
-> +#include <linux/debugfs.h>
->  #include <linux/pci.h>
->  #include <linux/seq_file.h>
->  #include <linux/slab.h>
-> diff --git a/drivers/gpu/drm/radeon/r600.c b/drivers/gpu/drm/radeon/r60=
-0.c
-> index b5e97d95a19f..087d41e370fd 100644
-> --- a/drivers/gpu/drm/radeon/r600.c
-> +++ b/drivers/gpu/drm/radeon/r600.c
-> @@ -26,11 +26,12 @@
->   *          Jerome Glisse
->   */
-> =20
-> +#include <linux/debugfs.h>
->  #include <linux/firmware.h>
->  #include <linux/module.h>
->  #include <linux/pci.h>
-> -#include <linux/slab.h>
->  #include <linux/seq_file.h>
-> +#include <linux/slab.h>
-> =20
->  #include <drm/drm_device.h>
->  #include <drm/drm_vblank.h>
-> diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/ra=
-deon/radeon_fence.c
-> index 9ebe4a0b9a6c..4fb780d96f32 100644
-> --- a/drivers/gpu/drm/radeon/radeon_fence.c
-> +++ b/drivers/gpu/drm/radeon/radeon_fence.c
-> @@ -30,6 +30,7 @@
->   */
-> =20
->  #include <linux/atomic.h>
-> +#include <linux/debugfs.h>
->  #include <linux/firmware.h>
->  #include <linux/kref.h>
->  #include <linux/sched/signal.h>
-> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/rade=
-on/radeon_gem.c
-> index 3fec3acdaf28..2ef201a072f1 100644
-> --- a/drivers/gpu/drm/radeon/radeon_gem.c
-> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
-> @@ -26,6 +26,7 @@
->   *          Jerome Glisse
->   */
-> =20
-> +#include <linux/debugfs.h>
->  #include <linux/iosys-map.h>
->  #include <linux/pci.h>
-> =20
-> diff --git a/drivers/gpu/drm/radeon/radeon_ib.c b/drivers/gpu/drm/radeo=
-n/radeon_ib.c
-> index fb9ecf5dbe2b..63d914f3414d 100644
-> --- a/drivers/gpu/drm/radeon/radeon_ib.c
-> +++ b/drivers/gpu/drm/radeon/radeon_ib.c
-> @@ -27,6 +27,8 @@
->   *          Christian K=C3=B6nig
->   */
-> =20
-> +#include <linux/debugfs.h>
-> +
->  #include <drm/drm_file.h>
-> =20
->  #include "radeon.h"
-> diff --git a/drivers/gpu/drm/radeon/radeon_pm.c b/drivers/gpu/drm/radeo=
-n/radeon_pm.c
-> index 4482c8c5f5ce..2d9d9f46f243 100644
-> --- a/drivers/gpu/drm/radeon/radeon_pm.c
-> +++ b/drivers/gpu/drm/radeon/radeon_pm.c
-> @@ -21,6 +21,7 @@
->   *          Alex Deucher <alexdeucher@gmail.com>
->   */
-> =20
-> +#include <linux/debugfs.h>
->  #include <linux/hwmon-sysfs.h>
->  #include <linux/hwmon.h>
->  #include <linux/pci.h>
-> diff --git a/drivers/gpu/drm/radeon/radeon_ring.c b/drivers/gpu/drm/rad=
-eon/radeon_ring.c
-> index 38048593bb4a..8d1d458286a8 100644
-> --- a/drivers/gpu/drm/radeon/radeon_ring.c
-> +++ b/drivers/gpu/drm/radeon/radeon_ring.c
-> @@ -27,6 +27,8 @@
->   *          Christian K=C3=B6nig
->   */
-> =20
-> +#include <linux/debugfs.h>
-> +
->  #include <drm/drm_device.h>
->  #include <drm/drm_file.h>
-> =20
-> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/rade=
-on/radeon_ttm.c
-> index 2078b0000e22..5c65b6dfb99a 100644
-> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
-> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-> @@ -30,6 +30,7 @@
->   *    Dave Airlie
->   */
-> =20
-> +#include <linux/debugfs.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/pagemap.h>
->  #include <linux/pci.h>
-> diff --git a/drivers/gpu/drm/radeon/rs400.c b/drivers/gpu/drm/radeon/rs=
-400.c
-> index d7f552d441ab..d4d1501e6576 100644
-> --- a/drivers/gpu/drm/radeon/rs400.c
-> +++ b/drivers/gpu/drm/radeon/rs400.c
-> @@ -26,6 +26,7 @@
->   *          Jerome Glisse
->   */
-> =20
-> +#include <linux/debugfs.h>
->  #include <linux/seq_file.h>
->  #include <linux/slab.h>
-> =20
-> diff --git a/drivers/gpu/drm/radeon/rv515.c b/drivers/gpu/drm/radeon/rv=
-515.c
-> index 79709d26d983..bbc6ccabf788 100644
-> --- a/drivers/gpu/drm/radeon/rv515.c
-> +++ b/drivers/gpu/drm/radeon/rv515.c
-> @@ -26,6 +26,7 @@
->   *          Jerome Glisse
->   */
-> =20
-> +#include <linux/debugfs.h>
->  #include <linux/seq_file.h>
->  #include <linux/slab.h>
-> =20
-> diff --git a/drivers/gpu/drm/sti/sti_drv.c b/drivers/gpu/drm/sti/sti_dr=
-v.c
-> index 4bab93c4fefd..1799c12babf5 100644
-> --- a/drivers/gpu/drm/sti/sti_drv.c
-> +++ b/drivers/gpu/drm/sti/sti_drv.c
-> @@ -5,6 +5,7 @@
->   */
-> =20
->  #include <linux/component.h>
-> +#include <linux/debugfs.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/kernel.h>
->  #include <linux/module.h>
-> diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm=
-_device.c
-> index 76027960054f..434cf0258000 100644
-> --- a/drivers/gpu/drm/ttm/ttm_device.c
-> +++ b/drivers/gpu/drm/ttm/ttm_device.c
-> @@ -27,6 +27,7 @@
-> =20
->  #define pr_fmt(fmt) "[TTM DEVICE] " fmt
-> =20
-> +#include <linux/debugfs.h>
->  #include <linux/mm.h>
-> =20
->  #include <drm/ttm/ttm_bo.h>
-> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/t=
-tm_resource.c
-> index be8d286513f9..4a66b851b67d 100644
-> --- a/drivers/gpu/drm/ttm/ttm_resource.c
-> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
-> @@ -22,8 +22,9 @@
->   * Authors: Christian K=C3=B6nig
->   */
-> =20
-> -#include <linux/iosys-map.h>
-> +#include <linux/debugfs.h>
->  #include <linux/io-mapping.h>
-> +#include <linux/iosys-map.h>
->  #include <linux/scatterlist.h>
-> =20
->  #include <drm/ttm/ttm_bo.h>
-> diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.=
-c
-> index 578a7c37f00b..474fe7aad2a0 100644
-> --- a/drivers/gpu/drm/ttm/ttm_tt.c
-> +++ b/drivers/gpu/drm/ttm/ttm_tt.c
-> @@ -32,10 +32,11 @@
->  #define pr_fmt(fmt) "[TTM] " fmt
-> =20
->  #include <linux/cc_platform.h>
-> -#include <linux/sched.h>
-> -#include <linux/shmem_fs.h>
-> +#include <linux/debugfs.h>
->  #include <linux/file.h>
->  #include <linux/module.h>
-> +#include <linux/sched.h>
-> +#include <linux/shmem_fs.h>
->  #include <drm/drm_cache.h>
->  #include <drm/drm_device.h>
->  #include <drm/drm_util.h>
-> diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_dr=
-v.h
-> index ab61e96e7e14..08e29fa82563 100644
-> --- a/drivers/gpu/drm/vc4/vc4_drv.h
-> +++ b/drivers/gpu/drm/vc4/vc4_drv.h
-> @@ -5,6 +5,7 @@
->  #ifndef _VC4_DRV_H_
->  #define _VC4_DRV_H_
-> =20
-> +#include <linux/debugfs.h>
->  #include <linux/delay.h>
->  #include <linux/of.h>
->  #include <linux/refcount.h>
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwg=
-fx/vmwgfx_gem.c
-> index 2132a8ad8c0c..07185c108218 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> @@ -30,6 +30,8 @@
->  #include "drm/drm_prime.h"
->  #include "drm/drm_gem_ttm_helper.h"
-> =20
-> +#include <linux/debugfs.h>
-> +
->  static void vmw_gem_object_free(struct drm_gem_object *gobj)
->  {
->  	struct ttm_buffer_object *bo =3D drm_gem_ttm_of_gem(gobj);
-> diff --git a/drivers/gpu/drm/xe/xe_debugfs.c b/drivers/gpu/drm/xe/xe_de=
-bugfs.c
-> index c9b30dbdc14d..0b7aebaae843 100644
-> --- a/drivers/gpu/drm/xe/xe_debugfs.c
-> +++ b/drivers/gpu/drm/xe/xe_debugfs.c
-> @@ -5,6 +5,7 @@
-> =20
->  #include "xe_debugfs.h"
-> =20
-> +#include <linux/debugfs.h>
->  #include <linux/string_helpers.h>
-> =20
->  #include <drm/drm_debugfs.h>
-> diff --git a/drivers/gpu/drm/xe/xe_gt_debugfs.c b/drivers/gpu/drm/xe/xe=
-_gt_debugfs.c
-> index ff7f4cf52fa9..8cf0b2625efc 100644
-> --- a/drivers/gpu/drm/xe/xe_gt_debugfs.c
-> +++ b/drivers/gpu/drm/xe/xe_gt_debugfs.c
-> @@ -5,6 +5,8 @@
-> =20
->  #include "xe_gt_debugfs.h"
-> =20
-> +#include <linux/debugfs.h>
-> +
->  #include <drm/drm_debugfs.h>
->  #include <drm/drm_managed.h>
-> =20
-> diff --git a/drivers/gpu/drm/xe/xe_uc_debugfs.c b/drivers/gpu/drm/xe/xe=
-_uc_debugfs.c
-> index 0a39ec5a6e99..78eb8db73791 100644
-> --- a/drivers/gpu/drm/xe/xe_uc_debugfs.c
-> +++ b/drivers/gpu/drm/xe/xe_uc_debugfs.c
-> @@ -3,6 +3,8 @@
->   * Copyright =C2=A9 2022 Intel Corporation
->   */
-> =20
-> +#include <linux/debugfs.h>
-> +
->  #include <drm/drm_debugfs.h>
-> =20
->  #include "xe_gt.h"
-> diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-> index 9cc473e5d353..561c3b96b6fd 100644
-> --- a/include/drm/drm_print.h
-> +++ b/include/drm/drm_print.h
-> @@ -30,11 +30,11 @@
->  #include <linux/printk.h>
->  #include <linux/seq_file.h>
->  #include <linux/device.h>
-> -#include <linux/debugfs.h>
->  #include <linux/dynamic_debug.h>
-> =20
->  #include <drm/drm.h>
-> =20
-> +struct debugfs_regset32;
->  struct drm_device;
-> =20
->  /* Do *not* use outside of drm_print.[ch]! */
-
---------------IkV14jgvWKund52SsSkpbYsR--
-
---------------EvvbMU0wKNEpCX7ZY0AzBDk8
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wnsEABYIACMWIQS4qDmoJvwmKhjY+nN5vBnz2d5qsAUCZie/ewUDAAAAAAAKCRB5vBnz2d5qsBCB
-AP9snwvOqu1oaLhyWxGllqALvt9GA1/G5NrKolujPEjZQgD9FlixRYbPHwT0xG6D9BSI6HB91lr4
-e+uXKBvAenVqcAI=
-=kuLt
------END PGP SIGNATURE-----
-
---------------EvvbMU0wKNEpCX7ZY0AzBDk8--
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2Fn
+ZS0tLS0tDQpGcm9tOiBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29t
+Pg0KU2VudDogVHVlc2RheSwgQXByaWwgMjMsIDIwMjQgNzozMCBQTQ0KVG86IEh1YW5nLCBUaW0g
+PFRpbS5IdWFuZ0BhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBE
+ZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+DQpTdWJqZWN0OiBS
+ZTogW1BBVENIIHYyXSBkcm0vYW1kZ3B1OiBmaXggdW5pbml0aWFsaXplZCBzY2FsYXIgdmFyaWFi
+bGUgd2FybmluZw0KDQpBbSAyMy4wNC4yNCB1bSAxMDo0MyBzY2hyaWViIFRpbSBIdWFuZzoNCj4g
+RnJvbTogVGltIEh1YW5nIDxUaW0uSHVhbmdAYW1kLmNvbT4NCj4NCj4gQ2xlYXIgd2FybmluZyB0
+aGF0IHVzZXMgdW5pbml0aWFsaXplZCB2YWx1ZSBmd19zaXplLg0KPg0KPiBTaWduZWQtb2ZmLWJ5
+OiBUaW0gSHVhbmcgPFRpbS5IdWFuZ0BhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmMgfCA1ICsrKy0tDQo+ICAgMSBmaWxlIGNoYW5nZWQs
+IDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9nZnguYw0KPiBpbmRleCBkOTU1NTVkYzU0ODUuLjhkNWNkYmI5OWQ4ZCAx
+MDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5jDQo+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYw0KPiBAQCAtMTA4
+NCw3ICsxMDg0LDcgQEAgdm9pZCBhbWRncHVfZ2Z4X2NwX2luaXRfbWljcm9jb2RlKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2LA0KPiAgICAgICBjb25zdCBzdHJ1Y3QgZ2Z4X2Zpcm13YXJlX2hl
+YWRlcl92Ml8wICpjcF9oZHJfdjJfMDsNCj4gICAgICAgc3RydWN0IGFtZGdwdV9maXJtd2FyZV9p
+bmZvICppbmZvID0gTlVMTDsNCj4gICAgICAgY29uc3Qgc3RydWN0IGZpcm13YXJlICp1Y29kZV9m
+dzsNCj4gLSAgICAgdW5zaWduZWQgaW50IGZ3X3NpemU7DQo+ICsgICAgIHVuc2lnbmVkIGludCBm
+d19zaXplID0gMDsNCg0KPg0KPiBZb3UgZG9uJ3QgbmVlZCB0aGF0IGFueSBtb3JlIHdoZW4gdGhl
+IGRlZmF1bHQgY2FzZSByZXR1cm5zLg0KDQpZZXMsIHdpbGwgbm90IHNldCB0aGlzIGRlZmF1bHQg
+YW5kIHNlbmQgb3V0IG5ldyBwYXRjaC4gIFRoYW5rcy4NCg0KVGltDQoNCj4gUmVnYXJkcywNCj4g
+Q2hyaXN0aWFuLg0KDQo+DQo+ICAgICAgIHN3aXRjaCAodWNvZGVfaWQpIHsNCj4gICAgICAgY2Fz
+ZSBBTURHUFVfVUNPREVfSURfQ1BfUEZQOg0KPiBAQCAtMTIwNSw3ICsxMjA1LDggQEAgdm9pZCBh
+bWRncHVfZ2Z4X2NwX2luaXRfbWljcm9jb2RlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0K
+PiAgICAgICAgICAgICAgIGZ3X3NpemUgPSBsZTMyX3RvX2NwdShjcF9oZHJfdjJfMC0+ZGF0YV9z
+aXplX2J5dGVzKTsNCj4gICAgICAgICAgICAgICBicmVhazsNCj4gICAgICAgZGVmYXVsdDoNCj4g
+LSAgICAgICAgICAgICBicmVhazsNCj4gKyAgICAgICAgICAgICBkZXZfZXJyKGFkZXYtPmRldiwg
+IkludmFsaWQgdWNvZGUgaWQgJXVcbiIsIHVjb2RlX2lkKTsNCj4gKyAgICAgICAgICAgICByZXR1
+cm47DQo+ICAgICAgIH0NCj4NCj4gICAgICAgaWYgKGFkZXYtPmZpcm13YXJlLmxvYWRfdHlwZSA9
+PSBBTURHUFVfRldfTE9BRF9QU1ApIHsNCg0K
