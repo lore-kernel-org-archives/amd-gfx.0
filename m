@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D8E4C07E8E
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Apr 2024 17:06:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF5F7C4345F
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Apr 2024 17:06:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CE9F113CA9;
-	Wed, 24 Apr 2024 17:06:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AC9F113C98;
+	Wed, 24 Apr 2024 17:06:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="VGftg4OP";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="i3Zm2/hV";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6073113C9C;
- Wed, 24 Apr 2024 17:06:05 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54D0C113CAD;
+ Wed, 24 Apr 2024 17:06:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1713978364; x=1714583164; i=friedrich.vock@gmx.de;
- bh=F7lHcI6ytAxOptifXGV2LrH3pzT2g/pB/L5CHP1gZyY=;
+ s=s31663417; t=1713978365; x=1714583165; i=friedrich.vock@gmx.de;
+ bh=H7VMHB2XIt5Ji+iMj0qWT7cVsj6+B4AwJL4OaG572YU=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
  References:MIME-Version:Content-Transfer-Encoding:cc:
  content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=VGftg4OP3obyxwJd76/LeBf5Bm3o1LTqBzQ/oICPIl31ip9y9XgeQpVYxXKMC9Sa
- odZfOYl5f8i3UPfWVC2vq6k9ci5j0TvsiuYuUe7IlZSWmlP0Q/AdpWt2BHEvFxgrI
- THtrYILejpVa7QEyQ+8pO9xz6zmlHkggE1yVV6iFJLNNaYZ9FsZulphsoUqhW2e7q
- kYvYthQUwGs+uxun6qw7GI1enAwcXS/s+Cj49lniQiV9ZqeOjyCg8Lpvt845CkVZb
- zfPURqMwEr8JePhbhVf33dK9Qo9SZ6VGaLbC+5w1B/69dfEvgwFxxVLFhWBsASwyC
- unAupyuEyB+FQwFUdg==
+ b=i3Zm2/hV6LZBaEUm9NEqvFvwRhsh1a9Rc5pCtKV7wIQYUOrDaVnouckFonm+4m3y
+ dtgAs72oSNMaEHlNA1ktA/Q0J6Gj7leGCKcxqSegh5sri3V2+1a1z6ZOn7b8hNwW2
+ ibHUriclGKzVDh/KqPArrfLB6TnldT+z5TLxQRgd+JdZaWONcutzBLoeHz6McyEy2
+ 0mb61tbCpJwDCgFGnb8Q/CfntsdQ+Jtpjv14T4i6vxP5BU2G5FJIqSZPMtIh+zuFw
+ ZQMJEQ21HBQ2wlKsFkRQJkCNU2PVIng5NjcCJVOr++S6DXXHR9FxPvP7bvCFGVVdA
+ zy83ymX6+FDoen8X9g==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from arch.fritz.box ([213.152.117.111]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MmULr-1sPu3744i9-00jkpc; Wed, 24
- Apr 2024 19:00:41 +0200
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MrhQ6-1sVfCx46iK-00nLKX; Wed, 24
+ Apr 2024 19:00:44 +0200
 From: Friedrich Vock <friedrich.vock@gmx.de>
 To: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
@@ -41,31 +41,31 @@ Cc: Pierre-Loup Griffais <pgriffais@valvesoftware.com>,
  Joshua Ashton <joshua@froggi.es>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
-Subject: [RFC PATCH 11/18] drm/ttm: Bump BO priority count
-Date: Wed, 24 Apr 2024 18:57:01 +0200
-Message-ID: <20240424165937.54759-12-friedrich.vock@gmx.de>
+Subject: [RFC PATCH 17/18] drm/amdgpu: Implement EVICTED_VRAM query
+Date: Wed, 24 Apr 2024 18:57:07 +0200
+Message-ID: <20240424165937.54759-18-friedrich.vock@gmx.de>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240424165937.54759-1-friedrich.vock@gmx.de>
 References: <20240424165937.54759-1-friedrich.vock@gmx.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:cJ9kEEaK/mTj0xTVPmwCLOMniFXw4SoCHSCS4Bb7Bx34TvSPLdr
- FrfIDKKi2cxt6yJOza46WDAivXuAHGPiDPxgmDLKFgWEwF3AVC5yeNlBvH17VrT7Yxm+MWr
- Xw43sl8fjOkVrXNFA5EOFN/CMWd2tPciWu58bjnmNFO0FIhvVudieIfZIKIoP5frx/8ePij
- I14dq9CbBPSOZkWfM3e9w==
-UI-OutboundReport: notjunk:1;M01:P0:IO+EGkx9vBg=;yULf8o7R9IYMVYn0Kach1q27lNR
- zlOSv1ujHzH0IP09OnSmr9I9LavJKQzlNXhN9AukBucpEw5snJU5e8PVzf9zjTn5T+Sxa/+2V
- YS1s96hSeRCLzwxfC8tf+pG5Q8ihgQfuy2H+7t8H5jAoajGZE3WG/AfV3h0mAu8jqAgKaQMZ6
- pHu484Wk0ze4vFxgAE2C46HcjawLo++TCxOQwHK2wa7V2im6hu84RC8FOUxxvCxzZcmOmRNzZ
- nw2htkhGvy8lP5YF4LQ33NV/ajnu+6AP5spqqDQfEYd1xRoG/VWFafhg3dUvZE/01uU2ptqzx
- +Ad9LiN1IcW99oqGVtA+cQKxONekxFqP/cF9GES2Pu007Ob9rD5IaL9r1IVDMKqiC4GCrR45u
- BxpOcIwfexh063J3/6/MGXg7YIoFUjTYOTZjMFjpsopd5tLtc4/Berc/DG4EXiSHikU48rhVa
- wHCk5NbVH+EQfJPjKHZrVty9gIdSWMMLC6MZZfSVLhILcMG2FZjLFpNwn0+hQ07foPbz7nJxL
- xCW7K1FNorr74zpMnSlndJRvMfDwhuM6nZ7P6OY0zJ9Eg3BIz4f1WUFhb7Lyo5v/3poeSiLPB
- eNhDNFa7CDWkQ2a7cUDaQ+oohS80gPR5kd6N5OWnHPr9/XnMiiQuzFEUiDAtV25c4g1RFyIuf
- bDQ+1A4rVq+ofRDV2ef53/TL54fOVwK8ze0k3yDYdufNi5ogy2WBcFGPMwkZgIqueE5PGx/wG
- wnlZv9/P6lyr5xWeeypUj/2lcYzOZ5E0FuH6wOhBU6gyerEggfLwDeGpB6CavfVsotIQMtBNq
- QpcZpR9fI3pUJkK2tOztfYgY9wq3OledbfGEpsJ5gNzRI=
+X-Provags-ID: V03:K1:5Vv+AbzY2a6d8vtzoZ+0TUGOmyjxTopNk7iJ4VOIoTC6AReH5ye
+ 4UrraQ0dfRdRaFpy4+95K76+fMzW5SurymFZrKBscBMvydio7jq48JxCXVyqE0UTsmav65h
+ oZ4XzahI3J5jwgpLkbZZC4oXQDYkyb7Kgy/fi3/bgGhaOLtHsLMF22a2YByzwJfsm1TCLBU
+ e1ZSrSmUHkMSyftiJwuOA==
+UI-OutboundReport: notjunk:1;M01:P0:nNtNWCuqJpI=;kQWZfBQx4mRjGJegqOGyZkGhh6B
+ n+ci23YNLHk77N82aduDzRARQmJG+8xkbHXPb22ALkKetFDmYcEjOf+MpDrzlwu6dw38E7xwH
+ VZOY5MkZloP+8yyDb9y2gV2TORnbT9gWKaLycgGn6efPtB+sP58XlXeZpncHRsPbIuo375yW/
+ D380TpWar3z0iHv7+PwzjifuaI4AZz2dKDmnAtIPVybVpBDtcPOiCn4rW18qh8sgLzGGn+z9b
+ G6EG2u3WjyxiMCBqhs6Foa1+6GGJjiGx54rg9S2KwWC6C/fuUr4HoTnu8Q4VKAVsaRFOxCSjx
+ HB7Npi/eJD9F24UHQ4uK0hNqLTQsiSCdhU6zlWz/ZsOaXdyJcoS6aKMZRz8YAix6Ze2zb//5X
+ zg7/C3t+fSd8aDxtf2Q8Z7CAinY7tgH/dwniM/bjQ0s64iqdlx24OB73QSOcW8C3Xj5fE4JMm
+ izMKyX5/IiIv6Z7iHHYnvQalNgnXdCIaAEKfMryBCR3UdEURWCHAGihKlYsEtAKFO8znq4EUX
+ gNbHmiOjYzH95BUq1AMnjRjlLam/eyOQ8o7VrQlr/1z7sc3FgFJdT9e/9MReUHosdWvXQGu0+
+ c0eibzQfAxD0WMthyFqQyQPu5jWzbDrHuEM3yuan/QndVWg1KXBBoplhDwF+XmbId0U9OX9YU
+ zRjbz/53RQe6JADSHO6EY8Q0tAMufs2wwgEdzUwgj3+qpzIdzF1qfi+oZ/s4j6j0oz3L7g75o
+ KF3F98JeUiRVvuBOmTA6h+alEcjFm+Tijslv59pNp2zIn4XWwZNPgp7ZUDVgPf5OhtP/A5F2w
+ QwaB74PzESh1bv7GDrvTAI6poNN9DcTDMj5vyrtiJ7j2Y=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,28 +80,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For adjustable priorities by userspace, it is nice to have a bit more
-granularity.
+Used by userspace to gauge the severity of memory overcommit and make
+prioritization decisions based on it.
+
+Used by userspace to gauge the severity of memory overcommit and make
+prioritization decisions based on it.
 
 Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
 =2D--
- include/drm/ttm/ttm_resource.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 3 +++
+ include/uapi/drm/amdgpu_drm.h           | 2 ++
+ 2 files changed, 5 insertions(+)
 
-diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource=
-.h
-index 7d1ce059c8805..241643447488a 100644
-=2D-- a/include/drm/ttm/ttm_resource.h
-+++ b/include/drm/ttm/ttm_resource.h
-@@ -35,7 +35,7 @@
- #include <drm/ttm/ttm_caching.h>
- #include <drm/ttm/ttm_kmap_iter.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_kms.c
+index 924baf58e3226..8cba30144bac6 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1246,6 +1246,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *=
+data, struct drm_file *filp)
+ 		return copy_to_user(out, &gpuvm_fault,
+ 				    min((size_t)size, sizeof(gpuvm_fault))) ? -EFAULT : 0;
+ 	}
++	case AMDGPU_INFO_EVICTED_VRAM:
++		ui64 =3D ttm_resource_manager_evicted_bytes(&adev->mman.vram_mgr.manage=
+r);
++		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
+ 	default:
+ 		DRM_DEBUG_KMS("Invalid request %d\n", info->query);
+ 		return -EINVAL;
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 53552dd489b9b..5d04719386686 100644
+=2D-- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -920,6 +920,8 @@ struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
+ #define AMDGPU_INFO_MAX_IBS			0x22
+ /* query last page fault info */
+ #define AMDGPU_INFO_GPUVM_FAULT			0x23
++/* query size of evicted vram allocations */
++#define AMDGPU_INFO_EVICTED_VRAM                0x24
 
--#define TTM_MAX_BO_PRIORITY	4U
-+#define TTM_MAX_BO_PRIORITY	8U
- #define TTM_NUM_MEM_TYPES 8
-
- struct ttm_device;
+ #define AMDGPU_INFO_MMR_SE_INDEX_SHIFT	0
+ #define AMDGPU_INFO_MMR_SE_INDEX_MASK	0xff
 =2D-
 2.44.0
 
