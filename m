@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADA99C10F15
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Apr 2024 17:01:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 190C5C25B10
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Apr 2024 17:01:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF9A6113CB8;
-	Wed, 24 Apr 2024 17:01:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C1E9113C99;
+	Wed, 24 Apr 2024 17:01:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="ACibeKm1";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="awFamVbL";
 	dkim-atps=neutral
 Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B69F113ABC;
- Wed, 24 Apr 2024 17:00:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 246A2113C8E;
+ Wed, 24 Apr 2024 17:00:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1713978038; x=1714582838; i=friedrich.vock@gmx.de;
- bh=Z3bdehzsZZgfZDz/cFDr/Lcux0c33ONrf5gsVmSqteU=;
+ s=s31663417; t=1713978042; x=1714582842; i=friedrich.vock@gmx.de;
+ bh=v1EbVgOMiqUXagB/y/cMZLK1xcQnLlZIpQIszhLMlrk=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
  References:MIME-Version:Content-Transfer-Encoding:cc:
  content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=ACibeKm1K+52KcuFLOjNZdsdKCy25tsqjeTSPDfoIJ5wxDft3dd5bveq6LkFnLbh
- NLehqmoypqYXT7CYlwoAHzQZucl8sGagEFCZ0XSSjcNbXmPwZwTNUdBbUvWPEgk1e
- vq92SPSd4l8Nywbecz4IjSMVbTDBaVejLSqjQz5+2MuM7S3T4BUZFuL/u+iYn93PR
- QPKdJ13YG7qEoFi7DKCwegL7aGNQLUWS9hptIlFtkjFGzemOu20rPdkzRPtCHfxRi
- B2Ygfr8Hp7m/IHuDEMpIE3BKPLNNOA4e5RwiVoRvGgu+SVQjtHYFKDVOfunf+lehf
- zNBxVdFGDzOAp8+GkA==
+ b=awFamVbL0koHnPaIicXmtGcKH2CCwscGO3BadBsMDT+eh145T2I6vF0GqqXTyy0N
+ or6g7jeqZwX3qDkr4mtPLqNcx58iFeifO3VkrQMztHw0+lIcLzzjXitv8Wcqd8//L
+ /+0Fx/RFivn86YLET7HCBywcSPS127AUGDQ6oDHH4cKCaaVf1E+QpHjEdEK8fsTlE
+ sUTlsKw2DSjCkOwYJZrwpy0QmRFnBDCYwetiQXHHfz6AbZLe9pMebwPYlF+3vesNf
+ TxeZqZKM40KdX19/YGcaV05jJiI9tXZCzBXzm/ib5EqUY47Oo9//UOWrsVEZudYWx
+ k2m9oSIgn9Oo2msv+g==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from arch.fritz.box ([213.152.117.111]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MSt8W-1s7xBw06cY-00T3Wx; Wed, 24
- Apr 2024 19:00:38 +0200
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MaJ7v-1sDism43Mr-00VXIS; Wed, 24
+ Apr 2024 19:00:42 +0200
 From: Friedrich Vock <friedrich.vock@gmx.de>
 To: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
@@ -41,31 +41,31 @@ Cc: Pierre-Loup Griffais <pgriffais@valvesoftware.com>,
  Joshua Ashton <joshua@froggi.es>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
-Subject: [RFC PATCH 05/18] drm/ttm: Add option to evict no BOs in operation
-Date: Wed, 24 Apr 2024 18:56:55 +0200
-Message-ID: <20240424165937.54759-6-friedrich.vock@gmx.de>
+Subject: [RFC PATCH 13/18] drm/ttm: Implement ttm_bo_update_priority
+Date: Wed, 24 Apr 2024 18:57:03 +0200
+Message-ID: <20240424165937.54759-14-friedrich.vock@gmx.de>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240424165937.54759-1-friedrich.vock@gmx.de>
 References: <20240424165937.54759-1-friedrich.vock@gmx.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:szFxOvvpkj8qn75oReT4WS50CZIKWQhEQsbdmwucQspefqrNYrx
- TA8/CsBWFtZaIQvXdkoBbo9cxRC1dg/L0iQddXhdPr5XAJZPE4+/JAcn1U53/sEkpvMm/7p
- aXEJEHPTv2nlSbRdZ6ftsEDD0rahLKio2r3CO1OqyFpVd8nZkgn/fp6F/1ba/7DM6kmQYU+
- wZSxK0BFI+ukHJXwEydQg==
-UI-OutboundReport: notjunk:1;M01:P0:KKdoSho9HZ8=;sjG+9C26e/MIOfYwDkGlF1s8LaV
- RFBlFzeYQLQX1NBQvo62PgVKDpaQpzzC+eF03B78eJte/gSJN3Xd0OzIFJSizCJNNcy0Ql2dJ
- pYFTJTHwi0isD8GXeP/8YWl8fo/XNTIToWrQXvfJkRPmCZkDiq8boU+aMb6fT+vGsMWabzF10
- j13KC3OtX6SWS2/hxKlh9FrVEe97HegsN4tqkn2ZsLErJv+uD1gMub27LA3PhnFK1i2loXV9s
- ZX9DgrFBZvlG7zIaMFDchNMVAqXGEPX4qTbKxWQteqUe/y2xOp6u9IBFL0Sl7v4HhB72x72EC
- 1h9RlYOiZpeFjb3snJNFgUFH6jS1oDvmzD6Yz7rVBSjrwJ9mAiHHC4ZRb72kOLsx/9OHrbyOQ
- gThLT5CmH4ZHRe2todHFoxCauXiQ4GO3MMtFhpacBHKSirE3oRf/TUH90dd9/1i/HXvyHOmsi
- CVthrFRcmghGB/wY6FPfJvf4syikbvxeMgMSAsVugTRQk8awJXvzOo3H5LCbHEY+70xZpRcb+
- dky1+l2oVvD2atYpk/YvFhpT7XTgxESovuTyJMuk+Tl7mOgKB5WqI7FWNPodYXSnSG+KXYD4k
- 5L/uhMKSU9UN/apkSFbvdQ+pbLlO16ZF/sh/UVa/fwCaiLJKHitbXoQHjm4BnhhIKbJKAP3Mm
- /UTfAZ44dqSgDDC23SdngZfrbCZUUsdr8wpTuzvJKljVq7tiaMAYO+C00CyzoYr110eYST5c+
- pIl2GqMTGZoEYw6pEVpuYgLQwuJoy7rSXQCrvjTmkfat8UJCepk0mmAtOBBNghHIhBiRoZt3v
- D76RVW/iKF9y0w1OPe18YbL6bHdud95+hqIxZn5snphLU=
+X-Provags-ID: V03:K1:ZAaSNzUaY+QqjHlYyHPyUjkrF6rMvq32hm+AlziChmc6KNewZ4F
+ YliItUwcoXXaBfcGbYDTaZPvG1KYZJkisxIidetdfERnH+DnVtQCJFIo3zW/MSVjvGuQFEw
+ Z9i/UNAlJDN4A0MhwCmU2GX5K04aXll9top6g7sg+dpJJ8NtYA/QKXdpsWA6/6mkYKqt8Yh
+ HbanuTec3uaYkcADhOQ0A==
+UI-OutboundReport: notjunk:1;M01:P0:Rbh3TRHnxbI=;htBDbhryNDhyJ955ohgsaqwDOTY
+ mhD+hbGC6gJqWwIW6qSRR47BocSWlSgHqpKyMicKw0JBU0QEwYTmgzjEx+ayIueu4TJBx42iY
+ TCqs/LKLMVJ0Rc0yrU7bZWBRABbk/QnXqYI2meWejvtvsAfGdTGqRUEsm9L7HNkmyASyw8If8
+ Drrj38rYvlQUPAjM4mlftqxPglir+BuLyGQDR0iLcX0JSEqhAVy1B0A2KQy2SBkVtkzwlQvJ6
+ Og1h814KqR0nLcYTSx0c8O8bB9rU3nQ6sgItz+cHZOSsdQ8br+kKA8VX65eGcy+lt0UcFB+ek
+ Ndj+0/mXvGM/AxMmE2V1falVVMIRFkz3I5E8u7JbRaYwLrTwr1MLklemkiQTmue5EatSdxpvj
+ H30DPPmZXcY5TNcVgy2vaW/GvU2DlNf1bRJs+WU8avrcNelv3dxamqrm2uh0qNJfUsVY/17Ku
+ jUOVpvspiHfURgjvktTw0i1EcN8RMqUH4u4aUNLLMH59HI0B3nAxZMPPpilYdG4XIwc2wsik7
+ 9JJVx0H9E20tT/2CvYrXOGYpUxzzhvymBk3PweM1PYauROydq/rGW8wCxlB5TU2nTQBdO4mxG
+ glTwuKokvKwwCI/k66Ngwk+DQtmG9vXf6WCM6W1ryqhcnQSp9Zg6Hf6+22gTnd7bkMHzWFqSp
+ B9x6E+OY/dhOAUDMLpd9nwxBlDJAARlPKfI3xY4eXRRPHsLXWw8gSGTzwgBTxLH0TWg6GaCda
+ u1xceh4vCFjJHfai1aLdy1oYqIx3KskJbs+n8vHqSX7RhNtI0hqgS4QC8RmPc5F6izAP6l3et
+ 1HLzHLYQReNCvGnq+V6jChh63CND2drspEw7qddOGPMBM=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,50 +80,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When undoing evictions because of decreased memory pressure, it makes no
-sense to try evicting other buffers.
+Used to dynamically adjust priorities of buffers at runtime, to react to
+changes in memory pressure/usage patterns.
 
 Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
 =2D--
- drivers/gpu/drm/ttm/ttm_bo.c | 2 ++
- include/drm/ttm/ttm_bo.h     | 2 ++
- 2 files changed, 4 insertions(+)
+ drivers/gpu/drm/ttm/ttm_bo.c | 17 +++++++++++++++++
+ include/drm/ttm/ttm_bo.h     |  2 ++
+ 2 files changed, 19 insertions(+)
 
 diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 9a0efbf79316c..3b89fabc2f00a 100644
+index eae54cd4a7ce9..6ac939c58a6b8 100644
 =2D-- a/drivers/gpu/drm/ttm/ttm_bo.c
 +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -764,6 +764,8 @@ static int ttm_bo_mem_force_space(struct ttm_buffer_ob=
-ject *bo,
- 			break;
- 		if (unlikely(ret !=3D -ENOSPC))
- 			return ret;
-+		if (ctx->no_evict)
-+			return -ENOSPC;
- 		ret =3D ttm_mem_evict_first(bdev, man, place, ctx,
- 					  ticket);
- 		if (unlikely(ret !=3D 0))
+@@ -112,6 +112,23 @@ void ttm_bo_set_bulk_move(struct ttm_buffer_object *b=
+o,
+ }
+ EXPORT_SYMBOL(ttm_bo_set_bulk_move);
+
++void ttm_bo_update_priority(struct ttm_buffer_object *bo, unsigned int ne=
+w_prio)
++{
++	struct ttm_resource_manager *man;
++
++	if (!bo->resource)
++		return;
++
++	man =3D ttm_manager_type(bo->bdev, bo->resource->mem_type);
++
++	spin_lock(&bo->bdev->lru_lock);
++	ttm_resource_del_bulk_move(bo->resource, bo);
++	bo->priority =3D new_prio;
++	ttm_resource_add_bulk_move(bo->resource, bo);
++	spin_unlock(&bo->bdev->lru_lock);
++}
++EXPORT_SYMBOL(ttm_bo_update_priority);
++
+ static int ttm_bo_handle_move_mem(struct ttm_buffer_object *bo,
+ 				  struct ttm_resource *mem, bool evict,
+ 				  struct ttm_operation_ctx *ctx,
 diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index 8a1a29c6fbc50..a8f21092403d6 100644
+index 91299a3b6fcfa..51040bc443ea0 100644
 =2D-- a/include/drm/ttm/ttm_bo.h
 +++ b/include/drm/ttm/ttm_bo.h
-@@ -192,6 +192,7 @@ struct ttm_operation_ctx {
- 	bool gfp_retry_mayfail;
- 	bool allow_res_evict;
- 	bool force_alloc;
-+	bool no_evict;
- 	struct dma_resv *resv;
- 	uint64_t bytes_moved;
- };
-@@ -358,6 +359,7 @@ static inline void *ttm_kmap_obj_virtual(struct ttm_bo=
+@@ -359,6 +359,8 @@ static inline void *ttm_kmap_obj_virtual(struct ttm_bo=
 _kmap_obj *map,
  	return map->virtual;
  }
 
-+
++void ttm_bo_update_priority(struct ttm_buffer_object *bo,
++			    unsigned int new_prio);
+
  int ttm_bo_wait_ctx(struct ttm_buffer_object *bo,
  		    struct ttm_operation_ctx *ctx);
- int ttm_bo_validate(struct ttm_buffer_object *bo,
 =2D-
 2.44.0
 
