@@ -4,123 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6E62C10F1A
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Apr 2024 02:50:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B9BBC4345F
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Apr 2024 03:34:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6955113792;
-	Wed, 24 Apr 2024 02:50:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C11C010FAAA;
+	Wed, 24 Apr 2024 03:34:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Xt54IQtM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DYv/S1Vd";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2041.outbound.protection.outlook.com [40.107.93.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 561F911378E
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Apr 2024 02:50:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g+qitzVH8fxVKILrwlTKhN3D09h6NWwb2OsAzc2F0T4MQbHVmRQxx6iv3Q1JD2NLdwaPBilNOkChyW+4LOW6SfyNaHpIQwvBZCduOwZ6gy+njcGgcmG1IBXTyhl1u/0WK2t9b5/zN0cX1QBvbmb7KBxwCMcnye4CKhBUFGvAQX695/5q+h5Nhflma4MDF0CUlq0OWm4wmEw/BTgrNFGEPhC3qJj72yjNz4lr88tsdEoJ4Yba+lGWDA/DmSHa8aEiamunmuvymIK5nKPNZiwDKGsILbXLmgnA9sFw8rQp9GWhyCnUTm3hf8lNKBBov3txHGkvwv/3hJYvPIYLipwWHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Si+ZsP/Sig062h1pYETn0VT/5TofTBdxCa9ooswB0tY=;
- b=Lamchotz+khNh2qi/MSID5MW8OZd1Yo2sdtzzqIHgP51a+76nPYfT3oSPNV/Xoc2E/Oo6GTEjiUDIL1ww7c82RGmCD+yM2zZxqClCTRcqexlQCEzttMjkleHCgRU/a12Jw46NEkWwetaik4wmu5Ct3qoHgb1Zh3tpLRsXwVxVh1mWNbj6Epdz5mQnVyrIWfXThslMzI9+dzMTuqbpn4Kx9d8qwybojS0WbkhkBShVsDRFWIExUb4lF+GnbwqZ2wTPGTUP84MlDHUQNcNBqcBH7OODXURXce3EA+m/DArXLqQVfA4DYTtZt4UJF+iPAtZFj11mU2srb89cUBOY1D2yA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Si+ZsP/Sig062h1pYETn0VT/5TofTBdxCa9ooswB0tY=;
- b=Xt54IQtMUIcGzkGM2hOEzazpIaNdi9LegMoCIARIBYaGa0tZKHuQZAGNm0n2+Pj6lTFrKMxwvstfuaSvKXD1G1Bhu/TYZZgwc86k8OCl+xmksrIicTba086S7BllCcmTezJj3NoUzmdsFJ7fMRk/igmfwFKHJxmFr/EdvcH8dJQ=
-Received: from BL0PR01CA0008.prod.exchangelabs.com (2603:10b6:208:71::21) by
- DS0PR12MB9421.namprd12.prod.outlook.com (2603:10b6:8:1a1::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7409.46; Wed, 24 Apr 2024 02:50:25 +0000
-Received: from BN3PEPF0000B06A.namprd21.prod.outlook.com
- (2603:10b6:208:71:cafe::28) by BL0PR01CA0008.outlook.office365.com
- (2603:10b6:208:71::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.34 via Frontend
- Transport; Wed, 24 Apr 2024 02:50:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN3PEPF0000B06A.mail.protection.outlook.com (10.167.243.69) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7519.0 via Frontend Transport; Wed, 24 Apr 2024 02:50:25 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 23 Apr
- 2024 21:50:24 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 23 Apr
- 2024 21:50:23 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 23 Apr 2024 21:50:16 -0500
-From: <jesse.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- <tim.huang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>, Jesse Zhang
- <Jesse.Zhang@amd.com>
-Subject: [PATCH 4/4] drm/amdgpu: Using uninitialized value *size when calling
- amdgpu_vce_cs_reloc
-Date: Wed, 24 Apr 2024 10:50:16 +0800
-Message-ID: <20240424025016.727595-1-jesse.zhang@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89A9510FAAA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Apr 2024 03:34:07 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-2a564ca6f67so5322186a91.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Apr 2024 20:34:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1713929647; x=1714534447; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=23xrwg+BavifwBEi61N1w1mXaQsBlO2gH0x7DPL10J4=;
+ b=DYv/S1VdpoMRi4K6NmLjID9JBqyephnJvc1O6ft72BQ2fvE1FSt35F8LaKZrslkCzE
+ U5aS7XmvfozjdMAKjKETRhbAQjJLSOjRI/YuaZxE/Qz+kSgyZoe7u6HmwcMecnL9ncHR
+ BV2pWY8XhC00cRTI3xKNiZRjkf9molkJSyxWY9oJ8QuYoZgM3UPANwSpoWj13Met3bWA
+ Nq6V7ieNHocwJ9MSDV5gdVwmImUf04gf66pUsjjQUx4MRy3Y5RJ2Qc/WcY6hhQfE33/0
+ TXzLqo8CyNdoaydQxlCX/lS7b5jYA1/yGOgpGajGIYxBFfYVa41gf7JP6kAlb0it62QA
+ nKAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1713929647; x=1714534447;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=23xrwg+BavifwBEi61N1w1mXaQsBlO2gH0x7DPL10J4=;
+ b=Rp5+YRnLX5ygqn8nVeEbGwmaRTXrKWnlAgGIMDY1BEhfSeIfheX+br6/lDRLx9mUyz
+ BofI+31qW+ALBqyvnl8KcIYy7+/qJTdiV5TsVWCT0iSi3ZXwvEgqiYzzbEUq+Sw/SfIK
+ W0RQHzxCHluhNkDI34s7offyIqx5vYJxPUT5a0bEraC9ehW1/vpYMkE6uMUl7UxhOObV
+ f0k/nr44iUqvE5FXwY7ziU2Z48GyqsSOQGCuwZVHWS/U+HWuAamcqAyY63efetox+H85
+ U4K2CwDTzmb9lxIO2P0+S3seyEhyWLmQ+/Ec+Ngcef9tQ+HlMSCnOKUmHdv1nT1jVF4n
+ SNTw==
+X-Gm-Message-State: AOJu0YwDHXnbU2hy0nAAIotOrn7sHPR3Dop455h9RuBniQILt7olHhRj
+ 4t8V3LCEvjB2jWFyPe3R6c86/QYtZlyf4KduWEWRTo5cebefjjmMJfURKyUkfeBjn6DPzlXmdSi
+ Oet5Oq3FUwhufjEqXeDzzkxBai1M=
+X-Google-Smtp-Source: AGHT+IEqrtkqWijtvS+tHdoYvVGtqknFeCqxzAH2Jykn9uGwrE9XN4sfuZdBfExVS74PpHLKVcyBHvGtAJcbZQetRFs=
+X-Received: by 2002:a17:90a:f489:b0:2ac:30ac:be4d with SMTP id
+ bx9-20020a17090af48900b002ac30acbe4dmr1079920pjb.30.1713929646792; Tue, 23
+ Apr 2024 20:34:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: jesse.zhang@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06A:EE_|DS0PR12MB9421:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe58cdbc-656e-4ca9-a481-08dc64094ace
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?sATuAs2wePHP+/RJf/diXh9ZtsmxTrmHA4zpdm+4DKJ9lTQFnUtMyCtyfi3q?=
- =?us-ascii?Q?SoCZDYeHxLkuC90HhydbQ+clM/hYX5xq0oaFVEy2aEVEJ7ayJRs/pTi+q8sy?=
- =?us-ascii?Q?3Lo/L5Y0JtbxZJRHOZqjVHGBS0GSIExzoNvsftey68ni7+scBvMbjGlMg0mD?=
- =?us-ascii?Q?Jglf/fXntICoG6i+78BYgZ8o76JjNFsQ5PrzVA8QF8Eh/mXMV6ii1bIIHR1K?=
- =?us-ascii?Q?6g45GMqUQpRCjnzBLlVn0r0i23bd0IMsXEoeTtOj51biB9baTJ/hY15myCPF?=
- =?us-ascii?Q?+eQY+6SVirgVu6Tzm8/uqhrNNbyBdfl4kuAvqmtOgpJVPI0/T1dLvPs9EFQ/?=
- =?us-ascii?Q?xns5RQ+Gnyh0ZnShrVxZ2RfrKMN+vi3gjWl0YDLt6vah5vejJmwmLwQAXnYP?=
- =?us-ascii?Q?4+gPmR2thju6rAI4Q7y3GFO82KnrtNm69r/IBPI2mgpRKGjbsIziJKsxls7i?=
- =?us-ascii?Q?z2o9jjePhPRZ1lLDZ3+hSdu03CY0rLJFe4ypmhkTo1g09EGaaVfHepyBI51P?=
- =?us-ascii?Q?uOdNMKqevk83IKCPJqDjYyoYiDMLt+FFKoVW9ERUMzIit6aLemrG+2keygiC?=
- =?us-ascii?Q?k8MCTeWDJvBWX9Hctip98QxFTyLY10WggjBifC7gFM5L1Hd4ipUgkGOPG53n?=
- =?us-ascii?Q?0jXWcq7zDvv+U0QmfhIVBonz/6W/kMrBJwRxFpdFxpJblgYRK4EpKaOe30wG?=
- =?us-ascii?Q?0iB7FDg3uPb/4VQeI2Cg7yreEYjcX+cWB1EBd+xyaTogUr8L38ywcqlF4pze?=
- =?us-ascii?Q?Qyl3bznh59Cb3dmubP0LRWU3jVxPzsIM/0wBsVBO0lhs5teFSpcG14PVCvCJ?=
- =?us-ascii?Q?91DVB+n4b0/LneS8awrrup5snvmBndWEHVsbOF47xWntjTk3O+bqTwRx5cdK?=
- =?us-ascii?Q?EYRJ1VAgCzXR8/bm4/0yaMmncppEHDMMz8l2ycBjNUg/KAbrPRULGSLqx0AA?=
- =?us-ascii?Q?4G+CkgMGbpRKB3XVDmNQbsmAZZvek4qfo/2XgoZV8gJ6bgOOiG1iZg2P/roB?=
- =?us-ascii?Q?MQbhQtT9+nlsdTo4jUKn7IuGuiBbPezhOa5/pVRrtih+vn/AcUYR3ccil7v4?=
- =?us-ascii?Q?23PI715Xep36UcJlITpSd20A9RRAF6nQAh6mvfHzDIr1Piar+pLcc9YI7QHW?=
- =?us-ascii?Q?qxW5+jt4/KVmrSkpo9vwa0QR8OorF440Jg6aHkQoaNq2aST895ZqBjcdLWPX?=
- =?us-ascii?Q?yp76rpKZYhI23ORZkiiysN6gu7F22xPeGEOag6T4xVcA279JJXavAQGr6oEX?=
- =?us-ascii?Q?Zy/hrcn5IS4jZST4qeu93O1QCbrW0KCFdE77HgbNR6mCr30/pl4M5DjZr6ZX?=
- =?us-ascii?Q?RZRo4emf/2N17goHwkvlx0Iy2gUgkdAkNd96mConQ4L3BR3WYyJvrp/OGB+M?=
- =?us-ascii?Q?phRuTlo=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(36860700004)(82310400014)(1800799015); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2024 02:50:25.1838 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe58cdbc-656e-4ca9-a481-08dc64094ace
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B06A.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9421
+References: <20240424024914.727436-1-jesse.zhang@amd.com>
+In-Reply-To: <20240424024914.727436-1-jesse.zhang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 23 Apr 2024 23:33:54 -0400
+Message-ID: <CADnq5_NGWy0rq3DBxd0V8_cToRs5yaTAsNwvDE5pFnXM0SV17Q@mail.gmail.com>
+Subject: Re: [PATCH 1/4] drm/amdgpu: add check before free wb entry
+To: jesse.zhang@amd.com
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian Koenig <christian.koenig@amd.com>, tim.huang@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,28 +76,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jesse Zhang <jesse.zhang@amd.com>
+On Tue, Apr 23, 2024 at 11:27=E2=80=AFPM <jesse.zhang@amd.com> wrote:
+>
+> From: Jesse Zhang <jesse.zhang@amd.com>
+>
+> check if ring is not mes queue before free wb entry.
 
-Initialize the size before calling amdgpu_vce_cs_reloc, such as case 0x03000001.
+Minor clarification to the commit text:
 
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Check if ring is not a mes queue before freeing the wb entry because we onl=
+y
+allocate a wb entry when it's not a mes queue.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-index 59acf424a078..60d97cd14855 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-@@ -742,7 +742,7 @@ int amdgpu_vce_ring_parse_cs(struct amdgpu_cs_parser *p,
- 	uint32_t destroyed = 0;
- 	uint32_t created = 0;
- 	uint32_t allocated = 0;
--	uint32_t tmp, handle = 0;
-+	uint32_t tmp = 0, handle = 0;
- 	uint32_t *size = &tmp;
- 	unsigned int idx;
- 	int i, r = 0;
--- 
-2.25.1
+With that fixed, the patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
+
+>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 3 ++-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 3 ++-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c | 3 ++-
+>  3 files changed, 6 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v5_0.c
+> index 45a2d0a5a2d7..b7d33d78bce0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> @@ -999,7 +999,8 @@ static int sdma_v5_0_ring_test_ring(struct amdgpu_rin=
+g *ring)
+>         r =3D amdgpu_ring_alloc(ring, 20);
+>         if (r) {
+>                 DRM_ERROR("amdgpu: dma failed to lock ring %d (%d).\n", r=
+ing->idx, r);
+> -               amdgpu_device_wb_free(adev, index);
+> +               if (!ring->is_mes_queue)
+> +                       amdgpu_device_wb_free(adev, index);
+>                 return r;
+>         }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v5_2.c
+> index 43e64b2da575..cc9e961f0078 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> @@ -839,7 +839,8 @@ static int sdma_v5_2_ring_test_ring(struct amdgpu_rin=
+g *ring)
+>         r =3D amdgpu_ring_alloc(ring, 20);
+>         if (r) {
+>                 DRM_ERROR("amdgpu: dma failed to lock ring %d (%d).\n", r=
+ing->idx, r);
+> -               amdgpu_device_wb_free(adev, index);
+> +               if (!ring->is_mes_queue)
+> +                       amdgpu_device_wb_free(adev, index);
+>                 return r;
+>         }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v6_0.c
+> index 1f4877195213..c833b6b8373b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> @@ -861,7 +861,8 @@ static int sdma_v6_0_ring_test_ring(struct amdgpu_rin=
+g *ring)
+>         r =3D amdgpu_ring_alloc(ring, 5);
+>         if (r) {
+>                 DRM_ERROR("amdgpu: dma failed to lock ring %d (%d).\n", r=
+ing->idx, r);
+> -               amdgpu_device_wb_free(adev, index);
+> +               if (!ring->is_mes_queue)
+> +                       amdgpu_device_wb_free(adev, index);
+>                 return r;
+>         }
+>
+> --
+> 2.25.1
+>
