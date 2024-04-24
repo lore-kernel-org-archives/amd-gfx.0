@@ -4,82 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06562C10F1A
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Apr 2024 08:11:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21991C4345F
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Apr 2024 08:11:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F68211A27D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFCA411A27E;
 	Thu, 25 Apr 2024 08:11:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xRTRROsU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WnRxaVXR";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0024F10F9AF
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Apr 2024 13:39:10 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-41b2119da94so1864935e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Apr 2024 06:39:10 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 672DC10F15D;
+ Wed, 24 Apr 2024 16:12:00 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-346359c8785so5866440f8f.0; 
+ Wed, 24 Apr 2024 09:12:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713965949; x=1714570749; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=eIDjR8nmsolOxVRznr4LV9PEh0hWdtOUeRoonddM+RQ=;
- b=xRTRROsUgQeECsYTTq9oKBkPs0xH5BqLp1XgagpEHu8TPZkSwnhyuyjH4syVmdhav+
- vmj3eqTW8NGEevu8Nk3cIEDqFnnT9+0CKx6KYpxvb6DiNothYQtr1Beq7gWGKEJoiMn3
- ogm1mL2kYpj5pEFzm9IBWO5+U9m8L+Bsy/j36iH8qadBvnlZWTS3FdFw6y2W9McQo9N4
- rKqqQCiro+HsVH/Vr3PYc9Rxb6HJ/B69UM2JTR8AQ7UziJk0kR1csy/AJ5XgxKlVAM5o
- WbJgauWruEAd5gqPwtjcyR8+Z2ngulr4T5eXA+rCj2CmOF2va/WguvT6CDV8utHv61JS
- ejdA==
+ d=gmail.com; s=20230601; t=1713975119; x=1714579919; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=l7fwhYCByqsyxtduNgA8zx5Qp4wn8aktE/VYg2R/KyU=;
+ b=WnRxaVXRwzTL2vzx2trbBtOaSY8zPIGsBCgGYtevakZKntlaMTN9AnqWFiWE5kD19g
+ mQMZRRkjWdjJbJZL6mlfrcpnIZrKXzc1h/0z47J1AA0W03X+N+tTKa6N+hn0TAfCLF7k
+ LTgTyhfmAG4RxYT+vzVE4jSqsmq1CoZQ3QBZcVo+JbcGe+zLSzNKvlqtT++CuXH1LteP
+ nsNgs+ouE8WeXP19f2gdCAtP1RILf8iiTxqYvAWadfDxc5rpjPgEfyKDp0D2MFtVR8Wu
+ xZmDb4q0lA08iJM4826m8RBuxNsn7wJo9dUCkL8pft/zQu/QM8zOIde4PnEbNe0Gav91
+ SvDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713965949; x=1714570749;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=eIDjR8nmsolOxVRznr4LV9PEh0hWdtOUeRoonddM+RQ=;
- b=CHmbtskaTkU+WTTLiqxzK6PPz4kCR9Cz8kCexLqUVJithEr85V00xCsbrBgu/wefHx
- KtzZcSRGL0X0WSrRGYsMBy3RXgOhArkOvXWtUkjrZdIAIMFmD9lyudL9v18WE7n6RrJt
- a7n+h+WF1NHIZQUCQpueB/WWMuckETqAW8yypOr7QK1npgs7/2nuNKil4Er68pg1NDer
- WX2v/rRRLoVScvdhJ9uXXBPwLzmUVJ0aqwg3ypy0vouIVngF3Ez+ZwOaczOTzaggO4aQ
- HDOtV/itG1LYaKWRIalKIeuW6Mh4wqzssjPwXP9LGfBQ3as8LRl1g5y4R6TfPmQ7VueK
- 1Gxw==
+ d=1e100.net; s=20230601; t=1713975119; x=1714579919;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=l7fwhYCByqsyxtduNgA8zx5Qp4wn8aktE/VYg2R/KyU=;
+ b=sI4QlHOQFI4uTdD43Fcz/gpRwWQAUvt7eqyxc8d9zTfoKuyg2zkBtsG612ZNCqdrDV
+ Dvd1Z/lEZlTi/KckSy0jovXEmjoeSp3JSz8ZZuDGQ+GrVbDdNnnMKbd6yKGz/KGALejd
+ K8NatnWBgOa2Xn0BCoXLCRkVKs5Qh64SolAh0nR21d9qGzH22oL4TNTaNjh+jMACLZfw
+ AAfrG40wQznoDcH4D8FhH9JnCnDnMl7CZUdAHDo7p1SJ4sz9QJ7hYrmFI4pf3g+c/aZn
+ fWDr6ar0sS9QTFUKrpzFidZLT71/MvdDfjcsnSH2fJ7FXiSf+x70nxqhWKmT6seDZtb+
+ 226Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXfEnMYbzJz09AnIj0KcgSf9OUKgRlsrXHAT9NovSCA5phjCwDAuvmON5dQpIUitVX1UfZewbEBIJ7xayLBqDy53Wy/Y7HNpAufYsidwg==
-X-Gm-Message-State: AOJu0YxOz+Nbiuvj2tVXenGPBPy8KphKnVmzTeMSa2z7suFL2ftj480e
- 5z826LyXODaPV82lWTuuvP72if3AzT9+6wVmoG9Xj0if+cOPohoWnW3wdZ1eLKc=
-X-Google-Smtp-Source: AGHT+IGNGlL4K3RRWvrPnAS8pS+Nk+ThgYEusmDN6lyoq8bygca8tJqniABTWOqIDwkwqhh9NtmiVQ==
-X-Received: by 2002:a05:600c:1c13:b0:41a:3868:d222 with SMTP id
- j19-20020a05600c1c1300b0041a3868d222mr1706203wms.0.1713965948935; 
- Wed, 24 Apr 2024 06:39:08 -0700 (PDT)
-Received: from localhost ([102.222.70.76]) by smtp.gmail.com with ESMTPSA id
- fj3-20020a05600c0c8300b00416b2cbad06sm27796791wmb.41.2024.04.24.06.39.07
+ AJvYcCVt3h91/4tSiqjp0q6PleX2qG3XcYu+T131QPErFdnOlEGFBH6WPnJ4b8EK1du6YGeIhY26vHsAEPzBzs5IC4b8hKOQVxxRUXr+HtxzpKgW82DE65EDzof6z9b/oNKqd4EyF8iIItwYf7sGQ85v/g==
+X-Gm-Message-State: AOJu0Yxk4mpB2PIs0RU4wtxP5wZ9bcHeNro6BDGstOFdjeQXEY4I+ZaX
+ Y4eOzC9CDKHihMhyzUFDBsq/br3IUUI3E7GusicTfQbRXFLA+TAI
+X-Google-Smtp-Source: AGHT+IH3jYf42AlOaYiK+FEIyw3LbLPxAlyd2I+vNCGrces4wHDtdBSa9HS2eMuzoJpicBrPQ5yBVw==
+X-Received: by 2002:a05:6000:4e6:b0:34b:3f27:89cd with SMTP id
+ cr6-20020a05600004e600b0034b3f2789cdmr1584655wrb.71.1713975118431; 
+ Wed, 24 Apr 2024 09:11:58 -0700 (PDT)
+Received: from localhost
+ (craw-09-b2-v4wan-169726-cust2117.vm24.cable.virginm.net. [92.238.24.70])
+ by smtp.gmail.com with ESMTPSA id
+ l1-20020a5d4bc1000000b0034ae73a8b25sm9639884wrt.37.2024.04.24.09.11.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Apr 2024 06:39:08 -0700 (PDT)
-Date: Wed, 24 Apr 2024 16:39:03 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>,
- Charlene Liu <charlene.liu@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alvin Lee <alvin.lee2@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- Jun Lei <jun.lei@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
- Dillon Varone <dillon.varone@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH] drm/amd/display: re-indent dc_power_down_on_boot()
-Message-ID: <d3a49914-65de-492f-9bf4-f3daa0c9f3cb@moroto.mountain>
-References: <e5f538ab-ebc8-400b-8104-4642b8089b4f@moroto.mountain>
- <bbc315ed-3482-4abb-b3f6-88c335dcf9d2@amd.com>
- <4a996c51-e101-47a0-8a89-78c6f9f01e0f@moroto.mountain>
- <f3b0e0fe-edb9-420d-b4a1-71c267246875@amd.com>
+ Wed, 24 Apr 2024 09:11:56 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui.Pan@amd.com, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] drm/amdgpu: Fix spelling mistake "PRORITY" -> "PRIORITY"
+Date: Wed, 24 Apr 2024 17:11:55 +0100
+Message-Id: <20240424161155.3946451-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f3b0e0fe-edb9-420d-b4a1-71c267246875@amd.com>
 X-Mailman-Approved-At: Thu, 25 Apr 2024 08:11:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,45 +86,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 24, 2024 at 03:33:11PM +0200, Christian König wrote:
-> Am 24.04.24 um 15:20 schrieb Dan Carpenter:
-> > On Wed, Apr 24, 2024 at 03:11:08PM +0200, Christian König wrote:
-> > > Am 24.04.24 um 13:41 schrieb Dan Carpenter:
-> > > > These lines are indented too far.  Clean the whitespace.
-> > > > 
-> > > > Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
-> > > > ---
-> > > >    drivers/gpu/drm/amd/display/dc/core/dc.c | 7 +++----
-> > > >    1 file changed, 3 insertions(+), 4 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > > > index 8eefba757da4..f64d7229eb6c 100644
-> > > > --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > > > +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > > > @@ -5043,11 +5043,10 @@ void dc_interrupt_ack(struct dc *dc, enum dc_irq_source src)
-> > > >    void dc_power_down_on_boot(struct dc *dc)
-> > > >    {
-> > > >    	if (dc->ctx->dce_environment != DCE_ENV_VIRTUAL_HW &&
-> > > > -			dc->hwss.power_down_on_boot) {
-> > > > -
-> > > > -			if (dc->caps.ips_support)
-> > > > -				dc_exit_ips_for_hw_access(dc);
-> > > > +	    dc->hwss.power_down_on_boot) {
-> > > > +		if (dc->caps.ips_support)
-> > > > +			dc_exit_ips_for_hw_access(dc);
-> > > Well while at it can't the two ifs be merged here?
-> > > 
-> > > (I don't know this code to well, but it looks like it).
-> > > 
-> > I'm sorry, I don't see what you're saying.
-> 
-> The indentation was so messed up that I though the call to
-> power_down_on_boot() was after both ifs, but it is still inside the first.
-> 
-> So your patch is actually right, sorry for the noise.
+There are spelling mistakes in a literal string and enums, fix these.
+Currently there are no uses of the enums that got renamed in this fix.
 
-Okay, but let me send a v2 anyway to delete the extra blank line.
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        | 2 +-
+ drivers/gpu/drm/amd/include/mes_api_def.h     | 2 +-
+ drivers/gpu/drm/amd/include/mes_v11_api_def.h | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-regards,
-dan carpenter
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index fbe31afad1d4..44f1af6da21e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -111,7 +111,7 @@ static const char *mes_v11_0_opcodes[] = {
+ 	"RESUME",
+ 	"RESET",
+ 	"SET_LOG_BUFFER",
+-	"CHANGE_GANG_PRORITY",
++	"CHANGE_GANG_PRIORITY",
+ 	"QUERY_SCHEDULER_STATUS",
+ 	"PROGRAM_GDS",
+ 	"SET_DEBUG_VMID",
+diff --git a/drivers/gpu/drm/amd/include/mes_api_def.h b/drivers/gpu/drm/amd/include/mes_api_def.h
+index bf3d6ad263f9..ed479575df18 100644
+--- a/drivers/gpu/drm/amd/include/mes_api_def.h
++++ b/drivers/gpu/drm/amd/include/mes_api_def.h
+@@ -54,7 +54,7 @@ enum MES_SCH_API_OPCODE {
+ 	MES_SCH_API_RESUME			= 7,
+ 	MES_SCH_API_RESET			= 8,
+ 	MES_SCH_API_SET_LOG_BUFFER		= 9,
+-	MES_SCH_API_CHANGE_GANG_PRORITY		= 10,
++	MES_SCH_API_CHANGE_GANG_PRIORITY	= 10,
+ 	MES_SCH_API_QUERY_SCHEDULER_STATUS	= 11,
+ 	MES_SCH_API_PROGRAM_GDS			= 12,
+ 	MES_SCH_API_SET_DEBUG_VMID		= 13,
+diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
+index 410c8d664336..5b8fd9465cf3 100644
+--- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
++++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
+@@ -54,7 +54,7 @@ enum MES_SCH_API_OPCODE {
+ 	MES_SCH_API_RESUME			= 7,
+ 	MES_SCH_API_RESET			= 8,
+ 	MES_SCH_API_SET_LOG_BUFFER		= 9,
+-	MES_SCH_API_CHANGE_GANG_PRORITY		= 10,
++	MES_SCH_API_CHANGE_GANG_PRIORITY	= 10,
+ 	MES_SCH_API_QUERY_SCHEDULER_STATUS	= 11,
+ 	MES_SCH_API_PROGRAM_GDS			= 12,
+ 	MES_SCH_API_SET_DEBUG_VMID		= 13,
+-- 
+2.39.2
 
