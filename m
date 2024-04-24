@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48427C25B10
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Apr 2024 17:01:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D8E4C07E8E
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Apr 2024 17:06:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0661B113C91;
-	Wed, 24 Apr 2024 17:01:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CE9F113CA9;
+	Wed, 24 Apr 2024 17:06:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="Nweod4Q0";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="VGftg4OP";
 	dkim-atps=neutral
 Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8BE5113C88;
- Wed, 24 Apr 2024 17:01:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6073113C9C;
+ Wed, 24 Apr 2024 17:06:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1713978039; x=1714582839; i=friedrich.vock@gmx.de;
- bh=Nk7gng7Z1DKu4g8B79dnaCw+5SH6ersr6shXg9m/kZM=;
+ s=s31663417; t=1713978364; x=1714583164; i=friedrich.vock@gmx.de;
+ bh=F7lHcI6ytAxOptifXGV2LrH3pzT2g/pB/L5CHP1gZyY=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
  References:MIME-Version:Content-Transfer-Encoding:cc:
  content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=Nweod4Q0do/FQ4wTwwI3EU37MehFe7ORaR6ZhAKcKjH8BLFVLI8xBUHjzeIEW5hD
- hEDRkjwNHeVUF0akAQthtU96MUooQpfYOeFe/WKJLzk+NW6FEX85mQ8E4ln3mRjD9
- V7p/As3HliUrQmG4Qgj2w5qnxTpJ+zRewioYwpQt67VlVlp8gfvwakBY7wch704aq
- 5B+bydhVHorr3Tjh5fPj6InKX8cLd4qmf7p8bnMb/piAS6HMt2TrqY9Co7gOoIClz
- ez4wkSi4u9rnj63bQ6jl/9tcXanjEpPZLb8FBJ56sDS80p9+stfAtCZb1zPiIYwEz
- gdER6BRhVt71Utpzag==
+ b=VGftg4OP3obyxwJd76/LeBf5Bm3o1LTqBzQ/oICPIl31ip9y9XgeQpVYxXKMC9Sa
+ odZfOYl5f8i3UPfWVC2vq6k9ci5j0TvsiuYuUe7IlZSWmlP0Q/AdpWt2BHEvFxgrI
+ THtrYILejpVa7QEyQ+8pO9xz6zmlHkggE1yVV6iFJLNNaYZ9FsZulphsoUqhW2e7q
+ kYvYthQUwGs+uxun6qw7GI1enAwcXS/s+Cj49lniQiV9ZqeOjyCg8Lpvt845CkVZb
+ zfPURqMwEr8JePhbhVf33dK9Qo9SZ6VGaLbC+5w1B/69dfEvgwFxxVLFhWBsASwyC
+ unAupyuEyB+FQwFUdg==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from arch.fritz.box ([213.152.117.111]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MfYLa-1sbBWh06Mi-00hp1t; Wed, 24
- Apr 2024 19:00:39 +0200
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MmULr-1sPu3744i9-00jkpc; Wed, 24
+ Apr 2024 19:00:41 +0200
 From: Friedrich Vock <friedrich.vock@gmx.de>
 To: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
@@ -41,31 +41,31 @@ Cc: Pierre-Loup Griffais <pgriffais@valvesoftware.com>,
  Joshua Ashton <joshua@froggi.es>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
-Subject: [RFC PATCH 07/18] drm/amdgpu: Add TTM uneviction control functions
-Date: Wed, 24 Apr 2024 18:56:57 +0200
-Message-ID: <20240424165937.54759-8-friedrich.vock@gmx.de>
+Subject: [RFC PATCH 11/18] drm/ttm: Bump BO priority count
+Date: Wed, 24 Apr 2024 18:57:01 +0200
+Message-ID: <20240424165937.54759-12-friedrich.vock@gmx.de>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240424165937.54759-1-friedrich.vock@gmx.de>
 References: <20240424165937.54759-1-friedrich.vock@gmx.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:CzIRNVfxema9WV3cQUwowAAn757mGRb/nJyHyAFWi8Gd7XWpoau
- Jt5OzKKc/5Q3zz+pAgLs5oIB8S0cyN8y8oX74WGZ/mjMg67M8uUNZQYWEIKzy+Oj8dgmf5M
- paONhEhvmpD0vALOvGaKUjemLofbDk4dPtXL2brrsnJ/CRtdX9ENihIMJihGIcA66OkBH7u
- 6fcfd17XxTLYCRyzisdrA==
-UI-OutboundReport: notjunk:1;M01:P0:jHvQD48aIAI=;ULHkvBQa8Wfb6AsouFW9dCEwMQZ
- RMOGJ+MzMHH5EhhkXq8qhpx69cZPe6MJvYFYLPueURhq2OcqkJVUlqkqdjuiynKmr5lEphA7S
- F7yCPS9aJ42dZjjdkcGUjvBiuiip4ITO+IF1KTIfBg+y0oElQjTK6chZKRvInjxoNaVJtXWLP
- ACix76jDfYiZXHE43wlAwB3FPnFV6tLijfKzu5Il6FRBnyYwRHcEtDnYt9osByH7fFuGQww29
- mERf2VOiCvsNByFdd6S4Bg6uHyx0AY4iIhc9xlZWQwEM9R64hqmoEwveu7saepZmedpMS8cC0
- cb17e5vHCZNYbRSg43VulCT0luhN8wZYsTjJreyGKRiODU/SlgN182ZY3HkGIwUdarde2f7Ei
- UyBsaqrsNn7ImxLOQGEv08z5QezkONpwSfLAlOZe6rIGm7RMPA2P5oyHvpSibjuowbTQifsWC
- MP7wOrBr1Fp2JsB7Js6mUfD1/AtGpJNj1etE9mHGV4YsEnlTr0RpL/rd5yZ9pz199a6V3pPLF
- w8uo9ve2ntW42Yvf9G0gQahqPUAwbq4gD+W2n6WHjAbke93maVatrlUuqWO4zGgvm0E/EvjCG
- Lxv33qOAl56EPGuzcIfKCACFK1P8hE8l0KKI5Tvm0KQRt86sQg83Ae9dV6pygh7GNer7QcObt
- Gx/WO9s5wewOH2AYZrdg9s4Sgb1U4La1+DjGuBZdLye8S7Qqd7B/PazmyQUexd5b9Iy9mNLPI
- fblgN120EFI2/AfcWnfRbrLbGdu6gC5KTrYd6zwl/y4VO68R4/IPWvK9gfTczErmVqr9eN/sS
- 9nxwwntsWlHyROgwN6NTNwqYvE9mLJrfEdNiPO90nn2rg=
+X-Provags-ID: V03:K1:cJ9kEEaK/mTj0xTVPmwCLOMniFXw4SoCHSCS4Bb7Bx34TvSPLdr
+ FrfIDKKi2cxt6yJOza46WDAivXuAHGPiDPxgmDLKFgWEwF3AVC5yeNlBvH17VrT7Yxm+MWr
+ Xw43sl8fjOkVrXNFA5EOFN/CMWd2tPciWu58bjnmNFO0FIhvVudieIfZIKIoP5frx/8ePij
+ I14dq9CbBPSOZkWfM3e9w==
+UI-OutboundReport: notjunk:1;M01:P0:IO+EGkx9vBg=;yULf8o7R9IYMVYn0Kach1q27lNR
+ zlOSv1ujHzH0IP09OnSmr9I9LavJKQzlNXhN9AukBucpEw5snJU5e8PVzf9zjTn5T+Sxa/+2V
+ YS1s96hSeRCLzwxfC8tf+pG5Q8ihgQfuy2H+7t8H5jAoajGZE3WG/AfV3h0mAu8jqAgKaQMZ6
+ pHu484Wk0ze4vFxgAE2C46HcjawLo++TCxOQwHK2wa7V2im6hu84RC8FOUxxvCxzZcmOmRNzZ
+ nw2htkhGvy8lP5YF4LQ33NV/ajnu+6AP5spqqDQfEYd1xRoG/VWFafhg3dUvZE/01uU2ptqzx
+ +Ad9LiN1IcW99oqGVtA+cQKxONekxFqP/cF9GES2Pu007Ob9rD5IaL9r1IVDMKqiC4GCrR45u
+ BxpOcIwfexh063J3/6/MGXg7YIoFUjTYOTZjMFjpsopd5tLtc4/Berc/DG4EXiSHikU48rhVa
+ wHCk5NbVH+EQfJPjKHZrVty9gIdSWMMLC6MZZfSVLhILcMG2FZjLFpNwn0+hQ07foPbz7nJxL
+ xCW7K1FNorr74zpMnSlndJRvMfDwhuM6nZ7P6OY0zJ9Eg3BIz4f1WUFhb7Lyo5v/3poeSiLPB
+ eNhDNFa7CDWkQ2a7cUDaQ+oohS80gPR5kd6N5OWnHPr9/XnMiiQuzFEUiDAtV25c4g1RFyIuf
+ bDQ+1A4rVq+ofRDV2ef53/TL54fOVwK8ze0k3yDYdufNi5ogy2WBcFGPMwkZgIqueE5PGx/wG
+ wnlZv9/P6lyr5xWeeypUj/2lcYzOZ5E0FuH6wOhBU6gyerEggfLwDeGpB6CavfVsotIQMtBNq
+ QpcZpR9fI3pUJkK2tOztfYgY9wq3OledbfGEpsJ5gNzRI=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,94 +80,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Try unevicting only VRAM/GTT BOs.
+For adjustable priorities by userspace, it is nice to have a bit more
+granularity.
 
 Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
 =2D--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 50 +++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+ include/drm/ttm/ttm_resource.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ttm.c
-index 64f5001a7dc5d..98e8a40408804 100644
-=2D-- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -166,6 +166,31 @@ static void amdgpu_evict_flags(struct ttm_buffer_obje=
-ct *bo,
- 	*placement =3D abo->placement;
- }
+diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource=
+.h
+index 7d1ce059c8805..241643447488a 100644
+=2D-- a/include/drm/ttm/ttm_resource.h
++++ b/include/drm/ttm/ttm_resource.h
+@@ -35,7 +35,7 @@
+ #include <drm/ttm/ttm_caching.h>
+ #include <drm/ttm/ttm_kmap_iter.h>
 
-+/**
-+ * amdgpu_unevict_flags - Compute placement flags
-+ *
-+ * @bo: The buffer object to unevict
-+ * @dest: Destination for unevicted BO
-+ *
-+ * Fill in placement data when for restoring evicted BOs
-+ */
-+static void amdgpu_unevict_flags(struct ttm_buffer_object *bo,
-+				 struct ttm_placement *dest)
-+{
-+	struct amdgpu_bo *abo =3D ttm_to_amdgpu_bo(bo);
-+
-+	WARN_ON(bo->evicted_type =3D=3D AMDGPU_PL_GDS ||
-+		bo->evicted_type =3D=3D AMDGPU_PL_GWS ||
-+		bo->evicted_type =3D=3D AMDGPU_PL_OA ||
-+		bo->evicted_type =3D=3D AMDGPU_PL_DOORBELL);
-+	WARN_ON(bo->evicted_type =3D=3D TTM_NUM_MEM_TYPES);
-+
-+	amdgpu_bo_placement_from_domain(abo, abo->preferred_domains);
-+	*dest =3D abo->placement;
-+	dest->num_placement =3D 1;
-+	dest->num_busy_placement =3D 1;
-+}
-+
- /**
-  * amdgpu_ttm_map_buffer - Map memory into the GART windows
-  * @bo: buffer object to map
-@@ -1424,6 +1449,29 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct =
-ttm_buffer_object *bo,
- 	return ttm_bo_eviction_valuable(bo, place);
- }
+-#define TTM_MAX_BO_PRIORITY	4U
++#define TTM_MAX_BO_PRIORITY	8U
+ #define TTM_NUM_MEM_TYPES 8
 
-+/*
-+ * amdgpu_ttm_bo_uneviction_valuable - Check to see if we can unevict a
-+ * buffer object.
-+ *
-+ * Return true if uneviction is sensible. Called by ttm_bo_evict to
-+ * decide whether to consider the buffer object for uneviction later.
-+ */
-+static bool amdgpu_ttm_bo_uneviction_valuable(struct ttm_buffer_object *b=
-o)
-+{
-+	struct amdgpu_bo *abo;
-+
-+	if (!amdgpu_bo_is_amdgpu_bo(bo))
-+		return false;
-+
-+	abo =3D ttm_to_amdgpu_bo(bo);
-+
-+	if (bo->type !=3D ttm_bo_type_device)
-+		return false;
-+
-+	return (abo->preferred_domains &
-+		(AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) !=3D 0;
-+}
-+
- static void amdgpu_ttm_vram_mm_access(struct amdgpu_device *adev, loff_t =
-pos,
- 				      void *buf, size_t size, bool write)
- {
-@@ -1581,6 +1629,8 @@ static struct ttm_device_funcs amdgpu_bo_driver =3D =
-{
- 	.ttm_tt_destroy =3D &amdgpu_ttm_backend_destroy,
- 	.eviction_valuable =3D amdgpu_ttm_bo_eviction_valuable,
- 	.evict_flags =3D &amdgpu_evict_flags,
-+	.uneviction_valuable =3D &amdgpu_ttm_bo_uneviction_valuable,
-+	.unevict_flags =3D &amdgpu_unevict_flags,
- 	.move =3D &amdgpu_bo_move,
- 	.delete_mem_notify =3D &amdgpu_bo_delete_mem_notify,
- 	.release_notify =3D &amdgpu_bo_release_notify,
+ struct ttm_device;
 =2D-
 2.44.0
 
