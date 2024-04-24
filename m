@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0498C19F53
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Apr 2024 17:01:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CFF8C4345F
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Apr 2024 17:01:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCA8B113CB6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC159113CB7;
 	Wed, 24 Apr 2024 17:01:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="IxCPYjfg";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="S2ycc8Nj";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E9A1113C87;
- Wed, 24 Apr 2024 17:00:57 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BB7E113C87;
+ Wed, 24 Apr 2024 17:00:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1713978042; x=1714582842; i=friedrich.vock@gmx.de;
- bh=b6EoFsH7sLs384Atuh1oGN0mYQhG/Es5DDbOcdb23qA=;
+ s=s31663417; t=1713978041; x=1714582841; i=friedrich.vock@gmx.de;
+ bh=toDqG0EtftLVKgwAfYmZDmxHwmiPViX4qpOT8SmMAk0=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
  References:MIME-Version:Content-Transfer-Encoding:cc:
  content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=IxCPYjfgss1e42ng+/GsckyA9nCiETZO3bA2iaDOH/2Pb3yAB95EaPQmeOZrJpm7
- iXc105bJhShdPVcczrRVh/3NKCgtUDwPVPU1qqjElOD3Uh1Nz3AiByOaxfiEP3rJF
- hSb1lNbWHKzTkl/olPgXMcy13IgR7W1rPydZprQkAM0G4sYsiHwwZjZwaKFMdGggw
- GCF7k5+u3XWqa/19QrSPvK2fLpQs8ONSk/7v2IsQBnnoWXMurBla9JGz8y5AAchZ0
- NYZMexWKrRhYeVsGxq9YBJkANerMLb6uTHG45FUDnAe2wTyrM8sk456Q749Z2ga3k
- 62HKws2AntpDR6POhA==
+ b=S2ycc8NjpeDGRYnt8ElFGl3rd7MxKA+ffafUzSGqJVZL6NAkSK+iUqHnEwzeymyg
+ Mt6boTshP2BfCmu5+lDgcuv755tAcUVItcgDINndIllduc0iqR8Eg6QGVBLcnbSoP
+ LOZFdXUQiqJVmUxfkSg0LdnVPAYmGJ2evCZutoUidKOyEdpKK1qxDYdPhJeAnAYjF
+ Uhpl9D1TczwVKt9Ii55jjCvDQmNSzW9ZI6TzSPkeQn9bS+0Zie18T2+RzThKIrdKM
+ 3ob2/KxMpW2/Bf0ZOThwpnmiJVHqPEQFBafnCX2j5ZqQQh4MCrErYfPXRk7Wo+8Nl
+ 5izsN7Odl2Yn40S6pg==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from arch.fritz.box ([213.152.117.111]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MpUUw-1sTSHW25Vs-00pYFx; Wed, 24
- Apr 2024 19:00:42 +0200
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MQe5k-1sNNXD22xK-00MQlD; Wed, 24
+ Apr 2024 19:00:41 +0200
 From: Friedrich Vock <friedrich.vock@gmx.de>
 To: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
@@ -41,32 +41,31 @@ Cc: Pierre-Loup Griffais <pgriffais@valvesoftware.com>,
  Joshua Ashton <joshua@froggi.es>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
-Subject: [RFC PATCH 14/18] drm/ttm: Consider BOs placed in non-favorite
- locations evicted
-Date: Wed, 24 Apr 2024 18:57:04 +0200
-Message-ID: <20240424165937.54759-15-friedrich.vock@gmx.de>
+Subject: [RFC PATCH 12/18] drm/ttm: Do not evict BOs with higher priority
+Date: Wed, 24 Apr 2024 18:57:02 +0200
+Message-ID: <20240424165937.54759-13-friedrich.vock@gmx.de>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240424165937.54759-1-friedrich.vock@gmx.de>
 References: <20240424165937.54759-1-friedrich.vock@gmx.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:yBLI2MoDBze2F6URJMuxofpt2DIPDheiA1tfa//NrDaUM1l3kFG
- bell4fhMj2OrNY86/heGliQ/WDTliXNq7AnjWaXsY320+DRQSteYS2kf+rWSsVZ6udRZ9v5
- vME2l7OHG6FiCVgT/Qoj7F1Bf3czFpK23ReGH++sJY2LIqMu8ZBtuPRWH++QVrNK2Auk56l
- EfUbsh7Zga85V9sxxdx+w==
-UI-OutboundReport: notjunk:1;M01:P0:9oZG70QMkm4=;9FeUcAOvVEf3ykPVWsnaxc7wsmP
- 7emC8mKis9u8iIAdeRPHgj5gtU9n8mLIlNoJCXu+BnN6JNxdMXOV8y5QU5xyWMGnLQzQbelbD
- s03Y2Ne+XqSPeB2oLEbvCuRUyGWbUghdimbuaanS/34RuHqplYSx5XpzoxKakbc/YPIBTjooz
- HPGP11cmIW0NwOKZ3Ks886JC9cj/dKDdw5ehy5DPcGyyufPszmsoBXXLQAxtAN1Rr8iOCdh8l
- ZwYeZjt4XhxnVkFh5XifOVT4rgiDzP+FVPHgihsUUk0kWD1TmVRdQPKNofoMrfX6kDhL6knRH
- Vcow4fhmutbq/wd7V8fbFkhrv49e83khRLP9kkGJFGRWdB0eVom09zzuxRNKhpyVt7+V6vQ/e
- OJyOJZN3S3uGbZ9jW9yNRzh2RBHHYfh2OJeEk6Me6yOQJAODE7Pn54U4cvUfmxH1QjfHUBeFq
- czMH1MfMKm86gpgDlBV7tI3XFgY5RI8DzzVrK1tNxlB6fIOs5/DoD+Jj6E8ERxt4f8MVuk5dF
- nCJEzqnhhG9YySjFCphRHDhXJUYnvpFPSmeiwqYMOJ2AiFAt47k86EtGehoriwlNhJWZRst0H
- S+x2Er79Q77EiayZltGegyzOsg5dcdFRKme/Igdr90KNRmMtVf0euHYv5j6atc1PH5o9LpeD1
- hL0BpphcuA5VZE6PsyzijHCf3L10kKNXYnx2GL7w9t1A5Bd3JckDEXLvRZR16Bd2C0XmA0qn7
- aftqVzUNGG2tFvbGSGYkjQmOmAN7S1KscnNTIBBgeqZHjxN/poPnndZQOIfurqYi4gcN1VFs7
- l39Hvyyu7K5YjbIAGiKvhL4aQBN4FGu9mwwG+8oF5ghKg=
+X-Provags-ID: V03:K1:VY5VDLev0ESq1+HxUQDvrBZdcGB5VjDEAOUWfKECM8TbODUS+7k
+ zh2hj2r6J0stnbGKskRQTsGemcLQb5RtUvv599WdbjgYWB98ioQuNrjHq8fLoCSju96OVmn
+ ZSxEx7V6r3kwGQW08jxIt1JScTF0G+BQhHS/Bm9Zj4dLzGjOZ5njU0+cKqz4bzhRD7Mc1jl
+ hEq0qFptw1np4f6jZFBrQ==
+UI-OutboundReport: notjunk:1;M01:P0:2i+Q1BCimCM=;eo3BLJ+xbUfvgH7+iTx2BYTjRta
+ IbKS17PpU/asvAzvOo61LG/1e9YwO/CAyZvSmkHdrg63/7T/+xL3OQKLZRLOEbHh3ZnuHro1p
+ piUNTB8f9xYc7UI+0B2LjXglxU5Ki0sN8F9iIGjR4yXOJJTqGZZQNUO5Bf8iKI3CawfHn4Zb3
+ XKiLZGznKaneXzvO6VRFqnklnTvuiJy5/2nvFBwtxYym0QMzB2p1vhfmb+xnp+nmipUVZoNq8
+ mmZrWFILB6mUicuyLf+F5QHZjeYR+Q4lOp6dPsqsh9Tpp9OR8N78NUEv6t3OVCu6bhLD0qCL+
+ B8TXcNJ7m7zQHEFPZei+IST/H5fJ+RtMMZohhFmN4UAHM/bZkMFYQ9mEzLa0jPWWxBgGsvRVC
+ 5sE3yPrs/YXCiZld4lb2yhfHHz4xzsxTbzQO87KDHm8dX2ooPsKOr4BHD7TGwknoXQPQfO7lD
+ hlsmpH4aMYd/CSD8p9mChCiWErZsa/+kyBWBJX87bFRzqCAzzK6jQ+/KzdlHQoBAkFNqF5PF/
+ DtHavktrBqvn7WIClfqvnZPSYlpaZzgxsFkODOeP4sYJevNEnxmEyEEp6SNZA2BFnGOEwBwPU
+ gOtmGWWeyo+hU1oJ/BesJNe4UlKJcPjF4qtbmXJmT5EparFbuY+vheThGSsBS6i+Yn+XHJavb
+ Na5gZGuBoq6C8fl9c2U/olbjqbKdCR5p4x9HKjnElXBhpEI5Iwgfzhgy7E+XYQFZIYh1PIYm6
+ 8933Sj596iNVQDwyZBMVGlgMBGEX4TMuD41hYUKd1bUlvHyG6+aFqHt5EwNICbsuigwS+Q4TE
+ Yti/t7XU2EzMujWKS+Z21EAkvHO9OgNAoR3aduAzgiIio=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,60 +80,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If we didn't get the favorite placement because it was full, we should
-try moving it into the favorite placement once there is space.
+This makes buffer eviction significantly more stable by avoiding
+ping-ponging caused by low-priority buffers evicting high-priority
+buffers and vice versa.
 
 Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
 =2D--
- drivers/gpu/drm/ttm/ttm_bo.c | 28 +++++++++++++++++++++++++++-
- 1 file changed, 27 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/ttm/ttm_bo.c       | 9 +++++++--
+ drivers/gpu/drm/ttm/ttm_resource.c | 5 +++--
+ include/drm/ttm/ttm_bo.h           | 1 +
+ 3 files changed, 11 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 6ac939c58a6b8..af8209f3bc894 100644
+index 3047c763eb4eb..eae54cd4a7ce9 100644
 =2D-- a/drivers/gpu/drm/ttm/ttm_bo.c
 +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -1111,7 +1111,9 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
- 		    struct ttm_placement *placement,
- 		    struct ttm_operation_ctx *ctx)
+@@ -776,6 +776,7 @@ static int ttm_mem_evict_wait_busy(struct ttm_buffer_o=
+bject *busy_bo,
+ int ttm_mem_evict_first(struct ttm_device *bdev,
+ 			struct ttm_resource_manager *man,
+ 			const struct ttm_place *place,
++			unsigned int max_priority,
+ 			struct ttm_operation_ctx *ctx,
+ 			struct ww_acquire_ctx *ticket)
  {
--	int ret;
-+	struct ttm_resource_manager *man;
-+	int favorite_mem_type;
-+	int ret, i;
+@@ -788,6 +789,8 @@ int ttm_mem_evict_first(struct ttm_device *bdev,
+ 	spin_lock(&bdev->lru_lock);
+ 	ttm_resource_manager_for_each_res(man, &cursor, res) {
+ 		bool busy;
++		if (res->bo->priority > max_priority)
++			break;
 
- 	dma_resv_assert_held(bo->base.resv);
-
-@@ -1133,6 +1135,30 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
- 	if (ret)
- 		return ret;
-
-+	if (bo->resource) {
-+		/*
-+		 * Also mark the buffer as evicted if we ended up in a
-+		 * non-favorite busy placement, so the buffer get
-+		 * moved into the favorite spot if possible.
-+		 */
-+		for (i =3D 1; i < placement->num_busy_placement; ++i) {
-+			if (bo->resource->mem_type !=3D
-+			    placement->busy_placement[i].mem_type)
-+				continue;
-+
-+			favorite_mem_type =3D
-+				placement->busy_placement[0].mem_type;
-+			man =3D ttm_manager_type(bo->bdev,
-+					       favorite_mem_type);
-+
-+			spin_lock(&bo->bdev->unevict_lock);
-+			list_add_tail(&bo->evicted, &man->evicted);
-+			man->evicted_bytes +=3D bo->base.size;
-+			spin_unlock(&bo->bdev->unevict_lock);
-+			bo->evicted_type =3D favorite_mem_type;
-+		}
-+	}
-+
- 	/*
- 	 * We might need to add a TTM.
- 	 */
+ 		if (!ttm_bo_evict_swapout_allowable(res->bo, ctx, place,
+ 						    &locked, &busy)) {
+@@ -930,8 +933,10 @@ static int ttm_bo_mem_force_space(struct ttm_buffer_o=
+bject *bo,
+ 			return ret;
+ 		if (ctx->no_evict)
+ 			return -ENOSPC;
+-		ret =3D ttm_mem_evict_first(bdev, man, place, ctx,
+-					  ticket);
++		if (!bo->priority)
++			return -ENOSPC;
++		ret =3D ttm_mem_evict_first(bdev, man, place, bo->priority - 1,
++					  ctx, ticket);
+ 		if (unlikely(ret !=3D 0))
+ 			return ret;
+ 	} while (1);
+diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_=
+resource.c
+index 1d6755a1153b1..63d4371adb519 100644
+=2D-- a/drivers/gpu/drm/ttm/ttm_resource.c
++++ b/drivers/gpu/drm/ttm/ttm_resource.c
+@@ -431,8 +431,9 @@ int ttm_resource_manager_evict_all(struct ttm_device *=
+bdev,
+ 	for (i =3D 0; i < TTM_MAX_BO_PRIORITY; ++i) {
+ 		while (!list_empty(&man->lru[i])) {
+ 			spin_unlock(&bdev->lru_lock);
+-			ret =3D ttm_mem_evict_first(bdev, man, NULL, &ctx,
+-						  NULL);
++			ret =3D ttm_mem_evict_first(bdev, man, NULL,
++						  TTM_MAX_BO_PRIORITY,
++						  &ctx, NULL);
+ 			if (ret)
+ 				return ret;
+ 			spin_lock(&bdev->lru_lock);
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index 8f4e6366c0417..91299a3b6fcfa 100644
+=2D-- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -396,6 +396,7 @@ void ttm_bo_unpin(struct ttm_buffer_object *bo);
+ int ttm_mem_evict_first(struct ttm_device *bdev,
+ 			struct ttm_resource_manager *man,
+ 			const struct ttm_place *place,
++			unsigned int max_priority,
+ 			struct ttm_operation_ctx *ctx,
+ 			struct ww_acquire_ctx *ticket);
+ void ttm_mem_unevict_evicted(struct ttm_device *bdev,
 =2D-
 2.44.0
 
