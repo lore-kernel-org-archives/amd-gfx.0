@@ -4,144 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9637C10F15
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Apr 2024 18:22:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DD47C4345F
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Apr 2024 18:51:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C8E5113D28;
-	Wed, 24 Apr 2024 18:22:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE3B6113D36;
+	Wed, 24 Apr 2024 18:51:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="katlT6AW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3ITZJBmu";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2082.outbound.protection.outlook.com [40.107.102.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B5B2113D29
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Apr 2024 18:22:06 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2065.outbound.protection.outlook.com [40.107.237.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15E3E113D33;
+ Wed, 24 Apr 2024 18:51:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ItNYLNekkMD0XcOXBBujS3sKPfnpkbu7X4XQT6d0JWuVbwxq5EDmPkYksVufZNBtYgq4HrSI/Ip0xMpM0rQDdZS2WwPD2EnWALQdJHH/zKw/g7kzjlx3cBBD9kFM9EqlY2Pu0vZMOv6/cmlA9SlhdTVNu61zQc22zIK0VAhCtC4PQO0QsYGnUVDFpSM0x5fu5ykREbcFQM7wB73SARdixnFoJPIiCmm6vGqEtBAP4+dEgTQiK+GutEayge22jHsOwkBw/RdPOhyyRGPMGxP9cViiCtnxerYBQcTyAoZ0/VwIx7ciRb2DyQ/9kpBywIYTG/OAL95sFMGNOI5jpgGNwg==
+ b=Geh5t/iLDwQFA0lOTZvPw8OnTdbm8h1LG9GJAZ69eZr3c/teoOzxT6/4xWfp9AD2XTkwT1yc/Sxb1mVDHgLp3CQ5uUEsZ1y/l0+ZeeRx4VvGtOXpF/tMTwZVu4SNpDLO1DSGCLIXMs/j9eVBlblw7Pigcwsav0YPWRaPD/Vh1/cBPsq0hdq0hWCfAHll4dAFU5mNgfYVanKk91RqzedWe0f82iEvcIGowYB40D1LIiFTK667cDVbL6lxOY+DKGUYU0Bjj+fcisL9Du0N7eCc0MSeseGDs9CthV/epOx2JEaj75wrZlwSCDLUmILcV3a6kYf2TzVqQzGrCsOikSy+YQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hm9OKCVcasvlojbuucrJGlACVxCOL4C3tFlUrXa+Xr0=;
- b=NkraUelHuyA+z01HdtG2W/5TpeFFfzMue9XFE4GrnpKjZtOV2dLN67BlQAVcxo7H7yKguBe/hB6Cwq0/QDuLalPNELNdkSflISb+VbDfjsCFMpFVSi/Jv3WPENnVtaq6ZfXGGzLwTtXTFi3TRc0SNDdaR7x+Yjo54hmw+tXTiINrJbiTXDGZb5i4q0+zk8Et24T8V3qs57z2SCk0qFim8OfIZXg6A7qlKi2Dc9jWYMSRMqnOubtRflehJyTlmk84PRbX6mTRfkjX/LMUAldOv4zhCvKC4qrD6wDMTZTgg7RtiwquI7FV15f9GWh0M8YkRPjOIRgjRCtm4JMFb96PgQ==
+ bh=2kV113saVlUDkbDp6PpetcWyaoJY3EW9j7SotxakYYQ=;
+ b=D2kR/C4qqDMVZpiyMOVNgAwbxLBu5Un689Bn811IkuhqK8DPBozqN6QjI21y49cFcNhFwCm4UF6I48oq5Z4OgxmvtQ/vVbfPXfslgq2XeUIYkJtbEdvBoNMyNsotYv+9qWloKs+op/JymiyJSsG4uSgTe7eCmzxpwUrGqDByC+0ASg7goe9qTCPoI9lKeHHF+ofQTi3hCBsRXGRAB+F/9I9YUZNVjTP3yWvhXa+UrHOK5ttuCOjp+9QPsjTOgk23qwiJ0ZOdSLsf69vIgVyoVRaxeNyiP3SMyV5yzO1CfPDZGbSSbHlp3L1fe6fTWN+DYQb7JXvtixYbs9gJ19KQjA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hm9OKCVcasvlojbuucrJGlACVxCOL4C3tFlUrXa+Xr0=;
- b=katlT6AWdqqIn+GiLqvu52q82kudCUyJEVo1nCfeDveZwHDKIoMW6ZaEeU7CPDSLYEtxwuzAoRwUz1QotE4wjZs6gtq6Ngd2Bk/EVgBwdTyeLMdtz8o9JDjaPy5uWZlZ9Y4+03x3I5GVGiHLQcnh5JOQxTEc61VdPTnKdwK5cSQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DS0PR12MB7701.namprd12.prod.outlook.com (2603:10b6:8:133::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.22; Wed, 24 Apr
- 2024 18:21:55 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::d895:b707:1189:dfd7]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::d895:b707:1189:dfd7%3]) with mapi id 15.20.7519.023; Wed, 24 Apr 2024
- 18:21:55 +0000
-Message-ID: <13109200-1dd4-49b2-9615-476ec05ac827@amd.com>
-Date: Wed, 24 Apr 2024 14:21:53 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Enforce queue BO's adev
-To: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20240424174038.840827-1-Harish.Kasiviswanathan@amd.com>
+ bh=2kV113saVlUDkbDp6PpetcWyaoJY3EW9j7SotxakYYQ=;
+ b=3ITZJBmugYFLCbLRYTqeiGV8iMGBg7307BCH+wILL421mLjTbs2Kx9ms22vQruIcYWJqIORJzCKAmCd1BMYeZOpKuXjWd33fuCN04LHtTd9tgqUlhtSiZ3dRN7lFMOxibpI5CyZCReU/xnYDTSO2PVqjriyz4TwTJTciPJa1pW8=
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by PH7PR12MB7281.namprd12.prod.outlook.com (2603:10b6:510:208::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.24; Wed, 24 Apr
+ 2024 18:51:46 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::8060:1b11:e9f3:3a51]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::8060:1b11:e9f3:3a51%4]) with mapi id 15.20.7472.044; Wed, 24 Apr 2024
+ 18:51:46 +0000
+From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
+To: Nathan Chancellor <nathan@kernel.org>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "llvm@lists.linux.dev" <llvm@lists.linux.dev>, "patches@lists.linux.dev"
+ <patches@lists.linux.dev>
+Subject: Re: [PATCH 2/2] drm/amd/display: Fix CFLAGS for dml2_core_dcn4_calcs.o
+Thread-Topic: [PATCH 2/2] drm/amd/display: Fix CFLAGS for
+ dml2_core_dcn4_calcs.o
+Thread-Index: AQHalnP5vRegRm+Bq0SzRhPEu20kJrF3w8I+
+Date: Wed, 24 Apr 2024 18:51:46 +0000
+Message-ID: <CH0PR12MB528408827DA4E7F92BEF5AFD8B102@CH0PR12MB5284.namprd12.prod.outlook.com>
+References: <20240424-amdgpu-dml2-fix-frame-larger-than-dcn401-v1-0-5659f8fa8816@kernel.org>
+ <20240424-amdgpu-dml2-fix-frame-larger-than-dcn401-v1-2-5659f8fa8816@kernel.org>
+In-Reply-To: <20240424-amdgpu-dml2-fix-frame-larger-than-dcn401-v1-2-5659f8fa8816@kernel.org>
+Accept-Language: en-US
 Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20240424174038.840827-1-Harish.Kasiviswanathan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4P288CA0030.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d3::12) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-04-24T18:51:45.850Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|PH7PR12MB7281:EE_
+x-ms-office365-filtering-correlation-id: cab43ebd-682f-4336-132a-08dc648f9767
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230031|1800799015|366007|376005|38070700009|921011; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?uxnKf0SPoBAwHMLteUB69RToJCRPecf9Mxjsgnhxy44QvwGFDRSfw1jkhPPe?=
+ =?us-ascii?Q?wezGgLiU84ARjJGV3m93Oa9gIEEmPfo3SDPYT/pkTJkucDGB4I2lFNGU3unO?=
+ =?us-ascii?Q?4hocJ8RCTwQym4T4vOIsT4wRxtc2csK8d/++UFnKy8S85BibF8GjSc//ts+x?=
+ =?us-ascii?Q?A5GY3xMXqqwnYFjTo57norANdHpEi36b7B5zNd2aEdsY/RWCWw3pd2bcwipV?=
+ =?us-ascii?Q?vvkOt22aBCGtCBu+gmuIgDDzE0ywg1X71aXf1/ziH95BNZaf4KyS3sotr6mV?=
+ =?us-ascii?Q?FELLQdrkjjBktSHqMiEcnnoQkSeGO6odqELRzyJYlb6ksSC0PSP+yvyLGz32?=
+ =?us-ascii?Q?rhtwkwrSBD5vLOdQ75OoY58fSkXMLpKvQ4ItOYwzSCcYGPMrD9WoMY6HSifc?=
+ =?us-ascii?Q?t92lt+OgV891yBy0HPX330wm2ZlELxLOQGbekeJYy3YZn+/HtkAq30UDAZKO?=
+ =?us-ascii?Q?h7/uaq1ehVbAGrz6EL3/3JdcPhjsBrPDdIpGKpa/EoYwG+wAdnqpDiw/KVr2?=
+ =?us-ascii?Q?L1r5SEaJgk9IAkNLICIRFOa9lyqkeWYy9vgZSjILOeEvWwkC1WnuOgLN99nT?=
+ =?us-ascii?Q?gJHJ8c36tKj/d9ZZdZ3QRFWFc5p9FDdjgq/nyco4zl9ogUhQ7vS/luUkZSew?=
+ =?us-ascii?Q?K8YfI8odnkA4MLhDMeCRpnFS09MiACEVc7SgO5W/SCPxDqHl/qByFRp92Rkt?=
+ =?us-ascii?Q?VuEETDWgEHMK6O5ukOYqMf0sYK1Wjf7AeJ/93bHoqiStgNQ72hfWztLt4qkN?=
+ =?us-ascii?Q?oU2B3l3c4r99fQuRlGw9P7IpA5oCSfub75QTVl+9uqC//uslZUkpk6pTX8fL?=
+ =?us-ascii?Q?2/lb7ixUO+lAbbPEbNiyRJfCenW8UTiiXHNuFEX6XHMWfVgG0eoPaYs4r0K1?=
+ =?us-ascii?Q?wsPh9DTMwREaGaAjl7BcOhWJ+59Q1SxLjNGATBMIJEFCFq5h6CRQsRlEUjeN?=
+ =?us-ascii?Q?wWkb64vulBgkpz+EE6Ds3ISlf/nYmtFMnw3x7G1Po7bY+RywCBvMBP/1wtoi?=
+ =?us-ascii?Q?3iMXtf+x8A+HGYt9jTW1S5zBgfYCtnzrBNmhN8gQZl+EqA8P7dn6U9rm4yBJ?=
+ =?us-ascii?Q?/mHXrt/cX9bGFf4MgxUSjKwst8vPnPdWwfLtUpVQjAJ7xJk2D0q0rtKQJi8t?=
+ =?us-ascii?Q?DAPYcSKi+plhVdVJ3yzGDkaD6+JMMhjkFICTJ2hmp//hfvK+SAYWvH+f/9Hc?=
+ =?us-ascii?Q?N5i6KqY/uUlm5xNtaGBbY/0eFqC+rlxmpHFCWBZunJ3LMDQQO6xOA0msyqTs?=
+ =?us-ascii?Q?jsky7i/tnfb45zJIEr69oFotBCTCURxzZiiZW773mVo7FrMXaNc1UC/BpTk4?=
+ =?us-ascii?Q?3J21HoCz5ldHvBy6WZqy+PT4GM3o4rzSKsGhTv+ggysC22+dXDh2l7L7C9im?=
+ =?us-ascii?Q?8y6iB1g=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(366007)(376005)(38070700009)(921011); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+DvWVYr90BreENNJ64R0KWLgn85BU10LpouBcUL7qM3ZQ62X2CbZTocfWHEW?=
+ =?us-ascii?Q?8LfURH+SANPFHFSq1Q4ZoS+V6oJsFqxTvguuBkT/SSnjmX5hX3qtHocpGv2v?=
+ =?us-ascii?Q?5FGHNAIDcMTN0pWt4eMXXGfAb+iogoahQ7Uuxb834D50YActgZ5Zb0FtBNq8?=
+ =?us-ascii?Q?3rUyUIUNWBkU9Q/p2za2weGGtndVpVbzDC8q5BoCnWbqvIVmOefpCHNuGjW2?=
+ =?us-ascii?Q?81r3NjFqZOhv2J4WunCTvY5cOS3zmE5fmS85R9HVVg9sSCPq/Cc4ZBsKHF8C?=
+ =?us-ascii?Q?KQHfP4DNRs8kFXJK7T8qJwre89g4cgQoyk9snL1BoWYrCrOyIFAHwgtW4Bi5?=
+ =?us-ascii?Q?hlzgyLM8hN/o01i+hGRTRtFxjSU12tfCD69I+65oQIOBKRso/kYaDOEsfhjN?=
+ =?us-ascii?Q?Sbd14O/ge4+vyXl1dkZyDRDN+5GCUPbCYREC6Wcj8ZPLsKN4rz1RTvzJ+OUO?=
+ =?us-ascii?Q?GN2Q0GSm38Qq4BY2cSK4HlMsGtDFOnX5gDpCysWmRLh+lbqH7+ycTk846YRS?=
+ =?us-ascii?Q?TirjBjdXmP9j3zHtNuueboARSOkNj0jjnZIeZk8VoxT3R54XAkj+MGHJGdDt?=
+ =?us-ascii?Q?FhYqMyg0GQwmnN9BOg8P+XKxTu10Lr8zWeOHzfFylAb8tvCHgSc6y+ZT1o+g?=
+ =?us-ascii?Q?u0sEathaLPZpILAQbfvSE0gf9jHK8yF6YscVxf1LXtPbbFtIos+RGOYuuMP4?=
+ =?us-ascii?Q?tOFEosFGHQ07XLLENYfTMYAsAr4jOWNPi89AiRgUFnez2jqk+HBNreY6/rh2?=
+ =?us-ascii?Q?zK0K1C4G7SAJ/vzpZlUBc8HAh0t7TdGOPYVbT5r0Sb36nknMa9Cenh/Pcf5Y?=
+ =?us-ascii?Q?Dh0ygAYCfcekMOlVWwndYT1HXRMaQxB3UusWj3c8dd0Vj6kJ2HYXs7y51Cnd?=
+ =?us-ascii?Q?mVFcyCHP6y/rOnfv0FvWl2kyWYBYV1T/oCLR6RVGmLkDzMF4vBV9rnffRELw?=
+ =?us-ascii?Q?mw2abqq/LLITmxkaDc/BUfun/8+LwqyVBxu4PDGxBQBJulrr65uWnyCFuvBD?=
+ =?us-ascii?Q?ym5RJ4I4g06ERy6t0UHCxWeuucbU+/5gG/+0qWHvmnYgrI4X/Ow/Qi82oygl?=
+ =?us-ascii?Q?2Suz8+DqObTrXimlpRNvWlnqDuMBpCt3v1Ol/xQR8THfFlIKT3xdCvHO7Z5Y?=
+ =?us-ascii?Q?ZZ40qXAhqDTfp47NQH0fS3oi8PZFCBM+UpT4zmyDXia2tVZQARxPQQ8sI/yO?=
+ =?us-ascii?Q?aJVYvI+kla0PmQ4Vc+bQ95vVYHCICF+RKIbu5hATMarLgXUjax6wEkZY+c+a?=
+ =?us-ascii?Q?CZKHyx+AhlNnp9gY2L5Ufyr6gu4CuxsWAR8QzESnFhWoFjdWnnEkaItR13pJ?=
+ =?us-ascii?Q?MxCaHE7lHvchs8BLnZ1LPpl1FukQ+yldzsEkWqCZxIw5FnFKcpX3We02cG9/?=
+ =?us-ascii?Q?gI7r78tQq6+088G8SFmapY91ShwM3n1s6WT+2K/eFOql5X3EhfI+Ryvy/r5s?=
+ =?us-ascii?Q?qMPP7dt0eeRVnwChy4HwHMfNsgySkX8c+G1HKCNw5zvc1SIuliQsVroR91XV?=
+ =?us-ascii?Q?r8gdfFZV6QJFRG9rW+NpOTdFpyrOd9KOyTDqxQ8ebmHmPW0B3+AskZPA2SoQ?=
+ =?us-ascii?Q?QP3a8ivzQVrompiOKR4=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_CH0PR12MB528408827DA4E7F92BEF5AFD8B102CH0PR12MB5284namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DS0PR12MB7701:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9501acc2-c90f-4094-ad59-08dc648b6bd3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|376005|1800799015|366007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NmdReTNEM1ZrSGNmQ2p6NEpUbURHa1V3MmhXTWJBMXpZaFpEeWp4Nm9yaUtr?=
- =?utf-8?B?T3RVdTkvVE1SWWt1STFsRGdlV2ovUUQ1bi9mTFBrNityRUpuWDAxM1R2c0JW?=
- =?utf-8?B?MVoxT0tqQzN2ekl3N2l3RWIzNmJWbmJmMXlWVmVsY2ZFUEdJeG1kc1BxK2du?=
- =?utf-8?B?NGF5dWlnU0U4c1dTYk5VVlVvTXFFZTVHeCtIUVR3d2NUSWRwYzRzbjFWSW5x?=
- =?utf-8?B?cksyeTk1Wnh0cngxMUdHWU0rSm1mR3EzMHVIWGxRMFFnMjA3Uk8zWmQ2YUN6?=
- =?utf-8?B?c1BuWjVGUmR4d0tXekV1bTlsQXNvdCtOV3YvOTZSM0l5M1dwY3dic1ZqUytI?=
- =?utf-8?B?eDNrNTMwM2hqY2JOT1VGeWozK2lMWjFSa2loejhXTStzMlpUODM3dVNCYmpN?=
- =?utf-8?B?WGxJeTNVWW0xajlIWGRRVEFwZnYyY0xqc1RXOUpHM0dITzNjelkwTkNJME1s?=
- =?utf-8?B?NWsyc29BSmZuaml5SHJ3MksxZEIrcHVORm44ZWp1NWtzdCtCN2QyeU1qc1hs?=
- =?utf-8?B?aHJmRElocXpRRFFoK1R3QTk4MXo2R3FmcWlvY0QyODRabkRiMFRmODZGSkdw?=
- =?utf-8?B?MS9yT1hXZlFXanJwb1YrMDd4VTRuSFlKZFNLMndhMDhYeEhpck9ES0xkaldi?=
- =?utf-8?B?dHkrTVA5cTVOSFNoUWRwUUVKaExyQ0JLRUZMQ3ZyOHJDdms3NHBNN1hkTCtS?=
- =?utf-8?B?VVRIRmlFcFJnUzVZY1FxWlBKTU42NDJveEk1NVN4aTdzMitFa3l6Z24wMkVm?=
- =?utf-8?B?dU1RcU54MzJrS2Z1VjI2dkpqNFYvQnBaRUtqei9tc1dYVm9wVjg1KzBqQ0F3?=
- =?utf-8?B?RHovWEljTE10T21Uc092cUFWbmJZTFpLQjV3UERaRUxTZ0RhTlI2ZUdpcnJP?=
- =?utf-8?B?TDJOYjN3ZTNSTjJST242U09Yd01DVC95SW1tNTMvem9jb1lXMWhRdm10M29Y?=
- =?utf-8?B?UW54dk9RZ2F4Vlg4bUFwYWpJRlBrbVhVSy84MlQvdHliMnQzV05kekN3enpC?=
- =?utf-8?B?S0tDcXgvYWR1allFZGhBRlhJb3dwZmpXWUIvZGlDNG9NRmI3UU1RL2xXZDAv?=
- =?utf-8?B?Syt2ckt3Vm1ZL3NTNHpkNEdDbncrZFliVXVORlBKTEQwUHdsczhWd3JOVnFs?=
- =?utf-8?B?RnY0REFiU0J3VFNqMHlFNTVzNjRWYzlpMjM0VzlPaFJyWGIrL0JLMDRlanBE?=
- =?utf-8?B?Rm5QU3JVeUN0bFA1WlRYenJjYzllMlJaOU5QNGd6VFpvSXNDK2V4aG9ya2hB?=
- =?utf-8?B?TU14d0crNGI1RDV1aHFZanU1Vmg4djRSU0o2ZU5kQ0ZVbHJORXUxamZlVWVN?=
- =?utf-8?B?cUtiSXlzRWJacjd0QUlzRVFOU1BpMS9tc0hLSlJ6R2hJQlFxcHFBeXBmVkt6?=
- =?utf-8?B?RG9KYzl5dkxPejZjbDgwNUhNeWpzSFdUeEQ1WEdZU2VSVStNekJ5NGVuWFV4?=
- =?utf-8?B?bmNjblhhT2NUOGxIclpjT3NGUnEyMEJhdTlSR08vT3ZORWdyQ1dzTXozS2Ir?=
- =?utf-8?B?dHIzR1dkZFQ3ZHlsVTZxK3k1WjQ3TXE0V2NOeVN4R3FCeTViMlNXOGszcUNv?=
- =?utf-8?B?aUlHK3lvcEJVMzVGSnRCSmFLcHRBaWdWVmhxYnI1YXprK2p0V205NTU5QkNS?=
- =?utf-8?B?cmZOMDJIK3B2bFZhcUlaQ0hKZEVWWHpSQkNmdFhsQWtCMzQ3M3AzVk1iL1p5?=
- =?utf-8?B?MjJHYUp1eWtkdGI0TGI2YUpiN1dGZFJOQldDWG9rWXVrbDdudXVIQ0ZRPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VmZ5Y294LzdZRXhIdjhFZFVTaytsQnNnMG44dVdLL3hqMjI2akVYUzZTWHkz?=
- =?utf-8?B?eWVZYjkyVFZ4bUVHOEpGZ2VraEVJS2FCTGlFOHV5ODY5RGRpOTI5RGYvdlZa?=
- =?utf-8?B?bUpNajJyUjNkcE4xQWxMRUFXcTlzU0RvMFJVMGg4R2cwV2JpN2IxNTBhbk5z?=
- =?utf-8?B?bklPeEdCd3JMTjMwc3dySEptbkdCYnB1bGJQVmM5OWhHVVUvdlhsaGR0dmY5?=
- =?utf-8?B?Z0I5ZGlSR3VLcWplOXcyZXBWcGhkWTFlUmRvOGo1Wk9BbE8yOEFIRVlMZWk4?=
- =?utf-8?B?bDI1ak9xNUU3M1d0V0krbW5jYStJU2thVXdVTk5RTW1XL0xwRFBxWlNhRkZh?=
- =?utf-8?B?WHhyUVRXdWRTenNZOHNpWlIyRWw1WWtUV3JvMFhWZXdvejd2eG5oUEJBMGFF?=
- =?utf-8?B?WmhpZFpESFUvYzNNU0MzSUpsbHlDS0UwdXdQa2E3VnU1Qkw2NDVvWVVwbGYx?=
- =?utf-8?B?SEJrckhudUlodVY5RzBzVkF2cGNjdmoweGdVQ2ptK1dmVFk3TG5nZ0UzODlY?=
- =?utf-8?B?aXh0ZDNVT05XMXd6NnhFaTduSElsTDgvcU1zTHd1b2N1Zjd5SCtpVW0ybEtQ?=
- =?utf-8?B?Q0hKQVFWbkpRVE1iRTVyeFprK0M1Y2NZcEtucXFxeWhENlhaS1FMNW4rYXgy?=
- =?utf-8?B?V0ptKzVQQVBFb2k4OFpNSFFBV0c2aUJPZkM0QjRWQkVnSTlRRWtGcUdtWmRh?=
- =?utf-8?B?M1R2aXFCR1BIRnNlK2NkMEhsbnRqdzhnZlBqM0dkek9KZUNITjdWWkxIWnlH?=
- =?utf-8?B?QXRuLzMyVUJhZTI0ZWlaVHN5WnNMNW5NVWRNTUp0bWVPenI4Mmp3UTl0Y1NM?=
- =?utf-8?B?OWRWUUthTFZsVXJuTnBWZjVDTDZHMGNIUmpZcGdaUnFpc1NoNUVkdjd1cm5V?=
- =?utf-8?B?T3RVTmZmMkVScWZGSnhkWFBVV0dqdmMzajNWVkNaU0pkNmtQR1RKYzBSU01y?=
- =?utf-8?B?bXdoYXlBWG9SSkR6UlhLVmZPZjZOWE5sWmtVZnExM09ldDBNaWh4TExnbjBE?=
- =?utf-8?B?cWdJK0hmSkJ1dHEzcnFDdmFvSytUOVhpTmpORXFrdHJ6NFpIL1hjM01Ma3NK?=
- =?utf-8?B?eWlycGs0YThxRk9KRVNuSFNqSEJpWkloUklubjhJeEVuK3U5REVvSGlMQTFz?=
- =?utf-8?B?M3ZWL3Y3TDRFV0x2Uld0VnRWZVFobXZrc2NvOU9acGZDVUJlVytKSTNVVW1R?=
- =?utf-8?B?aFJQMGNWODFRKzZRRVJzaWVybVRzOExGUHJjeEVxSGd5cFlKeUdjMy9yZzRi?=
- =?utf-8?B?Y1pVdzY1NkFsMzZhNXdWblRlSHlLbWt0aXltZHYyL0pSMy9hV0FvSU8waW9v?=
- =?utf-8?B?VXoyQkVpODB4WTlza0ZqRGxzYTlJM3o5YlgrS3FMcXVINFFoREJuK2VRRlhr?=
- =?utf-8?B?N1FqTXlpWTIxU0xrT2o5RjZENUExU3puOEdxcDdSSHZtRWtNbVhCWUFSYzhB?=
- =?utf-8?B?YjJqZkt0ZFVwcmZCZTVjM0RDSG1MTVpaemVmalg2dHVDeFFwNmkyVis4dm1n?=
- =?utf-8?B?MXZSZlpoWDdxYkRBZUh4YjZDd0FWOVdDTU5sSUxvcWo3c1lEMVBpckdQK3ho?=
- =?utf-8?B?RUxTVUF5Q2RZZndTWjMxKzF3aDU1dlozbGh4ejZ1bmNUQi9kMk1OT3hDaUho?=
- =?utf-8?B?bm8zMmxUNDQvZWwxZ1FEL3hOU3QzTjZrQ2U1R3g2bTFCMHU3Z1NTVVZlUDBs?=
- =?utf-8?B?WmtJZHdwNU9LWGtubTFhRWlhK094SkdlbVJPUmxRWDRhWERyQWo4ZVZaZy9p?=
- =?utf-8?B?TXp2b3RMb2ZCa2FoYkJPeWVuNFh4ZHIwY01QSGpJWWFMYWNqdUFicXNwbkxH?=
- =?utf-8?B?VjhVU2RPZWZJWXgxcmNFZ1dVRWxHYUptK05HQlFzSjgvdW9kUnFWZERKL0hZ?=
- =?utf-8?B?QmJIOGprV0dEcVZ3TDVKUGVGbWpwdVNIbTNZNWhxdzI1R2hTMHdZdE9SMDA2?=
- =?utf-8?B?NmNBc0dqWHJ1di9JWnhHQVhrRnNLUVZhWU5aOTFFNDJUSXc1NnhEOUp5TVQ3?=
- =?utf-8?B?YmxGdDVlaERTY3FIeWRHZDgyT254dmFCWU95dWdJb25mVlhGaEU5VVFmZlkv?=
- =?utf-8?B?NEVGeWtoVCttbkY3RVVSWXlEZnFJZy9Tcy9SR2tsRlJrOFNxVVRNeEQ1Vm5Y?=
- =?utf-8?Q?BkJsH8cbbagmC2zKzi0zZ9WqQ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9501acc2-c90f-4094-ad59-08dc648b6bd3
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2024 18:21:55.3420 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wuopPuoPTBsU4DvwCPfq5l8wDPPtntq/srrCCReDPq5RQydz5FV4nDCOH/neK20BqCHih13lHnBLBF0G/bl+aw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7701
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cab43ebd-682f-4336-132a-08dc648f9767
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Apr 2024 18:51:46.2610 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: YJ5SNMZi67qFYtD+lOEQf5HZh1TzOVzotlCPSOZJr+xmUDbMwLZ/e/VbgTn2MLAG+BI0/kntecQkV9ttH+KinA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7281
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,36 +160,243 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2024-04-24 13:40, Harish Kasiviswanathan wrote:
-> Queue buffer, though it is in system memory, has to be created using the
-> correct amdgpu device. Enforce this as the BO needs to mapped to the
-> GART for MES Hardware scheduler to access it.
+--_000_CH0PR12MB528408827DA4E7F92BEF5AFD8B102CH0PR12MB5284namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - General]
+
+Thanks for the fix.
+
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+
+--
+
+Regards,
+Jay
+________________________________
+From: Nathan Chancellor <nathan@kernel.org>
+Sent: Wednesday, April 24, 2024 2:19 PM
+To: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Deucher, Alexande=
+r <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>=
+; Pan, Xinhui <Xinhui.Pan@amd.com>
+Cc: Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; amd-gfx@lists.freedesktop=
+.org <amd-gfx@lists.freedesktop.org>; dri-devel@lists.freedesktop.org <dri-=
+devel@lists.freedesktop.org>; llvm@lists.linux.dev <llvm@lists.linux.dev>; =
+patches@lists.linux.dev <patches@lists.linux.dev>; Nathan Chancellor <natha=
+n@kernel.org>
+Subject: [PATCH 2/2] drm/amd/display: Fix CFLAGS for dml2_core_dcn4_calcs.o
+
+-Wframe-larger-than=3D2048 is a part of both CFLAGS and CFLAGS_REMOVE for
+dml2_core_dcn4_calcs.o, which means that it ultimately gets removed
+altogether for 64-bit targets, as 2048 is the default FRAME_WARN value
+for 64-bit platforms, resulting in no -Wframe-larger-than coverage for
+this file.
+
+Remove -Wframe-larger-than from CFLAGS_REMOVE_dml2_core_dcn4_calcs.o and
+move to $(frame_warn_flag) for CFLAGS_dml2_core_dcn4_calcs.o, as that
+accounts for the fact that -Wframe-larger-than may need to be larger
+than 2048 in certain situations, such as when the sanitizers are
+enabled.
+
+Fixes: d546a39c6b10 ("drm/amd/display: Add misc DC changes for DCN401")
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/dml2/Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/drm=
+/amd/display/dc/dml2/Makefile
+index c35212a4a968..904a2d419638 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+@@ -111,7 +111,7 @@ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_top/dml_top=
+.o :=3D $(dml2_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_top/dml_top_mcache.o :=3D $(dm=
+l2_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_top/dml2_top_optimization :=3D=
+ $(dml2_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4.o :=3D $(d=
+ml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.o :=
+=3D $(dml2_ccflags) -Wframe-larger-than=3D2048
++CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.o :=
+=3D $(dml2_ccflags) $(frame_warn_flag)
+ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_factory.o :=3D =
+$(dml2_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_shared.o :=3D $=
+(dml2_ccflags) $(frame_warn_flag)
+ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.o :=3D $(d=
+ml2_ccflags)
+@@ -134,7 +134,7 @@ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_top/=
+dml_top.o :=3D $(dml2_rcfla
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_top/dml_top_mcache.o :=
+=3D $(dml2_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_top/dml2_top_optimizati=
+on.o :=3D $(dml2_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4.o :=
+=3D $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_cal=
+cs.o :=3D $(dml2_rcflags) -Wframe-larger-than=3D2048
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_cal=
+cs.o :=3D $(dml2_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_factory.=
+o :=3D $(dml2_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_shared.o=
+ :=3D $(dml2_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.o :=
+=3D $(dml2_rcflags)
+
+--
+2.44.0
+
+
+--_000_CH0PR12MB528408827DA4E7F92BEF5AFD8B102CH0PR12MB5284namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-
-I guess this doesn't break existing user mode. It only makes it fail in 
-a more obvious way. If that's the case, the patch is
-
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-
-
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 5 +++++
->   1 file changed, 5 insertions(+)
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
+style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Thanks for the fix.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Reviewed-by: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature" style=3D"color: inherit; background-color: inherit;">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+--</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Jay<br>
+</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Nathan Chancellor &lt=
+;nathan@kernel.org&gt;<br>
+<b>Sent:</b> Wednesday, April 24, 2024 2:19 PM<br>
+<b>To:</b> Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Li, Sun peng (Le=
+o) &lt;Sunpeng.Li@amd.com&gt;; Siqueira, Rodrigo &lt;Rodrigo.Siqueira@amd.c=
+om&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Chris=
+tian &lt;Christian.Koenig@amd.com&gt;; Pan, Xinhui &lt;Xinhui.Pan@amd.com&g=
+t;<br>
+<b>Cc:</b> Pillai, Aurabindo &lt;Aurabindo.Pillai@amd.com&gt;; amd-gfx@list=
+s.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;; dri-devel@lists.fr=
+eedesktop.org &lt;dri-devel@lists.freedesktop.org&gt;; llvm@lists.linux.dev=
+ &lt;llvm@lists.linux.dev&gt;; patches@lists.linux.dev &lt;patches@lists.li=
+nux.dev&gt;;
+ Nathan Chancellor &lt;nathan@kernel.org&gt;<br>
+<b>Subject:</b> [PATCH 2/2] drm/amd/display: Fix CFLAGS for dml2_core_dcn4_=
+calcs.o</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">-Wframe-larger-than=3D2048 is a part of both CFLAG=
+S and CFLAGS_REMOVE for<br>
+dml2_core_dcn4_calcs.o, which means that it ultimately gets removed<br>
+altogether for 64-bit targets, as 2048 is the default FRAME_WARN value<br>
+for 64-bit platforms, resulting in no -Wframe-larger-than coverage for<br>
+this file.<br>
+<br>
+Remove -Wframe-larger-than from CFLAGS_REMOVE_dml2_core_dcn4_calcs.o and<br=
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 8fd5e0da628c..963cf6d657cb 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -373,6 +373,11 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
->   			err = -EINVAL;
->   			goto err_wptr_map_gart;
->   		}
-> +		if (dev->adev != amdgpu_ttm_adev(wptr_bo->tbo.bdev)) {
-> +			pr_err("Queue memory allocated to wrong device\n");
-> +			err = -EINVAL;
-> +			goto err_wptr_map_gart;
-> +		}
->   
->   		err = amdgpu_amdkfd_map_gtt_bo_to_gart(dev->adev, wptr_bo);
->   		if (err) {
+move to $(frame_warn_flag) for CFLAGS_dml2_core_dcn4_calcs.o, as that<br>
+accounts for the fact that -Wframe-larger-than may need to be larger<br>
+than 2048 in certain situations, such as when the sanitizers are<br>
+enabled.<br>
+<br>
+Fixes: d546a39c6b10 (&quot;drm/amd/display: Add misc DC changes for DCN401&=
+quot;)<br>
+Signed-off-by: Nathan Chancellor &lt;nathan@kernel.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/dc/dml2/Makefile | 4 ++--<br>
+&nbsp;1 file changed, 2 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/drm=
+/amd/display/dc/dml2/Makefile<br>
+index c35212a4a968..904a2d419638 100644<br>
+--- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile<br>
++++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile<br>
+@@ -111,7 +111,7 @@ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_top/dml_top=
+.o :=3D $(dml2_ccflags)<br>
+&nbsp;CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_top/dml_top_mcache.o :=3D=
+ $(dml2_ccflags)<br>
+&nbsp;CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_top/dml2_top_optimization=
+ :=3D $(dml2_ccflags)<br>
+&nbsp;CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4.o :=
+=3D $(dml2_ccflags)<br>
+-CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.o :=
+=3D $(dml2_ccflags) -Wframe-larger-than=3D2048<br>
++CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.o :=
+=3D $(dml2_ccflags) $(frame_warn_flag)<br>
+&nbsp;CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_factory.o =
+:=3D $(dml2_ccflags)<br>
+&nbsp;CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_shared.o :=
+=3D $(dml2_ccflags) $(frame_warn_flag)<br>
+&nbsp;CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.o :=
+=3D $(dml2_ccflags)<br>
+@@ -134,7 +134,7 @@ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_top/=
+dml_top.o :=3D $(dml2_rcfla<br>
+&nbsp;CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_top/dml_top_mcache=
+.o :=3D $(dml2_rcflags)<br>
+&nbsp;CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_top/dml2_top_optim=
+ization.o :=3D $(dml2_rcflags)<br>
+&nbsp;CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn=
+4.o :=3D $(dml2_rcflags)<br>
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_cal=
+cs.o :=3D $(dml2_rcflags) -Wframe-larger-than=3D2048<br>
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_cal=
+cs.o :=3D $(dml2_rcflags)<br>
+&nbsp;CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_fac=
+tory.o :=3D $(dml2_rcflags)<br>
+&nbsp;CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_sha=
+red.o :=3D $(dml2_rcflags)<br>
+&nbsp;CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn=
+4.o :=3D $(dml2_rcflags)<br>
+<br>
+-- <br>
+2.44.0<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CH0PR12MB528408827DA4E7F92BEF5AFD8B102CH0PR12MB5284namp_--
