@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5405DC07E8E
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Apr 2024 08:52:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D20BC07E8E
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Apr 2024 08:52:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0C70113961;
-	Wed, 24 Apr 2024 08:52:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 296ED113965;
+	Wed, 24 Apr 2024 08:52:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0EbwqdCR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TSolquXU";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2070.outbound.protection.outlook.com [40.107.93.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30943113961
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Apr 2024 08:52:14 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2050.outbound.protection.outlook.com [40.107.212.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90E8C113964
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Apr 2024 08:52:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gqFag/+Z6GxcLDKMJdlzmLqeXmlGJy9zRyYZ5CTQW3u14FzkWbou38sD4LvTrkbqelp8USM+h59N6+PNsVpcGAS9p+GBIWDwiiYfFd0Qpivj6vsuOeC0EXXkVtOXmGePslERcDO37MAUWrbRnNiyLGAYiVRw6GgqVmS7YRZycb9spZOToPow8XAZWikp1dR5oBZ7aainRyajb5Y/8lowsgMhxd6EkMxlvOg5WEhewmITCcqXB9r/aUOAkLDdj5iws0fiGs8P6Uxwkv/kv9gYInLSZy6iNXT7OW9QGoEdiQ/7+sLueFLaOukV+JDuoJcN11Ep24mN1Hf4dw0O7bASpA==
+ b=I+4gr05vUWVZoclFURuokElYM4zxhbfTJw5LkqGYkVuwMM0QLJ+WLnOw7KC7styd+/KToWKy9Z90pVlUbInifgnDhZQWFWHN0AdjyYdvO6FdRQ7vxeVimj2jdpQoG5/E9qyi83uCEty5HOTTnm2YXJd0RrzDZEIG0nlFEHez86qmgOFD6Cw1f8wXrvcwI5qJ6N1jTYxNRnkOkov6GJOBWzyrriZ8NSe/c3CId9bPB3wt9kYbEkf8I8R4heFoGQepARBhqOeByFYPalyAiQltw53F+ilPzmLD75dI/RBBFLOlrq4yCggW/ZtVBJLYGOI1vLFf/nN925l7iYOYuW5AgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hkkgLTa/QA/3F+KEMIsD7fSh1YvPmnEFqcKkdCEoCiA=;
- b=b7Inpw761hRf6uppPWKXYImUn6nkNdUuhZpWZfQPGb+ZvBqYvlJYU6S8bQGmaG9DAQdfrm2KfKTcfQqRjVgCBBrBMhLjoU1iH8Rm2xwiLjscxLBLA0+Bfo0lWZMHp09lejThbI9VJ/KgV97O7zQkk8BmYPIwfVIc0JM719JWYOcINf3tDl1p9To5my6AvsBKqPBzfqbR+xytLOCAnR/GcOMMSYI4jgCASh97S6/sYRPkH/zikPyJpzha6FegCQhk+fMjHKcvAIHb2aJswREfH1khBEAh92zrIaiiPzxAdpo+61C2Keu2luMy61BEUbtZTrF+hm2e/EspY6rL59PkSA==
+ bh=k0XnYmsOPao5EcV5BEBD3trhoD2HY9S4PA+H5PL22dg=;
+ b=NlGk4tCvQSwhTcjTtYG4+cSk77TUaPXMjJChxIkS1DMYEBxkgDzqDMpZJDz4abvj7I2fDke4dFzXYDyw27SVOrMtkmBn16CHWfmg91ay82wTKgHynU1IRS6pN20NOlG+moEbHkz4ATArlDmIuesxwhb6zPsy545xzB8N14Yxj2CJOZ4AKcBYS/SVITbA34BKV0SUHsS6RJr2IuWdQqkPMgOkT5Dm77IGP9OaHNlY0aY88B/po0uD5grX8nKJ8wDWhns9KXDbgZt7PYH1j2e2WIsyqHYc3Zr2ZLHQbtLWIwaIT8yt7Q7zu27lCokHbAAQqCapbR3bpFcCECrwCHr4Tw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hkkgLTa/QA/3F+KEMIsD7fSh1YvPmnEFqcKkdCEoCiA=;
- b=0EbwqdCRC5jENq16zq6HFOmniNxuiELEdZZeSIi9Ix8TsMBtKmHFd5amStjsqNafvk8sKWFA/2bTxt8vnO0CUhFVUR2EwuCwplxvt06otc+gp6FCzdVEPuuoJc4zLk9D+TDzIpEtoufN1/lkQ9JXNoIyCeVfFFc3vQVqQGwegPg=
-Received: from BN9PR03CA0394.namprd03.prod.outlook.com (2603:10b6:408:111::9)
- by CY8PR12MB7146.namprd12.prod.outlook.com (2603:10b6:930:5e::14)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=k0XnYmsOPao5EcV5BEBD3trhoD2HY9S4PA+H5PL22dg=;
+ b=TSolquXUiKAM8qtmBheknx4hfrWVr5tjLipx7vEFpyFInxpFmW0+BlyuT5oo5xk62Yd58TkHGTT2Ps4Lrrhy2pyWK14Zg/b1huG5bTvpHSpEekUf98hgRi+cxlsUa07E8ogBmGXlxr4TGPudXqfgQ7v88j3bmyRgNS/+pH5owM0=
+Received: from BN9PR03CA0411.namprd03.prod.outlook.com (2603:10b6:408:111::26)
+ by DS0PR12MB7557.namprd12.prod.outlook.com (2603:10b6:8:130::21) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.44; Wed, 24 Apr
- 2024 08:52:12 +0000
+ 2024 08:52:15 +0000
 Received: from BN2PEPF000044A0.namprd02.prod.outlook.com
- (2603:10b6:408:111:cafe::b6) by BN9PR03CA0394.outlook.office365.com
- (2603:10b6:408:111::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.22 via Frontend
- Transport; Wed, 24 Apr 2024 08:52:11 +0000
+ (2603:10b6:408:111:cafe::1e) by BN9PR03CA0411.outlook.office365.com
+ (2603:10b6:408:111::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.30 via Frontend
+ Transport; Wed, 24 Apr 2024 08:52:15 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,27 +50,28 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN2PEPF000044A0.mail.protection.outlook.com (10.167.243.151) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7519.19 via Frontend Transport; Wed, 24 Apr 2024 08:52:11 +0000
+ 15.20.7519.19 via Frontend Transport; Wed, 24 Apr 2024 08:52:15 +0000
 Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 24 Apr
- 2024 03:52:08 -0500
+ 2024 03:52:12 -0500
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
  (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 24 Apr
- 2024 01:52:07 -0700
+ 2024 01:52:12 -0700
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Wed, 24 Apr 2024 03:52:04 -0500
+ Transport; Wed, 24 Apr 2024 03:52:08 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
  <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>
-Subject: [PATCH 18/46] drm/amd/display: Remove legacy code in DC
-Date: Wed, 24 Apr 2024 16:49:03 +0800
-Message-ID: <20240424084931.2656128-19-Wayne.Lin@amd.com>
+Subject: [PATCH 19/46] drm/amd/display: Add log_color_state callback to
+ multiple DCNs
+Date: Wed, 24 Apr 2024 16:49:04 +0800
+Message-ID: <20240424084931.2656128-20-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20240424084931.2656128-1-Wayne.Lin@amd.com>
 References: <20240424084931.2656128-1-Wayne.Lin@amd.com>
@@ -79,49 +80,49 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A0:EE_|CY8PR12MB7146:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4efa805a-50e5-4cda-4f27-08dc643bd4e3
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A0:EE_|DS0PR12MB7557:EE_
+X-MS-Office365-Filtering-Correlation-Id: b2423f1e-4711-43dd-4a42-08dc643bd6e6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?L0z71+ccIaOARy6vrjppSPEm+fd//9lF1a93Vs0ZVe8e8gTel7lz/KqgIWHR?=
- =?us-ascii?Q?cXdhA+QI6mRO9rhMIyp+m/wimufSaAdSpiwRMjvyjzxR3E/F0/5K3vZOliFJ?=
- =?us-ascii?Q?dNeEbOvknQNAolg4zPmaWuFemUw+sop2tEPQMjoOKwoV9aH9tGeAfD/HAY58?=
- =?us-ascii?Q?1vBW3HklzKMLJ2bzYRbYuwhZms8XPRT1e/W4TQrONfA3xT1PaAqbz/Ue1mkQ?=
- =?us-ascii?Q?hjS705VCr52Aa+W8oxAr0kc3mL5RnUaqYH4BO/ZxRgmQIzHsENGAlEX61OjP?=
- =?us-ascii?Q?odijOh59hGUUKxSn27UcC/Hu0wOHOqbKBAe40SP8jNGsb8yZ7GCO3E0NAbzd?=
- =?us-ascii?Q?U19aFhGvWNbiBcaJYYEKxdFJM1JsZLHCryFljHXzp+kY1mfd8XTZtU7/+4jx?=
- =?us-ascii?Q?McS8+rIxYTwVnCxldlDpE0IFQ2UPee9ZTtvZzsuWyxN5ZrtS8rOJLwvpawnp?=
- =?us-ascii?Q?HuKzp9sIPe/rIjTVDUEs24mDfylFKRn4bBjEDuq1xeR3n0V6HeCuz/5ZvM7H?=
- =?us-ascii?Q?VNQDEav5nAvP012xFme4nG+lsWq3Ux0MQI9AxrKXCCV3BbcLJZ5TVb8ESgJ5?=
- =?us-ascii?Q?JAL85l81DMJj4oruPFzxn/1tec9VWwSXajOmKg9LyNpH66Bhpa+K6/Illtma?=
- =?us-ascii?Q?dwb0Pp86n2EwEIeugaQDzWT/CUcouU5d0m/QeuYd/ysIfEzZkt+JGPLBiSXE?=
- =?us-ascii?Q?Kngg1fMyivCDCJqfQFlbjAJUep8w9JTkgNT0FmhgnfQ1b/C1KksOGnYSjjWM?=
- =?us-ascii?Q?lvJOI7+AIpSoJqfLhg5L4iGamjiMsENT/kYw25suN6Cezuj2GYHrLE3/G8h+?=
- =?us-ascii?Q?QRMohq0iNWfoHaToy5kne24tx+EiRQT11EPKdScZvQTd3RDpPKO1OXZQRC3d?=
- =?us-ascii?Q?Xh24cteXs8rSAOi36Eadhz7soaIU9nP13ScNM1IM+w+c2KoWfqmU7J5SDGgO?=
- =?us-ascii?Q?4SgCBHs+BoNSEm5yq7OJ/4gy3Tcy7TpvWk41d3u9t0QJX6EycjuLd+OCdjqp?=
- =?us-ascii?Q?jHIyx/goDVqh7ox+BCSjo5IlrwlW9JUEFKKS4KKV3err5Rg5FBif415o1ESO?=
- =?us-ascii?Q?QEtF7i2r5x2wSeRQ6WE4HohZeBSYc9wadF2CO7FkGjBqmoM65nAlQkTjuATi?=
- =?us-ascii?Q?JZQqW+BarqgMd3UyB7cPtnVFezxGJ/6bM1ZsAbNAQgQ8CKVNPBqZ1fp7rjN1?=
- =?us-ascii?Q?Y9RhuMUfBjAbn7jWF23jAMyvGrAPrRB+KD9sY+96GcrvYw11BlkBJAlOeSKZ?=
- =?us-ascii?Q?eJua6yqbCeLKMUwfQuysMQvn7olKnKtDSHWf5JZ92vDVbzPjQ9a8lHofK4gn?=
- =?us-ascii?Q?XjAdIgHOheDcufYhRPdaqlkKoKSxYWLJRWUY3OcQBgmEAm1c+vG2R6BA1TCD?=
- =?us-ascii?Q?XUOemBnhfWFh/1WY/RTOCt65yIX1?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?u+jeQLodm/oflcxuN0v3TGPYnOEHxKxmiUEdDKnzMlp3ASBg0VN87Uh0cjBg?=
+ =?us-ascii?Q?/4vXko51v5EVJJ2k4cTOUNlWfVwXuiXQo0AhedUHodoMOzkrx1LvyJXkl4Gq?=
+ =?us-ascii?Q?9nyhbFjmonOfru9749DbioVbYN9nTraYEiyfHOaXr/QrdWuscvv9u6/5YdTw?=
+ =?us-ascii?Q?DkVXp6vEiq05vJ7rfIccjZavmuJOcNdvEBwPVnxAhgrurkQtYScU3KpfbrD9?=
+ =?us-ascii?Q?OSB727eb4CpFFzK6J1H5yNJ+rkzmNO1qMkLmXk8ESVTzY42AgXoCfVoWgAvh?=
+ =?us-ascii?Q?RmuuicMdinZcL+dyydJhSJ6tEPABOOy9oqRpsQ64yzkdK6fQhZnF1v9UdGaQ?=
+ =?us-ascii?Q?Fs7keidsZfHWEHykRDtQMOOM2UzBVelLzF57qsZVMzbt/BT4TZCyEmszHXhA?=
+ =?us-ascii?Q?YDUvkxZT/hCk0rgHtgENrFCBTeiFw9AMxbB3aT8MfIRkAzKovFU7s4GU14xq?=
+ =?us-ascii?Q?OpuyVTzEFr7izHBywULggNxzK/h1HH59YKEdHjX9nJEe2hPqop0T38wMxFqS?=
+ =?us-ascii?Q?1797JUYtl8kXa447ntCDV7VjTxvFEyI/q0vIJVlZKuaRh03OiW9YKlIub4jc?=
+ =?us-ascii?Q?oKaoUJsiO1iD14Ic4/M3Gg4G3omI7szh0SvejUPTKLVQ3Ral0HX+96v2wpm3?=
+ =?us-ascii?Q?IkEwa7qMhLpxp92KcacvRk8+hDftOXl2xC6zDcuTzRKal4nSDrbAmrs00e3e?=
+ =?us-ascii?Q?mcQ6W1yidCVvTDXJYxxXhXiQgml1B0Syxj4mVvIfWb0+Yu1xJf/cjRkDmNF+?=
+ =?us-ascii?Q?YLfOdTUWvsYEinFMrXxpn0oMoeoYskl4jVLJ/uPqoGbLLG1SETLxCz7BDMBQ?=
+ =?us-ascii?Q?Nuc1OURyW/5/ohCtwiLZeOqgItCerBJ8evcQnT1or3TGq9/hrcCEplnAx8dO?=
+ =?us-ascii?Q?2BL4/EmSFxNlwOqgKdCawSHndvRjhd1EVZIipsrX/Q1KdWoofX1O9FCQn8bT?=
+ =?us-ascii?Q?NHJXohirfIYFs7AXT2BXiXljRg7TjkpWClvipVooUgSbYUzhKf7wxFPoA7rL?=
+ =?us-ascii?Q?sSkXGqShZlPQUBykJggo8exNwFca0GdarODNkpwZcv5BcJN70qy10vFtjhK0?=
+ =?us-ascii?Q?3g3a9m7EdmXl5OuWR/gS4JdFgFiLoEY8YkU4yz4MRUfmUWAikuxTzyt+Gd/q?=
+ =?us-ascii?Q?ueor9I0CWs8AaMgvPSFHlaQdB3Uw85H7kxlN2nUBvVxX65npSBKI9Ee/cWez?=
+ =?us-ascii?Q?0PsbMfRvFZSqmgQHwJ7BG7A8Ul/XwhEmQ2DdPT1O3EKq36m9KKogPKDsNznq?=
+ =?us-ascii?Q?j1wr89hKhtd9daUZYo98kshHhuhlbrboAHhtbA2+Eu0mSO1cHc0h1MeDF1zF?=
+ =?us-ascii?Q?oRusWjhe+gHuhX+/UnN5S6Fb8+TRJ3gu+5x90Aww9S4Xud8ddJ/hc4ZYbBrC?=
+ =?us-ascii?Q?0WQ1C60=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230031)(376005)(1800799015)(36860700004)(82310400014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2024 08:52:11.6657 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4efa805a-50e5-4cda-4f27-08dc643bd4e3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2024 08:52:15.0719 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2423f1e-4711-43dd-4a42-08dc643bd6e6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A0.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7146
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7557
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,111 +139,78 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-This commit just remove some trivial legacy code in some of the DC
-files.
+Set up to enable log color state for multiple DCNs.
 
 Acked-by: Wayne Lin <wayne.lin@amd.com>
 Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c | 12 ------------
- drivers/gpu/drm/amd/display/dc/hwss/Makefile         |  6 ------
- .../gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.h  |  2 +-
- .../gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c |  3 ---
- drivers/gpu/drm/amd/display/dc/os_types.h            |  2 --
- 5 files changed, 1 insertion(+), 24 deletions(-)
+ drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_init.c   | 1 +
+ drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c   | 1 +
+ drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c | 1 +
+ drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c   | 1 +
+ drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c | 1 +
+ 5 files changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-index bfc042209007..17a21bcbde17 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-@@ -762,23 +762,11 @@ void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_param
- 				break;
- 			}
- 		}
--		// Ported from DCN315
--		if (clk_table->num_entries == 1) {
--			/*smu gives one DPM level, let's take the highest one*/
--			closest_clk_lvl = dcn3_16_soc.num_states - 1;
--		}
- 
- 		s[i].state = i;
- 
- 		/* Clocks dependent on voltage level. */
- 		s[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
--		if (clk_table->num_entries == 1 &&
--		    s[i].dcfclk_mhz <
--		    dcn3_16_soc.clock_limits[closest_clk_lvl].dcfclk_mhz) {
--			/*SMU fix not released yet*/
--			s[i].dcfclk_mhz =
--				dcn3_16_soc.clock_limits[closest_clk_lvl].dcfclk_mhz;
--		}
- 		s[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
- 		s[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
- 		s[i].dram_speed_mts = clk_table->entries[i].memclk_mhz *
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/Makefile b/drivers/gpu/drm/amd/display/dc/hwss/Makefile
-index ba55050be161..40ecebea1ba0 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/Makefile
-@@ -110,10 +110,6 @@ AMD_DISPLAY_FILES += $(AMD_DAL_HWSS_DCN21)
- 
- ###############################################################################
- 
--###############################################################################
--
--###############################################################################
--
- HWSS_DCN30 = dcn30_hwseq.o dcn30_init.o
- 
- AMD_DAL_HWSS_DCN30 = $(addprefix $(AMDDALPATH)/dc/hwss/dcn30/,$(HWSS_DCN30))
-@@ -188,8 +184,6 @@ AMD_DISPLAY_FILES += $(AMD_DAL_HWSS_DCN351)
- 
- ###############################################################################
- 
--###############################################################################
--
- HWSS_DCN401 = dcn401_hwseq.o dcn401_init.o
- 
- AMD_DAL_HWSS_DCN401 = $(addprefix $(AMDDALPATH)/dc/hwss/dcn401/,$(HWSS_DCN401))
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.h
-index 76b16839486a..6a153e7ce910 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.h
-@@ -27,7 +27,7 @@
- #define __DC_HWSS_DCN30_H__
- 
- #include "hw_sequencer_private.h"
--#include "dcn20/dcn20_hwseq.h"
-+
- struct dc;
- 
- void dcn30_init_hw(struct dc *dc);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_init.c
+index 18249c6b6d81..3dfac372d165 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_init.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_init.c
+@@ -68,6 +68,7 @@ static const struct hw_sequencer_funcs dcn21_funcs = {
+ 	.set_avmute = dce110_set_avmute,
+ 	.log_hw_state = dcn10_log_hw_state,
+ 	.get_hw_state = dcn10_get_hw_state,
++	.log_color_state = dcn20_log_color_state,
+ 	.clear_status_bits = dcn10_clear_status_bits,
+ 	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
+ 	.edp_backlight_control = dce110_edp_backlight_control,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c
+index ef913445a795..4b32497c09d0 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c
+@@ -68,6 +68,7 @@ static const struct hw_sequencer_funcs dcn30_funcs = {
+ 	.setup_stereo = dcn10_setup_stereo,
+ 	.set_avmute = dcn30_set_avmute,
+ 	.log_hw_state = dcn10_log_hw_state,
++	.log_color_state = dcn30_log_color_state,
+ 	.get_hw_state = dcn10_get_hw_state,
+ 	.clear_status_bits = dcn10_clear_status_bits,
+ 	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
 diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c
-index 6477009ce065..0e5c037e82a6 100644
+index 0e5c037e82a6..97e33eb7ac5a 100644
 --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c
 +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c
-@@ -53,9 +53,6 @@ static const struct hw_sequencer_funcs dcn301_funcs = {
- 	.enable_stream = dcn20_enable_stream,
- 	.disable_stream = dce110_disable_stream,
- 	.unblank_stream = dcn20_unblank_stream,
--#ifdef FREESYNC_POWER_OPTIMIZE
--	.are_streams_coarse_grain_aligned = dcn20_are_streams_coarse_grain_aligned,
--#endif
- 	.blank_stream = dce110_blank_stream,
- 	.enable_audio_stream = dce110_enable_audio_stream,
- 	.disable_audio_stream = dce110_disable_audio_stream,
-diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h b/drivers/gpu/drm/amd/display/dc/os_types.h
-index 6c4578d347af..f2ba76c1e0c0 100644
---- a/drivers/gpu/drm/amd/display/dc/os_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/os_types.h
-@@ -29,8 +29,6 @@
- 
- #include <linux/slab.h>
- #include <linux/kgdb.h>
--#include <linux/kref.h>
--#include <linux/types.h>
- #include <linux/delay.h>
- #include <linux/mm.h>
- 
+@@ -69,6 +69,7 @@ static const struct hw_sequencer_funcs dcn301_funcs = {
+ 	.setup_stereo = dcn10_setup_stereo,
+ 	.set_avmute = dcn30_set_avmute,
+ 	.log_hw_state = dcn10_log_hw_state,
++	.log_color_state = dcn30_log_color_state,
+ 	.get_hw_state = dcn10_get_hw_state,
+ 	.clear_status_bits = dcn10_clear_status_bits,
+ 	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c
+index c06cc2c5da92..9cb7afe0e731 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c
+@@ -71,6 +71,7 @@ static const struct hw_sequencer_funcs dcn31_funcs = {
+ 	.setup_stereo = dcn10_setup_stereo,
+ 	.set_avmute = dcn30_set_avmute,
+ 	.log_hw_state = dcn10_log_hw_state,
++	.log_color_state = dcn30_log_color_state,
+ 	.get_hw_state = dcn10_get_hw_state,
+ 	.clear_status_bits = dcn10_clear_status_bits,
+ 	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
+index 934203ef52bb..f9120b1c1c1f 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
+@@ -74,6 +74,7 @@ static const struct hw_sequencer_funcs dcn314_funcs = {
+ 	.set_avmute = dcn30_set_avmute,
+ 	.log_hw_state = dcn10_log_hw_state,
+ 	.get_hw_state = dcn10_get_hw_state,
++	.log_color_state = dcn30_log_color_state,
+ 	.clear_status_bits = dcn10_clear_status_bits,
+ 	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
+ 	.edp_backlight_control = dce110_edp_backlight_control,
 -- 
 2.37.3
 
