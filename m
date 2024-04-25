@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77BC5C19F4F
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Apr 2024 13:12:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29FA2C4345F
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Apr 2024 13:14:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EABA010E772;
-	Thu, 25 Apr 2024 13:12:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A382311A456;
+	Thu, 25 Apr 2024 13:14:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Tv6HJmg5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jXVlRSYE";
 	dkim-atps=neutral
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
- [209.85.215.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03B2310E772
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Apr 2024 13:12:42 +0000 (UTC)
-Received: by mail-pg1-f179.google.com with SMTP id
- 41be03b00d2f7-53fa455cd94so722884a12.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Apr 2024 06:12:42 -0700 (PDT)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 433A111A456
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Apr 2024 13:14:17 +0000 (UTC)
+Received: by mail-pf1-f172.google.com with SMTP id
+ d2e1a72fcca58-6ecf05fd12fso897322b3a.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Apr 2024 06:14:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714050762; x=1714655562; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1714050856; x=1714655656; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=y1ni7hNQy4DvsjvqfsC6GN+Vy6CL1a8sD+2ouB8J+mM=;
- b=Tv6HJmg5MgEiWoylVjSZmLGEd9ahUIqnz+Vko39WVvrSe90JczB0bcy5hn77oTm1es
- BgpeRa5ubufMSrrpJLLhLFDI31458pa6DFipzsZKb+DC/y2KEspPCmSjNHCYT4hkklOp
- xbwLNEkOSgAa/T8JWJ2bZgGjCZqMij+z+kERAyTmgBiaA3Lg8rtFvu73VfwLG+4xb6jQ
- SbNOfWTcYGe0TYRIX4jdmjmA6M912ybsbXiPHBbUGSDcOYpK+SEdvFv+HJ8AgJpxc7W+
- nCcGzSk2QYhWSzEy7m7MyoEoeJtLJ2DvFA3nlKq5SCDHLJ2PfcZL1ZAhWytOH/PHS37r
- rHNg==
+ bh=T/04NPuWph/f1HHWfFX3p4sMMZaHwUX78EXYyCvVwOg=;
+ b=jXVlRSYEPn8gy3fLmCgNjvfWR/w85E8lycev+KPBigyozcokf/VBkVKsVZu7/HPFF7
+ LvR9+QV/uUPk8FfHA6qFUxGkn7CpATcJeZ7GTgEU+CJi5Lsy+fR3vDZY1us8SoYzcHWh
+ iJUXZiyeh3BWaONSNGA8m0k3uEAcd1jGvD0Z6P/YilqCbeW2lo0hJMUr5Y2KoiqUoQM4
+ /OdHxmKuSm/jiVdpUfLMp1DTFGRaUufKTCJNY36rtfP0IOyBoostlTNqZAGUOJCRqIii
+ G+b6KfSCCcDp8fCw7LnjK+SVeYzQdE/bjsaCkeQTyViCMFm5FSE5toAuV0NPzlnHGSvF
+ l/Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714050762; x=1714655562;
+ d=1e100.net; s=20230601; t=1714050856; x=1714655656;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=y1ni7hNQy4DvsjvqfsC6GN+Vy6CL1a8sD+2ouB8J+mM=;
- b=uDGgvODYx7xGceg/Fj8E7rnZ2KCSrS5FXakhrfVyBT0XqFCXbDtARuReNoE7kiqa3d
- kqiHV7Af8m6T9b2fWfksT7XRU9ErSaq6rxRTlHl7ZzRGymAIhIjjwOlRFYDo8LV1D/SN
- P9da+eCXElFobCm/ocUvAUMMM/tqmwrmz+D4bqbfV0jo7gVvIHiVF+t0WmqKaJaq2o61
- L169fAFycz2MzQBpWmcMXhdEaY0/MfmmtaDHHqTlhyOKjmNScoAYEUSIHDDXdqOiY51d
- jkCf8z5NLb/PmwH4zJX8+sOHwLlQZbpjOTnEfXVh7USXwgvRqVRYpSFjy/nJXeQmgnTM
- t60g==
-X-Gm-Message-State: AOJu0YwYQUfELXnrxmH431QDncxsBkBFniI5pHoMNcFtImNjhNeobrak
- ST/CwhLQi4+Vs870EQcp2hwec+5oAXpMnQRsrUzv5Z4doJhkF7qQ0/KCreVkTPd7hSyH6pATSdG
- QuOp06FcFfvuA6RAelEkFYTfsXyo=
-X-Google-Smtp-Source: AGHT+IEapLlkUsHG8yVkMeY8yaYSZdC+mrd69GEGfaMlyg95vNlKe7ibjj+Jdl/8KnO16d3LBj15F0TaBaMiZ4FSNTs=
-X-Received: by 2002:a17:90a:ac2:b0:29d:dd93:5865 with SMTP id
- r2-20020a17090a0ac200b0029ddd935865mr4765365pje.46.1714050762084; Thu, 25 Apr
- 2024 06:12:42 -0700 (PDT)
+ bh=T/04NPuWph/f1HHWfFX3p4sMMZaHwUX78EXYyCvVwOg=;
+ b=R+oAVAqMpYl5/qJ88+e+hre5XcDcPUgGrzSLJbzwyFDgYxfewm+StMmIwSM+j4ayH8
+ feYDO3s1MtueLYfA6Vmiomk2/5PEeagYVLW692RDXdZHb8RcaARpJFgoP5F2DiAtwPAo
+ TmZWlyJbHWWuNMumbZJ94O0NO3aySLwchoTZrJakhnCWkjQdLGj0SMNgAXUV9WD3YRWd
+ ZR4y0KSICLc9bw/kO8WBCa9HsHYywVcQXTrKVwHkITwLjkflXP+Dj2dd8sFGi5fFyNcM
+ /zB8aLlPtUqQiED3x0mEtO9qplzOy3edjzvIxejVauS06pgKEZZA9mS3GgQLIYxBUC2h
+ 9ccQ==
+X-Gm-Message-State: AOJu0YzUp5EO3ma+kvRBPQxtY42ZLafSBqgHJetSagQ0I8iJd8sc2Ysk
+ s9pnAPs3/gdTW0VAFIbI9XXGQKZg7Ti/RC92H0sySnLTJGuqcM3COuP7xPkoaDdqibJ96DwD3lt
+ zF0gWxXrPJ4J7NrotMYqbs+K1G6RIug==
+X-Google-Smtp-Source: AGHT+IHOxtlpio+iaVAkLFbJLlpIR/y8XsImP6MADnnKXNUjizIepD0Y5uU7UzxCXGwCwrtRomSuXqF3ZwCQwNMVRQc=
+X-Received: by 2002:a17:90b:1a85:b0:2af:76fa:fb3e with SMTP id
+ ng5-20020a17090b1a8500b002af76fafb3emr4053609pjb.45.1714050856526; Thu, 25
+ Apr 2024 06:14:16 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240425100027.637016-1-Jun.Ma2@amd.com>
- <20240425100027.637016-3-Jun.Ma2@amd.com>
-In-Reply-To: <20240425100027.637016-3-Jun.Ma2@amd.com>
+ <20240425100027.637016-2-Jun.Ma2@amd.com>
+In-Reply-To: <20240425100027.637016-2-Jun.Ma2@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 25 Apr 2024 09:12:29 -0400
-Message-ID: <CADnq5_PQ+kBcwG5kKKUhKpd6Xmv5njij5oj1EK_uC4zJQ=upcQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] drm/amdgpu: Fix the uninitialized variable warning
+Date: Thu, 25 Apr 2024 09:14:05 -0400
+Message-ID: <CADnq5_ObVpXHZDixBZfVo_ByM6fjmsJAQxz6fL_X5VZPFnGeiQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] drm/amdgpu: Fix uninitialized variable warning in
+ amdgpu_afmt_acr
 To: Ma Jun <Jun.Ma2@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
  Alexander.Deucher@amd.com
@@ -77,48 +78,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 25, 2024 at 6:17=E2=80=AFAM Ma Jun <Jun.Ma2@amd.com> wrote:
+On Thu, Apr 25, 2024 at 6:07=E2=80=AFAM Ma Jun <Jun.Ma2@amd.com> wrote:
 >
-> Initialize the phy_id to 0 to fix the warning of
-> "Using uninitialized value phy_id"
+> Assign value to clock to fix the warning below:
+> "Using uninitialized value res. Field res.clock is uninitialized"
 >
 > Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_afmt.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c b/drivers/=
-gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
-> index 8ed0e073656f..53d85fafd8ab 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
-> @@ -95,7 +95,7 @@ static ssize_t amdgpu_securedisplay_debugfs_write(struc=
-t file *f, const char __u
->         struct psp_context *psp =3D &adev->psp;
->         struct ta_securedisplay_cmd *securedisplay_cmd;
->         struct drm_device *dev =3D adev_to_drm(adev);
-> -       uint32_t phy_id;
-> +       uint32_t phy_id =3D 0;
-
-You can drop this hunk now that you added the check below.
-
-Alex
-
->         uint32_t op;
->         char str[64];
->         int ret;
-> @@ -135,6 +135,10 @@ static ssize_t amdgpu_securedisplay_debugfs_write(st=
-ruct file *f, const char __u
->                 mutex_unlock(&psp->securedisplay_context.mutex);
->                 break;
->         case 2:
-> +               if (size < 3) {
-> +                       dev_err(adev->dev, "Invalid input: %s\n", str);
-> +                       return -EINVAL;
-> +               }
->                 mutex_lock(&psp->securedisplay_context.mutex);
->                 psp_prep_securedisplay_cmd_buf(psp, &securedisplay_cmd,
->                         TA_SECUREDISPLAY_COMMAND__SEND_ROI_CRC);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_afmt.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_afmt.c
+> index a4d65973bf7c..80771b1480ff 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_afmt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_afmt.c
+> @@ -100,6 +100,7 @@ struct amdgpu_afmt_acr amdgpu_afmt_acr(uint32_t clock=
+)
+>         amdgpu_afmt_calc_cts(clock, &res.cts_32khz, &res.n_32khz, 32000);
+>         amdgpu_afmt_calc_cts(clock, &res.cts_44_1khz, &res.n_44_1khz, 441=
+00);
+>         amdgpu_afmt_calc_cts(clock, &res.cts_48khz, &res.n_48khz, 48000);
+> +       res.clock =3D clock;
+>
+>         return res;
+>  }
 > --
 > 2.34.1
 >
