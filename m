@@ -4,107 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19DB0C10F1A
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Apr 2024 07:06:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E78BAC4345F
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Apr 2024 07:08:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8346411A206;
-	Thu, 25 Apr 2024 07:06:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DEA910E727;
+	Thu, 25 Apr 2024 07:08:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="Zfb1td1R";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VLNFUV5J";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E7CE11A20B;
- Thu, 25 Apr 2024 07:06:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1714028769; x=1714633569; i=friedrich.vock@gmx.de;
- bh=i4akl77UZzHLeMcH8ZDdpPqlIvG32xply5EC17WzyLM=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=Zfb1td1RrGD+DN74/mfKu6b5SzTyI1WMdzqvfh8g51LaCkqIpM3GOPvrqSJiDmC+
- b+Lc2biBtRONPcND0VjW0rOE0U8ZcGIp2izb9DWtNaCq1YX2R5shfZdnccWRrYoAk
- B2ed4Ia9ooRgBhAyDZ//SbgfRt03MCkPsaL/kYNTjNAUbc4tAsPvDvldSzBzX2K16
- hz5lZL/wZ+akk63sGyTYGqkMZ3cYf0AT63eLMKIwqiQlzKkUew4Bym3TuS4yWn87W
- msq6nEaV1KZaaBXWNlm7uIsfOHaBtn/NnaZI65+b6vhljj5ajCh1rgTCGhpMCMjd7
- AtpXqMXGNC3XCc1Mww==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.177.3] ([213.152.117.111]) by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MXp9i-1sC7Zd3KDU-00YC8w; Thu, 25
- Apr 2024 09:06:09 +0200
-Message-ID: <38a23351-6f16-462b-be02-187829e3c2c2@gmx.de>
-Date: Thu, 25 Apr 2024 09:06:08 +0200
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2042.outbound.protection.outlook.com [40.107.102.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0126C10E727
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Apr 2024 07:08:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d0FXzfhOx7EV4wdn4bfTK9UxzjlTWWdQNpnMdtr/dSM6s9u6zajA8PM0mapvQUmMVJcKWskzJfACt2uzpBeXNYiYFTVxJa3n5a6y1i8LPMjOTYVuvUcTotPGsx5OBZevgCorlN4l0GPTmPQLHm/r7mlQ5bWHVotgvsjQolGevnrHYo9M+X+5aORmn52vO1u6ibYWJGrMvuoCqZfR6NM1zTUXkjUHDHhhsP9O1ls/1l0FBkuguZz8UM3xOrNn+m+TlzvPHaTw8XrjmtNcvQY3CNNrBiNIGK5cpgROQykPxOqZ3yseAgVEa5jkPRlIVg88Yh+YRWNyK3C8W7/fzfgFkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cD/IRtV15ZXh/zcu5QNiuL/LhHlNhvs4BHO5FasnPxA=;
+ b=YULJkbmWYaaX2WgDWjv81m/etpVW6q1gZ48E7C0KOqSxaUzP5SIWOZp5zQ1XY8W5JT2n6Cqc4bPKfsCqqpU1rGjiG9p5pVKoDwzFu0zQCehB2ep1XvLH5qZo5gCe58NIUd64r/gxJNkdGq1J24E6fDNpTBpxxf+gVkH0n2+TxrNiZFn6XQe/YMfTYOW4Bkow6RYfobJRqO5JyiobrG3qFJhNbl5M0dGh5wjU77BZ/oVaedm/CmkWq+zOrz4zsIHyXUa787PFRluL9aBP7mBptai7ylOVMt6aDfKqHXMsfcKvIdE8nIibUCBwY9QxNEtVS6VXiMPhhJZffUZ4C1ZEOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cD/IRtV15ZXh/zcu5QNiuL/LhHlNhvs4BHO5FasnPxA=;
+ b=VLNFUV5JYMpCTupAXFA8QH2OwPXQaE/jihoi9IjwyX1PlU9vj+7KF9gopDq079tS/Gzc+p0aJMUcM9ex08osAwQR46nXFLzx223PWky1Rd9GM9AETgpmpyqbDbo3DnPeUhgqSaK98be2L0tX9mMM9XR7Xr4h37QDp6DMW2bG+Yo=
+Received: from BN0PR08CA0021.namprd08.prod.outlook.com (2603:10b6:408:142::16)
+ by SJ0PR12MB7067.namprd12.prod.outlook.com (2603:10b6:a03:4ae::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.45; Thu, 25 Apr
+ 2024 07:08:06 +0000
+Received: from BN1PEPF0000468E.namprd05.prod.outlook.com
+ (2603:10b6:408:142:cafe::dd) by BN0PR08CA0021.outlook.office365.com
+ (2603:10b6:408:142::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.35 via Frontend
+ Transport; Thu, 25 Apr 2024 07:08:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF0000468E.mail.protection.outlook.com (10.167.243.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7519.19 via Frontend Transport; Thu, 25 Apr 2024 07:08:05 +0000
+Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 25 Apr
+ 2024 02:08:04 -0500
+From: Stanley.Yang <Stanley.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Stanley.Yang <Stanley.Yang@amd.com>
+Subject: [PATCH Review 1/1] drm/amdgpu: Adjust XGMI WAFL ras enable bit
+Date: Thu, 25 Apr 2024 15:07:50 +0800
+Message-ID: <20240425070750.4058395-1-Stanley.Yang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 16/18] drm/amdgpu: Implement SET_PRIORITY GEM op
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Pierre-Loup Griffais <pgriffais@valvesoftware.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, Joshua Ashton
- <joshua@froggi.es>, Alex Deucher <alexander.deucher@amd.com>
-References: <20240424165937.54759-1-friedrich.vock@gmx.de>
- <20240424165937.54759-17-friedrich.vock@gmx.de>
- <e5224fdf-ecc0-41f2-a7d9-42e3937f2e63@amd.com>
- <6830272c-e3c0-4d54-aa10-6c96c1e644fc@gmx.de>
- <b2e62f12-4490-4438-a54f-10e0c4a4e793@amd.com>
-Content-Language: en-US
-From: Friedrich Vock <friedrich.vock@gmx.de>
-Autocrypt: addr=friedrich.vock@gmx.de; keydata=
- xsDNBGPTxTYBDACuXf97Zpb1IttAOHjNRHW77R759ueDHfkZT/SkWjtlwa4rMPoVdJIte9ZY
- +5Ht5+MLdq+Pjd/cbvfqrS8Q+BBwONaVzjDP35lQdim5sJ/xBqm/sozQbGVLJ/szoYhGY+va
- my9lym47Z14xVGH1rhHcXLgZ0FHbughbxmwX77P/BvdI1YrjIk/0LJReph27Uko8WRa3zh6N
- vAxNk6YKsQj4UEO30idkjmpw6jIN2qU7SyqKmsI+XnB9RrUyisV/IUGGuQ4RN0Rjtqd8Nyhy
- 2qQGr8tnbDWEQOcdSCvE/bnSrhaX/yrGzwKoJZ8pMyWbkkAycD72EamXH13PU7A3RTCrzNJa
- AKiCvSA9kti4MRkoIbE+wnv1sxM+8dkDmqEY1MsXLTJ4gAkCnmsdGYz80AQ2uyXD06D8x/jR
- RcwbRbsQM5LMSrXA0CDmNXbt5pst7isDbuoBu1zerqy2ba+rf6sxnSnCzQR6SuE0GB7NYV8A
- lrNVyQlMModwmrY2AO3rxxcAEQEAAc0mRnJpZWRyaWNoIFZvY2sgPGZyaWVkcmljaC52b2Nr
- QGdteC5kZT7CwQ4EEwEIADgWIQT3VIkd33wSl/TfALOvWjJVL7qFrgUCY9PFNgIbAwULCQgH
- AgYVCgkICwIEFgIDAQIeAQIXgAAKCRCvWjJVL7qFro7GC/9PfV0ICDbxBoILGLM6OXXwqgoC
- HkAsBEXE/5cS68TT++YXMHCetXpFfBIwTe8FlBcbhtylSYIUhFLmjiGfgoXy5S87l9osOp1G
- y3+RNbFoz4OJvqcXX5BqFK5KHh7iL/Q6BaZB9u3es0ifFt5YMwhDgcCbYaLUlTPbl+5m+/ie
- Eori0ASylvhz3EdB11sMqN9CmoKvBEVnkdiydDMuFvpEi08WB8ZC8qckiuwrLOIa4/JB54E2
- QyGw0KgBT4ApeMmkKurS3UOsrAwoKKP/0rgWsBFVnXrBIOEL+7/HGqSSDboLAjt1qE967yxM
- 3Qzt1FUBU9db2biFW7O3TmXP31SyPwVYWfeETa4MT9A8EyjfWF66+sfPXREsBvqRTin3kEst
- IlbMdSNijCjKZz9XPCaKwx3hJaD5VEs3gPsKa9qXOQftfTqt+SI0nYBw3sdT2+wWJCeyZ3aE
- L0Us8uMILncTxVAhX2a8pUvGrbtuyW2qqEFId1OSfWlrLZEuv8+631fOwM0EY9PFNgEMAKx2
- G48lrQ1bLAWgjq3syyswS80e70M+/Fbxb2aBKRHw5XbpSPYr9FLE3MPdgvUtt+fiK2xA69bk
- i86sfSV2KNhRuiS2rb1h/jfmTlxfimBezHv6xnzVuHJNd87vL35lqd0D6B5zvnzzP9CjpXq/
- o7isfiA2FMSOI1OnrHEw9pbEd1B26cgS+mIGhDf/gBI6MtsPuN8xMUyybtpUSSVi3b4oRkge
- +vwwbMn+vwvhN39kjcISAT+jFWNupDybFIs8cYNWA7MkWJAIuqSjMydE0l1+c8eF7nnvzY2o
- 2GGarFmxNO4CHuh3JoMFfY4wlKjmDlk+FJ5UfIFelVmOiVPLGrSL8ggcubnOS75VjDvDTQgY
- tjDvLuUmOj1vYSmPSE9PjDMhrpx1LcSOHyV+aX0NQeHP869A/YLjwQbOJBJVIN+XdsGlnwG5
- teXXxU9uwFDqYPAneHp4As5OKovOCIzNj6EB4MIZIpTGgYQBIN4xrwL0YsjvPm2i1RyBPTpf
- UKvjVQARAQABwsD2BBgBCAAgFiEE91SJHd98Epf03wCzr1oyVS+6ha4FAmPTxTYCGwwACgkQ
- r1oyVS+6ha4Hlgv/Z2q6pSxeCjK/g20vub8Gvg09jNYAle3FTaJD2Jd/MhUs6s9Y5StWtiDf
- hw27O8bhJan1W4hrngQceR2EcvKxejroVhu3UI2b9ElM5aphD2IolOWqfwPXeUetIgaMNqTl
- GJ9rGx+k8HCpchW4QVZfWn7yM+IymCwOYov+36vMMHd8gdQ0BxMiT2WLDzCWwDb+/PYMfOiq
- AoPBV5EQ2K3x85wl9N4OxiQdGWi9+/0KJyMPYoGlFqCdPdvvbpFe4XD6YOBr3HmVOFCWtLcW
- Bm+BCucpo93VhjNVqZ+cuN/tlS+Px8kl0qW9J3Q8fwWhgz69v5YdiOczQza/zQu3YrcYapBD
- kQXSmDju1Yd4jIGeZ8vf+dnmbX78mpj3nBmYLhIs5lszAH634uoWyJqMLs77WG1pkk0utvwh
- Zvq4r6fbLIuofLsboYKQxUJuX5uRSK4/hWXEETUTxxvkA/hiuhsdMbDWIZWFp8yuoZvR2itT
- f7+xmX0X3AMtWz/15Y+7cPO2
-In-Reply-To: <b2e62f12-4490-4438-a54f-10e0c4a4e793@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:Y0QBqvKbPfVgzcLUvYmFhMXoH7oUew7Ug3N5kO2upDQsVJO5G0A
- 9FHSKOIYFciqoeFaaF3az5ldMHQOz0TvogyEh1k88/yOVxLw/M/Et2Y0KS/k3SLfaQyYN3W
- RYI+9tY92Mv+aBlLq9T1fYsLpmg72txtphMUOGwVtOumw9lXOFbRXQXOtSnEbW2FWPGmh/P
- 0tk3krv9JqKpI71z4+zlA==
-UI-OutboundReport: notjunk:1;M01:P0:bGIqeVrX8Ng=;powqPkkx/cfx56WIvaSNHvNBZUS
- NOEjdO2uvXCavAYynGgrk5jCM8gebU0wVF75argzDa+9a5roEYoOfD6RooDIxBKwACwabfqot
- pNgJZknGQfL1+FVnAA8iNauDIMA5EmDJniLgXCBvg/+MM9BKQqbXm9f0NcYZw87QcZU6qeaUU
- 2yp5c7gSESoR1NFQS/PCd0lWPdCrXFg2SpiYocTFZEZYWrJ9sw0wA3nnLW+PSsy63lwqrD/js
- Y81WiOTrA78UG5O0eEnVC3bXPXKjUHW/2gt13SoWAP3Ef0zvD0Y6UsLx08IBz9YLcFv+66jWF
- hwX5m3wtm7ir5HRuJ6F50gw56zjToDXtPYnEJ8rhcCbA19cX5ixCr4atBT1ZNJ3Is3A94Zvwd
- jrwA0ESaLl/EIUKOu6fcAakkgVX0FWZhhZOY6Ii7nNMICNUI9w+6FV+UcSMJWXUxsxDFpEBjp
- wxOFflt7Q3Dk5TCB4qjYLkDE97q0Oq8Yg0PEl/8CgR1BD58KXnnfE7+a7W5kq2KQRLAijt6UL
- 6uDYc4cnL8lxGH0hGNxl3zLbQWW/m0fuvCiFzXTYXyZ9FaYiWlAfKwkSbdSRjNSTDpGpV1gX5
- tRWgfXbW2NlU3XIQMMgpg9mt7mbcEtFjcFU77nwSlpu9UEEFqvTjJA1e0A8JErZFBHfXR3jml
- R1r8zZCgaHSI9cvhf3TOC7v+Gt4JeBbOvgHPipd5EbjaXDAYHnhj6tCTQQhBD48b6pbyn5w84
- 26uK73S+o4hW4ewL2RTAQ+PYYdXDxEgs7FkPPyT7YqAna4JDpAovuh9dvVvESfJjhzDtLS0iS
- h8UJfAl+1yM9KwLm2Ugn0duvyA94/4kigW6uGDfJqa8n8=
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468E:EE_|SJ0PR12MB7067:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99cfc5f1-14f6-40b3-ef7e-08dc64f67474
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?BqstWau3uE0DVUwk2at+KdX2ETNV80ves6NXbxyVPKpLz4dbXsen4bF7597x?=
+ =?us-ascii?Q?W1mbAoHy3IwhYLQFoqpFNR7tGWuU8vcV7+h9WuLSjNMsPXqeFc3iv4Ogmzpt?=
+ =?us-ascii?Q?48QNmbQ8rSKdMWDKuzmDolzVQ8/DOQ/IeLa6lDlX3VsZNqM+mV28tRvYQ2H8?=
+ =?us-ascii?Q?X7UXLUCEkB+QDd1WiA/UrlnmVL8bFvIA+PBBmHf1AW+2aSfnwP8y55wui3zw?=
+ =?us-ascii?Q?dtIGujEa5NWrt2YM5i0g59zK6d5CpZewf1WFsGkuQMDDzuzT6FFcdDlOgtUz?=
+ =?us-ascii?Q?9inFQDx+bu8rqDkOhrdm5x43f0wio7R/dGKcxxjIiXTCj6tYgSXwu+Y6u0ni?=
+ =?us-ascii?Q?BnQCwJ3Z1WlYjej8n6ymfSJBtTUaNw/aro47NSFAb5AXnZAm1a4skT1g+o1W?=
+ =?us-ascii?Q?aBIYE0nJMkbGuDhCatwYq38M695au0xMsNgwb6Y07jGpHWjoJg9XY691nJ3B?=
+ =?us-ascii?Q?fIDC4geX3R5+WSnfdHwZ5WSPYN0o3vsjxun/GyotExWRAia/OZpkgarSYk1O?=
+ =?us-ascii?Q?lkYVzWcukphFHTOaEdiJjq01p1BaGNaZ32CkuYfAgYDV3CbVoDeK1nJ/VxP7?=
+ =?us-ascii?Q?UH6qwLfMZE2HEjsr8935xPsHrEC7Dcub8vZpgrJ22l5zfo+u7ay0NVHhe1su?=
+ =?us-ascii?Q?u8BdZdm1bGsPUDTtUTPRjBvelgWt152dqpeU7bwW6EZgKIWOq0xSzaxuKtq9?=
+ =?us-ascii?Q?tMGPzR1mFa4y41h00YWOVlzGVbZQM70ohhkg+O/qHm/vlarcdCluZFhTVrLV?=
+ =?us-ascii?Q?9A1pxny/G0ZPl6EKVwNaqwSPLOPji0OOkD8yblY7t42qkxPRxLilYWEQpCN2?=
+ =?us-ascii?Q?9pGwGKrzBQj9UxIlwjEfhG58mqJiFplFpbTfcTmnCtnfAZFJE7NxZyUby3uD?=
+ =?us-ascii?Q?BLkNmxJ8brhUakeUzZDlkVNw3uyEL92QEEHwoyOIvGQ+gJgk7S/RmifGiUfJ?=
+ =?us-ascii?Q?npAS5aGo+B/nBqyFucwI/kkVnXd+6rB727Hb3JBRWTj5U52leFMA2hc6d901?=
+ =?us-ascii?Q?AJQKfkXwPWvRtWBi+34MaFGFGFkHqHu65mi0+Cbia4f4TKHhxudmns9n33o9?=
+ =?us-ascii?Q?tDH+6fvVCL2ekT39YPl8HrWUly+Cy+pefhp3fl8+BzFblSjoDvBxEQ8pqp23?=
+ =?us-ascii?Q?Ti5jYSjkKGK9HgJQTeaw6ZqzC9uNqTtDWDi6OO4tHTfUSdneCxGA8tV4lUsV?=
+ =?us-ascii?Q?+cwdAlyJQY6JV3O9GD4v77BPhcqQvwMiiHPPYyyoxdlEJEFOtbpi2bMNq1Iy?=
+ =?us-ascii?Q?v6Loys2l4dUBUcluU/6IINaZC5Ytbl7wJnIe98429gvdFb713owGrkGtELSh?=
+ =?us-ascii?Q?NGVK/BSuDBCNvmeeEUqQJxA2amwzKZENFAMdNWcQ9oORrCTtznlKLXycWVLG?=
+ =?us-ascii?Q?6boHL0SKRjpnjR4X5VBxNc8vhMfB?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(1800799015)(82310400014)(376005)(36860700004); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2024 07:08:05.8008 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99cfc5f1-14f6-40b3-ef7e-08dc64f67474
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468E.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7067
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,159 +127,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 25.04.24 08:58, Christian K=C3=B6nig wrote:
-> Am 25.04.24 um 08:46 schrieb Friedrich Vock:
->> On 25.04.24 08:32, Christian K=C3=B6nig wrote:
->>> Am 24.04.24 um 18:57 schrieb Friedrich Vock:
->>>> Used by userspace to adjust buffer priorities in response to
->>>> changes in
->>>> application demand and memory pressure.
->>>
->>> Yeah, that was discussed over and over again. One big design criteria
->>> is that we can't have global priorities from userspace!
->>>
->>> The background here is that this can trivially be abused.
->>>
->> I see your point when apps are allowed to prioritize themselves above
->> other apps, and I agree that should probably be disallowed at least for
->> unprivileged apps.
->>
->> Disallowing this is a pretty trivial change though, and I don't really
->> see the abuse potential in being able to downgrade your own priority?
->
-> Yeah, I know what you mean and I'm also leaning towards that
-> argumentation. But another good point is also that it doesn't actually
-> help.
->
-> For example when you have desktop apps fighting with a game, you
-> probably don't want to use static priorities, but rather evict the
-> apps which are inactive and keep the apps which are active in the
-> background.
->
-Sadly things are not as simple as "evict everything from app 1, keep
-everything from app 2 active". The simplest failure case of this is
-games that already oversubscribe VRAM on their own. Keeping the whole
-app inside VRAM is literally impossible there, and it helps a lot to
-know which buffers the app is most happy with evicting.
-> In other words the priority just tells you which stuff from each app
-> to evict first, but not which app to globally throw out.
->
-Yeah, but per-buffer priority system could do both of these.
+The way to get ras capability has changed for some asics,
+both of them need check XGMI physical nodes number to
+set XGMI WAFL ras enable bit.
 
-Regards,
-Friedrich
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-> Regards,
-> Christian.
->
->>
->> Regards,
->> Friedrich
->>
->>> What we can do is to have per process priorities, but that needs to be
->>> in the VM subsystem.
->>>
->>> That's also the reason why I personally think that the handling
->>> shouldn't be inside TTM at all.
->>>
->>> Regards,
->>> Christian.
->>>
->>>>
->>>> Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
->>>> ---
->>>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 20 +++++++++++++++++=
-+++
->>>> =C2=A0 include/uapi/drm/amdgpu_drm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
->>>> =C2=A0 2 files changed, 21 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>> index 5ca13e2e50f50..6107810a9c205 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>> @@ -836,8 +836,10 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev,
->>>> void *data,
->>>> =C2=A0 {
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_device *adev =3D drm_to_=
-adev(dev);
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_amdgpu_gem_op *args =3D dat=
-a;
->>>> +=C2=A0=C2=A0=C2=A0 struct ttm_resource_manager *man;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_gem_object *gobj;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_vm_bo_base *base;
->>>> +=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx ctx;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_bo *robj;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int r;
->>>>
->>>> @@ -851,6 +853,9 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev,
->>>> void *data,
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (unlikely(r))
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto out;
->>>>
->>>> +=C2=A0=C2=A0=C2=A0 memset(&ctx, 0, sizeof(ctx));
->>>> +=C2=A0=C2=A0=C2=A0 ctx.interruptible =3D true;
->>>> +
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 switch (args->op) {
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case AMDGPU_GEM_OP_GET_GEM_CREATE_INFO=
-: {
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_amd=
-gpu_gem_create_in info;
->>>> @@ -898,6 +903,21 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev,
->>>> void *data,
->>>>
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_bo_unre=
-serve(robj);
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
->>>> +=C2=A0=C2=A0=C2=A0 case AMDGPU_GEM_OP_SET_PRIORITY:
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (args->value > AMDGPU_=
-BO_PRIORITY_MAX_USER)
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 a=
-rgs->value =3D AMDGPU_BO_PRIORITY_MAX_USER;
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_bo_update_priority(&r=
-obj->tbo, args->value);
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (robj->tbo.evicted_typ=
-e !=3D TTM_NUM_MEM_TYPES) {
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 t=
-tm_bo_try_unevict(&robj->tbo, &ctx);
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 a=
-mdgpu_bo_unreserve(robj);
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } else {
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 a=
-mdgpu_bo_unreserve(robj);
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 m=
-an =3D ttm_manager_type(robj->tbo.bdev,
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 robj->tbo.resource->mem_type);
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 t=
-tm_mem_unevict_evicted(robj->tbo.bdev, man,
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 t=
-rue);
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 default:
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_bo_unre=
-serve(robj);
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r =3D -EINVAL;
->>>> diff --git a/include/uapi/drm/amdgpu_drm.h
->>>> b/include/uapi/drm/amdgpu_drm.h
->>>> index bdbe6b262a78d..53552dd489b9b 100644
->>>> --- a/include/uapi/drm/amdgpu_drm.h
->>>> +++ b/include/uapi/drm/amdgpu_drm.h
->>>> @@ -531,6 +531,7 @@ union drm_amdgpu_wait_fences {
->>>>
->>>> =C2=A0 #define AMDGPU_GEM_OP_GET_GEM_CREATE_INFO=C2=A0=C2=A0=C2=A0 0
->>>> =C2=A0 #define AMDGPU_GEM_OP_SET_PLACEMENT=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 1
->>>> +#define AMDGPU_GEM_OP_SET_PRIORITY=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 2
->>>>
->>>> =C2=A0 /* Sets or returns a value associated with a buffer. */
->>>> =C2=A0 struct drm_amdgpu_gem_op {
->>>> --
->>>> 2.44.0
->>>>
->>>
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index b2a883d3e19d..ea77e00cc002 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2918,13 +2918,6 @@ static void amdgpu_ras_query_ras_capablity_from_vbios(struct amdgpu_device *adev
+ 		else
+ 			adev->ras_hw_enabled &= ~(1 << AMDGPU_RAS_BLOCK__VCN |
+ 						  1 << AMDGPU_RAS_BLOCK__JPEG);
+-
+-		/*
+-		 * XGMI RAS is not supported if xgmi num physical nodes
+-		 * is zero
+-		 */
+-		if (!adev->gmc.xgmi.num_physical_nodes)
+-			adev->ras_hw_enabled &= ~(1 << AMDGPU_RAS_BLOCK__XGMI_WAFL);
+ 	} else {
+ 		dev_info(adev->dev, "SRAM ECC is not presented.\n");
+ 	}
+@@ -3002,6 +2995,13 @@ static void amdgpu_ras_check_supported(struct amdgpu_device *adev)
+ 	amdgpu_ras_query_poison_mode(adev);
+ 
+ init_ras_enabled_flag:
++	/*
++	 * XGMI RAS is not supported if xgmi num physical nodes
++	 * is zero
++	 */
++	if (!adev->gmc.xgmi.num_physical_nodes)
++		adev->ras_hw_enabled &= ~(1 << AMDGPU_RAS_BLOCK__XGMI_WAFL);
++
+ 	/* hw_supported needs to be aligned with RAS block mask. */
+ 	adev->ras_hw_enabled &= AMDGPU_RAS_BLOCK_MASK;
+ 
+-- 
+2.25.1
+
