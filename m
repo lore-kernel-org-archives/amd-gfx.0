@@ -4,76 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2ECCC4345F
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Apr 2024 13:04:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77BC5C19F4F
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Apr 2024 13:12:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E4C811A43C;
-	Thu, 25 Apr 2024 13:04:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EABA010E772;
+	Thu, 25 Apr 2024 13:12:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cqPdFADT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Tv6HJmg5";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B396110FBDD
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Apr 2024 11:21:29 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4155819f710so6691165e9.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Apr 2024 04:21:29 -0700 (PDT)
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
+ [209.85.215.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03B2310E772
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Apr 2024 13:12:42 +0000 (UTC)
+Received: by mail-pg1-f179.google.com with SMTP id
+ 41be03b00d2f7-53fa455cd94so722884a12.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Apr 2024 06:12:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1714044088; x=1714648888; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cXBdVhclN8iRuqar3CwvdUJWpfJdsgIEIzFUbTS5W/4=;
- b=cqPdFADT48HyK7R3ukI+2zSIw1OjCPjHfnvtcX30aKo1YRNsCmeglL/l7hRJ70rdfC
- HY263e7L354fDbj9JdeuJguwV3MNozr/ilX8YPq4hu/sVHzZ1iXecRgho+i/sgUMd3ad
- oID4dar2SXNCOTv149e1UsClU00pBfjMIrzsIHpfyFT6ez2LCp8MAjQJsph01ykk62bl
- psbwuPSn9/lTD5J5UMfNK3WjChDqAeX2/tIrZtXeg7oHu3pHoYJ2RkEaMhLZvDZ8TTEz
- L9a4b/xaM94VoSWV5jtbY23cqbkznjaA+yURRFjPYsoe3Kq1Ififm+mjJJPeS110A3oX
- 8QDg==
+ d=gmail.com; s=20230601; t=1714050762; x=1714655562; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=y1ni7hNQy4DvsjvqfsC6GN+Vy6CL1a8sD+2ouB8J+mM=;
+ b=Tv6HJmg5MgEiWoylVjSZmLGEd9ahUIqnz+Vko39WVvrSe90JczB0bcy5hn77oTm1es
+ BgpeRa5ubufMSrrpJLLhLFDI31458pa6DFipzsZKb+DC/y2KEspPCmSjNHCYT4hkklOp
+ xbwLNEkOSgAa/T8JWJ2bZgGjCZqMij+z+kERAyTmgBiaA3Lg8rtFvu73VfwLG+4xb6jQ
+ SbNOfWTcYGe0TYRIX4jdmjmA6M912ybsbXiPHBbUGSDcOYpK+SEdvFv+HJ8AgJpxc7W+
+ nCcGzSk2QYhWSzEy7m7MyoEoeJtLJ2DvFA3nlKq5SCDHLJ2PfcZL1ZAhWytOH/PHS37r
+ rHNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714044088; x=1714648888;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cXBdVhclN8iRuqar3CwvdUJWpfJdsgIEIzFUbTS5W/4=;
- b=spU3K6QCvAt0+/d84iDQGnOrUUra36M9Ndi7IanNK39SA0JDiPrVgHbWUSTI5UkOKx
- LrSVP6tbRPRXZuitHhACjJGYwR5wig9AGE6YSWyCCTa5eIJPJiM19UA4ApWxsGf1r3h3
- B2uwJbwQAB4V9ns/eSy+88kHSELGULMuKDAdrYBk5qAvpeFLFbwanMjDcIrICWIilk3N
- xQzRcnb1sIZGZlX+7Bo6M+ZMTxedS7bIrwBscM//K2eWTXHPCwYmbPRuBuP1jXoRkjX/
- Uyp4IqwJ/t8joi8I2fq/dp+HjwXvXIV/EG2V5bs4/9qxZjdQjXRc8YF+AKhCeKtwYMuW
- 8r1A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVODopH2RzovzB7WuX3io4zdNjzfBRYVNauqUNB2w7HGoXP/pVpvxWEhEVE6CD4IvcJHJxcR4/aSSekASi4wm/DtYgAydwK93UmLcow6A==
-X-Gm-Message-State: AOJu0YyIcNA8U3hQxmyM+4O828B+q0JMwKp2BmEd9/NWVFd2eMFahteS
- RB2g0chZLYAjO+lZUoGfMlbNBoGfW42oE8/Xvo1OK3qsbutyPIOv6lWD1OSinpo=
-X-Google-Smtp-Source: AGHT+IEkRzF902REA9b5+gdCdVfVhX1mEE+4IWBK9dgathGvN8Vw5Fx6OzS2pvtmCTAMrqcKfcYtzA==
-X-Received: by 2002:a05:600c:470d:b0:418:5e80:b7af with SMTP id
- v13-20020a05600c470d00b004185e80b7afmr5104977wmo.36.1714044087693; 
- Thu, 25 Apr 2024 04:21:27 -0700 (PDT)
-Received: from localhost ([102.222.70.76]) by smtp.gmail.com with ESMTPSA id
- d15-20020adffbcf000000b0034b1bd76d30sm9826105wrs.28.2024.04.25.04.21.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Apr 2024 04:21:27 -0700 (PDT)
-Date: Thu, 25 Apr 2024 14:21:22 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alvin Lee <alvin.lee2@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- Jun Lei <jun.lei@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Dillon Varone <dillon.varone@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-Subject: [PATCH v2] drm/amd/display: re-indent dc_power_down_on_boot()
-Message-ID: <ad54bf29-cb70-49bd-a89f-c51ef7abb3ee@moroto.mountain>
+ d=1e100.net; s=20230601; t=1714050762; x=1714655562;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=y1ni7hNQy4DvsjvqfsC6GN+Vy6CL1a8sD+2ouB8J+mM=;
+ b=uDGgvODYx7xGceg/Fj8E7rnZ2KCSrS5FXakhrfVyBT0XqFCXbDtARuReNoE7kiqa3d
+ kqiHV7Af8m6T9b2fWfksT7XRU9ErSaq6rxRTlHl7ZzRGymAIhIjjwOlRFYDo8LV1D/SN
+ P9da+eCXElFobCm/ocUvAUMMM/tqmwrmz+D4bqbfV0jo7gVvIHiVF+t0WmqKaJaq2o61
+ L169fAFycz2MzQBpWmcMXhdEaY0/MfmmtaDHHqTlhyOKjmNScoAYEUSIHDDXdqOiY51d
+ jkCf8z5NLb/PmwH4zJX8+sOHwLlQZbpjOTnEfXVh7USXwgvRqVRYpSFjy/nJXeQmgnTM
+ t60g==
+X-Gm-Message-State: AOJu0YwYQUfELXnrxmH431QDncxsBkBFniI5pHoMNcFtImNjhNeobrak
+ ST/CwhLQi4+Vs870EQcp2hwec+5oAXpMnQRsrUzv5Z4doJhkF7qQ0/KCreVkTPd7hSyH6pATSdG
+ QuOp06FcFfvuA6RAelEkFYTfsXyo=
+X-Google-Smtp-Source: AGHT+IEapLlkUsHG8yVkMeY8yaYSZdC+mrd69GEGfaMlyg95vNlKe7ibjj+Jdl/8KnO16d3LBj15F0TaBaMiZ4FSNTs=
+X-Received: by 2002:a17:90a:ac2:b0:29d:dd93:5865 with SMTP id
+ r2-20020a17090a0ac200b0029ddd935865mr4765365pje.46.1714050762084; Thu, 25 Apr
+ 2024 06:12:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-X-Mailman-Approved-At: Thu, 25 Apr 2024 13:04:37 +0000
+References: <20240425100027.637016-1-Jun.Ma2@amd.com>
+ <20240425100027.637016-3-Jun.Ma2@amd.com>
+In-Reply-To: <20240425100027.637016-3-Jun.Ma2@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 25 Apr 2024 09:12:29 -0400
+Message-ID: <CADnq5_PQ+kBcwG5kKKUhKpd6Xmv5njij5oj1EK_uC4zJQ=upcQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] drm/amdgpu: Fix the uninitialized variable warning
+To: Ma Jun <Jun.Ma2@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
+ Alexander.Deucher@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,34 +77,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-These lines are indented too far.  Clean the whitespace.
+On Thu, Apr 25, 2024 at 6:17=E2=80=AFAM Ma Jun <Jun.Ma2@amd.com> wrote:
+>
+> Initialize the phy_id to 0 to fix the warning of
+> "Using uninitialized value phy_id"
+>
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c b/drivers/=
+gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
+> index 8ed0e073656f..53d85fafd8ab 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.c
+> @@ -95,7 +95,7 @@ static ssize_t amdgpu_securedisplay_debugfs_write(struc=
+t file *f, const char __u
+>         struct psp_context *psp =3D &adev->psp;
+>         struct ta_securedisplay_cmd *securedisplay_cmd;
+>         struct drm_device *dev =3D adev_to_drm(adev);
+> -       uint32_t phy_id;
+> +       uint32_t phy_id =3D 0;
 
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
----
-v2: Delete another blank line (checkpatch.pl --strict).
+You can drop this hunk now that you added the check below.
 
- drivers/gpu/drm/amd/display/dc/core/dc.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 3e16041bf4f9..5a0835f884a8 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -5192,11 +5192,9 @@ void dc_interrupt_ack(struct dc *dc, enum dc_irq_source src)
- void dc_power_down_on_boot(struct dc *dc)
- {
- 	if (dc->ctx->dce_environment != DCE_ENV_VIRTUAL_HW &&
--			dc->hwss.power_down_on_boot) {
--
--			if (dc->caps.ips_support)
--				dc_exit_ips_for_hw_access(dc);
--
-+	    dc->hwss.power_down_on_boot) {
-+		if (dc->caps.ips_support)
-+			dc_exit_ips_for_hw_access(dc);
- 		dc->hwss.power_down_on_boot(dc);
- 	}
- }
--- 
-2.43.0
-
+>         uint32_t op;
+>         char str[64];
+>         int ret;
+> @@ -135,6 +135,10 @@ static ssize_t amdgpu_securedisplay_debugfs_write(st=
+ruct file *f, const char __u
+>                 mutex_unlock(&psp->securedisplay_context.mutex);
+>                 break;
+>         case 2:
+> +               if (size < 3) {
+> +                       dev_err(adev->dev, "Invalid input: %s\n", str);
+> +                       return -EINVAL;
+> +               }
+>                 mutex_lock(&psp->securedisplay_context.mutex);
+>                 psp_prep_securedisplay_cmd_buf(psp, &securedisplay_cmd,
+>                         TA_SECUREDISPLAY_COMMAND__SEND_ROI_CRC);
+> --
+> 2.34.1
+>
