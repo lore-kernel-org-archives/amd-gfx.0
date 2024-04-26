@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13AB4C4345F
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Apr 2024 03:59:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A464C4345F
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Apr 2024 03:59:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A02D111A9DC;
-	Fri, 26 Apr 2024 03:59:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BB2611A9D5;
+	Fri, 26 Apr 2024 03:59:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1Sc2o35A";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EXLfNviA";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2082.outbound.protection.outlook.com [40.107.237.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B72011A9DC
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Apr 2024 03:59:06 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44A3211A9D5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Apr 2024 03:59:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ju1xHEpY9/qJ+qiTWxALrvCfXUjEPxr4Ir/dwVF+TI1IPw4+AB0T9sxlnD6lgsuiOXyNPSJPFTpJG7jr0oLndMg3B5mNKu5flSrv2lwEJDAqiO4nEY4hTYrPzk/IPzV0ZcdajGmt3XYzwKLdNONA+6/Ejzjod40QtKBCGJfk9nhOTwf6iGf78S8yOSRqL5859VAeaQ/7tCvMACmfcy7DxX8pfBs7fkwsxk6zJ3gNiCtmD0bPEjKHNLrRlucZg8gDtaRElERjUrrL8jUhpsKO2fb+UcPCC9jpxuU0HaS7Yn0ny+moXqs7TfWH3shXeH2D7nnuRAO2pG3xu1nWgtUzDg==
+ b=QFBW+9Y2tHR1V8gIl9G9gr0cPx0mmlHwHfUWvmfLKSiF9ILMiVS20y9Fq9lsJoOdli/MF8UDEuzDurcDgALzn5o6uFnhBf0NqkYEx19QP4Z9pmlmZ0UGdRST3Teza0FkMc4urva4qwbE8CDeusIhx53777otTjDG9ZVyhigQBZ/hAIKVcKCmbzI+o2P0AyUTWlDKpkxWjD3AdOl7pFRmKOpdB7Pbk5+k3+qR7uTapglRsAHupIkB5COtFHDxwqL1Mc1YzvfyonvXTv2Sm6zxO55eeDwMPorgkZYUqAUbkTa+XrLQEV/egSNp259wtnvQhgutnyfjGKAZm7zD+Jhnuw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KNhMQTtl4J9k7K86DczfsI49kttXCHFoGzK1u/ICO4M=;
- b=gE82CqjaB8aO0vUOcABK+y57yr/1NR4Jot5XkD8K4I/IJgQ0nRTUSuFK9XPfeukY/SpYukH2koNqB2m+v2Xe2yGbbLjVQTPENb8BOtySbuwDR69fic1V5sERbUIjLD4ZFpJKKECs9yM83LgGOQYMBcky+z6y/7qdGWfSR+NEb4hKCzcp3YIvW55bJN6zGGpbqnlbnwsg4OkDju6H+N8cor+V3sMUBHtsWUEc8ObWBA1InhpX58LQBl54egTz6jVWzE81dqBY61F+aJPfImnmUywzFInzXhmrgb3iHrFU5K7WlvuHW6S5sgUa5M4EIF6Gv8AvXcllgrXHjBe5ACJ84A==
+ bh=SwMY4Yde8vuebV8mH9Livz0nP351rR1TKC24IHtm9og=;
+ b=hbunWkcgp8bjf2bKAB3Js6R3cDLnKikLi9bZPsUdsDp/RdKcuYSYzYW+iov9GCTrE+oX5uuwwYE6eH1hkvjr/m825G5DAGLuS/WBbCNGFX+X0Y6lfuyTBjlbTXUWA+OCKYTBiLrAmzbWo4Q1+ia9wXScEsd7yC82xf9niwVibQHVg3QrROLYWtBUOrdSEJBcEQ8E0ON7rd3SK7rwc70vPwNNLyk38y42LvhVIf7E/CrfoYTTpbpKOT80Gt7s8PV7dLh4O2sPZOrsb2tZNJppcSFxBZdSPwv1aReWH3c4UONCSUVFmivkl4T3fPBImdhtSHzEx03vZKFZOSlu+vZAtw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KNhMQTtl4J9k7K86DczfsI49kttXCHFoGzK1u/ICO4M=;
- b=1Sc2o35Ac6EQtr39an7wa4HeO0fJrGV5/JCVX4sijF1flkLzL8iSUqitnbJwiUYW9jKqg8pXMaEqk06pL2ewwu+XgtAuPWogpPrAoULicx3k6aVlUgND0MZq/0v36IosHMXmD2+7WLYdSSRUUTrOliM1krRLrfdSdBFSNLlCmbE=
-Received: from BN9PR03CA0485.namprd03.prod.outlook.com (2603:10b6:408:130::10)
- by DS7PR12MB8204.namprd12.prod.outlook.com (2603:10b6:8:e1::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7519.22; Fri, 26 Apr 2024 03:59:04 +0000
+ bh=SwMY4Yde8vuebV8mH9Livz0nP351rR1TKC24IHtm9og=;
+ b=EXLfNviAV4mxjq1PlF+rffCqxQ+kAsw11hycSdnBnFsIqUjr7a64qSlN7UduochW2luOHR0zUAeqaCw0gDHxSOVPXjKt9H0TgHF2sBEatIG30ZvQL1G7mIqRkhhh3DkhKkS0AD/xUnhbBUKrF8R9Ju4EiPcsoaWjthhqVXc/iKw=
+Received: from BN9PR03CA0499.namprd03.prod.outlook.com (2603:10b6:408:130::24)
+ by IA0PR12MB8087.namprd12.prod.outlook.com (2603:10b6:208:401::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.44; Fri, 26 Apr
+ 2024 03:59:06 +0000
 Received: from BN3PEPF0000B06A.namprd21.prod.outlook.com
- (2603:10b6:408:130:cafe::9c) by BN9PR03CA0485.outlook.office365.com
- (2603:10b6:408:130::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.33 via Frontend
- Transport; Fri, 26 Apr 2024 03:59:03 +0000
+ (2603:10b6:408:130:cafe::6b) by BN9PR03CA0499.outlook.office365.com
+ (2603:10b6:408:130::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.34 via Frontend
+ Transport; Fri, 26 Apr 2024 03:59:06 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,19 +50,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN3PEPF0000B06A.mail.protection.outlook.com (10.167.243.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7519.0 via Frontend Transport; Fri, 26 Apr 2024 03:59:03 +0000
+ 15.20.7519.0 via Frontend Transport; Fri, 26 Apr 2024 03:59:06 +0000
 Received: from MKM-L10-YUNXIA9.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 25 Apr
- 2024 22:59:01 -0500
+ 2024 22:59:04 -0500
 From: Yunxiang Li <Yunxiang.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, <christian.koenig@amd.com>,
  <lijo.lazar@amd.com>, <felix.kuehling@amd.com>, <emily.deng@amd.com>,
  Yunxiang Li <Yunxiang.Li@amd.com>
-Subject: [PATCH v3 2/4] drm/amdgpu: Add reset_context flag for host FLR
-Date: Thu, 25 Apr 2024 23:57:40 -0400
-Message-ID: <20240426035742.90560-2-Yunxiang.Li@amd.com>
+Subject: [PATCH 3/4] drm/amdgpu: Fix amdgpu_device_reset_sriov retry logic
+Date: Thu, 25 Apr 2024 23:57:41 -0400
+Message-ID: <20240426035742.90560-3-Yunxiang.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240426035742.90560-1-Yunxiang.Li@amd.com>
 References: <20240426035742.90560-1-Yunxiang.Li@amd.com>
@@ -74,50 +74,49 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06A:EE_|DS7PR12MB8204:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79bd60c4-9bfd-4130-8e60-08dc65a53653
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06A:EE_|IA0PR12MB8087:EE_
+X-MS-Office365-Filtering-Correlation-Id: e31d3656-6d97-452c-2829-08dc65a53854
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|36860700004|376005|82310400014|1800799015; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?mpzTvxxJlZps+Z1WIVJZo9h4de8nOfMEJOqCSJAY9HXip/V5oZR9zVr6q/jN?=
- =?us-ascii?Q?Zj2yq16T+9JCxF80SlTcwb97yHJ8ISLMEQB1SLEhYkBuQHdN55/2iJ87B0B2?=
- =?us-ascii?Q?/KYFN/008Sxch4Rs8e5O9bJdKqtygxPTYSSLWqTA+Lv5Fq9guyARJr1Hk2qf?=
- =?us-ascii?Q?sJUEzqicCWkjk/mxahVpceVxDYpDG3fWn3qRwtoVVG/DsycvITBEGSmj/xVM?=
- =?us-ascii?Q?4eS0VwvMEd1deAqXOskJd9L7ziOUjuqVBsqR9zLklHmT56ViZ4OUO7xkJrik?=
- =?us-ascii?Q?Rx3j2SLGg0S3kAcOsJTaBlmkX6YBXzv255CjMCQhSnpyXVGSP2M48xdPikJB?=
- =?us-ascii?Q?IX9Ml2Q7z65IvGyVXoFhKKkx3Iepl1ZEg8INUmIC4O4SGXww4qyHaqjTg8MB?=
- =?us-ascii?Q?EvRgzoFpo35qrUFhIOdn9+Lbol3g/nh2HXrR09a8DODVG7TVZzL8nFwgcbJu?=
- =?us-ascii?Q?rm3IdvX2q28ZzW8o0BIj3hyVk/R3CuG4XruJLqWy5994UovN76+rYXAVDUMK?=
- =?us-ascii?Q?cMEQnNuKFGUnVrkpVZMZpBZrGNp3AVlQXhX3siaXpQKsmjLCGE+zCX4WVzvL?=
- =?us-ascii?Q?fRI/mzqyuqcJ66RX8nnZslEirRRm8sxIK3RT+ZKz+MsbOQhTmvGrZ237ZLJO?=
- =?us-ascii?Q?z3vp/udjXHpoe9rWZMaZ6BYiUxiSH5piaL4n3qeW+7IlrszY3mFaQ3uequNS?=
- =?us-ascii?Q?7C1joiPuKPTDTGhFvBU+n3zgFfCBdbbEzhRTBJvCFvObvlUWPaiLLlSvI7Em?=
- =?us-ascii?Q?1oUtJ499cxTEByk36AzuzA/YD9Gf0R1bIyQOuiwlE284mK6uhnGP7NY0k14C?=
- =?us-ascii?Q?sYVqMs4nkXPgYsg21zFwJwzPo8Lctyl0Xda4v0ttnxN8gLoNClsk9dOvwr0h?=
- =?us-ascii?Q?pyTEiTPmuoaPn2nqDMZbBVAcjpCeW4CKZ3O/d6kTf1Ofp6u6zpKqK0U4h2HS?=
- =?us-ascii?Q?upc21RNTRXN/D7fozY+t4idUMkzt6w7/zcxcKax18v4RIEHlGBHZ0YzELjZd?=
- =?us-ascii?Q?i6I/V8xgggkCQR8AzI0lez8xK4/Itq3azpPwKGm9HTUTUT9KOGyztCpRCMM6?=
- =?us-ascii?Q?vCPUBRsAlIxQNL1dvoLzzm0RqsSxxGCuJzhhiM7Gu5Tpn4Za8HQMKgOpIgd8?=
- =?us-ascii?Q?lT9RxIdXtDalwO1kCQ2ZqRg+oHuaYftZ0dEC6yzqQuOBJ134PtVvpTc6nH8w?=
- =?us-ascii?Q?vQcIepmZrb0n+zfNBNloC3dp5xRZ4GWMFotTuiFS8UttpEBng2BuA63XCvII?=
- =?us-ascii?Q?RoD9fBAXR7RF71L0GFhVM356DSkXi4XXSMAd2Ke23tAcQqxqL1M3O9qObEHQ?=
- =?us-ascii?Q?cORxeT30xxowjcP0drITofX1zX843SqAycrTALBLWlH+X1LbOH9zCsOh36co?=
- =?us-ascii?Q?ExPeQq8=3D?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?7tiTATvbkO/IA5el4IXvTi+xPJQRlBZL+4YBzcjNpJY3UnBOI+gRqLumW2h9?=
+ =?us-ascii?Q?KtADL/U/X8pjGy7Zqav5SzsVk0gF5f8mp4Ae6WokEx5YhmXdN+8pFHmstrML?=
+ =?us-ascii?Q?EJ3a2HYw19GHztot2sbOP3+suZbFUsXRG5AdvmfrKzUfNgPMONro+I2EeP7z?=
+ =?us-ascii?Q?H6IiWMeHBqvq3XR4bfx3LiNuA71kSxrnHJmyeJKzD0tR3ef3Ukcvk2SoY4HW?=
+ =?us-ascii?Q?57Lsw4mZ4QF/DuxAC3hd7NG7w49Ze3cwq6CQBbXm44wmtfbM/rt8hbYbimU8?=
+ =?us-ascii?Q?rCzDFttpZHWQYNiS6goLcWXF+uFHlk5hzR9AXSobvXtXAZEcp9RZW3IlerdS?=
+ =?us-ascii?Q?dULUoCsAU5mfhwjcJm3BLgo4T7WTypMbc62toLoYumKHrgf29XZqZwYzE64G?=
+ =?us-ascii?Q?pUcbnnhc6sz4UAPllpJSXIxDizipo+HNDH+dxI33yQ6lIe8CFxNkmtWyEIDI?=
+ =?us-ascii?Q?7yWTmlPQpDrcMD79vjB5aGGYeppjDpdC30BxjbCwIIAL/e8wIgDawmV3t8kq?=
+ =?us-ascii?Q?CersuU+n91xODtQDmk7RRsH9IbF/DuRoM0KSYTr4ntpRgP9XDcNoHCzGLve8?=
+ =?us-ascii?Q?R/zbq2XJCoH9v9O+W4cvW37GcrqjAs+beRXkrT3ZO+/fYe3EddSkKyndkSXd?=
+ =?us-ascii?Q?Cszf6Qkp0xJhuLorXADfO1jr9wBQpErQJX1Ff5HRe6hvkEY5xd2Rnv+Cl2L6?=
+ =?us-ascii?Q?vfqVWcKRUpopcG/g5robkj/t7inCWjDXT3MrHk3WhB48R/WGdTPZh4L8yuJ8?=
+ =?us-ascii?Q?Jg1e4PMfs9tEZADhkcMFKxGjY3pwQnHoK0DgQFGCaTM+Rr+epGpqV6u0EGWe?=
+ =?us-ascii?Q?KGPlWvOs/1K72waHq61lr7jYlx0VSzfRHl1tI6GwD/uwxbM+lheO3n0ZsAP3?=
+ =?us-ascii?Q?QBd7xYa3pMfGRoc3ZTDRT9+z6gev7At7uvkOFWwWl7Ql+7wXMLEJx3J2bkfm?=
+ =?us-ascii?Q?VWgPN1+DZ/4DQsYSg/6+ini7i1nm2AlScWiYWbdmeoTaTh/gF0NAxf+0KtI4?=
+ =?us-ascii?Q?MmYkr0vqqO6Bo6OB0E6id9qKuZqkj+vJpeyAa5XtTJL9Jqji7HTIasen+vzP?=
+ =?us-ascii?Q?HpRAclqN+LQznAQTGwhDCaZ4/rkooMYXWDtxbI/3DIc20ryDR18yKNu8wtkF?=
+ =?us-ascii?Q?7BnuH6l8vAjdjeaUGUuqckzB4pfRESCFTonz7aIaeOP3OzRLJcWg/iLHWG9k?=
+ =?us-ascii?Q?jqI6ZaZ228sZx8sPa1iLoGqPJlDGIPmjbdlEUUbDeDRiXZMrhFpKLukk8rZ/?=
+ =?us-ascii?Q?AO/ygzXW0W4KRMHe1jf2GAq+NqokZeh1WtyGD83eHvZR8BSRNSBDtsblm+JT?=
+ =?us-ascii?Q?Wc303CpeCdi1gP2VsBo+aMB6RqoP2iBB/DR+8ZkIU5xnuQKT84LEnBmSrCa3?=
+ =?us-ascii?Q?hZHRy5fnX7+7eQI61KvSR+H0nNDx?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(376005)(82310400014)(1800799015); DIR:OUT;
+ SFS:(13230031)(36860700004)(1800799015)(82310400014)(376005); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2024 03:59:03.4753 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79bd60c4-9bfd-4130-8e60-08dc65a53653
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2024 03:59:06.8191 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e31d3656-6d97-452c-2829-08dc65a53854
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B06A.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8204
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8087
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,111 +131,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are other reset sources that pass NULL as the job pointer, such as
-amdgpu_amdkfd_reset_work. Therefore, using the job pointer to check if
-the FLR comes from the host does not work.
+The retry loop for SRIOV reset have refcount and memory leak issue.
+Depending on which function call fails it can potentially call
+amdgpu_amdkfd_pre/post_reset different number of times and causes
+kfd_locked count to be wrong. This will block all future attempts at
+opening /dev/kfd. The retry loop also leakes resources by calling
+amdgpu_virt_init_data_exchange multiple times without calling the
+corresponding fini function.
 
-Add a flag in reset_context to explicitly mark host triggered reset, and
-set this flag when we receive host reset notification.
+Align with the bare-metal reset path which doesn't have these issues.
+This means taking the amdgpu_amdkfd_pre/post_reset functions out of the
+reset loop and calling amdgpu_device_pre_asic_reset each retry which
+properly free the resources from previous try by calling
+amdgpu_virt_fini_data_exchange.
 
 Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
 ---
-v2: fix typo
-v3: pass reset_context directly
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h  | 1 +
- drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      | 1 +
- drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      | 1 +
- drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c      | 1 +
- 5 files changed, 8 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 50 ++++++++++------------
+ 1 file changed, 22 insertions(+), 28 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 8befd10bf007..1fd9637daafc 100644
+index 1fd9637daafc..3c4755f3c116 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5055,13 +5055,13 @@ static int amdgpu_device_recover_vram(struct amdgpu_device *adev)
-  * amdgpu_device_reset_sriov - reset ASIC for SR-IOV vf
-  *
-  * @adev: amdgpu_device pointer
-- * @from_hypervisor: request from hypervisor
-+ * @reset_context: amdgpu reset context pointer
-  *
-  * do VF FLR and reinitialize Asic
-  * return 0 means succeeded otherwise failed
-  */
+@@ -5063,19 +5063,14 @@ static int amdgpu_device_recover_vram(struct amdgpu_device *adev)
  static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
--				     bool from_hypervisor)
-+				     struct amdgpu_reset_context *reset_context)
+ 				     struct amdgpu_reset_context *reset_context)
  {
- 	int r;
+-	int r;
++	int r = 0;
  	struct amdgpu_hive_info *hive = NULL;
-@@ -5070,7 +5070,7 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
- retry:
- 	amdgpu_amdkfd_pre_reset(adev);
+-	int retry_limit = 0;
+-
+-retry:
+-	amdgpu_amdkfd_pre_reset(adev);
  
--	if (from_hypervisor)
-+	if (test_bit(AMDGPU_HOST_FLR, &reset_context->flags))
+ 	if (test_bit(AMDGPU_HOST_FLR, &reset_context->flags))
  		r = amdgpu_virt_request_full_gpu(adev, true);
  	else
  		r = amdgpu_virt_reset_gpu(adev);
-@@ -5826,7 +5826,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 	/* Actual ASIC resets if needed.*/
+-	if (r)
+-		return r;
++
+ 	amdgpu_ras_set_fed(adev, false);
+ 	amdgpu_irq_gpu_reset_resume_helper(adev);
+ 
+@@ -5085,7 +5080,7 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
+ 	/* Resume IP prior to SMC */
+ 	r = amdgpu_device_ip_reinit_early_sriov(adev);
+ 	if (r)
+-		goto error;
++		return r;
+ 
+ 	amdgpu_virt_init_data_exchange(adev);
+ 
+@@ -5096,38 +5091,35 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
+ 	/* now we are okay to resume SMC/CP/SDMA */
+ 	r = amdgpu_device_ip_reinit_late_sriov(adev);
+ 	if (r)
+-		goto error;
++		return r;
+ 
+ 	hive = amdgpu_get_xgmi_hive(adev);
+ 	/* Update PSP FW topology after reset */
+ 	if (hive && adev->gmc.xgmi.num_physical_nodes > 1)
+ 		r = amdgpu_xgmi_update_topology(hive, adev);
+-
+ 	if (hive)
+ 		amdgpu_put_xgmi_hive(hive);
++	if (r)
++		return r;
+ 
+-	if (!r) {
+-		r = amdgpu_ib_ring_tests(adev);
+-
+-		amdgpu_amdkfd_post_reset(adev);
+-	}
++	r = amdgpu_ib_ring_tests(adev);
++	if (r)
++		return r;
+ 
+-error:
+-	if (!r && adev->virt.gim_feature & AMDGIM_FEATURE_GIM_FLR_VRAMLOST) {
++	if (adev->virt.gim_feature & AMDGIM_FEATURE_GIM_FLR_VRAMLOST) {
+ 		amdgpu_inc_vram_lost(adev);
+ 		r = amdgpu_device_recover_vram(adev);
+ 	}
+-	amdgpu_virt_release_full_gpu(adev, true);
++	if (r)
++		return r;
+ 
+-	if (AMDGPU_RETRY_SRIOV_RESET(r)) {
+-		if (retry_limit < AMDGPU_MAX_RETRY_LIMIT) {
+-			retry_limit++;
+-			goto retry;
+-		} else
+-			DRM_ERROR("GPU reset retry is beyond the retry limit\n");
+-	}
++	/* need to be called during full access so we can't do it later like
++	 * bare-metal does.
++	 */
++	amdgpu_amdkfd_post_reset(adev);
++	amdgpu_virt_release_full_gpu(adev, true);
+ 
+-	return r;
++	return 0;
+ }
+ 
+ /**
+@@ -5686,6 +5678,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	int i, r = 0;
+ 	bool need_emergency_restart = false;
+ 	bool audio_suspended = false;
++	int retry_limit = AMDGPU_MAX_RETRY_LIMIT;
+ 
+ 	/*
+ 	 * Special case: RAS triggered and full reset isn't supported
+@@ -5767,8 +5760,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 
+ 		cancel_delayed_work_sync(&tmp_adev->delayed_init_work);
+ 
+-		if (!amdgpu_sriov_vf(tmp_adev))
+-			amdgpu_amdkfd_pre_reset(tmp_adev);
++		amdgpu_amdkfd_pre_reset(tmp_adev);
+ 
+ 		/*
+ 		 * Mark these ASICs to be reseted as untracked first
+@@ -5827,6 +5819,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
  	/* Host driver will handle XGMI hive reset for SRIOV */
  	if (amdgpu_sriov_vf(adev)) {
--		r = amdgpu_device_reset_sriov(adev, job ? false : true);
-+		r = amdgpu_device_reset_sriov(adev, reset_context);
+ 		r = amdgpu_device_reset_sriov(adev, reset_context);
++		if (AMDGPU_RETRY_SRIOV_RESET(r) && (retry_limit--) > 0)
++			goto retry;
  		if (r)
  			adev->asic_reset_res = r;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-index b11d190ece53..5a9cc043b858 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-@@ -33,6 +33,7 @@ enum AMDGPU_RESET_FLAGS {
- 	AMDGPU_NEED_FULL_RESET = 0,
- 	AMDGPU_SKIP_HW_RESET = 1,
- 	AMDGPU_SKIP_COREDUMP = 2,
-+	AMDGPU_HOST_FLR = 3,
- };
- 
- struct amdgpu_reset_context {
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-index c5ba9c4757a8..f4c47492e0cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-@@ -292,6 +292,7 @@ static void xgpu_ai_mailbox_flr_work(struct work_struct *work)
- 		reset_context.method = AMD_RESET_METHOD_NONE;
- 		reset_context.reset_req_dev = adev;
- 		clear_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
-+		set_bit(AMDGPU_HOST_FLR, &reset_context.flags);
- 
- 		amdgpu_device_gpu_recover(adev, NULL, &reset_context);
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-index fa9d1b02f391..14cc7910e5cf 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-@@ -328,6 +328,7 @@ static void xgpu_nv_mailbox_flr_work(struct work_struct *work)
- 		reset_context.method = AMD_RESET_METHOD_NONE;
- 		reset_context.reset_req_dev = adev;
- 		clear_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
-+		set_bit(AMDGPU_HOST_FLR, &reset_context.flags);
- 
- 		amdgpu_device_gpu_recover(adev, NULL, &reset_context);
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-index 14a065516ae4..78cd07744ebe 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-@@ -529,6 +529,7 @@ static void xgpu_vi_mailbox_flr_work(struct work_struct *work)
- 		reset_context.method = AMD_RESET_METHOD_NONE;
- 		reset_context.reset_req_dev = adev;
- 		clear_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
-+		set_bit(AMDGPU_HOST_FLR, &reset_context.flags);
- 
- 		amdgpu_device_gpu_recover(adev, NULL, &reset_context);
- 	}
 -- 
 2.34.1
 
