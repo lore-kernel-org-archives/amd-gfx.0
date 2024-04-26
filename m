@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1966C4345F
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Apr 2024 09:52:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 318C5C4345F
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Apr 2024 09:53:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C77910F6D0;
-	Fri, 26 Apr 2024 09:52:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D88910F8C6;
+	Fri, 26 Apr 2024 09:53:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FupwnGeV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4tKo+StG";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2061.outbound.protection.outlook.com [40.107.102.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9A5810F65D
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Apr 2024 09:52:35 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2046.outbound.protection.outlook.com [40.107.237.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 595B010F734
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Apr 2024 09:53:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VXA9RpZGpVAraoeo/8cld4VJzd7pa3n4+//c6SRW6FkrJmalhhAoMfu2jZ1InX2z4pBR13YLzzlV34oSMX5bZ2DX9fGPAiLD86cF7aAryBak66uNJjS17ASda90pe/wn//sE8vmThD0GfOgSOLTTbhYbuSLG+X5PsqoJYGT1FCyAYduiZknZngd+Btw12wPe/FBgJ0tZuZGtCeOKlqvsKFsxp3ssn7xltr4K5zXbVv3jyOnUQoco1ksfxootNOBveMnUNZrcLBC7Pf8HB7+UHpIShorC+x5fTIuizeS2BKJyQX7d1KPu670t2x2AMwS7nplgP4q2xDd6NWZrQ7111A==
+ b=chpgv5i/47WK+I1qUHFedo4GSLtp0TooZsXZGl2aG/cw+TCAk4q8k+S6maCpp4fRAGT6eOM2H1MfYX2jCo2fHjZsAwSlT++ZxckMSBk4qPFJF6k30uKvqkwoDNMu3SH/NaNf0kTAFM76yXSOM1+rJPvPnE0qXKf8MRSUNTChBixgfrPbtM/2fLABkvbTGP/1yfXc5FJNw/WXqOaniGfLnCKvfEhkgBP1oKNl+bYwxaAtbBb8cVGnxIjnxttItFhpCXkp6zE8ZSIfMyWxvJfr2VZ0+1Czo9uMe2kGbupqN8+rZQ6V/hSTLSOsYwvZ91SEs+nUFkz5LkE2sevnjcyv6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FfVwcYZ3FekLHv/89HyhTKRfSqNO1VdGf2qC4MVFcZY=;
- b=ByUsodfZ8vCgjjiy5a3V7rKThUoiXm3uGRWipBx1jK4qlOttCYV4OVuJRnR4G0SmSZeKpuyFWPAr/NaJyWK6uz61axs1qc3ZckE7qp1CYuhLry4WbMJHkp231TTC+4uiS8s7VP70omKrkG63zt+CdX2cpcCTZaRgvwBlu51W4oozpksBoy3fKTuYtao0eBvW2hqr3HpSlZ7V30gGQ2Txvv4fGEcEg7TYZzrqwGRuhv+3Ttv1ZnBpaV4J5R+ds1pWS6nH7O1gQnEo+MCw2kKQIrncY0URtCy2UMfog5oXMJTX5Mdp0T/U/JJ/YGn9uV17HbpcR6dpr3E+SJLBVdy0Pg==
+ bh=xejLgAxM5/Flqp3sLxvPvbK3K5aG/die2nX82Du1Hpw=;
+ b=XU51b8myC2HGWd3pgzP2NacNMwP4DEaG9pfiY7Ch3my9lhZwOG+JRLStxnYfVlKiMyGxetYDliUCW01Wgc0kQMENqQakr0Layqdz4xjpUi3nMtWmX98XUlwcVoW5lCSyd8Stv5XmQerw+Z7zwV67NOGWdSBE9jPzr7nT3Y5d/ChAM9woyg5cLELNUWf4/15TxXHQCfB6lnZp8DX2F3C4VxUgcQU4tnM4oUWjW7aIOw+I85cQN0c7F0UaORMNadUbA4ZiQkowCmGiolpRlett/eNOgmkDDmkZY4NKU8n3au40H7K2txnvdrHp3grjjxG7sO/k08DPaeWRSDJWGKDAqg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FfVwcYZ3FekLHv/89HyhTKRfSqNO1VdGf2qC4MVFcZY=;
- b=FupwnGeV+d3Rcwzrq9rVpzILwIhV0cIejvQ7azW3V36SoLJjnsozq3B8JtgVRpcgPByuRsUZdkYMEGY2PW1i9FJmNMhHZRsNrTg7306rwojTzF5FerA6kSVTQbLm+MJFOiIh/piHeXM36OT1K9O1Pe+eSMG7dwQjJOJ6EGMHWyc=
-Received: from DM6PR02CA0049.namprd02.prod.outlook.com (2603:10b6:5:177::26)
- by SA1PR12MB8744.namprd12.prod.outlook.com (2603:10b6:806:38c::10) with
+ bh=xejLgAxM5/Flqp3sLxvPvbK3K5aG/die2nX82Du1Hpw=;
+ b=4tKo+StG/61zmSQbt/7k8/2Fq3HC567keo1xkq8fJnEQytI/IeJBcYpae43NSprickWEbWssyzJFBSrTawW4zcaVGOnxswrJna5PyrUeHe8o5GSF4m3+ntHFpSYIaGsmO3SCX0bLdB0zglvU+5rnGxNz4VEm+sN+nA9aFOyROmA=
+Received: from DM6PR12CA0028.namprd12.prod.outlook.com (2603:10b6:5:1c0::41)
+ by DS0PR12MB8766.namprd12.prod.outlook.com (2603:10b6:8:14e::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.31; Fri, 26 Apr
- 2024 09:52:29 +0000
-Received: from DS1PEPF0001708F.namprd03.prod.outlook.com
- (2603:10b6:5:177:cafe::db) by DM6PR02CA0049.outlook.office365.com
- (2603:10b6:5:177::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.31 via Frontend
- Transport; Fri, 26 Apr 2024 09:52:29 +0000
+ 2024 09:52:56 +0000
+Received: from DS1PEPF00017090.namprd03.prod.outlook.com
+ (2603:10b6:5:1c0:cafe::33) by DM6PR12CA0028.outlook.office365.com
+ (2603:10b6:5:1c0::41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.29 via Frontend
+ Transport; Fri, 26 Apr 2024 09:52:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,76 +48,80 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS1PEPF0001708F.mail.protection.outlook.com (10.167.17.139) with Microsoft
+ DS1PEPF00017090.mail.protection.outlook.com (10.167.17.132) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7519.19 via Frontend Transport; Fri, 26 Apr 2024 09:52:29 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ 15.20.7519.19 via Frontend Transport; Fri, 26 Apr 2024 09:52:56 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 26 Apr
- 2024 04:52:25 -0500
+ 2024 04:52:56 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 26 Apr
+ 2024 04:52:55 -0500
 Received: from JesseDEV.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Fri, 26 Apr 2024 04:52:19 -0500
+ Transport; Fri, 26 Apr 2024 04:52:48 -0500
 From: Jesse Zhang <jesse.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
  <Tim.Huang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>, Jesse Zhang
  <Jesse.Zhang@amd.com>
-Subject: [PATCH 1/2] drm/amd/pm: fix the uninitialized scalar variable waring
-Date: Fri, 26 Apr 2024 17:52:18 +0800
-Message-ID: <20240426095218.1075237-1-jesse.zhang@amd.com>
+Subject: [PATCH 2/2] drm/amd/pm: fix uninitialized variable warning
+Date: Fri, 26 Apr 2024 17:52:43 +0800
+Message-ID: <20240426095243.1075290-1-jesse.zhang@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: jesse.zhang@amd.com does not designate
+Received-SPF: None (SATLEXMB05.amd.com: jesse.zhang@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001708F:EE_|SA1PR12MB8744:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc4f48d7-0c8f-4a7a-af9b-08dc65d695ff
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017090:EE_|DS0PR12MB8766:EE_
+X-MS-Office365-Filtering-Correlation-Id: df581bdf-73c1-4967-db96-08dc65d6a65b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|1800799015|36860700004|82310400014|376005; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?3wuIjK+mH/4ZQMErZIKEGRX6Q7kRAah4Tho58jgl5SMDyHa9CsDR9PouhgQn?=
- =?us-ascii?Q?nEhDV+GfnOBwKf9nMnUrVxAxxcCOW2quFhuhleLu1il8fojjEeW6zWQIGEMc?=
- =?us-ascii?Q?j9ea0+yMmnAWEBjAAdMxzP8KA3RSkxzcCGyR1A9YfLBMr+JbPY4FkTzm0YkL?=
- =?us-ascii?Q?2Dt5C0/TO5JMcyF8obs9mXNm596wPMBOZArQl4POBoiJ5lmCCyMZ6sPCv8cY?=
- =?us-ascii?Q?vR8ItSFFnx/0Mqrwe5F0Dql2NcISMgNwm2wvK+eonkEUAdzDm9f+tZlzJO2K?=
- =?us-ascii?Q?4dJFr2TObhYk4TnOkVfh8VfQMSMzG1Ko8OyL6vzoZDOHsxTnHXze5nlnF1eW?=
- =?us-ascii?Q?gwTlUDWPbBWzU5tGDuPIsL/dWUYdkYkezdsr65qcxSfmII2YrUqRq0oU6WB/?=
- =?us-ascii?Q?r7xWNSiL9wSEW/RPAFAVCuzt0yM+RCpZuE2zpvy/1wcM2lBUigz7csxnloyI?=
- =?us-ascii?Q?gpHJh1BuyffwhRQfHlUS6TM4UlFgvRwHe5Lbji/uLzFh5rz/isW8weffo28U?=
- =?us-ascii?Q?W2IwO8r37InzXu8YrUq/II77YLPtHOEnd4Yl0Bijg/tDR7r2lMmlOXuomPko?=
- =?us-ascii?Q?bra9FiF7AytIUtDpubfXqngIxLpvZTFOhyl5TM7/pgVnV/ZfVnqSSJB0Q5JG?=
- =?us-ascii?Q?rpoNfteKj0liUEboxHI326WWq52uLZhr80xYM2CTUntxUbpO/mUoRaDZTlfO?=
- =?us-ascii?Q?yRELrPfJNi+0/GGe978yUvOPnuDdJDG08j9+Hpzq+Wj7Qt4l4pIRjW7lGQU3?=
- =?us-ascii?Q?Gys/J4XwaqJCM8CsHCKI8aVW/HqT2NOEj3jDVqRiWATzPXFM2Aq1wgwaiSo4?=
- =?us-ascii?Q?z3sjD+64JXwg88mcyJZvEeU06yrp6wOCEEaPPA39IeT8b9FM/NZw5QEqSTH4?=
- =?us-ascii?Q?FEuGZ79/zBpFJZi0QJCn1C0/F/7V7v5lLKCUEUSNOPYrmJkIv4Pesd4c5c4y?=
- =?us-ascii?Q?GFjwgqj6GcJx5Y1Wy7tP+feDccnAJ57kWD0K3mZ43RcHsv35cUd+URDPgWxm?=
- =?us-ascii?Q?pPZNtafIYQhqhu35DHCwAWI+zBdBIGMDo91v8aT41fL5jOEnNh3HelbF5kWw?=
- =?us-ascii?Q?xXiEAi5ewwg7ncEM0OWGi9IQ2dJeEtLgUN0r3Ut8rrCPw4qm2Lzzs31W2LBx?=
- =?us-ascii?Q?ENmtc7WEEcP5ekfF0ArplvGN42eHyZTiSJ9S7tKUGN4rA323QpKOMI4RoYz+?=
- =?us-ascii?Q?i7oMcnkJ6Cw+kUG6jORk92BBaJJhRTlfYgC3OcrEStJhPlWnmuUGDLqmzA76?=
- =?us-ascii?Q?yDb9W+cSC/z3NQn5FkBkhM9gka92PCgtfSbCSAySfOiI1PJ1R3iAO5QQGGbg?=
- =?us-ascii?Q?LfdpLQNNqYYWxP31ohhXowI+C5XEiDtZxC653GaTCW1DbTSWUmw0Ih37o5K8?=
- =?us-ascii?Q?8hNn9JJBgZF+XjZzfQGZqupmRdE3?=
+ ARA:13230031|1800799015|82310400014|36860700004|376005; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qtIp9sMhtd5or7dOxx9aSijDYSrWVXah26sZWYmb2dGsVhFuH55F+gzF/EPK?=
+ =?us-ascii?Q?LuQkjS677IT0MQIoB6alXu70MbMJFL8sI4Z2etZAuOsIZXhkzXrIsRqr1uVH?=
+ =?us-ascii?Q?LTOXvFGUqJh0/kwW7kl14OG1l/M7/VI/+XUAdluZcC334RatR1qHsl1APQ0m?=
+ =?us-ascii?Q?8OR4qodnzgGSpjTdpD7Y++6ZB8r/48hCejN99pygryzx2xXFVc88MQJ8cbFu?=
+ =?us-ascii?Q?wJVgFf5rNZHZ9iv+/Gk1eFk9IWqUGtRehYIkungjeKIU10GgNdEGHLDmgTg6?=
+ =?us-ascii?Q?KpYBATyGGigNWTAIPwkwabZ9A0mTn8LRo5ZyvgC/EjvG845IUuuUvuh1JFP1?=
+ =?us-ascii?Q?OIGNbxWtr0jMHUk370Goyp54hIdpHaYNZXIIH5WY4JtrGrpj4oLLkSmLNf9F?=
+ =?us-ascii?Q?6DPdA7hv2uaaipgM09A6yPpWGBQoC1m1zPStd4g8Eoo4fBAdateTFkI1XlKI?=
+ =?us-ascii?Q?fE9bhbwVo1T0hq3eK15qfDlP+DNh9gWQW7MT8EMeKdxf7YTqZEYTcdQ0c3dr?=
+ =?us-ascii?Q?N/a8D/D+XOzJc6lXx3/HvZKh7dTX1iKJ0uezYoKIbJfmdUbpPHxdcEGB05fu?=
+ =?us-ascii?Q?WNATUHNFuTkmYBtVHrRBnL4Z1bTEoj4fSRtn+PodeIDIkZilx16T4ot1h92m?=
+ =?us-ascii?Q?Iq/qn3b/r+ungu/8VVz13DlbEgFWfgHu3B/FunjSlxsDt7HX9tnMt04Nr0GD?=
+ =?us-ascii?Q?aYRsv+82s20CRpfP5Z46l/drVs/PnEn4f0/yEsq9RuwyeZjAusHAbgKLZtaO?=
+ =?us-ascii?Q?SN7qv0eWYUSvZshtis59faJNH7MYDgISmmWjPNB65QFcYiFOYPMcx83KvD5j?=
+ =?us-ascii?Q?iTIaODKVkEVQpyve164kgVq3IvVe0hi+bq8A3D/umcyl9ZbXo67qgNj7BS9y?=
+ =?us-ascii?Q?68xN2grO4kic9VWTOB+fgaXdcOlZLTm14pXveaddyGV+CjOy8l+pLQbDLytP?=
+ =?us-ascii?Q?VmhdNI38aeM/ffh8sKHskDhxZY5Lm68P4/Smhnbv7mrevOJQK9kaAcspC15d?=
+ =?us-ascii?Q?enT/2Kvhv0SFPwBHu9vu0edf5DRjjV/DsMUZpICqALpEn5vr7zEH/fuTaw72?=
+ =?us-ascii?Q?kMJzbkAhpvxje6Nfiz7v4Ij/Ny5os/5mmbfnGyjqvHXUda0/WigcYMqnLUd6?=
+ =?us-ascii?Q?ET0JjJ94MkxXrimxbKKsjYXeSJYR4XJubMf/u1Cf5ZuOa2q0buln36WknSJP?=
+ =?us-ascii?Q?YCrvSjVC4xt5LYUiJSFvK05wt1qvLpaiuDu/PhWc088pDjzzhDDpRN4EU5Fn?=
+ =?us-ascii?Q?gXHtlA/TeCe36BQxuEwXq2cgU8ly3aOnN7RXLewp6GBbOOd+3FsvYSz1xRvF?=
+ =?us-ascii?Q?dqm3YGL90ZnCIHFlFpUwZ/cfeIZMb5ACaioDI/g+HeHqdZcvfmUY++Qn+Y6Q?=
+ =?us-ascii?Q?gYhANoQ=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(36860700004)(82310400014)(376005); DIR:OUT;
+ SFS:(13230031)(1800799015)(82310400014)(36860700004)(376005); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2024 09:52:29.2330 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc4f48d7-0c8f-4a7a-af9b-08dc65d695ff
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2024 09:52:56.6962 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: df581bdf-73c1-4967-db96-08dc65d6a65b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001708F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017090.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8744
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8766
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,26 +136,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Initialize variable size before calling
-hwmgr->hwmgr_func->iread_sensor, such as smu7_read_sensor.
+Check the return of function smum_send_msg_to_smc
+as it may fail to initialize the variable.
 
 Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c  |  8 +++++--
+ .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 21 ++++++++++++-------
+ .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 19 +++++++++++------
+ .../amd/pm/powerplay/smumgr/smu10_smumgr.c    |  5 ++++-
+ 4 files changed, 37 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index 5fb21a0508cd..ec2b6d0674ed 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -102,6 +102,7 @@ static void pp_swctf_delayed_work_handler(struct work_struct *work)
- 	uint32_t gpu_temperature, size;
- 	int ret;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+index 02ba68d7c654..f9f016cb60ce 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+@@ -1310,13 +1310,17 @@ static int smu10_read_sensor(struct pp_hwmgr *hwmgr, int idx,
  
-+	size = sizeof(gpu_temperature);
- 	/*
- 	 * If the hotspot/edge temperature is confirmed as below SW CTF setting point
- 	 * after the delay enforced, nothing will be done.
+ 	switch (idx) {
+ 	case AMDGPU_PP_SENSOR_GFX_SCLK:
+-		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetGfxclkFrequency, &sclk);
++		ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetGfxclkFrequency, &sclk);
++		if (ret)
++			break;
+ 			/* in units of 10KHZ */
+ 		*((uint32_t *)value) = sclk * 100;
+ 		*size = 4;
+ 		break;
+ 	case AMDGPU_PP_SENSOR_GFX_MCLK:
+-		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetFclkFrequency, &mclk);
++		ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetFclkFrequency, &mclk);
++		if (ret)
++			break;
+ 			/* in units of 10KHZ */
+ 		*((uint32_t *)value) = mclk * 100;
+ 		*size = 4;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index 1fcd4451001f..5c95eda6cbd2 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -4000,6 +4000,7 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 	uint32_t offset, val_vid;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+ 	struct amdgpu_device *adev = hwmgr->adev;
++	int ret = 0;
+ 
+ 	/* size must be at least 4 bytes for all sensors */
+ 	if (*size < 4)
+@@ -4007,12 +4008,16 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 
+ 	switch (idx) {
+ 	case AMDGPU_PP_SENSOR_GFX_SCLK:
+-		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_API_GetSclkFrequency, &sclk);
++		ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_API_GetSclkFrequency, &sclk);
++		if (ret)
++			return ret;
+ 		*((uint32_t *)value) = sclk;
+ 		*size = 4;
+ 		return 0;
+ 	case AMDGPU_PP_SENSOR_GFX_MCLK:
+-		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_API_GetMclkFrequency, &mclk);
++		ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_API_GetMclkFrequency, &mclk);
++		if (ret)
++			return ret;
+ 		*((uint32_t *)value) = mclk;
+ 		*size = 4;
+ 		return 0;
+@@ -4965,13 +4970,14 @@ static int smu7_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 	struct smu7_odn_dpm_table *odn_table = &(data->odn_dpm_table);
+ 	struct phm_odn_clock_levels *odn_sclk_table = &(odn_table->odn_core_clock_dpm_levels);
+ 	struct phm_odn_clock_levels *odn_mclk_table = &(odn_table->odn_memory_clock_dpm_levels);
+-	int size = 0;
++	int size = 0, ret = 0;
+ 	uint32_t i, now, clock, pcie_speed;
+ 
+ 	switch (type) {
+ 	case PP_SCLK:
+-		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_API_GetSclkFrequency, &clock);
+-
++		ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_API_GetSclkFrequency, &clock);
++		if (ret)
++			return ret;
+ 		for (i = 0; i < sclk_table->count; i++) {
+ 			if (clock > sclk_table->dpm_levels[i].value)
+ 				continue;
+@@ -4985,8 +4991,9 @@ static int smu7_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 					(i == now) ? "*" : "");
+ 		break;
+ 	case PP_MCLK:
+-		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_API_GetMclkFrequency, &clock);
+-
++		ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_API_GetMclkFrequency, &clock);
++		if (ret)
++			return ret;
+ 		for (i = 0; i < mclk_table->count; i++) {
+ 			if (clock > mclk_table->dpm_levels[i].value)
+ 				continue;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+index 9f5bd998c6bf..b47e1ab12430 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+@@ -2481,10 +2481,12 @@ static int vega10_populate_and_upload_avfs_fuse_override(struct pp_hwmgr *hwmgr)
+ 	struct vega10_hwmgr *data = hwmgr->backend;
+ 	AvfsFuseOverride_t *avfs_fuse_table = &(data->smc_state_table.avfs_fuse_override_table);
+ 
+-	smum_send_msg_to_smc(hwmgr, PPSMC_MSG_ReadSerialNumTop32, &top32);
+-
+-	smum_send_msg_to_smc(hwmgr, PPSMC_MSG_ReadSerialNumBottom32, &bottom32);
+-
++	result = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_ReadSerialNumTop32, &top32);
++	if (result)
++		return result;
++	result = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_ReadSerialNumBottom32, &bottom32);
++	if (result)
++		result;
+ 	serial_number = ((uint64_t)bottom32 << 32) | top32;
+ 
+ 	if (pp_override_get_default_fuse_value(serial_number, &fuse) == 0) {
+@@ -3924,11 +3926,16 @@ static int vega10_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 
+ 	switch (idx) {
+ 	case AMDGPU_PP_SENSOR_GFX_SCLK:
+-		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetAverageGfxclkActualFrequency, &sclk_mhz);
++		ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetAverageGfxclkActualFrequency, &sclk_mhz);
++		if (ret)
++			break;
++
+ 		*((uint32_t *)value) = sclk_mhz * 100;
+ 		break;
+ 	case AMDGPU_PP_SENSOR_GFX_MCLK:
+-		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentUclkIndex, &mclk_idx);
++		ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentUclkIndex, &mclk_idx);
++		if (ret)
++			break;
+ 		if (mclk_idx < dpm_table->mem_table.count) {
+ 			*((uint32_t *)value) = dpm_table->mem_table.dpm_levels[mclk_idx].value;
+ 			*size = 4;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu10_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu10_smumgr.c
+index 7eeab84d421a..ac9ec8257f82 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu10_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu10_smumgr.c
+@@ -185,10 +185,13 @@ static int smu10_copy_table_to_smc(struct pp_hwmgr *hwmgr,
+ static int smu10_verify_smc_interface(struct pp_hwmgr *hwmgr)
+ {
+ 	uint32_t smc_driver_if_version;
++	int ret = 0;
+ 
+-	smum_send_msg_to_smc(hwmgr,
++	ret = smum_send_msg_to_smc(hwmgr,
+ 			PPSMC_MSG_GetDriverIfVersion,
+ 			&smc_driver_if_version);
++	if (ret)
++		return ret;
+ 
+ 	if ((smc_driver_if_version != SMU10_DRIVER_IF_VERSION) &&
+ 	    (smc_driver_if_version != SMU10_DRIVER_IF_VERSION + 1)) {
 -- 
 2.25.1
 
