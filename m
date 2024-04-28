@@ -4,142 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFAAAC4345F
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Apr 2024 06:48:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 008A6C4345F
+	for <amd-gfx@archiver.kernel.org>; Sun, 28 Apr 2024 07:08:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35A0910EBA8;
-	Sun, 28 Apr 2024 06:48:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14EEE10E3A4;
+	Sun, 28 Apr 2024 07:08:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x6JintfU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KNjsWiW1";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2062.outbound.protection.outlook.com [40.107.237.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EC8B10EBA8
- for <amd-gfx@lists.freedesktop.org>; Sun, 28 Apr 2024 06:48:16 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2085.outbound.protection.outlook.com [40.107.95.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A1F510E3A4
+ for <amd-gfx@lists.freedesktop.org>; Sun, 28 Apr 2024 07:08:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HCoDm/tllEeZMCNn0Q9ApMN9eSpH3cw6AqiHFmmUeX7M4VOE+wngirzXWTU6eA0kGT8QL/ItJwO0dDJCN1KX4NMthCBRAnYTWaiG2xQPcoQswQaAPH8bDFKShCp6NroCc+j545XE5pMNHSLQVrzL1chV1S6XW3ZpY8ebV0dMku5vScsNTbHlHBqtQ+MIyJfRaEBIeXkfZbuuvS4/FKEIv7hn0qCYGMwHNV66fsX0abC+UKcTEYSFz/wNucKkl0A6O4JU7LNUBqeV+1JehrK+4/SFFvtUCQDapSn/bQQMXdoxaBk+rrnjo1ZtQP8hDaJ0WSkM6N6rErrUpUyhwmKNjA==
+ b=gDOThGn8l1NwE9J6u2BoXi7VYOWAfi7nV7WDcbhoC4qleMuovS9joutFyhiheAIb0OO9QDlUSNO7w5B2KhhElYMCYHQMttQ6SYSxvmFeqbR6FYwxR0lJcJ3k+UtNLIT0UcCKqjMTsJS9Ng35jTzDmzvPkzB+unTKMEvBKyM2iOh12BRzfN88+YexQtPcn+b5t2lYBFcaHLBingx8uNpBKYaWcoRaLCXvwA5ZM8e7yj9TmIzUM/XZLe/mOvTKvtu9ksgaQRJZ2hUWbzdhuF7go4seKLm51m2IMQ0sNYl+860OqhzUBzv7/uqHRZu1nUXSS+bUB82Xq/UyUUv0qdqnTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zO/IcwDBLPYb6eqPL7BKa9ZkCGkdDNFgSXOHOgdrGPM=;
- b=nuBZwcPM7oli8NpkNncK1c9eHK9O9jiFQLWzB6693SI0sTyTpe9tH/NFKH6H32iavazR21VKbXUtw9KQlXT8dzqf33CckZ5PYPDKEJDluYJVks+bM/9tb0+YXvryvcB/DULBQ/k4CgB8tfl4aqdqX1Y+dNIgBhdwn0AJwtAv4gftDojQQtxJx0nyMv8MFPZtaYwMpKP7ei0xzENh88fawkHFMnTKjx+akodvtsGmWnfHBaurK9PPGsCl3TsaeiD4VhzqfNgM61UPV5hux4eNaLJl9dbrbhBv0S7QJ0FfCnZrLuB4aK5xetBnEP2Yb889S0lIyU5RWWIcA5RoexQj1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=ATQT3YGXFEUZhR95QvbgyOwSVFP4LayVedq5L85iQyQ=;
+ b=PvsE3PH4GF2ffmhfH+Vr72p7+9+cMQ9TQvDos5u4TfFHVPGD3l7P5XYkV03dpzgoFO+iqOjVwNlyBO7ReKhSboLuIY/igNow6uUC97Yk05MYEN+MbN3CANmkYw5H+61QI86r1wjgvfQg9UW6l5mgmLNhKtUvwPmUtw0X1T/STvnCR6KXcK8XV65F0g2FwxALrblTN7kyT04ul+ho7RfrOwN4sai8QegK7kof9E0Ova/CclKEGQS1QfLPMEOt8Vkvpu3iPsqYfVDjLF+zHJTTXjv2XAKHt2xZG+YG7NdJBGzGfIQnRF5AJ604Bv9pMwO37LZHcSjEunLJGFuVO/7BmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zO/IcwDBLPYb6eqPL7BKa9ZkCGkdDNFgSXOHOgdrGPM=;
- b=x6JintfUx0uOi90H5TiXs9lkK/YJfhveCVId9CJ53TD1BOyeO2ptQuJrpBVn0aP1ZvARoB3JeHQL2v9nmSi6ZEmmUhLlsbut4camhHc9FFkxF4uHXqzKDR2ZOt/biDozO/PzF5f8+t/Hm9HPf5gbpM2U4/0tJDLv4SqvD/mn4hQ=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by CH3PR12MB9456.namprd12.prod.outlook.com (2603:10b6:610:1c2::11)
+ bh=ATQT3YGXFEUZhR95QvbgyOwSVFP4LayVedq5L85iQyQ=;
+ b=KNjsWiW1LovHhdr14Y/nfd+xbGIKc8gSAGt2skPykWLKbqaWCoiKBkaDBqHxUEBiuyEhLrDevQEWygfjR3qVzUJQr3a8sITbR3cmfkthI9Psp3Bwfae9YuDY3c5DUxhULVdUOi1txnvaLgA1fCfVKxyqamRcq4/l+92kahYu+dI=
+Received: from CH2PR19CA0029.namprd19.prod.outlook.com (2603:10b6:610:4d::39)
+ by CH2PR12MB4070.namprd12.prod.outlook.com (2603:10b6:610:ae::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.53; Sun, 28 Apr
- 2024 06:48:11 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::d1a1:5993:ef75:9419]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::d1a1:5993:ef75:9419%6]) with mapi id 15.20.7519.031; Sun, 28 Apr 2024
- 06:48:11 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Huang, Tim" <Tim.Huang@amd.com>, "Zhang,
- Jesse(Jie)" <Jesse.Zhang@amd.com>, "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
-Subject: RE: [PATCH 1/2] drm/amd/pm: fix the uninitialized scalar variable
- waring
-Thread-Topic: [PATCH 1/2] drm/amd/pm: fix the uninitialized scalar variable
- waring
-Thread-Index: AQHal797/igz57IJNkyTMQLXQ295n7F9P6/w
-Date: Sun, 28 Apr 2024 06:48:11 +0000
-Message-ID: <PH7PR12MB59973A9978BBAA399DA748D082142@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <20240426095218.1075237-1-jesse.zhang@amd.com>
-In-Reply-To: <20240426095218.1075237-1-jesse.zhang@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=20bdf5a0-d7d7-4f91-9fe0-1750973734fd;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-04-28T06:45:00Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|CH3PR12MB9456:EE_
-x-ms-office365-filtering-correlation-id: 6ad36667-e786-4667-2df4-08dc674f2b9b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: =?us-ascii?Q?PU+RS/9wqgxFrbJnlJ/4q7EUFlHf7gODUIPEgCz8DEIQwbzJm8ubBo4OkbbE?=
- =?us-ascii?Q?CJUzjC8VTZI1DR7HrKzJmSfeS5snwHvQBHyFCq6goZMls7hFESDaYXe7cJL7?=
- =?us-ascii?Q?eByYN8TgmW78Xx6qjoJ9EvnQAOf1+PuZ5ejvohCTaH5Gv/L01jnUTWCIAgHR?=
- =?us-ascii?Q?xhbH25NfPNFDXrWJKJcl4tbdrqZa+I3zAoW7zIRllJqI5zmDVYIeEGXC4r4t?=
- =?us-ascii?Q?ZmGHYJTZu8IFzVwdIPXG+tyw4IqLmhPW3BJpdLkUTswSFyzSwTbMkn3C8Uk+?=
- =?us-ascii?Q?jDB10VeEPnVkUdbnQq7Ihb5IhKU+N3g4BoJKLkQfG8vxmOwdmxLuSBFay8bU?=
- =?us-ascii?Q?xZPmVImna+z8FBVkZEIZlzNWXGgvc1Nmg+ctpb/F3akJMfRIhv901xTp2CkO?=
- =?us-ascii?Q?FZPscxM0uWdR+l+eiqcQVU8C02a/57wFLeIV5pzdkC8pEQhtBZi/T0zZ+9QI?=
- =?us-ascii?Q?xdC1Uf4bHBXmCv0ob8HM/v//W4f+ydryzZKPVlj+naVMMlSfbo7RUYdI8JLw?=
- =?us-ascii?Q?37AzpznVvZB98C4SaoF0McIk1GBxBHssxUN4VwnULSL+Rs2f4VATnxmvTDJf?=
- =?us-ascii?Q?UIJsgqgj1lU5e+nlxBbps0T0sJxyHc6UxSZ6X3WJjL9wYG/wzs0amo9pTB2u?=
- =?us-ascii?Q?GkgsLLZlY1eQMAcs+nSlJlbHZfanObTjdrPQNbTJCRvuDEGmHdObSyAmwByO?=
- =?us-ascii?Q?HNEpopCw9tXpxeweEjuY+YA8ccPxu1LHG8PA72gNScHGdUyq3jkpBb3ZyUbZ?=
- =?us-ascii?Q?tG1lQ3GAOa4UA3K2vG2hRRKjnRKVhfbIeje82Fne/tmgVTeZvHw8/Pg7le/k?=
- =?us-ascii?Q?AkFF8WY00Fxz4LHVcMHVQKy+BdZUI/1uXmGCo9G5v64/vY8xZhCHz9pMh8Wd?=
- =?us-ascii?Q?IiZ7uboAKtMpI7F2SZ74yPWiK+naO5FNuYkXE0OImq4o5/aQbiH3TVTrfctf?=
- =?us-ascii?Q?cnuVJWZzvVtipiXFOQnwVyv80OX/aOepQyrm3DxcVvs0zh73t9b2i7Ub1zZb?=
- =?us-ascii?Q?LQLhg07+y3tUg2G0PcNEg/K5+pXrQGrj9wmanFoGwctvCT696bkHXLw6DGtF?=
- =?us-ascii?Q?EqaKYoV/XexZjdSfnKRfHA2lP/BQrVU64M4amGNXA7/YZJtnfAXTuH8ttrTg?=
- =?us-ascii?Q?geHw3Wo7feBJI2EEXpWtkH/yRhEuM+FiFLys0UCa/nZFKOUszbHOyfynKRRL?=
- =?us-ascii?Q?S065uy4RltKtS0Tb4P3rXmHgBYwgvVBKDSuHLL7/Z+78Ly9a05R0WKWagamE?=
- =?us-ascii?Q?Do93ZVj2pzrKGqtCi/b54g4YZL3JbawFyNhpHu61L1cLO4CcjYenqPIG0PI0?=
- =?us-ascii?Q?WwkeutheUmbXZfb+Kxs5To1z60fLxZf8fosIsKpqZ3NTjg=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?OVfo24Va0h5GE67FJy5uPCJ9io+w91aJhNYYAOW9oOySkvG/Yo5s20w0koa8?=
- =?us-ascii?Q?H8wneJ5xLoidNHQX1aSHJlNc1rawX8Yf6FOycpOjuDDy8WkH6EvzltIEgFoX?=
- =?us-ascii?Q?ous+fAbR025Z5qoGSzmAG8OITjbCn7BhKNEOy0xzr2Cev3HOv1UkhBYosjNV?=
- =?us-ascii?Q?hBSDpThVRqVEhuXDPCmdYcFX1kSk4gtrJmlwH4ht6L0HAC1eVnVbLGAU9y1R?=
- =?us-ascii?Q?Sqk9A42TATVA+WsrJ0wgn8PFxvc/A8R3/AB/RdMWZI2MYHTdA4OYwGOM7EFc?=
- =?us-ascii?Q?FQqMG3nXY/camivNE6efp1niaVss8zjHlBcOGSuWUGVL+8mbQkUtAAekwub+?=
- =?us-ascii?Q?IMI8mX4IHkf1bjRf/AHPP5OHgGfszQaICQpQFq1zozWbjy3z6m30+hWEO833?=
- =?us-ascii?Q?it3WG/HsLy7LQpuXufrEj3Wj81r/9WZIxasHBxqRlFhulhpunj4T3XwGsABe?=
- =?us-ascii?Q?cuTGXOEyuusGrrbzDZGACUN56G97yQHxjZI2eX/Z/xeOCQxaWZO1KRmqgM8U?=
- =?us-ascii?Q?XCDtQQQx8AGG+Rbnry27BImmMuJHoavFUsqtziDNw9JN74ZQq4WRu9jWAwM4?=
- =?us-ascii?Q?QHCQ8kcQsFGN0S/zyH0loLr6Zf2hCD6xyTm5aOaAOga6+QVi1rUU3DRJNsMT?=
- =?us-ascii?Q?Fqh7lCicUIea0k3rRzQMbuyh10i5gxe6ObLNR37eXicw5fk2fToSQkF5QUow?=
- =?us-ascii?Q?BglNnM+XbUiw9AqtiYIAJnjHhSEUohzWxUeA79nu0aQsHSf7YdOp5A5hnmGm?=
- =?us-ascii?Q?FI0Sy2kl08cvloNY7sSlE4DpjtUXHeg7i7jHhimje4Gwz7YXFadHc5V7WDOe?=
- =?us-ascii?Q?DQ8YCLWvWOOf/TTZwrPA4ZLzHjF0Gigoa8pegFfD2BZPBcid/pQh0KVRzpiY?=
- =?us-ascii?Q?mVXUnnTIHf1zj/VftxbAVWZhSu7yigsG+qvvNm6iG2b5U2Gzr55zGCKw/CBY?=
- =?us-ascii?Q?oWVNbCrZk8kR/FtHLt9qQqgtNul9ASK2dWXRYt3mvy9IEDfrojSj9vWUlQbA?=
- =?us-ascii?Q?U1u/nMSV6gP2b9/iUGsoYTo+PtA0DlsdClbLMa0JP/tpRX9iUVdUVW6IVNI2?=
- =?us-ascii?Q?WgU3nJuIyC0HCLif9eiXMXzlMnAHcSoVQ0wnW8nye+HutaCExtC7B+GIGSWd?=
- =?us-ascii?Q?FE/I0q1dkjMbLBzsrhoNayvwqJpXjosO1o62HCl1yyHnEsF4RVJDz1GE30OB?=
- =?us-ascii?Q?IIvnH+kt+xqt1o1fy2wxzNoarXn7/Dz7349O0EWrkNyjdhO1aKm0J8yaMXDw?=
- =?us-ascii?Q?uqCqTD74nV/ds1dwSXgD3ILKm40MQsPtesjMAMHitb7kXNgjsBKOIoN8ss2/?=
- =?us-ascii?Q?i0ze9NbyxMhU2FNJq39oVINeuxTnrzVTHC+/ch6lbTyaM0gtIsa0Ab7aSqEh?=
- =?us-ascii?Q?APOy9+mIyr0WmYk6mAzB7IOdkl9ewe9tE465ZBQCF9TN0uP8zns3YVv8ko+W?=
- =?us-ascii?Q?D37jIiviYPTisLuKOBo8F2+8lfKvuzFg7EkAhSM6lSjdphqH4vw1YMRvtnJ+?=
- =?us-ascii?Q?N6we9fYiOdmonBR5pk8tn4TvrcBW6ww+ETWK7rpIRVMjI6x2n/R/PxYkSz+o?=
- =?us-ascii?Q?+FJQQHQtecgRJXX6JDk=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.32; Sun, 28 Apr
+ 2024 07:08:22 +0000
+Received: from CH3PEPF0000000E.namprd04.prod.outlook.com
+ (2603:10b6:610:4d:cafe::2f) by CH2PR19CA0029.outlook.office365.com
+ (2603:10b6:610:4d::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.32 via Frontend
+ Transport; Sun, 28 Apr 2024 07:08:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH3PEPF0000000E.mail.protection.outlook.com (10.167.244.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7519.19 via Frontend Transport; Sun, 28 Apr 2024 07:08:22 +0000
+Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sun, 28 Apr
+ 2024 02:08:19 -0500
+From: YiPeng Chai <YiPeng.Chai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
+ <KevinYang.Wang@amd.com>, <Stanley.Yang@amd.com>, YiPeng Chai
+ <YiPeng.Chai@amd.com>
+Subject: [PATCH] drm/amdgpu: add mutex to protect ras shared memory
+Date: Sun, 28 Apr 2024 15:08:01 +0800
+Message-ID: <20240428070801.376129-1-YiPeng.Chai@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000E:EE_|CH2PR12MB4070:EE_
+X-MS-Office365-Filtering-Correlation-Id: bbb5c67e-26c2-4abe-624c-08dc6751fd72
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|1800799015|82310400014|376005|36860700004; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?EB40kSkc6qLAiPmzyqC+soW/kmfPApfXfk1XvrIMK/REQtZxEmuDJ2bIAzTg?=
+ =?us-ascii?Q?L99YMMG+nfXgW0f52hpTKGKTPNm73sPGl4buyw+O2EcSjAjTGab2cYsb5+b1?=
+ =?us-ascii?Q?mCgOxlRBkuJQlu9oxTkEuAhOTUrXCNkQeiB84ALiPpk+y0XzmoleFpIVMqt4?=
+ =?us-ascii?Q?nn9v/k1HAHEJJN9pEX/vptZpkpN4EK4aWPTGTbEzFr7FhrSW6tfPnuz7Clup?=
+ =?us-ascii?Q?Xc0CATSQKzAY5nkXuhllsL3KaTgB8UIbtAQTPP3VeQpx9Ak09jgJdJoLiP2W?=
+ =?us-ascii?Q?z3mapmB+sXn4MTLVaxt4fwnh3/DV3mGme/rZxfhumdilGnKOzT08BY3ileo4?=
+ =?us-ascii?Q?tQAfo/ZtSnKeEf25PuRk0zEEqBhbfed+AJm1x88biqZwOjwN1oZaUwGbrWZy?=
+ =?us-ascii?Q?fezpq6JG68i4HKKtxtW/r+7zfdcExEIvluv81gLMNPsUPssRIvOvvSy5595P?=
+ =?us-ascii?Q?WjVgNx5h4BnsWerwfyrVpTPGB55BD2D8DtPX4LmOqqiSSRTvMLvoY2cVFdJK?=
+ =?us-ascii?Q?pbzmUr29cy1CjGwnrtBBBlr79gVhP5qxoPc/YoO6m+So4r+qp5QQeRQdHrmI?=
+ =?us-ascii?Q?SLPzaBCk6o3Go24EgQiGDDLB8RJ19NDFk3m5N/xaNV8moU8ISfMrSquJAd2X?=
+ =?us-ascii?Q?sHLjvsHRGQlfSwqYoejfjl+5zXGdg6HpV90zwUqbcUJKbD07xhqZTLVKuFwU?=
+ =?us-ascii?Q?FYZKm4HGppI1YIRqKGN6qFqY1RxwkURRHA/nsMiDjjX3aiIS7Q+kWFYBoBlI?=
+ =?us-ascii?Q?FID2/J9TvbQnm8aPWLfyPAfj0cOl0yuQLLCLLC3joJ04FCyrju/Gx6FDWYtu?=
+ =?us-ascii?Q?iPm7ipK3K8mGeRmMb8C+2k+Mr4PFymY1qpmpA/iflDFawIMaRJfO4rYPVwEm?=
+ =?us-ascii?Q?GgqxSm9ibuJ03Epprf7A3BVXIeJkX+9wLWq9IFowHFG1+ezxaxX3f7AKaqnk?=
+ =?us-ascii?Q?Uz4DkykcdZp1eG+6lgK7jawVz0lotf2Am6+lZBNUsTdJcaMgpU5tPStfgQkM?=
+ =?us-ascii?Q?bYH3uQ+z9ZCK5d4HbdgEbiX48qBjzkJZKYta7+ABD5r0y4gnAY3SPOJTPUIe?=
+ =?us-ascii?Q?pL1zEUJf4ebQESYeJ+Ve4j64060CWMo0q2/yyGS93pltLIxMzIUS7wP04sE3?=
+ =?us-ascii?Q?37EjvMDtBO6gTmEQtP4IV/Kl9muYgt71/JSDDbD9+IcHVf/3jViiznBYmBNm?=
+ =?us-ascii?Q?yEayc1rT12Nt6ExtFPCEQ3jTG6QPqXlwGuBXG/j3/7I1IBmkRe5XiiFlWLyT?=
+ =?us-ascii?Q?mAFSjGhtx1V0AWUgsFmJ/4kM6an8HfywX31Jyz+tYhacRnrVx7Z50REX0qmT?=
+ =?us-ascii?Q?IR2JQuvoiUQGZqS3JbhrUy9qwiAlBWvZp6JCYVAnOAfuFIChGaJam7CnDSNT?=
+ =?us-ascii?Q?ZIUjzfiUoj+u4l/COR8vYEmksmoT?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(1800799015)(82310400014)(376005)(36860700004); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ad36667-e786-4667-2df4-08dc674f2b9b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2024 06:48:11.0931 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: q22D/1Xnelmj9w+Zi0UepwIzjQBxcF0tkX2oL+LEufBKB0NbS+KTRRsOKlyI0zTg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9456
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2024 07:08:22.1442 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bbb5c67e-26c2-4abe-624c-08dc6751fd72
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000E.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4070
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,52 +130,243 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Add mutex to protect ras shared memory.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Jesse Zh=
-ang
-Sent: Friday, April 26, 2024 5:52 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; Huang, Tim <Tim.Huang@amd.com>; Zhang, Jesse(Jie) <J=
-esse.Zhang@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
-Subject: [PATCH 1/2] drm/amd/pm: fix the uninitialized scalar variable wari=
-ng
-
-Initialize variable size before calling
-hwmgr->hwmgr_func->iread_sensor, such as smu7_read_sensor.
-
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
- drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 121 ++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h    |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c |   2 +
+ 3 files changed, 84 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu=
-/drm/amd/pm/powerplay/amd_powerplay.c
-index 5fb21a0508cd..ec2b6d0674ed 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -102,6 +102,7 @@ static void pp_swctf_delayed_work_handler(struct work_s=
-truct *work)
-        uint32_t gpu_temperature, size;
-        int ret;
-
-+       size =3D sizeof(gpu_temperature);
-
-[Kevin]:
-You can directly initialize during the declaration phase to avoid reassignm=
-ent.
-
-With fixed, the patch is
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
-
-Best Regards,
-Kevin
-        /*
-         * If the hotspot/edge temperature is confirmed as below SW CTF set=
-ting point
-         * after the delay enforced, nothing will be done.
---
-2.25.1
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 5583e2d1b12f..fa4fea00f6b4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -1564,6 +1564,66 @@ static void psp_ras_ta_check_status(struct psp_context *psp)
+ 	}
+ }
+ 
++static int psp_ras_send_cmd(struct psp_context *psp,
++		enum ras_command cmd_id, void *in, void *out)
++{
++	struct ta_ras_shared_memory *ras_cmd;
++	uint32_t cmd = cmd_id;
++	int ret = 0;
++
++	mutex_lock(&psp->ras_context.mutex);
++	ras_cmd = (struct ta_ras_shared_memory *)psp->ras_context.context.mem_context.shared_buf;
++	memset(ras_cmd, 0, sizeof(struct ta_ras_shared_memory));
++
++	switch (cmd) {
++	case TA_RAS_COMMAND__ENABLE_FEATURES:
++	case TA_RAS_COMMAND__DISABLE_FEATURES:
++		memcpy(&ras_cmd->ras_in_message,
++			in, sizeof(ras_cmd->ras_in_message));
++		break;
++	case TA_RAS_COMMAND__TRIGGER_ERROR:
++		memcpy(&ras_cmd->ras_in_message.trigger_error,
++			in, sizeof(ras_cmd->ras_in_message.trigger_error));
++		break;
++	case TA_RAS_COMMAND__QUERY_ADDRESS:
++		memcpy(&ras_cmd->ras_in_message.address,
++			in, sizeof(ras_cmd->ras_in_message.address));
++		break;
++	default:
++		dev_err(psp->adev->dev, "Invalid ras cmd id: %u\n", cmd);
++		ret = -EINVAL;
++		goto err_out;
++	}
++
++	ras_cmd->cmd_id = cmd;
++	ret = psp_ras_invoke(psp, ras_cmd->cmd_id);
++
++	switch (cmd) {
++	case TA_RAS_COMMAND__TRIGGER_ERROR:
++		if (out) {
++			uint32_t *ras_status = (uint32_t *)out;
++
++			*ras_status = ras_cmd->ras_status;
++		}
++		break;
++	case TA_RAS_COMMAND__QUERY_ADDRESS:
++		if (ret || ras_cmd->ras_status || psp->cmd_buf_mem->resp.status)
++			ret = -EINVAL;
++		else if (out)
++			memcpy(out,
++				&ras_cmd->ras_out_message.address,
++				sizeof(ras_cmd->ras_out_message.address));
++		break;
++	default:
++		break;
++	}
++
++err_out:
++	mutex_unlock(&psp->ras_context.mutex);
++
++	return ret;
++}
++
+ int psp_ras_invoke(struct psp_context *psp, uint32_t ta_cmd_id)
+ {
+ 	struct ta_ras_shared_memory *ras_cmd;
+@@ -1605,23 +1665,15 @@ int psp_ras_invoke(struct psp_context *psp, uint32_t ta_cmd_id)
+ int psp_ras_enable_features(struct psp_context *psp,
+ 		union ta_ras_cmd_input *info, bool enable)
+ {
+-	struct ta_ras_shared_memory *ras_cmd;
++	enum ras_command cmd_id;
+ 	int ret;
+ 
+-	if (!psp->ras_context.context.initialized)
++	if (!psp->ras_context.context.initialized || !info)
+ 		return -EINVAL;
+ 
+-	ras_cmd = (struct ta_ras_shared_memory *)psp->ras_context.context.mem_context.shared_buf;
+-	memset(ras_cmd, 0, sizeof(struct ta_ras_shared_memory));
+-
+-	if (enable)
+-		ras_cmd->cmd_id = TA_RAS_COMMAND__ENABLE_FEATURES;
+-	else
+-		ras_cmd->cmd_id = TA_RAS_COMMAND__DISABLE_FEATURES;
+-
+-	ras_cmd->ras_in_message = *info;
+-
+-	ret = psp_ras_invoke(psp, ras_cmd->cmd_id);
++	cmd_id = enable ?
++		TA_RAS_COMMAND__ENABLE_FEATURES : TA_RAS_COMMAND__DISABLE_FEATURES;
++	ret = psp_ras_send_cmd(psp, cmd_id, info, NULL);
+ 	if (ret)
+ 		return -EINVAL;
+ 
+@@ -1645,6 +1697,8 @@ int psp_ras_terminate(struct psp_context *psp)
+ 
+ 	psp->ras_context.context.initialized = false;
+ 
++	mutex_destroy(&psp->ras_context.mutex);
++
+ 	return ret;
+ }
+ 
+@@ -1729,9 +1783,10 @@ int psp_ras_initialize(struct psp_context *psp)
+ 
+ 	ret = psp_ta_load(psp, &psp->ras_context.context);
+ 
+-	if (!ret && !ras_cmd->ras_status)
++	if (!ret && !ras_cmd->ras_status) {
+ 		psp->ras_context.context.initialized = true;
+-	else {
++		mutex_init(&psp->ras_context.mutex);
++	} else {
+ 		if (ras_cmd->ras_status)
+ 			dev_warn(adev->dev, "RAS Init Status: 0x%X\n", ras_cmd->ras_status);
+ 
+@@ -1745,12 +1800,12 @@ int psp_ras_initialize(struct psp_context *psp)
+ int psp_ras_trigger_error(struct psp_context *psp,
+ 			  struct ta_ras_trigger_error_input *info, uint32_t instance_mask)
+ {
+-	struct ta_ras_shared_memory *ras_cmd;
+ 	struct amdgpu_device *adev = psp->adev;
+ 	int ret;
+ 	uint32_t dev_mask;
++	uint32_t ras_status;
+ 
+-	if (!psp->ras_context.context.initialized)
++	if (!psp->ras_context.context.initialized || !info)
+ 		return -EINVAL;
+ 
+ 	switch (info->block_id) {
+@@ -1774,13 +1829,8 @@ int psp_ras_trigger_error(struct psp_context *psp,
+ 	dev_mask &= AMDGPU_RAS_INST_MASK;
+ 	info->sub_block_index |= dev_mask;
+ 
+-	ras_cmd = (struct ta_ras_shared_memory *)psp->ras_context.context.mem_context.shared_buf;
+-	memset(ras_cmd, 0, sizeof(struct ta_ras_shared_memory));
+-
+-	ras_cmd->cmd_id = TA_RAS_COMMAND__TRIGGER_ERROR;
+-	ras_cmd->ras_in_message.trigger_error = *info;
+-
+-	ret = psp_ras_invoke(psp, ras_cmd->cmd_id);
++	ret = psp_ras_send_cmd(psp,
++			TA_RAS_COMMAND__TRIGGER_ERROR, info, &ras_status);
+ 	if (ret)
+ 		return -EINVAL;
+ 
+@@ -1790,9 +1840,9 @@ int psp_ras_trigger_error(struct psp_context *psp,
+ 	if (amdgpu_ras_intr_triggered())
+ 		return 0;
+ 
+-	if (ras_cmd->ras_status == TA_RAS_STATUS__TEE_ERROR_ACCESS_DENIED)
++	if (ras_status == TA_RAS_STATUS__TEE_ERROR_ACCESS_DENIED)
+ 		return -EACCES;
+-	else if (ras_cmd->ras_status)
++	else if (ras_status)
+ 		return -EINVAL;
+ 
+ 	return 0;
+@@ -1802,25 +1852,16 @@ int psp_ras_query_address(struct psp_context *psp,
+ 			  struct ta_ras_query_address_input *addr_in,
+ 			  struct ta_ras_query_address_output *addr_out)
+ {
+-	struct ta_ras_shared_memory *ras_cmd;
+ 	int ret;
+ 
+-	if (!psp->ras_context.context.initialized)
+-		return -EINVAL;
+-
+-	ras_cmd = (struct ta_ras_shared_memory *)psp->ras_context.context.mem_context.shared_buf;
+-	memset(ras_cmd, 0, sizeof(struct ta_ras_shared_memory));
+-
+-	ras_cmd->cmd_id = TA_RAS_COMMAND__QUERY_ADDRESS;
+-	ras_cmd->ras_in_message.address = *addr_in;
+-
+-	ret = psp_ras_invoke(psp, ras_cmd->cmd_id);
+-	if (ret || ras_cmd->ras_status || psp->cmd_buf_mem->resp.status)
++	if (!psp->ras_context.context.initialized ||
++		!addr_in || !addr_out)
+ 		return -EINVAL;
+ 
+-	*addr_out = ras_cmd->ras_out_message.address;
++	ret = psp_ras_send_cmd(psp,
++			TA_RAS_COMMAND__QUERY_ADDRESS, addr_in, addr_out);
+ 
+-	return 0;
++	return ret;
+ }
+ // ras end
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index ee16f134ae92..686023918ce3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -197,6 +197,7 @@ struct psp_xgmi_context {
+ struct psp_ras_context {
+ 	struct ta_context		context;
+ 	struct amdgpu_ras		*ras;
++	struct mutex			mutex;
+ };
+ 
+ #define MEM_TRAIN_SYSTEM_SIGNATURE		0x54534942
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
+index ca5c86e5f7cd..87f213f92d83 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
+@@ -348,6 +348,7 @@ static ssize_t ta_if_invoke_debugfs_write(struct file *fp, const char *buf, size
+ 
+ 	context->session_id = ta_id;
+ 
++	mutex_lock(&psp->ras_context.mutex);
+ 	ret = prep_ta_mem_context(&context->mem_context, shared_buf, shared_buf_len);
+ 	if (ret)
+ 		goto err_free_shared_buf;
+@@ -366,6 +367,7 @@ static ssize_t ta_if_invoke_debugfs_write(struct file *fp, const char *buf, size
+ 		ret = -EFAULT;
+ 
+ err_free_shared_buf:
++	mutex_unlock(&psp->ras_context.mutex);
+ 	kfree(shared_buf);
+ 
+ 	return ret;
+-- 
+2.34.1
 
