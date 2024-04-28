@@ -4,140 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81735C4345F
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Apr 2024 07:47:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8927CC4345F
+	for <amd-gfx@archiver.kernel.org>; Sun, 28 Apr 2024 08:45:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA1FC10F161;
-	Sun, 28 Apr 2024 07:47:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08F2510F9CE;
+	Sun, 28 Apr 2024 08:45:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hZEj88mC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0v0Wte1n";
 	dkim-atps=neutral
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2063.outbound.protection.outlook.com [40.107.243.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2B9B10F235
- for <amd-gfx@lists.freedesktop.org>; Sun, 28 Apr 2024 07:47:54 +0000 (UTC)
+ (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F35110F9CE
+ for <amd-gfx@lists.freedesktop.org>; Sun, 28 Apr 2024 08:45:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=euFGg4PACAhsP6q1NnZcui7+TZyF348+syyRcizCYhc5yfpkPAWj+WT/wZDmDsqk3zIrBCm/a0yGYLE2c85Len+V9rDrx4MGdueZlhwbiR2O9bd4fDP+ivxa/GkQDWZbAs3Mn/xIedpxMYg8ZHsXcAja3atyZOuicTUJY9v9TXKgaaQ7vla+ZsNPa0mLieyW09YHd3AxfeQrriUV1Laa/bz5X/kFk6AB9vTn4Mc0hUvzkUYlh6ZXWtILe5AQI0uab6537LfaOpm5ZlDPAl1c0ZvkOSC4rRYKx6UjWju9tumpIqzxO+6ThlS5j6cVwl2lmwB5xFDVQfUzpPipzJjQnA==
+ b=Ap9LkvUELpSQrXGqAW0Zoz/vCvoK8sXzgRymjHMz31K21L71sDV3be+FLlSNmpLeQ6PYgKiLiy10Bv5luFbJ094546qYeToP4x9HYkz5Qr5uleVUAnMw/mNsaG4i/ebvDe/kY1jIgr7e1y5IDXCo9u9KCZEQfSk1kIJUFbFv/f5Dldix9lXu4Nt1QxQnUragz0bLYCygSYGPpfZoG3drQ91HJo7M7ScVQM2wSDtT1mTCgXIlClCC7fNHMiWmSkUjjuXjj1lpJrbX4shgUB4uNUYTP9c4YnUyIyMnyWtQjJdURyCgPNv+I0GWyxmwLwZn+rO2/8lod5L4tCE/2A+FYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wjhNE1bofc8+coCdS4m06muCCAhtleNoZv1eUySR6Iw=;
- b=cgwm4ujD9P2HzQHSOMx2+tNo4XCMxC0ey/RLFlhQA0Dhrw0T0s0Q9AwMojfFHcPITA3GBZvjsAMJcJzkqO8joee3F09OmwcmPDHJoFDIFQmyZgJ9lkJvtqQWT14jttuN7l/7JqAK5jyH0mLw2yEvWeVAOiMQP3d3N758uyFcQBcZ2xNgtgNHqJ0ca/7vosAsjztm9BYPmYZoaBL8yVEfwbUM2YQ8VbCzi7DE+N/Wqrf/6/wg6SjR8QbiV5u359b/0bpxfr/dp5oLidjT6maC9u64YrpLsdJZPlQ7SiFadsYygrXi5N3Ov7ukxq48/uKHZ/L0sCaZ6SbFuJvbfoq7sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=/j8WJMtHwu+t2xh48Jo80GVHD9Usb5MeHYLmpxAVICc=;
+ b=JkJ0auiHeVmbIPBhIuStRZERsx9Pz6uW7TZKq0hq7kMltHUNGsRE8AHGW/frQSJzLVLV0ZmYz4u6oP98RW2kuIFqTxYXuad3eNobuVAAI1UmtM4PiLhKfPsFDSQ/SuADp67Fep2HPkEyff+uQ5howWul/YrIafcuaXvavJauV6NDNnH65xi64hJBUWAp8kbd4DY0wfZCcJgSM0ZE0HbiXwermTg7fsBalMU+EaDi4QnBNVBNbnF+mMslaTgr3zHBlA/ImNovsFvTsxN3i/yQQIWaU3HByHEc9CQy8YXhVqreriFE4uiFMYGnlFuP5tLXVuCuHCo+FGT7Q5twm5l7+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wjhNE1bofc8+coCdS4m06muCCAhtleNoZv1eUySR6Iw=;
- b=hZEj88mCQGzCscZLF3ucTDwpiGzRNIlFtmpS4XHk3jkl6zlbVvEEAsOxsoLEtlwtIv4r5X0kk/qxtJbXQRwFDbTPdRVsv263LrNdcQyEYRPe4gSfDSgX6iOH27RdPDBQyFxKEwKAeMD6a/2WsaIsX9nVoClUvl43pofIS1AMdcw=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by MW6PR12MB8865.namprd12.prod.outlook.com (2603:10b6:303:23b::21)
+ bh=/j8WJMtHwu+t2xh48Jo80GVHD9Usb5MeHYLmpxAVICc=;
+ b=0v0Wte1nsFDhvjnk98FJcQcd6NWPL5E9Tlau90W/VPviGybmSPF2AQw/6M2mK4sWszIrcEKXFd1XvccdAzI/zuUm4w5sYGy6V21JuK4LLYQMCfEajikB7VNYEmwNc6FjPYUcITEZwRx7qW29Y+4vxWvfYRHCAbfD96+hGVbY3c0=
+Received: from SJ0PR03CA0181.namprd03.prod.outlook.com (2603:10b6:a03:2ef::6)
+ by PH8PR12MB7206.namprd12.prod.outlook.com (2603:10b6:510:226::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.32; Sun, 28 Apr
- 2024 07:47:52 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::d1a1:5993:ef75:9419]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::d1a1:5993:ef75:9419%6]) with mapi id 15.20.7519.031; Sun, 28 Apr 2024
- 07:47:52 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "Li, Candice" <Candice.Li@amd.com>, "Yang, Stanley"
- <Stanley.Yang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: add mutex to protect ras shared memory
-Thread-Topic: [PATCH] drm/amdgpu: add mutex to protect ras shared memory
-Thread-Index: AQHamTrcgT4Iug6Df0e98N+sOAVHuLF9TOIg
-Date: Sun, 28 Apr 2024 07:47:52 +0000
-Message-ID: <PH7PR12MB599731EAE3607BA58FAEB27B82142@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <20240428070801.376129-1-YiPeng.Chai@amd.com>
-In-Reply-To: <20240428070801.376129-1-YiPeng.Chai@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=064223ac-c921-440f-930e-c0b9b039dfe7;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-04-28T07:42:51Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|MW6PR12MB8865:EE_
-x-ms-office365-filtering-correlation-id: 5b6a7051-63ce-4815-7775-08dc67578204
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230031|1800799015|376005|366007|38070700009;
-x-microsoft-antispam-message-info: =?us-ascii?Q?O1Z1YKRZKIkxihDcFeuKeeh974mPcCFspY2s91DL7niXmOujci4QahLfuZyi?=
- =?us-ascii?Q?sgo5mk2aDO1T7YA0zZIokvtWYFFBuhisOdFCCtGO3bmLJGkmoiaYSLESS8ld?=
- =?us-ascii?Q?biGodYAE1QbgayhbtRIeUYwgC6vThDs4X8F66QIxDXndNdKgwGH8SxEjkJEu?=
- =?us-ascii?Q?Qcz3Kjz9NUtLYNcyKhugaUuK4qJ+jJowIF0mFsVBcKL29H6E5nt/bi6a8ZFk?=
- =?us-ascii?Q?B+OAsXd2JcNx/2He2kF/LrAu9ex5lJl0WcFiTEafQZYCSGXwGKFaggahTtXV?=
- =?us-ascii?Q?DpB7XLg6/oHJyqV5Zl1n3sxULTB2dP3gHga7/pgj+bZ+lqsrCxpx+Ed95mfE?=
- =?us-ascii?Q?GXw0RbVzxOlaCxHnhG2fvyuwOkYTBCiCnGqExnHo9lx2wK48fpRA9M3+VCkr?=
- =?us-ascii?Q?wk78KnrKquRKiO8dQvrVsielN0mRIu/pSMpSx+ejZt/jPixCJdFrjZ8b4NIf?=
- =?us-ascii?Q?RIcOPLgTRNhjJ/IXZvVX6F812tGE/wMWfRY47ShIXfq2DnByEv6NpvJkX0aZ?=
- =?us-ascii?Q?dbYKl7aG8mtHlVhrNvnhtQFCrs1twf7vSjh+VWQYMc8SwwpDu7SWKrJfkwl7?=
- =?us-ascii?Q?8XzIHBgXEicZBldo671ZXHAMMP6L8BmrMrIymta7MQ2duBjJdgo2o8tscD7c?=
- =?us-ascii?Q?lTehBqA8w4XB9D/qK2MTssUJJxHRoyAKmJzIj8wOEtc/yrtXNI8MX3zNIhom?=
- =?us-ascii?Q?OMW+jYgx3mKOVvJGuVGAo8JHZWK29sD7lY2NQqS+LvsLVdJ7zsjFX8BnGc5m?=
- =?us-ascii?Q?eTEF3aAQsutAIuQLOiGnFAHKY6oiBsyhDVdKTlofhIhYGIkeq0zLE6XhlSEc?=
- =?us-ascii?Q?sJ5eHW4BZVD52SZ33V3N1s9+06jQz0PnkAIHoMsN0I6BSxB1/Lqt+zFd4zo2?=
- =?us-ascii?Q?+yN3Qk+LlOo9eTlRPkT+4HtpwhBekFhuIzD6OFdJ7/rKeYUhgon68xUyf/Zb?=
- =?us-ascii?Q?/QTulhVrJcWFxwlTHRtWmx6UVuBUzSdGzIC7HkvSyhntxG4yM4NjVeq7wO1k?=
- =?us-ascii?Q?4F5q1hZmDS1h91ZkzQhUJV+NfXcav6jMHD9fQCU+Oa3qg+krl3nsbBIbqmNp?=
- =?us-ascii?Q?DRImEYA1FeapfLvWg8HjRLfIvEpgR5js6rkHUCKxAMwnOf91ilTmcY7fxnHi?=
- =?us-ascii?Q?Lsd/YO2jyDfJXtJrmPfZ+2jeQEaKht7LI6bmyDl0IgL/ofVqeLUmwXU3w5t8?=
- =?us-ascii?Q?xQQ5Rm7PtKPjyvifyHNgSMVcUzqgPHOszPan5M+8gRXrMy8ER9fBL2C6HCTh?=
- =?us-ascii?Q?pJjzXLnKfJMfBX6moMbvvd1SZOpmykAMG66wmlQ3vAWpUM0+w8NzPm5PSLMY?=
- =?us-ascii?Q?OPjdNQNyV77kO9y8o6XOVtEILbsSOmvBhPxGZ+Fw/5WSsg=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(376005)(366007)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?vV5h3z5eqMaRO26v32ZY/3dFPGlwifhitqtZucR325siKbPj6r1BgDwVm1y4?=
- =?us-ascii?Q?T8pANvgal1XC7M6Z1TxeZI+skLAajOp5Fd1gPxOVeIx2eeq0ota/A6aEIhep?=
- =?us-ascii?Q?XrOV8ntiWkrhiF59qC14ZUTNDRb9Mq56gadatGWniE2MYoFreTQXeYECEi1Z?=
- =?us-ascii?Q?cSAHrqUwdqtM1rqBeV9Z/sWTffhJfmiiPF9lv1uSpDf96wA2StCaYofjmumd?=
- =?us-ascii?Q?328LlW0VQQpGjhafZRPb/7XfMqjD6TfIySK4n5dsKDM16J4oDIWQnT/R+bKl?=
- =?us-ascii?Q?NTJ7bxMntkDqY7kwM7QNfqU8jelSPMgSwBFQyOntxQNtT4RkcMi5ipU8Sw6Z?=
- =?us-ascii?Q?UY7/2keXIYGMNXdZ/bGQg4kXakJepNiueA5cAlvR1/U0W28sHhEEm9Z5+FhJ?=
- =?us-ascii?Q?RQEz/RyJD3yhMEFBKOMf3Qd5VNZBLiB5emL/FDvXb+9WVzbZzC8RRf6DxTBZ?=
- =?us-ascii?Q?RSBz8rXJp0k5Rt4jQSj0i1kGgE3SMBcb7cBtvMvXv3sIsydndNRt0n27ttwh?=
- =?us-ascii?Q?tN3enlO0WRpw8MrTm/wQ9gAAPx+na81FcyBIL4ZvH+V0SQLMOJSHsJQE0pZG?=
- =?us-ascii?Q?nLVUBd8J6PBvPzJ8ue9J/V2fVR7PI7fpkH98Sx97SzQkpD11t48wVD7oiCbz?=
- =?us-ascii?Q?NbGJxRK2qRdYNVtRcoqG4/1ipki1ruJikvvxap6whdvKI/W340nVLozYEVKp?=
- =?us-ascii?Q?CLQGyxc6SHzY06n2i3gyw+EKg8qFCAItdCWcNEFHU8B6CcCiAGEInrl6xiC5?=
- =?us-ascii?Q?Kptq5IuROUcj/KpxlPxlvH6y31BL2wj+Ftw3/tNh85VVA/wSnLm+mkdVIv4u?=
- =?us-ascii?Q?FVwPHoEkoZQaWXwSqZZGRKNZN1ZqnkXdYSFocw2P6OVV2a2Dd8j5ZkKvo36d?=
- =?us-ascii?Q?IbIWoM193ZxZ19jFlz4MlSjNkf3nVJ8mxKxhuePEd80DPfnezRKTnupDvroG?=
- =?us-ascii?Q?/km3qNuj3WcWpal8QWeGM2pGZCZMgKN+g8Wozun78rBBym3LJKxxROHJfbmt?=
- =?us-ascii?Q?OiVoD2aPzx1J2nI1lahflgBS7mQIyKtHGDqcnm3AX99moDb+Yit/MdcjVVqn?=
- =?us-ascii?Q?T/aN6FL6tSzJpyzjo3I1NuQb4WTnIRYX5LTxloh7W3tpFeGv2WbRpCoEiEiu?=
- =?us-ascii?Q?fXrtyoLQq2wViMwmCfpOAF20AJ0/FdL0WvsVPjfP4EhYsEK52EWfxmlQz0Lp?=
- =?us-ascii?Q?M7/HK2Vghu7pSZ3/JijWhRS72Ua3qIEWYE0DWISOGxENcQV2+klw1pZncNYl?=
- =?us-ascii?Q?UT9ZlIpb2hnBf0eU0Puo4OPuba3hbxlIJeyFRaDaDwHcPOnIV0ZwpaF2TRDz?=
- =?us-ascii?Q?/CzUN+OYt0pFTTm7iEqcc/BmasLYU4LRZqK1rKH1ai5MRKlx2QSh6c2a2qGg?=
- =?us-ascii?Q?p+0v/9w/znjSzHfLS59cU0nRnmRpVxK1REYMX8GMvuzsJRNJYzCKkgAMfOwx?=
- =?us-ascii?Q?AbwA37fCF+IiE5Fg/go7n8lugW8mqfwIxMFQz2b/b5HHs0KZWaKma0kWu3Z6?=
- =?us-ascii?Q?Vh50cm6hp+/IHfv3ZqK4lTmZotEXRtjlebzx2Rhrh2LOglkU1c7qwVJ6TLcv?=
- =?us-ascii?Q?k3goPzntjRE96uRzLPA=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Sun, 28 Apr
+ 2024 08:45:39 +0000
+Received: from SJ5PEPF000001C9.namprd05.prod.outlook.com
+ (2603:10b6:a03:2ef:cafe::94) by SJ0PR03CA0181.outlook.office365.com
+ (2603:10b6:a03:2ef::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.31 via Frontend
+ Transport; Sun, 28 Apr 2024 08:45:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001C9.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Sun, 28 Apr 2024 08:45:38 +0000
+Received: from ldev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sun, 28 Apr
+ 2024 03:45:36 -0500
+From: Tim Huang <Tim.Huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <christian.koenig@amd.com>, Tim Huang
+ <Tim.Huang@amd.com>
+Subject: [PATCH 1/2] drm/amd/pm: fix uninitialized variable warnings for
+ vega10_hwmgr
+Date: Sun, 28 Apr 2024 16:45:10 +0800
+Message-ID: <20240428084511.1646356-1-Tim.Huang@amd.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C9:EE_|PH8PR12MB7206:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3211e392-2530-4826-7491-08dc675f9451
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|36860700004|1800799015|376005|82310400014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wcFcupyLuZq4626uLBdLF9FZqb1Z5n1/kACN0fpwydbjI5L+KKaGkSG+LVBx?=
+ =?us-ascii?Q?UFo1hGT/QSNMN/jhbzq1wza1yzvcrNrFVetoi/c9abERyfWbKLNvsBuqVUFI?=
+ =?us-ascii?Q?rekj1u9WjHWbmfTN56ic+N0BJSq7VVp4ryQk9wVapERPhFTbQ0ZyRXzeBzPH?=
+ =?us-ascii?Q?jy41VRNF1xP9d/d7tu7/QAfeDfaNXIlBaS4ITzO7RyuNSCpXmXUfxVXmE+MY?=
+ =?us-ascii?Q?M2y96VsQ+QwTVk/U6Yfrutl8cskuLJQI174UTaAi4iHZOUATCzY3O7z6tYZM?=
+ =?us-ascii?Q?dNrUAKddMcwVSQ99qad0yTZhJOTrzJjDyJwPgHwZb+Sf6gHLNOY3WHM50I3T?=
+ =?us-ascii?Q?r4aMCZGXYUYjfsTSamrvvKrOqE8hSraTfbYB9YQitxme3o+q0Z8OWsr3s4Bg?=
+ =?us-ascii?Q?pHIpT8k6uiy7ywTtvWE1nnmWL/dEE0m4ggoX6Xky082fsc/TfVeadcirn/lp?=
+ =?us-ascii?Q?rlMb30NhsfV5T/uYnw+9gaWIvKmv/cdbGr17wPDtgQxISiamXc+BTeDBlcbl?=
+ =?us-ascii?Q?8dJtEgSz1vp/a8bmokw4+1OtD/Wm5sQcYxmyU/mgpThk6Opt0AmwWYq4mEh4?=
+ =?us-ascii?Q?x15heIGaJXfLLTOxjOI5GIrJUt2w5icvzpQiPlCG+qlSYR0Q57jNXNmakUwi?=
+ =?us-ascii?Q?Mvz5TcFVPyduFu6RvOKDNqM/k06YuBpej10CrBlfpmmBji6gS+gZyRwvoHTS?=
+ =?us-ascii?Q?ZLmVsUt2xy+rZaRJJd+BFpaMpcP7Z5v5NlgEQeOMPuJTyd4j1ZnE3QyElLz6?=
+ =?us-ascii?Q?5mT+DCLHe8KH+VFEeL4Yl9GCfED++gheB/5/CKEQXeUfjsZRVkEsoOOwbuIJ?=
+ =?us-ascii?Q?2GfTRpY1+9KBK5RWdWNqzcnRNC19+/lrBwmS2ew0QO6b6xPDD55kmQKlJKiI?=
+ =?us-ascii?Q?Y7W7hmRXbItYcfQAozt2p6tHnKirtaBtM7brIKU1VILO4Pehtj0usgOV8V3s?=
+ =?us-ascii?Q?c6V+tu71GNBwwW3tM945CqDhifJogSlnvWQt3SPQapVPxME4x0Ge4hSIQC+R?=
+ =?us-ascii?Q?QJ4AhdJpeegNz5o8eF+365Z13jJqCpZ/JEIxLyuxS/GfcezWrHhXScI+PJ4n?=
+ =?us-ascii?Q?x6z0cnCNpmuhjc1+5xU9iarteENJGR1RQyOR70C98hvZrBe6D8R/6V5cu68K?=
+ =?us-ascii?Q?oo2I/giEurWK2d8Rl2kYAO5T2JvV7wALhq0wA0loyx8ZAhGAJ0j6GVG7HKTo?=
+ =?us-ascii?Q?sBZj9ByoAEJpQBi7L/qCei85KDgRsnZVlT2jlWhuz5w2gtEctGT5dJ1Uji4J?=
+ =?us-ascii?Q?fcKOVoKfKUgxkPSf9XYAb2PxaSB3MEmLT56EORTDn9cCIeF8dSdRjek4FNnH?=
+ =?us-ascii?Q?OYF6Ayc55WpqPk1wx9bwrYXSvEFHV2MdzGqVt7eMaeteKNQPw7mvyNnbS/zx?=
+ =?us-ascii?Q?UAyskTdCrJr/KNhGsfH5WSrYrqSH?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(1800799015)(376005)(82310400014); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b6a7051-63ce-4815-7775-08dc67578204
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2024 07:47:52.0327 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dR4X+t6XwA6XZp9bYapOSNgDn2l82PIWkXMqU+/QxUq1+eQkDFjHaBFB8oyM8Ktz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8865
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2024 08:45:38.6438 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3211e392-2530-4826-7491-08dc675f9451
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001C9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7206
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,270 +130,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Clear warnings that using uninitialized variable when fails
+to get the valid value from SMU.
 
------Original Message-----
-From: Chai, Thomas <YiPeng.Chai@amd.com>
-Sent: Sunday, April 28, 2024 3:08 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
- Li, Candice <Candice.Li@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.co=
-m>; Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com=
->
-Subject: [PATCH] drm/amdgpu: add mutex to protect ras shared memory
-
-Add mutex to protect ras shared memory.
-
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+Signed-off-by: Tim Huang <Tim.Huang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 121 ++++++++++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h    |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c |   2 +
- 3 files changed, 84 insertions(+), 40 deletions(-)
+ .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 46 ++++++++++++++-----
+ .../amd/pm/powerplay/smumgr/vega10_smumgr.c   |  6 ++-
+ 2 files changed, 39 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c
-index 5583e2d1b12f..fa4fea00f6b4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1564,6 +1564,66 @@ static void psp_ras_ta_check_status(struct psp_conte=
-xt *psp)
-        }
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+index 9f5bd998c6bf..488ad9de4694 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+@@ -354,13 +354,13 @@ static int vega10_odn_initial_default_setting(struct pp_hwmgr *hwmgr)
+ 	return 0;
  }
-
-+static int psp_ras_send_cmd(struct psp_context *psp,
-+               enum ras_command cmd_id, void *in, void *out) {
-+       struct ta_ras_shared_memory *ras_cmd;
-+       uint32_t cmd =3D cmd_id;
-+       int ret =3D 0;
+ 
+-static void vega10_init_dpm_defaults(struct pp_hwmgr *hwmgr)
++static int vega10_init_dpm_defaults(struct pp_hwmgr *hwmgr)
+ {
+ 	struct vega10_hwmgr *data = hwmgr->backend;
+-	int i;
+ 	uint32_t sub_vendor_id, hw_revision;
+ 	uint32_t top32, bottom32;
+ 	struct amdgpu_device *adev = hwmgr->adev;
++	int ret, i;
+ 
+ 	vega10_initialize_power_tune_defaults(hwmgr);
+ 
+@@ -485,9 +485,12 @@ static void vega10_init_dpm_defaults(struct pp_hwmgr *hwmgr)
+ 	if (data->registry_data.vr0hot_enabled)
+ 		data->smu_features[GNLD_VR0HOT].supported = true;
+ 
+-	smum_send_msg_to_smc(hwmgr,
++	ret = smum_send_msg_to_smc(hwmgr,
+ 			PPSMC_MSG_GetSmuVersion,
+ 			&hwmgr->smu_version);
++	if (ret)
++		return ret;
 +
-+       mutex_lock(&psp->ras_context.mutex);
-+       ras_cmd =3D (struct ta_ras_shared_memory *)psp->ras_context.context=
-.mem_context.shared_buf;
-+       memset(ras_cmd, 0, sizeof(struct ta_ras_shared_memory));
+ 		/* ACG firmware has major version 5 */
+ 	if ((hwmgr->smu_version & 0xff000000) == 0x5000000)
+ 		data->smu_features[GNLD_ACG].supported = true;
+@@ -505,10 +508,16 @@ static void vega10_init_dpm_defaults(struct pp_hwmgr *hwmgr)
+ 		data->smu_features[GNLD_PCC_LIMIT].supported = true;
+ 
+ 	/* Get the SN to turn into a Unique ID */
+-	smum_send_msg_to_smc(hwmgr, PPSMC_MSG_ReadSerialNumTop32, &top32);
+-	smum_send_msg_to_smc(hwmgr, PPSMC_MSG_ReadSerialNumBottom32, &bottom32);
++	ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_ReadSerialNumTop32, &top32);
++	if (ret)
++		return ret;
 +
-+       switch (cmd) {
-+       case TA_RAS_COMMAND__ENABLE_FEATURES:
-+       case TA_RAS_COMMAND__DISABLE_FEATURES:
-+               memcpy(&ras_cmd->ras_in_message,
-+                       in, sizeof(ras_cmd->ras_in_message));
-+               break;
-+       case TA_RAS_COMMAND__TRIGGER_ERROR:
-+               memcpy(&ras_cmd->ras_in_message.trigger_error,
-+                       in, sizeof(ras_cmd->ras_in_message.trigger_error));
-+               break;
-+       case TA_RAS_COMMAND__QUERY_ADDRESS:
-+               memcpy(&ras_cmd->ras_in_message.address,
-+                       in, sizeof(ras_cmd->ras_in_message.address));
-+               break;
-+       default:
-+               dev_err(psp->adev->dev, "Invalid ras cmd id: %u\n", cmd);
-+               ret =3D -EINVAL;
-+               goto err_out;
-+       }
-+
-+       ras_cmd->cmd_id =3D cmd;
-+       ret =3D psp_ras_invoke(psp, ras_cmd->cmd_id);
-+
-+       switch (cmd) {
-+       case TA_RAS_COMMAND__TRIGGER_ERROR:
-+               if (out) {
-+                       uint32_t *ras_status =3D (uint32_t *)out;
-[Kevin]:
-It's better to check 'ret' value first before use this 'out' data.
-
-Best Regards,
-Kevin
-+
-+                       *ras_status =3D ras_cmd->ras_status;
-+               }
-+               break;
-+       case TA_RAS_COMMAND__QUERY_ADDRESS:
-+               if (ret || ras_cmd->ras_status || psp->cmd_buf_mem->resp.st=
-atus)
-+                       ret =3D -EINVAL;
-+               else if (out)
-+                       memcpy(out,
-+                               &ras_cmd->ras_out_message.address,
-+                               sizeof(ras_cmd->ras_out_message.address));
-+               break;
-+       default:
-+               break;
-+       }
-+
-+err_out:
-+       mutex_unlock(&psp->ras_context.mutex);
-+
-+       return ret;
-+}
-+
- int psp_ras_invoke(struct psp_context *psp, uint32_t ta_cmd_id)  {
-        struct ta_ras_shared_memory *ras_cmd;
-@@ -1605,23 +1665,15 @@ int psp_ras_invoke(struct psp_context *psp, uint32_=
-t ta_cmd_id)  int psp_ras_enable_features(struct psp_context *psp,
-                union ta_ras_cmd_input *info, bool enable)  {
--       struct ta_ras_shared_memory *ras_cmd;
-+       enum ras_command cmd_id;
-        int ret;
-
--       if (!psp->ras_context.context.initialized)
-+       if (!psp->ras_context.context.initialized || !info)
-                return -EINVAL;
-
--       ras_cmd =3D (struct ta_ras_shared_memory *)psp->ras_context.context=
-.mem_context.shared_buf;
--       memset(ras_cmd, 0, sizeof(struct ta_ras_shared_memory));
--
--       if (enable)
--               ras_cmd->cmd_id =3D TA_RAS_COMMAND__ENABLE_FEATURES;
--       else
--               ras_cmd->cmd_id =3D TA_RAS_COMMAND__DISABLE_FEATURES;
--
--       ras_cmd->ras_in_message =3D *info;
--
--       ret =3D psp_ras_invoke(psp, ras_cmd->cmd_id);
-+       cmd_id =3D enable ?
-+               TA_RAS_COMMAND__ENABLE_FEATURES : TA_RAS_COMMAND__DISABLE_F=
-EATURES;
-+       ret =3D psp_ras_send_cmd(psp, cmd_id, info, NULL);
-        if (ret)
-                return -EINVAL;
-
-@@ -1645,6 +1697,8 @@ int psp_ras_terminate(struct psp_context *psp)
-
-        psp->ras_context.context.initialized =3D false;
-
-+       mutex_destroy(&psp->ras_context.mutex);
-+
-        return ret;
++	ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_ReadSerialNumBottom32, &bottom32);
++	if (ret)
++		return ret;
+ 
+ 	adev->unique_id = ((uint64_t)bottom32 << 32) | top32;
++	return 0;
  }
-
-@@ -1729,9 +1783,10 @@ int psp_ras_initialize(struct psp_context *psp)
-
-        ret =3D psp_ta_load(psp, &psp->ras_context.context);
-
--       if (!ret && !ras_cmd->ras_status)
-+       if (!ret && !ras_cmd->ras_status) {
-                psp->ras_context.context.initialized =3D true;
--       else {
-+               mutex_init(&psp->ras_context.mutex);
-+       } else {
-                if (ras_cmd->ras_status)
-                        dev_warn(adev->dev, "RAS Init Status: 0x%X\n", ras_=
-cmd->ras_status);
-
-@@ -1745,12 +1800,12 @@ int psp_ras_initialize(struct psp_context *psp)  in=
-t psp_ras_trigger_error(struct psp_context *psp,
-                          struct ta_ras_trigger_error_input *info, uint32_t=
- instance_mask)  {
--       struct ta_ras_shared_memory *ras_cmd;
-        struct amdgpu_device *adev =3D psp->adev;
-        int ret;
-        uint32_t dev_mask;
-+       uint32_t ras_status;
-
--       if (!psp->ras_context.context.initialized)
-+       if (!psp->ras_context.context.initialized || !info)
-                return -EINVAL;
-
-        switch (info->block_id) {
-@@ -1774,13 +1829,8 @@ int psp_ras_trigger_error(struct psp_context *psp,
-        dev_mask &=3D AMDGPU_RAS_INST_MASK;
-        info->sub_block_index |=3D dev_mask;
-
--       ras_cmd =3D (struct ta_ras_shared_memory *)psp->ras_context.context=
-.mem_context.shared_buf;
--       memset(ras_cmd, 0, sizeof(struct ta_ras_shared_memory));
--
--       ras_cmd->cmd_id =3D TA_RAS_COMMAND__TRIGGER_ERROR;
--       ras_cmd->ras_in_message.trigger_error =3D *info;
--
--       ret =3D psp_ras_invoke(psp, ras_cmd->cmd_id);
-+       ret =3D psp_ras_send_cmd(psp,
-+                       TA_RAS_COMMAND__TRIGGER_ERROR, info, &ras_status);
-        if (ret)
-                return -EINVAL;
-
-@@ -1790,9 +1840,9 @@ int psp_ras_trigger_error(struct psp_context *psp,
-        if (amdgpu_ras_intr_triggered())
-                return 0;
-
--       if (ras_cmd->ras_status =3D=3D TA_RAS_STATUS__TEE_ERROR_ACCESS_DENI=
-ED)
-+       if (ras_status =3D=3D TA_RAS_STATUS__TEE_ERROR_ACCESS_DENIED)
-                return -EACCES;
--       else if (ras_cmd->ras_status)
-+       else if (ras_status)
-                return -EINVAL;
-
-        return 0;
-@@ -1802,25 +1852,16 @@ int psp_ras_query_address(struct psp_context *psp,
-                          struct ta_ras_query_address_input *addr_in,
-                          struct ta_ras_query_address_output *addr_out)  {
--       struct ta_ras_shared_memory *ras_cmd;
-        int ret;
-
--       if (!psp->ras_context.context.initialized)
--               return -EINVAL;
--
--       ras_cmd =3D (struct ta_ras_shared_memory *)psp->ras_context.context=
-.mem_context.shared_buf;
--       memset(ras_cmd, 0, sizeof(struct ta_ras_shared_memory));
--
--       ras_cmd->cmd_id =3D TA_RAS_COMMAND__QUERY_ADDRESS;
--       ras_cmd->ras_in_message.address =3D *addr_in;
--
--       ret =3D psp_ras_invoke(psp, ras_cmd->cmd_id);
--       if (ret || ras_cmd->ras_status || psp->cmd_buf_mem->resp.status)
-+       if (!psp->ras_context.context.initialized ||
-+               !addr_in || !addr_out)
-                return -EINVAL;
-
--       *addr_out =3D ras_cmd->ras_out_message.address;
-+       ret =3D psp_ras_send_cmd(psp,
-+                       TA_RAS_COMMAND__QUERY_ADDRESS, addr_in, addr_out);
-
--       return 0;
-+       return ret;
- }
- // ras end
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.h
-index ee16f134ae92..686023918ce3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -197,6 +197,7 @@ struct psp_xgmi_context {  struct psp_ras_context {
-        struct ta_context               context;
-        struct amdgpu_ras               *ras;
-+       struct mutex                    mutex;
- };
-
- #define MEM_TRAIN_SYSTEM_SIGNATURE             0x54534942
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_psp_ta.c
-index ca5c86e5f7cd..87f213f92d83 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-@@ -348,6 +348,7 @@ static ssize_t ta_if_invoke_debugfs_write(struct file *=
-fp, const char *buf, size
-
-        context->session_id =3D ta_id;
-
-+       mutex_lock(&psp->ras_context.mutex);
-        ret =3D prep_ta_mem_context(&context->mem_context, shared_buf, shar=
-ed_buf_len);
-        if (ret)
-                goto err_free_shared_buf;
-@@ -366,6 +367,7 @@ static ssize_t ta_if_invoke_debugfs_write(struct file *=
-fp, const char *buf, size
-                ret =3D -EFAULT;
-
- err_free_shared_buf:
-+       mutex_unlock(&psp->ras_context.mutex);
-        kfree(shared_buf);
-
-        return ret;
---
-2.34.1
+ 
+ #ifdef PPLIB_VEGA10_EVV_SUPPORT
+@@ -882,7 +891,9 @@ static int vega10_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
+ 
+ 	vega10_set_features_platform_caps(hwmgr);
+ 
+-	vega10_init_dpm_defaults(hwmgr);
++	result = vega10_init_dpm_defaults(hwmgr);
++	if (result)
++		return result;
+ 
+ #ifdef PPLIB_VEGA10_EVV_SUPPORT
+ 	/* Get leakage voltage based on leakage ID. */
+@@ -3900,11 +3911,14 @@ static int vega10_get_gpu_power(struct pp_hwmgr *hwmgr,
+ 		uint32_t *query)
+ {
+ 	uint32_t value;
++	int ret;
+ 
+ 	if (!query)
+ 		return -EINVAL;
+ 
+-	smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrPkgPwr, &value);
++	ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrPkgPwr, &value);
++	if (ret)
++		return ret;
+ 
+ 	/* SMC returning actual watts, keep consistent with legacy asics, low 8 bit as 8 fractional bits */
+ 	*query = value << 8;
+@@ -4800,14 +4814,16 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 	uint32_t gen_speed, lane_width, current_gen_speed, current_lane_width;
+ 	PPTable_t *pptable = &(data->smc_state_table.pp_table);
+ 
+-	int i, now, size = 0, count = 0;
++	int i, ret, now,  size = 0, count = 0;
+ 
+ 	switch (type) {
+ 	case PP_SCLK:
+ 		if (data->registry_data.sclk_dpm_key_disabled)
+ 			break;
+ 
+-		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentGfxclkIndex, &now);
++		ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentGfxclkIndex, &now);
++		if (ret)
++			break;
+ 
+ 		if (hwmgr->pp_one_vf &&
+ 		    (hwmgr->dpm_level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK))
+@@ -4823,7 +4839,9 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		if (data->registry_data.mclk_dpm_key_disabled)
+ 			break;
+ 
+-		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentUclkIndex, &now);
++		ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentUclkIndex, &now);
++		if (ret)
++			break;
+ 
+ 		for (i = 0; i < mclk_table->count; i++)
+ 			size += sprintf(buf + size, "%d: %uMhz %s\n",
+@@ -4834,7 +4852,9 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		if (data->registry_data.socclk_dpm_key_disabled)
+ 			break;
+ 
+-		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentSocclkIndex, &now);
++		ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentSocclkIndex, &now);
++		if (ret)
++			break;
+ 
+ 		for (i = 0; i < soc_table->count; i++)
+ 			size += sprintf(buf + size, "%d: %uMhz %s\n",
+@@ -4845,8 +4865,10 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
+ 		if (data->registry_data.dcefclk_dpm_key_disabled)
+ 			break;
+ 
+-		smum_send_msg_to_smc_with_parameter(hwmgr,
++		ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 				PPSMC_MSG_GetClockFreqMHz, CLK_DCEFCLK, &now);
++		if (ret)
++			break;
+ 
+ 		for (i = 0; i < dcef_table->count; i++)
+ 			size += sprintf(buf + size, "%d: %uMhz %s\n",
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega10_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega10_smumgr.c
+index a70d73896649..f9c0f117725d 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega10_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega10_smumgr.c
+@@ -130,13 +130,17 @@ int vega10_get_enabled_smc_features(struct pp_hwmgr *hwmgr,
+ 			    uint64_t *features_enabled)
+ {
+ 	uint32_t enabled_features;
++	int ret;
+ 
+ 	if (features_enabled == NULL)
+ 		return -EINVAL;
+ 
+-	smum_send_msg_to_smc(hwmgr,
++	ret = smum_send_msg_to_smc(hwmgr,
+ 			PPSMC_MSG_GetEnabledSmuFeatures,
+ 			&enabled_features);
++	if (ret)
++		return ret;
++
+ 	*features_enabled = enabled_features;
+ 
+ 	return 0;
+-- 
+2.39.2
 
