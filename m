@@ -4,68 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F988C4345F
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 Apr 2024 16:10:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B206CC4345F
+	for <amd-gfx@archiver.kernel.org>; Sun, 28 Apr 2024 00:31:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 029EC10F666;
-	Sat, 27 Apr 2024 16:10:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7E8C10F957;
+	Sun, 28 Apr 2024 00:31:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LpLlRHKE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="S8WvziQN";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D584310F663;
- Sat, 27 Apr 2024 16:10:29 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-1eb24e3a2d9so12385275ad.1; 
- Sat, 27 Apr 2024 09:10:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714234229; x=1714839029; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=YHybI1/oL7muM0NESEnEUQ4xaUnulN9DvoD5EfEUJ34=;
- b=LpLlRHKEZMUHpAl10j3dYI0oAyvn/b4Q0gH9OXi71wQsR1DWvSsteuRUCSF5eN5sbw
- bNUXrQSYoWcW78q570POpF34vM2qpmQWXAG55dcCyceEqA7foBBpWctgF0sATicCeTr5
- UQVSFSP7vvCcyXRvnAP2tRYnidKlgJNqsV1BH3xNswVH2rxY3npOH/hgvjGtMec3gjeT
- ju6WV/b5aI9gd3eNksMVOoS9cBtTPgF3UKxW1vwB40MOrO8vly2e+zOMJKDK09pip1ml
- p5eBkn7BDgKPje/Ssf4cXzFPr/dN8oj8KoTGD8XIVh98iXJufLZQN9ZwZB/UpKq6UVyn
- 1K5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714234229; x=1714839029;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=YHybI1/oL7muM0NESEnEUQ4xaUnulN9DvoD5EfEUJ34=;
- b=GwLEytd7uoPdYJgEnIo429qq1CVrGhFV1sKQtM60njsqLShvSl8Kio3sow0uUMwGvh
- JOpqJzLZPJYVpVYuDyfUNEfVqwrY+Ww3x8jyw67TbquRCLLQ0RLpRRXpMOc27HuCnP8/
- DJtqmItA/6uIeVRx6SSl0qeWT9CKlW5uTY4149bGCo5/FxL1Fh1GXas7v/b0+f0fuTiX
- 0aOvWxFNP/49SZvZQhkIZU4+1qLyP0P2Wol91ccJzTlS87hazYbsR0ODMBqMJNg3LDil
- aB/pVuq95tYW84xPIerfX1U8U+LbdKjVCraQ0mrN8Uy7WTllJvteGqbMp8Q5UZY7mxSW
- Rvag==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUPtf7ftzu7F9kGHlUzF4/L8RYzxLuP/vPf17Dx5poTfzTiBrhx1qCmV38v56YLotu8PweZ249E3xBlXXgPm2f7EtrID+qYsBHxeXMcLwz2Bhcg23lXzZQBcGIgOC8EIJam6NgLh4qyvOnIGfgkxg==
-X-Gm-Message-State: AOJu0YxvF0vf5GYyGd6HTnge6goZYVk1SxG+wmR+H4gVTn5kVHXwS/WM
- h4LXl/3gmvJIEkDhepCLi8GgOXR29PGpAanvAsL2A1+kK4FaYFD8x2LDIxVvu08=
-X-Google-Smtp-Source: AGHT+IHQBsr3ozO7sip3FANjQ4XUW8L/MATiyfI6VrWKzJYJnpYP72r0alsyGSU0vBacFm7rBtDjYQ==
-X-Received: by 2002:a17:902:db09:b0:1dc:7bc:d025 with SMTP id
- m9-20020a170902db0900b001dc07bcd025mr8902468plx.4.1714234229020; 
- Sat, 27 Apr 2024 09:10:29 -0700 (PDT)
-Received: from marceloX.. ([177.144.142.185]) by smtp.gmail.com with ESMTPSA id
- a8-20020a170902ecc800b001e944fc9248sm13069479plh.194.2024.04.27.09.10.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 27 Apr 2024 09:10:28 -0700 (PDT)
-From: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch
-Cc: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amd/display: fix documentation warnings for mpc.h
-Date: Sat, 27 Apr 2024 13:05:07 -0300
-Message-ID: <20240427160509.15736-1-marcelomspessoto@gmail.com>
-X-Mailer: git-send-email 2.42.0
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2056.outbound.protection.outlook.com [40.107.96.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E09C10F957
+ for <amd-gfx@lists.freedesktop.org>; Sun, 28 Apr 2024 00:31:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ee4b9Br0wjTqipFTNYRqgzz9qrH9vBh/8E9gXpj0e72lJvBqs5+mmaPdO0horAWxvZ2V4XT8eRdkVvPUAhEfCzmC377nPQtJ7mxGmx0JvwNbxjJTsZIWRlwdImy3gIBDG0tJoOZqoR9QyxNhKfUovMNMaMrCcIhwlawk0wnAqtZpMEOTpTAFowH5mX9iWPlh/wou+F0k41xms1AdByxP9G0fiYWls4CndQh2DlpsqswgaZdjsxSXUAUsAmyHhDtjYxahItWQe8eo6fOdy1h1kpgOlog2FWh6rxVsx9u0jF66AlHmiXKtHmKDgx27N5XLSDG64CWFi2fCOdwoGV/8+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6h8uXWwj5OlfNxhpdGr4EvQUL6/VDRw0eWfZ1o0aGY4=;
+ b=h4Wxcb43sfxQQZPXbRRTSlp6A4QxS7oP75fkUnvxE9HItHEY7HrCXYVM44JWCq6Rpt2/I/GMpM0MF/pvQEutcrTeTm8DegiCQuQuQkE0daBQiBkVSXWR9yqjTdKDgYKm5MZPRRIeL6HD+08ZSvfNRqIPYWx04QdHJMQGMfTp/8OURoZvksji9xrKph6Z6H8Ze7ltzSYW8HxD64FJ7NudURUvx9x0u2wNVqWzNxlcpHWy1fak0yMzKnlI6OCGo6/f9vkAUu4BjKo43bm/rD0j9kNg/MCtNoiVXEGys3FpClGrsoqcGriJsmXAYkbjusdE1NDXWxojser60WNu0t99Wg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6h8uXWwj5OlfNxhpdGr4EvQUL6/VDRw0eWfZ1o0aGY4=;
+ b=S8WvziQN7FT6fH/aCVXbV6KlAZoP62XAagjNcw23fqZT/Oy70qXw8lRr/HR/JWGsq4YjaSF5F4NB+nO6Qi8vb4awfTlxZ7Gf+3lRYsLgnB6mPk8bK+qFnLHdrlv4WQ2NPI15NUUOiER0yY0uEUNBf382nHtAEMWEMkUTiwzYMRM=
+Received: from CH3PR12MB8074.namprd12.prod.outlook.com (2603:10b6:610:12b::9)
+ by CY8PR12MB7538.namprd12.prod.outlook.com (2603:10b6:930:95::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.32; Sun, 28 Apr
+ 2024 00:31:17 +0000
+Received: from CH3PR12MB8074.namprd12.prod.outlook.com
+ ([fe80::7f58:8648:262d:89e9]) by CH3PR12MB8074.namprd12.prod.outlook.com
+ ([fe80::7f58:8648:262d:89e9%4]) with mapi id 15.20.7519.030; Sun, 28 Apr 2024
+ 00:31:17 +0000
+From: "Huang, Tim" <Tim.Huang@amd.com>
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+Subject: RE: [PATCH] drm/amd/pm: fix uninitialized variable warning for
+ smu8_hwmgr
+Thread-Topic: [PATCH] drm/amd/pm: fix uninitialized variable warning for
+ smu8_hwmgr
+Thread-Index: AQHal7xB0UhsyHUDzkmJYbIF9GtzWbF6bSwAgAJpvcA=
+Date: Sun, 28 Apr 2024 00:31:17 +0000
+Message-ID: <CH3PR12MB80748FDC7C328FCE4BD6BCDAF6142@CH3PR12MB8074.namprd12.prod.outlook.com>
+References: <20240426092909.1350037-1-Tim.Huang@amd.com>
+ <af9531ef-d623-4ef9-a93f-28796dedfa7c@gmail.com>
+In-Reply-To: <af9531ef-d623-4ef9-a93f-28796dedfa7c@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=45134fc3-5a3a-4132-a4ac-f76453f67478;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-04-28T00:29:54Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH3PR12MB8074:EE_|CY8PR12MB7538:EE_
+x-ms-office365-filtering-correlation-id: 8d017aca-9042-4953-c407-08dc671a84ab
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230031|1800799015|376005|366007|38070700009;
+x-microsoft-antispam-message-info: =?utf-8?B?L3FsbExYVkxxbDZEcnQvRDByV1pFZ2RtdzFSUWxNNk85clFCNml2TVVZZzBW?=
+ =?utf-8?B?UFZvN2g1UjJJOWJzUU5nWGRZUFhoMmVDYlZPOXhNRU9KN3I0Qjdpa3NxWEs1?=
+ =?utf-8?B?NXA0OWZxT0FnOGZFZlBTVWR6Ny91U0VSTW14M2p2YlRsRFdodUo5N3RtWG9w?=
+ =?utf-8?B?RjZaNENkK1BkZ1FtSXRCZVY2dHMrMHJ1TnZiSlkwRWcxTFg5M0NtWDZmSE1Q?=
+ =?utf-8?B?dXBMb3FNUzlZZlNsWkFLNUxzMG8rNy9Ga1dKNTloYTIxSVRodWthTXN6QUMr?=
+ =?utf-8?B?eXFsZWRpV2lCNFpkRHJzMXliTkM4M3pYMCtic01JL1FvWXd4N1grZ1kyMTUy?=
+ =?utf-8?B?dXJ3eE93cUMzSlhaNWxoK3hIOXpnM0ZUU2dQZzdieVdTMkQ1aWhGWWMvcnV0?=
+ =?utf-8?B?WUw4UitaK0poUDBwVVpidm4vYWtCS3IxYkZ0RTVFRTN6SThkcGd3UzhPSUdv?=
+ =?utf-8?B?eTlXc0d2NVhMQXp4bjhjKzIrNFo3MzBWU21PU3Z1YU5PWDZ5ZHFQcE9lYUpR?=
+ =?utf-8?B?Qkl0anptRzVYMVR3SnlxeVNsOUhRL3pBMDJBL25KWFlPZlNJTS90WVZKNWFv?=
+ =?utf-8?B?TE1YVzlBN29rTnFCY1FqN3JRR0lnTFg0UUdpWHU0MWEwblFScDV4K01GUkJK?=
+ =?utf-8?B?RHZ5aHhjSGRJeVpzZmJoK282ZnVTc2FjMFVrK1lMQ0dhNEs5SzdvUlp1MlJR?=
+ =?utf-8?B?THNZOGtZRm1NNDA4bkpsVi85Tit1elgzY2p4U3hjMVJOZGE3S3R5RStOeTVp?=
+ =?utf-8?B?WDdDMDNSTHdwbVlZellCam5LR1ZDTkxxenVPYXRQOWpMaUFSZ211YWF1Nkxa?=
+ =?utf-8?B?NVBMbUZ6TVRlcEJzaUxaTUxlak5sTm54cEh0dER3cWI5VlB6bjdPeVkwdzVQ?=
+ =?utf-8?B?SC9HeEhpZWVWWmEvV1R2Wm9pbDlkUCtHTWIray9RclFyMWZzdVVqejRoNFFC?=
+ =?utf-8?B?SUNVZ01SbXpaUUlBU0dtMmhGTk4vQjI2SGV0bzV4Q05KbEF3YnIrUVVCb2w2?=
+ =?utf-8?B?Nk96TDhzSlZhWllyZ2hub3Z0UkNwT2NjMjhScTQwdUhORTcvOFg4Mm1Gc1NU?=
+ =?utf-8?B?S0cwaW5NZGxEQ01xN21UR3hjUVdtZStDWlVmdWd6NVJsa0JoVFQ5a2hvVklI?=
+ =?utf-8?B?WUVrWGNTZ2xrZy8vY0VVZ2xhZmZzUGlxOEd0Vm9SU1UyN01DNXRDekZCZ1Jv?=
+ =?utf-8?B?MUhxcDJVcWRYeEdNbGhrWCtxV0dlZGpObWVybUhwZkNuS2VnaVh1SGF6WlVY?=
+ =?utf-8?B?NEMwM29aVmcrSHNIdDBGUXdHWWpXOVNrcldiNmxZSEJHSDdMVGVwTmxzK0py?=
+ =?utf-8?B?T2o4WUpKam5MaXhvUXBrMkxwVzg1WmwyQkcyVm81M0tRSlBCRjQ2QVNBRlh1?=
+ =?utf-8?B?czRpRXZwWXlIbGtGellFYmNwNkZDWURkS3dOOE5nNXdhZ3krMS9RQXZQYjNC?=
+ =?utf-8?B?dlhKQ2hHbkRxSlpBbTlUVFFXUW5JOXhXSlZaQ2IrelVVVHgwdlM2NzA1MlUv?=
+ =?utf-8?B?bEJGVlVpTnZJeWJPTmdXNjR1U3FSck1DTmtLVURKVTMxR1RIOTUrd0J3b21I?=
+ =?utf-8?B?bDNKTEtGaHRyano4bGJSaDBuZFRlVHhzRzZiaEVtTjFkWUl5N0VsWEFiQSsx?=
+ =?utf-8?B?SzdHKzJFZ3ZGQWk4NEU5L0YrTENvWXlRUzFIeWdIbTFwRkxveVA3Vk96RWdk?=
+ =?utf-8?B?RXhNMXBWWVpvb3R4ZEZNd25zMmk4K2lEdHJCZTA1MlpGSEpDdnM0VzVMdmRJ?=
+ =?utf-8?B?bmlmV2VGT0hzTEFUUjZjZDF4WTdUTGVEQjJNS1NBRXFzTVFKVS9CMGR5eFM0?=
+ =?utf-8?B?UkdLV0pUZWJVNlUyTXl5Zz09?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH3PR12MB8074.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(366007)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZWdiWC8zTnJsdC9iYzJwaVdtM1VkczAwbDd2Mm4wb0d2aWFkbXJkSnlUTVJt?=
+ =?utf-8?B?c2R3QTI1MGwxeG80TXY3aDQ0MUE1KzhHMlZxcEVZd1JNUXVSTThMaHRmWWo0?=
+ =?utf-8?B?WTJ0YWNZZWFzaFVvUjBGN0JrNGpGN1N5V0JsOEd1K09HOHZLc1MwR1JOekJ3?=
+ =?utf-8?B?bEFLVStKMkpUT0MxZzlFaEYvQldVNVdTTUxZMkQ5ejhLd3pBSmNGRXJ2OVd3?=
+ =?utf-8?B?aGs0YnA5VEVNRzQrVDU3UEVHdHJYTENkQ3d1c20rM011VFZWcEpORHNnWnJl?=
+ =?utf-8?B?Ry9ONDc4SGpKYy9qQ2RNTC9DdUJ3N1ROelFQSjhkVUhTNzNWdWphVVBrTXkx?=
+ =?utf-8?B?UUQwN1FsTUlSRkkrZUVUYndYVSs3NkdPR3dtNm4wSlZVN2NQcGk3MkRySVI0?=
+ =?utf-8?B?R2YwVXgrV0RLajV0SFVDeUt1R3IwYU9zN1hJMEJIaVU1dWNNOWRoL3pUcjV1?=
+ =?utf-8?B?ZTRsRUlMRmRMYTAzcGJESEJRSzBVZnNheWhOZGQ3K2IrejRuNUNadDZLaEpK?=
+ =?utf-8?B?Y2xvV0FCS2xSOUJBK1JnZjdSOFZ0dGpvNHZGYkRyYjc5akxNcWF4b0ZKcGhl?=
+ =?utf-8?B?TmpWektLZkZ4V3J0WWNjWGkwajU1MSs3OVB6YjhvY1JlRGVQQXhuQlduR2dz?=
+ =?utf-8?B?OGpOYlNhSnBxTTV4WitLUWNCUmpBTTViUENuVnkyeHdZNDBEWnFUTlIyd0E3?=
+ =?utf-8?B?ZVBENlFUUGViZFhYcXRYRXlNRWZSbytaNFNKREdLYnFOR3ZRc0xlSFRpRC9E?=
+ =?utf-8?B?RGdxZUJFbW4yV001eDZDbXVPd3JsOTJwSjg5RTVjQ0I3Y1hHZGZ0eXRQbzky?=
+ =?utf-8?B?a1Q2Q0NObnNqRmJiTEk2N3FDUHI5NTZKa21mOU5hekVteU1JaDVTcml3NFZL?=
+ =?utf-8?B?a0xQLzloNkd6VXJQREQ4a0ozQXlRenpEMmwvWXNPck1wdFBSOWFxR3pPMmJ2?=
+ =?utf-8?B?SnRHUTR3UmNsYXY1K3ZjM3NhUmVSbzJmelJGeGdVTFlSWmVJVjFuTjNBMjBa?=
+ =?utf-8?B?bmNJRkRDS3pOMC9WeGVpNGRCSERJU3c5MS9NbVhOYnhPZ1JhenhkWmhpOWhq?=
+ =?utf-8?B?U2pYUkV2bTRUUWZrc0NZNWV2b3hORHRPV3FhRVpMc25OV280SkRPczBBekxj?=
+ =?utf-8?B?SThqd2lzaGtnWWh2T2xCZzhlRm1vR25tV1lqNGNmTEY5cWhUclR3MXd2eXAx?=
+ =?utf-8?B?Mmp1RkpjR1c1NHpIV21NeGlqRll3SWY4a1NtYlg2RHl5em81ZWg2Y0FSRWN1?=
+ =?utf-8?B?eUVtaGlqOUg3V2JhTXRtRmgzU3JHaXdGUnR1cWFjOXMxU1N3SFZBS3ZqVmww?=
+ =?utf-8?B?ci9jWmxrMW1qZW9TcVhKazdPZWoxbnpKeDJaYVlWZjIvV3hjYXNvd1RmUHIy?=
+ =?utf-8?B?VmJNZ3luRTdjL3RLMFQ2VHgrZTZSY3dGRW81U0VIZTNMTTI2M0laQWtEZElj?=
+ =?utf-8?B?QUU3bUgxVDlyYllldmpaYmhXcFpvSVdyeW5DcG1taDZtTGFsOHdVcnFYU3JW?=
+ =?utf-8?B?N1RoY1JuMHkxU0Q5NVg3VHNEaGs4elNpak1ML05YcGExc1loT2pEVDlPNTdG?=
+ =?utf-8?B?bTFBSng0bVFwS29IU29VVklxL1pleE5hUllwMmRWZmtHSW5YbkhUS2lKVFVN?=
+ =?utf-8?B?NVBjWjZqNWhCV1gzY1p0TnhjQmVINTRNUHNKNmlvK2F2ZmhTbGYyOTJmM1Iz?=
+ =?utf-8?B?dVlvQVhKdlN0bkhCZFdYSXlBSzFQZGlBSHd3SHRtaEIyOVJ2UTJXR3dwMUwr?=
+ =?utf-8?B?V1A0SGJFV1NoblNOQ2dxMDVoU014aVVIVmk3aStXNVhiZk5wWU5PM3VPTlNH?=
+ =?utf-8?B?MXR3c0t3d09MUkdQQWhoZGVZNXlSUXZOWkIxS2J6Qjhsek56am9DNk9KMVQ4?=
+ =?utf-8?B?eHV3RVFTVDRkcWhKWWRYWVFkeTVqWStDTVZtUzF2OUoxWVh5N2IzdVEyelJD?=
+ =?utf-8?B?c1VWREIyT2RMK2VkTVBIUXdhYkRISjVOUkphNGl5dFpXRDBmeXErWjFsMmsx?=
+ =?utf-8?B?S0dySG13a3l0RDBjVWFQNmM5REJLWU8rNi83WHplSnNYOGM3czVBQVhIVzZo?=
+ =?utf-8?B?UTlMaXM4emxycmR1Y1NTaWkvVDRPSHdVcmRZYnBCMjZhK01mN2JyWG9DanVR?=
+ =?utf-8?Q?4shA=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8074.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d017aca-9042-4953-c407-08dc671a84ab
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2024 00:31:17.1936 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3x4ptJjAnE0ckngRzFjmmAj5xddTSpe0C1Kdf8j5AIa8HMKeEoWPzQYu5VOhgT28WlEYeIiQvamF3z15+lHooA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7538
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,513 +171,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix most of the display documentation compile warnings by
-documenting struct mpc_funcs functions in dc/inc/hw/mpc.h file.
-
-Signed-off-by: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h | 372 +++++++++++++++++++-
- 1 file changed, 369 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-index 34a398f23..388b96c32 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-@@ -1,4 +1,5 @@
--/* Copyright 2012-15 Advanced Micro Devices, Inc.
-+/*
-+ * Copyright 2012-15 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-@@ -282,6 +283,21 @@ struct mpcc_state {
-  * struct mpc_funcs - funcs
-  */
- struct mpc_funcs {
-+  /**
-+   * @read_mpcc_state:
-+   *
-+   * Read register content from given MPCC physical instance. 
-+   *
-+   * Parameters:
-+   *
-+   * - [in/out] mpc - MPC context
-+   * - [in] mpcc_instance - MPC context instance
-+   * - [in] mpcc_state - MPC context state
-+   *
-+   * Return:
-+   *
-+   * void
-+   */
- 	void (*read_mpcc_state)(
- 			struct mpc *mpc,
- 			int mpcc_inst,
-@@ -346,12 +362,22 @@ struct mpc_funcs {
- 	 * Parameters:
- 	 *
- 	 * - [in/out] mpc - MPC context.
--	 *
-+	 * 
- 	 * Return:
- 	 *
- 	 * void
- 	 */
- 	void (*mpc_init)(struct mpc *mpc);
-+
-+  /**
-+   * @mpc_init_single_inst:
-+   *
-+   * Initialize given MPCC physical instance.
-+   *
-+   * Parameters:
-+   * - [in/out] mpc - MPC context.
-+   * - [in] mpcc_id - The MPCC physical instance to be initialized. 
-+   */
- 	void (*mpc_init_single_inst)(
- 			struct mpc *mpc,
- 			unsigned int mpcc_id);
-@@ -449,62 +475,282 @@ struct mpc_funcs {
- 			struct mpc_tree *tree,
- 			struct mpcc *mpcc);
- 
-+  /**
-+   * @get_mpcc_for_dpp_from_secondary:
-+   *
-+   * Find, if it exists, a MPCC from a given 'secondary' MPC tree that 
-+   * is associated with specified plane.
-+   *
-+   * Parameters:
-+   * - [in/out] tree - MPC tree structure to search for plane.
-+   * - [in] dpp_id - DPP to be searched.
-+   *
-+   * Return:
-+   *
-+   * struct mpcc* - pointer to plane or NULL if no plane found.
-+  */
- 	struct mpcc* (*get_mpcc_for_dpp_from_secondary)(
- 			struct mpc_tree *tree,
- 			int dpp_id);
- 
-+  /**
-+   * @get_mpcc_for_dpp:
-+   *
-+   * Find, if it exists, a MPCC from a given MPC tree that 
-+   * is associated with specified plane.
-+   *
-+   * Parameters:
-+   * - [in/out] tree - MPC tree structure to search for plane.
-+   * - [in] dpp_id - DPP to be searched.
-+   *
-+   * Return:
-+   * 
-+   * struct mpcc* - pointer to plane or NULL if no plane found.
-+  */
- 	struct mpcc* (*get_mpcc_for_dpp)(
- 			struct mpc_tree *tree,
- 			int dpp_id);
- 
-+  /**
-+   * @wait_for_idle:
-+   *
-+   * Wait for a MPCC in MPC context to enter idle state.
-+   *
-+   * Parameters:
-+   * - [in/out] mpc - MPC Context.
-+   * - [in] id - MPCC to wait for idle state.
-+   *
-+   * Return:
-+   *
-+   * void
-+  */
- 	void (*wait_for_idle)(struct mpc *mpc, int id);
- 
-+  /**
-+   * @assert_mpcc_idle_before_connect:
-+   *
-+   * Assert if MPCC in MPC context is in idle state.
-+   *
-+   * Parameters:
-+   * - [in/out] mpc - MPC context.
-+   * - [in] id - MPCC to assert idle state.
-+   *
-+   * Return:
-+   *
-+   * void
-+  */
- 	void (*assert_mpcc_idle_before_connect)(struct mpc *mpc, int mpcc_id);
- 
-+  /**
-+   * @init_mpcc_list_from_hw:
-+   *
-+   * Iterate through the MPCC array from a given MPC context struct 
-+   * and configure each MPCC according to its registers' values.
-+   *
-+   * Parameters:
-+   * - [in/out] mpc - MPC context to initialize MPCC array.
-+   * - [in/out] tree - MPC tree structure containing MPCC contexts to initialize. 
-+   *
-+   * Return:
-+   *
-+   * void
-+  */
- 	void (*init_mpcc_list_from_hw)(
- 		struct mpc *mpc,
- 		struct mpc_tree *tree);
- 
-+  /**
-+  * @set_denorm:
-+  *
-+  * Set corresponding OPP DENORM_CONTROL register value to specific denorm_mode
-+  * based on given color depth.
-+  *
-+  * Parameters:
-+  * - [in/out] mpc - MPC context.
-+  * - [in] opp_id - Corresponding OPP to update register.
-+  * - [in] output_depth - Arbitrary color depth to set denorm_mode.
-+  *
-+  * Return:
-+  *
-+  * void
-+  */
- 	void (*set_denorm)(struct mpc *mpc,
- 			int opp_id,
- 			enum dc_color_depth output_depth);
- 
-+  /**
-+  * @set_denorm_clamp:
-+  *
-+  * Set denorm clamp values on corresponding OPP DENORM CONTROL register.
-+  *
-+  * Parameters:
-+  * - [in/out] mpc - MPC context.
-+  * - [in] opp_id - Corresponding OPP to update register.
-+  * - [in] denorm_clamp - Arbitrary denorm clamp to be set.
-+  *
-+  * Return:
-+  * 
-+  * void
-+  */
- 	void (*set_denorm_clamp)(
- 			struct mpc *mpc,
- 			int opp_id,
- 			struct mpc_denorm_clamp denorm_clamp);
- 
-+  /**
-+  * @set_output_csc:
-+  *
-+  * Set the Output Color Space Conversion matrix
-+  * with given values and mode.
-+  *
-+  * Parameters:
-+  * - [in/out] mpc - MPC context.
-+  * - [in] opp_id - Corresponding OPP to update register.
-+  * - [in] regval - Values to set in CSC matrix.
-+  * - [in] ocsc_mode - Mode to set CSC.
-+  *
-+  * Return:
-+  * 
-+  * void
-+  */
- 	void (*set_output_csc)(struct mpc *mpc,
- 			int opp_id,
- 			const uint16_t *regval,
- 			enum mpc_output_csc_mode ocsc_mode);
- 
-+  /**
-+  * @set_ocsc_default:
-+  *
-+  * Set the Output Color Space Conversion matrix
-+  * to default values according to color space.
-+  * 
-+  * Parameters:
-+  * - [in/out] mpc - MPC context.
-+  * - [in] opp_id - Corresponding OPP to update register.
-+  * - [in] color_space - OCSC color space.
-+  * - [in] ocsc_mode - Mode to set CSC.
-+  *
-+  * Return: 
-+  * 
-+  * void
-+  *
-+  */
- 	void (*set_ocsc_default)(struct mpc *mpc,
- 			int opp_id,
- 			enum dc_color_space color_space,
- 			enum mpc_output_csc_mode ocsc_mode);
- 
-+  /**
-+  * @set_output_gamma:
-+  *
-+  * Set Output Gamma with given curve parameters.
-+  *
-+  * Parameters:
-+  * - [in/out] mpc - MPC context.
-+  * - [in] mpcc_id - Corresponding MPC to update registers.
-+  * - [in] params - Parameters.
-+  *
-+  * Return:
-+  *
-+  * void
-+  *
-+  */
- 	void (*set_output_gamma)(
- 			struct mpc *mpc,
- 			int mpcc_id,
- 			const struct pwl_params *params);
-+  /**
-+  * @power_on_mpc_mem_pwr:
-+  *
-+  * Power on/off memory LUT for given MPCC.
-+  * Powering on enables LUT to be updated.
-+  * Powering off allows entering low power mode.
-+  *
-+  * Parameters:
-+  * - [in/out] mpc - MPC context.
-+  * - [in] mpcc_id - MPCC to power on.
-+  * - [in] power_on 
-+  *
-+  * Return:
-+  *
-+  * void
-+  */
- 	void (*power_on_mpc_mem_pwr)(
- 			struct mpc *mpc,
- 			int mpcc_id,
- 			bool power_on);
-+  /**
-+  * @set_dwb_mux:
-+  *
-+  * Set corresponding Display Writeback mux
-+  * MPC register field to given MPCC id.
-+  *
-+  * Parameters:
-+  * - [in/out] mpc - MPC context.
-+  * - [in] dwb_id - DWB to be set.
-+  * - [in] mpcc_id - MPCC id to be stored in DWB mux register.
-+  *
-+  * Return:
-+  *
-+  * void
-+  */
- 	void (*set_dwb_mux)(
- 			struct mpc *mpc,
- 			int dwb_id,
- 			int mpcc_id);
- 
-+  /**
-+  * @disable_dwb_mux:
-+  *
-+  * Reset corresponding Display Writeback mux
-+  * MPC register field.
-+  *
-+  * Parameters:
-+  * - [in/out] mpc - MPC context.
-+  * - [in] dwb_id - DWB to be set.
-+  *
-+  * Return:
-+  *
-+  * void
-+  */
- 	void (*disable_dwb_mux)(
- 		struct mpc *mpc,
- 		int dwb_id);
--
-+  
-+  /**
-+  * @is_dwb_idle:
-+  *
-+  * Check DWB status on MPC_DWB0_MUX_STATUS register field.
-+  * Return if it is null.
-+  *
-+  * Parameters:
-+  * - [in/out] mpc - MPC context.
-+  * - [in] dwb_id - DWB to be checked.
-+  *
-+  * Return:
-+  *
-+  * bool - wheter DWB is idle or not
-+  */
- 	bool (*is_dwb_idle)(
- 		struct mpc *mpc,
- 		int dwb_id);
- 
-+  /**
-+  * @set_out_rate_control:
-+  *
-+  * Set display output rate control.
-+  *
-+  * Parameters:
-+  * - [in/out] mpc - MPC context.
-+  * - [in] opp_id - OPP to be set.
-+  * - [in] enable
-+  * - [in] rate_2x_mode
-+  * - [in] flow_control
-+  *
-+  * Return:
-+  *
-+  * void
-+  */
- 	void (*set_out_rate_control)(
- 		struct mpc *mpc,
- 		int opp_id,
-@@ -512,37 +758,157 @@ struct mpc_funcs {
- 		bool rate_2x_mode,
- 		struct mpc_dwb_flow_control *flow_control);
- 
-+  /**
-+  * @set_gamut_remap:
-+  *
-+  * Set post-blending CTM for given MPCC.
-+  *
-+  * Parameters:
-+  * - [in] mpc - MPC context.
-+  * - [in] mpcc_id - MPCC to set gamut map.
-+  * - [in] adjust
-+  *
-+  * Return:
-+  * 
-+  * void
-+  */
- 	void (*set_gamut_remap)(
- 			struct mpc *mpc,
- 			int mpcc_id,
- 			const struct mpc_grph_gamut_adjustment *adjust);
- 
-+  /**
-+  * @program_1dlut:
-+  *
-+  * Set 1 dimensional Lookup Table.
-+  *
-+  * Parameters:
-+  * - [in/out] mpc - MPC context
-+  * - [in] params - curve parameters for the LUT configuration
-+  * - [in] rmu_idx
-+  *
-+  * bool - wheter LUT was set (set with given parameters) or not (params is NULL and LUT is disabled).
-+  */
- 	bool (*program_1dlut)(
- 			struct mpc *mpc,
- 			const struct pwl_params *params,
- 			uint32_t rmu_idx);
- 
-+  /**
-+  * @program_shaper:
-+  *
-+  * Set shaper.
-+  *
-+  * Parameters:
-+  * - [in/out] mpc - MPC context
-+  * - [in] params - curve parameters to be set
-+  * - [in] rmu_idx
-+  *
-+  * Return:
-+  *
-+  * bool - wheter shaper was set (set with given parameters) or not (params is NULL and LUT is disabled).
-+  */
- 	bool (*program_shaper)(
- 			struct mpc *mpc,
- 			const struct pwl_params *params,
- 			uint32_t rmu_idx);
- 
-+  /**
-+  * @acquire_rmu:
-+  *
-+  * Set given MPCC to be multiplexed to given RMU unit.
-+  *
-+  * Parameters:
-+  * - [in/out] mpc - MPC context
-+  * - [in] mpcc_id - MPCC
-+  * - [in] rmu_idx - Given RMU unit to set MPCC to be multiplexed to.
-+  *
-+  * Return:
-+  *
-+  * unit32_t - rmu_idx if operation was successful, -1 else.
-+  */
- 	uint32_t (*acquire_rmu)(struct mpc *mpc, int mpcc_id, int rmu_idx);
- 
-+  /**
-+  * @program_3dlut:
-+  *
-+  * Set 3 dimensional Lookup Table.
-+  *
-+  * Parameters:
-+  * - [in/out] mpc - MPC context
-+  * - [in] params - tetrahedral parameters for the LUT configuration
-+  * - [in] rmu_idx
-+  *
-+  * bool - wheter LUT was set (set with given parameters) or not (params is NULL and LUT is disabled).
-+  */
- 	bool (*program_3dlut)(
- 			struct mpc *mpc,
- 			const struct tetrahedral_params *params,
- 			int rmu_idx);
- 
-+  /**
-+  * @release_rmu:
-+  *
-+  * For a given MPCC, release the RMU unit it muliplexes to.
-+  *
-+  * Parameters:
-+  * - [in/out] mpc - MPC context
-+  * - [in] mpcc_id - MPCC
-+  *
-+  * Return:
-+  *
-+  * int - a valid rmu_idx representing released RMU unit or -1 if there was no RMU unit to release.
-+  */
- 	int (*release_rmu)(struct mpc *mpc, int mpcc_id);
- 
-+  /**
-+  * @get_mpc_out_mux:
-+  *
-+  * Return MPC out mux.
-+  *
-+  * Parameters:
-+  * - [in] mpc - MPC context.
-+  * - [in] opp_id - OPP
-+  *
-+  * Return:
-+  *
-+  * unsigned int - Out Mux
-+  */
- 	unsigned int (*get_mpc_out_mux)(
- 			struct mpc *mpc,
- 			int opp_id);
- 
-+  /**
-+   * @set_bg_color:
-+   *
-+   * Find corresponding bottommost MPCC and
-+   * set its bg color.
-+   *
-+   * Parameters:
-+   * - [in/out] mpc - MPC context.
-+   * - [in] bg_color - background color to be set.
-+   * - [in] mpcc_id
-+   *
-+   * Return:
-+   *
-+   * void
-+  */
- 	void (*set_bg_color)(struct mpc *mpc,
- 			struct tg_color *bg_color,
- 			int mpcc_id);
-+
-+  /**
-+  * @set_mpc_mem_lp_mode:
-+  *
-+  * Set mpc_mem_lp_mode
-+  *
-+  * Parameters:
-+  * - [in/out] mpc
-+  *
-+  * Return:
-+  *
-+  * void
-+  */
- 	void (*set_mpc_mem_lp_mode)(struct mpc *mpc);
- };
- 
--- 
-2.42.0
-
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2Fn
+ZS0tLS0tDQpGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdt
+YWlsLmNvbT4NClNlbnQ6IEZyaWRheSwgQXByaWwgMjYsIDIwMjQgNzozOSBQTQ0KVG86IEh1YW5n
+LCBUaW0gPFRpbS5IdWFuZ0BhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcN
+CkNjOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBLb2Vu
+aWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KU3ViamVjdDogUmU6IFtQ
+QVRDSF0gZHJtL2FtZC9wbTogZml4IHVuaW5pdGlhbGl6ZWQgdmFyaWFibGUgd2FybmluZyBmb3Ig
+c211OF9od21ncg0KDQpBbSAyNi4wNC4yNCB1bSAxMToyOSBzY2hyaWViIFRpbSBIdWFuZzoNCj4g
+Q2xlYXIgd2FybmluZ3MgdGhhdCB1c2luZyB1bmluaXRpYWxpemVkIHZhbHVlIGxldmVsIHdoZW4g
+ZmFpbHMgdG8gZ2V0DQo+IHRoZSB2YWx1ZSBmcm9tIFNNVS4NCj4NCj4gU2lnbmVkLW9mZi1ieTog
+VGltIEh1YW5nIDxUaW0uSHVhbmdAYW1kLmNvbT4NCg0KPiBNYXliZSBkcm9wIHRoZSBibGFuayBs
+aW5lIGJlZm9yZSB0aGUgImlmIChyZXQpIiwgYXBhcnQgZnJvbSB0aGF0DQoNClllcywgd2lsbCBk
+cm9wIGl0LiBUaGFua3MuDQoNClRpbQ0KDQo+IFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmln
+IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQoNCj4gLS0tDQo+ICAgLi4uL2RybS9hbWQvcG0v
+cG93ZXJwbGF5L2h3bWdyL3NtdThfaHdtZ3IuYyAgICB8IDE4ICsrKysrKysrKysrKysrKy0tLQ0K
+PiAgIDEgZmlsZSBjaGFuZ2VkLCAxNSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0KPg0K
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9wb3dlcnBsYXkvaHdtZ3Ivc211
+OF9od21nci5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9wb3dlcnBsYXkvaHdtZ3Ivc211
+OF9od21nci5jDQo+IGluZGV4IGIwMTVhNjAxYjM4NS4uNGU0MTQ2Y2U3MWMxIDEwMDY0NA0KPiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3Bvd2VycGxheS9od21nci9zbXU4X2h3bWdyLmMN
+Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9wb3dlcnBsYXkvaHdtZ3Ivc211OF9od21n
+ci5jDQo+IEBAIC01ODQsNiArNTg0LDcgQEAgc3RhdGljIGludCBzbXU4X2luaXRfdXZkX2xpbWl0
+KHN0cnVjdCBwcF9od21nciAqaHdtZ3IpDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IGh3bWdyLT5keW5fc3RhdGUudXZkX2Nsb2NrX3ZvbHRhZ2VfZGVwZW5kZW5jeV90YWJsZTsNCj4g
+ICAgICAgdW5zaWduZWQgbG9uZyBjbG9jayA9IDA7DQo+ICAgICAgIHVpbnQzMl90IGxldmVsOw0K
+PiArICAgICBpbnQgcmV0Ow0KPg0KPiAgICAgICBpZiAoTlVMTCA9PSB0YWJsZSB8fCB0YWJsZS0+
+Y291bnQgPD0gMCkNCj4gICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsNCj4gQEAgLTU5MSw3
+ICs1OTIsMTAgQEAgc3RhdGljIGludCBzbXU4X2luaXRfdXZkX2xpbWl0KHN0cnVjdCBwcF9od21n
+ciAqaHdtZ3IpDQo+ICAgICAgIGRhdGEtPnV2ZF9kcG0uc29mdF9taW5fY2xrID0gMDsNCj4gICAg
+ICAgZGF0YS0+dXZkX2RwbS5oYXJkX21pbl9jbGsgPSAwOw0KPg0KPiAtICAgICBzbXVtX3NlbmRf
+bXNnX3RvX3NtYyhod21nciwgUFBTTUNfTVNHX0dldE1heFV2ZExldmVsLCAmbGV2ZWwpOw0KPiAr
+ICAgICByZXQgPSBzbXVtX3NlbmRfbXNnX3RvX3NtYyhod21nciwgUFBTTUNfTVNHX0dldE1heFV2
+ZExldmVsLCAmbGV2ZWwpOw0KPiArDQo+ICsgICAgIGlmIChyZXQpDQo+ICsgICAgICAgICAgICAg
+cmV0dXJuIHJldDsNCj4NCj4gICAgICAgaWYgKGxldmVsIDwgdGFibGUtPmNvdW50KQ0KPiAgICAg
+ICAgICAgICAgIGNsb2NrID0gdGFibGUtPmVudHJpZXNbbGV2ZWxdLnZjbGs7IEBAIC02MTEsNiAr
+NjE1LDcgQEAgc3RhdGljIGludA0KPiBzbXU4X2luaXRfdmNlX2xpbWl0KHN0cnVjdCBwcF9od21n
+ciAqaHdtZ3IpDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGh3bWdyLT5keW5fc3Rh
+dGUudmNlX2Nsb2NrX3ZvbHRhZ2VfZGVwZW5kZW5jeV90YWJsZTsNCj4gICAgICAgdW5zaWduZWQg
+bG9uZyBjbG9jayA9IDA7DQo+ICAgICAgIHVpbnQzMl90IGxldmVsOw0KPiArICAgICBpbnQgcmV0
+Ow0KPg0KPiAgICAgICBpZiAoTlVMTCA9PSB0YWJsZSB8fCB0YWJsZS0+Y291bnQgPD0gMCkNCj4g
+ICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsNCj4gQEAgLTYxOCw3ICs2MjMsMTAgQEAgc3Rh
+dGljIGludCBzbXU4X2luaXRfdmNlX2xpbWl0KHN0cnVjdCBwcF9od21nciAqaHdtZ3IpDQo+ICAg
+ICAgIGRhdGEtPnZjZV9kcG0uc29mdF9taW5fY2xrID0gMDsNCj4gICAgICAgZGF0YS0+dmNlX2Rw
+bS5oYXJkX21pbl9jbGsgPSAwOw0KPg0KPiAtICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtYyhod21n
+ciwgUFBTTUNfTVNHX0dldE1heEVjbGtMZXZlbCwgJmxldmVsKTsNCj4gKyAgICAgcmV0ID0gc211
+bV9zZW5kX21zZ190b19zbWMoaHdtZ3IsIFBQU01DX01TR19HZXRNYXhFY2xrTGV2ZWwsDQo+ICsm
+bGV2ZWwpOw0KPiArDQo+ICsgICAgIGlmIChyZXQpDQo+ICsgICAgICAgICAgICAgcmV0dXJuIHJl
+dDsNCj4NCj4gICAgICAgaWYgKGxldmVsIDwgdGFibGUtPmNvdW50KQ0KPiAgICAgICAgICAgICAg
+IGNsb2NrID0gdGFibGUtPmVudHJpZXNbbGV2ZWxdLmVjY2xrOyBAQCAtNjM4LDYgKzY0Niw3IEBA
+IHN0YXRpYw0KPiBpbnQgc211OF9pbml0X2FjcF9saW1pdChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdy
+KQ0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBod21nci0+ZHluX3N0YXRlLmFjcF9j
+bG9ja192b2x0YWdlX2RlcGVuZGVuY3lfdGFibGU7DQo+ICAgICAgIHVuc2lnbmVkIGxvbmcgY2xv
+Y2sgPSAwOw0KPiAgICAgICB1aW50MzJfdCBsZXZlbDsNCj4gKyAgICAgaW50IHJldDsNCj4NCj4g
+ICAgICAgaWYgKE5VTEwgPT0gdGFibGUgfHwgdGFibGUtPmNvdW50IDw9IDApDQo+ICAgICAgICAg
+ICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+IEBAIC02NDUsNyArNjU0LDEwIEBAIHN0YXRpYyBpbnQg
+c211OF9pbml0X2FjcF9saW1pdChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQ0KPiAgICAgICBkYXRh
+LT5hY3BfZHBtLnNvZnRfbWluX2NsayA9IDA7DQo+ICAgICAgIGRhdGEtPmFjcF9kcG0uaGFyZF9t
+aW5fY2xrID0gMDsNCj4NCj4gLSAgICAgc211bV9zZW5kX21zZ190b19zbWMoaHdtZ3IsIFBQU01D
+X01TR19HZXRNYXhBY2xrTGV2ZWwsICZsZXZlbCk7DQo+ICsgICAgIHJldCA9IHNtdW1fc2VuZF9t
+c2dfdG9fc21jKGh3bWdyLCBQUFNNQ19NU0dfR2V0TWF4QWNsa0xldmVsLA0KPiArJmxldmVsKTsN
+Cj4gKw0KPiArICAgICBpZiAocmV0KQ0KPiArICAgICAgICAgICAgIHJldHVybiByZXQ7DQo+DQo+
+ICAgICAgIGlmIChsZXZlbCA8IHRhYmxlLT5jb3VudCkNCj4gICAgICAgICAgICAgICBjbG9jayA9
+IHRhYmxlLT5lbnRyaWVzW2xldmVsXS5hY3BjbGs7DQoNCg==
