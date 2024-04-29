@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96144C25B10
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 07:27:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17AC0C10F16
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 07:27:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BBAD10F67D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6F5110F6C9;
 	Tue, 30 Apr 2024 07:27:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dzanFpJM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mr3rkAIa";
 	dkim-atps=neutral
-Received: from mail-io1-f48.google.com (mail-io1-f48.google.com
- [209.85.166.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE72010FF69;
- Mon, 29 Apr 2024 19:32:23 +0000 (UTC)
-Received: by mail-io1-f48.google.com with SMTP id
- ca18e2360f4ac-7da09662332so160165739f.0; 
- Mon, 29 Apr 2024 12:32:23 -0700 (PDT)
+Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
+ [209.85.166.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36F5910FF53;
+ Mon, 29 Apr 2024 19:39:39 +0000 (UTC)
+Received: by mail-io1-f51.google.com with SMTP id
+ ca18e2360f4ac-7dec786b0a7so49976739f.1; 
+ Mon, 29 Apr 2024 12:39:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714419143; x=1715023943; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1714419578; x=1715024378; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5Q95ZqInWMJScwhR6tUig8g54EU3c/DeR371Oq/AShg=;
- b=dzanFpJMAKnUKQ6S+iCvlXh6NObK+5M7B8fsD7iYzatztGs3iqhQIYDTeSQfJy1vrX
- HU3FavB9r0wDBvIevDU9Q3Cc+Q9TZSUsH05QSJEzDyVs8Ctwbty0sOpHrPf+yg8Ysm2x
- Dl7qfZ50pGEV5QR1PYbDJu3mGfgqvCRVqWOpCRo8/5f/sUGmPEiY6+wlfYwXFT166ZeZ
- sPZTzixZ/muw+WjEKj7MNkS1XKv112i277u4MyACVqDDuOCgr59qM2G3jbvfV/O4HpLL
- c8dCjR4igSAoJbuZobKijynKtL72BMbe4tf+gXLqFAVGpCm5L2Y3ukOYxu+Pl9sORj7f
- yADg==
+ bh=gz40dojOamaMr3XzSBo+G+I5OCec93qZ3mLYpBVy9xE=;
+ b=mr3rkAIaNi32nMjpvoOpw2L5XzTA23BR4VDTOo01yob2hmUN9ZQiut+mUJeg4Pc4lA
+ 2dOu1CukidEG1WlftpyfVDsGouVwk0K9OXyxjmbFWes5A5rSxZSEZDAzPV99zs++zz8p
+ wyjcG8ASPM9m3eaEX7n7DfD7ibPZW7WGC3KGl+p+d5HxIh0BCzZT5BnrlendBpkYqcVr
+ vHFI3FwNK5jZz4QFHfXDxGD8k/Sv09tWxKX65GXhr2a1O/BCI7rRooKrDbAwEukxe5Av
+ KTCQWOYn9cMudGOvEDHk0aKKAVs9DFaRIQobOu+PfbGwSMjkqizDtZR5/3tciBqjZnun
+ 6QUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714419143; x=1715023943;
+ d=1e100.net; s=20230601; t=1714419578; x=1715024378;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=5Q95ZqInWMJScwhR6tUig8g54EU3c/DeR371Oq/AShg=;
- b=j9GCTHAqIkh2048LQPYN8v2rYYn6v55f3a99oz88k/DgkDiOBM92TpMlTe3Jbi/e0M
- sGXSSKog0A/J8RnXWlSgCYhwlzKTmrtEV/9HOJgJzNfH2bCcraP/QrGxD3EM8uVVRU3T
- Vk3fpOQZrLH/mPV70wAXzpUmKieZAHCHzkkP32Tapa/HI2rjYmpt+Yzz2SkRxICY03t3
- 1GPo6JP17SvxDzDwrFsi908v4VEgU93H8tkoha03/YJYl2zkPCF6vuOQo3y+B7Vhabwg
- fQ2Js3fRh9VY/jPX345nUPPcZOovN/K5d0f9xZyDrXh+MbkZrMqJpuOtBxcD24WhLmAy
- 4FHg==
+ bh=gz40dojOamaMr3XzSBo+G+I5OCec93qZ3mLYpBVy9xE=;
+ b=M4fqXfoMrnQ7HS6PciXuzppINlv9ZNP+ZwWBei3jyRvJTXt/lLkv6xg+cUvhH6Bsnw
+ VADK0hxBV/wVbVFD/bN3msqlvEuKyAz+OZrfZ0KBuo3p0GyIGuYdj4VLTmNArFC6T3xE
+ JBus94zj54SWc3UrcURMqH8ZbIH6e1makHp2nPMBHX2W6BLuhSVoQVoDFbSvHmvetceE
+ WHcRABRXMvJ1uAlHpA3vZtcBcEl7TKYpn1jWpnjzDMj4lxdnu3COPl/4zBVvSXN0I7VG
+ HcQ64PYrhm6CkbBLgGLP27JiNjkUE+fg3+SHYpHN7rT6eWVM+355wUilNO3VysdN2tzY
+ xb3g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX7Bkmk1Pzt0C+XCPKVXFSx3t7k34aFoGO6iAxj/zvDeLKKCBo+adGVz7GcBkX40I7ibtwHGmb+pRpxIjdC6wU9dPUuHxYz/gdQC6EEFFIQ74JX63u9wXyJWMNEuv3yg7rxyc8OPHbSnWRDRvHQUA3zQwvcc75mAkJrTmj6TeUiFxex+B36NgoHh4gRax9U7dPDe3Dxbksh6akKMplLkVM4kYbpoBKs9LNj0hmyqWS002vHlgQ=
-X-Gm-Message-State: AOJu0YyM0PihuuP3YDxWJtbnfz8Mq88imxxoBjRhYLRMk2opmdM1JCL+
- rNo/irL9trZUCzsfk4ZmQb06SUsMXgggM+fiFyIz1vYXvjr/1jB9
-X-Google-Smtp-Source: AGHT+IEwf2ZOietSarGxhgNapmV9HHXQqyjB2l54hQBuI85VhrBNeK1Sv3TWDlSimrU15tCjgcdXXw==
-X-Received: by 2002:a05:6602:1d54:b0:7de:7b1:2e60 with SMTP id
- hi20-20020a0566021d5400b007de07b12e60mr579359iob.6.1714419143108; 
- Mon, 29 Apr 2024 12:32:23 -0700 (PDT)
+ AJvYcCU/kcwUoY/0ECQDkv5IEhmHNbdRke4BDhYtloTAjrwoPapceLY81IIrsFIvhpxDlFf8Spk1HjPe5wJAFiA+RITdWizIo4tP9+Rf3tt5S24y9BWp0NIDoDfeYtOwHJoLqBQC3qvmIBFAfLdeFeJ51fIQHCeqouLUEOdzpUh/U2fMzDfZGri+whpWOxJcdux7PPZeCoDQZjsxcou17sjFD84ieYQfwCFIV9G68y1AWVKbgD2W4u0=
+X-Gm-Message-State: AOJu0Yz46EWeFzujgWZ25YgPvAVmNdB7Y3iYEKsrUcI7zSU1XHNtjUjh
+ tbXAVWmSyWrFxseB6My8SKikdnqLIpln03jz+bYmnvudRDwuaIh/
+X-Google-Smtp-Source: AGHT+IEwjLTZjJthckf74C1CX3uaiE3oCQMny0EnG/l4mAH8Dbjs9ZTAj5NSSjRC7OpGprs2S+b1UA==
+X-Received: by 2002:a6b:6814:0:b0:7de:c47d:a740 with SMTP id
+ d20-20020a6b6814000000b007dec47da740mr558970ioc.8.1714419578408; 
+ Mon, 29 Apr 2024 12:39:38 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- dq18-20020a0566021b9200b007d5ec9b77aesm5988402iob.51.2024.04.29.12.32.22
+ y16-20020a056602165000b007de9f92dc57sm2325105iow.16.2024.04.29.12.39.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Apr 2024 12:32:22 -0700 (PDT)
+ Mon, 29 Apr 2024 12:39:38 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
@@ -66,12 +66,12 @@ Cc: ukaszb@chromium.org, linux-doc@vger.kernel.org, daniel.vetter@ffwll.ch,
  ville.syrjala@linux.intel.com, seanpaul@chromium.org, robdclark@gmail.com,
  groeck@google.com, yanivt@google.com, bleung@google.com,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v8 09/35] dyndbg: drop NUM_TYPE_ARRAY
-Date: Mon, 29 Apr 2024 13:31:19 -0600
-Message-ID: <20240429193145.66543-10-jim.cromie@gmail.com>
+Subject: [PATCH v8 29/35] dyndbg: add __counted_by annotations
+Date: Mon, 29 Apr 2024 13:39:15 -0600
+Message-ID: <20240429193921.66648-10-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240429193145.66543-1-jim.cromie@gmail.com>
-References: <20240429193145.66543-1-jim.cromie@gmail.com>
+In-Reply-To: <20240429193921.66648-1-jim.cromie@gmail.com>
+References: <20240429193921.66648-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 30 Apr 2024 07:26:58 +0000
@@ -89,32 +89,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ARRAY_SIZE works here, since array decl is complete.
+Tell the compiler about our vectors (array,length), in 2 places:
 
-no functional change
+h: struct _ddebug_info, which keeps refs to the __dyndbg_* ELF/DATA
+sections, these are all vectors with a length.
+
+c: struct ddebug_table, which has sub-refs into _ddebug_info.*
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ include/linux/dynamic_debug.h | 6 +++---
+ lib/dynamic_debug.c           | 6 +++---
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index b53217e4b711..8116d0a0d33a 100644
+index 090fe9554db7..c54d2a4e1d48 100644
 --- a/include/linux/dynamic_debug.h
 +++ b/include/linux/dynamic_debug.h
-@@ -106,11 +106,9 @@ struct ddebug_class_map {
- 		.mod_name = KBUILD_MODNAME,				\
- 		.base = _base,						\
- 		.map_type = _maptype,					\
--		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
-+		.length = ARRAY_SIZE(_var##_classnames),		\
- 		.class_names = _var##_classnames,			\
- 	}
--#define NUM_TYPE_ARGS(eltype, ...)				\
--        (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
+@@ -146,9 +146,9 @@ struct ddebug_class_user {
  
  /* encapsulate linker provided built-in (or module) dyndbg data */
  struct _ddebug_info {
+-	struct _ddebug *descs;
+-	struct ddebug_class_map *classes;
+-	struct ddebug_class_user *class_users;
++	struct _ddebug *descs __counted_by(num_descs);
++	struct ddebug_class_map *classes __counted_by(num_classes);
++	struct ddebug_class_user *class_users __counted_by(num_class_users);
+ 	unsigned int num_descs;
+ 	unsigned int num_classes;
+ 	unsigned int num_class_users;
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 625838bd74aa..390a35508fb6 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -49,9 +49,9 @@ extern struct ddebug_class_user __stop___dyndbg_class_users[];
+ struct ddebug_table {
+ 	struct list_head link;
+ 	const char *mod_name;
+-	struct _ddebug *ddebugs;
+-	struct ddebug_class_map *classes;
+-	struct ddebug_class_user *class_users;
++	struct _ddebug *ddebugs __counted_by(num_ddebugs);
++	struct ddebug_class_map *classes __counted_by(num_classes);
++	struct ddebug_class_user *class_users __counted_by(num_class_users);
+ 	unsigned int num_ddebugs, num_classes, num_class_users;
+ };
+ 
 -- 
 2.44.0
 
