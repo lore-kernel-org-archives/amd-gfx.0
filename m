@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0BDAC25B10
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 07:27:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17932C25B74
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 07:27:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01DFF10F61E;
-	Tue, 30 Apr 2024 07:27:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B459510F5EB;
+	Tue, 30 Apr 2024 07:27:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g6wLd2xR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FfgZD0bx";
 	dkim-atps=neutral
-Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
- [209.85.166.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F4B710FFAC;
- Mon, 29 Apr 2024 19:39:43 +0000 (UTC)
-Received: by mail-io1-f45.google.com with SMTP id
- ca18e2360f4ac-7dedc577011so3530439f.3; 
- Mon, 29 Apr 2024 12:39:43 -0700 (PDT)
+Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
+ [209.85.166.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E48C110FF81;
+ Mon, 29 Apr 2024 19:32:27 +0000 (UTC)
+Received: by mail-io1-f54.google.com with SMTP id
+ ca18e2360f4ac-7da3ec3e044so232388239f.2; 
+ Mon, 29 Apr 2024 12:32:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714419582; x=1715024382; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1714419147; x=1715023947; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ie5rZ4dsMUbEYAulp2798W3AJ6+dgFCJhLzBPJXIbz8=;
- b=g6wLd2xR6V9IewlgLy3LyRp28Rv7A04Xw0q8Q03WqmLM10VrmTHvbBkU00KU7rKp8r
- xy5ucQ0x3s4wG1zQF0L6EgFt4+sSoXkdkRFfApLmvSahuk4Go4yIRgwPuIBWsrG7nhHY
- msOPKZRHBPo7C4pnlBKhhgUweBfve4YC3iu+erhhgjHfjfML/Zlsfy8ww35zZB63n58t
- a/wrZHhTuSQr4QCG4BRR+kpo3xEQWTrynHxp01z7wOXcFDCVv3ycAMs0IbWKjHgUb980
- BQm01aNBuku5fiEfuLmEDk8+//5C2rVca5wPfPNn7jjoVOzD7W0i5J43Vqem1xEWL2HX
- PAmw==
+ bh=WWBvTZRK9iMyBsS29iq5uzOkpLKIJfBUxQQ9jj4Ilzo=;
+ b=FfgZD0bx6v/zuNAWRUdvaX6IRM4dF7omWWxIwbfB4lK8yMok7VOZgsetW8JG+oYv9D
+ EBxf/QAsmya5ah1LvqO4f30JhWRIYM+oI5lanPgyOrvsR1R73TKvxVyDLz2CGRI9GWlr
+ YGFk5sH1WetLTEsQ2WTVlgEo3JlRKJOSvPP+1BSq5e3g/FdPTDpqVQBMbCkknuXi/06j
+ H1rpWYsInNEkJ1wkIrK06RF1RkG+Mc9E97XOpXDY9/pitsanhZ4Al1dEWsiG1kZ86DUp
+ emwVu0DK8AKDsZ1jBqy9RxVcUTL/lbGRMkJl9rQWHwFQ8tdvM1q6gnQ/xBqkCasWZDQG
+ lQ2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714419582; x=1715024382;
+ d=1e100.net; s=20230601; t=1714419147; x=1715023947;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Ie5rZ4dsMUbEYAulp2798W3AJ6+dgFCJhLzBPJXIbz8=;
- b=Csy9jO5KF14tSVDfxBOK0F2CDVYFDIhDdmrJ7pWKN733LoIV/SYM3xr2Be6sqJazzO
- XWluNbR6homHJZEgygerEbGNf+37FhYO4gnL1KDjwSvjytKyPi9LnHFaOOxPyBH0FBnp
- ufb0hBl3r8EgF08NkGZAK8kBwpktN+K65SFHmtSNBFy+PpMWBSlVS7tC2nt9pw176vtu
- f+yhq5jQxpJ4Gt0efnqSr8Kr9iovPks1WEPYLnG2M4aBpfoiBX9NIRR0/PwDX9bZ/UTv
- ZYBdnGD9WtI0GRujTWpMUBqqnLlHhUdHAN2GWtEFPmZMKcAnNsVLvPBaruzzkMbnd23L
- AhiQ==
+ bh=WWBvTZRK9iMyBsS29iq5uzOkpLKIJfBUxQQ9jj4Ilzo=;
+ b=rL3yFAGRqflxPWQVSaNvT0PxXidr5pxIBuZo0kNo3X/fcThTOJXrBMp86kj6a2HT4X
+ PJ816lnK+Z7kankq2OrN7BKIoeSRWrX8TM4ywbfaDmmPI6ekRYzXfdB7Qy6cqcqEJsAD
+ P9oYREXM/m3PBoYGxJmxw8rtrqwjYVNreu0ZzOLn42goJdtol9rNjU2GofONXK1yoUOe
+ B2i2qqiFfR4pVB6a60AePBVI6e7mRZBTDV0fzivhTfUXPmkRfbQHAfhvMqyUsE+yjzUQ
+ Rm8UibjFxvqkjGVnVbZtaH3xKsyz3QT+rOxfuzAU+jVDwihpNDUfGDKdt7IchiV7fcVb
+ ep1g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVakxKi732kmpQWRfdF4Igb/RKvCNXulhd4naT6l4+GibvyPrJRvZvbA7XhGz9zaflEk0KtonkGo8Le6vRf+EMg99o7/tjn988GipAYKl5HYyMw4Az8hSm6k1jsYSPRaCdau+kqYnDDNc/Na9iotK9mUbJTSfI8/G6X2tVndaIbrRNNaQInTw7iI1Kdu3hmdjhSKaj28ZcBapa88uNWh/4Btq78WsTC4dtWHC14m8w66xLTWDE=
-X-Gm-Message-State: AOJu0Yyhja8DjXACSxSkr3MmfMmlQQwDM2vHuQSGeMrTceOiRh70GLWD
- 1Lbg1EHMKYwBRlxocyZAhfd3gzAE6MTeI8jC9zytbbAhE+x5nn9v
-X-Google-Smtp-Source: AGHT+IGrQCUh7NJG66NLfClNiBakmvFViipsgTmeiMMctP+y/nuBqnI1oha451gFi7fkgh3cY29+VA==
-X-Received: by 2002:a05:6602:2759:b0:7d5:c987:3239 with SMTP id
- b25-20020a056602275900b007d5c9873239mr888946ioe.16.1714419582384; 
- Mon, 29 Apr 2024 12:39:42 -0700 (PDT)
+ AJvYcCWFgZ//zc395quVAgQZgNqyz1Yh1KIbC1ID0/ZVIZtWcsNBe8w6KgOyv96Fq8Abp8tyKLM3NqDhZOIxQ7pihOO81xlmDnJRb3aBp7D0FIWRqdWFE9m4aT94r5jgx6jXgUat6iAlnn86Y/Pt32i2aBeGZtSM4PORSju19GTaxjD8YHD9Yze5NirAv1O0hQ1OnJzXD66/g6gwR/QKn0j5sxrO+raCJBLQstma9iMeMQl4Vrm9Qaw=
+X-Gm-Message-State: AOJu0Yw4XtIYkxqCxG6aZWYJ0OSIofGRuA5LHiBMmdMdjxw0D9y7cdxe
+ DtWXuUage34zprczscCrdIDaVjfm/uM22dN+xJwh90aTyUyjX3/V
+X-Google-Smtp-Source: AGHT+IHBlACPw9dSF2W5n040FK0AJ2oPwC33WMQq24sMPJGaWDt3luGkDhtD59iMEf10zw56UprD2g==
+X-Received: by 2002:a05:6602:4b0f:b0:7de:c308:76e2 with SMTP id
+ eo15-20020a0566024b0f00b007dec30876e2mr960254iob.3.1714419146954; 
+ Mon, 29 Apr 2024 12:32:26 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- y16-20020a056602165000b007de9f92dc57sm2325105iow.16.2024.04.29.12.39.41
+ dq18-20020a0566021b9200b007d5ec9b77aesm5988402iob.51.2024.04.29.12.32.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Apr 2024 12:39:41 -0700 (PDT)
+ Mon, 29 Apr 2024 12:32:26 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
@@ -66,12 +66,12 @@ Cc: ukaszb@chromium.org, linux-doc@vger.kernel.org, daniel.vetter@ffwll.ch,
  ville.syrjala@linux.intel.com, seanpaul@chromium.org, robdclark@gmail.com,
  groeck@google.com, yanivt@google.com, bleung@google.com,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v8 32/35] drm: use correct ccflags-y spelling
-Date: Mon, 29 Apr 2024 13:39:18 -0600
-Message-ID: <20240429193921.66648-13-jim.cromie@gmail.com>
+Subject: [PATCH v8 12/35] dyndbg: tighten ddebug_class_name() 1st arg type
+Date: Mon, 29 Apr 2024 13:31:22 -0600
+Message-ID: <20240429193145.66543-13-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240429193921.66648-1-jim.cromie@gmail.com>
-References: <20240429193921.66648-1-jim.cromie@gmail.com>
+In-Reply-To: <20240429193145.66543-1-jim.cromie@gmail.com>
+References: <20240429193145.66543-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 30 Apr 2024 07:26:58 +0000
@@ -89,35 +89,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Incorrectly spelled CFLAGS- failed to add -DDYNAMIC_DEBUG_MODULE,
-which broke builds with:
+Change function's 1st arg-type, and deref in the caller.
+The fn doesn't need any other fields in the struct.
 
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y
-CONFIG_DYNAMIC_DEBUG_CORE=y
-CONFIG_DYNAMIC_DEBUG=n
+no functional change.
 
-Also add subdir-ccflags so that all drivers pick up the addition.
-
-Fixes: 84ec67288c10 ("drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro")
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/Makefile | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ lib/dynamic_debug.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 104b42df2e95..313516fc2ad5 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -3,7 +3,8 @@
- # Makefile for the drm device driver.  This driver provides support for the
- # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 8320cadeb251..882354e1e78f 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1120,12 +1120,12 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
+ #define class_in_range(class_id, map)					\
+ 	(class_id >= map->base && class_id < map->base + map->length)
  
--CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
-+ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)		+= -DDYNAMIC_DEBUG_MODULE
-+subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
+-static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
++static const char *ddebug_class_name(struct ddebug_table *dt, struct _ddebug *dp)
+ {
+-	struct ddebug_class_map *map = iter->table->classes;
+-	int i, nc = iter->table->num_classes;
++	struct ddebug_class_map *map = dt->classes;
++	int i;
  
- drm-y := \
- 	drm_aperture.o \
+-	for (i = 0; i < nc; i++, map++)
++	for (i = 0; i < dt->num_classes; i++, map++)
+ 		if (class_in_range(dp->class_id, map))
+ 			return map->class_names[dp->class_id - map->base];
+ 
+@@ -1159,7 +1159,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 	seq_puts(m, "\"");
+ 
+ 	if (dp->class_id != _DPRINTK_CLASS_DFLT) {
+-		class = ddebug_class_name(iter, dp);
++		class = ddebug_class_name(iter->table, dp);
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
 -- 
 2.44.0
 
