@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D229C25B5F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC9CC25B5C
 	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 07:27:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A326E10F5DE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99BAD10F5D1;
 	Tue, 30 Apr 2024 07:27:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hDYgw1fv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hLeEBPjc";
 	dkim-atps=neutral
-Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
- [209.85.166.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 196A110FF4F;
- Mon, 29 Apr 2024 19:39:38 +0000 (UTC)
-Received: by mail-io1-f41.google.com with SMTP id
- ca18e2360f4ac-7da4373f850so240096239f.3; 
- Mon, 29 Apr 2024 12:39:38 -0700 (PDT)
+Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
+ [209.85.166.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 169F310E514;
+ Mon, 29 Apr 2024 19:39:34 +0000 (UTC)
+Received: by mail-io1-f51.google.com with SMTP id
+ ca18e2360f4ac-7da09662332so160424339f.0; 
+ Mon, 29 Apr 2024 12:39:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714419577; x=1715024377; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1714419573; x=1715024373; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8dgWj2cFA2MU3UxaMwN/AH6DmAyC9gLaTAViD4Tt0Ck=;
- b=hDYgw1fvpXzbCzRRvbbCYEzqtsP799slftZXb8x+vVFyOg1MiE1n5PTckXQGF4FXR/
- qmQrKj3ANXkn/p8L64fiR7/j6xngeXS0a+lGttW/USUEpKkVCkDzF9rQ2108w95/beJi
- YvSWToxljoRCVYTNGKQRdIaN+qOQ8LYsr+DZ3SqxiUaeClyrXBMPhPFu8M+2fYz9aD0I
- c/j+nk1o8RG2BmX4dXzv9Xfylcx8Eqvk0YS6Eca0FgTvpdg2admIXGrW4eDqKJB07zlc
- k40lwf6KdMYWwPYuIG1MXcVRANqKKW7jDrO13tTyjPTwCbje39FXq+X38vNARjRInQJr
- PWLQ==
+ bh=RXI+MXWRKKGIldf/Embfy128LRyyxhcJagthHMuW3ts=;
+ b=hLeEBPjcoyCX05xdi9mqHM3Q9YWLDWpzICx09gne3Ikzrn4UCjnjrjG/tpgum6rH91
+ lVC8e4CWOgUmzd0hguGAExVigetFTqim8MRVg9yOuZnj0zDclp6wcgtb5jrBFmuCibMT
+ zbtnJ2b2J2XBOkEZHhUqSekUobuBHUWahix1m9IW7iWsBeFqUFyUcidW5ph9PyK36qsI
+ NG/7jCn4Bb1oiaZTSj/zVu+ovtSp0MUUS8Ek9moIwGIzX0xXmwBRCB3U2JU+Wl2KCz0P
+ uYRHYVTBnvC9cIgasNS5U5FKb4GFWWBudLoAHMzRdLTCTKlViUeLrmbfN6IeWoIQ5DoU
+ TRhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714419577; x=1715024377;
+ d=1e100.net; s=20230601; t=1714419573; x=1715024373;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8dgWj2cFA2MU3UxaMwN/AH6DmAyC9gLaTAViD4Tt0Ck=;
- b=XBtrX6cWu17/50gQNz1UCkiUnk6+4XsCszVnXwmZ5oxgf2WHId0npfX6d+bOhH/bAq
- xQF2xQlC8Gps38WDUH6HP0e7WBVsk45lbSeHm6kfCC3xyhj6cEU/Ms83Q7HgLc2IsB66
- 2nfBFM6imk7gW+3g42ae1raMM9JyxGQ17Qvz3m2rFpSjOuZ74DRPBlvvF0DGTTHJaqzz
- eapkEP46fgVdLKJn8B2l1PEJ8KK2nkxQHSvyyb1R+Tzqwoeos+yQ23O1TgFeeV2211IG
- Fi3xreyjYr6Tz3TlY3GZPzrDq4f5bdq9wLgG1qdMKHJye6dPVA8mSUe+T+Ek1UdIArGh
- cUng==
+ bh=RXI+MXWRKKGIldf/Embfy128LRyyxhcJagthHMuW3ts=;
+ b=NTE5WT29xebakZAHpmgUDDme+nufnwgYGD4xIwjT6ObMv2NizHInZKH/D40K5GAdQ4
+ 3ATg8PFukpsQ65UU1M/YfYfrOuN2IAJnh8ErttILFONTDT0eWXTSqaxmAGcMTUsF0I0N
+ 10fx62aWqUsC61oyR6ZYeWKDzWFTOEsLyhBA7SWUDxHzjqp5boS+m+e9YeeOY6iIjMGq
+ KX19Xvl4tPSFaMxAFMElU8EeuvN3GivTHeDKuCRrZ/tRScdisLkVP6rn8RJa/p49tvNc
+ IDMW8U7iYoY2+M3ykTAMFaiAoI7T0jIxixG73WfD9LsMTOiIkzinDzYpxGxnSQHaHZIr
+ 605Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUhV92bkMrOMXR3roS/5JvR6gwFZIATN4gXvKMqHDy44uEthTm+lbE2qVLq/24+AyLcQY2r+PzXV4SJSRBQWOf79VDhg35m/N1PUSAknm5pk9XTyhzavi5IWpd0PucPNM+KZF4dsaY0444ZmF13LpnYsIZMvZQRbh9cNpu+qSE7qCgjv3MqU1Zv6NevRSI5hmew9/NBkGcU/Et5FeGix5X6MNILL5BlKZ9pKoEzuJNZk7L5PAI=
-X-Gm-Message-State: AOJu0YweJwEwaqgKAi7xv/PqHTCiYrDr7thmwdwTh5gcJukLnG5YMjF2
- pwy2SriYpbmkQUaXv8rAHHBnYpfhM0DCZvPUdFvhsvr8e3XJt5nv
-X-Google-Smtp-Source: AGHT+IEs24YTwILUt5MHKr0F0OyxCq+SxhIGz3ARX0AwMIA0GR+8INeYUiHTkHCKHU43qMQt+OxxMA==
-X-Received: by 2002:a05:6602:4b0f:b0:7de:c308:76e2 with SMTP id
- eo15-20020a0566024b0f00b007dec30876e2mr976745iob.3.1714419577342; 
- Mon, 29 Apr 2024 12:39:37 -0700 (PDT)
+ AJvYcCUCpAZNNPP6cm9IHWf4Jq1H9gbOEtavaX3OmJbBo25yFul8VU/h6HLJzS9fHvWPd11Sobcsa2KWC+HpKIvP81y/23RLQRg8fUOMF3ugLePWBitUN6AFjVYYOLQ/Eea0OCe4VlK+FfkAwlNYVPS5sF9uSaqP5aaTAv1kobbeGT58ADNnoIzeYvsz4kEJQAFe4kthwSFHxhQuCi+dRwVo0QlTX33toXP2/ZeN2A1NWYRYc/Z3/eg=
+X-Gm-Message-State: AOJu0Ywz00BpiKRRJbZT6P7ab8zHo40d9jm7PWuB0aqsChXyA1oGNz9b
+ pbHEmv18BuliWwZlDvzqQXpzk87hRbV3gxiik7sp8O3oXhOcDxR8fpp9Mck6
+X-Google-Smtp-Source: AGHT+IGWpfjvznK6WhTujjscD4YN6L0AQxbNzmm1AE5SspjD0rno7TIevntaxjo8L0b9AeQnuOA3fw==
+X-Received: by 2002:a6b:db05:0:b0:7da:1a22:e832 with SMTP id
+ t5-20020a6bdb05000000b007da1a22e832mr584954ioc.0.1714419573239; 
+ Mon, 29 Apr 2024 12:39:33 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- y16-20020a056602165000b007de9f92dc57sm2325105iow.16.2024.04.29.12.39.36
+ y16-20020a056602165000b007de9f92dc57sm2325105iow.16.2024.04.29.12.39.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Apr 2024 12:39:36 -0700 (PDT)
+ Mon, 29 Apr 2024 12:39:32 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
@@ -66,9 +66,9 @@ Cc: ukaszb@chromium.org, linux-doc@vger.kernel.org, daniel.vetter@ffwll.ch,
  ville.syrjala@linux.intel.com, seanpaul@chromium.org, robdclark@gmail.com,
  groeck@google.com, yanivt@google.com, bleung@google.com,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v8 28/35] dyndbg-doc: explain flags parse 1st
-Date: Mon, 29 Apr 2024 13:39:14 -0600
-Message-ID: <20240429193921.66648-9-jim.cromie@gmail.com>
+Subject: [PATCH v8 25/35] docs/dyndbg: explain new delimiters: comma, percent
+Date: Mon, 29 Apr 2024 13:39:11 -0600
+Message-ID: <20240429193921.66648-6-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240429193921.66648-1-jim.cromie@gmail.com>
 References: <20240429193921.66648-1-jim.cromie@gmail.com>
@@ -89,40 +89,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When writing queries to >control, flags are parsed 1st, since they are
-the only required field.  So if the flags draw an error, then keyword
-errors aren't reported.  This can be mildly confusing/annoying, so
-explain it instead.
-
-This note could be moved up to just after the grammar id's the flags,
-and before the match-spec is detailed.  Opinions ?
+Add mention of comma and percent delimiters into the respective
+paragraphs describing their equivalents: space and newline.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- Documentation/admin-guide/dynamic-debug-howto.rst | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ .../admin-guide/dynamic-debug-howto.rst        | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
 diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 7b570f29ae98..ccf3704f2143 100644
+index 742eb4230c6e..7b570f29ae98 100644
 --- a/Documentation/admin-guide/dynamic-debug-howto.rst
 +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -106,6 +106,16 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
+@@ -73,16 +73,18 @@ Command Language Reference
+ ==========================
+ 
+ At the basic lexical level, a command is a sequence of words separated
+-by spaces or tabs.  So these are all equivalent::
++by spaces, tabs, or commas.  So these are all equivalent::
+ 
+   :#> ddcmd file svcsock.c line 1603 +p
+   :#> ddcmd "file svcsock.c line 1603 +p"
+   :#> ddcmd '  file   svcsock.c     line  1603 +p  '
++  :#> ddcmd file,svcsock.c,line,1603,+p
+ 
+-Command submissions are bounded by a write() system call.
+-Multiple commands can be written together, separated by ``;`` or ``\n``::
++Command submissions are bounded by a write() system call.  Multiple
++commands can be written together, separated by ``%``, ``;`` or ``\n``::
+ 
+-  :#> ddcmd "func pnpacpi_get_resources +p; func pnp_assign_mem +p"
++  :#> ddcmd func foo +p % func bar +p
++  :#> ddcmd func foo +p \; func bar +p
+   :#> ddcmd <<"EOC"
+   func pnpacpi_get_resources +p
+   func pnp_assign_mem +p
+@@ -104,7 +106,6 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
  the flags-spec, all constraints are ANDed together.  An absent keyword
  is the same as keyword "*".
  
-+Note: because the match-spec can be empty, the flags are checked 1st,
-+then the pairs of keyword values.  Flag errs will hide keyword errs:
-+
-+  bash-5.2# ddcmd mod bar +foo
-+  dyndbg: read 13 bytes from userspace
-+  dyndbg: query 0: "mod bar +foo" mod:*
-+  dyndbg: unknown flag 'o'
-+  dyndbg: flags parse failed
-+  dyndbg: processed 1 queries, with 0 matches, 1 errs
-+
+-
  A match specification is a keyword, which selects the attribute of
  the callsite to be compared, and a value to compare against.  Possible
  keywords are:::
+@@ -128,7 +129,6 @@ keywords are:::
+   ``line-range`` cannot contain space, e.g.
+   "1-30" is valid range but "1 - 30" is not.
+ 
+-
+ The meanings of each keyword are:
+ 
+ func
+@@ -153,9 +153,11 @@ module
+     The given string is compared against the module name
+     of each callsite.  The module name is the string as
+     seen in ``lsmod``, i.e. without the directory or the ``.ko``
+-    suffix and with ``-`` changed to ``_``.  Examples::
++    suffix and with ``-`` changed to ``_``.
++
++    Examples::
+ 
+-	module sunrpc
++	module,sunrpc	# with ',' as token separator
+ 	module nfsd
+ 	module drm*	# both drm, drm_kms_helper
+ 
 -- 
 2.44.0
 
