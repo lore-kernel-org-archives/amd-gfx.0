@@ -4,152 +4,170 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A08D5C4345F
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Apr 2024 17:09:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0608EC4345F
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 01:26:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79C6F10E756;
-	Sun, 28 Apr 2024 17:09:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E2D310F707;
+	Mon, 29 Apr 2024 01:26:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WR9r31rj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GhTVLqF2";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2051.outbound.protection.outlook.com [40.107.101.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08E3F10E72C;
- Sun, 28 Apr 2024 17:09:14 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2049.outbound.protection.outlook.com [40.107.96.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24CDF10F69D;
+ Mon, 29 Apr 2024 01:26:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ls7TCVCjb7RddWPzMk7jp5pTaoVGZMNJ7p0JCEPeiLZ/EBAk+0A64gIDx7VAnBNWY15zb9DTUAnK8NBXRa6ITDFtYQVtWatddXcGLPm4EWSCvyKbFvsDQH4aXTvqYeyTjXoZ6uJh88Ce/qVPiPfZv9A9C9Px6riqCKnlqr4tYjDE/urNWesiDDY8lOEvYAzGf7Obf1w47uh5sb5i0zzjJ+uSRTFSLk8aTNveYU7powdhKI0WeUoI537VysGfM53x8FEWk9LKcVvIv/3WrFBtjx4z7OhhM9YgfnToryE3izcFkkW0Nz+IYWoC8GqFCs8KkcF3SVX4F0zE+w2fWvYxgQ==
+ b=lIIfpZFRMIByPx+YNVpz5QCmvqcWQHgMwnujBli/gCqmmAtSF1XVmDR2BxTpvETCveYRQYuMmIlguzu+JtUplCSPolFJy/6SyfSwWZkFP/01uzIRmVYUKkkDvGRMPtnk5bjnKEaxE6UxZUukADa6jbJVzvM35ROvUvEbJbvlYgkjyPaF5YOATUkYVVg7glnwLTjQqkyCAwvTqWFxi2D2eNAA6PiGJx9OiJhRmvNNVrWq0t93KAecKafU1Zx020DiQP8i/5p0J8aN5gBUBmgR9aCyxzhbo38xCIEfiiLLDRvisq3csyxI93qHJMydCPlNYTfca7HjCbAMsDfhZnnmjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y1m3l6td1pk0xV6cLSH/kzEGj+Yabeb0COcO+ntBc5E=;
- b=XQCYwheowCkQTvUyIoH8YiCjsCUzGPmaAnKoccjlEJhhuD/SFj+R06Xz+lVKc00x03AU9T9Ab2s8ozNsCa1nyq7p3jZ3ykyoi1lRseKqRAnpeVVRKxcjOV/HWpNAXp3fIR63OWAE1oixzynV7Sk2yXOLdiXJPsY0EmQY4HaRRZf0Dsig0uUPwL+qTWwQCoJ5wQtHiRWTSZYZeBzC+pfpKbZQxW1j+myefC1BiTNPyXV+SCVNFWcZJM1mAfJMGOXcfXKZNcA9ZTQK3f7NwI9KBO65Gb6nFW7tyMjSoAtNmJ5Dd/X8DQ9HcI0u3DeYWBY5YkYK5eMmJ9I8Fk/rw4F3vQ==
+ bh=j7sMnhN2+kCB7n5zuqioNz+c2vtVYaKDsuLa2Nky/jo=;
+ b=dGFiwpWQegTLVApORHqHpzue64/AkFX3j5xfs/5n8HszVwoRM4SGIkq5tHcseP34nV3eIYx8D8JHBRxyFi5GV/fGQFQyeM+wUCsPLF7lKkfEh5at6VFRg6RUM0/7UHst2MWimYfxd7VxqrqlOOba/sg0vlN35g1nx5myUzEpOz7yyRWgUPKvGzxJS/nW46KW45n0Hao9eKTAPESJp6AL3tyLZ2gc6HO6SoyPBtKNLW+OnEQecy291twLbPa0vbFh5Is1qXdanoH4r3nLSoDCMUrrocRQiFmcSYeIRd/X5f3OQyNkifhuaWdDW9MD3OrQcfhh/pkKjnFW2HDEA7ORVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y1m3l6td1pk0xV6cLSH/kzEGj+Yabeb0COcO+ntBc5E=;
- b=WR9r31rjpCeHwKAzqhNtQfJgS3f3iIgTASJ1St0F5/nXmlruIs0QgPggZFrGekHO4UMGohHaZkYQOakojwIW8Gd2qtKw6aGOheS/rITUsC75jWKgkchpWE4YH63KGyKVfv8LhGoMB3ne8FPYiwRLiKq3sQ/KwHPMkIwkSlMfdrE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
- by IA1PR12MB6284.namprd12.prod.outlook.com (2603:10b6:208:3e4::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Sun, 28 Apr
- 2024 17:09:09 +0000
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::8060:1b11:e9f3:3a51]) by CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::8060:1b11:e9f3:3a51%4]) with mapi id 15.20.7519.031; Sun, 28 Apr 2024
- 17:09:09 +0000
-Message-ID: <8f9f3453-569f-46e1-ab99-c128d9c5ed5f@amd.com>
-Date: Sun, 28 Apr 2024 13:09:07 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: re-indent dpp401_dscl_program_isharp()
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-To: Dan Carpenter <dan.carpenter@linaro.org>,
- Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org
-References: <2b0a61a0-baca-415f-aad4-7dc4cde73ef7@moroto.mountain>
- <62025fa0-6141-4332-9d1c-89a3e7cce7b3@amd.com>
+ bh=j7sMnhN2+kCB7n5zuqioNz+c2vtVYaKDsuLa2Nky/jo=;
+ b=GhTVLqF22lyoHhSkoH/84xiRZaweRbQngsbYq8LkUgOikqhfmIvWGNEY3q08kc0AMkHjHMSlRicoP5YNDVpbtC2sF4qMrtGCpgRtGEsAat0LcymRKNdkDkI7Kpdy8qWZsS4LnOskGKDZSko3GY0Bve1WW91cZZNOnaBKJD0IOVI=
+Received: from CO6PR12MB5394.namprd12.prod.outlook.com (2603:10b6:5:35f::19)
+ by LV3PR12MB9402.namprd12.prod.outlook.com (2603:10b6:408:213::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Mon, 29 Apr
+ 2024 01:26:17 +0000
+Received: from CO6PR12MB5394.namprd12.prod.outlook.com
+ ([fe80::641f:33ef:d412:4080]) by CO6PR12MB5394.namprd12.prod.outlook.com
+ ([fe80::641f:33ef:d412:4080%5]) with mapi id 15.20.7519.031; Mon, 29 Apr 2024
+ 01:26:17 +0000
+From: "Zhou, Bob" <Bob.Zhou@amd.com>
+To: Dan Carpenter <dan.carpenter@linaro.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "Kuehling, Felix"
+ <Felix.Kuehling@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>, Guchun
+ Chen <guchun.chen@amd.com>, "Ma, Le" <Le.Ma@amd.com>, "Lazar, Lijo"
+ <Lijo.Lazar@amd.com>, "Sharma, Shashank" <Shashank.Sharma@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>
+Subject: RE: [PATCH] drm/amdgpu: Fix signedness bug in
+ sdma_v4_0_process_trap_irq()
+Thread-Topic: [PATCH] drm/amdgpu: Fix signedness bug in
+ sdma_v4_0_process_trap_irq()
+Thread-Index: AQHamWuWYELGh+nM3kOz+IsJOr/PDrF+dIKA
+Date: Mon, 29 Apr 2024 01:26:16 +0000
+Message-ID: <CO6PR12MB53946126A02595B4FDF76525941B2@CO6PR12MB5394.namprd12.prod.outlook.com>
+References: <afb229a9-3f18-44cb-b305-5fbb2e1b4ee3@moroto.mountain>
+In-Reply-To: <afb229a9-3f18-44cb-b305-5fbb2e1b4ee3@moroto.mountain>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-In-Reply-To: <62025fa0-6141-4332-9d1c-89a3e7cce7b3@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0089.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:4::22) To CH0PR12MB5284.namprd12.prod.outlook.com
- (2603:10b6:610:d7::13)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=5397a72c-fab4-4809-ba65-61f5d1b1955e;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2024-04-29T01:22:22Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CO6PR12MB5394:EE_|LV3PR12MB9402:EE_
+x-ms-office365-filtering-correlation-id: 617eec7d-0d93-4abe-4101-08dc67eb5ddb
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230031|1800799015|376005|366007|38070700009;
+x-microsoft-antispam-message-info: =?iso-2022-jp?B?Rm5hVjdDcVV6SGxFcng3UEhNa2gyV0NzNFVnTk1BWFh2S3c3VmFvdTN4?=
+ =?iso-2022-jp?B?VnJYcW5sclBSL2FVRTV5Z1ZUcGg4MDhTUXlhRm5FdzMrSGtIMnlwMUpM?=
+ =?iso-2022-jp?B?aG1jNmlmMTVIalZVaCtDZjBVa3Z2eXY4MmMra09LMlRUOFJEa2lvcEdo?=
+ =?iso-2022-jp?B?VStOdm1LZ1FxUytPQVVHM2RWZ29uMnE1RU5hM3NQWmdnOG9DU1B1K0xy?=
+ =?iso-2022-jp?B?RWFkYTYvdVBJei9EK0tKUDJITnNRNmNLbnNrdVpUa1FFY1hCaUhoN0Zt?=
+ =?iso-2022-jp?B?ZjV3R2ZBZUJYb1JzN0dROFdUMURnN09abGFqeVljZm9STGZCUjdqdVc5?=
+ =?iso-2022-jp?B?aC9ocTY4c2VDNUE5Z0FsYzRMV0cvUlJmZ3dvcmUvV3o1c1A0aFVrSC9r?=
+ =?iso-2022-jp?B?NFprS0JDSTFvNFB6Z0taYmgvUFlOODZGblZLejRwdGNMNUpLOHBkUDI2?=
+ =?iso-2022-jp?B?T2NrZFl5OGtOYVR5TDBXMVJtd1lCL3VKSWk4M2VZT0lNZkNreXRZNmE4?=
+ =?iso-2022-jp?B?dGl6ZHdsVXpySHhsVmVLTWlTVGhaUU9SOE9mRysyajNtNjlaK1N6OE5Y?=
+ =?iso-2022-jp?B?a2liZXVlYjg2QTJwQTJHWmNjQ3BFR2M5K0pQYVpBcVBmWUJZQlRoNG1Z?=
+ =?iso-2022-jp?B?Rmg1cVFTMmRvS1JPdjVnSCttRlRTYkJRRjRsV1JMMGVmQ0FkcThQa0tt?=
+ =?iso-2022-jp?B?ODNKVGJuUE5hZytRdWF4c0V4NW5paitsRHdPVmQ3Q1M1MkdGTlFyNWJH?=
+ =?iso-2022-jp?B?Q3JPMFlDWFQvZEJsT0VFZkp4MEI5TXlXaSs3UnhLaWQrRmIxMkZSYmVj?=
+ =?iso-2022-jp?B?RUVjSFBvMFRIQ3RnVy9aNlNGQWlzaWxYcWRUT2tEL0tIWkJQdWFkRmRq?=
+ =?iso-2022-jp?B?YVgvZnlJMG5vaDRoQXc0NkkyUGNpT0h4YnYyLzVLTURlVHV5MDlHbkZp?=
+ =?iso-2022-jp?B?elBydEFtaG1JZ0Y2Wmk4YTdKVVRFY0Vwc01DNGtqUUdlYjhrdmFESGFl?=
+ =?iso-2022-jp?B?Z2YybVRUOFRYNFo4bnpEY0c2R3RmdHVCTlJVUFNFb3gxNWtCVnVTZmpi?=
+ =?iso-2022-jp?B?c0tKQ2RlZWF5a0FGMHc2cGIvT0ZlWStUSlgxNE5EYlJHQmt6bVp4NXYz?=
+ =?iso-2022-jp?B?blhqUGI5bjF5a05TUnhLMWdZOWlsWnRoTmhETHhocUoyWEpiNE1NSUQ5?=
+ =?iso-2022-jp?B?aDRySjFTM1BPYzZGMkNnanNhS1VPZnhOTHF0MlowcTBxT2x3SjdKakFl?=
+ =?iso-2022-jp?B?SjU4RmJwVUVpUU9PK21kRlpwOWVFWnc5UFhaL0VXOU5LNFhtNDVXVHh6?=
+ =?iso-2022-jp?B?NFVqZlZkR2k0c3MycFlWS0VZTG9PMysxbnhRQWtCKzRLZHVUYlg2Wmw2?=
+ =?iso-2022-jp?B?U0RsV0VrRHp4R2VueXR5emFJUlhNME41S1JvWEhGRWl6UlpxZ3ozVWxt?=
+ =?iso-2022-jp?B?Y2xQbmg5Qk10NDZJblVlMkRBTC83R1JUL2FkeGJBYmdBbGxJWkRxb2FN?=
+ =?iso-2022-jp?B?dk40U1R4TytIb2hhRE9UdjFvQ1pPaVRYR29iUSsrSXE1WXk2YzNkdFBl?=
+ =?iso-2022-jp?B?SGZyc2QwZFpVRWZzWWVMT2pzcktZS2RzZEtsZHpIM0ljMWJpeEFsVGZR?=
+ =?iso-2022-jp?B?eXo5NFRucExqMjdtbUhNdTRiTzdlMThSZ00yNFFNTk56ZkQwNUZpRkVY?=
+ =?iso-2022-jp?B?d2NhZlFPajlYK1FUZmRIalppc0hhTTRvdG4xMml0T1FkWFJZdlphODUr?=
+ =?iso-2022-jp?B?N0ZTNExWODJqT1Y5dVVQbno5VlV2bzJNczYyaWh1TDhlSDNTREV6UDFa?=
+ =?iso-2022-jp?B?bCtVa1g1a1BFcytHS1B0RmU0WW1hdDUweVB5cFZoOURYaU9NaHhOVEpX?=
+ =?iso-2022-jp?B?bTNyV25GWllMdDQyOEgxY0dtS0xmbmJnRUh1RUk0aG1WMG1MWjhybEZu?=
+ =?iso-2022-jp?B?ZkpIUUZtT2tkZXFLVndQc0VFTzVjdz09?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:ja; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5394.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(366007)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-2022-jp?B?L3lmbjdZNTQzb3JqWDdiRU8raUViMi9heXRoVkVEcVVBZHNoYkIwSHJz?=
+ =?iso-2022-jp?B?SHNoaXhrazg0SUJDOGxONWVPTDVvcWJIUkY0UUROR0s4VGVlTWZrNlpB?=
+ =?iso-2022-jp?B?b28xRzdIRzJXMWgvWXUxYlA2eXR4eFcxT2htZUVFUWIrNFU0VVpDalcy?=
+ =?iso-2022-jp?B?aHN3SUNPTHplQUY0TEdySnl3V1hSYmVtVGZpT3g1ZzVXWXMyeWtDdCtD?=
+ =?iso-2022-jp?B?ZzB1R3AvNURURjdPamFUNm03V2lWT1JxQWJNN1c2cnRoMmdPVkhOWUxD?=
+ =?iso-2022-jp?B?b1prNVgzOFl5RDZtNXJZZXNGVTlGM29pcncvb1ArblJOZ0NZRFhKZEp5?=
+ =?iso-2022-jp?B?L25Wc1JhMmgwUHlQa2R2SG5BSTg5ay9zdjBJNlBIOHZRaU8rdHJjaVJL?=
+ =?iso-2022-jp?B?NDRmZjRaZ0ZiaDVXMHZ5bktHTUx2bjBEZWtSUDhGNE1ETE9SeHlBc1do?=
+ =?iso-2022-jp?B?dmNDelRjQTU2eEVsR0k5cDVkTnRMSnRoYVFOUmlPa2liVnhSU0tMcUNI?=
+ =?iso-2022-jp?B?aFE5S1crcXg2cmowcEJyZkJSWHhsbnJWdmo5bGhNemRpc3BkUUgxTGpQ?=
+ =?iso-2022-jp?B?UXVLR25JZEdBSkZRa0FoWTZvbHBMSWhSNU5JamU1SFNvcmhsZE00VVht?=
+ =?iso-2022-jp?B?NUJTQzB4Qks1K1RjNGFmcTFmcXF2WEFnVFhBaUZlVUtXL2dSaWVrTjZD?=
+ =?iso-2022-jp?B?SWxkZTMxODRwRDZOTFFJelVDb1BpUVY3anNtOUlsMkwvN2lRY01ERXFp?=
+ =?iso-2022-jp?B?S3htU1A2Sys4MTJXOW1zUHFTcllxajl5L3l3Z1RQWmo0QUZYWWVsSUc4?=
+ =?iso-2022-jp?B?cUcwNzZ5emxyVzZVWjJUQnBDNmQra2JzREI5aVZDNlJPcm1TV2ZIdlZp?=
+ =?iso-2022-jp?B?MklVQjVNOWdubFMyNFM1SEVTZTIvTjJDcncwQTZLQWhFRnRBRVB4Tjlw?=
+ =?iso-2022-jp?B?bVZJOVl5b3hNR3EwbUF6Y0VwSHFpL2wxWHFIV1RnMnk5SUdDMGE1R3FY?=
+ =?iso-2022-jp?B?TEI4SWlWNk10OFdkMGVNTlZ6cFJIa1RGR2lWa3VyMktIbDViRmZOZHN5?=
+ =?iso-2022-jp?B?cENJbmMvcyt1N0VvakJ2WllobUlKZmI5V3hKUHlaUUR2V0lpd1hpVmd2?=
+ =?iso-2022-jp?B?ZE01ZmtiRWF0Mjc5SThKVFQvRWFoTnNzVjhZR0MvYytBUUpJeTkxSE1q?=
+ =?iso-2022-jp?B?NS9TN3lmSUlJK1l1bGRhRkJWVlVGbmFGU0lBRGpyN1hpWmt2WTVDMVB6?=
+ =?iso-2022-jp?B?WHA4em1rV1o3MWNZaFlXMVdYNC85YWM4VTZGOEJzYmdrTjRndTlOeUlj?=
+ =?iso-2022-jp?B?ejJ5ckhCbFIxa0IxUUtZRHpISTEycHNZREhLZ3BRU1pZVWZIRlp3SitR?=
+ =?iso-2022-jp?B?NlRmRnpkMmc5cXZmK1NNcW5sSVErS2RubFZSdERZbzltdE9kQTdxbHM3?=
+ =?iso-2022-jp?B?M0pKRlVqZ2dRcWlaRDZrN0RWdTJCMnFwcXBTVEVGTnpjYmFHNVlqbzhC?=
+ =?iso-2022-jp?B?REdnL3gyT3VmcW5Sbm5yREpCT21nU0dxVzEwMVZlT1pNcm44aXRUSXFD?=
+ =?iso-2022-jp?B?NjllMEx0QlJPdURWRFoxb3hNZkF2TU96SlQ4ZUc0L1pIZWk0aVM2T016?=
+ =?iso-2022-jp?B?WGJONVdaaEh3SCtHN09ja3BScmpQbDlsRTNCR3JaNUkrQWpVNHdlZDlQ?=
+ =?iso-2022-jp?B?T2RqVFRsWU11U1djT2F6cWZzUGs2NHErdGRTdFNEejl5cVBVaU9wRmV1?=
+ =?iso-2022-jp?B?SEVQV3pWWi9aN2R2VzVaWjF2d1RBamxaOHdXcFpnT0JTN3Q5d1B1ZW5P?=
+ =?iso-2022-jp?B?cnBReVhHVllUbXA3ZzVPMDVKZjhMdXRtL3pSMkpwQzNNNFJFRFI0ZC9t?=
+ =?iso-2022-jp?B?N1JJV2pIYW1JZnc2MnV1azRZbjFoWGFkZjcyMk1qM0lEblEwZ3Vsd3l5?=
+ =?iso-2022-jp?B?R2Z5SlE0ZmloeFl1M3dSKzFpTWtQVmlSVXRSdkpVd3lqN3JzTUNxcmRS?=
+ =?iso-2022-jp?B?YXJMUlhDOTV4SlJxa1NMWTBxcjQvUHJrcGI5Z2RrZ3NOUTFlTnhLM0lM?=
+ =?iso-2022-jp?B?YmxsN0crYVFXRlFKVUM5eERyWXRJcVFnZTlSVjJHYzRoTVMwK0VabEg4?=
+ =?iso-2022-jp?B?YUp2ZWtVczBZeW5kVVk3Z2FWM3ppMUJ4WnhsOHVra2hIQ0lEaEl2SkRN?=
+ =?iso-2022-jp?B?QWdMZW5jcHlMcUFaa1N6K3cwR0tmZEFPZ1ovblBOeHdWclUvelV0NDFI?=
+ =?iso-2022-jp?B?UnJxcmJFbzVBeTY1TWx6NWJqV0VpazRWMD0=?=
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5284:EE_|IA1PR12MB6284:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5641d827-5120-4db3-561c-08dc67a5eb45
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|1800799015|376005;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RlZYOWtBeWtvbGl4cElYRklMSVJUWitRMHhjZzJEaVQra3V5UWJVM1o1eWRI?=
- =?utf-8?B?QWN4Q1RFaE42emJhdlRSL3FtSzNBNlBaKzhLblhGRUR6L0cwWnBDV1dSOFRv?=
- =?utf-8?B?ZHlnbHpOM0phek1ybUR2U0lNUGIzSGtTblV3aEVReTh1T3hlZTRCL1pNWVlq?=
- =?utf-8?B?MzdXSHBsZUpFRzBuSW1BUi9tKy95Mm1zUm03amhISWd2NFh6Qm1MMFB6UWw4?=
- =?utf-8?B?U3U0WDBscGQwRXVMc3RJallUSGJ6UXNGT1IxVGEvYUowclB5YjhzOERIWnZh?=
- =?utf-8?B?bWZ6TGVDRlR0aDlINVV6RDI2cVVWQ2d1d3M2S0ZLRTRCTDhLbHpMaEpiUHNl?=
- =?utf-8?B?d21FSnJiNEtyTEN1WTNITWxGYko0YlZYbm1KSVBZR3IvUXdiRk5vQmhGL3FM?=
- =?utf-8?B?YktKcEhDSmx6WUlIZFJ1YkljeUFaU080ZmcySzZmaFljM0QrV3R3VUlVU0Nh?=
- =?utf-8?B?WkpNY2NVcDdXeVVkVjhpc2dnLzZNaWptK0JUL1pxdk5EOVovdy9nTlpRUEc5?=
- =?utf-8?B?RldWLzk5MU5OVVFYK0ZudVlJQTEzYy9aMUVqV2w3UTMybzVOeWp3aTlsYlVk?=
- =?utf-8?B?V294aGUybEdQTk9PMzNGYzhjUncrYlhaMG9hZFljWWYyeWxRUy9ZNnEwVXBy?=
- =?utf-8?B?VUNUSmxyMWwwcTRIU1VJR1VTcmQ1OWFUem5ibnRGUGdtelZBOGpxR0YwMGNB?=
- =?utf-8?B?cVAvckQxQUdmdDJRWG9aTi96OWlOT0s4RENWQXdVZmlmN2wveWx6Wkg2bUhr?=
- =?utf-8?B?djFOT0VOTDA4MlM2K01NOVl1SmM5L1V0ZGhLZllvUDBLT0hldERvbmhEZFVo?=
- =?utf-8?B?Q1R1THFUa3NaSTZDOXh2c09LbUNkMXp3L2dvV0JRREQveGlqR1FjSHFhVE9V?=
- =?utf-8?B?ZG9BUlh5TWhkZEo3dDMyQkY5RkpxQXVkNmQ1a01NZHJ3K2pvOTFVdFFSTkhE?=
- =?utf-8?B?UHoyQ1p5VjZRQWY2VnhTUU9XZXJOZitLRU43S2E4REY5R2dUMVNkRzJtQm1i?=
- =?utf-8?B?SjdheitpdGJUaEpqeUtQckhNVytmb2FZeTR6QyszeDNGdW5ZdjZ5OWFQaG1T?=
- =?utf-8?B?dlR5Vkd5VDJBQ0V3eUlNS1B0dld4TjVMS29uQXBpbVVXQTdFRVVURWxyYlcz?=
- =?utf-8?B?Nkt0ZHdLVytrdDdLeXNXdjdRZXA2Kzk5TDVVMWNFK01IRXI5MU02TW91c0Z5?=
- =?utf-8?B?Y0FZV21tNjdsTzkrbFBBOUMzTnNkWXAzNG5Gb0poTUtGcUVsVXIxVWU2SHM5?=
- =?utf-8?B?NHVWRFJEdEFpb29yL1VvZFRmSDRBc0pCRWg5NjMzbDZCbU0xeWo4em1yTG5V?=
- =?utf-8?B?VDlXeGsyUUNWeHBQOFZ6dTlPcFZXd1pkc3gvb0oyOWlXVHFHMFVMTWZ4MmVZ?=
- =?utf-8?B?RkV0bjJZaUgxam5iTGFMVDEvTGF1TXo1MWRQU3dYblFPclIrZFZPQjVQRFl6?=
- =?utf-8?B?Y2oyTGdUUThwZnEyaitzemxBR0c1S2YwaVRVTFI5ZklEb2FXUUlmWG4ybCta?=
- =?utf-8?B?cnVsajZUR2RzYTJidmYyTzdiY0NEbjVKNC9XOVhWa3p0UUNELzFPenl2Q0tl?=
- =?utf-8?B?V0NTMlRXb2JWMGhYdjVxTTBFdXZBU1dQYVJ3dnFQeFRZNzM3L2VYV2h5T1hL?=
- =?utf-8?B?bllaLzZFd2Ewdi9xMzVBb1hHRUV6TUVYZnZLVVk1RHdxcUNpM1NEU0txUElL?=
- =?utf-8?B?Y0t3YS9aalpXRU9OYlpUNmtpMjhVdXZRV2Y0alVMYVVTNkZVRm83TzhRPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0VZcFpuem1GVFhreEZlQS9rbE9nS3ZrQ1dCZjJvYlNtbG5hemZ0dTJMSG1u?=
- =?utf-8?B?TG55MXBFaFFYbkF4U0wweGpZYkxxNHNrR002U1ZZS1RFeXVCYlNGZFNxeG5L?=
- =?utf-8?B?S2w4ZkV5aEdYYzdmOFI3VTYwN3FKL2tQOUxEUEhHYlZ3U0dFd2VmSS8yRG9u?=
- =?utf-8?B?OG1hVHdFK25LbDMvL1NQZWZDRjNuMDZMT3plVEluRXQ0YlBtM1F0MGw2Q2o2?=
- =?utf-8?B?YzdmNW1Nc0NpdXFkWFd6cEtvTzJvSU1obXA2Z2l5SnBJeFdCeWxRSmtGems0?=
- =?utf-8?B?VDlzbHEvdDBoaGZUMmtpaHBSYlJqY0dvU1RucHc0VVZ0U1ROMTI5ZTZaL2tn?=
- =?utf-8?B?V09TTXlHRTEweGNnVmc2NXN3MU9YN0lZQWxubWlkenFaMmRob1FTbVo3TFM2?=
- =?utf-8?B?T3NPamJqSkRNNnpMaFlsNDRsTzVELytQdG42aGxHcnlKd3FtdFBRRHU2bWlY?=
- =?utf-8?B?WVgxa0RucXlWSzdCYjFHSjByMXdEaXhDQ2RjUFVhRmhlQ3drYldxYWh1QVJ6?=
- =?utf-8?B?RENLZ2RlM2ZkTzZvU09iejQzTzFRem5KTmlRQUs4OU5nOHFYRjVJMXZXYnh4?=
- =?utf-8?B?YzRDQTNKa0JJdWZOdVA2K0UrOG4xb1JRQ1ZjbHMvdWlTNjBZekN5N2ozMDQr?=
- =?utf-8?B?TDBkdnZEYWQyRm9wTXNtOTRsYitOMEtGdXlpWFBFUVNFZ3MxL0Mya21ZRTZW?=
- =?utf-8?B?RzI1bEh0OFFTQ2hESEhaUVRKUGpTN3g1aG1wbDRJRTVUTzRBOHlVS205cDFx?=
- =?utf-8?B?M3ZxQlJTTGpsWDBxODl3OWJvUndjcTVaT0tuWTJjN0pWa3dFNUVtUWs4M0lC?=
- =?utf-8?B?ZWwyS3BEeFM0bG5yN0ViMEd0d2R6QURSSEdOOVNBbTAyNHJYN1llM2VKalJM?=
- =?utf-8?B?YXJIVjEwTFZwcFNjeUN3TmVxakFPSGYwUmttZTE4dXVGZ3FNclhDWTAzYm9J?=
- =?utf-8?B?eTdZd2t4QnN5Y1BYQ1NYVlNaTEhha3hmb0F2RlgwU3JFN3VmdzRBUmpIZVFh?=
- =?utf-8?B?ZFdBK1JrWXg3NVR2UWgvNHV6Rm00bU5NVTRqT0RHcVhwNXdqSGhOcWZFK3FI?=
- =?utf-8?B?WEwweXBja2t6UlpRTmE3V0pKTWFlQmwrd0Vza3hxeGpJa1pTN0tMSFhJMXht?=
- =?utf-8?B?SnhZOUhUZ1Yvb3FNSzFFOFRselc3YlRJT3c2N1JCeU00VlRneHdkeHNMU2Yy?=
- =?utf-8?B?SlRWQy9oMTVMdTNQVlkwUHlQMnhyV0pWbUk2cWJuNlZWWEFTbjJaTlJYZERP?=
- =?utf-8?B?OEtNQUR4cklObXdwVm5weEgwbmVWMUtGQkxFUkg3K1FQWEZWRkRsQ2Y2T0Fv?=
- =?utf-8?B?c1RnQ2FuWmxFUWtTekZvejk5ankxRkJVOVpMQUcwQlcvR0RWUHR0VERFMVMw?=
- =?utf-8?B?WVovMDZncFF5K2hka3drMForUmVzV01UUXduL0FDTDhYK0M1U2tiWU5UTWcw?=
- =?utf-8?B?WWdHNjY4bUU0ZEI5dFNzL3ZhMkQ4d0NhdkR5RGdPVGRWY1Bsa0Vadk1HenFB?=
- =?utf-8?B?YUh0dE5jYUpTeTF6T3YzRGFjbStLalZEMDdOY3ZqQW9SWkhyaGZlcFVhcUdJ?=
- =?utf-8?B?aWhxZ2tCaS81RHRjbEVSZkRzdFR5d1pEdUdnUFBiN1FZdDBHTUVlTkFqNnp6?=
- =?utf-8?B?ZjdPSm5Gd1Q5UnhqVFlIZDMxT2dMU3RuQ1duTHZ2QlEwbzNSakhYVitYaVR2?=
- =?utf-8?B?ank3TVlaODRzKzRQRThhdzRJbnlDR09qYVc4U0puTzIvekh3Nlh2dCtDdVVO?=
- =?utf-8?B?NEd0QmRnRFdNU0RySU1hWWkvSGZ2dlI2UEN6clpUYVpYOTEwaUtrVm9GTEZ6?=
- =?utf-8?B?QURiblZRK3g4WElqNUhQbXFyT2dpUDhWSnRqcU9sRy9tWlFuWXVvRjd1Qi94?=
- =?utf-8?B?UnlHeERUMUlhL09ZeHhyZjQ3NXhWTEsxQXBBZ2hCMEdkaEJ2a0h2RVFyY3g3?=
- =?utf-8?B?eW9UQkdaai9vK2t5RXFGTWxzQWhYTUFrL0Z2T2t0RExxUEZtZDN6b1Vla2k4?=
- =?utf-8?B?Z1NxR2dPOUZicW9sM3VMZjdSVWFYNE5BNURZdVF6WnpxRU9PMVNiWmZhQU1k?=
- =?utf-8?B?KzYybUQrd01rQnp6MlhNRVo0NVBsNm5OVk5kd3JBOGpZSXpiSllpMXQ4bDlY?=
- =?utf-8?Q?2AJsZ8/C4jCEANaNBr4BXIf07?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5641d827-5120-4db3-561c-08dc67a5eb45
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2024 17:09:09.5527 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rMomtCMT5Jz7VIwokdKAdCz2FTJ7p8fnpbc66UFvjUyozz6rZIWm2eZ2AmmnoGfs3igrEKsJjI1xbtWWMF7Q8Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6284
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5394.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 617eec7d-0d93-4abe-4101-08dc67eb5ddb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Apr 2024 01:26:16.9004 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8gzlScOFuLqaU/3bsEe8J9L+x5+3EYXOagzkCHRceK0PzIaVmW1qcyyTmAUgQGVY/73jSNZCVsVJp+jfww8U/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9402
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,183 +182,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Patch has been merged to amd-staging-drm-next.
+[Public]
 
-On 4/28/24 12:09 PM, Aurabindo Pillai wrote:
-> Thanks for the fix!
-> 
-> Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> 
-> On 4/28/24 8:42 AM, Dan Carpenter wrote:
->> Smatch complains because some lines are indented more than they should
->> be.  I went a bit crazy re-indenting this.  ;)
->>
->> The comments were not useful except as a marker of things which are left
->> to implement so I deleted most of them except for the TODO.
->>
->> I introduced a "data" pointer so that I could replace
->> "scl_data->dscl_prog_data." with just "data->" and shorten the lines a
->> bit.  It's more readable without the line breaks.
->>
->> I also tried to align it so you can see what is changing on each line.
->>
->> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
->> ---
->>   .../display/dc/dpp/dcn401/dcn401_dpp_dscl.c   | 93 ++++++-------------
->>   1 file changed, 30 insertions(+), 63 deletions(-)
->>
->> diff --git 
->> a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c 
->> b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
->> index c20376083441..696ccf96b847 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
->> +++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
->> @@ -779,75 +779,42 @@ static void dpp401_dscl_program_isharp(struct 
->> dpp *dpp_base,
->>           const struct scaler_data *scl_data)
->>   {
->>       struct dcn401_dpp *dpp = TO_DCN401_DPP(dpp_base);
->> +    const struct dscl_prog_data *data;
->>       if (memcmp(&dpp->scl_data, scl_data, sizeof(*scl_data)) == 0)
->>           return;
->>       PERF_TRACE();
->>       dpp->scl_data = *scl_data;
->> -    // ISHARP_EN
->> -    REG_SET(ISHARP_MODE, 0,
->> -        ISHARP_EN, scl_data->dscl_prog_data.isharp_en);
->> -        // ISHARP_NOISEDET_EN
->> -        REG_SET(ISHARP_MODE, 0,
->> -                ISHARP_NOISEDET_EN, 
->> scl_data->dscl_prog_data.isharp_noise_det.enable);
->> -        // ISHARP_NOISEDET_MODE
->> -        REG_SET(ISHARP_MODE, 0,
->> -                ISHARP_NOISEDET_MODE, 
->> scl_data->dscl_prog_data.isharp_noise_det.mode);
->> -        // ISHARP_NOISEDET_UTHRE
->> -        REG_SET(ISHARP_NOISEDET_THRESHOLD, 0,
->> -                ISHARP_NOISEDET_UTHRE, 
->> scl_data->dscl_prog_data.isharp_noise_det.uthreshold);
->> -        // ISHARP_NOISEDET_DTHRE
->> -        REG_SET(ISHARP_NOISEDET_THRESHOLD, 0,
->> -                ISHARP_NOISEDET_DTHRE, 
->> scl_data->dscl_prog_data.isharp_noise_det.dthreshold);
->> -        REG_SET(ISHARP_MODE, 0,
->> -                ISHARP_NOISEDET_MODE, 
->> scl_data->dscl_prog_data.isharp_noise_det.mode);
->> -        // ISHARP_NOISEDET_UTHRE
->> -        REG_SET(ISHARP_NOISEDET_THRESHOLD, 0,
->> -                ISHARP_NOISEDET_UTHRE, 
->> scl_data->dscl_prog_data.isharp_noise_det.uthreshold);
->> -        // ISHARP_NOISEDET_DTHRE
->> -        REG_SET(ISHARP_NOISEDET_THRESHOLD, 0,
->> -                ISHARP_NOISEDET_DTHRE, 
->> scl_data->dscl_prog_data.isharp_noise_det.dthreshold);
->> -        // ISHARP_NOISEDET_PWL_START_IN
->> -        REG_SET(ISHARP_NOISE_GAIN_PWL, 0,
->> -                ISHARP_NOISEDET_PWL_START_IN, 
->> scl_data->dscl_prog_data.isharp_noise_det.pwl_start_in);
->> -        // ISHARP_NOISEDET_PWL_END_IN
->> -        REG_SET(ISHARP_NOISE_GAIN_PWL, 0,
->> -                ISHARP_NOISEDET_PWL_END_IN, 
->> scl_data->dscl_prog_data.isharp_noise_det.pwl_end_in);
->> -        // ISHARP_NOISEDET_PWL_SLOPE
->> -        REG_SET(ISHARP_NOISE_GAIN_PWL, 0,
->> -                ISHARP_NOISEDET_PWL_SLOPE, 
->> scl_data->dscl_prog_data.isharp_noise_det.pwl_slope);
->> -        // ISHARP_LBA_MODE
->> -        REG_SET(ISHARP_MODE, 0,
->> -                ISHARP_LBA_MODE, 
->> scl_data->dscl_prog_data.isharp_lba.mode);
->> -        // TODO: ISHARP_LBA: IN_SEG, BASE_SEG, SLOPE_SEG
->> -        // ISHARP_FMT_MODE
->> -        REG_SET(ISHARP_MODE, 0,
->> -                ISHARP_FMT_MODE, 
->> scl_data->dscl_prog_data.isharp_fmt.mode);
->> -        // ISHARP_FMT_NORM
->> -        REG_SET(ISHARP_MODE, 0,
->> -                ISHARP_FMT_NORM, 
->> scl_data->dscl_prog_data.isharp_fmt.norm);
->> -        // ISHARP_DELTA_LUT
->> -        dpp401_dscl_set_isharp_filter(dpp, 
->> scl_data->dscl_prog_data.isharp_delta);
->> -        // ISHARP_NLDELTA_SCLIP_EN_P
->> -        REG_SET(ISHARP_NLDELTA_SOFT_CLIP, 0,
->> -                ISHARP_NLDELTA_SCLIP_EN_P, 
->> scl_data->dscl_prog_data.isharp_nldelta_sclip.enable_p);
->> -        // ISHARP_NLDELTA_SCLIP_PIVOT_P
->> -        REG_SET(ISHARP_NLDELTA_SOFT_CLIP, 0,
->> -                ISHARP_NLDELTA_SCLIP_PIVOT_P, 
->> scl_data->dscl_prog_data.isharp_nldelta_sclip.pivot_p);
->> -        // ISHARP_NLDELTA_SCLIP_SLOPE_P
->> -        REG_SET(ISHARP_NLDELTA_SOFT_CLIP, 0,
->> -                ISHARP_NLDELTA_SCLIP_SLOPE_P, 
->> scl_data->dscl_prog_data.isharp_nldelta_sclip.slope_p);
->> -        // ISHARP_NLDELTA_SCLIP_EN_N
->> -        REG_SET(ISHARP_NLDELTA_SOFT_CLIP, 0,
->> -                ISHARP_NLDELTA_SCLIP_EN_N, 
->> scl_data->dscl_prog_data.isharp_nldelta_sclip.enable_n);
->> -        // ISHARP_NLDELTA_SCLIP_PIVOT_N
->> -        REG_SET(ISHARP_NLDELTA_SOFT_CLIP, 0,
->> -                ISHARP_NLDELTA_SCLIP_PIVOT_N, 
->> scl_data->dscl_prog_data.isharp_nldelta_sclip.pivot_n);
->> -        // ISHARP_NLDELTA_SCLIP_SLOPE_N
->> -        REG_SET(ISHARP_NLDELTA_SOFT_CLIP, 0,
->> -                ISHARP_NLDELTA_SCLIP_SLOPE_N, 
->> scl_data->dscl_prog_data.isharp_nldelta_sclip.slope_n);
->> -        PERF_TRACE();
->> +    data = &scl_data->dscl_prog_data;
->> +
->> +    REG_SET(ISHARP_MODE, 0,    ISHARP_EN, data->isharp_en);
->> +
->> +    REG_SET(ISHARP_MODE, 0,                  ISHARP_NOISEDET_EN,    
->> data->isharp_noise_det.enable);
->> +    REG_SET(ISHARP_MODE, 0,               ISHARP_NOISEDET_MODE,  
->> data->isharp_noise_det.mode);
->> +    REG_SET(ISHARP_NOISEDET_THRESHOLD, 0, ISHARP_NOISEDET_UTHRE, 
->> data->isharp_noise_det.uthreshold);
->> +    REG_SET(ISHARP_NOISEDET_THRESHOLD, 0, ISHARP_NOISEDET_DTHRE, 
->> data->isharp_noise_det.dthreshold);
->> +    REG_SET(ISHARP_MODE, 0,               ISHARP_NOISEDET_MODE,  
->> data->isharp_noise_det.mode);
->> +    REG_SET(ISHARP_NOISEDET_THRESHOLD, 0, ISHARP_NOISEDET_UTHRE, 
->> data->isharp_noise_det.uthreshold);
->> +    REG_SET(ISHARP_NOISEDET_THRESHOLD, 0, ISHARP_NOISEDET_DTHRE, 
->> data->isharp_noise_det.dthreshold);
->> +    REG_SET(ISHARP_NOISE_GAIN_PWL, 0, ISHARP_NOISEDET_PWL_START_IN, 
->> data->isharp_noise_det.pwl_start_in);
->> +    REG_SET(ISHARP_NOISE_GAIN_PWL, 0, ISHARP_NOISEDET_PWL_END_IN, 
->> data->isharp_noise_det.pwl_end_in);
->> +    REG_SET(ISHARP_NOISE_GAIN_PWL, 0, ISHARP_NOISEDET_PWL_SLOPE, 
->> data->isharp_noise_det.pwl_slope);
->> +
->> +    REG_SET(ISHARP_MODE, 0, ISHARP_LBA_MODE, data->isharp_lba.mode);
->> +    // TODO: ISHARP_LBA: IN_SEG, BASE_SEG, SLOPE_SEG
->> +    REG_SET(ISHARP_MODE, 0, ISHARP_FMT_MODE, data->isharp_fmt.mode);
->> +    REG_SET(ISHARP_MODE, 0, ISHARP_FMT_NORM, data->isharp_fmt.norm);
->> +
->> +    dpp401_dscl_set_isharp_filter(dpp, data->isharp_delta);
->> +
->> +    REG_SET(ISHARP_NLDELTA_SOFT_CLIP, 0, 
->> ISHARP_NLDELTA_SCLIP_EN_P,    data->isharp_nldelta_sclip.enable_p);
->> +    REG_SET(ISHARP_NLDELTA_SOFT_CLIP, 0, 
->> ISHARP_NLDELTA_SCLIP_PIVOT_P, data->isharp_nldelta_sclip.pivot_p);
->> +    REG_SET(ISHARP_NLDELTA_SOFT_CLIP, 0, 
->> ISHARP_NLDELTA_SCLIP_SLOPE_P, data->isharp_nldelta_sclip.slope_p);
->> +    REG_SET(ISHARP_NLDELTA_SOFT_CLIP, 0, 
->> ISHARP_NLDELTA_SCLIP_EN_N,    data->isharp_nldelta_sclip.enable_n);
->> +    REG_SET(ISHARP_NLDELTA_SOFT_CLIP, 0, 
->> ISHARP_NLDELTA_SCLIP_PIVOT_N, data->isharp_nldelta_sclip.pivot_n);
->> +    REG_SET(ISHARP_NLDELTA_SOFT_CLIP, 0, 
->> ISHARP_NLDELTA_SCLIP_SLOPE_N, data->isharp_nldelta_sclip.slope_n);
->> +    PERF_TRACE();
->>   } // dpp401_dscl_program_isharp
->>   /**
->>    * dpp401_dscl_set_scaler_manual_scale - Manually program scaler and 
->> line buffer
-> 
+Reviewed-by: Bob Zhou <bob.zhou@amd.com>
 
--- 
+Regards,
+Bob
+
+-----Original Message-----
+From: Dan Carpenter <dan.carpenter@linaro.org>
+Sent: 2024=1B$BG/=1B(B4=1B$B7n=1B(B28=1B$BF|=1B(B 20:57
+To: Zhou, Bob <Bob.Zhou@amd.com>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David Airlie <airl=
+ied@gmail.com>; Daniel Vetter <daniel@ffwll.ch>; Kuehling, Felix <Felix.Kue=
+hling@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Guchun Chen <guchun=
+.chen@amd.com>; Ma, Le <Le.Ma@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; S=
+harma, Shashank <Shashank.Sharma@amd.com>; amd-gfx@lists.freedesktop.org; d=
+ri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; kernel-janito=
+rs@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Fix signedness bug in sdma_v4_0_process_trap_i=
+rq()
+
+The "instance" variable needs to be signed for the error handling to work.
+
+Fixes: b34ddc71267a ("drm/amdgpu: add error handle to avoid out-of-bounds")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/sdma_v4_0.c
+index 101038395c3b..772604feb6ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -2017,7 +2017,7 @@ static int sdma_v4_0_process_trap_irq(struct amdgpu_d=
+evice *adev,
+                                      struct amdgpu_irq_src *source,
+                                      struct amdgpu_iv_entry *entry)  {
+-       uint32_t instance;
++       int instance;
+
+        DRM_DEBUG("IH: SDMA trap\n");
+        instance =3D sdma_v4_0_irq_id_to_seq(entry->client_id);
 --
+2.43.0
 
-Thanks & Regards,
-Aurabindo Pillai
