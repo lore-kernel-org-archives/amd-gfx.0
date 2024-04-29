@@ -4,71 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C74F9C4345F
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 07:56:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0579C4345F
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 07:58:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70727112A06;
-	Mon, 29 Apr 2024 07:56:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34FB210E364;
+	Mon, 29 Apr 2024 07:58:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=yonsei.ac.kr header.i=@yonsei.ac.kr header.b="l/oo7zid";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="y9cxDhl9";
 	dkim-atps=neutral
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
- [209.85.219.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 071FF10F897
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 02:16:01 +0000 (UTC)
-Received: by mail-yb1-f171.google.com with SMTP id
- 3f1490d57ef6-dbed179f0faso3495926276.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 28 Apr 2024 19:16:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=yonsei.ac.kr; s=google; t=1714356960; x=1714961760;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=kLp6r6d5Hi7jf54GOtUmpkXuHCl9eAuCv1foGIMejNM=;
- b=l/oo7zidJx5tneVmttgkJmQr04OvwPui947oKQva725c9xPYgsFPI4b+Zv/t5SaRmi
- gdOnlP1r+7xD2FpFduKZBz//DGo6kM+EZX1v0dYs5TQRNWASxJHUwsfIWXjcsDJmhhdk
- 6CRh85YhdpTK6Wxmb+WzFO/K2cZWMc5V7Qg2bjfwFhBOyOFN7nmZ1jVjYQid3MHTf7II
- wNvBlJfrZl7t+9I80v6lbrJZp2FKFVcQnEqQJuxp4aZIJrW8Ox1nRHGA+Rrv+YZKP1GC
- +jmvkNqyDgN6CBkLPAuZWqScaupB6ixbvYGh5dJSvzy0PToSjQoWeliiy6bPbVZj/GCU
- CiCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714356960; x=1714961760;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=kLp6r6d5Hi7jf54GOtUmpkXuHCl9eAuCv1foGIMejNM=;
- b=aONRVsbzv3356x/x6CWdZYozViDcxb4J8P04eAwjy7Ws7dfswvuvSkSuo3WhUR+pv8
- 6tJKEbfP3mlPKefpIznVgY02NzP3mlH9tU4RuSjCOlYVQvNm9LXzWqcAXr2jRdAj84UP
- Briz1F5A7nF5hgPfup0t6TUhtS2IQH3mPRuk1gK1NaZ2wsk+yh2+uBB0uyuGge+EKB32
- Zzy6rL0Wzh/dqFL8i7M3ycYRds3+KOxeWF7kfQUPaxbkwXigdNf66nc5Czb21KcKasuT
- GYy+F6WL83KqpffednHK2RA/Dfi9xfQEQpDxepJyapTn94QAlb3x0QoNqb6HrYzh8M4i
- lEoA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWWRpM7KKxA0zIYmgfzMzN1KzPz9P6ydZGKB/m08A93zOaW3bkxpWR8oviCeZvKBPJ8g1Zn6IS72sI7ctIjqbsGaiI7tl8AQB0njOVLPg==
-X-Gm-Message-State: AOJu0Yxa3Sk7hcd2vTHBzjDrV65WgSD1AGJiA3sAJRxLE6lZttpVYQG4
- CGmrTBmwHknUlbX9A5XZu0+9OSND+B0xe42KVsZ+pAPgbakM/9zGKN7mDPCAhogEswx2yDV9nCV
- E61iUFaC/y3lMw7mAWRnoUzOKuXkTuhIqSeOyng==
-X-Google-Smtp-Source: AGHT+IGfyFzrOU70FEMWilR6nWX7wVVm8t75Cpbk+V4fxL/oY5AhI9IQV48qy/teUc0gAFAvt9HVrU6CCaQpV7GYihc=
-X-Received: by 2002:a05:6902:2805:b0:dc6:de93:7929 with SMTP id
- ed5-20020a056902280500b00dc6de937929mr4539582ybb.26.1714356960110; Sun, 28
- Apr 2024 19:16:00 -0700 (PDT)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2055.outbound.protection.outlook.com [40.107.94.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA78710EC3C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 07:58:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Km4plU2b0AYm58oTdT/DA5czoUNOAbib83RhBLYXI7Q6Itvc6cu7tGPffMbRcVm2uAlBLlyzvOkjp1wJ4C1wBEzRULzNFZdyxz6Hz4FMSyobwqlCWkqOACPArDe2wOu2x4L13qucKL/+EXx10ZGvSwu+7h51jFHc0a0zN3fcrllCM61Cz5ItlCLkExOoDek9j89l9Agy8LoAHv0EtRMy2p5kaYL19AlkMwmcpFAp455PqUrtMnWHSBDtCAOmRk7oI8iop7EHkDgqemtyj/dazL5DfmQgUMNJvjinOgnzjCO0b5MgYne09B7vmRJlsdScjWBCKUYwWvn5qnuyZKfhTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ecM5txjqSK6aD2Y0isomtt9CZFzGjyNpJ0yC+7hus5A=;
+ b=dl6d/xWsXEGWVNzy+oIfnijXPL2f4yzBQKTXZHymZZVj1DaMnqbkDkxEl4VN9EDxlXWhkioMeUfKaUUu7AWPW+xJrikASCt4KH9rxJ6nUhlhym3dIOB71w7zzp8IUnj0J7ZOX9/QyCna05NVFLFWFd6STIgGhGq3DkjtMBcRJLn/9RkjT6OyuiE2QGQ3PTJSlQ9BSNaBCb0rcS22mBKmu3/yELQjMoSO+JblnWxy0CU4gAgUWy600qNjgFD5ZUToGzaoXU2KO16q0PqdDU69TYRjDgw7DaAV6JXtHQGFkAfFdpGK9y5M+7ODEc/PBk/UEdYKrJ12asyUnq4qvU7KMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ecM5txjqSK6aD2Y0isomtt9CZFzGjyNpJ0yC+7hus5A=;
+ b=y9cxDhl9TmYM3yL32191I1hRG1ywspZWrdt2ZDdWRviKqf4es5uufhVD1fUEeV4lZscMpxJfrSqU5pjQIL4tzdmd2lAg1+fkIM41j4o4qlrZaXtxPLKAxLMo5ugsHuHVI8cDfkWx0mn2CO2QttfeEC2ybMJbU8Tw/xvkfgZ1FUc=
+Received: from BN8PR04CA0048.namprd04.prod.outlook.com (2603:10b6:408:d4::22)
+ by PH7PR12MB7988.namprd12.prod.outlook.com (2603:10b6:510:26a::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.35; Mon, 29 Apr
+ 2024 07:58:50 +0000
+Received: from BN1PEPF0000468C.namprd05.prod.outlook.com
+ (2603:10b6:408:d4:cafe::16) by BN8PR04CA0048.outlook.office365.com
+ (2603:10b6:408:d4::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.35 via Frontend
+ Transport; Mon, 29 Apr 2024 07:58:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF0000468C.mail.protection.outlook.com (10.167.243.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Mon, 29 Apr 2024 07:58:50 +0000
+Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 29 Apr
+ 2024 02:58:48 -0500
+From: Ma Jun <Jun.Ma2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Kenneth.Feng@amd.com>, <Alexander.Deucher@amd.com>,
+ <kevinyang.wang@amd.com>, <christian.koenig@amd.com>, Ma Jun
+ <Jun.Ma2@amd.com>
+Subject: [PATCH v2 1/2] drm/amdgpu/pm: Fix uninitialized variable
+ agc_btc_response
+Date: Mon, 29 Apr 2024 15:58:31 +0800
+Message-ID: <20240429075832.168593-1-Jun.Ma2@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <CAKc8oVUXUHUYQSDYDZ3XqpfwcmOwoxii5+SkyteXoZSPRwshfQ@mail.gmail.com>
- <CAKc8oVU8C-MRVa640603R2Gi7BRZ5P8ZN_uJoruDzR_A8xg71Q@mail.gmail.com>
- <f3cb1403-6822-44b2-95fe-ab5f50ca3736@amd.com>
- <CAKc8oVXw0YhLdBHZUcc73aFAeL-zioCpEsNZYW7c7y70DYds-w@mail.gmail.com>
-In-Reply-To: <CAKc8oVXw0YhLdBHZUcc73aFAeL-zioCpEsNZYW7c7y70DYds-w@mail.gmail.com>
-From: Joonkyo Jung <joonkyoj@yonsei.ac.kr>
-Date: Mon, 29 Apr 2024 11:15:49 +0900
-Message-ID: <CAKc8oVXPpfOfCnF+72c2Sr1joimMqXENxsFtKiRi==mb-Fg0HA@mail.gmail.com>
-Subject: Re: Reporting a slab-use-after-free in amdgpu
-To: vitaly prosyak <vprosyak@amd.com>
-Cc: Dokyung Song <dokyungs@yonsei.ac.kr>, Xinhui.Pan@amd.com,
- alexander.deucher@amd.com, 
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
- jisoo.jang@yonsei.ac.kr, "yw9865@gmail.com" <yw9865@gmail.com>
-Content-Type: multipart/alternative; boundary="000000000000a047e4061732d56a"
-X-Mailman-Approved-At: Mon, 29 Apr 2024 07:56:43 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468C:EE_|PH7PR12MB7988:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1bcce5d2-9c0a-4287-64d8-08dc682234ae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|1800799015|36860700004|82310400014|376005; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?7e7Bnhf14uWa1H7ptRK/6BHIVOLL/f9k59k9H3IQ89PPQYA/gVsF2IZMkysj?=
+ =?us-ascii?Q?8RRN7uBLwG1vLbLNqNl3YUyHCKCkH18X9VSQjgQDUSxJq6Pgok+GCu+8exsh?=
+ =?us-ascii?Q?cDuaQSNjq9NNIgw63pqwIzeT4KwbrqJsC3ujt5e4ljzwAIlTOT+naCSu8RFI?=
+ =?us-ascii?Q?iS2Htzr919Zn0GgOsP8SQ2+LJ96SqCsqM0RMP+qFj0I6VXUPXWHBR6yNUq14?=
+ =?us-ascii?Q?1ImI9Sgar7YNedCXRcYpLD7UxBwVWWH3mmmRy47oMY4QTpdSNAM66lYAhkqG?=
+ =?us-ascii?Q?+XNCga3Ssvilvhb0CXQA7feszAR63irFgItNZD2K33nAsepgplr25qexAVJw?=
+ =?us-ascii?Q?hdOY+PaYfVuSG7jx3vq8ugWR10Afxh6WlYkGqDP/6eYiJAboS7p1IYClzAW8?=
+ =?us-ascii?Q?s012up2RRd0WA0wELA5YCl+yrHWJEiE3ZNXGCZ5znjurMxHCVTOK1I0a1tCJ?=
+ =?us-ascii?Q?j5WQ3RKThofqfz0aeVU+bzXsvgBiIWeC+WNc+nuBGV0JyDWCGrijq9QJf5Xl?=
+ =?us-ascii?Q?A1PFVb2ySpKPxrv4UNbMqtlOK4QvQjou7NMv4CuPeZbCbso/INWgLKdVp51T?=
+ =?us-ascii?Q?sdD+2S3J64GOFnP8tEYNE8TD9rQupUAH6iyxxAkEdB8giCVR5b5iPYKApBrw?=
+ =?us-ascii?Q?5UQseJi+KolRyO9lo+HhO0zwHipruv22UliMZVwz7LVQM1nia5sxO+scDvaH?=
+ =?us-ascii?Q?BJTC5RXzEljJ7QmCU33eWjt/f4Wv2EGZwGM02NlT+IbZNk/4aghE37xpMvMO?=
+ =?us-ascii?Q?r12RuDOQviykKXKKe3kpdQlNcSR2QaBDBT40PYuEluxSqPGyvmDG4PTpmIM0?=
+ =?us-ascii?Q?OZyAWc2aNB4775T1iuALZGqdrFwm1gLoMKZbFWYBWVe4EPrmYjv44slZocSZ?=
+ =?us-ascii?Q?8chAa6dLJ3vCz4eUL/kWB0VjnLBv/9w5QyJt90N2PhTSFiQZH4oPqo57wJ83?=
+ =?us-ascii?Q?w6wKJUcfp7LdUpjBJ4ZxX+aC7w2wYeXDP99AR5kStmKE6zEuvGjNPI+cO9yP?=
+ =?us-ascii?Q?MqfWKhj0+ikCGVpGghzv71rrzLd2SeMWoHvtfeaukSI5Lcl3gWKTFjirDYgY?=
+ =?us-ascii?Q?p/AGDGAtO879xpMQwiCOsj0/956RYo93pdDI6Erbi658X33c4fx/IptbY0cQ?=
+ =?us-ascii?Q?1qYcwUDK19thGqvrtkTYlp2w1gWXXHiB00HxOwVee/78DON1zcaJ9gysB6bH?=
+ =?us-ascii?Q?ysxUT+/teiPmHHUCBmcuz5G8z1d5/BeoX5jhhWSUSLI5jGxbFcE7u359Gr/w?=
+ =?us-ascii?Q?jqKYGHpVzpIYHgKxAzXsiug7eYlyB6iG+Yn97bq2TNb2hu5whvxhgy8b8Ra1?=
+ =?us-ascii?Q?4M5iGE8pq/JBSDcIwBO7G9wuSXag1DqfV0luOqx0JoF46B3E8j+ZiLS1rpaU?=
+ =?us-ascii?Q?PgZYDuQ=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(1800799015)(36860700004)(82310400014)(376005); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2024 07:58:50.1320 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1bcce5d2-9c0a-4287-64d8-08dc682234ae
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468C.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7988
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,443 +131,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000a047e4061732d56a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Assign an default value to agc_btc_response in failed case
 
-Hi,
+Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+---
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Thank you for patching two of the bugs we have reported!
-I was just wondering if there's any news on the one other bug we have
-reported:
-BUG: KASAN: slab-use-after-free in amdgpu_bo_move+0x1479/0x1550.
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+index b602059436a8..744232ba4af9 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+@@ -2350,15 +2350,20 @@ static int vega10_acg_enable(struct pp_hwmgr *hwmgr)
+ {
+ 	struct vega10_hwmgr *data = hwmgr->backend;
+ 	uint32_t agc_btc_response;
++	int ret;
+ 
+ 	if (data->smu_features[GNLD_ACG].supported) {
+ 		if (0 == vega10_enable_smc_features(hwmgr, true,
+ 					data->smu_features[GNLD_DPM_PREFETCHER].smu_feature_bitmap))
+ 			data->smu_features[GNLD_DPM_PREFETCHER].enabled = true;
+ 
+-		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_InitializeAcg, NULL);
++		ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_InitializeAcg, NULL);
++		if (ret)
++			return ret;
+ 
+-		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_RunAcgBtc, &agc_btc_response);
++		ret = smum_send_msg_to_smc(hwmgr, PPSMC_MSG_RunAcgBtc, &agc_btc_response);
++		if (ret)
++			agc_btc_response = 0;
+ 
+ 		if (1 == agc_btc_response) {
+ 			if (1 == data->acg_loop_state)
+-- 
+2.34.1
 
-I see that there is a gitlab issue(
-https://gitlab.freedesktop.org/drm/amd/-/issues/3171) created for this bug,
-and there also is a patch(
-https://lists.freedesktop.org/archives/amd-gfx/2024-March/105680.html) that
-Christian made for this.
-Though, it seems that the issue is not resolved yet, and the patch is not
-yet pushed to mainstream branches.
-So I was wondering, do you have any plans for pushing this patch? If so,
-would it be possible for us to get a Reported-by tag on the patch?
-
-Best,
-Joonkyo
-
-On Fri, Mar 8, 2024 at 4:32=E2=80=AFPM Joonkyo Jung <joonkyoj@yonsei.ac.kr>=
- wrote:
-
-> Hi Vitaly,
->
-> No worries, thank you for working on the patches!
->
-> I have also confirmed that with the inflight patch, issue No.1
-> (use-after-free) seems to be resolved.
-> However, I have reproduced issue No.3 (slab-use-after-free) even with the
-> patch for issue No.1 applied - if it's the first program tested after
-> reboot.
-> (i.e., if any other bugs are tested before the slab-use-after-free, it
-> does not reproduce).
->
-> Could you check if the bug reproduces in this condition for you too?
-> I will check and see why this is happening and update you if I have
-> something new.
->
-> Thank you!
->
-> Best,
-> Joonkyo
->
->
->
-> On Fri, Mar 8, 2024 at 12:45=E2=80=AFPM vitaly prosyak <vprosyak@amd.com>=
- wrote:
->
->> Hi Joonkyo,
->> Sorry for the delay.
->> Yes, sure, I reproduced issue 2 (null-ptr-deref in amdgpu) and I will
->> provide the fix soon.
->> However, issue No. 3 is no longer reproducible if the recent patch
->> inflight is applied which fixes issue No 1.
->>
->> Do you see the same behavior?
->>
->> Thanks in advance, Vitaly
->> On 2024-03-07 20:18, Joonkyo Jung wrote:
->>
->> Hello,
->> thank you for patching the first bug we have sent!
->>
->> Just a quick touch base with you, to ask if there has been any update on
->> our other two bugs.
->> They were each sent with emails titled
->> "Reporting a slab-use-after-free in amdgpu" (this one)
->> "Reporting a null-ptr-deref in amdgpu".
->>
->> Thank you!
->>
->> Best,
->> Joonkyo
->>
->>
->> 2024=EB=85=84 2=EC=9B=94 16=EC=9D=BC (=EA=B8=88) =EC=98=A4=ED=9B=84 6:22=
-, Joonkyo Jung <joonkyoj@yonsei.ac.kr>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1=
-:
->>
->>> Hello,
->>>
->>> We would like to report a slab-use-after-free bug in the AMDGPU DRM
->>> driver in the linux kernel v6.8-rc4 that we found with our customized
->>> Syzkaller.
->>> The bug can be triggered by sending two ioctls to the AMDGPU DRM driver
->>> in succession.
->>>
->>> In amdgpu_bo_move, struct ttm_resource *old_mem =3D bo->resource is
->>> assigned.
->>> As you can see on the alloc & free stack calls, on the same function
->>> amdgpu_bo_move,
->>> amdgpu_move_blit in the end frees bo->resource at
->>> ttm_bo_move_accel_cleanup with ttm_bo_wait_free_node(bo, man->use_tt).
->>> But amdgpu_bo_move continues after that, reaching
->>> trace_amdgpu_bo_move(abo, new_mem->mem_type, old_mem->mem_type) at the =
-end,
->>> causing the use-after-free bug.
->>>
->>> Steps to reproduce are as below.
->>> union drm_amdgpu_gem_create *arg1;
->>>
->>> arg1 =3D malloc(sizeof(union drm_amdgpu_gem_create));
->>> arg1->in.bo_size =3D 0x8;
->>> arg1->in.alignment =3D 0x0;
->>> arg1->in.domains =3D 0x4;
->>> arg1->in.domain_flags =3D 0x9;
->>> ioctl(fd, 0xc0206440, arg1);
->>>
->>> arg1->in.bo_size =3D 0x7fffffff;
->>> arg1->in.alignment =3D 0x0;
->>> arg1->in.domains =3D 0x4;
->>> arg1->in.domain_flags =3D 0x9;
->>> ioctl(fd, 0xc0206440, arg1);
->>>
->>> The KASAN report is as follows:
->>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->>> BUG: KASAN: slab-use-after-free in amdgpu_bo_move+0x1479/0x1550
->>> Read of size 4 at addr ffff88800f5bee80 by task syz-executor/219
->>> Call Trace:
->>>  <TASK>
->>>  amdgpu_bo_move+0x1479/0x1550
->>>  ttm_bo_handle_move_mem+0x4d0/0x700
->>>  ttm_mem_evict_first+0x945/0x1230
->>>  ttm_bo_mem_space+0x6c7/0x940
->>>  ttm_bo_validate+0x286/0x650
->>>  ttm_bo_init_reserved+0x34c/0x490
->>>  amdgpu_bo_create+0x94b/0x1610
->>>  amdgpu_bo_create_user+0xa3/0x130
->>>  amdgpu_gem_create_ioctl+0x4bc/0xc10
->>>  drm_ioctl_kernel+0x300/0x410
->>>  drm_ioctl+0x648/0xb30
->>>  amdgpu_drm_ioctl+0xc8/0x160
->>>  </TASK>
->>>
->>> Allocated by task 219:
->>>  kmalloc_trace+0x211/0x390
->>>  amdgpu_vram_mgr_new+0x1d6/0xbe0
->>>  ttm_resource_alloc+0xfd/0x1e0
->>>  ttm_bo_mem_space+0x255/0x940
->>>  ttm_bo_validate+0x286/0x650
->>>  ttm_bo_init_reserved+0x34c/0x490
->>>  amdgpu_bo_create+0x94b/0x1610
->>>  amdgpu_bo_create_user+0xa3/0x130
->>>  amdgpu_gem_create_ioctl+0x4bc/0xc10
->>>  drm_ioctl_kernel+0x300/0x410
->>>  drm_ioctl+0x648/0xb30
->>>  amdgpu_drm_ioctl+0xc8/0x160
->>>
->>> Freed by task 219:
->>>  kfree+0x111/0x2d0
->>>  ttm_resource_free+0x17e/0x1e0
->>>  ttm_bo_move_accel_cleanup+0x77e/0x9b0
->>>  amdgpu_move_blit+0x3db/0x670
->>>  amdgpu_bo_move+0xfa2/0x1550
->>>  ttm_bo_handle_move_mem+0x4d0/0x700
->>>  ttm_mem_evict_first+0x945/0x1230
->>>  ttm_bo_mem_space+0x6c7/0x940
->>>  ttm_bo_validate+0x286/0x650
->>>  ttm_bo_init_reserved+0x34c/0x490
->>>  amdgpu_bo_create+0x94b/0x1610
->>>  amdgpu_bo_create_user+0xa3/0x130
->>>  amdgpu_gem_create_ioctl+0x4bc/0xc10
->>>  drm_ioctl_kernel+0x300/0x410
->>>  drm_ioctl+0x648/0xb30
->>>  amdgpu_drm_ioctl+0xc8/0x160
->>>
->>> The buggy address belongs to the object at ffff88800f5bee70
->>>  which belongs to the cache kmalloc-96 of size 96
->>> The buggy address is located 16 bytes inside of
->>>  freed 96-byte region [ffff88800f5bee70, ffff88800f5beed0)
->>>
->>> Should you need any more information, please do not hesitate to contact
->>> us.
->>>
->>> Best regards,
->>> Joonkyo Jung
->>>
->>
-
---000000000000a047e4061732d56a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi,<br><br>Thank you for patching two of the bugs we have =
-reported!<br>I was just wondering if there&#39;s any news on the one other =
-bug we have reported:<br>BUG: KASAN: slab-use-after-free in amdgpu_bo_move+=
-0x1479/0x1550.<br><br>I see that there is a gitlab issue(<a href=3D"https:/=
-/gitlab.freedesktop.org/drm/amd/-/issues/3171">https://gitlab.freedesktop.o=
-rg/drm/amd/-/issues/3171</a>) created for this bug,<br>and there also is a =
-patch(<a href=3D"https://lists.freedesktop.org/archives/amd-gfx/2024-March/=
-105680.html">https://lists.freedesktop.org/archives/amd-gfx/2024-March/1056=
-80.html</a>) that Christian made for this.<br>Though, it seems that the iss=
-ue is not resolved yet, and the patch is not yet pushed to mainstream branc=
-hes.<br>So I was wondering, do you have any plans for pushing this patch? I=
-f so, would it be possible for us to get a Reported-by tag on the patch?<br=
-><br>Best,<br>Joonkyo<br></div><br><div class=3D"gmail_quote"><div dir=3D"l=
-tr" class=3D"gmail_attr">On Fri, Mar 8, 2024 at 4:32=E2=80=AFPM Joonkyo Jun=
-g &lt;<a href=3D"mailto:joonkyoj@yonsei.ac.kr">joonkyoj@yonsei.ac.kr</a>&gt=
-; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div><d=
-iv dir=3D"ltr">Hi Vitaly,<br><br>No worries, thank you for working on the p=
-atches!<br><br>I have also confirmed that with the inflight patch, issue No=
-.1 (use-after-free) seems to be resolved.<br>However, I have reproduced iss=
-ue No.3 (slab-use-after-free) even with the patch for issue No.1 applied - =
-if it&#39;s the first program tested after reboot.<br>(i.e., if any other b=
-ugs are tested before the slab-use-after-free, it does not reproduce).<br><=
-br>Could you check if the bug reproduces in this condition for you too?<br>=
-I will check and see why this is happening and update you if I have somethi=
-ng new.<br><br>Thank you!<br><br>Best,<br>Joonkyo</div></div><div><div dir=
-=3D"ltr"><br><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"g=
-mail_attr">On Fri, Mar 8, 2024 at 12:45=E2=80=AFPM vitaly prosyak &lt;<a hr=
-ef=3D"mailto:vprosyak@amd.com" target=3D"_blank">vprosyak@amd.com</a>&gt; w=
-rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
-x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><u></u>
-
- =20
-  <div>
-    <p>Hi Joonkyo,<br>
-      Sorry for the delay. <br>
-      Yes, sure, I reproduced issue 2 (null-ptr-deref in amdgpu) and I
-      will provide the fix soon.<br>
-      However, issue No. 3 is no longer reproducible if the recent patch
-      inflight is applied which fixes issue No 1.</p>
-    <p>Do you see the same behavior?<br>
-    </p>
-    <p>Thanks in advance, Vitaly<br>
-    </p>
-    <div>On 2024-03-07 20:18, Joonkyo Jung
-      wrote:<br>
-    </div>
-    <blockquote type=3D"cite">
-     =20
-      <div>
-        <div>
-          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
-e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
-xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
-decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
-r:rgb(0,0,0)">Hello,=C2=A0</div>
-          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
-e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
-xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
-decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
-r:rgb(0,0,0)">thank
-            you for patching the first bug we have sent!</div>
-          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
-e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
-xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
-decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
-r:rgb(0,0,0)"><br>
-          </div>
-          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
-e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
-xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
-decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
-r:rgb(0,0,0)">Just
-            a quick touch base with you, to ask if there has been any
-            update on our other two bugs.</div>
-          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
-e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
-xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
-decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
-r:rgb(0,0,0)">They
-            were each sent with emails titled=C2=A0</div>
-          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
-e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
-xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
-decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
-r:rgb(0,0,0)">&quot;Reporting
-            a slab-use-after-free in amdgpu&quot; (this one)</div>
-          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
-e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
-xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
-decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
-r:rgb(0,0,0)">&quot;Reporting
-            a null-ptr-deref in amdgpu&quot;.=C2=A0</div>
-          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
-e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
-xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
-decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
-r:rgb(0,0,0)"><br>
-          </div>
-          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
-e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
-xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
-decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
-r:rgb(0,0,0)">Thank
-            you!=C2=A0</div>
-          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
-e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
-xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
-decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
-r:rgb(0,0,0)"><br>
-          </div>
-          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
-e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
-xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
-decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
-r:rgb(0,0,0)">Best,=C2=A0</div>
-          <div dir=3D"auto" style=3D"font-family:-apple-system,helveticaneu=
-e;font-size:15px;font-style:normal;font-weight:400;letter-spacing:normal;te=
-xt-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;text-=
-decoration:none;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0);colo=
-r:rgb(0,0,0)">Joonkyo</div>
-        </div>
-        <br>
-      </div>
-      <div><br>
-        <div class=3D"gmail_quote">
-          <div dir=3D"ltr" class=3D"gmail_attr">2024=EB=85=84 2=EC=9B=94 16=
-=EC=9D=BC (=EA=B8=88) =EC=98=A4=ED=9B=84 6:22,
-            Joonkyo Jung &lt;<a href=3D"mailto:joonkyoj@yonsei.ac.kr" targe=
-t=3D"_blank">joonkyoj@yonsei.ac.kr</a>&gt;=EB=8B=98=EC=9D=B4
-            =EC=9E=91=EC=84=B1:<br>
-          </div>
-          <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
-ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-            <div dir=3D"ltr">Hello,<br>
-              <br>
-              We would like to report a slab-use-after-free bug in the
-              AMDGPU DRM driver in the linux kernel v6.8-rc4 that we
-              found with our customized Syzkaller.<br>
-              The bug can be triggered by sending two ioctls to the
-              AMDGPU DRM driver in succession.<br>
-              <br>
-              In amdgpu_bo_move, struct ttm_resource *old_mem =3D
-              bo-&gt;resource is assigned.<br>
-              As you can see on the alloc &amp; free stack calls, on the
-              same function amdgpu_bo_move,<br>
-              amdgpu_move_blit in the end frees bo-&gt;resource at
-              ttm_bo_move_accel_cleanup with ttm_bo_wait_free_node(bo,
-              man-&gt;use_tt).<br>
-              But amdgpu_bo_move continues after that, reaching
-              trace_amdgpu_bo_move(abo, new_mem-&gt;mem_type,
-              old_mem-&gt;mem_type) at the end, causing the
-              use-after-free bug.<br>
-              <br>
-              Steps to reproduce are as below.<br>
-              union drm_amdgpu_gem_create *arg1;<br>
-              <br>
-              arg1 =3D malloc(sizeof(union drm_amdgpu_gem_create));<br>
-              arg1-&gt;in.bo_size =3D 0x8;<br>
-              arg1-&gt;in.alignment =3D 0x0;<br>
-              arg1-&gt;in.domains =3D 0x4;<br>
-              arg1-&gt;in.domain_flags =3D 0x9;<br>
-              ioctl(fd, 0xc0206440, arg1);<br>
-              <br>
-              arg1-&gt;in.bo_size =3D 0x7fffffff;<br>
-              arg1-&gt;in.alignment =3D 0x0;<br>
-              arg1-&gt;in.domains =3D 0x4;<br>
-              arg1-&gt;in.domain_flags =3D 0x9;<br>
-              ioctl(fd, 0xc0206440, arg1);<br>
-              <br>
-              The KASAN report is as follows:<br>
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
-              BUG: KASAN: slab-use-after-free in
-              amdgpu_bo_move+0x1479/0x1550<br>
-              Read of size 4 at addr ffff88800f5bee80 by task
-              syz-executor/219<br>
-              Call Trace:<br>
-              =C2=A0&lt;TASK&gt;<br>
-              =C2=A0amdgpu_bo_move+0x1479/0x1550<br>
-              =C2=A0ttm_bo_handle_move_mem+0x4d0/0x700<br>
-              =C2=A0ttm_mem_evict_first+0x945/0x1230<br>
-              =C2=A0ttm_bo_mem_space+0x6c7/0x940<br>
-              =C2=A0ttm_bo_validate+0x286/0x650<br>
-              =C2=A0ttm_bo_init_reserved+0x34c/0x490<br>
-              =C2=A0amdgpu_bo_create+0x94b/0x1610<br>
-              =C2=A0amdgpu_bo_create_user+0xa3/0x130<br>
-              =C2=A0amdgpu_gem_create_ioctl+0x4bc/0xc10<br>
-              =C2=A0drm_ioctl_kernel+0x300/0x410<br>
-              =C2=A0drm_ioctl+0x648/0xb30<br>
-              =C2=A0amdgpu_drm_ioctl+0xc8/0x160<br>
-              =C2=A0&lt;/TASK&gt;<br>
-              <br>
-              Allocated by task 219:<br>
-              =C2=A0kmalloc_trace+0x211/0x390<br>
-              =C2=A0amdgpu_vram_mgr_new+0x1d6/0xbe0<br>
-              =C2=A0ttm_resource_alloc+0xfd/0x1e0<br>
-              =C2=A0ttm_bo_mem_space+0x255/0x940<br>
-              =C2=A0ttm_bo_validate+0x286/0x650<br>
-              =C2=A0ttm_bo_init_reserved+0x34c/0x490<br>
-              =C2=A0amdgpu_bo_create+0x94b/0x1610<br>
-              =C2=A0amdgpu_bo_create_user+0xa3/0x130<br>
-              =C2=A0amdgpu_gem_create_ioctl+0x4bc/0xc10<br>
-              =C2=A0drm_ioctl_kernel+0x300/0x410<br>
-              =C2=A0drm_ioctl+0x648/0xb30<br>
-              =C2=A0amdgpu_drm_ioctl+0xc8/0x160<br>
-              <br>
-              Freed by task 219:<br>
-              =C2=A0kfree+0x111/0x2d0<br>
-              =C2=A0ttm_resource_free+0x17e/0x1e0<br>
-              =C2=A0ttm_bo_move_accel_cleanup+0x77e/0x9b0<br>
-              =C2=A0amdgpu_move_blit+0x3db/0x670<br>
-              =C2=A0amdgpu_bo_move+0xfa2/0x1550<br>
-              =C2=A0ttm_bo_handle_move_mem+0x4d0/0x700<br>
-              =C2=A0ttm_mem_evict_first+0x945/0x1230<br>
-              =C2=A0ttm_bo_mem_space+0x6c7/0x940<br>
-              =C2=A0ttm_bo_validate+0x286/0x650<br>
-              =C2=A0ttm_bo_init_reserved+0x34c/0x490<br>
-              =C2=A0amdgpu_bo_create+0x94b/0x1610<br>
-              =C2=A0amdgpu_bo_create_user+0xa3/0x130<br>
-              =C2=A0amdgpu_gem_create_ioctl+0x4bc/0xc10<br>
-              =C2=A0drm_ioctl_kernel+0x300/0x410<br>
-              =C2=A0drm_ioctl+0x648/0xb30<br>
-              =C2=A0amdgpu_drm_ioctl+0xc8/0x160<br>
-              <br>
-              The buggy address belongs to the object at
-              ffff88800f5bee70<br>
-              =C2=A0which belongs to the cache kmalloc-96 of size 96<br>
-              The buggy address is located 16 bytes inside of<br>
-              =C2=A0freed 96-byte region [ffff88800f5bee70, ffff88800f5beed=
-0)<br>
-              <br>
-              Should you need any more information, please do not
-              hesitate to contact us.<br>
-              <br>
-              Best regards,<br>
-              Joonkyo Jung<br>
-            </div>
-          </blockquote>
-        </div>
-      </div>
-    </blockquote>
-  </div>
-
-</blockquote></div></div>
-</div>
-</blockquote></div>
-
---000000000000a047e4061732d56a--
