@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC9CC25B5C
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 07:27:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E445C4345F
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 07:27:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99BAD10F5D1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BF1410F5C2;
 	Tue, 30 Apr 2024 07:27:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hLeEBPjc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T5T+KFmi";
 	dkim-atps=neutral
-Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
- [209.85.166.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 169F310E514;
- Mon, 29 Apr 2024 19:39:34 +0000 (UTC)
-Received: by mail-io1-f51.google.com with SMTP id
- ca18e2360f4ac-7da09662332so160424339f.0; 
- Mon, 29 Apr 2024 12:39:34 -0700 (PDT)
+Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
+ [209.85.166.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5693910FF69;
+ Mon, 29 Apr 2024 19:32:14 +0000 (UTC)
+Received: by mail-io1-f50.google.com with SMTP id
+ ca18e2360f4ac-7d5e93b40feso222609739f.2; 
+ Mon, 29 Apr 2024 12:32:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714419573; x=1715024373; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1714419133; x=1715023933; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=RXI+MXWRKKGIldf/Embfy128LRyyxhcJagthHMuW3ts=;
- b=hLeEBPjcoyCX05xdi9mqHM3Q9YWLDWpzICx09gne3Ikzrn4UCjnjrjG/tpgum6rH91
- lVC8e4CWOgUmzd0hguGAExVigetFTqim8MRVg9yOuZnj0zDclp6wcgtb5jrBFmuCibMT
- zbtnJ2b2J2XBOkEZHhUqSekUobuBHUWahix1m9IW7iWsBeFqUFyUcidW5ph9PyK36qsI
- NG/7jCn4Bb1oiaZTSj/zVu+ovtSp0MUUS8Ek9moIwGIzX0xXmwBRCB3U2JU+Wl2KCz0P
- uYRHYVTBnvC9cIgasNS5U5FKb4GFWWBudLoAHMzRdLTCTKlViUeLrmbfN6IeWoIQ5DoU
- TRhg==
+ bh=ldBVxIs3YWVEtrUSZaATkHa5+P4x6yD8OeAnS3nVM/g=;
+ b=T5T+KFmiOeKjCA1SPuxrJJr8HtGRe3S4jJl0C8S14e2oYnT271byGaKHr7dl9sYb4P
+ MH3FcpfxnivGFIXNsdP1yuLDw/pAt+goncBHPyW7i3gg94ltLS5Y1IQjlhWMdVWpuHx+
+ avP8XmH6TqgMqVS2mynMg1NVDJlB9pLSDgYCn2+FCNni874nuFi4KjPfioh14F4vAKpJ
+ T8FqeP9A8XWg+nQSUwJYx7EBtOBddv//IEeVfIqwZUBGjkfpy2uqRMe05tPuNefBew7W
+ T74NSWuXVNJUnxSF08DjnnikEcz4QpnVw3HB4mxl46y9xhhNxzQPmDH2w9DAMNYLRm54
+ E1/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714419573; x=1715024373;
+ d=1e100.net; s=20230601; t=1714419133; x=1715023933;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=RXI+MXWRKKGIldf/Embfy128LRyyxhcJagthHMuW3ts=;
- b=NTE5WT29xebakZAHpmgUDDme+nufnwgYGD4xIwjT6ObMv2NizHInZKH/D40K5GAdQ4
- 3ATg8PFukpsQ65UU1M/YfYfrOuN2IAJnh8ErttILFONTDT0eWXTSqaxmAGcMTUsF0I0N
- 10fx62aWqUsC61oyR6ZYeWKDzWFTOEsLyhBA7SWUDxHzjqp5boS+m+e9YeeOY6iIjMGq
- KX19Xvl4tPSFaMxAFMElU8EeuvN3GivTHeDKuCRrZ/tRScdisLkVP6rn8RJa/p49tvNc
- IDMW8U7iYoY2+M3ykTAMFaiAoI7T0jIxixG73WfD9LsMTOiIkzinDzYpxGxnSQHaHZIr
- 605Q==
+ bh=ldBVxIs3YWVEtrUSZaATkHa5+P4x6yD8OeAnS3nVM/g=;
+ b=LHy5wUpriqmolUxbldSTC3rP9IvGErk5B53nhnH/HoqEALsB0f1f7cjlU5zW48u9Qq
+ CZqzsFHtwZiR/IikEAkyTmgK35ziUPNe6tD2Jba9Ed4z1KiuqN2XMpPzR5gNbxx/GO+/
+ gJgLOcaB4/ccASHPncJC8KZsom1G66HHCwwY7LWTZzuXjAlfRwMVJZlenGx7MYLUU8Cd
+ gwgWXgWCTwRMmEtAZQHNyg1Gy8hTdrx5wxUeRNeEXFQ5TzrogChPnkC8iPL0OzF0BbAS
+ FLx6gtRIJLBf8VcXnAmFzpOPpDoWM2Rt5Eeg3stJKWKd2Wp2itXJmzI+5qW1jyTJ6Gjs
+ Pmnw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUCpAZNNPP6cm9IHWf4Jq1H9gbOEtavaX3OmJbBo25yFul8VU/h6HLJzS9fHvWPd11Sobcsa2KWC+HpKIvP81y/23RLQRg8fUOMF3ugLePWBitUN6AFjVYYOLQ/Eea0OCe4VlK+FfkAwlNYVPS5sF9uSaqP5aaTAv1kobbeGT58ADNnoIzeYvsz4kEJQAFe4kthwSFHxhQuCi+dRwVo0QlTX33toXP2/ZeN2A1NWYRYc/Z3/eg=
-X-Gm-Message-State: AOJu0Ywz00BpiKRRJbZT6P7ab8zHo40d9jm7PWuB0aqsChXyA1oGNz9b
- pbHEmv18BuliWwZlDvzqQXpzk87hRbV3gxiik7sp8O3oXhOcDxR8fpp9Mck6
-X-Google-Smtp-Source: AGHT+IGWpfjvznK6WhTujjscD4YN6L0AQxbNzmm1AE5SspjD0rno7TIevntaxjo8L0b9AeQnuOA3fw==
-X-Received: by 2002:a6b:db05:0:b0:7da:1a22:e832 with SMTP id
- t5-20020a6bdb05000000b007da1a22e832mr584954ioc.0.1714419573239; 
- Mon, 29 Apr 2024 12:39:33 -0700 (PDT)
+ AJvYcCX4yFMG8DatHxCGHuXxlzJCohhQKfwcHV9VE6Lp13ShHEwAd2RR9w2JwdK9E0q+Ia0MgZ85QPvAkNVv4cEBSRfDYGRrnbZ3PfKF5cgBYvlb5iBSDXRiAcfRvhbRAGyby1Rvy7J+aEXHOs9U0g1mir3VYJFbhS+anhqi/mx9zSRm56BPraYco7sLY+5hJ2z7OX2ONHutzCmFhjIOLKiBCe4c3GmK6NAi97sV5EhDhZE8P0Z4JrQ=
+X-Gm-Message-State: AOJu0YznFokIoNC8T4jLTXjU3ahteDsb4XA/FKy6/uT03OXrpr2aZ2bV
+ WBeB5JrB8zSO6dPlIS35kMyVopN9lxsQsSz0YsjKETIKJHDkaeQF8U3N9tk9
+X-Google-Smtp-Source: AGHT+IGHW0PLwjFCn9/rpWdn4NiBooWfUd2DZN1lnB0NLUJaPWaAn9sXEpa4tjxTrKvayL0PZexs5w==
+X-Received: by 2002:a5e:c74b:0:b0:7de:c608:15aa with SMTP id
+ g11-20020a5ec74b000000b007dec60815aamr6340037iop.11.1714419133409; 
+ Mon, 29 Apr 2024 12:32:13 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- y16-20020a056602165000b007de9f92dc57sm2325105iow.16.2024.04.29.12.39.32
+ dq18-20020a0566021b9200b007d5ec9b77aesm5988402iob.51.2024.04.29.12.32.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Apr 2024 12:39:32 -0700 (PDT)
+ Mon, 29 Apr 2024 12:32:12 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
@@ -66,12 +66,12 @@ Cc: ukaszb@chromium.org, linux-doc@vger.kernel.org, daniel.vetter@ffwll.ch,
  ville.syrjala@linux.intel.com, seanpaul@chromium.org, robdclark@gmail.com,
  groeck@google.com, yanivt@google.com, bleung@google.com,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v8 25/35] docs/dyndbg: explain new delimiters: comma, percent
-Date: Mon, 29 Apr 2024 13:39:11 -0600
-Message-ID: <20240429193921.66648-6-jim.cromie@gmail.com>
+Subject: [PATCH v8 02/35] docs/dyndbg: update examples \012 to \n
+Date: Mon, 29 Apr 2024 13:31:12 -0600
+Message-ID: <20240429193145.66543-3-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240429193921.66648-1-jim.cromie@gmail.com>
-References: <20240429193921.66648-1-jim.cromie@gmail.com>
+In-Reply-To: <20240429193145.66543-1-jim.cromie@gmail.com>
+References: <20240429193145.66543-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 30 Apr 2024 07:26:58 +0000
@@ -89,70 +89,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add mention of comma and percent delimiters into the respective
-paragraphs describing their equivalents: space and newline.
+commit 47ea6f99d06e ("dyndbg: use ESCAPE_SPACE for cat control")
+
+changed the control-file to display format strings with "\n" rather
+than "\012".  Update the docs to match the new reality.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../admin-guide/dynamic-debug-howto.rst        | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ Documentation/admin-guide/dynamic-debug-howto.rst | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 742eb4230c6e..7b570f29ae98 100644
+index 0e9b48daf690..6a8ce5a34382 100644
 --- a/Documentation/admin-guide/dynamic-debug-howto.rst
 +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -73,16 +73,18 @@ Command Language Reference
- ==========================
+@@ -52,12 +52,12 @@ query/commands to the control file.  Example::
+   # grease the interface
+   :#> alias ddcmd='echo $* > /proc/dynamic_debug/control'
  
- At the basic lexical level, a command is a sequence of words separated
--by spaces or tabs.  So these are all equivalent::
-+by spaces, tabs, or commas.  So these are all equivalent::
+-  :#> ddcmd '-p; module main func run* +p'
++  :#> ddcmd '-p; module main func run* +p'	# disable all, then enable main
+   :#> grep =p /proc/dynamic_debug/control
+-  init/main.c:1424 [main]run_init_process =p "  with arguments:\012"
+-  init/main.c:1426 [main]run_init_process =p "    %s\012"
+-  init/main.c:1427 [main]run_init_process =p "  with environment:\012"
+-  init/main.c:1429 [main]run_init_process =p "    %s\012"
++  init/main.c:1424 [main]run_init_process =p "  with arguments:\n"
++  init/main.c:1426 [main]run_init_process =p "    %s\n"
++  init/main.c:1427 [main]run_init_process =p "  with environment:\n"
++  init/main.c:1429 [main]run_init_process =p "    %s\n"
  
-   :#> ddcmd file svcsock.c line 1603 +p
-   :#> ddcmd "file svcsock.c line 1603 +p"
-   :#> ddcmd '  file   svcsock.c     line  1603 +p  '
-+  :#> ddcmd file,svcsock.c,line,1603,+p
- 
--Command submissions are bounded by a write() system call.
--Multiple commands can be written together, separated by ``;`` or ``\n``::
-+Command submissions are bounded by a write() system call.  Multiple
-+commands can be written together, separated by ``%``, ``;`` or ``\n``::
- 
--  :#> ddcmd "func pnpacpi_get_resources +p; func pnp_assign_mem +p"
-+  :#> ddcmd func foo +p % func bar +p
-+  :#> ddcmd func foo +p \; func bar +p
-   :#> ddcmd <<"EOC"
-   func pnpacpi_get_resources +p
-   func pnp_assign_mem +p
-@@ -104,7 +106,6 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
- the flags-spec, all constraints are ANDed together.  An absent keyword
- is the same as keyword "*".
- 
--
- A match specification is a keyword, which selects the attribute of
- the callsite to be compared, and a value to compare against.  Possible
- keywords are:::
-@@ -128,7 +129,6 @@ keywords are:::
-   ``line-range`` cannot contain space, e.g.
-   "1-30" is valid range but "1 - 30" is not.
- 
--
- The meanings of each keyword are:
- 
- func
-@@ -153,9 +153,11 @@ module
-     The given string is compared against the module name
-     of each callsite.  The module name is the string as
-     seen in ``lsmod``, i.e. without the directory or the ``.ko``
--    suffix and with ``-`` changed to ``_``.  Examples::
-+    suffix and with ``-`` changed to ``_``.
-+
-+    Examples::
- 
--	module sunrpc
-+	module,sunrpc	# with ',' as token separator
- 	module nfsd
- 	module drm*	# both drm, drm_kms_helper
+ Error messages go to console/syslog::
  
 -- 
 2.44.0
