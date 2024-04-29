@@ -4,124 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88B76C4345F
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 07:14:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 823EBC10F16
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 07:26:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02D5710E36B;
-	Tue, 30 Apr 2024 07:14:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9AC210EDC4;
+	Tue, 30 Apr 2024 07:26:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="G3CWZ4dS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lDRmLKf+";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2056.outbound.protection.outlook.com [40.107.95.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7039410E4CB
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Apr 2024 07:14:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TNjV1W1aQ6s1kBWKnTFTW10TE5V2PBa5N97C+nPKUPh70ck3BLOG/ifmSZOq+7XrUZoyn7pi6PwwgubGpFbPmKDWfuMRZXqPiI5AVDWPmysE7hyxwgYyuGxxq45eTFjwaHVydk15v0o55bkdbiBL6Yyt3K+7IyIXwMVnNlNYtl7qd2nGgCyNXECriUm8PcIg0kqRnOwSVwUNaEssZOdUtJBgs05olUtV05EWyRLp3bG3YlPA7OAojXQAKt79p4SXdXu7pzdQIEAnLG+UOrwPEeuy1OF0suB5ffXDU9L3FkA0ttRtjgIwsrN5+yy4+S4XhTVZmVDWQHUq26sOG96LSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=90ghHPLUToHOfblLHqW437P4vBBbIuDGJOxgoXpKJAU=;
- b=OhNy9XpZM/JhPzijJmFQYyexVEF57ZDKUsQ80uroFCH90tf8FZOM7nIfk7zrPZCy9v/qR6hqZvk0yXggO/h8Io5YFuLgddHEcrEEScbWS9UEShbjTFmfvD383wUcDC9AzQtBFq8fZlwJCGm+31Kky8aVqIIHrTOfwgcnif+QbD5y5IOAR5N6R5uB0DnlvL2hRWDApJ1QVe9lGKW/UBLZAdW2Owiel9P/sPPPykGyAz+jWhmffH/BAJSo9d9XrkHEjlFuOCNlCOSmPdEOZoM7c2mDSvI7zur68zAiJ6eWNa+4z6Ts/04c4LT7ooaRpV9lQE8j//yGjVXdygTfp4EAsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=90ghHPLUToHOfblLHqW437P4vBBbIuDGJOxgoXpKJAU=;
- b=G3CWZ4dSYfo4XgmsxzZx+0N8EZzOHuqKF2OnAKEC3DRz6U/bz7Oyh36CCtBbg4/l+5eLEnAANHdD++bkL3UrfTSNLRoChsnDTYRxgGdEk80vMjNUKQMKPSOxcxeduN9BSL06T+5k0PPcpXJDk+D96oydFnEM8TGKU7ARA2Qrz0M=
-Received: from BLAPR03CA0044.namprd03.prod.outlook.com (2603:10b6:208:32d::19)
- by DM4PR12MB8572.namprd12.prod.outlook.com (2603:10b6:8:17d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Tue, 30 Apr
- 2024 07:14:20 +0000
-Received: from BL6PEPF0001AB51.namprd04.prod.outlook.com
- (2603:10b6:208:32d:cafe::db) by BLAPR03CA0044.outlook.office365.com
- (2603:10b6:208:32d::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.36 via Frontend
- Transport; Tue, 30 Apr 2024 07:14:20 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF0001AB51.mail.protection.outlook.com (10.167.242.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Tue, 30 Apr 2024 07:14:20 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 30 Apr
- 2024 02:14:19 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 30 Apr
- 2024 02:14:19 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Tue, 30 Apr 2024 02:14:12 -0500
-From: Jesse Zhang <jesse.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- <Tim.Huang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>, Jesse Zhang
- <Jesse.Zhang@amd.com>
-Subject: [PATCH] drm/amd/pm: fix the uninitialized scalar variable warning
-Date: Tue, 30 Apr 2024 15:14:11 +0800
-Message-ID: <20240430071411.2107891-1-jesse.zhang@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5A8010F73B;
+ Mon, 29 Apr 2024 19:32:11 +0000 (UTC)
+Received: by mail-io1-f45.google.com with SMTP id
+ ca18e2360f4ac-7d5db134badso207090339f.2; 
+ Mon, 29 Apr 2024 12:32:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1714419130; x=1715023930; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZzMxJAut5dj2VdAARKqPUi6DX7jEz7aU/bg8TV3BH48=;
+ b=lDRmLKf+q+P9WHPA3TEvYiwL5eJBKwDA4x+9VG5Cg2PfOTTvlu1U4zuJ7Goc5Rrll7
+ nRHvACmSpsSa7YtGuq/K7SScGPaf/qyjnkOKKVCoa1iVVLIbqvN/3tNWZQiFD0GPHNyX
+ bEojpJwmZZcISbLxAFsluzkKB0798Awnc+/2iiXskM/djgB0hK54c8W/VcK1aVAi7Acy
+ fsKzR1Zi9zAFCn8A17TPv/q/p3CO2uaGkd8E4UWOA5YcP0aB4wo+YKhVYM8yEGtovj3O
+ UHkJDVl7jcz7RMS3F0iO0V0MP3vMSrHvIxVJEpt0kb/OQGqdF08OqhHgiB8I9JPk600Y
+ nmqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1714419130; x=1715023930;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ZzMxJAut5dj2VdAARKqPUi6DX7jEz7aU/bg8TV3BH48=;
+ b=B61UJ2xNuqGNdnMXikAdhdqxebLqQVe3vqfyFIxlJgDUVLnLUQAdXaHT4JVuXdQb+P
+ 8lRCFgPJHQJsSvhskX7PFpukyRi0Bx/OAQKp0dQ7UYmTsaolm+lY3JafrZVG4Nsen0m6
+ LsYgyzEFoD5M+FrCHJuMkd93+iw4Ncl2NWGue/S3WKpFTzXzN8akBPHF0XvXKke3kAE/
+ BL4SN1G0XSZNwNjGIzGMer2g9iG9JKLELgrfxGZAxUioOaJaOXCiQdsk3wiIKhmVID8f
+ Tf+XFktENdkfLCx5bYcm+qkajkDgSj9kEoRuuRSL0mXYMX2TB631P5COKsoi6sM565fN
+ rjAA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVIZ53BeG5TFri/plQ+pKs3TDmRSe5UEHnSekzBsYoRy6lWRdp1wOy908Ewn/Uia3v9GczBx0DbCp+r8UdjWdUDSPT1+mN+AV7aLukkJHGx5bY6UMLvX0KidmOpbHVKMk5hgrzyHhJKrgn2h027PWVQYSfKI/YpWyAwf6VzEtZQcj7tOQkqFmmNjSX7QLHYuN5j1N8wkwIsqiUGTFWVIEIBL365wUEC4NMyV7igzUAYb9JyG2c=
+X-Gm-Message-State: AOJu0YzsCkLe8oPey+5B9GfBKlOurP5GOt6o/uF8eFpXhtloBcUBZK+y
+ B/AOkPhNb97eiOhFKthogMYsl2wfReQxgHaW7gEbV66FKqUWfEv/
+X-Google-Smtp-Source: AGHT+IGQcTkMFHPjk9cu5vLC9d15qdgPDPoZRUVpWOoYC+yd7hOg+y06SblaznfVhbsTAeU45rGtwQ==
+X-Received: by 2002:a5d:8d16:0:b0:7da:1896:9e7b with SMTP id
+ p22-20020a5d8d16000000b007da18969e7bmr11887101ioj.20.1714419130428; 
+ Mon, 29 Apr 2024 12:32:10 -0700 (PDT)
+Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
+ by smtp.googlemail.com with ESMTPSA id
+ dq18-20020a0566021b9200b007d5ec9b77aesm5988402iob.51.2024.04.29.12.32.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Apr 2024 12:32:09 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: ukaszb@chromium.org, linux-doc@vger.kernel.org, daniel.vetter@ffwll.ch,
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, seanpaul@chromium.org, robdclark@gmail.com,
+ groeck@google.com, yanivt@google.com, bleung@google.com,
+ Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v8 00/35] fix CONFIG_DRM_USE_DYNAMIC_DEBUG=y regression
+Date: Mon, 29 Apr 2024 13:31:10 -0600
+Message-ID: <20240429193145.66543-1-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: jesse.zhang@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB51:EE_|DM4PR12MB8572:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12dbd420-7d52-487b-db6e-08dc68e527a1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230031|36860700004|82310400014|1800799015|376005; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?yaQ/A7Yo+Ny1pSgf9/R1/QL9U50Fc+HXvAqHcv3LweMkhzxh+q5btbxa7o/W?=
- =?us-ascii?Q?e+YX+BzJ00ahlYdmRNitbS3CtuMpq/Oq5dFASfC/H49hzXSpBtsVVxiRWVrB?=
- =?us-ascii?Q?9Sbf3o01cuq2La2zcBVUjiTpBDxgbQZ6D4o3inro3dH7TRxnW+Y6+JVb38Na?=
- =?us-ascii?Q?Ca8r2G3EGMCTKvtBK6fnwsqG/eePI6ks78pVIAMi5yPQlcKeJJLDXAhL+V5i?=
- =?us-ascii?Q?+sJgUDM8EIIBA3MfpFBDiq+6FAqy/vmUhlx0aVdRuyAs6p6m2IapzrliZ1yo?=
- =?us-ascii?Q?BeR9BTyLwNIdJvPSlbrFKr8IqO9TIMCuHjaUgZAsjSEbqQ1OJ5MBcUZsJm58?=
- =?us-ascii?Q?zIxdS3aWLfdOgpdJqzE7vHnaozIX9HVgvVu6OFHpvk/j/I5iQkVZTNMYjozv?=
- =?us-ascii?Q?/mT/Qwz7SzjtO9qC4cWKG+UoU8g7WfQwWs/iOzbkG2vrgPza2oVdaHrcuG6U?=
- =?us-ascii?Q?bKHbIHop+uUsllR6TxqMwsxbGgNU4I0k0isL7aMUc1683w0M4+nKYJA6l/hO?=
- =?us-ascii?Q?uP4+kK7+R+Huc6De/cCRYHRXKJotaxGPrvZqr8K8Y259oOEGzNZX1BvXKEke?=
- =?us-ascii?Q?3NhNtoA9JRIOV771nGT3xnFmBotgoxpB4/M0l3sWZav8C7TxcIB0jMFj74cL?=
- =?us-ascii?Q?xsbM3o6zCfIBVPd6TZGaYEwcRueZ6Stcs59HUKHvtBr5DwD0OEY9dcgkXXFe?=
- =?us-ascii?Q?SaAduPnH8z1chYd+1+IFQ0O383/jQyItqWaHkzdbg5ZEji6j4nzm75gj8VKM?=
- =?us-ascii?Q?dybQrn3/Ri20Rd+bKoRcbsRNQSd8j2MuZDskR52tqlt4gRmqvaqCoMk1jeDY?=
- =?us-ascii?Q?alpqaRMtargU29gjcqMNbAhJeWsxZvU1Qno4xCNbbZn/F3aWsBmMuvPJSgzP?=
- =?us-ascii?Q?M+XuM36N9rONhP8TzmKmVXX7IuniTQY23Z+oCersC8Ac31i3Ad3E2gf5/uRG?=
- =?us-ascii?Q?yKmI5/aNsptaMUfPJ/SI2yYek3uemC2d0ojdG6M+93t8zOd1NLtNV2zyi0DB?=
- =?us-ascii?Q?FttomT52vA751XWpTnVua0XkM8BT4buDFhY+H/fgCYqM41JHN4bDvoYpjeAN?=
- =?us-ascii?Q?z9h8DAjWjgcrzjmljKcTxJocLts+tLuZ0SGLF6kTTNK+4noncBp+ViRJZna2?=
- =?us-ascii?Q?v7NQSDwS7tiRI22qodLbKxbYRMQ403b8x/vjXoe6bzLrWu0tcHq5usixDCKM?=
- =?us-ascii?Q?jrh6OLJ0GLLPUrvCJrirZKpbBg3COdYFRRx1NiILQy3bWRKvdZrVDh9S0Q22?=
- =?us-ascii?Q?DTDotlmykzAXvLaMtH4mkbnR4n582/FTzwX49IboLGNY91v+ZvwWAYITlzg1?=
- =?us-ascii?Q?/EzAAjdb9aZ74dNg2lzBtWc5fZ/l1z6GvhYFVPv/n/Ao20kFdN13o2wIhwbh?=
- =?us-ascii?Q?uT+3qRIOccY/99WL4NVoix8PAUvL?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(82310400014)(1800799015)(376005); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2024 07:14:20.1173 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12dbd420-7d52-487b-db6e-08dc68e527a1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB51.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8572
+X-Mailman-Approved-At: Tue, 30 Apr 2024 07:26:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,76 +87,257 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix warning for using uninitialized values
-sclk_mask, mclk_mask and soc_mask.
-v2:Set default variable to UMD PSTATE(Tim Huang)
+hi Greg, Jason, DRM-folk,
 
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   | 32 ++++++++++++++++---
- 1 file changed, 27 insertions(+), 5 deletions(-)
+This patchset fixes the CONFIG_DRM_USE_DYNAMIC_DEBUG=y regression,
+Fixes: bb2ff6c27bc9 ("drm: Disable dynamic debug as broken")
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index 8908bbb3ff1f..36a49cfc22e4 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -835,10 +835,20 @@ static int renoir_force_clk_levels(struct smu_context *smu,
- 		ret = renoir_get_dpm_clk_limited(smu, clk_type, soft_max_level, &max_freq);
- 		if (ret)
- 			return ret;
--		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMaxSocclkByFreq, max_freq, NULL);
-+		 /* =  0: min_freq
-+		  * =  1: UMD_PSTATE_CLK
-+		  * >= 2: max_freq
-+		  */
-+		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMaxSocclkByFreq,
-+							soft_max_level == 0 ? min_freq :
-+							soft_max_level == 1 ? RENOIR_UMD_PSTATE_SOCCLK : max_freq,
-+							NULL);
- 		if (ret)
- 			return ret;
--		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetHardMinSocclkByFreq, min_freq, NULL);
-+		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetHardMinSocclkByFreq,
-+							soft_min_level == 0 ? min_freq :
-+							soft_min_level == 1 ? RENOIR_UMD_PSTATE_SOCCLK : max_freq,
-+							NULL);
- 		if (ret)
- 			return ret;
- 		break;
-@@ -850,10 +860,21 @@ static int renoir_force_clk_levels(struct smu_context *smu,
- 		ret = renoir_get_dpm_clk_limited(smu, clk_type, soft_max_level, &max_freq);
- 		if (ret)
- 			return ret;
--		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMaxFclkByFreq, max_freq, NULL);
-+		/* mclk levels are in reverse order
-+		 * =  0: max_freq
-+		 * =  1: UMD_PSTATE_CLK
-+		 * >= 2: min_freq
-+		 */
-+		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMaxFclkByFreq,
-+							soft_max_level >= 2 ? min_freq :
-+							soft_max_level == 1 ? RENOIR_UMD_PSTATE_FCLK : max_freq,
-+							NULL);
- 		if (ret)
- 			return ret;
--		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetHardMinFclkByFreq, min_freq, NULL);
-+		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetHardMinFclkByFreq,
-+							soft_min_level >= 2  ? min_freq :
-+							soft_min_level == 1 ? RENOIR_UMD_PSTATE_SOCCLK : max_freq,
-+							NULL);
- 		if (ret)
- 			return ret;
- 		break;
-@@ -932,7 +953,8 @@ static int renoir_set_performance_level(struct smu_context *smu,
- 					enum amd_dpm_forced_level level)
- {
- 	int ret = 0;
--	uint32_t sclk_mask, mclk_mask, soc_mask;
-+	/* default mask is UMD PSTATE CLK */
-+	uint32_t sclk_mask = 1, mclk_mask = 1, soc_mask = 1;
+this is v8.
+Its also here:
+https://github.com/jimc/linux/tree/dd-classmap-fix-8a
+
+v7 had at least 2 problems:
+
+ https://lore.kernel.org/lkml/20231101002609.3533731-1-jim.cromie@gmail.com/
+ https://patchwork.freedesktop.org/series/125066/
+
+1. missing __align(8) in METATDATA macro, giving too much placement
+freedom to linker, caused weird segvs following non-ptr vals, but for
+builtin modules only. found by lkp-test.
+
+2. the main patch changed both the dyndbg API, and the drm/drivers.
+This was a flag-day annoyance, and not practical.  Fix by preserving
+old API macro until "later", and splitting the patch and set into 2
+sequential subsets.  removal can wait.
  
- 	switch (level) {
- 	case AMD_DPM_FORCED_LEVEL_HIGH:
+What was broken ?
+
+Booting a modular kernel with drm.debug=0x1ff, this enabled pr_debugs
+only in drm itself, not the yet-to-be loaded driver + helpers.  I had
+tested with scripts doing lots of modprobes with dyndbg=<> options
+permuting.  I didn't notice that I didn't really test without them.
+
+The deeper cause was my design error, a violation of the K&R rule:
+"define once, refer many times".
+
+DECLARE_DYNDBG_CLASSMAP defined the classmap, and was used everywhere,
+re-declaring the same static classmap repeatedly. Jani Nikula actually
+picked up on this at the time, but didn't scream loudly enough for
+anyone to notice, I know I didn't get it then.  One patchset across 2
+trees didn't help either.
+
+The revised classmap API "splits" it to def & ref.
+
+DYNDBG_CLASSMAP_DEFINE fixes & updates the busted macro, EXPORTing the
+classmap instead.  It gets invoked once per subsystem, by the
+parent/builtin, drm.ko for DRM.
+
+DYNDBG_CLASSMAP_USE in drivers and helpers refer to the classmap by
+name, which links the 2 modules (like __drm_debug already does).
+
+These 2 tell dyndbg to map "class FOO" to the defined FOO_ID, which
+allows it to make those changes via >control.
+
+DYNDBG_CLASSMAP_PARAM*, defines the controlling kparam, and binds it
+to both the _var, and the _DEFINEd classmap.  So drm uses this to bind
+the classmap to __drm_debug.
+
+It provides the common control-point for the sub-system; it is applied
+to the classmaps during modprobe of both _DEFINEr and USErs.  It also
+enforces the relative nature of LEVEL classmaps, ie V3>V2.
+
+DECLARE_DYNDBG_CLASSMAP is preserved to decouple the DRM patches.
+
+A new struct and elf section contain the _USEs; on modprobe, these are
+scanned similarly to the _DEFINEs, but follow the references to their
+defining modules, find the kparam wired to the classmap, and apply its
+classmap settings to the USEr.  This action is what V1 missed, which
+is why drivers failed to enable debug during modprobe.
+
+In order to recapitulate the regression scenario without involving
+DRM, the patchset (v6 I think) adds test_dynamic_debug_submod, which
+is a duplicate of its parent; _submod.c #defines _SUBMOD, and then
+includes parent.
+
+This puts _DEFINE and _USE close together in the same file, for
+obviousness.  It also guarantees that the submod always has the same
+complement of debug()s, giving consistent output from both when
+classmaps are working properly, as tested when changing callsites via
+both param and >control.
+
+To provide a turn-key selftest, the patchset also adds
+./tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh, pilfered
+from a debug-to-trace patchset I and Lukasz Bartozik have been working
+out.  It starts with basic_tests, then to test 2 new parsing
+delimiters, which simplify testing of the classmap functionality.
+
+It works nicely from virtme-ng:
+
+[jimc@frodo vx]$ vrun_ -- ./tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+doing: vng --verbose --name v6.9-rc5-34-g2f1ace6e1c68 \
+       --user root --cwd ../.. \
+       -a dynamic_debug.verbose=2 -p 4 \
+       -- ./tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+virtme: waiting for virtiofsd to start
+...
+[    3.546739] ip (260) used greatest stack depth: 12368 bytes left
+[    3.609288] virtme-init: starting script
+test_dynamic_debug_submod not there
+test_dynamic_debug not there
+# BASIC_TESTS 
+...
+# Done on: Fri Apr 26 20:45:08 MDT 2024
+[    4.765751] virtme-init: script returned {0}
+Powering off.
+[    4.805790] ACPI: PM: Preparing to enter system sleep state S5
+[    4.806223] kvm: exiting hardware virtualization
+[    4.806564] reboot: Power down
+[jimc@frodo vx]$ 
+
+
+I've been running the kernel on my x86 desktop & laptop, booting with
+drm.debug=0x1f, then turning it all-off after sleep 15.
+
+a few highlights from a bare-metal boot:
+
+here modprobe amdgpu; dyndbg applies last bit/class/category, and finishes init,
+then drm and amdgpu start logging as they execute
+...
+[    9.019696] gandalf kernel: dyndbg: query 0: "class DRM_UT_ATOMIC +p" mod:amdgpu
+[    9.019704] gandalf kernel: dyndbg: class-ref: amdgpu.DRM_UT_ATOMIC  module:amdgpu nd:4754 nc:0 nu:1
+[    9.020012] gandalf kernel: dyndbg: processed 1 queries, with 21 matches, 0 errs
+[    9.020017] gandalf kernel: dyndbg: bit_4: 21 matches on class: DRM_UT_ATOMIC -> 0x1f
+[    9.020021] gandalf kernel: dyndbg: applied bitmap: 0x1f to: 0x0 for amdgpu
+[    9.020026] gandalf kernel: dyndbg: attach-client-module:  module:amdgpu nd:4754 nc:0 nu:1
+[    9.020031] gandalf kernel: dyndbg: 4754 debug prints in module amdgpu
+[    9.055065] gandalf kernel: [drm] amdgpu kernel modesetting enabled.
+[    9.055138] gandalf kernel: [drm:amdgpu_acpi_detect [amdgpu]] No matching acpi device found for AMD3000
+[    9.055564] gandalf kernel: amdgpu: Virtual CRAT table created for CPU
+[    9.055585] gandalf kernel: amdgpu: Topology: Add CPU node
+[    9.055752] gandalf kernel: amdgpu 0000:0c:00.0: enabling device (0006 -> 0007)
+[    9.055821] gandalf kernel: [drm] initializing kernel modesetting (NAVI10 0x1002:0x731F 0x148C:0x2398 0xC1).
+[    9.055835] gandalf kernel: [drm] register mmio base: 0xFCB00000
+[    9.055839] gandalf kernel: [drm] register mmio size: 524288
+[    9.059148] gandalf kernel: [drm:amdgpu_discovery_set_ip_blocks [amdgpu]] number of dies: 1
+[    9.059387] gandalf kernel: [drm:amdgpu_discovery_set_ip_blocks [amdgpu]] number of hardware IPs on die0: 39
+[    9.059623] gandalf kernel: [drm:amdgpu_discovery_set_ip_blocks [amdgpu]] ATHUB(35) #0 v2.0.0:
+[    9.059856] gandalf kernel: [drm:amdgpu_discovery_set_ip_blocks [amdgpu]]         0x00000c00
+[    9.060096] gandalf kernel: [drm:amdgpu_discovery_set_ip_blocks [amdgpu]]         0x02408c00
+[    9.060328] gandalf kernel: [drm:amdgpu_discovery_set_ip_blocks [amdgpu]] set register base offset for ATHUB
+
+a startup script, after sleep 15, turns off the logging:
+
+  echo 0 > /sys/module/drm/parameters/debug
+
+heres 1st 2 bits/classes/categories being turned off:
+
+[   29.105991] gandalf kernel: [drm:amdgpu_ih_process [amdgpu]] amdgpu_ih_process: rptr 90752, wptr 90784
+[   29.118086] gandalf kernel: dyndbg: bits:0x0 > *.debug
+[   29.118096] gandalf kernel: dyndbg: apply bitmap: 0x0 to: 0x1f for '*'
+[   29.118102] gandalf kernel: dyndbg: query 0: "class DRM_UT_CORE -p" mod:*
+[   29.118122] gandalf kernel: dyndbg: good-class: drm.DRM_UT_CORE  module:drm nd:338 nc:1 nu:0
+[   29.119548] gandalf kernel: dyndbg: class-ref: drm_kms_helper.DRM_UT_CORE  module:drm_kms_helper nd:93 
+nc:0 nu:1
+[   29.119552] gandalf kernel: dyndbg: class-ref: drm_display_helper.DRM_UT_CORE  module:drm_display_helper nd:151 nc:0 nu:1
+[   29.119737] gandalf kernel: dyndbg: class-ref: amdgpu.DRM_UT_CORE  module:amdgpu nd:4754 nc:0 nu:1
+[   29.122181] gandalf kernel: [drm:amdgpu_ih_process [amdgpu]] amdgpu_ih_process: rptr 90784, wptr 90816
+[   29.127687] gandalf kernel: dyndbg: processed 1 queries, with 466 matches, 0 errs
+[   29.127690] gandalf kernel: dyndbg: bit_0: 466 matches on class: DRM_UT_CORE -> 0x0
+[   29.127692] gandalf kernel: dyndbg: query 0: "class DRM_UT_DRIVER -p" mod:*
+[   29.127696] gandalf kernel: dyndbg: good-class: drm.DRM_UT_DRIVER  module:drm nd:338 nc:1 nu:0
+[   29.127699] gandalf kernel: dyndbg: class-ref: drm_kms_helper.DRM_UT_DRIVER  module:drm_kms_helper nd:93 nc:0 nu:1
+[   29.127701] gandalf kernel: dyndbg: class-ref: drm_display_helper.DRM_UT_DRIVER  module:drm_display_helper nd:151 nc:0 nu:1
+[   29.127885] gandalf kernel: dyndbg: class-ref: amdgpu.DRM_UT_DRIVER  module:amdgpu nd:4754 nc:0 nu:1
+[   29.152925] gandalf kernel: dyndbg: processed 1 queries, with 1384 matches, 0 errs
+
+
+The resulting journal is ~14.6k lines, written in the 1st 15 (29)
+seconds of startup.  I'm unsure what the 15/29 discrepancy might
+indicate/betray, besides a lot of logging work.  sleep 15 is not the
+best stopwatch.
+
+recent spins thru lkp-test have also been SUCCESS-ful.
+
+Jim Cromie (35):
+
+old-bugs & cleanups:
+  dyndbg: fix old BUG_ON in >control parser
+  docs/dyndbg: update examples \012 to \n
+  test-dyndbg: fixup CLASSMAP usage error
+  dyndbg: reword "class unknown," to "class:_UNKNOWN_"
+  dyndbg: make ddebug_class_param union members same size
+  dyndbg: replace classmap list with a vector
+  dyndbg: ddebug_apply_class_bitmap - add module arg, select on it
+  dyndbg: split param_set_dyndbg_classes to _module & wrapper fns
+  dyndbg: drop NUM_TYPE_ARRAY
+  dyndbg: reduce verbose/debug clutter
+  dyndbg: silence debugs with no-change updates
+  dyndbg: tighten ddebug_class_name() 1st arg type
+  dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
+  dyndbg: reduce verbose=3 messages in ddebug_add_module
+  dyndbg-API: remove DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
+
+core fix & selftests:
+  dyndbg-API: fix DECLARE_DYNDBG_CLASSMAP
+  selftests-dyndbg: add tools/testing/selftests/dynamic_debug/*
+  selftests-dyndbg: exit 127 if no facility
+  dyndbg-API: promote DYNDBG_CLASSMAP_PARAM to API
+  dyndbg-doc: add classmap info to howto
+  dyndbg: treat comma as a token separator
+  selftests-dyndbg: add comma_terminator_tests
+  dyndbg: split multi-query strings with %
+  selftests-dyndbg: test_percent_splitting multi-cmds on module classes
+  docs/dyndbg: explain new delimiters: comma, percent
+  selftests-dyndbg: add test_mod_submod
+  selftests-dyndbg: test dyndbg-to-tracefs
+  dyndbg-doc: explain flags parse 1st
+  dyndbg: add __counted_by annotations
+
+DRM parts
+  drm+drivers: adapt to use DYNDBG_CLASSMAP_{DEFINE,USE}
+  drm-dyndbg: adapt to use DYNDBG_CLASSMAP_PARAM
+  drm: use correct ccflags-y spelling
+  drm-drivers: DRM_CLASSMAP_USE in 2nd batch of drivers, helpers
+  drm: restore CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
+  drm-print: workaround compiler meh
+
+ .../admin-guide/dynamic-debug-howto.rst       |  99 ++-
+ MAINTAINERS                                   |   3 +-
+ drivers/gpu/drm/Kconfig                       |   3 +-
+ drivers/gpu/drm/Makefile                      |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  12 +-
+ drivers/gpu/drm/display/drm_dp_helper.c       |  12 +-
+ drivers/gpu/drm/drm_crtc_helper.c             |  12 +-
+ drivers/gpu/drm/drm_gem_shmem_helper.c        |   2 +
+ drivers/gpu/drm/drm_print.c                   |  38 +-
+ drivers/gpu/drm/gud/gud_drv.c                 |   2 +
+ drivers/gpu/drm/i915/i915_params.c            |  12 +-
+ drivers/gpu/drm/mgag200/mgag200_drv.c         |   2 +
+ drivers/gpu/drm/nouveau/nouveau_drm.c         |  12 +-
+ drivers/gpu/drm/qxl/qxl_drv.c                 |   2 +
+ drivers/gpu/drm/radeon/radeon_drv.c           |   2 +
+ drivers/gpu/drm/udl/udl_main.c                |   2 +
+ drivers/gpu/drm/vkms/vkms_drv.c               |   2 +
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |   2 +
+ include/asm-generic/vmlinux.lds.h             |   1 +
+ include/drm/drm_print.h                       |  10 +
+ include/linux/dynamic_debug.h                 | 130 ++-
+ kernel/module/main.c                          |   3 +
+ lib/Kconfig.debug                             |  24 +-
+ lib/Makefile                                  |   3 +
+ lib/dynamic_debug.c                           | 443 ++++++----
+ lib/test_dynamic_debug.c                      | 131 +--
+ lib/test_dynamic_debug_submod.c               |  17 +
+ tools/testing/selftests/Makefile              |   1 +
+ .../testing/selftests/dynamic_debug/Makefile  |   9 +
+ tools/testing/selftests/dynamic_debug/config  |   2 +
+ .../dynamic_debug/dyndbg_selftest.sh          | 765 ++++++++++++++++++
+ 31 files changed, 1398 insertions(+), 363 deletions(-)
+ create mode 100644 lib/test_dynamic_debug_submod.c
+ create mode 100644 tools/testing/selftests/dynamic_debug/Makefile
+ create mode 100644 tools/testing/selftests/dynamic_debug/config
+ create mode 100755 tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+
 -- 
-2.25.1
+2.44.0
 
