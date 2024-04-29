@@ -4,150 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85E12C4345F
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 14:43:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D598BC4345F
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 14:57:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0673610E363;
-	Mon, 29 Apr 2024 14:43:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 294BE10E276;
+	Mon, 29 Apr 2024 14:57:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E4rN8wxF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jQ4idQhA";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2068.outbound.protection.outlook.com [40.107.95.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5632C10E363
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 14:43:11 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2061.outbound.protection.outlook.com [40.107.96.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4FD510E3D5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 14:57:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oFaoY6e+WGvT+MxXs4SshsGKrt/HJk39r0Kz71YEdUgNgj382XE5T8ESFGiyZIuraB2G/QfU3pvE7w43mZCUW7u1FYEiOf6wCJS6mAwIg+WX7WDERwIkchlcrdjsZfNQAVy/IN+pC5uWkYH3I0pauWx1N53nu3oW17kXb4GG29Fa9Q4NQ2TasPqfIwvDZ03c6mRzGZO8RAWZ9hP8G8nHuT97mv+m28pLT7UmxUvZX31L0hC1l2c8JghvaZ6+oOx+f1V3IOOJlBu0X9KIpWs3M2+pO/qZOTt0MdHn3msVRDJmct3s5sTo7NpL8+yQYn+bTFM6EqLjJdmK0+pDlcICnQ==
+ b=mxzMTZfbt/iq+lGXEoecEkh/Xsz7M7Ps7p/jIWhXsjNHx+Zl4zA2zdszSFsWqBeagXGcDOxKoIgG4OTxRMajSX9RCI+83eDP8EgYHe2OVL9x++YpYpibCiY9Bws+1lHQaehlOn2U2msZqQ/Hb2w7TBLq/JbVvqztcNxR3qUvFQmNpX4/SABX/yyXN2Exh/WpG+6ZYkvC3VNsE2dH8CUHp2y2g+1U4hSHrCvXtsxcxolETT4lVmPVm2V/NQPwd5+5YmJ6tH47n07eIlGxEg6oX6UiKt4Jd+bEzfrwl5iqqa5TYvb6WwRad1pADYJ8Sg6v4yb5z+deM3RsTqvHVkV1dQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=41Biv/LlKdfhLGqVRO9scd59lfXjR4NV7QTOSr3En/U=;
- b=PS14SDrHtNAORz0Wzfx7eAJOvZiB9pjIrDnrdelcX7okNgFYVEGe58BicE3wJAlZqvGJne293CzS0kyB9SC9QwRQ4TjGpxf3hKqfyinFaox7fE5h38X4Qu05oaKVj9w91bhJjzripr7dqMVVJE2mvaGYwp4y+9XmDE5R/eDPXm8K/UUeP1yl3HJUhZLKpL7jTh4Jqj4m91t+5uorsOAGZmHwvmYQzhtnBRWICQ2eqYlMtJcyD904FvMw7TXX9WonwLQKNhdaKN31+OJy5XgeVk2g4suhKHC/ltvxOkIm0BKLZ0Dz7M8HhDfEuFth89xf5Zk+YSZs88HfhPNOwL0hCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=52bK9i41BLQ/RyuahSZKu7s2csmw/n79vN0FDDaioQU=;
+ b=P7e5QergAMH6bu7pTGMB4sI9hHclh7IlcWQPxfCTmUOvLqrXQl7wvYm+Keqmuf1MEoBSON8CpViKDE2vWo9BexA3LBJuiI6LsfVvTlhGdbl0s8k47EuA/CiWecqdJ6DgNAIJ/nqHLyckomaq4xp2YjAMofQjQ50QiI28SeCcYbgHX+hiQKBjucEh8JQPaTYaOm2Pwwn7q2XqyaPWoCQPO+aHsqgT5kvcsgCD3znDuXAHUpPJQ2/z4dfmyh3RY8x5krNR+Fi0SXxmQWywvIlpci6hrBwDlKu+N6M1a5jSZWTAFiV/+iF0nR59PCaIGUIIeIGFoEYOdheekHbQNcgnIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=41Biv/LlKdfhLGqVRO9scd59lfXjR4NV7QTOSr3En/U=;
- b=E4rN8wxFNPsJhTRMeU47ogdrbBrI6HFlgB7WSJstGAzku9oaZJC6Awmiss656OWBBrTOLzynlVzea2MQymG7ZPl8y+4Gj7uD7drH10MFzVIWrZQ5lLfM/CUpouLgobQAA4kMzPLGGFOUiI1yBf7P1KQjudLtydkQw5nnWtHqXmc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM4PR12MB7647.namprd12.prod.outlook.com (2603:10b6:8:105::6) with
+ bh=52bK9i41BLQ/RyuahSZKu7s2csmw/n79vN0FDDaioQU=;
+ b=jQ4idQhAk2WgYEXY/wsO0m4Oed+bQcVsYI+lc8GYpKNQ49+oDthQwqGNuKpQT4SRfh9PS7g2S58qpDZSy4pNilxsNHT7P07e/rLoOz+NTlnweZpRes6cYTIeRb8y69kWYmzc5chtncrPMnGpMiYI7/2vluDrwluv8beX2hFCnD4=
+Received: from BY5PR13CA0001.namprd13.prod.outlook.com (2603:10b6:a03:180::14)
+ by DM6PR12MB4185.namprd12.prod.outlook.com (2603:10b6:5:216::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.32; Mon, 29 Apr
- 2024 14:43:07 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::d895:b707:1189:dfd7]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::d895:b707:1189:dfd7%3]) with mapi id 15.20.7519.031; Mon, 29 Apr 2024
- 14:43:07 +0000
-Message-ID: <fa1f5d0f-700c-42cc-81bb-69702abb5b91@amd.com>
-Date: Mon, 29 Apr 2024 10:43:05 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/amdgpu: Fix pinned GART area accounting and
- fdinfo reporting
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- kernel-dev@igalia.com
-References: <20240426164355.1563-1-tursulin@igalia.com>
- <20240426164355.1563-4-tursulin@igalia.com>
- <a60dede1-8e81-4c79-8058-257391930621@amd.com>
- <fe80a8db-3ece-4818-8b23-2ccf5293a6c2@igalia.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <fe80a8db-3ece-4818-8b23-2ccf5293a6c2@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1P288CA0033.CANP288.PROD.OUTLOOK.COM (2603:10b6:b01::46)
- To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Mon, 29 Apr
+ 2024 14:57:47 +0000
+Received: from SJ1PEPF00001CEB.namprd03.prod.outlook.com
+ (2603:10b6:a03:180:cafe::32) by BY5PR13CA0001.outlook.office365.com
+ (2603:10b6:a03:180::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.21 via Frontend
+ Transport; Mon, 29 Apr 2024 14:57:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00001CEB.mail.protection.outlook.com (10.167.242.27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Mon, 29 Apr 2024 14:57:46 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 29 Apr
+ 2024 09:57:44 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: David Belanger <david.belanger@amd.com>, Jonathan Kim
+ <jonathan.kim@amd.com>, Harish Kasiviswanathan
+ <Harish.Kasiviswanathan@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 02/14] drm/amdkfd: Added gfx_v12_kfd2kgd interface for GFX12.
+Date: Mon, 29 Apr 2024 10:57:14 -0400
+Message-ID: <20240429145726.3459450-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240429145726.3459450-1-alexander.deucher@amd.com>
+References: <20240429145726.3459450-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM4PR12MB7647:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3f36a1f6-3ea6-47e4-3f2c-08dc685aaf08
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CEB:EE_|DM6PR12MB4185:EE_
+X-MS-Office365-Filtering-Correlation-Id: ffc5ea7d-dedf-493b-8956-08dc685cbb53
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|376005|1800799015;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?L1NuVWVZT2drQ0dVdTFVVndyeVZvVGVZZ21kMncyVmpxVW5Xb1hmcmc0TURD?=
- =?utf-8?B?bWhvcTBkSFpwdjlpR3B0c1o2MTFic1RCamRXeFNYcnNPSE82UCsrbHhKOTVk?=
- =?utf-8?B?TTZrTkJMSjN4eE45SXJSYWxuRGhBR2xlL1Z3dk1UZ3h5K0VldWh5Yjdpbi9v?=
- =?utf-8?B?UnA4ZmtOcVRMeko4bWx6RzArUjd5VG5PY2ovZkdzZ1lCZHFWMXYyTy9kb1pl?=
- =?utf-8?B?YTVMUklMNDV4aXVwSnczbnR6K0l6WS8rdUNyamh6OUIxQ1ZVZGhNZk5QQk5r?=
- =?utf-8?B?bWZLY2I3WmlwelAyaFNKa0NTZllSTnMvelh3VUZwT3FsdTZjWis1bjRDOXhD?=
- =?utf-8?B?c1pqSlNzMHBqazdDd0M1b09EOGoyT3BlUTVZS3krek9aWThlVTAzM3dIQjBC?=
- =?utf-8?B?aTlhMTZCQW9rdjBiakx6WnFjRDBxRHpGQlFqck5XT09jQ3BWQmdHR293ampQ?=
- =?utf-8?B?cmQyRkxFaGg2eUVHUm5tcWI3UHUzRUpOVi9PL0Y4c0picERxM1VFZmt2SVNR?=
- =?utf-8?B?SzFYRlIvNVpZeUE1dEJkN3MyRDkrTXJDM2RuTjVwYVNKQWY5eHNWWXBwRnNK?=
- =?utf-8?B?N3ZNREx6bllHWlFFTEd5VHRMQ0RBQXRORlpMMGdsMWRYM0FpbUJZOUQvVkdO?=
- =?utf-8?B?WlZjN21QdDRlcWsvTVFIc0hJdUpZQ1pGY0dORlo4OXh4RnA3d1FZRytDeVVn?=
- =?utf-8?B?U292eWJiWjBmNW45UzZseFc2R3pwYkc1VDFEYlB5cWZmaUJDeG9VNER2eXlw?=
- =?utf-8?B?c3o2Y3h0Vk13NVlKNEZMQWVRQVdjNTZUQ3FseHpSRVhGQkJ5anFobVJQMC9H?=
- =?utf-8?B?anE2aTBlM05pSW9jL09pWHJUNVFMZm5hczM4WEROSTNZc2lzbTFMVVRaSGxU?=
- =?utf-8?B?aW43R1pPZWJiOEFnSFg1WGxtNXNjR1N5ZllsMEsvWEllQUVrdVhQMEZJdzZB?=
- =?utf-8?B?UWRZUzFFUEpVcUkwcmRMMzc3ZWdUd3ZsdlpGaHFxalRXUzhWbFdqZVhYVGh4?=
- =?utf-8?B?Q1J6SlVRYUkxNFA1YmlvakxNeTU3alZMWDRxZU5GTERVUE96Z2E3VG0vaTZG?=
- =?utf-8?B?S1MrdTE1SjNGYUs0SkxMUTgzNjVWbU9tcGovRGRadG9TSk5jaHNjQ2NaWjFs?=
- =?utf-8?B?U3kvN3IxcjByYTVRREwveXpXZFBYVFhyL09JUXFCeTVWQWM5cDYzN3Z0cTdF?=
- =?utf-8?B?c3R2aFlJZ1A2eStDQVRBa0plSVZJOHNpVHo1MVdBQ1cydnVnUTB6R2RKK2tt?=
- =?utf-8?B?NEY5am1OZlNZckRaaHhVNnF1RG9HYmFtSUhjWXdKL1FzOWtxK1lqZDY1RUFh?=
- =?utf-8?B?ZzN0YmRjWFlVcEh2bWQwbFpLZDRBVk9Ia0xpZk9hRUluQ29zZTcwN0ovZHpu?=
- =?utf-8?B?cVBiTDdZVzRoWngwZmRqckpKUmtZRkNmdjBWWTFyMXVqLzZXRDZLNmZwbDNP?=
- =?utf-8?B?SmxvUmNQa3d2azlTV1lqTTZ5SnIvZVlWcHhpTUJkQ08xdEFSZGdneW40bXha?=
- =?utf-8?B?L3E2eEUvRzkyajNkQjh4NWlkRE5XWEZ5cVp4TkloZzlFMjR0VncwbHdKT1li?=
- =?utf-8?B?RXYzWVRxUUpNQ1JlcGNkQ3NwdXI4eTZxS25YUWZrZFFXZExUYTlrRXNQUS84?=
- =?utf-8?B?NUJValNBeEJadHlzUXVDZG45c1VhUHE1NTRFanVUU09kM3h2N0NRbGc1eFYw?=
- =?utf-8?B?TzF6TFpQczM1QUs2M2RvSTV4RWNIMmZCRGJjVVNJdUNGWHg5dGRIV0hBPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NVhxTGZoMUFMMVJsZVBWTjE0eTFFZ2QrQXgzUUFwUm5IaytMRzNrbjZrV1Bw?=
- =?utf-8?B?ckZlekdRcmRSSlJhbFllSU1sakkwL3o3ZHROaytOR2RrMHJMU1dhaW0zVm5t?=
- =?utf-8?B?UGs5dTV0a3dSeDZ3U1J3MTF2SllsNGwxM3REaFR0TEdYd3B0WE5sSDU2bE1W?=
- =?utf-8?B?NHVLVE1ZUkVDQjk1eFp6WWRLVGxNdGlpRWYvQ0JndThsd2hsY1ZHZ0UzT3c1?=
- =?utf-8?B?MWRlQ1BUdXBWNEQwT2p3anJJOGhHVzFSSldHdVZXNHBPZUp5L0gvQzRyQXNR?=
- =?utf-8?B?eVRBZ21FMUszLzZaNHRMLzd4VWJYekllcW14UG5NejdrV21hT3ZwUWV2Nis1?=
- =?utf-8?B?L1h6ZEdPM2JiNC9vejFyZm1WUVU1S1JVck1CY01EcGkzeWlTOWNQeXJtNDU4?=
- =?utf-8?B?cmx4Zm1SL3ZKT3JreUlNZVczVUFTUmt4UDRtWE5QRkFFV0lQbHpOY2FSVHJv?=
- =?utf-8?B?S20wNjVDNGNtK1VSY3JvdHRkVExhU3ErRXFJYlZqTTA0czYxY25HYjk2WThk?=
- =?utf-8?B?Uytjd0dPZEd4QldpZGJSb1ZsN2RhSk0yWDNMRzhSSmVzTTJxdkQzZWVqc0lS?=
- =?utf-8?B?K3ZwbllNdmM0RUl1clVkVHhyWDZ5UFMzM0FOTUw1MTduSTNHcGdVVnV5dUY1?=
- =?utf-8?B?U240b2lUelQwZ1hha2ZpRDRZWVdEOFBibzk4M0dsVXlMSmRjK2NEKzV0WU9U?=
- =?utf-8?B?WTk5c0VMdzZEbFU1UWd5TFhQV0dPbzdBQ0UwaXNkampYLzRRQnZJNTg1QzRx?=
- =?utf-8?B?REVkVkFnY2lGdmdpb0dtRVNCVG5IbkVOWjUwVTZaQnQzRElTbUU4L0xnVkY4?=
- =?utf-8?B?WWFVZzNmRExFMHBjYXBOMktKM3NTZ2VmYzRzeG84OG83Q3QyWGpMK1JnWTNC?=
- =?utf-8?B?RXpJYXQyRWFFM3VjMzE2Q2k1MmVZdG5XajlVMTZEWkd6Q0VhUXhOTXZBZHJL?=
- =?utf-8?B?SkFZbEZ1b1NVT1RHcHFJclB0M2tDdVRRYksxVW5PSzVIQStwRWRFQjl3NEQr?=
- =?utf-8?B?b0M3TlVXMnhqWmcyVnZvUy9IVzNCNmU0RU9lZHJkc1h0aUNBYVhJNkphUUF4?=
- =?utf-8?B?bmI5ejUxTkQxcTJGZS9HN2liNFUwYXhoZHo2VjYvVFVEQTlOT2lDdWMzb2Qx?=
- =?utf-8?B?cDhaVlpNT2lYZUpkQUtBbFRWK0hjTHBINzYyZURaUEFENTRRQVVPbTdVYnRY?=
- =?utf-8?B?WTRZeXYwUGpoMEdnWmVFc0l1T05JOXVxZU80WjUwSnRBV1hGZWhPRjFnR1lQ?=
- =?utf-8?B?Umt3Q0swT0JJZ2didmlCYzVQb0ltRC83MGNiYXl5YkZSSytBM1oyTmpwUS9o?=
- =?utf-8?B?eWY4TENDaFJ4V2ZpN1QrekU4dzdFenhUY1RYSzlPMVR0ZzVjakN5Z0lCMVZR?=
- =?utf-8?B?Q2xDNjB5RG9ETjJ0eXpoK2FEVzUzcll5YkVYdGtxM1grd1VIOEVFRTMzN2ps?=
- =?utf-8?B?eStHVFN3OXhkdjZkZTNGK1hRZVh0cGJ6TVBQNUtkUWxYMGtHazFGeWNvK0hs?=
- =?utf-8?B?TWdIam03Unc0N2YwRmp0RjBDMTNUL21HcXJKb0V6cmR6L3I0NUQ0eS9rdk5Z?=
- =?utf-8?B?MU5ocEtLWVFQd0xmWmRZUzdoelBYV1NYRjZ1UXRKOWdSeHl3Rjd0dWdlS1E0?=
- =?utf-8?B?TTMwYU1ldTJ0eUlNT1dTZEVsbVUrRzBZUVZrc0d3R1FxSFNWMVJlZDJzT1VO?=
- =?utf-8?B?UjFWOGN0bkFBNTVlaHN4Ti9YdkZpekxlVElvYjdrV1dEL0lnWngxS1Nzamp2?=
- =?utf-8?B?NDlrUW5ZSmhmbjduRjcvVWovaXlzWXQwUmloei9GMVAvaGZsVTViTmdNYjZE?=
- =?utf-8?B?N25ZcXhvaU9IZEVuNDkrRTBKMHgwN1pPdll5SjVqSi9NbW5NNU9zWExPN3lH?=
- =?utf-8?B?amdCWmRSVkJRZ0E0MncybHNtd2xDTDU2MnpOWld0N24wdStMT0JLc3ExcDVQ?=
- =?utf-8?B?VVhSU0dEUlcwRTAzejd1S2k4TmlmeTNmK3ZZNHRScWdXb1hXYVhvWGhTQTU2?=
- =?utf-8?B?dGxPWExKUnRoZFAwTnVYZFBzeVRmSDJMNHZhSlNKd3YwOHZ6N0NBWDFYT2tN?=
- =?utf-8?B?T0xPdmRTN0tLU29PTUFvazh4SUpUTmZDYnFUYnhwL3ZTVkhZNURORDFOaUhp?=
- =?utf-8?Q?cLaN7kpCISVCQf6IVceqiiTdW?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|82310400014|376005|36860700004|1800799015; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?q/WT+gzO9VCAua/wBERr30LYxLCOX2WG6wr2l8/z8w2X/iW1y3gPyx61WoqV?=
+ =?us-ascii?Q?NNQbh3All+sEXqu8U32uYuYMDxPFg1D6SO3QnhEdzhfY/vzt70pTjL0z7Gl3?=
+ =?us-ascii?Q?rx3vKAEsRlIlGDkjVNyItXSFlrehFNAhazU5iIcZWFwN5EEPXt9wfVNclm8T?=
+ =?us-ascii?Q?mUUgJx8dE0zpx4a3i7G2aXTYuEnBVpq7IwddGvVzk62XYangH7JLAhjP/DFi?=
+ =?us-ascii?Q?OL25bEwiXqFoagfL+xj/rOAGjWWg+cg0aSziqAFlT24T0Kv72gG2ze4oUzOX?=
+ =?us-ascii?Q?JCqbPU2d6ver/7iUEXLoCaIAi1tZ8bX81ant2diVNW4lszR9uu5VM6pjHFEn?=
+ =?us-ascii?Q?t8GDLFg3TNm1Zm8BOvIxSEpESoza5c/ooKqk1ekSCKRi1iQ/XuRnpeREaskz?=
+ =?us-ascii?Q?WRBgJ67LOAOC01sTUCXJ1bUuzuzcpwUSbQOwI/oV3IzOvrRwb7LIFxeEtqDe?=
+ =?us-ascii?Q?0+JqFsSKul94U55j5dNJKdmvIwTjAb6i/guvEe3J22vAMKarwyWXgOmACJT3?=
+ =?us-ascii?Q?o452WRY9mknoFyzxdjzGyUJydDaXI1yC3GjzzTZ7q4lm6mTu6UgP/+1pUtqG?=
+ =?us-ascii?Q?8M0cDzygZzvDVz8w6MGp/eBnrgmireCmkWnSdRDB3t/qNcmNVTE9l0qKHreO?=
+ =?us-ascii?Q?I5d1UJPyhC5rwPWRBR4naOZD/lqUAeKMsqrXw1s2rAuj5NGbgJU6znZi/GyU?=
+ =?us-ascii?Q?DxsnjsVCNMHg5iXc07Aqlltk08ZgNJTiJ+BaldJF64f4JvEwrHagF90RGi+o?=
+ =?us-ascii?Q?OwySeny1419n5Pbu0vvKFGa9VxRIObtTFs8VGYCCSIhaRp8Hv9jDW9Shrg7S?=
+ =?us-ascii?Q?soVHIAHdclX4obTCL07vy9PTCwV+gu7rp/BJixs3k+LnGxzrfmDBeB43/pMo?=
+ =?us-ascii?Q?INLXDv9Zdrvvv2Trg185ZFdHRjywC/VnsNCzNFjS7ekSd8OHIMgrNJHQ7igh?=
+ =?us-ascii?Q?uPpzTQzRaCHVG4TRNqj3h4Ky6BAxVVAF1Wutj7lvI3tkFv2RjVhBdiAvJ4CO?=
+ =?us-ascii?Q?FVeCNcskHfw5y+65AbKQBYk2F/6IDUiWBydAZZpBLVbktXPpn+iqlle1Z+E2?=
+ =?us-ascii?Q?Wal99h3UkW84PSGLMpW6VIw+37scCG59TIa7vgthnprKkjvMf09qAiX+UfMU?=
+ =?us-ascii?Q?BsRJJxaggBEnJcc5x7bxpQaYB6U5RdqJbZq4uen5UsajaiuddmdUX/7hJIK3?=
+ =?us-ascii?Q?d+u/rANAEvVkgA7bwQNL/cc+tLp1G/D83rjozviuTxlXpRknsT8iivaSRq5d?=
+ =?us-ascii?Q?QJvxLjiXkGRF+WDF4/qWp9Sz1dnC90UFeEm9Vx64ZxJfL0FGqg4PiA5v/fSB?=
+ =?us-ascii?Q?XptgHIHb3rcYVhrOymoYABz+qOmVUaWcUrpGsdY7O4FvYFH4svesidDszCsL?=
+ =?us-ascii?Q?3XbSugHOYp/oNy/5vEGuLhrvA1wB?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(82310400014)(376005)(36860700004)(1800799015); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f36a1f6-3ea6-47e4-3f2c-08dc685aaf08
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2024 14:43:07.4086 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2024 14:57:46.7455 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ffc5ea7d-dedf-493b-8956-08dc685cbb53
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eD4UEKPmzytuQVgDNqP2wjkdzoPPcLKmcoinntmF4O5ywIck7gOOJZBybSiI5QGVXVHZUW7D2Uqqu/3rnhzqOA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7647
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CEB.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4185
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,144 +132,410 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2024-04-29 5:43, Tvrtko Ursulin wrote:
-> 
-> On 26/04/2024 23:24, Felix Kuehling wrote:
->>
->> On 2024-04-26 12:43, Tvrtko Ursulin wrote:
->>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>
->>> When commit b453e42a6e8b ("drm/amdgpu: Add new placement for preemptible
->>> SG BOs") added a new TTM region it missed to notice the conceptual
->>> imbalance in GART pin size accounting as done in amdgpu_bo_pin/unpin.
->>>
->>> That imbalance leads to such objects getting accounted against the
->>> resource, but are not un-accounted when unpinned.
->>
->> AMDGPU_PL_PREEMPT is mostly used for userptr BOs, which cannot be 
->> pinned. In any case you should make sure that the accounting is 
->> consistent between amdgpu_bo_pin_restricted and amdgpu_bo_unpin. This 
->> patch breaks that consistency.
-> 
-> You mean amdgpu_bo_pin(_restricted) and amdgpu_bo_unpin do not run for 
-> such objects, or something else?
+From: David Belanger <david.belanger@amd.com>
 
-Right. amdgpu_bo_pin_restricted will return an error for userptr BOs:
+Initial implementation, based on GFX11.
 
-         if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm))
-                 return -EPERM;
+v2: Removed functions not needed by cp scheduler.
+v3: Fixed typos.
+v4: squash in warning fix (Alex)
 
+Signed-off-by: David Belanger <david.belanger@amd.com>
+Acked-by: Jonathan Kim <jonathan.kim@amd.com>
+Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/Makefile           |   3 +-
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c    | 339 ++++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c       |   5 +-
+ 3 files changed, 344 insertions(+), 3 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c
 
-> 
-> If they run, then at the end of pin there is:
-> 
->      domain = amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
-> ...
->      } else if (domain == AMDGPU_GEM_DOMAIN_GTT) {
->          atomic64_add(amdgpu_bo_size(bo), &adev->gart_pin_size);
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 099a47b3e0496..de7b76327f5ba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -281,7 +281,8 @@ amdgpu-y += \
+ 	amdgpu_amdkfd_gc_9_4_3.o \
+ 	amdgpu_amdkfd_gfx_v10.o \
+ 	amdgpu_amdkfd_gfx_v10_3.o \
+-	amdgpu_amdkfd_gfx_v11.o
++	amdgpu_amdkfd_gfx_v11.o \
++	amdgpu_amdkfd_gfx_v12.o
+ 
+ ifneq ($(CONFIG_DRM_AMDGPU_CIK),)
+ amdgpu-y += amdgpu_amdkfd_gfx_v7.o
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c
+new file mode 100644
+index 0000000000000..5aa2fd147d99d
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c
+@@ -0,0 +1,339 @@
++/*
++ * Copyright 2023 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#include "amdgpu.h"
++#include "amdgpu_amdkfd.h"
++#include "gc/gc_12_0_0_offset.h"
++#include "gc/gc_12_0_0_sh_mask.h"
++#include "soc24.h"
++#include <uapi/linux/kfd_ioctl.h>
++
++static void lock_srbm(struct amdgpu_device *adev, uint32_t mec, uint32_t pipe,
++			uint32_t queue, uint32_t vmid)
++{
++	mutex_lock(&adev->srbm_mutex);
++	soc24_grbm_select(adev, mec, pipe, queue, vmid);
++}
++
++static void unlock_srbm(struct amdgpu_device *adev)
++{
++	soc24_grbm_select(adev, 0, 0, 0, 0);
++	mutex_unlock(&adev->srbm_mutex);
++}
++
++static void acquire_queue(struct amdgpu_device *adev, uint32_t pipe_id,
++				uint32_t queue_id)
++{
++	uint32_t mec = (pipe_id / adev->gfx.mec.num_pipe_per_mec) + 1;
++	uint32_t pipe = (pipe_id % adev->gfx.mec.num_pipe_per_mec);
++
++	lock_srbm(adev, mec, pipe, queue_id, 0);
++}
++
++static void release_queue(struct amdgpu_device *adev)
++{
++	unlock_srbm(adev);
++}
++
++static int init_interrupts_v12(struct amdgpu_device *adev, uint32_t pipe_id, uint32_t inst)
++{
++	uint32_t mec;
++	uint32_t pipe;
++
++	mec = (pipe_id / adev->gfx.mec.num_pipe_per_mec) + 1;
++	pipe = (pipe_id % adev->gfx.mec.num_pipe_per_mec);
++
++	lock_srbm(adev, mec, pipe, 0, 0);
++
++	WREG32_SOC15(GC, 0, regCPC_INT_CNTL,
++		CP_INT_CNTL_RING0__TIME_STAMP_INT_ENABLE_MASK |
++		CP_INT_CNTL_RING0__OPCODE_ERROR_INT_ENABLE_MASK);
++
++	unlock_srbm(adev);
++
++	return 0;
++}
++
++static uint32_t get_sdma_rlc_reg_offset(struct amdgpu_device *adev,
++				unsigned int engine_id,
++				unsigned int queue_id)
++{
++	uint32_t sdma_engine_reg_base = 0;
++	uint32_t sdma_rlc_reg_offset;
++
++	switch (engine_id) {
++	case 0:
++		sdma_engine_reg_base = SOC15_REG_OFFSET(SDMA0, 0,
++				regSDMA0_QUEUE0_RB_CNTL) - regSDMA0_QUEUE0_RB_CNTL;
++		break;
++	case 1:
++		sdma_engine_reg_base = SOC15_REG_OFFSET(SDMA1, 0,
++				regSDMA1_QUEUE0_RB_CNTL) - regSDMA0_QUEUE0_RB_CNTL;
++		break;
++	default:
++		BUG();
++	}
++
++	sdma_rlc_reg_offset = sdma_engine_reg_base
++		+ queue_id * (regSDMA0_QUEUE1_RB_CNTL - regSDMA0_QUEUE0_RB_CNTL);
++
++	pr_debug("RLC register offset for SDMA%d RLC%d: 0x%x\n", engine_id,
++			queue_id, sdma_rlc_reg_offset);
++
++	return sdma_rlc_reg_offset;
++}
++
++static int hqd_dump_v12(struct amdgpu_device *adev,
++			uint32_t pipe_id, uint32_t queue_id,
++			uint32_t (**dump)[2], uint32_t *n_regs, uint32_t inst)
++{
++	uint32_t i = 0, reg;
++#define HQD_N_REGS 56
++#define DUMP_REG(addr) do {				\
++		if (WARN_ON_ONCE(i >= HQD_N_REGS))	\
++			break;				\
++		(*dump)[i][0] = (addr) << 2;		\
++		(*dump)[i++][1] = RREG32(addr);		\
++	} while (0)
++
++	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
++	if (*dump == NULL)
++		return -ENOMEM;
++
++	acquire_queue(adev, pipe_id, queue_id);
++
++	for (reg = SOC15_REG_OFFSET(GC, 0, regCP_MQD_BASE_ADDR);
++	     reg <= SOC15_REG_OFFSET(GC, 0, regCP_HQD_PQ_WPTR_HI); reg++)
++		DUMP_REG(reg);
++
++	release_queue(adev);
++
++	WARN_ON_ONCE(i != HQD_N_REGS);
++	*n_regs = i;
++
++	return 0;
++}
++
++static int hqd_sdma_dump_v12(struct amdgpu_device *adev,
++			     uint32_t engine_id, uint32_t queue_id,
++			     uint32_t (**dump)[2], uint32_t *n_regs)
++{
++	uint32_t sdma_rlc_reg_offset = get_sdma_rlc_reg_offset(adev,
++			engine_id, queue_id);
++	uint32_t i = 0, reg;
++
++	const uint32_t first_reg = regSDMA0_QUEUE0_RB_CNTL;
++	const uint32_t last_reg = regSDMA0_QUEUE0_CONTEXT_STATUS;
++#undef HQD_N_REGS
++#define HQD_N_REGS (last_reg - first_reg + 1)
++
++	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
++	if (*dump == NULL)
++		return -ENOMEM;
++
++	for (reg = first_reg;
++	     reg <= last_reg; reg++)
++		DUMP_REG(sdma_rlc_reg_offset + reg);
++
++	WARN_ON_ONCE(i != HQD_N_REGS);
++	*n_regs = i;
++
++	return 0;
++}
++
++static int wave_control_execute_v12(struct amdgpu_device *adev,
++					uint32_t gfx_index_val,
++					uint32_t sq_cmd, uint32_t inst)
++{
++	uint32_t data = 0;
++
++	mutex_lock(&adev->grbm_idx_mutex);
++
++	WREG32(SOC15_REG_OFFSET(GC, 0, regGRBM_GFX_INDEX), gfx_index_val);
++	WREG32(SOC15_REG_OFFSET(GC, 0, regSQ_CMD), sq_cmd);
++
++	data = REG_SET_FIELD(data, GRBM_GFX_INDEX,
++		INSTANCE_BROADCAST_WRITES, 1);
++	data = REG_SET_FIELD(data, GRBM_GFX_INDEX,
++		SA_BROADCAST_WRITES, 1);
++	data = REG_SET_FIELD(data, GRBM_GFX_INDEX,
++		SE_BROADCAST_WRITES, 1);
++
++	WREG32(SOC15_REG_OFFSET(GC, 0, regGRBM_GFX_INDEX), data);
++	mutex_unlock(&adev->grbm_idx_mutex);
++
++	return 0;
++}
++
++/* returns TRAP_EN, EXCP_EN and EXCP_REPLACE. */
++static uint32_t kgd_gfx_v12_enable_debug_trap(struct amdgpu_device *adev,
++					    bool restore_dbg_registers,
++					    uint32_t vmid)
++{
++	uint32_t data = 0;
++
++	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, TRAP_EN, 1);
++	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, EXCP_EN, 0);
++	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, EXCP_REPLACE, 0);
++
++	return data;
++}
++
++/* returns TRAP_EN, EXCP_EN and EXCP_REPLACE. */
++static uint32_t kgd_gfx_v12_disable_debug_trap(struct amdgpu_device *adev,
++						bool keep_trap_enabled,
++						uint32_t vmid)
++{
++	uint32_t data = 0;
++
++	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, TRAP_EN, keep_trap_enabled);
++	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, EXCP_EN, 0);
++	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, EXCP_REPLACE, 0);
++
++	return data;
++}
++
++static int kgd_gfx_v12_validate_trap_override_request(struct amdgpu_device *adev,
++							uint32_t trap_override,
++							uint32_t *trap_mask_supported)
++{
++	*trap_mask_supported &= KFD_DBG_TRAP_MASK_FP_INVALID |
++				KFD_DBG_TRAP_MASK_FP_INPUT_DENORMAL |
++				KFD_DBG_TRAP_MASK_FP_DIVIDE_BY_ZERO |
++				KFD_DBG_TRAP_MASK_FP_OVERFLOW |
++				KFD_DBG_TRAP_MASK_FP_UNDERFLOW |
++				KFD_DBG_TRAP_MASK_FP_INEXACT |
++				KFD_DBG_TRAP_MASK_INT_DIVIDE_BY_ZERO |
++				KFD_DBG_TRAP_MASK_DBG_ADDRESS_WATCH |
++				KFD_DBG_TRAP_MASK_DBG_MEMORY_VIOLATION;
++
++	if (trap_override != KFD_DBG_TRAP_OVERRIDE_OR &&
++			trap_override != KFD_DBG_TRAP_OVERRIDE_REPLACE)
++		return -EPERM;
++
++	return 0;
++}
++
++/* returns TRAP_EN, EXCP_EN and EXCP_REPLACE. */
++static uint32_t kgd_gfx_v12_set_wave_launch_trap_override(struct amdgpu_device *adev,
++					uint32_t vmid,
++					uint32_t trap_override,
++					uint32_t trap_mask_bits,
++					uint32_t trap_mask_request,
++					uint32_t *trap_mask_prev,
++					uint32_t kfd_dbg_trap_cntl_prev)
++
++{
++	uint32_t data = 0;
++
++	*trap_mask_prev = REG_GET_FIELD(kfd_dbg_trap_cntl_prev, SPI_GDBG_PER_VMID_CNTL, EXCP_EN);
++	trap_mask_bits = (trap_mask_bits & trap_mask_request) |
++		(*trap_mask_prev & ~trap_mask_request);
++
++	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, TRAP_EN, 1);
++	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, EXCP_EN, trap_mask_bits);
++	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, EXCP_REPLACE, trap_override);
++
++	return data;
++}
++
++/* returns STALL_VMID or LAUNCH_MODE. */
++static uint32_t kgd_gfx_v12_set_wave_launch_mode(struct amdgpu_device *adev,
++					uint8_t wave_launch_mode,
++					uint32_t vmid)
++{
++	uint32_t data = 0;
++	bool is_stall_mode = wave_launch_mode == 4;
++
++	if (is_stall_mode)
++		data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, STALL_VMID,
++									1);
++	else
++		data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, LAUNCH_MODE,
++							wave_launch_mode);
++
++	return data;
++}
++
++#define TCP_WATCH_STRIDE (regTCP_WATCH1_ADDR_H - regTCP_WATCH0_ADDR_H)
++static uint32_t kgd_gfx_v12_set_address_watch(struct amdgpu_device *adev,
++					uint64_t watch_address,
++					uint32_t watch_address_mask,
++					uint32_t watch_id,
++					uint32_t watch_mode,
++					uint32_t debug_vmid,
++					uint32_t inst)
++{
++	uint32_t watch_address_high;
++	uint32_t watch_address_low;
++	uint32_t watch_address_cntl;
++
++	watch_address_cntl = 0;
++	watch_address_low = lower_32_bits(watch_address);
++	watch_address_high = upper_32_bits(watch_address) & 0xffff;
++
++	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
++			TCP_WATCH0_CNTL,
++			MODE,
++			watch_mode);
++
++	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
++			TCP_WATCH0_CNTL,
++			MASK,
++			watch_address_mask >> 7);
++
++	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
++			TCP_WATCH0_CNTL,
++			VALID,
++			1);
++
++	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_H) +
++			(watch_id * TCP_WATCH_STRIDE)),
++			watch_address_high);
++
++	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_L) +
++			(watch_id * TCP_WATCH_STRIDE)),
++			watch_address_low);
++
++	return watch_address_cntl;
++}
++
++static uint32_t kgd_gfx_v12_clear_address_watch(struct amdgpu_device *adev,
++					uint32_t watch_id)
++{
++	return 0;
++}
++
++const struct kfd2kgd_calls gfx_v12_kfd2kgd = {
++	.init_interrupts = init_interrupts_v12,
++	.hqd_dump = hqd_dump_v12,
++	.hqd_sdma_dump = hqd_sdma_dump_v12,
++	.wave_control_execute = wave_control_execute_v12,
++	.get_atc_vmid_pasid_mapping_info = NULL,
++	.enable_debug_trap = kgd_gfx_v12_enable_debug_trap,
++	.disable_debug_trap = kgd_gfx_v12_disable_debug_trap,
++	.validate_trap_override_request = kgd_gfx_v12_validate_trap_override_request,
++	.set_wave_launch_trap_override = kgd_gfx_v12_set_wave_launch_trap_override,
++	.set_wave_launch_mode = kgd_gfx_v12_set_wave_launch_mode,
++	.set_address_watch = kgd_gfx_v12_set_address_watch,
++	.clear_address_watch = kgd_gfx_v12_clear_address_watch,
++};
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index bce190896a156..1e21908e972fa 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -56,6 +56,7 @@ extern const struct kfd2kgd_calls gc_9_4_3_kfd2kgd;
+ extern const struct kfd2kgd_calls gfx_v10_kfd2kgd;
+ extern const struct kfd2kgd_calls gfx_v10_3_kfd2kgd;
+ extern const struct kfd2kgd_calls gfx_v11_kfd2kgd;
++extern const struct kfd2kgd_calls gfx_v12_kfd2kgd;
+ 
+ static int kfd_gtt_sa_init(struct kfd_dev *kfd, unsigned int buf_size,
+ 				unsigned int chunk_size);
+@@ -438,11 +439,11 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
+ 			break;
+ 		case IP_VERSION(12, 0, 0):
+ 			gfx_target_version = 120000;
+-			f2g = &gfx_v11_kfd2kgd; /* GFX12_TODO: Change to v12 when available. */
++			f2g = &gfx_v12_kfd2kgd;
+ 			break;
+ 		case IP_VERSION(12, 0, 1):
+ 			gfx_target_version = 120001;
+-			f2g = &gfx_v11_kfd2kgd; /* GFX12_TODO: Change to v12 when available. */
++			f2g = &gfx_v12_kfd2kgd;
+ 			break;
+ 		default:
+ 			break;
+-- 
+2.44.0
 
-You changed that in your patch 2:
-
--	} else if (domain == AMDGPU_GEM_DOMAIN_GTT) {
-+	} else if (bo->tbo.resource->mem_type == TTM_PL_TT ||
-+		   bo->tbo.resource->mem_type == AMDGPU_PL_PREEMPT) {
-  		atomic64_add(amdgpu_bo_size(bo), &adev->gart_pin_size);
-  	}
-
-I was suggesting you just change this in patch 2 like this, so it 
-matches what's done on unpin:
-
--	} else if (domain == AMDGPU_GEM_DOMAIN_GTT) {
-+	} else if (bo->tbo.resource->mem_type == TTM_PL_TT) {
-  		atomic64_add(amdgpu_bo_size(bo), &adev->gart_pin_size);
-  	}
-
-
-> 
-> And unpin has no handling for AMDGPU_PL_PREEMPT.
-> 
-> Ah I see.. does it rely on amdgpu_mem_type_to_domain returning 0 for 
-> AMDGPU_PL_PREEMPT? My confusion was I misread the pinning check as 
-> checking the domain as stored in the bo at creation time.
-> 
-> Although I am still confused by the statement userptr BOs are not 
-> pinned. It is not needed to map them via GART on AMD hardware for GPU to 
-> be able to access them?
->>> Fix by extending the accounting criteria in amdgpu_bo_unpin.
->>>
->>> What also aappears needs fixing is not reporting their size from the
->>> amdgpu_bo_get_memory, which is used to implement fdinfo stats, so 
->>> they are
->>> not mixed with the regular userspace created and driver owned objects.
->>
->> I think that's true. It's a very fine distinction. AMDGPU_PL_PREEMPT 
->> does use system memory and it is GPU accessible, just like GTT. The 
->> only difference is, that it's not subject to the GTT limits because 
->> their eviction is handled by callbacks other than TTM evictions and 
->> doesn't need to wait for fences.
-> 
-> As in you think those two hunks of the patch are correct?
-
-Yes. It seems, Christian agrees but wants to show preemptible memory 
-separately in debugfs instead of not showing it at all.
-
-Regards,
-   Felix
-
-
-> 
-> Regards,
-> 
-> Tvrtko
-> 
-> 
->> Regards,
->>    Felix
->>
->>
->>>
->>> And also amdgpu_bo_print_info for debugfs reporting.
->>>
->>> Note that the patch depends on the previous one which broke down the
->>> relevant checks from the domain based to placement based.
->>>
->>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>> Fixes: b453e42a6e8b ("drm/amdgpu: Add new placement for preemptible 
->>> SG BOs")
->>> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
->>> Cc: Christian König <christian.koenig@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 5 ++---
->>>   1 file changed, 2 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>> index fb984669fc3a..5a2bbc793953 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>> @@ -1032,7 +1032,8 @@ void amdgpu_bo_unpin(struct amdgpu_bo *bo)
->>>           atomic64_sub(amdgpu_bo_size(bo), &adev->vram_pin_size);
->>>           atomic64_sub(amdgpu_vram_mgr_bo_visible_size(bo),
->>>                    &adev->visible_pin_size);
->>> -    } else if (bo->tbo.resource->mem_type == TTM_PL_TT) {
->>> +    } else if (bo->tbo.resource->mem_type == TTM_PL_TT ||
->>> +           bo->tbo.resource->mem_type == AMDGPU_PL_PREEMPT) {
->>>           atomic64_sub(amdgpu_bo_size(bo), &adev->gart_pin_size);
->>>       }
->>> @@ -1298,7 +1299,6 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
->>>               stats->vram_shared += size;
->>>           break;
->>>       case TTM_PL_TT:
->>> -    case AMDGPU_PL_PREEMPT:
->>>           stats->gtt += size;
->>>           if (shared)
->>>               stats->gtt_shared += size;
->>> @@ -1599,7 +1599,6 @@ u64 amdgpu_bo_print_info(int id, struct 
->>> amdgpu_bo *bo, struct seq_file *m)
->>>                   placement = "VRAM";
->>>               break;
->>>           case TTM_PL_TT:
->>> -        case AMDGPU_PL_PREEMPT:
->>>               placement = "GTT";
->>>               break;
->>>           case TTM_PL_SYSTEM:
