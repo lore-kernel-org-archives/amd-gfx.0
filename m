@@ -4,75 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E546C4345F
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 11:06:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2754FC4345F
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 11:07:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5F6010E8CA;
-	Mon, 29 Apr 2024 11:06:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA0CD10EA11;
+	Mon, 29 Apr 2024 11:07:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eKoI2PUx";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NOUGwvSG";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AA8010E8CA
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 11:06:18 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-41b79451153so22016075e9.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 04:06:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714388776; x=1714993576; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=lUT9vzVslcPYqsYAv1syc/iNp92bbNkDdxKljLDbQ0Q=;
- b=eKoI2PUxMVh6WGn8qUmTqSpy+hVx1k1hq88AKZv8aMWuiIdzsaXUllCyIR1GEjRGDN
- SN+qlDNKXvdE4uFiIoKsHnPn9MQLYeglrjlzlyTT5sBWHMKSio9O37WS+EijuftVge19
- VoY3oX1Py28BAKxbzInTJWd8e29uPzoEhWiHJTMoZkA5WudD0WSrfLgFnm1Mn4CK1Dko
- DS5yz02+LQnLWCT/VkxFwAW195XFQaLXpflu0d7QhIFAPcmplup0XvJL90WVzn89Z9pi
- PovnWJl7xTGLktZE5B67kmhFub8O1CC9jc5PAdHdbF/tSmpk+IVt2H930q1jaa4XESd4
- FcBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714388776; x=1714993576;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=lUT9vzVslcPYqsYAv1syc/iNp92bbNkDdxKljLDbQ0Q=;
- b=Qqdu9LOM5dZAx/C0+8tHE/KuOwgyCi5+oV8ihY+1PRaFz4ranCDLnsHfOw2wPLaWxK
- /3gWCuzTIjweV+d9+0SBqLNNrEyjg7U4EbLJtyw9S+wM5DCTIemKFUNmfEZwwZ63CrlA
- dmp4yLsmRTTKuFPqHnxz2wutfMvdqwAmAIR5nU7YqCtlH7929v394NXeQmshUIMQ2pCC
- u+DUphKamDOKN8mjP/vdzrkStFSDEjMyfLX+X6TBGs8aK1Wob0Ktdvgm9w9xGaI+xJem
- JIf1j85K6b0DOYziCJohY6FTz5O7QIi+lCUpp8Shfsub/b3cnurRcJU0vjNck4ZWVroO
- GA4g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVbJ7ZLDz25+a1unkh9spj/KV6bE5xKefrAIGVLJVBYJ/DSw8N3ZzPRQ6CAFmdrnH6hKx+VCWzaAG1FXzEeg3VnBhAxVWX6alP4lqGV5w==
-X-Gm-Message-State: AOJu0YzxYpoR1h4aOUz0BxggqfFLAHJiTiZ3lHT7Eq6MZKUdngTuCoXn
- G9CmLG0z0GlObaEUoJZefV+CawA9Qpqxp2d9Ttjv9PKIBbmspKY6
-X-Google-Smtp-Source: AGHT+IE5oFzC7TwCEMITXgtavOrMlUvCN+p47y2lJp9kuwP51lUnMOSVIBoGkAh3yCG6QaCO+sgdxQ==
-X-Received: by 2002:a05:600c:4449:b0:41a:fa9a:d86b with SMTP id
- v9-20020a05600c444900b0041afa9ad86bmr7483424wmn.11.1714388776318; 
- Mon, 29 Apr 2024 04:06:16 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- d18-20020a05600c34d200b0041b083e16e2sm19141160wmq.2.2024.04.29.04.06.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Apr 2024 04:06:15 -0700 (PDT)
-Message-ID: <c66a5f9a-99df-43ea-b2c7-94db01957951@gmail.com>
-Date: Mon, 29 Apr 2024 13:06:14 +0200
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2044.outbound.protection.outlook.com [40.107.93.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A078310EA11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 11:07:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=I2/YsfnysUs7HH/SKcymSatBopHTi2cQKtSqhcAoQUuQDFEc5XQapfuCxtplPw03NnJaw1ouSsvTA5wk6QWxUB+s5i8cKMH1B2cqHTloopYgJA8Z0BycYn3xX5VRzB7CKJBk6VajIlafbtctvYz7VjI6YLsypzRutHyoFSCSZ5o97ydu6t0L8yJtLe055pvLoWr5pAk05gP6TgZ542GPI4ZY7G3CuYPDFAW5gBbz9afJsS6YJPncJj/jDD2RvYxEtreLU+ogLpyiy+Dqgm5RkApPQbV8hXxtSTf9IsG3b2ED/v5EZWJYT/a1R8OHAoUUDACvl9xNcIhd8ymrpaE0Yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mnJ++A6Pu2pUuQg8jIoRhHgy+grikiQso0oARR1vusY=;
+ b=NgqVA2SzVBn5/ffsB8wDNe4snvg9Vr9gNRoTEUi2+N8LGczsnQEWMoj5ZiP4FoMSd+ISbPuUXvWS6DIBIE4i454hwPFhkoWL0Mg59lgfYTowWk1wGwidX2JvIp19M1/NKZU9mruyLfZz4NIJYQNMprx+XbbP2paZOFj3FWjUtMLg8AFdr9RlfM3FsQ9iKxsGsbIqD1s7GUG4HWduKc6rO33cirgSyHePNCsPfHu7Gc0aH5GCwScFLtFSIZGcdZx9HQsSi3+rXwNMS4uF/45x3pFv+TthPJKDPlAwEv5tD3P3FyXq+cMnVwJ8jIBu0V99XP1fgp6H3pmuk9WSRFfMdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mnJ++A6Pu2pUuQg8jIoRhHgy+grikiQso0oARR1vusY=;
+ b=NOUGwvSGQimv3r03BIt0YnatX8nDDECFqxjFQ/cb+qGRH1VADLUPTPfWWTw0tRlfuA3tLqzVwApo0yiyUDZLCydkfOq23aztWlr6Vl9c29E5VTulNZ1efHRdX3Nh/ISng15J3vrg5ZzgdOA7AbnVW486zjyjgY/LzCICd/LYsnk=
+Received: from SA9PR03CA0018.namprd03.prod.outlook.com (2603:10b6:806:20::23)
+ by MW4PR12MB6826.namprd12.prod.outlook.com (2603:10b6:303:20c::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Mon, 29 Apr
+ 2024 11:07:24 +0000
+Received: from SA2PEPF000015C7.namprd03.prod.outlook.com
+ (2603:10b6:806:20:cafe::6a) by SA9PR03CA0018.outlook.office365.com
+ (2603:10b6:806:20::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.35 via Frontend
+ Transport; Mon, 29 Apr 2024 11:07:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF000015C7.mail.protection.outlook.com (10.167.241.197) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Mon, 29 Apr 2024 11:07:23 +0000
+Received: from khazad-dum.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 29 Apr
+ 2024 06:07:22 -0500
+From: Lancelot SIX <lancelot.six@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <jay.cornwall@amd.com>, Lancelot SIX <lancelot.six@amd.com>
+Subject: [PATCH] drm/amdkfd: update buffer_{store, load}_* modifiers for gfx940
+Date: Mon, 29 Apr 2024 12:06:28 +0100
+Message-ID: <20240429110628.149277-1-lancelot.six@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/amdgpu: Fix pinned GART area accounting and
- fdinfo reporting
-To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>
-References: <20240426164355.1563-1-tursulin@igalia.com>
- <20240426164355.1563-4-tursulin@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240426164355.1563-4-tursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015C7:EE_|MW4PR12MB6826:EE_
+X-MS-Office365-Filtering-Correlation-Id: 100ce905-1425-4001-08b9-08dc683c8c3b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|1800799015|82310400014|376005|36860700004; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?WLV6WBKm1tcDygHOq8EGuDlWW3uJHTFTgGfasqMq2980jbfQCxIAkBgEXatd?=
+ =?us-ascii?Q?oy+ID3Pi3qWyNcw+QoBGSG2jCYRTfFN37HWCxGH8tSaX8KnuFc+1L57tbOw6?=
+ =?us-ascii?Q?9Q2F3NS67QwX+w5I6aJ9iHAkXhTkPwzSUImq8xzU80jbAHczQw13Cr0gkg3i?=
+ =?us-ascii?Q?CJOuB/cSiNKNGgjKOnqAFv0JMo6/gbb5vAlBrMQLAd1x5Wx1lp9DJx9Q/aQV?=
+ =?us-ascii?Q?Y4JOVHkvpotYi0Ebh+Z/oJn2zb69MFkWFTbFRXNsJT/0LO8mXwPbvkfYc1X3?=
+ =?us-ascii?Q?EXsrjvIZE+8QpYAG0iqbwObAWZzSXtNG1awxWXI/LX2jsh2wY1ezWxLUiwDj?=
+ =?us-ascii?Q?8/XmrzGjRz+seFS6oO5G2W3oZDKmp6RkRAztzYa77dRnuhRTk4GjOrqywjPy?=
+ =?us-ascii?Q?NqvNcoL+4y+lWEjduFl/eMnTBvKuyHov4r5946vb7bcSVh6x4D+k5HZWH98d?=
+ =?us-ascii?Q?HvC2Mj3lKXnwzJhkhdi5lr3Jna2zg6OR4fiXaW2eJOG6Bv/GYPkG2N0XpjuO?=
+ =?us-ascii?Q?OOnU8cFGkX2QeadYhCRQ6WtXs9eMY48jUZppY3FKS9gBYG7fSn/BYlLVeYLV?=
+ =?us-ascii?Q?+zaTuCwmHLAkyqhxrHftUYTUIi8zh2qrdJql1S4mcXYv5itsppGrqRhg4E24?=
+ =?us-ascii?Q?mgBTzSWjL0qaay2tcvU4uuGE+WtGXRq0vVkg8SU+HR1fp8Lf4oyLh5WpGRtB?=
+ =?us-ascii?Q?9GJn+oQdTWOVSrEfUBaGTyREBaKeWtyCcQdNlEDFt8ZWVwKCy16afACAo/sJ?=
+ =?us-ascii?Q?DJhc7yKwg3wQciImCxfeXoQwNNBD0sLQcvEZne/fc4qgHbOzaMgXH9/sQrSC?=
+ =?us-ascii?Q?CnoRapVYpSxU4OdfA0EPMlNeA2s/rGnQJ9Ap6LMwRCRDPArNazpZezlvpv/9?=
+ =?us-ascii?Q?9RZsIKE9SnXaE74O2lDcnWY5WARubd4dCV4bh/F+F7aQgYrXMZC+8/rlYuHm?=
+ =?us-ascii?Q?BR5EPVhizX6g5+stGFEYoK9gqkAnOAEzz55UBtHUxvS+FbZxA28uwlZ2IeqR?=
+ =?us-ascii?Q?kXkkDQnFpYVCnfPNuUVo59cvnx5Y/zt8965gbdubLvOAhAIqJ4b0Wff5FgWy?=
+ =?us-ascii?Q?7dvr9CtSwVcHVlT4QEwEefYKvBzCTrc5LLWxmr23a8GsBEjmOadHDQf+PtoS?=
+ =?us-ascii?Q?1H6osDadf68GTh64Yw3oDsScDcW1+e50cQSgmZVtZAWNnWn4kxos/BBOmpf9?=
+ =?us-ascii?Q?IbKJUTp7gpTJeQdwNloQOHh0YGJNS+5ewDNruB+i9dR2mohxgwgeIkbkqdPm?=
+ =?us-ascii?Q?P982nFVzFJb7/KBF96db2n/kj1JClW2V7eQ6ccaBj5kcvnuk9Q0BNdJX+8TC?=
+ =?us-ascii?Q?9tOigzjqSARrHcGSvTTaWDtXh2K6JCWG6MVYoy5llRBJHBOLihL8K36J1Xi/?=
+ =?us-ascii?Q?xlk0y6k=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(1800799015)(82310400014)(376005)(36860700004); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2024 11:07:23.9148 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 100ce905-1425-4001-08b9-08dc683c8c3b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015C7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6826
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,74 +128,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 26.04.24 um 18:43 schrieb Tvrtko Ursulin:
-> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->
-> When commit b453e42a6e8b ("drm/amdgpu: Add new placement for preemptible
-> SG BOs") added a new TTM region it missed to notice the conceptual
-> imbalance in GART pin size accounting as done in amdgpu_bo_pin/unpin.
->
-> That imbalance leads to such objects getting accounted against the
-> resource, but are not un-accounted when unpinned.
->
-> Fix by extending the accounting criteria in amdgpu_bo_unpin.
->
-> What also aappears needs fixing is not reporting their size from the
-> amdgpu_bo_get_memory, which is used to implement fdinfo stats, so they are
-> not mixed with the regular userspace created and driver owned objects.
->
-> And also amdgpu_bo_print_info for debugfs reporting.
->
-> Note that the patch depends on the previous one which broke down the
-> relevant checks from the domain based to placement based.
->
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Fixes: b453e42a6e8b ("drm/amdgpu: Add new placement for preemptible SG BOs")
-> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index fb984669fc3a..5a2bbc793953 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1032,7 +1032,8 @@ void amdgpu_bo_unpin(struct amdgpu_bo *bo)
->   		atomic64_sub(amdgpu_bo_size(bo), &adev->vram_pin_size);
->   		atomic64_sub(amdgpu_vram_mgr_bo_visible_size(bo),
->   			     &adev->visible_pin_size);
-> -	} else if (bo->tbo.resource->mem_type == TTM_PL_TT) {
-> +	} else if (bo->tbo.resource->mem_type == TTM_PL_TT ||
-> +		   bo->tbo.resource->mem_type == AMDGPU_PL_PREEMPT) {
+Instruction modifiers of the untyped vector memory buffer instructions
+(MUBUF encoded) changed in gfx940.  The slc, scc and glc modifiers have
+been replaced with sc0, sc1 and nt.
 
-Good catch, but please separate that one from the other changes since we 
-probably want to backport it.
+The current CWSR trap handler is written using pre-gfx940 modifier
+names, making the source incompatible with a strict gfx940 assembler.
 
->   		atomic64_sub(amdgpu_bo_size(bo), &adev->gart_pin_size);
->   	}
->   
-> @@ -1298,7 +1299,6 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
->   			stats->vram_shared += size;
->   		break;
->   	case TTM_PL_TT:
-> -	case AMDGPU_PL_PREEMPT:
->   		stats->gtt += size;
->   		if (shared)
->   			stats->gtt_shared += size;
-> @@ -1599,7 +1599,6 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
->   				placement = "VRAM";
->   			break;
->   		case TTM_PL_TT:
-> -		case AMDGPU_PL_PREEMPT:
+This patch updates the cwsr_trap_handler_gfx9.s source file to be
+compatible with all gfx9 variants of the ISA.  The binary assembled code
+is unchanged (so the behaviour is unchanged as well), only the source
+representation is updated.
 
-Yeah, that makes sense as well. But we need a case for AMDGPU_PL_PREEMPT 
-here as well then.
+Signed-off-by: Lancelot SIX <lancelot.six@amd.com>
+---
+ .../drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm | 24 ++++++++++++-------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
 
-Regards,
-Christian.
+diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm
+index bb26338204f4..a2d597d7fb57 100644
+--- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm
++++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm
+@@ -48,6 +48,12 @@ var ACK_SQC_STORE		    =	1		    //workaround for suspected SQC store bug causing
+ var SAVE_AFTER_XNACK_ERROR	    =	1		    //workaround for TCP store failure after XNACK error when ALLOW_REPLAY=0, for debugger
+ var SINGLE_STEP_MISSED_WORKAROUND   =	(ASIC_FAMILY <= CHIP_ALDEBARAN)	//workaround for lost MODE.DEBUG_EN exception when SAVECTX raised
+ 
++#if ASIC_FAMILY < CHIP_GC_9_4_3
++#define VMEM_MODIFIERS slc:1 glc:1
++#else
++#define VMEM_MODIFIERS sc0:1 nt:1
++#endif
++
+ /**************************************************************************/
+ /*			variables					  */
+ /**************************************************************************/
+@@ -581,7 +587,7 @@ end
+ L_SAVE_LDS_LOOP_VECTOR:
+       ds_read_b64 v[0:1], v2	//x =LDS[a], byte address
+       s_waitcnt lgkmcnt(0)
+-      buffer_store_dwordx2  v[0:1], v2, s_save_buf_rsrc0, s_save_mem_offset offen:1  glc:1  slc:1
++      buffer_store_dwordx2  v[0:1], v2, s_save_buf_rsrc0, s_save_mem_offset VMEM_MODIFIERS offen:1
+ //	s_waitcnt vmcnt(0)
+ //	v_add_u32 v2, vcc[0:1], v2, v3
+       v_add_u32 v2, v2, v3
+@@ -979,17 +985,17 @@ L_TCP_STORE_CHECK_DONE:
+ end
+ 
+ function write_4vgprs_to_mem(s_rsrc, s_mem_offset)
+-	buffer_store_dword v0, v0, s_rsrc, s_mem_offset slc:1 glc:1
+-	buffer_store_dword v1, v0, s_rsrc, s_mem_offset slc:1 glc:1  offset:256
+-	buffer_store_dword v2, v0, s_rsrc, s_mem_offset slc:1 glc:1  offset:256*2
+-	buffer_store_dword v3, v0, s_rsrc, s_mem_offset slc:1 glc:1  offset:256*3
++	buffer_store_dword v0, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS
++	buffer_store_dword v1, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS offset:256
++	buffer_store_dword v2, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS offset:256*2
++	buffer_store_dword v3, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS offset:256*3
+ end
+ 
+ function read_4vgprs_from_mem(s_rsrc, s_mem_offset)
+-	buffer_load_dword v0, v0, s_rsrc, s_mem_offset slc:1 glc:1
+-	buffer_load_dword v1, v0, s_rsrc, s_mem_offset slc:1 glc:1 offset:256
+-	buffer_load_dword v2, v0, s_rsrc, s_mem_offset slc:1 glc:1 offset:256*2
+-	buffer_load_dword v3, v0, s_rsrc, s_mem_offset slc:1 glc:1 offset:256*3
++	buffer_load_dword v0, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS
++	buffer_load_dword v1, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS offset:256
++	buffer_load_dword v2, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS offset:256*2
++	buffer_load_dword v3, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS offset:256*3
+ 	s_waitcnt vmcnt(0)
+ end
+ 
 
->   			placement = "GTT";
->   			break;
->   		case TTM_PL_SYSTEM:
+base-commit: cf743996352e327f483dc7d66606c90276f57380
+-- 
+2.34.1
 
