@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E445C4345F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0BDAC25B10
 	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 07:27:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BF1410F5C2;
-	Tue, 30 Apr 2024 07:27:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01DFF10F61E;
+	Tue, 30 Apr 2024 07:27:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T5T+KFmi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g6wLd2xR";
 	dkim-atps=neutral
-Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
- [209.85.166.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5693910FF69;
- Mon, 29 Apr 2024 19:32:14 +0000 (UTC)
-Received: by mail-io1-f50.google.com with SMTP id
- ca18e2360f4ac-7d5e93b40feso222609739f.2; 
- Mon, 29 Apr 2024 12:32:14 -0700 (PDT)
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F4B710FFAC;
+ Mon, 29 Apr 2024 19:39:43 +0000 (UTC)
+Received: by mail-io1-f45.google.com with SMTP id
+ ca18e2360f4ac-7dedc577011so3530439f.3; 
+ Mon, 29 Apr 2024 12:39:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714419133; x=1715023933; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1714419582; x=1715024382; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ldBVxIs3YWVEtrUSZaATkHa5+P4x6yD8OeAnS3nVM/g=;
- b=T5T+KFmiOeKjCA1SPuxrJJr8HtGRe3S4jJl0C8S14e2oYnT271byGaKHr7dl9sYb4P
- MH3FcpfxnivGFIXNsdP1yuLDw/pAt+goncBHPyW7i3gg94ltLS5Y1IQjlhWMdVWpuHx+
- avP8XmH6TqgMqVS2mynMg1NVDJlB9pLSDgYCn2+FCNni874nuFi4KjPfioh14F4vAKpJ
- T8FqeP9A8XWg+nQSUwJYx7EBtOBddv//IEeVfIqwZUBGjkfpy2uqRMe05tPuNefBew7W
- T74NSWuXVNJUnxSF08DjnnikEcz4QpnVw3HB4mxl46y9xhhNxzQPmDH2w9DAMNYLRm54
- E1/g==
+ bh=Ie5rZ4dsMUbEYAulp2798W3AJ6+dgFCJhLzBPJXIbz8=;
+ b=g6wLd2xR6V9IewlgLy3LyRp28Rv7A04Xw0q8Q03WqmLM10VrmTHvbBkU00KU7rKp8r
+ xy5ucQ0x3s4wG1zQF0L6EgFt4+sSoXkdkRFfApLmvSahuk4Go4yIRgwPuIBWsrG7nhHY
+ msOPKZRHBPo7C4pnlBKhhgUweBfve4YC3iu+erhhgjHfjfML/Zlsfy8ww35zZB63n58t
+ a/wrZHhTuSQr4QCG4BRR+kpo3xEQWTrynHxp01z7wOXcFDCVv3ycAMs0IbWKjHgUb980
+ BQm01aNBuku5fiEfuLmEDk8+//5C2rVca5wPfPNn7jjoVOzD7W0i5J43Vqem1xEWL2HX
+ PAmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714419133; x=1715023933;
+ d=1e100.net; s=20230601; t=1714419582; x=1715024382;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ldBVxIs3YWVEtrUSZaATkHa5+P4x6yD8OeAnS3nVM/g=;
- b=LHy5wUpriqmolUxbldSTC3rP9IvGErk5B53nhnH/HoqEALsB0f1f7cjlU5zW48u9Qq
- CZqzsFHtwZiR/IikEAkyTmgK35ziUPNe6tD2Jba9Ed4z1KiuqN2XMpPzR5gNbxx/GO+/
- gJgLOcaB4/ccASHPncJC8KZsom1G66HHCwwY7LWTZzuXjAlfRwMVJZlenGx7MYLUU8Cd
- gwgWXgWCTwRMmEtAZQHNyg1Gy8hTdrx5wxUeRNeEXFQ5TzrogChPnkC8iPL0OzF0BbAS
- FLx6gtRIJLBf8VcXnAmFzpOPpDoWM2Rt5Eeg3stJKWKd2Wp2itXJmzI+5qW1jyTJ6Gjs
- Pmnw==
+ bh=Ie5rZ4dsMUbEYAulp2798W3AJ6+dgFCJhLzBPJXIbz8=;
+ b=Csy9jO5KF14tSVDfxBOK0F2CDVYFDIhDdmrJ7pWKN733LoIV/SYM3xr2Be6sqJazzO
+ XWluNbR6homHJZEgygerEbGNf+37FhYO4gnL1KDjwSvjytKyPi9LnHFaOOxPyBH0FBnp
+ ufb0hBl3r8EgF08NkGZAK8kBwpktN+K65SFHmtSNBFy+PpMWBSlVS7tC2nt9pw176vtu
+ f+yhq5jQxpJ4Gt0efnqSr8Kr9iovPks1WEPYLnG2M4aBpfoiBX9NIRR0/PwDX9bZ/UTv
+ ZYBdnGD9WtI0GRujTWpMUBqqnLlHhUdHAN2GWtEFPmZMKcAnNsVLvPBaruzzkMbnd23L
+ AhiQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX4yFMG8DatHxCGHuXxlzJCohhQKfwcHV9VE6Lp13ShHEwAd2RR9w2JwdK9E0q+Ia0MgZ85QPvAkNVv4cEBSRfDYGRrnbZ3PfKF5cgBYvlb5iBSDXRiAcfRvhbRAGyby1Rvy7J+aEXHOs9U0g1mir3VYJFbhS+anhqi/mx9zSRm56BPraYco7sLY+5hJ2z7OX2ONHutzCmFhjIOLKiBCe4c3GmK6NAi97sV5EhDhZE8P0Z4JrQ=
-X-Gm-Message-State: AOJu0YznFokIoNC8T4jLTXjU3ahteDsb4XA/FKy6/uT03OXrpr2aZ2bV
- WBeB5JrB8zSO6dPlIS35kMyVopN9lxsQsSz0YsjKETIKJHDkaeQF8U3N9tk9
-X-Google-Smtp-Source: AGHT+IGHW0PLwjFCn9/rpWdn4NiBooWfUd2DZN1lnB0NLUJaPWaAn9sXEpa4tjxTrKvayL0PZexs5w==
-X-Received: by 2002:a5e:c74b:0:b0:7de:c608:15aa with SMTP id
- g11-20020a5ec74b000000b007dec60815aamr6340037iop.11.1714419133409; 
- Mon, 29 Apr 2024 12:32:13 -0700 (PDT)
+ AJvYcCVakxKi732kmpQWRfdF4Igb/RKvCNXulhd4naT6l4+GibvyPrJRvZvbA7XhGz9zaflEk0KtonkGo8Le6vRf+EMg99o7/tjn988GipAYKl5HYyMw4Az8hSm6k1jsYSPRaCdau+kqYnDDNc/Na9iotK9mUbJTSfI8/G6X2tVndaIbrRNNaQInTw7iI1Kdu3hmdjhSKaj28ZcBapa88uNWh/4Btq78WsTC4dtWHC14m8w66xLTWDE=
+X-Gm-Message-State: AOJu0Yyhja8DjXACSxSkr3MmfMmlQQwDM2vHuQSGeMrTceOiRh70GLWD
+ 1Lbg1EHMKYwBRlxocyZAhfd3gzAE6MTeI8jC9zytbbAhE+x5nn9v
+X-Google-Smtp-Source: AGHT+IGrQCUh7NJG66NLfClNiBakmvFViipsgTmeiMMctP+y/nuBqnI1oha451gFi7fkgh3cY29+VA==
+X-Received: by 2002:a05:6602:2759:b0:7d5:c987:3239 with SMTP id
+ b25-20020a056602275900b007d5c9873239mr888946ioe.16.1714419582384; 
+ Mon, 29 Apr 2024 12:39:42 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- dq18-20020a0566021b9200b007d5ec9b77aesm5988402iob.51.2024.04.29.12.32.12
+ y16-20020a056602165000b007de9f92dc57sm2325105iow.16.2024.04.29.12.39.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Apr 2024 12:32:12 -0700 (PDT)
+ Mon, 29 Apr 2024 12:39:41 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
@@ -66,12 +66,12 @@ Cc: ukaszb@chromium.org, linux-doc@vger.kernel.org, daniel.vetter@ffwll.ch,
  ville.syrjala@linux.intel.com, seanpaul@chromium.org, robdclark@gmail.com,
  groeck@google.com, yanivt@google.com, bleung@google.com,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v8 02/35] docs/dyndbg: update examples \012 to \n
-Date: Mon, 29 Apr 2024 13:31:12 -0600
-Message-ID: <20240429193145.66543-3-jim.cromie@gmail.com>
+Subject: [PATCH v8 32/35] drm: use correct ccflags-y spelling
+Date: Mon, 29 Apr 2024 13:39:18 -0600
+Message-ID: <20240429193921.66648-13-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240429193145.66543-1-jim.cromie@gmail.com>
-References: <20240429193145.66543-1-jim.cromie@gmail.com>
+In-Reply-To: <20240429193921.66648-1-jim.cromie@gmail.com>
+References: <20240429193921.66648-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 30 Apr 2024 07:26:58 +0000
@@ -89,38 +89,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-commit 47ea6f99d06e ("dyndbg: use ESCAPE_SPACE for cat control")
+Incorrectly spelled CFLAGS- failed to add -DDYNAMIC_DEBUG_MODULE,
+which broke builds with:
 
-changed the control-file to display format strings with "\n" rather
-than "\012".  Update the docs to match the new reality.
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y
+CONFIG_DYNAMIC_DEBUG_CORE=y
+CONFIG_DYNAMIC_DEBUG=n
 
+Also add subdir-ccflags so that all drivers pick up the addition.
+
+Fixes: 84ec67288c10 ("drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro")
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- Documentation/admin-guide/dynamic-debug-howto.rst | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 0e9b48daf690..6a8ce5a34382 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -52,12 +52,12 @@ query/commands to the control file.  Example::
-   # grease the interface
-   :#> alias ddcmd='echo $* > /proc/dynamic_debug/control'
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 104b42df2e95..313516fc2ad5 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -3,7 +3,8 @@
+ # Makefile for the drm device driver.  This driver provides support for the
+ # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
  
--  :#> ddcmd '-p; module main func run* +p'
-+  :#> ddcmd '-p; module main func run* +p'	# disable all, then enable main
-   :#> grep =p /proc/dynamic_debug/control
--  init/main.c:1424 [main]run_init_process =p "  with arguments:\012"
--  init/main.c:1426 [main]run_init_process =p "    %s\012"
--  init/main.c:1427 [main]run_init_process =p "  with environment:\012"
--  init/main.c:1429 [main]run_init_process =p "    %s\012"
-+  init/main.c:1424 [main]run_init_process =p "  with arguments:\n"
-+  init/main.c:1426 [main]run_init_process =p "    %s\n"
-+  init/main.c:1427 [main]run_init_process =p "  with environment:\n"
-+  init/main.c:1429 [main]run_init_process =p "    %s\n"
+-CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
++ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)		+= -DDYNAMIC_DEBUG_MODULE
++subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
  
- Error messages go to console/syslog::
- 
+ drm-y := \
+ 	drm_aperture.o \
 -- 
 2.44.0
 
