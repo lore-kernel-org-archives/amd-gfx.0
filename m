@@ -4,116 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2754FC4345F
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 11:07:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B220FC4345F
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 11:11:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA0CD10EA11;
-	Mon, 29 Apr 2024 11:07:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B60F112B99;
+	Mon, 29 Apr 2024 11:11:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NOUGwvSG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j7TLlOCn";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2044.outbound.protection.outlook.com [40.107.93.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A078310EA11
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 11:07:26 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2084.outbound.protection.outlook.com [40.107.94.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C821C112731
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 11:11:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I2/YsfnysUs7HH/SKcymSatBopHTi2cQKtSqhcAoQUuQDFEc5XQapfuCxtplPw03NnJaw1ouSsvTA5wk6QWxUB+s5i8cKMH1B2cqHTloopYgJA8Z0BycYn3xX5VRzB7CKJBk6VajIlafbtctvYz7VjI6YLsypzRutHyoFSCSZ5o97ydu6t0L8yJtLe055pvLoWr5pAk05gP6TgZ542GPI4ZY7G3CuYPDFAW5gBbz9afJsS6YJPncJj/jDD2RvYxEtreLU+ogLpyiy+Dqgm5RkApPQbV8hXxtSTf9IsG3b2ED/v5EZWJYT/a1R8OHAoUUDACvl9xNcIhd8ymrpaE0Yw==
+ b=RV4xB3oMvEX2nay3eEeco5RFfCTA34PD+DbWfSk6Z6YOGX84BkW8Vf74miPkoZsBLd3o2T/456W+8ngfnaeCsBgbFbVvvt4h4mIlLdxR3wezkQqQ1DBoOpZ32YpMCgIxvyZtULwXB4r/bK6bkS8YIh2BiOqFI63rOnTusvPzR59TOtgSuohHbx53ZtRtW8kHXwdAvsAdmAtPluAYroPi3tkhIP1uIEEfhLwijD8UvqDzQ3HEjmb3jduZmy5ry2BudCf/Pt5Va9lyoTGnv4Edxq8gY9/bzTZ/iusRj2U8qpV4dBe5vvLe4YF8ScMwuL+390qkGH3rFMbrj8NA71MVuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mnJ++A6Pu2pUuQg8jIoRhHgy+grikiQso0oARR1vusY=;
- b=NgqVA2SzVBn5/ffsB8wDNe4snvg9Vr9gNRoTEUi2+N8LGczsnQEWMoj5ZiP4FoMSd+ISbPuUXvWS6DIBIE4i454hwPFhkoWL0Mg59lgfYTowWk1wGwidX2JvIp19M1/NKZU9mruyLfZz4NIJYQNMprx+XbbP2paZOFj3FWjUtMLg8AFdr9RlfM3FsQ9iKxsGsbIqD1s7GUG4HWduKc6rO33cirgSyHePNCsPfHu7Gc0aH5GCwScFLtFSIZGcdZx9HQsSi3+rXwNMS4uF/45x3pFv+TthPJKDPlAwEv5tD3P3FyXq+cMnVwJ8jIBu0V99XP1fgp6H3pmuk9WSRFfMdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=W2iqGNWjunY0QC1Uwa8bhZY0tXagVui6kxe9NMyNOvM=;
+ b=SvryDSafuoYDNan/vAbFMa6dMKl4cA73PAcr7dFhk855z6nH3a+WmXu6jObntdvQdBxQ1fec541/fXrfMjdEgSH2E372lYiX+y+5Bi4Ez2inklQZSFbPUsywwqrT34Eg+DbAsMwg3/y8tzzirT6vQOE97YvCHAs60z2xX42fvm2KED55my2UsXRtehapaap+mu3N9UiRLK3BPIhK9IaqhDNsAusU0pcZYRLLNmVSkGIpPTYwiIknVwZ8hID2nzrAzTcIy6PEis6PJtoZ2ffDchwHIMWG7GgD3WApp+lSkaTlZfefY5SCvl3mTG8Lz80SdAMXD3U9ANAuhNlJrXK7gQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mnJ++A6Pu2pUuQg8jIoRhHgy+grikiQso0oARR1vusY=;
- b=NOUGwvSGQimv3r03BIt0YnatX8nDDECFqxjFQ/cb+qGRH1VADLUPTPfWWTw0tRlfuA3tLqzVwApo0yiyUDZLCydkfOq23aztWlr6Vl9c29E5VTulNZ1efHRdX3Nh/ISng15J3vrg5ZzgdOA7AbnVW486zjyjgY/LzCICd/LYsnk=
-Received: from SA9PR03CA0018.namprd03.prod.outlook.com (2603:10b6:806:20::23)
- by MW4PR12MB6826.namprd12.prod.outlook.com (2603:10b6:303:20c::8)
+ bh=W2iqGNWjunY0QC1Uwa8bhZY0tXagVui6kxe9NMyNOvM=;
+ b=j7TLlOCntfBaTKxZAcWwTzGjlAY5eVeOMgrj0T+s+HruFIfJhQhT52Xm0ZCNHnpYicgrD0W2ZbcZs6MYEBLoFQUUFmZVAmSoEcwe7bRNErvn7uZFfp+Sl/AOarHRJy2pGR0VB5Dtw7LS7Aa0VuzhKP80rGAQa6gruVgT4nS8qf4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ1PR12MB6337.namprd12.prod.outlook.com (2603:10b6:a03:456::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Mon, 29 Apr
- 2024 11:07:24 +0000
-Received: from SA2PEPF000015C7.namprd03.prod.outlook.com
- (2603:10b6:806:20:cafe::6a) by SA9PR03CA0018.outlook.office365.com
- (2603:10b6:806:20::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.35 via Frontend
- Transport; Mon, 29 Apr 2024 11:07:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF000015C7.mail.protection.outlook.com (10.167.241.197) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Mon, 29 Apr 2024 11:07:23 +0000
-Received: from khazad-dum.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 29 Apr
- 2024 06:07:22 -0500
-From: Lancelot SIX <lancelot.six@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <jay.cornwall@amd.com>, Lancelot SIX <lancelot.six@amd.com>
-Subject: [PATCH] drm/amdkfd: update buffer_{store, load}_* modifiers for gfx940
-Date: Mon, 29 Apr 2024 12:06:28 +0100
-Message-ID: <20240429110628.149277-1-lancelot.six@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.43; Mon, 29 Apr
+ 2024 11:11:39 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::f2b6:1034:76e8:f15a]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::f2b6:1034:76e8:f15a%6]) with mapi id 15.20.7519.031; Mon, 29 Apr 2024
+ 11:11:39 +0000
+Message-ID: <494956d9-7055-4384-a569-1381bf0380b3@amd.com>
+Date: Mon, 29 Apr 2024 13:11:33 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] drm/amdgpu: Fix pinned GART area accounting and
+ fdinfo reporting
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Felix Kuehling <felix.kuehling@amd.com>, Tvrtko Ursulin
+ <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com
+References: <20240426164355.1563-1-tursulin@igalia.com>
+ <20240426164355.1563-4-tursulin@igalia.com>
+ <a60dede1-8e81-4c79-8058-257391930621@amd.com>
+ <fe80a8db-3ece-4818-8b23-2ccf5293a6c2@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <fe80a8db-3ece-4818-8b23-2ccf5293a6c2@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR0P281CA0222.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ac::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015C7:EE_|MW4PR12MB6826:EE_
-X-MS-Office365-Filtering-Correlation-Id: 100ce905-1425-4001-08b9-08dc683c8c3b
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ1PR12MB6337:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94267d46-48de-4889-7b93-08dc683d2473
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|1800799015|82310400014|376005|36860700004; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?WLV6WBKm1tcDygHOq8EGuDlWW3uJHTFTgGfasqMq2980jbfQCxIAkBgEXatd?=
- =?us-ascii?Q?oy+ID3Pi3qWyNcw+QoBGSG2jCYRTfFN37HWCxGH8tSaX8KnuFc+1L57tbOw6?=
- =?us-ascii?Q?9Q2F3NS67QwX+w5I6aJ9iHAkXhTkPwzSUImq8xzU80jbAHczQw13Cr0gkg3i?=
- =?us-ascii?Q?CJOuB/cSiNKNGgjKOnqAFv0JMo6/gbb5vAlBrMQLAd1x5Wx1lp9DJx9Q/aQV?=
- =?us-ascii?Q?Y4JOVHkvpotYi0Ebh+Z/oJn2zb69MFkWFTbFRXNsJT/0LO8mXwPbvkfYc1X3?=
- =?us-ascii?Q?EXsrjvIZE+8QpYAG0iqbwObAWZzSXtNG1awxWXI/LX2jsh2wY1ezWxLUiwDj?=
- =?us-ascii?Q?8/XmrzGjRz+seFS6oO5G2W3oZDKmp6RkRAztzYa77dRnuhRTk4GjOrqywjPy?=
- =?us-ascii?Q?NqvNcoL+4y+lWEjduFl/eMnTBvKuyHov4r5946vb7bcSVh6x4D+k5HZWH98d?=
- =?us-ascii?Q?HvC2Mj3lKXnwzJhkhdi5lr3Jna2zg6OR4fiXaW2eJOG6Bv/GYPkG2N0XpjuO?=
- =?us-ascii?Q?OOnU8cFGkX2QeadYhCRQ6WtXs9eMY48jUZppY3FKS9gBYG7fSn/BYlLVeYLV?=
- =?us-ascii?Q?+zaTuCwmHLAkyqhxrHftUYTUIi8zh2qrdJql1S4mcXYv5itsppGrqRhg4E24?=
- =?us-ascii?Q?mgBTzSWjL0qaay2tcvU4uuGE+WtGXRq0vVkg8SU+HR1fp8Lf4oyLh5WpGRtB?=
- =?us-ascii?Q?9GJn+oQdTWOVSrEfUBaGTyREBaKeWtyCcQdNlEDFt8ZWVwKCy16afACAo/sJ?=
- =?us-ascii?Q?DJhc7yKwg3wQciImCxfeXoQwNNBD0sLQcvEZne/fc4qgHbOzaMgXH9/sQrSC?=
- =?us-ascii?Q?CnoRapVYpSxU4OdfA0EPMlNeA2s/rGnQJ9Ap6LMwRCRDPArNazpZezlvpv/9?=
- =?us-ascii?Q?9RZsIKE9SnXaE74O2lDcnWY5WARubd4dCV4bh/F+F7aQgYrXMZC+8/rlYuHm?=
- =?us-ascii?Q?BR5EPVhizX6g5+stGFEYoK9gqkAnOAEzz55UBtHUxvS+FbZxA28uwlZ2IeqR?=
- =?us-ascii?Q?kXkkDQnFpYVCnfPNuUVo59cvnx5Y/zt8965gbdubLvOAhAIqJ4b0Wff5FgWy?=
- =?us-ascii?Q?7dvr9CtSwVcHVlT4QEwEefYKvBzCTrc5LLWxmr23a8GsBEjmOadHDQf+PtoS?=
- =?us-ascii?Q?1H6osDadf68GTh64Yw3oDsScDcW1+e50cQSgmZVtZAWNnWn4kxos/BBOmpf9?=
- =?us-ascii?Q?IbKJUTp7gpTJeQdwNloQOHh0YGJNS+5ewDNruB+i9dR2mohxgwgeIkbkqdPm?=
- =?us-ascii?Q?P982nFVzFJb7/KBF96db2n/kj1JClW2V7eQ6ccaBj5kcvnuk9Q0BNdJX+8TC?=
- =?us-ascii?Q?9tOigzjqSARrHcGSvTTaWDtXh2K6JCWG6MVYoy5llRBJHBOLihL8K36J1Xi/?=
- =?us-ascii?Q?xlk0y6k=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(82310400014)(376005)(36860700004); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YW9EblF5T0lvZjFod1ZVT2FMQmMvOXIwOTg3QlFZUVFCYmorRExNU1VBRFkz?=
+ =?utf-8?B?bXlITDFIdk42ZUI4Ri9EdUxhTUNmVDlsOWxQVGVHdDJNVHJ1S0hXa3E0MU50?=
+ =?utf-8?B?MkgxeXM0QlNZNWxUS1h5eWtIUWUyYkJmY3MrVDZ0dXV5d1FJMm92K3lxaGU5?=
+ =?utf-8?B?S0JlUlF3Q3F4VW94bFhtU1Q0UEVyb3NhWW9adlRZQmVkYjc5dHpDdUcxYi82?=
+ =?utf-8?B?Y1dtbVEya0lHcVZibHRCTXBicVdJbGJKc2ZGWXdCZVkwRHhoUVVzR0xHWjA5?=
+ =?utf-8?B?Qm5oSERkdS9aeUNRUzAvZnE3MitSNVh5UGh5TDBDeUsxbGlnNXBDdjFyT21I?=
+ =?utf-8?B?b3YzZGNSZXpmeGZtY0syaG1NMU1iaFJqQkJXWHBZMmN6dTNxUjc3Q1RzZ2Z0?=
+ =?utf-8?B?MkVVL3JnbFdIRkdjc3hSYlcvanZBVHdsQmFEOWZLQ3d2OWJKdVNXQlRqQnI0?=
+ =?utf-8?B?bHE2Q1F2VE5RMlY5VVZyREhmL0hHQ3h0RDlsUituRHVCNmJDenV3cXlGZ3Nj?=
+ =?utf-8?B?Wm9EWS9hNDU3bzBSMlRuTHRhRGhJZlhnRnI3MEc5Z2NLYllNUFduRDk4ZTJ1?=
+ =?utf-8?B?VVMydjJqMnNDRHVUOVl3SW9Ld0RKbzBKd2p3ZGZab1BNazMwTzRreEJxeE8z?=
+ =?utf-8?B?SUlwZmtMdEs3NXBpTU93RDVXQUF5MENoUy9tWDVsL1I1YWMyb0h4eUswOEt6?=
+ =?utf-8?B?Ykl5bTlEZldjdGd4RnBibzVXLzdpcjZUOEM3cE9pRHR6YXhuZ0Z4T3hRellm?=
+ =?utf-8?B?VDZmMjQrempsczVIaW1JMkZwZVp3YWFUang1dTEwd2ZBNzVYeDlKY2RUSUVi?=
+ =?utf-8?B?SVVGTXI3cElxeHJPSkNzQm9FbFBVSjl1dXAwVXZMR0RtMWNYeGtaTU14SXdK?=
+ =?utf-8?B?WXhJVHhaUnNSYzAwTyt6QjgxbkQrZEFsbW5ISXZNdDNkV29OaEh5Nzc2RG5y?=
+ =?utf-8?B?ZFBoRmlxM2VRLy9YOG9zbndVbllGa1RaSHJqd3JzaHMzaWcxNUovQXdzQ1FS?=
+ =?utf-8?B?WkJkb0Qxbm4xS2RGZ29DbWlnUlk2UUFWeHc2ZHRra2xwVTNjMkZHRFBYMEVx?=
+ =?utf-8?B?dlpQZnA0TmxTYjZrZkc5aXRrb3Fpa3hTZ1JaSy82cGMrSnVvS3dDNDBoY1hU?=
+ =?utf-8?B?V2JGb0dXSWFGTUc3OWtTZkl0NG1VbmRsSkJlQ0Z2RmJiY0hGckQ1cFBvamNN?=
+ =?utf-8?B?bXdvMFJpY1JVaXZrSXE5ZU51SHFtQ2ZYdDlubjVPNkhtRkcrS2RaQlQ5akZZ?=
+ =?utf-8?B?UnljUERPY25LZk5zNzhTQ1JlbWNQQkg3NzBGM1ZzcGxUR1Y1RDR1MmhacFlv?=
+ =?utf-8?B?eFhobHRpK0Nsa21aVHpZVHhoT1lUaVZqS0VidXZmdDFXaGdDaGtyMVNuQmY4?=
+ =?utf-8?B?SERtNVNVZzBoVGhTYWl1SVpucVZlOENLZlBSY0dNZnBFWnJ3c0pLcE5SczVD?=
+ =?utf-8?B?eTJ0NUNCMEFObUFhNlVtWmRGNkhMNThoWmVSbGFoYnVlQXl4TGNONytvSW9V?=
+ =?utf-8?B?cC96TjJ6aC9qSXhpTVVzaUlyK1BySENXK3JHcFJrT1FzeXU4bk9WVlBMdFZQ?=
+ =?utf-8?B?ajlsRDJjdFhaM2Y2dnhEelc0bnoydXIzZTJ2TEdKU0hZakczenppZFdWN3Ri?=
+ =?utf-8?B?T0w0bzJPZm1jSVdUTmxNM3g4S1lobTJnNzZETUthWDRkUEk2OGFibDhmdTht?=
+ =?utf-8?B?SUFXUGJ6NVN1Y1ZKcHpZVjQ5dGJKdE5CUWhISEFPWW8vUk5oWExLcW9nPT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(366007)(1800799015); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGcyY3BmRVJ4ek5VYmp0WHFBZVdLZzF4SHl2SmlKNi9HTjBuMGxQeFhlVDRk?=
+ =?utf-8?B?S2UxM1R6TXFGaGJlYTc5R3pwUUNvUTdSRHowZXVaeUh5eVhYYjV2TzdkYWxG?=
+ =?utf-8?B?YnJLbjBWcUJtYmhkRVNXVURiMnlic0NhRnhNU2ZKbkxGV3B1RUpScFRXcjZ3?=
+ =?utf-8?B?NUVBbjd0WWJ2SFVWRENDZGo1ZjJOVy9zSlFpMVdsY1V0dHMvMTBHRTBzZG1r?=
+ =?utf-8?B?NzBFL2R0Z2VwQkw0RnNpaXNuZkxEWkNrbTJpM2NOYnN2S0Zlc3VGYlBUbEpM?=
+ =?utf-8?B?THg0K2hQVmQyOUlJamZGbVU4aW5Ud2JKd3U0Q0lWSndKNkE5alFLcEtiSWN0?=
+ =?utf-8?B?M2dmUEovOW11aHoyWnFnVGR0S3JVamxqR1h5cFo5ZjhjaC9pN3U2KzRqaFlE?=
+ =?utf-8?B?SVNJbWs4amw5MHRWenQwQjJkVGlEbWFYQ2I5azdzeG1KVUdHb29wODRxUVBC?=
+ =?utf-8?B?Tk9oWDFzcnZOdlpRZ0JqQVNCekhiRDdTS3JyOHhBRnkwOXJWVEo4aHFOVmxZ?=
+ =?utf-8?B?bWJRQ0ltVmpKQWVaNlNGYnFnL1djaXlYbmFmUGl0bG1IdFhMOUlKTmU0UW9o?=
+ =?utf-8?B?L0tuYnR0bnI0NFFham1kSTduWmUreUhpNnpiL1FkQ3dYZm94TnlSb3paelpu?=
+ =?utf-8?B?MllaZWh3RkNxSUFOR1RLWGprWWxLOVhncEJycS9oLysyUDhMT0M3OXVyWWxm?=
+ =?utf-8?B?dUlZaDZsd1FXQThtY0ZsVEdEeUdEZ1dwOS9URHBINVdUR1hBRDNqVUJGbWY0?=
+ =?utf-8?B?NHFlalkwWFhMVk04K2trMWdzM3pMUmZzNHMxdUhEUENnZUZmcFdWUjVqeFAv?=
+ =?utf-8?B?YWIvWVRRVnpZbEx4TldyNEsrWWdheWppVmdLZFVtQ3hOdTRoazc5Znl4eFJK?=
+ =?utf-8?B?dzVIM0EweFhVMzg2T2VRL2RFT0lJd1JEb0xOdzh6MEttNGdOcTc0djJ3MWlp?=
+ =?utf-8?B?dENrMjViSC9kVklVYkR1QTFPejk3bjllbFFIa0hlRktCaWFZSXVGQ0taZS8v?=
+ =?utf-8?B?ZThieGFyeS9MaURUQ1YzQldjRnhlSktnbFdac0Z5VldsaHNzRHlnZWlyYzAz?=
+ =?utf-8?B?WHV5M1U2WFNxVVR0WmpyVnJrbGo3RytYK1hWME1oMk56NWxOUVFKaEhUc2Ur?=
+ =?utf-8?B?a2J1emV0Uk9WT3FmZE1XSlgzTmd2NCsxNlFhUHFGOXEzOVd1WkhrdU03RXVt?=
+ =?utf-8?B?VkdNVGw5bG5qRkZiRTVzTFdISkhoMmhTekt1UTNZUzBqajI0d3lMREJ1WmZT?=
+ =?utf-8?B?RTBodkNGVVErVHlIRkQreUNTdTZwNEQra3ZSb1JLY1pvWEE5dnRZWisyWWdi?=
+ =?utf-8?B?dW5PSkVORk5peDZDQ0dRZXRwakJVdXRVSmtkYVI5R242c3JRZG9ydmMwOEV3?=
+ =?utf-8?B?eEhITkw3c1J2VmhiT1hCcEN3UzZadnhZeHVNZi96Rk1QemNpQkJzMmI2YXFx?=
+ =?utf-8?B?bDRwRHN3UVpuaU1OOEJ3Njl4NEU2MHVESHRMVE51S2c0NkJLREJDZVNQMU4w?=
+ =?utf-8?B?eDBxOEhUWkV3UTVJOG1EUndLOHFGRERRUGEwUVV3UFZ5ODgva3YweGdVZnpv?=
+ =?utf-8?B?Y1FhY0xyYWFsMHJtMlJvcmZYbjZQQ0tqSWdnYmVKVmxqdENrZ3lpbVJVenhB?=
+ =?utf-8?B?L0VMZDNyREQ5R1ZZaGR1SDZ2V211WDJBR2V2L1ZrcnBGRVozamVLRFNCK0ha?=
+ =?utf-8?B?Mnl4TWFaN0Q4UlZjLzcyV0dpVHFrMWlqanJlNnVrUzdmMWM5c2JkdVZGWmdv?=
+ =?utf-8?B?K0R4ZjUvd0Flcm1VM05RQVVKaWVQelRJNTVaQTRXWEZpS29RMHdybGdKRlhv?=
+ =?utf-8?B?YUs3WjAreG1yUzdQaVkyMC9oOHlRM0lTWmRhNnpxbkdWRTZQL3R6UlRPQ1V2?=
+ =?utf-8?B?cnVRbGtIblU3N2IzSTVZd2xkWmZKcHdidmxScGcyL3ZJb0pyTS9EZVJRd0R0?=
+ =?utf-8?B?c3pldjAxSUUveVN5ZDBjSG5oR1FlTEl1TWtsT0R5RFNhNHEzcTRUbElITkdC?=
+ =?utf-8?B?Q3gwdUpjdkJGdnI2OUZIaVRLbDJGdFZFeDhHYUhzSDZDOGtmRitmMkkveUhk?=
+ =?utf-8?B?R2V4cFRwQldBMCtUYkZMamxFQWQ5aEFVK0MzTmNkYUphanJLRFFVaVlrSHFQ?=
+ =?utf-8?Q?sC3M=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2024 11:07:23.9148 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 100ce905-1425-4001-08b9-08dc683c8c3b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94267d46-48de-4889-7b93-08dc683d2473
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2024 11:11:39.5146 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015C7.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6826
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sfSlliwMlBQgY0g3fsXmjO9BhkiRgKZh5Adnrhy9N2Iu8ITB4QMCC9UKBigst5MM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6337
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,77 +162,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instruction modifiers of the untyped vector memory buffer instructions
-(MUBUF encoded) changed in gfx940.  The slc, scc and glc modifiers have
-been replaced with sc0, sc1 and nt.
+Am 29.04.24 um 11:43 schrieb Tvrtko Ursulin:
+>
+> On 26/04/2024 23:24, Felix Kuehling wrote:
+>>
+>> On 2024-04-26 12:43, Tvrtko Ursulin wrote:
+>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>
+>>> When commit b453e42a6e8b ("drm/amdgpu: Add new placement for 
+>>> preemptible
+>>> SG BOs") added a new TTM region it missed to notice the conceptual
+>>> imbalance in GART pin size accounting as done in amdgpu_bo_pin/unpin.
+>>>
+>>> That imbalance leads to such objects getting accounted against the
+>>> resource, but are not un-accounted when unpinned.
+>>
+>> AMDGPU_PL_PREEMPT is mostly used for userptr BOs, which cannot be 
+>> pinned. In any case you should make sure that the accounting is 
+>> consistent between amdgpu_bo_pin_restricted and amdgpu_bo_unpin. This 
+>> patch breaks that consistency.
+>
+> You mean amdgpu_bo_pin(_restricted) and amdgpu_bo_unpin do not run for 
+> such objects, or something else?
+>
+> If they run, then at the end of pin there is:
+>
+>     domain = amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
+> ...
+>     } else if (domain == AMDGPU_GEM_DOMAIN_GTT) {
+>         atomic64_add(amdgpu_bo_size(bo), &adev->gart_pin_size);
+>
+> And unpin has no handling for AMDGPU_PL_PREEMPT.
+>
+> Ah I see.. does it rely on amdgpu_mem_type_to_domain returning 0 for 
+> AMDGPU_PL_PREEMPT? My confusion was I misread the pinning check as 
+> checking the domain as stored in the bo at creation time.
+>
+> Although I am still confused by the statement userptr BOs are not 
+> pinned. It is not needed to map them via GART on AMD hardware for GPU 
+> to be able to access them?
 
-The current CWSR trap handler is written using pre-gfx940 modifier
-names, making the source incompatible with a strict gfx940 assembler.
+No, a GART mapping is only needed if you want to scanout from them or 
+otherwise use them from the kernel on the GPU.
 
-This patch updates the cwsr_trap_handler_gfx9.s source file to be
-compatible with all gfx9 variants of the ISA.  The binary assembled code
-is unchanged (so the behaviour is unchanged as well), only the source
-representation is updated.
+Background is that the kernel doesn't has VM with page tables..
 
-Signed-off-by: Lancelot SIX <lancelot.six@amd.com>
----
- .../drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm | 24 ++++++++++++-------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+>>> Fix by extending the accounting criteria in amdgpu_bo_unpin.
+>>>
+>>> What also aappears needs fixing is not reporting their size from the
+>>> amdgpu_bo_get_memory, which is used to implement fdinfo stats, so 
+>>> they are
+>>> not mixed with the regular userspace created and driver owned objects.
+>>
+>> I think that's true. It's a very fine distinction. AMDGPU_PL_PREEMPT 
+>> does use system memory and it is GPU accessible, just like GTT. The 
+>> only difference is, that it's not subject to the GTT limits because 
+>> their eviction is handled by callbacks other than TTM evictions and 
+>> doesn't need to wait for fences.
+>
+> As in you think those two hunks of the patch are correct?
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm
-index bb26338204f4..a2d597d7fb57 100644
---- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm
-+++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm
-@@ -48,6 +48,12 @@ var ACK_SQC_STORE		    =	1		    //workaround for suspected SQC store bug causing
- var SAVE_AFTER_XNACK_ERROR	    =	1		    //workaround for TCP store failure after XNACK error when ALLOW_REPLAY=0, for debugger
- var SINGLE_STEP_MISSED_WORKAROUND   =	(ASIC_FAMILY <= CHIP_ALDEBARAN)	//workaround for lost MODE.DEBUG_EN exception when SAVECTX raised
- 
-+#if ASIC_FAMILY < CHIP_GC_9_4_3
-+#define VMEM_MODIFIERS slc:1 glc:1
-+#else
-+#define VMEM_MODIFIERS sc0:1 nt:1
-+#endif
-+
- /**************************************************************************/
- /*			variables					  */
- /**************************************************************************/
-@@ -581,7 +587,7 @@ end
- L_SAVE_LDS_LOOP_VECTOR:
-       ds_read_b64 v[0:1], v2	//x =LDS[a], byte address
-       s_waitcnt lgkmcnt(0)
--      buffer_store_dwordx2  v[0:1], v2, s_save_buf_rsrc0, s_save_mem_offset offen:1  glc:1  slc:1
-+      buffer_store_dwordx2  v[0:1], v2, s_save_buf_rsrc0, s_save_mem_offset VMEM_MODIFIERS offen:1
- //	s_waitcnt vmcnt(0)
- //	v_add_u32 v2, vcc[0:1], v2, v3
-       v_add_u32 v2, v2, v3
-@@ -979,17 +985,17 @@ L_TCP_STORE_CHECK_DONE:
- end
- 
- function write_4vgprs_to_mem(s_rsrc, s_mem_offset)
--	buffer_store_dword v0, v0, s_rsrc, s_mem_offset slc:1 glc:1
--	buffer_store_dword v1, v0, s_rsrc, s_mem_offset slc:1 glc:1  offset:256
--	buffer_store_dword v2, v0, s_rsrc, s_mem_offset slc:1 glc:1  offset:256*2
--	buffer_store_dword v3, v0, s_rsrc, s_mem_offset slc:1 glc:1  offset:256*3
-+	buffer_store_dword v0, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS
-+	buffer_store_dword v1, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS offset:256
-+	buffer_store_dword v2, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS offset:256*2
-+	buffer_store_dword v3, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS offset:256*3
- end
- 
- function read_4vgprs_from_mem(s_rsrc, s_mem_offset)
--	buffer_load_dword v0, v0, s_rsrc, s_mem_offset slc:1 glc:1
--	buffer_load_dword v1, v0, s_rsrc, s_mem_offset slc:1 glc:1 offset:256
--	buffer_load_dword v2, v0, s_rsrc, s_mem_offset slc:1 glc:1 offset:256*2
--	buffer_load_dword v3, v0, s_rsrc, s_mem_offset slc:1 glc:1 offset:256*3
-+	buffer_load_dword v0, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS
-+	buffer_load_dword v1, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS offset:256
-+	buffer_load_dword v2, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS offset:256*2
-+	buffer_load_dword v3, v0, s_rsrc, s_mem_offset VMEM_MODIFIERS offset:256*3
- 	s_waitcnt vmcnt(0)
- end
- 
+I think so as well, yes. But we still need a name for preemptible BOs 
+while printing them in debugfs.
 
-base-commit: cf743996352e327f483dc7d66606c90276f57380
--- 
-2.34.1
+Regards,
+Christian.
+
+>
+> Regards,
+>
+> Tvrtko
+>
+>
+>> Regards,
+>>    Felix
+>>
+>>
+>>>
+>>> And also amdgpu_bo_print_info for debugfs reporting.
+>>>
+>>> Note that the patch depends on the previous one which broke down the
+>>> relevant checks from the domain based to placement based.
+>>>
+>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>> Fixes: b453e42a6e8b ("drm/amdgpu: Add new placement for preemptible 
+>>> SG BOs")
+>>> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 5 ++---
+>>>   1 file changed, 2 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>> index fb984669fc3a..5a2bbc793953 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>> @@ -1032,7 +1032,8 @@ void amdgpu_bo_unpin(struct amdgpu_bo *bo)
+>>>           atomic64_sub(amdgpu_bo_size(bo), &adev->vram_pin_size);
+>>>           atomic64_sub(amdgpu_vram_mgr_bo_visible_size(bo),
+>>>                    &adev->visible_pin_size);
+>>> -    } else if (bo->tbo.resource->mem_type == TTM_PL_TT) {
+>>> +    } else if (bo->tbo.resource->mem_type == TTM_PL_TT ||
+>>> +           bo->tbo.resource->mem_type == AMDGPU_PL_PREEMPT) {
+>>>           atomic64_sub(amdgpu_bo_size(bo), &adev->gart_pin_size);
+>>>       }
+>>> @@ -1298,7 +1299,6 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+>>>               stats->vram_shared += size;
+>>>           break;
+>>>       case TTM_PL_TT:
+>>> -    case AMDGPU_PL_PREEMPT:
+>>>           stats->gtt += size;
+>>>           if (shared)
+>>>               stats->gtt_shared += size;
+>>> @@ -1599,7 +1599,6 @@ u64 amdgpu_bo_print_info(int id, struct 
+>>> amdgpu_bo *bo, struct seq_file *m)
+>>>                   placement = "VRAM";
+>>>               break;
+>>>           case TTM_PL_TT:
+>>> -        case AMDGPU_PL_PREEMPT:
+>>>               placement = "GTT";
+>>>               break;
+>>>           case TTM_PL_SYSTEM:
 
