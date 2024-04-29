@@ -4,142 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9376AC4345F
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 08:21:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 601E5C04FFE
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 08:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 044F410FDD3;
-	Mon, 29 Apr 2024 08:21:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E02EA112B30;
+	Mon, 29 Apr 2024 08:31:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="f29lMR+B";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v1nzNY5w";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2065.outbound.protection.outlook.com [40.107.92.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B8A710FDD3
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 08:21:02 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2085.outbound.protection.outlook.com [40.107.96.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34C9F112B2E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 08:31:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SbIDAHmr/sCF4XFyFhwRZsuiOEHMoxB+nqSZzDIpy+DbtQN+LySPpffg/1IrCIYPse8OHC/vEtvmMzMqRJFbUFtizjdTdHRWa5Rg47HDIrO5drsmB+dprA4q3+SF6jtONIKffjK7161Ufxl2owkTidreACNVffLjVGILdYs8dC9wPVDCM0/+rT10l13vnNxpBAAx4BfkGEaMmXPvOVkI+hS3MJnHWMgU7SOp3iajjUKq+9GX1Aft7k+rBk+W4okFqOCzMzBUOtSboftNGIeolIIj1Re3sYUUES1A7fX3t5zLwP2t4biKWRPCamaEGDQxnvnGK5qTmYYX1Q8J9fDXLw==
+ b=In6HmWyJon464UwLKnf9Qj2MhM12jCCsJwqKGJhrohQivJL4NCZuB8LmiOQDFdVE0ikX6gtsjjJhPWnKfavclxbC6xUz5DQ1sN8sRBJeGvTR/FIE4RvJz5KV4YPwZkZNzEZruqWvR46+gN3CeWAf1m9qDdkBfv4ocaOxa960CeelQZdC43oS8Yej7RRrslsHr3RHG5GdlbTxz02ZLbUpFKe4KSQ6vL2CvPPLA8CN3KkyXdbnh6nzUZUIa1rjija8iOh+8ngjxO67InAlZyr/LcyffHRCsJgpEF7IuzTf9yzq6tzcz/uL7ljTGfmP/ZZCwDprE93hbDiWr7kLXhsZoQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wibufb3ewNlDEI7U5Px6PzmYy09K/bhwa3ZxJVTLfHQ=;
- b=kTinBS63LdQdWZvSBi+zshkstGla+HymfhqzD4eTrvt50nr79y+38loewjUR7jaKUNurOrqfPP5dqcOnpgHtKwtunTBudjFuCcm6Z5ZfuFzkSh4/Y/I9hMW0gpOQHf2GQeO+kw4t9TLbAx4Ww4xuO9c66cklFDlXVkokUKnbmn+luXlyUug8rEOJSsg+/HJU8gQOQFJEkUb8cL84MHpjoHkB7rtc80MjGrYHD8AVy4juFHBRTzMMStABLoxbSWiaOgwq7Zvjqm3tKaALAUC8sM5Sbwszhn0+mEhsq49++/O+gj+yvX1DBsJSbBLdAFT22hH/qjYsVfEli5VdgNiktg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=LWFv/UxqeoS2dt1YFw5tuE1em/h4d7HWFS1nwFxAGzs=;
+ b=m8rRxQMxPCVhgZcUdaPA12yogc1pQVpEEbeJEuooqGlJk4zqL8SETu+aR7JlRNRIpw7t1Gu7qPLILtsJEACYt9QH9+VNE8VElN1zPCKWC1N4mFTzatW9wFNNZQ8BaKVmKD8yKx6Ua0iPtEbDXn7Xn+zUjqE53wYowNCXUAZXbNOv+FXOgIA4dI2NeICOPwqC0A+GcPc8Ce8AWZRTTCFu1AyWFHTpqoa5yJpktLm3Z3U1LVJdzs+LZfJ0BfhvzBbOFG+BUcWr5rAdsV78ruV1sEbm9uNHLjesLUO85nfasccWbHEnKTC6IBfveMKWjDWiy68gNGDj3vINoAjsVtjWAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wibufb3ewNlDEI7U5Px6PzmYy09K/bhwa3ZxJVTLfHQ=;
- b=f29lMR+BESK8nb952xsfV4Mvg3H6MxYJS0UgwwM/1wKCc6I1GGgMB68eTyjKlexn6vtPx+jzv6PrngRjTP4RUYuF291kI84q9WDlv7ubcAzX/Shkt7wcan0N0pOyIH+rzpiqx8+31e3Drs3OeD+R0IAT9nuU+yJ5tLvAE+mQQ/c=
-Received: from CH3PR12MB8074.namprd12.prod.outlook.com (2603:10b6:610:12b::9)
- by DM4PR12MB5841.namprd12.prod.outlook.com (2603:10b6:8:64::13) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=LWFv/UxqeoS2dt1YFw5tuE1em/h4d7HWFS1nwFxAGzs=;
+ b=v1nzNY5w2isRWsvVexpKZ40B5gW81aAg5zyD/seRs6qcdaQ94R/pJRKjj/hcvRk2GhtSgqYStJ9sCS01dO9Ry3TOkmpFnfMvwAbXPfImp2VaENqyXw8TrCPuW9Xsdj/yxd2wlq31LpDJj+zHyOkzlGcSEhxiaYEBfcTsnNMK/k0=
+Received: from PH8PR20CA0016.namprd20.prod.outlook.com (2603:10b6:510:23c::20)
+ by SJ0PR12MB6758.namprd12.prod.outlook.com (2603:10b6:a03:44a::18)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Mon, 29 Apr
- 2024 08:20:59 +0000
-Received: from CH3PR12MB8074.namprd12.prod.outlook.com
- ([fe80::7f58:8648:262d:89e9]) by CH3PR12MB8074.namprd12.prod.outlook.com
- ([fe80::7f58:8648:262d:89e9%4]) with mapi id 15.20.7519.031; Mon, 29 Apr 2024
- 08:20:59 +0000
-From: "Huang, Tim" <Tim.Huang@amd.com>
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>,
- "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
-Subject: RE: [PATCH 3/3 V2] drm/amd/pm: fix the uninitialized scalar variable
- warning
-Thread-Topic: [PATCH 3/3 V2] drm/amd/pm: fix the uninitialized scalar variable
- warning
-Thread-Index: AQHamdpsD9xeHqlkl0+Nnu6N4zyHeLF+5SNg
-Date: Mon, 29 Apr 2024 08:20:59 +0000
-Message-ID: <CH3PR12MB8074831AE74B6E3374FCCEB2F61B2@CH3PR12MB8074.namprd12.prod.outlook.com>
-References: <20240429021026.2059764-1-jesse.zhang@amd.com>
-In-Reply-To: <20240429021026.2059764-1-jesse.zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=18f4bfd3-feff-495c-af9f-a7f956debe9a;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-04-29T08:08:30Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH3PR12MB8074:EE_|DM4PR12MB5841:EE_
-x-ms-office365-filtering-correlation-id: 34726a32-b274-4085-b1e2-08dc68254d0e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230031|376005|1800799015|366007|38070700009;
-x-microsoft-antispam-message-info: =?us-ascii?Q?MjYJhEXIGM5uOQI6HfKCYiH1jaJUc+lGW0BK38Bj1mSWCIyDsOaPeouYUJ4S?=
- =?us-ascii?Q?rmGaHSXPG9W6qTGsGPB/K+VQchEdOQWPMd7D6SNlMAHRsKh/NYt21sU4NQs2?=
- =?us-ascii?Q?I98YI/sGCJdcm5ygKFg4oNkOS5BofMYaE45YqOQQ/Xx3xKCkLlZr97gvW2Lh?=
- =?us-ascii?Q?+SKBoDvdNPnrm8tNZbGmdKoDj81sYVbhWZgmcWcIXOI9nKCbs0Tot5r8xkzM?=
- =?us-ascii?Q?9aL28IhVJO4rvfdNfE7SEkmfa4kneDLPxOj/Xn43an/7XYZK2PluNOgOvfYG?=
- =?us-ascii?Q?eegWITesw3z1U+p7/yjGwRAPH8t99s9eOUeBcjc9KIaLSrR9WVuFGbOq3hJe?=
- =?us-ascii?Q?2Ny9YRHHXWNqxH8bCSOWYG6upF7OIQj1gvF1NpAAIOvCsdtW0WE8mKXLYWTp?=
- =?us-ascii?Q?Bpx0Ta0ZoWsD37qjPL97m4F+hVyTL3mvRv6gQpthtqFe7gFoSAclu/t59ztq?=
- =?us-ascii?Q?+sciLh5CY0LzpVWVvU78psRMqr8y4QSG1g4MkCboYch0Uuf61RY/doALQslo?=
- =?us-ascii?Q?YDsutNUEmPDCn6AxGLuys+fG7D7sR6Q2NAePRqywTz1afYCr5ZSEfig1TwIM?=
- =?us-ascii?Q?LPiLnGaRH/NVTnHCCFeVXAEWlA2hR02UXLoreHps/gm88GFNK3ckJ1LwKByE?=
- =?us-ascii?Q?v3B8a+NaUvYdglOhooeiOSv8Ioo29zbc5eGYQDYq3rfU6gz/iJhFQJYS1PAs?=
- =?us-ascii?Q?0AHpb9lFopzhAf2l15decSOJB/AJYO4u6Y8O4a5u+23sTasTQaF3JxqHZX2w?=
- =?us-ascii?Q?5OPhNH09pSdiGSnamzk+vziW7662qTbHFoYl+cjb9sLUq4WYIdyW9vMMegaw?=
- =?us-ascii?Q?1Hm4Jbv8qg+93r0O56EUEnwdiaxd94nO7+P0ACSvv1aJ3Wzw26raY9lEb1ys?=
- =?us-ascii?Q?DRX4B2WA2ttmTH0xBil+tuLdELN/WqKQy7iLXR3kEi93c0+0auslf9xWUXiy?=
- =?us-ascii?Q?P/UAk4qQlQIwa9RksNq2jFrr9jDlXampZfOz/40PydHs4fNn/NQ6ZSilGmvU?=
- =?us-ascii?Q?JZPqZJIcKgk+i1LRXLXiGtChqEqjUGfJHnSddKzKfi2XRO0//kBtbCBjSegk?=
- =?us-ascii?Q?2V5kNebPKDrNb0mKCI0dosglv+0uRe0nXfcp41t1OeIMdKVxBuUyiuVu6cSa?=
- =?us-ascii?Q?MFEb7sTDMuqt2LuODqDAKXLxwe1eTDs9mHMchONTlHFnhV8ri8Lztc7Xp6ng?=
- =?us-ascii?Q?2TG2JS6BkdzA4K0UA9MyAj9tUMJnISq/Qp/btcnA4R5xaPApRwJQ/VLvpjp+?=
- =?us-ascii?Q?R/ecjJfARUk+QXp85VFF+eWpUWEBYwzPSc0I55CC0Jd2wa5StKAzIhADqzrQ?=
- =?us-ascii?Q?mpi1DGnNM8QxiSWjXGSsFk1pIx2h290drjGSrmP9t+FMrQ=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH3PR12MB8074.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(366007)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Zgbbq9gtydVn/hBbGaUgL2wefzaEMOiehAp/QEgmphrLgs/pZ76wKvOx/Os8?=
- =?us-ascii?Q?8lC0IzPlmaqjycyl05czNqnwBMJegoXhwnF8a+L0C+U+S3DOeyuLykywhEIa?=
- =?us-ascii?Q?CnIwHY1TfF2X+PgpWw8AK5dUYm1/V+NxpAPSx07oZWTx1GDshlH6UxnP6lSL?=
- =?us-ascii?Q?fmb95b2uymvS3GwgOvWOAB5bkuGyWpS4Tr+fO3KQ2Fk6iba6mm+VTsFV3MIO?=
- =?us-ascii?Q?0UmU/H432oQVTcfN7hEPZqF31rEnXVQH5eobFA1fWsdm70y8H0811cTeNOrV?=
- =?us-ascii?Q?68eJxdZMdtKNqinDyxW04eubn3qussk0bWBda0UAFe+e+empKiKHMkvhIO8Z?=
- =?us-ascii?Q?+6tKEPjL7DwIrKVsLp8gEE5YoUrvPmxtjllIKKKaUTrvrtYaRWlurJefKHXk?=
- =?us-ascii?Q?xsarQ2DKSnxF+BRvQQ+7nvsdxM0VCigkIrO+UfJ60YyOFpJXx0MqD674b/8I?=
- =?us-ascii?Q?TbYQEwBG9tcl6/HpBUqom1eLn6sm2qdPcjH+58tjO2FwYIQ67dFmLspOguRO?=
- =?us-ascii?Q?qsd/Vj5Ns8A7qIdt5jg2+QaHI350C6FXDRviF9v6dxQUq6O/YAEthqpyuMxS?=
- =?us-ascii?Q?5YFIQaqGQ34GplYRAqhPwc8PEUhxL+2tEaVTADQolYMVsYeLDrCkmN8AXUgE?=
- =?us-ascii?Q?rxjrd5KpuTpEDw2On1Gdct2NAPZj5FGOCjRAfGVqI8uKqCxY/Kp5xTNKMz3E?=
- =?us-ascii?Q?D0sSXpCtHf6vXkSXI6oiCjyyIc+V2/0HQiVwQoov2JK+7CmGUZQDuOTL2Lhi?=
- =?us-ascii?Q?laL8mrm+sQNpMLxVZOCxBuH8sMws+gEbd2RyvZDxD8D5fabYdRYSrUNs2k52?=
- =?us-ascii?Q?hq48G/42XSE3+2CudULyEtRpqJO+EKwlMN4crCp/oWep0RxqFn05F8hOuJwd?=
- =?us-ascii?Q?qdmoZE8gFivBLoj9BDbIUK54h5QOWyrh/Blx9LhhwGSiDPKWQ7fsgL1TN8xx?=
- =?us-ascii?Q?crOmmdKDCA8PP3pROuDhE5Bm3TlRD0MeDguA7VOzalA47HUZ5gwXrHPjdMDR?=
- =?us-ascii?Q?wnjjvK88TFxLypUS/SyQFiTmMl/jx0lx5ubxFqU4MtpluQ+h6YTpn/upFQjR?=
- =?us-ascii?Q?RZy9CzzL9qklAwX/KIoPqeq3upoLXv3Gdp3f9/NX7A/XqMZ3H8o5J5nknNL4?=
- =?us-ascii?Q?DGS0iC2KrZwcQCL0rHwKkwdq0492ps2M2d9ENcgXLF4YwhCTbR4qAOKbADZ9?=
- =?us-ascii?Q?8xirNdhboQUhnYhoYaf+NIO7eaPaO1pthE1t4P99igQJka33VsqyY9pby7Vk?=
- =?us-ascii?Q?8ewi7kVC2T3R+H9F/b1OvcOfcDPdm69hDMbmvibsLy5ofkrERMUf2DL0KhQq?=
- =?us-ascii?Q?y0N91n+g/ADgfMU+JwtyRDQyqNbFuBFR1rJpawLQ/brC7OkRTLlthsJ0sHv2?=
- =?us-ascii?Q?JLZxD5wNTeKogWSbTlv4FnRABe2c0uwugw6KDleas8psRXuUbcXYW0fP6ZJR?=
- =?us-ascii?Q?pkKqVYDaDOJoz7kW5bYI5ieGdIcNorVhyYhkMbCZUCQgtGTcnyHaDBamu0yo?=
- =?us-ascii?Q?6QDMydfh7fKr1kdLfueRpci0JZfwqeA5ICFeRiC/yw/+xaoZyhi44bYwN+Pb?=
- =?us-ascii?Q?39VAWVMB3akxh9np8RE=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2024 08:31:10 +0000
+Received: from SN1PEPF0002BA4F.namprd03.prod.outlook.com
+ (2603:10b6:510:23c:cafe::d) by PH8PR20CA0016.outlook.office365.com
+ (2603:10b6:510:23c::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.36 via Frontend
+ Transport; Mon, 29 Apr 2024 08:31:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4F.mail.protection.outlook.com (10.167.242.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Mon, 29 Apr 2024 08:31:09 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Mon, 29 Apr 2024 03:31:04 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, "Qingqing
+ Zhuo" <qingqing.zhuo@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Alvin Lee
+ <alvin.lee2@amd.com>, Roman Li <roman.li@amd.com>, Hersen Wu
+ <hersenxs.wu@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
+ <harry.wentland@amd.com>
+Subject: [PATCH v2] drm/amd/display: Refactor construct_phy function in
+ dc/link/link_factory.c
+Date: Mon, 29 Apr 2024 14:00:38 +0530
+Message-ID: <20240429083038.232958-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240429065451.180745-1-srinivasan.shanmugam@amd.com>
+References: <20240429065451.180745-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4F:EE_|SJ0PR12MB6758:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49daa34b-dc45-4ddb-62e7-08dc6826b8c1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|36860700004|1800799015|376005|82310400014; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YS9iSGkzbWY5YjE5RkRTSzZOUjFDQUhUMjlqM0gycFBDMWhRSEpuWmVTWVli?=
+ =?utf-8?B?RGZpcDU4QVhUVDVTekJqVGdDek1aWXY3Y2tPeXY4RGRxbmM1MmFhdFBPajJv?=
+ =?utf-8?B?encrWFhPVDlZd2hySHo0UjhrengrVm9TMnZldmZManErSW5XUm5ONGFpcEsv?=
+ =?utf-8?B?L2FObWRCRHBNbUE4ajJhNE5pWnJoVEhuVFUyS3lqWk5YSzhvbC95aDEwZkd0?=
+ =?utf-8?B?bWFWZWZuWTZqU3RmS2R2TGpOaW9nN0FhRTdycVIvM1hQcUEwTXZyMTNiZjBm?=
+ =?utf-8?B?TUtNaXFpTGhrVXJQWE4vM2Zyb21hM3NTUllYbTNtZEg3TjVpdjlDZDRMbmxP?=
+ =?utf-8?B?KzJGV0cxY3VhanhGWnQ3a2NhY2JlVmZ0T2ZxYkVndU1WaWtqSmtaY29GcFRp?=
+ =?utf-8?B?MXdiajk3cHVOUnlVSExLNjVlMm8rYjlSUmoyb1BIUEVRS0l0R2d0NW0vVXZS?=
+ =?utf-8?B?Nmw0Ykt2bElSd2cveVVGdWM0SFdBOXFVTlJyNU9tSmdkVzFtQ1kwcGovWFNG?=
+ =?utf-8?B?RXdQS2lxVVowUlYrL09tcnE1VWZOQjZReGlEZDJRS3NjUmN5cUk3eFNUTUFK?=
+ =?utf-8?B?M2lYcEFhZ252QVB3SkpSTGhlZitTUmNZUTlROUsvTzVRcTZSSEhTdkJZL09o?=
+ =?utf-8?B?T2NuZWt5QnQyczZmYlBscCtCQ09LbjFZVUVzMkxkU1RyYm9MN3QrY0lzejAx?=
+ =?utf-8?B?WGYrb2lZdXNkeW0zRnJuYUFSM3pLeGpNVHk2aCt3UGZndkh0aURQOWNFR3pW?=
+ =?utf-8?B?V2lhR1U4bGtLbFdvd1ZUMW1oYnZPYi9WdEk2QVMydmxDU21aSjd2QXhTa0N5?=
+ =?utf-8?B?dXYzbDVpYlhLMTJKMHdFbFkrTWNnUm02RGN6TUdLN0RURE1CS3p5Q1JWRHgw?=
+ =?utf-8?B?enlSbWIyMEZqSG5ON0ptTlpEZi8xaVgvbXdvcS9KU3g2SGxJUjVRbjA2NDVT?=
+ =?utf-8?B?TDZIMytmMFM2dW9HNUU5cFovSS90T0RXU09OS2FtSHNvaEJsdmZMSENCNUwz?=
+ =?utf-8?B?OGpUZ0FXTVhHaUZqcHlHeUQvOFcxWXpZc3hMaXI2UXVVc25vN3JzSGNJcGFO?=
+ =?utf-8?B?MGI2TGtVekZmZWxXQVRFNWwzbUM5WTJXaVNPanJTZC9pQTVVQ3loWldrdWZu?=
+ =?utf-8?B?K1BCczEyekl3KzhGUlJPYUNtS29FcmhRM3BWVktOem5VZHcrTkdoUyswelRS?=
+ =?utf-8?B?MmtLZlJCMkh0WS9BQklpZFA3N0dCTlpzYWtabDM4RzdXZFE4c1g2eW5vajJ3?=
+ =?utf-8?B?TFgxa3FsbTNWekJFcU53bmNKVGRzT0Z5WVhMaC9CWlBRSXlCRm5jSUpLS1Jr?=
+ =?utf-8?B?RnNheUdHbG5XT2tqbUpoRUdLL2NnSnp3bnQ4YjZEU0tZamJFbGlQSmFyck9I?=
+ =?utf-8?B?Q1pMcnE1amV1VWZSVm1CaUlPclZxcWJDL0J4eEwrMUF3NjViZU5tY2UvWWIz?=
+ =?utf-8?B?aVdPdTA3blE5djc4Z3lUYTlNWnpmbE13SVNtcU9PMTFONmJHRElqZXZKaWZF?=
+ =?utf-8?B?VHorSklSMllRdmxXR05TZmhYMVRBZUUyVFlpbDBkamtiTXdVSXk4MTkxTHI2?=
+ =?utf-8?B?dVNDRnVaNmtKWjlFcCtuL0l6a043aFYzUEFkY0toTjkxQ1Y4ODlBZFZXTENB?=
+ =?utf-8?B?ZEVQaHRJb09uYnkvQjJlaWZZT1ZoRmJpODV3NHhqSjRpYjF6WDFaVTlXN2tq?=
+ =?utf-8?B?Szk3Q0hLNFMzSk5nbmo3Y0xEOGlGWUJsWTZMZ3VMMVVIQXJGYm9mdksrMFdY?=
+ =?utf-8?B?NGpwRTlrVjYxYnYyUU1HZjVzeVFlT2ExY3d0K1BKczVNYUZ6WHdxN0V3Zk9W?=
+ =?utf-8?B?QnRTYngxV1dhRWdaM3NtYUZ6ZEtYOGZtN3J1WXQybkpkZ0E4SHh0V3BXdzVE?=
+ =?utf-8?Q?1w9WKX449dVOQ?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(1800799015)(376005)(82310400014); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8074.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34726a32-b274-4085-b1e2-08dc68254d0e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Apr 2024 08:20:59.5424 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yOO3o5MiEK2UABzKjqK5pT2tzaRL1xmd2SB2v9UIBoylwjeL483BPDwBgoClUZXQTXR7uIRZqTpsSiM8mo+OTQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5841
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2024 08:31:09.6870 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49daa34b-dc45-4ddb-62e7-08dc6826b8c1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6758
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,51 +145,355 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+This commit refactors the construct_phy function. The original function
+was large and complex.
 
-> -----Original Message-----
-> From: Jesse Zhang <jesse.zhang@amd.com>
-> Sent: Monday, April 29, 2024 10:10 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Huang, Tim <Tim.Huang@amd.com>; Zhang,
-> Jesse(Jie) <Jesse.Zhang@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
-> Subject: [PATCH 3/3 V2] drm/amd/pm: fix the uninitialized scalar variable
-> warning
->
-> Fix warning for using uninitialized values sclk_mask, mck_mask and soc_ma=
-sk.
->  v2: Init the variables in the renoir_get_profiling_clk_mask(Tim Huang)
->
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> index 8908bbb3ff1f..546a2268823a 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> @@ -253,6 +253,10 @@ static int renoir_get_profiling_clk_mask(struct
-> smu_context *smu,
->                                        uint32_t *mclk_mask,
->                                        uint32_t *soc_mask)
->  {
-> +     *sclk_mask =3D 0;
-> +     /* mclk levels are in reverse order */
-> +     *mclk_maks =3D NUM_MEMCLK_DPM_LEVELS - 1;
-> +     *sock_mask =3D 0;
->
-This is risky because the function may be called with an empty parameter po=
-inter, like in the renoir_get_dpm_ultimate_freq.
-Besides, for some profile mode, like the AMD_DPM_FORCED_LEVEL_PROFILE_MIN_M=
-CLK, the default mask for sclk_mask and soc_mask maybe not 0.
-IIRC, the smu13 use the default UMD_PSTATE frequency. Not sure whether Reno=
-ir apply this as well.
+The following functions were created:
 
->       if (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK) {
->               if (sclk_mask)
-> --
-> 2.25.1
+- initialize_link: Handles the initial setup of the link object.
+- handle_connector_type: Sets the connector_signal and irq_source_hpd_rx
+  based on the link_id.id.
+- initialize_ddc_service: Initializes the ddc_service for the link.
+- initialize_link_encoder: Initializes the link_encoder for the link.
+
+Additionally, the error handling code that was originally in
+construct_phy has been moved to the new functions. Each function now
+returns a boolean value indicating whether the operation was successful.
+If an error occurs, the construct_phy function jumps to the appropriate
+label for error handling.
+
+This refactoring reduces the size of the stack frame for each individual
+function, fixes about the frame size being larger than 1024 bytes.
+
+Fixes the below with gcc W=1:
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_factory.c: In function ‘construct_phy’:
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_factory.c:743:1: warning: the frame size of 1056 bytes is larger than 1024 bytes [-Wframe-larger-than=]
+
+Cc: Wenjing Liu <wenjing.liu@amd.com>
+Cc: Qingqing Zhuo <qingqing.zhuo@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Alvin Lee <alvin.lee2@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Hersen Wu <hersenxs.wu@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+v2:
+ - "The handle_connector_type function is called within the
+    construct_phy function. If it encounters an unsupported connector
+    type, it returns false, maintained same as original logic before
+    refactoring"
+
+ .../drm/amd/display/dc/link/link_factory.c    | 223 ++++++++++--------
+ 1 file changed, 124 insertions(+), 99 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+index cf22b8f28ba6..4ed8e170ebc5 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+@@ -448,73 +448,74 @@ static enum channel_id get_ddc_line(struct dc_link *link)
+ 	return channel;
+ }
+ 
+-static bool construct_phy(struct dc_link *link,
+-			      const struct link_init_data *init_params)
++static bool initialize_link_encoder(struct dc_link *link,
++				    struct dc_context *dc_ctx,
++				    const struct dc_vbios_funcs *bp_funcs)
+ {
+-	uint8_t i;
+-	struct ddc_service_init_data ddc_service_init_data = { 0 };
+-	struct dc_context *dc_ctx = init_params->ctx;
+ 	struct encoder_init_data enc_init_data = { 0 };
+-	struct panel_cntl_init_data panel_cntl_init_data = { 0 };
+-	struct integrated_info info = { 0 };
+-	struct dc_bios *bios = init_params->dc->ctx->dc_bios;
+-	const struct dc_vbios_funcs *bp_funcs = bios->funcs;
+-	struct bp_disp_connector_caps_info disp_connect_caps_info = { 0 };
+ 
+-	DC_LOGGER_INIT(dc_ctx->logger);
++	enc_init_data.ctx = dc_ctx;
++	bp_funcs->get_src_obj(dc_ctx->dc_bios, link->link_id, 0, &enc_init_data.encoder);
++	enc_init_data.connector = link->link_id;
++	enc_init_data.channel = get_ddc_line(link);
++	enc_init_data.hpd_source = get_hpd_line(link);
+ 
+-	link->irq_source_hpd = DC_IRQ_SOURCE_INVALID;
+-	link->irq_source_hpd_rx = DC_IRQ_SOURCE_INVALID;
+-	link->link_status.dpcd_caps = &link->dpcd_caps;
++	link->hpd_src = enc_init_data.hpd_source;
+ 
+-	link->dc = init_params->dc;
+-	link->ctx = dc_ctx;
+-	link->link_index = init_params->link_index;
++	enc_init_data.transmitter = translate_encoder_to_transmitter(enc_init_data.encoder);
++	link->link_enc = link->dc->res_pool->funcs->link_enc_create(dc_ctx, &enc_init_data);
+ 
+-	memset(&link->preferred_training_settings, 0,
+-	       sizeof(struct dc_link_training_overrides));
+-	memset(&link->preferred_link_setting, 0,
+-	       sizeof(struct dc_link_settings));
+-
+-	link->link_id =
+-		bios->funcs->get_connector_id(bios, init_params->connector_index);
++	DC_LOG_DC("BIOS object table - DP_IS_USB_C: %d",
++		  link->link_enc->features.flags.bits.DP_IS_USB_C);
++	DC_LOG_DC("BIOS object table - IS_DP2_CAPABLE: %d",
++		  link->link_enc->features.flags.bits.IS_DP2_CAPABLE);
+ 
+-	link->ep_type = DISPLAY_ENDPOINT_PHY;
++	if (!link->link_enc) {
++		DC_ERROR("Failed to create link encoder!\n");
++		return false;
++	}
+ 
+-	DC_LOG_DC("BIOS object table - link_id: %d", link->link_id.id);
++	/* Update link encoder tracking variables. These are used for the dynamic
++	 * assignment of link encoders to streams.
++	 */
++	link->eng_id = link->link_enc->preferred_engine;
++	link->dc->res_pool->link_encoders[link->eng_id - ENGINE_ID_DIGA] = link->link_enc;
++	link->dc->res_pool->dig_link_enc_count++;
+ 
+-	if (bios->funcs->get_disp_connector_caps_info) {
+-		bios->funcs->get_disp_connector_caps_info(bios, link->link_id, &disp_connect_caps_info);
+-		link->is_internal_display = disp_connect_caps_info.INTERNAL_DISPLAY;
+-		DC_LOG_DC("BIOS object table - is_internal_display: %d", link->is_internal_display);
+-	}
++	link->link_enc_hw_inst = link->link_enc->transmitter;
+ 
+-	if (link->link_id.type != OBJECT_TYPE_CONNECTOR) {
+-		dm_output_to_console("%s: Invalid Connector ObjectID from Adapter Service for connector index:%d! type %d expected %d\n",
+-				     __func__, init_params->connector_index,
+-				     link->link_id.type, OBJECT_TYPE_CONNECTOR);
+-		goto create_fail;
+-	}
++	return true;
++}
+ 
+-	if (link->dc->res_pool->funcs->link_init)
+-		link->dc->res_pool->funcs->link_init(link);
++static bool initialize_ddc_service(struct dc_link *link, struct dc_context *dc_ctx)
++{
++	struct ddc_service_init_data ddc_service_init_data = { 0 };
+ 
+-	link->hpd_gpio = link_get_hpd_gpio(link->ctx->dc_bios, link->link_id,
+-				      link->ctx->gpio_service);
++	ddc_service_init_data.ctx = link->ctx;
++	ddc_service_init_data.id = link->link_id;
++	ddc_service_init_data.link = link;
++	link->ddc = link_create_ddc_service(&ddc_service_init_data);
+ 
+-	if (link->hpd_gpio) {
+-		dal_gpio_open(link->hpd_gpio, GPIO_MODE_INTERRUPT);
+-		dal_gpio_unlock_pin(link->hpd_gpio);
+-		link->irq_source_hpd = dal_irq_get_source(link->hpd_gpio);
++	if (!link->ddc) {
++		DC_ERROR("Failed to create ddc_service!\n");
++		return false;
++	}
+ 
+-		DC_LOG_DC("BIOS object table - hpd_gpio id: %d", link->hpd_gpio->id);
+-		DC_LOG_DC("BIOS object table - hpd_gpio en: %d", link->hpd_gpio->en);
++	if (!link->ddc->ddc_pin) {
++		DC_ERROR("Failed to get I2C info for connector!\n");
++		return false;
+ 	}
+ 
++	link->ddc_hw_inst = dal_ddc_get_line(get_ddc_pin(link->ddc));
++
++	return true;
++}
++
++static bool handle_connector_type(struct dc_link *link, struct dc_context *dc_ctx)
++{
+ 	switch (link->link_id.id) {
+ 	case CONNECTOR_ID_HDMI_TYPE_A:
+ 		link->connector_signal = SIGNAL_TYPE_HDMI_TYPE_A;
+-
+ 		break;
+ 	case CONNECTOR_ID_SINGLE_LINK_DVID:
+ 	case CONNECTOR_ID_SINGLE_LINK_DVII:
+@@ -527,23 +528,18 @@ static bool construct_phy(struct dc_link *link,
+ 	case CONNECTOR_ID_DISPLAY_PORT:
+ 	case CONNECTOR_ID_USBC:
+ 		link->connector_signal = SIGNAL_TYPE_DISPLAY_PORT;
+-
+ 		if (link->hpd_gpio)
+-			link->irq_source_hpd_rx =
+-					dal_irq_get_rx_source(link->hpd_gpio);
+-
++			link->irq_source_hpd_rx = dal_irq_get_rx_source(link->hpd_gpio);
+ 		break;
+ 	case CONNECTOR_ID_EDP:
+ 		link->connector_signal = SIGNAL_TYPE_EDP;
+-
+ 		if (link->hpd_gpio) {
+ 			if (!link->dc->config.allow_edp_hotplug_detection)
+ 				link->irq_source_hpd = DC_IRQ_SOURCE_INVALID;
+-
+ 			switch (link->dc->config.allow_edp_hotplug_detection) {
+ 			case HPD_EN_FOR_ALL_EDP:
+ 				link->irq_source_hpd_rx =
+-						dal_irq_get_rx_source(link->hpd_gpio);
++					dal_irq_get_rx_source(link->hpd_gpio);
+ 				break;
+ 			case HPD_EN_FOR_PRIMARY_EDP_ONLY:
+ 				if (link->link_index == 0)
+@@ -564,69 +560,99 @@ static bool construct_phy(struct dc_link *link,
+ 				break;
+ 			}
+ 		}
+-
+ 		break;
+ 	case CONNECTOR_ID_LVDS:
+ 		link->connector_signal = SIGNAL_TYPE_LVDS;
+ 		break;
+ 	default:
+-		DC_LOG_WARNING("Unsupported Connector type:%d!\n",
+-			       link->link_id.id);
+-		goto create_fail;
++		DC_LOG_WARNING("Unsupported Connector type:%d!\n", link->link_id.id);
++		return false;
+ 	}
++	return true;
++}
+ 
+-	LINK_INFO("Connector[%d] description: signal: %s\n",
+-		  init_params->connector_index,
+-		  signal_type_to_string(link->connector_signal));
++static void initialize_link(struct dc_link *link, const struct link_init_data *init_params)
++{
++	struct dc_context *dc_ctx = init_params->ctx;
++	struct dc_bios *bios = init_params->dc->ctx->dc_bios;
+ 
+-	ddc_service_init_data.ctx = link->ctx;
+-	ddc_service_init_data.id = link->link_id;
+-	ddc_service_init_data.link = link;
+-	link->ddc = link_create_ddc_service(&ddc_service_init_data);
++	DC_LOGGER_INIT(dc_ctx->logger);
+ 
+-	if (!link->ddc) {
+-		DC_ERROR("Failed to create ddc_service!\n");
+-		goto ddc_create_fail;
++	link->irq_source_hpd = DC_IRQ_SOURCE_INVALID;
++	link->irq_source_hpd_rx = DC_IRQ_SOURCE_INVALID;
++	link->link_status.dpcd_caps = &link->dpcd_caps;
++
++	link->dc = init_params->dc;
++	link->ctx = dc_ctx;
++	link->link_index = init_params->link_index;
++
++	memset(&link->preferred_training_settings, 0,
++	       sizeof(struct dc_link_training_overrides));
++	memset(&link->preferred_link_setting, 0,
++	       sizeof(struct dc_link_settings));
++
++	link->link_id =
++		bios->funcs->get_connector_id(bios, init_params->connector_index);
++
++	link->ep_type = DISPLAY_ENDPOINT_PHY;
++
++	DC_LOG_DC("BIOS object table - link_id: %d", link->link_id.id);
++}
++
++static bool construct_phy(struct dc_link *link,
++			  const struct link_init_data *init_params)
++{
++	u8 i;
++	struct dc_context *dc_ctx = init_params->ctx;
++	struct panel_cntl_init_data panel_cntl_init_data = { 0 };
++	struct integrated_info info = { 0 };
++	struct dc_bios *bios = init_params->dc->ctx->dc_bios;
++	const struct dc_vbios_funcs *bp_funcs = bios->funcs;
++	struct bp_disp_connector_caps_info disp_connect_caps_info = { 0 };
++
++	initialize_link(link, init_params);
++
++	if (bios->funcs->get_disp_connector_caps_info) {
++		bios->funcs->get_disp_connector_caps_info(bios,
++							  link->link_id, &disp_connect_caps_info);
++		link->is_internal_display = disp_connect_caps_info.INTERNAL_DISPLAY;
++		DC_LOG_DC("BIOS object table - is_internal_display: %d", link->is_internal_display);
+ 	}
+ 
+-	if (!link->ddc->ddc_pin) {
+-		DC_ERROR("Failed to get I2C info for connector!\n");
+-		goto ddc_create_fail;
++	if (link->link_id.type != OBJECT_TYPE_CONNECTOR) {
++		dm_output_to_console("%s: Invalid Connector ObjectID from Adapter Service for connector index:%d! type %d expected %d\n",
++				     __func__, init_params->connector_index,
++				     link->link_id.type, OBJECT_TYPE_CONNECTOR);
++		goto create_fail;
+ 	}
+ 
+-	link->ddc_hw_inst =
+-		dal_ddc_get_line(get_ddc_pin(link->ddc));
++	if (link->dc->res_pool->funcs->link_init)
++		link->dc->res_pool->funcs->link_init(link);
+ 
+-	enc_init_data.ctx = dc_ctx;
+-	bp_funcs->get_src_obj(dc_ctx->dc_bios, link->link_id, 0,
+-			      &enc_init_data.encoder);
+-	enc_init_data.connector = link->link_id;
+-	enc_init_data.channel = get_ddc_line(link);
+-	enc_init_data.hpd_source = get_hpd_line(link);
++	link->hpd_gpio = link_get_hpd_gpio(link->ctx->dc_bios, link->link_id,
++					   link->ctx->gpio_service);
+ 
+-	link->hpd_src = enc_init_data.hpd_source;
++	if (link->hpd_gpio) {
++		dal_gpio_open(link->hpd_gpio, GPIO_MODE_INTERRUPT);
++		dal_gpio_unlock_pin(link->hpd_gpio);
++		link->irq_source_hpd = dal_irq_get_source(link->hpd_gpio);
+ 
+-	enc_init_data.transmitter =
+-		translate_encoder_to_transmitter(enc_init_data.encoder);
+-	link->link_enc =
+-		link->dc->res_pool->funcs->link_enc_create(dc_ctx, &enc_init_data);
++		DC_LOG_DC("BIOS object table - hpd_gpio id: %d", link->hpd_gpio->id);
++		DC_LOG_DC("BIOS object table - hpd_gpio en: %d", link->hpd_gpio->en);
++	}
+ 
+-	DC_LOG_DC("BIOS object table - DP_IS_USB_C: %d", link->link_enc->features.flags.bits.DP_IS_USB_C);
+-	DC_LOG_DC("BIOS object table - IS_DP2_CAPABLE: %d", link->link_enc->features.flags.bits.IS_DP2_CAPABLE);
++	if (!handle_connector_type(link, dc_ctx))
++		goto create_fail;
+ 
+-	if (!link->link_enc) {
+-		DC_ERROR("Failed to create link encoder!\n");
+-		goto link_enc_create_fail;
+-	}
++	LINK_INFO("Connector[%d] description: signal: %s\n",
++		  init_params->connector_index,
++		  signal_type_to_string(link->connector_signal));
+ 
+-	/* Update link encoder tracking variables. These are used for the dynamic
+-	 * assignment of link encoders to streams.
+-	 */
+-	link->eng_id = link->link_enc->preferred_engine;
+-	link->dc->res_pool->link_encoders[link->eng_id - ENGINE_ID_DIGA] = link->link_enc;
+-	link->dc->res_pool->dig_link_enc_count++;
++	if (!initialize_ddc_service(link, dc_ctx))
++		goto create_fail;
+ 
+-	link->link_enc_hw_inst = link->link_enc->transmitter;
++	if (!initialize_link_encoder(link, dc_ctx, bp_funcs))
++		goto link_enc_create_fail;
+ 
+ 	if (link->dc->res_pool->funcs->panel_cntl_create &&
+ 		(link->link_id.id == CONNECTOR_ID_EDP ||
+@@ -730,7 +756,6 @@ static bool construct_phy(struct dc_link *link,
+ 		link->panel_cntl->funcs->destroy(&link->panel_cntl);
+ panel_cntl_create_fail:
+ 	link_destroy_ddc_service(&link->ddc);
+-ddc_create_fail:
+ create_fail:
+ 
+ 	if (link->hpd_gpio) {
+-- 
+2.34.1
 
