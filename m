@@ -4,72 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50E11C4345F
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 11:03:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E546C4345F
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 11:06:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C60CD10E8B3;
-	Mon, 29 Apr 2024 11:03:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5F6010E8CA;
+	Mon, 29 Apr 2024 11:06:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ezNOThbL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eKoI2PUx";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13E8010E8B3
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 11:03:33 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-346406a5fb9so3679638f8f.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 04:03:32 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AA8010E8CA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 11:06:18 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-41b79451153so22016075e9.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 04:06:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714388611; x=1714993411; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1714388776; x=1714993576; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=7w2a9kD1iSL73IWVnAF67scfMjWLQ6gdNIzY+8GdOVc=;
- b=ezNOThbL1STE2fAFCbu3WzUnzAlO2UyNhWvvCQYJt4fPEOIbBvXCXKTqhxAEaEnq90
- LXyC/F5EZVvtk6bfz0Tm18i7wa6+6u/d6sOxYX2dSfTKLdTqOoi4KaCQJ9WaRC7ZbZhs
- tniLv65pOX9Ooi9F6USaGqSOTaaRmi9ifSNmHNg5MGajkfcYIrtOpn/TDH5lJ4UnBpjx
- w4U7HhJabMqi8/+f1/gh62La5uatcBp1hVrQNEvR0QBaFrhqN543DpZJHnKoE8HndAXq
- 50o22apFM4+RpVurSEAzPF3l2ehohRYPldAyLFglhw1j4FnysO/ZlvUFdR5wtRmis2gS
- 4zOQ==
+ bh=lUT9vzVslcPYqsYAv1syc/iNp92bbNkDdxKljLDbQ0Q=;
+ b=eKoI2PUxMVh6WGn8qUmTqSpy+hVx1k1hq88AKZv8aMWuiIdzsaXUllCyIR1GEjRGDN
+ SN+qlDNKXvdE4uFiIoKsHnPn9MQLYeglrjlzlyTT5sBWHMKSio9O37WS+EijuftVge19
+ VoY3oX1Py28BAKxbzInTJWd8e29uPzoEhWiHJTMoZkA5WudD0WSrfLgFnm1Mn4CK1Dko
+ DS5yz02+LQnLWCT/VkxFwAW195XFQaLXpflu0d7QhIFAPcmplup0XvJL90WVzn89Z9pi
+ PovnWJl7xTGLktZE5B67kmhFub8O1CC9jc5PAdHdbF/tSmpk+IVt2H930q1jaa4XESd4
+ FcBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714388611; x=1714993411;
+ d=1e100.net; s=20230601; t=1714388776; x=1714993576;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7w2a9kD1iSL73IWVnAF67scfMjWLQ6gdNIzY+8GdOVc=;
- b=FUTi1kFBuGWmydzqA643zVftijnHcVljCZ9dM0tVDdCJ89fwgi9rCyA4hOADZYZJ32
- FXT0XP3SNPe1AVgZUBZw2mzaSqi3hZwKkH17gQ2HOCSJ1TM0+yTYYsnA90O9Ye0Rrow0
- sKYWWaM672qJfJRjajI7KEFuZvPk/VuCcv/CY+ngMiCIfqJWxIEzee73eGiD52vnJcrb
- kqBNAgu5SiZi5TfeqKe+C/cybkGyjvoYozOSjxJ2Aa651LzlLn4klctwilFKGSjnnmnW
- k5gLlNOVsBzyyh9mXvqt/Gm+CXiTCozG8Vb0WmZpRtFSwLyaWcNJYyicLEQ4J9cWEzUf
- 8hhw==
+ bh=lUT9vzVslcPYqsYAv1syc/iNp92bbNkDdxKljLDbQ0Q=;
+ b=Qqdu9LOM5dZAx/C0+8tHE/KuOwgyCi5+oV8ihY+1PRaFz4ranCDLnsHfOw2wPLaWxK
+ /3gWCuzTIjweV+d9+0SBqLNNrEyjg7U4EbLJtyw9S+wM5DCTIemKFUNmfEZwwZ63CrlA
+ dmp4yLsmRTTKuFPqHnxz2wutfMvdqwAmAIR5nU7YqCtlH7929v394NXeQmshUIMQ2pCC
+ u+DUphKamDOKN8mjP/vdzrkStFSDEjMyfLX+X6TBGs8aK1Wob0Ktdvgm9w9xGaI+xJem
+ JIf1j85K6b0DOYziCJohY6FTz5O7QIi+lCUpp8Shfsub/b3cnurRcJU0vjNck4ZWVroO
+ GA4g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUnc41gEGjCziorRj+sDatmMQCvnXoj8jjmk6HNi5GdxeMey9TpsF80mlcH3maXEt0alDEOmHMYf6efeHb9UdbfQcZITZms86Gx2aGcKQ==
-X-Gm-Message-State: AOJu0YxdwWss9vsIvcRs9HZYLo7XdJ5x4pU+5Kuk8nT6oAcpa5JuPRTH
- 9Xn+rbqxCyl7DjLpQvAYCQEYOF7IF5tgZxhs4UVG79z2tIGw6ucs
-X-Google-Smtp-Source: AGHT+IH8AKVD8LxOv18XgtNrU/TVqvR96pUz1OB3JjIT75x+s6OAmX60+MSyeWL7VBalaurQkTPmlg==
-X-Received: by 2002:a05:6000:b0e:b0:34c:dbf5:f513 with SMTP id
- dj14-20020a0560000b0e00b0034cdbf5f513mr2466293wrb.6.1714388611116; 
- Mon, 29 Apr 2024 04:03:31 -0700 (PDT)
+ AJvYcCVbJ7ZLDz25+a1unkh9spj/KV6bE5xKefrAIGVLJVBYJ/DSw8N3ZzPRQ6CAFmdrnH6hKx+VCWzaAG1FXzEeg3VnBhAxVWX6alP4lqGV5w==
+X-Gm-Message-State: AOJu0YzxYpoR1h4aOUz0BxggqfFLAHJiTiZ3lHT7Eq6MZKUdngTuCoXn
+ G9CmLG0z0GlObaEUoJZefV+CawA9Qpqxp2d9Ttjv9PKIBbmspKY6
+X-Google-Smtp-Source: AGHT+IE5oFzC7TwCEMITXgtavOrMlUvCN+p47y2lJp9kuwP51lUnMOSVIBoGkAh3yCG6QaCO+sgdxQ==
+X-Received: by 2002:a05:600c:4449:b0:41a:fa9a:d86b with SMTP id
+ v9-20020a05600c444900b0041afa9ad86bmr7483424wmn.11.1714388776318; 
+ Mon, 29 Apr 2024 04:06:16 -0700 (PDT)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- x2-20020adfdd82000000b0034c78bba70bsm7381776wrl.72.2024.04.29.04.03.30
+ d18-20020a05600c34d200b0041b083e16e2sm19141160wmq.2.2024.04.29.04.06.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Apr 2024 04:03:30 -0700 (PDT)
-Message-ID: <5a8ba071-21b7-44de-8473-b82193cfa35d@gmail.com>
-Date: Mon, 29 Apr 2024 13:03:28 +0200
+ Mon, 29 Apr 2024 04:06:15 -0700 (PDT)
+Message-ID: <c66a5f9a-99df-43ea-b2c7-94db01957951@gmail.com>
+Date: Mon, 29 Apr 2024 13:06:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/amdgpu: Reduce mem_type to domain double
- indirection
+Subject: Re: [PATCH 3/3] drm/amdgpu: Fix pinned GART area accounting and
+ fdinfo reporting
 To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org
 Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+ kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>
 References: <20240426164355.1563-1-tursulin@igalia.com>
- <20240426164355.1563-3-tursulin@igalia.com>
+ <20240426164355.1563-4-tursulin@igalia.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240426164355.1563-3-tursulin@igalia.com>
+In-Reply-To: <20240426164355.1563-4-tursulin@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,124 +90,71 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Am 26.04.24 um 18:43 schrieb Tvrtko Ursulin:
 > From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 >
-> All apart from AMDGPU_GEM_DOMAIN_GTT memory domains map 1:1 to TTM
-> placements. And the former be either AMDGPU_PL_PREEMPT or TTM_PL_TT,
-> depending on AMDGPU_GEM_CREATE_PREEMPTIBLE.
+> When commit b453e42a6e8b ("drm/amdgpu: Add new placement for preemptible
+> SG BOs") added a new TTM region it missed to notice the conceptual
+> imbalance in GART pin size accounting as done in amdgpu_bo_pin/unpin.
 >
-> Simplify a few places in the code which convert the TTM placement into
-> a domain by checking against the current placement directly.
+> That imbalance leads to such objects getting accounted against the
+> resource, but are not un-accounted when unpinned.
+>
+> Fix by extending the accounting criteria in amdgpu_bo_unpin.
+>
+> What also aappears needs fixing is not reporting their size from the
+> amdgpu_bo_get_memory, which is used to implement fdinfo stats, so they are
+> not mixed with the regular userspace created and driver owned objects.
+>
+> And also amdgpu_bo_print_info for debugfs reporting.
+>
+> Note that the patch depends on the previous one which broke down the
+> relevant checks from the domain based to placement based.
 >
 > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
+> Fixes: b453e42a6e8b ("drm/amdgpu: Add new placement for preemptible SG BOs")
+> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  4 +--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 30 ++++++++++-----------
->   2 files changed, 16 insertions(+), 18 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 5 ++---
+>   1 file changed, 2 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index 055ba2ea4c12..ff83f8d8628c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -165,8 +165,8 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
->   		if (r)
->   			return ERR_PTR(r);
->   
-> -	} else if (!(amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type) &
-> -		     AMDGPU_GEM_DOMAIN_GTT)) {
-> +	} else if (bo->tbo.resource->mem_type != TTM_PL_TT &&
-> +		   bo->tbo.resource->mem_type != AMDGPU_PL_PREEMPT) {
->   		return ERR_PTR(-EBUSY);
->   	}
->   
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 8bc79924d171..fb984669fc3a 100644
+> index fb984669fc3a..5a2bbc793953 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -976,12 +976,12 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
->   
->   	ttm_bo_pin(&bo->tbo);
->   
-> -	domain = amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
-> -	if (domain == AMDGPU_GEM_DOMAIN_VRAM) {
-> +	if (bo->tbo.resource->mem_type == TTM_PL_VRAM) {
->   		atomic64_add(amdgpu_bo_size(bo), &adev->vram_pin_size);
->   		atomic64_add(amdgpu_vram_mgr_bo_visible_size(bo),
+> @@ -1032,7 +1032,8 @@ void amdgpu_bo_unpin(struct amdgpu_bo *bo)
+>   		atomic64_sub(amdgpu_bo_size(bo), &adev->vram_pin_size);
+>   		atomic64_sub(amdgpu_vram_mgr_bo_visible_size(bo),
 >   			     &adev->visible_pin_size);
-> -	} else if (domain == AMDGPU_GEM_DOMAIN_GTT) {
+> -	} else if (bo->tbo.resource->mem_type == TTM_PL_TT) {
 > +	} else if (bo->tbo.resource->mem_type == TTM_PL_TT ||
 > +		   bo->tbo.resource->mem_type == AMDGPU_PL_PREEMPT) {
->   		atomic64_add(amdgpu_bo_size(bo), &adev->gart_pin_size);
+
+Good catch, but please separate that one from the other changes since we 
+probably want to backport it.
+
+>   		atomic64_sub(amdgpu_bo_size(bo), &adev->gart_pin_size);
 >   	}
 >   
-> @@ -1280,7 +1280,6 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
->   {
->   	uint64_t size = amdgpu_bo_size(bo);
->   	struct drm_gem_object *obj;
-> -	unsigned int domain;
->   	bool shared;
->   
->   	/* Abort if the BO doesn't currently have a backing store */
-> @@ -1290,21 +1289,21 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
->   	obj = &bo->tbo.base;
->   	shared = drm_gem_object_is_shared_for_memory_stats(obj);
->   
-> -	domain = amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
-> -	switch (domain) {
-> -	case AMDGPU_GEM_DOMAIN_VRAM:
-> +	switch (bo->tbo.resource->mem_type) {
-> +	case TTM_PL_VRAM:
->   		stats->vram += size;
->   		if (amdgpu_bo_in_cpu_visible_vram(bo))
->   			stats->visible_vram += size;
->   		if (shared)
+> @@ -1298,7 +1299,6 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
 >   			stats->vram_shared += size;
 >   		break;
-> -	case AMDGPU_GEM_DOMAIN_GTT:
-> +	case TTM_PL_TT:
-> +	case AMDGPU_PL_PREEMPT:
+>   	case TTM_PL_TT:
+> -	case AMDGPU_PL_PREEMPT:
 >   		stats->gtt += size;
 >   		if (shared)
 >   			stats->gtt_shared += size;
->   		break;
-> -	case AMDGPU_GEM_DOMAIN_CPU:
-> +	case TTM_PL_SYSTEM:
->   	default:
->   		stats->cpu += size;
->   		if (shared)
-> @@ -1317,7 +1316,7 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
->   		if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
->   			stats->requested_visible_vram += size;
->   
-> -		if (domain != AMDGPU_GEM_DOMAIN_VRAM) {
-> +		if (bo->tbo.resource->mem_type != TTM_PL_VRAM) {
->   			stats->evicted_vram += size;
->   			if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
->   				stats->evicted_visible_vram += size;
-> @@ -1592,19 +1591,18 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
->   	u64 size;
->   
->   	if (dma_resv_trylock(bo->tbo.base.resv)) {
-> -		unsigned int domain;
-> -		domain = amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
-> -		switch (domain) {
-> -		case AMDGPU_GEM_DOMAIN_VRAM:
-> +		switch (bo->tbo.resource->mem_type) {
-> +		case TTM_PL_VRAM:
->   			if (amdgpu_bo_in_cpu_visible_vram(bo))
->   				placement = "VRAM VISIBLE";
->   			else
+> @@ -1599,7 +1599,6 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
 >   				placement = "VRAM";
 >   			break;
-> -		case AMDGPU_GEM_DOMAIN_GTT:
-> +		case TTM_PL_TT:
-> +		case AMDGPU_PL_PREEMPT:
+>   		case TTM_PL_TT:
+> -		case AMDGPU_PL_PREEMPT:
+
+Yeah, that makes sense as well. But we need a case for AMDGPU_PL_PREEMPT 
+here as well then.
+
+Regards,
+Christian.
+
 >   			placement = "GTT";
 >   			break;
-> -		case AMDGPU_GEM_DOMAIN_CPU:
-> +		case TTM_PL_SYSTEM:
->   		default:
->   			placement = "CPU";
->   			break;
+>   		case TTM_PL_SYSTEM:
 
