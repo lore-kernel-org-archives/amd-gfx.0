@@ -4,64 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D155C04FFE
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 13:28:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C90EC4345F
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Apr 2024 13:38:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2213910EACF;
-	Mon, 29 Apr 2024 13:28:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D22E110F2DF;
+	Mon, 29 Apr 2024 13:38:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="j7WZaxXx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DdnFXXp7";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEB8B10EACF
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 13:28:34 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-1e2b137d666so33980805ad.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 06:28:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714397314; x=1715002114; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Lf7z0VWUe5AOMp/Ze+G3C77+jXWSQaHbPBzNMBL6pt0=;
- b=j7WZaxXxaQIDlwWmPXWlfgjylQhm1TlSiJG5P5Xb7VMYVAQtxvwTcK5rT3D4YOVyUg
- ZlGwk84RsDkDungxeUDvaU9//Gvh5zk7VJeUoSlCwhMr6jsZOtkQYESlj1I+TcH02Ws2
- H7/EAgGBF9hvfqj2WHD4eeDS+sSRWKn1O6omkFTMaS+u80mzcfsm1ByLtj3ub1VjsZNJ
- FRkEgiwcBzovoSqR9s5LwD5B8oiUQH0+2Kb0ZB6Wp9VZxtqvnmALtTbNWVjHvrrgSiPQ
- 4x3W/DPu8/bFvVBkS+gxYOdOLY4a+WK9ZQNK09JAfDkNMSqkmmmurXOCC8NBvOPA0nmK
- gp6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714397314; x=1715002114;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Lf7z0VWUe5AOMp/Ze+G3C77+jXWSQaHbPBzNMBL6pt0=;
- b=MMVoklGHiMsYsXw5wcq+q1N+AcRGIxEQcAAuYiMHH7+RTfNdfDuyD/+jBzNBADqg+/
- XdfGpQIozOQqKzi2uvG6DfUSytf99PNNjmTLmoagE4T9TKucRdzNAJCswznCT8mpXVCg
- A1Sl+jODrHTw7uigZ8PjiGOqeisfcgQ8WZ5f9D22B3oIHuVLLsf9GRxErUW72DtGUCnG
- jEm+LSzGNWTfkXi8tjuNyFqDBWdePFr8eOA0TmUZSHLQUjj5ykeKcAdbv4KbfZtO8JTp
- j5+SKKZJGT3lljmCWzeXw+cPcKxmNkMVOWEpWcgJCmPUKahUCDt/gH9fDiVJU1Ar1t2p
- CR8w==
-X-Gm-Message-State: AOJu0Yw3XXcfhIrlx6Az9L0ae//33gSuOtrRLwGNB6rSiwGfY7D+OpBb
- 3eppMKVx9foty0TjxsScWVyfum9tEsLaY81S/TmyPDxr1OQbVCOQYTiyKKw+Tgmaldq96LxxKTv
- IOS5WSfdmsA0A+V0mD0LNbBlRmA5RRQ==
-X-Google-Smtp-Source: AGHT+IFja5pltHXbDkARv1mKsZRtiwoY7sG4qrUeuH1sgCMvnh1GTOCEumFXFxoqQNCAaD6gAMZE7gmAENNTyZNeNUg=
-X-Received: by 2002:a17:903:11ce:b0:1e3:f4f1:a2c4 with SMTP id
- q14-20020a17090311ce00b001e3f4f1a2c4mr12094836plh.64.1714397314206; Mon, 29
- Apr 2024 06:28:34 -0700 (PDT)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2058.outbound.protection.outlook.com [40.107.223.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E3E110F2DF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 13:38:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=O2VIePgibKlkyi9PDemfSOknaRvtvjJ+plNSW1yJ0Qzza0yliRiiPgbGvjM+wL1nIeIcnMgUz/EfeN/qIjEY/6QOeQaO46ZKLfQqz9ZQvxQ/KuGVjVBMWm/VS/qb0c2ERWA3+Tgs3AGsC1GqCpBJRtz0KaoOAQaGtFWmc4/+9OgLeeRfJair66iyc7dwW/5bmZxV3Dh/7kmby9JC+cVwUdxUAti/M6asLSQEI812hRdOF9Y48Iazs93Aq69eaaq8oQ0M30EuOsEL9yRbALgiiLoqxa/KMxHQmpw/hTvOMAh1D5ljsbqLdbC1eaMAs/aABEQJnMjH3lQquwcmdM4LwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/LfsBG9UpoXp629nXQcl8Rn3fd+V1xgmrLbl3D9SSFU=;
+ b=ORVESWZbdSYEkWeG9MJ1di7ujf1n67lPs2vtp9fJslbq/covoUA7rY9fZgoK6siH4Bf4q5+GrJZHHr9HRPCfG+TAp7p8qRzS9jd3D8JWXIQAb9aW2gtJMtvNwf10bqp7d/fvL57yhCBazXy22plfBveWQxdyLdZ35k0uPJtRgo1dZSwqh0ohmj4rtE8eby4WkyMbsxq64tcZrvn0+qV8XaJnfAAjfyiDEH+Yj340+YMP8LJA3Hn2UqJ90myJCDrD4isOtajHiCf7LnjYQS/sigaNDZDY9UmuWqwamJnGuQPsymV0nnRjdEKLwE3il6JvJwvh+uS2mcWfX4RP5O46/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/LfsBG9UpoXp629nXQcl8Rn3fd+V1xgmrLbl3D9SSFU=;
+ b=DdnFXXp7pGs/f/jtzEPv7p7AjMEqV5YUNp9GgZ+5xajO53YoBVIhi7GS99wviUi+IlwcJxW2kyejHFAHCYWCWcC1KFAb/XIDW1RGQ0YLiYDyaCauFP9t2iXjj4nFD3rMbwGAgawUW0Cat5N0Xa/zAmZDoKbuF76l5vNOWBrtkHY=
+Received: from PH7P221CA0019.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:32a::15)
+ by DS7PR12MB5837.namprd12.prod.outlook.com (2603:10b6:8:78::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7519.34; Mon, 29 Apr 2024 13:38:40 +0000
+Received: from CY4PEPF0000EE3C.namprd03.prod.outlook.com
+ (2603:10b6:510:32a:cafe::83) by PH7P221CA0019.outlook.office365.com
+ (2603:10b6:510:32a::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.36 via Frontend
+ Transport; Mon, 29 Apr 2024 13:38:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3C.mail.protection.outlook.com (10.167.242.16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Mon, 29 Apr 2024 13:38:34 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 29 Apr
+ 2024 08:38:33 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Tim Huang <Tim.Huang@amd.com>
+Subject: [PATCH] Revert "drm/amd/pm: fixes a random hang in S4 for SMU
+ v13.0.4/11"
+Date: Mon, 29 Apr 2024 09:38:14 -0400
+Message-ID: <20240429133814.3427671-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-References: <20240429065245.166647-1-peytolee@amd.com>
-In-Reply-To: <20240429065245.166647-1-peytolee@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 29 Apr 2024 09:28:22 -0400
-Message-ID: <CADnq5_N3AwaE9NDFmS0roGDaVG-hN3gdhYFyZtAr-H+3QNHhUQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/vpe: fix vpe dpm clk ratio setup failed
-To: Peyton Lee <peytolee@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- Lang Yu <lang.yu@amd.com>, Alan Liu <haoping.liu@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3C:EE_|DS7PR12MB5837:EE_
+X-MS-Office365-Filtering-Correlation-Id: 589942ee-2932-44fa-534e-08dc6851aaec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|376005|82310400014|1800799015|36860700004; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?LV1MOM3gj79I1VeUcV+RhXRZurx4ksinsrc/OzTw9CdCjWJg3+tXYHwLp30N?=
+ =?us-ascii?Q?LdcLOchgCESEFu/DcfzTtVtp3kGTUyKVaoITvBMEAj4P8FIuaFLfndBWpzRf?=
+ =?us-ascii?Q?08O4d3szOw4spexWX9xf2tAQepepcdvaLIzHGgU5r5v3lLQvFk0aQTyi/S3k?=
+ =?us-ascii?Q?BOmF0SDNmv3PGW6AaGxkTvPJd2KWDet/LlTKaKgRYLNA7G4z2fF+p7MJH85t?=
+ =?us-ascii?Q?JygcX9ve+8xdBUpKQ3SmFjar//60I7mp+sUs21gg/N2XOc329t+mSXZX1BNd?=
+ =?us-ascii?Q?dIZyziRpdlarXsEHFG7zVh3gz+CZg3E8PRVa/F8Y+EYNxVcCZ8OBsyY9eDDL?=
+ =?us-ascii?Q?WN8xDw4ZFqHuIudKzS79mcKRKMpJTW59YyNZ9fVAhrJdq5W3tnTosouUvAfF?=
+ =?us-ascii?Q?1nPwcXwNQspx2RoeOO9Q9b+KylYVblXByPUwWr5MXxnWrYnd4NxYUJIwHdif?=
+ =?us-ascii?Q?Il8LX2TYWUL2WsXu1HVAPoqrpjOGs6xVx6Zrvk8/ZUslQ68leMBKYi5Z9bbc?=
+ =?us-ascii?Q?sDH9yrO0pLXFpKW26Q+WxwNVRu1Pp4mIf9Dk+bTIWL1VyX3ETs7DZP3hloNq?=
+ =?us-ascii?Q?9GeFevU/Qv061nmSj6FeNMZzXxfj7GbF1F0m2ZxCdTUFTpCXEcJZWlzLPEue?=
+ =?us-ascii?Q?I7+XAeaacEKF8uVVw91uzv/CeV/ICloDHoZIQEbks1wUaeVZHdvs1XIpaWmv?=
+ =?us-ascii?Q?EK/XI3MjiZzhpEAVNnvUwWYUO4fPiM+WhTDY0OLvdpOrtsINb1H3D0qL2vB4?=
+ =?us-ascii?Q?svsMVC+HeAcEME/SZmt/qh8S9EGpcu/e0DwtbI9fYmxIolofIvs7/6mjTOf5?=
+ =?us-ascii?Q?4XIXZziXYpsWDwElTLv407twjJszRkEqm/zgmKdRQXrl4K8cVPvqngZXLu1J?=
+ =?us-ascii?Q?0+I/ckSYoPvq/+q5vK/TtICaYber7XnK5KUzxtLCiWS7rRY83LoNqvxYP0ng?=
+ =?us-ascii?Q?3t+VTiLtYS/J3sTqS/Yf7C5Ka0mDgkUxOH4ZdKVeIzlncZf0u+thYGSTbALn?=
+ =?us-ascii?Q?06Ym0nAchdORkYziHgk8QW04zSAQdquEyljZiKV7JloivrOvOtoh8uq11fUm?=
+ =?us-ascii?Q?MCRncyXnvhngXlnR18DGuaFEEbQKRPNQVRuoYsINO7wz5dRYe/UXA0TPZCTy?=
+ =?us-ascii?Q?OCXxpSUmLeU0nQZTtxRvocGpa0OE0nR+PtPvFo7JMKklQBjN1nFTy+TEP0Ch?=
+ =?us-ascii?Q?6Ltmk8duZj/SjFnYXltQ4DsfGbM2M3Jjcvc3LA0fGO39BHxiaNVNIhaH8nYP?=
+ =?us-ascii?Q?WlW+CGdsxQpPZ7I42J73VsBAWYoxFKzf87XnwjO4RiyxQxR9fXTn+GYLHJiq?=
+ =?us-ascii?Q?Buaqxsf83TPFQP+0GfA7/EEf?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(376005)(82310400014)(1800799015)(36860700004); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2024 13:38:34.7928 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 589942ee-2932-44fa-534e-08dc6851aaec
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3C.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5837
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,70 +128,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 29, 2024 at 3:07=E2=80=AFAM Peyton Lee <peytolee@amd.com> wrote=
-:
->
-> Some version of BIOS does not enable all clock levels,
-> resulting in high level clock frequency of 0.
-> The number of valid CLKs must be confirmed in advance.
->
-> Signed-off-by: Peyton Lee <peytolee@amd.com>
+This reverts commit 31729e8c21ecfd671458e02b6511eb68c2225113.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+This causes problems with reboots/shutdowns for some users.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_vpe.c
-> index c23d97d34b7e..49881073ff58 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> @@ -128,6 +128,7 @@ int amdgpu_vpe_configure_dpm(struct amdgpu_vpe *vpe)
->                 struct dpm_clock *VPEClks;
->                 struct dpm_clock *SOCClks;
->                 uint32_t idx;
-> +               uint32_t vpeclk_enalbled_num =3D 0;
->                 uint32_t pratio_vmax_vnorm =3D 0, pratio_vnorm_vmid =3D 0=
-, pratio_vmid_vmin =3D 0;
->                 uint16_t pratio_vmin_freq =3D 0, pratio_vmid_freq =3D 0, =
-pratio_vnorm_freq =3D 0, pratio_vmax_freq =3D 0;
->
-> @@ -144,6 +145,14 @@ int amdgpu_vpe_configure_dpm(struct amdgpu_vpe *vpe)
->                 SOCClks =3D clock_table.SocClocks;
->                 VPEClks =3D clock_table.VPEClocks;
->
-> +               /* Comfirm enabled vpe clk num
-> +                * Enabled VPE clocks are ordered from low to high in VPE=
-Clks
-> +                * The highest valid clock index+1 is the number of VPECl=
-ks
-> +                */
-> +               for (idx =3D PP_SMU_NUM_VPECLK_DPM_LEVELS; idx && !vpeclk=
-_enalbled_num; idx--)
-> +                       if (VPEClks[idx-1].Freq)
-> +                               vpeclk_enalbled_num =3D idx;
-> +
->                 /* vpe dpm only cares 4 levels. */
->                 for (idx =3D 0; idx < VPE_MAX_DPM_LEVEL; idx++) {
->                         uint32_t soc_dpm_level;
-> @@ -155,8 +164,8 @@ int amdgpu_vpe_configure_dpm(struct amdgpu_vpe *vpe)
->                                 soc_dpm_level =3D (idx * 2) + 1;
->
->                         /* clamp the max level */
-> -                       if (soc_dpm_level > PP_SMU_NUM_VPECLK_DPM_LEVELS =
-- 1)
-> -                               soc_dpm_level =3D PP_SMU_NUM_VPECLK_DPM_L=
-EVELS - 1;
-> +                       if (soc_dpm_level > vpeclk_enalbled_num - 1)
-> +                               soc_dpm_level =3D vpeclk_enalbled_num - 1=
-;
->
->                         min_freq =3D (SOCClks[soc_dpm_level].Freq < VPECl=
-ks[soc_dpm_level].Freq) ?
->                                    SOCClks[soc_dpm_level].Freq : VPEClks[=
-soc_dpm_level].Freq;
-> --
-> 2.34.1
->
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3351
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Tim Huang <Tim.Huang@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
+index 88f1a0d878f33..e8119918ef6b1 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
+@@ -226,18 +226,8 @@ static int smu_v13_0_4_system_features_control(struct smu_context *smu, bool en)
+ 	struct amdgpu_device *adev = smu->adev;
+ 	int ret = 0;
+ 
+-	if (!en && !adev->in_s0ix) {
+-		/* Adds a GFX reset as workaround just before sending the
+-		 * MP1_UNLOAD message to prevent GC/RLC/PMFW from entering
+-		 * an invalid state.
+-		 */
+-		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GfxDeviceDriverReset,
+-						      SMU_RESET_MODE_2, NULL);
+-		if (ret)
+-			return ret;
+-
++	if (!en && !adev->in_s0ix)
+ 		ret = smu_cmn_send_smc_msg(smu, SMU_MSG_PrepareMp1ForUnload, NULL);
+-	}
+ 
+ 	return ret;
+ }
+-- 
+2.44.0
+
