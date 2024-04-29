@@ -4,75 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E57BC10F16
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDDCAC25B73
 	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 07:27:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB6FD10F618;
-	Tue, 30 Apr 2024 07:27:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E54C910F40F;
+	Tue, 30 Apr 2024 07:26:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mi6O1Llg";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="RLbZYyeE";
 	dkim-atps=neutral
-Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
- [209.85.166.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2420F10FF53;
- Mon, 29 Apr 2024 19:32:13 +0000 (UTC)
-Received: by mail-io1-f47.google.com with SMTP id
- ca18e2360f4ac-7ded214dbdcso45341939f.0; 
- Mon, 29 Apr 2024 12:32:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714419132; x=1715023932; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ap0abnHnzuA+pCntBOpzm99vZ6Zv5ODzcROoP3CQSrg=;
- b=mi6O1Llg4T8iPYSPY4dZRdRD5ptH15bS1o1PcSNxcU1RR8gpbq9XjR3Qu670OiEKeT
- fnk3QpJjSVm/ivqrE3eNV4C9ZONvXnmYmTXNneXliFkX7xySAYRbzGN647UREoQzDyKz
- QZjy69u5vv/Me03XY7TedrhYqaV4xxFlV/ApnYzWmN5fd+bL2C4U/bVQfJOJSUVWJKKO
- gIy1223JaadnWfjUxYiRcVPiDZGOMHrUcyT9QtmSAcceEq4GwJ0kBNV3poIJjqO3Md8U
- BTSRHve0Fwp4U7o/R1WWoVMvV2zTwkASGExOHDTKGHeNw4VRjgpLOy91L0FZ3zhua3+Z
- qbkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714419132; x=1715023932;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ap0abnHnzuA+pCntBOpzm99vZ6Zv5ODzcROoP3CQSrg=;
- b=qneV7WUulwBTDVwJg9T9twQnz2agYkYCcqUfl+GO15ptqEj/AnVE03IqyMt+h9se8Z
- vO1z184kuxXuNtm7eeINwJlmTCS8X9xxgO7SfM/uEnksYatSm0g52OZOuI6IkT6QJU1P
- 2F1opO8XWTEXli1yVK9ZFC6fmzt8FkzqcwoZjd5kCWah4DQDHG/NZ0hg8VpKgkHTnvM/
- ZH91hFaHzP0at22K7Ajwj42kSCw98ztniTrxAV4503CmGzkJOnDO2wBV+qyronBHvg9H
- ms6SLx0o1aMoLLRjFmRggZN+28/nv4IDleMR7ouGKdgRpuZfNWkAbEyTcPmVYYoawJY0
- 7MwQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUw7Yicg6VTK8JesJh9VbSUp+I4qQnViIrDoqFKrTqtyW2uGu/mJkCCrpkejcuc2VJOJewAyE6uib8RMmeRSl9CEdZ/WFGcou+LvgvsupRH1X8YnlA3GRmpqZ9WNKZX6BxUo95pzGg91MkxUCCgIlDNk+qIG5KR1rMt271BFS3VGpQ2pnDGHPZBNR8SAqJjHcfxSXaHoq4CXMTaxJvmFjJ8BjXr/ZLkaVoDIJ7xUy+L4Y1cLWQ=
-X-Gm-Message-State: AOJu0YwAdrFuTaeXGPtAsQUjNcfp+4mptTHjWnGL+Ust8ZEfYU1hD40d
- TyGBTbrOqfuqUGJN0yOYR/vmZhvnoyplyHal+w3Ef1CkYzpQ5XeE
-X-Google-Smtp-Source: AGHT+IGRdeeN+u2zMfjhDij9Il5S46oy16VyUUR7QmAHR8HDMNzTIxpnF8fD58yH4IXlMsHdP3l6HQ==
-X-Received: by 2002:a6b:6417:0:b0:7d0:8cff:cff3 with SMTP id
- t23-20020a6b6417000000b007d08cffcff3mr13514911iog.8.1714419132083; 
- Mon, 29 Apr 2024 12:32:12 -0700 (PDT)
-Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
- by smtp.googlemail.com with ESMTPSA id
- dq18-20020a0566021b9200b007d5ec9b77aesm5988402iob.51.2024.04.29.12.32.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Apr 2024 12:32:11 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: ukaszb@chromium.org, linux-doc@vger.kernel.org, daniel.vetter@ffwll.ch,
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, seanpaul@chromium.org, robdclark@gmail.com,
- groeck@google.com, yanivt@google.com, bleung@google.com,
- Jim Cromie <jim.cromie@gmail.com>, stable@vger.kernel.org
-Subject: [PATCH v8 01/35] dyndbg: fix old BUG_ON in >control parser
-Date: Mon, 29 Apr 2024 13:31:11 -0600
-Message-ID: <20240429193145.66543-2-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240429193145.66543-1-jim.cromie@gmail.com>
-References: <20240429193145.66543-1-jim.cromie@gmail.com>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39EC210F566
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Apr 2024 16:51:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=vL96ezukWRT/Dl7UOn7mdUCeARKIoqSIwl0N78e8gtc=; b=RLbZYyeEteKYc8wU02zNu0uyPz
+ qzZMbIe/g3UBej79xD3CN3wcBhU3jJwKk+9TxHd4+SF8FP5dSiksbbktGjrG40q2HT1kRkHhmX6RK
+ ABfGfMbiFCpg92K44opeSEz1ETBjsd3RTFt2eSdSG+X7tPYasiJjo3OU80oUqvYDzLCT3ZkV/s6IT
+ M2FKoYeYk3tmstwAfu/lphG8IdTs0vir1FdRyTULkrBYWEp/4ZYqnzaAz+yqz+z2aprXWuO8PSJQI
+ dcdyMaomFXf+2mPNX/r5HBHiVGUs5FXsd8Pj7770H4Q878KOo8bNS8qBr2s7WU3FQp4NijRi/DFRg
+ Lef8AEYw==;
+Received: from [84.65.0.132] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1s1UE5-001O0i-3A; Mon, 29 Apr 2024 18:51:36 +0200
+Message-ID: <f8a39b74-1b94-435b-b38e-00bb8dda3d10@igalia.com>
+Date: Mon, 29 Apr 2024 17:51:35 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] drm/amdgpu: Fix pinned GART area accounting and
+ fdinfo reporting
+Content-Language: en-GB
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ kernel-dev@igalia.com
+References: <20240426164355.1563-1-tursulin@igalia.com>
+ <20240426164355.1563-4-tursulin@igalia.com>
+ <a60dede1-8e81-4c79-8058-257391930621@amd.com>
+ <fe80a8db-3ece-4818-8b23-2ccf5293a6c2@igalia.com>
+ <fa1f5d0f-700c-42cc-81bb-69702abb5b91@amd.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <fa1f5d0f-700c-42cc-81bb-69702abb5b91@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 30 Apr 2024 07:26:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,33 +67,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix a BUG_ON from 2009.  Even if it looks "unreachable" (I didn't
-really look), lets make sure by removing it, doing pr_err and return
--EINVAL instead.
 
-cc: stable@vger.kernel.org
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- lib/dynamic_debug.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+On 29/04/2024 15:43, Felix Kuehling wrote:
+> On 2024-04-29 5:43, Tvrtko Ursulin wrote:
+>>
+>> On 26/04/2024 23:24, Felix Kuehling wrote:
+>>>
+>>> On 2024-04-26 12:43, Tvrtko Ursulin wrote:
+>>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>>
+>>>> When commit b453e42a6e8b ("drm/amdgpu: Add new placement for 
+>>>> preemptible
+>>>> SG BOs") added a new TTM region it missed to notice the conceptual
+>>>> imbalance in GART pin size accounting as done in amdgpu_bo_pin/unpin.
+>>>>
+>>>> That imbalance leads to such objects getting accounted against the
+>>>> resource, but are not un-accounted when unpinned.
+>>>
+>>> AMDGPU_PL_PREEMPT is mostly used for userptr BOs, which cannot be 
+>>> pinned. In any case you should make sure that the accounting is 
+>>> consistent between amdgpu_bo_pin_restricted and amdgpu_bo_unpin. This 
+>>> patch breaks that consistency.
+>>
+>> You mean amdgpu_bo_pin(_restricted) and amdgpu_bo_unpin do not run for 
+>> such objects, or something else?
+> 
+> Right. amdgpu_bo_pin_restricted will return an error for userptr BOs:
+> 
+>          if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm))
+>                  return -EPERM;
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index c78f335fa981..f2c5e7910bb1 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -302,7 +302,11 @@ static int ddebug_tokenize(char *buf, char *words[], int maxwords)
- 		} else {
- 			for (end = buf; *end && !isspace(*end); end++)
- 				;
--			BUG_ON(end == buf);
-+			if (end == buf) {
-+				pr_err("parse err after word:%d=%s\n", nwords,
-+				       nwords ? words[nwords - 1] : "<none>");
-+				return -EINVAL;
-+			}
- 		}
- 
- 		/* `buf' is start of word, `end' is one past its end */
--- 
-2.44.0
+Ah I missed that, thank you!
 
+>>
+>> If they run, then at the end of pin there is:
+>>
+>>      domain = amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
+>> ...
+>>      } else if (domain == AMDGPU_GEM_DOMAIN_GTT) {
+>>          atomic64_add(amdgpu_bo_size(bo), &adev->gart_pin_size);
+> 
+> You changed that in your patch 2:
+> 
+> -    } else if (domain == AMDGPU_GEM_DOMAIN_GTT) {
+> +    } else if (bo->tbo.resource->mem_type == TTM_PL_TT ||
+> +           bo->tbo.resource->mem_type == AMDGPU_PL_PREEMPT) {
+>           atomic64_add(amdgpu_bo_size(bo), &adev->gart_pin_size);
+>       }
+> 
+> I was suggesting you just change this in patch 2 like this, so it 
+> matches what's done on unpin:
+> 
+> -    } else if (domain == AMDGPU_GEM_DOMAIN_GTT) {
+> +    } else if (bo->tbo.resource->mem_type == TTM_PL_TT) {
+>           atomic64_add(amdgpu_bo_size(bo), &adev->gart_pin_size);
+>       }
+> 
+> 
+>>
+>> And unpin has no handling for AMDGPU_PL_PREEMPT.
+>>
+>> Ah I see.. does it rely on amdgpu_mem_type_to_domain returning 0 for 
+>> AMDGPU_PL_PREEMPT? My confusion was I misread the pinning check as 
+>> checking the domain as stored in the bo at creation time.
+>>
+>> Although I am still confused by the statement userptr BOs are not 
+>> pinned. It is not needed to map them via GART on AMD hardware for GPU 
+>> to be able to access them?
+>>>> Fix by extending the accounting criteria in amdgpu_bo_unpin.
+>>>>
+>>>> What also aappears needs fixing is not reporting their size from the
+>>>> amdgpu_bo_get_memory, which is used to implement fdinfo stats, so 
+>>>> they are
+>>>> not mixed with the regular userspace created and driver owned objects.
+>>>
+>>> I think that's true. It's a very fine distinction. AMDGPU_PL_PREEMPT 
+>>> does use system memory and it is GPU accessible, just like GTT. The 
+>>> only difference is, that it's not subject to the GTT limits because 
+>>> their eviction is handled by callbacks other than TTM evictions and 
+>>> doesn't need to wait for fences.
+>>
+>> As in you think those two hunks of the patch are correct?
+> 
+> Yes. It seems, Christian agrees but wants to show preemptible memory 
+> separately in debugfs instead of not showing it at all.
+
+Okay, I've posted a respin with a name 'PREEMPTIBLE' to start the naming 
+discussion. :)
+
+If I did not get confused again, it is only the last patch in the series 
+moves the reporting for those objects from 'CPU' to this new label.
+
+This is because both the current code:
+
+                domain = 
+amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
+                switch (domain) {
+...
+                default:
+                         placement = "CPU";
+                         break;
+
+And with my 2/3:
+
+                switch (bo->tbo.resource->mem_type) {
+...
+                case TTM_PL_SYSTEM:
+                default:
+                         placement = "CPU";
+                         break;
+
+They end up in the CPU bucket. Things only change with 3/3:
+
+Regards,
+
+Tvrtko
+
+> 
+> Regards,
+>    Felix
+> 
+> 
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>
+>>> Regards,
+>>>    Felix
+>>>
+>>>
+>>>>
+>>>> And also amdgpu_bo_print_info for debugfs reporting.
+>>>>
+>>>> Note that the patch depends on the previous one which broke down the
+>>>> relevant checks from the domain based to placement based.
+>>>>
+>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>> Fixes: b453e42a6e8b ("drm/amdgpu: Add new placement for preemptible 
+>>>> SG BOs")
+>>>> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>> ---
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 5 ++---
+>>>>   1 file changed, 2 insertions(+), 3 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>> index fb984669fc3a..5a2bbc793953 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>> @@ -1032,7 +1032,8 @@ void amdgpu_bo_unpin(struct amdgpu_bo *bo)
+>>>>           atomic64_sub(amdgpu_bo_size(bo), &adev->vram_pin_size);
+>>>>           atomic64_sub(amdgpu_vram_mgr_bo_visible_size(bo),
+>>>>                    &adev->visible_pin_size);
+>>>> -    } else if (bo->tbo.resource->mem_type == TTM_PL_TT) {
+>>>> +    } else if (bo->tbo.resource->mem_type == TTM_PL_TT ||
+>>>> +           bo->tbo.resource->mem_type == AMDGPU_PL_PREEMPT) {
+>>>>           atomic64_sub(amdgpu_bo_size(bo), &adev->gart_pin_size);
+>>>>       }
+>>>> @@ -1298,7 +1299,6 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+>>>>               stats->vram_shared += size;
+>>>>           break;
+>>>>       case TTM_PL_TT:
+>>>> -    case AMDGPU_PL_PREEMPT:
+>>>>           stats->gtt += size;
+>>>>           if (shared)
+>>>>               stats->gtt_shared += size;
+>>>> @@ -1599,7 +1599,6 @@ u64 amdgpu_bo_print_info(int id, struct 
+>>>> amdgpu_bo *bo, struct seq_file *m)
+>>>>                   placement = "VRAM";
+>>>>               break;
+>>>>           case TTM_PL_TT:
+>>>> -        case AMDGPU_PL_PREEMPT:
+>>>>               placement = "GTT";
+>>>>               break;
+>>>>           case TTM_PL_SYSTEM:
