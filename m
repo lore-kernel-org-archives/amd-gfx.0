@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CA29C4345F
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 21:12:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CAA1C4345F
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 21:12:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6E3B10E227;
-	Tue, 30 Apr 2024 21:12:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D967E10E45C;
+	Tue, 30 Apr 2024 21:12:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gfE7pPPI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iip9m5Xk";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2055.outbound.protection.outlook.com [40.107.237.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B22010E227
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Apr 2024 21:12:49 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2060.outbound.protection.outlook.com [40.107.244.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 044FE10E45C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Apr 2024 21:12:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gydND8Bib37/xiFkq6Wr8RUSPN0qSZ7X0ycU1BJxZTm3mlWR5L5eTCE9F9qjrs+MzUxmnILMtLahFoxiw7HlYwIQgNJCg3ICxtp5QYodsagtNSIYsc36DbH+y6oc6Z/fc2xSXRuNim2j+4pTa516uMH4bFr7KvGC0avYKtHfirkR5L0rqVKDpYnsH4nhpXCU4c/Yl6zROygoYJoZCt9XZIw0Ar55ywnzOvtLJ5oOpG+URgXfqoNNSlI2OQWjL2soZa4Aj/krQgPRCfUpJ2pa39Z5xX4D8sMsC2hSeLWPXDIXGlMtJuyLclsxvuECsgv7VeIc+A2/fPLzo3s/m0BmZA==
+ b=A51y2CJ48PIVVuaVR6bKOK5DHc5kLEXH4DKTXXYiVhtTd4Mosx0qAJNXuOfGxg/rUq83VxHQ6s2Pi1NMw/wu+AdVDdI80/hPWP6ptw87JLcE9LTI3CFUEnMkaHp0tX22i/T2bhD2PPi8A8AXeLPwXEgsK2O0oBYW1aMU8mrx//vaWYH9qFIxbppQrzo1tdeR6/tJPgMo21y5xXfz6T7czExIkaEqu2pApdc8RpLGDwxIAggnBmehPve0ARKmu13qoZmx7juE8w1or19w8vLk3mPM8znTZ/EHXAVJzNVyb4ZxHVFpqfCRP8dsqeLIBXBnuyBeJ5gAklUy9wj9zB3ZNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8cXNZDU+OLVZUGXsSzcbumJ9VcMB1t1c1DU7+LbXK88=;
- b=JYDWzx4fjVWoyix1y7Iwot06wdzN1Zj2t7wmlZvhzWCfQtMTCCB60cUjrm8LGt83fYl6hUuJiIjr3WdvfqmFbz+8/0c3MxMrsHgYhfV2ukzwhXjmIZC7b1A6stH5MP/f5FOcNv91KUhyHQWSctOS/ClUeS6spr/kBc6EJB2TD9lLGCpGAeIcTml13MLGRQWB8mbhTZgzXJ5ohtN9R6U12WcF/shtsaK0tmluA+0Bn/pI8wma9RgVsiECjRYQtGE0Q7ez/+ibAWlDbM+QeLA5AFhEq44ovn/RaF4lPBWXVhIh+DvEVQM2ji4XfL4AaMv/FBWPtCEoCq//jFyptuj2IA==
+ bh=eSv6n3Sj7ixPqnKrNxhZXM2fvRJEvxH5DwNPmnuGY2k=;
+ b=TIFpxIpT/ps2g+YMqrY8FULphot92wDXG9suN4D/TJiOwpidMVP4eHmE3AYbNujr8scjbDaaeLnBYSYlUJhI7aryWSKCE2ZZzK8VRPKkg/20l8q0HKmF5rTsxrbwn9u4ueoE2PKEoh4llrnuzE+W9KrCWVxT8DgzJAUvTgwQH8xs/w+Ljn3R7QjI7FnNWMq5lMu6gtE5hjiKvADyV1bo1YuEOeWaS1LQD5XI+wW6c0G49qozyBmgTef3ZyM0Esj6zC/WmiQjaFDf2+NiqNpXX29s6I+0mc+Jym2c1YnNUpmNfwL/OqVKqBmgT0LiumrOmy2yMzLLdfkl4cH71tgE7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8cXNZDU+OLVZUGXsSzcbumJ9VcMB1t1c1DU7+LbXK88=;
- b=gfE7pPPIaD4PjEHXwemrqjyadyxLGcnkAtzbXFxOjXKaBlIU019V2Xo7W0oYZdxFDEem0tJfK95XuAkVO5faHOLN/vt5efaZnk4ii3D5vZfkZ2O4foAImnN9CmTADCvMJFKUYzUQQWkahywJrGSbnBipU7ph8ugf5rE0jiIFYnc=
-Received: from BYAPR06CA0021.namprd06.prod.outlook.com (2603:10b6:a03:d4::34)
- by PH8PR12MB6819.namprd12.prod.outlook.com (2603:10b6:510:1ca::5)
+ bh=eSv6n3Sj7ixPqnKrNxhZXM2fvRJEvxH5DwNPmnuGY2k=;
+ b=iip9m5XkfyHeAdQuC3pAfB5hkiHDgmJyxxnv+hylNrXnsmRd/aOTxmIB7bpzQ64S2LwscVvJJv8B8Pb6uIOpj2E2+EkxF+yjFg4YZygZ0TrOE0QCk6mtuqPo9eMYFvYWkOi5gdYcJC9mk4P1MpwU3wEjjxyMtFpXuAQP3PogJ3s=
+Received: from BYAPR06CA0028.namprd06.prod.outlook.com (2603:10b6:a03:d4::41)
+ by IA0PR12MB7627.namprd12.prod.outlook.com (2603:10b6:208:437::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Tue, 30 Apr
- 2024 21:12:45 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.35; Tue, 30 Apr
+ 2024 21:12:50 +0000
 Received: from MWH0EPF000971E5.namprd02.prod.outlook.com
- (2603:10b6:a03:d4:cafe::72) by BYAPR06CA0021.outlook.office365.com
- (2603:10b6:a03:d4::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.25 via Frontend
- Transport; Tue, 30 Apr 2024 21:12:45 +0000
+ (2603:10b6:a03:d4:cafe::91) by BYAPR06CA0028.outlook.office365.com
+ (2603:10b6:a03:d4::41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.36 via Frontend
+ Transport; Tue, 30 Apr 2024 21:12:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  MWH0EPF000971E5.mail.protection.outlook.com (10.167.243.73) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Tue, 30 Apr 2024 21:12:44 +0000
+ 15.20.7544.18 via Frontend Transport; Tue, 30 Apr 2024 21:12:46 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 30 Apr
- 2024 16:12:43 -0500
+ 2024 16:12:44 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Hawking Zhang <Hawking.Zhang@amd.com>, Le Ma <le.ma@amd.com>, Alex Deucher
+CC: Hawking Zhang <Hawking.Zhang@amd.com>, Le Ma <Le.Ma@amd.com>, Alex Deucher
  <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Add psp v13_0_14 ip block
-Date: Tue, 30 Apr 2024 17:12:10 -0400
-Message-ID: <20240430211212.814162-2-alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: Add smu v13_0_14 ip block
+Date: Tue, 30 Apr 2024 17:12:11 -0400
+Message-ID: <20240430211212.814162-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240430211212.814162-1-alexander.deucher@amd.com>
 References: <20240430211212.814162-1-alexander.deucher@amd.com>
@@ -73,50 +73,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E5:EE_|PH8PR12MB6819:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7102a034-df5f-43df-68be-08dc695a47a6
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E5:EE_|IA0PR12MB7627:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9360841-5933-4c04-5e9e-08dc695a487f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|1800799015|82310400014|36860700004|376005; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?PJRWJAjqQ/SgTuz+PXYMHdUAu0UHiopwdz0GVQ2iyHnMsKoC0gHNP3dyI7PG?=
- =?us-ascii?Q?nR2eY3gfpU+vCY2al8MauGLnbssR0RhS8QGwlOdQn8wXDDqYKtZg79b1iYfB?=
- =?us-ascii?Q?jzjDid856W4BF7zLVKmYXh9ChEpemNDU85ePiw+mi0NzOfJ+V3uMWZ5oNBhO?=
- =?us-ascii?Q?OPVtAcrWDnyB05TYCPFH8H14g+vaS5fhfcIwR0Wu4TL3CQNG/49bWmTb4yVO?=
- =?us-ascii?Q?ND3tfycnttEMyNgUSoQOOq7hPGmj/avqWWiRRereZk+ei8oQOOofMVd8yvJ4?=
- =?us-ascii?Q?FKEA/cxLjR4tsxyvr5wcQhUezt6Tw6JhZTnhAIUNNbSAmEBHgeVR3BUgOCB6?=
- =?us-ascii?Q?k9hB7U5X3gx1ET3qXFRg3ysgMX177Rguc+YOz1WPb/xttUw6A4lHWpRSlmud?=
- =?us-ascii?Q?4B2nXR10BeHtM4kYiIPeMEkTnrqX4dOGqOxbFHwWC4BUxswoBU1wpw2smUVQ?=
- =?us-ascii?Q?wP5L1UqTWLU25x6gQsucmd1YpcduJse/Ob0Qqal+7WbLOdXC0I1Yoe+Lk7l7?=
- =?us-ascii?Q?yuVhAO+i9x/6FGlQuxUnaVIiyUAiuTz9AuX0yxaieW/nX76zOLLViJAf86/f?=
- =?us-ascii?Q?bmAc76OdjWML17ZLhOOiyGl/YhxZQJNySmyS7E/IsTYJzeVGd3d3MCj7zRbX?=
- =?us-ascii?Q?vW3cuI0uv759e6v/JaBYdzjDxNHju3CTvqjem6vBTR3TtsGGX+WqXm7CVFjg?=
- =?us-ascii?Q?n2Bb0c7nFBOWmcMz0LEXn5jT0VO85LhTb+l8o+6kOjnZAAG56gFfrQ9el+1O?=
- =?us-ascii?Q?+6QzGoKyHrbGSG+W3TVvDS8h2+CP9u8d+VqkwkVoxaIf8ySDLovLADq/5AaG?=
- =?us-ascii?Q?tzkFN3CUurFguyX1+Fqd5DNsam+tgYvGrygHE269qaxazyRTN7F5HqbpurBC?=
- =?us-ascii?Q?I/wohlSjhar/QdcjW1v3/Pi1/oXr0JLqqXqXQSxrw7+zK8RXZyPl8kZEas85?=
- =?us-ascii?Q?K8eY9nk/nAyuzVZNi8qPZL9G4H8h1+vM6GGRg/hOx34kaGk5mwBshpBMjB1Y?=
- =?us-ascii?Q?SuzNQtK55OJbm2C/OetqLjYFkTsezUwl+YxsTPvUluKIEwzM9iZjzjSkK8wt?=
- =?us-ascii?Q?GqyhaPEsuBUGJOOAhSQa5MAyHhuij7VcuBE+iyJwn7rviQsBT6AUDRZsmgCk?=
- =?us-ascii?Q?QPjA2aDwpB3fZeXsH57UiywuREJXNbFWZrmeJ1J9XYY65fnQQBii06y4k1r2?=
- =?us-ascii?Q?H0CiUPwo47nFQqz1hWMVIjwNQTmVvLDjDd9YwQM22m8Uu/jmblYhYHyWAIny?=
- =?us-ascii?Q?rUn/qcvdLzh8mJZG5+pAW0d69QY8cB35fz8exwqQRcfjAlspVSZsYwXOylnv?=
- =?us-ascii?Q?Pc+pPcQW8HOTFbP8/dJ3WKr17TE2byUSG+kAx2kq4rmip058oTeSyNW+JXO/?=
- =?us-ascii?Q?/ucWVNi6vedwbCi0vPW+IBMcQEt4?=
+ ARA:13230031|82310400014|36860700004|1800799015|376005; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?B1kPznpKpm2nizH2Adsf1soBijAZieXPzuFtZ/gKcavUIb0yjfcdQWDswzlH?=
+ =?us-ascii?Q?3+Sa6nnmn45xRVU3qY8hBb1AMnQjoCi7XxL6/6ulvNPrMmst0pMBP0Kce/iy?=
+ =?us-ascii?Q?kJb8ncaClbF0av//jS3p3QTk0zPAYJy9aYFBWF1o0JNL6LWoMxCzpOpI+B6B?=
+ =?us-ascii?Q?ke7bwxBynhZqM7pDjUbPSDDesY3KUPrZYrZ5N8kEJmmfS8g/NFxW3JAUwWFD?=
+ =?us-ascii?Q?8CIs7hrqDcPx2LL3CPtpGrPJzue75N0W8EDfo/KC0CBfJSTfBrcxU/PPu3lP?=
+ =?us-ascii?Q?xyPKag5YJcUqi0gdZcUc7m4p1Sqq1/bA61apTYeFa56L3pLgfTDGY+4axCNM?=
+ =?us-ascii?Q?VyauygQPiZG9eUQdOgyTez2sDDPlu2rPl9y0igqc+I/2wQTq3QJJoQVxNg8g?=
+ =?us-ascii?Q?5+Qwt/y8tSPwAEQnejNorNtVikawntdv6zNEzi2F+dm6cDEDylU+nyaSZ1aB?=
+ =?us-ascii?Q?UAbh2XEdwdIcxnIT2OeyGWl0kxDibE8ncRKgtzm0p4GV71AhelGeG3TB7fAq?=
+ =?us-ascii?Q?M06D8PD7K1Cc/fmHZ0xabrSLebP2Mm1IbFABcEHtm4QEOWAFH8XXghXcq1fn?=
+ =?us-ascii?Q?+iIQEvL9FG4+YhQ8sF4O6lXkHhfcwxGA8B9sxfPpChAIaqpEQq8GufKSYLsS?=
+ =?us-ascii?Q?QQi61hKywqy6rGReS2NtDxNK6zScZt0xHnAbD6BCkrxwYVWwAEPcgWHVLBNY?=
+ =?us-ascii?Q?MMfEVl9dPA/8nXPYjClH4saYLeLN1ZfLHQP5N6PzOA7Yc3rwAU3GkRZ5dwn/?=
+ =?us-ascii?Q?3FrnqQk78ObvfxC0B84HHW5bp/apssoF5AzkFR8fcJg2Ks9ytjWhQMd8T2bg?=
+ =?us-ascii?Q?X5KGdaf+LSvuFgc/+BYP8payg2rToB3RqDd/YRMVxSrBgi3rxvSLkeojT0Z9?=
+ =?us-ascii?Q?n7pQTMemYG7QsqIWBwnOjOqNaMsJm4HlPFNVWqVZZM1njP5+6SIejS5DqeJy?=
+ =?us-ascii?Q?lQhDgV3cNDZ1f54S6oRXKxxvhcaHrEZhRQ5xLjE31HYUc6zGOYkO4oGBrYZ8?=
+ =?us-ascii?Q?RyECCcdRnvn8odJStgqXCsUGkrqTWZZFBcJEeSil8+QUgbZqFAcsZVH23irD?=
+ =?us-ascii?Q?UYfWI8IuU+mKE6opM+sK20+nbHflfK2hEOhsoTGM8NJe9ZQ5XVfz8+elvKYw?=
+ =?us-ascii?Q?gyQjwpote3yfuo4hI9CTJ4ctvPp3ImTd/AIUNXj0I0xlsr6Fqx3+Fq4OWVwZ?=
+ =?us-ascii?Q?AAPNooXVoDZma/Aw+GyGpy4GL76Rq0FFQKu2sSrglLVWFeXJocZrTbMwgCeq?=
+ =?us-ascii?Q?jQ+p7X7+TyzLoWVPfm9DNGl8FWqTUusKoyggeKfOl9jDf9RARRUBBaKzow/+?=
+ =?us-ascii?Q?zmECgd7V6YNfCPfxswslVDMpzpEzPfKwEQMj5Jm//Rxu68Ej1/pL4ab9X42C?=
+ =?us-ascii?Q?+rcYpZgCFacRs5iPmfEKeD4l3HhU?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(82310400014)(36860700004)(376005); DIR:OUT;
+ SFS:(13230031)(82310400014)(36860700004)(1800799015)(376005); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2024 21:12:44.8422 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7102a034-df5f-43df-68be-08dc695a47a6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2024 21:12:46.2641 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9360841-5933-4c04-5e9e-08dc695a487f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E5.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6819
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7627
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,175 +133,208 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Add psp v13_0_14 ip block support.
+Add smu v13_0_14 ip block support
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Le Ma <le.ma@amd.com>
+Reviewed-by: Le Ma <Le.Ma@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 13 ++++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  2 ++
- drivers/gpu/drm/amd/amdgpu/psp_v13_0.c        | 12 +++++++++---
- drivers/gpu/drm/amd/amdgpu/soc15.c            |  3 ++-
- 5 files changed, 24 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c              | 6 ++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c        | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c       | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c              | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c       | 2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c            | 2 ++
+ drivers/gpu/drm/amd/amdgpu/soc15.c                   | 4 +++-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c            | 2 ++
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c       | 3 ++-
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 7 +++++--
+ 10 files changed, 25 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+index c50202215f6b1..b6b757268b8e3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -759,7 +759,7 @@ static int aca_bank_get_error_code(struct amdgpu_device *adev, struct aca_bank *
+ 	if (!smu_funcs || !smu_funcs->parse_error_code)
+ 		return -EOPNOTSUPP;
+ 
+-	return smu_funcs->parse_error_code(adev, bank);
++	return (smu_funcs->parse_error_code(adev, bank));
+ }
+ 
+ int aca_bank_check_error_codes(struct amdgpu_device *adev, struct aca_bank *bank, int *err_codes, int size)
+@@ -892,7 +892,9 @@ DEFINE_DEBUGFS_ATTRIBUTE(aca_debug_mode_fops, NULL, amdgpu_aca_smu_debug_mode_se
+ void amdgpu_aca_smu_debugfs_init(struct amdgpu_device *adev, struct dentry *root)
+ {
+ #if defined(CONFIG_DEBUG_FS)
+-	if (!root || adev->ip_versions[MP1_HWIP][0] != IP_VERSION(13, 0, 6))
++	if (!root ||
++	    (adev->ip_versions[MP1_HWIP][0] != IP_VERSION(13, 0, 6) &&
++	     adev->ip_versions[MP1_HWIP][0] != IP_VERSION(13, 0, 14)))
+ 		return;
+ 
+ 	debugfs_create_file("aca_debug_mode", 0200, root, adev, &aca_debug_mode_fops);
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 83bc80f517fe1..b68cd3b9d60ab 100644
+index b68cd3b9d60ab..8384cda48b29f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -1851,6 +1851,7 @@ static int amdgpu_discovery_set_psp_ip_blocks(struct amdgpu_device *adev)
+@@ -1910,6 +1910,7 @@ static int amdgpu_discovery_set_smu_ip_blocks(struct amdgpu_device *adev)
  	case IP_VERSION(13, 0, 8):
  	case IP_VERSION(13, 0, 10):
  	case IP_VERSION(13, 0, 11):
 +	case IP_VERSION(13, 0, 14):
+ 		amdgpu_device_ip_block_add(adev, &smu_v13_0_ip_block);
+ 		break;
  	case IP_VERSION(14, 0, 0):
- 	case IP_VERSION(14, 0, 1):
- 		amdgpu_device_ip_block_add(adev, &psp_v13_0_ip_block);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index a551c5b67fdd1..37820dd03cabd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -145,6 +145,7 @@ static int psp_init_sriov_microcode(struct psp_context *psp)
- 		adev->virt.autoload_ucode_id = 0;
- 		break;
- 	case IP_VERSION(13, 0, 6):
-+	case IP_VERSION(13, 0, 14):
- 		ret = psp_init_cap_microcode(psp, ucode_prefix);
- 		ret &= psp_init_ta_microcode(psp, ucode_prefix);
- 		break;
-@@ -207,6 +208,7 @@ static int psp_early_init(void *handle)
- 		psp->boot_time_tmr = false;
- 		fallthrough;
- 	case IP_VERSION(13, 0, 6):
-+	case IP_VERSION(13, 0, 14):
- 		psp_v13_0_set_psp_funcs(psp);
- 		psp->autoload_supported = false;
- 		break;
-@@ -355,7 +357,8 @@ static bool psp_get_runtime_db_entry(struct amdgpu_device *adev,
- 	bool ret = false;
- 	int i;
- 
--	if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6))
-+	if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6) ||
-+	    amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 14))
- 		return false;
- 
- 	db_header_pos = adev->gmc.mc_vram_size - PSP_RUNTIME_DB_OFFSET;
-@@ -847,6 +850,7 @@ static bool psp_skip_tmr(struct psp_context *psp)
- 	case IP_VERSION(13, 0, 2):
- 	case IP_VERSION(13, 0, 6):
- 	case IP_VERSION(13, 0, 10):
-+	case IP_VERSION(13, 0, 14):
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+index a08c148b13f92..ceb5163480f4c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+@@ -100,6 +100,7 @@ static bool is_fru_eeprom_supported(struct amdgpu_device *adev, u32 *fru_addr)
+ 				*fru_addr = FRU_EEPROM_MADDR_6;
  		return true;
+ 	case IP_VERSION(13, 0, 6):
++	case IP_VERSION(13, 0, 14):
+ 			if (fru_addr)
+ 				*fru_addr = FRU_EEPROM_MADDR_8;
+ 			return true;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+index a111751b97818..7b7040ec61bd7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+@@ -609,7 +609,9 @@ DEFINE_DEBUGFS_ATTRIBUTE(mca_debug_mode_fops, NULL, amdgpu_mca_smu_debug_mode_se
+ void amdgpu_mca_smu_debugfs_init(struct amdgpu_device *adev, struct dentry *root)
+ {
+ #if defined(CONFIG_DEBUG_FS)
+-	if (!root || amdgpu_ip_version(adev, MP1_HWIP, 0) != IP_VERSION(13, 0, 6))
++	if (!root ||
++	    (amdgpu_ip_version(adev, MP1_HWIP, 0) != IP_VERSION(13, 0, 6) &&
++	     amdgpu_ip_version(adev, MP1_HWIP, 0) != IP_VERSION(13, 0, 14)))
+ 		return;
+ 
+ 	debugfs_create_file("mca_debug_mode", 0200, root, adev, &mca_debug_mode_fops);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index 06a62a8a992e9..9b789dcc2bd17 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -161,6 +161,7 @@ static bool __is_ras_eeprom_supported(struct amdgpu_device *adev)
+ 	case IP_VERSION(13, 0, 10):
+ 		return true;
+ 	case IP_VERSION(13, 0, 6):
++	case IP_VERSION(13, 0, 14):
+ 		return (adev->gmc.is_app_apu) ? false : true;
  	default:
  		return false;
-@@ -1450,7 +1454,9 @@ int psp_xgmi_get_topology_info(struct psp_context *psp,
- 			(psp->xgmi_context.supports_extended_data &&
- 			 get_extended_data) ||
- 			amdgpu_ip_version(psp->adev, MP0_HWIP, 0) ==
--				IP_VERSION(13, 0, 6);
-+				IP_VERSION(13, 0, 6) ||
-+			amdgpu_ip_version(psp->adev, MP0_HWIP, 0) ==
-+				IP_VERSION(13, 0, 14);
- 		bool ta_port_num_support = amdgpu_sriov_vf(psp->adev) ? 0 :
- 				psp->xgmi_context.xgmi_ta_caps & EXTEND_PEER_LINK_INFO_CMD_FLAG;
- 
-@@ -2636,7 +2642,8 @@ static int psp_load_p2s_table(struct psp_context *psp)
- 				(adev->pm.rpm_mode == AMDGPU_RUNPM_BAMACO)))
- 		return 0;
- 
--	if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6)) {
-+	if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6) ||
-+	    amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 14)) {
- 		uint32_t supp_vers = adev->flags & AMD_IS_APU ? 0x0036013D :
- 								0x0036003C;
- 		if (psp->sos.fw_version < supp_vers)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index a037e8fba29f1..7b30f448eab63 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -3053,6 +3053,7 @@ static bool amdgpu_ras_asic_supported(struct amdgpu_device *adev)
- 		switch (amdgpu_ip_version(adev, MP0_HWIP, 0)) {
- 		case IP_VERSION(13, 0, 2):
- 		case IP_VERSION(13, 0, 6):
-+		case IP_VERSION(13, 0, 14):
- 			return true;
- 		default:
- 			return false;
-@@ -3064,6 +3065,7 @@ static bool amdgpu_ras_asic_supported(struct amdgpu_device *adev)
- 		case IP_VERSION(13, 0, 0):
- 		case IP_VERSION(13, 0, 6):
- 		case IP_VERSION(13, 0, 10):
-+		case IP_VERSION(13, 0, 14):
- 			return true;
- 		default:
- 			return false;
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-index 0da50ea46eafb..b52e15e2dcc7d 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-@@ -51,6 +51,8 @@ MODULE_FIRMWARE("amdgpu/psp_13_0_11_toc.bin");
- MODULE_FIRMWARE("amdgpu/psp_13_0_11_ta.bin");
- MODULE_FIRMWARE("amdgpu/psp_13_0_6_sos.bin");
- MODULE_FIRMWARE("amdgpu/psp_13_0_6_ta.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_14_sos.bin");
-+MODULE_FIRMWARE("amdgpu/psp_13_0_14_ta.bin");
- MODULE_FIRMWARE("amdgpu/psp_14_0_0_toc.bin");
- MODULE_FIRMWARE("amdgpu/psp_14_0_0_ta.bin");
- MODULE_FIRMWARE("amdgpu/psp_14_0_1_toc.bin");
-@@ -115,6 +117,7 @@ static int psp_v13_0_init_microcode(struct psp_context *psp)
+@@ -222,6 +223,7 @@ static bool __get_eeprom_i2c_addr(struct amdgpu_device *adev,
+ 		return true;
  	case IP_VERSION(13, 0, 6):
- 	case IP_VERSION(13, 0, 7):
  	case IP_VERSION(13, 0, 10):
 +	case IP_VERSION(13, 0, 14):
- 		err = psp_init_sos_microcode(psp, ucode_prefix);
- 		if (err)
- 			return err;
-@@ -168,7 +171,8 @@ static int psp_v13_0_wait_for_bootloader(struct psp_context *psp)
- 	int retry_loop, retry_cnt, ret;
- 
- 	retry_cnt =
--		(amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6)) ?
-+		((amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6) ||
-+		  amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 14))) ?
- 			PSP_VMBX_POLLING_LIMIT :
- 			10;
- 	/* Wait for bootloader to signify that it is ready having bit 31 of
-@@ -193,7 +197,8 @@ static int psp_v13_0_wait_for_bootloader_steady_state(struct psp_context *psp)
- 	struct amdgpu_device *adev = psp->adev;
- 	int ret;
- 
--	if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6)) {
-+	if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6) ||
-+	    amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 14)) {
- 		ret = psp_v13_0_wait_for_vmbx_ready(psp);
- 		if (ret)
- 			amdgpu_ras_query_boot_status(adev, 4);
-@@ -787,7 +792,8 @@ static bool psp_v13_0_get_ras_capability(struct psp_context *psp)
- 	if (!con)
- 		return false;
- 
--	if ((amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6)) &&
-+	if ((amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6) ||
-+	     amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 14)) &&
- 	    (!(adev->flags & AMD_IS_APU))) {
- 		reg_data = RREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_127);
- 		adev->ras_hw_enabled = (reg_data & GENMASK_ULL(23, 0));
+ 		control->i2c_address = EEPROM_I2C_MADDR_4;
+ 		return true;
+ 	default:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+index ea4873f6ccd19..bfdde772b7ee0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+@@ -33,6 +33,7 @@ int amdgpu_reset_init(struct amdgpu_device *adev)
+ 	switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+ 	case IP_VERSION(13, 0, 2):
+ 	case IP_VERSION(13, 0, 6):
++	case IP_VERSION(13, 0, 14):
+ 		ret = aldebaran_reset_init(adev);
+ 		break;
+ 	case IP_VERSION(11, 0, 7):
+@@ -55,6 +56,7 @@ int amdgpu_reset_fini(struct amdgpu_device *adev)
+ 	switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+ 	case IP_VERSION(13, 0, 2):
+ 	case IP_VERSION(13, 0, 6):
++	case IP_VERSION(13, 0, 14):
+ 		ret = aldebaran_reset_fini(adev);
+ 		break;
+ 	case IP_VERSION(11, 0, 7):
 diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 170f02e967176..55ee5ac828794 100644
+index 55ee5ac828794..5169795df38c2 100644
 --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
 +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -1458,7 +1458,8 @@ static void soc15_common_get_clockgating_state(void *handle, u64 *flags)
- 		adev->hdp.funcs->get_clock_gating_state(adev, flags);
+@@ -326,7 +326,8 @@ static u32 soc15_get_xclk(struct amdgpu_device *adev)
  
- 	if ((amdgpu_ip_version(adev, MP0_HWIP, 0) != IP_VERSION(13, 0, 2)) &&
--	    (amdgpu_ip_version(adev, MP0_HWIP, 0) != IP_VERSION(13, 0, 6))) {
-+	    (amdgpu_ip_version(adev, MP0_HWIP, 0) != IP_VERSION(13, 0, 6)) &&
-+	    (amdgpu_ip_version(adev, MP0_HWIP, 0) != IP_VERSION(13, 0, 14))) {
- 		/* AMD_CG_SUPPORT_DRM_MGCG */
- 		data = RREG32(SOC15_REG_OFFSET(MP0, 0, mmMP0_MISC_CGTT_CTRL0));
- 		if (!(data & 0x01000000))
+ 	if (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(12, 0, 0) ||
+ 	    amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(12, 0, 1) ||
+-	    amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 6))
++	    amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 6) ||
++	    amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 14))
+ 		return 10000;
+ 	if (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(10, 0, 0) ||
+ 	    amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(10, 0, 1))
+@@ -554,6 +555,7 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
+ 			return AMD_RESET_METHOD_MODE2;
+ 		break;
+ 	case IP_VERSION(13, 0, 6):
++	case IP_VERSION(13, 0, 14):
+ 		/* Use gpu_recovery param to target a reset method.
+ 		 * Enable triggering of GPU reset only if specified
+ 		 * by module parameter.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 7789b313285c4..bdf9f80311870 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -705,6 +705,7 @@ static int smu_set_funcs(struct amdgpu_device *adev)
+ 		smu_v13_0_0_set_ppt_funcs(smu);
+ 		break;
+ 	case IP_VERSION(13, 0, 6):
++	case IP_VERSION(13, 0, 14):
+ 		smu_v13_0_6_set_ppt_funcs(smu);
+ 		/* Enable pp_od_clk_voltage node */
+ 		smu->od_enabled = true;
+@@ -2716,6 +2717,7 @@ int smu_get_power_limit(void *handle,
+ 			switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+ 			case IP_VERSION(13, 0, 2):
+ 			case IP_VERSION(13, 0, 6):
++			case IP_VERSION(13, 0, 14):
+ 			case IP_VERSION(11, 0, 7):
+ 			case IP_VERSION(11, 0, 11):
+ 			case IP_VERSION(11, 0, 12):
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index ed5a7a83c9e27..0fd25b72a40c2 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -271,7 +271,8 @@ int smu_v13_0_check_fw_version(struct smu_context *smu)
+ 	smu_minor = (smu_version >> 8) & 0xff;
+ 	smu_debug = (smu_version >> 0) & 0xff;
+ 	if (smu->is_apu ||
+-	    amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 6))
++	    amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 6) ||
++	    amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 14))
+ 		adev->pm.fw_version = smu_version;
+ 
+ 	/* only for dGPU w/ SMU13*/
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index a923e44451d62..051092f1b1b4a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -68,6 +68,7 @@
+ #undef pr_debug
+ 
+ MODULE_FIRMWARE("amdgpu/smu_13_0_6.bin");
++MODULE_FIRMWARE("amdgpu/smu_13_0_14.bin");
+ 
+ #define to_amdgpu_device(x) (container_of(x, struct amdgpu_device, pm.smu_i2c))
+ 
+@@ -462,8 +463,10 @@ static ssize_t smu_v13_0_6_get_pm_metrics(struct smu_context *smu,
+ 
+ 	memset(&pm_metrics->common_header, 0,
+ 	       sizeof(pm_metrics->common_header));
+-	pm_metrics->common_header.mp1_ip_discovery_version =
+-		IP_VERSION(13, 0, 6);
++	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 6))
++		pm_metrics->common_header.mp1_ip_discovery_version = IP_VERSION(13, 0, 6);
++	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 14))
++		pm_metrics->common_header.mp1_ip_discovery_version = IP_VERSION(13, 0, 14);
+ 	pm_metrics->common_header.pmfw_version = pmfw_version;
+ 	pm_metrics->common_header.pmmetrics_version = table_version;
+ 	pm_metrics->common_header.structure_size =
 -- 
 2.44.0
 
