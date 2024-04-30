@@ -4,150 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A480C10F16
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 17:29:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBA96C4345F
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 18:26:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEF96112D70;
-	Tue, 30 Apr 2024 17:29:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32E8D112E09;
+	Tue, 30 Apr 2024 18:26:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="A09Kl0Jq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qkrg+FDF";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2044.outbound.protection.outlook.com [40.107.94.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BBD5112D70
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Apr 2024 17:29:13 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2085.outbound.protection.outlook.com [40.107.244.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AED9112E09
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Apr 2024 18:26:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g1D+1nvuKplO+7I8/qyuRfELbGv07kAsPqlhBuv6AFAoqFLR7Y3Xkz98buM1Vaiwxnq7A5RdqleQSoW9SdN/YXQcdNspu7JeEE7B94q9PPQ9qXzIRstTkWzTddIQTiPfEvEReUuERSjNmMPRBaaefygtf+KpD4/XrzQfp3lO66F4ZIaTLJQ2Ds07YCoaa3LGqtINBvYnSHEg+7C4BahTyLXJfFqv16xY56ZRB7R8FT3aiCq9D9fXwxnJgYqTstUrzVvkqd867914JaT8ZMQfowPAPFyCPH4+m6aRX8oltVLzIshpVH5yMC60yJQFeDZegok+QikIVaR2bTxAlvnLIw==
+ b=VbxUTiex59JCEwLLAf7f5R9vPsG/GXxiU26NWSoWW43H1EhUsgv5mavcjmG2DLNsMyils6LqlD5oXUJdDWq8egX24ZyWrOKE7PH+rQc225FDEcpkNQNxh825x4iBnt9QhMWuyQabBY49ZYbeabfDZDl6YU00SKzKE9nJ2UPd6EtYJ7NbG0LVnmuhOKMkBZdwEwPFUibL7UTrgd7NckX6gPougoK4FWDtVgGfJAA0miGODZFhJFtYtxrUGPfYBJlXfDLsElDEf6TCqRsOcfqqVO7nOv2aRRs36xGzSas+CdlzC2heDtD1REkfNazJTKRQhKuHuyeiRLRt+Zqpk4c+GA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NJ6wii3vJy1kTKIRi0sW8j/C9kcEAgYyokI3G+YyLpA=;
- b=TopBk7EmLl4col+pQ9YrRvLwzvrzWliuVKKyRSLAz6R6Tr8DUQ3LGthXfVQetqVjiA41x46hWF5wdN7Oj3+j8ciEYaQqWdvBCTCvd90xyqFWj0OD8CAYHlKpC7yT8klQZ0/rdEG0xgykfzWbPWLEXIWq5AMj2d87/7WChBUb55sFvlIVECEqpthnIIhRMSkaouEGAmJi+Q2uWPYx6coK82uW72DiQrabyNu45BtV2RculwyKHyya5svI+12AIpU/McqiBtk5kwgtaZ9tx/RSOmE3xj+GnkEX+u4RqnlLjLQqzMjfH6ZbH8rUdMv5wjUm542BlhTj3Ug9MjBxTxrPYQ==
+ bh=5e5bnXc/x5YlnOb3tHqjZ/7Xt84E7Of09T0Yvi/UkVY=;
+ b=NH5XtFZxCnHD2EKNXhSSL5uMbaUbTmR6tDrSbOoYpfIORVDVByYTJTtVrHqgT6kOAcFlWN6K/0CoEZjZ6+Oi/KIbPZ8iDvDYO6o4FMe+gWUdciZt7uYHW0Qt9LuBPPhFB8ajkjuXOoxZyKJQQ1wtywEdgIw4kENboVuCI8pJRy9se3Hfo8Qm147ZowlRz5sp3yZ661jVW68CJm0TwEth+uWFjF11+8iFiwqMUu5DfGyrb/tLZmPIacHaOZcCIgfWTwAbu4Rd4czK/+bxM7/DYVf+sc9ubrytXHdsARYsBFBzsamo2WUveVrmq7P115pU5qNxkggdpwzjqY4WQeGwFA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NJ6wii3vJy1kTKIRi0sW8j/C9kcEAgYyokI3G+YyLpA=;
- b=A09Kl0JqlS2ThS1Nu4ncGKb02lTffvokUVEVzIwzAaHsb9Q0RgxRks+oDosg2UKNP2mEgNMpkrUKwU/2JyQDOEgTJDFp+PYPi1534oV3L19OvjGR00f+HjsTTz/1qiU8NQt0T1pzM24/9jouK2KuOeq9Cz56pxVlerNjqhT5qps=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CY5PR12MB6322.namprd12.prod.outlook.com (2603:10b6:930:21::21) with
+ bh=5e5bnXc/x5YlnOb3tHqjZ/7Xt84E7Of09T0Yvi/UkVY=;
+ b=Qkrg+FDFVz9AxSVzROGrUAmMGMLA6DItTILymqy8MYL8nO8JdXUSj4Y2dHXCt9xF6koxBCjFEFveqcey2505fe26mdmiq5d1StLEAgAQVaGLM+mjcW+PPS/sPI+Ogw1Nz+X6xj/OSjGA/dEgUCFvmgsyiRn+oJnYmCCXg8hlwzY=
+Received: from DM4PR12MB5328.namprd12.prod.outlook.com (2603:10b6:5:39f::12)
+ by CH3PR12MB9432.namprd12.prod.outlook.com (2603:10b6:610:1c7::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Tue, 30 Apr
- 2024 17:29:10 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062%5]) with mapi id 15.20.7519.035; Tue, 30 Apr 2024
- 17:29:10 +0000
-Message-ID: <958149a4-f5f5-4963-9af8-12e2a672733d@amd.com>
-Date: Tue, 30 Apr 2024 13:29:06 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 13/15] drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
-To: Samuel Holland <samuel.holland@sifive.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- linux-arm-kernel@lists.infradead.org, x86@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
- Christoph Hellwig <hch@lst.de>, loongarch@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
-References: <20240329072441.591471-1-samuel.holland@sifive.com>
- <20240329072441.591471-14-samuel.holland@sifive.com>
+ 2024 18:25:55 +0000
+Received: from DM4PR12MB5328.namprd12.prod.outlook.com
+ ([fe80::88dd:d6b6:2f6a:cc3c]) by DM4PR12MB5328.namprd12.prod.outlook.com
+ ([fe80::88dd:d6b6:2f6a:cc3c%5]) with mapi id 15.20.7519.030; Tue, 30 Apr 2024
+ 18:25:55 +0000
+From: "Luo, Zhigang" <Zhigang.Luo@amd.com>
+To: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>, "Li,
+ Yunxiang (Teddy)" <Yunxiang.Li@amd.com>
+Subject: RE: [PATCH v2 3/4] drm/amdgpu: Fix amdgpu_device_reset_sriov retry
+ logic
+Thread-Topic: [PATCH v2 3/4] drm/amdgpu: Fix amdgpu_device_reset_sriov retry
+ logic
+Thread-Index: AQHamAe50EhuoCszI0+bUBbpZyLhKbGBJ3jw
+Date: Tue, 30 Apr 2024 18:25:55 +0000
+Message-ID: <DM4PR12MB53285DDDDF26EBF1B0DEC7EEF11A2@DM4PR12MB5328.namprd12.prod.outlook.com>
+References: <20240426035742.90560-3-Yunxiang.Li@amd.com>
+ <20240426182928.98181-1-Yunxiang.Li@amd.com>
+In-Reply-To: <20240426182928.98181-1-Yunxiang.Li@amd.com>
+Accept-Language: en-US, en-CA
 Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20240329072441.591471-14-samuel.holland@sifive.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0088.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:84::16) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=9bf50880-0345-4670-a8d0-44d2720ce2c7;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-04-30T18:25:23Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5328:EE_|CH3PR12MB9432:EE_
+x-ms-office365-filtering-correlation-id: 9904a04f-4526-47e0-1e64-08dc6942f9a8
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230031|1800799015|376005|366007|38070700009;
+x-microsoft-antispam-message-info: =?us-ascii?Q?Xbd+pCL/1RiUqfrRdsJqOi4uD/YJpgYmcfLUJuVqd4gK5CraZ75/vuPY4gdJ?=
+ =?us-ascii?Q?6FeEJOrjV+pMQEp70rSwg37c6gQIhOg+wjmCC6lPS8LGC0FD7/h9LMWBABRS?=
+ =?us-ascii?Q?NO3s/zUB6C3Jqlb58EWCDtyrmQgpIlzLuU6uvyd9CbX+7nBimlrMB08PLzHb?=
+ =?us-ascii?Q?1TVJLOZO/YVqkjLQb0kaTpGClZ7mWR/HtEr+XeJWcuHCNRe61J/J6ESVhIAW?=
+ =?us-ascii?Q?iAoDlt0YOko1OPAM1SwZXOHp+/gvrgvYo7+cL0xSQctqWY0vNPmBn8WrihbY?=
+ =?us-ascii?Q?Uq4t/UQtn1P40mOlnqDPjkKkj/U87neMbnFR8hWH49YT8DftR76pfDLyrY2W?=
+ =?us-ascii?Q?O3JpHB9JdH6VDsTySRDVjLh1oo9NPUozpzy8BCPzLJi2Zreoq3R2ohqEYvuH?=
+ =?us-ascii?Q?X8Q2qmd+/4IhEFBSxZTIiLiIcj8istR5dcRgBPzNgoG7KIJP/GqDb2vXj/Rj?=
+ =?us-ascii?Q?TXirWtE+us+No+v6JpAuCGtCQbPuHDmh5H0cqEM0xpf82BK5/CaioRnHYEGK?=
+ =?us-ascii?Q?tyMSLKM5THF77bmhgejqObZInmFg5D15ON77x57OmZmmeVy2BI+1UWMAAfMf?=
+ =?us-ascii?Q?aazsNH7/G6n2UGzE8++aoHgeHwrcdV/XTpxdBIPDS2+fbYJTzLxfaL08LNAU?=
+ =?us-ascii?Q?1BcK60k6QPWoRdnV7p8V6GeKX8U9eL1NWdbh3zRpvw+Kj6kzH7/ituNPFtYI?=
+ =?us-ascii?Q?Wh1thNKmkqHx1j/t3Snwfp6cQwFTuaIvBt+QWuURyX2YzKXvsYiVs4yC06yR?=
+ =?us-ascii?Q?VplQgrk3KnSgVi+QFTDHlOXzKTr0Y0G6IBtdoJthBpGDnYOYR3qDB9JliV92?=
+ =?us-ascii?Q?4EvTuH7QxZsdjUCDQxBMdStA2gwu04sGvE/w0FKm8xJU4aYW5jvHFfcqJ7fb?=
+ =?us-ascii?Q?JRN/l8vXxyMdoP5xAX0FKqjt2xHbXKzAgVvKou/91pryxdoVC+oXikoSJJkY?=
+ =?us-ascii?Q?lvRXuNArXX7m3OKVbmQmRMliuPkcXqfSLHqFNZQCehdRfmOSakWU9wzMQv1A?=
+ =?us-ascii?Q?RWvsxtkawdIFjqTmZ2dwZ1lkEclig1I2h7sz5eCkCUXYFYx/T2limOxE641c?=
+ =?us-ascii?Q?xZHSyDUXmS6ARBgDL4doBJC7j/9YDpyoPEttUxk45vDIQMC1ceTexdzwyLe9?=
+ =?us-ascii?Q?PTenFYBC2N+qqZnMsRZUIBsd6TZiKeQcTfgCi66PlR7TXPf9ffTyKTIVUBaK?=
+ =?us-ascii?Q?XZwTQvOr9Duat0irj5G/gsH8Z09FtxU/hlIOhk8hX4BLGvKcAQm2VvhgEw85?=
+ =?us-ascii?Q?uBwGOTzDUhpJCgGuyy2NTXcGljg4hOlp0YNkVfJMxa9dTjV5ZKm9IUxKWnDq?=
+ =?us-ascii?Q?6eRXDMeMCPMPSqP3KY2YMM+8HgpL8dxuCWuzSoJiTAruTg=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5328.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(366007)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?HuM4p+Ckp/eOYERIeX39yx4M6aOgiQoA3oGetjhgvuMQ4x1ld+TVnnEIUItV?=
+ =?us-ascii?Q?fhTRhw3X06UYmMTrAChrFcE+rZrrYbyLc8k8ltAmxDE+GubBq6YelkFllvSZ?=
+ =?us-ascii?Q?ipOohdmctiE6RgI/kDRvYDfKKeh/VwbBrjRkYrjH4sh+MrTZ7z9u9LchL1Oo?=
+ =?us-ascii?Q?NDQvDJCR3w4ZtK81f80HrBPT05874PCIqePiKDww4eBoFxWJQHKV/O5lT37h?=
+ =?us-ascii?Q?Er8WNi7zmGZhDdIqR7z7L5eAQkXqt4SvD4hfLTqycvEXtOBw1oAckrzm/Y9T?=
+ =?us-ascii?Q?nA2mbUVElxOJTF4ZL6yNJ4HXhu+WArjeiAE6F2RIXeUXqkxtgtTJfS17d4PC?=
+ =?us-ascii?Q?ThIzOwlQnDiDR3FJWMSSHKeONW1VVYPLQi8/pY27J6uR4vkS+JrAYmg5xatx?=
+ =?us-ascii?Q?Ph4C8+Pwl79QIs0w2Y67RyFkc1/B8n/9erWHG6/I8ybWysDK39oSHEd2E63s?=
+ =?us-ascii?Q?DOe1bBtyyhNPgQQF0qMdJwTtiCFce/4ykb+W+IVZrQRfVbv01OdIi19vbbEb?=
+ =?us-ascii?Q?4f6KYSmEc6inf4INDeTgJgnzVTIRkvVQpdhT5nEw+uPlNDLkUgcHzZXUT84p?=
+ =?us-ascii?Q?igzB9vliDjUGq81BmJ8Ro1YM2D+6p/Bg5SqhcpIqCmHy0/24nhRQlRrpY3kg?=
+ =?us-ascii?Q?beIGDCRAFUem9uaAL7Asmn7L6DTNnHm8LrCeUgE1UTfliA+yCFYjNliQTb+G?=
+ =?us-ascii?Q?ZJ00B2QhrscjBm0/eof+5N4E0iI7qSGYYFGBauUZXtbVUwftviikSqFIVsQt?=
+ =?us-ascii?Q?gyU9bw1DgNA394L/4/A1ZT9aUWYoAv29Hkz+MJH1qp3oNE49Fukm17oTZ6hR?=
+ =?us-ascii?Q?IrkSDJ9K09QwUCpe7FuP1NDLuAzbR/0CKNMgw3P1RZ7Jsv409hv1fe6Lf03t?=
+ =?us-ascii?Q?WX38/4Bbdj8R4F5/RHLC6hUEaHw+mHmzTGOLUgGjyipA1bbUt22eumU9yGcP?=
+ =?us-ascii?Q?bGebxNGWUSopGOlMHcGyd7ex3zZAD5BPlclQcDbjvtXPqVaVbJl8X3AaZLe2?=
+ =?us-ascii?Q?RInbj6BFkdSlvsHwnYMx+b+DHVbqoDT/iLeUuDUHrGZelBZuIsamVZJvw9WH?=
+ =?us-ascii?Q?ixqRyqQgzViKsQDA6am/ktSpheSNoVP66j8mL7XNKG7v4lrrY/D0KJTX71Il?=
+ =?us-ascii?Q?oG2LcxaIte/lEzKI2ZJWrPMfgNoe+AE079oeac9y6fR+9NHYzfLi62EalE6M?=
+ =?us-ascii?Q?WYl3byipK0R1JGv2oQaXZnRH+dSFzGZtu+oSMpB1QV4oXm3hiVHSsIBoFxGt?=
+ =?us-ascii?Q?7GL8Ti1dtdPFrJdlSpuo6OZ+lulgmLbZIhq/eWUkl8ErDWFRwsafRB2bmYBz?=
+ =?us-ascii?Q?EaheuBOVqNhXn6g5bhewwuAD0LugJ2MdZJHKFq0YhYq/xdfBRpXK0ibCUnRr?=
+ =?us-ascii?Q?m20N0dgwIqBd5enBywGKSYjiO7jA4Vb72u3wp5INnZ0duoXUJEVebDSqnG+c?=
+ =?us-ascii?Q?nKF1OHf4HBjaw5U5UniRbvGCwTHCdWADJF9IEKkpSBqqshfrmnZ4TTZeA4pj?=
+ =?us-ascii?Q?ab3FhKzVfsHQWu9L5MR09SzCCbBelznCnIjEyU/ShHdGVbY3ceYhhaNjt2DK?=
+ =?us-ascii?Q?6CvXrFzPu9D5lKHxJa0=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|CY5PR12MB6322:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba75e1a5-5398-4f19-4a93-08dc693b0bfe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|1800799015|7416005|376005|366007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?S2ZWcGxUbGhNWEtuaHk1K0pyWUo0OXdobDJLMitkMnVBV3VXdUVFOUQ3dURh?=
- =?utf-8?B?RHB4QTdwc1lZc2d3OFloMzNOVUdaS1pzdTZ4MlU5U1QydnlmZVNyVEgwYk5R?=
- =?utf-8?B?UDJOZWtUNVVNRHd0ekVSZUJzU3B3Vnc4RWswTjRxSGo1STUwankyQ2kxdmYy?=
- =?utf-8?B?K0Yxc3IyQWZERVlQcXl1dFA0M1VTLzU4UGFqNzc1V0hOdnAvV1ZUNXhNU2cz?=
- =?utf-8?B?cUdqQnVwWGs0TW5tell1LytRK09iekt1WjZkVERwWTlhcG44K1JBMis0V2pZ?=
- =?utf-8?B?aUtQYzlUcFhsR2oybnhpcTZVb21jYUVjVE41M3ZZMnBsMTJlWmVMQUFKbDVi?=
- =?utf-8?B?SzhrQ1JoMEdCMVNZbjZ5WXpFWE1RbjYya0Nqa0ZzeUdGUFNQU09RMjhBcGg0?=
- =?utf-8?B?blp6V2FFN2k4SS96cERxNkVyZkpERkZ2VVE4Z1A2V2c2WUQ0ZmpnOVFjWFpN?=
- =?utf-8?B?L1d2ckNCMFJHRFQyb0VDN1JSZkhaZHRZV3VhWTFtS00xc2NRWXZPQlBXQk1s?=
- =?utf-8?B?VHZZOEw4ZGdJa0w3UnNIaUQ5NTdGQVB1L3JaMExIM3RqNXg5MUZlMTRZdllV?=
- =?utf-8?B?eGFWNm91OFVXS0xSTXJqSHpQU0ZGYmhIMHNIVW45RTU4YUJ2L2xwZ1YzL3p1?=
- =?utf-8?B?RHJBTWduM1dpUUFSWGcxODB3STMzSFlMWDFScHNDNnBkdE1sbjZqZGdBd1BR?=
- =?utf-8?B?cWtZN3RVZGE5Lyt6SUdtN3RIT2EvcHE1VzJlcmNWOGd4U0V6ZEs0eUNBVSt2?=
- =?utf-8?B?eS83MXhhWTdnZVpiSTdXTU9ZNDJoOTByVGhQYmkxR2EyUWJtZFBBMnF5K2lE?=
- =?utf-8?B?cWNtQVl5d0FLUXY2STdkY3laOHlvQkhPbEJYMHlFeXRwTmoxTmRtSFU1aVVM?=
- =?utf-8?B?TzVqVUN4NVM1Mlc2dmNnYjVJZFBzYkQrOW1ZeEo5Q2hGUE8yOWVHK1ZtL2xw?=
- =?utf-8?B?NHB6a2M0emZKVnVXRFZsa1FRNjZOMWhBWEhvSjhDUFNSNDhrUHg2SzlLQ2U5?=
- =?utf-8?B?NzU4azkxKzVUb2tGMDRTTUNTSDB3L2h5UXA3a3IxUUF0aC80RmxWRVNqVi9j?=
- =?utf-8?B?eGo5R2dvcUdsdnhTMFBpSzVoaFFCMWlRbWJrQytUSFpBY2lhS2gycE55RXox?=
- =?utf-8?B?aTNtbUV1dzk0SnQvT1Y2R1dWRE42Y2U0ODJNM240QmcwK0gzMzJkcnBQUHJr?=
- =?utf-8?B?di8xWWlGRzNHM1VtSGQybWN3eVN3R2IvRFJkdlo3QWtCbnFmb0M5WTdrT0lG?=
- =?utf-8?B?U3dSbHNGMHhNRXhiaFZsMWNlZnE3N1JteTNMZnJvUkRwRUk2dHVpY2Q0REdS?=
- =?utf-8?B?a0JlMHg2YzI4SUwra3A0OWJDNEx0OFZZb052Yy92aXN6eEVFcGNObFdINGRj?=
- =?utf-8?B?M3cwU2t0L1l5ZkhRYTBVYThGY2NpOGF2ZlBEMXQvQ1RhampMRWJmTVZsTzhJ?=
- =?utf-8?B?T1l6TDE3WHlYOTUvWjVSdG55UDRqb3pGY0RZVWxOdWRUemxYbytwbmVndFph?=
- =?utf-8?B?eU5XN29zSHBZWWJFd2htVmVpdGcvTUFMb1RqVWU1UFUycnN1R3RDQ1pJdE1H?=
- =?utf-8?B?RU1DUjA2eDZFcTFZaHhVUEVjenM3YTFRYWRGVjFRdjhVNHJuZVpUclRWbXl0?=
- =?utf-8?B?bmZZLzkzZEpSNllLR1VwYmxXVFhZSnREQlQ3dHBMTmFvUUlRcVFXWVZ5WjN4?=
- =?utf-8?B?ZzVGWjhXTGlITXRnODNNVXgzRFUwK1VmUk5wRGdWcGQxc1JjZlhOM3RRPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(7416005)(376005)(366007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MDRlMGdWMENCOW9UektET2xIVEdTeHpCaXBNbzJyNEFOc0ZrVXc2Qzk3ZFZQ?=
- =?utf-8?B?anQwVDRDbzlXZ0RHajQzV2JJVDJUYjVJeHZhYjZCcndaV0dIV1hmdlB0SE94?=
- =?utf-8?B?eVBHdUZhUDJGbGxlYVF1dWUzYnhQamw2K2l1ai9lL0ZhZlo5ZmhtamQ5eklV?=
- =?utf-8?B?cDl5M0xsZzFmMGhMbnZ3UU9Ubko1eW5mWFk3N0tHNnZMMW1LRnpic0kyL01r?=
- =?utf-8?B?RGZLbUNHOGo0TVdwNWl5dHF6TG9uOEJPYjdhTFAvbFVoSXlYS3hVVzdKY2JB?=
- =?utf-8?B?cFJoWHRkM0UyWEoyZGJwcG9CUTRtZlArV0ZWV0xQN29sbnV6Q3Z6UGVGQzFp?=
- =?utf-8?B?eVM3MVNmTkt6K0FvT2xscmtCRmlMSUVVcmNBN0Q0QXFGSFdtU0gyMXFtcFZ0?=
- =?utf-8?B?ejR4NWdQYzFEeGxqRFo5NlZ3MGhFc0RqZG1CMmswOTBZaEZBZXJzbXBYMTIz?=
- =?utf-8?B?VmRtKzA1aUdkQzdLaXJnSVJ4NUxzVW93U3ZpL25XeDlaeko4Y2w5eXBDZ2ZW?=
- =?utf-8?B?MjlmdE1LMnYvampQd0FRZGFwRTNibHVRaTBOWXovTUpXOXY3WjNWRWkrZ2RS?=
- =?utf-8?B?RVlUdFQ5UHgyYll0TmcvK2ZZN240L2NVVTJIaVRpTmJaeFBVbUEvOFUrdURN?=
- =?utf-8?B?d0VVd3R4OGdUZGVWTUlhN0tjaW1kTFY2alF6OHhZMmtBaHJvdG54anZpTzdB?=
- =?utf-8?B?ZXN1WlBTRWorSk55bnY5R3NVWkhIdDRZbmVGWmkvL09oUVJJV2FyQ1AyTnBk?=
- =?utf-8?B?aTNOSThiY01OT2VnOG4vc3V4ai9UZVdXcjloREZ1Z2FDOHQwOURZalNZd3pI?=
- =?utf-8?B?M0lBWGx3N3Z3cXlESmZDNS9UTWlaK0ZmNXdyU2kvZnlQKzBsR3Q4MTZNOEhT?=
- =?utf-8?B?c2xCdHZSY0pNZXJRd2wwWFNQaTVKSFRnWkNGa0owbUdPbVQvZHRRdThEVUVP?=
- =?utf-8?B?L1prZTl6QzBtV0V1L2N2TTQ2am50c1Q0TFZ3UGJ4V0NSRmhQT00vUG5rWDFy?=
- =?utf-8?B?K1ZMTkswOGVQNmZLTSs3Z3gyMHJYSkVjdjBVOGRDSk0zZUhMdk9yQ2ZMR3ZZ?=
- =?utf-8?B?Vlh5K3hSblJvQ1l6WStBYXlFYzFiMVFIYkFqN1NLNXZPcXhsSTFDK2pBYmdE?=
- =?utf-8?B?d3RrNm96Z2JBUUQyUHdzTjFoUE5pZk9lb0x3dlhDQTJBeHVpNjBJNk5IYVNh?=
- =?utf-8?B?SzdYSTRxNnFPdHcvS3B2V296ZU1Tcmg1MDREOGFFcC9IcEpidE93VDVlekRn?=
- =?utf-8?B?MEhSNWNsVXM0YUtsREtqU1pZSERjRFZ6TnJHeGVFQnl6dTcrQlVGL2Vic1By?=
- =?utf-8?B?VTJuUXhjU1lzdThrblYwT25uVDhLbXBoUDRqKzVoQkJUOFREQVdtc2lzY3l5?=
- =?utf-8?B?UklGbEtDSUZOeVdBaTN6c2d0VGV0ckJtcE1uTXl5R3F3eDNrYjhmQmZyYWQ0?=
- =?utf-8?B?RXBtWGV5enQ1TkFCaTVVUjFXS0NlSzdWTStpY010NjVpQmdjeVRudkFhYjFT?=
- =?utf-8?B?eTZTNmRVRkM4bVFhV0cwNjN4bFYvR0lncW4wUGhVbGI4Y09YUS82ZlBwTDJn?=
- =?utf-8?B?SVVVUVNQdTkrcEovRGt4WDhJNnRMRm5OSlZUeDJVUk5iT3VuZWpvN2NyUmJ4?=
- =?utf-8?B?MFU4ckVCVGgrcG5UQlhrRmZieUZSaFpLN1VuaUcyTmZpazFHQTZYamZKNHVX?=
- =?utf-8?B?V01nZzdYVmpTZTBMWGswQ0hYL2hHdCt5c3UzSm9RZXVDTEdtdG15aVo2RnZW?=
- =?utf-8?B?cDNNaTRJcEx0OFp4dmRrMFVEUmM0SXA4UmE4RjdrMXEraTJoSVZ4NnRHS01y?=
- =?utf-8?B?bHBsTEtGRGM3TUhFY3VkckNXaUpWVTVNZkxIdWpPbzB0MndONkVMb2xLK0to?=
- =?utf-8?B?QkhGMERic21HZnF4cUUveVpCUjY0YVlVRTQ1UUlKY256Q01ZNTJLOVVES3RR?=
- =?utf-8?B?MDBBVzR2WFFoTTIwOWdYTjdTckgvWUNIU0tMWUFHZitySUJYNmIybnFqaFBw?=
- =?utf-8?B?cTlEdG0vdER3eEFIOFdwb25ZVVcxdkMzRS9JNFJZV3JVNEFkSnB5RlVhdTdI?=
- =?utf-8?B?MjgvdVd5S1lJQjdqalY1SmJjbzRYUm8wcXBmVzRYSEJyaUZ1NXcwR2s0WlBB?=
- =?utf-8?Q?FEJHJ7Z2+vnFlBWuU3Ovi0DfD?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba75e1a5-5398-4f19-4a93-08dc693b0bfe
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2024 17:29:10.6547 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i8tsnWW0OQ/9NiZj4MF2NyY5ENkv7omndeXcVPwrtSZoaixhEowGfsGNUZ5JZ49aojTe8aQK8ymeVqwpN6JcUA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6322
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5328.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9904a04f-4526-47e0-1e64-08dc6942f9a8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Apr 2024 18:25:55.6902 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: r2nPT2D7txMCrsanqEsHqVFQHUi02/FjWM0DWNwPGqf4D7I4ZD8jg7XXrrmi67pi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9432
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,198 +156,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - General]
 
+Reviewed-by: Zhigang Luo <zhigang.luo@amd.com>
 
-On 2024-03-29 03:18, Samuel Holland wrote:
-> Now that all previously-supported architectures select
-> ARCH_HAS_KERNEL_FPU_SUPPORT, this code can depend on that symbol instead
-> of the existing list of architectures. It can also take advantage of the
-> common kernel-mode FPU API and method of adjusting CFLAGS.
-> 
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Yunxiang=
+ Li
+Sent: Friday, April 26, 2024 2:29 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Kuehling, Felix <F=
+elix.Kuehling@amd.com>; Deng, Emily <Emily.Deng@amd.com>; Li, Yunxiang (Ted=
+dy) <Yunxiang.Li@amd.com>
+Subject: [PATCH v2 3/4] drm/amdgpu: Fix amdgpu_device_reset_sriov retry log=
+ic
 
-Really nice set of changes.
+The retry loop for SRIOV reset have refcount and memory leak issue.
+Depending on which function call fails it can potentially call amdgpu_amdkf=
+d_pre/post_reset different number of times and causes kfd_locked count to b=
+e wrong. This will block all future attempts at opening /dev/kfd. The retry=
+ loop also leakes resources by calling amdgpu_virt_init_data_exchange multi=
+ple times without calling the corresponding fini function.
 
-Acked-by: Harry Wentland <harry.wentland@amd.com>
+Align with the bare-metal reset path which doesn't have these issues.
+This means taking the amdgpu_amdkfd_pre/post_reset functions out of the res=
+et loop and calling amdgpu_device_pre_asic_reset each retry which properly =
+free the resources from previous try by calling amdgpu_virt_fini_data_excha=
+nge.
 
-Harry
+Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+---
+v2: put back release full access and the missed return
 
-> Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
-> ---
-> 
-> (no changes since v2)
-> 
-> Changes in v2:
->  - Split altivec removal to a separate patch
->  - Use linux/fpu.h instead of asm/fpu.h in consumers
-> 
->  drivers/gpu/drm/amd/display/Kconfig           |  2 +-
->  .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    | 27 ++------------
->  drivers/gpu/drm/amd/display/dc/dml/Makefile   | 36 ++-----------------
->  drivers/gpu/drm/amd/display/dc/dml2/Makefile  | 36 ++-----------------
->  4 files changed, 7 insertions(+), 94 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-> index 901d1961b739..5fcd4f778dc3 100644
-> --- a/drivers/gpu/drm/amd/display/Kconfig
-> +++ b/drivers/gpu/drm/amd/display/Kconfig
-> @@ -8,7 +8,7 @@ config DRM_AMD_DC
->  	depends on BROKEN || !CC_IS_CLANG || ARM64 || RISCV || SPARC64 || X86_64
->  	select SND_HDA_COMPONENT if SND_HDA_CORE
->  	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
-> -	select DRM_AMD_DC_FP if (X86 || LOONGARCH || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
-> +	select DRM_AMD_DC_FP if ARCH_HAS_KERNEL_FPU_SUPPORT && (!ARM64 || !CC_IS_CLANG)
->  	help
->  	  Choose this option if you want to use the new display engine
->  	  support for AMDGPU. This adds required support for Vega and
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> index 0de16796466b..e46f8ce41d87 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> @@ -26,16 +26,7 @@
->  
->  #include "dc_trace.h"
->  
-> -#if defined(CONFIG_X86)
-> -#include <asm/fpu/api.h>
-> -#elif defined(CONFIG_PPC64)
-> -#include <asm/switch_to.h>
-> -#include <asm/cputable.h>
-> -#elif defined(CONFIG_ARM64)
-> -#include <asm/neon.h>
-> -#elif defined(CONFIG_LOONGARCH)
-> -#include <asm/fpu.h>
-> -#endif
-> +#include <linux/fpu.h>
->  
->  /**
->   * DOC: DC FPU manipulation overview
-> @@ -87,16 +78,9 @@ void dc_fpu_begin(const char *function_name, const int line)
->  	WARN_ON_ONCE(!in_task());
->  	preempt_disable();
->  	depth = __this_cpu_inc_return(fpu_recursion_depth);
-> -
->  	if (depth == 1) {
-> -#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
-> +		BUG_ON(!kernel_fpu_available());
->  		kernel_fpu_begin();
-> -#elif defined(CONFIG_PPC64)
-> -		if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
-> -			enable_kernel_fp();
-> -#elif defined(CONFIG_ARM64)
-> -		kernel_neon_begin();
-> -#endif
->  	}
->  
->  	TRACE_DCN_FPU(true, function_name, line, depth);
-> @@ -118,14 +102,7 @@ void dc_fpu_end(const char *function_name, const int line)
->  
->  	depth = __this_cpu_dec_return(fpu_recursion_depth);
->  	if (depth == 0) {
-> -#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
->  		kernel_fpu_end();
-> -#elif defined(CONFIG_PPC64)
-> -		if (!cpu_has_feature(CPU_FTR_FPU_UNAVAILABLE))
-> -			disable_kernel_fp();
-> -#elif defined(CONFIG_ARM64)
-> -		kernel_neon_end();
-> -#endif
->  	} else {
->  		WARN_ON_ONCE(depth < 0);
->  	}
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> index 59d3972341d2..a94b6d546cd1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -25,40 +25,8 @@
->  # It provides the general basic services required by other DAL
->  # subcomponents.
->  
-> -ifdef CONFIG_X86
-> -dml_ccflags-$(CONFIG_CC_IS_GCC) := -mhard-float
-> -dml_ccflags := $(dml_ccflags-y) -msse
-> -endif
-> -
-> -ifdef CONFIG_PPC64
-> -dml_ccflags := -mhard-float
-> -endif
-> -
-> -ifdef CONFIG_ARM64
-> -dml_rcflags := -mgeneral-regs-only
-> -endif
-> -
-> -ifdef CONFIG_LOONGARCH
-> -dml_ccflags := -mfpu=64
-> -dml_rcflags := -msoft-float
-> -endif
-> -
-> -ifdef CONFIG_CC_IS_GCC
-> -ifneq ($(call gcc-min-version, 70100),y)
-> -IS_OLD_GCC = 1
-> -endif
-> -endif
-> -
-> -ifdef CONFIG_X86
-> -ifdef IS_OLD_GCC
-> -# Stack alignment mismatch, proceed with caution.
-> -# GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-> -# (8B stack alignment).
-> -dml_ccflags += -mpreferred-stack-boundary=4
-> -else
-> -dml_ccflags += -msse2
-> -endif
-> -endif
-> +dml_ccflags := $(CC_FLAGS_FPU)
-> +dml_rcflags := $(CC_FLAGS_NO_FPU)
->  
->  ifneq ($(CONFIG_FRAME_WARN),0)
->  ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)),y)
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-> index 7b51364084b5..4f6c804a26ad 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-> @@ -24,40 +24,8 @@
->  #
->  # Makefile for dml2.
->  
-> -ifdef CONFIG_X86
-> -dml2_ccflags-$(CONFIG_CC_IS_GCC) := -mhard-float
-> -dml2_ccflags := $(dml2_ccflags-y) -msse
-> -endif
-> -
-> -ifdef CONFIG_PPC64
-> -dml2_ccflags := -mhard-float
-> -endif
-> -
-> -ifdef CONFIG_ARM64
-> -dml2_rcflags := -mgeneral-regs-only
-> -endif
-> -
-> -ifdef CONFIG_LOONGARCH
-> -dml2_ccflags := -mfpu=64
-> -dml2_rcflags := -msoft-float
-> -endif
-> -
-> -ifdef CONFIG_CC_IS_GCC
-> -ifeq ($(call cc-ifversion, -lt, 0701, y), y)
-> -IS_OLD_GCC = 1
-> -endif
-> -endif
-> -
-> -ifdef CONFIG_X86
-> -ifdef IS_OLD_GCC
-> -# Stack alignment mismatch, proceed with caution.
-> -# GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
-> -# (8B stack alignment).
-> -dml2_ccflags += -mpreferred-stack-boundary=4
-> -else
-> -dml2_ccflags += -msse2
-> -endif
-> -endif
-> +dml2_ccflags := $(CC_FLAGS_FPU)
-> +dml2_rcflags := $(CC_FLAGS_NO_FPU)
->  
->  ifneq ($(CONFIG_FRAME_WARN),0)
->  ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)),y)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 47 ++++++++++------------
+ 1 file changed, 22 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 33c889c027a5..b23645f23a2e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5065,10 +5065,6 @@ static int amdgpu_device_reset_sriov(struct amdgpu_d=
+evice *adev,  {
+        int r;
+        struct amdgpu_hive_info *hive =3D NULL;
+-       int retry_limit =3D 0;
+-
+-retry:
+-       amdgpu_amdkfd_pre_reset(adev);
+
+        if (test_bit(AMDGPU_HOST_FLR, &reset_context->flags)) {
+                clear_bit(AMDGPU_HOST_FLR, &reset_context->flags); @@ -5088=
+,7 +5084,7 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *ad=
+ev,
+        /* Resume IP prior to SMC */
+        r =3D amdgpu_device_ip_reinit_early_sriov(adev);
+        if (r)
+-               goto error;
++               return r;
+
+        amdgpu_virt_init_data_exchange(adev);
+
+@@ -5099,38 +5095,35 @@ static int amdgpu_device_reset_sriov(struct amdgpu_=
+device *adev,
+        /* now we are okay to resume SMC/CP/SDMA */
+        r =3D amdgpu_device_ip_reinit_late_sriov(adev);
+        if (r)
+-               goto error;
++               return r;
+
+        hive =3D amdgpu_get_xgmi_hive(adev);
+        /* Update PSP FW topology after reset */
+        if (hive && adev->gmc.xgmi.num_physical_nodes > 1)
+                r =3D amdgpu_xgmi_update_topology(hive, adev);
+-
+        if (hive)
+                amdgpu_put_xgmi_hive(hive);
++       if (r)
++               return r;
+
+-       if (!r) {
+-               r =3D amdgpu_ib_ring_tests(adev);
+-
+-               amdgpu_amdkfd_post_reset(adev);
+-       }
++       r =3D amdgpu_ib_ring_tests(adev);
++       if (r)
++               return r;
+
+-error:
+-       if (!r && adev->virt.gim_feature & AMDGIM_FEATURE_GIM_FLR_VRAMLOST)=
+ {
++       if (adev->virt.gim_feature & AMDGIM_FEATURE_GIM_FLR_VRAMLOST) {
+                amdgpu_inc_vram_lost(adev);
+                r =3D amdgpu_device_recover_vram(adev);
+        }
+-       amdgpu_virt_release_full_gpu(adev, true);
++       if (r)
++               return r;
+
+-       if (AMDGPU_RETRY_SRIOV_RESET(r)) {
+-               if (retry_limit < AMDGPU_MAX_RETRY_LIMIT) {
+-                       retry_limit++;
+-                       goto retry;
+-               } else
+-                       DRM_ERROR("GPU reset retry is beyond the retry limi=
+t\n");
+-       }
++       /* need to be called during full access so we can't do it later lik=
+e
++        * bare-metal does.
++        */
++       amdgpu_amdkfd_post_reset(adev);
++       amdgpu_virt_release_full_gpu(adev, true);
+
+-       return r;
++       return 0;
+ }
+
+ /**
+@@ -5689,6 +5682,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *a=
+dev,
+        int i, r =3D 0;
+        bool need_emergency_restart =3D false;
+        bool audio_suspended =3D false;
++       int retry_limit =3D AMDGPU_MAX_RETRY_LIMIT;
+
+        /*
+         * Special case: RAS triggered and full reset isn't supported @@ -5=
+770,8 +5764,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+
+                cancel_delayed_work_sync(&tmp_adev->delayed_init_work);
+
+-               if (!amdgpu_sriov_vf(tmp_adev))
+-                       amdgpu_amdkfd_pre_reset(tmp_adev);
++               amdgpu_amdkfd_pre_reset(tmp_adev);
+
+                /*
+                 * Mark these ASICs to be reseted as untracked first @@ -58=
+30,6 +5823,10 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+        /* Host driver will handle XGMI hive reset for SRIOV */
+        if (amdgpu_sriov_vf(adev)) {
+                r =3D amdgpu_device_reset_sriov(adev, reset_context);
++               if (AMDGPU_RETRY_SRIOV_RESET(r) && (retry_limit--) > 0) {
++                       amdgpu_virt_release_full_gpu(adev, true);
++                       goto retry;
++               }
+                if (r)
+                        adev->asic_reset_res =3D r;
+
+--
+2.34.1
 
