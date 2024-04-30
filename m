@@ -4,146 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B2BAC4345F
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 16:53:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC322C4345F
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 17:10:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C313C112D14;
-	Tue, 30 Apr 2024 16:53:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C51510F367;
+	Tue, 30 Apr 2024 17:10:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ll6M5wB9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="o8rFDWmf";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2052.outbound.protection.outlook.com [40.107.94.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41A44112D10;
- Tue, 30 Apr 2024 16:53:54 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2058.outbound.protection.outlook.com [40.107.220.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D8FF112D48
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Apr 2024 17:10:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i/9R8I6BBe3LDQ5q+O+S9frwu7uLb67t/0UnEnXr5FvqJ3+Qroa/gPlswqnk4a0iFK6bTmprMkqdqg1udxZ04HAibXT7A2MnBCcs1TMzFd9LSIYI4MHIRD37nxdp4Sddu/I+XjMfuECmnBzmxmQMyW0aQE/dgZsiQiC7FWUa6C4rfNDSwGozOGlQ+f3mzKVbiI6igZiygU+OssNFmar9vQu9/RyNK1jxRdQB34VOZIxykNPe7CpJMNIRD1JdduKWSAl5r8PvQ4gj8p9U9rJNGvoZ4nsJOjUNjOzuTR8kMDHKu/CPxFcg6MwnyiRJkUz8FhZAmbPrsNy1ZxDTlA9/lg==
+ b=GJm46lxOYifkIrhQWItWyNrwoV4jmW+rKb76FdjsnEOt5y3Npid2SLIFOSD0cHPUDtYmKXknDs3YxZAlM+LBmXTruWbJbvpmzOxOypoRmz6k5R2fEtYaNRvZCCDK1LUFprlxAP6vXr1mgejD1ytTorZh+tCsoROIS4CjAWkppmdPl1vkT5prYQMOh/S+NgEIY8RmuHFqCGOF33bLQJNeP2c+Atottx6Ed5+NVOml/la9ORuzFu07YtufeoWIJrNAibdWcEj4F1Edx6VwOd4F405CVMKnrVCkgotqqKKYh4GCCvh3ogHMTkGsy4p1781UB9EoZ7w1r9K6gERFwmdbag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6ExdiR9qsQePpPwB3lBEMpHHmnXgNiAl3aYRcLBj+VQ=;
- b=DuzQ/KQQ5NtiXqBlKAeZuU20Tu8WQG5z/exTXXVE/mdcqw4CTjYVWgVwOBuCfM/WF2WiPVglrQufVcrEAtdlKZ1G4x92u1vcFjeEfV4SR7syr5FVEW9v6pmILp2S9ibJVyhEx7P0taEUL4US50o+Q1fQEWvv8/mDcOPp3XEOX7IAcb1fGEzWGRjPoJKo8cVq+DFuWUk3pNqc2CXFgqtcbgLgxuUt1A9YMGYfC8YfctOpvgybj28BcAWbRa8dAb1ixZ9uhJzH415MdpQcwADKIYc+wgnUPPN3lO+QK1DDjsqOgn6ZLm42BFZ8eNdq8A9EnXmOUleuo8lrOkIpsB1yug==
+ bh=CTQUuKjlmEn2hQIRcNYRa+Xtw933begISJLUQI/79H4=;
+ b=hS7jFLcrxjpIUEMn5KO8bcA22G19+DIaTnKE+0MwrhBvFkWxcC3p1BVMmmw7yVMaqSQ3j2+uiFMQ6rcxFkMuv25TN3cGvmTBm+2OfAlmB0VL9u6TwqgUM3Zu/mCrLFZHiezt9vNBGliU90j/6lTVOAv+Qo5lyCIlEfd9wWIp88lJAtrZnNUnFhgbpHq+aLosUlnSBCv4I41py7UhB5+av0ioh96mxZSZNxVo0WbcPZtEocGh8mKOcgy4UT3PuscKtYSBUI5br5bnfWzQJ2IlAtcWR18WO0tHAeyQOIFd1diup+ynhx3R0iufH6+Z6etJ2el+x5KxFcPACupKw6M/8w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6ExdiR9qsQePpPwB3lBEMpHHmnXgNiAl3aYRcLBj+VQ=;
- b=ll6M5wB9EV+mtnLMTYkHFziSYxKVPY7ldjbNW6s79IUykCmxIK4RCQtJid0zDUUq9lcVUR8rLKFR2OCglphvoGzuUC9l8YqurO2wWfq+ufW/+wkWO5LqMIMWPkMIBHQzWtRUjGNX2eYUqQleCoFkp42O9PGFC6K8xYGRN0rcRvw=
+ bh=CTQUuKjlmEn2hQIRcNYRa+Xtw933begISJLUQI/79H4=;
+ b=o8rFDWmf4iLMrmNVopi8NZq1kGOqExy3liFm3YDl4YyehyLq56w14L69FdDhz9CUxEXXvlHEoNOTQ13xuEAupDhtKkejaNv+JgkXUS4QC1RK+aHkGu1enwrXqUul2U20xVv/AUqgE/8DsICZ9rliIY36ysW+/xCV17j/3QE+pIE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW6PR12MB8733.namprd12.prod.outlook.com (2603:10b6:303:24c::8)
- by DM6PR12MB4186.namprd12.prod.outlook.com (2603:10b6:5:21b::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.37; Tue, 30 Apr
- 2024 16:53:51 +0000
-Received: from MW6PR12MB8733.namprd12.prod.outlook.com
- ([fe80::8916:c54b:ebfa:127f]) by MW6PR12MB8733.namprd12.prod.outlook.com
- ([fe80::8916:c54b:ebfa:127f%7]) with mapi id 15.20.7519.035; Tue, 30 Apr 2024
- 16:53:51 +0000
-Message-ID: <87d07be8-a2f2-48b0-afa3-be7a4c108e85@amd.com>
-Date: Tue, 30 Apr 2024 10:53:45 -0600
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by PH8PR12MB6892.namprd12.prod.outlook.com (2603:10b6:510:1bc::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Tue, 30 Apr
+ 2024 17:10:54 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::8060:1b11:e9f3:3a51]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::8060:1b11:e9f3:3a51%4]) with mapi id 15.20.7519.031; Tue, 30 Apr 2024
+ 17:10:54 +0000
+Message-ID: <a0019669-be09-4385-b612-08c5cc470674@amd.com>
+Date: Tue, 30 Apr 2024 13:10:52 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: fix documentation warnings for mpc.h
+Subject: Re: [PATCH] drm/amd/display: Remove redundant NULL check in
+ dce110_set_input_transfer_func
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Wenjing Liu <wenjing.liu@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ Roman Li <roman.li@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Dan Carpenter <dan.carpenter@linaro.org>
+References: <20240424012946.2122315-1-srinivasan.shanmugam@amd.com>
+ <20240424012946.2122315-2-srinivasan.shanmugam@amd.com>
 Content-Language: en-US
-To: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>,
- harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20240427160509.15736-1-marcelomspessoto@gmail.com>
-From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20240427160509.15736-1-marcelomspessoto@gmail.com>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+In-Reply-To: <20240424012946.2122315-2-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9P223CA0015.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:408:10b::20) To MW6PR12MB8733.namprd12.prod.outlook.com
- (2603:10b6:303:24c::8)
+X-ClientProxiedBy: YQBPR01CA0094.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:3::30) To CH0PR12MB5284.namprd12.prod.outlook.com
+ (2603:10b6:610:d7::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW6PR12MB8733:EE_|DM6PR12MB4186:EE_
-X-MS-Office365-Filtering-Correlation-Id: 048293fa-7992-473a-a23e-08dc69361ca2
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5284:EE_|PH8PR12MB6892:EE_
+X-MS-Office365-Filtering-Correlation-Id: a155a0b0-060d-42d0-bd26-08dc69387e9b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|1800799015|376005;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?aHp4R3dvSitEKzJhbnFkaXFXZDNuU0JNakFXdVBKdmVIV2VvM0RZR21xMTU2?=
- =?utf-8?B?Z2JkVEJjQmFQNzVDS0gxSTJwOERDRWVlWHUyVVdMNG5iNFYxbmNxeWdVTkFk?=
- =?utf-8?B?cGg4ODNiU0k3L1BnYmxsOUpjcmFzTHJTQ0hScGVldG9yTGplZW01NXM0dzNi?=
- =?utf-8?B?VExrSWFCRmhnRVJNY2ljcmFxNFNNQVFHdXNCREpUZ0tZMWFra0pvblcvbDdD?=
- =?utf-8?B?RFNmTDhXMGV4UWtPY1FmTnkyNG9vT0xnNXBXTXdaQXM5ak1LQXhGUjVqWEhY?=
- =?utf-8?B?Wm41SWU2Mk1Fc1lwTG9nVUs3RnQ0dVpzUUFRK0J5MHo0ZjJiaC9PeXVkNzF3?=
- =?utf-8?B?WU9HK3hPcXR6eHBaVzRoNXZpOEwvMG5uZXRIRUVoeTdvWWExbWRLdjFMUkZ2?=
- =?utf-8?B?VDJpU1pPZFUrTDJNZWhRVGJMZDI0RUN1Nnp5SHYzSXdtVHNBaHREK1RrN0Iz?=
- =?utf-8?B?ZFFSUTBnMFFiWkkza2ZnRXdXelArdncvUjc4TklhazZWODZ4S0MzZ3lmcUI0?=
- =?utf-8?B?cWYwQTR4QWVZbUxLMnJRNmRhcUhoOFVlVCtXRWJ2TC9HekwzekJsYmdnUjNi?=
- =?utf-8?B?SDZXcmkwUWRpT0lWWVcyR0Jna1lxT2grZVlERFdmTmx1b3kveUNvNC9wWEY2?=
- =?utf-8?B?ZGVZSzQwY3gvZGZSSGllYVBNV0VNK3p0SmlEekY4WmpxRVlIbngvYW5BYzRB?=
- =?utf-8?B?Wm9rUzc4TExKdWw3TEMxcEZTV2crS0xqV21xM1hNaHFiTzFaUnBrVjkvcCtB?=
- =?utf-8?B?WnhzQzl3TTJ5MzNQWmFsN3hpMzFxNXBXM1RjL09CWnBDK0ppWWdLQ2dzZCt0?=
- =?utf-8?B?b0NTQWZwdmhkT3k5bEZKanFWTEVKRVdXU3VpSi9JUHVVck1NK3dLK3JHTVBs?=
- =?utf-8?B?NzhldVNSYm9lZWxxSTJRUitldVY5NkcwcnJiU0RmcS9JdG9XWVI5ZHYzbTNH?=
- =?utf-8?B?ZEFPM2dSUm9QZnR5cFMwNVpJT2VXN0NWMWluVkxLcG9tUFpiQ1Z2clhjd0R3?=
- =?utf-8?B?NU5CYk0wZXFmY3RhTmg2bnFqVHN2SHJSQ0hmbDNyelAvU0hPb2NEelJQSzVa?=
- =?utf-8?B?ZzdsU1QzelpoRk13cGxRTXljbUtNNzJmeVNuWEkrbHlQNTQyZ1AyK0NsWnQ2?=
- =?utf-8?B?ZktBRlExb0huZjRobVJYOHVhSGdqb0NINTI2eHJCSGMzTDJBUGMwcWFVZ2h0?=
- =?utf-8?B?YzRldnhOUG1mNDZ0YkZDY3YyQ0pVTFpoYVNWSkcyajUrdnUvbkZYTDVFUTZJ?=
- =?utf-8?B?aEU3WVAxcmlTNkkvTzRhRGQ3L2JxRnhnd283NTdpcVQrdGc1Y21idXV0TTIz?=
- =?utf-8?B?N3piUEdzMmsvRDM3WDVoTUtLWUdBNXFvZ2xtam1HOU9tRXhvOWM4c2RVVS83?=
- =?utf-8?B?VEYvei9PZFRoYzZOdTlLVlR4VUlVNHBsd3liMHBCTFNJYk5RQlhQUEJjZzFZ?=
- =?utf-8?B?dUVVQ2lPZkRFMm5mdVNrOHl0VzRjWTBJazRYUWx5aTFlOWlWaytNTUM4K3Zp?=
- =?utf-8?B?SjBlNmptVjlISUVLSy93TFUzRFF5b3M3d0xUM09Sc0RuYjdCRWFCQngxL2t3?=
- =?utf-8?B?Ymd4N2FZamR2ZkE4Q3RETlI4ZmFkSmhKN3lVakVwWFhUbzM3djZuUUxCT01Q?=
- =?utf-8?Q?ro5bXltkJAFIdzfE0kz7kOv+TXDiM2C4CC/Ye6tQviWQ=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230031|1800799015|366007|376005;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ekFBK0p1cHo3K2FvcVMrYnV3RFYyazhibjZpRmNSczFNbnVPcTYrRkFOdy83?=
+ =?utf-8?B?Rlh1b1lCMGdGUmhDd0pQQU5KazhiUW5VbE1zRElZMHBjUU01aWRtenBmdmhy?=
+ =?utf-8?B?NFBaOWJuR0pKU2NzR1hteHU3SkJ3N1pURy9zMUpUdDhhRmVBbDNhRURMNWEy?=
+ =?utf-8?B?RU5ubGxFVGs2bkVsOGtzOHFaTnNWNzhTTUZJbnpSWmdGRDRvdWVTZFo0UW0y?=
+ =?utf-8?B?WThMVFRoVlhsRzY3NFlxa3hKMzhGT3dOR2JPenJ3YzdwQmZab2VxaHdFaHJ5?=
+ =?utf-8?B?cFZrL0NFaUpLVkRaR0g4QzdlM0p1V1duNlBvaGU1b3l4TTBSZ2RtTDR0UVp3?=
+ =?utf-8?B?dUpJZytxK1p1WEtBT1A5cDNmalJ2M0FmU1NaaHUvQnhMcVIxTHdSWmF2L05S?=
+ =?utf-8?B?by9ST0dnMlJUQTRXanZIU2NVSDlJZ2Vaa2xrTE9HYlNIbUtSK0EyN2lDcXZl?=
+ =?utf-8?B?cGVIZE55eklBbGUzbnR0T1JqSEpxdW9nVThGUnBFNE5yZGpBeWtHTDRQUnA2?=
+ =?utf-8?B?dWVvczFXMHllc3VCSHJudElvakExdE9pYUxlZ21DWTdMZHRHNjBvS2VxNTVj?=
+ =?utf-8?B?SHAvRmpJK0J5ZHp3MmZIRkk2UXJaQ0pYS3dXV1dySlFGZkNLUXNMajdlaEVp?=
+ =?utf-8?B?VitwUGcrbmxBd2U4UE5nTU81WndIa01jSlFJMGtxdzdCdDJsRThrbHVZNEFh?=
+ =?utf-8?B?RkZ3eUl1YVJONjVXRzdsUGUrTUlXOEdXcGZMaVVnSjQrWkxkTkZCUENpK3RG?=
+ =?utf-8?B?RERlVk1xZVczYkRpdWN4RGhzRHZCa0d1dkZQRXJsK1Z6NGNpQW4wOVJOQkdX?=
+ =?utf-8?B?RDJTeE1OMnlwbWJNSFNEOXJTWEx2QU5xYWRrSHFxSDU1cHVVWFVMODhqNmxS?=
+ =?utf-8?B?L0pyWE5vZ2ljRGdMWXVCaGFmZnZXZmQwRVFZSWgyVzk2dGJxM0h5b1YweU1p?=
+ =?utf-8?B?WnlHL0NyVTV5UGtVbkVLMjhtelZVbGptM1hHOE1LMVduSnlUTXc5MmVYeUor?=
+ =?utf-8?B?SHRLT05VVE1HZDdWWHR6VlVkVUdVMDl6VlVuSGZtOHAxT1dqNFhwZXRVQm80?=
+ =?utf-8?B?V0IyTWNqcURtd2d1R29DR3NzMjB6ZU84Y1kyM0RkNnlKQWRRNm5JalZWODFN?=
+ =?utf-8?B?ejFVT3R6SVRWZlFlR283cTZ6U3JEVlBlZlFkRjVGc0tGN04xYThiZXZwbmlU?=
+ =?utf-8?B?UTczMXYxMm9Vcy9iM2QybnE3dC92cHhuODR3UEVOd1VLWEg3OTZrNE00TUp0?=
+ =?utf-8?B?eXVpbHVKeE5zRDNtK1U3YmFrY1RINVdoSkVRR1Q0ZExOR3R2Zy9UZi9lZVZy?=
+ =?utf-8?B?R1JNREs2ZU9QbDBIcXFwVEhZWUpmQnlQYTZRblF1aFRxMVJnbUxCL0Y3TGhK?=
+ =?utf-8?B?c25uc3psUmE2M1RZNUpmUHdLeUVBZ0Z5S0M2SHNJeWxDNWhCVDhTUzArS0xu?=
+ =?utf-8?B?RU5YMlhHWitWZzhPVjlpMDgzTml1OUZXdmVjTmxzWTlUZ1ZweVhteXNrMXdU?=
+ =?utf-8?B?bmdGSlg3dDUxQVc3bkhsMldMa29aM3NoeW9ZTjZlclJQaU02WFFtMXFubURi?=
+ =?utf-8?B?R3NTWEhTWlBENTdSTmNNSVRsdzhSRmIxZEJ1SjVnakpWUis2d1lhWlJDOGpM?=
+ =?utf-8?B?NUVkOURwSGJyRFJESkVTcGh3TkYvbm1vTkNiRmVoNHNQSU5lUDQzSFdjaVZh?=
+ =?utf-8?B?aUxSVDVlVlFOVGkrbGI2YWdGb0pIdXNNSFVtQWx5Q1ZBQVFZdDZ4V213PT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW6PR12MB8733.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(366007)(376005); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R0o1TFVOL2psK09tZTJyQjg0ZXpXd3hydWJXZzdhaFIrUUQrYnNMbmM3L1FU?=
- =?utf-8?B?ZHN0dlRFcDI2eUNQNzRKTEJZUFEwQmdBVzQ3VTBMUlVoNGRBaUl1WWR4SUNO?=
- =?utf-8?B?MjFiNHptQXowVGhsOHRuNHg2b3FZZG5xclBleWh6MzNITEVYNmNUZXY3M3ln?=
- =?utf-8?B?ZDNHaWo0MXl3Z1kyd3V6cHV1Qk9TdlBjdTkvdlJDV2dGWlhzbGx6THVkMWlw?=
- =?utf-8?B?cFFUUm5QWVVCQkZTZlJPb2hZa2QvS0ZlT0I1K1R6OHlpS0sxSHlSMmtSaGEz?=
- =?utf-8?B?bU5JcldvV2FOWnNsMldQclptditKQnpqN2RvVlJRampQVG9RZTBzbDNIeHRw?=
- =?utf-8?B?NURFRjFoMUVrVWlkUHordThpQlh6eGpDNE95YUdPSms3blVLY0pQb3JRdTRN?=
- =?utf-8?B?akJhZjVIYUlDckNoaXYzZVozYjB3VzdCdXJTS3VUd1VKUjdpbnJhTFN6T2NF?=
- =?utf-8?B?UkRiTUFFZkJhUXR5TkF6ZzkyTUZRTzErZ0RVZm5GeURqeTBzSE9YeUs0SStQ?=
- =?utf-8?B?MXRZZFJ5OE4zckd4M25OdW9IbnIrbldYcWwyMGNLVktUZHAxZk1HdFBCK1Ur?=
- =?utf-8?B?MXRwWXNSNDlEZlNjcElhMTQ5Z2VlOHovNDgyN2pkZFFFNEczZWFoaHg3eHNI?=
- =?utf-8?B?eWhUOWhQbnh3L2NMR2oxS1JEZjFUWWhVcjJpU1g4bCsxRTUwVGducXpZczNK?=
- =?utf-8?B?c0RhZW1ncHdPOWkrTnFWSTRnWWpXSmQ3bGRZZyszRm9Hakc0eGY4Tlc5MXRz?=
- =?utf-8?B?UG1OemFBNVcvaitwN01UYjdIVDRNVEc2MTFlNjNZWTNvZWhUem9sZVh5VmZt?=
- =?utf-8?B?QUY3MHY0ZVQ1bWc2MVBuZytzN2VSY2NFaUhGeWMvQ20rcjJUZnBFTE1UTHIy?=
- =?utf-8?B?NHZ2OGJDZE4ybzh4WEdBcDc0V1QrWHhNWWhsUjRySm9xdTlTWlFpRTJzM0xB?=
- =?utf-8?B?SzB2aDRIekxFS3RoeHN3eUs4RFExazdPcm1NNitkYncwYWZSM3JnOWFNcEVl?=
- =?utf-8?B?YUloRFpqNkRzQmVKa3B5ODZ0NzhnNTBYTkhSVEFCSmFWVkwrVVhyMC9zQ0dq?=
- =?utf-8?B?Qy8xNFZvZitDRUNKM2QzbURmVXExY1c3UitqUk42K3lJM3BFMW9ZMkRVeFhW?=
- =?utf-8?B?dXA1dnFXTXlobnpvN2NydC8rVWExdjU1ODZBSUVkVGJraHI2TVBoazl6cXFl?=
- =?utf-8?B?U29sa3NpU29jTG1ZdTYyWDMyNVNZekJCVWlmdFZtSEJXbGpDL1gwSGJNdFB5?=
- =?utf-8?B?b00yMHpaL1R2NDd6NGdKKzhUNEwzYjBLVUR3ajhoNXE3TEVtdndsVWJ6RkNy?=
- =?utf-8?B?MXJRYkd3RnZsVlVQb2h2Q0o0WmRLZ0xtV1ZhTlVqZmR2Mit1RDZUU2I2VEVx?=
- =?utf-8?B?QzU1d1N1UXFZTjVkSVhWMHZpaEF2dllOeWhCWHhLRlBOMFMxcGNVbUZDVXE3?=
- =?utf-8?B?b3RNa2Yzb0hUaHE5RUh0Z1A2ZXZ5ZS9mTUNnbDRzalNmalBaQWtDUURjM0RW?=
- =?utf-8?B?ZkJrVmt3TmphZW1uZGdxK1JBVytGK2Ezc3hJQ1BHZWZYeXF6WGh5c251NHov?=
- =?utf-8?B?c29rckRlNjN0YnMrY3NFVUdWK01jUUdKajNibE5USGU5M0JUMWVJK1BvRlhq?=
- =?utf-8?B?aElOV2duOCs3TnhPYkxnYUQ3OWlkSThVaVdyMkpDNk1POWdKZmZqUVlVWDRp?=
- =?utf-8?B?WHJ3Z2tPNEhzR0pXdFk2N1R6SGlkV0Q5SmRhVUpIeHN3bmRMc2l0YjVhQVFj?=
- =?utf-8?B?VUZoUmVNLzl5YlUvTGswSFg1THlvZU5WT1IwU0w2UzF1N3M2ZTZ3dVduQTdX?=
- =?utf-8?B?YmxyTG5sdG41U05RSE1nSzdFUHlEbXhTRHVLVVlVeUh3MnhqZFJoTUdab09i?=
- =?utf-8?B?NHNybnRqdzFBU0MxeVl3TlpBV3lzb3lKcjhsZkdBTXd3Q1lFdnpybUVNbTdD?=
- =?utf-8?B?WStZZEZ4YzIvRVppV0tESk5GbzhkeEVucFBmM2xxQzJPU2FNYk4zOGx0alAz?=
- =?utf-8?B?V3ZlaVRVaHIwbzhDU3g1YjZweFRjeHBXTFZzaWk1cVVYRENkQjNSa09wWE1U?=
- =?utf-8?B?U0E0VTN1QTRLZXYvbFhQdHBNdFRHdTlja00zWGxQbm9BNzlVTEFmRmpvYnV0?=
- =?utf-8?Q?jUunUYWeZjaqOTO528PW6nKZI?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NmUzZUlVcGtpaTJmdThQcEZIVmpsUmtzS1dTWUp1REhmMHlRRUxvYXBVN2ha?=
+ =?utf-8?B?Q3ZtOE5jUmJKa0plcTgrQzdKTUN2L05TQi94ZnJCYVpSZFRCZHBUUUJtdGRF?=
+ =?utf-8?B?cmpzcEU2VUNZZTNQRXZndVVnSnFxMkFLTjgrcVErQWVEaERacUhuU3U4Yzhh?=
+ =?utf-8?B?R2d0OEVnVkxLVVRzYlpRRitWY0ZsUjJFU3pRdk1zeENvRmdwRlNVV3NxQUF5?=
+ =?utf-8?B?allHbVo4OGtNVzRoRnJLZmkxK3RtcUV0L1lqWlhXaVBaZ09sallMbm9tTjNG?=
+ =?utf-8?B?TS9WcldXSGZrUTBvUjYwM05CcjdzUlV1MGQ4Yy9RcFNOT3gzZnprVkR3bGx6?=
+ =?utf-8?B?VnBKSWhqYnorK0o5ZVkwdWgzZ2xaYWxTWTk1cGZ6THJQc1BobFV6SHpVeUpq?=
+ =?utf-8?B?aEx0dk1SUGtMem9NTi8vUW5ZYk1ySHhkYXhvTlcrcGJ0blBZZmJTcUhNbGRl?=
+ =?utf-8?B?Y0hWWTBrUUFUeWZ5RmVRdXBWenNURUU3NkJzUnFua2FGZU1WdnVvRXNUWlFE?=
+ =?utf-8?B?c2hBcjYxUmw1RHBxcnM2VE9VckZHOU5CVjgrNmZvN0ptQTl1aGM0ZWp6eW5Z?=
+ =?utf-8?B?VXlvSjkxR1prYjRaa1NGYXBDdWUyN2xmQU5LY3YydWg0eFRGc1VCdWFMY3o4?=
+ =?utf-8?B?bHNENGE5VnJ6UG9sUFpkd1pqZDRhbVgydWtpZWhPRm1CNEFOQysrSUpQd2tM?=
+ =?utf-8?B?NnNSdkl6QW9iVnE3QlNTUzBZQ0NrcHA4d3NqcXM0R245Qm9qbmhCYlkxRCsz?=
+ =?utf-8?B?bDBMN0VpeUhDYXV1bWxWTnlUWlRpOERnRnZ5ZkRFUzRrKzhRVlBmTzFQSE9R?=
+ =?utf-8?B?TmdGeTY1cUZ0RStMOHkxdVJaM2FvZjNPbWJ1QkQyR3lWOGV3S1U4MDNCdHhZ?=
+ =?utf-8?B?WU1XOXAvUG1nMyttSVZVVHR3TXJwL2RqNVBheTdEU000dTVhaytKTUQvNWx6?=
+ =?utf-8?B?NFdHbXZtYXMweDlwZFI2UzhIQnE0SldFRUp5QnkxRXlqVm9ncmFuZmdUNnB4?=
+ =?utf-8?B?bUE2MUh2RVJ0VENUWWRvYVBCWkxRdi8wRGhBdGY4RVpncURMR1VBVDV4aWhl?=
+ =?utf-8?B?QVJ1VmFDKzBmUHMwYXNFc0tnb1VBMUZMT1dlYk9XTlNQb3NLdTlsb21FM1FF?=
+ =?utf-8?B?NHhoVG1MakZGTjVUaEwxWGtOcld2d1BkZ011Q1lxc1JxWmRiMGI3OVpxZ2VL?=
+ =?utf-8?B?ZkpNdThucXppK2k2dURjeEZlQkxMRFhNNUZUeXhsN1dTTWRoU0k3OVNmcVda?=
+ =?utf-8?B?U21WTThzaGJiNU1CYUJpYzRQVnRPcE0rV2xxTWtHSDlFallUL21qZmJ3eFhU?=
+ =?utf-8?B?T0x3aEZRQkpxV0s1cGhEUEVDWFFoRkkveDlJN1ZsN1lnYUNSNHY1SzkvenNi?=
+ =?utf-8?B?MWk5ek8ya3ZhTDhuMmwyVTBWZ1Exejd6aGd5d0pFNjQ3ZjBNaXZuSXgvVUxW?=
+ =?utf-8?B?c3JUaWttbXlWbGJHRHRNeFNrc1hwYmR5K1hDUy9WQU4va05wWGJCWFREQ0ZZ?=
+ =?utf-8?B?NGEyYWdWblI1OGdBQk9hblVjV3pRd1Z2Zndic3ZLUnBTZGFQZWNEMVlraE5K?=
+ =?utf-8?B?TmxKNHRnU0I4MWJ3V1hBTkNUcHF5aW9KK1NwUGZqamtkM1hKYTY4ZGFydFZz?=
+ =?utf-8?B?bFVIUkJzUjFPVnV4aUdCV1lOdGdodDdGalVlc2MrTjNmd1g5MXUycFlDU0I1?=
+ =?utf-8?B?TE1mM1V4dCtCYnlTYlJDSjhaeHkyaHlMVHU5YXhUT2x2ZS83VGZjakJyZnYy?=
+ =?utf-8?B?cGlQeXI0a1lPV251VXpuYkFzd2hDUC9LQWZCR2Exb2c4TEY5ZmtMMlJNMXJB?=
+ =?utf-8?B?YUsvb05MSmt6SDBINXhHWUE4OXdoakxvQVlYbGpQNU5kVlIwVG83OVZQVGVM?=
+ =?utf-8?B?b0c4Y1FFV29hbFlEc2xaZTdGV3VKWFlrVnpjclM5ZzB0OUxzZU91YzYralhM?=
+ =?utf-8?B?Z2NFcm04K1hJcXl3bHB0bUNGYTdURm5RTG4vMTRoY2EvZ3lCMVlNU2Ywenky?=
+ =?utf-8?B?ZGRIQzBoMDM3VkJiWVdiRjVEdmhndC9ZM3NlVWdLVjNGbnNNWlBDRmJFOG9G?=
+ =?utf-8?B?UmJqS2p2VC9OMjE3SFgwYTEveFhlQklZczJXcVBGOEpTQ3dhci8wWlM0NGVN?=
+ =?utf-8?Q?AfQbP8TeurbjwXvyCTkDwegW8?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 048293fa-7992-473a-a23e-08dc69361ca2
-X-MS-Exchange-CrossTenant-AuthSource: MW6PR12MB8733.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a155a0b0-060d-42d0-bd26-08dc69387e9b
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2024 16:53:51.0736 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2024 17:10:54.4596 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: odVxjghkcvyGoJV6/i0n9lmiX4Ph28WNV0z0pMIW/so1CnQZL2IrVq9SSABVIktPKPjSTju2LqIWcwmpHenKyA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4186
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8QO1FATot4LmbZiy6Gy2TtOc+wbhG2LfCc+w/TZhemyXRGObGo4fdszku1kKXlehhrK/sCqshKPBzf07/BbEbg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6892
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,549 +163,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Marcelo,
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-First of all, thanks a lot for your patch! Please check some of my 
-inline comments.
-
-On 4/27/24 10:05 AM, Marcelo Mendes Spessoto Junior wrote:
-> Fix most of the display documentation compile warnings by
-> documenting struct mpc_funcs functions in dc/inc/hw/mpc.h file.
-
-Could you add the warnings that you fixed in the commit message?
-
-I think some of your changes in this patch address some of the issues 
-reported by Stephan Rothwell:
-
-https://lore.kernel.org/all/20240130134954.04fcf763@canb.auug.org.au/
-
-Please include Stephan in the new version of this patch.
-
-Also, use the Fixes tags pointing to:
-
-b8c1c3a82e75 ("Documentation/gpu: Add kernel doc entry for MPC")
-
-
+On 4/23/24 9:29 PM, Srinivasan Shanmugam wrote:
+> This commit removes a redundant NULL check in the
+> `dce110_set_input_transfer_func` function in the `dce110_hwseq.c` file.
+> The variable `tf` is assigned the address of
+> `plane_state->in_transfer_func` unconditionally, so it can never be
+> `NULL`. Therefore, the check `if (tf == NULL)` is unnecessary and has
+> been removed.
 > 
-> Signed-off-by: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
+> Fixes the below smatch warning:
+> drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dce110/dce110_hwseq.c:301 dce110_set_input_transfer_func() warn: address of 'plane_state->in_transfer_func' is non-NULL
+> 
+> Fixes: 285a7054bf81 ("drm/amd/display: Remove plane and stream pointers from dc scratch")
+> Cc: Wenjing Liu <wenjing.liu@amd.com>
+> Cc: Tom Chung <chiahsuan.chung@amd.com>
+> Cc: Alvin Lee <alvin.lee2@amd.com>
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Cc: Roman Li <roman.li@amd.com>
+> Cc: Hersen Wu <hersenxs.wu@amd.com>
+> Cc: Alex Hung <alex.hung@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Suggested-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->   drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h | 372 +++++++++++++++++++-
->   1 file changed, 369 insertions(+), 3 deletions(-)
+>   drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 5 +----
+>   1 file changed, 1 insertion(+), 4 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-> index 34a398f23..388b96c32 100644
-> --- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-> +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-> @@ -1,4 +1,5 @@
-> -/* Copyright 2012-15 Advanced Micro Devices, Inc.
-> +/*
-> + * Copyright 2012-15 Advanced Micro Devices, Inc.
->    *
->    * Permission is hereby granted, free of charge, to any person obtaining a
->    * copy of this software and associated documentation files (the "Software"),
-> @@ -282,6 +283,21 @@ struct mpcc_state {
->    * struct mpc_funcs - funcs
->    */
->   struct mpc_funcs {
-> +  /**
-> +   * @read_mpcc_state:
-> +   *
-> +   * Read register content from given MPCC physical instance.
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> index 5920d1825a4c..8e50a5432d33 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> @@ -298,10 +298,7 @@ dce110_set_input_transfer_func(struct dc *dc, struct pipe_ctx *pipe_ctx,
+>   			dce_use_lut(plane_state->format))
+>   		ipp->funcs->ipp_program_input_lut(ipp, &plane_state->gamma_correction);
+>   
+> -	if (tf == NULL) {
+> -		/* Default case if no input transfer function specified */
+> -		ipp->funcs->ipp_set_degamma(ipp, IPP_DEGAMMA_MODE_HW_sRGB);
+> -	} else if (tf->type == TF_TYPE_PREDEFINED) {
+> +	if (tf->type == TF_TYPE_PREDEFINED) {
+>   		switch (tf->tf) {
+>   		case TRANSFER_FUNCTION_SRGB:
+>   			ipp->funcs->ipp_set_degamma(ipp, IPP_DEGAMMA_MODE_HW_sRGB);
 
-It looks like your text editor left some extra spaces at the end of the 
-string in many parts of this patch. Remove this extra space at the end 
-of some of the strings in this patch for the next version. If you use 
-git log -p after applying your patch, you can visually see where the 
-extra space is at the end of each line.
+-- 
+--
 
-> +   *
-> +   * Parameters:
-> +   *
-> +   * - [in/out] mpc - MPC context
-> +   * - [in] mpcc_instance - MPC context instance
-> +   * - [in] mpcc_state - MPC context state
-> +   *
-> +   * Return:
-> +   *
-> +   * void
-> +   */
-
-Use the same indentation as the field/functions that you are documenting.
-
-Finally, ensure you are using the latest amd-staging-drm-next to base 
-your patch. I believe you have some merge conflicts since mpc.h has some 
-changes.
-
-Thanks
-Siqueira
-
->   	void (*read_mpcc_state)(
->   			struct mpc *mpc,
->   			int mpcc_inst,
-> @@ -346,12 +362,22 @@ struct mpc_funcs {
->   	 * Parameters:
->   	 *
->   	 * - [in/out] mpc - MPC context.
-> -	 *
-> +	 *
->   	 * Return:
->   	 *
->   	 * void
->   	 */
->   	void (*mpc_init)(struct mpc *mpc);
-> +
-> +  /**
-> +   * @mpc_init_single_inst:
-> +   *
-> +   * Initialize given MPCC physical instance.
-> +   *
-> +   * Parameters:
-> +   * - [in/out] mpc - MPC context.
-> +   * - [in] mpcc_id - The MPCC physical instance to be initialized.
-> +   */
->   	void (*mpc_init_single_inst)(
->   			struct mpc *mpc,
->   			unsigned int mpcc_id);
-> @@ -449,62 +475,282 @@ struct mpc_funcs {
->   			struct mpc_tree *tree,
->   			struct mpcc *mpcc);
->   
-> +  /**
-> +   * @get_mpcc_for_dpp_from_secondary:
-> +   *
-> +   * Find, if it exists, a MPCC from a given 'secondary' MPC tree that
-> +   * is associated with specified plane.
-> +   *
-> +   * Parameters:
-> +   * - [in/out] tree - MPC tree structure to search for plane.
-> +   * - [in] dpp_id - DPP to be searched.
-> +   *
-> +   * Return:
-> +   *
-> +   * struct mpcc* - pointer to plane or NULL if no plane found.
-> +  */
->   	struct mpcc* (*get_mpcc_for_dpp_from_secondary)(
->   			struct mpc_tree *tree,
->   			int dpp_id);
->   
-> +  /**
-> +   * @get_mpcc_for_dpp:
-> +   *
-> +   * Find, if it exists, a MPCC from a given MPC tree that
-> +   * is associated with specified plane.
-> +   *
-> +   * Parameters:
-> +   * - [in/out] tree - MPC tree structure to search for plane.
-> +   * - [in] dpp_id - DPP to be searched.
-> +   *
-> +   * Return:
-> +   *
-> +   * struct mpcc* - pointer to plane or NULL if no plane found.
-> +  */
->   	struct mpcc* (*get_mpcc_for_dpp)(
->   			struct mpc_tree *tree,
->   			int dpp_id);
->   
-> +  /**
-> +   * @wait_for_idle:
-> +   *
-> +   * Wait for a MPCC in MPC context to enter idle state.
-> +   *
-> +   * Parameters:
-> +   * - [in/out] mpc - MPC Context.
-> +   * - [in] id - MPCC to wait for idle state.
-> +   *
-> +   * Return:
-> +   *
-> +   * void
-> +  */
->   	void (*wait_for_idle)(struct mpc *mpc, int id);
->   
-> +  /**
-> +   * @assert_mpcc_idle_before_connect:
-> +   *
-> +   * Assert if MPCC in MPC context is in idle state.
-> +   *
-> +   * Parameters:
-> +   * - [in/out] mpc - MPC context.
-> +   * - [in] id - MPCC to assert idle state.
-> +   *
-> +   * Return:
-> +   *
-> +   * void
-> +  */
->   	void (*assert_mpcc_idle_before_connect)(struct mpc *mpc, int mpcc_id);
->   
-> +  /**
-> +   * @init_mpcc_list_from_hw:
-> +   *
-> +   * Iterate through the MPCC array from a given MPC context struct
-> +   * and configure each MPCC according to its registers' values.
-> +   *
-> +   * Parameters:
-> +   * - [in/out] mpc - MPC context to initialize MPCC array.
-> +   * - [in/out] tree - MPC tree structure containing MPCC contexts to initialize.
-> +   *
-> +   * Return:
-> +   *
-> +   * void
-> +  */
->   	void (*init_mpcc_list_from_hw)(
->   		struct mpc *mpc,
->   		struct mpc_tree *tree);
->   
-> +  /**
-> +  * @set_denorm:
-> +  *
-> +  * Set corresponding OPP DENORM_CONTROL register value to specific denorm_mode
-> +  * based on given color depth.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context.
-> +  * - [in] opp_id - Corresponding OPP to update register.
-> +  * - [in] output_depth - Arbitrary color depth to set denorm_mode.
-> +  *
-> +  * Return:
-> +  *
-> +  * void
-> +  */
->   	void (*set_denorm)(struct mpc *mpc,
->   			int opp_id,
->   			enum dc_color_depth output_depth);
->   
-> +  /**
-> +  * @set_denorm_clamp:
-> +  *
-> +  * Set denorm clamp values on corresponding OPP DENORM CONTROL register.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context.
-> +  * - [in] opp_id - Corresponding OPP to update register.
-> +  * - [in] denorm_clamp - Arbitrary denorm clamp to be set.
-> +  *
-> +  * Return:
-> +  *
-> +  * void
-> +  */
->   	void (*set_denorm_clamp)(
->   			struct mpc *mpc,
->   			int opp_id,
->   			struct mpc_denorm_clamp denorm_clamp);
->   
-> +  /**
-> +  * @set_output_csc:
-> +  *
-> +  * Set the Output Color Space Conversion matrix
-> +  * with given values and mode.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context.
-> +  * - [in] opp_id - Corresponding OPP to update register.
-> +  * - [in] regval - Values to set in CSC matrix.
-> +  * - [in] ocsc_mode - Mode to set CSC.
-> +  *
-> +  * Return:
-> +  *
-> +  * void
-> +  */
->   	void (*set_output_csc)(struct mpc *mpc,
->   			int opp_id,
->   			const uint16_t *regval,
->   			enum mpc_output_csc_mode ocsc_mode);
->   
-> +  /**
-> +  * @set_ocsc_default:
-> +  *
-> +  * Set the Output Color Space Conversion matrix
-> +  * to default values according to color space.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context.
-> +  * - [in] opp_id - Corresponding OPP to update register.
-> +  * - [in] color_space - OCSC color space.
-> +  * - [in] ocsc_mode - Mode to set CSC.
-> +  *
-> +  * Return:
-> +  *
-> +  * void
-> +  *
-> +  */
->   	void (*set_ocsc_default)(struct mpc *mpc,
->   			int opp_id,
->   			enum dc_color_space color_space,
->   			enum mpc_output_csc_mode ocsc_mode);
->   
-> +  /**
-> +  * @set_output_gamma:
-> +  *
-> +  * Set Output Gamma with given curve parameters.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context.
-> +  * - [in] mpcc_id - Corresponding MPC to update registers.
-> +  * - [in] params - Parameters.
-> +  *
-> +  * Return:
-> +  *
-> +  * void
-> +  *
-> +  */
->   	void (*set_output_gamma)(
->   			struct mpc *mpc,
->   			int mpcc_id,
->   			const struct pwl_params *params);
-> +  /**
-> +  * @power_on_mpc_mem_pwr:
-> +  *
-> +  * Power on/off memory LUT for given MPCC.
-> +  * Powering on enables LUT to be updated.
-> +  * Powering off allows entering low power mode.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context.
-> +  * - [in] mpcc_id - MPCC to power on.
-> +  * - [in] power_on
-> +  *
-> +  * Return:
-> +  *
-> +  * void
-> +  */
->   	void (*power_on_mpc_mem_pwr)(
->   			struct mpc *mpc,
->   			int mpcc_id,
->   			bool power_on);
-> +  /**
-> +  * @set_dwb_mux:
-> +  *
-> +  * Set corresponding Display Writeback mux
-> +  * MPC register field to given MPCC id.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context.
-> +  * - [in] dwb_id - DWB to be set.
-> +  * - [in] mpcc_id - MPCC id to be stored in DWB mux register.
-> +  *
-> +  * Return:
-> +  *
-> +  * void
-> +  */
->   	void (*set_dwb_mux)(
->   			struct mpc *mpc,
->   			int dwb_id,
->   			int mpcc_id);
->   
-> +  /**
-> +  * @disable_dwb_mux:
-> +  *
-> +  * Reset corresponding Display Writeback mux
-> +  * MPC register field.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context.
-> +  * - [in] dwb_id - DWB to be set.
-> +  *
-> +  * Return:
-> +  *
-> +  * void
-> +  */
->   	void (*disable_dwb_mux)(
->   		struct mpc *mpc,
->   		int dwb_id);
-> -
-> +
-> +  /**
-> +  * @is_dwb_idle:
-> +  *
-> +  * Check DWB status on MPC_DWB0_MUX_STATUS register field.
-> +  * Return if it is null.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context.
-> +  * - [in] dwb_id - DWB to be checked.
-> +  *
-> +  * Return:
-> +  *
-> +  * bool - wheter DWB is idle or not
-> +  */
->   	bool (*is_dwb_idle)(
->   		struct mpc *mpc,
->   		int dwb_id);
->   
-> +  /**
-> +  * @set_out_rate_control:
-> +  *
-> +  * Set display output rate control.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context.
-> +  * - [in] opp_id - OPP to be set.
-> +  * - [in] enable
-> +  * - [in] rate_2x_mode
-> +  * - [in] flow_control
-> +  *
-> +  * Return:
-> +  *
-> +  * void
-> +  */
->   	void (*set_out_rate_control)(
->   		struct mpc *mpc,
->   		int opp_id,
-> @@ -512,37 +758,157 @@ struct mpc_funcs {
->   		bool rate_2x_mode,
->   		struct mpc_dwb_flow_control *flow_control);
->   
-> +  /**
-> +  * @set_gamut_remap:
-> +  *
-> +  * Set post-blending CTM for given MPCC.
-> +  *
-> +  * Parameters:
-> +  * - [in] mpc - MPC context.
-> +  * - [in] mpcc_id - MPCC to set gamut map.
-> +  * - [in] adjust
-> +  *
-> +  * Return:
-> +  *
-> +  * void
-> +  */
->   	void (*set_gamut_remap)(
->   			struct mpc *mpc,
->   			int mpcc_id,
->   			const struct mpc_grph_gamut_adjustment *adjust);
->   
-> +  /**
-> +  * @program_1dlut:
-> +  *
-> +  * Set 1 dimensional Lookup Table.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context
-> +  * - [in] params - curve parameters for the LUT configuration
-> +  * - [in] rmu_idx
-> +  *
-> +  * bool - wheter LUT was set (set with given parameters) or not (params is NULL and LUT is disabled).
-> +  */
->   	bool (*program_1dlut)(
->   			struct mpc *mpc,
->   			const struct pwl_params *params,
->   			uint32_t rmu_idx);
->   
-> +  /**
-> +  * @program_shaper:
-> +  *
-> +  * Set shaper.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context
-> +  * - [in] params - curve parameters to be set
-> +  * - [in] rmu_idx
-> +  *
-> +  * Return:
-> +  *
-> +  * bool - wheter shaper was set (set with given parameters) or not (params is NULL and LUT is disabled).
-> +  */
->   	bool (*program_shaper)(
->   			struct mpc *mpc,
->   			const struct pwl_params *params,
->   			uint32_t rmu_idx);
->   
-> +  /**
-> +  * @acquire_rmu:
-> +  *
-> +  * Set given MPCC to be multiplexed to given RMU unit.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context
-> +  * - [in] mpcc_id - MPCC
-> +  * - [in] rmu_idx - Given RMU unit to set MPCC to be multiplexed to.
-> +  *
-> +  * Return:
-> +  *
-> +  * unit32_t - rmu_idx if operation was successful, -1 else.
-> +  */
->   	uint32_t (*acquire_rmu)(struct mpc *mpc, int mpcc_id, int rmu_idx);
->   
-> +  /**
-> +  * @program_3dlut:
-> +  *
-> +  * Set 3 dimensional Lookup Table.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context
-> +  * - [in] params - tetrahedral parameters for the LUT configuration
-> +  * - [in] rmu_idx
-> +  *
-> +  * bool - wheter LUT was set (set with given parameters) or not (params is NULL and LUT is disabled).
-> +  */
->   	bool (*program_3dlut)(
->   			struct mpc *mpc,
->   			const struct tetrahedral_params *params,
->   			int rmu_idx);
->   
-> +  /**
-> +  * @release_rmu:
-> +  *
-> +  * For a given MPCC, release the RMU unit it muliplexes to.
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc - MPC context
-> +  * - [in] mpcc_id - MPCC
-> +  *
-> +  * Return:
-> +  *
-> +  * int - a valid rmu_idx representing released RMU unit or -1 if there was no RMU unit to release.
-> +  */
->   	int (*release_rmu)(struct mpc *mpc, int mpcc_id);
->   
-> +  /**
-> +  * @get_mpc_out_mux:
-> +  *
-> +  * Return MPC out mux.
-> +  *
-> +  * Parameters:
-> +  * - [in] mpc - MPC context.
-> +  * - [in] opp_id - OPP
-> +  *
-> +  * Return:
-> +  *
-> +  * unsigned int - Out Mux
-> +  */
->   	unsigned int (*get_mpc_out_mux)(
->   			struct mpc *mpc,
->   			int opp_id);
->   
-> +  /**
-> +   * @set_bg_color:
-> +   *
-> +   * Find corresponding bottommost MPCC and
-> +   * set its bg color.
-> +   *
-> +   * Parameters:
-> +   * - [in/out] mpc - MPC context.
-> +   * - [in] bg_color - background color to be set.
-> +   * - [in] mpcc_id
-> +   *
-> +   * Return:
-> +   *
-> +   * void
-> +  */
->   	void (*set_bg_color)(struct mpc *mpc,
->   			struct tg_color *bg_color,
->   			int mpcc_id);
-> +
-> +  /**
-> +  * @set_mpc_mem_lp_mode:
-> +  *
-> +  * Set mpc_mem_lp_mode
-> +  *
-> +  * Parameters:
-> +  * - [in/out] mpc
-> +  *
-> +  * Return:
-> +  *
-> +  * void
-> +  */
->   	void (*set_mpc_mem_lp_mode)(struct mpc *mpc);
->   };
->   
-
+Thanks & Regards,
+Aurabindo Pillai
