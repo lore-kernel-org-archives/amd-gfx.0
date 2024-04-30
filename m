@@ -4,62 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6D7BC10F1A
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 May 2024 08:03:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4060AC4345F
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 May 2024 08:03:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49FA511225B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68E0811225E;
 	Wed,  1 May 2024 08:03:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="dsoh69Pe";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="VE4UX4xy";
 	dkim-atps=neutral
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8184310E662;
- Tue, 30 Apr 2024 21:40:22 +0000 (UTC)
-Received: from [100.65.32.120] (unknown [20.236.11.185])
- by linux.microsoft.com (Postfix) with ESMTPSA id 2953021112E1;
- Tue, 30 Apr 2024 14:40:21 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 2953021112E1
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8CF9F112DB4;
+ Tue, 30 Apr 2024 17:39:46 +0000 (UTC)
+Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.174.176])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 51A80210FBDE;
+ Tue, 30 Apr 2024 10:39:46 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 51A80210FBDE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1714513221;
- bh=N5FvQ/TypNHdjNMqYFIqXh66AahkR8SgB9HzMwk5dOg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=dsoh69PeBK5TTLU3vn54yAjgk6HEgw6uX5/96K1j6MEq+uhUAt3mt7u2D+71GOFNI
- WvGANH7w+I/8RenBbMN5ykkWz3Uk5CrLxIasJ2xUAitAkekfx5YEX9aKxDjas/zyYs
- t0b5kEvCuz8TxGtWmnMzMga/jwInlSVIoFyEUWbA=
-Message-ID: <92189a8c-00dc-4b79-8fd0-3670b80d0db2@linux.microsoft.com>
-Date: Tue, 30 Apr 2024 14:40:18 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 03/12] drm/i915: Make I2C terminology more inclusive
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Zhenyu Wang <zhenyuw@linux.intel.com>,
- Zhi Wang <zhi.wang.linux@gmail.com>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:INTEL GVT-g DRIVERS (Intel GPU Virtualization)"
- <intel-gvt-dev@lists.freedesktop.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>,
- "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
- "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
- "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
-References: <20240430173812.1423757-1-eahariha@linux.microsoft.com>
- <20240430173812.1423757-4-eahariha@linux.microsoft.com>
- <ZjFUwjMFMcvJr5KI@intel.com>
-Content-Language: en-CA
+ s=default; t=1714498786;
+ bh=u7TOJ/936gc3y5DAMsiZbDvXVRCiqMrBgS62kL0MAbk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=VE4UX4xyCE61UBMu1Xd/VzjcGPFnY6eGs9r9p2t8kzRlXwsxFbTHGmvfEp/9y0K7X
+ 79SWXhO6dU3tSgIYj5pU9t0kloxtqQm0hDbK6ouYCtSqaBdhjY3CS9BYZa7AolCCUN
+ P2HKf214ZeDL376BreR6Uyu/Xv5cldFa/EcCTkhE=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
-In-Reply-To: <ZjFUwjMFMcvJr5KI@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: Andy Walls <awalls@md.metrocast.net>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-media@vger.kernel.org (open list:IVTV VIDEO4LINUX DRIVER),
+ linux-kernel@vger.kernel.org (open list)
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list),
+ intel-gfx@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
+ DRIVERS), 
+ intel-xe@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
+ DRIVERS), 
+ nouveau@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO
+ GPUS), linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
+ linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
+ linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER),
+ Easwar Hariharan <eahariha@linux.microsoft.com>
+Subject: [PATCH v1 08/12] media: ivtv: Make I2C terminology more inclusive
+Date: Tue, 30 Apr 2024 17:38:07 +0000
+Message-Id: <20240430173812.1423757-9-eahariha@linux.microsoft.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240430173812.1423757-1-eahariha@linux.microsoft.com>
+References: <20240430173812.1423757-1-eahariha@linux.microsoft.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 01 May 2024 08:03:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,60 +67,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 4/30/2024 1:29 PM, Rodrigo Vivi wrote:
-> On Tue, Apr 30, 2024 at 05:38:02PM +0000, Easwar Hariharan wrote:
->> I2C v7, SMBus 3.2, and I3C 1.1.1 specifications have replaced "master/slave"
->> with more appropriate terms. Inspired by and following on to Wolfram's
->> series to fix drivers/i2c/[1], fix the terminology for users of
->> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
->> in the specification.
->>
->> Compile tested, no functionality changes intended
->>
->> [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
->>
->> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
-> 
-> I'm glad to see this change!
-> 
-> Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> 
->> ---
->>  drivers/gpu/drm/i915/display/dvo_ch7017.c     | 14 ++++-----
->>  drivers/gpu/drm/i915/display/dvo_ch7xxx.c     | 18 +++++------
->>  drivers/gpu/drm/i915/display/dvo_ivch.c       | 16 +++++-----
->>  drivers/gpu/drm/i915/display/dvo_ns2501.c     | 18 +++++------
->>  drivers/gpu/drm/i915/display/dvo_sil164.c     | 18 +++++------
->>  drivers/gpu/drm/i915/display/dvo_tfp410.c     | 18 +++++------
->>  drivers/gpu/drm/i915/display/intel_bios.c     | 22 +++++++-------
->>  drivers/gpu/drm/i915/display/intel_ddi.c      |  2 +-
->>  .../gpu/drm/i915/display/intel_display_core.h |  2 +-
->>  drivers/gpu/drm/i915/display/intel_dsi.h      |  2 +-
->>  drivers/gpu/drm/i915/display/intel_dsi_vbt.c  | 20 ++++++-------
->>  drivers/gpu/drm/i915/display/intel_dvo.c      | 14 ++++-----
->>  drivers/gpu/drm/i915/display/intel_dvo_dev.h  |  2 +-
->>  drivers/gpu/drm/i915/display/intel_gmbus.c    |  4 +--
->>  drivers/gpu/drm/i915/display/intel_sdvo.c     | 30 +++++++++----------
->>  drivers/gpu/drm/i915/display/intel_vbt_defs.h |  4 +--
->>  drivers/gpu/drm/i915/gvt/edid.c               | 28 ++++++++---------
->>  drivers/gpu/drm/i915/gvt/edid.h               |  4 +--
->>  drivers/gpu/drm/i915/gvt/opregion.c           |  2 +-
->>  19 files changed, 119 insertions(+), 119 deletions(-)
-> 
-> The chances of conflicts are high with this many changes,
-> but should be easy enough to deal with later, so feel free
-> to move with this i915 patch on any other tree and we catch-up
-> later.
-> 
-> Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> 
+I2C v7, SMBus 3.2, and I3C 1.1.1 specifications have replaced "master/slave"
+with more appropriate terms. Inspired by and following on to Wolfram's
+series to fix drivers/i2c/[1], fix the terminology for users of
+I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+in the specification.
 
-Thanks for the review and ack! I actually thought that this might end up going in as individual
-patches via the various respective trees since it's now completely independent of Wolfram's enabling
-series with the drop of the final patch that was treewide.
+Compile tested, no functionality changes intended
 
-What do you think?
+[1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
 
-Thanks,
-Easwar
+Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
+---
+ drivers/media/pci/ivtv/ivtv-i2c.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/media/pci/ivtv/ivtv-i2c.c b/drivers/media/pci/ivtv/ivtv-i2c.c
+index c052c57c6dce..967e6a025020 100644
+--- a/drivers/media/pci/ivtv/ivtv-i2c.c
++++ b/drivers/media/pci/ivtv/ivtv-i2c.c
+@@ -33,14 +33,14 @@
+     Some more general comments about what we are doing:
+ 
+     The i2c bus is a 2 wire serial bus, with clock (SCL) and data (SDA)
+-    lines.  To communicate on the bus (as a master, we don't act as a slave),
++    lines.  To communicate on the bus (as a host, we don't act as a client),
+     we first initiate a start condition (ivtv_start).  We then write the
+     address of the device that we want to communicate with, along with a flag
+-    that indicates whether this is a read or a write.  The slave then issues
++    that indicates whether this is a read or a write.  The client then issues
+     an ACK signal (ivtv_ack), which tells us that it is ready for reading /
+     writing.  We then proceed with reading or writing (ivtv_read/ivtv_write),
+     and finally issue a stop condition (ivtv_stop) to make the bus available
+-    to other masters.
++    to other hosts.
+ 
+     There is an additional form of transaction where a write may be
+     immediately followed by a read.  In this case, there is no intervening
+@@ -379,7 +379,7 @@ static int ivtv_waitsda(struct ivtv *itv, int val)
+ 	return 0;
+ }
+ 
+-/* Wait for the slave to issue an ACK */
++/* Wait for the client to issue an ACK */
+ static int ivtv_ack(struct ivtv *itv)
+ {
+ 	int ret = 0;
+@@ -407,7 +407,7 @@ static int ivtv_ack(struct ivtv *itv)
+ 	return ret;
+ }
+ 
+-/* Write a single byte to the i2c bus and wait for the slave to ACK */
++/* Write a single byte to the i2c bus and wait for the client to ACK */
+ static int ivtv_sendbyte(struct ivtv *itv, unsigned char byte)
+ {
+ 	int i, bit;
+@@ -471,7 +471,7 @@ static int ivtv_readbyte(struct ivtv *itv, unsigned char *byte, int nack)
+ 	return 0;
+ }
+ 
+-/* Issue a start condition on the i2c bus to alert slaves to prepare for
++/* Issue a start condition on the i2c bus to alert clients to prepare for
+    an address write */
+ static int ivtv_start(struct ivtv *itv)
+ {
+@@ -534,7 +534,7 @@ static int ivtv_stop(struct ivtv *itv)
+ 	return 0;
+ }
+ 
+-/* Write a message to the given i2c slave.  do_stop may be 0 to prevent
++/* Write a message to the given i2c client.  do_stop may be 0 to prevent
+    issuing the i2c stop condition (when following with a read) */
+ static int ivtv_write(struct ivtv *itv, unsigned char addr, unsigned char *data, u32 len, int do_stop)
+ {
+@@ -558,7 +558,7 @@ static int ivtv_write(struct ivtv *itv, unsigned char addr, unsigned char *data,
+ 	return ret;
+ }
+ 
+-/* Read data from the given i2c slave.  A stop condition is always issued. */
++/* Read data from the given i2c client.  A stop condition is always issued. */
+ static int ivtv_read(struct ivtv *itv, unsigned char addr, unsigned char *data, u32 len)
+ {
+ 	int retry, ret = -EREMOTEIO;
+-- 
+2.34.1
 
