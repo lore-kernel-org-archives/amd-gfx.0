@@ -4,144 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35405C4345F
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 13:36:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17CE5C4345F
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 13:43:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB7A210EA4B;
-	Tue, 30 Apr 2024 13:36:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D98310E5E9;
+	Tue, 30 Apr 2024 13:43:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PJBavfg9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5X2c9u5r";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2066.outbound.protection.outlook.com [40.107.212.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 476CD10EA4B
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Apr 2024 13:36:39 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2080.outbound.protection.outlook.com [40.107.93.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F81410E5E9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Apr 2024 13:43:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mvrRc03k3WsW8U/3CuQMLUPt8YTPllc+xBY3aUjbGYtb6KUmYoNgo3ziIP+QpcrAtSrrBLf/bDHtkW2cOC1B1Rz+292fUjI5qABUHnGibaaX+spKSQ8a557uh9QHUXzy7T9VLkOUXYaA4eyxLCNNlIy3tHiu43u0w7KLl+8JOE41O8FCVkAAelWNVPa9XVILQvnLlfYVQjZ1SBruV8mG75lH0T4xEcfhtMQE9eXGQCXKKmrKbTJnX6DTyEo3g1fTkdK6TuJigEUxgyDEDi/QoWrAfKcPlHEqXxEsvwPz6wrII4yLXHVFdyuE5l58qvjScR3bzZcwJXAv5lP0kF9Rig==
+ b=beCMadW54xRobccR84PtmE2Adzwj8pmISOPh3vea3mcu3O+FPmLpF5RDLOa9eeobVpsEcdDv+wsJBwb9kZ4MQhXfz0r/uA7ik2f2v0inaHyFfY3ssdWRi9hJcpd5LEXj/labr5rvKUKkThjIBSxS5AX/6w4wk4sXsUJDG/zxhcYo4eKlWeVZQ0rzoHOZGFafAL+lF5CtHrFBwv2wq8M7OqnHzcsA4YQLnNHK8AS2L4XtwEnDdNQ7DKbS20cgyKYSaA1JMmT1GUqGUEQJDBJZ3tCZ8c5l/fddLn0i4CZHPrM/2C2ppgd2xqAlUIGVbgzsTQnnBMaloL98bA5sQaglHg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u3A7ESFtgjRX4yVwEWLOKNPt8p751Q8H6hirJXyZodU=;
- b=etcMtTWmB8Ibfa0fNlQ+7ciPn6MhuZndpfwBijD1Y+QauUjHVvLE/+lmh8485n/kLyV0/nU6tkniXnfAynrpguXqbgCII7OIU+tTzFZPjcCUnos7a9IXegiYltdUVtoZPuM+T0NlLCAuRUW+otbyn6oO1Ke8KaGxSoexREPihzR6rpPD9JYqJdhbICya5m0OwQ5vZOo1axEeTB7h3TI2Y6+73ImKRgcOoB9ydcbzvK+OlhFeBU/guirZNB+UZhJqhtbJXFnvWlusZCCPZb/ykkivv3KtfMSimIslM/Yf9kNz+zZvodHBBG+ZccT5Oc2nTqjm5KplEswGzc+b5hje3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=QPhUSf/2c8zbFb+Hhc858Via5O6Wj0KjZT9tP9tY3GA=;
+ b=d9tkDB9FH1Vr6ZMZZ+CY3ZdHimTC0beahK5q9vn5J+/7oL+4ph4OXCfcdcVHlIbWaJhkawL+ftMOpKgkzrFYRXoKUjcwvjD0uOihSVpAkYcKuwgMrEkmGYCohhLbrsCdPBQ2IOh5FBOf8CD0XWi63pSFgtKwzBxlg0mKWMU9yn3OxTSMGtJ/9CH9/7/6amc2YarwnV6U95t6bXIQkUEBXanHEsbqniBUxY8z37/r7fS6w2Sc+jP2/903fINvR+YUItAfIE0JMu6iY/GM2dO5NT7nPw6oulh7RIpGfaUnatOUZdQsth4f5IEVRIZ/AxgHY6avPH/HF0AfTCGuDgiJ7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u3A7ESFtgjRX4yVwEWLOKNPt8p751Q8H6hirJXyZodU=;
- b=PJBavfg9OE4MSIF3442MA1z7uG+mpZesKRgJv0KiSvakztra34to/Kv8bV3C6ugIDPIM+7j+0BVhWjPL3t2MwUy3s9D+wKRw44u/03/RBSbmXrHUWaR8yeoe6abyJCLEqsqgbQf50hoCjEHYgEenV6SN5lCHQ5VEQpGCuQnTR8Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by PH7PR12MB8107.namprd12.prod.outlook.com (2603:10b6:510:2bb::16) with
+ bh=QPhUSf/2c8zbFb+Hhc858Via5O6Wj0KjZT9tP9tY3GA=;
+ b=5X2c9u5rDymVtkbI8udjPtf3iFMXE+TdGQUKgbcE190yd4RYuyCdPVeRI8SCfNu50V/202adrDO2nuaaPu8o3RSGaDHOMNVEtIsvTDNDO0pHszGtt/PNGnrhiZt+csK7tLPNOQKpQj38reO0MGf1yNkfLRqspMO1/9lHVS75WOs=
+Received: from SA9P221CA0016.NAMP221.PROD.OUTLOOK.COM (2603:10b6:806:25::21)
+ by MW6PR12MB8867.namprd12.prod.outlook.com (2603:10b6:303:249::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.35; Tue, 30 Apr
- 2024 13:36:35 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062%5]) with mapi id 15.20.7519.035; Tue, 30 Apr 2024
- 13:36:35 +0000
-Message-ID: <1802b351-261d-4b85-bd19-cf5cb81ca8bc@amd.com>
-Date: Tue, 30 Apr 2024 09:36:32 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Override DCN410 IP version
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: rodrigo.siqueira@amd.com, alexander.deucher@amd.com
-References: <20240430132340.16902-1-aurabindo.pillai@amd.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20240430132340.16902-1-aurabindo.pillai@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4P288CA0046.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d3::28) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Tue, 30 Apr
+ 2024 13:43:08 +0000
+Received: from SA2PEPF00001509.namprd04.prod.outlook.com
+ (2603:10b6:806:25:cafe::da) by SA9P221CA0016.outlook.office365.com
+ (2603:10b6:806:25::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.36 via Frontend
+ Transport; Tue, 30 Apr 2024 13:43:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SA2PEPF00001509.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Tue, 30 Apr 2024 13:43:07 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 30 Apr
+ 2024 08:43:07 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 30 Apr
+ 2024 08:43:06 -0500
+Received: from aaurabin-suse.king-squeaker.ts.net (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35
+ via Frontend Transport; Tue, 30 Apr 2024 08:43:06 -0500
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <rodrigo.siqueira@amd.com>, <harry.wentland@amd.com>,
+ <alexander.deucher@amd.com>, <aurabindo.pillai@amd.com>
+Subject: [PATCH v2 2/2] drm/amd/display:  Override DCN410 IP version
+Date: Tue, 30 Apr 2024 09:43:01 -0400
+Message-ID: <20240430134301.18555-2-aurabindo.pillai@amd.com>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240430134301.18555-1-aurabindo.pillai@amd.com>
+References: <20240430134301.18555-1-aurabindo.pillai@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: aurabindo.pillai@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|PH7PR12MB8107:EE_
-X-MS-Office365-Filtering-Correlation-Id: a69fa844-889a-48fa-005a-08dc691a8dd9
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001509:EE_|MW6PR12MB8867:EE_
+X-MS-Office365-Filtering-Correlation-Id: 667de8b9-47c0-41a3-bc48-08dc691b77f1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|376005|366007|1800799015;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Mm13bEROTTdQRmo1UGdmT3BFYk1EaW15MzFUUHk3RUNzd0x3VERjYmJjcnNL?=
- =?utf-8?B?VDFoU1J2RllxZ1dPOHhkOXViS3hWRkt6bklQM3hvcUN1c0RVSU05L2FBYXVM?=
- =?utf-8?B?S2RvRExwUGNzSGp6TzBjcEFTblFMdXVZVmk5djF3K3ZqMHhKL3RFNUF4dmxv?=
- =?utf-8?B?ZkxwRVY5WG9jeDFzc2pYa1lYQzFvQTRIcVNYdXRQR1gvaHNXS0JjQkNRbVpN?=
- =?utf-8?B?OXBpdjlpZllMbFJ0QzZLWXcrSTE5MjZobW1uK0FQTjluVW5NRjRzU3F0Z3FM?=
- =?utf-8?B?U1VDaGMzZWtVL3NJNGgyR1lWMUx6ajN0RFRJbXRwK0ZBclk3UHdlbmQ2WGtx?=
- =?utf-8?B?K2h0d3NmbmtNNDBQNlZGSXhYazZ6RFdoKzV1QTNhTEN5YlYvQkxBZ0JxZ0U4?=
- =?utf-8?B?djJiWE5nRDU1dmxFUm5wSE1jQ1hGSVZreitDVW11eW0vVjhONVB1OGFGY0NW?=
- =?utf-8?B?eng1TGJwVFRFdGMyditXU3RzMGloeG94NFNoTlBnL1JNUVVUSnpRcGJxYWpv?=
- =?utf-8?B?cFk1N0ZaajFaaWJsM1ppRm9IYU94ZFQreENoM3U1Z1pWNDlWbERZTklFcy8w?=
- =?utf-8?B?eGJnb2ltOUxxVWVYOEJvWXZrMW9qMG1PY21YRFpKTFNtT3VDN1IwN2lZZzM5?=
- =?utf-8?B?L2s0Z0s2QTRHUDM5ek9YUXhTaStkR2Y2UFcxRkQxQm5wbmk4VTh6YWJiZ21W?=
- =?utf-8?B?MUIvaUdwTEVub3Vxa0NaU0IxRDlERSsrVDFTY29LSXU4Y1dyU0JtbmRwc0wy?=
- =?utf-8?B?RDFySDQwMldKV0tVOVpJd2xVUnVBZ3lmRDJCeVk2eEtnN0R6aHMxcDk0T3BG?=
- =?utf-8?B?eFRlNUhJYkY2N0l1VFdoTXJDVU1wbkVydzFUYUY1djFiY0FjTGpaRlJMQm9K?=
- =?utf-8?B?elJMekhuNm5uVzdpZ3QwQnZqU2cydTJqL0FoUWtHc1I3VG43VUJYVUYvWitX?=
- =?utf-8?B?UWtDNGs2cUVUQ09sTHBaWmNzckNJRkJ1WUtIL0FaMEhZMnAyblZwSUNWTTVG?=
- =?utf-8?B?MEJTK3FWR0JiSlJQU3RWQ2xSdWRlbmx3UlBhd0crT2dsNE0xdjZjOUpkaDQw?=
- =?utf-8?B?aEFqN3JMNWZPalpFbXplSkEwQmVlN1BlYTZJS0x5UnNyZit2QmVUMjNOVGNU?=
- =?utf-8?B?aVpQNTA1T0lUdkZqanRJcFZzTGJTbXpUazNJL29ja0dlTHl5R0loN0c1OXpD?=
- =?utf-8?B?N0d2aWMySG9LZVNhSEIyVWVOdkVtYndrMDFzUXFFT20vTzB0VlN2ajgvZTBH?=
- =?utf-8?B?MzJ3S1kxSVJBVlZ4UTNSRXRjL2MrNU1qaVZCS3J0Sm9MK2xUbFFyV2kybXFy?=
- =?utf-8?B?dkNCeDVLemMrWU9QdHE3U0N2VGk4MUJyWHEvVmZSZnFlbGR3ZUZ2V1Badmlu?=
- =?utf-8?B?ckxPV1JEL0hwa0N1a25qYytIK0NkclFQd0ppZVdoOHR2UE8vTlNJRXc1YzBv?=
- =?utf-8?B?WTc2N2Vya0ZyV3NkWUx2TG9VV2g0UUdNU24reUg1K0UwcitUcXNIMHdQb05j?=
- =?utf-8?B?T3ZnL0dlU01zZlZWZ1RxaWthMzJJYUo2bHByVDBtVG1PdUJKRFpHMWlZcjdY?=
- =?utf-8?B?UlNadW8raC9yUkFMVFR0Rld5R093Q0YyQzZxQkVVSTVFR2hMNWQ0dXFiSjdj?=
- =?utf-8?B?bDlRT2xkM0tUcUo1UFV0VEllaXdVdUxmcTcxVDQ2QXcwMzhKYkI1dWpTSnV3?=
- =?utf-8?B?endKWVhSUGpBdEltSDliN2RiN3FiZko3L0hoMjNIdWhYdjVLMGhSaThBPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(366007)(1800799015); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?czgreHd1Wkg5dDJ4ZzJSaUpwY3padnNtdElKSVJaUHpTelhYeWZaQmh3Vm5J?=
- =?utf-8?B?SnpDc2w2aGpMZWJLS2VHempZRXgzTEtMV3MxZFBXRzU5am1CSjlKWUNjUEFO?=
- =?utf-8?B?Q1psb0FNMXZZZnpndXNYMVBxZG9kWjU3NW5JWVpCMUJYdTNZN0FmSEdTTG1K?=
- =?utf-8?B?R1poUHVmZ2wwNFl0TysyVThnNTByS0M2Z0RCdjdJZEJhVFRzNlBZcFpxWDZP?=
- =?utf-8?B?b1IyVTBCeGJYRVNydU9nVTFrMzdaODZ1aVVtcm9vNHNuY2ZqTW5wSWF5aUY2?=
- =?utf-8?B?dFAvWTl5ZHhvb2N2WEtsNVIxVnQ1VzROcTJQS2g0Q0JrVi9mK0g1U1IzRExO?=
- =?utf-8?B?NW53VDluRC9lMi9abTkvUE40aEo1d1RibUI2Z0Zld2w0cmRhZmIyK1RDajVp?=
- =?utf-8?B?SWtnUEhqZFZYSXozUWJOT1dBZmlEU1VDTlVQZ29RV0k4L1FXcEx1TzNWMXVR?=
- =?utf-8?B?bG1HaHRIMjJSYVZtRVZBQTlKOXpSNGFTdXdzbnpYbmcrcFA2eTk4RHVGMWtQ?=
- =?utf-8?B?b014bUhmdzFwQjlFdnRPbmcrcXRMZ0g4TXZiOXBCTFVKNGxYcVFDa0hHYkF4?=
- =?utf-8?B?cVVjUU0xajlvblRJcktySFV0cHFIdEhXSTA4TkZlbXQzTzQwU1pZQnVFdFp1?=
- =?utf-8?B?V3k0Ui9rYmVYWDJwSFNKM1I5N2ZSNVlPNUNiRDA4ZlhPdkNET1B0aGlRemE3?=
- =?utf-8?B?V1dIUUFPK0pkMVhnUXJXRkxxN0hlWUQvc1NHLzlNR0dqQXdLMW5KVHpvanJW?=
- =?utf-8?B?RWJJRzJIZXo5a3hCQTZYNm9NZnRiQzVCNUpvOFY3c2trRElHaWdWR0NZRWpi?=
- =?utf-8?B?WngwUGJ6cGZ4ZWtUUWtDZm1PTWVtRmlIays2Wk40WWZpSWxBeVFaQmF1a3Vq?=
- =?utf-8?B?cHgrdG5LcnF2dmppMXpkSWxuZnp3QVZGOFdMVzF2bkVaWGxNT2F0VG1TcFJC?=
- =?utf-8?B?dVRZNXRUUlY0MmtwQjUwQTZKS1NjTE8yQjJBVFBwVTcycEpZbWNBNEV5ODda?=
- =?utf-8?B?YTE2eEpTTld4TmZaQmZnUzBiSHNreUJBd2tHZFlPb3RQOEthL2w0WnBIbW9U?=
- =?utf-8?B?bDdrZ2NzZm4zOTUvcE12d2FDN2QxN0F4cnhDMGpOalRQOXhEbnJnQm9pcXd2?=
- =?utf-8?B?OTI0clEvMnRJTjdKWUhTY1JTbFZnTnJPRHJSN2g0S3ZTMk0zL24rUXNobHls?=
- =?utf-8?B?cDN2YTFTUWxQdXl3R1JhYkVablZ6T0NmSlFBZllmN211VlkxNGlqejlNdTV4?=
- =?utf-8?B?MXdZd0xYYURLOFBOWGJnUE1US1VWcWQrZWJ0cXFyWGxMbDgySHBMWnR4SExh?=
- =?utf-8?B?ZXBoNTRQQWFOc3djQ0VuVnZhOUxCZTdRc2pHV09WK29MdEd4dWVkTTBhdUZn?=
- =?utf-8?B?NjBFNVEyVFkxZU11MW1zRGdOd2J1b3hWWHhKVGFNVTNncWpXZ0lkSW5rVm1a?=
- =?utf-8?B?MlFDZGIxbDZUVVdoQ0hHb2dhMUdwU0RTc0lWUytvYmE5K21ZWjJyNFBiYTF0?=
- =?utf-8?B?SXZBQTgyQlIzOGh2VHRKemZPQmo1VTVRRU9yV3Q3UmtYeW42dVdNazF2MG9Z?=
- =?utf-8?B?cEFMa0JHSUFlMTVhWi9EcHV1SjlPYWpnbGJ2aitnU29qV3VsYitrL1VFSGtJ?=
- =?utf-8?B?bklDdFhWQmp6T0RwekxZS1Y3czd4dURiNVRxdXZsdUNuMDk4SjJLVUt0U29h?=
- =?utf-8?B?cU9lZWI0OWVlRG9Gb2Z2cE5DYjdGYWR1VjN5K2ZFaDdFSkRoMHB4WnowWitF?=
- =?utf-8?B?OEIxNTJmME5lSEtVUE1qL1R3RDVkU1R5dGZGbWtwRkJFS1lidDNleXNpcXpF?=
- =?utf-8?B?RDYrbTIyYWZJdjBaVW5pZDloMVVoRGhNUitUWkx1b1JVWkg3cysxNFVseUdB?=
- =?utf-8?B?bk5YVXgrdithSVZ0UXZ2ZGxOYi9MdzJTdFZaMExQZ3RuYjYyMDBqajZvN05M?=
- =?utf-8?B?R0ZyWkE2V1NTTXlGWmRWT3cvMmVDcGVjQi91WmFNME5rK1VrY1dqV3FqSGZI?=
- =?utf-8?B?MVRmM1lWTEN3Q2ROZ1FrV2NCTC96YjJqRERsdTl4ak05ZzBUM3M3b2RaM2pR?=
- =?utf-8?B?bUxldDlqbDdtTDV0cTFHNVRTNW93QSttNENjQ0M0a3NqQkxXblFFUm5ML0Nl?=
- =?utf-8?Q?mi7siPmwekmnKChha8fbXXvGP?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|36860700004|1800799015|82310400014|376005; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?OXwnVm+Y48YSw7fmhfbDRbljZaDJk3re2BTTLRxQ8TriF9h1d2Zh4sTpqCCV?=
+ =?us-ascii?Q?xtFZycTQydViJFVi80T1/iXzu/fz2oW1loj2PSQt+NL8Lf3uzGs24+3U50UE?=
+ =?us-ascii?Q?Ja+yQ50gjNI7GEzqjYxe8c2gXDGANHgRkr3uhNXrD1o4CP5GOCsmzUwk+xfA?=
+ =?us-ascii?Q?UANvXQ3zv14dJlQm+XRxPgUQ06eGpLK9QyYmwQgElu74U1x3Fqoc41cc4IwT?=
+ =?us-ascii?Q?2YM1tt/4LMCWNDw4bdxidEnn33LcgP6Xb8tl0kAhI0uupwqBLvF1OIMLOtpu?=
+ =?us-ascii?Q?47M5+dk9HoD6GwAbqr0DlDQCYymffldTPIKgfzZ8wrmHibNazM0/tN6E1Sfl?=
+ =?us-ascii?Q?7IC60H+c7n2FRqFrIyj4gd+muOlc2dpBj07a37bdEY8SF5jL22wInaEpq6/u?=
+ =?us-ascii?Q?xFk1w/PEa0IdbOtr8STtmxG1Xdj7CAHmLlLcRwy6Pzm+pV7pFbjz3JvMkBQN?=
+ =?us-ascii?Q?TX48I9Q0KWUH9b/hd/dJSlsDaSEwvLFw0mHxn3xj1Wkvm3Wr3jYtwGI4EqbX?=
+ =?us-ascii?Q?qSCwm6Fuy7Iq493wVPvlwAca+L0K/zq7LagRlnKYjvRY8YIfHfh6lNIlKgaK?=
+ =?us-ascii?Q?l9XautLgvOp2R+oHR0IdnbnES0v2d0PF6yNaASTBs6WnaZPR6/zvkGf3WN//?=
+ =?us-ascii?Q?86UN8h8raYo5LqvAQiNhWx34HUOKWDRC3teA801my6OoKzTHN0ghBdRECJQf?=
+ =?us-ascii?Q?RpsIJaQBzt9/fjepZEdFX51WJSk9+fIf5rsG2/WHDFWdd59bZAKreMt1f27o?=
+ =?us-ascii?Q?Tbz6YzDchtSD79vS7KrFfmOWXpdEdQKCtHPDiXHLakjlQXPZefpRafVzGoie?=
+ =?us-ascii?Q?ajSR/wbgddxrkNjVp4vIF5mj1jkJDB2G+SoeWxYeus5dgsotIqfzbNnGM5up?=
+ =?us-ascii?Q?GkBHXczIERPV4CJ36oG92KDtkL8rnVobEKs4/d/B4pYyg0uq+caSK/jaaMna?=
+ =?us-ascii?Q?/BAu8uzYrZw6VRGIU/yTmA2e2t0CW5WIiJFi8pLeLfZ59GdcxrBx4E6vKsOY?=
+ =?us-ascii?Q?w/ROh3sQCkYLfHHJS4n+xkHL8Y4dMKYK4uc4H7BpUBNBnNdqwvmyO5XhlAoJ?=
+ =?us-ascii?Q?d5s8oFN5Ft+IIPKGYtPbwFBumjSrsxUuQPVGhDHNn7UE6LooyiLk2mGitiS9?=
+ =?us-ascii?Q?IrdPoZctj0GCxlS3H1eKLTdBrl6ZT9Yrj6vnhTRMwHdMy/EJm7r5fZ+qVgrV?=
+ =?us-ascii?Q?ti325n/yzdzhRztB4H0ZLm1HbjbwnXEUSpXEBlCX51OIF48zsXV3SxOgHHIJ?=
+ =?us-ascii?Q?Ld8eStc1kOFsQKQqjV04yoNeeDHt6uvfH3iaQiyRIOiZydrg8l/4ppy8GoFD?=
+ =?us-ascii?Q?pe/Bykzjx5A+6Dnk7hN+T/i8MNVJy/ZurZpaj7JGcXgVBIYG7H8UJvYEWfYW?=
+ =?us-ascii?Q?Uy0CRjQszU8Dt0dY5cr39m4Qei3Z?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(1800799015)(82310400014)(376005); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a69fa844-889a-48fa-005a-08dc691a8dd9
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2024 13:36:35.1535 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2024 13:43:07.6507 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 667de8b9-47c0-41a3-bc48-08dc691b77f1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qw43XDr3xtoqLyFrwMojrtkgenRCc3Lbhk8lFAuWpeV8WtZV+Vae15vQMxT76s91Qarfp2AmOxXpcTexzHZZQQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8107
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001509.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8867
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,41 +137,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Override DCN IP version to 4.0.1 from 4.1.0 temporarily until change is
+made in DC codebase to use 4.1.0
 
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-On 2024-04-30 09:23, Aurabindo Pillai wrote:
-> Override DCN IP version to 4.0.1 from 4.1.0 temporarily until change is
-> made in DC codebase to use 4.1.0
-> 
-> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> index 2aad1ba0ab9d..87a2f15c8a64 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -1965,6 +1965,11 @@ static int amdgpu_discovery_set_display_ip_blocks(struct amdgpu_device *adev)
->  		case IP_VERSION(3, 2, 1):
->  		case IP_VERSION(3, 5, 0):
->  		case IP_VERSION(3, 5, 1):
-> +		case IP_VERSION(4, 1, 0):
-
-Doesn't this do more than override? Doesn't this enable IP
-creation for DCN 4.1.0 in the first place?
-
-It might make sense to split this into a separate patch
-as it sounds like we'll want to revert the override at
-some point in the future but not the IP creation.
-
-Harry
-
-> +			/* TODO: Fix IP version. DC code expects version 4.0.1 */
-> +			if (adev->ip_versions[DCE_HWIP][0] == IP_VERSION(4, 1, 0))
-> +                               adev->ip_versions[DCE_HWIP][0] = IP_VERSION(4, 0, 1);
-> +
->  			if (amdgpu_sriov_vf(adev))
->  				amdgpu_discovery_set_sriov_display(adev);
->  			else
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index d7f948e84e4f..87a2f15c8a64 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -1966,6 +1966,10 @@ static int amdgpu_discovery_set_display_ip_blocks(struct amdgpu_device *adev)
+ 		case IP_VERSION(3, 5, 0):
+ 		case IP_VERSION(3, 5, 1):
+ 		case IP_VERSION(4, 1, 0):
++			/* TODO: Fix IP version. DC code expects version 4.0.1 */
++			if (adev->ip_versions[DCE_HWIP][0] == IP_VERSION(4, 1, 0))
++                               adev->ip_versions[DCE_HWIP][0] = IP_VERSION(4, 0, 1);
++
+ 			if (amdgpu_sriov_vf(adev))
+ 				amdgpu_discovery_set_sriov_display(adev);
+ 			else
+-- 
+2.44.0
 
