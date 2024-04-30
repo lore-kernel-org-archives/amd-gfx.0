@@ -4,38 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CAADC25B5F
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 May 2024 08:03:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 252F0C19F53
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 May 2024 08:03:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF5E2112263;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEB84112266;
 	Wed,  1 May 2024 08:03:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="DFOaIA9/";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="cYVo4Oqs";
 	dkim-atps=neutral
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id B3F4A112DC0;
- Tue, 30 Apr 2024 17:39:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 42BFD112DAD;
+ Tue, 30 Apr 2024 17:39:41 +0000 (UTC)
 Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.174.176])
- by linux.microsoft.com (Postfix) with ESMTPSA id 411E9210FBDE;
- Tue, 30 Apr 2024 10:39:53 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 411E9210FBDE
+ by linux.microsoft.com (Postfix) with ESMTPSA id 00A55210FBDE;
+ Tue, 30 Apr 2024 10:39:40 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 00A55210FBDE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1714498793;
- bh=Dy1Jw8CZeBBYgzGDboQvNQwvd3u5jjbq+/Q2SUyLVQs=;
+ s=default; t=1714498781;
+ bh=vlIex9KM14eooueS8z9AwXzxiXKC5zIDGKsFdV61O8s=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DFOaIA9/B7cOEa0MF85CdsQby8gwuPaLg80WB18fp7NcRmbkJtuJEO5oBVc7DTqol
- e7Zj3WrHoAxo09nFaO+Eu9I+zYKyyQOoIkHaaDSoFc86VF7/hOD3UK2HNE/Vbj8elH
- Zo6Y8eMKhmVXw0O3GBoLCevsUc1+gGrtthKC2b0A=
+ b=cYVo4Oqszg6QYdpeIBZOe/D1MCd73sVS9/RN+qi4sCblw+UeqXfxBWdMaOHue5yqv
+ 0NkfKKN6FOqQi2KV9ShwkB2U9EglhiBhaqQW9po2uBMBt8sa/a+5Qo7H3l6DU8D2Oh
+ whQPXVyRYiM1oOARBjNndmP7SyUsw8jCpgsAxnDE=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
-To: Edward Cree <ecree.xilinx@gmail.com>,
- Martin Habets <habetsm.xilinx@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Easwar Hariharan <eahariha@linux.microsoft.com>,
- Simon Horman <horms@kernel.org>,
- netdev@vger.kernel.org (open list:SFC NETWORK DRIVER),
- linux-net-drivers@amd.com (open list:SFC NETWORK DRIVER),
+ linux-media@vger.kernel.org (open list:MEDIA INPUT INFRASTRUCTURE (V4L/DVB)), 
  linux-kernel@vger.kernel.org (open list)
 Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
  amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
@@ -49,9 +43,9 @@ Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
  GPUS), linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
  linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
  linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER)
-Subject: [PATCH v1 10/12] sfc: falcon: Make I2C terminology more inclusive
-Date: Tue, 30 Apr 2024 17:38:09 +0000
-Message-Id: <20240430173812.1423757-11-eahariha@linux.microsoft.com>
+Subject: [PATCH v1 04/12] media: au0828: Make I2C terminology more inclusive
+Date: Tue, 30 Apr 2024 17:38:03 +0000
+Message-Id: <20240430173812.1423757-5-eahariha@linux.microsoft.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240430173812.1423757-1-eahariha@linux.microsoft.com>
 References: <20240430173812.1423757-1-eahariha@linux.microsoft.com>
@@ -82,26 +76,47 @@ Compile tested, no functionality changes intended
 
 [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
 
-Reviewed-by: Martin Habets <habetsm.xilinx@gmail.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
 Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 ---
- drivers/net/ethernet/sfc/falcon/falcon.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/usb/au0828/au0828-i2c.c   | 4 ++--
+ drivers/media/usb/au0828/au0828-input.c | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/sfc/falcon/falcon.c b/drivers/net/ethernet/sfc/falcon/falcon.c
-index 7a1c9337081b..36114ce88034 100644
---- a/drivers/net/ethernet/sfc/falcon/falcon.c
-+++ b/drivers/net/ethernet/sfc/falcon/falcon.c
-@@ -367,7 +367,7 @@ static const struct i2c_algo_bit_data falcon_i2c_bit_operations = {
- 	.getsda		= falcon_getsda,
- 	.getscl		= falcon_getscl,
- 	.udelay		= 5,
--	/* Wait up to 50 ms for slave to let us pull SCL high */
-+	/* Wait up to 50 ms for target to let us pull SCL high */
- 	.timeout	= DIV_ROUND_UP(HZ, 20),
- };
+diff --git a/drivers/media/usb/au0828/au0828-i2c.c b/drivers/media/usb/au0828/au0828-i2c.c
+index 749f90d73b5b..3e66d42bf134 100644
+--- a/drivers/media/usb/au0828/au0828-i2c.c
++++ b/drivers/media/usb/au0828/au0828-i2c.c
+@@ -23,7 +23,7 @@ MODULE_PARM_DESC(i2c_scan, "scan i2c bus at insmod time");
+ #define I2C_WAIT_DELAY 25
+ #define I2C_WAIT_RETRY 1000
  
+-static inline int i2c_slave_did_read_ack(struct i2c_adapter *i2c_adap)
++static inline int i2c_client_did_read_ack(struct i2c_adapter *i2c_adap)
+ {
+ 	struct au0828_dev *dev = i2c_adap->algo_data;
+ 	return au0828_read(dev, AU0828_I2C_STATUS_201) &
+@@ -35,7 +35,7 @@ static int i2c_wait_read_ack(struct i2c_adapter *i2c_adap)
+ 	int count;
+ 
+ 	for (count = 0; count < I2C_WAIT_RETRY; count++) {
+-		if (!i2c_slave_did_read_ack(i2c_adap))
++		if (!i2c_client_did_read_ack(i2c_adap))
+ 			break;
+ 		udelay(I2C_WAIT_DELAY);
+ 	}
+diff --git a/drivers/media/usb/au0828/au0828-input.c b/drivers/media/usb/au0828/au0828-input.c
+index 3d3368202cd0..98a57b6e02e2 100644
+--- a/drivers/media/usb/au0828/au0828-input.c
++++ b/drivers/media/usb/au0828/au0828-input.c
+@@ -30,7 +30,7 @@ struct au0828_rc {
+ 	int polling;
+ 	struct delayed_work work;
+ 
+-	/* i2c slave address of external device (if used) */
++	/* i2c client address of external device (if used) */
+ 	u16 i2c_dev_addr;
+ 
+ 	int  (*get_key_i2c)(struct au0828_rc *ir);
 -- 
 2.34.1
 
