@@ -4,144 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB57AC4345F
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 15:15:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0B58C4345F
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 15:37:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41EA511204B;
-	Tue, 30 Apr 2024 15:15:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F10011211A;
+	Tue, 30 Apr 2024 15:37:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jc24NYbT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Sl3hdVPU";
 	dkim-atps=neutral
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 455D811204B
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Apr 2024 15:15:08 +0000 (UTC)
+ (mail-bn8nam11on2079.outbound.protection.outlook.com [40.107.236.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70BC411211A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Apr 2024 15:37:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YqzsHzpffJyS6T2oGartNVr00mGEz4pCM9pFReTePkkVOIBNzSiAhBh1dO0QaKhJIF5Y630PQN17aRywEfr1IPDvg/RJQcBYFOx8rF77xmMgnyTr6mA3fX90Be16MJ5nJDX6p9GSklStO50xqV4yptP4ZIXMYW5b2dY406Iowjf928KZ7IMzdFsfo2L3u/Wux26Hha8yp9l1Km2wodTZYAe4HIXJRSZCQkjy5XMt/nm8Ak5W8MwqIN6uLnJoLJRNJSnYlh6iCna+e/wKm9k4SagW6IemP6DzR5mboT20yBSNIrnb8ql6BfGYB1D0WlOH4NtPW5glAdukPchNnU43Uw==
+ b=WawciZs7TNCQvT4C9OBeHM5DYwNmPOMJhadWUdWaDGO4XZ0MLR4Xq1jlSWm16tYagSQbQ8tObPIidJExgXVlQBw2m/gxvLTM7t5jO2D1aQxhlB8pcOaAdWdmF/CkaE7otKh8jJCKeSpof2oCKr9en6meAyTqyM7JfISr5GBCdqYQVzZeNy8xukTwcVJJHEZyaa+9tbXKdwHvWwQeZVBAAZnlDReVjmDXt8IiDGh1U1xpysFFAhsgfbCXeskL/KzBVEQNraFlRmxvv4J4Sz2GAtTGmK7Yc4e1kFYz4iIDhkaaxTNdyK78iPwT1a7Rp/BN8kTyTIXGA5KZtboF9qqkYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xt2ieSxDKHkA27S69q4Zixcp+V9iy9oGBJYW2ncrKuY=;
- b=g7hRpcVyLLosqcLuLc9cKb75RNJtEqGuDmIyqRvhsQEw4Qy2HE/pYdA/NEvyOibFnz5d7y4bC3daJayC1gfbTid9nt+sFLX7TZVidY/KfCLYuLIFOSe2xYIHG+K6vCdVMtkYoiyCOoDPuxBMa2ppHKgY7Av7rf5GCwRldP2bMddmZCJusd0gJe8oLc1uLYGCm2AWr9DKkinY/YOHnQi5FEjmKyF6oja9PFSJrTsdvH5C6GaB8KQL/UiLk7ia+sju1CaYkv+Js5mLYvBITkip2ls7mybjUOamGRfUkojvx+4Yq+cIbGvtm29fzSOqexrr1/p6ggtuobVZPtWUpU06rQ==
+ bh=cgrvloCG24XRr7R3RBuJ4XHjQQa4SjhC5lSyteG8ZT4=;
+ b=N7L93sd7Jejn9DaiAYShikutcIy3Jc9th5vb3OqDDbaoAWzHOYj8t0FKpA323EKwoMoGGvoU9ujEqFWumYYHrUzsfdFV80So9GSefQPbyrYpiJwB66R0OUOTJ2AfAlFs43tKD/2plmNmtaU/DgNlr8HWKBdp1PZbEbZNGVmD2i7m6JQATjNz1t2HycoEsj+3oEFc3n0oPoSPnJmkGHfD00auae9tp3HNCBlvuG2pbGBJXUR/uVZbK9ohPmXARhG1lrsEqSdIwvbksjkBSrjPnSe0tXK0kIbs54n/26moJ8DlC7iwPYuuNSQcBbiyXHprEFUXTVTUBmsIyfj/t2PhBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xt2ieSxDKHkA27S69q4Zixcp+V9iy9oGBJYW2ncrKuY=;
- b=jc24NYbTc+MgxfVs/nGuWOztnUjI03FLOyuqGAt890nIbN8WFHwfxoCXiJEUMtnUKTKv2x69H1zkvUBlQjXGieWWd/KHVjHsdLAOQbqRAkvpd9iA41xOMIx8d+dMD9qb8zN9TWIh+YUEhzjUg7oRZ0+bzTht4psvy2zH7WZ1k3I=
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
- by DS7PR12MB5981.namprd12.prod.outlook.com (2603:10b6:8:7c::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Tue, 30 Apr
- 2024 15:15:02 +0000
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::8060:1b11:e9f3:3a51]) by CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::8060:1b11:e9f3:3a51%4]) with mapi id 15.20.7519.031; Tue, 30 Apr 2024
- 15:15:02 +0000
-From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liu,
- Wenjing" <Wenjing.Liu@amd.com>, "Chung, ChiaHsuan (Tom)"
- <ChiaHsuan.Chung@amd.com>, "Lee, Alvin" <Alvin.Lee2@amd.com>, "Li, Roman"
- <Roman.Li@amd.com>, "Wu, Hersen" <hersenxs.wu@amd.com>, "Hung, Alex"
- <Alex.Hung@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, Dan
- Carpenter <dan.carpenter@linaro.org>
-Subject: Re: [PATCH v2] drm/amd/display: Remove redundant NULL check in
- dcn10_set_input_transfer_func
-Thread-Topic: [PATCH v2] drm/amd/display: Remove redundant NULL check in
- dcn10_set_input_transfer_func
-Thread-Index: AQHaleef4Os8QHetZUyi6VVlE4jXR7GA9lmX
-Date: Tue, 30 Apr 2024 15:15:01 +0000
-Message-ID: <CH0PR12MB52848D4AD7F27780975C6C808B1A2@CH0PR12MB5284.namprd12.prod.outlook.com>
-References: <20240424013431.2125336-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20240424013431.2125336-1-srinivasan.shanmugam@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-04-30T15:15:01.358Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
-authentication-results: dkim=none (message not signed)
+ bh=cgrvloCG24XRr7R3RBuJ4XHjQQa4SjhC5lSyteG8ZT4=;
+ b=Sl3hdVPUJLdXmYn41UF6yxaldjo++3VCxgLvj/JUu0WEHlEMPUlq5IUNlgv8MbHr4XAox2s7CJN4TZOfIy1yFlCxkzq2cv7c6w9g+h6Z3E3B6llo6yEGXbY9tkY0JbgPzxNo55E9sgDU2frKIkBH1JWqxkYR6W9b8QmiDBuXXIc=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|DS7PR12MB5981:EE_
-x-ms-office365-filtering-correlation-id: 89f89f22-d540-4e26-9c07-08dc69284e9e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230031|1800799015|376005|366007|38070700009;
-x-microsoft-antispam-message-info: =?us-ascii?Q?DfAh8gMZptRiUmsAn+ATO3SZnoBuW3ASVK4ZA2jSaM750O1sHoL1A6+9yd5c?=
- =?us-ascii?Q?iSUAKwzlM2GmZWqRCVkuy8byg6DYVqfjIw7YbTH++f00YUruLpw/kc+TdOLm?=
- =?us-ascii?Q?+vbZUs23gUQf0gFoqhbDKLmnQvd7UQ/PuWAyJnNI7EEYYJAOoSOg26fWkZLV?=
- =?us-ascii?Q?S0gKOyTqTIxXEyt45FucuCV1ZH/BQ9/b2EOIjlcyzNFKI3zr85IxEq14w/OR?=
- =?us-ascii?Q?lM+URVRAOI+fF7FIYVySp9XXivsOd8D2O4/l5cMdOAWQBrla6h3jugX3MBTX?=
- =?us-ascii?Q?vSdle6nuO9nWr3FfCyrdpG2x9fockUiwG0xv1K5v4wN1nUfnVA7PrS70Mlv8?=
- =?us-ascii?Q?n1XEpUuJcrB2ybQD/liP01R2n98nU5epBX1aqI6Ccsub6bqWDox8D5ozOGgg?=
- =?us-ascii?Q?j5Sw4/+rbpjUw+sICXkNePSmGQWowxMmFWwPowfo03za5VqfzTXZHTZ3Gb7p?=
- =?us-ascii?Q?7LkqxfX49ZSBfBy24i7gNVd/mXdf3t+tbOmdt2RUgRU90XDoDNHk88ufY/4s?=
- =?us-ascii?Q?jJJc6lP1pr2CxTYidX7y9B95/CTAkgfn8L4CmGSSGzDLrz9T7UqKWyLbYPk8?=
- =?us-ascii?Q?6tW0y34rCH0KhdrP+QvLgfJwesE1YMjCXsdiIckFxQahEoYSkrFv744RRjat?=
- =?us-ascii?Q?coQcoycLzdS3DNo+wnMb5v6PXRgrBsz1fbs7kKZp8PdJfwUNgBq+KZTk+Fk9?=
- =?us-ascii?Q?jDLfr3Ve+NywzHdYN+lf6wHgFn9qaPga00DjWSp90dl24W1LccHJGQoiC9bU?=
- =?us-ascii?Q?bAxc7BnLmRbR7MMeyIucHsPx7QIywGjU7tw6z7439+f0v8oX0taPfGV912Kq?=
- =?us-ascii?Q?CDi2IvTYlssVAWYVLMrzFgMOygdF2SVC8j8ErSHHTxWDwqHrAZKgyrJ2Xri9?=
- =?us-ascii?Q?Mps5Uf7GeUTEWX5JcMPutpGlY42fKsWDFcHPm/BfwmVN24mxA3NQbbtmw0PL?=
- =?us-ascii?Q?ZYQvb0GD08KJzqAlHcKQ5El+SBJHDxd4ds0fS2ezTKmtLClYyNSY76NnLJtP?=
- =?us-ascii?Q?abcuIv9kjQ5YVeWEKXGMshZKI+XAwzYtqBwDR918rJMiWpWLMfCSM2UQKBqB?=
- =?us-ascii?Q?GTiOZPmkbR6Tr7r9rMRcofgxbhvTOHS3PkHKK8kK2VPIN4CQlxpCmsvjZkCB?=
- =?us-ascii?Q?Gc4a03dfc9BRTKFCiwZHawtpENP0KESqRd3n4OwE9RDKCtQ7x/T7SW3gbDET?=
- =?us-ascii?Q?KbUkPUmhE759yoAHdLiSyCj4GFgL0pHZGcCRTWIvfeqIwsZOKpWO56WfWJSd?=
- =?us-ascii?Q?e5Z320BXM7oklFAE9f9udxmzx0AAVM5PIr786TBtf5zHWWoWBWX2h0oMioFQ?=
- =?us-ascii?Q?PVtWr6parQpm69zwNAgAOsDnbneCBR8djepyw+3BJwmCOg=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(376005)(366007)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?H3xpedE4a6bjrRda1Iamib7vT4I6hMX/dET/gNDHdwgf166sqiZlRkiIsVYa?=
- =?us-ascii?Q?3kQg+WS733swKgU6R+jURNbkCUgXjdoki72vP6rEQv4L+jCVHBkCJ2KIoE+q?=
- =?us-ascii?Q?rNeYTs2dAtMAPQgL3mjEKOmA7myHAu/WpnICHwkQkbSnsW0NjuF3h5l8tpG2?=
- =?us-ascii?Q?S0AENzTlf0GnEvo5ITC2oPeFfOlFqNZY7/FJWi5PwHQr/4sgCL4FHEr3s6Nm?=
- =?us-ascii?Q?W3aE92yDyKZOytEIhqNAhH6/Y/2ogkYltqgkjZqnUla2M8QIX3azqUVzV4Kw?=
- =?us-ascii?Q?t328xLpPerrbk4oxF5l42N9RGFxxk+yklX3ocfnA4KCiu6PM6EGMM7qYkLBa?=
- =?us-ascii?Q?KTB52LDetwRJ55FLwy7xjHrTLfJigSfy+WIBrhrkCjHJWyRRLcCGe9711xtD?=
- =?us-ascii?Q?rmKTHwONiZi+QSUUxAWpsN36+3VfTA/whiISoErL/gkkbEJC/NREDf5oL30l?=
- =?us-ascii?Q?L4BBb/Q67jlszdxjYrYW5YUUkgcayDT7gTUGrn1kreCGvieR5Qzc05PF0adx?=
- =?us-ascii?Q?yzTiQdyE0OxXogDXj5N2VjbtrDhYsdFLuwaTF+IlxJoN/2Bf3fn4MWb1DF6Q?=
- =?us-ascii?Q?7KdehnQkIyS9FTqjfetZd8GeiMMzcf4ATlDMwsafGGGrfIdUPOF8sQgBTKiR?=
- =?us-ascii?Q?qVWt5YuBH/oaS/oDtPzlXjXm7tl+4hi9kt3sEst4PwRiRbWiwOrOWlogIoAg?=
- =?us-ascii?Q?rndExR9BYEMqngqW2IddssvbI49c8EIdbrdbApCXPOMy0vZzuslxjJaBy2lJ?=
- =?us-ascii?Q?+AfCJb2VpVgcKuPDO0/pjgYsofz3x07X1ThP3OUWWnFnWqS4IAU52SBfnzhz?=
- =?us-ascii?Q?ZNDarZ9stot+abzwOMar70/6wDL1nhonqQW/5T7zMoip+8Zn629lgvsLAduf?=
- =?us-ascii?Q?Vg8gRw1KxIbeXOoXMl8cy12bVpr7ld96B05zw9SjeQPDhTIz+seUrxDiaAyK?=
- =?us-ascii?Q?/UNLTrBXGu0Z7Vth4kDuzAtahktxlX7TPvg2JfnaAECVA8Ef4I7SvvuHFBqE?=
- =?us-ascii?Q?Cmk5BegGAzqZq+564x5Ryz3dN9yO0hQgTCTgNIF5DBW1rG6otr5tmS/hc8RF?=
- =?us-ascii?Q?yxG3Do/gRz1zG/mTXAvIZP5HTVMjA/ooKJ2MLyHfSn3bWbuDtSrfuXAUQodm?=
- =?us-ascii?Q?T/O6T3NReIZ7xAxbtOGTd4tXB3Xtx9i1YBx2GysFSixz2zfQpoRCOH7bYQgg?=
- =?us-ascii?Q?D7gxXcFBD7YmhH8EeJ6lwOPnrF1Ki5+Q4EYxApYnvsb+kgof9RB8k39p6AZQ?=
- =?us-ascii?Q?5Fmysvy+oFFzV5fIoDz8S0rd1o/DywyjH7HDW0Kcbr1Z1Kbp8vVxqoEgm9gY?=
- =?us-ascii?Q?cTtQJzlUxC63RR8FSvy4UENq8rrrcfwmJ+ytLa3AeKQIs2+Jr4vF7ubNc7Q3?=
- =?us-ascii?Q?XlG8xvKq5RC37ll5cyK6qFzXegPvreiEgN3mtDWHMHVTzXngrJgQLatav3cF?=
- =?us-ascii?Q?1c8reRWscf7TQjt/SHJ9bakqOLbBQyHcIFoB7Lmpghbp3iRR3O/l49Y4U6BG?=
- =?us-ascii?Q?Jq52By/jsz0PYnfXzFj58oz5Yg6oyW8Wze+H2fxy8sbpHkeQgtmyYA09NBit?=
- =?us-ascii?Q?POI9TFb0mYOap+s/1zI=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CH0PR12MB52848D4AD7F27780975C6C808B1A2CH0PR12MB5284namp_"
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by CH3PR12MB8548.namprd12.prod.outlook.com (2603:10b6:610:165::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.35; Tue, 30 Apr
+ 2024 15:37:53 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%5]) with mapi id 15.20.7519.035; Tue, 30 Apr 2024
+ 15:37:53 +0000
+Message-ID: <415184e1-1dc8-41e8-a6eb-abb5259d3d53@amd.com>
+Date: Tue, 30 Apr 2024 11:37:50 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Disable panel replay by default for now
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+References: <20240430151241.14046-1-mario.limonciello@amd.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20240430151241.14046-1-mario.limonciello@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0323.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6c::12) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|CH3PR12MB8548:EE_
+X-MS-Office365-Filtering-Correlation-Id: 456a692b-5a93-4c8a-4548-08dc692b8020
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230031|1800799015|376005|366007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?SnZwMzc0K0VVYTNsNDM5R3FJTnNaK20vWTNLbWpFakJ0MzUwOEIybk1udWZU?=
+ =?utf-8?B?R21DMFBSK1loTENzUGFKZ3lld3VyMVFlQ3pEb3QyWURHMkFET2tZRkRLdTlH?=
+ =?utf-8?B?dzZlVm50VjJ2VS84M1ZXRGZhdWlNRmhKL0RxL2E5RWl3MDJFNlErWHlKQXJD?=
+ =?utf-8?B?VFg0ei90aUREcVRoOStuM2ZFU0xZUzJqdjh4RXo1MDJSZGxtR3ZyWThKamt4?=
+ =?utf-8?B?aFpqTG9laVlmbU9QdHdZNVJXWHRDa2xHQUtZK0hYNDdaNlZKdFVTR1phNDlm?=
+ =?utf-8?B?d3lBS01DY3pQMjBIU2NoeGxRTXFEdVNCSGF4K2l5U0xwbm44d2lKa0JXcDhQ?=
+ =?utf-8?B?L3g4VGY2WFJESGcrZEQ4OXZUNGhQa09CMFFmUnI2UFR2NHlOdFdGcnpHYzdB?=
+ =?utf-8?B?L2Q0NWZxL1VvekdiYlBlcFJxUzR6azFDM29md0JtL3VIZ25ZL05sWWFnek9V?=
+ =?utf-8?B?YU9wTWx3Yk90MkVrZHdwY1JBdXRubVhaUmFLdzV2RXJ0VDlhNmxncWFaN01O?=
+ =?utf-8?B?OEVITkFGaExZaU5HeTZCNVN4c3ZMMGFibmtXdmZ6bC9ERUMxK0xESDFVSElz?=
+ =?utf-8?B?d0diWlU2N0J3M3RHall2Si83aXZVb21rQXcrWHZEY0djcnhpMjJHMjVLc3Iv?=
+ =?utf-8?B?MzlqZWNHWTJSQjRaNTNoZW1VL2VZZ1U3NGpZSnlseWwrbW80L2FPeHAzZUxy?=
+ =?utf-8?B?dFZxUVJlN2k0MFgzNkxQeW5SeXU2SWpEenhCR3ppWk14RFJubTN6RU9Pekpp?=
+ =?utf-8?B?a2JIRS9yZ2IxYXcyNXNJWW4yeXpRRlJrTTNKMnQwK1hPR205S0N3djlZRHhs?=
+ =?utf-8?B?VHFZRnptb2xseTAvR1dWenN4QnF0dWVEUkZkVUphY3FuaUQ4b0kyVWxNWWlD?=
+ =?utf-8?B?MmNDampITElLRTNNZWNBSng5azlqbGZKSHI3bXlhWkdEQjBmU1Rhb2phV2FC?=
+ =?utf-8?B?R0IyTXpTTGIxcHlFbVhna1ZoeXVnNlVUTyttOHdLOERCd1R4TFM3TFp0aTNk?=
+ =?utf-8?B?V2l5WmxjbFJDVHhOd3pUZjk3b3pCM0dsU1F4QlEzZkhFYUl3Wmd0UHNWTmJ0?=
+ =?utf-8?B?WlZka3NzR2lVRU0rZUo2MnFzbGNyZXNWWWEwVHl6aXVwNmxqQU5IZkNPdHRP?=
+ =?utf-8?B?NDQ3dkZ0ZmVHZUwxZERVcUFEZVA1ZjN1ZHA0eEZQWUU5eE5JMlJtSUlEajFs?=
+ =?utf-8?B?MjRGbmRSdmJ6K2o1TE4wVjcxa25zNFhKRTkvZVpRTmYxdkJkV1ZPTlYrZjd3?=
+ =?utf-8?B?aXltbXBtZGlaSkFsZDZURGFQM1hkWU5DczBDYnJyVXFBMm5rbTgvcG5ZUndx?=
+ =?utf-8?B?ODhSd0ZpdEJRalFvYSs3UU9lWnJTdlhaUHlTZlhtckUzQmtZWHlvQ3VoQXpN?=
+ =?utf-8?B?Q1F0S2JiT21kRWJHTmowaWdjZnZnRElXbUVHU25IdTJKclpYNktQSElweWVh?=
+ =?utf-8?B?eFp6WEhQbjJPTHEyVElENStyd0JLLzk4Y3RUT3hIVWt1TFYwTzZDQlJod2ZJ?=
+ =?utf-8?B?aHBzYWllTzhIMDg0dDBlVEtqdDlOOHJGU3R4a0VvaXh0c0p1eStCc3hoR2ZO?=
+ =?utf-8?B?MW5MWnFYTnRnWlFtUWpyZTNQNit1OG9pQXNtUnU1bHh4cGZuSFpUMGtpMzRU?=
+ =?utf-8?Q?hpxMNk01RGkkKo6f1Nph0ajbwPiSbzhqB8at/c5tMEuE=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(366007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MmZnekN6M0NTekp4WEZPUHlGNXh4LzhnQnhqL0xkL25xbWJtZVFEMm03MGRP?=
+ =?utf-8?B?VDZnMEtxK1pLT29kemdWTnpqOFBHQkV4NCszdlRQR2Z6UEo4TVRVeVJTQzR4?=
+ =?utf-8?B?RTJKNHlzWU1ZdGJvd2QwSk1FalNuY3NnMVNzcUk3Q29BRjJRRzJMQVczTVpJ?=
+ =?utf-8?B?eUJMUnBwWFp6TS9tS2NlWWpUbmlyM1I1VTVNQi9KUFNOY2x6Ukt3Nm9DeXM3?=
+ =?utf-8?B?UkZNZ2dscHNTUHF4eDhpU0ZLSlVnOW5Ca1FnSjhnVW1pUTluUVFERU9xNmlq?=
+ =?utf-8?B?K3hPbzJlRy9xZW5IaFVJazJuV2xoc0VWbWJVdENsemtpWnhQV2tUcnpOblhw?=
+ =?utf-8?B?cFg2UC8yL1ZxSklqSWUwWVRpaHQvai82VU1DazA3S0VxUUtBcHBSZkh6MGY2?=
+ =?utf-8?B?VTVUSlJ3Wm50U1FQU0NuZ2hEZEV2aUFqNDFmejlyZis3MHdoVlF1MFRUMGJi?=
+ =?utf-8?B?ZlduUk8xaEk5Yk9UYXFDMXBiMHFGTURTSnlxMWlXMFNPaEhnUGpUM1JralFa?=
+ =?utf-8?B?V2s5UlNMZXo4RXdheU5WMkoyd1JiMG1LTGVBc0lVZ3pMbUE3N2s0ZG1pTStp?=
+ =?utf-8?B?c0xYQWxYSmhBMTJjMkduS0M5U05aSUFDS2F0ak9BclBTUHQrQ083bTdzSXJI?=
+ =?utf-8?B?R1FyeTZxU2NvQzBIRi9mbWs0dE9tZmliRldnbG5PNGM4aTdpRjZ6MmIyRnRq?=
+ =?utf-8?B?c1FKTGxzeWNZZE1CTEpqTFp3VU5xT0xMOWpsTlhuRDJObkNBWUczalhYRldi?=
+ =?utf-8?B?QkdxWmFmNXhLYklHbjlnNFlVM1NuN1RHdkZVSGFicnFwSXRWUmNMRStxem1F?=
+ =?utf-8?B?K2JyYjJEZVRwQjFvTUxXb1UydXFicDRFQVdDLy9hZkg2czhRQk9pTDRiRDFo?=
+ =?utf-8?B?OFZjYTlzMlBtQXVVek5JZjlZRU9DNmFpU0F2eFI1eVE2b2NzS3BOek55R0tl?=
+ =?utf-8?B?QU9iWGxuMWcxZWNnZTJyWUhRMDd2SFBqVzNpRFNCWkFxc1VlUU84SkFQUHdh?=
+ =?utf-8?B?ektoeDJtK0V4OHhHNlcxUjFkTHZ0RlZjaTlwV3ZhMXczNGs4OXhHYnhlVkNJ?=
+ =?utf-8?B?SWxPSlRlVVRZc0FXazJ6RU9sN1VPRENsWXhRdVpXQkFRakFQY3pTQXVUdTB2?=
+ =?utf-8?B?elZma3ZaRkZYcnIxd2IrNmhvaW5ROG5lWnlIMTI4TFZhOXhjVmJnbnZjQ2o5?=
+ =?utf-8?B?cWZZQTBxYkxVRFRWYnFEL3htNy9LODhpQUFZRUZlQ3NNTWJ6ODNuUFErU0lv?=
+ =?utf-8?B?d3N4NGR3Zjh6NUFKM3h5K0xleWxsMm9pTE1BSGovT2hha1c3Sk4vZzlQR2NY?=
+ =?utf-8?B?dkVKcElzU2pDdmJPc0V5dHhTYjZqRUlhM0NXTHB1VGIyV1h3RmhITFVJUnNw?=
+ =?utf-8?B?MTlZQm5QVW9XTXRJRElQdXQxeEhZSGpkRlk2aDY2L3J1eEt0R1NyZmVqb2Y0?=
+ =?utf-8?B?Rjd0b3laRjkyZEc4aGpuRDZaODNvVSt4MCtscktzSWdhK1pHejh3aXVuTXFO?=
+ =?utf-8?B?Q2xnTmZWMG13MVQvRG5TbWw4eEgrL296NUJJQStDRzc1dXZuQzc0ME1JUEhl?=
+ =?utf-8?B?a2o2R3hHbmIrTFB5anVqeC84R1hndERMOGtYWmtPR1lWUWNCRzFPQzk2WE82?=
+ =?utf-8?B?dmFIUDYzdkt2Tm84UU9yWjh1bmRsdGN4YjVLZmNrZ254M28yUklvMDVPWGZs?=
+ =?utf-8?B?UjFDVTZSc0Vzbk42anlzdnNqTDArOTh4YmYxQ2F2cHZBS3JuV2RQOXdXVVRq?=
+ =?utf-8?B?MFovVFgxRGkzdGo5UmtzMGtRNGxnM0JzTDEwR1NSb0pKdWl4bzBZSG1mdklp?=
+ =?utf-8?B?Rk1vN25rUXRmcHB3bFVzbEoxSFlNV25xL3V6bDRNT1FVSWU2dU9rWUFpN0FE?=
+ =?utf-8?B?TVRKVWJKbktmSWV1MVFVeGtIVHdXUThoSGRNbktpSkJQaElDNlliKytQdDVu?=
+ =?utf-8?B?ZU5DbDJqZ3h5SmxrRTBtQUtodWovYVhpUTFldjl2V011dUtZMFppN1cyQWZj?=
+ =?utf-8?B?TjFPemZjcHQ4c3YrZUtkdHV5Rm1qVzJVR2RrKzBpRFo1L01vaVFQT0crYzcw?=
+ =?utf-8?B?WXdvNWsrV2ZmbjJsd1dma2FmWnhEb1YwcDVQNjlUUWc3SUtIMm5kTGVZMnBN?=
+ =?utf-8?Q?g25wmScrEiaILEfR14zh3+qtv?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 456a692b-5a93-4c8a-4548-08dc692b8020
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89f89f22-d540-4e26-9c07-08dc69284e9e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Apr 2024 15:15:01.7973 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JR8ri/nnDdfSwOMHavvEKRyqTPWn1dObcIPXDkEVTS02xRv4I9o9LVK0yobYTWn1zCuUwlpk6YaTAz6lizkPgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5981
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2024 15:37:53.5358 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rpy1Hk3U7T6RxOuE0H2ln6Tnn3PQ7RYErQrHTUnRxH4hygO4EWWQxr5KBgaR1+aGZ0+NkCNTFiQ1WviTLvNcgA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8548
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,223 +156,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CH0PR12MB52848D4AD7F27780975C6C808B1A2CH0PR12MB5284namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - General]
-
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-
---
-
-Regards,
-Jay
-________________________________
-From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
-Sent: Tuesday, April 23, 2024 9:34 PM
-To: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo <Aurabi=
-ndo.Pillai@amd.com>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; SHANMUGA=
-M, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Liu, Wenjing <Wenjing.Liu@amd=
-.com>; Chung, ChiaHsuan (Tom) <ChiaHsuan.Chung@amd.com>; Lee, Alvin <Alvin.=
-Lee2@amd.com>; Li, Roman <Roman.Li@amd.com>; Wu, Hersen <hersenxs.wu@amd.co=
-m>; Hung, Alex <Alex.Hung@amd.com>; Wentland, Harry <Harry.Wentland@amd.com=
->; Dan Carpenter <dan.carpenter@linaro.org>
-Subject: [PATCH v2] drm/amd/display: Remove redundant NULL check in dcn10_s=
-et_input_transfer_func
-
-This commit removes an unnecessary NULL check in the
-`dcn10_set_input_transfer_func` function in the `dcn10_hwseq.c` file.
-The variable `tf` is assigned the address of
-`plane_state->in_transfer_func` unconditionally, so it can never be
-`NULL`. Therefore, the check `if (tf =3D=3D NULL)` is unnecessary and has
-been removed.
-
-Fixes the below smatch warning:
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn10/dcn10_hwseq.c:1839 dcn1=
-0_set_input_transfer_func() warn: address of 'plane_state->in_transfer_func=
-' is non-NULL
-
-Fixes: 285a7054bf81 ("drm/amd/display: Remove plane and stream pointers fro=
-m dc scratch")
-Cc: Wenjing Liu <wenjing.liu@amd.com>
-Cc: Tom Chung <chiahsuan.chung@amd.com>
-Cc: Alvin Lee <alvin.lee2@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Roman Li <roman.li@amd.com>
-Cc: Hersen Wu <hersenxs.wu@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Suggested-by: Dan Carpenter <dan.carpenter@linaro.org>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
-v2:
-  - s/dcn20/dcn10 in commit title
-
- drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/driv=
-ers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-index 32a07ab74c51..f258914a4838 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-@@ -1837,9 +1837,7 @@ bool dcn10_set_input_transfer_func(struct dc *dc, str=
-uct pipe_ctx *pipe_ctx,
-                         && dce_use_lut(plane_state->format))
-                 dpp_base->funcs->dpp_program_input_lut(dpp_base, &plane_st=
-ate->gamma_correction);
-
--       if (tf =3D=3D NULL)
--               dpp_base->funcs->dpp_set_degamma(dpp_base, IPP_DEGAMMA_MODE=
-_BYPASS);
--       else if (tf->type =3D=3D TF_TYPE_PREDEFINED) {
-+       if (tf->type =3D=3D TF_TYPE_PREDEFINED) {
-                 switch (tf->tf) {
-                 case TRANSFER_FUNCTION_SRGB:
-                         dpp_base->funcs->dpp_set_degamma(dpp_base, IPP_DEG=
-AMMA_MODE_HW_sRGB);
---
-2.34.1
 
 
---_000_CH0PR12MB52848D4AD7F27780975C6C808B1A2CH0PR12MB5284namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 2024-04-30 11:12, Mario Limonciello wrote:
+> Panel replay was enabled by default in commit 5950efe25ee0
+> ("drm/amd/display: Enable Panel Replay for static screen use case"), but
+> it isn't working properly at least on some BOE and AUO panels.  Instead
+> of being static the screen is solid black when active.  As it's a new
+> feature that was just introduced that regressed VRR disable it for now
+> so that problem can be properly root caused.
+> 
+> Cc: Tom Chung <chiahsuan.chung@amd.com>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3344
+> Fixes: 5950efe25ee0 ("drm/amd/display: Enable Panel Replay for static screen use case")
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Reviewed-by: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"Signature" style=3D"color: inherit; background-color: inherit;">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
---</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Jay<br>
-</div>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> SHANMUGAM, SRINIVASAN=
- &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, April 23, 2024 9:34 PM<br>
-<b>To:</b> Siqueira, Rodrigo &lt;Rodrigo.Siqueira@amd.com&gt;; Pillai, Aura=
-bindo &lt;Aurabindo.Pillai@amd.com&gt;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; SHANMUGAM, SRINIVASAN &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;; Liu, Wenji=
-ng &lt;Wenjing.Liu@amd.com&gt;; Chung, ChiaHsuan (Tom) &lt;ChiaHsuan.Chung@=
-amd.com&gt;; Lee, Alvin &lt;Alvin.Lee2@amd.com&gt;; Li, Roman
- &lt;Roman.Li@amd.com&gt;; Wu, Hersen &lt;hersenxs.wu@amd.com&gt;; Hung, Al=
-ex &lt;Alex.Hung@amd.com&gt;; Wentland, Harry &lt;Harry.Wentland@amd.com&gt=
-;; Dan Carpenter &lt;dan.carpenter@linaro.org&gt;<br>
-<b>Subject:</b> [PATCH v2] drm/amd/display: Remove redundant NULL check in =
-dcn10_set_input_transfer_func</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This commit removes an unnecessary NULL check in t=
-he<br>
-`dcn10_set_input_transfer_func` function in the `dcn10_hwseq.c` file.<br>
-The variable `tf` is assigned the address of<br>
-`plane_state-&gt;in_transfer_func` unconditionally, so it can never be<br>
-`NULL`. Therefore, the check `if (tf =3D=3D NULL)` is unnecessary and has<b=
-r>
-been removed.<br>
-<br>
-Fixes the below smatch warning:<br>
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn10/dcn10_hwseq.c:1839 dcn1=
-0_set_input_transfer_func() warn: address of 'plane_state-&gt;in_transfer_f=
-unc' is non-NULL<br>
-<br>
-Fixes: 285a7054bf81 (&quot;drm/amd/display: Remove plane and stream pointer=
-s from dc scratch&quot;)<br>
-Cc: Wenjing Liu &lt;wenjing.liu@amd.com&gt;<br>
-Cc: Tom Chung &lt;chiahsuan.chung@amd.com&gt;<br>
-Cc: Alvin Lee &lt;alvin.lee2@amd.com&gt;<br>
-Cc: Rodrigo Siqueira &lt;Rodrigo.Siqueira@amd.com&gt;<br>
-Cc: Roman Li &lt;roman.li@amd.com&gt;<br>
-Cc: Hersen Wu &lt;hersenxs.wu@amd.com&gt;<br>
-Cc: Alex Hung &lt;alex.hung@amd.com&gt;<br>
-Cc: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;<br>
-Cc: Harry Wentland &lt;harry.wentland@amd.com&gt;<br>
-Suggested-by: Dan Carpenter &lt;dan.carpenter@linaro.org&gt;<br>
-Signed-off-by: Srinivasan Shanmugam &lt;srinivasan.shanmugam@amd.com&gt;<br=
->
----<br>
-v2:<br>
-&nbsp; - s/dcn20/dcn10 in commit title<br>
-<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c | 4 +---<br>
-&nbsp;1 file changed, 1 insertion(+), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/driv=
-ers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c<br>
-index 32a07ab74c51..f258914a4838 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c<br>
-@@ -1837,9 +1837,7 @@ bool dcn10_set_input_transfer_func(struct dc *dc, str=
-uct pipe_ctx *pipe_ctx,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;=
-&amp; dce_use_lut(plane_state-&gt;format))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; dpp_base-&gt;funcs-&gt;dpp_program_input_lut(dpp_base=
-, &amp;plane_state-&gt;gamma_correction);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tf =3D=3D NULL)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dpp_base-&gt;funcs-&gt;dpp_set_degamma(dpp_base, IPP_DEGAMMA_MOD=
-E_BYPASS);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (tf-&gt;type =3D=3D TF_TYPE_P=
-REDEFINED) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tf-&gt;type =3D=3D TF_TYPE_PREDEF=
-INED) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; switch (tf-&gt;tf) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; case TRANSFER_FUNCTION_SRGB:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpp_b=
-ase-&gt;funcs-&gt;dpp_set_degamma(dpp_base, IPP_DEGAMMA_MODE_HW_sRGB);<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+Acked-by: Harry Wentland <harry.wentland@amd.com>
 
---_000_CH0PR12MB52848D4AD7F27780975C6C808B1A2CH0PR12MB5284namp_--
+Harry
+
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 21 +++++++++++--------
+>  1 file changed, 12 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 8245cc63712f..b5e5cbbe5e49 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4581,15 +4581,18 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+>  	/* Determine whether to enable Replay support by default. */
+>  	if (!(amdgpu_dc_debug_mask & DC_DISABLE_REPLAY)) {
+>  		switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+> -		case IP_VERSION(3, 1, 4):
+> -		case IP_VERSION(3, 1, 5):
+> -		case IP_VERSION(3, 1, 6):
+> -		case IP_VERSION(3, 2, 0):
+> -		case IP_VERSION(3, 2, 1):
+> -		case IP_VERSION(3, 5, 0):
+> -		case IP_VERSION(3, 5, 1):
+> -			replay_feature_enabled = true;
+> -			break;
+> +/*
+> + * Disabled by default due to https://gitlab.freedesktop.org/drm/amd/-/issues/3344
+> + *		case IP_VERSION(3, 1, 4):
+> + *		case IP_VERSION(3, 1, 5):
+> + *		case IP_VERSION(3, 1, 6):
+> + *		case IP_VERSION(3, 2, 0):
+> + *		case IP_VERSION(3, 2, 1):
+> + *		case IP_VERSION(3, 5, 0):
+> + *		case IP_VERSION(3, 5, 1):
+> + *			replay_feature_enabled = true;
+> + *			break;
+> + */
+>  		default:
+>  			replay_feature_enabled = amdgpu_dc_feature_mask & DC_REPLAY_MASK;
+>  			break;
+
