@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 109AEC4345F
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 17:27:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C33E4C4345F
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Apr 2024 17:28:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F583112D66;
-	Tue, 30 Apr 2024 17:27:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BDD5112D6A;
+	Tue, 30 Apr 2024 17:28:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Ustg2iBE";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FjDRTY9D";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A35D5112D66
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Apr 2024 17:27:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2593E112D66
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Apr 2024 17:27:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,24 +22,23 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=PABhWfAXx1TLyoTKhGoE1IMqnSV0LiP9mbNMP0eO5I0=; b=Ustg2iBECBU0PkDNIOPfb6Tbai
- qKYHXSPYeWibvw3DSuux6OdfO61pmOAtO3NHD8eUFTmBIPzfo/LXm9DVMVMZNqRmU94Gwvlxi0nmI
- mflArA20922Rq0/yfEZrbe627lL/EI2m2Dy03XcXN8bB/i3X1sfRtmmBoI1/WMaMg9kg7lppYCo9Y
- x+X7ialkNiuaIlWbLx1jdpz9FcpeVfh3vPA5w54O0QI70w7K6u9hgko+t8mdM9UPubmXcz99QZRRb
- psaqvB8MawLzOBRKIvLfYZyQb6SLup/Majtj+VwmjhoK5G07Cn+u/0lbenxlI5WR5hzgw2Wt4NgQd
- B8Xpw6jg==;
+ bh=3szkw2+TvKz7XKqcfu2oQlmT25TkQIY3wYaIa+C7n0M=; b=FjDRTY9DXToYoJuD8KL8mmMkem
+ B4l962HnMjrysgHV6/05o/gYd0tu0S10kKem1GKD8v3ObiqeFtcbANkSuvHZvtLyP+eZnUynIGhdf
+ qYox7nvUu9jpjnPdA+R4aRXI8rr95JHlGLk4Pb9WCAtB62ww6mKjUPeNAcUs1kTglrdUBQKzO5lNI
+ b4783Ai9RCulco3mSy3JHPzROGLoVcp27RElyauWXlZwf5eIk8liBJnFdY5CJi6jtDjXJSra703Y+
+ TlYeYwf8MhIckiQkw72gPzllZ1zgD1GNaMGogM26Zto+wypMEri/lThOBZW6dg7j6tbS6vZWA3LMI
+ 4ER3Hjsw==;
 Received: from [84.65.0.132] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1s1rGk-001sRW-42; Tue, 30 Apr 2024 19:27:53 +0200
+ id 1s1rGl-001sRf-L4; Tue, 30 Apr 2024 19:27:55 +0200
 From: Tvrtko Ursulin <tursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
 	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC 2/5] drm/amdgpu: Use cached number of rings from the
- AMDGPU_INFO_HW_IP_INFO ioctl
-Date: Tue, 30 Apr 2024 18:27:45 +0100
-Message-ID: <20240430172748.61576-3-tursulin@igalia.com>
+Subject: [RFC 4/5] drm/amdgpu: Show engine capacity in fdinfo
+Date: Tue, 30 Apr 2024 18:27:47 +0100
+Message-ID: <20240430172748.61576-5-tursulin@igalia.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240430172748.61576-1-tursulin@igalia.com>
 References: <20240430172748.61576-1-tursulin@igalia.com>
@@ -61,151 +60,45 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Now that we keep a cached value it is no longer required to walk the
-arrays and check the fuses.
+In cases where there is more than one user visible engine of the same type
+DRM fdinfo spec allows the capacity tag to be emitted.
 
-Open however is whether at runtime this query is supposed to report if a
-ring has disappeared due for example amdgpu_ib_ring_tests() turning it
-off.
+Start doing that so that gputop can adapt and show, for example, 50% if
+only one of the two engine instances is fully loaded, while the other is
+idle.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 62 +++----------------------
- 1 file changed, 6 insertions(+), 56 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index a0ea6fe8d060..b6f411c0801a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -376,114 +376,64 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 	uint32_t ib_start_alignment = 0;
- 	uint32_t ib_size_alignment = 0;
- 	enum amd_ip_block_type type;
--	unsigned int num_rings = 0;
--	unsigned int i, j;
-+	unsigned int num_rings;
-+	unsigned int i;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+index c7df7fa3459f..a09944104c41 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+@@ -57,6 +57,7 @@ static const char *amdgpu_ip_name[AMDGPU_HW_IP_NUM] = {
+ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+ {
+ 	struct amdgpu_fpriv *fpriv = file->driver_priv;
++	struct amdgpu_device *adev = fpriv->ctx_mgr.adev;
+ 	struct amdgpu_vm *vm = &fpriv->vm;
  
- 	if (info->query_hw_ip.ip_instance >= AMDGPU_HW_IP_INSTANCE_MAX_COUNT)
- 		return -EINVAL;
+ 	struct amdgpu_mem_stats stats;
+@@ -105,7 +106,12 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+ 		if (!usage[hw_ip])
+ 			continue;
  
-+	if (info->query_hw_ip.type >= ARRAY_SIZE(adev->num_ip_rings))
-+		return -EINVAL;
+-		drm_printf(p, "drm-engine-%s:\t%lld ns\n", amdgpu_ip_name[hw_ip],
+-			   ktime_to_ns(usage[hw_ip]));
++		drm_printf(p, "drm-engine-%s:\t%lld ns\n",
++			   amdgpu_ip_name[hw_ip], ktime_to_ns(usage[hw_ip]));
 +
- 	switch (info->query_hw_ip.type) {
- 	case AMDGPU_HW_IP_GFX:
- 		type = AMD_IP_BLOCK_TYPE_GFX;
--		for (i = 0; i < adev->gfx.num_gfx_rings; i++)
--			if (adev->gfx.gfx_ring[i].sched.ready)
--				++num_rings;
- 		ib_start_alignment = 32;
- 		ib_size_alignment = 32;
- 		break;
- 	case AMDGPU_HW_IP_COMPUTE:
- 		type = AMD_IP_BLOCK_TYPE_GFX;
--		for (i = 0; i < adev->gfx.num_compute_rings; i++)
--			if (adev->gfx.compute_ring[i].sched.ready)
--				++num_rings;
- 		ib_start_alignment = 32;
- 		ib_size_alignment = 32;
- 		break;
- 	case AMDGPU_HW_IP_DMA:
- 		type = AMD_IP_BLOCK_TYPE_SDMA;
--		for (i = 0; i < adev->sdma.num_instances; i++)
--			if (adev->sdma.instance[i].ring.sched.ready)
--				++num_rings;
- 		ib_start_alignment = 256;
- 		ib_size_alignment = 4;
- 		break;
- 	case AMDGPU_HW_IP_UVD:
- 		type = AMD_IP_BLOCK_TYPE_UVD;
--		for (i = 0; i < adev->uvd.num_uvd_inst; i++) {
--			if (adev->uvd.harvest_config & (1 << i))
--				continue;
--
--			if (adev->uvd.inst[i].ring.sched.ready)
--				++num_rings;
--		}
- 		ib_start_alignment = 256;
- 		ib_size_alignment = 64;
- 		break;
- 	case AMDGPU_HW_IP_VCE:
- 		type = AMD_IP_BLOCK_TYPE_VCE;
--		for (i = 0; i < adev->vce.num_rings; i++)
--			if (adev->vce.ring[i].sched.ready)
--				++num_rings;
- 		ib_start_alignment = 256;
- 		ib_size_alignment = 4;
- 		break;
- 	case AMDGPU_HW_IP_UVD_ENC:
- 		type = AMD_IP_BLOCK_TYPE_UVD;
--		for (i = 0; i < adev->uvd.num_uvd_inst; i++) {
--			if (adev->uvd.harvest_config & (1 << i))
--				continue;
--
--			for (j = 0; j < adev->uvd.num_enc_rings; j++)
--				if (adev->uvd.inst[i].ring_enc[j].sched.ready)
--					++num_rings;
--		}
- 		ib_start_alignment = 256;
- 		ib_size_alignment = 4;
- 		break;
- 	case AMDGPU_HW_IP_VCN_DEC:
- 		type = AMD_IP_BLOCK_TYPE_VCN;
--		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
--			if (adev->vcn.harvest_config & (1 << i))
--				continue;
--
--			if (adev->vcn.inst[i].ring_dec.sched.ready)
--				++num_rings;
--		}
- 		ib_start_alignment = 256;
- 		ib_size_alignment = 64;
- 		break;
- 	case AMDGPU_HW_IP_VCN_ENC:
- 		type = AMD_IP_BLOCK_TYPE_VCN;
--		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
--			if (adev->vcn.harvest_config & (1 << i))
--				continue;
--
--			for (j = 0; j < adev->vcn.num_enc_rings; j++)
--				if (adev->vcn.inst[i].ring_enc[j].sched.ready)
--					++num_rings;
--		}
- 		ib_start_alignment = 256;
- 		ib_size_alignment = 4;
- 		break;
- 	case AMDGPU_HW_IP_VCN_JPEG:
- 		type = (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_JPEG)) ?
- 			AMD_IP_BLOCK_TYPE_JPEG : AMD_IP_BLOCK_TYPE_VCN;
--
--		for (i = 0; i < adev->jpeg.num_jpeg_inst; i++) {
--			if (adev->jpeg.harvest_config & (1 << i))
--				continue;
--
--			for (j = 0; j < adev->jpeg.num_jpeg_rings; j++)
--				if (adev->jpeg.inst[i].ring_dec[j].sched.ready)
--					++num_rings;
--		}
- 		ib_start_alignment = 256;
- 		ib_size_alignment = 64;
- 		break;
- 	case AMDGPU_HW_IP_VPE:
- 		type = AMD_IP_BLOCK_TYPE_VPE;
--		if (adev->vpe.ring.sched.ready)
--			++num_rings;
- 		ib_start_alignment = 256;
- 		ib_size_alignment = 4;
- 		break;
-@@ -500,7 +450,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 		return 0;
- 
- 	num_rings = min(amdgpu_ctx_num_entities[info->query_hw_ip.type],
--			num_rings);
-+			adev->num_ip_rings[info->query_hw_ip.type]);
- 
- 	result->hw_ip_version_major = adev->ip_blocks[i].version->major;
- 	result->hw_ip_version_minor = adev->ip_blocks[i].version->minor;
++		if (adev->num_ip_rings[hw_ip] > 1)
++			drm_printf(p, "drm-engine-capacity-%s:\t%u\n",
++				   amdgpu_ip_name[hw_ip],
++				   adev->num_ip_rings[hw_ip]);
+ 	}
+ }
 -- 
 2.44.0
 
