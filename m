@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 252F0C19F53
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B97F2C4345F
 	for <amd-gfx@archiver.kernel.org>; Wed,  1 May 2024 08:03:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEB84112266;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B940D112264;
 	Wed,  1 May 2024 08:03:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="cYVo4Oqs";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="DNkzmr1C";
 	dkim-atps=neutral
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 42BFD112DAD;
- Tue, 30 Apr 2024 17:39:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id EC905112DA5;
+ Tue, 30 Apr 2024 17:39:50 +0000 (UTC)
 Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.174.176])
- by linux.microsoft.com (Postfix) with ESMTPSA id 00A55210FBDE;
- Tue, 30 Apr 2024 10:39:40 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 00A55210FBDE
+ by linux.microsoft.com (Postfix) with ESMTPSA id 9EB0421112E0;
+ Tue, 30 Apr 2024 10:39:50 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9EB0421112E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1714498781;
- bh=vlIex9KM14eooueS8z9AwXzxiXKC5zIDGKsFdV61O8s=;
+ s=default; t=1714498790;
+ bh=/C508Sgc5oG8dRgGNlpHGKxQcys75NzfRyiOW8pPq1o=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cYVo4Oqszg6QYdpeIBZOe/D1MCd73sVS9/RN+qi4sCblw+UeqXfxBWdMaOHue5yqv
- 0NkfKKN6FOqQi2KV9ShwkB2U9EglhiBhaqQW9po2uBMBt8sa/a+5Qo7H3l6DU8D2Oh
- whQPXVyRYiM1oOARBjNndmP7SyUsw8jCpgsAxnDE=
+ b=DNkzmr1C/EnkLCcDNNYihg2fh0da5zLqJAsLHzYtB0smxEDrfjowi+AoYOWwUst2z
+ SZxNGBflu1zmRaW4GbdGdCz2HjtQe5jiDjunU2jjb1ghTmSGAs3McJTyqrganfYWti
+ BI5R6Y7dS67uecXImkyhykdw3AqSOg8sRr98RejQ=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Easwar Hariharan <eahariha@linux.microsoft.com>,
@@ -43,9 +43,9 @@ Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
  GPUS), linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
  linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
  linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER)
-Subject: [PATCH v1 04/12] media: au0828: Make I2C terminology more inclusive
-Date: Tue, 30 Apr 2024 17:38:03 +0000
-Message-Id: <20240430173812.1423757-5-eahariha@linux.microsoft.com>
+Subject: [PATCH v1 09/12] media: cx23885: Make I2C terminology more inclusive
+Date: Tue, 30 Apr 2024 17:38:08 +0000
+Message-Id: <20240430173812.1423757-10-eahariha@linux.microsoft.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240430173812.1423757-1-eahariha@linux.microsoft.com>
 References: <20240430173812.1423757-1-eahariha@linux.microsoft.com>
@@ -78,45 +78,68 @@ Compile tested, no functionality changes intended
 
 Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 ---
- drivers/media/usb/au0828/au0828-i2c.c   | 4 ++--
- drivers/media/usb/au0828/au0828-input.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/media/pci/cx23885/cx23885-f300.c | 8 ++++----
+ drivers/media/pci/cx23885/cx23885-i2c.c  | 6 +++---
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/media/usb/au0828/au0828-i2c.c b/drivers/media/usb/au0828/au0828-i2c.c
-index 749f90d73b5b..3e66d42bf134 100644
---- a/drivers/media/usb/au0828/au0828-i2c.c
-+++ b/drivers/media/usb/au0828/au0828-i2c.c
-@@ -23,7 +23,7 @@ MODULE_PARM_DESC(i2c_scan, "scan i2c bus at insmod time");
- #define I2C_WAIT_DELAY 25
- #define I2C_WAIT_RETRY 1000
+diff --git a/drivers/media/pci/cx23885/cx23885-f300.c b/drivers/media/pci/cx23885/cx23885-f300.c
+index ac1c434e8e24..5f937c281793 100644
+--- a/drivers/media/pci/cx23885/cx23885-f300.c
++++ b/drivers/media/pci/cx23885/cx23885-f300.c
+@@ -92,7 +92,7 @@ static u8 f300_xfer(struct dvb_frontend *fe, u8 *buf)
+ 	f300_set_line(dev, F300_RESET, 0);/* begin to send data */
+ 	msleep(1);
  
--static inline int i2c_slave_did_read_ack(struct i2c_adapter *i2c_adap)
-+static inline int i2c_client_did_read_ack(struct i2c_adapter *i2c_adap)
- {
- 	struct au0828_dev *dev = i2c_adap->algo_data;
- 	return au0828_read(dev, AU0828_I2C_STATUS_201) &
-@@ -35,7 +35,7 @@ static int i2c_wait_read_ack(struct i2c_adapter *i2c_adap)
- 	int count;
+-	f300_send_byte(dev, 0xe0);/* the slave address is 0xe0, write */
++	f300_send_byte(dev, 0xe0);/* the client address is 0xe0, write */
+ 	msleep(1);
  
- 	for (count = 0; count < I2C_WAIT_RETRY; count++) {
--		if (!i2c_slave_did_read_ack(i2c_adap))
-+		if (!i2c_client_did_read_ack(i2c_adap))
- 			break;
- 		udelay(I2C_WAIT_DELAY);
+ 	temp = buf[0];
+@@ -112,10 +112,10 @@ static u8 f300_xfer(struct dvb_frontend *fe, u8 *buf)
  	}
-diff --git a/drivers/media/usb/au0828/au0828-input.c b/drivers/media/usb/au0828/au0828-input.c
-index 3d3368202cd0..98a57b6e02e2 100644
---- a/drivers/media/usb/au0828/au0828-input.c
-+++ b/drivers/media/usb/au0828/au0828-input.c
-@@ -30,7 +30,7 @@ struct au0828_rc {
- 	int polling;
- 	struct delayed_work work;
  
--	/* i2c slave address of external device (if used) */
-+	/* i2c client address of external device (if used) */
- 	u16 i2c_dev_addr;
+ 	if (i > 7) {
+-		pr_err("%s: timeout, the slave no response\n",
++		pr_err("%s: timeout, the client no response\n",
+ 								__func__);
+-		ret = 1; /* timeout, the slave no response */
+-	} else { /* the slave not busy, prepare for getting data */
++		ret = 1; /* timeout, the client no response */
++	} else { /* the client not busy, prepare for getting data */
+ 		f300_set_line(dev, F300_RESET, 0);/*ready...*/
+ 		msleep(1);
+ 		f300_send_byte(dev, 0xe1);/* 0xe1 is Read */
+diff --git a/drivers/media/pci/cx23885/cx23885-i2c.c b/drivers/media/pci/cx23885/cx23885-i2c.c
+index f51fad33dc04..385af2a893b4 100644
+--- a/drivers/media/pci/cx23885/cx23885-i2c.c
++++ b/drivers/media/pci/cx23885/cx23885-i2c.c
+@@ -34,7 +34,7 @@ MODULE_PARM_DESC(i2c_scan, "scan i2c bus at insmod time");
+ #define I2C_EXTEND  (1 << 3)
+ #define I2C_NOSTOP  (1 << 4)
  
- 	int  (*get_key_i2c)(struct au0828_rc *ir);
+-static inline int i2c_slave_did_ack(struct i2c_adapter *i2c_adap)
++static inline int i2c_client_did_ack(struct i2c_adapter *i2c_adap)
+ {
+ 	struct cx23885_i2c *bus = i2c_adap->algo_data;
+ 	struct cx23885_dev *dev = bus->dev;
+@@ -84,7 +84,7 @@ static int i2c_sendbytes(struct i2c_adapter *i2c_adap,
+ 		cx_write(bus->reg_ctrl, bus->i2c_period | (1 << 2));
+ 		if (!i2c_wait_done(i2c_adap))
+ 			return -EIO;
+-		if (!i2c_slave_did_ack(i2c_adap))
++		if (!i2c_client_did_ack(i2c_adap))
+ 			return -ENXIO;
+ 
+ 		dprintk(1, "%s() returns 0\n", __func__);
+@@ -163,7 +163,7 @@ static int i2c_readbytes(struct i2c_adapter *i2c_adap,
+ 		cx_write(bus->reg_ctrl, bus->i2c_period | (1 << 2) | 1);
+ 		if (!i2c_wait_done(i2c_adap))
+ 			return -EIO;
+-		if (!i2c_slave_did_ack(i2c_adap))
++		if (!i2c_client_did_ack(i2c_adap))
+ 			return -ENXIO;
+ 
+ 
 -- 
 2.34.1
 
