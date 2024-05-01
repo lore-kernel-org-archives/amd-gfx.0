@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CCA1C4345F
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 May 2024 21:29:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67D2AC4345F
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 May 2024 21:30:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C53F3112454;
-	Wed,  1 May 2024 21:29:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE215112465;
+	Wed,  1 May 2024 21:30:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="evtHK73B";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BhmctVGx";
 	dkim-atps=neutral
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 150C8112454
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 May 2024 21:29:17 +0000 (UTC)
-Received: by mail-pg1-f176.google.com with SMTP id
- 41be03b00d2f7-5d8b519e438so5684734a12.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 May 2024 14:29:17 -0700 (PDT)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84EE6112465
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 May 2024 21:30:12 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-2b27eec1eb1so1649380a91.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 01 May 2024 14:30:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714598956; x=1715203756; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1714599012; x=1715203812; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=hOSSAmDmuyiUvzowGnInko9X0otIMbZGX1lAUCaM+Ck=;
- b=evtHK73BLJq/SLDa7SVqppGurKSAogNJ8uYH24fjxuQHtYS0zulehItr8IVywspB0+
- XfOZNuxz6K7+hhNWstxoVgCh1D67SBKDjkQ/8MipPxyqkqpv2cDcoKvlpyQugkn0A4cW
- 1N2mWFd1DbuPgjMjBUTNYQqAmQZiNoS8whuoO57bl6YebaoFeB79Zs2/71/lequBYnrU
- BHYSYAzAvg+ZapyaEDnHB1thnLsDDZr75ZBFy49Uotshkj+8h25ecUdreiZ0cPao6AsZ
- g/EYtRcBaLX1BF9+tb5xHfoT8XDGjwix4hzAKbtNSbSKGORB0F2NY6e1EEzi97miePgh
- j1+g==
+ bh=J1jZuWnl+7B+TMQg1ghRC9epZHbpAzTT5vQlu1ju8RU=;
+ b=BhmctVGxyk3IaaGauD08hE4qwD036rXbijm1+DKR2ChzU82qUl1LpbDPf0yRtzmtEd
+ 3BwXyrtZTb0d0oXL4wH68vFKQssmhUpfKSD5J5HVoB3vG8xgAeuJRnbuqo5soU4D7KHU
+ GVixqkJGhf/BUEqtRhHUd1AZrDopsOFFPy7Umu5nEQS4CHjurXqk7xogTkcM1LbrFtRA
+ rsVxhXV/WxT0KZ+M2ZlxKwVfozkwSlfc3vrm1Qp8J7WC7D/ox1ZT2OLJ9DDU1AleRzQO
+ T/CVQI1nL1ss9Oz4bNXVb7jEPOP1osoostZgH2AVlWeHxRh4EmBqwFc9RTlrQ3Zbke4C
+ /e/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714598956; x=1715203756;
+ d=1e100.net; s=20230601; t=1714599012; x=1715203812;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=hOSSAmDmuyiUvzowGnInko9X0otIMbZGX1lAUCaM+Ck=;
- b=cHAabs7hj85qkY/GrcHfJyNwS4+CLE3qOMLzASZIQuITMwz+8VmhpovfOd3ZgOXkcN
- 65EJ7TifJx2+gD/TTQms7jMNqhzMLPGyMfUYeLxuZGR4+2eDZk09wSu4zRMmp1Do3c6W
- K8vYCvhqySyEErrfwQW8alT0xLTp7INDyyTDFaaC1T6kxg9/K5Nh9GiOx1ZK9ErNajvx
- ZpfG7hBa/HCPdi/iiPwwevEkr6WJ3P9Wx9tjmB1HoJJG1TlJMZQX75GSDY0o//eJLlRx
- 6f3RkEtK9PYKN9l8AiTw/azEdAVDsDMq8A7byq3Rh4vN7+S8iEA4R9+wYE6BnJmIO4D2
- M2mQ==
-X-Gm-Message-State: AOJu0YyqJpyFmwZ3ktUJjUfCvhUQmoCLKBY37xxvVN5aYF6wdhiBnxPu
- Hzra7Uxmp97yF+VB7clMP+y4f5m4KKExXs3vuvmbEbS7CxqPvdT9HOwjVxTIj+5CIz5YQFJkxQC
- vM9nXZl+E1OyJYRX1fTn4Pvo8oiwm4Q==
-X-Google-Smtp-Source: AGHT+IGEcLwSN0JDkTNhklyfZ0mBDFH0frZgljx9ivFS/OVnylbkkISbvIEQ6bm2fHAIBscYj99sNrwRryrSbRlZoNg=
-X-Received: by 2002:a17:90a:fc85:b0:2b2:81c0:268d with SMTP id
- ci5-20020a17090afc8500b002b281c0268dmr3225172pjb.43.1714598956456; Wed, 01
- May 2024 14:29:16 -0700 (PDT)
+ bh=J1jZuWnl+7B+TMQg1ghRC9epZHbpAzTT5vQlu1ju8RU=;
+ b=ZvdbUB8LqAx8+rrduYrkDJeab+aJT349cGuPUAiDPNRZPhly4o6I5EDT7pADhsQaYl
+ y9JXbWzr8bmz14BrJobmtnRyd3SzLOGZPAtlHlqB8xLm6KNEJjXe14o5yrOULH33iy5r
+ lPTWd0Lu7j+pbwrJ/nmQElHe7pGcDECrWqMuZPLo7g6bUzoD88Yw2NpFJBFEjn0kdI6u
+ oXytBH25iAvCAgi6DhlF1NNJ7QiZkDPa9GxzGiAu04hEqTtNBMMmnEtmQKXxpigSyR6P
+ fMuzeWtfZ3YY7Em8kMYZ8nuhff8KbmCcIFRD3T41vfzO482FHKK8CJigr8o6WL2T5FCV
+ gzvA==
+X-Gm-Message-State: AOJu0Yy3T/QP0F20ulderS+4iFVwCgQN/WifLncvd3+sbmya1uyeapCq
+ 70bieBOQxwRkyzWiLQ5oiWrArs6J16Sl+bbcdF0jMGSxO7T7ZxtAuxEEq6uyuowDetn19gReWeI
+ f3w5H+F0xb60AGD3iVWbN5A9KnuQ=
+X-Google-Smtp-Source: AGHT+IF8qtUi9iElVLK2uuedfKY+1MBtTZ0k5MZ2DYXHilIOdE4QD174tCfg6dzZI5Rt91Vx9oq0lZbum0Nxgokx0xQ=
+X-Received: by 2002:a17:90b:2282:b0:2ae:6277:16a with SMTP id
+ kx2-20020a17090b228200b002ae6277016amr3706818pjb.36.1714599011828; Wed, 01
+ May 2024 14:30:11 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240426134810.1250-1-shashank.sharma@amd.com>
- <20240426134810.1250-3-shashank.sharma@amd.com>
-In-Reply-To: <20240426134810.1250-3-shashank.sharma@amd.com>
+ <20240426134810.1250-5-shashank.sharma@amd.com>
+In-Reply-To: <20240426134810.1250-5-shashank.sharma@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 1 May 2024 17:29:04 -0400
-Message-ID: <CADnq5_O+tN6ovOpyHq4kZS56_8JHyFvm=2=rrW_sv1s4CHMUhg@mail.gmail.com>
-Subject: Re: [PATCH v9 02/14] drm/amdgpu: add usermode queue base code
+Date: Wed, 1 May 2024 17:30:00 -0400
+Message-ID: <CADnq5_M5d5-NdSRaQO4L+oQLQd-iFWOqJkk6ibg5MqT0=f+6Lw@mail.gmail.com>
+Subject: Re: [PATCH v9 04/14] drm/amdgpu: add helpers to create userqueue
+ object
 To: Shashank Sharma <shashank.sharma@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Arvind Yadav <arvind.yadav@amd.com>, 
  Alex Deucher <alexander.deucher@amd.com>,
@@ -78,282 +79,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 26, 2024 at 9:57=E2=80=AFAM Shashank Sharma <shashank.sharma@am=
-d.com> wrote:
+On Fri, Apr 26, 2024 at 10:07=E2=80=AFAM Shashank Sharma
+<shashank.sharma@amd.com> wrote:
 >
-> This patch adds skeleton code for amdgpu usermode queue.
-> It contains:
-> - A new files with init functions of usermode queues.
-> - A queue context manager in driver private data.
+> This patch introduces amdgpu_userqueue_object and its helper
+> functions to creates and destroy this object. The helper
+> functions creates/destroys a base amdgpu_bo, kmap/unmap it and
+> save the respective GPU and CPU addresses in the encapsulating
+> userqueue object.
 >
-> V1: Worked on design review comments from RFC patch series:
-> (https://patchwork.freedesktop.org/series/112214/)
-> - Alex: Keep a list of queues, instead of single queue per process.
-> - Christian: Use the queue manager instead of global ptrs,
->            Don't keep the queue structure in amdgpu_ctx
+> These helpers will be used to create/destroy userqueue MQD, WPTR
+> and FW areas.
 >
-> V2:
->  - Reformatted code, split the big patch into two
+> V7:
+> - Forked out this new patch from V11-gfx-userqueue patch to prevent
+>   that patch from growing very big.
+> - Using amdgpu_bo_create instead of amdgpu_bo_create_kernel in prep
+>   for eviction fences (Christian)
 >
-> V3:
-> - Integration with doorbell manager
->
-> V4:
-> - Align the structure member names to the largest member's column
->   (Luben)
-> - Added SPDX license (Luben)
->
-> V5:
-> - Do not add amdgpu.h in amdgpu_userqueue.h (Christian).
-> - Move struct amdgpu_userq_mgr into amdgpu_userqueue.h (Christian).
->
-> V6: Rebase
-> V9: Rebase
+> V9:
+>  - Rebase
 >
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Christian Koenig <christian.koenig@amd.com>
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 > Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/Makefile           |  2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  3 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  6 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 40 ++++++++++++
->  .../gpu/drm/amd/include/amdgpu_userqueue.h    | 61 +++++++++++++++++++
->  6 files changed, 113 insertions(+)
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
->  create mode 100644 drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 62 +++++++++++++++++++
+>  .../gpu/drm/amd/include/amdgpu_userqueue.h    | 13 ++++
+>  2 files changed, 75 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/am=
-dgpu/Makefile
-> index 4536c8ad0e11..05a2d1714070 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -260,6 +260,8 @@ amdgpu-y +=3D \
->  # add amdkfd interfaces
->  amdgpu-y +=3D amdgpu_amdkfd.o
->
-> +# add usermode queue
-> +amdgpu-y +=3D amdgpu_userqueue.o
->
->  ifneq ($(CONFIG_HSA_AMD),)
->  AMDKFD_PATH :=3D ../amdkfd
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index b3b84647207e..4ca14b02668b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -112,6 +112,7 @@
->  #include "amdgpu_xcp.h"
->  #include "amdgpu_seq64.h"
->  #include "amdgpu_reg_state.h"
-> +#include "amdgpu_userqueue.h"
->
->  #define MAX_GPU_INSTANCE               64
->
-> @@ -477,6 +478,7 @@ struct amdgpu_fpriv {
->         struct mutex            bo_list_lock;
->         struct idr              bo_list_handles;
->         struct amdgpu_ctx_mgr   ctx_mgr;
-> +       struct amdgpu_userq_mgr userq_mgr;
->         /** GPU partition selection */
->         uint32_t                xcp_id;
->  };
-> @@ -1039,6 +1041,7 @@ struct amdgpu_device {
->         bool                            enable_mes_kiq;
->         struct amdgpu_mes               mes;
->         struct amdgpu_mqd               mqds[AMDGPU_HW_IP_NUM];
-> +       const struct amdgpu_userq_funcs *userq_funcs[AMDGPU_HW_IP_NUM];
->
->         /* df */
->         struct amdgpu_df                df;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index e4277298cf1a..374970984a61 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -50,6 +50,7 @@
->  #include "amdgpu_reset.h"
->  #include "amdgpu_sched.h"
->  #include "amdgpu_xgmi.h"
-> +#include "amdgpu_userqueue.h"
->  #include "../amdxcp/amdgpu_xcp_drv.h"
->
->  /*
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_kms.c
-> index a2df3025a754..d78b06af834e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -44,6 +44,7 @@
->  #include "amdgpu_display.h"
->  #include "amdgpu_ras.h"
->  #include "amd_pcie.h"
-> +#include "amdgpu_userqueue.h"
->
->  void amdgpu_unregister_gpu_instance(struct amdgpu_device *adev)
->  {
-> @@ -1388,6 +1389,10 @@ int amdgpu_driver_open_kms(struct drm_device *dev,=
- struct drm_file *file_priv)
->
->         amdgpu_ctx_mgr_init(&fpriv->ctx_mgr, adev);
->
-> +       r =3D amdgpu_userq_mgr_init(&fpriv->userq_mgr, adev);
-> +       if (r)
-> +               DRM_WARN("Can't setup usermode queues, use legacy workloa=
-d submission only\n");
-> +
->         file_priv->driver_priv =3D fpriv;
->         goto out_suspend;
->
-> @@ -1457,6 +1462,7 @@ void amdgpu_driver_postclose_kms(struct drm_device =
-*dev,
->
->         amdgpu_ctx_mgr_fini(&fpriv->ctx_mgr);
->         amdgpu_vm_fini(adev, &fpriv->vm);
-> +       amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
->
->         if (pasid)
->                 amdgpu_pasid_free_delayed(pd->tbo.base.resv, pasid);
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/=
 drm/amd/amdgpu/amdgpu_userqueue.c
-> new file mode 100644
-> index 000000000000..effc0c7c02cf
-> --- /dev/null
+> index df97b856f891..65cab0ad97a1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> @@ -0,0 +1,40 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * Copyright 2023 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the "Softwa=
-re"),
-> + * to deal in the Software without restriction, including without limita=
-tion
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
-ALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
- OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#include "amdgpu.h"
-> +
-> +int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amd=
-gpu_device *adev)
+> @@ -32,6 +32,68 @@ amdgpu_userqueue_find(struct amdgpu_userq_mgr *uq_mgr,=
+ int qid)
+>         return idr_find(&uq_mgr->userq_idr, qid);
+>  }
+>
+> +int amdgpu_userqueue_create_object(struct amdgpu_userq_mgr *uq_mgr,
+> +                                  struct amdgpu_userq_obj *userq_obj,
+> +                                  int size)
 > +{
-> +       mutex_init(&userq_mgr->userq_mutex);
-> +       idr_init_base(&userq_mgr->userq_idr, 1);
-> +       userq_mgr->adev =3D adev;
+> +       struct amdgpu_device *adev =3D uq_mgr->adev;
+> +       struct amdgpu_bo_param bp;
+> +       int r;
 > +
+> +       memset(&bp, 0, sizeof(bp));
+> +       bp.byte_align =3D PAGE_SIZE;
+> +       bp.domain =3D AMDGPU_GEM_DOMAIN_GTT;
+> +       bp.flags =3D AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
+> +                  AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+> +       bp.type =3D ttm_bo_type_kernel;
+> +       bp.size =3D size;
+> +       bp.resv =3D NULL;
+> +       bp.bo_ptr_size =3D sizeof(struct amdgpu_bo);
+> +
+> +       r =3D amdgpu_bo_create(adev, &bp, &userq_obj->obj);
+> +       if (r) {
+> +               DRM_ERROR("Failed to allocate BO for userqueue (%d)", r);
+> +               return r;
+> +       }
+> +
+> +       r =3D amdgpu_bo_reserve(userq_obj->obj, true);
+> +       if (r) {
+> +               DRM_ERROR("Failed to reserve BO to map (%d)", r);
+> +               goto free_obj;
+> +       }
+> +
+> +       r =3D amdgpu_ttm_alloc_gart(&(userq_obj->obj)->tbo);
+> +       if (r) {
+> +               DRM_ERROR("Failed to alloc GART for userqueue object (%d)=
+", r);
+> +               goto unresv;
+> +       }
+> +
+> +       r =3D amdgpu_bo_kmap(userq_obj->obj, &userq_obj->cpu_ptr);
+> +       if (r) {
+> +               DRM_ERROR("Failed to map BO for userqueue (%d)", r);
+> +               goto unresv;
+> +       }
+> +
+> +       userq_obj->gpu_addr =3D amdgpu_bo_gpu_offset(userq_obj->obj);
+> +       amdgpu_bo_unreserve(userq_obj->obj);
+> +       memset(userq_obj->cpu_ptr, 0, size);
 > +       return 0;
+> +
+> +unresv:
+> +       amdgpu_bo_unreserve(userq_obj->obj);
+> +
+> +free_obj:
+> +       amdgpu_bo_unref(&userq_obj->obj);
+> +       return r;
 > +}
 > +
-> +void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
+> +void amdgpu_userqueue_destroy_object(struct amdgpu_userq_mgr *uq_mgr,
+> +                                  struct amdgpu_userq_obj *userq_obj)
 > +{
-> +       idr_destroy(&userq_mgr->userq_idr);
-> +       mutex_destroy(&userq_mgr->userq_mutex);
+> +       amdgpu_bo_kunmap(userq_obj->obj);
+> +       amdgpu_bo_unref(&userq_obj->obj);
 > +}
+> +
+>  static int
+>  amdgpu_userqueue_destroy(struct drm_file *filp, int queue_id)
+>  {
 > diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h b/drivers/gpu=
 /drm/amd/include/amdgpu_userqueue.h
-> new file mode 100644
-> index 000000000000..93ebe4b61682
-> --- /dev/null
+> index b739274c72e1..bbd29f68b8d4 100644
+> --- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
 > +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> @@ -0,0 +1,61 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright 2023 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the "Softwa=
-re"),
-> + * to deal in the Software without restriction, including without limita=
-tion
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
-ALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
- OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#ifndef AMDGPU_USERQUEUE_H_
-> +#define AMDGPU_USERQUEUE_H_
-> +
-> +#define AMDGPU_MAX_USERQ_COUNT 512
-> +
-> +struct amdgpu_mqd_prop;
-> +
-> +struct amdgpu_usermode_queue {
-> +       int                     queue_type;
-> +       uint64_t                doorbell_handle;
-> +       uint64_t                doorbell_index;
-> +       uint64_t                flags;
-> +       struct amdgpu_mqd_prop  *userq_prop;
-> +       struct amdgpu_userq_mgr *userq_mgr;
-> +       struct amdgpu_vm        *vm;
+> @@ -29,6 +29,12 @@
+>
+>  struct amdgpu_mqd_prop;
+>
+> +struct amdgpu_userq_obj {
+> +       void             *cpu_ptr;
+> +       uint64_t         gpu_addr;
+> +       struct amdgpu_bo *obj;
 > +};
 > +
-> +struct amdgpu_userq_funcs {
-> +       int (*mqd_create)(struct amdgpu_userq_mgr *uq_mgr,
-> +                         struct drm_amdgpu_userq_in *args,
-> +                         struct amdgpu_usermode_queue *queue);
-> +       void (*mqd_destroy)(struct amdgpu_userq_mgr *uq_mgr,
-> +                           struct amdgpu_usermode_queue *uq);
-> +};
+>  struct amdgpu_usermode_queue {
+>         int                     queue_type;
+>         uint64_t                doorbell_handle;
+> @@ -37,6 +43,7 @@ struct amdgpu_usermode_queue {
+>         struct amdgpu_mqd_prop  *userq_prop;
+>         struct amdgpu_userq_mgr *userq_mgr;
+>         struct amdgpu_vm        *vm;
+> +       struct amdgpu_userq_obj mqd;
+>  };
+>
+>  struct amdgpu_userq_funcs {
+> @@ -60,4 +67,10 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *use=
+rq_mgr, struct amdgpu_devi
+>
+>  void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
+>
+> +int amdgpu_userqueue_create_object(struct amdgpu_userq_mgr *uq_mgr,
+> +                                  struct amdgpu_userq_obj *userq_obj,
+> +                                  int size);
 > +
-> +/* Usermode queues for gfx */
-> +struct amdgpu_userq_mgr {
-> +       struct idr                      userq_idr;
-> +       struct mutex                    userq_mutex;
-> +       struct amdgpu_device            *adev;
-> +};
-> +
-> +int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amd=
-gpu_device *adev);
-> +
-> +void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
-> +
-> +#endif
+> +void amdgpu_userqueue_destroy_object(struct amdgpu_userq_mgr *uq_mgr,
+> +                                    struct amdgpu_userq_obj *userq_obj);
+>  #endif
 > --
 > 2.43.2
 >
