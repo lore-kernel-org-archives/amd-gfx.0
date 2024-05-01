@@ -4,147 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5CC3C4345F
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 May 2024 07:16:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7122C4345F
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 May 2024 07:49:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67CC010EE42;
-	Thu,  2 May 2024 07:16:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD75F10EE7D;
+	Thu,  2 May 2024 07:49:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3DW1nrNV";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="N1UNH22x";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2085.outbound.protection.outlook.com [40.107.236.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D4B210EE42
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 May 2024 07:16:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lyfAUZizyF7VJ0Ml7dq/WJLVlWtUPxWCCyTktmqLiinJPpKhdMz4n6MTiK1JbETcYBYIlRLM/mw+izgdgeP6NfKzRffmx6JqNsPToGXcFxd80t42krqZUm2aVlr4kSPJBk3GcYUvJ0kCM03y7Em/a+7T1lQG5jqs37xE86yJZtNwYj/QLHJ2O053WGhXUs37b8CpywWEeVU/hOrRHPEew8t8jdl7ooIejSmorgnwO/xVeAKRYNuiDjw7dbNB+0xvOKKr+Ww0NTbOiE/fqfRQQcGje0cgwgX/BkhjVwLArpXM9wgjGiQu4Z0NpmzrkgsLBlhu2wJtxECChLKKrXHUhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HSKgdKcq1kTK+NY/hiI1x6BberFbV9dTzLaBelr5mCQ=;
- b=hQ49nsAb3IeJeHdKrtW/vZtbGfHQbfojF61bT9pPvWMgoNGBldbXIZ3b3PId7saSiHW/BtswYnt61hD54FJr7YTcT7zdIi6k4Vi/Nh8XaBfoaIObliOHyEgx/R3yal11IZ2ESbMg8xu0PBfqmaOVhR10nS8/8CvtqCCHu7v8VHU2Z6K2DKwwbaUC89hvrkFszJxi9+7K5myqCjG4yDzsvZFj7moGYl3yn9c2XQtoOLeDcfhiyTcG9kvw0okNVCYLCx9VNWeoYKnhJDqz/z9Qh7ZNkVwqHQqXLwYHb6sqrHepIsa/iqRFw9VfXgwvPT+k9nc0zo2E9fdEiWpTwxC1Lg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HSKgdKcq1kTK+NY/hiI1x6BberFbV9dTzLaBelr5mCQ=;
- b=3DW1nrNV3CELOXrFeV2uQ0KNhYMJwBVYfMiLpnBfuYY45oxpynA1UbNVJ4yze7P7xEPdmRUYq82m8g6h9Lq7TeB6hMiI/NcwVoqJYbAO7RK7Nwx0lW4oTGJa0ZHhcn0XOqni2iZ7bCHnRjJR6qujvfi5q8uZN1/k9GQIQg0pNL0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW4PR12MB6922.namprd12.prod.outlook.com (2603:10b6:303:207::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.28; Thu, 2 May
- 2024 07:16:03 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.7544.029; Thu, 2 May 2024
- 07:16:03 +0000
-Message-ID: <10b442ac-4449-4541-8324-3582c6da721c@amd.com>
-Date: Thu, 2 May 2024 09:15:57 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] drm/amdgpu: Fix two reset triggered in a row
-To: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Kuehling, Felix"
- <Felix.Kuehling@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>
-References: <20240426035742.90560-1-Yunxiang.Li@amd.com>
- <SA1PR12MB859947EDEDBA9CD73AA1271CED1A2@SA1PR12MB8599.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <SA1PR12MB859947EDEDBA9CD73AA1271CED1A2@SA1PR12MB8599.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0339.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ea::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9434F10F062
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 May 2024 13:27:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=C3NPh9sSeUwwr4Bpa6AMKHit2ez04Fx3ZDsMYpiO/Ow=; b=N1UNH22xl+M0wncHI0SuiNOH5v
+ s9AZAu6bPNzOLrOKUj/FUiV5Rx23ecOZf2INdTfKc8CjRSBcL5v7GtHCimc/lp3o2VszyA2Y8bESa
+ Z/Xd8lyCgGAilTwVVHTHheW6swwK6HZ4f3+lYDYUU/TlxbU3VAtqwBrdRjjGVGAxRY8ocutvId17P
+ sBh+6xlD1UK/yIUtVrlPWkW8+pWnFMrp8WYTTwKiwNXR/KZ2TxZKBTGUXbi7b/gZWZ96nfo7iPnwS
+ G9iXzTU6dQwpIJO0Z74ig+m8exYScGlpY/WKkelKJc4ulFQWj81XwRo7kLMd514qXhU9+BYkp8/mQ
+ uHmsH64A==;
+Received: from [84.65.0.132] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1s29zU-002a4T-73; Wed, 01 May 2024 15:27:19 +0200
+Message-ID: <cd9f1e27-2448-4803-ab73-9b71c5482027@igalia.com>
+Date: Wed, 1 May 2024 14:27:18 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB6922:EE_
-X-MS-Office365-Filtering-Correlation-Id: c10f1d64-7a71-4d4f-a12a-08dc6a77ba0b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|376005|1800799015;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TVNtSGhZemJWYXRORkE5UHNvM0lMTDBEbzdsc2I2UFlETGdZVVJhZnU5MG9S?=
- =?utf-8?B?dzAvSFRlTjdlOUVTZ2VleVJiU0NZdy9udUpaU1R2RkNRelBZMWJvbVVLSGpt?=
- =?utf-8?B?RFc2c055M0phdWs0RXNVbVo5cklWQkJUYjdFcktVVHJwcWZ0V04xcXJzQldS?=
- =?utf-8?B?NG43dlA0ZlRPUnkzelVCUCtwT3FCMG5zTDh1UDY5R3dvSUU0THNzanhaakkv?=
- =?utf-8?B?Q01Lb1dFOWd4WFFvR0pGM21IVDZNc29SaWxYd0lzZTlLWnQ2NFBlL21ZWGlZ?=
- =?utf-8?B?WmRMNVpOTzBNM2s2Yjgyb3BOSW5pQ2FZY1hNUDMrTDVOblkxZG55WThRbzlw?=
- =?utf-8?B?dWVuWWhBaDRyWnNpazhYM2dSclNVTGpvcmJSSzhvakloYit5TTZ5anUrbzU4?=
- =?utf-8?B?MWxFQXQ5Qkx1bll6MllES2tQYy9nNEhXcEpjZHFDbDB0eDc1L1Q4dVpaK3Fy?=
- =?utf-8?B?bW95aUt5UzBGc0pXY1VyRmdFaVhTNGZSclIrSlE5SkxGdTZZdUlNeVY2d29z?=
- =?utf-8?B?MDZWN2VDK2k1RlZBWkNXbjdjR20xdmxtWVVWV0JFcHFFbzJpeWYrRXdrUkx6?=
- =?utf-8?B?aDdJcDEvaXh2NzlIL3V4WS94S0JBekhrVEdlMlpMR3M1TTV3bVpwcDFscnFT?=
- =?utf-8?B?RFh3QnhTMmhIdUx3dWlSTmdKalZHK2NjeVp5LzNCS1g0VUNVUlp1U0ZjVEFU?=
- =?utf-8?B?TEMxSG02U2tLbVJOVU5razNhYWt3cGY4VWZIMk1qejZ3S1U5bitpQmk0MHNU?=
- =?utf-8?B?dC9ERGZxL3ZuWDdHTk1kOW1ocTJjeTlnaTZiejNCZE1FbzVnSW1QRHliS0Vl?=
- =?utf-8?B?T3lnQ09JdlBFYnFjTExxUGp4UE5kcFBlU1FhK3N5aG0zZG1vb3F2WnFXSWov?=
- =?utf-8?B?TDErRVRBZFI0NVY2bDlIbDdSY294dWZNaTNBQkxob0pLbW53bFJzUHEvV3c1?=
- =?utf-8?B?TUMwU241YmhhUnNoWjZDRWthendSRE0rUTRaZWFSM0x0bUdLZW9NL1IvQm9n?=
- =?utf-8?B?cXhaUnYvYU5lTUxsYmp2K0QwdTgrSktsMlVSUTgxS3owOGI4NFVXMXhCbE83?=
- =?utf-8?B?OWI2enFqYU1Ma29aaDk3Tk5icXQ4T3NtaG5HS2xnaHJGY2FMV0JNL1ZBaHpW?=
- =?utf-8?B?UkllVXlhUWZZS3FXL1pHZDZJUXVjMTRJWlVtdVJVenppdDBkZEU0YjJSL25V?=
- =?utf-8?B?ZWJYU1JxYnhRYUJ6emdFd3lpTEJiUTdPSytxYWVkZkFMRXJWT1RUY3lLOXBm?=
- =?utf-8?B?MnI5SkFIU0NtL3VQRWoxR0ltUkZtYjhzV0J1SVZxb0MxSTFBUmc4VVFCcWp2?=
- =?utf-8?B?MFNmUHdhUU5TcDVtSWhTTGxSeGVWcnc0ajJ5cDlDUXA3SGYwcXk0aGVZZ2Ey?=
- =?utf-8?B?TWM1WDFhakJFbVBCd0xRcFdYemVKSDdtYmk4S2wxT3hqUmFTbzZyMjhoaS94?=
- =?utf-8?B?ZzU1TFZ5TW9ucFhlR1Z6bkpZZkJMT2VWM08rUGE4VFJCaXE3dXczT2lOQVVT?=
- =?utf-8?B?cW5YVWdjTGI0bCtNZ0o0VFFyY0JXQ1pETFZkSm5sWDlWa09jLytROWRmZURM?=
- =?utf-8?B?ZVBUUjgxWU1BckR4cWZnTGFqdGI3QmIrWTJISVZyTXBQOVk2UW94bmszR1FY?=
- =?utf-8?Q?vdf5eL4I+ys2UJ34CPJF+zLhlDKLfm9Rv3r5FjpN01Mc=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Wnl2eVhjVGhtcDhhSFFZWXIyMm1idytleDVaRzhSckNMZFBDaWwwekFqWVE4?=
- =?utf-8?B?SStMR3NTYVBXd0RQc0NvbWRuTzJwRzNQL1pHejc1aEhRSzVNVzYzMURHMHlT?=
- =?utf-8?B?Vk1qZ2NMd20zZzY3WWlIYnRyRE5Pa2djMjVDUlhSRXFIMzdLcDAzeW5lbFQ5?=
- =?utf-8?B?eE84aWZ4RVZIWFRjWXV1T2NPL1FoYS8xajVLdm00Nkphc29oM3JFM0ZyRlpP?=
- =?utf-8?B?Nm1QVWF5NGErMzdLZ0lLOFcyUjhub1Zrd09oT25EdGwrcmt6WmJOVUtqbVQz?=
- =?utf-8?B?VGRBTHhNYjIwZjJPTWdCbFZrTjBsWEJ4bTJBaEs0TDhLUlNHR0hjUWxnK1o5?=
- =?utf-8?B?ckhvTHJmM1pYNjRDcEMwR0dwbG5xMGNCdDZKUnN2akZwRzFMclE2bFFNNHNp?=
- =?utf-8?B?NmN1aVZHUUNBa21TeTJpanNnU256ODJ5QzlYWHJXUUl1S29qeEVPT1ZsQ0k4?=
- =?utf-8?B?dDRoblhvTzJINUxuaWEvUEpTZ0dRb01lVkhISjhQbjArVVErWDU0SGRUM1Zm?=
- =?utf-8?B?aGZLZGNTYkR3QkducGF5dDNVRE80V3VXemIzQ1dZbWNYRGFzcHZHTUlOS3JU?=
- =?utf-8?B?U2M4dmdDWENIRUFYNEg3a1psdUhhbHJScW45ZDB4cFdBc3VWTGx0SUNGTVY1?=
- =?utf-8?B?d3RxNkFTYzJ6MWlDaElVZkpXQTNtTDVVYUhPK056K0ZTVHRSeEJudW5jdGZw?=
- =?utf-8?B?dXNabXV6TFZQNWNnWU1uMW1IZmNFZnJzNERvdmd2RXpmdjNTNE1rZTZjM2lL?=
- =?utf-8?B?TEh2TnQxTDJJZlpCTUtoUGpSN2RVZXF2a214SElGS1ZLSFRwdlJsYWZ4ckZG?=
- =?utf-8?B?bCtmU1p3amw0VnpRU0U1Uk5DUWNoSmtLQ25PMk5mNFVvRVRiQ3dDZ1QyTHhP?=
- =?utf-8?B?VUF2NTlVeElXT0Q3bTA0QkRGdXVUYmkzSFRLMDVkMVhYMEU3enpIaUcxSDdQ?=
- =?utf-8?B?STRuaFFjeWlPZWFkS3IrYkMyMHFzV1h0TmxzL2NCZldPK1NhOG1uUjRiNFhu?=
- =?utf-8?B?ekV3TnRHbU9vWWoyYlhMbE5CM3AreDJpcW0yMEFNK21HZzZIbHV4R21NZkxp?=
- =?utf-8?B?QzZXSmIxK3JHZDZ6UmdxOHBaVjZTNmNhdWc2cE50eUd4V2tKMnZmaVM3bEN2?=
- =?utf-8?B?VE52NVBNK2tocTZ1dUlVRzNzRFVXTjgzbTFKYnVLQ2tVdGRCejlsSTIxME9O?=
- =?utf-8?B?cVlQZWpoZjJCT3VHR2VvMXc4Umw0Uk5BY210RzR0QlVLMTJvczA0Ukw5YVRl?=
- =?utf-8?B?UGgxVU9tU3VkZ2t2Z2JWb0cvblpZVTNYVUdGSjlBNkxvUTBtWjB1L1VxNFo4?=
- =?utf-8?B?WmNVUTVSbVIrd3drZkFaSUU4b050cDF6Y05kc0VvaWtpT0x2M2cyS2ZJNzl3?=
- =?utf-8?B?SjFDVmFWQjA1cGE5K0haZVR6TENUTTAvaVpYZ3hqL1VnaDYreXpWYTFMREpa?=
- =?utf-8?B?SitCYmhCWk9RRG5pMkFKRys1SzJ2c0QwZnNJSjF2YUJKTmx4M3ZsaUxoSGUw?=
- =?utf-8?B?eVliS0dvdFYxNko2TnRlcEJKMG05NVpyb095YTlYaXNzUkdvdHlZSlJtQkEy?=
- =?utf-8?B?R0Y5YVJoM0JuRWZjYVRUanRZeXdEcE5la0Z6R3RPaFk4bW1tVlEyVmVBZnpI?=
- =?utf-8?B?RVVjR0I4dGJQSEQ0UksxeXZzb3NJTWpmOCszMXQ5WU5yRk5LWlIyK0doMkdh?=
- =?utf-8?B?eHgrYitiamxMbEpEOFVPc3VHUXpjTnZhdTFsejYyaVZQQ3hxM0ttdEtiQ29V?=
- =?utf-8?B?bXJkdXo1a3ZyeFQxSUlpdGdFOWNxck1tSEFyS21vaE14ODJ0WTRSZVE3cktW?=
- =?utf-8?B?OHJhSzlDdzZVakUxU0dqdkV2eitVVmxMUllORE1vTU9qVzVpVWhIOHdPQ1VY?=
- =?utf-8?B?OHh5VzJOUGpyNVlMd1l5TzlBUnpaamNsZmhUWnNnSFNScDR3TVczNFBTeVJa?=
- =?utf-8?B?TDdPSDduMHdFZHQ5WjdjWkEreDVKSDg2cS94a1F2cDdWM05CR3ZXZ2ZpbUxM?=
- =?utf-8?B?bGtrVkxIOE83TTRydGN5TU5Ea3FNZml4cnpPbXk1NThXeFBzVW9wSjhyWVdR?=
- =?utf-8?B?bkpReXhyNDAyNVRRK0xGOWtjU3RNMWFKbUVCeklKUEJBQldVZVBQY0dtM0w5?=
- =?utf-8?Q?EG8Q=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c10f1d64-7a71-4d4f-a12a-08dc6a77ba0b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2024 07:16:03.7358 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xsJL74z8fNnE2ogzumJL9QQXusi8ZOUQ8cNEHB7st2U7VErPcO0w4xS8vrOPS7nt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6922
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 0/5] Add capacity key to fdinfo
+Content-Language: en-GB
+To: Alex Deucher <alexdeucher@gmail.com>, Tvrtko Ursulin <tursulin@igalia.com>
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20240430172748.61576-1-tursulin@igalia.com>
+ <CADnq5_Mzn8gesfqfNncJMWGgawFR3upgcy9MG=UwHw4i5GoZTg@mail.gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <CADnq5_Mzn8gesfqfNncJMWGgawFR3upgcy9MG=UwHw4i5GoZTg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 02 May 2024 07:49:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,23 +61,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 30.04.24 um 21:05 schrieb Li, Yunxiang (Teddy):
-> [Public]
->
-> Hi Christ,
->
-> I got R-b from the SRIOV team for the rest of the patches, can you help review this last one? I think the concerns from the previous thread are all addressed https://patchwork.freedesktop.org/patch/590678/?series=132727
 
-I don't think I can help here since I'm not familiar with the RAS code 
-either.
+Hi Alex,
 
-But I've seen that you already got an rb from Hawking's team, that 
-should be sufficient I think.
+On 30/04/2024 19:32, Alex Deucher wrote:
+> On Tue, Apr 30, 2024 at 1:27 PM Tvrtko Ursulin <tursulin@igalia.com> wrote:
+>>
+>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>
+>> I have noticed AMD GPUs can have more than one "engine" (ring?) of the same type
+>> but amdgpu is not reporting that in fdinfo using the capacity engine tag.
+>>
+>> This series is therefore an attempt to improve that, but only an RFC since it is
+>> quite likely I got stuff wrong on the first attempt. Or if not wrong it may not
+>> be very beneficial in AMDs case.
+>>
+>> So I tried to figure out how to count and store the number of instances of an
+>> "engine" type and spotted that could perhaps be used in more than one place in
+>> the driver. I was more than a little bit confused by the ip_instance and uapi
+>> rings, then how rings are selected to context entities internally. Anyway..
+>> hopefully it is a simple enough series to easily spot any such large misses.
+>>
+>> End result should be that, assuming two "engine" instances, one fully loaded and
+>> one idle will only report client using 50% of that engine type.
+> 
+> That would only be true if there are multiple instantiations of the IP
+> on the chip which in most cases is not true.  In most cases there is
+> one instance of the IP that can be fed from multiple rings.  E.g. for
+> graphics and compute, all of the rings ultimately feed into the same
+> compute units on the chip.  So if you have a gfx ring and a compute
+> rings, you can schedule work to them asynchronously, but ultimately
+> whether they execute serially or in parallel depends on the actual
+> shader code in the command buffers and the extent to which it can
+> utilize the available compute units in the shader cores.
+
+This is the same as with Intel/i915. Fdinfo is not intended to provide 
+utilisation of EUs and such, just how busy are the "entities" kernel 
+submits to. So doing something like in this series would make the 
+reporting more similar between the two drivers.
+
+I think both the 0-800% or 0-100% range (taking 8 ring compute as an 
+example) can be misleading for different workloads. Neither <800% in the 
+former means one can send more work and same for <100% in the latter.
+
+There is also a parallel with the CPU world here and hyper threading, if 
+not wider, where "What does 100% actually mean?" is also wishy-washy.
+
+Also note that the reporting of actual time based values in fdinfo would 
+not changing with this series.
+
+Of if you can guide me towards how to distinguish real vs fake 
+parallelism in HW IP blocks I could modify the series to only add 
+capacity tags where there are truly independent blocks. That would be 
+different from i915 though were I did not bother with that distinction. 
+(For reasons that assignment of for instance EUs to compute "rings" 
+(command streamers in i915) was supposed to be possible to re-configure 
+on the fly. So it did not make sense to try and be super smart in fdinfo.)
+
+> As for the UAPI portion of this, we generally expose a limited number
+> of rings to user space and then we use the GPU scheduler to load
+> balance between all of the available rings of a type to try and
+> extract as much parallelism as we can.
+
+The part I do not understand is the purpose of the ring argument in for 
+instance drm_amdgpu_cs_chunk_ib. It appears userspace can create up to N 
+scheduling entities using different ring id's, but internally they can 
+map to 1:N same scheduler instances (depending on IP type, can be that 
+each userspace ring maps to same N hw rings, or for rings with no drm 
+sched load balancing userspace ring also does not appear to have a 
+relation to the picked drm sched instance.).
+
+So I neither understand how this ring is useful, or how it does not 
+create a problem for IP types which use drm_sched_pick_best. It appears 
+even if userspace created two scheduling entities with different ring 
+ids they could randomly map to same drm sched aka same hw ring, no?
 
 Regards,
-Christian.
 
->
-> Regards,
-> Teddy
+Tvrtko
 
+> Alex
+> 
+> 
+>>
+>> Tvrtko Ursulin (5):
+>>    drm/amdgpu: Cache number of rings per hw ip type
+>>    drm/amdgpu: Use cached number of rings from the AMDGPU_INFO_HW_IP_INFO
+>>      ioctl
+>>    drm/amdgpu: Skip not present rings in amdgpu_ctx_mgr_usage
+>>    drm/amdgpu: Show engine capacity in fdinfo
+>>    drm/amdgpu: Only show VRAM in fdinfo if it exists
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c    |  3 ++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 14 +++++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 39 +++++++++-----
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 62 +++-------------------
+>>   5 files changed, 49 insertions(+), 70 deletions(-)
+>>
+>> --
+>> 2.44.0
