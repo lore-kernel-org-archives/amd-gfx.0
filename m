@@ -4,144 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 029C3C4345F
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 May 2024 04:09:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8FF1C4345F
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 May 2024 05:23:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88CD910EA48;
-	Thu,  2 May 2024 04:09:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0E2710E78A;
+	Thu,  2 May 2024 05:23:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qorj56mY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GKEOEcCj";
 	dkim-atps=neutral
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96C5010EA48
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 May 2024 04:09:10 +0000 (UTC)
+ (mail-dm6nam11on2041.outbound.protection.outlook.com [40.107.223.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0677C10E78A
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 May 2024 05:23:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KTXtufMmKBi46E46asIdpm27jlGsLboycVfM7c9AxJ/6nHu7hDzowifCxHQJV31FR+dpFsEwRvKu6cN5Y77ychUTLVdk/NSIdYdJIPPvpMlklh0mTmoDGQlMW/VqGdnbcZZ9EXO/81Z4gm/3o0Td8r5bXugmayicB7uRAeZxTDvzZ5wgJKNyB9ObGaKWA5NTB5WqmiKnpRGyWdOXhf18QiBaDlIN6h6x22/aj/OoFOjf7imlVaxTFJl9GnoScNm001LfNGP7VetNWgQA1hOYmHwB+bDl7X5LsiY+pOJWO2F7YkYS4GXAdBvpdDys5ZYCzelTM3CPJb55KaDuZ6gwGw==
+ b=S26bCpje/UvzLAX+OV+wQIb2MEIGFwTsah7RbNSgkh9gczL0t0DIuBLc9Ac1moZ4IkNH2Ltjm9bpLWDEINr5qsH59v+EJXT25fd+8yqwfUkqFl6RYGTWbyj+Roz8UsSSg+XFZxIZwi9EyScl3c9TCJoQk6gT0hHIQSZLrmUIFe3vbDOZzbyUAnkkBl0NmTcuxKd+ZrA0K+Cf+YhxBOLnSH32sjJqAiXQdeCSBgEvXjfGRU+ruuNCsailHb+X8Y2LsDIM3oSqupTZKzqOzOr5UJ3/vXP16i9zAtAXhGHejMzdoxvBAjTC0grvCbyUhsGwdNf/sYVd+ngikmBYKvNLqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6YYs5he9WqTTnmqOt7q/y76WvHDuI3X9fCh2kcoD320=;
- b=hQRBPZ+N3TsArrESNKPrc+q6vOivZ3y/8i40lfGbh/8GKHQuFsvErqMx8UKpp1YnJgnoyb894SmmuEYX4qQ8D8tocy3kPTcJrgl90WueYQGsi2J1ylf0CetxEaqu6JgCQLZhj8YAunssT51QVF2oF1mk5ecITk6/ESLouZbJ1DkenjDjbnrtLCAtPLYslj5hB28OloOxAmZNmRYK06k89wxdj4urF7UK/44x9IjLKTJc2CUbz0MXXRUC5LLultypZS6sYxv/kjnihIYuKMdf2x/UkHDQa/3/mDw5sp4qj/J3pjEGfBv6ALCs7fXW8CCrtzsqG8zaVQD3Dl9KCRr5mg==
+ bh=TBVQHJvYM7S3oVKYO1888MWit9gHg/L3i9LwMN1TH4M=;
+ b=eilOIAf/Wb1xIm4FAU2X3DRqgaYJw8BvHkpAoepgux8vYLfMhXG9qpTzjwXr3AAjEilYHvplTtdEQq7ZYOvvS4zYFEOzGK9DMIpDljK7DxEfY5hMsmwWGjAH1GcN/vlcM78AnfYHeeIXde6wlSkldSuHDPpmnuP+srKEkxAZUIM8xkjcUV8uvkpFrZ/GIydHwiJNfxpZJ4dHjPsDdbXmPZfczWm8xuGx3g/pUtglnZjoCurDnMFUNrrMSV7Bj3tra40nd2478bpbI1pX9XMfihopeeYgv2fbgHK9xUzYtN5UtxYXf3dA+6fcQGiJmWN+fBjKLuu0/lx4SvscMA0PfA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6YYs5he9WqTTnmqOt7q/y76WvHDuI3X9fCh2kcoD320=;
- b=qorj56mYU+qhQRM7SEZzWobhQQpZ4pzzYvJV+ow+MS5grbSWgZVA1EhhikvDNbS9RMgN9GqhvhsnRaedke7PA0EFo6mePv/xApFh0rFgJIvltjerucEXGWua0k+Rnzbjz9KtSHd+QHsaumMRTwdBqcwBrNkVtt3I852hc9ZQ8KM=
+ bh=TBVQHJvYM7S3oVKYO1888MWit9gHg/L3i9LwMN1TH4M=;
+ b=GKEOEcCjs97DGjU+JexAz41uTNNHQ31lARixP3cnWbsPqzFu81OrD3MyVRbWPbouGaNYZW31m0ngeyGQruMbBoPgnrSkUiP/T4w+GvSFlGd8PxjlBt51rDJ+KpCezrvhbQdI0fGBARSTn1Aj6infxL6UcdO24x7PTABDZHRuWdo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB2600.namprd12.prod.outlook.com (2603:10b6:a03:69::30)
- by CY5PR12MB6275.namprd12.prod.outlook.com (2603:10b6:930:20::9) with
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
+ by DM6PR12MB4170.namprd12.prod.outlook.com (2603:10b6:5:219::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.35; Thu, 2 May
- 2024 04:09:08 +0000
-Received: from BYAPR12MB2600.namprd12.prod.outlook.com
- ([fe80::de04:6cf7:afb0:a72d]) by BYAPR12MB2600.namprd12.prod.outlook.com
- ([fe80::de04:6cf7:afb0:a72d%3]) with mapi id 15.20.7544.029; Thu, 2 May 2024
- 04:09:07 +0000
-Message-ID: <d949949b-fb30-45c7-a53d-a4d32874b3c7@amd.com>
-Date: Wed, 1 May 2024 23:09:05 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Remove arbitrary timeout for hmm_range_fault
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, christian.koenig@amd.com
-References: <20240501225655.5215-1-Philip.Yang@amd.com>
-Content-Language: en-CA
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <20240501225655.5215-1-Philip.Yang@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.29; Thu, 2 May
+ 2024 05:23:16 +0000
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::966b:7f50:4f07:3c8b]) by MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::966b:7f50:4f07:3c8b%5]) with mapi id 15.20.7519.031; Thu, 2 May 2024
+ 05:23:16 +0000
+Message-ID: <39458665-6f59-305c-5b47-70eb1072213c@amd.com>
+Date: Thu, 2 May 2024 07:23:11 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v9 01/14] drm/amdgpu: UAPI for user queue management
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Arvind Yadav <arvind.yadav@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
+References: <20240426134810.1250-1-shashank.sharma@amd.com>
+ <20240426134810.1250-2-shashank.sharma@amd.com>
+ <CADnq5_ML3xvC1-vP7AO5byS8oxq8_vayrsoWVghUhzqeCabUxQ@mail.gmail.com>
+Content-Language: en-US
+From: "Sharma, Shashank" <shashank.sharma@amd.com>
+In-Reply-To: <CADnq5_ML3xvC1-vP7AO5byS8oxq8_vayrsoWVghUhzqeCabUxQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA1P222CA0139.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:3c2::25) To BYAPR12MB2600.namprd12.prod.outlook.com
- (2603:10b6:a03:69::30)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BE0P281CA0031.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:14::18) To MW4PR12MB5667.namprd12.prod.outlook.com
+ (2603:10b6:303:18a::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2600:EE_|CY5PR12MB6275:EE_
-X-MS-Office365-Filtering-Correlation-Id: a3854cf5-7a55-4d28-edc0-08dc6a5d9cbb
+X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|DM6PR12MB4170:EE_
+X-MS-Office365-Filtering-Correlation-Id: a82ca10f-65f3-489f-c0b2-08dc6a67f848
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|376005|1800799015;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dkE1RzAvQTRMYTJaSUJ3cXBOR3RoNFdDdC9SS1ZZK2JVU1o5cWRjc3VSQkhB?=
- =?utf-8?B?MWFZSzR2OWpQWThyc09BWWlZQlYxcFVNMXlneWtRd3hwcjFydVU5L2k4TUlY?=
- =?utf-8?B?RmVIMTZ2d2ovRWlrY3pUeUoxYWhaZFJqbmgzWTdIM0RNS3FjNmdIRDc3TXkr?=
- =?utf-8?B?NkE0VTVPWkFoUGpsYVdxNVVmMGVIMXhkdnloeGZQK1pMWDc4aFFNdDNUemNY?=
- =?utf-8?B?U25oNU9VUzZDTWxIenl1Mm55R0t5andibGFxZ0IzSmJwWVhGZVNHVk5heUFF?=
- =?utf-8?B?dzYwKzg4WTRwVEVra05RK0h2eFVOVE5mWm16MnFjdy9UL09lQ2JrQ3hidXhs?=
- =?utf-8?B?ekcvYkdzT24wY2ZRdzZuaDZDcVVRWDVJUVN0L1VaZkZVV0xSLzQzOHZzZVNN?=
- =?utf-8?B?M0lBR3YzektSR1pVekZFWDNOOG1id2NFZVJGaDEyTWVMQ0tvMzV3TG1MQnNl?=
- =?utf-8?B?QzBmNHFHdm9RT2dEc3pNdEVJY1dIU09ITEUzckh3eDBURFA4RTV4czZNdTNH?=
- =?utf-8?B?SDQxRWs1LzVkRzdJWUtjL01BZC8yRnpVMnNmYlV6T1h3OFF0RkpkSS9HRXRP?=
- =?utf-8?B?SXlGcDh6QklpMHUwYy83cHVCQ0FWYVp6ZFJxS0h5UEErRitzQUZpU2Y4eWNC?=
- =?utf-8?B?SCtVRnlKdDJZUXF5YTEvbTU5RGI3NzNSRzI2SC9FWTNZNmF3bWFRcjl3YjQz?=
- =?utf-8?B?UUZGMVZvQlNoeVJ6QnVONVloYkNIakc5cEtFMU5xNnlrdEFLL0xuVk1hUHNV?=
- =?utf-8?B?T3hnaUFTMzBDT05CdVY4SFROeHhHTmJQdjBSLzN1V2M1b3Y3TENlbmdSZnUz?=
- =?utf-8?B?OUMxQW9Lbk52WGtUYmVBUmdFRXl6KzRvbElLeFhiNGs2cG1ObVpSdWt6K3RL?=
- =?utf-8?B?bk1QMmViMmJMblgxZGc1R2tYRDM5aGVaeEY0V0NObm5xbGRZd0FxNDkyOU5Y?=
- =?utf-8?B?UTlFOGg2Wjk1cys3ZTFTWUthclhZdVFUdVpRN1BvSHFkY09NMFhQamNmRWRD?=
- =?utf-8?B?cnZSL1VJYmlKeG1mc2djV3d0R1R0bkJDMW9vQUVueDlBMy9RNjhma1Zaejlj?=
- =?utf-8?B?aXhtaWU1VW12cHMvQjd2QUJLcWtGWUZzSUFQRDY4eSs4Z2pHaFl5OXJuRitR?=
- =?utf-8?B?L1VkK0dRVWFOTWtFRFRhemJFK3N0S1B3MG1oTjQvV1JMRDVJem1KUjBTL1FG?=
- =?utf-8?B?VUhNTnY0eFF5dVpDNkxZWnpCT2FleDdZV091Q04rTzA4Vm5NbXZYV0J1TzZZ?=
- =?utf-8?B?SmZrK1VPeHA0MFgvblZGYzFiTGtBb1BJcjFIWDdlbmlpVXdlYmhLczRnMmt0?=
- =?utf-8?B?U01zenZhS3lYdFl6bGJoNjl3VDFkRFN2THlYaDZFNUlGZUZtS2ZNY3ZTbEQz?=
- =?utf-8?B?OWpiZjNBQ3ZaUzdPV0xBclNKa2pCdldTNFh2T3RxL1NlZlpwT29XancwZVlX?=
- =?utf-8?B?Q0lSOGI0TGNQK0dvbFo4amJQVmNuR1A1Ni9Ga1BYVmpNWW15N29OTGJjNVpL?=
- =?utf-8?B?R2pUdE9QYU5BcURRRnJSU1pzWlFyMzN2bWZPamRRaFd3Q2ZGQndzam9oNkdp?=
- =?utf-8?B?aE1KbDRHYWxiLzBZUFZyZncwd3NTcFhBWER3anZvTlh3Y3BCZmZ4VFJwSTRI?=
- =?utf-8?B?U0NmK0ZmR3ZmbUlOekxmd1BadWtYY2UvU1lYcEZtTHozRjUza1U2QnZOU29r?=
- =?utf-8?B?MThqMlhEWGZ4TDdhMElhSGVDRENDeWVTYU5FMUI3OE5YRWRiQnhYZTBRPT0=?=
+X-Microsoft-Antispam: BCL:0;ARA:13230031|1800799015|376005|366007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RWc2ZmdTL0NjK05RdXc0ZFRTb2hla2JWNDF4dE9aaHNFcklld1BLb0dqajhJ?=
+ =?utf-8?B?QW1IM01xOXlIY3ZwS3dCdzRJcjZsZnlSL2FuN2dsUDFWSVU3YlVSQk5xcXQ5?=
+ =?utf-8?B?Vlg5Vmd0K1RhTENPQ3dOS0ZVdFRlY20vWVFlcWdISytNNkYyT3NWdXNnaGVJ?=
+ =?utf-8?B?R3R2V2owcmt2Wk9Bd2FCZEtuc1FzeHJueG55R3kwbFNjZmdMV3ZWand6cjNS?=
+ =?utf-8?B?VVlXNnhFUHc4RXB6TkdsOHFMbVoxdnJ5YmFVOHh1a2ZSWWxEOEVjbzU0aVU3?=
+ =?utf-8?B?cWN3SVNsUUpGTEoxNHh6SUJCN2YxZDEvSE5CTnNsL2E3d2J0Vm1SRlpUbUJY?=
+ =?utf-8?B?OG5LTC93aGpPTDdxaVJpbzRBejcxVm1MbGV5aWNEUjRXQTNrbndnWkt4ZE82?=
+ =?utf-8?B?cUJKTzFFT2l3TGdCU0ZHZm0rd3d5aWp6Ums2ZDY0clQ3RHJjZkRuY1c1LzBs?=
+ =?utf-8?B?VFdFSU5BcVljMHNrdlEzTXcvMHNxckVWbDlrbTBLYk93RkdLTzM0WW8xVTli?=
+ =?utf-8?B?S0VhNjMvOUZBM20zRmtvTFN3RXVZa1JYOTIvVzFFRXJPcU1mL0xvR1RJU3Vk?=
+ =?utf-8?B?VW45eVp3QUYwNDFuT09YazFnUnBpWEJQRlZGVEZGL1BvV08raDFXWW4yY3BN?=
+ =?utf-8?B?Tytna1hDeFd3dVI3S2NjN2svR0c2RVIzQVlqRlNRRjVIVTJGcEUrdFNhY0tl?=
+ =?utf-8?B?V0xNaklWemF3ZWJMKzBJZ0ppTURrTkpaQklCVHFHTG45eXMyNjhXbE5SVHM2?=
+ =?utf-8?B?d0I1MVkzM21jS0s4Skw1TlNrTVpRMC9xcVRqM1RaWkR4c0tGQnRDTzBMdkg0?=
+ =?utf-8?B?YUlNVVBEb3JHUTJ0YmxkSGZaZzNXQVRBYWpKVzEyK0NJVGlhRzE5Wnk0MGNG?=
+ =?utf-8?B?RmpsVENGUkpJQXVrSXJXN2djOWFGZzUxdUF2Qm1PeDI2SmxGZWxoZ2FPdkk4?=
+ =?utf-8?B?eGg3bC9kNHpRSUtzelRoUnh3dUp4Ui9NazZjU2ZwK1FsckNpR29FT3U2bEM2?=
+ =?utf-8?B?TWxEa3dBL1E0RjVUQzA1dFpIanEvREdzUnhQbjNpYnBERzdxVzkyQUlzZjZ3?=
+ =?utf-8?B?S1RjR2UwRkhIRjNBMGxIWC9nYmNvbUYwaHU2WE5yRGRUSzgxMXRTZHE2V1R4?=
+ =?utf-8?B?K1BUc1pVSXozQmhTTHBHS0w4VDNKOEErUCtKWktMdHVIL0dMMjg2YmJrSktO?=
+ =?utf-8?B?VWlrQ2M5V3dCdVlzWDhwdDBCZHRTWFlldEs4NlN0VGhvdnlvQldoRU9TWUM1?=
+ =?utf-8?B?bEVUL0g3M0NmRFZqenNFaDkyQW55L0lPUFQzNVZzNm53N0w5cGNhRldCVERU?=
+ =?utf-8?B?c29qV1BFTG1JREI4ZGN3OHBJM1h1ZE50b05GRUNNUU4yT1dmQkJnbnk0dVJw?=
+ =?utf-8?B?ZkNiZ2p1RVRydk1XNks2cVVFVkx1NVJka2VGeExtTTVxNDR6TVIrMkJaODVa?=
+ =?utf-8?B?Qk1RakFTV3hIYWFydFg4NDR1a2hzUmw1a3ZvbW5WQkF2eUM0Sm1pZ1h3MXYx?=
+ =?utf-8?B?VTJQdjBHOWRvbHUxUitFUk5OM0hMZm10d2hkNDUyK2NSQXQwMUVnd2VITjZm?=
+ =?utf-8?B?aWtRcmNJSG0vL1RsUHlMeXU4aDVvTlJpMHZKRnY0QWd4bUF1eTAxbCtWaU12?=
+ =?utf-8?B?TmtuSkNIeXd1cG9lUkkzbUdDU1lEUzVrTTZVRndLeTRIeEI4MXNGM2xUZUpL?=
+ =?utf-8?B?WFBSTmIrMHRHRlM5OXZjd2NiTGNlbEI4N1d1WXNybmxORWJmVTNIQXp3PT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB2600.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(366007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VTJKOS9PcjdiT1k1V0tJWG9jVVZ4MW9adjl2dm84WVFZT3NpTWVHUXpleEFq?=
- =?utf-8?B?eGxDYzdjS1A1K3A0eWplRzJSRFBsc0pjQ2FxVjNsSHBDNHR5Wk9TaVNTV0Qr?=
- =?utf-8?B?NkRoZnpIQ0cySG5VdW1tenllTjdMRXV5MVZiS3oyUzNUODQ3OVlmSVM0YitE?=
- =?utf-8?B?UEdwM2xpUUNrR1E5a283SE1UY1lLM2pEWEdqYW9JUjN1UXlNTCtzd09yWTJl?=
- =?utf-8?B?R3pxaDJMYTZQVWR6Nm5COTZzeENJYkoyTTdlVXlBK3VVUzJHbnVRSjdoNDdP?=
- =?utf-8?B?OWxjc2M2WUN1N2xLSmRKb0hjaFVYdm4rVitFTFdxQmNWamg0aTVBanNkN0pQ?=
- =?utf-8?B?eHp5ZTVRNkRqN1BJV0JTaEdVc3d4RlY5dEtxWTBXY294bTdmaEltSU1PVmc2?=
- =?utf-8?B?S1pjTWFhbERCekhWQ2ZCVHBlRDZmd2NtNUQyN1Q3YjJ6TlU1UUYrMVpOeGVI?=
- =?utf-8?B?YTJUaGQyYUJMcXlhQVArZXhUdkUzaC9IRGN3T0x2NUh6RWJORDEwR2RVdzFx?=
- =?utf-8?B?am5jRm05aUdRZDJWS0NkS2l3dWhaZHVLMllDR0pqVnBrTDA3T0laRFVKT2hh?=
- =?utf-8?B?ck1TcG1SdXZyNFduY2llajVxZUZEUWt5WnZBZTNNbE83aUs0Z3hZcE1xOEVG?=
- =?utf-8?B?K1FhdjlRc1BrYXQ5Tkk1MDRvRWRNajlqamQ2dW9VY3Jzb295OVRJY2tubGxa?=
- =?utf-8?B?SnJBVnBMNzdXVG5hVy9QYlk5MHJjOVJwbWVZTmZwWFhqU0JENjIrSnlnaGpX?=
- =?utf-8?B?c2VNMTJGRzBUalpid3pEM3JYRmZ6dWtMZlhoelQwMmFSbitvV3JxRXd2eDkv?=
- =?utf-8?B?VTUrVnIvMDlIb1kxNG5CemhYNEtEbldiamhpYW9iQjNIRHJFUzIvYndTcldM?=
- =?utf-8?B?VFpQVjhmTHFwR3piaTRGZExwMFBsUDhmVXBhN21maXBDN0lab0pBb3REaXlm?=
- =?utf-8?B?TXhCQmZGMGxEZ2hWWGdYM2haZFd5UmdlbHlGWGZzSCtDRmxmblN2YkNkZWt4?=
- =?utf-8?B?emEvbVFZK040MS9JakIra2hYeFZ6aGVROVF0T0lMdTJnTGtFYVI1YXNwRXZW?=
- =?utf-8?B?c1BMblRjRVRZd29NOHlyTmp3dFVWa01VSEZycFEyTDRNVWZRQ1VTK0NXMTVT?=
- =?utf-8?B?RlMxcDJBVXdMeTlOaDh2Q0FUYjNENWZuY1V2YXdRTm93YlJKdkNUbDZaekU1?=
- =?utf-8?B?VlVWNjZLbEdIaUZ2clBXOS9nOGo2dmd1MjAzeEJ6RGpqSlZpcytSbVRDSGky?=
- =?utf-8?B?TFhaUDZibnlYNGducFJzd1NQK25CbVkzMDd2ZGt1V0NjMDdxbDR2c052T3pU?=
- =?utf-8?B?TGhYbGRlRy9OSlJHY2tnOS90NnFLZnpmV3VuNWpFdHgxR2tqbEF2UWJVUU9l?=
- =?utf-8?B?bU5kMEhCcGR5QVY2UFJqL3ZJN1doUVo5WDFMY05nQjIwQU0yTy9SOE5LQXF1?=
- =?utf-8?B?L3NMR0I5ZlJKM3RoN0ZiNmJWbFROczVCZStlSU8wZE83V2pPT0JuVExLaExt?=
- =?utf-8?B?VWFrcmNzdU8wWm1PbCsrRVNjSy9PNytjbm5MOUdLTFBCQ29iNDRLMzhodmY5?=
- =?utf-8?B?cmlTRWpsWTBuYmVNYkNhc1JwY2s3UDg4NWFWNnhSUmhsbllMWXo3SVJqcFZ1?=
- =?utf-8?B?dEM0TjFQdDQxZ0xndnpVZE9yZFNGenBSTEhKaHZsZ3I1QUVrV2MyVElZS3FV?=
- =?utf-8?B?aDJqV2p0WVlicVNvcUJRUVg3TXN1TlYzbTA4UUhvZVRxVlZSNTJLTFBEbmNy?=
- =?utf-8?B?L2FBVGhQN2x3azJQN0J1Tlc0eC83dDZRM1l4bXlvbUU0eXo2TDNSL3NoRW80?=
- =?utf-8?B?YW1pTlFqU2VReGtPNnc4VkY0NDNNd2pab0FZWVgzcFhKZjVmTzBIWDZKTnhj?=
- =?utf-8?B?WlQ1cTZMUzBrWXBHTzVVTGFDeDJENU5mQTRkS09YK21OZ1pCLzdFUk9sSHVY?=
- =?utf-8?B?a3l2VGFoYTJ1WTREUktBNjVYc0MrWFZUOFJaYVRBQ3VhdVk5dzltYjBnblhp?=
- =?utf-8?B?aERjcFJaelBlMHBrMWk4ekZ4ZGdFMnFNNGJTNlB3aG9NRlJjNzU3T1kzYnVh?=
- =?utf-8?B?eVRpd3VtQzBUYUEyeXJvK2lNRW9UR042SVU0VUpSR25YejNXTm9ZczRKSCta?=
- =?utf-8?Q?xkq8=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RDE5SzdzNmMxK2ROTE50MGl3L1gyV0F2SWlpZ1ozSVFkZFNoSWN2andGa0c4?=
+ =?utf-8?B?c01JTm0rQUN4Y1F0c0tQaEFxREN2czBCcWU5Z3RHbEM0TXo0MUo2eWFtSmgy?=
+ =?utf-8?B?VHRBVndUeW9JaWFlTUV5QTU2TGZ3aEh2eFJheGFDUHh0WFZ4QUFicVJIVGZ3?=
+ =?utf-8?B?QlB4Y0lkYmRYTVBmdGhrTTdFSlhKc3VZckoyNWx6UmVsNDRoL0k4WWhCUXVQ?=
+ =?utf-8?B?ZXBOL1VpZWMyL2tGakVpa0EvcFhWZ2ZIR3ppQytJWUtjLy8wNlRyZldBdzFP?=
+ =?utf-8?B?SklUQ2hSakFUUm1XN1FsQnJ0NklJY2NUUDh5UWFxSnh6dm1FVkhYTW14YldJ?=
+ =?utf-8?B?Ri9NU1dnMXdiTTd0eUdvV0VSSkw1Ny9GQkNrOGtzUzIzV3ZYNk5hRkt5Tk91?=
+ =?utf-8?B?ZHo5K0o2TzhhdU4zWXd4am1UaGxIc3doVCs0Y1FBVXlWaE9wZk40UVNlOGdD?=
+ =?utf-8?B?cTd2amdpcHliOGQ5b2dvVVNUVFFoMW9mVHlsQjhpVEN2VUlab1RkcGFFaXhT?=
+ =?utf-8?B?akduMmd5ZGUyenkvVUNTaFZqcndQcVkvRVNENHJyY2svODdoRDJ1cTl5THNC?=
+ =?utf-8?B?ZWgzYzVqa0dtdHJjSDdBK3d4T3NIbHRoYTJqUXR3NUJmTmRWNXh1TVI5YXAr?=
+ =?utf-8?B?dGVGUDI2OFBKOUFMbkRwNnA3YXZnNFhJaW1IUHFPVERVWVFCKzVLVTcvbXR2?=
+ =?utf-8?B?bUd3Q3h1R0RwalVJZUhsRHVYTm5TdVprd1N3d1hnSU10OXY4bFRrVGJMZWZE?=
+ =?utf-8?B?eS96dHZtdXlFSFNZOVNJOE1lR2kxVFhRMDNSNEdwV3dnUmlSV29zcmhTOGZt?=
+ =?utf-8?B?MjZLS0EwTjcvTFQ0aUJuY0Q4eE44MlNubVpvbkhNVW92a2Z4ZmV0cDZUSGRr?=
+ =?utf-8?B?ejhvS0hNbzJiZTVkSllHdWlZU0hXSGVMWHlBM1RxUEFKOGxvZU5kdFRqU29I?=
+ =?utf-8?B?MmRWSlBVYitTUGFlWlpMMEpRazIxS2xiUVBKUlNkSDdndVY3dkdWZU5iWFJi?=
+ =?utf-8?B?aEZMVi91QUsrWkE4OHRBRGJxeHhzSk5hS3BxcFhMam1OY0EwQ0RKMEFweWtX?=
+ =?utf-8?B?TG1DWmtCc2VGSjhiaEZ4L2c1bWlJU1g0VFBERWhteHdRUnpvMmpHL0ZRM1lT?=
+ =?utf-8?B?aENrOEh3Q2JkTUFiNzhKQ1oyQytYZ2p6QzBIc1FyRUxJVEJrWWlFcGdidm5B?=
+ =?utf-8?B?aUtxZkJtR0lFYmpIYkExMTVmVWtReDhrUzZDTmJCcWY5UmFrbWJnazFyRnhl?=
+ =?utf-8?B?RHVGMGt6YzRIbkNNYlpIMHUzTmZpUkZhcGlRQnd1Rm5SRXdsRVozbXc2NS9E?=
+ =?utf-8?B?VFQwek5JOFhCRXY1K1NjR2tKZWZPNWdCWUZQMWsxckFaRDlKSFF6a1FGVDRl?=
+ =?utf-8?B?ZlZBclZBdnY1eHd0T1R5TnVSdUxEYjZBWnlzN2ZkM0NYang4Qnd1d2Faem1x?=
+ =?utf-8?B?dWNBUG43STUrTjVndUJMRFJrc1d3b2pPVXBTd2htVk13Z0U3RDVKRlh2UU5W?=
+ =?utf-8?B?RTlXNVlDZ3ZhbCtJU1JkK3hzZFB3K1J6SVVCWXUxT2g0UEQ5V1FkV0VCWDIv?=
+ =?utf-8?B?b3pHK1NjOHo4Wkw0cW1ZR3F6M2FxNExjN2I0emJXcjRHNHdtbTVIdGN0dHFR?=
+ =?utf-8?B?a2R6QWhGZUN0eU4wcXNaK0ZxOG1PNStSa2lTM0hzRmIzNkVWTy9sbHpOWk1v?=
+ =?utf-8?B?Vi9oYTJBWlBDWm1RTXJPYzVzSEpWZnNMaHJQQ2hkYlY5QlFoZ1R1b2pRRkw3?=
+ =?utf-8?B?RUZ3cHpmanA3aTJvTVcvbzF0djY5UUV1SkZnS1EwY253UTFTVDhNNjdpNmE2?=
+ =?utf-8?B?Y2JPWURYMzNVNy94V051VjNmUXdEdFlzUWVSVGhKS1l5WjZtdmdkdmlMdmYy?=
+ =?utf-8?B?TkdHaS9lV0ZYMldocFREUGxiZ3J2TGVsaFpNb0pXWnlCZ1BSL0pRb3ovK2ZN?=
+ =?utf-8?B?eXlUOFBoY2FoZHFIeVE0aWk2MFIrL1BEVW1PYkw3bHhiaWdmcnY5SnJaQzg4?=
+ =?utf-8?B?M0srSm54OHE2UUNxOWxQUnVhWmJSajlzSFdIRVBqYjQrNmNZcGpBTVZ2cllO?=
+ =?utf-8?B?NjhKQ3BCYTdJdXZQV0NoQVhZUG5JcUlLTzhXRVRVcDNmNXJ5TFhRVFF3Q01Z?=
+ =?utf-8?Q?DDke7DASrQ34sMtuLy7daqd+o?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3854cf5-7a55-4d28-edc0-08dc6a5d9cbb
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2600.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a82ca10f-65f3-489f-c0b2-08dc6a67f848
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2024 04:09:07.6006 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2024 05:23:16.2141 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EqEPVl0h0uGFXXIMHJBb0NKcjZJRKB3n/ytqI2iNw7aR7b2BOUIzBeLVYSzlONkd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6275
+X-MS-Exchange-CrossTenant-UserPrincipalName: NiwUacfSqN1N3VakWBouy1pkt55IXlrC+bxkg91wG0G6c6wwycRgn22IXAXYuOHDLkY5Pi7cNT2Mz3AfxAC0nA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4170
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,105 +161,201 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hey Alex,
 
-On 5/1/2024 5:56 PM, Philip Yang wrote:
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
->
->
-> On system with khugepaged enabled and user cases with THP buffer, the
-> hmm_range_fault may takes > 15 seconds to return -EBUSY, the arbitrary
-> timeout value is not accurate, cause memory allocation failure.
->
-> Remove the arbitrary timeout value, return EAGAIN to application if
-> hmm_range_fault return EBUSY, then userspace libdrm and Thunk will call
-> ioctl again.
+On 01/05/2024 22:39, Alex Deucher wrote:
+> On Fri, Apr 26, 2024 at 10:07 AM Shashank Sharma
+> <shashank.sharma@amd.com> wrote:
+>> From: Alex Deucher <alexander.deucher@amd.com>
+>>
+>> This patch intorduces new UAPI/IOCTL for usermode graphics
+>> queue. The userspace app will fill this structure and request
+>> the graphics driver to add a graphics work queue for it. The
+>> output of this UAPI is a queue id.
+>>
+>> This UAPI maps the queue into GPU, so the graphics app can start
+>> submitting work to the queue as soon as the call returns.
+>>
+>> V2: Addressed review comments from Alex and Christian
+>>      - Make the doorbell offset's comment clearer
+>>      - Change the output parameter name to queue_id
+>>
+>> V3: Integration with doorbell manager
+>>
+>> V4:
+>>      - Updated the UAPI doc (Pierre-Eric)
+>>      - Created a Union for engine specific MQDs (Alex)
+>>      - Added Christian's R-B
+>> V5:
+>>      - Add variables for GDS and CSA in MQD structure (Alex)
+>>      - Make MQD data a ptr-size pair instead of union (Alex)
+>>
+>> V9:
+>>     - renamed struct drm_amdgpu_userq_mqd_gfx_v11 to struct
+>>       drm_amdgpu_userq_mqd as its being used for SDMA and
+>>       compute queues as well
+>>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Christian Koenig <christian.koenig@amd.com>
+>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+>> ---
+>>   include/uapi/drm/amdgpu_drm.h | 110 ++++++++++++++++++++++++++++++++++
+>>   1 file changed, 110 insertions(+)
+>>
+>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+>> index 96e32dafd4f0..22f56a30f7cb 100644
+>> --- a/include/uapi/drm/amdgpu_drm.h
+>> +++ b/include/uapi/drm/amdgpu_drm.h
+>> @@ -54,6 +54,7 @@ extern "C" {
+>>   #define DRM_AMDGPU_VM                  0x13
+>>   #define DRM_AMDGPU_FENCE_TO_HANDLE     0x14
+>>   #define DRM_AMDGPU_SCHED               0x15
+>> +#define DRM_AMDGPU_USERQ               0x16
+>>
+>>   #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+>>   #define DRM_IOCTL_AMDGPU_GEM_MMAP      DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+>> @@ -71,6 +72,7 @@ extern "C" {
+>>   #define DRM_IOCTL_AMDGPU_VM            DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_VM, union drm_amdgpu_vm)
+>>   #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_FENCE_TO_HANDLE, union drm_amdgpu_fence_to_handle)
+>>   #define DRM_IOCTL_AMDGPU_SCHED         DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_SCHED, union drm_amdgpu_sched)
+>> +#define DRM_IOCTL_AMDGPU_USERQ         DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ, union drm_amdgpu_userq)
+>>
+>>   /**
+>>    * DOC: memory domains
+>> @@ -317,6 +319,114 @@ union drm_amdgpu_ctx {
+>>          union drm_amdgpu_ctx_out out;
+>>   };
+>>
+>> +/* user queue IOCTL */
+>> +#define AMDGPU_USERQ_OP_CREATE 1
+>> +#define AMDGPU_USERQ_OP_FREE   2
+>> +
+>> +/* Flag to indicate secure buffer related workload, unused for now */
+>> +#define AMDGPU_USERQ_MQD_FLAGS_SECURE  (1 << 0)
+>> +/* Flag to indicate AQL workload, unused for now */
+>> +#define AMDGPU_USERQ_MQD_FLAGS_AQL     (1 << 1)
+>> +
+>> +/*
+>> + * MQD (memory queue descriptor) is a set of parameters which allow
+>> + * the GPU to uniquely define and identify a usermode queue. This
+>> + * structure defines the MQD for GFX-V11 IP ver 0.
+>> + */
+>> +struct drm_amdgpu_userq_mqd {
+> Maybe rename this to drm_amdgpu_gfx_userq_mqd since it's gfx specific.
+> Then we can add different MQDs for SDMA, compute, etc. as they have
+> different metadata.  E.g., the shadow and CSA are gfx only.
 
-Wonder why letting user space do retry is better? Seems this issue is 
-caused by hugepage merging, so how user space can avoid it?
 
-And applications may not use Thunk or libdrm, instead, use ioctl directly.
+Actually this was named drm_amdgpu_userq_mqd_gfx_v11_0 until the last 
+patchset, but then I realized that apart from the objects (gds/shadow 
+va) nothing is gfx specific, its actually required for every userqueue 
+IP which is MES based, so I thought it would be an overkill to create 
+multiple structures for almost the same data. If you feel strong about 
+this, I can change it again.
 
-Regards
+- Shashank
 
-Xiaogang
-
-> Change EAGAIN to debug message as this is not error.
+> Alex
 >
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  5 ++++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c          | 12 +++---------
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c             |  5 +----
->   3 files changed, 8 insertions(+), 14 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 54198c3928c7..02696c2102f1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1087,7 +1087,10 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
->
->          ret = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages, &range);
->          if (ret) {
-> -               pr_err("%s: Failed to get user pages: %d\n", __func__, ret);
-> +               if (ret == -EAGAIN)
-> +                       pr_debug("Failed to get user pages, try again\n");
-> +               else
-> +                       pr_err("%s: Failed to get user pages: %d\n", __func__, ret);
->                  goto unregister_out;
->          }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> index 431ec72655ec..e36fede7f74c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> @@ -202,20 +202,12 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
->                  pr_debug("hmm range: start = 0x%lx, end = 0x%lx",
->                          hmm_range->start, hmm_range->end);
->
-> -               /* Assuming 64MB takes maximum 1 second to fault page address */
-> -               timeout = max((hmm_range->end - hmm_range->start) >> 26, 1UL);
-> -               timeout *= HMM_RANGE_DEFAULT_TIMEOUT;
-> -               timeout = jiffies + msecs_to_jiffies(timeout);
-> +               timeout = jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
->
->   retry:
->                  hmm_range->notifier_seq = mmu_interval_read_begin(notifier);
->                  r = hmm_range_fault(hmm_range);
->                  if (unlikely(r)) {
-> -                       schedule();
-> -                       /*
-> -                        * FIXME: This timeout should encompass the retry from
-> -                        * mmu_interval_read_retry() as well.
-> -                        */
->                          if (r == -EBUSY && !time_after(jiffies, timeout))
->                                  goto retry;
->                          goto out_free_pfns;
-> @@ -247,6 +239,8 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
->   out_free_range:
->          kfree(hmm_range);
->
-> +       if (r == -EBUSY)
-> +               r = -EAGAIN;
->          return r;
->   }
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 94f83be2232d..e7040f809f33 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1670,11 +1670,8 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
->                                                         readonly, owner, NULL,
->                                                         &hmm_range);
->                          WRITE_ONCE(p->svms.faulting_task, NULL);
-> -                       if (r) {
-> +                       if (r)
->                                  pr_debug("failed %d to get svm range pages\n", r);
-> -                               if (r == -EBUSY)
-> -                                       r = -EAGAIN;
-> -                       }
->                  } else {
->                          r = -EFAULT;
->                  }
-> --
-> 2.43.2
->
+>> +       /**
+>> +        * @queue_va: Virtual address of the GPU memory which holds the queue
+>> +        * object. The queue holds the workload packets.
+>> +        */
+>> +       __u64   queue_va;
+>> +       /**
+>> +        * @queue_size: Size of the queue in bytes, this needs to be 256-byte
+>> +        * aligned.
+>> +        */
+>> +       __u64   queue_size;
+>> +       /**
+>> +        * @rptr_va : Virtual address of the GPU memory which holds the ring RPTR.
+>> +        * This object must be at least 8 byte in size and aligned to 8-byte offset.
+>> +        */
+>> +       __u64   rptr_va;
+>> +       /**
+>> +        * @wptr_va : Virtual address of the GPU memory which holds the ring WPTR.
+>> +        * This object must be at least 8 byte in size and aligned to 8-byte offset.
+>> +        *
+>> +        * Queue, RPTR and WPTR can come from the same object, as long as the size
+>> +        * and alignment related requirements are met.
+>> +        */
+>> +       __u64   wptr_va;
+>> +       /**
+>> +        * @shadow_va: Virtual address of the GPU memory to hold the shadow buffer.
+>> +        * This must be a from a separate GPU object, and must be at least 4-page
+>> +        * sized.
+>> +        */
+>> +       __u64   shadow_va;
+>> +       /**
+>> +        * @gds_va: Virtual address of the GPU memory to hold the GDS buffer.
+>> +        * This must be a from a separate GPU object, and must be at least 1-page
+>> +        * sized.
+>> +        */
+>> +       __u64   gds_va;
+>> +       /**
+>> +        * @csa_va: Virtual address of the GPU memory to hold the CSA buffer.
+>> +        * This must be a from a separate GPU object, and must be at least 1-page
+>> +        * sized.
+>> +        */
+>> +       __u64   csa_va;
+>> +};
+>> +
+>> +struct drm_amdgpu_userq_in {
+>> +       /** AMDGPU_USERQ_OP_* */
+>> +       __u32   op;
+>> +       /** Queue handle for USERQ_OP_FREE */
+>> +       __u32   queue_id;
+>> +       /** the target GPU engine to execute workload (AMDGPU_HW_IP_*) */
+>> +       __u32   ip_type;
+>> +       /**
+>> +        * @flags: flags to indicate special function for queue like secure
+>> +        * buffer (TMZ). Unused for now.
+>> +        */
+>> +       __u32   flags;
+>> +       /**
+>> +        * @doorbell_handle: the handle of doorbell GEM object
+>> +        * associated to this client.
+>> +        */
+>> +       __u32   doorbell_handle;
+>> +       /**
+>> +        * @doorbell_offset: 32-bit offset of the doorbell in the doorbell bo.
+>> +        * Kernel will generate absolute doorbell offset using doorbell_handle
+>> +        * and doorbell_offset in the doorbell bo.
+>> +        */
+>> +       __u32   doorbell_offset;
+>> +       /**
+>> +        * @mqd: Queue descriptor for USERQ_OP_CREATE
+>> +        * MQD data can be of different size for different GPU IP/engine and
+>> +        * their respective versions/revisions, so this points to a __u64 *
+>> +        * which holds MQD of this usermode queue.
+>> +        */
+>> +       __u64 mqd;
+>> +       /**
+>> +        * @size: size of MQD data in bytes, it must match the MQD structure
+>> +        * size of the respective engine/revision defined in UAPI for ex, for
+>> +        * gfx_v11 workloads, size = sizeof(drm_amdgpu_userq_mqd_gfx_v11).
+>> +        */
+>> +       __u64 mqd_size;
+>> +};
+>> +
+>> +struct drm_amdgpu_userq_out {
+>> +       /** Queue handle */
+>> +       __u32   queue_id;
+>> +       /** Flags */
+>> +       __u32   flags;
+>> +};
+>> +
+>> +union drm_amdgpu_userq {
+>> +       struct drm_amdgpu_userq_in in;
+>> +       struct drm_amdgpu_userq_out out;
+>> +};
+>> +
+>>   /* vm ioctl */
+>>   #define AMDGPU_VM_OP_RESERVE_VMID      1
+>>   #define AMDGPU_VM_OP_UNRESERVE_VMID    2
+>> --
+>> 2.43.2
+>>
