@@ -4,151 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B74EAC4345F
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 May 2024 14:18:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D769C4345F
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 May 2024 14:23:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1725210FB59;
-	Thu,  2 May 2024 14:18:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78BC310FFFA;
+	Thu,  2 May 2024 14:23:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="X6cG8vjO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="g0eEroOU";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2046.outbound.protection.outlook.com [40.107.101.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C222410FDC6
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 May 2024 14:18:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GP8UMZt9isE5Sapa2Oi0ij6SUCqMXxt67Q+/A/vs0W+AsITNkCqfyiRI1+wWAFeiq0ftH3zsoWn0M3iFVvNnCwToN8mF13/dlaLgcwhC7gR8dPnQeXhwi++V8JTAL3MzVESukYxbz0I06F+d1K7wcWfWBbZvytdBJfM+fvTFQPJ/sDQmL2t/oviipb3sywVFbCsg6gkjxgKK3NIGUBwc5cjpIsF/yimaR9I/E1CM2haDzTh6fFkfRJKtj1bB94fMJg1+fftaUGupYuFHSIj32CSGZoLiq7AsUpNEflWkUvuonGY2oPTp9Bl4/OhU2Lvc1L5rBqXmJJxQQQ09TucJkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AeFSBtOKcRsEqbdHhvkXeRbdgd75d4bMstybMiXh020=;
- b=GRdjjGvKQr4eFhbZB6vqeUXIWlpScA5wvgk7yBDnJb0sdJN7RyfOOQIU9nhqgcD0Ulc3huimikjDgmqHx0J+zCv/ng6WvdjIaK+yNMVbb5eCEw17LVIPM/abDXJ2auBIF3s3ppH2gjWpmYQ3MuQToAjEORV1KKuve6MyuP6VuqGzwLZnPVWevs1bOcV0755Tute+vCCC+k+41iJX32aJkuRhCS0/LVDNwdAyl59i0J7sRpptv3TNL7Dm2wQ2gC1JRgYtiwlf3jmOYzMXS6ezb9DG0DsSaxvjMGgqYbhEvcmac+zMr1hL2Ues5a7QRKwrNI1AYW2nA6PPvqAFTYMjcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AeFSBtOKcRsEqbdHhvkXeRbdgd75d4bMstybMiXh020=;
- b=X6cG8vjOSZN++NRgjpDs/zVSPfrgQOls/2miYBrOH5Q6s8QwS1xvU0lnbjU/nA9JTWQRBFzKbdnuLIKJec26gy8uMqAdHqEJHPYfbudfdxLS+kfP7sQ7mvdHsYkgMdm/GqxsvWqYRrcy9Fo/vsW95ns4tmVFapuyl2M9CCdrkzA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by SJ0PR12MB8165.namprd12.prod.outlook.com (2603:10b6:a03:4e4::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.29; Thu, 2 May
- 2024 14:18:05 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::966b:7f50:4f07:3c8b]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::966b:7f50:4f07:3c8b%5]) with mapi id 15.20.7519.031; Thu, 2 May 2024
- 14:18:05 +0000
-Message-ID: <ac18b980-3696-f284-de4d-1af8cff92d87@amd.com>
-Date: Thu, 2 May 2024 16:17:59 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v9 13/14] drm/amdgpu: enable compute/gfx usermode queue
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Arvind Yadav <arvind.yadav@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
-References: <20240426134810.1250-1-shashank.sharma@amd.com>
- <20240426134810.1250-14-shashank.sharma@amd.com>
- <CADnq5_OQHhmPZXsPdQfygAR3=EsWMB3r3n=Y0ajJFBhA+voY+A@mail.gmail.com>
- <1f34c3b7-0c3a-b83b-efe4-d3f5750cfa34@amd.com>
- <CADnq5_M2ErBmKHeg8hE-xsf_xZGWSZ-r35F8Py44yn+NNXSRwQ@mail.gmail.com>
-From: "Sharma, Shashank" <shashank.sharma@amd.com>
-In-Reply-To: <CADnq5_M2ErBmKHeg8hE-xsf_xZGWSZ-r35F8Py44yn+NNXSRwQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: VI1PR04CA0098.eurprd04.prod.outlook.com
- (2603:10a6:803:64::33) To MW4PR12MB5667.namprd12.prod.outlook.com
- (2603:10b6:303:18a::10)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B37F410FFFA;
+ Thu,  2 May 2024 14:23:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1714659791; x=1746195791;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Wivr9zI2XqVFEe7Rd0LoFFSrlvJN+Yye+CnFKxT5ChU=;
+ b=g0eEroOU3pOiB7M0QCE2jm19+yl3Gf/XlpauvKBfQncn/l85n8fJdFQU
+ JQEJfuxQOQg8/IR9XS5Pf5JHXuLG/68bReEBZUcXKjI5gv75fT3DPN5l5
+ Sl8cGndGmuAeefqTe+Sv1Cgd6PSzPD/QD7fBDSHBYI9WR+rv/hjotRGie
+ HB1Au3NaLdLwLK/eZYciZSrJ36fVDi21E56RxmTkW3b5B3mrXWn7+p3/b
+ M/MWDg3xYY+LhtO/7K9LkdKVeWthaWNEYAiiYJk4FD+L2WhP0MUVqVVdm
+ KidzXBKhX5omrWntwUu07mBHe2HfCGjMxrSqfQO0S5rtOkTKTFaLyfJp9 A==;
+X-CSE-ConnectionGUID: szAYXpuGR06AvTYRCC7xNQ==
+X-CSE-MsgGUID: 1G5nlq5pQOKoaCNT/LrD1g==
+X-IronPort-AV: E=McAfee;i="6600,9927,11062"; a="21833942"
+X-IronPort-AV: E=Sophos;i="6.07,247,1708416000"; d="scan'208";a="21833942"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 May 2024 07:23:10 -0700
+X-CSE-ConnectionGUID: pDE+gOSBTUqUlV8N7OgF4w==
+X-CSE-MsgGUID: qeQ1rN41Rsihqb8tl6QJcw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,247,1708416000"; d="scan'208";a="27238798"
+Received: from psurply-mobl1.ger.corp.intel.com (HELO [10.249.32.217])
+ ([10.249.32.217])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 May 2024 07:23:07 -0700
+Message-ID: <ec27f4f8-77a0-45be-96a5-54985fb3ab25@linux.intel.com>
+Date: Thu, 2 May 2024 16:23:05 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|SJ0PR12MB8165:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3cb4cebd-32a8-4d4c-3538-08dc6ab2af2f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|376005|1800799015;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RWRsNE0xeUFTMEdnQzNsTmJOenRWSHhFV3doNzN1YXY3MjlWNXRlNndVZk1C?=
- =?utf-8?B?RjhneW9sYXFDZ3k2Wmd1cTFmN0pxejFFM3lNWGlLMElocUFmMEJLdXdyQlJ2?=
- =?utf-8?B?ZHR3MkozNFZ2R1VtdTNneWloM1IrQ1VMejdZRHI2Sm5abG0wSzFVeDU2OWh0?=
- =?utf-8?B?eGcxSlczRUJVWFg1aWZwK2UrZE5lU1JCd09SRTRsNDRGK0lPUkRHZUFoNUNx?=
- =?utf-8?B?aS9YZ1BWeC9MZmxOY29Ra3BXOUp4S2Vhd0I3dHBVQkt2WmdTQ1ZWTWFJWjlo?=
- =?utf-8?B?cHlJTG9pWHNraHVjeGR4OUlVdFlDV3RJbGFSajZ1a3ZEcTc4czNQcWt3VVdn?=
- =?utf-8?B?YWtlVUg4R3NRMDlCeFVYRzU3c3lYV1pNcDRRcytFemV5WGdOUjdnZGJrNTlC?=
- =?utf-8?B?MHJsMm9TYWwxcTBSMVFwQXJxbWladFJJUFg0VjBjMVZCdy95bWwwUTUzbFRI?=
- =?utf-8?B?UnlodS9ZK1c3VFNuaGR1QlpHSWdkRUlyUHk1eWQwTGlvaVpHVFptRS91aTZp?=
- =?utf-8?B?WElsSUVNQ0dHRFBiR2hIY1AyNzN2bGUxY244NnBYRWJLSVhoRVQzN04rVDRO?=
- =?utf-8?B?ZnZhcVJOQlB4Smo0TXNrdlF3dmswZ3R6TG1kemp4ekZjVlBmbDlQZkEwSzdt?=
- =?utf-8?B?WUZVREdjUGM0NVNidzlPZmoxRXhEeWZFaGpVeUJuK0Q5ZGpQay9mVytKaW1N?=
- =?utf-8?B?N1RQTDlhdmRaNHNMcTNiMzk3ektsYXZCMVlmTTNTYVV3VTdHWko2dUlFTlVt?=
- =?utf-8?B?dlVEVDJEbmNIK3J1cEMwTjFucWRMbzEzajY5VmNtVisxbmVkeVJnTUxneWtu?=
- =?utf-8?B?VjNuSHFrSmQ2MTN3dHpDSlZZa1hucU01aGdwc1lFR1RvcTNYMEZlTkxoc2N5?=
- =?utf-8?B?VlhJNzdPUmRHQWFBQXZNZEZpaU56akJpT0prdWJYYjRiWm1BR3NqcjMrVmhm?=
- =?utf-8?B?MERwN3B5dk5zcDRpeDFOeitMdlNVWXppcER0SHl4c2hUUmh1N3M0bmtJaWNK?=
- =?utf-8?B?K2hGRlZOMWxhMFlwbGlubkVIME04cjA5VXB1RDVRME1SVW1Id3VqWTAzZ0Fi?=
- =?utf-8?B?NGJFOW00RkJpUDhuSkl5SWVMUmgwbVBuRjROOG9KaVluMFFHZGJIV3R1Q1pm?=
- =?utf-8?B?VStjNGtnOWg1YnVtcFRHdjZ1ekwwVjFzMWJUUlZ3MjU2dVpUQXI3OXdiRWpY?=
- =?utf-8?B?UW4vdmo4TmtwQ3NhTjlKWWdsSHE1QUtpeGxqK1ptK0hkM0h6Ulh5dTNlZ0tP?=
- =?utf-8?B?QU9Ob3A3bU1NZGc1QnQ5TEtiTWJaR0ZQOGw4MDZmMzNFbjRmQzBOMWE3Q3la?=
- =?utf-8?B?cGkrT3JITmxUZkg2bWw0b3RCYStHVTNCZElyRlNOKzBWOVdyc2FnbEFoTXBU?=
- =?utf-8?B?K1l6aUY5aXgzVHZhYzRFM1NHOVFCYy9lNk1lM0lKeklZM0VsdTZTQk10VWpy?=
- =?utf-8?B?ckRhaVExdzRiZ0E4N1N2OHZLNXJ0UGJlaEpOSnZ6T2N5dmZlMDdTd2wydkFE?=
- =?utf-8?B?T3BPSFdUeW43NWFabjBaWkFaZHBGZnhjQ25MSVo3Q3ZxMUhDVDl1Z0wyNHI2?=
- =?utf-8?B?dDU2RDhkNWJ6RHNOeWVJN1J5RXhZb2FvZkdKL0k3V2JyWFpuU2Q5elpxOVdz?=
- =?utf-8?B?dnN3aE5xakhSN05WcDZ5ZE1waEt1Nk5QVy9QU2FmOG44SkxmZE03RW9yaHhL?=
- =?utf-8?B?b2NZZXQ3RC9mZDNXelVsT3kyZzRYSkVDQ21leUlSWnFjenFwVU5FOTRnPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OGdtWWcxZlN5OWU2Z0xJaEkrNFB4NldqK1FoYWdMdzZDVkJreDhSVlV3OG9G?=
- =?utf-8?B?M3d2UVd3MTZGLzZya04wQmFkaEFGaW11NEZJLzZaVWFvWm5KYlZ5NDNUaTVH?=
- =?utf-8?B?dmVNYUluT3pKSmxESGsyS1JIbXgxSlArWTNvWk5yM2tJVDA1Sll5di9aTlhh?=
- =?utf-8?B?Qlh3aXpJQzI5cVprUnZrZ2EzcUI0aHpsQWhFOFZmZTFMa2JHT1BKb2ZVYUxw?=
- =?utf-8?B?bkg4SWUrSW01Mm5OZjl6VDZDY2FBOTFHQ3MzZWVNalJNRmxYOVlTM1kwSHM3?=
- =?utf-8?B?bFhOMitLeUZKTy9zeHZrbVZzVis5b1hyd3Bxb09HSEZReWp5d0dOblY1OTdI?=
- =?utf-8?B?blBxK3ZtN0hmVEMrRm5tY3ZMenpVZWdmTEtlVHBxM3VPQjJDT21TUUFzR1Jo?=
- =?utf-8?B?YnVxakx3TWRsZDlTR3phM3h0cGROS0R2NkNZVGcvMlhScE5UR2ErcnlKc20y?=
- =?utf-8?B?VHIvdzdsS1NoYWJta3VjN3VVTVhhbThmWGVFaFFqRXBNdHg3VDUxOEhJbGhl?=
- =?utf-8?B?Ykh1QU9wK3ZUZDYyMDNCVkFOSjZ0cmlya28ycjFxa1hxV083UnZqOSs5Nm9X?=
- =?utf-8?B?SFZ6akZmKzR4YnVlaFJaNG1tTmdtQ0pVN2laRGJjM253SkEwWjVsdEJhRUVB?=
- =?utf-8?B?QjNZSVlzdFVURDk3NXNOaTJXeVFaamluMFdKOTVGcWNwL1JxMkZaWkllWWx6?=
- =?utf-8?B?ek1UZkx2U3QreVliVmJrSnZlZGZHZTZ1bmU1cHVHSk5XTmN2R0JoRjJhSTBi?=
- =?utf-8?B?Z3cyRkU0enlRckgrOVlUL0dxb2tEWWV2ZHlFMUJZakFxeWpIMzl4aTA2OVpS?=
- =?utf-8?B?dkdsSVRiZDdxK1lwVStEcTY0QlVQaWhEa2tqblJuaWoxbGhUdEc3cDQrWWVE?=
- =?utf-8?B?WFFVWTJJa1dtRGhRNkR1TDFKNURkNmI3Z3M3by9hNWt6LzNiS0dvV3VWWlJU?=
- =?utf-8?B?eGtJYUJlekRkd3VnQ2NwWnVMNUlCc1NSZ3VoNFBNTXBNWm1NMm9VVFMwZ0p0?=
- =?utf-8?B?NWdna1E4cGV5UFJReFNEWkZJNWY5SGVRaW1sRmlkT2twZlhVcjlJNE9jcS9G?=
- =?utf-8?B?S0txYzNoYVNHTkhOL2xjTDBYbXMweEdTeVhZNkZUQlJqQkhGaHRjTU1ZWlZU?=
- =?utf-8?B?QzE0NFd4N0pZTW1DVHNoSGRheGdIdkFsMlovUFF6QUl5RWRXa0o4MWIrdTQ4?=
- =?utf-8?B?QW9vS040eTd5OEd0NUorR00wc3cxNEQ5elAvS3k5Y3k5TXZUNjNDYUo1cm9D?=
- =?utf-8?B?VnBUTkc5QkFxT3pVVVFNQjJ1U3g4cEs3TmpPOTJRWkNRdGswQ2JoZTc1bTFv?=
- =?utf-8?B?VmE0SWN0YVEwRnh2d2ZoTWJVVnNhT1lxeEdFZTB6aU12YWVMVC9xTStISDZX?=
- =?utf-8?B?ZWtZc0libGhoVm8xWVMzSGhQSkRXNDBRSXZQbTVlUnFxZDducWhyWERRVWM4?=
- =?utf-8?B?Ymxna1grb1dWYzFiNWpneGk4Ujl3V1F6N2RNL2hyT1ErTFYxMmtmUEtwVWFF?=
- =?utf-8?B?M0ZCcU8ybUh4am5LZEw2WHdwR2hLOGJGbXF0WHNOb0R5cjFpUUV0U2k5dUxC?=
- =?utf-8?B?RmxYMDlMT0FQU0ZCd2RwckFEa3lxN0pndWxVQlRTRmEwT3k0TnBPbmtVdXJX?=
- =?utf-8?B?U0lvMDBubW9GZkVjZEgrZzlSRmhvckV3eGhlZWRaRlYwZ1pxTGxiMnBNMEhi?=
- =?utf-8?B?VmVlTlZISllPUGRveDVTcXcrai9kOXF4UWcyOUFHMGtvVnlhb0Rac3orMlNh?=
- =?utf-8?B?blZNZlduaFpPdW1HR0VZZXZVeU9sOE5yUm9KeVZsV2U4Zjg0TDZRZm42ckNm?=
- =?utf-8?B?eU1XQXBYTllUTUUvRklObnhTWmJmRnUwWS9QcXcxOURZakQ2ckNHaUowR3d6?=
- =?utf-8?B?bDR5S0JtZHBsTlpRNWRRK2N1cHZYM3h0Skkxb1pObTlrcDIralpmZUdydjRZ?=
- =?utf-8?B?ZHhGMkFQK2pnN2drNFRrem1rOG1HTWsrS0lNcEFrS0ZYZmpGemtnaGg1OEpP?=
- =?utf-8?B?bnkvNWZSN3dFR3hjRGVEb3pRYUM3QVpSQ1hod0IvWUVnU3Q2RlpybkgzV1Zx?=
- =?utf-8?B?cGg5ajA4alZkbWxvVi92UHFhMk83Y2REOVM1d1N4Q2tOeU0yUnZZd25iR0tO?=
- =?utf-8?Q?Yrwkg6ryzqV1EKGTm3+d5eBaU?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3cb4cebd-32a8-4d4c-3538-08dc6ab2af2f
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2024 14:18:05.8397 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hh8qLsUxoNrAJ6WFA0yVyl7vN5z5B7KMqgDhG/CZRxiRA+RkbbB6xNqKAIbhE7tnPpyEB6C+RwEopTlZjePKFA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8165
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 00/18] TTM interface for managing VRAM oversubscription
+To: Friedrich Vock <friedrich.vock@gmx.de>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: Pierre-Loup Griffais <pgriffais@valvesoftware.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, Joshua Ashton
+ <joshua@froggi.es>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+References: <20240424165937.54759-1-friedrich.vock@gmx.de>
+Content-Language: en-US
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <20240424165937.54759-1-friedrich.vock@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,145 +74,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hey,
 
-On 02/05/2024 16:10, Alex Deucher wrote:
-> On Thu, May 2, 2024 at 1:51 AM Sharma, Shashank <shashank.sharma@amd.com> wrote:
->>
->> On 01/05/2024 22:44, Alex Deucher wrote:
->>> On Fri, Apr 26, 2024 at 10:27 AM Shashank Sharma
->>> <shashank.sharma@amd.com> wrote:
->>>> From: Arvind Yadav <arvind.yadav@amd.com>
->>>>
->>>> This patch does the necessary changes required to
->>>> enable compute workload support using the existing
->>>> usermode queues infrastructure.
->>>>
->>>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>>> Cc: Christian Koenig <christian.koenig@amd.com>
->>>> Signed-off-by: Arvind Yadav <arvind.yadav@amd.com>
->>>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c    |  3 ++-
->>>>    drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c           |  2 ++
->>>>    drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c | 10 +++++++++-
->>>>    include/uapi/drm/amdgpu_drm.h                    |  1 +
->>>>    4 files changed, 14 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
->>>> index e516487e8db9..78d34fa7a0b9 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
->>>> @@ -189,7 +189,8 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->>>>           int qid, r = 0;
->>>>
->>>>           /* Usermode queues are only supported for GFX/SDMA engines as of now */
->>>> -       if (args->in.ip_type != AMDGPU_HW_IP_GFX && args->in.ip_type != AMDGPU_HW_IP_DMA) {
->>>> +       if (args->in.ip_type != AMDGPU_HW_IP_GFX && args->in.ip_type != AMDGPU_HW_IP_DMA
->>>> +                       && args->in.ip_type != AMDGPU_HW_IP_COMPUTE) {
->>>>                   DRM_ERROR("Usermode queue doesn't support IP type %u\n", args->in.ip_type);
->>>>                   return -EINVAL;
->>>>           }
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
->>>> index 525bd0f4d3f7..27b86f7fe949 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
->>>> @@ -1350,6 +1350,7 @@ static int gfx_v11_0_sw_init(void *handle)
->>>>                   adev->gfx.mec.num_pipe_per_mec = 4;
->>>>                   adev->gfx.mec.num_queue_per_pipe = 4;
->>>>                   adev->userq_funcs[AMDGPU_HW_IP_GFX] = &userq_mes_v11_0_funcs;
->>>> +               adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] = &userq_mes_v11_0_funcs;
->>>>                   break;
->>>>           case IP_VERSION(11, 0, 1):
->>>>           case IP_VERSION(11, 0, 4):
->>>> @@ -1362,6 +1363,7 @@ static int gfx_v11_0_sw_init(void *handle)
->>>>                   adev->gfx.mec.num_pipe_per_mec = 4;
->>>>                   adev->gfx.mec.num_queue_per_pipe = 4;
->>>>                   adev->userq_funcs[AMDGPU_HW_IP_GFX] = &userq_mes_v11_0_funcs;
->>>> +               adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] = &userq_mes_v11_0_funcs;
->>>>                   break;
->>>>           default:
->>>>                   adev->gfx.me.num_me = 1;
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c
->>>> index a5e270eda37b..d61d80f86003 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c
->>>> @@ -183,7 +183,8 @@ static int mes_v11_0_userq_create_ctx_space(struct amdgpu_userq_mgr *uq_mgr,
->>>>           }
->>>>
->>>>           /* We don't need to set other FW objects for SDMA queues */
->>>> -       if (queue->queue_type == AMDGPU_HW_IP_DMA)
->>>> +       if ((queue->queue_type == AMDGPU_HW_IP_DMA) ||
->>>> +           (queue->queue_type == AMDGPU_HW_IP_COMPUTE))
->>>>                   return 0;
->>>>
->>>>           /* Shadow and GDS objects come directly from userspace */
->>>> @@ -246,6 +247,13 @@ static int mes_v11_0_userq_mqd_create(struct amdgpu_userq_mgr *uq_mgr,
->>>>           userq_props->use_doorbell = true;
->>>>           userq_props->doorbell_index = queue->doorbell_index;
->>>>
->>>> +       if (queue->queue_type == AMDGPU_HW_IP_COMPUTE) {
->>>> +               userq_props->eop_gpu_addr = mqd_user->eop_va;
->>>> +               userq_props->hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_NORMAL;
->>>> +               userq_props->hqd_queue_priority = AMDGPU_GFX_QUEUE_PRIORITY_MINIMUM;
->>>> +               userq_props->hqd_active = false;
->>>> +       }
->>>> +
->>>>           queue->userq_prop = userq_props;
->>>>
->>>>           r = mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_ptr, userq_props);
->>>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
->>>> index 22f56a30f7cb..676792ad3618 100644
->>>> --- a/include/uapi/drm/amdgpu_drm.h
->>>> +++ b/include/uapi/drm/amdgpu_drm.h
->>>> @@ -375,6 +375,7 @@ struct drm_amdgpu_userq_mqd {
->>>>            * sized.
->>>>            */
->>>>           __u64   csa_va;
->>>> +       __u64   eop_va;
->>>>    };
->>> Let's add a new mqd descriptor for compute since it's different from
->>> gfx and sdma.
->> the only different thing is this object (vs csa and gds objects), apart
->> from that, the mqd is the same as they all are MES based. Am I missing
->> something here ?
-> The scheduling entity is irrelevant.  The mqd is defined by the engine
-> itself.  E.g., v11_structs.h.  Gfx has one set of requirements,
-> compute has different ones, and SDMA has different ones.  VPE and VCN
-> also have mqds.  When we add support for them in the future, they may
-> have additional requirements.  I want to make it clear in the
-> interface what additional data are required for each ring type.
+Den 2024-04-24 kl. 18:56, skrev Friedrich Vock:
+> Hi everyone,
+> 
+> recently I've been looking into remedies for apps (in particular, newer
+> games) that experience significant performance loss when they start to
+> hit VRAM limits, especially on older or lower-end cards that struggle
+> to fit both desktop apps and all the game data into VRAM at once.
+> 
+> The root of the problem lies in the fact that from userspace's POV,
+> buffer eviction is very opaque: Userspace applications/drivers cannot
+> tell how oversubscribed VRAM is, nor do they have fine-grained control
+> over which buffers get evicted.  At the same time, with GPU APIs becoming
+> increasingly lower-level and GPU-driven, only the application itself
+> can know which buffers are used within a particular submission, and
+> how important each buffer is. For this, GPU APIs include interfaces
+> to query oversubscription and specify memory priorities: In Vulkan,
+> oversubscription can be queried through the VK_EXT_memory_budget
+> extension. Different buffers can also be assigned priorities via the
+> VK_EXT_pageable_device_local_memory extension. Modern games, especially
+> D3D12 games via vkd3d-proton, rely on oversubscription being reported and
+> priorities being respected in order to perform their memory management.
+> 
+> However, relaying this information to the kernel via the current KMD uAPIs
+> is not possible. On AMDGPU for example, all work submissions include a
+> "bo list" that contains any buffer object that is accessed during the
+> course of the submission. If VRAM is oversubscribed and a buffer in the
+> list was evicted to system memory, that buffer is moved back to VRAM
+> (potentially evicting other unused buffers).
+> 
+> Since the usermode driver doesn't know what buffers are used by the
+> application, its only choice is to submit a bo list that contains every
+> buffer the application has allocated. In case of VRAM oversubscription,
+> it is highly likely that some of the application's buffers were evicted,
+> which almost guarantees that some buffers will get moved around. Since
+> the bo list is only known at submit time, this also means the buffers
+> will get moved right before submitting application work, which is the
+> worst possible time to move buffers from a latency perspective. Another
+> consequence of the large bo list is that nearly all memory from other
+> applications will be evicted, too. When different applications (e.g. game
+> and compositor) submit work one after the other, this causes a ping-pong
+> effect where each app's submission evicts the other app's memory,
+> resulting in a large amount of unnecessary moves.
+> 
+> This overly aggressive eviction behavior led to RADV adopting a change
+> that effectively allows all VRAM applications to reside in system memory
+> [1].  This worked around the ping-ponging/excessive buffer moving problem,
+> but also meant that any memory evicted to system memory would forever
+> stay there, regardless of how VRAM is used.
+> 
+> My proposal aims at providing a middle ground between these extremes.
+> The goals I want to meet are:
+> - Userspace is accurately informed about VRAM oversubscription/how much
+>    VRAM has been evicted
+> - Buffer eviction respects priorities set by userspace - Wasteful
+>    ping-ponging is avoided to the extent possible
+> 
+> I have been testing out some prototypes, and came up with this rough
+> sketch of an API:
+> 
+> - For each ttm_resource_manager, the amount of evicted memory is tracked
+>    (similarly to how "usage" tracks the memory usage). When memory is
+>    evicted via ttm_bo_evict, the size of the evicted memory is added, when
+>    memory is un-evicted (see below), its size is subtracted. The amount of
+>    evicted memory for e.g. VRAM can be queried by userspace via an ioctl.
+> 
+> - Each ttm_resource_manager maintains a list of evicted buffer objects.
+> 
+> - ttm_mem_unevict walks the list of evicted bos for a given
+>    ttm_resource_manager and tries moving evicted resources back. When a
+>    buffer is freed, this function is called to immediately restore some
+>    evicted memory.
+> 
+> - Each ttm_buffer_object independently tracks the mem_type it wants
+>    to reside in.
+> 
+> - ttm_bo_try_unevict is added as a helper function which attempts to
+>    move the buffer to its preferred mem_type. If no space is available
+>    there, it fails with -ENOSPC/-ENOMEM.
+> 
+> - Similar to how ttm_bo_evict works, each driver can implement
+>    uneviction_valuable/unevict_flags callbacks to control buffer
+>    un-eviction.
+> 
+> This is what patches 1-10 accomplish (together with an amdgpu
+> implementation utilizing the new API).
+> 
+> Userspace priorities could then be implemented as follows:
+> 
+> - TTM already manages priorities for each buffer object. These priorities
+>    can be updated by userspace via a GEM_OP ioctl to inform the kernel
+>    which buffers should be evicted before others. If an ioctl increases
+>    the priority of a buffer, ttm_bo_try_unevict is called on that buffer to
+>    try and move it back (potentially evicting buffers with a lower
+>    priority)
+> 
+> - Buffers should never be evicted by other buffers with equal/lower
+>    priority, but if there is a buffer with lower priority occupying VRAM,
+>    it should be evicted in favor of the higher-priority one. This prevents
+>    ping-ponging between buffers that try evicting each other and is
+>    trivially implementable with an early-exit in ttm_mem_evict_first.
+> 
+> This is covered in patches 11-15, with the new features exposed to
+> userspace in patches 16-18.
+> 
+> I also have a RADV branch utilizing this API at [2], which I use for
+> testing.
+> 
+> This implementation is stil very much WIP, although the D3D12 games I
+> tested already seemed to benefit from it. Nevertheless, are still quite
+> a few TODOs and unresolved questions/problems.
+> 
+> Some kernel drivers (e.g i915) already use TTM priorities for
+> kernel-internal purposes. Of course, some of the highest priorities
+> should stay reserved for these purposes (with userspace being able to
+> use the lower priorities).
+> 
+> Another problem with priorities is the possibility of apps starving other
+> apps by occupying all of VRAM with high-priority allocations. A possible
+> solution could be include restricting the highest priority/priorities
+> to important apps like compositors.
+> 
+> Tying into this problem, only apps that are actively cooperating
+> to reduce memory pressure can benefit from the current memory priority
+> implementation. Eventually the priority system could also be utilized
+> to benefit all applications, for example with the desktop environment
+> boosting the priority of the currently-focused app/its cgroup (to
+> provide the best QoS to the apps the user is actively using). A full
+> implementation of this is probably out-of-scope for this initial proposal,
+> but it's probably a good idea to consider this as a possible future use
+> of the priority API.
+> 
+> I'm primarily looking to integrate this into amdgpu to solve the
+> issues I've seen there, but I'm also interested in feedback from
+> other drivers. Is this something you'd be interested in? Do you
+> have any objections/comments/questions about my proposed design?
+> 
+> Thanks,
+> Friedrich
+> 
+For Xe, I've been loking at using cgroups. A small prototype is available at
 
-Yes, this comment was also with the first understanding, so please 
-ignore it.
+https://cgit.freedesktop.org/~mlankhorst/linux/log/?h=dumpcg
 
-We are aligned on the IP specific MQD structures now.
+To stimulate discussion, I've added amdgpu support as well.
+This should make it possible to isolate the compositor allocations
+from the target program.
 
->
->>> Also, can we handle the eop buffer as part of the
->>> kernel metadata for compute user queues rather than having the user
->>> specify it?
->> Sure, we can do it.
-> Thinking about it more, I think the eop has to be in the user's GPU
-> virtual address space so it probably makes more sense for the user to
-> allocate this, but ideally we'd take an extra ref count on it while
-> the queue is active to avoid the user freeing it while the queue is
-> active, but that can probably be a future improvement.
+This support is still incomplete and covers vram only, but I need help 
+from userspace and consensus from other drivers on how to move forward.
 
-I was also thinking if the BO is expected to be created by (VMID != 0), 
-so keeping it in userspace makes it aligned with other IP specific MQD 
-objects.
+I'm thinking of making 3 cgroup limits:
+1. Physical memory, each time a buffer is allocated, it counts towards 
+it, regardless where it resides.
+2. Mappable memory, all buffers allocated in sysmem or vram count 
+towards this limit.
+3. VRAM, only buffers residing in VRAM count here.
 
-Lets keep it for userspace, but will create a separate Compute MQD object .
+This ensures that VRAM can always be evicted to sysmem, by having a 
+mappable memory quota, and having a sysmem reservation.
 
-- Shashank
+The main trouble is that when evicting, you want to charge the original 
+process the changes in allocation limits, but it should be solvable.
 
-> Alex
->
->> - Shashank
->>
->>> Alex
->>>
->>>>    struct drm_amdgpu_userq_in {
->>>> --
->>>> 2.43.2
->>>>
+I've been looking for someone else needing the usecase in a different 
+context, so let me know what you think of the idea.
+
+This can be generalized towards all uses of the GPU, but the compositor 
+vs game thrashing is a good example of why it is useful to have.
+
+I should still have my cgroup testcase somewhere, this is only a rebase 
+of my previous proposal, but I think it fits the usecase.
+
+Cheers,
+Maarten
