@@ -4,66 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38E68C4345F
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 May 2024 21:26:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF141C4345F
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 May 2024 21:42:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB4431126BB;
-	Thu,  2 May 2024 21:26:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23E2F1126C3;
+	Thu,  2 May 2024 21:42:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nf3xGcbc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wPgYPL4F";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 260E61126BB
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 May 2024 21:26:03 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-2ab1ddfded1so7292995a91.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 May 2024 14:26:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714685162; x=1715289962; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NOGDVy1G1G0sb8nR6sqy/MgEi/8p+/ta1EVO14awpA8=;
- b=nf3xGcbcAE8P3R9kuY4tEZl9EAd3IN5MOZxwsmrjbhETUmS1vBY434K0abgMqZZN4G
- tWfvHz567PZLNQ1TzvJfmG2R8uZ19dyWTjiSZ40FKnW5MrWVg/2z2nycShnQoRnOlJMI
- BOFSjolttUvNL29TSn0+ee3mXLohrrhlh0W9HqHQ5GwD2XrKbjCO7F4qfnOf83nBlFli
- aqk4ePJRGEDpxxGW+vxZIhMq3u7hqn6nV+5Lu4E1uCsD+/IFf9mqCGK39pbdCL2r7PfM
- /KMEvatvm4osfu8kBv7XkLdpN97vuTlC5VcwbtiPFfOS8RfInF+X0gErAhXjqWdU6JaE
- UPMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714685162; x=1715289962;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=NOGDVy1G1G0sb8nR6sqy/MgEi/8p+/ta1EVO14awpA8=;
- b=caXoc1Hre1dUVjYNl55uXJ2RneSJycRc6bVKBV58406gKcbB8Mtn6pBUyna4QXKtUm
- UXuuLI35htK08JHGBRiQ2OlMF/1j3jEKfRoT8Qz+cEmlYEeTPs+Ng0Va4mMhnrrPF22y
- 1mn3sfVarPWCcSFXuVmF/VcwARuIo+xSnWHLqEQ1V8jojwR/z5RZgRP2vJTa/QxVIldy
- 1P80J8BC23IW158fNzNJV4Iv3FoDl9KB+njVT3VqNu8GB6d3zQwTTRHIkFtubl2BpsZk
- bVbw89QPf210zXlI/YkqN6Dy7EevwBIOpNyFh7Ygl6AC0bGlLYTbFXryGh75pOHq5HvN
- pGUg==
-X-Gm-Message-State: AOJu0YwZbQ6Yiak7uiO0D7AIhog6EYuzCIWSWRq/FldlF9wZ5bqr6Yrx
- u3ILOP6/JDxYWPkHOM0pzoRrQVjOeFmhl9rw/tuhJVm4wK36DgZLxA+cTA7sEL+NxPWxVHzebzR
- dvaebytED5977m9ECQ6ZOuTrLtGhmkQ==
-X-Google-Smtp-Source: AGHT+IHojlNbRZenqITn0MT3evm2jeHqTvBINdKyHPjO1hHxLC4DRWAnx3jjm2gfKHWbYLZsDzny2PQVOgI9B9+IFIA=
-X-Received: by 2002:a17:90b:4d08:b0:2a2:ba9:ba61 with SMTP id
- mw8-20020a17090b4d0800b002a20ba9ba61mr1182734pjb.34.1714685162136; Thu, 02
- May 2024 14:26:02 -0700 (PDT)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2088.outbound.protection.outlook.com [40.107.237.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D61BC1126C2
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 May 2024 21:42:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=e5wl4oyDDOdoBMlsdR0kB+dgx+MNJEJpDYT5UlMJdaWuPE9dF7FW39Qu/kAkWLc9wZTz7NGz2hen2yrRpmtLiB2dcrSg+qpNPx9CM2DoWJLn6r431WhvRVTWee9AvCACKeB9UId6IPK9rx2HgcwaqOo216OS8BSne31IBA4sWmvlCqaf+XKZkmkNhe3y16LMAcRac8ODwdEIjYi03rMZsc0FQH+GYGvzYDq7nsYseYQrJtKWobaPvBdmNyuNZIS848trQy/cvAVRPJQwd4JJcd3MuIDQ20koamCvDkxf/z9jZpUkyLKgmkZsXElyDEKDY8+Ry6cgfhgPievYStJY9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bjfrFDt44gAnh+bZB1zMC8fADXzOJSqLTBKqffPgyLw=;
+ b=FkY0lw/6SARqVvgn1yGfIFuEM4bYcatvL9wMet0wCLnbQzuA183JCcOP+JuT2VugexqUVQRwL8sZkecu7XQ8S7kAoYVSKqV3+SDxW8OqKH7zD8WozqS4PZnAFUOitBDZJUrb91jK0KiTJCdmjvsGD7Iu3D4aDRrhhXxGXRFDJOfw3kjOqaaqIU6u3rQS476zbJzGhQqWaZ6n2nhSVuQi6eLyOLPeXMiEXiw8b+aJ37W0lDh4txiF5EUNnDeQSsvbuVnQJqwizvR/Y/BMYroHO66T+sffJYUFc+Jq7RDAzZtSuvY3Uc9wrna/RFWk7wwbBKKFF7sswB9j80Q5qwqKQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bjfrFDt44gAnh+bZB1zMC8fADXzOJSqLTBKqffPgyLw=;
+ b=wPgYPL4FoY5n40aRx7KQRaj42JTGbB3aUYQxG1D+rBQKyjUHzpYSNM/lJL8Wiws6CRds8sncVMJW+nW7joIOTgIMNHKQG+XkTKOam6O0bU8kINiuckIk9I+DPlzTjsTmUZsu3GgyQgcM1zrsaMmLOkOPjhivclt3SF9wqug9YU0=
+Received: from BN9PR03CA0381.namprd03.prod.outlook.com (2603:10b6:408:f7::26)
+ by PH0PR12MB8100.namprd12.prod.outlook.com (2603:10b6:510:29b::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.28; Thu, 2 May
+ 2024 21:41:56 +0000
+Received: from BN2PEPF000044A0.namprd02.prod.outlook.com
+ (2603:10b6:408:f7:cafe::25) by BN9PR03CA0381.outlook.office365.com
+ (2603:10b6:408:f7::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.36 via Frontend
+ Transport; Thu, 2 May 2024 21:41:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF000044A0.mail.protection.outlook.com (10.167.243.151) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Thu, 2 May 2024 21:41:55 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 2 May
+ 2024 16:41:55 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: drop MES 10.1 support
+Date: Thu, 2 May 2024 17:41:32 -0400
+Message-ID: <20240502214132.7765-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-References: <20240502163152.1382-1-shashank.sharma@amd.com>
- <20240502163152.1382-4-shashank.sharma@amd.com>
-In-Reply-To: <20240502163152.1382-4-shashank.sharma@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 2 May 2024 17:25:50 -0400
-Message-ID: <CADnq5_PVxJVAJ0+X=QWJYauTY8t8FOgNSgakcquq5Li-85pWGw@mail.gmail.com>
-Subject: Re: [PATCH v10 03/14] drm/amdgpu: add new IOCTL for usermode queue
-To: Shashank Sharma <shashank.sharma@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Arvind Yadav <arvind.yadav@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A0:EE_|PH0PR12MB8100:EE_
+X-MS-Office365-Filtering-Correlation-Id: b08e0db1-8508-4130-ef96-08dc6af0b01f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230031|376005|36860700004|1800799015;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?7FSk3g7TxSM6bmBhPlt0cCZOnyGllHBlYL9+jvcYPP1v9Dly0zzwvaf5Q9ca?=
+ =?us-ascii?Q?esjSw1kgwjyLLsSikB99gyr/aNK3qVE8p+RLDj6Ra+ipgXoztXHQaMBbbvSh?=
+ =?us-ascii?Q?dQ9dC3cMe6+WO8pkff3ZlUFTJzKzlsmIU9x3JeYNFYMMvgrEQKuNSKcEbjYl?=
+ =?us-ascii?Q?0TjOy/DG9Xuxia44ojbjaTw2x/+PRT5m/WNRlDBA775ivkJ3cAgIhZgDrqze?=
+ =?us-ascii?Q?y+V3BtbX8H/IStpNfN9xmQ7r6QlV2b8AyB6fRQi1IuEtvl8JOOiqunA9XF6b?=
+ =?us-ascii?Q?oBWvQQi6/HIJFGmPB40159FPk6q7WNX2Z1CADN3A+7ReK4driiUBROIM8dp2?=
+ =?us-ascii?Q?qmuDv3HHS8HOyb67MKNzKQ+KfLITPcQXZ9FqWDZqTOvUbjJ9tGcUzCuYe/UJ?=
+ =?us-ascii?Q?Isx5E9NHFrC6BKBxZUPkIi7ocP0czejtTRWvZWxOcoTBElTIDy/9FFA9zATL?=
+ =?us-ascii?Q?mJqRSZc7cOukLvHh0obfwCxdDbgOi+O/5b4JQja845kg0og/I190QXNQX09R?=
+ =?us-ascii?Q?mJgQFdypE5JrR+u9R15pyWL4UvaQ8dbM/ryTvN+9CqLz/2pTSzR88MvOxjFO?=
+ =?us-ascii?Q?bgXrWcy/YDrwlgX1D1xqfvozUGc61M59KgzGhDN9/umdGKRDMlkACJGFQIjB?=
+ =?us-ascii?Q?e0Nn/4NHsUNAhYe8SbJ8t//EVFJab7IgTb30TEgzmO70NsvIlENJp7S2r1rg?=
+ =?us-ascii?Q?9zAU42hGZdw/QswYytqFRp60Gk3/TGL1pEUw0cmFkGW9EFOkJX3uLpufkILw?=
+ =?us-ascii?Q?3hzwMymSx2D5Qd6gM2lV9TCDajg/4C3Tu/+lA7iuKDU3HsWjXEBT7hFWmx05?=
+ =?us-ascii?Q?0gbq3/2JwoZjXZOocQPVyXn/+ux9+NZhbU8HmDY7GVFgbJwM7/+Ev4s6yUep?=
+ =?us-ascii?Q?0wjp9SuVwhAi+OwtneXAaE6rbXxI9wyzwYggnoWvGO1sP7WwpjEunnqtD22v?=
+ =?us-ascii?Q?1qeo3pzHWfbbZXgLHobXiv7M7p19+GMj7DsAyv6qyO5ksk9s/WCc/gDspaKF?=
+ =?us-ascii?Q?lgrfZg1/OFa0Rrr7PHYnjXgG+EnjNxYYG3n4G7MkMs4mbkg13rs4gzxcTNVL?=
+ =?us-ascii?Q?3xswjTr++j8mQnVHzQMN+l/+d8fKn7aotJlNgZDQaDh4rpvy9aZ2z5QHe4lD?=
+ =?us-ascii?Q?ZeP22Ljl8l6Adzx+lfB/p5AebqIxUVr1lzyHJML4er19GXBQ9jjTUFFzUpSR?=
+ =?us-ascii?Q?wOkb5zNghKgPAWtNGWKbnlBlz24SxCzdOV1qrS19TTa1vvXlNlK8SuFCXZ08?=
+ =?us-ascii?Q?ybo8izcN6RI98+ZR6tIywb5CwIqc6fhUe5CzhNF9P9tS6eJWWyATKOUVQrVx?=
+ =?us-ascii?Q?dm8h7yi9EXx4vfYbgSp98Qs5Yq/2SQt7SmMuZ91yBh7uFnvlu0zD5RBzkbUH?=
+ =?us-ascii?Q?7ER2d01xtANaixzHQZJi370IZZwU?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(376005)(36860700004)(1800799015); DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2024 21:41:55.8877 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b08e0db1-8508-4130-ef96-08dc6af0b01f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A0.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8100
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,247 +126,1312 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 2, 2024 at 1:27=E2=80=AFPM Shashank Sharma <shashank.sharma@amd=
-.com> wrote:
->
-> This patch adds:
-> - A new IOCTL function to create and destroy
-> - A new structure to keep all the user queue data in one place.
-> - A function to generate unique index for the queue.
->
-> V1: Worked on review comments from RFC patch series:
->   - Alex: Keep a list of queues, instead of single queue per process.
->   - Christian: Use the queue manager instead of global ptrs,
->            Don't keep the queue structure in amdgpu_ctx
->
-> V2: Worked on review comments:
->  - Christian:
->    - Formatting of text
->    - There is no need for queuing of userqueues, with idr in place
->  - Alex:
->    - Remove use_doorbell, its unnecessary
->    - Reuse amdgpu_mqd_props for saving mqd fields
->
->  - Code formatting and re-arrangement
->
-> V3:
->  - Integration with doorbell manager
->
-> V4:
->  - Accommodate MQD union related changes in UAPI (Alex)
->  - Do not set the queue size twice (Bas)
->
-> V5:
->  - Remove wrapper functions for queue indexing (Christian)
->  - Do not save the queue id/idr in queue itself (Christian)
->  - Move the idr allocation in the IP independent generic space
->   (Christian)
->
-> V6:
->  - Check the validity of input IP type (Christian)
->
-> V7:
->  - Move uq_func from uq_mgr to adev (Alex)
->  - Add missing free(queue) for error cases (Yifan)
->
-> V9:
->  - Rebase
->
-> V10: Addressed review comments from Christian, and added R-B:
->  - Do not initialize the local variable
->  - Convert DRM_ERROR to DEBUG.
->
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Reviewed-by: Christian Koenig <christian.koenig@amd.com>
-> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 121 ++++++++++++++++++
->  .../gpu/drm/amd/include/amdgpu_userqueue.h    |   2 +
->  3 files changed, 124 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index b52442e2d04a..551e13693100 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2929,6 +2929,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] =3D=
+It was an enablement vehicle for MES 11 and was never
+productized.  Remove it.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/Makefile           |    1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |   20 -
+ drivers/gpu/drm/amd/amdgpu/mes_v10_1.c        | 1189 -----------------
+ drivers/gpu/drm/amd/amdgpu/mes_v10_1.h        |   29 -
+ drivers/gpu/drm/amd/amdgpu/nv.c               |    1 -
+ 5 files changed, 1240 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+ delete mode 100644 drivers/gpu/drm/amd/amdgpu/mes_v10_1.h
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index de7b76327f5ba..6e1237a97a91e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -187,7 +187,6 @@ amdgpu-y += \
+ # add MES block
+ amdgpu-y += \
+ 	amdgpu_mes.o \
+-	mes_v10_1.o \
+ 	mes_v11_0.o \
+ 	mes_v12_0.o
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index ece462f8a324b..20887fd5a3342 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -94,7 +94,6 @@
+ #include "vcn_v4_0_5.h"
+ #include "jpeg_v4_0_5.h"
+ #include "amdgpu_vkms.h"
+-#include "mes_v10_1.h"
+ #include "mes_v11_0.h"
+ #include "mes_v12_0.h"
+ #include "smuio_v11_0.h"
+@@ -2213,25 +2212,6 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
+ static int amdgpu_discovery_set_mes_ip_blocks(struct amdgpu_device *adev)
  {
->         DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA, amdgpu_gem_va_ioctl, DRM_AUTH|DR=
-M_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(AMDGPU_GEM_OP, amdgpu_gem_op_ioctl, DRM_AUTH|DR=
-M_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(AMDGPU_GEM_USERPTR, amdgpu_gem_userptr_ioctl, D=
-RM_AUTH|DRM_RENDER_ALLOW),
-> +       DRM_IOCTL_DEF_DRV(AMDGPU_USERQ, amdgpu_userq_ioctl, DRM_AUTH|DRM_=
-RENDER_ALLOW),
->  };
->
->  static const struct drm_driver amdgpu_kms_driver =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_userqueue.c
-> index effc0c7c02cf..ce9b25b82e94 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> @@ -23,6 +23,127 @@
->   */
->
->  #include "amdgpu.h"
-> +#include "amdgpu_vm.h"
-> +#include "amdgpu_userqueue.h"
-> +
-> +static struct amdgpu_usermode_queue *
-> +amdgpu_userqueue_find(struct amdgpu_userq_mgr *uq_mgr, int qid)
-> +{
-> +       return idr_find(&uq_mgr->userq_idr, qid);
-> +}
-> +
-> +static int
-> +amdgpu_userqueue_destroy(struct drm_file *filp, int queue_id)
-> +{
-> +       struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
-> +       struct amdgpu_userq_mgr *uq_mgr =3D &fpriv->userq_mgr;
-> +       struct amdgpu_device *adev =3D uq_mgr->adev;
-> +       const struct amdgpu_userq_funcs *uq_funcs;
-> +       struct amdgpu_usermode_queue *queue;
-> +
-> +       mutex_lock(&uq_mgr->userq_mutex);
-> +
-> +       queue =3D amdgpu_userqueue_find(uq_mgr, queue_id);
-> +       if (!queue) {
-> +               DRM_DEBUG_DRIVER("Invalid queue id to destroy\n");
-> +               mutex_unlock(&uq_mgr->userq_mutex);
-> +               return -EINVAL;
-> +       }
-> +
-> +       uq_funcs =3D adev->userq_funcs[queue->queue_type];
-> +       uq_funcs->mqd_destroy(uq_mgr, queue);
-> +       idr_remove(&uq_mgr->userq_idr, queue_id);
-> +       kfree(queue);
-> +
-> +       mutex_unlock(&uq_mgr->userq_mutex);
-> +       return 0;
-> +}
-> +
-> +static int
-> +amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *a=
-rgs)
-> +{
-> +       struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
-> +       struct amdgpu_userq_mgr *uq_mgr =3D &fpriv->userq_mgr;
-> +       struct amdgpu_device *adev =3D uq_mgr->adev;
-> +       const struct amdgpu_userq_funcs *uq_funcs;
-> +       struct amdgpu_usermode_queue *queue;
-> +       int qid, r =3D 0;
-> +
-> +       /* Usermode queues are only supported for GFX/SDMA engines as of =
-now */
-> +       if (args->in.ip_type !=3D AMDGPU_HW_IP_GFX) {
-> +               DRM_ERROR("Usermode queue doesn't support IP type %u\n", =
-args->in.ip_type);
-> +               return -EINVAL;
-> +       }
-> +
-> +       mutex_lock(&uq_mgr->userq_mutex);
-> +
-> +       uq_funcs =3D adev->userq_funcs[args->in.ip_type];
-> +       if (!uq_funcs) {
-> +               DRM_ERROR("Usermode queue is not supported for this IP (%=
-u)\n", args->in.ip_type);
-> +               r =3D -EINVAL;
-> +               goto unlock;
-> +       }
-> +
-> +       queue =3D kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNE=
-L);
-> +       if (!queue) {
-> +               DRM_ERROR("Failed to allocate memory for queue\n");
-> +               r =3D -ENOMEM;
-> +               goto unlock;
-> +       }
-> +       queue->doorbell_handle =3D args->in.doorbell_handle;
-> +       queue->doorbell_index =3D args->in.doorbell_offset;
-> +       queue->queue_type =3D args->in.ip_type;
+ 	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+-	case IP_VERSION(10, 1, 10):
+-	case IP_VERSION(10, 1, 1):
+-	case IP_VERSION(10, 1, 2):
+-	case IP_VERSION(10, 1, 3):
+-	case IP_VERSION(10, 1, 4):
+-	case IP_VERSION(10, 3, 0):
+-	case IP_VERSION(10, 3, 1):
+-	case IP_VERSION(10, 3, 2):
+-	case IP_VERSION(10, 3, 3):
+-	case IP_VERSION(10, 3, 4):
+-	case IP_VERSION(10, 3, 5):
+-	case IP_VERSION(10, 3, 6):
+-		if (amdgpu_mes) {
+-			amdgpu_device_ip_block_add(adev, &mes_v10_1_ip_block);
+-			adev->enable_mes = true;
+-			if (amdgpu_mes_kiq)
+-				adev->enable_mes_kiq = true;
+-		}
+-		break;
+ 	case IP_VERSION(11, 0, 0):
+ 	case IP_VERSION(11, 0, 1):
+ 	case IP_VERSION(11, 0, 2):
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+deleted file mode 100644
+index a626bf9049260..0000000000000
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
++++ /dev/null
+@@ -1,1189 +0,0 @@
+-/*
+- * Copyright 2019 Advanced Micro Devices, Inc.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software"),
+- * to deal in the Software without restriction, including without limitation
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- *
+- */
+-
+-#include <linux/firmware.h>
+-#include <linux/module.h>
+-#include "amdgpu.h"
+-#include "soc15_common.h"
+-#include "nv.h"
+-#include "gc/gc_10_1_0_offset.h"
+-#include "gc/gc_10_1_0_sh_mask.h"
+-#include "gc/gc_10_1_0_default.h"
+-#include "v10_structs.h"
+-#include "mes_api_def.h"
+-
+-#define mmCP_MES_IC_OP_CNTL_Sienna_Cichlid               0x2820
+-#define mmCP_MES_IC_OP_CNTL_Sienna_Cichlid_BASE_IDX      1
+-#define mmRLC_CP_SCHEDULERS_Sienna_Cichlid		0x4ca1
+-#define mmRLC_CP_SCHEDULERS_Sienna_Cichlid_BASE_IDX	1
+-
+-MODULE_FIRMWARE("amdgpu/navi10_mes.bin");
+-MODULE_FIRMWARE("amdgpu/sienna_cichlid_mes.bin");
+-MODULE_FIRMWARE("amdgpu/sienna_cichlid_mes1.bin");
+-
+-static int mes_v10_1_hw_fini(void *handle);
+-static int mes_v10_1_kiq_hw_init(struct amdgpu_device *adev);
+-
+-#define MES_EOP_SIZE   2048
+-
+-static void mes_v10_1_ring_set_wptr(struct amdgpu_ring *ring)
+-{
+-	struct amdgpu_device *adev = ring->adev;
+-
+-	if (ring->use_doorbell) {
+-		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
+-			     ring->wptr);
+-		WDOORBELL64(ring->doorbell_index, ring->wptr);
+-	} else {
+-		BUG();
+-	}
+-}
+-
+-static u64 mes_v10_1_ring_get_rptr(struct amdgpu_ring *ring)
+-{
+-	return *ring->rptr_cpu_addr;
+-}
+-
+-static u64 mes_v10_1_ring_get_wptr(struct amdgpu_ring *ring)
+-{
+-	u64 wptr;
+-
+-	if (ring->use_doorbell)
+-		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
+-	else
+-		BUG();
+-	return wptr;
+-}
+-
+-static const struct amdgpu_ring_funcs mes_v10_1_ring_funcs = {
+-	.type = AMDGPU_RING_TYPE_MES,
+-	.align_mask = 1,
+-	.nop = 0,
+-	.support_64bit_ptrs = true,
+-	.get_rptr = mes_v10_1_ring_get_rptr,
+-	.get_wptr = mes_v10_1_ring_get_wptr,
+-	.set_wptr = mes_v10_1_ring_set_wptr,
+-	.insert_nop = amdgpu_ring_insert_nop,
+-};
+-
+-static int mes_v10_1_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+-						    void *pkt, int size,
+-						    int api_status_off)
+-{
+-	int ndw = size / 4;
+-	signed long r;
+-	union MESAPI__ADD_QUEUE *x_pkt = pkt;
+-	struct MES_API_STATUS *api_status;
+-	struct amdgpu_device *adev = mes->adev;
+-	struct amdgpu_ring *ring = &mes->ring;
+-	unsigned long flags;
+-
+-	BUG_ON(size % 4 != 0);
+-
+-	spin_lock_irqsave(&mes->ring_lock, flags);
+-	if (amdgpu_ring_alloc(ring, ndw)) {
+-		spin_unlock_irqrestore(&mes->ring_lock, flags);
+-		return -ENOMEM;
+-	}
+-
+-	api_status = (struct MES_API_STATUS *)((char *)pkt + api_status_off);
+-	api_status->api_completion_fence_addr = mes->ring.fence_drv.gpu_addr;
+-	api_status->api_completion_fence_value = ++mes->ring.fence_drv.sync_seq;
+-
+-	amdgpu_ring_write_multiple(ring, pkt, ndw);
+-	amdgpu_ring_commit(ring);
+-	spin_unlock_irqrestore(&mes->ring_lock, flags);
+-
+-	DRM_DEBUG("MES msg=%d was emitted\n", x_pkt->header.opcode);
+-
+-	r = amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq,
+-				      adev->usec_timeout);
+-	if (r < 1) {
+-		DRM_ERROR("MES failed to response msg=%d\n",
+-			  x_pkt->header.opcode);
+-
+-		while (halt_if_hws_hang)
+-			schedule();
+-
+-		return -ETIMEDOUT;
+-	}
+-
+-	return 0;
+-}
+-
+-static int convert_to_mes_queue_type(int queue_type)
+-{
+-	if (queue_type == AMDGPU_RING_TYPE_GFX)
+-		return MES_QUEUE_TYPE_GFX;
+-	else if (queue_type == AMDGPU_RING_TYPE_COMPUTE)
+-		return MES_QUEUE_TYPE_COMPUTE;
+-	else if (queue_type == AMDGPU_RING_TYPE_SDMA)
+-		return MES_QUEUE_TYPE_SDMA;
+-	else
+-		BUG();
+-	return -1;
+-}
+-
+-static int mes_v10_1_add_hw_queue(struct amdgpu_mes *mes,
+-				  struct mes_add_queue_input *input)
+-{
+-	struct amdgpu_device *adev = mes->adev;
+-	union MESAPI__ADD_QUEUE mes_add_queue_pkt;
+-	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
+-	uint32_t vm_cntx_cntl = hub->vm_cntx_cntl;
+-
+-	memset(&mes_add_queue_pkt, 0, sizeof(mes_add_queue_pkt));
+-
+-	mes_add_queue_pkt.header.type = MES_API_TYPE_SCHEDULER;
+-	mes_add_queue_pkt.header.opcode = MES_SCH_API_ADD_QUEUE;
+-	mes_add_queue_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
+-
+-	mes_add_queue_pkt.process_id = input->process_id;
+-	mes_add_queue_pkt.page_table_base_addr = input->page_table_base_addr;
+-	mes_add_queue_pkt.process_va_start = input->process_va_start;
+-	mes_add_queue_pkt.process_va_end = input->process_va_end;
+-	mes_add_queue_pkt.process_quantum = input->process_quantum;
+-	mes_add_queue_pkt.process_context_addr = input->process_context_addr;
+-	mes_add_queue_pkt.gang_quantum = input->gang_quantum;
+-	mes_add_queue_pkt.gang_context_addr = input->gang_context_addr;
+-	mes_add_queue_pkt.inprocess_gang_priority =
+-		input->inprocess_gang_priority;
+-	mes_add_queue_pkt.gang_global_priority_level =
+-		input->gang_global_priority_level;
+-	mes_add_queue_pkt.doorbell_offset = input->doorbell_offset;
+-	mes_add_queue_pkt.mqd_addr = input->mqd_addr;
+-	mes_add_queue_pkt.wptr_addr = input->wptr_addr;
+-	mes_add_queue_pkt.queue_type =
+-		convert_to_mes_queue_type(input->queue_type);
+-	mes_add_queue_pkt.paging = input->paging;
+-	mes_add_queue_pkt.vm_context_cntl = vm_cntx_cntl;
+-	mes_add_queue_pkt.gws_base = input->gws_base;
+-	mes_add_queue_pkt.gws_size = input->gws_size;
+-	mes_add_queue_pkt.trap_handler_addr = input->tba_addr;
+-
+-	return mes_v10_1_submit_pkt_and_poll_completion(mes,
+-			&mes_add_queue_pkt, sizeof(mes_add_queue_pkt),
+-			offsetof(union MESAPI__ADD_QUEUE, api_status));
+-}
+-
+-static int mes_v10_1_remove_hw_queue(struct amdgpu_mes *mes,
+-				     struct mes_remove_queue_input *input)
+-{
+-	union MESAPI__REMOVE_QUEUE mes_remove_queue_pkt;
+-
+-	memset(&mes_remove_queue_pkt, 0, sizeof(mes_remove_queue_pkt));
+-
+-	mes_remove_queue_pkt.header.type = MES_API_TYPE_SCHEDULER;
+-	mes_remove_queue_pkt.header.opcode = MES_SCH_API_REMOVE_QUEUE;
+-	mes_remove_queue_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
+-
+-	mes_remove_queue_pkt.doorbell_offset = input->doorbell_offset;
+-	mes_remove_queue_pkt.gang_context_addr = input->gang_context_addr;
+-
+-	return mes_v10_1_submit_pkt_and_poll_completion(mes,
+-			&mes_remove_queue_pkt, sizeof(mes_remove_queue_pkt),
+-			offsetof(union MESAPI__REMOVE_QUEUE, api_status));
+-}
+-
+-static int mes_v10_1_unmap_legacy_queue(struct amdgpu_mes *mes,
+-				 struct mes_unmap_legacy_queue_input *input)
+-{
+-	union MESAPI__REMOVE_QUEUE mes_remove_queue_pkt;
+-
+-	memset(&mes_remove_queue_pkt, 0, sizeof(mes_remove_queue_pkt));
+-
+-	mes_remove_queue_pkt.header.type = MES_API_TYPE_SCHEDULER;
+-	mes_remove_queue_pkt.header.opcode = MES_SCH_API_REMOVE_QUEUE;
+-	mes_remove_queue_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
+-
+-	mes_remove_queue_pkt.doorbell_offset = input->doorbell_offset;
+-	mes_remove_queue_pkt.gang_context_addr = 0;
+-
+-	mes_remove_queue_pkt.pipe_id = input->pipe_id;
+-	mes_remove_queue_pkt.queue_id = input->queue_id;
+-
+-	if (input->action == PREEMPT_QUEUES_NO_UNMAP) {
+-		mes_remove_queue_pkt.preempt_legacy_gfx_queue = 1;
+-		mes_remove_queue_pkt.tf_addr = input->trail_fence_addr;
+-		mes_remove_queue_pkt.tf_data =
+-			lower_32_bits(input->trail_fence_data);
+-	} else {
+-		if (input->queue_type == AMDGPU_RING_TYPE_GFX)
+-			mes_remove_queue_pkt.unmap_legacy_gfx_queue = 1;
+-		else
+-			mes_remove_queue_pkt.unmap_kiq_utility_queue = 1;
+-	}
+-
+-	return mes_v10_1_submit_pkt_and_poll_completion(mes,
+-			&mes_remove_queue_pkt, sizeof(mes_remove_queue_pkt),
+-			offsetof(union MESAPI__REMOVE_QUEUE, api_status));
+-}
+-
+-static int mes_v10_1_suspend_gang(struct amdgpu_mes *mes,
+-				  struct mes_suspend_gang_input *input)
+-{
+-	return 0;
+-}
+-
+-static int mes_v10_1_resume_gang(struct amdgpu_mes *mes,
+-				 struct mes_resume_gang_input *input)
+-{
+-	return 0;
+-}
+-
+-static int mes_v10_1_query_sched_status(struct amdgpu_mes *mes)
+-{
+-	union MESAPI__QUERY_MES_STATUS mes_status_pkt;
+-
+-	memset(&mes_status_pkt, 0, sizeof(mes_status_pkt));
+-
+-	mes_status_pkt.header.type = MES_API_TYPE_SCHEDULER;
+-	mes_status_pkt.header.opcode = MES_SCH_API_QUERY_SCHEDULER_STATUS;
+-	mes_status_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
+-
+-	return mes_v10_1_submit_pkt_and_poll_completion(mes,
+-			&mes_status_pkt, sizeof(mes_status_pkt),
+-			offsetof(union MESAPI__QUERY_MES_STATUS, api_status));
+-}
+-
+-static int mes_v10_1_set_hw_resources(struct amdgpu_mes *mes)
+-{
+-	int i;
+-	struct amdgpu_device *adev = mes->adev;
+-	union MESAPI_SET_HW_RESOURCES mes_set_hw_res_pkt;
+-
+-	memset(&mes_set_hw_res_pkt, 0, sizeof(mes_set_hw_res_pkt));
+-
+-	mes_set_hw_res_pkt.header.type = MES_API_TYPE_SCHEDULER;
+-	mes_set_hw_res_pkt.header.opcode = MES_SCH_API_SET_HW_RSRC;
+-	mes_set_hw_res_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
+-
+-	mes_set_hw_res_pkt.vmid_mask_mmhub = mes->vmid_mask_mmhub;
+-	mes_set_hw_res_pkt.vmid_mask_gfxhub = mes->vmid_mask_gfxhub;
+-	mes_set_hw_res_pkt.gds_size = adev->gds.gds_size;
+-	mes_set_hw_res_pkt.paging_vmid = 0;
+-	mes_set_hw_res_pkt.g_sch_ctx_gpu_mc_ptr = mes->sch_ctx_gpu_addr;
+-	mes_set_hw_res_pkt.query_status_fence_gpu_mc_ptr =
+-		mes->query_status_fence_gpu_addr;
+-
+-	for (i = 0; i < MAX_COMPUTE_PIPES; i++)
+-		mes_set_hw_res_pkt.compute_hqd_mask[i] =
+-			mes->compute_hqd_mask[i];
+-
+-	for (i = 0; i < MAX_GFX_PIPES; i++)
+-		mes_set_hw_res_pkt.gfx_hqd_mask[i] = mes->gfx_hqd_mask[i];
+-
+-	for (i = 0; i < MAX_SDMA_PIPES; i++)
+-		mes_set_hw_res_pkt.sdma_hqd_mask[i] = mes->sdma_hqd_mask[i];
+-
+-	for (i = 0; i < AMD_PRIORITY_NUM_LEVELS; i++)
+-		mes_set_hw_res_pkt.aggregated_doorbells[i] =
+-			mes->aggregated_doorbells[i];
+-
+-	for (i = 0; i < 5; i++) {
+-		mes_set_hw_res_pkt.gc_base[i] = adev->reg_offset[GC_HWIP][0][i];
+-		mes_set_hw_res_pkt.mmhub_base[i] =
+-			adev->reg_offset[MMHUB_HWIP][0][i];
+-		mes_set_hw_res_pkt.osssys_base[i] =
+-			adev->reg_offset[OSSSYS_HWIP][0][i];
+-	}
+-
+-	mes_set_hw_res_pkt.disable_reset = 1;
+-	mes_set_hw_res_pkt.disable_mes_log = 1;
+-	mes_set_hw_res_pkt.use_different_vmid_compute = 1;
+-
+-	return mes_v10_1_submit_pkt_and_poll_completion(mes,
+-			&mes_set_hw_res_pkt, sizeof(mes_set_hw_res_pkt),
+-			offsetof(union MESAPI_SET_HW_RESOURCES, api_status));
+-}
+-
+-static void mes_v10_1_init_aggregated_doorbell(struct amdgpu_mes *mes)
+-{
+-	struct amdgpu_device *adev = mes->adev;
+-	uint32_t data;
+-
+-	data = RREG32_SOC15(GC, 0, mmCP_MES_DOORBELL_CONTROL1);
+-	data &= ~(CP_MES_DOORBELL_CONTROL1__DOORBELL_OFFSET_MASK |
+-		  CP_MES_DOORBELL_CONTROL1__DOORBELL_EN_MASK |
+-		  CP_MES_DOORBELL_CONTROL1__DOORBELL_HIT_MASK);
+-	data |= mes->aggregated_doorbells[AMDGPU_MES_PRIORITY_LEVEL_LOW] <<
+-		CP_MES_DOORBELL_CONTROL1__DOORBELL_OFFSET__SHIFT;
+-	data |= 1 << CP_MES_DOORBELL_CONTROL1__DOORBELL_EN__SHIFT;
+-	WREG32_SOC15(GC, 0, mmCP_MES_DOORBELL_CONTROL1, data);
+-
+-	data = RREG32_SOC15(GC, 0, mmCP_MES_DOORBELL_CONTROL2);
+-	data &= ~(CP_MES_DOORBELL_CONTROL2__DOORBELL_OFFSET_MASK |
+-		  CP_MES_DOORBELL_CONTROL2__DOORBELL_EN_MASK |
+-		  CP_MES_DOORBELL_CONTROL2__DOORBELL_HIT_MASK);
+-	data |= mes->aggregated_doorbells[AMDGPU_MES_PRIORITY_LEVEL_NORMAL] <<
+-		CP_MES_DOORBELL_CONTROL2__DOORBELL_OFFSET__SHIFT;
+-	data |= 1 << CP_MES_DOORBELL_CONTROL2__DOORBELL_EN__SHIFT;
+-	WREG32_SOC15(GC, 0, mmCP_MES_DOORBELL_CONTROL2, data);
+-
+-	data = RREG32_SOC15(GC, 0, mmCP_MES_DOORBELL_CONTROL3);
+-	data &= ~(CP_MES_DOORBELL_CONTROL3__DOORBELL_OFFSET_MASK |
+-		  CP_MES_DOORBELL_CONTROL3__DOORBELL_EN_MASK |
+-		  CP_MES_DOORBELL_CONTROL3__DOORBELL_HIT_MASK);
+-	data |= mes->aggregated_doorbells[AMDGPU_MES_PRIORITY_LEVEL_MEDIUM] <<
+-		CP_MES_DOORBELL_CONTROL3__DOORBELL_OFFSET__SHIFT;
+-	data |= 1 << CP_MES_DOORBELL_CONTROL3__DOORBELL_EN__SHIFT;
+-	WREG32_SOC15(GC, 0, mmCP_MES_DOORBELL_CONTROL3, data);
+-
+-	data = RREG32_SOC15(GC, 0, mmCP_MES_DOORBELL_CONTROL4);
+-	data &= ~(CP_MES_DOORBELL_CONTROL4__DOORBELL_OFFSET_MASK |
+-		  CP_MES_DOORBELL_CONTROL4__DOORBELL_EN_MASK |
+-		  CP_MES_DOORBELL_CONTROL4__DOORBELL_HIT_MASK);
+-	data |= mes->aggregated_doorbells[AMDGPU_MES_PRIORITY_LEVEL_HIGH] <<
+-		CP_MES_DOORBELL_CONTROL4__DOORBELL_OFFSET__SHIFT;
+-	data |= 1 << CP_MES_DOORBELL_CONTROL4__DOORBELL_EN__SHIFT;
+-	WREG32_SOC15(GC, 0, mmCP_MES_DOORBELL_CONTROL4, data);
+-
+-	data = RREG32_SOC15(GC, 0, mmCP_MES_DOORBELL_CONTROL5);
+-	data &= ~(CP_MES_DOORBELL_CONTROL5__DOORBELL_OFFSET_MASK |
+-		  CP_MES_DOORBELL_CONTROL5__DOORBELL_EN_MASK |
+-		  CP_MES_DOORBELL_CONTROL5__DOORBELL_HIT_MASK);
+-	data |= mes->aggregated_doorbells[AMDGPU_MES_PRIORITY_LEVEL_REALTIME] <<
+-		CP_MES_DOORBELL_CONTROL5__DOORBELL_OFFSET__SHIFT;
+-	data |= 1 << CP_MES_DOORBELL_CONTROL5__DOORBELL_EN__SHIFT;
+-	WREG32_SOC15(GC, 0, mmCP_MES_DOORBELL_CONTROL5, data);
+-
+-	data = 1 << CP_HQD_GFX_CONTROL__DB_UPDATED_MSG_EN__SHIFT;
+-	WREG32_SOC15(GC, 0, mmCP_HQD_GFX_CONTROL, data);
+-}
+-
+-static const struct amdgpu_mes_funcs mes_v10_1_funcs = {
+-	.add_hw_queue = mes_v10_1_add_hw_queue,
+-	.remove_hw_queue = mes_v10_1_remove_hw_queue,
+-	.unmap_legacy_queue = mes_v10_1_unmap_legacy_queue,
+-	.suspend_gang = mes_v10_1_suspend_gang,
+-	.resume_gang = mes_v10_1_resume_gang,
+-};
+-
+-static int mes_v10_1_allocate_ucode_buffer(struct amdgpu_device *adev,
+-					   enum admgpu_mes_pipe pipe)
+-{
+-	int r;
+-	const struct mes_firmware_header_v1_0 *mes_hdr;
+-	const __le32 *fw_data;
+-	unsigned fw_size;
+-
+-	mes_hdr = (const struct mes_firmware_header_v1_0 *)
+-		adev->mes.fw[pipe]->data;
+-
+-	fw_data = (const __le32 *)(adev->mes.fw[pipe]->data +
+-		   le32_to_cpu(mes_hdr->mes_ucode_offset_bytes));
+-	fw_size = le32_to_cpu(mes_hdr->mes_ucode_size_bytes);
+-
+-	r = amdgpu_bo_create_reserved(adev, fw_size,
+-				      PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,
+-				      &adev->mes.ucode_fw_obj[pipe],
+-				      &adev->mes.ucode_fw_gpu_addr[pipe],
+-				      (void **)&adev->mes.ucode_fw_ptr[pipe]);
+-	if (r) {
+-		dev_err(adev->dev, "(%d) failed to create mes fw bo\n", r);
+-		return r;
+-	}
+-
+-	memcpy(adev->mes.ucode_fw_ptr[pipe], fw_data, fw_size);
+-
+-	amdgpu_bo_kunmap(adev->mes.ucode_fw_obj[pipe]);
+-	amdgpu_bo_unreserve(adev->mes.ucode_fw_obj[pipe]);
+-
+-	return 0;
+-}
+-
+-static int mes_v10_1_allocate_ucode_data_buffer(struct amdgpu_device *adev,
+-						enum admgpu_mes_pipe pipe)
+-{
+-	int r;
+-	const struct mes_firmware_header_v1_0 *mes_hdr;
+-	const __le32 *fw_data;
+-	unsigned fw_size;
+-
+-	mes_hdr = (const struct mes_firmware_header_v1_0 *)
+-		adev->mes.fw[pipe]->data;
+-
+-	fw_data = (const __le32 *)(adev->mes.fw[pipe]->data +
+-		   le32_to_cpu(mes_hdr->mes_ucode_data_offset_bytes));
+-	fw_size = le32_to_cpu(mes_hdr->mes_ucode_data_size_bytes);
+-
+-	r = amdgpu_bo_create_reserved(adev, fw_size,
+-				      64 * 1024, AMDGPU_GEM_DOMAIN_GTT,
+-				      &adev->mes.data_fw_obj[pipe],
+-				      &adev->mes.data_fw_gpu_addr[pipe],
+-				      (void **)&adev->mes.data_fw_ptr[pipe]);
+-	if (r) {
+-		dev_err(adev->dev, "(%d) failed to create mes data fw bo\n", r);
+-		return r;
+-	}
+-
+-	memcpy(adev->mes.data_fw_ptr[pipe], fw_data, fw_size);
+-
+-	amdgpu_bo_kunmap(adev->mes.data_fw_obj[pipe]);
+-	amdgpu_bo_unreserve(adev->mes.data_fw_obj[pipe]);
+-
+-	return 0;
+-}
+-
+-static void mes_v10_1_free_ucode_buffers(struct amdgpu_device *adev,
+-					 enum admgpu_mes_pipe pipe)
+-{
+-	amdgpu_bo_free_kernel(&adev->mes.data_fw_obj[pipe],
+-			      &adev->mes.data_fw_gpu_addr[pipe],
+-			      (void **)&adev->mes.data_fw_ptr[pipe]);
+-
+-	amdgpu_bo_free_kernel(&adev->mes.ucode_fw_obj[pipe],
+-			      &adev->mes.ucode_fw_gpu_addr[pipe],
+-			      (void **)&adev->mes.ucode_fw_ptr[pipe]);
+-}
+-
+-static void mes_v10_1_enable(struct amdgpu_device *adev, bool enable)
+-{
+-	uint32_t pipe, data = 0;
+-
+-	if (enable) {
+-		data = RREG32_SOC15(GC, 0, mmCP_MES_CNTL);
+-		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE0_RESET, 1);
+-		data = REG_SET_FIELD(data, CP_MES_CNTL,
+-			     MES_PIPE1_RESET, adev->enable_mes_kiq ? 1 : 0);
+-		WREG32_SOC15(GC, 0, mmCP_MES_CNTL, data);
+-
+-		mutex_lock(&adev->srbm_mutex);
+-		for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
+-			if (!adev->enable_mes_kiq &&
+-			    pipe == AMDGPU_MES_KIQ_PIPE)
+-				continue;
+-
+-			nv_grbm_select(adev, 3, pipe, 0, 0);
+-			WREG32_SOC15(GC, 0, mmCP_MES_PRGRM_CNTR_START,
+-			     (uint32_t)(adev->mes.uc_start_addr[pipe]) >> 2);
+-		}
+-		nv_grbm_select(adev, 0, 0, 0, 0);
+-		mutex_unlock(&adev->srbm_mutex);
+-
+-		/* clear BYPASS_UNCACHED to avoid hangs after interrupt. */
+-		data = RREG32_SOC15(GC, 0, mmCP_MES_DC_OP_CNTL);
+-		data = REG_SET_FIELD(data, CP_MES_DC_OP_CNTL,
+-				     BYPASS_UNCACHED, 0);
+-		WREG32_SOC15(GC, 0, mmCP_MES_DC_OP_CNTL, data);
+-
+-		/* unhalt MES and activate pipe0 */
+-		data = REG_SET_FIELD(0, CP_MES_CNTL, MES_PIPE0_ACTIVE, 1);
+-		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE1_ACTIVE,
+-				     adev->enable_mes_kiq ? 1 : 0);
+-		WREG32_SOC15(GC, 0, mmCP_MES_CNTL, data);
+-		udelay(100);
+-	} else {
+-		data = RREG32_SOC15(GC, 0, mmCP_MES_CNTL);
+-		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE0_ACTIVE, 0);
+-		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE1_ACTIVE, 0);
+-		data = REG_SET_FIELD(data, CP_MES_CNTL,
+-				     MES_INVALIDATE_ICACHE, 1);
+-		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE0_RESET, 1);
+-		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE1_RESET,
+-				     adev->enable_mes_kiq ? 1 : 0);
+-		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_HALT, 1);
+-		WREG32_SOC15(GC, 0, mmCP_MES_CNTL, data);
+-	}
+-}
+-
+-/* This function is for backdoor MES firmware */
+-static int mes_v10_1_load_microcode(struct amdgpu_device *adev,
+-				    enum admgpu_mes_pipe pipe)
+-{
+-	int r;
+-	uint32_t data;
+-
+-	mes_v10_1_enable(adev, false);
+-
+-	if (!adev->mes.fw[pipe])
+-		return -EINVAL;
+-
+-	r = mes_v10_1_allocate_ucode_buffer(adev, pipe);
+-	if (r)
+-		return r;
+-
+-	r = mes_v10_1_allocate_ucode_data_buffer(adev, pipe);
+-	if (r) {
+-		mes_v10_1_free_ucode_buffers(adev, pipe);
+-		return r;
+-	}
+-
+-	WREG32_SOC15(GC, 0, mmCP_MES_IC_BASE_CNTL, 0);
+-
+-	mutex_lock(&adev->srbm_mutex);
+-	/* me=3, pipe=0, queue=0 */
+-	nv_grbm_select(adev, 3, pipe, 0, 0);
+-
+-	/* set ucode start address */
+-	WREG32_SOC15(GC, 0, mmCP_MES_PRGRM_CNTR_START,
+-		     (uint32_t)(adev->mes.uc_start_addr[pipe]) >> 2);
+-
+-	/* set ucode fimrware address */
+-	WREG32_SOC15(GC, 0, mmCP_MES_IC_BASE_LO,
+-		     lower_32_bits(adev->mes.ucode_fw_gpu_addr[pipe]));
+-	WREG32_SOC15(GC, 0, mmCP_MES_IC_BASE_HI,
+-		     upper_32_bits(adev->mes.ucode_fw_gpu_addr[pipe]));
+-
+-	/* set ucode instruction cache boundary to 2M-1 */
+-	WREG32_SOC15(GC, 0, mmCP_MES_MIBOUND_LO, 0x1FFFFF);
+-
+-	/* set ucode data firmware address */
+-	WREG32_SOC15(GC, 0, mmCP_MES_MDBASE_LO,
+-		     lower_32_bits(adev->mes.data_fw_gpu_addr[pipe]));
+-	WREG32_SOC15(GC, 0, mmCP_MES_MDBASE_HI,
+-		     upper_32_bits(adev->mes.data_fw_gpu_addr[pipe]));
+-
+-	/* Set 0x3FFFF (256K-1) to CP_MES_MDBOUND_LO */
+-	WREG32_SOC15(GC, 0, mmCP_MES_MDBOUND_LO, 0x3FFFF);
+-
+-	/* invalidate ICACHE */
+-	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+-	case IP_VERSION(10, 3, 0):
+-		data = RREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL_Sienna_Cichlid);
+-		break;
+-	default:
+-		data = RREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL);
+-		break;
+-	}
+-	data = REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, PRIME_ICACHE, 0);
+-	data = REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, INVALIDATE_CACHE, 1);
+-	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+-	case IP_VERSION(10, 3, 0):
+-		WREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL_Sienna_Cichlid, data);
+-		break;
+-	default:
+-		WREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL, data);
+-		break;
+-	}
+-
+-	/* prime the ICACHE. */
+-	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+-	case IP_VERSION(10, 3, 0):
+-		data = RREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL_Sienna_Cichlid);
+-		break;
+-	default:
+-		data = RREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL);
+-		break;
+-	}
+-	data = REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, PRIME_ICACHE, 1);
+-	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+-	case IP_VERSION(10, 3, 0):
+-		WREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL_Sienna_Cichlid, data);
+-		break;
+-	default:
+-		WREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL, data);
+-		break;
+-	}
+-
+-	nv_grbm_select(adev, 0, 0, 0, 0);
+-	mutex_unlock(&adev->srbm_mutex);
+-
+-	return 0;
+-}
+-
+-static int mes_v10_1_allocate_eop_buf(struct amdgpu_device *adev,
+-				      enum admgpu_mes_pipe pipe)
+-{
+-	int r;
+-	u32 *eop;
+-
+-	r = amdgpu_bo_create_reserved(adev, MES_EOP_SIZE, PAGE_SIZE,
+-			      AMDGPU_GEM_DOMAIN_GTT,
+-			      &adev->mes.eop_gpu_obj[pipe],
+-			      &adev->mes.eop_gpu_addr[pipe],
+-			      (void **)&eop);
+-	if (r) {
+-		dev_warn(adev->dev, "(%d) create EOP bo failed\n", r);
+-		return r;
+-	}
+-
+-	memset(eop, 0, adev->mes.eop_gpu_obj[pipe]->tbo.base.size);
+-
+-	amdgpu_bo_kunmap(adev->mes.eop_gpu_obj[pipe]);
+-	amdgpu_bo_unreserve(adev->mes.eop_gpu_obj[pipe]);
+-
+-	return 0;
+-}
+-
+-static int mes_v10_1_mqd_init(struct amdgpu_ring *ring)
+-{
+-	struct v10_compute_mqd *mqd = ring->mqd_ptr;
+-	uint64_t hqd_gpu_addr, wb_gpu_addr, eop_base_addr;
+-	uint32_t tmp;
+-
+-	memset(mqd, 0, sizeof(*mqd));
+-
+-	mqd->header = 0xC0310800;
+-	mqd->compute_pipelinestat_enable = 0x00000001;
+-	mqd->compute_static_thread_mgmt_se0 = 0xffffffff;
+-	mqd->compute_static_thread_mgmt_se1 = 0xffffffff;
+-	mqd->compute_static_thread_mgmt_se2 = 0xffffffff;
+-	mqd->compute_static_thread_mgmt_se3 = 0xffffffff;
+-	mqd->compute_misc_reserved = 0x00000003;
+-
+-	eop_base_addr = ring->eop_gpu_addr >> 8;
+-
+-	/* set the EOP size, register value is 2^(EOP_SIZE+1) dwords */
+-	tmp = mmCP_HQD_EOP_CONTROL_DEFAULT;
+-	tmp = REG_SET_FIELD(tmp, CP_HQD_EOP_CONTROL, EOP_SIZE,
+-			(order_base_2(MES_EOP_SIZE / 4) - 1));
+-
+-	mqd->cp_hqd_eop_base_addr_lo = lower_32_bits(eop_base_addr);
+-	mqd->cp_hqd_eop_base_addr_hi = upper_32_bits(eop_base_addr);
+-	mqd->cp_hqd_eop_control = tmp;
+-
+-	/* disable the queue if it's active */
+-	ring->wptr = 0;
+-	mqd->cp_hqd_pq_rptr = 0;
+-	mqd->cp_hqd_pq_wptr_lo = 0;
+-	mqd->cp_hqd_pq_wptr_hi = 0;
+-
+-	/* set the pointer to the MQD */
+-	mqd->cp_mqd_base_addr_lo = ring->mqd_gpu_addr & 0xfffffffc;
+-	mqd->cp_mqd_base_addr_hi = upper_32_bits(ring->mqd_gpu_addr);
+-
+-	/* set MQD vmid to 0 */
+-	tmp = mmCP_MQD_CONTROL_DEFAULT;
+-	tmp = REG_SET_FIELD(tmp, CP_MQD_CONTROL, VMID, 0);
+-	mqd->cp_mqd_control = tmp;
+-
+-	/* set the pointer to the HQD, this is similar CP_RB0_BASE/_HI */
+-	hqd_gpu_addr = ring->gpu_addr >> 8;
+-	mqd->cp_hqd_pq_base_lo = lower_32_bits(hqd_gpu_addr);
+-	mqd->cp_hqd_pq_base_hi = upper_32_bits(hqd_gpu_addr);
+-
+-	/* set the wb address whether it's enabled or not */
+-	wb_gpu_addr = ring->rptr_gpu_addr;
+-	mqd->cp_hqd_pq_rptr_report_addr_lo = wb_gpu_addr & 0xfffffffc;
+-	mqd->cp_hqd_pq_rptr_report_addr_hi =
+-		upper_32_bits(wb_gpu_addr) & 0xffff;
+-
+-	/* only used if CP_PQ_WPTR_POLL_CNTL.CP_PQ_WPTR_POLL_CNTL__EN_MASK=1 */
+-	wb_gpu_addr = ring->wptr_gpu_addr;
+-	mqd->cp_hqd_pq_wptr_poll_addr_lo = wb_gpu_addr & 0xfffffff8;
+-	mqd->cp_hqd_pq_wptr_poll_addr_hi = upper_32_bits(wb_gpu_addr) & 0xffff;
+-
+-	/* set up the HQD, this is similar to CP_RB0_CNTL */
+-	tmp = mmCP_HQD_PQ_CONTROL_DEFAULT;
+-	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, QUEUE_SIZE,
+-			    (order_base_2(ring->ring_size / 4) - 1));
+-	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, RPTR_BLOCK_SIZE,
+-			    ((order_base_2(AMDGPU_GPU_PAGE_SIZE / 4) - 1) << 8));
+-#ifdef __BIG_ENDIAN
+-	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, ENDIAN_SWAP, 1);
+-#endif
+-	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, UNORD_DISPATCH, 1);
+-	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, TUNNEL_DISPATCH, 0);
+-	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, PRIV_STATE, 1);
+-	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, KMD_QUEUE, 1);
+-	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, NO_UPDATE_RPTR, 1);
+-	mqd->cp_hqd_pq_control = tmp;
+-
+-	/* enable doorbell? */
+-	tmp = 0;
+-	if (ring->use_doorbell) {
+-		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
+-				    DOORBELL_OFFSET, ring->doorbell_index);
+-		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
+-				    DOORBELL_EN, 1);
+-		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
+-				    DOORBELL_SOURCE, 0);
+-		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
+-				    DOORBELL_HIT, 0);
+-	}
+-	else
+-		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
+-				    DOORBELL_EN, 0);
+-	mqd->cp_hqd_pq_doorbell_control = tmp;
+-
+-	mqd->cp_hqd_vmid = 0;
+-	/* activate the queue */
+-	mqd->cp_hqd_active = 1;
+-	mqd->cp_hqd_persistent_state = mmCP_HQD_PERSISTENT_STATE_DEFAULT;
+-	mqd->cp_hqd_ib_control = mmCP_HQD_IB_CONTROL_DEFAULT;
+-	mqd->cp_hqd_iq_timer = mmCP_HQD_IQ_TIMER_DEFAULT;
+-	mqd->cp_hqd_quantum = mmCP_HQD_QUANTUM_DEFAULT;
+-
+-	tmp = mmCP_HQD_GFX_CONTROL_DEFAULT;
+-	tmp = REG_SET_FIELD(tmp, CP_HQD_GFX_CONTROL, DB_UPDATED_MSG_EN, 1);
+-	/* offset: 184 - this is used for CP_HQD_GFX_CONTROL */
+-	mqd->cp_hqd_suspend_cntl_stack_offset = tmp;
+-
+-	amdgpu_device_flush_hdp(ring->adev, NULL);
+-	return 0;
+-}
+-
+-#if 0
+-static void mes_v10_1_queue_init_register(struct amdgpu_ring *ring)
+-{
+-	struct v10_compute_mqd *mqd = ring->mqd_ptr;
+-	struct amdgpu_device *adev = ring->adev;
+-	uint32_t data = 0;
+-
+-	mutex_lock(&adev->srbm_mutex);
+-	nv_grbm_select(adev, 3, ring->pipe, 0, 0);
+-
+-	/* set CP_HQD_VMID.VMID = 0. */
+-	data = RREG32_SOC15(GC, 0, mmCP_HQD_VMID);
+-	data = REG_SET_FIELD(data, CP_HQD_VMID, VMID, 0);
+-	WREG32_SOC15(GC, 0, mmCP_HQD_VMID, data);
+-
+-	/* set CP_HQD_PQ_DOORBELL_CONTROL.DOORBELL_EN=0 */
+-	data = RREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL);
+-	data = REG_SET_FIELD(data, CP_HQD_PQ_DOORBELL_CONTROL,
+-			     DOORBELL_EN, 0);
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL, data);
+-
+-	/* set CP_MQD_BASE_ADDR/HI with the MQD base address */
+-	WREG32_SOC15(GC, 0, mmCP_MQD_BASE_ADDR, mqd->cp_mqd_base_addr_lo);
+-	WREG32_SOC15(GC, 0, mmCP_MQD_BASE_ADDR_HI, mqd->cp_mqd_base_addr_hi);
+-
+-	/* set CP_MQD_CONTROL.VMID=0 */
+-	data = RREG32_SOC15(GC, 0, mmCP_MQD_CONTROL);
+-	data = REG_SET_FIELD(data, CP_MQD_CONTROL, VMID, 0);
+-	WREG32_SOC15(GC, 0, mmCP_MQD_CONTROL, 0);
+-
+-	/* set CP_HQD_PQ_BASE/HI with the ring buffer base address */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_BASE, mqd->cp_hqd_pq_base_lo);
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_BASE_HI, mqd->cp_hqd_pq_base_hi);
+-
+-	/* set CP_HQD_PQ_RPTR_REPORT_ADDR/HI */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR_REPORT_ADDR,
+-		     mqd->cp_hqd_pq_rptr_report_addr_lo);
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR_REPORT_ADDR_HI,
+-		     mqd->cp_hqd_pq_rptr_report_addr_hi);
+-
+-	/* set CP_HQD_PQ_CONTROL */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_CONTROL, mqd->cp_hqd_pq_control);
+-
+-	/* set CP_HQD_PQ_WPTR_POLL_ADDR/HI */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR,
+-		     mqd->cp_hqd_pq_wptr_poll_addr_lo);
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR_HI,
+-		     mqd->cp_hqd_pq_wptr_poll_addr_hi);
+-
+-	/* set CP_HQD_PQ_DOORBELL_CONTROL */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL,
+-		     mqd->cp_hqd_pq_doorbell_control);
+-
+-	/* set CP_HQD_PERSISTENT_STATE.PRELOAD_SIZE=0x53 */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_PERSISTENT_STATE, mqd->cp_hqd_persistent_state);
+-
+-	/* set CP_HQD_ACTIVE.ACTIVE=1 */
+-	WREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE, mqd->cp_hqd_active);
+-
+-	nv_grbm_select(adev, 0, 0, 0, 0);
+-	mutex_unlock(&adev->srbm_mutex);
+-}
+-#endif
+-
+-static int mes_v10_1_kiq_enable_queue(struct amdgpu_device *adev)
+-{
+-	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
+-	struct amdgpu_ring *kiq_ring = &adev->gfx.kiq[0].ring;
+-	int r;
+-
+-	if (!kiq->pmf || !kiq->pmf->kiq_map_queues)
+-		return -EINVAL;
+-
+-	r = amdgpu_ring_alloc(kiq_ring, kiq->pmf->map_queues_size);
+-	if (r) {
+-		DRM_ERROR("Failed to lock KIQ (%d).\n", r);
+-		return r;
+-	}
+-
+-	kiq->pmf->kiq_map_queues(kiq_ring, &adev->mes.ring);
+-
+-	return amdgpu_ring_test_helper(kiq_ring);
+-}
+-
+-static int mes_v10_1_queue_init(struct amdgpu_device *adev)
+-{
+-	int r;
+-
+-	r = mes_v10_1_mqd_init(&adev->mes.ring);
+-	if (r)
+-		return r;
+-
+-	r = mes_v10_1_kiq_enable_queue(adev);
+-	if (r)
+-		return r;
+-
+-	return 0;
+-}
+-
+-static int mes_v10_1_ring_init(struct amdgpu_device *adev)
+-{
+-	struct amdgpu_ring *ring;
+-
+-	ring = &adev->mes.ring;
+-
+-	ring->funcs = &mes_v10_1_ring_funcs;
+-
+-	ring->me = 3;
+-	ring->pipe = 0;
+-	ring->queue = 0;
+-
+-	ring->ring_obj = NULL;
+-	ring->use_doorbell = true;
+-	ring->doorbell_index = adev->doorbell_index.mes_ring0 << 1;
+-	ring->eop_gpu_addr = adev->mes.eop_gpu_addr[AMDGPU_MES_SCHED_PIPE];
+-	ring->no_scheduler = true;
+-	sprintf(ring->name, "mes_%d.%d.%d", ring->me, ring->pipe, ring->queue);
+-
+-	return amdgpu_ring_init(adev, ring, 1024, NULL, 0,
+-				AMDGPU_RING_PRIO_DEFAULT, NULL);
+-}
+-
+-static int mes_v10_1_kiq_ring_init(struct amdgpu_device *adev)
+-{
+-	struct amdgpu_ring *ring;
+-
+-	spin_lock_init(&adev->gfx.kiq[0].ring_lock);
+-
+-	ring = &adev->gfx.kiq[0].ring;
+-
+-	ring->me = 3;
+-	ring->pipe = 1;
+-	ring->queue = 0;
+-
+-	ring->adev = NULL;
+-	ring->ring_obj = NULL;
+-	ring->use_doorbell = true;
+-	ring->doorbell_index = adev->doorbell_index.mes_ring1 << 1;
+-	ring->eop_gpu_addr = adev->mes.eop_gpu_addr[AMDGPU_MES_KIQ_PIPE];
+-	ring->no_scheduler = true;
+-	sprintf(ring->name, "mes_kiq_%d.%d.%d",
+-		ring->me, ring->pipe, ring->queue);
+-
+-	return amdgpu_ring_init(adev, ring, 1024, NULL, 0,
+-				AMDGPU_RING_PRIO_DEFAULT, NULL);
+-}
+-
+-static int mes_v10_1_mqd_sw_init(struct amdgpu_device *adev,
+-				 enum admgpu_mes_pipe pipe)
+-{
+-	int r, mqd_size = sizeof(struct v10_compute_mqd);
+-	struct amdgpu_ring *ring;
+-
+-	if (pipe == AMDGPU_MES_KIQ_PIPE)
+-		ring = &adev->gfx.kiq[0].ring;
+-	else if (pipe == AMDGPU_MES_SCHED_PIPE)
+-		ring = &adev->mes.ring;
+-	else
+-		BUG();
+-
+-	if (ring->mqd_obj)
+-		return 0;
+-
+-	r = amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
+-				    AMDGPU_GEM_DOMAIN_VRAM |
+-				    AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj,
+-				    &ring->mqd_gpu_addr, &ring->mqd_ptr);
+-	if (r) {
+-		dev_warn(adev->dev, "failed to create ring mqd bo (%d)", r);
+-		return r;
+-	}
+-	memset(ring->mqd_ptr, 0, mqd_size);
+-
+-	/* prepare MQD backup */
+-	adev->mes.mqd_backup[pipe] = kmalloc(mqd_size, GFP_KERNEL);
+-	if (!adev->mes.mqd_backup[pipe]) {
+-		dev_warn(adev->dev,
+-			 "no memory to create MQD backup for ring %s\n",
+-			 ring->name);
+-		return -ENOMEM;
+-	}
+-
+-	return 0;
+-}
+-
+-static int mes_v10_1_sw_init(void *handle)
+-{
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-	int pipe, r;
+-
+-	adev->mes.funcs = &mes_v10_1_funcs;
+-	adev->mes.kiq_hw_init = &mes_v10_1_kiq_hw_init;
+-
+-	r = amdgpu_mes_init(adev);
+-	if (r)
+-		return r;
+-
+-	for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
+-		if (!adev->enable_mes_kiq && pipe == AMDGPU_MES_KIQ_PIPE)
+-			continue;
+-
+-		r = mes_v10_1_allocate_eop_buf(adev, pipe);
+-		if (r)
+-			return r;
+-
+-		r = mes_v10_1_mqd_sw_init(adev, pipe);
+-		if (r)
+-			return r;
+-	}
+-
+-	if (adev->enable_mes_kiq) {
+-		r = mes_v10_1_kiq_ring_init(adev);
+-		if (r)
+-			return r;
+-	}
+-
+-	r = mes_v10_1_ring_init(adev);
+-	if (r)
+-		return r;
+-
+-	return 0;
+-}
+-
+-static int mes_v10_1_sw_fini(void *handle)
+-{
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-	int pipe;
+-
+-	amdgpu_device_wb_free(adev, adev->mes.sch_ctx_offs);
+-	amdgpu_device_wb_free(adev, adev->mes.query_status_fence_offs);
+-
+-	for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
+-		kfree(adev->mes.mqd_backup[pipe]);
+-
+-		amdgpu_bo_free_kernel(&adev->mes.eop_gpu_obj[pipe],
+-				      &adev->mes.eop_gpu_addr[pipe],
+-				      NULL);
+-		amdgpu_ucode_release(&adev->mes.fw[pipe]);
+-	}
+-
+-	amdgpu_bo_free_kernel(&adev->gfx.kiq[0].ring.mqd_obj,
+-			      &adev->gfx.kiq[0].ring.mqd_gpu_addr,
+-			      &adev->gfx.kiq[0].ring.mqd_ptr);
+-
+-	amdgpu_bo_free_kernel(&adev->mes.ring.mqd_obj,
+-			      &adev->mes.ring.mqd_gpu_addr,
+-			      &adev->mes.ring.mqd_ptr);
+-
+-	amdgpu_ring_fini(&adev->gfx.kiq[0].ring);
+-	amdgpu_ring_fini(&adev->mes.ring);
+-
+-	amdgpu_mes_fini(adev);
+-	return 0;
+-}
+-
+-static void mes_v10_1_kiq_setting(struct amdgpu_ring *ring)
+-{
+-	uint32_t tmp;
+-	struct amdgpu_device *adev = ring->adev;
+-
+-	/* tell RLC which is KIQ queue */
+-	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+-	case IP_VERSION(10, 3, 0):
+-	case IP_VERSION(10, 3, 2):
+-	case IP_VERSION(10, 3, 1):
+-	case IP_VERSION(10, 3, 4):
+-		tmp = RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid);
+-		tmp &= 0xffffff00;
+-		tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
+-		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid, tmp);
+-		tmp |= 0x80;
+-		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid, tmp);
+-		break;
+-	default:
+-		tmp = RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS);
+-		tmp &= 0xffffff00;
+-		tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
+-		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
+-		tmp |= 0x80;
+-		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
+-		break;
+-	}
+-}
+-
+-static int mes_v10_1_kiq_hw_init(struct amdgpu_device *adev)
+-{
+-	int r = 0;
+-
+-	if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
+-		r = mes_v10_1_load_microcode(adev, AMDGPU_MES_KIQ_PIPE);
+-		if (r) {
+-			DRM_ERROR("failed to load MES kiq fw, r=%d\n", r);
+-			return r;
+-		}
+-
+-		r = mes_v10_1_load_microcode(adev, AMDGPU_MES_SCHED_PIPE);
+-		if (r) {
+-			DRM_ERROR("failed to load MES fw, r=%d\n", r);
+-			return r;
+-		}
+-	}
+-
+-	mes_v10_1_enable(adev, true);
+-
+-	mes_v10_1_kiq_setting(&adev->gfx.kiq[0].ring);
+-
+-	r = mes_v10_1_queue_init(adev);
+-	if (r)
+-		goto failure;
+-
+-	return r;
+-
+-failure:
+-	mes_v10_1_hw_fini(adev);
+-	return r;
+-}
+-
+-static int mes_v10_1_hw_init(void *handle)
+-{
+-	int r;
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-
+-	if (!adev->enable_mes_kiq) {
+-		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
+-			r = mes_v10_1_load_microcode(adev,
+-					     AMDGPU_MES_SCHED_PIPE);
+-			if (r) {
+-				DRM_ERROR("failed to MES fw, r=%d\n", r);
+-				return r;
+-			}
+-		}
+-
+-		mes_v10_1_enable(adev, true);
+-	}
+-
+-	r = mes_v10_1_queue_init(adev);
+-	if (r)
+-		goto failure;
+-
+-	r = mes_v10_1_set_hw_resources(&adev->mes);
+-	if (r)
+-		goto failure;
+-
+-	mes_v10_1_init_aggregated_doorbell(&adev->mes);
+-
+-	r = mes_v10_1_query_sched_status(&adev->mes);
+-	if (r) {
+-		DRM_ERROR("MES is busy\n");
+-		goto failure;
+-	}
+-
+-	/*
+-	 * Disable KIQ ring usage from the driver once MES is enabled.
+-	 * MES uses KIQ ring exclusively so driver cannot access KIQ ring
+-	 * with MES enabled.
+-	 */
+-	adev->gfx.kiq[0].ring.sched.ready = false;
+-	adev->mes.ring.sched.ready = true;
+-
+-	return 0;
+-
+-failure:
+-	mes_v10_1_hw_fini(adev);
+-	return r;
+-}
+-
+-static int mes_v10_1_hw_fini(void *handle)
+-{
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-
+-	adev->mes.ring.sched.ready = false;
+-
+-	mes_v10_1_enable(adev, false);
+-
+-	if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
+-		mes_v10_1_free_ucode_buffers(adev, AMDGPU_MES_KIQ_PIPE);
+-		mes_v10_1_free_ucode_buffers(adev, AMDGPU_MES_SCHED_PIPE);
+-	}
+-
+-	return 0;
+-}
+-
+-static int mes_v10_1_suspend(void *handle)
+-{
+-	int r;
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-
+-	r = amdgpu_mes_suspend(adev);
+-	if (r)
+-		return r;
+-
+-	return mes_v10_1_hw_fini(adev);
+-}
+-
+-static int mes_v10_1_resume(void *handle)
+-{
+-	int r;
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-
+-	r = mes_v10_1_hw_init(adev);
+-	if (r)
+-		return r;
+-
+-	return amdgpu_mes_resume(adev);
+-}
+-
+-static int mes_v10_0_early_init(void *handle)
+-{
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-	int pipe, r;
+-
+-	for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
+-		if (!adev->enable_mes_kiq && pipe == AMDGPU_MES_KIQ_PIPE)
+-			continue;
+-		r = amdgpu_mes_init_microcode(adev, pipe);
+-		if (r)
+-			return r;
+-	}
+-
+-	return 0;
+-}
+-
+-static int mes_v10_0_late_init(void *handle)
+-{
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-
+-	if (!amdgpu_in_reset(adev))
+-		amdgpu_mes_self_test(adev);
+-
+-	return 0;
+-}
+-
+-static const struct amd_ip_funcs mes_v10_1_ip_funcs = {
+-	.name = "mes_v10_1",
+-	.early_init = mes_v10_0_early_init,
+-	.late_init = mes_v10_0_late_init,
+-	.sw_init = mes_v10_1_sw_init,
+-	.sw_fini = mes_v10_1_sw_fini,
+-	.hw_init = mes_v10_1_hw_init,
+-	.hw_fini = mes_v10_1_hw_fini,
+-	.suspend = mes_v10_1_suspend,
+-	.resume = mes_v10_1_resume,
+-	.dump_ip_state = NULL,
+-	.print_ip_state = NULL,
+-};
+-
+-const struct amdgpu_ip_block_version mes_v10_1_ip_block = {
+-	.type = AMD_IP_BLOCK_TYPE_MES,
+-	.major = 10,
+-	.minor = 1,
+-	.rev = 0,
+-	.funcs = &mes_v10_1_ip_funcs,
+-};
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.h b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.h
+deleted file mode 100644
+index 9afd6ddb01e9c..0000000000000
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.h
++++ /dev/null
+@@ -1,29 +0,0 @@
+-/*
+- * Copyright 2019 Advanced Micro Devices, Inc.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software"),
+- * to deal in the Software without restriction, including without limitation
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- *
+- */
+-
+-#ifndef __MES_V10_1_H__
+-#define __MES_V10_1_H__
+-
+-extern const struct amdgpu_ip_block_version mes_v10_1_ip_block;
+-
+-#endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 12e54047bf795..3a282c90f7c9b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -59,7 +59,6 @@
+ #include "vcn_v3_0.h"
+ #include "jpeg_v3_0.h"
+ #include "amdgpu_vkms.h"
+-#include "mes_v10_1.h"
+ #include "mxgpu_nv.h"
+ #include "smuio_v11_0.h"
+ #include "smuio_v11_0_6.h"
+-- 
+2.44.0
 
-Validate that ip_type is valid here.
-
-> +       queue->flags =3D args->in.flags;
-
-Validate that flags is 0 until we actually implement support for the flags.
-
-> +       queue->vm =3D &fpriv->vm;
-> +
-> +       r =3D uq_funcs->mqd_create(uq_mgr, &args->in, queue);
-> +       if (r) {
-> +               DRM_ERROR("Failed to create Queue\n");
-> +               kfree(queue);
-> +               goto unlock;
-> +       }
-> +
-> +       qid =3D idr_alloc(&uq_mgr->userq_idr, queue, 1, AMDGPU_MAX_USERQ_=
-COUNT, GFP_KERNEL);
-> +       if (qid < 0) {
-> +               DRM_ERROR("Failed to allocate a queue id\n");
-> +               uq_funcs->mqd_destroy(uq_mgr, queue);
-> +               kfree(queue);
-> +               r =3D -ENOMEM;
-> +               goto unlock;
-> +       }
-> +       args->out.queue_id =3D qid;
-> +
-> +unlock:
-> +       mutex_unlock(&uq_mgr->userq_mutex);
-> +       return r;
-> +}
-> +
-> +int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
-> +                      struct drm_file *filp)
-> +{
-> +       union drm_amdgpu_userq *args =3D data;
-> +       int r;
-> +
-> +       switch (args->in.op) {
-> +       case AMDGPU_USERQ_OP_CREATE:
-> +               r =3D amdgpu_userqueue_create(filp, args);
-> +               if (r)
-> +                       DRM_ERROR("Failed to create usermode queue\n");
-> +               break;
-> +
-> +       case AMDGPU_USERQ_OP_FREE:
-> +               r =3D amdgpu_userqueue_destroy(filp, args->in.queue_id);
-> +               if (r)
-> +                       DRM_ERROR("Failed to destroy usermode queue\n");
-> +               break;
-> +
-> +       default:
-> +               DRM_DEBUG_DRIVER("Invalid user queue op specified: %d\n",=
- args->in.op);
-> +               return -EINVAL;
-> +       }
-> +
-> +       return r;
-> +}
->
->  int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amd=
-gpu_device *adev)
->  {
-> diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h b/drivers/gpu=
-/drm/amd/include/amdgpu_userqueue.h
-> index 93ebe4b61682..b739274c72e1 100644
-> --- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> @@ -54,6 +54,8 @@ struct amdgpu_userq_mgr {
->         struct amdgpu_device            *adev;
->  };
->
-> +int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct drm_fi=
-le *filp);
-> +
->  int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amd=
-gpu_device *adev);
->
->  void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
-> --
-> 2.43.2
->
