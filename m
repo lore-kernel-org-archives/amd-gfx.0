@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F57AC4345F
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 May 2024 15:18:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BBD9C4345F
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 May 2024 15:19:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A26E210E68F;
-	Thu,  2 May 2024 15:18:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0A8810F68F;
+	Thu,  2 May 2024 15:19:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EucgtJOe";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eVXxwzYj";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8012710E4C6
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 May 2024 15:18:16 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-41b782405bbso48716665e9.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 May 2024 08:18:16 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9470210F9E9
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 May 2024 15:19:57 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-41c7ac6f635so28092135e9.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 02 May 2024 08:19:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714663094; x=1715267894; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1714663196; x=1715267996; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=gKXkYydHuSQ6PNOQJnFAwd0xmj+iZNOJ7lyy+u+g5Ng=;
- b=EucgtJOefIO2FuU27TBHm8IUpkZjZIxfsPfOZ/XGuyMAED0tE5TbwFGhxIAyMB7wUX
- Xp+qJM0rtnGngHtoKk+bJOso+s47a+LMtszdSJrTwmMFshCEXfDU9nrnHAn++LHryoF8
- bmYSn08OMi4CzeTuctRWlBqlO/GDgGkd1ARQxlFKTNV2wPGrsxVyPvr7ekCbb6d/Gx2W
- z5LsIyE7IfKumVm6CJ63q+rSaORnRZ9YCp91JDUs58bwfnzbaL12YhsrqdfRXCMbV9+o
- DYk45oNLJBozAq205bbIDSXM1e/7BZwwQwUHg2VVDXU8Zk5HI4FcoQb2AkDJ/cpIVLbx
- 5Ltg==
+ bh=7qvBvJuY0VohOFziJdyfZKShbNUE1WNkMPeux6pO5nA=;
+ b=eVXxwzYjTeVe406HwI+MqXbfFLYRvOxhwJajM9cEVUAhxU8gtmjMhIThdw9U1xBlbV
+ LCK1O4j0esMimpiZzrcVFdIkX16bxszPvXUmn12B/INAatotvBQl+septsFFSlGxxmOK
+ 5JcpFPbaqPue9m4mcZU2CkXSK3I6Lqgdv0TtwhsN6qN4OFA/WEhCyQVnA0v7i6qOJnO/
+ w3aU2WZ21QWu1Gln9QAegkppwsKJmJ6jHTJyFKMdlFE6s/EsA84E6h0HaRTIiNWdn3+d
+ 97XUUcZ3Jo6IFAf4XtnfJVdzMWJKSE73crm/APChwytFtRpu6GqPUuzlG8YeLjbMRys0
+ yBEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714663094; x=1715267894;
+ d=1e100.net; s=20230601; t=1714663196; x=1715267996;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=gKXkYydHuSQ6PNOQJnFAwd0xmj+iZNOJ7lyy+u+g5Ng=;
- b=RYNVZmPwEGaD4EGoLAGp6Z7aF561IgDEzcCvFIZ/fPb5keozgaE27MoaS363r5M/91
- iW8x4DYlU0+6jkk8QHXV4fSKcoZJ49DVUl1pCCn0/U2bzXgw4hFxMnkgB3ivR22jq0wU
- ENuI7Au3BivloHaFTy5f76TSUm2r7brTqsufbTT7ykmqpXbtFDxZwF7maTFYb8fmb/jD
- zZpUuv7X6KfiJr22ZCNoYY1NiyEPHrBuDuvEaOirqfoOE4HkOquBTwnqFrpKDKExmPK5
- PY11YFlxqFefv1bpLCcSiGllLogjnbRcaQ2j2JTMg227QZx9o9mfTECyRo0Gnhuo69Fm
- 8fSA==
+ bh=7qvBvJuY0VohOFziJdyfZKShbNUE1WNkMPeux6pO5nA=;
+ b=BbM2tsGlkvKnG8bMR+69kiu+UUPt0CQwU78N+RKzLX+7pg5qCCEjU2AOm4OfQ0Bajv
+ 4K4UdzEVe1zzFj+psYPmeQPWYiwoFRNuNG2OIgikPn6sHFrDRG2Hswjd0mPl/U63j7C1
+ kUz3gAxXL9Kf373CK0IrRHMTOikcjMynEt4NIfqu4I0EgspxRX/78taUvVsmv8njYEel
+ xfp66ahaJlHGuXao8ck4VhYfe6F6ZDkWZ51mBFj7G3CDU5cwxYbBnMn4oEWIbQruRbqc
+ R0YCPaSeRnL/B4wg6cbOBQmLV2rniKkaZBQFmqF3N7HPqRVO3in+m1WsTU1gECi5HvJp
+ BkUQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV/72x13FwC2gMaZbZk04T0a6//UK9yjCJt4rYFc3L7yrAVPL9iMRTRPvg5tHodBbZaDCYflH7SXNI3IxhZ+cirHAgwNMCCbyDFj9qsjA==
-X-Gm-Message-State: AOJu0YyCqD/+auQ6OvACna5Iu1e/Ee98pqTWy9TEzzjQarHSck5zhM5W
- nDVXdlGJhUkJamfXND0RdBZjztwOBHUoLywegG4Z2r8FuAGYRRFW
-X-Google-Smtp-Source: AGHT+IGn+Hm1EBLg4g9/7sXlgM+2GX5HVI82/yeq6yaLQ0i/XTb2ZvczrT94xlCrTDike7MpEEyLHw==
-X-Received: by 2002:a05:600c:4f81:b0:419:f3f9:8ee3 with SMTP id
- n1-20020a05600c4f8100b00419f3f98ee3mr50504wmq.5.1714663094330; 
- Thu, 02 May 2024 08:18:14 -0700 (PDT)
+ AJvYcCWs4jBoDGk8v8gtJdN8cmSYxmvIOvLgmVo69DlMwqSY7YIdXWJ42xFcZ6C1wOHiAryxx3RkA4o1dLJZlIZh50Vf1FT+TH0wsF1hes23qg==
+X-Gm-Message-State: AOJu0Yyy3sarz5BI5+UYc/fjYp5wp1HdtcCuxuRj7QZnBrI/nU4CZJ44
+ BLY+VqGNmOjNXRp/XSN4h50VtMTfbv1I9IqWP0cJa8ipyDoi4KDw0LHt8jgt
+X-Google-Smtp-Source: AGHT+IH1+mANuUmcm5MmLxC4Rub/dCH2/MyweCuJSa/V/Yh84mIN34xEdYMKqgdURHnm9hQSQ9oTFA==
+X-Received: by 2002:a05:600c:4f52:b0:41b:7c07:cfeb with SMTP id
+ m18-20020a05600c4f5200b0041b7c07cfebmr26174wmq.40.1714663195682; 
+ Thu, 02 May 2024 08:19:55 -0700 (PDT)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- u17-20020a05600c19d100b004186eb69a55sm2279356wmq.25.2024.05.02.08.18.13
+ w6-20020a05600c474600b004182b87aaacsm2302599wmo.14.2024.05.02.08.19.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 May 2024 08:18:13 -0700 (PDT)
-Message-ID: <c493094b-a5d2-43a0-937a-75accba93136@gmail.com>
-Date: Thu, 2 May 2024 17:18:11 +0200
+ Thu, 02 May 2024 08:19:55 -0700 (PDT)
+Message-ID: <9ac9bff9-35eb-4726-a89f-0f72b5989117@gmail.com>
+Date: Thu, 2 May 2024 17:19:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 08/14] drm/amdgpu: map wptr BO into GART
+Subject: Re: [PATCH v9 11/14] drm/amdgpu: fix MES GFX mask
 To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Arvind Yadav <arvind.yadav@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <Christian.Koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
 References: <20240426134810.1250-1-shashank.sharma@amd.com>
- <20240426134810.1250-9-shashank.sharma@amd.com>
+ <20240426134810.1250-12-shashank.sharma@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240426134810.1250-9-shashank.sharma@amd.com>
+In-Reply-To: <20240426134810.1250-12-shashank.sharma@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,160 +87,96 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Am 26.04.24 um 15:48 schrieb Shashank Sharma:
-> To support oversubscription, MES FW expects WPTR BOs to
-> be mapped into GART, before they are submitted to usermode
-> queues. This patch adds a function for the same.
+> Current MES GFX mask prevents FW to enable oversubscription. This patch
+> does the following:
+> - Fixes the mask values and adds a description for the same.
+> - Removes the central mask setup and makes it IP specific, as it would
+>    be different when the number of pipes and queues are different.
 >
-> V4: fix the wptr value before mapping lookup (Bas, Christian).
->
-> V5: Addressed review comments from Christian:
->      - Either pin object or allocate from GART, but not both.
->      - All the handling must be done with the VM locks held.
->
-> V7: Addressed review comments from Christian:
->      - Do not take vm->eviction_lock
->      - Use amdgpu_bo_gpu_offset to get the wptr_bo GPU offset
->
-> V8: Rebase
-> V9: Changed the function names from gfx_v11* to mes_v11*
->
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-> Signed-off-by: Arvind Yadav <arvind.yadav@amd.com>
+> V9: introduce this patch in the series
 
-The patch itself looks good, but this really need the eviction fence to 
-work properly.
+As far as I can see this is a bug fix for existing code and should be 
+pushed completely independent of the other work to amd-staging-drm-next.
 
-Otherwise it can be that the BO mapped into the GART is evicted at some 
-point.
-
+Regards,
 Christian.
 
-> ---
->   .../gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c  | 77 +++++++++++++++++++
->   .../gpu/drm/amd/include/amdgpu_userqueue.h    |  1 +
->   2 files changed, 78 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c
-> index 8d2cd61af26b..37b80626e792 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c
-> @@ -30,6 +30,74 @@
->   #define AMDGPU_USERQ_PROC_CTX_SZ PAGE_SIZE
->   #define AMDGPU_USERQ_GANG_CTX_SZ PAGE_SIZE
->   
-> +static int
-> +mes_v11_0_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo)
-> +{
-> +	int ret;
-> +
-> +	ret = amdgpu_bo_reserve(bo, true);
-> +	if (ret) {
-> +		DRM_ERROR("Failed to reserve bo. ret %d\n", ret);
-> +		goto err_reserve_bo_failed;
-> +	}
-> +
-> +	ret = amdgpu_ttm_alloc_gart(&bo->tbo);
-> +	if (ret) {
-> +		DRM_ERROR("Failed to bind bo to GART. ret %d\n", ret);
-> +		goto err_map_bo_gart_failed;
-> +	}
-> +
-> +	amdgpu_bo_unreserve(bo);
-> +	bo = amdgpu_bo_ref(bo);
-> +
-> +	return 0;
-> +
-> +err_map_bo_gart_failed:
-> +	amdgpu_bo_unreserve(bo);
-> +err_reserve_bo_failed:
-> +	return ret;
-> +}
-> +
-> +static int
-> +mes_v11_0_create_wptr_mapping(struct amdgpu_userq_mgr *uq_mgr,
-> +			      struct amdgpu_usermode_queue *queue,
-> +			      uint64_t wptr)
-> +{
-> +	struct amdgpu_device *adev = uq_mgr->adev;
-> +	struct amdgpu_bo_va_mapping *wptr_mapping;
-> +	struct amdgpu_vm *wptr_vm;
-> +	struct amdgpu_userq_obj *wptr_obj = &queue->wptr_obj;
-> +	int ret;
-> +
-> +	wptr_vm = queue->vm;
-> +	ret = amdgpu_bo_reserve(wptr_vm->root.bo, false);
-> +	if (ret)
-> +		return ret;
-> +
-> +	wptr &= AMDGPU_GMC_HOLE_MASK;
-> +	wptr_mapping = amdgpu_vm_bo_lookup_mapping(wptr_vm, wptr >> PAGE_SHIFT);
-> +	amdgpu_bo_unreserve(wptr_vm->root.bo);
-> +	if (!wptr_mapping) {
-> +		DRM_ERROR("Failed to lookup wptr bo\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	wptr_obj->obj = wptr_mapping->bo_va->base.bo;
-> +	if (wptr_obj->obj->tbo.base.size > PAGE_SIZE) {
-> +		DRM_ERROR("Requested GART mapping for wptr bo larger than one page\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = mes_v11_0_map_gtt_bo_to_gart(adev, wptr_obj->obj);
-> +	if (ret) {
-> +		DRM_ERROR("Failed to map wptr bo to GART\n");
-> +		return ret;
-> +	}
-> +
-> +	queue->wptr_obj.gpu_addr = amdgpu_bo_gpu_offset_no_check(wptr_obj->obj);
-> +	return 0;
-> +}
-> +
->   static int mes_v11_0_userq_map(struct amdgpu_userq_mgr *uq_mgr,
->   			       struct amdgpu_usermode_queue *queue,
->   			       struct amdgpu_mqd_prop *userq_props)
-> @@ -61,6 +129,7 @@ static int mes_v11_0_userq_map(struct amdgpu_userq_mgr *uq_mgr,
->   	queue_input.queue_size = userq_props->queue_size >> 2;
->   	queue_input.doorbell_offset = userq_props->doorbell_index;
->   	queue_input.page_table_base_addr = amdgpu_gmc_pd_addr(queue->vm->root.bo);
-> +	queue_input.wptr_mc_addr = queue->wptr_obj.gpu_addr;
->   
->   	amdgpu_mes_lock(&adev->mes);
->   	r = adev->mes.funcs->add_hw_queue(&adev->mes, &queue_input);
-> @@ -187,6 +256,13 @@ static int mes_v11_0_userq_mqd_create(struct amdgpu_userq_mgr *uq_mgr,
->   		goto free_mqd;
+> Cc: Christian König <Christian.Koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+> Signed-off-by: Arvind Yadav <arvind.yadav@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 3 ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 1 -
+>   drivers/gpu/drm/amd/amdgpu/mes_v10_1.c  | 9 +++++++--
+>   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 9 +++++++--
+>   4 files changed, 14 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> index a00cf4756ad0..b405fafc0b71 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> @@ -151,9 +151,6 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
+>   		adev->mes.compute_hqd_mask[i] = 0xc;
 >   	}
 >   
-> +	/* FW expects WPTR BOs to be mapped into GART */
-> +	r = mes_v11_0_create_wptr_mapping(uq_mgr, queue, userq_props->wptr_gpu_addr);
-> +	if (r) {
-> +		DRM_ERROR("Failed to create WPTR mapping\n");
-> +		goto free_ctx;
-> +	}
-> +
->   	/* Map userqueue into FW using MES */
->   	r = mes_v11_0_userq_map(uq_mgr, queue, userq_props);
->   	if (r) {
-> @@ -216,6 +292,7 @@ mes_v11_0_userq_mqd_destroy(struct amdgpu_userq_mgr *uq_mgr,
->   			    struct amdgpu_usermode_queue *queue)
->   {
->   	mes_v11_0_userq_unmap(uq_mgr, queue);
-> +	amdgpu_bo_unref(&queue->wptr_obj.obj);
->   	amdgpu_userqueue_destroy_object(uq_mgr, &queue->fw_obj);
->   	kfree(queue->userq_prop);
->   	amdgpu_userqueue_destroy_object(uq_mgr, &queue->mqd);
-> diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> index 643f31474bd8..ffe8a3d73756 100644
-> --- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> @@ -45,6 +45,7 @@ struct amdgpu_usermode_queue {
->   	struct amdgpu_vm	*vm;
->   	struct amdgpu_userq_obj mqd;
->   	struct amdgpu_userq_obj fw_obj;
-> +	struct amdgpu_userq_obj wptr_obj;
->   };
+> -	for (i = 0; i < AMDGPU_MES_MAX_GFX_PIPES; i++)
+> -		adev->mes.gfx_hqd_mask[i] = i ? 0 : 0xfffffffe;
+> -
+>   	for (i = 0; i < AMDGPU_MES_MAX_SDMA_PIPES; i++) {
+>   		if (amdgpu_ip_version(adev, SDMA0_HWIP, 0) <
+>   		    IP_VERSION(6, 0, 0))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> index 4c8fc3117ef8..598556619337 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> @@ -110,7 +110,6 @@ struct amdgpu_mes {
+>   	uint32_t                        vmid_mask_gfxhub;
+>   	uint32_t                        vmid_mask_mmhub;
+>   	uint32_t                        compute_hqd_mask[AMDGPU_MES_MAX_COMPUTE_PIPES];
+> -	uint32_t                        gfx_hqd_mask[AMDGPU_MES_MAX_GFX_PIPES];
+>   	uint32_t                        sdma_hqd_mask[AMDGPU_MES_MAX_SDMA_PIPES];
+>   	uint32_t                        aggregated_doorbells[AMDGPU_MES_PRIORITY_NUM_LEVELS];
+>   	uint32_t                        sch_ctx_offs;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+> index 1e5ad1e08d2a..4d1121d1a1e7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+> @@ -290,8 +290,13 @@ static int mes_v10_1_set_hw_resources(struct amdgpu_mes *mes)
+>   		mes_set_hw_res_pkt.compute_hqd_mask[i] =
+>   			mes->compute_hqd_mask[i];
 >   
->   struct amdgpu_userq_funcs {
+> -	for (i = 0; i < MAX_GFX_PIPES; i++)
+> -		mes_set_hw_res_pkt.gfx_hqd_mask[i] = mes->gfx_hqd_mask[i];
+> +	/*
+> +	 * GFX pipe 0 queue 0 is being used by kernel
+> +	 * Set GFX pipe 0 queue 1 for MES scheduling
+> +	 * GFX pipe 1 can't be used for MES due to HW limitation.
+> +	 */
+> +	mes_set_hw_res_pkt.gfx_hqd_mask[0] = 0x2;
+> +	mes_set_hw_res_pkt.gfx_hqd_mask[1] = 0;
+>   
+>   	for (i = 0; i < MAX_SDMA_PIPES; i++)
+>   		mes_set_hw_res_pkt.sdma_hqd_mask[i] = mes->sdma_hqd_mask[i];
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> index 63f281a9984d..feb7fa2c304c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -387,8 +387,13 @@ static int mes_v11_0_set_hw_resources(struct amdgpu_mes *mes)
+>   		mes_set_hw_res_pkt.compute_hqd_mask[i] =
+>   			mes->compute_hqd_mask[i];
+>   
+> -	for (i = 0; i < MAX_GFX_PIPES; i++)
+> -		mes_set_hw_res_pkt.gfx_hqd_mask[i] = mes->gfx_hqd_mask[i];
+> +	/*
+> +	 * GFX pipe 0 queue 0 is being used by kernel
+> +	 * Set GFX pipe 0 queue 1 for MES scheduling
+> +	 * GFX pipe 1 can't be used for MES due to HW limitation.
+> +	 */
+> +	mes_set_hw_res_pkt.gfx_hqd_mask[0] = 0x2;
+> +	mes_set_hw_res_pkt.gfx_hqd_mask[1] = 0;
+>   
+>   	for (i = 0; i < MAX_SDMA_PIPES; i++)
+>   		mes_set_hw_res_pkt.sdma_hqd_mask[i] = mes->sdma_hqd_mask[i];
 
