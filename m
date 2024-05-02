@@ -4,152 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8257FC4345F
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 May 2024 14:02:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 594CCC4345F
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 May 2024 14:06:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1593110E8DF;
-	Thu,  2 May 2024 14:02:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7C9310FAED;
+	Thu,  2 May 2024 14:06:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vWy1XbAx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Md+PWgql";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2051.outbound.protection.outlook.com [40.107.244.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86E5910E8DF
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 May 2024 14:02:16 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15F8710FA0E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 May 2024 14:06:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fFH7trg/nknI9lOSXKzO5eQ0k5vmr6CgU8Rblc8zejWO+8fBdlAOfFq/h2sx2wHJ/1QS+9cxEHaYF+jUVuUopynEeBhZGQoEfXlWFxXL7K3JlyBLoCyfu4W8nSLkrLvM1lHe4BZi/MrfuL0ncx0NHlNM8GDtSuq5bHdeqmf7t5F4skJQNslqjBd9RmxHl+jh//ZzxN709n9NlaqlGRWdnx/shmKNSW3cOYL3a2jyYGMn0M0GOknuuUV1hwjkR0n4Ok/CUFQuNi2YYcUJ+Osw5E/N28yC05Q8z2/CBz08HKOcELLK3W3p1HuZA6K4FcOA1aeISO/mSLjPC7ptRxibVQ==
+ b=VgHUFoWQgaiCNaELdMpodEQH2pR0kROkeV2e8vy4DrOHymn0pZ4urNUrLVLOr/3kCuCn0HMkdYXg9QdxljHyHpd4lz9dEJD4ccqvf8nkd8jLyiW/yYh8iAXHmYxV3OWdcDjmmYCleBjpL8oArASbHqdG/NIyRTnX+Ftj7Hq990YKHF3+kVbn2BzFsCnxrJbGKGnhOg/gIhHjflry/0nAF+UzFmn/3+paT9WMEulzA3A6IVy7ELkqJES7qllJayVKMW62LmNM4+vgO8pnbJLFdC9CRkeJiuRzHY2bOUEpyCrL5zWsGFssordm7gu3TFpfuygtAv7R5qysmUyGMHGcgg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VmZOop/rRtQu5tvmISkBDxiGFlvUJBP1NFjEVHs5YbI=;
- b=eOrssAJuzgwUOjl84e2wxmIke0jtHeYTXJU/DTPtuEtGKR7UAexTlegSDVlW/fSxfbpunyYkzDEnFgbPg3PrKr7hkQn9+whMhjvuauFLQ3cGOo/IzypLIGV2vFiHGjsvA25ebxMTa8pJeDHGqzpiQ0R4B//5idPviYHLa4fOqOuQQMH8Yvu6EJ5/dSOmU4U0DV/FzE9S47wxhqa/VXKGuUgSRknuhK5FOPqrVkbCc+UGPFYbbbpxbWpBKX8nYvyOcK1ZdrI0mhhy+EAUo2dwgmMv2bvv00a07iN4tPmwL5RF4G8f/3mj3votFDXos2K+LYorUg/rTdOPuCPYvxdOWg==
+ bh=zUM3m4ETtxlb4qHERVfCzjiwKuLUHvCzn57PXo6bD74=;
+ b=iqhDYoZLMFZpkAcWbq6yBFdp5hXJsrdDvpuFT63SPGuiLwr0vAvlBWggQweoi2TCLyM3SOro5D2A/VgZowB1PFwT3Wn3yzfVe+Jo6cv5hVmwTJvPgGbyOaJNVZo+892odHoKhX+ZgTt3snQb+AHb5i83S3iUvZXqe/zqQB0aDKNKHSTkJzJusOXhQkDbCrpgWrQvFfLVnqYiNHKzimnKjEqopwqws8CV6tbGLED1lqZdw8WeT6Ba7B43VVoyuvFJbK+WlnxF6vBqNvzK5m7ciS86K7x6T3e6aZ2KNieu33Xoe5bVkb18dNQGLy8I6nuKOXEus5WLunMYiQYWMb/MJA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VmZOop/rRtQu5tvmISkBDxiGFlvUJBP1NFjEVHs5YbI=;
- b=vWy1XbAxvjcCugrP27n0kjp3H8mE5NqMCQQloESxkKyfq0fECvL6BzuuiqUaVO21HLwSvYQRVJp5LGEBRxHtSSmxEaUtw1D9NpYX3T01yXZ9jZwEpAOgy29xMBHNtEGLS73C8+BQPfN1etkENqSU3fJKR4Y6B+SGckGbCIQnrMs=
+ bh=zUM3m4ETtxlb4qHERVfCzjiwKuLUHvCzn57PXo6bD74=;
+ b=Md+PWgqlUPBwumfbzS8VHent/LGVYbWsqO5Yti+iR17jL91aRTCrj7PKgtDolsyz4SrPlslRCGoev+KLJGOsw1MC8JXdwgoV1IHYqMEZ98Bgd65WRtGFXIIEwBN/aYOHMZZ06EHh6uV3IvkbSht1hqcMXwIEXPkZhKIKTkIo44U=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by MN0PR12MB6269.namprd12.prod.outlook.com (2603:10b6:208:3c3::14)
- with Microsoft SMTP Server (version=TLS1_2,
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by CY5PR12MB6179.namprd12.prod.outlook.com (2603:10b6:930:24::22) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.29; Thu, 2 May
- 2024 14:02:05 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::966b:7f50:4f07:3c8b]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::966b:7f50:4f07:3c8b%5]) with mapi id 15.20.7519.031; Thu, 2 May 2024
- 14:02:05 +0000
-Message-ID: <7277c714-828b-d7b6-d771-6cd9bda604ee@amd.com>
-Date: Thu, 2 May 2024 16:01:59 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v9 12/14] drm/amdgpu: enable SDMA usermode queues
+ 2024 14:06:16 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::f3cf:148e:3827:8035]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::f3cf:148e:3827:8035%7]) with mapi id 15.20.7544.029; Thu, 2 May 2024
+ 14:06:16 +0000
+Message-ID: <073a794e-2324-730a-d3c3-bc434dc07ef6@amd.com>
+Date: Thu, 2 May 2024 10:06:13 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/amdkfd: Remove arbitrary timeout for hmm_range_fault
 Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Arvind Yadav <arvind.yadav@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <Christian.Koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-References: <20240426134810.1250-1-shashank.sharma@amd.com>
- <20240426134810.1250-13-shashank.sharma@amd.com>
- <CADnq5_OKanvT1co22rxHEjBc_4RJwN4Ss5VrZ4Btx_bDFh0F2Q@mail.gmail.com>
- <3d61136d-9fe6-4c97-63fb-024face67b93@amd.com>
- <CADnq5_NT7zspQFCTX=jJJX99Q6W_gGxMsvcjkCXM52CEyMmp4w@mail.gmail.com>
-From: "Sharma, Shashank" <shashank.sharma@amd.com>
-In-Reply-To: <CADnq5_NT7zspQFCTX=jJJX99Q6W_gGxMsvcjkCXM52CEyMmp4w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: "Chen, Xiaogang" <xiaogang.chen@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com, christian.koenig@amd.com
+References: <20240501225655.5215-1-Philip.Yang@amd.com>
+ <d949949b-fb30-45c7-a53d-a4d32874b3c7@amd.com>
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <d949949b-fb30-45c7-a53d-a4d32874b3c7@amd.com>
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0261.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b5::15) To MW4PR12MB5667.namprd12.prod.outlook.com
- (2603:10b6:303:18a::10)
+X-ClientProxiedBy: YQ1P288CA0020.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:9e::29) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|MN0PR12MB6269:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32a5093e-02fb-4b87-dfcd-08dc6ab072d9
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|CY5PR12MB6179:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2ea013d-d479-459e-58bd-08dc6ab1086d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|1800799015|376005;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NG9aZllKMzhodkJEOFpnVjdpY0NPYlFNb3lSSmdVK0R6OEhsYWwzdWJFek1W?=
- =?utf-8?B?Y3BMTDBHTUZ5TVF4ekRBcHNhNHVYSjgxT2NrekpVeng2ZmhJRjBkTGxlTGtZ?=
- =?utf-8?B?aWVndUMrM1hBdFhZeUE3VFQ1ZVduSEY2TTc2SjRMbWZRM3picUYyUEtuQ0JI?=
- =?utf-8?B?clRsZ1FHQU5PcEtvU1RYYjhxbmJweGNaK2djUXFhcjY4aVo4MlpXbFRmQTZq?=
- =?utf-8?B?cjRFYnVBRk9TSW9ZV1h4VUVOV1h5cE80MTU5OVBpR1huaDMvYTZQVHgxNEpM?=
- =?utf-8?B?b0xzZVBDQmRoZ1NYMndCYXdxbDIrZHJCUXpYaDJoZ0ppRTlnN2ZKN21kMGpO?=
- =?utf-8?B?TFZzRVR1Y1dzYmw0ZzVQRmdRQUY4MWxqeTNGV040eFlKY2ZYQ3hLTXF2M05q?=
- =?utf-8?B?OWF0NWc2clBKU3ZsZ3YvVGM5U3VnODk1dmoxWjBrZGw1aHRQM256K3AzcWYz?=
- =?utf-8?B?cnhCZDhKREN2b2MvRmpDdkFaakk3S0ZYNWdGTDI3eGZZNXRQUHF5R2pac0p5?=
- =?utf-8?B?bTU4bHJ2Q0d6MWl4YmIvSnVtNG1DSTJCZzVGMDRJeEdPeHNYeGl1MlR1OE5j?=
- =?utf-8?B?ZnRFZUc5VFFHbVZJRzFwaGM0VUJyRWd1TjlUdXZHR092TzBoeFY2U1E2Uk9R?=
- =?utf-8?B?aGNISTB5Ui9hMnY1NHpFMUhDckVOcW1iTEZtdlFHWlUwd1k4WlVNSFJURU5O?=
- =?utf-8?B?VDVrQ0ovSmhZZkZZOGtpZ1R4dHJlM0tycklnWDRKMkV5cXY4NjR6TzFud1BE?=
- =?utf-8?B?WGZtUW1jVEY0UVZ6WUJFdXJ0emIyc2FrK0g2K3F0azRXTkVTT0plN1pRNU92?=
- =?utf-8?B?ckVsd1JOS1pIR3NQY0dxZDVKZlJVMmlrTk1MTTdoMlRlUis0bWtyRnlObXZP?=
- =?utf-8?B?a1JEdFh0T0ZHanljUkRXYXpTbUtZVERMeTBOYXRVY1hjT1cvYWhIWmE1a25H?=
- =?utf-8?B?bGFoS1ZibWlVRFVpK3dTVmJMYjlZUzh1b3pmYmxKM2Q0NmF6OGp0YnZUSURX?=
- =?utf-8?B?Q1psR1ZvRmREaFZDNXE5RGdyVC8xOGxTc283bGRnMzgvREZ3NjVnYTlWMHYr?=
- =?utf-8?B?VU1kbGczQXBrRjNSdEtMU1YrUDdxVVkxTWZvRE5leDhWdFo5a2ZCeGpqcDFr?=
- =?utf-8?B?OGRHWkpHcnoyY0N2UzFzcGUxT0ZCTGRrQWt6d2Ewb0RYZHNpZzJoZjY5RVIz?=
- =?utf-8?B?a1JRd2dzdVBqZFRxVldLOWRleGdHZDcrd3Z1bjJPZzlueUNMK0lDVjYyVGtz?=
- =?utf-8?B?NU45SDE5WkUxVUlSZFpyL1pvSE96U0UrMFFjMGIwY282WW16VGhaZUcxZ1Zy?=
- =?utf-8?B?cUxHNTdVMC80RHZ3M1oxQ1hkd1l0UlJvYmNFcmw4SzZvU1lnODlJRUZrN09M?=
- =?utf-8?B?TEIxa3NlN2NVMUQvUWVJTmNqajl4cjBuS1ZJeHlJN2ppTlJCaEJpNWlHR3lZ?=
- =?utf-8?B?UEhTN3R2NVI4S2phWHdPNThVNzJ2Um5GTmxhZHdIeEUvMHlvSU1aSEFMWlFn?=
- =?utf-8?B?TjYzdG1rbTVjL3RHL0srby9pSldwR0xwL3cxUDYybVFob1B6ekJoWk4wRkk0?=
- =?utf-8?B?blU2QTZKTTBNZlBRKzRYcFh2blJVK0xUZ3NKQktZS1EzTWNpYkJJOWJpZHFG?=
- =?utf-8?B?VHdDV1VKNnJEWHVQR2xjSDVkcUdFL1FRZU90L2ZzUzNLakRoeDZZVERWUmNj?=
- =?utf-8?B?bGk3VXlsTTI4ZHcwa0hMbm5CcnFyRzhkUFVVYjgwTWhzT2dyTHFMcUx3PT0=?=
+X-Microsoft-Antispam: BCL:0;ARA:13230031|376005|1800799015|366007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YUdQK1RMZEFRbDl0dk16dUd4c0NEbmw4di92N3YxWjZCcS9CTzFsOFUxQmdC?=
+ =?utf-8?B?aUNDcEp2eUlPTVdkMnZKWjMrNmRIWnp2bFZ4K2kvUkMyNmUrNktQZFpDU0VI?=
+ =?utf-8?B?QzRTSFMzalFBMkY0dkE1MHI3ckZkQ3ZLcTQ5WGJ3MnpRVmJWNTMyeGFPa2Uy?=
+ =?utf-8?B?YjlvOWJUQ1VUWjF6REoraGttd1Z5VlIwcmZpV3BkWE5tOUF1MXFNSDFmWGhG?=
+ =?utf-8?B?RTlOWGJ4Y0lCd3ROZ1J2UkhOVk1ncC9NQjBnRnZoZ0xKKzcrNHh1NlQwZkh4?=
+ =?utf-8?B?dVBLUEtRbDlQc3VJbEs1V2d1bnAySGZZQmd1RUV5M0dmL25hVS9TVGN4U09j?=
+ =?utf-8?B?WUIwMFBVYnBNV056S1RwRGVmRitSWnZmdGFHYkQvV1NCNHUyUkJ0RHBOZmZl?=
+ =?utf-8?B?QmFrQko3NWdKd3NmZ2hxYWFyeW96WU9vUmIzQ1lCUFJoQ1FTZldQbVAwZjc3?=
+ =?utf-8?B?TzdDYkV4cnMxbjBVazh4b0FyV3BEeGhuVStNSmUzaW1oWXpRYnF0MjJDR3ZG?=
+ =?utf-8?B?dWdwOGIvNTZNMktUVEsyckFOa2hMYW80N25WOFRic3BqN2tPRnVDZFdJQkJZ?=
+ =?utf-8?B?c2VCZ0ZUWE1RTVc1aU1WRXNPQkZJWkttQmw1LzdKdlFMZHYvSGRhUklPNmlx?=
+ =?utf-8?B?SlM4VGIzSzdQS1hnaUExTHhqY3k3dmthbDgya0FVQUJNS3FRMXhnZkd3bWh2?=
+ =?utf-8?B?NXRuckdtend4c2d5SkF0UUxQUHEvdFllTWUxTjNKNC8xN3FMVDF1QU8zUVVx?=
+ =?utf-8?B?UHJDNXhkbEJuc0lSRzRiRkZIYTVqcUVydTZCNDBkdEx6VlJjdm13cVNZamM4?=
+ =?utf-8?B?ZmY0VXJzT3lRVkJLc3k5Ujg1OE96ckgvdG5pZUNONEpvZDJHT0ltOVFiYlVK?=
+ =?utf-8?B?L0ZQRkk3YUlVSU12SU83VlBEVDVEOXg1eTQ3bFM1SVRKUXAyREQ3dWhUWmVo?=
+ =?utf-8?B?bW0vN1hoczhrVVNzM3FpNDZRY2xCSXJrQURqMHVKS0ZHTWp1VkRqbEZzbU0r?=
+ =?utf-8?B?NVR4SlhmSXYyc3pQRC9COUp2RlhyT0JpSk1nbGVncU9nd1Fta2RVU0R0THlL?=
+ =?utf-8?B?VUZsWlFDRVBoK1NBOHpMMjlzVER6VU9yamFzTmlWeXAyK1ZZR0IzNXVvMG5U?=
+ =?utf-8?B?aktWUk5LQmFWUyt1cDdrNVl1M2xuNTVUWXY0NUM0U3MzbjRZdmJ2SlM4OTNZ?=
+ =?utf-8?B?cHRpVC9KK05jZlR6aUVnbnZvRFM4NzFycWk1by9HSm55dWRlc0lVa0tOdERE?=
+ =?utf-8?B?bm1BVGlhcWppemZUZjBoWmttM09Ubkx2eEpwYjBlUnRPQzllRVBsWDAyWXUw?=
+ =?utf-8?B?dHExSzNMY0V0Um1NMExhRDZSMnd3WFNYaTIvTTk0VzgrUCt1Y1ZkcUFnRGtC?=
+ =?utf-8?B?bGZBTThqRk5aNEllQmMzQUZBb0hkcVkzZTFpN3RHTnhsOEplMDVkcFkvSWpu?=
+ =?utf-8?B?clJPQmVnTEVjRlpWYlRtMDR2VGMxMWNTSjFxT3hIOFB3MndxamRNaFRydFBL?=
+ =?utf-8?B?YkxWaGtxZEVsSk16SUdrVGloaFRPaWdhQStSQ3ZVOWhKN3B4WkRYT2crRTdJ?=
+ =?utf-8?B?b052aGlSK2tCUzNOZjNkM1JrK21keUo0THRaYmhWdnhNVExERnRBeGRVSlNY?=
+ =?utf-8?B?bHpNZW42TWFzSjF6SThYckJDeCtBcDVXeUY5L2J0WG5WU2Jrbjd5SDZDSkFq?=
+ =?utf-8?B?VEo1TnhEMjBBZzFOZ3JtNXZxZldiNDJiZ29QU0FoRmhSc0luYURyV0h3PT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?elRKWEYrRUV5WHlySHdHNUJiQzF1UjVQeXdwa1QyREkwUVlZdUJZa3dsc3No?=
- =?utf-8?B?QzRTOGdoZDBXZmJoZTVoNEF1UFBmTWk3U25YT0tZSlVwRDVsZHQwb2taWlVP?=
- =?utf-8?B?SVFvYjh2OUZ6MHY5RlBFV2cwaGpxRkE0L3phZTBSR2IzZmtDZVhmOFhnTmlM?=
- =?utf-8?B?NDBGb3NvQmo4dWw1THlMUXVWNnM4ZDlEVHpEWWxqS3VMKzJHU053RUhFM3Zi?=
- =?utf-8?B?QVFCNHlvbTVOYkhzbmNOMXYzYVFkU0JPMWxFalQ1bEhIUjg5M0R5QWxnVGI0?=
- =?utf-8?B?TVFSdjVQM3ZFRnZEQnpOcEN3QUdVb21YdHdBS2E4RHdZZjNjY2xDOUYvV05h?=
- =?utf-8?B?UG9xM1ZwUXNsWTlVdURwUXJOSmREaE8wNndQL1VCVU1odnZsblQ4cndvRXVC?=
- =?utf-8?B?UHJyZ09xL25leTBET3ZJMHFmamNLamRqZlg5ZWViMTY2SXYxYUU2WWVCVFRm?=
- =?utf-8?B?MnRlb2xSVEtyRVl3WlVCMW9rSjFEVjg5N1dPMm9hUGpMNTkrbnJnaEcrNmVu?=
- =?utf-8?B?VEpnWDJQV3I4RlcxSjNEZXlYV3lyUDhnU0hNcGU1UnQ2QWpmRkhCSXlRMkZ6?=
- =?utf-8?B?SDYvSktjaHlFWkhtdnpjb0c5SElLcmVTN0ltU1FXUmhhY2pId1ZsSkMydzNl?=
- =?utf-8?B?YmdnVG1lMm1DdjR3d09iM3hPakZ4TUxLc1huY1NveHhLWVNadDBycm9GUDZa?=
- =?utf-8?B?OE9TU1AyWm0xcG9mTklVUjhJOTBRb2RDSWRlekozMG0zaVRBWTI4M1JxMFdC?=
- =?utf-8?B?Zm1Ra2dHUHdqVXF2L0ltbkZKWldFSFNXSExiVWh2RFdibEwydUJqdFpNNkVE?=
- =?utf-8?B?V2N3Qkt2RFBzOGM2WUEybnY1Z1FXYjhDWTRxVmdkL2UwL2pzV2c3azRFNDRL?=
- =?utf-8?B?TWRTckp6SjhDK1JIaHRZcTMzQ0ZVcG9HVlMwc1BsOHpMUVVVd1ZNYUZTZUFE?=
- =?utf-8?B?UmtuZ1h5am9rTGhKLzZYaVVmOHJaVHZFS2lTTG5WbHV6ZTNjUXR0SEFzZmpz?=
- =?utf-8?B?OElpUUtCcE5OQk9XTGZEUXM1Z21OUUJmQ0E1QU9NWmRtcVZjZ1lzeHdhKzhz?=
- =?utf-8?B?ZFRHeEJUekJvMVM4TlBvRFRoK3hMT01qQ29JNmZ1K3BVWGlsT1NQMWUwR3pv?=
- =?utf-8?B?WTF2UldYR1E4WFBSN3ZOc1JCSVZGZkVSSFhtNVV6RXRxUnk2VnE1bFV0U1Vs?=
- =?utf-8?B?bWw2RHdDSmxub1kxaG1RUE01QUg0NTJUbVpMR3VOWTJqRERvUitIMTZ2VTNv?=
- =?utf-8?B?N3dSTXhJTE4rNGtJa2Y5ZU9kMUlzcDZCU3c4WWgweDRYalJyM0dLSDFvS20w?=
- =?utf-8?B?SG1EWTlmbTYvR2FZdFRRWEJ1VER5czRhNWpBWnhFWnNBTmd6S3RKYXV4aGVO?=
- =?utf-8?B?eXhwK0VmZ1M5N09SSWYxOS8rMHdtWTJOK3ZTUjJqWmN3dzhLSTY4VUV4OGlT?=
- =?utf-8?B?UFRhdVpoVEdQWURzaTV0Z2ltVGRIOTR5b1NSdSs4OVgxVlNZVHN6Wk9RdmV4?=
- =?utf-8?B?bjh6Rm5rOU91SnlYeVNvd1NiQ0Vvc1FBZjhwOEN0bFFnVUpSekVTK3Y5dk41?=
- =?utf-8?B?c0RmclpSMjg5WGowSEV0UTJmcFBBYU5ESDBoU2ZvU3hkeE1ObU9iUGs4UWF6?=
- =?utf-8?B?SG1SdmpTbDI5a0JmZmY2bXpZWHVxWnlMQTVMOFlqV3VRNDZES1Bua0FWaUJZ?=
- =?utf-8?B?QjJtSGsxZm4zM1ZIRkZjbEtXVk03RHczSldaQ01RV0hJb0VhWWt2V1dVUGlR?=
- =?utf-8?B?UDdFWi9mSVFXNHNiK1BUejMwcDc4QVNSaW1sQXcyZ0FicmhXRHoyUWF2KzFO?=
- =?utf-8?B?S1RPeUxxcnc0SnhRWmFWTWIyTjM1b3E3b1luY1ViVjVCVFFLRGxEaVdURmpQ?=
- =?utf-8?B?d3J4dFUyL3E1RTZUSERzVGJDdEJNWEx2UXJSQXUrNWVwcVA5c0c5U3hUcTZY?=
- =?utf-8?B?Ly83ZzQ5RTNjeEJyUWxZOU0zSFI4OHMyb1A3V0toWkhTaXhNS1QvZDZEUXJv?=
- =?utf-8?B?UXlIVGJoVDdqRmxoQitPc0ZLYkpRVzBFdTREYUdZb0x3YUtRVXN1VEtienBM?=
- =?utf-8?B?VDh0ei9VRUlBQnU4R1EyajdvMFR6S3B2T1ZQUWdCSUhtMWMyNG00VWZiWnFM?=
- =?utf-8?Q?PddWyZXD8zs0RFsL5IvSZs+7E?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U29WRlp5YlZqQU54U0Y4Zmc4T2NuKzd5Ty8xVkIraWhuSDJScDEzRFlCQ1Y4?=
+ =?utf-8?B?N3FSeEFuYWY0VXdjZUQ0S3Z5dk5mTFQwZDIzeUYrTmc4bFN3cUZwVDhiaWNK?=
+ =?utf-8?B?bUwzT3NHVVU1aUc4elVDTVc2NHlqcDVOeTJzK1BZdnpMZHJxNlExNWtEVkhR?=
+ =?utf-8?B?OTJaWDVRZEhqSzA5ZGFVNUdFajZwM0dlUmJYd0RJMDU4VElML2EyM1UzSTFq?=
+ =?utf-8?B?eFBmSTNHaW9TNjRNOFVxSWxCQ1FFd2Z2dm5CUVpsK0E2R0NqUElUaEdTT0Ft?=
+ =?utf-8?B?ZGxJM0Izenh0ZFJOa1AvODhhWE15TTg1MVlHTDI0Q0IyaFQydkVzY0VVcUNJ?=
+ =?utf-8?B?K1VKUXZHN0czRE5Bd0NxZFg1cituMW9Hb1FmNVZCWWxHUjJiSE9yeDRVMGFF?=
+ =?utf-8?B?Uk5hdWlLRW16eWpLUTUvYzNpd3lHUk1lemhod01LVU9teno0RWtQRUhwYkFM?=
+ =?utf-8?B?R2twMEFGUEhOeWFkMS9kMHBWdEFnbmwwWHRuMnRlMWZiZDdzTXYza20zYmx3?=
+ =?utf-8?B?N2gxbkJibkZudFNwTTNwR0tqbVdHVnRVdWFHMDAyb1NuMkJXazNSQWVlbGJ3?=
+ =?utf-8?B?YVB0QWRRckRObWp3dkJkend5MDg5cFFEQVZRTC9qWlB5OEFGR3VDU0tPZEhn?=
+ =?utf-8?B?aVVBa0U0NjJqbk9JWTdycnllbUJmWHRodGdnRUJNSExrTUQyMjVXOVIyeldM?=
+ =?utf-8?B?Q3NMZ2NOOUJxaDNKWnJKdnNBQnIrVlo3L1pFdTFXT3NkVmF2YWlCZmZYbzJo?=
+ =?utf-8?B?aTFSY1dIWTdlNWZSL3hlajRIckczQnFCdnFhUmxqbVd5eDJjZTA3RmFRNUZl?=
+ =?utf-8?B?UlkwWXprdmg2KzVWY3BSSlc1dVN1YXpET2JlZ3BxR2hrWnB5OGlxS0VGazYw?=
+ =?utf-8?B?NG9lajA5cnFBY3JwcWo0ZnhCMnh3UDRuSWUramJoT2p1cHArTDVOa3oyTDNX?=
+ =?utf-8?B?eXVTNGtneU5hYWkrSER0L1pqQ0tteTMyMVQ3MTJtT0JXcHljZllQVFJuK2tP?=
+ =?utf-8?B?bDZUY1FOMzFISHVOaHZIUHR1OE9CZTlRVHE3K3hyOWZhMkhyN0p4dFI4M3I5?=
+ =?utf-8?B?ei91VkNBS2ZGVk1JY1hDVDhaVG5yYi8vQUhYSzlkK3BmK1E5MmxtNjBpc1Q5?=
+ =?utf-8?B?eStsUnZUUlFXYndJTXNmbmJsTEpheHVaNUN1U2ZpQ3ZkZ1JEYUFIVG1WMDho?=
+ =?utf-8?B?YkhaQTU3V0k1cHI3UlRtMHhFdzBJVFkzRFNTWFZmMU5tbGFkYi9jUzhnN3ZC?=
+ =?utf-8?B?RE0wZXk1V2p2bjZQbGRNVDRiRVpTS3BXaG1uWWNoNEcwblJiYmp3ZDltTmJ2?=
+ =?utf-8?B?cnl6dWlyb2dZc1RzeEFQZW5zVjhvVndmdGhrcU04eDlvRlhlWHIySndvQ1NK?=
+ =?utf-8?B?LzgveHAzSGt3TjJMN2JPbG54NlhsY3hIQWdhOUNSL1dOUUZ1Z25IUUxsMVlI?=
+ =?utf-8?B?UENZZThPeXNqWGNXOEZhemp4OXpmME5KUTZyd1gxRUs0REdieFVPU0pmeXlh?=
+ =?utf-8?B?NFVRbEJLS0N5RzBJYnhVQ2RQQ015SVVHbFRmeHlzMmxGZHk3RU1OakJUQks5?=
+ =?utf-8?B?Y0FtcU5Mc3hjdm9GenpBUkVUandERm1KZFZSeFRMWlRFTldVbStLM3dZUS9p?=
+ =?utf-8?B?MjhwbmhQazJyVU5oRGtUeE83amZtQ2l3eTZMQzB4dkZnOHd5T2liUHhlcTZB?=
+ =?utf-8?B?dmI5NTZCTGxkd0FDeVBaRFQvamRRVTdOWjgxclpxRmtoeWJrT0dkTHcwaVl6?=
+ =?utf-8?B?QzROcTJkU1BCL2ZzQ1NWamdmaUd0cVpLTnY0V1NLaTAyeEQxN0tLQ1hPa3Fa?=
+ =?utf-8?B?ZFhEdzJNeWZJWEV2NmNKOHVRZTRVdlo2NXF6aEdCdGVjbk1pWjEyK2N3VmJw?=
+ =?utf-8?B?YjBGNFFOaXFURE5GYzJlSmRLMy9CTkZYTGRoREwrbHF2NXhWY3I2MWlXQzNW?=
+ =?utf-8?B?OTNYb3dKTTNsY2RFekRuQ0YyZEZrcDhZTVZveER5S25zeDZGWEJNdWxVQ05i?=
+ =?utf-8?B?bmYzWXlVQUZFaVFYTFFtUTh4Sk91Rkd4WE9ycE1wZFNSRG5waXRsakh4UlZW?=
+ =?utf-8?B?eVBzeUthUTZOaFdkRndOT0V2dVlSb25iNGw5TW1pcm1QQ0NONDdlNVBSdHk4?=
+ =?utf-8?Q?j8S4=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32a5093e-02fb-4b87-dfcd-08dc6ab072d9
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2ea013d-d479-459e-58bd-08dc6ab1086d
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2024 14:02:05.6332 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2024 14:06:16.4164 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Eb8Vj0n5inex8XQ5jO0lOnAFL0YWVg56NS92QdH5U4aLpUfV+iukQUWbVPguyRVqVMmyK5Al0lxLJyKQEj4GJg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6269
+X-MS-Exchange-CrossTenant-UserPrincipalName: s3x+fZsdpfJpr7cxEHp6Wej3JEfW0x7Dqf9n7tUHwz36FYORmLyUOlzDCMpdPW8Y
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6179
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,100 +159,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 02/05/2024 15:55, Alex Deucher wrote:
-> On Thu, May 2, 2024 at 1:47 AM Sharma, Shashank <shashank.sharma@amd.com> wrote:
->>
->> On 01/05/2024 22:41, Alex Deucher wrote:
->>> On Fri, Apr 26, 2024 at 10:27 AM Shashank Sharma
->>> <shashank.sharma@amd.com> wrote:
->>>> This patch does necessary modifications to enable the SDMA
->>>> usermode queues using the existing userqueue infrastructure.
->>>>
->>>> V9: introduced this patch in the series
->>>>
->>>> Cc: Christian König <Christian.Koenig@amd.com>
->>>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
->>>> Signed-off-by: Arvind Yadav <arvind.yadav@amd.com>
->>>> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c    | 2 +-
->>>>    drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c | 4 ++++
->>>>    drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c           | 3 +++
->>>>    3 files changed, 8 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
->>>> index 781283753804..e516487e8db9 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
->>>> @@ -189,7 +189,7 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->>>>           int qid, r = 0;
->>>>
->>>>           /* Usermode queues are only supported for GFX/SDMA engines as of now */
->>>> -       if (args->in.ip_type != AMDGPU_HW_IP_GFX) {
->>>> +       if (args->in.ip_type != AMDGPU_HW_IP_GFX && args->in.ip_type != AMDGPU_HW_IP_DMA) {
->>>>                   DRM_ERROR("Usermode queue doesn't support IP type %u\n", args->in.ip_type);
->>>>                   return -EINVAL;
->>>>           }
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c
->>>> index a6c3037d2d1f..a5e270eda37b 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c
->>>> @@ -182,6 +182,10 @@ static int mes_v11_0_userq_create_ctx_space(struct amdgpu_userq_mgr *uq_mgr,
->>>>                   return r;
->>>>           }
->>>>
->>>> +       /* We don't need to set other FW objects for SDMA queues */
->>>> +       if (queue->queue_type == AMDGPU_HW_IP_DMA)
->>>> +               return 0;
->>>> +
->>>>           /* Shadow and GDS objects come directly from userspace */
->>>>           mqd->shadow_base_lo = mqd_user->shadow_va & 0xFFFFFFFC;
->>>>           mqd->shadow_base_hi = upper_32_bits(mqd_user->shadow_va);
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
->>>> index 361835a61f2e..90354a70c807 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
->>>> @@ -1225,6 +1225,8 @@ static int sdma_v6_0_early_init(void *handle)
->>>>           return 0;
->>>>    }
->>>>
->>>> +extern const struct amdgpu_userq_funcs userq_mes_v11_0_funcs;
->>> Can you include the header rather than adding an extern?
->> Noted,
->>>> +
->>>>    static int sdma_v6_0_sw_init(void *handle)
->>>>    {
->>>>           struct amdgpu_ring *ring;
->>>> @@ -1265,6 +1267,7 @@ static int sdma_v6_0_sw_init(void *handle)
->>>>                   return -EINVAL;
->>>>           }
->>>>
->>>> +       adev->userq_funcs[AMDGPU_HW_IP_DMA] = &userq_mes_v11_0_funcs;
->>>>           return r;
->>>>    }
->>> I think we need a new mqd descriptor in amdgpu_drm.h as well since the
->>> sdma metadata is different from gfx and compute.
->> Can you please elaborate on this ? AFAIK SDMA queue doesn't need any
->> specific metadata objects (like GFX).
-> Right.  I want to make it clear in the IOCTL interface what buffers
-> are required for which ring types.  E.g., UMD might allocate a shadow
-> buffer for SDMA, but they don't need it so there is no need to
-> allocate it.  If we have separate mqd structures for every ring type,
-> it makes it clear which additional buffers are needed for which ring
-> types.
-
-Agree, it makes sense.
-
-- Shashank
-
-> Alex
->
->> - Shashank
->>
->>> Alex
->>>
->>>> --
->>>> 2.43.2
->>>>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2024-05-02 00:09, Chen, Xiaogang
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:d949949b-fb30-45c7-a53d-a4d32874b3c7@amd.com">
+      <br>
+      On 5/1/2024 5:56 PM, Philip Yang wrote:
+      <br>
+      <blockquote type="cite">Caution: This message originated from an
+        External Source. Use proper caution when opening attachments,
+        clicking links, or responding.
+        <br>
+        <br>
+        <br>
+        On system with khugepaged enabled and user cases with THP
+        buffer, the
+        <br>
+        hmm_range_fault may takes &gt; 15 seconds to return -EBUSY, the
+        arbitrary
+        <br>
+        timeout value is not accurate, cause memory allocation failure.
+        <br>
+        <br>
+        Remove the arbitrary timeout value, return EAGAIN to application
+        if
+        <br>
+        hmm_range_fault return EBUSY, then userspace libdrm and Thunk
+        will call
+        <br>
+        ioctl again.
+        <br>
+      </blockquote>
+      <br>
+      Wonder why letting user space do retry is better? Seems this issue
+      is caused by hugepage merging, so how user space can avoid it?
+      <br>
+    </blockquote>
+    The issue is caused by khugepaged + 4 processes + sdma stalls test
+    (to slow down sdma) + small_BAR + QPX mode, during overnight test,
+    hmm_range_fault 180MB buffer may takes &gt;15 seconds returns EBUSY,
+    then alloc memory ioctl failed. Return EAGAIN, Thunk will call the
+    alloc memory ioctl again, and we don't see the alloc memory
+    failure.&nbsp; <br>
+    <blockquote type="cite" cite="mid:d949949b-fb30-45c7-a53d-a4d32874b3c7@amd.com">
+      <br>
+      And applications may not use Thunk or libdrm, instead, use ioctl
+      directly.
+      <br>
+    </blockquote>
+    <p>If app calls ioctl directly, it should do the same thing, to call
+      ioctl again if errno is EINTR or EAGAIN.</p>
+    <p>Regards,</p>
+    <p>Philip<br>
+    </p>
+    <blockquote type="cite" cite="mid:d949949b-fb30-45c7-a53d-a4d32874b3c7@amd.com">
+      <br>
+      Regards
+      <br>
+      <br>
+      Xiaogang
+      <br>
+      <br>
+      <blockquote type="cite">Change EAGAIN to debug message as this is
+        not error.
+        <br>
+        <br>
+        Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+        <br>
+        ---
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |&nbsp; 5 ++++-
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 12
+        +++---------
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 5 +----
+        <br>
+        &nbsp; 3 files changed, 8 insertions(+), 14 deletions(-)
+        <br>
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+        b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+        <br>
+        index 54198c3928c7..02696c2102f1 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+        <br>
+        @@ -1087,7 +1087,10 @@ static int init_user_pages(struct kgd_mem
+        *mem, uint64_t user_addr,
+        <br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret = amdgpu_ttm_tt_get_user_pages(bo,
+        bo-&gt;tbo.ttm-&gt;pages, &amp;range);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_err(&quot;%s: Failed to get user pages: %d\n&quot;,
+        __func__, ret);
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret == -EAGAIN)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;Failed to get user pages, try
+        again\n&quot;);
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_err(&quot;%s: Failed to get user pages:
+        %d\n&quot;, __func__, ret);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto unregister_out;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+        b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+        <br>
+        index 431ec72655ec..e36fede7f74c 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+        <br>
+        @@ -202,20 +202,12 @@ int amdgpu_hmm_range_get_pages(struct
+        mmu_interval_notifier *notifier,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;hmm range: start = 0x%lx, end =
+        0x%lx&quot;,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hmm_range-&gt;start,
+        hmm_range-&gt;end);
+        <br>
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Assuming 64MB takes maximum 1 second to fault
+        page address */
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timeout = max((hmm_range-&gt;end -
+        hmm_range-&gt;start) &gt;&gt; 26, 1UL);
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timeout *= HMM_RANGE_DEFAULT_TIMEOUT;
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timeout = jiffies + msecs_to_jiffies(timeout);
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timeout = jiffies +
+        msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
+        <br>
+        <br>
+        &nbsp; retry:
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hmm_range-&gt;notifier_seq =
+        mmu_interval_read_begin(notifier);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = hmm_range_fault(hmm_range);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unlikely(r)) {
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; schedule();
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * FIXME: This timeout should encompass
+        the retry from
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * mmu_interval_read_retry() as well.
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r == -EBUSY &amp;&amp;
+        !time_after(jiffies, timeout))
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto retry;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_free_pfns;
+        <br>
+        @@ -247,6 +239,8 @@ int amdgpu_hmm_range_get_pages(struct
+        mmu_interval_notifier *notifier,
+        <br>
+        &nbsp; out_free_range:
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hmm_range);
+        <br>
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r == -EBUSY)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = -EAGAIN;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;
+        <br>
+        &nbsp; }
+        <br>
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        <br>
+        index 94f83be2232d..e7040f809f33 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+        <br>
+        @@ -1670,11 +1670,8 @@ static int
+        svm_range_validate_and_map(struct mm_struct *mm,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        readonly, owner, NULL,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &amp;hmm_range);
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WRITE_ONCE(p-&gt;svms.faulting_task,
+        NULL);
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;failed %d to get svm
+        range pages\n&quot;, r);
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r == -EBUSY)
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = -EAGAIN;
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = -EFAULT;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        --
+        <br>
+        2.43.2
+        <br>
+        <br>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
