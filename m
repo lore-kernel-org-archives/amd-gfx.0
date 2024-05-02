@@ -4,83 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA5AC4345F
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 07:50:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B845EC25B4F
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 07:50:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A54911288C;
-	Fri,  3 May 2024 07:50:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12E2F112890;
+	Fri,  3 May 2024 07:50:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="U0Fo00mN";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="NhCrLKdI";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AA9010F6A1;
- Fri,  3 May 2024 06:01:07 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4433a53G004818;
- Fri, 3 May 2024 06:01:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=noN7kBLxq9TVGdHUBmY+gSoaFbzmaEzOs2TwYGDA4NA=; b=U0
- Fo00mN+XXjGU8b/VaAv8ENQXxmXztOCDwkY1Qe1bQiafxAnopThnVdYwUX/Jf4Aa
- xATL/sB5o1OokTs7y0NcRSRY1KEkcpwI84k40q31WC41CUkzv5Hg6utRT/K29FQv
- pyuyOIwGZSfxj8AdrnRprofbH4RRj37b6KJDFo9P6EIGzu8K9KI3O7QDjOG2j4sJ
- QjLUjeBQnrW6xQ49pG1m6ZYYd0u2BV8/dmUVxuEzs1gSxRTZ+wq4qbOMkncesqUt
- 5PiFQWkY3M1pYZi5qYpZqyQd5uOIC8tp9Bs3zlkoJHEd50J/HNOPb4wC+J73gPP7
- eO02QrtSpjm4vE6TKdDQ==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xv6q0td3h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 03 May 2024 06:00:59 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44360wPC008346
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 3 May 2024 06:00:58 GMT
-Received: from [10.216.13.234] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 2 May 2024
- 23:00:54 -0700
-Message-ID: <d7f7cfae-78d5-41aa-aaf9-0d558cdfcbea@quicinc.com>
-Date: Fri, 3 May 2024 11:30:50 +0530
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 90BBF1126F6;
+ Thu,  2 May 2024 22:26:38 +0000 (UTC)
+Received: from [100.64.232.195] (unknown [20.29.225.195])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 518C5206B4FD;
+ Thu,  2 May 2024 15:26:37 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 518C5206B4FD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1714688797;
+ bh=NzMrFwSnELsNTouka86zwY4xBu0HDKLPheXHNRlf/UY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=NhCrLKdI/ZqOMxIi0x/9IcKVE1fu8SJgV6IOu9yOzA4/X9AoPavE5e5S65Ugw3uBC
+ sulaSRBperkkDcIDt2jCnwInTZEDOTYmaUAyGGeCvlgfS23LBxyBkoeXTUrIdi6qwD
+ 4F+b4DUgYEKEoHW556opdVdEoci1DJoGsON85j90=
+Message-ID: <076e0a0d-ad26-490e-9784-300ed52637ca@linux.microsoft.com>
+Date: Thu, 2 May 2024 15:26:36 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [linux-next:master] BUILD REGRESSION
- 9c6ecb3cb6e20c4fd7997047213ba0efcf9ada1a
-To: Greg KH <gregkh@linuxfoundation.org>, kernel test robot <lkp@intel.com>
-CC: Andrew Morton <akpm@linux-foundation.org>, Linux Memory Management List
- <linux-mm@kvack.org>,
- <amd-gfx@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <linux-arch@vger.kernel.org>,
- <linux-usb@vger.kernel.org>, <netdev@vger.kernel.org>,
- <nouveau@lists.freedesktop.org>
-References: <202405030439.AH8NR0Mg-lkp@intel.com>
- <2024050342-slashing-froth-bcf9@gregkh>
-Content-Language: en-US
-From: Krishna Kurapati PSSNV <quic_kriskura@quicinc.com>
-In-Reply-To: <2024050342-slashing-froth-bcf9@gregkh>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: O6_fT_RHzM9at2lNZPzBwfaLMctBtVtb
-X-Proofpoint-GUID: O6_fT_RHzM9at2lNZPzBwfaLMctBtVtb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-03_03,2024-05-03_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 spamscore=0
- mlxlogscore=726 malwarescore=0 phishscore=0 adultscore=0 clxscore=1011
- mlxscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2404010003 definitions=main-2405030041
+Subject: Re: [PATCH v1 12/12] fbdev/viafb: Make I2C terminology more inclusive
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Florian Tobias Schandinat <FlorianSchandinat@gmx.de>,
+ Helge Deller <deller@gmx.de>,
+ "open list:VIA UNICHROME(PRO)/CHROME9 FRAMEBUFFER DRIVER"
+ <linux-fbdev@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>,
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>
+References: <20240430173812.1423757-1-eahariha@linux.microsoft.com>
+ <20240430173812.1423757-13-eahariha@linux.microsoft.com>
+ <271ad513-0ea1-45df-ba0f-51582474ff34@suse.de>
+Content-Language: en-CA
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+In-Reply-To: <271ad513-0ea1-45df-ba0f-51582474ff34@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 03 May 2024 07:50:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,32 +71,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 5/3/2024 10:42 AM, Greg KH wrote:
-> Ok, I'm getting tired of seeing these for the USB portion of the tree,
-> so I went to look for:
+On 5/2/2024 3:46 AM, Thomas Zimmermann wrote:
 > 
-> On Fri, May 03, 2024 at 04:44:42AM +0800, kernel test robot wrote:
->> |-- arc-randconfig-002-20240503
->> |   `-- drivers-usb-dwc3-core.c:warning:variable-hw_mode-set-but-not-used
 > 
-> This warning (same for all arches), but can't seem to find it anywhere.
+> Am 30.04.24 um 19:38 schrieb Easwar Hariharan:
+>> I2C v7, SMBus 3.2, and I3C 1.1.1 specifications have replaced "master/slave"
+>> with more appropriate terms. Inspired by and following on to Wolfram's
+>> series to fix drivers/i2c/[1], fix the terminology for users of
+>> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+>> in the specification.
+>>
+>> Compile tested, no functionality changes intended
+>>
+>> [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
+>>
+>> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 > 
-> Any hints as to where it would be?
+> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
 > 
 
-Hi Greg,
+Thanks for the ack! I had been addressing feedback as I got it on the v0 series, and it seems
+I missed out on updating viafb and smscufx to spec-compliant controller/target terminology like
+the v0->v1 changelog calls out before posting v1.
 
-  I think the hw_mode was not removed in hs_phy_setup and left unused.
+For smscufx, I feel phrasing the following line (as an example)
 
-  Thinh reported the same when there was a merge conflict into linux 
-next (that the hw_mode variable was removed in ss_phy_setup and should 
-be removed in hs_phy_setup as well):
+> -/* sets up I2C Controller for 100 Kbps, std. speed, 7-bit addr, host, 
+> +/* sets up I2C Controller for 100 Kbps, std. speed, 7-bit addr, *controller*, 
 
-https://lore.kernel.org/all/20240426213923.tyeddub4xszypeju@synopsys.com/
+would actually impact readability negatively, so I propose to leave smscufx as is.
 
-  Perhaps that was missed ?
+For viafb, I propose making it compliant with the spec using the controller/target terminology and
+posting a v2 respin (which I can send out as soon as you say) and ask you to review again.
 
-Regards,
-Krishna,
+What do you think?
+
+Thanks,
+Easwar
+
+>> ---
+>>   drivers/video/fbdev/via/chip.h    |  8 ++++----
+>>   drivers/video/fbdev/via/dvi.c     | 24 ++++++++++++------------
+>>   drivers/video/fbdev/via/lcd.c     |  6 +++---
+>>   drivers/video/fbdev/via/via_aux.h |  2 +-
+>>   drivers/video/fbdev/via/via_i2c.c | 12 ++++++------
+>>   drivers/video/fbdev/via/vt1636.c  |  6 +++---
+>>   6 files changed, 29 insertions(+), 29 deletions(-)
+>>
+
+<snip>
