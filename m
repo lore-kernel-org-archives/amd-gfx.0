@@ -4,75 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A412C4345F
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 15:33:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B265C4345F
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 15:34:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39B2C112561;
-	Fri,  3 May 2024 15:33:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C20EB1126F1;
+	Fri,  3 May 2024 15:34:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="aU1V17y1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e1fvUZy/";
 	dkim-atps=neutral
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D84B112561
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 May 2024 15:33:11 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-51faf2325f4so134406e87.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 03 May 2024 08:33:10 -0700 (PDT)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D8291126F1
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 May 2024 15:34:05 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-2b33d011e5dso1992729a91.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 03 May 2024 08:34:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1714750389; x=1715355189; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=53hBzkdoK1M6hhh0Jja2F6N4xdAtTdNpQqJA5zIBOqI=;
- b=aU1V17y1XvUFFcl+9myYSzHs31WpNwucJlxL8xCw6p/zblyhUuFSJpoO/40Mbdm8rX
- kRN9JVaaZddSvXXwqDtEP31cA7aKABywH4cDGSeFmnuFEuVd+IVE8JJkJKGcgCK25OPk
- QJLNT3D0d1lO0+oHwwaHVtYEQ6GuwoibbBdWk=
+ d=gmail.com; s=20230601; t=1714750445; x=1715355245; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=q0aL+sjjhgHPcRyT8k7Nf/Eenahpc9nDfQrN8qKXt/E=;
+ b=e1fvUZy/0eTgZsbVO4kQD+dEkzqUeApupC6cuInR61V+Q4K5oHHbFok10xwYdqddH9
+ QwuhbBc9tfwp1B7IL5FwhJlQU225E6q6hr5RMMjEDbj7Vp3lMtCmku+oE1NykpZw31a9
+ s7wkagXum/7nUU2mlnB2ej0WXdcvWXyDx/BHOWqeaYOKbd81yZBCWtpbw35CHcvmhaxc
+ i1adU2ENtfnTj/LmnRxInNhRNWJ2Q/hZD25/tf4vdrPEH1sHIZfpuVepdzVGSaty+RBV
+ LmJCjEBcJlGZ9k6hdr4+y20xkHbnsKzVomGKGczhOTbSSa7HZ6aWglf8b8NYivf6LxXO
+ DHNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714750389; x=1715355189;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=53hBzkdoK1M6hhh0Jja2F6N4xdAtTdNpQqJA5zIBOqI=;
- b=Li8QZ6V8CY8BTRyCMidU/6hc7H/npXonNVf68rJQ8VsQEs3Y2YhBhWULPgMdSctkvk
- n9VsKC3bGQvUFIewzawdqROH7wL+kkadPKx6wouNXQW2d92WG/GbCLHX5ZHBrBuJHwEF
- w77RfKV/3vvCg7/5fsIy+A21zITvbN086ZqPNlVjLEEXVIrsFmu6y6vhz+79/j8S+2aK
- Yo2S05nZMctHch+P1MieMwr/s2gS45B3GQiGhgo6yMGeaogBC8x3g9Arqpx70crfu20N
- IRvOq786cuNC2PIYBAYD19NN1VeMAJYWc7AZpwySULozXx36cmZ3DRTXfMNMS/CmAudi
- CGmA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVUwPiMUlJStvKMpaOiFiSjo3scraIfMLU8YqM2Bmm/gXLm+HkTYmgWrmT9HaftB2xHRK5JUzjs/pMBo7Oj7oop5ZnMhjmR14FSp+8Ocg==
-X-Gm-Message-State: AOJu0YxmhGI/LhiLsnUBmRE58CUxYBpgwF5WOyrK8TXrz+qIILLSMWB9
- 58rCL9aTD6uJ/nZoUsg4PFqlIrNKrB5Ee/0ubvLIepRkrZ1L8ZxQPiPV+nS+SVs=
-X-Google-Smtp-Source: AGHT+IGVW30o41Q7uDAxXP0liYFZAScFShOknTKvcYRh1okVAakYNjtcaCsYaYmv27b56GfYBrBPrg==
-X-Received: by 2002:a2e:9110:0:b0:2dd:60d3:7664 with SMTP id
- m16-20020a2e9110000000b002dd60d37664mr1854429ljg.5.1714750388465; 
- Fri, 03 May 2024 08:33:08 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- r13-20020a05600c35cd00b0041bf45c0665sm9668481wmq.15.2024.05.03.08.33.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 May 2024 08:33:07 -0700 (PDT)
-Date: Fri, 3 May 2024 17:33:05 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
- Rob Clark <robdclark@chromium.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH] Documentation/gpu: Document the situation with
- unqualified drm-memory-
-Message-ID: <ZjUDsRIHHmJ0oM-1@phenom.ffwll.local>
-References: <20240503123657.9441-1-tursulin@igalia.com>
- <736ba0a2-035b-4727-bbcc-437029420377@igalia.com>
- <2cdee989-f48d-4923-b12a-f09a1cc2b34d@igalia.com>
+ d=1e100.net; s=20230601; t=1714750445; x=1715355245;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=q0aL+sjjhgHPcRyT8k7Nf/Eenahpc9nDfQrN8qKXt/E=;
+ b=hn1BWWdN4gcvYZAiS9eKxEcS7ET/UYV+AvZP+U4vOh8clFO43RsUEh6R2CZ9AuUmq5
+ XHsgsQAnQNCfSJi5qflcHAPU8j5sepadSEWNEQXSxCQNesao7lhySvqKns5XTqSLRvc4
+ MS/97nEsBrWpA9Yyk9zSgOTd6az59P1qKvg4qundfrmOQ5Ox4sQuvgnFldxaE9wVuBlD
+ mcEYvDl1V//6GmseByofIS1TMzRjG9frJjemeetfZNKtKMhRwfZn6eK2PfUThSKf8dzQ
+ jrXO/ourW1uDm06n03OizKnVtdxZjPWxyYWs4mMIArWIoi0dWQ84wVD2PEn5uuL5IZR8
+ mvaQ==
+X-Gm-Message-State: AOJu0YyxE0FPhR+yJlKZ4PCu20IPK814z5F1UPQznwmI0kls8WWKryuC
+ oBsK+38KKM31bMMhaO8Desr5ar0fLgf53uSCnEYCB6dynPfulrIfU+9mN1+1QHb4lVVKhrKP9iv
+ 2RdCNIIM2q5SEt+owyqVPivc/CQc=
+X-Google-Smtp-Source: AGHT+IEDDVsWbQ4xyG/XW9nbR+r3rSp+HTUCqW2fK8s2uAvVFz8ItJs6X3T3uS2d1LUaMEJZ3YPpVCC/DR9O/Aemm2c=
+X-Received: by 2002:a17:90b:3547:b0:2b4:1396:6d3d with SMTP id
+ lt7-20020a17090b354700b002b413966d3dmr4504151pjb.11.1714750444769; Fri, 03
+ May 2024 08:34:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2cdee989-f48d-4923-b12a-f09a1cc2b34d@igalia.com>
-X-Operating-System: Linux phenom 6.6.15-amd64 
+References: <1VLcj5GzcoG1-O6-r7zBAGyAXVUTTIHMyJRR8Svf-ckgPom-otJt8N3sT5oPHvLOiYjvdXx6zfZ3zatRHJFGsitQKAA8mHNV57KoFBMjNJk=@protonmail.com>
+In-Reply-To: <1VLcj5GzcoG1-O6-r7zBAGyAXVUTTIHMyJRR8Svf-ckgPom-otJt8N3sT5oPHvLOiYjvdXx6zfZ3zatRHJFGsitQKAA8mHNV57KoFBMjNJk=@protonmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 3 May 2024 11:33:53 -0400
+Message-ID: <CADnq5_P-LpDqaqUs+_1=mNZwDCCWWu4x2q9aMy65gn257B1vyg@mail.gmail.com>
+Subject: Re: Allow setting a power cap that's lower than recommended
+To: fililip <fililip6483@protonmail.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,108 +75,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 03, 2024 at 01:58:38PM +0100, Tvrtko Ursulin wrote:
-> 
-> [And I forgot dri-devel.. doing well!]
-> 
-> On 03/05/2024 13:40, Tvrtko Ursulin wrote:
-> > 
-> > [Correcting Christian's email]
-> > 
-> > On 03/05/2024 13:36, Tvrtko Ursulin wrote:
-> > > From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > 
-> > > Currently it is not well defined what is drm-memory- compared to other
-> > > categories.
-> > > 
-> > > In practice the only driver which emits these keys is amdgpu and in them
-> > > exposes the total memory use (including shared).
-> > > 
-> > > Document that drm-memory- and drm-total-memory- are aliases to
-> > > prevent any
-> > > confusion in the future.
-> > > 
-> > > While at it also clarify that the reserved sub-string 'memory' refers to
-> > > the memory region component.
-> > > 
-> > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > > Cc: Christian König <christian.keonig@amd.com>
-> > 
-> > Mea culpa, I copied the mistake from
-> > 77d17c4cd0bf52eacfad88e63e8932eb45d643c5. :)
-> > 
-> > Regards,
-> > 
-> > Tvrtko
-> > 
-> > > Cc: Rob Clark <robdclark@chromium.org>
-> > > ---
-> > >   Documentation/gpu/drm-usage-stats.rst | 10 +++++++++-
-> > >   1 file changed, 9 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/Documentation/gpu/drm-usage-stats.rst
-> > > b/Documentation/gpu/drm-usage-stats.rst
-> > > index 6dc299343b48..ef5c0a0aa477 100644
-> > > --- a/Documentation/gpu/drm-usage-stats.rst
-> > > +++ b/Documentation/gpu/drm-usage-stats.rst
-> > > @@ -128,7 +128,9 @@ Memory
-> > >   Each possible memory type which can be used to store buffer
-> > > objects by the
-> > >   GPU in question shall be given a stable and unique name to be
-> > > returned as the
-> > > -string here.  The name "memory" is reserved to refer to normal
-> > > system memory.
-> > > +string here.
-> > > +
-> > > +The region name "memory" is reserved to refer to normal system memory.
-> > >   Value shall reflect the amount of storage currently consumed by
-> > > the buffer
-> > >   objects belong to this client, in the respective memory region.
-> > > @@ -136,6 +138,9 @@ objects belong to this client, in the respective
-> > > memory region.
-> > >   Default unit shall be bytes with optional unit specifiers of 'KiB'
-> > > or 'MiB'
-> > >   indicating kibi- or mebi-bytes.
-> > > +This is an alias for drm-total-<region> and only one of the two
-> > > should be
-> > > +present.
+On Fri, May 3, 2024 at 9:27=E2=80=AFAM fililip <fililip6483@protonmail.com>=
+ wrote:
+>
+> This patch allows setting a low power cap if ignore_min_pcap is set to 1.
+>
+> Signed-off-by: fililip <fililip6483@protonmail.com>
 
-This feels a bit awkward and seems to needlessly complicate fdinfo uapi.
+Please generate a proper signed off git patch and use git-send-email
+to send it out.  Also, I don't want to add more module parameters.
 
-- Could we just patch amdgpu to follow everyone else, and avoid the
-  special case? If there's no tool that relies on the special amdgpu
-  prefix then that would be a lot easier.
-
-- If that's not on the table, could we make everyone (with a suitable
-  helper or something) just print both variants, so that we again have
-  consisent fdinfo output? Or breaks that a different set of existing
-  tools.
-
-- Finally maybe could we get away with fixing amd by adding the common
-  format there, deprecating the old, fixing the tools that would break and
-  then maybe if we're lucky, remove the old one from amdgpu in a year or
-  so?
-
-Uapi that's "either do $foo or on this one driver, do $bar" is just
-guaranteed to fragement the ecosystem, so imo that should be the absolute
-last resort.
--Sima
-
-> > > +
-> > >   - drm-shared-<region>: <uint> [KiB|MiB]
-> > >   The total size of buffers that are shared with another file (e.g.,
-> > > have more
-> > > @@ -145,6 +150,9 @@ than a single handle).
-> > >   The total size of buffers that including shared and private memory.
-> > > +This is an alias for drm-memory-<region> and only one of the two
-> > > should be
-> > > +present.
-> > > +
-> > >   - drm-resident-<region>: <uint> [KiB|MiB]
-> > >   The total size of buffers that are resident in the specified region.
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Alex
