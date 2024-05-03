@@ -4,34 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5119AC25B4F
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 07:50:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DE51C25B74
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 07:50:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E68ED11288F;
-	Fri,  3 May 2024 07:50:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A4E8112891;
+	Fri,  3 May 2024 07:50:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NcaAekJg";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lTewYTs2";
 	dkim-atps=neutral
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1992E10E0CA;
- Fri,  3 May 2024 06:28:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 230F510E6C2;
+ Fri,  3 May 2024 05:12:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id DCEEFCE17E1;
- Fri,  3 May 2024 06:28:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81384C116B1;
- Fri,  3 May 2024 06:28:38 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 798D3CE1818;
+ Fri,  3 May 2024 05:12:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 243D6C116B1;
+ Fri,  3 May 2024 05:12:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1714717719;
- bh=iwh0xdjQBV1rMvWbejzBiO4Cm2ywVaCYNNzkgwWts0w=;
+ s=korg; t=1714713154;
+ bh=CqoZyhOSCmBy0sZ5Gg/UYcDTxCfEHRO6AHxKHOGnjPE=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=NcaAekJgFy/ub8u/nLZ43cpp8Z3hWZWdQJNtfEPSpLSHsnvRSQ9P2dsYcsi2Sx3U8
- CejoBqkoLSP0CHcFIXFqRGIfGEh9EsoSht2sb4QO3J1miDQbbWotJ+RuP0Zh+yExe7
- oFcis4z/7AVU8HlLSG5M0ZW6I2pSvaISQO5obSak=
-Date: Fri, 3 May 2024 08:28:36 +0200
+ b=lTewYTs2ryNk/sSYDnCRe/Ql77/NkLpuSu+2Ur4TLDXLvqGlanDBMa+SPV1o8dO8r
+ GFd/liBdixcYIlR4cQ8tnVhD8pHMBsepIf9u0tvIIJxkFV3QonP06Wdv7D7AokNqNx
+ of+GOzMAO3UyZ2WFxjGeKVHVbbJm4dcSFZi2xUlM=
+Date: Fri, 3 May 2024 07:12:32 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
-To: Krishna Kurapati PSSNV <quic_kriskura@quicinc.com>
-Cc: kernel test robot <lkp@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>,
+To: kernel test robot <lkp@intel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
  Linux Memory Management List <linux-mm@kvack.org>,
  amd-gfx@lists.freedesktop.org, devicetree@vger.kernel.org,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
@@ -40,14 +39,12 @@ Cc: kernel test robot <lkp@intel.com>,
  nouveau@lists.freedesktop.org
 Subject: Re: [linux-next:master] BUILD REGRESSION
  9c6ecb3cb6e20c4fd7997047213ba0efcf9ada1a
-Message-ID: <2024050314-knelt-sandpaper-3884@gregkh>
+Message-ID: <2024050342-slashing-froth-bcf9@gregkh>
 References: <202405030439.AH8NR0Mg-lkp@intel.com>
- <2024050342-slashing-froth-bcf9@gregkh>
- <d7f7cfae-78d5-41aa-aaf9-0d558cdfcbea@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d7f7cfae-78d5-41aa-aaf9-0d558cdfcbea@quicinc.com>
+In-Reply-To: <202405030439.AH8NR0Mg-lkp@intel.com>
 X-Mailman-Approved-At: Fri, 03 May 2024 07:50:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,36 +60,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 03, 2024 at 11:30:50AM +0530, Krishna Kurapati PSSNV wrote:
-> 
-> 
-> On 5/3/2024 10:42 AM, Greg KH wrote:
-> > Ok, I'm getting tired of seeing these for the USB portion of the tree,
-> > so I went to look for:
-> > 
-> > On Fri, May 03, 2024 at 04:44:42AM +0800, kernel test robot wrote:
-> > > |-- arc-randconfig-002-20240503
-> > > |   `-- drivers-usb-dwc3-core.c:warning:variable-hw_mode-set-but-not-used
-> > 
-> > This warning (same for all arches), but can't seem to find it anywhere.
-> > 
-> > Any hints as to where it would be?
-> > 
-> 
-> Hi Greg,
-> 
->  I think the hw_mode was not removed in hs_phy_setup and left unused.
-> 
->  Thinh reported the same when there was a merge conflict into linux next
-> (that the hw_mode variable was removed in ss_phy_setup and should be removed
-> in hs_phy_setup as well):
-> 
-> https://lore.kernel.org/all/20240426213923.tyeddub4xszypeju@synopsys.com/
-> 
->  Perhaps that was missed ?
+Ok, I'm getting tired of seeing these for the USB portion of the tree,
+so I went to look for:
 
-Must have been.  I need it in a format that it can be applied in (a
-2-way diff can't apply...)
+On Fri, May 03, 2024 at 04:44:42AM +0800, kernel test robot wrote:
+> |-- arc-randconfig-002-20240503
+> |   `-- drivers-usb-dwc3-core.c:warning:variable-hw_mode-set-but-not-used
+
+This warning (same for all arches), but can't seem to find it anywhere.
+
+Any hints as to where it would be?
 
 thanks,
 
