@@ -4,59 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29326C25B79
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 10:00:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A36AC25B78
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 10:00:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB04F112F4A;
-	Mon,  6 May 2024 10:00:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A9C2112F42;
+	Mon,  6 May 2024 10:00:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="W2/4M5Gw";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UFNOXYEc";
 	dkim-atps=neutral
-X-Greylist: delayed 319 seconds by postgrey-1.36 at gabe;
- Sun, 05 May 2024 22:50:43 UTC
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDEB510E9D2
- for <amd-gfx@lists.freedesktop.org>; Sun,  5 May 2024 22:50:43 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 1EF7B40E0249; 
- Sun,  5 May 2024 22:45:22 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
- header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id YXcF-TBVowou; Sun,  5 May 2024 22:45:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
- t=1714949118; bh=NjS5kxLZOJz81OAxMXF66zLJMhQsI82kKAEn8JwPuUo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=W2/4M5GwlZIEVqb8ZeZgvXi8BXp8gZy7RBkdwiWFad50NS4j7l43LeET3IyXp12YE
- x2lW5bXlIct2ZM9aYU3hP4lF1O6c2bt3XxeVixMgImWDUwAtMcv1hypWgTEKFDK3OY
- MvQuNrk8uwugOEtlyOhSkEuh6aBdvP9Hn3y9LN7AFoBl8djHbCux+1j5/48a1UmvZW
- xHssIuO2mJprnXviqqPX74Uvs1smkR/+6e5mPpkWZuAb7rr17iVt+uJ8kjzil53MCL
- 6LZoO1mV9qbjJ8ld6Us+GacZXqMIy1JKYWI2o7k9IxcHLB8OQfC6rg2JaspHKPz8Yr
- ol1Ax/9vatYYaDgG++5dkhnf6WPukYKUiVTp3duj+5BX/Hw6HGfLavvfp1+ovGGFLd
- DHg2LNl73DBwMp6xJstelWu32FjfpopCv98ko0KEpxn8HQyMn8aKg8WWUW97l48HSY
- 3Syo6mbOtilwcmlz6PSpJoQo5GD45jQGDY1LnnGeQX9AL0J7HCEXZ24QfHNN9z7pnO
- ntjjq5Or3Jo21+IZIiy0PcbvKpyS3zdEwahE8FEF5/sIR9CMIJXTtbZM8R5RnArdfJ
- G9M7U+Q0hwNlqPU4yJQYMNIq6b3TgdihxRFicgTyAJ1s7IDpse7hPtDtVT9awfhBSu
- 5PatFEUJRfbz/KPylqF+12ec=
-Received: from zn.tnic (pd953020b.dip0.t-ipconnect.de [217.83.2.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 184B840E0192;
- Sun,  5 May 2024 22:45:15 +0000 (UTC)
-Date: Mon, 6 May 2024 00:45:08 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Tranton Baddy <t.baddy@yandex.ru>, amd-gfx@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: Error in amd driver?
-Message-ID: <20240505224508.GAZjgL9PO9Y5QaAO2t@fat_crate.local>
-References: <1237381714935562@dmcmxrwo3x2o7y3i.sas.yp-c.yandex.net>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1003C11228A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 May 2024 14:01:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=/nkjz9o1IcG6t1SYrlt9U7XwHkF7rAtM8hZd9QyhUH0=; b=UFNOXYEcsGl+REqp8rNvO4T5w2
+ C0b4+zyN5V0kb4a8txJlCuR+QHMsja5by5hCHY97yTUOelsL5O9ax3pXkW2ynoRta5AxPEguNGHn8
+ vSqdNkgg+A2qlido1OtV9tgz9f/hjO0NxDOjTb0sS86hd4EIMAz30OaHKjVT33e3CqowzfiSelXNP
+ bM30/+oeJppr3qD3/em+rrs0R53dtJ2a/+hhM5+wWcpQQzHFCNea6aawPhQFGgiEOQImppVVMHciO
+ eVZLUzFcrn3snIeyyyesWCMIu8uINb890yQysv2Fgev+JMSsWFSDHtFIfbrA+ILB9Z7OvcxLPd6Up
+ Tx81J29Q==;
+Received: from [84.65.0.132] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1s2tTK-00094K-7c; Fri, 03 May 2024 16:01:10 +0200
+Message-ID: <57d26797-76cf-4376-9563-24913c0c39fc@igalia.com>
+Date: Fri, 3 May 2024 15:01:09 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <1237381714935562@dmcmxrwo3x2o7y3i.sas.yp-c.yandex.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 5/5] drm/amdgpu: Only show VRAM in fdinfo if it exists
+Content-Language: en-GB
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com
+References: <20240430172748.61576-1-tursulin@igalia.com>
+ <20240430172748.61576-6-tursulin@igalia.com>
+ <00d43d65-333e-4b2d-861e-11d01e7931b0@gmail.com>
+ <d76f9bb6-b5e1-449e-957f-e7fb965e5f9f@igalia.com>
+ <CADnq5_NqUNp=bEgnAQKA7VWa0S4eWzGenc-pC4m8any=uBPqrw@mail.gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <CADnq5_NqUNp=bEgnAQKA7VWa0S4eWzGenc-pC4m8any=uBPqrw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 06 May 2024 09:59:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,84 +66,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ amd-gfx@lists.freedesktop.org
 
-On Sun, May 05, 2024 at 09:59:22PM +0300, Tranton Baddy wrote:
-> I have this in my dmesg since version 6.8.6, not sure when it appeared. Is amdgpu driver has bug?
-> [   64.253144] ==================================================================
-> [   64.253162] BUG: KFENCE: use-after-free read in amdgpu_bo_move+0x51f/0x7a0
+On 03/05/2024 14:47, Alex Deucher wrote:
+> On Fri, May 3, 2024 at 3:50 AM Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+>>
+>>
+>> On 02/05/2024 14:16, Christian König wrote:
+>>> Am 30.04.24 um 19:27 schrieb Tvrtko Ursulin:
+>>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>>
+>>>> Do not emit the key-value pairs if the VRAM does not exist ie. VRAM
+>>>> placement is not valid and accessible.
+>>>
+>>> Yeah, that's unfortunately rather misleading.
+>>>
+>>> Even APUs have VRAM or rather stolen system memory which is managed by
+>>> the graphics driver.
+>>>
+>>> We only have a single compute model which really doesn't have VRAM at all.
+>>
+>> Hm what is misleading and how more precisely? :) Maybe in other words,
+>> if is_app_apu is not the right criteria to know when TTM_PL_VRAM is
+>> impossible, what is? Is the compute model you mentio the only thing
+>> which sets is_app_apu and uses the dummy vram manager?
 > 
-> [   64.253183] Use-after-free read at 0x00000000671c48dd (in kfence-#111):
-> [   64.253192]  amdgpu_bo_move+0x51f/0x7a0
-> [   64.253202]  ttm_bo_handle_move_mem+0xcf/0x180
-> [   64.253211]  ttm_mem_evict_first+0x1c5/0x500
-> [   64.253218]  ttm_resource_manager_evict_all+0xa3/0x1e0
-> [   64.253228]  amdgpu_device_prepare+0x66/0x110
-> [   64.253237]  amdgpu_pmops_runtime_suspend+0xbe/0x1c0
-> [   64.253248]  pci_pm_runtime_suspend+0x74/0x200
-> [   64.253259]  vga_switcheroo_runtime_suspend+0x21/0xb0
-> [   64.253268]  __rpm_callback+0x5f/0x190
-> [   64.253277]  rpm_callback+0x7f/0x90
-> [   64.253283]  rpm_suspend+0x120/0x6a0
-> [   64.253290]  pm_runtime_work+0x9c/0xa0
-> [   64.253297]  process_one_work+0x164/0x330
-> [   64.253310]  worker_thread+0x302/0x430
-> [   64.253320]  kthread+0xe4/0x110
-> [   64.253329]  ret_from_fork+0x4c/0x60
-> [   64.253341]  ret_from_fork_asm+0x1b/0x30
-> 
-> [   64.253353] kfence-#111: 0x00000000d018cf03-0x0000000034e821d1, size=96, cache=kmalloc-96
-> 
-> [   64.253363] allocated by task 152 on cpu 3 at 64.248952s:
-> [   64.253418]  kmalloc_trace+0x283/0x340
-> [   64.253427]  amdgpu_vram_mgr_new+0x8f/0x3f0
-> [   64.253435]  ttm_resource_alloc+0x39/0x90
-> [   64.253444]  ttm_bo_mem_space+0xa4/0x260
-> [   64.253450]  ttm_mem_evict_first+0x18a/0x500
-> [   64.253456]  ttm_resource_manager_evict_all+0xa3/0x1e0
-> [   64.253465]  amdgpu_device_prepare+0x66/0x110
-> [   64.253472]  amdgpu_pmops_runtime_suspend+0xbe/0x1c0
-> [   64.253481]  pci_pm_runtime_suspend+0x74/0x200
-> [   64.253489]  vga_switcheroo_runtime_suspend+0x21/0xb0
-> [   64.253496]  __rpm_callback+0x5f/0x190
-> [   64.253503]  rpm_callback+0x7f/0x90
-> [   64.253509]  rpm_suspend+0x120/0x6a0
-> [   64.253516]  pm_runtime_work+0x9c/0xa0
-> [   64.253523]  process_one_work+0x164/0x330
-> [   64.253532]  worker_thread+0x302/0x430
-> [   64.253542]  kthread+0xe4/0x110
-> [   64.253550]  ret_from_fork+0x4c/0x60
-> [   64.253559]  ret_from_fork_asm+0x1b/0x30
-> 
-> [   64.253570] freed by task 152 on cpu 3 at 64.253117s:
-> [   64.253582]  ttm_resource_free+0x67/0x90
-> [   64.253591]  ttm_bo_move_accel_cleanup+0x247/0x2e0
-> [   64.253598]  amdgpu_bo_move+0x1bd/0x7a0
-> [   64.253605]  ttm_bo_handle_move_mem+0xcf/0x180
-> [   64.253612]  ttm_mem_evict_first+0x1c5/0x500
-> [   64.253618]  ttm_resource_manager_evict_all+0xa3/0x1e0
-> [   64.253626]  amdgpu_device_prepare+0x66/0x110
-> [   64.253634]  amdgpu_pmops_runtime_suspend+0xbe/0x1c0
-> [   64.253642]  pci_pm_runtime_suspend+0x74/0x200
-> [   64.253650]  vga_switcheroo_runtime_suspend+0x21/0xb0
-> [   64.253658]  __rpm_callback+0x5f/0x190
-> [   64.253664]  rpm_callback+0x7f/0x90
-> [   64.253671]  rpm_suspend+0x120/0x6a0
-> [   64.253677]  pm_runtime_work+0x9c/0xa0
-> [   64.253684]  process_one_work+0x164/0x330
-> [   64.253693]  worker_thread+0x302/0x430
-> [   64.253703]  kthread+0xe4/0x110
-> [   64.253711]  ret_from_fork+0x4c/0x60
-> [   64.253723]  ret_from_fork_asm+0x1b/0x30
-> 
-> [   64.253735] CPU: 3 PID: 152 Comm: kworker/3:2 Tainted: P           OE      6.8.9 #3 e7323d0d25f89e853881fc823e59523bdcc577c6
-> [   64.253756] Hardware name: Hewlett-Packard HP Pavilion Notebook /80B9, BIOS F.54 05/27/2019
-> [   64.253761] Workqueue: pm pm_runtime_work
-> [   64.253771] ==================================================================
-> 
+> Probably better to check if adev->gmc.real_vram_size is non-0.
 
--- 
-Regards/Gruss,
-    Boris.
+Hmm "real VRAM" - will that handle APUs correctly?
 
-https://people.kernel.org/tglx/notes-about-netiquette
+I am looking at this:
+
+	if (!adev->gmc.is_app_apu) {
+		man->func = &amdgpu_vram_mgr_func;
+
+		err = drm_buddy_init(&mgr->mm, man->size, PAGE_SIZE);
+		if (err)
+			return err;
+	} else {
+		man->func = &amdgpu_dummy_vram_mgr_func;
+		DRM_INFO("Setup dummy vram mgr\n");
+	}
+
+And assuming that unless the dummy manager is used, TTM_PL_VRAM will be 
+valid. Wrong assumption?
+
+Regards,
+
+Tvrtko
+
+
+> Alex
+> 
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>>
+>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 29 +++++++++++++---------
+>>>>    1 file changed, 17 insertions(+), 12 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>>>> index a09944104c41..603a5c010f5d 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+>>>> @@ -83,25 +83,30 @@ void amdgpu_show_fdinfo(struct drm_printer *p,
+>>>> struct drm_file *file)
+>>>>         */
+>>>>        drm_printf(p, "pasid:\t%u\n", fpriv->vm.pasid);
+>>>> -    drm_printf(p, "drm-memory-vram:\t%llu KiB\n", stats.vram/1024UL);
+>>>>        drm_printf(p, "drm-memory-gtt: \t%llu KiB\n", stats.gtt/1024UL);
+>>>>        drm_printf(p, "drm-memory-cpu: \t%llu KiB\n", stats.cpu/1024UL);
+>>>> -    drm_printf(p, "amd-memory-visible-vram:\t%llu KiB\n",
+>>>> -           stats.visible_vram/1024UL);
+>>>> -    drm_printf(p, "amd-evicted-vram:\t%llu KiB\n",
+>>>> -           stats.evicted_vram/1024UL);
+>>>> -    drm_printf(p, "amd-evicted-visible-vram:\t%llu KiB\n",
+>>>> -           stats.evicted_visible_vram/1024UL);
+>>>> -    drm_printf(p, "amd-requested-vram:\t%llu KiB\n",
+>>>> -           stats.requested_vram/1024UL);
+>>>> -    drm_printf(p, "amd-requested-visible-vram:\t%llu KiB\n",
+>>>> -           stats.requested_visible_vram/1024UL);
+>>>>        drm_printf(p, "amd-requested-gtt:\t%llu KiB\n",
+>>>>               stats.requested_gtt/1024UL);
+>>>> -    drm_printf(p, "drm-shared-vram:\t%llu KiB\n",
+>>>> stats.vram_shared/1024UL);
+>>>>        drm_printf(p, "drm-shared-gtt:\t%llu KiB\n",
+>>>> stats.gtt_shared/1024UL);
+>>>>        drm_printf(p, "drm-shared-cpu:\t%llu KiB\n",
+>>>> stats.cpu_shared/1024UL);
+>>>> +    if (!adev->gmc.is_app_apu) {
+>>>> +        drm_printf(p, "drm-memory-vram:\t%llu KiB\n",
+>>>> +               stats.vram/1024UL);
+>>>> +        drm_printf(p, "amd-memory-visible-vram:\t%llu KiB\n",
+>>>> +               stats.visible_vram/1024UL);
+>>>> +        drm_printf(p, "amd-evicted-vram:\t%llu KiB\n",
+>>>> +               stats.evicted_vram/1024UL);
+>>>> +        drm_printf(p, "amd-evicted-visible-vram:\t%llu KiB\n",
+>>>> +               stats.evicted_visible_vram/1024UL);
+>>>> +        drm_printf(p, "amd-requested-vram:\t%llu KiB\n",
+>>>> +               stats.requested_vram/1024UL);
+>>>> +        drm_printf(p, "amd-requested-visible-vram:\t%llu KiB\n",
+>>>> +               stats.requested_visible_vram/1024UL);
+>>>> +        drm_printf(p, "drm-shared-vram:\t%llu KiB\n",
+>>>> +               stats.vram_shared/1024UL);
+>>>> +    }
+>>>> +
+>>>>        for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
+>>>>            if (!usage[hw_ip])
+>>>>                continue;
+>>>
