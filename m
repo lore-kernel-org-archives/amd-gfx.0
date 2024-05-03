@@ -4,145 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B02CC4345F
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 06:44:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E216C10F16
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 06:52:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C541410E73D;
-	Fri,  3 May 2024 06:44:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E84E910F073;
+	Fri,  3 May 2024 06:52:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="215z+kpT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Lr+REclv";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2079.outbound.protection.outlook.com [40.107.236.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8617510E73D
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 May 2024 06:44:18 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2042.outbound.protection.outlook.com [40.107.237.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B8C411284A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 May 2024 06:52:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b4mkyQQ17GeN4xfpyhtpuqk6AcJDBv9O7H5IpoZiLnuY/KBpyOJYf8mYh3Xp1MklvCRa34/3uMuZEREkT0Oq9ePDp8GvdG/oORN/fdjoQ3jqqWzdQzntr69wUov8K5pfNWchRSlYL0hjaaZCX+XPKEQ1wCqvbRzfSVIPEEHU5hxgqUyF1BjW4/oM43NlkWcKVidK5T5r+eYmAAu2w97nJyohaJ+nFdyJ2O2pcIklPz8kC275xm5xTm7r9CBAvRmFH+M4BfVIZeRmVU7sHeVTor1K8a5SvQtKHR/4EysKdrry1iMdKKxLHj5HeP1Qh4KxeU+sPah8eAk+izdL/FOs6w==
+ b=l22XtsfI4aYNqcWB+MGF1ouFv3DdlCMdK63MI93olGfLooUkk0p7SkWpALmBOEiczpcV5V7Ooq0wmr/XH1RzgBWx24034rNgJBrNxs9EPm6Jf6T/zOunKt7vtw/CekeDRS03o/zOGVXJEDXBAGuJ3C6za3zw0r1SRF5Y3owMFyLqvb9wkNVM/vEuGk33AjBYMmk5vMMVS2bvYW9pt4aTFurs/HIe1WijtRThhP8W1mFhN0TXcJrpYdTwXycEuqnxpP22ABX8PH+Rep4ELxInPGG48MwVHzCzejGndkrz7K9p6Wu2ulETX2/FY5B2UhNxAFB8ouCDbZalVyDWJjvj+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DQfNu4y7cnJ0hiQQaW5XEVqGG4/Kauebfcp1bmMM7H4=;
- b=TPv0PjxNbX+UaXRa2BtKQQ31Yk9WSwseeMnuE/4eXofEwUh4rxa/ABhocH72RqWHE8IavNh4rbi7rqYsmxziIck9htW2sq50KVSj9sb040oAlSQYTudApEBfhqVuWLV8sWBznwT7G7VDTWBzUi4rYChlzFdITcV9IQgyCVVhXQUNlUQ6QeP5gXnkmwi+uumfVleKMvgkCrw4RasqlKATI54VXDjzhzCbvU0KBnX4UE6N9sssY/dcC/4Shif/01un9v1dlSIusaqWLwarUuI/jRAWmxc1OaH58n0J8dAn20m1gvRuq4X63e2+1wndatrgp4VXIQahMdUaxMIMBCnhyw==
+ bh=LYRq4XIsKnPDVR/EVAsr5R+Q9LWr8i8M9s+oNzXtoJg=;
+ b=L+dU05SuIcmSSYXbSKP3ynzA19HxS/kncMGCYPWl4BxG/BaTx4oDcYoP5rnGTaoCiAE5RlHt01DaAi58wvghIBxyhiuD5HykKp4F7auDkE0RbGP3XB/41IV7oo0bgETDhOBt+RFJr74Xxv0zqwHbR4mHHRuqR7WyjTC5i75tS9h82c3nJiv5rmZa5+etDk+6V6KtzYqBbc1LAm0oedeSNh5HTPbtcyiP6hD1qhV+Q685hYG3IfQNIqeRjlg9IiR+BgnVSX/6Hw2dLgopf7eCL0iGquOiJLMypALtoguY4hxi2YDEwmyNCTVPeZkslGiBCOFoaszAmnc6bJaVYOS2Jw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DQfNu4y7cnJ0hiQQaW5XEVqGG4/Kauebfcp1bmMM7H4=;
- b=215z+kpTMVu8VbGVkj61OLsvgzKvty6yj1BcUyqp/E2ne9HRnyDC91coWfTR9lk2FVJFzNBVZtNasZOCOUw+iEeuFYaBcfuEtx5XGoIqcHjY+nrCzB9cIoE2rx2NFibX7hvIiPpNYRNCfMbnxo4gDtGW1OJQMmq+H2yzbyPyFds=
+ bh=LYRq4XIsKnPDVR/EVAsr5R+Q9LWr8i8M9s+oNzXtoJg=;
+ b=Lr+REclvQkjA+BOQ6RoClsFKcOQ7h+Em4uecstvgfYQifR66e2SVsKkfl9f0Thebytdn2bE/ifDQ461OQQXKFXGoOXEMxqglHhlNgW3b+BEjaQoCpOjOdOWUxi4bZrKHUcquUKJwnijohql3Oki42QyPivn8aDmovVX6+vzaPCI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by PH8PR12MB7254.namprd12.prod.outlook.com (2603:10b6:510:225::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.30; Fri, 3 May
- 2024 06:44:12 +0000
+ 2024 06:52:22 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.7544.029; Fri, 3 May 2024
- 06:44:11 +0000
-Message-ID: <cdc0d944-1c24-4b53-b654-0ca77b620ce1@amd.com>
-Date: Fri, 3 May 2024 08:44:05 +0200
+ 06:52:22 +0000
+Message-ID: <a6529de0-d241-4fa5-81ab-a88330b53f17@amd.com>
+Date: Fri, 3 May 2024 08:52:16 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 14/14] drm/amdgpu: add kernel config for gfx-userqueue
+Subject: Re: [PATCH v10 13/14] drm/amdgpu: enable compute/gfx usermode queue
 To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Arvind Yadav <arvind.yadav@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
 References: <20240502163152.1382-1-shashank.sharma@amd.com>
- <20240502163152.1382-15-shashank.sharma@amd.com>
+ <20240502163152.1382-14-shashank.sharma@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20240502163152.1382-15-shashank.sharma@amd.com>
+In-Reply-To: <20240502163152.1382-14-shashank.sharma@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: VI1PR08CA0255.eurprd08.prod.outlook.com
- (2603:10a6:803:dc::28) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0225.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ac::13) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB7254:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a98c8fd-8eeb-4c47-1f47-08dc6b3c70e2
+X-MS-Office365-Filtering-Correlation-Id: 1b14e0f1-382d-4f97-2e9b-08dc6b3d9554
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230031|376005|366007|1800799015;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?QlV3b0YwdVpJOXMvNVJTa1BEQXBhenJXTXZXSkFHcWU3d2UwaGZOK05OM3pX?=
- =?utf-8?B?eGtaN0paWkxKS29hc2Nhck1xYVZyOHFWVjFUYmtUQkFrOHRTbG9hUmlURHlF?=
- =?utf-8?B?enJYWFVSc2MrNVNIUEs4aVoxUmVHSXZQV0U4R0FxeUNndlJvbzdKMzZZLzhx?=
- =?utf-8?B?TkR3ZVo3UkwzTU94RW5UWG5sWDJzckN0aUNEdnJSeFo0VnVQdjNSNXlHUURG?=
- =?utf-8?B?Z3I5cGNaY3ByVXZBbm5mNFgzbDhQbU1QMWhLd2JUSVZTc3p1QkV4WnZXS1Qw?=
- =?utf-8?B?cnFnWWR4bG95RVBaMWtJTFB4OWZHbVBXYzVaSWY2bUpDQ0VKdnJmd1BxZzly?=
- =?utf-8?B?TXdCcFlpSUdlSXFBV29tekw1VFE3a0lzQnFoVnFVODJnZndLVkd6Y0hwc3FE?=
- =?utf-8?B?WDMyd2RmWW5Bc0NqeDVXS1FCS1NacUhIaVZBWHZNSHQvWDlzSDFhRm5Ob3NB?=
- =?utf-8?B?aVVhaERyUUdESlRCdzQ0YXZkWTdKUC9UbjA5RFJBbGw2aFFaQWhFNEt5M21i?=
- =?utf-8?B?eFg5cDNnbzFNTzNkdWpMTGhHL1l0NFcwOVdpdjBqN0tSMlVBaXV0RTJjQ0hn?=
- =?utf-8?B?dE1lQm9QaGdlbXRoWVRqZVJmbUpta28rOWY1UlRwaHZNTmwwQUxwM2FHOEIy?=
- =?utf-8?B?QjNCUFl6Vm5WVEJPUEV0bXdLSXJ2SktKUHA3RncxcldRaVNYNW9HS3R2ZDM2?=
- =?utf-8?B?M3RncU9PU3o5N0I5NlRwTmtsazRlMWlVVHc3clNlMk5yaXQrUm9HNWk4eGZC?=
- =?utf-8?B?ZmVGUDIybWZpcS9FOVVSRHVWVVJvQm1oOGpuL2ZCNjQxam53b3U3SFNlUnJO?=
- =?utf-8?B?T0RxQ0FSMU4xWXZDS1hQMVdtY0JYcGE3anV0RTVtVWV0cGZNYVJDTEcxTXFU?=
- =?utf-8?B?T2xDRWlMWU1JajZ2V1RMRVFtUm1WKzdkQzVGclZyb3ZqTTdZTzVLZ3loSnlm?=
- =?utf-8?B?OEF0RGZ4b0hwUDQ0aEdIM0hlZWh1aEdlU2dvN0pDRmJsS2k5SnJXMWtrSGc5?=
- =?utf-8?B?bVplZWVMRmxSQ1J3OXpqZ2lUTFRsNVVleGU1UWhPc240Z3JPeVJqYzVKUkRl?=
- =?utf-8?B?dFAzcXhwVmlndlQ2Mjg1WG02c3hxMjlZRVFCMnNhVGovSDRMVVMzZ0xNeG5F?=
- =?utf-8?B?UWkvaDhPYW5UQlJZcFk0SkpLemMwRXoxU3R1YmFTVDNCWW1HZ1d1V0dVbStK?=
- =?utf-8?B?L1lwV29iVjgyZlliMElRY1l0Sk8wKy8raGo3UURad2JONDZ3bk12Y2sybXRX?=
- =?utf-8?B?MG9PWU5kc3FEMWpBQmdaNC9vdmNkQ2tVNVNvWFZ2TUo3ZTJMM25UZkpXUC9r?=
- =?utf-8?B?WUQzS1orZDZwdXNMSkNHbElvd1hFZGdOWHE5KzE0UUxmeWZCRDNEWnRZaFBU?=
- =?utf-8?B?enAxTnpXc3gzNGtmTE9ON0dULzVwdldEa3BQUFo2Qm5RemtIcUtWWDZVQjky?=
- =?utf-8?B?clFUVFRjcnlNUkdKVnlUcCtGMFhPODA0VjM1azhuMmFPZ2hlTlkvdzhheFJw?=
- =?utf-8?B?QjExbytoOElvbUgzM21JbUFiOGhOTzhFTmNROHQ2M2ROWU0zeTd3L0NUSkFZ?=
- =?utf-8?B?Y3NNblQwMTNKWFhLMDdkRVN1SDRpOVFaNDN6MUhKNEQrUi9CcG5IYnVaejhY?=
- =?utf-8?B?Z0poL1FsM21RRnk5QUhKc0RydnJtV0swYTlRQW91WFVGYVZWODRNR1BEN1V2?=
- =?utf-8?B?UEkrMmtqNTJ6bHJGSElNK015M3Q5bFNRdStVdTlZU3FaWmFJdXhjeDdRPT0=?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?c2UzOWFXVEpHS2xHSzM0dnE4a05mZmQ3U3N5SkV1SGw0MGtNZUtRaTJZcVpG?=
+ =?utf-8?B?TkdLT2FIZE5yZ3hsN25JWHpRUU5vOGIxK3paWlVwdW9ZRGdIY3RoL2xCUk9H?=
+ =?utf-8?B?RlVaNmFPZ2daeHJqRHhpVUw0dUpyb2J2cjBVbkp2T3VnU2o1MmhpRTBrVUxm?=
+ =?utf-8?B?dHlvbm1UT09PZW5SeU16eWxObzR1MDBjTmE3L29vSTMxNGxQUzBpSHJlYTVi?=
+ =?utf-8?B?SHF6ZTVmUXo5Z2daNi9aU0dyUnVaQ3NML1Bna1RVQ0cyUGE1SGxmejh2TzZO?=
+ =?utf-8?B?NmJGVXNCYUVSdEt6cDdteG0vVGVNYzZvTS9xVEs5dmRnejlmVTI0YjB5N2hC?=
+ =?utf-8?B?d05hVTgvTmFSWWtsSXhITlJEL3pRd3JtNy9ST3hjbnNGWXV6Qm9oMEVUY2N2?=
+ =?utf-8?B?ZG9sMndZMGlWaGxtTjVpaFRHa2NZRWVQLzFHR0FMOUNNNWl6ZFlOMEMvSFpM?=
+ =?utf-8?B?MzQwNlJRcGh5S2JkMmIwb2FzUkRFRy9CRGFFTUMwZGhjM2ZSSk9uS0JSL1Fo?=
+ =?utf-8?B?amhtWXF4OStIZERxRWE3M3RnZHhjbkFsYXl5eW54SkhFcXFWV0JkVFl1WHhX?=
+ =?utf-8?B?WTNZdTUvMmkraitSSkFQS0FwczdWdVhkU2ZEbnhUT1NPNU1wUjVUMVNLL285?=
+ =?utf-8?B?MkVOWXcxSkh0T3NZV1NDYXhwTzBRNktRSmdXNTlSUGNiQkF3eGJKakZTL0Q0?=
+ =?utf-8?B?T3A5dWJSOWpKWWlLYk1vMjV2dTZLdjZncFFxUk5Qd1VCS1VFT3RlaGNFS1J3?=
+ =?utf-8?B?aURkWnhnUWZIZEJFRHFyT3VUWHFQYWIyN0FFSDVIaDA2cHRGaFlBV1Z3Vnhr?=
+ =?utf-8?B?TzZpbGdnSWR3czUzenZiRnViQ3dlSDNRdHY2blU2WEI5OFZIdm5rTFVZem8w?=
+ =?utf-8?B?RW9XQ3pjeWkzQVBoNktPay9VYkdQRUV3cEpLL1h0eTJxZkk3VTBueWJlK1pE?=
+ =?utf-8?B?TWN6ZExVdXBKKzNoQkM4RzRSWWhnczBYa1BTdFVUY1FUY3ViYWM2c3Q4SERQ?=
+ =?utf-8?B?b04zN1FQUmZNZWNkUWo2N1h0UFhrbUxVdHdGOUIzSmZ2eUFaK1JiRFNZY2pH?=
+ =?utf-8?B?d2kxdzFqOVBtRk5KaHdhbGpFL3l4OE85TFZJUHd0dkdxakt3MGcrUE5OSEMy?=
+ =?utf-8?B?TXBiUFBqZ2dxVUlHZFpiZXNxdFVyL1N1aXZJNXpONXlyMS9DVEZ4aVFXbWFt?=
+ =?utf-8?B?dCtTUUkrT3E5Y3VwY1BudytMR0Yra09kOHlEUFRVemxHa0Nldm9GWjI3UElJ?=
+ =?utf-8?B?alJWRkZjcFo5UXdtTUF4c21XTHZheENjN081N0ZSTjRlZ0dKK1o0VEFzbTBB?=
+ =?utf-8?B?VU9Pc1E4WGF1amdzTmhMMmxDeExRblVDeVhKazNieVIxR05lVU5wY0xKanhO?=
+ =?utf-8?B?bXFOeWJzSGtEOEoxMmJIV21RUGJPVlk0QlBETXVJaG9wQXh4QmthR1RaL2hE?=
+ =?utf-8?B?d29McmJCZzUyMHVmV2E5cDZLYlpCczl6QWQ5SURwOUtRWTlWS0VWaTZPQVJN?=
+ =?utf-8?B?SUZwV3VkTTdUd1NxNTgxTVdqMXAzbXU1SjRhTWQydExpSnVjeXRjeE9yWjVt?=
+ =?utf-8?B?QjZvZVlTWFdFNnVFRXp1WjV6UGM0WDc4Y2JYYVg3em1EQkx3emc0dkJLSjBv?=
+ =?utf-8?B?bHYreXdicE1vTlhBdGZXL2tKa0o4U3FPVlI4TzUwTFUwNnk5MkM3S08rc09S?=
+ =?utf-8?B?Yy9STHJBWDV1M3Y0am94MXVyVElmSUkxQ3UraW1sQmxtb0FzWC8vZHBBPT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230031)(376005)(366007)(1800799015); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?blNzc0RvTVd4RXZ0OTFXazd4eWhsUnJlUUxPWVpIdUVzams1b200R2NSR1Nx?=
- =?utf-8?B?OFNpMVk2YUsrQmpwZW1yS3F0R1VCZXU3UmN4S0d4cFgyTGlYdW9QaGFrU0xa?=
- =?utf-8?B?Nzd3V0xPLzNJOGxOVjVSMWJ3d2lFRFdTTHNLZFI1UU5sRnQ5WmdmL2sxUFVx?=
- =?utf-8?B?cm90SVJJSjk0RW9oTEJXR2dObFdnVDl6dlptRnJEc2lBQ1gvUDJtT1VmN0xa?=
- =?utf-8?B?MC9rNEkvVjNkWHJpZk5XYU1QT3luQlBsNWhwUG5EbXQ2bStRUXByaC9pQ3Np?=
- =?utf-8?B?a1VWSlNqY0RhNWo3SHJjV3lTWXRwek5qbGlpZ1lYMTlxazFTakE5eXVtNlFw?=
- =?utf-8?B?YkdJa1duK3VjM3dCWXVZREMvS0tjU0haZi8rRTB5OVBuaXYxNWJzM0FNU3RY?=
- =?utf-8?B?UlpHNTd3bkhldEoraWtRTlZXS1libEFLWmRBQkROcG9XSGRtdlB2V09mb2dO?=
- =?utf-8?B?NWtTQm1pNHBZYW9pdUh2bkQxcWZCWmZIQkc3cTFBTlhqU0pocVJOQ1NFaUgr?=
- =?utf-8?B?b01lUVVQc3FjYkhXM1RDRS8ydHJhWG56dVRwZTB2c0lNSzdDVEcxbW9uWGtq?=
- =?utf-8?B?UXdJbzZBdExJQUNxVmZFazRYTTNYeTJUcHdVeHBsUUsvUVJGVTQ2VkhlYVVB?=
- =?utf-8?B?OHEwUEoxOHF1TUV0dTlVODRCdVpOZmhsOEJYTHBaVnZpaUptVWd1dDZ2b25r?=
- =?utf-8?B?VFk2NlR2UzVlUUJJNmV2YlpoR1ljVTFVUEpFejJyQ055WTlmdndRaVJjbCt6?=
- =?utf-8?B?UFRmN2ZCK1l2OXJOdE1DT0FlQTVjUDdUSWhJRXNTZHVnN3IzczRkSW9lWWVP?=
- =?utf-8?B?N2dKS0RBY1pEbjBPdXFtU0NCcHNnK0d3a2hmd3VBMHhLZjVIcUNGdlVhQ3pr?=
- =?utf-8?B?Zy94b2NYSnpYRHgzT1VMejQ4bUxaSXM1REdmN2hsZnczWEFKUzJsYkhiZXB2?=
- =?utf-8?B?aWo2TDJvMXhVaWtPekwxRlkwSUVsM3pLN3g1YUdHUzk2OXlhZUlOM2tuakZn?=
- =?utf-8?B?TEl3My9zNzFMMFYrUUJ0ajc1VDdRT1lrc013b3B1YjFqN1FHNk80RXV2aklH?=
- =?utf-8?B?dXRpWHhYeFRDU1dQR1BjdThveDBCN1VQaGRlZ2s2dDJ6bENXZGw5ZkliaitD?=
- =?utf-8?B?WExEaWJ2VW1aTzJaVjMwUDl1cmVmdnJkS3FMRFJzSWhxYjdVeUt3MzNQVmkv?=
- =?utf-8?B?Y2ZQM1lCdHVCSWxEaURzek5OT0pnSjdVZi9XcEhEbjRseDExdW1sTkpyY0lj?=
- =?utf-8?B?Z0lHVE44NzFNci9iNGxnWWtydzgvbUZKTUZJREFCaFo3bkZLcUlSTkppd3ZT?=
- =?utf-8?B?VXRnTHkzT3hqSzNuQkxvNktlelZWNmo2K2F3a1ZJaEpTR0RXdVplYmphaytC?=
- =?utf-8?B?NFF3TEVNV0V1YXh4eFpsdVdnYUNobVoyOHByMHk2QTFhTkpEYnVpU1preTNr?=
- =?utf-8?B?cmNXYVJKeHhGMjB2djlVU2g0V3AvTFJYcmNKSTVVUXMrc2dnR01Hbzl6eUJi?=
- =?utf-8?B?cHovNjZSd3ViYUdpNjhzTytVZU8vV0hORTdFVGZLWlZtQW5JNUZvUmlkWW15?=
- =?utf-8?B?Y2k2clkwR1liWDdoN1JLZ3lpTlBkbWs4bW9mMGVsK21BU3BxZklHdnFOUDFa?=
- =?utf-8?B?VnkyUzN1UTZkZ3Vac0NQV0V1Zm5DZWh3UXcxZ0NuRkJya0RISjh0OGdyMndY?=
- =?utf-8?B?NWFIUDhTYzdWVEJSZGNZQW5ONnlrQlRIKzJNaFZiSDVBMWhaSzZReE9COEhE?=
- =?utf-8?B?TWNmcjNFQmhyckM0aHRvcUp3bkpBK1lUUVpGdDhMQnRKcGpxR253bTVFU0dO?=
- =?utf-8?B?cGMvODNHVGd3ZTdabEUwTlBRbDRzc0lPYmNSNERiMk5qeTZHQ3BBSzkxT1ht?=
- =?utf-8?B?ajNiajU2c3M5WDdyTVRwVWtqMXd2QjBPRXM0ZllzNjNCZ0JadmVRUTZjZmlQ?=
- =?utf-8?B?WGdZWVNFZXAvSHFvR0xiWDdhcDlpUGxQWW8wbjhVN3d0enU4TkhvbFNPbGF5?=
- =?utf-8?B?WkFBbnJwcDMyNzlNdDRNZmhWZXhJZFZJVGlIa25zYVhnMkN1NEJQOWV0Q0Jh?=
- =?utf-8?B?bWgzenhUUkduZHQxK3BZRDdsY0pjTGdITnBjMGlQMjhETmwzM0FsQ1Z4Q0wx?=
- =?utf-8?Q?C2wkH3ImkxmuIbAvm2SJBZH5B?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TytoaTV1TjJydHQ1Ym5iOGN0V1RYcE5oYko4MTlnbFlUUjAxYlZRQ0JMUG5I?=
+ =?utf-8?B?QmdFUFpqL2lTQTIxMTBqNmRiaXRGc003SWhvSTc0UkU1S2s2RlBWYWVwNmc4?=
+ =?utf-8?B?aDQxYjNsYjIyTlorTkIzakFuY0lhR2lXMzZHRCtreFVYRi9jeGd4UUlNREhr?=
+ =?utf-8?B?NzAzbmplQUtqbHlMQlU0ZnptMStWcFJNRW43SmRSYllrLzl6VzVTVkZGaGUz?=
+ =?utf-8?B?d3U5d3REdXp4cThLelQ4eVZtOXZrdHNTQjJYcWxmbmdzN3AzaHJZQlI2TmtO?=
+ =?utf-8?B?V29FZzFUWi9Dc3BKbHJzS3FXNjNnZkRzKzN2d3F6WXZ3Z2VJZ0dxdTRwWDE1?=
+ =?utf-8?B?bnRZR2Q5K1BQMjUrNVNTaG5WeStXRCtsRjhjOEszR3R5Z1ZKODZmbVNuWWEy?=
+ =?utf-8?B?TVk0enYrcjdoalk2U21FM2wrS25IQkgyVE9ZZnF4YjZ2SVlLZmMxV2pFS2p4?=
+ =?utf-8?B?UnNjUEVXSU5tNHBvR1hwVUltbWlnV3hXSlFHSk54SmdmKzJySFQ3RmNtaktO?=
+ =?utf-8?B?R0dvcXE2b1g4NUxMclpCYW5yWWVLS3o2dWFielloMlUzdmRBSGljNGZGTzV4?=
+ =?utf-8?B?MG5Peml1a0xWUVpOVGJnSUNORllKWU1kMjVabG1hVkNndmFCdTBoTzdBMloy?=
+ =?utf-8?B?dWVISG5mdkdXb0N1Vit1bjBtVWZOaUd5UGhWUDNSaC9sMkNpSTRNRXk2REg5?=
+ =?utf-8?B?QkZIb29ySmszYkxVU1JMRWV2Rm1SMmx1ZXhvSVpxaXBrUzVxa3MwVTNVQVNH?=
+ =?utf-8?B?Q3UrRVF0Qm9tRlVwb2VPTUllMjJHbTl6azBNTmFHajJ3TXRPSXlReVAyOEZp?=
+ =?utf-8?B?d0lLTEpMZDN5dHZUR1Z6bWdLcElVVmJqdUhyWWpnT1FHRkM2WnhpUlYxM3k1?=
+ =?utf-8?B?RjNxUEJlaUI4RHRseDBJS3JKU1NjbmxLL1kxRWF1OHNuZlludFJhazFWM0ts?=
+ =?utf-8?B?QnhhR1hYSm5YZ29aaTU1bXhKRWdTeHpVVThsRzZ4TTJiN0pUSDB1d0R5ckxl?=
+ =?utf-8?B?czFkV1ZUQ2o0eWVhZnBtWHp2dFpYWWlaT29jUHRNTGVwOW5VYVNwY3hreTlX?=
+ =?utf-8?B?TVYybnVpVkJPSjh1REl0QnNHYUNBdG5mb2tYSituYzRLU2E0TkdNUmJUU2RX?=
+ =?utf-8?B?d0ozQlJzTzVFRWs4MjVzS3FTRmoxR3NBUDdFdjlmcmpKTE03K25sMGd5VTMr?=
+ =?utf-8?B?WWRLV1hXRDdxWkI4dThmVEt0M20ySHoxUW5ybithUG95QzVyT0tlK0RjcWdS?=
+ =?utf-8?B?SnY1aWQ2bUN0cEJZaW9xcXRmUWpJQ1pyTUFFMjhnS3ByZ2NUUkhLRklqNFN2?=
+ =?utf-8?B?SkVaVXA0bCtyN2lTTTZyVlgvbUVpMG9YSGUrNy94aS9pZnU4dXl6b0NjTW9S?=
+ =?utf-8?B?Z2c2Q0ZWam1uTlBXWHIzd2MyWmwyQkxmSnhqRDJWTm80TDBTY3BOTDUrd25D?=
+ =?utf-8?B?SnRKd3BMWnZ2cnFHMFcwSFN3ZE9HdjRQeXJCd1NFT28wSVVNcitVajQyUVF0?=
+ =?utf-8?B?ZW44QkN6MDlFQjVCeUgvRTVpb0ZTTWF2K2NTU25MVTdqdi9rNHA3bGRQbThv?=
+ =?utf-8?B?NVYvbmZaaVVnTWpYOHNWSGg5ZmhXTEE3OXplekIvbHYyY3ljVHFxNXMxZC9Y?=
+ =?utf-8?B?VTE2OE9hbllTN0ZMZTBmMDRKcGs2ajBlK2tiNnMrc3FBNGdndllSY0kwRzJB?=
+ =?utf-8?B?MnM5QzdLeVNEY29IWm1EUDNTUUZjcHN1b2NKeUxOb2dkZmlYQ2JTdE16MkRi?=
+ =?utf-8?B?V1h4T3NmWkg5ZHRvbHVDemo4MHdrdkFTZmYyZ3BuUkp0SmZRdVJ3QWpBTlpa?=
+ =?utf-8?B?d0Z4S2xPbVZ2bHpsdUtwYXU2a2ZBYTZVZ2lHUTBZY2EvLy9NbTNJVy9XdkhG?=
+ =?utf-8?B?NlhWMXYvSktKekVRUVVXNzR0Z01vUGZjZHMrS01ERFdxcW4rbkszUHFUMU9i?=
+ =?utf-8?B?VEExY29uUThqdGp0YmdJRy92OW43cmlWT1RTNnN2R3FVbE1pdnBtS0ViL0FI?=
+ =?utf-8?B?cnlOYnF2YkJnWklGcjB6Sy9HTStUTGRTdk13SVFnZmtkUTRIRTgyNHZlTGxv?=
+ =?utf-8?B?WnE4cU45eW9Rb2RhUWNkNnF0R1oyR1dPL1JQWW9uK0VGS0FNM1dyWkdCZ3hH?=
+ =?utf-8?Q?x+fzrQhI7zyGQhgAeRb3laMha?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a98c8fd-8eeb-4c47-1f47-08dc6b3c70e2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b14e0f1-382d-4f97-2e9b-08dc6b3d9554
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2024 06:44:11.8811 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2024 06:52:22.4501 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I1ZOZWHiLdpLK2PSz8C/f2xDnchdUvhoqH92tJ8PekTeCutOoeDq7DglcxJZ7aLV
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZNdCEEsCZZk4COsFjLo5rZ7jSiUN83z2wLv2loWbCFcpSsWVUGGVGUu73FPMDBLD
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7254
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -159,115 +159,106 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Am 02.05.24 um 18:31 schrieb Shashank Sharma:
-> This patch:
-> - adds a kernel config option "CONFIG_DRM_AMD_USERQ_GFX"
-> - moves the usequeue initialization code for all IPs under
->    this flag
+> This patch does the necessary changes required to
+> enable compute workload support using the existing
+> usermode queues infrastructure.
 >
-> so that the userqueue works only when the config is enabled.
->
-> V9:  Introduce this patch
-> V10: Call it CONFIG_DRM_AMDGPU_NAVI3X_USERQ instead of
->       CONFIG_DRM_AMDGPU_USERQ_GFX (Christian)
+> V9:  Patch introduced
+> V10: Add custom IP specific mqd strcuture for compute (Alex)
 >
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Christian Koenig <christian.koenig@amd.com>
+> Signed-off-by: Arvind Yadav <arvind.yadav@amd.com>
 > Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+
+Acked-by: Christian König <christian.koenig@amd.com>
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/Kconfig     | 8 ++++++++
->   drivers/gpu/drm/amd/amdgpu/Makefile    | 4 +++-
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 4 ++++
->   drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c | 3 +++
->   4 files changed, 18 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c    |  3 ++-
+>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c           |  2 ++
+>   drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c | 15 +++++++++++++++
+>   include/uapi/drm/amdgpu_drm.h                    | 10 ++++++++++
+>   4 files changed, 29 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
-> index 22d88f8ef527..a7c85eeec756 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-> @@ -80,6 +80,14 @@ config DRM_AMDGPU_WERROR
->   	  Add -Werror to the build flags for amdgpu.ko.
->   	  Only enable this if you are warning code for amdgpu.ko.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> index f7ece0b31ff9..84bce9434102 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> @@ -189,7 +189,8 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>   	int qid, r = 0;
 >   
-> +config DRM_AMDGPU_NAVI3X_USERQ
-> +	bool "Enable Navi 3x gfx usermode queues"
-
-Yeah, you are right that we somehow need to distinct that from KFD user 
-queues.
-
-I think we should stick the name, but maybe mention here and in the 
-helptext below that this is for user queues on the DRM render nodes.
-
-With that done the patch is Reviewed-by: Christian König 
-<christian.koenig@amd.com>.
-
-Regards,
-Christian.
-
-> +	depends on DRM_AMDGPU
-> +	default n
-> +	help
-> +	  Choose this option to enable usermode queue support for GFX/SDMA/Compute
-> +          workload submission. This feature is supported on Navi 3X only.
-> +
->   source "drivers/gpu/drm/amd/acp/Kconfig"
->   source "drivers/gpu/drm/amd/display/Kconfig"
->   source "drivers/gpu/drm/amd/amdkfd/Kconfig"
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-> index 987fabb2b2c6..0a64f2c57def 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -189,9 +189,11 @@ amdgpu-y += \
->   	amdgpu_mes.o \
->   	mes_v10_1.o \
->   	mes_v11_0.o \
-> -	mes_v11_0_userqueue.o \
->   	mes_v12_0.o
->   
-> +# add GFX userqueue support
-> +amdgpu-$(DRM_AMDGPU_NAVI3X_USERQ) += mes_v11_0_userqueue.o
-> +
->   # add UVD block
->   amdgpu-y += \
->   	amdgpu_uvd.o \
+>   	/* Usermode queues are only supported for GFX/SDMA engines as of now */
+> -	if (args->in.ip_type != AMDGPU_HW_IP_GFX && args->in.ip_type != AMDGPU_HW_IP_DMA) {
+> +	if (args->in.ip_type != AMDGPU_HW_IP_GFX && args->in.ip_type != AMDGPU_HW_IP_DMA
+> +			&& args->in.ip_type != AMDGPU_HW_IP_COMPUTE) {
+>   		DRM_ERROR("Usermode queue doesn't support IP type %u\n", args->in.ip_type);
+>   		return -EINVAL;
+>   	}
 > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index 46304d09c4bd..5c4bf243ed04 100644
+> index 888edc2b4769..46304d09c4bd 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -1348,8 +1348,10 @@ static int gfx_v11_0_sw_init(void *handle)
->   		adev->gfx.mec.num_mec = 2;
+> @@ -1349,6 +1349,7 @@ static int gfx_v11_0_sw_init(void *handle)
 >   		adev->gfx.mec.num_pipe_per_mec = 4;
 >   		adev->gfx.mec.num_queue_per_pipe = 4;
-> +#ifdef DRM_AMDGPU_NAVI3X_USERQ
 >   		adev->userq_funcs[AMDGPU_HW_IP_GFX] = &userq_mes_v11_0_funcs;
->   		adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] = &userq_mes_v11_0_funcs;
-> +#endif
+> +		adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] = &userq_mes_v11_0_funcs;
 >   		break;
 >   	case IP_VERSION(11, 0, 1):
 >   	case IP_VERSION(11, 0, 4):
-> @@ -1361,8 +1363,10 @@ static int gfx_v11_0_sw_init(void *handle)
->   		adev->gfx.mec.num_mec = 1;
+> @@ -1361,6 +1362,7 @@ static int gfx_v11_0_sw_init(void *handle)
 >   		adev->gfx.mec.num_pipe_per_mec = 4;
 >   		adev->gfx.mec.num_queue_per_pipe = 4;
-> +#ifdef CONFIG_DRM_AMD_USERQ_GFX
 >   		adev->userq_funcs[AMDGPU_HW_IP_GFX] = &userq_mes_v11_0_funcs;
->   		adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] = &userq_mes_v11_0_funcs;
-> +#endif
+> +		adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] = &userq_mes_v11_0_funcs;
 >   		break;
 >   	default:
 >   		adev->gfx.me.num_me = 1;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> index 0989400d0afe..f6a2c2daa00f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> @@ -1274,7 +1274,10 @@ static int sdma_v6_0_sw_init(void *handle)
->   		return -EINVAL;
->   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c
+> index 80375894c4f3..2ae6f720dc66 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c
+> @@ -260,6 +260,21 @@ static int mes_v11_0_userq_mqd_create(struct amdgpu_userq_mgr *uq_mgr,
+>   	userq_props->use_doorbell = true;
+>   	userq_props->doorbell_index = queue->doorbell_index;
 >   
-> +#ifdef DRM_AMDGPU_NAVI3X_USERQ
->   	adev->userq_funcs[AMDGPU_HW_IP_DMA] = &userq_mes_v11_0_funcs;
-> +#endif
+> +	if (queue->queue_type == AMDGPU_HW_IP_COMPUTE) {
+> +		struct drm_amdgpu_userq_mqd_compute_gfx_v11 *compute_mqd;
 > +
->   	return r;
->   }
+> +		if (mqd_user->mqd_size != sizeof(*compute_mqd)) {
+> +			DRM_ERROR("Invalid compute IP MQD size\n");
+> +			goto free_mqd_user;
+> +		}
+> +		compute_mqd = (struct drm_amdgpu_userq_mqd_compute_gfx_v11 *)mqd_user->mqd;
+> +
+> +		userq_props->eop_gpu_addr = compute_mqd->eop_va;
+> +		userq_props->hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_NORMAL;
+> +		userq_props->hqd_queue_priority = AMDGPU_GFX_QUEUE_PRIORITY_MINIMUM;
+> +		userq_props->hqd_active = false;
+> +	}
+> +
+>   	queue->userq_prop = userq_props;
 >   
+>   	r = mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_ptr, userq_props);
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index 6798139036a1..7ffa9ee885e6 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -429,6 +429,16 @@ struct drm_amdgpu_userq_mqd_gfx_v11 {
+>   	__u64   csa_va;
+>   };
+>   
+> +/* GFX V11 Compute IP specific MQD parameters */
+> +struct drm_amdgpu_userq_mqd_compute_gfx_v11 {
+> +	/**
+> +	 * @eop_va: Virtual address of the GPU memory to hold the EOP buffer.
+> +	 * This must be a from a separate GPU object, and must be at least 1 page
+> +	 * sized.
+> +	 */
+> +	__u64   eop_va;
+> +};
+> +
+>   /* vm ioctl */
+>   #define AMDGPU_VM_OP_RESERVE_VMID	1
+>   #define AMDGPU_VM_OP_UNRESERVE_VMID	2
 
