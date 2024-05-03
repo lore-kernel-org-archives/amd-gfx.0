@@ -4,55 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38621C10F16
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDFC0C25B5F
 	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 10:00:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1174112282;
-	Mon,  6 May 2024 10:00:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5832A11228D;
+	Mon,  6 May 2024 10:00:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="UaVCRUsu";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="rkGr+1kX";
 	dkim-atps=neutral
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id F3D331131C6;
- Fri,  3 May 2024 18:15:34 +0000 (UTC)
-Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.8.16])
- by linux.microsoft.com (Postfix) with ESMTPSA id 9A2B8206B4F5;
- Fri,  3 May 2024 11:15:34 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9A2B8206B4F5
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3790111315A;
+ Fri,  3 May 2024 16:48:55 +0000 (UTC)
+Received: from [100.65.224.148] (unknown [20.236.10.206])
+ by linux.microsoft.com (Postfix) with ESMTPSA id ED65B20B2C82;
+ Fri,  3 May 2024 09:48:53 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com ED65B20B2C82
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1714760134;
- bh=vVGkDNNo56U8Q/P5NgLECg7KMVFTufo8Kf+WGL39tKw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=UaVCRUsueya15wxZcZUnucSdstzXrTUzVkiXFay2KliXj+Rbe1G3i908qEo25d3WF
- IoyfPrXkNzSWmxSIo5YTMrgoKyP+aHRb9RjY36OkV7c6KVH0scHr7U9o6cfhlVccH/
- da0S/mJ0b9tJCmLP2PqA2lq6016ChI/iUinpbp3M=
-From: Easwar Hariharan <eahariha@linux.microsoft.com>
-To: Steve Glendinning <steve.glendinning@shawell.net>,
- Helge Deller <deller@gmx.de>,
- linux-fbdev@vger.kernel.org (open list:SMSC UFX6000 and UFX7000 USB to VGA
- DRIVER), dri-devel@lists.freedesktop.org (open list:FRAMEBUFFER LAYER),
- linux-kernel@vger.kernel.org (open list)
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list),
- intel-gfx@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
- DRIVERS), 
- intel-xe@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
- DRIVERS), 
- nouveau@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO
- GPUS), linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
- linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
- linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER),
- Easwar Hariharan <eahariha@linux.microsoft.com>
-Subject: [PATCH v2 11/12] fbdev/smscufx: Make I2C terminology more inclusive
-Date: Fri,  3 May 2024 18:13:32 +0000
-Message-Id: <20240503181333.2336999-12-eahariha@linux.microsoft.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240503181333.2336999-1-eahariha@linux.microsoft.com>
-References: <20240503181333.2336999-1-eahariha@linux.microsoft.com>
+ s=default; t=1714754934;
+ bh=GAu8Rak4A+pCgzw/uvyDGmtVcqwJgPNajSTWUoSmEQw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=rkGr+1kX0SctOUPwkhdrQ4qFQeA027/UkwhMstN1oK11s07V0R7Wi7aRofjAnlC1w
+ NT0xX9K1RqDBBTorM82GqIiYoTbasEg2t4t6Fe9M8VXV9I+qcP4kpK+ALqrx64mma1
+ /QTPAvj8aVxAk84+SPJbJzAv82Hdw3+D0Hq7DSGc=
+Message-ID: <6256cc5a-9ff0-4a1f-8eba-f70b7c571631@linux.microsoft.com>
+Date: Fri, 3 May 2024 09:48:53 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 12/12] fbdev/viafb: Make I2C terminology more inclusive
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Florian Tobias Schandinat <FlorianSchandinat@gmx.de>,
+ Helge Deller <deller@gmx.de>,
+ "open list:VIA UNICHROME(PRO)/CHROME9 FRAMEBUFFER DRIVER"
+ <linux-fbdev@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>,
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>
+References: <20240430173812.1423757-1-eahariha@linux.microsoft.com>
+ <20240430173812.1423757-13-eahariha@linux.microsoft.com>
+ <271ad513-0ea1-45df-ba0f-51582474ff34@suse.de>
+ <076e0a0d-ad26-490e-9784-300ed52637ca@linux.microsoft.com>
+ <f1eccd9d-885f-4508-9325-3454ecc35eae@suse.de>
+Content-Language: en-CA
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+In-Reply-To: <f1eccd9d-885f-4508-9325-3454ecc35eae@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 06 May 2024 09:59:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,43 +73,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I2C v7, SMBus 3.2, and I3C 1.1.1 specifications have replaced "master/slave"
-with more appropriate terms. Inspired by and following on to Wolfram's
-series to fix drivers/i2c/[1], fix the terminology for users of
-I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
-in the specification.
+On 5/3/2024 12:39 AM, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 03.05.24 um 00:26 schrieb Easwar Hariharan:
+>> On 5/2/2024 3:46 AM, Thomas Zimmermann wrote:
+>>>
+>>> Am 30.04.24 um 19:38 schrieb Easwar Hariharan:
+>>>> I2C v7, SMBus 3.2, and I3C 1.1.1 specifications have replaced "master/slave"
+>>>> with more appropriate terms. Inspired by and following on to Wolfram's
+>>>> series to fix drivers/i2c/[1], fix the terminology for users of
+>>>> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+>>>> in the specification.
+>>>>
+>>>> Compile tested, no functionality changes intended
+>>>>
+>>>> [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
+>>>>
+>>>> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
+>>> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>>
+>> Thanks for the ack! I had been addressing feedback as I got it on the v0 series, and it seems
+>> I missed out on updating viafb and smscufx to spec-compliant controller/target terminology like
+>> the v0->v1 changelog calls out before posting v1.
+>>
+>> For smscufx, I feel phrasing the following line (as an example)
+>>
+>>> -/* sets up I2C Controller for 100 Kbps, std. speed, 7-bit addr, host,
+>>> +/* sets up I2C Controller for 100 Kbps, std. speed, 7-bit addr, *controller*,
+>> would actually impact readability negatively, so I propose to leave smscufx as is.
+> 
+> Why? I don't see much of a difference.
+> 
+>>
+>> For viafb, I propose making it compliant with the spec using the controller/target terminology and
+>> posting a v2 respin (which I can send out as soon as you say) and ask you to review again.
+>>
+>> What do you think?
+> 
+> I think we should adopt the spec's language everywhere. That makes it possible to grep the spec for terms used in the source code. Using 'host' in smscufx appears to introduce yet another term. If you are worried about using 'I2C controller' and 'controller' in the same sentence, you can replace 'I2C controller' with 'DDC channel'. That's even more precise about the purpose of this code.
 
-Compile tested, no functionality changes intended
+Great, thanks! That was exactly my concern, I will fix up smscufx and send a v2.
 
-[1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
-
-Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
----
- drivers/video/fbdev/smscufx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
-index 35d682b110c4..5f0dd01fd834 100644
---- a/drivers/video/fbdev/smscufx.c
-+++ b/drivers/video/fbdev/smscufx.c
-@@ -1292,7 +1292,7 @@ static int ufx_realloc_framebuffer(struct ufx_data *dev, struct fb_info *info)
- 	return 0;
- }
- 
--/* sets up I2C Controller for 100 Kbps, std. speed, 7-bit addr, master,
-+/* sets up DDC channel for 100 Kbps, std. speed, 7-bit addr, controller mode,
-  * restart enabled, but no start byte, enable controller */
- static int ufx_i2c_init(struct ufx_data *dev)
- {
-@@ -1321,7 +1321,7 @@ static int ufx_i2c_init(struct ufx_data *dev)
- 	/* 7-bit (not 10-bit) addressing */
- 	tmp &= ~(0x10);
- 
--	/* enable restart conditions and master mode */
-+	/* enable restart conditions and controller mode */
- 	tmp |= 0x21;
- 
- 	status = ufx_reg_write(dev, 0x1000, tmp);
--- 
-2.34.1
+Thanks,
+Easwar
 
