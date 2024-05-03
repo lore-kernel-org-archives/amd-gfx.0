@@ -4,82 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E39C7C25B5C
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 13:10:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C26BC4345F
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 13:10:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F264112A29;
-	Fri,  3 May 2024 13:10:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AA09112A18;
+	Fri,  3 May 2024 13:10:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Ra0yfgQK";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="afFPAeHk";
 	dkim-atps=neutral
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com
- [209.85.161.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2E8410FC23
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 May 2024 13:04:20 +0000 (UTC)
-Received: by mail-oo1-f42.google.com with SMTP id
- 006d021491bc7-5ac90ad396dso4893704eaf.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 03 May 2024 06:04:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1714741459; x=1715346259; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=T24fsb6UmCj1BuBe7A8xi01GqDYWjj7XjEjPE3iHXwo=;
- b=Ra0yfgQK4+YOaEkqjoRtMpsyUbrroEWzrCqMpQW1fiWOa2NT1f7YEDipuz3w3HI7E6
- yQN36xVPDbHdDg4qigdL+P3Km416ynfs9SgKB3Fr6yqsmHyMU3TkijZrxfR1sNqlAhWl
- S0dGv+YMKtyR0JjayClKnr7pAe4/0t8A0ThzM46rjC891IMTAhelPeRllFnisUg3unU9
- O0vWG2bEcyrm4z2v9nUFaHTT8p3stAyPXResmf5LUcRRs/3AAVM111OULmPkKFp11Biv
- xlneJSEB9u9oYvnXAe+YqM9nwYDPmhJ8ZIYi64s8g5CSMgtqd5aJaPPIvjnOOYpz70db
- c1cQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714741459; x=1715346259;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=T24fsb6UmCj1BuBe7A8xi01GqDYWjj7XjEjPE3iHXwo=;
- b=nEzem9gAB5XrEFhD6tgklJmDoGdkHYFFseAL783WWJSCWmdMf0TSLD4PvVjMtnpnCS
- 2zin1YAW3LOMuyMITSS1EZebgxg6X6bCCeyW/KXoWBuT9Swx3nSg4vW1zNVqUpPfQ4Ov
- ZlRtHmvsISrZafA7HY7ZqJH9eZIXQ5yl516nsRoR6ynOucBj0XNPqE+PSjIbQKW3PTEZ
- SXwrQN5AbXxm+I5vpj3diNQKSo4J4Pkg+6GYd5UFR9p0Ew40gYoeyy1qT8S8d6A1E56x
- 8dfPMhHn5GogyWoJ12/vdA5KP1IsVWLw5oEoUsHalq4OHph8RuCPSw5sV5c1evmPY3JZ
- Ydcw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUV7zb8pN2GSdYIXoSmy2KHXqE9O1WMANN1L4QLCIptkJPm5E8jUDm5cvF6S1S8PcfUQOpkKNB2F6OwZEFhh40usOQIjvzZjYILw88R6A==
-X-Gm-Message-State: AOJu0YwBNVYDZ25NAvZj4HEVYNaAajXu+9ZyywAB+j4aORWft6gk/Rmv
- +R41sv5r3WVGF8zax0Lku7dUcydZfDfN4qIadqXinnVedFS9jb13qs4qLjhFr60=
-X-Google-Smtp-Source: AGHT+IFkDVZmGphlJUVtShrOiyFDXAxL2dqwcQGk35D/hs5G0hXFSbZERBs+fJjVjtBARWifNREq9A==
-X-Received: by 2002:a4a:4bc6:0:b0:5a9:cef4:fcea with SMTP id
- q189-20020a4a4bc6000000b005a9cef4fceamr2843172ooa.1.1714741459559; 
- Fri, 03 May 2024 06:04:19 -0700 (PDT)
-Received: from ziepe.ca ([216.228.117.190]) by smtp.gmail.com with ESMTPSA id
- gr5-20020a0568204cc500b005a4bb400a0fsm620032oob.4.2024.05.03.06.04.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 May 2024 06:04:18 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.95)
- (envelope-from <jgg@ziepe.ca>) id 1s2saG-006Wjv-Qi;
- Fri, 03 May 2024 10:04:16 -0300
-Date: Fri, 3 May 2024 10:04:16 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- dri-devel@lists.freedesktop.org, Leon Romanovsky <leon@kernel.org>,
- LKML <linux-kernel@vger.kernel.org>, linux-rdma@vger.kernel.org,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Lukas Wunner <lukas@wunner.de>,
- Dean Luick <dean.luick@cornelisnetworks.com>
-Subject: Re: [PATCH 3/3] RDMA/hfi1: Use RMW accessors for changing LNKCTL2
-Message-ID: <20240503130416.GA901876@ziepe.ca>
-References: <20240215133155.9198-1-ilpo.jarvinen@linux.intel.com>
- <20240215133155.9198-4-ilpo.jarvinen@linux.intel.com>
- <26be3948-e687-f510-0612-abcac5d919af@linux.intel.com>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D26B10FB5C
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 May 2024 11:50:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=BgSebzIp5z5dFSKU4ESbdPnAazQZ1+CqANvokfHfKRk=; b=afFPAeHkTruBXrjem0Fopi5VBK
+ T3TXKLrH2pglhOqZfWHvGZbEMi6tABJ8b/r1ajzugbEBotBtrkIvMoTvtvPugDuuG0cBo/HCgbliy
+ 4YpLTnxY1hO8huHkkzcNIOE02tgmRxx+E8uIdh3+JK+iGENbpLHJTb88I0Ou/SYqMTQzrOK13k61V
+ adr+iOtXGbuahWxqHzDBsMxM7RqPb9zWa4T9FQ145l8LNrg1y4DSi5YgdI6kn/3Jxbm95cYxe/nns
+ kjOrkNTj2wRaViajl1CCU06+h/U1xyY5R5aW3uOXuJOz+PWqikzxTqkrC39OmvJQokjEnw6GrXEal
+ uB+vJhGg==;
+Received: from [84.65.0.132] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1s2rQw-0006VQ-LO; Fri, 03 May 2024 13:50:35 +0200
+Message-ID: <3030b87c-120b-4ef1-b0f9-9a1a7ef62e70@igalia.com>
+Date: Fri, 3 May 2024 12:50:34 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 0/5] Add capacity key to fdinfo
+Content-Language: en-GB
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com
+References: <20240430172748.61576-1-tursulin@igalia.com>
+ <CADnq5_Mzn8gesfqfNncJMWGgawFR3upgcy9MG=UwHw4i5GoZTg@mail.gmail.com>
+ <cd9f1e27-2448-4803-ab73-9b71c5482027@igalia.com>
+ <eae2f6bb-6c6f-4a85-a0dd-ad1898d638b5@gmail.com>
+ <51a28e5c-392f-4093-9782-a81849474034@igalia.com>
+ <CADnq5_PYN-QBx1VB7tTgpFsBqgrLKBNsOwGaG7u8TSXw539sjA@mail.gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <CADnq5_PYN-QBx1VB7tTgpFsBqgrLKBNsOwGaG7u8TSXw539sjA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <26be3948-e687-f510-0612-abcac5d919af@linux.intel.com>
 X-Mailman-Approved-At: Fri, 03 May 2024 13:10:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,31 +67,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 03, 2024 at 01:18:35PM +0300, Ilpo Järvinen wrote:
-> On Thu, 15 Feb 2024, Ilpo Järvinen wrote:
+
+On 02/05/2024 16:00, Alex Deucher wrote:
+> On Thu, May 2, 2024 at 10:43 AM Tvrtko Ursulin
+> <tvrtko.ursulin@igalia.com> wrote:
+>>
+>>
+>> On 02/05/2024 14:07, Christian König wrote:
+>>> Am 01.05.24 um 15:27 schrieb Tvrtko Ursulin:
+>>>>
+>>>> Hi Alex,
+>>>>
+>>>> On 30/04/2024 19:32, Alex Deucher wrote:
+>>>>> On Tue, Apr 30, 2024 at 1:27 PM Tvrtko Ursulin <tursulin@igalia.com>
+>>>>> wrote:
+>>>>>>
+>>>>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>>>>
+>>>>>> I have noticed AMD GPUs can have more than one "engine" (ring?) of
+>>>>>> the same type
+>>>>>> but amdgpu is not reporting that in fdinfo using the capacity engine
+>>>>>> tag.
+>>>>>>
+>>>>>> This series is therefore an attempt to improve that, but only an RFC
+>>>>>> since it is
+>>>>>> quite likely I got stuff wrong on the first attempt. Or if not wrong
+>>>>>> it may not
+>>>>>> be very beneficial in AMDs case.
+>>>>>>
+>>>>>> So I tried to figure out how to count and store the number of
+>>>>>> instances of an
+>>>>>> "engine" type and spotted that could perhaps be used in more than
+>>>>>> one place in
+>>>>>> the driver. I was more than a little bit confused by the ip_instance
+>>>>>> and uapi
+>>>>>> rings, then how rings are selected to context entities internally.
+>>>>>> Anyway..
+>>>>>> hopefully it is a simple enough series to easily spot any such large
+>>>>>> misses.
+>>>>>>
+>>>>>> End result should be that, assuming two "engine" instances, one
+>>>>>> fully loaded and
+>>>>>> one idle will only report client using 50% of that engine type.
+>>>>>
+>>>>> That would only be true if there are multiple instantiations of the IP
+>>>>> on the chip which in most cases is not true.  In most cases there is
+>>>>> one instance of the IP that can be fed from multiple rings. E.g. for
+>>>>> graphics and compute, all of the rings ultimately feed into the same
+>>>>> compute units on the chip.  So if you have a gfx ring and a compute
+>>>>> rings, you can schedule work to them asynchronously, but ultimately
+>>>>> whether they execute serially or in parallel depends on the actual
+>>>>> shader code in the command buffers and the extent to which it can
+>>>>> utilize the available compute units in the shader cores.
+>>>>
+>>>> This is the same as with Intel/i915. Fdinfo is not intended to provide
+>>>> utilisation of EUs and such, just how busy are the "entities" kernel
+>>>> submits to. So doing something like in this series would make the
+>>>> reporting more similar between the two drivers.
+>>>>
+>>>> I think both the 0-800% or 0-100% range (taking 8 ring compute as an
+>>>> example) can be misleading for different workloads. Neither <800% in
+>>>> the former means one can send more work and same for <100% in the latter.
+>>>
+>>> Yeah, I think that's what Alex tries to describe. By using 8 compute
+>>> rings your 800% load is actually incorrect and quite misleading.
+>>>
+>>> Background is that those 8 compute rings won't be active all at the same
+>>> time, but rather waiting on each other for resources.
+>>>
+>>> But this "waiting" is unfortunately considered execution time since the
+>>> used approach is actually not really capable of separating waiting and
+>>> execution time.
+>>
+>> Right, so 800% is what gputop could be suggesting today, by the virtue 8
+>> context/clients can each use 100% if they only use a subset of compute
+>> units. I was proposing to expose the capacity in fdinfo so it can be
+>> scaled down and then dicussing how both situation have pros and cons.
+>>
+>>>> There is also a parallel with the CPU world here and hyper threading,
+>>>> if not wider, where "What does 100% actually mean?" is also wishy-washy.
+>>>>
+>>>> Also note that the reporting of actual time based values in fdinfo
+>>>> would not changing with this series.
+>>>>
+>>>> Of if you can guide me towards how to distinguish real vs fake
+>>>> parallelism in HW IP blocks I could modify the series to only add
+>>>> capacity tags where there are truly independent blocks. That would be
+>>>> different from i915 though were I did not bother with that
+>>>> distinction. (For reasons that assignment of for instance EUs to
+>>>> compute "rings" (command streamers in i915) was supposed to be
+>>>> possible to re-configure on the fly. So it did not make sense to try
+>>>> and be super smart in fdinfo.)
+>>>
+>>> Well exactly that's the point we don't really have truly independent
+>>> blocks on AMD hardware.
+>>>
+>>> There are things like independent SDMA instances, but those a meant to
+>>> be used like the first instance for uploads and the second for downloads
+>>> etc.. When you use both instances for the same job they will pretty much
+>>> limit each other because of a single resource.
+>>
+>> So _never_ multiple instances of the same IP block? No video decode,
+>> encode, anything?
 > 
-> > Convert open coded RMW accesses for LNKCTL2 to use
-> > pcie_capability_clear_and_set_word() which makes its easier to
-> > understand what the code tries to do.
-> > 
-> > LNKCTL2 is not really owned by any driver because it is a collection of
-> > control bits that PCI core might need to touch. RMW accessors already
-> > have support for proper locking for a selected set of registers
-> > (LNKCTL2 is not yet among them but likely will be in the future) to
-> > avoid losing concurrent updates.
-> > 
-> > Suggested-by: Lukas Wunner <lukas@wunner.de>
-> > Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-> > Reviewed-by: Dean Luick <dean.luick@cornelisnetworks.com>
+> Some chips have multiple encode/decode IP blocks that are actually
+> separate instances, however, we load balance between them so userspace
+> sees just one engine.  Also in some cases they are asymmetric (e.g.,
+> different sets of supported CODECs on each instance).  The driver
+> handles this by inspecting the command buffer and scheduling on the
+> appropriate instance based on the requested CODEC.  SDMA also supports
+> multiple IP blocks that are independent.
+
+Similar to i915 just that we don't inspect buffers but expose the 
+instance capabilities and userspace is responsible to set up the load 
+balancing engine with the correct physical mask.
+
+Anyway, back to the main point - are you interested at all for me to add 
+the capacity flags to at least the IP blocks which are probed to exist 
+more than a singleton? And if yes, could you please suggest how to do it.
+
+For instance should I use adev->sdma.num_instances, 
+adev->uvd.num_uvd_inst, adev->vcn.num_vcn_inst, 
+adev->jpeg.num_jpeg_inst? Or maybe adev->num_ip_blocks and count by 
+hw_ip type?
+
+Patch 3/5 interesting or not to skip all the empty array walking (in 
+amdgpu_ctx_entity_time mostly)?
+
+Regards,
+
+Tvrtko
+
 > 
-> I found out from Linux RDMA and InfiniBand patchwork that this patch had 
-> been silently closed as "Not Applicable". Is there some reason for
-> that?
-
-It is part of a series that crosses subsystems, series like that
-usually go through some other trees.
-
-If you want single patches applied then please send single
-patches.. It is hard to understand intent from mixed series.
-
-Jason
+> Alex
+> 
+>>
+>>>>> As for the UAPI portion of this, we generally expose a limited number
+>>>>> of rings to user space and then we use the GPU scheduler to load
+>>>>> balance between all of the available rings of a type to try and
+>>>>> extract as much parallelism as we can.
+>>>>
+>>>> The part I do not understand is the purpose of the ring argument in
+>>>> for instance drm_amdgpu_cs_chunk_ib. It appears userspace can create
+>>>> up to N scheduling entities using different ring id's, but internally
+>>>> they can map to 1:N same scheduler instances (depending on IP type,
+>>>> can be that each userspace ring maps to same N hw rings, or for rings
+>>>> with no drm sched load balancing userspace ring also does not appear
+>>>> to have a relation to the picked drm sched instance.).
+>>>>
+>>>> So I neither understand how this ring is useful, or how it does not
+>>>> create a problem for IP types which use drm_sched_pick_best. It
+>>>> appears even if userspace created two scheduling entities with
+>>>> different ring ids they could randomly map to same drm sched aka same
+>>>> hw ring, no?
+>>>
+>>> Yeah, that is correct. The multimedia instances have to use a "fixed"
+>>> load balancing because of lack of firmware support. That should have
+>>> been fixed by now but we never found time to actually validate it.
+>>
+>> Gotcha.
+>>
+>>> Regarding the "ring" parameter in CS, that is basically just for
+>>> backward compatibility with older userspace. E.g. that we don't map all
+>>> SDMA jobs to the same instance when only once context is used.
+>>
+>> I see. In that sense "limits" for compute in amdgpu_ctx_num_entities are
+>> arbitrary, or related to some old userspace expectation?
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>>
+>>>> Regards,
+>>>>
+>>>> Tvrtko
+>>>>
+>>>>> Alex
+>>>>>
+>>>>>
+>>>>>>
+>>>>>> Tvrtko Ursulin (5):
+>>>>>>     drm/amdgpu: Cache number of rings per hw ip type
+>>>>>>     drm/amdgpu: Use cached number of rings from the
+>>>>>> AMDGPU_INFO_HW_IP_INFO
+>>>>>>       ioctl
+>>>>>>     drm/amdgpu: Skip not present rings in amdgpu_ctx_mgr_usage
+>>>>>>     drm/amdgpu: Show engine capacity in fdinfo
+>>>>>>     drm/amdgpu: Only show VRAM in fdinfo if it exists
+>>>>>>
+>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c    |  3 ++
+>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 14 +++++
+>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 39 +++++++++-----
+>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 62
+>>>>>> +++-------------------
+>>>>>>    5 files changed, 49 insertions(+), 70 deletions(-)
+>>>>>>
+>>>>>> --
+>>>>>> 2.44.0
+>>>
