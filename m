@@ -4,63 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75D06C25B75
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00F44C25B5C
 	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 10:00:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7298B112BB2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84BB5112BE3;
 	Mon,  6 May 2024 10:00:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rTKSWbdi";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="YZAHRyiJ";
 	dkim-atps=neutral
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FD5810FCCF
- for <amd-gfx@lists.freedesktop.org>; Sat,  4 May 2024 19:35:20 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-2e2a4c20870so9344421fa.3
- for <amd-gfx@lists.freedesktop.org>; Sat, 04 May 2024 12:35:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1714851318; x=1715456118; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cdVSQr/7CPcSlh4WK6ZvPRfcGlbe0X3nwpemri+xm6k=;
- b=rTKSWbdid0IxcfW199Atetj/UvqsFMvkwmjX+1YgMpbllvS3jk527ubppsKGM1NUjv
- 1DfEopvflCtS1HSyBHNISamRp/XpAvrRq5c6oNp15pDePgdGP4Q0djh02lyVkGU3UQuq
- 7B8oKIwq5ITeDzaGRVmKWsflwyKhFZNtSCVXWOOlHCSOSmssNCb+d+BZqjIDLQraduO4
- CL+cNCFXqd9pwxqErFE7GxKAFKOOBJXFSf918FNG12nL/WTZur/6Ga2sJh0a1SXbWn6F
- ku+XLHNJqaHuxhJzXb5qPloN8Zud2O4350UqQxMElBFoLyo72ZwWEKYGR2c0D3n5mu84
- 5x6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714851318; x=1715456118;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cdVSQr/7CPcSlh4WK6ZvPRfcGlbe0X3nwpemri+xm6k=;
- b=taYlqsDUAZ3o42E7VH3iuLEpuOjMQ0FJg0lFKWYa3sd5YVrE4tCQRQEA5e+QuTDjT1
- mzPn8zpp+t/8E8oFSx/8skHUNO2V4ocEkgsHkJOxEajCQ6GFOWnuEOPa3oXBN91c8ndu
- sfvW/vA/vTBwHt+34+KeFkTOZDjznDVA6Hx1V9Coj9gOdDbGfunE9bxTIun6Qn9ZMnWl
- VfWpuLJOXVw0Nd2VQmp1FoowcPQcegOabVKoB0R18oC7RivyoQkTw9/Cl3fmw9D9TOYh
- icRW2FyUmMByjdjjVNHcSBcHxpe+zhyE1WkvoCtaSGz/4lA9Z85770p4ivNWBKrkt8Js
- C0Kg==
-X-Gm-Message-State: AOJu0Yx3L2MlYmwkVsDMrSvfdoyoWOtz/q4+jZFRaoaGPuhMZvImO6hF
- F2RuIe6MlEFaERmqM7E8oSFFkdijb6XFpIPBgPSkH+KFmysBP20TWAvtpKuisJc=
-X-Google-Smtp-Source: AGHT+IFLDscnsfbimEunCA6BjoBMvxcyRsk4PiPHBiYqu/BCr6t3Zyor6hntyTEhiVgqSwcquXuWGQ==
-X-Received: by 2002:a2e:990c:0:b0:2df:b8f5:2e66 with SMTP id
- v12-20020a2e990c000000b002dfb8f52e66mr3593924lji.15.1714851317635; 
- Sat, 04 May 2024 12:35:17 -0700 (PDT)
-Received: from localhost ([102.222.70.76]) by smtp.gmail.com with ESMTPSA id
- fc16-20020a05600c525000b00418d68df226sm13961554wmb.0.2024.05.04.12.35.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 May 2024 12:35:17 -0700 (PDT)
-Date: Sat, 4 May 2024 22:35:13 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: sreekant.somasekharan@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-Subject: [bug report] drm/amdkfd: mark GFX12 system and peer GPU memory
- mappings as MTYPE_NC
-Message-ID: <52b003ec-a570-49f5-9150-79f8feb46339@moroto.mountain>
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1C4DE1131AE;
+ Fri,  3 May 2024 18:15:12 +0000 (UTC)
+Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.8.16])
+ by linux.microsoft.com (Postfix) with ESMTPSA id D81E2207DBCB;
+ Fri,  3 May 2024 11:15:11 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D81E2207DBCB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1714760111;
+ bh=/A3R6LdZJrExpiEpXl1oiDkbBSQmYdztPra//mlDMZw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=YZAHRyiJJtKvQIbmQAkEONQGyns54fi6WNNS24AW8WyJNJEmZbe/SKAYgl5kBiSfI
+ lARvpAUaEoE0f10tzgZXfeoW9QsoBn8BBV43otedvIY/biLfCmlKVSq1rV9hPx/XfL
+ 89Cf41VoERmXkm1v46ABdX3qlm7jYVqgnmeREf5k=
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Easwar Hariharan <eahariha@linux.microsoft.com>,
+ linux-media@vger.kernel.org (open list:MEDIA INPUT INFRASTRUCTURE (V4L/DVB)), 
+ linux-kernel@vger.kernel.org (open list)
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list),
+ intel-gfx@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
+ DRIVERS), 
+ intel-xe@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
+ DRIVERS), 
+ nouveau@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO
+ GPUS), linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
+ linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
+ linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER)
+Subject: [PATCH v2 04/12] media: au0828: Make I2C terminology more inclusive
+Date: Fri,  3 May 2024 18:13:25 +0000
+Message-Id: <20240503181333.2336999-5-eahariha@linux.microsoft.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240503181333.2336999-1-eahariha@linux.microsoft.com>
+References: <20240503181333.2336999-1-eahariha@linux.microsoft.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 06 May 2024 09:59:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,48 +66,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Sreekant Somasekharan,
+I2C v7, SMBus 3.2, and I3C 1.1.1 specifications have replaced "master/slave"
+with more appropriate terms. Inspired by and following on to Wolfram's
+series to fix drivers/i2c/[1], fix the terminology for users of
+I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+in the specification.
 
-This is a semi-automatic email about new static checker warnings.
+Compile tested, no functionality changes intended
 
-Commit 628e1ace2379 ("drm/amdkfd: mark GFX12 system and peer GPU
-memory mappings as MTYPE_NC") from Mar 26, 2024, leads to the
-following Smatch complaint:
+[1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
 
-    drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c:518 gmc_v12_0_get_vm_pte()
-    warn: variable dereferenced before check 'bo' (see line 500)
+Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
+---
+ drivers/media/usb/au0828/au0828-i2c.c   | 4 ++--
+ drivers/media/usb/au0828/au0828-input.c | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-   499		struct amdgpu_bo *bo = mapping->bo_va->base.bo;
-   500		struct amdgpu_device *bo_adev = amdgpu_ttm_adev(bo->tbo.bdev);
-                                                                ^^^^
-   501		bool coherent = bo->flags & AMDGPU_GEM_CREATE_COHERENT;
-                                ^^^^^^^^^
-   502		bool is_system = bo->tbo.resource->mem_type == TTM_PL_SYSTEM;
-                                 ^^^^^^^
-The patch adds unchecked dereferences.
+diff --git a/drivers/media/usb/au0828/au0828-i2c.c b/drivers/media/usb/au0828/au0828-i2c.c
+index 749f90d73b5b..743cb44f52aa 100644
+--- a/drivers/media/usb/au0828/au0828-i2c.c
++++ b/drivers/media/usb/au0828/au0828-i2c.c
+@@ -23,7 +23,7 @@ MODULE_PARM_DESC(i2c_scan, "scan i2c bus at insmod time");
+ #define I2C_WAIT_DELAY 25
+ #define I2C_WAIT_RETRY 1000
+ 
+-static inline int i2c_slave_did_read_ack(struct i2c_adapter *i2c_adap)
++static inline int i2c_target_did_read_ack(struct i2c_adapter *i2c_adap)
+ {
+ 	struct au0828_dev *dev = i2c_adap->algo_data;
+ 	return au0828_read(dev, AU0828_I2C_STATUS_201) &
+@@ -35,7 +35,7 @@ static int i2c_wait_read_ack(struct i2c_adapter *i2c_adap)
+ 	int count;
+ 
+ 	for (count = 0; count < I2C_WAIT_RETRY; count++) {
+-		if (!i2c_slave_did_read_ack(i2c_adap))
++		if (!i2c_target_did_read_ack(i2c_adap))
+ 			break;
+ 		udelay(I2C_WAIT_DELAY);
+ 	}
+diff --git a/drivers/media/usb/au0828/au0828-input.c b/drivers/media/usb/au0828/au0828-input.c
+index 3d3368202cd0..6c9e5ea795f2 100644
+--- a/drivers/media/usb/au0828/au0828-input.c
++++ b/drivers/media/usb/au0828/au0828-input.c
+@@ -30,7 +30,7 @@ struct au0828_rc {
+ 	int polling;
+ 	struct delayed_work work;
+ 
+-	/* i2c slave address of external device (if used) */
++	/* i2c target address of external device (if used) */
+ 	u16 i2c_dev_addr;
+ 
+ 	int  (*get_key_i2c)(struct au0828_rc *ir);
+-- 
+2.34.1
 
-   503	
-   504	
-   505		*flags &= ~AMDGPU_PTE_EXECUTABLE;
-   506		*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
-   507	
-   508		*flags &= ~AMDGPU_PTE_MTYPE_GFX12_MASK;
-   509		*flags |= (mapping->flags & AMDGPU_PTE_MTYPE_GFX12_MASK);
-   510	
-   511		if (mapping->flags & AMDGPU_PTE_PRT_GFX12) {
-   512			*flags |= AMDGPU_PTE_PRT_GFX12;
-   513			*flags |= AMDGPU_PTE_SNOOPED;
-   514			*flags |= AMDGPU_PTE_SYSTEM;
-   515			*flags &= ~AMDGPU_PTE_VALID;
-   516		}
-   517	
-   518		if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
-                    ^^
-But previously we assumed bo could be NULL.
-
-   519				       AMDGPU_GEM_CREATE_UNCACHED))
-   520			*flags = (*flags & ~AMDGPU_PTE_MTYPE_GFX12_MASK) |
-
-regards,
-dan carpenter
