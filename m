@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7683FC10F16
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E92CAC25B76
 	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 10:00:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA169112D23;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDD08112E45;
 	Mon,  6 May 2024 10:00:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="RbaGjOBB";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="F/tft0H0";
 	dkim-atps=neutral
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2BE991131C4;
- Fri,  3 May 2024 18:15:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3F7BF1131BA;
+ Fri,  3 May 2024 18:15:14 +0000 (UTC)
 Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.8.16])
- by linux.microsoft.com (Postfix) with ESMTPSA id E4C07207DBD3;
- Fri,  3 May 2024 11:15:22 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E4C07207DBD3
+ by linux.microsoft.com (Postfix) with ESMTPSA id E89C5207DBCF;
+ Fri,  3 May 2024 11:15:13 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E89C5207DBCF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1714760123;
- bh=GRfclEajWoxq9anjZ8/quZpV/Z3y2+4plsXg8F9UrVY=;
+ s=default; t=1714760114;
+ bh=RgiCQNHrwKIU7zhDFVCblheJAkvGZ36PnrZ7zESY2bY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RbaGjOBBdDpdkReR4G1Vy/PQmVk7kDqLiUu/ZWwLqHH3iZsD3GLww0ZwrbgD3eg6e
- P8CoCikMLUwY0jvmFyD939JMdB60FBBltMTPH5dXcJoMhNDi3+Ff/Am1+J6gq3l6rP
- ArWOYoPFGDHm1xbRHIAeC4dLAjQygket18Gjs7oE=
+ b=F/tft0H0P/aRQiz9ebsQr+LH7HUVs0Y5EeJy/3Wlm4snNsfWXcKl+if5PfBJ8fb1L
+ /QioEaI//qvxDKqKF+MkxOJi5TEKUOqkFj/JcUkhpPirvS2B+VC84Tz9D2LwhzbxR7
+ wO3Gd3I3cIoiJwTel8n1v2KBijytqQX6RM35q5/w=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
 To: Andy Walls <awalls@md.metrocast.net>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-media@vger.kernel.org (open list:IVTV VIDEO4LINUX DRIVER),
+ linux-media@vger.kernel.org (open list:CX18 VIDEO4LINUX DRIVER),
  linux-kernel@vger.kernel.org (open list)
 Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
  amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
@@ -44,9 +44,9 @@ Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
  linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
  linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER),
  Easwar Hariharan <eahariha@linux.microsoft.com>
-Subject: [PATCH v2 08/12] media: ivtv: Make I2C terminology more inclusive
-Date: Fri,  3 May 2024 18:13:29 +0000
-Message-Id: <20240503181333.2336999-9-eahariha@linux.microsoft.com>
+Subject: [PATCH v2 06/12] media: cx18: Make I2C terminology more inclusive
+Date: Fri,  3 May 2024 18:13:27 +0000
+Message-Id: <20240503181333.2336999-7-eahariha@linux.microsoft.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240503181333.2336999-1-eahariha@linux.microsoft.com>
 References: <20240503181333.2336999-1-eahariha@linux.microsoft.com>
@@ -73,100 +73,131 @@ series to fix drivers/i2c/[1], fix the terminology for users of
 I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
 in the specification.
 
+I2S specification has also updated the terms in v.3 to use "controller"
+and "target" respectively. Make those changes in the relevant spaces as
+well.
+
 Compile tested, no functionality changes intended
 
 [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
 
 Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 ---
- drivers/media/pci/ivtv/ivtv-i2c.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/media/pci/cx18/cx18-av-firmware.c | 8 ++++----
+ drivers/media/pci/cx18/cx18-cards.c       | 6 +++---
+ drivers/media/pci/cx18/cx18-cards.h       | 4 ++--
+ drivers/media/pci/cx18/cx18-gpio.c        | 6 +++---
+ 4 files changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/media/pci/ivtv/ivtv-i2c.c b/drivers/media/pci/ivtv/ivtv-i2c.c
-index c052c57c6dce..a22c7caa92f7 100644
---- a/drivers/media/pci/ivtv/ivtv-i2c.c
-+++ b/drivers/media/pci/ivtv/ivtv-i2c.c
-@@ -33,14 +33,14 @@
-     Some more general comments about what we are doing:
+diff --git a/drivers/media/pci/cx18/cx18-av-firmware.c b/drivers/media/pci/cx18/cx18-av-firmware.c
+index 61aeb8c9af7f..906e0b33cffc 100644
+--- a/drivers/media/pci/cx18/cx18-av-firmware.c
++++ b/drivers/media/pci/cx18/cx18-av-firmware.c
+@@ -140,22 +140,22 @@ int cx18_av_loadfw(struct cx18 *cx)
+ 	cx18_av_and_or4(cx, CXADEC_PIN_CTRL1, ~0, 0x78000);
  
-     The i2c bus is a 2 wire serial bus, with clock (SCL) and data (SDA)
--    lines.  To communicate on the bus (as a master, we don't act as a slave),
-+    lines.  To communicate on the bus (as a controller, we don't act as a target),
-     we first initiate a start condition (ivtv_start).  We then write the
-     address of the device that we want to communicate with, along with a flag
--    that indicates whether this is a read or a write.  The slave then issues
-+    that indicates whether this is a read or a write.  The target then issues
-     an ACK signal (ivtv_ack), which tells us that it is ready for reading /
-     writing.  We then proceed with reading or writing (ivtv_read/ivtv_write),
-     and finally issue a stop condition (ivtv_stop) to make the bus available
--    to other masters.
-+    to other controllers.
+ 	/* Audio input control 1 set to Sony mode */
+-	/* Audio output input 2 is 0 for slave operation input */
++	/* Audio output input 2 is 0 for target operation input */
+ 	/* 0xC4000914[5]: 0 = left sample on WS=0, 1 = left sample on WS=1 */
+ 	/* 0xC4000914[7]: 0 = Philips mode, 1 = Sony mode (1st SCK rising edge
+ 	   after WS transition for first bit of audio word. */
+ 	cx18_av_write4(cx, CXADEC_I2S_IN_CTL, 0x000000A0);
  
-     There is an additional form of transaction where a write may be
-     immediately followed by a read.  In this case, there is no intervening
-@@ -379,7 +379,7 @@ static int ivtv_waitsda(struct ivtv *itv, int val)
- 	return 0;
- }
+ 	/* Audio output control 1 is set to Sony mode */
+-	/* Audio output control 2 is set to 1 for master mode */
++	/* Audio output control 2 is set to 1 for controller mode */
+ 	/* 0xC4000918[5]: 0 = left sample on WS=0, 1 = left sample on WS=1 */
+ 	/* 0xC4000918[7]: 0 = Philips mode, 1 = Sony mode (1st SCK rising edge
+ 	   after WS transition for first bit of audio word. */
+-	/* 0xC4000918[8]: 0 = slave operation, 1 = master (SCK_OUT and WS_OUT
++	/* 0xC4000918[8]: 0 = target operation, 1 = controller (SCK_OUT and WS_OUT
+ 	   are generated) */
+ 	cx18_av_write4(cx, CXADEC_I2S_OUT_CTL, 0x000001A0);
  
--/* Wait for the slave to issue an ACK */
-+/* Wait for the target to issue an ACK */
- static int ivtv_ack(struct ivtv *itv)
+-	/* set alt I2s master clock to /0x16 and enable alt divider i2s
++	/* set alt I2s controller clock to /0x16 and enable alt divider i2s
+ 	   passthrough */
+ 	cx18_av_write4(cx, CXADEC_PIN_CFG3, 0x5600B687);
+ 
+diff --git a/drivers/media/pci/cx18/cx18-cards.c b/drivers/media/pci/cx18/cx18-cards.c
+index f5a30959a367..4a04bc984578 100644
+--- a/drivers/media/pci/cx18/cx18-cards.c
++++ b/drivers/media/pci/cx18/cx18-cards.c
+@@ -82,7 +82,7 @@ static const struct cx18_card cx18_card_hvr1600_esmt = {
+ 	},
+ 	.gpio_init.initial_value = 0x3001,
+ 	.gpio_init.direction = 0x3001,
+-	.gpio_i2c_slave_reset = {
++	.gpio_i2c_target_reset = {
+ 		.active_lo_mask = 0x3001,
+ 		.msecs_asserted = 10,
+ 		.msecs_recovery = 40,
+@@ -129,7 +129,7 @@ static const struct cx18_card cx18_card_hvr1600_s5h1411 = {
+ 	},
+ 	.gpio_init.initial_value = 0x3801,
+ 	.gpio_init.direction = 0x3801,
+-	.gpio_i2c_slave_reset = {
++	.gpio_i2c_target_reset = {
+ 		.active_lo_mask = 0x3801,
+ 		.msecs_asserted = 10,
+ 		.msecs_recovery = 40,
+@@ -176,7 +176,7 @@ static const struct cx18_card cx18_card_hvr1600_samsung = {
+ 	},
+ 	.gpio_init.initial_value = 0x3001,
+ 	.gpio_init.direction = 0x3001,
+-	.gpio_i2c_slave_reset = {
++	.gpio_i2c_target_reset = {
+ 		.active_lo_mask = 0x3001,
+ 		.msecs_asserted = 10,
+ 		.msecs_recovery = 40,
+diff --git a/drivers/media/pci/cx18/cx18-cards.h b/drivers/media/pci/cx18/cx18-cards.h
+index ae9cf5bfdd59..a886ff735e89 100644
+--- a/drivers/media/pci/cx18/cx18-cards.h
++++ b/drivers/media/pci/cx18/cx18-cards.h
+@@ -69,7 +69,7 @@ struct cx18_gpio_init { /* set initial GPIO DIR and OUT values */
+ 	u32 initial_value;
+ };
+ 
+-struct cx18_gpio_i2c_slave_reset {
++struct cx18_gpio_i2c_target_reset {
+ 	u32 active_lo_mask; /* GPIO outputs that reset i2c chips when low */
+ 	u32 active_hi_mask; /* GPIO outputs that reset i2c chips when high */
+ 	int msecs_asserted; /* time period reset must remain asserted */
+@@ -121,7 +121,7 @@ struct cx18_card {
+ 	/* GPIO card-specific settings */
+ 	u8 xceive_pin;		/* XCeive tuner GPIO reset pin */
+ 	struct cx18_gpio_init		 gpio_init;
+-	struct cx18_gpio_i2c_slave_reset gpio_i2c_slave_reset;
++	struct cx18_gpio_i2c_target_reset gpio_i2c_target_reset;
+ 	struct cx18_gpio_audio_input    gpio_audio_input;
+ 
+ 	struct cx18_card_tuner tuners[CX18_CARD_MAX_TUNERS];
+diff --git a/drivers/media/pci/cx18/cx18-gpio.c b/drivers/media/pci/cx18/cx18-gpio.c
+index c85eb8d25837..85546e0a01c1 100644
+--- a/drivers/media/pci/cx18/cx18-gpio.c
++++ b/drivers/media/pci/cx18/cx18-gpio.c
+@@ -204,9 +204,9 @@ static int resetctrl_log_status(struct v4l2_subdev *sd)
+ static int resetctrl_reset(struct v4l2_subdev *sd, u32 val)
  {
- 	int ret = 0;
-@@ -396,7 +396,7 @@ static int ivtv_ack(struct ivtv *itv)
- 	ivtv_scldelay(itv);
- 	ivtv_setscl(itv, 1);
- 	if (!ivtv_waitsda(itv, 0)) {
--		IVTV_DEBUG_I2C("Slave did not ack\n");
-+		IVTV_DEBUG_I2C("Target did not ack\n");
- 		ret = -EREMOTEIO;
- 	}
- 	ivtv_setscl(itv, 0);
-@@ -407,7 +407,7 @@ static int ivtv_ack(struct ivtv *itv)
- 	return ret;
- }
+ 	struct cx18 *cx = v4l2_get_subdevdata(sd);
+-	const struct cx18_gpio_i2c_slave_reset *p;
++	const struct cx18_gpio_i2c_target_reset *p;
  
--/* Write a single byte to the i2c bus and wait for the slave to ACK */
-+/* Write a single byte to the i2c bus and wait for the target to ACK */
- static int ivtv_sendbyte(struct ivtv *itv, unsigned char byte)
+-	p = &cx->card->gpio_i2c_slave_reset;
++	p = &cx->card->gpio_i2c_target_reset;
+ 	switch (val) {
+ 	case CX18_GPIO_RESET_I2C:
+ 		gpio_reset_seq(cx, p->active_lo_mask, p->active_hi_mask,
+@@ -309,7 +309,7 @@ void cx18_reset_ir_gpio(void *data)
  {
- 	int i, bit;
-@@ -427,7 +427,7 @@ static int ivtv_sendbyte(struct ivtv *itv, unsigned char byte)
- 		}
- 		ivtv_setscl(itv, 1);
- 		if (!ivtv_waitscl(itv, 1)) {
--			IVTV_DEBUG_I2C("Slave not ready for bit\n");
-+			IVTV_DEBUG_I2C("Target not ready for bit\n");
- 			return -EREMOTEIO;
- 		}
- 	}
-@@ -471,7 +471,7 @@ static int ivtv_readbyte(struct ivtv *itv, unsigned char *byte, int nack)
- 	return 0;
- }
+ 	struct cx18 *cx = to_cx18(data);
  
--/* Issue a start condition on the i2c bus to alert slaves to prepare for
-+/* Issue a start condition on the i2c bus to alert targets to prepare for
-    an address write */
- static int ivtv_start(struct ivtv *itv)
- {
-@@ -534,7 +534,7 @@ static int ivtv_stop(struct ivtv *itv)
- 	return 0;
- }
+-	if (cx->card->gpio_i2c_slave_reset.ir_reset_mask == 0)
++	if (cx->card->gpio_i2c_target_reset.ir_reset_mask == 0)
+ 		return;
  
--/* Write a message to the given i2c slave.  do_stop may be 0 to prevent
-+/* Write a message to the given i2c target.  do_stop may be 0 to prevent
-    issuing the i2c stop condition (when following with a read) */
- static int ivtv_write(struct ivtv *itv, unsigned char addr, unsigned char *data, u32 len, int do_stop)
- {
-@@ -558,7 +558,7 @@ static int ivtv_write(struct ivtv *itv, unsigned char addr, unsigned char *data,
- 	return ret;
- }
- 
--/* Read data from the given i2c slave.  A stop condition is always issued. */
-+/* Read data from the given i2c target.  A stop condition is always issued. */
- static int ivtv_read(struct ivtv *itv, unsigned char addr, unsigned char *data, u32 len)
- {
- 	int retry, ret = -EREMOTEIO;
+ 	CX18_DEBUG_INFO("Resetting IR microcontroller\n");
 -- 
 2.34.1
 
