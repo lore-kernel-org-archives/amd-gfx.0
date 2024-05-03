@@ -4,63 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49EC8C4345F
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 13:10:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E39C7C25B5C
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 13:10:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D285B112A1A;
-	Fri,  3 May 2024 13:10:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F264112A29;
+	Fri,  3 May 2024 13:10:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="j+h7jgG7";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Ra0yfgQK";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 323CF10EA92;
- Fri,  3 May 2024 10:18:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1714731526; x=1746267526;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=10Jfz7g2I63T6OjaKjymVfcINKOaZ2J6fHxtq+P/NAM=;
- b=j+h7jgG7i6HgGQNI2Jpz3aiJCo/SDy67Xx2R+VJBeX6/sHeH6e6PPB4r
- bAL3ZtDeRljDnk2V141NaugnaIjl6JhtoVTXryXJeJv/fJ8dH2zi+Lasw
- 4vRflK+FsD7j6IAvfLpxo4e1QnTBNUQMtcnt5QPu+jcUvQ8tw3wQzS8ZE
- r/fQHuQzqOxFLqXu9OkkxC1JCw1qre9jK0OAOTJZH/sRwXLkS1uj43Xbg
- yDWtqCItYmX/RyY6wWpE4Yl1D5tD3308qpQl3m1sy1YUrffJRxIpbUfId
- fhL04jDY8Catj2hT68EFwDkVd2pwV6IvZT2SiI510ijgU804jOf5AAKzR w==;
-X-CSE-ConnectionGUID: 8tbpPYWUSa2PYingGTMiJQ==
-X-CSE-MsgGUID: 3LsCpRbwRA2WSM+9NmrKvQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11062"; a="10386646"
-X-IronPort-AV: E=Sophos;i="6.07,251,1708416000"; d="scan'208";a="10386646"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 May 2024 03:18:45 -0700
-X-CSE-ConnectionGUID: fg5BmVqpSRyyi5slzLMDnA==
-X-CSE-MsgGUID: IEo6vwxzSGqiLHBTgxJ77A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,251,1708416000"; d="scan'208";a="32215585"
-Received: from ijarvine-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.247.56])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 May 2024 03:18:42 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 3 May 2024 13:18:35 +0300 (EEST)
-To: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- dri-devel@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
- linux-rdma@vger.kernel.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>, 
- =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
- Lukas Wunner <lukas@wunner.de>, 
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com
+ [209.85.161.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2E8410FC23
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 May 2024 13:04:20 +0000 (UTC)
+Received: by mail-oo1-f42.google.com with SMTP id
+ 006d021491bc7-5ac90ad396dso4893704eaf.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 03 May 2024 06:04:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1714741459; x=1715346259; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=T24fsb6UmCj1BuBe7A8xi01GqDYWjj7XjEjPE3iHXwo=;
+ b=Ra0yfgQK4+YOaEkqjoRtMpsyUbrroEWzrCqMpQW1fiWOa2NT1f7YEDipuz3w3HI7E6
+ yQN36xVPDbHdDg4qigdL+P3Km416ynfs9SgKB3Fr6yqsmHyMU3TkijZrxfR1sNqlAhWl
+ S0dGv+YMKtyR0JjayClKnr7pAe4/0t8A0ThzM46rjC891IMTAhelPeRllFnisUg3unU9
+ O0vWG2bEcyrm4z2v9nUFaHTT8p3stAyPXResmf5LUcRRs/3AAVM111OULmPkKFp11Biv
+ xlneJSEB9u9oYvnXAe+YqM9nwYDPmhJ8ZIYi64s8g5CSMgtqd5aJaPPIvjnOOYpz70db
+ c1cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1714741459; x=1715346259;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=T24fsb6UmCj1BuBe7A8xi01GqDYWjj7XjEjPE3iHXwo=;
+ b=nEzem9gAB5XrEFhD6tgklJmDoGdkHYFFseAL783WWJSCWmdMf0TSLD4PvVjMtnpnCS
+ 2zin1YAW3LOMuyMITSS1EZebgxg6X6bCCeyW/KXoWBuT9Swx3nSg4vW1zNVqUpPfQ4Ov
+ ZlRtHmvsISrZafA7HY7ZqJH9eZIXQ5yl516nsRoR6ynOucBj0XNPqE+PSjIbQKW3PTEZ
+ SXwrQN5AbXxm+I5vpj3diNQKSo4J4Pkg+6GYd5UFR9p0Ew40gYoeyy1qT8S8d6A1E56x
+ 8dfPMhHn5GogyWoJ12/vdA5KP1IsVWLw5oEoUsHalq4OHph8RuCPSw5sV5c1evmPY3JZ
+ Ydcw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUV7zb8pN2GSdYIXoSmy2KHXqE9O1WMANN1L4QLCIptkJPm5E8jUDm5cvF6S1S8PcfUQOpkKNB2F6OwZEFhh40usOQIjvzZjYILw88R6A==
+X-Gm-Message-State: AOJu0YwBNVYDZ25NAvZj4HEVYNaAajXu+9ZyywAB+j4aORWft6gk/Rmv
+ +R41sv5r3WVGF8zax0Lku7dUcydZfDfN4qIadqXinnVedFS9jb13qs4qLjhFr60=
+X-Google-Smtp-Source: AGHT+IFkDVZmGphlJUVtShrOiyFDXAxL2dqwcQGk35D/hs5G0hXFSbZERBs+fJjVjtBARWifNREq9A==
+X-Received: by 2002:a4a:4bc6:0:b0:5a9:cef4:fcea with SMTP id
+ q189-20020a4a4bc6000000b005a9cef4fceamr2843172ooa.1.1714741459559; 
+ Fri, 03 May 2024 06:04:19 -0700 (PDT)
+Received: from ziepe.ca ([216.228.117.190]) by smtp.gmail.com with ESMTPSA id
+ gr5-20020a0568204cc500b005a4bb400a0fsm620032oob.4.2024.05.03.06.04.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 May 2024 06:04:18 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.95)
+ (envelope-from <jgg@ziepe.ca>) id 1s2saG-006Wjv-Qi;
+ Fri, 03 May 2024 10:04:16 -0300
+Date: Fri, 3 May 2024 10:04:16 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ dri-devel@lists.freedesktop.org, Leon Romanovsky <leon@kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, linux-rdma@vger.kernel.org,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Lukas Wunner <lukas@wunner.de>,
  Dean Luick <dean.luick@cornelisnetworks.com>
 Subject: Re: [PATCH 3/3] RDMA/hfi1: Use RMW accessors for changing LNKCTL2
-In-Reply-To: <20240215133155.9198-4-ilpo.jarvinen@linux.intel.com>
-Message-ID: <26be3948-e687-f510-0612-abcac5d919af@linux.intel.com>
+Message-ID: <20240503130416.GA901876@ziepe.ca>
 References: <20240215133155.9198-1-ilpo.jarvinen@linux.intel.com>
  <20240215133155.9198-4-ilpo.jarvinen@linux.intel.com>
+ <26be3948-e687-f510-0612-abcac5d919af@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-818284186-1714731515=:1852"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <26be3948-e687-f510-0612-abcac5d919af@linux.intel.com>
 X-Mailman-Approved-At: Fri, 03 May 2024 13:10:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,105 +95,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Fri, May 03, 2024 at 01:18:35PM +0300, Ilpo Järvinen wrote:
+> On Thu, 15 Feb 2024, Ilpo Järvinen wrote:
+> 
+> > Convert open coded RMW accesses for LNKCTL2 to use
+> > pcie_capability_clear_and_set_word() which makes its easier to
+> > understand what the code tries to do.
+> > 
+> > LNKCTL2 is not really owned by any driver because it is a collection of
+> > control bits that PCI core might need to touch. RMW accessors already
+> > have support for proper locking for a selected set of registers
+> > (LNKCTL2 is not yet among them but likely will be in the future) to
+> > avoid losing concurrent updates.
+> > 
+> > Suggested-by: Lukas Wunner <lukas@wunner.de>
+> > Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+> > Reviewed-by: Dean Luick <dean.luick@cornelisnetworks.com>
+> 
+> I found out from Linux RDMA and InfiniBand patchwork that this patch had 
+> been silently closed as "Not Applicable". Is there some reason for
+> that?
 
---8323328-818284186-1714731515=:1852
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+It is part of a series that crosses subsystems, series like that
+usually go through some other trees.
 
-On Thu, 15 Feb 2024, Ilpo J=C3=A4rvinen wrote:
+If you want single patches applied then please send single
+patches.. It is hard to understand intent from mixed series.
 
-> Convert open coded RMW accesses for LNKCTL2 to use
-> pcie_capability_clear_and_set_word() which makes its easier to
-> understand what the code tries to do.
->=20
-> LNKCTL2 is not really owned by any driver because it is a collection of
-> control bits that PCI core might need to touch. RMW accessors already
-> have support for proper locking for a selected set of registers
-> (LNKCTL2 is not yet among them but likely will be in the future) to
-> avoid losing concurrent updates.
->=20
-> Suggested-by: Lukas Wunner <lukas@wunner.de>
-> Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-> Reviewed-by: Dean Luick <dean.luick@cornelisnetworks.com>
-
-I found out from Linux RDMA and InfiniBand patchwork that this patch had=20
-been silently closed as "Not Applicable". Is there some reason for that?
-
-I was sending this change independently out (among 2 similar ones that=20
-already got applied) so I wouldn't need to keep carrying it within my PCIe=
-=20
-bandwidth controller series. It seemed useful enough as cleanups to stand=
-=20
-on its own legs w/o requiring it to be part of PCIe bw controller series.
-
-Should I resend the patch or do RDMA/IB maintainers prefer it to remain=20
-as a part of PCIe BW controller series?
-
---=20
- i.
-
-> ---
->  drivers/infiniband/hw/hfi1/pcie.c | 30 ++++++++----------------------
->  1 file changed, 8 insertions(+), 22 deletions(-)
->=20
-> diff --git a/drivers/infiniband/hw/hfi1/pcie.c b/drivers/infiniband/hw/hf=
-i1/pcie.c
-> index 119ec2f1382b..7133964749f8 100644
-> --- a/drivers/infiniband/hw/hfi1/pcie.c
-> +++ b/drivers/infiniband/hw/hfi1/pcie.c
-> @@ -1207,14 +1207,11 @@ int do_pcie_gen3_transition(struct hfi1_devdata *=
-dd)
->  =09=09    (u32)lnkctl2);
->  =09/* only write to parent if target is not as high as ours */
->  =09if ((lnkctl2 & PCI_EXP_LNKCTL2_TLS) < target_vector) {
-> -=09=09lnkctl2 &=3D ~PCI_EXP_LNKCTL2_TLS;
-> -=09=09lnkctl2 |=3D target_vector;
-> -=09=09dd_dev_info(dd, "%s: ..new link control2: 0x%x\n", __func__,
-> -=09=09=09    (u32)lnkctl2);
-> -=09=09ret =3D pcie_capability_write_word(parent,
-> -=09=09=09=09=09=09 PCI_EXP_LNKCTL2, lnkctl2);
-> +=09=09ret =3D pcie_capability_clear_and_set_word(parent, PCI_EXP_LNKCTL2=
-,
-> +=09=09=09=09=09=09=09 PCI_EXP_LNKCTL2_TLS,
-> +=09=09=09=09=09=09=09 target_vector);
->  =09=09if (ret) {
-> -=09=09=09dd_dev_err(dd, "Unable to write to PCI config\n");
-> +=09=09=09dd_dev_err(dd, "Unable to change parent PCI target speed\n");
->  =09=09=09return_error =3D 1;
->  =09=09=09goto done;
->  =09=09}
-> @@ -1223,22 +1220,11 @@ int do_pcie_gen3_transition(struct hfi1_devdata *=
-dd)
->  =09}
-> =20
->  =09dd_dev_info(dd, "%s: setting target link speed\n", __func__);
-> -=09ret =3D pcie_capability_read_word(dd->pcidev, PCI_EXP_LNKCTL2, &lnkct=
-l2);
-> +=09ret =3D pcie_capability_clear_and_set_word(dd->pcidev, PCI_EXP_LNKCTL=
-2,
-> +=09=09=09=09=09=09 PCI_EXP_LNKCTL2_TLS,
-> +=09=09=09=09=09=09 target_vector);
->  =09if (ret) {
-> -=09=09dd_dev_err(dd, "Unable to read from PCI config\n");
-> -=09=09return_error =3D 1;
-> -=09=09goto done;
-> -=09}
-> -
-> -=09dd_dev_info(dd, "%s: ..old link control2: 0x%x\n", __func__,
-> -=09=09    (u32)lnkctl2);
-> -=09lnkctl2 &=3D ~PCI_EXP_LNKCTL2_TLS;
-> -=09lnkctl2 |=3D target_vector;
-> -=09dd_dev_info(dd, "%s: ..new link control2: 0x%x\n", __func__,
-> -=09=09    (u32)lnkctl2);
-> -=09ret =3D pcie_capability_write_word(dd->pcidev, PCI_EXP_LNKCTL2, lnkct=
-l2);
-> -=09if (ret) {
-> -=09=09dd_dev_err(dd, "Unable to write to PCI config\n");
-> +=09=09dd_dev_err(dd, "Unable to change device PCI target speed\n");
->  =09=09return_error =3D 1;
->  =09=09goto done;
->  =09}
->=20
---8323328-818284186-1714731515=:1852--
+Jason
