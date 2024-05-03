@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70102C4345F
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 09:15:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD6CDC4345F
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 12:37:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19F9310EC6C;
-	Fri,  3 May 2024 09:15:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4158A11299F;
+	Fri,  3 May 2024 12:37:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="c+8Pfdd/";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WGJIf6L4";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9472C10E551
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 May 2024 09:15:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 821F611299F
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 May 2024 12:37:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
@@ -22,23 +22,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
  In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=vOoDIVnDDr6yzX2MR4L0Wc9Q8KgcXsUYxMU4oJHhnYU=; b=c+8Pfdd/Rd5/2nJ+ibyZu36TLb
- FlnnkyfuR/NirB5mti2dsZHfMBFthPWF4ZNPrVftQAS2VEc9jvK8vLA5RxIw5UvID4dm06XGTTAk/
- X8e2NMN37aLg+sYG5V3+Pvr0JyouU3pL8LlmaSmwfFbHQu3wPWisMJ7djcdqgNrt8kydC+4aS47ST
- kMp+/Do8elEnLa5zwZKd/SczhRdg4B33DeQZV7zmwceTT11buyk7q3ArNyGdcSSuPucduUklK0tp6
- C8iGrDDne5dP/D59f9fuIWFjSuXTDSHvWqocC5rqh+cQ4kNeCqOpcJhkceQaUR9dK6POfFvPCXIg/
- HSbJ3DoQ==;
+ bh=R3KpFx5djuHUYLEu5F9AdvAVusQeoPej8mFTDEUbblg=; b=WGJIf6L4o1whKC/ExmnxYA11z0
+ tqsu0MQXiUFI+N7Sa0r++DrX+ZWmUO9CChTFn0T3lom8mZNBHAh1lngFKQNqCzH7fL1J9cQkbAA0t
+ CFLnx07JH9GV5tJKkPlGdpCOJclScP2/P0waeSUJxxUJGUgW5pzob+HRJCw54ksis/hynZcDBX85p
+ CGJM/VkcxIEg2yg0Qupp2ga+ktq5ChngawDSvcOabH2AZlxUgY9UDtWzdeODElpz+qSLwN7RWJgxz
+ MrOGk/7hPh0HvItSKvZTdFoBhkGZPAC0IfG2kj2FP/LcXWr06gzqgME3WFTGSkaZm2DdxPH6IMOjJ
+ FCi794Uw==;
 Received: from [84.65.0.132] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1s2p0T-0003eK-GX; Fri, 03 May 2024 11:15:05 +0200
+ id 1s2s9u-0007QB-8J; Fri, 03 May 2024 14:37:02 +0200
 From: Tvrtko Ursulin <tursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH 1/3] drm/amdgpu: Add amdgpu_bo_is_vm_bo helper
-Date: Fri,  3 May 2024 10:14:58 +0100
-Message-ID: <20240503091500.7768-1-tursulin@igalia.com>
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.keonig@amd.com>,
+ Rob Clark <robdclark@chromium.org>
+Subject: [PATCH] Documentation/gpu: Document the situation with unqualified
+ drm-memory-
+Date: Fri,  3 May 2024 13:36:57 +0100
+Message-ID: <20240503123657.9441-1-tursulin@igalia.com>
 X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -59,181 +62,61 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Help code readability by replacing a bunch of:
+Currently it is not well defined what is drm-memory- compared to other
+categories.
 
-bo->tbo.base.resv == vm->root.bo->tbo.base.resv
+In practice the only driver which emits these keys is amdgpu and in them
+exposes the total memory use (including shared).
 
-With:
+Document that drm-memory- and drm-total-memory- are aliases to prevent any
+confusion in the future.
 
-amdgpu_vm_is_bo_always_valid(vm, bo)
-
-No functional changes.
-
-v2:
- * Rename helper and move to amdgpu_vm. (Christian)
-
-v3:
- * Use Christian's kerneldoc.
+While at it also clarify that the reserved sub-string 'memory' refers to
+the memory region component.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.keonig@amd.com>
+Cc: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 41 ++++++++++++++++---------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  2 ++
- 3 files changed, 29 insertions(+), 16 deletions(-)
+ Documentation/gpu/drm-usage-stats.rst | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 67c234bcf89f..e698d65e9508 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -174,7 +174,7 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
- 		return -EPERM;
+diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
+index 6dc299343b48..ef5c0a0aa477 100644
+--- a/Documentation/gpu/drm-usage-stats.rst
++++ b/Documentation/gpu/drm-usage-stats.rst
+@@ -128,7 +128,9 @@ Memory
  
- 	if (abo->flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID &&
--	    abo->tbo.base.resv != vm->root.bo->tbo.base.resv)
-+	    !amdgpu_vm_is_bo_always_valid(vm, abo))
- 		return -EPERM;
- 
- 	r = amdgpu_bo_reserve(abo, false);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 4e2391c83d7c..d451ff9d5af4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -333,7 +333,7 @@ void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
- 	base->next = bo->vm_bo;
- 	bo->vm_bo = base;
- 
--	if (bo->tbo.base.resv != vm->root.bo->tbo.base.resv)
-+	if (!amdgpu_vm_is_bo_always_valid(vm, bo))
- 		return;
- 
- 	dma_resv_assert_held(vm->root.bo->tbo.base.resv);
-@@ -1101,13 +1101,13 @@ static void amdgpu_vm_bo_get_memory(struct amdgpu_bo_va *bo_va,
- 	 * For now ignore BOs which are currently locked and potentially
- 	 * changing their location.
- 	 */
--	if (bo->tbo.base.resv != vm->root.bo->tbo.base.resv &&
-+	if (!amdgpu_vm_is_bo_always_valid(vm, bo) &&
- 	    !dma_resv_trylock(bo->tbo.base.resv))
- 		return;
- 
- 	amdgpu_bo_get_memory(bo, stats);
--	if (bo->tbo.base.resv != vm->root.bo->tbo.base.resv)
--	    dma_resv_unlock(bo->tbo.base.resv);
-+	if (amdgpu_vm_is_bo_always_valid(vm, bo))
-+		dma_resv_unlock(bo->tbo.base.resv);
- }
- 
- void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
-@@ -1203,8 +1203,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
- 		uncached = false;
- 	}
- 
--	if (clear || (bo && bo->tbo.base.resv ==
--		      vm->root.bo->tbo.base.resv))
-+	if (clear || amdgpu_vm_is_bo_always_valid(vm, bo))
- 		last_update = &vm->last_update;
- 	else
- 		last_update = &bo_va->last_pt_update;
-@@ -1246,7 +1245,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
- 	 * the evicted list so that it gets validated again on the
- 	 * next command submission.
- 	 */
--	if (bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv) {
-+	if (amdgpu_vm_is_bo_always_valid(vm, bo)) {
- 		uint32_t mem_type = bo->tbo.resource->mem_type;
- 
- 		if (!(bo->preferred_domains &
-@@ -1640,10 +1639,9 @@ static void amdgpu_vm_bo_insert_map(struct amdgpu_device *adev,
- 	if (mapping->flags & AMDGPU_PTE_PRT)
- 		amdgpu_vm_prt_get(adev);
- 
--	if (bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv &&
--	    !bo_va->base.moved) {
-+	if (amdgpu_vm_is_bo_always_valid(vm, bo) && !bo_va->base.moved)
- 		amdgpu_vm_bo_moved(&bo_va->base);
--	}
+ Each possible memory type which can be used to store buffer objects by the
+ GPU in question shall be given a stable and unique name to be returned as the
+-string here.  The name "memory" is reserved to refer to normal system memory.
++string here.
 +
- 	trace_amdgpu_vm_bo_map(bo_va, mapping);
- }
++The region name "memory" is reserved to refer to normal system memory.
  
-@@ -1942,7 +1940,7 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
- 		if (before->flags & AMDGPU_PTE_PRT)
- 			amdgpu_vm_prt_get(adev);
+ Value shall reflect the amount of storage currently consumed by the buffer
+ objects belong to this client, in the respective memory region.
+@@ -136,6 +138,9 @@ objects belong to this client, in the respective memory region.
+ Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
+ indicating kibi- or mebi-bytes.
  
--		if (bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv &&
-+		if (amdgpu_vm_is_bo_always_valid(vm, bo) &&
- 		    !before->bo_va->base.moved)
- 			amdgpu_vm_bo_moved(&before->bo_va->base);
- 	} else {
-@@ -1957,7 +1955,7 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
- 		if (after->flags & AMDGPU_PTE_PRT)
- 			amdgpu_vm_prt_get(adev);
- 
--		if (bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv &&
-+		if (amdgpu_vm_is_bo_always_valid(vm, bo) &&
- 		    !after->bo_va->base.moved)
- 			amdgpu_vm_bo_moved(&after->bo_va->base);
- 	} else {
-@@ -2037,7 +2035,7 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
- 
- 	if (bo) {
- 		dma_resv_assert_held(bo->tbo.base.resv);
--		if (bo->tbo.base.resv == vm->root.bo->tbo.base.resv)
-+		if (amdgpu_vm_is_bo_always_valid(vm, bo))
- 			ttm_bo_set_bulk_move(&bo->tbo, NULL);
- 
- 		for (base = &bo_va->base.bo->vm_bo; *base;
-@@ -2131,7 +2129,7 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_device *adev,
- 	for (bo_base = bo->vm_bo; bo_base; bo_base = bo_base->next) {
- 		struct amdgpu_vm *vm = bo_base->vm;
- 
--		if (evicted && bo->tbo.base.resv == vm->root.bo->tbo.base.resv) {
-+		if (evicted && amdgpu_vm_is_bo_always_valid(vm, bo)) {
- 			amdgpu_vm_bo_evicted(bo_base);
- 			continue;
- 		}
-@@ -2142,7 +2140,7 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_device *adev,
- 
- 		if (bo->tbo.type == ttm_bo_type_kernel)
- 			amdgpu_vm_bo_relocated(bo_base);
--		else if (bo->tbo.base.resv == vm->root.bo->tbo.base.resv)
-+		else if (amdgpu_vm_is_bo_always_valid(vm, bo))
- 			amdgpu_vm_bo_moved(bo_base);
- 		else
- 			amdgpu_vm_bo_invalidated(bo_base);
-@@ -3006,3 +3004,16 @@ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
- 	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
- }
- 
-+/**
-+ * amdgpu_vm_is_bo_always_valid - check if the BO is VM always valid
-+ *
-+ * @vm: VM to test against.
-+ * @abo: BO to be tested.
-+ *
-+ * Returns true if the BO shares the dma_resv object with the root PD and is
-+ * always guaranteed to be valid inside the VM.
-+ */
-+bool amdgpu_vm_is_bo_always_valid(struct amdgpu_vm *vm, struct amdgpu_bo *bo)
-+{
-+	return bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 54d7da396de0..ec688a47dec1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -561,6 +561,8 @@ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m);
- 
- int amdgpu_vm_pt_map_tables(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- 
-+bool amdgpu_vm_is_bo_always_valid(struct amdgpu_vm *vm, struct amdgpu_bo *bo);
++This is an alias for drm-total-<region> and only one of the two should be
++present.
 +
- /**
-  * amdgpu_vm_tlb_seq - return tlb flush sequence number
-  * @vm: the amdgpu_vm structure to query
+ - drm-shared-<region>: <uint> [KiB|MiB]
+ 
+ The total size of buffers that are shared with another file (e.g., have more
+@@ -145,6 +150,9 @@ than a single handle).
+ 
+ The total size of buffers that including shared and private memory.
+ 
++This is an alias for drm-memory-<region> and only one of the two should be
++present.
++
+ - drm-resident-<region>: <uint> [KiB|MiB]
+ 
+ The total size of buffers that are resident in the specified region.
 -- 
 2.44.0
 
