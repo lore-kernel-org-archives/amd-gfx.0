@@ -4,153 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12247C4345F
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 17:29:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D22FC4345F
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 18:26:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6018010E9C9;
-	Fri,  3 May 2024 17:29:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53C9B1131CD;
+	Fri,  3 May 2024 18:26:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="U8lVc5qS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KT4iTuYJ";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2068.outbound.protection.outlook.com [40.107.236.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91EB410E9C9
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 May 2024 17:29:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PFPCdz+Bz/wq0yYOi09lP5cdeM+oKPxh81XwNz2IGLlv4FJ6kQ8GJ80MilUr4Z/g/9BmTgVSmQV+4uN260lwS/NvyVGNfhKn8tKFy/aWrACs6dG4/wz+PmZV4m2QMIZTEWn9JhYEStdrLI9XTXFQ2Uf4Jkr2h9EOauMB8n5gaHl4yYcWZ1dnVXcD/RtbQK6K62ngOaIDH/QI9eXOS7s10GfiuQer6W8Gwozf3bmiVMFj9m8Fgq8n4mqQbFw4INlKBk/8cuQpBlBVK1Mv3rfsouFJe+0K93rg7oBQwa+iw3OGVBFE8hdGziDWX5uHIux3mrXwDOzxhfa+1Lyduj9wMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3Wx3GljM6STs4WnXvI2fRPxP1UWrnmLQi8Ra3Oxshus=;
- b=MOwdFSJFJ+ffRHZpbXxfZXer1xrn6AZlDtv+as6hE69/ErKbJ4XSCdFWEK7PloFdDpJQY5GWLjpNAULZWY0/SwatuNT1T4jDQ8NhuYaMwQy2fi0/y6UnWFXAR9oRtias3TL7GRW+AorEJ+oOdz7LuS7XRJcAmoKRU7m8AdBETbAQhwn5m5DgKKMZMmsznRj2HWUzca/FIF3WDnICgcwUYG/+l8vbv5WabkcrxJUPaK5dYFrdirzYz4uDsIxtl2nEYUyxOetbpAIW7FND5i6YzTy/bRC3GRfO9uiZkRONGpXtbHY2VC87KO1cP4nqF0SSa/0EG2yIlc51cqCndIm9Xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3Wx3GljM6STs4WnXvI2fRPxP1UWrnmLQi8Ra3Oxshus=;
- b=U8lVc5qSmXPXcUOKMSdBMPzvpFGCIoL77XfapV0yX/pRhGcoE1WKRf1isPkpD12ejzKCJX49tUP4VUDrKVRcjLUETcDaL5dlbrBUBoCUTCbQf9LqkV4+spVaAsNmbHc+PTY+t37/GPcApaVI7fD+17HZrm1NXnHF1iX1Eon5D4Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13)
- by DM3PR12MB9413.namprd12.prod.outlook.com (2603:10b6:8:1af::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.36; Fri, 3 May
- 2024 17:29:30 +0000
-Received: from PH7PR12MB5596.namprd12.prod.outlook.com
- ([fe80::6974:3875:ed0:7033]) by PH7PR12MB5596.namprd12.prod.outlook.com
- ([fe80::6974:3875:ed0:7033%3]) with mapi id 15.20.7544.029; Fri, 3 May 2024
- 17:29:28 +0000
-Message-ID: <af13b7a3-69ba-41b9-8e43-f29d314a6f43@amd.com>
-Date: Fri, 3 May 2024 22:59:20 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/4] drm/amdgpu: add compute registers in ip dump for
- gfx10
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20240503084447.2451529-1-sunil.khatri@amd.com>
- <20240503084447.2451529-4-sunil.khatri@amd.com>
- <CADnq5_OYxPY6_qUwkbEqMQmDLaiDwopFKdeREn=WabnKjbBA8A@mail.gmail.com>
- <5681bd76-f01e-491d-982d-2448aaf4f9af@amd.com>
- <76aca882-f1f7-4edf-8dcb-2098dc1a52a3@amd.com>
- <CADnq5_MwcLfBNv+y2fEA3Xx+-cKrFc+tevYEGzPQAVzcSA01HA@mail.gmail.com>
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <CADnq5_MwcLfBNv+y2fEA3Xx+-cKrFc+tevYEGzPQAVzcSA01HA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0055.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:99::10) To PH7PR12MB5596.namprd12.prod.outlook.com
- (2603:10b6:510:136::13)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3AAE1131B0;
+ Fri,  3 May 2024 18:26:05 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-2a2da57ab3aso5886a91.3; 
+ Fri, 03 May 2024 11:26:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1714760765; x=1715365565; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zOjTMYF0n4eXtqGvQxk2snOMEhYe782CBRhn/PML6D8=;
+ b=KT4iTuYJXC2hcVynFxsLglQ6etLsp7vZPt2CMOBWT1PWefqGmzwAsVCNjTcYEbSJJb
+ eSDMpCC8tO/+TJWk2mEK1+er5Kz/H9Vbsk8h7crsNqky83dY0hRlyc2vg7AR+QT5/nzR
+ sIIIpgcKIFvGXgWHOcLr+R3U9w39f6UvR+bdnsr+0sW84QtFHEmxfUNefif+dnDXUB4h
+ YMbsCIyJZwjBOAE//FpqeoYZKUJNfABkN35MGz0b8nygvX/sE/VHM0FzClgysdrUSL0l
+ fmhoDrOqTHNhp274S5ZeWK6e8CND4/4d3Wy4AWddxDdmCZUfXfPxDUaFZVE7CkK/Hxd5
+ yImA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1714760765; x=1715365565;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zOjTMYF0n4eXtqGvQxk2snOMEhYe782CBRhn/PML6D8=;
+ b=rWRYkAflpadtVQF0ef6SCIByb1+7T9swyJ7Ad1CX6sTl4fDbLJPTkmJ8AQvrECbR6T
+ oXZKNRMfRGbsdigckxQlTdyfDkT54KBB0uFzBmfdro3+d3Ku8pQIlAMgdV3RZ5jbQP0U
+ JVMxyVLLCVFtp+UDtMoSkgLtVvdSkhqqbeNSrhw6I2ZJ0dMb0AMcmx00mskD/JD+kz+k
+ CsHew7kzCP1TuAkwahaorzjzE109jcNeb0kH6THHrXmthhwfZmBLuipcfKbklEhLBFNq
+ GVDX+G24j0fyDCnncyR9SQxnjaRs9F8f0jwHWqap5gwYkd2sQK7Xpxyk5eHypKnIoiGh
+ JafA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWQU90LJH8lVfsE2dXASHPmQ3VC08YRPfhm1NDYXcwkPXxE65eYq9211/XFAc3cnksDWSO2Qo++7EGc5XctMSjxzDM/kTYbA/mY+qXd0TbnR2Xw3NrTqq80Z1nM5CPPJWfGJQIYkJW7ozbuCyIs3w==
+X-Gm-Message-State: AOJu0Ywp9IEMZqwf2BZGpyeCX4JsqARGa6kl47H5pTz/B8X5SD1CAnYB
+ qB5QzeodGTprzWQa0vst87SkwxVegjIVNFfZHWjY0wyfQjiNHo1aGNvouvSuUJBN5+tz/TfEFGZ
+ YXcVyqJfTksXxpRalA9KwPh2xYtY=
+X-Google-Smtp-Source: AGHT+IGZ/Kmmmi5Ij+J3rI067uQ0zaXR4S0WvgNIxiTq/VJsaDLV7wvG1l9k1XDWE5B9TJGPIana2J97g322vSRjRlg=
+X-Received: by 2002:a17:90a:eb0e:b0:2ac:8366:8ab4 with SMTP id
+ j14-20020a17090aeb0e00b002ac83668ab4mr4045564pjz.38.1714760765104; Fri, 03
+ May 2024 11:26:05 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5596:EE_|DM3PR12MB9413:EE_
-X-MS-Office365-Filtering-Correlation-Id: 007d23a3-743c-4388-abe7-08dc6b96957b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|376005|1800799015|366007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NmRjNXhVdTdPL0FRSzRMR0NIMHRtb0ZYcDB5cnFybXhqdi9vTm5RYzdYNjNB?=
- =?utf-8?B?d1lEMTRLWkZYVlF5S09vVXJTaFdTSFJpamJQSXc3L1p3QUU0YXEyTVZTSDh5?=
- =?utf-8?B?MkgvelZTU1grZHphVzlqNDlLVnlhZkp3cWl1S3NGL005Zk85MnZSNkNGR0Y1?=
- =?utf-8?B?RnFieGk0RWllc3NNYnBSMG95b25Oc2djekJESFk3U0JLZmxRWll4NlBmc2x6?=
- =?utf-8?B?ZyswQ2wyVEZBb0M3VkduL0pJZUhqVFIveWRzWnNodE56endPZnptL3JpZ0VC?=
- =?utf-8?B?ZURDTURqSTdMRndVN0hzaEgrQU04cWhuNllqSVpENnhhNmpsTm5xeFJ1Wmo4?=
- =?utf-8?B?eUxHam9rbmZya2hQQXUyRVA1MDBjQnVoc0tkSitFNmhpbW1mNWR3V29Lb204?=
- =?utf-8?B?SmRjdzRnNDR2V1g0VlJ0Sm5FZFFmM0xDblFVWkNKTFUxOEVlUjgvK0NvM1RY?=
- =?utf-8?B?dXY0TXBGaVJqcmZHZVFpbDlNQXl5c2g1NE9ubHVWbHBUYlRKa1gvUE5xdlc1?=
- =?utf-8?B?Z3lZOGt3L21IR0xoc3BoZE8vbnhFMWlUM1VDejlYYXRLSGgyeXh5c3o1N1Vx?=
- =?utf-8?B?eGc3Ry93eGNseC8yeEpwQkhGY0xHdzh0Yy84TDJrb05HalRKWVl4alo0N2ox?=
- =?utf-8?B?THZqY1V1T1pLamtRLzNCZGJ0UkJ1U3FSRk9IUGF1WDRIVW80alRST3pnSjVr?=
- =?utf-8?B?S2hMdDhBVXFISENLdDRIWmlaUEhOT0x2NnBRZFBYS01wejF1a1ZMa2QybmIr?=
- =?utf-8?B?cnJ4Z0lPVk50TjlNZlVvVmx1SWdKU0k2ZmZlOWluNU1DOWk0VVJubmwvSGoz?=
- =?utf-8?B?NituN2s2L2dTQmtaUEdDcTFCaU5UOXRUZUUzSUhkTCtlWjgrdmY5MlV0ZTVi?=
- =?utf-8?B?Nk5tUERVWnMrUHNNTGRUaFM1eGN2ZzdXa3YvckdWYUlHT2xiZHFZclloUllp?=
- =?utf-8?B?VXlkV0Q5OStBandET1h4Zk91R1VhcGpuSW1lQjBuMFV6aXZ0MGhEVEk5UVlj?=
- =?utf-8?B?aldrcFVMOTFaSUE1RG9GSjdpZDlhTEx1Y0ladGxGaVRaL1FHdFN2NkVvRmNn?=
- =?utf-8?B?eDEySXl4c2k3RHlyaXM3Q3pLYWhhdEExcFdIeFVrVXdDdHNDMTJSN1lUTkhJ?=
- =?utf-8?B?T3ZpQzMwbk5kNHhGRlVDR3FYU0NnY083UFpyRnZtRlhFdHZqSWs2aFl6UnBF?=
- =?utf-8?B?UUYxTkNoSnN6Z0lkVXpHUVZ6YVNhc0ZpZ3RhcVg5UnJlK2tubmNjNUY0ZkNr?=
- =?utf-8?B?Qmdib29pWFdpTWJpOGdWbmZZcDVSdmZ3a0JZd200MWowTGJyait4dTd2cFNI?=
- =?utf-8?B?VEdEU0lvRnNJSzJhOXFQenhUaXB0bWQ5cnN0T1FlK1M0enRSUHVjZzNxNlE1?=
- =?utf-8?B?K2dtVi9ZbVVFVkVGVUFWZjA1Ni9JQzJFQWkyMzZpbDFNNTJCMGpTck9oOVBF?=
- =?utf-8?B?QlZrWi84ZHlLcHN4aHd5SVk4UHYweGJ5blpBdWQzY0lzR1B0SmtKSEhYdU0z?=
- =?utf-8?B?dGxEWlBUT1AxSSs3b2FPaTdvU0pmcGVWcmpXdDVMZjFTZ0lCQXozRnNERlhl?=
- =?utf-8?B?TXByYUhSWDVhc1NJSlJIazk2bjlDMFVFdGg5TENiTG56bHl0bjFNaVJHUzE0?=
- =?utf-8?B?Nm41N2JHSnVnZFNTZ2ZLaFJFRjczZjZVL0ZENnhmVGZheCtEU1FwcVozTU0y?=
- =?utf-8?B?TWdSQjdPRkpkdmRXL3hYYXh5bCtBRVBZdmZWY0tINHBPWVVteFJIbHFBPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5596.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OCs2MUd2eEthRWpMSHNWT3JUM050QUtsMVhlNVo3TjBicFRxN0xqeU53QlI5?=
- =?utf-8?B?QWM1SmVtNEovcU0rbEVzb1hTMkw1V1FQMVdMVnRLZjBOZHBSNVRBUTNQeXdI?=
- =?utf-8?B?K1VCOVk1WDBZNHdFTGdrL0RtWHk5YTFvSWJqNmpqUEpya3NCR282ODNQblhX?=
- =?utf-8?B?Ni9kWWlFQyswZmVHQWRWN2pNaVpYQzZva05wUjFDaUZlZ0taOTFndy8wbXhv?=
- =?utf-8?B?SlZuM3QydUllQW54NUI2RndnSy9WamtDdUxuR1lJMkpFdXRDQ0JhaCtMOHl3?=
- =?utf-8?B?NTVuVUxkV2dyeXpLRklCa2QzSzU2SlFxNXJsRDgxSktuRkpqV294ZlVXVnkr?=
- =?utf-8?B?RzdPTnZKTUVuMUtoQUhqSWIveU9ObzdMNnVGc0NOMWNMc3NUZDdIdnNkRjlq?=
- =?utf-8?B?MTV1bmxTQzdCcDNETXNJUmZkS2J4WnZTKzhhNmtyQjNEbjhrelcrcUtlSjFB?=
- =?utf-8?B?KzhqYm9YbEtxT0tML0lRQ2UwMzJDS2xpNG9XbndSRnh0blY2VFdTNzU3QUlC?=
- =?utf-8?B?ODhMNzRtc3M1N2RvcWR0VmR0UnVVUUw5bmJGSDhrUDhXOCtCcnhOWVJ1VXlP?=
- =?utf-8?B?NTAraUd4L0RtQklsMVcvN1hyei8vdlJzWmcxcndpSk53empHMmoxZ2xJRUwz?=
- =?utf-8?B?Z3pYY0NvM0FMcWZ6YlZjczk1SWZaN3hkODVtcGM3ckFCYjdNb3Q4MkQzVjdO?=
- =?utf-8?B?ZDlpdGFPN21vQkh5d2pPNXNVbkNkK1FUSWR6MmZ5SjAyU1Y5QzROZ1VIUXFG?=
- =?utf-8?B?NWxIWDk1K09FNklsdkpZc09xYWRWRDVBK2E5WVZ5VXZ4b0RVZnpIR20xZ2tE?=
- =?utf-8?B?MFpVbG9rMkhjTnMvY2ZZR1hZTC91Yk52cTdqaHNmZXE3b3Jsc3ljZXR6aTMy?=
- =?utf-8?B?RW0wS2FidnhtN3JTdzV6dlluK2NvM3gyK2dVdTBTaWgrdjlOZ1BVLzlLVHFU?=
- =?utf-8?B?N0ZUV0tCUXJwQU5BQ2M4UUJNR2xKNG92WW1yRmh0RTlNRTJYTjlRa2diU0VB?=
- =?utf-8?B?SG5aSkErb0I5VmROQSttYmE1N0xJWFZ6MmQyN1NFN2hVUHRCMU9YNkpVR0FZ?=
- =?utf-8?B?eDJlVUJXUEEwQzJ5ZkNabXI2Y05ZMThWcXIxS2NnbllWQVNNUTlGWjFDb0Rw?=
- =?utf-8?B?Z2lNcjVkLy84Zmd4NGh3RzFsY2N2SUU5Z3BnQjNFZUlCNjBqS29xZUxPbWE1?=
- =?utf-8?B?Z01TWnFMWURxeis4bkI3blVUVjVQanV4Z04rWFh0TkY4NmVhVytnb3MrazJs?=
- =?utf-8?B?ditXYThEM2FieHEvUWRqLzdoTnJuT1ZaY0VoS2oveHFGc2Nqd2UyYkp1QVYw?=
- =?utf-8?B?dVN2QktycDUxYzNDNTNLS0UyeUE4bHNsdUIyczBwSjdLRTE2TEpEbWRhQlk5?=
- =?utf-8?B?THRGcFp5MlZLcVFCT0RHOXJLWXkrektlbFlqV2Q5UzFKTGxiRVExdFZyZXRh?=
- =?utf-8?B?VkZzWWorQ0NaYjB0ZjZET1Noay9qQnhGbkl5QjJEVXg1MFY0Vllnb1h3d1hp?=
- =?utf-8?B?WHYvdFIrTitBaE9WaTdYQ3pGTmNBWFFERHkvOUIzdjZNUmNCckIvV3lGOEVS?=
- =?utf-8?B?VUFuclJXTDA4ZkczQ0FweENoSkxuZDhkNUdZTlRWSk5pSE5Mb2tOMlBIdHNo?=
- =?utf-8?B?N21HWHBvYlBKOStSREVkb1BmRkxUT3g2L1BncVNyQTFNcUNtYVNsQlBQaEM4?=
- =?utf-8?B?K1lvTnp6ck1pTU41T0hXZ3hEcnZydDA1NVYyc2FYbzNhQXRBNzJQRHNYT2xL?=
- =?utf-8?B?VmVRMVVBQWcvQU9pbUZNUVl3Ui9vSlBOMFIvVXErZDJyaVB5NXJhM1NPR1Fq?=
- =?utf-8?B?QjlpNG1qQUlNMlpzOUp0Q09MS2dSVmFQVEhxMXhBZUkyV3BYc3BiOU9PNHhJ?=
- =?utf-8?B?bTBkNkhuNXBtTG1EU3lXZXdROEg4dzl4M045c0szWEw0b2NrbzA3eURVK1VR?=
- =?utf-8?B?VS81NW9VMkkva2RqZm9Ndkg2Q0VPemJQQ2Z3c050SHBtUno2UkhrZ2RpdGpF?=
- =?utf-8?B?bGppVU9nM1YveW9WVFhuRzcwaXJ0QUpjUms2VUxscU5hZzV0aUdsT0hScXlp?=
- =?utf-8?B?blNBVHV6Mm91c0pVUDlZdGgrUEhRcWVvRFArSlJRVTlKUnZmdHUzYXVISVdO?=
- =?utf-8?Q?pbseGoCN3ZZldizStmfpc137G?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 007d23a3-743c-4388-abe7-08dc6b96957b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5596.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2024 17:29:28.0159 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l84eLAvOuyyxxrEIfQaSsDdXpTDSdWQZo1BgVIom5BcbHCj0/JFRsFg41TQ9NSXpRa8BhvNIJREVo/ofdhsuiA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9413
+References: <20240503123657.9441-1-tursulin@igalia.com>
+ <736ba0a2-035b-4727-bbcc-437029420377@igalia.com>
+ <2cdee989-f48d-4923-b12a-f09a1cc2b34d@igalia.com>
+ <ZjUDsRIHHmJ0oM-1@phenom.ffwll.local>
+ <CADnq5_Mp0y559dGHuK2HWJp_UuiknOhvQB90yw_tdOuo1eV8gQ@mail.gmail.com>
+ <4705c6e4-04e3-4f97-9f9a-629b6495e92a@igalia.com>
+In-Reply-To: <4705c6e4-04e3-4f97-9f9a-629b6495e92a@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 3 May 2024 14:25:53 -0400
+Message-ID: <CADnq5_Nh_EfsdVCNGs+0juaf3-R_fvsJXfkTqaNMEn+vEHqP9w@mail.gmail.com>
+Subject: Re: [PATCH] Documentation/gpu: Document the situation with
+ unqualified drm-memory-
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>, Tvrtko Ursulin <tursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, 
+ kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>, 
+ Rob Clark <robdclark@chromium.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,154 +88,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 5/3/2024 9:52 PM, Alex Deucher wrote:
-> On Fri, May 3, 2024 at 12:09 PM Khatri, Sunil <sukhatri@amd.com> wrote:
->>
->> On 5/3/2024 9:18 PM, Khatri, Sunil wrote:
->>> On 5/3/2024 8:52 PM, Alex Deucher wrote:
->>>> On Fri, May 3, 2024 at 4:45 AM Sunil Khatri <sunil.khatri@amd.com>
->>>> wrote:
->>>>> add compute registers in set of registers to dump
->>>>> during ip dump for gfx10.
->>>>>
->>>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->>>>> ---
->>>>>    drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 42
->>>>> +++++++++++++++++++++++++-
->>>>>    1 file changed, 41 insertions(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
->>>>> index 953df202953a..00c7a842ea3b 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
->>>>> @@ -378,7 +378,47 @@ static const struct amdgpu_hwip_reg_entry
->>>>> gc_reg_list_10_1[] = {
->>>>>           SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS_SE0),
->>>>>           SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS_SE1),
->>>>>           SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS_SE2),
->>>>> -       SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS_SE3)
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS_SE3),
->>>>> +       /* compute registers */
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_VMID),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PERSISTENT_STATE),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PIPE_PRIORITY),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_QUEUE_PRIORITY),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_QUANTUM),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_BASE),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_BASE_HI),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_RPTR),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR_HI),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_CONTROL),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_IB_BASE_ADDR),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_IB_BASE_ADDR_HI),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_IB_RPTR),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_IB_CONTROL),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_DEQUEUE_REQUEST),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_EOP_BASE_ADDR),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_EOP_BASE_ADDR_HI),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_EOP_CONTROL),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_EOP_RPTR),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_EOP_WPTR),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_EOP_EVENTS),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_CTX_SAVE_BASE_ADDR_LO),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_CTX_SAVE_BASE_ADDR_HI),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_CTX_SAVE_CONTROL),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_CNTL_STACK_OFFSET),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_CNTL_STACK_SIZE),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_WG_STATE_OFFSET),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_CTX_SAVE_SIZE),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_GDS_RESOURCE_STATE),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_ERROR),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_EOP_WPTR_MEM),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_WPTR_LO),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_WPTR_HI),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_SUSPEND_CNTL_STACK_OFFSET),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_SUSPEND_CNTL_STACK_DW_CNT),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_SUSPEND_WG_STATE_OFFSET),
->>>>> +       SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_DEQUEUE_STATUS)
->>>> The registers in patches 3 and 4 are multi-instance, so we should
->>>> ideally print every instance of them rather than just one.  Use
->>>> nv_grbm_select() to select the pipes and queues.  Make sure to protect
->>>> access using the adev->srbm_mutex mutex.
->>>>
->>>> E.g., for the compute registers (patch 3):
->>>>       mutex_lock(&adev->srbm_mutex);
->>>>           for (i = 0; i < adev->gfx.mec.num_mec; ++i) {
->>>>                   for (j = 0; j < adev->gfx.mec.num_pipe_per_mec; j++) {
->>>>                          for (k = 0; k <
->>>> adev->gfx.mec.num_queue_per_pipe; k++) {
->>>>                    drm_printf("mec %d, pipe %d, queue %d\n", i, j, k);
->>>>                   nv_grbm_select(adev, i, j, k, 0);
->>>>                          for (reg = 0; reg < ARRAY_SIZE(compute_regs);
->>>> reg++)
->>>>                          drm_printf(...RREG(compute_regs[reg]));
->>>>                       }
->>>>                   }
->>>>       }
->>>>       nv_grbm_select(adev, 0, 0, 0, 0);
->>>>       mutex_unlock(&adev->srbm_mutex);
->>>>
->>>> For gfx registers (patch 4):
->>>>
->>>>       mutex_lock(&adev->srbm_mutex);
->>>>           for (i = 0; i < adev->gfx.me.num_me; ++i) {
->>>>                   for (j = 0; j < adev->gfx.me.num_pipe_per_me; j++) {
->>>>                       for (k = 0; k < adev->gfx.me.num_queue_per_pipe;
->>>> k++) {
->>>>                                 drm_printf("me %d, pipe %d, queue
->>>> %d\n", i, j, k);
->>>>                                   nv_grbm_select(adev, i, j, k, 0);
->>>>                          for (reg = 0; reg < ARRAY_SIZE(gfx_regs); reg++)
->>>>                          drm_printf(...RREG(gfx_regs[reg]));
->> I see one problem here, we dump the registers in memory allocated first
->> and read before and store and then dump later when user read the
->> devcoredump file. Here we do not know how many registers are there
->> considering multiple me and then pipe per me and queue per pipe.
->>
->> Should we run this loop in advance to count no of elements while
->> allocating memory or (count = gfx.me.num_me *
->> adev->gfx.me.num_pipe_per_me * adev->gfx.me.num_queue_per_pipe. No
->> matter what we do we need to save these registers in advance.
-> Keep the multi-instanced registers in separate arrays and then add
-> them all up to get the total size.
+On Fri, May 3, 2024 at 1:06=E2=80=AFPM Tvrtko Ursulin <tvrtko.ursulin@igali=
+a.com> wrote:
 >
-> adev->gfx.ip_dump_core[regs]
-> adev->gfx.ip_dump_cp_compute_instanced[mec][pipe][queue]
-> adev->gfx.ip_dump_cp_gfx_instanced[me][pipe][queue]
 >
->> Also another problem in printing drm_printf("me %d, pipe %d, queue
->> %d\n", i, j, k); Need to think how we can do that ...
-> Use multiple arrays to store the data. and just print that between
-> them in the ip_print callback.
+> On 03/05/2024 16:58, Alex Deucher wrote:
+> > On Fri, May 3, 2024 at 11:33=E2=80=AFAM Daniel Vetter <daniel@ffwll.ch>=
+ wrote:
+> >>
+> >> On Fri, May 03, 2024 at 01:58:38PM +0100, Tvrtko Ursulin wrote:
+> >>>
+> >>> [And I forgot dri-devel.. doing well!]
+> >>>
+> >>> On 03/05/2024 13:40, Tvrtko Ursulin wrote:
+> >>>>
+> >>>> [Correcting Christian's email]
+> >>>>
+> >>>> On 03/05/2024 13:36, Tvrtko Ursulin wrote:
+> >>>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> >>>>>
+> >>>>> Currently it is not well defined what is drm-memory- compared to ot=
+her
+> >>>>> categories.
+> >>>>>
+> >>>>> In practice the only driver which emits these keys is amdgpu and in=
+ them
+> >>>>> exposes the total memory use (including shared).
+> >>>>>
+> >>>>> Document that drm-memory- and drm-total-memory- are aliases to
+> >>>>> prevent any
+> >>>>> confusion in the future.
+> >>>>>
+> >>>>> While at it also clarify that the reserved sub-string 'memory' refe=
+rs to
+> >>>>> the memory region component.
+> >>>>>
+> >>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> >>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+> >>>>> Cc: Christian K=C3=B6nig <christian.keonig@amd.com>
+> >>>>
+> >>>> Mea culpa, I copied the mistake from
+> >>>> 77d17c4cd0bf52eacfad88e63e8932eb45d643c5. :)
+> >>>>
+> >>>> Regards,
+> >>>>
+> >>>> Tvrtko
+> >>>>
+> >>>>> Cc: Rob Clark <robdclark@chromium.org>
+> >>>>> ---
+> >>>>>    Documentation/gpu/drm-usage-stats.rst | 10 +++++++++-
+> >>>>>    1 file changed, 9 insertions(+), 1 deletion(-)
+> >>>>>
+> >>>>> diff --git a/Documentation/gpu/drm-usage-stats.rst
+> >>>>> b/Documentation/gpu/drm-usage-stats.rst
+> >>>>> index 6dc299343b48..ef5c0a0aa477 100644
+> >>>>> --- a/Documentation/gpu/drm-usage-stats.rst
+> >>>>> +++ b/Documentation/gpu/drm-usage-stats.rst
+> >>>>> @@ -128,7 +128,9 @@ Memory
+> >>>>>    Each possible memory type which can be used to store buffer
+> >>>>> objects by the
+> >>>>>    GPU in question shall be given a stable and unique name to be
+> >>>>> returned as the
+> >>>>> -string here.  The name "memory" is reserved to refer to normal
+> >>>>> system memory.
+> >>>>> +string here.
+> >>>>> +
+> >>>>> +The region name "memory" is reserved to refer to normal system mem=
+ory.
+> >>>>>    Value shall reflect the amount of storage currently consumed by
+> >>>>> the buffer
+> >>>>>    objects belong to this client, in the respective memory region.
+> >>>>> @@ -136,6 +138,9 @@ objects belong to this client, in the respectiv=
+e
+> >>>>> memory region.
+> >>>>>    Default unit shall be bytes with optional unit specifiers of 'Ki=
+B'
+> >>>>> or 'MiB'
+> >>>>>    indicating kibi- or mebi-bytes.
+> >>>>> +This is an alias for drm-total-<region> and only one of the two
+> >>>>> should be
+> >>>>> +present.
+> >>
+> >> This feels a bit awkward and seems to needlessly complicate fdinfo uap=
+i.
+> >>
+> >> - Could we just patch amdgpu to follow everyone else, and avoid the
+> >>    special case? If there's no tool that relies on the special amdgpu
+> >>    prefix then that would be a lot easier.
+> >>
+> >> - If that's not on the table, could we make everyone (with a suitable
+> >>    helper or something) just print both variants, so that we again hav=
+e
+> >>    consisent fdinfo output? Or breaks that a different set of existing
+> >>    tools.
+> >>
+> >> - Finally maybe could we get away with fixing amd by adding the common
+> >>    format there, deprecating the old, fixing the tools that would brea=
+k and
+> >>    then maybe if we're lucky, remove the old one from amdgpu in a year=
+ or
+> >>    so?
+> >
+> > I'm not really understanding what amdgpu is doing wrong.  It seems to
+> > be following the documentation.  Is the idea that we would like to
+> > deprecate drm-memory-<region> in favor of drm-total-<region>?
+> > If that's the case, I think the 3rd option is probably the best.  We
+> > have a lot of tools and customers using this.  It would have also been
+> > nice to have "memory" in the string for the newer ones to avoid
+> > conflicts with other things that might be a total or shared in the
+> > future, but I guess that ship has sailed.  We should also note that
+> > drm-memory-<region> is deprecated.  While we are here, maybe we should
+> > clarify the semantics of resident, purgeable, and active.  For
+> > example, isn't resident just a duplicate of total?  If the memory was
+> > not resident, it would be in a different region.
+>
+> Amdgpu isn't doing anything wrong. It just appears when the format was
+> discussed no one noticed (me included) that the two keys are not clearly
+> described. And it looks there also wasn't a plan to handle the uncelar
+> duality in the future.
+>
+> For me deprecating sounds fine, the 3rd option. I understand we would
+> only make amdgpu emit both sets of keys and then remove drm-memory- in
+> due time.
+>
+> With regards to key naming, yeah, memory in the name would have been
+> nice. We had a lot of discussion on this topic but ship has indeed
+> sailed. It is probably workarble for anything new that might come to add
+> their prefix. As long as it does not clash with the memory categories is
+> should be fine.
+>
+> In terms of resident semantics, think of it as VIRT vs RES in top(1). It
+> is for drivers which allocate backing store lazily, on first use.
+>
+> Purgeable is for drivers which have a form of MADV_DONTNEED ie.
+> currently have backing store but userspace has indicated it can be
+> dropped without preserving the content on memory pressure.
+>
+> Active is when reservation object says there is activity on the buffer.
 
-Ok, Sure
 
-Thanks Sunil
+I think you have the makings for a good patch right here :)
+
+Alex
 
 >
-> Alex
+> Regards,
 >
->>>>               }
->>>>                   }
->>>>           }
->>>>       nv_grbm_select(adev, 0, 0, 0, 0);
->>>>       mutex_unlock(&adev->srbm_mutex);
->>> Thanks for pointing that out and suggesting the sample code of how it
->>> should be. Will take care of this in next patch set.
->>>
->>> Regards
->>>
->>> Sunil
->>>
->>>> Alex
->>>>
->>>>>    };
->>>>>
->>>>>    static const struct soc15_reg_golden golden_settings_gc_10_1[] = {
->>>>> --
->>>>> 2.34.1
->>>>>
+> Tvrtko
+>
+> >
+> > Alex
+> >
+> >>
+> >> Uapi that's "either do $foo or on this one driver, do $bar" is just
+> >> guaranteed to fragement the ecosystem, so imo that should be the absol=
+ute
+> >> last resort.
+> >> -Sima
+> >>
+> >>>>> +
+> >>>>>    - drm-shared-<region>: <uint> [KiB|MiB]
+> >>>>>    The total size of buffers that are shared with another file (e.g=
+.,
+> >>>>> have more
+> >>>>> @@ -145,6 +150,9 @@ than a single handle).
+> >>>>>    The total size of buffers that including shared and private memo=
+ry.
+> >>>>> +This is an alias for drm-memory-<region> and only one of the two
+> >>>>> should be
+> >>>>> +present.
+> >>>>> +
+> >>>>>    - drm-resident-<region>: <uint> [KiB|MiB]
+> >>>>>    The total size of buffers that are resident in the specified reg=
+ion.
+> >>
+> >> --
+> >> Daniel Vetter
+> >> Software Engineer, Intel Corporation
+> >> http://blog.ffwll.ch
