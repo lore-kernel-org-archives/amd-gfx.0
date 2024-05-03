@@ -4,48 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD6CDC4345F
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 12:37:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97507C4345F
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 13:10:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4158A11299F;
-	Fri,  3 May 2024 12:37:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B52E1127BF;
+	Fri,  3 May 2024 13:10:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WGJIf6L4";
+	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="Jw3XUDgX";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 821F611299F
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 May 2024 12:37:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=R3KpFx5djuHUYLEu5F9AdvAVusQeoPej8mFTDEUbblg=; b=WGJIf6L4o1whKC/ExmnxYA11z0
- tqsu0MQXiUFI+N7Sa0r++DrX+ZWmUO9CChTFn0T3lom8mZNBHAh1lngFKQNqCzH7fL1J9cQkbAA0t
- CFLnx07JH9GV5tJKkPlGdpCOJclScP2/P0waeSUJxxUJGUgW5pzob+HRJCw54ksis/hynZcDBX85p
- CGJM/VkcxIEg2yg0Qupp2ga+ktq5ChngawDSvcOabH2AZlxUgY9UDtWzdeODElpz+qSLwN7RWJgxz
- MrOGk/7hPh0HvItSKvZTdFoBhkGZPAC0IfG2kj2FP/LcXWr06gzqgME3WFTGSkaZm2DdxPH6IMOjJ
- FCi794Uw==;
-Received: from [84.65.0.132] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1s2s9u-0007QB-8J; Fri, 03 May 2024 14:37:02 +0200
-From: Tvrtko Ursulin <tursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.keonig@amd.com>,
- Rob Clark <robdclark@chromium.org>
-Subject: [PATCH] Documentation/gpu: Document the situation with unqualified
- drm-memory-
-Date: Fri,  3 May 2024 13:36:57 +0100
-Message-ID: <20240503123657.9441-1-tursulin@igalia.com>
-X-Mailer: git-send-email 2.44.0
+Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8153110FB88
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 May 2024 12:06:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1714737960; x=1714997160;
+ bh=+5BgPx8/X+xKpVku8ib8P/X2LrKEZpn/SSX+zss59n4=;
+ h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=Jw3XUDgXDZ9Dwwz1RFnrx8lLobof04nzYd/oXFIJbZv4HkIAkhOSkQFTB96bK+quP
+ wAwb9PdVtsa5yrQej5hTjPBQBgC0B914JSQ/RxRCrBsmKVYrS5YF0EmeeV1P1lgslu
+ pfcSqO9v+jQgVVkZ+gp7O45RLzmh68FoTMqV/IZnGQqWzEtwkBYxsAqrF8zaEXiuU7
+ yveUUrarF2EHnbR6YFqd8VYI4WbLUK5jvL66NurHm3ggzc1wj7kFlHEiNGLZlV4VgO
+ HEEgnNx2ddaeSz/FHswd53iFgkBUgC6VMJKi9k9cnhPS2gcN3jLPmAG/ZOXfo0ZXOG
+ vQo85TigMqrdg==
+Date: Fri, 03 May 2024 12:05:54 +0000
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+From: fililip <fililip6483@protonmail.com>
+Subject: Allow setting a power cap that's lower than recommended
+Message-ID: <1VLcj5GzcoG1-O6-r7zBAGyAXVUTTIHMyJRR8Svf-ckgPom-otJt8N3sT5oPHvLOiYjvdXx6zfZ3zatRHJFGsitQKAA8mHNV57KoFBMjNJk=@protonmail.com>
+Feedback-ID: 108819700:user:proton
+X-Pm-Message-ID: f9197727cdb0e35ac376fc91cc5e450d70bb55ed
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed;
+ boundary="b1_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0"
+X-Mailman-Approved-At: Fri, 03 May 2024 13:10:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,63 +51,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+This is a multi-part message in MIME format.
 
-Currently it is not well defined what is drm-memory- compared to other
-categories.
+--b1_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0
+Content-Type: multipart/alternative;
+ boundary="b2_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0"
 
-In practice the only driver which emits these keys is amdgpu and in them
-exposes the total memory use (including shared).
+--b2_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
 
-Document that drm-memory- and drm-total-memory- are aliases to prevent any
-confusion in the future.
+VGhpcyBwYXRjaCBhbGxvd3Mgc2V0dGluZyBhIGxvdyBwb3dlciBjYXAgaWYgaWdub3JlX21pbl9w
+Y2Fw4oCLIGlzIHNldCB0byAxLgoKU2lnbmVkLW9mZi1ieTogZmlsaWxpcCA8ZmlsaWxpcDY0ODNA
+cHJvdG9ubWFpbC5jb20+
 
-While at it also clarify that the reserved sub-string 'memory' refers to
-the memory region component.
+--b2_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.keonig@amd.com>
-Cc: Rob Clark <robdclark@chromium.org>
----
- Documentation/gpu/drm-usage-stats.rst | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
+cHg7Ij5UaGlzIHBhdGNoIGFsbG93cyBzZXR0aW5nIGEgbG93IHBvd2VyIGNhcCBpZiA8Y29kZT5p
+Z25vcmVfbWluX3BjYXA8L2NvZGU+4oCLIGlzIHNldCB0byAxLjxicj48L2Rpdj48ZGl2IHN0eWxl
+PSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsiPjxicj48
+L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6
+ZTogMTRweDsiPlNpZ25lZC1vZmYtYnk6IGZpbGlsaXAgJmx0O2ZpbGlsaXA2NDgzQHByb3Rvbm1h
+aWwuY29tJmd0Ozxicj48L2Rpdj4=
 
-diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-index 6dc299343b48..ef5c0a0aa477 100644
---- a/Documentation/gpu/drm-usage-stats.rst
-+++ b/Documentation/gpu/drm-usage-stats.rst
-@@ -128,7 +128,9 @@ Memory
- 
- Each possible memory type which can be used to store buffer objects by the
- GPU in question shall be given a stable and unique name to be returned as the
--string here.  The name "memory" is reserved to refer to normal system memory.
-+string here.
-+
-+The region name "memory" is reserved to refer to normal system memory.
- 
- Value shall reflect the amount of storage currently consumed by the buffer
- objects belong to this client, in the respective memory region.
-@@ -136,6 +138,9 @@ objects belong to this client, in the respective memory region.
- Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
- indicating kibi- or mebi-bytes.
- 
-+This is an alias for drm-total-<region> and only one of the two should be
-+present.
-+
- - drm-shared-<region>: <uint> [KiB|MiB]
- 
- The total size of buffers that are shared with another file (e.g., have more
-@@ -145,6 +150,9 @@ than a single handle).
- 
- The total size of buffers that including shared and private memory.
- 
-+This is an alias for drm-memory-<region> and only one of the two should be
-+present.
-+
- - drm-resident-<region>: <uint> [KiB|MiB]
- 
- The total size of buffers that are resident in the specified region.
--- 
-2.44.0
+
+--b2_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0--
+
+--b1_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0
+Content-Type: text/x-patch; name=amdgpu-ignore-min-pcap.patch
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=amdgpu-ignore-min-pcap.patch
+
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKaW5kZXggNTBmNTdkNGRmZDhmLi5iODM2OTdi
+NzUyMjEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCisr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCkBAIC0xNTEsNiArMTUxLDcg
+QEAgc3RydWN0IGFtZGdwdV93YXRjaGRvZ190aW1lcgogICovCiBleHRlcm4gaW50IGFtZGdwdV9t
+b2Rlc2V0OwogZXh0ZXJuIHVuc2lnbmVkIGludCBhbWRncHVfdnJhbV9saW1pdDsKK2V4dGVybiBp
+bnQgYW1kZ3B1X2lnbm9yZV9taW5fcGNhcDsKIGV4dGVybiBpbnQgYW1kZ3B1X3Zpc192cmFtX2xp
+bWl0OwogZXh0ZXJuIGludCBhbWRncHVfZ2FydF9zaXplOwogZXh0ZXJuIGludCBhbWRncHVfZ3R0
+X3NpemU7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKaW5kZXggYTdhZDc3
+ZWQwOWNhLi4yYjdlZDJlNDhlMzMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kcnYuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZHJ2LmMKQEAgLTEzMSw2ICsxMzEsNyBAQCBlbnVtIEFNREdQVV9ERUJVR19NQVNLIHsKIH07CiAK
+IHVuc2lnbmVkIGludCBhbWRncHVfdnJhbV9saW1pdCA9IFVJTlRfTUFYOworaW50IGFtZGdwdV9p
+Z25vcmVfbWluX3BjYXAgPSAwOyAvKiBkbyBub3QgaWdub3JlIGJ5IGRlZmF1bHQgKi8KIGludCBh
+bWRncHVfdmlzX3ZyYW1fbGltaXQ7CiBpbnQgYW1kZ3B1X2dhcnRfc2l6ZSA9IC0xOyAvKiBhdXRv
+ICovCiBpbnQgYW1kZ3B1X2d0dF9zaXplID0gLTE7IC8qIGF1dG8gKi8KQEAgLTIzOCw2ICsyMzks
+MTUgQEAgc3RydWN0IGFtZGdwdV93YXRjaGRvZ190aW1lciBhbWRncHVfd2F0Y2hkb2dfdGltZXIg
+PSB7CiAJLnBlcmlvZCA9IDB4MCwgLyogZGVmYXVsdCB0byAweDAgKHRpbWVvdXQgZGlzYWJsZSkg
+Ki8KIH07CiAKKy8qKgorICogRE9DOiBpZ25vcmVfbWluX3BjYXAgKGludCkKKyAqIElnbm9yZSB0
+aGUgbWluaW11bSBwb3dlciBjYXAuCisgKiBVc2VmdWwgb24gZ3JhcGhpY3MgY2FyZHMgd2hlcmUg
+dGhlIG1pbmltdW0gcG93ZXIgY2FwIGlzIHZlcnkgaGlnaC4KKyAqIFRoZSBkZWZhdWx0IGlzIDAg
+KERvIG5vdCBpZ25vcmUpLgorICovCitNT0RVTEVfUEFSTV9ERVNDKGlnbm9yZV9taW5fcGNhcCwg
+Iklnbm9yZSB0aGUgbWluaW11bSBwb3dlciBjYXAiKTsKK21vZHVsZV9wYXJhbV9uYW1lZChpZ25v
+cmVfbWluX3BjYXAsIGFtZGdwdV9pZ25vcmVfbWluX3BjYXAsIGludCwgMDYwMCk7CisKIC8qKgog
+ICogRE9DOiB2cmFtbGltaXQgKGludCkKICAqIFJlc3RyaWN0IHRoZSB0b3RhbCBhbW91bnQgb2Yg
+VlJBTSBpbiBNaUIgZm9yIHRlc3RpbmcuICBUaGUgZGVmYXVsdCBpcyAwIChVc2UgZnVsbCBWUkFN
+KS4KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vYW1kZ3B1X3BtLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL3BtL2FtZGdwdV9wbS5jCmluZGV4IDIwYzUzZWVmZDY4MC4uNmQwMGNh
+ZTljYWVjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2FtZGdwdV9wbS5jCisr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vYW1kZ3B1X3BtLmMKQEAgLTI5ODQsNiArMjk4NCw5
+IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9od21vbl9zaG93X3Bvd2VyX2NhcF9taW4oc3RydWN0
+IGRldmljZSAqZGV2LAogCQkJCQkgc3RydWN0IGRldmljZV9hdHRyaWJ1dGUgKmF0dHIsCiAJCQkJ
+CSBjaGFyICpidWYpCiB7CisJaWYgKGFtZGdwdV9pZ25vcmVfbWluX3BjYXApCisJCXJldHVybiBz
+eXNmc19lbWl0KGJ1ZiwgIiVpXG4iLCAwKTsKKwogCXJldHVybiBhbWRncHVfaHdtb25fc2hvd19w
+b3dlcl9jYXBfZ2VuZXJpYyhkZXYsIGF0dHIsIGJ1ZiwgUFBfUFdSX0xJTUlUX01JTik7CiB9CiAK
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvYW1kZ3B1X3NtdS5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9hbWRncHVfc211LmMKaW5kZXggNjBkY2UxNDhi
+MmQ3Li43Mjg5MTgxMWIyZDUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dz
+bXUvYW1kZ3B1X3NtdS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvYW1kZ3B1
+X3NtdS5jCkBAIC0yNDg3LDcgKzI0ODcsMTAgQEAgaW50IHNtdV9nZXRfcG93ZXJfbGltaXQodm9p
+ZCAqaGFuZGxlLAogCQkJKmxpbWl0ID0gc211LT5tYXhfcG93ZXJfbGltaXQ7CiAJCQlicmVhazsK
+IAkJY2FzZSBTTVVfUFBUX0xJTUlUX01JTjoKLQkJCSpsaW1pdCA9IHNtdS0+bWluX3Bvd2VyX2xp
+bWl0OworCQkJaWYgKGFtZGdwdV9pZ25vcmVfbWluX3BjYXApCisJCQkJKmxpbWl0ID0gMDsKKwkJ
+CWVsc2UKKwkJCQkqbGltaXQgPSBzbXUtPm1pbl9wb3dlcl9saW1pdDsKIAkJCWJyZWFrOwogCQlk
+ZWZhdWx0OgogCQkJcmV0dXJuIC1FSU5WQUw7CkBAIC0yNTExLDcgKzI1MTQsMTQgQEAgc3RhdGlj
+IGludCBzbXVfc2V0X3Bvd2VyX2xpbWl0KHZvaWQgKmhhbmRsZSwgdWludDMyX3QgbGltaXQpCiAJ
+CWlmIChzbXUtPnBwdF9mdW5jcy0+c2V0X3Bvd2VyX2xpbWl0KQogCQkJcmV0dXJuIHNtdS0+cHB0
+X2Z1bmNzLT5zZXRfcG93ZXJfbGltaXQoc211LCBsaW1pdF90eXBlLCBsaW1pdCk7CiAKLQlpZiAo
+KGxpbWl0ID4gc211LT5tYXhfcG93ZXJfbGltaXQpIHx8IChsaW1pdCA8IHNtdS0+bWluX3Bvd2Vy
+X2xpbWl0KSkgeworCWlmIChhbWRncHVfaWdub3JlX21pbl9wY2FwKSB7CisJCWlmICgobGltaXQg
+PiBzbXUtPm1heF9wb3dlcl9saW1pdCkpIHsKKwkJCWRldl9lcnIoc211LT5hZGV2LT5kZXYsCisJ
+CQkJIk5ldyBwb3dlciBsaW1pdCAoJWQpIGlzIG92ZXIgdGhlIG1heCBhbGxvd2VkICVkXG4iLAor
+CQkJCWxpbWl0LCBzbXUtPm1heF9wb3dlcl9saW1pdCk7CisJCQlyZXR1cm4gLUVJTlZBTDsKKwkJ
+fQorCX0gZWxzZSBpZiAoKGxpbWl0ID4gc211LT5tYXhfcG93ZXJfbGltaXQpIHx8IChsaW1pdCA8
+IHNtdS0+bWluX3Bvd2VyX2xpbWl0KSkgewogCQlkZXZfZXJyKHNtdS0+YWRldi0+ZGV2LAogCQkJ
+Ik5ldyBwb3dlciBsaW1pdCAoJWQpIGlzIG91dCBvZiByYW5nZSBbJWQsJWRdXG4iLAogCQkJbGlt
+aXQsIHNtdS0+bWluX3Bvd2VyX2xpbWl0LCBzbXUtPm1heF9wb3dlcl9saW1pdCk7Cg==
+
+--b1_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0--
 
