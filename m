@@ -4,38 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97507C4345F
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 13:10:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49EC8C4345F
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 May 2024 13:10:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B52E1127BF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D285B112A1A;
 	Fri,  3 May 2024 13:10:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="Jw3XUDgX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="j+h7jgG7";
 	dkim-atps=neutral
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8153110FB88
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 May 2024 12:06:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1714737960; x=1714997160;
- bh=+5BgPx8/X+xKpVku8ib8P/X2LrKEZpn/SSX+zss59n4=;
- h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=Jw3XUDgXDZ9Dwwz1RFnrx8lLobof04nzYd/oXFIJbZv4HkIAkhOSkQFTB96bK+quP
- wAwb9PdVtsa5yrQej5hTjPBQBgC0B914JSQ/RxRCrBsmKVYrS5YF0EmeeV1P1lgslu
- pfcSqO9v+jQgVVkZ+gp7O45RLzmh68FoTMqV/IZnGQqWzEtwkBYxsAqrF8zaEXiuU7
- yveUUrarF2EHnbR6YFqd8VYI4WbLUK5jvL66NurHm3ggzc1wj7kFlHEiNGLZlV4VgO
- HEEgnNx2ddaeSz/FHswd53iFgkBUgC6VMJKi9k9cnhPS2gcN3jLPmAG/ZOXfo0ZXOG
- vQo85TigMqrdg==
-Date: Fri, 03 May 2024 12:05:54 +0000
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-From: fililip <fililip6483@protonmail.com>
-Subject: Allow setting a power cap that's lower than recommended
-Message-ID: <1VLcj5GzcoG1-O6-r7zBAGyAXVUTTIHMyJRR8Svf-ckgPom-otJt8N3sT5oPHvLOiYjvdXx6zfZ3zatRHJFGsitQKAA8mHNV57KoFBMjNJk=@protonmail.com>
-Feedback-ID: 108819700:user:proton
-X-Pm-Message-ID: f9197727cdb0e35ac376fc91cc5e450d70bb55ed
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 323CF10EA92;
+ Fri,  3 May 2024 10:18:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1714731526; x=1746267526;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=10Jfz7g2I63T6OjaKjymVfcINKOaZ2J6fHxtq+P/NAM=;
+ b=j+h7jgG7i6HgGQNI2Jpz3aiJCo/SDy67Xx2R+VJBeX6/sHeH6e6PPB4r
+ bAL3ZtDeRljDnk2V141NaugnaIjl6JhtoVTXryXJeJv/fJ8dH2zi+Lasw
+ 4vRflK+FsD7j6IAvfLpxo4e1QnTBNUQMtcnt5QPu+jcUvQ8tw3wQzS8ZE
+ r/fQHuQzqOxFLqXu9OkkxC1JCw1qre9jK0OAOTJZH/sRwXLkS1uj43Xbg
+ yDWtqCItYmX/RyY6wWpE4Yl1D5tD3308qpQl3m1sy1YUrffJRxIpbUfId
+ fhL04jDY8Catj2hT68EFwDkVd2pwV6IvZT2SiI510ijgU804jOf5AAKzR w==;
+X-CSE-ConnectionGUID: 8tbpPYWUSa2PYingGTMiJQ==
+X-CSE-MsgGUID: 3LsCpRbwRA2WSM+9NmrKvQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11062"; a="10386646"
+X-IronPort-AV: E=Sophos;i="6.07,251,1708416000"; d="scan'208";a="10386646"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2024 03:18:45 -0700
+X-CSE-ConnectionGUID: fg5BmVqpSRyyi5slzLMDnA==
+X-CSE-MsgGUID: IEo6vwxzSGqiLHBTgxJ77A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,251,1708416000"; d="scan'208";a="32215585"
+Received: from ijarvine-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.247.56])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2024 03:18:42 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 3 May 2024 13:18:35 +0300 (EEST)
+To: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ dri-devel@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+ linux-rdma@vger.kernel.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>, 
+ =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
+ Lukas Wunner <lukas@wunner.de>, 
+ Dean Luick <dean.luick@cornelisnetworks.com>
+Subject: Re: [PATCH 3/3] RDMA/hfi1: Use RMW accessors for changing LNKCTL2
+In-Reply-To: <20240215133155.9198-4-ilpo.jarvinen@linux.intel.com>
+Message-ID: <26be3948-e687-f510-0612-abcac5d919af@linux.intel.com>
+References: <20240215133155.9198-1-ilpo.jarvinen@linux.intel.com>
+ <20240215133155.9198-4-ilpo.jarvinen@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="b1_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0"
+Content-Type: multipart/mixed; boundary="8323328-818284186-1714731515=:1852"
 X-Mailman-Approved-At: Fri, 03 May 2024 13:10:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,98 +76,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
---b1_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0
-Content-Type: multipart/alternative;
- boundary="b2_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0"
+--8323328-818284186-1714731515=:1852
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
---b2_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
+On Thu, 15 Feb 2024, Ilpo J=C3=A4rvinen wrote:
 
-VGhpcyBwYXRjaCBhbGxvd3Mgc2V0dGluZyBhIGxvdyBwb3dlciBjYXAgaWYgaWdub3JlX21pbl9w
-Y2Fw4oCLIGlzIHNldCB0byAxLgoKU2lnbmVkLW9mZi1ieTogZmlsaWxpcCA8ZmlsaWxpcDY0ODNA
-cHJvdG9ubWFpbC5jb20+
+> Convert open coded RMW accesses for LNKCTL2 to use
+> pcie_capability_clear_and_set_word() which makes its easier to
+> understand what the code tries to do.
+>=20
+> LNKCTL2 is not really owned by any driver because it is a collection of
+> control bits that PCI core might need to touch. RMW accessors already
+> have support for proper locking for a selected set of registers
+> (LNKCTL2 is not yet among them but likely will be in the future) to
+> avoid losing concurrent updates.
+>=20
+> Suggested-by: Lukas Wunner <lukas@wunner.de>
+> Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+> Reviewed-by: Dean Luick <dean.luick@cornelisnetworks.com>
 
---b2_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: base64
+I found out from Linux RDMA and InfiniBand patchwork that this patch had=20
+been silently closed as "Not Applicable". Is there some reason for that?
 
-PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
-cHg7Ij5UaGlzIHBhdGNoIGFsbG93cyBzZXR0aW5nIGEgbG93IHBvd2VyIGNhcCBpZiA8Y29kZT5p
-Z25vcmVfbWluX3BjYXA8L2NvZGU+4oCLIGlzIHNldCB0byAxLjxicj48L2Rpdj48ZGl2IHN0eWxl
-PSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsiPjxicj48
-L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6
-ZTogMTRweDsiPlNpZ25lZC1vZmYtYnk6IGZpbGlsaXAgJmx0O2ZpbGlsaXA2NDgzQHByb3Rvbm1h
-aWwuY29tJmd0Ozxicj48L2Rpdj4=
+I was sending this change independently out (among 2 similar ones that=20
+already got applied) so I wouldn't need to keep carrying it within my PCIe=
+=20
+bandwidth controller series. It seemed useful enough as cleanups to stand=
+=20
+on its own legs w/o requiring it to be part of PCIe bw controller series.
 
+Should I resend the patch or do RDMA/IB maintainers prefer it to remain=20
+as a part of PCIe BW controller series?
 
---b2_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0--
+--=20
+ i.
 
---b1_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0
-Content-Type: text/x-patch; name=amdgpu-ignore-min-pcap.patch
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename=amdgpu-ignore-min-pcap.patch
-
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKaW5kZXggNTBmNTdkNGRmZDhmLi5iODM2OTdi
-NzUyMjEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCkBAIC0xNTEsNiArMTUxLDcg
-QEAgc3RydWN0IGFtZGdwdV93YXRjaGRvZ190aW1lcgogICovCiBleHRlcm4gaW50IGFtZGdwdV9t
-b2Rlc2V0OwogZXh0ZXJuIHVuc2lnbmVkIGludCBhbWRncHVfdnJhbV9saW1pdDsKK2V4dGVybiBp
-bnQgYW1kZ3B1X2lnbm9yZV9taW5fcGNhcDsKIGV4dGVybiBpbnQgYW1kZ3B1X3Zpc192cmFtX2xp
-bWl0OwogZXh0ZXJuIGludCBhbWRncHVfZ2FydF9zaXplOwogZXh0ZXJuIGludCBhbWRncHVfZ3R0
-X3NpemU7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKaW5kZXggYTdhZDc3
-ZWQwOWNhLi4yYjdlZDJlNDhlMzMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9kcnYuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZHJ2LmMKQEAgLTEzMSw2ICsxMzEsNyBAQCBlbnVtIEFNREdQVV9ERUJVR19NQVNLIHsKIH07CiAK
-IHVuc2lnbmVkIGludCBhbWRncHVfdnJhbV9saW1pdCA9IFVJTlRfTUFYOworaW50IGFtZGdwdV9p
-Z25vcmVfbWluX3BjYXAgPSAwOyAvKiBkbyBub3QgaWdub3JlIGJ5IGRlZmF1bHQgKi8KIGludCBh
-bWRncHVfdmlzX3ZyYW1fbGltaXQ7CiBpbnQgYW1kZ3B1X2dhcnRfc2l6ZSA9IC0xOyAvKiBhdXRv
-ICovCiBpbnQgYW1kZ3B1X2d0dF9zaXplID0gLTE7IC8qIGF1dG8gKi8KQEAgLTIzOCw2ICsyMzks
-MTUgQEAgc3RydWN0IGFtZGdwdV93YXRjaGRvZ190aW1lciBhbWRncHVfd2F0Y2hkb2dfdGltZXIg
-PSB7CiAJLnBlcmlvZCA9IDB4MCwgLyogZGVmYXVsdCB0byAweDAgKHRpbWVvdXQgZGlzYWJsZSkg
-Ki8KIH07CiAKKy8qKgorICogRE9DOiBpZ25vcmVfbWluX3BjYXAgKGludCkKKyAqIElnbm9yZSB0
-aGUgbWluaW11bSBwb3dlciBjYXAuCisgKiBVc2VmdWwgb24gZ3JhcGhpY3MgY2FyZHMgd2hlcmUg
-dGhlIG1pbmltdW0gcG93ZXIgY2FwIGlzIHZlcnkgaGlnaC4KKyAqIFRoZSBkZWZhdWx0IGlzIDAg
-KERvIG5vdCBpZ25vcmUpLgorICovCitNT0RVTEVfUEFSTV9ERVNDKGlnbm9yZV9taW5fcGNhcCwg
-Iklnbm9yZSB0aGUgbWluaW11bSBwb3dlciBjYXAiKTsKK21vZHVsZV9wYXJhbV9uYW1lZChpZ25v
-cmVfbWluX3BjYXAsIGFtZGdwdV9pZ25vcmVfbWluX3BjYXAsIGludCwgMDYwMCk7CisKIC8qKgog
-ICogRE9DOiB2cmFtbGltaXQgKGludCkKICAqIFJlc3RyaWN0IHRoZSB0b3RhbCBhbW91bnQgb2Yg
-VlJBTSBpbiBNaUIgZm9yIHRlc3RpbmcuICBUaGUgZGVmYXVsdCBpcyAwIChVc2UgZnVsbCBWUkFN
-KS4KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vYW1kZ3B1X3BtLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3BtL2FtZGdwdV9wbS5jCmluZGV4IDIwYzUzZWVmZDY4MC4uNmQwMGNh
-ZTljYWVjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL2FtZGdwdV9wbS5jCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vYW1kZ3B1X3BtLmMKQEAgLTI5ODQsNiArMjk4NCw5
-IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9od21vbl9zaG93X3Bvd2VyX2NhcF9taW4oc3RydWN0
-IGRldmljZSAqZGV2LAogCQkJCQkgc3RydWN0IGRldmljZV9hdHRyaWJ1dGUgKmF0dHIsCiAJCQkJ
-CSBjaGFyICpidWYpCiB7CisJaWYgKGFtZGdwdV9pZ25vcmVfbWluX3BjYXApCisJCXJldHVybiBz
-eXNmc19lbWl0KGJ1ZiwgIiVpXG4iLCAwKTsKKwogCXJldHVybiBhbWRncHVfaHdtb25fc2hvd19w
-b3dlcl9jYXBfZ2VuZXJpYyhkZXYsIGF0dHIsIGJ1ZiwgUFBfUFdSX0xJTUlUX01JTik7CiB9CiAK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvYW1kZ3B1X3NtdS5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9hbWRncHVfc211LmMKaW5kZXggNjBkY2UxNDhi
-MmQ3Li43Mjg5MTgxMWIyZDUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dz
-bXUvYW1kZ3B1X3NtdS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvYW1kZ3B1
-X3NtdS5jCkBAIC0yNDg3LDcgKzI0ODcsMTAgQEAgaW50IHNtdV9nZXRfcG93ZXJfbGltaXQodm9p
-ZCAqaGFuZGxlLAogCQkJKmxpbWl0ID0gc211LT5tYXhfcG93ZXJfbGltaXQ7CiAJCQlicmVhazsK
-IAkJY2FzZSBTTVVfUFBUX0xJTUlUX01JTjoKLQkJCSpsaW1pdCA9IHNtdS0+bWluX3Bvd2VyX2xp
-bWl0OworCQkJaWYgKGFtZGdwdV9pZ25vcmVfbWluX3BjYXApCisJCQkJKmxpbWl0ID0gMDsKKwkJ
-CWVsc2UKKwkJCQkqbGltaXQgPSBzbXUtPm1pbl9wb3dlcl9saW1pdDsKIAkJCWJyZWFrOwogCQlk
-ZWZhdWx0OgogCQkJcmV0dXJuIC1FSU5WQUw7CkBAIC0yNTExLDcgKzI1MTQsMTQgQEAgc3RhdGlj
-IGludCBzbXVfc2V0X3Bvd2VyX2xpbWl0KHZvaWQgKmhhbmRsZSwgdWludDMyX3QgbGltaXQpCiAJ
-CWlmIChzbXUtPnBwdF9mdW5jcy0+c2V0X3Bvd2VyX2xpbWl0KQogCQkJcmV0dXJuIHNtdS0+cHB0
-X2Z1bmNzLT5zZXRfcG93ZXJfbGltaXQoc211LCBsaW1pdF90eXBlLCBsaW1pdCk7CiAKLQlpZiAo
-KGxpbWl0ID4gc211LT5tYXhfcG93ZXJfbGltaXQpIHx8IChsaW1pdCA8IHNtdS0+bWluX3Bvd2Vy
-X2xpbWl0KSkgeworCWlmIChhbWRncHVfaWdub3JlX21pbl9wY2FwKSB7CisJCWlmICgobGltaXQg
-PiBzbXUtPm1heF9wb3dlcl9saW1pdCkpIHsKKwkJCWRldl9lcnIoc211LT5hZGV2LT5kZXYsCisJ
-CQkJIk5ldyBwb3dlciBsaW1pdCAoJWQpIGlzIG92ZXIgdGhlIG1heCBhbGxvd2VkICVkXG4iLAor
-CQkJCWxpbWl0LCBzbXUtPm1heF9wb3dlcl9saW1pdCk7CisJCQlyZXR1cm4gLUVJTlZBTDsKKwkJ
-fQorCX0gZWxzZSBpZiAoKGxpbWl0ID4gc211LT5tYXhfcG93ZXJfbGltaXQpIHx8IChsaW1pdCA8
-IHNtdS0+bWluX3Bvd2VyX2xpbWl0KSkgewogCQlkZXZfZXJyKHNtdS0+YWRldi0+ZGV2LAogCQkJ
-Ik5ldyBwb3dlciBsaW1pdCAoJWQpIGlzIG91dCBvZiByYW5nZSBbJWQsJWRdXG4iLAogCQkJbGlt
-aXQsIHNtdS0+bWluX3Bvd2VyX2xpbWl0LCBzbXUtPm1heF9wb3dlcl9saW1pdCk7Cg==
-
---b1_5XBYu9ZygzFr1zW5QM6H1s4QbXM5qp9WEjfFB0vxI0--
-
+> ---
+>  drivers/infiniband/hw/hfi1/pcie.c | 30 ++++++++----------------------
+>  1 file changed, 8 insertions(+), 22 deletions(-)
+>=20
+> diff --git a/drivers/infiniband/hw/hfi1/pcie.c b/drivers/infiniband/hw/hf=
+i1/pcie.c
+> index 119ec2f1382b..7133964749f8 100644
+> --- a/drivers/infiniband/hw/hfi1/pcie.c
+> +++ b/drivers/infiniband/hw/hfi1/pcie.c
+> @@ -1207,14 +1207,11 @@ int do_pcie_gen3_transition(struct hfi1_devdata *=
+dd)
+>  =09=09    (u32)lnkctl2);
+>  =09/* only write to parent if target is not as high as ours */
+>  =09if ((lnkctl2 & PCI_EXP_LNKCTL2_TLS) < target_vector) {
+> -=09=09lnkctl2 &=3D ~PCI_EXP_LNKCTL2_TLS;
+> -=09=09lnkctl2 |=3D target_vector;
+> -=09=09dd_dev_info(dd, "%s: ..new link control2: 0x%x\n", __func__,
+> -=09=09=09    (u32)lnkctl2);
+> -=09=09ret =3D pcie_capability_write_word(parent,
+> -=09=09=09=09=09=09 PCI_EXP_LNKCTL2, lnkctl2);
+> +=09=09ret =3D pcie_capability_clear_and_set_word(parent, PCI_EXP_LNKCTL2=
+,
+> +=09=09=09=09=09=09=09 PCI_EXP_LNKCTL2_TLS,
+> +=09=09=09=09=09=09=09 target_vector);
+>  =09=09if (ret) {
+> -=09=09=09dd_dev_err(dd, "Unable to write to PCI config\n");
+> +=09=09=09dd_dev_err(dd, "Unable to change parent PCI target speed\n");
+>  =09=09=09return_error =3D 1;
+>  =09=09=09goto done;
+>  =09=09}
+> @@ -1223,22 +1220,11 @@ int do_pcie_gen3_transition(struct hfi1_devdata *=
+dd)
+>  =09}
+> =20
+>  =09dd_dev_info(dd, "%s: setting target link speed\n", __func__);
+> -=09ret =3D pcie_capability_read_word(dd->pcidev, PCI_EXP_LNKCTL2, &lnkct=
+l2);
+> +=09ret =3D pcie_capability_clear_and_set_word(dd->pcidev, PCI_EXP_LNKCTL=
+2,
+> +=09=09=09=09=09=09 PCI_EXP_LNKCTL2_TLS,
+> +=09=09=09=09=09=09 target_vector);
+>  =09if (ret) {
+> -=09=09dd_dev_err(dd, "Unable to read from PCI config\n");
+> -=09=09return_error =3D 1;
+> -=09=09goto done;
+> -=09}
+> -
+> -=09dd_dev_info(dd, "%s: ..old link control2: 0x%x\n", __func__,
+> -=09=09    (u32)lnkctl2);
+> -=09lnkctl2 &=3D ~PCI_EXP_LNKCTL2_TLS;
+> -=09lnkctl2 |=3D target_vector;
+> -=09dd_dev_info(dd, "%s: ..new link control2: 0x%x\n", __func__,
+> -=09=09    (u32)lnkctl2);
+> -=09ret =3D pcie_capability_write_word(dd->pcidev, PCI_EXP_LNKCTL2, lnkct=
+l2);
+> -=09if (ret) {
+> -=09=09dd_dev_err(dd, "Unable to write to PCI config\n");
+> +=09=09dd_dev_err(dd, "Unable to change device PCI target speed\n");
+>  =09=09return_error =3D 1;
+>  =09=09goto done;
+>  =09}
+>=20
+--8323328-818284186-1714731515=:1852--
