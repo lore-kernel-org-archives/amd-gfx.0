@@ -4,60 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDFC0C25B5F
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 10:00:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75D06C25B75
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 10:00:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5832A11228D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7298B112BB2;
 	Mon,  6 May 2024 10:00:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="rkGr+1kX";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rTKSWbdi";
 	dkim-atps=neutral
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3790111315A;
- Fri,  3 May 2024 16:48:55 +0000 (UTC)
-Received: from [100.65.224.148] (unknown [20.236.10.206])
- by linux.microsoft.com (Postfix) with ESMTPSA id ED65B20B2C82;
- Fri,  3 May 2024 09:48:53 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com ED65B20B2C82
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1714754934;
- bh=GAu8Rak4A+pCgzw/uvyDGmtVcqwJgPNajSTWUoSmEQw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=rkGr+1kX0SctOUPwkhdrQ4qFQeA027/UkwhMstN1oK11s07V0R7Wi7aRofjAnlC1w
- NT0xX9K1RqDBBTorM82GqIiYoTbasEg2t4t6Fe9M8VXV9I+qcP4kpK+ALqrx64mma1
- /QTPAvj8aVxAk84+SPJbJzAv82Hdw3+D0Hq7DSGc=
-Message-ID: <6256cc5a-9ff0-4a1f-8eba-f70b7c571631@linux.microsoft.com>
-Date: Fri, 3 May 2024 09:48:53 -0700
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+ [209.85.208.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FD5810FCCF
+ for <amd-gfx@lists.freedesktop.org>; Sat,  4 May 2024 19:35:20 +0000 (UTC)
+Received: by mail-lj1-f182.google.com with SMTP id
+ 38308e7fff4ca-2e2a4c20870so9344421fa.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 04 May 2024 12:35:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1714851318; x=1715456118; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=cdVSQr/7CPcSlh4WK6ZvPRfcGlbe0X3nwpemri+xm6k=;
+ b=rTKSWbdid0IxcfW199Atetj/UvqsFMvkwmjX+1YgMpbllvS3jk527ubppsKGM1NUjv
+ 1DfEopvflCtS1HSyBHNISamRp/XpAvrRq5c6oNp15pDePgdGP4Q0djh02lyVkGU3UQuq
+ 7B8oKIwq5ITeDzaGRVmKWsflwyKhFZNtSCVXWOOlHCSOSmssNCb+d+BZqjIDLQraduO4
+ CL+cNCFXqd9pwxqErFE7GxKAFKOOBJXFSf918FNG12nL/WTZur/6Ga2sJh0a1SXbWn6F
+ ku+XLHNJqaHuxhJzXb5qPloN8Zud2O4350UqQxMElBFoLyo72ZwWEKYGR2c0D3n5mu84
+ 5x6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1714851318; x=1715456118;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=cdVSQr/7CPcSlh4WK6ZvPRfcGlbe0X3nwpemri+xm6k=;
+ b=taYlqsDUAZ3o42E7VH3iuLEpuOjMQ0FJg0lFKWYa3sd5YVrE4tCQRQEA5e+QuTDjT1
+ mzPn8zpp+t/8E8oFSx/8skHUNO2V4ocEkgsHkJOxEajCQ6GFOWnuEOPa3oXBN91c8ndu
+ sfvW/vA/vTBwHt+34+KeFkTOZDjznDVA6Hx1V9Coj9gOdDbGfunE9bxTIun6Qn9ZMnWl
+ VfWpuLJOXVw0Nd2VQmp1FoowcPQcegOabVKoB0R18oC7RivyoQkTw9/Cl3fmw9D9TOYh
+ icRW2FyUmMByjdjjVNHcSBcHxpe+zhyE1WkvoCtaSGz/4lA9Z85770p4ivNWBKrkt8Js
+ C0Kg==
+X-Gm-Message-State: AOJu0Yx3L2MlYmwkVsDMrSvfdoyoWOtz/q4+jZFRaoaGPuhMZvImO6hF
+ F2RuIe6MlEFaERmqM7E8oSFFkdijb6XFpIPBgPSkH+KFmysBP20TWAvtpKuisJc=
+X-Google-Smtp-Source: AGHT+IFLDscnsfbimEunCA6BjoBMvxcyRsk4PiPHBiYqu/BCr6t3Zyor6hntyTEhiVgqSwcquXuWGQ==
+X-Received: by 2002:a2e:990c:0:b0:2df:b8f5:2e66 with SMTP id
+ v12-20020a2e990c000000b002dfb8f52e66mr3593924lji.15.1714851317635; 
+ Sat, 04 May 2024 12:35:17 -0700 (PDT)
+Received: from localhost ([102.222.70.76]) by smtp.gmail.com with ESMTPSA id
+ fc16-20020a05600c525000b00418d68df226sm13961554wmb.0.2024.05.04.12.35.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 04 May 2024 12:35:17 -0700 (PDT)
+Date: Sat, 4 May 2024 22:35:13 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: sreekant.somasekharan@amd.com
+Cc: amd-gfx@lists.freedesktop.org
+Subject: [bug report] drm/amdkfd: mark GFX12 system and peer GPU memory
+ mappings as MTYPE_NC
+Message-ID: <52b003ec-a570-49f5-9150-79f8feb46339@moroto.mountain>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 12/12] fbdev/viafb: Make I2C terminology more inclusive
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- Florian Tobias Schandinat <FlorianSchandinat@gmx.de>,
- Helge Deller <deller@gmx.de>,
- "open list:VIA UNICHROME(PRO)/CHROME9 FRAMEBUFFER DRIVER"
- <linux-fbdev@vger.kernel.org>,
- "open list:FRAMEBUFFER LAYER" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>,
- "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
- "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>
-References: <20240430173812.1423757-1-eahariha@linux.microsoft.com>
- <20240430173812.1423757-13-eahariha@linux.microsoft.com>
- <271ad513-0ea1-45df-ba0f-51582474ff34@suse.de>
- <076e0a0d-ad26-490e-9784-300ed52637ca@linux.microsoft.com>
- <f1eccd9d-885f-4508-9325-3454ecc35eae@suse.de>
-Content-Language: en-CA
-From: Easwar Hariharan <eahariha@linux.microsoft.com>
-In-Reply-To: <f1eccd9d-885f-4508-9325-3454ecc35eae@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Mon, 06 May 2024 09:59:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,48 +76,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/3/2024 12:39 AM, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 03.05.24 um 00:26 schrieb Easwar Hariharan:
->> On 5/2/2024 3:46 AM, Thomas Zimmermann wrote:
->>>
->>> Am 30.04.24 um 19:38 schrieb Easwar Hariharan:
->>>> I2C v7, SMBus 3.2, and I3C 1.1.1 specifications have replaced "master/slave"
->>>> with more appropriate terms. Inspired by and following on to Wolfram's
->>>> series to fix drivers/i2c/[1], fix the terminology for users of
->>>> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
->>>> in the specification.
->>>>
->>>> Compile tested, no functionality changes intended
->>>>
->>>> [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
->>>>
->>>> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
->>> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
->>>
->> Thanks for the ack! I had been addressing feedback as I got it on the v0 series, and it seems
->> I missed out on updating viafb and smscufx to spec-compliant controller/target terminology like
->> the v0->v1 changelog calls out before posting v1.
->>
->> For smscufx, I feel phrasing the following line (as an example)
->>
->>> -/* sets up I2C Controller for 100 Kbps, std. speed, 7-bit addr, host,
->>> +/* sets up I2C Controller for 100 Kbps, std. speed, 7-bit addr, *controller*,
->> would actually impact readability negatively, so I propose to leave smscufx as is.
-> 
-> Why? I don't see much of a difference.
-> 
->>
->> For viafb, I propose making it compliant with the spec using the controller/target terminology and
->> posting a v2 respin (which I can send out as soon as you say) and ask you to review again.
->>
->> What do you think?
-> 
-> I think we should adopt the spec's language everywhere. That makes it possible to grep the spec for terms used in the source code. Using 'host' in smscufx appears to introduce yet another term. If you are worried about using 'I2C controller' and 'controller' in the same sentence, you can replace 'I2C controller' with 'DDC channel'. That's even more precise about the purpose of this code.
+Hello Sreekant Somasekharan,
 
-Great, thanks! That was exactly my concern, I will fix up smscufx and send a v2.
+This is a semi-automatic email about new static checker warnings.
 
-Thanks,
-Easwar
+Commit 628e1ace2379 ("drm/amdkfd: mark GFX12 system and peer GPU
+memory mappings as MTYPE_NC") from Mar 26, 2024, leads to the
+following Smatch complaint:
 
+    drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c:518 gmc_v12_0_get_vm_pte()
+    warn: variable dereferenced before check 'bo' (see line 500)
+
+drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+   499		struct amdgpu_bo *bo = mapping->bo_va->base.bo;
+   500		struct amdgpu_device *bo_adev = amdgpu_ttm_adev(bo->tbo.bdev);
+                                                                ^^^^
+   501		bool coherent = bo->flags & AMDGPU_GEM_CREATE_COHERENT;
+                                ^^^^^^^^^
+   502		bool is_system = bo->tbo.resource->mem_type == TTM_PL_SYSTEM;
+                                 ^^^^^^^
+The patch adds unchecked dereferences.
+
+   503	
+   504	
+   505		*flags &= ~AMDGPU_PTE_EXECUTABLE;
+   506		*flags |= mapping->flags & AMDGPU_PTE_EXECUTABLE;
+   507	
+   508		*flags &= ~AMDGPU_PTE_MTYPE_GFX12_MASK;
+   509		*flags |= (mapping->flags & AMDGPU_PTE_MTYPE_GFX12_MASK);
+   510	
+   511		if (mapping->flags & AMDGPU_PTE_PRT_GFX12) {
+   512			*flags |= AMDGPU_PTE_PRT_GFX12;
+   513			*flags |= AMDGPU_PTE_SNOOPED;
+   514			*flags |= AMDGPU_PTE_SYSTEM;
+   515			*flags &= ~AMDGPU_PTE_VALID;
+   516		}
+   517	
+   518		if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
+                    ^^
+But previously we assumed bo could be NULL.
+
+   519				       AMDGPU_GEM_CREATE_UNCACHED))
+   520			*flags = (*flags & ~AMDGPU_PTE_MTYPE_GFX12_MASK) |
+
+regards,
+dan carpenter
