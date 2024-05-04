@@ -4,55 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00E31C10F16
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 10:00:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69C66C25B75
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 10:00:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A34A6112F39;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE56C112F3D;
 	Mon,  6 May 2024 10:00:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="CG7Suy4l";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="MFa/E2S7";
 	dkim-atps=neutral
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 00B6E1126F8;
- Fri,  3 May 2024 18:15:02 +0000 (UTC)
-Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.8.16])
- by linux.microsoft.com (Postfix) with ESMTPSA id 95669207DBCB;
- Fri,  3 May 2024 11:15:02 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 95669207DBCB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1714760102;
- bh=aYIH3pT2kZNnpKrmf+0ABnKJUyYxnrdFXWuEKrjbjPk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CG7Suy4lghXsVy2jE6xeeUBTFT6u7OE0Pqmu+24xr2dNm+ZEh0LMLeEDn2ReM8uIY
- 8wh8lufQcnLedmcM7yOLzfj/vSzvMxmd5fmcMCDUuIicHfRIM9XCwRvrir53BKK03T
- RMGFKxHklJbU7lLQI8paLdh4yw9/UYskK2eJcZes=
-From: Easwar Hariharan <eahariha@linux.microsoft.com>
-To: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org (open list)
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list),
- intel-gfx@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
- DRIVERS), 
- intel-xe@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
- DRIVERS), 
- nouveau@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO
- GPUS), linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
- linux-media@vger.kernel.org (open list:BTTV VIDEO4LINUX DRIVER),
- linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER),
- Easwar Hariharan <eahariha@linux.microsoft.com>
-Subject: [PATCH v2 02/12] drm/gma500: Make I2C terminology more inclusive
-Date: Fri,  3 May 2024 18:13:23 +0000
-Message-Id: <20240503181333.2336999-3-eahariha@linux.microsoft.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240503181333.2336999-1-eahariha@linux.microsoft.com>
-References: <20240503181333.2336999-1-eahariha@linux.microsoft.com>
+X-Greylist: delayed 325 seconds by postgrey-1.36 at gabe;
+ Sat, 04 May 2024 17:19:37 UTC
+Received: from mout.web.de (mout.web.de [212.227.17.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E65310F392;
+ Sat,  4 May 2024 17:19:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1714843175; x=1715447975; i=markus.elfring@web.de;
+ bh=8EY+oLHPDjY0oukUia2BXNUBXF5grFb2F8ZohoyJXik=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+ Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=MFa/E2S7UgmuCsybUSlQyznEv/0V6VeSqrVn1la+VpMa2bNh3f+qZQgfHq3o/mIS
+ UVIZ4X4sASupPFXp+dGx4/J+qPgaVlpBg3mufXktTBAMGHZEloW+tsyrJWxBGfEcD
+ 0OLjrguwCeTim0dB9hQLGVaaKapy/kLxGTh8S0VqEf5QddjtUxWZMWrfjvbvz1AJK
+ RrDUSMr8kv9UJ2bB0Wfew/a+AE4/WFoqocyDT6o/6bO48zrmYqQXjSRFF10s/VMPy
+ Q8rvGNaM4OVrXmFLUG5M2+dmW4KX6mvYEORU2AYbAco4ikJYl9OgXROViDJHUNbUr
+ DoZ+NgTj1IiXzYKSgg==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.83.95]) by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MALeD-1rwOH53y1L-00BtK8; Sat, 04
+ May 2024 19:13:45 +0200
+Message-ID: <d56a6e3f-1371-4bb7-8947-1c2468e4d677@web.de>
+Date: Sat, 4 May 2024 19:13:32 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: Dan Carpenter <dan.carpenter@linaro.org>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Evan Quan <evan.quan@amd.com>, Jesse Zhang <jesse.zhang@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
+ Tim Huang <Tim.Huang@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, Ruan Jinjie <ruanjinjie@huawei.com>
+References: <502fda28-fde7-4851-b17f-4d48848955bc@moroto.mountain>
+Subject: Re: [PATCH] drm/amd/pm: Fix error code in vega10_hwmgr_backend_init()
+Content-Language: en-GB
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <502fda28-fde7-4851-b17f-4d48848955bc@moroto.mountain>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:R4Feujz3Sedv4K1I8WBs3oUsw+U9QOY1XAljRflhO2ZnewvfQOp
+ pJcpDcxO7H96nyn7GHcdNBx8WOHb4Q1DHBNge0eq7YoqkC9nl8d2R4hxh8pkEYOA5LVkLXR
+ 6W9tDhP9UzdwArPm1T5GCkAsmFu7PaZrtFWFvjjQHU5DG5F8mkbpT+jKKOhtWp/snom2AQR
+ UOLrtdC2WYCqoexOk3lmA==
+UI-OutboundReport: notjunk:1;M01:P0:dEUQexGZZOA=;cpXSBKmVB1VR41P5ZhQ2s9uA6YK
+ pdfTPL/AF1AtquVXPkPy5RlgOKchR/lXpGZJzUcdoloGpU3Li5TwXcFKgRxvI4RbgEZiHx/du
+ mq6xsLCp8gLYtZi//hQNp9sRVHBngtOZMQnAx6g0FZ49bmDh7fOel8E9M49gzE54dx/5g6bXl
+ gzOIN/LmRuTZfQxkyObBS0LRoF8IGMvm5xAX+8EWW8clFW1HyWjom9VneNUrFAIN3XbLQgK8h
+ a6TH0Ohbf9upcU5Rgkgr4rd/vL136oVWbDOAuILQjt3nK1PLfBWzRICt4RwEDSjHaPT5xorb6
+ 7LB36EjT6TAYhtm2NZUBPfCQ65XvKsLrNDEg8dcQ5mc7DhWJyzUM3BADBGhJ/TNc0IHDFk4iJ
+ Gi5+QQ9GQj+lP9PJILNEN8aCNG95ueen3p4wVbMed/Dxz87LUOAUtDn4mvHOMatQPDk7p4x7F
+ PhlXN6LtslC+GhMQpqdE29Zu8MyLb4zEPF3k/CJ9XzUEbWcJxk8DBpMKK+hYAZecsCX+wTAbX
+ lSzAqFRryxCPW8T46FUBmLmbn53nJjSZg4KBVdG6XDbw7JQ5VLy5/V8YtMku7GxpB27xspIRu
+ kzK5R0SB8NcmdoSLyeRIp7mAguxG71aJf42bNJUbgbVFPu3KJ6sRkza6zz1gCWSN47G7kqjq5
+ Pers/9miI0dPuZ23/GU0A8d3embJFb2ckzfJsYv10iXXesL5ysbmncDQvu61V4lyhOYLYU8pY
+ 6RADH8eN4pAv8k4LRrfjLLMh5fKIB0hWG08GJNGFFQTd5haj+eG8FqvJHqeYBUAYZmhs0rQDA
+ XqkZgmo7M8owPtXNFTXcm9Rs19SFcTagEt5q4V/Fcba4mVDCF9K56K43J7lbK+4n0w
 X-Mailman-Approved-At: Mon, 06 May 2024 09:59:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,290 +86,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I2C v7, SMBus 3.2, and I3C 1.1.1 specifications have replaced "master/slave"
-with more appropriate terms. Inspired by and following on to Wolfram's
-series to fix drivers/i2c/[1], fix the terminology for users of
-I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
-in the specification.
+> Return -EINVAL on error instead of success.  Also on the success path,
+> return a literal zero instead of "return result;"
 
-Compile tested, no functionality changes intended
+How do you think about to omit the initialisation for the variable =E2=80=
+=9Cresult=E2=80=9D
+in another update step?
 
-[1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
-
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
----
- drivers/gpu/drm/gma500/cdv_intel_lvds.c |  2 +-
- drivers/gpu/drm/gma500/intel_bios.c     | 22 ++++++++++-----------
- drivers/gpu/drm/gma500/intel_bios.h     |  4 ++--
- drivers/gpu/drm/gma500/intel_gmbus.c    |  2 +-
- drivers/gpu/drm/gma500/psb_drv.h        |  2 +-
- drivers/gpu/drm/gma500/psb_intel_drv.h  |  2 +-
- drivers/gpu/drm/gma500/psb_intel_lvds.c |  4 ++--
- drivers/gpu/drm/gma500/psb_intel_sdvo.c | 26 ++++++++++++-------------
- 8 files changed, 32 insertions(+), 32 deletions(-)
-
-diff --git a/drivers/gpu/drm/gma500/cdv_intel_lvds.c b/drivers/gpu/drm/gma500/cdv_intel_lvds.c
-index f08a6803dc18..c7652a02b42e 100644
---- a/drivers/gpu/drm/gma500/cdv_intel_lvds.c
-+++ b/drivers/gpu/drm/gma500/cdv_intel_lvds.c
-@@ -565,7 +565,7 @@ void cdv_intel_lvds_init(struct drm_device *dev,
- 			dev->dev, "I2C bus registration failed.\n");
- 		goto err_encoder_cleanup;
- 	}
--	gma_encoder->i2c_bus->slave_addr = 0x2C;
-+	gma_encoder->i2c_bus->target_addr = 0x2C;
- 	dev_priv->lvds_i2c_bus = gma_encoder->i2c_bus;
- 
- 	/*
-diff --git a/drivers/gpu/drm/gma500/intel_bios.c b/drivers/gpu/drm/gma500/intel_bios.c
-index 8245b5603d2c..d5924ca3ed05 100644
---- a/drivers/gpu/drm/gma500/intel_bios.c
-+++ b/drivers/gpu/drm/gma500/intel_bios.c
-@@ -14,8 +14,8 @@
- #include "psb_intel_drv.h"
- #include "psb_intel_reg.h"
- 
--#define	SLAVE_ADDR1	0x70
--#define	SLAVE_ADDR2	0x72
-+#define	TARGET_ADDR1	0x70
-+#define	TARGET_ADDR2	0x72
- 
- static void *find_section(struct bdb_header *bdb, int section_id)
- {
-@@ -357,10 +357,10 @@ parse_sdvo_device_mapping(struct drm_psb_private *dev_priv,
- 			/* skip the device block if device type is invalid */
- 			continue;
- 		}
--		if (p_child->slave_addr != SLAVE_ADDR1 &&
--			p_child->slave_addr != SLAVE_ADDR2) {
-+		if (p_child->target_addr != TARGET_ADDR1 &&
-+			p_child->target_addr != TARGET_ADDR2) {
- 			/*
--			 * If the slave address is neither 0x70 nor 0x72,
-+			 * If the target address is neither 0x70 nor 0x72,
- 			 * it is not a SDVO device. Skip it.
- 			 */
- 			continue;
-@@ -371,22 +371,22 @@ parse_sdvo_device_mapping(struct drm_psb_private *dev_priv,
- 			DRM_DEBUG_KMS("Incorrect SDVO port. Skip it\n");
- 			continue;
- 		}
--		DRM_DEBUG_KMS("the SDVO device with slave addr %2x is found on"
-+		DRM_DEBUG_KMS("the SDVO device with target addr %2x is found on"
- 				" %s port\n",
--				p_child->slave_addr,
-+				p_child->target_addr,
- 				(p_child->dvo_port == DEVICE_PORT_DVOB) ?
- 					"SDVOB" : "SDVOC");
- 		p_mapping = &(dev_priv->sdvo_mappings[p_child->dvo_port - 1]);
- 		if (!p_mapping->initialized) {
- 			p_mapping->dvo_port = p_child->dvo_port;
--			p_mapping->slave_addr = p_child->slave_addr;
-+			p_mapping->target_addr = p_child->target_addr;
- 			p_mapping->dvo_wiring = p_child->dvo_wiring;
- 			p_mapping->ddc_pin = p_child->ddc_pin;
- 			p_mapping->i2c_pin = p_child->i2c_pin;
- 			p_mapping->initialized = 1;
- 			DRM_DEBUG_KMS("SDVO device: dvo=%x, addr=%x, wiring=%d, ddc_pin=%d, i2c_pin=%d\n",
- 				      p_mapping->dvo_port,
--				      p_mapping->slave_addr,
-+				      p_mapping->target_addr,
- 				      p_mapping->dvo_wiring,
- 				      p_mapping->ddc_pin,
- 				      p_mapping->i2c_pin);
-@@ -394,10 +394,10 @@ parse_sdvo_device_mapping(struct drm_psb_private *dev_priv,
- 			DRM_DEBUG_KMS("Maybe one SDVO port is shared by "
- 					 "two SDVO device.\n");
- 		}
--		if (p_child->slave2_addr) {
-+		if (p_child->target2_addr) {
- 			/* Maybe this is a SDVO device with multiple inputs */
- 			/* And the mapping info is not added */
--			DRM_DEBUG_KMS("there exists the slave2_addr. Maybe this"
-+			DRM_DEBUG_KMS("there exists the target2_addr. Maybe this"
- 				" is a SDVO device with multiple inputs.\n");
- 		}
- 		count++;
-diff --git a/drivers/gpu/drm/gma500/intel_bios.h b/drivers/gpu/drm/gma500/intel_bios.h
-index 0e6facf21e33..b5adea2a20c3 100644
---- a/drivers/gpu/drm/gma500/intel_bios.h
-+++ b/drivers/gpu/drm/gma500/intel_bios.h
-@@ -186,13 +186,13 @@ struct child_device_config {
- 	u16 addin_offset;
- 	u8  dvo_port; /* See Device_PORT_* above */
- 	u8  i2c_pin;
--	u8  slave_addr;
-+	u8  target_addr;
- 	u8  ddc_pin;
- 	u16 edid_ptr;
- 	u8  dvo_cfg; /* See DEVICE_CFG_* above */
- 	u8  dvo2_port;
- 	u8  i2c2_pin;
--	u8  slave2_addr;
-+	u8  target2_addr;
- 	u8  ddc2_pin;
- 	u8  capabilities;
- 	u8  dvo_wiring;/* See DEVICE_WIRE_* above */
-diff --git a/drivers/gpu/drm/gma500/intel_gmbus.c b/drivers/gpu/drm/gma500/intel_gmbus.c
-index aa45509859f2..ee8b047587f2 100644
---- a/drivers/gpu/drm/gma500/intel_gmbus.c
-+++ b/drivers/gpu/drm/gma500/intel_gmbus.c
-@@ -333,7 +333,7 @@ gmbus_xfer(struct i2c_adapter *adapter,
- clear_err:
- 	/* Toggle the Software Clear Interrupt bit. This has the effect
- 	 * of resetting the GMBUS controller and so clearing the
--	 * BUS_ERROR raised by the slave's NAK.
-+	 * BUS_ERROR raised by the target's NAK.
- 	 */
- 	GMBUS_REG_WRITE(GMBUS1 + reg_offset, GMBUS_SW_CLR_INT);
- 	GMBUS_REG_WRITE(GMBUS1 + reg_offset, 0);
-diff --git a/drivers/gpu/drm/gma500/psb_drv.h b/drivers/gpu/drm/gma500/psb_drv.h
-index 83c17689c454..bddf89b82fec 100644
---- a/drivers/gpu/drm/gma500/psb_drv.h
-+++ b/drivers/gpu/drm/gma500/psb_drv.h
-@@ -202,7 +202,7 @@ struct psb_intel_opregion {
- struct sdvo_device_mapping {
- 	u8 initialized;
- 	u8 dvo_port;
--	u8 slave_addr;
-+	u8 target_addr;
- 	u8 dvo_wiring;
- 	u8 i2c_pin;
- 	u8 i2c_speed;
-diff --git a/drivers/gpu/drm/gma500/psb_intel_drv.h b/drivers/gpu/drm/gma500/psb_intel_drv.h
-index c111e933e1ed..2499fd6a80c9 100644
---- a/drivers/gpu/drm/gma500/psb_intel_drv.h
-+++ b/drivers/gpu/drm/gma500/psb_intel_drv.h
-@@ -80,7 +80,7 @@ struct psb_intel_mode_device {
- struct gma_i2c_chan {
- 	struct i2c_adapter base;
- 	struct i2c_algo_bit_data algo;
--	u8 slave_addr;
-+	u8 target_addr;
- 
- 	/* for getting at dev. private (mmio etc.) */
- 	struct drm_device *drm_dev;
-diff --git a/drivers/gpu/drm/gma500/psb_intel_lvds.c b/drivers/gpu/drm/gma500/psb_intel_lvds.c
-index 8486de230ec9..d1cd9a940395 100644
---- a/drivers/gpu/drm/gma500/psb_intel_lvds.c
-+++ b/drivers/gpu/drm/gma500/psb_intel_lvds.c
-@@ -97,7 +97,7 @@ static int psb_lvds_i2c_set_brightness(struct drm_device *dev,
- 
- 	struct i2c_msg msgs[] = {
- 		{
--			.addr = lvds_i2c_bus->slave_addr,
-+			.addr = lvds_i2c_bus->target_addr,
- 			.flags = 0,
- 			.len = 2,
- 			.buf = out_buf,
-@@ -707,7 +707,7 @@ void psb_intel_lvds_init(struct drm_device *dev,
- 			dev->dev, "I2C bus registration failed.\n");
- 		goto err_encoder_cleanup;
- 	}
--	lvds_priv->i2c_bus->slave_addr = 0x2C;
-+	lvds_priv->i2c_bus->target_addr = 0x2C;
- 	dev_priv->lvds_i2c_bus =  lvds_priv->i2c_bus;
- 
- 	/*
-diff --git a/drivers/gpu/drm/gma500/psb_intel_sdvo.c b/drivers/gpu/drm/gma500/psb_intel_sdvo.c
-index e4f914deceba..8dafff963ca8 100644
---- a/drivers/gpu/drm/gma500/psb_intel_sdvo.c
-+++ b/drivers/gpu/drm/gma500/psb_intel_sdvo.c
-@@ -70,7 +70,7 @@ struct psb_intel_sdvo {
- 	struct gma_encoder base;
- 
- 	struct i2c_adapter *i2c;
--	u8 slave_addr;
-+	u8 target_addr;
- 
- 	struct i2c_adapter ddc;
- 
-@@ -259,13 +259,13 @@ static bool psb_intel_sdvo_read_byte(struct psb_intel_sdvo *psb_intel_sdvo, u8 a
- {
- 	struct i2c_msg msgs[] = {
- 		{
--			.addr = psb_intel_sdvo->slave_addr,
-+			.addr = psb_intel_sdvo->target_addr,
- 			.flags = 0,
- 			.len = 1,
- 			.buf = &addr,
- 		},
- 		{
--			.addr = psb_intel_sdvo->slave_addr,
-+			.addr = psb_intel_sdvo->target_addr,
- 			.flags = I2C_M_RD,
- 			.len = 1,
- 			.buf = ch,
-@@ -463,14 +463,14 @@ static bool psb_intel_sdvo_write_cmd(struct psb_intel_sdvo *psb_intel_sdvo, u8 c
- 	psb_intel_sdvo_debug_write(psb_intel_sdvo, cmd, args, args_len);
- 
- 	for (i = 0; i < args_len; i++) {
--		msgs[i].addr = psb_intel_sdvo->slave_addr;
-+		msgs[i].addr = psb_intel_sdvo->target_addr;
- 		msgs[i].flags = 0;
- 		msgs[i].len = 2;
- 		msgs[i].buf = buf + 2 *i;
- 		buf[2*i + 0] = SDVO_I2C_ARG_0 - i;
- 		buf[2*i + 1] = ((u8*)args)[i];
- 	}
--	msgs[i].addr = psb_intel_sdvo->slave_addr;
-+	msgs[i].addr = psb_intel_sdvo->target_addr;
- 	msgs[i].flags = 0;
- 	msgs[i].len = 2;
- 	msgs[i].buf = buf + 2*i;
-@@ -479,12 +479,12 @@ static bool psb_intel_sdvo_write_cmd(struct psb_intel_sdvo *psb_intel_sdvo, u8 c
- 
- 	/* the following two are to read the response */
- 	status = SDVO_I2C_CMD_STATUS;
--	msgs[i+1].addr = psb_intel_sdvo->slave_addr;
-+	msgs[i+1].addr = psb_intel_sdvo->target_addr;
- 	msgs[i+1].flags = 0;
- 	msgs[i+1].len = 1;
- 	msgs[i+1].buf = &status;
- 
--	msgs[i+2].addr = psb_intel_sdvo->slave_addr;
-+	msgs[i+2].addr = psb_intel_sdvo->target_addr;
- 	msgs[i+2].flags = I2C_M_RD;
- 	msgs[i+2].len = 1;
- 	msgs[i+2].buf = &status;
-@@ -1899,7 +1899,7 @@ psb_intel_sdvo_is_hdmi_connector(struct psb_intel_sdvo *psb_intel_sdvo, int devi
- }
- 
- static u8
--psb_intel_sdvo_get_slave_addr(struct drm_device *dev, int sdvo_reg)
-+psb_intel_sdvo_get_target_addr(struct drm_device *dev, int sdvo_reg)
- {
- 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
- 	struct sdvo_device_mapping *my_mapping, *other_mapping;
-@@ -1913,14 +1913,14 @@ psb_intel_sdvo_get_slave_addr(struct drm_device *dev, int sdvo_reg)
- 	}
- 
- 	/* If the BIOS described our SDVO device, take advantage of it. */
--	if (my_mapping->slave_addr)
--		return my_mapping->slave_addr;
-+	if (my_mapping->target_addr)
-+		return my_mapping->target_addr;
- 
- 	/* If the BIOS only described a different SDVO device, use the
- 	 * address that it isn't using.
- 	 */
--	if (other_mapping->slave_addr) {
--		if (other_mapping->slave_addr == 0x70)
-+	if (other_mapping->target_addr) {
-+		if (other_mapping->target_addr == 0x70)
- 			return 0x72;
- 		else
- 			return 0x70;
-@@ -2446,7 +2446,7 @@ bool psb_intel_sdvo_init(struct drm_device *dev, int sdvo_reg)
- 		return false;
- 
- 	psb_intel_sdvo->sdvo_reg = sdvo_reg;
--	psb_intel_sdvo->slave_addr = psb_intel_sdvo_get_slave_addr(dev, sdvo_reg) >> 1;
-+	psb_intel_sdvo->target_addr = psb_intel_sdvo_get_target_addr(dev, sdvo_reg) >> 1;
- 	psb_intel_sdvo_select_i2c_bus(dev_priv, psb_intel_sdvo, sdvo_reg);
- 	if (!psb_intel_sdvo_init_ddc_proxy(psb_intel_sdvo, dev)) {
- 		kfree(psb_intel_sdvo);
--- 
-2.34.1
-
+Regards,
+Markus
