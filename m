@@ -4,63 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58074C25B5C
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 10:00:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E8EFC25B5F
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 10:00:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CFF310EBBE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB41A10EBCD;
 	Mon,  6 May 2024 10:00:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="R95ODi0E";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="tlBJTZl4";
 	dkim-atps=neutral
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id A8FCD113277;
- Fri,  3 May 2024 21:04:16 +0000 (UTC)
-Received: from [100.65.192.193] (unknown [20.236.11.102])
- by linux.microsoft.com (Postfix) with ESMTPSA id 63C2320B2C82;
- Fri,  3 May 2024 14:04:15 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 63C2320B2C82
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1714770255;
- bh=9otFudNnFQ6Fo0AyB5+q1vjaZY01jz77AOepixB8ajU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=R95ODi0EifMs1TvCW5Xi0ANNjrXhlylciEvEb+9fFDkejLw2UxdIH3aGbHKy7QAHQ
- NWlrzEfHb6xtWLUH40yuYEifdcRcVe9EtnlzXoUvrNfv8Q272I9YgK7RtIx4+a2iR3
- bBhVE+Q3+pDSWqYdVXn/BDnCIJulJzU3uuDx3v5E=
-Message-ID: <4f1e429c-794b-457c-ab1d-85eb97dc81c3@linux.microsoft.com>
-Date: Fri, 3 May 2024 14:04:15 -0700
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D06110EA02
+ for <amd-gfx@lists.freedesktop.org>; Sat,  4 May 2024 11:26:18 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-34de61b7ca4so295542f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 04 May 2024 04:26:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1714821976; x=1715426776; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=acScVzoT0UgSxQf+NXyCSZ3pQCph88n8DycCWGq+e7Q=;
+ b=tlBJTZl4Rl3+lhuvxwx5uRh3b9jd/4bo9bdZQl3IMeP3bqNfN0zcTqE6zhy2YL9xpt
+ yyqIgmhH+xcg0VtZSTGTBAKPB9p+ySHyWh+YI1PoFQGeeRU6sa2T0ypsSfP82IAw2G63
+ wZ28ebEUuNjzDmyQSi14496j9Uar8Cnj2AT+j3gusaC3/ZKEDGv+es0j6DCAHekv5Knm
+ JHubgiSVa0sEhQPeD9Tf6lTkJw6krddSBx3FZIefNLAV+xmiRecS00WbXhsdmG9FP+C4
+ bC4Mgn9/JBNMmHjuPHbbKr6HT7OY/gWkcif8jXEg/SrBOOMb+t79AC6suKHEKbp3q1w3
+ cXjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1714821976; x=1715426776;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=acScVzoT0UgSxQf+NXyCSZ3pQCph88n8DycCWGq+e7Q=;
+ b=LWHVnkt4mqHEN3JITahzmOpWpa4MSnRQiMeASXyJIhYKzxZGmx87FQXUTaLHl0wce3
+ ynIHYjGo5EEYdPQD8SR/EsgLqFqV08Dd5JHgsKMras4YWM326qCxfutEtFb+8zN3SCpH
+ poVt8HN+34MSJwBX01r8U4A3HzS3BYCYnh4ALSR9twCiml7wOC/5DtUZmG820kPhAfNH
+ fLr8X7p9loFf9YRFL9yLmhVgmD4ywONhpPeJe1hnXwAzz8KIZA/+f6gP7ck9c4bygNl4
+ ZEHUr9s7N6oVNPP5Q0+0rxoDxbJW/vbtn2Mr4RGsn28fvmczvX2hBk0QMVZ5C+6Y2tKX
+ caBg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWDQ3wmxvWya7AcTCjquivthytBxrvE6Z3tcWwC8lhA2cHa0EB/ODpf24/8ejViaQYgUljyD1vaiMZj1gad7lFVxHHaYjgmdIZvWz6lbw==
+X-Gm-Message-State: AOJu0YwZKgz0CYtrKvM1zKFZRIy4Ppz7g1s++6EGH83kHx5+1qIc9PDt
+ kJgyfoVxIZEIKQD0kidFZ1FojImmX4E1wYsRGzFaEIr+UIx5vqttEGgWAJ3jrk4=
+X-Google-Smtp-Source: AGHT+IFhfIrzcRrSB3PRVXEa7IfD64x3DWvrLyolPJso7AtMaTEliUXy1Di5c3Y9F+bGsvZnwecfpw==
+X-Received: by 2002:a5d:5542:0:b0:34d:1d09:f06d with SMTP id
+ g2-20020a5d5542000000b0034d1d09f06dmr4990315wrw.13.1714821976417; 
+ Sat, 04 May 2024 04:26:16 -0700 (PDT)
+Received: from localhost ([102.222.70.76]) by smtp.gmail.com with ESMTPSA id
+ p8-20020a5d4588000000b00341ce80ea66sm6013320wrq.82.2024.05.04.04.26.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 04 May 2024 04:26:16 -0700 (PDT)
+Date: Sat, 4 May 2024 14:26:04 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Evan Quan <evan.quan@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Tim Huang <Tim.Huang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Jesse Zhang <jesse.zhang@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
+ Ruan Jinjie <ruanjinjie@huawei.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org
+Subject: [PATCH] drm/amd/pm: Fix error code in vega10_hwmgr_backend_init()
+Message-ID: <502fda28-fde7-4851-b17f-4d48848955bc@moroto.mountain>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/12] drm/i915: Make I2C terminology more inclusive
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Zhenyu Wang <zhenyuw@linux.intel.com>,
- Zhi Wang <zhi.wang.linux@gmail.com>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:INTEL GVT-g DRIVERS (Intel GPU Virtualization)"
- <intel-gvt-dev@lists.freedesktop.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>,
- "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
- "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
- "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>,
- Zhi Wang <zhiwang@kernel.org>
-References: <20240503181333.2336999-1-eahariha@linux.microsoft.com>
- <20240503181333.2336999-4-eahariha@linux.microsoft.com>
- <ZjU8NB-71xWI2X73@intel.com>
-Content-Language: en-CA
-From: Easwar Hariharan <eahariha@linux.microsoft.com>
-In-Reply-To: <ZjU8NB-71xWI2X73@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 X-Mailman-Approved-At: Mon, 06 May 2024 09:59:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,95 +86,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/3/2024 12:34 PM, Rodrigo Vivi wrote:
-> On Fri, May 03, 2024 at 06:13:24PM +0000, Easwar Hariharan wrote:
->> I2C v7, SMBus 3.2, and I3C 1.1.1 specifications have replaced "master/slave"
->> with more appropriate terms. Inspired by and following on to Wolfram's
->> series to fix drivers/i2c/[1], fix the terminology for users of
->> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
->> in the specification.
->>
->> Compile tested, no functionality changes intended
->>
->> [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
->>
->> Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
->> Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> 
-> It looks like the ack is not needed since we are merging this through
-> drm-intel-next. But I'm planing to merge this only after seeing the
-> main drivers/i2c accepting the new terminology. So we don't have a
-> risk of that getting push back and new names there and we having
-> to rename it once again.
+Return -EINVAL on error instead of success.  Also on the success path,
+return a literal zero instead of "return result;"
 
-Just to be explicit, did you want me to remove the Acked-by in v3, or will you when you pull
-the patch into drm-intel-next?
+Fixes: e098bc9612c2 ("drm/amd/pm: optimize the power related source code layout")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> 
-> (more below)
-> 
->> Acked-by: Zhi Wang <zhiwang@kernel.org>
->> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
-> 
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> 
-> Jani, what bits were you concerned that were not necessarily i2c?
-> I believe although not necessarily/directly i2c, I believe they
-> are related and could benefit from the massive single shot renable.
-> or do you have any better split to suggest here?
-> 
-> (more below)
-> 
->> ---
->>  drivers/gpu/drm/i915/display/dvo_ch7017.c     | 14 ++++-----
->>  drivers/gpu/drm/i915/display/dvo_ch7xxx.c     | 18 +++++------
->>  drivers/gpu/drm/i915/display/dvo_ivch.c       | 16 +++++-----
->>  drivers/gpu/drm/i915/display/dvo_ns2501.c     | 18 +++++------
->>  drivers/gpu/drm/i915/display/dvo_sil164.c     | 18 +++++------
->>  drivers/gpu/drm/i915/display/dvo_tfp410.c     | 18 +++++------
->>  drivers/gpu/drm/i915/display/intel_bios.c     | 22 +++++++-------
->>  drivers/gpu/drm/i915/display/intel_ddi.c      |  2 +-
->>  .../gpu/drm/i915/display/intel_display_core.h |  2 +-
->>  drivers/gpu/drm/i915/display/intel_dsi.h      |  2 +-
->>  drivers/gpu/drm/i915/display/intel_dsi_vbt.c  | 20 ++++++-------
->>  drivers/gpu/drm/i915/display/intel_dvo.c      | 14 ++++-----
->>  drivers/gpu/drm/i915/display/intel_dvo_dev.h  |  2 +-
->>  drivers/gpu/drm/i915/display/intel_gmbus.c    |  4 +--
->>  drivers/gpu/drm/i915/display/intel_sdvo.c     | 30 +++++++++----------
->>  drivers/gpu/drm/i915/display/intel_vbt_defs.h |  4 +--
->>  drivers/gpu/drm/i915/gvt/edid.c               | 28 ++++++++---------
->>  drivers/gpu/drm/i915/gvt/edid.h               |  4 +--
->>  drivers/gpu/drm/i915/gvt/opregion.c           |  2 +-
->>  19 files changed, 119 insertions(+), 119 deletions(-)
->>
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+index 37c915d7723c..9b9f8615070a 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+@@ -924,7 +924,7 @@ static int vega10_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
+ 
+ 	data->total_active_cus = adev->gfx.cu_info.number;
+ 	if (!hwmgr->not_vf)
+-		return result;
++		return -EINVAL;
+ 
+ 	/* Setup default Overdrive Fan control settings */
+ 	data->odn_fan_table.target_fan_speed =
+@@ -947,7 +947,7 @@ static int vega10_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
+ 			"Mem Channel Index Exceeded maximum!",
+ 			return -EINVAL);
+ 
+-	return result;
++	return 0;
+ }
+ 
+ static int vega10_init_sclk_threshold(struct pp_hwmgr *hwmgr)
+-- 
+2.43.0
 
-<snip>
-
->> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
->> index c17462b4c2ac..64db211148a8 100644
->> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
->> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
->> @@ -4332,7 +4332,7 @@ static int intel_ddi_compute_config_late(struct intel_encoder *encoder,
->>  									connector->tile_group->id);
->>  
->>  	/*
->> -	 * EDP Transcoders cannot be ensalved
->> +	 * EDP Transcoders cannot be slaves
-> 
->                                      ^ here
-> perhaps you meant 'targeted' ?
-> 
->>  	 * make them a master always when present
-
-<snip>
-
-This is not actually I2C related as far as I could tell when I was making the change, so this was more of a typo fix.
-
-If we want to improve this, a quick check with the eDP v1.5a spec suggests using primary/secondary instead,
-though in a global fashion rather than specifically for eDP transcoders. There is also source/sink terminology
-in the spec related to DP encoders.
-
-Which would be a more acceptable change here?
-
-Thanks,
-Easwar
