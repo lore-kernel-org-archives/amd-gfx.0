@@ -4,79 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5ED2C25B10
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 12:56:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F480C10F16
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 13:39:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4AE210F67A;
-	Mon,  6 May 2024 12:56:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9DA810F482;
+	Mon,  6 May 2024 13:39:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="B4JGL0Zf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="p8sgNmwX";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CDAA10F176
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 May 2024 12:56:13 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-41ecf80482bso1276165e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 06 May 2024 05:56:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1715000172; x=1715604972; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=+ma/nnUaeLLzglBXRpl/JPCuBgBd6mucb+wTOwKA/yc=;
- b=B4JGL0ZfWvN5e7Fb1+jazX4gB4elpSuGVNs+ijIZcPmTQjhkANZfNbTL01qDBy747m
- aPQWRzvKWszRGydQ/jwp761r94ig6MvH9ednMDMgyNzsZsX97E03+Nhck6aB3bFWjnBL
- 2joqReT1OK5pCYsRMq09tHSUOEJpSwgLx2eO0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715000172; x=1715604972;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+ma/nnUaeLLzglBXRpl/JPCuBgBd6mucb+wTOwKA/yc=;
- b=I2DsK3S020MuWkem/XNYzOstpl9rxSGZqpAit8/zlE3+fRSp92qfp7LY3ehk2xdAK3
- uTNmhB7Cq+UCrcLJuhxQhVj8Bg6YgUDqu1fvuf/rnF4IxFcWNZHDxmAFnzKodWR3onJm
- wdHWg+O2oOPx1SdO7zrNmL+fPVUFLmzQf/HXMZK/didUqVvexSre4XY9DFtDwIYOqMKn
- mn16q1AH0G71X+Hxocjy5HT84nsEpqJdhbvmvc0P+kBkbPZdLfzTYCI3z4G382rrFSBY
- rr7MgXG3W+4nMANiO0pV3eKaXF55OliYLZB/YcioymJv3xDyhsxyHqC40svT0HI7zNTN
- VsJg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXVg4LbLlEeJ3CJhh44oOJzDzwZzcT2yqhSuWNP7D5aDP+cUt38MuBnEXei/7rJujBX6HP1HqN3HU6oGMukO7V/wlokCRW6WpscsZ75bQ==
-X-Gm-Message-State: AOJu0YyxzgTiUPc9CgrU+vNvY1ahvL+2/hn0v4A6314vrRRz20wdTtuC
- 5TCcmjpCax/C9MwrJOxQe0RF/mQnii2ja9XOYzP+8Cn+V9HGmHDVjDtXI/RguWE=
-X-Google-Smtp-Source: AGHT+IGuhgk/7E8DdeWEM8fe/i6u1yO6mEsbNwBvEPf5rjb3dpEk0wKfti4hfBcPgMmPsXRfuUsXoA==
-X-Received: by 2002:a5d:590b:0:b0:34c:f9c9:f51c with SMTP id
- v11-20020a5d590b000000b0034cf9c9f51cmr7624536wrd.4.1715000171637; 
- Mon, 06 May 2024 05:56:11 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- q15-20020a5d658f000000b0034ddf05a3e6sm10681322wru.76.2024.05.06.05.56.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 May 2024 05:56:11 -0700 (PDT)
-Date: Mon, 6 May 2024 14:56:09 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Alex Deucher <alexdeucher@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
- Rob Clark <robdclark@chromium.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH] Documentation/gpu: Document the situation with
- unqualified drm-memory-
-Message-ID: <ZjjTaeZYNqVSj2y-@phenom.ffwll.local>
-References: <20240503123657.9441-1-tursulin@igalia.com>
- <736ba0a2-035b-4727-bbcc-437029420377@igalia.com>
- <2cdee989-f48d-4923-b12a-f09a1cc2b34d@igalia.com>
- <ZjUDsRIHHmJ0oM-1@phenom.ffwll.local>
- <CADnq5_Mp0y559dGHuK2HWJp_UuiknOhvQB90yw_tdOuo1eV8gQ@mail.gmail.com>
- <4705c6e4-04e3-4f97-9f9a-629b6495e92a@igalia.com>
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2064.outbound.protection.outlook.com [40.107.237.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C5DF10F482;
+ Mon,  6 May 2024 13:39:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Fg8Hy26+hnt9rIyMyOoQOPMbd/cQevIqUpPn+xIFjAhLWjgEZ1McvtIPGCwYD00OsebyRBeM49KPkQgf7W0+80RXABDzJHZlxrLlOwuqmbYe9aWr2LE4n9umPNUHa7XoB9EJeAKSe6qK2Asxe1rKgLxUeC2+JECEzf4v28Dk4e3sWM7e2ed5je5wXMVADA4TZxby6dmjZ25YyAoGuLIGK5qIC29hgVvjhCr+U7kGL5dOJXhx5pYFC5fONCtpOhYfcTbjp70Li0TBt20HwdHQFBaWi83pQnXpVXyNYeIfsQS4xHe+LL8SJKrWm1hJQPUDK9UZTLaxOoacOmlVdp8Jig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wTpgg98Nt1ts44tywCNsjlPNRBlZZ1gySHOz/vS4eOM=;
+ b=Q8QMVP+AXUDZ0qYju7RAqJnIvnlSrH4sRLdc8TvW6oleTTl/mC6xtPBU6Y35c/0GqvWVEEzAe3u4Zm6W19KVz7yG++vqOFNCbedGmBKgz9xlJCiTRjzeJJeJvGe/qXsaLWjWw0+d/CGWg476jNiKO8uiOSWzSSnYJX3BoQdtPVcUCyhgdiSwchELZ2v4npFR634ETSVyx8XivUZweCxckTXbqsR/LexgTChPPluRUVjmqDsEX5khiXH3c2uE8JtvFIMHQj92C2YyxBdXZH5WA+06scFTG/SrN+rrNwL3y4w+kQSDeu0RVnc0mkIiw/yizhSQg93pSWPU4bzNpHOjhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wTpgg98Nt1ts44tywCNsjlPNRBlZZ1gySHOz/vS4eOM=;
+ b=p8sgNmwX2Qdk9vTWVX0xiIbGUfSh9d3wJErUm0m4nAHhsiDBq/1Qms37SMnVUu0cgSxQZHUhrZI7aPXeI+DYwIaVMFzqmw7qMWnlw9H+gs5cJC5OifI1ln7AFqeC5xpnb3yrqINOUS5Uyb7HiGU3zLo4tsVWJ1C4FARhZBRFaeg=
+Received: from DS7PR05CA0066.namprd05.prod.outlook.com (2603:10b6:8:57::11) by
+ DS0PR12MB8479.namprd12.prod.outlook.com (2603:10b6:8:155::19) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7544.41; Mon, 6 May 2024 13:39:13 +0000
+Received: from DS2PEPF0000343A.namprd02.prod.outlook.com
+ (2603:10b6:8:57:cafe::c7) by DS7PR05CA0066.outlook.office365.com
+ (2603:10b6:8:57::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42 via Frontend
+ Transport; Mon, 6 May 2024 13:39:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF0000343A.mail.protection.outlook.com (10.167.18.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Mon, 6 May 2024 13:39:13 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Mon, 6 May 2024 08:39:11 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <matthew.auld@intel.com>
+CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>, "Arunpravin
+ Paneer Selvam" <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH] drm/buddy: Fix the range bias clear memory allocation issue
+Date: Mon, 6 May 2024 19:08:46 +0530
+Message-ID: <20240506133846.4362-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4705c6e4-04e3-4f97-9f9a-629b6495e92a@igalia.com>
-X-Operating-System: Linux phenom 6.6.15-amd64 
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|DS0PR12MB8479:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee81444d-3b73-4148-a96e-08dc6dd1eae5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|82310400017|36860700004|1800799015|376005; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?UM1guD8A3g03oPOz44F2al8QkCRswXRRrNiLGdZJyNzDhJ3lryjL9eCvpGrZ?=
+ =?us-ascii?Q?smvkIWlNeS+1eQx5Y3zHkjnNJUhA1LzhItiluVXUeC1ayH0illpiojyQikR+?=
+ =?us-ascii?Q?002rCP37tWVzc1tZaGwQ4ajIF0klvj1oiWxFZ/6H+JIlUt7kQiBdSppDXIZb?=
+ =?us-ascii?Q?OhszL20XU7UrzJOKi7SdKN9wik/VcsXe1oTyhnLaWVJsYhle2PbW4yw+Df5m?=
+ =?us-ascii?Q?BnO9un5Ak+LJmeU9rRTN79i4dij7dIKOPGay8bOEFWPUOKVd2pslpGJILBB0?=
+ =?us-ascii?Q?qmlWOk4K2SUrGjeDioPklJ6Z5bZ85il2DOSOlkKGfhmnVLSCDPf9+P8M6v/s?=
+ =?us-ascii?Q?hb6Cyb0lrxBmPovYn+J+PtS2d0aRINCVI8N9ptZunViwQD57unDhxJ+R2pkq?=
+ =?us-ascii?Q?F9qEQo/YwolBFQIjftOZvy96ttUHEsu/6uXJSeQ+xJeXCXJXMYE7H0/IJti4?=
+ =?us-ascii?Q?UjRfEmS6687F5KKV/r0hH3c4Lh7tiFdCyNhfMgHVPFG24K2O+oJPrCtt+TD3?=
+ =?us-ascii?Q?Z6d8zDZMuF2lM5PIkaKCJL/vnoLXARyE4Tsr9GdawRYi8aawx/F8gVvhBwwv?=
+ =?us-ascii?Q?Caountb+8LCn/amDWCSZ7D9CjZO6w0T4Z2giKprRpciqJOovF8hEj9BLupSb?=
+ =?us-ascii?Q?VcRKh8vcYp1MKlxUhzgK/3mWkUsV7Me4jkNn0q7a73gU8eoHoGVWCbYSqiFc?=
+ =?us-ascii?Q?jozbA3aLygGsW89WKAupGcUisVe8mLqX2+Pov51LK9gUGjxzV7p/8yRkgmMq?=
+ =?us-ascii?Q?BA9rILcTzanijPFF4x+XPMij+iw2b6SNHcAXj96tgDBqZkmpe14MW6MXqP8G?=
+ =?us-ascii?Q?C7ho8i1wR+xMeNN1WFn01QBWtNqgBzeRmqHAVycSBkyyuIidEG+xA8JHsK7G?=
+ =?us-ascii?Q?0RXsB5G7bfBErsi4nbYcAmszkqeP8cNbVoapotSIIdR7aZkl9w421FD/s8YL?=
+ =?us-ascii?Q?AU05l7i08YnU7QQQ4P+/ojjLv8A427foNAo6yiNIbmqMFhqo3DhIMRn+roSf?=
+ =?us-ascii?Q?SoAc1Ko0jb7gAkZmCcvoy4tjEj2PKu3PMjrQX1kbIEXEjbaFMZn6qE34ZLTX?=
+ =?us-ascii?Q?XT0IEc1uLMOhO+BOinSyIs8Nvz4lxQi6998htiUrdE8Ig0aS+xaetpnbyG5C?=
+ =?us-ascii?Q?whxf9sFG50I29Z4h9ADx5dAYfL8GdSpUeXTQ1ReF5Kvtm11DWVwKOs8jQs/2?=
+ =?us-ascii?Q?rdwyLrdYjQKyPJWeriQGVoBNTo7tikW54jTb01scr1xL3Q9uNDULDif7/8rM?=
+ =?us-ascii?Q?sdRGHzIhyDIv8tQypxA2wjAkKxPCgoRYm5s+n8j5hm22JQDBz1SFStisNecB?=
+ =?us-ascii?Q?KUQnfBS/qGaJIx06dmd2HMKut/4x653YrUuAyhUMiPoztfa89QBgVjpu/Ld2?=
+ =?us-ascii?Q?MVP4J6rXfBBwP4xi6ZlzvOdLBy88?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(82310400017)(36860700004)(1800799015)(376005); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2024 13:39:13.5498 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee81444d-3b73-4148-a96e-08dc6dd1eae5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8479
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,176 +130,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 03, 2024 at 06:06:03PM +0100, Tvrtko Ursulin wrote:
-> 
-> On 03/05/2024 16:58, Alex Deucher wrote:
-> > On Fri, May 3, 2024 at 11:33 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > 
-> > > On Fri, May 03, 2024 at 01:58:38PM +0100, Tvrtko Ursulin wrote:
-> > > > 
-> > > > [And I forgot dri-devel.. doing well!]
-> > > > 
-> > > > On 03/05/2024 13:40, Tvrtko Ursulin wrote:
-> > > > > 
-> > > > > [Correcting Christian's email]
-> > > > > 
-> > > > > On 03/05/2024 13:36, Tvrtko Ursulin wrote:
-> > > > > > From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > > > > 
-> > > > > > Currently it is not well defined what is drm-memory- compared to other
-> > > > > > categories.
-> > > > > > 
-> > > > > > In practice the only driver which emits these keys is amdgpu and in them
-> > > > > > exposes the total memory use (including shared).
-> > > > > > 
-> > > > > > Document that drm-memory- and drm-total-memory- are aliases to
-> > > > > > prevent any
-> > > > > > confusion in the future.
-> > > > > > 
-> > > > > > While at it also clarify that the reserved sub-string 'memory' refers to
-> > > > > > the memory region component.
-> > > > > > 
-> > > > > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > > > > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > > > > > Cc: Christian König <christian.keonig@amd.com>
-> > > > > 
-> > > > > Mea culpa, I copied the mistake from
-> > > > > 77d17c4cd0bf52eacfad88e63e8932eb45d643c5. :)
-> > > > > 
-> > > > > Regards,
-> > > > > 
-> > > > > Tvrtko
-> > > > > 
-> > > > > > Cc: Rob Clark <robdclark@chromium.org>
-> > > > > > ---
-> > > > > >    Documentation/gpu/drm-usage-stats.rst | 10 +++++++++-
-> > > > > >    1 file changed, 9 insertions(+), 1 deletion(-)
-> > > > > > 
-> > > > > > diff --git a/Documentation/gpu/drm-usage-stats.rst
-> > > > > > b/Documentation/gpu/drm-usage-stats.rst
-> > > > > > index 6dc299343b48..ef5c0a0aa477 100644
-> > > > > > --- a/Documentation/gpu/drm-usage-stats.rst
-> > > > > > +++ b/Documentation/gpu/drm-usage-stats.rst
-> > > > > > @@ -128,7 +128,9 @@ Memory
-> > > > > >    Each possible memory type which can be used to store buffer
-> > > > > > objects by the
-> > > > > >    GPU in question shall be given a stable and unique name to be
-> > > > > > returned as the
-> > > > > > -string here.  The name "memory" is reserved to refer to normal
-> > > > > > system memory.
-> > > > > > +string here.
-> > > > > > +
-> > > > > > +The region name "memory" is reserved to refer to normal system memory.
-> > > > > >    Value shall reflect the amount of storage currently consumed by
-> > > > > > the buffer
-> > > > > >    objects belong to this client, in the respective memory region.
-> > > > > > @@ -136,6 +138,9 @@ objects belong to this client, in the respective
-> > > > > > memory region.
-> > > > > >    Default unit shall be bytes with optional unit specifiers of 'KiB'
-> > > > > > or 'MiB'
-> > > > > >    indicating kibi- or mebi-bytes.
-> > > > > > +This is an alias for drm-total-<region> and only one of the two
-> > > > > > should be
-> > > > > > +present.
-> > > 
-> > > This feels a bit awkward and seems to needlessly complicate fdinfo uapi.
-> > > 
-> > > - Could we just patch amdgpu to follow everyone else, and avoid the
-> > >    special case? If there's no tool that relies on the special amdgpu
-> > >    prefix then that would be a lot easier.
-> > > 
-> > > - If that's not on the table, could we make everyone (with a suitable
-> > >    helper or something) just print both variants, so that we again have
-> > >    consisent fdinfo output? Or breaks that a different set of existing
-> > >    tools.
-> > > 
-> > > - Finally maybe could we get away with fixing amd by adding the common
-> > >    format there, deprecating the old, fixing the tools that would break and
-> > >    then maybe if we're lucky, remove the old one from amdgpu in a year or
-> > >    so?
-> > 
-> > I'm not really understanding what amdgpu is doing wrong.  It seems to
-> > be following the documentation.  Is the idea that we would like to
-> > deprecate drm-memory-<region> in favor of drm-total-<region>?
-> > If that's the case, I think the 3rd option is probably the best.  We
-> > have a lot of tools and customers using this.  It would have also been
-> > nice to have "memory" in the string for the newer ones to avoid
-> > conflicts with other things that might be a total or shared in the
-> > future, but I guess that ship has sailed.  We should also note that
-> > drm-memory-<region> is deprecated.  While we are here, maybe we should
-> > clarify the semantics of resident, purgeable, and active.  For
-> > example, isn't resident just a duplicate of total?  If the memory was
-> > not resident, it would be in a different region.
-> 
-> Amdgpu isn't doing anything wrong. It just appears when the format was
-> discussed no one noticed (me included) that the two keys are not clearly
-> described. And it looks there also wasn't a plan to handle the uncelar
-> duality in the future.
+Problem statement: During the system boot time, an application request
+for the bulk volume of cleared range bias memory when the clear_avail
+is zero, we dont fallback into normal allocation method as we had an
+unnecessary clear_avail check which prevents the fallback method leads
+to fb allocation failure following system goes into unresponsive state.
 
-Yeah I didnt want to imply that amdgpu did anything wrong, just that if we
-have a spec where everyone does one thing, except one driver, that's a
-really unfortunate situation that will cause endless amounts of pains to
-userspace people.
+Solution: Remove the unnecessary clear_avail check in the range bias
+allocation function.
 
-Like entirely different example, but vmwgfx started out as a driver not
-using gem buffer ids for it's per-fd buffer objects. And after a decade
-they switched because aside from their own vmwgfx specific userspace just
-about no-one got the memo. Despite that it was all documented and designed
-to allow that case, and we tried to tilt that windmill for years
-educating userspace.
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Fixes: 96950929eb23 ("drm/buddy: Implement tracking clear page feature")
+---
+ drivers/gpu/drm/drm_buddy.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Anyway I think you have I plan, I'm out :-)
--Sima
-
-> For me deprecating sounds fine, the 3rd option. I understand we would only
-> make amdgpu emit both sets of keys and then remove drm-memory- in due time.
-> 
-> With regards to key naming, yeah, memory in the name would have been nice.
-> We had a lot of discussion on this topic but ship has indeed sailed. It is
-> probably workarble for anything new that might come to add their prefix. As
-> long as it does not clash with the memory categories is should be fine.
-> 
-> In terms of resident semantics, think of it as VIRT vs RES in top(1). It is
-> for drivers which allocate backing store lazily, on first use.
-> 
-> Purgeable is for drivers which have a form of MADV_DONTNEED ie. currently
-> have backing store but userspace has indicated it can be dropped without
-> preserving the content on memory pressure.
-> 
-> Active is when reservation object says there is activity on the buffer.
-> 
-> Regards,
-> 
-> Tvrtko
-> 
-> > 
-> > Alex
-> > 
-> > > 
-> > > Uapi that's "either do $foo or on this one driver, do $bar" is just
-> > > guaranteed to fragement the ecosystem, so imo that should be the absolute
-> > > last resort.
-> > > -Sima
-> > > 
-> > > > > > +
-> > > > > >    - drm-shared-<region>: <uint> [KiB|MiB]
-> > > > > >    The total size of buffers that are shared with another file (e.g.,
-> > > > > > have more
-> > > > > > @@ -145,6 +150,9 @@ than a single handle).
-> > > > > >    The total size of buffers that including shared and private memory.
-> > > > > > +This is an alias for drm-memory-<region> and only one of the two
-> > > > > > should be
-> > > > > > +present.
-> > > > > > +
-> > > > > >    - drm-resident-<region>: <uint> [KiB|MiB]
-> > > > > >    The total size of buffers that are resident in the specified region.
-> > > 
-> > > --
-> > > Daniel Vetter
-> > > Software Engineer, Intel Corporation
-> > > http://blog.ffwll.ch
-
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index 284ebae71cc4..831929ac95eb 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -574,7 +574,7 @@ __drm_buddy_alloc_range_bias(struct drm_buddy *mm,
+ 
+ 	block = __alloc_range_bias(mm, start, end, order,
+ 				   flags, fallback);
+-	if (IS_ERR(block) && mm->clear_avail)
++	if (IS_ERR(block))
+ 		return __alloc_range_bias(mm, start, end, order,
+ 					  flags, !fallback);
+ 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.25.1
+
