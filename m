@@ -4,145 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D800CC25B4F
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 20:31:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C1A8C25B10
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 21:10:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71C3110F28E;
-	Mon,  6 May 2024 20:31:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7B3B10ED17;
+	Mon,  6 May 2024 21:10:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NWrq/zSH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qb7zkSQK";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 920EC10F0DC
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 May 2024 20:31:00 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2067.outbound.protection.outlook.com [40.107.95.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8037410ED17
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 May 2024 21:10:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nfeSR+ZeKG25sUHncqVuldw0dIT9XF1z2hy1Gzs23/ablEMg2ogFNkYOabGDcNGk8BJf4fFA31rvYDIVXU/toXuYi278Jw7/n21b5JT5qxeAaLuCGKde9OD3ps8PahUcC+Vx84TqD3Foph2PHV2Txbu7P1EZiSMj97TyLSetj+sEgDrFxnfm+jr0ArX6FBF+gCvhxUFLkY+Z1R2UafZlTM2IlX6F0mEUbpsyAD1CaForeBK2aaJ6GiB+zdB3AWFWlsQxqOs5z0D1OFYIdVJaPuwjmI6tpUPgmi65rLmU59SYnWT6j/qXLHFgT/8TaIdAB6vX6tL1GxlApc9VWro08g==
+ b=cXCd1ClPpkXwMKb1kQ4CK+yo1eqyV4yLkRUqBQj/Xts4YzOJxFOpuAED2ziVJqLlE6Si9mdIbspyXs9YwE8e97hEZBvSTTm8MUIyCShTkJT0kfoyJg7PE+YxFGRZ1Nb2LHQ/3bpNsBxoOXfaveucozxhpXADb9rz46k6MbPHHpEmQw+dnJIRj3+9yF/uR5CPJ994vay3+F0LtQxDKmZJjATkKCAziQEgMYzy7FTGdgHg0kxcpvyAm55qmkUzGKudasZ4H9faXwBr1m2/g+NchSbsEbBxipxcVrzgEhzAy3xdbbYs0eTapueGKNOCKB4eCN7XXM+NxlGwAiQ9iKjWng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hvNI4g2AEaUTLXXPK3NInvtYyR4Oa8F5CrnfClux6gk=;
- b=EpvJOaiWMfMCvMhDKnVbbyiZLfBsFJ8rVmFPkZnHxF6p1lusJLWUeQbNylaoH3719U1cvsGTVpTOU1mWStQOSgGIRwXYjkvOG4631lzvA4M0EcPPKAfUvGdXABONLqYkQk9ox0hcjDI+A0klsTou3zWWJyFXi+BIbSaEwA4hoZXxIAeh5RSV/CXLtK2s9kzWsZOfhJy008ILnu/39eci69unPzQPx+9xOTjP/RbHtFvBkamNZLrhhtieEZSj12lPPOJLqY1gciDAjgqyrAI5XUFMYTb13ehwzRq6u7KL40DJp7k2QyoBk1Ff8wILyhOhNm3XLs7r6Z3tUAISQIOtaw==
+ bh=jvQjO1kT7hlpDA1n9EBToecHQkzx1S6wpbL2kmNSW9U=;
+ b=jRii3B9E8dFPkM/9P9v2Z9HimMN0Kizz+gtKlIsb09Gc7UlshSxVqp1rYy3MpSzSuYw6dD7g8bYJ+cJl1Dkl0f0a8S5IsXy9EzZ5qg5pUoy+snBoT66OsfJTTvwtb4S+I0/9szyrlCgClaKjYpsSdfEcbDT5niNZ84coyD7S3Ngcr7ZwA664zn5/Ksk8qCg/JNKP9Tu87R54R8idzdxeF2by3OX5ZNLJwKzgUwE/Ak0XcEVF4GRn+wrUAhyi/dTeK9I+IYM3wAuSJJye/Pjs2AxU30LfCFP7ibRSKwJ8gmmgoEZihmT1dtXcmFDfpFA4lkpZeJDeP6E+YUdtrFqPRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hvNI4g2AEaUTLXXPK3NInvtYyR4Oa8F5CrnfClux6gk=;
- b=NWrq/zSHOl6TEGg2y7mLGqRLwfm6eGYw/VSC/xAhSYdrL+OH6GJz9gFZ2zHUa6AaPNa2lvCp7hev6j5H6Vg5QIjZcyMdmx4e72cyU768yqyb495y240A9flx22MgdyIz5w5vhIYDQN2s04ZnsQC0K5GWJu9SK/xPB8T2SWw42Jw=
+ bh=jvQjO1kT7hlpDA1n9EBToecHQkzx1S6wpbL2kmNSW9U=;
+ b=qb7zkSQKj7J+uk39FEr2YM6R/cDUsI6JVSzPrpf+LE9RX+0J4XVUzmVq+EQqfNTonqaG0QWukAOQntsT9RIfvzEjIHaT0ADI1Qs4BiiMj1aScNAI5pnVySivn4XVVkQvAw3r+npZ0OeXIxs/a+MksPAMl5fhBWgyIraJdmp3WXY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CY8PR12MB7098.namprd12.prod.outlook.com (2603:10b6:930:62::14)
+Received: from CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
+ by SA3PR12MB8045.namprd12.prod.outlook.com (2603:10b6:806:31d::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.41; Mon, 6 May
- 2024 20:30:56 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%4]) with mapi id 15.20.7544.041; Mon, 6 May 2024
- 20:30:56 +0000
-Message-ID: <64bbdff6-1944-41ea-85b6-d836165c9952@amd.com>
-Date: Mon, 6 May 2024 16:30:53 -0400
+ 2024 21:10:50 +0000
+Received: from CY8PR12MB7099.namprd12.prod.outlook.com
+ ([fe80::ffd9:2592:5d85:ef60]) by CY8PR12MB7099.namprd12.prod.outlook.com
+ ([fe80::ffd9:2592:5d85:ef60%3]) with mapi id 15.20.7544.041; Mon, 6 May 2024
+ 21:10:45 +0000
+Message-ID: <deca3d41-ef0a-477c-b904-6d5473b3e78f@amd.com>
+Date: Mon, 6 May 2024 17:10:43 -0400
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/amdkfd: Ensure gpu_id is unique
-To: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
- amd-gfx@lists.freedesktop.org
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20240503220639.335198-1-Harish.Kasiviswanathan@amd.com>
+ <64bbdff6-1944-41ea-85b6-d836165c9952@amd.com>
 Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20240503220639.335198-1-Harish.Kasiviswanathan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Harish Kasiviswanathan <harish.kasiviswanathan@amd.com>
+In-Reply-To: <64bbdff6-1944-41ea-85b6-d836165c9952@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0091.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::30) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+X-ClientProxiedBy: YQBPR0101CA0081.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:4::14) To CY8PR12MB7099.namprd12.prod.outlook.com
+ (2603:10b6:930:61::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CY8PR12MB7098:EE_
-X-MS-Office365-Filtering-Correlation-Id: 73f55c52-14eb-4155-9c4e-08dc6e0b6db5
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7099:EE_|SA3PR12MB8045:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6a6b563f-6602-48a3-1cfb-08dc6e10fe93
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|376005|1800799015;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WHpWeVd1RVFpU2VGWVB6RjJyS1lBRjdaRTZCZ3NXTE5Ub0lOcnQvd2Nydmds?=
- =?utf-8?B?MFYyQy95Z21rd0hFenpEeDhvRUJwWnlkK0xVa1dkaEhNSDgvbTN5c1RPTVJu?=
- =?utf-8?B?Q3hOV1lOY0hhdkZZSmhFOHRmaDdxa0M0ZUxsRWtSSUppSU9SUkd4NnJnU1d3?=
- =?utf-8?B?SWRwK1ZiQTVJTTRNT01OeU1OdlpuSHhSQVlMUTkwL2JDd2VJbUtNRUxwd1pM?=
- =?utf-8?B?elU3c1Jsd0tQREN2VVhKNTU0cEhGUTNqYmV3d1B4M3pmeDMvQSszSUhuT09N?=
- =?utf-8?B?dC9iTjhLU3AvalJCOFRrRzlGUjQwTGo3MHFYT3UraTl5c1NXT003ZTlZUTdP?=
- =?utf-8?B?WURSQ2k3dmlHUTZ4L0NnUkV6V1pUaDR3eEVObnNBSHZ1cjE5N2ZxekJ4ZERS?=
- =?utf-8?B?SC85a0hlSnpwcStKV3FBU0IzZ3lTNlZkeWFNM0JUYWkxNG5yR2t0MXZiRytY?=
- =?utf-8?B?c05xT0JlQ0RUaHRkZG5mZkJGUUZrM0VjYmprbEs2R3V1NDJPVlZCMEFxMnA5?=
- =?utf-8?B?QUl2OUtxYUdqMmllcmxPU1NSaHU1WU54U0hncVE4VzBmcXJPSTRORU1ZOGF5?=
- =?utf-8?B?M3RJQVFpWU8vUXo4cG5aZzZ3MEtJS1hjTW1lRmVYc2pXV0ZTTUpzRHlOZUJt?=
- =?utf-8?B?aEh4elVzbWFwMmdPR1JqL2NpbHFBdks3TENDSTdYaDd6dHVFMUloUktWTlBy?=
- =?utf-8?B?dE9maUJYRDB4dFJLUWFDdnV5czJld1BRendOeHM4Z2ltNHRDMmRzZk9FSzE0?=
- =?utf-8?B?L2RMaDkrU1ljTlExbzhTM2xJSXhtU1RJNEQrQzZKeW9welJCMW1taGxpSG85?=
- =?utf-8?B?Ri82RjNLR01hVFdPUVFzMDVkTDhmM1lVaktmbW1XeHZxdlB4YXhyTXpGZkNY?=
- =?utf-8?B?ZzJGYWk4d21McWFXS08vWmJ3ZmpWdWxuQTVmUi9vRGZrcUJSYUVvL09yNFN5?=
- =?utf-8?B?U3Vqd0U4UHpiQ1JhQWpHMUpCUUtOT3FDUldCLytkZ1ZoYk8zaFFhM2xQT3Ji?=
- =?utf-8?B?RW0rMWNmTTBlaXBKdEtMeE1HNnZSQW9JVjVDNnB5eFpJbVlCNW1GcmhjV1Uw?=
- =?utf-8?B?VTlVSXVmUm9BbmU0T3A2SnhOcEVwRGpoWjQ5QUF1WnRjSWRYYWU4WVlyY0No?=
- =?utf-8?B?Tm1tcU16NFlQYzRGeERJRXU1TnVFUFQxZHJIWW1vaHJwYWU1eVJNTW1LdStZ?=
- =?utf-8?B?T09mTzM3NnlaZmIvblJWS29MSG55bWxuaFp1aENhL1ZYYXFKbHJZS3RsUVlN?=
- =?utf-8?B?RXEvb0I2QVFlaGgyTWwzSlE4bUhrUk83STJCd2lOcW9zUVp5bjh4TktaWnpv?=
- =?utf-8?B?WjNZKzgvSHpIWDQvM2FuVFF1cFVSb3JrcTh5SFpXRXY1dWpjenY5NEF1aDFy?=
- =?utf-8?B?YzJSTkpONXJ3VWtzQnlLTFlESkR6VnRWY1N2Vks5OHN4aTlnR0RsOVBQMEZZ?=
- =?utf-8?B?Z0F6dHlrTVVTNVhRRm9icGI4TlNCaDE5b3Q5VnhZRXRxSWJmcmtJakdZNmVM?=
- =?utf-8?B?TFh1cmluRjg0VXlGUTZpNzJ4TTB6TWcrVkZtaUxINGozdTFZSFM4RlRaUE1s?=
- =?utf-8?B?aWxNWkRrOERIY2V0MERLbzJESXZiV1BUQjY1VHRNUFhTWGRic3FIdW80WStP?=
- =?utf-8?B?cVY3eTQvN2ZwNUxWU3RTYjNmbFpTdFNZMW84TncyWlZFUVExeTNJZDdWRkU3?=
- =?utf-8?B?R0lZY0d0R2hqaUhUSGptL25PM3l3aTE5VWpNMzV3NUdPelpRR0YvZzVRPT0=?=
+X-Microsoft-Antispam: BCL:0;ARA:13230031|1800799015|376005|366007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ak9LRmNLV0FVcVNVZS9NNkFzd0poME5xaFNQQmpjVk9EK2N0aXRrajBxNnJI?=
+ =?utf-8?B?Y0hRMFR4a1h0czV2OTV2T09zRHhoRVdidUprZjVvTnlLdXVGc3oxcVVhc3hD?=
+ =?utf-8?B?bTU2aVY3cThCSWpoSC9YWktMSEZwL0NuRlhuOEp1ZXByL3I0QVVDRno2VWZU?=
+ =?utf-8?B?M0p1TkR6TUNreE5uYklMTUx0TklNdVUreXJPd0hYcVVqK0dyYmR5MHV1M2ZC?=
+ =?utf-8?B?Ylcyd3BZbi8vNHV5L2ZWNzZnYnRpb21pV2RjL0VZTlNrcjRDSHU4emZtN2ZF?=
+ =?utf-8?B?NXM4WElXTTVkRFRweldaMnVRVHY4RlNhQmdpdm03TFVCbG9ZUjZmN0h3TlJw?=
+ =?utf-8?B?cTB5eUV6ejE1WWdIcUVPTTdIOHJKemtxQnZkb1V0WStpNXhocHBYZDdhWElp?=
+ =?utf-8?B?Z05HTHVnOUhrK0RDMktudmM3VUhjWU85TDhIbkpXTzNEVExzNlRHemFkSkd5?=
+ =?utf-8?B?bGUxZW1PbEJVSnpxbmx4S0RabzZrTjl6a2h3MmxsZkNvRkdPNTJvV0l3eWEr?=
+ =?utf-8?B?RlFLWTVGUGxQU2xucUZJMzdJS3FXK2xleDgxdmxXODhhMnRVQlNyTzNYOHdt?=
+ =?utf-8?B?RW9uTzlLMzRkSUxPUlpwZTZOL3YwV2dza2Y0Ly9FRndpWm5tSDlQeS9nOGhl?=
+ =?utf-8?B?bGJnSUZSaEVVTms5QzVmbjZ5TWp1eGhZK3NuaS9QOU5IWm4rOWJyaXJVV1d5?=
+ =?utf-8?B?eXZMK1N2Zms2eDNPN2hQUnZpY1ZNMXNHeWtyZ0ZJK1RHTFM1UWpUQVJjcmhQ?=
+ =?utf-8?B?WGcvclBBbWV4K0hZU0hrcnduUTJCZ3RvRUNvd0hyWDVIaVZEcE9YVEpCTXZI?=
+ =?utf-8?B?WXY0bVo1TnVPZCtyYi9WOEZPMkRMaExkVE01UlE4T2lXYWNGZEprNkxSZmY1?=
+ =?utf-8?B?bzN1U21RMXVvNWhHWTgwQWM5R1ZTR2h4SXZxKytITllmcjFhaUsrSTY0NjRw?=
+ =?utf-8?B?NjdZRW5WK255VGc3TzlEQlVucHhkaS9iYmhlby93RU1lZDNtT2wrdU14Z015?=
+ =?utf-8?B?M3lEVnVKeEt4VkwwZ2VMUVNwVE5PSXpqYm1wYStpdUpwdnZtYmJSQjlrVEhk?=
+ =?utf-8?B?NW9LbzBSOGh4ZzR5UTdaUHZERHhaQWF6K1MzT2thOS9mbFh0WTRTUEFuaUVR?=
+ =?utf-8?B?bk9MTnNPaEl0ZXNrL2p5VXNRTHFDb08yaitUWDU5am1rdktjWEFSa0NaVzVL?=
+ =?utf-8?B?ejFYUjhZZ2o5VXZuTVVLbXJneVI5M0ZXbWErY0JWUVBZL21tMDNET09mSENX?=
+ =?utf-8?B?SVI3UWJOV0ZHcG11ZmcwZkNROFpDWHF6aG03WkgwdHBndWZhbUZ2clgrbjRq?=
+ =?utf-8?B?OThOOTlPb25xb1BnOVdvYWEvU0JXSHNrV1dhdGtyN2d2Z2R1eU9yei93NGxr?=
+ =?utf-8?B?RTJJYWpuMnhyajBrd09NMGpLRkVPYjNEb2JEelJINGZ0VEh2alRudUFtWGhz?=
+ =?utf-8?B?YzM4d05GdUtoSUNIY0wzenZkcEpkaTdOdGlKQ2RQUmtlODVocjB6enQvaVJ5?=
+ =?utf-8?B?M0NSdzl0OW5Bb0JkV1JNelNIbzZBd0FwSVFXL3dUSXo4ZTJzUVh5SEpzU21m?=
+ =?utf-8?B?WHlVUmFLVVpJVzJjM2MzTjJmVFJtMU1xdWE0Sks5ZzZoUzhOME9XOE1NVlpK?=
+ =?utf-8?B?a1AydkdaNHQwYjh4clZ0TW5tbnBTUVBsTmNIOG9SYkEyc0hmZUdtMlZHSVg0?=
+ =?utf-8?B?eXVCU1B4YzZtYXlsalhtVFhTbHk1Mkd2VTVOT3BYSWlHaDVNZW1IZkFnPT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7099.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(366007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2E3ZlpsbXlnKzhDNHRkRm5FWnp5VE9oNThNQWlhL0NOdm9HWDQ5RWdxTURx?=
- =?utf-8?B?ejRKb0l3YmxObDh3Y0dodFdYUjNpRVJtaTY5cHVmcWlMV2xMK3haTnJBWk80?=
- =?utf-8?B?YW84OEMwMmpiem05OU9FTnVLdWVWS0pRWTRwaUNFVUFFN2l5eEZmL3V6TG9I?=
- =?utf-8?B?N1ROejhTdXI3OVhwL0xVZEdacWFzS08vem0zUnJIMFJNRTh6TStmZ1Y1WVJY?=
- =?utf-8?B?anMxV2l5L1pHbmx1L0dFUUN0QitkSTNEQldQWmtQalZoLzE5SEE1bjlldENm?=
- =?utf-8?B?Ym5qakF4L2h6cHB0TmlORXBkMnhkWGFaZFNGckczeHBUZHRKbFNmdzVYcnQr?=
- =?utf-8?B?bUJFQ3hOZkh0N2t1TC9PRm1VMGVCa1BEUWFQQkQyVW5HVHdJR3dKbFQ4aEd3?=
- =?utf-8?B?ZUdKN2hVZExXWnV0dmp5azVoV3I0RU9TVVRiSkdtcnpOei9IZ3NnTFFQZ0Fm?=
- =?utf-8?B?NjU0VEdQK2ZaWDdFK05wQ3hEWWNyMWhiUS9Ia1RQMkxoOGUyZnlnUG1sSzRZ?=
- =?utf-8?B?bjBXaGJKZUphZHkwTFJYLzlQUFR1bUhzU0V2S0NrVXlYcXZMMzNUMzFSZjdi?=
- =?utf-8?B?alI0QUhzc3djbnRUY0h1NG1ZYTR2dnloZEZSZ05KaU5uMHljMG1OcDVtZGJP?=
- =?utf-8?B?dmRjZjdTQjR2WFEyOWJDcm1YN0NjNzBMVmt6VzlYR25ZaHFzOGtKNFI2czFn?=
- =?utf-8?B?TTRYZHNVZERLcVlFSWYzbW91MWZCWThsNWcyd0hMSlphKzd0Mytmc1R0S0wy?=
- =?utf-8?B?Z202c2gxVkpGUzhDWnQ1NGVMR2tLejMvaldQc1k0RUlpZjZEM2dKQ2dkYTZu?=
- =?utf-8?B?U2RicjJYWC9zeTdBMDAzajRXRnBjTXIzMUlGNWZGb1VNTUtQa2h3TTFNdnVq?=
- =?utf-8?B?R0NBZFVPcXFaanZHS0g1YlBGdktKQVV2YjFTc2tzRzBRa1JodkVQQ3NrVDN3?=
- =?utf-8?B?ZlBRUjNMWXptUUl6REhIT3o5N2FBQ0pVOTcveWoweitEU1ZwQTNUeitjbVVw?=
- =?utf-8?B?TWRza2ZQR0dWblVSL2pNTzZXK2JMbDg2RE5NY2VYWWhpRlpBeDRRVitEUGVs?=
- =?utf-8?B?Wk1Fa0RINFBRNTNtRUZhNXZXdE5lMWxFb3hiOGFiNEZvNHRleG9GTUhKM0Jw?=
- =?utf-8?B?cHZoaTkyY1hQVkVDYVVPTFVCbi9pQjZPeVhXTkZIZDZwdWFPTENocnE0SGtJ?=
- =?utf-8?B?QWd4elBkR2Q5ejhWbFEyZVRyS2ZUUEdwK0VrbzZCVmVlU1A0SXN6SnNwUXlr?=
- =?utf-8?B?LzZHQVlZb3licWhDcHlmRWJldHlHM1FZSkFHdm5PMnhTMStPMFZPdi92SjN3?=
- =?utf-8?B?V2tKTFEvc01NWmc5TndTc0dTdW96SjZhU25BaFpXa1d3YTBmOEZKazZKc3hU?=
- =?utf-8?B?OGExa2dmWm9zNUFGNzI1Z1FFcXRGNGN5TlpPQ0N5SXpydGlWQk9hckc4cFhv?=
- =?utf-8?B?aFh6all3ejRqQzJ4UVJZNGl4Mm1VK3ZzZmFGZFV2WWEzT1N5K2xBMDhTVFdj?=
- =?utf-8?B?YkFJL3JmQ2VGTDVneGl5UkhPQ0xNZmVvZGJHSnpqTkpvTm1uWXQ5cmdZQUZr?=
- =?utf-8?B?VkVNNVBwYWd2Yk96anNScHdWZ3U3c2s1dDQxM0NXenBFM043TkZQTXBYajcv?=
- =?utf-8?B?b0JOdFpweUxJTXJ2ekhqa1IrOXdDNnVJK0ZHbmcyd1JvZ1UwcFRtd2VUUUVI?=
- =?utf-8?B?b29XZzZXWkk4L0FZYkN0VVdTMUtSVnY4QzJ3VWU4cHRZNXVqaXFBMGF4QURL?=
- =?utf-8?B?NlpNdVdTSHd2V0lZd2MvdG1LRGRIMWYzZzBRRHoxSENlYy92WXdXWC9odVRk?=
- =?utf-8?B?N1FmUWJKb013UzIvbTB6MUtWemZ6ZXlDTW10WWlqUENIT1dFMnc5bDhSMVVX?=
- =?utf-8?B?N2tzNFAvbmRmV2RXYjFTa0dEOXdIOXFaWnpzSTFFQUVuM1hTNGR4V1NpdUxz?=
- =?utf-8?B?aFdlUDY4WUg0eUliUTcxQjkzWnc1RlFnU0dhelJYS1dNOTgwS1N6Q2U0Kytu?=
- =?utf-8?B?Nms3LzlsTVRUNERWdGFFVklJTXZVTmlBdklyd0liY0JZMzRRcmY4ZE01REFI?=
- =?utf-8?B?dEsxanFURkVEVGpqV2FjY0p6Z3NwS1BHaFlKSElUcVk2dTU1Q3ZEaElhRVpF?=
- =?utf-8?Q?NIjrFWzuJm6IYI24Ur0Bybe6s?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a1ZMclYvaDIvS2xrWkJXYyswMmRUKzBUS0hCdnlKL1E0TUFkVzZQaW16eE12?=
+ =?utf-8?B?Q1BYRjEzNzNqejl3dGZQU1dxZWg0czJGNHN6SDIwcW5UUWhza2tqQW5PMHlr?=
+ =?utf-8?B?RTE5bDB0OW84NkJ6UnVMNUpaSDRkQlpYQXprMzg4QWNidEVYcmF4aGlEbjky?=
+ =?utf-8?B?UzRnazZxNkxhdDR5VmpnMjJINWx6STk2eG9zTlU3dUpyQUY3VkovTWppQUt0?=
+ =?utf-8?B?NTlxWFllT2RCYm5hZlkxMDJ6UGJHUklZN3NxdFJjdHhQc3JEZzdwSU5CSkd5?=
+ =?utf-8?B?a1o5M2Z5WWxBaE9FU2ZUYytVeTA2SGI3U0ZWS1pWQjVGYURobWlnMkhOSDMv?=
+ =?utf-8?B?QjFVeGZwb2g3V2VWa1k0WEJIM1ZNYmdrL0tjT0ZIWHkyekZhOVdGdFBPSks2?=
+ =?utf-8?B?Sm5OZzBGa1NBeDhmTUplb0ZzOFZqUkE5anhqRHpLRUxGUlV4TGdUM3BmM1JI?=
+ =?utf-8?B?cUhVLytaczZCSUFYYW80NWdxVmhpR3k3TUw4VE9qeVhGU2RzWG5GUkhHLzNt?=
+ =?utf-8?B?cThxVXpib3h0SmNESk9lS1VrR3cvODJjSGwxcE9jeFhrZnhXcWNLZWxvT283?=
+ =?utf-8?B?aUFnYVBXNDBEeW80OTVhZTZiS05sLzBGUmpWaUtoOHFZb3NOdnhaQ3hVOWRs?=
+ =?utf-8?B?VzlJdC9Zc3RKYitpTzFac0ZNUVNkN0c3RGQzYUl1dXlyaURpRTNnUlpVb2JY?=
+ =?utf-8?B?Y0Q3V2tXTmhpd0g0VjA1dmh6SlcxRFdrZzBnSmhzYUEvZVZCcFJPWm1vOTQv?=
+ =?utf-8?B?TkxSYlVpMStaYlFoREYzMEE2bWJUM25yb3M1Ti9LREw3dHhGYzUvc2UxRkdW?=
+ =?utf-8?B?eXN5RGJ0dUkyZzhEd2N0cC9MdGljbmQvb28yQ3RDOUhkbnpTazAzTDZBUnZH?=
+ =?utf-8?B?dzVHeHE2SU5jU0lBQTIrdXJqUUExYlFucWp3aXR6U3hTU2JrSjA2WGtpN2RM?=
+ =?utf-8?B?QkVlaEpHajhidXhkOFZuLzVHM0lKRDZOWWs2ZldDWEVDdktBVDNncGVJVjhC?=
+ =?utf-8?B?YjdaVVZpYTZnTkxvTlNKOFd0N3Y2MHl6SlRhVXEyK3ovTFBqZzk3eDB3bE91?=
+ =?utf-8?B?M2R2ekZkSFhKYWdNcXZIMkJ4VkdiSkNmZEhOMDk0TVBTSmZRMjhsajRpVDE4?=
+ =?utf-8?B?NlV5dTlTQWhlNm5EV0dXejJyM2M1L1RQbVRXTjNLdG9qTFRLR2l2c1lKNFQ4?=
+ =?utf-8?B?TVNHYlRCdjNjM0lmR0NRUWUxUkxYR3QrQjdGTVcvTXppNnpuMVpCNnI5K0F5?=
+ =?utf-8?B?aXZ0ZjU0clZMeTg0aUd1SkV4Sy9pK2RoTFJQOTd2cjZBV3N5R1RVYm1mcFg4?=
+ =?utf-8?B?dGdmOGlXKzkzVmg5ODRIdktwd1BxREVyRmd3UCtDcEJmNW9pWjlZa25TU3dz?=
+ =?utf-8?B?NHQya3dVVDRQWGpiWDM0Rko2YTBUNXE1WGlTZWViT1c3WGZoMTI0VmxIQndK?=
+ =?utf-8?B?S05iZUExSHpCQ0d3MjdjQVNjOCtjUDJuWEJVOUtEcGhkOFVjOGk1NEwvVGd6?=
+ =?utf-8?B?bVpVaXp4VjIyQVZXZTBYS3dOYmkrbXhicHd3WnpZdU0rVVB3aktFb2RWM2dT?=
+ =?utf-8?B?WVQ1TnNMZEdzRXcvSzluV2dLdkxVVnF5NUczOTBBeFRHazExWVMwbzN3Mnds?=
+ =?utf-8?B?c0RkSFcyRWZzYlF0eFJYT0JyRVB3VTdPWW5KMEszcmR2WFgxVkRJbFFjUGNw?=
+ =?utf-8?B?YkNtNnRjUnA0VTBBTFBRaVpYL2srQW5nc0I0K0l4NXAzRU80TERQL01iT29O?=
+ =?utf-8?B?Ly9Lb0FZU05jdjBObnRpeCtFa1NFTEFTUFVDOXpQeVZsenk5a1VVUGN3alhH?=
+ =?utf-8?B?Sm85dzVsT0RMUU42Q24yS2w4RWN0Z0NqNkRITzRER3Q5WGVFa2NUM0xjaGdT?=
+ =?utf-8?B?RVpVYityR3BhS3BEYnN3NmxSVlV5UE4wb2N3Y3JEdGYzM0NieWN0ZWVWUDZa?=
+ =?utf-8?B?ZzhlKzhFUXI2UlRvcVRsTUdtWmdhMGV3SXovaXFZMVFsclpWbUdOWHl5R010?=
+ =?utf-8?B?M3V0ejhXcFllbFgvVUIrN2NtNURtbU1YZ09yS0Z3dmdqeUl0V3hUVHBDY2E1?=
+ =?utf-8?B?eVNFRkI5ODdXRXJFMGsrbUVQMFZTZkh3Z3MxYTMraDVKTXZVUnY0MERZSm56?=
+ =?utf-8?Q?aerOhxPlMq0ToncM2yRtSuU6T?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73f55c52-14eb-4155-9c4e-08dc6e0b6db5
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a6b563f-6602-48a3-1cfb-08dc6e10fe93
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7099.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2024 20:30:56.0458 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2024 21:10:45.0698 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QzJlxjbKVRzG2vHT/ByURW1xmXvq9rdevlu2P1xJviSWTiJcwoS3eQ6AgJwNQskTNMXsNILvEfkAIL6IbreOzA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7098
+X-MS-Exchange-CrossTenant-UserPrincipalName: G+PEl78bidD+YEn2qSzh3lKRM/G5lZNipRTPeuMcUh4MhzBCyc+Hy39sNF+C6RmUXBL9+QzDPYsa9USOtYFxDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8045
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,82 +157,83 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 2024-05-03 18:06, Harish Kasiviswanathan wrote:
-> gpu_id needs to be unique for user space to identify GPUs via KFD
-> interface. In the current implementation there is a very small
-> probability of having non unique gpu_ids.
->
-> v2: Add check to confirm if gpu_id is unique. If not unique, find one
->      Changed commit header to reflect the above
->
-> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 26 ++++++++++++++++++++++-
->   1 file changed, 25 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> index b93913934b03..01d4c2e10c6d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -1095,6 +1095,8 @@ static uint32_t kfd_generate_gpu_id(struct kfd_node *gpu)
->   	uint32_t hashout;
->   	uint32_t buf[8];
->   	uint64_t local_mem_size;
-> +	struct kfd_topology_device *dev;
-> +	bool is_unique;
->   	int i;
->   
->   	if (!gpu)
-> @@ -1115,6 +1117,28 @@ static uint32_t kfd_generate_gpu_id(struct kfd_node *gpu)
->   	for (i = 0, hashout = 0; i < 8; i++)
->   		hashout ^= hash_32(buf[i], KFD_GPU_ID_HASH_WIDTH);
->   
-> +	/* hash generated could be non-unique. Check if it is unique.
-> +	 * If not unique increment till unique one is found. In case
-> +	 * of overflow, restart from 1
-> +	*/
-> +	down_read(&topology_lock);
-> +	do {
-> +		is_unique = true;
-> +		list_for_each_entry(dev, &topology_device_list, list) {
-> +			if (dev->gpu && dev->gpu_id == hashout) {
-> +				is_unique = false;
-> +				break;
-> +			}
-> +		}
-> +		if (unlikely(!is_unique)) {
-> +			hashout = (hashout + 1) &
-> +				  ((1 << KFD_GPU_ID_HASH_WIDTH) - 1);
-> +			if (!hashout)
-> +				hashout = 1;
 
-This doesn't catch the case that hashout was 0 before incrementing it, 
-and was found to be unique.
+On 2024-05-06 16:30, Felix Kuehling wrote:
+> 
+> On 2024-05-03 18:06, Harish Kasiviswanathan wrote:
+>> gpu_id needs to be unique for user space to identify GPUs via KFD
+>> interface. In the current implementation there is a very small
+>> probability of having non unique gpu_ids.
+>>
+>> v2: Add check to confirm if gpu_id is unique. If not unique, find one
+>>      Changed commit header to reflect the above
+>>
+>> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 26 ++++++++++++++++++++++-
+>>   1 file changed, 25 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> index b93913934b03..01d4c2e10c6d 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> @@ -1095,6 +1095,8 @@ static uint32_t kfd_generate_gpu_id(struct kfd_node *gpu)
+>>       uint32_t hashout;
+>>       uint32_t buf[8];
+>>       uint64_t local_mem_size;
+>> +    struct kfd_topology_device *dev;
+>> +    bool is_unique;
+>>       int i;
+>>         if (!gpu)
+>> @@ -1115,6 +1117,28 @@ static uint32_t kfd_generate_gpu_id(struct kfd_node *gpu)
+>>       for (i = 0, hashout = 0; i < 8; i++)
+>>           hashout ^= hash_32(buf[i], KFD_GPU_ID_HASH_WIDTH);
+>>   +    /* hash generated could be non-unique. Check if it is unique.
+>> +     * If not unique increment till unique one is found. In case
+>> +     * of overflow, restart from 1
+>> +    */
+>> +    down_read(&topology_lock);
+>> +    do {
+>> +        is_unique = true;
+>> +        list_for_each_entry(dev, &topology_device_list, list) {
+>> +            if (dev->gpu && dev->gpu_id == hashout) {
+>> +                is_unique = false;
+>> +                break;
+>> +            }
+>> +        }
+>> +        if (unlikely(!is_unique)) {
+>> +            hashout = (hashout + 1) &
+>> +                  ((1 << KFD_GPU_ID_HASH_WIDTH) - 1);
+>> +            if (!hashout)
+>> +                hashout = 1;
+> 
+> This doesn't catch the case that hashout was 0 before incrementing it, and was found to be unique.
 
-Regards,
-   Felix
+I didn't actively think about this case when I sent the patch out. However, we don't have gpu_id to be 0. There are places where gpu_id=0 means it is CPU node
 
-
-> +		}
-> +	} while (!is_unique);
-> +	up_read(&topology_lock);
-> +
->   	return hashout;
->   }
->   /* kfd_assign_gpu - Attach @gpu to the correct kfd topology device. If
-> @@ -1946,7 +1970,6 @@ int kfd_topology_add_device(struct kfd_node *gpu)
->   	struct amdgpu_gfx_config *gfx_info = &gpu->adev->gfx.config;
->   	struct amdgpu_cu_info *cu_info = &gpu->adev->gfx.cu_info;
->   
-> -	gpu_id = kfd_generate_gpu_id(gpu);
->   	if (gpu->xcp && !gpu->xcp->ddev) {
->   		dev_warn(gpu->adev->dev,
->   			 "Won't add GPU to topology since it has no drm node assigned.");
-> @@ -1969,6 +1992,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
->   	if (res)
->   		return res;
->   
-> +	gpu_id = kfd_generate_gpu_id(gpu);
->   	dev->gpu_id = gpu_id;
->   	gpu->id = gpu_id;
->   
+> 
+> Regards,
+>   Felix
+> 
+> 
+>> +        }
+>> +    } while (!is_unique);
+>> +    up_read(&topology_lock);
+>> +
+>>       return hashout;
+>>   }
+>>   /* kfd_assign_gpu - Attach @gpu to the correct kfd topology device. If
+>> @@ -1946,7 +1970,6 @@ int kfd_topology_add_device(struct kfd_node *gpu)
+>>       struct amdgpu_gfx_config *gfx_info = &gpu->adev->gfx.config;
+>>       struct amdgpu_cu_info *cu_info = &gpu->adev->gfx.cu_info;
+>>   -    gpu_id = kfd_generate_gpu_id(gpu);
+>>       if (gpu->xcp && !gpu->xcp->ddev) {
+>>           dev_warn(gpu->adev->dev,
+>>                "Won't add GPU to topology since it has no drm node assigned.");
+>> @@ -1969,6 +1992,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
+>>       if (res)
+>>           return res;
+>>   +    gpu_id = kfd_generate_gpu_id(gpu);
+>>       dev->gpu_id = gpu_id;
+>>       gpu->id = gpu_id;
+>>   
