@@ -4,61 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A552C10F1A
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 May 2024 07:31:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 051F5C25B74
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 May 2024 07:31:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7412911246F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7990B112470;
 	Tue,  7 May 2024 07:31:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="mvrt3j3G";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lKFa5j7x";
 	dkim-atps=neutral
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id E7E8C10F0F9;
- Mon,  6 May 2024 15:54:48 +0000 (UTC)
-Received: from [100.65.96.57] (unknown [20.236.10.66])
- by linux.microsoft.com (Postfix) with ESMTPSA id 63A2E20B2C82;
- Mon,  6 May 2024 08:54:47 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 63A2E20B2C82
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1715010888;
- bh=sn+I7ADMPSvGvZYIULHrdfmxmoEt29gcieDFLNGehhA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=mvrt3j3GirQyL+zNWSUJPrkb94vYe3gRE3gFwpfF/00niIyl3fc+VRb5f4AxuoW6y
- kfky6VeELzBpCgzxTreaammrgxgd2SDXZvPOj7nLeVxJzxzGqiRR6ErGuzVari+m/L
- Ad5PQJ1lUdbhal6K44JEvCMsC3zo/UFAAL0Irirc=
-Message-ID: <82f5b8e3-45c4-4b59-bc96-4cee2b122e9a@linux.microsoft.com>
-Date: Mon, 6 May 2024 08:54:47 -0700
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3B131121C5
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 May 2024 16:26:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Z56hb26e5zeFXXgcvXfTSwVUWqPE6jX0NeZfGSbBAKQ=; b=lKFa5j7xWf3F39MHMKaw6bYuYf
+ /vnZFkrm7D7zA9XM/OQgtkhE/tDJSmKSxI8doTROofLy8jExYR3ihFCaHDAKzK/rHNdeg+ALpsPL+
+ OktVR8RhNPtWJ/PJzJSUrMbYTSPQfP+jcJeazEDLUFsUvP0twAL7ABW3gvkcrkZlmyYwyF36bqZrT
+ JAAisgPv6y0HESGalhVrNYajzzPFohnu3XrOBfWbX5aW9AJrnAAxo0vnc0XNG/8aOBT8oFREucW3G
+ wrihfeQtwWxX4Lcq4b08rozpiVRSgECgioKa2DjVbVI1IQaYqO3fWlXnk8uFrBpKU0sMh2RzC0o4W
+ POk63NKQ==;
+Received: from [84.69.19.168] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1s41As-001Q2R-JA; Mon, 06 May 2024 18:26:46 +0200
+Message-ID: <48fd5f77-9a5f-43a3-8009-e1655cb447bc@igalia.com>
+Date: Mon, 6 May 2024 17:26:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 10/12] sfc: falcon: Make I2C terminology more inclusive
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Edward Cree <ecree.xilinx@gmail.com>,
- Martin Habets <habetsm.xilinx@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- "open list:SFC NETWORK DRIVER" <netdev@vger.kernel.org>,
- "open list:SFC NETWORK DRIVER" <linux-net-drivers@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>,
- "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
- "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
- "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>
-References: <20240430173812.1423757-1-eahariha@linux.microsoft.com>
- <20240430173812.1423757-11-eahariha@linux.microsoft.com>
- <20240503151300.0f202c30@kernel.org>
-Content-Language: en-CA
-From: Easwar Hariharan <eahariha@linux.microsoft.com>
-In-Reply-To: <20240503151300.0f202c30@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/3] drm/amdgpu: Add amdgpu_bo_is_vm_bo helper
+Content-Language: en-GB
+To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+References: <20240503091500.7768-1-tursulin@igalia.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20240503091500.7768-1-tursulin@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 07 May 2024 07:31:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,24 +61,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/3/2024 3:13 PM, Jakub Kicinski wrote:
-> On Tue, 30 Apr 2024 17:38:09 +0000 Easwar Hariharan wrote:
->> I2C v7, SMBus 3.2, and I3C 1.1.1 specifications have replaced "master/slave"
->> with more appropriate terms. Inspired by and following on to Wolfram's
->> series to fix drivers/i2c/[1], fix the terminology for users of
->> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
->> in the specification.
->>
->> Compile tested, no functionality changes intended
+
+On 03/05/2024 10:14, Tvrtko Ursulin wrote:
+> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 > 
-> FWIW we're assuming someone (Wolfram?) will take all of these,
-> instead of area maintainers picking them individually.
-> Please let us know if that's incorrect.
+> Help code readability by replacing a bunch of:
+> 
+> bo->tbo.base.resv == vm->root.bo->tbo.base.resv
+> 
+> With:
+> 
+> amdgpu_vm_is_bo_always_valid(vm, bo)
+> 
+> No functional changes.
+> 
+> v2:
+>   * Rename helper and move to amdgpu_vm. (Christian)
+> 
+> v3:
+>   * Use Christian's kerneldoc.
+> 
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Reviewed-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 41 ++++++++++++++++---------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  2 ++
+>   3 files changed, 29 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> index 67c234bcf89f..e698d65e9508 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -174,7 +174,7 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
+>   		return -EPERM;
+>   
+>   	if (abo->flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID &&
+> -	    abo->tbo.base.resv != vm->root.bo->tbo.base.resv)
+> +	    !amdgpu_vm_is_bo_always_valid(vm, abo))
+>   		return -EPERM;
+>   
+>   	r = amdgpu_bo_reserve(abo, false);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 4e2391c83d7c..d451ff9d5af4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -333,7 +333,7 @@ void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
+>   	base->next = bo->vm_bo;
+>   	bo->vm_bo = base;
+>   
+> -	if (bo->tbo.base.resv != vm->root.bo->tbo.base.resv)
+> +	if (!amdgpu_vm_is_bo_always_valid(vm, bo))
+>   		return;
+>   
+>   	dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+> @@ -1101,13 +1101,13 @@ static void amdgpu_vm_bo_get_memory(struct amdgpu_bo_va *bo_va,
+>   	 * For now ignore BOs which are currently locked and potentially
+>   	 * changing their location.
+>   	 */
+> -	if (bo->tbo.base.resv != vm->root.bo->tbo.base.resv &&
+> +	if (!amdgpu_vm_is_bo_always_valid(vm, bo) &&
+>   	    !dma_resv_trylock(bo->tbo.base.resv))
+>   		return;
+>   
+>   	amdgpu_bo_get_memory(bo, stats);
+> -	if (bo->tbo.base.resv != vm->root.bo->tbo.base.resv)
+> -	    dma_resv_unlock(bo->tbo.base.resv);
+> +	if (amdgpu_vm_is_bo_always_valid(vm, bo))
 
-I think, based on the trend in the v2 conversation[1], that's correct. If maintainers of
-other areas disagree, please chime in.
+Beware the logic inversion here - luckily no one merged it yet! I will 
+send a respin..
 
-Thanks,
-Easwar
+Regards,
 
-[1] https://lore.kernel.org/all/20240503181333.2336999-1-eahariha@linux.microsoft.com/
+Tvrtko
+
+> +		dma_resv_unlock(bo->tbo.base.resv);
+>   }
+>   
+>   void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
+> @@ -1203,8 +1203,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+>   		uncached = false;
+>   	}
+>   
+> -	if (clear || (bo && bo->tbo.base.resv ==
+> -		      vm->root.bo->tbo.base.resv))
+> +	if (clear || amdgpu_vm_is_bo_always_valid(vm, bo))
+>   		last_update = &vm->last_update;
+>   	else
+>   		last_update = &bo_va->last_pt_update;
+> @@ -1246,7 +1245,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+>   	 * the evicted list so that it gets validated again on the
+>   	 * next command submission.
+>   	 */
+> -	if (bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv) {
+> +	if (amdgpu_vm_is_bo_always_valid(vm, bo)) {
+>   		uint32_t mem_type = bo->tbo.resource->mem_type;
+>   
+>   		if (!(bo->preferred_domains &
+> @@ -1640,10 +1639,9 @@ static void amdgpu_vm_bo_insert_map(struct amdgpu_device *adev,
+>   	if (mapping->flags & AMDGPU_PTE_PRT)
+>   		amdgpu_vm_prt_get(adev);
+>   
+> -	if (bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv &&
+> -	    !bo_va->base.moved) {
+> +	if (amdgpu_vm_is_bo_always_valid(vm, bo) && !bo_va->base.moved)
+>   		amdgpu_vm_bo_moved(&bo_va->base);
+> -	}
+> +
+>   	trace_amdgpu_vm_bo_map(bo_va, mapping);
+>   }
+>   
+> @@ -1942,7 +1940,7 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+>   		if (before->flags & AMDGPU_PTE_PRT)
+>   			amdgpu_vm_prt_get(adev);
+>   
+> -		if (bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv &&
+> +		if (amdgpu_vm_is_bo_always_valid(vm, bo) &&
+>   		    !before->bo_va->base.moved)
+>   			amdgpu_vm_bo_moved(&before->bo_va->base);
+>   	} else {
+> @@ -1957,7 +1955,7 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+>   		if (after->flags & AMDGPU_PTE_PRT)
+>   			amdgpu_vm_prt_get(adev);
+>   
+> -		if (bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv &&
+> +		if (amdgpu_vm_is_bo_always_valid(vm, bo) &&
+>   		    !after->bo_va->base.moved)
+>   			amdgpu_vm_bo_moved(&after->bo_va->base);
+>   	} else {
+> @@ -2037,7 +2035,7 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
+>   
+>   	if (bo) {
+>   		dma_resv_assert_held(bo->tbo.base.resv);
+> -		if (bo->tbo.base.resv == vm->root.bo->tbo.base.resv)
+> +		if (amdgpu_vm_is_bo_always_valid(vm, bo))
+>   			ttm_bo_set_bulk_move(&bo->tbo, NULL);
+>   
+>   		for (base = &bo_va->base.bo->vm_bo; *base;
+> @@ -2131,7 +2129,7 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_device *adev,
+>   	for (bo_base = bo->vm_bo; bo_base; bo_base = bo_base->next) {
+>   		struct amdgpu_vm *vm = bo_base->vm;
+>   
+> -		if (evicted && bo->tbo.base.resv == vm->root.bo->tbo.base.resv) {
+> +		if (evicted && amdgpu_vm_is_bo_always_valid(vm, bo)) {
+>   			amdgpu_vm_bo_evicted(bo_base);
+>   			continue;
+>   		}
+> @@ -2142,7 +2140,7 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_device *adev,
+>   
+>   		if (bo->tbo.type == ttm_bo_type_kernel)
+>   			amdgpu_vm_bo_relocated(bo_base);
+> -		else if (bo->tbo.base.resv == vm->root.bo->tbo.base.resv)
+> +		else if (amdgpu_vm_is_bo_always_valid(vm, bo))
+>   			amdgpu_vm_bo_moved(bo_base);
+>   		else
+>   			amdgpu_vm_bo_invalidated(bo_base);
+> @@ -3006,3 +3004,16 @@ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
+>   	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
+>   }
+>   
+> +/**
+> + * amdgpu_vm_is_bo_always_valid - check if the BO is VM always valid
+> + *
+> + * @vm: VM to test against.
+> + * @abo: BO to be tested.
+> + *
+> + * Returns true if the BO shares the dma_resv object with the root PD and is
+> + * always guaranteed to be valid inside the VM.
+> + */
+> +bool amdgpu_vm_is_bo_always_valid(struct amdgpu_vm *vm, struct amdgpu_bo *bo)
+> +{
+> +	return bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv;
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index 54d7da396de0..ec688a47dec1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -561,6 +561,8 @@ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m);
+>   
+>   int amdgpu_vm_pt_map_tables(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+>   
+> +bool amdgpu_vm_is_bo_always_valid(struct amdgpu_vm *vm, struct amdgpu_bo *bo);
+> +
+>   /**
+>    * amdgpu_vm_tlb_seq - return tlb flush sequence number
+>    * @vm: the amdgpu_vm structure to query
