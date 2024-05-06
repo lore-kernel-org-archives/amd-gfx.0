@@ -4,118 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6EFAC10F16
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 10:01:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5ED2C25B10
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 12:56:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 409D8112F47;
-	Mon,  6 May 2024 10:01:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4AE210F67A;
+	Mon,  6 May 2024 12:56:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WQrWM5Bf";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="B4JGL0Zf";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2047.outbound.protection.outlook.com [40.107.236.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C804F112F47
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 May 2024 10:01:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X69zMFwvRproMmPh6hZe5FBPmGaEHg6XPZHjQx2Lz0ctqnB9jHNEFznjLuOYSejkxeDM3EY32/17TgUtnDJ+w7YR2kyKzSh+ViRx4filw3BWb/21e0nEabju68vubsxEFFQKQ8UlpZzfhOsRH2JnGXpyH0S8oCRFRb9/phThYJT3JhzMIT7Gt51zG+Li6wCzNTzVOBX5M38J7HxaUPzuuP8VXmZiJ4MFL8mIt3+L4IJeqrkpxQnixe/9w7l0y9ifoKP/Wcc91CNBu0wn/Vgm7+Tf4DuSJVVQDegD/AHktYK+010SFq9+EBlrETUpuOpRz2B+zJkR4Fp/zHBnfoqB4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sWpnoD0qWGs0V+5HCmNh0lbfSAIK8sS4QLsQ+GZDsF8=;
- b=oW+i+0aqICEl/yw23HNKfLIXpaC78bqSM/oZkj4eE1o6bGbMzHRIEjdICwI6aayl4sS44ija5P5BVsKyidRWbIFmGJ+Fytk6Rk/S2jN+ynh4OyuFG2EuCMvox/6vHbzxD0EKs28+IxGZVMKc0K/iOVC4ozC5vMVW2h51wZd/Kd8HsSM1dJSzd6rGnRFNICPk/XUvJ87g4jin1QspPY2Re4rxp+xxkOcl3XIeue/ikYLjl7kT7kaXZ5GNQgMFN7xR2i6U31EoO+Yyo0xLwIcev33jKSFVrs3cRaJ53+cKz8Fx4FmiK3CoZcq0uerDxpq14SHlZa15oq2BdTNqio3FyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sWpnoD0qWGs0V+5HCmNh0lbfSAIK8sS4QLsQ+GZDsF8=;
- b=WQrWM5Bfwgag86Fy10G7Aq1IU689Z7TLA7zsg7iB/630phSx+RqcklJmxPqAvLHHAWSYVqCv+/+OrfdSrB2hx/5zswTaITlLtXg6RECmzRL1mG+HVvb8aK2Wqri+A9HOcod5Qcg/Vinu7WpWdeW5hkcuFubb1HaU8r9C3DIGOfo=
-Received: from PH0PR07CA0106.namprd07.prod.outlook.com (2603:10b6:510:4::21)
- by MN0PR12MB6053.namprd12.prod.outlook.com (2603:10b6:208:3cf::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.41; Mon, 6 May
- 2024 10:01:26 +0000
-Received: from SN1PEPF00036F43.namprd05.prod.outlook.com
- (2603:10b6:510:4:cafe::5f) by PH0PR07CA0106.outlook.office365.com
- (2603:10b6:510:4::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.41 via Frontend
- Transport; Mon, 6 May 2024 10:01:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SN1PEPF00036F43.mail.protection.outlook.com (10.167.248.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Mon, 6 May 2024 10:01:25 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 6 May
- 2024 05:01:24 -0500
-Received: from primary-host.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 6 May 2024 05:01:23 -0500
-From: Lin.Cao <lincao12@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <jingwen.chen2@amd.com>, <jonathan.kim@amd.com>, Lin.Cao <lincao12@amd.com>
-Subject: [PATCH] drm/amdkfd: Check debug trap enable before write dbg_ev_file
-Date: Mon, 6 May 2024 18:01:19 +0800
-Message-ID: <20240506100119.769844-1-lincao12@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CDAA10F176
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 May 2024 12:56:13 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-41ecf80482bso1276165e9.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 May 2024 05:56:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1715000172; x=1715604972; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=+ma/nnUaeLLzglBXRpl/JPCuBgBd6mucb+wTOwKA/yc=;
+ b=B4JGL0ZfWvN5e7Fb1+jazX4gB4elpSuGVNs+ijIZcPmTQjhkANZfNbTL01qDBy747m
+ aPQWRzvKWszRGydQ/jwp761r94ig6MvH9ednMDMgyNzsZsX97E03+Nhck6aB3bFWjnBL
+ 2joqReT1OK5pCYsRMq09tHSUOEJpSwgLx2eO0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715000172; x=1715604972;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=+ma/nnUaeLLzglBXRpl/JPCuBgBd6mucb+wTOwKA/yc=;
+ b=I2DsK3S020MuWkem/XNYzOstpl9rxSGZqpAit8/zlE3+fRSp92qfp7LY3ehk2xdAK3
+ uTNmhB7Cq+UCrcLJuhxQhVj8Bg6YgUDqu1fvuf/rnF4IxFcWNZHDxmAFnzKodWR3onJm
+ wdHWg+O2oOPx1SdO7zrNmL+fPVUFLmzQf/HXMZK/didUqVvexSre4XY9DFtDwIYOqMKn
+ mn16q1AH0G71X+Hxocjy5HT84nsEpqJdhbvmvc0P+kBkbPZdLfzTYCI3z4G382rrFSBY
+ rr7MgXG3W+4nMANiO0pV3eKaXF55OliYLZB/YcioymJv3xDyhsxyHqC40svT0HI7zNTN
+ VsJg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXVg4LbLlEeJ3CJhh44oOJzDzwZzcT2yqhSuWNP7D5aDP+cUt38MuBnEXei/7rJujBX6HP1HqN3HU6oGMukO7V/wlokCRW6WpscsZ75bQ==
+X-Gm-Message-State: AOJu0YyxzgTiUPc9CgrU+vNvY1ahvL+2/hn0v4A6314vrRRz20wdTtuC
+ 5TCcmjpCax/C9MwrJOxQe0RF/mQnii2ja9XOYzP+8Cn+V9HGmHDVjDtXI/RguWE=
+X-Google-Smtp-Source: AGHT+IGuhgk/7E8DdeWEM8fe/i6u1yO6mEsbNwBvEPf5rjb3dpEk0wKfti4hfBcPgMmPsXRfuUsXoA==
+X-Received: by 2002:a5d:590b:0:b0:34c:f9c9:f51c with SMTP id
+ v11-20020a5d590b000000b0034cf9c9f51cmr7624536wrd.4.1715000171637; 
+ Mon, 06 May 2024 05:56:11 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ q15-20020a5d658f000000b0034ddf05a3e6sm10681322wru.76.2024.05.06.05.56.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 May 2024 05:56:11 -0700 (PDT)
+Date: Mon, 6 May 2024 14:56:09 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
+ Rob Clark <robdclark@chromium.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH] Documentation/gpu: Document the situation with
+ unqualified drm-memory-
+Message-ID: <ZjjTaeZYNqVSj2y-@phenom.ffwll.local>
+References: <20240503123657.9441-1-tursulin@igalia.com>
+ <736ba0a2-035b-4727-bbcc-437029420377@igalia.com>
+ <2cdee989-f48d-4923-b12a-f09a1cc2b34d@igalia.com>
+ <ZjUDsRIHHmJ0oM-1@phenom.ffwll.local>
+ <CADnq5_Mp0y559dGHuK2HWJp_UuiknOhvQB90yw_tdOuo1eV8gQ@mail.gmail.com>
+ <4705c6e4-04e3-4f97-9f9a-629b6495e92a@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: lincao12@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F43:EE_|MN0PR12MB6053:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4361861c-aa82-4c1d-de0b-08dc6db37ddf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230031|82310400017|376005|36860700004|1800799015; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?uiayWhO040LVDCCXvKAesjsuQRdaFsk+G7mWXeOvfqi7mhnZ0kmLt9UY18Hc?=
- =?us-ascii?Q?tM1LHr2m2dw/LoS/WlY6SBY0H/Xnr698SFWduIoS/MmwXZb7r+lfTp3dGLGB?=
- =?us-ascii?Q?7dRgbSYTNKlPePLY2ItbsEa+tfKoIWPNxgCs/y4ELOCUvIYR3KWAcKQDRR0J?=
- =?us-ascii?Q?QDdJ8NszCJTElS4VjMK6vQP4jEdi0lm9LEY/fpaSG67oB970B11kqVvMj+uz?=
- =?us-ascii?Q?w0KrVfsHo7HzttLiRzcSav9QC8RG2ZrMMQz5vva5/kgTe48egdNVNUUGZMeT?=
- =?us-ascii?Q?7FxipQ9a9R5/p4zTwBhR9scIu0S3t7wtdiA0HaR+morxbz3ReYFMMQEAzpbZ?=
- =?us-ascii?Q?M2HXpoxSkJKTrex3f1M4Ox+ajo6wkjsUarikIsXVTPyIE8v/731l34IkJGxv?=
- =?us-ascii?Q?Rt/wIH0k61WI9JGldkgfV02bSNuYCIKQqQ90Dh3kuxhng1bcc5L+opOW9EZ3?=
- =?us-ascii?Q?cJHk04o/KinSV8ohmre4sSxe8K1RZ2l74ONkts7uZJ73QAR2XXAuD3LEiFI1?=
- =?us-ascii?Q?PxFBp4DF3srayHChzx0AGcVxnCgaKglZXCx6LVXQ+rBFGA/p75tbH84prd7B?=
- =?us-ascii?Q?1FeSz/vK9jC62/qf/qiuglYoU2lF5EKErIbjNreevlQ2c0sAAt3LBoWXJnMq?=
- =?us-ascii?Q?PGouWRuTabt/vKjgVrTen0FG4pxv5I2HKWVLglugjvrLd81gsbO98t7shttd?=
- =?us-ascii?Q?iansnXaKx/RiOrhQqxZavrX1EcVuj4jQlnQbxFGkIhh7561cVUSDVttOccn1?=
- =?us-ascii?Q?msb6j16QmvaJXvU5WqUzS9P5ziiMb/6g/lw5m+oJaxatTTg6HP4qa2WkSubm?=
- =?us-ascii?Q?ZjeSwO64B3oJ1wRvdg0coRqeMR9s0GvLjrR8muuDlYNv4fkb5vI6ZeKBnbWJ?=
- =?us-ascii?Q?iPE1FY+DAKDTjnPwUvvKW0Xt1vAQPULj4b+G7FH+A/ETjtacwBuF3zTtl2Mq?=
- =?us-ascii?Q?JwVbf/sXZPesY8xcaY+87eQ6XjqS+5FsBpJZlTd+4VqPuJBH10bUQJD1Vxjw?=
- =?us-ascii?Q?rFNHVqJQQ9y9GsizOVUYwrHG5aFsZUDtrmhn9JnhCfN2wNyImGW9dee6by7l?=
- =?us-ascii?Q?Kxc1wczO3xY2ioNqOf1QDXETI+mrGXfV7jwYMOEug3RQdwsMAIJ3ySu8C664?=
- =?us-ascii?Q?4FZK6h8z5fSgzhmJv9OsZlVAxDzwy2pv2c+KnXDe+SjjRJCTsbT65Pmqnso8?=
- =?us-ascii?Q?/TUFwx2QqT8z7fFhOvQejyIsYhCoY6SxzpxAABxDTS2Lb+8aZ1JnSMnjS3sb?=
- =?us-ascii?Q?RJYLA6P2sOvZIXp+0+kPOb4UkPB+lHZ+bCyiAOTE1qvH+X/pGxPHgy3tnCuY?=
- =?us-ascii?Q?8v6lxc09vdlCyLPOrBcel4J4Z8vkyQkorJxrw/VUvbXgmiMnhG2uDpOXngAN?=
- =?us-ascii?Q?CMWDlx2Eu16c9T30sKr6tXjDCq6b?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400017)(376005)(36860700004)(1800799015); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2024 10:01:25.7539 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4361861c-aa82-4c1d-de0b-08dc6db37ddf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00036F43.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6053
+In-Reply-To: <4705c6e4-04e3-4f97-9f9a-629b6495e92a@igalia.com>
+X-Operating-System: Linux phenom 6.6.15-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,38 +91,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In interrupt context, write dbg_ev_file will be run by work queue. It
-will cause write dbg_ev_file execution after debug_trap_disable, which
-will cause NULL pointer access.
-v2: cancel work "debug_event_workarea" before set dbg_ev_file as NULL.
+On Fri, May 03, 2024 at 06:06:03PM +0100, Tvrtko Ursulin wrote:
+> 
+> On 03/05/2024 16:58, Alex Deucher wrote:
+> > On Fri, May 3, 2024 at 11:33 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+> > > 
+> > > On Fri, May 03, 2024 at 01:58:38PM +0100, Tvrtko Ursulin wrote:
+> > > > 
+> > > > [And I forgot dri-devel.. doing well!]
+> > > > 
+> > > > On 03/05/2024 13:40, Tvrtko Ursulin wrote:
+> > > > > 
+> > > > > [Correcting Christian's email]
+> > > > > 
+> > > > > On 03/05/2024 13:36, Tvrtko Ursulin wrote:
+> > > > > > From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > > > > 
+> > > > > > Currently it is not well defined what is drm-memory- compared to other
+> > > > > > categories.
+> > > > > > 
+> > > > > > In practice the only driver which emits these keys is amdgpu and in them
+> > > > > > exposes the total memory use (including shared).
+> > > > > > 
+> > > > > > Document that drm-memory- and drm-total-memory- are aliases to
+> > > > > > prevent any
+> > > > > > confusion in the future.
+> > > > > > 
+> > > > > > While at it also clarify that the reserved sub-string 'memory' refers to
+> > > > > > the memory region component.
+> > > > > > 
+> > > > > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > > > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > > > > Cc: Christian König <christian.keonig@amd.com>
+> > > > > 
+> > > > > Mea culpa, I copied the mistake from
+> > > > > 77d17c4cd0bf52eacfad88e63e8932eb45d643c5. :)
+> > > > > 
+> > > > > Regards,
+> > > > > 
+> > > > > Tvrtko
+> > > > > 
+> > > > > > Cc: Rob Clark <robdclark@chromium.org>
+> > > > > > ---
+> > > > > >    Documentation/gpu/drm-usage-stats.rst | 10 +++++++++-
+> > > > > >    1 file changed, 9 insertions(+), 1 deletion(-)
+> > > > > > 
+> > > > > > diff --git a/Documentation/gpu/drm-usage-stats.rst
+> > > > > > b/Documentation/gpu/drm-usage-stats.rst
+> > > > > > index 6dc299343b48..ef5c0a0aa477 100644
+> > > > > > --- a/Documentation/gpu/drm-usage-stats.rst
+> > > > > > +++ b/Documentation/gpu/drm-usage-stats.rst
+> > > > > > @@ -128,7 +128,9 @@ Memory
+> > > > > >    Each possible memory type which can be used to store buffer
+> > > > > > objects by the
+> > > > > >    GPU in question shall be given a stable and unique name to be
+> > > > > > returned as the
+> > > > > > -string here.  The name "memory" is reserved to refer to normal
+> > > > > > system memory.
+> > > > > > +string here.
+> > > > > > +
+> > > > > > +The region name "memory" is reserved to refer to normal system memory.
+> > > > > >    Value shall reflect the amount of storage currently consumed by
+> > > > > > the buffer
+> > > > > >    objects belong to this client, in the respective memory region.
+> > > > > > @@ -136,6 +138,9 @@ objects belong to this client, in the respective
+> > > > > > memory region.
+> > > > > >    Default unit shall be bytes with optional unit specifiers of 'KiB'
+> > > > > > or 'MiB'
+> > > > > >    indicating kibi- or mebi-bytes.
+> > > > > > +This is an alias for drm-total-<region> and only one of the two
+> > > > > > should be
+> > > > > > +present.
+> > > 
+> > > This feels a bit awkward and seems to needlessly complicate fdinfo uapi.
+> > > 
+> > > - Could we just patch amdgpu to follow everyone else, and avoid the
+> > >    special case? If there's no tool that relies on the special amdgpu
+> > >    prefix then that would be a lot easier.
+> > > 
+> > > - If that's not on the table, could we make everyone (with a suitable
+> > >    helper or something) just print both variants, so that we again have
+> > >    consisent fdinfo output? Or breaks that a different set of existing
+> > >    tools.
+> > > 
+> > > - Finally maybe could we get away with fixing amd by adding the common
+> > >    format there, deprecating the old, fixing the tools that would break and
+> > >    then maybe if we're lucky, remove the old one from amdgpu in a year or
+> > >    so?
+> > 
+> > I'm not really understanding what amdgpu is doing wrong.  It seems to
+> > be following the documentation.  Is the idea that we would like to
+> > deprecate drm-memory-<region> in favor of drm-total-<region>?
+> > If that's the case, I think the 3rd option is probably the best.  We
+> > have a lot of tools and customers using this.  It would have also been
+> > nice to have "memory" in the string for the newer ones to avoid
+> > conflicts with other things that might be a total or shared in the
+> > future, but I guess that ship has sailed.  We should also note that
+> > drm-memory-<region> is deprecated.  While we are here, maybe we should
+> > clarify the semantics of resident, purgeable, and active.  For
+> > example, isn't resident just a duplicate of total?  If the memory was
+> > not resident, it would be in a different region.
+> 
+> Amdgpu isn't doing anything wrong. It just appears when the format was
+> discussed no one noticed (me included) that the two keys are not clearly
+> described. And it looks there also wasn't a plan to handle the uncelar
+> duality in the future.
 
-Signed-off-by: Lin.Cao <lincao12@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Yeah I didnt want to imply that amdgpu did anything wrong, just that if we
+have a spec where everyone does one thing, except one driver, that's a
+really unfortunate situation that will cause endless amounts of pains to
+userspace people.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-index d889e3545120..6c2f6a26c479 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-@@ -103,7 +103,8 @@ void debug_event_write_work_handler(struct work_struct *work)
- 			struct kfd_process,
- 			debug_event_workarea);
- 
--	kernel_write(process->dbg_ev_file, &write_data, 1, &pos);
-+	if (process->debug_trap_enabled && process->dbg_ev_file)
-+		kernel_write(process->dbg_ev_file, &write_data, 1, &pos);
- }
- 
- /* update process/device/queue exception status, write to descriptor
-@@ -645,6 +646,7 @@ int kfd_dbg_trap_disable(struct kfd_process *target)
- 	else if (target->runtime_info.runtime_state != DEBUG_RUNTIME_STATE_DISABLED)
- 		target->runtime_info.runtime_state = DEBUG_RUNTIME_STATE_ENABLED;
- 
-+	cancel_work_sync(&target->debug_event_workarea);
- 	fput(target->dbg_ev_file);
- 	target->dbg_ev_file = NULL;
- 
+Like entirely different example, but vmwgfx started out as a driver not
+using gem buffer ids for it's per-fd buffer objects. And after a decade
+they switched because aside from their own vmwgfx specific userspace just
+about no-one got the memo. Despite that it was all documented and designed
+to allow that case, and we tried to tilt that windmill for years
+educating userspace.
+
+Anyway I think you have I plan, I'm out :-)
+-Sima
+
+> For me deprecating sounds fine, the 3rd option. I understand we would only
+> make amdgpu emit both sets of keys and then remove drm-memory- in due time.
+> 
+> With regards to key naming, yeah, memory in the name would have been nice.
+> We had a lot of discussion on this topic but ship has indeed sailed. It is
+> probably workarble for anything new that might come to add their prefix. As
+> long as it does not clash with the memory categories is should be fine.
+> 
+> In terms of resident semantics, think of it as VIRT vs RES in top(1). It is
+> for drivers which allocate backing store lazily, on first use.
+> 
+> Purgeable is for drivers which have a form of MADV_DONTNEED ie. currently
+> have backing store but userspace has indicated it can be dropped without
+> preserving the content on memory pressure.
+> 
+> Active is when reservation object says there is activity on the buffer.
+> 
+> Regards,
+> 
+> Tvrtko
+> 
+> > 
+> > Alex
+> > 
+> > > 
+> > > Uapi that's "either do $foo or on this one driver, do $bar" is just
+> > > guaranteed to fragement the ecosystem, so imo that should be the absolute
+> > > last resort.
+> > > -Sima
+> > > 
+> > > > > > +
+> > > > > >    - drm-shared-<region>: <uint> [KiB|MiB]
+> > > > > >    The total size of buffers that are shared with another file (e.g.,
+> > > > > > have more
+> > > > > > @@ -145,6 +150,9 @@ than a single handle).
+> > > > > >    The total size of buffers that including shared and private memory.
+> > > > > > +This is an alias for drm-memory-<region> and only one of the two
+> > > > > > should be
+> > > > > > +present.
+> > > > > > +
+> > > > > >    - drm-resident-<region>: <uint> [KiB|MiB]
+> > > > > >    The total size of buffers that are resident in the specified region.
+> > > 
+> > > --
+> > > Daniel Vetter
+> > > Software Engineer, Intel Corporation
+> > > http://blog.ffwll.ch
+
 -- 
-2.25.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
