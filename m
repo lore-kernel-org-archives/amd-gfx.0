@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 828EBC25B74
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 17:00:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6AAAC25B4F
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 17:00:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 925841122B2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5EE21122BA;
 	Mon,  6 May 2024 17:00:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jBadRP9f";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FeOb6MIH";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CBB51122B2
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 May 2024 17:00:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF5C1122BA
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 May 2024 17:00:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,26 +22,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=fb6BsfncjTlVi5sfzTbt+nl+2Ah8/gn2rYXlBLIlNTo=; b=jBadRP9fTpkkQMA0fZGaMWqHu6
- sRUqKKCdQiZgsfJCudTeObd/pDCFc5Y5LwsQhTpverjMrSiQRTbuVqZyZT8UrZS4UdBOKQ/ayZsn8
- 8wuRGJngdab3ihfnOA4oQc0Eym/ZrrJ37tfoEzKg0bf0Yjv23NwBEQ6nNovWAQ68ZBwMZZOf7Qgbs
- a1NXSCV+c75wQcZCaG6F9RhIIUNB/VdI7nIpMA2IJU0enNjMCpNBIzsYOg+iililSEZ8nM0zjo8d4
- BtIfuylxWHa4UruVlxReuO7m+X6bcfGJ02uKadshcQjGN8AgHruvlp8WuBU6V7pWN9my0JIIDvajb
- kEYM1nIw==;
+ bh=Y1Q8q1jNuyHJ6wj7xFQN8Q9/kQEpLXqGUtVUBooZPCk=; b=FeOb6MIHZa7MEUcLVwUoOtZIZj
+ YDb46vf85nba/DLT5Jr69r2qz7P4817g1O8ygz6no8yvVkH8ZbV4Q7fmVdkgAiIxPvmq9Ze2gvqmY
+ vDLIPunLK4MEOkc7iRcGRbf+MzjpcuA0eWTi5Td3SbIW2ccrYpHB5fzFQlblvtFi4NyyjcN/Iux8t
+ WrpmbEcE7uES8afrl3XYaSDsTIHpPwufyyJaO/7got1aWaitlXpmxB3ZcnVVFScUqgs2IkqMoExlr
+ 5qZAtO+YKE7rGPWt+xdnSgB7xvuQOOHZc8+1ze+damBVJGai73umoFjYwTpc6HRpujserbOj5xsNY
+ U1kytLLg==;
 Received: from [84.69.19.168] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1s41h6-001QfL-Qz; Mon, 06 May 2024 19:00:05 +0200
+ id 1s41h5-001QfD-Dt; Mon, 06 May 2024 19:00:03 +0200
 From: Tvrtko Ursulin <tursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.keonig@amd.com>,
- Rob Clark <robdclark@chromium.org>
-Subject: [PATCH 4/5] Documentation/gpu: Document the situation with
- unqualified drm-memory-
-Date: Mon,  6 May 2024 17:59:58 +0100
-Message-ID: <20240506165959.50648-5-tursulin@igalia.com>
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>
+Subject: [PATCH 2/5] drm/amdgpu: Reduce mem_type to domain double indirection
+Date: Mon,  6 May 2024 17:59:56 +0100
+Message-ID: <20240506165959.50648-3-tursulin@igalia.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240506165959.50648-1-tursulin@igalia.com>
 References: <20240506165959.50648-1-tursulin@igalia.com>
@@ -64,93 +62,132 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Currently it is not well defined what is drm-memory- compared to other
-categories.
+All apart from AMDGPU_GEM_DOMAIN_GTT memory domains map 1:1 to TTM
+placements. And the former be either AMDGPU_PL_PREEMPT or TTM_PL_TT,
+depending on AMDGPU_GEM_CREATE_PREEMPTIBLE.
 
-In practice the only driver which emits these keys is amdgpu and in them
-exposes the total memory use (including shared).
+Simplify a few places in the code which convert the TTM placement into
+a domain by checking against the current placement directly.
 
-To prevent any confusion, document that drm-memory- is deprecated and an
-alias to drm-total-memory-.
-
-While at it also clarify that the reserved sub-string 'memory' refers to
-the memory region component, and also clarify the intended semantics of
-other memory categories.
+In the conversion AMDGPU_PL_PREEMPT either does not have to be handled
+because amdgpu_mem_type_to_domain() cannot return that value anyway.
 
 v2:
- * Also mark drm-memory- as deprecated.
- * Add some more text describing memory categories. (Alex)
+ * Remove AMDGPU_PL_PREEMPT handling.
+
+v3:
+ * Rebase.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.keonig@amd.com>
-Cc: Rob Clark <robdclark@chromium.org>
+Reviewed-by: Christian König <christian.koenig@amd.com> # v1
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com> # v2
 ---
- Documentation/gpu/drm-usage-stats.rst | 25 ++++++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  3 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 29 +++++++++------------
+ 2 files changed, 13 insertions(+), 19 deletions(-)
 
-diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-index 6dc299343b48..7fee316c9582 100644
---- a/Documentation/gpu/drm-usage-stats.rst
-+++ b/Documentation/gpu/drm-usage-stats.rst
-@@ -128,7 +128,9 @@ Memory
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index 055ba2ea4c12..0b3b10d21952 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -165,8 +165,7 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+ 		if (r)
+ 			return ERR_PTR(r);
  
- Each possible memory type which can be used to store buffer objects by the
- GPU in question shall be given a stable and unique name to be returned as the
--string here.  The name "memory" is reserved to refer to normal system memory.
-+string here.
-+
-+The region name "memory" is reserved to refer to normal system memory.
+-	} else if (!(amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type) &
+-		     AMDGPU_GEM_DOMAIN_GTT)) {
++	} else if (bo->tbo.resource->mem_type != TTM_PL_TT) {
+ 		return ERR_PTR(-EBUSY);
+ 	}
  
- Value shall reflect the amount of storage currently consumed by the buffer
- objects belong to this client, in the respective memory region.
-@@ -136,6 +138,9 @@ objects belong to this client, in the respective memory region.
- Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
- indicating kibi- or mebi-bytes.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 8d8c39be6129..4f9073dd19eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -983,12 +983,11 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
  
-+This key is deprecated and is an alias for drm-total-<region>. Only one of the
-+two should be present.
-+
- - drm-shared-<region>: <uint> [KiB|MiB]
+ 	ttm_bo_pin(&bo->tbo);
  
- The total size of buffers that are shared with another file (e.g., have more
-@@ -143,20 +148,34 @@ than a single handle).
+-	domain = amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
+-	if (domain == AMDGPU_GEM_DOMAIN_VRAM) {
++	if (bo->tbo.resource->mem_type == TTM_PL_VRAM) {
+ 		atomic64_add(amdgpu_bo_size(bo), &adev->vram_pin_size);
+ 		atomic64_add(amdgpu_vram_mgr_bo_visible_size(bo),
+ 			     &adev->visible_pin_size);
+-	} else if (domain == AMDGPU_GEM_DOMAIN_GTT) {
++	} else if (bo->tbo.resource->mem_type == TTM_PL_TT) {
+ 		atomic64_add(amdgpu_bo_size(bo), &adev->gart_pin_size);
+ 	}
  
- - drm-total-<region>: <uint> [KiB|MiB]
+@@ -1293,7 +1292,6 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+ 	struct ttm_resource *res = bo->tbo.resource;
+ 	uint64_t size = amdgpu_bo_size(bo);
+ 	struct drm_gem_object *obj;
+-	unsigned int domain;
+ 	bool shared;
  
--The total size of buffers that including shared and private memory.
-+The total size of all created buffers including shared and private memory. The
-+backing store for the buffers does not have to be currently instantiated to be
-+counted under this category.
-+
-+This is an alias for drm-memory-<region> and only one of the two should be
-+present.
+ 	/* Abort if the BO doesn't currently have a backing store */
+@@ -1303,21 +1301,20 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+ 	obj = &bo->tbo.base;
+ 	shared = drm_gem_object_is_shared_for_memory_stats(obj);
  
- - drm-resident-<region>: <uint> [KiB|MiB]
+-	domain = amdgpu_mem_type_to_domain(res->mem_type);
+-	switch (domain) {
+-	case AMDGPU_GEM_DOMAIN_VRAM:
++	switch (res->mem_type) {
++	case TTM_PL_VRAM:
+ 		stats->vram += size;
+-		if (amdgpu_res_cpu_visible(adev, bo->tbo.resource))
++		if (amdgpu_res_cpu_visible(adev, res))
+ 			stats->visible_vram += size;
+ 		if (shared)
+ 			stats->vram_shared += size;
+ 		break;
+-	case AMDGPU_GEM_DOMAIN_GTT:
++	case TTM_PL_TT:
+ 		stats->gtt += size;
+ 		if (shared)
+ 			stats->gtt_shared += size;
+ 		break;
+-	case AMDGPU_GEM_DOMAIN_CPU:
++	case TTM_PL_SYSTEM:
+ 	default:
+ 		stats->cpu += size;
+ 		if (shared)
+@@ -1330,7 +1327,7 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+ 		if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
+ 			stats->requested_visible_vram += size;
  
--The total size of buffers that are resident in the specified region.
-+The total size of buffers that are resident (have their backing store present or
-+instantiated) in the specified region.
+-		if (domain != AMDGPU_GEM_DOMAIN_VRAM) {
++		if (res->mem_type != TTM_PL_VRAM) {
+ 			stats->evicted_vram += size;
+ 			if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
+ 				stats->evicted_visible_vram += size;
+@@ -1604,20 +1601,18 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
+ 	u64 size;
  
- - drm-purgeable-<region>: <uint> [KiB|MiB]
+ 	if (dma_resv_trylock(bo->tbo.base.resv)) {
+-		unsigned int domain;
  
- The total size of buffers that are purgeable.
- 
-+For example drivers which implement a form of 'madvise' like functionality can
-+here count buffers which have instantiated backing store, but have been marked
-+with an equivalent of MADV_DONTNEED.
-+
- - drm-active-<region>: <uint> [KiB|MiB]
- 
- The total size of buffers that are active on one or more engines.
- 
-+One practical example of this can be presence of unsignaled fences in an GEM
-+buffer reservation object. Therefore the active category is a subset of
-+resident.
-+
- Implementation Details
- ======================
- 
+-		domain = amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
+-		switch (domain) {
+-		case AMDGPU_GEM_DOMAIN_VRAM:
++		switch (bo->tbo.resource->mem_type) {
++		case TTM_PL_VRAM:
+ 			if (amdgpu_res_cpu_visible(adev, bo->tbo.resource))
+ 				placement = "VRAM VISIBLE";
+ 			else
+ 				placement = "VRAM";
+ 			break;
+-		case AMDGPU_GEM_DOMAIN_GTT:
++		case TTM_PL_TT:
+ 			placement = "GTT";
+ 			break;
+-		case AMDGPU_GEM_DOMAIN_CPU:
++		case TTM_PL_SYSTEM:
+ 		default:
+ 			placement = "CPU";
+ 			break;
 -- 
 2.44.0
 
