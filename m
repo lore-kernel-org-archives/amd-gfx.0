@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6AAAC25B4F
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 17:00:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C98BC25B75
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 17:00:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5EE21122BA;
-	Mon,  6 May 2024 17:00:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11D8C1122C0;
+	Mon,  6 May 2024 17:00:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FeOb6MIH";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Hvooj57h";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF5C1122BA
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 May 2024 17:00:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8927310FF35
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 May 2024 17:00:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,24 +22,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=Y1Q8q1jNuyHJ6wj7xFQN8Q9/kQEpLXqGUtVUBooZPCk=; b=FeOb6MIHZa7MEUcLVwUoOtZIZj
- YDb46vf85nba/DLT5Jr69r2qz7P4817g1O8ygz6no8yvVkH8ZbV4Q7fmVdkgAiIxPvmq9Ze2gvqmY
- vDLIPunLK4MEOkc7iRcGRbf+MzjpcuA0eWTi5Td3SbIW2ccrYpHB5fzFQlblvtFi4NyyjcN/Iux8t
- WrpmbEcE7uES8afrl3XYaSDsTIHpPwufyyJaO/7got1aWaitlXpmxB3ZcnVVFScUqgs2IkqMoExlr
- 5qZAtO+YKE7rGPWt+xdnSgB7xvuQOOHZc8+1ze+damBVJGai73umoFjYwTpc6HRpujserbOj5xsNY
- U1kytLLg==;
+ bh=F5Jjsf6L5e6gu/GOqTMxP/sUj7SINu6NJHzC6p2eyqE=; b=Hvooj57h2XIlMce4lfnT5T85NO
+ 9v1fRpKsoEp8q+w5UrxYyDfvFd3VD2LVF1ltwEouhC2YZSLQw1qZS7C30x/fG1EMl8a61N7I4U+km
+ jINuG1v/99rP+SFhzyBtKSzA3MIsWve1yBBYAaPSPBQSPBZlG5RxcaTxXARRtzbZWYJgLQWW6r1t4
+ 3pDhvErcwNO0zVbjGwjfDsFyz7qf1lN6H7gn/sGUwlQqQQq/gHpoHaLgoyIl3E0xG3Z4MKcg8R/B9
+ MuYmFlTrBArkiwsz5SGmQyHBzMsmSyMgxLHZVzWXpOX5bf2szdJgEXmzavsso9ZmNHUWk7Klrophz
+ p8gpvoVA==;
 Received: from [84.69.19.168] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1s41h5-001QfD-Dt; Mon, 06 May 2024 19:00:03 +0200
+ id 1s41h6-001QfJ-3Z; Mon, 06 May 2024 19:00:04 +0200
 From: Tvrtko Ursulin <tursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Felix Kuehling <felix.kuehling@amd.com>
-Subject: [PATCH 2/5] drm/amdgpu: Reduce mem_type to domain double indirection
-Date: Mon,  6 May 2024 17:59:56 +0100
-Message-ID: <20240506165959.50648-3-tursulin@igalia.com>
+Subject: [PATCH 3/5] drm/amdgpu: Describe all object placements in debugfs
+Date: Mon,  6 May 2024 17:59:57 +0100
+Message-ID: <20240506165959.50648-4-tursulin@igalia.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240506165959.50648-1-tursulin@igalia.com>
 References: <20240506165959.50648-1-tursulin@igalia.com>
@@ -62,132 +62,43 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-All apart from AMDGPU_GEM_DOMAIN_GTT memory domains map 1:1 to TTM
-placements. And the former be either AMDGPU_PL_PREEMPT or TTM_PL_TT,
-depending on AMDGPU_GEM_CREATE_PREEMPTIBLE.
-
-Simplify a few places in the code which convert the TTM placement into
-a domain by checking against the current placement directly.
-
-In the conversion AMDGPU_PL_PREEMPT either does not have to be handled
-because amdgpu_mem_type_to_domain() cannot return that value anyway.
-
-v2:
- * Remove AMDGPU_PL_PREEMPT handling.
-
-v3:
- * Rebase.
+Accurately show all placements when describing objects in debugfs, instead
+of bunching them up under the 'CPU' placement.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Reviewed-by: Christian König <christian.koenig@amd.com> # v1
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com> # v2
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  3 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 29 +++++++++------------
- 2 files changed, 13 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index 055ba2ea4c12..0b3b10d21952 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -165,8 +165,7 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
- 		if (r)
- 			return ERR_PTR(r);
- 
--	} else if (!(amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type) &
--		     AMDGPU_GEM_DOMAIN_GTT)) {
-+	} else if (bo->tbo.resource->mem_type != TTM_PL_TT) {
- 		return ERR_PTR(-EBUSY);
- 	}
- 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 8d8c39be6129..4f9073dd19eb 100644
+index 4f9073dd19eb..fa5227a4aac2 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -983,12 +983,11 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
- 
- 	ttm_bo_pin(&bo->tbo);
- 
--	domain = amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
--	if (domain == AMDGPU_GEM_DOMAIN_VRAM) {
-+	if (bo->tbo.resource->mem_type == TTM_PL_VRAM) {
- 		atomic64_add(amdgpu_bo_size(bo), &adev->vram_pin_size);
- 		atomic64_add(amdgpu_vram_mgr_bo_visible_size(bo),
- 			     &adev->visible_pin_size);
--	} else if (domain == AMDGPU_GEM_DOMAIN_GTT) {
-+	} else if (bo->tbo.resource->mem_type == TTM_PL_TT) {
- 		atomic64_add(amdgpu_bo_size(bo), &adev->gart_pin_size);
- 	}
- 
-@@ -1293,7 +1292,6 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
- 	struct ttm_resource *res = bo->tbo.resource;
- 	uint64_t size = amdgpu_bo_size(bo);
- 	struct drm_gem_object *obj;
--	unsigned int domain;
- 	bool shared;
- 
- 	/* Abort if the BO doesn't currently have a backing store */
-@@ -1303,21 +1301,20 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
- 	obj = &bo->tbo.base;
- 	shared = drm_gem_object_is_shared_for_memory_stats(obj);
- 
--	domain = amdgpu_mem_type_to_domain(res->mem_type);
--	switch (domain) {
--	case AMDGPU_GEM_DOMAIN_VRAM:
-+	switch (res->mem_type) {
-+	case TTM_PL_VRAM:
- 		stats->vram += size;
--		if (amdgpu_res_cpu_visible(adev, bo->tbo.resource))
-+		if (amdgpu_res_cpu_visible(adev, res))
- 			stats->visible_vram += size;
- 		if (shared)
- 			stats->vram_shared += size;
- 		break;
--	case AMDGPU_GEM_DOMAIN_GTT:
-+	case TTM_PL_TT:
- 		stats->gtt += size;
- 		if (shared)
- 			stats->gtt_shared += size;
- 		break;
--	case AMDGPU_GEM_DOMAIN_CPU:
-+	case TTM_PL_SYSTEM:
- 	default:
- 		stats->cpu += size;
- 		if (shared)
-@@ -1330,7 +1327,7 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
- 		if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
- 			stats->requested_visible_vram += size;
- 
--		if (domain != AMDGPU_GEM_DOMAIN_VRAM) {
-+		if (res->mem_type != TTM_PL_VRAM) {
- 			stats->evicted_vram += size;
- 			if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
- 				stats->evicted_visible_vram += size;
-@@ -1604,20 +1601,18 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
- 	u64 size;
- 
- 	if (dma_resv_trylock(bo->tbo.base.resv)) {
--		unsigned int domain;
- 
--		domain = amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
--		switch (domain) {
--		case AMDGPU_GEM_DOMAIN_VRAM:
-+		switch (bo->tbo.resource->mem_type) {
-+		case TTM_PL_VRAM:
- 			if (amdgpu_res_cpu_visible(adev, bo->tbo.resource))
- 				placement = "VRAM VISIBLE";
- 			else
- 				placement = "VRAM";
- 			break;
--		case AMDGPU_GEM_DOMAIN_GTT:
-+		case TTM_PL_TT:
+@@ -1612,6 +1612,21 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
+ 		case TTM_PL_TT:
  			placement = "GTT";
  			break;
--		case AMDGPU_GEM_DOMAIN_CPU:
-+		case TTM_PL_SYSTEM:
++		case AMDGPU_PL_GDS:
++			placement = "GDS";
++			break;
++		case AMDGPU_PL_GWS:
++			placement = "GWS";
++			break;
++		case AMDGPU_PL_OA:
++			placement = "OA";
++			break;
++		case AMDGPU_PL_PREEMPT:
++			placement = "PREEMPTIBLE";
++			break;
++		case AMDGPU_PL_DOORBELL:
++			placement = "DOORBELL";
++			break;
+ 		case TTM_PL_SYSTEM:
  		default:
  			placement = "CPU";
- 			break;
 -- 
 2.44.0
 
