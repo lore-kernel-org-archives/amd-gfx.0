@@ -4,65 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1159CC10F16
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 15:21:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36FB7C25B4F
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 May 2024 17:00:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 857FA11216A;
-	Mon,  6 May 2024 15:21:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 764E310FF35;
+	Mon,  6 May 2024 17:00:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K/Lx1mdA";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="sxOqirbp";
 	dkim-atps=neutral
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE9A711216A
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 May 2024 15:21:13 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-6f450f43971so1466701b3a.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 06 May 2024 08:21:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715008873; x=1715613673; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UROUayVdaz8/NIecXbfHeYiPUUBiZvWGT/dLOM8E3bw=;
- b=K/Lx1mdAWUKkB8ifyezOLvH3U/+bFM3XibL5HMqVFctFQsiNcJaaPP38wxTck7wFHQ
- 4trBLNs0V9Hr/XiRxs52kyIstAtZPCj4MA0StIKjQbCrUbj+DJmFZRI+zqUAtE6lqse6
- gA5hF86bgijsi4CQRjovtsmQwegN4FA5uKcKSJ9w4uPEIBL/lcCWndPVabMmWOYotydk
- 397jXHFougYpZH3bw2fpncOKcJyDksejLgGA4GKRqwcMUteCNIk7yfYz6OPji4A3RpqB
- P77PwmZvdCRK2a8FshJ44wOhryHlI3Tcb+97PNs/dfZh0hE3q3V6wHfsLIGoICsFhinN
- PbWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715008873; x=1715613673;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UROUayVdaz8/NIecXbfHeYiPUUBiZvWGT/dLOM8E3bw=;
- b=GHpG5J11S4soKOen8djJzsrm6kfnNFFNWcNpa6HsVWkk43zP/1qPYULyOW0ddkr+yj
- quu1I0Ej2y9iHlZ1eRLm9UFMy8tVrwZDFUMN41kLvHFzhP9RqnmdRuHPw3Hhdtf1LJFM
- /vJWeR64BwkxrlH0+w6XlY8fa4wIgnueRHe+Fb4djWbv13VxpGVgQL4POlPJegA706DZ
- fvRrmjP6HyPv8PE3pojiLHBMiOsZXFGNLQVtzs1PHG6LSm8/hE4VtUIL1zoEZiEi4why
- EAn4DRe/9M/CJWsQK5rMz1lO+PoNpkeFO1Y3ORZckaSLxOYIWvDgkpuTXwyys6M+T1Cl
- JYNw==
-X-Gm-Message-State: AOJu0YwHKj63ZdD+38tWPzP8bQ2ucw6QZZ+LJ5DhD10GpPs0MLv1qVss
- bN3nTZLIDIDkf7+7cwVd30jx158iHBNYAXmTmIxhfzgI/XmJuYBEqiKB+qPAtBibob5p7cMsGsV
- vkkb5aacy4gyctpP0kdLlOnKhCyHSnQ==
-X-Google-Smtp-Source: AGHT+IHtEH/Ze7jW5IBWfF4YkRcMrAjqxYJuTG3Wz4Ce4HZOixDH8lIvsyr+fsaPz0sF4q7gUE0uIfh98UhtsignsRE=
-X-Received: by 2002:a17:90a:e60f:b0:2b3:28be:ddfa with SMTP id
- j15-20020a17090ae60f00b002b328beddfamr9965934pjy.38.1715008873009; Mon, 06
- May 2024 08:21:13 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F92E10EF60
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 May 2024 17:00:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=ANCZObwNAnQlsIwB5UvVfWfWF4yqeZu9ld71UDUiWuw=; b=sxOqirbp0PZAyiA3ku20YSPmK+
+ 4KmXfqGWRlApQbjGmMBiqButwUGszZmqxQuyTNgyMK2eJZXIsVRAgIhSBJO1d30FsYw8KQ1tB9WPZ
+ 4RnD88zWbD3MriQvV/KjFmRXNjqYupXoWugqzqkF3nAbyCjbYaAdQ+TGGiqJlsMu4UzUJabM3HKtX
+ ZbSO/P07Q4rp/42RSRFknSU+dbbv4gFtsj9pMwbBj1mdVigLyHHcjUoSftPrWr+0OgD4UvtlKc5nt
+ GH4KDKVRFKv69+EtKKbzgdzxh6kjJ9Lv8a5JybalwPZj2DLloFojQDUg3Sr3/pHqGxMhvJFvCUGJP
+ Jj74jz5A==;
+Received: from [84.69.19.168] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1s41h3-001Qf1-VK; Mon, 06 May 2024 19:00:02 +0200
+From: Tvrtko Ursulin <tursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@chromium.org>
+Subject: [PATCH 0/5] Fdinfo memory stats clarification and amdgpu refactor
+Date: Mon,  6 May 2024 17:59:54 +0100
+Message-ID: <20240506165959.50648-1-tursulin@igalia.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-References: <20240506095630.258594-1-Jun.Ma2@amd.com>
-In-Reply-To: <20240506095630.258594-1-Jun.Ma2@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 6 May 2024 11:21:00 -0400
-Message-ID: <CADnq5_N4qt0CH9ERjwryiu4PmRw2o_8rBgT1se9UUKcTmabbwQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Fix uninitialized variable warning in
- amdgpu_info_ioctl
-To: Ma Jun <Jun.Ma2@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Kenneth.Feng@amd.com, 
- Alexander.Deucher@amd.com, kevinyang.wang@amd.com, christian.koenig@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,66 +59,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 6, 2024 at 6:22=E2=80=AFAM Ma Jun <Jun.Ma2@amd.com> wrote:
->
-> Check the return value of amdgpu_xcp_get_inst_details, otherwise we
-> may use an uninitialized variable inst_mask
->
-> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Following on from the recent discussion from:
+  https://lore.kernel.org/dri-devel/ZjjTaeZYNqVSj2y-@phenom.ffwll.local/T/#mb8105d8d7de055d3068975d27c428525e55cff84
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_kms.c
-> index a0ea6fe8d060..977cde6d1362 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -623,25 +623,32 @@ int amdgpu_info_ioctl(struct drm_device *dev, void =
-*data, struct drm_file *filp)
->                         switch (type) {
->                         case AMD_IP_BLOCK_TYPE_GFX:
->                                 ret =3D amdgpu_xcp_get_inst_details(xcp, =
-AMDGPU_XCP_GFX, &inst_mask);
-> +                               if (ret)
-> +                                       return ret;
->                                 count =3D hweight32(inst_mask);
->                                 break;
->                         case AMD_IP_BLOCK_TYPE_SDMA:
->                                 ret =3D amdgpu_xcp_get_inst_details(xcp, =
-AMDGPU_XCP_SDMA, &inst_mask);
-> +                               if (ret)
-> +                                       return ret;
->                                 count =3D hweight32(inst_mask);
->                                 break;
->                         case AMD_IP_BLOCK_TYPE_JPEG:
->                                 ret =3D amdgpu_xcp_get_inst_details(xcp, =
-AMDGPU_XCP_VCN, &inst_mask);
-> +                               if (ret)
-> +                                       return ret;
->                                 count =3D hweight32(inst_mask) * adev->jp=
-eg.num_jpeg_rings;
->                                 break;
->                         case AMD_IP_BLOCK_TYPE_VCN:
->                                 ret =3D amdgpu_xcp_get_inst_details(xcp, =
-AMDGPU_XCP_VCN, &inst_mask);
-> +                               if (ret)
-> +                                       return ret;
->                                 count =3D hweight32(inst_mask);
->                                 break;
->                         default:
->                                 return -EINVAL;
->                         }
-> -                       if (ret)
-> -                               return ret;
-> +
->                         return copy_to_user(out, &count, min(size, 4u)) ?=
- -EFAULT : 0;
->                 }
->
-> --
-> 2.34.1
->
+I included some old three patches to start with, since the last in the series
+depends on first, plus first had a bug which is now fixed.
+
+Apart from extending drm-usage-stats.rst with some more information on what
+various keys should contain, on a suggestion from Alex, in the last patch I also
+attempt to refactor amdgpu to use DRM common drm_print_memory_stats.
+
+There are perhaps a couple discussion points there so see what you think please.
+
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Rob Clark <robdclark@chromium.org>
+
+Tvrtko Ursulin (5):
+  drm/amdgpu: Add amdgpu_bo_is_vm_bo helper
+  drm/amdgpu: Reduce mem_type to domain double indirection
+  drm/amdgpu: Describe all object placements in debugfs
+  Documentation/gpu: Document the situation with unqualified drm-memory-
+  drm/amdgpu: Use drm_print_memory_stats helper from fdinfo
+
+ Documentation/gpu/drm-usage-stats.rst       |  25 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c  |  47 +++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 126 +++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |  35 ++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  61 ++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |   5 +-
+ 9 files changed, 189 insertions(+), 116 deletions(-)
+
+-- 
+2.44.0
+
