@@ -4,53 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B56A7C19F4F
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 May 2024 23:02:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A4B2C10F1A
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 May 2024 23:09:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49266112FC8;
-	Tue,  7 May 2024 23:02:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D4A1112FD2;
+	Tue,  7 May 2024 23:09:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="URTlsLSo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N9s4CWCq";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E155112FC8;
- Tue,  7 May 2024 23:02:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1572510F860;
+ Tue,  7 May 2024 23:09:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C203D61882;
- Tue,  7 May 2024 23:02:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BADBC4AF17;
- Tue,  7 May 2024 23:02:06 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 65B4561A01;
+ Tue,  7 May 2024 23:09:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF039C4AF68;
+ Tue,  7 May 2024 23:09:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1715122928;
- bh=/vI2vAORbGe6dlIg7gvs2UgWVFM4jEnbGfNAbZdbNsY=;
+ s=k20201202; t=1715123349;
+ bh=TC1fHbwX4lCqA9LuinqAvLD4Tet9hyjvajiKyUSSdPc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=URTlsLSoWohIhIZE1+zTdkk8dBimjq8+unG6kPkiRw0EIFEG1BQzjQ1J9MVQN15n+
- Ir87U9DmYQviVkdyUTVpmIU2Rn/2+aETDYAbMEOLB2zN8TUOtWNieDppTWZSagB7pw
- mjfUpgMPvGvLEP9Rh6W54uFh7PUGyl60D9THQJ85PQ3kdiB0zfLmPseJOjqaLHxJZn
- QIGUTbm+mhLnTOd+bkt8lL0+JXPFHME72ihha3+FNQzmtAhLN2gV1cSbO4hmlaLxAN
- ho9J8DTWxYy8bAbBKKkiM7P9c9n/9Lzpbb3AxO4agyDaXSbDN5AR0gjW2oiyjrtaxI
- oEhM4r7QHGXcA==
+ b=N9s4CWCqkLwaLVB7BVI3qB4SZ8ZtZCZD5JYpvjFWC0NfF9Hk1ayINANny1eFBKV4/
+ PVUN55Vl6HIcKb9vHIs74BB8IkXGSzkXYQHe9g958j06GsVndr5Fs7sDoFjnM5MfHL
+ ZWPryPpQWxVmc8sFAzuD1PrnBQ8ktbATViT5rA4xiWvCJh5JtbiJYHXwtRkd6TAqtZ
+ XPozEbqB5pvAjzNNvrJNLVUw0jMg7WejA6UOpSJ9YkSm34UFSpPndLH2SWh9v2r/ys
+ 75by9Izu8yLKYY45ATTqdARoUWBmu5n0+HQD1LzSiIMcUir7zhwTAaeUGJINaCr0c1
+ 3bHnS9XekBX3Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Joshua Ashton <joshua@froggi.es>, Harry Wentland <harry.wentland@amd.com>,
+Cc: Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch, alex.hung@amd.com,
- hamza.mahfooz@amd.com, wayne.lin@amd.com, srinivasan.shanmugam@amd.com,
- mario.limonciello@amd.com, amd-gfx@lists.freedesktop.org,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 4.19 3/3] drm/amd/display: Set color_mgmt_changed to
- true on unsuspend
-Date: Tue,  7 May 2024 19:01:56 -0400
-Message-ID: <20240507230159.392002-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.8 35/52] drm/amdgpu: Fix VRAM memory accounting
+Date: Tue,  7 May 2024 19:07:01 -0400
+Message-ID: <20240507230800.392128-35-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240507230159.392002-1-sashal@kernel.org>
-References: <20240507230159.392002-1-sashal@kernel.org>
+In-Reply-To: <20240507230800.392128-1-sashal@kernel.org>
+References: <20240507230800.392128-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 4.19.313
+X-stable-base: Linux 6.8.9
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,35 +63,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Joshua Ashton <joshua@froggi.es>
+From: Mukul Joshi <mukul.joshi@amd.com>
 
-[ Upstream commit 2eb9dd497a698dc384c0dd3e0311d541eb2e13dd ]
+[ Upstream commit f06446ef23216090d1ee8ede1a7d7ae430c22dcc ]
 
-Otherwise we can end up with a frame on unsuspend where color management
-is not applied when userspace has not committed themselves.
+Subtract the VRAM pinned memory when checking for available memory
+in amdgpu_amdkfd_reserve_mem_limit function since that memory is not
+available for use.
 
-Fixes re-applying color management on Steam Deck/Gamescope on S3 resume.
-
-Signed-off-by: Joshua Ashton <joshua@froggi.es>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 98d51bc204172..e4139723c473c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -816,6 +816,7 @@ static int dm_resume(void *handle)
- 			dc_stream_release(dm_new_crtc_state->stream);
- 			dm_new_crtc_state->stream = NULL;
- 		}
-+		dm_new_crtc_state->base.color_mgmt_changed = true;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index daa66eb4f722b..b1e2dd52e643d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -220,7 +220,7 @@ int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+ 	    (kfd_mem_limit.ttm_mem_used + ttm_mem_needed >
+ 	     kfd_mem_limit.max_ttm_mem_limit) ||
+ 	    (adev && xcp_id >= 0 && adev->kfd.vram_used[xcp_id] + vram_needed >
+-	     vram_size - reserved_for_pt)) {
++	     vram_size - reserved_for_pt - atomic64_read(&adev->vram_pin_size))) {
+ 		ret = -ENOMEM;
+ 		goto release;
  	}
- 
- 	for_each_new_plane_in_state(dm->cached_state, plane, new_plane_state, i) {
 -- 
 2.43.0
 
