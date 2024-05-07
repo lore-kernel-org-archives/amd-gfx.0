@@ -4,116 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31A1AC10F1A
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 May 2024 19:45:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C8D7C25B4F
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 May 2024 21:03:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B43621125E7;
-	Tue,  7 May 2024 19:45:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CFC010F7BF;
+	Tue,  7 May 2024 21:03:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZYdyTqjs";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L4rD1orF";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2047.outbound.protection.outlook.com [40.107.236.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B71C1125ED
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 May 2024 19:45:30 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2058.outbound.protection.outlook.com [40.107.100.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEAC910F7BD;
+ Tue,  7 May 2024 21:03:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jaReoZkOMyTv2KHWTR4BLMxSbtvDkXHkNt9+CPqvc4vjdEH8XCGOuIggSK6VpQVx0ipZN3VvoeQatvFcoJ3CKGs87XbLSjR9bq4Vh782XXz/8huasTf+sKUbI+ZbIXcwukW5lS5EjCUoIX49OsMWrpJORpez0zL4vAkDul3LDVKV42URiFL9FMiN6+stGLX0PptVsnL6h+QoeitdNVFPhqA7/Hv27xg2CKpsAceS9emKQ3rPofHwGyow6VtFKn21/PN4+OrhRTa/xfPHrU6jjG1uT7JRDaXBP456+yo264FzcRqiPW4SFpjEpWF/GBSWYJ45dFyDo76eJPisISBhYQ==
+ b=l2oFVddNi51x4O87ysffWqf++RG//hsuq/KGd46Ub2x6e3snTPzpt/lnJXhkCnJl+x1/Z01QI9P175IZiKdSJPfB4wrxo3OjPQUnnJcTLDjnUHWbwErD+qyBR0QeHiOc0Ev84tp+ayAKVSGHB8ln2eEXlcWYdKUdfv2dkmlZ7BKiKHdjEHPlMu3/RAac6OP/ZEek/LSzGGtzrhhE64fu6IittxiTq7XJe+PTrShbFMDvrGdiG5LUY1T5s3aD66GELOKse6icI1OcplM1qZqTyG5UAZq4BFUaEBfKmYfYmVn+Cr2YTZ9RlJYHg32WBSVoEz7V6k3Sw1I/nAP7HJj/3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kg775/BaTNks5jPM/esi/6EQbRhnIBdaXwRNhh89cXA=;
- b=SqzNOBGDl41Lu9R2qh7v7x5p7zYIpe4Dz/cyueJt39hF3QuB+QfnZtSbBXwwuQeww8NpCmvGtviBqPnioiQ7wLvV/8kvhD6GDz/z8pJUuEKVrDEDMscYv4s+aFRN96kuF/fvDATlIS/fC0f/rgP/3Qd/p/jwhwYqGE/9Q3K/6SteQ6QpHvZp+B53+9o8dTP25qWtI1ZPgQILCm2wUlT7y9N6W3kpzqSdg2pM3A5BCUlvw+4ZLTk45dX06MGBu14VN6b7bi34un2VOoFP65fhVH1ISpF9DnFp4lYN/4ExxtZZUJB7pprB0/OA+QNDV2Lmz4QJxp0PXUb1FcZ+r5LhcA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=d3lRRKyUenjAy3nA13vQlsiVs2ZSNaKdm+udKx+Q/mA=;
+ b=JEuRq2OnDRuxihJ6ve8JQwGdjZ9TFqtsdb5LppVWgoFy4nWP/iCgW/V05c8nF7R/jK7QekZYrsIsRGT0F8wYeSZ+rri3le++jhBssqERfN4cjZXYgek51cnbUlV9n0+z2tmX2riG75aksF3RNPJJwlhaUSbbIRnrBp9bOpdQjhAAcx7R2LuzwMHw22d7DPv4qTraK3N/bCI2SoZLlSl10SveFVtjj6vdrNzOj9H8NK+qtLoPeUpGEzv8Q9ewyDJac6dDr+CHhyJrZBO6NVNTssN1iShH5vZ4IaPp9E9NYu4/ZVU1MISiLVB1PpIP33BCxcwWHZhzwvWUpAa5Tf0a/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kg775/BaTNks5jPM/esi/6EQbRhnIBdaXwRNhh89cXA=;
- b=ZYdyTqjsF/nSlFubNwprgcroXraYeJEAI8qEkndLaVUL6uw5mAb/iErij4sJ1mG0fqlOrswIHpiGvLTDKGLE81uQIC9OGANVIzxhd6pt/aPqxco/RFpdNUH6hNUHMx/sZp6OZBF6vJB9pM8hS5GRFgJnrzRyYVuuawmkrrFrSmo=
-Received: from DS7PR03CA0277.namprd03.prod.outlook.com (2603:10b6:5:3ad::12)
- by DS0PR12MB7680.namprd12.prod.outlook.com (2603:10b6:8:11c::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.43; Tue, 7 May
- 2024 19:45:26 +0000
-Received: from DS2PEPF00003439.namprd02.prod.outlook.com
- (2603:10b6:5:3ad:cafe::f3) by DS7PR03CA0277.outlook.office365.com
- (2603:10b6:5:3ad::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42 via Frontend
- Transport; Tue, 7 May 2024 19:45:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF00003439.mail.protection.outlook.com (10.167.18.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Tue, 7 May 2024 19:45:26 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 7 May
- 2024 14:45:25 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, Philip Yang <Philip.Yang@amd.com>
-Subject: [PATCH] drm/amdgpu: Show retry fault message if process xnack on
-Date: Tue, 7 May 2024 15:45:05 -0400
-Message-ID: <20240507194506.21521-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.43.2
-MIME-Version: 1.0
+ bh=d3lRRKyUenjAy3nA13vQlsiVs2ZSNaKdm+udKx+Q/mA=;
+ b=L4rD1orFwQ1A5n7Fj3bj1nvnJqusVg6jvIcDQqeIJ+RSSfLAkNTK/tygu9lnlS/5XwnCoue96k/tzCIqwzeYnReOyaKhuweDzMngvwPhkU+C2llx3fSWeQGNTgOmMK6NcJ1cbC8KY7v2AMumBcwH+JopBtZL6+yLEbQaA+7EkII=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by MN0PR12MB6200.namprd12.prod.outlook.com (2603:10b6:208:3c3::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Tue, 7 May
+ 2024 21:03:45 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81%4]) with mapi id 15.20.7544.041; Tue, 7 May 2024
+ 21:03:45 +0000
+Message-ID: <b463d432-669c-43a4-933a-cafef000f7da@amd.com>
+Date: Tue, 7 May 2024 17:03:41 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 11/11] drm/tegra: Use fbdev client helpers
+To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ inki.dae@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
+ linux@armlinux.org.uk, krzk@kernel.org, alim.akhtar@samsung.com,
+ patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run, marijn.suijten@somainline.org,
+ tomi.valkeinen@ideasonboard.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, thierry.reding@gmail.com,
+ mperttunen@nvidia.com, jonathanh@nvidia.com
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20240507120422.25492-1-tzimmermann@suse.de>
+ <20240507120422.25492-12-tzimmermann@suse.de>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20240507120422.25492-12-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YQBPR0101CA0119.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:5::22) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003439:EE_|DS0PR12MB7680:EE_
-X-MS-Office365-Filtering-Correlation-Id: bfc989c5-cc90-469f-68ef-08dc6ece3dfd
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MN0PR12MB6200:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f67d3a6-6a57-48be-978d-08dc6ed92e98
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|82310400017|1800799015|36860700004|376005; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?vw0eUXAooVX1tbmCAujqnzfz9HsgGk7SaZGz6ULqi4OWKfckmexbW6WWS4WF?=
- =?us-ascii?Q?o2wDoejWc8PNVaunRMeA4G3LRNwQszpRH55390OwGr2ObON1xBH91MMSKa6a?=
- =?us-ascii?Q?ax9llb1cG3cC/OycagaSO5H/ShQBLXdyDp1R6JI39wgmjI79XgrPR/S6i9KB?=
- =?us-ascii?Q?b46qGZlBE6Lf7X3HCjvbQdhtxgGZg/H1MSBL3z35DQMVLpAOXkbHvW5OLMpm?=
- =?us-ascii?Q?DZebSBTbS649jJuUzsvXr+8tJy5oLM3chxttv8MeUa0sKNprykQF24OtCyiw?=
- =?us-ascii?Q?/Rvye8+okcpUSQM2Xcvt2sNwmqcQ5K+MdihiV6TM6n4IklZ1xNJj64D/ykJl?=
- =?us-ascii?Q?lD10OPUybHWq5MomqRxvPRBLQDOl0w8Ujy/1UFIbWL/loRTeBZk7+uG7F0Ub?=
- =?us-ascii?Q?vBdZfm7HW03i7ebu2daQIxNkqLXvRf0JRQZl77KsJfhIVkIO5qvd+ASVXKmM?=
- =?us-ascii?Q?568BGxlIDfIkroCBoB+SUZIBv6DMPlWxSsVMnJ/O/Es4a1C9pDL8M7ms/Onn?=
- =?us-ascii?Q?1BVgeOdt6fmCDwfS7rvqAMGS0msUomKFgKih7lB/+A6reaF3eyCTjM6BPFgO?=
- =?us-ascii?Q?Hpnp9a0p5riawqUdU0xWmHAuQie8ZBD2FeNB7kl5vxsyK09pIBMgl5GMKqZ6?=
- =?us-ascii?Q?5IYjP25QV+jXRE9GtaW4m3MFF+k4xrd09qC9q12nXhOwWEwJF0Pw91gM93vn?=
- =?us-ascii?Q?FYPEATfvpLY52G3UOMeOUDJ9KHnAV+cjSfniWqRhNipLRi2lds+S1TSyZdSH?=
- =?us-ascii?Q?AVsjeVjA1lh+r9G3TTIll67j/xUpg2ZmUh7JWqkDQEyRjM+UPgXq+h3ye4ZC?=
- =?us-ascii?Q?K3lhBBvXI3rnlm5QJsVe03V6yR24LqXcrBIa/rJ0SnVzoPeY/y+DdrF1Ijbg?=
- =?us-ascii?Q?TBFb+8clQ09GHLZQNy9CvDQZJ6VSMsypTCEpeCLLxsTJjWwIGc+sFFwJZ186?=
- =?us-ascii?Q?QZF2x+njSrWmL2tawB8O/G6EfuGuP/p4LwNcd/XmpYnTdtCPjs5Ksj8XAIKw?=
- =?us-ascii?Q?fN5mBF9mz/mvLB9TFYYHKnMLDtlQrnmWd9dZgSV6KAaY+yXigrsMpgOVA9YN?=
- =?us-ascii?Q?im/GUUC102GvXgqeJRDk6YahORRxCZx1sJjBSnUokkhFU9u6U1mU92VAxT2l?=
- =?us-ascii?Q?bCZr0YQMz+78TGLd14M64mRB46dLlNWXRZBAtkkRVaKzKbjeR4MsNuDGxWFv?=
- =?us-ascii?Q?+mamC6MLA+G+UizTRDn6SPNGOa7xOH86tZ0yQZIJlZBkH2zRQPxqgWCPE8pK?=
- =?us-ascii?Q?RlLQJmzI+yfoVnEftzpclQ6E6IZmYHr49pOg20xjIyO8LiwtsjcnoLlWU7dP?=
- =?us-ascii?Q?drNtjYqA4//+aifi9jvv2Pt/IvDVP9awCZ6I78zdjJnnZUB6M3s4uy4oxSBi?=
- =?us-ascii?Q?zT/2xe+p+l8OUqLHSLbbksPlck3Y?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400017)(1800799015)(36860700004)(376005); DIR:OUT;
- SFP:1101; 
+ ARA:13230031|366007|7416005|1800799015|376005|921011; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VjhGNU5zcmdsbnY3MWRvZ21NeE9FQTRFSG1rTGc3WE9LclFkQ2dUSDF4L2NI?=
+ =?utf-8?B?VktZYUJyRUJidFdHdFUzNjZZKzdHZkNRZmhSa0VKbldJNytWaElEb2pLOUpj?=
+ =?utf-8?B?d2pyb2pmV2k4WlNQUTViZ1NYVlJUekpMQ01Da2ZOR25iRFpMNmxzSjg0bUhR?=
+ =?utf-8?B?cWVKeVVYbGYvekxwNkRQakNCWDUvZHROT3lZWVNjOTdONXVaZWY1WjQyVVpx?=
+ =?utf-8?B?RXJZaEVQNmNweTFrbHNWeXJOd2pReDQyTkRIYzc0MFVBaDZBbDNYZEZHQk1o?=
+ =?utf-8?B?SnNVd0YzL2F0cjhvV3hRdmZNUU00VUNYSDVZZDVYUVhEOUU0Yk1rNEs5TEds?=
+ =?utf-8?B?QmtnbXpFMWxKa0ptRk0vUStCMWF3WlpHeW1QdDMxTHRqd3FPbzBjdlMwTW5u?=
+ =?utf-8?B?NUFFY0gwdlIyaUM0Si8rUUpBTHR4WDJSZVVQTWJWclNQSzdKTk1ZZk96QlFP?=
+ =?utf-8?B?TSthdXcxbDdIQ3hQR0dDMVlIQXVqcHYrSEduN2YyRjU1NVFGNUZrNUFheTJi?=
+ =?utf-8?B?YUJPOHJRL3RvbWh0U2dyQjVRbVJkWmswenhPSy8rczFFcUk5R2ZTem1PNWE3?=
+ =?utf-8?B?WXZMbXBBa1JUZUt0Ymt2bk9veHhLbFpyeFJHUWlRNVhvcWR6NzJJaWY3WnAy?=
+ =?utf-8?B?UGFZcUQ4d2tQdWRJQUtGTjFVdGF2VndYd1EvZExUYUNSZjdiaDRHNCtzZXhk?=
+ =?utf-8?B?bXRneHZrM0EwODRnUWlTamFqUmVlMy9CWjIrTlJvZEczSldKK0Z5QTYrci9p?=
+ =?utf-8?B?bURCNkYveVQwNDh3am5xdVUyMk91ZHpYVGgyMnQxMS9tUmkrcyt4UE14bGdI?=
+ =?utf-8?B?OURJK1p5QlhPSURwNlZDYzZUVEJDT1JBZEFmVmM4U0xsZDRoWWxLVjhtMTJ0?=
+ =?utf-8?B?RVRLQ080T1d6R0VkZWpFSEc0dThCMnJPR0NEM0NQTjEwNjd1VGkxL2NiMDJW?=
+ =?utf-8?B?RXZXZzhoT0JqVTluNVhHdEp3dHpxNUprWk5xdzc3TUdrWUNlRVllQUdvdWVj?=
+ =?utf-8?B?K0dSVzZFeDJ1elV0bmlQOFhGSUdRcVFBS1FpWkRDTDNtZHFPVWJEem00bjVR?=
+ =?utf-8?B?dEtLRHl5SUNmNXpsZkNtR0Z0VkIwWjY5RGQvUGgzUjJPU1NmS2o0b1R2OHZu?=
+ =?utf-8?B?VWt6aG80M0N0RFpnMUlYUGhZNEwvNHlXcVppNk5hNkhuNjBpaDdyNjVMU2ZL?=
+ =?utf-8?B?clRiMExTRktLeDAzMjVXTW1Pb0l2THJqVEZqZkw0VVk5S3hFTUxlZ2ptY1B5?=
+ =?utf-8?B?SEdyTXFtc0gxR3VvQzM5MkQ0aXhTMDVLcU9nMm9wM1o1Rm1nbGd3WjdzbWxm?=
+ =?utf-8?B?YVM2VjBhTXRaV2hUMmRsamk0MEZKUFpRSEdsZ1VlSWg3V2lLQmkxS2VRYXcw?=
+ =?utf-8?B?clNLN1hhdElKRmhFTHNjOU92alN6enBwTUxNWDRVM3VmMUFyRW9HQXhzSnYr?=
+ =?utf-8?B?V2VXcytSUmIvaTZUeCsycERqa0J1TFBtMlRhUlh3WS9vZTBaK2NQSWR4Snhu?=
+ =?utf-8?B?dXlqNHEzTnZkM1U3dTM5SkIrUFpqckRWT3RYZURyQXJ0d2R4N1J6OGJ5eThx?=
+ =?utf-8?B?YkVJbk4wYjdsbG1oKzJpM05XUStRRk9pVEFXMlRncjhmMUtwWVAvSHpYcVpv?=
+ =?utf-8?B?bWdmYnA3b1dSZGczQmp2RS9xUzFJazJldTI3bHJWUkMyQzZ4dmZzbHFpQ2F6?=
+ =?utf-8?B?YllCb3dzbHVpeEp6QVlJcUpwMkRVTURvZzcyRGlEZjJOZnRGYk5rQjBSOWVC?=
+ =?utf-8?Q?l2g0UqW8ppHbKev3aznJZaOJVTFG29TbzgiaSmT?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(7416005)(1800799015)(376005)(921011); DIR:OUT; SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NVdmMU5NdWgxRUxiVlR3SDRyb1ZJa21MOGdHeG11dVZMNUxWUW1SUldFeFhh?=
+ =?utf-8?B?MDFYdVhDdytYekI4Ylk5TTJCMkRwNjFkRkMrL3VUNzQ5b1VvSHJoTXZYT2Jy?=
+ =?utf-8?B?Rk9iTzJGbEN5a1Babk1zNllmdzFPWkdDcXJmZEhaNmNnV1Vtem8xVWhSQkx2?=
+ =?utf-8?B?TnhwQVJoSGl3ZHNBUWRFSjMwMzZPRHdoK09GaU4xRTljemJGQmZrSjZCamgx?=
+ =?utf-8?B?Ri9GRVlxUDFFYUJ4SUFWeWQ2OFN4Y3NrajF2blVvQ2EvVVhaMkZzWkEyZFlG?=
+ =?utf-8?B?VWx3RC82bStZeHMyei9VaWlnM3p3UDZEYWt2UjVKU2dwOGhTeE9LUnB0VVNW?=
+ =?utf-8?B?eDRQS2JDMlVqeUE1L3lWS2pNUzEzMzBoaWFSSUVqejNhVmkxUHNBOWw1MDJQ?=
+ =?utf-8?B?MkxEaUkwOGNKZGwyWkx1R3YwRVJYNjlsUEFBZWtvSEVTL2FNK0Y1WWlzVGF0?=
+ =?utf-8?B?MS9TZkhxR2lvam1rRHgyTHgzR01NVFNSb3FxTFFFUnhlVDBTU0NvWk1vUHVM?=
+ =?utf-8?B?b040UiswcnJJMVBJbExtQXptZ05IQlRIZ1BJMCtqOVpXanFnU0Q0U2ZyTWdn?=
+ =?utf-8?B?bUZaK1JFQnNGZnBRT25EMmRLd3pzOWVIL1ErR2wxTXhBQi9Jd3dwYmx4bjhm?=
+ =?utf-8?B?Y2NUQ3Q4dXpwcThBclI5L1ppNGZuN0EySmdrcE5zaHpMYnUveWlHUmZkeC9y?=
+ =?utf-8?B?VUZHQ2dCQmhsNXNuR1dsRjZTTng4dGk0eE50eVVNc2ZES3ZnSW1ZUnUrMHJu?=
+ =?utf-8?B?V3dtREx6dWNzWktWWEVjSGhTcGlGMENoNmlEV01JWXlvekxpWXIvQ0xwSHVU?=
+ =?utf-8?B?d0NVUFU1T0ViTlI4clQyb2dzK1dqYmpTL3F5T1BhcEt4RmhNSkxRaFJ0dXNG?=
+ =?utf-8?B?YU43c1hlOGpkU2hndWdzOHpPQlRBQnkxMy96Q09zaG9kT3c4aGNkNGNXK3Ju?=
+ =?utf-8?B?MzR1MVFvbWxyOEMxRjNac3I2MXpDaFF2dmNFbkh2b0R4eEI5ZXRSR3J3dFBC?=
+ =?utf-8?B?THNZdGU1c3FlZW5tWjJ2TWlTVUdYT2FBWVdZQ3Q4bnhQQ1pOUFc1SmM3cnBV?=
+ =?utf-8?B?QzVpalNpSll1bGFHUmlYVm5xRlh0ZzhTWEw5RHZQeGw0MG9mYi9wMGkvWDFq?=
+ =?utf-8?B?OURXMTBqTktmVTRBZG1qQ245Z2RTRDFRQzZFN1NONE9jQkppS3A3SGN3Y2Ru?=
+ =?utf-8?B?Wnpldk1YZTFUNkh1c3Q0MU4xVEJIWkpqOTRwK01MaDlVNVkydkZ6c1hhVHlv?=
+ =?utf-8?B?dlpvUjE5OGdRS0hPZkJaa3lsTVRrclgyNHJ5T1JKTXFJbjFINXVBeHZpYzhX?=
+ =?utf-8?B?WTI1R24yWlJJNmc3alJSdTJOVnVWNkF6NUgwRGNaa0tVSW5heGdwV2pyWlgy?=
+ =?utf-8?B?eTI1cTN0QnFFM0Ixa3RueE5XKzJ5MkNQRGtmQ0pDYUdDa0FzRWxFMmp6QjBZ?=
+ =?utf-8?B?Y2wxSzBWTXkrRklPNnFMc3lnUkJCT0pZc3VuM1JXbms4SGdiYmdJMm90bDR4?=
+ =?utf-8?B?WG1FTlJmazlGYXVCdkN3ckw0QTJTZ3ZkTklWV2UzSVRUTXlwQSs2dUhnYXFl?=
+ =?utf-8?B?YW50S0pRUXZHVUdiV1NSQk01WXB0dHg4b0VLUUxaYnNOeWZLM3RQRU10WGly?=
+ =?utf-8?B?bTVqMldOQmlDTGNvWC9VUENxcDhDNzFHQmwwOTFpYUlhUTgyS2RsUEFhRTFH?=
+ =?utf-8?B?eUllZW82K2t1QkxaNzR3ZGhjYktxYzZ5QjFHRGpsQ01yRnE2VjdieVRIU0d3?=
+ =?utf-8?B?ZGVldFJHT1kwOXJmakRiQzlwSkZwNW5CREFWS0tBTHZ2aU5iRldGQjVjZlpI?=
+ =?utf-8?B?dTR2Tmh0VFFWajdnQmtrQ09KQ2VwT1JkRGhmZXduYmRRTFgrenpPSGYvYURF?=
+ =?utf-8?B?TjZaRlIwUHdIcnQvOGNWUW0ycGRibWxKVXhLS3Z0OXNNZkdlWEUrNWU2ZURK?=
+ =?utf-8?B?alNnUUt5UFRHb3pRRjYrWC9uZVhhU094ZzlIRmtzQWNLcjV5SnFQc2V6SElz?=
+ =?utf-8?B?MnFpN2pJWkdOZk9ZUXdOcFA0dUJGVUoxdlAycm5mWlA1S1p6YndzNkFYUXJi?=
+ =?utf-8?B?Sm5kMHFIazJHWk1KWEtQQUdFUEliTnhaQXFmdW50akswVm9ZMXZMVVlHbVZy?=
+ =?utf-8?Q?7TK/+sqcSdZ+/kRFKSQwGJERN?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2024 19:45:26.1166 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfc989c5-cc90-469f-68ef-08dc6ece3dfd
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f67d3a6-6a57-48be-978d-08dc6ed92e98
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2024 21:03:45.0469 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003439.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7680
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gemzeDiFOxNJQh3u5PYnurlR+J5w9zhUvjeA4Fm8+cyKgfox384/c3XGl3+DoDT6Z26nqUSonLR9kM+TJy25nw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6200
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,159 +171,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If vm_context_cntl set xnack on, then GPU vm fault has retry_fault bit
-set, but the driver select xnack on or off path depending on per process
-xnack setting which is also used to set qpd mem_config xnack on or off
-if KFD_SUPPORT_XNACK_PER_PROCESS.
 
-If process is xnack on, then GPU page fault show retry page fault
-message, otherwise show no-retry page fault message, to avoid misleading
-when debugging application page fault issue.
+On 2024-05-07 07:58, Thomas Zimmermann wrote:
+> Implement struct drm_client_funcs with the respective helpers and
+> remove the custom code from the emulation. The generic helpers are
+> equivalent in functionality.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>   drivers/gpu/drm/radeon/radeon_fbdev.c | 66 ++-------------------------
 
-The process lookup from pasid is done inside retry fault handler
-svm_range_restore_pages, add xnack_on parameter to pass process xnack
-setting back to amdgpu_vm_handle_fault and then to gmc interrupt handler
-to show vm fault message.
+Was radeon meant to be a separate patch?
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 5 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 7 ++++---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c   | 4 +++-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h   | 2 +-
- 6 files changed, 13 insertions(+), 9 deletions(-)
+Regards,
+   Felix
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 64ddc87f7fb6..58f7ab193027 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2757,13 +2757,14 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
-  *           GFX 9.4.3.
-  * @addr: Address of the fault
-  * @write_fault: true is write fault, false is read fault
-+ * @xnack_on: return value, true if the process sets xnack on
-  *
-  * Try to gracefully handle a VM fault. Return true if the fault was handled and
-  * shouldn't be reported any more.
-  */
- bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 			    u32 vmid, u32 node_id, uint64_t addr,
--			    bool write_fault)
-+			    bool write_fault, bool *xnack_on)
- {
- 	bool is_compute_context = false;
- 	struct amdgpu_bo *root;
-@@ -2788,7 +2789,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 	addr /= AMDGPU_GPU_PAGE_SIZE;
- 
- 	if (is_compute_context && !svm_range_restore_pages(adev, pasid, vmid,
--	    node_id, addr, write_fault)) {
-+	    node_id, addr, write_fault, xnack_on)) {
- 		amdgpu_bo_unref(&root);
- 		return true;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index bc71b44387b2..7f364f0b9a60 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -549,7 +549,7 @@ void amdgpu_vm_put_task_info(struct amdgpu_task_info *task_info);
- 
- bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 			    u32 vmid, u32 node_id, uint64_t addr,
--			    bool write_fault);
-+			    bool write_fault, bool *xnack_on);
- 
- void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index d933e19e0cf5..2f0752376236 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -132,7 +132,7 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
- 		/* Try to handle the recoverable page faults by filling page
- 		 * tables
- 		 */
--		if (amdgpu_vm_handle_fault(adev, entry->pasid, 0, 0, addr, write_fault))
-+		if (amdgpu_vm_handle_fault(adev, entry->pasid, 0, 0, addr, write_fault, NULL))
- 			return 1;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 671a6766df5b..3db0f2304b6a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -558,6 +558,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 	uint32_t cam_index = 0;
- 	int ret, xcc_id = 0;
- 	uint32_t node_id;
-+	bool xnack_on = false;
- 
- 	node_id = entry->node_id;
- 
-@@ -595,7 +596,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 			cam_index = entry->src_data[2] & 0x3ff;
- 
- 			ret = amdgpu_vm_handle_fault(adev, entry->pasid, entry->vmid, node_id,
--						     addr, write_fault);
-+						     addr, write_fault, &xnack_on);
- 			WDOORBELL32(adev->irq.retry_cam_doorbell_index, cam_index);
- 			if (ret)
- 				return 1;
-@@ -618,7 +619,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 			 * tables
- 			 */
- 			if (amdgpu_vm_handle_fault(adev, entry->pasid, entry->vmid, node_id,
--						   addr, write_fault))
-+						   addr, write_fault, &xnack_on))
- 				return 1;
- 		}
- 	}
-@@ -628,7 +629,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 
- 	dev_err(adev->dev,
- 		"[%s] %s page fault (src_id:%u ring:%u vmid:%u pasid:%u)\n", hub_name,
--		retry_fault ? "retry" : "no-retry",
-+		(retry_fault && xnack_on) ? "retry" : "no-retry",
- 		entry->src_id, entry->ring_id, entry->vmid, entry->pasid);
- 
- 	task_info = amdgpu_vm_get_task_info_pasid(adev, entry->pasid);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 234ea0fbfa0c..9d44a52bc4b2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -2887,7 +2887,7 @@ svm_fault_allowed(struct vm_area_struct *vma, bool write_fault)
- int
- svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 			uint32_t vmid, uint32_t node_id,
--			uint64_t addr, bool write_fault)
-+			uint64_t addr, bool write_fault, bool *xnack_on)
- {
- 	unsigned long start, last, size;
- 	struct mm_struct *mm = NULL;
-@@ -2923,6 +2923,8 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 		goto out;
- 	}
- 
-+	if (xnack_on)
-+		*xnack_on = p->xnack_enabled;
- 	if (!p->xnack_enabled) {
- 		pr_debug("XNACK not enabled for pasid 0x%x\n", pasid);
- 		r = -EFAULT;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index 22f22b06a2f4..402f6fbb6452 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -182,7 +182,7 @@ int svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
- void svm_range_vram_node_free(struct svm_range *prange);
- int svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 			    uint32_t vmid, uint32_t node_id, uint64_t addr,
--			    bool write_fault);
-+			    bool write_fault, bool *xnack_on);
- int svm_range_schedule_evict_svm_bo(struct amdgpu_amdkfd_fence *fence);
- void svm_range_add_list_work(struct svm_range_list *svms,
- 			     struct svm_range *prange, struct mm_struct *mm,
--- 
-2.43.2
 
+>   drivers/gpu/drm/tegra/fbdev.c         | 58 ++---------------------
+>   2 files changed, 6 insertions(+), 118 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
+> index 02bf25759059a..cf790922174ea 100644
+> --- a/drivers/gpu/drm/radeon/radeon_fbdev.c
+> +++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
+> @@ -29,7 +29,6 @@
+>   #include <linux/pm_runtime.h>
+>   #include <linux/vga_switcheroo.h>
+>   
+> -#include <drm/drm_crtc_helper.h>
+>   #include <drm/drm_drv.h>
+>   #include <drm/drm_fb_helper.h>
+>   #include <drm/drm_fourcc.h>
+> @@ -293,71 +292,12 @@ static const struct drm_fb_helper_funcs radeon_fbdev_fb_helper_funcs = {
+>   };
+>   
+>   /*
+> - * Fbdev client and struct drm_client_funcs
+> + * struct drm_client_funcs
+>    */
+>   
+> -static void radeon_fbdev_client_unregister(struct drm_client_dev *client)
+> -{
+> -	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+> -	struct drm_device *dev = fb_helper->dev;
+> -	struct radeon_device *rdev = dev->dev_private;
+> -
+> -	if (fb_helper->info) {
+> -		vga_switcheroo_client_fb_set(rdev->pdev, NULL);
+> -		drm_helper_force_disable_all(dev);
+> -		drm_fb_helper_unregister_info(fb_helper);
+> -	} else {
+> -		drm_client_release(&fb_helper->client);
+> -		drm_fb_helper_unprepare(fb_helper);
+> -		kfree(fb_helper);
+> -	}
+> -}
+> -
+> -static int radeon_fbdev_client_restore(struct drm_client_dev *client)
+> -{
+> -	drm_fb_helper_lastclose(client->dev);
+> -	vga_switcheroo_process_delayed_switch();
+> -
+> -	return 0;
+> -}
+> -
+> -static int radeon_fbdev_client_hotplug(struct drm_client_dev *client)
+> -{
+> -	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+> -	struct drm_device *dev = client->dev;
+> -	struct radeon_device *rdev = dev->dev_private;
+> -	int ret;
+> -
+> -	if (dev->fb_helper)
+> -		return drm_fb_helper_hotplug_event(dev->fb_helper);
+> -
+> -	ret = drm_fb_helper_init(dev, fb_helper);
+> -	if (ret)
+> -		goto err_drm_err;
+> -
+> -	if (!drm_drv_uses_atomic_modeset(dev))
+> -		drm_helper_disable_unused_functions(dev);
+> -
+> -	ret = drm_fb_helper_initial_config(fb_helper);
+> -	if (ret)
+> -		goto err_drm_fb_helper_fini;
+> -
+> -	vga_switcheroo_client_fb_set(rdev->pdev, fb_helper->info);
+> -
+> -	return 0;
+> -
+> -err_drm_fb_helper_fini:
+> -	drm_fb_helper_fini(fb_helper);
+> -err_drm_err:
+> -	drm_err(dev, "Failed to setup radeon fbdev emulation (ret=%d)\n", ret);
+> -	return ret;
+> -}
+> -
+>   static const struct drm_client_funcs radeon_fbdev_client_funcs = {
+> -	.owner		= THIS_MODULE,
+> -	.unregister	= radeon_fbdev_client_unregister,
+> -	.restore	= radeon_fbdev_client_restore,
+> -	.hotplug	= radeon_fbdev_client_hotplug,
+> +	.owner = THIS_MODULE,
+> +	DRM_FBDEV_HELPER_CLIENT_FUNCS,
+>   };
+>   
+>   void radeon_fbdev_setup(struct radeon_device *rdev)
+> diff --git a/drivers/gpu/drm/tegra/fbdev.c b/drivers/gpu/drm/tegra/fbdev.c
+> index db6eaac3d30e6..f9cc365cfed94 100644
+> --- a/drivers/gpu/drm/tegra/fbdev.c
+> +++ b/drivers/gpu/drm/tegra/fbdev.c
+> @@ -12,7 +12,6 @@
+>   #include <linux/vmalloc.h>
+>   
+>   #include <drm/drm_drv.h>
+> -#include <drm/drm_crtc_helper.h>
+>   #include <drm/drm_fb_helper.h>
+>   #include <drm/drm_fourcc.h>
+>   #include <drm/drm_framebuffer.h>
+> @@ -150,63 +149,12 @@ static const struct drm_fb_helper_funcs tegra_fb_helper_funcs = {
+>   };
+>   
+>   /*
+> - * struct drm_client
+> + * struct drm_client_funcs
+>    */
+>   
+> -static void tegra_fbdev_client_unregister(struct drm_client_dev *client)
+> -{
+> -	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+> -
+> -	if (fb_helper->info) {
+> -		drm_fb_helper_unregister_info(fb_helper);
+> -	} else {
+> -		drm_client_release(&fb_helper->client);
+> -		drm_fb_helper_unprepare(fb_helper);
+> -		kfree(fb_helper);
+> -	}
+> -}
+> -
+> -static int tegra_fbdev_client_restore(struct drm_client_dev *client)
+> -{
+> -	drm_fb_helper_lastclose(client->dev);
+> -
+> -	return 0;
+> -}
+> -
+> -static int tegra_fbdev_client_hotplug(struct drm_client_dev *client)
+> -{
+> -	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+> -	struct drm_device *dev = client->dev;
+> -	int ret;
+> -
+> -	if (dev->fb_helper)
+> -		return drm_fb_helper_hotplug_event(dev->fb_helper);
+> -
+> -	ret = drm_fb_helper_init(dev, fb_helper);
+> -	if (ret)
+> -		goto err_drm_err;
+> -
+> -	if (!drm_drv_uses_atomic_modeset(dev))
+> -		drm_helper_disable_unused_functions(dev);
+> -
+> -	ret = drm_fb_helper_initial_config(fb_helper);
+> -	if (ret)
+> -		goto err_drm_fb_helper_fini;
+> -
+> -	return 0;
+> -
+> -err_drm_fb_helper_fini:
+> -	drm_fb_helper_fini(fb_helper);
+> -err_drm_err:
+> -	drm_err(dev, "Failed to setup fbdev emulation (ret=%d)\n", ret);
+> -	return ret;
+> -}
+> -
+>   static const struct drm_client_funcs tegra_fbdev_client_funcs = {
+> -	.owner		= THIS_MODULE,
+> -	.unregister	= tegra_fbdev_client_unregister,
+> -	.restore	= tegra_fbdev_client_restore,
+> -	.hotplug	= tegra_fbdev_client_hotplug,
+> +	.owner = THIS_MODULE,
+> +	DRM_FBDEV_HELPER_CLIENT_FUNCS,
+>   };
+>   
+>   void tegra_fbdev_setup(struct drm_device *dev)
