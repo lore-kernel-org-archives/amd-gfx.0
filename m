@@ -4,45 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 198E0C04FFE
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 07:56:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B53FC04FFE
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 07:56:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 592B011347C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B69A111347D;
 	Wed,  8 May 2024 07:56:51 +0000 (UTC)
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Tue, 07 May 2024 16:44:12 UTC
-Received: from mout.perfora.net (mout.perfora.net [74.208.4.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9D3510F831
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 May 2024 16:44:12 +0000 (UTC)
-Received: from beast.localdomain ([208.68.93.230]) by mrelay.perfora.net
- (mreueus003 [74.208.5.2]) with ESMTPSA (Nemesis) id 0MFvO4-1rrl3S0aVa-00EuaU; 
- Tue, 07 May 2024 18:39:08 +0200
-Date: Tue, 7 May 2024 12:39:07 -0400
-From: Jeremy Day <jsday@noreason.ca>
-To: amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com
-Subject: [patch] problems with "fix visible VRAM handling during faults"
-Message-Id: <20240507123907.3a39163546b4643c5d834522@noreason.ca>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:1w5DeFGQTRf65MLHkZszy5ifC4Jd+37NF12FFUqaazSxpC3aALU
- RXbvGLo/fGtYJ+GT3iYHQWMnomvW4Zftew4ErmGW0CyG60BRYIVfBjNUW+Np/V75ceRDzj0
- QO5Z73H9t2JB5NtC1we1HUbxMN2x5d1veo9OEW3T9ao4CmC+/nJEVWzLaxqdihjKtoChhXL
- 9tjjZuuNphKk3n5gttIvw==
-UI-OutboundReport: notjunk:1;M01:P0:20gJ2u+7tKY=;MahfPrzGcnm13ZHyrcTniq8DbY5
- ounzSQMnZiY+A69zPNojYHbR2C1ZOl9aNP/ZfCTd4BWj/L02dexF6qQT2acvTqVcSNVUsxNfI
- EbiDkb3KQje7a7VjuG3kK9n5dOvvK7hqu1Lxj8ETIGto+FK6wYob5fZergjeoKX3KemHhRjrb
- zypwBIuC+1p5IV7ySxj0PhfEm6jmO89Mm5+04eX1rMq6Cu4lyeiF4gwHazaR4rxJOqubHR80+
- YgCXhH77OYM+ux6kadYw5gzksRSGhwOMRU8aHZLa/AzkhMIjgkukZzfWoC3W0xjr3JCztUp0G
- oYZzkmplUws5zledIMJQhTYgf1E4NO0zAdKgiB9v/vdDfAt9H+j0QQbkIEuFNKR9gsDNztGNc
- jNlWsoR9w7jaI5NSNkekwtfLtcsRVq9+83798tkKnp8OWasYN0RFlXNcKgjqvZi/uOaP96pq8
- QlLAlACyNoWOq7O2AKhkGHnBDfbgqLQpM2ln8ur9jDA86tQm11YuXhCxSTQBwkcFhHq81RsiY
- jwwjuKiGDTKs5SUi6z9NzhxpKMrqkj1xdLZliC6tPygHPul+OHLZDbaP1ZOm+g4IOUByGBBST
- FFJPOffE5ifJPlZQ6pf1Re3FNzugccvrlDvoC6fWQl0PWnr7DsNOCIl/N4w5QTP/TM/98XkSh
- 6H0Ke3nZLZxCnrYa/wNwNJgl0NWGH/rBRPCop43h14Tvqh/eTzrf4hhBdKvO4zpiY47otXIvr
- batNH0dw6GzDfP+gwXCfEAKRTHFMT4oMSS/lsfNDrlyz5qw63VHFaE=
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="DzBShiH1";
+	dkim-atps=neutral
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 31C48112598;
+ Tue,  7 May 2024 18:16:18 +0000 (UTC)
+Received: from [192.168.49.54] (c-73-118-245-227.hsd1.wa.comcast.net
+ [73.118.245.227])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 62C1B20B2C82;
+ Tue,  7 May 2024 11:16:16 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 62C1B20B2C82
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1715105777;
+ bh=PBRGTo20ufCiYvX5W3y8n5KQS3c/rPiOhM35HSOsaRQ=;
+ h=Date:Subject:Cc:References:From:To:In-Reply-To:From;
+ b=DzBShiH152LXFot+KucPmQbM03mnN+laHxZysZ8V2qQxlMhZsTtUKqypgwJBIJvdJ
+ n4Dz3w5CxX9vwpxTmKdIir2/VI20bIqZRRAfX/Mkdm6k/UIvMPkOxKqoliWGntbNPc
+ Ks6+pWYVRh/88H64gqZiZ1m1bIkwqOD3hIiBq8OM=
+Message-ID: <0a6d4fa9-169f-425b-93d6-04314c617090@linux.microsoft.com>
+Date: Tue, 7 May 2024 11:16:15 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/12] drm/amdgpu, drm/radeon: Make I2C terminology
+ more inclusive
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>,
+ "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+ "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Evan Quan <evan.quan@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Candice Li <candice.li@amd.com>, Ran Sun <sunran001@208suo.com>,
+ Alexander Richards <electrodeyt@gmail.com>, Wolfram Sang <wsa@kernel.org>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Ruan Jinjie <ruanjinjie@huawei.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Wayne Lin <wayne.lin@amd.com>,
+ Samson Tam <samson.tam@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ Sohaib Nadeem <sohaib.nadeem@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Alan Liu <haoping.liu@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ George Shen <george.shen@amd.com>, Aric Cyr <aric.cyr@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Qingqing Zhuo <Qingqing.Zhuo@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Asad kamal <asad.kamal@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Ma Jun <Jun.Ma2@amd.com>, Darren Powell <darren.powell@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>, Le Ma <Le.Ma@amd.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20240503181333.2336999-1-eahariha@linux.microsoft.com>
+ <20240503181333.2336999-2-eahariha@linux.microsoft.com>
+Content-Language: en-CA
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+In-Reply-To: <20240503181333.2336999-2-eahariha@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 08 May 2024 07:56:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,77 +95,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is just to report that I've had usually well-behaved applications
-sometimes having problems with memory access violations since kernel
-version 6.9-rc5.  This past weekend I stumbled across a way to reliably
-reproduce the problem in the form of a Skyrim save file which causes a
-crash shortly after loading the game on affected kernels.
+On 5/3/2024 11:13 AM, Easwar Hariharan wrote:
+> I2C v7, SMBus 3.2, and I3C 1.1.1 specifications have replaced "master/slave"
+> with more appropriate terms. Inspired by and following on to Wolfram's
+> series to fix drivers/i2c/[1], fix the terminology for users of
+> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exists
+> in the specification.
+> 
+> Compile tested, no functionality changes intended
+> 
+> [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sang-engineering.com/
+> 
+> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
+> ---
+>  .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  |  8 +++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c       | 10 +++----
+>  drivers/gpu/drm/amd/amdgpu/atombios_i2c.c     |  8 +++---
+>  drivers/gpu/drm/amd/amdgpu/atombios_i2c.h     |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c    | 20 ++++++-------
+>  .../gpu/drm/amd/display/dc/bios/bios_parser.c |  2 +-
+>  .../drm/amd/display/dc/bios/bios_parser2.c    |  2 +-
+>  .../drm/amd/display/dc/core/dc_link_exports.c |  4 +--
+>  drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
+>  drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c  |  4 +--
+>  .../display/include/grph_object_ctrl_defs.h   |  2 +-
+>  drivers/gpu/drm/amd/include/atombios.h        |  2 +-
+>  drivers/gpu/drm/amd/include/atomfirmware.h    | 26 ++++++++---------
+>  .../powerplay/hwmgr/vega20_processpptables.c  |  4 +--
+>  .../amd/pm/powerplay/inc/smu11_driver_if.h    |  2 +-
+>  .../inc/pmfw_if/smu11_driver_if_arcturus.h    |  2 +-
+>  .../inc/pmfw_if/smu11_driver_if_navi10.h      |  2 +-
+>  .../pmfw_if/smu11_driver_if_sienna_cichlid.h  |  2 +-
+>  .../inc/pmfw_if/smu13_driver_if_aldebaran.h   |  2 +-
+>  .../inc/pmfw_if/smu13_driver_if_v13_0_0.h     |  2 +-
+>  .../inc/pmfw_if/smu13_driver_if_v13_0_7.h     |  2 +-
+>  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  4 +--
+>  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  8 +++---
+>  drivers/gpu/drm/radeon/atombios.h             | 16 +++++------
+>  drivers/gpu/drm/radeon/atombios_i2c.c         |  4 +--
+>  drivers/gpu/drm/radeon/radeon_combios.c       | 28 +++++++++----------
+>  drivers/gpu/drm/radeon/radeon_i2c.c           | 10 +++----
+>  drivers/gpu/drm/radeon/radeon_mode.h          |  6 ++--
+>  28 files changed, 93 insertions(+), 93 deletions(-)
+>
 
-Things go back to running smoothly only if I revert one of the changes
-in 5th April's "[PATCH] drm/amdgpu: fix visible VRAM handling during
-faults" as follows.
+<snip>
 
-Patch is against v6.9-rc7.=A0 It restores the check for partially
-visible-to-cpu memory in amdgpu_bo_fault_reserve_notify.=A0 Things
-seem stable again with this change.
+Hello Christian, Daniel, David, others,
 
---
-=A0drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |=A0 5 ++++-
-=A0drivers/gpu/drm/amd/amdgpu/amdgpu_object.h | 22 ++++++++++++++++++++++
-=A02 files changed, 26 insertions(+), 1 deletion(-)
+Could you re-review v2 since the feedback provided in v0 [1] has now been addressed? I can send v3 with
+all other feedback and signoffs from the other maintainers incorporated when I have something for amdgpu 
+and radeon.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_object.c
-index f6d503432a9e..a6874aea7820 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -1396,7 +1396,10 @@ vm_fault_t amdgpu_bo_fault_reserve_notify(struct ttm=
-_buffer_object *bo)
-=A0=A0=A0=A0 /* Remember that this BO was accessed by the CPU */
-=A0=A0=A0=A0 abo->flags |=3D AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-=A0
--=A0=A0=A0 if (amdgpu_res_cpu_visible(adev, bo->resource))
-+=A0=A0=A0 if (bo->resource->mem_type !=3D TTM_PL_VRAM)
-+=A0=A0=A0 =A0=A0=A0 return 0;
-+
-+=A0=A0=A0 if (amdgpu_bo_in_cpu_visible_vram(abo))
-=A0=A0=A0=A0 =A0=A0=A0 return 0;
-=A0
-=A0=A0=A0=A0 /* Can't move a pinned BO to visible VRAM */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_object.h
-index bc42ccbde659..0503af75dc26 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-@@ -250,6 +250,28 @@ static inline u64 amdgpu_bo_mmap_offset(struct amdgpu_=
-bo *bo)
-=A0=A0=A0=A0 return drm_vma_node_offset_addr(&bo->tbo.base.vma_node);
-=A0}
-=A0
-+/**
-+ * amdgpu_bo_in_cpu_visible_vram - check if BO is (partly) in visible VRAM
-+ */
-+static inline bool amdgpu_bo_in_cpu_visible_vram(struct amdgpu_bo *bo)
-+{
-+=A0=A0=A0 struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
-+=A0=A0=A0 struct amdgpu_res_cursor cursor;
-+
-+=A0=A0=A0 if (!bo->tbo.resource || bo->tbo.resource->mem_type !=3D TTM_PL_=
-VRAM)
-+=A0=A0=A0 =A0=A0=A0 return false;
-+
-+=A0=A0=A0 amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &curso=
-r);
-+=A0=A0=A0 while (cursor.remaining) {
-+=A0=A0=A0 =A0=A0=A0 if (cursor.start < adev->gmc.visible_vram_size)
-+=A0=A0=A0 =A0=A0=A0 =A0=A0=A0 return true;
-+
-+=A0=A0=A0 =A0=A0=A0 amdgpu_res_next(&cursor, cursor.size);
-+=A0=A0=A0 }
-+
-+=A0=A0=A0 return false;
-+}
-+
-=A0/**
-=A0 * amdgpu_bo_explicit_sync - return whether the bo is explicitly synced
-=A0 */
+Thanks,
+Easwar
+
+[1] https://lore.kernel.org/all/53f3afba-4759-4ea1-b408-8a929b26280c@amd.com/
