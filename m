@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49338C25B74
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 May 2024 22:59:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74F81C10F1A
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 May 2024 23:00:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B103F112FA8;
-	Tue,  7 May 2024 22:59:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF0A1112FB6;
+	Tue,  7 May 2024 23:00:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hG00HOiK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qk/yQMjl";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E8F0112FA8;
- Tue,  7 May 2024 22:59:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBF2F112FB5;
+ Tue,  7 May 2024 23:00:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C4E1C619FA;
- Tue,  7 May 2024 22:59:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4224C2BBFC;
- Tue,  7 May 2024 22:59:47 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 0EA32619F1;
+ Tue,  7 May 2024 23:00:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C76B5C4AF63;
+ Tue,  7 May 2024 23:00:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1715122789;
- bh=994JsZ2ORzzOrr4b8OJfnVZPQBB+pIp7mQm6ehsC1N8=;
+ s=k20201202; t=1715122846;
+ bh=GAQEzVprht6F3Nn/e1UYM7rXjiUF38JLg/I9jnfqX+M=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hG00HOiKx/xNJm0RU2eZTSdy5bBCrL1Z+pZlsG76OWOe7KpDPllmmRE5p6lQPPjCa
- aZ8c3XEcRLN+Lkwgs3W5whOKRPCbBJU4BV/w95myBqOhFlT0obPja7lYdwqn0hnmeb
- nwVMX+l3NL8mNAnRm1l82vvLAHb/7sgf88T5wLnXHu4p7Z1jdRxzklfRS3MHCrM2+R
- /NhDKMCw9DPZR2T0yUe5bKl2F6tQ/4TvtaXohTpljBoQ/cWHgnj5k7F2Q7QksaJ2ye
- qA1BlZCZ1q5TFjelVC+FPsawRg2eHsBVvlPD/21ZB87GJ2/4somjYK/LZ2r1pTQarP
- lFcmXcDFBd4+A==
+ b=Qk/yQMjlgvuhSGVJHuohL53lcrC/R/NBRrUwbCixfR6vbnWYvj8K+DnEruhMbLAkc
+ Tk9UJrFcz+qDLDDgUWI4v6mO7MeMbUtS4fa/UadxCKPiu+yVThx7EM8fht1dEae3OF
+ 4P2nPlxdD3q0nXXGKvOZqy53pDspgUoQOmH2Y+jPhlDXofm9jVsYkB2e1tSLSkrrVx
+ amhFNXYMLTpr1Kxu5YaVrTX6VLqgIzZru2PJLbfQ5KGdm1uk+pnEYRuEKShzYXm8hy
+ 85Ihf6IjsPrVDQsG1onwRFgGVPKM85uKGQVAhv9UNTt9UacCtibt/pH+rYdHyTBh3X
+ ZtXXURF/nw7ig==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Jack Xiao <Jack.Xiao@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+Cc: Joshua Ashton <joshua@froggi.es>, Harry Wentland <harry.wentland@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
- Felix.Kuehling@amd.com, jonathan.kim@amd.com, shaoyun.liu@amd.com,
- guchun.chen@amd.com, shashank.sharma@amd.com, Tim.Huang@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.6 12/19] drm/amdgpu/mes: fix use-after-free issue
-Date: Tue,  7 May 2024 18:58:34 -0400
-Message-ID: <20240507225910.390914-12-sashal@kernel.org>
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch, alex.hung@amd.com,
+ hamza.mahfooz@amd.com, wayne.lin@amd.com, srinivasan.shanmugam@amd.com,
+ mario.limonciello@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.1 06/12] drm/amd/display: Set color_mgmt_changed to
+ true on unsuspend
+Date: Tue,  7 May 2024 19:00:08 -0400
+Message-ID: <20240507230031.391436-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240507225910.390914-1-sashal@kernel.org>
-References: <20240507225910.390914-1-sashal@kernel.org>
+In-Reply-To: <20240507230031.391436-1-sashal@kernel.org>
+References: <20240507230031.391436-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.30
+X-stable-base: Linux 6.1.90
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,36 +66,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jack Xiao <Jack.Xiao@amd.com>
+From: Joshua Ashton <joshua@froggi.es>
 
-[ Upstream commit 948255282074d9367e01908b3f5dcf8c10fc9c3d ]
+[ Upstream commit 2eb9dd497a698dc384c0dd3e0311d541eb2e13dd ]
 
-Delete fence fallback timer to fix the ramdom
-use-after-free issue.
+Otherwise we can end up with a frame on unsuspend where color management
+is not applied when userspace has not committed themselves.
 
-v2: move to amdgpu_mes.c
+Fixes re-applying color management on Steam Deck/Gamescope on S3 resume.
 
-Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
-Acked-by: Lijo Lazar <lijo.lazar@amd.com>
-Acked-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Joshua Ashton <joshua@froggi.es>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 1 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 15c67fa404ff9..c5c55e132af21 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -1098,6 +1098,7 @@ void amdgpu_mes_remove_ring(struct amdgpu_device *adev,
- 		return;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index ff460c9802eb2..31bae620aeffc 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2964,6 +2964,7 @@ static int dm_resume(void *handle)
+ 			dc_stream_release(dm_new_crtc_state->stream);
+ 			dm_new_crtc_state->stream = NULL;
+ 		}
++		dm_new_crtc_state->base.color_mgmt_changed = true;
+ 	}
  
- 	amdgpu_mes_remove_hw_queue(adev, ring->hw_queue_id);
-+	del_timer_sync(&ring->fence_drv.fallback_timer);
- 	amdgpu_ring_fini(ring);
- 	kfree(ring);
- }
+ 	for_each_new_plane_in_state(dm->cached_state, plane, new_plane_state, i) {
 -- 
 2.43.0
 
