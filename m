@@ -4,75 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A91CC10F1A
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 May 2024 12:04:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B3FDC25B76
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 May 2024 12:04:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B5E0112B5F;
-	Tue,  7 May 2024 12:04:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D3E2112CFA;
+	Tue,  7 May 2024 12:04:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="bGXd3DQn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mH1Y4D3S";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bGXd3DQn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mH1Y4D3S";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="l0J/dPej";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="iA6gPsvg";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="l0J/dPej";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="iA6gPsvg";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA3A010EC4A;
- Tue,  7 May 2024 12:04:30 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ACC7112982;
+ Tue,  7 May 2024 12:04:32 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 752FC20952;
- Tue,  7 May 2024 12:04:29 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EE82B33E43;
+ Tue,  7 May 2024 12:04:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1715083469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1715083471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=EYWqd+7mjpTLRL5eL3ZUu5NkdL2TMW/uvnM/48ivH4w=;
- b=bGXd3DQn1uoYk8RtJjRJ9cR/p20hhVjrJ5pQVQd836xXn/YOQpS2CqOn1LJNGc6+olJUUz
- 4AqR+SQ1Bp+TafiM9WY0sT+T23KLPimi2B0aGcUNiUOe+JYb4B9bdZ7ZkQM8v3hSrMLSLQ
- /iYCY/ZJO9jhzZiEQiH5NBkhGNighpc=
+ bh=on37e9ZCvFKcNsLEJCLRnWd6V50ssALSiTl2Bp7bWhk=;
+ b=l0J/dPejENkGFdNUPfSEw1bb/M0L5k1uqbW+qrM3OykTb96oCWSPWMizcbNq29ZWey2zq5
+ k9N11dAT9tc9ayeYB4c6bt6gGgjY+6fq2Brd9PtMwwTAG36BKsH0LP6P9FXZk5Y0bUVDiH
+ BfXeO+DfK37J5KOmEc4pOP0g/6AL5po=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1715083469;
+ s=susede2_ed25519; t=1715083471;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=EYWqd+7mjpTLRL5eL3ZUu5NkdL2TMW/uvnM/48ivH4w=;
- b=mH1Y4D3Snm6Dqde5C7yOssnrSKLEuikblTKtSY0CNBnyq76ckaIGO0fcOdTyloJ4lfHF+6
- sq6zoHD1kV1KjjDA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=bGXd3DQn;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=mH1Y4D3S
+ bh=on37e9ZCvFKcNsLEJCLRnWd6V50ssALSiTl2Bp7bWhk=;
+ b=iA6gPsvgDCaZjHlhzmC5VWnnfLDt6kzF5RUScNwhml+BJGWuQ694f331M2wcDLnk8p4GYb
+ vSPSvqJBVBfVjHAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1715083469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1715083471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=EYWqd+7mjpTLRL5eL3ZUu5NkdL2TMW/uvnM/48ivH4w=;
- b=bGXd3DQn1uoYk8RtJjRJ9cR/p20hhVjrJ5pQVQd836xXn/YOQpS2CqOn1LJNGc6+olJUUz
- 4AqR+SQ1Bp+TafiM9WY0sT+T23KLPimi2B0aGcUNiUOe+JYb4B9bdZ7ZkQM8v3hSrMLSLQ
- /iYCY/ZJO9jhzZiEQiH5NBkhGNighpc=
+ bh=on37e9ZCvFKcNsLEJCLRnWd6V50ssALSiTl2Bp7bWhk=;
+ b=l0J/dPejENkGFdNUPfSEw1bb/M0L5k1uqbW+qrM3OykTb96oCWSPWMizcbNq29ZWey2zq5
+ k9N11dAT9tc9ayeYB4c6bt6gGgjY+6fq2Brd9PtMwwTAG36BKsH0LP6P9FXZk5Y0bUVDiH
+ BfXeO+DfK37J5KOmEc4pOP0g/6AL5po=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1715083469;
+ s=susede2_ed25519; t=1715083471;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=EYWqd+7mjpTLRL5eL3ZUu5NkdL2TMW/uvnM/48ivH4w=;
- b=mH1Y4D3Snm6Dqde5C7yOssnrSKLEuikblTKtSY0CNBnyq76ckaIGO0fcOdTyloJ4lfHF+6
- sq6zoHD1kV1KjjDA==
+ bh=on37e9ZCvFKcNsLEJCLRnWd6V50ssALSiTl2Bp7bWhk=;
+ b=iA6gPsvgDCaZjHlhzmC5VWnnfLDt6kzF5RUScNwhml+BJGWuQ694f331M2wcDLnk8p4GYb
+ vSPSvqJBVBfVjHAg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BA00313A3A;
- Tue,  7 May 2024 12:04:28 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3EE1F13A3A;
+ Tue,  7 May 2024 12:04:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id EAgMLMwYOmZDCgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 07 May 2024 12:04:28 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id WL75Dc4YOmZDCgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 07 May 2024 12:04:30 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: javierm@redhat.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, inki.dae@samsung.com, sw0312.kim@samsung.com,
@@ -86,40 +84,30 @@ To: javierm@redhat.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
  thierry.reding@gmail.com, mperttunen@nvidia.com, jonathanh@nvidia.com
 Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 04/11] drm/fbdev-ttm: Use fbdev client helpers
-Date: Tue,  7 May 2024 13:58:25 +0200
-Message-ID: <20240507120422.25492-5-tzimmermann@suse.de>
+Subject: [PATCH 06/11] drm/exynos: Use fbdev client helpers
+Date: Tue,  7 May 2024 13:58:27 +0200
+Message-ID: <20240507120422.25492-7-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240507120422.25492-1-tzimmermann@suse.de>
 References: <20240507120422.25492-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 752FC20952
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-2.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-1.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  SUSPICIOUS_RECIPS(1.50)[]; MID_CONTAINS_FROM(1.00)[];
- DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
  NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[31];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[redhat.com,ffwll.ch,linux.intel.com,kernel.org,samsung.com,armlinux.org.uk,gmail.com,intel.com,ursulin.net,quicinc.com,linaro.org,poorly.run,somainline.org,ideasonboard.com,amd.com,nvidia.com];
- ARC_NA(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
  TAGGED_RCPT(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- R_RATELIMIT(0.00)[to_ip_from(RL346nweebskz488kew7dz74ge)];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email];
+ RCPT_COUNT_TWELVE(0.00)[31]; MIME_TRACE(0.00)[0:+];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_TO(0.00)[redhat.com,ffwll.ch,linux.intel.com,kernel.org,samsung.com,armlinux.org.uk,gmail.com,intel.com,ursulin.net,quicinc.com,linaro.org,poorly.run,somainline.org,ideasonboard.com,amd.com,nvidia.com];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ R_RATELIMIT(0.00)[to_ip_from(RLsz1b6kfjnxepzm54dz9rbnku)];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,26 +128,30 @@ equivalent in functionality.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/drm_fbdev_ttm.c | 58 +++------------------------------
- 1 file changed, 5 insertions(+), 53 deletions(-)
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c | 58 ++---------------------
+ 1 file changed, 3 insertions(+), 55 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_fbdev_ttm.c b/drivers/gpu/drm/drm_fbdev_ttm.c
-index bb7898cd7dc63..b1c5ebe6b9588 100644
---- a/drivers/gpu/drm/drm_fbdev_ttm.c
-+++ b/drivers/gpu/drm/drm_fbdev_ttm.c
-@@ -3,7 +3,6 @@
- #include <linux/moduleparam.h>
- #include <linux/vmalloc.h>
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+index a379c8ca435a3..982754008a803 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+@@ -10,7 +10,6 @@
+ 
+ #include <linux/fb.h>
  
 -#include <drm/drm_crtc_helper.h>
  #include <drm/drm_drv.h>
  #include <drm/drm_fb_helper.h>
  #include <drm/drm_framebuffer.h>
-@@ -239,60 +238,13 @@ static const struct drm_fb_helper_funcs drm_fbdev_ttm_helper_funcs = {
- 	.fb_dirty = drm_fbdev_ttm_helper_fb_dirty,
+@@ -140,63 +139,12 @@ static const struct drm_fb_helper_funcs exynos_drm_fb_helper_funcs = {
  };
  
--static void drm_fbdev_ttm_client_unregister(struct drm_client_dev *client)
+ /*
+- * struct drm_client
++ * struct drm_client_funcs
+  */
+ 
+-static void exynos_drm_fbdev_client_unregister(struct drm_client_dev *client)
 -{
 -	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
 -
@@ -172,14 +164,14 @@ index bb7898cd7dc63..b1c5ebe6b9588 100644
 -	}
 -}
 -
--static int drm_fbdev_ttm_client_restore(struct drm_client_dev *client)
+-static int exynos_drm_fbdev_client_restore(struct drm_client_dev *client)
 -{
 -	drm_fb_helper_lastclose(client->dev);
 -
 -	return 0;
 -}
 -
--static int drm_fbdev_ttm_client_hotplug(struct drm_client_dev *client)
+-static int exynos_drm_fbdev_client_hotplug(struct drm_client_dev *client)
 -{
 -	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
 -	struct drm_device *dev = client->dev;
@@ -204,23 +196,20 @@ index bb7898cd7dc63..b1c5ebe6b9588 100644
 -err_drm_fb_helper_fini:
 -	drm_fb_helper_fini(fb_helper);
 -err_drm_err:
--	drm_err(dev, "fbdev: Failed to setup emulation (ret=%d)\n", ret);
+-	drm_err(dev, "Failed to setup fbdev emulation (ret=%d)\n", ret);
 -	return ret;
 -}
-+/*
-+ * struct drm_client_funcs
-+ */
- 
- static const struct drm_client_funcs drm_fbdev_ttm_client_funcs = {
+-
+ static const struct drm_client_funcs exynos_drm_fbdev_client_funcs = {
 -	.owner		= THIS_MODULE,
--	.unregister	= drm_fbdev_ttm_client_unregister,
--	.restore	= drm_fbdev_ttm_client_restore,
--	.hotplug	= drm_fbdev_ttm_client_hotplug,
+-	.unregister	= exynos_drm_fbdev_client_unregister,
+-	.restore	= exynos_drm_fbdev_client_restore,
+-	.hotplug	= exynos_drm_fbdev_client_hotplug,
 +	.owner = THIS_MODULE,
 +	DRM_FBDEV_HELPER_CLIENT_FUNCS,
  };
  
- /**
+ void exynos_drm_fbdev_setup(struct drm_device *dev)
 -- 
 2.44.0
 
