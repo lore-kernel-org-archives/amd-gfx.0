@@ -4,119 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 314DDC04FFE
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 05:50:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BC33C04FFE
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 06:00:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFEB6113367;
-	Wed,  8 May 2024 05:50:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45FA51133BE;
+	Wed,  8 May 2024 06:00:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rftG8MGb";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="oJBUSnqZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LALyyqtM";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oJBUSnqZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LALyyqtM";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2087.outbound.protection.outlook.com [40.107.236.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0817113359
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 May 2024 05:50:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lj8mxlnz12+KHFf6xZIdVFkdvnA4Bfo0hW6+H3dX4DgqgTcpgfkY9h9nA4o83ru+328r8USmRd/swFXRmGQ58RZDbFW4gO1vDMRtT/3fMdVAWVmDw+KR4AjmJVclnrpYxecaaFIugXkwUxJOC9TeTgDjFtdzZXzihNmonxx+nWoSM5Acblf4aWUuWzaxTFlQH8zTQFDXgDGFnBSjtjLJ1bLnIfRA1TctiJ6D0Bmv0h9xN15U4U8ovPYrATau9WO78E7imPsRrYHbXHUIJX8KDHQinuFZ8thtbELtxUV8ITdmsxO2YBa+F3FK4feg9UyRIqAvMGPTSt0auo8bW6W6xQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M2ExYSamopuyg1Dkd/S5OCc5hjaOkDlgZ/tYVWT4mSs=;
- b=TJFmsv3VqWPOPrHcfSm5N3xrfbphy7i1J5Q9IFJVVB+n5i2QYGaD5UrOK1UIzWzIh21IMNM7VUG2M13Vw0nJUgWkX4AXqlxfUYYtt2MaKRnZBKsF7Ru/fGg4bDZNIhmrTatRh9d1Lyfq/F21/0m42YgOXjhuZhDIf70k9qC6RJyybuhdKEJu20Cd42L4Thrn2X2/f+b1P1I+TaJig+QZu2ZimDNEFYA70AGNzavxGCgzCzvTxMDmOnWi19rQ8S/8LX5uyhEyI1+rl3KDxHZEiZxe7ld/k0rRKhwVIgO3jHg2tXdiCH/K4E5/v6lsctJii5WL8eiSuHEPfsL6teL4JA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M2ExYSamopuyg1Dkd/S5OCc5hjaOkDlgZ/tYVWT4mSs=;
- b=rftG8MGbj1iD2A6lFqA70Nnbvr4rgq3UIi2aQ8Rg+Cp/a2EUmZUTrcy3J1gnTlKOYrLBbp+ldVMgF3P9XllETwTPI88I4OLatvwJaCiUhwaMMS3nzgYY/CJ1cLs+IMPx0d+6lNGOnHsBUFD7OoG/W7J95PrSIJ5iBchDn/s1rqI=
-Received: from DS7PR05CA0018.namprd05.prod.outlook.com (2603:10b6:5:3b9::23)
- by PH0PR12MB8800.namprd12.prod.outlook.com (2603:10b6:510:26f::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.45; Wed, 8 May
- 2024 05:50:49 +0000
-Received: from DS3PEPF000099D4.namprd04.prod.outlook.com
- (2603:10b6:5:3b9:cafe::c6) by DS7PR05CA0018.outlook.office365.com
- (2603:10b6:5:3b9::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.45 via Frontend
- Transport; Wed, 8 May 2024 05:50:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099D4.mail.protection.outlook.com (10.167.17.5) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Wed, 8 May 2024 05:50:48 +0000
-Received: from x570-ryzen9-5900x.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Wed, 8 May 2024 00:50:45 -0500
-From: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <saleemkhan.jamadar@amd.com>,
- <leo.liu@amd.com>, <veerabadhran.gopalakrishnan@amd.com>,
- <alexander.deucher@amd.com>
-CC: <srinath.rao@amd.com>, Veerabadhran Gopalakrishnan
- <Veerabadhran.Gopalakrishnan@amd.com>
-Subject: [PATCH] drm/amdgpu/umsch: add support to capture fw debug log
-Date: Wed, 8 May 2024 11:20:26 +0530
-Message-ID: <20240508055026.264218-1-saleemkhan.jamadar@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E55E1127FA;
+ Wed,  8 May 2024 06:00:29 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1710921A3C;
+ Wed,  8 May 2024 06:00:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1715148027; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Is1QIooOcsSsCqTmiQyMmRHwJK9pqSAkls0yrv548qo=;
+ b=oJBUSnqZI7EMjfLSBFZJVb44HlHinhbFGw6fI8Dnc2xpkzBYD1XKpxGf4uifFmvRoG61rt
+ QVRqUSBQqc6vOTInrJu0yU9OsgNIHL2uesL+75THSxQBwLxd66hkPtvOfRTKTqRCOUmcjB
+ nGNVx0QMAAlgqx1J23NlvRc1IK42+CI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1715148027;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Is1QIooOcsSsCqTmiQyMmRHwJK9pqSAkls0yrv548qo=;
+ b=LALyyqtMas/4qlYZtcYxHdHGH9G64b4tNDkdXEw/W00Ws0sioAsIy89uQ0NBT0eoGUf4tT
+ NYE1i0b7yLQda9AQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1715148027; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Is1QIooOcsSsCqTmiQyMmRHwJK9pqSAkls0yrv548qo=;
+ b=oJBUSnqZI7EMjfLSBFZJVb44HlHinhbFGw6fI8Dnc2xpkzBYD1XKpxGf4uifFmvRoG61rt
+ QVRqUSBQqc6vOTInrJu0yU9OsgNIHL2uesL+75THSxQBwLxd66hkPtvOfRTKTqRCOUmcjB
+ nGNVx0QMAAlgqx1J23NlvRc1IK42+CI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1715148027;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Is1QIooOcsSsCqTmiQyMmRHwJK9pqSAkls0yrv548qo=;
+ b=LALyyqtMas/4qlYZtcYxHdHGH9G64b4tNDkdXEw/W00Ws0sioAsIy89uQ0NBT0eoGUf4tT
+ NYE1i0b7yLQda9AQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C879F1386E;
+ Wed,  8 May 2024 06:00:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id abWuL/kUO2bdVQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 08 May 2024 06:00:25 +0000
+Message-ID: <2b464f50-15e0-4df3-a846-21417a103ed6@suse.de>
+Date: Wed, 8 May 2024 08:00:24 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 11/11] drm/tegra: Use fbdev client helpers
+To: Felix Kuehling <felix.kuehling@amd.com>, javierm@redhat.com,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ inki.dae@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
+ linux@armlinux.org.uk, krzk@kernel.org, alim.akhtar@samsung.com,
+ patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run, marijn.suijten@somainline.org,
+ tomi.valkeinen@ideasonboard.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, thierry.reding@gmail.com,
+ mperttunen@nvidia.com, jonathanh@nvidia.com
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20240507120422.25492-1-tzimmermann@suse.de>
+ <20240507120422.25492-12-tzimmermann@suse.de>
+ <b463d432-669c-43a4-933a-cafef000f7da@amd.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <b463d432-669c-43a4-933a-cafef000f7da@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099D4:EE_|PH0PR12MB8800:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5509dc9-0d6c-4101-35bb-08dc6f22cff1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230031|1800799015|376005|82310400017|36860700004; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?U64hm8LnGjMkFSfqdhVRSsR9wCn3h0QNvbgmTDfobufOqpMrZy5oKTskkYPt?=
- =?us-ascii?Q?epfmY6ncKsskif0VT3lYsQu7oI2qZJKOc8r1l9C0HfLUPnv9rbesfL3cPCAK?=
- =?us-ascii?Q?tH0/7JQV50tVmFfxmi7You0DTB8bZjK53a4jOQddHOZpLhAHDo+7yMXl2iCD?=
- =?us-ascii?Q?o29KJOZwYhOZHW8dmekdNMd53EtqXBZ9xYjCc3EPSUoXNXh7PduymC1E0fPx?=
- =?us-ascii?Q?gcxqNr61gb9y2mPb+tJlpGKnKmb1OPKEycJx4h9fcjv/qJbqKwQngwN1FlnS?=
- =?us-ascii?Q?Nz4LAPTXhR7adg483G86bBZ0nizqzi/OBZQNYvcHb0eBuoQqQtPVDfVn219n?=
- =?us-ascii?Q?WO7RCFwDB7/O/fktQPIWiK6385I1KjVWLuErBvheZ/ayCJL5lcEeM38OMRp2?=
- =?us-ascii?Q?PCXDevqxN7+gLBmkyni8kxvlASrkFOzgoYkqtKceQhZkIoxQJoIO4OV7zy08?=
- =?us-ascii?Q?+xH4io0WAVctQBAYUhGtQ53KbdUzX4Tm2bfFIwKcgBu+6YIgCQp6R/GZxnuc?=
- =?us-ascii?Q?hOfyMeuvO/ZMscq6lemTtPR4iRS8LGTEHxMmxYYinQOKVSeHhXVcRrGYReyn?=
- =?us-ascii?Q?1q38nxD12Sflw4vcG8rGZLFo17ucCAMpFRS/K8zxcKS9dQdm9YzmOElIHaeM?=
- =?us-ascii?Q?xwHyMpP7HJGUI9xUTRFyMSS16JTfKZahnQwqSit/x0uasc8w9sjoeCCZuD6d?=
- =?us-ascii?Q?blTptnRjJN5B8G8m0IQ3YTJ7ePqpYKX+WcWKNuHN3FseRJRG//TTjxBnlUeD?=
- =?us-ascii?Q?+I7Iycvn5vj66dWVYNQLHVJAPT9nd4zYaTXlQfVRzT6QkkM2qPqTueEN3xG6?=
- =?us-ascii?Q?8fjyOkgWNci1GBsSDqTpSQYmWp5a6396fRd1LLW5DFMVIE1x5vWmewgoRMwf?=
- =?us-ascii?Q?LUqt1HkVCnuCIM3irQ8y1FaR2ffd9ddSAmTHJHLQboi0T+bQ2+C+Vlguy7MR?=
- =?us-ascii?Q?lHTy7WMJLhUGZHxpz5l3QHKMOP/7uZH21DRepme1U4AZwGg0pJxduq07ZgJ2?=
- =?us-ascii?Q?/YQh8V5nMUuEEF7UhZ2USQEbujVQHN1z35qZ1/PYkHtDMveE2nuSsekecTY3?=
- =?us-ascii?Q?t7IHxFfWB3BIpSiq9dcqU0f3UtBPWinbTq/VWD+hNych3jjhffWG9hroySLk?=
- =?us-ascii?Q?4ZBBLe8vaSwQwrJZDJbbvUjoXNC8Z1VOUA4v6Kg6H2+c0OSmeUHaL1kCCI61?=
- =?us-ascii?Q?QUhz4hnw7D9I52uNXkI0t1zQZ0apcvIHb2nzKkzq7td3STBWjS/GNNEd9lzk?=
- =?us-ascii?Q?Uf1qa5G7pC9xyGOr9b2O67VxX3b49nEq8TaZopM6Y+fOe4uyROjkwxBhvMBc?=
- =?us-ascii?Q?dTdv+t7QXap1Uj3Oq9wXX4fji9TDBylnY+XGqe2Z31/W72QwTRWL4U1cHdMF?=
- =?us-ascii?Q?SUsd5BA=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(376005)(82310400017)(36860700004); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2024 05:50:48.7249 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5509dc9-0d6c-4101-35bb-08dc6f22cff1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099D4.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8800
+X-Spamd-Result: default: False [-2.79 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; TAGGED_RCPT(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[amd.com,redhat.com,ffwll.ch,linux.intel.com,kernel.org,samsung.com,armlinux.org.uk,gmail.com,intel.com,ursulin.net,quicinc.com,linaro.org,poorly.run,somainline.org,ideasonboard.com,nvidia.com];
+ RCPT_COUNT_TWELVE(0.00)[31]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, suse.de:email]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,313 +151,211 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Added support to capture unsch fw debug logs in debugfs.
-To enable set amdgpu_umschfw_log =1 in boot args.
+Hi
 
-v1 - reame varibale to umsch_mm_fwlog (Veera)
+Am 07.05.24 um 23:03 schrieb Felix Kuehling:
+>
+> On 2024-05-07 07:58, Thomas Zimmermann wrote:
+>> Implement struct drm_client_funcs with the respective helpers and
+>> remove the custom code from the emulation. The generic helpers are
+>> equivalent in functionality.
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> ---
+>>   drivers/gpu/drm/radeon/radeon_fbdev.c | 66 ++-------------------------
+>
+> Was radeon meant to be a separate patch?
 
-Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
-Reviewed-by: Veerabadhran Gopalakrishnan <Veerabadhran.Gopalakrishnan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h          |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c  |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      |   8 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c | 119 +++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.h |  18 +++
- drivers/gpu/drm/amd/amdgpu/umsch_mm_v4_0.c   |   6 +
- 6 files changed, 157 insertions(+)
+Indeed. It also _was_ a separate patch. This looks like a mistake during 
+rebasing. Thanks for noticing. I'll fix that in v2.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index f87d53e183c3..a855600b13e6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -112,6 +112,7 @@
- #include "amdgpu_xcp.h"
- #include "amdgpu_seq64.h"
- #include "amdgpu_reg_state.h"
-+#include "amdgpu_umsch_mm.h"
- 
- #define MAX_GPU_INSTANCE		64
- 
-@@ -253,10 +254,12 @@ extern int amdgpu_cik_support;
- extern int amdgpu_num_kcq;
- 
- #define AMDGPU_VCNFW_LOG_SIZE (32 * 1024)
-+#define AMDGPU_UMSCHFW_LOG_SIZE (32 * 1024)
- extern int amdgpu_vcnfw_log;
- extern int amdgpu_sg_display;
- extern int amdgpu_umsch_mm;
- extern int amdgpu_seamless;
-+extern int amdgpu_umsch_mm_fwlog;
- 
- extern int amdgpu_user_partt_mode;
- extern int amdgpu_agp;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index f5d0fa207a88..82f6d4ccd537 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -2185,6 +2185,9 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
- 		amdgpu_debugfs_vcn_fwlog_init(adev, i, &adev->vcn.inst[i]);
- 	}
- 
-+	if (amdgpu_umsch_mm & amdgpu_umsch_mm_fwlog)
-+		amdgpu_debugfs_umsch_fwlog_init(adev, &adev->umsch_mm);
-+
- 	amdgpu_ras_debugfs_create_all(adev);
- 	amdgpu_rap_debugfs_init(adev);
- 	amdgpu_securedisplay_debugfs_init(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index ea14f1c8f430..9a32724b989e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -214,6 +214,7 @@ uint amdgpu_debug_mask;
- int amdgpu_agp = -1; /* auto */
- int amdgpu_wbrf = -1;
- int amdgpu_damage_clips = -1; /* auto */
-+int amdgpu_umsch_mm_fwlog;
- 
- static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
- 
-@@ -965,6 +966,13 @@ MODULE_PARM_DESC(umsch_mm,
- 	"Enable Multi Media User Mode Scheduler (0 = disabled (default), 1 = enabled)");
- module_param_named(umsch_mm, amdgpu_umsch_mm, int, 0444);
- 
-+/**
-+ * DOC: umsch_mm_fwlog (int)
-+ * Enable umschfw log output for debugging, the default is disabled.
-+ */
-+MODULE_PARM_DESC(umsch_mm_fwlog, "Enable umschfw log(0 = disable (default value), 1 = enable)");
-+module_param_named(umsch_mm_fwlog, amdgpu_umsch_mm_fwlog, int, 0444);
-+
- /**
-  * DOC: smu_pptable_id (int)
-  * Used to override pptable id. id = 0 use VBIOS pptable.
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
-index 9f9d6a6d5cf3..2d2dddea8770 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
-@@ -23,7 +23,10 @@
-  */
- 
- #include <linux/firmware.h>
-+#include <linux/module.h>
-+#include <linux/debugfs.h>
- #include <drm/drm_exec.h>
-+#include <drm/drm_drv.h>
- 
- #include "amdgpu.h"
- #include "amdgpu_umsch_mm.h"
-@@ -743,6 +746,17 @@ static int umsch_mm_init(struct amdgpu_device *adev)
- 		return r;
- 	}
- 
-+	r = amdgpu_bo_create_kernel(adev, AMDGPU_UMSCHFW_LOG_SIZE, PAGE_SIZE,
-+				    AMDGPU_GEM_DOMAIN_VRAM |
-+				    AMDGPU_GEM_DOMAIN_GTT,
-+				    &adev->umsch_mm.dbglog_bo,
-+				    &adev->umsch_mm.log_gpu_addr,
-+				    &adev->umsch_mm.log_cpu_addr);
-+	if (r) {
-+		dev_err(adev->dev, "(%d) failed to allocate umsch debug bo\n", r);
-+		return r;
-+	}
-+
- 	mutex_init(&adev->umsch_mm.mutex_hidden);
- 
- 	umsch_mm_agdb_index_init(adev);
-@@ -789,6 +803,7 @@ static int umsch_mm_sw_init(void *handle)
- 	if (r)
- 		return r;
- 
-+	amdgpu_umsch_fwlog_init(&adev->umsch_mm);
- 	r = umsch_mm_ring_init(&adev->umsch_mm);
- 	if (r)
- 		return r;
-@@ -815,6 +830,10 @@ static int umsch_mm_sw_fini(void *handle)
- 			      &adev->umsch_mm.cmd_buf_gpu_addr,
- 			      (void **)&adev->umsch_mm.cmd_buf_ptr);
- 
-+	amdgpu_bo_free_kernel(&adev->umsch_mm.dbglog_bo,
-+				    &adev->umsch_mm.log_gpu_addr,
-+				    (void **)&adev->umsch_mm.log_cpu_addr);
-+
- 	amdgpu_device_wb_free(adev, adev->umsch_mm.wb_index);
- 
- 	return 0;
-@@ -868,6 +887,106 @@ static int umsch_mm_resume(void *handle)
- 	return umsch_mm_hw_init(adev);
- }
- 
-+void amdgpu_umsch_fwlog_init(struct amdgpu_umsch_mm *umsch_mm)
-+{
-+#if defined(CONFIG_DEBUG_FS)
-+	void *fw_log_cpu_addr = umsch_mm->log_cpu_addr;
-+	volatile struct amdgpu_umsch_fwlog *log_buf = fw_log_cpu_addr;
-+
-+	log_buf->header_size = sizeof(struct amdgpu_umsch_fwlog);
-+	log_buf->buffer_size = AMDGPU_UMSCHFW_LOG_SIZE;
-+	log_buf->rptr = log_buf->header_size;
-+	log_buf->wptr = log_buf->header_size;
-+	log_buf->wrapped = 0;
-+#endif
-+}
-+
-+/*
-+ * debugfs for mapping umsch firmware log buffer.
-+ */
-+#if defined(CONFIG_DEBUG_FS)
-+static ssize_t amdgpu_debugfs_umsch_fwlog_read(struct file *f, char __user *buf,
-+					     size_t size, loff_t *pos)
-+{
-+	struct amdgpu_umsch_mm *umsch_mm;
-+	void *log_buf;
-+	volatile struct amdgpu_umsch_fwlog *plog;
-+	unsigned int read_pos, write_pos, available, i, read_bytes = 0;
-+	unsigned int read_num[2] = {0};
-+
-+	umsch_mm = file_inode(f)->i_private;
-+	if (!umsch_mm)
-+		return -ENODEV;
-+
-+	if (!umsch_mm->log_cpu_addr)
-+		return -EFAULT;
-+
-+	log_buf = umsch_mm->log_cpu_addr;
-+
-+	plog = (volatile struct amdgpu_umsch_fwlog *)log_buf;
-+	read_pos = plog->rptr;
-+	write_pos = plog->wptr;
-+
-+	if (read_pos > AMDGPU_UMSCHFW_LOG_SIZE || write_pos > AMDGPU_UMSCHFW_LOG_SIZE)
-+		return -EFAULT;
-+
-+	if (!size || (read_pos == write_pos))
-+		return 0;
-+
-+	if (write_pos > read_pos) {
-+		available = write_pos - read_pos;
-+		read_num[0] = min_t(size_t, size, available);
-+	} else {
-+		read_num[0] = AMDGPU_UMSCHFW_LOG_SIZE - read_pos;
-+		available = read_num[0] + write_pos - plog->header_size;
-+		if (size > available)
-+			read_num[1] = write_pos - plog->header_size;
-+		else if (size > read_num[0])
-+			read_num[1] = size - read_num[0];
-+		else
-+			read_num[0] = size;
-+	}
-+
-+	for (i = 0; i < 2; i++) {
-+		if (read_num[i]) {
-+			if (read_pos == AMDGPU_UMSCHFW_LOG_SIZE)
-+				read_pos = plog->header_size;
-+			if (read_num[i] == copy_to_user((buf + read_bytes),
-+							(log_buf + read_pos), read_num[i]))
-+				return -EFAULT;
-+
-+			read_bytes += read_num[i];
-+			read_pos += read_num[i];
-+		}
-+	}
-+
-+	plog->rptr = read_pos;
-+	*pos += read_bytes;
-+	return read_bytes;
-+}
-+
-+static const struct file_operations amdgpu_debugfs_umschfwlog_fops = {
-+	.owner = THIS_MODULE,
-+	.read = amdgpu_debugfs_umsch_fwlog_read,
-+	.llseek = default_llseek
-+};
-+#endif
-+
-+void amdgpu_debugfs_umsch_fwlog_init(struct amdgpu_device *adev,
-+			struct amdgpu_umsch_mm *umsch_mm)
-+{
-+#if defined(CONFIG_DEBUG_FS)
-+	struct drm_minor *minor = adev_to_drm(adev)->primary;
-+	struct dentry *root = minor->debugfs_root;
-+	char name[32];
-+
-+	sprintf(name, "amdgpu_umsch_fwlog");
-+	debugfs_create_file_size(name, S_IFREG | 0444, root, umsch_mm,
-+				 &amdgpu_debugfs_umschfwlog_fops,
-+				 AMDGPU_UMSCHFW_LOG_SIZE);
-+#endif
-+}
-+
- static const struct amd_ip_funcs umsch_mm_v4_0_ip_funcs = {
- 	.name = "umsch_mm_v4_0",
- 	.early_init = umsch_mm_early_init,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.h
-index 5014b5af95fd..2c771a753778 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.h
-@@ -58,6 +58,14 @@ struct umsch_mm_set_resource_input {
- 	};
- };
- 
-+struct amdgpu_umsch_fwlog {
-+	uint32_t rptr;
-+	uint32_t wptr;
-+	uint32_t buffer_size;
-+	uint32_t header_size;
-+	uint32_t wrapped;
-+};
-+
- struct umsch_mm_add_queue_input {
- 	uint32_t process_id;
- 	uint64_t page_table_base_addr;
-@@ -166,6 +174,11 @@ struct amdgpu_umsch_mm {
- 	uint32_t			agdb_index[CONTEXT_PRIORITY_NUM_LEVELS];
- 
- 	struct mutex			mutex_hidden;
-+	struct amdgpu_bo		*dbglog_bo;
-+	void				*log_cpu_addr;
-+	uint64_t			log_gpu_addr;
-+	uint32_t			mem_size;
-+	uint32_t			log_offset;
- };
- 
- int amdgpu_umsch_mm_submit_pkt(struct amdgpu_umsch_mm *umsch, void *pkt, int ndws);
-@@ -179,6 +192,11 @@ int amdgpu_umsch_mm_psp_execute_cmd_buf(struct amdgpu_umsch_mm *umsch);
- 
- int amdgpu_umsch_mm_ring_init(struct amdgpu_umsch_mm *umsch);
- 
-+void amdgpu_debugfs_umsch_fwlog_init(struct amdgpu_device *adev,
-+			struct amdgpu_umsch_mm *umsch);
-+
-+void amdgpu_umsch_fwlog_init(struct amdgpu_umsch_mm *umsch_mm);
-+
- #define WREG32_SOC15_UMSCH(reg, value)								\
- 	do {											\
- 		uint32_t reg_offset = adev->reg_offset[VCN_HWIP][0][reg##_BASE_IDX] + reg;	\
-diff --git a/drivers/gpu/drm/amd/amdgpu/umsch_mm_v4_0.c b/drivers/gpu/drm/amd/amdgpu/umsch_mm_v4_0.c
-index bd57896ab85d..2c5e7b0a73f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/umsch_mm_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umsch_mm_v4_0.c
-@@ -24,6 +24,7 @@
- 
- #include <linux/firmware.h>
- #include <linux/module.h>
-+#include <linux/debugfs.h>
- #include "amdgpu.h"
- #include "soc15_common.h"
- #include "soc21.h"
-@@ -143,6 +144,11 @@ static int umsch_mm_v4_0_load_microcode(struct amdgpu_umsch_mm *umsch)
- 	WREG32_SOC15_UMSCH(regVCN_MES_GP0_LO, 0);
- 	WREG32_SOC15_UMSCH(regVCN_MES_GP0_HI, 0);
- 
-+#if defined(CONFIG_DEBUG_FS)
-+	WREG32_SOC15_UMSCH(regVCN_MES_GP0_LO, lower_32_bits(umsch->log_gpu_addr));
-+	WREG32_SOC15_UMSCH(regVCN_MES_GP0_HI, upper_32_bits(umsch->log_gpu_addr));
-+#endif
-+
- 	WREG32_SOC15_UMSCH(regVCN_MES_GP1_LO, 0);
- 	WREG32_SOC15_UMSCH(regVCN_MES_GP1_HI, 0);
- 
+Best regards
+Thomas
+
+>
+> Regards,
+>   Felix
+>
+>
+>>   drivers/gpu/drm/tegra/fbdev.c         | 58 ++---------------------
+>>   2 files changed, 6 insertions(+), 118 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c 
+>> b/drivers/gpu/drm/radeon/radeon_fbdev.c
+>> index 02bf25759059a..cf790922174ea 100644
+>> --- a/drivers/gpu/drm/radeon/radeon_fbdev.c
+>> +++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
+>> @@ -29,7 +29,6 @@
+>>   #include <linux/pm_runtime.h>
+>>   #include <linux/vga_switcheroo.h>
+>>   -#include <drm/drm_crtc_helper.h>
+>>   #include <drm/drm_drv.h>
+>>   #include <drm/drm_fb_helper.h>
+>>   #include <drm/drm_fourcc.h>
+>> @@ -293,71 +292,12 @@ static const struct drm_fb_helper_funcs 
+>> radeon_fbdev_fb_helper_funcs = {
+>>   };
+>>     /*
+>> - * Fbdev client and struct drm_client_funcs
+>> + * struct drm_client_funcs
+>>    */
+>>   -static void radeon_fbdev_client_unregister(struct drm_client_dev 
+>> *client)
+>> -{
+>> -    struct drm_fb_helper *fb_helper = 
+>> drm_fb_helper_from_client(client);
+>> -    struct drm_device *dev = fb_helper->dev;
+>> -    struct radeon_device *rdev = dev->dev_private;
+>> -
+>> -    if (fb_helper->info) {
+>> -        vga_switcheroo_client_fb_set(rdev->pdev, NULL);
+>> -        drm_helper_force_disable_all(dev);
+>> -        drm_fb_helper_unregister_info(fb_helper);
+>> -    } else {
+>> -        drm_client_release(&fb_helper->client);
+>> -        drm_fb_helper_unprepare(fb_helper);
+>> -        kfree(fb_helper);
+>> -    }
+>> -}
+>> -
+>> -static int radeon_fbdev_client_restore(struct drm_client_dev *client)
+>> -{
+>> -    drm_fb_helper_lastclose(client->dev);
+>> -    vga_switcheroo_process_delayed_switch();
+>> -
+>> -    return 0;
+>> -}
+>> -
+>> -static int radeon_fbdev_client_hotplug(struct drm_client_dev *client)
+>> -{
+>> -    struct drm_fb_helper *fb_helper = 
+>> drm_fb_helper_from_client(client);
+>> -    struct drm_device *dev = client->dev;
+>> -    struct radeon_device *rdev = dev->dev_private;
+>> -    int ret;
+>> -
+>> -    if (dev->fb_helper)
+>> -        return drm_fb_helper_hotplug_event(dev->fb_helper);
+>> -
+>> -    ret = drm_fb_helper_init(dev, fb_helper);
+>> -    if (ret)
+>> -        goto err_drm_err;
+>> -
+>> -    if (!drm_drv_uses_atomic_modeset(dev))
+>> -        drm_helper_disable_unused_functions(dev);
+>> -
+>> -    ret = drm_fb_helper_initial_config(fb_helper);
+>> -    if (ret)
+>> -        goto err_drm_fb_helper_fini;
+>> -
+>> -    vga_switcheroo_client_fb_set(rdev->pdev, fb_helper->info);
+>> -
+>> -    return 0;
+>> -
+>> -err_drm_fb_helper_fini:
+>> -    drm_fb_helper_fini(fb_helper);
+>> -err_drm_err:
+>> -    drm_err(dev, "Failed to setup radeon fbdev emulation 
+>> (ret=%d)\n", ret);
+>> -    return ret;
+>> -}
+>> -
+>>   static const struct drm_client_funcs radeon_fbdev_client_funcs = {
+>> -    .owner        = THIS_MODULE,
+>> -    .unregister    = radeon_fbdev_client_unregister,
+>> -    .restore    = radeon_fbdev_client_restore,
+>> -    .hotplug    = radeon_fbdev_client_hotplug,
+>> +    .owner = THIS_MODULE,
+>> +    DRM_FBDEV_HELPER_CLIENT_FUNCS,
+>>   };
+>>     void radeon_fbdev_setup(struct radeon_device *rdev)
+>> diff --git a/drivers/gpu/drm/tegra/fbdev.c 
+>> b/drivers/gpu/drm/tegra/fbdev.c
+>> index db6eaac3d30e6..f9cc365cfed94 100644
+>> --- a/drivers/gpu/drm/tegra/fbdev.c
+>> +++ b/drivers/gpu/drm/tegra/fbdev.c
+>> @@ -12,7 +12,6 @@
+>>   #include <linux/vmalloc.h>
+>>     #include <drm/drm_drv.h>
+>> -#include <drm/drm_crtc_helper.h>
+>>   #include <drm/drm_fb_helper.h>
+>>   #include <drm/drm_fourcc.h>
+>>   #include <drm/drm_framebuffer.h>
+>> @@ -150,63 +149,12 @@ static const struct drm_fb_helper_funcs 
+>> tegra_fb_helper_funcs = {
+>>   };
+>>     /*
+>> - * struct drm_client
+>> + * struct drm_client_funcs
+>>    */
+>>   -static void tegra_fbdev_client_unregister(struct drm_client_dev 
+>> *client)
+>> -{
+>> -    struct drm_fb_helper *fb_helper = 
+>> drm_fb_helper_from_client(client);
+>> -
+>> -    if (fb_helper->info) {
+>> -        drm_fb_helper_unregister_info(fb_helper);
+>> -    } else {
+>> -        drm_client_release(&fb_helper->client);
+>> -        drm_fb_helper_unprepare(fb_helper);
+>> -        kfree(fb_helper);
+>> -    }
+>> -}
+>> -
+>> -static int tegra_fbdev_client_restore(struct drm_client_dev *client)
+>> -{
+>> -    drm_fb_helper_lastclose(client->dev);
+>> -
+>> -    return 0;
+>> -}
+>> -
+>> -static int tegra_fbdev_client_hotplug(struct drm_client_dev *client)
+>> -{
+>> -    struct drm_fb_helper *fb_helper = 
+>> drm_fb_helper_from_client(client);
+>> -    struct drm_device *dev = client->dev;
+>> -    int ret;
+>> -
+>> -    if (dev->fb_helper)
+>> -        return drm_fb_helper_hotplug_event(dev->fb_helper);
+>> -
+>> -    ret = drm_fb_helper_init(dev, fb_helper);
+>> -    if (ret)
+>> -        goto err_drm_err;
+>> -
+>> -    if (!drm_drv_uses_atomic_modeset(dev))
+>> -        drm_helper_disable_unused_functions(dev);
+>> -
+>> -    ret = drm_fb_helper_initial_config(fb_helper);
+>> -    if (ret)
+>> -        goto err_drm_fb_helper_fini;
+>> -
+>> -    return 0;
+>> -
+>> -err_drm_fb_helper_fini:
+>> -    drm_fb_helper_fini(fb_helper);
+>> -err_drm_err:
+>> -    drm_err(dev, "Failed to setup fbdev emulation (ret=%d)\n", ret);
+>> -    return ret;
+>> -}
+>> -
+>>   static const struct drm_client_funcs tegra_fbdev_client_funcs = {
+>> -    .owner        = THIS_MODULE,
+>> -    .unregister    = tegra_fbdev_client_unregister,
+>> -    .restore    = tegra_fbdev_client_restore,
+>> -    .hotplug    = tegra_fbdev_client_hotplug,
+>> +    .owner = THIS_MODULE,
+>> +    DRM_FBDEV_HELPER_CLIENT_FUNCS,
+>>   };
+>>     void tegra_fbdev_setup(struct drm_device *dev)
+
 -- 
-2.25.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
 
