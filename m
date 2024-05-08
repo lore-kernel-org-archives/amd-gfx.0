@@ -4,61 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2A18C04FFE
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 09:13:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C5A7C04FFE
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 10:17:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D2551128AC;
-	Wed,  8 May 2024 09:13:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCF06113569;
+	Wed,  8 May 2024 10:17:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OaXi/cLH";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="mhZ6FP0f";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F70D1128A4;
- Wed,  8 May 2024 09:13:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1715159626; x=1746695626;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=klBkLhyD/TIqiC8931eKaEuMvRbhN90D355twxqXUsQ=;
- b=OaXi/cLHZsxLyB6a+B1UhcyZrNpJFGVOLBod84gHjqI7p+FeilRGwn5u
- MzrffDUVX+21AbA5uffEmiAzyfxbjG0xsD/IxjbfQ5nQBIvLbXiXGPQKP
- 6ZpUPOYjJfv3NvDVPJgW7RpiqDw4UN8kUtnOTDUo3rqKpnNFmO1II7E0s
- F+vvC/kN4arH6I7txWGNTJrF+riZ0YiNnDSNxk5ekT+g2teUICpsQGLO0
- ddgy4Vb8GZesh607dMyyjOzzhPiefffBAVUroSYK1QO7oqoPI3uidstRm
- Y51cAROJVDqo6cedeVBf5EEnXcRLH59OlH536/c1LFjPSQjwAXw8qOB2h g==;
-X-CSE-ConnectionGUID: k0L7K8MeRISgOrEuBgsyhg==
-X-CSE-MsgGUID: +HHKAYN6QyqCyUu6ngWu2g==
-X-IronPort-AV: E=McAfee;i="6600,9927,11066"; a="13955909"
-X-IronPort-AV: E=Sophos;i="6.08,144,1712646000"; d="scan'208";a="13955909"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2024 02:13:45 -0700
-X-CSE-ConnectionGUID: xlAUvHplRwGwJS7blNx1vQ==
-X-CSE-MsgGUID: Nl9+D1kuQ+2ZvNQlJR5CBg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,144,1712646000"; d="scan'208";a="29399576"
-Received: from dhhellew-desk2.ger.corp.intel.com.ger.corp.intel.com (HELO
- localhost) ([10.245.246.76])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2024 02:13:42 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 2/5] drm/amdgpu: Use drm_crtc_vblank_crtc()
-In-Reply-To: <20240408190611.24914-2-ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240408190611.24914-1-ville.syrjala@linux.intel.com>
- <20240408190611.24914-2-ville.syrjala@linux.intel.com>
-Date: Wed, 08 May 2024 12:13:39 +0300
-Message-ID: <874jb8ll8c.fsf@intel.com>
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9588E113569
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 May 2024 10:17:05 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4VZ9zy0Wqvz9sqj;
+ Wed,  8 May 2024 12:17:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1715163422;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kqixmISPPEyrTS5FDHfF3IVapKDY38x5UwfXRZ6ai4E=;
+ b=mhZ6FP0fr0Zu3ehAQAKrc5j8RCOF2YY1pWYR+r3LvUBpdUKiix69RTIjn/UwxSCaDI7Ch9
+ mYP7V6cMwivWa0PLHQy0rHbMcId3S4XqT8sGlVMXxxHfRv65Yjemc3nx2Peuo09igl7NjT
+ 3vKksNW/lXYXV6LNyPStOHOkKCVotXhFhnudQSRNELKb87HD781nsQRli31f2PH2Aw5L3M
+ fsIxZA7H/sTK2gLFooTAm9lPN7iJo+GLrGnxECWbcB1/6BzQkKdh4LOzoydkz9gazqF9bd
+ SeigFhJw+9MYfQ0ptp4SXypFhVpXiarfgde8cKmdgygUNrfoQvVgkq6jPXU0tw==
+Message-ID: <47c31c39-9ca0-46b6-93cd-e5c4c002fe23@mailbox.org>
+Date: Wed, 8 May 2024 12:17:00 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [patch] problems with "fix visible VRAM handling during faults"
+To: Jeremy Day <jsday@noreason.ca>
+Cc: christian.koenig@amd.com, amd-gfx@lists.freedesktop.org
+References: <20240507123907.3a39163546b4643c5d834522@noreason.ca>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <20240507123907.3a39163546b4643c5d834522@noreason.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 9df879f2390180d63d1
+X-MBO-RS-META: 6prbq46irzi5fkrwz8fkdm1krjqkuein
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,72 +61,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 08 Apr 2024, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> Replace the open coded drm_crtc_vblank_crtc() with the real
-> thing.
->
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
-> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+On 2024-05-07 18:39, Jeremy Day wrote:
+> This is just to report that I've had usually well-behaved applications
+> sometimes having problems with memory access violations since kernel
+> version 6.9-rc5.  This past weekend I stumbled across a way to reliably
+> reproduce the problem in the form of a Skyrim save file which causes a
+> crash shortly after loading the game on affected kernels.
+> 
+> Things go back to running smoothly only if I revert one of the changes
+> in 5th April's "[PATCH] drm/amdgpu: fix visible VRAM handling during
+> faults" as follows.
+> 
+> Patch is against v6.9-rc7.  It restores the check for partially
+> visible-to-cpu memory in amdgpu_bo_fault_reserve_notify.  Things
+> seem stable again with this change.
 
-FWIW,
+Does this instead of your patch help by any chance?
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c          | 8 ++------
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
->  2 files changed, 3 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vkms.c
-> index 8baa2e0935cc..258703145161 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> @@ -65,9 +65,7 @@ static enum hrtimer_restart amdgpu_vkms_vblank_simulate=
-(struct hrtimer *timer)
->=20=20
->  static int amdgpu_vkms_enable_vblank(struct drm_crtc *crtc)
->  {
-> -	struct drm_device *dev =3D crtc->dev;
-> -	unsigned int pipe =3D drm_crtc_index(crtc);
-> -	struct drm_vblank_crtc *vblank =3D &dev->vblank[pipe];
-> +	struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
->  	struct amdgpu_vkms_output *out =3D drm_crtc_to_amdgpu_vkms_output(crtc);
->  	struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
->=20=20
-> @@ -91,10 +89,8 @@ static bool amdgpu_vkms_get_vblank_timestamp(struct dr=
-m_crtc *crtc,
->  					     ktime_t *vblank_time,
->  					     bool in_vblank_irq)
->  {
-> -	struct drm_device *dev =3D crtc->dev;
-> -	unsigned int pipe =3D crtc->index;
->  	struct amdgpu_vkms_output *output =3D drm_crtc_to_amdgpu_vkms_output(cr=
-tc);
-> -	struct drm_vblank_crtc *vblank =3D &dev->vblank[pipe];
-> +	struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
->  	struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
->=20=20
->  	if (!READ_ONCE(vblank->enabled)) {
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 71d2d44681b2..662d2d83473b 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -528,7 +528,7 @@ static void dm_vupdate_high_irq(void *interrupt_param=
-s)
->  	if (acrtc) {
->  		vrr_active =3D amdgpu_dm_crtc_vrr_active_irq(acrtc);
->  		drm_dev =3D acrtc->base.dev;
-> -		vblank =3D &drm_dev->vblank[acrtc->base.index];
-> +		vblank =3D drm_crtc_vblank_crtc(&acrtc->base);
->  		previous_timestamp =3D atomic64_read(&irq_params->previous_timestamp);
->  		frame_duration_ns =3D vblank->time - previous_timestamp;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 109fe557a02b..29c197c00018 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -427,7 +427,7 @@ bool amdgpu_res_cpu_visible(struct amdgpu_device *adev,
 
---=20
-Jani Nikula, Intel
+        amdgpu_res_first(res, 0, res->size, &cursor);
+        while (cursor.remaining) {
+-               if ((cursor.start + cursor.size) >= adev->gmc.visible_vram_size)
++               if ((cursor.start + cursor.size) > adev->gmc.visible_vram_size)
+                        return false;
+                amdgpu_res_next(&cursor, cursor.size);
+        }
+
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
+
