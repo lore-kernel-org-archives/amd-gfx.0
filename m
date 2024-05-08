@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55032C25B74
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDC02C25B4F
 	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 18:10:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26581113173;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CFB5113175;
 	Wed,  8 May 2024 18:10:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="fiW9rLy3";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="YQbevDGp";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B178A112789;
- Wed,  8 May 2024 18:09:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1CF611316E;
+ Wed,  8 May 2024 18:10:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,25 +22,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=jYsZ7Fu2L4pp8H27VmXuU5XxAlsuQnrZ+kETz1DjTvQ=; b=fiW9rLy3UZk0iK+wqSgQJ15MpE
- t/S2LMfEpRvvkD3+qaJKDio/xvWW5yi58v05ujeIwXDbAP19leTdYB0HjpH2Hem/9hhnMZDPtO3eM
- gQmGva6IrnCwGqtZa0RX0uelRovA661IXogwb4y2wN7BNnQwsrd9V8gXiiJCCjTeOJbTtp5qvYeAI
- WagIkTTbw4VuPMLoIQOzplO7VcpP3XcaqPwZCJ3dVi354Cg+tmGxAbd0leEXcR96FMFtuD28a4Mjw
- RYdsB8Q8jm086vmlAHDZOedy3vSKC1LNgHe/yrM408p39AKUeCwjJKpdAvRJdKfVFiYvmCnL0ognY
- aYyjN03A==;
+ bh=gF5mI2d807cA6j5Qq7UIRyqf0ELyiAJcrHBqRj0nLr8=; b=YQbevDGpR2ugXon2eE1sXdIfki
+ A6nfhlDsZWh0TLHldjsHPXDxNh3kUVixGy2I1qxWtZvF9+z+Q2a4OW4/dqJZPi1iSjRMAioX5wvtX
+ mxCsfITsWWwweF+RbmplprNVtZtMvy0V2m9eVP6EI2a7eqzreHxGlb/ysHC3q2ixr0rNXk1VWN8uy
+ JNWBOzA95WXr5ujVKHcFimvc9SevRG6RUvz4FYE5ixur0vSpJ3Kntz9XuRI7DHeMB9xVV/s4U65eL
+ GBAxgyUkliKN2UELSCcssYzLAWrcUX2OjnJqfxePr+ZgPzNOUnx4d1WjsiiI+ktzu9FLXaZKnZaFe
+ ifB0WcSw==;
 Received: from [84.69.19.168] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1s4ljp-002zRe-LL; Wed, 08 May 2024 20:09:57 +0200
+ id 1s4ljr-002zS0-0j; Wed, 08 May 2024 20:09:59 +0200
 From: Tvrtko Ursulin <tursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Friedrich Vock <friedrich.vock@gmx.de>
-Subject: [RFC 3/5] drm/ttm: Add preferred placement flag
-Date: Wed,  8 May 2024 19:09:43 +0100
-Message-ID: <20240508180946.96863-4-tursulin@igalia.com>
+Subject: [RFC 5/5] drm/amdgpu: Re-validate evicted buffers
+Date: Wed,  8 May 2024 19:09:45 +0100
+Message-ID: <20240508180946.96863-6-tursulin@igalia.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240508180946.96863-1-tursulin@igalia.com>
 References: <20240508180946.96863-1-tursulin@igalia.com>
@@ -63,77 +63,57 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Currently the fallback placement flag can achieve a hint that buffer
-should be migrated back to the non-fallback placement, however that only
-works while there is no memory pressure. As soon as we reach full VRAM
-utilisation, or worse overcommit, the logic is happy to leave buffers in
-the fallback placement. Consequence of this is that once buffers are
-evicted they never get considered to be migrated back until the memory
-pressure subsides, leaving a potentially active client not able to bring
-its buffers back in.
+Currently the driver appears to be thinking that it will be attempting to
+re-validate the evicted buffers on the next submission if they are not in
+their preferred placement.
 
-Add a "preferred" placement flag which drivers can set when they want some
-extra effort to be attempted for bringing a buffer back in.
+That however appears not to be true for the very common case of buffers
+with allowed placements of VRAM+GTT. Simply because the check can only
+detect if the current placement is *none* of the preferred ones, happily
+leaving VRAM+GTT buffers in the GTT placement "forever".
 
-QQQ:
-Is the current "desired" flag unfortunately named perhaps? I ended up
-understanding it as more like "would be nice if possible but absolutely
-don't bother under memory pressure".
+Fix it by extending the VRAM+GTT special case to the re-validation logic.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Friedrich Vock <friedrich.vock@gmx.de>
 ---
- drivers/gpu/drm/ttm/ttm_resource.c | 13 +++++++++----
- include/drm/ttm/ttm_placement.h    |  3 +++
- 2 files changed, 12 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index 4a66b851b67d..59f3d1bcc11f 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -305,6 +305,8 @@ bool ttm_resource_compatible(struct ttm_resource *res,
- 			     struct ttm_placement *placement,
- 			     bool evicting)
- {
-+	const u32 incompatible_flag = evicting ? TTM_PL_FLAG_DESIRED :
-+						 TTM_PL_FLAG_FALLBACK;
- 	struct ttm_buffer_object *bo = res->bo;
- 	struct ttm_device *bdev = bo->bdev;
- 	unsigned i;
-@@ -316,11 +318,14 @@ bool ttm_resource_compatible(struct ttm_resource *res,
- 		const struct ttm_place *place = &placement->placement[i];
- 		struct ttm_resource_manager *man;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 6bddd43604bc..e53ff914b62e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1248,10 +1248,25 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+ 	 * next command submission.
+ 	 */
+ 	if (amdgpu_vm_is_bo_always_valid(vm, bo)) {
+-		uint32_t mem_type = bo->tbo.resource->mem_type;
++		unsigned current_domain =
++			amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
++		bool move_to_evict = false;
  
--		if (res->mem_type != place->mem_type)
--			continue;
-+		if (res->mem_type != place->mem_type) {
-+			if (place->flags & TTM_PL_FLAG_PREFERRED)
-+				return false;
-+			else
-+				continue;
+-		if (!(bo->preferred_domains &
+-		      amdgpu_mem_type_to_domain(mem_type)))
++		if (!(bo->preferred_domains & current_domain)) {
++			move_to_evict = true;
++		} else if ((bo->preferred_domains & AMDGPU_GEM_DOMAIN_MASK) ==
++			   (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT) &&
++			   current_domain != AMDGPU_GEM_DOMAIN_VRAM) {
++			/*
++			 * If userspace has provided a list of possible
++			 * placements equal to VRAM+GTT, we assume VRAM is *the*
++			 * preferred placement and so try to move it back there
++			 * on the next submission.
++			 */
++			move_to_evict = true;
 +		}
- 
--		if (place->flags & (evicting ? TTM_PL_FLAG_DESIRED :
--				    TTM_PL_FLAG_FALLBACK))
-+		if (place->flags & incompatible_flag)
- 			continue;
- 
- 		if (place->flags & TTM_PL_FLAG_CONTIGUOUS &&
-diff --git a/include/drm/ttm/ttm_placement.h b/include/drm/ttm/ttm_placement.h
-index b510a4812609..8ea0865e9cc8 100644
---- a/include/drm/ttm/ttm_placement.h
-+++ b/include/drm/ttm/ttm_placement.h
-@@ -70,6 +70,9 @@
- /* Placement is only used during eviction */
- #define TTM_PL_FLAG_FALLBACK	(1 << 4)
- 
-+/* Placement is only used during eviction */
-+#define TTM_PL_FLAG_PREFERRED	(1 << 5)
 +
- /**
-  * struct ttm_place
-  *
++		if (move_to_evict)
+ 			amdgpu_vm_bo_evicted(&bo_va->base);
+ 		else
+ 			amdgpu_vm_bo_idle(&bo_va->base);
 -- 
 2.44.0
 
