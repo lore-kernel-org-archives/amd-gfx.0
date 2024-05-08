@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CDA4C19F4F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 17:16:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4201FC04FFE
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 17:16:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13305113119;
-	Wed,  8 May 2024 17:16:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95B4711311C;
+	Wed,  8 May 2024 17:16:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ot2X8Hce";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="V9db3P5J";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2077.outbound.protection.outlook.com [40.107.96.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31525113117
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 May 2024 17:16:05 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABACB11311C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 May 2024 17:16:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PyXpHGbDfg/8ZsfP49zNiStOmnA7jrOPNH2vh7NFZIMypC4nMrFw0b+0W85o5cLf0oYBkwVbaaKFXP9J+pgCrbYSC2CPq0Hh8mGlQwJIfEgoyVy95EAowVdUNwfMdXEg/UJOw/qP9XfU0pFRakISqhlNANxSgtPQPnpfW0RSD9P1JWB1X6dM0qnL6Uo/XJJ/ZK7XV6dxShXwAtfIOsIW4kEn+wp++tGH0AScYlEVMV3HWrxZL9fUTxjLOez72wm+SDKOvWmcOdttrJIF12Ycde81Moy26XqJIhtDQuoi6vHcgkz1BAj6ZN9ClZyzsQMRSLjHv29RrKwUAMl//vX/Fg==
+ b=EgWr/3AygbG9cW5VYgQYN7RhVtGP4X0cy8XqbQSDaALC/NQjBv35+9CZpcq22XrAbJzb9O+HRrywneZnmBZ4sVUHqhhCqUvJeY3wQh/Uv0p8Z5Y42aQ/Hv18SLFUCsCeMw9YVO+n6aqtgK6BeeBpPMHQk4FXpenMSVZciBsNbQ7LvNbbrWeY6imd8iFHcqICkCEGwLBAakHl5O5VpUiGjGuffmzMbVoDfFreOMV/Ce++5DRYabWTAjpn7ien/bGFAjnyElRVkqATibBtvLkPfRReNkeAfnC+declhF5TLyuiXPcM8/TQsj6+yZKgd2zfiotY8vM0RjpkDCpwPaGj/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/5INFqJF4ykRALXDQgXqqwC9+8XtIjxPovdkfemUZJk=;
- b=icqZ7EN7dVSNoPCaGlm239VVpYbfYQ+UdAOfidOPtV5YWCEEI1p58qMWvhs/zXGIbTEoIp2kbf8Ts1eBBufMJw8EsJ60vyW0o9oEsOfBqsea9N430KNmmJDiH0ljXE4sDTMmjmrGDMIIeVGoaKgBHeAbuqVz26Sw5WN5pKuff9ad1/oLO2yfkkJ9Iha963zHtvmMzxcy4SraQP7fO+bJwaXWYiy7XO9YO766UjOBEQGHaIaLZG8aZRdIoYgEEnIcfpTCXggHVLMDemI1TeLhiwh6DJlG52luBiqNjivalqAir/so7xJfHIviv2eC/UZuQv14IslA6xF4O4Gk8kx+6w==
+ bh=h3idas/AQyvLh2Ed5dxqE+NeSSvWOagdiIHbtrHYEzA=;
+ b=EP/TnLCeH2OC1kXkYd4Vbmf34MPf1bAGUTJJCn8U5QxZv/n1D32aaf6Acq67cPQILxB5BtjptOq+WwaEpBtWMiZiuXtzQSpLlpsKjWeOHAlktGraMbUlgKZZ+yqJCZ/115I0coB4EHn93bpe7FycaUlqG1bW5miFsduDaflyOl+H9lJtC8yli14qH2KY/CdO1RHHqdIJu1e4U8oTCwgU2RaEcO8pDtfixUC1RHB9OZbMDkgqS91qCLpCkGTfm54f4lop8vR5Mn4Ydo0iFaCryQjNZ/V90J/m7GoLFTkNRVtIQJf2yb6/fCuR9bMpdHTF9kvmj2KlvY0T6aen+gc1Ow==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/5INFqJF4ykRALXDQgXqqwC9+8XtIjxPovdkfemUZJk=;
- b=Ot2X8HceR+1xolgoiYZcOLfsCgZRGaNONVlJLYFex8NGrMMyURNw4aKe1dy2iQK5mrjXlgxHj7ITB2H0iHvsW96DDm/6t6f4Pzn/Q4X3J87+2Pnvl46JFkUX2UdOR8uSbqmaTD6q80Nl4W2p0aED7uwS8Br2/kwQ7IB9I0evaxs=
-Received: from MN2PR02CA0006.namprd02.prod.outlook.com (2603:10b6:208:fc::19)
- by BL3PR12MB6523.namprd12.prod.outlook.com (2603:10b6:208:3bf::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.41; Wed, 8 May
- 2024 17:15:54 +0000
+ bh=h3idas/AQyvLh2Ed5dxqE+NeSSvWOagdiIHbtrHYEzA=;
+ b=V9db3P5J/LmyTEGFZpt1/6ROkrdjJz23gj8T4djJRgweUGVOTaZKrmFG3b26JOVOAo0/51o5fKmA5JQEFrURStaWBEkQCzJU2S7LA8TKMMcu0NiGF9uESazDMR+r2wA4ymWifxHr1ULF+q3Tib/OAXSurM7cpK6kuf979gKQSBM=
+Received: from MN2PR02CA0020.namprd02.prod.outlook.com (2603:10b6:208:fc::33)
+ by DS7PR12MB5888.namprd12.prod.outlook.com (2603:10b6:8:7b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42; Wed, 8 May
+ 2024 17:16:07 +0000
 Received: from BN2PEPF000044AB.namprd04.prod.outlook.com
- (2603:10b6:208:fc:cafe::d) by MN2PR02CA0006.outlook.office365.com
- (2603:10b6:208:fc::19) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:208:fc:cafe::ed) by MN2PR02CA0020.outlook.office365.com
+ (2603:10b6:208:fc::33) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.45 via Frontend
- Transport; Wed, 8 May 2024 17:15:54 +0000
+ Transport; Wed, 8 May 2024 17:16:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,20 +50,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN2PEPF000044AB.mail.protection.outlook.com (10.167.243.106) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Wed, 8 May 2024 17:15:54 +0000
+ 15.20.7544.18 via Frontend Transport; Wed, 8 May 2024 17:16:07 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 8 May
- 2024 12:15:52 -0500
+ 2024 12:16:05 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Alex Hung <alex.hung@amd.com>
-Subject: [PATCH 04/20] drm/amd/display: Remove USBC check for DCN32
-Date: Wed, 8 May 2024 11:13:04 -0600
-Message-ID: <20240508171320.3292065-5-alex.hung@amd.com>
+ <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Ilya Bakoulin
+ <Ilya.Bakoulin@amd.com>, Alex Hung <alex.hung@amd.com>
+Subject: [PATCH 05/20] drm/amd/display: Fix write to non-existent reg on DCN401
+Date: Wed, 8 May 2024 11:13:05 -0600
+Message-ID: <20240508171320.3292065-6-alex.hung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240508171320.3292065-1-alex.hung@amd.com>
 References: <20240508171320.3292065-1-alex.hung@amd.com>
@@ -75,50 +76,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044AB:EE_|BL3PR12MB6523:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc851d16-f60c-476c-3054-08dc6f8284bb
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044AB:EE_|DS7PR12MB5888:EE_
+X-MS-Office365-Filtering-Correlation-Id: 308bf184-ef70-49ce-70ac-08dc6f828c97
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|82310400017|36860700004|1800799015|376005; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?jwZlhxLQGntKvzgdC0qjcgybM5BHwUxTDM7IDo/dCspxMq4/SPk5Jqvfqs23?=
- =?us-ascii?Q?/qU9wJZc9mOVIKc4wK1tTdJ7W6lsBVZLGzqn8BkHtFFLqcagZtVa/MViCzLP?=
- =?us-ascii?Q?1QI/q0yP1D20oF6qjfostuLB/FuMWOSmeC8ErxJqAUtJv9Kch42ZOIQaWOn2?=
- =?us-ascii?Q?/w7gzyUAWb0PXlNlNJoj8qRrBtbourmqk1euR6G+oi25vAeYhK2bqMsM1BaN?=
- =?us-ascii?Q?0luacO/W+Ws7TCcV595BuJLcUSKJGegLc4Y1Cp8IH0IvewVpyW2Sv/2RBObS?=
- =?us-ascii?Q?J0aPZpLBZR5zIwwWqcDmlMJuAG8LjMJMJZiXsZDfHOaRKbb4XVxg5j7Lu+ab?=
- =?us-ascii?Q?arMdHgTlkkGfcIITUOiUgc4wKI07cFp+oncDzv0t7n3NFSj1IdWGBqE2tv5K?=
- =?us-ascii?Q?02hMWiq5YWohQJ0FDaH8j3PN6l+nM/1S919cQpDRJG+V+yzmhrC1SEb2E09t?=
- =?us-ascii?Q?WbJMKKkRyNarKCxHLzCBpgwMUkD6th/l1AdO9P0v8kszZzCkr9YIYjOOhT+A?=
- =?us-ascii?Q?+RauA3P848k7uQYt6FPjkf37nXcvujhWqqcKU3di5UF0nmgALcH49p0V7j3o?=
- =?us-ascii?Q?j2p+pcE5/TckGhyyrt9vTPR38mgDRAmhghDWhQbe8kVHAQh6YRrHlCYMuV/k?=
- =?us-ascii?Q?HjrdYY3jLVKRsZYhVxEfmC2z3BcRcr1SFxC9cRYPdqtbPva7dmkE4N76LZLN?=
- =?us-ascii?Q?3mjEJYlsIgGy1KKfj38R5ZYP5vEcAc8T8syBYiAfMTBX17qyBrXroRZH0bkW?=
- =?us-ascii?Q?lbmOYQ/yIwDnBYCGMjn+dpXX3wtSVKW6cIzpaMyxySbXmRyrBXy0l9hb0lpU?=
- =?us-ascii?Q?V1hWm8S+LxbpqUMs6IVCxaGQRxGDVu8RX6wkVYb2L+220qCjIf4RT7EGgMs7?=
- =?us-ascii?Q?MQrBRqXANo2zHBHM/U0JcIeeT2GD1AlE+Knb+ddmxv25AIFgUoz8Gh0RstP4?=
- =?us-ascii?Q?Q9S2xholsGjIN8CJnyuwBlaJMAp+56lmEGdx8vqUqsbw0qFLuQEcx7iYGwcu?=
- =?us-ascii?Q?5FGWpgWYpzbIMpsJMTn8eNJx69pcZ1sMjQFZoSapb42Kr98v+G0dMs3+9dgX?=
- =?us-ascii?Q?7bqaxhwmuEVRnBYpoHEjOSWKnkzolR/APV5aoeUgUHCk2jfQuHuq1ymOVpi5?=
- =?us-ascii?Q?A4j/7FYa9phGWmrAIQn12KFyZZ3oOh67XwUyV0jdNVK1nYAsQNlQ+a7uaGk9?=
- =?us-ascii?Q?IH63u+fqs5d6CXOzoZ7stjriO/m5MT2WlwO0dzdhV+AWOefzmZWP79Xr/8l2?=
- =?us-ascii?Q?8GDeLkV161RDMUuwpR71pTwFghTidYozRp7BSC8/Z9354DRsaMLDhFYEDaT9?=
- =?us-ascii?Q?xBDsc+WQQ8SbTn7YPGqAE+W7uQhmUzWfaU+lIBvpS0JGhSZoZLgQZ+jJmxnU?=
- =?us-ascii?Q?o19fcEGgE7yrnquV2z5T9Fd1tlxf?=
+ ARA:13230031|36860700004|82310400017|376005|1800799015; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?TETaVVyu+BIhH+zqhkDv1SATWjZFW1KIPJoZbpeFT5xNhBVJJjhxIxUK8R38?=
+ =?us-ascii?Q?avTHJzXjwXlDhh386F1xEJTAVHR8ft91PVlNYlalEH1iyBlRcx0tBjPx15bJ?=
+ =?us-ascii?Q?hB76i0V+ZtnnyKGbc6PUhMZEBUWWrBM/87brvpGNC9z0DwY/uvN5g5ApslZV?=
+ =?us-ascii?Q?Bu87bsBkwTKzbkbu0wIAou0Npvl0SoIoKj801XV1o7VdkEqDsOsRyQH8Hv5F?=
+ =?us-ascii?Q?O4nMgmPffjOckegdeMR9whyk/Txp3cUbKzHf4/RrkwMQEBrngXecIoemRIN6?=
+ =?us-ascii?Q?XWBONO8fgFh1riHoQljca8HDeOIAOTZ2eN/vBKq2o5JUOhtjBXK5W9NDWwIZ?=
+ =?us-ascii?Q?7T/nIpDfaMLAY2zpE6en7R7hCGh8H1Bo8IdY++pFkYuJQNu1m5fu8DYlmIBg?=
+ =?us-ascii?Q?JfE7C1BbFgcjFGAUh7TAMWJ0AICjg2MJRXKGmbThFjZi50ai1wZ1pgof4CE6?=
+ =?us-ascii?Q?SSS0g+7ws+fwDxtE/5tdg8YR/hmQa9SiRO3BnC1fWCZ/eNYN2ombUH87ueRy?=
+ =?us-ascii?Q?mJtNtH+4lfbd4Nnj9aLu+qhJ+SMsKkQ1WBFuoWKXaSAQeCwFnxJfTKD3/xcS?=
+ =?us-ascii?Q?wPB3HzXgTgI4L3NtsPQLhtb2cP0ovujMZ5/vwK1pl2dEypCj9S5b3zUJbEy1?=
+ =?us-ascii?Q?xg0Q597u6wHBO+0xBiSEupNmrzw5EJlMbZGen+6Wp/rukgmaMayfY4Pb+Dsb?=
+ =?us-ascii?Q?CI8L2LrYNBUvmtITtX0Spdih+qNyoEKxt4yS5OmFnize1OZC1aO+000TVS/x?=
+ =?us-ascii?Q?E9+tieRzg/uCV5WuUASMBoPp23ONNDz2MnzxRkH3Yq65UdwkA9Q8Gz+W2SRh?=
+ =?us-ascii?Q?UcQ02gFoeVDGQ7Rgz7H1KbtFycnNQ5WAmARaJtPaIpq1gdvpz7VXHhL+GsT2?=
+ =?us-ascii?Q?vtDEujb4izryii8cSFu0el72DjgaL4ZM5cwi9Mx7bcFRFlH5lbmsRoTpxbMe?=
+ =?us-ascii?Q?EhpdDXvWO2QgqLp/kn+KjgAXQTiEYtCmtb7Lwdt6J7Nn9xGOYm4uyGmiFk5X?=
+ =?us-ascii?Q?XhwtEEYLF3TnUy0wDKEW3XM7qTIJAJwookaeU1sUJSh0zR5U4D6tE9D7IkTw?=
+ =?us-ascii?Q?YCGlkVRcFhoSA15jEerNaNekBEUwSbj7aLa4kTjeg0Gl9FM+M+gN97JQlP5j?=
+ =?us-ascii?Q?f9okBWqMv9VUeTTv33/Wu/ZPmlt01MCBwhsqEpjuuw+kSR5Pv1tepolpd5Nu?=
+ =?us-ascii?Q?ZxzI6ERB+1TvkCGD0mTJEfCeJjmRbCcSYKJjpyBT+FLoMrfTjXQs/vSTrE5P?=
+ =?us-ascii?Q?UCzSl+VgX+CSJjvwtQBYn7woCFwja9hCVzDZq/fzHlJjPtAwtZmwbVsvDEdu?=
+ =?us-ascii?Q?adM0P49HI9gtdL3PFjJ2sP/oJ4t6AqtOUZFWjTPK/k4C0mUxd+X3M5xi3Rgm?=
+ =?us-ascii?Q?2xGazXkWHLQOkJPE4ko8G78/o6YW?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400017)(36860700004)(1800799015)(376005); DIR:OUT;
+ SFS:(13230031)(36860700004)(82310400017)(376005)(1800799015); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2024 17:15:54.2590 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc851d16-f60c-476c-3054-08dc6f8284bb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2024 17:16:07.4465 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 308bf184-ef70-49ce-70ac-08dc6f828c97
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044AB.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6523
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5888
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,32 +134,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+From: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
 
-The CONNECTOR_ID_USBC check was removed to fix a regression, but it was
-re-introduced by accident. This commit drops the USBC that causes the
-regressions.
+DP_DSC_CNTL no longer exists on DCN401.
 
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_link_encoder.c | 3 ---
- 1 file changed, 3 deletions(-)
+ .../dc/dcn401/dcn401_dio_stream_encoder.c     | 20 +++----------------
+ 1 file changed, 3 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_link_encoder.c
-index d9ff95cd2dbd..06907e8a4eda 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_link_encoder.c
-@@ -252,9 +252,6 @@ void dcn32_link_encoder_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn401/dcn401_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn401/dcn401_dio_stream_encoder.c
+index 1c55ccede09b..090288305609 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn401/dcn401_dio_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn401/dcn401_dio_stream_encoder.c
+@@ -372,21 +372,6 @@ static void enc401_stream_encoder_dp_unblank(
+ 	link->dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTER_ENABLE_DP_VID_STREAM);
+ }
  
- 	enc10->base.features = *enc_features;
- 
--	if (enc10->base.connector.id == CONNECTOR_ID_USBC)
--		enc10->base.features.flags.bits.DP_IS_USB_C = 1;
+-/* Set DSC-related configuration.
+- *   dsc_mode: 0 disables DSC, other values enable DSC in specified format
+- *   sc_bytes_per_pixel: DP_DSC_BYTES_PER_PIXEL removed in DCN3x
+- *   dsc_slice_width: DP_DSC_SLICE_WIDTH removed in DCN3x
+- */
+-static void enc401_dp_set_dsc_config(struct stream_encoder *enc,
+-					enum optc_dsc_mode dsc_mode,
+-					uint32_t dsc_bytes_per_pixel,
+-					uint32_t dsc_slice_width)
+-{
+-	struct dcn10_stream_encoder *enc1 = DCN10STRENC_FROM_STRENC(enc);
 -
- 	enc10->base.transmitter = init_data->transmitter;
+-	REG_UPDATE(DP_DSC_CNTL,	DP_DSC_MODE, dsc_mode == OPTC_DSC_DISABLED ? 0 : 1);
+-}
+-
+ /* this function read dsc related register fields to be logged later in dcn10_log_hw_state
+  * into a dcn_dsc_state struct.
+  */
+@@ -395,7 +380,8 @@ static void enc401_read_state(struct stream_encoder *enc, struct enc_state *s)
+ 	struct dcn10_stream_encoder *enc1 = DCN10STRENC_FROM_STRENC(enc);
  
- 	/* set the flag to indicate whether driver poll the I2C data pin
+ 	//if dsc is enabled, continue to read
+-	REG_GET(DP_DSC_CNTL, DP_DSC_MODE, &s->dsc_mode);
++	REG_GET(DP_PIXEL_FORMAT, PIXEL_ENCODING_TYPE, &s->dsc_mode);
++
+ 	if (s->dsc_mode) {
+ 		REG_GET(DP_GSP11_CNTL, DP_SEC_GSP11_LINE_NUM, &s->sec_gsp_pps_line_num);
+ 
+@@ -770,7 +756,7 @@ static const struct stream_encoder_funcs dcn401_str_enc_funcs = {
+ 	.dp_get_pixel_format  = enc1_stream_encoder_dp_get_pixel_format,
+ 
+ 	.enc_read_state = enc401_read_state,
+-	.dp_set_dsc_config = enc401_dp_set_dsc_config,
++	.dp_set_dsc_config = NULL,
+ 	.dp_set_dsc_pps_info_packet = enc3_dp_set_dsc_pps_info_packet,
+ 	.set_dynamic_metadata = enc401_set_dynamic_metadata,
+ 	.hdmi_reset_stream_attribute = enc1_reset_hdmi_stream_attribute,
 -- 
 2.34.1
 
