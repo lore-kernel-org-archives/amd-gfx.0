@@ -4,38 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57BC0C04FFE
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 07:56:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F2C6C04FFE
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 08:41:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 420FE11347F;
-	Wed,  8 May 2024 07:56:56 +0000 (UTC)
-Received: from irl.hu (irl.hu [95.85.9.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AD2711260F;
- Tue,  7 May 2024 20:10:59 +0000 (UTC)
-Received: from fedori.lan (51b68e76.unconfigured.pool.telekom.hu
- [::ffff:81.182.142.118]) (AUTH: CRAM-MD5 soyer@irl.hu, )
- by irl.hu with ESMTPSA
- id 0000000000074965.00000000663A8ACE.001E3309; Tue, 07 May 2024 22:10:53 +0200
-From: Gergo Koteles <soyer@irl.hu>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Gergo Koteles <soyer@irl.hu>
-Subject: [RFC PATCH] drm/amd/display: Disable panel_power_savings sysfs entry
- for OLED displays
-Date: Tue,  7 May 2024 22:09:19 +0200
-Message-ID: <04db7855665f9cc92a730dd7ad0b7c47c8fd0091.1715112078.git.soyer@irl.hu>
-X-Mailer: git-send-email 2.45.0
-Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Mime-Autoconverted: from 8bit to 7bit by courier 1.0
-X-Mailman-Approved-At: Wed, 08 May 2024 07:56:50 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 138D3112C06;
+	Wed,  8 May 2024 08:41:44 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="Eg6cDDEM";
+	dkim-atps=neutral
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C9C4112C06
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 May 2024 08:41:43 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-a59a86fb052so133902166b.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 May 2024 01:41:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1715157701; x=1715762501; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=vj3PIc4hFA9/gXdFfuPOe4yWwg2VXd43faHw15CH2oA=;
+ b=Eg6cDDEM1arBPjKZm85lGtmatjMBbgClEmfLWcPbzHDQQka8fX2RQoie3OgQ8DPuhK
+ tzYDgVxmWRn6/Gf0OS28Fj7me6Iq3701mUUYGrS4uOCJ1dEb/ZvQzhdkKMaFsGDfJry0
+ +rB4YmBsEy4H6YOCKKq+lDsyGiwnqiVfuqBjw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715157701; x=1715762501;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vj3PIc4hFA9/gXdFfuPOe4yWwg2VXd43faHw15CH2oA=;
+ b=puAGd/MzlcQFZjWSOGod5Mivi7ODKtSmIp1h8oaKPIX/xSKWCtCu+avMS9aJcokCgg
+ EVAQGQMBCkyE7VNrlkZX/hJ2xQB0o1iBpM2CXUL5BigTQK3CJtklcn4gucW9hGnbsRyb
+ WhPJyoitZmhwydf5UiUT8ANW8XAhHx5Jf1fa0NvkGvp2rrIWcwazBYHBxbEBSW1HWuKQ
+ q8NL63B9Vd0mFeqajAV6dQHXmvMqdJWvRNxtVYsVQ3O2b3BoDnwyNVaE/CtUhbCwSRYp
+ p5ohj8GANs4cxWHOfQJQ9Y6pzqiuWL8b9Vi6vpQbvaNd0rR71eolkqZY/ph1hM9vKbAA
+ qxwQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWKr3LmZre2CHbXh4vel7rCnRcOgF62UkRXqOCuWlSu3xbTpnnYRVaEVAAxX+ka48jaqRBTpJIcwf0++48w8go6ltSKX55VpASesJOHHw==
+X-Gm-Message-State: AOJu0Yx7fNj5TJwRWhxIrvJ2rSWrUGQlPqTn8B1DLNFBWhIQVWu+32pt
+ 3/UvArGACQ2jKxHAnQW2kxjWvbfoSo9+OpAyMG/Cbsp1ehGG+CPxvx0KQp3KAh4=
+X-Google-Smtp-Source: AGHT+IH14cLBvOGAxNNOD0NGpNszsABs3zuyVXh3n6kNBMTLyF0vRRZioU2iVIuWiSighaj0aLtPcg==
+X-Received: by 2002:a17:906:df14:b0:a59:bce9:8454 with SMTP id
+ a640c23a62f3a-a59fb94f6d3mr121582766b.1.1715157700922; 
+ Wed, 08 May 2024 01:41:40 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ g23-20020a1709067c5700b00a5a0b34110dsm97882ejp.1.2024.05.08.01.41.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 May 2024 01:41:40 -0700 (PDT)
+Date: Wed, 8 May 2024 10:41:37 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ matthew.auld@intel.com, christian.koenig@amd.com, alexander.deucher@amd.com
+Subject: Re: [PATCH] drm/buddy: Fix the range bias clear memory allocation
+ issue
+Message-ID: <Zjs6wVITtRuXoRDz@phenom.ffwll.local>
+References: <20240508065720.125846-1-Arunpravin.PaneerSelvam@amd.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240508065720.125846-1-Arunpravin.PaneerSelvam@amd.com>
+X-Operating-System: Linux phenom 6.6.15-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,51 +80,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The panel_power_savings sysfs entry sets the Adaptive Backlight
-Management level (abm_level). OLED displays work without backlight, so
-it is unnecessary for them.
+On Wed, May 08, 2024 at 12:27:20PM +0530, Arunpravin Paneer Selvam wrote:
+> Problem statement: During the system boot time, an application request
+> for the bulk volume of cleared range bias memory when the clear_avail
+> is zero, we dont fallback into normal allocation method as we had an
+> unnecessary clear_avail check which prevents the fallback method leads
+> to fb allocation failure following system goes into unresponsive state.
+> 
+> Solution: Remove the unnecessary clear_avail check in the range bias
+> allocation function.
+> 
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Fixes: 96950929eb23 ("drm/buddy: Implement tracking clear page feature")
+> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+> ---
+>  drivers/gpu/drm/drm_buddy.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Before creating the sysfs entry, make sure the display is not an OLED
-display.
+Can you please also add a kunit test case to exercise this corner case and
+make sure it stays fixed?
 
-Signed-off-by: Gergo Koteles <soyer@irl.hu>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Thanks, Sima
+> 
+> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+> index 284ebae71cc4..831929ac95eb 100644
+> --- a/drivers/gpu/drm/drm_buddy.c
+> +++ b/drivers/gpu/drm/drm_buddy.c
+> @@ -574,7 +574,7 @@ __drm_buddy_alloc_range_bias(struct drm_buddy *mm,
+>  
+>  	block = __alloc_range_bias(mm, start, end, order,
+>  				   flags, fallback);
+> -	if (IS_ERR(block) && mm->clear_avail)
+> +	if (IS_ERR(block))
+>  		return __alloc_range_bias(mm, start, end, order,
+>  					  flags, !fallback);
+>  
+> -- 
+> 2.25.1
+> 
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d6e71aa808d8..d54065a76f63 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6535,9 +6535,11 @@ static const struct attribute_group amdgpu_group = {
- static void amdgpu_dm_connector_unregister(struct drm_connector *connector)
- {
- 	struct amdgpu_dm_connector *amdgpu_dm_connector = to_amdgpu_dm_connector(connector);
-+	union dpcd_sink_ext_caps *ext_caps =
-+		&amdgpu_dm_connector->dc_link->dpcd_sink_ext_caps;
- 
- 	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP &&
--	    amdgpu_dm_abm_level < 0)
-+	    amdgpu_dm_abm_level < 0 && !ext_caps->bits.oled)
- 		sysfs_remove_group(&connector->kdev->kobj, &amdgpu_group);
- 
- 	drm_dp_aux_unregister(&amdgpu_dm_connector->dm_dp_aux.aux);
-@@ -6642,10 +6644,12 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
- {
- 	struct amdgpu_dm_connector *amdgpu_dm_connector =
- 		to_amdgpu_dm_connector(connector);
-+	union dpcd_sink_ext_caps *ext_caps =
-+		&amdgpu_dm_connector->dc_link->dpcd_sink_ext_caps;
- 	int r;
- 
- 	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP &&
--	    amdgpu_dm_abm_level < 0) {
-+	    amdgpu_dm_abm_level < 0 && !ext_caps->bits.oled) {
- 		r = sysfs_create_group(&connector->kdev->kobj,
- 				       &amdgpu_group);
- 		if (r)
-
-base-commit: dccb07f2914cdab2ac3a5b6c98406f765acab803
 -- 
-2.45.0
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
