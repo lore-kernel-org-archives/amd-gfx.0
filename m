@@ -4,16 +4,16 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDC02C25B4F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 18:10:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2EB1C25B77
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 18:10:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CFB5113175;
-	Wed,  8 May 2024 18:10:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A448C113178;
+	Wed,  8 May 2024 18:10:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="YQbevDGp";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JeT7aU1h";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1CF611316E;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6B8F113150;
  Wed,  8 May 2024 18:10:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
@@ -22,25 +22,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=gF5mI2d807cA6j5Qq7UIRyqf0ELyiAJcrHBqRj0nLr8=; b=YQbevDGpR2ugXon2eE1sXdIfki
- A6nfhlDsZWh0TLHldjsHPXDxNh3kUVixGy2I1qxWtZvF9+z+Q2a4OW4/dqJZPi1iSjRMAioX5wvtX
- mxCsfITsWWwweF+RbmplprNVtZtMvy0V2m9eVP6EI2a7eqzreHxGlb/ysHC3q2ixr0rNXk1VWN8uy
- JNWBOzA95WXr5ujVKHcFimvc9SevRG6RUvz4FYE5ixur0vSpJ3Kntz9XuRI7DHeMB9xVV/s4U65eL
- GBAxgyUkliKN2UELSCcssYzLAWrcUX2OjnJqfxePr+ZgPzNOUnx4d1WjsiiI+ktzu9FLXaZKnZaFe
- ifB0WcSw==;
+ bh=gstb7IKxyTUGUKuFQPyHvYGT22H8pEDLlJ8umQs0x5o=; b=JeT7aU1hERBazt5k+mz9uhWF7p
+ SQsRigfbHaR6jpXuRd4pP8H4L6z0TWCY42nMbbmoDp1VAyfkBAUfz9uahfGnjAzI+KRTJTqqq5rq1
+ uWF7BCS7n/yBK5oRar25C0UGm/fVhS0Uv1e3iUfqURE8vHMnV4wpkn90wy6fliOQlOgZ5JupMDP02
+ ysTWiMvJBG3HLCJ4WpSwlFHKW2PlLDOQSX+vc0RZFTbMu0yyh6n0mFiauMGLL6pUkkbknCqiWFEK1
+ nBpuPi6EcZluEu4dUSD3fa6mxb/coreraNzc5enTn+4c6F7f/fEzkYPW7xP6wzBCgpsaCOjP9ZtSq
+ m9zW4AMA==;
 Received: from [84.69.19.168] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1s4ljr-002zS0-0j; Wed, 08 May 2024 20:09:59 +0200
+ id 1s4ljo-002zRE-A1; Wed, 08 May 2024 20:09:56 +0200
 From: Tvrtko Ursulin <tursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Friedrich Vock <friedrich.vock@gmx.de>
-Subject: [RFC 5/5] drm/amdgpu: Re-validate evicted buffers
-Date: Wed,  8 May 2024 19:09:45 +0100
-Message-ID: <20240508180946.96863-6-tursulin@igalia.com>
+Subject: [RFC 1/5] drm/amdgpu: Fix migration rate limiting accounting
+Date: Wed,  8 May 2024 19:09:41 +0100
+Message-ID: <20240508180946.96863-2-tursulin@igalia.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240508180946.96863-1-tursulin@igalia.com>
 References: <20240508180946.96863-1-tursulin@igalia.com>
@@ -63,57 +63,80 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Currently the driver appears to be thinking that it will be attempting to
-re-validate the evicted buffers on the next submission if they are not in
-their preferred placement.
+The logic assumed any migration attempt worked and therefore would over-
+account the amount of data migrated during buffer re-validation. As a
+consequence client can be unfairly penalised by incorrectly considering
+its migration budget spent.
 
-That however appears not to be true for the very common case of buffers
-with allowed placements of VRAM+GTT. Simply because the check can only
-detect if the current placement is *none* of the preferred ones, happily
-leaving VRAM+GTT buffers in the GTT placement "forever".
+Fix it by looking at the before and after buffer object backing store and
+only account if there was a change.
 
-Fix it by extending the VRAM+GTT special case to the re-validation logic.
+FIXME:
+I think this needs a better solution to account for migrations between
+VRAM visible and non-visible portions.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Friedrich Vock <friedrich.vock@gmx.de>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 6bddd43604bc..e53ff914b62e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1248,10 +1248,25 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
- 	 * next command submission.
- 	 */
- 	if (amdgpu_vm_is_bo_always_valid(vm, bo)) {
--		uint32_t mem_type = bo->tbo.resource->mem_type;
-+		unsigned current_domain =
-+			amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
-+		bool move_to_evict = false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index ec888fc6ead8..22708954ae68 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -784,12 +784,15 @@ static int amdgpu_cs_bo_validate(void *param, struct amdgpu_bo *bo)
+ 		.no_wait_gpu = false,
+ 		.resv = bo->tbo.base.resv
+ 	};
++	struct ttm_resource *old_res;
+ 	uint32_t domain;
+ 	int r;
  
--		if (!(bo->preferred_domains &
--		      amdgpu_mem_type_to_domain(mem_type)))
-+		if (!(bo->preferred_domains & current_domain)) {
-+			move_to_evict = true;
-+		} else if ((bo->preferred_domains & AMDGPU_GEM_DOMAIN_MASK) ==
-+			   (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT) &&
-+			   current_domain != AMDGPU_GEM_DOMAIN_VRAM) {
-+			/*
-+			 * If userspace has provided a list of possible
-+			 * placements equal to VRAM+GTT, we assume VRAM is *the*
-+			 * preferred placement and so try to move it back there
-+			 * on the next submission.
-+			 */
-+			move_to_evict = true;
-+		}
+ 	if (bo->tbo.pin_count)
+ 		return 0;
+ 
++	old_res = bo->tbo.resource;
 +
-+		if (move_to_evict)
- 			amdgpu_vm_bo_evicted(&bo_va->base);
- 		else
- 			amdgpu_vm_bo_idle(&bo_va->base);
+ 	/* Don't move this buffer if we have depleted our allowance
+ 	 * to move it. Don't move anything if the threshold is zero.
+ 	 */
+@@ -817,16 +820,29 @@ static int amdgpu_cs_bo_validate(void *param, struct amdgpu_bo *bo)
+ 	amdgpu_bo_placement_from_domain(bo, domain);
+ 	r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+ 
+-	p->bytes_moved += ctx.bytes_moved;
+-	if (!amdgpu_gmc_vram_full_visible(&adev->gmc) &&
+-	    amdgpu_res_cpu_visible(adev, bo->tbo.resource))
+-		p->bytes_moved_vis += ctx.bytes_moved;
+-
+ 	if (unlikely(r == -ENOMEM) && domain != bo->allowed_domains) {
+ 		domain = bo->allowed_domains;
+ 		goto retry;
+ 	}
+ 
++	if (!r) {
++		struct ttm_resource *new_res = bo->tbo.resource;
++		bool moved = true;
++
++		if (old_res == new_res)
++			moved = false;
++		else if (old_res && new_res &&
++			 old_res->mem_type == new_res->mem_type)
++			moved = false;
++
++		if (moved) {
++			p->bytes_moved += ctx.bytes_moved;
++			if (!amdgpu_gmc_vram_full_visible(&adev->gmc) &&
++			    amdgpu_res_cpu_visible(adev, bo->tbo.resource))
++				p->bytes_moved_vis += ctx.bytes_moved;
++		}
++	}
++
+ 	return r;
+ }
+ 
 -- 
 2.44.0
 
