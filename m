@@ -4,110 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99B92C25B4F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 21:12:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFF8AC25B4F
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 21:46:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 710C81129BF;
-	Wed,  8 May 2024 21:12:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2E6F10FE91;
+	Wed,  8 May 2024 21:46:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LkpFwnSa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VxzklLl9";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E705D10F70E;
- Wed,  8 May 2024 21:12:39 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-1ed41eb3382so1032635ad.0; 
- Wed, 08 May 2024 14:12:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715202759; x=1715807559; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pZrJFIbLTxTYrbPISz2hMEePGMl55QlS4SmkJ5sghxc=;
- b=LkpFwnSar0R81RifQoYT8suCEgUQySymb7FwhX6znUiPuF3FzIRDLpUT78BQj2aODp
- b8X3FMlqdz6NihPEN9W8CBKHNGtNVGuv7PuXKGqZIe7nlPVJCE+w+145YJlAFIqU18jn
- pOsoTlEcaA+0DhC49Hb/vCZ8YhuGtsBoI6gd/NLTR5Pw5ybqZLdCDBcjMq1bv5NU9JuH
- jULlo8FQLXMTHI2gVrQqxs7TQArrF5XB3u/X57hXfo2SznKFF5edQAPC42/kXgP1A1UI
- UfgucPuW9ib/GO2NYa61mZ4iGHpM0FC6fsqPmip/XMdOt9jBYD4RPBAI0G//HA6CIjUf
- O6pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715202759; x=1715807559;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pZrJFIbLTxTYrbPISz2hMEePGMl55QlS4SmkJ5sghxc=;
- b=vY9TVLoo8XcIU5O2RiZRCBtw6j9lQe2Rq9DSPC4MpdGcYPSXNAJ7L3o1h3s5MY6k7C
- TAJMLPNPjeFI99KTHHdgFOHPyrHpEz5StJXyFXAft+ixaRVBcRCzQSg5BdySiV0skuvy
- zxKsqcv+09pcBJdEVnkXBsUGna+W77SCRDctW3dzaV52xXgnF69ApzsjFKwnV+wz4ZAe
- X7b3hK0WB80cIibkeB2M4dTGKs3xAE9I0MmAUEn5UbzMZz6akxQbgS63KP0Pen7OEYWf
- 70ZyTRCM3vjOkZ0pEdtJh640uox2PilwAolMG9cKZe+D7OH/+BXY3fO6mhlKB249oo4a
- EHJw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWL0aCs9AhXOxia3a0crXz6q1JlxJUKUv6Pqyx2946+NGm5DkHA+Uz89LhBOupBomuoaD2yeJYykdaOkgj94YgSPkqKBZ52s7zsJwyh96DUb1+imi1s/DTetS6/ljFN8Vf/TThT9YgR1pfcNvy011sheXl8bPHTvAXvz4N0DG0bVtORyR8HDWIshXaW1LX269TF87SX8czRJIJhi1XmSWmZvUbV7ea0uIFQvrH+UFojfskvILP5GEFUY3KW6zQcURHEmDJGRWtp50wVTryc3Q==
-X-Gm-Message-State: AOJu0Yxzs+DBEu5JTBWg1Z/tytBU4GtRw0yRS8XjcDpCmuHiZStdOU7A
- ifzJ91E42oe5MNGW3gK28w6xK/PkOJ1+6/WyO0LOm1HcMPZrOPN+nyxOkAXnXU0/7dtxbRmTz3a
- smFXbVQi+i+lLl3OUvgV/tAczpesbGaWj
-X-Google-Smtp-Source: AGHT+IHxDh3V7MlhtBOeSZmaUOUREgbpbUX+stT5ktTHA7M8CkQTRfPTcAkO7AsXwTWHGXOdozSH9iqT5gOxtlkl7Mw=
-X-Received: by 2002:a17:902:b110:b0:1e4:b4f5:5cfa with SMTP id
- d9443c01a7336-1eeb03a05d3mr37380885ad.27.1715202759142; Wed, 08 May 2024
- 14:12:39 -0700 (PDT)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2071.outbound.protection.outlook.com [40.107.100.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 621AD10FE91;
+ Wed,  8 May 2024 21:46:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OcfJq6ECr3cnM5tBIxsiJ5h6+s90GdipxNSjniGvjPUVc2ENc5mOTOMUd/Snd5bVwNFO0QLlzqF42GJabCoBFoejKpR5BP5xp++NQr3tunSONt0vO2ma9jrQCEKpbCt8748biqB1TpoLvpQAR0yKICHn8EZPZdV4ym2nzoK8YdKExOKMaue0iQ4In01g/ByG3E9V1s11dxz0P1s25tdjgw1EYABkr3wAtzzB91L/DesAvAD77Sa96Y5mIitKE/b0/Uy7o6L9XX8GzrXn1VXyxJpJAxra5JaHAvP4hdIZNLxhuEXEB+mrQJL633YV36jRM1bRW6aUylKSNMFoqjbfJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7igv+HwvqcHayPwa2WpYbYYtnoemNpLM3K5dnjJ1Vv8=;
+ b=E4RMbG9Fn8u57RBl3eYoA0UG7+5mkG0Yx7bjyBZycsofXCv2qLw+LzUhSe1w5A81FIfJwGzM3Ryya1QL+Cc9oGwbFyBGbjfCGyT06m0xHx5C2RAZMBsufHuAG+MehfXYeVaFSTqIO/ScC8hUqgthKUKqKo14dDxicG0YSObI1aP5XmD2NucMF3QKucglwnIA5WQvAsxE8hF5bpNeL7yvlh0z+2StXJpkyQBd3asyLmPTQgjRQL9ci603sCwnxKaB14XUaigeseHV2jlmfV3+d5u5kt+V1n3Ds+nURFhMwC9ge2RIwbtFn+5OgEgcCPImXILZf3uru5IBnctSst+OZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7igv+HwvqcHayPwa2WpYbYYtnoemNpLM3K5dnjJ1Vv8=;
+ b=VxzklLl9NNWKf444m7LArscRty8SKjr2RLgICCHkkoSsGgLtbRDqtOyx6nKggXQ2xHvNWwD89irM9C8SZvNFYX4Pu+kLt6ysRk7IKDxT3xc4ukfoHSfxg6+t3MyAQp+fWh+/wExxfF9eLlTxIcxYtAJudjFRJtHE48qkjYVFIwA=
+Received: from BL0PR02CA0056.namprd02.prod.outlook.com (2603:10b6:207:3d::33)
+ by PH8PR12MB7158.namprd12.prod.outlook.com (2603:10b6:510:22a::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.41; Wed, 8 May
+ 2024 21:45:55 +0000
+Received: from MN1PEPF0000ECD6.namprd02.prod.outlook.com
+ (2603:10b6:207:3d:cafe::94) by BL0PR02CA0056.outlook.office365.com
+ (2603:10b6:207:3d::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.46 via Frontend
+ Transport; Wed, 8 May 2024 21:45:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000ECD6.mail.protection.outlook.com (10.167.242.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Wed, 8 May 2024 21:45:55 +0000
+Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 8 May
+ 2024 16:45:52 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <dri-devel@lists.freedesktop.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+CC: <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ "Aurabindo Pillai" <aurabindo.pillai@amd.com>, Daniel Wheeler
+ <daniel.wheeler@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?=
+ <ville.syrjala@linux.intel.com>, Tyler Schneider <tyler.schneider@amd.com>
+Subject: [PATCH v2] drm/amd/display: Enable colorspace property for MST
+ connectors
+Date: Wed, 8 May 2024 16:45:35 -0500
+Message-ID: <20240508214535.356-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240503181333.2336999-1-eahariha@linux.microsoft.com>
- <20240503181333.2336999-2-eahariha@linux.microsoft.com>
- <0a6d4fa9-169f-425b-93d6-04314c617090@linux.microsoft.com>
- <CADnq5_NpxPM-FTcCchdBMRng=6xdM03s93XEX2_8fx44MRVYag@mail.gmail.com>
- <2654ad6e-66b7-4698-94da-892cc9d0802c@linux.microsoft.com>
-In-Reply-To: <2654ad6e-66b7-4698-94da-892cc9d0802c@linux.microsoft.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 May 2024 17:12:26 -0400
-Message-ID: <CADnq5_PAr6GHEBuStcJ6KVBS+mg64koqJwTDcz+7UcaEy_P_qA@mail.gmail.com>
-Subject: Re: [PATCH v2 01/12] drm/amdgpu, drm/radeon: Make I2C terminology
- more inclusive
-To: Easwar Hariharan <eahariha@linux.microsoft.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, 
- "open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>, 
- "open list:BTTV VIDEO4LINUX DRIVER" <linux-media@vger.kernel.org>, 
- "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Evan Quan <evan.quan@amd.com>, 
- Hawking Zhang <Hawking.Zhang@amd.com>, Candice Li <candice.li@amd.com>, 
- Ran Sun <sunran001@208suo.com>, Alexander Richards <electrodeyt@gmail.com>, 
- Wolfram Sang <wsa@kernel.org>, Andi Shyti <andi.shyti@linux.intel.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Heiko Stuebner <heiko@sntech.de>, 
- Heiner Kallweit <hkallweit1@gmail.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>, 
- Ruan Jinjie <ruanjinjie@huawei.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, 
- Wayne Lin <wayne.lin@amd.com>, Samson Tam <samson.tam@amd.com>,
- Alvin Lee <alvin.lee2@amd.com>, 
- Sohaib Nadeem <sohaib.nadeem@amd.com>, Charlene Liu <charlene.liu@amd.com>, 
- Tom Chung <chiahsuan.chung@amd.com>, Alan Liu <haoping.liu@amd.com>, 
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, 
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- George Shen <george.shen@amd.com>, 
- Aric Cyr <aric.cyr@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Qingqing Zhuo <Qingqing.Zhuo@amd.com>, Dillon Varone <dillon.varone@amd.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, Asad kamal <asad.kamal@amd.com>, 
- Kenneth Feng <kenneth.feng@amd.com>, Ma Jun <Jun.Ma2@amd.com>, 
- Darren Powell <darren.powell@amd.com>, Yang Wang <kevinyang.wang@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>,
- Yifan Zhang <yifan1.zhang@amd.com>, Le Ma <Le.Ma@amd.com>, 
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, 
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, 
- open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD6:EE_|PH8PR12MB7158:EE_
+X-MS-Office365-Filtering-Correlation-Id: 735b1263-f0f7-4b7c-95df-08dc6fa83d40
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|82310400017|376005|1800799015|36860700004; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?R0FkN3NSZ2RkZ2VESGFLSndnL0lvQXBHSGpOaHR6NzhnNTE5MEtIZHZHQk1p?=
+ =?utf-8?B?WHU0RmFlazM2NmszdEhQRnA0b3ZWL1BYZUxWSXhYR3hZNkRhZGdFM3FzOFY4?=
+ =?utf-8?B?SGp4QzhhTGYyQk1oOGhvWUdMWlVqTDlMTzN5bXFDVGI2Qm1ianQxT1BETkpM?=
+ =?utf-8?B?WnBFVTZzcFRGcHBmdG93ZVBRNTIzcW1tNUdYTXlGd09PNFVjTldEZTBhaHg3?=
+ =?utf-8?B?T0RGZ01RTWt6UHdNNlFrTWZDNG9VbkdJWTNwY2svdXBCSFpEL2Jld0VTN0dG?=
+ =?utf-8?B?bWYyR1B4VlhOc2FRZ3d2Q2JBejY0WHFaNXlCUWlJMGp1U1VoNEVXZFV1WUI4?=
+ =?utf-8?B?cGdDZ0t6VXZwb01oSVhhS2NtTldTNnJTb29JR1IzUVB4elliQ21qVjdtdEV6?=
+ =?utf-8?B?cHZrVVJhOTV4NFdINDFaaDVHOHZvWUZVa3dNREpINzk3eWxieU1iRHRsRVh4?=
+ =?utf-8?B?QjB1c29kY3BCWWdxdnBBVFhEdld2YlVWS3pBSEtyTjk1TXN4Z1RHcUcwSUpF?=
+ =?utf-8?B?VnFqZ0lPZTI1aWxsUUw4czJqNXpjRUhnS1pLN253eHhHY2RiQ2NzWjZGaHlr?=
+ =?utf-8?B?elZPK0dZc1FEcHNYVUxaWFNIL3ZWVldLdEJZNnJRalk3NTFjUVk5dHA3N3Ex?=
+ =?utf-8?B?ZXVkZnlFeHUrb29pdnk4MmY2dFFJZ2lzc1k0cW54OWx6WFNIeEpIUTB4SnJW?=
+ =?utf-8?B?UDRMWldQM0E3Z2R3Nlk3cVFzd29ZUS9mZEY4R3JTZUNkcUFmbERWb3g2VUlJ?=
+ =?utf-8?B?TkJhb0E0aWZpN05QOXdBc2g1ZFVySmNsMXAxYXVxK21idkJTNG9LMnI3bmhP?=
+ =?utf-8?B?aThQbXh5elJnakJpNHNkdGhJelZuSkcwRllxZE1aMFcxZHRGak9UenlvaGhE?=
+ =?utf-8?B?M2RkRkNxVDBacmtXWHJsY0IvRnFsZ082dC9ySEo3SkVYdWxkcDhxcUVCQXlP?=
+ =?utf-8?B?RFZxRGExRHFSa0xiRjd5MXFXdm1mVzdVUy9vUjlMb2tRRWhHVFN0d281SVZ5?=
+ =?utf-8?B?YWJGdndjRkNaUlRKbVpzZzdXUk8vMS95T1YvcWZPcGlvOU5oU0RWR3VJdDdk?=
+ =?utf-8?B?eFdSNUlVeVlQRkk3V25ibUJlanJXVE0zZWo1M0NwQ2Ntc3lKK1RyNHZMdi80?=
+ =?utf-8?B?WllZcHY5WE5NVHp6NDJTWXdOd3phZlp2eHNTWTZQU21BWVhBYnpiZG5JUXF1?=
+ =?utf-8?B?VEdYeGRPdjMrL2lyclJvSEo1amR2VUVrU3ZPV2dEekthN0lhbm5LMHJrb0sr?=
+ =?utf-8?B?NERkeHd4LzkrbkxuYmcyMzYzclFWU2YwNkpScFB2N3liL2FnaE9sa3JYa2wv?=
+ =?utf-8?B?OU1hdFZySk4vZGthVXowWkVNSWFjYU1CTnBXWmRnbnZZazRoRDJDb25IcGho?=
+ =?utf-8?B?a2NSK2krMFpnSDUwWHN3U2tSNUJhYWw5Q0RXVGJLdDlrbUpHMnl3aFJkdVR3?=
+ =?utf-8?B?N051WTVWcUZmbmV6N1pmRDQ0ZXlwWHFFcFkrSWt5cTJVcXZ1Tmt1TzNSUU9l?=
+ =?utf-8?B?UWpZN3JXajdWRlFRR1JiZ1JPN3dNN3I3ZDkwVGkxdzIyclJITGh3YmxqZnhh?=
+ =?utf-8?B?c2ZYTWRIenQrbXBVVXBOU2IrRzRORkZtZXl3Z3djNWluRjdvdW92N3c5OE91?=
+ =?utf-8?B?U0IzN01XTWtzcDI3aTN0TldqWDVPNVZJTkJmVFcyZkFxNG4rMjdVUFJOQ2Va?=
+ =?utf-8?B?SDhPMHd0c0YwV3ZXK1AxMHZZR2syZkVXVzNaazBSdWo2YnhHV1g2eTFoSTRY?=
+ =?utf-8?Q?QzrKYnYlT/zDwJgQzNlv+up+vJPbejWSIxTGVta?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(82310400017)(376005)(1800799015)(36860700004); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2024 21:45:55.2130 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 735b1263-f0f7-4b7c-95df-08dc6fa83d40
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD6.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7158
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,104 +142,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 8, 2024 at 4:12=E2=80=AFPM Easwar Hariharan
-<eahariha@linux.microsoft.com> wrote:
->
-> On 5/8/2024 7:53 AM, Alex Deucher wrote:
-> > On Tue, May 7, 2024 at 2:32=E2=80=AFPM Easwar Hariharan
-> > <eahariha@linux.microsoft.com> wrote:
-> >>
-> >> On 5/3/2024 11:13 AM, Easwar Hariharan wrote:
-> >>> I2C v7, SMBus 3.2, and I3C 1.1.1 specifications have replaced "master=
-/slave"
-> >>> with more appropriate terms. Inspired by and following on to Wolfram'=
-s
-> >>> series to fix drivers/i2c/[1], fix the terminology for users of
-> >>> I2C_ALGOBIT bitbanging interface, now that the approved verbiage exis=
-ts
-> >>> in the specification.
-> >>>
-> >>> Compile tested, no functionality changes intended
-> >>>
-> >>> [1]: https://lore.kernel.org/all/20240322132619.6389-1-wsa+renesas@sa=
-ng-engineering.com/
-> >>>
-> >>> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
-> >>> ---
-> >>>  .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  |  8 +++---
-> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c       | 10 +++----
-> >>>  drivers/gpu/drm/amd/amdgpu/atombios_i2c.c     |  8 +++---
-> >>>  drivers/gpu/drm/amd/amdgpu/atombios_i2c.h     |  2 +-
-> >>>  drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c    | 20 ++++++-------
-> >>>  .../gpu/drm/amd/display/dc/bios/bios_parser.c |  2 +-
-> >>>  .../drm/amd/display/dc/bios/bios_parser2.c    |  2 +-
-> >>>  .../drm/amd/display/dc/core/dc_link_exports.c |  4 +--
-> >>>  drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
-> >>>  drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c  |  4 +--
-> >>>  .../display/include/grph_object_ctrl_defs.h   |  2 +-
-> >>>  drivers/gpu/drm/amd/include/atombios.h        |  2 +-
-> >>>  drivers/gpu/drm/amd/include/atomfirmware.h    | 26 ++++++++---------
-> >>>  .../powerplay/hwmgr/vega20_processpptables.c  |  4 +--
-> >>>  .../amd/pm/powerplay/inc/smu11_driver_if.h    |  2 +-
-> >>>  .../inc/pmfw_if/smu11_driver_if_arcturus.h    |  2 +-
-> >>>  .../inc/pmfw_if/smu11_driver_if_navi10.h      |  2 +-
-> >>>  .../pmfw_if/smu11_driver_if_sienna_cichlid.h  |  2 +-
-> >>>  .../inc/pmfw_if/smu13_driver_if_aldebaran.h   |  2 +-
-> >>>  .../inc/pmfw_if/smu13_driver_if_v13_0_0.h     |  2 +-
-> >>>  .../inc/pmfw_if/smu13_driver_if_v13_0_7.h     |  2 +-
-> >>>  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  4 +--
-> >>>  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  8 +++---
-> >>>  drivers/gpu/drm/radeon/atombios.h             | 16 +++++------
-> >>>  drivers/gpu/drm/radeon/atombios_i2c.c         |  4 +--
-> >>>  drivers/gpu/drm/radeon/radeon_combios.c       | 28 +++++++++--------=
---
-> >>>  drivers/gpu/drm/radeon/radeon_i2c.c           | 10 +++----
-> >>>  drivers/gpu/drm/radeon/radeon_mode.h          |  6 ++--
-> >>>  28 files changed, 93 insertions(+), 93 deletions(-)
-> >>>
-> >>
-> >> <snip>
-> >>
-> >> Hello Christian, Daniel, David, others,
-> >>
-> >> Could you re-review v2 since the feedback provided in v0 [1] has now b=
-een addressed? I can send v3 with
-> >> all other feedback and signoffs from the other maintainers incorporate=
-d when I have something for amdgpu
-> >> and radeon.
-> >
-> > This seems like a lot of churn.  Additionally, a bunch of these
-> > headers are shared with other OSes, so it's possible some of the
-> > changes may end up getting reverted accidently when we sync up or we
-> > may add new headers in new code with the old nomenclature and then
-> > we'd need to make sure to adjust it to make sure everything was
-> > aligned again.  I would just as soon leave things as is, but I'm open
-> > to acking them if there is a strong desire to update things.
-> >
-> > Alex
->
-> The way I see it, this is a small downpayment on the debt we have built u=
-p so far. Internship
-> programs like LF Outreachy to get more underrepresented groups involved i=
-n open source are trying to
-> change the open source community culture to be more inclusive, but simult=
-aneously rely on the culture
-> being welcoming enough as well.
->
-> I do see the challenge involved in preserving the changes and ensuring no=
- new code is added with
-> outdated nomenclature (but see [1]), but culture changes one person at a =
-time, and I'd encourage the community
-> to do the work needed so we can move past our (mostly) inadvertent role i=
-n perpetuating it.
->
-> That's my 2c (or your sub-unit currency of choice).
+MST colorspace property support was disabled due to a series of warnings
+that came up when the device was plugged in since the properties weren't
+made at device creation. Create the properties in advance instead.
 
-Fair enough.
-Acked-by: Aex Deucher <alexander.deucher@amd.com>
+Suggested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Fixes: 69a959610229 ("drm/amd/display: Temporary Disable MST DP Colorspace Property").
+Reported-and-tested-by: Tyler Schneider <tyler.schneider@amd.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3353
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
->
-> Easwar
->
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/co=
-mmit/?id=3D49decddd39e5f6132ccd7d9fdc3d7c470b0061bb
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 941e96f100f4..12b036d511d0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -613,6 +613,9 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 		&connector->base,
+ 		dev->mode_config.tile_property,
+ 		0);
++	connector->colorspace_property = master->base.colorspace_property;
++	if (connector->colorspace_property)
++		drm_connector_attach_colorspace_property(connector);
+ 
+ 	drm_connector_set_path_property(connector, pathprop);
+ 
+-- 
+2.43.0
+
