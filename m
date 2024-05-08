@@ -4,65 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8571BC19F4F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 13:45:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BFD7C25B5F
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 13:48:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5A7610FC27;
-	Wed,  8 May 2024 13:45:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FF4010F45F;
+	Wed,  8 May 2024 13:48:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gE2KVQIU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OMNMFiKn";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB40E10FC2F
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 May 2024 13:45:45 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-1ed96772f92so31939285ad.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 May 2024 06:45:45 -0700 (PDT)
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7ACA10F45F;
+ Wed,  8 May 2024 13:48:02 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-61aef9901deso3024619a12.1; 
+ Wed, 08 May 2024 06:48:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715175945; x=1715780745; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1715176082; x=1715780882; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bEjKbVsF6ti/hobtc5Kr6pHOenScyHdnH+5+kwJwWAY=;
- b=gE2KVQIUE5FDUz14JBN33SABE/YSc0vnScJmXDKboGLLf8ga0aX1niHllKlVFUHGLm
- L/lX6g3gvt1HmfBW9WHUecJksY8W8hHoRSWBIKyxlWQidvBIIiBFG7ncixgH/2m15Oi+
- DPulizY5aMI3E9PB2976JrhpRGxw1B5WVFnbpbQFtRMt1VC9JBywtN4nR8Kc4zPf5+4B
- d+lPT8ywrmE9MQMDOGEYOLqpNNX0n0kPoj9BDv5NhVWviWYiBkOVlTUIN60dKRfDs1iI
- sZBQ8QTyY3dTRd9/teO5VUFK+jG9l8hltU2zVtjfT9gzb6SGct98CipoZyZ+A1oSYuj1
- tvQQ==
+ bh=MQDk2xB0WQjUhRNs2EAciXxFONLNnOupCUzKUQ7mDoo=;
+ b=OMNMFiKn90wKGjJoiFp++mTutOk9zyGAFy71RPPxrgGRtsfKCl7DPTGhjiOwp4Ql2L
+ aRkk8gvCA0JXwPvLVTAlD8bduY9cqTRRA5xfdvTO6gnPTWwlq/djbZeXPPwW2D3KSfDR
+ P4GihQffkQgxbg3+WNvqneqVfkRuIXcFDmnNzvud2HO71jdP/V+X1Z5LmySN1eynHgAd
+ IPODrbAbGIAj6SGr1kOlUw+0v6jpskdt0cSFWuj+YzQB4UNLRmbDo/rEkP9UCFoRfP7I
+ x5LJhzs/LSRSzNOIJeXU1AebkGa4nRV6preXC7n7oIhjK9QPJAouSyVMDIxDIFHygP9+
+ yEjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715175945; x=1715780745;
+ d=1e100.net; s=20230601; t=1715176082; x=1715780882;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=bEjKbVsF6ti/hobtc5Kr6pHOenScyHdnH+5+kwJwWAY=;
- b=RFu3VPrhpNQoIFTBNTa4uS1mre8EQvZu1qkQ+FhNdc8HZ+SSC4Sq4sEcXFaF45mQlZ
- lxyytbtjptU5ZVxISO1Y66RVr2Twkjub8dt7VLkUEVG2g6DRVgx3ms2ChTL5NWPW+X1b
- aikdlRfmePGBeOon6oAkmSluYeu9a+3wk40JVg0h+80SU5Hje2LjJbm0Fv6YjB1bXxTI
- DnfC6qJhp3J/RL2KLYCGt0MJzHEdsQYgGLVSZsxNWy7KRvkqBOxOpptFWWLefrYhNixH
- wnl1woi23NHCQTaOSEe6HF4dQeTWvXxQ7K3TkCZYqtWfxJI+PW7CSjonwGCoeBIJfRTf
- hHiA==
+ bh=MQDk2xB0WQjUhRNs2EAciXxFONLNnOupCUzKUQ7mDoo=;
+ b=I9cug21yVr25CH7IsHUsfBEyVIOtPeGoin+Lcin3XREKum/CqmyCIm8Q93yZok6G8B
+ +/qgnaG3WGmDeZXaKRlWUhHu5D8Tt7aKzJBdrCdrQdQBnXf+A4smWlGNzkGXaJN8C4xy
+ EXvww6X5udaEU1y0HqvOOpjKfp6cnZ1qNUuzpNvhq99Tg3Z1ci4ysoDWa7ixp7xANTml
+ qOLNlv45bQIpgwY16EjQxCdEDRdnbFX3LTZ+DqcbnwQVP4tf7IBKYa49luczbvoUUelU
+ XUvWW5NzOf4X9bMRx3P3s0GcJs3qYTNnwEXMHpOissov2uIgaz0EG4b2Rug/sNGmBOXv
+ I7jQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWdygtxbDHJtkF9XrGJdVw6DMgmg5DVdUbVFbTrtdUFbXPgOEUjHphWHi1R2BFdnOc2fyOiFw2QwliztWl9Sw10KXuCaKpL7hwRxDoSZw==
-X-Gm-Message-State: AOJu0YztdSwkTvKrZcGQXrLUA24R6kVlRsgtlcD6vl1V8VWIXTkhBODV
- YyM8U3aGZ0F7yatJYE1A1yvgzseXH1ID/2mUjuEC71QqZFttYV2ECWqe8I4f/gv+V8yAgra50O/
- iS1fQvLCn0zsrwFAHtd3qt1rbfYM=
-X-Google-Smtp-Source: AGHT+IF30ghQesgBQavmTYn1bIFO+SrT9XCSIDvEKOB3BF2lvh6oTXMqHoBpPj2NOp5uh9lgeCbMlEAPLBNieSBKY/A=
-X-Received: by 2002:a17:902:ef52:b0:1ec:c6bd:4157 with SMTP id
- d9443c01a7336-1eeb078eca4mr35603485ad.59.1715175945086; Wed, 08 May 2024
- 06:45:45 -0700 (PDT)
+ AJvYcCVtN2/1Wwv5bKzL3aDuPEtaDwnOyMzc/suK3Hwd4GE6DvVTefRYJrMdSQ2zKPmSGqPQ/H2BHh6xg/xhtc8fC5Kx9zVQsZA3ajAdr/T0sZGT5fA4Neh+LPARTe7FmFst8vhaj3Jcgf0lVjcnLHRI0Q==
+X-Gm-Message-State: AOJu0YwYyn8O1kFMkvb7ykgX2RlNVxERKfYxEB8akZMbw10UQEeQMaV2
+ A+KhwMpqAJyxY4NiO9sYD7K0NpiMSLpUu7AHn/gTSyAAP0oe5mWbdHTZg+3LLl/21bXEGEPM/bh
+ qwkKkn18aDcmm6Tvc+kAX6KmQ0Ls=
+X-Google-Smtp-Source: AGHT+IFSVVt9RrcAL5Wi7+chr4r3elmGE8J+LMQf7kBN65pmNJVpe6JBbHG/U5jrxQ6hVgSVO9M4R2yKT+Lkao2KJMQ=
+X-Received: by 2002:a05:6a20:431d:b0:1af:93b0:f006 with SMTP id
+ adf61e73a8af0-1afc8d3d46bmr3194469637.21.1715176082175; Wed, 08 May 2024
+ 06:48:02 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240508131916.981456-1-michel@daenzer.net>
-In-Reply-To: <20240508131916.981456-1-michel@daenzer.net>
+References: <20240408190611.24914-1-ville.syrjala@linux.intel.com>
+ <20240408190611.24914-2-ville.syrjala@linux.intel.com>
+In-Reply-To: <20240408190611.24914-2-ville.syrjala@linux.intel.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 May 2024 09:45:33 -0400
-Message-ID: <CADnq5_OUpzEi=gjbkaMg2ZueEbcvPB77v2W1dHiU=TE2o_C17Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix comparison in amdgpu_res_cpu_visible
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
+Date: Wed, 8 May 2024 09:47:50 -0400
+Message-ID: <CADnq5_OF=MM-J6WAqnLYtu-kUWcCXkzCmi499viFptrFnBWGAg@mail.gmail.com>
+Subject: Re: [PATCH 2/5] drm/amdgpu: Use drm_crtc_vblank_crtc()
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -79,44 +81,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 8, 2024 at 9:25=E2=80=AFAM Michel D=C3=A4nzer <michel@daenzer.n=
-et> wrote:
+On Mon, Apr 8, 2024 at 3:06=E2=80=AFPM Ville Syrjala
+<ville.syrjala@linux.intel.com> wrote:
 >
-> From: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 >
-> It incorrectly claimed a resource isn't CPU visible if it's located at
-> the very end of CPU visible VRAM.
+> Replace the open coded drm_crtc_vblank_crtc() with the real
+> thing.
 >
-> Fixes: a6ff969fe9 ("drm/amdgpu: fix visible VRAM handling during faults")
-> Reported-and-Tested-by: Jeremy Day <jsday@noreason.ca>
-> Signed-off-by: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-and applied.  Thanks!
-
-Alex
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c          | 8 ++------
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+>  2 files changed, 3 insertions(+), 7 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index 109fe557a02b..29c197c00018 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -427,7 +427,7 @@ bool amdgpu_res_cpu_visible(struct amdgpu_device *ade=
-v,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vkms.c
+> index 8baa2e0935cc..258703145161 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> @@ -65,9 +65,7 @@ static enum hrtimer_restart amdgpu_vkms_vblank_simulate=
+(struct hrtimer *timer)
 >
->         amdgpu_res_first(res, 0, res->size, &cursor);
->         while (cursor.remaining) {
-> -               if ((cursor.start + cursor.size) >=3D adev->gmc.visible_v=
-ram_size)
-> +               if ((cursor.start + cursor.size) > adev->gmc.visible_vram=
-_size)
->                         return false;
->                 amdgpu_res_next(&cursor, cursor.size);
->         }
+>  static int amdgpu_vkms_enable_vblank(struct drm_crtc *crtc)
+>  {
+> -       struct drm_device *dev =3D crtc->dev;
+> -       unsigned int pipe =3D drm_crtc_index(crtc);
+> -       struct drm_vblank_crtc *vblank =3D &dev->vblank[pipe];
+> +       struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+>         struct amdgpu_vkms_output *out =3D drm_crtc_to_amdgpu_vkms_output=
+(crtc);
+>         struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
+>
+> @@ -91,10 +89,8 @@ static bool amdgpu_vkms_get_vblank_timestamp(struct dr=
+m_crtc *crtc,
+>                                              ktime_t *vblank_time,
+>                                              bool in_vblank_irq)
+>  {
+> -       struct drm_device *dev =3D crtc->dev;
+> -       unsigned int pipe =3D crtc->index;
+>         struct amdgpu_vkms_output *output =3D drm_crtc_to_amdgpu_vkms_out=
+put(crtc);
+> -       struct drm_vblank_crtc *vblank =3D &dev->vblank[pipe];
+> +       struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+>         struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
+>
+>         if (!READ_ONCE(vblank->enabled)) {
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 71d2d44681b2..662d2d83473b 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -528,7 +528,7 @@ static void dm_vupdate_high_irq(void *interrupt_param=
+s)
+>         if (acrtc) {
+>                 vrr_active =3D amdgpu_dm_crtc_vrr_active_irq(acrtc);
+>                 drm_dev =3D acrtc->base.dev;
+> -               vblank =3D &drm_dev->vblank[acrtc->base.index];
+> +               vblank =3D drm_crtc_vblank_crtc(&acrtc->base);
+>                 previous_timestamp =3D atomic64_read(&irq_params->previou=
+s_timestamp);
+>                 frame_duration_ns =3D vblank->time - previous_timestamp;
+>
 > --
-> 2.43.0
+> 2.43.2
 >
