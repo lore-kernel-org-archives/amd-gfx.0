@@ -4,76 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F31F6C04FFE
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 12:53:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 423B6C04FFE
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 13:25:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9035D10FC75;
-	Wed,  8 May 2024 12:53:25 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Fx3Fhfig";
-	dkim-atps=neutral
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
- [209.85.128.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9406110FC75;
- Wed,  8 May 2024 12:53:23 +0000 (UTC)
-Received: by mail-yw1-f180.google.com with SMTP id
- 00721157ae682-61e0c2b5cd2so5670407b3.1; 
- Wed, 08 May 2024 05:53:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715172802; x=1715777602; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SCBcKrlbNzLt1WzgDDcQW4xeBMY9ss6FMqXvnMs5his=;
- b=Fx3FhfigT22U963eeClEUnZfi4eQBXdznIg2fbLZVjY64iaeclLBln/CBaMkGN9f4n
- 4kbY8KnYpq1wlwbJYwP+dAc/ze4hoEYY4SRpH1WsWiO12/wZw+ABYbFd61wd0jpc1Km7
- JR0Rw71/h+uuC8XsGV7QLB+BBnwqUJpOcc1nPVkljL4cZUE/SdbHbIv3kXKdXrWE0qo9
- 8/II07/pf+ChftrNpYWIzVIVoo+rCczUdzu7LaRrdGuc5nR/GQwBOVC47qN2NDUGiyOV
- 1tWNoIFXwcKYXYPrnSs0rXIOCSir6VrSS+9wVH4doQVjt9tN/x+On9fuO8Q281CZzH28
- 7p7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715172802; x=1715777602;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=SCBcKrlbNzLt1WzgDDcQW4xeBMY9ss6FMqXvnMs5his=;
- b=giOMdbLUqoZPiaTteiohT/oRxQxUBhMvJPyCSDMjG49gYLZ3CAFpElnr0yHoLshKcv
- LbgnYemZNh7+2T1Sqn2QQRhnN+7WuHB4aDHg1+zAoGD+AgY+Va4/K7ChdHjzZjUg4XDa
- vtP5LOepLy8RFhG2tn5n9L61IXY7hGv2Co1yVJEILGIxZSXw6uU1lTavD+gZrEo1nybC
- 93IEgPe7b8sfdJmL70I9lHlAxMxR/1fFloqsXU1uRqnOiZyoE/uV96wOzwKLip/TaPFT
- wY5Vkv/1CsX91Hkcq3eUTKS8JVcbLWHLSQiobEIRiUdcG+wMF73SdGaDZb7fAvp5xq11
- V9wA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXtRxdPIK4vDJdRpIJ4pXIlyG76wXNL9z5/Q3QTqIzQl3kloA4gsYSWe+o3F/pAVsIU7JBVYlyUrh3wYQVYK0dZwzBXtDoA/aAHvW8xhepE++kiaPVY3fBA7pMUkBcYUdKnZ+Zqg22zOv7p6bqdbwy2HBm74tnotnq2yvSTpeC+pY2VMqA8d8i1knnDMkBK3g==
-X-Gm-Message-State: AOJu0YwWURzU15uX6niGYS9VGRn0yr0lgbLMbie372tVdMevrLxJnhiF
- r/rd+120EhafgrpCbDAP0o2OtlRZfeZXM/xGCj5RRpjv4wOrQRf9o2U/eXXMvl8AoZTVbghxgPc
- eJN1PO8CEU0QdswJMhXdmRwWPLDs=
-X-Google-Smtp-Source: AGHT+IHAUISTH36hY9CQIyGyJqqkQ7RpEhuXp4Rh25+WLsSPQT0gzb47uBEVhvQ9ssNyaZTqBMs9hTBMxtk5pp8eMrM=
-X-Received: by 2002:a0d:d509:0:b0:618:498f:9dbe with SMTP id
- 00721157ae682-62076576b06mr37310177b3.10.1715172802420; Wed, 08 May 2024
- 05:53:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A379F10FE0B;
+	Wed,  8 May 2024 13:25:52 +0000 (UTC)
+X-Greylist: delayed 387 seconds by postgrey-1.36 at gabe;
+ Wed, 08 May 2024 13:25:50 UTC
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D83C110FDF1
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 May 2024 13:25:50 +0000 (UTC)
+Received: from kaveri ([213.144.156.170])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202405081519181955; Wed, 08 May 2024 15:19:18 +0200
+Received: from daenzer by kaveri with local (Exim 4.97)
+ (envelope-from <michel@daenzer.net>) id 1s4hCW-000000047K7-43ws;
+ Wed, 08 May 2024 15:19:16 +0200
+From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: Fix comparison in amdgpu_res_cpu_visible
+Date: Wed,  8 May 2024 15:19:16 +0200
+Message-ID: <20240508131916.981456-1-michel@daenzer.net>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20240507120422.25492-1-tzimmermann@suse.de>
- <20240507120422.25492-8-tzimmermann@suse.de>
-In-Reply-To: <20240507120422.25492-8-tzimmermann@suse.de>
-From: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Date: Wed, 8 May 2024 14:53:11 +0200
-Message-ID: <CAMeQTsbsSS8xBPY83m0kAE=SLXFzxs49CnsngON6UnY55x9Lvg@mail.gmail.com>
-Subject: Re: [PATCH 07/11] drm/gma500: Use fbdev client helpers
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: javierm@redhat.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, inki.dae@samsung.com, sw0312.kim@samsung.com, 
- kyungmin.park@samsung.com, linux@armlinux.org.uk, krzk@kernel.org, 
- alim.akhtar@samsung.com, jani.nikula@linux.intel.com, rodrigo.vivi@intel.com, 
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, robdclark@gmail.com, 
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run, 
- marijn.suijten@somainline.org, tomi.valkeinen@ideasonboard.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
- thierry.reding@gmail.com, mperttunen@nvidia.com, jonathanh@nvidia.com, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CTCH: RefID="str=0001.0A782F20.663B7BD6.0024,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,105 +47,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, May 7, 2024 at 2:04=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse.=
-de> wrote:
->
-> Implement struct drm_client_funcs with the respective helpers and
-> remove the custom code from the emulation. The generic helpers are
-> equivalent in functionality.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+From: Michel Dänzer <mdaenzer@redhat.com>
 
-Acked-by: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+It incorrectly claimed a resource isn't CPU visible if it's located at
+the very end of CPU visible VRAM.
 
-> ---
->  drivers/gpu/drm/gma500/fbdev.c | 58 ++--------------------------------
->  1 file changed, 3 insertions(+), 55 deletions(-)
->
-> diff --git a/drivers/gpu/drm/gma500/fbdev.c b/drivers/gpu/drm/gma500/fbde=
-v.c
-> index 98b44974d42dd..8a6cb47e83f8f 100644
-> --- a/drivers/gpu/drm/gma500/fbdev.c
-> +++ b/drivers/gpu/drm/gma500/fbdev.c
-> @@ -8,7 +8,6 @@
->  #include <linux/fb.h>
->  #include <linux/pfn_t.h>
->
-> -#include <drm/drm_crtc_helper.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_fb_helper.h>
->  #include <drm/drm_framebuffer.h>
-> @@ -252,63 +251,12 @@ static const struct drm_fb_helper_funcs psb_fbdev_f=
-b_helper_funcs =3D {
->  };
->
->  /*
-> - * struct drm_client_funcs and setup code
-> + * struct drm_client_funcs
->   */
->
-> -static void psb_fbdev_client_unregister(struct drm_client_dev *client)
-> -{
-> -       struct drm_fb_helper *fb_helper =3D drm_fb_helper_from_client(cli=
-ent);
-> -
-> -       if (fb_helper->info) {
-> -               drm_fb_helper_unregister_info(fb_helper);
-> -       } else {
-> -               drm_fb_helper_unprepare(fb_helper);
-> -               drm_client_release(&fb_helper->client);
-> -               kfree(fb_helper);
-> -       }
-> -}
-> -
-> -static int psb_fbdev_client_restore(struct drm_client_dev *client)
-> -{
-> -       drm_fb_helper_lastclose(client->dev);
-> -
-> -       return 0;
-> -}
-> -
-> -static int psb_fbdev_client_hotplug(struct drm_client_dev *client)
-> -{
-> -       struct drm_fb_helper *fb_helper =3D drm_fb_helper_from_client(cli=
-ent);
-> -       struct drm_device *dev =3D client->dev;
-> -       int ret;
-> -
-> -       if (dev->fb_helper)
-> -               return drm_fb_helper_hotplug_event(dev->fb_helper);
-> -
-> -       ret =3D drm_fb_helper_init(dev, fb_helper);
-> -       if (ret)
-> -               goto err_drm_err;
-> -
-> -       if (!drm_drv_uses_atomic_modeset(dev))
-> -               drm_helper_disable_unused_functions(dev);
-> -
-> -       ret =3D drm_fb_helper_initial_config(fb_helper);
-> -       if (ret)
-> -               goto err_drm_fb_helper_fini;
-> -
-> -       return 0;
-> -
-> -err_drm_fb_helper_fini:
-> -       drm_fb_helper_fini(fb_helper);
-> -err_drm_err:
-> -       drm_err(dev, "Failed to setup gma500 fbdev emulation (ret=3D%d)\n=
-", ret);
-> -       return ret;
-> -}
-> -
->  static const struct drm_client_funcs psb_fbdev_client_funcs =3D {
-> -       .owner          =3D THIS_MODULE,
-> -       .unregister     =3D psb_fbdev_client_unregister,
-> -       .restore        =3D psb_fbdev_client_restore,
-> -       .hotplug        =3D psb_fbdev_client_hotplug,
-> +       .owner =3D THIS_MODULE,
-> +       DRM_FBDEV_HELPER_CLIENT_FUNCS,
->  };
->
->  void psb_fbdev_setup(struct drm_psb_private *dev_priv)
-> --
-> 2.44.0
->
+Fixes: a6ff969fe9 ("drm/amdgpu: fix visible VRAM handling during faults")
+Reported-and-Tested-by: Jeremy Day <jsday@noreason.ca>
+Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 109fe557a02b..29c197c00018 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -427,7 +427,7 @@ bool amdgpu_res_cpu_visible(struct amdgpu_device *adev,
+ 
+ 	amdgpu_res_first(res, 0, res->size, &cursor);
+ 	while (cursor.remaining) {
+-		if ((cursor.start + cursor.size) >= adev->gmc.visible_vram_size)
++		if ((cursor.start + cursor.size) > adev->gmc.visible_vram_size)
+ 			return false;
+ 		amdgpu_res_next(&cursor, cursor.size);
+ 	}
+-- 
+2.43.0
+
