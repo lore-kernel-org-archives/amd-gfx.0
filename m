@@ -4,44 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43730C25B4F
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 May 2024 09:11:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97D7EC25B74
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 May 2024 09:11:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6212710E599;
-	Thu,  9 May 2024 09:11:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64CE810E64C;
+	Thu,  9 May 2024 09:11:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="OEUZZ8vF";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Rl5C93v9";
 	dkim-atps=neutral
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B49B71131AF
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 May 2024 19:39:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1715197141;
- bh=EMoh6ibnBlSUQl1yoaNN8vNpQ2RppWN97oATY4a6MVk=;
- h=Subject:From:To:Date:From;
- b=OEUZZ8vFJqc85ucokUaryvlgC1XdlYdIV3vFt8cixH55uYlOziOyXfTm50/YOXcUd
- QBK5vFfECZLx63BpMpXZbz/aF40r/lB92Vi++6Pmgbsgu7OttG0FMxim+Qcw0cmn5a
- dWRv9RlbTyL1bOFkGoKQ/HhhcY3wEyDtATIx9XOLW5gQ93QmAdRivN7OcB0dixQ0MK
- ZByIOfwXhkHHd/52/vXDZN2oucXeRkndz1aYUWDNtN9DYevdDOfxVrzvbQbMb478Ow
- liyV/7NW2PXOrPZGb49lBMze7hHdKo6b5WAuI6nBoLhCxp+dulLE5sPlAJxJsPqV0L
- N18sd3mbfX56g==
-Received: from [100.127.186.53] (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: mfilion)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 047153782065
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 May 2024 19:39:00 +0000 (UTC)
-Message-ID: <f5e77f6b68035f4c12d0784a2de83925fb674a49.camel@collabora.com>
-Subject: 2024 X.Org Developers Conference - October 9-11,
- =?ISO-8859-1?Q?Montr=E9al=2C?= Canada
-From: Mark Filion <mark.filion@collabora.com>
-To: amd-gfx@lists.freedesktop.org
-Date: Wed, 08 May 2024 15:38:56 -0400
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EA2951123F6;
+ Wed,  8 May 2024 23:45:49 +0000 (UTC)
+Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.1.144])
+ by linux.microsoft.com (Postfix) with ESMTPSA id AC85D20B2C82;
+ Wed,  8 May 2024 16:45:49 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com AC85D20B2C82
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1715211949;
+ bh=ESOO7vcC8nw070xfZPv4kHKylJK5PcWPFkA3TGLgTXQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Rl5C93v97PiXj7e7b6rfgI9bl04lop2/yhEatpsUACNRzLcSXpXNSHno98LeoAQB7
+ gS+0i+obuI0+IENonaQaGjUv8p/CBuF643J8XjETiK+E5V+je01jXkIq8MFqgXuezN
+ yIAJI05Tc3ELeVIzZK9bzaksGSVwXWFhHgkGQfHg=
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+To: Steve Glendinning <steve.glendinning@shawell.net>,
+ Helge Deller <deller@gmx.de>,
+ linux-fbdev@vger.kernel.org (open list:SMSC UFX6000 and UFX7000 USB to VGA
+ DRIVER), dri-devel@lists.freedesktop.org (open list:FRAMEBUFFER LAYER),
+ linux-kernel@vger.kernel.org (open list)
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list),
+ intel-gfx@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
+ DRIVERS), 
+ intel-xe@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
+ DRIVERS), 
+ linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
+ linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER),
+ Easwar Hariharan <eahariha@linux.microsoft.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v3 5/6] fbdev/smscufx: Make I2C terminology more inclusive
+Date: Wed,  8 May 2024 23:43:41 +0000
+Message-Id: <20240508234342.2927398-6-eahariha@linux.microsoft.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240508234342.2927398-1-eahariha@linux.microsoft.com>
+References: <20240508234342.2927398-1-eahariha@linux.microsoft.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 09 May 2024 09:11:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,34 +68,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello!
+I2C v7, SMBus 3.2, and I3C 1.1.1 specifications have replaced "master/slave"
+with more appropriate terms. Inspired by Wolfram's series to fix drivers/i2c/,
+fix the terminology for users of I2C_ALGOBIT bitbanging interface, now that
+the approved verbiage exists in the specification.
 
-We're delighted to announce that the 2024 X.Org Developers Conference
-(XDC) will be taking place on October 9 to 11 in Montr=C3=A9al, Canada, co-
-located with the GStreamer Conference & Hackfest 2024 which will be
-running from October 7 to 10. Join us for a freedesktop week in
-Montr=C3=A9al!
+Compile tested, no functionality changes intended
 
-XDC is the event for developers working on all things Open graphics
-(Linux kernel, Mesa, DRM, Wayland, X11, etc.).
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
+---
+ drivers/video/fbdev/smscufx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-New this year: XDC 2024 will feature two full days of talks followed by
-a day dedicated to workshops, meetings & hacking.
-
-XDC 2024 website: https://indico.freedesktop.org/event/6/
-
-The in-person venue is the Concordia University Conference Centre,
-located within the John Molson School of Business.
-
-Concordia University Conference Centre
-1450 Guy St., Montreal, Quebec, Canada, H3H 0A1
-https://goo.gl/maps/9nDyTvKtf7X1JuJc9
-
-As usual, XDC will be free of charge and open to the general public.
-
-Registration & Call for Proposals will be opening soon, stay tuned!
-
-Best regards,
-
-Mark Filion, on behalf of X.org
+diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
+index 35d682b110c42..5f0dd01fd8349 100644
+--- a/drivers/video/fbdev/smscufx.c
++++ b/drivers/video/fbdev/smscufx.c
+@@ -1292,7 +1292,7 @@ static int ufx_realloc_framebuffer(struct ufx_data *dev, struct fb_info *info)
+ 	return 0;
+ }
+ 
+-/* sets up I2C Controller for 100 Kbps, std. speed, 7-bit addr, master,
++/* sets up DDC channel for 100 Kbps, std. speed, 7-bit addr, controller mode,
+  * restart enabled, but no start byte, enable controller */
+ static int ufx_i2c_init(struct ufx_data *dev)
+ {
+@@ -1321,7 +1321,7 @@ static int ufx_i2c_init(struct ufx_data *dev)
+ 	/* 7-bit (not 10-bit) addressing */
+ 	tmp &= ~(0x10);
+ 
+-	/* enable restart conditions and master mode */
++	/* enable restart conditions and controller mode */
+ 	tmp |= 0x21;
+ 
+ 	status = ufx_reg_write(dev, 0x1000, tmp);
+-- 
+2.34.1
 
