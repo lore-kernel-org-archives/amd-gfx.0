@@ -4,102 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED393C04FFE
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 19:09:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10D65C25B4F
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 19:24:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 696F010E9ED;
-	Wed,  8 May 2024 19:09:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54F75112938;
+	Wed,  8 May 2024 19:24:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="aTYGbrIa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DN53sAEV";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0DE110E9ED;
- Wed,  8 May 2024 19:09:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1715195338; x=1715800138; i=friedrich.vock@gmx.de;
- bh=+UbcRUpdYZe4OspKtemJiFrTHgTmVojYBYNL5yLcud8=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=aTYGbrIaOWELw7PUS3T66PFIxRXLw568g4OJI4xfDKdIstp6pxegPHI2OECmD8Ir
- Wd+RGA5Kye/7KWYr+PjsAcZqw/5+c77nPMkmIYLH7QzGqTR/k0oAsCqosJ+l0JfBd
- 1500SRnnoZov8QebgjjabB3rlaofAnh/EMJabbjdz3CCUqTOLKECG/+qrdjbFSVKv
- z5E4kymroSXPJq61BKcTItN5HTZhq/5UfzpNSvKClknxlge0DcusVSC9c+S3Irfvy
- MiHnTalXg/yEO1qH3QdGvnMMbL9f9cu34gYULOoJ+tDvJwgXFQETNYOpiJMs9pDR/
- JH7QOqn5d0vs3v0T4w==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.177.3] ([213.152.117.111]) by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1M89Gj-1rzZrl2q9b-005Eku; Wed, 08
- May 2024 21:08:58 +0200
-Message-ID: <146d615c-6eb1-491a-9494-cacb9337f13e@gmx.de>
-Date: Wed, 8 May 2024 21:08:57 +0200
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2047.outbound.protection.outlook.com [40.107.92.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46FA2112942
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 May 2024 19:24:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GwSKfN24jS2Xr/PXuA79GbRWBaSfMMtoRFQoI1t9dev/yEzkgJS47UU/eyj9mUNtLbNH25y/jCa5JVY2WA00uZ1PDTX5H8hC37BJ7zKvE9w/TBnF5lFu1SSQ5UjQJhzmy48/0FkZUDLwjIUqsyOT/d/7A9KbtbenKxumD6ChIryKw14GGwGOmB9e2jqqZXvsjnxWPdvFz5seDTkgEn7fEIOPXGBkkj54U3maKuhzX7cR60CJkFwgaEQOmMeGBcKAS8U9X5cPZhwXxCBwLf/yL3u1VG1jm16BrigqQ2jQIvhf8cyBtZxUODfO2e8t+1QlYeIx1ZqSRmhhyWaNOmgtdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+AimZJOXJ9r2JYYGs1cbWdskGLNZRsyelcKDtzbavio=;
+ b=GEdSzvc5KXBUkmqPTZpsZaZVeO23r7TOu3me7Li3SpSud6SYH215DzN/67ZvTmIYOzkQJz1htBaEO0DPtGjSDxwRDB/nUABoO7EfoUeHLNNcpbH3fBURKLd0rDC4UWCNUBamXQtGQ/mAERsv9zUk73OjexkGWK6oZwRD34JDX0vO9B/BsY4dP16AjmKFd/dABX97vije7hWc9BFgwkN8VDEjAs5BHTHj1XpL73zNCjUzDfhjMP/dQDxancG2UU28h2ZzPxzLor5CpyxUohcNkBla90BRaK9PLauxa5xMl6CFel/Kl9THMcGVWVtwy3XXCvyJAi0+qwl1r5tadjiAvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+AimZJOXJ9r2JYYGs1cbWdskGLNZRsyelcKDtzbavio=;
+ b=DN53sAEVkApy4xYnL78iibwZqdnIfZ7yJvajsNqvEtL0gb1d/yBQ+BfD0F3j8LlM8fWHmUZV9jjaojRCoai+NF5cnyyNGljCWvvffJtHSJo/J/t4ccWbi6nUP7yCOk4432VmMVfeB+Ffj5Oooeck/6pQT+X2RBSTV7iRrsp08qc=
+Received: from CH0PR03CA0237.namprd03.prod.outlook.com (2603:10b6:610:e7::32)
+ by BL1PR12MB5707.namprd12.prod.outlook.com (2603:10b6:208:386::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.43; Wed, 8 May
+ 2024 19:24:03 +0000
+Received: from CH1PEPF0000A346.namprd04.prod.outlook.com
+ (2603:10b6:610:e7:cafe::7f) by CH0PR03CA0237.outlook.office365.com
+ (2603:10b6:610:e7::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.43 via Frontend
+ Transport; Wed, 8 May 2024 19:24:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000A346.mail.protection.outlook.com (10.167.244.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Wed, 8 May 2024 19:24:02 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 8 May
+ 2024 14:24:01 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu/soc24: use common nbio callback to set remap offset
+Date: Wed, 8 May 2024 15:23:45 -0400
+Message-ID: <20240508192345.3688461-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.45.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 1/5] drm/amdgpu: Fix migration rate limiting accounting
-To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-References: <20240508180946.96863-1-tursulin@igalia.com>
- <20240508180946.96863-2-tursulin@igalia.com>
-Content-Language: en-US
-From: Friedrich Vock <friedrich.vock@gmx.de>
-Autocrypt: addr=friedrich.vock@gmx.de; keydata=
- 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
- f7+xmX0X3AMtWz/15Y+7cPO2
-In-Reply-To: <20240508180946.96863-2-tursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:GkJKZi0MJBnjdBeYO9ANcIjuoxPNOZhI7SnUA+EgG98pdRJfnFH
- DC4DRDxHx60lYnSMJqluKjuEsPrFbvgCdbWI6zLHI+pT6z+1+38PSDEgZVrceKpyTVPsqdJ
- MV5J/sSAu2cjnkwy1J7HN1eaT/E0cR5HJCa7NgwXRQ2GKQg0kGO6QjRin2i1cioYCzvOa2p
- nLOir2VcD6ADUnMcnVpkg==
-UI-OutboundReport: notjunk:1;M01:P0:NQoOtdQp2ZI=;ZPcnX7+C052gyJ/HQ6NEOZQTi86
- 09lmgI8Y/4z7ASHH/fSwbpwMIVSoCYK+jezNQGPiKkEhLeUH9zcGtQGxRzcN324Ztv4TmNq4w
- rbsdcc2d/kkixq6MiiE0k+xaDgadeIYaEdfdDV+tkpWWQ9rYlqnhuB/9WqUisz0A/Zp62LZuQ
- P4uTx8LW1XTCh2b/OctXqNAfloF3OVhhRif4OWaHpBb7O5iM1xqky2tQDoniCK1ixmCxPYIJS
- 0AoE8SZeuixTNpmr3mldxK7M7Mmjpix5GGx6bZRDePwqhYOoyJWmX3ECIs4dKIgikzoqipicH
- sgVBM0QabsawmIvSQoJ71Jovzife1oMUE6TLEw6nxIe0VsOTetC5T7NCKcPadFS5JDi5KMPsZ
- bXyBLm4iSgbEzLxLmyKT1nb5/ro/CjCnE83dNsSUDUs3RWY/bFNpUZXDtXZ4aPe1sX7PI9Mvx
- GnJAqAczQEMbo1vDfypDvQCNzjKpevfBvKw/DdKzK9x1wFPJN4d94fTgkJgIBtAiy2XxcKqL1
- qJs8zvkDWUVmkT4F6jkXm5APk2YTLEQams2236A9lSTPODattUwpxOCtBUAWLnQaGsmy7RrIG
- oxmh4HsYsRyaCytUW8lcNeba14xL7L0Zw5+JwXcUXJwwOEhc6hNywG9HXDZDU++rogE4WBkLi
- 4JNhTQbre6pOjZVISEJ2Cj3pLeltRf511RFMkk2CtzcJoACmvgsNGB0AC1k7AfBhCG3mEIva2
- +srfEVHK29gQlswCKj1lvmjL6PyiRROVRmV/HOHpUHAXGJqvZ34xfN4zEGFdyw1+J5+ars+ws
- pkN9PLZMxCx8t8f1b1vaNj5rdL+xq/G7nnDC2sXEzq3CU=
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A346:EE_|BL1PR12MB5707:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9643dd2-f696-4131-54b3-08dc6f946b54
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|36860700004|1800799015|82310400017|376005; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?mR48HsnFAJ6hypV+odBKlUuAJgRIWUn7yE4NlqBbevicMblWqdVPxCp9RKsc?=
+ =?us-ascii?Q?yDVMFYfIJOmmWvk6anhGcqAcDHPzZpm/o0yCBcPe+Q43WAxqQBYNMWdRpAGp?=
+ =?us-ascii?Q?DnWvirzZ1iKO/2tHpLSJH1YjGVAzKUi1Qq1EEYBtOgYAZ/Ym8Vsba5d+7Nm9?=
+ =?us-ascii?Q?wJLYelX1B0E822WscAXsP2g3uETNk6SrQjpz3cPEMn56vnWkSvOtBfq82rlC?=
+ =?us-ascii?Q?OIeFWp38M4hN6d9eiSBCi2VSybQKOv+FmklLDdlAKMlR9i7mkCZ4SH+y2qyp?=
+ =?us-ascii?Q?ZBPRcoYc8gn+L9C6BZ8JOOL9w/HZtf1hQGszKfVtOGdItlC2tVVgvYfsswtI?=
+ =?us-ascii?Q?5GS6yXzcsokdn/HAQUXF+3vnEhvr8EPVXWXkhA+8i9jfboIvyIH+O14i0+af?=
+ =?us-ascii?Q?QFPh4EjujlXL4j7QFzhj5Sm+N+9YAVjD8LjKMyk2nyL3m6nYiSJqCYQN2MhP?=
+ =?us-ascii?Q?Yyob4yAOjjtWTEur9zLle8bPZJBCO+3NxvY0xQxRYU2LDYs+wA36vvmEJ5wZ?=
+ =?us-ascii?Q?WGKyfRgLzLLaDrc+rZZDyMBZc1MirZ6/niG8UYsbbuyZPbp73xdVSWRzncGS?=
+ =?us-ascii?Q?Ss0QkQp7nyrYHHvMPKJUFV4yEsgDaZTAYOa6GuxxZE2bqPQZUPxNWhWi9883?=
+ =?us-ascii?Q?aRL0YuqwRMgLHzLZHe5vlvR3Cl123VGlh5qsUtsebbRdpi1814+g0DxJo4Uz?=
+ =?us-ascii?Q?mHPIuTJvgtZDYkYWw4LIyRZigVPEv99haoKOevAtdcb6EdOvnOu0qglhUmXy?=
+ =?us-ascii?Q?IoigGn1i93doa2cIry4Sr4rjTMZU/q+u7OImECm9/Z7RGeSA9RfQUcR1UXGt?=
+ =?us-ascii?Q?/KknAosc8RzTw6jehyIHXKmr/shZN/W12O7F+erCgQ353OHml6dlLCUpuK3m?=
+ =?us-ascii?Q?d25lSOGe8D3nOEqSj/Nov2jP8siUHqQkHXVkNB40H9KTiRuE+yEUODnq1EoJ?=
+ =?us-ascii?Q?0gzbBHQGCoN4ft5aGYqj061KZZbUoIjA43B5R03Z4mZdbVqYbylt2h8xMvH8?=
+ =?us-ascii?Q?GtY5al5esyuPyCKu7FYmYWdNjEE0ZqP1KE9No9v+MeaQelTxFh32Z+C0kQe3?=
+ =?us-ascii?Q?LKMqk4yl8Mg6otYWLGgFNkcKFk0D1MteIElgUfJe6pBG8QKyNTTySwi3tJnl?=
+ =?us-ascii?Q?bu1Y0SKA/arZl/0SvnvhnIK9stgzzvn2CdrIK0+aMmsSU+4XS1AWtU9ouTLI?=
+ =?us-ascii?Q?zpLAHyP7j39vN0ASWEsUr8ciEqTHzAgPFQBGzA1kq5G9nv2q6nUc8Iej66bX?=
+ =?us-ascii?Q?7YrYAZN1B8BaKsny0+BJscs5cJPGgZlvBwZwWXANRe6EwK/tUrC4TUd9dFqm?=
+ =?us-ascii?Q?+pT8dDLTyjlePihYkWx+GXndRs4adcCPNDJl3CwRGM0v0nqnnEiIULtXmWpw?=
+ =?us-ascii?Q?1z9O7JMZJyKXYEYNYYyPnLn/mVvX?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(1800799015)(82310400017)(376005); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2024 19:24:02.5674 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9643dd2-f696-4131-54b3-08dc6f946b54
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A346.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5707
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,100 +128,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 08.05.24 20:09, Tvrtko Ursulin wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->
-> The logic assumed any migration attempt worked and therefore would over-
-> account the amount of data migrated during buffer re-validation. As a
-> consequence client can be unfairly penalised by incorrectly considering
-> its migration budget spent.
+This fixes HDP flushes on systems with non-4K pages.
 
-If the migration failed but data was still moved (which I think could be
-the case when we try evicting everything but it still doesn't work?),
-shouldn't the eviction movements count towards the ratelimit too?
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/soc24.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
->
-> Fix it by looking at the before and after buffer object backing store an=
-d
-> only account if there was a change.
->
-> FIXME:
-> I think this needs a better solution to account for migrations between
-> VRAM visible and non-visible portions.
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
+index 12900488dd618..66c7138fc6aa4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc24.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+@@ -372,11 +372,9 @@ static const struct amdgpu_asic_funcs soc24_asic_funcs = {
+ 
+ static int soc24_common_early_init(void *handle)
+ {
+-#define MMIO_REG_HOLE_OFFSET (0x80000 - PAGE_SIZE)
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+-	adev->rmmio_remap.reg_offset = MMIO_REG_HOLE_OFFSET;
+-	adev->rmmio_remap.bus_addr = adev->rmmio_base + MMIO_REG_HOLE_OFFSET;
++	adev->nbio.funcs->set_reg_remap(adev);
+ 	adev->smc_rreg = NULL;
+ 	adev->smc_wreg = NULL;
+ 	adev->pcie_rreg = &amdgpu_device_indirect_rreg;
+-- 
+2.45.0
 
-FWIW, I have some WIP patches (not posted on any MLs yet though) that
-attempt to solve this issue (+actually enforcing ratelimits) by moving
-the ratelimit accounting/enforcement to TTM entirely.
-
-By moving the accounting to TTM we can count moved bytes when we move
-them, and don't have to rely on comparing resources to determine whether
-moving actually happened. This should address your FIXME as well.
-
-Regards,
-Friedrich
-
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Friedrich Vock <friedrich.vock@gmx.de>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 26 +++++++++++++++++++++-----
->   1 file changed, 21 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_cs.c
-> index ec888fc6ead8..22708954ae68 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -784,12 +784,15 @@ static int amdgpu_cs_bo_validate(void *param, stru=
-ct amdgpu_bo *bo)
->   		.no_wait_gpu =3D false,
->   		.resv =3D bo->tbo.base.resv
->   	};
-> +	struct ttm_resource *old_res;
->   	uint32_t domain;
->   	int r;
->
->   	if (bo->tbo.pin_count)
->   		return 0;
->
-> +	old_res =3D bo->tbo.resource;
-> +
->   	/* Don't move this buffer if we have depleted our allowance
->   	 * to move it. Don't move anything if the threshold is zero.
->   	 */
-> @@ -817,16 +820,29 @@ static int amdgpu_cs_bo_validate(void *param, stru=
-ct amdgpu_bo *bo)
->   	amdgpu_bo_placement_from_domain(bo, domain);
->   	r =3D ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
->
-> -	p->bytes_moved +=3D ctx.bytes_moved;
-> -	if (!amdgpu_gmc_vram_full_visible(&adev->gmc) &&
-> -	    amdgpu_res_cpu_visible(adev, bo->tbo.resource))
-> -		p->bytes_moved_vis +=3D ctx.bytes_moved;
-> -
->   	if (unlikely(r =3D=3D -ENOMEM) && domain !=3D bo->allowed_domains) {
->   		domain =3D bo->allowed_domains;
->   		goto retry;
->   	}
->
-> +	if (!r) {
-> +		struct ttm_resource *new_res =3D bo->tbo.resource;
-> +		bool moved =3D true;
-> +
-> +		if (old_res =3D=3D new_res)
-> +			moved =3D false;
-> +		else if (old_res && new_res &&
-> +			 old_res->mem_type =3D=3D new_res->mem_type)
-> +			moved =3D false;
-> +
-> +		if (moved) {
-> +			p->bytes_moved +=3D ctx.bytes_moved;
-> +			if (!amdgpu_gmc_vram_full_visible(&adev->gmc) &&
-> +			    amdgpu_res_cpu_visible(adev, bo->tbo.resource))
-> +				p->bytes_moved_vis +=3D ctx.bytes_moved;
-> +		}
-> +	}
-> +
->   	return r;
->   }
->
