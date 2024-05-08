@@ -4,139 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BC33C04FFE
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 06:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FC71C25B4F
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 06:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45FA51133BE;
-	Wed,  8 May 2024 06:00:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A20F11283C;
+	Wed,  8 May 2024 06:58:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="oJBUSnqZ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LALyyqtM";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oJBUSnqZ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LALyyqtM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jbnAf9sK";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E55E1127FA;
- Wed,  8 May 2024 06:00:29 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1710921A3C;
- Wed,  8 May 2024 06:00:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1715148027; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Is1QIooOcsSsCqTmiQyMmRHwJK9pqSAkls0yrv548qo=;
- b=oJBUSnqZI7EMjfLSBFZJVb44HlHinhbFGw6fI8Dnc2xpkzBYD1XKpxGf4uifFmvRoG61rt
- QVRqUSBQqc6vOTInrJu0yU9OsgNIHL2uesL+75THSxQBwLxd66hkPtvOfRTKTqRCOUmcjB
- nGNVx0QMAAlgqx1J23NlvRc1IK42+CI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1715148027;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Is1QIooOcsSsCqTmiQyMmRHwJK9pqSAkls0yrv548qo=;
- b=LALyyqtMas/4qlYZtcYxHdHGH9G64b4tNDkdXEw/W00Ws0sioAsIy89uQ0NBT0eoGUf4tT
- NYE1i0b7yLQda9AQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1715148027; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Is1QIooOcsSsCqTmiQyMmRHwJK9pqSAkls0yrv548qo=;
- b=oJBUSnqZI7EMjfLSBFZJVb44HlHinhbFGw6fI8Dnc2xpkzBYD1XKpxGf4uifFmvRoG61rt
- QVRqUSBQqc6vOTInrJu0yU9OsgNIHL2uesL+75THSxQBwLxd66hkPtvOfRTKTqRCOUmcjB
- nGNVx0QMAAlgqx1J23NlvRc1IK42+CI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1715148027;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Is1QIooOcsSsCqTmiQyMmRHwJK9pqSAkls0yrv548qo=;
- b=LALyyqtMas/4qlYZtcYxHdHGH9G64b4tNDkdXEw/W00Ws0sioAsIy89uQ0NBT0eoGUf4tT
- NYE1i0b7yLQda9AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C879F1386E;
- Wed,  8 May 2024 06:00:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id abWuL/kUO2bdVQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 08 May 2024 06:00:25 +0000
-Message-ID: <2b464f50-15e0-4df3-a846-21417a103ed6@suse.de>
-Date: Wed, 8 May 2024 08:00:24 +0200
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2069.outbound.protection.outlook.com [40.107.220.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A61D11283C;
+ Wed,  8 May 2024 06:58:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PxwuA65C3pUHntChYcLtQnqrvpMgScSfkkAV+3actM5pmbtOuhTz1p493wDBiApqger1Y+/n1bC4zAL/0h12EWIijR9IQREBHQV0oW1dEpoZh35Xrucgw8hxcrY8uMLTGPw123YCbdMCvPRiSLUig9OjmoD8fXPpj/oq2DRaj9dx9Ti5mr+sqNfXY7Q7bTjpuZdbIq3TINxgS4Y2snube2+9+y47abG6magb1/LI/+cRxqjJaVWXR2CL8TyHUVJrmvEaaw/TEUA6jIWWW1SSqnlD5WVXi5XBOfM+aQ3LSeusPwoyShVian0pyYX+kDp/CsT2eFacpSlB56nmsiojKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nv7RQPnGu+XOKJeivKGIMC0Kby47e5wQRfScDT46mew=;
+ b=XEdpBNBYgY4W7r/LQU6qyz17Sekr8rSfH+vsvtjBSwiI5KWn0RsvI71sO4D5ROCewL7rPdtQlUBsI7qJgzjb6NoeklmBeGQonPiAOtTcTUMT7EFL8FFbCP2HDege3kcLJUpAdeFWkNADTl7U4RFgH4StfS+cAnor36s+LdyCSwO2iQt2inSsByNwinhHlLq11Ubfi4bz3MkYALDioC9fMpyyTEEzkk+/Li/wVDb89o1N3200QzHK/GTcixfxmSwzo9+mTdzh/KIgI5VsbH9PmuSMAr4CGGbTmEmxcE5o5ehjoCPpG+Q9VRc/R6IkTZRJGm33LMOlEcefTfpauHQF+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nv7RQPnGu+XOKJeivKGIMC0Kby47e5wQRfScDT46mew=;
+ b=jbnAf9sKV4yevXCFmvrcuIvIUO/VweIXQRRulG3IulHyRzxB5iUJDNCd719VyrDNHYdj2PSd5Sm2Ds1AVNeXpV2gwn/UdfWG8sMNtiO82ZUM8y8HLqtclqcv5r7gdEybBOmEKQ5tFpJ7xM8qiEa35En6p0xzRY1d//ZvBmjorZM=
+Received: from CH0P221CA0017.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::26)
+ by DS0PR12MB8765.namprd12.prod.outlook.com (2603:10b6:8:14e::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42; Wed, 8 May
+ 2024 06:57:56 +0000
+Received: from CH3PEPF00000009.namprd04.prod.outlook.com
+ (2603:10b6:610:11c:cafe::e9) by CH0P221CA0017.outlook.office365.com
+ (2603:10b6:610:11c::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.45 via Frontend
+ Transport; Wed, 8 May 2024 06:57:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH3PEPF00000009.mail.protection.outlook.com (10.167.244.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Wed, 8 May 2024 06:57:56 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Wed, 8 May 2024 01:57:54 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <matthew.auld@intel.com>
+CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>, "Arunpravin
+ Paneer Selvam" <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH] drm/buddy: Fix the range bias clear memory allocation issue
+Date: Wed, 8 May 2024 12:27:20 +0530
+Message-ID: <20240508065720.125846-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/11] drm/tegra: Use fbdev client helpers
-To: Felix Kuehling <felix.kuehling@amd.com>, javierm@redhat.com,
- daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- inki.dae@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
- linux@armlinux.org.uk, krzk@kernel.org, alim.akhtar@samsung.com,
- patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, sean@poorly.run, marijn.suijten@somainline.org,
- tomi.valkeinen@ideasonboard.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, thierry.reding@gmail.com,
- mperttunen@nvidia.com, jonathanh@nvidia.com
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20240507120422.25492-1-tzimmermann@suse.de>
- <20240507120422.25492-12-tzimmermann@suse.de>
- <b463d432-669c-43a4-933a-cafef000f7da@amd.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <b463d432-669c-43a4-933a-cafef000f7da@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.79 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; TAGGED_RCPT(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[amd.com,redhat.com,ffwll.ch,linux.intel.com,kernel.org,samsung.com,armlinux.org.uk,gmail.com,intel.com,ursulin.net,quicinc.com,linaro.org,poorly.run,somainline.org,ideasonboard.com,nvidia.com];
- RCPT_COUNT_TWELVE(0.00)[31]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, suse.de:email]
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000009:EE_|DS0PR12MB8765:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5fb8e123-e5a8-4481-eadd-08dc6f2c3092
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|1800799015|82310400017|376005|36860700004; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?GOEgJp3IbuTWi1CHJbqS11TZNWvK8S758AQulLmv1dvu9DBa5rlK9g4TnAMd?=
+ =?us-ascii?Q?YSlPohxThmwB9helGzyOgbXOIYEyQG1WHVNPitGvzgURxgKXmbP3qtoebinH?=
+ =?us-ascii?Q?UQ1JzNTvrU4DvCF0p8KHZGkRo93ERSKk5ZV4w+ZLmRr6AfWA/gSaGCONySKX?=
+ =?us-ascii?Q?Nh2IZc44fs4eQkjkWOT9Em3Oa4Mkn9ZbHrQg7SXosyKJSWxIY7yH1oPWwsav?=
+ =?us-ascii?Q?ya3TQEOS3MQTvd3ttWgtPq2d8kg1ErC+gqxP00kr3BhHa5xkRs0ctBsDStBq?=
+ =?us-ascii?Q?J0ok951Ovs6A90EMROrqbfb1kxlaS3GO3IKd6VOB7nuCsrJaXaFjxEpOlfeJ?=
+ =?us-ascii?Q?jpWeDTyMWKns00hlw+hPcNT7jN9gEmoV8IpZuvVVFK9YbMWIe8SGA6J2Cv/B?=
+ =?us-ascii?Q?UiQSxfg4N3Tj6sva6rPC0njtlJnJchGEZ5+KSNM5A1u4BJtu12A/UR0eP6IE?=
+ =?us-ascii?Q?yQu33Om4ZMtFgTmnhf6pbOnTj5rdacXQrb1tcV2Z9xDgLKDuXwNfYnGVS+NE?=
+ =?us-ascii?Q?z9n/U/uKlE5ffb0kA6h7WL41wC5o0SboQDQiWnbgRjweCA8iz7pUeD7XyBW3?=
+ =?us-ascii?Q?NYZNQj9mw9f/qIjMmd/d3Q8kKbQuVuCRR7CfV+d6irHIQcdp2vDab/ZfRf48?=
+ =?us-ascii?Q?wa92uyQz0KteCGgnK0iWu/cnjS0dDOWPOhkf147m0jjm5tRFJeU52cTpk2Tw?=
+ =?us-ascii?Q?VQ4rVb4ZwaOXJrHitCP5Zjz+vkQIxdVedYrBfR9AaA415cEfg/M7/TdPZs1g?=
+ =?us-ascii?Q?v1kq0YdP+0g0DbBW9cEh1F8iCIOK7rlX+DJyCSb1knZ9iYNG2DBPQrpp5GAL?=
+ =?us-ascii?Q?yKjJd2gQCPIG1NEWDweR53531hsR9Y4+IoJnU8uIgTR1JKs3z7DVvlwSa6oT?=
+ =?us-ascii?Q?AN+b8aYs9pjpEohTgRZEl0W+HHSO1KaiXa4Ou2feeAlesXB0N11rrLnDbYx8?=
+ =?us-ascii?Q?1DUPhg2EK2KDOxYb/TjhCZvMaww5EDKKasnArdW0TVhjPTHnpYJ0HZeGmy8n?=
+ =?us-ascii?Q?/yA6YktI28MINPTU1BU5wpoXelpXws1LLTDwmXf3tkNN4Luo9eiwbh0lKnlt?=
+ =?us-ascii?Q?zzv930SVoKXEJJ17fOaOnMB1bW/haNJLiNAbP2eiemJLc42aiJOXspx0rxsj?=
+ =?us-ascii?Q?oMrC5Pyut6ieUUueEtjYT+KF/rmac7tjo7a80ypB9nPd48WeNFTynMKfk7qB?=
+ =?us-ascii?Q?wFrlD/V3sPB9sdJfTmgYgxmajBOhHvh/+bQ09Z9i/5ogQ3L4efkkZS+qhbJ8?=
+ =?us-ascii?Q?+z355+hedyWhyCAG95AVUPqHzFevvT6z8k1W7i6yICslC0D2mZxP8cnMgn64?=
+ =?us-ascii?Q?Qm0GUZ3HDYqc3RwqdrsuJugfmZ+lTp0i9GLdoASmVvGQz2pbqAqoGZvh4HAK?=
+ =?us-ascii?Q?dIhLE1Z1q35R1Os98HoYP3wwIUDq?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(1800799015)(82310400017)(376005)(36860700004); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2024 06:57:56.3322 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fb8e123-e5a8-4481-eadd-08dc6f2c3092
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000009.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8765
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,211 +130,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+Problem statement: During the system boot time, an application request
+for the bulk volume of cleared range bias memory when the clear_avail
+is zero, we dont fallback into normal allocation method as we had an
+unnecessary clear_avail check which prevents the fallback method leads
+to fb allocation failure following system goes into unresponsive state.
 
-Am 07.05.24 um 23:03 schrieb Felix Kuehling:
->
-> On 2024-05-07 07:58, Thomas Zimmermann wrote:
->> Implement struct drm_client_funcs with the respective helpers and
->> remove the custom code from the emulation. The generic helpers are
->> equivalent in functionality.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>   drivers/gpu/drm/radeon/radeon_fbdev.c | 66 ++-------------------------
->
-> Was radeon meant to be a separate patch?
+Solution: Remove the unnecessary clear_avail check in the range bias
+allocation function.
 
-Indeed. It also _was_ a separate patch. This looks like a mistake during 
-rebasing. Thanks for noticing. I'll fix that in v2.
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Fixes: 96950929eb23 ("drm/buddy: Implement tracking clear page feature")
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+---
+ drivers/gpu/drm/drm_buddy.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards
-Thomas
-
->
-> Regards,
->   Felix
->
->
->>   drivers/gpu/drm/tegra/fbdev.c         | 58 ++---------------------
->>   2 files changed, 6 insertions(+), 118 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c 
->> b/drivers/gpu/drm/radeon/radeon_fbdev.c
->> index 02bf25759059a..cf790922174ea 100644
->> --- a/drivers/gpu/drm/radeon/radeon_fbdev.c
->> +++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
->> @@ -29,7 +29,6 @@
->>   #include <linux/pm_runtime.h>
->>   #include <linux/vga_switcheroo.h>
->>   -#include <drm/drm_crtc_helper.h>
->>   #include <drm/drm_drv.h>
->>   #include <drm/drm_fb_helper.h>
->>   #include <drm/drm_fourcc.h>
->> @@ -293,71 +292,12 @@ static const struct drm_fb_helper_funcs 
->> radeon_fbdev_fb_helper_funcs = {
->>   };
->>     /*
->> - * Fbdev client and struct drm_client_funcs
->> + * struct drm_client_funcs
->>    */
->>   -static void radeon_fbdev_client_unregister(struct drm_client_dev 
->> *client)
->> -{
->> -    struct drm_fb_helper *fb_helper = 
->> drm_fb_helper_from_client(client);
->> -    struct drm_device *dev = fb_helper->dev;
->> -    struct radeon_device *rdev = dev->dev_private;
->> -
->> -    if (fb_helper->info) {
->> -        vga_switcheroo_client_fb_set(rdev->pdev, NULL);
->> -        drm_helper_force_disable_all(dev);
->> -        drm_fb_helper_unregister_info(fb_helper);
->> -    } else {
->> -        drm_client_release(&fb_helper->client);
->> -        drm_fb_helper_unprepare(fb_helper);
->> -        kfree(fb_helper);
->> -    }
->> -}
->> -
->> -static int radeon_fbdev_client_restore(struct drm_client_dev *client)
->> -{
->> -    drm_fb_helper_lastclose(client->dev);
->> -    vga_switcheroo_process_delayed_switch();
->> -
->> -    return 0;
->> -}
->> -
->> -static int radeon_fbdev_client_hotplug(struct drm_client_dev *client)
->> -{
->> -    struct drm_fb_helper *fb_helper = 
->> drm_fb_helper_from_client(client);
->> -    struct drm_device *dev = client->dev;
->> -    struct radeon_device *rdev = dev->dev_private;
->> -    int ret;
->> -
->> -    if (dev->fb_helper)
->> -        return drm_fb_helper_hotplug_event(dev->fb_helper);
->> -
->> -    ret = drm_fb_helper_init(dev, fb_helper);
->> -    if (ret)
->> -        goto err_drm_err;
->> -
->> -    if (!drm_drv_uses_atomic_modeset(dev))
->> -        drm_helper_disable_unused_functions(dev);
->> -
->> -    ret = drm_fb_helper_initial_config(fb_helper);
->> -    if (ret)
->> -        goto err_drm_fb_helper_fini;
->> -
->> -    vga_switcheroo_client_fb_set(rdev->pdev, fb_helper->info);
->> -
->> -    return 0;
->> -
->> -err_drm_fb_helper_fini:
->> -    drm_fb_helper_fini(fb_helper);
->> -err_drm_err:
->> -    drm_err(dev, "Failed to setup radeon fbdev emulation 
->> (ret=%d)\n", ret);
->> -    return ret;
->> -}
->> -
->>   static const struct drm_client_funcs radeon_fbdev_client_funcs = {
->> -    .owner        = THIS_MODULE,
->> -    .unregister    = radeon_fbdev_client_unregister,
->> -    .restore    = radeon_fbdev_client_restore,
->> -    .hotplug    = radeon_fbdev_client_hotplug,
->> +    .owner = THIS_MODULE,
->> +    DRM_FBDEV_HELPER_CLIENT_FUNCS,
->>   };
->>     void radeon_fbdev_setup(struct radeon_device *rdev)
->> diff --git a/drivers/gpu/drm/tegra/fbdev.c 
->> b/drivers/gpu/drm/tegra/fbdev.c
->> index db6eaac3d30e6..f9cc365cfed94 100644
->> --- a/drivers/gpu/drm/tegra/fbdev.c
->> +++ b/drivers/gpu/drm/tegra/fbdev.c
->> @@ -12,7 +12,6 @@
->>   #include <linux/vmalloc.h>
->>     #include <drm/drm_drv.h>
->> -#include <drm/drm_crtc_helper.h>
->>   #include <drm/drm_fb_helper.h>
->>   #include <drm/drm_fourcc.h>
->>   #include <drm/drm_framebuffer.h>
->> @@ -150,63 +149,12 @@ static const struct drm_fb_helper_funcs 
->> tegra_fb_helper_funcs = {
->>   };
->>     /*
->> - * struct drm_client
->> + * struct drm_client_funcs
->>    */
->>   -static void tegra_fbdev_client_unregister(struct drm_client_dev 
->> *client)
->> -{
->> -    struct drm_fb_helper *fb_helper = 
->> drm_fb_helper_from_client(client);
->> -
->> -    if (fb_helper->info) {
->> -        drm_fb_helper_unregister_info(fb_helper);
->> -    } else {
->> -        drm_client_release(&fb_helper->client);
->> -        drm_fb_helper_unprepare(fb_helper);
->> -        kfree(fb_helper);
->> -    }
->> -}
->> -
->> -static int tegra_fbdev_client_restore(struct drm_client_dev *client)
->> -{
->> -    drm_fb_helper_lastclose(client->dev);
->> -
->> -    return 0;
->> -}
->> -
->> -static int tegra_fbdev_client_hotplug(struct drm_client_dev *client)
->> -{
->> -    struct drm_fb_helper *fb_helper = 
->> drm_fb_helper_from_client(client);
->> -    struct drm_device *dev = client->dev;
->> -    int ret;
->> -
->> -    if (dev->fb_helper)
->> -        return drm_fb_helper_hotplug_event(dev->fb_helper);
->> -
->> -    ret = drm_fb_helper_init(dev, fb_helper);
->> -    if (ret)
->> -        goto err_drm_err;
->> -
->> -    if (!drm_drv_uses_atomic_modeset(dev))
->> -        drm_helper_disable_unused_functions(dev);
->> -
->> -    ret = drm_fb_helper_initial_config(fb_helper);
->> -    if (ret)
->> -        goto err_drm_fb_helper_fini;
->> -
->> -    return 0;
->> -
->> -err_drm_fb_helper_fini:
->> -    drm_fb_helper_fini(fb_helper);
->> -err_drm_err:
->> -    drm_err(dev, "Failed to setup fbdev emulation (ret=%d)\n", ret);
->> -    return ret;
->> -}
->> -
->>   static const struct drm_client_funcs tegra_fbdev_client_funcs = {
->> -    .owner        = THIS_MODULE,
->> -    .unregister    = tegra_fbdev_client_unregister,
->> -    .restore    = tegra_fbdev_client_restore,
->> -    .hotplug    = tegra_fbdev_client_hotplug,
->> +    .owner = THIS_MODULE,
->> +    DRM_FBDEV_HELPER_CLIENT_FUNCS,
->>   };
->>     void tegra_fbdev_setup(struct drm_device *dev)
-
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index 284ebae71cc4..831929ac95eb 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -574,7 +574,7 @@ __drm_buddy_alloc_range_bias(struct drm_buddy *mm,
+ 
+ 	block = __alloc_range_bias(mm, start, end, order,
+ 				   flags, fallback);
+-	if (IS_ERR(block) && mm->clear_avail)
++	if (IS_ERR(block))
+ 		return __alloc_range_bias(mm, start, end, order,
+ 					  flags, !fallback);
+ 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+2.25.1
 
