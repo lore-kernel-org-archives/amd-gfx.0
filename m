@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 280D3C04FFE
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 18:10:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 067FAC25B5F
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 18:10:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90F6D113150;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6042113170;
 	Wed,  8 May 2024 18:10:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Hz6UPqW0";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ih0YCcGw";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 488C8112975;
- Wed,  8 May 2024 18:10:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CB9510FD21;
+ Wed,  8 May 2024 18:09:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,25 +22,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=34o9j38lIuPsAWMIr1s1WCxeQDVWEE3VRdir/CEHm8o=; b=Hz6UPqW0bjh6dE/iopvMADKk3F
- 1Me4hYL4or1Z3oGlasSEIrLJBEc6NprRn3hA5uKmEcVrE+Aen8/oXY93ygebyNtOXbL7+hTvJhJNp
- XlbxcyGVRJWFUhG01FRP6asBDwh43SafaSw/+/EPdSjkOAUizCgK8N+qdMZzHURaGMmwieRYUOJCD
- Fwcn71zbfrvSFmxvySrz8fvsSTOUJcKeoYN0GQzdXP4mvgZakJvgW3fFI56mFliOoc9CtMQePVxOi
- wBWK2VOfyHjhpBTpo7Y34fTGNDAZ/qLcW8qhAPiKn4sQNOEl/bNcUiKqPAWGhykqAFf3jwKZvQGqq
- WdwLp+CQ==;
+ bh=UpMA+65rY/sCkvxdYJyDdP6Zw8ALk8gPEl4rfTRAbv0=; b=ih0YCcGwNC7cEr2a33Ua621HZs
+ b/NJ+kwnN/tB0qdnjCXOKCnCQk2kKgyOE7QhCJSfIDS9Gdto1YqdaP8HhhTRrgwmGQG7aWg4spEUn
+ buxKB/OYjbVP6D70og4UIRRzMq/HuuQnz7dm6bLVuYCXEYuL6YVXp6PmPl78q8xIPQAg5PHp4IrZe
+ b1e3byDol+8USoHEJy+X4m+8q/WIAxrKkZVJlychTDttzwSGQaz8l8B0uakHWVcepLXy3lrXEsIEf
+ uzxRTVim63kP0DuRdUy95goio3qktHsyC+YWsTyC76OqVGvzNM/pkmR4BbPcXgqsC6W2Xj6SsrQdp
+ 5H+rQaqg==;
 Received: from [84.69.19.168] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1s4ljq-002zRn-At; Wed, 08 May 2024 20:09:58 +0200
+ id 1s4ljo-002zRV-Vu; Wed, 08 May 2024 20:09:57 +0200
 From: Tvrtko Ursulin <tursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Friedrich Vock <friedrich.vock@gmx.de>
-Subject: [RFC 4/5] drm/amdgpu: Use preferred placement for VRAM+GTT
-Date: Wed,  8 May 2024 19:09:44 +0100
-Message-ID: <20240508180946.96863-5-tursulin@igalia.com>
+Subject: [RFC 2/5] drm/amdgpu: Actually respect buffer migration budget
+Date: Wed,  8 May 2024 19:09:42 +0100
+Message-ID: <20240508180946.96863-3-tursulin@igalia.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240508180946.96863-1-tursulin@igalia.com>
 References: <20240508180946.96863-1-tursulin@igalia.com>
@@ -63,58 +63,71 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Now that TTM has the preferred placement flag, extend the current
-workaround which assumes the GTT placement as fallback in the presence of
-the additional VRAM placement.
+Current code appears to live in a misconception that playing with buffer
+allowed and preferred placements can control the decision on whether
+backing store migration will be attempted or not.
 
-By marking the VRAM placement as preferred we will make the buffer re-
-validation phase actually attempt to migrate them back to VRAM.
+Both from code inspection and from empirical experiments I see that not
+being true, and that both allowed and preferred placement are typically
+set to the same bitmask.
 
-Without it, TTM core logic is happy to leave them in GTT placement
-"forever".
+As such, when the code decides to throttle the migration for a client, it
+is in fact not achieving anything. Buffers can still be either migrated or
+not migrated based on the external (to this function and facility) logic.
+
+Fix it by not changing the buffer object placements if the migration
+budget has been spent.
+
+FIXME:
+Is it still required to call validate is the question..
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Friedrich Vock <friedrich.vock@gmx.de>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 50b7e7c0ce50..9be767357e86 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -128,8 +128,8 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
- 	struct amdgpu_device *adev = amdgpu_ttm_adev(abo->tbo.bdev);
- 	struct ttm_placement *placement = &abo->placement;
- 	struct ttm_place *places = abo->placements;
-+	int c = 0, vram_index = -1;
- 	u64 flags = abo->flags;
--	u32 c = 0;
- 
- 	if (domain & AMDGPU_GEM_DOMAIN_VRAM) {
- 		unsigned int visible_pfn = adev->gmc.visible_vram_size >> PAGE_SHIFT;
-@@ -158,7 +158,7 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
- 		    flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS)
- 			places[c].flags |= TTM_PL_FLAG_CONTIGUOUS;
- 
--		c++;
-+		vram_index = c++;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 22708954ae68..d07a1dd7c880 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -784,6 +784,7 @@ static int amdgpu_cs_bo_validate(void *param, struct amdgpu_bo *bo)
+ 		.no_wait_gpu = false,
+ 		.resv = bo->tbo.base.resv
+ 	};
++	bool migration_allowed = true;
+ 	struct ttm_resource *old_res;
+ 	uint32_t domain;
+ 	int r;
+@@ -805,19 +806,24 @@ static int amdgpu_cs_bo_validate(void *param, struct amdgpu_bo *bo)
+ 			 * visible VRAM if we've depleted our allowance to do
+ 			 * that.
+ 			 */
+-			if (p->bytes_moved_vis < p->bytes_moved_vis_threshold)
++			if (p->bytes_moved_vis < p->bytes_moved_vis_threshold) {
+ 				domain = bo->preferred_domains;
+-			else
++			} else {
+ 				domain = bo->allowed_domains;
++				migration_allowed = false;
++			}
+ 		} else {
+ 			domain = bo->preferred_domains;
+ 		}
+ 	} else {
+ 		domain = bo->allowed_domains;
++		migration_allowed = false;
  	}
  
- 	if (domain & AMDGPU_GEM_DOMAIN_DOORBELL) {
-@@ -180,8 +180,10 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
- 		 * When GTT is just an alternative to VRAM make sure that we
- 		 * only use it as fallback and still try to fill up VRAM first.
- 		 */
--		if (domain & abo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)
-+		if (vram_index >= 0) {
- 			places[c].flags |= TTM_PL_FLAG_FALLBACK;
-+			places[vram_index].flags |= TTM_PL_FLAG_PREFERRED;
-+		}
- 		c++;
- 	}
+ retry:
+-	amdgpu_bo_placement_from_domain(bo, domain);
++	if (migration_allowed)
++		amdgpu_bo_placement_from_domain(bo, domain);
++
+ 	r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
  
+ 	if (unlikely(r == -ENOMEM) && domain != bo->allowed_domains) {
 -- 
 2.44.0
 
