@@ -4,68 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F2C6C04FFE
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 08:41:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2A18C04FFE
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 09:13:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 138D3112C06;
-	Wed,  8 May 2024 08:41:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D2551128AC;
+	Wed,  8 May 2024 09:13:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="Eg6cDDEM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OaXi/cLH";
 	dkim-atps=neutral
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C9C4112C06
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 May 2024 08:41:43 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-a59a86fb052so133902166b.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 May 2024 01:41:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1715157701; x=1715762501; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=vj3PIc4hFA9/gXdFfuPOe4yWwg2VXd43faHw15CH2oA=;
- b=Eg6cDDEM1arBPjKZm85lGtmatjMBbgClEmfLWcPbzHDQQka8fX2RQoie3OgQ8DPuhK
- tzYDgVxmWRn6/Gf0OS28Fj7me6Iq3701mUUYGrS4uOCJ1dEb/ZvQzhdkKMaFsGDfJry0
- +rB4YmBsEy4H6YOCKKq+lDsyGiwnqiVfuqBjw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715157701; x=1715762501;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vj3PIc4hFA9/gXdFfuPOe4yWwg2VXd43faHw15CH2oA=;
- b=puAGd/MzlcQFZjWSOGod5Mivi7ODKtSmIp1h8oaKPIX/xSKWCtCu+avMS9aJcokCgg
- EVAQGQMBCkyE7VNrlkZX/hJ2xQB0o1iBpM2CXUL5BigTQK3CJtklcn4gucW9hGnbsRyb
- WhPJyoitZmhwydf5UiUT8ANW8XAhHx5Jf1fa0NvkGvp2rrIWcwazBYHBxbEBSW1HWuKQ
- q8NL63B9Vd0mFeqajAV6dQHXmvMqdJWvRNxtVYsVQ3O2b3BoDnwyNVaE/CtUhbCwSRYp
- p5ohj8GANs4cxWHOfQJQ9Y6pzqiuWL8b9Vi6vpQbvaNd0rR71eolkqZY/ph1hM9vKbAA
- qxwQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWKr3LmZre2CHbXh4vel7rCnRcOgF62UkRXqOCuWlSu3xbTpnnYRVaEVAAxX+ka48jaqRBTpJIcwf0++48w8go6ltSKX55VpASesJOHHw==
-X-Gm-Message-State: AOJu0Yx7fNj5TJwRWhxIrvJ2rSWrUGQlPqTn8B1DLNFBWhIQVWu+32pt
- 3/UvArGACQ2jKxHAnQW2kxjWvbfoSo9+OpAyMG/Cbsp1ehGG+CPxvx0KQp3KAh4=
-X-Google-Smtp-Source: AGHT+IH14cLBvOGAxNNOD0NGpNszsABs3zuyVXh3n6kNBMTLyF0vRRZioU2iVIuWiSighaj0aLtPcg==
-X-Received: by 2002:a17:906:df14:b0:a59:bce9:8454 with SMTP id
- a640c23a62f3a-a59fb94f6d3mr121582766b.1.1715157700922; 
- Wed, 08 May 2024 01:41:40 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- g23-20020a1709067c5700b00a5a0b34110dsm97882ejp.1.2024.05.08.01.41.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 May 2024 01:41:40 -0700 (PDT)
-Date: Wed, 8 May 2024 10:41:37 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, christian.koenig@amd.com, alexander.deucher@amd.com
-Subject: Re: [PATCH] drm/buddy: Fix the range bias clear memory allocation
- issue
-Message-ID: <Zjs6wVITtRuXoRDz@phenom.ffwll.local>
-References: <20240508065720.125846-1-Arunpravin.PaneerSelvam@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F70D1128A4;
+ Wed,  8 May 2024 09:13:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1715159626; x=1746695626;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=klBkLhyD/TIqiC8931eKaEuMvRbhN90D355twxqXUsQ=;
+ b=OaXi/cLHZsxLyB6a+B1UhcyZrNpJFGVOLBod84gHjqI7p+FeilRGwn5u
+ MzrffDUVX+21AbA5uffEmiAzyfxbjG0xsD/IxjbfQ5nQBIvLbXiXGPQKP
+ 6ZpUPOYjJfv3NvDVPJgW7RpiqDw4UN8kUtnOTDUo3rqKpnNFmO1II7E0s
+ F+vvC/kN4arH6I7txWGNTJrF+riZ0YiNnDSNxk5ekT+g2teUICpsQGLO0
+ ddgy4Vb8GZesh607dMyyjOzzhPiefffBAVUroSYK1QO7oqoPI3uidstRm
+ Y51cAROJVDqo6cedeVBf5EEnXcRLH59OlH536/c1LFjPSQjwAXw8qOB2h g==;
+X-CSE-ConnectionGUID: k0L7K8MeRISgOrEuBgsyhg==
+X-CSE-MsgGUID: +HHKAYN6QyqCyUu6ngWu2g==
+X-IronPort-AV: E=McAfee;i="6600,9927,11066"; a="13955909"
+X-IronPort-AV: E=Sophos;i="6.08,144,1712646000"; d="scan'208";a="13955909"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 May 2024 02:13:45 -0700
+X-CSE-ConnectionGUID: xlAUvHplRwGwJS7blNx1vQ==
+X-CSE-MsgGUID: Nl9+D1kuQ+2ZvNQlJR5CBg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,144,1712646000"; d="scan'208";a="29399576"
+Received: from dhhellew-desk2.ger.corp.intel.com.ger.corp.intel.com (HELO
+ localhost) ([10.245.246.76])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 May 2024 02:13:42 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 2/5] drm/amdgpu: Use drm_crtc_vblank_crtc()
+In-Reply-To: <20240408190611.24914-2-ville.syrjala@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20240408190611.24914-1-ville.syrjala@linux.intel.com>
+ <20240408190611.24914-2-ville.syrjala@linux.intel.com>
+Date: Wed, 08 May 2024 12:13:39 +0300
+Message-ID: <874jb8ll8c.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240508065720.125846-1-Arunpravin.PaneerSelvam@amd.com>
-X-Operating-System: Linux phenom 6.6.15-amd64 
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,46 +73,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 08, 2024 at 12:27:20PM +0530, Arunpravin Paneer Selvam wrote:
-> Problem statement: During the system boot time, an application request
-> for the bulk volume of cleared range bias memory when the clear_avail
-> is zero, we dont fallback into normal allocation method as we had an
-> unnecessary clear_avail check which prevents the fallback method leads
-> to fb allocation failure following system goes into unresponsive state.
-> 
-> Solution: Remove the unnecessary clear_avail check in the range bias
-> allocation function.
-> 
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Fixes: 96950929eb23 ("drm/buddy: Implement tracking clear page feature")
-> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+On Mon, 08 Apr 2024, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> Replace the open coded drm_crtc_vblank_crtc() with the real
+> thing.
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+
+FWIW,
+
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+
 > ---
->  drivers/gpu/drm/drm_buddy.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c          | 8 ++------
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+>  2 files changed, 3 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vkms.c
+> index 8baa2e0935cc..258703145161 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> @@ -65,9 +65,7 @@ static enum hrtimer_restart amdgpu_vkms_vblank_simulate=
+(struct hrtimer *timer)
+>=20=20
+>  static int amdgpu_vkms_enable_vblank(struct drm_crtc *crtc)
+>  {
+> -	struct drm_device *dev =3D crtc->dev;
+> -	unsigned int pipe =3D drm_crtc_index(crtc);
+> -	struct drm_vblank_crtc *vblank =3D &dev->vblank[pipe];
+> +	struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+>  	struct amdgpu_vkms_output *out =3D drm_crtc_to_amdgpu_vkms_output(crtc);
+>  	struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
+>=20=20
+> @@ -91,10 +89,8 @@ static bool amdgpu_vkms_get_vblank_timestamp(struct dr=
+m_crtc *crtc,
+>  					     ktime_t *vblank_time,
+>  					     bool in_vblank_irq)
+>  {
+> -	struct drm_device *dev =3D crtc->dev;
+> -	unsigned int pipe =3D crtc->index;
+>  	struct amdgpu_vkms_output *output =3D drm_crtc_to_amdgpu_vkms_output(cr=
+tc);
+> -	struct drm_vblank_crtc *vblank =3D &dev->vblank[pipe];
+> +	struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+>  	struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
+>=20=20
+>  	if (!READ_ONCE(vblank->enabled)) {
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 71d2d44681b2..662d2d83473b 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -528,7 +528,7 @@ static void dm_vupdate_high_irq(void *interrupt_param=
+s)
+>  	if (acrtc) {
+>  		vrr_active =3D amdgpu_dm_crtc_vrr_active_irq(acrtc);
+>  		drm_dev =3D acrtc->base.dev;
+> -		vblank =3D &drm_dev->vblank[acrtc->base.index];
+> +		vblank =3D drm_crtc_vblank_crtc(&acrtc->base);
+>  		previous_timestamp =3D atomic64_read(&irq_params->previous_timestamp);
+>  		frame_duration_ns =3D vblank->time - previous_timestamp;
 
-Can you please also add a kunit test case to exercise this corner case and
-make sure it stays fixed?
-
-Thanks, Sima
-> 
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index 284ebae71cc4..831929ac95eb 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -574,7 +574,7 @@ __drm_buddy_alloc_range_bias(struct drm_buddy *mm,
->  
->  	block = __alloc_range_bias(mm, start, end, order,
->  				   flags, fallback);
-> -	if (IS_ERR(block) && mm->clear_avail)
-> +	if (IS_ERR(block))
->  		return __alloc_range_bias(mm, start, end, order,
->  					  flags, !fallback);
->  
-> -- 
-> 2.25.1
-> 
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+--=20
+Jani Nikula, Intel
