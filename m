@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 667AFC04FFE
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 17:18:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12CE5C19F4F
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 17:18:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 136CC10F640;
-	Wed,  8 May 2024 17:18:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96AC0113123;
+	Wed,  8 May 2024 17:18:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T6aGIf0J";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jkkbmcBm";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2057.outbound.protection.outlook.com [40.107.236.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A13410F640
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 May 2024 17:18:02 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2063.outbound.protection.outlook.com [40.107.102.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC29E10FCF2
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 May 2024 17:18:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZdLW6DnC9MMXgq4Va1mILPEo2GwDDVKSJQuyqVEKpdcSi261DEOt8SlNMNmNZK2+w49kBGG7qAJJJHeT9TnttwyhC6lQPxw3Wd1npK3AT1B8z4vn3XL6CWd+kp1cXK2U9Uc8vMzaxZfD8e20ytM1OlrVZjJje3laN5MOLuUGoIv3wtjxo5ZNesi86P+cd97hVs8G3+/c+3vLdJrJELexeE1evbsL6wIghZ8pLXWTtywAnQLIkcNh5jQkMsrDu72PgGeN6h15ECm7DALTluS3atuMBrpqsTwZtl4M9L75nWRlZjFNRJjz5ksLD7XMzQ9gMHV9K/f0c+aZJl5a4dWJZA==
+ b=mpzL/t/+3lKD1nKPZ/xXVrek0/kY8pZuD4sF4iiQMQVYyD5Ln1T/Q/0O7h8Y7l/kDIpN76xx29SqkwR9Mm4hQgqFJLtxNuFeoclmYw38evw+i9OSJ+V4A+YnCvkXP9Flb9id7pRaDaTCsnw9UmqhmZFuIJqiz705gUkOKg9Ap9E8d7lkTl/u/PGjLQ6oarydywxDj6Ozsh6UaSqr2abvOB5FCy2G+Kr6e5khEr/r056HiFa2hktbcCxOHEUXHLALI8rMzIcAxZY7kZ41SWMqRyyF8gprdADzGf/e0xlI1qrNcJu/Db+Bninda3jkQCdQQpDupu72wXC+mxr/iGPhiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JSWlu+oU1x8izn9R1XXZVgKB4HYeRzqCNVid1lj+Ig8=;
- b=NHYnzmTy/tk5YBH00FY2mEtdjWX/fTE7nBrHbeBH8y+QlQfKUYV5TDOKoMpfDiMzAwmwsCI8CNMRBfzgTRy3tCy7J7aJHdB15NL1wXhf/ggL6I5WK3GE9jZpIW+PitoMdsj2P7Pc2sNivsdRi+oCDx75dbmBQAvDAo1cH0JqQVDSEuBegpYvBZj2+OCTYb+Yzn4W+QMQJYJG3nZP3CVhhGOC+ydm9cWVLRSaKr6b2e6DP/rPO2/kucCRP0pQGW+EtJvcS+PBv2+2/3sCIT74dcVFPm5BpSXxFGbebebEmSPKLzLmLzi6YK+TyPXEN7YUKYbpTKzdZDRdwJ0kW1stLg==
+ bh=0AIrjuq8A7Bt0R1Hmb9+82G1yRDZplmlo4zPlKB6QmU=;
+ b=f8alS4SnAfDLFODc35l7XIAIHxBYP1KgtgQrpDzAaix2V6YwKp26FKm7DAROZmY8+ULCmataU5PbBFZ66WWPZj4vJV5qjGy/LruNTrUxzSp2YzbIqF18IDPxZjpX3pNoKLyftE2Tmbg+Nq0Q1h1AckjT5uxiQ5Y7UaE/P7hmz2mVtLANzVzkBnbBrX+RDf0SVZScaZ6SxbH+WEguCeHOQeW2I2drqIw7VSME9M0RVAKjj7oQ1sMxWY9iWfPwYPQUTzYsvjjmlBLruGvXgpxQ9104h+hio4T6n7UOcAtuc+x976kTq9uBGLX1YMqJR47UPfifUQeLBLmVMXgkgJF+pw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JSWlu+oU1x8izn9R1XXZVgKB4HYeRzqCNVid1lj+Ig8=;
- b=T6aGIf0JbIwgF1QTAR1qNbMptPVYmFedu4w600pwrRqq6Q4YSL4/od13hPNmRC8sI7NfA2zQfOEc0pPJNTXrrUuD6UJORxlXVZMK4SVAsnXw1/q2Vywz7xHN+M4NGBcgEEddJ8hCJmkEwsrQvrY3FFi3+sbgdAzrUT0RnxtxWDg=
-Received: from BLAPR03CA0109.namprd03.prod.outlook.com (2603:10b6:208:32a::24)
- by SJ0PR12MB6968.namprd12.prod.outlook.com (2603:10b6:a03:47b::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42; Wed, 8 May
- 2024 17:17:58 +0000
-Received: from BN3PEPF0000B372.namprd21.prod.outlook.com
- (2603:10b6:208:32a:cafe::d) by BLAPR03CA0109.outlook.office365.com
- (2603:10b6:208:32a::24) with Microsoft SMTP Server (version=TLS1_2,
+ bh=0AIrjuq8A7Bt0R1Hmb9+82G1yRDZplmlo4zPlKB6QmU=;
+ b=jkkbmcBmzQFfRcWgrR+fmt3FRqJUWnp536gJnSqEGyZQGdgFPQgSo2iNariyw1D4/Uae4w8BbR/ibkwg9qCRC0E9kyFf+Trg0QeZNgxwkFQnmGpZT23bYo4PAfhND3oVCwlyxF7ChTP2GuBqMzSOd+9RxSKen2qMJMebiI9WhIY=
+Received: from BN9PR03CA0915.namprd03.prod.outlook.com (2603:10b6:408:107::20)
+ by DM6PR12MB4185.namprd12.prod.outlook.com (2603:10b6:5:216::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.43; Wed, 8 May
+ 2024 17:18:14 +0000
+Received: from BN3PEPF0000B371.namprd21.prod.outlook.com
+ (2603:10b6:408:107:cafe::dd) by BN9PR03CA0915.outlook.office365.com
+ (2603:10b6:408:107::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.41 via Frontend
- Transport; Wed, 8 May 2024 17:17:57 +0000
+ Transport; Wed, 8 May 2024 17:18:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,25 +48,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN3PEPF0000B372.mail.protection.outlook.com (10.167.243.169) with Microsoft
+ BN3PEPF0000B371.mail.protection.outlook.com (10.167.243.168) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7587.0 via Frontend Transport; Wed, 8 May 2024 17:17:57 +0000
+ 15.20.7587.0 via Frontend Transport; Wed, 8 May 2024 17:18:14 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 8 May
- 2024 12:17:54 -0500
+ 2024 12:18:07 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, George Shen
- <george.shen@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Alex Hung
- <alex.hung@amd.com>
-Subject: [PATCH 13/20] drm/amd/display: Check UHBR13.5 cap when determining
- max link cap
-Date: Wed, 8 May 2024 11:13:13 -0600
-Message-ID: <20240508171320.3292065-14-alex.hung@amd.com>
+ <hersenxs.wu@amd.com>, <jerry.zuo@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ Chris Park <chris.park@amd.com>, Alex Hung <alex.hung@amd.com>
+Subject: [PATCH 14/20] drm/amd/display: Don't offload flip if not only address
+ update
+Date: Wed, 8 May 2024 11:13:14 -0600
+Message-ID: <20240508171320.3292065-15-alex.hung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240508171320.3292065-1-alex.hung@amd.com>
 References: <20240508171320.3292065-1-alex.hung@amd.com>
@@ -78,50 +77,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B372:EE_|SJ0PR12MB6968:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3032937e-5371-4208-fc73-08dc6f82ce5c
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B371:EE_|DM6PR12MB4185:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b4e4e6c-0d46-4029-7f57-08dc6f82d82b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|1800799015|82310400017|376005|36860700004; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?AXtmnAfQKIgb8kMnUQ04mAqcI9W+6/t2C1lNIwtVLTg9HMUdcbbgTBXRiFh/?=
- =?us-ascii?Q?y3N1rK4SUKo38vvh3RLqEigOoV/3cKubJAnPii9RVwLXrm+WUR89xEMIXWgS?=
- =?us-ascii?Q?U9H/xADiFL850qWUPPZZXSfJS3AfSzx07NON2tY8y5BUL2+HGfGLpR23ufmV?=
- =?us-ascii?Q?KZAHRBAHuqi856PSYqbsK4/Hq9VOxLuvyw4lGvviKVehzwh7bd8BL/QzHOI3?=
- =?us-ascii?Q?FFJZTLbsqqfRka/xSPj97hoOR7oGhHoiXCGwwRBgz2ocJQ0818PKVgT4W+aM?=
- =?us-ascii?Q?VO1faDMGcwVod6IBk7pDWlyCYODIiFdKry8m5T1Y5bEguCVJ/UoCHywlOqWf?=
- =?us-ascii?Q?VQ0olOQ8UAA+SSyok3yMSej8AhTkCvdesyzk9KDCg+Z8c2xiBesn4YZ6RmYa?=
- =?us-ascii?Q?6RG/jAldGcXtOA2pqaMfyJFZLK/h1ADOmxGQ5qynGH85HJSP7AW8iNrJl6K5?=
- =?us-ascii?Q?xtM15WMWzciO25XorvjLN7yDgw6T+vlx91kJWWBilpkeU+WTicm1DXGbqQiX?=
- =?us-ascii?Q?KpnRiZw3CNiQWIBQvBhhWbzAnM0GWsB9qdct6koeLyLZD2ic1/YgGzNmIo7e?=
- =?us-ascii?Q?PkhDBDi0n4XXx4mrc8ziJsp2SVHEkUKI2rSl2368XEcaje0lZ0x8WmCpxu7B?=
- =?us-ascii?Q?7yytCNzd5fah+uF+iXFImWj/FiXc0IaAV5quwuCI6q3b0CU/IBsR9w+okEJt?=
- =?us-ascii?Q?j87lG6wGIW8HFNB5lpvpKMaCnNZvNDp04pPIBG4z2w2XFlbcDRmHUvDY2S4f?=
- =?us-ascii?Q?5ciR9XiK1Qbrfd/XtflpfpIqecyNuIKQqWip/6HJPir7X7BqO2BB3+43BzQz?=
- =?us-ascii?Q?mF8tDK4T9tx/eVF2iTOm/Qi99OVIo/pkjC3o579twvFZ09NF9gHjafASuTCh?=
- =?us-ascii?Q?X6ETAWzPms7vrKDwYSAUovzTEGp7HqgWzaGTMnl2jDTv6iGJQH4KdXbRHuVl?=
- =?us-ascii?Q?qi3pjcf6vpXyEZVRhyWN7hqOHy1QLvO/rbjn0pdG+2lZdVQbLnEIELvzgCLN?=
- =?us-ascii?Q?HNdIBDJ4phFQOw1eB4bV7ooynJnGlF274IAk9nk2Ibu4mkC7rOPioqurihfP?=
- =?us-ascii?Q?S0mccZySizLrqSRp9eSR2QXlX3fyBMwFCU8a6YpyvMoiE0zkAENNXJKsDOP6?=
- =?us-ascii?Q?vVAhxR14f8jUWXoXjUeobKnc2kAwCbHlNKBpq5ajrr8JMikKzvesTsCqjU42?=
- =?us-ascii?Q?LYb/ENR3FXePHX31JV4qRzgCx8o8EVCucabBgUX+1/naZIU416PobkP1OsO6?=
- =?us-ascii?Q?hTUuEnUKvGybh58TNv5UeeHbA27a7GYpX4VK1bIqT9dDYDWB5xW11PvdOWJy?=
- =?us-ascii?Q?8YtPajbvzvXAVZo4P3tXeijHhVSa2WMufVY8VNx2RSukMHpOVXknxhJI2yZ6?=
- =?us-ascii?Q?37C7uHpXBk6nH6nP01Covp20cm4W?=
+ ARA:13230031|376005|82310400017|36860700004|1800799015; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?xrmxaOZiXt9FZGj2CEosPd2CNaBJe4SRRo2OsvhhAQoBtM4+jaohiKVkUWVq?=
+ =?us-ascii?Q?06vlzJhYyJ2w8Ir3LOLsPhKBW5ylPPE/ew7zFWCCxsB0urxoVSp7krZGibJZ?=
+ =?us-ascii?Q?9bTYZjPawihZpYUV0Ro1UN3cotjA4O/XTpEXQgEH7Kw+ji5nGyzIbKLaeUNR?=
+ =?us-ascii?Q?Oo3oGOzwmVz1afsrpoBFxEPwByKhdkswnd57N0GHePyJgu5T2yg7MXnflUPQ?=
+ =?us-ascii?Q?wQtxbd+c2uqjTxYn11vBqFHH+4x5wC8ILlWFRBUNZbXYju/Dv6abmLvU5GYz?=
+ =?us-ascii?Q?Qe77EWQgEcpjgftP07fiVbRkK22X1XrmOS7/6Cec1vE61BBfh2/Yr4lsDUNN?=
+ =?us-ascii?Q?hja5rnUg+n0NYH4m5CETBcH2B3uOzvpBQxmu7c/FcdNe4KxkwE3sM5gczDhr?=
+ =?us-ascii?Q?mBEyCcYvEeAzgwLiqwBwaYOBkQIXo+3gcsomim1LDbiNgLQuJH33+5YrEJnS?=
+ =?us-ascii?Q?0gsY/py7Y9OrABWd1/vjaMISKhz62ZVHNVEROH/n62aDSX9fofZrOCrt+m+t?=
+ =?us-ascii?Q?gaZ9TfnvuWnJnyWaYSumUuNWhWW310Hg0n9xvS5RPd1BrzPhpPy8Y14bTQRI?=
+ =?us-ascii?Q?SVOA6TSQK1ZD+IlYg6Yo/o/OKBX8qjCG58/a1ZTq+sF4vG41p5mKN6IMH+a/?=
+ =?us-ascii?Q?GbFg0Rf5y4oyAyFzCN/pGvNbiOdn8OJKyUKE1M/F6gGSwmJvRFjXEHOt0qx/?=
+ =?us-ascii?Q?XhZnQ67Nw+e9MBJpxRutMRnxA/+FjH7s31JgAIwkGUgCVsJKxmzt1ur6HONF?=
+ =?us-ascii?Q?buYXkb3/BXgXHNY7RKDlMCEpBz6F+pwV+qbRJ+GL/3pT3hDFpzRDbXlF6feH?=
+ =?us-ascii?Q?jFT8RxYX/MCekq8BO/9V/lND6OAH51j+rb66FoEFqegEUFEKS6/gkaqcvuR6?=
+ =?us-ascii?Q?S+a+qGfugazBrVw/gx4TLKz0PlL83T2tD95lgeXcUbNUE1iDV93R5hcLz6Hw?=
+ =?us-ascii?Q?yazYZP/tokvgPumpuWTguULzUng52d1AzEP3BrSJIyvKcOihpW3a7wEYF6wp?=
+ =?us-ascii?Q?QFPAc3Do1DNE+WWBcr2DxZkTfSqjqb1shZC1Sj659krn3XmZZdSA0xZL+rrH?=
+ =?us-ascii?Q?gz+UULxZSdSzRCg0098/HmQ2mqx2S4Oh4M2KjLv8ZaXHB6pU7cPrvNEZYWjx?=
+ =?us-ascii?Q?qdD76VtIgLyzsX7l1CR7AzC5jDcO9OTsvqDPoVjkWZ9m+aB4Y8IsWz9bFaY1?=
+ =?us-ascii?Q?rjIrV+FC06r0OCd6OwV4ueCPEN+duC7jcnO2CxqSIXoOqPSx+OtEXuuaNRt5?=
+ =?us-ascii?Q?CrbVDPb/3KDJiq8CCaDmLskN0NDzV64Cih0crKHaUjSwsyKYBTHy33LpIPkb?=
+ =?us-ascii?Q?aRXqiqcAykOYtxnc5ix6BD7dpv5zYwv5zgx24Qn2LvPL5PTSx/LvYadORVsj?=
+ =?us-ascii?Q?mMhxosZDyNz69Y1hR0xKMMynLMMa?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(82310400017)(376005)(36860700004); DIR:OUT;
+ SFS:(13230031)(376005)(82310400017)(36860700004)(1800799015); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2024 17:17:57.8087 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3032937e-5371-4208-fc73-08dc6f82ce5c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2024 17:18:14.2616 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b4e4e6c-0d46-4029-7f57-08dc6f82d82b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B372.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B371.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6968
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4185
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,80 +135,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: George Shen <george.shen@amd.com>
+From: Alvin Lee <alvin.lee2@amd.com>
 
-[WHY]
-UHBR13.5 support is optional, even if UHBR20 is supported by the device.
-If source supports max UHBR13.5 while sink, cable and LTTPR support
-UHBR20 but not UHBR13.5, UHBR10 should be used as the max link cap.
+[WHAT & HOW]
+Fast updates can consist of some stream updates as well (i.e., out_csc).
+In these cases we should not offload the flip to FW as we can only
+offload address only updates to FW.
 
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Reviewed-by: Chris Park <chris.park@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: George Shen <george.shen@amd.com>
+Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
 ---
- .../dc/link/protocols/link_dp_capability.c    | 22 +++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index 8f57b344f09e..766116ec627d 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -2062,7 +2062,7 @@ struct dc_link_settings dp_get_max_link_cap(struct dc_link *link)
- 	enum dc_link_rate lttpr_max_link_rate;
- 	enum dc_link_rate cable_max_link_rate;
- 	struct link_encoder *link_enc = NULL;
--
-+	bool is_uhbr13_5_supported = true;
- 
- 	link_enc = link_enc_cfg_get_link_enc(link);
- 	ASSERT(link_enc);
-@@ -2083,6 +2083,9 @@ struct dc_link_settings dp_get_max_link_cap(struct dc_link *link)
- 		max_link_cap.link_spread =
- 				link->reported_link_cap.link_spread;
- 
-+	if (!link->dpcd_caps.dp_128b_132b_supported_link_rates.bits.UHBR13_5)
-+		is_uhbr13_5_supported = false;
-+
- 	/* Lower link settings based on cable attributes
- 	 * Cable ID is a DP2 feature to identify max certified link rate that
- 	 * a cable can carry. The cable identification method requires both
-@@ -2101,9 +2104,13 @@ struct dc_link_settings dp_get_max_link_cap(struct dc_link *link)
- 	cable_max_link_rate = get_cable_max_link_rate(link);
- 
- 	if (!link->dc->debug.ignore_cable_id &&
--			cable_max_link_rate != LINK_RATE_UNKNOWN &&
--			cable_max_link_rate < max_link_cap.link_rate)
--		max_link_cap.link_rate = cable_max_link_rate;
-+			cable_max_link_rate != LINK_RATE_UNKNOWN) {
-+		if (cable_max_link_rate < max_link_cap.link_rate)
-+			max_link_cap.link_rate = cable_max_link_rate;
-+
-+		if (!link->dpcd_caps.cable_id.bits.UHBR13_5_CAPABILITY)
-+			is_uhbr13_5_supported = false;
-+	}
- 
- 	/* account for lttpr repeaters cap
- 	 * notes: repeaters do not snoop in the DPRX Capabilities addresses (3.6.3).
-@@ -2116,12 +2123,19 @@ struct dc_link_settings dp_get_max_link_cap(struct dc_link *link)
- 		if (lttpr_max_link_rate < max_link_cap.link_rate)
- 			max_link_cap.link_rate = lttpr_max_link_rate;
- 
-+		if (!link->dpcd_caps.lttpr_caps.supported_128b_132b_rates.bits.UHBR13_5)
-+			is_uhbr13_5_supported = false;
-+
- 		DC_LOG_HW_LINK_TRAINING("%s\n Training with LTTPR,  max_lane count %d max_link rate %d \n",
- 						__func__,
- 						max_link_cap.lane_count,
- 						max_link_cap.link_rate);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 0f20a3d96d93..0208b28517ac 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3664,6 +3664,10 @@ static void commit_planes_for_stream_fast(struct dc *dc,
+ 				break;
+ 			}
+ 		}
++		if (stream_update) {
++			/* more than address update, need to acquire FAMS2 lock */
++			should_offload_fams2_flip = false;
++		}
  	}
  
-+	if (max_link_cap.link_rate == LINK_RATE_UHBR13_5 &&
-+			!is_uhbr13_5_supported)
-+		max_link_cap.link_rate = LINK_RATE_UHBR10;
-+
- 	if (link_dp_get_encoding_format(&max_link_cap) == DP_128b_132b_ENCODING &&
- 			link->dc->debug.disable_uhbr)
- 		max_link_cap.link_rate = LINK_RATE_HIGH3;
+ 	dc_exit_ips_for_hw_access(dc);
 -- 
 2.34.1
 
