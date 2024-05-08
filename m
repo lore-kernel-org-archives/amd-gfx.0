@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFB9AC25B4F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 20:29:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3835C25B5F
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 May 2024 20:29:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAA1D1131B7;
-	Wed,  8 May 2024 20:29:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4779A112976;
+	Wed,  8 May 2024 20:29:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4+gTKzrc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B3p0oQxq";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2061.outbound.protection.outlook.com [40.107.93.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B921011296B
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2068.outbound.protection.outlook.com [40.107.220.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7239411296B
  for <amd-gfx@lists.freedesktop.org>; Wed,  8 May 2024 20:29:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YLa+QYysJV/0qSBF+lGUJtl64GdxyBw54OjWnG1ufbuw6dxJGqi/vlRm173wAK4FUFFM0yso+tAwnbvravyw69Plyb8SKuHFkMXoGONmFZ/eF+pEus+3HT8z9Q1Jlv6rNP/jePI+tTRElyUsU7wVYzmEVK+wxr72YBIhPY9Qdsxnoaynjp0QCH9tnSF5bqr4+p6SGx+ewV3cmaW3i2X4LYyxxLcajjspygYJv4LsPxnUOOkkrmPkm3zwWjXDKiUoj952t6XVq5JIGhQs7Olj3CGfGh2qQvBwU7iXrmy6f2FB8GN748skSDNrzwjlakNVamuK0VJ2Tr1bj997rn+L5Q==
+ b=DClgsTaz1UVzeJzVyayMDm7ehYQHUwdpUD5XzfV8nTE86ObcbrS+rICa/+9uliZuU2IBgZSj3Ua3gFCk5D4pW6XYREiykzN6H5vpqhRTzQ3+GvJ9VgIS/Lu0BO7izDm6N6hZ/wdQo/dut4Zbz61Hu/26vBvM4JIJowhrcSyWANEoqYCN2GSsuPZ6Udh3tA3CSKJ5Bwg+yfWe3mPDhA6/oSfkmovtZY2thMc92dr0Y+BWWOgjbX4Sk7pdqoB54v2j8GWD2MnoIDIhVGes5wkt8RGUF/zXl88hwUDriNiUulbvvINnzg/wSqJWrrzWQgV7OMyIw8doXVQE8j5c71QWuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3/PF0h8MjNI2IMeqfVoJAp8jvPeFm4YqM3E4yyKesqc=;
- b=B8FpBTTZ+B4GxgZmGDFYz3/TGlDiOBAW0Io6y0/icOj5ToHlLswew4d31mYh3XM5U7Xkqcul2uLIrtLT1wufNCT2rfG9xyEOrIj//iAUuztIH40P3YeEXC1i9TliPgBkoeHnq4OKvS2uy/ylw5zX6VxCbhyzVGRxCIEPllDoryY6jSEIz+16u2s8sOCZJE0cz0gafnnb5dG9IFfCMHKfa3QkEn7LqlBFJ2GUPVhZE/Bfi77KB4o/rqvh2VpEkUqaIvVN73I3y5f1UJUCpFgUhiO9jmb+O6CeZiEPBxmQARJ9bH4u3XM+DATMeN5Zke9YcGx/A/7FhcLku6dRCAXEmg==
+ bh=ajHcg+x8qNGJ8ZLM/UlLSLb6LgCQk2SADJe/qC3gpQU=;
+ b=LtqogoCxR3JJMvbOGFWq6DqgCwARPMfoYLJ1lgkOofej/VH4daIMV+vaVAOSeIbkbYZfRX+ti4Y+DKt59Cx5Fp8o2OrULIEhgZwGcc0//3A2iK8aT4mKtdS9u5cJHIpkYwlt1hb9eVvqVuZkvzBIY8NbfoUYAAF/w7/Jy2fTU4C3o/i2N0PFd5UVhdkVCUs+bVWpDFHSk7dEo3srmsrAfSuE5utw4Y510BG3cNiF5AwWFb6gkYcwNu18AQUOqCOdSer/Ahb0yuQEQJeoF+/9bsi2ZnGbaCnq7akB8wLiU2MCRKlATUeVVngRGL3FLMbZslAwUVNabqPgHZjmBF/Wcg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3/PF0h8MjNI2IMeqfVoJAp8jvPeFm4YqM3E4yyKesqc=;
- b=4+gTKzrcLwd/NWM9wiksd/moIxoohw9yx3Kvo90WQNqSonQNmtgc0jDs9WkvEaNeq5KVrO2GjCbyfxpufvKPsMqim7wS8TggHQvLLSneVR2XfL+Znzbj7RtXixgK8Q/6rAjGZ6iVhAKxUOdrRnQ6T3Sry7R6HTqyh7apcrW9Uj0=
-Received: from DM6PR14CA0048.namprd14.prod.outlook.com (2603:10b6:5:18f::25)
- by DM6PR12MB4235.namprd12.prod.outlook.com (2603:10b6:5:220::12) with
+ bh=ajHcg+x8qNGJ8ZLM/UlLSLb6LgCQk2SADJe/qC3gpQU=;
+ b=B3p0oQxqloRcOgxFGxjr/A8dBXR0KlZsDbtAwkSwlyQMo/3TLRT+BdJ0EcJDr+4C7KQ//Nff/hiR8Szl6eQLIT9CPe1rFs508gdEiUIxNCRn1OXQTaRG+GVNafShMjDXSz1OTOMVIFtPEWoQby5KXzm1qF8NoS7HGpTGetO+rD0=
+Received: from DS7PR03CA0298.namprd03.prod.outlook.com (2603:10b6:5:3ad::33)
+ by LV8PR12MB9452.namprd12.prod.outlook.com (2603:10b6:408:200::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.46; Wed, 8 May
- 2024 20:29:12 +0000
-Received: from DS1PEPF0001709B.namprd05.prod.outlook.com
- (2603:10b6:5:18f:cafe::27) by DM6PR14CA0048.outlook.office365.com
- (2603:10b6:5:18f::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.45 via Frontend
- Transport; Wed, 8 May 2024 20:29:12 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.39; Wed, 8 May
+ 2024 20:29:13 +0000
+Received: from DS1PEPF00017097.namprd05.prod.outlook.com
+ (2603:10b6:5:3ad:cafe::e7) by DS7PR03CA0298.outlook.office365.com
+ (2603:10b6:5:3ad::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.43 via Frontend
+ Transport; Wed, 8 May 2024 20:29:13 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0001709B.mail.protection.outlook.com (10.167.18.105) with Microsoft
+ DS1PEPF00017097.mail.protection.outlook.com (10.167.18.101) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Wed, 8 May 2024 20:29:11 +0000
+ 15.20.7544.18 via Frontend Transport; Wed, 8 May 2024 20:29:13 +0000
 Received: from MUN-L-SHSHARMA.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 8 May
- 2024 15:29:10 -0500
+ 2024 15:29:11 -0500
 From: Shashank Sharma <shashank.sharma@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Arvind Yadav <arvind.yadav@amd.com>, Shashank Sharma
  <shashank.sharma@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
  Christian Koenig <christian.koenig@amd.com>
-Subject: [PATCH 3/4] drm/amdgpu: suspend gfx userqueues
-Date: Wed, 8 May 2024 22:28:36 +0200
-Message-ID: <20240508202837.1411-4-shashank.sharma@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu: add userqueue resume
+Date: Wed, 8 May 2024 22:28:37 +0200
+Message-ID: <20240508202837.1411-5-shashank.sharma@amd.com>
 X-Mailer: git-send-email 2.38.0.windows.1
 In-Reply-To: <20240508202837.1411-1-shashank.sharma@amd.com>
 References: <20240508202837.1411-1-shashank.sharma@amd.com>
@@ -74,50 +74,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001709B:EE_|DM6PR12MB4235:EE_
-X-MS-Office365-Filtering-Correlation-Id: 764064ba-8493-4dc9-db44-08dc6f9d858d
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017097:EE_|LV8PR12MB9452:EE_
+X-MS-Office365-Filtering-Correlation-Id: ebe01a02-5345-4280-2fbd-08dc6f9d865f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|376005|36860700004|82310400017|1800799015; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?txZYNAL6hLVQLvpQjcKaFV4x75X/sf2vbcOhGqvXnd69WiOhJ0KD+ozGHzyU?=
- =?us-ascii?Q?p35gUtUnwvPGiwdSkGlJzMmRK4z6iNCkCLpEXRYYG0SxbXcUmRaZrUSEU+km?=
- =?us-ascii?Q?JBtn9qz1ysoleJHoTZyeHmujmEkTAs6KIdQgDDxYQO9ms1Qfq34iYAVmgMg1?=
- =?us-ascii?Q?vATkPL2uXguR52HDLxekiK1F/AS+XZHSCrFGxrrMF9/gyAjEjWOXO0OQyJt/?=
- =?us-ascii?Q?zpQrYNzXbise8CbKBODbzUzwhCOVBAm0ShDtX7G0AVyc5GfE/wmP552PynBA?=
- =?us-ascii?Q?FfMColo51JwcUYUzL5W3AVokH/ZBj9clL35id6AVu2OPRin+LXIkX9FgDovt?=
- =?us-ascii?Q?oyyKncSPj2T7z3mAbOxAbVlYV9laAjG2a1xlsw9W133xQbjaCKhCFZ29JHFH?=
- =?us-ascii?Q?eQBjUDin9fSs52ehEUYGhDRwyLxbcIVuE9rsexs27zEBvSFoRpp2Kh4cvdSZ?=
- =?us-ascii?Q?W6PINI7x6Tqv97h/bSV5LXktgg/04LwAEf2pAZ2sOx4lpXoBWW3PNQkbzwKZ?=
- =?us-ascii?Q?SnxXitPHYvXfvi9OR4Q0zOQwSsJAEmcfzTlR1y5CA6XeD54am9H1H3A7ZYiF?=
- =?us-ascii?Q?mVT/e9OEh5ABtfRGWqVusdCsZSNLEmY9gFIHE3oHXqZvC/E0katt5dy2/HP5?=
- =?us-ascii?Q?8uWNuUpOsc6/KZzZApmAgoqKjYML9NLebRFHIIk2DwthZNtU0zKMy9cunahY?=
- =?us-ascii?Q?y6HSO/CCLC/E7hMAufzMfk2a0pELzMB4hHFK1kPtRnmgPXN0ZFWPZWvWvFty?=
- =?us-ascii?Q?0BsTRJ4Py2vYf1Ggf/f5ydc14q0BgPjx3Y106v25d6f25si86W74rrthkwEb?=
- =?us-ascii?Q?AJdY8SOl+uT6x4TNNNpCIKAbHHUliZFAwa/yX3vVX1c5RJk5BKT794jPrwS6?=
- =?us-ascii?Q?mGxc9nvEHPKUOYnJ7kpBXSN5NVXZSW979aGEChqK56uoR5hcgA8V3CCLUgpj?=
- =?us-ascii?Q?VAHuvMSlxvIsC3LG31BujsLMu9fqODHvB8qfMXUGjqrdVd/LB996cZjuvB3Q?=
- =?us-ascii?Q?Bgyuew1kmI4gEqYErcjX8vMhLzhCBufh3eYmsSJ//ndPYI4G9othyMNrxdcV?=
- =?us-ascii?Q?+eafeT4hp4CDF/gB3oA3Pvl837c7R8xrYtr2EKGhSCIWCiJkUgryvte+Xldu?=
- =?us-ascii?Q?UWSZrwV0QMAgGUxzJqqcC0wu5WcEDC0lbfZ7LGsD8U+7WbAYtK1sExrs8zqp?=
- =?us-ascii?Q?8qgCpUMzXrPF1cx41WdhZUAfstDHIBOnFRic8igIZ++ycbMdiLBLPfxhzTXa?=
- =?us-ascii?Q?ufjuuAsZNjF3HhU0rFoWIu6i8MXTFOEm/XvJ5e02lKfq6NEJMeEFJqdWUQcG?=
- =?us-ascii?Q?uejrOicGKbU+As9NleyU1KQeLj6d1Ka/wm2t9pol+vhbW5zN3cOZ8o2CRPA1?=
- =?us-ascii?Q?4sLrpI8=3D?=
+ ARA:13230031|1800799015|376005|82310400017|36860700004; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?eYJjINgJcZFGP5XVGg0uY/sC/KTIZ2A6PZ5uUlydmlj7hmfXS1nDmxlO1yzu?=
+ =?us-ascii?Q?lpnfTxp1Za17BDiCcVD/Gd9NGEnVTyYUHS8tekpT5LKlO4a14OdlYqT/dHuy?=
+ =?us-ascii?Q?ujhgLkSkSdFoT4sOOjh5e5G/Xv/7MIq7UuFX5YSfjRTeDd6nqQrl9ZUWKCj9?=
+ =?us-ascii?Q?mLrRfs0PiyBVS6jBaHTQ90pUwsVeV2YlL7ZCRI2DVx6/cyNYIX2kMhsAoN6V?=
+ =?us-ascii?Q?mdKbGOy6MOGoZPz2MScJMtM0fnPA1Q/8z1SBNS3ax5rVo1xHbHLto7dtN+ZW?=
+ =?us-ascii?Q?XGu1Cb+pKfJMFx871GUERJjFcsSLrY9X2R5sCqhrfAHXLcQ42dQmLEEcjFpg?=
+ =?us-ascii?Q?0WGdpE6fqDfH4s/updFLlM3ebr3zUF1J+a+JG2wM5Js6e7z3bDit3HWwjgng?=
+ =?us-ascii?Q?n8Gw/cPNrie+nr2sjSKnGCDxpazwoCE5fZgNWoM8JmPr1SRj5ZzXdQgTPwq0?=
+ =?us-ascii?Q?uRQxHF87vaXD+aoQ0h2z67sKwdLtgNXZw+O8SDuLuh2pCjd3MIvopgdFYty+?=
+ =?us-ascii?Q?KZCTBYwvM8X/4v1dab6o3988bB8WTZZNhr094ZRBalC/iy3mUDY7wj5U4ywD?=
+ =?us-ascii?Q?OV8+7P2Y+zGjjRdni2tiXJT6lU4T1iT+LtC0+t6X+VGUq9/KE0xqIpvYxPP7?=
+ =?us-ascii?Q?zi7fpTYvODgaMHwih6PhVHD9PgkRTAoH1yDOx698zXsKuu9NqGsE9GMJiWAj?=
+ =?us-ascii?Q?wtO/MRw1Og/bcd9kVsI6r0zb5lOU5tClELM0dZryflUNdIQkjHlHKrvRAjpA?=
+ =?us-ascii?Q?HEZtb6FWsfUvNg8j1VwnrTaL42Y3fnQbDBihPz6JTKRUL6jJF0TEVcJuYiFt?=
+ =?us-ascii?Q?BH2V2VY+93dxCDCn+61CqtCu0Qihn08Hcsk8gddO2e0ofIMyragIEViHuZvu?=
+ =?us-ascii?Q?vGd0y/chcg7UOUsCAp0NAP3VsdGuqphJDyZO7JwScGfnOtAzx3XOdEcYAOls?=
+ =?us-ascii?Q?c8xd0nHpRsRvuej10UKqTxVEioyKbqO1cuwYleymbLtHjWk4zl6MjRiLiyH2?=
+ =?us-ascii?Q?R2FEpemqXlykqy5SwQY3K2dfAauKzzbfbn8CKmlyqcB6TDPoFn7AtQYVgoCs?=
+ =?us-ascii?Q?GHZGHNOtzrmfftq8X0Z6F1RdlyylMylDoxL2hzTahgwWlrwPy5Ad9cvY9wJX?=
+ =?us-ascii?Q?iPrwPhW0LDF4AG6JmCg084J0UPLeHJfRwRXhmVuDekSJ3gC8vzvMfo9E4a/Y?=
+ =?us-ascii?Q?8XjpAPhJpWR3t2g3u0KfcMK9fI5buKYqECQLM7HHcq9OJA0syqVnpm1CqnEM?=
+ =?us-ascii?Q?penTEdPqmPZ0ZmEZohL6NC19qMlvWLdbNz0M4ooZNcy63TKmPZopl5ueCiy7?=
+ =?us-ascii?Q?KgUvhmgspPykcycXP7gzFX43rNOvrY1Do5p1yM1IR2OUNgBr4yb+CpmX3lLf?=
+ =?us-ascii?Q?h6vrPonaX592p+QmY2NO+P3OU11u?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(36860700004)(82310400017)(1800799015); DIR:OUT;
+ SFS:(13230031)(1800799015)(376005)(82310400017)(36860700004); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2024 20:29:11.9576 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 764064ba-8493-4dc9-db44-08dc6f9d858d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2024 20:29:13.3920 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ebe01a02-5345-4280-2fbd-08dc6f9d865f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001709B.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017097.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4235
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9452
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,106 +132,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch adds suspend support for gfx userqueues. It typically does
-the following:
-- adds an enable_signaling function for the eviction fence, so that it
-  can trigger the userqueue suspend,
-- adds a delayed function for suspending the userqueues, to suspend all
-  the queues under this userq manager and signals the eviction fence,
-- adds reference of userq manager in the eviction fence container so
-  that it can be used in the suspend function.
+This patch adds support for userqueue resume. What it typically does is
+this:
+- adds a new delayed work for resuming all the queues.
+- schedules this delayed work from the suspend work.
+- validates the BOs and replaces the eviction fence before resuming all
+  the queues running under this instance of userq manager.
 
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Christian Koenig <christian.koenig@amd.com>
 Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
- .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  6 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 77 +++++++++++++++++++
- .../gpu/drm/amd/include/amdgpu_userqueue.h    |  6 ++
- 5 files changed, 91 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 166 ++++++++++++++++++
+ .../gpu/drm/amd/include/amdgpu_userqueue.h    |   1 +
+ 2 files changed, 167 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index a37193fc9ddc..1856fe11dd05 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -469,6 +469,7 @@ struct amdgpu_eviction_fence {
- 	struct dma_fence base;
- 	spinlock_t	 lock;
- 	char		 timeline_name[TASK_COMM_LEN];
-+	struct amdgpu_userq_mgr *uq_mgr;
- };
- 
- /*
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-index 1a03f040ccc8..3f806e44f614 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-@@ -39,10 +39,16 @@ amdgpu_ev_fence_get_timeline_name(struct dma_fence *f)
- 	return ef->timeline_name;
- }
- 
-+static bool amdgpu_ev_fence_enable_signaling(struct dma_fence *f)
-+{
-+	return !amdgpu_userqueue_enable_signaling(f);
-+}
-+
- static const struct dma_fence_ops amdgpu_eviction_fence_ops = {
- 	.use_64bit_seqno = true,
- 	.get_driver_name = amdgpu_ev_fence_get_driver_name,
- 	.get_timeline_name = amdgpu_ev_fence_get_timeline_name,
-+	.enable_signaling = amdgpu_ev_fence_enable_signaling,
- };
- 
- struct amdgpu_eviction_fence *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-index fa03d9e4874c..8c13de7f2a19 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-@@ -111,6 +111,7 @@ struct amdgpu_bo {
- #endif
- 	struct kgd_mem                  *kfd_bo;
- 
-+
- 	/*
- 	 * For GPUs with spatial partitioning, xcp partition number, -1 means
- 	 * any partition. For other ASICs without spatial partition, always 0
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-index 7a89f378c97f..fdbd542e7f53 100644
+index fdbd542e7f53..02ddd713d068 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-@@ -23,11 +23,16 @@
-  */
- #include <linux/atomic.h>
- #include <drm/drm_syncobj.h>
-+#include <drm/drm_exec.h>
- #include "amdgpu.h"
- #include "amdgpu_vm.h"
- #include "amdgpu_userqueue.h"
- #include "amdgpu_userq_fence.h"
- 
-+#define work_to_uq_mgr(w, name) container_of(w, struct amdgpu_userq_mgr, name)
-+#define uq_mgr_to_fpriv(u) container_of(u, struct amdgpu_fpriv, userq_mgr)
-+#define to_ev_fence(f) container_of(f, struct amdgpu_eviction_fence, base)
-+
- static void amdgpu_userq_walk_and_drop_fence_drv(struct xarray *xa)
- {
- 	struct amdgpu_userq_fence_driver *fence_drv;
-@@ -226,6 +231,7 @@ int amdgpu_userqueue_update_bo_mapping(struct drm_file *filp, struct amdgpu_bo *
- 	}
- 
- 	drm_syncobj_add_point(syncobj, chain, bo_va->last_pt_update, (uint64_t)point);
-+
- 	return 0;
- }
- 
-@@ -392,12 +398,83 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+@@ -398,6 +398,167 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
  	return r;
  }
  
 +static int
-+amdgpu_userqueue_suspend_all(struct amdgpu_userq_mgr *uq_mgr)
++amdgpu_userqueue_resume_all(struct amdgpu_userq_mgr *uq_mgr)
 +{
 +	struct amdgpu_device *adev = uq_mgr->adev;
 +	const struct amdgpu_userq_funcs *userq_funcs;
@@ -240,105 +165,191 @@ index 7a89f378c97f..fdbd542e7f53 100644
 +
 +	userq_funcs = adev->userq_funcs[AMDGPU_HW_IP_GFX];
 +
-+	/* Suspend all the queues for this process */
++	/* Resume all the queues for this process */
 +	idr_for_each_entry(&uq_mgr->userq_idr, queue, queue_id) {
-+		ret = userq_funcs->suspend(uq_mgr, queue);
++		ret = userq_funcs->resume(uq_mgr, queue);
 +		if (ret)
-+			DRM_ERROR("Failed to suspend queue\n");
++			DRM_ERROR("Failed to resume queue %d\n", queue_id);
 +	}
 +
 +	return ret;
 +}
 +
-+static void
-+amdgpu_userqueue_suspend_worker(struct work_struct *work)
++static int
++amdgpu_userqueue_replace_ev_fence(struct amdgpu_userq_mgr *uq_mgr,
++				  struct drm_exec *exec)
 +{
 +	int ret;
-+	struct dma_fence *fence;
-+	struct amdgpu_userq_mgr *uq_mgr = work_to_uq_mgr(work, suspend_work.work);
 +	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uq_mgr);
++	struct amdgpu_vm *vm = &fpriv->vm;
++	struct amdgpu_eviction_fence *old_ef, *new_ef;
++	struct amdgpu_bo_va *bo_va, *tmp;
++
++	old_ef = fpriv->ev_fence;
++	new_ef = amdgpu_eviction_fence_create(fpriv);
++	if (!new_ef) {
++		DRM_ERROR("Failed to create new eviction fence\n");
++		return ret;
++	}
++
++	list_for_each_entry_safe(bo_va, tmp, &vm->done, base.vm_status) {
++		struct amdgpu_bo *bo = bo_va->base.bo;
++
++		/* Skip pinned BOs */
++		if (bo->tbo.pin_count)
++			continue;
++
++		ret = drm_exec_lock_obj(exec, &bo->tbo.base);
++		if (unlikely(ret)) {
++			DRM_ERROR("Failed to lock BO for eviction fence replacement\n");
++			goto free_err;
++		}
++
++		/* replace the old eviction fence with new one */
++		amdgpu_eviction_fence_detach(fpriv, old_ef, bo);
++		ret = amdgpu_eviction_fence_attach(new_ef, bo);
++		if (ret) {
++			DRM_ERROR("Failed to attch new eviction fence\n");
++			goto free_err;
++		}
++	}
++
++	/* Update the new eviction fence */
++	fpriv->ev_fence = new_ef;
++	kfree(old_ef);
++	return 0;
++
++free_err:
++	kfree(new_ef);
++	return ret;
++}
++
++/* Expects drm_exec_until_all_locked called on this exec */
++static int
++amdgpu_userqueue_validate_bos(struct amdgpu_userq_mgr *uq_mgr,
++			      struct drm_exec *exec)
++{
++	int ret;
++	struct amdgpu_bo *bo;
++	struct amdgpu_bo_va *bo_va, *tmp;
++	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uq_mgr);
++	struct amdgpu_vm *vm = &fpriv->vm;
++
++	list_for_each_entry_safe(bo_va, tmp, &vm->done, base.vm_status) {
++		bo = bo_va->base.bo;
++		ret = drm_exec_lock_obj(exec, &bo->tbo.base);
++		if (unlikely(ret)) {
++			DRM_ERROR("Failed to exec lock  for validation\n");
++			goto unlock_all;
++		}
++	}
++
++	list_for_each_entry_safe(bo_va, tmp, &vm->invalidated, base.vm_status) {
++		bo = bo_va->base.bo;
++		ret = drm_exec_lock_obj(exec, &bo->tbo.base);
++		if (unlikely(ret)) {
++			DRM_ERROR("Failed to lock BO for validation\n");
++			goto unlock_all;
++		}
++
++		ret = amdgpu_bo_reserve(bo, false);
++		if (unlikely(ret)) {
++			DRM_ERROR("Failed to reserve BO for validation\n");
++			goto unlock_all;
++		}
++
++		ret = amdgpu_userqueue_validate_bo(bo);
++		amdgpu_bo_unreserve(bo);
++		if (ret) {
++			DRM_ERROR("Failed to validate BO\n");
++			goto unlock_all;
++		}
++	}
++
++	ret = amdgpu_vm_handle_moved(uq_mgr->adev, vm, NULL);
++	if (ret)
++		DRM_ERROR("Failed to handle moved BOs\n");
++
++unlock_all:
++	return ret;
++}
++
++static void amdgpu_userqueue_resume_worker(struct work_struct *work)
++{
++	int ret;
++	struct amdgpu_userq_mgr *uq_mgr = work_to_uq_mgr(work, resume_work.work);
++	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uq_mgr);
++	struct amdgpu_vm *vm = &fpriv->vm;
++	struct drm_exec exec;
 +
 +	mutex_lock(&uq_mgr->userq_mutex);
-+	ret = amdgpu_userqueue_suspend_all(uq_mgr);
-+	if (ret) {
-+		DRM_ERROR("Failed to evict userqueue\n");
-+		goto unlock;
++
++	drm_exec_init(&exec, 0, 0);
++	drm_exec_until_all_locked(&exec) {
++		ret = amdgpu_vm_lock_pd(vm, &exec, 2);
++		if (unlikely(ret)) {
++			DRM_ERROR("Failed to lock PD\n");
++			goto unlock_all;
++		}
 +	}
 +
-+	/* Signal current eviction fence */
-+	fence = dma_fence_get(&fpriv->ev_fence->base);
-+	ret = dma_fence_signal(fence);
-+	dma_fence_put(fence);
++	ret = amdgpu_userqueue_validate_bos(uq_mgr, &exec);
 +	if (ret) {
-+		DRM_ERROR("Can't signal eviction fence to suspend");
-+		return;
++		DRM_ERROR("Failed to validate BOs to restore\n");
++		goto unlock_all;
 +	}
 +
-+unlock:
++	ret = amdgpu_userqueue_replace_ev_fence(uq_mgr, &exec);
++	if (ret) {
++		DRM_ERROR("Failed to signal eviction\n");
++		goto unlock_all;
++	}
++
++	ret = amdgpu_userqueue_resume_all(uq_mgr);
++	if (ret) {
++		DRM_ERROR("Failed to resume all queues\n");
++		goto unlock_all;
++	}
++
++unlock_all:
++	drm_exec_fini(&exec);
 +	mutex_unlock(&uq_mgr->userq_mutex);
 +}
 +
-+int amdgpu_userqueue_enable_signaling(struct dma_fence *f)
-+{
-+	struct amdgpu_eviction_fence *ev_fence = to_ev_fence(f);
-+	struct amdgpu_userq_mgr *uq_mgr = ev_fence->uq_mgr;
-+
-+	/* Schedule a suspend work in 1 ms */
-+	schedule_delayed_work(&uq_mgr->suspend_work,
-+			      msecs_to_jiffies(AMDGPU_USERQ_SUSPEND_TIME_MS));
-+
-+	return 0;
-+}
-+
- int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgpu_device *adev)
+ static int
+ amdgpu_userqueue_suspend_all(struct amdgpu_userq_mgr *uq_mgr)
  {
-+	struct amdgpu_fpriv *fpriv;
-+
- 	mutex_init(&userq_mgr->userq_mutex);
- 	idr_init_base(&userq_mgr->userq_idr, 1);
- 	userq_mgr->adev = adev;
+@@ -442,6 +603,10 @@ amdgpu_userqueue_suspend_worker(struct work_struct *work)
+ 		return;
+ 	}
  
-+	fpriv = uq_mgr_to_fpriv(userq_mgr);
-+	if (!fpriv->ev_fence) {
-+		DRM_ERROR("Eviction fence not initialized yet\n");
-+		return -EINVAL;
-+	}
++	/* Schedule a work to restore userqueue after 100 ms */
++	schedule_delayed_work(&uq_mgr->resume_work,
++			      msecs_to_jiffies(AMDGPU_USERQ_RESUME_TIME_MS));
 +
-+	/* This reference is required for suspend work */
-+	fpriv->ev_fence->uq_mgr = userq_mgr;
-+	INIT_DELAYED_WORK(&userq_mgr->suspend_work, amdgpu_userqueue_suspend_worker);
+ unlock:
+ 	mutex_unlock(&uq_mgr->userq_mutex);
+ }
+@@ -475,6 +640,7 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgpu_devi
+ 	/* This reference is required for suspend work */
+ 	fpriv->ev_fence->uq_mgr = userq_mgr;
+ 	INIT_DELAYED_WORK(&userq_mgr->suspend_work, amdgpu_userqueue_suspend_worker);
++	INIT_DELAYED_WORK(&userq_mgr->resume_work, amdgpu_userqueue_resume_worker);
  	return 0;
  }
  
 diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-index afaf93faa824..647e63bf03ab 100644
+index 647e63bf03ab..2e3fe784188e 100644
 --- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
 +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-@@ -26,6 +26,8 @@
- #define AMDGPU_USERQUEUE_H_
- 
- #define AMDGPU_MAX_USERQ_COUNT 512
-+#define AMDGPU_USERQ_SUSPEND_TIME_MS 1
-+#define AMDGPU_USERQ_RESUME_TIME_MS 100
- 
- struct amdgpu_mqd_prop;
- 
-@@ -69,6 +71,8 @@ struct amdgpu_userq_mgr {
- 	struct idr			userq_idr;
- 	struct mutex			userq_mutex;
+@@ -73,6 +73,7 @@ struct amdgpu_userq_mgr {
  	struct amdgpu_device		*adev;
-+
-+	struct delayed_work		suspend_work;
+ 
+ 	struct delayed_work		suspend_work;
++	struct delayed_work		resume_work;
  };
  
  int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
-@@ -86,4 +90,6 @@ void amdgpu_userqueue_destroy_object(struct amdgpu_userq_mgr *uq_mgr,
- 
- int amdgpu_userqueue_update_bo_mapping(struct drm_file *filp, struct amdgpu_bo *bo,
- 				       uint32_t syncobj_handle, uint16_t point);
-+
-+int amdgpu_userqueue_enable_signaling(struct dma_fence *f);
- #endif
 -- 
 2.43.2
 
