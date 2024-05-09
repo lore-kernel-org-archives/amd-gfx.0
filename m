@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9415FC41513
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 May 2024 19:59:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83953C10F1A
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 May 2024 20:07:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0289A10F206;
-	Thu,  9 May 2024 19:59:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBE5C10F284;
+	Thu,  9 May 2024 20:07:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UjoeLRVH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZvLud+EB";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2054.outbound.protection.outlook.com [40.107.243.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 690BC10F20A
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 May 2024 19:59:12 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2041.outbound.protection.outlook.com [40.107.223.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CCFB10F284
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 May 2024 20:07:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XNlud1MariIo2QmTPXUvEYU5h02sBkCDL4KUEP7/1BxtM5t9CmaP3JNh6Tf4i3OyiHz2QtUzfojDdoJrvd7W0HozBeiuxXY2LMUzTHVz3xdiJA9jiVAcTvUUwunIH2dF33WIpECeDhWFlHp14O7UFDliE3xGmUHQdiRkWDPsPqbUHwN1hI0Ez8+QcgXaSxuqBaxynsRxc1l5FtHczem75eFRttuo4dhRTY3SJd8dNCoCN594AG/7oLBvIpu6AUTRwDxyN84M4rBnl2Am0jxWoGjfW4eN1GuBUrptgIsDlgEmIuDxyUh3vQLl/W50AMsJAVqLLvYdT8f/nkTYzyJK1g==
+ b=l0+hdLT9C64hVbZBzoT+Y0USfq7kV98UMmFpmhIBbW1UhI81iU84y33cpXLpbTOTXINZcPQwbGrWWI0Pfh1rym0K7n1ycw+PL3I87DewtzqXuue9LaSBE9ySjC8Fd1j5u4DrufByX9iylIO3I07i4ap9bkxUYrvJ0JCMLPlqi1RW0AFtmf1rROSqMJWAZ1L2UdumN5cNsszYU/gQUlzvSHn+iUS7b1jeLTveNZguS7fo2GU96qm2oA1YOuQLLtNWu19xwLbBcrK5Tk3ouqPLsHwS21btfLZybfgZTaLkv83wbtEe2oVPEJhgAfRkwT+/lNEyZsEI6zJqulX4+XNYkw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DH9J5kaqpG5X1ISc1dBYtKV6GeFy3HA14UfLwHAgE9o=;
- b=Oogs6wdkAAm+dYVugNBrrkq9fekLDarUnzfeB6ROLkAgcKs+9tnNXiJiiAFad1Q8XxT7trPqAeWTMQPPzdXONaeKeL8y4isJuDE6vEgrEF20560hF54MRj/b6P5iWX6xkxN8blQWyL0GAAuTpt479oezk1XgI8XzGXCnDzSEKCp9zSxIAs2P0U7apQ4e8r0pt8n7z2uCGwaPWjTNEZVAEEaFUz3nupCV7x6zuxMSi+tEO4nhLXx8uEHsPKTIHTxl/1w+P7RunnzdB8OoKJmUKWyfd68RI7e8LcZi5KCEDohnzpdDgJtSqZHLbBYaJONcGDbsa1vL9orLnd2bGupYjg==
+ bh=vdSC9chRoUkkmFjyTDfO0ScaZ/7ty8KN1IxxqCOaTI4=;
+ b=N23cA4Ae4SjiSxJ6WDWEr7vLi2/qZz2hXicF0kSRPCBLCdc9mQ53b2gz1dGPCRS70PlNYtQv3DPKpHFOk9h0ge8AnlRN/sHuf48IbgIGwEOIXyoPtXO60uMoms5b8xsOfvek8P94lNG0umZzzUhHPOVEFPDVzvulcfeA9OT/92FIpnkoBx+xEiX3vzj1vP4PAmgrnKFi/72Q/GJZ2rWwq5ImUdbnF9zf1zsCuqWSWt62NbLwTw7PpaJxOdlqSgXeZLXZFuQ15zGZ8kWkygMM0Lt7FWlVU+Y63ZtuH1gZ2ZgjABsNrrLQEl0GwgQ4AKlHSN9IbScBaEeGhv8bMOE/MQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DH9J5kaqpG5X1ISc1dBYtKV6GeFy3HA14UfLwHAgE9o=;
- b=UjoeLRVHGtNiET6Ryhli+c4+2XIXFHRI1jgZEj6XAW+76XhJfTyov1VfVqz6k9ITGTKpzWhMtZmnZGBHMpbdT79cEoisnBuXL64XBNJJF+d71uaJQ1H0exP/pkP3Yl2t/j8B3ZmRemkpbKHKLD9RMfJ/s1uiN+w2DnAD55VgDXA=
-Received: from PH0PR07CA0099.namprd07.prod.outlook.com (2603:10b6:510:4::14)
- by DS0PR12MB8043.namprd12.prod.outlook.com (2603:10b6:8:14d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42; Thu, 9 May
- 2024 19:59:09 +0000
-Received: from CY4PEPF0000EE38.namprd03.prod.outlook.com
- (2603:10b6:510:4:cafe::d1) by PH0PR07CA0099.outlook.office365.com
- (2603:10b6:510:4::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42 via Frontend
- Transport; Thu, 9 May 2024 19:59:08 +0000
+ bh=vdSC9chRoUkkmFjyTDfO0ScaZ/7ty8KN1IxxqCOaTI4=;
+ b=ZvLud+EBJteOJA8CqaJKyPLqdBefWMwLrE6aMFPjh3U0ug7gO4ORZLmpmeWwwC6kxwQWDkfCjckPLUGbth9NIgRJyAQpqK/rUTFrFEVrsyWaeeuoPVGCh4s+8wjDDF58smyAb9AcCfX5YuHrwNxg+Jk46XQQY/pghFOxp5U8cGA=
+Received: from BL1PR13CA0244.namprd13.prod.outlook.com (2603:10b6:208:2ba::9)
+ by MN2PR12MB4270.namprd12.prod.outlook.com (2603:10b6:208:1d9::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.47; Thu, 9 May
+ 2024 20:07:30 +0000
+Received: from BL02EPF00021F6B.namprd02.prod.outlook.com
+ (2603:10b6:208:2ba:cafe::cd) by BL1PR13CA0244.outlook.office365.com
+ (2603:10b6:208:2ba::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.45 via Frontend
+ Transport; Thu, 9 May 2024 20:07:28 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,72 +48,72 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE38.mail.protection.outlook.com (10.167.242.12) with Microsoft
+ BL02EPF00021F6B.mail.protection.outlook.com (10.167.249.7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Thu, 9 May 2024 19:59:08 +0000
-Received: from david-B650-PG-Lightning.amd.com (10.180.168.240) by
+ 15.20.7544.18 via Frontend Transport; Thu, 9 May 2024 20:07:27 +0000
+Received: from harish-base-compute.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Thu, 9 May 2024 14:59:06 -0500
-From: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Christian.Koenig@amd.com>
-CC: <alexander.deucher@amd.com>, <leo.liu@amd.com>, <sonny.jiang@amd.com>
-Subject: [PATCH] drm/amdgpu/vcn: set VCN5 power gating state to GATE on suspend
-Date: Thu, 9 May 2024 15:58:51 -0400
-Message-ID: <20240509195851.1481475-1-David.Wu3@amd.com>
+ 15.1.2507.35; Thu, 9 May 2024 15:07:27 -0500
+From: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Subject: [PATCH] drm/amdkfd: Ensure gpu_id is unique
+Date: Thu, 9 May 2024 16:06:26 -0400
+Message-ID: <20240509200626.497769-1-Harish.Kasiviswanathan@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE38:EE_|DS0PR12MB8043:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15d9c759-b3f7-4869-f7cb-08dc70627cf4
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6B:EE_|MN2PR12MB4270:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50f09385-4eb0-40e5-5343-08dc7063a6a7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|36860700004|1800799015|376005|82310400017; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?yIRG7ilnyRMFNDGFdLgBVH6zbVr2oBIzEmHq7zsv6uGgZeThYyfao3DmiTcf?=
- =?us-ascii?Q?Z+eFzeWTDGQCraWUjEN2uNsv2pBlEv+6Y35ZuN1fhN8VpLkSsGtJc9kOaH2S?=
- =?us-ascii?Q?H9OkQrryPJ/EPSK8Sso8eVsZJ/kUrEYy8BDcGgSnQkodZ7fNsmZpwv0eNoSp?=
- =?us-ascii?Q?R43bha3eU9oHuCYKF9s29ddDx1ApvHME998IhHzbVOXs9wiiLuvxlPOHt0nq?=
- =?us-ascii?Q?Pp3iSaO7WQ5Cu4NolnZ7G3dZeDJ9EZC1lhWebE/GpNVmkC9Zj04a6oMkQpQU?=
- =?us-ascii?Q?me5GppZUa9qd6luGCZHkwX/7bUVbcD+KZqWX4zODy0jxWohk3CD/zshM155T?=
- =?us-ascii?Q?bhohB/xEJpv6kI5iLEnuLBdgPK6W1SomY7NsjZxu5i0fiZV489PGeWknpkDb?=
- =?us-ascii?Q?RH9R5BLPPdNksuCZIO/MvX4iedIQZS++0hJBuGZ39t3fVXfMlhwdpLZpO33P?=
- =?us-ascii?Q?BD7SSzSmVuXpnkBe8OIiC1qeZ9o9JjGPpVtyxIQCf9EV5pkg6tL4/VEO8cOU?=
- =?us-ascii?Q?9BBHDFvkVH6NS5Vv1YoWbr5FHzM3BUAoPYySAqUwF96SSRTTRZP4cLANxvLk?=
- =?us-ascii?Q?BnQO4ibGe7cREglFrBi1mZ2p84v0Csx9pJ9cMR1vsPWbWyfUsDaWp73lxuA+?=
- =?us-ascii?Q?wEFpYTNJWrkmWIAFVFu+QOiI7mdQRQTb8zWwbEjk7/PD3Esfo6HAs1HfdVHD?=
- =?us-ascii?Q?N2bhGteOs7uL0RdJMX9eaFTfoIBpC8uwENaZVQruQ98210YC1brfvwdIVfx8?=
- =?us-ascii?Q?1wed2C0MkBqgPjmo1WuPNOumYd4V05G6HBbz1KVlKhnTv7sVX9lpmQ6L8OO0?=
- =?us-ascii?Q?FGCWl6KKME23JtjSf7A3td/peQkO4rBORaa5v/PEzOXHXx6n4kJVAHfvmGul?=
- =?us-ascii?Q?O8haojLQd4BAI7iXgiaGFz7p71tpqd3VBSHRNAHE3EJhDPjtkVR1mhXoxqBi?=
- =?us-ascii?Q?FViOMMuICjpSdJsjVnQJu/IkNYQv0jL42cxqZ/3AHE0ZGBXXw0hu2PZSwnrZ?=
- =?us-ascii?Q?tum+YXebxP9o4m93R8mzP1jDc7TAB1HmmB1Dw5Kl0GAwbf3wdeygYEEsNRp2?=
- =?us-ascii?Q?VpWzHNJa+Flz2MGkGimq9B5dXwBGdeIGcIk3VQu59sJ/q4iZHmMmp0GQfJi6?=
- =?us-ascii?Q?oJWJzBSWEHnX/Qto6kQjljCN8LtiRvfhIGc4j53BJMKQUS6eU6qFixzicdgs?=
- =?us-ascii?Q?i/G+xUFJbRccoqvoatw4w8kVZH4Jo232uezsohNgcljVO+uVPpmQ37qcImrl?=
- =?us-ascii?Q?J2hKT868/95efMKstCB3o0ML+VyBiHQpGzb8pxPW0qMLrfSC+ERmiGvObjF9?=
- =?us-ascii?Q?/bSA8SUOUhrQPuTC18bmxOUt/RAC7vXBXqdSWBU6w9XhM6H0f153PP3ea5kj?=
- =?us-ascii?Q?myOPUE4=3D?=
+ ARA:13230031|1800799015|376005|82310400017|36860700004; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?YY+J4PY+fGdU0CRBAyVmuwanIQ20oZPZrBj1k2rPG0AFIe+m5JurRrAo6ORc?=
+ =?us-ascii?Q?RAOcrpC5fIysRJ2iLZDTvXdoIIbeadwMqdeXr9YBDFMUAKDmZaEWstqo4UUb?=
+ =?us-ascii?Q?V/HKjz4hnON/8kFUYz4vIONkeulvRvDWNOEeGLwBIx8Gawi7/lSfv8o8HwqN?=
+ =?us-ascii?Q?eLkuqwSTKeEh4AxrsoYP2Get5JBeU7fs3FjD8//V2LqJJomFy4vmcdq/z3VO?=
+ =?us-ascii?Q?W6PHLt0j4Ij4YRV2vtIRWK4w+tddFpk9bTcX5Z0blONwRqRVRb3h4LPeJiFd?=
+ =?us-ascii?Q?pbWEL7ie37vWObk5C9dPCpprezBc5Tl34aD+ur9StACbl0oCiqs9fwu92F2s?=
+ =?us-ascii?Q?Aa1Jz96rZafh+r10FShwz1QLEbi2I5QsaYZVrb7mBbF517lVHvupm2kJ1ghQ?=
+ =?us-ascii?Q?JW11M5sKLT5hj4ESzusfg6+YBoTqDT5cGaDsFGjcgCaV1suWC+QRJMjVcc4E?=
+ =?us-ascii?Q?nQIPuBNOsngDlssF8MiHYew949ZtmWZ0XOdXIYCWeP3elML4DuK17azMk43W?=
+ =?us-ascii?Q?4t8ymYLC3Q2zuSVEwOlH+V1HY5RvPNGDjM7PbtIidM1u/ZR+bBVS2qmjYjzv?=
+ =?us-ascii?Q?Wlm04kM7L/TjPoYj0KxArir7d6CQVL5ohX54JSM1jxrQxVgVvDEWbaMw2Dna?=
+ =?us-ascii?Q?YRVbRawEsVOkrhOBCxFz93aZ8mwA+lHLPDIQNt+a2lVVwhW/OKGgQTY8/FZk?=
+ =?us-ascii?Q?FcLbT9vFpHNg8UE65nn1yuC+arWjD50K+yF14wgZFKVaNxXMfOE+kCrjXgfh?=
+ =?us-ascii?Q?DugjB3sTyjm1KyJS2oXJDUVCq4TDDHdcex1vQcG1aZ80s1J8NwGt+uWSYurR?=
+ =?us-ascii?Q?AWUF80mjcAXJC4mFG96MSgrK7kAWdDasPzlD/vrY58/eabIwL0DEAlL3/YGD?=
+ =?us-ascii?Q?rEBuDtoczELYGB7rL2gCq4E4GxbdALEKxV702oKNwHsTmA0e7N3sVi7+BaS2?=
+ =?us-ascii?Q?VuoiBNgVUCuNVyB3TUCT9njZ47KUZyty6cu2kiH0V0s3nWmO5S71DQmSbuXB?=
+ =?us-ascii?Q?iENHY9rBhaE4Pox7xV7C2THgn6mx6dKP7uk+esTEPdLeWrCvSfvYPb7U4kOW?=
+ =?us-ascii?Q?ae+6ZPrFxXc0NCBGrmoJIirSSqeUjRU1RONshUCOXJI/AnAGKnTpK7dqudYh?=
+ =?us-ascii?Q?PiFlIdoNkUh3MPoso+pKxGj8iDwkA72nu/eweFVUf0SLDwsybKXooLjnsgZ1?=
+ =?us-ascii?Q?JfkAsmhFOiz9431VBWRG/oulX6BC1ctte1hvyuEl8xIBGEoRHqmGUvb8w5Bh?=
+ =?us-ascii?Q?wIw2hwQeYtsLOyYIC6tckL97/5iLFTwwvJ/YxSdEOgNMEf+9pQKBWL5FWzVD?=
+ =?us-ascii?Q?Tw8ocZS0j8FuiQQTCqYWikiov0VtOAewGVrY7gpedtWsFdPA/QLD6oQwKvgv?=
+ =?us-ascii?Q?Yoxc8VKOVErnxlor9/AMqolPrMOa?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(1800799015)(376005)(82310400017); DIR:OUT;
+ SFS:(13230031)(1800799015)(376005)(82310400017)(36860700004); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2024 19:59:08.4208 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15d9c759-b3f7-4869-f7cb-08dc70627cf4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2024 20:07:27.9356 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50f09385-4eb0-40e5-5343-08dc7063a6a7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE38.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6B.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8043
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4270
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,38 +128,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On suspend, we need to set power gating state to GATE when
-VCN5 is busy, otherwise we will get following error on resume:
+gpu_id needs to be unique for user space to identify GPUs via KFD
+interface. In the current implementation there is a very small
+probability of having non unique gpu_ids.
 
-[drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring vcn_unified_0 test failed (-110)
-[drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR* resume of IP block <vcn_v5_0_0> failed -110
-amdgpu: amdgpu_device_ip_resume failed (-110).
-PM: dpm_run_callback(): pci_pm_resume+0x0/0x100 returns -110
-PM: failed to resume async: error -110
+v2: Add check to confirm if gpu_id is unique. If not unique, find one
+    Changed commit header to reflect the above
+v3: Use crc16 as suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+    Ensure that gpu_id != 0
 
-Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
+Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 40 +++++++++++++++++++----
+ 1 file changed, 34 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-index 9b87d6a49b39..36d4ca645c56 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-@@ -229,6 +229,13 @@ static int vcn_v5_0_0_hw_fini(void *handle)
- 	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
- 		if (adev->vcn.harvest_config & (1 << i))
- 			continue;
-+		if (!amdgpu_sriov_vf(adev)) {
-+			if ((adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ||
-+				(adev->vcn.cur_state != AMD_PG_STATE_GATE &&
-+				RREG32_SOC15(VCN, i, regUVD_STATUS))) {
-+				vcn_v5_0_0_set_powergating_state(adev, AMD_PG_STATE_GATE);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 219dcf504f24..4954a3021f70 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -31,6 +31,7 @@
+ #include <linux/log2.h>
+ #include <linux/dmi.h>
+ #include <linux/atomic.h>
++#include <linux/crc16.h>
+ 
+ #include "kfd_priv.h"
+ #include "kfd_crat.h"
+@@ -1091,14 +1092,17 @@ void kfd_topology_shutdown(void)
+ 
+ static uint32_t kfd_generate_gpu_id(struct kfd_node *gpu)
+ {
+-	uint32_t hashout;
++	uint32_t gpu_id;
+ 	uint32_t buf[8];
+ 	uint64_t local_mem_size;
+-	int i;
++	struct kfd_topology_device *dev;
++	bool is_unique;
++	uint8_t *crc_buf;
+ 
+ 	if (!gpu)
+ 		return 0;
+ 
++	crc_buf = (uint8_t*)&buf;
+ 	local_mem_size = gpu->local_mem_info.local_mem_size_private +
+ 			gpu->local_mem_info.local_mem_size_public;
+ 	buf[0] = gpu->adev->pdev->devfn;
+@@ -1111,10 +1115,34 @@ static uint32_t kfd_generate_gpu_id(struct kfd_node *gpu)
+ 	buf[6] = upper_32_bits(local_mem_size);
+ 	buf[7] = (ffs(gpu->xcc_mask) - 1) | (NUM_XCC(gpu->xcc_mask) << 16);
+ 
+-	for (i = 0, hashout = 0; i < 8; i++)
+-		hashout ^= hash_32(buf[i], KFD_GPU_ID_HASH_WIDTH);
++	gpu_id = crc16(0, crc_buf, sizeof(buf)) &
++		 ((1 << KFD_GPU_ID_HASH_WIDTH) - 1);
+ 
+-	return hashout;
++	/* There is a very small possibility when generating a
++	 * 16 (KFD_GPU_ID_HASH_WIDTH) bit value from 8 word buffer
++	 * that the value could be 0 or non-unique. So, check if
++	 * it is unique and non-zero. If not unique increment till
++	 * unique one is found. In case of overflow, restart from 1
++	 */
++
++	down_read(&topology_lock);
++	do {
++		is_unique = true;
++		if (!gpu_id)
++			gpu_id = 1;
++		list_for_each_entry(dev, &topology_device_list, list) {
++			if (dev->gpu && dev->gpu_id == gpu_id) {
++				is_unique = false;
++				break;
 +			}
 +		}
- 	}
++		if (unlikely(!is_unique))
++			gpu_id = (gpu_id + 1) &
++				  ((1 << KFD_GPU_ID_HASH_WIDTH) - 1);
++	} while (!is_unique);
++	up_read(&topology_lock);
++
++	return gpu_id;
+ }
+ /* kfd_assign_gpu - Attach @gpu to the correct kfd topology device. If
+  *		the GPU device is not already present in the topology device
+@@ -1945,7 +1973,6 @@ int kfd_topology_add_device(struct kfd_node *gpu)
+ 	struct amdgpu_gfx_config *gfx_info = &gpu->adev->gfx.config;
+ 	struct amdgpu_cu_info *cu_info = &gpu->adev->gfx.cu_info;
  
- 	return 0;
+-	gpu_id = kfd_generate_gpu_id(gpu);
+ 	if (gpu->xcp && !gpu->xcp->ddev) {
+ 		dev_warn(gpu->adev->dev,
+ 			 "Won't add GPU to topology since it has no drm node assigned.");
+@@ -1968,6 +1995,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
+ 	if (res)
+ 		return res;
+ 
++	gpu_id = kfd_generate_gpu_id(gpu);
+ 	dev->gpu_id = gpu_id;
+ 	gpu->id = gpu_id;
+ 
 -- 
 2.34.1
 
