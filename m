@@ -4,149 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F18BC10F1A
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 May 2024 22:03:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B41F5C10F1A
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 May 2024 22:05:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 981DF10EAF4;
-	Thu,  9 May 2024 22:03:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F015A10F707;
+	Thu,  9 May 2024 22:05:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NGhD//qB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UDYqx6XR";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2072.outbound.protection.outlook.com [40.107.96.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2E2710EA23
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 May 2024 22:03:41 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2065.outbound.protection.outlook.com [40.107.101.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 843BE10F707
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 May 2024 22:05:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fszFOEPlerMNIMy9AY9xKfeRTVg6DK5jWEX/IFhuTh1xM9OJAgefEOn45MA/AOVRSF/w+2Cujl1kbPOtungXeitbjGEFG20MnXN+jNLyYIYYFNbSQuqzzWWfEiXmt5qrxVxViqTigjQFJULPVqrRikWbQ9IwuonIxPyC1oZAZ/Zl311Q0QaNNDo/pzBx5Z9pwu0ATinneuBCAbpMxAEirZ1UolwKEtgirLEJx02TkcFQRI0FFpOhYHvTkyZWuoGra+lCfAOiBGYvXsNoyOUDMI+LrbVwf/tU6VyD+fsfh4wPE0rJ4viTQbZ57CGtsPgSDjFNO41BOv1s2wFjwKRTgw==
+ b=HeEOGOSSj46CVH4O8Zt8QGWmn5e6d4htYVcAI8KUxAmoPf4l/Gzn48dqDAj0H0LEcpokZIdmj4iza1rqVvjOxqXqqav9yImL43C41dvJRjNRK9hrHjFNUWdMjoW6Pib/RSIJ9R17XBkUrVV0n2QS11h9QYebsnPsBEpLo4C7zhyo7TkfMufuLAgFqkD8HZERvs0sifSTopbSouRsht9yMX20d4Fwswp6ffdeSV0IOLYwa9/h5yt4DSLk1GmDHtLxvKM1tEuVY7s1hPdBi4aFzXZpPFrjgr+VihAlVIHDPfxzefYGGDTw4oLr+lm1jRsklgPl1rZ1NsbM/tbc088QKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Syvnc4F9R4wElHW00GslK7mXim7bpQBTn2DdbxpRSjE=;
- b=WpWuXpmx17pj3oCO2dat7uUiU7gM1tgu86Lw+FWRUXlM9SBzWidhm0YSX3hitx+US9M/FELXHPgmICKXM0HqTVfF8P+TvjsChl3dRMnGR5xBbRxpa3LWl6TGDKSc/6FHM+b35z4H9wNkZrxXt0fnWvDHN1jyo969gwnAXs55wuDJpoU25GoIxSEVEmwlp0PbbqsOYSndOMvQwL2265kiMyKMKQ2Ai6fWLoDuBHUbsObCy/jnkeP+CoHnfqrhmU2fTlWCx79EgrdRyyBdNyWu2iI1FyNx+yayUngYJneK4cSxJGpaxSLJn8IBYKVJ35J/Sg5B3bN28f8XRoNHY9O5zg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=P6P2B2V+S2kKVVdpIzvyJEEFnfYHs1HOjzVXeCC2zhA=;
+ b=dAqF3kOut3kfkvwBV6uwH3P/3QMc84bG3R2D4Xwbyv7Z3OTOca1DATyIrdI1QJcuF3aZyQhOuzrHobxJnLimFZKhGfRyiKp/vw71hjg0xb0awPu11Mxzks+tJUHKYGI6WJalGWqczJFu8QwzO4X4qA4+M0xGMm7a3uZv7WUyPTvSNoHK4nOyOHz1Hz84zMXSZAkbfzZ6JO0qjIsb92LHe13wsRxAnLhuuY6A8oHbf6hOzZdk9xvtM7XgnieV7TNBAjLmJUMABPGf3ZESyHfXV2Cwx9SFB2LewEe2CR5sIvTX3UOhcvWQ+xvxSh5Vria5bHHV2jNy4zzsSBtm+gO73w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Syvnc4F9R4wElHW00GslK7mXim7bpQBTn2DdbxpRSjE=;
- b=NGhD//qBwWfNAkJQSh8OHbS751WLJ2EjfH77lcGWNbotCILNIf1hgnWIWMqvfxr/jWigtIU7z0y18O1F5nYfeZDSUz7tymdyYWQawrQUabVwuZD+DSAQbDSxfb6ZYoTSb/wOetnXgHzkUZJ4uKxnaUZ1SRLfW2LG8sYnt7se/HE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB7210.namprd12.prod.outlook.com (2603:10b6:510:205::17)
- by CH3PR12MB8281.namprd12.prod.outlook.com (2603:10b6:610:128::19)
+ bh=P6P2B2V+S2kKVVdpIzvyJEEFnfYHs1HOjzVXeCC2zhA=;
+ b=UDYqx6XRSq1zdv6KVKEmI2Tr1ttqB5JPfMbv7B0KEmmA+SRn6Acc5/QshWWc3FKE6Z8HxVqkcdxCQMMrvUB92c51djLBNGVOMWY/Tbr/OVgdIULACHtn99FvEe+FcX25Tecl8FozRCZBGFdfvBT8RoAQdSNzKsqwRr2i7X5Uo5c=
+Received: from BYAPR07CA0027.namprd07.prod.outlook.com (2603:10b6:a02:bc::40)
+ by MN2PR12MB4190.namprd12.prod.outlook.com (2603:10b6:208:1dd::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42; Thu, 9 May
- 2024 22:03:38 +0000
-Received: from PH7PR12MB7210.namprd12.prod.outlook.com
- ([fe80::54c:74b2:5935:6041]) by PH7PR12MB7210.namprd12.prod.outlook.com
- ([fe80::54c:74b2:5935:6041%4]) with mapi id 15.20.7544.041; Thu, 9 May 2024
- 22:03:38 +0000
-Content-Type: multipart/alternative;
- boundary="------------DERVUe4ElAjWNIsdv7e3crUe"
-Message-ID: <678ac44c-4105-461e-ad32-83b0ecf04576@amd.com>
-Date: Thu, 9 May 2024 18:03:36 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/jpeg: keep drm kernel message consistent
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: "David (Ming Qiang) Wu" <David.Wu3@amd.com>,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- Christian.Koenig@amd.com, leo.liu@amd.com, sonny.jiang@amd.com
-References: <20240509204631.1489565-1-David.Wu3@amd.com>
- <CADnq5_MMDTkoAnj+174wu_X762FvUc27_7RkzU+KDLrCrO55pw@mail.gmail.com>
- <cdd46ba4-4ceb-45d6-a204-4097216df9e2@amd.com>
- <CADnq5_M6+yMtMDz5kr6FYZyMT0ZB7pNc5Ln-vSb6e45Cn71V=g@mail.gmail.com>
-Content-Language: en-US
-From: David Wu <davidwu2@amd.com>
-In-Reply-To: <CADnq5_M6+yMtMDz5kr6FYZyMT0ZB7pNc5Ln-vSb6e45Cn71V=g@mail.gmail.com>
-X-ClientProxiedBy: YQBPR01CA0122.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:1::22) To PH7PR12MB7210.namprd12.prod.outlook.com
- (2603:10b6:510:205::17)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.48; Thu, 9 May
+ 2024 22:05:22 +0000
+Received: from SJ1PEPF00001CE5.namprd03.prod.outlook.com
+ (2603:10b6:a02:bc:cafe::8f) by BYAPR07CA0027.outlook.office365.com
+ (2603:10b6:a02:bc::40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.46 via Frontend
+ Transport; Thu, 9 May 2024 22:05:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE5.mail.protection.outlook.com (10.167.242.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Thu, 9 May 2024 22:05:19 +0000
+Received: from mukjoshi-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 9 May
+ 2024 17:05:19 -0500
+From: Mukul Joshi <mukul.joshi@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Felix.Kuehling@amd.com>, Mukul Joshi <mukul.joshi@amd.com>
+Subject: [PATCH] drm/amdkfd: Fix CU Masking for GFX 9.4.3
+Date: Thu, 9 May 2024 18:05:03 -0400
+Message-ID: <20240509220503.2297691-1-mukul.joshi@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB7210:EE_|CH3PR12MB8281:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15bd7b76-0603-434f-093b-08dc7073e18c
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE5:EE_|MN2PR12MB4190:EE_
+X-MS-Office365-Filtering-Correlation-Id: 09d996a5-86e8-42f2-332e-08dc70741df8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|376005|1800799015|366007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YlROMlRMcE90bFVKS0xaM25oYXNIcHZ3NjVzdlFrbU9SUWdEODJVZXo1Q2hy?=
- =?utf-8?B?Q05UV1h2QWNKU3VBWk5Udzl3QVZST0tpZGNJNSsreXBHTTVVWnZKeDRrbDd1?=
- =?utf-8?B?VWU4N0NyNmxrOFdKM1RnalVteGpqZUw1SmZQZ0lLRG8rc051RllnWGZCdjAz?=
- =?utf-8?B?alZmKzZwUnR5dHhzRUtnUktIVDN3Tmt2VGhZNXRTSFhMRVo3TGhSY2d2aCtx?=
- =?utf-8?B?Rmp5dloyNHgvcG1HeFY5b2N3b3RUNFplTHlONjZFQ3NjSHlLWjZocS90NVZa?=
- =?utf-8?B?c3Y4YTNrQ1lxNGMySzY3cXBxaE15WDFNQk9ja3JzYi84OHR2bGp5MXY2MmFo?=
- =?utf-8?B?Y1NOM21ONXU5ZzhKK0V0RC8xSFlKa2JjUGNOQStwZDM5bk9hMUh0RGc5Ky9Z?=
- =?utf-8?B?YVMrcmZ4UFA0U1JrZUZlRjRCMHFuTjZ0WDZxT2llUWhMbTA0RGRQaGVoZXAy?=
- =?utf-8?B?NUJEUEV3YktmRlQxb1dveVRsd3g1TDM1UElYZFE5WkpOcmZ4bndGT0lTaFpD?=
- =?utf-8?B?ZU9ocWluTXcvRzFWOEE1cXJGOU9HdUlaZTl4TlY1T3ZZcU5aR0Z6bHFDdVRt?=
- =?utf-8?B?QWxjTU53TnN1YXM1L29uQUF2RTRWcEY0MWF5WVpjYVQwaXN6SSsxMXJ1U29S?=
- =?utf-8?B?YWxXZDh6Ny9RenJJL0lMNkpML0haejNMRGIxbk5CVEFLK0xkK2h6WjU4VWVR?=
- =?utf-8?B?YXdMYmV5ejlzd2t5bndVUWZ5d3NQY0hNNDI4YUduaHlHYkpaeVF6dDdCOUJ2?=
- =?utf-8?B?U25zVHRYcjBhYjNkRWlkODhVRFBidmd6aFdqN2x2NkRwVDBZL2FOOE5sQUY2?=
- =?utf-8?B?SFBOZ1FtenVBN1Vmb1RUMEpzcUZObVVoNFdrRHkwVEF4SStMM3F6Z1dBZjlQ?=
- =?utf-8?B?dTREdUVkQWt2SlFna0hMWDE2Tnk1bkR5ZGhEK3pVWnYyWGxRU2M0K1ZWOVQ5?=
- =?utf-8?B?Vjc4YXpPdU1sR0lCZXJicTFuUlA1Z2tmelZqV0dHY0duQzBzUG1GNVIrSHRx?=
- =?utf-8?B?RnZ1bDE1dThUNjlvSjJHenl3M2xBbDN5dlpQTmxCNUQ5VmtXVWFsTkRzcXpG?=
- =?utf-8?B?M1ZEY3VOV29wMzRtQVRad0ZqMUx4SS9NUTE0NFRhY0NJTk8wVmcyRzVJU3ZU?=
- =?utf-8?B?MVZlZ05WTlZBMVNGRExBb3pVYkNqdzE5YWNGeUdoWDFGbDFZMlBMaUtFQ0Fi?=
- =?utf-8?B?cVU0QU1KMkh2WG03S0NQdWlaZzlZbm44V1NibTNWU0hNMS85dlJicWFYTGp2?=
- =?utf-8?B?Z3crT29QbXdRK1FFaTg3YWNSY0FHUDZEZ1ZVRjh6TDNyT1dnMGl2TkdPOXhq?=
- =?utf-8?B?cWs0Qk11QmVLL2Q2LzVheXQxbFhyWForblFnUWxuWnIyS2VBcUdHK2lvSUlt?=
- =?utf-8?B?WVMvQTgrVWVOTXpiZ1Z5SzFucE9qL0xLWjQ3VHgwZkE4VXJLMVVVS3lkdjl6?=
- =?utf-8?B?L2xiQ1ZBVkFSL1p2N1M4K3YxYkw5Wno3eDMzckpHOWxpdXVQdWpSQ1N3amts?=
- =?utf-8?B?ZHdiWGczNnJUUy9PZ3l3OU1LNTRYRnV6bWRHbmlzbm1Wb0FqZGJmSzM3azRY?=
- =?utf-8?B?V1VLNjR3bXVBb0RIaG1tQk5NTXVSdHBWVVhTWXJ0Z2VHcnl4eHgvTGlOY3Fa?=
- =?utf-8?B?a1pxUElQN0RSWFN5OWF0cDgxTFh4RzRXY3ZIK2xEbk5CRTZGTzZaazRxdXJz?=
- =?utf-8?B?dFB2OHozWDdwK2RHRjlEZlJxb2dUU1lmeGNwTTIvT0psblRLMU1VandnPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB7210.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aEoycnhSZXlySjRFYmFXUGJROVFEQ3hVVkN4eUNEOWowY1NTNjBTeTI5Y045?=
- =?utf-8?B?N053MCtmZDF6dm1WK3hXUFJLMmhIbFVHKy95V3VSbDZ6UmRuWWtDcVA5TkVm?=
- =?utf-8?B?eEdpVXpBRys3dkR0UGhLU1dTR3Vha25QckFRYmprNFkxZXI3QUxjTjI3S0My?=
- =?utf-8?B?YjBQQzRnek1NK3BJZ2c2MDN6cnl3NnNvRkYvT3NCVTRYcnRTOXVCSmg2clJV?=
- =?utf-8?B?aVZVZHlNTzZSNjNGRmFtUlB1eStiQ3pwSHdpRS80anltaEtlNnRqUkJwVVRn?=
- =?utf-8?B?MU9hQjFubStUZER5YkIxRUQ2Y2RTSWZ6clBRUGRTVmFkWk45emxkQStFQnhH?=
- =?utf-8?B?ak9kR1lwYTRQMXdVRGsxb0tvZmowWHdUaUtTYjdETGFBUmF5bGNOeHpIcXd5?=
- =?utf-8?B?TXpWWjE2VXIwRHFJWE14NUd4YUIxVU1Ea0UxSGdBdWxBZEt3SkVINUtZRXJx?=
- =?utf-8?B?eEpCd1YrVnBpbW5za2Y3Tkw2UWdFVUowWk4rY0FldlBnTFdmd0xia2kzRVJD?=
- =?utf-8?B?YUhZWGI0dmJ1YWNQdGhYeVRLUGwzMThUZkhQUjZKaXhZUGxOemk1UjJnN2Za?=
- =?utf-8?B?cXYzOERtbDF6UU5JSXNnRUJ5NmhkR1pGeExaaEZpNG83cExDKzZHb2dMVHVy?=
- =?utf-8?B?dHpYL0tGN0w0aHd1L1BVVDZYTUFUbnZXV092bldnTmdCWGtTN1VZRkJaUHYw?=
- =?utf-8?B?Q2NJNEZGeHNWS0UxUXFLZlZPcVMvOUdkVUkyR0FleTdENjRhT1duZHdzYitD?=
- =?utf-8?B?b2syK2JRUnNKSXF1V0p2UEFFVDVGanI4QnIycmdTclFYZ0p3TEdpYmpKWDlK?=
- =?utf-8?B?aFFGUGtUUWYvdDZLUkhNTjQ1d1dBNEZIZEdKaHVQa1YzNUN4cXkvTlBsbmpt?=
- =?utf-8?B?bitCRnRJcHowQmUvVXlMV1BrUjg3WWcxUU5iTXY4T3dDbTd1cHQ5TUZWRDg1?=
- =?utf-8?B?QnZOSDVQZ041QjdNUzZWWEdHNUd2ejlVTkpuTmtlaXV3ekJUbjJXNktHRkMr?=
- =?utf-8?B?ZWhSMVpKbzIzL2N6TnF6c1J5MExzYzhLamI0Tk1HeTA4OTRRSENxTzYwVmRB?=
- =?utf-8?B?Q1ZqRERncHdpa0lmS05IOXQ1YVdjQ2xoc1RwRjRXSWYzVWhKa3MrR3dHc1RY?=
- =?utf-8?B?ekYxaHZuWnNxWC83OVJtRDlEVWRwVGZJR2JGVjNJaFN2bzZ1VlpZQ1Z4OXF4?=
- =?utf-8?B?MnJUZmZwNlV6ckNJSHF5cmlwU2lFVThFWTBXT216YXMvRXc0UldXcEJ0dE44?=
- =?utf-8?B?eEhJQXlyRGpXZzFULzF6YkEvL3NSQ21LenFwZ0pQSkV0VmtqRmkvbXVRTThM?=
- =?utf-8?B?VWZKMVBaOWMrNU1WQnRTbUlLeWJ6OTZydFg4UjU4cWFYdktGbDhCN1psZ0s4?=
- =?utf-8?B?dU8xSkE1UkhlTjF2dUFtQnU0YytWWWhIN1MyWFRjRXlLRUpWRFcvNDhwdEJn?=
- =?utf-8?B?ejlPMlpVU0hHazBBV0pxM1VIdDJFK2Nrc0lBeVkzemZBYm5tdmxxVDF2b2Vw?=
- =?utf-8?B?YzFxVVFkcjlPTXRSb21YYUt5RU1KSU0vdDZuSmtqdXkxM0g0OFpiVTNJV1dX?=
- =?utf-8?B?RSt2dktSZmVBS0dzSGRXZ0JRTDFMdUszNmtFSDJpN1hCNElQUytRdTJkWit5?=
- =?utf-8?B?L2JJN1QrZkVuN2F1V3dYNk9jZnJ2b2hiYkhNdkRiN0U4NWxzNHBQcU1aOHN4?=
- =?utf-8?B?emdvRitWZVFKTkQvVkFNZGpIcFFDOFgwNWpDZGI2ZjFuMURGRTZNWUlVeGto?=
- =?utf-8?B?M3N5d0JVbWJPNjF3RXVvWU0yMkdEUGhHZmZLMDJwZk1kTEF5WnFNeVROK1hi?=
- =?utf-8?B?U21ESWIxbjVQcSs5Mm9aL2daNnhHK2hVbllKeEdZRysyZUJGTVJ6Z29mUDRa?=
- =?utf-8?B?by8wMFI2czZ6bW4rUVNLekxjOFJIY2c1em1rRHFTN3JKRGVWZXJ6RmRKT2ZK?=
- =?utf-8?B?K2NWZlpDczZGQ1NWZm5uN3FUVVRtMU8xSW9jM1MrUUpFei9CZEVjQ1czcncy?=
- =?utf-8?B?QWJPb0pHWWxjZVRaZW45azBHMllBaTVVMlFVeGVBVHVjbXIrZDJqb2NHN1JH?=
- =?utf-8?B?NHFmVElHSjk4WXpQblRGREVGMFJHdjh0eElNaWswRUc2dVRQT2xNQzB4anlU?=
- =?utf-8?Q?3VrqdjknQYTnZHBuu758JTb5x?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|36860700004|376005|1800799015|82310400017; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?84WMOAETFouMeWcufahrtKrfbWAqyB7Q6ibwsZoq3oa/h79e2ZATeQwdk3h1?=
+ =?us-ascii?Q?bvOYWVLkNtc7igPXS2pmvOMIzrUU5awwHFUn8OICmKS4+QhqxanvfHrO5EyR?=
+ =?us-ascii?Q?FQuVSZvXyjT0tCU1xVcSWG2zjMs/zuSm9d5qlQPaPG/q0oX553x5oKZid79M?=
+ =?us-ascii?Q?OnMi8BBYnV/uELIfsDQj8mYpcM49fZrHyrZe09ZvZOuUVJfL+34n91cN1qyB?=
+ =?us-ascii?Q?1whxAC67an510r98JjGxwoTkgF69cBtPbM6UeYcJPD0wItP50PwTc8muwYdm?=
+ =?us-ascii?Q?3fXhi6zI6vrM/GCP1IwokrQXYVO9on8BORcghAxrPCQIVH/XLhQdvmQLT1UI?=
+ =?us-ascii?Q?StgpZqHZ0aYQl/60yQHXeX3pvja8QpwPtJd5AJHqAHgfDTXg510JJtmkwMHI?=
+ =?us-ascii?Q?qI/5YJFc6dR0bXPrV8pawZQhMxZG1vjAQXniBWfYq3OF9938iId3NtpwEuh6?=
+ =?us-ascii?Q?Y/8pb1/kPjoRtgc1WSR0ZvZ6sAHsHdlsZPoy/FR8ltxq/8GlUdgAhGxQh7rW?=
+ =?us-ascii?Q?TG8pGnM/OplBTy0m0JhgWYpt1/HHGIDHxkcYCtH0HYl9AuncijJ+Uo4ry+HK?=
+ =?us-ascii?Q?nmKXFulNQ5wJx8R3fU/OS21dv+q74TaPnnIKBMxnH1LBMJiskKFYoy2e4XER?=
+ =?us-ascii?Q?1b3WaqjreOp1E4iINC3GAONI8TqyLnDGxFM9JRGakzJajYlwDNbdeWzdWZQy?=
+ =?us-ascii?Q?dowvRR7oLI8XdlaLU7YTLC80hsbcHhMwUMoq9bZqYxnr96Eq5w7R5I8efSTT?=
+ =?us-ascii?Q?4IYHo4NV1MFylQ2qu7p1LvJ7t7XKGpzNAXUqwVtDVB1ztl5MdL607Fg7wrIJ?=
+ =?us-ascii?Q?pFKXdXaDOsKu3gvhpiixRwDEBc6f0TghijegpJ1XPPylW4/R2chVIgPD+imp?=
+ =?us-ascii?Q?YEHGn6mKR8kjU13TOEawbXMKfJOSO0ntWGut5EVDG6Ok4sutuAh/3jkU92wY?=
+ =?us-ascii?Q?JbEraB7wiG6+ZA1HgxOwuP6QrWvg7aM+I5iJlcr0teB8BOlAeaeLjB7S4tz8?=
+ =?us-ascii?Q?XGHGkS2wK69kkAV+G2h5oBK1Q8HMVgZR7Jgpaju/e+pj22KkL1lzOFqtpU4d?=
+ =?us-ascii?Q?lWrKV11DlQWSu199A+1Fwaj/OPE9ZKUewqajtO8YljcoXobFsVr27e1v9LuQ?=
+ =?us-ascii?Q?kw8gYkaRTN2zPu/KXQiCvohCKoNVHXJvTcNuVE0tgrbFtXK97RY0o1JLRcLa?=
+ =?us-ascii?Q?xXMs4kIOEOPR5YiGqrg1/+s++O11v79USwqPerH9xwlImRB/x/ckEaMdchce?=
+ =?us-ascii?Q?greRzx3ZjP8tkqUKXLUB477VBNOf6oFYXu9QbPH8k63wQL7IpJA5UcIz3woO?=
+ =?us-ascii?Q?gqXEybMYtdkz6lxjxefJGTZRS5dY8J/rsq3gP/9j30pULCUkgBxV4UyB2YQY?=
+ =?us-ascii?Q?hKmuT5tzIVIwr3gaq7ny/A7Hs06H?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(376005)(1800799015)(82310400017); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15bd7b76-0603-434f-093b-08dc7073e18c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7210.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2024 22:03:38.8391 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2024 22:05:19.9840 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09d996a5-86e8-42f2-332e-08dc70741df8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RVg+yMIt8R1IS8U6Di3kzokQfLUMFMz/jttyHRn0EQN+PsWqFp6FK7gpsh+R9lw4kZmRyUHHVe1F1R4zSxWRVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8281
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE5.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4190
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,241 +128,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------DERVUe4ElAjWNIsdv7e3crUe
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+We are incorrectly passing the first XCC's MQD when
+updating CU masks for other XCCs in the partition. Fix
+this by passing the MQD for the XCC currently being
+updated with CU mask to update_cu_mask function.
 
-Hi Alex,
-
-Well - the dev_info has 2 "amdgpu"s.
-
-    [   67.227121] amdgpu 0000:43:00.0: amdgpu: JPEG decode is enabled
-    in VM mode
-
-In practice we use "drm" to grep the GPU info for VCN and JPEG support.
-So I believe the DRM_INFO is the best and it is used by most of the 
-amdgpu code with exception only a few jpeg code and one vcn code.
-in case of a need to convert all of them to something like:
-
-    [   67.227121] amdgpu 0000:43:00.0: JPEG decode is enabled in VM mode
-
-We can just change the macro of DRM_INFO.
-Do we agree on using DRM_INFO?
-
-Regards,
-
-David
-
-On 2024-05-09 17:36, Alex Deucher wrote:
-> On Thu, May 9, 2024 at 5:31 PM David Wu<davidwu2@amd.com>  wrote:
->> Hi Alex,
->>
->> Thanks for the suggestion!
->> What I am thinking is "DRM_DEV_INFO" should not be the one we want - as it is more like a debug message.
->>
->> [drm:jpeg_v5_0_0_hw_init [amdgpu]] JPEG decode initialized successfully.
->>
->> instead I prefer to use this format:
->> "amdgpu 0000:43:00.0: amdgpu: JPEG decode initialized successfully."
->>
->> but again I dislike it as well as there are 2 "amdgpu"s in the same message.
-> You can use just plain dev_info().
->
-> Alex
->
->> To make it consistent the "DRM_INFO" is used everywhere in the amdgpu code.
->> only the following jpeg code uses DRM_DEV_INFO and one file for vcn. All other jpeg versions have already changed to DRM_INFO.
->>
->> grep -r DRM_DEV_INFO *
->> amdgpu/jpeg_v4_0_3.c: DRM_DEV_INFO(adev->dev, "JPEG decode initialized successfully.\n");
->> amdgpu/jpeg_v4_0_3.c: DRM_DEV_INFO(adev->dev, "JPEG decode is enabled in VM mode\n");
->> amdgpu/vcn_v4_0_3.c: DRM_DEV_INFO(adev->dev, "VCN decode initialized successfully(under %s).\n",
->> amdgpu/vcn_v4_0_3.c: DRM_DEV_INFO(adev->dev, "VCN decode is enabled in VM mode\n");
->> amdgpu/jpeg_v4_0_5.c: DRM_DEV_INFO(adev->dev, "JPEG decode initialized successfully under DPG Mode");
->> amdgpu/jpeg_v4_0_5.c: DRM_DEV_INFO(adev->dev, "JPEG%d decode is enabled in VM mode\n", i);
->> amdgpu/jpeg_v5_0_0.c: DRM_DEV_INFO(adev->dev, "JPEG decode initialized successfully under DPG Mode");
->> amdgpu/jpeg_v5_0_0.c: DRM_DEV_INFO(adev->dev, "JPEG%d decode is enabled in VM mode\n", i);
->> amdgpu/jpeg_v4_0.c: DRM_DEV_INFO(adev->dev, "JPEG decode initialized successfully.\n");
->> amdgpu/jpeg_v4_0.c: DRM_DEV_INFO(adev->dev, "JPEG decode is enabled in VM mode\n");
->>
->> If the rest of code in amdgpu uses DRM_INFO why should we make VCN and JPEG special?
->> To address the identification of which GPUs - we need to check the kernel message after each IP DISCOVERY.
->> I do not see a reason to mess them up.
->> Regards,
->> David
->> On 2024-05-09 16:59, Alex Deucher wrote:
->>
->> On Thu, May 9, 2024 at 4:57 PM David (Ming Qiang) Wu<David.Wu3@amd.com>  wrote:
->>
->> amdgpu jpeg kernel message is different than others such as vcn:
->>    [drm:jpeg_v5_0_0_hw_init [amdgpu]] JPEG decode initialized successfully.
->>
->> This patch is to make them consistent.
->>
->> The message after the change is:
->>    [drm] JPEG decode initialized successfully.
->>
->> Please convert the others to DRM_DEV_INFO instead.  Otherwise we can't
->> tell which GPUs these messages refer to on multi-GPU systems.
->>
->> Alex
->>
->> Signed-off-by: David (Ming Qiang) Wu<David.Wu3@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
->> index 64c856bfe0cb..4be0668ab97d 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
->> @@ -145,7 +145,7 @@ static int jpeg_v5_0_0_hw_init(void *handle)
->>          if (r)
->>                  return r;
->>
->> -       DRM_DEV_INFO(adev->dev, "JPEG decode initialized successfully.\n");
->> +       DRM_INFO("JPEG decode initialized successfully.\n");
->>
->>          return 0;
->>   }
->> @@ -549,7 +549,7 @@ static const struct amdgpu_ring_funcs jpeg_v5_0_0_dec_ring_vm_funcs = {
->>   static void jpeg_v5_0_0_set_dec_ring_funcs(struct amdgpu_device *adev)
->>   {
->>          adev->jpeg.inst->ring_dec->funcs = &jpeg_v5_0_0_dec_ring_vm_funcs;
->> -       DRM_DEV_INFO(adev->dev, "JPEG decode is enabled in VM mode\n");
->> +       DRM_INFO("JPEG decode is enabled in VM mode\n");
->>   }
->>
->>   static const struct amdgpu_irq_src_funcs jpeg_v5_0_0_irq_funcs = {
->> --
->> 2.34.1
->>
---------------DERVUe4ElAjWNIsdv7e3crUe
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p>Hi Alex,<br>
-    </p>
-    Well - the dev_info has 2 &quot;amdgpu&quot;s. <br>
-    <blockquote>[&nbsp;&nbsp; 67.227121] amdgpu 0000:43:00.0: amdgpu: JPEG decode
-      is enabled in VM mode<br>
-    </blockquote>
-    In practice we use &quot;drm&quot; to grep the GPU info for VCN and JPEG
-    support.<br>
-    So I believe the DRM_INFO is the best and it is used by most of the
-    amdgpu code with exception only a few jpeg code and one vcn code.<br>
-    in case of a need to convert all of them to something like:
-    <blockquote>[&nbsp;&nbsp; 67.227121] amdgpu 0000:43:00.0: JPEG decode is
-      enabled in VM mode</blockquote>
-    We can just change the macro of DRM_INFO.<br>
-    Do we agree on using DRM_INFO?<br>
-    <p>Regards,</p>
-    <p>David<br>
-    </p>
-    <div class="moz-cite-prefix">On 2024-05-09 17:36, Alex Deucher
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:CADnq5_M6+yMtMDz5kr6FYZyMT0ZB7pNc5Ln-vSb6e45Cn71V=g@mail.gmail.com">
-      <pre class="moz-quote-pre" wrap="">On Thu, May 9, 2024 at 5:31 PM David Wu <a class="moz-txt-link-rfc2396E" href="mailto:davidwu2@amd.com">&lt;davidwu2@amd.com&gt;</a> wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-Hi Alex,
-
-Thanks for the suggestion!
-What I am thinking is &quot;DRM_DEV_INFO&quot; should not be the one we want - as it is more like a debug message.
-
-[drm:jpeg_v5_0_0_hw_init [amdgpu]] JPEG decode initialized successfully.
-
-instead I prefer to use this format:
-&quot;amdgpu 0000:43:00.0: amdgpu: JPEG decode initialized successfully.&quot;
-
-but again I dislike it as well as there are 2 &quot;amdgpu&quot;s in the same message.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-You can use just plain dev_info().
-
-Alex
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-To make it consistent the &quot;DRM_INFO&quot; is used everywhere in the amdgpu code.
-only the following jpeg code uses DRM_DEV_INFO and one file for vcn. All other jpeg versions have already changed to DRM_INFO.
-
-grep -r DRM_DEV_INFO *
-amdgpu/jpeg_v4_0_3.c: DRM_DEV_INFO(adev-&gt;dev, &quot;JPEG decode initialized successfully.\n&quot;);
-amdgpu/jpeg_v4_0_3.c: DRM_DEV_INFO(adev-&gt;dev, &quot;JPEG decode is enabled in VM mode\n&quot;);
-amdgpu/vcn_v4_0_3.c: DRM_DEV_INFO(adev-&gt;dev, &quot;VCN decode initialized successfully(under %s).\n&quot;,
-amdgpu/vcn_v4_0_3.c: DRM_DEV_INFO(adev-&gt;dev, &quot;VCN decode is enabled in VM mode\n&quot;);
-amdgpu/jpeg_v4_0_5.c: DRM_DEV_INFO(adev-&gt;dev, &quot;JPEG decode initialized successfully under DPG Mode&quot;);
-amdgpu/jpeg_v4_0_5.c: DRM_DEV_INFO(adev-&gt;dev, &quot;JPEG%d decode is enabled in VM mode\n&quot;, i);
-amdgpu/jpeg_v5_0_0.c: DRM_DEV_INFO(adev-&gt;dev, &quot;JPEG decode initialized successfully under DPG Mode&quot;);
-amdgpu/jpeg_v5_0_0.c: DRM_DEV_INFO(adev-&gt;dev, &quot;JPEG%d decode is enabled in VM mode\n&quot;, i);
-amdgpu/jpeg_v4_0.c: DRM_DEV_INFO(adev-&gt;dev, &quot;JPEG decode initialized successfully.\n&quot;);
-amdgpu/jpeg_v4_0.c: DRM_DEV_INFO(adev-&gt;dev, &quot;JPEG decode is enabled in VM mode\n&quot;);
-
-If the rest of code in amdgpu uses DRM_INFO why should we make VCN and JPEG special?
-To address the identification of which GPUs - we need to check the kernel message after each IP DISCOVERY.
-I do not see a reason to mess them up.
-Regards,
-David
-On 2024-05-09 16:59, Alex Deucher wrote:
-
-On Thu, May 9, 2024 at 4:57 PM David (Ming Qiang) Wu <a class="moz-txt-link-rfc2396E" href="mailto:David.Wu3@amd.com">&lt;David.Wu3@amd.com&gt;</a> wrote:
-
-amdgpu jpeg kernel message is different than others such as vcn:
-  [drm:jpeg_v5_0_0_hw_init [amdgpu]] JPEG decode initialized successfully.
-
-This patch is to make them consistent.
-
-The message after the change is:
-  [drm] JPEG decode initialized successfully.
-
-Please convert the others to DRM_DEV_INFO instead.  Otherwise we can't
-tell which GPUs these messages refer to on multi-GPU systems.
-
-Alex
-
-Signed-off-by: David (Ming Qiang) Wu <a class="moz-txt-link-rfc2396E" href="mailto:David.Wu3@amd.com">&lt;David.Wu3@amd.com&gt;</a>
+Fixes: fc6efed2c728 ("drm/amdkfd: Update CU masking for GFX 9.4.3")
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-index 64c856bfe0cb..4be0668ab97d 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-@@ -145,7 +145,7 @@ static int jpeg_v5_0_0_hw_init(void *handle)
-        if (r)
-                return r;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index 542191656aeb..399fa2106631 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -715,7 +715,7 @@ static void update_mqd_v9_4_3(struct mqd_manager *mm, void *mqd,
+ 		m = get_mqd(mqd + size * xcc);
+ 		update_mqd(mm, m, q, minfo);
+ 
+-		update_cu_mask(mm, mqd, minfo, xcc);
++		update_cu_mask(mm, m, minfo, xcc);
+ 
+ 		if (q->format == KFD_QUEUE_FORMAT_AQL) {
+ 			switch (xcc) {
+-- 
+2.35.1
 
--       DRM_DEV_INFO(adev-&gt;dev, &quot;JPEG decode initialized successfully.\n&quot;);
-+       DRM_INFO(&quot;JPEG decode initialized successfully.\n&quot;);
-
-        return 0;
- }
-@@ -549,7 +549,7 @@ static const struct amdgpu_ring_funcs jpeg_v5_0_0_dec_ring_vm_funcs = {
- static void jpeg_v5_0_0_set_dec_ring_funcs(struct amdgpu_device *adev)
- {
-        adev-&gt;jpeg.inst-&gt;ring_dec-&gt;funcs = &amp;jpeg_v5_0_0_dec_ring_vm_funcs;
--       DRM_DEV_INFO(adev-&gt;dev, &quot;JPEG decode is enabled in VM mode\n&quot;);
-+       DRM_INFO(&quot;JPEG decode is enabled in VM mode\n&quot;);
- }
-
- static const struct amdgpu_irq_src_funcs jpeg_v5_0_0_irq_funcs = {
---
-2.34.1
-
-</pre>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------DERVUe4ElAjWNIsdv7e3crUe--
