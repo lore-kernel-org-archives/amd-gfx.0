@@ -4,75 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57076C25B10
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 May 2024 12:40:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BDA2C25B10
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 May 2024 12:46:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E37210E1F4;
-	Thu,  9 May 2024 12:40:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9167810E210;
+	Thu,  9 May 2024 12:46:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="08RXUR8S";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="A2MRuQ0M";
 	dkim-atps=neutral
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EC0C10E0D5
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 May 2024 12:40:21 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-518931f8d23so870557e87.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 May 2024 05:40:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1715258419; x=1715863219;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=n3NirfJeXWYYIR5R2uPMTQMrKgE4eFI2a/JfUV4vtog=;
- b=08RXUR8S0AAQrs65fLj8iOe0drfYqnIfXYIdb+T00eTyLbZIinOo9DP2ssHySYrhsY
- NSyGpCoAU2dAi7TaCDGRFiH5+2AkBAyYRwjrcVzo5GcKgBwzioorV0Wx0GvSxJqjet4Z
- sptRJ84fnLjl1p/XSf8dqt7Sd0KUuYPtT7TYykJZ2p36VnP7Uw1wuMUYbp2eacyx3ZMh
- EMFLJ8bX1x9H4ZUBl8QTda8vMl2p0xoLpjXlf2xQUXRbYNnhkadbVHGbmpW1CTKltnkZ
- HkkJv7T46xeaYyyRhhCDimT6a3jn2xs7U1SY1Ro2oFFecVt6paook4cSKgnANRoS6IMc
- sfrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715258419; x=1715863219;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=n3NirfJeXWYYIR5R2uPMTQMrKgE4eFI2a/JfUV4vtog=;
- b=p6qj8I7SrL06k1GdiXIXMzPign3H2NNnALf3zVYYsFogDtL8UWRFfC31bxkrGKxz2U
- hDuCJ1A5ByTL5JgY2mbwV4W5LoNfcmkhTr59HK5qir9TvK0r6yh5sXXbN35BKGnsKR2G
- z08ZRnqM1BfsnCHiskN9nKPNtF6TDgxIgcPZO/MmEVdkscpBxnT84ZIP/rglSsoUvZXp
- qPuyOAlvFKF1UF1aD7Rrdrjow7sv+NmtWcjKzl6MahOtSf5zg0k1jQD7mXcZK0KcwzrW
- IjAjSkfBqfnSr/9qXjnX3HJq7JNmtg1Nn5P0px62TqDE0JYuMNCkkIqhRSgdmaKbnEF2
- hFTg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXlnYDDgo+13Zl1HQODc6cBhP4Mj1ZOdUyDVEnte/ePmvCNKl4yWLAPa53TRfF6hEFWaSvUP+Uult+bjlJDlUsjSyv+Q5+0tIJ0fHMupA==
-X-Gm-Message-State: AOJu0YzFSsZrwe5x5nrG0RfE/aXPpRHpdtXAy2P4waskTlOBR1GAKLdQ
- 9FgjmWk/uOgksW0OODCrAk+FDRBISaYpLqJVglWeTXOh7ZSrYoTwZXzKBVVOiPc=
-X-Google-Smtp-Source: AGHT+IHL0A6wEwx4JimOBgRRojYWD3H9Z5e/uxRyzaiU217ufBs0ILdpp0w4zg84WxySIS97nfeQIg==
-X-Received: by 2002:a05:6512:344c:b0:519:2828:c284 with SMTP id
- 2adb3069b0e04-5217ce42f3cmr3353348e87.65.1715258418996; 
- Thu, 09 May 2024 05:40:18 -0700 (PDT)
-Received: from [192.168.0.101] ([84.69.19.168])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-41fccfe1527sm24010745e9.44.2024.05.09.05.40.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 May 2024 05:40:18 -0700 (PDT)
-Message-ID: <e39bcdd1-90e7-42f3-94a9-ea1af6b0d278@ursulin.net>
-Date: Thu, 9 May 2024 13:40:17 +0100
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2061.outbound.protection.outlook.com [40.107.237.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 744DB10E210
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 May 2024 12:46:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d1tdMbdsSOjs7nKCIHr7zhGuWbzQIbJD+VS1hIXuZ8ot9M3I3XaM8xjlxkHzKoxGcN/ZVSBOlgw3EUToYcHzGor631rcnYC2atIrp4dWELaoUT31y+5HkO+tK5gCQNA5aLHSumSQRPth+ABYtRvxmnvCcdjh6w3uoD9WvUK2UlHoSh+lldDTkJAA1u+YsUnKmSmV0hh4N/gI8+POifWraaplIPbHCFFWkepHeAwyfd6Hvlk1v7qB499Wi7UBEWDb4bvCtShW4e0Nu2/u/rxJBHPcB/IH1+k4K+2IHQ2klt+fErWVeBAFy9vzeE62nrzA1EKz+im3YZjz1RLYBEAIVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1GqYtsIX849AV88aEa10SYs2avD3gzt/xEq7AYlGrP4=;
+ b=CTG3KiL8dUCt5wq0Yy7gDWnFwdUMSllmj9pYtvOsYzWhwuAmf8PThwifODYwn+etnPkDTic9aQ6RyMdsqH826rUjifgzN+xzeyNsDnmJqfDMrCjU6MO/3NDk3fTTReY87DUkdMi/LB2DeT/rzdaYmiebc6mfKB2QIZ0uGzSF5OB0opGHlAp223abbPzHor1zqQzK0x01JdLVK6ONNCDreVHaiOYJBptQyDmLZnx7ASHKgRelqiC2wCMZF3s3vXy9h6pI+y6iFd98rtOOp4d14mzNgV0ifMB4/x5jCOY0P+ilAICMoWcgMUcHJzX80jN/+l0bngHVfV6vSos6U8m4HA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1GqYtsIX849AV88aEa10SYs2avD3gzt/xEq7AYlGrP4=;
+ b=A2MRuQ0M86A6ZSNWsrK/h91n8TLRdEgsmlQg9dvCtpavM2Wcmc0iEECQbA/SjONfOxLrpeFcn0TMI2eXLN8qpdC9wvT/4HfMoZxP9n0MqhRpxrKKphaE/zNGGbqmy+MbysuhDgbaebGO3UbJSx/QZX5LICfFoc2trbbi0FWrscA=
+Received: from DS7PR12MB6071.namprd12.prod.outlook.com (2603:10b6:8:9d::11) by
+ PH7PR12MB7356.namprd12.prod.outlook.com (2603:10b6:510:20f::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.45; Thu, 9 May
+ 2024 12:46:14 +0000
+Received: from DS7PR12MB6071.namprd12.prod.outlook.com
+ ([fe80::f839:3c75:f78a:ce1]) by DS7PR12MB6071.namprd12.prod.outlook.com
+ ([fe80::f839:3c75:f78a:ce1%6]) with mapi id 15.20.7544.045; Thu, 9 May 2024
+ 12:46:13 +0000
+From: "Kamal, Asad" <Asad.Kamal@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+Subject: RE: [PATCH] drm/amd/pm: Fix aldebaran pcie speed reporting
+Thread-Topic: [PATCH] drm/amd/pm: Fix aldebaran pcie speed reporting
+Thread-Index: AQHaoe9EoVraXc3yYE2EUJGwbSvbs7GO2dFw
+Date: Thu, 9 May 2024 12:46:13 +0000
+Message-ID: <DS7PR12MB6071E3579A40F82E282496F08EE62@DS7PR12MB6071.namprd12.prod.outlook.com>
+References: <20240509085925.61641-1-lijo.lazar@amd.com>
+In-Reply-To: <20240509085925.61641-1-lijo.lazar@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=f92b6b72-0ed6-40e6-9bd8-e1bebbbf67a5;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-05-09T12:45:59Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6071:EE_|PH7PR12MB7356:EE_
+x-ms-office365-filtering-correlation-id: 7698856d-f6bd-4119-6c6b-08dc702602d0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230031|376005|366007|1800799015|38070700009;
+x-microsoft-antispam-message-info: =?us-ascii?Q?i+EVtKuiZwtpj1p3+n8I5QW7bi3vBzieeY3iv+SZFgWtLAPxqCP8T+oK8M5Q?=
+ =?us-ascii?Q?1sR1myQsq0LWE2Ethk1XkdOzsh7eTsArba3gFKv8AA8p7/chEt49LxSbFxPU?=
+ =?us-ascii?Q?R69CM+6b4jXQmzh80yHNGRJXD+ucHh3/hBghhBQSMELYiIwbhFSLNAwaeqBF?=
+ =?us-ascii?Q?TiHtmbVshtcc6TFjOaponq/ZvJpglPOyF2WZpeRxNN5dgb4SzeVte2mbHuvi?=
+ =?us-ascii?Q?el76Q8WZplelZlCIYL5FhXlyILdQDvE8amSNruTW1BcHNh8mhDavH1kXVV1B?=
+ =?us-ascii?Q?DOTJqvCZ1fknDQHsXzGbBcrfxAfqx1V6gRITWKnx5Ia0ZIv9Ju1mjhYrCefe?=
+ =?us-ascii?Q?IJ5LiImH6khXtlWEgma+6SpgsGQ0Hz0OTgQR68RnBPE/2GPC6EyUufczYilM?=
+ =?us-ascii?Q?x8M0jDzlWWkAoR/MMTq5crRMwzM1fB7HX2Z7oktdMsLNDAnlbMAiMQBzPgrn?=
+ =?us-ascii?Q?fsHD25/Zr9ZECCKc6FKD0JxqZMvF/NUlIXbF2lFBVLql1x8BkPZknrTB0fjE?=
+ =?us-ascii?Q?bIYIIXbVmJ0a5JG5ah3HV58v5UQPh0bsfE+v+XLfx7BBTItsan+AGuNRSy6Y?=
+ =?us-ascii?Q?+5ATP+eW3vOypqN9bxjrLUBCUxccnXG9I/6ad8hXw3zA5NOdyh0VPuZJqfcs?=
+ =?us-ascii?Q?UlGcDmLopWKt1cajEQiOepZr5tK3jbJmPh+7njVNoauN9exYMv3pgUvlCDsB?=
+ =?us-ascii?Q?F5avQWhtr8AzQgrmKEcIVIbCK4P9ekBdiWncqtZ/KCKAXcgczLyHlAgIMsKK?=
+ =?us-ascii?Q?T0xGg5P/YdtcipmJoq6itcAVJR2UWc7ylvBJT46npyD5b5gqSMqgFgKRHBxO?=
+ =?us-ascii?Q?90BX0x8KGNQ83Q77kldxa53r7EdrtZmQoD1rzBjT2DU2owGTYuuZAMVxcDbF?=
+ =?us-ascii?Q?e/0Gf/26ez9fvxAnklq4TpoHk3NlOu095r6YwwLYJRyQNvSdEY6XgBH7Tkxo?=
+ =?us-ascii?Q?DV6DFMtPKexMIFUf6ZvPRfzQo92DdVaHij/f9dsKxtN7c9yXzaLBEvy25n3s?=
+ =?us-ascii?Q?wQmx4r7wr4PylB1ICCvMZ2ZHhvFFQt6q5wXkzjAByskDZRrbzRRDdPYao/7F?=
+ =?us-ascii?Q?s1w3ayvm0ffxClHXmBVCbjnflb6GKzgtOfIhn33IXp2fILCMEoQwvCLMtSZo?=
+ =?us-ascii?Q?cND8gZExme66NuFZQciOw9e5yCSdCCocS6FZKymKsayvjBthMRTa73rc6yU6?=
+ =?us-ascii?Q?+O0opSypTi/crsxSPl47nbJHDe4VyAZHOW/BkN+D5Ixf9EIJtoggN4osieAs?=
+ =?us-ascii?Q?hH3xKcXCpGCkFtTb6QmDnUlnJPz5BTAUil1YO6E7GNVCqY8tHGgYmBTH7g7e?=
+ =?us-ascii?Q?1ml2T3o8/1RQeNlXp8TQ7KkWRYxkHHz9h+4FPdHaUBrA5w=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6071.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(366007)(1800799015)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+IM/iTvoQxrU5Kdu3kKtx60HAwWCDDaa53Ng8z17stVHWMz+bD7E6GN7tnOc?=
+ =?us-ascii?Q?cdb5sDNEOqn62KLEnMwJr+unm1QYYmXeFsXidKIinJLUielOK7lRkIhtMtx+?=
+ =?us-ascii?Q?LtjkKFEz0aKhx9QvprIBA3KyEJ9zrvArELDOaTlDUjaphK1wS4c+yszMmwLi?=
+ =?us-ascii?Q?CWCq2vne8h5dKrGbkYmTjE70xjfKAOTIAD1yILZlsh4FowiB16G1tcMsvxRj?=
+ =?us-ascii?Q?PbjML4hetutvXWu1bOJyZkQG5CqVgUiZrFVfiRE9rP4caqyRyBzODN4JkG55?=
+ =?us-ascii?Q?bkYbfAljnY/vwNe9JciB1C88/Pd4gTcNd/+2HIUqHu/xZ2BcnGANgMNayHcf?=
+ =?us-ascii?Q?ERCdLIKmvF/cylRkOiS5cgFQzJW2SsEenvBNNMK7GHJiTqUb0qsw6ddNAPUA?=
+ =?us-ascii?Q?nHOfWOj0WJKEjrJ14FqogCmNOEpxZ1Zw3R5fF0lAxfOmI/R9P1/FJm3XNSjK?=
+ =?us-ascii?Q?FYbhdyyN1oc/xOCQtEDmmIF+T11i+bPHImn0WWPOZF51B8J5TeaQW8Jtd8jB?=
+ =?us-ascii?Q?EmDJRBQsPv+obzh1OmqZfO9Fy9mqN3dnVjgLQzNKK6r2KDA3U+/VOcjcT1uc?=
+ =?us-ascii?Q?xzhcUaWc1hP/k+OtoKVaotV5I+1rzPqSobEydZ+UO7FL0DhPlwF61pMj4O9S?=
+ =?us-ascii?Q?NU00cUIy3mPW1lnO1tYt2D1sGaOXINiuiGOiBbvzyoJqJ7pn9Ag+KzyudO8B?=
+ =?us-ascii?Q?bpyrEqJsWKNJ1oUOQG/fYQx1PJ+pBuie/lFJq4zZMRRFhEbcWeoDZ/c7l3pL?=
+ =?us-ascii?Q?0qG96wc+SgCDMLDgwNK4dGkKRT+XNxl+bXCpborVPc23dhBia8a9109bb+FM?=
+ =?us-ascii?Q?S1wT7bqAMSZnQD5mi6UStRpP6uQ8pGKrzWELZ4wAfYZk4L+n39ikqpJd2oXO?=
+ =?us-ascii?Q?Nn3fSGJP3f7jj4FWDM/LCuDj9xYncz4UFaT/ubgrRb7GxNpZ9vQwLsRA96m+?=
+ =?us-ascii?Q?vkyYoYLzRlXf/2UScwMZIyYDMlOBrs0agSnb7YdwmeyHFOa45OlQ7v59eFYe?=
+ =?us-ascii?Q?+GBLGXXsoS+HNji0slCkqWcRHkEeKHuUvWvYjmkMMtMjTU07UvVRionvyRJ7?=
+ =?us-ascii?Q?tAI01cOx3lzJwpaH31oePsfYccwgJSI7f452deke5YR9JVcT6f0SpySDK3XA?=
+ =?us-ascii?Q?hGTN3+TEBxAEBOXbHegj6uV1CfvidZ87w5Q12/J+csaqEaUAxWqsKoz+fKmU?=
+ =?us-ascii?Q?ff/KukuDpjwsXCUTS6uwp+Z8iz8+iFfkcwNOMy6pbVj+HlcjSMxfMIIUFVJ6?=
+ =?us-ascii?Q?4MEk3XrVQ88X+RCJ/MKAmeZx6uJ3jS/Her0BsJJB994o2vXFLY2U9KuQlm2y?=
+ =?us-ascii?Q?weqPjtfEgenFezzExYedui49tg4yYBDyIZNbTDOGEXNYD/f0FR//QZFbgcvc?=
+ =?us-ascii?Q?YMZmchlckiMZKTdBfzBcDViOXKLrrxQRW1XALcNrRBLhjKlynaFpjFEk8BID?=
+ =?us-ascii?Q?LApqXSGUOK0MvGT6cnoR/DU9MptTVXWPeATwaHJpQO9W6Ao2FTAO26ul723y?=
+ =?us-ascii?Q?VhDtF1BIokoLmBtbyTFr2v3KrOth90IOFAnLdLtryyghinN0OtRrTaTxf5qL?=
+ =?us-ascii?Q?NJOF9b0SPKoca/ZWjrg=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 0/5] Discussion around eviction improvements
-Content-Language: en-GB
-To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Friedrich Vock <friedrich.vock@gmx.de>
-References: <20240508180946.96863-1-tursulin@igalia.com>
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20240508180946.96863-1-tursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6071.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7698856d-f6bd-4119-6c6b-08dc702602d0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 May 2024 12:46:13.7667 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: uH1a9ntHxJfIP9phRDhxM5mq7mjFU81CSzS7cpw5geYgx8OuKxKT2IvnbqMnH6YpmABm74Brqxng1DRy5NFH6w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7356
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,90 +151,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - General]
 
-On 08/05/2024 19:09, Tvrtko Ursulin wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> 
-> Last few days I was looking at the situation with VRAM over subscription, what
-> happens versus what perhaps should happen. Browsing through the driver and
-> running some simple experiments.
-> 
-> I ended up with this patch series which, as a disclaimer, may be completely
-> wrong but as I found some suspicious things, to me at least, I thought it was a
-> good point to stop and request some comments.
-> 
-> To perhaps summarise what are the main issues I think I found:
-> 
->   * Migration rate limiting does not bother knowing if actual migration happened
->     and so can over-account and unfairly penalise.
-> 
->   * Migration rate limiting does not even work, at least not for the common case
->     where userspace configures VRAM+GTT. It thinks it can stop migration attempts
->     by playing with bo->allowed_domains vs bo->preferred domains but, both from
->     the code, and from empirical experiments, I see that not working at all. Both
->     masks are identical so fiddling with them achieves nothing.
-> 
->   * Idea of the fallback placement only works when VRAM has free space. As soon
->     as it does not, ttm_resource_compatible is happy to leave the buffers in the
->     secondary placement forever.
-> 
->   * Driver thinks it will be re-validating evicted buffers on the next submission
->     but it does not for the very common case of VRAM+GTT because it only checks
->     if current placement is *none* of the preferred placements.
-> 
-> All those problems are addressed in individual patches.
-> 
-> End result of this series appears to be driver which will try harder to move
-> buffers back into VRAM, but will be (more) correctly throttled in doing so by
-> the existing rate limiting logic.
-> 
-> I have run a quick benchmark of Cyberpunk 2077 and cannot say that I saw a
-> change but that could be a good thing too. At least I did not break anything,
-> perhaps.. On one occassion I did see the rate limiting logic get confused while
-> for a period of few minutes it went to a mode where it was constantly giving a
-> high migration budget. But that recovered itself when I switched clients and did
-> not come back so I don't know. If there is something wrong there I don't think
-> it would be caused by any patches in this series.
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
 
-Since yesterday I also briefly tested with Far Cry New Dawn. One run 
-each so possibly doesn't mean anything apart that there isn't a 
-regression aka migration throttling is keeping things at bay even with 
-increased requests to migrate things back to VRAM:
-			
-		     before		 after
-min/avg/max fps	    36/44/54		37/45/55
+Thanks & Regards
+Asad
 
-Cyberpunk 2077 from yesterday was similarly close:
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lijo Laz=
+ar
+Sent: Thursday, May 9, 2024 2:29 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+Subject: [PATCH] drm/amd/pm: Fix aldebaran pcie speed reporting
 
-		26.96/29.59/30.40	29.70/30.00/30.32
+Fix the field definitions for LC_CURRENT_DATA_RATE.
 
-I guess the real story is proper DGPU where misplaced buffers have a 
-real cost.
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 
-Regards,
+Fixes: c05d1c401572 ("drm/amd/swsmu: add aldebaran smu13 ip support")
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Tvrtko
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/d=
+rm/amd/pm/swsmu/smu13/smu_v13_0.c
+index 0fd25b72a40c..9c0445fa9f9b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -79,8 +79,8 @@ MODULE_FIRMWARE("amdgpu/smu_13_0_10.bin");
+ #define PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD_MASK 0x00000070L  #defin=
+e PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT 0x4
+ #define smnPCIE_LC_SPEED_CNTL                  0x11140290
+-#define PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE_MASK 0xC000 -#define PCIE=
+_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT 0xE
++#define PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE_MASK 0xE0 #define
++PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT 0x5
 
-> Series is probably rough but should be good enough for dicsussion. I am curious
-> to hear if I identified at least something correctly as a real problem.
-> 
-> It would also be good to hear what are the suggested games to check and see
-> whether there is any improvement.
-> 
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Friedrich Vock <friedrich.vock@gmx.de>
-> 
-> Tvrtko Ursulin (5):
->    drm/amdgpu: Fix migration rate limiting accounting
->    drm/amdgpu: Actually respect buffer migration budget
->    drm/ttm: Add preferred placement flag
->    drm/amdgpu: Use preferred placement for VRAM+GTT
->    drm/amdgpu: Re-validate evicted buffers
-> 
->   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     | 38 +++++++++++++++++-----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  8 +++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 21 ++++++++++--
->   drivers/gpu/drm/ttm/ttm_resource.c         | 13 +++++---
->   include/drm/ttm/ttm_placement.h            |  3 ++
->   5 files changed, 65 insertions(+), 18 deletions(-)
-> 
+ #define ENABLE_IMU_ARG_GFXOFF_ENABLE           1
+
+--
+2.25.1
+
