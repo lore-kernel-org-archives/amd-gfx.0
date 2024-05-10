@@ -4,64 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67EBCC25B10
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 May 2024 15:45:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3DDEC25B10
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 May 2024 15:48:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E68010EDD7;
-	Fri, 10 May 2024 15:45:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1F2A10EE01;
+	Fri, 10 May 2024 15:48:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HlfQ1CQz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rz1hALEy";
 	dkim-atps=neutral
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBB2E10E7E2;
- Fri, 10 May 2024 15:45:49 +0000 (UTC)
-Received: by mail-pj1-f54.google.com with SMTP id
- 98e67ed59e1d1-2b3646494a8so1760764a91.2; 
- Fri, 10 May 2024 08:45:49 -0700 (PDT)
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5652E10EE1C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 May 2024 15:48:52 +0000 (UTC)
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-6f45020ac2cso1795118b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 May 2024 08:48:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715355949; x=1715960749; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1715356131; x=1715960931; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=eCyaxRcT2+wbZVhzZ1BB+Dli+tMLqeMid3YFa7QuT48=;
- b=HlfQ1CQzInpT1uaCJ9ZTwCTSO0mcS50Ej2uRS/4Z7MzDkq8+C8J0aSqtRh6rkjMX+G
- 9iAh92sFos1TcnnHAzOeCJ+lFsbmozaSBK7OBjtmzRgb+cJHH9dccD9XUbNboKldp20B
- ghxaEnpLucJY3OlkqzS+xLu+UIUkTECjqN3qRC2eyfzB6VA61EdF7wdfgZu1aJC63Kfv
- EJKYd/lTcnfU/pANckgb9U+u/aQtu8MgAsAtB0O5LX7lW+HVYgO5asMj3hKLN8UzArJg
- uA6yQsr5XxhK9TzFLfpD1GncN7oXHdA2CbPsya5z3civnDYoEuLn5bLPLDkdZBoksnzd
- 4X+Q==
+ bh=Na/vH6cb2y0fH7OnDp4XPe09GVJej475Q3l7xkCuTsA=;
+ b=Rz1hALEyznNgnJFMoRNb0WNSGbyksZDuwFX5JiFenmTUZ4TwD6oRXIkD6fU4/WVweB
+ /UZcKQS658H670Lctx9Qy2QvXoxH4M1Meu4f4L3FmZNymsZXBYdj1BwJpnGSBL2CHliK
+ 5G6z50Hi/M93kJKnqjxQlaLgw6Bw/cgC6/fw9KZuL7HzCOiZxLfg+Xh8qrqaapYaQBrn
+ oFiQsQDhz/0FTrtr1U4Q9wqc881N1DopYs+lN2ulF9bpuV+aD4hG+vahgtPnu+Cx/5NT
+ GiWIFKJKe8JxfCbDfKEwLk0+UTt/uiaMODUX22HpafB41LyDzP/CCz1NcC2yMlnIlLXe
+ 1TiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715355949; x=1715960749;
+ d=1e100.net; s=20230601; t=1715356131; x=1715960931;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=eCyaxRcT2+wbZVhzZ1BB+Dli+tMLqeMid3YFa7QuT48=;
- b=qYWmCgznZsluWppKwDbicKj8E5SUHoA01a/rchZkW0W2Uuyg7qAABVAsx3jjbnqqYE
- JK3htMU2PFP0cxPO/UxBh+o8JfhpoFwq1mrFTLYOsP2Ivs5ZBZ06DL+SDE5wQvkcYJp8
- 5cgFn9WN/Di+JF0UJCj0uqmjpaQiV9RH1KDjP2yxt3pt16cbmbJWnMW0YUm7mu1Q13ry
- hGAIU1v4GLtSsXUMkVdjraVV7qOGYHnuzH4lUog+fZZcqVahphoj78vRhRmhxSTeXUrD
- z9K8DzUdg6cRmf+ObTX170z6zGMEA2E3RMDpmxFXHUdVEjKa43hnB/EDJMXj9vwPWvNF
- 5DhQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWwOsTv+kpVX/vdvna5wp06Qu4jWi8d4/7KQ2Txk9A9uce3hpvJR549SKLqy7Nop93zyalFbI+5shARtEUQ///6E+SbSKd/9wOalUqziDitX/xPKmYN1pTlmvy0OfKGM8vI+9OHDxlrszy5c7ReduOS73RERxcUigMqeBgDquN70AQY2UGY7eW/jTAucUU=
-X-Gm-Message-State: AOJu0YzLxiuGkgZwHx7OCviCFbWlz4Hx1QvcCCeRj1PYhScgAxf7KJ/0
- lHU4S5E7p+mqYizqw+J1K7A6syL73wwuY3EzhY/C5s1l9FCVHqpxvJ9DMSbknpNVk/+AqHnZHSf
- OfIPWIiQR9PDpu6wSLrQTYBcdf8TcLQ==
-X-Google-Smtp-Source: AGHT+IETRwCKCw5m2fwIY96WLnlfk+Xo7r6OSlnsL1Thi1F8xij/i5eRt60qHpLaH05c4+ESTk8DDeRm9Swp55raUW4=
-X-Received: by 2002:a17:90a:1f04:b0:2af:8fa4:40e with SMTP id
- 98e67ed59e1d1-2b6cc340faemr2850546a91.1.1715355948584; Fri, 10 May 2024
- 08:45:48 -0700 (PDT)
+ bh=Na/vH6cb2y0fH7OnDp4XPe09GVJej475Q3l7xkCuTsA=;
+ b=C8ow2EtqEf6JyblA1Y9ff4mTpOR4rkrWIfIkrWboVx6r5c7bBLdg4VHZKcN46PWTkI
+ B1dP+nYxTil9exw0TtVBR9KBDn1G7DPIZITgB8CXrtbBprH81E2dBsT7qE/lvsNpmqN0
+ yd/whJ6S8vlWvM9NhR2ySFMrCENS9cpZmQe8tkRu7YReG0mBy7h7W/n51QP+NN4KJyG0
+ xrkBsjuOtW/l4O1UzAnLLTAjw5tnMRjWVkX1a1uZQzuW0aM7oklcIkJF7QV08Ao0HIFS
+ Q7LQeVRXbHxZcz66uDcGPZkDjI0emkZDgtJFYnfmtWvWtd1TXB/mauY6ivR2n7TbhmWe
+ 8a4g==
+X-Gm-Message-State: AOJu0Yw8Whsyd6MYsOHl2bU+04LOLH7oMvCuXfsWAAZNrBaDAIffMKsV
+ 8MMz4GhBW4JD8DAisQ5XiJriLzCzB3lMHaHZE//4NHQM8JWuUTT/uBsxqkk73xOXpaSb/XeYa8/
+ 6SJStAcC2sfBcoDw1NNEzNWkj0+HlMQ==
+X-Google-Smtp-Source: AGHT+IEvtpFlUrIKLgVNYRTkdtMh6+FAlRfMQnVCcygZd1hczhZSrY1xVCotRbHYeLYmqqK67nlieG1Z1jtpPkEi3iQ=
+X-Received: by 2002:a05:6a20:dd82:b0:1af:64fb:a04c with SMTP id
+ adf61e73a8af0-1afde10f20bmr3376218637.34.1715356131540; Fri, 10 May 2024
+ 08:48:51 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1715353572.git.jani.nikula@intel.com>
-In-Reply-To: <cover.1715353572.git.jani.nikula@intel.com>
+References: <20240510150429.538312-1-sreekant.somasekharan@amd.com>
+In-Reply-To: <20240510150429.538312-1-sreekant.somasekharan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 10 May 2024 11:45:36 -0400
-Message-ID: <CADnq5_OMOuz_T-OUZ4jVELEAL1FfFdqoFukKdvZA0eSoPQExLg@mail.gmail.com>
-Subject: Re: [RESEND 0/6] drm, nouveau/radeon/amdpgu: edid_blob_ptr cleanups
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Date: Fri, 10 May 2024 11:48:40 -0400
+Message-ID: <CADnq5_OL2z_EZnfQbS_m9x7fn5m55iayPbp3RDbWBudipgQBWA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Add GFX1201 to svm_range_get_pte_flags
+ function
+To: Sreekant Somasekharan <sreekant.somasekharan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, felix.kuehling@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -78,50 +76,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 10, 2024 at 11:17=E2=80=AFAM Jani Nikula <jani.nikula@intel.com=
-> wrote:
->
-> I've sent this some moths ago, let's try again...
->
-> BR,
-> Jani.
->
-> Jani Nikula (6):
->   drm/nouveau: convert to using is_hdmi and has_audio from display info
->   drm/radeon: convert to using is_hdmi and has_audio from display info
->   drm/radeon: remove radeon_connector_edid() and stop using
->     edid_blob_ptr
->   drm/amdgpu: remove amdgpu_connector_edid() and stop using
->     edid_blob_ptr
->   drm/edid: add a helper for EDID sysfs property show
->   drm/connector: update edid_blob_ptr documentation
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
+On Fri, May 10, 2024 at 11:12=E2=80=AFAM Sreekant Somasekharan
+<sreekant.somasekharan@amd.com> wrote:
 >
->  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 16 ---------
->  .../gpu/drm/amd/amdgpu/amdgpu_connectors.h    |  1 -
->  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  4 +--
->  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  4 +--
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  4 +--
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  4 +--
->  drivers/gpu/drm/drm_crtc_internal.h           |  2 ++
->  drivers/gpu/drm/drm_edid.c                    | 33 +++++++++++++++++++
->  drivers/gpu/drm/drm_sysfs.c                   | 24 ++------------
->  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  8 ++---
->  drivers/gpu/drm/nouveau/dispnv50/head.c       |  8 +----
->  drivers/gpu/drm/nouveau/nouveau_connector.c   |  2 +-
->  drivers/gpu/drm/radeon/atombios_encoders.c    | 10 +++---
->  drivers/gpu/drm/radeon/evergreen_hdmi.c       |  5 ++-
->  drivers/gpu/drm/radeon/radeon_audio.c         | 13 ++++----
->  drivers/gpu/drm/radeon/radeon_connectors.c    | 27 ++++-----------
->  drivers/gpu/drm/radeon/radeon_display.c       |  2 +-
->  drivers/gpu/drm/radeon/radeon_encoders.c      |  4 +--
->  drivers/gpu/drm/radeon/radeon_mode.h          |  2 --
->  include/drm/drm_connector.h                   |  6 +++-
->  20 files changed, 79 insertions(+), 100 deletions(-)
+> GFX1201 was missed in the commit below. Adding it in.
 >
+> 'Fixes: 7c06cc729edc ("drm/amdkfd: mark GFX12 system and peer
+> GPU memory mappings as MTYPE_NC")'
+> Signed-off-by: Sreekant Somasekharan <sreekant.somasekharan@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/a=
+mdkfd/kfd_svm.c
+> index b1ec7ef844ab..28c2c1b66226 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -1250,6 +1250,7 @@ svm_range_get_pte_flags(struct kfd_node *node,
+>                 }
+>                 break;
+>         case IP_VERSION(12, 0, 0):
+> +       case IP_VERSION(12, 0, 1):
+>                 if (domain =3D=3D SVM_RANGE_VRAM_DOMAIN) {
+>                         if (bo_node !=3D node)
+>                                 mapping_flags |=3D AMDGPU_VM_MTYPE_NC;
 > --
-> 2.39.2
+> 2.34.1
 >
