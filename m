@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49675C25B10
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 May 2024 09:42:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57A7BC25B74
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 May 2024 10:12:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B93D110E881;
-	Fri, 10 May 2024 09:42:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC25510E3DF;
+	Fri, 10 May 2024 10:12:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iyu9jJVg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Cvl40pxe";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2076.outbound.protection.outlook.com [40.107.93.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C82E610E881
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 May 2024 09:42:25 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2083.outbound.protection.outlook.com [40.107.220.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68D2F10E3DF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 May 2024 10:12:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ggfZPtHAhJv4/Ivm+oLfb2jlH5g5NnhjzO1sp6we7EsCfw2VIkKqaW1Yvys6xTwXCzB7GQH4whIV/3h8Ege/WYowmnXoFc2M5xETzXX9Ly8MO8k0ndiSe1UTGDd/Bjv2/E0ZRhepu9BdtOTo858f89wg4MtA/jH5kTVV5zHMHkTUn5+HJEuFMuWcbT76zozR1Y84Z3auqOnnKTWjT0ALtIER7c7Y8g/0xoJbgBMIo/K0q4cD777jqbGbn5a1folz0NGtUZjLU9JDVLmfoU1TXYd4NU66cz0S77d+kQCrlFMqxWep7MVxBTJoPGOkTsTWA2v90ByGUGSroQCJCWJZNg==
+ b=KvihBU8Tfi1rlGfjxEi/1B449q3jitLDavspKgIkdJPebEW8V5EE6tAPfHq5CAIWkp3hrZbPknPQeOUPd6IxFA0RarQSVnzndb1tPiX9KNc0jYOxD8C1Ku4DDMSywUI7SXLaDSP4qCEsu9CKJLeM4eYkcwWRe0+oKl3tqfIw/Bbd4fAOVyZaC4hc8pMv1V9n0MyeQAlISZ4iqgXv4HwHhoOYDg/cSNYdQZ8cfg7EmdaXiDIVie0/4mAz3eAgL4S4Kzj17zle/pEhNoX5gPLEgne8Xp/3CLnmwatH4iTFXf64uJ1mSKVD0MLewiJNE51jforjPNXFzv/0ndezG5jxkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iBgTdsOAavdyE1nlvPLkvQ3sIfG1MWoguKFTuOYWD0c=;
- b=QDWGN9YCntaTfz0YwkLIUzoF/8kVsbY8AISzclWc36QVfJPhB+ocr9xiOQH+hJsEtIqQyR2H4eB/PI2Kxg7I+msD06mXhosuKHl0XPHU+Neekgmzn19qpMW1cJbc9bGu+OrFWCdII99girESPFwntPTagShJRmtTKDSpqmsnv1lnV473oUDSBJnjKRqoaD1fRLDbifA1i03MWddI14mdm9xZDx8q3+sW0GvyFmvfX4x/OZZb+AyMB+W7gJEauHwJOysKJ6arLb5Rs+Mkks9fu4Vavulf6J+LZ9gLF0I+0GoZQSP3UqntQvto5xz2N1/RqpjuBpFO0JwYw2PXguRZeQ==
+ bh=extHykaikJc4qLsjiwJwFgqmGz7v6SKjy2GygzH3/wg=;
+ b=WHM5pZegXOmwaotfMwrIanX6bOmX87FLkqLjvB/HD5tYrXN+HfwHZ1XvSsH/0d3XHdG8YHn1HijAW0UEq9GoJg2NZVZTageMTuXE1eYJ6E/urjUVeR+AMLLK1C2o8Wxmdrh399ws9ydULgEJq6AlwMF6uF/97YHLhZdjVn/BdQtjM6yLvsuNUY7I40bNRdPjJH4T8UYxrmX4P3IIFYu4/1GfQ/crDtv10ZET/cGDjDaBm3QO7dAUjAHecfOHGX6qHRB39j1oNeTqW2bsZYOPmFeV/FNdh4OA5aeA4MUhRxFTRm1RQUbHcpwm4LvAxfUmLR9A/R4LuLtzxF/MigDvUw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iBgTdsOAavdyE1nlvPLkvQ3sIfG1MWoguKFTuOYWD0c=;
- b=iyu9jJVg5ep7rbRZFX4qsxC6lkbfvuJJ3MAttx0LvpTqkiSiw+x7Ijbw6jt1yLvuedFc4ZMEhgpV+KfeezFhLil330YdhBkh6x6ou26/ZpssOfjjdz8+t3IxQug9w91EGbHQuV+DjO9BIK5ll8AWZlABPS94zeiNI98VQHU7/WE=
-Received: from CY8PR10CA0020.namprd10.prod.outlook.com (2603:10b6:930:4f::10)
- by CH3PR12MB8353.namprd12.prod.outlook.com (2603:10b6:610:12c::19)
+ bh=extHykaikJc4qLsjiwJwFgqmGz7v6SKjy2GygzH3/wg=;
+ b=Cvl40pxefUGkDRgURa1uj2j+90yyFnMgmw8LnH4wdqnSecr5qupAW3zvEmZDKhBwZNcURFFdrWKSJlzCDEIwNCTbutS1vMV+dqa0ToC8IafiTDuleiRi3vRcqo7p3o/yD2h91dxmltc+FsRcqf5LuKFQygH6bFdj70GjCxOUE/U=
+Received: from CH5PR04CA0022.namprd04.prod.outlook.com (2603:10b6:610:1f4::19)
+ by SJ2PR12MB8652.namprd12.prod.outlook.com (2603:10b6:a03:53a::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.48; Fri, 10 May
- 2024 09:42:23 +0000
-Received: from CY4PEPF0000EE3D.namprd03.prod.outlook.com
- (2603:10b6:930:4f:cafe::ed) by CY8PR10CA0020.outlook.office365.com
- (2603:10b6:930:4f::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.47 via Frontend
- Transport; Fri, 10 May 2024 09:42:18 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.47; Fri, 10 May
+ 2024 10:12:36 +0000
+Received: from DS3PEPF000099D9.namprd04.prod.outlook.com
+ (2603:10b6:610:1f4:cafe::20) by CH5PR04CA0022.outlook.office365.com
+ (2603:10b6:610:1f4::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.51 via Frontend
+ Transport; Fri, 10 May 2024 10:12:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,77 +48,89 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE3D.mail.protection.outlook.com (10.167.242.17) with Microsoft
+ DS3PEPF000099D9.mail.protection.outlook.com (10.167.17.10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Fri, 10 May 2024 09:42:18 +0000
-Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 10 May
- 2024 04:42:16 -0500
-From: Ma Jun <Jun.Ma2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Kenneth.Feng@amd.com>, <Alexander.Deucher@amd.com>,
- <kevinyang.wang@amd.com>, <christian.koenig@amd.com>, Ma Jun
- <Jun.Ma2@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu/pm: Fix the null pointer dereference in
- apply_state_adjust_rules
-Date: Fri, 10 May 2024 17:41:17 +0800
-Message-ID: <20240510094117.493726-3-Jun.Ma2@amd.com>
+ 15.20.7544.18 via Frontend Transport; Fri, 10 May 2024 10:12:32 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Fri, 10 May 2024 05:12:27 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Wenjing Liu <wenjing.liu@amd.com>, Rodrigo Siqueira
+ <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Jerry Zuo <jerry.zuo@amd.com>, Qingqing Zhuo
+ <qingqing.zhuo@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Alvin Lee
+ <alvin.lee2@amd.com>, Roman Li <roman.li@amd.com>, Hersen Wu
+ <hersenxs.wu@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
+ <harry.wentland@amd.com>
+Subject: [PATCH v3] drm/amd/display: Refactor construct_phy function in
+ dc/link/link_factory.c
+Date: Fri, 10 May 2024 15:42:05 +0530
+Message-ID: <20240510101205.1913092-1-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240510094117.493726-1-Jun.Ma2@amd.com>
-References: <20240510094117.493726-1-Jun.Ma2@amd.com>
+In-Reply-To: <20240429083038.232958-1-srinivasan.shanmugam@amd.com>
+References: <20240429083038.232958-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3D:EE_|CH3PR12MB8353:EE_
-X-MS-Office365-Filtering-Correlation-Id: 16f2f994-5f54-4462-6d2e-08dc70d57ba3
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099D9:EE_|SJ2PR12MB8652:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6e56f97-72c6-4dee-1f1c-08dc70d9b4d9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|36860700004|376005|1800799015|82310400017; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?pHsbSXBAQ3NlxLah8vjNmKZkcUPHDNtYVwpk9VWbpdsd684/N+A/ycIw+SOf?=
- =?us-ascii?Q?9GS9KDtXfclSwJi3HhAiurnlbGAAuXYw3qxRWyEIpTfGwuBDRsPTHQUUrYnb?=
- =?us-ascii?Q?a/cOb6fR0ggoo/J7kQlYVLontCuT/Ag/k/M84Gvykir+wAGJOPSZmy9s9GXZ?=
- =?us-ascii?Q?I1kxjNtk3l7P59VRzyiiDiTtaALB8j4kxApVKuumHhqetaeDjB2pr3crTQ9f?=
- =?us-ascii?Q?/3XoatEGo4r+DBha69VdOV/XEYlWTrLHLzjkg2w3RlKVMwDA+NXH1irmCGSM?=
- =?us-ascii?Q?KSWnFwg5CZFvB8i+dF1ckR1niCdqTr6C19qG6IIepgov7FRNta2peBoFhOSF?=
- =?us-ascii?Q?Np9Qrly4RIYs14W73uCQGF+XPq5ZYDhdOuxvLzStGCdNDNc8BsYzQ7PuxLT8?=
- =?us-ascii?Q?yjY06mWkESMK+3sFyN+2WWy0Q22n/mC0DmvmeVK5GO9s1mtHfcVdGXwRPxam?=
- =?us-ascii?Q?AaCnVgG9+mYjLE0h5r8nflRTURCfQw49VKEm2sqXguRFlLKqlAqDQBHcP4tb?=
- =?us-ascii?Q?IOj3uRA3LWOMHvV0lJJ4en05YiwKoFjMk4oEpa62VhMVxkzRSlV6zi+6ncyH?=
- =?us-ascii?Q?qDPFaYvsxn54Ja4mlYUB7sS9N5EhyPGw34wBcjQmu/sHpk/BePeKvZkmKvde?=
- =?us-ascii?Q?yX7KbLKBAeJA9L8OCqU9UwxVDdIU1hokhAUEzyhuhjguLGBrPET26uwaCL7X?=
- =?us-ascii?Q?eXVm18BnL1Icr78KHF935YWRDxxg8I2sZXsO/MBG7N7qhTZvGk+x1TAMFZs/?=
- =?us-ascii?Q?Mk4qI79QlmNOQA+v2UThRrXcOhB9nWmlAQeva5cm1j7/HjxLUbCkgi4vTPBM?=
- =?us-ascii?Q?sTK5fZrRfbNeceqWrA2EVwze1Z0iy3hBWuKnoTbYDAMt1gTU537UQqoCZEj0?=
- =?us-ascii?Q?e4WQSz1aXFHvc+vDTh5O9qHvdu5NdXuAs3uVv50s6Y0gSsm+f3Hc3/6x/zcG?=
- =?us-ascii?Q?jNCRdU4x1r8IcYI2Kk6FNGQUIhKp1t6+Szn2MKSkZFYzkTvHTbjNI+wsl2Pc?=
- =?us-ascii?Q?p0Suk3Y7lkhof9l4JchaKxhlx88xHh3DqCssA9HlW5MwJ+CzmvQ/cjVHX1ts?=
- =?us-ascii?Q?yKW9+HSh/yO0A0eAcRXtY3ojT5pZ/FbxYMyAPX1kcXCMoi4ZCOy8u+yq5ZqO?=
- =?us-ascii?Q?5vPFwVQnfVlYvJ3TIixuneB8S9y4HouPlTLzqfuZv0KlcofHjTPARRNy4Yl/?=
- =?us-ascii?Q?unhozq0NnGrj6aTDleMNOxkjxbpg9j1JcCjxCm33XuxR72ShSE5aa4/nWwqX?=
- =?us-ascii?Q?NG8+MdbNB9mak2DB2dQvoK+L93r1Y2lSwU+wOccLA+403JkszaEsZYnpGBlC?=
- =?us-ascii?Q?GMIS++8QDHtjQ4+6ynGgAmMaFtuFUCqTk6KHuuJUwQk528T+njc869xJR3y1?=
- =?us-ascii?Q?LRQes/l5UgSdiOdQXYtsn66GXTQu?=
+ ARA:13230031|376005|36860700004|82310400017|1800799015; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Q3czdXFILzMzSEF6ZFlHbENKUnRRNnNIbU82NFZmUEIzcmRIOG4xUkVobklM?=
+ =?utf-8?B?VmpUWjZKTUpudUJZT0RBdGhVdUR5NFpqQ2pOU2RiRmYyNEZLQ1JBM1JpWVgr?=
+ =?utf-8?B?STFuaW81SkVRWGEvcnc3SnVrZnNmKzdSR2E0eDlMVFFUZUIybEtQVG1tT0Np?=
+ =?utf-8?B?b1BJNnJVakxwaXk3d004TWdVOXRrVkh4cndvaUcvSVpuZkRzOE80NEZZU2lk?=
+ =?utf-8?B?N1hQSzhqRG9xSmJaL2F0bXREcDBqUkNPejhTUUd0Sm1sYUYraEtVQkNPNXhq?=
+ =?utf-8?B?WDBWTytadXVPSnRISDFzWDlPdm5CWVZTM1dNYk1OdWZOcmw2UUo0QUdnTGNX?=
+ =?utf-8?B?dndNQ0VSUHl3bFFmaXpMdlBnbTdJeDVNTitSV3gwTHBMQms1ck5sMU1Bc29C?=
+ =?utf-8?B?REdibnVVSDFEdkFKblhqVW9xc3V3ZFpCSklrbEN4VVUxZGFybGMyUDRESGdZ?=
+ =?utf-8?B?U2JVSllodUpHOUlNTVFNMGFYOXpGRG5md2VoNGxSOWJUVmpRb3c2TUpvYVpy?=
+ =?utf-8?B?VXZpUmdIUjZQZDNsMGd0aWdZcklzVk8vc01UM1MvMU1CMEhVbjdjMzhNMmll?=
+ =?utf-8?B?UEZ6N2gyOWRGRXVEb2ZDVUxuQ0pXMVJNYWhaS25VWEY2S3gxQXpqdXp6NmFN?=
+ =?utf-8?B?SENSSitvRE9Yd3ladjVTQlprRmhMclhDRDJ3d0Q4a2JMa2NudmFiemp4WlhG?=
+ =?utf-8?B?VDdmSWhOVlJRbmh0VGVFRjhpcGJHWVl1dVFBd2N3VmZUWk9VblhSMVR2TE1X?=
+ =?utf-8?B?bDVVNDlENEp4bDRMMFo0aG9LYnRnVDg5YStzaFdNNlRHZ08rMW1vQUJKMnlW?=
+ =?utf-8?B?RDBacE1KVmF0THUwQ1NMLzd4NW1vR0VnS2Y1dmo0bTRKaUc2U1N0Nk8wam8w?=
+ =?utf-8?B?d1RVRXp2SGs0N084cUVnK1RwdW5oN0xJR1FlUU0xRG1BRFFKY3U2VVhhZWM4?=
+ =?utf-8?B?TUhQZEtpaEpNdXBDR05aMEI3MmxmYkdyKy9ZQUdhMkp1b21FV0tkTjFFTWV2?=
+ =?utf-8?B?VVU5MXBtbkYvSjdiSkZUWVlRVDlSTWlZVGQzNDByK0JWcXU3akI0aUZyZTNv?=
+ =?utf-8?B?UXVBdWZyNmtTM0ZkalM4QUFsUDE0eCtBcGVwT3RXUDNSMGRjRFdUM0p1aTRi?=
+ =?utf-8?B?aUJNZlYzZy95UzRONkxPUmZiWHkvZEEyRHZUYzB0eXpWY01QcmcybFlCbTRM?=
+ =?utf-8?B?bURVbUUvc1dZQVd6ZUR5emNwU2c4S1Y4SHNxV1BLUjdFSnRRS01jcCtSYmkw?=
+ =?utf-8?B?c3FBdVBKVzZ2d2htWFNsamdwU2FkcUN5R3B6dlBDOHFTRVNiMmQ1dXd0SnNC?=
+ =?utf-8?B?bWIvQ0hNcEVxcG5KTGhDQjgyVkRDL2hzd1l6SG5keEE2cTNUZkZBMzk3bm5U?=
+ =?utf-8?B?cW42Z3d4SXBLTmNPYTFseVE2bDdwRXNkTm9hSm1ScW9PRUY5Wm92ck1TbnRD?=
+ =?utf-8?B?V2JlUnVGSjJQZTVzODVyU25qc2ZsdldHblJER2NYRDAzdUM5c2dtK2U1SnJi?=
+ =?utf-8?B?R0RNZlVhM3FFbXVjOFRjUDVVWGJZMGNIYytyKzZtN28yQ01SU0pvWm1nREJ1?=
+ =?utf-8?B?OUdscFNyN3VGK0hOcWJRUlhWY3Ridm9sSS9HVUUvZnpvNVpwNHE0Mk9HU2hD?=
+ =?utf-8?B?MWJQaFJLQXBzc1lUNnFnVFlBU1pLU3N1WmRSZVVvUlhQTk56eWIrMEt3N1Rn?=
+ =?utf-8?B?RWNsQ2gyWlY1OUlITlMzMnNzZW9jemRZV1FtVlhORXdiNXhYM0ZJbE4zc1hq?=
+ =?utf-8?B?U0E0enZzS1o0ZmZKVTdzMGVVY3lVdUtBbTdtNTQrMFI4M2hDdExYUzlhS3Fo?=
+ =?utf-8?B?RTMwdmh4bXJ4K3dDTllSWHJMcFpjUGpzaVZxNlo3RU4yOGQzSFJicWtoQjF3?=
+ =?utf-8?Q?2XTU905tRQtac?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(376005)(1800799015)(82310400017); DIR:OUT;
+ SFS:(13230031)(376005)(36860700004)(82310400017)(1800799015); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2024 09:42:18.3326 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16f2f994-5f54-4462-6d2e-08dc70d57ba3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2024 10:12:32.2703 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6e56f97-72c6-4dee-1f1c-08dc70d9b4d9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3D.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099D9.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8353
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8652
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,94 +145,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Check the pointer value to fix potential null pointer
-dereference
+This commit modifies the construct_phy function to handle the case where
+`bios->integrated_info` is NULL and to address a compiler warning about
+a large stack allocation.
 
-Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+Upon examination, it was found that the local `integrated_info`
+structure was just used to copy values which is large and was being
+declared directly on the stack which could potentially lead to
+performance issues. This commit changes the code to use
+`bios->integrated_info` directly, which avoids the need for a large
+stack allocation.
+
+The function now checks if `bios->integrated_info` is NULL before
+entering a for loop that uses it. If `bios->integrated_info` is NULL,
+the function skips the for loop and continues executing the rest of the
+code. This ensures that the function behaves correctly when
+`bios->integrated_info` is NULL and improves compatibility with dGPUs.
+
+Fixes the below with gcc W=1:
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_factory.c: In function ‘construct_phy’:
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_factory.c:743:1: warning: the frame size of 1056 bytes is larger than 1024 bytes [-Wframe-larger-than=]
+
+Cc: Wenjing Liu <wenjing.liu@amd.com>
+Cc: Jerry Zuo <jerry.zuo@amd.com>
+Cc: Qingqing Zhuo <qingqing.zhuo@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Alvin Lee <alvin.lee2@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Hersen Wu <hersenxs.wu@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Suggested-by: Wenjing Liu <wenjing.liu@amd.com>
 ---
- .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |  7 +++++--
- .../gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c    | 14 ++++++++------
- .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  |  7 +++++--
- 3 files changed, 18 insertions(+), 10 deletions(-)
+v3:
+ - Directly used bios->integrated_info instead of integrated_info to
+   avoid large copying (Wenjing)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index 9301e65ff13c..632a25957477 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -3314,8 +3314,7 @@ static int smu7_apply_state_adjust_rules(struct pp_hwmgr *hwmgr,
- 			const struct pp_power_state *current_ps)
- {
- 	struct amdgpu_device *adev = hwmgr->adev;
--	struct smu7_power_state *smu7_ps =
--				cast_phw_smu7_power_state(&request_ps->hardware);
-+	struct smu7_power_state *smu7_ps;
- 	uint32_t sclk;
- 	uint32_t mclk;
- 	struct PP_Clocks minimum_clocks = {0};
-@@ -3332,6 +3331,10 @@ static int smu7_apply_state_adjust_rules(struct pp_hwmgr *hwmgr,
- 	uint32_t latency;
- 	bool latency_allowed = false;
+ .../drm/amd/display/dc/link/link_factory.c    | 67 ++++++++++---------
+ 1 file changed, 34 insertions(+), 33 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+index 2c3f5d662285..8073fdae9cb1 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+@@ -456,7 +456,6 @@ static bool construct_phy(struct dc_link *link,
+ 	struct dc_context *dc_ctx = init_params->ctx;
+ 	struct encoder_init_data enc_init_data = { 0 };
+ 	struct panel_cntl_init_data panel_cntl_init_data = { 0 };
+-	struct integrated_info info = { 0 };
+ 	struct dc_bios *bios = init_params->dc->ctx->dc_bios;
+ 	const struct dc_vbios_funcs *bp_funcs = bios->funcs;
+ 	struct bp_disp_connector_caps_info disp_connect_caps_info = { 0 };
+@@ -671,42 +670,44 @@ static bool construct_phy(struct dc_link *link,
+ 		break;
+ 	}
  
-+	smu7_ps = cast_phw_smu7_power_state(&request_ps->hardware);
-+	if (!smu7_ps)
-+		return -EINVAL;
-+
- 	data->battery_state = (PP_StateUILabel_Battery ==
- 			request_ps->classification.ui_label);
- 	data->mclk_ignore_signal = false;
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-index b858cc2a5c9e..7e1197420873 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-@@ -1074,16 +1074,18 @@ static int smu8_apply_state_adjust_rules(struct pp_hwmgr *hwmgr,
- 				struct pp_power_state  *prequest_ps,
- 			const struct pp_power_state *pcurrent_ps)
- {
--	struct smu8_power_state *smu8_ps =
--				cast_smu8_power_state(&prequest_ps->hardware);
+-	if (bios->integrated_info)
+-		info = *bios->integrated_info;
 -
--	const struct smu8_power_state *smu8_current_ps =
--				cast_const_smu8_power_state(&pcurrent_ps->hardware);
+-	/* Look for channel mapping corresponding to connector and device tag */
+-	for (i = 0; i < MAX_NUMBER_OF_EXT_DISPLAY_PATH; i++) {
+-		struct external_display_path *path =
+-			&info.ext_disp_conn_info.path[i];
 -
-+	struct smu8_power_state *smu8_ps;
-+	const struct smu8_power_state *smu8_current_ps;
- 	struct smu8_hwmgr *data = hwmgr->backend;
- 	struct PP_Clocks clocks = {0, 0, 0, 0};
- 	bool force_high;
- 
-+	smu8_ps = cast_smu8_power_state(&prequest_ps->hardware);
-+	smu8_current_ps = cast_const_smu8_power_state(&pcurrent_ps->hardware);
+-		if (path->device_connector_id.enum_id == link->link_id.enum_id &&
+-		    path->device_connector_id.id == link->link_id.id &&
+-		    path->device_connector_id.type == link->link_id.type) {
+-			if (link->device_tag.acpi_device != 0 &&
+-			    path->device_acpi_enum == link->device_tag.acpi_device) {
+-				link->ddi_channel_mapping = path->channel_mapping;
+-				link->chip_caps = path->caps;
+-				DC_LOG_DC("BIOS object table - ddi_channel_mapping: 0x%04X", link->ddi_channel_mapping.raw);
+-				DC_LOG_DC("BIOS object table - chip_caps: %d", link->chip_caps);
+-			} else if (path->device_tag ==
+-				   link->device_tag.dev_id.raw_device_tag) {
+-				link->ddi_channel_mapping = path->channel_mapping;
+-				link->chip_caps = path->caps;
+-				DC_LOG_DC("BIOS object table - ddi_channel_mapping: 0x%04X", link->ddi_channel_mapping.raw);
+-				DC_LOG_DC("BIOS object table - chip_caps: %d", link->chip_caps);
+-			}
++	if (bios->integrated_info) {
++		/* Look for channel mapping corresponding to connector and device tag */
++		for (i = 0; i < MAX_NUMBER_OF_EXT_DISPLAY_PATH; i++) {
++			struct external_display_path *path =
++				&bios->integrated_info->ext_disp_conn_info.path[i];
 +
-+	if (!smu8_ps || !smu8_current_ps)
-+		return -EINVAL;
++			if (path->device_connector_id.enum_id == link->link_id.enum_id &&
++			    path->device_connector_id.id == link->link_id.id &&
++			    path->device_connector_id.type == link->link_id.type) {
++				if (link->device_tag.acpi_device != 0 &&
++				    path->device_acpi_enum == link->device_tag.acpi_device) {
++					link->ddi_channel_mapping = path->channel_mapping;
++					link->chip_caps = path->caps;
++					DC_LOG_DC("BIOS object table - ddi_channel_mapping: 0x%04X",
++						  link->ddi_channel_mapping.raw);
++					DC_LOG_DC("BIOS object table - chip_caps: %d",
++						  link->chip_caps);
++				} else if (path->device_tag ==
++					   link->device_tag.dev_id.raw_device_tag) {
++					link->ddi_channel_mapping = path->channel_mapping;
++					link->chip_caps = path->caps;
++					DC_LOG_DC("BIOS object table - ddi_channel_mapping: 0x%04X",
++						  link->ddi_channel_mapping.raw);
++					DC_LOG_DC("BIOS object table - chip_caps: %d",
++						  link->chip_caps);
++				}
 +
- 	smu8_ps->need_dfs_bypass = true;
++				if (link->chip_caps & EXT_DISPLAY_PATH_CAPS__DP_FIXED_VS_EN) {
++					link->bios_forced_drive_settings.VOLTAGE_SWING =
++						(bios->integrated_info->ext_disp_conn_info.fixdpvoltageswing & 0x3);
++					link->bios_forced_drive_settings.PRE_EMPHASIS =
++						((bios->integrated_info->ext_disp_conn_info.fixdpvoltageswing >> 2) & 0x3);
++				}
  
- 	data->battery_state = (PP_StateUILabel_Battery == prequest_ps->classification.ui_label);
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-index 3b461c07344b..6524d99e5cab 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-@@ -3280,8 +3280,7 @@ static int vega10_apply_state_adjust_rules(struct pp_hwmgr *hwmgr,
- 			const struct pp_power_state *current_ps)
- {
- 	struct amdgpu_device *adev = hwmgr->adev;
--	struct vega10_power_state *vega10_ps =
--				cast_phw_vega10_power_state(&request_ps->hardware);
-+	struct vega10_power_state *vega10_ps;
- 	uint32_t sclk;
- 	uint32_t mclk;
- 	struct PP_Clocks minimum_clocks = {0};
-@@ -3299,6 +3298,10 @@ static int vega10_apply_state_adjust_rules(struct pp_hwmgr *hwmgr,
- 	uint32_t stable_pstate_sclk = 0, stable_pstate_mclk = 0;
- 	uint32_t latency;
- 
-+	vega10_ps = cast_phw_vega10_power_state(&request_ps->hardware);
-+	if (!vega10_ps)
-+		return -EINVAL;
-+
- 	data->battery_state = (PP_StateUILabel_Battery ==
- 			request_ps->classification.ui_label);
+-			if (link->chip_caps & EXT_DISPLAY_PATH_CAPS__DP_FIXED_VS_EN) {
+-				link->bios_forced_drive_settings.VOLTAGE_SWING =
+-						(info.ext_disp_conn_info.fixdpvoltageswing & 0x3);
+-				link->bios_forced_drive_settings.PRE_EMPHASIS =
+-						((info.ext_disp_conn_info.fixdpvoltageswing >> 2) & 0x3);
++				break;
+ 			}
+-
+-			break;
+ 		}
+ 	}
+-
+ 	if (bios->funcs->get_atom_dc_golden_table)
+ 		bios->funcs->get_atom_dc_golden_table(bios);
  
 -- 
 2.34.1
