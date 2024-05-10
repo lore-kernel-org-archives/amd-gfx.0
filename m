@@ -4,139 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93E06C25B10
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 May 2024 18:12:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 309A0C41513
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 May 2024 19:24:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03D0F10EF39;
-	Fri, 10 May 2024 18:12:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 197CC10E7B2;
+	Fri, 10 May 2024 19:24:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="b2q7nNgV";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="W+YlDDFn";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2064.outbound.protection.outlook.com [40.107.100.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDBDF10EF39
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 May 2024 18:12:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DezwTwpFr/r8LDya25mYiaSRdDU7aK2AsITPrR92vY4iq7fiYHL3s1E8+O2x+9OJCWXrY22XSOUJ0o40NRTE0eR9TKjvi63LcmMer1V0Y4y8egBfwHmrQqVcTNtAX1rVEuRgXh3bJYWte+1TnnTsFbmDaoprhdscV+2iJ2XxMPiVQ4flG+5lYK+Q283nKjtypy036kR5kQEamHXZGAUjoa7AGkKrwWjSqZK4GJof6yqtTdvchlrP3tF8ovr1gUuyrTNzRRwZEINMK24OmrifqzUVX6yH+k3Aj+IbFcCBfV3anXbTYLnMioe0hftxNyDGsMQg/mV8EejgAV+jO636Fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hGIS4vQOr5ByoPuuUbjcE1AO7Djz0oGSsUtkzqlbyWw=;
- b=GgknFmOmJDZUfHQy0v+75g/NqAXO3zdeRnlwASM+LGUHlp7loVR0MLo6vILf5OXNN6wwAsm7PmUdHhWK3cVk/tIoP+lU6Ifc6EqpXJeJas3qzGPAaUpm2AeRE0iHpZ92h5vb1ithwwkioBNPrRvdal6905Qz8v/1lBYsGwg7NvKygc4K8O8ppO8JcEViHZiIC8zhRyxpg91PiGqldtiHIJJ57h0mqiNmzi6ruU+lvmDDf+KKhdY6p+em/dfPyzvDTESmJI1N/wnD79ML98jcqK79FvrrdB2mb4WPPtskEs7UziDKZWc0DmfRb/mBuIrEw6tpu17pyo03bj2s5uInlA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hGIS4vQOr5ByoPuuUbjcE1AO7Djz0oGSsUtkzqlbyWw=;
- b=b2q7nNgVUc9cQjjgoIODWHyuEOUTkKO+/JBNBmxV4dnKjuUKp5xR+3YwM5XW68faD0I2Ou5YqFyzTGF0Pg5KZBWLNz5MZzrZoRd5hiJptPThueHoMPvvVbV+s9uvX7jk3WA6yFBp0snCNZaLB3bS85dx4I3OT9D8PCKfC3GsCDk=
-Received: from CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
- by SA1PR12MB8843.namprd12.prod.outlook.com (2603:10b6:806:379::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.49; Fri, 10 May
- 2024 18:12:50 +0000
-Received: from CY8PR12MB7099.namprd12.prod.outlook.com
- ([fe80::ffd9:2592:5d85:ef60]) by CY8PR12MB7099.namprd12.prod.outlook.com
- ([fe80::ffd9:2592:5d85:ef60%3]) with mapi id 15.20.7544.046; Fri, 10 May 2024
- 18:12:50 +0000
-From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-To: "Joshi, Mukul" <Mukul.Joshi@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Joshi, Mukul"
- <Mukul.Joshi@amd.com>
-Subject: RE: [PATCH] drm/amdkfd: Fix CU Masking for GFX 9.4.3
-Thread-Topic: [PATCH] drm/amdkfd: Fix CU Masking for GFX 9.4.3
-Thread-Index: AQHaol0Gfkk3CoheJky/BUaAsUOBp7GQxnuw
-Date: Fri, 10 May 2024 18:12:49 +0000
-Message-ID: <CY8PR12MB7099310987F5BFF5B9DA45598CE72@CY8PR12MB7099.namprd12.prod.outlook.com>
-References: <20240509220503.2297691-1-mukul.joshi@amd.com>
-In-Reply-To: <20240509220503.2297691-1-mukul.joshi@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=93c91358-e3f4-401c-9eef-5d6be1f5aa8d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-05-10T18:12:22Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7099:EE_|SA1PR12MB8843:EE_
-x-ms-office365-filtering-correlation-id: 7b9eb3df-2ce5-468a-113d-08dc711ccd70
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230031|376005|1800799015|366007|38070700009;
-x-microsoft-antispam-message-info: =?us-ascii?Q?+9qCdxl0yLVIQXXp/qwbtG2fNqSK7ZRKakXkRmj37PdXk+HRJaWmsKrbbb8s?=
- =?us-ascii?Q?g1R6ER5f8Mqx5/JeBUFxaREqEQ005FypQw5vwClsfLJ2PmQsWx9CWWXlqUAN?=
- =?us-ascii?Q?aPSHNs2JzcSVK4k3bg/TWXbquILLokOpN5tf7ylTmNsUUZzM7oCQB+zkba27?=
- =?us-ascii?Q?Sx6+caHSYTo6iuVJgvzMQkvkAhbydY8YMU3ujHYYXIuTzdSh5ytqFXYGXyeK?=
- =?us-ascii?Q?E1B6DXY17ZM4Jk+UcXbXscMTB8Mv6F4hwObtlpyB4qKImTi5wi5wLCVngOQm?=
- =?us-ascii?Q?GCHdlii0RNysQ//dD6ULMZpzLGKGNRDcdtDVmlousP3oxWdoNCYNRVsOdi3k?=
- =?us-ascii?Q?OucY9n4EdGgJ5NZ1Rd7uQ7lGoyBQtvx/0yy2QzmOly4W2+77gNAm8p+1jca/?=
- =?us-ascii?Q?gPcBPVF29A4waRyPt228uoJCC/3p9QjZVINPDdmpx7p1cNQzphfom6xs6ANj?=
- =?us-ascii?Q?BSfIoatGvNKKf1C0yKkS0+HlRE8LxQ1uETjMs0g4qqI2anxgon7orI+3SJxI?=
- =?us-ascii?Q?CawdJeih8IahaKn4qKjwezsf7GvVhHd3kSGVWODOnwYCHCBi4B5G4X/ZgAac?=
- =?us-ascii?Q?346Znnb1LIcbR2BkYii6dFdc4e1nJFOjQE/b28G/m86jhONI7+YxY+y/GZa+?=
- =?us-ascii?Q?/ZgKp0XLghg9+hCyDgCbnbVPWNar+UamW2uQoc/YbBxkgBlsESdZY7uPxsP8?=
- =?us-ascii?Q?B5sMAZp861Cdfv7GqZYZOi3GBlUNn8oNJO0uDhN6isLYVhS6xyKM6Sil+c/u?=
- =?us-ascii?Q?V3ujShhtBITnvmGqs9URPNOOBu6eL5RWqXS6tITm5uCi0QO7SeWNqKZSI2or?=
- =?us-ascii?Q?qYZBiAjENZBis1Dgnz/m1dhYasMStnxWmZVQbL+U7zCUdyzYEv80gNb8nIjr?=
- =?us-ascii?Q?loNLoAo7Sy0HkNzyUBh8+kTfWWhsRADKrbXfjFuI4h4APEfEZluM05kA1wQS?=
- =?us-ascii?Q?ptfi4TGIJ+FzqYrDigeaa0ROFi/b8tD2HV99b2sQ+CkY1pA/Q4qPSH3+jWZb?=
- =?us-ascii?Q?3aDqKJIMtBOjANr2FNXxjDpfnH9p8hvsPv+U6KVtQFtuU0tO8YXzOufq5x9W?=
- =?us-ascii?Q?KmXPhT6h1gCQZxBOuKfiv+pSFfCgPVxEHr8WmDWJLGR+EednWQu1z5wncYKA?=
- =?us-ascii?Q?q7p4cAnH+hz60cdbda3prqh3WWlfT48fdgIBIfJnapeie+lJCkTfrx/qX/cv?=
- =?us-ascii?Q?4mPCrE3sSUosa/yrNih8S2pjP9gLdUS7SNBuS2IdyjYy4AFrarxhy1wM4tk/?=
- =?us-ascii?Q?El5h93CdXH3jC8fZU+8cUxWNcS8xHCM53K9JoKFDRI7phXi09cpqiLon6ntJ?=
- =?us-ascii?Q?9dzbasZ+mHTGyeEGRqAbuv/nkzmOPyM2sm2e6UF3I94v0w=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7099.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(366007)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JICE+V4ESUYKfbsHz7b7c6viQJlHvE/Au5eKEuzllnxzGMCuedDHRwI4BAwd?=
- =?us-ascii?Q?NgRDIP0knFWF5mQzg/MHF9fRtwc4UdAS/GgkiVyFuU0YpnCh5pLD8bK8f9uJ?=
- =?us-ascii?Q?oMvv2unbKmQPkzYVSeemrI6br46wI9D6ACsIsYvq6pf2ooerhUeiq4Zx1Zc3?=
- =?us-ascii?Q?D2hDIKl/ubl1G6nOHA/MBcKg94ciVOMYBD+YyIqKXr5bbR3UatL99Pg499i+?=
- =?us-ascii?Q?qlHU/qvwudZYcv+q/d579A6E9hVzFWC66gkH9G5M9TMrkdv6Z8nNdQ6ERSwC?=
- =?us-ascii?Q?U4ZaF1Q7V8QjPaoTWPjlCUg2J4pQawTX9RUIQE7aUkkBSJoX0Q9yhiZ3CnEO?=
- =?us-ascii?Q?d++/QYdOvOgT353EokG5cqKdO1GFrESQ51WF8E9EGgX/dTI7WhafqepaLCnF?=
- =?us-ascii?Q?sm9AcmPnC7EaAA2pHulcgo4KFhXCxgKiH12Hi8V8WEF/IcbeugAFuP2JV6HR?=
- =?us-ascii?Q?G/w7s4wNVOEUAKG9vIGNuiquZ1fkETqpmH3GsuKF4YxRQdBlvCjwgh3wOfIQ?=
- =?us-ascii?Q?yuwSbcuhsS8Hfz7pqSOWbJCIweNFMmXW44fMOZEQWZBQehGFyWqiN8AGp3Dw?=
- =?us-ascii?Q?icyV2l0u513FFyQpY21wacPivi8J+cer3Rh/hexyUkDAV8MXQHpoYPnLRQ3w?=
- =?us-ascii?Q?ucU/YVk9QWcmRRo8yBL65kSL0JodRCU6H4qrJ0ntuJSN6NqBqkNJB+ykknLq?=
- =?us-ascii?Q?5wk61HRPbry23bQge0dmzbZ/fdhawKm4D4IQ3R0S1I8c346UjbNg4zsp5+2+?=
- =?us-ascii?Q?SPTCoU3i8DyKWOxvZrms1JNGgUgnXTh2N3gYUUheQBUL1gK33lfPsbS6mcZ/?=
- =?us-ascii?Q?CvDc7caEvSl5i3d4vF92bb3WJnkSGD+Cb5cDgj7BFbt0j7LCErO+ZHVh6Xew?=
- =?us-ascii?Q?KrcLk0+hu7ffjVe+DzxGqb45gNZrft/aVvs0BqZ+a2vHvUDkGFc2EMFWnlI3?=
- =?us-ascii?Q?plaoaq46CgAAr6XemKiWwbnvTjN6HvLaLfCXlLsViQqtITkeSPTJylmbpCgd?=
- =?us-ascii?Q?0Y98r41b2iPJAgrOgXaoEwuTYbUH0DLheeHtvz2lr6djCUHSJff4C+HLjF+h?=
- =?us-ascii?Q?SdnJqBkPtFVsKv466mQ367Qiec04lBnmCzWtIcp7jeIsG5aNPybxqrku0qR+?=
- =?us-ascii?Q?31zgXZZA79wt1glG8RQ1Kq2Os4/kzcWWe17f+OgXD7SJ7z2OdHbL95ps+8U0?=
- =?us-ascii?Q?ULixpo1LjTxKVYKVUi+wbu96fKBaM0QmKzFBrb6C8H9IjgvV5wB7nuPkV06+?=
- =?us-ascii?Q?wHYPxdGuhhfo/4IVavR+TdWkj0qn7Eyu0D7+W4g+Vg7QvsOLg26IwuwaYzQx?=
- =?us-ascii?Q?EeE1BC+rqsrcA1+U4j4yHff1xXUQmrNJJIyZxc9mO881ds9VJLTvZGcyUvx0?=
- =?us-ascii?Q?UGf/j/5wdXkb1x5lfGEpe15oMhLDARB3y4LvMwwlaK2ZlrW4/BRZ7Ji1rsyx?=
- =?us-ascii?Q?fyZKkN88M9MZKZjJIn0GYh2T212kXKVwPyecfuyU1geeuCUjhsXRJccAG5eX?=
- =?us-ascii?Q?hjpGZzT9yDpazVuQVsdMqBs/fyjPL+6qU0HUFbPdIuKQg6mN0Q6f6nxvZWI8?=
- =?us-ascii?Q?Ux255L0Vow0lS8HsOuY=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D57A410E7B2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 May 2024 19:24:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1715369086;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=H5s/COFEwLwVUbuQ7mqlyTG3MKz6Z/uT/lHlq37vtRg=;
+ b=W+YlDDFnet1OMIQWKVAdOd2jBh5wm+d83uGL2LSmagwKq/6qBiXAmNpABga/BG0roVzYzd
+ FNObZwtIL1YC6IDt/a2mDGJDaG4cIYt6nfNDx+nt3kGkk/65JFJ86dQLHORqFFJSkAgNs0
+ NskYOARmCvY7G6Le7kz7OJbrYx41U6M=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-594-AWMxSuLFMK-PRr31hcKzKw-1; Fri, 10 May 2024 15:24:45 -0400
+X-MC-Unique: AWMxSuLFMK-PRr31hcKzKw-1
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-6a0b5d3878dso23599696d6.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 May 2024 12:24:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715369085; x=1715973885;
+ h=mime-version:user-agent:content-transfer-encoding:organization
+ :references:in-reply-to:date:cc:to:from:subject:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZnKSM9o5hrRYnw/EMCc8pfT+k94xaJYdUgEjLopjyhs=;
+ b=bgKzeH2AquZ2pKejrHSOcCYb3lkWWW24eH9oBbzrA3JSYxDkO3KpTHQI95YH+ZAnnP
+ yEQMM9qVNvTRiKsuQaCJ0nqOrEd1E35r2qOmKgzZYVHMpIBMC8pvMBBP+eX4yMGGzLYk
+ T9sajXzJpwujmm+vd8Mu99wfA1EVFnxDjSJagiIjIH/lmRLLLdBnK28CPNsHVDYK5m72
+ HfCTXRw0tXFcHla7UY8+nQuwCGDYvbg7Ly0TZeW4unsb4iq7VUFS17wiO/MlEtK+PzK2
+ LFVs+QhlvqKqpv0H/DoXze32bx5Q3F8ahYfsDdIVNbSz3RfqHR4boNnv4d5KlZxhsEqQ
+ Yq7A==
+X-Gm-Message-State: AOJu0YxDGYshqwep4/hpj09539fYRRJlAQJgeBSa9A3IiR8j3R2I0jwJ
+ WCBcaCyljPFYzhKjs5cLa7zyjXfPDpQD85bDuHGxFHjPMHAUX49Pe0JrSvsxJ7fiCoZ+t/4szwU
+ HRXr6Pt7QUzmj7mP/BmfSl7TELghrZIfCYhbXHMDPKws/LrabPyzjnFvpQQjHO7U=
+X-Received: by 2002:a05:6214:440b:b0:6a0:99f1:75f4 with SMTP id
+ 6a1803df08f44-6a168142e14mr34510716d6.2.1715369084795; 
+ Fri, 10 May 2024 12:24:44 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGJazHhZKbcan+uYe/5b6TYASiDFbSY6/NEJ+kDhfzjf59nhJRPPwjRBE9IPrsSA0687I7xMQ==
+X-Received: by 2002:a05:6214:440b:b0:6a0:99f1:75f4 with SMTP id
+ 6a1803df08f44-6a168142e14mr34510556d6.2.1715369084432; 
+ Fri, 10 May 2024 12:24:44 -0700 (PDT)
+Received: from chopper.lyude.net ([2600:4040:5c6c:a300::789])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6a15f18529fsm19904736d6.35.2024.05.10.12.24.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 May 2024 12:24:43 -0700 (PDT)
+Message-ID: <b23e6de23a1c1d997fa5e9e9bef8c88672774d01.camel@redhat.com>
+Subject: Re: [RESEND 1/6] drm/nouveau: convert to using is_hdmi and
+ has_audio from display info
+From: Lyude Paul <lyude@redhat.com>
+To: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, Karol Herbst <kherbst@redhat.com>, Danilo
+ Krummrich <dakr@redhat.com>
+Date: Fri, 10 May 2024 15:24:42 -0400
+In-Reply-To: <aa45875200705205ae101c409fc2bba03b631a5e.1715353572.git.jani.nikula@intel.com>
+References: <cover.1715353572.git.jani.nikula@intel.com>
+ <aa45875200705205ae101c409fc2bba03b631a5e.1715353572.git.jani.nikula@intel.com>
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.52.1 (3.52.1-1.fc40)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7099.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b9eb3df-2ce5-468a-113d-08dc711ccd70
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 May 2024 18:12:49.9329 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pjlEYWaG6WrmdT0XdVTV9GpvYlluN9indpaEhA++1O5kJzxuuBsGEKKkpDIRKtN2tIWHdgE7KL568bb6ZIfBAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8843
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,46 +94,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+On Fri, 2024-05-10 at 18:08 +0300, Jani Nikula wrote:
+> Prefer the parsed results for is_hdmi and has_audio in display info
+> over
+> calling drm_detect_hdmi_monitor() and drm_detect_monitor_audio(),
+> respectively.
+>=20
+> Conveniently, this also removes the need to use edid_blob_ptr.
+>=20
+> v2: Reverse a backwards if condition (Ilia)
+>=20
+> Cc: Karol Herbst <kherbst@redhat.com>
+> Cc: Lyude Paul <lyude@redhat.com>
+> Cc: Danilo Krummrich <dakr@redhat.com>
+> Cc: nouveau@lists.freedesktop.org
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/dispnv50/disp.c=C2=A0=C2=A0=C2=A0=C2=A0 | 8=
+ ++++----
+> =C2=A0drivers/gpu/drm/nouveau/dispnv50/head.c=C2=A0=C2=A0=C2=A0=C2=A0 | 8=
+ +-------
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_connector.c | 2 +-
+> =C2=A03 files changed, 6 insertions(+), 12 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> index 0c3d88ad0b0e..168c27213287 100644
+> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> @@ -751,7 +751,7 @@ nv50_audio_enable(struct drm_encoder *encoder,
+> struct nouveau_crtc *nv_crtc,
+> =C2=A0=09struct nouveau_encoder *nv_encoder =3D
+> nouveau_encoder(encoder);
+> =C2=A0=09struct nvif_outp *outp =3D &nv_encoder->outp;
+> =C2=A0
+> -=09if (!nv50_audio_supported(encoder) ||
+> !drm_detect_monitor_audio(nv_connector->edid))
+> +=09if (!nv50_audio_supported(encoder) || !nv_connector-
+> >base.display_info.has_audio)
+> =C2=A0=09=09return;
+> =C2=A0
+> =C2=A0=09mutex_lock(&drm->audio.lock);
+> @@ -1765,7 +1765,7 @@ nv50_sor_atomic_enable(struct drm_encoder
+> *encoder, struct drm_atomic_state *sta
+> =C2=A0=09if ((disp->disp->object.oclass =3D=3D GT214_DISP ||
+> =C2=A0=09=C2=A0=C2=A0=C2=A0=C2=A0 disp->disp->object.oclass >=3D GF110_DI=
+SP) &&
+> =C2=A0=09=C2=A0=C2=A0=C2=A0 nv_encoder->dcb->type !=3D DCB_OUTPUT_LVDS &&
+> -=09=C2=A0=C2=A0=C2=A0 drm_detect_monitor_audio(nv_connector->edid))
+> +=09=C2=A0=C2=A0=C2=A0 nv_connector->base.display_info.has_audio)
+> =C2=A0=09=09hda =3D true;
+> =C2=A0
+> =C2=A0=09if (!nvif_outp_acquired(outp))
+> @@ -1774,7 +1774,7 @@ nv50_sor_atomic_enable(struct drm_encoder
+> *encoder, struct drm_atomic_state *sta
+> =C2=A0=09switch (nv_encoder->dcb->type) {
+> =C2=A0=09case DCB_OUTPUT_TMDS:
+> =C2=A0=09=09if (disp->disp->object.oclass !=3D NV50_DISP &&
+> -=09=09=C2=A0=C2=A0=C2=A0 drm_detect_hdmi_monitor(nv_connector->edid))
+> +=09=09=C2=A0=C2=A0=C2=A0 nv_connector->base.display_info.is_hdmi)
+> =C2=A0=09=09=09nv50_hdmi_enable(encoder, nv_crtc,
+> nv_connector, state, mode, hda);
+> =C2=A0
+> =C2=A0=09=09if (nv_encoder->outp.or.link & 1) {
+> @@ -1787,7 +1787,7 @@ nv50_sor_atomic_enable(struct drm_encoder
+> *encoder, struct drm_atomic_state *sta
+> =C2=A0=09=09=09 */
+> =C2=A0=09=09=09if (mode->clock >=3D 165000 &&
+> =C2=A0=09=09=09=C2=A0=C2=A0=C2=A0 nv_encoder->dcb->duallink_possible &&
+> -=09=09=09=C2=A0=C2=A0=C2=A0 !drm_detect_hdmi_monitor(nv_connector-
+> >edid))
+> +=09=09=09=C2=A0=C2=A0=C2=A0 !nv_connector-
+> >base.display_info.is_hdmi)
+> =C2=A0=09=09=09=09proto =3D
+> NV507D_SOR_SET_CONTROL_PROTOCOL_DUAL_TMDS;
+> =C2=A0=09=09} else {
+> =C2=A0=09=09=09proto =3D
+> NV507D_SOR_SET_CONTROL_PROTOCOL_SINGLE_TMDS_B;
+> diff --git a/drivers/gpu/drm/nouveau/dispnv50/head.c
+> b/drivers/gpu/drm/nouveau/dispnv50/head.c
+> index 83355dbc15ee..d7c74cc43ba5 100644
+> --- a/drivers/gpu/drm/nouveau/dispnv50/head.c
+> +++ b/drivers/gpu/drm/nouveau/dispnv50/head.c
+> @@ -127,14 +127,8 @@ nv50_head_atomic_check_view(struct
+> nv50_head_atom *armh,
+> =C2=A0=09struct drm_display_mode *omode =3D &asyh->state.adjusted_mode;
+> =C2=A0=09struct drm_display_mode *umode =3D &asyh->state.mode;
+> =C2=A0=09int mode =3D asyc->scaler.mode;
+> -=09struct edid *edid;
+> =C2=A0=09int umode_vdisplay, omode_hdisplay, omode_vdisplay;
+> =C2=A0
+> -=09if (connector->edid_blob_ptr)
+> -=09=09edid =3D (struct edid *)connector->edid_blob_ptr-
+> >data;
+> -=09else
+> -=09=09edid =3D NULL;
+> -
+> =C2=A0=09if (!asyc->scaler.full) {
+> =C2=A0=09=09if (mode =3D=3D DRM_MODE_SCALE_NONE)
+> =C2=A0=09=09=09omode =3D umode;
+> @@ -162,7 +156,7 @@ nv50_head_atomic_check_view(struct nv50_head_atom
+> *armh,
+> =C2=A0=09 */
+> =C2=A0=09if ((asyc->scaler.underscan.mode =3D=3D UNDERSCAN_ON ||
+> =C2=A0=09=C2=A0=C2=A0=C2=A0 (asyc->scaler.underscan.mode =3D=3D UNDERSCAN=
+_AUTO &&
+> -=09=C2=A0=C2=A0=C2=A0=C2=A0 drm_detect_hdmi_monitor(edid)))) {
+> +=09=C2=A0=C2=A0=C2=A0=C2=A0 connector->display_info.is_hdmi))) {
+> =C2=A0=09=09u32 bX =3D asyc->scaler.underscan.hborder;
+> =C2=A0=09=09u32 bY =3D asyc->scaler.underscan.vborder;
+> =C2=A0=09=09u32 r =3D (asyh->view.oH << 19) / asyh->view.oW;
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c
+> b/drivers/gpu/drm/nouveau/nouveau_connector.c
+> index 856b3ef5edb8..938832a6af15 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_connector.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
+> @@ -1034,7 +1034,7 @@ get_tmds_link_bandwidth(struct drm_connector
+> *connector)
+> =C2=A0=09unsigned duallink_scale =3D
+> =C2=A0=09=09nouveau_duallink && nv_encoder->dcb-
+> >duallink_possible ? 2 : 1;
+> =C2=A0
+> -=09if (drm_detect_hdmi_monitor(nv_connector->edid)) {
+> +=09if (nv_connector->base.display_info.is_hdmi) {
+> =C2=A0=09=09info =3D &nv_connector->base.display_info;
+> =C2=A0=09=09duallink_scale =3D 1;
+> =C2=A0=09}
 
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Mukul Jo=
-shi
-Sent: Thursday, May 9, 2024 6:05 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Joshi, Mukul <Mukul.Joshi@amd=
-.com>
-Subject: [PATCH] drm/amdkfd: Fix CU Masking for GFX 9.4.3
-
-We are incorrectly passing the first XCC's MQD when
-updating CU masks for other XCCs in the partition. Fix
-this by passing the MQD for the XCC currently being
-updated with CU mask to update_cu_mask function.
-
-Fixes: fc6efed2c728 ("drm/amdkfd: Update CU masking for GFX 9.4.3")
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/=
-drm/amd/amdkfd/kfd_mqd_manager_v9.c
-index 542191656aeb..399fa2106631 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-@@ -715,7 +715,7 @@ static void update_mqd_v9_4_3(struct mqd_manager *mm, v=
-oid *mqd,
-                m =3D get_mqd(mqd + size * xcc);
-                update_mqd(mm, m, q, minfo);
-
--               update_cu_mask(mm, mqd, minfo, xcc);
-+               update_cu_mask(mm, m, minfo, xcc);
-
-                if (q->format =3D=3D KFD_QUEUE_FORMAT_AQL) {
-                        switch (xcc) {
---
-2.35.1
+--=20
+Cheers,
+ Lyude Paul (she/her)
+ Software Engineer at Red Hat
 
