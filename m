@@ -4,48 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86C0FC25B78
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 07:45:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61329C25B10
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 07:45:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D792A10E47C;
-	Mon, 13 May 2024 07:45:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCBE810E489;
+	Mon, 13 May 2024 07:45:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=canb.auug.org.au header.i=@canb.auug.org.au header.b="XDWZGbtt";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Frwa4Wdb";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAA7910E0EC;
- Sat, 11 May 2024 04:16:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
- s=201702; t=1715400976;
- bh=UqzBiM388HTXlF76lTgKaIUcO6NDM2h6/IHU8fyzD/g=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=XDWZGbtt34u41ia4rstlx0cdeoBp+jY81LOjbmzcKo6hRc8EKoPcfncfQ9Q+Mfk0K
- 05DmRLSE0QIvk7bguL7e3PTiJ3TePlJpKLRBowBHxyEucHfx1lkdNjLMZDweYrP79p
- lvwTMMecnMmCH5byPAv7SD1ATWO6K2BGtmnIxgbAp6iDcq9rkEmutiK6TR7yaD0Ppq
- E5kktpdjcN5ZG7XLaoOm2zAWGOFLeAEOjP9rwHB63VMsQfqzkSPX9wFpp9xlFNzYbE
- +8jo+luzqcaTTUtZfQewK3p9j/K0melWG3Pn0agnP5la/FAVHh8ZXZ9/Q//nn2bc+H
- fkD9DcnwhRDUQ==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4VbsrJ1x45z4wyl;
- Sat, 11 May 2024 14:16:16 +1000 (AEST)
-Date: Sat, 11 May 2024 14:16:15 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Marcelo Mendes Spessoto Junior <marcelomspessoto@gmail.com>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2] drm/amd/display: fix documentation warnings for mpc.h
-Message-ID: <20240511141615.6074b4e3@canb.auug.org.au>
-In-Reply-To: <20240511133717.23263f55@canb.auug.org.au>
-References: <20240511000203.28505-1-marcelomspessoto@gmail.com>
- <20240511133717.23263f55@canb.auug.org.au>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2018F10ED6C;
+ Fri, 10 May 2024 15:08:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1715353733; x=1746889733;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=CoGtKVtmyxIa0yKv4jVYsoCiCwejecu/pMWo1drRSMw=;
+ b=Frwa4WdbSFPwsc0oKnLw+zTgThHE7/2KjheRUS5YIrZm6HQScdM62d+J
+ Y1aR4WhNtXds5HJb5s2V9YMKi38XG1z+sM19EijUTSH6vycdUv6VY9m3O
+ 3L6cHaauq3rKvW0r/wheZpJ6o5Rl88Qx7mvdHIWioi9+ATUrUAZFoicX+
+ F1CmaeVLBb5ZjV1UcIJqeF8dHw+3hY7wtUG4GV9SqRUNnXV0GdZmmayYh
+ 0stV71XNhbs806itcrgGuXBtsRQUDly2e55PCtk9I3RodXTNLv4fs21SG
+ D9P17TpH5xhrU9Pr+RCvpeyhn2poNUurV/1QI6ygrbRL5qIPQf0fO6q+d A==;
+X-CSE-ConnectionGUID: ujjOOFv8Rna3gbSAx1BsiA==
+X-CSE-MsgGUID: +SYV52ceSIWJWKinOvzfJg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11068"; a="11190479"
+X-IronPort-AV: E=Sophos;i="6.08,151,1712646000"; d="scan'208";a="11190479"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2024 08:08:52 -0700
+X-CSE-ConnectionGUID: LRZ/4Dy2QKm8p6lK9fNhmg==
+X-CSE-MsgGUID: 5LEeLvHbQIOOrHalT45bvg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,151,1712646000"; d="scan'208";a="34292521"
+Received: from ettammin-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.180])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2024 08:08:50 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, jani.nikula@intel.com
+Subject: [RESEND 5/6] drm/edid: add a helper for EDID sysfs property show
+Date: Fri, 10 May 2024 18:08:12 +0300
+Message-Id: <902c8e09d25b99391fd9c92d95af07c01d7b7cbd.1715353572.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <cover.1715353572.git.jani.nikula@intel.com>
+References: <cover.1715353572.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/qKFmv9PJ/f=pSASv0qkp7d_";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 May 2024 07:45:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,64 +70,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/qKFmv9PJ/f=pSASv0qkp7d_
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Add a helper to get the EDID property for sysfs property show. This
+hides all the edid_blob_ptr usage within drm_edid.c.
 
-Hi Marcelo,
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/drm_crtc_internal.h |  2 ++
+ drivers/gpu/drm/drm_edid.c          | 33 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_sysfs.c         | 24 ++-------------------
+ 3 files changed, 37 insertions(+), 22 deletions(-)
 
-On Sat, 11 May 2024 13:37:17 +1000 Stephen Rothwell <sfr@canb.auug.org.au> =
-wrote:
->=20
-> Thanks for doing this.
->=20
-> I haven't tested it, but just a couple of little things:
->=20
-> On Fri, 10 May 2024 21:02:02 -0300 Marcelo Mendes Spessoto Junior <marcel=
-omspessoto@gmail.com> wrote:
-> >
-> > Fix most of the display documentation compile warnings by
-> > documenting struct mpc_funcs functions in dc/inc/hw/mpc.h file.
-> >  =20
-> 	.
-> 	.
-> 	.
-> >=20
-> > Fixes:
-> > b8c1c3a82e75 ("Documentation/gpu: Add kernel doc entry for MPC") =20
->=20
-> Please don't split the Fixes tag line and also don't add blank lines
-> between tags.
->=20
-> I also appreciate being credited for reporting (unless you got a report
-> from somewhere else as well, then maybe credit both).
->=20
-> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+index 25aaae937ceb..20e9d7b206a2 100644
+--- a/drivers/gpu/drm/drm_crtc_internal.h
++++ b/drivers/gpu/drm/drm_crtc_internal.h
+@@ -303,6 +303,8 @@ const u8 *drm_edid_find_extension(const struct drm_edid *drm_edid,
+ 				  int ext_id, int *ext_index);
+ void drm_edid_cta_sad_get(const struct cea_sad *cta_sad, u8 *sad);
+ void drm_edid_cta_sad_set(struct cea_sad *cta_sad, const u8 *sad);
++ssize_t drm_edid_connector_property_show(struct drm_connector *connector,
++					 char *buf, loff_t off, size_t count);
+ 
+ /* drm_edid_load.c */
+ #ifdef CONFIG_DRM_LOAD_EDID_FIRMWARE
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 4f54c91b31b2..97362dd2330b 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6969,6 +6969,39 @@ static int _drm_edid_connector_property_update(struct drm_connector *connector,
+ 	return ret;
+ }
+ 
++/* For sysfs edid show implementation */
++ssize_t drm_edid_connector_property_show(struct drm_connector *connector,
++					 char *buf, loff_t off, size_t count)
++{
++	const void *edid;
++	size_t size;
++	ssize_t ret = 0;
++
++	mutex_lock(&connector->dev->mode_config.mutex);
++
++	if (!connector->edid_blob_ptr)
++		goto unlock;
++
++	edid = connector->edid_blob_ptr->data;
++	size = connector->edid_blob_ptr->length;
++	if (!edid)
++		goto unlock;
++
++	if (off >= size)
++		goto unlock;
++
++	if (off + count > size)
++		count = size - off;
++
++	memcpy(buf, edid + off, count);
++
++	ret = count;
++unlock:
++	mutex_unlock(&connector->dev->mode_config.mutex);
++
++	return ret;
++}
++
+ /**
+  * drm_edid_connector_update - Update connector information from EDID
+  * @connector: Connector
+diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
+index bd9b8ab4f82b..fb3bbb6adcd1 100644
+--- a/drivers/gpu/drm/drm_sysfs.c
++++ b/drivers/gpu/drm/drm_sysfs.c
+@@ -266,29 +266,9 @@ static ssize_t edid_show(struct file *filp, struct kobject *kobj,
+ {
+ 	struct device *connector_dev = kobj_to_dev(kobj);
+ 	struct drm_connector *connector = to_drm_connector(connector_dev);
+-	unsigned char *edid;
+-	size_t size;
+-	ssize_t ret = 0;
++	ssize_t ret;
+ 
+-	mutex_lock(&connector->dev->mode_config.mutex);
+-	if (!connector->edid_blob_ptr)
+-		goto unlock;
+-
+-	edid = connector->edid_blob_ptr->data;
+-	size = connector->edid_blob_ptr->length;
+-	if (!edid)
+-		goto unlock;
+-
+-	if (off >= size)
+-		goto unlock;
+-
+-	if (off + count > size)
+-		count = size - off;
+-	memcpy(buf, edid + off, count);
+-
+-	ret = count;
+-unlock:
+-	mutex_unlock(&connector->dev->mode_config.mutex);
++	ret = drm_edid_connector_property_show(connector, buf, off, count);
+ 
+ 	return ret;
+ }
+-- 
+2.39.2
 
-Now tested.
-
-Tested-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Closes: https://lore.kernel.org/linux-next/20240130134954.04fcf763@canb.auu=
-g.org.au/
-
---=20
-Cheers,
-Stephen Rothwell
-
---Sig_/qKFmv9PJ/f=pSASv0qkp7d_
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmY+8Q8ACgkQAVBC80lX
-0GzHyAgAgFe0v9n7X56CQIErsjX2qaxg0NhHm4Ql/rL+uAw7HtBtM/+a3JY2XFYS
-yqvq45JGRXmkLmV4OX0Nn/8T39GE63bK0w+OcuqUEhR4wVW53ZMBpZipbHQSUkI1
-R2M2TO5ammPUTeyFXWbRa9tSubvYN3gRnCwSmwHVV8aC56xR30Fuh/+OHK3Y0JQn
-++Gd/pd1un/YU9Wx/4cnaYx2E0iepU2Kr+OBae4hdZ4G4UoGrk7VYbER59zt69O3
-EnDDnxdHc/MEDdBD4nqVaPxq/WvpCTjHeQgHe2HHtkEd00G5IBhL7BkwmgNGIcxL
-XLzVWN7kGD2tHL1+hH2Gj7lz7rFk/Q==
-=4rJh
------END PGP SIGNATURE-----
-
---Sig_/qKFmv9PJ/f=pSASv0qkp7d_--
