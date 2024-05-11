@@ -4,55 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AF5CC25B7A
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 07:45:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31EF1C25B10
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 07:45:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A10D10E485;
-	Mon, 13 May 2024 07:45:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F42410E469;
+	Mon, 13 May 2024 07:45:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eymKtFXA";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="inEFmg9F";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23A8410E056;
- Fri, 10 May 2024 15:08:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1715353700; x=1746889700;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=FKhPcO9l3KyUktfNaUk9yHDhUM0ozVpqmgz3Ue6lRwA=;
- b=eymKtFXA1nfPK1Al+fG/zz297iGKnPX3Zn83+9/hR5sh58FnsiKgCMjt
- LrAhvW+4ewm2h+rAMIEG8iUZWclZC1Q9Cvr1LiAIv2V8eMQ/WwTTXQjbs
- KPzyiK2lcgGiha2McrB9SqerDgh1S4qcMpHYvySYPUsc+XMcnamSBZQOz
- Lj+w71p2abCRuzgPvOncl4OVNIjyG+KQY6DyPLHoEsfnFBUGpEs/FtoqG
- bdxZsI5507i9p4Sdew5zgXiu5+h7sc4zds8zC8CAJ7Pd98jOC2Nkf/C9u
- xm8/PKayOJkGCB4Y090DR99KLYHdH5QAhITE208PiPqhjJ9s6pPxQKmCx g==;
-X-CSE-ConnectionGUID: bvd9aZj+QzGNffkRFLKemA==
-X-CSE-MsgGUID: B1wYHQSzRVy3RNrNyQrXCw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11068"; a="22009771"
-X-IronPort-AV: E=Sophos;i="6.08,151,1712646000"; d="scan'208";a="22009771"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2024 08:08:19 -0700
-X-CSE-ConnectionGUID: Imbt5EvDSsC45bUeRHW/RA==
-X-CSE-MsgGUID: gyD4QCM7RReTOdI1nniHeQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,151,1712646000"; d="scan'208";a="30204287"
-Received: from ettammin-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.246.180])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2024 08:08:18 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, jani.nikula@intel.com
-Subject: [RESEND 0/6] drm, nouveau/radeon/amdpgu: edid_blob_ptr cleanups
-Date: Fri, 10 May 2024 18:08:07 +0300
-Message-Id: <cover.1715353572.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
+Received: from out30-133.freemail.mail.aliyun.com
+ (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C4DB10E089;
+ Sat, 11 May 2024 02:43:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux.alibaba.com; s=default;
+ t=1715395400; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=xMWB7tcK9lh6tvkjem4+oVbLaB6u7ih0rPhd/ngxidw=;
+ b=inEFmg9FitvymYcDonH+TUX3oHAQa3p4885bEAThVSINGDXNR7ZnA+3pbVAlYR9MABP/iW+iFJgIC7NxBOHEgj0UMrvC6KPqtJIIIBJfYPW01fnsKbojl9dnYce4DQ/Chh4zuaau+8eRF0iYcuVMNIlvg+NQI3SR0hHDT4i5t/o=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R801e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037067112;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
+ TI=SMTPD_---0W6BjtCT_1715395382; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0W6BjtCT_1715395382) by smtp.aliyun-inc.com;
+ Sat, 11 May 2024 10:43:19 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: alexander.deucher@amd.com
+Cc: christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Abaci Robot <abaci@linux.alibaba.com>
+Subject: [PATCH] drm/amd/display: clean up some inconsistent indenting
+Date: Sat, 11 May 2024 10:43:01 +0800
+Message-Id: <20240511024301.81075-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 May 2024 07:45:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -69,43 +56,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I've sent this some moths ago, let's try again...
+No functional modification involved.
 
-BR,
-Jani.
+drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn401/dcn401_resource.c:792 dcn401_i2c_hw_create() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn401/dcn401_resource.c:894 dcn401_hubp_create() warn: inconsistent indenting.
+drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn401/dcn401_resource.c:1738 dcn401_resource_construct() warn: inconsistent indenting.
 
-Jani Nikula (6):
-  drm/nouveau: convert to using is_hdmi and has_audio from display info
-  drm/radeon: convert to using is_hdmi and has_audio from display info
-  drm/radeon: remove radeon_connector_edid() and stop using
-    edid_blob_ptr
-  drm/amdgpu: remove amdgpu_connector_edid() and stop using
-    edid_blob_ptr
-  drm/edid: add a helper for EDID sysfs property show
-  drm/connector: update edid_blob_ptr documentation
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=9002
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+ .../dc/resource/dcn401/dcn401_resource.c      | 29 +++++++++----------
+ 1 file changed, 14 insertions(+), 15 deletions(-)
 
- .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 16 ---------
- .../gpu/drm/amd/amdgpu/amdgpu_connectors.h    |  1 -
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  4 +--
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  4 +--
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  4 +--
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  4 +--
- drivers/gpu/drm/drm_crtc_internal.h           |  2 ++
- drivers/gpu/drm/drm_edid.c                    | 33 +++++++++++++++++++
- drivers/gpu/drm/drm_sysfs.c                   | 24 ++------------
- drivers/gpu/drm/nouveau/dispnv50/disp.c       |  8 ++---
- drivers/gpu/drm/nouveau/dispnv50/head.c       |  8 +----
- drivers/gpu/drm/nouveau/nouveau_connector.c   |  2 +-
- drivers/gpu/drm/radeon/atombios_encoders.c    | 10 +++---
- drivers/gpu/drm/radeon/evergreen_hdmi.c       |  5 ++-
- drivers/gpu/drm/radeon/radeon_audio.c         | 13 ++++----
- drivers/gpu/drm/radeon/radeon_connectors.c    | 27 ++++-----------
- drivers/gpu/drm/radeon/radeon_display.c       |  2 +-
- drivers/gpu/drm/radeon/radeon_encoders.c      |  4 +--
- drivers/gpu/drm/radeon/radeon_mode.h          |  2 --
- include/drm/drm_connector.h                   |  6 +++-
- 20 files changed, 79 insertions(+), 100 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+index 75e2c62ae792..3e1bfddc6e43 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+@@ -784,14 +784,13 @@ static struct dce_i2c_hw *dcn401_i2c_hw_create(
+ 
+ #undef REG_STRUCT
+ #define REG_STRUCT i2c_hw_regs
+-		i2c_inst_regs_init(1),
+-		i2c_inst_regs_init(2),
+-		i2c_inst_regs_init(3),
+-		i2c_inst_regs_init(4);
++	i2c_inst_regs_init(1),
++	i2c_inst_regs_init(2),
++	i2c_inst_regs_init(3),
++	i2c_inst_regs_init(4);
+ 
+ 	dcn2_i2c_hw_construct(dce_i2c_hw, ctx, inst,
+-				    &i2c_hw_regs[inst], &i2c_shifts, &i2c_masks);
+-
++			      &i2c_hw_regs[inst], &i2c_shifts, &i2c_masks);
+ 	return dce_i2c_hw;
+ }
+ 
+@@ -886,13 +885,13 @@ static struct hubp *dcn401_hubp_create(
+ 
+ #undef REG_STRUCT
+ #define REG_STRUCT hubp_regs
+-		hubp_regs_init(0),
+-		hubp_regs_init(1),
+-		hubp_regs_init(2),
+-		hubp_regs_init(3);
++	hubp_regs_init(0),
++	hubp_regs_init(1),
++	hubp_regs_init(2),
++	hubp_regs_init(3);
+ 
+ 	if (hubp401_construct(hubp2, ctx, inst,
+-			&hubp_regs[inst], &hubp_shift, &hubp_mask))
++			      &hubp_regs[inst], &hubp_shift, &hubp_mask))
+ 		return &hubp2->base;
+ 
+ 	BREAK_TO_DEBUGGER();
+@@ -1735,10 +1734,10 @@ static bool dcn401_resource_construct(
+ 
+ #undef REG_STRUCT
+ #define REG_STRUCT abm_regs
+-		abm_regs_init(0),
+-		abm_regs_init(1),
+-		abm_regs_init(2),
+-		abm_regs_init(3);
++	abm_regs_init(0),
++	abm_regs_init(1),
++	abm_regs_init(2),
++	abm_regs_init(3);
+ 
+ #undef REG_STRUCT
+ #define REG_STRUCT dccg_regs
 -- 
-2.39.2
+2.20.1.7.g153144c
 
