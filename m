@@ -4,142 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD9FCC25B10
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 May 2024 00:25:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30755C25B5F
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 May 2024 07:59:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3FB310E4B9;
-	Sat, 11 May 2024 00:25:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A87710E06C;
+	Sun, 12 May 2024 07:59:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E0iUgUy1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VEc90iIx";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2062.outbound.protection.outlook.com [40.107.102.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EB5610E4B9
- for <amd-gfx@lists.freedesktop.org>; Sat, 11 May 2024 00:25:19 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2061.outbound.protection.outlook.com [40.107.243.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFA5610E080;
+ Sun, 12 May 2024 07:59:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TCxn/AKbbKl3ukvxv+2I8Jzpv9/duLsda3T9/5/GQhQJArfE8PchwXA9IA6iFyysF3l8x/zloWigpB+GxbLngSZ90oQbcspl28ThQM06F0M6grWT1UHsNNeOhYcTWMjWbFUYHdVsPUd0cHre/VWMvWJZTYNCubfYTL/+K4lkSTSv061Sz1+o3y7Owz3zZ2BRHat2WFv4Ca0hKo0/+4FsP51/oRiQ89/QNkMPaqqju98sfmMIHEcYvzBDrbxQ8ZKmaJHeTnd3TuNsk0kT5TQdYaFbjbYkab52ivkHq4/+ourrLR7MStK7AbrM91ZHsmRurPH2tNAGsvSa5MSe6I5yEg==
+ b=XrC7A2WYckN3/gWCCmIyEuH7e4gbyFiMfxqwYyH1qEu2hfFlWjGRwnVSUEuSKB8Ssl7u41/kzZxLn6K8/8Cnf6WXL9QZ13wQcLtwooAdPxYu0/CVuAX6c/VKUdLNA8d0mP30b2aBGq3gcNL5XPjt5vVuAAZZ18DWnt/wwb48G45Hy46mUzjg+gvN1SOgxfif5iFI2tcL5VXhXm6uAhGiuRCSCAMibPX4/YPOnZhY1y64UDjoashNZDpt215zUD4JS0y9x42RmRw7qcF6dJKVVroUx3GE8U6ukqRyd2s74SiMJQvmQFQhMQ2tEN3W/A+Rbt79A6zGcB5A+2ty3P1S9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qE0N1/FXDE25FFGv/qWfIDMilnebbVLujrFli3bC/ys=;
- b=FJn93Fzwdyl90KYgFCRHTwnxa51oUBkOZZ8SqFfLvs4c6hL4DNh5XXeOWIwB9O8HJFOLVV4PwR2Qa/z4q4nGEBzReKfFc2albHptw+TPc3mY94FjKrhIZNLeshbnGx5N5xDoZropj5HcK6E+SdidjkUp0N1JKG2BwvNrGwTr35vNWFi5dVtq48aLGVLxktLVWaa7B4CBO7ADtbG2F/6ReaU2uGC9RgprkREF/D1QqttyY+DnyRr7+nz9qwF84UjL5ihsLP0sTGwzu0YNR4FON9Q2dhduoff1cTT9ezmemnuj5km8MSeSU1NPlLT3YLUetnaVIShoiDIZAV0rblqn/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=xc3gbNccS9zJ/rrk71j++WVUrMYjipHEuqz8Z8YblXo=;
+ b=gUI+HGD7xDqOC9FNEUAT5ru48UuXJ0gjGLwm4m+Zv0x5IG52/4xGNbI2IcfFNkPtwVH4n6ZQCMsO/yf3K9OOzkOIpTBFWq6LmB26Om3/kL+PXLZ0AQu8VsPCixCMJJrWQjIdILT2mGvcxobwQXtXyWWie1JhaZzFXx5oiE0kaxRjxbEt6VGv/rHLyftkEQfgo266EUDFyuHN9pkzl5d8LkKzDr5aJUiL0FBA0c9wqDGo40BlPI/EyJyorXbxILoGPoA1YE7XNsWw/bmyh2qpF9K1wTiEzMuHTibvnDMk1YrQBN5kFMUKjM9nGx/Ud6Ij9sd+kCzIkpXnrzqsDdk5ag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qE0N1/FXDE25FFGv/qWfIDMilnebbVLujrFli3bC/ys=;
- b=E0iUgUy14yUW0oE8u8deI/Ic417WLAFJlzxQJkyDysc6bxwaJX/DkeKY/N7fTFQs42dZspyBl5vD9g61JUmBf+SjqtWzCN56Jvbg7NhQoK2oPUllZdhGMzZNG6xHZlmn2zVEJvnggqilO48iqd6FBaYuuVe10tUu1ohB4HJM1z4=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by CY8PR12MB7196.namprd12.prod.outlook.com (2603:10b6:930:58::12)
+ bh=xc3gbNccS9zJ/rrk71j++WVUrMYjipHEuqz8Z8YblXo=;
+ b=VEc90iIxotAagVwbA2IVlJ0uf0PqOtJAQUuQ1bH2pPr5R+we3SXbZKyP6ctV7nzIctHSebyB4+HdK7Cd1YdUbV9LI9L5c6xarVqldEipV6I5XLTFsxY3i75wZkYzyZliSXpBAEj2IUv33Et313DyquBYHQ7U4aXXhdXWpo3C/6I=
+Received: from BL1PR13CA0425.namprd13.prod.outlook.com (2603:10b6:208:2c3::10)
+ by SN7PR12MB7105.namprd12.prod.outlook.com (2603:10b6:806:2a0::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42; Sat, 11 May
- 2024 00:25:16 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::d1a1:5993:ef75:9419]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::d1a1:5993:ef75:9419%6]) with mapi id 15.20.7544.046; Sat, 11 May 2024
- 00:25:16 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Ma, Jun" <Jun.Ma2@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Ma, Jun" <Jun.Ma2@amd.com>
-Subject: Re: [PATCH 3/3] drm/amdgpu/pm: Fix the null pointer dereference in
- apply_state_adjust_rules
-Thread-Topic: [PATCH 3/3] drm/amdgpu/pm: Fix the null pointer dereference in
- apply_state_adjust_rules
-Thread-Index: AQHaor5cOL56NEF1ikiJrDgaNM20Z7GRLXUv
-Date: Sat, 11 May 2024 00:25:16 +0000
-Message-ID: <PH7PR12MB5997EB244DBEE0A21F656A0382E02@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <20240510094117.493726-1-Jun.Ma2@amd.com>
- <20240510094117.493726-3-Jun.Ma2@amd.com>
-In-Reply-To: <20240510094117.493726-3-Jun.Ma2@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2024-05-11T00:23:40.1688093Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|CY8PR12MB7196:EE_
-x-ms-office365-filtering-correlation-id: 639dfae4-b5c8-4f09-0772-08dc7150d4d1
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230031|376005|1800799015|366007|38070700009;
-x-microsoft-antispam-message-info: =?us-ascii?Q?aB3gIpAxEjBuJ/O1yipj3z3tfjyblJio6wU9kdES87L6Rqv8hQWYM9AKS6Dc?=
- =?us-ascii?Q?Iz8Zhd+MDu3Un3zFq42exM5j9GbLkSjsYoEkDzuSNSzejmF0D2+duWy7oAq7?=
- =?us-ascii?Q?P104OtRR76Gt5NKRNZUlpT/ahvHnbfjBMIpoksHvFwSIV6NeBC/B4eiS8iwo?=
- =?us-ascii?Q?/E2In8xhcjGPCOFC8OUvbLNKgqcQ/vkW9aViWToysWHqY59Bs/NPsKhBX9V5?=
- =?us-ascii?Q?PMVm5qGRQo06TW3gWJrfk0nt4m+Xs3/6xgjiQNUoRqVVRpB/5b9uFfWzmx18?=
- =?us-ascii?Q?hZkfxxtNhUBNDzn9s1MYmXWYReT1EqSnfxgDg0Rgo3AbNpbJwKVJydTageu7?=
- =?us-ascii?Q?FmawyuGTxJr7gwYXOXxRxZdRFoD+GCHSplVKB/nnhbCgbg+KgQVCjDuneBCE?=
- =?us-ascii?Q?EaI1Wn7gWHBvUK3K2oDESQ/dndUpkphixxVUDRB+ag2oKx4MExsc4I2eRRco?=
- =?us-ascii?Q?N655okZTsKnxJcob6yKPuhlnZ/044nPetmk2uZt3i1oc32Un7hftXL+Gz7PD?=
- =?us-ascii?Q?TVtlbOZo7HbVVs9sxiJLLZ9r4PHS9MB70QbcbTERc+yd/EqxDCZWIlesleQX?=
- =?us-ascii?Q?wQFaSjtkti0kesZ3MKgiHZvcc6l8ZuDqY3hej7mWA5llJfuzvIK7g8c8BgU3?=
- =?us-ascii?Q?HXsbwfR1GX1OLLwSJNsKatYmc6fiTnb5OGGzqLaEXvY0pYFz9YT3xo0+AbhC?=
- =?us-ascii?Q?TffalK/dlQo+Wb9p1ZoVEKKF8HNRNSEwLKLDf4jAI5b3c5AgHiAlxZ5GyTxY?=
- =?us-ascii?Q?2E4hbt4tRpfXsjhHOkwgz+vabDsfeKNZ4/dBdEyJ3E5kPBSZe6ZPceUi5i2V?=
- =?us-ascii?Q?uZH4mi9ZDDlL/EYIyOiweICmPJpGxunqy9rUJtoPjZqMn4CQY4TwIv6TPkTl?=
- =?us-ascii?Q?8qMuAHYSYbrxS6RtBh57wwWz93ElMl4AJyUhQyxFsB/VDYaAbSTrBD8tMg3t?=
- =?us-ascii?Q?kccbAHGKyhe/ddlBHgYQSwOWzFGAddjIHvjTTUmnTknYRCToxOUixwoJXYxN?=
- =?us-ascii?Q?U54alywGCKpj5B66pQxreOExIO7Vb78bTXNch5SN38A3LWelpqdPSfb4Kn9V?=
- =?us-ascii?Q?sIVQQFbnBcBe5y2GoLU8BDW5mag4VhdK2vMM2ADddm6mW2pk2soGvtma/apL?=
- =?us-ascii?Q?dlgGd0/DSbXk0hWSLhOINPtrl4HVwmNcjdMD5VzAGZ7IOEpPfFRdwizKpNma?=
- =?us-ascii?Q?zXEcN5aFnSTJqaMOZp4Z6/1viKw3FSL7ao6TWkU4b9uN58VlA4zDHFD7iuzh?=
- =?us-ascii?Q?5IwOLteRb9uvHxLeGfDesoU2z/5cTiEmNjTnDBDGmwDmlVZe3TudNxRtyML1?=
- =?us-ascii?Q?7aImIG3L+4AzlZ2b5Tbh/nul7Enokq6SR9d7gO8LwZAviQ=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(366007)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?H4sxf9oKzU5zTqxUvJvh9LDKPq6qobdOxiUciWcZmdYmkiVrSjkcFmtxAo2b?=
- =?us-ascii?Q?niaq3BA7fPYS/7y9mDc38jLs/qLi/sYLmEurVCWVHJs4ZjPmTV1tlJX5wPRc?=
- =?us-ascii?Q?oSduDEFMixRoplynXIMKXbuwKqaYA1TiGDqYoegiDW/jg7ScE9MAbH5rmPD7?=
- =?us-ascii?Q?og9YD3qeMbsxW6cWdsypPFFa6z0UMbxO1yMDUf02VKvR8QHXmLlFhQkH9/tZ?=
- =?us-ascii?Q?EDXQo28pZj6XT5U9AqmU5oJG8S9b59DatzZDK3l0n20h3LgX5P5QhCOLm+ZH?=
- =?us-ascii?Q?CCiQL5pAB5DrGO8YOzMjZQUGyBTmrxCVRvfIWE6UFfbCFIoWZDF6amTwq1rX?=
- =?us-ascii?Q?ocvbuYBo+f+q2lRNBnixMRXyh9UTOqlLQQtpSaqqQu+06K1OGZGqAVTYIiuR?=
- =?us-ascii?Q?yv1sE3UiHwJZ3oKjZQ79zi00pX+EAvUkP5TwHS3wnid/0IiXLCCvubR/F+9v?=
- =?us-ascii?Q?37ns8v2e+TscHVMTyJqorNXLzO1Iz4nM1YbO+H9yS+cbkc4Su7nGOUK5VqnC?=
- =?us-ascii?Q?6F2EhN6CzCnOWktnwpCXid/5LFdIaWMkN4NyVlQNhOjcw2x7sylb0b9wV4PH?=
- =?us-ascii?Q?5A5rVXVIrLRD59p+Z3h+G4Wm2heC8Q9bCjtJNIVLAKOumerY+RvWo86WW5cd?=
- =?us-ascii?Q?7K84o9IQuXSZCwpkV3R5esPT9mMPmR06ofCBj/kVSU+ZU6hbU35+l66RsHOs?=
- =?us-ascii?Q?r+YvKiOlNSlNMTIKQ7oLQnFIxlQ4d103XM5CZ6e9Eh5wINd6UnPvVu+CFjC5?=
- =?us-ascii?Q?Mn7dwUs5UtXjKN0B3XllFIJP64TlNT2bnTOB7S1mIYzXpGUh2wouAa1TtGiP?=
- =?us-ascii?Q?lcwARHWJCnsW3INg/L+SkVmhMGQkLifUe3qyGDhq893jKw3+x5QSAPdd9OAk?=
- =?us-ascii?Q?IgxxF+E+QRUIsC+zbSc60VydgjVd+Eyc4L/55dgvcBv4yDyGhSG6LB2Zh+o0?=
- =?us-ascii?Q?DSlFkNbkk9r6Kqum5jEiqnZk2HLpbwJfMbkL5fgnUA5Ha29Tv8ySFo8aJtHu?=
- =?us-ascii?Q?I6+eVgHzc0ehHcQjhDr6wrFTrRHhlUnklJprgABCI+1z0JTWsQRDrRkXezGZ?=
- =?us-ascii?Q?2hmCFi6JEKkoHvE19ryT2tHP3R11T+pdux3jUeJxSiTrD/XRVzLx7sUUCdJj?=
- =?us-ascii?Q?4r60rYFGYKIL3WrmP8efvqPzROBvbYkrmzfrOGO50j9rSkTrErC+o6IlaFiG?=
- =?us-ascii?Q?NxsrI1yyWkrothW1TLfpUEsGzdfhTUMzfnVMcIf6/F+0vSXLUZVwnSZiD/CR?=
- =?us-ascii?Q?u8SNtoZEGuw60mo13sX8AyybvI6RpFe53LhJpGkASGrVHJvpTFIb8Ksl1Kvq?=
- =?us-ascii?Q?4pMNVW6FnZ5iMjQaoLWXjxB3P/ylyJcR6wtzG6k5CuGcxZ8rcmXGi/v5JYNh?=
- =?us-ascii?Q?OtXv3QKy0KTsHsQwzasqR59a2//nFx5tIr/vuAGHn0dFIFNoPJkf1Ls1D5yY?=
- =?us-ascii?Q?zx4ODDYO0KLdN10z6N1HhQLw5h6vK0lXbPpx/uGnfDLqe6Z9a0AZtmMYDVKM?=
- =?us-ascii?Q?oxM8VjhrI+Dg/+nxgveBVjbEILN8bf/ZUelAiOhUHuCnwg4tHlbYjixEqq1N?=
- =?us-ascii?Q?cYr4zugD8N8A34yNzM6LgY2uKX0dVIlRzzq3anmpP+u0srF+13iuuqyfiebR?=
- =?us-ascii?Q?A5cSmXCWXLjBLRJiAdhUu1bgk348UD1eLCJC8isw9I0X?=
-Content-Type: multipart/alternative;
- boundary="_000_PH7PR12MB5997EB244DBEE0A21F656A0382E02PH7PR12MB5997namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55; Sun, 12 May
+ 2024 07:59:29 +0000
+Received: from BL6PEPF0002256F.namprd02.prod.outlook.com
+ (2603:10b6:208:2c3:cafe::95) by BL1PR13CA0425.outlook.office365.com
+ (2603:10b6:208:2c3::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.21 via Frontend
+ Transport; Sun, 12 May 2024 07:59:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0002256F.mail.protection.outlook.com (10.167.249.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7587.21 via Frontend Transport; Sun, 12 May 2024 07:59:28 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Sun, 12 May 2024 02:59:26 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <matthew.auld@intel.com>
+CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
+ <daniel@ffwll.ch>, Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v2 2/2] drm/tests: Add a unit test for range bias allocation
+Date: Sun, 12 May 2024 13:29:09 +0530
+Message-ID: <20240512075909.2688-2-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240512075909.2688-1-Arunpravin.PaneerSelvam@amd.com>
+References: <20240512075909.2688-1-Arunpravin.PaneerSelvam@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0002256F:EE_|SN7PR12MB7105:EE_
+X-MS-Office365-Filtering-Correlation-Id: fbf741a0-6e2b-4d35-aa9f-08dc72597309
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|82310400017|1800799015|376005|36860700004; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?5NiwqxvAcRL+miTYQfbpqQi+FHzFd4Pc+h894ymBAausPsOtx77zr3VxbVNR?=
+ =?us-ascii?Q?KOeMjgkb+q08/V/lbjn+d7SGThKNcTA7Rqmukq6ihriIgwUjRRanGTto/8P9?=
+ =?us-ascii?Q?hXmJTwnEQZfAVl0pjsaAYCd5bkh+grwn+iXs98JfGJ8Dhb5/GfwBvkQUojmA?=
+ =?us-ascii?Q?P4AQGGhvVMLU9hdZf3SvKYP5ej6pFqnEZHfSiYKF8hmTKkx38FnGTsxjExRV?=
+ =?us-ascii?Q?nxsNF6f2GgCldmlkaLDw0u1m8UF5rwVv4W3LKF4eo8wPyrq/v4Xjv7TrBz/o?=
+ =?us-ascii?Q?5fru0846ZT/UQacqJdiQFzV4hQ2E7eB7equ3NQD6HN0YUL+Bi2RnPZdWsuea?=
+ =?us-ascii?Q?IvcoduHAJe5amZ7iS5Cqw4GxKVfkUfq7kFsHC5MIWekDj/I1hgL3C9shsqXV?=
+ =?us-ascii?Q?eBth87jXsYfbfuUWxU6SQzA6rcIcbXQx+46mAAAyybTtXvo3Xe1Qb7cAMGlX?=
+ =?us-ascii?Q?HVxQZWoi0UxVqcq6CAgqDRtMnHsaRbutASjOnp2dUQL0v1LvkftuY4HNcvEs?=
+ =?us-ascii?Q?2lSJmadh5NGQbrGmi6uaYlBVOxVhLrnEALftgoZq9HuGsFlK2fuCdY+rfvPJ?=
+ =?us-ascii?Q?OsNCibFOLYtA0eYolH48OpcjBVxSpxl8muzL0+ksdaMp6UxQUkOiFPTJcug9?=
+ =?us-ascii?Q?nY/9L4nNCQC2nUncKG/SQ5yyXQMd55bel0yVPIQwQbVGTo+bcx03lHCFGr0P?=
+ =?us-ascii?Q?AtUsa4JolxEfgb8fe6jxloNENPWX2Rg+PohlvUbtjLwMcrcysCm11qcwGDOA?=
+ =?us-ascii?Q?2lHzLkuBrnyM2nGB7WgGfkmQOwm/fXFl7Q7ENzm85+1PqZV6JYU2SdK62iMT?=
+ =?us-ascii?Q?PzKNQsBKbiJ0MMxl7u/hkETr5yjD8QWqcKlYpw/sA9az6AMsSum4rlndt4e2?=
+ =?us-ascii?Q?8C8m5HLJiVhcc+3oZSpnj8JklqAk0ZnpknG28GISz5p0GqvxwiHqqF4eQqCE?=
+ =?us-ascii?Q?QCmsJSx4KZZ6+S0YjRWec5B/e3xx/8fv7IzKo8T/ecWt5+YXC6ceKmtWaCS8?=
+ =?us-ascii?Q?XpbLrXm2rcAYzgfQQdi/nFQAyTQKpM8FDW6xJ8E1/5xT/Sh/uRYSmcnlWfFg?=
+ =?us-ascii?Q?PvVUcV1Vkyf8XRe7f0lPWmHLLKfYQrqrA/Mfe1NbxsfElJ3Ud+D2ziKjvsNK?=
+ =?us-ascii?Q?pp1B0qWzRg2cWhlnUDBKS3lMWAavIaztx/hs72gXii9sagqFGLjP/H5nDNE+?=
+ =?us-ascii?Q?mb39y0oXknQCjg5uWtwSBrFJoe56nrY29LlRthmY5CWaorpk1FfjCmJ6y/mq?=
+ =?us-ascii?Q?E5Rtuhtq5F0M02LnlqfUxHAh+rYsFJC87UAXeOoyz9edmTvsTcYbbUuWfP2L?=
+ =?us-ascii?Q?LO+OtczvfG0iMHLzC/TQuto/kwtx+FeCV6L3vd3WyIabk559za+bnp3CgyDf?=
+ =?us-ascii?Q?2qbVxR7MYrCwRXnyN8iDEc756FvW?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(82310400017)(1800799015)(376005)(36860700004); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 639dfae4-b5c8-4f09-0772-08dc7150d4d1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2024 00:25:16.1242 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BhK0Mnl5cp++DK/7mn16OZVoP9hBEasFgJuAU2WWRAYbYnPPEUB8uSwzFLjvD5NO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7196
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2024 07:59:28.6968 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbf741a0-6e2b-4d35-aa9f-08dc72597309
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0002256F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7105
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,340 +132,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_PH7PR12MB5997EB244DBEE0A21F656A0382E02PH7PR12MB5997namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Allocate cleared blocks in the bias range when the DRM
+buddy's clear avail is zero. This will validate the bias
+range allocation in scenarios like system boot when no
+cleared blocks are available and exercise the fallback
+path too. The resulting blocks should always be dirty.
 
-[AMD Official Use Only - General]
-
-Series is
-
-Acked-by: Yang Wang<kevinyang.wang@amd.com>
-
-Best Regards,
-Kevin
-________________________________
-From: Ma, Jun <Jun.Ma2@amd.com>
-Sent: Friday, May 10, 2024 17:42
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Feng, Kenneth <Kenneth.Feng@amd.com>; Deucher, Alexander <Alexander.Deu=
-cher@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Koenig, Christia=
-n <Christian.Koenig@amd.com>; Ma, Jun <Jun.Ma2@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu/pm: Fix the null pointer dereference in app=
-ly_state_adjust_rules
-
-Check the pointer value to fix potential null pointer
-dereference
-
-Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 ---
- .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |  7 +++++--
- .../gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c    | 14 ++++++++------
- .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  |  7 +++++--
- 3 files changed, 18 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/tests/drm_buddy_test.c | 35 ++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/=
-gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index 9301e65ff13c..632a25957477 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -3314,8 +3314,7 @@ static int smu7_apply_state_adjust_rules(struct pp_hw=
-mgr *hwmgr,
-                         const struct pp_power_state *current_ps)
- {
-         struct amdgpu_device *adev =3D hwmgr->adev;
--       struct smu7_power_state *smu7_ps =3D
--                               cast_phw_smu7_power_state(&request_ps->hard=
-ware);
-+       struct smu7_power_state *smu7_ps;
-         uint32_t sclk;
-         uint32_t mclk;
-         struct PP_Clocks minimum_clocks =3D {0};
-@@ -3332,6 +3331,10 @@ static int smu7_apply_state_adjust_rules(struct pp_h=
-wmgr *hwmgr,
-         uint32_t latency;
-         bool latency_allowed =3D false;
-
-+       smu7_ps =3D cast_phw_smu7_power_state(&request_ps->hardware);
-+       if (!smu7_ps)
-+               return -EINVAL;
+diff --git a/drivers/gpu/drm/tests/drm_buddy_test.c b/drivers/gpu/drm/tests/drm_buddy_test.c
+index e3b50e240d36..a194f271bc55 100644
+--- a/drivers/gpu/drm/tests/drm_buddy_test.c
++++ b/drivers/gpu/drm/tests/drm_buddy_test.c
+@@ -26,6 +26,8 @@ static void drm_test_buddy_alloc_range_bias(struct kunit *test)
+ 	u32 mm_size, ps, bias_size, bias_start, bias_end, bias_rem;
+ 	DRM_RND_STATE(prng, random_seed);
+ 	unsigned int i, count, *order;
++	struct drm_buddy_block *block;
++	unsigned long flags;
+ 	struct drm_buddy mm;
+ 	LIST_HEAD(allocated);
+ 
+@@ -222,6 +224,39 @@ static void drm_test_buddy_alloc_range_bias(struct kunit *test)
+ 
+ 	drm_buddy_free_list(&mm, &allocated, 0);
+ 	drm_buddy_fini(&mm);
 +
-         data->battery_state =3D (PP_StateUILabel_Battery =3D=3D
-                         request_ps->classification.ui_label);
-         data->mclk_ignore_signal =3D false;
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/drivers/=
-gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-index b858cc2a5c9e..7e1197420873 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-@@ -1074,16 +1074,18 @@ static int smu8_apply_state_adjust_rules(struct pp_=
-hwmgr *hwmgr,
-                                 struct pp_power_state  *prequest_ps,
-                         const struct pp_power_state *pcurrent_ps)
- {
--       struct smu8_power_state *smu8_ps =3D
--                               cast_smu8_power_state(&prequest_ps->hardwar=
-e);
--
--       const struct smu8_power_state *smu8_current_ps =3D
--                               cast_const_smu8_power_state(&pcurrent_ps->h=
-ardware);
--
-+       struct smu8_power_state *smu8_ps;
-+       const struct smu8_power_state *smu8_current_ps;
-         struct smu8_hwmgr *data =3D hwmgr->backend;
-         struct PP_Clocks clocks =3D {0, 0, 0, 0};
-         bool force_high;
-
-+       smu8_ps =3D cast_smu8_power_state(&prequest_ps->hardware);
-+       smu8_current_ps =3D cast_const_smu8_power_state(&pcurrent_ps->hardw=
-are);
++	/*
++	 * Allocate cleared blocks in the bias range when the DRM buddy's clear avail is
++	 * zero. This will validate the bias range allocation in scenarios like system boot
++	 * when no cleared blocks are available and exercise the fallback path too. The resulting
++	 * blocks should always be dirty.
++	 */
 +
-+       if (!smu8_ps || !smu8_current_ps)
-+               return -EINVAL;
++	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_init(&mm, mm_size, ps),
++			       "buddy_init failed\n");
++	mm.clear_avail = 0;
 +
-         smu8_ps->need_dfs_bypass =3D true;
-
-         data->battery_state =3D (PP_StateUILabel_Battery =3D=3D prequest_p=
-s->classification.ui_label);
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/driver=
-s/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-index 3b461c07344b..6524d99e5cab 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-@@ -3280,8 +3280,7 @@ static int vega10_apply_state_adjust_rules(struct pp_=
-hwmgr *hwmgr,
-                         const struct pp_power_state *current_ps)
- {
-         struct amdgpu_device *adev =3D hwmgr->adev;
--       struct vega10_power_state *vega10_ps =3D
--                               cast_phw_vega10_power_state(&request_ps->ha=
-rdware);
-+       struct vega10_power_state *vega10_ps;
-         uint32_t sclk;
-         uint32_t mclk;
-         struct PP_Clocks minimum_clocks =3D {0};
-@@ -3299,6 +3298,10 @@ static int vega10_apply_state_adjust_rules(struct pp=
-_hwmgr *hwmgr,
-         uint32_t stable_pstate_sclk =3D 0, stable_pstate_mclk =3D 0;
-         uint32_t latency;
-
-+       vega10_ps =3D cast_phw_vega10_power_state(&request_ps->hardware);
-+       if (!vega10_ps)
-+               return -EINVAL;
++	bias_start = round_up(prandom_u32_state(&prng) % (mm_size - ps), ps);
++	bias_end = round_up(bias_start + prandom_u32_state(&prng) % (mm_size - bias_start), ps);
++	bias_end = max(bias_end, bias_start + ps);
++	bias_rem = bias_end - bias_start;
 +
-         data->battery_state =3D (PP_StateUILabel_Battery =3D=3D
-                         request_ps->classification.ui_label);
++	flags = DRM_BUDDY_CLEAR_ALLOCATION | DRM_BUDDY_RANGE_ALLOCATION;
++	u32 size = max(round_up(prandom_u32_state(&prng) % bias_rem, ps), ps);
++
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       drm_buddy_alloc_blocks(&mm, bias_start,
++						      bias_end, size, ps,
++						      &allocated,
++						      flags),
++			       "buddy_alloc failed with bias(%x-%x), size=%u, ps=%u\n",
++			       bias_start, bias_end, size, ps);
++
++	list_for_each_entry(block, &allocated, link)
++		KUNIT_EXPECT_EQ(test, drm_buddy_block_is_clear(block), false);
++
++	drm_buddy_free_list(&mm, &allocated, 0);
++	drm_buddy_fini(&mm);
+ }
+ 
+ static void drm_test_buddy_alloc_clear(struct kunit *test)
+-- 
+2.25.1
 
---
-2.34.1
-
-
---_000_PH7PR12MB5997EB244DBEE0A21F656A0382E02PH7PR12MB5997namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div dir=3D"ltr">
-<div dir=3D"ltr">Series is</div>
-<div dir=3D"ltr"><br>
-</div>
-<div dir=3D"ltr">Acked-by: Yang Wang&lt;kevinyang.wang@amd.com&gt;</div>
-<div dir=3D"ltr"><br>
-</div>
-<div dir=3D"ltr">Best Regards,</div>
-<div dir=3D"ltr">Kevin&nbsp;</div>
-<div id=3D"mail-editor-reference-message-container" class=3D"ms-outlook-mob=
-ile-reference-message">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif"><b=
->From:</b> Ma, Jun &lt;Jun.Ma2@amd.com&gt;<br>
-<b>Sent:</b> Friday, May 10, 2024 17:42<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Feng, Kenneth &lt;Kenneth.Feng@amd.com&gt;; Deucher, Alexander &=
-lt;Alexander.Deucher@amd.com&gt;; Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.=
-com&gt;; Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Ma, Jun &lt;Ju=
-n.Ma2@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 3/3] drm/amdgpu/pm: Fix the null pointer dereference=
- in apply_state_adjust_rules
-<div>&nbsp;</div>
-</font></div>
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Check the pointer value to fix potential null poin=
-ter<br>
-dereference<br>
-<br>
-Signed-off-by: Ma Jun &lt;Jun.Ma2@amd.com&gt;<br>
----<br>
-&nbsp;.../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c&nbsp;&nbsp;&nbsp; |&n=
-bsp; 7 +++++--<br>
-&nbsp;.../gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c&nbsp;&nbsp;&nbsp; | 1=
-4 ++++++++------<br>
-&nbsp;.../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c&nbsp; |&nbsp; 7 +++=
-++--<br>
-&nbsp;3 files changed, 18 insertions(+), 10 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/=
-gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c<br>
-index 9301e65ff13c..632a25957477 100644<br>
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c<br>
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c<br>
-@@ -3314,8 +3314,7 @@ static int smu7_apply_state_adjust_rules(struct pp_hw=
-mgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const=
- struct pp_power_state *current_ps)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D hwmgr-&gt;adev;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_power_state *smu7_ps =3D<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cast_phw_smu7_power_state(&amp;request_ps-&=
-gt;hardware);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_power_state *smu7_ps;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sclk;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t mclk;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct PP_Clocks minimum_c=
-locks =3D {0};<br>
-@@ -3332,6 +3331,10 @@ static int smu7_apply_state_adjust_rules(struct pp_h=
-wmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t latency;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool latency_allowed =3D f=
-alse;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu7_ps =3D cast_phw_smu7_power_state=
-(&amp;request_ps-&gt;hardware);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu7_ps)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -EINVAL;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;battery_state =3D=
- (PP_StateUILabel_Battery =3D=3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reque=
-st_ps-&gt;classification.ui_label);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;mclk_ignore_signa=
-l =3D false;<br>
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/drivers/=
-gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c<br>
-index b858cc2a5c9e..7e1197420873 100644<br>
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c<br>
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c<br>
-@@ -1074,16 +1074,18 @@ static int smu8_apply_state_adjust_rules(struct pp_=
-hwmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_power_state&nbsp; *pre=
-quest_ps,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const=
- struct pp_power_state *pcurrent_ps)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu8_power_state *smu8_ps =3D<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cast_smu8_power_state(&amp;prequest_ps-&gt;=
-hardware);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct smu8_power_state *smu8_c=
-urrent_ps =3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cast_const_smu8_power_state(&amp;pcurrent_p=
-s-&gt;hardware);<br>
--<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu8_power_state *smu8_ps;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct smu8_power_state *smu8_c=
-urrent_ps;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu8_hwmgr *data =
-=3D hwmgr-&gt;backend;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct PP_Clocks clocks =
-=3D {0, 0, 0, 0};<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool force_high;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu8_ps =3D cast_smu8_power_state(&am=
-p;prequest_ps-&gt;hardware);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu8_current_ps =3D cast_const_smu8_p=
-ower_state(&amp;pcurrent_ps-&gt;hardware);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu8_ps || !smu8_current_ps)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -EINVAL;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu8_ps-&gt;need_dfs_bypas=
-s =3D true;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;battery_state =3D=
- (PP_StateUILabel_Battery =3D=3D prequest_ps-&gt;classification.ui_label);<=
-br>
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/driver=
-s/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c<br>
-index 3b461c07344b..6524d99e5cab 100644<br>
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c<br>
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c<br>
-@@ -3280,8 +3280,7 @@ static int vega10_apply_state_adjust_rules(struct pp_=
-hwmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const=
- struct pp_power_state *current_ps)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D hwmgr-&gt;adev;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega10_power_state *vega10_ps =
-=3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cast_phw_vega10_power_state(&amp;request_ps=
--&gt;hardware);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega10_power_state *vega10_ps;=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sclk;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t mclk;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct PP_Clocks minimum_c=
-locks =3D {0};<br>
-@@ -3299,6 +3298,10 @@ static int vega10_apply_state_adjust_rules(struct pp=
-_hwmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t stable_pstate_scl=
-k =3D 0, stable_pstate_mclk =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t latency;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vega10_ps =3D cast_phw_vega10_power_s=
-tate(&amp;request_ps-&gt;hardware);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!vega10_ps)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -EINVAL;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;battery_state =3D=
- (PP_StateUILabel_Battery =3D=3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reque=
-st_ps-&gt;classification.ui_label);<br>
-&nbsp;<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_PH7PR12MB5997EB244DBEE0A21F656A0382E02PH7PR12MB5997namp_--
