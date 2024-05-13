@@ -4,70 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0698C25B10
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 15:36:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8684AC25B10
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 15:53:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AF2F10E2D5;
-	Mon, 13 May 2024 15:36:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFF410E426;
+	Mon, 13 May 2024 15:53:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Un72z9VN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="u5dYg60P";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D50EA10E2D5
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 May 2024 15:36:24 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-351b683f2d8so1298993f8f.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 May 2024 08:36:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715614583; x=1716219383; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=VVgGdbZWGmnsPnNYP/IsFtGLEqc6Bs1ULuLhTF79R5E=;
- b=Un72z9VNeOvkIvA2VYvV/kG4dGWCGeB82AeTLHj8TPy30qMm4Qbr584vp5E5PYUFY0
- pP3BSURVOEiPGguw7BZW5XeyYiU9RGEaOHToG3Z1exivcE8dBEhCGRYj2Imd9N+O+Npl
- 2bpTOayvYiaSPRblghvby5aaUzGAjALOgYfnrjpSZRdqmrUAHTLs9aW/ISRZrS7HhRa9
- ZWY3+qZSGBoLCqn+mSh5Dpp7ZriXfhOspYx2Zl7fwIEN3xbtDeMBwtmzeyzehnvHdMKU
- Nys7vz7GQ+/VQggp/bymmjlzGYhy0k/PkQkuo2BlcND8T3vo9gS29obys46a5sAZb5KF
- AdiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715614583; x=1716219383;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VVgGdbZWGmnsPnNYP/IsFtGLEqc6Bs1ULuLhTF79R5E=;
- b=qpmviKyhLZFnQXI616UcktpVWn5h2kY3EEjr5XXNb50uGopLpld/jm9x7JtzH/aQaN
- 1MOgXwA8AoM8uQ6GaJ0Q8i/z53ryBP2Q5BXgNNGzp+0OL/BikJMJyv29PZKgokEJNvSt
- PMUZYSC9wsGVHL7YhJygEnVuwPfsVS5u7i5usdZ6y+Wy63lBYd4LSrMxDLQML3O9NGy/
- ll0/3uoUFC/DEJoXQKWC8cklcEM7MdXlvajNeOpoyI5hxEhF5xgoGHqjfB/ivaZl68E3
- oyiuWZDJfEoe/6nO9jnuMUtYsD0q48YHp/dQlnnurETJJ78eOqxpzh1cBX4p1UZaIkIH
- LZkg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXbKe2omG3YCj3dt5G7Xh/3MZF++aqz7sgfGAajUaYwvoBNE+/2E5/UxFPlCpuzzidEODg/fLWCS0Mxwr3p5xkBNh/A/A5fdALpCIyg/Q==
-X-Gm-Message-State: AOJu0YycDm7a8frj5wWCG7MkQze72HU0cVOEpI0a/D2UwvdWRww/RJ0j
- 5mnggVmF+YYCy96uBWce5ZLwqU9jSExz6PUcbszBnOpZB3Oz+3aF
-X-Google-Smtp-Source: AGHT+IEnOsNQ7MqSOHApE6iEyOAC6OYin77EmAFSxY7DlM5S7wLXGstGQwZe3uIkIDYxOU1m4G/uAg==
-X-Received: by 2002:a05:6000:d4a:b0:34a:b682:7978 with SMTP id
- ffacd0b85a97d-3504a73eea3mr7304657f8f.42.1715614582631; 
- Mon, 13 May 2024 08:36:22 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3502bbbc077sm11303528f8f.104.2024.05.13.08.36.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 May 2024 08:36:22 -0700 (PDT)
-Message-ID: <f24e41df-057d-4719-b605-9ac72f81f117@gmail.com>
-Date: Mon, 13 May 2024 17:36:20 +0200
-MIME-Version: 1.0
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2055.outbound.protection.outlook.com [40.107.94.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4E6B10E426
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 May 2024 15:53:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YXJfvmNy2i251Sk7gjyHEdNZhIMlS4nWFHJIaYv2kyuk20rS5kcGJz720LzSHxUnP12PiPaWURq1eU85DMxpbNg0kkAN4pomS/eZcOkWt4rAnPPxsTfvZsvlawFSc5ZKFlllzL6Kt2+v9yopTYits5OWwznukWenhZONWvhAVaQGVp/6cr3VMrYKLQpt1mWzCxxr1IlvVc1++E9nIIc7slOKDtyF/ymQmsZG9w8VQhr/ciFjD5O+m6NqtPOKUKpOH6D/M7+Dl4aBuJWeb1+KoQa6DPfM+FWjFIa3oRi7/jYkL+PyB1hlV6rS7OdHX5W7iTim97iYA66f1UU83Dl8SA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lL8ZPtsg4xDuJ4Oh3OuDceo7gh1QSvGJR5aM0jAIsDE=;
+ b=aEdcI4yoO0LvPdkdHtkeS6tdWdERmcA1epTVDh4KrBQjPrOtPzA4oNp4SW8oJ+nNyTnzHt/gKD3iG2977IB7twuGXr4Mvfdehd1EFiKBNYcypnwrAe3SrfTshNiZPt0d8hnblhixw+ufumub3dTDdkcTHqmctcb+vq9PUBzWjSoEXN4MoknRUxCVh8hk+f6qnDyXXMnjxcmZdeASNdlOOgkzS5Qi9NI655rtGNuCUnxJIoK3AXqf3oBQgEhUez6Fuwn+EHEI2236xZETxX/Tmj/tOu8o+K7eT82rLeGQEY0+QQ+1q3SXcI+Qg05Tv+RzzG/O0l1JGU802g8xMRlD4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lL8ZPtsg4xDuJ4Oh3OuDceo7gh1QSvGJR5aM0jAIsDE=;
+ b=u5dYg60PAktaiYb6IeV05Usxk46KF508s5C/6nljs6hDB5msLcbQDEOuraOdiEHefUvoJDW5T8/3ewzEbCBAruPG/zAzE8uVvts0OMvVTFOQVLW4vTj/jXgfrUDGSkrlG3Ux6v04FiIVp54I+E48nFxcH6iBJ0U+zHv7acojWvg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS0PR12MB8563.namprd12.prod.outlook.com (2603:10b6:8:165::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55; Mon, 13 May
+ 2024 15:53:06 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.7544.052; Mon, 13 May 2024
+ 15:53:05 +0000
+Message-ID: <f4e34956-a143-46f3-b01f-98accd0e74a4@amd.com>
+Date: Mon, 13 May 2024 17:53:01 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdgpu: Add Ring Hang Events
-To: Ori Messinger <Ori.Messinger@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240513041414.130959-1-Ori.Messinger@amd.com>
+Subject: Re: [PATCH v10 5/6] drm/amdgpu: Remove the MES self test
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+References: <20240510085046.2718-1-Arunpravin.PaneerSelvam@amd.com>
+ <20240510085046.2718-5-Arunpravin.PaneerSelvam@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240513041414.130959-1-Ori.Messinger@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240510085046.2718-5-Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0100.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9c::14) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8563:EE_
+X-MS-Office365-Filtering-Correlation-Id: 529b63a7-91a9-40a5-732a-08dc7364c73d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|1800799015|376005;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UVR4b3FacFF4enZvdndYMXcyMGpvbGxlN3JhUSs1dGNZM0NMazlLajdDdmVT?=
+ =?utf-8?B?aWpXUWpQYzZlMlZ6R1RvVHZWd0QrR0ZxTVJpQmZxaW9NZWZwZ0FrRTFSMjRD?=
+ =?utf-8?B?djdOTHBCQXRaOFQrZjNmVThjUk5ZUjdFMnNqVlhYUmNxd2R6MlcyZlp5dVdw?=
+ =?utf-8?B?dnVJMFU1VC9nSUZjenRTd2dobFpCVHc4ZU8raElSdkUrUGU2WkdnU21lMjRO?=
+ =?utf-8?B?VGFaMWV5dnNsWjFnd2Njbjd3Q3cxdy9vZTFHSXl0b2w5c055T0lNb0l3YVNa?=
+ =?utf-8?B?blpjSjFHd1RVVjdGaElORWxCKzJzZy81MWVBYlcrRXphcDRibTlIanA4YkhI?=
+ =?utf-8?B?MzI2eXA3RENqbmJoTGo5ME14YmN4U21xaWo5cDQrUEE2TkgvbTZ4bnI1SkNk?=
+ =?utf-8?B?OFU1c0V6clpOV0R4UlMxVHFMUk84b1VXZ0xCNWFhLzREQTI1K0g4azl2d0Zr?=
+ =?utf-8?B?N29HcGRMM0pRZFUzQXY5ZUxnMHB2M0J3eEgvZHRGOEs5MGZvNGxINXh2Y0ha?=
+ =?utf-8?B?Ui81OG5ERTQyT2dXL1d2cTZYTS9MZjZacDQvU3ExRXVpRVgxbktEd2JabzB0?=
+ =?utf-8?B?M0ZMM096cnpwUFVnVldlTDI5am4rTnhEY2JCSFA2S3J1OXJjVTlyRjNpZ0pM?=
+ =?utf-8?B?VFMwTFhVKzRobzFzTVJqY2ZnTnFvb2FFKzVveTZsd0pob3NIbGdmRVRJY1J4?=
+ =?utf-8?B?WnlkRkpTbGIyeGRLUm9IQ0xNbDhGS1JjZ0x3dUhIejd0d0FJRHZOanpWcU5Y?=
+ =?utf-8?B?YXZheWdVajA0RllmZ0JMbkJEMEhUMkRaTk1LUGtGeVhjUG5zdjlETlZKeE91?=
+ =?utf-8?B?M2dlOGVjbWZUQlhaZ0VYcURFZHJwVEZaMXVGbnEzZ05PSDRNSEREL3JLT1Jw?=
+ =?utf-8?B?a2YxaitpeTZxNG4zbHdhSnI4cFl3QUVkbTFJMFZqNG43S1hGb3RFSndXckNa?=
+ =?utf-8?B?Qmw0emdOcThwRFFXb2EvMWtTTlNYbWZiWVYwMDA4OW9HUVlKWldnUHVBL2Q0?=
+ =?utf-8?B?SmlDajRBZmxyaUppclFaV1NvRUxDRlBsSmkySmdCV2Z5QXUxemllZlcyQWpZ?=
+ =?utf-8?B?K2NLRUYvNFZ5QWJwWklldC8wLzhFTmZQYXpSNTVrVEdsM0htaVh1Z3ZGMDVY?=
+ =?utf-8?B?MmRMSTBFdVhSL29GdEswY1liQW9BNDkzK0NsdTNEMnBsRllQM2JCcWZnYjlu?=
+ =?utf-8?B?YVlDWDR2MkFSTTJIbkV1YUVKT3ZBeEpzWHU5NWZhdFYzWHdCOUZGRnJoejZy?=
+ =?utf-8?B?N1hiaGxaN1puTlVacmhjMmFzYnF1bFB6dFZvdUpVNlNxU2R4ZS8rdzdteXNq?=
+ =?utf-8?B?ZXZUUTU4M2FaTjNLVG8yd3hMK281ZDMwTXF2Q21hSDNXRXJiK2FBcUlOL0hI?=
+ =?utf-8?B?SDl3dmtpcks3aFNlUGI2Y1ZnSHd2YVNLeUhTL3ZOcGtaWFZUeFV1U3ZLK0JK?=
+ =?utf-8?B?SEtPeThFRU5aQVVWYnJvMThsY3Q2T0pvcTg2Qnh5ZGdlQWxjdmsrNXJVOVN5?=
+ =?utf-8?B?bHR6QjJST2pyVVU5SjdHaVdQR2VuVWx6MjFOSWRiV2xUbUlTVTBOZ2tCM1FT?=
+ =?utf-8?B?VkF0dkh6a1dIOCs2NXByUDlRMFR6VjViVXNXRWMwRHRCcnl3dXhuMmlIZDFm?=
+ =?utf-8?B?cVp6NnlUT0JzRnRpN01xMFNZM1dXWkJyYjB0RTF5bmFCQkRMZER4VFoxOFd5?=
+ =?utf-8?B?NldVRWNaTVpNM1RyRlVUUjVQV2RpVU9vdXA3eDJKOFI1UDdLdkZFcCtnPT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bERuelFmQWVaK1dUaExlVW9vTWRBWUdwWHZvcTdLMUMrOEhOeTI2UjFxQUxI?=
+ =?utf-8?B?NnA1YWs3ZXg2T2VkOUZYYXZYcm9kQzZ1ZXdqTHRBSXNYSXRsU3llTy91ZERB?=
+ =?utf-8?B?cTZIQTI2NXRlRUsvTnpqR0RGckhaMC91amdaWHpIZHN5ZXVmN0l3am0zVzNH?=
+ =?utf-8?B?R2ppVSt4OHhXZURHNzI0SC9uKzNDMklUaDIyMjdaMVBPMHhkY2FnQm1FUFgv?=
+ =?utf-8?B?UVl1SWtDekZuNWg1eERVN2N5TFFCZlRndjRKUitGRFpiQXh5WTNQWDZKc2Y4?=
+ =?utf-8?B?cTFwT1RsL29rU1AvMGNQRE1WV01WdjBMUG9hV0x1V2xHMmNyVGdNZDlQVVQ2?=
+ =?utf-8?B?YmsyRWswM1o5QWJFVDFLRmpHdHBheUpQcHp0UmtpS1dJMGVhc2ZqR3pEWlAr?=
+ =?utf-8?B?MmVoc1k5OGw0OU9Sa1JxNkN0WUtrMGtqVDU4ZHhaZ0s4MjdGNEVrelZVMWZQ?=
+ =?utf-8?B?ejZkR1BKVjNMcXcvTWttbkpsb1gzR25YS0UzNUdVcFk5TmRoTHRiYU5HQ2hh?=
+ =?utf-8?B?V2p1LytMcHFRQ1FSTzJkaDNFQ2lGLzVaQTgxV2c5aGtTWXRCazY0ckFtMUVU?=
+ =?utf-8?B?R25UWG91TnUwOThVLzRiRmhWeUhOdkE4SkhtcFNrUkpHbk54N0xzdmgwQlpi?=
+ =?utf-8?B?djRPWnJEdHBwSDc4NWdDRTIxeWUrUHlmeXBPMTJTc01DbysyanFEZkxISEk5?=
+ =?utf-8?B?VENucFB4RURBR1ZPeUNOVTRKREF6dldUbkg0c0JUd04yOURGQmh3SWdkNzRM?=
+ =?utf-8?B?bFhGcGY1Q1VDY2doajF4aWsrbktKVFpXMmNqbHVHa1gwbDZFNEh0anoyRzgz?=
+ =?utf-8?B?WW8wbm51VHd1ejllLzhDM3J0UDRmS2tjZFZiWEtYYnhVR3VxcFdnTlg3OE9n?=
+ =?utf-8?B?YUJqTWRJbTNjNFVBZTJ0S0xBNXVxZ0tLLzIvRUo0TlFUaFdFb1IxT2Vjbk12?=
+ =?utf-8?B?enVFYlRtZWpuOERBYWs0cS94UGlSMityb2hyMVBObTRybTJTRDZpM1l6UnhB?=
+ =?utf-8?B?M2YyMmVVdnhKM0hyWUxsbmdNTjc1STVMTDdHZ1k1Rm5LV0VvR0xGU1B5eW9l?=
+ =?utf-8?B?ZzdtaUZuMy8rcXA5cHFjWCtCUWdqSnJ6aTFRa2hqWHpjMk5pR0ZhaG1UQnZs?=
+ =?utf-8?B?RHhBMFI5eDMvajZPNHJ5UG5RZmJHQnFsRUQzMmtaWjFsaWJ6OHVHOWxGZ1d1?=
+ =?utf-8?B?M0JZcWVoRis1OCtxdHNsYjZFZTBuVjdXQlRPbUdWbkIwczhpSjQ0YXFvRjNS?=
+ =?utf-8?B?dDJtV2FKUDZzRlc3MGpzaVRpck1YNVcyTUdQSXB3U3ZEVjNSOVdOMTkzWEtS?=
+ =?utf-8?B?TlhpdUdUdmNidW0zMHkrVi9kUE9jWTRBRjR0ejR2L2doOEEzRW53Umg5c1l0?=
+ =?utf-8?B?YzBzMFpHcklIMkpqZXdnUzRYdTFxckNZUm5ZYlAxSm04SENwaTFMV05oY3lW?=
+ =?utf-8?B?Z1lmSklZdHYrYWhsa21JWTFEQVdQS3F3T3c4cm9lUldBaTJKQnlaT1ZZSVVv?=
+ =?utf-8?B?aWpBQXI1T2k2WGZPKzA0VmlQdFo3QUVvWFlONlgwRjJrL2diMzc2MnI5aHRT?=
+ =?utf-8?B?MUlJanNCdUhVRGc2WXlkaGdIMXFUZ0tNZjFLZkpEVmkzaUZ5Q09vNXpFZ3Vn?=
+ =?utf-8?B?TEpUcTBqdk1RSmM5QUFKSUJqQ3k2eFFnUWtJQzdmZlhVWTQ1YS9aeFM3bzMx?=
+ =?utf-8?B?YmxKVTY5NnhocnVoSlhwVE43dU81dkZ3eHlqWEhIU0VTek43QWxjVDFkb1pM?=
+ =?utf-8?B?ZURBQ2xSSHdRcGdZenFWcU5QUzJYNElNZXQ4VHh2WVJZSi9GbnpLL3Z4Qmkr?=
+ =?utf-8?B?aXo5QXJOZVpzM1k2d0YvMHpFV0d5RUV0SkptN3ZJd3IrZzhldlBNWUVLbENV?=
+ =?utf-8?B?Z2lvcWs1cTE4RVhKS0RROWx2Um9JK1pSZEZ6MFdWbkY5TXY4TWJ0RVozR2ZD?=
+ =?utf-8?B?ck9hbFdxbDE5WnU4bEtBMjlOTHNMd1FKQ2poMENuTzYwSTR5ZHlmM08xWUhD?=
+ =?utf-8?B?NlpmdVpaR3o3YU9CSjZGcnVHRC9hcFBYMVlYeFcrNTJucU1yQWRDdkt2SkVU?=
+ =?utf-8?B?OXZsZS9BZ0t5OWxRV3dBa1pJYk5FVnlVSzhBcjAzeUFGU29qdTNCQmdoMklt?=
+ =?utf-8?Q?IVMwE/hmvQPEVVO6GdmSlRl7N?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 529b63a7-91a9-40a5-732a-08dc7364c73d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2024 15:53:05.8320 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hRJNiSDIAFkg4GSwHdmodmzxnsWR1ha7t/yaOxTlXVeXw2DPhTk8PMDJCUb9F3jP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8563
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,298 +158,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 13.05.24 um 06:14 schrieb Ori Messinger:
-> This patch adds 'ring hang' events to the driver.
-> This is done by adding a 'reset_ring_hang' bool variable to the
-> struct 'amdgpu_reset_context' in the amdgpu_reset.h file.
-> The purpose for this 'reset_ring_hang' variable is whenever a GPU
-> reset is initiated due to a ring hang, the reset_ring_hang should
-> be set to 'true'.
->
-> Additionally, the reset cause is passed into the kfd smi event as
-> a string, and is displayed in dmesg as an error.
->
-> This 'amdgpu_reset_context' struct is now also passed
-> through across all relevant functions, and another event type
-> "KFD_SMI_EVENT_RING_HANG" is added to the kfd_smi_event enum.
+Am 10.05.24 um 10:50 schrieb Arunpravin Paneer Selvam:
+> Remove MES self test as this conflicts the userqueue fence
+> interrupts.
 
-Well general NAK to that design.
-
-Why in the world would we want to expose the ring hang through the KFD 
-SMI interface?
+Please also completely remove the amdgpu_mes_self_test() function and 
+any now unused code.
 
 Regards,
 Christian.
 
 >
-> Signed-off-by: Ori Messinger <Ori.Messinger@amd.com>
-> Change-Id: I6af3022eb1b4514201c9430d635ff87f167ad6f7
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c  |  7 +++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h  |  9 ++++++---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     | 16 ++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c     |  4 ++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h   |  2 ++
->   drivers/gpu/drm/amd/amdkfd/kfd_device.c     |  7 ++++---
->   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c |  7 ++++++-
->   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h |  5 ++++-
->   include/uapi/linux/kfd_ioctl.h              | 15 ++++++++-------
->   10 files changed, 56 insertions(+), 18 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  3 ---
+>   drivers/gpu/drm/amd/amdgpu/mes_v10_1.c     | 12 +-----------
+>   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c     | 14 +-------------
+>   3 files changed, 2 insertions(+), 27 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index e3738d417245..f1c6dc939cc3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -133,6 +133,9 @@ static void amdgpu_amdkfd_reset_work(struct work_struct *work)
->   
->   	reset_context.method = AMD_RESET_METHOD_NONE;
->   	reset_context.reset_req_dev = adev;
-> +	reset_context.reset_ring_hang = true;
-> +	strscpy(reset_context.reset_cause, "hws_hang", sizeof(reset_context.reset_cause));
-> +	DRM_ERROR("Reset cause: %s\n", reset_context.reset_cause);
->   	clear_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
->   
->   	amdgpu_device_gpu_recover(adev, NULL, &reset_context);
-> @@ -261,12 +264,12 @@ int amdgpu_amdkfd_resume(struct amdgpu_device *adev, bool run_pm)
->   	return r;
->   }
->   
-> -int amdgpu_amdkfd_pre_reset(struct amdgpu_device *adev)
-> +int amdgpu_amdkfd_pre_reset(struct amdgpu_device *adev, struct amdgpu_reset_context *reset_context)
->   {
->   	int r = 0;
->   
->   	if (adev->kfd.dev)
-> -		r = kgd2kfd_pre_reset(adev->kfd.dev);
-> +		r = kgd2kfd_pre_reset(adev->kfd.dev, reset_context);
->   
->   	return r;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index 1de021ebdd46..c9030d8b8308 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -47,6 +47,7 @@ enum TLB_FLUSH_TYPE {
->   };
->   
->   struct amdgpu_device;
-> +struct amdgpu_reset_context;
->   
->   enum kfd_mem_attachment_type {
->   	KFD_MEM_ATT_SHARED,	/* Share kgd_mem->bo or another attachment's */
-> @@ -170,7 +171,8 @@ bool amdgpu_amdkfd_have_atomics_support(struct amdgpu_device *adev);
->   
->   bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32 vmid);
->   
-> -int amdgpu_amdkfd_pre_reset(struct amdgpu_device *adev);
-> +int amdgpu_amdkfd_pre_reset(struct amdgpu_device *adev,
-> +			    struct amdgpu_reset_context *reset_context);
->   
->   int amdgpu_amdkfd_post_reset(struct amdgpu_device *adev);
->   
-> @@ -416,7 +418,8 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
->   void kgd2kfd_device_exit(struct kfd_dev *kfd);
->   void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm);
->   int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm);
-> -int kgd2kfd_pre_reset(struct kfd_dev *kfd);
-> +int kgd2kfd_pre_reset(struct kfd_dev *kfd,
-> +		      struct amdgpu_reset_context *reset_context);
->   int kgd2kfd_post_reset(struct kfd_dev *kfd);
->   void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry);
->   void kgd2kfd_set_sram_ecc_flag(struct kfd_dev *kfd);
-> @@ -459,7 +462,7 @@ static inline int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm)
->   	return 0;
->   }
->   
-> -static inline int kgd2kfd_pre_reset(struct kfd_dev *kfd)
-> +static inline int kgd2kfd_pre_reset(struct kfd_dev *kfd, struct amdgpu_reset_context *reset_context)
->   {
->   	return 0;
->   }
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 00fe3c2d5431..b18f37426b5e 100644
+> index 7753a2e64d41..2d9fa3d0d4a4 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5772,7 +5772,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   
->   		cancel_delayed_work_sync(&tmp_adev->delayed_init_work);
->   
-> -		amdgpu_amdkfd_pre_reset(tmp_adev);
-> +		amdgpu_amdkfd_pre_reset(tmp_adev, reset_context);
->   
->   		/*
->   		 * Mark these ASICs to be reseted as untracked first
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index e4742b65032d..c3e32f21aa49 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -77,6 +77,22 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->   
->   		reset_context.method = AMD_RESET_METHOD_NONE;
->   		reset_context.reset_req_dev = adev;
-> +		reset_context.reset_ring_hang = true;
-> +		if (ring->name) {
-> +			/* Ensure buffer length of 64 is not exceeded during copy of ring->name  */
-> +			size_t name_length;
-> +
-> +			for (name_length = 0; name_length < sizeof(reset_context.reset_cause) - 6 &&
-> +			     ring->name[name_length] != '\0'; name_length++) {
-> +				reset_context.reset_cause[name_length] = ring->name[name_length];
-> +			}
-> +			strscpy(reset_context.reset_cause + name_length, "_hang",
-> +				sizeof(reset_context.reset_cause) - name_length);
-> +		} else {
-> +			strscpy(reset_context.reset_cause, "unknown_hang",
-> +				sizeof(reset_context.reset_cause));
-> +		}
-> +		DRM_ERROR("Reset cause: %s\n", reset_context.reset_cause);
->   		clear_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
->   
->   		r = amdgpu_device_gpu_recover(ring->adev, job, &reset_context);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index 1dd13ed3b7b5..e2d65c5c17c6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -2479,6 +2479,10 @@ static void amdgpu_ras_do_recovery(struct work_struct *work)
->   		reset_context.method = AMD_RESET_METHOD_NONE;
->   		reset_context.reset_req_dev = adev;
->   
-> +		reset_context.reset_ring_hang = true;
-> +		strscpy(reset_context.reset_cause, "ras_hang", sizeof(reset_context.reset_cause));
-> +		DRM_ERROR("Reset cause: %s\n", reset_context.reset_cause);
-> +
->   		/* Perform full reset in fatal error mode */
->   		if (!amdgpu_ras_is_poison_mode_supported(ras->adev))
->   			set_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> index 5a9cc043b858..757284ab36e0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> @@ -43,6 +43,8 @@ struct amdgpu_reset_context {
->   	struct amdgpu_hive_info *hive;
->   	struct list_head *reset_device_list;
->   	unsigned long flags;
-> +	bool reset_ring_hang;
-> +	char reset_cause[64];
->   };
->   
->   struct amdgpu_reset_handler {
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index 6b15e55811b6..88171f24496b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -35,6 +35,7 @@
->   #include "kfd_migrate.h"
->   #include "amdgpu.h"
->   #include "amdgpu_xcp.h"
-> +#include "amdgpu_reset.h"
->   
->   #define MQD_SIZE_ALIGNED 768
->   
-> @@ -931,7 +932,7 @@ void kgd2kfd_device_exit(struct kfd_dev *kfd)
->   	kfree(kfd);
->   }
->   
-> -int kgd2kfd_pre_reset(struct kfd_dev *kfd)
-> +int kgd2kfd_pre_reset(struct kfd_dev *kfd, struct amdgpu_reset_context *reset_context)
->   {
->   	struct kfd_node *node;
->   	int i;
-> @@ -941,7 +942,7 @@ int kgd2kfd_pre_reset(struct kfd_dev *kfd)
->   
->   	for (i = 0; i < kfd->num_nodes; i++) {
->   		node = kfd->nodes[i];
-> -		kfd_smi_event_update_gpu_reset(node, false);
-> +		kfd_smi_event_update_gpu_reset(node, false, reset_context);
->   		node->dqm->ops.pre_reset(node->dqm);
+> @@ -4719,9 +4719,6 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
 >   	}
+>   	adev->in_suspend = false;
 >   
-> @@ -981,7 +982,7 @@ int kgd2kfd_post_reset(struct kfd_dev *kfd)
->   	for (i = 0; i < kfd->num_nodes; i++) {
->   		node = kfd->nodes[i];
->   		atomic_set(&node->sram_ecc_flag, 0);
-> -		kfd_smi_event_update_gpu_reset(node, true);
-> +		kfd_smi_event_update_gpu_reset(node, true, NULL);
->   	}
+> -	if (adev->enable_mes)
+> -		amdgpu_mes_self_test(adev);
+> -
+>   	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D0))
+>   		DRM_WARN("smart shift update failed\n");
 >   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+> index 4d1121d1a1e7..b7bfb3185a30 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+> @@ -1161,20 +1161,10 @@ static int mes_v10_0_early_init(void *handle)
 >   	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> index 06ac835190f9..3ffe4b61fe4f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> @@ -29,6 +29,7 @@
->   #include "amdgpu_vm.h"
->   #include "kfd_priv.h"
->   #include "kfd_smi_events.h"
-> +#include "amdgpu_reset.h"
->   
->   struct kfd_smi_client {
->   	struct list_head list;
-> @@ -215,7 +216,8 @@ static void kfd_smi_event_add(pid_t pid, struct kfd_node *dev,
->   	add_event_to_kfifo(pid, dev, event, fifo_in, len);
 >   }
 >   
-> -void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset)
-> +void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset,
-> +				    struct amdgpu_reset_context *reset_context)
->   {
->   	unsigned int event;
->   
-> @@ -224,6 +226,9 @@ void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset)
->   	} else {
->   		event = KFD_SMI_EVENT_GPU_PRE_RESET;
->   		++(dev->reset_seq_num);
-> +		if (reset_context && reset_context->reset_ring_hang)
-> +			kfd_smi_event_add(0, dev, KFD_SMI_EVENT_RING_HANG, "%s\n",
-> +					  reset_context->reset_cause);
->   	}
->   	kfd_smi_event_add(0, dev, event, "%x\n", dev->reset_seq_num);
+> -static int mes_v10_0_late_init(void *handle)
+> -{
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> -
+> -	if (!amdgpu_in_reset(adev))
+> -		amdgpu_mes_self_test(adev);
+> -
+> -	return 0;
+> -}
+> -
+>   static const struct amd_ip_funcs mes_v10_1_ip_funcs = {
+>   	.name = "mes_v10_1",
+>   	.early_init = mes_v10_0_early_init,
+> -	.late_init = mes_v10_0_late_init,
+> +	.late_init = NULL,
+>   	.sw_init = mes_v10_1_sw_init,
+>   	.sw_fini = mes_v10_1_sw_fini,
+>   	.hw_init = mes_v10_1_hw_init,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> index feb7fa2c304c..5923b7b0bd95 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -1274,22 +1274,10 @@ static int mes_v11_0_early_init(void *handle)
+>   	return 0;
 >   }
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-> index fa95c2dfd587..85010b8307f8 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-> @@ -24,11 +24,14 @@
->   #ifndef KFD_SMI_EVENTS_H_INCLUDED
->   #define KFD_SMI_EVENTS_H_INCLUDED
 >   
-> +struct amdgpu_reset_context;
-> +
->   int kfd_smi_event_open(struct kfd_node *dev, uint32_t *fd);
->   void kfd_smi_event_update_vmfault(struct kfd_node *dev, uint16_t pasid);
->   void kfd_smi_event_update_thermal_throttling(struct kfd_node *dev,
->   					     uint64_t throttle_bitmask);
-> -void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset);
-> +void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset,
-> +				    struct amdgpu_reset_context *reset_context);
->   void kfd_smi_event_page_fault_start(struct kfd_node *node, pid_t pid,
->   				    unsigned long address, bool write_fault,
->   				    ktime_t ts);
-> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-> index 285a36601dc9..7c94d2c7da13 100644
-> --- a/include/uapi/linux/kfd_ioctl.h
-> +++ b/include/uapi/linux/kfd_ioctl.h
-> @@ -519,13 +519,14 @@ enum kfd_smi_event {
->   	KFD_SMI_EVENT_THERMAL_THROTTLE = 2,
->   	KFD_SMI_EVENT_GPU_PRE_RESET = 3,
->   	KFD_SMI_EVENT_GPU_POST_RESET = 4,
-> -	KFD_SMI_EVENT_MIGRATE_START = 5,
-> -	KFD_SMI_EVENT_MIGRATE_END = 6,
-> -	KFD_SMI_EVENT_PAGE_FAULT_START = 7,
-> -	KFD_SMI_EVENT_PAGE_FAULT_END = 8,
-> -	KFD_SMI_EVENT_QUEUE_EVICTION = 9,
-> -	KFD_SMI_EVENT_QUEUE_RESTORE = 10,
-> -	KFD_SMI_EVENT_UNMAP_FROM_GPU = 11,
-> +	KFD_SMI_EVENT_RING_HANG = 5,
-> +	KFD_SMI_EVENT_MIGRATE_START = 6,
-> +	KFD_SMI_EVENT_MIGRATE_END = 7,
-> +	KFD_SMI_EVENT_PAGE_FAULT_START = 8,
-> +	KFD_SMI_EVENT_PAGE_FAULT_END = 9,
-> +	KFD_SMI_EVENT_QUEUE_EVICTION = 10,
-> +	KFD_SMI_EVENT_QUEUE_RESTORE = 11,
-> +	KFD_SMI_EVENT_UNMAP_FROM_GPU = 12,
->   
->   	/*
->   	 * max event number, as a flag bit to get events from all processes,
+> -static int mes_v11_0_late_init(void *handle)
+> -{
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> -
+> -	/* it's only intended for use in mes_self_test case, not for s0ix and reset */
+> -	if (!amdgpu_in_reset(adev) && !adev->in_s0ix && !adev->in_suspend &&
+> -	    (amdgpu_ip_version(adev, GC_HWIP, 0) != IP_VERSION(11, 0, 3)))
+> -		amdgpu_mes_self_test(adev);
+> -
+> -	return 0;
+> -}
+> -
+>   static const struct amd_ip_funcs mes_v11_0_ip_funcs = {
+>   	.name = "mes_v11_0",
+>   	.early_init = mes_v11_0_early_init,
+> -	.late_init = mes_v11_0_late_init,
+> +	.late_init = NULL,
+>   	.sw_init = mes_v11_0_sw_init,
+>   	.sw_fini = mes_v11_0_sw_fini,
+>   	.hw_init = mes_v11_0_hw_init,
 
