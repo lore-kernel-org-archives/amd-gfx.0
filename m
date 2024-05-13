@@ -4,148 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD05AC25B10
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 15:12:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58870C25B74
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 15:17:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84D0110E324;
-	Mon, 13 May 2024 15:12:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF37B10E13C;
+	Mon, 13 May 2024 15:17:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dnjlhQrS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MRfywHOW";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2058.outbound.protection.outlook.com [40.107.96.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 994FE10E324;
- Mon, 13 May 2024 15:12:03 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2048.outbound.protection.outlook.com [40.107.92.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C95310E13C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 May 2024 15:17:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j0tK25xC/nxz7OXnHX3v2tJDiPRZ/U7GuksQK97SXzBhI8A5wwisyvaFstLML/WcYjmCUnpdCoMtqUjd/fz8mbQA5a+DNcYYvprnPTf26gQ2UgJ2VUG7x+AS6hOPUMHI9CS5FXPYf/uXxCrzBUlxlIZ3WtAdHg4Mx4330+V8CWHWzsfYyXRNiX+sbGC4st1X4at5hw336yO1LGkD4EuZIupVz7H8b7LnrqHao+muiZSqGXAw8mrfg9X3ryR14+qqqjVoQnOxfmPJsUR1v2NYcCFJkdevDUFour/L9bUv9dt+48EsEe5sVzOMpvkz1q1nIPQZ/W4QiP4vAWGEoEWemg==
+ b=GB0wNQd9/MQZDLf8lmicExVyPeP0KmyvVKR/SWGBOumiYzy3vU+/FVA/mVdm1cQhjXTJ5soiG91lGblNRH1YQBHKKlsMEHuSia0rNjhjSJauiVusTyeczZQ7K3KOgzcf0hsQ9Nw6r6OZqTJHQIfhaL6wNggrh3vlOSpJtzT38YzQcVkgSLvwlP4TMnCGRC01yYw2hL+XHkJxKqsnOxmcX5PlJ+qobMM/1Rm2VkUyXUnpp/91BUsHg6XnzvQsWQOp4neOQWDXLCevbJB/k3sTWbKpmsbS+tfXLBf2PS0vd9dUWaumEnBUT666NRPRNjc3s+470d1zq0xR58RGXNLRuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4uwQTVjJMs7nD4gOc8cl8LAraAmiscMhderFmAw9Xzg=;
- b=HEYXpPSrFSIL118giROwc3AMKHouO/dsRpEselp4Hty81x3hfrEGZc6EEInN8vcl01c1YkseIibb7cVThj0xJR7+2wgZI/I2EXFI0VLwwQ0p20J/BQx8OWVRSpSTp3HOgUwrLpe7/TiB0b/Fo8el3P8QOxrmgpx7wBHzOrtkXWxb5oTBRFW1mrI2atA+WQJtHnHkV79UXHELwgiEDdIc0EjJoi5Qic6CZ25m5YYUumkU+xSS4+ue6YWwXuCD58nq9Rf1iQO4DipMvUmR48jmwHpHF/UY/E7bdbSw7wS1h8OezTLh/Ulaz2znjzBEmqdqDFA2TbvP0OsQS/LRxmj3MQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=FCaxoQndOi7Bx9bXXDm0NVJVMwwhTKdP8FjyAvxIMTM=;
+ b=ZtQzJzGvbdFEp+eMcut9094HY/EQPD3FVFuH4d/QThh6lzBGUSxCdwDhnEjx14O7F7XXqFara+s6MfU7hyXzGdYZOwQl0aGzcHRdPYZqEnfOK6dh5STDdCx9J9dMgU6gIH0bBJ/MZocVY5n887mEoNPTXY+xd7HR096Etam/98K/s5wbkiita8rQeroPmkAGkE4mTrzlfQYeAASlIJoyfNQnWZ5FHirJLJeEWmEDNAUbI5TIGgFtOfSJOJ/52osquU+Xx6+Kj5bG6Peva7eOSEvaJPqB1HcM6a8mKQt9qetrKTmguUyENXCKdbmVsnlZAOsxociDDQDZf9aZv4zrAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4uwQTVjJMs7nD4gOc8cl8LAraAmiscMhderFmAw9Xzg=;
- b=dnjlhQrS1ZCuSCeZ2qJ1GDXIQtbG0bwHjaiKKsJ7pedaAr293qSsjhJZY1Ug+cgYRIuOlJPRr40dYW2tS5mpldAq6eW2JFelbKtI5L2q6EY9RPzBGNxlIXJr8HxF30kOLTMCwoEf3YFSHUZ5UMt03B7WErUhPnlKfc1VS1c/ARo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
- by BY5PR12MB4178.namprd12.prod.outlook.com (2603:10b6:a03:20e::9)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=FCaxoQndOi7Bx9bXXDm0NVJVMwwhTKdP8FjyAvxIMTM=;
+ b=MRfywHOWScBt5/A7t68/nEcIltALG9ux5ubgUDaIWHK5xzhkK7j0z8FCkX9qT58/zN68fiJGofBdoVjd3zbDONxx7s47eDQZIRWEdIByMUTM18/IEygN1QFIlNcS3Jl2zhiR+B+oU5/z/Y3iIWc5kwbBfzq6kleTQy9xRHzXFbU=
+Received: from MW2PR2101CA0023.namprd21.prod.outlook.com (2603:10b6:302:1::36)
+ by DS7PR12MB6189.namprd12.prod.outlook.com (2603:10b6:8:9a::17) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55; Mon, 13 May
- 2024 15:11:59 +0000
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::c55f:19e:6896:cf3]) by MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::c55f:19e:6896:cf3%6]) with mapi id 15.20.7544.052; Mon, 13 May 2024
- 15:11:59 +0000
-Message-ID: <82a9c2c4-5165-413a-b3b1-c8b59ec49271@amd.com>
-Date: Mon, 13 May 2024 20:41:51 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/tests: Add a unit test for range bias
- allocation
-Content-Language: en-US
-To: Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com, daniel@ffwll.ch
-References: <20240512075909.2688-1-Arunpravin.PaneerSelvam@amd.com>
- <20240512075909.2688-2-Arunpravin.PaneerSelvam@amd.com>
- <81aa9ca4-dfbf-4e2f-b931-87c3a91cbe0a@intel.com>
-From: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <81aa9ca4-dfbf-4e2f-b931-87c3a91cbe0a@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0106.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:27::21) To MN2PR12MB4342.namprd12.prod.outlook.com
- (2603:10b6:208:264::7)
+ 2024 15:17:22 +0000
+Received: from MWH0EPF000971E6.namprd02.prod.outlook.com
+ (2603:10b6:302:1:cafe::a5) by MW2PR2101CA0023.outlook.office365.com
+ (2603:10b6:302:1::36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.6 via Frontend
+ Transport; Mon, 13 May 2024 15:17:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MWH0EPF000971E6.mail.protection.outlook.com (10.167.243.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7587.21 via Frontend Transport; Mon, 13 May 2024 15:17:21 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 13 May
+ 2024 10:17:19 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 13 May
+ 2024 10:17:19 -0500
+Received: from Xiaogang-ROCM-Dev.attlocal.net (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35
+ via Frontend Transport; Mon, 13 May 2024 10:17:14 -0500
+From: Xiaogang.Chen <xiaogang.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <felix.kuehling@amd.com>, <xiaogang.chen@amd.com>, Xiaogang Chen
+ <Xiaogang.Chen@amd.com>
+Subject: [PATCH] drm/kfd: Correct pined buffer handling at kfd restore and
+ validate process
+Date: Mon, 13 May 2024 10:18:42 -0500
+Message-ID: <20240513151842.125976-1-xiaogang.chen@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|BY5PR12MB4178:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1dddd511-9551-4a16-727d-08dc735f0935
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E6:EE_|DS7PR12MB6189:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20c0b293-bce8-42ee-5c7b-08dc735fc971
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|376005|1800799015|366007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?aVI3dDdCUngvTVRweFU2WTNxeDVwYkcvVVRUVk5JaG54RG84RWhFZUtpajM1?=
- =?utf-8?B?UGtpMVhzQ3IxcGd6MG9PdFpYVUpuUTRsNmNGaS9HWGVxQzBvWnRldXJ1blZH?=
- =?utf-8?B?OTI2Wmd2a0JWMVhmejZXYjI0TDJTd2xjejBpc1VGd2JaL0M4MGN2bm5TRC9B?=
- =?utf-8?B?VGVNV055dnZPMlBBRlIvM2VQbEthWU9yRW1taFVzWmZhbUZMVnVNVCtwY3NJ?=
- =?utf-8?B?THVQS3pzTzZySUxPMDlYWVhFcU5Fazd2MHJmSFF1RS9uTUhwNzZ3QjZkWllk?=
- =?utf-8?B?cXVIdmFOYjNqbzNxdFlkTCtZZ0w3VTRqUktkSkRmaklZMk54dXlJNkpGMncv?=
- =?utf-8?B?T1hTYkZMdGF4MFFWNytFalQrek5abWNRVmh1R3hOeG9UVmZqWnNoQmdQRzVM?=
- =?utf-8?B?ZTJEaWdkSkozSVNEZjhkdDhGL2RkdnQzaWJBWmU0dFAwTUxVNnRscExka2VU?=
- =?utf-8?B?bnkxSlJmZVVPREFjdEhUVEZNbDVNbjVLRGNmMEtSRXNtaEpxQjUrdXBjUmVI?=
- =?utf-8?B?WXRIM1BRc1hkNUthc3h6QVFHWnRyZFk1R0dLNnZnZzBKeWliZWZyZ2ZTc0ta?=
- =?utf-8?B?eDdzWG5wc0d3c2hlZStLMmtWUWxJVmtHaVFuQzR3S01TTGZvNW5iUUtwQUJJ?=
- =?utf-8?B?Lys5NFdGZU1CN3ZDYmpRbWs3K2dVcUFub1Z3YUlzTEsrYlBOZ2YvemwyREZi?=
- =?utf-8?B?TXNSTWpPOFp3dHB3VWIrSGpWZVlHbWVEWVVCVVdZMTJ6NGsySXZIRTlNQ0g3?=
- =?utf-8?B?TkZBaVZrbSszSkJXZ1REaEt0OE8reFB6TjRsWk1PaVIwNkdrOUZ6aFRibmRo?=
- =?utf-8?B?b20xWndhZjNiMlplUE9Pd0lHTEltMW9MUmZGZ0RkTVR0WUR0d1E5UXZDbm1p?=
- =?utf-8?B?WWlYNTQvMG9hYkNLcVVEblBDK2ZNN3BqOUlaaFJKUnE2cUlsQVJpVFJNWng0?=
- =?utf-8?B?TkNOVFRselVLWE9lcUdPdVk3b3kzaElpUWRkQUZaVjdBRC9ZenJTY1orVW8x?=
- =?utf-8?B?K0dHZ1RiSFdGT1ByYXpsT1F0WFMzMjRTSk01aUZ3bVVPaDBSOGNCU2JMMFFq?=
- =?utf-8?B?N1VyUGoycC93amQwTGhhSXJOaXovOHdQNmIxRE5oc2s4QVdCTVdaMEFuclI2?=
- =?utf-8?B?dGp1TVlrYWZDRWJxRnpxQlNVZklHL2Zmc1NuTmZFNFBBY0VQOU5MZXlzOUdD?=
- =?utf-8?B?QW9NeTRVd3JPeTR1RllIUzRxeHF6NGJHdyttbUtCSkpSVXVVZk5pVmMvcTZP?=
- =?utf-8?B?VitaTDF0dHNsT0xzREJCS3ZDQjgrZTgwSFRRelhEOG05RTJocjFPcjVjazk4?=
- =?utf-8?B?MmJEcjFBUVhVMkVtWjRTa2RuQ0VySjdtRlV5WExjNyt0QTQ4YWZxU0FERWFk?=
- =?utf-8?B?K1VMK0J0b0FTVTZNT3R4MUdTTUozd3MzamdwL01YM0ZEb2UzOEJpZmNVdXR6?=
- =?utf-8?B?d25DcTRvaWtqdk5GOU1Lam9LcFVBK3V1blUyakZldVYreGJCQzlXcXBnVGJ6?=
- =?utf-8?B?Q0YwWEF2ZThJb0tjSlFGV1VFd1ZnMXVPMHkxSmZRSW91Ky9GWUpTQmEvYmFX?=
- =?utf-8?B?Wm9COE01YklCUWViNmRuNHVXU21jMUtsSnVVQlZDMFBVaVhGRnBSOFl5RXcz?=
- =?utf-8?B?MXYzbVE5aWVSdFBQMTNxT1hIcHFwQkR2QkdvQUhFblFCRVRSMCtmMnFZUjF6?=
- =?utf-8?B?bWtZRHFWelpFNnBabG5xOUJyaDBxSXZsczQ1M1B2T0d5NTlTME94cGNRPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UkJNNU5hdkIzVTgwYUR3cHpqSkRGTmJvNG95VXNuaEMzWlpQRll0VXBCM1dx?=
- =?utf-8?B?UE8zTXRKMk9EOE1IbGRwY0ZvRDlkY1lxc2daaG1BemIzTjZYb3dRdmFiRzRl?=
- =?utf-8?B?TUwzMmo5Yk10ZGViVHl3RVplL1Y0eVNSa1IwME05NTFoN1FCeCtxL3cwYkxO?=
- =?utf-8?B?dnAwZklhbFRQNG9QODNQa2JwUjVFYlQxbktYSG84ZUJ3cnV4djA2WFpQanpy?=
- =?utf-8?B?Y3JFRCtleEtKTDFzSGVOK3ZFd3IxMnBxYm1YbSs0YS9HKzdjTnB3UTZvelJE?=
- =?utf-8?B?M2c1ZGxmWCtTTTk3Vk1kUTJDQUtCQ1A1RXpFRFNyaDNoWUZ0eU5BQ3ZBTGlX?=
- =?utf-8?B?TVlqNFlac203S2lPSUI3Z29ZbzQwV3laK2ZhM0dNZW5aYWlaekhiVEh0ME4r?=
- =?utf-8?B?TWlTQllLNU5kcGViSEIwVXBpVGdoamorekFZaGFzRVlWdjJYWGxkWnRDbGlP?=
- =?utf-8?B?b1VUOEttLzNQMC84S0luL0VUbWowR1Q5VTZkYWVoNU5pSU8zRzloZXd0Umc1?=
- =?utf-8?B?LzlwdG8vTWgxU01VRkQwYWYxY2x5N0k0TElTSGVUMGxiRXhDaVZFWGY0WUsx?=
- =?utf-8?B?WlVnTzV5bzNUY2NDUHkxZjBqSUwzbFJoemhQUCtqMFdJUlV1cFo3dWpCaVdx?=
- =?utf-8?B?bXZKWjc0VCtScWlrSlBsYlQ0VXVXK0piREdDZWNaeFE5NktpMUVkaUtOdnZl?=
- =?utf-8?B?MDJEVHl6aitaSjFBQkx4SVJTRFF3a1o0NVVSN2lud2g5TlZFcVJJZmoxZ0ZH?=
- =?utf-8?B?MjdOWWZIMWFBdTcxRjVEamJlSXVFcDNFU29DaEVtaGlHeERveEsvZnhCRDZ0?=
- =?utf-8?B?QmdqRnlnODNVb2JnZmFJaDUrMHZLMlE3RU95SVFiRm1Fdm96cnh0MHBYeEFu?=
- =?utf-8?B?Q1g2Z21MV293SXJTbkVyT3NxWE44R005QytOSXlhQkpnRW44NlA0Z2FkU2Jq?=
- =?utf-8?B?MnNOU3psL1g1RkZqMi9QbUZLQ1p0MDIzdFBkd1IzVFluUXRrbjRCTDFEeWRK?=
- =?utf-8?B?Nkw2enlqNGhNaUNhNW1FMitTOEc4N1ZtTkRGVVN4ZGE0b1NldEZSL1ZmWkpG?=
- =?utf-8?B?Njl4VUxxbGl5TzBmbHI1OXp4QjYwTTBUN09YTTExdWJ6bERzdXQwbHFNSXpI?=
- =?utf-8?B?Q28xR2o4Y1Q0SG12THhXVzZaUjFyNGdRVnJ4RVFCVnhKS0tsTGNJaDVVYlJp?=
- =?utf-8?B?V2hFbkxhZHVxbWgvcHEreWE4MjR0RlFHeEpUR01uekNpZG5MaUtpUXFlK2dj?=
- =?utf-8?B?TzFCTHl6aUtBWG9lSThDTUVqQndiUWNTWUtTcUtwUTZRL0FqNDgwcUduUmpN?=
- =?utf-8?B?RmsrVkhYNjU5MHZmUmxZc0M5YmFhTDRTaUVtVnJvNjJqcTlEWThIN3ExaUth?=
- =?utf-8?B?NWMyeDdvOFJnK1dHZVpRRkJYRUViWTdGZDV5ZFYraTFPQWZVYWpjRWN5bHRV?=
- =?utf-8?B?VTVmZExGejloVzduUURVMzZhWTFnL3AvUm50QTFyZVpZRUFYQ0lyazgwYUJZ?=
- =?utf-8?B?NHoyaTJTSmY4SDlzb29abHh0aHU4ZzJnTkRLZkZLcHczQnZVdVhhYjlieFdy?=
- =?utf-8?B?Vm01cXRvbm1hMDNlYW5GTEVrN3BTcEU2bzQvNEhBZkhRTzVsQjZsa2poRndi?=
- =?utf-8?B?ZWRISGcrY3VyYnk4ZXhwaDVJN0NyeVBHVUt6WkdhSnJURlE0Wi9IVndiRFFL?=
- =?utf-8?B?ZHp1ZFdzKy83ZGV5R1VnVXkrbnpaOHdNaUpzUWNQaitFUXJlditBcXA0MGtw?=
- =?utf-8?B?V25DOUlXZ2xpZkVSYllLZit6UjBUM3RWVFlLVktBc3VFYnZqVS9KeGVwMTRw?=
- =?utf-8?B?cmYyb1ZweUdwa2xuOEl5ZndsdnV0M1hkQUtYNnBuMmtFUU16dmdyZWdMWTVM?=
- =?utf-8?B?akdZa1RRdUN0ejlTM3l6V0R3c3JiaG9lM0pUWGJ2TkllZTFGOTMwVGNlSUUw?=
- =?utf-8?B?cjIzMXF1ZnJuZmRRajZ1aWF4K0xVWEFaL1pSa1p0NmZwM0xRVmE1bzJFZjFX?=
- =?utf-8?B?ZDY1eUNjd0VHckd5QTI1bjJRQ1EycEkybHZ6TDRvSlMvZEdtUGVXeVc5c0dS?=
- =?utf-8?B?L0M3YTNwZE1jRS9JY0FENDI5akU5Q1FzTVJpS1NOSTJUdWJyd1NjUjN4UnBX?=
- =?utf-8?Q?wCrR0E2jOraCtRcM41tcUhzps?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|36860700004|376005|1800799015|82310400017; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Pu3MmwU6cDcbaU27dhAawHgfsqyBX5kXHcPHpLLtzoxd1cGmZhGj5esjbdef?=
+ =?us-ascii?Q?wHV4vxRyvgeD2HqrWh3eJZjgYaJexiOqy/vJnTK8RL3SDedAWh9ZqRfLpIuz?=
+ =?us-ascii?Q?dIrJGiIA653c2BiNHTD+zBcJHqpnVtWE0Ri2u4NNmkApfBR58M+7Tz3V++hK?=
+ =?us-ascii?Q?PW+9igpeEtZ9inr/tvRe9b03El7RmAG/CwXu4HHvbexkeknLkTcMoly4Un+0?=
+ =?us-ascii?Q?mK3ofMR9GjEwnAtDd/8C+ehM2PwzjUKsVVNAXkkOL5o6ft4JsETIbAVRDWFT?=
+ =?us-ascii?Q?fSv/yL/qnnzGnUdRxGD4rUHjC0ZsetWyrkRcwMwoBSW6UdNCecJhucdvI9he?=
+ =?us-ascii?Q?trYDB74QHjy/LTH0cddMwthF1lxFBZnN4dDCBTnr2Wr7re6kXaD8QHkdwgtj?=
+ =?us-ascii?Q?kfeWi7mt7HJtVks/CHidxwLIL0eETSRa8zdfcxUXwdeZlPJS0V3DE/1bRH1q?=
+ =?us-ascii?Q?D/BRpkMlTvC00Qm8rDFh+dzwX9vs1/gWztamBACr9Vu7RQFzqTScG5/lOAWZ?=
+ =?us-ascii?Q?GTCkQpBYMW5j0BFT8am5SFE5k5L0oHHx4T2IxFgKvDvw2Uu7mohgkRhZHzl5?=
+ =?us-ascii?Q?9CtRnD46E/4Jy7fK8EVO87e/Ec9StCzD6hHAmVimTmd7WCiyxBvEs7ingX4X?=
+ =?us-ascii?Q?2ZvmbjrlFypjR/pQbB1sQP0EKJ7wCWgi9N1kumVgWwXQ/moYdy8QstIYC9cb?=
+ =?us-ascii?Q?Wq2JunZLcUboKeb0ktF75q4lVY/1LHD/ZzpVRlCFDofFOW7hW26yNnpg2t/R?=
+ =?us-ascii?Q?Vh/rQVUPMoJiUc0x4/csNV7ArZ3VQYeW/x8V8BBsW2PGRo4IhTB+5g6MWJmz?=
+ =?us-ascii?Q?LsOQ0ryYJMWn8vr3iwMtJD97XErUfcI1Iq7r+z3MIPGViqpGFb6sRFqTi7gu?=
+ =?us-ascii?Q?3D5LSIIy2kMgZyS7DveENF3We9pNA+ot+hAQtB+GGWQgSZ0567oIu5nmXTax?=
+ =?us-ascii?Q?Kax28jI+IjMkZHtdYw7SiCKal3YY1jiImieU7itpmsefqW0h1k+ACNsVVWrw?=
+ =?us-ascii?Q?zH2wRbpfizUEV2kuK1qyvlIMOYbLsOGWkIcpArJQCb0PdQhKogSXOvqDLP1g?=
+ =?us-ascii?Q?WFM5u1umjekYSApK0EbMqRhIWkCD4NBDdHBGC4j8g0yVglMsJrkKh7XNPG5m?=
+ =?us-ascii?Q?+5ayt/RATjWNGT3lsWhib6VlB8yCMFkd98NwcjHUXfhhmxtXhLwy6AiHSuN8?=
+ =?us-ascii?Q?Q/vjZKYIFQvJVM/tMibHvUceCNCnL0tLq8PvzEX1+V6lf+yS1X7Q6JqcAeLb?=
+ =?us-ascii?Q?459YoL55l+MHhZ6kAOj9359MzzUt+yO63oqp5tpnnIVpVceuWPAMCbyM/iwc?=
+ =?us-ascii?Q?5tceojbocw2D6IvIKCPMJfYkq+3AYQKAu4q4YSJGq88YUs5T9+9KG7zT+YhJ?=
+ =?us-ascii?Q?xLDdXLU=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(376005)(1800799015)(82310400017); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1dddd511-9551-4a16-727d-08dc735f0935
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2024 15:11:59.7201 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2024 15:17:21.6786 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20c0b293-bce8-42ee-5c7b-08dc735fc971
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uhKL2ab9m8E9Ei863E5rJrQcqnNMPsvO/DjYc/DblKcqfpLi/GsEb9tKwro8zlAVFcntAzy5VhI9F4n5VvPtjg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4178
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E6.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6189
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,95 +134,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Matthew,
+From: Xiaogang Chen <xiaogang.chen@amd.com>
 
-On 5/13/2024 1:49 PM, Matthew Auld wrote:
-> On 12/05/2024 08:59, Arunpravin Paneer Selvam wrote:
->> Allocate cleared blocks in the bias range when the DRM
->> buddy's clear avail is zero. This will validate the bias
->> range allocation in scenarios like system boot when no
->> cleared blocks are available and exercise the fallback
->> path too. The resulting blocks should always be dirty.
->>
->> Signed-off-by: Arunpravin Paneer Selvam 
->> <Arunpravin.PaneerSelvam@amd.com>
->> ---
->>   drivers/gpu/drm/tests/drm_buddy_test.c | 35 ++++++++++++++++++++++++++
->>   1 file changed, 35 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/tests/drm_buddy_test.c 
->> b/drivers/gpu/drm/tests/drm_buddy_test.c
->> index e3b50e240d36..a194f271bc55 100644
->> --- a/drivers/gpu/drm/tests/drm_buddy_test.c
->> +++ b/drivers/gpu/drm/tests/drm_buddy_test.c
->> @@ -26,6 +26,8 @@ static void drm_test_buddy_alloc_range_bias(struct 
->> kunit *test)
->>       u32 mm_size, ps, bias_size, bias_start, bias_end, bias_rem;
->>       DRM_RND_STATE(prng, random_seed);
->>       unsigned int i, count, *order;
->> +    struct drm_buddy_block *block;
->> +    unsigned long flags;
->>       struct drm_buddy mm;
->>       LIST_HEAD(allocated);
->>   @@ -222,6 +224,39 @@ static void 
->> drm_test_buddy_alloc_range_bias(struct kunit *test)
->>         drm_buddy_free_list(&mm, &allocated, 0);
->>       drm_buddy_fini(&mm);
->> +
->> +    /*
->> +     * Allocate cleared blocks in the bias range when the DRM 
->> buddy's clear avail is
->> +     * zero. This will validate the bias range allocation in 
->> scenarios like system boot
->> +     * when no cleared blocks are available and exercise the 
->> fallback path too. The resulting
->> +     * blocks should always be dirty.
->> +     */
->> +
->> +    KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_init(&mm, mm_size, ps),
->> +                   "buddy_init failed\n");
->> +    mm.clear_avail = 0;
->
-> Should already be zero, right? Maybe make this an assert instead?
-No, since the mm declared as a local variable in the test case, 
-mm.clear_avail is not zero.
->
->> +
->> +    bias_start = round_up(prandom_u32_state(&prng) % (mm_size - ps), 
->> ps);
->> +    bias_end = round_up(bias_start + prandom_u32_state(&prng) % 
->> (mm_size - bias_start), ps);
->> +    bias_end = max(bias_end, bias_start + ps);
->> +    bias_rem = bias_end - bias_start;
->> +
->> +    flags = DRM_BUDDY_CLEAR_ALLOCATION | DRM_BUDDY_RANGE_ALLOCATION;
->> +    u32 size = max(round_up(prandom_u32_state(&prng) % bias_rem, 
->> ps), ps);
->
-> u32 declaration should be moved to above?
-Sure.
+This reverts 8a774fe912ff09e39c2d3a3589c729330113f388 "drm/amdgpu: avoid restore
+process run into dead loop" since buffer got pined is not related whether it
+needs mapping. And skip buffer validation at kfd driver if the buffer has been
+pinned.
 
-Thanks,
-Arun.
->
-> Otherwise,
-> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
->
->> +
->> +    KUNIT_ASSERT_FALSE_MSG(test,
->> +                   drm_buddy_alloc_blocks(&mm, bias_start,
->> +                              bias_end, size, ps,
->> +                              &allocated,
->> +                              flags),
->> +                   "buddy_alloc failed with bias(%x-%x), size=%u, 
->> ps=%u\n",
->> +                   bias_start, bias_end, size, ps);
->> +
->> +    list_for_each_entry(block, &allocated, link)
->> +        KUNIT_EXPECT_EQ(test, drm_buddy_block_is_clear(block), false);
->> +
->> +    drm_buddy_free_list(&mm, &allocated, 0);
->> +    drm_buddy_fini(&mm);
->>   }
->>     static void drm_test_buddy_alloc_clear(struct kunit *test)
+Signed-off-by: Xiaogang Chen <Xiaogang.Chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 3314821e4cf3..80018738bd1c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -415,6 +415,10 @@ static int amdgpu_amdkfd_bo_validate(struct amdgpu_bo *bo, uint32_t domain,
+ 		 "Called with userptr BO"))
+ 		return -EINVAL;
+ 
++	/* bo has been pined, not need validate it */
++	if (bo->tbo.pin_count)
++		return 0;
++
+ 	amdgpu_bo_placement_from_domain(bo, domain);
+ 
+ 	ret = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+@@ -2736,7 +2740,7 @@ static int confirm_valid_user_pages_locked(struct amdkfd_process_info *process_i
+ 
+ 		/* keep mem without hmm range at userptr_inval_list */
+ 		if (!mem->range)
+-			 continue;
++			continue;
+ 
+ 		/* Only check mem with hmm range associated */
+ 		valid = amdgpu_ttm_tt_get_user_pages_done(
+@@ -2981,9 +2985,6 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
+ 			if (!attachment->is_mapped)
+ 				continue;
+ 
+-			if (attachment->bo_va->base.bo->tbo.pin_count)
+-				continue;
+-
+ 			kfd_mem_dmaunmap_attachment(mem, attachment);
+ 			ret = update_gpuvm_pte(mem, attachment, &sync_obj);
+ 			if (ret) {
+-- 
+2.25.1
 
