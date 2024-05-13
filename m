@@ -4,68 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC490C25B78
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 13:53:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BD9EC25B10
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 13:57:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D69BD10E79C;
-	Mon, 13 May 2024 13:53:57 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a0heNM/3";
-	dkim-atps=neutral
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
- [209.85.215.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CC3010E448;
- Mon, 13 May 2024 13:53:55 +0000 (UTC)
-Received: by mail-pg1-f179.google.com with SMTP id
- 41be03b00d2f7-5f415fd71f8so3426787a12.3; 
- Mon, 13 May 2024 06:53:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715608435; x=1716213235; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/XAnoDJSbm35mkWEmCp7bTFRuIjY0i9tRv55LC18e0E=;
- b=a0heNM/342du9T7KjwpW8DQOn1n4eXACaeyHLxV9TkWB3QvybJFFORLBwk5/N9Afqk
- ANNtW4Cbz9s2K3wbicZSaF/Dx/CCE9AI/A45QyQE7PbIFJrEsaZolb/uu5v0PbCKM+4R
- YYn+fAlwbfnTp+lZuXi9kKMrjsIRBMpmmufSJBsZse4yppbD6OiG6/em1ueo9q7ybikf
- 5nDPok8rxmW4YjbZU7e3aE5plXdbJQqdbHOKYDjHuCVMyQz9oefODkqoXP+UVrHSYZgk
- Z0mLlxwXh4qTaDpb0++P1pcPYi7TGg2CswA/lsccTsBgnCaek7U4FqGicqCtiOL+15cR
- jHCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715608435; x=1716213235;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/XAnoDJSbm35mkWEmCp7bTFRuIjY0i9tRv55LC18e0E=;
- b=s4wgZxQXbci+nXxjwv2BNGl12VHuC/8kZffGNjhop4lJKz8QOkg6DNYLcsMKy1hmdG
- QToFrOZUDJGGsUVtKj4wlnTumBQVAV6xk97Dk5vms5iBtzAwv5ToHrVBziG9dFTwMP7V
- TCkD1EeH4ldxepvqx+CbqeDRbGeYLU8tQwJ+YvgAA3ZZMx8YD1HuMf/0ZPa87K8GgEWe
- y4u0yPUqiDz9O6Rg0LxjY8yBWSi61BeJhnUygYqVmdgyoybUQ/Bqb11hoLM0JqeifTyk
- Kouk+LIFrqQmf5TSnxf7B7Vf92BjEy92vqsB8gvxXzn7iJevDBm9F5BHAvUcATKeD5Rp
- zRfg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVmsZDt1te3EHhACz3i5YBawu3aKNhtus9FHU4OhCtwR8JBI20LBMxDeClBjW21oMvHm29xs7vxevLvkUSuQh9L/8mVkA+I95RLwMtiyE1ZYYd+4pkVgPaZXjJ7IWTeOwYgNYQhsPSNn+2rsejeRxZi9YDkWU+046hje8Z4fjf3qGz7b6Brt1YUnp++GuQ=
-X-Gm-Message-State: AOJu0YzlbimD+U44DFGisx1SZ6G80AbyqEXlp/LfiQb1+u0tPkvJXXej
- vOE1MasWdYRbHAmvBVjeSCWPvrYrlZCNASxpVlMebb+8kJiqrL0PpXoN8o33Ulg6RCjK8P7Dqt6
- z1oYEEuAIopBiCaMcsirqSFJVqABF4Q==
-X-Google-Smtp-Source: AGHT+IHMnE4UJlTZnRKhAph3kJZaljotuipG8p8M8RM+KfpIwnf062H0rgkULVinDpGKKtLNtMwyVaor20KAGIkAPFs=
-X-Received: by 2002:a17:90a:5901:b0:2b3:28be:dd6e with SMTP id
- 98e67ed59e1d1-2b6ccd6baedmr7789528a91.33.1715608435133; Mon, 13 May 2024
- 06:53:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85A6610E7B8;
+	Mon, 13 May 2024 13:57:30 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBBF910E7A8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 May 2024 13:57:28 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
+ 44DDvHCx296652; Mon, 13 May 2024 19:27:17 +0530
+Received: (from sunil@localhost)
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 44DDvHj4296649;
+ Mon, 13 May 2024 19:27:17 +0530
+From: Sunil Khatri <sunil.khatri@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
+Subject: [PATCH v2 1/4] drm/amdgpu: update the ip_dump to ipdump_core
+Date: Mon, 13 May 2024 19:27:11 +0530
+Message-Id: <20240513135714.296582-2-sunil.khatri@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240513135714.296582-1-sunil.khatri@amd.com>
+References: <20240513135714.296582-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
-References: <cover.1715353572.git.jani.nikula@intel.com>
- <CADnq5_OMOuz_T-OUZ4jVELEAL1FfFdqoFukKdvZA0eSoPQExLg@mail.gmail.com>
- <87seylewf5.fsf@intel.com>
-In-Reply-To: <87seylewf5.fsf@intel.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 May 2024 09:53:43 -0400
-Message-ID: <CADnq5_N75R4G-w=TXz0-kPNseomSK+s4OB8OMyng_tAeGkU+=g@mail.gmail.com>
-Subject: Re: [RESEND 0/6] drm, nouveau/radeon/amdpgu: edid_blob_ptr cleanups
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,74 +44,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 13, 2024 at 8:20=E2=80=AFAM Jani Nikula <jani.nikula@intel.com>=
- wrote:
->
-> On Fri, 10 May 2024, Alex Deucher <alexdeucher@gmail.com> wrote:
-> > On Fri, May 10, 2024 at 11:17=E2=80=AFAM Jani Nikula <jani.nikula@intel=
-.com> wrote:
-> >>
-> >> I've sent this some moths ago, let's try again...
-> >>
-> >> BR,
-> >> Jani.
-> >>
-> >> Jani Nikula (6):
-> >>   drm/nouveau: convert to using is_hdmi and has_audio from display inf=
-o
-> >>   drm/radeon: convert to using is_hdmi and has_audio from display info
-> >>   drm/radeon: remove radeon_connector_edid() and stop using
-> >>     edid_blob_ptr
-> >>   drm/amdgpu: remove amdgpu_connector_edid() and stop using
-> >>     edid_blob_ptr
-> >>   drm/edid: add a helper for EDID sysfs property show
-> >>   drm/connector: update edid_blob_ptr documentation
-> >
-> > Series is:
-> > Acked-by: Alex Deucher <alexander.deucher@amd.com>
->
-> Thanks, do you want to pick these up via your tree? And do you expect a
-> proper R-b before merging?
+Update the memory pointer from ip_dump to ipdump_core
+to make it specific to core registers and rest other
+registers to be dumped in their respective memories.
 
-Feel free to take them via drm-misc if you'd prefer to land the whole
-set together, otherwise, I can pick up the radeon/amdgpu patches.
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 14 +++++++-------
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 109f471ff315..30d7f9c29478 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -435,7 +435,7 @@ struct amdgpu_gfx {
+ 	bool				mcbp; /* mid command buffer preemption */
+ 
+ 	/* IP reg dump */
+-	uint32_t			*ip_dump;
++	uint32_t			*ipdump_core;
+ };
+ 
+ struct amdgpu_gfx_ras_reg_entry {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 953df202953a..f6d6a4b9802d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4603,9 +4603,9 @@ static void gfx_v10_0_alloc_dump_mem(struct amdgpu_device *adev)
+ 	ptr = kcalloc(reg_count, sizeof(uint32_t), GFP_KERNEL);
+ 	if (ptr == NULL) {
+ 		DRM_ERROR("Failed to allocate memory for IP Dump\n");
+-		adev->gfx.ip_dump = NULL;
++		adev->gfx.ipdump_core = NULL;
+ 	} else {
+-		adev->gfx.ip_dump = ptr;
++		adev->gfx.ipdump_core = ptr;
+ 	}
+ }
+ 
+@@ -4815,7 +4815,7 @@ static int gfx_v10_0_sw_fini(void *handle)
+ 
+ 	gfx_v10_0_free_microcode(adev);
+ 
+-	kfree(adev->gfx.ip_dump);
++	kfree(adev->gfx.ipdump_core);
+ 
+ 	return 0;
+ }
+@@ -9283,13 +9283,13 @@ static void gfx_v10_ip_print(void *handle, struct drm_printer *p)
+ 	uint32_t i;
+ 	uint32_t reg_count = ARRAY_SIZE(gc_reg_list_10_1);
+ 
+-	if (!adev->gfx.ip_dump)
++	if (!adev->gfx.ipdump_core)
+ 		return;
+ 
+ 	for (i = 0; i < reg_count; i++)
+ 		drm_printf(p, "%-50s \t 0x%08x\n",
+ 			   gc_reg_list_10_1[i].reg_name,
+-			   adev->gfx.ip_dump[i]);
++			   adev->gfx.ipdump_core[i]);
+ }
+ 
+ static void gfx_v10_ip_dump(void *handle)
+@@ -9298,12 +9298,12 @@ static void gfx_v10_ip_dump(void *handle)
+ 	uint32_t i;
+ 	uint32_t reg_count = ARRAY_SIZE(gc_reg_list_10_1);
+ 
+-	if (!adev->gfx.ip_dump)
++	if (!adev->gfx.ipdump_core)
+ 		return;
+ 
+ 	amdgpu_gfx_off_ctrl(adev, false);
+ 	for (i = 0; i < reg_count; i++)
+-		adev->gfx.ip_dump[i] = RREG32(SOC15_REG_ENTRY_OFFSET(gc_reg_list_10_1[i]));
++		adev->gfx.ipdump_core[i] = RREG32(SOC15_REG_ENTRY_OFFSET(gc_reg_list_10_1[i]));
+ 	amdgpu_gfx_off_ctrl(adev, true);
+ }
+ 
+-- 
+2.34.1
 
-
->
-> BR,
-> Jani.
->
->
-> >
-> >>
-> >>  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 16 ---------
-> >>  .../gpu/drm/amd/amdgpu/amdgpu_connectors.h    |  1 -
-> >>  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  4 +--
-> >>  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  4 +--
-> >>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  4 +--
-> >>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  4 +--
-> >>  drivers/gpu/drm/drm_crtc_internal.h           |  2 ++
-> >>  drivers/gpu/drm/drm_edid.c                    | 33 ++++++++++++++++++=
-+
-> >>  drivers/gpu/drm/drm_sysfs.c                   | 24 ++------------
-> >>  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  8 ++---
-> >>  drivers/gpu/drm/nouveau/dispnv50/head.c       |  8 +----
-> >>  drivers/gpu/drm/nouveau/nouveau_connector.c   |  2 +-
-> >>  drivers/gpu/drm/radeon/atombios_encoders.c    | 10 +++---
-> >>  drivers/gpu/drm/radeon/evergreen_hdmi.c       |  5 ++-
-> >>  drivers/gpu/drm/radeon/radeon_audio.c         | 13 ++++----
-> >>  drivers/gpu/drm/radeon/radeon_connectors.c    | 27 ++++-----------
-> >>  drivers/gpu/drm/radeon/radeon_display.c       |  2 +-
-> >>  drivers/gpu/drm/radeon/radeon_encoders.c      |  4 +--
-> >>  drivers/gpu/drm/radeon/radeon_mode.h          |  2 --
-> >>  include/drm/drm_connector.h                   |  6 +++-
-> >>  20 files changed, 79 insertions(+), 100 deletions(-)
-> >>
-> >> --
-> >> 2.39.2
-> >>
->
-> --
-> Jani Nikula, Intel
