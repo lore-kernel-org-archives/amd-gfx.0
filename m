@@ -4,76 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 560EEC25B10
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 13:49:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC490C25B78
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 13:53:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D826810E3C8;
-	Mon, 13 May 2024 13:49:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D69BD10E79C;
+	Mon, 13 May 2024 13:53:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="TPPwwtUh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a0heNM/3";
 	dkim-atps=neutral
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4008810E3C8
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 May 2024 13:49:54 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-351b683f2d8so1205759f8f.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 May 2024 06:49:54 -0700 (PDT)
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
+ [209.85.215.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CC3010E448;
+ Mon, 13 May 2024 13:53:55 +0000 (UTC)
+Received: by mail-pg1-f179.google.com with SMTP id
+ 41be03b00d2f7-5f415fd71f8so3426787a12.3; 
+ Mon, 13 May 2024 06:53:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1715608192; x=1716212992;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=jKUaQRVT8NcLartK7c8w6ZiEp5uv/vNiPpy09Cor7pE=;
- b=TPPwwtUhRptP804cSdEW0PhAJeSOphOd0eHFIUG60i/w/w4+u0HLZkUwRXiLGzvMko
- chO6CZay0zL2/cqxZZjaAxt7mEodYtIcAK9DMhPFLE6n7ca5tYAnaPZkrEAsDb9yoP67
- Ehw/O+ScHeRsHShJZu6AqPezmreP97AkUs0s+WL5g0i+p/ibrkJY9zSPAnQE65+H/tnq
- gn51vQMGzg/sr3F/GNGz+SnCPVesSSC5/SiY74edXG+QYqwAYAJXD55TbVe8txXJ4LWX
- +ry1o7ySveITTwcizHmFFC+MngXnCYNDyXN4jOskhOnsWZ0trtfLRKovfB5tsb/011T6
- VaiQ==
+ d=gmail.com; s=20230601; t=1715608435; x=1716213235; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/XAnoDJSbm35mkWEmCp7bTFRuIjY0i9tRv55LC18e0E=;
+ b=a0heNM/342du9T7KjwpW8DQOn1n4eXACaeyHLxV9TkWB3QvybJFFORLBwk5/N9Afqk
+ ANNtW4Cbz9s2K3wbicZSaF/Dx/CCE9AI/A45QyQE7PbIFJrEsaZolb/uu5v0PbCKM+4R
+ YYn+fAlwbfnTp+lZuXi9kKMrjsIRBMpmmufSJBsZse4yppbD6OiG6/em1ueo9q7ybikf
+ 5nDPok8rxmW4YjbZU7e3aE5plXdbJQqdbHOKYDjHuCVMyQz9oefODkqoXP+UVrHSYZgk
+ Z0mLlxwXh4qTaDpb0++P1pcPYi7TGg2CswA/lsccTsBgnCaek7U4FqGicqCtiOL+15cR
+ jHCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715608192; x=1716212992;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=jKUaQRVT8NcLartK7c8w6ZiEp5uv/vNiPpy09Cor7pE=;
- b=KCQDlalI+Ml87bF7sgSHYyWxHshZIMgB5R9JLEkDBoABErCQrP4oFPwSuhdhbdyoFZ
- Ic41bZHpCStwECYVZu78xSvFnu9/5xKq533AnJoEXphvLLApJTsQ6vt48bm55mK/0Erd
- lVngpKQHF5RVOziRb3lr04EulXxU1lEOi5RYOvX3oxqvyHqDrXgs2NQyMUYuKbzi+8o5
- UUXCEY4tjQluqx/jqG6P8TsckFssgH0EO+eLiyNHaI00YSpmZh7e8bKYfql43IAuUubN
- do1ybYN4KVDkkVuIHdFAwPr8c5LRCNvE9S2lb2Fx/9WHh2hzH0ak/2wk3KhrlC6QYGcc
- CXuw==
+ d=1e100.net; s=20230601; t=1715608435; x=1716213235;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/XAnoDJSbm35mkWEmCp7bTFRuIjY0i9tRv55LC18e0E=;
+ b=s4wgZxQXbci+nXxjwv2BNGl12VHuC/8kZffGNjhop4lJKz8QOkg6DNYLcsMKy1hmdG
+ QToFrOZUDJGGsUVtKj4wlnTumBQVAV6xk97Dk5vms5iBtzAwv5ToHrVBziG9dFTwMP7V
+ TCkD1EeH4ldxepvqx+CbqeDRbGeYLU8tQwJ+YvgAA3ZZMx8YD1HuMf/0ZPa87K8GgEWe
+ y4u0yPUqiDz9O6Rg0LxjY8yBWSi61BeJhnUygYqVmdgyoybUQ/Bqb11hoLM0JqeifTyk
+ Kouk+LIFrqQmf5TSnxf7B7Vf92BjEy92vqsB8gvxXzn7iJevDBm9F5BHAvUcATKeD5Rp
+ zRfg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWhryC30xCpMjhoJzjze1ChT+SZKmuywbqcKy5HE/nLnsuvBsmsjwRRhBgwTBEV+KlQng95WxJm8FhTrw8oRlEFRt8dwqYT61k9s23d0w==
-X-Gm-Message-State: AOJu0YxD6EBi75WzKp5QEAkc4hZTYwqwwwKZxsNDnBWun2weWH48vzlT
- o9eWOE1HVudtlSDx0Kn/CX/oQUDiRfYERSI0pKwOWu9z3PeHF0oxBmtlY5niXmw=
-X-Google-Smtp-Source: AGHT+IFMNJ/KDjkdgPxJFA8RtrAE8j2Ed41gi3q6+pVaRLtBu1ZrQq49Dwjta2mTvCrYNdHXqedZfA==
-X-Received: by 2002:adf:f9ca:0:b0:347:2055:f49e with SMTP id
- ffacd0b85a97d-3504a73e7admr7442429f8f.33.1715608192369; 
- Mon, 13 May 2024 06:49:52 -0700 (PDT)
-Received: from [192.168.0.101] ([84.69.19.168])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3502bbbca98sm11181452f8f.112.2024.05.13.06.49.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 May 2024 06:49:52 -0700 (PDT)
-Message-ID: <6b4bbb02-3f12-4a6a-8e61-c776da636d1d@ursulin.net>
-Date: Mon, 13 May 2024 14:49:51 +0100
+ AJvYcCVmsZDt1te3EHhACz3i5YBawu3aKNhtus9FHU4OhCtwR8JBI20LBMxDeClBjW21oMvHm29xs7vxevLvkUSuQh9L/8mVkA+I95RLwMtiyE1ZYYd+4pkVgPaZXjJ7IWTeOwYgNYQhsPSNn+2rsejeRxZi9YDkWU+046hje8Z4fjf3qGz7b6Brt1YUnp++GuQ=
+X-Gm-Message-State: AOJu0YzlbimD+U44DFGisx1SZ6G80AbyqEXlp/LfiQb1+u0tPkvJXXej
+ vOE1MasWdYRbHAmvBVjeSCWPvrYrlZCNASxpVlMebb+8kJiqrL0PpXoN8o33Ulg6RCjK8P7Dqt6
+ z1oYEEuAIopBiCaMcsirqSFJVqABF4Q==
+X-Google-Smtp-Source: AGHT+IHMnE4UJlTZnRKhAph3kJZaljotuipG8p8M8RM+KfpIwnf062H0rgkULVinDpGKKtLNtMwyVaor20KAGIkAPFs=
+X-Received: by 2002:a17:90a:5901:b0:2b3:28be:dd6e with SMTP id
+ 98e67ed59e1d1-2b6ccd6baedmr7789528a91.33.1715608435133; Mon, 13 May 2024
+ 06:53:55 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 0/5] Discussion around eviction improvements
-Content-Language: en-GB
-To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Friedrich Vock <friedrich.vock@gmx.de>
-References: <20240508180946.96863-1-tursulin@igalia.com>
- <e39bcdd1-90e7-42f3-94a9-ea1af6b0d278@ursulin.net>
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <e39bcdd1-90e7-42f3-94a9-ea1af6b0d278@ursulin.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <cover.1715353572.git.jani.nikula@intel.com>
+ <CADnq5_OMOuz_T-OUZ4jVELEAL1FfFdqoFukKdvZA0eSoPQExLg@mail.gmail.com>
+ <87seylewf5.fsf@intel.com>
+In-Reply-To: <87seylewf5.fsf@intel.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 13 May 2024 09:53:43 -0400
+Message-ID: <CADnq5_N75R4G-w=TXz0-kPNseomSK+s4OB8OMyng_tAeGkU+=g@mail.gmail.com>
+Subject: Re: [RESEND 0/6] drm, nouveau/radeon/amdpgu: edid_blob_ptr cleanups
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,122 +80,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Mon, May 13, 2024 at 8:20=E2=80=AFAM Jani Nikula <jani.nikula@intel.com>=
+ wrote:
+>
+> On Fri, 10 May 2024, Alex Deucher <alexdeucher@gmail.com> wrote:
+> > On Fri, May 10, 2024 at 11:17=E2=80=AFAM Jani Nikula <jani.nikula@intel=
+.com> wrote:
+> >>
+> >> I've sent this some moths ago, let's try again...
+> >>
+> >> BR,
+> >> Jani.
+> >>
+> >> Jani Nikula (6):
+> >>   drm/nouveau: convert to using is_hdmi and has_audio from display inf=
+o
+> >>   drm/radeon: convert to using is_hdmi and has_audio from display info
+> >>   drm/radeon: remove radeon_connector_edid() and stop using
+> >>     edid_blob_ptr
+> >>   drm/amdgpu: remove amdgpu_connector_edid() and stop using
+> >>     edid_blob_ptr
+> >>   drm/edid: add a helper for EDID sysfs property show
+> >>   drm/connector: update edid_blob_ptr documentation
+> >
+> > Series is:
+> > Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>
+> Thanks, do you want to pick these up via your tree? And do you expect a
+> proper R-b before merging?
 
-On 09/05/2024 13:40, Tvrtko Ursulin wrote:
-> 
-> On 08/05/2024 19:09, Tvrtko Ursulin wrote:
->> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>
->> Last few days I was looking at the situation with VRAM over 
->> subscription, what
->> happens versus what perhaps should happen. Browsing through the driver 
->> and
->> running some simple experiments.
->>
->> I ended up with this patch series which, as a disclaimer, may be 
->> completely
->> wrong but as I found some suspicious things, to me at least, I thought 
->> it was a
->> good point to stop and request some comments.
->>
->> To perhaps summarise what are the main issues I think I found:
->>
->>   * Migration rate limiting does not bother knowing if actual 
->> migration happened
->>     and so can over-account and unfairly penalise.
->>
->>   * Migration rate limiting does not even work, at least not for the 
->> common case
->>     where userspace configures VRAM+GTT. It thinks it can stop 
->> migration attempts
->>     by playing with bo->allowed_domains vs bo->preferred domains but, 
->> both from
->>     the code, and from empirical experiments, I see that not working 
->> at all. Both
->>     masks are identical so fiddling with them achieves nothing.
->>
->>   * Idea of the fallback placement only works when VRAM has free 
->> space. As soon
->>     as it does not, ttm_resource_compatible is happy to leave the 
->> buffers in the
->>     secondary placement forever.
->>
->>   * Driver thinks it will be re-validating evicted buffers on the next 
->> submission
->>     but it does not for the very common case of VRAM+GTT because it 
->> only checks
->>     if current placement is *none* of the preferred placements.
->>
->> All those problems are addressed in individual patches.
->>
->> End result of this series appears to be driver which will try harder 
->> to move
->> buffers back into VRAM, but will be (more) correctly throttled in 
->> doing so by
->> the existing rate limiting logic.
->>
->> I have run a quick benchmark of Cyberpunk 2077 and cannot say that I 
->> saw a
->> change but that could be a good thing too. At least I did not break 
->> anything,
->> perhaps.. On one occassion I did see the rate limiting logic get 
->> confused while
->> for a period of few minutes it went to a mode where it was constantly 
->> giving a
->> high migration budget. But that recovered itself when I switched 
->> clients and did
->> not come back so I don't know. If there is something wrong there I 
->> don't think
->> it would be caused by any patches in this series.
-> 
-> Since yesterday I also briefly tested with Far Cry New Dawn. One run 
-> each so possibly doesn't mean anything apart that there isn't a 
-> regression aka migration throttling is keeping things at bay even with 
-> increased requests to migrate things back to VRAM:
-> 
->               before         after
-> min/avg/max fps        36/44/54        37/45/55
-> 
-> Cyberpunk 2077 from yesterday was similarly close:
-> 
->          26.96/29.59/30.40    29.70/30.00/30.32
-> 
-> I guess the real story is proper DGPU where misplaced buffers have a 
-> real cost.
+Feel free to take them via drm-misc if you'd prefer to land the whole
+set together, otherwise, I can pick up the radeon/amdgpu patches.
 
-I found one game which regresses spectacularly badly with this series - 
-Assasin's Creed Valhalla. The built-in benchmark at least. The game 
-appears to have a working set much larger than the other games I tested, 
-around 5GiB total during the benchmark. And for some reason migration 
-throttling totally fails to put it in check. I will be investigating 
-this shortly.
+Alex
 
-Regards,
 
-Tvrtko
-
->> Series is probably rough but should be good enough for dicsussion. I 
->> am curious
->> to hear if I identified at least something correctly as a real problem.
->>
->> It would also be good to hear what are the suggested games to check 
->> and see
->> whether there is any improvement.
->>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Friedrich Vock <friedrich.vock@gmx.de>
->>
->> Tvrtko Ursulin (5):
->>    drm/amdgpu: Fix migration rate limiting accounting
->>    drm/amdgpu: Actually respect buffer migration budget
->>    drm/ttm: Add preferred placement flag
->>    drm/amdgpu: Use preferred placement for VRAM+GTT
->>    drm/amdgpu: Re-validate evicted buffers
->>
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     | 38 +++++++++++++++++-----
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  8 +++--
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 21 ++++++++++--
->>   drivers/gpu/drm/ttm/ttm_resource.c         | 13 +++++---
->>   include/drm/ttm/ttm_placement.h            |  3 ++
->>   5 files changed, 65 insertions(+), 18 deletions(-)
->>
+>
+> BR,
+> Jani.
+>
+>
+> >
+> >>
+> >>  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 16 ---------
+> >>  .../gpu/drm/amd/amdgpu/amdgpu_connectors.h    |  1 -
+> >>  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  4 +--
+> >>  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  4 +--
+> >>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  4 +--
+> >>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  4 +--
+> >>  drivers/gpu/drm/drm_crtc_internal.h           |  2 ++
+> >>  drivers/gpu/drm/drm_edid.c                    | 33 ++++++++++++++++++=
++
+> >>  drivers/gpu/drm/drm_sysfs.c                   | 24 ++------------
+> >>  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  8 ++---
+> >>  drivers/gpu/drm/nouveau/dispnv50/head.c       |  8 +----
+> >>  drivers/gpu/drm/nouveau/nouveau_connector.c   |  2 +-
+> >>  drivers/gpu/drm/radeon/atombios_encoders.c    | 10 +++---
+> >>  drivers/gpu/drm/radeon/evergreen_hdmi.c       |  5 ++-
+> >>  drivers/gpu/drm/radeon/radeon_audio.c         | 13 ++++----
+> >>  drivers/gpu/drm/radeon/radeon_connectors.c    | 27 ++++-----------
+> >>  drivers/gpu/drm/radeon/radeon_display.c       |  2 +-
+> >>  drivers/gpu/drm/radeon/radeon_encoders.c      |  4 +--
+> >>  drivers/gpu/drm/radeon/radeon_mode.h          |  2 --
+> >>  include/drm/drm_connector.h                   |  6 +++-
+> >>  20 files changed, 79 insertions(+), 100 deletions(-)
+> >>
+> >> --
+> >> 2.39.2
+> >>
+>
+> --
+> Jani Nikula, Intel
