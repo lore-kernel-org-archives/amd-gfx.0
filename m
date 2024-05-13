@@ -4,72 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3D43C25B75
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 11:41:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4FF4C25B10
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 11:54:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66B3310E6BE;
-	Mon, 13 May 2024 11:41:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E22F10E6FC;
+	Mon, 13 May 2024 11:54:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FY5Nl/yr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ifep1ceu";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0ED410E6BD
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 May 2024 11:41:10 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4200ee78f33so14841985e9.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 May 2024 04:41:10 -0700 (PDT)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84E0510E6FC;
+ Mon, 13 May 2024 11:54:58 +0000 (UTC)
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-2e0933d3b5fso62113581fa.2; 
+ Mon, 13 May 2024 04:54:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715600469; x=1716205269; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1715601296; x=1716206096; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=m3MUZ6WdVvy1iuCNTosZUy/hPgPwUgxjgJTZ18/9eFQ=;
- b=FY5Nl/yrdh29Tv3jVKyPvPJEYRxhAlzz3qsjxfoTTAvhhQa1JR/xqeaCdQpWmUkSpE
- rKD7Vkq8Pa6vEPzvYjKOwnoQ3nXn5bngdN/1HufC8CrxKwkdnrtZpwfYB5xanSfo1civ
- 69WXIBAxg30r2TIXpXQr4jUEK6Knp6FBEwSDIBUoRgKNx369156vjPtgqAMqIYAYQAQY
- ZH64leqABfcoYubsdFeIIG2aAhmXmO3A8WBb8phbOsh6+sCWiVAW/GfkzFkaxZz+zJ07
- WLPn2lC7Tivzyf9ijjiFvz3JyNH5toO9QZqaHY8dCP91LzSMCgDXs00pET9hN5coOUY8
- 3y7w==
+ bh=gkWrpMbT160QX8etadVw3QNSncen2WpGm7FU8IV2vG8=;
+ b=Ifep1ceudiC8uB+P1n1z+z9s+EYQvIP6S8aL25yWM8AJoSA5hEhUWWzm3JcTw0mVed
+ OEJ4jyKA/sN27HAnZTD8GqN2hBdZPKM9m/hG0jJ/bocj7rlZ5Eueag8DEG+Lmfw6acnL
+ RhxUUmJPttuyU9/wy86ZbuU+Sr/PE+zJsnuzRnO1Z5icgqwsDqQcg34oCly7baMqBVYH
+ /j14NtwT/Tt6A2tNdzhEFNAvZBoj6kRJ1ZIN1bANo+J/Nt7B0gdKSyYfdw3yEtQDS2IC
+ LKZf5hFTubsXx2jxNDq/MZV19GH95Demhe31ctzgDkadbYqQa6ENaGZPF251yDJr/kqu
+ x4dQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715600469; x=1716205269;
+ d=1e100.net; s=20230601; t=1715601296; x=1716206096;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=m3MUZ6WdVvy1iuCNTosZUy/hPgPwUgxjgJTZ18/9eFQ=;
- b=eEpSh8DR5/KaKGDVoSGVad8Ka0rDG0a+q/7Er1WojGK6YpQo8Z/PzS5J/CoHVyjkyb
- l+q+ZLZipB/t+r6h3iafxvTj5ypEAYWYvNP0AXCdwy//IrSDxSn/ubSUV8B6aU/DQc2Y
- 5PtuzPhsyBmx7t5b8XA+uVbRs9Veq9PAP5wLoyJp8zlXWcCiemKM5k7TcsgYKDGij1iw
- l46lHtntpQgofqzmkCpkGsdCS2a4h6kMU3mu0WZv5GBv4qaDrdhQO3ckWT8AR2XmJ53l
- VrTxwp/j4ZlxSj2FpP3seHj3rlaM63akI8zCMBcAjAwrafpxv5w21BDKNAPDz7b2IwWl
- YgQw==
+ bh=gkWrpMbT160QX8etadVw3QNSncen2WpGm7FU8IV2vG8=;
+ b=ZlJ9IVCUf31SDIQJ3iZoDLWX5H1wl4AmEyGwM4RAZWbnGLng/TZcwzoeGrDXOivXq4
+ OLZrcEHT1M1/M35FzUYHQ+hLamm4B6GBqOp5rJLn5z+ARCrBex17YsiCMVvfzRwYL9yV
+ 6PLSP5HVYeV8pITYARafJ4j2xVQduNYSaO12xX1usp03LM4a/az1i3MJ2kJxkVIYHOfK
+ ZwR3820/JtSRq0eCueqrbKiqVQHH+nUW048H/wsFdbjoZsQJ77jIMWs1f69qZxce2nub
+ 7NgaGVChorpJ0PhATeDtucFBZxRa2iCE8eBObBGMStcnNEC8gCux8XqKx3ccj6L78aAy
+ HFYw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU8nV68hI6UOg2a8u2chn4s3dNsV9lBNXwpxK3DkxsaaLROm2oGQtL3APU31gO3XumAAGr9s3u/kvQ61MjhUxz0flueKe5Gu4bgbZlWfQ==
-X-Gm-Message-State: AOJu0Yx1DHIEMUCUsuiIALuNOmqQJGFZeypYS72IBsnEgnFhuakLfwYF
- qyT6BjlWTX3OtvIASXNUGP4GFu/WC/oEAPm0SQ26HjVyRwia9154pkoyiEV7
-X-Google-Smtp-Source: AGHT+IEn8Xvb/EvQsX2Vm32RqOWf9mCKA4NmCfu5YH3A7TTY4PBER30kJ4RoUOiEnrPzgRAJpQgGmA==
-X-Received: by 2002:a05:600c:314e:b0:418:3eb7:e8c6 with SMTP id
- 5b1f17b1804b1-41fea927e69mr82008065e9.5.1715600468704; 
- Mon, 13 May 2024 04:41:08 -0700 (PDT)
+ AJvYcCXx7zG1JQQnJNj4wK6/k8l8T725xHL0Ijyll3txDEARHeDMyFOWsfSfi9Y2UrIVvZvihNcwcdKVvICfs7muGFNvETYDShIHrGPRLEbo9aZ18zA2XZBVFtfq/4Zz+/eI9wnbeBY3Xl16nxs2eXsc
+X-Gm-Message-State: AOJu0YwZthPHMXy9Ytq7B4G6sg/S5wX3+NtlvWN4Fopi7vDg/jdBcBTA
+ b4XSy51RGXwdSOGDgA3Vo9l1ZgcD9ece7LyeuvlWNxpQpYflLQ/w
+X-Google-Smtp-Source: AGHT+IHavjprewU8HemKAAUcDJry0RMSDZxfPy8GbQ+53u+j5iKEKjHG05nrkouXF+12V6vxjItN3Q==
+X-Received: by 2002:a2e:b1c6:0:b0:2e1:f6f7:89c7 with SMTP id
+ 38308e7fff4ca-2e5204aee0dmr53224501fa.49.1715601296155; 
+ Mon, 13 May 2024 04:54:56 -0700 (PDT)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4200e518984sm88259175e9.23.2024.05.13.04.41.07
+ 5b1f17b1804b1-41f88111033sm191061725e9.34.2024.05.13.04.54.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 May 2024 04:41:08 -0700 (PDT)
-Message-ID: <1a0b28c7-0b01-4e8e-ae8b-8eb297da1e05@gmail.com>
-Date: Mon, 13 May 2024 13:41:05 +0200
+ Mon, 13 May 2024 04:54:55 -0700 (PDT)
+Message-ID: <849adc1e-b4fc-4fd1-aefb-d5da2d8c560a@gmail.com>
+Date: Mon, 13 May 2024 13:54:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/22] drm/amdgpu: fix dereference after null check
-To: Jesse Zhang <jesse.zhang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>,
- Tim.Huang@amd.com
-References: <20240510025038.3488381-1-jesse.zhang@amd.com>
+Subject: Re: [PATCH 02/20] drm/amdgpu: don't trample pdev drvdata
+To: Matthew Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, amd-gfx@lists.freedesktop.org
+References: <20240510181212.264622-22-matthew.auld@intel.com>
+ <20240510181212.264622-24-matthew.auld@intel.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240510025038.3488381-1-jesse.zhang@amd.com>
+In-Reply-To: <20240510181212.264622-24-matthew.auld@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,37 +85,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 10.05.24 um 04:50 schrieb Jesse Zhang:
-> check the pointer hive before use.
+Am 10.05.24 um 20:12 schrieb Matthew Auld:
+> The driver release callback is called when a particular drm_device goes
+> away, just like with drmm, so here we should never nuke the pdev drvdata
+> pointer, since that could already be pointing to a new drvdata.
+> For example something hotunplugs the device, for which we have an open
+> driver fd, keeping the drm_device alive, and in the meantime the same
+> physical device is re-attached to a new drm_device therefore setting
+> drvdata again. Once the original drm_device goes away, we might then
+> call the release which then incorrectly tramples the drvdata.
 >
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> The driver core will already nuke the pointer for us when the pci device
+> is removed, so should be safe to simply drop. Alternative would be to
+> move to the driver pci remove callback.
+>
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Cc: amd-gfx@lists.freedesktop.org
+
+Oh! Very good catch! That might become important for a feature we 
+current discuss internally.
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 1 -
+>   1 file changed, 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 77f6fd50002a..00fe3c2d5431 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5725,7 +5725,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   	 * to put adev in the 1st position.
->   	 */
->   	INIT_LIST_HEAD(&device_list);
-> -	if (!amdgpu_sriov_vf(adev) && (adev->gmc.xgmi.num_physical_nodes > 1)) {
-> +	if (!amdgpu_sriov_vf(adev) && (adev->gmc.xgmi.num_physical_nodes > 1) && hive) {
-
-That solution looks not optimal to me.
-
-Checking adev->gmc.xgmi.num_physical_nodes > 1 already makes sure that 
-hive shouldn't be NULL.
-
-If automated checkers complain about that we should probably drop the 
-adev->gmc.xgmi.num_physical_nodes > 1 check and check for hive instead.
-
-Regards,
-Christian.
-
->   		list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head) {
->   			list_add_tail(&tmp_adev->reset_list, &device_list);
->   			if (adev->shutdown)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index a0ea6fe8d060..d5fed007c698 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -1450,7 +1450,6 @@ void amdgpu_driver_release_kms(struct drm_device *dev)
+>   	struct amdgpu_device *adev = drm_to_adev(dev);
+>   
+>   	amdgpu_device_fini_sw(adev);
+> -	pci_set_drvdata(adev->pdev, NULL);
+>   }
+>   
+>   /*
 
