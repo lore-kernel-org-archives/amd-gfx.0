@@ -4,141 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A520DC25B10
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 14:55:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD05AC25B10
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 15:12:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3294A10E0DB;
-	Mon, 13 May 2024 14:55:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84D0110E324;
+	Mon, 13 May 2024 15:12:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SERceT9d";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dnjlhQrS";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2070.outbound.protection.outlook.com [40.107.237.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE2AF10E0DB
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 May 2024 14:55:12 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2058.outbound.protection.outlook.com [40.107.96.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 994FE10E324;
+ Mon, 13 May 2024 15:12:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=afoYn6vlmMqydt8BQRV/jFdG4DchENz6loqTjw0C8jqdXGp7wIxJnYtTxsy7/PiRx+xa05q1yJgdgJ1xlTk2TFQ4/nkKMCoBsY3VfPSt/3LZvb+tpALkq7cCZrkxrig/BYcdSVfL6Ugekc3bfvOUq5fYHL3p+KR4MQDewcYWxbPW4emhzI2zgFrLiWbEE1IBGYCy0Dj9cOCYdAqdlqhs27TPt/haLfHX7Ky88dKjXOTs5Y2O0TSAHKgE/Y6mG55HfV/BKBY5ceFE42TYvzXZnwen+Wtcz6QjGbZX/uP++fRaipUHNwVpmc6z2FyUTWGerchqZcKm3Fh6JRRe8zhaHg==
+ b=j0tK25xC/nxz7OXnHX3v2tJDiPRZ/U7GuksQK97SXzBhI8A5wwisyvaFstLML/WcYjmCUnpdCoMtqUjd/fz8mbQA5a+DNcYYvprnPTf26gQ2UgJ2VUG7x+AS6hOPUMHI9CS5FXPYf/uXxCrzBUlxlIZ3WtAdHg4Mx4330+V8CWHWzsfYyXRNiX+sbGC4st1X4at5hw336yO1LGkD4EuZIupVz7H8b7LnrqHao+muiZSqGXAw8mrfg9X3ryR14+qqqjVoQnOxfmPJsUR1v2NYcCFJkdevDUFour/L9bUv9dt+48EsEe5sVzOMpvkz1q1nIPQZ/W4QiP4vAWGEoEWemg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GT7H4UwbOP1CDshxJmSOcAy1eow+393yJGCUGhKBiGo=;
- b=DRgYHBRXl9FhTBL/dHSG3Y2pQSgNtd8XErZ2nUxO9V5gf+Ht5c16N1/5Vlng6xV9UohDP4q3/NCiNzKvTVFxUmNk9aAAYYVFG2LFnR4xk/MxipIBTgYBuaB0cVzXB863xyX2vHIejAMXqclgTKVkFa1sENm4uCx/w5uPWaig1wOUhGXQuNRfdPzHqAtXFB1Lf8w+jaLTgC6kAgQqvW5xGg7pBxObrpi4KE9PdgY76JlHpyam6CZ5ZmNeVRTNCT1OzN7qkuZO5JNJTd23OfjJ9LAXXtzHC5NryDnDHZfynPkAYNn8oqtJgUC7su2M8WEnAk4jG2AbDnTfzQHka9a+Fw==
+ bh=4uwQTVjJMs7nD4gOc8cl8LAraAmiscMhderFmAw9Xzg=;
+ b=HEYXpPSrFSIL118giROwc3AMKHouO/dsRpEselp4Hty81x3hfrEGZc6EEInN8vcl01c1YkseIibb7cVThj0xJR7+2wgZI/I2EXFI0VLwwQ0p20J/BQx8OWVRSpSTp3HOgUwrLpe7/TiB0b/Fo8el3P8QOxrmgpx7wBHzOrtkXWxb5oTBRFW1mrI2atA+WQJtHnHkV79UXHELwgiEDdIc0EjJoi5Qic6CZ25m5YYUumkU+xSS4+ue6YWwXuCD58nq9Rf1iQO4DipMvUmR48jmwHpHF/UY/E7bdbSw7wS1h8OezTLh/Ulaz2znjzBEmqdqDFA2TbvP0OsQS/LRxmj3MQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GT7H4UwbOP1CDshxJmSOcAy1eow+393yJGCUGhKBiGo=;
- b=SERceT9dhU0LiuLFEjpwVtEhZBWNRyfNA1yVQvM2DdCzDfPPJDLQ7T360GrJw1zL5vQofTwQXeINdS/YGAtVlaS+g8NCeOmF/czCqgjpcmRqJI7XHlweJc66cSh63I+Gg7P5d+cgaSonrf2nxj5x/Ww12ciwMo0GXJTROvccZ+0=
-Received: from SA1PR12MB5659.namprd12.prod.outlook.com (2603:10b6:806:236::7)
- by SJ1PR12MB6073.namprd12.prod.outlook.com (2603:10b6:a03:488::14)
+ bh=4uwQTVjJMs7nD4gOc8cl8LAraAmiscMhderFmAw9Xzg=;
+ b=dnjlhQrS1ZCuSCeZ2qJ1GDXIQtbG0bwHjaiKKsJ7pedaAr293qSsjhJZY1Ug+cgYRIuOlJPRr40dYW2tS5mpldAq6eW2JFelbKtI5L2q6EY9RPzBGNxlIXJr8HxF30kOLTMCwoEf3YFSHUZ5UMt03B7WErUhPnlKfc1VS1c/ARo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+ by BY5PR12MB4178.namprd12.prod.outlook.com (2603:10b6:a03:20e::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55; Mon, 13 May
- 2024 14:55:09 +0000
-Received: from SA1PR12MB5659.namprd12.prod.outlook.com
- ([fe80::e783:dfa3:88e4:d166]) by SA1PR12MB5659.namprd12.prod.outlook.com
- ([fe80::e783:dfa3:88e4:d166%7]) with mapi id 15.20.7544.052; Mon, 13 May 2024
- 14:55:09 +0000
-From: "Min, Frank" <Frank.Min@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Gao,
- Likun" <Likun.Gao@amd.com>
-Subject: [PATCH] drm/amdgpu: fix getting vram info for gfx12
-Thread-Topic: [PATCH] drm/amdgpu: fix getting vram info for gfx12
-Thread-Index: AQHapRzVu7vLtMPqVkqeDj13HivRCLGU8smwgABNwjA=
-Date: Mon, 13 May 2024 14:55:09 +0000
-Message-ID: <SA1PR12MB5659E02A7542DEEB521F1BC6E9E22@SA1PR12MB5659.namprd12.prod.outlook.com>
-References: <20240513100131.113631-1-Frank.Min@amd.com>
- <SA1PR12MB565944EEE174445FB2084490E9E22@SA1PR12MB5659.namprd12.prod.outlook.com>
-In-Reply-To: <SA1PR12MB565944EEE174445FB2084490E9E22@SA1PR12MB5659.namprd12.prod.outlook.com>
-Accept-Language: zh-CN, en-US
+ 2024 15:11:59 +0000
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::c55f:19e:6896:cf3]) by MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::c55f:19e:6896:cf3%6]) with mapi id 15.20.7544.052; Mon, 13 May 2024
+ 15:11:59 +0000
+Message-ID: <82a9c2c4-5165-413a-b3b1-c8b59ec49271@amd.com>
+Date: Mon, 13 May 2024 20:41:51 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm/tests: Add a unit test for range bias
+ allocation
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=8d10c751-348c-4833-b3be-08310eefde33;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-05-13T10:15:40Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR12MB5659:EE_|SJ1PR12MB6073:EE_
-x-ms-office365-filtering-correlation-id: dd37fc02-f530-41c0-6894-08dc735caf29
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230031|366007|1800799015|376005|38070700009;
-x-microsoft-antispam-message-info: =?us-ascii?Q?1FxNJ2AMYRYjMv3NBxVLBbBwl3ozKq9H01QDXJu0a4CCwuDfAifQsR687BEz?=
- =?us-ascii?Q?nruElUcenBGYXgRNoBZOyDmVx5LHQaBK7owHg+lavVH7SWR/79iwzoEKgVvv?=
- =?us-ascii?Q?/0YxxUlwuhk1bn66OKS6AWJeyIxX6MYPKi2DKGEhZp+V4qd4OgQ5UR7/ni0E?=
- =?us-ascii?Q?C6lzcezYcP/GB9mXb73mVzWD6JIK9dUFtgkozvmWDbA2apbAyLulyxKUrlFl?=
- =?us-ascii?Q?+5weh318VkJNCCd2t3S28gFHHqyNBZSzveQwfnVkShqYQ29qeondqmx/ZMry?=
- =?us-ascii?Q?A0Gk8Xe6iDLZ/llfpoNYO/VMQliVOuQqsYk69Ya9GpfCfEz8DPbK/epQkOO4?=
- =?us-ascii?Q?B9LYhOS3IhCE8f6hBo0AYj8pYw2c1tYQx+AdFP56KVLoB9+eHvAaFxUr6rLF?=
- =?us-ascii?Q?8BtL26Lpb6KGtI8lL9heu7jB+JaaCy3Qmi4h2hV2GsyMSjjzk7/YL/jCsBwW?=
- =?us-ascii?Q?A+cC3l1DTVXRIDSo9XrrHmsIhCp1XhD2WE9i4cFRoOh5haLcFng0LkIlV8rD?=
- =?us-ascii?Q?vWZDQy7c1hq/+DGX2uZN4A0tzuZKuMuFgf3Gf+4oRP5zLVnSU7d0n49LOpUa?=
- =?us-ascii?Q?2MGfrueZ8y9N7ojbspz3K5BPs999/vG7w3kLRariB0f7fAgMR0Qii1jJpW54?=
- =?us-ascii?Q?Zz0UlH4lNHuqCdXlfBpjqa2MUAQ1FDKalezwfvKdAv6DiusGFNd27Rqg3EAl?=
- =?us-ascii?Q?NLO4p5ANMb68JE7z6pPhB8jzc1Yf8yAEkgqACu8uhkUhrqMjvbx93Mmmcj0Y?=
- =?us-ascii?Q?Qezau5bkGrkgEXoDNMoTg+xW7i3FIYAp9pUXgzuzGpKaLDkpaXQ4xNChUXfU?=
- =?us-ascii?Q?sSqCj9GZhelue2UQNqQBTvTlQ+abSnm85K3pHxI946Bq8lNcnl7WszaUZCsL?=
- =?us-ascii?Q?KP7qHsbfAWAzZoHr7urbQ1kQlZ3DUZY/KkXtgVxrraGBmJoqaLNcilavzxIW?=
- =?us-ascii?Q?oUCoyaeGP9Xr9Xdskl2Sp6z+fT5SJICVIbmLJ9k1i2I22ddb8/bUibfjfpiG?=
- =?us-ascii?Q?gcNQX/NY07R2x7r6eigpgppIqgFzLrgpzKaa9EUloTPpznSslvyhdQayLpYN?=
- =?us-ascii?Q?aVJASfsyncGD6DaTfie6aChCLl0Leuga/+QZoF2xLYcMCqoqm03s0TpHG5W/?=
- =?us-ascii?Q?fdRPkKuamfUmQmRQoYRLqIdWA9jYiYrR7uFbutnk9EuIF2g9eUS53lYah403?=
- =?us-ascii?Q?sZ7gyVMI4LS1bh1QVhktDDdqB1tOhdQxVj5WAc4t98U3A/ri8VaGwhtiQIOt?=
- =?us-ascii?Q?tAZo6VckMQRSR/JXgHBjeHzcNxflWXwuSbthOlfhMX/V7O//zEfT70QqZLcU?=
- =?us-ascii?Q?UfSBfLClv0z21kNIPr//pmNCOtVNCMDbn3sK4fXbLhSxZA=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB5659.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?AYOIC0f8SpKy9dKM2n/J0heNs2WBGLcjhTanzD0/GReF8t82JcH7JqnAeLHD?=
- =?us-ascii?Q?JdSaKL85QGk0sNk51fU+JmnjPwYbPbORbbPX3y75fb/RacfMp/8N5HcTnApL?=
- =?us-ascii?Q?4fqNMu00jfzxxTGDtlc0dHVgPUKhMHP2UeLTQlK/cyU7T48PvDZu71yG2ylu?=
- =?us-ascii?Q?am9vsdDrx+rOPbmrqH9AvQxoTjmuwJ7mmJXmPlbt0L3wwZWt4J+pVL//9hUt?=
- =?us-ascii?Q?NabsQ+2d0I57twQW2F5DdJEJeA5SLgsyG0Xmlper2ihv+sy0mfnXuMVQ4oNZ?=
- =?us-ascii?Q?Muh/mvbDng7TteBfQla/6Sex6q73UbWLSpfthDJTysDTMMDld2SBttMSVDY1?=
- =?us-ascii?Q?6uVCfPM2ehp7eomrY9yGPc0XgcyeD69R7fvJvjJpjJTnx9xfmG0cWqGAh/PS?=
- =?us-ascii?Q?bIudZZzoaUosTavrvMEgaq7Ig/LWyuJ36YqNYm5hdwkqRAL2twVVFDJfUYlu?=
- =?us-ascii?Q?hJoe3WLweLgC4ThLE7iyeYxZ2LynJeR7VERzGyb5FUrzBouKF2gPUG7Q2Ghb?=
- =?us-ascii?Q?P42ijq6jQS3gM/k2NmqL1F3MTSqTGc4ZjsbcaNCr9hgpSJMt7v6X9LRMZyNq?=
- =?us-ascii?Q?87HLltFqf3Gbeqlec3Z9gATvSrolljPNEI8hFRiZtLxTjGve0NDn2H/eD1ZD?=
- =?us-ascii?Q?K7jm8FHgQQ8XAoNYBdZapmlNJHyd9XjnW5uGx3Q8Jj3qC51OTUw/rT6b1X2L?=
- =?us-ascii?Q?i08+tezd2kc3JjYgej0NpGcmL2Z1HqF0k0ozLyk74U7mr8iExMu1bUkZeSnD?=
- =?us-ascii?Q?CKEwU9A9VpXuzB5cV26AtqjPCCevl8UgQfdxxe0N4iZDlvoWpMJwNeWRY3Sw?=
- =?us-ascii?Q?xUWE2Dh/uqXpxqqWHl1bP49XiXfW7ak2nSJO7ePiFoLig896SvDB+/LgMCGl?=
- =?us-ascii?Q?+hsOvUCz6d2/3801g4AS7jEGVNmm+0LL670Nu1utAswpv/JWzc2W1Mdfq1Pi?=
- =?us-ascii?Q?lc3Oi4EZeWrOabi4/wz+QazbbNasybT0fHKzeiMwWuKZzU7eY7obPAiVATt6?=
- =?us-ascii?Q?OU6lmCH/zpIez8/T2h0LvoTmP4tKQB024ZgDXnlDb3rDFq5qggjlahPF+AC5?=
- =?us-ascii?Q?ygwBuj6pVScAHlaHWe/d4Fnzv7uIdcHQJEkc8ZD2FUMi99eFaYFETXT7AqwZ?=
- =?us-ascii?Q?hYCiB0rYyyBIViJAlzEovuIZ4uzondnX79ZDwRSpjERCIM91L0p4MOouICHB?=
- =?us-ascii?Q?67U89MEDjYBhvUdKXzsviJwDF4CjVNUcvNzkBZ3GGbrQjw3k3WJTOYh7p+W+?=
- =?us-ascii?Q?65ZiJdNr9Eva9XKr48KN6A6RdQPKojQ9Pymd6hvw6vuthQfv0LxsJYw8Wj1/?=
- =?us-ascii?Q?R7eED/8VxP86HQw89PvyvcjYruBCknZ0+W9uZ3F3klAC5vWqiu/JI1HmTkiW?=
- =?us-ascii?Q?7wsA7LQriWTmb2GricnMpCk8phbrlTjo5aCnuBlmaHCu1KuAXFl22hURB+18?=
- =?us-ascii?Q?nigXqgOqXYXML9xbs8OEiQKy0wUx/blg56iTbxN5Qm6Zl75hyAvp0kK6c7EK?=
- =?us-ascii?Q?xEzMkAwbVFHrslffuonpgUhdD3uIF719ptxGCiE8+NYee3Am7Z8Nqpdx/ycB?=
- =?us-ascii?Q?79ZTfHsm8SC9wTAIGIQ=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+To: Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com, daniel@ffwll.ch
+References: <20240512075909.2688-1-Arunpravin.PaneerSelvam@amd.com>
+ <20240512075909.2688-2-Arunpravin.PaneerSelvam@amd.com>
+ <81aa9ca4-dfbf-4e2f-b931-87c3a91cbe0a@intel.com>
+From: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <81aa9ca4-dfbf-4e2f-b931-87c3a91cbe0a@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0106.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:27::21) To MN2PR12MB4342.namprd12.prod.outlook.com
+ (2603:10b6:208:264::7)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|BY5PR12MB4178:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1dddd511-9551-4a16-727d-08dc735f0935
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230031|376005|1800799015|366007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?aVI3dDdCUngvTVRweFU2WTNxeDVwYkcvVVRUVk5JaG54RG84RWhFZUtpajM1?=
+ =?utf-8?B?UGtpMVhzQ3IxcGd6MG9PdFpYVUpuUTRsNmNGaS9HWGVxQzBvWnRldXJ1blZH?=
+ =?utf-8?B?OTI2Wmd2a0JWMVhmejZXYjI0TDJTd2xjejBpc1VGd2JaL0M4MGN2bm5TRC9B?=
+ =?utf-8?B?VGVNV055dnZPMlBBRlIvM2VQbEthWU9yRW1taFVzWmZhbUZMVnVNVCtwY3NJ?=
+ =?utf-8?B?THVQS3pzTzZySUxPMDlYWVhFcU5Fazd2MHJmSFF1RS9uTUhwNzZ3QjZkWllk?=
+ =?utf-8?B?cXVIdmFOYjNqbzNxdFlkTCtZZ0w3VTRqUktkSkRmaklZMk54dXlJNkpGMncv?=
+ =?utf-8?B?T1hTYkZMdGF4MFFWNytFalQrek5abWNRVmh1R3hOeG9UVmZqWnNoQmdQRzVM?=
+ =?utf-8?B?ZTJEaWdkSkozSVNEZjhkdDhGL2RkdnQzaWJBWmU0dFAwTUxVNnRscExka2VU?=
+ =?utf-8?B?bnkxSlJmZVVPREFjdEhUVEZNbDVNbjVLRGNmMEtSRXNtaEpxQjUrdXBjUmVI?=
+ =?utf-8?B?WXRIM1BRc1hkNUthc3h6QVFHWnRyZFk1R0dLNnZnZzBKeWliZWZyZ2ZTc0ta?=
+ =?utf-8?B?eDdzWG5wc0d3c2hlZStLMmtWUWxJVmtHaVFuQzR3S01TTGZvNW5iUUtwQUJJ?=
+ =?utf-8?B?Lys5NFdGZU1CN3ZDYmpRbWs3K2dVcUFub1Z3YUlzTEsrYlBOZ2YvemwyREZi?=
+ =?utf-8?B?TXNSTWpPOFp3dHB3VWIrSGpWZVlHbWVEWVVCVVdZMTJ6NGsySXZIRTlNQ0g3?=
+ =?utf-8?B?TkZBaVZrbSszSkJXZ1REaEt0OE8reFB6TjRsWk1PaVIwNkdrOUZ6aFRibmRo?=
+ =?utf-8?B?b20xWndhZjNiMlplUE9Pd0lHTEltMW9MUmZGZ0RkTVR0WUR0d1E5UXZDbm1p?=
+ =?utf-8?B?WWlYNTQvMG9hYkNLcVVEblBDK2ZNN3BqOUlaaFJKUnE2cUlsQVJpVFJNWng0?=
+ =?utf-8?B?TkNOVFRselVLWE9lcUdPdVk3b3kzaElpUWRkQUZaVjdBRC9ZenJTY1orVW8x?=
+ =?utf-8?B?K0dHZ1RiSFdGT1ByYXpsT1F0WFMzMjRTSk01aUZ3bVVPaDBSOGNCU2JMMFFq?=
+ =?utf-8?B?N1VyUGoycC93amQwTGhhSXJOaXovOHdQNmIxRE5oc2s4QVdCTVdaMEFuclI2?=
+ =?utf-8?B?dGp1TVlrYWZDRWJxRnpxQlNVZklHL2Zmc1NuTmZFNFBBY0VQOU5MZXlzOUdD?=
+ =?utf-8?B?QW9NeTRVd3JPeTR1RllIUzRxeHF6NGJHdyttbUtCSkpSVXVVZk5pVmMvcTZP?=
+ =?utf-8?B?VitaTDF0dHNsT0xzREJCS3ZDQjgrZTgwSFRRelhEOG05RTJocjFPcjVjazk4?=
+ =?utf-8?B?MmJEcjFBUVhVMkVtWjRTa2RuQ0VySjdtRlV5WExjNyt0QTQ4YWZxU0FERWFk?=
+ =?utf-8?B?K1VMK0J0b0FTVTZNT3R4MUdTTUozd3MzamdwL01YM0ZEb2UzOEJpZmNVdXR6?=
+ =?utf-8?B?d25DcTRvaWtqdk5GOU1Lam9LcFVBK3V1blUyakZldVYreGJCQzlXcXBnVGJ6?=
+ =?utf-8?B?Q0YwWEF2ZThJb0tjSlFGV1VFd1ZnMXVPMHkxSmZRSW91Ky9GWUpTQmEvYmFX?=
+ =?utf-8?B?Wm9COE01YklCUWViNmRuNHVXU21jMUtsSnVVQlZDMFBVaVhGRnBSOFl5RXcz?=
+ =?utf-8?B?MXYzbVE5aWVSdFBQMTNxT1hIcHFwQkR2QkdvQUhFblFCRVRSMCtmMnFZUjF6?=
+ =?utf-8?B?bWtZRHFWelpFNnBabG5xOUJyaDBxSXZsczQ1M1B2T0d5NTlTME94cGNRPT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UkJNNU5hdkIzVTgwYUR3cHpqSkRGTmJvNG95VXNuaEMzWlpQRll0VXBCM1dx?=
+ =?utf-8?B?UE8zTXRKMk9EOE1IbGRwY0ZvRDlkY1lxc2daaG1BemIzTjZYb3dRdmFiRzRl?=
+ =?utf-8?B?TUwzMmo5Yk10ZGViVHl3RVplL1Y0eVNSa1IwME05NTFoN1FCeCtxL3cwYkxO?=
+ =?utf-8?B?dnAwZklhbFRQNG9QODNQa2JwUjVFYlQxbktYSG84ZUJ3cnV4djA2WFpQanpy?=
+ =?utf-8?B?Y3JFRCtleEtKTDFzSGVOK3ZFd3IxMnBxYm1YbSs0YS9HKzdjTnB3UTZvelJE?=
+ =?utf-8?B?M2c1ZGxmWCtTTTk3Vk1kUTJDQUtCQ1A1RXpFRFNyaDNoWUZ0eU5BQ3ZBTGlX?=
+ =?utf-8?B?TVlqNFlac203S2lPSUI3Z29ZbzQwV3laK2ZhM0dNZW5aYWlaekhiVEh0ME4r?=
+ =?utf-8?B?TWlTQllLNU5kcGViSEIwVXBpVGdoamorekFZaGFzRVlWdjJYWGxkWnRDbGlP?=
+ =?utf-8?B?b1VUOEttLzNQMC84S0luL0VUbWowR1Q5VTZkYWVoNU5pSU8zRzloZXd0Umc1?=
+ =?utf-8?B?LzlwdG8vTWgxU01VRkQwYWYxY2x5N0k0TElTSGVUMGxiRXhDaVZFWGY0WUsx?=
+ =?utf-8?B?WlVnTzV5bzNUY2NDUHkxZjBqSUwzbFJoemhQUCtqMFdJUlV1cFo3dWpCaVdx?=
+ =?utf-8?B?bXZKWjc0VCtScWlrSlBsYlQ0VXVXK0piREdDZWNaeFE5NktpMUVkaUtOdnZl?=
+ =?utf-8?B?MDJEVHl6aitaSjFBQkx4SVJTRFF3a1o0NVVSN2lud2g5TlZFcVJJZmoxZ0ZH?=
+ =?utf-8?B?MjdOWWZIMWFBdTcxRjVEamJlSXVFcDNFU29DaEVtaGlHeERveEsvZnhCRDZ0?=
+ =?utf-8?B?QmdqRnlnODNVb2JnZmFJaDUrMHZLMlE3RU95SVFiRm1Fdm96cnh0MHBYeEFu?=
+ =?utf-8?B?Q1g2Z21MV293SXJTbkVyT3NxWE44R005QytOSXlhQkpnRW44NlA0Z2FkU2Jq?=
+ =?utf-8?B?MnNOU3psL1g1RkZqMi9QbUZLQ1p0MDIzdFBkd1IzVFluUXRrbjRCTDFEeWRK?=
+ =?utf-8?B?Nkw2enlqNGhNaUNhNW1FMitTOEc4N1ZtTkRGVVN4ZGE0b1NldEZSL1ZmWkpG?=
+ =?utf-8?B?Njl4VUxxbGl5TzBmbHI1OXp4QjYwTTBUN09YTTExdWJ6bERzdXQwbHFNSXpI?=
+ =?utf-8?B?Q28xR2o4Y1Q0SG12THhXVzZaUjFyNGdRVnJ4RVFCVnhKS0tsTGNJaDVVYlJp?=
+ =?utf-8?B?V2hFbkxhZHVxbWgvcHEreWE4MjR0RlFHeEpUR01uekNpZG5MaUtpUXFlK2dj?=
+ =?utf-8?B?TzFCTHl6aUtBWG9lSThDTUVqQndiUWNTWUtTcUtwUTZRL0FqNDgwcUduUmpN?=
+ =?utf-8?B?RmsrVkhYNjU5MHZmUmxZc0M5YmFhTDRTaUVtVnJvNjJqcTlEWThIN3ExaUth?=
+ =?utf-8?B?NWMyeDdvOFJnK1dHZVpRRkJYRUViWTdGZDV5ZFYraTFPQWZVYWpjRWN5bHRV?=
+ =?utf-8?B?VTVmZExGejloVzduUURVMzZhWTFnL3AvUm50QTFyZVpZRUFYQ0lyazgwYUJZ?=
+ =?utf-8?B?NHoyaTJTSmY4SDlzb29abHh0aHU4ZzJnTkRLZkZLcHczQnZVdVhhYjlieFdy?=
+ =?utf-8?B?Vm01cXRvbm1hMDNlYW5GTEVrN3BTcEU2bzQvNEhBZkhRTzVsQjZsa2poRndi?=
+ =?utf-8?B?ZWRISGcrY3VyYnk4ZXhwaDVJN0NyeVBHVUt6WkdhSnJURlE0Wi9IVndiRFFL?=
+ =?utf-8?B?ZHp1ZFdzKy83ZGV5R1VnVXkrbnpaOHdNaUpzUWNQaitFUXJlditBcXA0MGtw?=
+ =?utf-8?B?V25DOUlXZ2xpZkVSYllLZit6UjBUM3RWVFlLVktBc3VFYnZqVS9KeGVwMTRw?=
+ =?utf-8?B?cmYyb1ZweUdwa2xuOEl5ZndsdnV0M1hkQUtYNnBuMmtFUU16dmdyZWdMWTVM?=
+ =?utf-8?B?akdZa1RRdUN0ejlTM3l6V0R3c3JiaG9lM0pUWGJ2TkllZTFGOTMwVGNlSUUw?=
+ =?utf-8?B?cjIzMXF1ZnJuZmRRajZ1aWF4K0xVWEFaL1pSa1p0NmZwM0xRVmE1bzJFZjFX?=
+ =?utf-8?B?ZDY1eUNjd0VHckd5QTI1bjJRQ1EycEkybHZ6TDRvSlMvZEdtUGVXeVc5c0dS?=
+ =?utf-8?B?L0M3YTNwZE1jRS9JY0FENDI5akU5Q1FzTVJpS1NOSTJUdWJyd1NjUjN4UnBX?=
+ =?utf-8?Q?wCrR0E2jOraCtRcM41tcUhzps?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1dddd511-9551-4a16-727d-08dc735f0935
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5659.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd37fc02-f530-41c0-6894-08dc735caf29
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 May 2024 14:55:09.2296 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ET5jD5DwRHYgnRmdls+KqsWJrpCQrOcmqzlvKoJVyXhtBuPUGe+kgtgHqwZoTweb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6073
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2024 15:11:59.7201 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uhKL2ab9m8E9Ei863E5rJrQcqnNMPsvO/DjYc/DblKcqfpLi/GsEb9tKwro8zlAVFcntAzy5VhI9F4n5VvPtjg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4178
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,446 +160,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Hi Matthew,
 
-From: Frank Min <Frank.Min@amd.com>
+On 5/13/2024 1:49 PM, Matthew Auld wrote:
+> On 12/05/2024 08:59, Arunpravin Paneer Selvam wrote:
+>> Allocate cleared blocks in the bias range when the DRM
+>> buddy's clear avail is zero. This will validate the bias
+>> range allocation in scenarios like system boot when no
+>> cleared blocks are available and exercise the fallback
+>> path too. The resulting blocks should always be dirty.
+>>
+>> Signed-off-by: Arunpravin Paneer Selvam 
+>> <Arunpravin.PaneerSelvam@amd.com>
+>> ---
+>>   drivers/gpu/drm/tests/drm_buddy_test.c | 35 ++++++++++++++++++++++++++
+>>   1 file changed, 35 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/tests/drm_buddy_test.c 
+>> b/drivers/gpu/drm/tests/drm_buddy_test.c
+>> index e3b50e240d36..a194f271bc55 100644
+>> --- a/drivers/gpu/drm/tests/drm_buddy_test.c
+>> +++ b/drivers/gpu/drm/tests/drm_buddy_test.c
+>> @@ -26,6 +26,8 @@ static void drm_test_buddy_alloc_range_bias(struct 
+>> kunit *test)
+>>       u32 mm_size, ps, bias_size, bias_start, bias_end, bias_rem;
+>>       DRM_RND_STATE(prng, random_seed);
+>>       unsigned int i, count, *order;
+>> +    struct drm_buddy_block *block;
+>> +    unsigned long flags;
+>>       struct drm_buddy mm;
+>>       LIST_HEAD(allocated);
+>>   @@ -222,6 +224,39 @@ static void 
+>> drm_test_buddy_alloc_range_bias(struct kunit *test)
+>>         drm_buddy_free_list(&mm, &allocated, 0);
+>>       drm_buddy_fini(&mm);
+>> +
+>> +    /*
+>> +     * Allocate cleared blocks in the bias range when the DRM 
+>> buddy's clear avail is
+>> +     * zero. This will validate the bias range allocation in 
+>> scenarios like system boot
+>> +     * when no cleared blocks are available and exercise the 
+>> fallback path too. The resulting
+>> +     * blocks should always be dirty.
+>> +     */
+>> +
+>> +    KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_init(&mm, mm_size, ps),
+>> +                   "buddy_init failed\n");
+>> +    mm.clear_avail = 0;
+>
+> Should already be zero, right? Maybe make this an assert instead?
+No, since the mm declared as a local variable in the test case, 
+mm.clear_avail is not zero.
+>
+>> +
+>> +    bias_start = round_up(prandom_u32_state(&prng) % (mm_size - ps), 
+>> ps);
+>> +    bias_end = round_up(bias_start + prandom_u32_state(&prng) % 
+>> (mm_size - bias_start), ps);
+>> +    bias_end = max(bias_end, bias_start + ps);
+>> +    bias_rem = bias_end - bias_start;
+>> +
+>> +    flags = DRM_BUDDY_CLEAR_ALLOCATION | DRM_BUDDY_RANGE_ALLOCATION;
+>> +    u32 size = max(round_up(prandom_u32_state(&prng) % bias_rem, 
+>> ps), ps);
+>
+> u32 declaration should be moved to above?
+Sure.
 
-gfx12 query video mem channel/type/width from umc_info of atom list, so fix=
- it accordingly.
-
-Signed-off-by: Frank Min <Frank.Min@amd.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 263 ++++++++++--------
- 1 file changed, 148 insertions(+), 115 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index a6d64bdbbb14..6fe84151332e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -289,7 +289,6 @@ static int convert_atom_mem_type_to_vram_type(struct am=
-dgpu_device *adev,
-        return vram_type;
- }
-
--
- int
- amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
-                                  int *vram_width, int *vram_type,
-@@ -300,6 +299,7 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_device =
-*adev,
-        u16 data_offset, size;
-        union igp_info *igp_info;
-        union vram_info *vram_info;
-+       union umc_info *umc_info;
-        union vram_module *vram_module;
-        u8 frev, crev;
-        u8 mem_type;
-@@ -311,10 +311,16 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_devic=
-e *adev,
-        if (adev->flags & AMD_IS_APU)
-                index =3D get_index_into_master_table(atom_master_list_of_d=
-ata_tables_v2_1,
-                                                    integratedsysteminfo);
--       else
--               index =3D get_index_into_master_table(atom_master_list_of_d=
-ata_tables_v2_1,
--                                                   vram_info);
--
-+       else {
-+               switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
-+               case IP_VERSION(12, 0, 0):
-+               case IP_VERSION(12, 0, 1):
-+                       index =3D get_index_into_master_table(atom_master_l=
-ist_of_data_tables_v2_1, umc_info);
-+                       break;
-+               default:
-+                       index =3D get_index_into_master_table(atom_master_l=
-ist_of_data_tables_v2_1, vram_info);
-+               }
-+       }
-        if (amdgpu_atom_parse_data_header(mode_info->atom_context,
-                                          index, &size,
-                                          &frev, &crev, &data_offset)) {
-@@ -368,123 +374,150 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_dev=
-ice *adev,
-                                return -EINVAL;
-                        }
-                } else {
--                       vram_info =3D (union vram_info *)
--                               (mode_info->atom_context->bios + data_offse=
-t);
--                       module_id =3D (RREG32(adev->bios_scratch_reg_offset=
- + 4) & 0x00ff0000) >> 16;
--                       if (frev =3D=3D 3) {
--                               switch (crev) {
--                               /* v30 */
--                               case 0:
--                                       vram_module =3D (union vram_module =
-*)vram_info->v30.vram_module;
--                                       mem_vendor =3D (vram_module->v30.dr=
-am_vendor_id) & 0xF;
--                                       if (vram_vendor)
--                                               *vram_vendor =3D mem_vendor=
-;
--                                       mem_type =3D vram_info->v30.memory_=
-type;
--                                       if (vram_type)
--                                               *vram_type =3D convert_atom=
-_mem_type_to_vram_type(adev, mem_type);
--                                       mem_channel_number =3D vram_info->v=
-30.channel_num;
--                                       mem_channel_width =3D vram_info->v3=
-0.channel_width;
--                                       if (vram_width)
--                                               *vram_width =3D mem_channel=
-_number * (1 << mem_channel_width);
--                                       break;
--                               default:
--                                       return -EINVAL;
--                               }
--                       } else if (frev =3D=3D 2) {
--                               switch (crev) {
--                               /* v23 */
--                               case 3:
--                                       if (module_id > vram_info->v23.vram=
-_module_num)
--                                               module_id =3D 0;
--                                       vram_module =3D (union vram_module =
-*)vram_info->v23.vram_module;
--                                       while (i < module_id) {
--                                               vram_module =3D (union vram=
-_module *)
--                                                       ((u8 *)vram_module =
-+ vram_module->v9.vram_module_size);
--                                               i++;
--                                       }
--                                       mem_type =3D vram_module->v9.memory=
-_type;
--                                       if (vram_type)
--                                               *vram_type =3D convert_atom=
-_mem_type_to_vram_type(adev, mem_type);
--                                       mem_channel_number =3D vram_module-=
->v9.channel_num;
--                                       mem_channel_width =3D vram_module->=
-v9.channel_width;
--                                       if (vram_width)
--                                               *vram_width =3D mem_channel=
-_number * (1 << mem_channel_width);
--                                       mem_vendor =3D (vram_module->v9.ven=
-der_rev_id) & 0xF;
--                                       if (vram_vendor)
--                                               *vram_vendor =3D mem_vendor=
-;
--                                       break;
--                               /* v24 */
--                               case 4:
--                                       if (module_id > vram_info->v24.vram=
-_module_num)
--                                               module_id =3D 0;
--                                       vram_module =3D (union vram_module =
-*)vram_info->v24.vram_module;
--                                       while (i < module_id) {
--                                               vram_module =3D (union vram=
-_module *)
--                                                       ((u8 *)vram_module =
-+ vram_module->v10.vram_module_size);
--                                               i++;
-+                       switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
-+                       case IP_VERSION(12, 0, 0):
-+                       case IP_VERSION(12, 0, 1):
-+                               umc_info =3D (union umc_info *)(mode_info->=
-atom_context->bios +
-+data_offset);
-+
-+                               if (frev =3D=3D 4) {
-+                                       switch (crev) {
-+                                       case 0:
-+                                               mem_channel_number =3D le32=
-_to_cpu(umc_info->v40.channel_num);
-+                                               mem_type =3D le32_to_cpu(um=
-c_info->v40.vram_type);
-+                                               mem_channel_width =3D le32_=
-to_cpu(umc_info->v40.channel_width);
-+                                               mem_vendor =3D RREG32(adev-=
->bios_scratch_reg_offset + 4) & 0xF;
-+                                               if (vram_vendor)
-+                                                       *vram_vendor =3D me=
-m_vendor;
-+                                               if (vram_type)
-+                                                       *vram_type =3D conv=
-ert_atom_mem_type_to_vram_type(adev, mem_type);
-+                                               if (vram_width)
-+                                                       *vram_width =3D mem=
-_channel_number * (1 << mem_channel_width);
-+                                               break;
-+                                       default:
-+                                               return -EINVAL;
-                                        }
--                                       mem_type =3D vram_module->v10.memor=
-y_type;
--                                       if (vram_type)
--                                               *vram_type =3D convert_atom=
-_mem_type_to_vram_type(adev, mem_type);
--                                       mem_channel_number =3D vram_module-=
->v10.channel_num;
--                                       mem_channel_width =3D vram_module->=
-v10.channel_width;
--                                       if (vram_width)
--                                               *vram_width =3D mem_channel=
-_number * (1 << mem_channel_width);
--                                       mem_vendor =3D (vram_module->v10.ve=
-nder_rev_id) & 0xF;
--                                       if (vram_vendor)
--                                               *vram_vendor =3D mem_vendor=
-;
--                                       break;
--                               /* v25 */
--                               case 5:
--                                       if (module_id > vram_info->v25.vram=
-_module_num)
--                                               module_id =3D 0;
--                                       vram_module =3D (union vram_module =
-*)vram_info->v25.vram_module;
--                                       while (i < module_id) {
--                                               vram_module =3D (union vram=
-_module *)
--                                                       ((u8 *)vram_module =
-+ vram_module->v11.vram_module_size);
--                                               i++;
-+                               } else
-+                                       return -EINVAL;
-+                               break;
-+                       default:
-+                               vram_info =3D (union vram_info *)
-+                                       (mode_info->atom_context->bios + da=
-ta_offset);
-+
-+                               module_id =3D (RREG32(adev->bios_scratch_re=
-g_offset + 4) & 0x00ff0000) >> 16;
-+                               if (frev =3D=3D 3) {
-+                                       switch (crev) {
-+                                       /* v30 */
-+                                       case 0:
-+                                               vram_module =3D (union vram=
-_module *)vram_info->v30.vram_module;
-+                                               mem_vendor =3D (vram_module=
-->v30.dram_vendor_id) & 0xF;
-+                                               if (vram_vendor)
-+                                                       *vram_vendor =3D me=
-m_vendor;
-+                                               mem_type =3D vram_info->v30=
-.memory_type;
-+                                               if (vram_type)
-+                                                       *vram_type =3D conv=
-ert_atom_mem_type_to_vram_type(adev, mem_type);
-+                                               mem_channel_number =3D vram=
-_info->v30.channel_num;
-+                                               mem_channel_width =3D vram_=
-info->v30.channel_width;
-+                                               if (vram_width)
-+                                                       *vram_width =3D mem=
-_channel_number * (1 << mem_channel_width);
-+                                               break;
-+                                       default:
-+                                               return -EINVAL;
-                                        }
--                                       mem_type =3D vram_module->v11.memor=
-y_type;
--                                       if (vram_type)
--                                               *vram_type =3D convert_atom=
-_mem_type_to_vram_type(adev, mem_type);
--                                       mem_channel_number =3D vram_module-=
->v11.channel_num;
--                                       mem_channel_width =3D vram_module->=
-v11.channel_width;
--                                       if (vram_width)
--                                               *vram_width =3D mem_channel=
-_number * (1 << mem_channel_width);
--                                       mem_vendor =3D (vram_module->v11.ve=
-nder_rev_id) & 0xF;
--                                       if (vram_vendor)
--                                               *vram_vendor =3D mem_vendor=
-;
--                                       break;
--                               /* v26 */
--                               case 6:
--                                       if (module_id > vram_info->v26.vram=
-_module_num)
--                                               module_id =3D 0;
--                                       vram_module =3D (union vram_module =
-*)vram_info->v26.vram_module;
--                                       while (i < module_id) {
--                                               vram_module =3D (union vram=
-_module *)
--                                                       ((u8 *)vram_module =
-+ vram_module->v9.vram_module_size);
--                                               i++;
-+                               } else if (frev =3D=3D 2) {
-+                                       switch (crev) {
-+                                       /* v23 */
-+                                       case 3:
-+                                               if (module_id > vram_info->=
-v23.vram_module_num)
-+                                                       module_id =3D 0;
-+                                               vram_module =3D (union vram=
-_module *)vram_info->v23.vram_module;
-+                                               while (i < module_id) {
-+                                                       vram_module =3D (un=
-ion vram_module *)
-+                                                               ((u8 *)vram=
-_module + vram_module->v9.vram_module_size);
-+                                                       i++;
-+                                               }
-+                                               mem_type =3D vram_module->v=
-9.memory_type;
-+                                               if (vram_type)
-+                                                       *vram_type =3D conv=
-ert_atom_mem_type_to_vram_type(adev, mem_type);
-+                                               mem_channel_number =3D vram=
-_module->v9.channel_num;
-+                                               mem_channel_width =3D vram_=
-module->v9.channel_width;
-+                                               if (vram_width)
-+                                                       *vram_width =3D mem=
-_channel_number * (1 << mem_channel_width);
-+                                               mem_vendor =3D (vram_module=
-->v9.vender_rev_id) & 0xF;
-+                                               if (vram_vendor)
-+                                                       *vram_vendor =3D me=
-m_vendor;
-+                                               break;
-+                                       /* v24 */
-+                                       case 4:
-+                                               if (module_id > vram_info->=
-v24.vram_module_num)
-+                                                       module_id =3D 0;
-+                                               vram_module =3D (union vram=
-_module *)vram_info->v24.vram_module;
-+                                               while (i < module_id) {
-+                                                       vram_module =3D (un=
-ion vram_module *)
-+                                                               ((u8 *)vram=
-_module + vram_module->v10.vram_module_size);
-+                                                       i++;
-+                                               }
-+                                               mem_type =3D vram_module->v=
-10.memory_type;
-+                                               if (vram_type)
-+                                                       *vram_type =3D conv=
-ert_atom_mem_type_to_vram_type(adev, mem_type);
-+                                               mem_channel_number =3D vram=
-_module->v10.channel_num;
-+                                               mem_channel_width =3D vram_=
-module->v10.channel_width;
-+                                               if (vram_width)
-+                                                       *vram_width =3D mem=
-_channel_number * (1 << mem_channel_width);
-+                                               mem_vendor =3D (vram_module=
-->v10.vender_rev_id) & 0xF;
-+                                               if (vram_vendor)
-+                                                       *vram_vendor =3D me=
-m_vendor;
-+                                               break;
-+                                       /* v25 */
-+                                       case 5:
-+                                               if (module_id > vram_info->=
-v25.vram_module_num)
-+                                                       module_id =3D 0;
-+                                               vram_module =3D (union vram=
-_module *)vram_info->v25.vram_module;
-+                                               while (i < module_id) {
-+                                                       vram_module =3D (un=
-ion vram_module *)
-+                                                               ((u8 *)vram=
-_module + vram_module->v11.vram_module_size);
-+                                                       i++;
-+                                               }
-+                                               mem_type =3D vram_module->v=
-11.memory_type;
-+                                               if (vram_type)
-+                                                       *vram_type =3D conv=
-ert_atom_mem_type_to_vram_type(adev, mem_type);
-+                                               mem_channel_number =3D vram=
-_module->v11.channel_num;
-+                                               mem_channel_width =3D vram_=
-module->v11.channel_width;
-+                                               if (vram_width)
-+                                                       *vram_width =3D mem=
-_channel_number * (1 << mem_channel_width);
-+                                               mem_vendor =3D (vram_module=
-->v11.vender_rev_id) & 0xF;
-+                                               if (vram_vendor)
-+                                                       *vram_vendor =3D me=
-m_vendor;
-+                                               break;
-+                                       /* v26 */
-+                                       case 6:
-+                                               if (module_id > vram_info->=
-v26.vram_module_num)
-+                                                       module_id =3D 0;
-+                                               vram_module =3D (union vram=
-_module *)vram_info->v26.vram_module;
-+                                               while (i < module_id) {
-+                                                       vram_module =3D (un=
-ion vram_module *)
-+                                                               ((u8 *)vram=
-_module + vram_module->v9.vram_module_size);
-+                                                       i++;
-+                                               }
-+                                               mem_type =3D vram_module->v=
-9.memory_type;
-+                                               if (vram_type)
-+                                                       *vram_type =3D conv=
-ert_atom_mem_type_to_vram_type(adev, mem_type);
-+                                               mem_channel_number =3D vram=
-_module->v9.channel_num;
-+                                               mem_channel_width =3D vram_=
-module->v9.channel_width;
-+                                               if (vram_width)
-+                                                       *vram_width =3D mem=
-_channel_number * (1 << mem_channel_width);
-+                                               mem_vendor =3D (vram_module=
-->v9.vender_rev_id) & 0xF;
-+                                               if (vram_vendor)
-+                                                       *vram_vendor =3D me=
-m_vendor;
-+                                               break;
-+                                       default:
-+                                               return -EINVAL;
-                                        }
--                                       mem_type =3D vram_module->v9.memory=
-_type;
--                                       if (vram_type)
--                                               *vram_type =3D convert_atom=
-_mem_type_to_vram_type(adev, mem_type);
--                                       mem_channel_number =3D vram_module-=
->v9.channel_num;
--                                       mem_channel_width =3D vram_module->=
-v9.channel_width;
--                                       if (vram_width)
--                                               *vram_width =3D mem_channel=
-_number * (1 << mem_channel_width);
--                                       mem_vendor =3D (vram_module->v9.ven=
-der_rev_id) & 0xF;
--                                       if (vram_vendor)
--                                               *vram_vendor =3D mem_vendor=
-;
--                                       break;
--                               default:
-+                               } else {
-+                                       /* invalid frev */
-                                        return -EINVAL;
-                                }
--                       } else {
--                               /* invalid frev */
--                               return -EINVAL;
-                        }
-                }
--
-        }
-
-        return 0;
---
-2.34.1
+Thanks,
+Arun.
+>
+> Otherwise,
+> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+>
+>> +
+>> +    KUNIT_ASSERT_FALSE_MSG(test,
+>> +                   drm_buddy_alloc_blocks(&mm, bias_start,
+>> +                              bias_end, size, ps,
+>> +                              &allocated,
+>> +                              flags),
+>> +                   "buddy_alloc failed with bias(%x-%x), size=%u, 
+>> ps=%u\n",
+>> +                   bias_start, bias_end, size, ps);
+>> +
+>> +    list_for_each_entry(block, &allocated, link)
+>> +        KUNIT_EXPECT_EQ(test, drm_buddy_block_is_clear(block), false);
+>> +
+>> +    drm_buddy_free_list(&mm, &allocated, 0);
+>> +    drm_buddy_fini(&mm);
+>>   }
+>>     static void drm_test_buddy_alloc_clear(struct kunit *test)
 
