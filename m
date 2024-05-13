@@ -4,63 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFD59C25B78
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 07:45:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C93BC25B74
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 May 2024 07:59:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31A5710E48A;
-	Mon, 13 May 2024 07:45:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0650510E4AD;
+	Mon, 13 May 2024 07:59:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LaL6V1cJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ArusDLF4";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69AE510E88B;
- Fri, 10 May 2024 15:08:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1715353715; x=1746889715;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=WmZo8JFAfCFN/dh/Ty8XyGBBZiFUQk0aX/kr6juHOFU=;
- b=LaL6V1cJQa/7ZrIBpSub2Ea/n4pVCii8fd/aG0ZsGYWMdi8X2YvBc72+
- dxrsPP5ut0mcaHt3jQxfmOMQvZunaSe8MBuTo+uJCcDMpXrY20vJu9a4K
- oZ844LsY+LLUODgEk8G8qMTKhL7qnfgyR2MHPOAdnU2Wu1evUNGoBKtfd
- wQnm6kwk+IeVoXUOqNgK0flvyn23sJ3uM267okPQscJCAOcKOh0uQZ8F6
- lz5QQ3Y+LPs3JqjkvRTiP0z4vs5zW91/NoVG2wpxk2Z9N0ANJSFZTME7/
- pNiIoVur2uhBrSYGGVzblqZ0jdd2MF89wutJPH7TxidnyMLDU1eqbo7Aw Q==;
-X-CSE-ConnectionGUID: wshxJuhGSAGRp1SlgvQQUA==
-X-CSE-MsgGUID: ltWp6KK1RZ6QCr34lWtIRg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11068"; a="22009784"
-X-IronPort-AV: E=Sophos;i="6.08,151,1712646000"; d="scan'208";a="22009784"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2024 08:08:33 -0700
-X-CSE-ConnectionGUID: LRTLGbDoTHCQxaLYmPvM/Q==
-X-CSE-MsgGUID: j+h/seN9RQeVawY89S5BJg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,151,1712646000"; d="scan'208";a="30204396"
-Received: from ettammin-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.246.180])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2024 08:08:30 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org, jani.nikula@intel.com,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>
-Subject: [RESEND 2/6] drm/radeon: convert to using is_hdmi and has_audio from
- display info
-Date: Fri, 10 May 2024 18:08:09 +0300
-Message-Id: <c4dfde81b98a4e938ef1e253b05550cad96e49be.1715353572.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1715353572.git.jani.nikula@intel.com>
-References: <cover.1715353572.git.jani.nikula@intel.com>
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCF8F10E4AD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 May 2024 07:59:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J1XY1PEOoGUs3cWE9XClV4HJE0LJl2N80vsc8jYcL9DlA7j+OSTqH3i7MU5kmuXnshV1aaZT2hlNurVMS83wsQyntjQhMLpLx479VEAGZYCNkj+i9TEuw87b9VXtBie5hJr2zFOsDm+Fasr24O3xyGVG8o5SB3UHFdxRmkSZ63Pt2LSVJmasz+FKGFbQMxwTeLLr2O46Hpl92N9g93eFi/3ngiMVhTbrUUMVi8bvhjZ4ea5N8iXb0xqkPnknxTzxC0FF6QjxXyMRfaCbxOfFhzArF1/+XNBSaw9oL9np37pY6xYcdDcBT9xmZSDLt6ts6/ZEB8wsLdl+aLu+bocXHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PvkxIg/che2Rm8HqBbyVNjr3iQeZ++zsiWzzRCL+svo=;
+ b=BETdcqHXcZMyKwRQQVsksC1ojEjdLBiZzv3D14pUoMV4PaxdaLNIcWPHwq3JCcUgXxHjtesSWZW5dCtAzCWxEBi1rtztcEhl3JKZrCTJTECZUwrAPoPpkmxwRNJXzcyaK51/dkgBr8HJM2Ov/8UhXPJMOtk8e1ZylpyO6OqiyYnsh5iqJqtYxu5Mv4DF9WhOHpSuVgu5ysUZo5hr7OsoYIXXogAlOyLa1rloRsJUx2Jqjc6h1+mh4UbRt6nJRLGOByyB5ftFRfgsQU0LesNJ6UaaafprYuDta38zB9e/sqEDrUURq97NPp9CLuk8Aw+WOTgWeANJOyf6Mju7DCa/kw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PvkxIg/che2Rm8HqBbyVNjr3iQeZ++zsiWzzRCL+svo=;
+ b=ArusDLF4UPzMfHEJdnXicF7M+6Baces0wThRj/K/nVQ6DgOMamYF/ZJWNE6jTSRm92l8VeEzuxCKlUAtW4t+zxTVm4wLCvFnsdbE27Wqqd/zFP12+G0BNY0RvZxbXnHH2uO/5ZIm5LNgTNxUY+nWyWqmyv27LsJl054YBd0zfSg=
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
+ by CY8PR12MB7705.namprd12.prod.outlook.com (2603:10b6:930:84::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55; Mon, 13 May
+ 2024 07:58:59 +0000
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::1ba2:8035:9950:d11b]) by DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::1ba2:8035:9950:d11b%5]) with mapi id 15.20.7544.052; Mon, 13 May 2024
+ 07:58:59 +0000
+From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+To: "Huang, Tim" <Tim.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+Subject: RE: [PATCH 18/22] drm/amd/pm: check negtive return for table entries
+Thread-Topic: [PATCH 18/22] drm/amd/pm: check negtive return for table entries
+Thread-Index: AQHapQfzPijOG7WKO0KYWOlrxoOfELGUx4oAgAAFGVA=
+Date: Mon, 13 May 2024 07:58:59 +0000
+Message-ID: <DM4PR12MB51524D8DE64D0707903A0977E3E22@DM4PR12MB5152.namprd12.prod.outlook.com>
+References: <20240513073359.3612989-1-jesse.zhang@amd.com>
+ <CH3PR12MB8074401359DAA799678AAB2CF6E22@CH3PR12MB8074.namprd12.prod.outlook.com>
+In-Reply-To: <CH3PR12MB8074401359DAA799678AAB2CF6E22@CH3PR12MB8074.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=a5abaff8-81d7-47ec-a5b1-c037a1d6af6b;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-05-13T07:37:21Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5152:EE_|CY8PR12MB7705:EE_
+x-ms-office365-filtering-correlation-id: ff37786b-c877-471f-2261-08dc73228c02
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230031|1800799015|366007|376005|38070700009;
+x-microsoft-antispam-message-info: =?us-ascii?Q?xpQ1sDfq4pUFy2d/58qKMai5eaOkZwSDpPDJmS/Fxdlnfdq/lJBWFYA4dLPR?=
+ =?us-ascii?Q?kt4W3P316gGgS9zQF3NkjtKLeUlk+xdRLqlifG8nogbh4dMsE860M4CzJ14E?=
+ =?us-ascii?Q?n8/QF4N2MgvynT0jnOI+c0o3Cm7oXCi39hsiZunp9DwJ5jmTf8++bsS/IX32?=
+ =?us-ascii?Q?SCX8a5oItimOQgETdJshxLV9CWD8/Hgpj7obnOtrHho7qSFqRzqjbTvN/78h?=
+ =?us-ascii?Q?D256B2gN44GpYzQpaNhVR59qQ51Ks7F59xwqXLRoJATPu07G6dzOajpIvnOs?=
+ =?us-ascii?Q?Ajq22BDAPFMUBFl6RUbyfAZn4MxQcNOBVddXsYSw+XVL9crALxIMiUnfv0he?=
+ =?us-ascii?Q?/u2cbtVu+YC6rZVXiN4/5sLPSMX/x0J4CeUtrkNI/OGtUXZHpATfveUXKWiN?=
+ =?us-ascii?Q?55z2PXEI3fQZINiuptc6Uo+qDgHqHoY+i50+WuRjTZSsdVWrup3ltq1IcmFP?=
+ =?us-ascii?Q?J3lhP4Ixt2huk5jhYT5gRisYsK03YMDRXydt37hKWMJXdVl3oa8Pl+2TN6gi?=
+ =?us-ascii?Q?jeNsQxtVIlyeSLk73cDgA7Ji/VoeVJLxEYN6VhdIP3dULdA/48ep9WqFzj5h?=
+ =?us-ascii?Q?TlzRX6110BKS9m9i0MQnj0mYA8HryG69MyTXk5cGrHlQ2C7cHDcBliIA1U9O?=
+ =?us-ascii?Q?EfgcpWcLEt9rG281EYxv05thi10VLKXRZ/OCHvxDXDpkC4cvSNinIbPVEA6V?=
+ =?us-ascii?Q?wRgdUa0wLl+zyZeszilZCXVPR7QqBe7CrGeCUyH7rHasYzxULaT5WIG3lXaT?=
+ =?us-ascii?Q?ZkqDFv2OY1KdyCRiaKo5GbESKPDZZ8In11Nh+/zxc7trBxT8/kVEBgh+sSkZ?=
+ =?us-ascii?Q?6gLN38LR1zFxJT7ZeGWGquyiWIAktP6X5F50HL3hgq/fTIbLNKJU6bpc4IBc?=
+ =?us-ascii?Q?JoyoV9rNHFHpURkAOOyhCaJFozPKzlNrnWgiDtrry2ehSngIEBanBtYbq8bG?=
+ =?us-ascii?Q?cyNkKdyzDFM29Zs670EGOyWDrnGi6W/j4Mw5ZAEYpjxGk0Tp4MmyhJ8nBn4T?=
+ =?us-ascii?Q?EArSBkOf9YNASRXSDZ8w4jQa9DkEio4LFZmgtSMjJTv66sG7ze/YY8YSAZMW?=
+ =?us-ascii?Q?iE6wD/DfXTDMPdIbLXNzDcDQ48KOMWsS12CaXdlpvBKd7L/OPRspeP5IIm2Q?=
+ =?us-ascii?Q?slBQWX5GWP9Y2IsMlxe3h2t5pu12z2LsksxPPerAfXfaSKhGlL8tGKWS/a/b?=
+ =?us-ascii?Q?l70YlYnYGP+LVpv27blFHCWzq1/6H/Dov8nSivqGO99BoVClUo3xBVurRmmx?=
+ =?us-ascii?Q?ZdCzNUP4m0PAEifc0KaMnZrSmPU3LQFdD92c9WP7rIuK6KxyaQ8ROiEn9H9M?=
+ =?us-ascii?Q?eIDcP1fQ28utyYZ+eHnsw5E1AqyjQNhcEtPQ0yeCzZqStQ=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(366007)(376005)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?v+6AWXeSYLAzNJvP5r2E5Joj3Fdj08u4rdcBH99fDTpQt93vqePP7NmJeudx?=
+ =?us-ascii?Q?P0lbmySDQmIkTvGEDa99zxpGEfEkimESmCZXqelO0VbpBHjGEzxT79uK6qjy?=
+ =?us-ascii?Q?mYyEOA0cUIcxsu35XHDk1Wvrw03Y9bKN/DZ/T2JfKIquOC0FAc+7MikW8KQ8?=
+ =?us-ascii?Q?SfHVsvfTjs3D1NGjYg3+6NpdQ1CP3aTQmQnBGK4LW6NDIk9udLUAQ4JClNVG?=
+ =?us-ascii?Q?P6dFo3FYqFtr4uQyb7tRfHuqk/bBVaFZH4djW80r+haKwg93YAVNA4tB5wkq?=
+ =?us-ascii?Q?b9e2sdY5hyyAXc7T838tbdIT6UFYd2shNyjxA9k2AeJ2DAkAiqVtj0MxqZ1w?=
+ =?us-ascii?Q?zOrow7t3f9/LH5W3Uk+/ybEcwWdgNn5UBchw/RAYaIZWqcufrqMBG5Ikxrr6?=
+ =?us-ascii?Q?495sz4BBTG212vNzf4fFi5zO/oo24r9+MRMF3/DeQOsqRxZUJahZsqRciCYw?=
+ =?us-ascii?Q?lgPBuQ2+NzTsNYWTkM18T+8GUcSs0wBIDCNNkPcYPEJoAypTdA1HIK9EyoH0?=
+ =?us-ascii?Q?p4XsQD+Oijrgu2HC0U5jQAhnQRWb5mFYXUL6A7VXtn8cWPcqGbkrw81LtfN7?=
+ =?us-ascii?Q?YgcxJrWdv7K0ujXA1nCCyn1IynVMgHV9ctIxlceVUU0kjp/R4zQKtxzvXIkT?=
+ =?us-ascii?Q?BjXy5LYfgcaqQMB0YBACTPqyXz/zImwQk+XmJrVD10PH2VBpieZqWRv7/zdq?=
+ =?us-ascii?Q?wohncBnYbJ6TskJOc3bPH72jgPyTKavwmKoKbxpNQcd1CJmO64qiKOv05bmw?=
+ =?us-ascii?Q?BZdvv7H99H6SUb7mAUoqxrD5y3lnk8b4anXlMT46xCQs9OrfNSdwjLUMBByK?=
+ =?us-ascii?Q?586VBaNccW4CzLBKlWgJd279Y6zscjAOowFMILV6DLF6Vh7SwI0IuMDYytkQ?=
+ =?us-ascii?Q?tc5XEi4Oe07k3ZCHDqDdA5qxNF9m1FquJr6nepHpa3ec5168eCgu6+sW5uSi?=
+ =?us-ascii?Q?oalMTzTFv+eI/7Gg2Tcf/563W9IABrHMbVMnHAaIWgbXZRd+8lGqWVTf3gla?=
+ =?us-ascii?Q?UubNEXhJWxfI6yzvD8nooSOzCPPoNfcZTGnfL2FBg5oeLPuX45Lav4RqD/+4?=
+ =?us-ascii?Q?Gf3s1U4l6XBdxBHnQxCxivoMDTe+UxEoY1g47+FkhFIgYauW4a8+0ZwlVRUd?=
+ =?us-ascii?Q?cny0g4S7r/v7mn9S43F/VrX6od5cpRNfMx3GCJX1ZDtl0IXT+5uAb5Mc/7MB?=
+ =?us-ascii?Q?A9RmGp+IASgkxaLO3jLINNA/E823L2G6zJojA0NS7TtqjAHUNaUW76/S6JHO?=
+ =?us-ascii?Q?zgiOXxy/d08Jqq1pbvJ+1bWuGc6DSGYJPF8iYVhDA+7o2zvDOV1hwl3XDqU9?=
+ =?us-ascii?Q?LT9eR7ilJL7kBfbpZWZ5HOmePdRY1hnX583prPQbtOFGAS3LUekc7Le+7blF?=
+ =?us-ascii?Q?t6M1LOeCaK6rlnOLGz1QZ9m3AtIvMoFfm1ZwcVMK7m+njSbdIycrzwk1+78q?=
+ =?us-ascii?Q?Yy7v8/YmwnMtDzfbN/ZTkhaGBO01D2IFf/jTzXWthVWs2QywHb3Nr8POjca2?=
+ =?us-ascii?Q?7ku2Jhq1BRhB59CD+vbk3//pwKr/ZjBAYie3ORryv7O4/GCXF/1l4HQola9r?=
+ =?us-ascii?Q?mEUXC3wFweDyT0C7MiY=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 13 May 2024 07:45:22 +0000
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff37786b-c877-471f-2261-08dc73228c02
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 May 2024 07:58:59.4696 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VEizK6yI/tV/PV5xyN5jspx4awg8wQpuIy7rxo9Lb0ia+8p2CI36IgnuVBjIhAddjxlAlvlHFzOavvhwBwppjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7705
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,219 +153,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prefer the parsed results for is_hdmi and has_audio in display info over
-calling drm_detect_hdmi_monitor() and drm_detect_monitor_audio(),
-respectively.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Pan, Xinhui <Xinhui.Pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/radeon/atombios_encoders.c | 10 +++++-----
- drivers/gpu/drm/radeon/evergreen_hdmi.c    |  5 ++---
- drivers/gpu/drm/radeon/radeon_audio.c      |  6 +++---
- drivers/gpu/drm/radeon/radeon_connectors.c | 12 ++++++------
- drivers/gpu/drm/radeon/radeon_display.c    |  2 +-
- drivers/gpu/drm/radeon/radeon_encoders.c   |  4 ++--
- 6 files changed, 19 insertions(+), 20 deletions(-)
+Hi Tim,
 
-diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
-index 2bff0d9e20f5..0aa395fac36f 100644
---- a/drivers/gpu/drm/radeon/atombios_encoders.c
-+++ b/drivers/gpu/drm/radeon/atombios_encoders.c
-@@ -701,7 +701,7 @@ atombios_get_encoder_mode(struct drm_encoder *encoder)
- 			if (radeon_connector->use_digital &&
- 			    (radeon_connector->audio == RADEON_AUDIO_ENABLE))
- 				return ATOM_ENCODER_MODE_HDMI;
--			else if (drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
-+			else if (connector->display_info.is_hdmi &&
- 				 (radeon_connector->audio == RADEON_AUDIO_AUTO))
- 				return ATOM_ENCODER_MODE_HDMI;
- 			else if (radeon_connector->use_digital)
-@@ -720,7 +720,7 @@ atombios_get_encoder_mode(struct drm_encoder *encoder)
- 		if (radeon_audio != 0) {
- 			if (radeon_connector->audio == RADEON_AUDIO_ENABLE)
- 				return ATOM_ENCODER_MODE_HDMI;
--			else if (drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
-+			else if (connector->display_info.is_hdmi &&
- 				 (radeon_connector->audio == RADEON_AUDIO_AUTO))
- 				return ATOM_ENCODER_MODE_HDMI;
- 			else
-@@ -737,14 +737,14 @@ atombios_get_encoder_mode(struct drm_encoder *encoder)
- 		if ((dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_DISPLAYPORT) ||
- 		    (dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_eDP)) {
- 			if (radeon_audio != 0 &&
--			    drm_detect_monitor_audio(radeon_connector_edid(connector)) &&
-+			    connector->display_info.has_audio &&
- 			    ASIC_IS_DCE4(rdev) && !ASIC_IS_DCE5(rdev))
- 				return ATOM_ENCODER_MODE_DP_AUDIO;
- 			return ATOM_ENCODER_MODE_DP;
- 		} else if (radeon_audio != 0) {
- 			if (radeon_connector->audio == RADEON_AUDIO_ENABLE)
- 				return ATOM_ENCODER_MODE_HDMI;
--			else if (drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
-+			else if (connector->display_info.is_hdmi &&
- 				 (radeon_connector->audio == RADEON_AUDIO_AUTO))
- 				return ATOM_ENCODER_MODE_HDMI;
- 			else
-@@ -755,7 +755,7 @@ atombios_get_encoder_mode(struct drm_encoder *encoder)
- 		break;
- 	case DRM_MODE_CONNECTOR_eDP:
- 		if (radeon_audio != 0 &&
--		    drm_detect_monitor_audio(radeon_connector_edid(connector)) &&
-+		    connector->display_info.has_audio &&
- 		    ASIC_IS_DCE4(rdev) && !ASIC_IS_DCE5(rdev))
- 			return ATOM_ENCODER_MODE_DP_AUDIO;
- 		return ATOM_ENCODER_MODE_DP;
-diff --git a/drivers/gpu/drm/radeon/evergreen_hdmi.c b/drivers/gpu/drm/radeon/evergreen_hdmi.c
-index 681119c91d94..09dda114e218 100644
---- a/drivers/gpu/drm/radeon/evergreen_hdmi.c
-+++ b/drivers/gpu/drm/radeon/evergreen_hdmi.c
-@@ -412,7 +412,7 @@ void evergreen_hdmi_enable(struct drm_encoder *encoder, bool enable)
- 	if (enable) {
- 		struct drm_connector *connector = radeon_get_connector_for_encoder(encoder);
- 
--		if (connector && drm_detect_monitor_audio(radeon_connector_edid(connector))) {
-+		if (connector && connector->display_info.has_audio) {
- 			WREG32(HDMI_INFOFRAME_CONTROL0 + dig->afmt->offset,
- 			       HDMI_AVI_INFO_SEND | /* enable AVI info frames */
- 			       HDMI_AVI_INFO_CONT | /* required for audio info values to be updated */
-@@ -450,8 +450,7 @@ void evergreen_dp_enable(struct drm_encoder *encoder, bool enable)
- 	if (!dig || !dig->afmt)
- 		return;
- 
--	if (enable && connector &&
--	    drm_detect_monitor_audio(radeon_connector_edid(connector))) {
-+	if (enable && connector && connector->display_info.has_audio) {
- 		struct drm_connector *connector = radeon_get_connector_for_encoder(encoder);
- 		struct radeon_connector *radeon_connector = to_radeon_connector(connector);
- 		struct radeon_connector_atom_dig *dig_connector;
-diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/radeon/radeon_audio.c
-index 74753bb26d33..16c10db3ce6f 100644
---- a/drivers/gpu/drm/radeon/radeon_audio.c
-+++ b/drivers/gpu/drm/radeon/radeon_audio.c
-@@ -409,7 +409,7 @@ void radeon_audio_detect(struct drm_connector *connector,
- 			radeon_encoder->audio = rdev->audio.hdmi_funcs;
- 		}
- 
--		if (drm_detect_monitor_audio(radeon_connector_edid(connector))) {
-+		if (connector->display_info.has_audio) {
- 			if (!dig->pin)
- 				dig->pin = radeon_audio_get_pin(encoder);
- 			radeon_audio_enable(rdev, dig->pin, 0xf);
-@@ -646,7 +646,7 @@ static void radeon_audio_hdmi_mode_set(struct drm_encoder *encoder,
- 	if (!connector)
- 		return;
- 
--	if (drm_detect_monitor_audio(radeon_connector_edid(connector))) {
-+	if (connector->display_info.has_audio) {
- 		radeon_audio_set_mute(encoder, true);
- 
- 		radeon_audio_write_speaker_allocation(encoder);
-@@ -686,7 +686,7 @@ static void radeon_audio_dp_mode_set(struct drm_encoder *encoder,
- 	if (!connector)
- 		return;
- 
--	if (drm_detect_monitor_audio(radeon_connector_edid(connector))) {
-+	if (connector->display_info.has_audio) {
- 		radeon_audio_write_speaker_allocation(encoder);
- 		radeon_audio_write_sad_regs(encoder);
- 		radeon_audio_write_latency_fields(encoder, mode);
-diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
-index b84b58926106..81b5c3c8f658 100644
---- a/drivers/gpu/drm/radeon/radeon_connectors.c
-+++ b/drivers/gpu/drm/radeon/radeon_connectors.c
-@@ -109,7 +109,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
- 	case DRM_MODE_CONNECTOR_DVII:
- 	case DRM_MODE_CONNECTOR_HDMIB:
- 		if (radeon_connector->use_digital) {
--			if (drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+			if (connector->display_info.is_hdmi) {
- 				if (connector->display_info.bpc)
- 					bpc = connector->display_info.bpc;
- 			}
-@@ -117,7 +117,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
- 		break;
- 	case DRM_MODE_CONNECTOR_DVID:
- 	case DRM_MODE_CONNECTOR_HDMIA:
--		if (drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+		if (connector->display_info.is_hdmi) {
- 			if (connector->display_info.bpc)
- 				bpc = connector->display_info.bpc;
- 		}
-@@ -126,7 +126,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
- 		dig_connector = radeon_connector->con_priv;
- 		if ((dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_DISPLAYPORT) ||
- 		    (dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_eDP) ||
--		    drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+		    connector->display_info.is_hdmi) {
- 			if (connector->display_info.bpc)
- 				bpc = connector->display_info.bpc;
- 		}
-@@ -150,7 +150,7 @@ int radeon_get_monitor_bpc(struct drm_connector *connector)
- 		break;
- 	}
- 
--	if (drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+	if (connector->display_info.is_hdmi) {
- 		/* hdmi deep color only implemented on DCE4+ */
- 		if ((bpc > 8) && !ASIC_IS_DCE4(rdev)) {
- 			DRM_DEBUG("%s: HDMI deep color %d bpc unsupported. Using 8 bpc.\n",
-@@ -1478,7 +1478,7 @@ static enum drm_mode_status radeon_dvi_mode_valid(struct drm_connector *connecto
- 		    (radeon_connector->connector_object_id == CONNECTOR_OBJECT_ID_DUAL_LINK_DVI_D) ||
- 		    (radeon_connector->connector_object_id == CONNECTOR_OBJECT_ID_HDMI_TYPE_B))
- 			return MODE_OK;
--		else if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+		else if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
- 			/* HDMI 1.3+ supports max clock of 340 Mhz */
- 			if (mode->clock > 340000)
- 				return MODE_CLOCK_HIGH;
-@@ -1774,7 +1774,7 @@ static enum drm_mode_status radeon_dp_mode_valid(struct drm_connector *connector
- 		    (radeon_dig_connector->dp_sink_type == CONNECTOR_OBJECT_ID_eDP)) {
- 			return radeon_dp_mode_valid_helper(connector, mode);
- 		} else {
--			if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+			if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
- 				/* HDMI 1.3+ supports max clock of 340 Mhz */
- 				if (mode->clock > 340000)
- 					return MODE_CLOCK_HIGH;
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index 5f1d24d3120c..843383f7237f 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -1722,7 +1722,7 @@ bool radeon_crtc_scaling_mode_fixup(struct drm_crtc *crtc,
- 			    (!(mode->flags & DRM_MODE_FLAG_INTERLACE)) &&
- 			    ((radeon_encoder->underscan_type == UNDERSCAN_ON) ||
- 			     ((radeon_encoder->underscan_type == UNDERSCAN_AUTO) &&
--			      drm_detect_hdmi_monitor(radeon_connector_edid(connector)) &&
-+			      connector->display_info.is_hdmi &&
- 			      is_hdtv_mode(mode)))) {
- 				if (radeon_encoder->underscan_hborder != 0)
- 					radeon_crtc->h_border = radeon_encoder->underscan_hborder;
-diff --git a/drivers/gpu/drm/radeon/radeon_encoders.c b/drivers/gpu/drm/radeon/radeon_encoders.c
-index 3de3dce9e89d..0f723292409e 100644
---- a/drivers/gpu/drm/radeon/radeon_encoders.c
-+++ b/drivers/gpu/drm/radeon/radeon_encoders.c
-@@ -386,7 +386,7 @@ bool radeon_dig_monitor_is_duallink(struct drm_encoder *encoder,
- 	case DRM_MODE_CONNECTOR_HDMIB:
- 		if (radeon_connector->use_digital) {
- 			/* HDMI 1.3 supports up to 340 Mhz over single link */
--			if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+			if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
- 				if (pixel_clock > 340000)
- 					return true;
- 				else
-@@ -408,7 +408,7 @@ bool radeon_dig_monitor_is_duallink(struct drm_encoder *encoder,
- 			return false;
- 		else {
- 			/* HDMI 1.3 supports up to 340 Mhz over single link */
--			if (ASIC_IS_DCE6(rdev) && drm_detect_hdmi_monitor(radeon_connector_edid(connector))) {
-+			if (ASIC_IS_DCE6(rdev) && connector->display_info.is_hdmi) {
- 				if (pixel_clock > 340000)
- 					return true;
- 				else
--- 
-2.39.2
+-----Original Message-----
+From: Huang, Tim <Tim.Huang@amd.com>
+Sent: Monday, May 13, 2024 3:40 PM
+To: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; Zhang, Jess=
+e(Jie) <Jesse.Zhang@amd.com>
+Subject: RE: [PATCH 18/22] drm/amd/pm: check negtive return for table entri=
+es
+
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+Hi Jesse,
+
+> -----Original Message-----
+> From: Jesse Zhang <jesse.zhang@amd.com>
+> Sent: Monday, May 13, 2024 3:34 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>; Huang, Tim <Tim.Huang@amd.com>; Zhang,
+> Jesse(Jie) <Jesse.Zhang@amd.com>; Zhang, Jesse(Jie)
+> <Jesse.Zhang@amd.com>
+> Subject: [PATCH 18/22] drm/amd/pm: check negtive return for table
+> entries
+>
+> Function hwmgr->hwmgr_func->get_num_of_pp_table_entries(hwmgr)
+> returns a negative number
+>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> Suggested-by: Tim Huang <Tim.Huang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
+> b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
+> index f4bd8e9357e2..1276a95acc90 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
+> @@ -30,9 +30,8 @@ int psm_init_power_state_table(struct pp_hwmgr
+> *hwmgr)  {
+>       int result;
+>       unsigned int i;
+> -     unsigned int table_entries;
+>       struct pp_power_state *state;
+> -     int size;
+> +     int size, table_entries;
+>
+>       if (hwmgr->hwmgr_func->get_num_of_pp_table_entries =3D=3D NULL)
+>               return 0;
+> @@ -40,15 +39,17 @@ int psm_init_power_state_table(struct pp_hwmgr
+> *hwmgr)
+>       if (hwmgr->hwmgr_func->get_power_state_size =3D=3D NULL)
+>               return 0;
+>
+> -     hwmgr->num_ps =3D table_entries =3D
+> hwmgr->hwmgr_func->get_num_of_pp_table_entries(hwmgr);
+> +     table_entries =3D
+> hwmgr->hwmgr_func->get_num_of_pp_table_entries(hwmgr);
+>
+> -     hwmgr->ps_size =3D size =3D
+> hwmgr->hwmgr_func->get_power_state_size(hwmgr) +
+> +     size =3D hwmgr->hwmgr_func->get_power_state_size(hwmgr) +
+>                                         sizeof(struct pp_power_state);
+>
+> -     if (table_entries =3D=3D 0 || size =3D=3D 0) {
+> +     if (table_entries <=3D 0 || size =3D=3D 0) {
+>               pr_warn("Please check whether power state management is
+> supported on this asic\n");
+As we return 0 here, we still need to set the hwmgr->num_ps and hwmgr->ps_s=
+ize to 0 here.
+[Zhang, Jesse(Jie)]  yes, right. Thanks Tim.
+Tim Huang
+>               return 0;
+
+>       }
+> +     hwmgr->num_ps =3D table_entries;
+> +     hwmgr->ps_size =3D size;
+>
+>       hwmgr->ps =3D kcalloc(table_entries, size, GFP_KERNEL);
+>       if (hwmgr->ps =3D=3D NULL)
+> --
+> 2.25.1
+
 
