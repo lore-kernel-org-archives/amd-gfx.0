@@ -4,68 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F5B0C04FFE
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 May 2024 13:57:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18BFCC25B75
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 May 2024 14:57:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4464B10E5D9;
-	Tue, 14 May 2024 13:57:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7F3E10E1FE;
+	Tue, 14 May 2024 14:57:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NrRmMaHZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Vnp5jUub";
 	dkim-atps=neutral
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EA6910E5D9
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 May 2024 13:57:33 +0000 (UTC)
-Received: by mail-pg1-f176.google.com with SMTP id
- 41be03b00d2f7-53fa455cd94so4519225a12.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 May 2024 06:57:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715695053; x=1716299853; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=D4DvYaEfQNJjxmGuNzTkWl98qUMWV8+sVwgq2e+YgjY=;
- b=NrRmMaHZSRdC76znlRz+HXvYZx1oGlT9SgnPj85jshTAIvudXpH+3BMRteQ9yKovKm
- dpvUVatLbSLyLPShWiK8ont7Zs/6MxYSrsEOkmK+ro3msnTYxfJUuLPLYQL4fsRGtyD+
- ceEF+x906m+0a0Ke6wJzjt8av1QEABrs/bnH+kNYsCUx/4gV1eiv9yE6xiPi2jJuQxJX
- VDIu6JBe/QqUZa4TQFEFdGmTm/WqNbwSZNZ4BsdvwJb+SD3Kr2CbY5FvHu5KFneZn4Ww
- qwxYXHATFbFDmVCd0CQH+o0By+88oD9OimCQX13QO5HrOK19jmAOhwoi0Jew2TP6rWff
- yiag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715695053; x=1716299853;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=D4DvYaEfQNJjxmGuNzTkWl98qUMWV8+sVwgq2e+YgjY=;
- b=D06W0CeiWBUHD9asv26xfC5OpQ9XHcJ/guAhokIur6muW4XAwx8PdFlVaAFpRws55u
- K3llx5wGJAgWzSSbiwL4dC7KDXSWsm6/R1Orun7khv+so4fa2Gc1mV33nFj3ujNAvb0a
- ckv7qg2deiBftKobju2rxigQBq1VpPcpfsECJu8nSrMshppj5GsyaJHWbz1tfvOsNQLa
- I3NxNJoXk7LjN1nJ2pD+reiT5ZMH/3hzIPHCRfR8OT/25uBvq9IIvVeU7D4GCwVn4qAu
- O8BAP0DjBejylo6HtHabAKyVG197JiqScsviZjBHP04mqPFmM9aPJt9EZXlO1ri1B2+x
- mDVA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUYInW2cs+sOIhTW9QReOLGYN0kP6XKnPqxOZz0rOrM1qunZci6JSM1BCoqaCu43FFdBmvF0yun+LAsEW8JjqFq3TyopKAkQEPto3u1Dg==
-X-Gm-Message-State: AOJu0YzB+TQGRMy1uLPFDb4M09MxKv8ZILGQ1YDbpFGXXlVogtgH2byT
- fc3HXynCJI89+E+fn3GsccNFr+peJzqgTMgoxLHo0VKWVsHJ3YVVQVyDfMnxATNskZXqbR0aLeE
- WSlqZM8wODkhj8Yqwn46oiWgwJBXaUg==
-X-Google-Smtp-Source: AGHT+IGcsAqYmWtwzwkEaP5LzJ6QtLjAeJw+Zn4b95vQRVImY5LoJUtANClr5ZbZoimY3yJJ4J3vAXzhSYY5NOuomQM=
-X-Received: by 2002:a17:90b:1086:b0:2b4:3a1e:2400 with SMTP id
- 98e67ed59e1d1-2b6cc7584c3mr9787431a91.18.1715695052982; Tue, 14 May 2024
- 06:57:32 -0700 (PDT)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2044.outbound.protection.outlook.com [40.107.243.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00BAC10E1FE;
+ Tue, 14 May 2024 14:57:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Qf7JMQpOXm5+ZTbO+cqjHswnuAQIGFTpoU3SUwJBnB4KrTyuVqX0Af4bhstl/PVEatKbIpbrzwJD5A87rSSVDpNpWUnLyOZiY9U1iGeLBWcGgh9oVD/zK3U5zwPCu/ec5sRB9p1v7xBIwghouaE7PrqXijSGqzOj+YeNelt7981LvEs0fmeFpvs25xMcvX3+Eu8C5nRaB+8/QZYiyddzorzhpig817pUcX+xaRdLIRSrKvncgNSYQLaqsAdBNv1fgyE1Y31I/DD9lWKDYZhB+RQ+F1AwhiqOcesPudxACuOX7S6Hb73G4ul5wlLQ1yxhh6ePMZL19119Y+6v0hbnaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=56KunicnTsSdRTkBwd/LlBacAqcNmkrzsjJkRmqKLn8=;
+ b=VMV+rm5oJCULp4B+2gtsejXtp29Zxr6cdHD+KLtCTDDFY7MDnvExzBrUYVJRrguWOc3xQSE+/dCDkZMtZxcUsEl/lVMFhyyoZWTxruncYYwStpFNoT8LXHaIuRINdo1/W7l7eybzgx9UJ/p3/Hr/UjNhVl3uPHr0VPMVNyDKYx8qE8WOWl0F4LAiPhVAmvfRnSTddzrY1pmIgFJmJAdxi24WunEnQ9X5QUlCX9Lwv1yM0O8ff6xsmPpqvb5ielIXgDqdcGeRBmCViUWqxcspp3cbP6EQSf/uU2AF10JbqOi50NzxNIgJ6c+sRbXpaFZHHZCk+qo5QsRO2Icli3uQ7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=56KunicnTsSdRTkBwd/LlBacAqcNmkrzsjJkRmqKLn8=;
+ b=Vnp5jUub+MvGurEB7tphoNG1ctKDheW83kV69+dR+d9aZGpt/NhI/iYIQsWwgBMxOp3sWmfcSfoRSuJc1WdxvyiTdPieHX2pM6dcg/Lx/0obXRNdbotH3brSsrU77rfH9P0vekP2ApzEcO0DTqPnE+yb1RScvLC+88ivf43INlI=
+Received: from BN9PR03CA0766.namprd03.prod.outlook.com (2603:10b6:408:13a::21)
+ by MW5PR12MB5652.namprd12.prod.outlook.com (2603:10b6:303:1a0::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55; Tue, 14 May
+ 2024 14:57:01 +0000
+Received: from BN2PEPF0000449D.namprd02.prod.outlook.com
+ (2603:10b6:408:13a:cafe::95) by BN9PR03CA0766.outlook.office365.com
+ (2603:10b6:408:13a::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55 via Frontend
+ Transport; Tue, 14 May 2024 14:57:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF0000449D.mail.protection.outlook.com (10.167.243.148) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7587.21 via Frontend Transport; Tue, 14 May 2024 14:57:01 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Tue, 14 May 2024 09:56:58 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <matthew.auld@intel.com>
+CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
+ <daniel@ffwll.ch>, Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v3 2/2] drm/tests: Add a unit test for range bias allocation
+Date: Tue, 14 May 2024 20:26:36 +0530
+Message-ID: <20240514145636.16253-2-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240514145636.16253-1-Arunpravin.PaneerSelvam@amd.com>
+References: <20240514145636.16253-1-Arunpravin.PaneerSelvam@amd.com>
 MIME-Version: 1.0
-References: <20240514070638.199124-1-friedrich.vock@gmx.de>
- <42cc0287-09da-4d71-91e9-685287fb56ca@amd.com>
-In-Reply-To: <42cc0287-09da-4d71-91e9-685287fb56ca@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 14 May 2024 09:57:21 -0400
-Message-ID: <CADnq5_MiCj7t8dN3WK5RN87GixH4BbqcJ2z3NhD7OgXeSHH8HQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Check if NBIO funcs are NULL in
- amdgpu_device_baco_exit
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Friedrich Vock <friedrich.vock@gmx.de>, amd-gfx@lists.freedesktop.org, 
- Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449D:EE_|MW5PR12MB5652:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2ed6a45-9602-4d43-e830-08dc74261c3f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|1800799015|376005|36860700004|82310400017; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?RhCL38XjYccKy43+ob9xfp3Xl9nEOJy9d/wcxe7b6QSytdiNJHT0dTlDw6Tm?=
+ =?us-ascii?Q?WISeg3ak32ZMh2zMffFKvA6xY9IB17eUgLxpleSGOOKQyGDIRJITR5DYHZaY?=
+ =?us-ascii?Q?bwsO6taOUMSXlMt81keyuZRKy6nI5oIj21VDY9uHzj8AuXIKQdY3g4UVhjTM?=
+ =?us-ascii?Q?aeE77GH+qsU5+D52kBdLZTeNVIQyLxqWr6Q1Pw91zvOoaOGRkVm1P0dKR5Rh?=
+ =?us-ascii?Q?1N6Zt4bpTCFDlQoloMYc51NfxUD5EMnxlykg+WWOT+Y3FTT9gppeNN2kzMPg?=
+ =?us-ascii?Q?Swf4L/3xMmWXxR7lCEIQniLbUzzL6GpIXvArET/jyaR8dpgyAio4CXNzC88I?=
+ =?us-ascii?Q?OqsmIZtSfiQcbW0erAjb1wdcpmsUUe86na/mD//+X9H/HVqtKDoXT2GkO/xu?=
+ =?us-ascii?Q?wm667Mfd2UacpaqLkGF69+thdtHevoP80kNrP+6ulCYnrj41ru3pjAiODT5S?=
+ =?us-ascii?Q?p4mO37dr1GmtqKjS3czGzY82bAIj0nKMjhl7j9MLZeNzfS1cYt8G/kkvKL5M?=
+ =?us-ascii?Q?UZ/We3nIzpebx/f1mXRQqQhqEOEuppcwVGsenkqlmFX2yEgz2tWo1EDYqc2K?=
+ =?us-ascii?Q?RPTE4U70KTTTsbKWyFJBaL8iAZZaGZbu85qcvXRO8z02i9beD6sPMseXSN0Q?=
+ =?us-ascii?Q?1INQhg86JGb1R5GdgqtsGxSS3mToavFDZ9UcsjuTCmkt2vRlmhe/CDoQyy3C?=
+ =?us-ascii?Q?qBdCfSdOPUcx8n5DklkNth7U+C605QObUMXIUkGrlvYFusACrvtKo9PJyXQb?=
+ =?us-ascii?Q?wpP6PMRSc67Ac4umtrbyN6cU8ELgQB3uVsUUc4T/tVutDzZa0P6SfQNckSKB?=
+ =?us-ascii?Q?ujfQQBWJsvgMRT+M6WPiBU35BZ3J/DtZE9l7knHS13o7fm6WOoYTAF4GkegO?=
+ =?us-ascii?Q?+kULHhnMY51vgg/hwdPV9CqDXEy5XjKnILYc5B8hHE5D7Aw0G8gaqtcDSjI7?=
+ =?us-ascii?Q?2UVuXnDOJquy3NVezDPIWVZAxSiBqknibFUi5HBixKPzx9XvZ0eyGxBEKeAG?=
+ =?us-ascii?Q?8VwnV63FRDALF+WlCV7OP8bTzW86OFBg3nPjf0wo6DsEDbdFm3+0mI9L0Rwf?=
+ =?us-ascii?Q?xhzOpuy5eX9fCTRkZbed1OiSNKiqoDpyPpvx7S4VvL963G+xMG22I4B5hdMp?=
+ =?us-ascii?Q?PAmdRGKI6zPPyRlAoPPWPDUPZBuQUCuUuc6YWQgx+C0UYNsPNFDRqJVEb5M6?=
+ =?us-ascii?Q?kJBCXBv4F5UePxAgQANnDnkqvciPvTM+Bra6w8HRyys7paVQUTtMqpazJRf/?=
+ =?us-ascii?Q?8ESU/ipv8HHoZdI+osEkBp7TCSGIr68VIQecm6XeR5MAihaW288Ppw6AMybS?=
+ =?us-ascii?Q?+s5Kga3WlR4nQA8xy34TEGgFmv+GolzRKAAtgZI6upRKtYfm5GX0t3RTFoBK?=
+ =?us-ascii?Q?cInyUPUgOUAkvy+zDg3+n48hVwhw?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(36860700004)(82310400017); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2024 14:57:01.0828 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2ed6a45-9602-4d43-e830-08dc74261c3f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5652
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,45 +132,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Allocate cleared blocks in the bias range when the DRM
+buddy's clear avail is zero. This will validate the bias
+range allocation in scenarios like system boot when no
+cleared blocks are available and exercise the fallback
+path too. The resulting blocks should always be dirty.
 
-On Tue, May 14, 2024 at 3:27=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> Am 14.05.24 um 09:06 schrieb Friedrich Vock:
-> > The special case for VM passthrough doesn't check adev->nbio.funcs
-> > before dereferencing it. If GPUs that don't have an NBIO block are
-> > passed through, this leads to a NULL pointer dereference on startup.
-> >
-> > Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
->
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> >
-> > Fixes: 1bece222eab ("drm/amdgpu: Clear doorbell interrupt status for Si=
-enna Cichlid")
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_device.c
-> > index 861ccff78af95..83c4533ee75c8 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -6165,7 +6165,7 @@ int amdgpu_device_baco_exit(struct drm_device *de=
-v)
-> >           adev->nbio.funcs->enable_doorbell_interrupt)
-> >               adev->nbio.funcs->enable_doorbell_interrupt(adev, true);
-> >
-> > -     if (amdgpu_passthrough(adev) &&
-> > +     if (amdgpu_passthrough(adev) && adev->nbio.funcs &&
-> >           adev->nbio.funcs->clear_doorbell_interrupt)
-> >               adev->nbio.funcs->clear_doorbell_interrupt(adev);
-> >
-> > --
-> > 2.45.0
-> >
->
+v1:(Matthew)
+  - move the size to the variable declaration section.
+  - move the mm.clear_avail init to allocator init.
+
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+---
+ drivers/gpu/drm/tests/drm_buddy_test.c | 36 +++++++++++++++++++++++++-
+ 1 file changed, 35 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/tests/drm_buddy_test.c b/drivers/gpu/drm/tests/drm_buddy_test.c
+index e3b50e240d36..b3be68b03610 100644
+--- a/drivers/gpu/drm/tests/drm_buddy_test.c
++++ b/drivers/gpu/drm/tests/drm_buddy_test.c
+@@ -23,9 +23,11 @@ static inline u64 get_size(int order, u64 chunk_size)
+ 
+ static void drm_test_buddy_alloc_range_bias(struct kunit *test)
+ {
+-	u32 mm_size, ps, bias_size, bias_start, bias_end, bias_rem;
++	u32 mm_size, size, ps, bias_size, bias_start, bias_end, bias_rem;
+ 	DRM_RND_STATE(prng, random_seed);
+ 	unsigned int i, count, *order;
++	struct drm_buddy_block *block;
++	unsigned long flags;
+ 	struct drm_buddy mm;
+ 	LIST_HEAD(allocated);
+ 
+@@ -222,6 +224,38 @@ static void drm_test_buddy_alloc_range_bias(struct kunit *test)
+ 
+ 	drm_buddy_free_list(&mm, &allocated, 0);
+ 	drm_buddy_fini(&mm);
++
++	/*
++	 * Allocate cleared blocks in the bias range when the DRM buddy's clear avail is
++	 * zero. This will validate the bias range allocation in scenarios like system boot
++	 * when no cleared blocks are available and exercise the fallback path too. The resulting
++	 * blocks should always be dirty.
++	 */
++
++	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_init(&mm, mm_size, ps),
++			       "buddy_init failed\n");
++
++	bias_start = round_up(prandom_u32_state(&prng) % (mm_size - ps), ps);
++	bias_end = round_up(bias_start + prandom_u32_state(&prng) % (mm_size - bias_start), ps);
++	bias_end = max(bias_end, bias_start + ps);
++	bias_rem = bias_end - bias_start;
++
++	flags = DRM_BUDDY_CLEAR_ALLOCATION | DRM_BUDDY_RANGE_ALLOCATION;
++	size = max(round_up(prandom_u32_state(&prng) % bias_rem, ps), ps);
++
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       drm_buddy_alloc_blocks(&mm, bias_start,
++						      bias_end, size, ps,
++						      &allocated,
++						      flags),
++			       "buddy_alloc failed with bias(%x-%x), size=%u, ps=%u\n",
++			       bias_start, bias_end, size, ps);
++
++	list_for_each_entry(block, &allocated, link)
++		KUNIT_EXPECT_EQ(test, drm_buddy_block_is_clear(block), false);
++
++	drm_buddy_free_list(&mm, &allocated, 0);
++	drm_buddy_fini(&mm);
+ }
+ 
+ static void drm_test_buddy_alloc_clear(struct kunit *test)
+-- 
+2.25.1
+
