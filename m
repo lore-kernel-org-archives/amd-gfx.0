@@ -4,67 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02B6EC04FFE
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 May 2024 13:33:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F5B0C04FFE
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 May 2024 13:57:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E99A10E110;
-	Tue, 14 May 2024 13:33:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4464B10E5D9;
+	Tue, 14 May 2024 13:57:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cETJmJ86";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NrRmMaHZ";
 	dkim-atps=neutral
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F0E110E110
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 May 2024 13:33:44 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-5dcc4076c13so3749697a12.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 May 2024 06:33:44 -0700 (PDT)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EA6910E5D9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 May 2024 13:57:33 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-53fa455cd94so4519225a12.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 May 2024 06:57:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715693624; x=1716298424; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1715695053; x=1716299853; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SuQAw6ZdPjFJk5B+zekPkr80k9aPH9wgV2V8lOnbG7o=;
- b=cETJmJ86tfKU/Tx/MfN7JbFPTsHq/jYG4HGmyhZ1puGZKq+aqlIlTCPV8At1fqujvZ
- 6P7jgyLE6esI+ndM//drZQyKjOPiKPu2Ch72+1hm89BOEfupu3Xl8XotirBA2vZBKeHk
- Xw33DsQYhC81GMJW9o7CXodxacOYnrz8o7ICwhOgIGiyfTYXdG0bo9SqYyQfUxF2to8F
- AKGVuz3tsM0lQwvzhK32Zrr8vtXR8MHo9NAjEZkyKSlkj0dSq3OHzh1nxRcwoXwZXQ/3
- TY+UZ/hROxWjdpnudKJhl4Cgu5yh4CEvLOmTTXWsyuT2Qtx54T5dwMAARpilWSzeiGye
- VI2g==
+ bh=D4DvYaEfQNJjxmGuNzTkWl98qUMWV8+sVwgq2e+YgjY=;
+ b=NrRmMaHZSRdC76znlRz+HXvYZx1oGlT9SgnPj85jshTAIvudXpH+3BMRteQ9yKovKm
+ dpvUVatLbSLyLPShWiK8ont7Zs/6MxYSrsEOkmK+ro3msnTYxfJUuLPLYQL4fsRGtyD+
+ ceEF+x906m+0a0Ke6wJzjt8av1QEABrs/bnH+kNYsCUx/4gV1eiv9yE6xiPi2jJuQxJX
+ VDIu6JBe/QqUZa4TQFEFdGmTm/WqNbwSZNZ4BsdvwJb+SD3Kr2CbY5FvHu5KFneZn4Ww
+ qwxYXHATFbFDmVCd0CQH+o0By+88oD9OimCQX13QO5HrOK19jmAOhwoi0Jew2TP6rWff
+ yiag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715693624; x=1716298424;
+ d=1e100.net; s=20230601; t=1715695053; x=1716299853;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=SuQAw6ZdPjFJk5B+zekPkr80k9aPH9wgV2V8lOnbG7o=;
- b=FC7zd2b1/9KZifBHLomH5uKFQi2qLepDVnG3zP6aBwAr3x7vArfX85njEScxYT7G+P
- mfqjFVgDmeOIJnQejbTkQajxmCbwURkJ5CVWqzvRvgOPVK4PJwBOKQghEO8X5NVlHxpr
- aXr5reJc5R2vXJAD0ZCwzJzlEy9bh+1hyML05WvT+owR0rotqZD6FcwL7bZKZySqP8Mo
- toKz1Os/y19rfFFVSKmNJRqHZpnK/3T2hebPfVPSNRRy5mLcFrMtfQUbfe5zdXJ5cFgW
- r8eY3Owp8iH0/Bra2CSRiCA8BS2PTM/fImoFI8hqgQG6kmU+L0u6+HM3FAPfp7UB4BxT
- oiiQ==
-X-Gm-Message-State: AOJu0YyTcTEJdjwF7a3jAuVg/nQETYStl6jmiHqzY6YDkSpS1LhRCQBt
- 1WH5I7OLIpryiAkbE6KuIQd1skxguux4NbQ2xgX88xqQjWGCtitToCswG4K9zXhrZmo0nByP8Oz
- ryw3Jw5hNdGJQXQQj9zNukErxdmXGgA==
-X-Google-Smtp-Source: AGHT+IEshDT2cN+tzYoOY0Zsv5NxireON8Dbu7ywm6W/8UcZ0Xc0RmotVor0V0/AD2/nStTb+dUEUnpQciIe7PCKUB8=
-X-Received: by 2002:a17:90b:1051:b0:2b4:35a9:65fc with SMTP id
- 98e67ed59e1d1-2b6c75dce41mr19002669a91.17.1715693624240; Tue, 14 May 2024
- 06:33:44 -0700 (PDT)
+ bh=D4DvYaEfQNJjxmGuNzTkWl98qUMWV8+sVwgq2e+YgjY=;
+ b=D06W0CeiWBUHD9asv26xfC5OpQ9XHcJ/guAhokIur6muW4XAwx8PdFlVaAFpRws55u
+ K3llx5wGJAgWzSSbiwL4dC7KDXSWsm6/R1Orun7khv+so4fa2Gc1mV33nFj3ujNAvb0a
+ ckv7qg2deiBftKobju2rxigQBq1VpPcpfsECJu8nSrMshppj5GsyaJHWbz1tfvOsNQLa
+ I3NxNJoXk7LjN1nJ2pD+reiT5ZMH/3hzIPHCRfR8OT/25uBvq9IIvVeU7D4GCwVn4qAu
+ O8BAP0DjBejylo6HtHabAKyVG197JiqScsviZjBHP04mqPFmM9aPJt9EZXlO1ri1B2+x
+ mDVA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUYInW2cs+sOIhTW9QReOLGYN0kP6XKnPqxOZz0rOrM1qunZci6JSM1BCoqaCu43FFdBmvF0yun+LAsEW8JjqFq3TyopKAkQEPto3u1Dg==
+X-Gm-Message-State: AOJu0YzB+TQGRMy1uLPFDb4M09MxKv8ZILGQ1YDbpFGXXlVogtgH2byT
+ fc3HXynCJI89+E+fn3GsccNFr+peJzqgTMgoxLHo0VKWVsHJ3YVVQVyDfMnxATNskZXqbR0aLeE
+ WSlqZM8wODkhj8Yqwn46oiWgwJBXaUg==
+X-Google-Smtp-Source: AGHT+IGcsAqYmWtwzwkEaP5LzJ6QtLjAeJw+Zn4b95vQRVImY5LoJUtANClr5ZbZoimY3yJJ4J3vAXzhSYY5NOuomQM=
+X-Received: by 2002:a17:90b:1086:b0:2b4:3a1e:2400 with SMTP id
+ 98e67ed59e1d1-2b6cc7584c3mr9787431a91.18.1715695052982; Tue, 14 May 2024
+ 06:57:32 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240514083440.15519-1-Frank.Min@amd.com>
- <SA1PR12MB565945AB698B03BCE837A1F5E9E32@SA1PR12MB5659.namprd12.prod.outlook.com>
-In-Reply-To: <SA1PR12MB565945AB698B03BCE837A1F5E9E32@SA1PR12MB5659.namprd12.prod.outlook.com>
+References: <20240514070638.199124-1-friedrich.vock@gmx.de>
+ <42cc0287-09da-4d71-91e9-685287fb56ca@amd.com>
+In-Reply-To: <42cc0287-09da-4d71-91e9-685287fb56ca@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 14 May 2024 09:33:31 -0400
-Message-ID: <CADnq5_ObWbRQqYpMKZ0DAg3khhLKRufruWjeLpEqboqzqKcx6A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/mes: use mc address for wptr in add queue
- packet
-To: "Min, Frank" <Frank.Min@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Xiao,
- Jack" <Jack.Xiao@amd.com>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, 
- "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Gao, Likun" <Likun.Gao@amd.com>
+Date: Tue, 14 May 2024 09:57:21 -0400
+Message-ID: <CADnq5_MiCj7t8dN3WK5RN87GixH4BbqcJ2z3NhD7OgXeSHH8HQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Check if NBIO funcs are NULL in
+ amdgpu_device_baco_exit
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Friedrich Vock <friedrich.vock@gmx.de>, amd-gfx@lists.freedesktop.org, 
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,41 +80,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Applied.  Thanks!
 
-On Tue, May 14, 2024 at 5:07=E2=80=AFAM Min, Frank <Frank.Min@amd.com> wrot=
-e:
+On Tue, May 14, 2024 at 3:27=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> [AMD Official Use Only - AMD Internal Distribution Only]
+> Am 14.05.24 um 09:06 schrieb Friedrich Vock:
+> > The special case for VM passthrough doesn't check adev->nbio.funcs
+> > before dereferencing it. If GPUs that don't have an NBIO block are
+> > passed through, this leads to a NULL pointer dereference on startup.
+> >
+> > Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
 >
-> From: Frank Min <Frank.Min@amd.com>
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 >
-> use mc address for wptr in add queue packet
->
-> Signed-off-by: Frank Min <Frank.Min@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v12_0.c
-> index 5519655fd70a..6256b21884ee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> @@ -267,11 +267,7 @@ static int mes_v12_0_add_hw_queue(struct amdgpu_mes =
-*mes,
->         mes_add_queue_pkt.doorbell_offset =3D input->doorbell_offset;
->         mes_add_queue_pkt.mqd_addr =3D input->mqd_addr;
->
-> -       if (((adev->mes.sched_version & AMDGPU_MES_API_VERSION_MASK) >>
-> -                       AMDGPU_MES_API_VERSION_SHIFT) >=3D 2)
-> -               mes_add_queue_pkt.wptr_addr =3D input->wptr_mc_addr;
-> -       else
-> -               mes_add_queue_pkt.wptr_addr =3D input->wptr_addr;
-> +       mes_add_queue_pkt.wptr_addr =3D input->wptr_mc_addr;
->
->         mes_add_queue_pkt.queue_type =3D
->                 convert_to_mes_queue_type(input->queue_type);
-> --
-> 2.34.1
+> >
+> > Fixes: 1bece222eab ("drm/amdgpu: Clear doorbell interrupt status for Si=
+enna Cichlid")
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> > index 861ccff78af95..83c4533ee75c8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -6165,7 +6165,7 @@ int amdgpu_device_baco_exit(struct drm_device *de=
+v)
+> >           adev->nbio.funcs->enable_doorbell_interrupt)
+> >               adev->nbio.funcs->enable_doorbell_interrupt(adev, true);
+> >
+> > -     if (amdgpu_passthrough(adev) &&
+> > +     if (amdgpu_passthrough(adev) && adev->nbio.funcs &&
+> >           adev->nbio.funcs->clear_doorbell_interrupt)
+> >               adev->nbio.funcs->clear_doorbell_interrupt(adev);
+> >
+> > --
+> > 2.45.0
+> >
 >
