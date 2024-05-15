@@ -4,149 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32B1BC25B7A
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 May 2024 14:31:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00FADC25B79
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 May 2024 15:24:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9309010EA22;
-	Wed, 15 May 2024 14:31:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83DFE10E4C2;
+	Wed, 15 May 2024 15:24:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ecud+nr/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="znDqpb5t";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2071.outbound.protection.outlook.com [40.107.100.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87A4310E4D9;
- Wed, 15 May 2024 14:31:34 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2052.outbound.protection.outlook.com [40.107.237.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFD2F10E4C2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 May 2024 15:24:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g5H97+OJVB1g1HSuU2YeXebrpLf4svwveUcyMgUl+1QdCV7TdD0CdHnwGC0vjo2wrkRd5SdK/osXvC8HvDLS2Y6C1wE4clyz9QW8muT+Qq537tKoEFnwfzrUjMXWXEYmkFRGNw0ihypguQbyRNi8zUcpmUucNxdsu1hILEIOvRYh9mkEQKYnq/p3lraQ34sqAa770UpookJWdZwGT6yU6WxY15kQ/PSfgqlJ8XOp3A0/bDu8Pm4/mZRwn9L3UJ4qJpFI8Wzy9/sj+gG2X6fFekyMb0qo/HBAZ5vxvI9TfG6bgnoEv06yh6HQ4L7roLDkoDQeUBTRFAlJQWwMX4aQMg==
+ b=DuCH5xxk/70PmAuSuGgG3J3S2QhNAPNjBeTRDlcXpkK5bIxA5kOjd+GpChM21HEXn2hWIo4dnwghZ4CD0iMOxzMEsRAdsmiE5nopO3ibVfWnih15totNKhqDtL4JIDNhE0sg+p9WTJ5r1zcoiikhUobWxW0ua+ty9/PO+jjSpxUJoGNCYqDllFu/hQ9WKw2Cy3Y+2Y745chjXZfWA939fn331NY4n/4Xj1VUdZt3V+t4Mgfn/1R7bhfpMh+tz87FitBK3cqMPTiaDJTIxxdgNstRzm1N02I3o0x8urNyUzE+VJ5fY+/QHWS+5OieK4tFhwSDRFfXpLk7JNi/bedCAw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gxi1rMr6pDZww1s+prtCgMQeFsE7w4DpVzRN/Ml1u7o=;
- b=lYTI7E1OhaicGqlzqL1hKT4YlqEuZgd2KE3RIgg6M8aaPwG4Fa9Uaw2PwpAP9ThY2tA8ToJXCUyLla8KlL/3p6s+xaONu9ajs2cJ38aklTgo48uPgkm1oIt4B5mw80bshdBDnvPFdNdtKyhAN/ED8Fatd8XwON16Qv298zmmHzjGfEnChCc60ZPorNaqL5U223Ct4zd9uFAXQI2sPCqrS93/C3QvIRWke4T1iq26x+RwLcXkpmNmGRJrimqDhVppncNl4LUKoT3bUvzqlf6mMebPBR6NLHkBDkIjY8/y69GkMzPRe6N0IjbYsLRsU+nvQOQKOZjWDoXr+vsvQkGIBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=z0QUaNrTbzmiDo4RVzUuNpXOR1F5oMMjBvv5KIbiyVo=;
+ b=k0Eh7ZyLVDWOdZg/giJvfhedIExgUriW7o6NHBIKM91MP8hQm/0XT78SrE+HkMtuRAMuHIYV5GTXIhjW9aBLAeQcp0Eze+9S1lC7cES5nv2x2fxyM9WvWzD/UaMmFogfKghgjmwyBfispALzAuUesZFSFwRy7V0lL4aGc64waJ2Sop72iCZ5ew0Wzrlz32+SJYlNfiG7OQ1ofhuZC92vkMKvpp8us1pIrnO1rbwa4aNeaUxZ2vToPo4ejjt/wp9GLB0kseEBumfgAtWnYcTd1k1UzPSHn8z3vQQHq8u/2QjJFf3ZEMPu6fgRV3A6Y8o0YfNX56DZzcyUbIj+UilOhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gxi1rMr6pDZww1s+prtCgMQeFsE7w4DpVzRN/Ml1u7o=;
- b=ecud+nr/aV8v9j3HZLWEJbk6mZeOtR4kjs8N3kMJZMtPhrThQlte/TkeIaL2y5xL3Fmf9qTXbmjip/fvIcwS/iTpVti/Z9KZqHH7iCPV0SEZo4NmrIiB5Xgs7wEKJbCGUBL3VF0UjR8o87Lp8wdYChqcLZcSz4vK81XWdwrPLk8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB5841.namprd12.prod.outlook.com (2603:10b6:8:64::13) with
+ bh=z0QUaNrTbzmiDo4RVzUuNpXOR1F5oMMjBvv5KIbiyVo=;
+ b=znDqpb5t1Cmi9s4BO5bMG2SYBXJLEluw0i/BXXt/5ssnPuD4BppCZkVg9Ep+QBbeCox9+oszQy6ozeG1H1MCQ3dzarw+nwsG28Y+0V/spFCirxd5r6oUfzPoawsj8HHad2iAvlJ6y3fQbpxOB5Aj53+nkHig7QED1Fis71J6sDU=
+Received: from BN9P223CA0003.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::8)
+ by DS0PR12MB7996.namprd12.prod.outlook.com (2603:10b6:8:14f::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55; Wed, 15 May
- 2024 14:31:30 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.7587.025; Wed, 15 May 2024
- 14:31:30 +0000
-Message-ID: <7a9a2819-a3f0-4a51-8ae8-bde6ff7b0aaa@amd.com>
-Date: Wed, 15 May 2024 16:31:25 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 2/5] drm/amdgpu: Actually respect buffer migration budget
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Friedrich Vock <friedrich.vock@gmx.de>
-References: <20240508180946.96863-1-tursulin@igalia.com>
- <20240508180946.96863-3-tursulin@igalia.com>
- <8a689a5a-b408-41da-b7bd-8c7a3b2f2ac7@amd.com>
- <1a20c64f-cb1c-4f68-917b-9a8a34741bff@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <1a20c64f-cb1c-4f68-917b-9a8a34741bff@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0215.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ac::19) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.26; Wed, 15 May
+ 2024 15:24:02 +0000
+Received: from BN1PEPF00004682.namprd03.prod.outlook.com
+ (2603:10b6:408:10b:cafe::61) by BN9P223CA0003.outlook.office365.com
+ (2603:10b6:408:10b::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.27 via Frontend
+ Transport; Wed, 15 May 2024 15:24:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00004682.mail.protection.outlook.com (10.167.243.88) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7587.21 via Frontend Transport; Wed, 15 May 2024 15:24:02 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Wed, 15 May 2024 10:24:00 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Roman Li
+ <roman.li@amd.com>
+Subject: [PATCH] drm/amdgpu/display: Update kdoc for 'optc35_set_odm_combine'
+Date: Wed, 15 May 2024 20:53:41 +0530
+Message-ID: <20240515152341.750360-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB5841:EE_
-X-MS-Office365-Filtering-Correlation-Id: c85b59a8-0526-450c-f210-08dc74ebb60f
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004682:EE_|DS0PR12MB7996:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8e0b1851-776c-4666-a575-08dc74f30d0a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|1800799015|376005;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ejZQdFVuL2xiUU42b3pnbXJmQlJpaE5wUVpNbEw3TER4d2Z6Mm9GL3JFZWxu?=
- =?utf-8?B?UjJUelhOYnIweTBCSks3TDN5dFA4ZTFuSHhHVzVrTGtLOE53NGdWVUJkVXh1?=
- =?utf-8?B?ZHBrenZ2bWpweS9yeHpXaU1ud3dwUGpKWGlhRnd6cE5rUno4cEIyNFlLK3Bn?=
- =?utf-8?B?ZUd6d2dtc094azcxZTVJcmVKWXE3ZVgrNXBzdWZWejliOERmWEZLcHJZWk0v?=
- =?utf-8?B?SFhUeDhuK2Nqb002Tk1YWDQ3NisxSmZFS1luYUtrNnUzVWEzTGZqY1UxUy9T?=
- =?utf-8?B?aGFZUkd3UXF3ZkNoTGVsc2lJZDk2clBpMjhzQlg4bjNCTTlTWEVxRjNud3hk?=
- =?utf-8?B?ekhjOXlXdjJvSTBoWnpDQTFuWFFHRjlyS25qRFM4R3I2T2ptaXlaU1hCcVpD?=
- =?utf-8?B?ODArOGMvT09TQ2FCcWpRVW03eXE5ajZQZ3A1RnZ0TlZRNmx1SVhMOG1zR1F4?=
- =?utf-8?B?UEZUUlVxZVZwYVVrQit2MEFyUUNsNEpsY1Z0YjhzSGt3d0RWbmNYMTFGQTNi?=
- =?utf-8?B?Y1dCdEpsbjl0NjBmMFlobjM5VnN3WENCVHZQUThYV2NhTkpldVp5dndwaDRz?=
- =?utf-8?B?YjZSTnRsRmIyVGkzRHRxQVhDbWkydGtCY0lJL1VuaStKTUVtVmJFa2dvalM3?=
- =?utf-8?B?aGtacXdRNDk4Tkl0VTVwS0NDT2hEdUhLN2wrdUJUbHhPVlZadmR5WDhoTXl6?=
- =?utf-8?B?TXBTTThCb3ZhSUdIY1JValQ0OE9rQmNvWWtpaW13emxRYml1SHBPdDd0c0hG?=
- =?utf-8?B?aEYrNytKRmFWeS9NTGErMmR2ZTR3SGxqd1c1V25PcjJCeEVuejVNaHUzaE5T?=
- =?utf-8?B?bVNReFVnVU9WT1R1SjFYMW5FTHVtcHk1ZVZuYlc3eW53MitWWlMzQnRLSzVx?=
- =?utf-8?B?Y3BVa3JKNm5hRGpJbHhqRDh2WlJOY01JMy9ONTVqZE80c0c0MjdnanRzcmt2?=
- =?utf-8?B?ME1xNndCektpT280Z054N1p5YUtsRUJrNWZpRmFPYUhpOUpPbUNEd2RYYlcr?=
- =?utf-8?B?ZzI3K0JGSnJxZitzaXRmaG10dndqQ1oydms1eW5KdHc2bUdFbEVQWCtPUkZN?=
- =?utf-8?B?SWJ0aHFySFVIL3VGREp5SEJFdE84d1R5OVo3ajVlNThLNjdhMCtLSWlCbEQ4?=
- =?utf-8?B?NmdYNHBKUHFpWWV3UGJCcXo2aW5kVjkyY1lJc21XTDgwWWMxRGU3K2ZGeFd2?=
- =?utf-8?B?US82K2E3R2oyMUM4U1kwUUo5SEdBeHM2WkIvekc5cmNnLzlSODNnb1dXVUtQ?=
- =?utf-8?B?VlZwNUx5NHV5S1B5OTUycGR3QmRySmJ4Z1BKVmdsSDZVWDg2V3AxbW9iUUZN?=
- =?utf-8?B?UURXZVFlNzNkcGI5NUxUWnk0dmJwOU9FNE1QUkJ0Yml5cnRRQjVGd2tHODRn?=
- =?utf-8?B?SkE1NElsUzlOREtPSDhJMTdkbVlLaVkvcTNxS2UrOVplMkZLQUttY2NpWUJR?=
- =?utf-8?B?NDZrdlBlRUFXZVFMUkR2d1J1NG1zbHljbVJKVGRkNHIrMm9zcy9JV1d0Vm5U?=
- =?utf-8?B?RzhhUDgzUytwV1ZoZkhadWJUSGxzMDdLYktLOU4yK3JYaFhHSnZST1dZZUlt?=
- =?utf-8?B?VWpXN0E2RGdCNWxIWWZwS042L3diQWtiZnZ3RkZOWlVKR3pKclMwUmN3b2J2?=
- =?utf-8?B?akJqM1pBT3dpOUR4eXA5NjIrOXJIakN5QThUbDliVWxTaG9vTjc4bmRGaGMx?=
- =?utf-8?B?NWVESmpTQmZWempRb2hEZ0JaLzk0Y0RXQXZ3NTVoeFhoNFFXMjN1UXhnPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eXI1L29GTzkyZFBQbFVidWtLK0Qyb1FxVGJoMUJINVVpeGxBcTVmTitLTGU2?=
- =?utf-8?B?KzBsM2lzR1BtNEJQOSsxY3pqK0VmdUllOEVTZ0xkN0RaN0lnNEFxWTg4bXU3?=
- =?utf-8?B?b0tnRDd3OUJpNnc0SWpUS0dHb3dJd3lXd0VpeXRyMDg1MXQzalhSWExqMGRq?=
- =?utf-8?B?RDExZ01qeGdhb0RsYWU2eFRZb2d4ZzhDMVZQeDRHVm5BME5qV0ZhS3dBV2RQ?=
- =?utf-8?B?TWJHdEN1bnZoTGRhSStKV2FPWkFRUHVpOHJVNUVnd3pkSFlZYWdXVWNZR3Ey?=
- =?utf-8?B?Nnk3SEd1RTVPMUNTODNncTZBSS9URW1aRWJkbWR3aWRYbnR3UzhtUGJIeWo3?=
- =?utf-8?B?OTlIT3RQUGtzSFgrWmNRSzViMnovbWRURzNYT0tURUJ3OTUvWFZMWWxJOEhJ?=
- =?utf-8?B?SkJWOVhPSHBwdVQ3UlhmQkE3WWpnM1JvczNDRllmOUJLVWNUNGY4bVRPeDdv?=
- =?utf-8?B?TzJ0Q1VvMDlkZUR0VVN3UkhaZUZOZ0tnMUdKa3l1OS91KzZHTTFUNlh3Y3Jy?=
- =?utf-8?B?NTVTanJheFpZOTQxVU4reEg5aTQzSUIxU0d4VElPR0pqZGkyVVp2ZHo0UmN5?=
- =?utf-8?B?K1NIZmpEVjQvZmtKNU9KNGdsTTRtTUpyT29XSlR4WmlRU05DUnc5OVI0V0NW?=
- =?utf-8?B?NkgrK1Y3SllDUWFoQ0xlWWNFS2RXbW5lL3JFNjV6amN3WS9RMUVoM3BNMVpm?=
- =?utf-8?B?RFZ5eVlPMXJuQlpud3RBZkNnRlU3TUhwcGMxSDJZNndLRVNWVFI0Vnhzc3dN?=
- =?utf-8?B?ZHNVVlhqYmg1Y2pNaGlCL1lQbStMYVN0dEpJT2dIWDdvWXBXYVVtNVg2Y1ps?=
- =?utf-8?B?U1krSXdPWlpWdmtWL2hPSXRNaVNHVVdVRlVCeTdUZHFXNG1HQlpTYU9sZDda?=
- =?utf-8?B?NHBsRzZhTmk3Z0FiVHVFWFRJQlVJUFg5cUJUbjJINVAybDF1THExc2pEYlVR?=
- =?utf-8?B?TDBLV1RrYk5jVlNveUZTTSsvVURKSVNUUnpCV3NKc0FmZXlvNUFHT2l2MDdp?=
- =?utf-8?B?TW5LTmg3RXZiWEFJWlBnOVluSjdiK3A5cHRtZWU1RFU0ODhNTitJN3F2N09Y?=
- =?utf-8?B?L043UzY0MTNXSS90TXZVMTZrWk1Ld3FLdjlkR0duWXBRRURFWVNYdXdhbUZH?=
- =?utf-8?B?YW1jNDFIcXlNMnFNdDU2dHJETlpGZmtHQVJqcUQ3SkhxN3p5clpzTE9QcFJ5?=
- =?utf-8?B?OVNlYmlwV0dHRG5wYWo0UHdlMDczU25mRDlhVTlKbmljd3Y5UUI1RzZlUGk3?=
- =?utf-8?B?dHFDUWtjSDNncUM2Y3dTT1RWbTg0NXArbHRlVkUwMjJQdGtQbkJGWFkyZDQ3?=
- =?utf-8?B?WW1MZWRQWFBoZFVKVXZvS3NZZ2tvS25HdGYrSnZ0dHhGUjJRem85T2ErTGU3?=
- =?utf-8?B?RnJhRElPMlRaN3hlVnNQeWpLbkpmTDh5N1ZPOUYyNUFzM2lidmdWc3o4NnVo?=
- =?utf-8?B?OXpjWEQ4R1VZTFB5S3NFYjkvS0hZTFpkc3VqY0IydFg1OXUrNHl6TWNJTG44?=
- =?utf-8?B?NFhtMUxaTjNLNkJ0eXFTWEdhSEV0NDV2emtsK1RqUXA1bE8xeFM0d3NaZ2Ji?=
- =?utf-8?B?SjFBWnc5RkdYNXl0UWwrQVVhajVRMzd2ZHJGSFFJSFh5QmE4UGtFcE84QXJX?=
- =?utf-8?B?UVJqdHkyUWRNdHovVGNGR1NYSTZrZkFWaHNaSTh6YlVyQzJGanNYaXFCSGJt?=
- =?utf-8?B?NGl3YUp5aFpYc2xKUHBadkdVOS9ZUjg0TmI0TWppSkxTSUlzdnpnTXd6TFZj?=
- =?utf-8?B?eFUzb2M0b1VQVTF3Y3QycW4xcWhWWDNJNk5VRG9pUkMwbHBQOU81emdKOXVQ?=
- =?utf-8?B?Tk5CMEtGZG5WM2ZBRmZnb3pucVdYdW5lMVpSbEI0UFpBanV6WG5Ib3Avd2FF?=
- =?utf-8?B?YjFERE9sa05ac1JJNk9vczl1bWgxeHFaeFE4WDNPa3lrSHZrU01CY1hJWGd1?=
- =?utf-8?B?Rld3ckU1cmI1MlJjWEZ2UmRkcEVLT25iY29mZG8xRkpTRlVOTFhxbWY5bUZW?=
- =?utf-8?B?aHdWSmtIWGpZRWhHYXFTbW1CRWlISDNPREp4UkNyQlZnVzdoQVliWjJCK2Z6?=
- =?utf-8?B?ZWNWRzhsYWFxM0xJQVgwWGtBZzBFeTdJbTRaVEViajNWb0RScHRyNHp5cjZj?=
- =?utf-8?Q?p29c6ht8VFiSl5xf6jSdTGIwa?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|376005|82310400017|36860700004|1800799015; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?VP+Pr5hQhZAAAeVF/k+4VUwFkPlL9uRKcDQmA2OfQpISiWyyEN09TPyedLd7?=
+ =?us-ascii?Q?z+arJ/hJaV3EFEOVsMJ3ZQQEdUGiyvyVbxCzhrUkmIpzQJDttIEsl22hHTSc?=
+ =?us-ascii?Q?WABx+mhRXGsr2vaoXdtzao9Q6HYnFqIrn38Az5OkbwntWOPNFPkh6mnyEHmy?=
+ =?us-ascii?Q?jZLKjTNnopXJNj6+/uxt+ETIUcX4LTUpQVIQqRP4f9FsN5JcSeI4cPPEAzIw?=
+ =?us-ascii?Q?j8oB6UWaVmsqemCe9DeH6/k0i3tFc2RzQSvqG+yn33mGr9EEAkJ2X2HJaErU?=
+ =?us-ascii?Q?CM9jrrC7EA3NRlpeMZaT9YTfDyZ2If0aykTDiiGIePSJCb2RBmbLB40hPYyJ?=
+ =?us-ascii?Q?pfYiVTFqIUgY7Om3CymHH5iSk602/lRbPlib1iH+HXfG51j7ZOqK+MFIlCs4?=
+ =?us-ascii?Q?x4mqqETLG5NUkNGEKmwkdTRrFMh8TCv8t9RqiV+tts8UC2l7uu8SXQyL7XWV?=
+ =?us-ascii?Q?Q6KbZ7oLGtCH8YR9OA0oXEqmaIn5aOYqT46dcPvxWiWw+VfTy0grTp5Ifqdj?=
+ =?us-ascii?Q?icXXFScNQo9oabp6ZFnI8YxtppHdcaoOV+bk7rjMQPJ6OGtUtpcXMnG4o/BD?=
+ =?us-ascii?Q?ip9E1sPxTK2PngR5TfwD+qWesHx8fnyc1BpD9OaqqDufkTGBOQskhTWimGA8?=
+ =?us-ascii?Q?6l4u9q/FTpZsZfUu/6I7lWxKeWwBLtEa/pcC2pN8fa9/h0DaQxkfYo2SxVpL?=
+ =?us-ascii?Q?qhTs9XnnozcKiolUEwss9Ukj/RqTUs/flZ/vH279JjvBrKvY62jNKMR8q/OP?=
+ =?us-ascii?Q?26XyMni8HGZ6nLTsv8tNWO391c3BgcaArzAOkuWYulSb7WrMJGUMdVUXkPA+?=
+ =?us-ascii?Q?kJ0HmWVHMrczKVK//6X16zeEqD+GVvOJzNLYYOvBE1uqqz/Sw/9M9vkqMqqN?=
+ =?us-ascii?Q?lkchhSVR7Nk3+v6WJYrkDvmuJ2mifz2iqJ9uqDhtPwQeNMR0d7i4qH+Ejujv?=
+ =?us-ascii?Q?bIEupFLQqU+Thse+KCwZXaodRzubyliuSqGHyCuMR7MamRtTrFqtRsmVnBNv?=
+ =?us-ascii?Q?NJfn4R1NvHRyrfgu5M+ZLknDzOUa/IXitaV2X7XtCcoqF/pBzDo/XciZ8kI9?=
+ =?us-ascii?Q?EemCzxojy+Q2r6DxZrX9D10D/yEzVoRpFVuSQ2jwxoUD3udYDbQxtUHhKG5Y?=
+ =?us-ascii?Q?hLJWhTSwE+FVcgszYVDeLicbCb20xScPovC0CaY3uK9SJBLRnW95j/trMV7l?=
+ =?us-ascii?Q?4CvVeQ7MWekI4DhZ0HwnhfTzf2oC0Aba4qCPy3JaFhHWhSNCK2sie+vyymGb?=
+ =?us-ascii?Q?B2np+ki7S/1Y76z+GahVtgEhTZAwUbhhbDVa6ykboZY1+aRQlGIPzJlHkwcZ?=
+ =?us-ascii?Q?gWfAR+/sTbzSJci8g4xyNaIcIH3tkvnBqYRIbH3YDKKWVKEFYBdlHbU2NAC3?=
+ =?us-ascii?Q?kXplIR4zoPIVoOgBtqeCIhmC2t1/?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(376005)(82310400017)(36860700004)(1800799015); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c85b59a8-0526-450c-f210-08dc74ebb60f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2024 14:31:30.2096 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2024 15:24:02.3975 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e0b1851-776c-4666-a575-08dc74f30d0a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ba6hyfJcuAFUqQ/2/xkU6AFAEpBzEAozy5/6tzd0pDOy0fkI6KjehB1gx0E+XAUx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5841
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004682.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7996
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,156 +131,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.05.24 um 12:59 schrieb Tvrtko Ursulin:
->
-> On 15/05/2024 08:20, Christian König wrote:
->> Am 08.05.24 um 20:09 schrieb Tvrtko Ursulin:
->>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>
->>> Current code appears to live in a misconception that playing with 
->>> buffer
->>> allowed and preferred placements can control the decision on whether
->>> backing store migration will be attempted or not.
->>>
->>> Both from code inspection and from empirical experiments I see that not
->>> being true, and that both allowed and preferred placement are typically
->>> set to the same bitmask.
->>
->> That's not correct for the use case handled here, but see below.
->
-> Which part is not correct, that bo->preferred_domains and 
-> bo->allower_domains are the same bitmask?
+The parameters segment_width and last_segment_width are used to control
+the configuration of the Output Plane Processor (OPP), specifically the
+width of each segment that the display is divided into and the width of
+the last segment
 
-Sorry totally forgot to explain that.
+Fixes the below with gcc W=1:
+drivers/gpu/drm/amd/amdgpu/../display/dc/optc/dcn35/dcn35_optc.c:59: warning: Function parameter or struct member 'segment_width' not described in 'optc35_set_odm_combine'
+drivers/gpu/drm/amd/amdgpu/../display/dc/optc/dcn35/dcn35_optc.c:59: warning: Function parameter or struct member 'last_segment_width' not described in 'optc35_set_odm_combine'
+drivers/gpu/drm/amd/amdgpu/../display/dc/optc/dcn35/dcn35_optc.c:59: warning: Excess function parameter 'timing' description in 'optc35_set_odm_combine'
 
-This rate limit here was specially made for OpenGL applications which 
-over commit VRAM. In those case preferred_domains will be VRAM only and 
-allowed_domains will be VRAM|GTT.
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-RADV always uses VRAM|GTT for both (which is correct).
-
->
->>>
->>> As such, when the code decides to throttle the migration for a 
->>> client, it
->>> is in fact not achieving anything. Buffers can still be either 
->>> migrated or
->>> not migrated based on the external (to this function and facility) 
->>> logic.
->>>
->>> Fix it by not changing the buffer object placements if the migration
->>> budget has been spent.
->>>
->>> FIXME:
->>> Is it still required to call validate is the question..
->>>
->>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>> Cc: Christian König <christian.koenig@amd.com>
->>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 12 +++++++++---
->>>   1 file changed, 9 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> index 22708954ae68..d07a1dd7c880 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> @@ -784,6 +784,7 @@ static int amdgpu_cs_bo_validate(void *param, 
->>> struct amdgpu_bo *bo)
->>>           .no_wait_gpu = false,
->>>           .resv = bo->tbo.base.resv
->>>       };
->>> +    bool migration_allowed = true;
->>>       struct ttm_resource *old_res;
->>>       uint32_t domain;
->>>       int r;
->>> @@ -805,19 +806,24 @@ static int amdgpu_cs_bo_validate(void *param, 
->>> struct amdgpu_bo *bo)
->>>                * visible VRAM if we've depleted our allowance to do
->>>                * that.
->>>                */
->>> -            if (p->bytes_moved_vis < p->bytes_moved_vis_threshold)
->>> +            if (p->bytes_moved_vis < p->bytes_moved_vis_threshold) {
->>>                   domain = bo->preferred_domains;
->>> -            else
->>> +            } else {
->>>                   domain = bo->allowed_domains;
->>> +                migration_allowed = false;
->>> +            }
->>>           } else {
->>>               domain = bo->preferred_domains;
->>>           }
->>>       } else {
->>>           domain = bo->allowed_domains;
->>> +        migration_allowed = false;
->>>       }
->>>   retry:
->>> -    amdgpu_bo_placement_from_domain(bo, domain);
->>> +    if (migration_allowed)
->>> +        amdgpu_bo_placement_from_domain(bo, domain);
->>
->> That's completely invalid. Calling amdgpu_bo_placement_from_domain() 
->> is a mandatory prerequisite for calling ttm_bo_validate();
->>
->> E.g. the usually code fow is:
->>
->> /* This initializes bo->placement */
->> amdgpu_bo_placement_from_domain()
->>
->> /* Eventually modify bo->placement to fit special requirements */
->> ....
->>
->> /* Apply the placement to the BO */
->> ttm_bo_validate(&bo->tbo, &bo->placement, &ctx)
->>
->> To sum it up bo->placement should be a variable on the stack instead, 
->> but we never bothered to clean that up.
->
-> I am not clear if you agree or not that the current method of trying 
-> to avoid migration doesn't really do anything?
-
-I totally agree, but the approach you taken to fix it is just quite 
-broken. You can't leave bo->placement uninitialized and expect that 
-ttm_bo_validate() won't move the BO.
-
->
-> On stack placements sounds plausible to force migration avoidance by 
-> putting a single current object placement in that list, if that is 
-> what you have in mind? Or a specialized flag/version of 
-> amdgpu_bo_placement_from_domain with an bool input like 
-> "allow_placement_change"?
-
-A very rough idea with no guarantee that it actually works:
-
-Add a TTM_PL_FLAG_RATE_LIMITED with all the TTM code to actually figure 
-out how many bytes have been moved and how many bytes the current 
-operation can move etc...
-
-Friedrich's patches actually looked like quite a step into the right 
-direction for that already, so I would start from there.
-
-Then always feed amdgpu_bo_placement_from_domain() with the 
-allowed_domains in the CS path and VM validation.
-
-Finally extend amdgpu_bo_placement_from_domain() to take a closer look 
-at bo->preferred_domains, similar to how we do for the 
-TTM_PL_FLAG_FALLBACK already and set the TTM_PL_FLAG_RATE_LIMITED flag 
-as appropriate.
-
-Regards,
-Christian.
-
-> Regards,
->
-> Tvrtko
->
->>
->> Regards,
->> Christian.
->>
->>> +
->>>       r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
->>>       if (unlikely(r == -ENOMEM) && domain != bo->allowed_domains) {
->>
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
+index 7c9faa507ec2..dfa9364fe5a6 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
+@@ -50,7 +50,8 @@
+  * @optc: Output Pipe Timing Combine instance reference.
+  * @opp_id: Output Plane Processor instance ID.
+  * @opp_cnt: Output Plane Processor count.
+- * @timing: Timing parameters used to configure DCN blocks.
++ * @segment_width: Width of the segment.
++ * @last_segment_width: Width of the last segment.
+  *
+  * Return: void.
+  */
+-- 
+2.34.1
 
