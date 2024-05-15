@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 565EEC25B79
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 May 2024 21:47:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7991FC25B78
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 May 2024 21:47:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 419BC10E267;
-	Wed, 15 May 2024 21:47:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4429710E04E;
+	Wed, 15 May 2024 21:47:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=icloud.com header.i=@icloud.com header.b="C3WezpJK";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SAgdWnrj";
 	dkim-atps=neutral
-X-Greylist: delayed 593 seconds by postgrey-1.36 at gabe;
- Wed, 15 May 2024 19:30:11 UTC
-Received: from st43p00im-zteg10072001.me.com (st43p00im-zteg10072001.me.com
- [17.58.63.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D468C10EBE7
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 May 2024 19:30:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com;
- s=1a1hai; t=1715800817;
- bh=gChLto0wuBmBkw+d7DrIrxrJwuCOppo9zmpl1lXbdD8=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=C3WezpJKXYp1V0bqCt0aNOoC9wj6JqDMqgkHD2VNIDZqvy8Gr/TCb8nbCjit+fuKm
- /TwfGTCWMRiTjQ17PreSa4pM1mez7aOngR/ayALjbaZCCNs4rdk/EpuqX6Fs6Ln7J5
- TILmtLomiH0OOtiysvqoBvY4nhFTowJVHYZGqP0oSskL09d1JhuRUCWkUrJQSQYl6t
- 3EYO2A3LNnFLcQK+nBrfeJwM0VpNOGa4hrcPcwdFZPdqU1RuQpJxJQ6rYsarwVWgQ4
- ChLsLfywXTN1416GoGw2gZO7zvKza3Jsi1xqkVnpPIXDrbYvEeJIcz/1hk3BugMbvx
- uveFWbFI/kWyg==
-Received: from kendalls-iMac.lan (st43p00im-dlb-asmtp-mailmevip.me.com
- [17.42.251.41])
- by st43p00im-zteg10072001.me.com (Postfix) with ESMTPSA id 72CEF120E52;
- Wed, 15 May 2024 19:20:17 +0000 (UTC)
-From: Kendall Smith <kendallsm2@icloud.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org,
-	Kendall Smith <kendallsm2@icloud.com>
-Subject: [PATCH] drm/radeon: initialize atom DIG backlight for iMac12,
- 1 and iMac12, 2 with Radeon 6750M
-Date: Wed, 15 May 2024 15:20:09 -0400
-Message-Id: <20240515192009.14362-1-kendallsm2@icloud.com>
-X-Mailer: git-send-email 2.34.1
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 289CC10E315;
+ Wed, 15 May 2024 15:13:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=vSw5U15ZqhJzro0lwPTdKqlUvj1EmSnMzm7/Pr9XNo4=; b=SAgdWnrjzJSMHVLW/0qMxo2nA6
+ 8mWZg58lhbmd3DRi4XesR+yAeg1zspp1UlmY/DFqeuIyGelT005rM6Rg/LValMshUXuLz8Mb6AQSS
+ rUI44ItGjSIkqYQr8WmSjURtHOtfzprn7KSR/ykLkAH0TWDDA0DE7DNg/UmqIsZDBohAOT/+RU1g2
+ dBHhQ92nN3ngHhiHVKUthC24P7S9VKgMIeChAdTf8WykR5R8MS0El33m/nIA4tnqnvAiZNFhTu/KZ
+ RJjKjyjvTmq0uxLLpm2S2tA9lz+qOLoSmCKol5RFu5f/Jg5lmtJSJOhfNHuuZiOOY7eU2mmsI+PpC
+ XwOENPlg==;
+Received: from [84.69.19.168] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1s7GKB-008RFS-EO; Wed, 15 May 2024 17:13:47 +0200
+Message-ID: <c66a41bd-4511-414e-93fc-d4aa7c36c5b5@igalia.com>
+Date: Wed, 15 May 2024 16:13:46 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 2/5] drm/amdgpu: Actually respect buffer migration budget
+Content-Language: en-GB
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Friedrich Vock <friedrich.vock@gmx.de>
+References: <20240508180946.96863-1-tursulin@igalia.com>
+ <20240508180946.96863-3-tursulin@igalia.com>
+ <8a689a5a-b408-41da-b7bd-8c7a3b2f2ac7@amd.com>
+ <1a20c64f-cb1c-4f68-917b-9a8a34741bff@igalia.com>
+ <7a9a2819-a3f0-4a51-8ae8-bde6ff7b0aaa@amd.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <7a9a2819-a3f0-4a51-8ae8-bde6ff7b0aaa@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: vg2uwT33525UOzvB4dxOGeO5YaER4aZP
-X-Proofpoint-ORIG-GUID: vg2uwT33525UOzvB4dxOGeO5YaER4aZP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-15_12,2024-05-15_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1011
- phishscore=0
- mlxlogscore=999 bulkscore=0 adultscore=0 suspectscore=0 spamscore=0
- malwarescore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2308100000 definitions=main-2405150138
-X-Apple-Remote-Links: v=1;h=KCk=;charset=UTF-8
 X-Mailman-Approved-At: Wed, 15 May 2024 21:47:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,26 +66,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If a Radeon 6750M GPU from an iMac12,1 is installed into an iMac 12,2, there is no backlight device initialized during boot. Everything else is functional, but the display brightness cannot be controlled. There are no directories present in /sys/class/backlight after booting. A simple one line modification to an if statement fixes this issue by initializing the radeon backlight device for an iMac12,2 as well if it has a 6750M. After the patch, brightness can be controlled and radeon_bl0 is present in /sys/class/backlight. This was tested by compiling the latest kernel with and without the patch.
 
-Signed-off-by: Kendall Smith <kendallsm2@icloud.com>
----
- drivers/gpu/drm/radeon/atombios_encoders.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 15/05/2024 15:31, Christian König wrote:
+> Am 15.05.24 um 12:59 schrieb Tvrtko Ursulin:
+>>
+>> On 15/05/2024 08:20, Christian König wrote:
+>>> Am 08.05.24 um 20:09 schrieb Tvrtko Ursulin:
+>>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>>
+>>>> Current code appears to live in a misconception that playing with 
+>>>> buffer
+>>>> allowed and preferred placements can control the decision on whether
+>>>> backing store migration will be attempted or not.
+>>>>
+>>>> Both from code inspection and from empirical experiments I see that not
+>>>> being true, and that both allowed and preferred placement are typically
+>>>> set to the same bitmask.
+>>>
+>>> That's not correct for the use case handled here, but see below.
+>>
+>> Which part is not correct, that bo->preferred_domains and 
+>> bo->allower_domains are the same bitmask?
+> 
+> Sorry totally forgot to explain that.
+> 
+> This rate limit here was specially made for OpenGL applications which 
+> over commit VRAM. In those case preferred_domains will be VRAM only and 
+> allowed_domains will be VRAM|GTT.
+> 
+> RADV always uses VRAM|GTT for both (which is correct).
 
-diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
-index 2bff0d9e20f5..7b11674f5d45 100644
---- a/drivers/gpu/drm/radeon/atombios_encoders.c
-+++ b/drivers/gpu/drm/radeon/atombios_encoders.c
-@@ -201,7 +201,7 @@ void radeon_atom_backlight_init(struct radeon_encoder *radeon_encoder,
- 	 */
- 	if ((rdev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE) &&
- 	    (rdev->pdev->device == 0x6741) &&
--	    !dmi_match(DMI_PRODUCT_NAME, "iMac12,1"))
-+	    !(dmi_match(DMI_PRODUCT_NAME, "iMac12,1") || dmi_match(DMI_PRODUCT_NAME, "iMac12,2")))
- 		return;
- 
- 	if (!radeon_encoder->enc_priv)
--- 
-2.34.1
+Got it, thanks!
 
+>>>> As such, when the code decides to throttle the migration for a 
+>>>> client, it
+>>>> is in fact not achieving anything. Buffers can still be either 
+>>>> migrated or
+>>>> not migrated based on the external (to this function and facility) 
+>>>> logic.
+>>>>
+>>>> Fix it by not changing the buffer object placements if the migration
+>>>> budget has been spent.
+>>>>
+>>>> FIXME:
+>>>> Is it still required to call validate is the question..
+>>>>
+>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
+>>>> ---
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 12 +++++++++---
+>>>>   1 file changed, 9 insertions(+), 3 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>>> index 22708954ae68..d07a1dd7c880 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>>> @@ -784,6 +784,7 @@ static int amdgpu_cs_bo_validate(void *param, 
+>>>> struct amdgpu_bo *bo)
+>>>>           .no_wait_gpu = false,
+>>>>           .resv = bo->tbo.base.resv
+>>>>       };
+>>>> +    bool migration_allowed = true;
+>>>>       struct ttm_resource *old_res;
+>>>>       uint32_t domain;
+>>>>       int r;
+>>>> @@ -805,19 +806,24 @@ static int amdgpu_cs_bo_validate(void *param, 
+>>>> struct amdgpu_bo *bo)
+>>>>                * visible VRAM if we've depleted our allowance to do
+>>>>                * that.
+>>>>                */
+>>>> -            if (p->bytes_moved_vis < p->bytes_moved_vis_threshold)
+>>>> +            if (p->bytes_moved_vis < p->bytes_moved_vis_threshold) {
+>>>>                   domain = bo->preferred_domains;
+>>>> -            else
+>>>> +            } else {
+>>>>                   domain = bo->allowed_domains;
+>>>> +                migration_allowed = false;
+>>>> +            }
+>>>>           } else {
+>>>>               domain = bo->preferred_domains;
+>>>>           }
+>>>>       } else {
+>>>>           domain = bo->allowed_domains;
+>>>> +        migration_allowed = false;
+>>>>       }
+>>>>   retry:
+>>>> -    amdgpu_bo_placement_from_domain(bo, domain);
+>>>> +    if (migration_allowed)
+>>>> +        amdgpu_bo_placement_from_domain(bo, domain);
+>>>
+>>> That's completely invalid. Calling amdgpu_bo_placement_from_domain() 
+>>> is a mandatory prerequisite for calling ttm_bo_validate();
+>>>
+>>> E.g. the usually code fow is:
+>>>
+>>> /* This initializes bo->placement */
+>>> amdgpu_bo_placement_from_domain()
+>>>
+>>> /* Eventually modify bo->placement to fit special requirements */
+>>> ....
+>>>
+>>> /* Apply the placement to the BO */
+>>> ttm_bo_validate(&bo->tbo, &bo->placement, &ctx)
+>>>
+>>> To sum it up bo->placement should be a variable on the stack instead, 
+>>> but we never bothered to clean that up.
+>>
+>> I am not clear if you agree or not that the current method of trying 
+>> to avoid migration doesn't really do anything?
+> 
+> I totally agree, but the approach you taken to fix it is just quite 
+> broken. You can't leave bo->placement uninitialized and expect that 
+> ttm_bo_validate() won't move the BO.
+
+Yep, that much was clear, sorry that I did not explicitly acknowledge 
+but just moved on to discussing how to fix it properly.
+
+>> On stack placements sounds plausible to force migration avoidance by 
+>> putting a single current object placement in that list, if that is 
+>> what you have in mind? Or a specialized flag/version of 
+>> amdgpu_bo_placement_from_domain with an bool input like 
+>> "allow_placement_change"?
+> 
+> A very rough idea with no guarantee that it actually works:
+> 
+> Add a TTM_PL_FLAG_RATE_LIMITED with all the TTM code to actually figure 
+> out how many bytes have been moved and how many bytes the current 
+> operation can move etc...
+> 
+> Friedrich's patches actually looked like quite a step into the right 
+> direction for that already, so I would start from there.
+> 
+> Then always feed amdgpu_bo_placement_from_domain() with the 
+> allowed_domains in the CS path and VM validation.
+> 
+> Finally extend amdgpu_bo_placement_from_domain() to take a closer look 
+> at bo->preferred_domains, similar to how we do for the 
+> TTM_PL_FLAG_FALLBACK already and set the TTM_PL_FLAG_RATE_LIMITED flag 
+> as appropriate.
+
+Two things which I kind of don't like with the placement flag idea is 
+that a) typically two placements are involved in a move so semantics of 
+an individual placement being rate limited does not fully fit. Unless we 
+view it is a hack to temporarily "de-prioritise" placement. In which 
+case I come to b), where the dynamic games with domains and placements 
+perhaps feel a bit hacky. Certainly interactions between placement 
+selection in ttm_bo_validate (via ttm_resource_compatible) and 
+ttm_bo_alloc_resource could be tricky.
+
+Maybe... I will think about it a bit more.
+
+In the meantime what I played with today is the "stack local" single 
+placement in amdgpu_cs_bo_validate. If over the migration budget, I find 
+the abo->placement matching the current bo->tbo.resource, and pass it 
+into ttm_bo_validate instead of the full placement list.
+
+With that patch and also "drm/amdgpu: Re-validate evicted buffers" from 
+this series I did three of Assasin's Creed Valhalla on each kernel and 
+it does appear to be keeping the migrations lower. It has no effect on 
+average fps, but does appear to improve the minimum, 1% low and 0.1% low.
+
+This is on an APU mind you. No idea how that would affect discrete. But 
+it is interesting that marking _more_ buffers for re-validations 
+combined with throttling migrations correctly, for this use case, it 
+seems to do what I expected.
+
+Regards,
+
+Tvrtko
+
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>> +
+>>>>       r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+>>>>       if (unlikely(r == -ENOMEM) && domain != bo->allowed_domains) {
+>>>
+> 
