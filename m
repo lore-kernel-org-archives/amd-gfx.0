@@ -4,67 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2679DC25B79
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 May 2024 13:54:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 045E7C25B75
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 May 2024 14:03:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C264F10E5CB;
-	Wed, 15 May 2024 13:54:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7412310E8D5;
+	Wed, 15 May 2024 14:03:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UJxyhOgb";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="bp8dnL2W";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CB8D10E0D1
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 May 2024 06:53:11 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-420180b58c3so20256535e9.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 May 2024 23:53:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1715755989; x=1716360789; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=asJ+9pW+1fRgwj/2u8znp52dd6XAzwkGNnDVnKx1Brw=;
- b=UJxyhOgbIvoUCwI2D5fxir1ex3N9r4sEf2cTINqtmDelgHI62WaZOJjnI/a03qxQ5x
- hkNH+IF/YAJGlQrGaK9vBV6NM9nqTlRwjbYbYZokoqP+LecU7QGHIzaHI+36DgfNHgSl
- xvc61tzXfwbRg0/LFYxQdUHK9vhUTVBVoIgGwAu5UEKnMJLIOgkgzXQfJlsq1+UR0vtG
- M2tnqS1dKhVRr+2bb5pVd5zzDxYLd+b9TkkHorHrAGt5dtgibBYTw+NaU8xYtjI54isC
- CGFbB0teu97VgDp8btnY19LwtyNzfguAADeLWbqfi0WV7DxnB/jSDTIC5pEp8Wc3rqJd
- M7Bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715755989; x=1716360789;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=asJ+9pW+1fRgwj/2u8znp52dd6XAzwkGNnDVnKx1Brw=;
- b=BFlDDqyGP/4LVB6d6un74cyTZ80ohyJSXBs55ltA+wJzrALn4Gi22yt4fAEFSw0xwQ
- s4v3nsbCVPeLFYOhQVIMYuWEpQPlIO8lkcUTUSe1twyywp+OhnxNSSU4xHzu85r0ZMUN
- LUMEfnfxY26b87hFc0gZtb7gmhZlZg6C4QjOiygIpuyVFkyF20uyjK5IO60zV3Cv0JVS
- T7t9G1RvggKEUyd4yDPFUNZ1xgADSWj/o36oOcU8+V0MppRMtuhtV8+xLXHPTyc9m6in
- WXJIHODfk+AnnKB9hEWg3TwZPrSYT8almqNOyOaqzapaxUJ9sQSaGOb11pQCpOdzD2hw
- yMXA==
-X-Gm-Message-State: AOJu0YwT3rTpNj95GccZUNgdWttnQjcCUflfv7P/omSE/W+If4W2NSAJ
- z75cZNWrTxmif6ZY/aoOVjUisRZ255CECE7/g8122q2yyT4R7we8PyXJo3W+RPo=
-X-Google-Smtp-Source: AGHT+IEBp5mRKtc591+J2rQ/Z/5jJ8GaHLTa8LuXcPs+aNSd7z5Ro3lkK+Zj+GGBdkc0oK52jhpkQw==
-X-Received: by 2002:a05:600c:1d1c:b0:420:98d:e101 with SMTP id
- 5b1f17b1804b1-420098de3c7mr91638515e9.15.1715755989000; 
- Tue, 14 May 2024 23:53:09 -0700 (PDT)
-Received: from localhost ([149.14.240.163]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42017166c64sm92278865e9.8.2024.05.14.23.53.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 May 2024 23:53:08 -0700 (PDT)
-Date: Wed, 15 May 2024 08:53:05 +0200
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Sreekant Somasekharan <sreekant.somasekharan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, felix.kuehling@amd.com
-Subject: Re: [PATCH v3] drm/amdkfd: Remove bo NULL check in
- gmc_v12_0_get_vm_pte() function
-Message-ID: <01da1678-91ca-498e-b317-f340ad6eb677@suswa.mountain>
-References: <20240515003103.634408-1-sreekant.somasekharan@amd.com>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82CD010E3CB;
+ Wed, 15 May 2024 10:59:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ZmNwQKhv4AnCurvJXe+GQlN6R4PSbuzS8YLjTbLSgEA=; b=bp8dnL2WdRmCkx8y09cQCvW/nc
+ OYbUrtfLvkCzgUfNW4AKmWCDSHjhSaVjsooq2kOG1AWt7VQQEbhZ33vItF0I+BdO1s9WbZdBHiZE3
+ 2ZtpiTUH1oTBMW7WzJA9I73VVAChXlcL2lz3ITjTJKd0QP5gfYM4enJh0PVkSAS0Vf+YJGlDQOqCU
+ Ilh3CuwcbIS3rojcp95UWuHH2lpkP9SuPPk9c+EQCj5vl9dI7uYY9rTPovcFTMi+Hij+kbee1oLTC
+ a9rGpwci89Zv+RI1hVt2spHajwYQylvtpdYfoFsnlFJAvRwKk3YeiYM71Ej8B/+M5ISrw7CL4YeyA
+ T2LP765Q==;
+Received: from [84.69.19.168] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1s7CMM-008MNv-PL; Wed, 15 May 2024 12:59:46 +0200
+Message-ID: <1a20c64f-cb1c-4f68-917b-9a8a34741bff@igalia.com>
+Date: Wed, 15 May 2024 11:59:45 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240515003103.634408-1-sreekant.somasekharan@amd.com>
-X-Mailman-Approved-At: Wed, 15 May 2024 13:54:13 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 2/5] drm/amdgpu: Actually respect buffer migration budget
+Content-Language: en-GB
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Friedrich Vock <friedrich.vock@gmx.de>
+References: <20240508180946.96863-1-tursulin@igalia.com>
+ <20240508180946.96863-3-tursulin@igalia.com>
+ <8a689a5a-b408-41da-b7bd-8c7a3b2f2ac7@amd.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <8a689a5a-b408-41da-b7bd-8c7a3b2f2ac7@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 15 May 2024 14:03:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,22 +64,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, May 14, 2024 at 08:31:03PM -0400, Sreekant Somasekharan wrote:
-> Remove bo NULL check in amdgpu/gmc_v12_0.c:gmc_v12_0_get_vm_pte() function
-> to fix smatch warning:
+
+On 15/05/2024 08:20, Christian König wrote:
+> Am 08.05.24 um 20:09 schrieb Tvrtko Ursulin:
+>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>
+>> Current code appears to live in a misconception that playing with buffer
+>> allowed and preferred placements can control the decision on whether
+>> backing store migration will be attempted or not.
+>>
+>> Both from code inspection and from empirical experiments I see that not
+>> being true, and that both allowed and preferred placement are typically
+>> set to the same bitmask.
 > 
-> 'drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c:518 gmc_v12_0_get_vm_pte()
-> warn: variable dereferenced before check 'bo' (see line 500)'
+> That's not correct for the use case handled here, but see below.
+
+Which part is not correct, that bo->preferred_domains and 
+bo->allower_domains are the same bitmask?
+
+>>
+>> As such, when the code decides to throttle the migration for a client, it
+>> is in fact not achieving anything. Buffers can still be either 
+>> migrated or
+>> not migrated based on the external (to this function and facility) logic.
+>>
+>> Fix it by not changing the buffer object placements if the migration
+>> budget has been spent.
+>>
+>> FIXME:
+>> Is it still required to call validate is the question..
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 12 +++++++++---
+>>   1 file changed, 9 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>> index 22708954ae68..d07a1dd7c880 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>> @@ -784,6 +784,7 @@ static int amdgpu_cs_bo_validate(void *param, 
+>> struct amdgpu_bo *bo)
+>>           .no_wait_gpu = false,
+>>           .resv = bo->tbo.base.resv
+>>       };
+>> +    bool migration_allowed = true;
+>>       struct ttm_resource *old_res;
+>>       uint32_t domain;
+>>       int r;
+>> @@ -805,19 +806,24 @@ static int amdgpu_cs_bo_validate(void *param, 
+>> struct amdgpu_bo *bo)
+>>                * visible VRAM if we've depleted our allowance to do
+>>                * that.
+>>                */
+>> -            if (p->bytes_moved_vis < p->bytes_moved_vis_threshold)
+>> +            if (p->bytes_moved_vis < p->bytes_moved_vis_threshold) {
+>>                   domain = bo->preferred_domains;
+>> -            else
+>> +            } else {
+>>                   domain = bo->allowed_domains;
+>> +                migration_allowed = false;
+>> +            }
+>>           } else {
+>>               domain = bo->preferred_domains;
+>>           }
+>>       } else {
+>>           domain = bo->allowed_domains;
+>> +        migration_allowed = false;
+>>       }
+>>   retry:
+>> -    amdgpu_bo_placement_from_domain(bo, domain);
+>> +    if (migration_allowed)
+>> +        amdgpu_bo_placement_from_domain(bo, domain);
 > 
-> Signed-off-by: Sreekant Somasekharan <sreekant.somasekharan@amd.com>
-> Suggested-by: Dan Carpenter <dan.carpenter@linaro.org>
-> ---
+> That's completely invalid. Calling amdgpu_bo_placement_from_domain() is 
+> a mandatory prerequisite for calling ttm_bo_validate();
+> 
+> E.g. the usually code fow is:
+> 
+> /* This initializes bo->placement */
+> amdgpu_bo_placement_from_domain()
+> 
+> /* Eventually modify bo->placement to fit special requirements */
+> ....
+> 
+> /* Apply the placement to the BO */
+> ttm_bo_validate(&bo->tbo, &bo->placement, &ctx)
+> 
+> To sum it up bo->placement should be a variable on the stack instead, 
+> but we never bothered to clean that up.
 
-This is fine, but you're overthinking these...  The v1 patch was also
-fine.
+I am not clear if you agree or not that the current method of trying to 
+avoid migration doesn't really do anything?
 
-regards,
-dan carpenter
+On stack placements sounds plausible to force migration avoidance by 
+putting a single current object placement in that list, if that is what 
+you have in mind? Or a specialized flag/version of 
+amdgpu_bo_placement_from_domain with an bool input like 
+"allow_placement_change"?
 
+Regards,
 
+Tvrtko
 
+> 
+> Regards,
+> Christian.
+> 
+>> +
+>>       r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+>>       if (unlikely(r == -ENOMEM) && domain != bo->allowed_domains) {
+> 
