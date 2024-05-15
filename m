@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 417A5C25B75
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 May 2024 21:47:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 565EEC25B79
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 May 2024 21:47:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9305610E0F8;
-	Wed, 15 May 2024 21:47:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 419BC10E267;
+	Wed, 15 May 2024 21:47:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=icloud.com header.i=@icloud.com header.b="Ch4Zu3UZ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=icloud.com header.i=@icloud.com header.b="C3WezpJK";
 	dkim-atps=neutral
-Received: from st43p00im-ztfb10073301.me.com (st43p00im-ztfb10073301.me.com
- [17.58.63.186])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E70A10E305
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 May 2024 19:46:46 +0000 (UTC)
+X-Greylist: delayed 593 seconds by postgrey-1.36 at gabe;
+ Wed, 15 May 2024 19:30:11 UTC
+Received: from st43p00im-zteg10072001.me.com (st43p00im-zteg10072001.me.com
+ [17.58.63.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D468C10EBE7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 May 2024 19:30:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com;
- s=1a1hai; t=1715802405;
+ s=1a1hai; t=1715800817;
  bh=gChLto0wuBmBkw+d7DrIrxrJwuCOppo9zmpl1lXbdD8=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=Ch4Zu3UZFybf4qUpSGPtPIZH9oawKUAoMeJvZMTVX6UC13MQsFT4dCjC1farXCWd0
- PsG1QFQG10cWETKtduIg4z3HP+UPq11fZ0l5lOTXhyOJbf8tbu8fhaEmg1+crjPQUt
- NNTAGGhNyCT8a5l44O1JHGPPI9n77CC4yljsLmugra8huC0q0IEn59wL0Un5pBiiNT
- DKb7/mvDrMeTQi0vOLcftEyVdxyPknxZI4TMJeAqCrgrzUF0K75PuZGOhFoAeesbYY
- RdRBMsbMkaLpMjm44Sxqu0wjrzRhi4p1ddv2hSXiZdchGV5ZLeuf7lOsWT8XPvQBPN
- UQXs+3VrbzshQ==
+ b=C3WezpJKXYp1V0bqCt0aNOoC9wj6JqDMqgkHD2VNIDZqvy8Gr/TCb8nbCjit+fuKm
+ /TwfGTCWMRiTjQ17PreSa4pM1mez7aOngR/ayALjbaZCCNs4rdk/EpuqX6Fs6Ln7J5
+ TILmtLomiH0OOtiysvqoBvY4nhFTowJVHYZGqP0oSskL09d1JhuRUCWkUrJQSQYl6t
+ 3EYO2A3LNnFLcQK+nBrfeJwM0VpNOGa4hrcPcwdFZPdqU1RuQpJxJQ6rYsarwVWgQ4
+ ChLsLfywXTN1416GoGw2gZO7zvKza3Jsi1xqkVnpPIXDrbYvEeJIcz/1hk3BugMbvx
+ uveFWbFI/kWyg==
 Received: from kendalls-iMac.lan (st43p00im-dlb-asmtp-mailmevip.me.com
  [17.42.251.41])
- by st43p00im-ztfb10073301.me.com (Postfix) with ESMTPSA id 2B49080028C;
- Wed, 15 May 2024 19:46:45 +0000 (UTC)
+ by st43p00im-zteg10072001.me.com (Postfix) with ESMTPSA id 72CEF120E52;
+ Wed, 15 May 2024 19:20:17 +0000 (UTC)
 From: Kendall Smith <kendallsm2@icloud.com>
 To: amd-gfx@lists.freedesktop.org
-Cc: Kendall Smith <kendallsm2@icloud.com>
+Cc: linux-kernel@vger.kernel.org,
+	Kendall Smith <kendallsm2@icloud.com>
 Subject: [PATCH] drm/radeon: initialize atom DIG backlight for iMac12,
  1 and iMac12, 2 with Radeon 6750M
-Date: Wed, 15 May 2024 15:42:31 -0400
-Message-Id: <20240515194230.15430-1-kendallsm2@icloud.com>
+Date: Wed, 15 May 2024 15:20:09 -0400
+Message-Id: <20240515192009.14362-1-kendallsm2@icloud.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 01lK80zzQUvVen4gJfs4ONZkr4fmTB28
-X-Proofpoint-ORIG-GUID: 01lK80zzQUvVen4gJfs4ONZkr4fmTB28
+X-Proofpoint-GUID: vg2uwT33525UOzvB4dxOGeO5YaER4aZP
+X-Proofpoint-ORIG-GUID: vg2uwT33525UOzvB4dxOGeO5YaER4aZP
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
  definitions=2024-05-15_12,2024-05-15_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- adultscore=0 bulkscore=0
- mlxlogscore=999 phishscore=0 suspectscore=0 mlxscore=0 spamscore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2308100000 definitions=main-2405150142
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1011
+ phishscore=0
+ mlxlogscore=999 bulkscore=0 adultscore=0 suspectscore=0 spamscore=0
+ malwarescore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2308100000 definitions=main-2405150138
 X-Apple-Remote-Links: v=1;h=KCk=;charset=UTF-8
 X-Mailman-Approved-At: Wed, 15 May 2024 21:47:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
