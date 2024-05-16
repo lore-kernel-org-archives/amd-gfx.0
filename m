@@ -4,148 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F86FC25B74
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 May 2024 03:41:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06E87C25B79
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 May 2024 07:20:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C211E10E1F7;
-	Thu, 16 May 2024 03:41:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69A9D10E1DF;
+	Thu, 16 May 2024 07:20:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cFb3U5Rp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yHHzHEVK";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2045.outbound.protection.outlook.com [40.107.237.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EB1910E1F7
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 May 2024 03:41:08 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2068.outbound.protection.outlook.com [40.107.95.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D574A10E1DF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 May 2024 07:20:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fU/7zfFDkAwIwAeIXCqOEYt11A3W6B2eCxBTzsE86a99qvCnkGA1QrL2u2jhupZD+yjYzxKYo84mihxTc/pfhK1jRGC2pZ3S8zgxefURM7ttExeMOmCGm7SafYmT/W+kt8PDuRd8uyxp0plfDLLpI2jsGOtkXYzXwJBN2VRlslH4AUYKDhVy++CpDZwpyWnxLXrZfExFFOKZfayxJ/jqTrdnXf6tAvgrUwmYUJKZJutFC1kU/iBmDyF9tVwp0OnS3HqKOgbrFIfq8FBp8jKh445oITOc4f/tDHgE+Mmh4qwpHinL9T3Nde4RJAmdNF6c9Niaa78hxmVyq6WoEMUljg==
+ b=CKx7rdnucvP1vqb0nwo3+hmBo3ouaqjGHGdD6Scva8nWX7VLlGnzsg2HmJn59QeAQsihOY2+nN8i1gRLW7CDsbcI+l/h9gSjLA82EJTFb3aAfjE2LoDa2O4m4Rdjp8LLGrLa0OnXRQ7O1zgpCXk6iObV97782/dez5wXmuoY+D7C2jOqfm95fdsnOdw/3Adc5Y0cWnWHsKSiIy8p4GLc0ax5auYveiscrsYrAEqNRBijZXUd9NjJx/V4HyoMgXjrYwfDJTtR4iopYcYIZEEwb+ChRk2TYnBNiKXnn2567ZMj6Ec8+tFogp1XmOdnW0UGc3Mk3VT9VcKXrvfG23GTxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8BNrHw1ocaR65OXpdDVHz3M3+2x0Y+qFPc6C1GNpYI8=;
- b=EOn4Rnh2SOgKnM+zsJbnZrWk9O0JDqiXQZ9FaTn7R7ICGbEswIvS5wwTAKcpl9l+RNswtf9x9SeALqe40cABnHJ/xSSPC/1EEFEFSRPYnZdiY0HYu8kV4hXZSZYWGCcRoO2RohICnIUbEF9eQ6FWqM/saUCt5ySebLv9ClVeg8HdR2IcPWKYnvEtqJXRs19aEtPMvGBwlCMdzATGylW2V85Mkq0yq2i/+eS1Ry8o7Vo6xL3Bwq48cn5+n80aYZsYJthIwm8jX+QKgkTbRZZLfu1uzXGg1haDmaHllgAtqq2mmBcKyzVyHdk5HB3NyHbud2bTyISBKcLt27jsUkyBpw==
+ bh=cOrkiLBQSYEUtbCSCYo1jO/cz7CTsk/TvrCMMwkAuRg=;
+ b=ga5aqla+gqAwa/C/iQ7xnMMSZupas7u2UuwfgNtMDdt3wu9UGVcbA5SOC+wJ0UGMYXpmJ1zinXhr+zDfqKcReE4vjWd3BdeuAo6BIsIQQXTTsoywdA9ZTZJcwMc9XIqFXSmWo50+kYJZ6Bw9uLmvZeBnfEmPP6/DFAR1bQZ8tcZWOhK74zNbDdmznl4VWfBr4kDhvH2eBKBLvy/FAaNgKS5Qbal23JzCaRfKwmlKSqiLqnMz5iY0J3IWhD0NQXwxQJp6Le29t12Z7vJlNdrtP2FTJvZxwEfbvYKnDi4bOUTLOtc9FFk/cmkpNbOG6r0dER8l//9Tpa1lxyZqzDFtuQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8BNrHw1ocaR65OXpdDVHz3M3+2x0Y+qFPc6C1GNpYI8=;
- b=cFb3U5RplwSxLL+pofy8WvJzFENKlovK862iMHnANPklgpCm3qPL2J4w8nki7XGKFegXmob8QuUrT7MsrjLivUeu9BNveSaNs+63phEzJg9l2gGinHVjSsQPA+k+aQL9iV8TkTZXSe4c6tb+TYPGN6RT6tEULgFvA9k6+pWbBNM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13)
- by MN6PR12MB8492.namprd12.prod.outlook.com (2603:10b6:208:472::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.46; Thu, 16 May
- 2024 03:41:06 +0000
-Received: from PH7PR12MB5596.namprd12.prod.outlook.com
- ([fe80::8865:d63a:a8eb:282b]) by PH7PR12MB5596.namprd12.prod.outlook.com
- ([fe80::8865:d63a:a8eb:282b%4]) with mapi id 15.20.7544.052; Thu, 16 May 2024
- 03:41:05 +0000
-Message-ID: <b1c87bf1-46f3-44ad-9ae7-83fa45af0ba4@amd.com>
-Date: Thu, 16 May 2024 09:11:04 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] drm/amdgpu: Add support to dump gfx10 cp registers
+ bh=cOrkiLBQSYEUtbCSCYo1jO/cz7CTsk/TvrCMMwkAuRg=;
+ b=yHHzHEVKEQJOnaXotuiBhXCjHqRfYSME0PtcDpONX+ymFjbDL3UHQfKjRXfQw0eXe1RUqM9aynrTdYIIt9slq6FaLmu++rkTHXXtsFad7MLdjLmzoQyYqMOYfw+Et0ax4zALwZQzPiM7woETgWdv7CGwr5zS5d5nLUr3Pv7UDN4=
+Received: from DM4PR12MB5181.namprd12.prod.outlook.com (2603:10b6:5:394::22)
+ by DS0PR12MB8070.namprd12.prod.outlook.com (2603:10b6:8:dc::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.28; Thu, 16 May
+ 2024 07:20:06 +0000
+Received: from DM4PR12MB5181.namprd12.prod.outlook.com
+ ([fe80::b1fc:750e:c91c:6d7c]) by DM4PR12MB5181.namprd12.prod.outlook.com
+ ([fe80::b1fc:750e:c91c:6d7c%5]) with mapi id 15.20.7587.028; Thu, 16 May 2024
+ 07:20:06 +0000
+From: "Gao, Likun" <Likun.Gao@amd.com>
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Subject: RE: [PATCH 2/2] drm/amd/pm: enable thermal alert on smu 14.0.2/3
+Thread-Topic: [PATCH 2/2] drm/amd/pm: enable thermal alert on smu 14.0.2/3
+Thread-Index: AQHapy4HlQgHQ4OsXU+cEUhNj/Swt7GZdGhw
+Date: Thu, 16 May 2024 07:20:06 +0000
+Message-ID: <DM4PR12MB5181D3EF11511EBBEB5AB588EFED2@DM4PR12MB5181.namprd12.prod.outlook.com>
+References: <20240516011123.2112909-1-kenneth.feng@amd.com>
+ <20240516011123.2112909-2-kenneth.feng@amd.com>
+In-Reply-To: <20240516011123.2112909-2-kenneth.feng@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Khatri, Sunil" <Sunil.Khatri@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20240515121754.1810181-1-sunil.khatri@amd.com>
- <20240515121754.1810181-2-sunil.khatri@amd.com>
- <BL1PR12MB5144B860357AFBCC3A2518C8F7EC2@BL1PR12MB5144.namprd12.prod.outlook.com>
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <BL1PR12MB5144B860357AFBCC3A2518C8F7EC2@BL1PR12MB5144.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0052.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:98::17) To PH7PR12MB5596.namprd12.prod.outlook.com
- (2603:10b6:510:136::13)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=c1904a92-0ff9-4457-a87e-860b34feadd4;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-05-16T07:19:26Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5181:EE_|DS0PR12MB8070:EE_
+x-ms-office365-filtering-correlation-id: fd6315ea-5289-4749-4b9d-08dc75789c84
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230031|366007|376005|1800799015|38070700009;
+x-microsoft-antispam-message-info: =?us-ascii?Q?LVvB2o+fnxEAy+Ek7JmevW/+Vlt5sxWBdecNaHZ7tn5hZ11v6pp4JxFn+PTZ?=
+ =?us-ascii?Q?nwFtlL/cSb47YfgZvvIRKuwddkKxcFPb/qSPITXLD8XqxUAkZ+IU40p+pawd?=
+ =?us-ascii?Q?sTpW+TNcZhF4iGKoiGfBuvJbBmln5QxEaX5lSmpgWcV1BkR2VLR55O7FTO5X?=
+ =?us-ascii?Q?U9bc6nuL3LujiUb+9srzoJ1Tx1un3ftv0v+a23ymaeEn4bn7/tU/yiSF343x?=
+ =?us-ascii?Q?4NBWqCoaR/zpUSirmWIWESgADvg8pYYNuD+I6RF/DkMyiaX5FEAiGoySU/EG?=
+ =?us-ascii?Q?ND9V4ZrGbk6SeEy9bmKlfyUnCFuZJfi3d1zdEf6FJugx5sV/f8gMyPgJ6RKZ?=
+ =?us-ascii?Q?RJrNwN3/iyLdft+kGRNutlI22l60QdJFkrP+0ggrKQze2vEVKbuhg6kH6b5k?=
+ =?us-ascii?Q?qFBvCst5jlOKoqJ7LKG5tRSkqdHCxThRFpF2ZICSXwCWZ9EQvN8ZewYk8yre?=
+ =?us-ascii?Q?8KBAeB7XtmMDoWGV4eVzW4e1ct6lL/bLWchRrDxch9ffWb6i0LRCcBeMaHKK?=
+ =?us-ascii?Q?diBH/EKwaP7jp5e9OId5XLPvW7HoyS1kFvALMpNqFHkjUuPvo7zXBA/ktl/5?=
+ =?us-ascii?Q?7FRmBf7Znv02ysHzZgtZCocmRhOToDyHqhOR+XooJ7xdLcEC0hsBsZaqOE/+?=
+ =?us-ascii?Q?ckvHyBPtMXfvP0Nm5OGYaVWj8ftrd20e4RtfjcYYwmLu2icIfVxGcheATKdM?=
+ =?us-ascii?Q?2Gr/7sBjK09DUod3yewpfa5/Z7zAbuld0R9UEf6gnoxtdbLVUp/c9XjbWyF9?=
+ =?us-ascii?Q?3qhqAeogTPsVuhlQETK1Gsa7N+2EMe98eW5cfasyE4M5Zsag5MjGEwBEq0jT?=
+ =?us-ascii?Q?nlj3c1YZjuOmdwZdWvX6FcR81yFcotkTKYYRqFo53AsEp/d8hZJcqZP6wivA?=
+ =?us-ascii?Q?AgSiSEIeWE8UMRTHWXHZbbzlFYcHrrJFDi5ZKwtAD6490PO3gtgnZ1UEsFUL?=
+ =?us-ascii?Q?i23r6Jbtk7bYo/gr+5+7pCEzICrjbhr8LwavrfHKWdXRktDmN7VjvWYOqSPE?=
+ =?us-ascii?Q?AuAl03WCzWqOPlF+OB+uO4kvZC0DmogUi1EI7eviQUK76hPbHpjmeitDdeVS?=
+ =?us-ascii?Q?Gsnq9FXYXA+TR0+9i8vHhMbg150xT44ovo2vfPPddt/pKU432EVqFP34myvZ?=
+ =?us-ascii?Q?k5e4kvsX4qZgXfTMx49EmmV+MKpJYwL0FFdMY7zKV39QEpsoN691284xxZ4o?=
+ =?us-ascii?Q?hRo8ViHJgI8kk+0KSywondqZw2UwrqCbEpIFmLWh8mrM9dKs9jsJ8lQhgCCc?=
+ =?us-ascii?Q?+wPE8C7sAhEIdIAqT+ilXnI6I8Ois/udJ5UvUj7560RToWN1BFUqb+YVzkA1?=
+ =?us-ascii?Q?92TXS+nni+yq0d6L8ge7jawZiV4gv4t2HGuqg2WH3p1m1A=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5181.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(376005)(1800799015)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?rXp8Pe7+95cGTEz5kD6G+lCFgc6SzlZvB0NRW7b4B6t3D7QMmdxhxjrJqw9I?=
+ =?us-ascii?Q?hgBdT75/wKkya3/G5WZMVOtJnFWmJwJYh2EwZEsaTpl1y0dn2Mtx0eROMUmE?=
+ =?us-ascii?Q?iX860G6zvzm25JStAhXglDTLopWb0wqSIue07TSJWhwhY0QuDB+krId/ESZz?=
+ =?us-ascii?Q?jLsetZ5oCqj+wL8r9SmzFDhRK6g8ix+KsNII3m/jIJODsMqoPW5V2Qkk1bf9?=
+ =?us-ascii?Q?3a+UwzcbLGpDGu1Z/iPbBo/4vn5+n0/q3UIdCP66qOABr2J59MWa/+6TX5WR?=
+ =?us-ascii?Q?8Uc9OVk/+B/UWdfi4d6h6oo7tQSBeBDXT+9IaXFudjbVaRZDdhqF5At85V+D?=
+ =?us-ascii?Q?rqpnzi3TatNBUuNA0W9mu09t+re3UzwL6lnVswE/GIuixT3GN9fu3VdOv5Gg?=
+ =?us-ascii?Q?uzIzpBejS3jkSb1c0ztKaCTXahHAMwTZKRPpg9m41Gbwen9YGdpP6uPVdKhS?=
+ =?us-ascii?Q?pSmQDT+FYRq+l9WLNRpVLg0MpgZer0/JqugShHE/81rltPfCILHFeS+/of91?=
+ =?us-ascii?Q?pZ9FpwpP2GYp45VLnRhbYMZwXfQmt+etq6ly/yyfbMZIUUE5aQDoShi7M7nY?=
+ =?us-ascii?Q?aSON31NitBPAgcDz2X2dqQzuCCQbc5xH8duNxx6/OcwTeKt6Lm7jR/CSaseE?=
+ =?us-ascii?Q?PiiAv1RvUY6dbxcoCW6wGPdGzkG0vlyNX5eGgTaXl33nHezi/SUrgLD0Hxv9?=
+ =?us-ascii?Q?HpdNS7rmrLszTE6VmWkEMAPH/hsVUnxjxeqXV2PM1CXkLcSzy+u68gKyVVce?=
+ =?us-ascii?Q?gaMLlgfmkpk2lLcuCA6jrOJVUQxgRZ/M1wASutn94H8PsCwQdFBlsXaEcBwF?=
+ =?us-ascii?Q?KyHWF2F5nzw4uGX1FRt6lanPW+jj54NOlb/ZNM2SE1l3JhL7ICTIVeGGsL6v?=
+ =?us-ascii?Q?dSRUavRFYZdfcmh8Lkj4HUctEWaCGei9+gMiMlCE2EvmmxZ5Bb9kIZi+547T?=
+ =?us-ascii?Q?cgADzNdfTmEFJTLoI0Vrm1vbgNDwoce3fYIVsyq30ZrwhZNbIVx6qxQUvNk6?=
+ =?us-ascii?Q?b/lgc2UXkJdhVbQNHdCjDWLVP2h5Pkg+EioRWCO/8mXfYPDIds5ZJNJLdIcN?=
+ =?us-ascii?Q?wKqWdx7lG+IrTgiBy20Be0jLt6I1WJ9rxgJB1TDvfzrxavNOfsBUYKR54zjK?=
+ =?us-ascii?Q?bLXhT0plSxYnFSz9rKyrLwk2qU3N2UeQmV0EURUab6CFCb7HJFi4L9iigsgp?=
+ =?us-ascii?Q?qU7U33nNOY/xn1v/YphSNb6h4Cfn3kH6iiFPNaUc4UyRAwVHRY0mAoYElsdB?=
+ =?us-ascii?Q?94WNt/PUu0DrPU5vKwYqgAkDtSavDQM/O9qYCqyRzigvycP50OiXbQg7xr1J?=
+ =?us-ascii?Q?jRACiW26YoiSNjQa0S2rOb3hA+METGP6pf5DrXFtizQd2fAr57nhI/6XK3H+?=
+ =?us-ascii?Q?eSV+Q5nvC35Ln3J9DzBcXlxKH+JkafbO74DqDkAliIupnEVT03ZqUI9OxbEV?=
+ =?us-ascii?Q?J5RXkdIs4VZWd9kBof+pWyPUA4+f4ul4Qz2gtr/nEVjnwXms3KkLuxbB9S1c?=
+ =?us-ascii?Q?nACPS8rnOHb422FzOUhMY2b9ibtMARmIhfKkivL3nkV9AEzWSr0IsqK5a9t7?=
+ =?us-ascii?Q?IcIW7z6PSu9nKAvCpwk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5596:EE_|MN6PR12MB8492:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2758ceb9-9a40-4fe7-2d30-08dc755a0406
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|376005|1800799015;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?b1NOc1JCaUNJWENyMzBacG0vZmcwTHZ0dk9TaW1BeFcrb3Qydk4yYmF0V3Vr?=
- =?utf-8?B?K3ZzRE8rQUNTV01nZkE2NEsvUnFpb2J4bkxZVFA5S0lXa0gzaTBnODZsN3FW?=
- =?utf-8?B?UDM3cnd3TmttSkMveWpvL2Y2bWs4WkJUNEFveS93VTZUQlpPTkxSVTZQaTM3?=
- =?utf-8?B?bXNPYXMzK3FBb3p2S3JmWUl1ZTBUaFR5WDdpSkFTVVIxeCtHM2N6U1BWdUtz?=
- =?utf-8?B?WXIzMjBWdVluMUFyWXhzZ0tHVlVsV1pRZUVIeWFJTVdYT05peHI4d0tkemZV?=
- =?utf-8?B?b1hqV01HWlM4cmltcHRwMXp3ZGNyVjJNV0RnZ2o1WTJQVTVtamVZd083ajJY?=
- =?utf-8?B?Y2dtMDlNMVMzbEk0NmJPTkVCUzJqNldYNjhaTUhQcFVwK1Q4MEsrUGJKNnR4?=
- =?utf-8?B?cmNxdWp6aWZURmU2aHBMT2hxQlJYcnhVR0VrRjJkZ2FDYVpIaHhXOFpBSDUz?=
- =?utf-8?B?QkRKODJWZllKMW9vWFNhc3dERGI5SGxIYm1Ya0VGNUZPL1dHR0dHL0dRK2dO?=
- =?utf-8?B?cGFNUUpkcVkyOXB3clVqNlJkeXVMQmNXUFMzYkQ1dG9uUGRtdkYwbHN3L0s1?=
- =?utf-8?B?VjAvanFTQ25jdzltd3E3TmI5RFh2TG9kZjRIWGpiM2FTYWR6OTRFRXFkRHVM?=
- =?utf-8?B?WWhxWUxHL3RjQ2V1QktMbGRpRzZPK3RzNEdyVHpQaHg1NGk4KzVKYWtURldC?=
- =?utf-8?B?QjBsSW8yeXlESnhNZUdRS21sTTRRNFpzTGlpTXh1cFRnSHYwNFFSMWRGRGh4?=
- =?utf-8?B?R3R1MVpTNXErdStyRHNDb0dsaDdQNW4vS0l2OVdnbGJXL2xHY29IcHFsbWZ2?=
- =?utf-8?B?c2d0MUhkR0JmQ2s5NGMvMDZsOWJFZEFsSmZrSDQwQU0yY3FveC9YZTA0NFJr?=
- =?utf-8?B?VW5pNDJranFIYlJrcFpzUHh3ZFVmUjBBWWVyOC8rMnQrQTFrWFdNZXVzYWZW?=
- =?utf-8?B?YUVZc0VKVUZSdUlSdmViSDFSSUJnOXR3WXA0VjYxa09RQklWbDNqY2hNR0Vs?=
- =?utf-8?B?amlzM0gxeWV0cklJVXY1SnJVeW9WcTVGZkFaODJsQ3pLLzJyRVdWMFpnUEZV?=
- =?utf-8?B?QTZwNllaM0VNbFR2YTVBTVZwd2lSdmVRRXBtTXRpTjZnandGY0FFcGlOeEo5?=
- =?utf-8?B?cHVxS3FUa3RsK0hobjUzUHdiUHdZSThZbFFobnpJbEZzcUxXUUNiblRkNVJr?=
- =?utf-8?B?ZCsxbDdPaWowbldURTFYSCtLVklxajdkbmZvVmlMeFZwdnMvWGp4c3lpbWt6?=
- =?utf-8?B?UWtaMzFXak03MmhuTXdFY2w3bjRzUnRnckNYcHRSa1ZXREFPSG5EVzdaQjR5?=
- =?utf-8?B?dlh3NWpKeTBmenJGM1UvMmxhcFRwTk9QOWJ0cjF0dVdoVDB0VTZMZ3BSYTJx?=
- =?utf-8?B?NlF6TXZFRDl2Sm9hU2g5d21icHpwMlc5N0M3Qy9lZTBmSlJiK3N0ZEdQMjdT?=
- =?utf-8?B?UUpSZ1dEL2pQZmNSL1pBUWJlZ0NlbUpFMkp6eWhtV0ZrU2phV3hMKytMaWhW?=
- =?utf-8?B?VncyZDA1TE11bE1rN2FkTldtbFFwUlBxVm5kRjU4L3p0Zzk2dUpkZ1ZDVjZm?=
- =?utf-8?B?dUJ6VGM2TVJ4MlJYM24zN1cvYUc3dng1MEkyQi85NzdNR1p6c1NERFZuOEJ2?=
- =?utf-8?B?TitoRUZVQzJYbThVSzBPcVJlVGJHUkNtWDZvODhSeVJZWkVkWVNKeWhJQkhN?=
- =?utf-8?B?UHVBdExkK1RqVmtUd25nVjhPK1M1NExGT0NNS1RKSTh1N09mQVZ6NnB3PT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5596.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1JZby90N3M0aWhrWjl0bW1ucm5PYWlvRUhjMldrWVgzWHNXVlVLRExnOStJ?=
- =?utf-8?B?OXlOWnloS2JJeGdMdVQxL1RpdUxSR3k0cGNVT3dhd200Zm9mSzkrUVVqdzE5?=
- =?utf-8?B?aHVaN0dTbWlUR3lhdFM1VjJ2OE1oem5nNUkvT252MDU2L0Fzc1gzOHl6Wlpw?=
- =?utf-8?B?dk1GQXVRck1RVzNKR00zWjFWSUIxdkF1amE4RnROREhLcXA5eFlST1ZmaWdH?=
- =?utf-8?B?SHd2MXo5aENvZ2NGdUJkemIyWnZ1VjV5SVhVVkZvZ1RqYUZXd0I2eDJ6aWNO?=
- =?utf-8?B?ZEVFSGpDV3ZpZG1aQUk4MDJrUDJQOTlNd0hSbko1c1V3dG40bXBmTlcwQmx1?=
- =?utf-8?B?cmR6aW5UNElwZDlDenVhTDNCanlCU2ZKRm1OR1g1amxwcGpwbk9QSXhKaGJx?=
- =?utf-8?B?aE83QXpMZ3FPN1BNUXJNTlN6VFQrQWVYclZHSUpscVRzbFFzUklKU3VFcXhK?=
- =?utf-8?B?VXlFK21jQ05JTUxQZ2RFdHA3aEF5T1ZnaUNYTWg1QXErT09hT3hJS1JIZ0V3?=
- =?utf-8?B?Z052MTd3bldnVS9JWnFDeXJnOWFOUUd5c3dYWE10L1hSWkU5TzNFUU84Tm00?=
- =?utf-8?B?dGNRbU01aWxoY0gzSk52TCs4cDZ4b0FaNEpKaGJoaXc1V1JEeGp5SmxtWHR3?=
- =?utf-8?B?WEwxMDZJUHkzUmx5Um5YTVlrczNwMXZ0enZqeldMSmtUK016QmJndnYrMVNR?=
- =?utf-8?B?dFBiMFlaeWllQUZtZTNwV3ZUbU51aXl6aS8xOHkvMUxuUnVGaFZ1WFNnUk5y?=
- =?utf-8?B?TS9qZGJXSDk4U29QcGZKZ1Mxd1FhSkljYnVyQjdrV0hLbzhndjZWYTdyNVFr?=
- =?utf-8?B?REw5TVdoZ3ludG52WjRpUFpkU29kczNOUTFVVUtpY1kwbXovakprU2lubmZn?=
- =?utf-8?B?blRoZmk3OFh0aFBOMkFXWHloK1pVUDJJNDZzYjVFMDlrWXFmVW95UkRhUHNv?=
- =?utf-8?B?ZzltNGpwL2ZISGhQRU5jb2l6WVRVa1lmU2FDQnBpbDFTUmR6SWI5d2ZtNjhh?=
- =?utf-8?B?c2t5S3Z2WG1kVDlPTXhCSGhvVy85eWtOekhVRVhncnZQZmQ0VkVjdlR5NWhh?=
- =?utf-8?B?WWM1bjk4cDJaRzk5dm5CazRUMTdZcS9XNnBjNlppenpUYUFYdzJUYWRsWnFJ?=
- =?utf-8?B?NEpLZGhQRXJ6b3FjNHdCM1hhMTBIc1A5akthQk1ZTDNhWS85MVNWaVpkemVs?=
- =?utf-8?B?SnJyZzlkZ1Q0amFwYVpFeGtIQ0k1TjZjb3dmRXA1NVVCK2VNdWd0WFd3aUhz?=
- =?utf-8?B?VldneEd6U3RNSzhZM2xSZk9oODdEZVErRUsydGJtKyswbkpJYkRKb0JGcUpq?=
- =?utf-8?B?Y3JUS1d5S0VMcC9oKytybEp0eXQ2NGdERjNEWWxjWGhBMVdGbU9qUnVXMlJk?=
- =?utf-8?B?UlV2NEUvWUFRUkpyYWpFUmo4RUxwUjNGbkZGRzlPT3AvdW01OGxYMWFSZUZv?=
- =?utf-8?B?Z0dBb1M1V3lrcy8zZDJFa3NsQVRsTTJoQkQ3Y3pMYWFwblNlR0g4T0MrNVdx?=
- =?utf-8?B?UXpObys0QThCdTdLMGR3ci9WQ3ZJYTRiUFlPTWFrOU1kNElXemZwQy9pVlJJ?=
- =?utf-8?B?R0tXcXc5ZHNNTzJjOWdNOTBHMk81aGZpdVVLUk9HUHdsQ1l0NnE2dVl0dWtt?=
- =?utf-8?B?Q2FJcUxRRkR1OVdlSzVFVi8zak9YTjhoMy9qWGZlOStoUUhOaDUveXgvOFFG?=
- =?utf-8?B?cXo5Tk5SRTZEOTBlV1BWOXdya2VzYjA1eW9FUzRPSDNVTXpIOXZyempsS1dW?=
- =?utf-8?B?WFZOVGdLU1FMeWRsdGtjdnpkK3IxdGxyUGhyRVFrT1I4RWR1dTdlSmRPZkxJ?=
- =?utf-8?B?dWNEOXlhSGZOTmdiS25wRUJpOFl3RnpSNDNROFNZQzlWYlp5MGF1ZGJ2aW1B?=
- =?utf-8?B?SzlxL3Z2RmJhOHB5NVl3bW94R2R4NEtwRFpuMG5BdFU0bkllUHVvb1ZZTi81?=
- =?utf-8?B?K1BoYWlwVlRDK0JuaFp3R29rYjE3aTdnZUs2ejdWbEUvdjFmdFNtdzdJMmNU?=
- =?utf-8?B?dG1CV1p6Wkk0dHVhejhpa2ZYWHlKV1FoYlVSQjlpa2Y1SU1lRGcxQ1V4bllX?=
- =?utf-8?B?cWloeHgxVy9oSE1VMm1KMkErL3BDb0VkVkpDYzZ1UzJSb2xORGlnMHdpM0Vk?=
- =?utf-8?Q?Ra8QB3ARn4zOxzB6HXHQYrBuh?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2758ceb9-9a40-4fe7-2d30-08dc755a0406
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5596.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2024 03:41:05.7849 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1lfk5KIky+bVYJlZLCr+tPLXy4bZ5ZFWVwdg18R93o068zXQfu22Ld5XNzaf4YUWmvKQBJ6sclq5+Kc86z7XjA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8492
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5181.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd6315ea-5289-4749-4b9d-08dc75789c84
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 May 2024 07:20:06.1835 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: eJ9AgxDCl23IwRb2s71kK9QIDSpnW25svacq9cXMu+9jmnOICEHrjyljZTH1aPMZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8070
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,251 +152,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-On 5/16/2024 1:40 AM, Deucher, Alexander wrote:
-> [Public]
->
->> -----Original Message-----
->> From: Sunil Khatri <sunil.khatri@amd.com>
->> Sent: Wednesday, May 15, 2024 8:18 AM
->> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
->> <Christian.Koenig@amd.com>
->> Cc: amd-gfx@lists.freedesktop.org; Khatri, Sunil <Sunil.Khatri@amd.com>
->> Subject: [PATCH v3 2/4] drm/amdgpu: Add support to dump gfx10 cp
->> registers
->>
->> add support to dump registers of all instances of cp registers in gfx10
->>
->> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |   1 +
->>   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 117
->> +++++++++++++++++++++++-
->>   2 files changed, 114 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->> index 30d7f9c29478..d96873c154ed 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
->> @@ -436,6 +436,7 @@ struct amdgpu_gfx {
->>
->>        /* IP reg dump */
->>        uint32_t                        *ipdump_core;
->> +     uint32_t                        *ipdump_cp;
-> I'd call this ip_dump_compute or ip_dump_compute_queues to align with that the registers represent.
-Sure
->
-> Alex
->
->>   };
->>
->>   struct amdgpu_gfx_ras_reg_entry {
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
->> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
->> index f6d6a4b9802d..daf9a3571183 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
->> @@ -381,6 +381,49 @@ static const struct amdgpu_hwip_reg_entry
->> gc_reg_list_10_1[] = {
->>        SOC15_REG_ENTRY_STR(GC, 0, mmGRBM_STATUS_SE3)  };
->>
->> +static const struct amdgpu_hwip_reg_entry gc_cp_reg_list_10[] = {
->> +     /* compute registers */
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_VMID),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PERSISTENT_STATE),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PIPE_PRIORITY),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_QUEUE_PRIORITY),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_QUANTUM),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_BASE),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_BASE_HI),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_RPTR),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR),
->> +     SOC15_REG_ENTRY_STR(GC, 0,
->> mmCP_HQD_PQ_WPTR_POLL_ADDR_HI),
->> +     SOC15_REG_ENTRY_STR(GC, 0,
->> mmCP_HQD_PQ_DOORBELL_CONTROL),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_CONTROL),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_IB_BASE_ADDR),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_IB_BASE_ADDR_HI),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_IB_RPTR),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_IB_CONTROL),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_DEQUEUE_REQUEST),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_EOP_BASE_ADDR),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_EOP_BASE_ADDR_HI),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_EOP_CONTROL),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_EOP_RPTR),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_EOP_WPTR),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_EOP_EVENTS),
->> +     SOC15_REG_ENTRY_STR(GC, 0,
->> mmCP_HQD_CTX_SAVE_BASE_ADDR_LO),
->> +     SOC15_REG_ENTRY_STR(GC, 0,
->> mmCP_HQD_CTX_SAVE_BASE_ADDR_HI),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_CTX_SAVE_CONTROL),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_CNTL_STACK_OFFSET),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_CNTL_STACK_SIZE),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_WG_STATE_OFFSET),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_CTX_SAVE_SIZE),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_GDS_RESOURCE_STATE),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_ERROR),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_EOP_WPTR_MEM),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_WPTR_LO),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_PQ_WPTR_HI),
->> +     SOC15_REG_ENTRY_STR(GC, 0,
->> mmCP_HQD_SUSPEND_CNTL_STACK_OFFSET),
->> +     SOC15_REG_ENTRY_STR(GC, 0,
->> mmCP_HQD_SUSPEND_CNTL_STACK_DW_CNT),
->> +     SOC15_REG_ENTRY_STR(GC, 0,
->> mmCP_HQD_SUSPEND_WG_STATE_OFFSET),
->> +     SOC15_REG_ENTRY_STR(GC, 0, mmCP_HQD_DEQUEUE_STATUS) };
->> +
->>   static const struct soc15_reg_golden golden_settings_gc_10_1[] = {
->>        SOC15_REG_GOLDEN_VALUE(GC, 0, mmCB_HW_CONTROL_4,
->> 0xffffffff, 0x00400014),
->>        SOC15_REG_GOLDEN_VALUE(GC, 0, mmCGTT_CPF_CLK_CTRL,
->> 0xfcff8fff, 0xf8000100), @@ -4595,10 +4638,11 @@ static int
->> gfx_v10_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
->>                             hw_prio, NULL);
->>   }
->>
->> -static void gfx_v10_0_alloc_dump_mem(struct amdgpu_device *adev)
->> +static void gfx_v10_0_alloc_ip_dump(struct amdgpu_device *adev)
->>   {
->>        uint32_t reg_count = ARRAY_SIZE(gc_reg_list_10_1);
->>        uint32_t *ptr;
->> +     uint32_t inst;
->>
->>        ptr = kcalloc(reg_count, sizeof(uint32_t), GFP_KERNEL);
->>        if (ptr == NULL) {
->> @@ -4607,6 +4651,19 @@ static void gfx_v10_0_alloc_dump_mem(struct
->> amdgpu_device *adev)
->>        } else {
->>                adev->gfx.ipdump_core = ptr;
->>        }
->> +
->> +     /* Allocate memory for gfx cp registers for all the instances */
->> +     reg_count = ARRAY_SIZE(gc_cp_reg_list_10);
->> +     inst = adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec *
->> +             adev->gfx.mec.num_queue_per_pipe;
->> +
->> +     ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
->> +     if (ptr == NULL) {
->> +             DRM_ERROR("Failed to allocate memory for GFX CP IP
->> Dump\n");
->> +             adev->gfx.ipdump_cp = NULL;
->> +     } else {
->> +             adev->gfx.ipdump_cp = ptr;
->> +     }
->>   }
->>
->>   static int gfx_v10_0_sw_init(void *handle) @@ -4761,7 +4818,7 @@ static
->> int gfx_v10_0_sw_init(void *handle)
->>
->>        gfx_v10_0_gpu_early_init(adev);
->>
->> -     gfx_v10_0_alloc_dump_mem(adev);
->> +     gfx_v10_0_alloc_ip_dump(adev);
->>
->>        return 0;
->>   }
->> @@ -4816,6 +4873,7 @@ static int gfx_v10_0_sw_fini(void *handle)
->>        gfx_v10_0_free_microcode(adev);
->>
->>        kfree(adev->gfx.ipdump_core);
->> +     kfree(adev->gfx.ipdump_cp);
->>
->>        return 0;
->>   }
->> @@ -9280,7 +9338,7 @@ static void gfx_v10_0_emit_mem_sync(struct
->> amdgpu_ring *ring)  static void gfx_v10_ip_print(void *handle, struct
->> drm_printer *p)  {
->>        struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->> -     uint32_t i;
->> +     uint32_t i, j, k, reg, index = 0;
->>        uint32_t reg_count = ARRAY_SIZE(gc_reg_list_10_1);
->>
->>        if (!adev->gfx.ipdump_core)
->> @@ -9290,12 +9348,32 @@ static void gfx_v10_ip_print(void *handle, struct
->> drm_printer *p)
->>                drm_printf(p, "%-50s \t 0x%08x\n",
->>                           gc_reg_list_10_1[i].reg_name,
->>                           adev->gfx.ipdump_core[i]);
->> +
->> +     /* print cp registers for all instances */
->> +     if (!adev->gfx.ipdump_cp)
->> +             return;
->> +
->> +     reg_count = ARRAY_SIZE(gc_cp_reg_list_10);
->> +
->> +     for (i = 0; i < adev->gfx.mec.num_mec; i++) {
->> +             for (j = 0; j < adev->gfx.mec.num_pipe_per_mec; j++) {
->> +                     for (k = 0; k < adev->gfx.mec.num_queue_per_pipe;
->> k++) {
->> +                             drm_printf(p, "mec %d, pipe %d, queue
->> %d\n", i, j, k);
->> +                             for (reg = 0; reg < reg_count; reg++) {
->> +                                     drm_printf(p, "%-50s \t 0x%08x\n",
->> +
->> gc_cp_reg_list_10[reg].reg_name,
->> +                                                adev->gfx.ipdump_cp[index
->> + reg]);
->> +                             }
->> +                             index += reg_count;
->> +                     }
->> +             }
->> +     }
->>   }
->>
->>   static void gfx_v10_ip_dump(void *handle)  {
->>        struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->> -     uint32_t i;
->> +     uint32_t i, j, k, reg, index = 0;
->>        uint32_t reg_count = ARRAY_SIZE(gc_reg_list_10_1);
->>
->>        if (!adev->gfx.ipdump_core)
->> @@ -9305,6 +9383,37 @@ static void gfx_v10_ip_dump(void *handle)
->>        for (i = 0; i < reg_count; i++)
->>                adev->gfx.ipdump_core[i] =
->> RREG32(SOC15_REG_ENTRY_OFFSET(gc_reg_list_10_1[i]));
->>        amdgpu_gfx_off_ctrl(adev, true);
->> +
->> +     /* dump cp registers for all instances */
->> +     if (!adev->gfx.ipdump_cp)
->> +             return;
->> +
->> +     reg_count = ARRAY_SIZE(gc_cp_reg_list_10);
->> +     amdgpu_gfx_off_ctrl(adev, false);
->> +     mutex_lock(&adev->srbm_mutex);
->> +     for (i = 0; i < adev->gfx.mec.num_mec; i++) {
->> +             for (j = 0; j < adev->gfx.mec.num_pipe_per_mec; j++) {
->> +                     for (k = 0; k < adev->gfx.mec.num_queue_per_pipe;
->> k++) {
->> +                             nv_grbm_select(adev, i, j, k, 0);
->> +
->> +                             for (reg = 0; reg < reg_count; reg++) {
->> +                                     adev->gfx.ipdump_cp[index + reg] =
->> +
->>        RREG32(SOC15_REG_ENTRY_OFFSET(
->> +
->>        gc_cp_reg_list_10[reg]));
->> +                             }
->> +                             index += reg_count;
->> +                             /*
->> +                              * Reading all registers take long and causes
->> watchdog timeout,
->> +                              * releasing core for every set of registers read
->> helps in cpu
->> +                              * core not being locked.
->> +                              */
->> +                             msleep(1);
->> +                     }
->> +             }
->> +     }
->> +     nv_grbm_select(adev, 0, 0, 0, 0);
->> +     mutex_unlock(&adev->srbm_mutex);
->> +     amdgpu_gfx_off_ctrl(adev, true);
->>   }
->>
->>   static const struct amd_ip_funcs gfx_v10_0_ip_funcs = {
->> --
->> 2.34.1
+The series was
+Reviewed-by: Likun Gao <Likun.Gao@amd.com>.
+
+Regards,
+Likun
+
+-----Original Message-----
+From: Kenneth Feng <kenneth.feng@amd.com>
+Sent: Thursday, May 16, 2024 9:11 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Gao, Likun <Likun.Gao@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+Subject: [PATCH 2/2] drm/amd/pm: enable thermal alert on smu 14.0.2/3
+
+enable thermal alert on smu 14.0.2/3
+
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h  |  8 +++
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c    | 68 ++++++++++++++++++-
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 35 +++++++++-
+ 3 files changed, 108 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h b/drivers/gpu/drm=
+/amd/pm/swsmu/inc/smu_v14_0.h
+index 3d34b3869df6..9b97a4e95c0f 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
+@@ -48,6 +48,10 @@
+
+ #define SMU14_TOOL_SIZE                        0x19000
+
++#define CTF_OFFSET_EDGE                        5
++#define CTF_OFFSET_HOTSPOT             5
++#define CTF_OFFSET_MEM                 5
++
+ extern const int decoded_link_speed[5];  extern const int decoded_link_wid=
+th[7];
+
+@@ -236,5 +240,9 @@ int smu_v14_0_od_edit_dpm_table(struct smu_context *smu=
+,
+
+ void smu_v14_0_set_smu_mailbox_registers(struct smu_context *smu);
+
++int smu_v14_0_enable_thermal_alert(struct smu_context *smu);
++
++int smu_v14_0_disable_thermal_alert(struct smu_context *smu);
++
+ #endif
+ #endif
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/d=
+rm/amd/pm/swsmu/smu14/smu_v14_0.c
+index fbfe9cae0e05..8cce17d1f230 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+@@ -38,6 +38,8 @@
+ #include "amdgpu_ras.h"
+ #include "smu_cmn.h"
+
++#include "asic_reg/thm/thm_14_0_2_offset.h"
++#include "asic_reg/thm/thm_14_0_2_sh_mask.h"
+ #include "asic_reg/mp/mp_14_0_2_offset.h"
+ #include "asic_reg/mp/mp_14_0_2_sh_mask.h"
+
+@@ -853,12 +855,19 @@ static int smu_v14_0_set_irq_state(struct amdgpu_devi=
+ce *adev,
+                                   unsigned tyep,
+                                   enum amdgpu_interrupt_state state)  {
++       struct smu_context *smu =3D adev->powerplay.pp_handle;
++       uint32_t low, high;
+        uint32_t val =3D 0;
+
+        switch (state) {
+        case AMDGPU_IRQ_STATE_DISABLE:
+                /* For THM irqs */
+-               // TODO
++               val =3D RREG32_SOC15(THM, 0, regTHM_THERMAL_INT_CTRL);
++               val =3D REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_INTH=
+_MASK, 1);
++               val =3D REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_INTL=
+_MASK, 1);
++               WREG32_SOC15(THM, 0, regTHM_THERMAL_INT_CTRL, val);
++
++               WREG32_SOC15(THM, 0, regTHM_THERMAL_INT_ENA, 0);
+
+                /* For MP1 SW irqs */
+                if (amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(=
+14, 0, 0) || @@ -875,7 +884,24 @@ static int smu_v14_0_set_irq_state(struct=
+ amdgpu_device *adev,
+                break;
+        case AMDGPU_IRQ_STATE_ENABLE:
+                /* For THM irqs */
+-               // TODO
++               low =3D max(SMU_THERMAL_MINIMUM_ALERT_TEMP,
++                         smu->thermal_range.min / SMU_TEMPERATURE_UNITS_PE=
+R_CENTIGRADES);
++               high =3D min(SMU_THERMAL_MAXIMUM_ALERT_TEMP,
++                          smu->thermal_range.software_shutdown_temp);
++               val =3D RREG32_SOC15(THM, 0, regTHM_THERMAL_INT_CTRL);
++               val =3D REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, MAX_IH_CRE=
+DIT, 5);
++               val =3D REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_IH_H=
+W_ENA, 1);
++               val =3D REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_INTH=
+_MASK, 0);
++               val =3D REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_INTL=
+_MASK, 0);
++               val =3D REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_=
+INTH, (high & 0xff));
++               val =3D REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_=
+INTL, (low & 0xff));
++               val =3D val & (~THM_THERMAL_INT_CTRL__THERM_TRIGGER_MASK_MA=
+SK);
++               WREG32_SOC15(THM, 0, regTHM_THERMAL_INT_CTRL, val);
++
++               val =3D (1 << THM_THERMAL_INT_ENA__THERM_INTH_CLR__SHIFT);
++               val |=3D (1 << THM_THERMAL_INT_ENA__THERM_INTL_CLR__SHIFT);
++               val |=3D (1 << THM_THERMAL_INT_ENA__THERM_TRIGGER_CLR__SHIF=
+T);
++               WREG32_SOC15(THM, 0, regTHM_THERMAL_INT_ENA, val);
+
+                /* For MP1 SW irqs */
+                if (amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(=
+14, 0, 0) || @@ -1849,3 +1875,41 @@ int smu_v14_0_od_edit_dpm_table(struct =
+smu_context *smu,
+        return ret;
+ }
+
++static int smu_v14_0_allow_ih_interrupt(struct smu_context *smu) {
++       return smu_cmn_send_smc_msg(smu,
++                                   SMU_MSG_AllowIHHostInterrupt,
++                                   NULL);
++}
++
++static int smu_v14_0_process_pending_interrupt(struct smu_context *smu)
++{
++       int ret =3D 0;
++
++       if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_ACDC_BIT))
++               ret =3D smu_v14_0_allow_ih_interrupt(smu);
++
++       return ret;
++}
++
++int smu_v14_0_enable_thermal_alert(struct smu_context *smu) {
++       int ret =3D 0;
++
++       if (!smu->irq_source.num_types)
++               return 0;
++
++       ret =3D amdgpu_irq_get(smu->adev, &smu->irq_source, 0);
++       if (ret)
++               return ret;
++
++       return smu_v14_0_process_pending_interrupt(smu);
++}
++
++int smu_v14_0_disable_thermal_alert(struct smu_context *smu) {
++       if (!smu->irq_source.num_types)
++               return 0;
++
++       return amdgpu_irq_put(smu->adev, &smu->irq_source, 0); }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index 1fbceb85d319..2b874e1ba4ea 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -1276,10 +1276,41 @@ static int smu_v14_0_2_update_pcie_parameters(struc=
+t smu_context *smu,
+        return 0;
+ }
+
++static const struct smu_temperature_range smu14_thermal_policy[] =3D {
++       {-273150,  99000, 99000, -273150, 99000, 99000, -273150, 99000, 990=
+00},
++       { 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000,
++120000}, };
++
+ static int smu_v14_0_2_get_thermal_temperature_range(struct smu_context *s=
+mu,
+                                                     struct smu_temperature=
+_range *range)  {
+-       // TODO
++       struct smu_table_context *table_context =3D &smu->smu_table;
++       struct smu_14_0_2_powerplay_table *powerplay_table =3D
++               table_context->power_play_table;
++       PPTable_t *pptable =3D smu->smu_table.driver_pptable;
++
++       if (amdgpu_sriov_vf(smu->adev))
++               return 0;
++
++       if (!range)
++               return -EINVAL;
++
++       memcpy(range, &smu14_thermal_policy[0], sizeof(struct
++smu_temperature_range));
++
++       range->max =3D pptable->CustomSkuTable.TemperatureLimit[TEMP_EDGE] =
+*
++               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++       range->edge_emergency_max =3D (pptable->CustomSkuTable.TemperatureL=
+imit[TEMP_EDGE] + CTF_OFFSET_EDGE) *
++               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++       range->hotspot_crit_max =3D pptable->CustomSkuTable.TemperatureLimi=
+t[TEMP_HOTSPOT] *
++               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++       range->hotspot_emergency_max =3D (pptable->CustomSkuTable.Temperatu=
+reLimit[TEMP_HOTSPOT] + CTF_OFFSET_HOTSPOT) *
++               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++       range->mem_crit_max =3D pptable->CustomSkuTable.TemperatureLimit[TE=
+MP_MEM] *
++               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++       range->mem_emergency_max =3D (pptable->CustomSkuTable.TemperatureLi=
+mit[TEMP_MEM] + CTF_OFFSET_MEM)*
++               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++       range->software_shutdown_temp =3D powerplay_table->software_shutdow=
+n_temp;
++       range->software_shutdown_temp_offset =3D
++pptable->CustomSkuTable.FanAbnormalTempLimitOffset;
+
+        return 0;
+ }
+@@ -1866,6 +1897,8 @@ static const struct pptable_funcs smu_v14_0_2_ppt_fun=
+cs =3D {
+        .update_pcie_parameters =3D smu_v14_0_2_update_pcie_parameters,
+        .get_thermal_temperature_range =3D smu_v14_0_2_get_thermal_temperat=
+ure_range,
+        .register_irq_handler =3D smu_v14_0_register_irq_handler,
++       .enable_thermal_alert =3D smu_v14_0_enable_thermal_alert,
++       .disable_thermal_alert =3D smu_v14_0_disable_thermal_alert,
+        .notify_memory_pool_location =3D smu_v14_0_notify_memory_pool_locat=
+ion,
+        .set_soft_freq_limited_range =3D smu_v14_0_set_soft_freq_limited_ra=
+nge,
+        .init_pptable_microcode =3D smu_v14_0_init_pptable_microcode,
+--
+2.34.1
+
