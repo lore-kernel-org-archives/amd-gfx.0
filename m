@@ -4,116 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB853C04FFE
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 17:11:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70374C04FFE
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 20:15:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1938810E031;
-	Fri, 17 May 2024 17:11:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE6CF10E23D;
+	Fri, 17 May 2024 20:15:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FVP6qTSN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dIgAKZ11";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2079.outbound.protection.outlook.com [40.107.223.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFA7010E031
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 May 2024 17:11:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Krn0GiK86Jw1B1M77TjyVP5oefuviLfBRFAufGnAVGSWtBMDyujCpXO1oq7FMgwJOGTxt14uOZI5n5Cn4fal9nbYERHeO2Ed4f8OCkrbimIomn7ELahDc12IDZqhBrY85fnVRNXXp4ZdpqAKwxgUJbvA3EDw0HYI3YQc59kzKoe3WAoznWrK0XNAZOKjGZq/iW8kkUls+XxCuPljxvZlGH25O1MNVIypAnfLW2OdqR5yKVohzI0NKt82I8JAydSjEhAq3XwOGO8km6/b431p40taKdA4MrnsFYJuRtEt4mFiOaXTwlJorq5RO3Zqv05WgIssBQDkJAIQV2NJBRRwhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SIvXy3cl1zoUtYXYqRbkSUgo34YRwkrXAhfk/sq+jKA=;
- b=WwvjNuhtZ6Bxc4GrnPdVRsUtqIa79xyY7YtkEmCFSZES+uZugIn9dZSJPCcL4iQQB+be/JWRzlZy0krC3V78Nscw2VJ/VGe6iy8BxBlK+Q64ThlekGC/DSM5SANZhM3ujYZkN65vAG6W77BdT4d5TWibXg/UYe4hWw17r5aggdj1guuXOVOe+3yBnfTYFp0vFbJ9YnAwdacqBld3z7f6UUROUpB0/dQJvVpHuscm0DIcNJInxXKhJbPF4O+E8/uKPP7NdlaYY5dzx89uKEr7CeFZejt5DQhMDI5Km+THlQP2T7acWGIyRNSdeAtbkxkF54mwgC9Gz9GRfupmWoFCVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SIvXy3cl1zoUtYXYqRbkSUgo34YRwkrXAhfk/sq+jKA=;
- b=FVP6qTSN6QOjgsdjXJ5ehjLNXQGbibgKRDnfCpYGCrD05GSvkRa/uq7PBY66JDDxd6yjknGCA9ldKfRHwedU2Hx1opUO0ejII2cYxEeC4GA3VCfpLnTJ2dNMAChDxgyzwiSTREXNvpCU9Agp+9Yb8Ma9ZDF2o1AY0+97Rh025T4=
-Received: from BY5PR17CA0027.namprd17.prod.outlook.com (2603:10b6:a03:1b8::40)
- by DS0PR12MB8296.namprd12.prod.outlook.com (2603:10b6:8:f7::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7587.28; Fri, 17 May 2024 17:11:39 +0000
-Received: from MWH0EPF000989E9.namprd02.prod.outlook.com
- (2603:10b6:a03:1b8:cafe::14) by BY5PR17CA0027.outlook.office365.com
- (2603:10b6:a03:1b8::40) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.29 via Frontend
- Transport; Fri, 17 May 2024 17:11:39 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989E9.mail.protection.outlook.com (10.167.241.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7587.21 via Frontend Transport; Fri, 17 May 2024 17:11:39 +0000
-Received: from mkmvskvorts01.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 17 May
- 2024 12:11:38 -0500
-From: Victor Skvortsov <victor.skvortsov@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Victor Skvortsov <victor.skvortsov@amd.com>
-Subject: [PATCH] drm/amdgpu: Remove wrong fini_data_exchange call
-Date: Fri, 17 May 2024 13:11:19 -0400
-Message-ID: <20240517171119.51967-1-victor.skvortsov@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 596F010E23D;
+ Fri, 17 May 2024 20:15:38 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-1ed0abbf706so18695185ad.2; 
+ Fri, 17 May 2024 13:15:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1715976938; x=1716581738; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xfVKM6yCHTHqqF0MjeIKbFzobNgOfi1RcCAO0pIjbd4=;
+ b=dIgAKZ11pfGMTOGkUzMM2hpLzK7LR/1QDe/I4XOLLy7FF+vkNDa2gYRT1OOQjGyScs
+ dBQhO6wMjxZ/2iOpd6QwTHk97AXnAcAL/Hdwdqql/Q5db4kOgs70WqSFGnkF1jJH90zH
+ HjTHWKwULBEfU9xoypHQWhbznd3N1zpp8r7pEVRKE15texsvJdE7hhYow0YnitDB1f+8
+ Qf127tWAtsL+GhZyNbtFqk5u9rb0HdtuHwmF3rLIpbe0KFQQ3Ben63+8uvTRG19sunnK
+ 6e8TB43gOU/tUc5KwB02usVLNtMUNgMDJUsjoE9SUzriz62/YlacTNQAlisxR5xuucq/
+ NI0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715976938; x=1716581738;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=xfVKM6yCHTHqqF0MjeIKbFzobNgOfi1RcCAO0pIjbd4=;
+ b=Fl7Z75U9Hx0KVqdHmYI7mx3bObAMxhcRkYmy6Amldn/1po0T545BFlVV8nrnSONS3d
+ ChFntoS9ISW5cLbAQ4yUpWM2So5fb1UsthI/vgwB8EQi8ATCZe//+SWFgJ8xGVhnllsx
+ B1OrFOnkqn+9EleMsnQ9bMzdVuBcsIGO64XNC8Kvn2df1Q0080LNfoOepM3+7MQHGED9
+ sb2lwlKvFPBaudYv4CsRw9aeAqqTQdpsEnBzDDPwg6Ndm3G6At2evntTj2Fc/dKC1gnE
+ xiD/VbyVTRkT/I17LNZld2Rnc/oUcWFbFIK6wcWEqM+LBb6SkdqjoOZBgFGAJ1zkTfoj
+ 8sqA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWoNd4z7rx3ifidcxNALpUAODzI1Jhhnp48oRmNnDm8IyYZdgjDxEo8+z6m7zQMjMmzdyKCBINp48WKfiEZ6O9kW1oWaZXiXkDbmqrM5pbBAe7EWMDpODHIwyJ0ifan9pOXeJqm4GVEaaMw0Nob+g==
+X-Gm-Message-State: AOJu0YxnpJ1R/9b4iP1TbS9IRAbrhxJz7Vgxtjefx0IPBdNUNkHq028J
+ /AJnCJMIAvp14Y4t+PrLDdm0RXwXqmQ6ZXf7QQhS8PCgbBNlOEjtA+inAWok4ixjL3v5vMJx+jm
+ V3gGFc0QxcAp0lWL+0Lrx0vWk3jY=
+X-Google-Smtp-Source: AGHT+IFZwP6rWy44FU4rq3UxXiUaAdkE55laBfEUdUNPOu8ek1f785nnafJHyUKHdP0NMIfhhm7Dg4hKjJktCEChsrs=
+X-Received: by 2002:a17:90a:7d0e:b0:2a2:ba9:ba61 with SMTP id
+ 98e67ed59e1d1-2b6ccc72e91mr23681441a91.34.1715976937752; Fri, 17 May 2024
+ 13:15:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E9:EE_|DS0PR12MB8296:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5a0ecc2-04ac-4fb7-227a-08dc76946a62
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230031|1800799015|376005|36860700004|82310400017; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?XvqS84mT0hJZl/TPpq8uqb/n/h4Za2pKVAbHmHiolAhgZfnZQiUGXuNL1KY4?=
- =?us-ascii?Q?2vNTgFTFNQ5xmRlZB3l1JdQ10n0GqwmZubEmEKKKksKQbNpqPxe/M319IBZd?=
- =?us-ascii?Q?qPJfDJB2Xy3U7O9RwFhWE81Y0Qpi1gep2FQBHyEV38IsQCkaR3UJPipveBMV?=
- =?us-ascii?Q?bYZivKeq7ygAH8MiCCJBmk0+AUpGLq8evFoCskFas1MNf6U7v3Bfe6x1Oo8Y?=
- =?us-ascii?Q?nW4YiBngVe1ZV3/8ks+ejOUbLUUgNiy4cbL+JZI3aSp3254o+iCOuTRCYeVY?=
- =?us-ascii?Q?4PFKxwADtuHO55nF9yqWuMYRXhwgeV5fGQ2h2Ke40ekOWDvWnTcq7h1w/R/J?=
- =?us-ascii?Q?5zHNMfuJQWr8a9XST/bu1P7TmKtvLaAyhzcLfuuSQAlMRpZo3pOOCGKtn2WZ?=
- =?us-ascii?Q?0+WbafByzDrtgACWbdDkhOa79TAkI+5bh7POYCysOAT16ObnU7nUW1jbEZka?=
- =?us-ascii?Q?bZeoPCgHXB8KNdfE6YgdmhWG9kdcs+zXMyX3TdAtS//93dLrynuKLlKvS2Km?=
- =?us-ascii?Q?m75+orVWY8Go5hwlHrXBSrT/Ax2NSYXAp0sYoXw6LiIkI7XxvhBFnMZqK76p?=
- =?us-ascii?Q?48QQspyQckPezi6Ik+i/JNhD43CRUpJpkw7JA5/VFf13WS+t8NX3JGALndn6?=
- =?us-ascii?Q?E+u1urCr0bpS63ufiKCydYHmsLB7vSzDznPCYJ0SqJi3LWPT+1G3iGV5p6pF?=
- =?us-ascii?Q?6DrkZcUX2GM8wfgNrygw2EQ7WUNHlnIi4J3Ni6EfxlZRs9wnQ/PgO/BPJSyc?=
- =?us-ascii?Q?bjJDz7DIFRuVJmIRBymGZ8ok6LPBvNGQg35dbfLKn2RSoHjIWQ1UJ76l3xx8?=
- =?us-ascii?Q?bUeo6/vrLofxnMCT+iz+ni80BMtWT+1/B4yymVaaRazcQTjeFGmxetnV+ASs?=
- =?us-ascii?Q?WVSaIxVzTLByFdqYm0eqqo0EQs9ah4J7Abo4cr6D3yLM5cKoRRiCVMnkViNT?=
- =?us-ascii?Q?hfXqjdarlFU7ypDrQ7nsIDCkGv7dwwEW+XPNqWGmuUHupnrEzvDzvZOkJLym?=
- =?us-ascii?Q?K0gvDIhBCp4/9Zwg1/1UUEiMER5VIo3XsUXoPEjt9uAVK2CkLMereATo+IYQ?=
- =?us-ascii?Q?UHrTE+iU5Okkv8dbaodyTLXula5d3vOxRa4ODi0Go1vEDGFD2+ccMp+MvZTf?=
- =?us-ascii?Q?Vm8qUfnVAIFdtAJ6nJo1jB0kCxpk3vZKSNdY4SpULhnVJ1dhG3XlPBk5UnWm?=
- =?us-ascii?Q?UebodlFFIehlNn5CASggrB8gXsXRIl9f2zCtrdhyhV/DCJX+eaURZPVkTpbm?=
- =?us-ascii?Q?r68upZq0GRNrE1nj9nfQi7smsLSQgggWrPCuc/bIHd1aq4PKj9Ol0f5RwvQD?=
- =?us-ascii?Q?8eZFFHN/UZ9fyV4zwN8dMTmEL8nW73lxrM6Dr89cl6Ir8W5bHARm1g/0Q8PW?=
- =?us-ascii?Q?vEKfNUqmmhvtTkzC3nmkAk/Qm94P?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(376005)(36860700004)(82310400017); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2024 17:11:39.0258 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5a0ecc2-04ac-4fb7-227a-08dc76946a62
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E9.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8296
+References: <20240516115721.1.I8d413e641239c059d018d46cc569048b813a5d9b@changeid>
+ <9dd1cfd1-fe13-4434-a7cc-e14113dcaf53@amd.com>
+ <CADnq5_NGLrrFmFHFX2bC7naByJGofEiYQyWvRP6CO4BDFo52TQ@mail.gmail.com>
+ <CAMaBtwFQxeARGyhVxo+WsYCHgmJNJ7ThjtPcFv=LZqRNJtVxsw@mail.gmail.com>
+In-Reply-To: <CAMaBtwFQxeARGyhVxo+WsYCHgmJNJ7ThjtPcFv=LZqRNJtVxsw@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 17 May 2024 16:15:26 -0400
+Message-ID: <CADnq5_MnsAEk_YsyMjaDH6G406E4=hQvMtOTU5xh5JeZJE7kqw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Remove GC HW IP 9.3.0 from noretry=1
+To: Tim Van Patten <timvp@chromium.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ LKML <linux-kernel@vger.kernel.org>, alexander.deucher@amd.com, 
+ prathyushi.nangia@amd.com, Tim Van Patten <timvp@google.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Ikshwaku Chauhan <ikshwaku.chauhan@amd.com>, Le Ma <le.ma@amd.com>, 
+ Lijo Lazar <lijo.lazar@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Shaoyun.liu" <Shaoyun.liu@amd.com>, 
+ Shiwu Zhang <shiwu.zhang@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,42 +90,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This call is already done inside amdgpu_device_pre_asic_reset.
-If should_recover_gpu is false, then vf2pf worker thread is
-permanently killed.
+On Fri, May 17, 2024 at 1:27=E2=80=AFPM Tim Van Patten <timvp@chromium.org>=
+ wrote:
+>
+> > Fair enough, but this is also the only gfx9 APU which defaults to
+> > noretry=3D1, all of the rest are dGPUs.  I'd argue it should align with
+> > the other GFX9 APUs or they should all enable noretry=3D1.
+>
+> Do you mean we should remove all IP_VERSION(9, X, X) entries from
+> amdgpu_gmc_noretry_set(), leaving just >=3D IP_VERSION(10, 3, 0)?
 
-Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 2 --
- drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c | 2 --
- 2 files changed, 4 deletions(-)
+No, just take your patch as is.  All of the other 9.x IP versions in
+that check are dGPUs.  9.3.0 was the only APU in that list.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-index f4c47492e0cd..8b07328a4b7a 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-@@ -264,8 +264,6 @@ static void xgpu_ai_mailbox_flr_work(struct work_struct *work)
- 
- 	down_write(&adev->reset_domain->sem);
- 
--	amdgpu_virt_fini_data_exchange(adev);
--
- 	xgpu_ai_mailbox_trans_msg(adev, IDH_READY_TO_RESET, 0, 0, 0);
- 
- 	do {
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-index 37b49a5ed2a1..8a2f2feb5130 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-@@ -297,8 +297,6 @@ static void xgpu_nv_mailbox_flr_work(struct work_struct *work)
- 
- 	down_write(&adev->reset_domain->sem);
- 
--	amdgpu_virt_fini_data_exchange(adev);
--
- 	xgpu_nv_mailbox_trans_msg(adev, IDH_READY_TO_RESET, 0, 0, 0);
- 
- 	do {
--- 
-2.34.1
-
+Alex
