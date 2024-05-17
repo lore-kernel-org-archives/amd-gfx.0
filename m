@@ -4,122 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06576C04FFE
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 09:50:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98D5BC04FFE
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 11:02:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6332E10EE59;
-	Fri, 17 May 2024 09:50:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3CD610EB11;
+	Fri, 17 May 2024 11:02:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="aqPS27rf";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ybHcdzif";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="aqPS27rf";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ybHcdzif";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ILoys5is";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E42FD10E21D;
- Fri, 17 May 2024 09:50:23 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6034E37344;
- Fri, 17 May 2024 09:50:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1715939422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8jfFpRbNQ4JylrNPf/Ju6XAY6qQjrc+0U9vxW7VwdqA=;
- b=aqPS27rfYVOIlQYJQqRWN1OB2KuGqplKO0xASvAy99Em1LNhKAq/Z45rrmqOfomt6ymSXF
- OiEv1bW+ZdpI213w3TR/RlpBxADCOtSoygZG2IWVCeRjyU7fk9xYWgYywcz+IS9+rfxp20
- iBC1DT09pzE+KgT4PXFcXk6IVt2gReU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1715939422;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8jfFpRbNQ4JylrNPf/Ju6XAY6qQjrc+0U9vxW7VwdqA=;
- b=ybHcdzifmrWaHz4fudlW6TywmF4wPptrNP5A3fPjgJZxiNP8yysPTURMY+P9YDVx2v+UNY
- h72YrP3bBg//bVBQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1715939422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8jfFpRbNQ4JylrNPf/Ju6XAY6qQjrc+0U9vxW7VwdqA=;
- b=aqPS27rfYVOIlQYJQqRWN1OB2KuGqplKO0xASvAy99Em1LNhKAq/Z45rrmqOfomt6ymSXF
- OiEv1bW+ZdpI213w3TR/RlpBxADCOtSoygZG2IWVCeRjyU7fk9xYWgYywcz+IS9+rfxp20
- iBC1DT09pzE+KgT4PXFcXk6IVt2gReU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1715939422;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8jfFpRbNQ4JylrNPf/Ju6XAY6qQjrc+0U9vxW7VwdqA=;
- b=ybHcdzifmrWaHz4fudlW6TywmF4wPptrNP5A3fPjgJZxiNP8yysPTURMY+P9YDVx2v+UNY
- h72YrP3bBg//bVBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3DB2D13991;
- Fri, 17 May 2024 09:50:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id rHjlDV0oR2boBwAAD6G6ig
- (envelope-from <tiwai@suse.de>); Fri, 17 May 2024 09:50:21 +0000
-Date: Fri, 17 May 2024 11:50:38 +0200
-Message-ID: <87r0e0zs0h.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Linux trace kernel
- <linux-trace-kernel@vger.kernel.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers 
- <mathieu.desnoyers@efficios.com>, Linus Torvalds 
- <torvalds@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org,
- kvm@vger.kernel.org, linux-block@vger.kernel.org,
- linux-cxl@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- virtualization@lists.linux.dev, linux-rdma@vger.kernel.org,
- linux-pm@vger.kernel.org, iommu@lists.linux.dev,
- linux-tegra@vger.kernel.org, netdev@vger.kernel.org,
- linux-hyperv@vger.kernel.org, ath10k@lists.infradead.org,
- linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
- ath12k@lists.infradead.org, brcm80211@lists.linux.dev,
- brcm80211-dev-list.pdl@broadcom.com, linux-usb@vger.kernel.org,
- linux-bcachefs@vger.kernel.org, linux-nfs@vger.kernel.org,
- ocfs2-devel@lists.linux.dev, linux-cifs@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-edac@vger.kernel.org,
- selinux@vger.kernel.org, linux-btrfs@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-hwmon@vger.kernel.org, io-uring@vger.kernel.org,
- linux-sound@vger.kernel.org, bpf@vger.kernel.org,
- linux-wpan@vger.kernel.org, dev@openvswitch.org,
- linux-s390@vger.kernel.org, tipc-discussion@lists.sourceforge.net, Julia 
- Lawall <Julia.Lawall@inria.fr>
-Subject: Re: [PATCH] tracing/treewide: Remove second parameter of
- __assign_str()
-In-Reply-To: <20240516133454.681ba6a0@rorschach.local.home>
-References: <20240516133454.681ba6a0@rorschach.local.home>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-1.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- R_RATELIMIT(0.00)[to_ip_from(RL6rcqepr6awpd9qb5xxedoiwq)];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCPT_COUNT_GT_50(0.00)[50];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[efficios.com:email, inria.fr:email,
- imap1.dmz-prg2.suse.org:helo, suse.de:email, goodmis.org:email,
- linux-foundation.org:email]
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2053.outbound.protection.outlook.com [40.107.92.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AE6F10EB11
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 May 2024 11:02:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mzVjzcs7SI88YFXgS2hy8qvdBbEZW1NvfbZ6Ca+jqmsWPplt51wYQ643VW2L+TUwbcWK8Dy0W0g+c0NJpl2/KhwgluzB086MOdhNxmijSVJQ8rNU0vPXb7Nt1KePYlNiuDydlA3DW2emOUPe1A27bPmSAJquLFpTERfDlxXmV8hPaoevvkz+//Uv6V9QgQ7ENaRj9IFPu7k4+6DCYnt1oGB0KhkR9gKXPjET4T/7phAzhu+zkCXa3Dme1rK/t2jMxgVBoBOimILJy6YE9kdBoa2umqkBjRxH6NPfEWGrc+9TgCHcxwzbWxro4J2G19BBm0uM/DSAdqJOTbvdmEbT2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QH4wjyoey03YJNyuqaH0GSekaxMLRaZ48cKfie52fy0=;
+ b=OwIQ/ixVUhjCanUYo7ZJ1qG8d1E+/ETeCL8HvQ01H0+XQ4cGxDbcKUSCacpLv6OwZjrPUVDpA5odq9/N4jpr94QImzhczpmEgc0MnKiUNUmcZOAUHb7DTjj+XJ06conGnfbyYuQL077cr7IFp3xOKb4fjpdT/OskyD4/MdHdP8H+X0MjKG+c3L96paA/WvuY2xWtF2+QErjRfa4esaVTfuA+CDMD7vxF9bsMuFO0o5YGifzvg1QVVQUi3+JXlMMO8OWCtw5/H/GrwpUvcgEH34iNhUWRseqhuB2Q09BE/vhsXFMtZinEPME+q1jBoyN9muYEf2pl3pCeXa6RCg/2DA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QH4wjyoey03YJNyuqaH0GSekaxMLRaZ48cKfie52fy0=;
+ b=ILoys5isCEuJqk5BYWJDyos1MHE8dxIeDl4GX7JNdtZfeayB0+1U5q4shM2AYi3fZUw+tZaLZisuP35NAU4W4ivYHlCz1cPAtDcuKXwdRuXbxnTWWLLIBA1SMRZCBpTF7RAw/QH71kWdeTMM2M95HxamqAe4Ji1Y+0SJul7f3MQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB7740.namprd12.prod.outlook.com (2603:10b6:610:145::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.28; Fri, 17 May
+ 2024 11:02:23 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.7587.025; Fri, 17 May 2024
+ 11:02:23 +0000
+Message-ID: <d2318d74-6dd6-4d25-aa4f-1b1bebf8fc31@amd.com>
+Date: Fri, 17 May 2024 13:02:18 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/amdgpu: Add amdgpu_bo_is_vm_bo helper
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com
+References: <20240503091500.7768-1-tursulin@igalia.com>
+ <48fd5f77-9a5f-43a3-8009-e1655cb447bc@igalia.com>
+ <7361a70b-656b-4de3-bf63-5a913bdfc5fe@gmail.com>
+ <76dd9099-568a-4b80-9d70-57dba6578571@igalia.com>
+ <7da37cf9-b007-459f-991e-bbcae28933d4@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <7da37cf9-b007-459f-991e-bbcae28933d4@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0094.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cb::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB7740:EE_
+X-MS-Office365-Filtering-Correlation-Id: fcf89618-dfe4-439f-eb93-08dc7660d454
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230031|376005|1800799015|366007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YjNKaTBMV2dXR1RncnVkcXBzVmdzeXBTcWxDZ3d2NEc1dGx5Y0k5aDZQblo5?=
+ =?utf-8?B?bm5WaExlMzExV002cjNidm83RWlmVkpQSFE4cWJLbFh2ZDZ1a09kSTdtbmt3?=
+ =?utf-8?B?K2tuT3N2UnpkVy9TVUNORDB0RzZMTU5NZHUxbmFEYUdIUXl5VXhKYmFWU1ZH?=
+ =?utf-8?B?NjlZRlRjL2ZrcE5Gb1podHJrRXRGcFREUHhQTkRvaGdZeHFmVG52VkNKR3VL?=
+ =?utf-8?B?UXRzMFNxV1BvOU9BRjJ0QWZVb1hOWTVCTEcyMGxSbFlqd1VIN2doVEpVTFZO?=
+ =?utf-8?B?OXI1TFVDSm5qOXRSZjM0UVBMM0M5WmpCVTdwOVk5b3VzaWhsRHhmWm9SNjlT?=
+ =?utf-8?B?bG9kZExQcFFSS3l2cTVnQWEvUUE5bmpCcGxZN3VaNWhkSU5jMS9Udk5ScTBI?=
+ =?utf-8?B?dzdab094a01CV3daLzJVQkNmcmZCOVpLUk1mdjhNYjhlU25WdWNoQTVUNENN?=
+ =?utf-8?B?c3ZEOHNDN0VOQjRBZC9tRjZ0dFR1QUFPT0JJYW1YQzhVTldVb2xqcEdiL3Q4?=
+ =?utf-8?B?YStJM01sTGlPcm5RZnFIV2cvMTd3VVROZnFDQklIS2FEdW9xVUhqdVdyUkFz?=
+ =?utf-8?B?VmE1b1Y4bUxmR05hUFdTMkdIU3lzTkdZU242TTlacDdZb0pLbHlUbTZ3OUYw?=
+ =?utf-8?B?b1pWdnpBSS82ZWRhdm9kYVZDcVZlYmkwbUYwRi9SMHpOc3I4M0dmVHMyNXNj?=
+ =?utf-8?B?aWp1ZGQrUElkM2pTUG5WbFpDRGhORjhvNjltVDZHYjFDYUFUU3VMc1JVSEpy?=
+ =?utf-8?B?bm1ybkU1N1JmWWJYeTJRS0ozTU9YMCtvQlFNeHJiZHdVWGF2SmFGc3Z0K3B3?=
+ =?utf-8?B?VnE4eTV5a3dtS1JBOVFNWnlMeTJhT3g0Mks5UXV5ekxLLzFkL0l1L3BwdWJU?=
+ =?utf-8?B?WUd4UFFzanBTZlhXWEE0eXdSaVJiTkVZblprbkFXcGxNdkNWUE16R0hXZVNO?=
+ =?utf-8?B?UVk2S2xEcUFjTVBsdGwyelN2OW5Ha2xPYmNaWkNCaXQrWFpsaEl4ZlVDZDVm?=
+ =?utf-8?B?eSt2Y2lJd0ppdjNCNi9tNzM3anprM0ZhQy9pMkw4SWpkQ1BWMDRmVzhqVnlo?=
+ =?utf-8?B?aFIrT28vMXVGSnRLREhSTG1QVFFKdjB6am4wY2tLQ2RlbVZrN2xwbGhMNytx?=
+ =?utf-8?B?MHhvTmN2b2NlVkFVaE1yTy8zOWdhQmRlUWUvY29yRkhpK25jODExOXZRT2M1?=
+ =?utf-8?B?Mkp6ZHZmMnVmMnd2WU8weFFXbi8ybnR2cXViVG9wMmFzMWE3YXBRYUtVNFhn?=
+ =?utf-8?B?eDVtbTk4N0tjYy9Yb0t0bzZSMmpNUVJiYXJGTFhGYVpmVVlydmMyVHhmbk9F?=
+ =?utf-8?B?b2hlajNOaW5zelFLaXpmNVhYdlBzUG1TQ3FSWkQ4UzVPYnI1N2gxRWZLbSs2?=
+ =?utf-8?B?bXF5L1JjQVdzelJxSzU2SHFhWDRKSjdzazBXMStldlhDaHZ0WjU3YVdzUXJZ?=
+ =?utf-8?B?MFRGMTYxYmN3QSt3eTE3Z0crWnkwYkU1RVdTTyt1aTVkenFjZDBRdSt0U3Bw?=
+ =?utf-8?B?VlkvTmlTUzdSSHN0WFZnbXJCeC9wRXRoRkZqcHMxd0wxNGhQb1ZaK2RYSHE0?=
+ =?utf-8?B?VWp3Vk9pRlRCc05oUVZHOEQyc3U2b0E0YzduY25aNitvOXoxSzRDcy9Ud3NW?=
+ =?utf-8?Q?YGoQxwCF+ZL3UQSyVV5xZWgS4576WxdUrvRxtonLN3ms=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(366007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0Y0RWNTZzUrMDJQMnNZend3VGZoclg4L09lUXZXOHdrbmhkTUsxSzVKNTRl?=
+ =?utf-8?B?UlIrWmhIZUVmS1RSWHo0Zy92SmkrcUFvVDVLeWxiY3V5TVRDUFl4cWY3ekZT?=
+ =?utf-8?B?ZXdZMTZLZHE2bkhoU3N4L2d2a0wwZ1F2VnhZVTZWR2ovNXNYWDdsZmdVUmph?=
+ =?utf-8?B?R3ZmTCsya3N5OWFmQ0dldng2WmhqOU5RQng5Mk9USnRXRldQQ1dXeFQwVDRh?=
+ =?utf-8?B?Q1BHb1ZTcTlrVDJ0a1hqWmlsdGk4UkloSVhkdEFEMWc4TTZwUzlzcFNvYVcv?=
+ =?utf-8?B?Vmp0VG5jY3paZEdTaWV5L043c1RGdUR4c0xJeUh4WTQ4VnM4dnlxZnpnc3RB?=
+ =?utf-8?B?RTVPNm9lS2lES2xJTEorbUFybi81SisvL1ozZk5mNjZWMDZVUWtQUWZjUFJj?=
+ =?utf-8?B?YnB0czJQM2l3Q1FHamw2WnFkR3hXUG5WZGViajZiT1A5MGVKdGFyUFphMEZG?=
+ =?utf-8?B?K0tTbmVTS1ZCazN0NTlRck0zNG1FSm5PT1l1Z1dEbnVVdUtrbmVsemlCRWdh?=
+ =?utf-8?B?WUZXN1ErK281MWdyWkc3cEE3QkpRMEdtVDhzTDB2c3V3Qk1JMEVHa0VjekNY?=
+ =?utf-8?B?NEQ4QXNINzB1OVVXQ3VwL09HcTdieWRiSk9ORG9lWWRHYU81WUc2NGhqcGlw?=
+ =?utf-8?B?Wmt4Z1hscmFCY2MrTXJlSVBlK21QK2QvSFpUVndXL3FxY3locXVvL283bTJW?=
+ =?utf-8?B?VFpRdHV0SENuV1F3STZ0Z3FwWVhZeW9zbllFSkdVL01qRE5wd0dOVHU4SzhW?=
+ =?utf-8?B?UTdxNXhYYlp1N0JoTGFMM0hYZUg0eWtsSVAvOTVnVEZZc3I5N2VEOS85czEv?=
+ =?utf-8?B?Y2hwdzlZQlR6a3dZTWpIa3BUcFhwMFB4dnFlWFF4L2twMkhaeExVdkh6QXkx?=
+ =?utf-8?B?S2poUWFpTEVmQ1Q1QXZPeDFjcXF1dm4wY2h3ajFWd3lCckNOK1Y2eW9nOTh3?=
+ =?utf-8?B?bzRCSkw5SDhtcW42b3IyY01hSTdGbHBDd0VYQXVuNHVJN0g5Z0VMdlhSMWZm?=
+ =?utf-8?B?SVoyYTRxWkt3Q2U0NllNSTV5VFVqS3FEc0oyQjZSd0ZSbVpPeUhHODlmMHBi?=
+ =?utf-8?B?eUNPMndqTG5YVzVxb2x2YUhCRngwRHhEUDg0TXQ2eVFVcTY3U2tCeVduZkxw?=
+ =?utf-8?B?Wmw3TFM2aXhTckwzelB0TDc2dDVLOFZDc0RIZ3ltYjV5Sm5XcmVPQUlFbFpt?=
+ =?utf-8?B?M2kva0U0MjU3VlU3SGYxYm9GQndaN0FxRjJzeit1ZU1BdUQ2UUhDN3JPeSt2?=
+ =?utf-8?B?Q3kyNjFCa2NsLzcvN0cvbFoydHg3a0l6eENKSmpjaStnMFl5b0RzK0FaNzQ3?=
+ =?utf-8?B?MmxmcEFsU3FqclljWmxXdy91Q29PUC92WVNmSzhwckdPUWVRZkE5NDdKNSs0?=
+ =?utf-8?B?Sm9mRWZKV1I2emFEazRwWnhDVngvU3V4TXAxQmZNampiRVJRWXlFUitoejNn?=
+ =?utf-8?B?VW5MUGN1dWFYQ1hhS0I4eUZxV0pKOFBYUGVkNnc1ODc2QUY0SEhFR2ZUMUk3?=
+ =?utf-8?B?N21UZE12Q2ljaGw1NktITkc3aWVqVjgrZWNoT2RjQUpmVjRKVmh6UXJmMmFK?=
+ =?utf-8?B?Umxtd3F4b0pERUpiR0dXTWd4VkdJNlVuSGJhQnRLVlJVOFhiNzZ2WG5iWEc3?=
+ =?utf-8?B?V2lES1lra0hOa21uTUpuY0paOVdadldoK3ltdDJMWStZMnBhdnc5YnNEMFdr?=
+ =?utf-8?B?blk5d3NBUklCMENIUGVsRXFuOW9WTGZqV3g0NmgwUDdraXlBNmpxdFVoVGZs?=
+ =?utf-8?B?TnZPSUZyd0E1WmlOeDBYNDhoaVNLbFZVK3dNQ3h4YUhEcXhVYUhEUXRPRFNT?=
+ =?utf-8?B?Q3RIMGZHUFVQSzVEbVVnMTdaUHp3a3VvVmtjYUNyYUNDYXlSYzJvc2FFdjNL?=
+ =?utf-8?B?ZElQTUUvZ1VRdDJ0MUs5K3hMZHlHcnVIWVQyRnNZWU1waXJnTVloN3ZaZTM2?=
+ =?utf-8?B?Z0dLK2xiMiswa3RqSE9hZEFqcjNtamFGMnlKTXo4QllkcllCZHNLSEhSS2F2?=
+ =?utf-8?B?ckN3RTR0THFPSmc2cktTTS9JZU9ZazY2Z3R1RWY4K3d1MU9HYkFPYUpZTm1i?=
+ =?utf-8?B?TWdjY2RGR2lKVE5KUjNaR0N4QWdTOHFJTm9NUy9EU21tTkxoaktLTWdGZjRp?=
+ =?utf-8?Q?ou+KMy7JWZSQCTKkJipkPUOjp?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcf89618-dfe4-439f-eb93-08dc7660d454
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2024 11:02:23.4152 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: g4eQCWhUyGq0R5Q4QH/iYZh3N0StTtZefm0sMal3G+0EZDOIvPD2trjrTlTNltre
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7740
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,61 +161,228 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 16 May 2024 19:34:54 +0200,
-Steven Rostedt wrote:
-> 
-> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
-> 
-> [
->    This is a treewide change. I will likely re-create this patch again in
->    the second week of the merge window of v6.10 and submit it then. Hoping
->    to keep the conflicts that it will cause to a minimum.
-> ]
-> 
-> With the rework of how the __string() handles dynamic strings where it
-> saves off the source string in field in the helper structure[1], the
-> assignment of that value to the trace event field is stored in the helper
-> value and does not need to be passed in again.
-> 
-> This means that with:
-> 
->   __string(field, mystring)
-> 
-> Which use to be assigned with __assign_str(field, mystring), no longer
-> needs the second parameter and it is unused. With this, __assign_str()
-> will now only get a single parameter.
-> 
-> There's over 700 users of __assign_str() and because coccinelle does not
-> handle the TRACE_EVENT() macro I ended up using the following sed script:
-> 
->   git grep -l __assign_str | while read a ; do
->       sed -e 's/\(__assign_str([^,]*[^ ,]\) *,[^;]*/\1)/' $a > /tmp/test-file;
->       mv /tmp/test-file $a;
->   done
-> 
-> I then searched for __assign_str() that did not end with ';' as those
-> were multi line assignments that the sed script above would fail to catch.
-> 
-> Note, the same updates will need to be done for:
-> 
->   __assign_str_len()
->   __assign_rel_str()
->   __assign_rel_str_len()
-> 
-> I tested this with both an allmodconfig and an allyesconfig (build only for both).
-> 
-> [1] https://lore.kernel.org/linux-trace-kernel/20240222211442.634192653@goodmis.org/
-> 
-> Cc: Masami Hiramatsu <mhiramat@kernel.org>
-> Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> Cc: Linus Torvalds <torvalds@linux-foundation.org>
-> Cc: Julia Lawall <Julia.Lawall@inria.fr>
-> Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+Am 16.05.24 um 14:21 schrieb Tvrtko Ursulin:
+>
+> Hi Christian,
+>
+> On 08/05/2024 09:26, Tvrtko Ursulin wrote:
+>> On 08/05/2024 06:42, Christian König wrote:
+>>> Am 06.05.24 um 18:26 schrieb Tvrtko Ursulin:
+>>>>
+>>>> On 03/05/2024 10:14, Tvrtko Ursulin wrote:
+>>>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>>>
+>>>>> Help code readability by replacing a bunch of:
+>>>>>
+>>>>> bo->tbo.base.resv == vm->root.bo->tbo.base.resv
+>>>>>
+>>>>> With:
+>>>>>
+>>>>> amdgpu_vm_is_bo_always_valid(vm, bo)
+>>>>>
+>>>>> No functional changes.
+>>>>>
+>>>>> v2:
+>>>>>   * Rename helper and move to amdgpu_vm. (Christian)
+>>>>>
+>>>>> v3:
+>>>>>   * Use Christian's kerneldoc.
+>>>>>
+>>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>>>>> ---
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |  2 +-
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 41 
+>>>>> ++++++++++++++++---------
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  2 ++
+>>>>>   3 files changed, 29 insertions(+), 16 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>>>> index 67c234bcf89f..e698d65e9508 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>>>> @@ -174,7 +174,7 @@ static int amdgpu_gem_object_open(struct 
+>>>>> drm_gem_object *obj,
+>>>>>           return -EPERM;
+>>>>>         if (abo->flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID &&
+>>>>> -        abo->tbo.base.resv != vm->root.bo->tbo.base.resv)
+>>>>> +        !amdgpu_vm_is_bo_always_valid(vm, abo))
+>>>>>           return -EPERM;
+>>>>>         r = amdgpu_bo_reserve(abo, false);
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>> index 4e2391c83d7c..d451ff9d5af4 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>> @@ -333,7 +333,7 @@ void amdgpu_vm_bo_base_init(struct 
+>>>>> amdgpu_vm_bo_base *base,
+>>>>>       base->next = bo->vm_bo;
+>>>>>       bo->vm_bo = base;
+>>>>>   -    if (bo->tbo.base.resv != vm->root.bo->tbo.base.resv)
+>>>>> +    if (!amdgpu_vm_is_bo_always_valid(vm, bo))
+>>>>>           return;
+>>>>> dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+>>>>> @@ -1101,13 +1101,13 @@ static void amdgpu_vm_bo_get_memory(struct 
+>>>>> amdgpu_bo_va *bo_va,
+>>>>>        * For now ignore BOs which are currently locked and 
+>>>>> potentially
+>>>>>        * changing their location.
+>>>>>        */
+>>>>> -    if (bo->tbo.base.resv != vm->root.bo->tbo.base.resv &&
+>>>>> +    if (!amdgpu_vm_is_bo_always_valid(vm, bo) &&
+>>>>>           !dma_resv_trylock(bo->tbo.base.resv))
+>>>>>           return;
+>>>>>         amdgpu_bo_get_memory(bo, stats);
+>>>>> -    if (bo->tbo.base.resv != vm->root.bo->tbo.base.resv)
+>>>>> -        dma_resv_unlock(bo->tbo.base.resv);
+>>>>> +    if (amdgpu_vm_is_bo_always_valid(vm, bo))
+>>>>
+>>>> Beware the logic inversion here - luckily no one merged it yet! I 
+>>>> will send a respin..
+>>>
+>>> Let me know when that is done, I was about to merge it.
+>>
+>> First three patches in the series 
+>> https://lore.kernel.org/amd-gfx/20240506165959.50648-1-tursulin@igalia.com/ 
+>> if you can pull it from there or I should resend standalone?
+>>
+>> Please double check it though. Sorry about that I am so used to 
+>> pre-merge CI we have on the i915 preventing silly mistakes such as 
+>> that one.
+>
+> Small reminder on the above since you have been out - are you okay to 
+> pick up the first three patches from 
+> https://lore.kernel.org/amd-gfx/20240506165959.50648-1-tursulin@igalia.com/, 
+> if they still look okay to you? Or I should re-send them standalone?
 
-For the sound part
-Acked-by: Takashi Iwai <tiwai@suse.de>
+Ah, thanks for the reminder. Totally forgotten that I wanted to push 
+this. Just done so.
 
+Regards,
+Christian.
 
-thanks,
+>
+> Regards,
+>
+> Tvrtko
+>
+>>>>> + dma_resv_unlock(bo->tbo.base.resv);
+>>>>>   }
+>>>>>     void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
+>>>>> @@ -1203,8 +1203,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device 
+>>>>> *adev, struct amdgpu_bo_va *bo_va,
+>>>>>           uncached = false;
+>>>>>       }
+>>>>>   -    if (clear || (bo && bo->tbo.base.resv ==
+>>>>> -              vm->root.bo->tbo.base.resv))
+>>>>> +    if (clear || amdgpu_vm_is_bo_always_valid(vm, bo))
+>>>>>           last_update = &vm->last_update;
+>>>>>       else
+>>>>>           last_update = &bo_va->last_pt_update;
+>>>>> @@ -1246,7 +1245,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device 
+>>>>> *adev, struct amdgpu_bo_va *bo_va,
+>>>>>        * the evicted list so that it gets validated again on the
+>>>>>        * next command submission.
+>>>>>        */
+>>>>> -    if (bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv) {
+>>>>> +    if (amdgpu_vm_is_bo_always_valid(vm, bo)) {
+>>>>>           uint32_t mem_type = bo->tbo.resource->mem_type;
+>>>>>             if (!(bo->preferred_domains &
+>>>>> @@ -1640,10 +1639,9 @@ static void amdgpu_vm_bo_insert_map(struct 
+>>>>> amdgpu_device *adev,
+>>>>>       if (mapping->flags & AMDGPU_PTE_PRT)
+>>>>>           amdgpu_vm_prt_get(adev);
+>>>>>   -    if (bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv &&
+>>>>> -        !bo_va->base.moved) {
+>>>>> +    if (amdgpu_vm_is_bo_always_valid(vm, bo) && !bo_va->base.moved)
+>>>>>           amdgpu_vm_bo_moved(&bo_va->base);
+>>>>> -    }
+>>>>> +
+>>>>>       trace_amdgpu_vm_bo_map(bo_va, mapping);
+>>>>>   }
+>>>>>   @@ -1942,7 +1940,7 @@ int amdgpu_vm_bo_clear_mappings(struct 
+>>>>> amdgpu_device *adev,
+>>>>>           if (before->flags & AMDGPU_PTE_PRT)
+>>>>>               amdgpu_vm_prt_get(adev);
+>>>>>   -        if (bo && bo->tbo.base.resv == 
+>>>>> vm->root.bo->tbo.base.resv &&
+>>>>> +        if (amdgpu_vm_is_bo_always_valid(vm, bo) &&
+>>>>>               !before->bo_va->base.moved)
+>>>>> amdgpu_vm_bo_moved(&before->bo_va->base);
+>>>>>       } else {
+>>>>> @@ -1957,7 +1955,7 @@ int amdgpu_vm_bo_clear_mappings(struct 
+>>>>> amdgpu_device *adev,
+>>>>>           if (after->flags & AMDGPU_PTE_PRT)
+>>>>>               amdgpu_vm_prt_get(adev);
+>>>>>   -        if (bo && bo->tbo.base.resv == 
+>>>>> vm->root.bo->tbo.base.resv &&
+>>>>> +        if (amdgpu_vm_is_bo_always_valid(vm, bo) &&
+>>>>>               !after->bo_va->base.moved)
+>>>>> amdgpu_vm_bo_moved(&after->bo_va->base);
+>>>>>       } else {
+>>>>> @@ -2037,7 +2035,7 @@ void amdgpu_vm_bo_del(struct amdgpu_device 
+>>>>> *adev,
+>>>>>         if (bo) {
+>>>>>           dma_resv_assert_held(bo->tbo.base.resv);
+>>>>> -        if (bo->tbo.base.resv == vm->root.bo->tbo.base.resv)
+>>>>> +        if (amdgpu_vm_is_bo_always_valid(vm, bo))
+>>>>>               ttm_bo_set_bulk_move(&bo->tbo, NULL);
+>>>>>             for (base = &bo_va->base.bo->vm_bo; *base;
+>>>>> @@ -2131,7 +2129,7 @@ void amdgpu_vm_bo_invalidate(struct 
+>>>>> amdgpu_device *adev,
+>>>>>       for (bo_base = bo->vm_bo; bo_base; bo_base = bo_base->next) {
+>>>>>           struct amdgpu_vm *vm = bo_base->vm;
+>>>>>   -        if (evicted && bo->tbo.base.resv == 
+>>>>> vm->root.bo->tbo.base.resv) {
+>>>>> +        if (evicted && amdgpu_vm_is_bo_always_valid(vm, bo)) {
+>>>>>               amdgpu_vm_bo_evicted(bo_base);
+>>>>>               continue;
+>>>>>           }
+>>>>> @@ -2142,7 +2140,7 @@ void amdgpu_vm_bo_invalidate(struct 
+>>>>> amdgpu_device *adev,
+>>>>>             if (bo->tbo.type == ttm_bo_type_kernel)
+>>>>>               amdgpu_vm_bo_relocated(bo_base);
+>>>>> -        else if (bo->tbo.base.resv == vm->root.bo->tbo.base.resv)
+>>>>> +        else if (amdgpu_vm_is_bo_always_valid(vm, bo))
+>>>>>               amdgpu_vm_bo_moved(bo_base);
+>>>>>           else
+>>>>>               amdgpu_vm_bo_invalidated(bo_base);
+>>>>> @@ -3006,3 +3004,16 @@ void amdgpu_vm_update_fault_cache(struct 
+>>>>> amdgpu_device *adev,
+>>>>> xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
+>>>>>   }
+>>>>>   +/**
+>>>>> + * amdgpu_vm_is_bo_always_valid - check if the BO is VM always valid
+>>>>> + *
+>>>>> + * @vm: VM to test against.
+>>>>> + * @abo: BO to be tested.
+>>>>> + *
+>>>>> + * Returns true if the BO shares the dma_resv object with the 
+>>>>> root PD and is
+>>>>> + * always guaranteed to be valid inside the VM.
+>>>>> + */
+>>>>> +bool amdgpu_vm_is_bo_always_valid(struct amdgpu_vm *vm, struct 
+>>>>> amdgpu_bo *bo)
+>>>>> +{
+>>>>> +    return bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv;
+>>>>> +}
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>> index 54d7da396de0..ec688a47dec1 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>> @@ -561,6 +561,8 @@ void amdgpu_debugfs_vm_bo_info(struct 
+>>>>> amdgpu_vm *vm, struct seq_file *m);
+>>>>>     int amdgpu_vm_pt_map_tables(struct amdgpu_device *adev, struct 
+>>>>> amdgpu_vm *vm);
+>>>>>   +bool amdgpu_vm_is_bo_always_valid(struct amdgpu_vm *vm, struct 
+>>>>> amdgpu_bo *bo);
+>>>>> +
+>>>>>   /**
+>>>>>    * amdgpu_vm_tlb_seq - return tlb flush sequence number
+>>>>>    * @vm: the amdgpu_vm structure to query
+>>>
+>>>
 
-Takashi
