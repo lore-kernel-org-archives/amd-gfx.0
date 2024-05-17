@@ -4,160 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11513C04FFE
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 04:01:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B324C04FFE
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 05:12:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 139F110E1E2;
-	Fri, 17 May 2024 04:01:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 705EC10E224;
+	Fri, 17 May 2024 05:12:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="z+M6OmjQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MOpZBO2I";
 	dkim-atps=neutral
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2073.outbound.protection.outlook.com [40.107.92.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E94810E1E2
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 May 2024 04:01:54 +0000 (UTC)
+ (mail-bn7nam10on2065.outbound.protection.outlook.com [40.107.92.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD0F810E224
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 May 2024 05:12:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CwTJmMoYTJc4V8ZixhTBEhGd+USxqYqIMUsqGxPA+muEj/LbBolwNlN4XVl7dBi9+8wH/EHpwcnVwy5dOkYgaKkAKuSCqx/JVlav06+8a61h63G11qBeTRGJHnKXNjbd5KgQzTY5L1Dc3b1mLU+6SPz5qNqeP4eeUw1W9MYPheb+zrwXivp5TtZ426eQo7DNbg7zuC9pKv4wWlG0GZAu0ZmNZsUB3aQGO8/nNUaQbbB3Gc/YUz+7kwhGctiaYVqdLrL9kDdSqKaxF7eKv2XbC+X79Tbt5RnY3arcDQw5bck+3JmhZJSIL8dBE49gqRQ5vWZslfvs2O5KCwPc32izfQ==
+ b=E3iBhAg7tvoK1let/diV6uAFttvQpqosfG/1Hj7GAhcP3PXa9tj5l4xVSSAs3NUZhGOD/qwx2F687k+xeC73X25jAfnfxcj4fJisWcqxl/llc5IPrJD5lyC6MTGS2bRRuLgdarZwP72bc5NO9MDSc02WKD5uSFurxMa6mnF2LGWsvWQ/Aj64LMCtLdouedjHOakMFqF8EOozsU45+PlKaPuu0YaUuQ6ptgl/2H0ZTJSb/eae2CGsayEbjixTXG/+z4O4l8dQK2oKb5rf1pzGWu/aq2AScp0FQK1t0j+axiZaaR98+WyDdpBkah9xmcRBevJ44UT4WhMVNChPFO1YkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H8GzB9SeyxjsfN/g0DcVII04f9w1pNPPWqkwqgD23dI=;
- b=W86qhqFG5+FAZF8AczGW2X7vXTtCcxySDaAEUHA85cTf6JQCeDGD8NerkLTLbQcyJPpxjaXDaOKXV0FNpF74Q/su6yYU9qB1iVWuhXIKOIyTEmqkv5pzugSwN538sxbY9hpK+LLXTymRs5AyOFiJvbCFO19VCL18KX/l2UZgHx7Z5QqlcGsfBNI1AeZ0WS1Pw/s7eSNxk7G3Z3qalnNOwonTX/Pjd1BCWwq8RHpxqXDxfqpB+eSclXvtL5Vp7Q2rYg9tEd3PoznUAPO1gfXKOeU0bJJFgGupf3M6/4Pbrtpo3HMzhY8XinY7pFw9KVzcnyB2Mg0/Hb4t3QF6sPrxZQ==
+ bh=oXYaL6n/TZBbIpc94+Xqa6dghchIQRCYmtbmThw8SjY=;
+ b=HK28IQJ+mQF776ghC3/qggE0GHZ0gihGbsG4/x1Ne5rFzUbq52WG6YE6qkTWJSfBl3t/GMo8oqfTKypp6I4QMM5W3aqYuSL4uWVUp9pp5u5JU6yGoCly6KikVcOHHlBVuqPHZVQ4UY1v6HnasUeOoxbvUq+kW3cnWB3I5enPcvzzyqauV6Ws4yXPCcdERxZ+7iXpal2DmgkV/GtPpLbxcn1sYFNtqkzHeZ5F/S+eBi7c1PVQgVLb0o97wKKUMRRWCoGtTrRfLFjGASTg24mhc2Q5Qh+6Ba4lw0gUSXn80iuAM8dk7bFL9m2rgQZKccRCFf4reEurRzTg51AHxZ3Bhw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H8GzB9SeyxjsfN/g0DcVII04f9w1pNPPWqkwqgD23dI=;
- b=z+M6OmjQ2WJ3DM2MJMDdl/bvf9pK8ujBHVroRmdmBtPrLG/qOAL1hIOtI3hCN/OUJ46FqZIQxxAdNlYScz8blrM8m7LHjv3EOyJ18Kr2bezYqnIi5JinZHiLDZ5Kng6T8Xvpugv0LP8FY7ohESSjjcYIfotcTGRPOl1MrLXrTb0=
-Received: from DM4PR12MB5181.namprd12.prod.outlook.com (2603:10b6:5:394::22)
- by SJ2PR12MB8954.namprd12.prod.outlook.com (2603:10b6:a03:541::7) with
+ bh=oXYaL6n/TZBbIpc94+Xqa6dghchIQRCYmtbmThw8SjY=;
+ b=MOpZBO2I9HWzqpb4YwIO12e335Tffx2jtrK1cGBwXIDrnfiYPwE8kesUoEqbaPbTnNd+molDPSAunme3L/gYKpSPiJIyBvuAugHfZJIMRchlStQWsnvkDPgyj/U/OG681KfURmfuUWDFrzhyngQE+x1Y8SlMRNNywSp8dgT15Zs=
+Received: from DS7PR12MB6071.namprd12.prod.outlook.com (2603:10b6:8:9d::11) by
+ IA1PR12MB7541.namprd12.prod.outlook.com (2603:10b6:208:42f::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55; Fri, 17 May
- 2024 04:01:51 +0000
-Received: from DM4PR12MB5181.namprd12.prod.outlook.com
- ([fe80::b1fc:750e:c91c:6d7c]) by DM4PR12MB5181.namprd12.prod.outlook.com
- ([fe80::b1fc:750e:c91c:6d7c%5]) with mapi id 15.20.7587.028; Fri, 17 May 2024
- 04:01:51 +0000
-From: "Gao, Likun" <Likun.Gao@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>
-Subject: RE: [PATCH] drm/amdgpu: Remove duplicate check for *is_queue_unmap in
- sdma_v7_0_ring_set_wptr
-Thread-Topic: [PATCH] drm/amdgpu: Remove duplicate check for *is_queue_unmap
- in sdma_v7_0_ring_set_wptr
-Thread-Index: AQHaqArwGSZP+8BnqkeduGCjoTKVSbGazZMQ
-Date: Fri, 17 May 2024 04:01:31 +0000
-Message-ID: <DM4PR12MB518198136AEF25F364CE9935EFEE2@DM4PR12MB5181.namprd12.prod.outlook.com>
-References: <20240517033244.1825782-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20240517033244.1825782-1-srinivasan.shanmugam@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.27; Fri, 17 May
+ 2024 05:11:59 +0000
+Received: from DS7PR12MB6071.namprd12.prod.outlook.com
+ ([fe80::f839:3c75:f78a:ce1]) by DS7PR12MB6071.namprd12.prod.outlook.com
+ ([fe80::f839:3c75:f78a:ce1%6]) with mapi id 15.20.7587.028; Fri, 17 May 2024
+ 05:11:59 +0000
+From: "Kamal, Asad" <Asad.Kamal@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar, Lijo"
+ <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>
+Subject: RE: [PATCH v5 10/10] Documentation/amdgpu: Add PM policy documentation
+Thread-Topic: [PATCH v5 10/10] Documentation/amdgpu: Add PM policy
+ documentation
+Thread-Index: AQHap467CcRw8dV+ykK3t9QTcbCmcrGaPtQAgACjc0A=
+Date: Fri, 17 May 2024 05:11:59 +0000
+Message-ID: <DS7PR12MB6071D08B09A05B5080497FD98EEE2@DS7PR12MB6071.namprd12.prod.outlook.com>
+References: <20240516124318.508785-1-lijo.lazar@amd.com>
+ <20240516124318.508785-11-lijo.lazar@amd.com>
+ <BL1PR12MB5144CFDA5EC4C7D8A9CBA8B5F7ED2@BL1PR12MB5144.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB5144CFDA5EC4C7D8A9CBA8B5F7ED2@BL1PR12MB5144.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=399747cb-ee17-468a-a52d-68e63207f52c;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
  Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-05-17T04:01:00Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-05-16T19:26:38.248Z;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5181:EE_|SJ2PR12MB8954:EE_
-x-ms-office365-filtering-correlation-id: 7e6c24fc-8522-4ac1-6f8e-08dc76260963
+x-ms-traffictypediagnostic: DS7PR12MB6071:EE_|IA1PR12MB7541:EE_
+x-ms-office365-filtering-correlation-id: 7e58289b-c3b8-4b25-b9f0-08dc762fe144
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0; ARA:13230031|366007|1800799015|376005|38070700009;
-x-microsoft-antispam-message-info: =?utf-8?B?dnJBZWV4dFh3eGg5a3RNbTJSSS9JNC9DQ3pwOVFGM3AvbGpwaUxuY1RZck8x?=
- =?utf-8?B?S2VUOCtYaWROYXhXZmhGNVhqdCsySjJZZURNSjNpSy85Z1FIUGl2WFFjblJM?=
- =?utf-8?B?QWVHZmNEaURkR0FSOVVyN3p6M0VBaThoV1I4SDJqSFptNHFGbjBTNlBFMUQ4?=
- =?utf-8?B?UkhjSWNuRDloTS9iSlF1Z0FoVXBaZ21ERTM2RW5BNld2ekNiZXBEVTBwVXpS?=
- =?utf-8?B?VEtaeEE5bXVJMS9NaXJCYVkwL3ppbUh3VTJFVXkzSTVHQmN1TE9FK1dTaHpx?=
- =?utf-8?B?ZHpUM09MM0Ywc1NucDM4Uld2WUhtalVsb05zcDk5Q3o3azFaQjQ2Zk0xaVZo?=
- =?utf-8?B?RFJrczVObXVtVXBZR2JCQndTMTFqdEFQbTlBeFIySTV0akZiSXJ6WFJnQjJN?=
- =?utf-8?B?a25Uc0VXQ2JLeFpDNmhBaDg1dFM4R1ZERkIxck1kamUrb3h2bjkyd0dqQ244?=
- =?utf-8?B?Z0o2THl3Nlh4UzE1Rk9PODRUMmxDY2g2cEJiTFpQV29OSzVwaWg0UndaSEFB?=
- =?utf-8?B?cEZPZkxCYVBtRTJvUGJqaDZ5RzA2YzdiVkU0WEZkVWsvSFQzOEJqaFFaQTBJ?=
- =?utf-8?B?ZFZzL29ySmF1TnVSNFJMQnp6b2dsNEVxOWdIamRoOS9Yc1VlbXNvNCtlRnVH?=
- =?utf-8?B?dS9JZ1RWSGxhYkJXckVqUDlhZU1sTTJZZzdoTTJqTFlwanpBeDR3K2lmeHlQ?=
- =?utf-8?B?MEpKRm1EMmg3SmFVT1F3K0ZiajU1Rm9vMDR1Z0FucElleTVrZDQ0bFRjdG1y?=
- =?utf-8?B?LzR4YTRnMTE4TWQ3SE5NdU9heExmRjRNUnZLbFppQW1pcHlHcm1MSjRTTEE1?=
- =?utf-8?B?VFJHM0JQSjgzb2lXZXp1VUFGTGdLOVRQQ3Jrenl3Q3JERFh1cGxWWXpKVWo0?=
- =?utf-8?B?Qnh2bTBGbDdsL0lienFuV1BJSXJvM2tpdjlLb2FWQUFaU0tqMm5mL1NIQ2ZO?=
- =?utf-8?B?WVV0UDNKekxBWXpCbExPRm1vU282WElBcUdab00rTlFDWUhHcWVvMnUrR3Bv?=
- =?utf-8?B?QnlKVS8wRnBqVFdrQWpqWWpybkMwalNmVlltQWE4N3VLVGdadXUyV01PQVNW?=
- =?utf-8?B?NVdRUTdXZ040V0h3eUNpSEQ2dDJwSnU2WEh4dHAybSs4YlhSb2V5OW1Hckln?=
- =?utf-8?B?bWl4OWpPeS85ai93alRuQmpZMHorRHk0WE1lZFpPQ3N2Y1FBcGE2bXJRb1lK?=
- =?utf-8?B?eWM3elBBRGpCMDhVOUV6TUVMTTc3Q2oxNFNWQ1g4YllydFdMM0hnZnNSQVFZ?=
- =?utf-8?B?aStzTjd4NWJqQ0pYcjM5ZlBXZ3NjVXY1V0t0RVh1Sk1xRHVCeEttaUVVTnRW?=
- =?utf-8?B?bmxyUVpkRmkzL3VCWXRrVlRtWDc4OG56Tml1dGN1TncyV3lqSkdCN2xMeVNs?=
- =?utf-8?B?SWErRTgzTHFOREZUWWRVeWRWRkNEUTdvM3RKRGRkbHdTb294dlllQVFPbXhQ?=
- =?utf-8?B?Tk5iRjJOS1FNbzdIY09HNTJydDVORm81RTMyRkVJaTJqM3BhMTBLQzZ6Y1M0?=
- =?utf-8?B?YUZTc2dPNzJrWnFxZHNNelB5N1lBM1h2YnRDbHN4NHhhcy91M1pvTHk0eFdT?=
- =?utf-8?B?b0tuTzBCMC9Oa1plcXF1SHh4RzRQYm9PWnFTYzlWbWk3WWJ0WFZqM2xQK2Zp?=
- =?utf-8?B?Y3dZN1I0Qk8rZ25tV1RFNVR2eWJzWHFidFlsenRxbkFZaGJNemgxR0c3M0xv?=
- =?utf-8?B?Q2FNaVcwKytKVExibngzT3pKVTNOMExtekZ5WWQxQ1hVT2hXTG4yVlQzcy93?=
- =?utf-8?B?aS93bnQyakFWbzQ0TDBjdy9CZ1prb3BCWTJna1o0bDFOMTJPNVMxNEhneDQw?=
- =?utf-8?B?UkptYkkrMlVaTUN2WnJ1UT09?=
+x-microsoft-antispam-message-info: =?us-ascii?Q?AexspICd8mzCAiQE/gBiDLFmqsSEEdGTFVRE0ZChYACyCqSP3WPMfP73z/Xp?=
+ =?us-ascii?Q?DNewYpS6mG+oVSaAukob2dKKO+aNCkTgMY0fHDHs0/khkpfXGTgX/HMlcVvc?=
+ =?us-ascii?Q?igTBTrTgnMcOHIuUKJjiGMyVE1fKfV4K5S7o42/pBEXWw6JpXYEXZBDY6weB?=
+ =?us-ascii?Q?ZdSptVZfqxGjS3lWimnrjyPXg8aGdTmBnhrlQyaE7+0qwCHM6WVwF5SLGz8T?=
+ =?us-ascii?Q?srYjsRzyrbOwjC9DYWnwwTif+0+h75tIRorITaFCedgNmr1tmeU9Y9RjRP9u?=
+ =?us-ascii?Q?+hqxYw+iH9Ui5xo8B/8O3cO+crM6URcGw4AY/reABpMyodUUow2ozKf3KfzA?=
+ =?us-ascii?Q?9mO5nLGCae5MOxiblDG/G/JSgEqfV0OVZARZgDUIfUcSB3lYcH81TxuPDtR2?=
+ =?us-ascii?Q?mn5tnGXjkxhOMubrmK7GCg1kDNWdePurBBwSiZixBE16UfFzW+5lF6h+ljYB?=
+ =?us-ascii?Q?ls3xRzaEVQ5MpSY3Xb+/tL3LOEvsSsRFHReMqxelDZ+114E2NJ7MQHbdKQoY?=
+ =?us-ascii?Q?QLdtMdI8CG2hFxoWSJLiYpiHxuGKIF1mcZrlb7tcKsxCybA8SE2FFzGca6j5?=
+ =?us-ascii?Q?NzbSulOJLSDiboau16XeZKvR7XmTPJnW0Vw6nqH/7av0D6qhd670biqK7z66?=
+ =?us-ascii?Q?kyjH1wJFciI9f0nlE3xbafisR072jT3dAup35hOgZ/vkGO/jayZgKobqKKGL?=
+ =?us-ascii?Q?OTEBWrfRx79RsP6+DFPqgt2ME3XNSQrBAMC3/01McDFrHOA3B9OrRmNp5zr9?=
+ =?us-ascii?Q?AeBU62WZd4jg2YyCOq+IZ7/xyyWQnhQucByPiEeDjFK9pjpw16Q8ieqGXIZ/?=
+ =?us-ascii?Q?rJFZmCVy8jaFL7vmbwpZSNYHpznRA/JumtAwVwAvrfakWHxJqUo9zi49F/Uf?=
+ =?us-ascii?Q?kfGSoe+oE5jntbckWojWUJhUVbV4YiNmGJ3o8dpQfXTlapmJrEV4GxgA+5A9?=
+ =?us-ascii?Q?8+/7/6wcqlzczlTIrdaVW+0sazCi4fhc7AkQmiHJxyw20BhuK04gM7nDmodp?=
+ =?us-ascii?Q?6GicTWgGyxEL+85WoDAV95GL7GzZjNd+TiujJHydgLQxpt++U8JOuGrRrY1Q?=
+ =?us-ascii?Q?KJE2QL2SBBaLPX04WMWrh/Lbr/FwkQvO1QcPP/VoQ+Q8dqHEXRdxyGo0M+vR?=
+ =?us-ascii?Q?KOLzXZ0gVsTBcEqozQwhvPOtDfm410OqIGhLKPXevRe/XTAnwEMCXBxsHUn6?=
+ =?us-ascii?Q?vdfe80FE5dGU5Kx2C+Hpq8TFuJgWiHT0E9+BiAGC+sKSuLr9ckBdGAl4ycmS?=
+ =?us-ascii?Q?Hk2qeaKuFlG9aIpvlJbncZ9IErWlbwvk97eB0Akc7R0D1Ma4euU+ZAv5qYk5?=
+ =?us-ascii?Q?i4B/dD4ywwUFMFsq9VRZu9EM00TQuFqmOjOcMEYEdMKx8w=3D=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5181.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6071.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230031)(366007)(1800799015)(376005)(38070700009); DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?K1o3UEdVaGpmVmNCSWNCRTB2U0FDTTFZSDNMeEN3MWFMN2ppQkliUFNLT0tH?=
- =?utf-8?B?MkpFZ2JoWEpkYlAxSXJjeFhmbjVXN3FkL0hnNnNkajErSThnWmhjakM2WTZ2?=
- =?utf-8?B?N3ZMdXBIVmJueW1nUWxHT0NKUlFaczNDdStEV3E0amlrT2U0MmxkL2hVL3V3?=
- =?utf-8?B?dS9xaTVldjFKVDlibXJqcjNlWkVkTVFxYjUwYWJqRFVjMXlCVlFnTVROVmhM?=
- =?utf-8?B?dlZlRUNDYVMxa1V2T3RxdjBuVnlXQjA0K21UUnVPZGdUSzA5TFNaRWdUZHND?=
- =?utf-8?B?OWtJbUV2bzMzVkRORS9RUFZnRzgvV0cweWJxZWZNSnJmM1dEcGpTY01iMk92?=
- =?utf-8?B?Q2xLU0psemE2YzJXKzZPZDVWemM4NWJndHVzenRveVBtTGhENHMvS1BVZWwv?=
- =?utf-8?B?NmFjYjJTNktwYTRiT3g2SjZkT2lkUm1DSFVpQUprMWtsRkdJVjRubkF4bk5s?=
- =?utf-8?B?UTZ6SXMyWDd5UVFmN2JhdlN0MzJtdzJwclNDUzV0aWR4WHlSSkJQRWp6V21t?=
- =?utf-8?B?VGZBV0V0bnZGTGU2T2d5ak05N2R5TmUwT1ZuT0VyNEZlNXdCc1BudTd6VjR2?=
- =?utf-8?B?TXNKaWl3d1dLdnE2aWhoR01iaUg5MnJLZTdtRVAvNkhtdHo1bDNoUmRtWDdo?=
- =?utf-8?B?b0YzdTBReGc1ZjRHclpUbjBJR09kSlQ0ZW5Wanhva2FNdTY1ZlRYa1M2N3o3?=
- =?utf-8?B?eVcyMXc2cTJKdnI3b1R1RVFiQzhYQ0kyQm43bEZaU1N2VE5oTDRLbmJQY0lj?=
- =?utf-8?B?U21GWGFJUThnZG9LYmloRE81Q2VVZ1JSdjIyUUdBNndYWS9uSExOMkxhLzBa?=
- =?utf-8?B?ZUIzdmxvSTlGUXN0K2V3eURucStmTHhDc0pqaXUrL09PWUtvNGZ3ekZUWGZY?=
- =?utf-8?B?UVF5KzJSZEVxMnVqKzNBNVNWY0U3bTFYcDA5MitlSkdEZ0Y4Zk9MQVJrNXdJ?=
- =?utf-8?B?OGRreE9lNURidmxLVDBJZDgxbWh3OXNJekwzY2hzVFkxYkxDN0pwRGlyL1Z6?=
- =?utf-8?B?MUlKY1dZVTdRcnRGYzl5S09paXdPVWNmcVJtVTNxUmFYUkw3L2xWOFgwQ3NL?=
- =?utf-8?B?UjBCbllpR092UWR0ZkVhSGs4ZGlUNEdFK0E1R2hETWNTOTlKaERUOHY1d2d0?=
- =?utf-8?B?SjVqU2VHbzNxMm9VOWpieUxFdThvTCtVeGp3ckUrQkJjYS9POG1LSGR4ZXI2?=
- =?utf-8?B?UXU2cTBZOXhLZmE1YzR3M3A0dkk3VDZ0NjRnVysxYWVlWTM4c2tZQmV0UXJX?=
- =?utf-8?B?MTZYNGdRQkRuODhCMndXTjZaS1lIbnFTdGRlMU9JVkluUHp1RzNMOThhRHdq?=
- =?utf-8?B?S29pNXJDcUFEUG0zOURGNXB4MkZ1YTF5WlpYN3MwZnp2K1Q2cUQxNHJjZ3o4?=
- =?utf-8?B?U2VqdCtoRFdSb0FhWW43NlVUWXNHZm81Y3dBTXlhU2pWczRJd3VNbnF5a1RT?=
- =?utf-8?B?aVlWRzBkOGxuT0k4NUtZenFUWDBYYlRlUjNUeTFFZnVxWGc0TkJEOHhjU0Fo?=
- =?utf-8?B?ZFE4QlpxM2FnL3cwNXFBOVBqWlFZdW9ueGp6UWRiaGRseWFIRGdBRmo5V3Vk?=
- =?utf-8?B?ZnVjbjNZK3R3V0VjSjRxdzJnMTh4eC80NTVXa3NZZG1uTklOVGxSSlJaNW1C?=
- =?utf-8?B?OCtFRkFrdE1ZK3lqRVpjRG9PYUZtcDBRM2xvelU1NTBtLzZ3WTZRdG5ZTysy?=
- =?utf-8?B?cjEwQWVEdXBMZDI2MXpyaXhXVjMxK3JxRmNBN1VWZjNVdzVFVjIwYy8xUzJ3?=
- =?utf-8?B?OWU2WnZUUE1lWXlEcUVPdE5SYVUrbG1FRTZBdnVvMTFzQWVFZG41eGNpa3ND?=
- =?utf-8?B?U01HeVdCREhiR3p4c0VWdzRiYk9DUGErVHp1ZHE1Wk5TeDhPSzg3K0duNmo5?=
- =?utf-8?B?VCtvRWNDaUJ1Wi9BY2JjcXo1YjlUUSttbUxUZkFMS1Z0TjNTczlPMkkvQTZJ?=
- =?utf-8?B?SXJWaGY0UUdjZFpyLzlpbHVia3BzV2NOSUJsSmk0NW5JcFpEcyttVndLZk5X?=
- =?utf-8?B?bzFFYWIxYjZSZXRET3JjNkZjNFR2aFZFTGpZZVNXSDIzeFR5NGJSRFBTRC95?=
- =?utf-8?B?dGlMZ0RPRmRLSk5SNDBWS3Zzb3A1WUtPQ0R4TmNNbnVEaU41Unk1Z1k4YWNo?=
- =?utf-8?Q?NLS4=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?bS06onyu6UJhyC2MZfOWjfVd8MrmJRym6lxIJ/01/gGQ7FZMqWFK/J0Ag5OU?=
+ =?us-ascii?Q?0y2BQFWhVAPo902SfdBphcufwKTFy5L1SCEkGAVD1s1C7elrDN7/eHrC58l3?=
+ =?us-ascii?Q?pFqnSDmSngVsWa74ly7zSokw4vmq3o3avxggqFPtybVssVDu9Uhji9B9gh3R?=
+ =?us-ascii?Q?23gerbSV647G0g5ODJ5JW5oUCxbAyGvVOnyq4RVgB2Km1G9OBXtqGnBHSOv1?=
+ =?us-ascii?Q?bork9qI80Ql+94pXBSGJD5fU2K4hr/cJSybSpYsJ9b8twx2cEoVEAA4zU4B0?=
+ =?us-ascii?Q?M+3Kj/kuaShuvoPb+Dv69xmyH3qYLzO/sSX1OKy8DLbJfG3YaZZeTshuaFRq?=
+ =?us-ascii?Q?zhM81iyU7c/AvrlZWwjBVKM5NIX6cElY6YVFLzvJ6gN8nxTKGThaaZUC/7Yj?=
+ =?us-ascii?Q?zQ2E/uSebnCGvhPLoVW1R9LbQJJpRCCGjUEvweE1KwQF1CBdokWeOsX04JiG?=
+ =?us-ascii?Q?gqEMES08rW8ZF75Q+9hTFeEgBV2pJGHvKkuUNu908Op0ra++QeCLSbZBQOQ3?=
+ =?us-ascii?Q?sXzvrZ+3LVQ+o1lwO+p2IhEUd0tRahuDvh2YAyrXkoeD67VD0SMv7Smnd9Rm?=
+ =?us-ascii?Q?HgMNCSPpt+AoSkGrCWH5rBpyiGSNMXQIoiRVT8ToSZ4oN3mEEGsnA4AOFsCd?=
+ =?us-ascii?Q?rv0MLThupGXu7L2OY8SHW2LNU/Vd3YgF1BzpvxPJaiJTKEwCVOgIi5p3Xml6?=
+ =?us-ascii?Q?PkZTHMA1k81gtZGVZZEunN9J9XWlnoAyVdIA/H7lB5jbL9XVgqTMfCvKZRjD?=
+ =?us-ascii?Q?frPNP31tZ45AfbW08+TUkLvqYaDrz4OqBJJZTWuZH3mt8udNaWo9NENdEqat?=
+ =?us-ascii?Q?iuCy3VLmZAuvv3WbrwIssUJl51lTcg7n2r5/Mdhdn18gkVUAuS2xeVuqq/9X?=
+ =?us-ascii?Q?Sb7dEMbHUT7E/PmbmU4n05Zktj5kBm6JxTMk+NBKBVsbEi/oAdktmVI5GnqS?=
+ =?us-ascii?Q?fofl24oB0wTtJXgdPK5CteUQTazsT0z1e+yl4iVdyxJcSUB1sIvPIiluoE5N?=
+ =?us-ascii?Q?SzSngroiFygHMSgencMo7qzK7bXlesLtSnED6tQECENi0nrWeto2HtiWB31J?=
+ =?us-ascii?Q?0GTfSNqTTZ2vtU5ZNRY3CMNMnFlmtTbTJqoOYl8m9iWEm+pLZAs6e+QTe5dD?=
+ =?us-ascii?Q?4w1Evm5tKmWvcD06YKOoauptQXrIx774dKcnIqJMC9JxESHswQoC4h+Lf77R?=
+ =?us-ascii?Q?VMbDnkFGAZfkrBNgqRMbuIJ5okz5mC4rreJNl6YRg8v4oRG2eepXB1dT2a0G?=
+ =?us-ascii?Q?PW1ufoWo3av94FH79yGWQJo1GKFM3dlwJv6Bz8IoDPojQ9sMti9KI7IwtARS?=
+ =?us-ascii?Q?/JdNmYBQe5feYyWL1kqm+sJN4ABhp/SAJjSUE0F/fnGQ/xbTI6J7upn/ckaF?=
+ =?us-ascii?Q?8HDFX4VMcEiigMOJtzjOT82vTdiQGCA3bjPbVYUcgOJF72FNi7O8DmPmVSg/?=
+ =?us-ascii?Q?8ny1M+JIM3nwB9gN+P4FnHCjibob4+dS/M7NtJ/2M8NobRj+JRV0C1Nb5aNo?=
+ =?us-ascii?Q?yl1EWAuajRfjlgvsEDU+C9HB9msULb45Vu//Uj9bYZqUoskOF84wz7jE8+jk?=
+ =?us-ascii?Q?bPTjnHPqEaIIaA1zRYg=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_DS7PR12MB6071D08B09A05B5080497FD98EEE2DS7PR12MB6071namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5181.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e6c24fc-8522-4ac1-6f8e-08dc76260963
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 May 2024 04:01:31.7595 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6071.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e58289b-c3b8-4b25-b9f0-08dc762fe144
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 May 2024 05:11:59.4094 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: H9RhAeyZtyedPIlTyINNDdW8Kv7FK8xOGWPszn7O5qwv777ysH8NrQkgiOcPCKkY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8954
+X-MS-Exchange-CrossTenant-userprincipalname: FmG7XnVYPSO/ApJxcdRbS08/7TZn+5ybXHj2KtIpl3+DW202+xdBTSRJ+O2CQkr1sos1e4ck4/wx1NwhT+kBTg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7541
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,90 +154,426 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KVGhpcyBwYXRjaCB3YXMNClJldmlld2VkLWJ5OiBMaWt1biBHYW8gPExpa3VuLkdhb0BhbWQu
-Y29tPi4NCg0KUmVnYXJkcywNCkxpa3VuDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpG
-cm9tOiBTSEFOTVVHQU0sIFNSSU5JVkFTQU4gPFNSSU5JVkFTQU4uU0hBTk1VR0FNQGFtZC5jb20+
-DQpTZW50OiBGcmlkYXksIE1heSAxNywgMjAyNCAxMTozMyBBTQ0KVG86IEtvZW5pZywgQ2hyaXN0
-aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+OyBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhh
-bmRlci5EZXVjaGVyQGFtZC5jb20+DQpDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7
-IFNIQU5NVUdBTSwgU1JJTklWQVNBTiA8U1JJTklWQVNBTi5TSEFOTVVHQU1AYW1kLmNvbT47IEdh
-bywgTGlrdW4gPExpa3VuLkdhb0BhbWQuY29tPjsgWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhh
-bmdAYW1kLmNvbT47IERhbiBDYXJwZW50ZXIgPGRhbi5jYXJwZW50ZXJAbGluYXJvLm9yZz4NClN1
-YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdwdTogUmVtb3ZlIGR1cGxpY2F0ZSBjaGVjayBmb3IgKmlz
-X3F1ZXVlX3VubWFwIGluIHNkbWFfdjdfMF9yaW5nX3NldF93cHRyDQoNClRoaXMgY29tbWl0IHJl
-bW92ZXMgYSBkdXBsaWNhdGUgY2hlY2sgZm9yICppc19xdWV1ZV91bm1hcCBpbiB0aGUgc2RtYV92
-N18wX3Jpbmdfc2V0X3dwdHIgZnVuY3Rpb24uIFRoZSBjaGVjayBhdCBsaW5lIDE3MSB3YXMgY29u
-c2lkZXJlZCBkZWFkIGNvZGUgYmVjYXVzZSBhdCB0aGlzIHBvaW50IGluIHRoZSBjb2RlLCB3ZSBh
-bHJlYWR5IGtub3cgdGhhdCAqaXNfcXVldWVfdW5tYXAgaXMgZmFsc2UgZHVlIHRvIHRoZSBjaGVj
-ayBhdCBsaW5lIDE2MS4NCg0KQnkgcmVtb3ZpbmcgdGhpcyB1bm5lY2Vzc2FyeSBjaGVjaywgaW1w
-cm92ZXMgdGhlIHJlYWRhYmlsaXR5IG9mIHRoZSBjb2RlDQoNCkZpeGVzIHRoZSBiZWxvdzoNCiAg
-ICAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92N18wLmM6MTcxIHNkbWFfdjdf
-MF9yaW5nX3NldF93cHRyKCkNCiAgICAgICAgd2FybjogZHVwbGljYXRlIGNoZWNrICcqaXNfcXVl
-dWVfdW5tYXAnIChwcmV2aW91cyBvbiBsaW5lIDE2MSkNCg0KZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvc2RtYV92N18wLmMNCiAgICAxNDAgc3RhdGljIHZvaWQgc2RtYV92N18wX3Jpbmdfc2V0
-X3dwdHIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQ0KICAgIDE0MSB7DQogICAgMTQyICAgICAg
-ICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSByaW5nLT5hZGV2Ow0KICAgIDE0MyAgICAg
-ICAgIHVpbnQzMl90ICp3cHRyX3NhdmVkOw0KICAgIDE0NCAgICAgICAgIHVpbnQzMl90ICppc19x
-dWV1ZV91bm1hcDsNCiAgICAxNDUgICAgICAgICB1aW50NjRfdCBhZ2dyZWdhdGVkX2RiX2luZGV4
-Ow0KICAgIDE0NiAgICAgICAgIHVpbnQzMl90IG1xZF9zaXplID0gYWRldi0+bXFkc1tBTURHUFVf
-SFdfSVBfRE1BXS5tcWRfc2l6ZTsNCiAgICAxNDcNCiAgICAxNDggICAgICAgICBEUk1fREVCVUco
-IlNldHRpbmcgd3JpdGUgcG9pbnRlclxuIik7DQogICAgMTQ5DQogICAgMTUwICAgICAgICAgaWYg
-KHJpbmctPmlzX21lc19xdWV1ZSkgew0KICAgIDE1MSAgICAgICAgICAgICAgICAgd3B0cl9zYXZl
-ZCA9ICh1aW50MzJfdCAqKShyaW5nLT5tcWRfcHRyICsgbXFkX3NpemUpOw0KICAgIDE1MiAgICAg
-ICAgICAgICAgICAgaXNfcXVldWVfdW5tYXAgPSAodWludDMyX3QgKikocmluZy0+bXFkX3B0ciAr
-IG1xZF9zaXplICsNCiAgICAgICAgICAgICAgICAgICAgICAgIF5eXl5eXl5eXl5eXl5eXl4gU2V0
-IGhlcmUNCg0KICAgIDE1MyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgc2l6ZW9mKHVpbnQzMl90KSk7DQogICAgMTU0ICAgICAgICAgICAgICAgICBhZ2dyZWdh
-dGVkX2RiX2luZGV4ID0NCiAgICAxNTUgICAgICAgICAgICAgICAgICAgICAgICAgYW1kZ3B1X21l
-c19nZXRfYWdncmVnYXRlZF9kb29yYmVsbF9pbmRleChhZGV2LA0KICAgIDE1NiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByaW5nLT5od19w
-cmlvKTsNCiAgICAxNTcNCiAgICAxNTggICAgICAgICAgICAgICAgIGF0b21pYzY0X3NldCgoYXRv
-bWljNjRfdCAqKXJpbmctPndwdHJfY3B1X2FkZHIsDQogICAgMTU5ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcmluZy0+d3B0ciA8PCAyKTsNCiAgICAxNjAgICAgICAgICAgICAgICAgICp3
-cHRyX3NhdmVkID0gcmluZy0+d3B0ciA8PCAyOw0KICAgIDE2MSAgICAgICAgICAgICAgICAgaWYg
-KCppc19xdWV1ZV91bm1hcCkgew0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5eXl5eXl5e
-Xl5eXl5eXiBDaGVja2VkIGhlcmUNCg0KICAgIDE2MiAgICAgICAgICAgICAgICAgICAgICAgICBX
-RE9PUkJFTEw2NChhZ2dyZWdhdGVkX2RiX2luZGV4LCByaW5nLT53cHRyIDw8IDIpOw0KICAgIDE2
-MyAgICAgICAgICAgICAgICAgICAgICAgICBEUk1fREVCVUcoImNhbGxpbmcgV0RPT1JCRUxMNjQo
-MHglMDh4LCAweCUwMTZsbHgpXG4iLA0KICAgIDE2NCAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcmluZy0+ZG9vcmJlbGxfaW5kZXgsIHJpbmctPndwdHIgPDwgMik7DQog
-ICAgMTY1ICAgICAgICAgICAgICAgICAgICAgICAgIFdET09SQkVMTDY0KHJpbmctPmRvb3JiZWxs
-X2luZGV4LCByaW5nLT53cHRyIDw8IDIpOw0KICAgIDE2NiAgICAgICAgICAgICAgICAgfSBlbHNl
-IHsNCiAgICAxNjcgICAgICAgICAgICAgICAgICAgICAgICAgRFJNX0RFQlVHKCJjYWxsaW5nIFdE
-T09SQkVMTDY0KDB4JTA4eCwgMHglMDE2bGx4KVxuIiwNCiAgICAxNjggICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHJpbmctPmRvb3JiZWxsX2luZGV4LCByaW5nLT53cHRy
-IDw8IDIpOw0KICAgIDE2OSAgICAgICAgICAgICAgICAgICAgICAgICBXRE9PUkJFTEw2NChyaW5n
-LT5kb29yYmVsbF9pbmRleCwgcmluZy0+d3B0ciA8PCAyKTsNCiAgICAxNzANCi0tPiAxNzEgICAg
-ICAgICAgICAgICAgICAgICAgICAgaWYgKCppc19xdWV1ZV91bm1hcCkNCiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIF5eXl5eXl5eXl5eXl5eXiBUaGlzIGlzIGRlYWQgY29kZS4g
-IFdlIGtub3cgaXQncyBmYWxzZS4NCg0KICAgIDE3MiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIFdET09SQkVMTDY0KGFnZ3JlZ2F0ZWRfZGJfaW5kZXgsDQogICAgMTczICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmluZy0+d3B0ciA8PCAyKTsNCiAg
-ICAxNzQgICAgICAgICAgICAgICAgIH0NCiAgICAxNzUgICAgICAgICB9IGVsc2Ugew0KICAgIDE3
-NiAgICAgICAgICAgICAgICAgaWYgKHJpbmctPnVzZV9kb29yYmVsbCkgew0KICAgIDE3NyAgICAg
-ICAgICAgICAgICAgICAgICAgICBEUk1fREVCVUcoIlVzaW5nIGRvb3JiZWxsIC0tICINCiAgICAx
-NzggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ3cHRyX29mZnMgPT0gMHglMDh4
-ICINCg0KRml4ZXM6IDZkOWM3MTE3ODZlNiAoImRybS9hbWRncHU6IEFkZCBzZG1hIHY3XzAgaXAg
-YmxvY2sgc3VwcG9ydCAodjcpIikNCkNjOiBMaWt1biBHYW8gPExpa3VuLkdhb0BhbWQuY29tPg0K
-Q2M6IEhhd2tpbmcgWmhhbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NCkNjOiBDaHJpc3RpYW4g
-S8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQpDYzogQWxleCBEZXVjaGVyIDxhbGV4
-YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KUmVwb3J0ZWQtYnk6IERhbiBDYXJwZW50ZXIgPGRhbi5j
-YXJwZW50ZXJAbGluYXJvLm9yZz4NClNpZ25lZC1vZmYtYnk6IFNyaW5pdmFzYW4gU2hhbm11Z2Ft
-IDxzcmluaXZhc2FuLnNoYW5tdWdhbUBhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvc2RtYV92N18wLmMgfCA0IC0tLS0NCiAxIGZpbGUgY2hhbmdlZCwgNCBkZWxldGlv
-bnMoLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjdf
-MC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92N18wLmMNCmluZGV4IDRhNTI1
-MmUwODg4My4uYWIxZGVhNzdiZTZlIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvc2RtYV92N18wLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFf
-djdfMC5jDQpAQCAtMTY3LDEwICsxNjcsNiBAQCBzdGF0aWMgdm9pZCBzZG1hX3Y3XzBfcmluZ19z
-ZXRfd3B0cihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpDQogICAgICAgICAgICAgICAgICAgICAg
-ICBEUk1fREVCVUcoImNhbGxpbmcgV0RPT1JCRUxMNjQoMHglMDh4LCAweCUwMTZsbHgpXG4iLA0K
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJpbmctPmRvb3JiZWxsX2lu
-ZGV4LCByaW5nLT53cHRyIDw8IDIpOw0KICAgICAgICAgICAgICAgICAgICAgICAgV0RPT1JCRUxM
-NjQocmluZy0+ZG9vcmJlbGxfaW5kZXgsIHJpbmctPndwdHIgPDwgMik7DQotDQotICAgICAgICAg
-ICAgICAgICAgICAgICBpZiAoKmlzX3F1ZXVlX3VubWFwKQ0KLSAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBXRE9PUkJFTEw2NChhZ2dyZWdhdGVkX2RiX2luZGV4LA0KLSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByaW5nLT53cHRyIDw8IDIpOw0KICAgICAg
-ICAgICAgICAgIH0NCiAgICAgICAgfSBlbHNlIHsNCiAgICAgICAgICAgICAgICBpZiAocmluZy0+
-dXNlX2Rvb3JiZWxsKSB7DQotLQ0KMi4zNC4xDQoNCg==
+--_000_DS7PR12MB6071D08B09A05B5080497FD98EEE2DS7PR12MB6071namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+
+Series is
+
+Reviewed-by: Asad Kamal <asad.kamal@amd.com<mailto:asad.kamal@amd.com>>
+
+
+
+Thanks & Regards
+
+Asad
+
+From: Deucher, Alexander <Alexander.Deucher@amd.com>
+Sent: Friday, May 17, 2024 12:57 AM
+To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Kamal, Asad <Asad.Kamal@amd.com=
+>; Ma, Le <Le.Ma@amd.com>
+Subject: Re: [PATCH v5 10/10] Documentation/amdgpu: Add PM policy documenta=
+tion
+
+
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+I didn't have time to go through every patch in detail, but overall it look=
+s good to me.  The series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com<mailto:alexander.deucher@=
+amd.com>>
+________________________________
+From: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>
+Sent: Thursday, May 16, 2024 8:43 AM
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; D=
+eucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@amd.c=
+om>>; Kamal, Asad <Asad.Kamal@amd.com<mailto:Asad.Kamal@amd.com>>; Ma, Le <=
+Le.Ma@amd.com<mailto:Le.Ma@amd.com>>
+Subject: [PATCH v5 10/10] Documentation/amdgpu: Add PM policy documentation
+
+Add documentation about the newly added pm_policy node in sysfs.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com<mailto:lijo.lazar@amd.com>>
+---
+
+v5: Update documentation to reflect pm_policy nodes and sub nodes for each
+policy type
+
+ Documentation/gpu/amdgpu/thermal.rst |  6 ++++
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c   | 53 ++++++++++++++++++++++++++++
+ 2 files changed, 59 insertions(+)
+
+diff --git a/Documentation/gpu/amdgpu/thermal.rst b/Documentation/gpu/amdgp=
+u/thermal.rst
+index 2f6166f81e6a..6d942b5c58f0 100644
+--- a/Documentation/gpu/amdgpu/thermal.rst
++++ b/Documentation/gpu/amdgpu/thermal.rst
+@@ -49,6 +49,12 @@ pp_power_profile_mode
+ .. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: pp_power_profile_mode
+
++pm_policy
++---------------------
++
++.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
++   :doc: pm_policy
++
+ \*_busy_percent
+ ---------------
+
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
+dgpu_pm.c
+index 5ff7783dfc43..3e5ffb83f398 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -2220,6 +2220,59 @@ struct amdgpu_pm_policy_attr {
+         enum pp_pm_policy id;
+ };
+
++/**
++ * DOC: pm_policy
++ *
++ * Certain SOCs can support different power policies to optimize applicati=
+on
++ * performance. However, this policy is provided only at SOC level and not=
+ at a
++ * per-process level. This is useful especially when entire SOC is utilize=
+d for
++ * dedicated workload.
++ *
++ * The amdgpu driver provides a sysfs API for selecting the policy. Presen=
+tly,
++ * only two types of policies are supported through this interface.
++ *
++ *  Pstate Policy Selection - This is to select different Pstate profiles =
+which
++ *  decides clock/throttling preferences.
++ *
++ *  XGMI PLPD Policy Selection - When multiple devices are connected over =
+XGMI,
++ *  this helps to select policy to be applied for per link power down.
++ *
++ * The list of available policies and policy levels vary between SOCs. The=
+y can
++ * be viewed under pm_policy node directory. If SOC doesn't support any po=
+licy,
++ * this node won't be available. The different policies supported will be
++ * available as separate nodes under pm_policy.
++ *
++ *     cat /sys/bus/pci/devices/.../pm_policy/<policy_type>
++ *
++ * Reading the policy file shows the different levels supported. The level=
+ which
++ * is applied presently is denoted by * (asterisk). E.g.,
++ *
++ * .. code-block:: console
++ *
++ *     cat /sys/bus/pci/devices/.../pm_policy/soc_pstate
++ *     0 : soc_pstate_default
++ *     1 : soc_pstate_0
++ *     2 : soc_pstate_1*
++ *     3 : soc_pstate_2
++ *
++ *     cat /sys/bus/pci/devices/.../pm_policy/xgmi_plpd
++ *     0 : plpd_disallow
++ *     1 : plpd_default
++ *     2 : plpd_optimized*
++ *
++ * To apply a specific policy
++ *
++ * "echo  <level> > /sys/bus/pci/devices/.../pm_policy/<policy_type>"
++ *
++ * For the levels listed in the example above, to select "plpd_optimized" =
+for
++ * XGMI and "soc_pstate_2" for soc pstate policy -
++ *
++ * .. code-block:: console
++ *
++ *     echo "2" > /sys/bus/pci/devices/.../pm_policy/xgmi_plpd
++ *     echo "3" > /sys/bus/pci/devices/.../pm_policy/soc_pstate
++ *
++ */
+ static ssize_t amdgpu_get_pm_policy_attr(struct device *dev,
+                                          struct device_attribute *attr,
+                                          char *buf)
+--
+2.25.1
+
+--_000_DS7PR12MB6071D08B09A05B5080497FD98EEE2DS7PR12MB6071namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Aptos;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{mso-style-priority:99;
+	mso-style-link:"Plain Text Char";
+	margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.PlainTextChar
+	{mso-style-name:"Plain Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Plain Text";
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	mso-ligatures:none;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div class=3D"WordSection1">
+<p class=3D"MsoPlainText">Series is<o:p></o:p></p>
+<p class=3D"MsoPlainText">Reviewed-by: Asad Kamal &lt;<a href=3D"mailto:asa=
+d.kamal@amd.com">asad.kamal@amd.com</a>&gt;<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">Thanks &amp; Regards<o:p></o:p></p>
+<p class=3D"MsoPlainText">Asad<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Deucher, Alexander &lt;Alexander.Deuche=
+r@amd.com&gt; <br>
+<b>Sent:</b> Friday, May 17, 2024 12:57 AM<br>
+<b>To:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedeskto=
+p.org<br>
+<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Kamal, Asad &lt;As=
+ad.Kamal@amd.com&gt;; Ma, Le &lt;Le.Ma@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH v5 10/10] Documentation/amdgpu: Add PM policy do=
+cumentation<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;color:blue">[AMD =
+Official Use Only - AMD Internal Distribution Only]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ap=
+tos&quot;,sans-serif;color:black">I didn't have time to go through every pa=
+tch in detail, but overall it looks good to me.&nbsp; The series is:<o:p></=
+o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ap=
+tos&quot;,sans-serif;color:black">Acked-by: Alex Deucher &lt;<a href=3D"mai=
+lto:alexander.deucher@amd.com">alexander.deucher@amd.com</a>&gt;<o:p></o:p>=
+</span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.co=
+m">Lijo.Lazar@amd.com</a>&gt;<br>
+<b>Sent:</b> Thursday, May 16, 2024 8:43 AM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd.com">Hawk=
+ing.Zhang@amd.com</a>&gt;; Deucher, Alexander &lt;<a href=3D"mailto:Alexand=
+er.Deucher@amd.com">Alexander.Deucher@amd.com</a>&gt;; Kamal, Asad &lt;<a h=
+ref=3D"mailto:Asad.Kamal@amd.com">Asad.Kamal@amd.com</a>&gt;;
+ Ma, Le &lt;<a href=3D"mailto:Le.Ma@amd.com">Le.Ma@amd.com</a>&gt;<br>
+<b>Subject:</b> [PATCH v5 10/10] Documentation/amdgpu: Add PM policy docume=
+ntation</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Add documentation abo=
+ut the newly added pm_policy node in sysfs.<br>
+<br>
+Signed-off-by: Lijo Lazar &lt;<a href=3D"mailto:lijo.lazar@amd.com">lijo.la=
+zar@amd.com</a>&gt;<br>
+---<br>
+<br>
+v5: Update documentation to reflect pm_policy nodes and sub nodes for each<=
+br>
+policy type<br>
+<br>
+&nbsp;Documentation/gpu/amdgpu/thermal.rst |&nbsp; 6 ++++<br>
+&nbsp;drivers/gpu/drm/amd/pm/amdgpu_pm.c&nbsp;&nbsp; | 53 +++++++++++++++++=
++++++++++++<br>
+&nbsp;2 files changed, 59 insertions(+)<br>
+<br>
+diff --git a/Documentation/gpu/amdgpu/thermal.rst b/Documentation/gpu/amdgp=
+u/thermal.rst<br>
+index 2f6166f81e6a..6d942b5c58f0 100644<br>
+--- a/Documentation/gpu/amdgpu/thermal.rst<br>
++++ b/Documentation/gpu/amdgpu/thermal.rst<br>
+@@ -49,6 +49,12 @@ pp_power_profile_mode<br>
+&nbsp;.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&nbsp;&nbsp;&nbsp; :doc: pp_power_profile_mode<br>
+&nbsp;<br>
++pm_policy<br>
++---------------------<br>
++<br>
++.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
++&nbsp;&nbsp; :doc: pm_policy<br>
++<br>
+&nbsp;\*_busy_percent<br>
+&nbsp;---------------<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
+dgpu_pm.c<br>
+index 5ff7783dfc43..3e5ffb83f398 100644<br>
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+@@ -2220,6 +2220,59 @@ struct amdgpu_pm_policy_attr {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum pp_pm_policy id;<br>
+&nbsp;};<br>
+&nbsp;<br>
++/**<br>
++ * DOC: pm_policy<br>
++ *<br>
++ * Certain SOCs can support different power policies to optimize applicati=
+on<br>
++ * performance. However, this policy is provided only at SOC level and not=
+ at a<br>
++ * per-process level. This is useful especially when entire SOC is utilize=
+d for<br>
++ * dedicated workload.<br>
++ *<br>
++ * The amdgpu driver provides a sysfs API for selecting the policy. Presen=
+tly,<br>
++ * only two types of policies are supported through this interface.<br>
++ *<br>
++ *&nbsp; Pstate Policy Selection - This is to select different Pstate prof=
+iles which<br>
++ *&nbsp; decides clock/throttling preferences.<br>
++ *<br>
++ *&nbsp; XGMI PLPD Policy Selection - When multiple devices are connected =
+over XGMI,<br>
++ *&nbsp; this helps to select policy to be applied for per link power down=
+.<br>
++ *<br>
++ * The list of available policies and policy levels vary between SOCs. The=
+y can<br>
++ * be viewed under pm_policy node directory. If SOC doesn't support any po=
+licy,<br>
++ * this node won't be available. The different policies supported will be<=
+br>
++ * available as separate nodes under pm_policy.<br>
++ *<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; cat /sys/bus/pci/devices/.../pm_policy/&lt;poli=
+cy_type&gt;<br>
++ *<br>
++ * Reading the policy file shows the different levels supported. The level=
+ which<br>
++ * is applied presently is denoted by * (asterisk). E.g.,<br>
++ *<br>
++ * .. code-block:: console<br>
++ *<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; cat /sys/bus/pci/devices/.../pm_policy/soc_psta=
+te<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; 0 : soc_pstate_default<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; 1 : soc_pstate_0<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; 2 : soc_pstate_1*<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; 3 : soc_pstate_2<br>
++ *<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; cat /sys/bus/pci/devices/.../pm_policy/xgmi_plp=
+d<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; 0 : plpd_disallow<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; 1 : plpd_default<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; 2 : plpd_optimized*<br>
++ *<br>
++ * To apply a specific policy<br>
++ *<br>
++ * &quot;echo&nbsp; &lt;level&gt; &gt; /sys/bus/pci/devices/.../pm_policy/=
+&lt;policy_type&gt;&quot;<br>
++ *<br>
++ * For the levels listed in the example above, to select &quot;plpd_optimi=
+zed&quot; for<br>
++ * XGMI and &quot;soc_pstate_2&quot; for soc pstate policy -<br>
++ *<br>
++ * .. code-block:: console<br>
++ *<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;2&quot; &gt; /sys/bus/pci/devices/..=
+./pm_policy/xgmi_plpd<br>
++ *&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;3&quot; &gt; /sys/bus/pci/devices/..=
+./pm_policy/soc_pstate<br>
++ *<br>
++ */<br>
+&nbsp;static ssize_t amdgpu_get_pm_policy_attr(struct device *dev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; struct device_attribute *attr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; char *buf)<br>
+-- <br>
+2.25.1<o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DS7PR12MB6071D08B09A05B5080497FD98EEE2DS7PR12MB6071namp_--
