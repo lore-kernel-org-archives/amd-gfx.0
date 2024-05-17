@@ -4,44 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A13D4C25B79
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 13:37:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BBC1C04FFE
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 13:37:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBC9A10EEC2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62F5010EEC1;
 	Fri, 17 May 2024 13:37:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="KEJGezyB";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="mH1Y0wB0";
 	dkim-atps=neutral
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Fri, 17 May 2024 08:31:45 UTC
-Received: from out30-101.freemail.mail.aliyun.com
- (out30-101.freemail.mail.aliyun.com [115.124.30.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60C2810E080;
- Fri, 17 May 2024 08:31:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1715934703; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=Ok07d1vK/JMG0IYRwczMvV9yC90WTaW4HZWyrpjc2fM=;
- b=KEJGezyB0KSlVpTghzfA/3gebAXXB/J+xLGayXvwVBW6UcKCLAeidjjU2nlLtFVg8kG8YZr6Z881T2fGI5uq1EkyFRVf4NhxMHZiU/VzNVKvXX1Fj27mNsrvPYourNAoFeCQlQKWyTarFwkxq99NtdH/cQDoGuDetSfXrHKEF80=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R991e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037067113;
- MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=7; SR=0;
- TI=SMTPD_---0W6e1kO8_1715934397; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0W6e1kO8_1715934397) by smtp.aliyun-inc.com;
- Fri, 17 May 2024 16:26:38 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: alexander.deucher@amd.com,
-	airlied@gmail.com,
-	daniel@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Yang Li <yang.lee@linux.alibaba.com>
-Subject: [PATCH -next] drm/amd/display: Update optc35_set_odm_combine doc to
- match kernel-doc spec
-Date: Fri, 17 May 2024 16:26:37 +0800
-Message-Id: <20240517082637.69928-1-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3065D10EE13;
+ Fri, 17 May 2024 07:41:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=FK3NFrTqmL6xVJnwLX6zLDv0aAR69KaCPCpyjlw0hJo=; b=mH1Y0wB0Qe5FJP4DjKJ8ZF1sJe
+ 4PcmAoz3bdpCgCVHWpRG7h4/J0eYiY4Q0oKGAF3/70HyrGIFMOGhIlGs7VguC/evRCH1zPbT+xr+G
+ wU9ACvHsi1ufv4WtQLmkOaj8kMy2DlafdCrCzsv8tYLZ2qzp6U+MrUO0SRk2VwDrav9iRyOPe0jSd
+ pMQ+5gc/YZrt2GdOu3O8qV8KZvtbz9RMHIy6mBqYNA7IyU4I9ZgULbtjznlLkWoZFb6ifcK+2oVfJ
+ 8rTamp7ed8L1iGfQoRxqhVUL87lhAzEOjw8A9R0VzL5uYI7IhyZjZ8xRqnW+PjTYtjAuge8tvyMkv
+ 1+LNlt3g==;
+Received: from [84.69.19.168] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1s7sDN-009AvW-Ds; Fri, 17 May 2024 09:41:17 +0200
+Message-ID: <4cfb94e4-8f15-4b7f-8911-60298da3edb7@igalia.com>
+Date: Fri, 17 May 2024 08:41:16 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC v2 0/2] Discussion around eviction improvements
+Content-Language: en-GB
+To: Alex Deucher <alexdeucher@gmail.com>, Tvrtko Ursulin <tursulin@igalia.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Friedrich Vock <friedrich.vock@gmx.de>
+References: <20240516121822.19036-1-tursulin@igalia.com>
+ <CADnq5_PhZ5bqEJKQ+bPQAeXihMfZrFVqLN-+nd69+zZooBT6BA@mail.gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <CADnq5_PhZ5bqEJKQ+bPQAeXihMfZrFVqLN-+nd69+zZooBT6BA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 17 May 2024 13:36:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -58,29 +63,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch updates the function documentation comment for
-optc35_set_odm_combine to conform to the kernel-doc specification.
 
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
----
- drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+On 16/05/2024 20:21, Alex Deucher wrote:
+> On Thu, May 16, 2024 at 8:18 AM Tvrtko Ursulin <tursulin@igalia.com> wrote:
+>>
+>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>
+>> Reduced re-spin of my previous series after Christian corrected a few
+>> misconceptions that I had. So lets see if what remains makes sense or is still
+>> misguided.
+>>
+>> To summarise, the series address the following two issues:
+>>
+>>   * Migration rate limiting does not work, at least not for the common case
+>>     where userspace configures VRAM+GTT. It thinks it can stop migration attempts
+>>     by playing with bo->allowed_domains vs bo->preferred domains but, both from
+>>     the code, and from empirical experiments, I see that not working at all. When
+>>     both masks are identical fiddling with them achieves nothing. Even when they
+>>     are not identical allowed has a fallback GTT placement which means that when
+>>     over the migration budget ttm_bo_validate with bo->allowed_domains can cause
+>>     migration from GTT to VRAM.
+>>
+>>   * Driver thinks it will be re-validating evicted buffers on the next submission
+>>     but it does not for the very common case of VRAM+GTT because it only checks
+>>     if current placement is *none* of the preferred placements.
+> 
+> For APUs at least, we should never migrate because GTT and VRAM are
+> both system memory so are effectively equal performance-wise.  Maybe
 
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-index 7c9faa507ec2..1f8516e5ce68 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-@@ -50,7 +50,9 @@
-  * @optc: Output Pipe Timing Combine instance reference.
-  * @opp_id: Output Plane Processor instance ID.
-  * @opp_cnt: Output Plane Processor count.
-- * @timing: Timing parameters used to configure DCN blocks.
-+ * @segment_width: Width in pixels of each segment in a horizontal direction.
-+ * @last_segment_width: Width in pixels of the last segment if it differs from
-+ *			other segments.
-  *
-  * Return: void.
-  */
--- 
-2.20.1.7.g153144c
+I was curious about this but thought there could be a reason why VRAM 
+carve-out is a fix small-ish size. It cannot be made 1:1 with RAM or 
+some other solution?
 
+> this regressed when Christian reworked ttm to better handle migrating
+> buffers back to VRAM after suspend on dGPUs?
+
+I will leave this to Christian to answer but for what this series is 
+concerned I'd say it is orthogonal to that.
+
+Here we have two fixes not limited to APU use cases, just so it happens 
+fixing the migration throttling improves things there too. And that even 
+despite the first patch which triggering *more* migration attempts. 
+Because the second patch then correctly curbs them.
+
+First patch should help with transient overcommit on discrete, allowing 
+things get back into VRAM as soon as there is space.
+
+Second patch tries to makes migration throttling work as intended.
+
+Volunteers for testing on discrete? :)
+
+>>
+>> These two patches appear to have a positive result for a memory intensive game
+>> like Assassin's Creed Valhalla. On an APU like Steam Deck the game has a working
+>> set around 5 GiB, while the VRAM is configured to 1 GiB. Correctly respecting
+>> the migration budget appears to keep buffer blits at bay and improves the
+>> minimum frame rate, ie. makes things smoother.
+>>
+>>  From the game's built-in benchmark, average of three runs each:
+>>
+>>                                                  FPS
+>>                  migrated KiB    min     avg     max     min-1%  min-0.1%
+>>    because          20784781     10.00  37.00   89.67    22.00    12.33
+>>    patched           4227688     13.67  37.00   81.33    23.33    15.00
+
+Hmm! s/because/before/ here obviously!
+
+Regards,
+
+Tvrtko
+
+>> Disclaimers that I have is that more runs would be needed to be more confident
+>> about the results. And more games. And APU versus discrete.
+>>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
+>>
+>> Tvrtko Ursulin (2):
+>>    drm/amdgpu: Re-validate evicted buffers
+>>    drm/amdgpu: Actually respect buffer migration budget
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 112 +++++++++++++++++++------
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c |  21 ++++-
+>>   2 files changed, 103 insertions(+), 30 deletions(-)
+>>
+>> --
+>> 2.44.0
+>>
