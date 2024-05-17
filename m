@@ -4,73 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51631C25B79
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 15:46:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63417C25B79
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 15:51:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65AD610E0DE;
-	Fri, 17 May 2024 15:46:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF58B10E004;
+	Fri, 17 May 2024 15:51:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hp82z1Gm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WEodpltJ";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D339810E0DE;
- Fri, 17 May 2024 15:46:28 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-1eeabda8590so12153425ad.0; 
- Fri, 17 May 2024 08:46:28 -0700 (PDT)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CDAB10E004
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 May 2024 15:51:51 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-1ed835f3c3cso14503425ad.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 May 2024 08:51:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715960788; x=1716565588; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1715961111; x=1716565911; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=DgpuDYI8j+33tJ7Dk5uqzFwntZEb5ZpRgbewCzVqOoQ=;
- b=Hp82z1Gm0pb15NPEWPe+hL/lplITZSKkkHcAUUIoBXVmItMzAVqmnatp2tJx/3A9Zc
- b/VW1HcS5V8UTRP/V2EvRg4gJuaCdb6CD80PCD0RdfIUVcuCbWISP2+4CGgUTFx7SYuT
- iwGhOBAjTDKgVJUZolfRdfqjiznIFgaa96CQX28RKcElP2ffc7MdnnT2KbhMOiPmUqc4
- wF9ORtQ9cJyjh3OBvTGL+m0ikUs+NBdXT8fpuBru2Zkp2F1rt9cMAF/2nO9G0gZq7WV1
- 7KIPAmSV2ltcDZ5Go4BY5j/JxSaE53nOh32bF8h9KBKOFEgYhzD2Jc2q3YlTOfQ1kjxV
- TpBQ==
+ bh=2UH9gIjK4/4P4OsdAPKJGxw2Osj4749AVA1rimL18xg=;
+ b=WEodpltJPOqiT9l2Vi2m0MwBf5092rZKKEzPopaW7TySaOuIu0dOyWQ6EoP8H9zJoF
+ OdK+YJV7HQYqxNJOVwg3B+Vg1TirWLk7gxQbnp93cyZlc3VcCGmYsMYLhjL5wVdNvP8n
+ CrrDlBij1fKVCZJc7Eh8gs/GHUcAj08guCWMKY7M37QWYbF0AbMzntLaQjF/1qPc1GeS
+ XXPq2bh+orJGdWy3I5jvrWQavMsNYLv+aJaD51QJm4JxUBG7ILgrZtDsrpdHlNOBoZOf
+ C1ix8adZICok85ryQeUTam6tHBcPYQq5O/It87B5ihIr2Ub9B3jsSErGY381OY2/bZys
+ qZjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715960788; x=1716565588;
+ d=1e100.net; s=20230601; t=1715961111; x=1716565911;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=DgpuDYI8j+33tJ7Dk5uqzFwntZEb5ZpRgbewCzVqOoQ=;
- b=I/71tBWVxUzdH9FJXoRkr4pZnwGZxYw6Bt4Q7gfaCGUISiYSmLSjta61kucB2pzoYy
- jhSgPc5k+EOg1lemQdbi5gUfVda5GOBTv1NHEgmZboWj7V+8MZVpCmD3yJglE0qCG2YT
- LUvuw9O8+b24ARDPzXN17ujBHwkL2JtyaMAWZIdnFmAjM6/o08cYXvV0mjZFHPSj9XYj
- RbZuuD3uFZiNuU64DdacDlGNgGzmajfCVboyVV5Tl4A04iaemd6c1f6z7yS7wLJl/KWG
- bKvm58b7cnnCcVC0RhUfuG4v0uf0p73ezyoAOAooCCJKw9Smmym75slvAg1zTuF/8Q5L
- j2Vw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWzqp9vOC/G0SvYJoSOzGv23qikw2i4rc9okrTiu+G9OOUrgRKOu4yyb0UTslJJm6WtcHNiKt43hQWQ9S6Xuvd6IcsYlVisJbAJ5IflN2Ymsc4/sF1PzZzpj91n8XItFYQVxVkChIVdPRDtEDtxqw==
-X-Gm-Message-State: AOJu0Yzt2TK3tTpgGKS12XdQ/TelBqPJo760ZuTwjjugQAEUzEnagmXg
- JEAfq2sjtyMC6ThjzssdFdIFBxE3wuzdF3TbTgH6Uthi8FbG4hD4QoY4t3mt6MqJm5UF+yRdHl7
- tcr/iZy00947nSLaS4/lcibkSWbw=
-X-Google-Smtp-Source: AGHT+IG4waejpOf/qZLwoj5ZE1TOjOYuV5JPU5s1UwIqmRNmcsyC3TIfxfK361yvR3M1Lc0rBKgAs5yjmvxDuRVdaMQ=
-X-Received: by 2002:a17:90b:4f45:b0:2b1:534f:ea09 with SMTP id
- 98e67ed59e1d1-2b6cc76d27amr21340210a91.23.1715960788222; Fri, 17 May 2024
- 08:46:28 -0700 (PDT)
+ bh=2UH9gIjK4/4P4OsdAPKJGxw2Osj4749AVA1rimL18xg=;
+ b=j0348K3nwW9CgMi7m0obo/SKiOCpH3p5NPSQwLr6G4dWpX2NmW2vTGDwLwmStQDds4
+ fPI1XVkaNZkgzmNPyZPkNSgDTiTC1WGdSLKRgeJ5n+eD2EuHgJdgWaVTnjIDnsrACA+9
+ 6C8QCuYKnv9ZrLmYWL5omMpimuYBMyMgN3KI4cVG3PYLOmKQt01B9Dv0+Qt7DsluV9Rh
+ 2IQGoWxWgcOJSWoktuE6RWqoyTKpnog5XoaVyg0gfj+vwi7jOHA6wcJMU14I5kbqgKf6
+ dQcU89w+YkgO6R4ucB5lfdby2mZ0bH26JgSC3GwIGdi3cNSJZl52qToYKthMWVzKaH89
+ WHLw==
+X-Gm-Message-State: AOJu0Yxu0E5y+lnmri7rOGp8vTPAhe4Nc268+YlrCyHF4yWDIxnLIb+M
+ MfKr0NgRguLqFUbvqLGonS01/tvBjH7VP6t+tj8zEPcAT+FW0sYU0Im9X5ys5NoHvV+B7a/zPby
+ 0Aiyj9qr5askQCZtkNQSKuW3YuLc=
+X-Google-Smtp-Source: AGHT+IF50yXm4qJGJlNUdJUTQVqvhtAuvlS/iJ6umpDWMgz8EC6YRAugF4e0rTcI1RdscDt0gbLh8Wfo48myjwTQLhY=
+X-Received: by 2002:a17:90a:7d0e:b0:2a2:ba9:ba61 with SMTP id
+ 98e67ed59e1d1-2b6ccc72e91mr22916214a91.34.1715961111272; Fri, 17 May 2024
+ 08:51:51 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240516115721.1.I8d413e641239c059d018d46cc569048b813a5d9b@changeid>
- <9dd1cfd1-fe13-4434-a7cc-e14113dcaf53@amd.com>
-In-Reply-To: <9dd1cfd1-fe13-4434-a7cc-e14113dcaf53@amd.com>
+References: <20240517070011.2253488-1-shane.xiao@amd.com>
+In-Reply-To: <20240517070011.2253488-1-shane.xiao@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 17 May 2024 11:46:16 -0400
-Message-ID: <CADnq5_NGLrrFmFHFX2bC7naByJGofEiYQyWvRP6CO4BDFo52TQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Remove GC HW IP 9.3.0 from noretry=1
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Tim Van Patten <timvp@chromium.org>, LKML <linux-kernel@vger.kernel.org>, 
- alexander.deucher@amd.com, prathyushi.nangia@amd.com, 
- Tim Van Patten <timvp@google.com>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Ikshwaku Chauhan <ikshwaku.chauhan@amd.com>, Le Ma <le.ma@amd.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Shaoyun.liu" <Shaoyun.liu@amd.com>, 
- Shiwu Zhang <shiwu.zhang@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Date: Fri, 17 May 2024 11:51:38 -0400
+Message-ID: <CADnq5_PXY+nx-RVjxmjpjEFSjGSTQpCp0MYJB8yRJwJKx=CNwQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Correct the GFX12 memory type setting
+To: Shane Xiao <shane.xiao@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, felix.kuehling@amd.com, 
+ sreekant.somasekharan@amd.com, Aaron Liu <aaron.liu@amd.com>, 
+ longlyao <Longlong.Yao@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -87,57 +77,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 17, 2024 at 2:35=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+On Fri, May 17, 2024 at 3:07=E2=80=AFAM Shane Xiao <shane.xiao@amd.com> wro=
+te:
 >
-> Am 16.05.24 um 19:57 schrieb Tim Van Patten:
-> > From: Tim Van Patten <timvp@google.com>
-> >
-> > The following commit updated gmc->noretry from 0 to 1 for GC HW IP
-> > 9.3.0:
-> >
-> >      commit 5f3854f1f4e2 ("drm/amdgpu: add more cases to noretry=3D1")
-> >
-> > This causes the device to hang when a page fault occurs, until the
-> > device is rebooted. Instead, revert back to gmc->noretry=3D0 so the dev=
-ice
-> > is still responsive.
+> This patch fixes the GFX12 memory type to NC. Since
+> the Memory type can be overwritten by the previous
+> operations, the GFX12 MTYPE bits need to be clear
+> before setting to NC.
 >
-> Wait a second. Why does the device hang on a page fault? That shouldn't
-> happen independent of noretry.
+> Signed-off-by: longlyao <Longlong.Yao@amd.com>
+> Signed-off-by: Shane Xiao <shane.xiao@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
-> So that strongly sounds like this is just hiding a bug elsewhere.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v12_0.c
+> index e2c6ec3cc4f3..6246d1dc0d30 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> @@ -534,7 +534,8 @@ static void gmc_v12_0_get_vm_pte(struct amdgpu_device=
+ *adev,
+>
+>         /* WA for HW bug */
+>         if (is_system || ((bo_adev !=3D adev) && coherent))
+> -               *flags |=3D AMDGPU_PTE_MTYPE_GFX12(MTYPE_NC);
+> +               *flags |=3D (*flags & ~AMDGPU_PTE_MTYPE_GFX12_MASK) |
+> +                       AMDGPU_PTE_MTYPE_GFX12(MTYPE_NC);
 
-Fair enough, but this is also the only gfx9 APU which defaults to
-noretry=3D1, all of the rest are dGPUs.  I'd argue it should align with
-the other GFX9 APUs or they should all enable noretry=3D1.
+Maybe we should make the AMDGPU_PTE_MTYPE_GFX12() macro clear the
+current field before setting the new one?  That would align with the
+similar register field macros.
 
 Alex
 
 >
-> Regards,
-> Christian.
+>  }
 >
-> >
-> > Fixes: 5f3854f1f4e2 ("drm/amdgpu: add more cases to noretry=3D1")
-> > Signed-off-by: Tim Van Patten <timvp@google.com>
-> > ---
-> >
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 -
-> >   1 file changed, 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_gmc.c
-> > index be4629cdac049..bff54a20835f1 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > @@ -876,7 +876,6 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *a=
-dev)
-> >       struct amdgpu_gmc *gmc =3D &adev->gmc;
-> >       uint32_t gc_ver =3D amdgpu_ip_version(adev, GC_HWIP, 0);
-> >       bool noretry_default =3D (gc_ver =3D=3D IP_VERSION(9, 0, 1) ||
-> > -                             gc_ver =3D=3D IP_VERSION(9, 3, 0) ||
-> >                               gc_ver =3D=3D IP_VERSION(9, 4, 0) ||
-> >                               gc_ver =3D=3D IP_VERSION(9, 4, 1) ||
-> >                               gc_ver =3D=3D IP_VERSION(9, 4, 2) ||
+> --
+> 2.25.1
 >
