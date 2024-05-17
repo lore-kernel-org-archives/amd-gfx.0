@@ -4,73 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2870C25B7B
-	for <amd-gfx@archiver.kernel.org>; Sun, 19 May 2024 10:46:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2865C25B77
+	for <amd-gfx@archiver.kernel.org>; Sun, 19 May 2024 10:46:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3123D10E15E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C44A10E1A5;
 	Sun, 19 May 2024 10:46:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="Vi5TTRYP";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RB5PiJp6";
 	dkim-atps=neutral
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
- [209.85.221.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED75110EF31
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 May 2024 17:27:03 +0000 (UTC)
-Received: by mail-vk1-f181.google.com with SMTP id
- 71dfb90a1353d-4df97a50d1aso380729e0c.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 May 2024 10:27:03 -0700 (PDT)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A97510EF37;
+ Fri, 17 May 2024 17:36:39 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-1eeabda8590so15115185ad.0; 
+ Fri, 17 May 2024 10:36:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1715966822; x=1716571622;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ZcxVTcFh7NO1RmeggMzvCad9BHQKhjKuD/Oz3pjme8o=;
- b=Vi5TTRYPdDcDbEpTz3HufKCCjcL9f9ywv1PvuQy5xnXDEemvLozmW8Ls/zI8X6B6nt
- bSnGExaA7LDG9FnokD3k6q0ItVhAlSqD+Y1FCrczj4ZV6bBrYJocYPXc/eWLbDgxcRY9
- 0IDtTY6qcKDo5X3FS+rFHKhoTbBE77bV2fSFk=
+ d=gmail.com; s=20230601; t=1715967399; x=1716572199; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+ :reply-to; bh=rzMfxbAB8QJEcJdIySGROcUOqAKXWq8nqUdcExbi1Zk=;
+ b=RB5PiJp6QFwFLKg+b7D4SwL0yoN4nsX69s/iIDOwYan1XKgYWnSNKSk/5xOFSBrK+P
+ Pj1+ZqF7/rPCGwG2j+chcWb+Z4rnNlL5VaC0/3Q/e03XjPMDODyFWK7z1mHturBowJPc
+ ZaAJmXhglBQjo3ZFjeXAsuIoE1QSj4Xi1n5YPlITmxOxW02Kceu3+t9bX5wvgLduXGnC
+ YOSKG65CZaQzSwPLoZuT19hE0vtncnGtW1572LqUW965QNwy/vGwiNPoiWcDW6J98lzO
+ qcTpwLTQs0UFUqEY79tlJ7/wnKrhdllNXs2W/OnYoBqmRJE8IXKk9f4VjQeUiZVLQsGp
+ ztCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715966822; x=1716571622;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ZcxVTcFh7NO1RmeggMzvCad9BHQKhjKuD/Oz3pjme8o=;
- b=D0uBY44iQiO/MrNbK9MHBKfmVmnZFxwvHVOGd1mBOOhlL2HelDbS2NZ5v88k4/qbys
- MLynwx3EKgT9J//7VudWvFXO3Z/Z/T6jZI+yK1g8ABRtcdp6FgzCpw+flzdTGUeezXml
- CCiSZqo0U64Xb35/texNQieloJBcY4ioeo+lnUaBLBR0d+sr3cjR6hzTr/DyZ113GfNg
- hZRVnXbXE2RKA3wIVLZdn6kQf2YlQEDQX3qD9Oz83GTRlBFpoecOAg8TO+GqTINGBC9m
- 16irRbeHrj2SdBdj5JSUljHHlH4TKtiwz8TIpsKUiWiKOd3TgAFfjOpw+LRW9OeoB9Tw
- 9Xng==
+ d=1e100.net; s=20230601; t=1715967399; x=1716572199;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rzMfxbAB8QJEcJdIySGROcUOqAKXWq8nqUdcExbi1Zk=;
+ b=wp/lu6ZqyViFGfyDQgpiojvMnPacUSdmPbygb79J7oUl75XyF0HUBspgUCzIe/ibOn
+ Pb6yDU+Q5kBjrUdEH+BXaUtdZnmYGTqfQz7z/8BFi2uOHjX4IPgMK4ljcyLC9gjsS8Cr
+ BHq5uvTRxsC0Mq4i6ez9r91xf9yNCurdstRqGFZafIzpl0QloxoedBS5KOb5T5Q+wOJw
+ hzS6qV6WI4iNRcvCXIXfgtYBy1iHLQKuYcm1QMm+c5dvC5E9T/xqlPUnc85RTOgf+nao
+ fNR+eqyOPrMFens2eZUtuxFsQy2R5pXR8DE424p8Lf6h3CITSz3I14UH8eDZi5mHya1L
+ WowQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXQCim+nCXF+jmHc3sRdO6IapCZ8EHI3lx8S3rFrceA6/nQBLsOzIBqgxVlsGxRQxivwXitvna8azHxZ50M7nFa6y9k9WPpdClgCj/6fQ==
-X-Gm-Message-State: AOJu0YxNuScX37JtXsGBrIvTmi3tmGj8QFUE8+/aBmdeaqtisTXMnwns
- qluBBzIMX9phH1OBSk63pusyqRkJ/oxlcLCl6T/tCCo8WmJjFcAkjnaif1ce9rUdHY/JEgV192b
- flHeLMhJd8xJaddhknaT4AGbt4Oqxbcli2dGD
-X-Google-Smtp-Source: AGHT+IElyxDzLSoeVKTnHsADhpEMO/j0Y0exiEY0s5o2jQhNssuaMk0JL5QwXxOtxjka7wlQqKZ7P260uLD752jOyqw=
-X-Received: by 2002:a05:6102:14aa:b0:47f:2c10:24e2 with SMTP id
- ada2fe7eead31-48077e5bfaemr26084771137.28.1715966822410; Fri, 17 May 2024
- 10:27:02 -0700 (PDT)
+ AJvYcCXMGypGSdZu/gd6V1nFzWwgVfgfjxFBmjyqGc7hlc7npj1WQYvoe/Uf64xJ0wQUewYpi9U7IiviZ3b+cnaZycUvi6RbnxOGtq3YkyqYG/HTdZrLIhDt3jZgAllMH11yY/6tFuqtjy3I/5yBd/ltH9O7FFcMkj9D3vWbzn5UHV6bxns0hsWU2fS2uz2OyQ05UsHCtktXt/2eDvCWscQ+kVTGKBvbwWPvvBvg/2OalNH1btaPgT59jQ27zI64PvU6OMkpE2+maU98Nvy6T7UOEnPf
+X-Gm-Message-State: AOJu0YyvsM8nXLvr6OfDRkdxtD4h8FgEPl0lxsUV6AS45D+BR45BNZXh
+ DDwzF0ePLL+1jjT/h8f2xU0nEpUnr3P/sq8ZsQqy1CTVQ7CkAMLWjiYDUA==
+X-Google-Smtp-Source: AGHT+IHJ9PZtASiLb9HJkYrHy1DRhdQlVEuKbRr0NYIRv4Tx+av91BIA0wx1gBcIQQlm9sd2COIQnQ==
+X-Received: by 2002:a17:90a:9606:b0:2b9:a299:928e with SMTP id
+ 98e67ed59e1d1-2b9a29994c9mr10436893a91.24.1715967398710; 
+ Fri, 17 May 2024 10:36:38 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2b67105666csm15749258a91.8.2024.05.17.10.36.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 May 2024 10:36:38 -0700 (PDT)
+Date: Fri, 17 May 2024 10:36:37 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Linux trace kernel <linux-trace-kernel@vger.kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-cxl@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-rdma@vger.kernel.org, linux-pm@vger.kernel.org,
+ iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
+ netdev@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ ath10k@lists.infradead.org, linux-wireless@vger.kernel.org,
+ ath11k@lists.infradead.org, ath12k@lists.infradead.org,
+ brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
+ linux-usb@vger.kernel.org, linux-bcachefs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
+ linux-cifs@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-edac@vger.kernel.org, selinux@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-f2fs-devel@lists.sourceforge.net, linux-hwmon@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-sound@vger.kernel.org,
+ bpf@vger.kernel.org, linux-wpan@vger.kernel.org,
+ dev@openvswitch.org, linux-s390@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, Julia Lawall <Julia.Lawall@inria.fr>
+Subject: Re: [PATCH] tracing/treewide: Remove second parameter of
+ __assign_str()
+Message-ID: <5080f4c5-e0b3-4c2e-9732-f673d7e6ca66@roeck-us.net>
+References: <20240516133454.681ba6a0@rorschach.local.home>
 MIME-Version: 1.0
-References: <20240516115721.1.I8d413e641239c059d018d46cc569048b813a5d9b@changeid>
- <9dd1cfd1-fe13-4434-a7cc-e14113dcaf53@amd.com>
- <CADnq5_NGLrrFmFHFX2bC7naByJGofEiYQyWvRP6CO4BDFo52TQ@mail.gmail.com>
-In-Reply-To: <CADnq5_NGLrrFmFHFX2bC7naByJGofEiYQyWvRP6CO4BDFo52TQ@mail.gmail.com>
-From: Tim Van Patten <timvp@chromium.org>
-Date: Fri, 17 May 2024 11:26:51 -0600
-Message-ID: <CAMaBtwFQxeARGyhVxo+WsYCHgmJNJ7ThjtPcFv=LZqRNJtVxsw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Remove GC HW IP 9.3.0 from noretry=1
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- LKML <linux-kernel@vger.kernel.org>, alexander.deucher@amd.com, 
- prathyushi.nangia@amd.com, Tim Van Patten <timvp@google.com>, 
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, 
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Ikshwaku Chauhan <ikshwaku.chauhan@amd.com>, Le Ma <le.ma@amd.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Shaoyun.liu" <Shaoyun.liu@amd.com>, 
- Shiwu Zhang <shiwu.zhang@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240516133454.681ba6a0@rorschach.local.home>
 X-Mailman-Approved-At: Sun, 19 May 2024 10:46:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,9 +108,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> Fair enough, but this is also the only gfx9 APU which defaults to
-> noretry=1, all of the rest are dGPUs.  I'd argue it should align with
-> the other GFX9 APUs or they should all enable noretry=1.
+On Thu, May 16, 2024 at 01:34:54PM -0400, Steven Rostedt wrote:
+> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
+> 
+> [
+>    This is a treewide change. I will likely re-create this patch again in
+>    the second week of the merge window of v6.10 and submit it then. Hoping
+>    to keep the conflicts that it will cause to a minimum.
+> ]
+> 
+> With the rework of how the __string() handles dynamic strings where it
+> saves off the source string in field in the helper structure[1], the
+> assignment of that value to the trace event field is stored in the helper
+> value and does not need to be passed in again.
+> 
+> This means that with:
+> 
+>   __string(field, mystring)
+> 
+> Which use to be assigned with __assign_str(field, mystring), no longer
+> needs the second parameter and it is unused. With this, __assign_str()
+> will now only get a single parameter.
+> 
+> There's over 700 users of __assign_str() and because coccinelle does not
+> handle the TRACE_EVENT() macro I ended up using the following sed script:
+> 
+>   git grep -l __assign_str | while read a ; do
+>       sed -e 's/\(__assign_str([^,]*[^ ,]\) *,[^;]*/\1)/' $a > /tmp/test-file;
+>       mv /tmp/test-file $a;
+>   done
+> 
+> I then searched for __assign_str() that did not end with ';' as those
+> were multi line assignments that the sed script above would fail to catch.
+> 
 
-Do you mean we should remove all IP_VERSION(9, X, X) entries from
-amdgpu_gmc_noretry_set(), leaving just >= IP_VERSION(10, 3, 0)?
+Building csky:allmodconfig (and others) ... failed
+--------------
+Error log:
+In file included from include/trace/trace_events.h:419,
+                 from include/trace/define_trace.h:102,
+                 from drivers/cxl/core/trace.h:737,
+                 from drivers/cxl/core/trace.c:8:
+drivers/cxl/core/./trace.h:383:1: error: macro "__assign_str" passed 2 arguments, but takes just 1
+
+This is with the patch applied on top of v6.9-8410-gff2632d7d08e.
+So far that seems to be the only build failure.
+Introduced with commit 6aec00139d3a8 ("cxl/core: Add region info to
+cxl_general_media and cxl_dram events"). Guess we'll see more of those
+towards the end of the commit window.
+
+Guenter
