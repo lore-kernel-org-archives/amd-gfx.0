@@ -4,64 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BAEEC04FFE
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 11:28:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44D94C25B77
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 12:38:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09B8610EE81;
-	Fri, 17 May 2024 11:28:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 984FB10E39C;
+	Fri, 17 May 2024 12:38:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fBbY6hSl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="h5nsDhqY";
 	dkim-atps=neutral
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA61410EE81
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 May 2024 11:28:26 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id
- d2e1a72fcca58-6f4603237e0so42982b3a.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 May 2024 04:28:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715945306; x=1716550106; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=QK6DydqePA+uagCcAUFF8RH+e36PxKyMLmA8X08UdxM=;
- b=fBbY6hSlet68hkYLM/L/R1wqXtAuMQjSm1OymgXkAedpX/+BC9g7thxFQFJFoHFgvk
- eAUisVk16qEzPsSe5qLqEPAPOU+xCl/dv9uFEoS+MBSfCKwMMvYWuYYlGvHbms5x1hZv
- RG1LO6i41/1uoyROg99VVyaQ6jMO+4zKbW0dPqnPg1JR7c9VPOZczWy2qs2aRITnveUU
- ejU6fLERULYEI7vlyYv4ppTGI7qLHKgDJDS9ESCt9yY9oEs5a0bkbfExLBa06gkQ+azz
- OuCVqETybxzNRydPUyclvxi5a35NkdT5dpBsxw/HeqmPauBglWste0iq7Huxv3Krx70G
- VqDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715945306; x=1716550106;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=QK6DydqePA+uagCcAUFF8RH+e36PxKyMLmA8X08UdxM=;
- b=OtAGJclOR6N+98M3+PuO901kc6Yy0iDDLtXjGSatmM5TVctCpJeRL6yRM8E5y7Nd89
- eCT9240KaT1lTyWr5tT712qrwaovwZvFeA4zV1r2wy092TKbRaWsdQ0nuReldMB+It5V
- ZKiVqetdsR2DVi5eRQEVyGBGwEaYmFGLRd1wLlEjN1vWey0rK2R7K7XOHGh/BDKhNAJY
- sxc1n7B8UT432K3HSglb6Rzk6N1gM5K4jTn3EnfcT/4koZkCWtTOq4Rq093rbaiPZs7H
- Mc/MWKBLpt4gwEWtpqz1J0WFiL/bGd3ntveWyxalc1RBWqf+F7IPsXJjF5bcLzSbTjUJ
- OPug==
-X-Gm-Message-State: AOJu0YxRaKGk/amUnE6GVqnp61buyw7E4qvvQ/Fr3sZ4Axamh229zMnO
- bEufr7476rrJdlw7kWFgpDTOxdbAWEtWJLQo0gGt6IkVE+SKHQ9RRAp5FDziP1r2fQKqOUMkXuw
- yXbgB4aSjtNSxdnQO4U+mZ//c429zaL4D
-X-Google-Smtp-Source: AGHT+IHs9C/vFAkH6Hs5B0AgV8V2+9KQf6v9hOt9wq/Bxt5e/fsl65wlJk/p2kAdIIhCOnKyCqqfCiNgvn/CDAmJffM=
-X-Received: by 2002:a05:6a20:9697:b0:1a7:48de:b2a4 with SMTP id
- adf61e73a8af0-1afde07d88amr25712930637.6.1715945305782; Fri, 17 May 2024
- 04:28:25 -0700 (PDT)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2064.outbound.protection.outlook.com [40.107.94.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38DAE10E39C;
+ Fri, 17 May 2024 12:38:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nbBhRu2JS3xv/r37qJLfqcbPkp93BieaTYuOFxPvhtqPiIcu2nCOoLsz/GKdL84XOBgi2pidKbRMYTo4pKCgl9HLgR5zsmQPXpg9SyaImFwOunVmve7uY8HEqXn1w4spCSSpMNQZWvxuZrTNUwNdkhfGc1cjpk8U3RwVn+E7PTQ6b18WM8aspNX/vLc8U3eeGV3ECfuo9nlmEUIm+HuMsXJEkN7l2VCFYfxdNnTQ49JOj6OSGNrJJycxipXN5WL6Ao6u5iGwKp8DfvaGuatnKE2x4rxTB/AAgWgQ4AGZrmH9bjBo5aevZcGB/gaZZ9CB1tt/bx+s/ZuIiyvSPHUooQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UtC9Z0OJ7GRiQzW+3ipK7jp38dCrlCfcaYz8GnHGWG4=;
+ b=Crz5+GIQzktJ+NGnHEnaBikd4vqIu/WTfQL0HUHlR3y3/2ZQkNhbKHoioF9IuQH8RkhtIBGSVyNje8mjGnZ/4i+I8gAmJQxeRO6I81I5oKjNtPdMRJwa6gVD8+5YnCB/C/ECy02VMC/qrF8sRFoNuGsGdQVlm5S2qpFrHsuAMiwrLHLxRfGZgMYKFgAc3CBLA5Q3CvEdIvLU30eD7F3hhk4LDSTHpHJ7ElMv2wz1lRVArveEvlocVeAcACQJHQhfxg+fKzZ/vRSzu1D8Z93ySomNu8ThYp332Ax9zEekzB7ZZetV5wQXI0qAm2rZPjngM857yM0prXAKVC53X5GY4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UtC9Z0OJ7GRiQzW+3ipK7jp38dCrlCfcaYz8GnHGWG4=;
+ b=h5nsDhqYMkRKAJajw/9pDB1ZxLeBoY++NuRn4LMCwzdUwGDAbQfw+xsd0OJUiXYQQPmrOZPp2hZMMDAqS6my8kg7rKKXDvXXz66Vcn4+upiloI/3JGADb6xjA63TFscwhKva0voI9luQi2RbV05UtQoVL5yxkwpt1cvMyCh4SN8=
+Received: from PH0PR07CA0116.namprd07.prod.outlook.com (2603:10b6:510:4::31)
+ by IA1PR12MB6307.namprd12.prod.outlook.com (2603:10b6:208:3e5::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.28; Fri, 17 May
+ 2024 12:38:54 +0000
+Received: from SN1PEPF000397AE.namprd05.prod.outlook.com
+ (2603:10b6:510:4:cafe::ab) by PH0PR07CA0116.outlook.office365.com
+ (2603:10b6:510:4::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.26 via Frontend
+ Transport; Fri, 17 May 2024 12:38:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF000397AE.mail.protection.outlook.com (10.167.248.52) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7587.21 via Frontend Transport; Fri, 17 May 2024 12:38:53 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Fri, 17 May 2024 07:38:51 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <matthew.auld@intel.com>
+CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
+ <airlied@gmail.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH] drm/buddy: Merge back blocks in bias range function
+Date: Fri, 17 May 2024 18:08:04 +0530
+Message-ID: <20240517123804.2816-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <CAEQFVGbaEx8mOWKy9bcq8FLFfq8Q+xE_hwk4dq5weKjNROcOGg@mail.gmail.com>
-In-Reply-To: <CAEQFVGbaEx8mOWKy9bcq8FLFfq8Q+xE_hwk4dq5weKjNROcOGg@mail.gmail.com>
-From: Mauro Rossi <issor.oruam@gmail.com>
-Date: Fri, 17 May 2024 13:28:13 +0200
-Message-ID: <CAEQFVGb3Xwx+TLf8QM2VBZ9EXy4rvpUs4wX=zNUQeyuy-=33yA@mail.gmail.com>
-Subject: Re: Request for Information on the current drm radeon Atomic Mode
- Settings
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Cc: Alexander <alexander.deucher@amd.com>, lee@kernel.org, 
- Michael Goffioul <michael.goffioul@gmail.com>,
- Jon West <electrikjesus@gmail.com>, youling 257 <youling257@gmail.com>
-Content-Type: multipart/alternative; boundary="00000000000067c3130618a4a67c"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397AE:EE_|IA1PR12MB6307:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39d6d477-e8f8-42e9-18b9-08dc766e4fe8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|1800799015|376005|36860700004|82310400017; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?lWW4apAS19Y/RpnTth3/QzUFBZKN835UcEhoJg39NRre+ShP5/D5b5skjoiT?=
+ =?us-ascii?Q?QuwgiPdsftGCXWV0Pj0J5UK58VLN+dkdeQaS4t0Y2GHr79e1Zhfm8tgijP2t?=
+ =?us-ascii?Q?hsvgb4Y1FY/ZoJOJOb2wT3hFDFnBnxHutq1iOZ8Wie+/KluuuslVoh6vebzq?=
+ =?us-ascii?Q?kiXXUoqeqVZ3zilc8QIsMHTNHrkAZt429SmUtOwiIOytgIvNOT1cJLMPtVka?=
+ =?us-ascii?Q?A4z7zNGS1tElcrA3m/CCdcPJlTnxSKHfcvk1F3J9FxHohOLT3BorlLkDmG/k?=
+ =?us-ascii?Q?Ep7c7XWzDPuOWPLWG4o9VrG6Tnbl8+qo3JzetXVjnTuf0RON3SnqzCDEPEYZ?=
+ =?us-ascii?Q?NNI14IkOwAPFNDRW97uhGKoTyD+nGYkOTUlHW2kIxW6zrJJPSyetX3FVJSjJ?=
+ =?us-ascii?Q?AHDDm00JW4OhttkWwcCFQDMmo4EqKpYqlmmtxTqWYzvYWTM437Q49Uown6NH?=
+ =?us-ascii?Q?5X0A+XqIXhDNd787qgEU00qwJLp7NoJaw+LfWnZiB9uoGpHcGwW6SGHlXHa5?=
+ =?us-ascii?Q?a6E0nA/p0wwzpVdW1Th88MAmINF4wD3kr8SzXeqql7ZZ0oWn0bkhLsOZSZAR?=
+ =?us-ascii?Q?xIlQNZTe1LerW3pLsBxrVLO+ElYU/zSQoa60UjC/Ki+SQkT63J6RqIji1xLQ?=
+ =?us-ascii?Q?XH7Pn32PGYx9Gg16E8ln9TcZyYU1Kp/T+EnwvAbJJsy6m5P3fDki2nXRoSn0?=
+ =?us-ascii?Q?VF1ntpGbzwSqPRKqU1ZUE5IPetD36u4ScpACr321Aptdxb7VIm51wVw5LBhe?=
+ =?us-ascii?Q?eGo0EFqJUeOcZFEYic7MBMA4Bb7wuaJg9l9B5X3lGtjJJTQbFr15RPwZNh5k?=
+ =?us-ascii?Q?kLyT/tvctw0d6SQMWM+k7HikLdK3ysjLOaQmSHuQ91ByS99P1q0iEBL3Zue2?=
+ =?us-ascii?Q?3Hz/RngxGKcmBLtzzNab4bwmEoDgxicxMaqmgfiV7uGUAhnOsS0ETwtINyWl?=
+ =?us-ascii?Q?I/Uhub7ZUdZKEIrVpmeJIrDYvKyiHIUPb2r5wx1CxPj2YJSFwPLcwUnBKB71?=
+ =?us-ascii?Q?tGSiUM2izUb1Jp4voFCtPGmZrr+1cHwLVulYX74t7IUYbLugnAL5IsQPeAuD?=
+ =?us-ascii?Q?uT+VXjQrbp358wxFRS6QfN932TZ7jDcdihov5SQTIJlYRgCchTbudJVHzQol?=
+ =?us-ascii?Q?zpYXcTAvS5BXOdYf0COFOk8WjnNxXWzfwcHk7NS53W7rP3kzwqwzrxp6AcG9?=
+ =?us-ascii?Q?jaKV3cYVCD7Lm8iEUK8nPA5FX4bIFB7bBk5mskbW0DnkyB528TTHEjF24IRm?=
+ =?us-ascii?Q?sDMKfx+YDdDl6STkxKrVTylgtMNqqmulHOREMnR1cj5ucsYQtuEXlTUg+w44?=
+ =?us-ascii?Q?+eQNk2DWIZGVQFuEy1Zbqu6cCOr6T0rh5K010sZ1R65HX5Q2HJfkxZUpXYIC?=
+ =?us-ascii?Q?skgM7I0XqwtdrGnEy1raMbXSykq+?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(36860700004)(82310400017); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2024 12:38:53.8233 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39d6d477-e8f8-42e9-18b9-08dc766e4fe8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397AE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6307
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,104 +131,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000067c3130618a4a67c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In bias range allocation, when we don't find the required
+blocks (i.e) on returning the -ENOSPC, we should merge back the
+split blocks. Otherwise, during force_merge we are flooded with
+warn on's due to block and its buddy are in same clear state
+(dirty or clear).
 
-Cc: correct email address of Lee Jones, just For Your Information
+Hence, renamed the force_merge with merge_blocks and passed a
+force_merge as a bool function parameter. Based on the requirement,
+say, in any normal situation we can call the merge_blocks passing
+the force_merge variable as false. And, in any memory cruch situation,
+we can call the merge_blocks passing the force_merge as true. This
+resolves the unnecessary warn on's thrown during force_merge call.
 
-Updated [2] link URL because HWC3 in Celadon was moved to project Celadon
-drm-hwcomposer local branch on yesterday
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Fixes: 96950929eb23 ("drm/buddy: Implement tracking clear page feature")
+---
+ drivers/gpu/drm/drm_buddy.c | 32 ++++++++++++++++++++++----------
+ 1 file changed, 22 insertions(+), 10 deletions(-)
 
-The request for information on drm radeon atomic modesettings is confirmed
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index 1daf778cf6fa..111f602f1359 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -161,10 +161,11 @@ static unsigned int __drm_buddy_free(struct drm_buddy *mm,
+ 	return order;
+ }
+ 
+-static int __force_merge(struct drm_buddy *mm,
+-			 u64 start,
+-			 u64 end,
+-			 unsigned int min_order)
++static int __merge_blocks(struct drm_buddy *mm,
++			  u64 start,
++			  u64 end,
++			  unsigned int min_order,
++			  bool force_merge)
+ {
+ 	unsigned int order;
+ 	int i;
+@@ -195,8 +196,9 @@ static int __force_merge(struct drm_buddy *mm,
+ 			if (!drm_buddy_block_is_free(buddy))
+ 				continue;
+ 
+-			WARN_ON(drm_buddy_block_is_clear(block) ==
+-				drm_buddy_block_is_clear(buddy));
++			if (force_merge)
++				WARN_ON(drm_buddy_block_is_clear(block) ==
++					drm_buddy_block_is_clear(buddy));
+ 
+ 			/*
+ 			 * If the prev block is same as buddy, don't access the
+@@ -210,7 +212,7 @@ static int __force_merge(struct drm_buddy *mm,
+ 			if (drm_buddy_block_is_clear(block))
+ 				mm->clear_avail -= drm_buddy_block_size(mm, block);
+ 
+-			order = __drm_buddy_free(mm, block, true);
++			order = __drm_buddy_free(mm, block, force_merge);
+ 			if (order >= min_order)
+ 				return 0;
+ 		}
+@@ -332,7 +334,7 @@ void drm_buddy_fini(struct drm_buddy *mm)
+ 
+ 	for (i = 0; i < mm->n_roots; ++i) {
+ 		order = ilog2(size) - ilog2(mm->chunk_size);
+-		__force_merge(mm, 0, size, order);
++		__merge_blocks(mm, 0, size, order, true);
+ 
+ 		WARN_ON(!drm_buddy_block_is_free(mm->roots[i]));
+ 		drm_block_free(mm, mm->roots[i]);
+@@ -479,7 +481,7 @@ __alloc_range_bias(struct drm_buddy *mm,
+ 		   unsigned long flags,
+ 		   bool fallback)
+ {
+-	u64 req_size = mm->chunk_size << order;
++	u64 size, root_size, req_size = mm->chunk_size << order;
+ 	struct drm_buddy_block *block;
+ 	struct drm_buddy_block *buddy;
+ 	LIST_HEAD(dfs);
+@@ -487,6 +489,7 @@ __alloc_range_bias(struct drm_buddy *mm,
+ 	int i;
+ 
+ 	end = end - 1;
++	size = mm->size;
+ 
+ 	for (i = 0; i < mm->n_roots; ++i)
+ 		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+@@ -548,6 +551,15 @@ __alloc_range_bias(struct drm_buddy *mm,
+ 		list_add(&block->left->tmp_link, &dfs);
+ 	} while (1);
+ 
++	/* Merge back the split blocks */
++	for (i = 0; i < mm->n_roots; ++i) {
++		order = ilog2(size) - ilog2(mm->chunk_size);
++		__merge_blocks(mm, start, end, order, false);
++
++		root_size = mm->chunk_size << order;
++		size -= root_size;
++	}
++
+ 	return ERR_PTR(-ENOSPC);
+ 
+ err_undo:
+@@ -1026,7 +1038,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+ 			if (order-- == min_order) {
+ 				/* Try allocation through force merge method */
+ 				if (mm->clear_avail &&
+-				    !__force_merge(mm, start, end, min_order)) {
++				    !__merge_blocks(mm, start, end, min_order, true)) {
+ 					block = __drm_buddy_alloc_blocks(mm, start,
+ 									 end,
+ 									 min_order,
+-- 
+2.25.1
 
-Mauro
-
-On Fri, May 17, 2024 at 8:31=E2=80=AFAM Mauro Rossi <issor.oruam@gmail.com>=
- wrote:
-
-> Hi all,
->
-> with Android 14 QPR2 there were substantial changes in graphic stack's
-> Android HAL (Hardware Abstraction Layer),
-> essentially it became mandatory that hwcomposer HAL module supports AIDL
-> Android Interface Definition Language,
->
-> at the moment drm_hwcomposer does not support AIDL [1]
->
-> Project Celadon has an HWC3 AIDL implemented [2], as a patch on top of
-> hardware/interface AOSP project, there is an opportunity to use it also f=
-or
-> non Intel GPUs.
->
-> drm amdpu in kernel already supports ADF Atomic Display Framework, I woul=
-d
-> like to ask the current status of Atomic Display Framework in drm radeon,
-> because Atomic Mode Settings seems partially implemented since 2010-2012,
-> but ADF capabilities are not exposed to user space.
->
-> Please, I also need some basic (high level) information about the
-> outstanding changes that would be required to support it, in order to be
-> able to use HWC3 -> drm_hwcomposer with r600, r300 chipsets.
->
-> Thanks for your informations
->
-> Mauro
-> android-x86 team/Bliss-OS community
->
-> [1]
-> https://gitlab.freedesktop.org/drm-hwcomposer/drm-hwcomposer/-/issues/80
-> [2]
-> https://github.com/projectceladon/vendor-intel-utils/blob/master/aosp_dif=
-f/preliminary/hardware/interfaces/11_0001-Enable-graphics.composer3-AIDL-HA=
-L-service.patch
->
-
-[2]
-https://github.com/projectceladon/drm-hwcomposer/commit/1160cdfb53daebf59f3=
-704ec9586c66385e63747
-
---00000000000067c3130618a4a67c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Cc: correct email address of Lee Jones, just For Your=
- Information</div><div><br></div><div>Updated [2] link URL because=C2=A0HWC=
-3 in Celadon was moved to project Celadon drm-hwcomposer local branch on ye=
-sterday</div><div><br></div><div>The request for information on drm radeon =
-atomic modesettings=C2=A0is confirmed</div><div><br></div><div>Mauro</div><=
-br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri,=
- May 17, 2024 at 8:31=E2=80=AFAM Mauro Rossi &lt;<a href=3D"mailto:issor.or=
-uam@gmail.com">issor.oruam@gmail.com</a>&gt; wrote:<br></div><blockquote cl=
-ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
- rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr">Hi all,<div><br></div>=
-<div>with Android 14 QPR2 there were substantial changes in graphic stack&#=
-39;s Android HAL (Hardware Abstraction Layer),</div><div>essentially it bec=
-ame mandatory that hwcomposer HAL module supports AIDL Android Interface De=
-finition Language,</div><div><br></div><div>at the moment drm_hwcomposer do=
-es not support AIDL [1]</div><div><br></div><div>Project Celadon has an HWC=
-3 AIDL implemented [2], <strike>as a patch on top of hardware/interface AOS=
-P project, there is an opportunity to use it also for non Intel GPUs.</stri=
-ke><br></div><div><br></div><div>drm amdpu=C2=A0in kernel already supports =
-ADF Atomic Display Framework, I would like to ask the current status of Ato=
-mic Display Framework in drm radeon, because Atomic Mode Settings seems par=
-tially implemented since 2010-2012, but ADF capabilities are not exposed to=
- user=C2=A0space.=C2=A0</div><div><br></div><div>Please, I also need some b=
-asic (high level) information about the outstanding changes that would be r=
-equired to support it, in order to be able to use HWC3 -&gt; drm_hwcomposer=
- with r600, r300 chipsets.</div><div><br></div><div>Thanks for your informa=
-tions</div><div><br></div><div>Mauro</div><div>android-x86 team/Bliss-OS co=
-mmunity</div><div><br></div><div>[1] <a href=3D"https://gitlab.freedesktop.=
-org/drm-hwcomposer/drm-hwcomposer/-/issues/80" target=3D"_blank">https://gi=
-tlab.freedesktop.org/drm-hwcomposer/drm-hwcomposer/-/issues/80</a></div><di=
-v><strike>[2]=C2=A0<a href=3D"https://github.com/projectceladon/vendor-inte=
-l-utils/blob/master/aosp_diff/preliminary/hardware/interfaces/11_0001-Enabl=
-e-graphics.composer3-AIDL-HAL-service.patch" target=3D"_blank">https://gith=
-ub.com/projectceladon/vendor-intel-utils/blob/master/aosp_diff/preliminary/=
-hardware/interfaces/11_0001-Enable-graphics.composer3-AIDL-HAL-service.patc=
-h</a></strike></div></div></blockquote><div><br></div><div>[2]=C2=A0<a href=
-=3D"https://github.com/projectceladon/drm-hwcomposer/commit/1160cdfb53daebf=
-59f3704ec9586c66385e63747">https://github.com/projectceladon/drm-hwcomposer=
-/commit/1160cdfb53daebf59f3704ec9586c66385e63747</a></div></div></div>
-
---00000000000067c3130618a4a67c--
