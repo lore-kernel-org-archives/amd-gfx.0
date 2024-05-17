@@ -4,70 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 048ACC25B75
-	for <amd-gfx@archiver.kernel.org>; Sun, 19 May 2024 10:46:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2870C25B7B
+	for <amd-gfx@archiver.kernel.org>; Sun, 19 May 2024 10:46:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3019A10E08A;
-	Sun, 19 May 2024 10:46:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3123D10E15E;
+	Sun, 19 May 2024 10:46:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="B9Yop37r";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="Vi5TTRYP";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B330410E102;
- Sat, 18 May 2024 23:59:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1716076778; x=1716681578; i=w_armin@gmx.de;
- bh=NNmDE7m5bJJ2CZ7VanPERVBXNAvh55F+ivVRj6O4e7U=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=B9Yop37r5RRGid01qqfzKkPs9oiQEFrl4BFhPlBWDgDIrh76dtIynUtpXgaRcIj5
- 3i9Mmrd/MObwtG2gncxnkIpk4vSdHze/14DfeSSEhf2lwxVcG4xeFooTt8O/3OZ5C
- tbFbrr6PlbHj1rjb4+jE+4GFocB7NEZNyMdeRtrmq2iyfAc+Z4kTDlR1VkkOvIBoa
- FZSO9x/Cjxb8h0ATT//l7+m2svvf29JjLHPFygdSijDx8+hLS/9k2Oi4dl0DYfCBG
- YXcwhmT8KGQjBqkfC7m7MITz/ppyyAbqCNk+cs6jnsxmwYjbu2zgaS/LZgSP0SlKB
- B3dwlwJmUeCVRvkuwg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [141.30.226.129] ([141.30.226.129]) by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MWigq-1s1sEU2o36-00X5zD; Sun, 19
- May 2024 01:59:38 +0200
-Message-ID: <c3205455-7ad2-487e-8954-52102754e154@gmx.de>
-Date: Sun, 19 May 2024 01:59:37 +0200
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
+ [209.85.221.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED75110EF31
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 May 2024 17:27:03 +0000 (UTC)
+Received: by mail-vk1-f181.google.com with SMTP id
+ 71dfb90a1353d-4df97a50d1aso380729e0c.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 May 2024 10:27:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1715966822; x=1716571622;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZcxVTcFh7NO1RmeggMzvCad9BHQKhjKuD/Oz3pjme8o=;
+ b=Vi5TTRYPdDcDbEpTz3HufKCCjcL9f9ywv1PvuQy5xnXDEemvLozmW8Ls/zI8X6B6nt
+ bSnGExaA7LDG9FnokD3k6q0ItVhAlSqD+Y1FCrczj4ZV6bBrYJocYPXc/eWLbDgxcRY9
+ 0IDtTY6qcKDo5X3FS+rFHKhoTbBE77bV2fSFk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715966822; x=1716571622;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ZcxVTcFh7NO1RmeggMzvCad9BHQKhjKuD/Oz3pjme8o=;
+ b=D0uBY44iQiO/MrNbK9MHBKfmVmnZFxwvHVOGd1mBOOhlL2HelDbS2NZ5v88k4/qbys
+ MLynwx3EKgT9J//7VudWvFXO3Z/Z/T6jZI+yK1g8ABRtcdp6FgzCpw+flzdTGUeezXml
+ CCiSZqo0U64Xb35/texNQieloJBcY4ioeo+lnUaBLBR0d+sr3cjR6hzTr/DyZ113GfNg
+ hZRVnXbXE2RKA3wIVLZdn6kQf2YlQEDQX3qD9Oz83GTRlBFpoecOAg8TO+GqTINGBC9m
+ 16irRbeHrj2SdBdj5JSUljHHlH4TKtiwz8TIpsKUiWiKOd3TgAFfjOpw+LRW9OeoB9Tw
+ 9Xng==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXQCim+nCXF+jmHc3sRdO6IapCZ8EHI3lx8S3rFrceA6/nQBLsOzIBqgxVlsGxRQxivwXitvna8azHxZ50M7nFa6y9k9WPpdClgCj/6fQ==
+X-Gm-Message-State: AOJu0YxNuScX37JtXsGBrIvTmi3tmGj8QFUE8+/aBmdeaqtisTXMnwns
+ qluBBzIMX9phH1OBSk63pusyqRkJ/oxlcLCl6T/tCCo8WmJjFcAkjnaif1ce9rUdHY/JEgV192b
+ flHeLMhJd8xJaddhknaT4AGbt4Oqxbcli2dGD
+X-Google-Smtp-Source: AGHT+IElyxDzLSoeVKTnHsADhpEMO/j0Y0exiEY0s5o2jQhNssuaMk0JL5QwXxOtxjka7wlQqKZ7P260uLD752jOyqw=
+X-Received: by 2002:a05:6102:14aa:b0:47f:2c10:24e2 with SMTP id
+ ada2fe7eead31-48077e5bfaemr26084771137.28.1715966822410; Fri, 17 May 2024
+ 10:27:02 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Kernel 5.15.150 black screen with AMD Raven/Picasso GPU
-To: Barry Kauler <bkauler@gmail.com>
-Cc: Yifan Zhang <yifan1.zhang@amd.com>, Prike Liang <Prike.Liang@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- amd-gfx@lists.freedesktop.org
-References: <CABWT5yiejGABNXicsS7u-daKnBBjK6YTDVgaQOqwGYn8P20D8Q@mail.gmail.com>
- <6580c2d4-b084-470f-80a0-aa09f1ab880d@gmx.de>
- <CABWT5yiD110qmJcRsoGVMevULAVmYpyiW4w9MtmNjp7E0rDQ8A@mail.gmail.com>
- <CABWT5yg5jG7eMiDp7QN2yhFj6983qF9zN7eHOprH4eEjwQJLBQ@mail.gmail.com>
-Content-Language: en-US
-From: Armin Wolf <W_Armin@gmx.de>
-In-Reply-To: <CABWT5yg5jG7eMiDp7QN2yhFj6983qF9zN7eHOprH4eEjwQJLBQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:WOQGRE8vtyB4Wa+J5NaDDO33di4sCYKzFHCR8vlV4o23DaxoYzF
- ECGcggATAPYE+uyu1LAzSl31odCt/cg3wrM/3tXncWAxeaeeM5Uddu/F8h9ikMUCucQDZp0
- qZuKdelx2QHDBxcA8eBP05GHEEZZf+0gVZ1idBvCakn74TRnRuFgS11Mavmcg4bT6TWmbgw
- LM6ncspeLdvIgE94UyNiw==
-UI-OutboundReport: notjunk:1;M01:P0:zU5n0vUSVjQ=;zaoKM0jQXmqAQsz6mcWPxzi4I7U
- g8eoS5+8dvSHTY9VcUxkFEgmCre1DniK7sbaeUKcv1Y9ON68iZhZiF/8AzfBpaOWUHTi/6BCD
- 4nW5S0as6g25sFVtitcVscxpHU6x1ojoktrWzWhY1chjJFMrVSpdf9yng7XBKiDThvki7lLcu
- rrzufDV8sV0sMK1Nl6WacZHXo61yZBxNUggiPefiSGLcyTKy58vHPFXe/cM/qnZGSA6chMiLm
- CATCnftzqyKBkWAc30J9bB0LGLrUxIcagEDp0kSE/S8OduJX/Kk81dPPbPhqhjwKnMfGAPw9c
- ghnYCTf6AbpB0WD7pZOcyPhervFvxOF9CZZtq1WYV1ykq/GD+5gjxi6Q/UqzvWAguh67FJi27
- 05XCr76kIPQAi4jeWhe0GqhVjqwCCtqR2syTIAP1Dx8orrss45NGidLWoUiB3HRxzIdKIEMIC
- xSAXHDAdnvkqE9GkpXRvRyz+smwVseckzj0LMxRDYIpRT4ag/7XakXeeEppNHz6r6dcYVF7At
- BPWGiIHcL9A4oZR17Tzhl2vbkcFey/qTTRoMOw9/8oIwe61a9v7ugfePrO6roAEj/TV35Ld9+
- 91VWDEAIv7kg/0c6amiWDmWb2r00pYxrO9yeWrNdWRg67mmrp7NxjT6BxpUUgypQwoQ4OJDEs
- OWzYbrJ4NjFEjajgqbquhF5hhgIWE4rw89w8NH1cUh1vI7V4MtTlyqY/3Iqvo0u46udldaVHx
- ZRwCe84hMtcZLrnCgmI95PF8b92ov7mAdB+j90Yd1qLB4ighwqRawnTPZyANGlNzZTmEu/TzQ
- PSnIYVO1ltfVt6ZDAA4ESSyNZgz0DQD1p8tO9btvOMEyk=
+References: <20240516115721.1.I8d413e641239c059d018d46cc569048b813a5d9b@changeid>
+ <9dd1cfd1-fe13-4434-a7cc-e14113dcaf53@amd.com>
+ <CADnq5_NGLrrFmFHFX2bC7naByJGofEiYQyWvRP6CO4BDFo52TQ@mail.gmail.com>
+In-Reply-To: <CADnq5_NGLrrFmFHFX2bC7naByJGofEiYQyWvRP6CO4BDFo52TQ@mail.gmail.com>
+From: Tim Van Patten <timvp@chromium.org>
+Date: Fri, 17 May 2024 11:26:51 -0600
+Message-ID: <CAMaBtwFQxeARGyhVxo+WsYCHgmJNJ7ThjtPcFv=LZqRNJtVxsw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Remove GC HW IP 9.3.0 from noretry=1
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ LKML <linux-kernel@vger.kernel.org>, alexander.deucher@amd.com, 
+ prathyushi.nangia@amd.com, Tim Van Patten <timvp@google.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Ikshwaku Chauhan <ikshwaku.chauhan@amd.com>, Le Ma <le.ma@amd.com>, 
+ Lijo Lazar <lijo.lazar@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Shaoyun.liu" <Shaoyun.liu@amd.com>, 
+ Shiwu Zhang <shiwu.zhang@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Sun, 19 May 2024 10:46:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,148 +86,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.05.24 um 03:30 schrieb Barry Kauler:
+> Fair enough, but this is also the only gfx9 APU which defaults to
+> noretry=1, all of the rest are dGPUs.  I'd argue it should align with
+> the other GFX9 APUs or they should all enable noretry=1.
 
-> Armin, Yifan, Prike,
-> I will top-post, so you don't have to scroll down.
-> After identifying the commit that causes black screen with my gpu, I
-> posted the result to you guys, on May 9.
-> It is now May 17 and no reply.
-> OK, I have now created a patch that reverts Yifan's commit, compiled
-> 5.15.158, and my gpu now works.
-> Note, the radeon module is not loaded, so it is not a factor.
-> I'm not a kernel developer. I have identified the culprit and it is up
-> to you guys to fix it, Yifan especially, as you are the person who has
-> created the regression.
-> I will attach my patch.
-> Regards,
-> Barry Kauler
-
-Hi,
-
-sorry for not responding to your findings. I normally do not work with GPU=
- drivers,
-so i hoped one of the amdgpu developers would handle this.
-
-I CCeddri-devel@lists.freedesktop.org  and amd-gfx@lists.freedesktop.org s=
-o that other
-amdgpu developers hear from this issue.
-
-Thanks you for you persistence in finding the offending commit.
-Armin Wolf
-
->
-> On Thu, May 9, 2024 at 4:08=E2=80=AFPM Barry Kauler <bkauler@gmail.com> =
-wrote:
->> On Fri, May 3, 2024 at 9:03=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wrot=
-e:
->>>> ...
->>>> # lspci | grep VGA
->>>> 05:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
->>>> [AMD/ATI] Picasso/Raven 2 [Radeon Vega Series / Radeon Vega Mobile
->>>> Series] (rev c2)
->>>> 05:00.7 Non-VGA unclassified device: Advanced Micro Devices, Inc.
->>>> [AMD] Raven/Raven2/Renoir Non-Sensor Fusion Hub KMDF driver
->>>>
->>>> # lspci -n -k
->>>> ...
->>>> 05:00.0 0300: 1002:15d8 (rev c2)
->>>> Subsystem: 1025:1456
->>>> Kernel driver in use: amdgpu
->>>> Kernel modules: amdgpu
->>>> ...
->>> thanks for informing us of this regression. Since there are four commi=
-ts affecting
->>> amdgpu in 5.15.150, i suggest that you use "git bisect" to find the fa=
-ulty commits,
->>> see https://docs.kernel.org/admin-guide/bug-bisect.html for details.
->>>
->>> I think you can speed up the bisecting process by limiting yourself to=
- the AMD DRM
->>> driver directory with "git bisect start -- drivers/gpu/drm/amd", take =
-a look at the
->>> man page of "git bisect" for details.
->>>
->>> Thanks,
->>> Armin Wolf
->> Armin,
->> Thanks for the advice. I am unfamiliar with git on the commandline.
->> Previously only used SmartGit gui.
->> EasyOS requires aufs patch, and for a few days tried to figure out how
->> to use that with git bisect, then gave up. Changed to testing with my
->> "QV" distro, which is more conventional, doesn't need any kernel
->> patches. Managed to get it down to one commit. Here are the steps I
->> followed:
->>
->> # git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-=
-stable.git
->> # cd linux-stable
->> # git tag -l | grep '5\.15\.150'
->> v5.15.150
->> # git checkout -b my5.15.150 v5.15.150
->> Updating files: 100% (65776/65776), done.
->> Switched to a new branch 'my5.15.150'
->>
->> Copied in my .config then...
->>
->> # make menuconfig
->> # git bisect start -- drivers/gpu/drm/amd
->> # git bisect bad
->> # git bisect good v5.15.149
->> Bisecting: 1 revision left to test after this (roughly 1 step)
->> [b9a61ee2bb2704e42516e3da962f99dfa98f3b20] drm/amdgpu: reset gpu for
->> s3 suspend abort case
->> # make
->> # rm -rf /boot2
->> # mkdir -p /boot2/lib/modules
->> # make INSTALL_MOD_STRIP=3D1 INSTALL_MOD_PATH=3D/boot2 modules_install
->> # cp arch/x86/boot/bzImage /boot2/vmlinuz
->> # sync
->> ...QV on Acer laptop, with amdgpu, works!
->> # git bisect good
->> Bisecting: 0 revisions left to test after this (roughly 0 steps)
->> [56b522f4668167096a50c39446d6263c96219f5f] drm/amdgpu: init iommu
->> after amdkfd device init
->> # make
->> # mkdir -p /boot2/lib/modules
->> # make INSTALL_MOD_STRIP=3D1 INSTALL_MOD_PATH=3D/boot2 modules_install
->> # cp arch/x86/boot/bzImage /boot2/vmlinuz
->> # sync
->> ...QV on Acer laptop, black screen!
->>
->> # git bisect bad
->> 56b522f4668167096a50c39446d6263c96219f5f is the first bad commit
->> commit 56b522f4668167096a50c39446d6263c96219f5f
->> Author: Yifan Zhang <yifan1.zhang@amd.com>
->> Date:   Tue Sep 28 15:42:35 2021 +0800
->>
->>      drm/amdgpu: init iommu after amdkfd device init
->>
->>      [ Upstream commit 286826d7d976e7646b09149d9bc2899d74ff962b ]
->>
->>      This patch is to fix clinfo failure in Raven/Picasso:
->>
->>      Number of platforms: 1
->>        Platform Profile: FULL_PROFILE
->>        Platform Version: OpenCL 2.2 AMD-APP (3364.0)
->>        Platform Name: AMD Accelerated Parallel Processing
->>        Platform Vendor: Advanced Micro Devices, Inc.
->>        Platform Extensions: cl_khr_icd cl_amd_event_callback
->>
->>        Platform Name: AMD Accelerated Parallel Processing Number of dev=
-ices: 0
->>
->>      Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
->>      Reviewed-by: James Zhu <James.Zhu@amd.com>
->>      Tested-by: James Zhu <James.Zhu@amd.com>
->>      Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
->>      Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>      Signed-off-by: Sasha Levin <sashal@kernel.org>
->>
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++++----
->>   1 file changed, 4 insertions(+), 4 deletions(-)
->>
->> Anything else I should do, to identify what in this commit is the
->> likely culprit?
->> Regards,
->> Barry Kauler
+Do you mean we should remove all IP_VERSION(9, X, X) entries from
+amdgpu_gmc_noretry_set(), leaving just >= IP_VERSION(10, 3, 0)?
