@@ -4,60 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA1BFC04FFE
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 06:32:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28A01C04FFE
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 06:35:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 096B810E0BD;
-	Fri, 17 May 2024 06:32:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C665C10E4B2;
+	Fri, 17 May 2024 06:35:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EDNycSbr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KwL5toIp";
 	dkim-atps=neutral
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE30510E0BD
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 May 2024 06:32:06 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-65be7c29cb1so720483a12.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 May 2024 23:32:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715927526; x=1716532326; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=xvVsjscCXBsZCJkN9lbKIky69d5kiEmwKe7e99mSdfw=;
- b=EDNycSbrdtWowvZOqmrBfeMP+XxTc+wZ3bWXM0ZfPdzDsZKcVkfcwqWNhBENnAXMgW
- gsycdTwkgZ/nR2nF7YJHoKdR7srynLmt8Bm3dTaC+fPaKnFYdCvscgvYXH5ZzpieyPa5
- /xySlAucVnKVjCME0EL+SSqsk0IVJ3siK7sk+vBkEeafc3IKR68UAIqMbx2gdSvSz8Ll
- 7dZVfg6sG45M0bFQMVhkdxJRlqyEM2W79INhIzfUpOvqSJA19Z7Faq6ZMYzSiVXeiyAy
- ccqFJpfi4/o0CDcmm0k07zevrRdgaJyaRs1iWERZfJ1wn6yeF9TPa4RX2XE6ujueKdHT
- htFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715927526; x=1716532326;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=xvVsjscCXBsZCJkN9lbKIky69d5kiEmwKe7e99mSdfw=;
- b=ObWxsJr4oD+nHpxMFyNLhk7fkGqBJk93HwBp+lDGlFtMMle0QyINGdw5tyDb+amxwi
- p33UNyDRXrijD4NWqulR6h4oPAiZpLLBZh+cnzqNReCeWT896IM4arKwMoDfM1hlMXTl
- 4WWnJ0LhvDweYor2+0eO2mGvpssElsxQgfyW6dGGmKzrbbsj0m9HBGKt7xo9lc9ThEkF
- dOIJW9HjQY2/aqOmZvBTKbBD57FBfGqEK6Voo4YoTyPg2w/FK949+tYglK3juzpN3vfI
- 6J0IHOOpEnfEMCM45bmkZzwDW2+/bFIlqSJUnnH2HL41Yhy1qQyrmLhH31JtS39ODIBA
- wT0g==
-X-Gm-Message-State: AOJu0Ywe+5SBrfT7KCDOZlYGDtZw0kiys2C3nrcqyqdEWJ7t89yyOyb9
- 8IZ+a7CUihkFlyVIMH3iiSVe3cIYUFdhWBca5qfGpMAUBVRhWpdUmGs6FKDx1/qKpfCw2jUqO73
- dIOcZywYWD3pdOBSGw+jM7qZGID2W9i3J
-X-Google-Smtp-Source: AGHT+IG9tgBWPH0sFsNong8ZxO615xmy9F+pLOAJDfz3UrOCq2//lfNXtpIwpp3qZtmJvTv3W3A72adzgJkSkpvAdjs=
-X-Received: by 2002:a17:90b:98:b0:2ab:8e59:9da9 with SMTP id
- 98e67ed59e1d1-2b6c6ff020cmr30780999a91.6.1715927525732; Thu, 16 May 2024
- 23:32:05 -0700 (PDT)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2085.outbound.protection.outlook.com [40.107.92.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7883C10E4AE;
+ Fri, 17 May 2024 06:35:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NnsTdCdIRLV/YFuc6Gs7YsCoKBEWS8M3j4KiwXYFXmmYNi9UaAod1pXnOi0CflWrIo82vYO6wwFProxiWZ4aDk88fPec10OJpmeYMyyXkz9Dw7bn/ZXlVps4BZQwH16W1Bm6j9Eyy4SaZnLPM0LGWIb085QrLbdQITd4hB2QQduA/h6z8Ms/YIAgJEJjKP3bzVm2wGY4sTPKjMJNTFidqpSRRKNEm26eIJsR2eiR1YBbdAaNxP6vxrH7ozkLJgV5kAU9dPd8q8QI66D4/+fe2WQLhmNM903f32QsuLOAzRz5ynLmdoF4fMXXwnZ/GodpNJCkkwNmvius4pjM+5fa7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wqtSXDp0qm38ybix+VyHTAb/GIKWPWONI3BPN+mcyGY=;
+ b=hqGP0BOIEA4v72UC+MrDC/8NSeURsOVR1Ui8pkNsNlSDMWWGNVoQWGLN6DNz9jWTWBi0b1BPxAWm837Y80CoMYVC0DoQCyRJyudBBc/6U++Sp8o7t+Ket6t7y08qrO9I95dEdh+dTisv5Hm4c70mPc6pZsFhRWOyEHTGh9kYIEt1yi/7WNB+1ZEveHk3h2gWe6zVjULa/K2yKmqBi1OlML4TM8JWvkMT1qiCqGRBALRUHSZe2XTUa5OjMGZBzH7KN2j+S6sr8TS1B9iuXgE33czmXTrsPTQ9BwexWrMhTwgRdyMIz+S4D9Fhnpi3bMYP84NDU+32RaZclNnb4FT6sw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wqtSXDp0qm38ybix+VyHTAb/GIKWPWONI3BPN+mcyGY=;
+ b=KwL5toIpK/zYNmRR7HFPk9oLntYVMQMinDlu8+jvsrB1iH2sz6JL6OxZ8l2GtmhXFTGcgPRiQoaD3oOV14OvX0SvPZQY/cjFq1PiUd6Diwu0fSNWiWuLZiwavsHoK4B5ntQfRGCaiIa2yPYjRmjIPLArzLcfJD6ObSpc6O8kOo0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB9170.namprd12.prod.outlook.com (2603:10b6:610:199::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.28; Fri, 17 May
+ 2024 06:35:11 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.7587.025; Fri, 17 May 2024
+ 06:35:10 +0000
+Message-ID: <9dd1cfd1-fe13-4434-a7cc-e14113dcaf53@amd.com>
+Date: Fri, 17 May 2024 08:35:03 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Remove GC HW IP 9.3.0 from noretry=1
+To: Tim Van Patten <timvp@chromium.org>, LKML <linux-kernel@vger.kernel.org>
+Cc: alexander.deucher@amd.com, prathyushi.nangia@amd.com,
+ Tim Van Patten <timvp@google.com>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Ikshwaku Chauhan <ikshwaku.chauhan@amd.com>, Le Ma <le.ma@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Shaoyun.liu" <Shaoyun.liu@amd.com>,
+ Shiwu Zhang <shiwu.zhang@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20240516115721.1.I8d413e641239c059d018d46cc569048b813a5d9b@changeid>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240516115721.1.I8d413e641239c059d018d46cc569048b813a5d9b@changeid>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0081.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::7) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-From: Mauro Rossi <issor.oruam@gmail.com>
-Date: Fri, 17 May 2024 08:31:54 +0200
-Message-ID: <CAEQFVGbaEx8mOWKy9bcq8FLFfq8Q+xE_hwk4dq5weKjNROcOGg@mail.gmail.com>
-Subject: Request for Information on the current drm radeon Atomic Mode Settings
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Cc: Alexander <alexander.deucher@amd.com>, Lee Jones <lee.jones@linaro.org>, 
- Michael Goffioul <michael.goffioul@gmail.com>,
- Jon West <electrikjesus@gmail.com>, youling 257 <youling257@gmail.com>
-Content-Type: multipart/alternative; boundary="000000000000a1ba1b0618a082c1"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB9170:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29c17430-480e-46a2-3e2d-08dc763b8039
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230031|1800799015|366007|376005;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?TkVhSi9wRjNndkc2dWgvQXkxVWNub3pFcmpEYVB1elhxZGJlQ1MveEdtSndW?=
+ =?utf-8?B?alJZRk5MZE9WaGFZd05XSG5nRU1zTy9wN1ZNYzFVNWpUTTgrTU40NGpKRUpu?=
+ =?utf-8?B?Q1RtMXJpSGtYb2dxdkQvSFJqMmNtVXFkUnBKRWZIQ3JlclhRaXgrN3h4RlMr?=
+ =?utf-8?B?VXhLVDQ3YXNwV3ZweEo2QnVOT3F4MDMxOEtISGloZy9NaUVtUkp6NmMyMFFE?=
+ =?utf-8?B?MkZhTUFuWVBpLzA2eEZXTjlMK2dML00zalA3YTlKVUVLUmx6VWxGQWp6VUxr?=
+ =?utf-8?B?eCt4Zlc3eC9HVnQzUjFwakNyR3pBZ09yczBYNW9ocnRLdEo1aWdnaG40dzhC?=
+ =?utf-8?B?OWtzQUIvMUU0VGxndGxoWHZvdlFaUGZBMmZ4M05SVUJQaXZVUXQ1TkM0RE9B?=
+ =?utf-8?B?V0NHenJiQkJlWU53cmZuelU2ZzdyVTFyelp5OStoL0ZZR3g4d29rZXRENVF3?=
+ =?utf-8?B?R3c1cXZ3Z3Uvdy83WnhQRzN2NXExaGFoQUFlVHJ6WmNJTG00M0dQaXhDVWdF?=
+ =?utf-8?B?bTNyd0dpS3I3K2tnZDIwMjFWQXFXV3NtK28zSFVsVEt6Q1EvWDRJODNHT3p5?=
+ =?utf-8?B?ZDU3K3pqYVdTeGVmaGZiSTJzdGpRblNiRmViZ3ZsckxqQTdqMGpoNG9uWVE0?=
+ =?utf-8?B?OUF3Rk9qUXlVRjBucU1rUWFUL1NwRnZOMjNTMmZJaWxkbFNsQjdhbVlrcEpM?=
+ =?utf-8?B?eHZDTlVqbFg2Mndzc1NrTzNmL0hTM3Yzdm5OblpRblNYTzNSQTZpSnFPL2JO?=
+ =?utf-8?B?T3Y3YUg5Z29BVU5wbGtISXhGeGhITGE2SmppWXcveVQzM3RXVnJpeXBPT2tN?=
+ =?utf-8?B?aVpaZEJHbzIxVmMvNUdIYk1XSDVmeUk0aWhVcDlmMmhTVUxWZXFsb2pWQWd1?=
+ =?utf-8?B?NFJWU0g3c2dHM0hxcDJ4MmNpZjRuTnZGZ2RibmFCaHVyUFJJLzNEUWdId3Y3?=
+ =?utf-8?B?WSt1ZUxmbEdaSzJrRVdvb3NoQTZTTS9ZQWUveUVTaUtxM0FMRDU0NW4zMUVS?=
+ =?utf-8?B?R01ZSkVjZG9FdjBCZkY2eDM1TzZCRHk2aEdtQ3haQlZURzhoNEQxQUdQamw2?=
+ =?utf-8?B?a0ZDWnQxREFTM1VTWjhrYTVUbUlMQ2JRQlc4WndscCswK3FKTXEzWnpZVVI0?=
+ =?utf-8?B?aXkrYVp0SFA2UDROempIQ0Z0Zm1nb25NVkVSejRJQmJSUHZIaVpFd2pWNjVE?=
+ =?utf-8?B?dHkxMHkrN0Z0bmc3ODJKMm50Tm1haG1jbzdiT29YMFdEVVFJT1BicktNb1hQ?=
+ =?utf-8?B?NkhSdDhzVmRUZE43a0VZRmlQZk1zR2lTR0hVTGNqYytxN3dvOWgvaUR3OVRG?=
+ =?utf-8?B?V1NQVHlXWWlLN0JqMWlpc3FBWlhNYmEvMHBoSGpjTmdJaFlVMHVBVzA5aXk1?=
+ =?utf-8?B?RVlMWHIxMm13a3kzQStIMXU2U3RudmdsY1Q3MG5HSDY2TEFhOGhqT0toNld1?=
+ =?utf-8?B?R0RQVU1hNzhhSEcvcjVYaG5YeXpoc2ZJRXdNTHhzb3RIRXRVZEhXZGlHQTkv?=
+ =?utf-8?B?akNuN3o3WkxHWEVESnEzYlJKVVByNmR0K2xzVER2WUdFcTNwM0VoOEpkemtC?=
+ =?utf-8?B?dlJ2OTlaRnNsV0NVQ0tYQ1pZRkFXRXhKeHNENWptcUZtTzV2VXVLWGJYTG5Q?=
+ =?utf-8?B?eVdtZ0NhUEh4OTN3OG45NlNZamhMSksxQlRKK1A3WWxIMzVqbDBUanpOTE9v?=
+ =?utf-8?B?eDBaYUFIZkNEUUp2KzNCRWlPUE1iTlVwNmx6aUN2YllXZ1A3MExUd0hBPT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(366007)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eTIxWXROTzFnbDhFL1VEOXJEUlRWaWp3OEJMNWJReXNZbmlGWC9qcVFIZFpl?=
+ =?utf-8?B?Vmt2aGlkVlNWQzFyTUVCeDRnZFdjS1BpVVg4Zi9mcU5FMGY3dEc4a2tJV3o4?=
+ =?utf-8?B?WGxiYnMwcGVYaWZ1S1ZDOXpPa3RlTm1HZkl6bFlEeTdhM09hbzZtNHh0S1g3?=
+ =?utf-8?B?VVhOY0NvYTRVZWx4ZjhyOTU1aU5YZXRxVk8ybGlIWmVRS2Nlajd2SG40RUM4?=
+ =?utf-8?B?WGkvc093R3RzSHU0ekVhMmhqWEpYZFRhMC8zcjNnZnNyVnZmMmg4Z0YvSUMv?=
+ =?utf-8?B?d2RWVy8xdUJMbEVlYUtnem9CRnV0ZW9VaFJTS053Zy82UmVoODQyRGZ6T2ti?=
+ =?utf-8?B?RnBrY0lCT29JNDVBbW1hWVlHVzg4eE5NbUlXWC80WDdlelNtNkQ2ZEFrZXNS?=
+ =?utf-8?B?NEg1NGZPRVg0NFc2YkQ2bTBsWk8rNUVsOUZSREZIMGc5elFqWmpOV001eUh4?=
+ =?utf-8?B?Qkc0bS9CaytHNjVPVER1eG9QZVNES2tpbk9qcVZXYXVGSW96bXZHRlF6NExM?=
+ =?utf-8?B?N1k0TWhvQ21WU0JIU3FiMFdNcXpDY1kvcGlPZ01kaW1sUGUvdFFIUDlFTWJH?=
+ =?utf-8?B?THkxTCtTcWpycHN5K25vdFduL0NYUWpzMUtlZm15TUJ5K3Y2SGNXUDRxVVd3?=
+ =?utf-8?B?OGdCLzBsaklFVTJFZDh5UkpKM0RmVlNEaTV2S2ljakR5YThkbk5mR2JjUHl3?=
+ =?utf-8?B?anlYRXJTQUVUWDNETi9LYWszVUhQSFJOOGRLKzNJbWRYbS96cldsa1BlZERn?=
+ =?utf-8?B?N2tmMWtjTE9PUkt4aDhrY0ZtQTFTTFVIQ29qUUR3VEZyMVpXbnNuU1pnL1M2?=
+ =?utf-8?B?OUZTRnh3UDltOWg0QTdtR2NXcFZWQ0FUMmdrQ3JCcFp3bXhpZW11SkFITTIr?=
+ =?utf-8?B?a0xzbVZqK3NTVm5mZmVoTWQvZ29iaTlFY0pzcXF0bHhwTVYzd0VzRG1abG1G?=
+ =?utf-8?B?SHBXa0hRQzdGbkp0VW5jcmdMSjRUWXQyTVBLUHZsUGJNQWE5SElvWHRLdFRN?=
+ =?utf-8?B?a0ttWFlsQVo1eTNkbWpPdkV4MXI2bGhMeHR3cjRzb2tyRzN6b2VleDNxa3dS?=
+ =?utf-8?B?RkNMOW1mSWF0U0xQd2hLcFVtc0NCZzNiK0dZVEtaanE5WlVsaGZsVTJLK3Rh?=
+ =?utf-8?B?Y3N6dTgrSFo4bE9Md3dPSWJNUllIYlUwMTRCcXh5dzNzVklRZFZPSlZRMlV5?=
+ =?utf-8?B?OVdlS2ZMWSsvbGlGTC9sdGlyeDZiUUxtR0lXTDV4NHFPK284ZEp2WUZkbDA4?=
+ =?utf-8?B?eWVsSkIxekJNejlXcEduQ1UwdUFpQ0wxdHJSdGRQSFRjQko4TVhKeDZScU1O?=
+ =?utf-8?B?YVlUdlpsbmhzekl1RUdScmRkTmlubGFzcHo5ZWp5SVhENG16SzAza1daQ0FG?=
+ =?utf-8?B?MWJUc1ovZzZ3N2twWE5lQVBJeEVEWHdGU0QxNWpjY2xyZEs4L0xvcXFxdkpq?=
+ =?utf-8?B?SU1zN2xKYTZEbzBYU2RXVk9uRjlJeXZTZVZHV1J4OHRpVndZbFlPM3dLaTkr?=
+ =?utf-8?B?RVl6R05MVUpDWmhWYVdFa3phZUxCWkJoQnk3QWFwRk5hd3BYOEQrNWVoZ3NL?=
+ =?utf-8?B?V3NPTUxGb0w3YnBLM25pTXBCTjV2bVpHTG1UM2Y3di92aWRHaGllcFV1WlVS?=
+ =?utf-8?B?Kzd6cDNYMXB4M2Y0b2RweHhlRllZRzFVanhFdzhUL0d0SC8wZ0paZDllcC9R?=
+ =?utf-8?B?RjdvNVowUnAyOWN6VlpWWStIQ2pLcEdCN1FZdjkyeFJvdzY1bHBJdnZ1NEp6?=
+ =?utf-8?B?Ujc3YVZiSWdQaStNSTJsdENkYUV6SFFJbG4rdTVwM0YwMndmcHljemw5T0sr?=
+ =?utf-8?B?eXdvNy93MDJiaVprbUs0blZmaVNwd3FTdUdrQVFTdXB3YnZaSkdmR0o0dG93?=
+ =?utf-8?B?TXdGWVBUK2ZaczdKZ1RoWmQ4V01GMnloTld5RERBK3paNEcrN1B5YzcrZ0Vx?=
+ =?utf-8?B?NVBrcGR2Rm9zaDJqOVd4M3FHTnIwUHJFTXY4WXRRUlpmR2RFelQ4eEM0dmNN?=
+ =?utf-8?B?RXcxRnBObFlyRXJ3QnNoTTdRQU9wUU5INDVPc3N0V25FQVg2dXFKam5IMFZx?=
+ =?utf-8?B?cDNRbkxWa2VuR0Uyd1luakpkM2wreDVpcHFjbFFiYldUMVJSOVFCYXAvUDBq?=
+ =?utf-8?Q?gosPNbimI6/ZRzQwHfq5e05vV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29c17430-480e-46a2-3e2d-08dc763b8039
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2024 06:35:10.8685 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HyseEo47LzA/fBzzKU3nsAvPOpIR2aJfijS5hCSauYE1VS0uqAlIes056ilv/0pB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9170
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,67 +165,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000a1ba1b0618a082c1
-Content-Type: text/plain; charset="UTF-8"
+Am 16.05.24 um 19:57 schrieb Tim Van Patten:
+> From: Tim Van Patten <timvp@google.com>
+>
+> The following commit updated gmc->noretry from 0 to 1 for GC HW IP
+> 9.3.0:
+>
+>      commit 5f3854f1f4e2 ("drm/amdgpu: add more cases to noretry=1")
+>
+> This causes the device to hang when a page fault occurs, until the
+> device is rebooted. Instead, revert back to gmc->noretry=0 so the device
+> is still responsive.
 
-Hi all,
+Wait a second. Why does the device hang on a page fault? That shouldn't 
+happen independent of noretry.
 
-with Android 14 QPR2 there were substantial changes in graphic stack's
-Android HAL (Hardware Abstraction Layer),
-essentially it became mandatory that hwcomposer HAL module supports AIDL
-Android Interface Definition Language,
+So that strongly sounds like this is just hiding a bug elsewhere.
 
-at the moment drm_hwcomposer does not support AIDL [1]
+Regards,
+Christian.
 
-Project Celadon has an HWC3 AIDL implemented [2], as a patch on top of
-hardware/interface AOSP project, there is an opportunity to use it also for
-non Intel GPUs.
+>
+> Fixes: 5f3854f1f4e2 ("drm/amdgpu: add more cases to noretry=1")
+> Signed-off-by: Tim Van Patten <timvp@google.com>
+> ---
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 -
+>   1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index be4629cdac049..bff54a20835f1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -876,7 +876,6 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *adev)
+>   	struct amdgpu_gmc *gmc = &adev->gmc;
+>   	uint32_t gc_ver = amdgpu_ip_version(adev, GC_HWIP, 0);
+>   	bool noretry_default = (gc_ver == IP_VERSION(9, 0, 1) ||
+> -				gc_ver == IP_VERSION(9, 3, 0) ||
+>   				gc_ver == IP_VERSION(9, 4, 0) ||
+>   				gc_ver == IP_VERSION(9, 4, 1) ||
+>   				gc_ver == IP_VERSION(9, 4, 2) ||
 
-drm amdpu in kernel already supports ADF Atomic Display Framework, I would
-like to ask the current status of Atomic Display Framework in drm radeon,
-because Atomic Mode Settings seems partially implemented since 2010-2012,
-but ADF capabilities are not exposed to user space.
-
-Please, I also need some basic (high level) information about the
-outstanding changes that would be required to support it, in order to be
-able to use HWC3 -> drm_hwcomposer with r600, r300 chipsets.
-
-Thanks for your informations
-
-Mauro
-android-x86 team/Bliss-OS community
-
-[1] https://gitlab.freedesktop.org/drm-hwcomposer/drm-hwcomposer/-/issues/80
-[2]
-https://github.com/projectceladon/vendor-intel-utils/blob/master/aosp_diff/preliminary/hardware/interfaces/11_0001-Enable-graphics.composer3-AIDL-HAL-service.patch
-
---000000000000a1ba1b0618a082c1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi all,<div><br></div><div>with Android 14 QPR2 there were=
- substantial changes in graphic stack&#39;s Android HAL (Hardware Abstracti=
-on Layer),</div><div>essentially it became mandatory that hwcomposer HAL mo=
-dule supports AIDL Android Interface Definition Language,</div><div><br></d=
-iv><div>at the moment drm_hwcomposer does not support AIDL [1]</div><div><b=
-r></div><div>Project Celadon has an HWC3 AIDL implemented [2], as a patch o=
-n top of hardware/interface AOSP project, there is an opportunity to use it=
- also for non Intel GPUs.<br></div><div><br></div><div>drm amdpu=C2=A0in ke=
-rnel already supports ADF Atomic Display Framework, I would like to ask the=
- current status of Atomic Display Framework in drm radeon, because Atomic M=
-ode Settings seems partially implemented since 2010-2012, but ADF capabilit=
-ies are not exposed to user=C2=A0space.=C2=A0</div><div><br></div><div>Plea=
-se, I also need some basic (high level) information about the outstanding c=
-hanges that would be required to support it, in order to be able to use HWC=
-3 -&gt; drm_hwcomposer with r600, r300 chipsets.</div><div><br></div><div>T=
-hanks for your informations</div><div><br></div><div>Mauro</div><div>androi=
-d-x86 team/Bliss-OS community</div><div><br></div><div>[1] <a href=3D"https=
-://gitlab.freedesktop.org/drm-hwcomposer/drm-hwcomposer/-/issues/80">https:=
-//gitlab.freedesktop.org/drm-hwcomposer/drm-hwcomposer/-/issues/80</a></div=
-><div>[2]=C2=A0<a href=3D"https://github.com/projectceladon/vendor-intel-ut=
-ils/blob/master/aosp_diff/preliminary/hardware/interfaces/11_0001-Enable-gr=
-aphics.composer3-AIDL-HAL-service.patch">https://github.com/projectceladon/=
-vendor-intel-utils/blob/master/aosp_diff/preliminary/hardware/interfaces/11=
-_0001-Enable-graphics.composer3-AIDL-HAL-service.patch</a></div></div>
-
---000000000000a1ba1b0618a082c1--
