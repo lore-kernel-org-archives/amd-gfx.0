@@ -4,117 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E234C04FFE
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 May 2024 20:44:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78726C25B75
+	for <amd-gfx@archiver.kernel.org>; Sun, 19 May 2024 10:46:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E041510E18D;
-	Fri, 17 May 2024 20:44:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5787B10E0FF;
+	Sun, 19 May 2024 10:46:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eVvX1G7l";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iIKGU5hj";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2072.outbound.protection.outlook.com [40.107.243.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45FBB10E18D
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 May 2024 20:44:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MJvy1QMOY5ctwUKr5cybSCU098u4Q9EHJgX9xu28Imr+lVoP68EwQZykikJ02IiLM6/E2c8eluVfTFnR2IM/FrBRYUrqYxIMAfH1EMye3l3/t0bnKJn1maiAnX2H4wT37a9r64IXSSkY5zsj7y+8ovmNk52pIHSdV/3oa3yBZU9lqu/dXZtbKO5cbeMwzMiwYbMXMYjBw92GbE0hdbskpcYi+UG52F01fTB1VATowJra9c+cDigLIo8Lm5WPkn0oSch+v6eOfgZ2VO6/02f1FNiYQUhpXMMKcK7Om7l480hScqnPgBNyerLko1xKJmXdIDHbTGSygpZ8ZbhVHxaBqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I+mS88+FEj9nSG73w+8/dr5dtSNRFDhzFr8ZlslkqBw=;
- b=CNRQAGoXL8L04DGqTHqyIXZY7BNR0LMLtHtbDderPdCHqKt0L0zlpWs6OchbaIBomV8ortfG9FAgnYk/3uu5ZOlNzXc29U93g6ngeR7ygg4Qcl/WR5mMBLFhR9ioVCInQZO2CzGSM+gp2vyV4HCNy8bjVY+LU+UmrEh2e+bbJv/leOabmbOeoEDFfAfPYQFwjiIb4XirwuJ4KcvOGjxYXejwSa0Fqq+6ToaRQYsTo5BkI6etJRx1m6QfvgFQVFgltGh4RQSb65/QXA/MS/Wb6M7HO3OTKthYjajKECkh9UUNuQPX5jmWyJxNdFjRli38selwpqLM/8tPYSw5oJchUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I+mS88+FEj9nSG73w+8/dr5dtSNRFDhzFr8ZlslkqBw=;
- b=eVvX1G7lup+ikkzssKEdhXc+ufigSx9ng+8FzSo3rNWJbz1eNqRAjWMuUi30JX9cUl0g+m2v4gpjGXZHXG2z8rj/eBZCxOiRJhMTU92Xw9H+P08YFwhmSV8/UxB9teoA1V66XdTwMTUo5sLTlPajvGbwnEiIMh0RS/cOvJ3TS+o=
-Received: from PH8PR15CA0024.namprd15.prod.outlook.com (2603:10b6:510:2d2::9)
- by SA1PR12MB8144.namprd12.prod.outlook.com (2603:10b6:806:337::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.28; Fri, 17 May
- 2024 20:44:40 +0000
-Received: from MWH0EPF000A6731.namprd04.prod.outlook.com
- (2603:10b6:510:2d2:cafe::64) by PH8PR15CA0024.outlook.office365.com
- (2603:10b6:510:2d2::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.31 via Frontend
- Transport; Fri, 17 May 2024 20:44:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000A6731.mail.protection.outlook.com (10.167.249.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7587.21 via Frontend Transport; Fri, 17 May 2024 20:44:39 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 17 May
- 2024 15:44:38 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Kenneth Feng <kenneth.feng@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amd/pm: update driver-if interface
-Date: Fri, 17 May 2024 16:44:11 -0400
-Message-ID: <20240517204411.436257-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.45.0
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
+ [209.85.161.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1390B10E163;
+ Sat, 18 May 2024 01:25:12 +0000 (UTC)
+Received: by mail-oo1-f44.google.com with SMTP id
+ 006d021491bc7-5b2a66dce8fso1468742eaf.1; 
+ Fri, 17 May 2024 18:25:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1715995511; x=1716600311; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :references:cc:to:from:subject:user-agent:mime-version:date
+ :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+ bh=cJqjedwoYcqSzJKmZSEwT+6hVhtxWLfg/8QtauvSdx4=;
+ b=iIKGU5hj9quAoucc/N7d3Erm4p83Jr6+1Rahf+bAA9N84ywbV6d9Tjn9tT1GsN0dFM
+ FtjOgWCntAEbSU+B11hE4r0zffcai2BQsPYACru1ne9fXQjLD+LPElnMSicindBgqiSy
+ c6rYSzceb5RgJ9234xh7gLhvoGTlxr0EPW4X1U9eqorU2J1TatksfpBW2C4V4lHBdMa/
+ d0VexkZALf5c2CZplg//ZRjf7eThMzBPYOKanQRcVHfKaz+ZQX5y1n/NQy0YYujj+wag
+ 6zXM487gLEKt6urgIfcXBs70nFJAEvTqEXDMnHgT6HY+/g5pOfNBTcb1R6zCoqL+C3B+
+ Tumw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715995511; x=1716600311;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :references:cc:to:from:subject:user-agent:mime-version:date
+ :message-id:sender:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cJqjedwoYcqSzJKmZSEwT+6hVhtxWLfg/8QtauvSdx4=;
+ b=N2fWURafbG3vDbIv1J/8PmcHOYLihkSD+ENlBjHBYUMYI2Dicl/mltku3p8CPBgQx3
+ Kl0HGNtwU40JiaWXlS+XqIkiBr4x/lZDG9ec8az3aFzVPfwLKS3eJ03eOjmbVzvB+gdy
+ O8uN4P4RcyQ67Oh2wPPLyobRVz+GTgtyiVIjYyGvjFzNcp+xaEbEA6L75fDRqgSzLsNv
+ ncLoNIwDvPipVFq8gQK+YKVOj7VD2VeKwBqAS6yFA9l2OSDdDDKMS7sFHOgQMbjggCJO
+ uRwJzFGNvwE2Qw6uXZZ6ZaSYn2EH91R3BdxEugAwGypoBIPgi3KZ/pYbhIs4lbnlV16A
+ J79g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXC2+KzfmFdmBBW0LYc7rRWAjDtG8Hdu/Jl8M7Yv5AB9q0QKiFLWQhRAzfdhKAdUuKo40uvfT/YzAwjzeIMAY7c0pIst9vUqMwpCsR0Pyy0yZ8lcjjjUxlKEtSfps+I3B8cztUGGW8saSzvHPifGIOTQIx1RfF/WeqRDP6YYO0rw1QSG2ynNT/ofQNObOFZX0Mr49z01gZsct/ImwFKJ7Kgq1Y6toS9rwbyaZddd3gCsVuBYPcVqhgr6Vf8p0APwu9nwG7vxNVVz3Hx7AtHzx9z
+X-Gm-Message-State: AOJu0YxOUDWNK7pPrsfzbXF24bdlJjqkUpQBya9x0xjA2mFdt7xg+Xur
+ NermLxYVcLahx0E+NamKzMBx4YexhalB0vYlp4zyXDiDumsHZa9e
+X-Google-Smtp-Source: AGHT+IFRaG5+veBhAS+2oO1Mq9a7mnKgK9vX9unu3cCbE/KbyDzrBjSt084GN8tso2cWg108BqN4VA==
+X-Received: by 2002:a05:6870:a3d2:b0:240:c8ff:c96a with SMTP id
+ 586e51a60fabf-241728fc1damr27553351fac.27.1715995510785; 
+ Fri, 17 May 2024 18:25:10 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
+ ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-6f4d2a66316sm15339938b3a.35.2024.05.17.18.25.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 May 2024 18:25:09 -0700 (PDT)
+Message-ID: <64db2b94-edb3-4ea3-87cf-bb91746869e6@roeck-us.net>
+Date: Fri, 17 May 2024 18:25:06 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tracing/treewide: Remove second parameter of
+ __assign_str()
+From: Guenter Roeck <linux@roeck-us.net>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Linux trace kernel <linux-trace-kernel@vger.kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-cxl@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-rdma@vger.kernel.org, linux-pm@vger.kernel.org, iommu@lists.linux.dev,
+ linux-tegra@vger.kernel.org, netdev@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, ath10k@lists.infradead.org,
+ linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+ ath12k@lists.infradead.org, brcm80211@lists.linux.dev,
+ brcm80211-dev-list.pdl@broadcom.com, linux-usb@vger.kernel.org,
+ linux-bcachefs@vger.kernel.org, linux-nfs@vger.kernel.org,
+ ocfs2-devel@lists.linux.dev, linux-cifs@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-edac@vger.kernel.org,
+ selinux@vger.kernel.org, linux-btrfs@vger.kernel.org,
+ linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-hwmon@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-wpan@vger.kernel.org, dev@openvswitch.org, linux-s390@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, Julia Lawall <Julia.Lawall@inria.fr>
+References: <20240516133454.681ba6a0@rorschach.local.home>
+ <5080f4c5-e0b3-4c2e-9732-f673d7e6ca66@roeck-us.net>
+ <20240517134834.43e726dd@gandalf.local.home>
+ <5cff0ff0-48d1-49f8-84f4-bb33571fdf16@roeck-us.net>
+Content-Language: en-US
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ mDW4+i+XlNFUPUYMrIKi9joBhu18ssf5i5Q=
+In-Reply-To: <5cff0ff0-48d1-49f8-84f4-bb33571fdf16@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A6731:EE_|SA1PR12MB8144:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c964ce3-e14a-47d1-201f-08dc76b22c0e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230031|82310400017|376005|36860700004|1800799015; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?TWBhxk8/iEXnKFtWB26B56fURbYVf/S2CmQxJfWxwYdguC6xayzbXy3Z3LRY?=
- =?us-ascii?Q?+OlHNjQ9pGAzomSbWK8m+w7UKQxzH8KP9tBqrpWwUYFXDoNKNeZErjeKGbY/?=
- =?us-ascii?Q?ifVNpc/yP/x9V13be6C2ds/wrYbMtXgpcba9GWXUMPVysrCPEl5bxqaWnySB?=
- =?us-ascii?Q?3RlTdrexdDIJZjoeFsN+B3Kp6detM63aqgUlfd1/Rigi5qPFBlmURhDV2inU?=
- =?us-ascii?Q?Kj1eAN1eQB9IeM8tJnxmtkF8EJqApN4Sa1SkggPo2zMK3iXmewcCzJS2XxK5?=
- =?us-ascii?Q?yYXzfvNWUFlKzr5cm3Xthcum64oWWgzHTZ/NkkFlqLgDsFxzmM89QUJJxdv7?=
- =?us-ascii?Q?9rGRJzDsCtc8pM7sfv/GJ/WMC1SFPIXMyg9U4HpK60fyBhdlaqi4AAsrJTX0?=
- =?us-ascii?Q?yzNdkCMbsYTh+7rmph7Ua8GD9743fCk70bgwq36/MhSN3Efr/kGH5PkASbR/?=
- =?us-ascii?Q?aeXusuggdUXCki9hJOExZNuAAV2BxaIzJd/5ilP1WWiYPRZrBpsENCFJ1piW?=
- =?us-ascii?Q?iptxeDgzS3NMyV9YalGSGsfN5IlEvRBZMbcXCOo7sJelIDRCL3/xY9n/CFMB?=
- =?us-ascii?Q?+qs07L6GsrwVmsGIYhYvmd79P18FvVwXBSUgYqihMhTJSV3UjzNtkxca5jVd?=
- =?us-ascii?Q?GwXELAoO5WOzKce2lERJbbklYdFC/bMor1CyGiJTiMFlXolQ/zMguyBQr8P7?=
- =?us-ascii?Q?YoIpsEid4XEtpuUd6koXcJQ+r/iIfKm4Y+/b3p1G+lQE9fV48vINSB6LFyK9?=
- =?us-ascii?Q?kOoWgYecM0C7gAG0M+smjE172g2sOv+EisXtumBEC41Ul63d/H3hizkzgMmN?=
- =?us-ascii?Q?uIeKdrqVuv+63YARsRJ03wCEypBcDiD1u+ObYUtKA2gSDFh6YWuv7+FwgdM/?=
- =?us-ascii?Q?+9FEOUrBQ9PhOcei0OJyrj7Y5plv9qZtrqZMShEgPM3Bcs4HKSqtlJ27WwVd?=
- =?us-ascii?Q?aD3odNw2EGPXBBBthdLtxXCjazkMzKeF7tr3M+GnriHYJ2DbBmT0x2oyCC3B?=
- =?us-ascii?Q?K+yVXGuzxNXbvgdtv/+kKaXInH4OkMRMokE0R49yMHGdZZjbyXqDPcCyPkUr?=
- =?us-ascii?Q?U4bOjnVmAHUssO4xY7LksU20ltTQdJNqU8/UOjlkbK4/jMypznymGEBL2aHk?=
- =?us-ascii?Q?lU0tHXoS8D/urxAd4Z5lK+HEoLqQ3g41efX54hMX6XmDhrtfCWSaDDakVJhE?=
- =?us-ascii?Q?8nkpKguWP/Db+QeMO2JncHRO1Tw39pI0X7gP5FNxhpM7+M+tfReHm8TuZUQR?=
- =?us-ascii?Q?9oOBT+8MbJQghnj80XU2fl0uZPUsL5cnMoQPB2MdZrZ7u6bQWqBnecCYccN2?=
- =?us-ascii?Q?RE8XNv7mFUZs1VPiHMPReTjzx/woehSDN0ysOS1EKMpr0wDDxm55QSXrIam+?=
- =?us-ascii?Q?L3ySycQ7B5c/RsJmvIRCLMNuQDUp?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400017)(376005)(36860700004)(1800799015); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2024 20:44:39.3741 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c964ce3-e14a-47d1-201f-08dc76b22c0e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6731.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8144
+X-Mailman-Approved-At: Sun, 19 May 2024 10:46:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,77 +158,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Kenneth Feng <kenneth.feng@amd.com>
+On 5/17/24 11:00, Guenter Roeck wrote:
+> On 5/17/24 10:48, Steven Rostedt wrote:
+>> On Fri, 17 May 2024 10:36:37 -0700
+>> Guenter Roeck <linux@roeck-us.net> wrote:
+>>
+>>> Building csky:allmodconfig (and others) ... failed
+>>> --------------
+>>> Error log:
+>>> In file included from include/trace/trace_events.h:419,
+>>>                   from include/trace/define_trace.h:102,
+>>>                   from drivers/cxl/core/trace.h:737,
+>>>                   from drivers/cxl/core/trace.c:8:
+>>> drivers/cxl/core/./trace.h:383:1: error: macro "__assign_str" passed 2 arguments, but takes just 1
+>>>
+>>> This is with the patch applied on top of v6.9-8410-gff2632d7d08e.
+>>> So far that seems to be the only build failure.
+>>> Introduced with commit 6aec00139d3a8 ("cxl/core: Add region info to
+>>> cxl_general_media and cxl_dram events"). Guess we'll see more of those
+>>> towards the end of the commit window.
+>>
+>> Looks like I made this patch just before this commit was pulled into
+>> Linus's tree.
+>>
+>> Which is why I'll apply and rerun the above again probably on Tuesday of
+>> next week against Linus's latest.
+>>
+>> This patch made it through both an allyesconfig and an allmodconfig, but on
+>> the commit I had applied it to, which was:
+>>
+>>    1b294a1f3561 ("Merge tag 'net-next-6.10' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next")
+>>
+>> I'll be compiling those two builds after I update it then.
+>>
+> 
+> I am currently repeating my test builds with the above errors fixed.
+> That should take a couple of hours. I'll let you know how it goes.
+> 
 
-update driver-if interface for smu 14.0.2/3
+There are no more build failures caused by this patch after fixing the above
+errors.
 
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- .../swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h | 21 +++++++++++++++++--
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h  |  2 +-
- 2 files changed, 20 insertions(+), 3 deletions(-)
+Tested-by: Guenter Roeck <linux@roeck-us.net>
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h
-index 97a29b80fb133..ee457a6f08130 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h
-@@ -1641,6 +1641,23 @@ typedef struct {
-   uint16_t dGPU_W_MAX             ;
-   uint16_t padding                ;
- 
-+  uint16_t MovingAverageGfxclkFrequencyTarget;
-+  uint16_t MovingAverageGfxclkFrequencyPreDs;
-+  uint16_t MovingAverageGfxclkFrequencyPostDs;
-+  uint16_t MovingAverageFclkFrequencyPreDs;
-+  uint16_t MovingAverageFclkFrequencyPostDs;
-+  uint16_t MovingAverageMemclkFrequencyPreDs;
-+  uint16_t MovingAverageMemclkFrequencyPostDs;
-+  uint16_t MovingAverageVclk0Frequency;
-+  uint16_t MovingAverageDclk0Frequency;
-+  uint16_t MovingAverageGfxActivity;
-+  uint16_t MovingAverageUclkActivity;
-+  uint16_t MovingAverageVcn0ActivityPercentage;
-+  uint16_t MovingAveragePCIeBusy;
-+  uint16_t MovingAverageUclkActivity_MAX;
-+  uint16_t MovingAverageSocketPower;
-+  uint16_t MovingAveragePadding;
-+
-   uint32_t MetricsCounter         ;
- 
-   uint16_t AvgVoltage[SVI_PLANE_COUNT];
-@@ -1653,7 +1670,7 @@ typedef struct {
- 
-   uint32_t EnergyAccumulator;
-   uint16_t AverageSocketPower;
--  uint16_t AverageTotalBoardPower;
-+  uint16_t MovingAverageTotalBoardPower;
- 
-   uint16_t AvgTemperature[TEMP_COUNT];
-   uint16_t AvgTemperatureFanIntake;
-@@ -1676,7 +1693,7 @@ typedef struct {
- 
-   uint16_t ApuSTAPMSmartShiftLimit;
-   uint16_t ApuSTAPMLimit;
--  uint16_t AvgApuSocketPower;
-+  uint16_t MovingAvgApuSocketPower;
- 
-   uint16_t AverageUclkActivity_MAX;
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-index 3d34b3869df69..e6531c30c3ebd 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-@@ -28,7 +28,7 @@
- #define SMU14_DRIVER_IF_VERSION_INV 0xFFFFFFFF
- #define SMU14_DRIVER_IF_VERSION_SMU_V14_0_0 0x7
- #define SMU14_DRIVER_IF_VERSION_SMU_V14_0_1 0x6
--#define SMU14_DRIVER_IF_VERSION_SMU_V14_0_2 0x25
-+#define SMU14_DRIVER_IF_VERSION_SMU_V14_0_2 0x26
- 
- #define FEATURE_MASK(feature) (1ULL << feature)
- 
--- 
-2.45.0
+Guenter
 
