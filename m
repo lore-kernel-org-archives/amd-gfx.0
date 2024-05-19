@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74659C25B7A
-	for <amd-gfx@archiver.kernel.org>; Sun, 19 May 2024 13:06:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27EE4C25B7A
+	for <amd-gfx@archiver.kernel.org>; Sun, 19 May 2024 13:07:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23E4A10E23F;
-	Sun, 19 May 2024 13:06:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C176510E24D;
+	Sun, 19 May 2024 13:07:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zqIX4AlH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wltxjiI0";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2074.outbound.protection.outlook.com [40.107.237.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA78F10E23F;
- Sun, 19 May 2024 13:06:33 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2049.outbound.protection.outlook.com [40.107.100.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AD7D10E248;
+ Sun, 19 May 2024 13:07:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O8Ngk/XMx6wkS0pK8IPiw8LwCT9LZPpERzKYQm5O/ajcNfQMlm3h8ssYSpRXHDiNRZKPyce2xCjO6+r0HtcNE1OtGnmwPwEp8OIFnP0AAQpdT1hVsrDc0Ug5nJ35rvdjHHl9Dm0C2a90u0LUtvvRl9uoPWiPENkxxMoNfH7hRHe+YGZ5hDMqsMTtz3unHOeLtv7HoyCRTFHYuJlqKcE4Ya+TOMy8A4WaBe74hpI2AM2Kl9/TQRXe3W6pddDocany0PgTIENlDb6kfSd8DbQHYzZXh2brKYWWaAHj1RH7Au9TRz8qem7UkQYifhPAn70KD6frGzJGg2lqgKC2Y7sROA==
+ b=D/r7Xk9IYr24XKmLjs8910v5Q+R7ja+xBa0/DFjg/m3HLC46axRZbiIgwdCv3w+I31SjNW2GJSiqw7DJXQomSzVzNvgjY4anWD/iGKfeL5i08jECm2AA/9DjLwWM3lrTbtSe5UrQTOkMiOHmL3Xg8ShefBEarc7XmF6PekdlILZ7P+264CPRA7lgxhzvvl4tgmRtQosWDtsC3xqqRdv3u8RIVHv+br9JyJ72hxb8XT89xlHiYhp4SoU+YLU1G8wVas262yPuMevM8RQolgFzZEFbUufQ2ZDRU4qh2JXIiC0PpMSZoxPJM4DBBw2d04/CCvRYsM6S72cj1dkFJxpVqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S0TA/AxFD8bnO6+8jjpVyYVqUNbVaIeriyEuUJexyv4=;
- b=b/7bW4oJ2o1t6IgoRtaoOspt7XlP16tQgQeODDF7x/vMtWQsCEqEl/ooQ6Mwd10ZiOZG9iK072LMNrYUwk9aro9cGM9K5ADKIpvEKqagDqKdXmCDJ5A+dDpF8qj5W8qPKpyPVClIV5WpfJTbSoNXN5qUPKVPVLljuWyk74bWBvdyDQr1oIH5Y0q8lCSiVNy5sS0O0bNsTFkEFIIbU8LWU+MUUbMvbqOJVEhNF7B6fEbdOG9oimdg1DzGU53hfkPyraTQT/EaVtUrq0TlUnl3cvxdfT8QX6+aWWdgOpdM9+c/E8vi2RPeNcZOeBwT2S/Ceu6XPQpfxwffT9dhkhLXDQ==
+ bh=DeydpEBtLYY7iYyMC2dyGgS1ZgQ/zw9g6SlfzPEarcc=;
+ b=LY/goSqbHuXyQS6ifysszGD7Gaq2yEQ6OE0FHag41koOEU5u7PYCzVIWizN7jymRqMzx3leKSpmmNgH4qOx0cBAJhjmo4TgHgc88Dq6oiFRzGPPkM0fkugcyyzo4tTj0bZVpQ5B0LHDoqawOJWnFEYdMuIzZxBXnzy9WrFQ+ugEp03m5ob4+9iE3a5gBiT/9Jl8W1LGo/1iwP7FWTW4aMvGT0Nkrx+4fBGiEdsZ0oeiZ8xJUV91rIK9FhoI0efJkyRSnFjDNVFN0InAT4qtg4cyHe8MGfa5gpXjWtxu4LJGCT7jmvdGBW9MpzW+ujFH4+W2VNirw/SGJbYtk7PXmKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S0TA/AxFD8bnO6+8jjpVyYVqUNbVaIeriyEuUJexyv4=;
- b=zqIX4AlHJqRz6UoH9XkhkIpkDy/IsToSET5Ckirl9LBEKHVO1rE30xxg79ny396SiIfjvoPSMh9F9MICTNRDiOoN63wL70ufaaXuzCdgGz5h5/Lqob6Kj1cYUpiGCzgFnkM2MBuwiIcAQf/GrVqhzW9uAIlUYT0Mh/K9ZV7boJg=
-Received: from BYAPR03CA0029.namprd03.prod.outlook.com (2603:10b6:a02:a8::42)
- by MW4PR12MB7119.namprd12.prod.outlook.com (2603:10b6:303:220::21)
+ bh=DeydpEBtLYY7iYyMC2dyGgS1ZgQ/zw9g6SlfzPEarcc=;
+ b=wltxjiI0rOMxZ0Np0gVA5EkjsxXsCakpHKHtbb0M8pRxhQLIsSix7OT+9HX4YeeDQSsGPnmyMzvdVN16vTYiI1GvlkqHDTc5DXSVYyCuMo67szzxOgf0uDtYpcaitBhZc6E0tvC7Tx6L/dooe1KDjGp9zDfmGKUVG7HUTH16ePI=
+Received: from SJ0PR05CA0181.namprd05.prod.outlook.com (2603:10b6:a03:330::6)
+ by SN7PR12MB7451.namprd12.prod.outlook.com (2603:10b6:806:29b::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.34; Sun, 19 May
- 2024 13:06:29 +0000
+ 2024 13:07:32 +0000
 Received: from SJ5PEPF000001CC.namprd05.prod.outlook.com
- (2603:10b6:a02:a8:cafe::c7) by BYAPR03CA0029.outlook.office365.com
- (2603:10b6:a02:a8::42) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35 via Frontend
- Transport; Sun, 19 May 2024 13:06:29 +0000
+ (2603:10b6:a03:330:cafe::da) by SJ0PR05CA0181.outlook.office365.com
+ (2603:10b6:a03:330::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.15 via Frontend
+ Transport; Sun, 19 May 2024 13:07:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,23 +50,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SJ5PEPF000001CC.mail.protection.outlook.com (10.167.242.41) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7611.14 via Frontend Transport; Sun, 19 May 2024 13:06:29 +0000
+ 15.20.7611.14 via Frontend Transport; Sun, 19 May 2024 13:07:31 +0000
 Received: from SITE-L-T34-2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sun, 19 May
- 2024 08:06:27 -0500
+ 2024 08:07:30 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <xaver.hugl@gmail.com>,
- <dri-devel@lists.freedesktop.org>, Mario Limonciello
- <mario.limonciello@amd.com>
-Subject: [PATCH 2/2] drm/amd: Add panel_power_saving drm property to eDP
- connectors
-Date: Sun, 19 May 2024 08:06:10 -0500
-Message-ID: <20240519130610.7773-3-mario.limonciello@amd.com>
+ <dri-devel@lists.freedesktop.org>, Mario Limonciello <superm1@ubuntu.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH 1/2] tests/amdgpu/amd_abm: Make set_abm_level return type int
+Date: Sun, 19 May 2024 08:07:16 -0500
+Message-ID: <20240519130717.8087-2-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240519130610.7773-1-mario.limonciello@amd.com>
-References: <20240519130610.7773-1-mario.limonciello@amd.com>
+In-Reply-To: <20240519130717.8087-1-mario.limonciello@amd.com>
+References: <20240519130717.8087-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -75,50 +74,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CC:EE_|MW4PR12MB7119:EE_
-X-MS-Office365-Filtering-Correlation-Id: f9268a31-367e-49ce-53ca-08dc78047f6c
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CC:EE_|SN7PR12MB7451:EE_
+X-MS-Office365-Filtering-Correlation-Id: 330046d3-33e7-4451-330b-08dc7804a4d3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|36860700004|376005|1800799015|82310400017; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?FlEuv+HlT429U0sj2GGHx48onC1lOPHobeY05PJuh85xNx+aP1x4XxEANlAP?=
- =?us-ascii?Q?Cwg5ScXNHsnu9FymkCMobIFYA6+OODALLshhMZ/W0iW4n8RKofTnQr0eq8M4?=
- =?us-ascii?Q?JVOH/BCiypd0vp1eXX+QIIwnvOrpchuDgURbco/OC3xludCVwAaP/H3gR5YP?=
- =?us-ascii?Q?kzc0xHwf5s9gN7ZAxW8DKfQFGoEdjKSl/MTbK0Ml6znwKT5CJvSrnajHDWuh?=
- =?us-ascii?Q?gNmh4RMBUvq7prp1hI6vDi5BN0w1WEnxt6lnkelUSQAvvo9b5uVUlA8dW9DC?=
- =?us-ascii?Q?JvGF8i3Pp/89acB1UjTMXBNdGJifP9Mw2n1e08ziTJmnDe5uka6kFFgd1cTx?=
- =?us-ascii?Q?fJKYXNtCFT7jyVluqJyPIBsV7H+NTAnqN4IAvxKsPwHm85jSmadB1B8GfEB+?=
- =?us-ascii?Q?H7+v69thm3BidNpPN4aMlsX1C2JgfNcUf3RcZyrf/Ee1NrPYlB8v8VtgTGLT?=
- =?us-ascii?Q?X1LODxv9gESid1+uN91ITS8sK1gtP/EBX4WKkdfic5BV4b48ht17kBQuUSJz?=
- =?us-ascii?Q?xOFEg0NOwl2qIpWiz4X6S7Yb91ewAFzC+7F/haJHKYyusHIllyDm1N9aIxXD?=
- =?us-ascii?Q?Riz2FpkkjFHUQ79hLIelUHS7B3UDx/IaNMB8E/K91WKvIznWH9JxSULGMaze?=
- =?us-ascii?Q?1VcW+ZTwPjQrMIkz91BPeonwERvO8eg4VYnOw7Etpp8hPjkf0G5k6ckk3G53?=
- =?us-ascii?Q?0K4iqGrg2f+TPzSjCkKXTDfc0D+6ZI9m75PYE7WFFq5FLc//V8KepZkBW81q?=
- =?us-ascii?Q?fApM4FE7+H3ZTE9Q7LdU6Y7+qnn2y4ChSnX7avM3gTTwpbISDo0xWB6fbZNL?=
- =?us-ascii?Q?Y4i5C8mG/nzlgWp+4lAOGs7QSCmiUdh+2zZfNj4NTzR0SSEReCtnofWsDtlV?=
- =?us-ascii?Q?74DMBtj8VPMbRVOpB8qKr+vdBJf+BLg8gu3T5Uzk06LUlJTp2WcAv4y+99Xa?=
- =?us-ascii?Q?5/RzNNbHPY9wKSeCWYHUcTgywhAuHMTv5+jBQC43Y7+T6ot/AnkvbyybRIvl?=
- =?us-ascii?Q?fgy4MP6QU9Q7+IIpezjQdpajaWZImJDHehOxcesEzcMhqI8A0+u9TOWZ2xBg?=
- =?us-ascii?Q?xkkMqQYdz9ud+gmY0f2b9AC9AVIjxnqdWP0Q7YmPBn2ZP389jzcvlOmU/R5q?=
- =?us-ascii?Q?z2GyotUQDedSVzeaqWOdrjpX5DJdi2m9E6ZMlhnnQFAqFyjdndUSTOQ7bPoM?=
- =?us-ascii?Q?sFJT+lo6CGKckLt93zadWgN19WMaYYwsQOrdJ/i8rxkVMRHVwkfTltndQl95?=
- =?us-ascii?Q?+68qblKGZYOSLu/3nzKW5z2AcvBPhCUy0P4ilnsG+I34yEWDHOPwnHuDvxzV?=
- =?us-ascii?Q?v/0rwwORA6VZQ42Y0FOlQsw7FwDEjVSilFnOeAV52C9hUAQjg+F6YwRtPrD2?=
- =?us-ascii?Q?XEe8faU=3D?=
+ ARA:13230031|376005|36860700004|82310400017|1800799015; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qldB/Gx1xPjli150XCkpjGiMjfsDBOQ9T5cvY0CpetLGpUsDlRxj021+42eK?=
+ =?us-ascii?Q?s8cZPObomonOS09dqHgjDX1spKZYtXmTCLG9ijvFcIh6YY1V0+DpngExd5TL?=
+ =?us-ascii?Q?HsUmPx6oVKN8Ul2n7S2XVHCDh3IGryTIK2MursbsyAAAbpaPbpBfDIVY10j+?=
+ =?us-ascii?Q?B8AtfCk4uShdu4EfnBReXkpd52SAnDju2+B/0bWNkE5yzogCvSWIw22FW6Zm?=
+ =?us-ascii?Q?3p5NpAiHAQbgTHp7GpNI3Ixwol527MDcFThrxftgv9U37lbtq0nAkoHDiUHU?=
+ =?us-ascii?Q?kefClbNsBO8gnrgVI9Z4XwB5gAfkNIKZEmsQkVlJ3L8Rx8xtn0krpmqTMlV3?=
+ =?us-ascii?Q?pU5CMejeFR5gwpdSeaF4jxa2kFV09SuaoadOhfZpc6+/OD6FhepKeDLwL2jr?=
+ =?us-ascii?Q?sHVhSUvHVBNv9ZfThY53KMn/4tu3IvBSNEaRfSBcFCFlwkDAPuJO7sWKZ3Tt?=
+ =?us-ascii?Q?6ICuSNguNyzwyP7XPoGOiRrfj37thDVAlCZZq7TDPi+mBU+oebchBHDFzBi1?=
+ =?us-ascii?Q?pGxvA51NJaZ+wRVcEvGsA+8EhOCoi51x2OWoaEVvFNTOmVmUdiTtYUVSKuQd?=
+ =?us-ascii?Q?LWGTdO3T9Zn58edKFXnOvcnWTs19SIE9JN2V8iyxlA6vSFeuc5dUOssBhUb/?=
+ =?us-ascii?Q?wVMZeTCDXf6039l/M5ynF6zaD7aZvbtZQQM0OZlVuceSCwwNTy82g+KTh+jf?=
+ =?us-ascii?Q?HQdG5pJeiqK8LwHmi1QicSbsHbbRG2HojqsGpxgxRbHA81ErpV3MU9Q+N/q/?=
+ =?us-ascii?Q?U/PqeoWil7FfbjratozVlKZl2izkYaN8BI/R7u65deZBQxxN6pIhyGp4pgLq?=
+ =?us-ascii?Q?LZ8lgkjx39nm35+deMZnQajhOwUw75SEeSIEGxjBEPrEoeaEPFTo+IRtXa12?=
+ =?us-ascii?Q?MzOcAN4LN9MiUhD5i6bvFqwyKaZCgbLYR46F6D4m/yXur3f7unfGKV79vhV7?=
+ =?us-ascii?Q?YeDELEE1bmRjUgcy8MYuLbc3AnvLfocrsPhU9HO714c+zw8k9vREIt/fpWuL?=
+ =?us-ascii?Q?yvIy5xRFMOeUxZbr1hrHaPc3imvI/0lfXI+MmYLDKwDKTUryRLQ6QMvKKfI5?=
+ =?us-ascii?Q?XlT05CQSKRawHQ9pfM1htTyZiQ6nmAWs2VjhPH5xZHUkLXEv+pceI03XmiC7?=
+ =?us-ascii?Q?qFp3rFZuu2jcA78YpqchiPgFA31GeKD9yxI2q++JPq2QOeEQa8eyX97MS6Wy?=
+ =?us-ascii?Q?eX3INzVNJMvDgcuWvHgp7Yyy6RS5F4KKdDX8qP5pDknf0e+37mEVBSwOMpLH?=
+ =?us-ascii?Q?oDLV0ra8ReN4iUKl2t//uFjDwJW8YelW6B12P5WNuEcg0HXyYOThL+31viWv?=
+ =?us-ascii?Q?1dp9mKvVUh3vlKeFkfkxrMx4h/fzOYdUTzGt+QlgEIKmCGGfjxKFhva6BpHg?=
+ =?us-ascii?Q?69gdURCp6nVF7RAbRpsMd3F47l/B?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(376005)(1800799015)(82310400017); DIR:OUT;
+ SFS:(13230031)(376005)(36860700004)(82310400017)(1800799015); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2024 13:06:29.1525 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9268a31-367e-49ce-53ca-08dc78047f6c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2024 13:07:31.9024 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 330046d3-33e7-4451-330b-08dc7804a4d3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CC.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7119
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7451
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,123 +132,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When the `panel_power_saving` property is set to "Forbidden" ABM
-should be disabled immediately and any requests by sysfs to update
-will return an -EBUSY error.
+From: Mario Limonciello <superm1@ubuntu.com>
 
-When the property is restored to "Allowed" the previous value of
-ABM will be restored.
+In order to bubble of cases of expeted errors on set_abm_level()
+change the return type to int.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  3 ++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 36 ++++++++++++++++---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 +
- 3 files changed, 35 insertions(+), 5 deletions(-)
+ tests/amdgpu/amd_abm.c | 33 +++++++++++++++++++++++----------
+ 1 file changed, 23 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 3ecc7ef95172..6e6531c93d81 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -1350,6 +1350,9 @@ int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
- 					 "dither",
- 					 amdgpu_dither_enum_list, sz);
- 
-+	if (adev->dc_enabled)
-+		drm_mode_create_panel_power_saving_property(adev_to_drm(adev));
-+
+diff --git a/tests/amdgpu/amd_abm.c b/tests/amdgpu/amd_abm.c
+index 2882c2c18..f74c3012c 100644
+--- a/tests/amdgpu/amd_abm.c
++++ b/tests/amdgpu/amd_abm.c
+@@ -104,10 +104,11 @@ static int backlight_write_brightness(int value)
  	return 0;
  }
  
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 01b0a331e4a6..f6b80018b136 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6421,6 +6421,12 @@ int amdgpu_dm_connector_atomic_set_property(struct drm_connector *connector,
- 	} else if (property == adev->mode_info.underscan_property) {
- 		dm_new_state->underscan_enable = val;
- 		ret = 0;
-+	} else if (property == dev->mode_config.panel_power_saving) {
-+		dm_new_state->abm_forbidden = val;
-+		dm_new_state->abm_level = (val || !amdgpu_dm_abm_level) ?
-+						ABM_LEVEL_IMMEDIATE_DISABLE :
-+						amdgpu_dm_abm_level;
-+		ret = 0;
- 	}
+-static void set_abm_level(data_t *data, igt_output_t *output, int level)
++static int set_abm_level(data_t *data, igt_output_t *output, int level)
+ {
+ 	char buf[PATH_MAX];
+ 	int fd;
++	int ret;
  
- 	return ret;
-@@ -6463,6 +6469,9 @@ int amdgpu_dm_connector_atomic_get_property(struct drm_connector *connector,
- 	} else if (property == adev->mode_info.underscan_property) {
- 		*val = dm_state->underscan_enable;
- 		ret = 0;
-+	} else if (property == dev->mode_config.panel_power_saving) {
-+		*val = dm_state->abm_forbidden;
-+		ret = 0;
- 	}
+ 	igt_assert(snprintf(buf, PATH_MAX, PANEL_POWER_SAVINGS_PATH,
+ 			    output->name) < PATH_MAX);
+@@ -116,8 +117,12 @@ static void set_abm_level(data_t *data, igt_output_t *output, int level)
  
- 	return ret;
-@@ -6489,9 +6498,12 @@ static ssize_t panel_power_savings_show(struct device *device,
- 	u8 val;
+ 	igt_assert(fd != -1);
  
- 	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
--	val = to_dm_connector_state(connector->state)->abm_level ==
--		ABM_LEVEL_IMMEDIATE_DISABLE ? 0 :
--		to_dm_connector_state(connector->state)->abm_level;
-+	if (to_dm_connector_state(connector->state)->abm_forbidden)
-+		val = 0;
-+	else
-+		val = to_dm_connector_state(connector->state)->abm_level ==
-+			ABM_LEVEL_IMMEDIATE_DISABLE ? 0 :
-+			to_dm_connector_state(connector->state)->abm_level;
- 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
- 
- 	return sysfs_emit(buf, "%u\n", val);
-@@ -6515,10 +6527,16 @@ static ssize_t panel_power_savings_store(struct device *device,
- 		return -EINVAL;
- 
- 	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
--	to_dm_connector_state(connector->state)->abm_level = val ?:
--		ABM_LEVEL_IMMEDIATE_DISABLE;
-+	if (to_dm_connector_state(connector->state)->abm_forbidden)
-+		ret = -EBUSY;
-+	else
-+		to_dm_connector_state(connector->state)->abm_level = val ?:
-+			ABM_LEVEL_IMMEDIATE_DISABLE;
- 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
- 
-+	if (ret)
+-	igt_assert_eq(snprintf(buf, sizeof(buf), "%d", level),
+-		      write(fd, buf, 1));
++	snprintf(buf, sizeof(buf), "%d", level);
++	ret = write(fd, buf, 1);
++	if (ret < 0) {
++		close(fd);
 +		return ret;
-+
- 	drm_kms_helper_hotplug_event(dev);
- 
- 	return count;
-@@ -7689,6 +7707,14 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 	aconnector->base.state->max_bpc = 16;
- 	aconnector->base.state->max_requested_bpc = aconnector->base.state->max_bpc;
- 
-+	if (connector_type == DRM_MODE_CONNECTOR_eDP &&
-+	    (dc_is_dmcu_initialized(adev->dm.dc) ||
-+	     adev->dm.dc->ctx->dmub_srv) && amdgpu_dm_abm_level < 0) {
-+		drm_object_attach_property(&aconnector->base.base,
-+				dm->ddev->mode_config.panel_power_saving,
-+				DRM_MODE_PANEL_POWER_SAVING_ALLOWED);
 +	}
-+
- 	if (connector_type == DRM_MODE_CONNECTOR_HDMIA) {
- 		/* Content Type is currently only implemented for HDMI. */
- 		drm_connector_attach_content_type_property(&aconnector->base);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 09519b7abf67..43c3e5845a94 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -873,6 +873,7 @@ struct dm_connector_state {
- 	bool underscan_enable;
- 	bool freesync_capable;
- 	bool update_hdcp;
-+	bool abm_forbidden;
- 	uint8_t abm_level;
- 	int vcpi_slots;
- 	uint64_t pbn;
+ 
+ 	igt_assert_eq(close(fd), 0);
+ 
+@@ -129,6 +134,7 @@ static void set_abm_level(data_t *data, igt_output_t *output, int level)
+ 			 DRM_MODE_DPMS_OFF);
+ 	kmstest_set_connector_dpms(data->drm_fd, output->config.connector,
+ 			 DRM_MODE_DPMS_ON);
++	return 0;
+ }
+ 
+ static int backlight_read_max_brightness(int *result)
+@@ -192,7 +198,8 @@ static void backlight_dpms_cycle(data_t *data)
+ 		ret = backlight_read_max_brightness(&max_brightness);
+ 		igt_assert_eq(ret, 0);
+ 
+-		set_abm_level(data, output, 0);
++		ret = set_abm_level(data, output, 0);
++		igt_assert_eq(ret, 0);
+ 		backlight_write_brightness(max_brightness / 2);
+ 		usleep(100000);
+ 		pwm_1 = read_target_backlight_pwm(data->drm_fd, output->name);
+@@ -223,7 +230,8 @@ static void backlight_monotonic_basic(data_t *data)
+ 
+ 		brightness_step = max_brightness / 10;
+ 
+-		set_abm_level(data, output, 0);
++		ret = set_abm_level(data, output, 0);
++		igt_assert_eq(ret, 0);
+ 		backlight_write_brightness(max_brightness);
+ 		usleep(100000);
+ 		prev_pwm = read_target_backlight_pwm(data->drm_fd, output->name);
+@@ -257,7 +265,8 @@ static void backlight_monotonic_abm(data_t *data)
+ 
+ 		brightness_step = max_brightness / 10;
+ 		for (i = 1; i < 5; i++) {
+-			set_abm_level(data, output, 0);
++			ret = set_abm_level(data, output, 0);
++			igt_assert_eq(ret, 0);
+ 			backlight_write_brightness(max_brightness);
+ 			usleep(100000);
+ 			prev_pwm = read_target_backlight_pwm(data->drm_fd, output->name);
+@@ -289,14 +298,16 @@ static void abm_enabled(data_t *data)
+ 		ret = backlight_read_max_brightness(&max_brightness);
+ 		igt_assert_eq(ret, 0);
+ 
+-		set_abm_level(data, output, 0);
++		ret = set_abm_level(data, output, 0);
++		igt_assert_eq(ret, 0);
+ 		backlight_write_brightness(max_brightness);
+ 		usleep(100000);
+ 		prev_pwm = read_target_backlight_pwm(data->drm_fd, output->name);
+ 		pwm_without_abm = prev_pwm;
+ 
+ 		for (i = 1; i < 5; i++) {
+-			set_abm_level(data, output, i);
++			ret = set_abm_level(data, output, i);
++			igt_assert_eq(ret, 0);
+ 			usleep(100000);
+ 			pwm = read_target_backlight_pwm(data->drm_fd, output->name);
+ 			igt_assert(pwm <= prev_pwm);
+@@ -323,7 +334,8 @@ static void abm_gradual(data_t *data)
+ 
+ 		igt_assert_eq(ret, 0);
+ 
+-		set_abm_level(data, output, 0);
++		ret = set_abm_level(data, output, 0);
++		igt_assert_eq(ret, 0);
+ 		backlight_write_brightness(max_brightness);
+ 
+ 		sleep(convergence_delay);
+@@ -331,7 +343,8 @@ static void abm_gradual(data_t *data)
+ 		curr = read_current_backlight_pwm(data->drm_fd, output->name);
+ 
+ 		igt_assert_eq(prev_pwm, curr);
+-		set_abm_level(data, output, 4);
++		ret = set_abm_level(data, output, 4);
++		igt_assert_eq(ret, 0);
+ 		for (i = 0; i < 10; i++) {
+ 			usleep(100000);
+ 			pwm = read_current_backlight_pwm(data->drm_fd, output->name);
 -- 
 2.45.0
 
