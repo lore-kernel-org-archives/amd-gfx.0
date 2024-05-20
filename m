@@ -4,66 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE1ECC25B79
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 May 2024 15:07:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8F9FC04FFE
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 May 2024 15:14:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EF0310E77F;
-	Mon, 20 May 2024 15:07:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5899910E76A;
+	Mon, 20 May 2024 15:14:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bsq4SDPC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KXrBWhy0";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 354DF10E77F;
- Mon, 20 May 2024 15:07:50 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-1ec4dc64c6cso72844535ad.0; 
- Mon, 20 May 2024 08:07:50 -0700 (PDT)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE07410E76A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 May 2024 15:14:13 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-1f2f566a7c7so46044965ad.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 May 2024 08:14:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1716217669; x=1716822469; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1716218053; x=1716822853; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=IhwVQj77q9WsVa/PNIbqf67vLZaFOrT0DXfZ5Ha2VXE=;
- b=bsq4SDPCUpE8TmIx0RqMfexF/upHCKS411B5nGAppZGZThA2fKa8MjYRIH6s6wMcVs
- OUqgixcWCpX3j9CgwAohHtDxeRP89AFZ1rw8TI0gZ7T7X8mC8RY0m53Hmx6OfHlzv+Jz
- PCWuO/+hPt9s05Bd36PyMr7uPXmBLg0zgaw4W2HBinQcSyy8H+jUnbsZe2dkUfoy3TXj
- p09RvPF1SWAeFj5ZuvFYQhhGosplE8Du67EwZ8FMY5Z1gKpDU5HfNq1Niy+0ld8catBS
- UzcypeF8yXHEyfZdLLh+ZhLu74rlvd/cutL+Cabk9QzYLuBfA4pnqtVe9f4tO77ezMGC
- eLrw==
+ bh=mwnBqFZq8pMni0ohTdn+Aj2tz06YqqpkH061bIHW8AM=;
+ b=KXrBWhy0i0gB7jKOMYjCBb9FlamEVSbf2BHycbyiYYeq83v9DaY3Z+vu8M7hpG4L1B
+ ppZdRyq7WK7RmTMc9QcCTLLr7Smlgw1LQ838sw/XOJWA6enaeYrPawhn8gCKUNyeBx1s
+ GhXohHWtzpaltydVxY3xbQMj+j3KKsiCj67QIMhMeQEobYSh/NM+uxOk/r5EzvbfmmdR
+ v0vxLHaTEBYQUgjzSLUW6UFim0B2a3CjTW3BnV7dM2X90VI8kqjoenZdjyVlc7T3RjM7
+ X4Uyf9z1biezz9Qw5isWsQzN/tSPe9lHW1sFhY1cXkCSaO5Tb5Gp+B2ByykwfOBR1Cc5
+ VAww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716217669; x=1716822469;
+ d=1e100.net; s=20230601; t=1716218053; x=1716822853;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IhwVQj77q9WsVa/PNIbqf67vLZaFOrT0DXfZ5Ha2VXE=;
- b=OsuF0CHS3jmsyuOAFy9rBfzv992ZSbvflqFxixl5IspmaP72yzvLJVA1AUKi8A8qwl
- wzMOxidaH0b3MebLI2GCkd7bAieEZvJtn/04Eu1xeiJKLiC+6s7X9W8aTE60pn9DUX3r
- UwktvYeg1e37O3YyFr6io35Tfa9DItuTLLTvbNsO5+I7ihiaGQmLPOt1vK+oGIlSOy0s
- WFGlsKCL/e6sxbE6mf64RZeka1dLNOA/KSonEwwURzOVAqKR38W3wRBra/LX/ITCD9g3
- 3bN9AYKq9fb7a1WgzA07fG873k6nqykt8yq5D7u21IBNLtRdUrD/KoGyI7d+7VCiLRxP
- RZ/w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXPZFnu+3gOt6TLYW2sdq1yhm0N/6NxX8A/dogbT8m5GoWX7ZHVMbGwvsehW0cXIl3E/6nIY5n4TPyqnYxRIFru8viEjFiO4KGAql2eavN8X47n/FRYCWSxMUYkSAljCUU8GMnkGlOcp8ObEllYmQ==
-X-Gm-Message-State: AOJu0YxaMECFQ7Sc3/pyErtyt2tW53y+pyswdBm+2sro2UBNzH/B0o90
- RpJ3PV5ogbiSxISr6BVMEIkF0jPUxzy9Z7LIgci4crC5ZxANbaFFHPIFWg10oHi/C4ic5GvoUeo
- QUih/WdsscGMSKHtVFESLlsiNPl0=
-X-Google-Smtp-Source: AGHT+IFPFW/F5D24m94Tz0YHdPMZG54zKWfl02ijEGW9135nYPbQuliZTHA0+CJ4LJGqGqLCQ22PggF4KPszeIb267g=
-X-Received: by 2002:a17:90a:e389:b0:2af:2be3:89c5 with SMTP id
- 98e67ed59e1d1-2b6cc76d2bamr26474648a91.29.1716217669551; Mon, 20 May 2024
- 08:07:49 -0700 (PDT)
+ bh=mwnBqFZq8pMni0ohTdn+Aj2tz06YqqpkH061bIHW8AM=;
+ b=pNSK6EZ69l4HN4uKuNLeGle1TK57OohhIGBhP/S+iDZokdyjXCaUshU9L3OLHL4KHh
+ 7FpbXH1tbIQ5P0crIhhGJ0abEAu8T7kY82FQ7bNBNjHyW6T+bdlt4BdHD990/Y81uf0H
+ u8phK4AC7F1Zcn4xG1XvRbOH3teJMKujHTXu5LEVpD0/bFWfmLCRjOWSxvtRdeGQgGtc
+ ptg7y45EKXKeNKJ/eRJLDnwZcxie6lSL8maBZ9k26OUf1vp+4FxYt64SdqvrzX0aE53W
+ 4RoYobfSI5Fcihw7Q4mg0oPg0pGcS3bxesqLV3PYLdFwOKhkN7ms4MFeEzj+RMNG0ykw
+ oZWw==
+X-Gm-Message-State: AOJu0Yws5pz0Fqdj5XDmKBNEZHu2247kWVsayFGR3blVwnewObqKQwcG
+ YuXV2m0c6YCG+TWl3EsFTMu65Ykq2U18C2jPl2q3w+qj+8ZFR4Cjj3JFiW1YOzmfvLQEOsLeZ3p
+ 1PvIZRlwThAhJ5LcABNDJ93eByTzrgA==
+X-Google-Smtp-Source: AGHT+IFnhfuVel+urd33CataDDsQ1OyL6AE3sXNLPC/u0FQruSxYbc2Y6wo/ViPnzVUEvMGb1MyUt/Cq59MvbwM4JuA=
+X-Received: by 2002:a17:90a:a50b:b0:2b2:7c42:bf6e with SMTP id
+ 98e67ed59e1d1-2b6cc758b9fmr25164782a91.12.1716218053197; Mon, 20 May 2024
+ 08:14:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240517082637.69928-1-yang.lee@linux.alibaba.com>
-In-Reply-To: <20240517082637.69928-1-yang.lee@linux.alibaba.com>
+References: <20240520081814.8363-1-tursulin@igalia.com>
+In-Reply-To: <20240520081814.8363-1-tursulin@igalia.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 20 May 2024 11:07:37 -0400
-Message-ID: <CADnq5_MTOUOdesLtSY_8X5kHVmGvXxSCY3Lh54RwGutysj=p1g@mail.gmail.com>
-Subject: Re: [PATCH -next] drm/amd/display: Update optc35_set_odm_combine doc
- to match kernel-doc spec
-To: Yang Li <yang.lee@linux.alibaba.com>
-Cc: alexander.deucher@amd.com, airlied@gmail.com, daniel@ffwll.ch, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+Date: Mon, 20 May 2024 11:14:00 -0400
+Message-ID: <CADnq5_PzuddWopLQKQYpuP4F1uv8FCxk234LaiC4_8gsAA-cKQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix amdgpu_vm_is_bo_always_valid kerneldoc
+To: Tvrtko Ursulin <tursulin@igalia.com>
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,40 +79,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 17, 2024 at 4:42=E2=80=AFAM Yang Li <yang.lee@linux.alibaba.com=
-> wrote:
->
-> This patch updates the function documentation comment for
-> optc35_set_odm_combine to conform to the kernel-doc specification.
->
-> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
-
-Thanks for the patch.  Srini already fixed this last week.
+Applied.  Thanks!
 
 Alex
 
-> ---
->  drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+On Mon, May 20, 2024 at 4:18=E2=80=AFAM Tvrtko Ursulin <tursulin@igalia.com=
+> wrote:
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c b/dri=
-vers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-> index 7c9faa507ec2..1f8516e5ce68 100644
-> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-> @@ -50,7 +50,9 @@
->   * @optc: Output Pipe Timing Combine instance reference.
->   * @opp_id: Output Plane Processor instance ID.
->   * @opp_cnt: Output Plane Processor count.
-> - * @timing: Timing parameters used to configure DCN blocks.
-> + * @segment_width: Width in pixels of each segment in a horizontal direc=
-tion.
-> + * @last_segment_width: Width in pixels of the last segment if it differ=
-s from
-> + *                     other segments.
+> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>
+> Align kerneldoc with the function argument name.
+>
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+> Fixes: 26e20235ce00 ("drm/amdgpu: Add amdgpu_bo_is_vm_bo helper")
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index b9cca51356b1..3abfa66d72a2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -3008,7 +3008,7 @@ void amdgpu_vm_update_fault_cache(struct amdgpu_dev=
+ice *adev,
+>   * amdgpu_vm_is_bo_always_valid - check if the BO is VM always valid
 >   *
->   * Return: void.
->   */
+>   * @vm: VM to test against.
+> - * @abo: BO to be tested.
+> + * @bo: BO to be tested.
+>   *
+>   * Returns true if the BO shares the dma_resv object with the root PD an=
+d is
+>   * always guaranteed to be valid inside the VM.
 > --
-> 2.20.1.7.g153144c
+> 2.44.0
 >
