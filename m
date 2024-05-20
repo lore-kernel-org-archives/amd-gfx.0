@@ -4,49 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96F13C25B78
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 May 2024 11:13:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 065FFC04FFE
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 May 2024 11:14:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD03B10E5D7;
-	Mon, 20 May 2024 11:13:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A80810E5D8;
+	Mon, 20 May 2024 11:14:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ZEDyxW5T";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="By7FviCr";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97DD410E574;
- Mon, 20 May 2024 11:13:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=CJ3zenJyPRyF+UxJWs53C+Y2mTQnMda3jzpN66kAPZc=; b=ZEDyxW5TI9DTxZjxy5D9MWeDfo
- o61SGj9SffHN8c7EZ3RaN2Lv+pH1zjfHs4Iy65aFcLUup7ewbOfBSQEtpRkJvlnMh5sPcayms0cJC
- ZsorHoWyxNteBUfQ+cVsjjId50N7mMgJVhQfXQ6rDRQJ1RnVlu7tZb0zUwEZ8QNvFHlavGIheVpRE
- S7Tum8/z422+9uw+mz0A/8lzDbbxR9DCseoq/YY66Z/ZpE+6hYyi1Ro7UcjK0rXEejoqn0q3Ak0mN
- /Lw/DgEHrb/yy6EyednFGThVxSMn5TZ67yolamjLjlZs7E+f2KS4eJJ+wB8jxLKMZufb+wqPKJJ04
- xYnc8beA==;
-Received: from [84.69.19.168] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1s90xZ-00ADSQ-3W; Mon, 20 May 2024 13:13:41 +0200
-From: Tvrtko Ursulin <tursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.keonig@amd.com>,
- Rob Clark <robdclark@chromium.org>
-Subject: [PATCH 1/2] Documentation/gpu: Document the situation with
- unqualified drm-memory-
-Date: Mon, 20 May 2024 12:13:37 +0100
-Message-ID: <20240520111338.10110-1-tursulin@igalia.com>
-X-Mailer: git-send-email 2.44.0
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19F6310E5D8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 May 2024 11:14:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QDhJOnFvQSh42NcTCjck6e9oTIENnJRbMiIA6zS0XpzgRAywiXPoM2kuEtZ3Rq3nbEtpEhMaPnfsO3GzfYT3z8+LNbiRHLpL4Ikjug3aYwqQ0mJMDsyjskMGKB5vYJDffBlD62UxBNJ+AqFE16ZPk14AaAgC4KYYj831/cXW3dwGBrQv7bH4lmEeUh7475Sn3XE1hw5/t+poicPjlmHwyRgKX0KIKiYRGFgtySm6nH8i8eVCcvBG6xywR9ImcUlXoGcDQxA/C+lsVIF15FQgrxCtJ3Nmf3AMJvi8XAN5XeR4kbtN6tKReEzD10b3XBk8J1pnSOLW0kAccBd2GByT0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+tjmGjpl80Aj2S3sgs8QiZmKv5oSBdcz8J7V3abqPh0=;
+ b=gFlcdmJbKyuduYdChxMIbHjsg0EN9npGlh8iWtIs+wf3BAmoyrfn3RCGGh+Xo2jcDirW0ulmXIMUWueOKszbgm8hwDYZqUyGN/TffqlPcgi9Bc26yvDDMtNAxtyYfnvo6dP6Z/MDeaWeY5GqNXLA5kitB2IvFhwGqeU64YWIO4dQzv8v6pXyjewx0xmpjJZR7G88VyZ+wbcFeyZ4e/3a1Hb5zzGoXFPDZePeF2COD1lTFmkGhkKOS3ZerD86XAVzdM1grca4DpJBusBtNd7Ui3qHfCYskZE+GacUdvW2S8AreDgy5rw/H8yAF4zSORZpjuAxAZZJ4ZErKvHqYI7RbA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+tjmGjpl80Aj2S3sgs8QiZmKv5oSBdcz8J7V3abqPh0=;
+ b=By7FviCrCOHM27WGEesuwhfn45GSQ2BnJOC/Wh2LRHWO8tjRKveOoywdDnLTOcvGwwcfPe1o2Pw2CnBeFGQXQSIkxiqxALnTKj6EgiEVCcqQiTZ2vllUSi6q93xIFV3Jl7M8uwd+xVVHcHRdDLVL1hNVBMSh4ZcUZRX2xnBhAhE=
+Received: from SJ0PR05CA0100.namprd05.prod.outlook.com (2603:10b6:a03:334::15)
+ by CYYPR12MB8750.namprd12.prod.outlook.com (2603:10b6:930:be::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.36; Mon, 20 May
+ 2024 11:14:19 +0000
+Received: from SJ5PEPF000001CF.namprd05.prod.outlook.com
+ (2603:10b6:a03:334:cafe::1b) by SJ0PR05CA0100.outlook.office365.com
+ (2603:10b6:a03:334::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.17 via Frontend
+ Transport; Mon, 20 May 2024 11:14:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ5PEPF000001CF.mail.protection.outlook.com (10.167.242.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7611.14 via Frontend Transport; Mon, 20 May 2024 11:14:17 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 20 May
+ 2024 06:14:16 -0500
+Received: from victor-x86-02.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Mon, 20 May 2024 06:14:15 -0500
+From: Victor Zhao <Victor.Zhao@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Victor Zhao <Victor.Zhao@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: fix the inst passed to reg read write under
+ sriov
+Date: Mon, 20 May 2024 19:14:13 +0800
+Message-ID: <20240520111413.2070726-1-Victor.Zhao@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: Victor.Zhao@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CF:EE_|CYYPR12MB8750:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7b243a4-66a7-426f-d3f4-08dc78bdfdbd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|376005|36860700004|82310400017|1800799015; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ihZfUyyShwkReWiBS/lId1zzw04C40WHItY9SRtazr49Qm3eh+rEMR/IzuKt?=
+ =?us-ascii?Q?KvWJb1fIMmvXDaB7+t5o7laxitwBtN9t5anH5o5GxF11PxRjxjx8New369ka?=
+ =?us-ascii?Q?0YOOFSnGY2KUyEouL37gjeti/jh7WvGR4ab9SgbfVtGzNjy7bl7sepiJJFh5?=
+ =?us-ascii?Q?HsrAtYwq6GuPwRGTkFwbQiMnZivEPwgaL+OGyqi0+mOs3/EGmmw9XrwlAaoa?=
+ =?us-ascii?Q?lpgngjkXAl8onGZja8Bu+7TftsGXhcCFHlPc0+knzVCHkXaYGJ3mP4ONoGK7?=
+ =?us-ascii?Q?za6VNbHFWW7MMvANauYEKaHhWz6ZHXMiPawLGyYURScBK+6Wi72/VPmj10hI?=
+ =?us-ascii?Q?A5BqSclGzHf7YcpiTaAo0KBz/iwNDVeirr5E7Zo0lXx8QfddRXSkOdmaz4Fj?=
+ =?us-ascii?Q?IU66nY0IyTxbgGYa5DvOEK1/WI4WOhRuAfqa4WKAxUBsEpnP4No1ETAAmaDa?=
+ =?us-ascii?Q?424Okfy5MckHR1BEDhUOpUdP/xoe4QtNXvb0vXARsZf198ivmYRMnEy34cHo?=
+ =?us-ascii?Q?ser4xvGWAMOIdAsGO5Eb6qmmGGhiEIyUiw/SKDffCwpfpjjm+qjgbYYAbSP0?=
+ =?us-ascii?Q?4iTw6W0p5tEOhjpGtl1hHLoQJ2vDZIpd9GmbDRjiqJX0h3fw2SoOh1qn65b/?=
+ =?us-ascii?Q?sbcqwa8PJbUYbahnf9CvHxDnydObXD2/XmGhUkZkK23U0uWliWLhoduaqKaJ?=
+ =?us-ascii?Q?tohGYET+oVkrscQ7dIrfDju7fcCVQpKqAqFy8X7DhlnbC5cK2ri+DBdPFaQS?=
+ =?us-ascii?Q?NXyqL/WIeu3lAkykFzxy2YbgLJOQzaJe5dWD0i8ewb/BoAgMLguIFRYXXUka?=
+ =?us-ascii?Q?qyivP/qSn0EdH5d80CXzNFZTJDjqbgZgrYESxzCUFKu5QtNaOuzXCjX6cXPq?=
+ =?us-ascii?Q?IG6jmWQs8wev5IvDE9VyLi9mBzYsI8ZtogypyimZoS+AtLGLP0234gI3kMsq?=
+ =?us-ascii?Q?7VTGHe0/BFTC0rJBZ2LrWw3STSaYnoOfvK4yLNFhBomuwSWB765tlPkzUJbz?=
+ =?us-ascii?Q?jxZnRuIlDYngrPpYHK8H7BdNCgQCdq7+4XKoEU0nTW3yeFtsDZ6vr7JYWrUh?=
+ =?us-ascii?Q?eYAYR3R5nF7kasNfocbnQpjtA85hIHLHFLwoAS8mvBC1XHgGem9NUQauYM+v?=
+ =?us-ascii?Q?A7dG0QcoWznwKrQAUITiICkCcwKQktyRZ2Uh3mGBUwfjFWmaZmIztAgztuQ+?=
+ =?us-ascii?Q?taZCylI8KFXkG1txPVSPxiaj4lUfHieo5bpVrruzymRimWG2Ya0d3n7mtEni?=
+ =?us-ascii?Q?3iPwbsffUmAJxPYUt9e9X/ywdPsDpBYr3xIWrgqd0c9P3T0LglVIPsysfM6q?=
+ =?us-ascii?Q?55CaJMWmiMm7pFEkCPiajddt9FgXSJgonDfpSOjwMV9rdli2kVvil0MgdShL?=
+ =?us-ascii?Q?v4sG01E=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(376005)(36860700004)(82310400017)(1800799015); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2024 11:14:17.9746 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7b243a4-66a7-426f-d3f4-08dc78bdfdbd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8750
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,98 +131,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+the inst passed to reg read/write should be physical instance.
+Fix the miss matched code.
 
-Currently it is not well defined what is drm-memory- compared to other
-categories.
-
-In practice the only driver which emits these keys is amdgpu and in them
-exposes the current resident buffer object memory (including shared).
-
-To prevent any confusion, document that drm-memory- is deprecated and an
-alias for drm-resident-memory-.
-
-While at it also clarify that the reserved sub-string 'memory' refers to
-the memory region component, and also clarify the intended semantics of
-other memory categories.
-
-v2:
- * Also mark drm-memory- as deprecated.
- * Add some more text describing memory categories. (Alex)
-
-v3:
- * Semantics of the amdgpu drm-memory is actually as drm-resident.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.keonig@amd.com>
-Cc: Rob Clark <robdclark@chromium.org>
+Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
 ---
- Documentation/gpu/drm-usage-stats.rst | 25 ++++++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c   |  6 ++---
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |  8 +++---
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         | 26 +++++++++----------
+ 4 files changed, 21 insertions(+), 21 deletions(-)
 
-diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-index 6dc299343b48..45d9b76a5748 100644
---- a/Documentation/gpu/drm-usage-stats.rst
-+++ b/Documentation/gpu/drm-usage-stats.rst
-@@ -128,7 +128,9 @@ Memory
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+index a5c7259cf2a3..319e6793053a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+@@ -300,7 +300,7 @@ static int kgd_gfx_v9_4_3_hqd_load(struct amdgpu_device *adev, void *mqd,
+ 	hqd_end = SOC15_REG_OFFSET(GC, GET_INST(GC, inst), regCP_HQD_AQL_DISPATCH_ID_HI);
  
- Each possible memory type which can be used to store buffer objects by the
- GPU in question shall be given a stable and unique name to be returned as the
--string here.  The name "memory" is reserved to refer to normal system memory.
-+string here.
-+
-+The region name "memory" is reserved to refer to normal system memory.
+ 	for (reg = hqd_base; reg <= hqd_end; reg++)
+-		WREG32_XCC(reg, mqd_hqd[reg - hqd_base], inst);
++		WREG32_XCC(reg, mqd_hqd[reg - hqd_base], GET_INST(GC, inst));
  
- Value shall reflect the amount of storage currently consumed by the buffer
- objects belong to this client, in the respective memory region.
-@@ -136,6 +138,9 @@ objects belong to this client, in the respective memory region.
- Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
- indicating kibi- or mebi-bytes.
  
-+This key is deprecated and is an alias for drm-resident-<region>. Only one of
-+the two should be present in the output.
-+
- - drm-shared-<region>: <uint> [KiB|MiB]
+ 	/* Activate doorbell logic before triggering WPTR poll. */
+@@ -493,12 +493,12 @@ static uint32_t kgd_gfx_v9_4_3_set_address_watch(
+ 	WREG32_XCC((SOC15_REG_OFFSET(GC, GET_INST(GC, inst),
+ 			regTCP_WATCH0_ADDR_H) +
+ 			(watch_id * TCP_WATCH_STRIDE)),
+-			watch_address_high, inst);
++			watch_address_high, GET_INST(GC, inst));
  
- The total size of buffers that are shared with another file (e.g., have more
-@@ -143,20 +148,34 @@ than a single handle).
+ 	WREG32_XCC((SOC15_REG_OFFSET(GC, GET_INST(GC, inst),
+ 			regTCP_WATCH0_ADDR_L) +
+ 			(watch_id * TCP_WATCH_STRIDE)),
+-			watch_address_low, inst);
++			watch_address_low, GET_INST(GC, inst));
  
- - drm-total-<region>: <uint> [KiB|MiB]
+ 	return watch_address_cntl;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+index 5a35a8ca8922..76be23dcea31 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+@@ -239,7 +239,7 @@ int kgd_gfx_v9_hqd_load(struct amdgpu_device *adev, void *mqd,
  
--The total size of buffers that including shared and private memory.
-+The total size of all created buffers including shared and private memory. The
-+backing store for the buffers does not have to be currently instantiated to be
-+counted under this category.
+ 	for (reg = hqd_base;
+ 	     reg <= SOC15_REG_OFFSET(GC, GET_INST(GC, inst), mmCP_HQD_PQ_WPTR_HI); reg++)
+-		WREG32_XCC(reg, mqd_hqd[reg - hqd_base], inst);
++		WREG32_XCC(reg, mqd_hqd[reg - hqd_base], GET_INST(GC, inst));
  
- - drm-resident-<region>: <uint> [KiB|MiB]
  
--The total size of buffers that are resident in the specified region.
-+The total size of buffers that are resident (have their backing store present or
-+instantiated) in the specified region.
-+
-+This is an alias for drm-memory-<region> and only one of the two should be
-+present in the output.
+ 	/* Activate doorbell logic before triggering WPTR poll. */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index 07b299ec7169..349ece5a27ee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -2812,16 +2812,16 @@ static void gfx_v9_4_3_xcc_set_compute_eop_interrupt_state(
  
- - drm-purgeable-<region>: <uint> [KiB|MiB]
+ 	switch (state) {
+ 	case AMDGPU_IRQ_STATE_DISABLE:
+-		mec_int_cntl = RREG32_XCC(mec_int_cntl_reg, xcc_id);
++		mec_int_cntl = RREG32_XCC(mec_int_cntl_reg, GET_INST(GC, xcc_id));
+ 		mec_int_cntl = REG_SET_FIELD(mec_int_cntl, CP_ME1_PIPE0_INT_CNTL,
+ 					     TIME_STAMP_INT_ENABLE, 0);
+-		WREG32_XCC(mec_int_cntl_reg, mec_int_cntl, xcc_id);
++		WREG32_XCC(mec_int_cntl_reg, mec_int_cntl, GET_INST(GC, xcc_id));
+ 		break;
+ 	case AMDGPU_IRQ_STATE_ENABLE:
+-		mec_int_cntl = RREG32_XCC(mec_int_cntl_reg, xcc_id);
++		mec_int_cntl = RREG32_XCC(mec_int_cntl_reg, GET_INST(GC, xcc_id));
+ 		mec_int_cntl = REG_SET_FIELD(mec_int_cntl, CP_ME1_PIPE0_INT_CNTL,
+ 					     TIME_STAMP_INT_ENABLE, 1);
+-		WREG32_XCC(mec_int_cntl_reg, mec_int_cntl, xcc_id);
++		WREG32_XCC(mec_int_cntl_reg, mec_int_cntl, GET_INST(GC, xcc_id));
+ 		break;
+ 	default:
+ 		break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 094c08cb98e7..aca842668c56 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -496,14 +496,14 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
+ 				if (j >= AMDGPU_MMHUB0(0))
+ 					tmp = RREG32_SOC15_IP(MMHUB, reg);
+ 				else
+-					tmp = RREG32_XCC(reg, j);
++					tmp = RREG32_XCC(reg, GET_INST(GC, j));
  
- The total size of buffers that are purgeable.
+ 				tmp &= ~bits;
  
-+For example drivers which implement a form of 'madvise' like functionality can
-+here count buffers which have instantiated backing store, but have been marked
-+with an equivalent of MADV_DONTNEED.
-+
- - drm-active-<region>: <uint> [KiB|MiB]
+ 				if (j >= AMDGPU_MMHUB0(0))
+ 					WREG32_SOC15_IP(MMHUB, reg, tmp);
+ 				else
+-					WREG32_XCC(reg, tmp, j);
++					WREG32_XCC(reg, tmp, GET_INST(GC, j));
+ 			}
+ 		}
+ 		break;
+@@ -524,14 +524,14 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
+ 				if (j >= AMDGPU_MMHUB0(0))
+ 					tmp = RREG32_SOC15_IP(MMHUB, reg);
+ 				else
+-					tmp = RREG32_XCC(reg, j);
++					tmp = RREG32_XCC(reg, GET_INST(GC, j));
  
- The total size of buffers that are active on one or more engines.
+ 				tmp |= bits;
  
-+One practical example of this can be presence of unsignaled fences in an GEM
-+buffer reservation object. Therefore the active category is a subset of
-+resident.
-+
- Implementation Details
- ======================
+ 				if (j >= AMDGPU_MMHUB0(0))
+ 					WREG32_SOC15_IP(MMHUB, reg, tmp);
+ 				else
+-					WREG32_XCC(reg, tmp, j);
++					WREG32_XCC(reg, tmp, GET_INST(GC, j));
+ 			}
+ 		}
+ 		break;
+@@ -844,7 +844,7 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 	ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
  
+ 	if (vmhub >= AMDGPU_MMHUB0(0))
+-		inst = GET_INST(GC, 0);
++		inst = 0;
+ 	else
+ 		inst = vmhub;
+ 
+@@ -876,9 +876,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 		for (j = 0; j < adev->usec_timeout; j++) {
+ 			/* a read return value of 1 means semaphore acquire */
+ 			if (vmhub >= AMDGPU_MMHUB0(0))
+-				tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, sem, inst);
++				tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, sem, GET_INST(GC, inst));
+ 			else
+-				tmp = RREG32_SOC15_IP_NO_KIQ(GC, sem, inst);
++				tmp = RREG32_SOC15_IP_NO_KIQ(GC, sem, GET_INST(GC, inst));
+ 			if (tmp & 0x1)
+ 				break;
+ 			udelay(1);
+@@ -889,9 +889,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 	}
+ 
+ 	if (vmhub >= AMDGPU_MMHUB0(0))
+-		WREG32_SOC15_IP_NO_KIQ(MMHUB, req, inv_req, inst);
++		WREG32_SOC15_IP_NO_KIQ(MMHUB, req, inv_req, GET_INST(GC, inst));
+ 	else
+-		WREG32_SOC15_IP_NO_KIQ(GC, req, inv_req, inst);
++		WREG32_SOC15_IP_NO_KIQ(GC, req, inv_req, GET_INST(GC, inst));
+ 
+ 	/*
+ 	 * Issue a dummy read to wait for the ACK register to
+@@ -904,9 +904,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 
+ 	for (j = 0; j < adev->usec_timeout; j++) {
+ 		if (vmhub >= AMDGPU_MMHUB0(0))
+-			tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, ack, inst);
++			tmp = RREG32_SOC15_IP_NO_KIQ(MMHUB, ack, GET_INST(GC, inst));
+ 		else
+-			tmp = RREG32_SOC15_IP_NO_KIQ(GC, ack, inst);
++			tmp = RREG32_SOC15_IP_NO_KIQ(GC, ack, GET_INST(GC, inst));
+ 		if (tmp & (1 << vmid))
+ 			break;
+ 		udelay(1);
+@@ -919,9 +919,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 		 * write with 0 means semaphore release
+ 		 */
+ 		if (vmhub >= AMDGPU_MMHUB0(0))
+-			WREG32_SOC15_IP_NO_KIQ(MMHUB, sem, 0, inst);
++			WREG32_SOC15_IP_NO_KIQ(MMHUB, sem, 0, GET_INST(GC, inst));
+ 		else
+-			WREG32_SOC15_IP_NO_KIQ(GC, sem, 0, inst);
++			WREG32_SOC15_IP_NO_KIQ(GC, sem, 0, GET_INST(GC, inst));
+ 	}
+ 
+ 	spin_unlock(&adev->gmc.invalidate_lock);
 -- 
-2.44.0
+2.34.1
 
