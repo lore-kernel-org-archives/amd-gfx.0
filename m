@@ -4,147 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06CAAC04FFE
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 May 2024 05:22:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CA9BC04FFE
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 May 2024 06:22:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 671D810E3AD;
-	Mon, 20 May 2024 05:22:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D851210E4E8;
+	Mon, 20 May 2024 06:22:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5tUS4bEA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KDXhit7B";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2075.outbound.protection.outlook.com [40.107.101.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 246C410E3AD
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 May 2024 05:22:01 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2056.outbound.protection.outlook.com [40.107.220.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECCBC10E4E8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 May 2024 06:22:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SJWIs9xLH2HQ0ADskR+z8kFFHTQ4UeHpdKpbKSjojKW37htuE7cwHgLiQ9yj7LDtLgMYa9oLZ1TBcFbOA5KzttuKRn7NjJzfB9hXHrjQamYeOS2rjMT8IbTRyg9/FMPWWrzyGrmu0bq9JbvmCsZxKH+D5T5bNM6UMMGfAyZDbnsaHB920bjX0F5tRtYBifIYIhunGLivZ5uUNU/tdN3o2P1k4xYLn1q5f/dqvl0/6YTeuZvwkJs5pqhlHHfrN2Y+reBxb7NBh8NcqKdHds1Gw9xv4zTlzGwBwjezNFET4FR2TRdabj0FsaR29eqJXCTbXLI/wH6wSpT945czM8IsBg==
+ b=d7gdPWcd7fltCghJJZBB4tB7NOmdHLmfGN1yL0UqNBWD8smBLjsdVPuVsiFwk1svpGg+ESsFg54Dky23UsYICiULGStPSJ0SJoVnRH405q0c/2lA5diSikL7JP3V/lx9ZUSbMBnDBZ6LeNE5mGEa3Am9sbXdjC3rnPSyxhpr80Mm+E622Ie8a43oo6bSkAjdYUMXPlfi6AjNhT+LQ+fCinMWaUVX0BzjnWUCMl7uHYSZjVve4XS541RbAjdLQ4tZUVz69dFxh30kEMR1YGCMOgRQyS9J3F48EACgT1x/SaY8T/ok8NirhnkrHeY+A5DZY6NBTNr61O++dxeJxolVRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mfYtr6RMCmbmzek2MX/4SdRL6QZvfovLebhCrwsJj2U=;
- b=lwCM6cScxx35gYsnLbppecPOOklxnVwnxvSnhnmK29jzLiUnQxrOKumiGvqXppkLEHVRVx8Ako/oAnlINuQIGDs5O1iPk7dvf9DrgW5NVdHt69baK99lWzXM2Zt7YJyAiy7bJ6x/0yv4Gt6LTMN5YtJWVnKwCHGZ4GSNiWWZsN29h6gkzctWcbzQKR6PYTReBdDq5HSRz/eBtoDKoCPwOdiqS1FzgYnFMj/Rgch+MJYSVhRtEE7TGIzc21TBO7kxL59TM6DhJ3bWhwuCXpzgsAWfWD+f4H2HIqP2CIFJFO/QO6NfFxjjgyB1xLVioKL3NYsOuBCjRiwxjqzAPf+DbQ==
+ bh=LF7ZRfhlFRzTsh7HGNj+yEyFroDmKQt7WZPJ+MnVPXU=;
+ b=Wq3iehMOZvpD2WEgAbMc2ZBpaHyZ9XlKmYrCUSsm9CNNQ7OtKwYKgG+KpXX5qVpimXkB8azWYLoNw+gDwnvBisQq54IXo/0PytPnkV6YDgCJ3HFAWA+KOYbyiSFoIy1YyOvcYiFYfu1kv1TJVKQFMhPRtEsoSo2SM6UgEwaAc0XY7X4a+nR3NmKjfLLOuRe0Zr2st79QpOS5KUCMqTGJDYG3uSS5oCXqsyWetR+G0PQTJBEmEZBUFoak8jIBXC7nkTR+otEup6J7IBMJbpvs52XCQ2m1YHI2Z57okf12u8vbFPOFwj3KThksP9pqlJPoglekyj9fLSeRnlMUMRbOiA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mfYtr6RMCmbmzek2MX/4SdRL6QZvfovLebhCrwsJj2U=;
- b=5tUS4bEAFQ/cm1yBtJytAUuh7OAe5u+j1qKfYDDHidQWOiC5N7Nodm5QEkUfFqiEsUoNexH7T4P9AB4YiAxUjasFLS/OQO4A9qercjrKGim0aD7hKDkR0qTrL9mvM2GmEudEjoWKJfDfNU6bJnkr4zDX7fX43bb0HtL2aIBkMpo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- CH2PR12MB4151.namprd12.prod.outlook.com (2603:10b6:610:78::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7587.35; Mon, 20 May 2024 05:21:56 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%4]) with mapi id 15.20.7587.030; Mon, 20 May 2024
- 05:21:56 +0000
-Message-ID: <d56be2f9-a41b-4711-bbd1-b43e0ac8bc51@amd.com>
-Date: Mon, 20 May 2024 10:51:47 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] Revert "drm/amd/pm: Use gpu_metrics_v1_6 for
- SMUv13.0.6"
-To: Asad Kamal <asad.kamal@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: hawking.zhang@amd.com, le.ma@amd.com, shiwu.zhang@amd.com,
- donald.cheung@amd.com, sepehr.khatir@amd.com, daniel.oliveira@amd.com,
- charis.poag@amd.com, Shuzhou.Liu@amd.com
-References: <20240520050115.19806-1-asad.kamal@amd.com>
+ bh=LF7ZRfhlFRzTsh7HGNj+yEyFroDmKQt7WZPJ+MnVPXU=;
+ b=KDXhit7BEb9EGjYF5GKQf+WzO5b+78cp8cFnkyRgan7OhynlWLdgwmC7Pqx30d+nMm7MMLPO5n7un4nqGhePChwMKnl+Xi6WO5UgNBwVY2e5q3HlA/SVhy9UBPFu2x/S749uMoMEcu3MNzWv9G6vBICpkDeAWDMrzu3da9Jt00g=
+Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
+ by SJ2PR12MB8831.namprd12.prod.outlook.com (2603:10b6:a03:4d0::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35; Mon, 20 May
+ 2024 06:22:16 +0000
+Received: from PH7PR12MB8796.namprd12.prod.outlook.com
+ ([fe80::910f:c354:ea0d:1fd]) by PH7PR12MB8796.namprd12.prod.outlook.com
+ ([fe80::910f:c354:ea0d:1fd%7]) with mapi id 15.20.7587.030; Mon, 20 May 2024
+ 06:22:15 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: update type of buf size to u32 for eeprom
+ functions
+Thread-Topic: [PATCH] drm/amdgpu: update type of buf size to u32 for eeprom
+ functions
+Thread-Index: AQHaql/XIqtO+d/RbUaMfihTAxpT9LGfdVIAgAAv1MA=
+Date: Mon, 20 May 2024 06:22:15 +0000
+Message-ID: <PH7PR12MB879633D95F8AB88322F93311B0E92@PH7PR12MB8796.namprd12.prod.outlook.com>
+References: <20240520024546.23403-1-tao.zhou1@amd.com>
+ <BN9PR12MB5257F610E24EF0C1E055E5E2FCE92@BN9PR12MB5257.namprd12.prod.outlook.com>
+In-Reply-To: <BN9PR12MB5257F610E24EF0C1E055E5E2FCE92@BN9PR12MB5257.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20240520050115.19806-1-asad.kamal@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PEPF00000179.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c04::44) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=394acabc-8271-48a2-86d2-5da837e1c2b1;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-05-20T03:16:28Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|SJ2PR12MB8831:EE_
+x-ms-office365-filtering-correlation-id: 2891273d-c70a-4e63-8366-08dc789531a7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230031|366007|1800799015|376005|38070700009;
+x-microsoft-antispam-message-info: =?us-ascii?Q?r09Qmbc1iQSe6O+HX6pKvR0xd/Ifv+IFCqm259HAZzeZOZqwq7eOj6CSYzlv?=
+ =?us-ascii?Q?g7Gs0DkeFLxiDmyjcli4q+l4vyYYvD2XwqBECuqIGGpAuiFwjC/oWeiPqjyf?=
+ =?us-ascii?Q?+IwUVB44vvc04gNh0T0FP9smDqNCsE/HQ+Fb3LA/DMe1SzIlqo6WA++3hsYP?=
+ =?us-ascii?Q?Qi0VckoVKgRUKlXg7/7W6K9IXCPSaph6yaHK3VXrwaUl53KOBoHJ838BRFkJ?=
+ =?us-ascii?Q?hOVLnjBCIhRgxpRXhHrqUP/ozs6LWDCEsHfqbovQ8AvYOFe67UUGSCt9TIMK?=
+ =?us-ascii?Q?8YHyDYK0/ME816u2kOPUn4wYsJUhR/RpRHMpzwtTMu94oNzAf2Awd9hb86a+?=
+ =?us-ascii?Q?we+5o+6hFReszvH52oqyKhGtZyOS7+x/q0VhedeldeNaIdFAdSVCVlDhHItf?=
+ =?us-ascii?Q?SkyyfmDjhCtjb3chGOl/M0qUEcKc85GgrdfMOaloV48VVuE8Y6JP/ipTqG6X?=
+ =?us-ascii?Q?zwi4q4BMq4H4Cv3nuT68oR3lnLrPQeXrz6BkbaGeLx2diEra5YMABXgUcLLY?=
+ =?us-ascii?Q?sEtW55TnnpghswELyiDP16EmOxFy63pbl20GhTCZlbl853QUkH8T9inUwSPQ?=
+ =?us-ascii?Q?0OBXzwOlUxaOs6nl3x2JBc04elD9utztJqQieqMEEH/D3UX4aWnPZE3M4CuR?=
+ =?us-ascii?Q?b2PFjpCwF+DwfZQpJ6E9R+ScWpFO6rSAziosH9aG7hhm1N1l8K0ewa2yrMpM?=
+ =?us-ascii?Q?EFgxHIy7WvKAr4tMC+FjLw/HtJ7SBUjkTymUcKOW2h8/XjIyBveOqWcp2VpY?=
+ =?us-ascii?Q?g5vo5hKObvNa6cSeVPm4buFb9NjjPxhuL0gyPDtVEq+dn2/n67/HrbrL4NF0?=
+ =?us-ascii?Q?Qp3NcZ81sLQVWlda+TRWhLEdYVYs1MG6vHpwioYEGFXEa9o+qI8h9nZjMuLm?=
+ =?us-ascii?Q?Xsu8ojru16GVyCtOgRq5F4WBjKMmweD1tTRJ8xdydXrf0H1RacMMpZVKP2Qf?=
+ =?us-ascii?Q?67Z2fLZu/nPxVI07FqMSUi2cM/0kUJYQIIcgB8Y6xN1RM8hnZ/ZWuKkiOElw?=
+ =?us-ascii?Q?Dksls7/wSqBoVMjOYgLbwcvUXmxuRYESBBHFMmGk7XeVjTFWAZKaZAItOppF?=
+ =?us-ascii?Q?0eRTmfr4g2Oer0ss6+/ZDbI2AUm4IlQ8lHgZ1Yjg4Upi9V3jxqNnp1GyJkmE?=
+ =?us-ascii?Q?eaemxJ1eEC9hGUAWViSncJ1BdHw5GdCv8jO8TEnzLmUgKOQZUM3QJwJPdM/D?=
+ =?us-ascii?Q?9NAJUcOUG9i/RL6JfAveCJGp5FyL7uaJ1h99D9sjZnJ7tGzKrm463ZXdOaEN?=
+ =?us-ascii?Q?HppYZESowuX9dApVrsHMmPDPW9rtA/vwiV7JdbXZoR1r1ar5UWt09ioCopBO?=
+ =?us-ascii?Q?deuha5sooNCwKF8DaeJQOsxisa8q3UfusENkLnDu5YMWNw=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(1800799015)(376005)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gbMQVulU77OykBAO6R6NxaI+YjtM3pPK6Wj+4VVYTU3sqyTQcthC5CHw2Ye8?=
+ =?us-ascii?Q?NwnVCltfLBYcFZ9tHFet0u54IcU2JwUMcahIymL4ZqZAgywtJewGFuT9z5TX?=
+ =?us-ascii?Q?l/Dm2Vjnw34IqYmM+VSItfcUe6dofxSYo6fA0bSeF90WKGjc2LFQxHpO5Wyr?=
+ =?us-ascii?Q?EThjI3tIjCavR8bSXI70/uw7BUQUcfPCqg1dscoE0xS+ht8TKLPHtT7vewWL?=
+ =?us-ascii?Q?wBMJkv83ROlW5Gd5jfoLvpDFxpUMTNsiEo95TR6v03kURgMyWDQCgMRIuacX?=
+ =?us-ascii?Q?NxJkeMo/VAgFMZA+DJmuVvecBm4De/fKPIJ7CiyePksgql6r88AWq5GHAeqy?=
+ =?us-ascii?Q?HUupLfs7APLAD5jV8ARACWe+38Ql2nJNAycAMvR94eN1tLLLLCZutbDRP6fR?=
+ =?us-ascii?Q?yKDEYqjJOd2ot4hGOOejfF3Bl/zWWKHkq281ufVUze9Zmnog6t//arDQktnm?=
+ =?us-ascii?Q?UdO2oYvjmgD0/ddyb439fWcj6StsVPhbZlRr6nPoazFMSLS4Q0xVfXYyiw3i?=
+ =?us-ascii?Q?gjbHUG4R+fGMKivx9jipqr0Zca4LTl/luXyQlTGPRVnugaNOAkE4UHkupk0D?=
+ =?us-ascii?Q?BnO7KtVQMIAyQvmseZhJbpKq9ydBu14C35PfS2OT2UcuuqY1MxpO3gmodagj?=
+ =?us-ascii?Q?q/TllJAOJ/eSeHcvYd6VZFwinnE1KJkJx/89wJD7MIFJNl1JTo0tIKtGzIeF?=
+ =?us-ascii?Q?rKn+DCjkXFIE7XZvmVYNYJ5z1+gLCkmPnamgSn8l5R94Qbot7Bcd0fo2EhyF?=
+ =?us-ascii?Q?Mo0aYpgfuvjFfP2OOk15HO6OefjLw+4uIHe9+wgQmN/sljdl3GauAiE3F2LE?=
+ =?us-ascii?Q?oLSFRkdOg97guDrxn1B/GnQ1RVPIf0zchGlaiftVtnt5Ja/lS4D86Zgxj95U?=
+ =?us-ascii?Q?rst/sK7EVNZf9CiPSVLxHGMZ0TeHJjKezEXwGxKWExJSil4OyKP5m15p+B8s?=
+ =?us-ascii?Q?NFSUa1lKiFCMXIZFMYAiB6Ny47P00mr4l/XNPdXg9lPTLsbZ8YXH/XYT8mCL?=
+ =?us-ascii?Q?ho3yXOwipYX+UC9BCT5rwlrzAcOwjxc9Cx+kqrK2LlaIYPIMGvU//cTF18tX?=
+ =?us-ascii?Q?znVZmcxAPNYfk8FbjSBLQrzK0AzuIDDo9vRSom4JLzkdjC+07wR2W3zMkPoX?=
+ =?us-ascii?Q?zaqfqX5YAtXRPyYfTivqQA88DAa5Y6qYpBdu97tVL6fgFWOy/zpYzYSgKgI2?=
+ =?us-ascii?Q?6frbJmKp4oalhewE9jxfPuQZxRbRiq2S4fIq8ZjYguA9qyNi9owfipwDTWZP?=
+ =?us-ascii?Q?SkKI1N2kGgkQpyMjwxZq/TpkXlM2OHupRNv4Mhm+qBFJpfWBwtfEyEf/22FD?=
+ =?us-ascii?Q?3/nqJM/vQqKUapCVXIsCQ4bLVyj2jkw61aPNvkGFaIX5YqtDV5Ap1TyuNQmo?=
+ =?us-ascii?Q?jSBvbvuDuJ+4cBHi0yQT9rz6QQ4bOSdJXXf8dH2verVkGmZ+z5GHTwnJC7t/?=
+ =?us-ascii?Q?6EJs7tTPDyS/3d6mnFyXDGB5tfcptABEkKNht0kNdmVlKDd3RtxEreKSYlgr?=
+ =?us-ascii?Q?xvlHpDsh/f4Yw5ulP16FLATKzkE6PfLKTFCF7+LbJkT/X9NcpBAA14aXnvVA?=
+ =?us-ascii?Q?abR6kR04Suz3z7pyN5o=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_PH7PR12MB879633D95F8AB88322F93311B0E92PH7PR12MB8796namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|CH2PR12MB4151:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80c93456-303c-4e34-37b5-08dc788cc41b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|1800799015|376005;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cFU4TUU5SUdOaDRUZ1hxellMK0NwMkNoYkVmc240RE8xb1ZMOHowbHhJMWEv?=
- =?utf-8?B?a3VIakF6TTVXTFM3ZDNRVGkwWjV4K3UxZnlpd2c4RERtQitLVXk2NDZrOFMx?=
- =?utf-8?B?QzE4VEx2ZXdBYmJRMmk2UEdFdDFDemVpOE5QSHRPb2NJMzR6eHZIRG1kMUZX?=
- =?utf-8?B?aXNoZGs0VDgwR25KakMzSUUycTFWQTA2VXQ3Z1hyd2ZjSXhBYUtwakttWmN0?=
- =?utf-8?B?OG90TGJNTGdZc01iTE9CUjRKV3V6REtMRm1tc3pKUXlmNWxKUWtuTUQxaHJq?=
- =?utf-8?B?NmQrUFp4NjFuRERaVGNkYVNPU0hhMnJ4d0lWWEszbGJLQU0wenRJelZrZWY5?=
- =?utf-8?B?VG1pOUMxR1JxcFZFN3hPMEdINnl1NjN3R2pQVDY2QjV0aGdwck1FaHN2S1Z2?=
- =?utf-8?B?OXU0YjFQdDFyNWdRajVKQlVUTDdIMWZNQmpDQXNLa0VWZnZzTW43QnZoaldS?=
- =?utf-8?B?WkZEZC8rRENUaTViNEh1a050WHd3REVGVUlnSlBuTjdiM1FhNHRLSFhMTldq?=
- =?utf-8?B?UFFwQmFlMi9GcWdtRUhJUFdzWUVxWmRoZUhwOHduVTZESDNhMEprTlBLK1VG?=
- =?utf-8?B?cWRTZUJrdWV3R0k3UUxsaVJ1Vnk3eS9ueEIrVmRLSnBYOTV4UXBYRWUwT3cr?=
- =?utf-8?B?ZUovRy82dVJaeTZCa2xDQjBDOWU2R1ljdGZUeC84Sml5WThNSDZOcVR6Q3N6?=
- =?utf-8?B?ZlpheFVrdkhVTHAxSEZRcUQwS2MyVnRhSGhmNnluRVdVYUQvYnYxWWNIQ3Nt?=
- =?utf-8?B?THpuNjdVQzZEZEM1Y1NEQnVSQ3ErTkJXUkhYZ3lEazVobVVJblE3V2dyRnUw?=
- =?utf-8?B?amRGNVFDM3BGZ2J6ZWFKVy8zR1h1UXRwVE5QNDBLTEQwNmdHQU1OMVRWRkls?=
- =?utf-8?B?VjA3ZHhjaFZWYllQWnFJeFhLcUI0TGx3YWg2RVE1K0hCdWc1TFQ4TFdKVUJ1?=
- =?utf-8?B?U3kwa0pURXZYdEVGZzlwL2xUS2xHZ3BVRVpNRFU1Sys0V01mdVkwOGpmNWx0?=
- =?utf-8?B?VWlyL21JT254NGVlN3BKbDZyZEEvcm5qaFkwdzBGSmk4djhmVE1PZm1UTnRj?=
- =?utf-8?B?dWJNSTFDQnpRaUI2VGJubFEvL2lNZFRPOXQxVHRYSmpwV09USVVQSWhRVXRt?=
- =?utf-8?B?Mi9zWmZzVmdDMWVOUER2a3cwdmN4TzBOQWJxZExHOHBwVU1XZllJZ2RDZVcy?=
- =?utf-8?B?R1h6L2tJeVptN2YyTDIxMk9jbzZqWkdzdXkzYTg0U1hjSitvWDNkd0FKV0dT?=
- =?utf-8?B?NGtRQmxpSzhpYnFkaHB1YlFhbHdvK2VJeUJYbDFycnZ3ZkRITVlEREVzLzh6?=
- =?utf-8?B?VjlkWHRDS1l6TVJuMkdjRVByMUpwaXJ6WU5qR1plVmZIQktUTXRTdWI4K2JY?=
- =?utf-8?B?NHBPbTFTbUJ2dXNlVkFtUXNzdlFUdG1GR01PeTVBMW02ZFJLUm5KM2xNendC?=
- =?utf-8?B?YXZ3d1VqeFJFRC92L2JIcTRyWHJXUUpvQy9wN1Bnd3RaL1VTZ0s3dzRiU3JF?=
- =?utf-8?B?cWd2NmhIUFhYaW9MNUNhM2txbGdpb3VESFllV0FzcmlGVFNWYkVDdUljaHhu?=
- =?utf-8?B?VGFoY2FFQUxOcDZHWHIwUkJXNnBXUjBuaERyZEZieW5ibWlMcDIxRldEdERo?=
- =?utf-8?B?RVZyb3FlWlluc2RKcWgrcDZaWE9vSUMxQy9WQTZGc3hhZ2JPMjZhREZDd2pz?=
- =?utf-8?B?QjZtYm1vWFNGS29VUUxQQ0pVL050VllEWTF2a1B3YWdWSkIrS202S25RPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1huQkJUNjhLVTQvYWZ0aFh1OThBaE43R0V3aGVXSE1xeno3SUJ5YWxHcFFR?=
- =?utf-8?B?WWVnc3VOa3dyVzFmWTdiYnYxWDNZZ2dON1VKNnFUMTQ5MEc2bFU3RkxRVXFy?=
- =?utf-8?B?Y1ZqRWR4OW1ET3oyY2xseXU2cUl4eC9iL1A1OFg4UHpSaUQ2eEd6S1RWQzZF?=
- =?utf-8?B?R2ErOUJRejdObFFOYjE1SkhHcFFOOHJVUFdaVGNnSXJiTm1NeHZzVmRGQm9s?=
- =?utf-8?B?dU1UakVWOUZ1ekZrWkQ4ZDhGVExJa01JQjM3VE8wMHVabVJ1Z1VTckhoSkhy?=
- =?utf-8?B?b0p1ZjhqdndHU05qUDNGY3lwckR3RkdXUVd0VE1SOGttajRROW5rQXNqUkQ5?=
- =?utf-8?B?OWdqaDNpbHRxWHVROWlQbjdCYUtPVlk2NlJHanVnZ3VTc1A3bWVNdzdWcE9l?=
- =?utf-8?B?Mkk2WUUwZ2NBSDFYODVLa1pLRW1SbWswQkRSUkhpMS9rWFhNWEt5TENpcC9x?=
- =?utf-8?B?TjJ4b2prdWVCc0czWSt4dlUxK1hFWEUzczBjcFQ0S200RTRhOVFOQTlVbWhY?=
- =?utf-8?B?VERhNk81NVdGSEYvY0wxUTU0QXFWeHN2djdtYnA1ZStpbUZUKzc2V2x6aWtl?=
- =?utf-8?B?NUxoVGhpRi9MK1pSbk14ZDJNVmxDaHFzaUhiMGhiaTlJdmQ5QVJFRUdvcFpR?=
- =?utf-8?B?YkczWFI0Z3B3VEpmWGZOZ01HaFd4allJejE4S1pIQXI3NWNHNkJ4eE5KRzNL?=
- =?utf-8?B?MTRwaXpJSFBpZlZzV3EwZFUzSituRVFvaUxSSGxGYjBxcnF1bzNpTi93Z3RH?=
- =?utf-8?B?MWVLVDJ2MmF5SXhHbFAzcGpSbkVTY3o2eGtHUVo3czJkV1QyM3B4VlZ6UmFp?=
- =?utf-8?B?WGJjZk5DYysva2p3YWUvWTB1eFpDTkhsbzNrdFh4dytpT1Y5U1NKcXBsSWJ6?=
- =?utf-8?B?Nnpwc2Y0OHZ1Q0UwZ21ldzZ1amE3RXRDMnpVdHZmbTRvWHZ2UDlibzRCUXNp?=
- =?utf-8?B?Ry81Z0puTS9WeDU0MDdkSlpNWmRsNEM1MmozY2U5WFcxSHFxbEJJZHF5NmJL?=
- =?utf-8?B?K2dFWEtpaXNJVklQNnRnNS9NN3dzelNLdEsrQnk3bXI0SnVCVVM2M0FJcmQz?=
- =?utf-8?B?QXlwcmVmR05POG9pNGlUdnRuQ1ZvZlJ6alBYcy9lNjNzVWdhZWwweHU1ek9x?=
- =?utf-8?B?Unc5Z0szTnhFMm94M0taL0s1R0FyQkF0d241QW40UnJ2K3NsVlRoZ1djUStO?=
- =?utf-8?B?WXhYMTU4WDU2NElxRkZiemw2cVE3VGhsV2J5QzlhSkdPY2U3bFowaEdzVlhu?=
- =?utf-8?B?S0JOb2xrZ3NRZnFsaE5MOFg5RnI1ZzRGK3lab001LzcwZmZmR1NaWk85Wjli?=
- =?utf-8?B?aVFmdXVHeVNJemJKTUprWXBHNzF2ZW5TMXNrV1lRajNFcDl4N2cxaHBWVHJ5?=
- =?utf-8?B?T09GNXM5VG5jd3hoNWpnbXZlcXE0RWtvZnl5M21oMFVoYjl1aUZHUWJQWFF0?=
- =?utf-8?B?dkZRN0dES3NLcUszVVNRaHV5TldzNkJETFJDZE9zMHdIeTR0dGR1OEZDZjlq?=
- =?utf-8?B?cHdyNUhKcmFWczdPWlJ1VG1CQWFuc1dHZXZObE83THBVYjlZVEVaYitpeWw1?=
- =?utf-8?B?R2p4T2htQ09ZMHpGclhuZjdBN0ZLNVNnWjdTK1VBMHlLNVdHajlacXhnVUQz?=
- =?utf-8?B?bDNPNVc1SWJrY2pTNVIyUWRoaDdYVjRBbmlhVkl0WG9jRDBwbDVmYWpTUlpQ?=
- =?utf-8?B?dmwvTTFCUGFIdE5NanJRMGxnSWwyZFoyZVc2bzVacE5GdTVTTTBhK1AzRTRB?=
- =?utf-8?B?NHM3ZTlrRWhucTE2Mzh5OFVZOG9IQStSaW85cllOK2FOSGtxSVZVR0ZkZ2xG?=
- =?utf-8?B?eEdTVWR6Uk5MUXdEbzJTbWJJWVpqVSszajdzT1p6a1hLNzYralBVbzlWRnIx?=
- =?utf-8?B?aEVzZmg3YlppTm1Nei9WZzBVOVJPZk5HMndkR3ZtVGVDelFpQ1RKZDV5bGNU?=
- =?utf-8?B?OXZRYUVWZ0FRSG1IN2swYmdIVkg2bDZaWVl1V0R0dVlnUElTUGtXZDdpNUg0?=
- =?utf-8?B?WVlrdnkrRStUd1lkOFlCNlh4Ry9BQXJidVZCRlZLUWtYdTY0RXowWDVWems0?=
- =?utf-8?B?L2E1Vkt3dktyS0ZXaFpsbGRLOXBhOVNFS0tKU1VlTVhTWFI3TFZMN2M4cjY0?=
- =?utf-8?Q?soo+viEJKhEd+yAHVZKJDQkC1?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80c93456-303c-4e34-37b5-08dc788cc41b
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2024 05:21:56.4598 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OX53VxXl52mR6RT56gKyk7AWkRQHyYGda4rOPirvDeqP4+dYQS0HesMQMGEhcW4g
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4151
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2891273d-c70a-4e63-8366-08dc789531a7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 May 2024 06:22:15.8078 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: qLkeNu1Yk3zkfU6EinxJLCC3Xk91JYR3fGEi6sJGJ+f3qXid0lNdc9UZCIDZMBRY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8831
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,73 +153,395 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_PH7PR12MB879633D95F8AB88322F93311B0E92PH7PR12MB8796namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - AMD Internal Distribution Only]
 
 
-On 5/20/2024 10:31 AM, Asad Kamal wrote:
-> Remove gpu_metrics_v1_6 usage for SMUv13.0.6 temporarily and use
-> gpu_metrics_v1_5 until tool support is ready for it.
-> 
-> This reverts commit e6efb71ae640eada28f44cc97aa79e8ae4901e63.
-> 
-> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+The limit variable in amdgpu_eeprom_xfer is not 0, so the buf_size will be =
+cut into smaller pieces, u16 is enough for __amdgpu_eeprom_xfer.
+Anyway, use u32 for __amdgpu_eeprom_xfer and make sure the msgs[1].len is l=
+ess than U16_MAX is better, will create a new patch for the purpose.
 
-Series is
-	Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Tao
 
-Thanks,
-Lijo
+      _____________________________________________
+      From: Zhang, Hawking <Hawking.Zhang@amd.com>
+      Sent: Monday, May 20, 2024 11:23 AM
+      To: Zhou1, Tao <Tao.Zhou1@amd.com>; amd-gfx@lists.freedesktop.org
+      Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
+      Subject: RE: [PATCH] drm/amdgpu: update type of buf size to u32 for e=
+eprom functions
 
-> ---
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   | 18 ++++--------------
->  1 file changed, 4 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> index ceb2174baff6..81a241ed18f5 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> @@ -351,7 +351,7 @@ static int smu_v13_0_6_tables_init(struct smu_context *smu)
->  		return -ENOMEM;
->  	smu_table->metrics_time = 0;
->  
-> -	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_6);
-> +	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_5);
->  	smu_table->gpu_metrics_table =
->  		kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
->  	if (!smu_table->gpu_metrics_table) {
-> @@ -2290,8 +2290,8 @@ static int smu_v13_0_6_get_current_pcie_link_speed(struct smu_context *smu)
->  static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table)
->  {
->  	struct smu_table_context *smu_table = &smu->smu_table;
-> -	struct gpu_metrics_v1_6 *gpu_metrics =
-> -		(struct gpu_metrics_v1_6 *)smu_table->gpu_metrics_table;
-> +	struct gpu_metrics_v1_5 *gpu_metrics =
-> +		(struct gpu_metrics_v1_5 *)smu_table->gpu_metrics_table;
->  	struct amdgpu_device *adev = smu->adev;
->  	int ret = 0, xcc_id, inst, i, j;
->  	MetricsTableX_t *metrics_x;
-> @@ -2307,7 +2307,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
->  
->  	metrics_a = (MetricsTableA_t *)metrics_x;
->  
-> -	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 6);
-> +	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 5);
->  
->  	gpu_metrics->temperature_hotspot =
->  		SMUQ10_ROUND(GET_METRIC_FIELD(MaxSocketTemperature));
-> @@ -2349,16 +2349,6 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
->  
->  	gpu_metrics->current_uclk = SMUQ10_ROUND(GET_METRIC_FIELD(UclkFrequency));
->  
-> -	/* Total accumulated cycle counter */
-> -	gpu_metrics->accumulation_counter = GET_METRIC_FIELD(AccumulationCounter);
-> -
-> -	/* Accumulated throttler residencies */
-> -	gpu_metrics->prochot_residency_acc = GET_METRIC_FIELD(ProchotResidencyAcc);
-> -	gpu_metrics->ppt_residency_acc = GET_METRIC_FIELD(PptResidencyAcc);
-> -	gpu_metrics->socket_thm_residency_acc = GET_METRIC_FIELD(SocketThmResidencyAcc);
-> -	gpu_metrics->vr_thm_residency_acc = GET_METRIC_FIELD(VrThmResidencyAcc);
-> -	gpu_metrics->hbm_thm_residency_acc = GET_METRIC_FIELD(HbmThmResidencyAcc);
-> -
->  	/* Throttle status is not reported through metrics now */
->  	gpu_metrics->throttle_status = 0;
->  
+
+      [AMD Official Use Only - AMD Internal Distribution Only]
+
+
+
+      Hmm... but in __amdgpu_eeprom_xfer, the u32 will still be cut to u16.
+      __amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr, u=
+8 *eeprom_buf, u16 buf_size, bool read)
+
+      Regards,
+      Hawking
+
+      -----Original Message-----
+      From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-b=
+ounces@lists.freedesktop.org>> On Behalf Of Tao Zhou
+      Sent: Monday, May 20, 2024 10:46
+      To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.or=
+g>
+      Cc: Zhou1, Tao <Tao.Zhou1@amd.com<mailto:Tao.Zhou1@amd.com>>
+      Subject: [PATCH] drm/amdgpu: update type of buf size to u32 for eepro=
+m functions
+
+      Avoid overflow issue.
+
+      Signed-off-by: Tao Zhou <tao.zhou1@amd.com<mailto:tao.zhou1@amd.com>>
+      ---
+       drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 6 +++---  drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_eeprom.h | 4 ++--
+       2 files changed, 5 insertions(+), 5 deletions(-)
+
+      diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_eeprom.c
+      index e71768661ca8..09a34c7258e2 100644
+      --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+      +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+      @@ -179,7 +179,7 @@ static int __amdgpu_eeprom_xfer(struct i2c_adapte=
+r *i2c_adap, u32 eeprom_addr,
+        * Returns the number of bytes read/written; -errno on error.
+        */
+       static int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eepr=
+om_addr,
+      -                       u8 *eeprom_buf, u16 buf_size, bool read)
+      +                       u8 *eeprom_buf, u32 buf_size, bool read)
+       {
+        const struct i2c_adapter_quirks *quirks =3D i2c_adap->quirks;
+        u16 limit;
+      @@ -225,7 +225,7 @@ static int amdgpu_eeprom_xfer(struct i2c_adapter =
+*i2c_adap, u32 eeprom_addr,
+
+       int amdgpu_eeprom_read(struct i2c_adapter *i2c_adap,
+                       u32 eeprom_addr, u8 *eeprom_buf,
+      -                u16 bytes)
+      +                u32 bytes)
+       {
+        return amdgpu_eeprom_xfer(i2c_adap, eeprom_addr, eeprom_buf, bytes,
+                                  true);
+      @@ -233,7 +233,7 @@ int amdgpu_eeprom_read(struct i2c_adapter *i2c_ad=
+ap,
+
+       int amdgpu_eeprom_write(struct i2c_adapter *i2c_adap,
+                        u32 eeprom_addr, u8 *eeprom_buf,
+      -                 u16 bytes)
+      +                 u32 bytes)
+       {
+        return amdgpu_eeprom_xfer(i2c_adap, eeprom_addr, eeprom_buf, bytes,
+                                  false);
+      diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_eeprom.h
+      index 6935adb2be1f..8083b8253ef4 100644
+      --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h
+      +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h
+      @@ -28,10 +28,10 @@
+
+       int amdgpu_eeprom_read(struct i2c_adapter *i2c_adap,
+                       u32 eeprom_addr, u8 *eeprom_buf,
+      -                u16 bytes);
+      +                u32 bytes);
+
+       int amdgpu_eeprom_write(struct i2c_adapter *i2c_adap,
+                        u32 eeprom_addr, u8 *eeprom_buf,
+      -                 u16 bytes);
+      +                 u32 bytes);
+
+       #endif
+      --
+      2.34.1
+
+
+--_000_PH7PR12MB879633D95F8AB88322F93311B0E92PH7PR12MB8796namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from rtf -->
+<style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left:=
+ #800000 2px solid; } --></style>
+</head>
+<body>
+<font face=3D"Calibri" size=3D"2"><span style=3D"font-size:10pt;">
+<div style=3D"padding-right:5pt;padding-left:5pt;"><font color=3D"blue">[AM=
+D Official Use Only - AMD Internal Distribution Only]<br>
+
+</font></div>
+<div style=3D"margin-top:5pt;"><font face=3D"Times New Roman" size=3D"3"><s=
+pan style=3D"font-size:12pt;"><br>
+
+</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">The =
+limit variable in amdgpu_eeprom_xfer is not 0, so the buf_size will be cut =
+into smaller pieces, u16 is enough for <font face=3D"Calibri">__amdgpu_eepr=
+om_xfer</font><font face=3D"Calibri">.</font></span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Anyw=
+ay, use u32 for __amdgpu_eeprom_xfer and make sure the msgs[1].len is less =
+than U16_MAX is better, will create a new patch for the purpose.</span></fo=
+nt></div>
+<div><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:11p=
+t;">&nbsp;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Tao<=
+/span></font></div>
+<div><font face=3D"Times New Roman" size=3D"2"><span style=3D"font-size:11p=
+t;">&nbsp;</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"DengXian" size=3D"2"><span =
+style=3D"font-size:11pt;">_____________________________________________<br>
+
+<b>From:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt; <br>
+
+<b>Sent:</b> Monday, May 20, 2024 11:23 AM<br>
+
+<b>To:</b> Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; amd-gfx@lists.freedesktop.=
+org<br>
+
+<b>Cc:</b> Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;<br>
+
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: update type of buf size to u32 for =
+eeprom functions</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Times New Roman" size=3D"2"=
+><span style=3D"font-size:11pt;">&nbsp;</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Times New Roman" size=3D"2"=
+><span style=3D"font-size:11pt;">&nbsp;</span></font></div>
+<div style=3D"padding-right:5pt;padding-left:41pt;"><font face=3D"Calibri" =
+color=3D"blue">[AMD Official Use Only - AMD Internal Distribution Only]<br>
+
+</font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Times New Roman" size=3D"2"=
+><span style=3D"font-size:11pt;"><br>
+
+</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">Hmm&#8230; but in __amdgpu_eeprom_xfer, the u32 wi=
+ll still be cut to u16.</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">__amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap,=
+ u32 eeprom_addr, u8 *eeprom_buf, <b>u16 buf_size</b>, bool read)</span></f=
+ont></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">Regards,<br>
+
+Hawking</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">-----Original Message-----<br>
+
+From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists.freedesktop.org">=
+<font color=3D"#0563C1"><u>amd-gfx-bounces@lists.freedesktop.org</u></font>=
+</a>&gt; On Behalf Of Tao Zhou<br>
+
+Sent: Monday, May 20, 2024 10:46<br>
+
+To: <a href=3D"mailto:amd-gfx@lists.freedesktop.org"><font color=3D"#0563C1=
+"><u>amd-gfx@lists.freedesktop.org</u></font></a><br>
+
+Cc: Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@amd.com"><font color=3D"#056=
+3C1"><u>Tao.Zhou1@amd.com</u></font></a>&gt;<br>
+
+Subject: [PATCH] drm/amdgpu: update type of buf size to u32 for eeprom func=
+tions</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Times New Roman" size=3D"2"=
+><span style=3D"font-size:11pt;">&nbsp;</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">Avoid overflow issue.</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">Signed-off-by: Tao Zhou &lt;<a href=3D"mailto:tao.=
+zhou1@amd.com">tao.zhou1@amd.com</a>&gt;</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">---</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;"> drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 6 ++=
++---&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h | 4 ++--</span></font=
+></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;"> 2 files changed, 5 insertions(+), 5 deletions(-)<=
+/span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eep=
+rom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">index e71768661ca8..09a34c7258e2 100644</span></fo=
+nt></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c</=
+span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c</=
+span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">@@ -179,7 +179,7 @@ static int __amdgpu_eeprom_xfe=
+r(struct i2c_adapter *i2c_adap, u32 eeprom_addr,</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp; * Returns the number of bytes read/written;=
+ -errno on error.</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp; */</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;"> static int amdgpu_eeprom_xfer(struct i2c_adapter =
+*i2c_adap, u32 eeprom_addr,</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u8 *eeprom_buf, u16 buf_size, =
+bool read)</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u8 *eeprom_buf, u32 buf_size, =
+bool read)</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;"> {</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c=
+onst struct i2c_adapter_quirks *quirks =3D i2c_adap-&gt;quirks;</span></fon=
+t></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u=
+16 limit;</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">@@ -225,7 +225,7 @@ static int amdgpu_eeprom_xfer(=
+struct i2c_adapter *i2c_adap, u32 eeprom_addr,</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;"> int amdgpu_eeprom_read(struct i2c_adapter *i2c_ad=
+ap,</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; u32 eeprom_addr, u8 *eeprom_buf,</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; u16 bytes)</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; u32 bytes)</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;"> {</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r=
+eturn amdgpu_eeprom_xfer(i2c_adap, eeprom_addr, eeprom_buf, bytes,</span></=
+font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; true);</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">@@ -233,7 +233,7 @@ int amdgpu_eeprom_read(struct =
+i2c_adapter *i2c_adap,</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;"> int amdgpu_eeprom_write(struct i2c_adapter *i2c_a=
+dap,</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; u32 eeprom_addr, u8 *eeprom_buf,</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; u16 bytes)</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; u32 bytes)</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;"> {</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r=
+eturn amdgpu_eeprom_xfer(i2c_adap, eeprom_addr, eeprom_buf, bytes,</span></=
+font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; false);</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eep=
+rom.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">index 6935adb2be1f..8083b8253ef4 100644</span></fo=
+nt></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h</=
+span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h</=
+span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">@@ -28,10 +28,10 @@</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;"> int amdgpu_eeprom_read(struct i2c_adapter *i2c_ad=
+ap,</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; u32 eeprom_addr, u8 *eeprom_buf,</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; u16 bytes);</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; u32 bytes);</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;"> int amdgpu_eeprom_write(struct i2c_adapter *i2c_a=
+dap,</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; u32 eeprom_addr, u8 *eeprom_buf,</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; u16 bytes);</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; u32 bytes);</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">&nbsp;</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;"> #endif</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">--</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Calibri" size=3D"2"><span s=
+tyle=3D"font-size:11pt;">2.34.1</span></font></div>
+<div style=3D"padding-left:36pt;"><font face=3D"Times New Roman" size=3D"2"=
+><span style=3D"font-size:11pt;">&nbsp;</span></font></div>
+</span></font>
+</body>
+</html>
+
+--_000_PH7PR12MB879633D95F8AB88322F93311B0E92PH7PR12MB8796namp_--
