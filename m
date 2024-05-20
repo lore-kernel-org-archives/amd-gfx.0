@@ -4,57 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D511C25B77
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 May 2024 09:59:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34330C25B78
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 May 2024 10:43:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A8A110E32F;
-	Mon, 20 May 2024 09:59:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08DB510E177;
+	Mon, 20 May 2024 10:43:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="cYF+YYNG";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QzH0sxnV";
 	dkim-atps=neutral
-X-Greylist: delayed 470 seconds by postgrey-1.36 at gabe;
- Sun, 19 May 2024 13:00:27 UTC
-Received: from forward502a.mail.yandex.net (forward502a.mail.yandex.net
- [178.154.239.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FC8B10E1FD
- for <amd-gfx@lists.freedesktop.org>; Sun, 19 May 2024 13:00:26 +0000 (UTC)
-Received: from mail-nwsmtp-mxback-production-main-72.vla.yp-c.yandex.net
- (mail-nwsmtp-mxback-production-main-72.vla.yp-c.yandex.net
- [IPv6:2a02:6b8:c18:486:0:640:200c:0])
- by forward502a.mail.yandex.net (Yandex) with ESMTPS id 3BA6A60C51;
- Sun, 19 May 2024 15:52:34 +0300 (MSK)
-Received: from mail.yandex.ru (2a02:6b8:c0d:91:0:640:566d:0
- [2a02:6b8:c0d:91:0:640:566d:0])
- by mail-nwsmtp-mxback-production-main-72.vla.yp-c.yandex.net (mxback/Yandex)
- with HTTP id UqG2EH5O0Ko0-C4be1G2S; Sun, 19 May 2024 15:52:33 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
- t=1716123153; bh=5L8fi5JUq0n0of2poPTByRTgAzI9PuoUJYWi/l8DFhs=;
- h=References:Date:Message-Id:Cc:Subject:To:From:In-Reply-To;
- b=cYF+YYNGOULFdIgWxYVZmHIEnZjVnY4q9CNKtlIgERfwXQkLzSy317lVHCY9j2rgy
- NKfhM2w0u38lfmvxZ+T6amcillMHa4FAZ/aFaXezVKZz2ebk7XwFCy9UuKRZHMUvUi
- xHOt+cJov/w0/f8X+JJZiuzs023XhNyR7QZ8V+4c=
-Authentication-Results: mail-nwsmtp-mxback-production-main-72.vla.yp-c.yandex.net;
- dkim=pass header.i=@yandex.ru
-Received: by 6dmalpruuq6nvlco.vla.yp-c.yandex.net with HTTP;
- Sun, 19 May 2024 15:52:33 +0300
-From: Tranton Baddy <t.baddy@yandex.ru>
-Envelope-From: t-baddy@yandex.ru
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Borislav Petkov <bp@alien8.de>
-In-Reply-To: <CADnq5_NNATnV+mTEn6Mshro3gqpH5ffjQ=EWdH8QVZgEBYB-ew@mail.gmail.com>
-References: <1237381714935562@dmcmxrwo3x2o7y3i.sas.yp-c.yandex.net>
- <20240505224508.GAZjgL9PO9Y5QaAO2t@fat_crate.local>
- <CADnq5_NNATnV+mTEn6Mshro3gqpH5ffjQ=EWdH8QVZgEBYB-ew@mail.gmail.com>
-Subject: Re: Error in amd driver?
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0880810E2B5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 May 2024 10:43:28 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-5238fe0cfc9so2405302e87.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 May 2024 03:43:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1716201807; x=1716806607; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=icwVF42TmZ2hZjEXcduZvhpSy5tVelIfuJSjSBSENHo=;
+ b=QzH0sxnVvfMQQ90abtI6zeEZsW5XbNqdOOSrdO+1DHrkzus3C/ETLdazpTJr95j0qK
+ ckdWwOxAxI2h6JrcsUWMikBRg4zZxPwBRPLdVkXBpKp8GKy1Tb3ckxA+QxwCtmGji+Qn
+ FahnlEVifmp/yh+6gu54iFL9ZA1L8v1VLZYNwJOVugsYmKuKoxbo0HIw1IS7gAuz0ZrR
+ CmBOo4LQYVoo2b25AVLbbbhniqxg3OucCKg5/mmK0X9SsKwOj5lDrar6zzhCIZJ8/PAQ
+ grMHBQ0fh1ARi9gtwBPk9PlCdq2Y4XJfg/+RQsocsADuPxOnonHpDYIL/ymLcr/5CBJq
+ cG1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1716201807; x=1716806607;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=icwVF42TmZ2hZjEXcduZvhpSy5tVelIfuJSjSBSENHo=;
+ b=FXg4CEvJ6FIZg2ngKI7sc1WbtVJKNRMgYpnHGIa+3RkyeCEIf1hNuMR92ZeynnRLfD
+ UVipMI2QdZaOBHILlWX/62bTQu25wcGxsz3XZk5biM3BjJENf+lKc3xbLl3VfpVkAkbj
+ bIa0Idlijkzk3Vg4t9qg/CLtnoU/fD3yZe7waLVC2IsZvg8la9YbS9BaRwzs3QZuOdec
+ q59NO5bbIDBEkgX2XYj1lQebCGRAAalhYhfV7bbTAYxLp5uKPcCd+OBPV91qq260ef8C
+ ix4tZGrrb3jVjvyxhLRVNEfPjt0dXDDppqE3AYLGmblK4R2Udos4qPEai5NL7LfDePRy
+ bYaA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVf82ZlJhUYb+3J7aAwEEqJaurYclfce+peM883BG82d0ZLF+LaZWZnJ8HKGl07rnFOtVOfM1XMdgiVaLlaQMuMYzG1TtzkwUm0kQbTYA==
+X-Gm-Message-State: AOJu0Yyii6GuHnTJiiheMniWYS/Y1KyhFBcp0lE7MOuMFHMo3gDZvAr7
+ g6peWUMgGyzhyNL7c0Ws9moN1UQAslYr+hPmHNEIDwEj5/PqHOpqfIvV+npuWvE=
+X-Google-Smtp-Source: AGHT+IFzot8n6xHV0OHm6wH4k0sEr+LYxBLD0eD+umJwBs/mAovf2bSRWjBos0WaEoAs2a0risJ1Ww==
+X-Received: by 2002:a05:6512:4801:b0:51d:8ff3:f835 with SMTP id
+ 2adb3069b0e04-52407cddc3fmr1595444e87.26.1716201806986; 
+ Mon, 20 May 2024 03:43:26 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5238bee41afsm2044239e87.294.2024.05.20.03.43.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 May 2024 03:43:26 -0700 (PDT)
+Date: Mon, 20 May 2024 13:43:24 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Vignesh Raman <vignesh.raman@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com, 
+ helen.koike@collabora.com, airlied@gmail.com, daniel@ffwll.ch,
+ robdclark@gmail.com, 
+ david.heidelberg@collabora.com, guilherme.gallo@collabora.com,
+ sergi.blanch.torne@collabora.com, 
+ mcanal@igalia.com, linux-mediatek@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, 
+ virtualization@lists.linux-foundation.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/6] drm/ci: uprev mesa version
+Message-ID: <2qzmfv3oc6feihwxu3tl37rg6w3qsj2vddu5olvqk6vhqr26cc@bxu5y6ijvtfa>
+References: <20240517092502.647420-1-vignesh.raman@collabora.com>
+ <20240517092502.647420-2-vignesh.raman@collabora.com>
 MIME-Version: 1.0
-X-Mailer: Yamail [ http://yandex.ru ] 5.0
-Date: Sun, 19 May 2024 15:52:33 +0300
-Message-Id: <62301716123153@6dmalpruuq6nvlco.vla.yp-c.yandex.net>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset=utf-8
-X-Mailman-Approved-At: Mon, 20 May 2024 09:59:27 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240517092502.647420-2-vignesh.raman@collabora.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,95 +91,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Yes, problem is no more.
-Thanks.
+On Fri, May 17, 2024 at 02:54:57PM +0530, Vignesh Raman wrote:
+> zlib.net is not allowing tarball download anymore and results
+> in below error in kernel+rootfs_arm32 container build,
+> urllib.error.HTTPError: HTTP Error 403: Forbidden
+> urllib.error.HTTPError: HTTP Error 415: Unsupported Media Type
+> 
+> Uprev mesa to latest version which includes a fix for this issue.
+> https://gitlab.freedesktop.org/mesa/mesa/-/commit/908f444e
+> 
+> Use id_tokens for JWT authentication. Since s3 bucket is migrated to
+> mesa-rootfs, update the variables accordingly. Also copy helper scripts
+> to install, so that the ci jobs can use these scripts for logging.
+> 
+> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+> ---
+> 
+> v2:
+>   - Uprev to recent version and use id_tokens for JWT authentication
+> 
+> ---
+>  drivers/gpu/drm/ci/build-igt.sh   |  2 +-
+>  drivers/gpu/drm/ci/build.sh       |  6 +++--
+>  drivers/gpu/drm/ci/container.yml  | 12 +++------
+>  drivers/gpu/drm/ci/gitlab-ci.yml  | 44 +++++++++++++++++++++----------
+>  drivers/gpu/drm/ci/image-tags.yml |  2 +-
+>  drivers/gpu/drm/ci/lava-submit.sh |  4 +--
+>  drivers/gpu/drm/ci/test.yml       |  2 ++
+>  7 files changed, 44 insertions(+), 28 deletions(-)
+> 
 
-> On Mon, May 6, 2024 at 6:00 AM Borislav Petkov <bp@alien8.de> wrote:
+[skipped]
+
+> diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
+> index 8bc63912fddb..612c9ede3507 100644
+> --- a/drivers/gpu/drm/ci/test.yml
+> +++ b/drivers/gpu/drm/ci/test.yml
+> @@ -150,6 +150,8 @@ msm:sdm845:
+>      BM_KERNEL: https://${PIPELINE_ARTIFACTS_BASE}/arm64/cheza-kernel
+>      GPU_VERSION: sdm845
+>      RUNNER_TAG: google-freedreno-cheza
+> +    DEVICE_TYPE: sdm845-cheza-r3
+> +    FARM: google
+
+I see that this is the only user of the FARM: tag. Is it correct?
+Also we miss DEVICE_TYPE for several other boards. Should we be adding
+them?
+
+>    script:
+>      - ./install/bare-metal/cros-servo.sh
+>  
+> -- 
+> 2.40.1
 > 
->> + amd-gfx@lists.freedesktop.org
->>
->> On Sun, May 05, 2024 at 09:59:22PM +0300, Tranton Baddy wrote:
->>> I have this in my dmesg since version 6.8.6, not sure when it appeared. Is amdgpu driver has bug?
-> 
-> Should be fixed in:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d3a9331a6591e9df64791e076f6591f440af51c3
-> 
-> Alex
-> 
->>> [ 64.253144] ==================================================================
->>> [ 64.253162] BUG: KFENCE: use-after-free read in amdgpu_bo_move+0x51f/0x7a0
->>>
->>> [ 64.253183] Use-after-free read at 0x00000000671c48dd (in kfence-#111):
->>> [ 64.253192] amdgpu_bo_move+0x51f/0x7a0
->>> [ 64.253202] ttm_bo_handle_move_mem+0xcf/0x180
->>> [ 64.253211] ttm_mem_evict_first+0x1c5/0x500
->>> [ 64.253218] ttm_resource_manager_evict_all+0xa3/0x1e0
->>> [ 64.253228] amdgpu_device_prepare+0x66/0x110
->>> [ 64.253237] amdgpu_pmops_runtime_suspend+0xbe/0x1c0
->>> [ 64.253248] pci_pm_runtime_suspend+0x74/0x200
->>> [ 64.253259] vga_switcheroo_runtime_suspend+0x21/0xb0
->>> [ 64.253268] __rpm_callback+0x5f/0x190
->>> [ 64.253277] rpm_callback+0x7f/0x90
->>> [ 64.253283] rpm_suspend+0x120/0x6a0
->>> [ 64.253290] pm_runtime_work+0x9c/0xa0
->>> [ 64.253297] process_one_work+0x164/0x330
->>> [ 64.253310] worker_thread+0x302/0x430
->>> [ 64.253320] kthread+0xe4/0x110
->>> [ 64.253329] ret_from_fork+0x4c/0x60
->>> [ 64.253341] ret_from_fork_asm+0x1b/0x30
->>>
->>> [ 64.253353] kfence-#111: 0x00000000d018cf03-0x0000000034e821d1, size=96, cache=kmalloc-96
->>>
->>> [ 64.253363] allocated by task 152 on cpu 3 at 64.248952s:
->>> [ 64.253418] kmalloc_trace+0x283/0x340
->>> [ 64.253427] amdgpu_vram_mgr_new+0x8f/0x3f0
->>> [ 64.253435] ttm_resource_alloc+0x39/0x90
->>> [ 64.253444] ttm_bo_mem_space+0xa4/0x260
->>> [ 64.253450] ttm_mem_evict_first+0x18a/0x500
->>> [ 64.253456] ttm_resource_manager_evict_all+0xa3/0x1e0
->>> [ 64.253465] amdgpu_device_prepare+0x66/0x110
->>> [ 64.253472] amdgpu_pmops_runtime_suspend+0xbe/0x1c0
->>> [ 64.253481] pci_pm_runtime_suspend+0x74/0x200
->>> [ 64.253489] vga_switcheroo_runtime_suspend+0x21/0xb0
->>> [ 64.253496] __rpm_callback+0x5f/0x190
->>> [ 64.253503] rpm_callback+0x7f/0x90
->>> [ 64.253509] rpm_suspend+0x120/0x6a0
->>> [ 64.253516] pm_runtime_work+0x9c/0xa0
->>> [ 64.253523] process_one_work+0x164/0x330
->>> [ 64.253532] worker_thread+0x302/0x430
->>> [ 64.253542] kthread+0xe4/0x110
->>> [ 64.253550] ret_from_fork+0x4c/0x60
->>> [ 64.253559] ret_from_fork_asm+0x1b/0x30
->>>
->>> [ 64.253570] freed by task 152 on cpu 3 at 64.253117s:
->>> [ 64.253582] ttm_resource_free+0x67/0x90
->>> [ 64.253591] ttm_bo_move_accel_cleanup+0x247/0x2e0
->>> [ 64.253598] amdgpu_bo_move+0x1bd/0x7a0
->>> [ 64.253605] ttm_bo_handle_move_mem+0xcf/0x180
->>> [ 64.253612] ttm_mem_evict_first+0x1c5/0x500
->>> [ 64.253618] ttm_resource_manager_evict_all+0xa3/0x1e0
->>> [ 64.253626] amdgpu_device_prepare+0x66/0x110
->>> [ 64.253634] amdgpu_pmops_runtime_suspend+0xbe/0x1c0
->>> [ 64.253642] pci_pm_runtime_suspend+0x74/0x200
->>> [ 64.253650] vga_switcheroo_runtime_suspend+0x21/0xb0
->>> [ 64.253658] __rpm_callback+0x5f/0x190
->>> [ 64.253664] rpm_callback+0x7f/0x90
->>> [ 64.253671] rpm_suspend+0x120/0x6a0
->>> [ 64.253677] pm_runtime_work+0x9c/0xa0
->>> [ 64.253684] process_one_work+0x164/0x330
->>> [ 64.253693] worker_thread+0x302/0x430
->>> [ 64.253703] kthread+0xe4/0x110
->>> [ 64.253711] ret_from_fork+0x4c/0x60
->>> [ 64.253723] ret_from_fork_asm+0x1b/0x30
->>>
->>> [ 64.253735] CPU: 3 PID: 152 Comm: kworker/3:2 Tainted: P OE 6.8.9 #3 e7323d0d25f89e853881fc823e59523bdcc577c6
->>> [ 64.253756] Hardware name: Hewlett-Packard HP Pavilion Notebook /80B9, BIOS F.54 05/27/2019
->>> [ 64.253761] Workqueue: pm pm_runtime_work
->>> [ 64.253771] ==================================================================
->>>
->>
->> --
->> Regards/Gruss,
->> Boris.
->>
->> https://people.kernel.org/tglx/notes-about-netiquette
+
+-- 
+With best wishes
+Dmitry
