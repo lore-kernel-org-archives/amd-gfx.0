@@ -4,79 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71B09C25B7A
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 May 2024 11:05:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4913C04FFE
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 May 2024 11:13:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A36F10E62A;
-	Mon, 20 May 2024 11:05:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 537CD10E5AC;
+	Mon, 20 May 2024 11:13:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vj2UBb4M";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="aD9NbJph";
 	dkim-atps=neutral
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC9C210E628
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 May 2024 11:05:50 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-5238b7d0494so3426241e87.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 May 2024 04:05:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716203149; x=1716807949; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=nsnKmHuBmN6J2mWJ2RFHNEE84aeXrDEHjd3h7k4ZwUU=;
- b=vj2UBb4MAbzKU3KPttxwyylPv5xiv3hFEcCmADWTWJBbDJpp7yErrX/cglQo4JFHrw
- UOMgbqHwxtsmBYYyAw70r0d2/AT+u2iNyp8uKHb9SLNMkcyi3MYzRIXsXdmjESMeVn/S
- TF+vr03AfrfWHBCE/svFRHRotDE3bkWkhekTDn1bbyCERjwG6gUldhhSbA7qRkgh2xup
- /egsk5nH3u4wyA3FsnywffN7zoeAVO2+4SeYY5X11BDv7yX+BoLnJnDsiAOdRU8AD8cw
- sd+iZFWx4EvaI5bebQnC9wUG2rimlCTi+7WF21CH8MYa5nHMya5i2ntkviGI6W/y0uLj
- +m1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716203149; x=1716807949;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nsnKmHuBmN6J2mWJ2RFHNEE84aeXrDEHjd3h7k4ZwUU=;
- b=A74kiku5MoD5pjktFOy3veU8IEEnG4rilM+/oguRdAjBALfjQ+9L1p0De72D681yP4
- TuteuLVeOU5Y+UBz7mSGAtx4cTZ4In7+tgNtV82EBNw1HUvZ+zGXJotrsBEIJ0VoH6Wk
- ywxZcTnGt8x+MwfB0TeI4PShrunu6AcMcHQ8BUtztYNHFO7GmaII2ePKXASa1VmtYl+B
- iZ8mHF8dqR3YF8QPvzox/60m/vqrRpboZ7up3YuAi/p6hZZUZgzLEhPP9uzjUn30HS75
- 8eeKwty5Qj+TdB9AC7BSWM5WOn9PDX7+a+9cGthHMd3dzZTtlKZ53AhGXPdNxviw0uJU
- YQiQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW2X2wr/OU1lot+OP3a4L9oy4lHLCm6hMiRajf7eIsAw0iGjoEhuWvzuJGvs4tWxp8N4qWSYJnVcopiGy73VL7CWtJgKf6isAdtduVuGg==
-X-Gm-Message-State: AOJu0YzQjJJMY+NJqRIBfd9/2Z6jPFwoyJ+iRaSG2cSRKuUWupG52Mkz
- 1D3v5cviRBg1jAMqhZQQy1a5pyueD3amS3ecVatzxfvJ6ftkmgppFGkrSlapcqs=
-X-Google-Smtp-Source: AGHT+IECc0/QGytciTsg1Ow4YOo2yweKq3yn/cTZEcTK3KUAdVVZMShgvpI1frMYPXAmC2Lq22cwUA==
-X-Received: by 2002:a19:2d09:0:b0:523:919d:302e with SMTP id
- 2adb3069b0e04-523919d325dmr15436572e87.7.1716203149103; 
- Mon, 20 May 2024 04:05:49 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-521f35ba912sm4180788e87.75.2024.05.20.04.05.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 May 2024 04:05:48 -0700 (PDT)
-Date: Mon, 20 May 2024 14:05:47 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Vignesh Raman <vignesh.raman@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com, 
- helen.koike@collabora.com, airlied@gmail.com, daniel@ffwll.ch,
- robdclark@gmail.com, 
- david.heidelberg@collabora.com, guilherme.gallo@collabora.com,
- sergi.blanch.torne@collabora.com, 
- mcanal@igalia.com, linux-mediatek@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, 
- virtualization@lists.linux-foundation.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] drm/ci: update xfails for the new testlist
-Message-ID: <fbfo4juetokyhe6xsvxbfr3fakdushntnhlrpgbfttc22kvrc3@p3qr6qh4w3rc>
-References: <20240517092502.647420-1-vignesh.raman@collabora.com>
- <20240517092502.647420-7-vignesh.raman@collabora.com>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9729210E49D;
+ Mon, 20 May 2024 11:13:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=7Xo33A+sGBcBt2yED1u/Kz02ydxqSdiFHhRpCR+PJSY=; b=aD9NbJphNVZle83ymb830HSWYw
+ Hn/SOeb08kwSwiEUwdzDYK6Utn989n1oZpPYaFSP/YBsAyMRe+K15ZapFojtkxJt/LcKz/Bg5bzxX
+ QDLNbJDIlUdKt2OXKTh7cF2Rc7p2vT2rFajeob/CGHN3JUbyLUjBZsi2morHKqINT38t68Lbq8BOp
+ WW51qVDaA9vdAc35Ri/KTYrmpinSjTbZOiH95xWMcljpLsBeG8un/ErzIK36neZbkA5tXXnQR7Yh0
+ y0wmScr0MGfd86pOIWN66x/TIA2zde82R8+1BbdCiaGzX/OcpNdEC+/JWT8Qz9i0PEX0kMZAVE7LS
+ Vc3oZPXg==;
+Received: from [84.69.19.168] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1s90xZ-00ADSS-P5; Mon, 20 May 2024 13:13:41 +0200
+From: Tvrtko Ursulin <tursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@chromium.org>
+Subject: [PATCH 2/2] drm/amdgpu: Use drm_print_memory_stats helper from fdinfo
+Date: Mon, 20 May 2024 12:13:38 +0100
+Message-ID: <20240520111338.10110-2-tursulin@igalia.com>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240520111338.10110-1-tursulin@igalia.com>
+References: <20240520111338.10110-1-tursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240517092502.647420-7-vignesh.raman@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,90 +62,417 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 17, 2024 at 02:55:02PM +0530, Vignesh Raman wrote:
-> Now the testlist is used from IGT build, so update
-> xfails with the new testlist.
-> 
-> Set the timeout of all i915 jobs to 1h30m since some jobs
-> takes more than 1 hour to complete.
-> 
-> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
-> ---
-> 
-> v2:
->   - Set the timeout of all i915 jobs to 1h30m and updated expectations file.
-> 
-> ---
->  drivers/gpu/drm/ci/test.yml                   |   6 +-
->  .../gpu/drm/ci/xfails/amdgpu-stoney-fails.txt |  41 ++--
->  .../drm/ci/xfails/amdgpu-stoney-flakes.txt    |   6 +
->  .../gpu/drm/ci/xfails/amdgpu-stoney-skips.txt |  18 ++
->  drivers/gpu/drm/ci/xfails/i915-amly-fails.txt |  31 ++++
->  .../gpu/drm/ci/xfails/i915-amly-flakes.txt    |   8 +
->  drivers/gpu/drm/ci/xfails/i915-amly-skips.txt |  11 ++
->  drivers/gpu/drm/ci/xfails/i915-apl-fails.txt  |  46 +++--
->  drivers/gpu/drm/ci/xfails/i915-apl-flakes.txt |   5 +
->  drivers/gpu/drm/ci/xfails/i915-apl-skips.txt  |  15 ++
->  drivers/gpu/drm/ci/xfails/i915-cml-fails.txt  |  38 ++++
->  drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt |   5 +
->  drivers/gpu/drm/ci/xfails/i915-cml-skips.txt  |  14 ++
->  drivers/gpu/drm/ci/xfails/i915-glk-fails.txt  |  41 +++-
->  drivers/gpu/drm/ci/xfails/i915-glk-flakes.txt |   6 +
->  drivers/gpu/drm/ci/xfails/i915-glk-skips.txt  |  15 ++
->  drivers/gpu/drm/ci/xfails/i915-kbl-fails.txt  |  42 ++---
->  drivers/gpu/drm/ci/xfails/i915-kbl-flakes.txt |   6 +-
->  drivers/gpu/drm/ci/xfails/i915-kbl-skips.txt  |  25 +++
->  drivers/gpu/drm/ci/xfails/i915-tgl-fails.txt  |  77 ++++----
->  drivers/gpu/drm/ci/xfails/i915-tgl-skips.txt  |  16 ++
->  drivers/gpu/drm/ci/xfails/i915-whl-fails.txt  |  63 ++++---
->  drivers/gpu/drm/ci/xfails/i915-whl-flakes.txt |   5 +
->  drivers/gpu/drm/ci/xfails/i915-whl-skips.txt  |  11 ++
->  .../drm/ci/xfails/mediatek-mt8173-fails.txt   |  30 ++-
->  .../drm/ci/xfails/mediatek-mt8173-flakes.txt  |  10 +
->  .../drm/ci/xfails/mediatek-mt8173-skips.txt   |   4 +
->  .../drm/ci/xfails/mediatek-mt8183-fails.txt   |  21 +--
->  .../drm/ci/xfails/mediatek-mt8183-skips.txt   |   4 +
->  .../gpu/drm/ci/xfails/meson-g12b-fails.txt    |  24 +--
->  .../gpu/drm/ci/xfails/meson-g12b-skips.txt    |   4 +
->  .../gpu/drm/ci/xfails/msm-apq8016-fails.txt   |  12 +-
->  .../gpu/drm/ci/xfails/msm-apq8016-skips.txt   |   4 +
->  .../gpu/drm/ci/xfails/msm-apq8096-fails.txt   |   7 +
->  .../gpu/drm/ci/xfails/msm-apq8096-flakes.txt  |   5 +
->  .../gpu/drm/ci/xfails/msm-apq8096-skips.txt   |  12 ++
->  .../msm-sc7180-trogdor-kingoftown-fails.txt   | 175 +++++++++++++++++-
->  .../msm-sc7180-trogdor-kingoftown-flakes.txt  |   7 +
->  .../msm-sc7180-trogdor-kingoftown-skips.txt   |   7 +
->  ...sm-sc7180-trogdor-lazor-limozeen-fails.txt | 175 +++++++++++++++++-
->  ...m-sc7180-trogdor-lazor-limozeen-flakes.txt |   5 +
->  ...sm-sc7180-trogdor-lazor-limozeen-skips.txt |   4 +
->  .../gpu/drm/ci/xfails/msm-sdm845-fails.txt    |  38 +---
->  .../gpu/drm/ci/xfails/msm-sdm845-flakes.txt   |  26 ++-
->  .../gpu/drm/ci/xfails/msm-sdm845-skips.txt    |   7 +
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # msm testlists
+Convert fdinfo memory stats to use the common drm_print_memory_stats
+helper.
 
-We'd need to triage why the tests are failing, but at least it looks
-logical from my POV, no more full-test skips, etc.
+This achieves alignment with the common keys as documented in
+drm-usage-stats.rst, adding specifically drm-total- key the driver was
+missing until now.
 
->  .../drm/ci/xfails/rockchip-rk3288-fails.txt   |  62 +------
->  .../drm/ci/xfails/rockchip-rk3288-skips.txt   |   4 +
->  .../drm/ci/xfails/rockchip-rk3399-fails.txt   |  83 +--------
->  .../drm/ci/xfails/rockchip-rk3399-flakes.txt  |  12 +-
->  .../drm/ci/xfails/rockchip-rk3399-skips.txt   |   4 +
->  drivers/gpu/drm/ci/xfails/update-xfails.py    |   4 +-
->  .../drm/ci/xfails/virtio_gpu-none-fails.txt   |  94 +++++++---
->  .../drm/ci/xfails/virtio_gpu-none-skips.txt   |   4 +
->  53 files changed, 1010 insertions(+), 389 deletions(-)
->  create mode 100644 drivers/gpu/drm/ci/xfails/i915-amly-flakes.txt
->  create mode 100644 drivers/gpu/drm/ci/xfails/i915-apl-flakes.txt
->  create mode 100644 drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt
->  create mode 100644 drivers/gpu/drm/ci/xfails/i915-glk-flakes.txt
->  create mode 100644 drivers/gpu/drm/ci/xfails/i915-whl-flakes.txt
->  create mode 100644 drivers/gpu/drm/ci/xfails/mediatek-mt8173-flakes.txt
->  create mode 100644 drivers/gpu/drm/ci/xfails/msm-apq8096-flakes.txt
->  create mode 100644 drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-flakes.txt
->  create mode 100644 drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-flakes.txt
+Additionally I made the code stop skipping total size for objects which
+currently do not have a backing store, and I added resident, active and
+purgeable reporting.
 
+Legacy keys have been preserved, with the outlook of only potentially
+removing only the drm-memory- when the time gets right.
+
+The example output now looks like this:
+
+ pos:	0
+ flags:	02100002
+ mnt_id:	24
+ ino:	1239
+ drm-driver:	amdgpu
+ drm-client-id:	4
+ drm-pdev:	0000:04:00.0
+ pasid:	32771
+ drm-total-cpu:	0
+ drm-shared-cpu:	0
+ drm-active-cpu:	0
+ drm-resident-cpu:	0
+ drm-purgeable-cpu:	0
+ drm-total-gtt:	2392 KiB
+ drm-shared-gtt:	0
+ drm-active-gtt:	0
+ drm-resident-gtt:	2392 KiB
+ drm-purgeable-gtt:	0
+ drm-total-vram:	44564 KiB
+ drm-shared-vram:	31952 KiB
+ drm-active-vram:	0
+ drm-resident-vram:	44564 KiB
+ drm-purgeable-vram:	0
+ drm-memory-vram:	44564 KiB
+ drm-memory-gtt: 	2392 KiB
+ drm-memory-cpu: 	0 KiB
+ amd-memory-visible-vram:	44564 KiB
+ amd-evicted-vram:	0 KiB
+ amd-evicted-visible-vram:	0 KiB
+ amd-requested-vram:	44564 KiB
+ amd-requested-visible-vram:	11952 KiB
+ amd-requested-gtt:	2392 KiB
+ drm-engine-compute:	46464671 ns
+
+v2:
+ * Track purgeable via AMDGPU_GEM_CREATE_DISCARDABLE.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 48 +++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 96 +++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h | 35 +++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 20 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  3 +-
+ 6 files changed, 122 insertions(+), 81 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+index c7df7fa3459f..00a4ab082459 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+@@ -59,18 +59,21 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+ 	struct amdgpu_fpriv *fpriv = file->driver_priv;
+ 	struct amdgpu_vm *vm = &fpriv->vm;
+ 
+-	struct amdgpu_mem_stats stats;
++	struct amdgpu_mem_stats stats[__AMDGPU_PL_LAST + 1] = { };
+ 	ktime_t usage[AMDGPU_HW_IP_NUM];
+-	unsigned int hw_ip;
++	const char *pl_name[] = {
++		[TTM_PL_VRAM] = "vram",
++		[TTM_PL_TT] = "gtt",
++		[TTM_PL_SYSTEM] = "cpu",
++	};
++	unsigned int hw_ip, i;
+ 	int ret;
+ 
+-	memset(&stats, 0, sizeof(stats));
+-
+ 	ret = amdgpu_bo_reserve(vm->root.bo, false);
+ 	if (ret)
+ 		return;
+ 
+-	amdgpu_vm_get_memory(vm, &stats);
++	amdgpu_vm_get_memory(vm, stats, ARRAY_SIZE(stats));
+ 	amdgpu_bo_unreserve(vm->root.bo);
+ 
+ 	amdgpu_ctx_mgr_usage(&fpriv->ctx_mgr, usage);
+@@ -82,24 +85,35 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+ 	 */
+ 
+ 	drm_printf(p, "pasid:\t%u\n", fpriv->vm.pasid);
+-	drm_printf(p, "drm-memory-vram:\t%llu KiB\n", stats.vram/1024UL);
+-	drm_printf(p, "drm-memory-gtt: \t%llu KiB\n", stats.gtt/1024UL);
+-	drm_printf(p, "drm-memory-cpu: \t%llu KiB\n", stats.cpu/1024UL);
++
++	for (i = 0; i < TTM_PL_PRIV; i++)
++		drm_print_memory_stats(p,
++				       &stats[i].drm,
++				       DRM_GEM_OBJECT_RESIDENT |
++				       DRM_GEM_OBJECT_PURGEABLE,
++				       pl_name[i]);
++
++	/* Legacy amdgpu keys, alias to drm-resident-memory-: */
++	drm_printf(p, "drm-memory-vram:\t%llu KiB\n",
++		   stats[TTM_PL_VRAM].total/1024UL);
++	drm_printf(p, "drm-memory-gtt: \t%llu KiB\n",
++		   stats[TTM_PL_TT].total/1024UL);
++	drm_printf(p, "drm-memory-cpu: \t%llu KiB\n",
++		   stats[TTM_PL_SYSTEM].total/1024UL);
++
++	/* Amdgpu specific memory accounting keys: */
+ 	drm_printf(p, "amd-memory-visible-vram:\t%llu KiB\n",
+-		   stats.visible_vram/1024UL);
++		   stats[TTM_PL_VRAM].visible/1024UL);
+ 	drm_printf(p, "amd-evicted-vram:\t%llu KiB\n",
+-		   stats.evicted_vram/1024UL);
++		   stats[TTM_PL_VRAM].evicted/1024UL);
+ 	drm_printf(p, "amd-evicted-visible-vram:\t%llu KiB\n",
+-		   stats.evicted_visible_vram/1024UL);
++		   stats[TTM_PL_VRAM].evicted_visible/1024UL);
+ 	drm_printf(p, "amd-requested-vram:\t%llu KiB\n",
+-		   stats.requested_vram/1024UL);
++		   stats[TTM_PL_VRAM].requested/1024UL);
+ 	drm_printf(p, "amd-requested-visible-vram:\t%llu KiB\n",
+-		   stats.requested_visible_vram/1024UL);
++		   stats[TTM_PL_VRAM].requested_visible/1024UL);
+ 	drm_printf(p, "amd-requested-gtt:\t%llu KiB\n",
+-		   stats.requested_gtt/1024UL);
+-	drm_printf(p, "drm-shared-vram:\t%llu KiB\n", stats.vram_shared/1024UL);
+-	drm_printf(p, "drm-shared-gtt:\t%llu KiB\n", stats.gtt_shared/1024UL);
+-	drm_printf(p, "drm-shared-cpu:\t%llu KiB\n", stats.cpu_shared/1024UL);
++		   stats[TTM_PL_TT].requested/1024UL);
+ 
+ 	for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
+ 		if (!usage[hw_ip])
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index e44db1ee9c1d..9fd1f1a0e99c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1286,54 +1286,92 @@ void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+ }
+ 
+ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+-			  struct amdgpu_mem_stats *stats)
++			  struct amdgpu_mem_stats *stats,
++			  unsigned int sz)
+ {
++	const unsigned int domain_to_pl[] = {
++		[ilog2(AMDGPU_GEM_DOMAIN_CPU)]	    = TTM_PL_SYSTEM,
++		[ilog2(AMDGPU_GEM_DOMAIN_GTT)]	    = TTM_PL_TT,
++		[ilog2(AMDGPU_GEM_DOMAIN_VRAM)]	    = TTM_PL_VRAM,
++		[ilog2(AMDGPU_GEM_DOMAIN_GDS)]	    = AMDGPU_PL_GDS,
++		[ilog2(AMDGPU_GEM_DOMAIN_GWS)]	    = AMDGPU_PL_GWS,
++		[ilog2(AMDGPU_GEM_DOMAIN_OA)]	    = AMDGPU_PL_OA,
++		[ilog2(AMDGPU_GEM_DOMAIN_DOORBELL)] = AMDGPU_PL_DOORBELL,
++	};
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+ 	struct ttm_resource *res = bo->tbo.resource;
++	struct drm_gem_object *obj = &bo->tbo.base;
+ 	uint64_t size = amdgpu_bo_size(bo);
+-	struct drm_gem_object *obj;
+-	bool shared;
++	unsigned int type;
+ 
+-	/* Abort if the BO doesn't currently have a backing store */
+-	if (!res)
+-		return;
++	if (!res) {
++		/*
++		 * If no backing store use one of the preferred domain for basic
++		 * stats. We take the MSB since that should give a reasonable
++		 * view.
++		 */
++		BUILD_BUG_ON(TTM_PL_VRAM < TTM_PL_TT ||
++			     TTM_PL_VRAM < TTM_PL_SYSTEM);
++		type = fls(bo->preferred_domains & AMDGPU_GEM_DOMAIN_MASK);
++		if (!type)
++			return;
++		type--;
++		if (drm_WARN_ON_ONCE(&adev->ddev,
++				     type >= ARRAY_SIZE(domain_to_pl)))
++			return;
++		type = domain_to_pl[type];
++	} else {
++		type = res->mem_type;
++	}
+ 
+-	obj = &bo->tbo.base;
+-	shared = drm_gem_object_is_shared_for_memory_stats(obj);
+-
+-	switch (res->mem_type) {
++	/* Squash some into 'cpu' to keep the legacy userspace view. */
++	switch (type) {
+ 	case TTM_PL_VRAM:
+-		stats->vram += size;
+-		if (amdgpu_res_cpu_visible(adev, res))
+-			stats->visible_vram += size;
+-		if (shared)
+-			stats->vram_shared += size;
+-		break;
+ 	case TTM_PL_TT:
+-		stats->gtt += size;
+-		if (shared)
+-			stats->gtt_shared += size;
+-		break;
+ 	case TTM_PL_SYSTEM:
++		break;
+ 	default:
+-		stats->cpu += size;
+-		if (shared)
+-			stats->cpu_shared += size;
++		type = TTM_PL_SYSTEM;
+ 		break;
+ 	}
+ 
++	if (drm_WARN_ON_ONCE(&adev->ddev, type >= sz))
++		return;
++
++	/* DRM stats common fields: */
++
++	stats[type].total += size;
++	if (drm_gem_object_is_shared_for_memory_stats(obj))
++		stats[type].drm.shared += size;
++	else
++		stats[type].drm.private += size;
++
++	if (res) {
++		stats[type].drm.resident += size;
++
++		if (!dma_resv_test_signaled(obj->resv, DMA_RESV_USAGE_BOOKKEEP))
++			stats[type].drm.active += size;
++		else if (bo->flags & AMDGPU_GEM_CREATE_DISCARDABLE)
++			stats[type].drm.purgeable += size;
++
++		if (type == TTM_PL_VRAM && amdgpu_res_cpu_visible(adev, res))
++			stats[type].visible += size;
++	}
++
++	/* amdgpu specific stats: */
++
+ 	if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) {
+-		stats->requested_vram += size;
++		stats[TTM_PL_VRAM].requested += size;
+ 		if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
+-			stats->requested_visible_vram += size;
++			stats[TTM_PL_VRAM].requested_visible += size;
+ 
+-		if (res->mem_type != TTM_PL_VRAM) {
+-			stats->evicted_vram += size;
++		if (type != TTM_PL_VRAM) {
++			stats[TTM_PL_VRAM].evicted += size;
+ 			if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
+-				stats->evicted_visible_vram += size;
++				stats[TTM_PL_VRAM].evicted_visible += size;
+ 		}
+ 	} else if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_GTT) {
+-		stats->requested_gtt += size;
++		stats[TTM_PL_TT].requested += size;
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index bc42ccbde659..44774584a29f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -136,30 +136,14 @@ struct amdgpu_bo_vm {
+ };
+ 
+ struct amdgpu_mem_stats {
+-	/* current VRAM usage, includes visible VRAM */
+-	uint64_t vram;
+-	/* current shared VRAM usage, includes visible VRAM */
+-	uint64_t vram_shared;
+-	/* current visible VRAM usage */
+-	uint64_t visible_vram;
+-	/* current GTT usage */
+-	uint64_t gtt;
+-	/* current shared GTT usage */
+-	uint64_t gtt_shared;
+-	/* current system memory usage */
+-	uint64_t cpu;
+-	/* current shared system memory usage */
+-	uint64_t cpu_shared;
+-	/* sum of evicted buffers, includes visible VRAM */
+-	uint64_t evicted_vram;
+-	/* sum of evicted buffers due to CPU access */
+-	uint64_t evicted_visible_vram;
+-	/* how much userspace asked for, includes vis.VRAM */
+-	uint64_t requested_vram;
+-	/* how much userspace asked for */
+-	uint64_t requested_visible_vram;
+-	/* how much userspace asked for */
+-	uint64_t requested_gtt;
++	struct drm_memory_stats drm;
++
++	uint64_t total;
++	uint64_t visible;
++	uint64_t evicted;
++	uint64_t evicted_visible;
++	uint64_t requested;
++	uint64_t requested_visible;
+ };
+ 
+ static inline struct amdgpu_bo *ttm_to_amdgpu_bo(struct ttm_buffer_object *tbo)
+@@ -342,7 +326,8 @@ int amdgpu_bo_sync_wait(struct amdgpu_bo *bo, void *owner, bool intr);
+ u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo);
+ u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo);
+ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+-			  struct amdgpu_mem_stats *stats);
++			  struct amdgpu_mem_stats *stats,
++			  unsigned int size);
+ void amdgpu_bo_add_to_shadow_list(struct amdgpu_bo_vm *vmbo);
+ int amdgpu_bo_restore_shadow(struct amdgpu_bo *shadow,
+ 			     struct dma_fence **fence);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index 53d5a5990c31..b856506d1497 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -34,6 +34,7 @@
+ #define AMDGPU_PL_OA		(TTM_PL_PRIV + 2)
+ #define AMDGPU_PL_PREEMPT	(TTM_PL_PRIV + 3)
+ #define AMDGPU_PL_DOORBELL	(TTM_PL_PRIV + 4)
++#define __AMDGPU_PL_LAST	(TTM_PL_PRIV + 4)
+ 
+ #define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
+ #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 3abfa66d72a2..3e0a0ece9e7c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1089,7 +1089,8 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ }
+ 
+ static void amdgpu_vm_bo_get_memory(struct amdgpu_bo_va *bo_va,
+-				    struct amdgpu_mem_stats *stats)
++				    struct amdgpu_mem_stats *stats,
++				    unsigned int size)
+ {
+ 	struct amdgpu_vm *vm = bo_va->base.vm;
+ 	struct amdgpu_bo *bo = bo_va->base.bo;
+@@ -1105,34 +1106,35 @@ static void amdgpu_vm_bo_get_memory(struct amdgpu_bo_va *bo_va,
+ 	    !dma_resv_trylock(bo->tbo.base.resv))
+ 		return;
+ 
+-	amdgpu_bo_get_memory(bo, stats);
++	amdgpu_bo_get_memory(bo, stats, size);
+ 	if (!amdgpu_vm_is_bo_always_valid(vm, bo))
+ 		dma_resv_unlock(bo->tbo.base.resv);
+ }
+ 
+ void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
+-			  struct amdgpu_mem_stats *stats)
++			  struct amdgpu_mem_stats *stats,
++			  unsigned int size)
+ {
+ 	struct amdgpu_bo_va *bo_va, *tmp;
+ 
+ 	spin_lock(&vm->status_lock);
+ 	list_for_each_entry_safe(bo_va, tmp, &vm->idle, base.vm_status)
+-		amdgpu_vm_bo_get_memory(bo_va, stats);
++		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+ 
+ 	list_for_each_entry_safe(bo_va, tmp, &vm->evicted, base.vm_status)
+-		amdgpu_vm_bo_get_memory(bo_va, stats);
++		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+ 
+ 	list_for_each_entry_safe(bo_va, tmp, &vm->relocated, base.vm_status)
+-		amdgpu_vm_bo_get_memory(bo_va, stats);
++		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+ 
+ 	list_for_each_entry_safe(bo_va, tmp, &vm->moved, base.vm_status)
+-		amdgpu_vm_bo_get_memory(bo_va, stats);
++		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+ 
+ 	list_for_each_entry_safe(bo_va, tmp, &vm->invalidated, base.vm_status)
+-		amdgpu_vm_bo_get_memory(bo_va, stats);
++		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+ 
+ 	list_for_each_entry_safe(bo_va, tmp, &vm->done, base.vm_status)
+-		amdgpu_vm_bo_get_memory(bo_va, stats);
++		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+ 	spin_unlock(&vm->status_lock);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 312a408b80d3..478a158ae171 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -556,7 +556,8 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
+ void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
+ 				struct amdgpu_vm *vm);
+ void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
+-			  struct amdgpu_mem_stats *stats);
++			  struct amdgpu_mem_stats *stats,
++			  unsigned int size);
+ 
+ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		       struct amdgpu_bo_vm *vmbo, bool immediate);
 -- 
-With best wishes
-Dmitry
+2.44.0
+
