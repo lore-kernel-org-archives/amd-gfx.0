@@ -4,62 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CEDBC25B7C
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 May 2024 14:41:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEAA5C25B74
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 May 2024 14:41:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC0D510ECA6;
-	Tue, 21 May 2024 14:41:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7007510ECBD;
+	Tue, 21 May 2024 14:41:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="17LilefB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fZGwgU63";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2084.outbound.protection.outlook.com [40.107.94.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1C1D10EC96
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 May 2024 14:41:42 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2086.outbound.protection.outlook.com [40.107.92.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAFDB10ED0A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 May 2024 14:41:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y9LuOhasQqzdKrmr7/P171p5OOc01Amb9EZDHt2Oq/nMN3oCjwSx77rUs3ycrK4WL/VYBewbXS3Z69bvnJiCunT3JKYXvG12cRzhu05AkBTc84To/1y9yJA+7ANz+9mHiEPQi2Oa7j0ehZRJc/u32hdCiyqp5sZVfWIyAwKkVUyV71piio5CccpPRVpOhMXnaL5SQPoyj95bOFidQDJq67VvpZBq2D5LAKkoNY1NK7VlAUtuhncppvMT1WEUKDYDxp414sOp2Ky07JCyOCMJPeXitFblmAHzOqy4rsOmmf1Uje+V+h3JsLE+zPjdZCNyqj5s6X8h5JTzHjSr0JyKHA==
+ b=ERUGX4/krztgZkjQDfqCsExpkCGh6M7UEl2OGOmcU7yx2S8BWgnCQeiAnxfxBekXMrv1L6Qcl45+E2xi+OgOGARSjPFBxYb4QH22E3KNm1+FZD3+geG6ztHPm6mjIgGow5YSTM97z6nV71q26a8ePNyrAIcYDMC2EBF1U9BwqJbTBThKpc3AD7mPROYXfo0cJlLUNGAC9rcA71gowdy7L7dpjvY+mNVUr1lqsYVVYlzn6eC8EF1+ONJFe+f1sxrkTYVk14YSF5Te6d1w27e4YRrbPEUSablEIuLE35vBDQUl6Ri2ZMicni08oklN2bxbPEHABfSJY4oqsS7CrYPkJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UzqemZy20FD5wJGeUwA+j7AzyL6mYgOU8ApMJflyzrQ=;
- b=PHQLhHnlEgLTMuF/Ro9q3xZ39wUUh4zPV5Y9X2jNtVvysmoXe2f869JoxnaotSjNPGPhOzv+ST2GdGBEAfBDfHc0Bd0OxDvf1g7hqyQ7Ryg/XQbxL+nxisS2LyYFN/2oCeGd7z2RNGOkC1bRYf/5CKcqMDqVvNq1sMtveKA0ibSdP/9tch7r6PDQRJ9uMge7tEptRdIfoZKOmQcAOKj7RhMwxxLwO9tH6/V/tLOpJTnFG6ShWr7Ju29LxD/GVGJN1V/YUPxOIsoV4yNych/H8Y37foMJiK5YPYqfISj9eM4+vo/9TRamPuhFqMYRFII1X008o6fP9LGy6KeiSDudzg==
+ bh=cjv8a3UKKjoaUKcvWIkSO9iZ5M6KdGzjgL5fspkBbNA=;
+ b=JeZRFRLm7EO8X4VLV3lddB+799F05O2M0/43wAYC/yw9HAfvYY6OOjOdoPyUfC2gV/x9bJyuCArlcbhtb1NsNfal5SInS00axtdpr1xZs2RxV1VDLXWZ8DzitxMraeHvtvrctw/xCeMyI3nCY6U280cVuFwBTg+3z/nv5KJaCSau4V+8A5g6cMqK4FeWNDnpHyfdSQ1zmva6/aMWbbbxtuA/iY0ZiPOT2+VfjLAw10Sv4D8QBK1UwnP3nTCoVg0w22xQn1RXUlWjCZ22O6+RXarBLZjTThjZUvUo2mnjGChnRuQDBFNoGmU4lJol5nP92UKhnqwFnpSs4PCih5ANdw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UzqemZy20FD5wJGeUwA+j7AzyL6mYgOU8ApMJflyzrQ=;
- b=17LilefB31RnXb2GXRMkRB6H4q3P5CY9ETJTHBqmDBCvxGC2gd0PfbXPBoJBFWRC6uAIYWVglxR6JzWy4F6KentMkMkmvy5h4eI1hK03T/RnyoO31RvE5kfJNEHe8pyqbmDbnE4CPliZYs1R1bRuOHvnlaWQhFY/ducfcGc7CVU=
+ bh=cjv8a3UKKjoaUKcvWIkSO9iZ5M6KdGzjgL5fspkBbNA=;
+ b=fZGwgU63nIW0mcpK2JC+NHho9b7gYzK95VY362Oo8gCX/eHtOr47XL/37fKvN3VILxOm9psEUd1yvSa5kz2Aqu5zwDEF+ERrt6DSUP5YRhB1VxBNJDCvKAnrWxmr9ddbd1JynQjuVXgAFhDA4G3BTJJPwcpkEwhNWoEY8P72UcM=
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by CH0PR12MB8505.namprd12.prod.outlook.com (2603:10b6:610:193::21)
+ by IA0PR12MB8227.namprd12.prod.outlook.com (2603:10b6:208:406::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.36; Tue, 21 May
- 2024 14:41:40 +0000
+ 2024 14:41:51 +0000
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::491a:cce3:e531:3c42%7]) with mapi id 15.20.7587.035; Tue, 21 May 2024
- 14:41:40 +0000
+ 14:41:51 +0000
 From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 CC: "Koenig, Christian" <Christian.Koenig@amd.com>, "Huang, Tim"
  <Tim.Huang@amd.com>
-Subject: Re: [PATCH 2/4 V2] drm/amd/pm: fix unsigned value asic_type compared
- against
-Thread-Topic: [PATCH 2/4 V2] drm/amd/pm: fix unsigned value asic_type compared
- against
-Thread-Index: AQHaq07c7O8UaKFc4Ey/L2ke2UoewLGhwydX
-Date: Tue, 21 May 2024 14:41:40 +0000
-Message-ID: <BL1PR12MB514403D43F0B109825E335D2F7EA2@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20240521071644.371330-1-jesse.zhang@amd.com>
-In-Reply-To: <20240521071644.371330-1-jesse.zhang@amd.com>
+Subject: Re: [PATCH 3/4 V3] drm/amdgpu: fix invadate operation for pg_flags
+Thread-Topic: [PATCH 3/4 V3] drm/amdgpu: fix invadate operation for pg_flags
+Thread-Index: AQHaq07vBetw8X7DWEWSrjyKe3257bGhw2eq
+Date: Tue, 21 May 2024 14:41:51 +0000
+Message-ID: <BL1PR12MB5144A85B9AC5EC30E61F3DDDF7EA2@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20240521071715.371468-1-jesse.zhang@amd.com>
+In-Reply-To: <20240521071715.371468-1-jesse.zhang@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-05-21T14:41:39.778Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-05-21T14:41:51.618Z;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
  Internal Distribution
  Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
@@ -67,78 +65,78 @@ msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|CH0PR12MB8505:EE_
-x-ms-office365-filtering-correlation-id: bcfd803d-70d8-408a-c35e-08dc79a42030
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|IA0PR12MB8227:EE_
+x-ms-office365-filtering-correlation-id: d3ca577d-608c-4fcd-1ddb-08dc79a42734
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230031|1800799015|366007|376005|38070700009;
-x-microsoft-antispam-message-info: =?us-ascii?Q?RYusebzhkVEOB3qpqI4oZYwBO+87iFEnoEj5CK/bf0n93dW5FkHpZ1edxXnx?=
- =?us-ascii?Q?j2vMn/OXXlbq6JPHWbw/K2O2ZMzXdOQde8FFl9xl7JPusBDoKftdzb30tNRL?=
- =?us-ascii?Q?ZQWJL5ogWgwIurRd7IDqSRgk4Tm81JH1rvL30es1mP4IWOqI0EB+CCXhoy7I?=
- =?us-ascii?Q?fjaKxHiUKTczGtbhuHDnsIhQnv7pNkcwVQlr9IxnK6l8CuRcXQxl41+tQS4f?=
- =?us-ascii?Q?USAVPOEcEKUNEEkgk8QnIDEH1NxuVs9ni4qlKSQMF+0hrxl07o9M9TytbVJ/?=
- =?us-ascii?Q?Cr/rXdZxPk0NexBur47Z57u35NXiBwi6Clt9vplFkvzaZOXV+ll7V8YP4+mO?=
- =?us-ascii?Q?WtyDVHeAZND60CLk/44pBm78VUmxPflK11Edb5GFv5dTSQ+mh6vrUZB7W2Du?=
- =?us-ascii?Q?zu5XTHiH2Ij58nndk/A0+g/cjwfkoRXoCrYA9UmzcldIMl67fKxwKuLm0g/g?=
- =?us-ascii?Q?A5mnv6VjHwcniPPyCKejaQbJXHqClcpbo1g/J8ia0IjdJ/PLuJSjx8xdXKtc?=
- =?us-ascii?Q?z9tOncF5DsxT3/B8QrdfGidAI8bk8O6AosrVmdmy7OKWl1GXH7fpKdadPITF?=
- =?us-ascii?Q?lE8KSoFwXlMiYXw0sCHA4LcJvgILT5kpkLMlqrrrp6pRAVxJBdydNJ4/0M1f?=
- =?us-ascii?Q?2thovuyxFwk1EYBlj9a7fIM82YPbZOzBTVT5Hr5w6cds7r5VDd+4Um2GiK26?=
- =?us-ascii?Q?uEL6PTPPjhDW8woI1ot3JVgDQFwwAf+IxmKTUIdHiNMc7A7hCnzNyxV4J1zz?=
- =?us-ascii?Q?CNLL87Ttj7KJDJGFRjEm/d3GvZpfjdJsyXJSgqDHo9qlQnYmGpYuyD+/ZJFZ?=
- =?us-ascii?Q?QOySJo7vWw4oXWfRfBf93fwUcdx48Lg6lZEJNNiDJxgX4aPGmIED9hTC58P/?=
- =?us-ascii?Q?OjGXfUU5BvVdRrv+IRy6fn8x5Fp8124lMj64nR/Vnn9hVdegNUfMCL5mk/wn?=
- =?us-ascii?Q?Zj7uPlHbfqsh1fSsBxAOHiONRQnlh6YdjaeYM+5Zs3tcr5eidUx5ThvUQ6OL?=
- =?us-ascii?Q?n1/7ELy7ZFFSIomjt0h7ZIlkWk4vOwy5+e05pWRXIAZMyCAKBYa/IAZ4IbJy?=
- =?us-ascii?Q?tJjUtfPKJxzIV32aEJAIcb1ZRYYVgdQX+j2h9VbBFtxAowlzzeMbjFci8XKt?=
- =?us-ascii?Q?70HtqYaj4SbZJAN/RIPGaZ3yCbZiHb2BiaVq2hU3zBHBr6jP9lqZaQ+aJ1Vj?=
- =?us-ascii?Q?ucjNnO3MbxxkbXkKYzIFHqLXspszj1OgzF+LTIFsoSDd/bLp8+Dih00z4lf2?=
- =?us-ascii?Q?l9dbKwXHigCUTqXP1jvgmqAz0mzOK7zHcZeQNIBP/qlRnX1bUsWezbjC1zN2?=
- =?us-ascii?Q?bZV9G8FVdz3Ixk6QzmbT8v4q?=
+x-microsoft-antispam: BCL:0; ARA:13230031|376005|366007|1800799015|38070700009;
+x-microsoft-antispam-message-info: =?us-ascii?Q?D/xYG45+cwxskRTvtoqhlztxjBcDKXoPslif5BW3vlVUcDx505AoM3ve2gI2?=
+ =?us-ascii?Q?dB0fy7gKw9NSwams2Cu7950jElvN5hHUnxyjtwhCpldmerdp2fVXZ9Q+FD4E?=
+ =?us-ascii?Q?akLIwzAmvtd3iKs69eor7jEC613jxXT0KsglT2O5Hh5TxKNQdJ1t8Hk4C0j/?=
+ =?us-ascii?Q?xPLnlhsszzflwIE/Gf8vtZVt8Y/jqTJHe/KIx1jfuSH1gomCT0rL3GVG+y5C?=
+ =?us-ascii?Q?aWuh+m/nIp84vMT7pc8Xj7hM2Za/55Yi+vcAWZp0g+XI1TSC/DI9sHMMB6u9?=
+ =?us-ascii?Q?l3CiG70l4hAq3P6KjjpoZOMZ6Rfmtm60oEzs4a7eJa1Rs33D44jEOCh8BWGx?=
+ =?us-ascii?Q?0qCEc2kH6yUSRLBNSAp2jcdTc78uCIpzvaVdOdyxlfZMVSg40LwwFEZgLYKV?=
+ =?us-ascii?Q?LvgEF2pE2PhEzs2xENXE1I9cuFPGsCIgrxyxeKXPQ7m3PH88YrJ1Y+RFKcAV?=
+ =?us-ascii?Q?HweTD6v9RExIbSqBPQgE9ZkApB13lHJjuJU899So2tz7VK3WTn1CRiPBHE/g?=
+ =?us-ascii?Q?KHtCk5PQt5Ogt8V2IBSMTrk6yNxGDKkIKkIni/Q7MTUdaKcaFuQC1tjJJnvv?=
+ =?us-ascii?Q?5mNWQEiT5y2GrkenGruFbLXhuP6LUUJdLSE73Dqf2vpVLLprGLDdJfmuHrHU?=
+ =?us-ascii?Q?2wBd67Waf1k1l+m3ZcVxkn+z1oR9j2WI/AU3QSczIACFkvd5s6f2YWaaXFrM?=
+ =?us-ascii?Q?L1MaC4NqfWGoVWOcuFmvVAg/4ZfceIT5qf/sR6CX6wuUdzO9W6rkeEO3DNdA?=
+ =?us-ascii?Q?oQTh8dmT5YhmFwzJVghnujhJjXm8fYtin60YKvWpouqwD7odN5w1eNBwgdDi?=
+ =?us-ascii?Q?RRDPoAAihlJ3Vazo6ogRGTjbI0ps6gv5aFCqg8MJ5I8H6SIzffT1Hs547sov?=
+ =?us-ascii?Q?hr7LJYNkLxMm8AhrAvyqGc26EGPvKkyB1LgrgAazYstTTrRvc84D+zXcmke3?=
+ =?us-ascii?Q?Mli3atULHhJ8DTiPm+s6XFSyNCOZW5UAxcEfihzuE9X+vSLUghCco/HyHjbl?=
+ =?us-ascii?Q?iyl+HP3CMMlOZMP/VbC7ZcwzZonTJVFnLCe5yD8LD7svjzo4EDIriOwcU3s5?=
+ =?us-ascii?Q?HMwiKTmMP/JKk91U4Wl+TSCQNdOAO9wphXKXanahcfftI0eEatYWXz+W1lKN?=
+ =?us-ascii?Q?RKb0yMgniqE85HlJJcOC+I2LdqnDq9iJaEvFs8NV6RzHxrUFNDaN842Ueynf?=
+ =?us-ascii?Q?asJD7fe8bFI9hxBIRc3oydAcmwmJ8GCSUIb5sZ0olvSkLbrxunKctQfH0IYk?=
+ =?us-ascii?Q?1pU72O5h4GZ1xwmvP9HwSPbH1nJg6m1iUfdvlmRFJ/LBfKoKRyhY8KiYEw0S?=
+ =?us-ascii?Q?Dml3GHwHe6hpakpvwFZcTP7tQjTG+iYySSsxcjbAs/FvRg=3D=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(366007)(376005)(38070700009); DIR:OUT; SFP:1101; 
+ SFS:(13230031)(376005)(366007)(1800799015)(38070700009); DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kXyzH4DKBm+irNZhhXH/VhJQ/21TJoU75lvMhTB2z/CLkOUACHhmCMeAk9B+?=
- =?us-ascii?Q?0lo2ePGyzWe5yMrZlBqbsEwrjoYGbGq5eNkjsSZIi5plg60KpNoKuBQ3rIeq?=
- =?us-ascii?Q?oXwiaJhGW42UL4FSxBtqp/EHSlGzkVU35V98o17n8pkYaxRsXyeRUvSdOw/8?=
- =?us-ascii?Q?HDWjyJLGs+oqKfLde36ONZr5RP2GBF3NM7zIS6ObLmrOT5TzfZM9lgV/wvap?=
- =?us-ascii?Q?XdMS/ukG9Cv4y2gFAlTzkzeJ9aPRvEJ8wd0bdciZtpJXtlymLwZG8L7ZN1Rb?=
- =?us-ascii?Q?FcDF1yLFO+Utx+hAn80vZ7TxMKDxuEC31QzHgW3nBi7uzPV2MV5Wph1qiGyd?=
- =?us-ascii?Q?1MZG6thJMj5E3UKbUDVf0h6+mIgcMrlwZILuLCHuLJ7xS409Lf172o/JB9jj?=
- =?us-ascii?Q?cocf4SXKrP7guOcl4FHdYz4K8eBk/fc1rbBsdaSmoPJ8CpjWy1Z4sb1cvCpx?=
- =?us-ascii?Q?3uZ0JwM6E7wEx8XyBgByc81KlfKSGSipWj4i5Eq9eyolkZnKEAsLbWqFmflO?=
- =?us-ascii?Q?sE4TAupjPtXKbdVmjpv/F+TyjfmUJ3Ebb2Z1eT6vRRUbNALBB3ryxVwvjRGn?=
- =?us-ascii?Q?/pBhet8/chIPtLHaJ+xMCXKyZB6yZtVkrn4soF380xtJLyA8uphn4Lgrxoh/?=
- =?us-ascii?Q?yBRXmvpZyeYPbrLVKDtIBAh6vC3M2z7h+mzzDrB2p42d+RX29dgf3XfPhXPs?=
- =?us-ascii?Q?LbF1E7ulH2nyTf2aP2NsZr9nKLU6sPaODCDAooSTAmTjMSsFe6/CAoX1Aid2?=
- =?us-ascii?Q?M6ZsQRsGpGD9LC0cOlrbW7GpiY72B/JDL6PHFH54M1GAmBRpAkmnQT6mjgNZ?=
- =?us-ascii?Q?HCtvB2dwUBTUU5oMb3dCi3+bJobR0gzX30yDjOyHTIc2VReLl/Dj9ZCrWJWs?=
- =?us-ascii?Q?WNKw0e8V/kLXk7xSzPPVPXxff1/VFsQQz6xQ3p0a4WE3GoZPyuRWNDAYGuJV?=
- =?us-ascii?Q?tNwR+651jR0x29nVMlVWGnAWfCZTLhZpSE0vAZxlDHEUxsIVP3m0cnaBFk9j?=
- =?us-ascii?Q?rXeMrPoWQqsKEOBYTVA/XjYeSi/wPS+mqZdQZ2P1t0aGcP/kCsuvkdh7fES0?=
- =?us-ascii?Q?2KGZAfTkAA5/yMpqEg7eQzhTb6psJCsP5qS79lvIs5pxj2RGG9NPEepE+PhO?=
- =?us-ascii?Q?CDe5KTvlQk8riqLNeZxXEllUMARJoV5iTzISREJCx0uHKiRco5ScYd3H139D?=
- =?us-ascii?Q?25+3thAHQhHjZARbQzfcafSQFmjRWdtuSypVgLOtyFxcsDB7PgbzJ4s3nQUb?=
- =?us-ascii?Q?ADDM6sulGUuCGRI4eGBKSQkCjqznuXgU+/l4K1rmEiieHtjM7ZnK0ZiUbN0l?=
- =?us-ascii?Q?woXtjG77xK8d9XFH3lQPzZAR6gR1pwrKXqFL+/stvQ4hpbKAR4decHMqAJDi?=
- =?us-ascii?Q?A9P8Bd7RZzf17HSFZhMGLXLZx2xaYcfXV5Cq0crUXrnRsTpZvqX+I4F3Jc6Q?=
- =?us-ascii?Q?Q0I200D0Z2P1W0hVoe+2HF5Z/OAlF3SzVj1L9VoJnnbRM0rrhevyIKLCPNLY?=
- =?us-ascii?Q?RuBLQnrFsB8cYsPPMnsWU+jcHzQtFUP+D3sm2TCvL5Wpmd6HVuf/W1JLPuSW?=
- =?us-ascii?Q?wu9EWBMOv2JgHIvg+Q0=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?pY5G88d0ojPK320ekClSAAGuWgyKn6kuiyPy73q6wuKtNQpi1bYKmg5VrIab?=
+ =?us-ascii?Q?lTau996anM4iNoJmfpBGSmzFK26Dj9Ad35z3pqGG/0HHlmI9NkpfVGZNCBsh?=
+ =?us-ascii?Q?PyDOC7BQfjKU5vlDlO1rC9kJPZYDUTso3lhoFqpyYLT1tqH4JS9xAXWY3npe?=
+ =?us-ascii?Q?1fkrpAaqx+V3Ch95Bqiz7hxzHnwVpSe/2HrgypHv04YFzrOQf6/G8CNoBuuS?=
+ =?us-ascii?Q?MLoqsse2H0jWGGkZMBaAGJ4bQsgGn/m3aoDfK1IDgphQVnNzJIthR3zYHoiJ?=
+ =?us-ascii?Q?7SyTkuDKMssgi1SqVp/8u/LXpxXLebq/Dr/nxUQit4aW9LcaK/2ypFJTPY0c?=
+ =?us-ascii?Q?OEppNnybZexOtEBBtrifoUpze/IzdsoLJnmta0zEek41V2kHcvZWiGT+KBc4?=
+ =?us-ascii?Q?agi7vzFYoisRTLb1GQ5IRkX2TuoyqSAfJeK8jCTYmQeTIcjyJpD1feDlg3TZ?=
+ =?us-ascii?Q?wbbE9QV434ZBo/gM4/zeE/a9lFnRSMsulYoU476jbtBaDWsbf8yPn4TmswPi?=
+ =?us-ascii?Q?1J6uq4LzRkuNyERX3SPyeRB2ZtDhBsKT69W6MzwSS8Nym4H1yYM1m7e2EFQN?=
+ =?us-ascii?Q?e4KnvWBNx2tvtKiHRsOjCHgqpfhqgWJ/f9G3zuX8FSF7AXB/h3gO1KNUKG9g?=
+ =?us-ascii?Q?ry702MubyTCXKYBNe77vr8vOwwRqWm/FhKuUxhXbEZyvcDHjXyQbbDRLVcYr?=
+ =?us-ascii?Q?4y+wHe3FSCTTnDkN6McRWn2P/3aC7j08YuM7t59GXIDGzDYE6DTmtBR8zfap?=
+ =?us-ascii?Q?1zxINnHYKwsYxZMumrVcJnzzMvSVVIrRZQwzWyG6/Y7vxjZ81BIqWth/avOm?=
+ =?us-ascii?Q?czmggwSjvBRQFvnw/WeV8CiQ9MAaWfdJo7aMKngQeytueUkJuSwotgaVS0m4?=
+ =?us-ascii?Q?dpQreMzvrBspLRhIlPbZZbaT3T1oxCUrenoTlqAFX6icWqGro/nhCTHnUchk?=
+ =?us-ascii?Q?bhjnSf8rYisz++9lVA3YeObTKqhttCX1bPNsKAkA/GNkxxCHEdItUMgSYpID?=
+ =?us-ascii?Q?pzLYAkpttzHrPnfuwXKK9VGTxzZkwA53ZELHrdM3gle+4EjEU+OemEt2uVkb?=
+ =?us-ascii?Q?btq9mKAeeRk1Sxb/cF5ZOEZXFge5fXKOilHzOJZhVUmkC9Qlanjqdw+EV6XC?=
+ =?us-ascii?Q?fqG5oBIEDZHMba0MAZddjB0C5TAO565gg/cnBgDh/0tTP+yQmnxuusRUWW8D?=
+ =?us-ascii?Q?C+3nxuh85HidNotbICLtfyLDlvi6zKFS/3cYlo7esj8FFlS5lrh1smYY9+8y?=
+ =?us-ascii?Q?T6tt2Jeq7sSTNckkngEgb/TKwG+EBKgUH4JFB8RwWQ61iCJQVVEMyiroOoQD?=
+ =?us-ascii?Q?go7VS4pTFJrTG2bHX0Pp8gMFI9frmCaBjcc7xyLyMaiJpoe7loiRFOMGyYYt?=
+ =?us-ascii?Q?aFa5fnUzvl1cNjkYTdZ6sbXK8agiQMeGn8gjAhIxtk3hs6vN7S+yhT2lbu0P?=
+ =?us-ascii?Q?4vsHFm4Nb+UkuEIOcjyGQwKeAasGSKTojP+I9W+88h76OpMJlU7gFQRtfWsI?=
+ =?us-ascii?Q?EWzN6aJStZq63eg8SL+/D5+X8xTwn3UDL44sQhf7FYPqEOhvQUrDeODwuqMf?=
+ =?us-ascii?Q?yTF84pGO+HIF97WqnYw=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB514403D43F0B109825E335D2F7EA2BL1PR12MB5144namp_"
+ boundary="_000_BL1PR12MB5144A85B9AC5EC30E61F3DDDF7EA2BL1PR12MB5144namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bcfd803d-70d8-408a-c35e-08dc79a42030
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2024 14:41:40.1099 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3ca577d-608c-4fcd-1ddb-08dc79a42734
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2024 14:41:51.8897 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: os2hwV0ipMuE4FGfLm9je2v3irpE4XJUoIVCif85W2gRVLLEHfP2hLkIy6zRrm+NW1vfj7BmfkGuGElodjm6eg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8505
+X-MS-Exchange-CrossTenant-userprincipalname: g5EU9r8vbIEW9t6Nv8qLUpueKHt1URIlk/3gbHGgVRGl211oe1jk8Q66pjOSw3eA6gCdMB1LrYE5zhZZlUvExA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8227
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,7 +151,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB514403D43F0B109825E335D2F7EA2BL1PR12MB5144namp_
+--_000_BL1PR12MB5144A85B9AC5EC30E61F3DDDF7EA2BL1PR12MB5144namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -162,53 +160,54 @@ Content-Transfer-Encoding: quoted-printable
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ________________________________
 From: Jesse Zhang <jesse.zhang@amd.com>
-Sent: Tuesday, May 21, 2024 3:16 AM
+Sent: Tuesday, May 21, 2024 3:17 AM
 To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
 Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
 stian.Koenig@amd.com>; Huang, Tim <Tim.Huang@amd.com>; Zhang, Jesse(Jie) <J=
 esse.Zhang@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
-Subject: [PATCH 2/4 V2] drm/amd/pm: fix unsigned value asic_type compared a=
-gainst
+Subject: [PATCH 3/4 V3] drm/amdgpu: fix invadate operation for pg_flags
 
-Enum asic_type always greater than or equal CHIP_TAHITI.
+Since the type of pg_flags is u32, adev->pg_flags >> 16 >> 16 is 0
+regardless of the values of its operands.
+
+So removing the operations upper_32_bits and lower_32_bits.
 
 Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 Suggested-by: Tim Huang <Tim.Huang@amd.com>
 ---
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/a=
-md/pm/legacy-dpm/si_dpm.c
-index f245fc0bc6d3..68ac01a8bc3a 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-@@ -7928,12 +7928,8 @@ static void si_dpm_print_power_state(void *handle,
-         DRM_INFO("\tuvd    vclk: %d dclk: %d\n", rps->vclk, rps->dclk);
-         for (i =3D 0; i < ps->performance_level_count; i++) {
-                 pl =3D &ps->performance_levels[i];
--               if (adev->asic_type >=3D CHIP_TAHITI)
--                       DRM_INFO("\t\tpower level %d    sclk: %u mclk: %u v=
-ddc: %u vddci: %u pcie gen: %u\n",
--                                i, pl->sclk, pl->mclk, pl->vddc, pl->vddci=
-, pl->pcie_gen + 1);
--               else
--                       DRM_INFO("\t\tpower level %d    sclk: %u mclk: %u v=
-ddc: %u vddci: %u\n",
--                                i, pl->sclk, pl->mclk, pl->vddc, pl->vddci=
-);
-+               DRM_INFO("\t\tpower level %d    sclk: %u mclk: %u vddc: %u =
-vddci: %u pcie gen: %u\n",
-+                        i, pl->sclk, pl->mclk, pl->vddc, pl->vddci, pl->pc=
-ie_gen + 1);
-         }
-         amdgpu_dpm_print_ps_status(adev, rps);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_debugfs.c
+index ac0ba8b8c1aa..0e1a11b6b989 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -918,7 +918,7 @@ static ssize_t amdgpu_debugfs_gca_config_read(struct fi=
+le *f, char __user *buf,
+
+         /* rev=3D=3D1 */
+         config[no_regs++] =3D adev->rev_id;
+-       config[no_regs++] =3D lower_32_bits(adev->pg_flags);
++       config[no_regs++] =3D adev->pg_flags;
+         config[no_regs++] =3D lower_32_bits(adev->cg_flags);
+
+         /* rev=3D=3D2 */
+@@ -935,7 +935,7 @@ static ssize_t amdgpu_debugfs_gca_config_read(struct fi=
+le *f, char __user *buf,
+         config[no_regs++] =3D adev->flags & AMD_IS_APU ? 1 : 0;
+
+         /* rev=3D=3D5 PG/CG flag upper 32bit */
+-       config[no_regs++] =3D upper_32_bits(adev->pg_flags);
++       config[no_regs++] =3D 0;
+         config[no_regs++] =3D upper_32_bits(adev->cg_flags);
+
+         while (size && (*pos < no_regs * 4)) {
 --
 2.25.1
 
 
---_000_BL1PR12MB514403D43F0B109825E335D2F7EA2BL1PR12MB5144namp_
+--_000_BL1PR12MB5144A85B9AC5EC30E61F3DDDF7EA2BL1PR12MB5144namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -235,71 +234,65 @@ Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</div>
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
 yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Jesse Zhang &lt;jesse=
 .zhang@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, May 21, 2024 3:16 AM<br>
+<b>Sent:</b> Tuesday, May 21, 2024 3:17 AM<br>
 <b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
 gt;<br>
 <b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
 ristian &lt;Christian.Koenig@amd.com&gt;; Huang, Tim &lt;Tim.Huang@amd.com&=
 gt;; Zhang, Jesse(Jie) &lt;Jesse.Zhang@amd.com&gt;; Zhang, Jesse(Jie) &lt;J=
 esse.Zhang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 2/4 V2] drm/amd/pm: fix unsigned value asic_type com=
-pared against</font>
+<b>Subject:</b> [PATCH 3/4 V3] drm/amdgpu: fix invadate operation for pg_fl=
+ags</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">Enum asic_type always greater than or equal CHIP_T=
-AHITI.<br>
+<div class=3D"PlainText">Since the type of pg_flags is u32, adev-&gt;pg_fla=
+gs &gt;&gt; 16 &gt;&gt; 16 is 0<br>
+regardless of the values of its operands.<br>
+<br>
+So removing the operations upper_32_bits and lower_32_bits.<br>
 <br>
 Signed-off-by: Jesse Zhang &lt;Jesse.Zhang@amd.com&gt;<br>
 Suggested-by: Tim Huang &lt;Tim.Huang@amd.com&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 8 ++------<br>
-&nbsp;1 file changed, 2 insertions(+), 6 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 4 ++--<br>
+&nbsp;1 file changed, 2 insertions(+), 2 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/a=
-md/pm/legacy-dpm/si_dpm.c<br>
-index f245fc0bc6d3..68ac01a8bc3a 100644<br>
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c<br>
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c<br>
-@@ -7928,12 +7928,8 @@ static void si_dpm_print_power_state(void *handle,<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;\tuvd&nbsp;=
-&nbsp;&nbsp; vclk: %d dclk: %d\n&quot;, rps-&gt;vclk, rps-&gt;dclk);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; ps-&g=
-t;performance_level_count; i++) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; pl =3D &amp;ps-&gt;performance_levels[i];<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (adev-&gt;asic_type &gt;=3D CHIP_TAHITI)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;\=
-t\tpower level %d&nbsp;&nbsp;&nbsp; sclk: %u mclk: %u vddc: %u vddci: %u pc=
-ie gen: %u\n&quot;,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i, pl-&gt;sclk, pl-&gt;mclk, pl-&gt;v=
-ddc, pl-&gt;vddci, pl-&gt;pcie_gen + 1);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;\=
-t\tpower level %d&nbsp;&nbsp;&nbsp; sclk: %u mclk: %u vddc: %u vddci: %u\n&=
-quot;,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i, pl-&gt;sclk, pl-&gt;mclk, pl-&gt;v=
-ddc, pl-&gt;vddci);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; DRM_INFO(&quot;\t\tpower level %d&nbsp;&nbsp;&nbsp; sclk: %u mcl=
-k: %u vddc: %u vddci: %u pcie gen: %u\n&quot;,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i, pl-&gt;=
-sclk, pl-&gt;mclk, pl-&gt;vddc, pl-&gt;vddci, pl-&gt;pcie_gen + 1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_print_ps_status=
-(adev, rps);<br>
-&nbsp;}<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_debugfs.c<br>
+index ac0ba8b8c1aa..0e1a11b6b989 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
+@@ -918,7 +918,7 @@ static ssize_t amdgpu_debugfs_gca_config_read(struct fi=
+le *f, char __user *buf,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* rev=3D=3D1 */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config[no_regs++] =3D adev=
+-&gt;rev_id;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config[no_regs++] =3D lower_32_bits(a=
+dev-&gt;pg_flags);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config[no_regs++] =3D adev-&gt;pg_fla=
+gs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config[no_regs++] =3D lowe=
+r_32_bits(adev-&gt;cg_flags);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* rev=3D=3D2 */<br>
+@@ -935,7 +935,7 @@ static ssize_t amdgpu_debugfs_gca_config_read(struct fi=
+le *f, char __user *buf,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config[no_regs++] =3D adev=
+-&gt;flags &amp; AMD_IS_APU ? 1 : 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* rev=3D=3D5 PG/CG flag u=
+pper 32bit */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config[no_regs++] =3D upper_32_bits(a=
+dev-&gt;pg_flags);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config[no_regs++] =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config[no_regs++] =3D uppe=
+r_32_bits(adev-&gt;cg_flags);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (size &amp;&amp; (*p=
+os &lt; no_regs * 4)) {<br>
 -- <br>
 2.25.1<br>
 <br>
@@ -309,4 +302,4 @@ sclk, pl-&gt;mclk, pl-&gt;vddc, pl-&gt;vddci, pl-&gt;pcie_gen + 1);<br>
 </body>
 </html>
 
---_000_BL1PR12MB514403D43F0B109825E335D2F7EA2BL1PR12MB5144namp_--
+--_000_BL1PR12MB5144A85B9AC5EC30E61F3DDDF7EA2BL1PR12MB5144namp_--
