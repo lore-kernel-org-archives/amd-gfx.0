@@ -4,79 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21FE6C25B77
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2877C25B79
 	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 07:43:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FDA410EE00;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D920D10EE08;
 	Wed, 22 May 2024 07:43:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YMUyvqGh";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="Mh6pHEyl";
 	dkim-atps=neutral
-Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com
- [209.85.219.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE55A10E074;
- Tue, 21 May 2024 20:06:33 +0000 (UTC)
-Received: by mail-yb1-f175.google.com with SMTP id
- 3f1490d57ef6-df1ceefd864so15379276.0; 
- Tue, 21 May 2024 13:06:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1716321992; x=1716926792; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2MR5DjSv8xW5VPd+KWcp/T0DpzQM38Nn27tvEAji7BQ=;
- b=YMUyvqGhvYZ8MdCUV0BgG05LabkeDO0+ZJgBKkVHcZJ3SFIrANwOEUCzie4uBuygZ8
- UyrL5dre85Wg57/AGq+Oe09UNtLQjIiRIzMjK8ULaMc19GxhXWmpuPA2XTifhaq+YfJ7
- zTRIEfL6xV7ztwkjSXerFmbDw+LvjzzEj07hxd6owFxZuTAYCbX0Y1grkOyCfFrrNnXZ
- ARCkUJOn8SeAhrhDP7QLyc2azRruglMj3sqWPw6kMGebclAY8rFHIe7QtNznH1sksuF2
- KD0lHTN08IGDyQZhEMVpg/6ZYDazwTsAwffL0e471t+saIOgdA+Z9wz/Uc91KlmfhWmv
- 1T2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716321992; x=1716926792;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=2MR5DjSv8xW5VPd+KWcp/T0DpzQM38Nn27tvEAji7BQ=;
- b=b/kL3xsppGDxYWj7V48/5ZXS655EPjnFxPTzXRLS3LuC7WK0VWNsvMQpIlbgH3wy/Q
- AB+UHmRqzv4GEoAcrYKTNdW4ikc6ZkzoynQq64jzgJxA4zRVrFtxPcOOwpDiUKScIcHF
- RqlJXqlLjSEhLqaFb5D+KAcvMXj2gsbq89IYKp5EawJpQ+jYYUxoWscIeb4Ba8xtZgmn
- MMKzSBjVUXpTN2oPtXHJLsW4tKjOdrg0/trSuMbS58FkO3Hlx6w5OnqaYGnAFf8GmpK5
- TOvcv3NlkZqoMi0meBH516UV0Iv3DFvXchS58Gab9dD+AquqcT07zXx2MyWCgGRTm9MT
- LOIQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW0InXPpNioHqH2ZJaKS8oevHHQtexCIIWSy+DpfuWzcXy6m5FVdYjy5VyKwRsBtl062AOeuYOa+rQTXPzUFe7ILp68NPecUDaZtXRhtEJqqAe7uQUDUfIsTSuQZm6zZqHVpY8BqFmJhLWBVlePcA==
-X-Gm-Message-State: AOJu0YxJRO5IR6OCenRrwfKwVPxamoW+UNKcdvkNkMTk7XhAIERW42fa
- tKtksuZHPESHKzT0+MUpFaPwQCPOAO6F9KlfPcKS/Ww9lr0jAeOCLgoTFyBsgEbQZSjPbIVzpoM
- pyJsurV+ixMa4kQ9yhkRGMUNRYNA=
-X-Google-Smtp-Source: AGHT+IH9ydijh7ECa75vs0HHHE6Ew1epoA/bhjnzTRRSWClpr4GNuvnDgBkbRVrKvtoiMy0L/6EgqNr4XwkjbQ2Fz2Q=
-X-Received: by 2002:a05:6902:1587:b0:df4:8c19:1da6 with SMTP id
- 3f1490d57ef6-df4e0ebdadbmr106482276.6.1716321992557; Tue, 21 May 2024
- 13:06:32 -0700 (PDT)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B374310E166;
+ Tue, 21 May 2024 16:58:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1716310696; x=1716915496; i=w_armin@gmx.de;
+ bh=Ms/zIrzl5yOvhmDxuDCcGJGG49R0KscBWVcfdO7wNvk=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=Mh6pHEylfmRxvT/Cg/u1135aMbkKAOz6/SXuo5pbAEVkyrX+rdxopi/JkYTx4e1h
+ Obr6agwVQDeGV2YwCyfS9xFQIUuWFmXZb2/q6Ii9iG97BSXDp1H019ckPShlOF4Fk
+ D667NijcqkmPI5mGUNmG7qixChLyw9aM48HNSEIcBzzwT8kBeyj+2Z7xv9QYP0kJO
+ cB4EXrvaI+sHkfN7BHxDvb8/3rXpzxO9+i7/S7hWOhKAJIJAnnwcnXy3pjax3TTtV
+ 8iX5iYzNsti9mvZ1qPVthbT2ky3rBoYAaqkMsHgVYo2phD/VZaiTZvLSsbdpUBFfw
+ bPIJZoyl0Fzpik2ABg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [141.30.226.129] ([141.30.226.129]) by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1M2f9h-1s706h1dhH-000ujx; Tue, 21
+ May 2024 18:58:16 +0200
+Message-ID: <d04105ea-0f8a-4f0b-b4f2-bc8407d37c73@gmx.de>
+Date: Tue, 21 May 2024 18:58:15 +0200
 MIME-Version: 1.0
-References: <fa885eca-d7e6-415a-8a08-9103b002c6bb@amd.com>
- <20240521051140.30509-1-rinoandrejohnsen@gmail.com>
- <17782a6e-db84-4c20-874a-342b9655ffc5@amd.com>
-In-Reply-To: <17782a6e-db84-4c20-874a-342b9655ffc5@amd.com>
-From: =?UTF-8?Q?Rino_Andr=C3=A9_Johnsen?= <rinoandrejohnsen@gmail.com>
-Date: Tue, 21 May 2024 22:06:21 +0200
-Message-ID: <CAACkh=-B-jH6g7KY7Nn_7Y_+gHPQ7G5Z5AZ0=a=_ifjcmsorcw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/display: Add pixel encoding info to debugfs
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: alexander.deucher@amd.com, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Hersen Wu <hersenxs.wu@amd.com>, 
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Wayne Lin <wayne.lin@amd.com>, 
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Fangzhi Zuo <jerry.zuo@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, 
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: Kernel 5.15.150 black screen with AMD Raven/Picasso GPU
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Barry Kauler <bkauler@gmail.com>, Yifan Zhang <yifan1.zhang@amd.com>,
+ Prike Liang <Prike.Liang@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ amd-gfx@lists.freedesktop.org
+References: <CABWT5yiejGABNXicsS7u-daKnBBjK6YTDVgaQOqwGYn8P20D8Q@mail.gmail.com>
+ <6580c2d4-b084-470f-80a0-aa09f1ab880d@gmx.de>
+ <CABWT5yiD110qmJcRsoGVMevULAVmYpyiW4w9MtmNjp7E0rDQ8A@mail.gmail.com>
+ <CABWT5yg5jG7eMiDp7QN2yhFj6983qF9zN7eHOprH4eEjwQJLBQ@mail.gmail.com>
+ <c3205455-7ad2-487e-8954-52102754e154@gmx.de>
+ <CADnq5_PM_FuBE4913Z4bxiMTDYtRS+VJgLW6gfDU1qnQQ=FDzA@mail.gmail.com>
+Content-Language: en-US
+From: Armin Wolf <W_Armin@gmx.de>
+In-Reply-To: <CADnq5_PM_FuBE4913Z4bxiMTDYtRS+VJgLW6gfDU1qnQQ=FDzA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 22 May 2024 07:42:58 +0000
+X-Provags-ID: V03:K1:riRQ/6nrB6lhMVdgxf1lnHLHTuUmXaNQAX3pjgP/QZ+UB+aV0H5
+ mgGIG+fKsRHLPTRUSaBugCSonrzkmUlznFv8DuKBWPMQFKn/8e68as48f4Sd0gdUZSeUa6u
+ R4blnANdgX/MMf7sPJ9M1PGJVVwG2uoTXgGrOcmkncBWy3bjGevL7Ql3dIpp4nAk+tCPcw1
+ h1PuH52exPOzkDLbo6wHg==
+UI-OutboundReport: notjunk:1;M01:P0:4woLhGxGYg8=;r+egAWGT7cVzDmKL0ggim2QRhXt
+ 98XeZBQUD5ipQUENX3oSNqRGeIppynHxs8/AkbgfXCLEK5aHZuYUpsTA02s+2XZaaQylVyrDN
+ U6KXeQHOKGHjOOyE1Je9AYx9LMO/727fONehxC3ziqUTacgnJFoCURxK3+ofeaT2LkUiUIFmC
+ fA1nGXXPmag2y3wY+yor+T6NHrjcdHeQ+HI+jZt/UymjJviGZR73UKqx6fxjLG58Jb7kN4ZbR
+ 1WyRn0UKIxeKCr/R6h8vnZvHWpdIE1PdDDnRdHXfXghdAN8I3oT46q0BBka4jd5cx0i9oidKn
+ HwYUXo5Lc/0o0xSx10hjcxDpZ3EgFgd+ceId6tAvQ5nMxykvNmRlUJL3HK3X2AaOzskAhQNvd
+ Z55esP5F89n9GbWxz+1TzC6+00aBV3dHNg9tGht9fhnNHO9I+adrhILuq3OzHJNnKWTrRDYUw
+ vubDg5NVLIYZHvO0dczpoCrnQD6nPGhWgasvUF7f7se/XdcVi6gK9OxS9LLFUUbzem6buWhXp
+ 5BMTlCY8Gf8DUSH0rphJvQ/yNmUhJl+FhW46TbseUBJGwHbI0jv0U7lvGRWI64nB7s+Ll5pY3
+ m7Nd1lTfJc5JaMkzYhN/9Rzp0IQ2/zdux8TS02+rC8tn77utQeSM1KtwHJlcp1ZFtbioJx2dl
+ 2bf4d6ZCbarBkClwqsv+dXbPCHl6Fa2BrY4dd4mr+Px2BgK+P5Cw18ufZthUga2ujhwoupblZ
+ zkRIYLBXSarYS/b4jGhEsviJPsyEGhMuuNgOhRRTItIYYe4Q4XNRlIWLJqqhn64uzQuWDJTow
+ a7+hpSWFHAjilSN9G/c7mJJ9flPawWEaVKTUR27IlScBc=
+X-Mailman-Approved-At: Wed, 22 May 2024 07:42:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,119 +86,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-What is already there in debugfs is 'bpc' and 'colorspace', but not
-the pixel encoding/format.
-I have searched high and low for that to be able to verify that my
-monitor and computer are using my preferred combination of all those
-three values.
+Am 20.05.24 um 18:22 schrieb Alex Deucher:
 
-I do think it should be available as a standard DRM CRTC property, but
-for the time being, I figured that a simple debugfs property would be
-sufficient for time being.
+> On Sat, May 18, 2024 at 8:17=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wrot=
+e:
+>> Am 17.05.24 um 03:30 schrieb Barry Kauler:
+>>
+>>> Armin, Yifan, Prike,
+>>> I will top-post, so you don't have to scroll down.
+>>> After identifying the commit that causes black screen with my gpu, I
+>>> posted the result to you guys, on May 9.
+>>> It is now May 17 and no reply.
+>>> OK, I have now created a patch that reverts Yifan's commit, compiled
+>>> 5.15.158, and my gpu now works.
+>>> Note, the radeon module is not loaded, so it is not a factor.
+>>> I'm not a kernel developer. I have identified the culprit and it is up
+>>> to you guys to fix it, Yifan especially, as you are the person who has
+>>> created the regression.
+>>> I will attach my patch.
+>>> Regards,
+>>> Barry Kauler
+>> Hi,
+>>
+>> sorry for not responding to your findings. I normally do not work with =
+GPU drivers,
+>> so i hoped one of the amdgpu developers would handle this.
+>>
+>> I CCeddri-devel@lists.freedesktop.org  and amd-gfx@lists.freedesktop.or=
+g so that other
+>> amdgpu developers hear from this issue.
+>>
+>> Thanks you for you persistence in finding the offending commit.
+> Likely this patch should not have been ported to 5.15 in the first
+> place.  The IOMMU requirements have been dropped from the driver for
+> the last few kernel versions so it is no longer relevant on newer
+> kernels.
+>
+> Alex
 
-Rino
+Barry, can you verify that the latest upstream kernel works on you device?
+If yes, then the commit itself is ok and just the backporting itself was w=
+rong.
 
+Thanks,
+Armin Wolf
 
-On Tue, May 21, 2024 at 9:04=E2=80=AFPM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> Am 21.05.24 um 07:11 schrieb Rino Andre Johnsen:
-> > [Why]
-> > For debugging and testing purposes.
-> >
-> > [How]
-> > Create amdgpu_current_pixelencoding debugfs entry.
-> > Usage: cat /sys/kernel/debug/dri/1/crtc-0/amdgpu_current_pixelencoding
->
-> Why isn't that available as standard DRM CRTC property in either sysfs
-> or debugfs?
->
-> I think the format specifiers should already be available somewhere there=
-.
->
-> Regards,
-> Christian.
->
-> >
-> > Signed-off-by: Rino Andre Johnsen <rinoandrejohnsen@gmail.com>
-> > ---
-> >
-> > Changes in v2:
-> > 1. Do not initialize dm_crtc_state to NULL.
-> > ---
-> >   .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 47 ++++++++++++++++++=
-+
-> >   1 file changed, 47 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> > index 27d5c6077630..4254d4a4b56b 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> > @@ -1160,6 +1160,51 @@ static int amdgpu_current_colorspace_show(struct=
- seq_file *m, void *data)
-> >   }
-> >   DEFINE_SHOW_ATTRIBUTE(amdgpu_current_colorspace);
-> >
-> > +/*
-> > + * Returns the current pixelencoding for the crtc.
-> > + * Example usage: cat /sys/kernel/debug/dri/0/crtc-0/amdgpu_current_pi=
-xelencoding
-> > + */
-> > +static int amdgpu_current_pixelencoding_show(struct seq_file *m, void =
-*data)
-> > +{
-> > +     struct drm_crtc *crtc =3D m->private;
-> > +     struct drm_device *dev =3D crtc->dev;
-> > +     struct dm_crtc_state *dm_crtc_state;
-> > +     int res =3D -ENODEV;
-> > +
-> > +     mutex_lock(&dev->mode_config.mutex);
-> > +     drm_modeset_lock(&crtc->mutex, NULL);
-> > +     if (crtc->state =3D=3D NULL)
-> > +             goto unlock;
-> > +
-> > +     dm_crtc_state =3D to_dm_crtc_state(crtc->state);
-> > +     if (dm_crtc_state->stream =3D=3D NULL)
-> > +             goto unlock;
-> > +
-> > +     switch (dm_crtc_state->stream->timing.pixel_encoding) {
-> > +     case PIXEL_ENCODING_RGB:
-> > +             seq_puts(m, "RGB");
-> > +             break;
-> > +     case PIXEL_ENCODING_YCBCR422:
-> > +             seq_puts(m, "YCBCR422");
-> > +             break;
-> > +     case PIXEL_ENCODING_YCBCR444:
-> > +             seq_puts(m, "YCBCR444");
-> > +             break;
-> > +     case PIXEL_ENCODING_YCBCR420:
-> > +             seq_puts(m, "YCBCR420");
-> > +             break;
-> > +     default:
-> > +             goto unlock;
-> > +     }
-> > +     res =3D 0;
-> > +
-> > +unlock:
-> > +     drm_modeset_unlock(&crtc->mutex);
-> > +     mutex_unlock(&dev->mode_config.mutex);
-> > +
-> > +     return res;
-> > +}
-> > +DEFINE_SHOW_ATTRIBUTE(amdgpu_current_pixelencoding);
-> >
-> >   /*
-> >    * Example usage:
-> > @@ -3688,6 +3733,8 @@ void crtc_debugfs_init(struct drm_crtc *crtc)
-> >                           crtc, &amdgpu_current_bpc_fops);
-> >       debugfs_create_file("amdgpu_current_colorspace", 0644, crtc->debu=
-gfs_entry,
-> >                           crtc, &amdgpu_current_colorspace_fops);
-> > +     debugfs_create_file("amdgpu_current_pixelencoding", 0644, crtc->d=
-ebugfs_entry,
-> > +                         crtc, &amdgpu_current_pixelencoding_fops);
-> >   }
-> >
-> >   /*
->
+>> Armin Wolf
+>>
+>>> On Thu, May 9, 2024 at 4:08=E2=80=AFPM Barry Kauler <bkauler@gmail.com=
+> wrote:
+>>>> On Fri, May 3, 2024 at 9:03=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wr=
+ote:
+>>>>>> ...
+>>>>>> # lspci | grep VGA
+>>>>>> 05:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
+>>>>>> [AMD/ATI] Picasso/Raven 2 [Radeon Vega Series / Radeon Vega Mobile
+>>>>>> Series] (rev c2)
+>>>>>> 05:00.7 Non-VGA unclassified device: Advanced Micro Devices, Inc.
+>>>>>> [AMD] Raven/Raven2/Renoir Non-Sensor Fusion Hub KMDF driver
+>>>>>>
+>>>>>> # lspci -n -k
+>>>>>> ...
+>>>>>> 05:00.0 0300: 1002:15d8 (rev c2)
+>>>>>> Subsystem: 1025:1456
+>>>>>> Kernel driver in use: amdgpu
+>>>>>> Kernel modules: amdgpu
+>>>>>> ...
+>>>>> thanks for informing us of this regression. Since there are four com=
+mits affecting
+>>>>> amdgpu in 5.15.150, i suggest that you use "git bisect" to find the =
+faulty commits,
+>>>>> see https://docs.kernel.org/admin-guide/bug-bisect.html for details.
+>>>>>
+>>>>> I think you can speed up the bisecting process by limiting yourself =
+to the AMD DRM
+>>>>> driver directory with "git bisect start -- drivers/gpu/drm/amd", tak=
+e a look at the
+>>>>> man page of "git bisect" for details.
+>>>>>
+>>>>> Thanks,
+>>>>> Armin Wolf
+>>>> Armin,
+>>>> Thanks for the advice. I am unfamiliar with git on the commandline.
+>>>> Previously only used SmartGit gui.
+>>>> EasyOS requires aufs patch, and for a few days tried to figure out ho=
+w
+>>>> to use that with git bisect, then gave up. Changed to testing with my
+>>>> "QV" distro, which is more conventional, doesn't need any kernel
+>>>> patches. Managed to get it down to one commit. Here are the steps I
+>>>> followed:
+>>>>
+>>>> # git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linu=
+x-stable.git
+>>>> # cd linux-stable
+>>>> # git tag -l | grep '5\.15\.150'
+>>>> v5.15.150
+>>>> # git checkout -b my5.15.150 v5.15.150
+>>>> Updating files: 100% (65776/65776), done.
+>>>> Switched to a new branch 'my5.15.150'
+>>>>
+>>>> Copied in my .config then...
+>>>>
+>>>> # make menuconfig
+>>>> # git bisect start -- drivers/gpu/drm/amd
+>>>> # git bisect bad
+>>>> # git bisect good v5.15.149
+>>>> Bisecting: 1 revision left to test after this (roughly 1 step)
+>>>> [b9a61ee2bb2704e42516e3da962f99dfa98f3b20] drm/amdgpu: reset gpu for
+>>>> s3 suspend abort case
+>>>> # make
+>>>> # rm -rf /boot2
+>>>> # mkdir -p /boot2/lib/modules
+>>>> # make INSTALL_MOD_STRIP=3D1 INSTALL_MOD_PATH=3D/boot2 modules_instal=
+l
+>>>> # cp arch/x86/boot/bzImage /boot2/vmlinuz
+>>>> # sync
+>>>> ...QV on Acer laptop, with amdgpu, works!
+>>>> # git bisect good
+>>>> Bisecting: 0 revisions left to test after this (roughly 0 steps)
+>>>> [56b522f4668167096a50c39446d6263c96219f5f] drm/amdgpu: init iommu
+>>>> after amdkfd device init
+>>>> # make
+>>>> # mkdir -p /boot2/lib/modules
+>>>> # make INSTALL_MOD_STRIP=3D1 INSTALL_MOD_PATH=3D/boot2 modules_instal=
+l
+>>>> # cp arch/x86/boot/bzImage /boot2/vmlinuz
+>>>> # sync
+>>>> ...QV on Acer laptop, black screen!
+>>>>
+>>>> # git bisect bad
+>>>> 56b522f4668167096a50c39446d6263c96219f5f is the first bad commit
+>>>> commit 56b522f4668167096a50c39446d6263c96219f5f
+>>>> Author: Yifan Zhang <yifan1.zhang@amd.com>
+>>>> Date:   Tue Sep 28 15:42:35 2021 +0800
+>>>>
+>>>>       drm/amdgpu: init iommu after amdkfd device init
+>>>>
+>>>>       [ Upstream commit 286826d7d976e7646b09149d9bc2899d74ff962b ]
+>>>>
+>>>>       This patch is to fix clinfo failure in Raven/Picasso:
+>>>>
+>>>>       Number of platforms: 1
+>>>>         Platform Profile: FULL_PROFILE
+>>>>         Platform Version: OpenCL 2.2 AMD-APP (3364.0)
+>>>>         Platform Name: AMD Accelerated Parallel Processing
+>>>>         Platform Vendor: Advanced Micro Devices, Inc.
+>>>>         Platform Extensions: cl_khr_icd cl_amd_event_callback
+>>>>
+>>>>         Platform Name: AMD Accelerated Parallel Processing Number of =
+devices: 0
+>>>>
+>>>>       Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+>>>>       Reviewed-by: James Zhu <James.Zhu@amd.com>
+>>>>       Tested-by: James Zhu <James.Zhu@amd.com>
+>>>>       Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>>>>       Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>>>       Signed-off-by: Sasha Levin <sashal@kernel.org>
+>>>>
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++++----
+>>>>    1 file changed, 4 insertions(+), 4 deletions(-)
+>>>>
+>>>> Anything else I should do, to identify what in this commit is the
+>>>> likely culprit?
+>>>> Regards,
+>>>> Barry Kauler
