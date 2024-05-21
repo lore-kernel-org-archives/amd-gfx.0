@@ -4,72 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7327EC25B77
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 07:43:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21FE6C25B77
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 07:43:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD1B910EE0D;
-	Wed, 22 May 2024 07:43:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FDA410EE00;
+	Wed, 22 May 2024 07:43:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OSbnpOWe";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YMUyvqGh";
 	dkim-atps=neutral
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
- [209.85.208.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7ED510F016;
- Tue, 21 May 2024 17:40:45 +0000 (UTC)
-Received: by mail-lj1-f180.google.com with SMTP id
- 38308e7fff4ca-2e1fa1f1d9bso73814641fa.0; 
- Tue, 21 May 2024 10:40:45 -0700 (PDT)
+Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com
+ [209.85.219.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE55A10E074;
+ Tue, 21 May 2024 20:06:33 +0000 (UTC)
+Received: by mail-yb1-f175.google.com with SMTP id
+ 3f1490d57ef6-df1ceefd864so15379276.0; 
+ Tue, 21 May 2024 13:06:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1716313244; x=1716918044; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=BGtR1ws+JRg9IaP0YvowCKNdfiSrHkAApZjY1DSgmn0=;
- b=OSbnpOWe+7kr7S9djRO3o+Kta9ojXxwM9idukYgpjej+GJ7nKi2UJGKy0XzGHUf3p5
- rl0ZhNXbQmnpWo5xmgq0LiQO73Ar4cg0+bYyzDNN1QIQmSBBDeI/jlCmfGStKqdR/7Cj
- ZM1k5bzBL/hoV/07B8U+EVjd6sdDJWaJhMjT/qijsTtLtjKvhJhLUD25TxnWXu2IPKNu
- mKciq6+PC113J1zdHNm3hgrzOwtrqXWxlWaEECLpy4kn2D2ZHJOQnc+ruzWxs2IGnnaG
- gJczlYCaayOK+yjwyPPXSBZQ6N4nA+kbpNBwZ7rhw5k81r5q0RJHxIWAjmPsnubrQaY2
- jOlw==
+ d=gmail.com; s=20230601; t=1716321992; x=1716926792; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2MR5DjSv8xW5VPd+KWcp/T0DpzQM38Nn27tvEAji7BQ=;
+ b=YMUyvqGhvYZ8MdCUV0BgG05LabkeDO0+ZJgBKkVHcZJ3SFIrANwOEUCzie4uBuygZ8
+ UyrL5dre85Wg57/AGq+Oe09UNtLQjIiRIzMjK8ULaMc19GxhXWmpuPA2XTifhaq+YfJ7
+ zTRIEfL6xV7ztwkjSXerFmbDw+LvjzzEj07hxd6owFxZuTAYCbX0Y1grkOyCfFrrNnXZ
+ ARCkUJOn8SeAhrhDP7QLyc2azRruglMj3sqWPw6kMGebclAY8rFHIe7QtNznH1sksuF2
+ KD0lHTN08IGDyQZhEMVpg/6ZYDazwTsAwffL0e471t+saIOgdA+Z9wz/Uc91KlmfhWmv
+ 1T2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716313244; x=1716918044;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=BGtR1ws+JRg9IaP0YvowCKNdfiSrHkAApZjY1DSgmn0=;
- b=uh7EfF1oIGEoObaLlx7T7IP0STFHH0inJ5fxF35JVSqBC7XTokaA9kYQ2MP1FQe8iX
- k4q3vtggAHCESEHYhoSQc0X9YyUkSxrEt74+O4aFMcmB2Jsfg8lTIbT8j+hHganwp4Er
- V4rJB2qMxUOEShpjqUJn/SrM5JjftzgBo7bHU35W85J1YWB+d2qqCP0oDkmJh6dWrPGZ
- 49rFsqW+psL8yHPTpiDO8D6e4TW+y7pME1vruFRkF63BQ2aHZCPoK+kD6u8gr5toOxMg
- CqDm7qhaYqaw+hJWBL47Qqf30+zBtNkF9z913cYcG80ZgYcvZG20vE21M6tRF3zxv73l
- TtbA==
+ d=1e100.net; s=20230601; t=1716321992; x=1716926792;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2MR5DjSv8xW5VPd+KWcp/T0DpzQM38Nn27tvEAji7BQ=;
+ b=b/kL3xsppGDxYWj7V48/5ZXS655EPjnFxPTzXRLS3LuC7WK0VWNsvMQpIlbgH3wy/Q
+ AB+UHmRqzv4GEoAcrYKTNdW4ikc6ZkzoynQq64jzgJxA4zRVrFtxPcOOwpDiUKScIcHF
+ RqlJXqlLjSEhLqaFb5D+KAcvMXj2gsbq89IYKp5EawJpQ+jYYUxoWscIeb4Ba8xtZgmn
+ MMKzSBjVUXpTN2oPtXHJLsW4tKjOdrg0/trSuMbS58FkO3Hlx6w5OnqaYGnAFf8GmpK5
+ TOvcv3NlkZqoMi0meBH516UV0Iv3DFvXchS58Gab9dD+AquqcT07zXx2MyWCgGRTm9MT
+ LOIQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWr501z5bMW6IMHM2+lMPu3/Ta7UOrZSrERLT4prBEXuhJDkTuYqWiFqA7B/3c1Jc12jSw7IW5jnxRZqFXYcamCDh7wjTCHJYJbhY5p+DjEJo/5w0joJsALNRmEaCctIayvnRXkHzqulwBzFffZCA==
-X-Gm-Message-State: AOJu0YyfWD0M0C1AM7B3dlkMIr2NDa6TqOD/zfMziZObLj16HC3cLi7y
- +QUKOY7ZdXubMkhmZtlW50ypTxjDe06dMXNk6pzXVL4ah7Q5WG0/eSP9dDfv/B9JAYkiAbiSd7X
- ApjT5Rc9SFgIKimNveQRacafvbTA=
-X-Google-Smtp-Source: AGHT+IHYEuO5MgwTyT5sB8of44MmsDP4esL79AuzjW60jj/rU/cDu1ZEmGk9v0lit8+7zoyMMlf33gCrlcw+m0dJHxo=
-X-Received: by 2002:a2e:461a:0:b0:2e5:2414:a205 with SMTP id
- 38308e7fff4ca-2e52414a255mr244516321fa.27.1716313243532; Tue, 21 May 2024
- 10:40:43 -0700 (PDT)
+ AJvYcCW0InXPpNioHqH2ZJaKS8oevHHQtexCIIWSy+DpfuWzcXy6m5FVdYjy5VyKwRsBtl062AOeuYOa+rQTXPzUFe7ILp68NPecUDaZtXRhtEJqqAe7uQUDUfIsTSuQZm6zZqHVpY8BqFmJhLWBVlePcA==
+X-Gm-Message-State: AOJu0YxJRO5IR6OCenRrwfKwVPxamoW+UNKcdvkNkMTk7XhAIERW42fa
+ tKtksuZHPESHKzT0+MUpFaPwQCPOAO6F9KlfPcKS/Ww9lr0jAeOCLgoTFyBsgEbQZSjPbIVzpoM
+ pyJsurV+ixMa4kQ9yhkRGMUNRYNA=
+X-Google-Smtp-Source: AGHT+IH9ydijh7ECa75vs0HHHE6Ew1epoA/bhjnzTRRSWClpr4GNuvnDgBkbRVrKvtoiMy0L/6EgqNr4XwkjbQ2Fz2Q=
+X-Received: by 2002:a05:6902:1587:b0:df4:8c19:1da6 with SMTP id
+ 3f1490d57ef6-df4e0ebdadbmr106482276.6.1716321992557; Tue, 21 May 2024
+ 13:06:32 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240519130610.7773-1-mario.limonciello@amd.com>
- <-KAO9zJq5vTiesgtw-PMO0lDkSH1tuV271WNqlVuh3ZSkMzKWB9JQJce68-X-GwhD57QilHIBnLxN9k03I3-CMeYQm30NJMLizfyUUxTqHA=@emersion.fr>
- <e3a4331a-307e-4377-a349-8699024f8459@amd.com>
- <CAFZQkGyupsydjSEfv6OgMqPmHm9kMy4HQs7aNvzn77omSN+ZhQ@mail.gmail.com>
- <a35f2f5b-024f-42ed-9d59-48efcf4516a8@amd.com>
- <55205499-293e-45cd-870c-1ccccd05145d@amd.com>
-In-Reply-To: <55205499-293e-45cd-870c-1ccccd05145d@amd.com>
-From: Xaver Hugl <xaver.hugl@gmail.com>
-Date: Tue, 21 May 2024 19:40:31 +0200
-Message-ID: <CAFZQkGzNJiG=gAW-zaMyT+Dct50tLTanpiqko6MxL9c=aLuh7Q@mail.gmail.com>
-Subject: Re: [PATCH 0/2] Add support for Panel Power Savings property
-To: Leo Li <sunpeng.li@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Simon Ser <contact@emersion.fr>, 
- amd-gfx@lists.freedesktop.org, Harry.Wentland@amd.com, 
- dri-devel@lists.freedesktop.org, "seanpaul@google.com" <seanpaul@google.com>
+References: <fa885eca-d7e6-415a-8a08-9103b002c6bb@amd.com>
+ <20240521051140.30509-1-rinoandrejohnsen@gmail.com>
+ <17782a6e-db84-4c20-874a-342b9655ffc5@amd.com>
+In-Reply-To: <17782a6e-db84-4c20-874a-342b9655ffc5@amd.com>
+From: =?UTF-8?Q?Rino_Andr=C3=A9_Johnsen?= <rinoandrejohnsen@gmail.com>
+Date: Tue, 21 May 2024 22:06:21 +0200
+Message-ID: <CAACkh=-B-jH6g7KY7Nn_7Y_+gHPQ7G5Z5AZ0=a=_ifjcmsorcw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/display: Add pixel encoding info to debugfs
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: alexander.deucher@amd.com, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Hersen Wu <hersenxs.wu@amd.com>, 
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Wayne Lin <wayne.lin@amd.com>, 
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Fangzhi Zuo <jerry.zuo@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 22 May 2024 07:42:59 +0000
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Wed, 22 May 2024 07:42:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,67 +91,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Di., 21. Mai 2024 um 19:28 Uhr schrieb Leo Li <sunpeng.li@amd.com>:
->
->
->
-> On 2024-05-21 12:21, Mario Limonciello wrote:
-> > On 5/21/2024 11:14, Xaver Hugl wrote:
-> >> Am Di., 21. Mai 2024 um 16:00 Uhr schrieb Mario Limonciello
-> >> <mario.limonciello@amd.com>:
-> >>>
-> >>> On 5/21/2024 08:43, Simon Ser wrote:
-> >>>> This makes sense to me in general. I like the fact that it's simple and
-> >>>> vendor-neutral.
-> >>>>
-> >>>> Do we want to hardcode "panel" in the name? Are we sure that this will
-> >>>> ever only apply to panels?
-> >>>>
-> >>>> Do we want to use a name which reflects the intent, rather than the
-> >>>> mechanism? In other words, something like "color fidelity" = "preferred"
-> >>>> maybe? (I don't know, just throwing ideas around.)
-> >>>
-> >>> In that vein, how about:
-> >>>
-> >>> "power saving policy"
-> >>> --> "power saving"
-> >>> --> "color fidelity"
-> >>
-> >> It's not just about colors though, is it? The compositor might want to
-> >> disable it to increase the backlight brightness in bright
-> >> environments, so "color fidelity" doesn't really sound right
-> >
-> > Either of these better?
-> >
-> > "power saving policy"
-> > --> "power saving"
-> > --> "accuracy"
-> >
-> > "power saving policy"
-> > --> "allowed"
-> > --> "forbidden"
-> >
-> > Or any other idea?
->
-> Another consideration in addition to accuracy is latency.
->
-> I suppose a compositor may want to disable features such as PSR for use-cases
-> requiring low latency. Touch and stylus input are some examples.
->
-> I wonder if flags would work better than enums? A compositor can set something
-> like `REQUIRE_ACCURACY & REQUIRE_LOW_LATENCY`, for example.
+What is already there in debugfs is 'bpc' and 'colorspace', but not
+the pixel encoding/format.
+I have searched high and low for that to be able to verify that my
+monitor and computer are using my preferred combination of all those
+three values.
 
-I think that's a good idea. With a flag for color accuracy and one for
-brightness, the compositor's intent would be communicated well.
+I do think it should be available as a standard DRM CRTC property, but
+for the time being, I figured that a simple debugfs property would be
+sufficient for time being.
 
-> - Leo
+Rino
+
+
+On Tue, May 21, 2024 at 9:04=E2=80=AFPM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 21.05.24 um 07:11 schrieb Rino Andre Johnsen:
+> > [Why]
+> > For debugging and testing purposes.
+> >
+> > [How]
+> > Create amdgpu_current_pixelencoding debugfs entry.
+> > Usage: cat /sys/kernel/debug/dri/1/crtc-0/amdgpu_current_pixelencoding
+>
+> Why isn't that available as standard DRM CRTC property in either sysfs
+> or debugfs?
+>
+> I think the format specifiers should already be available somewhere there=
+.
+>
+> Regards,
+> Christian.
 >
 > >
-> >>
-> >>>>
-> >>>> Would be nice to add documentation for the property in the "standard
-> >>>> connector properties" section.
-> >>>
-> >>> Ack.
-> >>>
+> > Signed-off-by: Rino Andre Johnsen <rinoandrejohnsen@gmail.com>
+> > ---
 > >
+> > Changes in v2:
+> > 1. Do not initialize dm_crtc_state to NULL.
+> > ---
+> >   .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 47 ++++++++++++++++++=
++
+> >   1 file changed, 47 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> > index 27d5c6077630..4254d4a4b56b 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> > @@ -1160,6 +1160,51 @@ static int amdgpu_current_colorspace_show(struct=
+ seq_file *m, void *data)
+> >   }
+> >   DEFINE_SHOW_ATTRIBUTE(amdgpu_current_colorspace);
+> >
+> > +/*
+> > + * Returns the current pixelencoding for the crtc.
+> > + * Example usage: cat /sys/kernel/debug/dri/0/crtc-0/amdgpu_current_pi=
+xelencoding
+> > + */
+> > +static int amdgpu_current_pixelencoding_show(struct seq_file *m, void =
+*data)
+> > +{
+> > +     struct drm_crtc *crtc =3D m->private;
+> > +     struct drm_device *dev =3D crtc->dev;
+> > +     struct dm_crtc_state *dm_crtc_state;
+> > +     int res =3D -ENODEV;
+> > +
+> > +     mutex_lock(&dev->mode_config.mutex);
+> > +     drm_modeset_lock(&crtc->mutex, NULL);
+> > +     if (crtc->state =3D=3D NULL)
+> > +             goto unlock;
+> > +
+> > +     dm_crtc_state =3D to_dm_crtc_state(crtc->state);
+> > +     if (dm_crtc_state->stream =3D=3D NULL)
+> > +             goto unlock;
+> > +
+> > +     switch (dm_crtc_state->stream->timing.pixel_encoding) {
+> > +     case PIXEL_ENCODING_RGB:
+> > +             seq_puts(m, "RGB");
+> > +             break;
+> > +     case PIXEL_ENCODING_YCBCR422:
+> > +             seq_puts(m, "YCBCR422");
+> > +             break;
+> > +     case PIXEL_ENCODING_YCBCR444:
+> > +             seq_puts(m, "YCBCR444");
+> > +             break;
+> > +     case PIXEL_ENCODING_YCBCR420:
+> > +             seq_puts(m, "YCBCR420");
+> > +             break;
+> > +     default:
+> > +             goto unlock;
+> > +     }
+> > +     res =3D 0;
+> > +
+> > +unlock:
+> > +     drm_modeset_unlock(&crtc->mutex);
+> > +     mutex_unlock(&dev->mode_config.mutex);
+> > +
+> > +     return res;
+> > +}
+> > +DEFINE_SHOW_ATTRIBUTE(amdgpu_current_pixelencoding);
+> >
+> >   /*
+> >    * Example usage:
+> > @@ -3688,6 +3733,8 @@ void crtc_debugfs_init(struct drm_crtc *crtc)
+> >                           crtc, &amdgpu_current_bpc_fops);
+> >       debugfs_create_file("amdgpu_current_colorspace", 0644, crtc->debu=
+gfs_entry,
+> >                           crtc, &amdgpu_current_colorspace_fops);
+> > +     debugfs_create_file("amdgpu_current_pixelencoding", 0644, crtc->d=
+ebugfs_entry,
+> > +                         crtc, &amdgpu_current_pixelencoding_fops);
+> >   }
+> >
+> >   /*
+>
