@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27A1CC25B7C
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 May 2024 15:38:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2D8FC25B74
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 May 2024 15:45:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 796D410EC0E;
-	Tue, 21 May 2024 15:38:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A81110EA9F;
+	Tue, 21 May 2024 15:45:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JbcXK/z3";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="awYxVSfE";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F232D10E2C8;
- Tue, 21 May 2024 15:38:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1ED110E534;
+ Tue, 21 May 2024 15:45:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
@@ -22,29 +22,30 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=COb2kmr3gM5P1kCCxQjsjSUfGcP4aWSoaPzMlKcB/L8=; b=JbcXK/z3Nq36K/+EuLL0nfDGOA
- ebWB0fHqW0z1MkCZKwS12jr3lqHcl0O2J3JJcj9gC020eU+/JqqM7hx5Ag2YUbYS8Oon4EJtrWgVO
- JDbeZ+41MCBIislX6ItvPLvb4yq5eBc5K8Yn8QysoCVvYu2Aqs0p1YATjMOoigM4X99GXNRR9tgcV
- k2QokQbhdlLnkWDdpQio1J+SJ/R6tYta2eNqPpKtap3dV8J6iQpt4X/QV8ZRHesQ5y8ZMVD87AvPx
- SW9CCYGWxkUbbiUgxKOOJrFvZTtRBOpNmF27Sd/7A+ED1UFj3snkiX4DVRVtuhCCmk7zrUa+bRH/y
- kPrxv4TA==;
+ bh=sqzO+6kH/hrUG8CFIhUap8sPxkj+44OFM44G9epZwfM=; b=awYxVSfEYxaHWHef6Jmrxz5N6Y
+ vwflBT9KJyToYRfUA5vtav+bVAkYJz3Kyicohl0Bnno3+PCQTMCppzhyqCvTUy8joUNVM0nG++Knb
+ hpC6QEpGN88Z+w41fYcoA/UYsw9Agi3hS6AN5UQ0gy5gnlbmQpmLExjyMaVk+9/ennfOegtLWGAiX
+ AtjZXrUNTxQgaKN7D2gfIuH00mh76wMSpDqHKND7OeF7XWjA7/i8RmF93Ii/mjuHCREupsWQNCB3q
+ DVC4/htXSl+xjTKeErICHf4OlkrtOdREtz/2kCakehChpmzDEIpY0g17beuks50j0dzvLPzubj7dz
+ L17ynZ2Q==;
 Received: from [192.168.13.219] (helo=mail.igalia.com)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1s9RZN-00Ahzh-Pl; Tue, 21 May 2024 17:38:29 +0200
-Date: Tue, 21 May 2024 17:38:20 +0200
+ id 1s9RgC-00AiAh-AT; Tue, 21 May 2024 17:45:32 +0200
+Date: Tue, 21 May 2024 17:45:20 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: Harry Wentland <harry.wentland@amd.com>
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
  wayland-devel@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>
-Subject: Re: [RFC PATCH v4 41/42] drm/colorop: Add mutliplier type
-Message-ID: <36ye5xqrcgxqwhiqiylfjuuz3mzb4agfsqlimt74iildgd2k2p@tsithai6xhh3>
+Subject: Re: [RFC PATCH v4 31/42] drm/amd/display: Add support for sRGB EOTF
+ in DEGAM block
+Message-ID: <irl6ryufwrzapa4beqqixx33bedzsev35spj6rh2ln54vhi25f@haapi627kfyl>
 References: <20240226211100.100108-1-harry.wentland@amd.com>
- <20240226211100.100108-42-harry.wentland@amd.com>
+ <20240226211100.100108-32-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240226211100.100108-42-harry.wentland@amd.com>
+In-Reply-To: <20240226211100.100108-32-harry.wentland@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,167 +63,304 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On 02/26, Harry Wentland wrote:
 > From: Alex Hung <alex.hung@amd.com>
 > 
-> This introduces a new drm_colorop_type: DRM_COLOROP_MULTIPLIER.
+> Expose one 1D curve colorop with support for
+> DRM_COLOROP_1D_CURVE_SRGB_EOTF and program HW to perform
+> the sRGB transform when the colorop is not in bypass.
 > 
-> It's a simple multiplier to all pixel values. The value is
-> specified via a S31.32 fixed point provided via the
-> "MULTIPLIER" property.
+> With this change the following IGT test passes:
+> kms_colorop --run plane-XR30-XR30-srgb_eotf
+> 
+> The color pipeline now consists of a single colorop:
+> 1. 1D curve colorop w/ sRGB EOTF
 > 
 > Signed-off-by: Alex Hung <alex.hung@amd.com>
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Co-developed-by: Harry Wentland <harry.wentland@amd.com>
 > ---
->  drivers/gpu/drm/drm_atomic.c      |  3 +++
->  drivers/gpu/drm/drm_atomic_uapi.c |  4 ++++
->  drivers/gpu/drm/drm_colorop.c     | 29 +++++++++++++++++++++++++++--
->  include/drm/drm_colorop.h         | 16 ++++++++++++++++
->  include/uapi/drm/drm_mode.h       |  1 +
->  5 files changed, 51 insertions(+), 2 deletions(-)
+>  .../gpu/drm/amd/display/amdgpu_dm/Makefile    |  3 +-
+>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 88 +++++++++++++++++++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 58 ++++++++++++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h | 34 +++++++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 10 +++
+>  5 files changed, 192 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+>  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
 > 
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index f7d51839ca03..af0b6338a55c 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -806,6 +806,9 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
->  	case DRM_COLOROP_CTM_3X4:
->  		drm_printf(p, "\tdata blob id=%d\n", state->data ? state->data->base.id : 0);
->  		break;
-> +	case DRM_COLOROP_MULTIPLIER:
-> +		drm_printf(p, "\tmultiplier=%u\n", state->multiplier);
-
-Compiler complains of unsigned int instead of llu.
-
-> +		break;
->  	default:
->  		break;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
+> index ab2a97e354da..46158d67ab12 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
+> @@ -38,7 +38,8 @@ AMDGPUDM = \
+>  	amdgpu_dm_pp_smu.o \
+>  	amdgpu_dm_psr.o \
+>  	amdgpu_dm_replay.o \
+> -	amdgpu_dm_wb.o
+> +	amdgpu_dm_wb.o \
+> +	amdgpu_dm_colorop.o
+>  
+>  ifdef CONFIG_DRM_AMD_DC_FP
+>  AMDGPUDM += dc_fpu.o
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> index 9b527bffe11a..3ec759934669 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> @@ -668,6 +668,19 @@ amdgpu_tf_to_dc_tf(enum amdgpu_transfer_function tf)
 >  	}
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> index 6bfe857720cd..b4ecda563728 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -727,6 +727,8 @@ static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
->  		state->bypass = val;
->  	} else if (property == colorop->curve_1d_type_property) {
->  		state->curve_1d_type = val;
-> +	} else if (property == colorop->multiplier_property) {
-> +		state->multiplier = val;
->  	} else if (property == colorop->data_property) {
->  		return drm_atomic_color_set_data_property(colorop,
->  					state, property, val);
-> @@ -752,6 +754,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
->  		*val = state->bypass;
->  	} else if (property == colorop->curve_1d_type_property) {
->  		*val = state->curve_1d_type;
-> +	} else if (property == colorop->multiplier_property) {
-> +		*val = state->multiplier;
->  	} else if (property == colorop->size_property) {
->  		*val = state->size;
->  	} else if (property == colorop->data_property) {
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index 4452eaeeb242..c6cdd743de51 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -35,7 +35,8 @@
->  static const struct drm_prop_enum_list drm_colorop_type_enum_list[] = {
->  	{ DRM_COLOROP_1D_CURVE, "1D Curve" },
->  	{ DRM_COLOROP_1D_LUT, "1D Curve Custom LUT" },
-> -	{ DRM_COLOROP_CTM_3X4, "3x4 Matrix"}
-> +	{ DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
-> +	{ DRM_COLOROP_MULTIPLIER, "Multiplier"},
->  };
->  
->  static const char * const colorop_curve_1d_type_names[] = {
-> @@ -231,6 +232,29 @@ int drm_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_colorop *colorop
 >  }
->  EXPORT_SYMBOL(drm_colorop_ctm_3x4_init);
 >  
-> +int drm_colorop_mult_init(struct drm_device *dev, struct drm_colorop *colorop,
-> +			      struct drm_plane *plane)
+> +static enum dc_transfer_func_predefined
+> +amdgpu_colorop_tf_to_dc_tf(enum drm_colorop_curve_1d_type tf)
 > +{
-> +	struct drm_property *prop;
-> +	int ret;
+> +	switch (tf)
+> +	{
+> +	case DRM_COLOROP_1D_CURVE_SRGB_EOTF:
+> +	case DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF:
+> +		return TRANSFER_FUNCTION_SRGB;
+> +	default:
+> +		return TRANSFER_FUNCTION_LINEAR;;
+> +	}
+> +}
 > +
-> +	ret = drm_colorop_init(dev, colorop, plane, DRM_COLOROP_MULTIPLIER);
-> +	if (ret)
-> +		return ret;
+>  static void __to_dc_lut3d_color(struct dc_rgb *rgb,
+>  				const struct drm_color_lut lut,
+>  				int bit_precision)
+> @@ -1137,6 +1150,59 @@ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
+>  	return 0;
+>  }
+>  
+> +static int
+> +__set_colorop_in_tf_1d_curve(struct dc_plane_state *dc_plane_state,
+> +		       struct drm_colorop_state *colorop_state)
+> +{
+> +	struct dc_transfer_func *tf = dc_plane_state->in_transfer_func;
+
+For this patch and the next two, it ^ should be:
+`&dc_plane_state->in_transfer_func` (same for shape and blend), right?
+
+> +	struct drm_colorop *colorop = colorop_state->colorop;
+> +	struct drm_device *drm = colorop->dev;
 > +
-> +	prop = drm_property_create_range(dev, DRM_MODE_PROP_ATOMIC, "MULTIPLIER", 0, U64_MAX);
-> +	if (!prop)
-> +		return -ENOMEM;
+> +	if (colorop->type != DRM_COLOROP_1D_CURVE &&
+> +	    colorop_state->curve_1d_type != DRM_COLOROP_1D_CURVE_SRGB_EOTF)
+> +		return -EINVAL;
 > +
-> +	colorop->multiplier_property = prop;
-> +	drm_object_attach_property(&colorop->base, colorop->multiplier_property, 0);
+> +	if (colorop_state->bypass) {
+> +		tf->type = TF_TYPE_BYPASS;
+> +		tf->tf = TRANSFER_FUNCTION_LINEAR;
+> +		return 0;
+> +	}
 > +
-> +	drm_colorop_reset(colorop);
+> +	drm_dbg(drm, "Degamma colorop with ID: %d\n", colorop->base.id);
+> +
+> +	tf->type = TF_TYPE_PREDEFINED;
+> +	tf->tf = amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
 > +
 > +	return 0;
 > +}
-> +EXPORT_SYMBOL(drm_colorop_mult_init);
 > +
->  static void __drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop,
->  							struct drm_colorop_state *state)
+> +static int
+> +__set_dm_plane_colorop_degamma(struct drm_plane_state *plane_state,
+> +			       struct dc_plane_state *dc_plane_state,
+> +			       struct drm_colorop *colorop)
+> +{
+> +	struct drm_colorop *old_colorop;
+> +	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
+> +	struct drm_atomic_state *state = plane_state->state;
+> +	int i = 0;
+> +
+> +	old_colorop = colorop;
+> +
+> +	/* 1st op: 1d curve - degamma */
+> +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
+> +		if (new_colorop_state->colorop == old_colorop &&
+> +		    new_colorop_state->curve_1d_type == DRM_COLOROP_1D_CURVE_SRGB_EOTF) {
+> +			colorop_state = new_colorop_state;
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (!colorop_state)
+> +		return -EINVAL;
+> +
+> +	return __set_colorop_in_tf_1d_curve(dc_plane_state, colorop_state);
+> +}
+> +
+>  static int
+>  amdgpu_dm_plane_set_color_properties(struct drm_plane_state *plane_state,
+>  				     struct dc_plane_state *dc_plane_state)
+> @@ -1187,6 +1253,25 @@ amdgpu_dm_plane_set_color_properties(struct drm_plane_state *plane_state,
+>  	return 0;
+>  }
+>  
+> +static int
+> +amdgpu_dm_plane_set_colorop_properties(struct drm_plane_state *plane_state,
+> +		       struct dc_plane_state *dc_plane_state)
+> +{
+> +	struct drm_colorop *colorop = plane_state->color_pipeline;
+> +	int ret;
+> +
+> +	/* 1D Curve - DEGAM TF */
+> +	if (!colorop) {
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret = __set_dm_plane_colorop_degamma(plane_state, dc_plane_state, colorop);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+>  /**
+>   * amdgpu_dm_update_plane_color_mgmt: Maps DRM color management to DC plane.
+>   * @crtc: amdgpu_dm crtc state
+> @@ -1283,5 +1368,8 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+>  		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
+>  	}
+>  
+> +	if (!amdgpu_dm_plane_set_colorop_properties(plane_state, dc_plane_state))
+> +		return 0;
+> +
+>  	return amdgpu_dm_plane_set_color_properties(plane_state, dc_plane_state);
+>  }
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+> new file mode 100644
+> index 000000000000..e8b7fc8bb0f1
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+> @@ -0,0 +1,58 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright 2023 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + * Authors: AMD
+> + *
+> + */
+> +
+> +#include <drm/drm_print.h>
+> +#include <drm/drm_plane.h>
+> +#include <drm/drm_property.h>
+> +#include <drm/drm_colorop.h>
+> +
+> +#include "amdgpu_dm_colorop.h"
+> +
+> +const u64 amdgpu_dm_supported_degam_tfs =
+> +	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF);
+> +
+> +int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list)
+> +{
+> +	struct drm_colorop *op;
+> +	struct drm_device *dev = plane->dev;
+> +	int ret;
+> +
+> +	/* 1D curve - DEGAM TF */
+> +	op = kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
+> +	if (!op) {
+> +		DRM_ERROR("KMS: Failed to allocate colorop\n");
+> +		return -ENOMEM;
+> +	}
+> +
+> +	ret = drm_colorop_curve_1d_init(dev, op, plane, amdgpu_dm_supported_degam_tfs);
+> +	if (ret)
+> +		return ret;
+> +
+> +	list->type = op->base.id;
+> +	list->name = kasprintf(GFP_KERNEL, "Color Pipeline %d", op->base.id);
+> +
+> +	return 0;
+> +}
+> \ No newline at end of file
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
+> new file mode 100644
+> index 000000000000..f16de6a9fbde
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
+> @@ -0,0 +1,34 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright 2023 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + * Authors: AMD
+> + *
+> + */
+> +
+> +#ifndef __AMDGPU_DM_COLOROP_H__
+> +#define __AMDGPU_DM_COLOROP_H__
+> +
+> +extern const u64 amdgpu_dm_supported_degam_tfs;
+> +
+> +int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list);
+> +
+> +#endif /* __AMDGPU_DM_COLOROP_H__*/
+> \ No newline at end of file
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index d3f64f586243..3adab18332d8 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -35,6 +35,7 @@
+>  #include "amdgpu_display.h"
+>  #include "amdgpu_dm_trace.h"
+>  #include "amdgpu_dm_plane.h"
+> +#include "amdgpu_dm_colorop.h"
+>  #include "gc/gc_11_0_0_offset.h"
+>  #include "gc/gc_11_0_0_sh_mask.h"
+>  
+> @@ -1658,10 +1659,19 @@ dm_plane_init_colorops(struct drm_plane *plane)
 >  {
-> @@ -333,7 +357,8 @@ EXPORT_SYMBOL(drm_colorop_reset);
->  static const char * const colorop_type_name[] = {
->  	[DRM_COLOROP_1D_CURVE] = "1D Curve",
->  	[DRM_COLOROP_1D_LUT] = "1D Curve Custom LUT",
-> -	[DRM_COLOROP_CTM_3X4] = "3x4 Matrix"
-> +	[DRM_COLOROP_CTM_3X4] = "3x4 Matrix",
-> +	[DRM_COLOROP_MULTIPLIER] = "Multiplier",
->  };
+>  	struct drm_prop_enum_list pipelines[MAX_COLOR_PIPELINES];
+>  	int len = 0;
+> +	int ret;
 >  
->  /**
-> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-> index 8adc7ece3bd1..f9f83644cc9f 100644
-> --- a/include/drm/drm_colorop.h
-> +++ b/include/drm/drm_colorop.h
-> @@ -64,6 +64,13 @@ struct drm_colorop_state {
->  	 */
->  	enum drm_colorop_curve_1d_type curve_1d_type;
+>  	if (plane->type == DRM_PLANE_TYPE_CURSOR)
+>  		return 0;
 >  
-> +	/**
-> +	 * @multiplier:
-> +	 *
-> +	 * Multiplier to 'gain' the plane. Format is S31.32 sign-magnitude.
-> +	 */
-> +	uint64_t multiplier;
+> +	/* initialize default pipeline */
+> +	ret = amdgpu_dm_initialize_default_pipeline(plane, &(pipelines[len]));
+> +	if (ret) {
+> +		DRM_ERROR("Failed to create color pipeline for plane %d: %d\n", plane->base.id, ret);
+> +		return ret;
+> +	}
+> +	len++;
 > +
->  	/**
->  	 * @size:
->  	 *
-> @@ -186,6 +193,13 @@ struct drm_colorop {
->  	 */
->  	struct drm_property *curve_1d_type_property;
+>  	/* Create COLOR_PIPELINE property and attach */
+>  	drm_plane_create_color_pipeline_property(plane, pipelines, len);
 >  
-> +	/**
-> +	 * @multiplier_property:
-> +	 *
-> +	 * Multiplier property for plane gain
-> +	 */
-> +	struct drm_property *multiplier_property;
-> +
->  	/**
->  	 * @size_property:
->  	 *
-> @@ -246,6 +260,8 @@ int drm_colorop_curve_1d_lut_init(struct drm_device *dev, struct drm_colorop *co
->  				  struct drm_plane *plane, uint32_t lut_size);
->  int drm_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_colorop *colorop,
->  			     struct drm_plane *plane);
-> +int drm_colorop_mult_init(struct drm_device *dev, struct drm_colorop *colorop,
-> +			      struct drm_plane *plane);
->  
->  struct drm_colorop_state *
->  drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop);
-> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-> index 07fd66dc477c..754fd4c48123 100644
-> --- a/include/uapi/drm/drm_mode.h
-> +++ b/include/uapi/drm/drm_mode.h
-> @@ -876,6 +876,7 @@ enum drm_colorop_type {
->  	DRM_COLOROP_1D_CURVE,
->  	DRM_COLOROP_1D_LUT,
->  	DRM_COLOROP_CTM_3X4,
-> +	DRM_COLOROP_MULTIPLIER,
->  };
->  
->  /**
 > -- 
 > 2.44.0
 > 
